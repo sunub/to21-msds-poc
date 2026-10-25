@@ -1,0 +1,45 @@
+# 비밀 값 (.env.local 같은 변형도 막고, 견본만 올린다)
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# 올리지 않는 데이터 (TO21 외부 공유 금지, 결정 D-47). git add -f 로 올리지 않는다.
+# 폴더 자리만 .gitkeep 으로 남긴다.
+data/raw/*
+!data/raw/.gitkeep
+data/pages/*
+!data/pages/.gitkeep
+to21/v*/*
+!to21/v*/.gitkeep
+
+# 역할 E 가이드: TO21 정답 예제와 스키마 내부 코드명이 인용되어 있어,
+# TO21 확인 전까지 올리지 않는다 (D-47). 확인 후 이 줄을 지운다.
+docs/prd/*E_*
+
+# 실험 결과는 올리되 이미지는 제외
+runs/**/*.png
+runs/**/*.jpg
+runs/**/*.jpeg
+
+# 이전 키트: 자체 .git 이 있어 저장소 안의 저장소가 되므로 제외
+msds-bench/
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Node
+node_modules/
+frontend/dist/
+
+# 서버로 보내려고 묶은 파일, 로그, 문서 편집기 임시 파일
+*.tgz
+*.log
+~$*
+
+# OS
+.DS_Store
