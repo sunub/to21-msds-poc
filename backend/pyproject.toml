@@ -1,0 +1,5 @@
+# 패키지 설치용이 아니라 pytest 가 src/msds 를 찾게 하는 최소 설정이다.
+# scripts/ 에서 msds 를 import 하는 방식은 골격이 올라온 뒤 정한다.
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
