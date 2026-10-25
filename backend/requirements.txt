@@ -4,3 +4,7 @@
 #
 # 코드 골격이 올라온 뒤 실제 import 를 보고 채우고, 폐쇄망 반입을 위해 ==로 버전을 고정한다.
 # 역할 가이드에 나온 후보: PyMuPDF (전처리)
+
+# common/models.py 가 추출 JSON 의 형태를 검사한다. 컴파일된 wheel(pydantic-core)이 딸려 오므로
+# 폐쇄망 반입 때는 대상 서버의 OS·Python 에 맞는 wheel 을 받아 간다.
+pydantic==2.13.5
