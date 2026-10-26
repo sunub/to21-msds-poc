@@ -4,7 +4,7 @@
 깨진 쪽을 대조할 글자로만 쓴다. 모델 입력으로 쓸지는 F와 정한다.
 
 출력 (data/pages/<문서번호>/, 저장소에 올리지 않는다)
-- p001.ocr.json   줄마다 {text, score, box}. box는 OCR 이미지 좌표(픽셀)
+- p001.ocr.json   {dpi, items}. items는 줄마다 {text, score, box}. box는 OCR 이미지 좌표(dpi 픽셀)
 - p001.ocr.txt    줄을 읽는 순서로 이은 글자
 - p001.ocr.cells.json  줄을 '왼쪽 항목명 | 오른쪽 값' 칸으로 묶은 것 (group_cells)
 
@@ -65,8 +65,10 @@ def group_lines(items: list[dict]) -> list[str]:
 # ── 칸 묶기 ─────────────────────────────────────────────
 # MSDS 본문은 대부분 '왼쪽 항목명 | 오른쪽 값' 두 열이다. OCR은 눈에 보이는 한 줄씩만 주므로
 # 값이 여러 줄이면 줄마다 떨어진다. 왼쪽 열에 새 항목명이 나올 때까지 오른쪽 열의 줄을 한 칸으로 모은다.
-# 기준값은 300dpi 픽셀이다 (S003 6쪽에서 값 열 x≈980, 항목명 x≈280~400, 오른쪽 끝 x≈2200).
-MIN_SCORE = 0.6          # 이보다 낮은 조각은 칸에 넣지 않고 dropped로 남긴다 (예: S003 1쪽 그림문자를 '/'로 읽음)
+# 기준값은 RULE_DPI(300dpi) 픽셀이다 (S003 6쪽에서 값 열 x≈980, 항목명 x≈280~400, 오른쪽 끝 x≈2200).
+# 다른 dpi로 OCR한 쪽은 좌표를 300dpi로 바꿔 같은 기준값으로 묶는다.
+RULE_DPI = 300
+MIN_SCORE = 0.6         # 이보다 낮은 조각은 칸에 넣지 않고 dropped로 남긴다 (예: S003 1쪽 그림문자를 '/'로 읽음)
 COL_GAP = 30             # 값 열 시작보다 이만큼 왼쪽까지는 값으로 본다
 SEG_GAP = 20             # 한 줄 안에서 조각 사이가 이보다 가까우면 한 덩어리다 (양쪽 정렬 문장이 쪼개진 것: -8~10px.
                          # 항목명과 값 사이는 35px 이상, S003 2쪽 6항)
@@ -119,10 +121,10 @@ def _segments(row: list[dict]) -> list[dict]:
     return out
 
 
-def group_cells(items: list[dict]) -> dict:
-    """OCR 조각 → 칸 목록.
+def group_cells(items: list[dict], dpi: int = RULE_DPI) -> dict:
+    """OCR 조각 → 칸 목록. dpi는 OCR 이미지를 그린 해상도 (좌표 단위).
 
-    돌려주는 값: {"value_x": 값 열 시작, "cells": [...], "dropped": [...]}
+    돌려주는 값: {"value_x": 값 열 시작, "cells": [...], "dropped": [...]}. 좌표는 들어온 dpi 그대로
     칸: {"kind", "label", "value", "y": [위, 아래]}
     - 항목: 왼쪽 항목명과 그 값 (값이 없으면 소제목)
     - 이어짐: 쪽 맨 위에서 항목명 없이 시작한 값. 앞 쪽 마지막 칸에 이어진다
@@ -131,9 +133,20 @@ def group_cells(items: list[dict]) -> dict:
     - 표 행: 오른쪽에 떨어진 덩어리가 여럿 나란히 있는 줄 (1쪽 물질명·CAS No. 표). value는 칸 목록
     """
     dropped = [i for i in items if i["score"] < MIN_SCORE]
-    items = [i for i in items if i["score"] >= MIN_SCORE]
+    scale = RULE_DPI / dpi   # 기준값(300dpi)에 맞춰 좌표를 바꾼다
+    items = [{**i, "box": [v * scale for v in i["box"]]} for i in items if i["score"] >= MIN_SCORE]
     if not items:
         return {"value_x": None, "cells": [], "dropped": dropped}
+    out = _group_cells(items)
+    if out["value_x"] is not None:
+        out["value_x"] = round(out["value_x"] / scale)
+    for c in out["cells"]:
+        c["y"] = [round(v / scale) for v in c["y"]]
+    return {**out, "dropped": dropped}
+
+
+def _group_cells(items: list[dict]) -> dict:
+    """group_cells 본체. items의 좌표는 RULE_DPI 픽셀이다."""
     vx = _value_col(items)
     split = (vx - COL_GAP) if vx is not None else max(i["box"][2] for i in items) + 1
     right = max((i["box"][2] for i in items if i["box"][0] >= split), default=0)
@@ -187,7 +200,8 @@ def group_cells(items: list[dict]) -> dict:
                 cur["y"][1] = y[1]
                 last_x, last_value = [x0, x1], None
                 continue
-            if (cur and cur["kind"] == "항목" and label_row == k - 1 and last_x[1] >= vx - LABEL_FILL
+            if (vx is not None and cur and cur["kind"] == "항목" and label_row == k - 1
+                    and last_x[1] >= vx - LABEL_FILL
                     and x0 < last_x[0] - INDENT):   # 바로 아래 내어쓴 줄: 앞 항목명이 넘어온 것
                 cur["label"] = _join(cur["label"], text, True)
                 cur["y"][1] = y[1]
@@ -208,7 +222,7 @@ def group_cells(items: list[dict]) -> dict:
             cur["value"] = _join(cur["value"], v["text"], wrapped)
             cur["y"][1] = y[1]
             last_value = v
-    return {"value_x": vx, "cells": cells, "dropped": dropped}
+    return {"value_x": vx, "cells": cells}
 
 
 def _engine():
@@ -236,9 +250,10 @@ def ocr_document(pdf_path: Path, doc_id: str, pages: list[int] | None = None, dp
             res = engine.predict(str(png))[0]
             items = [{"text": t, "score": round(float(s), 3), "box": [int(v) for v in b]}
                      for t, s, b in zip(res["rec_texts"], res["rec_scores"], res["rec_boxes"])]
-            ocr_json(doc_id, n).write_text(json.dumps(items, ensure_ascii=False, indent=1), encoding="utf-8")
+            ocr_json(doc_id, n).write_text(json.dumps({"dpi": dpi, "items": items}, ensure_ascii=False, indent=1),
+                                           encoding="utf-8")
             ocr_txt(doc_id, n).write_text("\n".join(group_lines(items)), encoding="utf-8")
-            write_cells(doc_id, n, items)
+            write_cells(doc_id, n, items, dpi)
             scores = [i["score"] for i in items]
             summary.append({"page": n, "lines": len(items),
                             "mean_score": round(sum(scores) / max(len(scores), 1), 3),
@@ -246,8 +261,19 @@ def ocr_document(pdf_path: Path, doc_id: str, pages: list[int] | None = None, dp
     return summary
 
 
-def write_cells(doc_id: str, page_no: int, items: list[dict]) -> dict:
-    cells = {"page": page_no, **group_cells(items)}
+def read_ocr_json(path: Path) -> tuple[list[dict], int]:
+    """p001.ocr.json → (조각 목록, dpi).
+
+    dpi를 함께 저장하기 전(2026-10-27 이전)에 만든 파일은 조각 목록만 있다. 그때는 300dpi로만 OCR했다.
+    """
+    data = json.loads(path.read_text(encoding="utf-8"))
+    if isinstance(data, list):
+        return data, OCR_DPI
+    return data["items"], data["dpi"]
+
+
+def write_cells(doc_id: str, page_no: int, items: list[dict], dpi: int) -> dict:
+    cells = {"page": page_no, "dpi": dpi, **group_cells(items, dpi)}
     ocr_cells(doc_id, page_no).write_text(json.dumps(cells, ensure_ascii=False, indent=1), encoding="utf-8")
     return cells
 
@@ -257,7 +283,7 @@ def rebuild_cells(doc_id: str) -> list[dict]:
     out = []
     for f in sorted(paths.page_dir(doc_id).glob("p*.ocr.json")):
         n = int(f.name[1:4])
-        out.append(write_cells(doc_id, n, json.loads(f.read_text(encoding="utf-8"))))
+        out.append(write_cells(doc_id, n, *read_ocr_json(f)))
     return out
 
 
