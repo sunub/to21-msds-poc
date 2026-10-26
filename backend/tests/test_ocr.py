@@ -1,5 +1,7 @@
 """OCR 줄 묶기·칸 묶기 시험. PaddleOCR 없이 돈다. 좌표는 S003 OCR 결과(300dpi)에서 가져왔다."""
-from msds.preprocess.ocr import group_cells, group_lines
+import json
+
+from msds.preprocess.ocr import group_cells, group_lines, read_ocr_json
 
 
 def item(text, x0, y0, x1, y1):
@@ -106,3 +108,37 @@ def test_table_row_and_low_score_dropped():
     out = group_cells(items)
     assert ("표 행", "질소(NITROGEN)", ["7727-37-9", "KE-25994"]) in [(c["kind"], c["label"], c["value"]) for c in out["cells"]]
     assert [d["text"] for d in out["dropped"]] == ["/"]
+
+
+def test_page_without_value_column():
+    # 모든 줄이 왼쪽 여백에서 시작하는 쪽: 값 열이 없다. 멈추지 않고 항목으로 남긴다
+    items = [item("가. 쪽 폭으로 길게 이어지는 항목명 줄입니다", 300, 100, 2200, 140), item("넘어간 줄", 270, 150, 500, 190)]
+    out = group_cells(items)
+    assert out["value_x"] is None
+    assert [(c["kind"], c["label"]) for c in out["cells"]] == [
+        ("항목", "가. 쪽 폭으로 길게 이어지는 항목명 줄입니다"), ("항목", "넘어간 줄")]
+
+
+def test_same_cells_at_other_dpi():
+    # 같은 쪽을 150dpi로 OCR하면 좌표가 절반이다. 기준값도 dpi에 맞춰 바뀌어 같은 칸이 나와야 한다
+    items = FILLER + [
+        item("가.인체를 보호하기 위해 필요한 조치사항 및 보", 297, 2145, 1023, 2178),
+        item("작업자가 위험하지 않다면 직접 화학물질 누출을 중지시키시오.", 1058, 2144, 2008, 2181),
+        item("호구", 271, 2185, 344, 2224),
+        item("노출지역을 격리조치하고 관계자 이외인의 접근을 통제하시오.", 1061, 2209, 1996, 2243),
+        item("그림문자", 359, 2361, 497, 2399),
+        item("자료없음", 983, 2361, 1121, 2399),
+    ]
+    half = [{**i, "box": [v // 2 for v in i["box"]]} for i in items]
+    at300, at150 = group_cells(items, 300), group_cells(half, 150)
+    assert cells(items) == [(c["kind"], c["label"], c["value"]) for c in at150["cells"]]
+    assert abs(at150["value_x"] - at300["value_x"] / 2) <= 1
+
+
+def test_read_ocr_json_old_and_new(tmp_path):
+    rows = [item("자료없음", 983, 400, 1121, 440)]
+    old, new = tmp_path / "old.ocr.json", tmp_path / "new.ocr.json"
+    old.write_text(json.dumps(rows), encoding="utf-8")                      # dpi를 넣기 전 형식: 300dpi
+    new.write_text(json.dumps({"dpi": 200, "items": rows}), encoding="utf-8")
+    assert read_ocr_json(old) == (rows, 300)
+    assert read_ocr_json(new) == (rows, 200)
