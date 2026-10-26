@@ -82,8 +82,16 @@ class RegulationKnowledge(TypedDict):
     rows: list[dict[str, Any]]
 
 
+class CutOffRule(TypedDict):
+    categories: list[str] | None  # None 이면 그 class_code 의 모든 구분
+    threshold_op: str
+    threshold_value: float
+    threshold_unit: str
+    source: str
+
+
 class MixtureRuleKnowledge(TypedDict):
     as_of: str | None
     knowledge_version: str | None
-    cut_off: dict[str, Any]
+    cut_off: dict[str, list[CutOffRule]]
     additivity: dict[str, Any]
