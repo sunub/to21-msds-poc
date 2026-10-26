@@ -14,7 +14,12 @@ PoC 에서는 TO21 엑셀, 운영에서는 TO21 API 로 바꿔 끼우므로 판�
   "지식 없음"을 구분할 수 없어서, 목록도 상자(dict)에 담아 돌려준다.
 """
 
-from .ghs.models import MixtureRuleKnowledge, ReferenceKnowledge, RegulationKnowledge
+import csv
+from pathlib import Path
+
+from .ghs.models import CutOffRule, MixtureRuleKnowledge, ReferenceKnowledge, RegulationKnowledge
+
+CUT_OFF_CSV = Path(__file__).parent / "rules" / "cut_off.csv"
 
 
 class EmptyProvider:
@@ -84,8 +89,30 @@ def classify_mixture(components: list[dict], as_of: str | None) -> MixtureRuleKn
     components 는 load_inputs 결과의 components(seq, name, cas_no, content, ...) 이다.
     {
       "as_of": str | None, "knowledge_version": str | None,
-      "cut_off": {...},      # 한계농도. 안의 구조는 설계서 확인 후 정한다
+      "cut_off": {class_code: [CutOffRule]},   # 한계농도. load_cut_off() 의 형태
       "additivity": {...},   # 가산 규칙. 안의 구조는 설계서 확인 후 정한다
     }
     """
     raise NotImplementedError
+
+
+def load_cut_off(path: Path = CUT_OFF_CSV) -> dict[str, list[CutOffRule]]:
+    """고시 별표6 한계농도를 class_code 별 행 목록으로 읽는다.
+
+    성분 함량이 threshold 이상(>=)인 성분만 그 유해성 계산에 넣는다. 제11조⑨가 한계농도 "미만"을
+    기재 생략 대상으로 정하기 때문이다. 제11조⑨ 자체는 MSDS 기재 생략 기준이고, 이를 분류 계산의
+    제외 기준으로 쓰는 것은 「MSDS GHS분류 로직 설계 V6」 7번 슬라이드의 해석이다 (docs/adr/0002).
+    한계농도는 계산에 넣을 성분을 고르는 값이며, 별표1의 혼합물 분류 기준(예: 발암성 구분 2는 1%)과 다르다.
+    categories 가 None 이면 모든 구분에 적용한다. note 칸은 사람이 읽는 참고라 넘기지 않는다.
+    """
+    out: dict[str, list[CutOffRule]] = {}
+    with path.open(encoding="utf-8-sig", newline="") as f:
+        for r in csv.DictReader(f):
+            out.setdefault(r["class_code"], []).append({
+                "categories": r["categories"].split(";") if r["categories"] else None,
+                "threshold_op": r["threshold_op"],
+                "threshold_value": float(r["threshold_value"]),
+                "threshold_unit": r["threshold_unit"],
+                "source": r["source"],
+            })
+    return out
