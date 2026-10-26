@@ -31,10 +31,10 @@ models:
     image_detail: high
     evidence_method: vLM
 
-  qwen38:                   # 기준선 (D-37)
-    model: Qwen/Qwen3.8-27B
-    fallback_models: [Qwen/Qwen3.6-27B]
-    base_url_env: VLLM_BASE_URL      # RunPod의 vLLM 서버 주소 (예: http://<pod>:8000/v1)
+  qwen38:                   # 기준선 (D-37). A100 40GB라 FP8 (ADR-002)
+    model: Qwen/Qwen3.8-27B-FP8
+    fallback_models: [Qwen/Qwen3.6-27B-FP8]
+    base_url_env: VLLM_BASE_URL      # Colab 안의 vLLM 서버 주소 (http://localhost:8000/v1)
     api_key_env: VLLM_API_KEY
     structured: [json_schema, none]
     max_tokens: 32000
