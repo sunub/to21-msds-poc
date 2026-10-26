@@ -131,3 +131,52 @@ def test_empty_provider_returns_empty_mixture_rules_with_query_context():
         "cut_off": {},
         "additivity": {},
     }
+
+
+# ── 한계농도 (고시 별표6) ───────────────────────────────────────────────
+
+SCHEMA = ROOT / "to21" / "v0.5" / "TO21_MSDS_추출스키마_v0.5.json"
+
+# 고용노동부고시 제2026-26호 별표6 을 그대로 옮긴 기대값. 급성독성 한 행은 경로별 class_code 3개로 나눈다.
+TABLE6 = {
+    "HH_ACUTE_ORAL": [(None, 1.0)],
+    "HH_ACUTE_DERMAL": [(None, 1.0)],
+    "HH_ACUTE_INHAL": [(None, 1.0)],
+    "HH_SKIN_CORR": [(None, 1.0)],
+    "HH_EYE_DMG": [(None, 1.0)],
+    "HH_RESP_SENS": [(None, 0.1)],
+    "HH_SKIN_SENS": [(None, 0.1)],
+    "HH_MUTAGEN": [(["1A", "1B"], 0.1), (["2"], 1.0)],
+    "HH_CARCINOGEN": [(None, 0.1)],
+    "HH_REPRO": [(None, 0.1)],
+    "HH_STOT_SE": [(None, 1.0)],
+    "HH_STOT_RE": [(None, 1.0)],
+    "HH_ASPIRATION": [(None, 1.0)],
+    "ENV_AQ_ACUTE": [(None, 1.0)],
+    "ENV_AQ_CHRONIC": [(None, 1.0)],
+    "ENV_OZONE": [(None, 0.1)],
+}
+
+
+def test_cut_off_matches_table6():
+    cut_off = knowledge.load_cut_off()
+
+    assert {code: [(r["categories"], r["threshold_value"]) for r in rows]
+            for code, rows in cut_off.items()} == TABLE6
+
+
+def test_cut_off_rows_are_inclusive_percent_with_source():
+    # 제11조⑨: 한계농도 "미만"이면 제외하므로 계산에 넣는 조건은 >= 이다.
+    for rows in knowledge.load_cut_off().values():
+        for r in rows:
+            assert (r["threshold_op"], r["threshold_unit"]) == (">=", "%")
+            assert "별표6" in r["source"]
+
+
+@pytest.mark.skipif(not SCHEMA.exists(), reason="TO21 제공 파일이 없습니다 (to21/README.md 참고)")
+def test_cut_off_class_codes_exist_in_schema():
+    schema = json.loads(SCHEMA.read_text(encoding="utf-8"))
+    cls = schema["properties"]["msds"]["items"]["properties"]["hazard"]["properties"]["classes"]
+    codes = set(cls["items"]["properties"]["class_code"]["anyOf"][0]["enum"])
+
+    assert set(knowledge.load_cut_off()) <= codes
