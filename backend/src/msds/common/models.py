@@ -12,6 +12,7 @@ from typing import Any, Literal
 from pydantic import BaseModel, ConfigDict
 
 Status = Literal["값있음", "자료없음", "해당없음", "미기재", "판독불가", "마스킹"]
+RouteForm = Literal["가스", "증기", "분진·미스트"]
 
 
 class _Model(BaseModel):
@@ -58,7 +59,7 @@ class Component(_Model):
 class HazardClass(_Model):
     class_code: str | None = None
     category: str | None = None  # "1", "1A" 처럼 원문 표기. 숫자로 바꾸지 않는다.
-    route_form: Literal["가스", "증기", "분진·미스트"] | None = None
+    route_form: RouteForm | None = None
 
 
 class Statement(_Model):
