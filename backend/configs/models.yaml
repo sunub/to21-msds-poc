@@ -48,4 +48,4 @@ models:
 run:
   max_retries: 2            # 스키마 검증 실패 시 재시도 횟수
   request_timeout: 600      # 초
-  render_dpi: 150           # 쪽 이미지 해상도 (D-44). 바꾸면 manifest note에도 기록
+  render_dpi: 200           # 쪽 이미지 해상도 (D-44는 150). 10/26 C 자료(C_v0.2)에 맞춰 200. preprocess.py --dpi 200으로 만든다
