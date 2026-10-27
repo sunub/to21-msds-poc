@@ -219,8 +219,13 @@ def write_sheet(rows: list[dict], info: dict, path: Path) -> None:
     ws.auto_filter.ref = ws.dimensions
     for c in ws[1][COLUMNS.index("검수 결과"):]:            # 검수 결과 ~ 메모: 사람이 쓰는 열
         c.fill = HUMAN_FILL
+    # 실버가 없는 모델의 열은 숨기고 'X 채택'도 고를 수 없게 한다. 열을 지우면 sheet_spec 형식이 깨진다
+    absent = [t for t in MODELS.values() if rows and all(r.get(f"{t} 값", "") == "" for r in rows)]
+    for name in [c for t in absent for c in (f"{t} 값", f"{t} 원문 조각", f"{t} 쪽")] + ["일치"] * bool(absent):
+        ws.column_dimensions[get_column_letter(COLUMNS.index(name) + 1)].hidden = True
+    options = [o for o in RESULT_OPTIONS if o not in {f"{t} 채택" for t in absent}]
     col = get_column_letter(COLUMNS.index("검수 결과") + 1)
-    dv = DataValidation(type="list", formula1='"' + ",".join(RESULT_OPTIONS) + '"', allow_blank=True)
+    dv = DataValidation(type="list", formula1='"' + ",".join(options) + '"', allow_blank=True)
     ws.add_data_validation(dv)
     dv.add(f"{col}2:{col}{len(rows) + 500}")                 # 누락 추가 줄 여유
 
