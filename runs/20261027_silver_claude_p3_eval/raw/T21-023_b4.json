@@ -1,0 +1,1174 @@
+{
+  "doc_id": "T21-023",
+  "bundle": "b4",
+  "model": "claude-opus-5-5",
+  "mode": "none",
+  "finish_reason": "stop",
+  "usage": {
+    "prompt_tokens": 98618,
+    "completion_tokens": 13571,
+    "total_tokens": 112189,
+    "served_model": "claude-opus-5-5"
+  },
+  "seconds": 106.0,
+  "attempts": 1,
+  "errors": [],
+  "parsed": {
+    "msds": [
+      {
+        "transport": [
+          {
+            "mode": "공통",
+            "basis_raw": null,
+            "regulated": true,
+            "un_no": "1789",
+            "shipping_name": "염산(염화수소산)(HYDROCHLORIC ACID)",
+            "hazard_class": "8",
+            "sub_risk": null,
+            "packing_group": "III",
+            "marine_pollutant": "비해당",
+            "ems_fire": "F- A",
+            "ems_spill": "S-B"
+          }
+        ],
+        "regulations": [
+          {
+            "seq": 1,
+            "law": "OSH",
+            "item_code": "OSH_MANAGED",
+            "item_raw": "관리대상유해물질",
+            "comp_ref": "MIX",
+            "applicable": "해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 2,
+            "law": "OSH",
+            "item_code": "OSH_MEASURE",
+            "item_raw": "작업환경측정대상유해인자",
+            "comp_ref": "MIX",
+            "applicable": "해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": {
+              "raw": "6개월",
+              "approx": null,
+              "value": 6,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "개월",
+              "dp": 0,
+              "status": "값있음",
+              "note": null
+            },
+            "country": null,
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 3,
+            "law": "OSH",
+            "item_code": "OSH_EXPOSURE_STD",
+            "item_raw": "노출기준설정물질",
+            "comp_ref": "MIX",
+            "applicable": "해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 4,
+            "law": "OSH",
+            "item_code": "OSH_HEALTH_EXAM",
+            "item_raw": "특수건강진단대상유해물질",
+            "comp_ref": "MIX",
+            "applicable": "해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": {
+              "raw": "12개월",
+              "approx": null,
+              "value": 12,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "개월",
+              "dp": 0,
+              "status": "값있음",
+              "note": null
+            },
+            "country": null,
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 5,
+            "law": "OSH",
+            "item_code": "OSH_PSM",
+            "item_raw": "공정안전보고서(PSM)제출대상유해위험물질",
+            "comp_ref": "MIX",
+            "applicable": "해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 6,
+            "law": "OSH",
+            "item_code": null,
+            "item_raw": "영업비밀인정제외물질",
+            "comp_ref": "MIX",
+            "applicable": "해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 7,
+            "law": "KREACH",
+            "item_code": "KREACH_EXIST",
+            "item_raw": "기존화학물질",
+            "comp_ref": "MIX",
+            "applicable": "해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": null,
+            "remark": "KE-20189"
+          },
+          {
+            "seq": 8,
+            "law": "CCA",
+            "item_code": "CCA_TOXIC",
+            "item_raw": "유독물질",
+            "comp_ref": "1",
+            "applicable": "해당",
+            "threshold": {
+              "raw": "10% 이상",
+              "approx": null,
+              "value": null,
+              "lower_op": ">=",
+              "lower": 10,
+              "upper_op": null,
+              "upper": null,
+              "unit": "%",
+              "dp": 0,
+              "status": "값있음",
+              "note": null
+            },
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": "염화 수소 및 이를 10% 이상 함유한 혼합물",
+            "remark": "97-1-203"
+          },
+          {
+            "seq": 9,
+            "law": "CCA",
+            "item_code": "CCA_ACCIDENT",
+            "item_raw": "사고대비물질",
+            "comp_ref": "1",
+            "applicable": "해당",
+            "threshold": {
+              "raw": "10% 이상",
+              "approx": null,
+              "value": null,
+              "lower_op": ">=",
+              "lower": 10,
+              "upper_op": null,
+              "upper": null,
+              "unit": "%",
+              "dp": 0,
+              "status": "값있음",
+              "note": null
+            },
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": "염화 수소 및 이를 10% 이상 함유한 혼합물",
+            "remark": null
+          },
+          {
+            "seq": 10,
+            "law": "KREACH",
+            "item_code": "KREACH_REG",
+            "item_raw": "등록대상기존화학물질",
+            "comp_ref": "MIX",
+            "applicable": "해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": null,
+            "remark": "318"
+          },
+          {
+            "seq": 11,
+            "law": "DG",
+            "item_code": "DG_HAZMAT",
+            "item_raw": "위험물안전관리법",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": "비위험물",
+            "remark": null
+          },
+          {
+            "seq": 12,
+            "law": "WASTE",
+            "item_code": "WASTE_DESIG",
+            "item_raw": "지정폐기물",
+            "comp_ref": "MIX",
+            "applicable": "해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": "폐산",
+            "cycle": null,
+            "country": null,
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 13,
+            "law": "POPS",
+            "item_code": "POPS",
+            "item_raw": "잔류성유기오염물질 관리법",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": "규제되지 않음",
+            "remark": null
+          },
+          {
+            "seq": 14,
+            "law": "KR_ETC",
+            "item_code": "KR_ETC",
+            "item_raw": "고압가스안전관리법",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": "해당없음",
+            "remark": null
+          },
+          {
+            "seq": 15,
+            "law": "INTL",
+            "item_code": "INTL_EU",
+            "item_raw": "EC 1272/2008(CLP) 위험문구",
+            "comp_ref": "MIX",
+            "applicable": null,
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "EU",
+            "value_raw": "H280, H331, H314",
+            "remark": null
+          },
+          {
+            "seq": 16,
+            "law": "INTL",
+            "item_code": "INTL_EU",
+            "item_raw": "EC 1272/2008(CLP) 안전(예방조치) 문구",
+            "comp_ref": "MIX",
+            "applicable": null,
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "EU",
+            "value_raw": "P271, P280, P260, P264, P304+P340, P310, P311, P305+P351+P338, P303+P361+P353, P403+P233, P363, P301+P330+P331, P321, P405, P410+P403, P501",
+            "remark": null
+          },
+          {
+            "seq": 17,
+            "law": "INTL",
+            "item_code": "INTL_EU",
+            "item_raw": "EU 규제정보(EU SVHC list)",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "EU",
+            "value_raw": "규제되지 않음",
+            "remark": null
+          },
+          {
+            "seq": 18,
+            "law": "INTL",
+            "item_code": "INTL_EU",
+            "item_raw": "EU 규제정보(EU Authorization list)",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "EU",
+            "value_raw": "규제되지 않음",
+            "remark": null
+          },
+          {
+            "seq": 19,
+            "law": "INTL",
+            "item_code": "INTL_EU",
+            "item_raw": "EU 규제정보(EU Restriction list)",
+            "comp_ref": "MIX",
+            "applicable": "해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "EU",
+            "value_raw": "규제됨(Use restricted. See item 75. (U, 5))",
+            "remark": "Use restricted. See item 75. (U, 5)"
+          },
+          {
+            "seq": 20,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보(OSHA 규정)",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "US",
+            "value_raw": "규제되지 않음",
+            "remark": null
+          },
+          {
+            "seq": 21,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보(CERCLA 규정)",
+            "comp_ref": "MIX",
+            "applicable": "해당",
+            "threshold": null,
+            "qty": {
+              "raw": "5000 lb final RQ",
+              "approx": null,
+              "value": 5000,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "lb",
+              "dp": 0,
+              "status": "값있음",
+              "note": "final RQ"
+            },
+            "qty_alt": {
+              "raw": "2270 kg final RQ",
+              "approx": null,
+              "value": 2270,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "kg",
+              "dp": 0,
+              "status": "값있음",
+              "note": "final RQ"
+            },
+            "sub_class": null,
+            "cycle": null,
+            "country": "US",
+            "value_raw": "5000 lb final RQ; 2270 kg final RQ",
+            "remark": null
+          },
+          {
+            "seq": 22,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보(EPCRA 302 규정)",
+            "comp_ref": "MIX",
+            "applicable": "해당",
+            "threshold": null,
+            "qty": {
+              "raw": "5000 lb EPCRA RQ (gas only)",
+              "approx": null,
+              "value": 5000,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "lb",
+              "dp": 0,
+              "status": "값있음",
+              "note": "gas only"
+            },
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "US",
+            "value_raw": "5000 lb EPCRA RQ (gas only)",
+            "remark": "gas only"
+          },
+          {
+            "seq": 23,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보(EPCRA 304 규정)",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "US",
+            "value_raw": "규제되지 않음",
+            "remark": null
+          },
+          {
+            "seq": 24,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보(EPCRA 313 규정)",
+            "comp_ref": "MIX",
+            "applicable": "해당",
+            "threshold": {
+              "raw": "1.0 % 최소 허용농도",
+              "approx": null,
+              "value": 1,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "%",
+              "dp": 1,
+              "status": "값있음",
+              "note": "최소 허용농도"
+            },
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "US",
+            "value_raw": "1.0 % 최소 허용농도 (acid aerosols including mists, vapors, gas, fog, and other airborne forms of any particle size)",
+            "remark": "acid aerosols including mists, vapors, gas, fog, and other airborne forms of any particle size"
+          },
+          {
+            "seq": 25,
+            "law": "INTL",
+            "item_code": "INTL_TREATY",
+            "item_raw": "로테르담 협약물질",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": "규제되지 않음",
+            "remark": null
+          },
+          {
+            "seq": 26,
+            "law": "INTL",
+            "item_code": "INTL_TREATY",
+            "item_raw": "스톡홀름 협약물질",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": "규제되지 않음",
+            "remark": null
+          },
+          {
+            "seq": 27,
+            "law": "INTL",
+            "item_code": "INTL_TREATY",
+            "item_raw": "몬트리올 의정서 물질",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": "규제되지 않음",
+            "remark": null
+          },
+          {
+            "seq": 28,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보 : Section8(b)Inventory(TSCA)",
+            "comp_ref": "MIX",
+            "applicable": "해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "US",
+            "value_raw": "존재함(ACTIVE)",
+            "remark": "ACTIVE"
+          },
+          {
+            "seq": 29,
+            "law": "INTL",
+            "item_code": "INTL_EU",
+            "item_raw": "유럽관리정보 : European Inventory of Existing Commercial chemical Substances(EINECS)",
+            "comp_ref": "MIX",
+            "applicable": "해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "EU",
+            "value_raw": "존재함[231-595-7]",
+            "remark": "231-595-7"
+          },
+          {
+            "seq": 30,
+            "law": "INTL",
+            "item_code": "INTL_ETC",
+            "item_raw": "캐나다관리정보 : Domestic Substances List(DSL)",
+            "comp_ref": "MIX",
+            "applicable": "해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "CA",
+            "value_raw": "존재함",
+            "remark": null
+          },
+          {
+            "seq": 31,
+            "law": "INTL",
+            "item_code": "INTL_ETC",
+            "item_raw": "호주관리정보 : Australia Inventory of Industrial Chemicals(AIIC)",
+            "comp_ref": "MIX",
+            "applicable": "해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "AU",
+            "value_raw": "존재함",
+            "remark": null
+          },
+          {
+            "seq": 32,
+            "law": "INTL",
+            "item_code": "INTL_ETC",
+            "item_raw": "중국관리정보 : Inventory of Existing Chemical Substances(IECSC)",
+            "comp_ref": "MIX",
+            "applicable": "해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "CN",
+            "value_raw": "존재함[37053]",
+            "remark": "37053"
+          },
+          {
+            "seq": 33,
+            "law": "INTL",
+            "item_code": "INTL_JP",
+            "item_raw": "일본관리정보 : Inventory - Japan - Existing and New Chemical Substances (ENCS)",
+            "comp_ref": "MIX",
+            "applicable": "해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "JP",
+            "value_raw": "존재함[(1)-215]",
+            "remark": "(1)-215"
+          },
+          {
+            "seq": 34,
+            "law": "INTL",
+            "item_code": "INTL_ETC",
+            "item_raw": "필리핀관리정보 : Philippine Inventory of Chemicals and Chemical Substances(PICCS)",
+            "comp_ref": "MIX",
+            "applicable": "해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "PH",
+            "value_raw": "존재함",
+            "remark": null
+          },
+          {
+            "seq": 35,
+            "law": "INTL",
+            "item_code": "INTL_ETC",
+            "item_raw": "대만관리정보 : Taiwan Chemical Substance Inventory (TCSI)",
+            "comp_ref": "MIX",
+            "applicable": "해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "TW",
+            "value_raw": "존재함",
+            "remark": null
+          }
+        ],
+        "dangerous_goods": [
+          {
+            "comp_ref": "MIX",
+            "class": "해당없음",
+            "item": null,
+            "water_soluble": null,
+            "grade": null,
+            "designated_qty": null
+          }
+        ],
+        "waste": [
+          {
+            "comp_ref": "MIX",
+            "designated": "해당",
+            "waste_type": "폐산"
+          }
+        ],
+        "intl_class": [
+          {
+            "comp_ref": "MIX",
+            "system": "EU_CLP",
+            "class_raw": "Press. Gas",
+            "h_code": null,
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "system": "EU_CLP",
+            "class_raw": "Acute Tox. 3",
+            "h_code": null,
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "system": "EU_CLP",
+            "class_raw": "Skin Corr. 1A",
+            "h_code": null,
+            "status": "값있음"
+          }
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "msds_index": 0,
+        "field": "transport[0]",
+        "page": 11,
+        "source_text": "가. 유엔 번호(UN No.) : 1789 | 나. 유엔 적정 선적명 : 염산(염화수소산)(HYDROCHLORIC ACID) | 다. 운송에서의 위험성 등급 : 8",
+        "rules": [
+          "R09"
+        ],
+        "note": "운송 규정 구분이 없어 mode=공통으로 한 행 작성, 유엔번호가 기재되어 regulated=true"
+      },
+      {
+        "msds_index": 0,
+        "field": "transport[0].packing_group",
+        "page": 11,
+        "source_text": "라. 용기등급(해당하는 경우) : 3",
+        "rules": [],
+        "note": "원문 '3'을 용기등급 enum 표기 III으로 옮김"
+      },
+      {
+        "msds_index": 0,
+        "field": "transport[0].marine_pollutant",
+        "page": 11,
+        "source_text": "마. 해양오염물질 : 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "'해당없음'을 동의어 사전에 따라 비해당으로 저장"
+      },
+      {
+        "msds_index": 0,
+        "field": "transport[0].ems_fire",
+        "page": 11,
+        "source_text": "• 화재 시 비상조치 : F- A",
+        "rules": [],
+        "note": "원문 띄어쓰기 'F- A'를 그대로 보존"
+      },
+      {
+        "msds_index": 0,
+        "field": "transport[0].ems_spill",
+        "page": 11,
+        "source_text": "• 유출 시 비상조치 : S-B",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[0]",
+        "page": 11,
+        "source_text": "가. 산업안전보건법 : 관리대상유해물질",
+        "rules": [
+          "R25"
+        ],
+        "note": "성분 지정이 없어 comp_ref=MIX"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[1]",
+        "page": 11,
+        "source_text": "작업환경측정대상유해인자(측정주기 : 6개월)",
+        "rules": [
+          "R25",
+          "R04"
+        ],
+        "note": "측정주기 6개월을 cycle로 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[2]",
+        "page": 11,
+        "source_text": "노출기준설정물질",
+        "rules": [
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[3]",
+        "page": 11,
+        "source_text": "특수건강진단대상유해물질(진단주기 : 12개월)",
+        "rules": [
+          "R25",
+          "R04"
+        ],
+        "note": "진단주기 12개월을 cycle로 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[4]",
+        "page": 11,
+        "source_text": "공정안전보고서(PSM)제출대상유해위험물질",
+        "rules": [
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[5]",
+        "page": 11,
+        "source_text": "영업비밀인정제외물질",
+        "rules": [],
+        "note": "C6에 맞는 항목 코드가 없어 item_code=null, item_raw에 원문 보존"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[6]",
+        "page": 12,
+        "source_text": "기존화학물질(KE-20189)",
+        "rules": [
+          "R25"
+        ],
+        "note": "괄호 속 번호를 remark로"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[7]",
+        "page": 12,
+        "source_text": "유독물질(97-1-203) (염화 수소 및 이를 10% 이상 함유한 혼합물)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "'10% 이상'을 threshold(>=10 %)로 분해, 염화 수소 지정이므로 comp_ref=1"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[8]",
+        "page": 12,
+        "source_text": "사고대비물질 (염화 수소 및 이를 10% 이상 함유한 혼합물)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "'10% 이상'을 threshold(>=10 %)로 분해, comp_ref=1"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[9]",
+        "page": 12,
+        "source_text": "등록대상기존화학물질(318)",
+        "rules": [
+          "R25"
+        ],
+        "note": "괄호 속 번호를 remark로"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[10]",
+        "page": 12,
+        "source_text": "다. 위험물안전관리법 : 비위험물",
+        "rules": [
+          "R15"
+        ],
+        "note": "비위험물을 비해당으로 저장"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[11]",
+        "page": 12,
+        "source_text": "라. 폐기물관리법 : 지정폐기물(폐산)",
+        "rules": [],
+        "note": "괄호 속 폐산을 sub_class로"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[12]",
+        "page": 12,
+        "source_text": "- 잔류성유기오염물질 관리법 : 규제되지 않음",
+        "rules": [
+          "R25"
+        ],
+        "note": "'규제되지 않음'을 비해당으로"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[13]",
+        "page": 12,
+        "source_text": "- 고압가스안전관리법 : 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "기타 국내법으로 분류, 해당없음을 비해당으로"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[14]",
+        "page": 12,
+        "source_text": "- EC 1272/2008(CLP) 위험문구 : H280, H331, H314",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[15]",
+        "page": 12,
+        "source_text": "- EC 1272/2008(CLP) 안전(예방조치) 문구 : P271, P280, P260, P264, P304+P340, P310, P311, P305+P351+P338, P303+P361+P353, P403+P233, P363, P301+P330+P331, P321, P405, P410+P403, P501",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[16]",
+        "page": 12,
+        "source_text": "- EU 규제정보(EU SVHC list) : 규제되지 않음",
+        "rules": [
+          "R25"
+        ],
+        "note": "비해당으로 저장"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[17]",
+        "page": 12,
+        "source_text": "- EU 규제정보(EU Authorization list) : 규제되지 않음",
+        "rules": [
+          "R25"
+        ],
+        "note": "비해당으로 저장"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[18]",
+        "page": 12,
+        "source_text": "- EU 규제정보(EU Restriction list) : 규제됨(Use restricted. See item 75. (U, 5))",
+        "rules": [
+          "R25"
+        ],
+        "note": "규제됨을 해당으로, 괄호 내용을 remark로"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[19]",
+        "page": 12,
+        "source_text": "- 미국관리정보(OSHA 규정) : 규제되지 않음",
+        "rules": [
+          "R25"
+        ],
+        "note": "비해당으로 저장"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[20]",
+        "page": 12,
+        "source_text": "- 미국관리정보(CERCLA 규정) : 5000 lb final RQ; 2270 kg final RQ",
+        "rules": [
+          "R04",
+          "R25"
+        ],
+        "note": "첫 단위를 qty, 병기 단위를 qty_alt로 분해"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[21]",
+        "page": 12,
+        "source_text": "- 미국관리정보(EPCRA 302 규정) : 5000 lb EPCRA RQ (gas only)",
+        "rules": [
+          "R04"
+        ],
+        "note": "5000 lb를 qty로 분해"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[22]",
+        "page": 12,
+        "source_text": "- 미국관리정보(EPCRA 304 규정) : 규제되지 않음",
+        "rules": [],
+        "note": "비해당으로 저장"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[23]",
+        "page": 12,
+        "source_text": "- 미국관리정보(EPCRA 313 규정) : 1.0 % 최소 허용농도 (acid aerosols including mists, vapors, gas, fog, and other airborne forms of any particle size)",
+        "rules": [
+          "R04",
+          "R06"
+        ],
+        "note": "'1.0 %'를 threshold value 1, dp 1로 분해"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[24]",
+        "page": 12,
+        "source_text": "- 로테르담 협약물질 : 규제되지 않음",
+        "rules": [
+          "R25"
+        ],
+        "note": "비해당으로 저장"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[25]",
+        "page": 12,
+        "source_text": "- 스톡홀름 협약물질 : 규제되지 않음",
+        "rules": [
+          "R25"
+        ],
+        "note": "비해당으로 저장"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[26]",
+        "page": 12,
+        "source_text": "- 몬트리올 의정서 물질 : 규제되지 않음",
+        "rules": [
+          "R25"
+        ],
+        "note": "비해당으로 저장"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[27]",
+        "page": 12,
+        "source_text": "- 미국관리정보 : Section8(b)Inventory(TSCA) : 존재함(ACTIVE)",
+        "rules": [
+          "R25"
+        ],
+        "note": "존재함을 해당으로"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[28]",
+        "page": 12,
+        "source_text": "- 유럽관리정보 : European Inventory of Existing Commercial chemical Substances(EINECS) : 존재함[231-595-7]",
+        "rules": [
+          "R25"
+        ],
+        "note": "존재함을 해당으로, 번호를 remark로"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[29]",
+        "page": 12,
+        "source_text": "- 캐나다관리정보 : Domestic Substances List(DSL) : 존재함",
+        "rules": [
+          "R25"
+        ],
+        "note": "존재함을 해당으로"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[30]",
+        "page": 12,
+        "source_text": "- 호주관리정보 : Australia Inventory of Industrial Chemicals(AIIC) : 존재함",
+        "rules": [
+          "R25"
+        ],
+        "note": "존재함을 해당으로"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[31]",
+        "page": 12,
+        "source_text": "- 중국관리정보 : Inventory of Existing Chemical Substances(IECSC) : 존재함[37053]",
+        "rules": [
+          "R25"
+        ],
+        "note": "존재함을 해당으로, 번호를 remark로"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[32]",
+        "page": 12,
+        "source_text": "- 일본관리정보 : Inventory - Japan - Existing and New Chemical Substances (ENCS) : 존재함[(1)-215]",
+        "rules": [
+          "R25"
+        ],
+        "note": "존재함을 해당으로, 번호를 remark로"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[33]",
+        "page": 13,
+        "source_text": "- 필리핀관리정보 : Philippine Inventory of Chemicals and Chemical Substances(PICCS) : 존재함",
+        "rules": [
+          "R25"
+        ],
+        "note": "존재함을 해당으로"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[34]",
+        "page": 13,
+        "source_text": "- 대만관리정보 : Taiwan Chemical Substance Inventory (TCSI) : 존재함",
+        "rules": [],
+        "note": "동의어 사전에 없는 대만관리정보를 기타 외국법(INTL_ETC)으로 분류, 존재함을 해당으로"
+      },
+      {
+        "msds_index": 0,
+        "field": "dangerous_goods[0]",
+        "page": 12,
+        "source_text": "다. 위험물안전관리법 : 비위험물",
+        "rules": [
+          "R15"
+        ],
+        "note": "비위험물을 class=해당없음으로 저장"
+      },
+      {
+        "msds_index": 0,
+        "field": "waste[0]",
+        "page": 12,
+        "source_text": "라. 폐기물관리법 : 지정폐기물(폐산)",
+        "rules": [],
+        "note": "지정폐기물 해당, 괄호 속 폐산을 waste_type으로"
+      },
+      {
+        "msds_index": 0,
+        "field": "intl_class[0]",
+        "page": 12,
+        "source_text": "- EC 1272/2008(CLP) 확정 분류 결과 :  Press. Gas , Acute Tox. 3, Skin Corr. 1A",
+        "rules": [
+          "R11"
+        ],
+        "note": "분류를 ',' 기준으로 하나씩 분리, H코드는 별도 행으로 기재되어 연결하지 않음"
+      },
+      {
+        "msds_index": 0,
+        "field": "intl_class[1]",
+        "page": 12,
+        "source_text": "- EC 1272/2008(CLP) 확정 분류 결과 :  Press. Gas , Acute Tox. 3, Skin Corr. 1A",
+        "rules": [
+          "R11"
+        ],
+        "note": "분류를 ',' 기준으로 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "intl_class[2]",
+        "page": 12,
+        "source_text": "- EC 1272/2008(CLP) 확정 분류 결과 :  Press. Gas , Acute Tox. 3, Skin Corr. 1A",
+        "rules": [
+          "R11"
+        ],
+        "note": "분류를 ',' 기준으로 분리"
+      }
+    ]
+  },
+  "raw_text": "{\"msds\":[{\"transport\":[{\"mode\":\"공통\",\"basis_raw\":null,\"regulated\":true,\"un_no\":\"1789\",\"shipping_name\":\"염산(염화수소산)(HYDROCHLORIC ACID)\",\"hazard_class\":\"8\",\"sub_risk\":null,\"packing_group\":\"III\",\"marine_pollutant\":\"비해당\",\"ems_fire\":\"F- A\",\"ems_spill\":\"S-B\"}],\"regulations\":[{\"seq\":1,\"law\":\"OSH\",\"item_code\":\"OSH_MANAGED\",\"item_raw\":\"관리대상유해물질\",\"comp_ref\":\"MIX\",\"applicable\":\"해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":null,\"remark\":null},{\"seq\":2,\"law\":\"OSH\",\"item_code\":\"OSH_MEASURE\",\"item_raw\":\"작업환경측정대상유해인자\",\"comp_ref\":\"MIX\",\"applicable\":\"해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":{\"raw\":\"6개월\",\"approx\":null,\"value\":6,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"개월\",\"dp\":0,\"status\":\"값있음\",\"note\":null},\"country\":null,\"value_raw\":null,\"remark\":null},{\"seq\":3,\"law\":\"OSH\",\"item_code\":\"OSH_EXPOSURE_STD\",\"item_raw\":\"노출기준설정물질\",\"comp_ref\":\"MIX\",\"applicable\":\"해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":null,\"remark\":null},{\"seq\":4,\"law\":\"OSH\",\"item_code\":\"OSH_HEALTH_EXAM\",\"item_raw\":\"특수건강진단대상유해물질\",\"comp_ref\":\"MIX\",\"applicable\":\"해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":{\"raw\":\"12개월\",\"approx\":null,\"value\":12,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"개월\",\"dp\":0,\"status\":\"값있음\",\"note\":null},\"country\":null,\"value_raw\":null,\"remark\":null},{\"seq\":5,\"law\":\"OSH\",\"item_code\":\"OSH_PSM\",\"item_raw\":\"공정안전보고서(PSM)제출대상유해위험물질\",\"comp_ref\":\"MIX\",\"applicable\":\"해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":null,\"remark\":null},{\"seq\":6,\"law\":\"OSH\",\"item_code\":null,\"item_raw\":\"영업비밀인정제외물질\",\"comp_ref\":\"MIX\",\"applicable\":\"해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":null,\"remark\":null},{\"seq\":7,\"law\":\"KREACH\",\"item_code\":\"KREACH_EXIST\",\"item_raw\":\"기존화학물질\",\"comp_ref\":\"MIX\",\"applicable\":\"해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":null,\"remark\":\"KE-20189\"},{\"seq\":8,\"law\":\"CCA\",\"item_code\":\"CCA_TOXIC\",\"item_raw\":\"유독물질\",\"comp_ref\":\"1\",\"applicable\":\"해당\",\"threshold\":{\"raw\":\"10% 이상\",\"approx\":null,\"value\":null,\"lower_op\":\">=\",\"lower\":10,\"upper_op\":null,\"upper\":null,\"unit\":\"%\",\"dp\":0,\"status\":\"값있음\",\"note\":null},\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":\"염화 수소 및 이를 10% 이상 함유한 혼합물\",\"remark\":\"97-1-203\"},{\"seq\":9,\"law\":\"CCA\",\"item_code\":\"CCA_ACCIDENT\",\"item_raw\":\"사고대비물질\",\"comp_ref\":\"1\",\"applicable\":\"해당\",\"threshold\":{\"raw\":\"10% 이상\",\"approx\":null,\"value\":null,\"lower_op\":\">=\",\"lower\":10,\"upper_op\":null,\"upper\":null,\"unit\":\"%\",\"dp\":0,\"status\":\"값있음\",\"note\":null},\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":\"염화 수소 및 이를 10% 이상 함유한 혼합물\",\"remark\":null},{\"seq\":10,\"law\":\"KREACH\",\"item_code\":\"KREACH_REG\",\"item_raw\":\"등록대상기존화학물질\",\"comp_ref\":\"MIX\",\"applicable\":\"해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":null,\"remark\":\"318\"},{\"seq\":11,\"law\":\"DG\",\"item_code\":\"DG_HAZMAT\",\"item_raw\":\"위험물안전관리법\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":\"비위험물\",\"remark\":null},{\"seq\":12,\"law\":\"WASTE\",\"item_code\":\"WASTE_DESIG\",\"item_raw\":\"지정폐기물\",\"comp_ref\":\"MIX\",\"applicable\":\"해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":\"폐산\",\"cycle\":null,\"country\":null,\"value_raw\":null,\"remark\":null},{\"seq\":13,\"law\":\"POPS\",\"item_code\":\"POPS\",\"item_raw\":\"잔류성유기오염물질 관리법\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":\"규제되지 않음\",\"remark\":null},{\"seq\":14,\"law\":\"KR_ETC\",\"item_code\":\"KR_ETC\",\"item_raw\":\"고압가스안전관리법\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":\"해당없음\",\"remark\":null},{\"seq\":15,\"law\":\"INTL\",\"item_code\":\"INTL_EU\",\"item_raw\":\"EC 1272/2008(CLP) 위험문구\",\"comp_ref\":\"MIX\",\"applicable\":null,\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"EU\",\"value_raw\":\"H280, H331, H314\",\"remark\":null},{\"seq\":16,\"law\":\"INTL\",\"item_code\":\"INTL_EU\",\"item_raw\":\"EC 1272/2008(CLP) 안전(예방조치) 문구\",\"comp_ref\":\"MIX\",\"applicable\":null,\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"EU\",\"value_raw\":\"P271, P280, P260, P264, P304+P340, P310, P311, P305+P351+P338, P303+P361+P353, P403+P233, P363, P301+P330+P331, P321, P405, P410+P403, P501\",\"remark\":null},{\"seq\":17,\"law\":\"INTL\",\"item_code\":\"INTL_EU\",\"item_raw\":\"EU 규제정보(EU SVHC list)\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"EU\",\"value_raw\":\"규제되지 않음\",\"remark\":null},{\"seq\":18,\"law\":\"INTL\",\"item_code\":\"INTL_EU\",\"item_raw\":\"EU 규제정보(EU Authorization list)\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"EU\",\"value_raw\":\"규제되지 않음\",\"remark\":null},{\"seq\":19,\"law\":\"INTL\",\"item_code\":\"INTL_EU\",\"item_raw\":\"EU 규제정보(EU Restriction list)\",\"comp_ref\":\"MIX\",\"applicable\":\"해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"EU\",\"value_raw\":\"규제됨(Use restricted. See item 75. (U, 5))\",\"remark\":\"Use restricted. See item 75. (U, 5)\"},{\"seq\":20,\"law\":\"INTL\",\"item_code\":\"INTL_US\",\"item_raw\":\"미국관리정보(OSHA 규정)\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"US\",\"value_raw\":\"규제되지 않음\",\"remark\":null},{\"seq\":21,\"law\":\"INTL\",\"item_code\":\"INTL_US\",\"item_raw\":\"미국관리정보(CERCLA 규정)\",\"comp_ref\":\"MIX\",\"applicable\":\"해당\",\"threshold\":null,\"qty\":{\"raw\":\"5000 lb final RQ\",\"approx\":null,\"value\":5000,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"lb\",\"dp\":0,\"status\":\"값있음\",\"note\":\"final RQ\"},\"qty_alt\":{\"raw\":\"2270 kg final RQ\",\"approx\":null,\"value\":2270,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"kg\",\"dp\":0,\"status\":\"값있음\",\"note\":\"final RQ\"},\"sub_class\":null,\"cycle\":null,\"country\":\"US\",\"value_raw\":\"5000 lb final RQ; 2270 kg final RQ\",\"remark\":null},{\"seq\":22,\"law\":\"INTL\",\"item_code\":\"INTL_US\",\"item_raw\":\"미국관리정보(EPCRA 302 규정)\",\"comp_ref\":\"MIX\",\"applicable\":\"해당\",\"threshold\":null,\"qty\":{\"raw\":\"5000 lb EPCRA RQ (gas only)\",\"approx\":null,\"value\":5000,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"lb\",\"dp\":0,\"status\":\"값있음\",\"note\":\"gas only\"},\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"US\",\"value_raw\":\"5000 lb EPCRA RQ (gas only)\",\"remark\":\"gas only\"},{\"seq\":23,\"law\":\"INTL\",\"item_code\":\"INTL_US\",\"item_raw\":\"미국관리정보(EPCRA 304 규정)\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"US\",\"value_raw\":\"규제되지 않음\",\"remark\":null},{\"seq\":24,\"law\":\"INTL\",\"item_code\":\"INTL_US\",\"item_raw\":\"미국관리정보(EPCRA 313 규정)\",\"comp_ref\":\"MIX\",\"applicable\":\"해당\",\"threshold\":{\"raw\":\"1.0 % 최소 허용농도\",\"approx\":null,\"value\":1,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"%\",\"dp\":1,\"status\":\"값있음\",\"note\":\"최소 허용농도\"},\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"US\",\"value_raw\":\"1.0 % 최소 허용농도 (acid aerosols including mists, vapors, gas, fog, and other airborne forms of any particle size)\",\"remark\":\"acid aerosols including mists, vapors, gas, fog, and other airborne forms of any particle size\"},{\"seq\":25,\"law\":\"INTL\",\"item_code\":\"INTL_TREATY\",\"item_raw\":\"로테르담 협약물질\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":\"규제되지 않음\",\"remark\":null},{\"seq\":26,\"law\":\"INTL\",\"item_code\":\"INTL_TREATY\",\"item_raw\":\"스톡홀름 협약물질\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":\"규제되지 않음\",\"remark\":null},{\"seq\":27,\"law\":\"INTL\",\"item_code\":\"INTL_TREATY\",\"item_raw\":\"몬트리올 의정서 물질\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":\"규제되지 않음\",\"remark\":null},{\"seq\":28,\"law\":\"INTL\",\"item_code\":\"INTL_US\",\"item_raw\":\"미국관리정보 : Section8(b)Inventory(TSCA)\",\"comp_ref\":\"MIX\",\"applicable\":\"해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"US\",\"value_raw\":\"존재함(ACTIVE)\",\"remark\":\"ACTIVE\"},{\"seq\":29,\"law\":\"INTL\",\"item_code\":\"INTL_EU\",\"item_raw\":\"유럽관리정보 : European Inventory of Existing Commercial chemical Substances(EINECS)\",\"comp_ref\":\"MIX\",\"applicable\":\"해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"EU\",\"value_raw\":\"존재함[231-595-7]\",\"remark\":\"231-595-7\"},{\"seq\":30,\"law\":\"INTL\",\"item_code\":\"INTL_ETC\",\"item_raw\":\"캐나다관리정보 : Domestic Substances List(DSL)\",\"comp_ref\":\"MIX\",\"applicable\":\"해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"CA\",\"value_raw\":\"존재함\",\"remark\":null},{\"seq\":31,\"law\":\"INTL\",\"item_code\":\"INTL_ETC\",\"item_raw\":\"호주관리정보 : Australia Inventory of Industrial Chemicals(AIIC)\",\"comp_ref\":\"MIX\",\"applicable\":\"해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"AU\",\"value_raw\":\"존재함\",\"remark\":null},{\"seq\":32,\"law\":\"INTL\",\"item_code\":\"INTL_ETC\",\"item_raw\":\"중국관리정보 : Inventory of Existing Chemical Substances(IECSC)\",\"comp_ref\":\"MIX\",\"applicable\":\"해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"CN\",\"value_raw\":\"존재함[37053]\",\"remark\":\"37053\"},{\"seq\":33,\"law\":\"INTL\",\"item_code\":\"INTL_JP\",\"item_raw\":\"일본관리정보 : Inventory - Japan - Existing and New Chemical Substances (ENCS)\",\"comp_ref\":\"MIX\",\"applicable\":\"해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"JP\",\"value_raw\":\"존재함[(1)-215]\",\"remark\":\"(1)-215\"},{\"seq\":34,\"law\":\"INTL\",\"item_code\":\"INTL_ETC\",\"item_raw\":\"필리핀관리정보 : Philippine Inventory of Chemicals and Chemical Substances(PICCS)\",\"comp_ref\":\"MIX\",\"applicable\":\"해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"PH\",\"value_raw\":\"존재함\",\"remark\":null},{\"seq\":35,\"law\":\"INTL\",\"item_code\":\"INTL_ETC\",\"item_raw\":\"대만관리정보 : Taiwan Chemical Substance Inventory (TCSI)\",\"comp_ref\":\"MIX\",\"applicable\":\"해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"TW\",\"value_raw\":\"존재함\",\"remark\":null}],\"dangerous_goods\":[{\"comp_ref\":\"MIX\",\"class\":\"해당없음\",\"item\":null,\"water_soluble\":null,\"grade\":null,\"designated_qty\":null}],\"waste\":[{\"comp_ref\":\"MIX\",\"designated\":\"해당\",\"waste_type\":\"폐산\"}],\"intl_class\":[{\"comp_ref\":\"MIX\",\"system\":\"EU_CLP\",\"class_raw\":\"Press. Gas\",\"h_code\":null,\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"system\":\"EU_CLP\",\"class_raw\":\"Acute Tox. 3\",\"h_code\":null,\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"system\":\"EU_CLP\",\"class_raw\":\"Skin Corr. 1A\",\"h_code\":null,\"status\":\"값있음\"}]}],\"evidence\":[{\"msds_index\":0,\"field\":\"transport[0]\",\"page\":11,\"source_text\":\"가. 유엔 번호(UN No.) : 1789 | 나. 유엔 적정 선적명 : 염산(염화수소산)(HYDROCHLORIC ACID) | 다. 운송에서의 위험성 등급 : 8\",\"rules\":[\"R09\"],\"note\":\"운송 규정 구분이 없어 mode=공통으로 한 행 작성, 유엔번호가 기재되어 regulated=true\"},{\"msds_index\":0,\"field\":\"transport[0].packing_group\",\"page\":11,\"source_text\":\"라. 용기등급(해당하는 경우) : 3\",\"rules\":[],\"note\":\"원문 '3'을 용기등급 enum 표기 III으로 옮김\"},{\"msds_index\":0,\"field\":\"transport[0].marine_pollutant\",\"page\":11,\"source_text\":\"마. 해양오염물질 : 해당없음\",\"rules\":[\"R15\"],\"note\":\"'해당없음'을 동의어 사전에 따라 비해당으로 저장\"},{\"msds_index\":0,\"field\":\"transport[0].ems_fire\",\"page\":11,\"source_text\":\"• 화재 시 비상조치 : F- A\",\"rules\":[],\"note\":\"원문 띄어쓰기 'F- A'를 그대로 보존\"},{\"msds_index\":0,\"field\":\"transport[0].ems_spill\",\"page\":11,\"source_text\":\"• 유출 시 비상조치 : S-B\",\"rules\":[],\"note\":null},{\"msds_index\":0,\"field\":\"regulations[0]\",\"page\":11,\"source_text\":\"가. 산업안전보건법 : 관리대상유해물질\",\"rules\":[\"R25\"],\"note\":\"성분 지정이 없어 comp_ref=MIX\"},{\"msds_index\":0,\"field\":\"regulations[1]\",\"page\":11,\"source_text\":\"작업환경측정대상유해인자(측정주기 : 6개월)\",\"rules\":[\"R25\",\"R04\"],\"note\":\"측정주기 6개월을 cycle로 분리\"},{\"msds_index\":0,\"field\":\"regulations[2]\",\"page\":11,\"source_text\":\"노출기준설정물질\",\"rules\":[\"R25\"],\"note\":null},{\"msds_index\":0,\"field\":\"regulations[3]\",\"page\":11,\"source_text\":\"특수건강진단대상유해물질(진단주기 : 12개월)\",\"rules\":[\"R25\",\"R04\"],\"note\":\"진단주기 12개월을 cycle로 분리\"},{\"msds_index\":0,\"field\":\"regulations[4]\",\"page\":11,\"source_text\":\"공정안전보고서(PSM)제출대상유해위험물질\",\"rules\":[\"R25\"],\"note\":null},{\"msds_index\":0,\"field\":\"regulations[5]\",\"page\":11,\"source_text\":\"영업비밀인정제외물질\",\"rules\":[],\"note\":\"C6에 맞는 항목 코드가 없어 item_code=null, item_raw에 원문 보존\"},{\"msds_index\":0,\"field\":\"regulations[6]\",\"page\":12,\"source_text\":\"기존화학물질(KE-20189)\",\"rules\":[\"R25\"],\"note\":\"괄호 속 번호를 remark로\"},{\"msds_index\":0,\"field\":\"regulations[7]\",\"page\":12,\"source_text\":\"유독물질(97-1-203) (염화 수소 및 이를 10% 이상 함유한 혼합물)\",\"rules\":[\"R04\",\"R10\"],\"note\":\"'10% 이상'을 threshold(>=10 %)로 분해, 염화 수소 지정이므로 comp_ref=1\"},{\"msds_index\":0,\"field\":\"regulations[8]\",\"page\":12,\"source_text\":\"사고대비물질 (염화 수소 및 이를 10% 이상 함유한 혼합물)\",\"rules\":[\"R04\",\"R10\"],\"note\":\"'10% 이상'을 threshold(>=10 %)로 분해, comp_ref=1\"},{\"msds_index\":0,\"field\":\"regulations[9]\",\"page\":12,\"source_text\":\"등록대상기존화학물질(318)\",\"rules\":[\"R25\"],\"note\":\"괄호 속 번호를 remark로\"},{\"msds_index\":0,\"field\":\"regulations[10]\",\"page\":12,\"source_text\":\"다. 위험물안전관리법 : 비위험물\",\"rules\":[\"R15\"],\"note\":\"비위험물을 비해당으로 저장\"},{\"msds_index\":0,\"field\":\"regulations[11]\",\"page\":12,\"source_text\":\"라. 폐기물관리법 : 지정폐기물(폐산)\",\"rules\":[],\"note\":\"괄호 속 폐산을 sub_class로\"},{\"msds_index\":0,\"field\":\"regulations[12]\",\"page\":12,\"source_text\":\"- 잔류성유기오염물질 관리법 : 규제되지 않음\",\"rules\":[\"R25\"],\"note\":\"'규제되지 않음'을 비해당으로\"},{\"msds_index\":0,\"field\":\"regulations[13]\",\"page\":12,\"source_text\":\"- 고압가스안전관리법 : 해당없음\",\"rules\":[\"R15\"],\"note\":\"기타 국내법으로 분류, 해당없음을 비해당으로\"},{\"msds_index\":0,\"field\":\"regulations[14]\",\"page\":12,\"source_text\":\"- EC 1272/2008(CLP) 위험문구 : H280, H331, H314\",\"rules\":[],\"note\":null},{\"msds_index\":0,\"field\":\"regulations[15]\",\"page\":12,\"source_text\":\"- EC 1272/2008(CLP) 안전(예방조치) 문구 : P271, P280, P260, P264, P304+P340, P310, P311, P305+P351+P338, P303+P361+P353, P403+P233, P363, P301+P330+P331, P321, P405, P410+P403, P501\",\"rules\":[],\"note\":null},{\"msds_index\":0,\"field\":\"regulations[16]\",\"page\":12,\"source_text\":\"- EU 규제정보(EU SVHC list) : 규제되지 않음\",\"rules\":[\"R25\"],\"note\":\"비해당으로 저장\"},{\"msds_index\":0,\"field\":\"regulations[17]\",\"page\":12,\"source_text\":\"- EU 규제정보(EU Authorization list) : 규제되지 않음\",\"rules\":[\"R25\"],\"note\":\"비해당으로 저장\"},{\"msds_index\":0,\"field\":\"regulations[18]\",\"page\":12,\"source_text\":\"- EU 규제정보(EU Restriction list) : 규제됨(Use restricted. See item 75. (U, 5))\",\"rules\":[\"R25\"],\"note\":\"규제됨을 해당으로, 괄호 내용을 remark로\"},{\"msds_index\":0,\"field\":\"regulations[19]\",\"page\":12,\"source_text\":\"- 미국관리정보(OSHA 규정) : 규제되지 않음\",\"rules\":[\"R25\"],\"note\":\"비해당으로 저장\"},{\"msds_index\":0,\"field\":\"regulations[20]\",\"page\":12,\"source_text\":\"- 미국관리정보(CERCLA 규정) : 5000 lb final RQ; 2270 kg final RQ\",\"rules\":[\"R04\",\"R25\"],\"note\":\"첫 단위를 qty, 병기 단위를 qty_alt로 분해\"},{\"msds_index\":0,\"field\":\"regulations[21]\",\"page\":12,\"source_text\":\"- 미국관리정보(EPCRA 302 규정) : 5000 lb EPCRA RQ (gas only)\",\"rules\":[\"R04\"],\"note\":\"5000 lb를 qty로 분해\"},{\"msds_index\":0,\"field\":\"regulations[22]\",\"page\":12,\"source_text\":\"- 미국관리정보(EPCRA 304 규정) : 규제되지 않음\",\"rules\":[],\"note\":\"비해당으로 저장\"},{\"msds_index\":0,\"field\":\"regulations[23]\",\"page\":12,\"source_text\":\"- 미국관리정보(EPCRA 313 규정) : 1.0 % 최소 허용농도 (acid aerosols including mists, vapors, gas, fog, and other airborne forms of any particle size)\",\"rules\":[\"R04\",\"R06\"],\"note\":\"'1.0 %'를 threshold value 1, dp 1로 분해\"},{\"msds_index\":0,\"field\":\"regulations[24]\",\"page\":12,\"source_text\":\"- 로테르담 협약물질 : 규제되지 않음\",\"rules\":[\"R25\"],\"note\":\"비해당으로 저장\"},{\"msds_index\":0,\"field\":\"regulations[25]\",\"page\":12,\"source_text\":\"- 스톡홀름 협약물질 : 규제되지 않음\",\"rules\":[\"R25\"],\"note\":\"비해당으로 저장\"},{\"msds_index\":0,\"field\":\"regulations[26]\",\"page\":12,\"source_text\":\"- 몬트리올 의정서 물질 : 규제되지 않음\",\"rules\":[\"R25\"],\"note\":\"비해당으로 저장\"},{\"msds_index\":0,\"field\":\"regulations[27]\",\"page\":12,\"source_text\":\"- 미국관리정보 : Section8(b)Inventory(TSCA) : 존재함(ACTIVE)\",\"rules\":[\"R25\"],\"note\":\"존재함을 해당으로\"},{\"msds_index\":0,\"field\":\"regulations[28]\",\"page\":12,\"source_text\":\"- 유럽관리정보 : European Inventory of Existing Commercial chemical Substances(EINECS) : 존재함[231-595-7]\",\"rules\":[\"R25\"],\"note\":\"존재함을 해당으로, 번호를 remark로\"},{\"msds_index\":0,\"field\":\"regulations[29]\",\"page\":12,\"source_text\":\"- 캐나다관리정보 : Domestic Substances List(DSL) : 존재함\",\"rules\":[\"R25\"],\"note\":\"존재함을 해당으로\"},{\"msds_index\":0,\"field\":\"regulations[30]\",\"page\":12,\"source_text\":\"- 호주관리정보 : Australia Inventory of Industrial Chemicals(AIIC) : 존재함\",\"rules\":[\"R25\"],\"note\":\"존재함을 해당으로\"},{\"msds_index\":0,\"field\":\"regulations[31]\",\"page\":12,\"source_text\":\"- 중국관리정보 : Inventory of Existing Chemical Substances(IECSC) : 존재함[37053]\",\"rules\":[\"R25\"],\"note\":\"존재함을 해당으로, 번호를 remark로\"},{\"msds_index\":0,\"field\":\"regulations[32]\",\"page\":12,\"source_text\":\"- 일본관리정보 : Inventory - Japan - Existing and New Chemical Substances (ENCS) : 존재함[(1)-215]\",\"rules\":[\"R25\"],\"note\":\"존재함을 해당으로, 번호를 remark로\"},{\"msds_index\":0,\"field\":\"regulations[33]\",\"page\":13,\"source_text\":\"- 필리핀관리정보 : Philippine Inventory of Chemicals and Chemical Substances(PICCS) : 존재함\",\"rules\":[\"R25\"],\"note\":\"존재함을 해당으로\"},{\"msds_index\":0,\"field\":\"regulations[34]\",\"page\":13,\"source_text\":\"- 대만관리정보 : Taiwan Chemical Substance Inventory (TCSI) : 존재함\",\"rules\":[],\"note\":\"동의어 사전에 없는 대만관리정보를 기타 외국법(INTL_ETC)으로 분류, 존재함을 해당으로\"},{\"msds_index\":0,\"field\":\"dangerous_goods[0]\",\"page\":12,\"source_text\":\"다. 위험물안전관리법 : 비위험물\",\"rules\":[\"R15\"],\"note\":\"비위험물을 class=해당없음으로 저장\"},{\"msds_index\":0,\"field\":\"waste[0]\",\"page\":12,\"source_text\":\"라. 폐기물관리법 : 지정폐기물(폐산)\",\"rules\":[],\"note\":\"지정폐기물 해당, 괄호 속 폐산을 waste_type으로\"},{\"msds_index\":0,\"field\":\"intl_class[0]\",\"page\":12,\"source_text\":\"- EC 1272/2008(CLP) 확정 분류 결과 :  Press. Gas , Acute Tox. 3, Skin Corr. 1A\",\"rules\":[\"R11\"],\"note\":\"분류를 ',' 기준으로 하나씩 분리, H코드는 별도 행으로 기재되어 연결하지 않음\"},{\"msds_index\":0,\"field\":\"intl_class[1]\",\"page\":12,\"source_text\":\"- EC 1272/2008(CLP) 확정 분류 결과 :  Press. Gas , Acute Tox. 3, Skin Corr. 1A\",\"rules\":[\"R11\"],\"note\":\"분류를 ',' 기준으로 분리\"},{\"msds_index\":0,\"field\":\"intl_class[2]\",\"page\":12,\"source_text\":\"- EC 1272/2008(CLP) 확정 분류 결과 :  Press. Gas , Acute Tox. 3, Skin Corr. 1A\",\"rules\":[\"R11\"],\"note\":\"분류를 ',' 기준으로 분리\"}]}"
+}

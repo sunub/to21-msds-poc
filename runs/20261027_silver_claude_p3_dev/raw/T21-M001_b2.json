@@ -1,0 +1,900 @@
+{
+  "doc_id": "T21-M001",
+  "bundle": "b2",
+  "model": "claude-opus-5-5",
+  "mode": "none",
+  "finish_reason": "stop",
+  "usage": {
+    "prompt_tokens": 80049,
+    "completion_tokens": 7903,
+    "total_tokens": 87952,
+    "served_model": "claude-opus-5-5"
+  },
+  "seconds": 64.9,
+  "attempts": 1,
+  "errors": [],
+  "parsed": {
+    "msds": [
+      {
+        "exposure_limits": [
+          {
+            "comp_ref": "3",
+            "standard": "국내",
+            "limit_type": "TWA",
+            "q": {
+              "raw": "30.0ppm TWA",
+              "approx": null,
+              "value": 30,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "ppm",
+              "dp": 1,
+              "status": "값있음",
+              "note": null
+            },
+            "form": null,
+            "kr_basis": null,
+            "bio_medium": null,
+            "bio_timing": null,
+            "bio_determinant": null,
+            "notations": []
+          },
+          {
+            "comp_ref": "3",
+            "standard": "국내",
+            "limit_type": "STEL",
+            "q": {
+              "raw": "200.0ppm STEL",
+              "approx": null,
+              "value": 200,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "ppm",
+              "dp": 1,
+              "status": "값있음",
+              "note": null
+            },
+            "form": null,
+            "kr_basis": null,
+            "bio_medium": null,
+            "bio_timing": null,
+            "bio_determinant": null,
+            "notations": []
+          },
+          {
+            "comp_ref": "3",
+            "standard": "ACGIH",
+            "limit_type": "TWA",
+            "q": {
+              "raw": "25 ppm TWA",
+              "approx": null,
+              "value": 25,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "ppm",
+              "dp": 0,
+              "status": "값있음",
+              "note": null
+            },
+            "form": null,
+            "kr_basis": null,
+            "bio_medium": null,
+            "bio_timing": null,
+            "bio_determinant": null,
+            "notations": []
+          },
+          {
+            "comp_ref": "3",
+            "standard": "생물학적",
+            "limit_type": "BEI",
+            "q": {
+              "raw": "3.5 % of hemoglobin",
+              "approx": null,
+              "value": 3.5,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "% of hemoglobin",
+              "dp": 1,
+              "status": "값있음",
+              "note": null
+            },
+            "form": null,
+            "kr_basis": null,
+            "bio_medium": "blood",
+            "bio_timing": "end of shift",
+            "bio_determinant": "Carboxyhemoglobin",
+            "notations": [
+              "background",
+              "nonspecific"
+            ]
+          },
+          {
+            "comp_ref": "3",
+            "standard": "생물학적",
+            "limit_type": "BEI",
+            "q": {
+              "raw": "20",
+              "approx": null,
+              "value": 20,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": null,
+              "dp": 0,
+              "status": "값있음",
+              "note": null
+            },
+            "form": null,
+            "kr_basis": null,
+            "bio_medium": "endexhaled air",
+            "bio_timing": "end of shift",
+            "bio_determinant": "Carbon monoxide",
+            "notations": [
+              "background",
+              "nonspecific"
+            ]
+          }
+        ],
+        "physchem": [
+          {
+            "prop_code": "APPEARANCE_STATE",
+            "comp_ref": "MIX",
+            "q": null,
+            "text_value": "기체",
+            "cond": null,
+            "seq": 1,
+            "data_source": "ECHA"
+          },
+          {
+            "prop_code": "APPEARANCE_COLOR",
+            "comp_ref": "MIX",
+            "q": null,
+            "text_value": "무색",
+            "cond": null,
+            "seq": 1,
+            "data_source": "ECHA"
+          },
+          {
+            "prop_code": "ODOR",
+            "comp_ref": "MIX",
+            "q": null,
+            "text_value": "무취",
+            "cond": null,
+            "seq": 1,
+            "data_source": "ECHA"
+          },
+          {
+            "prop_code": "ODOR_THRESHOLD",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료없음",
+              "approx": null,
+              "value": null,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": null,
+              "dp": null,
+              "status": "자료없음",
+              "note": null
+            },
+            "text_value": null,
+            "cond": null,
+            "seq": 1,
+            "data_source": null
+          },
+          {
+            "prop_code": "PH",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료없음",
+              "approx": null,
+              "value": null,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": null,
+              "dp": null,
+              "status": "자료없음",
+              "note": null
+            },
+            "text_value": null,
+            "cond": null,
+            "seq": 1,
+            "data_source": null
+          },
+          {
+            "prop_code": "MELT_FREEZE",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "-183",
+              "approx": null,
+              "value": -183,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": null,
+              "dp": 0,
+              "status": "값있음",
+              "note": null
+            },
+            "text_value": null,
+            "cond": null,
+            "seq": 1,
+            "data_source": "ECHA"
+          },
+          {
+            "prop_code": "BOILING",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "-161°C",
+              "approx": null,
+              "value": -161,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "C",
+              "dp": 0,
+              "status": "값있음",
+              "note": null
+            },
+            "text_value": null,
+            "cond": null,
+            "seq": 1,
+            "data_source": "ECHA"
+          },
+          {
+            "prop_code": "FLASH_POINT",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "-188℃(closed cup)",
+              "approx": null,
+              "value": -188,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "C",
+              "dp": 0,
+              "status": "값있음",
+              "note": null
+            },
+            "text_value": null,
+            "cond": {
+              "temp": null,
+              "temp_unit": null,
+              "pressure": null,
+              "pressure_unit": null,
+              "method": "closed cup",
+              "reference": null,
+              "conc_value": null,
+              "conc_unit": null
+            },
+            "seq": 1,
+            "data_source": "HSDB"
+          },
+          {
+            "prop_code": "EVAP_RATE",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료없음",
+              "approx": null,
+              "value": null,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": null,
+              "dp": null,
+              "status": "자료없음",
+              "note": null
+            },
+            "text_value": null,
+            "cond": null,
+            "seq": 1,
+            "data_source": null
+          },
+          {
+            "prop_code": "FLAMMABILITY",
+            "comp_ref": "MIX",
+            "q": null,
+            "text_value": "인화성 가스",
+            "cond": null,
+            "seq": 1,
+            "data_source": "ECHA"
+          },
+          {
+            "prop_code": "UEL",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "인화 상한값 15 %(V)",
+              "approx": null,
+              "value": 15,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "%(V)",
+              "dp": 0,
+              "status": "값있음",
+              "note": null
+            },
+            "text_value": null,
+            "cond": null,
+            "seq": 1,
+            "data_source": "ECHA"
+          },
+          {
+            "prop_code": "LEL",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "인화 하한값 5 %(V)",
+              "approx": null,
+              "value": 5,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "%(V)",
+              "dp": 0,
+              "status": "값있음",
+              "note": null
+            },
+            "text_value": null,
+            "cond": null,
+            "seq": 1,
+            "data_source": "ECHA"
+          },
+          {
+            "prop_code": "VAPOR_PRESSURE",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "62,128Kpa (25˚C)",
+              "approx": null,
+              "value": 62128,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "kPa",
+              "dp": 0,
+              "status": "값있음",
+              "note": null
+            },
+            "text_value": null,
+            "cond": {
+              "temp": 25,
+              "temp_unit": "C",
+              "pressure": null,
+              "pressure_unit": null,
+              "method": null,
+              "reference": null,
+              "conc_value": null,
+              "conc_unit": null
+            },
+            "seq": 1,
+            "data_source": "HSDB"
+          },
+          {
+            "prop_code": "SOLUBILITY",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "24.4mg/L (25˚C)",
+              "approx": null,
+              "value": 24.4,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "mg/L",
+              "dp": 1,
+              "status": "값있음",
+              "note": null
+            },
+            "text_value": null,
+            "cond": {
+              "temp": 25,
+              "temp_unit": "C",
+              "pressure": null,
+              "pressure_unit": null,
+              "method": null,
+              "reference": null,
+              "conc_value": null,
+              "conc_unit": null
+            },
+            "seq": 1,
+            "data_source": "ECHA"
+          },
+          {
+            "prop_code": "VAPOR_DENSITY",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "0.554(공기 = 1.0)",
+              "approx": null,
+              "value": 0.554,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": null,
+              "dp": 3,
+              "status": "값있음",
+              "note": null
+            },
+            "text_value": null,
+            "cond": {
+              "temp": null,
+              "temp_unit": null,
+              "pressure": null,
+              "pressure_unit": null,
+              "method": null,
+              "reference": "공기 = 1.0",
+              "conc_value": null,
+              "conc_unit": null
+            },
+            "seq": 1,
+            "data_source": "HSDB"
+          },
+          {
+            "prop_code": "RELATIVE_DENSITY",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료없음",
+              "approx": null,
+              "value": null,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": null,
+              "dp": null,
+              "status": "자료없음",
+              "note": null
+            },
+            "text_value": null,
+            "cond": null,
+            "seq": 1,
+            "data_source": null
+          },
+          {
+            "prop_code": "LOG_KOW",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "logPow : 1.09",
+              "approx": null,
+              "value": 1.09,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": null,
+              "dp": 2,
+              "status": "값있음",
+              "note": null
+            },
+            "text_value": null,
+            "cond": null,
+            "seq": 1,
+            "data_source": "ECHA"
+          },
+          {
+            "prop_code": "AUTOIGNITION",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "537",
+              "approx": null,
+              "value": 537,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": null,
+              "dp": 0,
+              "status": "값있음",
+              "note": null
+            },
+            "text_value": null,
+            "cond": null,
+            "seq": 1,
+            "data_source": "ECHA"
+          },
+          {
+            "prop_code": "DECOMPOSITION",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료없음",
+              "approx": null,
+              "value": null,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": null,
+              "dp": null,
+              "status": "자료없음",
+              "note": null
+            },
+            "text_value": null,
+            "cond": null,
+            "seq": 1,
+            "data_source": null
+          },
+          {
+            "prop_code": "VISCOSITY",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료없음",
+              "approx": null,
+              "value": null,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": null,
+              "dp": null,
+              "status": "자료없음",
+              "note": null
+            },
+            "text_value": null,
+            "cond": null,
+            "seq": 1,
+            "data_source": null
+          },
+          {
+            "prop_code": "MOL_WEIGHT",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "16.04",
+              "approx": null,
+              "value": 16.04,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": null,
+              "dp": 2,
+              "status": "값있음",
+              "note": null
+            },
+            "text_value": null,
+            "cond": null,
+            "seq": 1,
+            "data_source": null
+          },
+          {
+            "prop_code": "RELATIVE_DENSITY",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료없음",
+              "approx": null,
+              "value": null,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": null,
+              "dp": null,
+              "status": "자료없음",
+              "note": null
+            },
+            "text_value": null,
+            "cond": null,
+            "seq": 2,
+            "data_source": null
+          }
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[0]",
+        "page": 5,
+        "source_text": "Carbon monoxide | 30.0ppm TWA 200.0ppm STEL",
+        "rules": [
+          "R04",
+          "R06",
+          "R08",
+          "R10"
+        ],
+        "note": "국내기준 칸의 TWA 값을 분리. CAS 대신 이름으로 성분 3 매칭. 8항 표에 노출/허용기준 구분이 없어 kr_basis는 null"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[1]",
+        "page": 5,
+        "source_text": "Carbon monoxide | 30.0ppm TWA 200.0ppm STEL",
+        "rules": [
+          "R04",
+          "R06",
+          "R08",
+          "R10"
+        ],
+        "note": "국내기준 칸의 STEL 값을 별도 행으로 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[2]",
+        "page": 5,
+        "source_text": "Carbon monoxide | 25 ppm TWA",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "ACGIH 칸의 TWA 값"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[3]",
+        "page": 5,
+        "source_text": "3.5 % of hemoglobin Medium: blood Time: end of shift Parameter: Carboxyhemoglobin (background, nonspecific)",
+        "rules": [
+          "R04",
+          "R10",
+          "R11",
+          "R17"
+        ],
+        "note": "생물학적 노출기준 첫 항목. 매체·시기·지표를 나누고 괄호 표기를 notations로 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[4]",
+        "page": 5,
+        "source_text": "20 Medium: endexhaled air Time: end of shift Parameter: Carbon monoxide (background, nonspecific)",
+        "rules": [
+          "R04",
+          "R10",
+          "R11",
+          "R17"
+        ],
+        "note": "생물학적 노출기준 두 번째 항목. 원문에 단위가 없어 unit은 null"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[0]",
+        "page": 6,
+        "source_text": "성상 | 기체 | ECHA",
+        "rules": [
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[1]",
+        "page": 6,
+        "source_text": "색상 | 무색 | ECHA",
+        "rules": [
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[2]",
+        "page": 6,
+        "source_text": "냄새 | 무취 | ECHA",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[3]",
+        "page": 6,
+        "source_text": "냄새역치 | 자료없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[4]",
+        "page": 6,
+        "source_text": "pH | 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[5]",
+        "page": 6,
+        "source_text": "녹는점/어는점 | -183 | ECHA",
+        "rules": [
+          "R04",
+          "R17"
+        ],
+        "note": "원문에 단위가 없어 unit은 null"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[6]",
+        "page": 6,
+        "source_text": "초기 끓는점과 끓는점 범위(℃) | -161°C | ECHA",
+        "rules": [
+          "R04",
+          "R08"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[7]",
+        "page": 6,
+        "source_text": "인화점(℃) | -188℃(closed cup) | HSDB",
+        "rules": [
+          "R04",
+          "R08"
+        ],
+        "note": "괄호 안 closed cup을 cond.method로 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[8]",
+        "page": 6,
+        "source_text": "증발속도 | 자료없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[9]",
+        "page": 6,
+        "source_text": "인화성(고체, 기체) | 인화성 가스 | ECHA",
+        "rules": [
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[10]",
+        "page": 6,
+        "source_text": "인화 또는 폭발 범위의 상한/하한 | 인화 상한값 15 %(V) 인화 하한값 5 %(V) | ECHA",
+        "rules": [
+          "R04",
+          "R25"
+        ],
+        "note": "상한/하한 한 칸을 UEL·LEL 두 행으로 나눔"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[11]",
+        "page": 6,
+        "source_text": "인화 또는 폭발 범위의 상한/하한 | 인화 상한값 15 %(V) 인화 하한값 5 %(V) | ECHA",
+        "rules": [
+          "R04",
+          "R25"
+        ],
+        "note": "하한값 5 %(V)를 LEL 행으로 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[12]",
+        "page": 6,
+        "source_text": "증기압 | 62,128Kpa (25˚C) | HSDB",
+        "rules": [
+          "R04",
+          "R06",
+          "R08"
+        ],
+        "note": "천단위 콤마를 없애 62128로 적고, 단위 Kpa는 kPa로 통일. 25˚C는 cond로 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[13]",
+        "page": 6,
+        "source_text": "용해도 | 24.4mg/L (25˚C) | ECHA",
+        "rules": [
+          "R04"
+        ],
+        "note": "25˚C를 cond로 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[14]",
+        "page": 6,
+        "source_text": "증기밀도 | 0.554(공기 = 1.0) | HSDB",
+        "rules": [
+          "R04",
+          "R25"
+        ],
+        "note": "기준 물질 '공기 = 1.0'을 cond.reference로 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[15]",
+        "page": 6,
+        "source_text": "상대밀도 | 자료없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[16]",
+        "page": 6,
+        "source_text": "n-옥탄올/물분배계수 | logPow : 1.09 | ECHA",
+        "rules": [
+          "R04",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[17]",
+        "page": 6,
+        "source_text": "자연발화온도 | 537 | ECHA",
+        "rules": [
+          "R04",
+          "R17"
+        ],
+        "note": "원문에 단위가 없어 unit은 null"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[18]",
+        "page": 6,
+        "source_text": "분해온도 | 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[19]",
+        "page": 6,
+        "source_text": "점도(㎟/s, 40℃) | 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[20]",
+        "page": 6,
+        "source_text": "분자량 | 16.04",
+        "rules": [
+          "R04"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[21]",
+        "page": 6,
+        "source_text": "비중 | 자료없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "상대밀도와 같은 코드라서 seq 2로 둠"
+      }
+    ]
+  },
+  "raw_text": "{\"msds\":[{\"exposure_limits\":[{\"comp_ref\":\"3\",\"standard\":\"국내\",\"limit_type\":\"TWA\",\"q\":{\"raw\":\"30.0ppm TWA\",\"approx\":null,\"value\":30,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"ppm\",\"dp\":1,\"status\":\"값있음\",\"note\":null},\"form\":null,\"kr_basis\":null,\"bio_medium\":null,\"bio_timing\":null,\"bio_determinant\":null,\"notations\":[]},{\"comp_ref\":\"3\",\"standard\":\"국내\",\"limit_type\":\"STEL\",\"q\":{\"raw\":\"200.0ppm STEL\",\"approx\":null,\"value\":200,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"ppm\",\"dp\":1,\"status\":\"값있음\",\"note\":null},\"form\":null,\"kr_basis\":null,\"bio_medium\":null,\"bio_timing\":null,\"bio_determinant\":null,\"notations\":[]},{\"comp_ref\":\"3\",\"standard\":\"ACGIH\",\"limit_type\":\"TWA\",\"q\":{\"raw\":\"25 ppm TWA\",\"approx\":null,\"value\":25,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"ppm\",\"dp\":0,\"status\":\"값있음\",\"note\":null},\"form\":null,\"kr_basis\":null,\"bio_medium\":null,\"bio_timing\":null,\"bio_determinant\":null,\"notations\":[]},{\"comp_ref\":\"3\",\"standard\":\"생물학적\",\"limit_type\":\"BEI\",\"q\":{\"raw\":\"3.5 % of hemoglobin\",\"approx\":null,\"value\":3.5,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"% of hemoglobin\",\"dp\":1,\"status\":\"값있음\",\"note\":null},\"form\":null,\"kr_basis\":null,\"bio_medium\":\"blood\",\"bio_timing\":\"end of shift\",\"bio_determinant\":\"Carboxyhemoglobin\",\"notations\":[\"background\",\"nonspecific\"]},{\"comp_ref\":\"3\",\"standard\":\"생물학적\",\"limit_type\":\"BEI\",\"q\":{\"raw\":\"20\",\"approx\":null,\"value\":20,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":null,\"dp\":0,\"status\":\"값있음\",\"note\":null},\"form\":null,\"kr_basis\":null,\"bio_medium\":\"endexhaled air\",\"bio_timing\":\"end of shift\",\"bio_determinant\":\"Carbon monoxide\",\"notations\":[\"background\",\"nonspecific\"]}],\"physchem\":[{\"prop_code\":\"APPEARANCE_STATE\",\"comp_ref\":\"MIX\",\"q\":null,\"text_value\":\"기체\",\"cond\":null,\"seq\":1,\"data_source\":\"ECHA\"},{\"prop_code\":\"APPEARANCE_COLOR\",\"comp_ref\":\"MIX\",\"q\":null,\"text_value\":\"무색\",\"cond\":null,\"seq\":1,\"data_source\":\"ECHA\"},{\"prop_code\":\"ODOR\",\"comp_ref\":\"MIX\",\"q\":null,\"text_value\":\"무취\",\"cond\":null,\"seq\":1,\"data_source\":\"ECHA\"},{\"prop_code\":\"ODOR_THRESHOLD\",\"comp_ref\":\"MIX\",\"q\":{\"raw\":\"자료없음\",\"approx\":null,\"value\":null,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":null,\"dp\":null,\"status\":\"자료없음\",\"note\":null},\"text_value\":null,\"cond\":null,\"seq\":1,\"data_source\":null},{\"prop_code\":\"PH\",\"comp_ref\":\"MIX\",\"q\":{\"raw\":\"자료없음\",\"approx\":null,\"value\":null,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":null,\"dp\":null,\"status\":\"자료없음\",\"note\":null},\"text_value\":null,\"cond\":null,\"seq\":1,\"data_source\":null},{\"prop_code\":\"MELT_FREEZE\",\"comp_ref\":\"MIX\",\"q\":{\"raw\":\"-183\",\"approx\":null,\"value\":-183,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":null,\"dp\":0,\"status\":\"값있음\",\"note\":null},\"text_value\":null,\"cond\":null,\"seq\":1,\"data_source\":\"ECHA\"},{\"prop_code\":\"BOILING\",\"comp_ref\":\"MIX\",\"q\":{\"raw\":\"-161°C\",\"approx\":null,\"value\":-161,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"C\",\"dp\":0,\"status\":\"값있음\",\"note\":null},\"text_value\":null,\"cond\":null,\"seq\":1,\"data_source\":\"ECHA\"},{\"prop_code\":\"FLASH_POINT\",\"comp_ref\":\"MIX\",\"q\":{\"raw\":\"-188℃(closed cup)\",\"approx\":null,\"value\":-188,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"C\",\"dp\":0,\"status\":\"값있음\",\"note\":null},\"text_value\":null,\"cond\":{\"temp\":null,\"temp_unit\":null,\"pressure\":null,\"pressure_unit\":null,\"method\":\"closed cup\",\"reference\":null,\"conc_value\":null,\"conc_unit\":null},\"seq\":1,\"data_source\":\"HSDB\"},{\"prop_code\":\"EVAP_RATE\",\"comp_ref\":\"MIX\",\"q\":{\"raw\":\"자료없음\",\"approx\":null,\"value\":null,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":null,\"dp\":null,\"status\":\"자료없음\",\"note\":null},\"text_value\":null,\"cond\":null,\"seq\":1,\"data_source\":null},{\"prop_code\":\"FLAMMABILITY\",\"comp_ref\":\"MIX\",\"q\":null,\"text_value\":\"인화성 가스\",\"cond\":null,\"seq\":1,\"data_source\":\"ECHA\"},{\"prop_code\":\"UEL\",\"comp_ref\":\"MIX\",\"q\":{\"raw\":\"인화 상한값 15 %(V)\",\"approx\":null,\"value\":15,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"%(V)\",\"dp\":0,\"status\":\"값있음\",\"note\":null},\"text_value\":null,\"cond\":null,\"seq\":1,\"data_source\":\"ECHA\"},{\"prop_code\":\"LEL\",\"comp_ref\":\"MIX\",\"q\":{\"raw\":\"인화 하한값 5 %(V)\",\"approx\":null,\"value\":5,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"%(V)\",\"dp\":0,\"status\":\"값있음\",\"note\":null},\"text_value\":null,\"cond\":null,\"seq\":1,\"data_source\":\"ECHA\"},{\"prop_code\":\"VAPOR_PRESSURE\",\"comp_ref\":\"MIX\",\"q\":{\"raw\":\"62,128Kpa (25˚C)\",\"approx\":null,\"value\":62128,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"kPa\",\"dp\":0,\"status\":\"값있음\",\"note\":null},\"text_value\":null,\"cond\":{\"temp\":25,\"temp_unit\":\"C\",\"pressure\":null,\"pressure_unit\":null,\"method\":null,\"reference\":null,\"conc_value\":null,\"conc_unit\":null},\"seq\":1,\"data_source\":\"HSDB\"},{\"prop_code\":\"SOLUBILITY\",\"comp_ref\":\"MIX\",\"q\":{\"raw\":\"24.4mg/L (25˚C)\",\"approx\":null,\"value\":24.4,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"mg/L\",\"dp\":1,\"status\":\"값있음\",\"note\":null},\"text_value\":null,\"cond\":{\"temp\":25,\"temp_unit\":\"C\",\"pressure\":null,\"pressure_unit\":null,\"method\":null,\"reference\":null,\"conc_value\":null,\"conc_unit\":null},\"seq\":1,\"data_source\":\"ECHA\"},{\"prop_code\":\"VAPOR_DENSITY\",\"comp_ref\":\"MIX\",\"q\":{\"raw\":\"0.554(공기 = 1.0)\",\"approx\":null,\"value\":0.554,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":null,\"dp\":3,\"status\":\"값있음\",\"note\":null},\"text_value\":null,\"cond\":{\"temp\":null,\"temp_unit\":null,\"pressure\":null,\"pressure_unit\":null,\"method\":null,\"reference\":\"공기 = 1.0\",\"conc_value\":null,\"conc_unit\":null},\"seq\":1,\"data_source\":\"HSDB\"},{\"prop_code\":\"RELATIVE_DENSITY\",\"comp_ref\":\"MIX\",\"q\":{\"raw\":\"자료없음\",\"approx\":null,\"value\":null,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":null,\"dp\":null,\"status\":\"자료없음\",\"note\":null},\"text_value\":null,\"cond\":null,\"seq\":1,\"data_source\":null},{\"prop_code\":\"LOG_KOW\",\"comp_ref\":\"MIX\",\"q\":{\"raw\":\"logPow : 1.09\",\"approx\":null,\"value\":1.09,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":null,\"dp\":2,\"status\":\"값있음\",\"note\":null},\"text_value\":null,\"cond\":null,\"seq\":1,\"data_source\":\"ECHA\"},{\"prop_code\":\"AUTOIGNITION\",\"comp_ref\":\"MIX\",\"q\":{\"raw\":\"537\",\"approx\":null,\"value\":537,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":null,\"dp\":0,\"status\":\"값있음\",\"note\":null},\"text_value\":null,\"cond\":null,\"seq\":1,\"data_source\":\"ECHA\"},{\"prop_code\":\"DECOMPOSITION\",\"comp_ref\":\"MIX\",\"q\":{\"raw\":\"자료없음\",\"approx\":null,\"value\":null,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":null,\"dp\":null,\"status\":\"자료없음\",\"note\":null},\"text_value\":null,\"cond\":null,\"seq\":1,\"data_source\":null},{\"prop_code\":\"VISCOSITY\",\"comp_ref\":\"MIX\",\"q\":{\"raw\":\"자료없음\",\"approx\":null,\"value\":null,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":null,\"dp\":null,\"status\":\"자료없음\",\"note\":null},\"text_value\":null,\"cond\":null,\"seq\":1,\"data_source\":null},{\"prop_code\":\"MOL_WEIGHT\",\"comp_ref\":\"MIX\",\"q\":{\"raw\":\"16.04\",\"approx\":null,\"value\":16.04,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":null,\"dp\":2,\"status\":\"값있음\",\"note\":null},\"text_value\":null,\"cond\":null,\"seq\":1,\"data_source\":null},{\"prop_code\":\"RELATIVE_DENSITY\",\"comp_ref\":\"MIX\",\"q\":{\"raw\":\"자료없음\",\"approx\":null,\"value\":null,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":null,\"dp\":null,\"status\":\"자료없음\",\"note\":null},\"text_value\":null,\"cond\":null,\"seq\":2,\"data_source\":null}]}],\"evidence\":[{\"msds_index\":0,\"field\":\"exposure_limits[0]\",\"page\":5,\"source_text\":\"Carbon monoxide | 30.0ppm TWA 200.0ppm STEL\",\"rules\":[\"R04\",\"R06\",\"R08\",\"R10\"],\"note\":\"국내기준 칸의 TWA 값을 분리. CAS 대신 이름으로 성분 3 매칭. 8항 표에 노출/허용기준 구분이 없어 kr_basis는 null\"},{\"msds_index\":0,\"field\":\"exposure_limits[1]\",\"page\":5,\"source_text\":\"Carbon monoxide | 30.0ppm TWA 200.0ppm STEL\",\"rules\":[\"R04\",\"R06\",\"R08\",\"R10\"],\"note\":\"국내기준 칸의 STEL 값을 별도 행으로 분리\"},{\"msds_index\":0,\"field\":\"exposure_limits[2]\",\"page\":5,\"source_text\":\"Carbon monoxide | 25 ppm TWA\",\"rules\":[\"R04\",\"R10\"],\"note\":\"ACGIH 칸의 TWA 값\"},{\"msds_index\":0,\"field\":\"exposure_limits[3]\",\"page\":5,\"source_text\":\"3.5 % of hemoglobin Medium: blood Time: end of shift Parameter: Carboxyhemoglobin (background, nonspecific)\",\"rules\":[\"R04\",\"R10\",\"R11\",\"R17\"],\"note\":\"생물학적 노출기준 첫 항목. 매체·시기·지표를 나누고 괄호 표기를 notations로 분리\"},{\"msds_index\":0,\"field\":\"exposure_limits[4]\",\"page\":5,\"source_text\":\"20 Medium: endexhaled air Time: end of shift Parameter: Carbon monoxide (background, nonspecific)\",\"rules\":[\"R04\",\"R10\",\"R11\",\"R17\"],\"note\":\"생물학적 노출기준 두 번째 항목. 원문에 단위가 없어 unit은 null\"},{\"msds_index\":0,\"field\":\"physchem[0]\",\"page\":6,\"source_text\":\"성상 | 기체 | ECHA\",\"rules\":[\"R25\"],\"note\":null},{\"msds_index\":0,\"field\":\"physchem[1]\",\"page\":6,\"source_text\":\"색상 | 무색 | ECHA\",\"rules\":[\"R25\"],\"note\":null},{\"msds_index\":0,\"field\":\"physchem[2]\",\"page\":6,\"source_text\":\"냄새 | 무취 | ECHA\",\"rules\":[],\"note\":null},{\"msds_index\":0,\"field\":\"physchem[3]\",\"page\":6,\"source_text\":\"냄새역치 | 자료없음\",\"rules\":[\"R15\",\"R25\"],\"note\":null},{\"msds_index\":0,\"field\":\"physchem[4]\",\"page\":6,\"source_text\":\"pH | 자료없음\",\"rules\":[\"R15\"],\"note\":null},{\"msds_index\":0,\"field\":\"physchem[5]\",\"page\":6,\"source_text\":\"녹는점/어는점 | -183 | ECHA\",\"rules\":[\"R04\",\"R17\"],\"note\":\"원문에 단위가 없어 unit은 null\"},{\"msds_index\":0,\"field\":\"physchem[6]\",\"page\":6,\"source_text\":\"초기 끓는점과 끓는점 범위(℃) | -161°C | ECHA\",\"rules\":[\"R04\",\"R08\"],\"note\":null},{\"msds_index\":0,\"field\":\"physchem[7]\",\"page\":6,\"source_text\":\"인화점(℃) | -188℃(closed cup) | HSDB\",\"rules\":[\"R04\",\"R08\"],\"note\":\"괄호 안 closed cup을 cond.method로 분리\"},{\"msds_index\":0,\"field\":\"physchem[8]\",\"page\":6,\"source_text\":\"증발속도 | 자료없음\",\"rules\":[\"R15\",\"R25\"],\"note\":null},{\"msds_index\":0,\"field\":\"physchem[9]\",\"page\":6,\"source_text\":\"인화성(고체, 기체) | 인화성 가스 | ECHA\",\"rules\":[\"R25\"],\"note\":null},{\"msds_index\":0,\"field\":\"physchem[10]\",\"page\":6,\"source_text\":\"인화 또는 폭발 범위의 상한/하한 | 인화 상한값 15 %(V) 인화 하한값 5 %(V) | ECHA\",\"rules\":[\"R04\",\"R25\"],\"note\":\"상한/하한 한 칸을 UEL·LEL 두 행으로 나눔\"},{\"msds_index\":0,\"field\":\"physchem[11]\",\"page\":6,\"source_text\":\"인화 또는 폭발 범위의 상한/하한 | 인화 상한값 15 %(V) 인화 하한값 5 %(V) | ECHA\",\"rules\":[\"R04\",\"R25\"],\"note\":\"하한값 5 %(V)를 LEL 행으로 분리\"},{\"msds_index\":0,\"field\":\"physchem[12]\",\"page\":6,\"source_text\":\"증기압 | 62,128Kpa (25˚C) | HSDB\",\"rules\":[\"R04\",\"R06\",\"R08\"],\"note\":\"천단위 콤마를 없애 62128로 적고, 단위 Kpa는 kPa로 통일. 25˚C는 cond로 분리\"},{\"msds_index\":0,\"field\":\"physchem[13]\",\"page\":6,\"source_text\":\"용해도 | 24.4mg/L (25˚C) | ECHA\",\"rules\":[\"R04\"],\"note\":\"25˚C를 cond로 분리\"},{\"msds_index\":0,\"field\":\"physchem[14]\",\"page\":6,\"source_text\":\"증기밀도 | 0.554(공기 = 1.0) | HSDB\",\"rules\":[\"R04\",\"R25\"],\"note\":\"기준 물질 '공기 = 1.0'을 cond.reference로 분리\"},{\"msds_index\":0,\"field\":\"physchem[15]\",\"page\":6,\"source_text\":\"상대밀도 | 자료없음\",\"rules\":[\"R15\",\"R25\"],\"note\":null},{\"msds_index\":0,\"field\":\"physchem[16]\",\"page\":6,\"source_text\":\"n-옥탄올/물분배계수 | logPow : 1.09 | ECHA\",\"rules\":[\"R04\",\"R25\"],\"note\":null},{\"msds_index\":0,\"field\":\"physchem[17]\",\"page\":6,\"source_text\":\"자연발화온도 | 537 | ECHA\",\"rules\":[\"R04\",\"R17\"],\"note\":\"원문에 단위가 없어 unit은 null\"},{\"msds_index\":0,\"field\":\"physchem[18]\",\"page\":6,\"source_text\":\"분해온도 | 자료없음\",\"rules\":[\"R15\"],\"note\":null},{\"msds_index\":0,\"field\":\"physchem[19]\",\"page\":6,\"source_text\":\"점도(㎟/s, 40℃) | 자료없음\",\"rules\":[\"R15\"],\"note\":null},{\"msds_index\":0,\"field\":\"physchem[20]\",\"page\":6,\"source_text\":\"분자량 | 16.04\",\"rules\":[\"R04\"],\"note\":null},{\"msds_index\":0,\"field\":\"physchem[21]\",\"page\":6,\"source_text\":\"비중 | 자료없음\",\"rules\":[\"R15\",\"R25\"],\"note\":\"상대밀도와 같은 코드라서 seq 2로 둠\"}]}"
+}

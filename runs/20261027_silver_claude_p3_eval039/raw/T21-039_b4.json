@@ -1,0 +1,3562 @@
+{
+  "doc_id": "T21-039",
+  "bundle": "b4",
+  "model": "claude-opus-5-5",
+  "mode": "none",
+  "finish_reason": "stop",
+  "usage": {
+    "prompt_tokens": 231573,
+    "completion_tokens": 31004,
+    "total_tokens": 262577,
+    "served_model": "claude-opus-5-5"
+  },
+  "seconds": 226.2,
+  "attempts": 1,
+  "errors": [],
+  "parsed": {
+    "msds": [
+      {
+        "transport": [
+          {
+            "mode": "공통",
+            "basis_raw": null,
+            "regulated": false,
+            "un_no": null,
+            "shipping_name": null,
+            "hazard_class": null,
+            "sub_risk": null,
+            "packing_group": "해당없음",
+            "marine_pollutant": "자료없음",
+            "ems_fire": null,
+            "ems_spill": null
+          }
+        ],
+        "regulations": [
+          {
+            "seq": 1,
+            "law": "OSH",
+            "item_code": null,
+            "item_raw": "산업안전보건법에 의한 규제",
+            "comp_ref": "MIX",
+            "applicable": "자료없음",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 2,
+            "law": "CCA",
+            "item_code": null,
+            "item_raw": "유해화학물질관리법에 의한 규제",
+            "comp_ref": "MIX",
+            "applicable": "자료없음",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 3,
+            "law": "DG",
+            "item_code": "DG_HAZMAT",
+            "item_raw": "위험물안전관리법에 의한 규제",
+            "comp_ref": "MIX",
+            "applicable": "자료없음",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 4,
+            "law": "WASTE",
+            "item_code": "WASTE_DESIG",
+            "item_raw": "폐기물관리법에 의한 규제",
+            "comp_ref": "MIX",
+            "applicable": "해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": "지정폐기물",
+            "remark": null
+          },
+          {
+            "seq": 5,
+            "law": "POPS",
+            "item_code": "POPS",
+            "item_raw": "잔류성유기오염물질관리법",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 6,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보(OSHA 규정)",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "US",
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 7,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보(CERCLA 규정)",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "US",
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 8,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보(EPCRA 302 규정)",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "US",
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 9,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보(EPCRA 304 규정)",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "US",
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 10,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보(EPCRA 313 규정)",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "US",
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 11,
+            "law": "INTL",
+            "item_code": "INTL_TREATY",
+            "item_raw": "미국관리정보(로테르담협약물질)",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 12,
+            "law": "INTL",
+            "item_code": "INTL_TREATY",
+            "item_raw": "미국관리정보(스톡홀름협약물질)",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 13,
+            "law": "INTL",
+            "item_code": "INTL_TREATY",
+            "item_raw": "미국관리정보(몬트리올의정서물질)",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 14,
+            "law": "INTL",
+            "item_code": "INTL_EU",
+            "item_raw": "EU 분류정보(확정분류결과)",
+            "comp_ref": "MIX",
+            "applicable": null,
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "EU",
+            "value_raw": "Xn; R22Xi; R36/38",
+            "remark": null
+          },
+          {
+            "seq": 15,
+            "law": "INTL",
+            "item_code": "INTL_EU",
+            "item_raw": "EU 분류정보(위험문구)",
+            "comp_ref": "MIX",
+            "applicable": null,
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "EU",
+            "value_raw": "R22, R36/38",
+            "remark": null
+          },
+          {
+            "seq": 16,
+            "law": "INTL",
+            "item_code": "INTL_EU",
+            "item_raw": "EU 분류정보(안전문구)",
+            "comp_ref": "MIX",
+            "applicable": null,
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "EU",
+            "value_raw": "S2, S22",
+            "remark": null
+          }
+        ],
+        "dangerous_goods": [],
+        "waste": [
+          {
+            "comp_ref": "MIX",
+            "designated": "해당",
+            "waste_type": null
+          }
+        ],
+        "intl_class": [
+          {
+            "comp_ref": "MIX",
+            "system": "기타",
+            "class_raw": "Xn; R22",
+            "h_code": null,
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "system": "기타",
+            "class_raw": "Xi; R36/38",
+            "h_code": null,
+            "status": "값있음"
+          }
+        ]
+      },
+      {
+        "transport": [
+          {
+            "mode": "공통",
+            "basis_raw": null,
+            "regulated": false,
+            "un_no": null,
+            "shipping_name": null,
+            "hazard_class": null,
+            "sub_risk": null,
+            "packing_group": "해당없음",
+            "marine_pollutant": "자료없음",
+            "ems_fire": null,
+            "ems_spill": null
+          }
+        ],
+        "regulations": [
+          {
+            "seq": 1,
+            "law": "OSH",
+            "item_code": null,
+            "item_raw": "산업안전보건법에 의한 규제",
+            "comp_ref": "MIX",
+            "applicable": "자료없음",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 2,
+            "law": "CCA",
+            "item_code": null,
+            "item_raw": "유해화학물질관리법에 의한 규제",
+            "comp_ref": "MIX",
+            "applicable": "자료없음",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 3,
+            "law": "DG",
+            "item_code": "DG_HAZMAT",
+            "item_raw": "위험물안전관리법에 의한 규제",
+            "comp_ref": "MIX",
+            "applicable": "자료없음",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 4,
+            "law": "WASTE",
+            "item_code": "WASTE_DESIG",
+            "item_raw": "폐기물관리법에 의한 규제",
+            "comp_ref": "MIX",
+            "applicable": "해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": "지정폐기물",
+            "remark": null
+          },
+          {
+            "seq": 5,
+            "law": "POPS",
+            "item_code": "POPS",
+            "item_raw": "잔류성유기오염물질관리법",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 6,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보(OSHA 규정)",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "US",
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 7,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보(CERCLA 규정)",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "US",
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 8,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보(EPCRA 302 규정)",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "US",
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 9,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보(EPCRA 304 규정)",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "US",
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 10,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보(EPCRA 313 규정)",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "US",
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 11,
+            "law": "INTL",
+            "item_code": "INTL_TREATY",
+            "item_raw": "미국관리정보(로테르담협약물질)",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 12,
+            "law": "INTL",
+            "item_code": "INTL_TREATY",
+            "item_raw": "미국관리정보(스톡홀름협약물질)",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 13,
+            "law": "INTL",
+            "item_code": "INTL_TREATY",
+            "item_raw": "미국관리정보(몬트리올의정서물질)",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 14,
+            "law": "INTL",
+            "item_code": "INTL_EU",
+            "item_raw": "EU 분류정보(확정분류결과)",
+            "comp_ref": "MIX",
+            "applicable": null,
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "EU",
+            "value_raw": "Xn; R22Xi; R36/38",
+            "remark": null
+          },
+          {
+            "seq": 15,
+            "law": "INTL",
+            "item_code": "INTL_EU",
+            "item_raw": "EU 분류정보(위험문구)",
+            "comp_ref": "MIX",
+            "applicable": null,
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "EU",
+            "value_raw": "R22, R36/38",
+            "remark": null
+          },
+          {
+            "seq": 16,
+            "law": "INTL",
+            "item_code": "INTL_EU",
+            "item_raw": "EU 분류정보(안전문구)",
+            "comp_ref": "MIX",
+            "applicable": null,
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "EU",
+            "value_raw": "S2, S22",
+            "remark": null
+          }
+        ],
+        "dangerous_goods": [],
+        "waste": [
+          {
+            "comp_ref": "MIX",
+            "designated": "해당",
+            "waste_type": null
+          }
+        ],
+        "intl_class": [
+          {
+            "comp_ref": "MIX",
+            "system": "기타",
+            "class_raw": "Xn; R22",
+            "h_code": null,
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "system": "기타",
+            "class_raw": "Xi; R36/38",
+            "h_code": null,
+            "status": "값있음"
+          }
+        ]
+      },
+      {
+        "transport": [
+          {
+            "mode": "공통",
+            "basis_raw": null,
+            "regulated": false,
+            "un_no": null,
+            "shipping_name": null,
+            "hazard_class": null,
+            "sub_risk": null,
+            "packing_group": "해당없음",
+            "marine_pollutant": "자료없음",
+            "ems_fire": null,
+            "ems_spill": null
+          }
+        ],
+        "regulations": [
+          {
+            "seq": 1,
+            "law": "OSH",
+            "item_code": null,
+            "item_raw": "산업안전보건법에 의한 규제",
+            "comp_ref": "MIX",
+            "applicable": "자료없음",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 2,
+            "law": "CCA",
+            "item_code": null,
+            "item_raw": "유해화학물질관리법에 의한 규제",
+            "comp_ref": "MIX",
+            "applicable": "자료없음",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 3,
+            "law": "DG",
+            "item_code": "DG_HAZMAT",
+            "item_raw": "위험물안전관리법에 의한 규제",
+            "comp_ref": "MIX",
+            "applicable": "자료없음",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 4,
+            "law": "WASTE",
+            "item_code": "WASTE_DESIG",
+            "item_raw": "폐기물관리법에 의한 규제",
+            "comp_ref": "MIX",
+            "applicable": "해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": "지정폐기물",
+            "remark": null
+          },
+          {
+            "seq": 5,
+            "law": "POPS",
+            "item_code": "POPS",
+            "item_raw": "잔류성유기오염물질관리법",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 6,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보(OSHA 규정)",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "US",
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 7,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보(CERCLA 규정)",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "US",
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 8,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보(EPCRA 302 규정)",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "US",
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 9,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보(EPCRA 304 규정)",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "US",
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 10,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보(EPCRA 313 규정)",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "US",
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 11,
+            "law": "INTL",
+            "item_code": "INTL_TREATY",
+            "item_raw": "미국관리정보(로테르담협약물질)",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 12,
+            "law": "INTL",
+            "item_code": "INTL_TREATY",
+            "item_raw": "미국관리정보(스톡홀름협약물질)",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 13,
+            "law": "INTL",
+            "item_code": "INTL_TREATY",
+            "item_raw": "미국관리정보(몬트리올의정서물질)",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 14,
+            "law": "INTL",
+            "item_code": "INTL_EU",
+            "item_raw": "EU 분류정보(확정분류결과)",
+            "comp_ref": "MIX",
+            "applicable": null,
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "EU",
+            "value_raw": "Xn; R22Xi; R36/38",
+            "remark": null
+          },
+          {
+            "seq": 15,
+            "law": "INTL",
+            "item_code": "INTL_EU",
+            "item_raw": "EU 분류정보(위험문구)",
+            "comp_ref": "MIX",
+            "applicable": null,
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "EU",
+            "value_raw": "R22, R36/38",
+            "remark": null
+          },
+          {
+            "seq": 16,
+            "law": "INTL",
+            "item_code": "INTL_EU",
+            "item_raw": "EU 분류정보(안전문구)",
+            "comp_ref": "MIX",
+            "applicable": null,
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "EU",
+            "value_raw": "S2, S22",
+            "remark": null
+          }
+        ],
+        "dangerous_goods": [],
+        "waste": [
+          {
+            "comp_ref": "MIX",
+            "designated": "해당",
+            "waste_type": null
+          }
+        ],
+        "intl_class": [
+          {
+            "comp_ref": "MIX",
+            "system": "기타",
+            "class_raw": "Xn; R22",
+            "h_code": null,
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "system": "기타",
+            "class_raw": "Xi; R36/38",
+            "h_code": null,
+            "status": "값있음"
+          }
+        ]
+      },
+      {
+        "transport": [
+          {
+            "mode": "공통",
+            "basis_raw": null,
+            "regulated": null,
+            "un_no": null,
+            "shipping_name": null,
+            "hazard_class": null,
+            "sub_risk": null,
+            "packing_group": "해당없음",
+            "marine_pollutant": "자료없음",
+            "ems_fire": null,
+            "ems_spill": null
+          }
+        ],
+        "regulations": [
+          {
+            "seq": 1,
+            "law": "OSH",
+            "item_code": null,
+            "item_raw": "산업안전보건법에 의한 규제",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 2,
+            "law": "CCA",
+            "item_code": null,
+            "item_raw": "유해화학물질관리법에 의한 규제",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 3,
+            "law": "DG",
+            "item_code": "DG_HAZMAT",
+            "item_raw": "위험물안전관리법에 의한 규제",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 4,
+            "law": "WASTE",
+            "item_code": null,
+            "item_raw": "폐기물관리법에 의한 규제",
+            "comp_ref": "MIX",
+            "applicable": null,
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": "폐기시 폐기물관리법 제13조 폐기물처리기준에 따라 처리하여야 함",
+            "remark": null
+          },
+          {
+            "seq": 5,
+            "law": "POPS",
+            "item_code": "POPS",
+            "item_raw": "잔류성유기오염물질관리법",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 6,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보(OSHA 규정)",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "US",
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 7,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보(CERCLA 규정)",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "US",
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 8,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보(EPCRA 302 규정)",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "US",
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 9,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보(EPCRA 304 규정)",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "US",
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 10,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보(EPCRA 313 규정)",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "US",
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 11,
+            "law": "INTL",
+            "item_code": "INTL_TREATY",
+            "item_raw": "미국관리정보(로테르담협약물질)",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 12,
+            "law": "INTL",
+            "item_code": "INTL_TREATY",
+            "item_raw": "미국관리정보(스톡홀름협약물질)",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 13,
+            "law": "INTL",
+            "item_code": "INTL_TREATY",
+            "item_raw": "미국관리정보(몬트리올의정서물질)",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 14,
+            "law": "INTL",
+            "item_code": "INTL_EU",
+            "item_raw": "EU 분류정보(확정분류결과)",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "EU",
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 15,
+            "law": "INTL",
+            "item_code": "INTL_EU",
+            "item_raw": "EU 분류정보(위험문구)",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "EU",
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 16,
+            "law": "INTL",
+            "item_code": "INTL_EU",
+            "item_raw": "EU 분류정보(안전문구)",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "EU",
+            "value_raw": null,
+            "remark": null
+          }
+        ],
+        "dangerous_goods": [
+          {
+            "comp_ref": "MIX",
+            "class": "해당없음",
+            "item": null,
+            "water_soluble": null,
+            "grade": null,
+            "designated_qty": null
+          }
+        ],
+        "waste": [],
+        "intl_class": [
+          {
+            "comp_ref": "MIX",
+            "system": "기타",
+            "class_raw": null,
+            "h_code": null,
+            "status": "해당없음"
+          }
+        ]
+      },
+      {
+        "transport": [
+          {
+            "mode": "공통",
+            "basis_raw": null,
+            "regulated": null,
+            "un_no": null,
+            "shipping_name": null,
+            "hazard_class": null,
+            "sub_risk": null,
+            "packing_group": "해당없음",
+            "marine_pollutant": "자료없음",
+            "ems_fire": null,
+            "ems_spill": null
+          }
+        ],
+        "regulations": [
+          {
+            "seq": 1,
+            "law": "OSH",
+            "item_code": null,
+            "item_raw": "산업안전보건법에 의한 규제",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 2,
+            "law": "CCA",
+            "item_code": null,
+            "item_raw": "유해화학물질관리법에 의한 규제",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 3,
+            "law": "DG",
+            "item_code": "DG_HAZMAT",
+            "item_raw": "위험물안전관리법에 의한 규제",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 4,
+            "law": "WASTE",
+            "item_code": null,
+            "item_raw": "폐기물관리법에 의한 규제",
+            "comp_ref": "MIX",
+            "applicable": null,
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": "폐기시 폐기물관리법 제13조 폐기물처리기준에 따라 처리하여야 함",
+            "remark": null
+          },
+          {
+            "seq": 5,
+            "law": "POPS",
+            "item_code": "POPS",
+            "item_raw": "잔류성유기오염물질관리법",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 6,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보(OSHA 규정)",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "US",
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 7,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보(CERCLA 규정)",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "US",
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 8,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보(EPCRA 302 규정)",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "US",
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 9,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보(EPCRA 304 규정)",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "US",
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 10,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보(EPCRA 313 규정)",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "US",
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 11,
+            "law": "INTL",
+            "item_code": "INTL_TREATY",
+            "item_raw": "미국관리정보(로테르담협약물질)",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 12,
+            "law": "INTL",
+            "item_code": "INTL_TREATY",
+            "item_raw": "미국관리정보(스톡홀름협약물질)",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 13,
+            "law": "INTL",
+            "item_code": "INTL_TREATY",
+            "item_raw": "미국관리정보(몬트리올의정서물질)",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 14,
+            "law": "INTL",
+            "item_code": "INTL_EU",
+            "item_raw": "EU 분류정보(확정분류결과)",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "EU",
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 15,
+            "law": "INTL",
+            "item_code": "INTL_EU",
+            "item_raw": "EU 분류정보(위험문구)",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "EU",
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 16,
+            "law": "INTL",
+            "item_code": "INTL_EU",
+            "item_raw": "EU 분류정보(안전문구)",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "EU",
+            "value_raw": null,
+            "remark": null
+          }
+        ],
+        "dangerous_goods": [
+          {
+            "comp_ref": "MIX",
+            "class": "해당없음",
+            "item": null,
+            "water_soluble": null,
+            "grade": null,
+            "designated_qty": null
+          }
+        ],
+        "waste": [],
+        "intl_class": [
+          {
+            "comp_ref": "MIX",
+            "system": "기타",
+            "class_raw": null,
+            "h_code": null,
+            "status": "해당없음"
+          }
+        ]
+      },
+      {
+        "transport": [
+          {
+            "mode": "공통",
+            "basis_raw": null,
+            "regulated": null,
+            "un_no": null,
+            "shipping_name": null,
+            "hazard_class": null,
+            "sub_risk": null,
+            "packing_group": "해당없음",
+            "marine_pollutant": "자료없음",
+            "ems_fire": null,
+            "ems_spill": null
+          }
+        ],
+        "regulations": [
+          {
+            "seq": 1,
+            "law": "OSH",
+            "item_code": null,
+            "item_raw": "산업안전보건법에 의한 규제",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 2,
+            "law": "CCA",
+            "item_code": null,
+            "item_raw": "유해화학물질관리법에 의한 규제",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 3,
+            "law": "DG",
+            "item_code": "DG_HAZMAT",
+            "item_raw": "위험물안전관리법에 의한 규제",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 4,
+            "law": "WASTE",
+            "item_code": null,
+            "item_raw": "폐기물관리법에 의한 규제",
+            "comp_ref": "MIX",
+            "applicable": null,
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": "폐기시 폐기물관리법 제13조 폐기물처리기준에 따라 처리하여야 함",
+            "remark": null
+          },
+          {
+            "seq": 5,
+            "law": "POPS",
+            "item_code": "POPS",
+            "item_raw": "잔류성유기오염물질관리법",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 6,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보(OSHA 규정)",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "US",
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 7,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보(CERCLA 규정)",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "US",
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 8,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보(EPCRA 302 규정)",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "US",
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 9,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보(EPCRA 304 규정)",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "US",
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 10,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보(EPCRA 313 규정)",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "US",
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 11,
+            "law": "INTL",
+            "item_code": "INTL_TREATY",
+            "item_raw": "미국관리정보(로테르담협약물질)",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 12,
+            "law": "INTL",
+            "item_code": "INTL_TREATY",
+            "item_raw": "미국관리정보(스톡홀름협약물질)",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 13,
+            "law": "INTL",
+            "item_code": "INTL_TREATY",
+            "item_raw": "미국관리정보(몬트리올의정서물질)",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 14,
+            "law": "INTL",
+            "item_code": "INTL_EU",
+            "item_raw": "EU 분류정보(확정분류결과)",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "EU",
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 15,
+            "law": "INTL",
+            "item_code": "INTL_EU",
+            "item_raw": "EU 분류정보(위험문구)",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "EU",
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 16,
+            "law": "INTL",
+            "item_code": "INTL_EU",
+            "item_raw": "EU 분류정보(안전문구)",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "EU",
+            "value_raw": null,
+            "remark": null
+          }
+        ],
+        "dangerous_goods": [
+          {
+            "comp_ref": "MIX",
+            "class": "해당없음",
+            "item": null,
+            "water_soluble": null,
+            "grade": null,
+            "designated_qty": null
+          }
+        ],
+        "waste": [],
+        "intl_class": [
+          {
+            "comp_ref": "MIX",
+            "system": "기타",
+            "class_raw": null,
+            "h_code": null,
+            "status": "해당없음"
+          }
+        ]
+      },
+      {
+        "transport": [
+          {
+            "mode": "공통",
+            "basis_raw": null,
+            "regulated": null,
+            "un_no": null,
+            "shipping_name": null,
+            "hazard_class": null,
+            "sub_risk": null,
+            "packing_group": "해당없음",
+            "marine_pollutant": "자료없음",
+            "ems_fire": null,
+            "ems_spill": null
+          }
+        ],
+        "regulations": [
+          {
+            "seq": 1,
+            "law": "OSH",
+            "item_code": null,
+            "item_raw": "산업안전보건법에 의한 규제",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 2,
+            "law": "CCA",
+            "item_code": null,
+            "item_raw": "유해화학물질관리법에 의한 규제",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 3,
+            "law": "DG",
+            "item_code": "DG_HAZMAT",
+            "item_raw": "위험물안전관리법에 의한 규제",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 4,
+            "law": "WASTE",
+            "item_code": "WASTE_DESIG",
+            "item_raw": "폐기물관리법에 의한 규제",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 5,
+            "law": "POPS",
+            "item_code": "POPS",
+            "item_raw": "잔류성유기오염물질관리법",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 6,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보(OSHA 규정)",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "US",
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 7,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보(CERCLA 규정)",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "US",
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 8,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보(EPCRA 302 규정)",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "US",
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 9,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보(EPCRA 304 규정)",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "US",
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 10,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보(EPCRA 313 규정)",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "US",
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 11,
+            "law": "INTL",
+            "item_code": "INTL_TREATY",
+            "item_raw": "미국관리정보(로테르담협약물질)",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 12,
+            "law": "INTL",
+            "item_code": "INTL_TREATY",
+            "item_raw": "미국관리정보(스톡홀름협약물질)",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 13,
+            "law": "INTL",
+            "item_code": "INTL_TREATY",
+            "item_raw": "미국관리정보(몬트리올의정서물질)",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 14,
+            "law": "INTL",
+            "item_code": "INTL_EU",
+            "item_raw": "EU 분류정보(확정분류결과)",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "EU",
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 15,
+            "law": "INTL",
+            "item_code": "INTL_EU",
+            "item_raw": "EU 분류정보(위험문구)",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "EU",
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 16,
+            "law": "INTL",
+            "item_code": "INTL_EU",
+            "item_raw": "EU 분류정보(안전문구)",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "EU",
+            "value_raw": null,
+            "remark": null
+          }
+        ],
+        "dangerous_goods": [
+          {
+            "comp_ref": "MIX",
+            "class": "해당없음",
+            "item": null,
+            "water_soluble": null,
+            "grade": null,
+            "designated_qty": null
+          }
+        ],
+        "waste": [
+          {
+            "comp_ref": "MIX",
+            "designated": "비해당",
+            "waste_type": null
+          }
+        ],
+        "intl_class": [
+          {
+            "comp_ref": "MIX",
+            "system": "기타",
+            "class_raw": null,
+            "h_code": null,
+            "status": "해당없음"
+          }
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "msds_index": 0,
+        "field": "transport[0]",
+        "page": 6,
+        "source_text": "유엔번호(UN No.) | 위험 물질로 분류되지 않음 | 적정선적명 | 해당없음 | 운송에서의 위험성 등급 | 해당없음 | 용기등급 | 해당없음 | 해양오염물질 | 자료없음 | 화재시 비상조치 | 해당없음 | 유출시 비상조치 | 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "'위험 물질로 분류되지 않음'을 regulated=false로, 해당없음 칸(선적명·등급·EmS)은 null로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[0]",
+        "page": 6,
+        "source_text": "산업안전보건법에 의한 규제 | 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "법령 전체 항목이라 item_code 없음"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[1]",
+        "page": 6,
+        "source_text": "유해화학물질관리법에 의한 규제 | 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "유해화학물질관리법을 CCA로 둠, 세부 항목 없어 item_code null"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[2]",
+        "page": 6,
+        "source_text": "위험물안전관리법에 의한 규제 | 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[3]",
+        "page": 6,
+        "source_text": "폐기물관리법에 의한 규제 | 지정폐기물",
+        "rules": [
+          "R25"
+        ],
+        "note": "'지정폐기물' 기재를 해당으로 봄"
+      },
+      {
+        "msds_index": 0,
+        "field": "waste[0]",
+        "page": 6,
+        "source_text": "폐기물관리법에 의한 규제 | 지정폐기물",
+        "rules": [],
+        "note": "지정폐기물 기재 → designated=해당"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[4]",
+        "page": 6,
+        "source_text": "잔류성유기오염물질관리법 | 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "해당없음 → 비해당"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[5]",
+        "page": 6,
+        "source_text": "미국관리정보(OSHA 규정) | 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "해당없음 → 비해당"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[6]",
+        "page": 6,
+        "source_text": "미국관리정보(CERCLA 규정) | 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "해당없음 → 비해당"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[7]",
+        "page": 6,
+        "source_text": "미국관리정보(EPCRA 302 규정) | 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "해당없음 → 비해당"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[8]",
+        "page": 6,
+        "source_text": "미국관리정보(EPCRA 304 규정) | 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "해당없음 → 비해당"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[9]",
+        "page": 6,
+        "source_text": "미국관리정보(EPCRA 313 규정) | 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "해당없음 → 비해당"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[10]",
+        "page": 6,
+        "source_text": "미국관리정보(로테르담협약물질) | 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "국제협약 항목이라 INTL_TREATY로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[11]",
+        "page": 6,
+        "source_text": "미국관리정보(스톡홀름협약물질) | 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "국제협약 항목이라 INTL_TREATY로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[12]",
+        "page": 6,
+        "source_text": "미국관리정보(몬트리올의정서물질) | 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "국제협약 항목이라 INTL_TREATY로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[13]",
+        "page": 6,
+        "source_text": "EU 분류정보(확정분류결과) | Xn; R22Xi; R36/38",
+        "rules": [
+          "R25"
+        ],
+        "note": "해당 여부 대신 값이 적혀 value_raw에 원문 보존"
+      },
+      {
+        "msds_index": 0,
+        "field": "intl_class[0]",
+        "page": 6,
+        "source_text": "EU 분류정보(확정분류결과) | Xn; R22Xi; R36/38",
+        "rules": [
+          "R11"
+        ],
+        "note": "붙어 있는 원문을 'Xn; R22'와 'Xi; R36/38'로 나눔(구 EU DSD 분류라 system=기타)"
+      },
+      {
+        "msds_index": 0,
+        "field": "intl_class[1]",
+        "page": 6,
+        "source_text": "EU 분류정보(확정분류결과) | Xn; R22Xi; R36/38",
+        "rules": [
+          "R11"
+        ],
+        "note": "붙어 있는 원문에서 두 번째 분류 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[14]",
+        "page": 7,
+        "source_text": "EU 분류정보(위험문구) | R22, R36/38",
+        "rules": [
+          "R25"
+        ],
+        "note": "값을 value_raw에 보존"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[15]",
+        "page": 7,
+        "source_text": "EU 분류정보(안전문구) | S2, S22",
+        "rules": [
+          "R25"
+        ],
+        "note": "값을 value_raw에 보존"
+      },
+      {
+        "msds_index": 1,
+        "field": "transport[0]",
+        "page": 12,
+        "source_text": "유엔번호(UN No.) | 위험 물질로 분류되지 않음 | 적정선적명 | 해당없음 | 운송에서의 위험성 등급 | 해당없음 | 용기등급 | 해당없음 | 해양오염물질 | 자료없음 | 화재시 비상조치 | 해당없음 | 유출시 비상조치 | 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "'위험 물질로 분류되지 않음'을 regulated=false로, 해당없음 칸은 null로 둠"
+      },
+      {
+        "msds_index": 1,
+        "field": "regulations[0]",
+        "page": 12,
+        "source_text": "산업안전보건법에 의한 규제 | 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 1,
+        "field": "regulations[1]",
+        "page": 12,
+        "source_text": "유해화학물질관리법에 의한 규제 | 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 1,
+        "field": "regulations[2]",
+        "page": 12,
+        "source_text": "위험물안전관리법에 의한 규제 | 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 1,
+        "field": "regulations[3]",
+        "page": 12,
+        "source_text": "폐기물관리법에 의한 규제 | 지정폐기물",
+        "rules": [
+          "R25"
+        ],
+        "note": "'지정폐기물' 기재를 해당으로 봄"
+      },
+      {
+        "msds_index": 1,
+        "field": "waste[0]",
+        "page": 12,
+        "source_text": "폐기물관리법에 의한 규제 | 지정폐기물",
+        "rules": [],
+        "note": "지정폐기물 기재 → designated=해당"
+      },
+      {
+        "msds_index": 1,
+        "field": "regulations[4]",
+        "page": 12,
+        "source_text": "잔류성유기오염물질관리법 | 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "해당없음 → 비해당"
+      },
+      {
+        "msds_index": 1,
+        "field": "regulations[5]",
+        "page": 12,
+        "source_text": "미국관리정보(OSHA 규정) | 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "해당없음 → 비해당"
+      },
+      {
+        "msds_index": 1,
+        "field": "regulations[6]",
+        "page": 12,
+        "source_text": "미국관리정보(CERCLA 규정) | 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "해당없음 → 비해당"
+      },
+      {
+        "msds_index": 1,
+        "field": "regulations[7]",
+        "page": 12,
+        "source_text": "미국관리정보(EPCRA 302 규정) | 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "해당없음 → 비해당"
+      },
+      {
+        "msds_index": 1,
+        "field": "regulations[8]",
+        "page": 12,
+        "source_text": "미국관리정보(EPCRA 304 규정) | 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "해당없음 → 비해당"
+      },
+      {
+        "msds_index": 1,
+        "field": "regulations[9]",
+        "page": 12,
+        "source_text": "미국관리정보(EPCRA 313 규정) | 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "해당없음 → 비해당"
+      },
+      {
+        "msds_index": 1,
+        "field": "regulations[10]",
+        "page": 12,
+        "source_text": "미국관리정보(로테르담협약물질) | 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "INTL_TREATY"
+      },
+      {
+        "msds_index": 1,
+        "field": "regulations[11]",
+        "page": 12,
+        "source_text": "미국관리정보(스톡홀름협약물질) | 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "INTL_TREATY"
+      },
+      {
+        "msds_index": 1,
+        "field": "regulations[12]",
+        "page": 12,
+        "source_text": "미국관리정보(몬트리올의정서물질) | 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "INTL_TREATY"
+      },
+      {
+        "msds_index": 1,
+        "field": "regulations[13]",
+        "page": 12,
+        "source_text": "EU 분류정보(확정분류결과) | Xn; R22Xi; R36/38",
+        "rules": [
+          "R25"
+        ],
+        "note": "값을 value_raw에 보존"
+      },
+      {
+        "msds_index": 1,
+        "field": "intl_class[0]",
+        "page": 12,
+        "source_text": "EU 분류정보(확정분류결과) | Xn; R22Xi; R36/38",
+        "rules": [
+          "R11"
+        ],
+        "note": "붙어 있는 원문을 두 분류로 나눔"
+      },
+      {
+        "msds_index": 1,
+        "field": "intl_class[1]",
+        "page": 12,
+        "source_text": "EU 분류정보(확정분류결과) | Xn; R22Xi; R36/38",
+        "rules": [
+          "R11"
+        ],
+        "note": "붙어 있는 원문에서 두 번째 분류 분리"
+      },
+      {
+        "msds_index": 1,
+        "field": "regulations[14]",
+        "page": 13,
+        "source_text": "EU 분류정보(위험문구) | R22, R36/38",
+        "rules": [
+          "R25"
+        ],
+        "note": "값을 value_raw에 보존"
+      },
+      {
+        "msds_index": 1,
+        "field": "regulations[15]",
+        "page": 13,
+        "source_text": "EU 분류정보(안전문구) | S2, S22",
+        "rules": [
+          "R25"
+        ],
+        "note": "값을 value_raw에 보존"
+      },
+      {
+        "msds_index": 2,
+        "field": "transport[0]",
+        "page": 18,
+        "source_text": "유엔번호(UN No.) | 위험 물질로 분류되지 않음 | 적정선적명 | 해당없음 | 운송에서의 위험성 등급 | 해당없음 | 용기등급 | 해당없음 | 해양오염물질 | 자료없음 | 화재시 비상조치 | 해당없음 | 유출시 비상조치 | 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "'위험 물질로 분류되지 않음'을 regulated=false로, 해당없음 칸은 null로 둠"
+      },
+      {
+        "msds_index": 2,
+        "field": "regulations[0]",
+        "page": 18,
+        "source_text": "산업안전보건법에 의한 규제 | 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 2,
+        "field": "regulations[1]",
+        "page": 18,
+        "source_text": "유해화학물질관리법에 의한 규제 | 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 2,
+        "field": "regulations[2]",
+        "page": 18,
+        "source_text": "위험물안전관리법에 의한 규제 | 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 2,
+        "field": "regulations[3]",
+        "page": 18,
+        "source_text": "폐기물관리법에 의한 규제 | 지정폐기물",
+        "rules": [
+          "R25"
+        ],
+        "note": "'지정폐기물' 기재를 해당으로 봄"
+      },
+      {
+        "msds_index": 2,
+        "field": "waste[0]",
+        "page": 18,
+        "source_text": "폐기물관리법에 의한 규제 | 지정폐기물",
+        "rules": [],
+        "note": "지정폐기물 기재 → designated=해당"
+      },
+      {
+        "msds_index": 2,
+        "field": "regulations[4]",
+        "page": 18,
+        "source_text": "잔류성유기오염물질관리법 | 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "해당없음 → 비해당"
+      },
+      {
+        "msds_index": 2,
+        "field": "regulations[5]",
+        "page": 18,
+        "source_text": "미국관리정보(OSHA 규정) | 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "해당없음 → 비해당"
+      },
+      {
+        "msds_index": 2,
+        "field": "regulations[6]",
+        "page": 18,
+        "source_text": "미국관리정보(CERCLA 규정) | 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "해당없음 → 비해당"
+      },
+      {
+        "msds_index": 2,
+        "field": "regulations[7]",
+        "page": 18,
+        "source_text": "미국관리정보(EPCRA 302 규정) | 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "해당없음 → 비해당"
+      },
+      {
+        "msds_index": 2,
+        "field": "regulations[8]",
+        "page": 18,
+        "source_text": "미국관리정보(EPCRA 304 규정) | 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "해당없음 → 비해당"
+      },
+      {
+        "msds_index": 2,
+        "field": "regulations[9]",
+        "page": 18,
+        "source_text": "미국관리정보(EPCRA 313 규정) | 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "해당없음 → 비해당"
+      },
+      {
+        "msds_index": 2,
+        "field": "regulations[10]",
+        "page": 18,
+        "source_text": "미국관리정보(로테르담협약물질) | 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "INTL_TREATY"
+      },
+      {
+        "msds_index": 2,
+        "field": "regulations[11]",
+        "page": 18,
+        "source_text": "미국관리정보(스톡홀름협약물질) | 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "INTL_TREATY"
+      },
+      {
+        "msds_index": 2,
+        "field": "regulations[12]",
+        "page": 18,
+        "source_text": "미국관리정보(몬트리올의정서물질) | 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "INTL_TREATY"
+      },
+      {
+        "msds_index": 2,
+        "field": "regulations[13]",
+        "page": 18,
+        "source_text": "EU 분류정보(확정분류결과) | Xn; R22Xi; R36/38",
+        "rules": [
+          "R25"
+        ],
+        "note": "값을 value_raw에 보존"
+      },
+      {
+        "msds_index": 2,
+        "field": "intl_class[0]",
+        "page": 18,
+        "source_text": "EU 분류정보(확정분류결과) | Xn; R22Xi; R36/38",
+        "rules": [
+          "R11"
+        ],
+        "note": "붙어 있는 원문을 두 분류로 나눔"
+      },
+      {
+        "msds_index": 2,
+        "field": "intl_class[1]",
+        "page": 18,
+        "source_text": "EU 분류정보(확정분류결과) | Xn; R22Xi; R36/38",
+        "rules": [
+          "R11"
+        ],
+        "note": "붙어 있는 원문에서 두 번째 분류 분리"
+      },
+      {
+        "msds_index": 2,
+        "field": "regulations[14]",
+        "page": 19,
+        "source_text": "EU 분류정보(위험문구) | R22, R36/38",
+        "rules": [
+          "R25"
+        ],
+        "note": "값을 value_raw에 보존"
+      },
+      {
+        "msds_index": 2,
+        "field": "regulations[15]",
+        "page": 19,
+        "source_text": "EU 분류정보(안전문구) | S2, S22",
+        "rules": [
+          "R25"
+        ],
+        "note": "값을 value_raw에 보존"
+      },
+      {
+        "msds_index": 3,
+        "field": "transport[0]",
+        "page": 22,
+        "source_text": "유엔번호(UN No.) | UN 운송위험물질 분류정보가 없음 | 적정선적명 | 해당없음 | 운송에서의 위험성 등급 | 해당없음 | 용기등급 | 해당없음 | 해양오염물질 | 자료없음",
+        "rules": [
+          "R15",
+          "R17"
+        ],
+        "note": "'분류정보가 없음'은 비위험물 명시가 아니라 regulated=null로 둠; 용기등급은 23쪽"
+      },
+      {
+        "msds_index": 3,
+        "field": "regulations[0]",
+        "page": 23,
+        "source_text": "산업안전보건법에 의한 규제 | 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "해당없음 → 비해당"
+      },
+      {
+        "msds_index": 3,
+        "field": "regulations[1]",
+        "page": 23,
+        "source_text": "유해화학물질관리법에 의한 규제 | 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "해당없음 → 비해당"
+      },
+      {
+        "msds_index": 3,
+        "field": "regulations[2]",
+        "page": 23,
+        "source_text": "위험물안전관리법에 의한 규제 | 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "해당없음 → 비해당"
+      },
+      {
+        "msds_index": 3,
+        "field": "dangerous_goods[0]",
+        "page": 23,
+        "source_text": "위험물안전관리법에 의한 규제 | 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "class=해당없음"
+      },
+      {
+        "msds_index": 3,
+        "field": "regulations[3]",
+        "page": 23,
+        "source_text": "폐기물관리법에 의한 규제 | 폐기시 폐기물관리법 제13조 폐기물처리기준에 따라 처리하여야 함",
+        "rules": [
+          "R17"
+        ],
+        "note": "지정폐기물 여부가 적혀 있지 않아 item_code·applicable null, 원문만 value_raw에 보존"
+      },
+      {
+        "msds_index": 3,
+        "field": "regulations[4]",
+        "page": 23,
+        "source_text": "잔류성유기오염물질관리법 | 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "해당없음 → 비해당"
+      },
+      {
+        "msds_index": 3,
+        "field": "regulations[5]",
+        "page": 23,
+        "source_text": "미국관리정보(OSHA 규정) | 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "해당없음 → 비해당"
+      },
+      {
+        "msds_index": 3,
+        "field": "regulations[6]",
+        "page": 23,
+        "source_text": "미국관리정보(CERCLA 규정) | 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "해당없음 → 비해당"
+      },
+      {
+        "msds_index": 3,
+        "field": "regulations[7]",
+        "page": 23,
+        "source_text": "미국관리정보(EPCRA 302 규정) | 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "해당없음 → 비해당"
+      },
+      {
+        "msds_index": 3,
+        "field": "regulations[8]",
+        "page": 23,
+        "source_text": "미국관리정보(EPCRA 304 규정) | 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "해당없음 → 비해당"
+      },
+      {
+        "msds_index": 3,
+        "field": "regulations[9]",
+        "page": 23,
+        "source_text": "미국관리정보(EPCRA 313 규정) | 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "해당없음 → 비해당"
+      },
+      {
+        "msds_index": 3,
+        "field": "regulations[10]",
+        "page": 23,
+        "source_text": "미국관리정보(로테르담협약물질) | 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "INTL_TREATY"
+      },
+      {
+        "msds_index": 3,
+        "field": "regulations[11]",
+        "page": 23,
+        "source_text": "미국관리정보(스톡홀름협약물질) | 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "INTL_TREATY"
+      },
+      {
+        "msds_index": 3,
+        "field": "regulations[12]",
+        "page": 23,
+        "source_text": "미국관리정보(몬트리올의정서물질) | 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "INTL_TREATY"
+      },
+      {
+        "msds_index": 3,
+        "field": "regulations[13]",
+        "page": 23,
+        "source_text": "EU 분류정보(확정분류결과) | 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "해당없음 → 비해당"
+      },
+      {
+        "msds_index": 3,
+        "field": "intl_class[0]",
+        "page": 23,
+        "source_text": "EU 분류정보(확정분류결과) | 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "status=해당없음"
+      },
+      {
+        "msds_index": 3,
+        "field": "regulations[14]",
+        "page": 23,
+        "source_text": "EU 분류정보(위험문구) | 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "해당없음 → 비해당"
+      },
+      {
+        "msds_index": 3,
+        "field": "regulations[15]",
+        "page": 23,
+        "source_text": "EU 분류정보(안전문구) | 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "해당없음 → 비해당"
+      },
+      {
+        "msds_index": 4,
+        "field": "transport[0]",
+        "page": 26,
+        "source_text": "유엔번호(UN No.) | UN 운송위험물질 분류정보가 없음 | 적정선적명 | 해당없음 | 운송에서의 위험성 등급 | 해당없음 | 용기등급 | 해당없음",
+        "rules": [
+          "R15",
+          "R17"
+        ],
+        "note": "regulated=null; 해양오염물질 '자료없음'은 27쪽"
+      },
+      {
+        "msds_index": 4,
+        "field": "regulations[0]",
+        "page": 27,
+        "source_text": "산업안전보건법에 의한 규제 | 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "해당없음 → 비해당"
+      },
+      {
+        "msds_index": 4,
+        "field": "regulations[1]",
+        "page": 27,
+        "source_text": "유해화학물질관리법에 의한 규제 | 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "해당없음 → 비해당"
+      },
+      {
+        "msds_index": 4,
+        "field": "regulations[2]",
+        "page": 27,
+        "source_text": "위험물안전관리법에 의한 규제 | 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "해당없음 → 비해당"
+      },
+      {
+        "msds_index": 4,
+        "field": "dangerous_goods[0]",
+        "page": 27,
+        "source_text": "위험물안전관리법에 의한 규제 | 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "class=해당없음"
+      },
+      {
+        "msds_index": 4,
+        "field": "regulations[3]",
+        "page": 27,
+        "source_text": "폐기물관리법에 의한 규제 | 폐기시 폐기물관리법 제13조 폐기물처리기준에 따라 처리하여야 함",
+        "rules": [
+          "R17"
+        ],
+        "note": "지정폐기물 여부 미기재, 원문만 보존"
+      },
+      {
+        "msds_index": 4,
+        "field": "regulations[4]",
+        "page": 27,
+        "source_text": "잔류성유기오염물질관리법 | 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "해당없음 → 비해당"
+      },
+      {
+        "msds_index": 4,
+        "field": "regulations[5]",
+        "page": 27,
+        "source_text": "미국관리정보(OSHA 규정) | 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "해당없음 → 비해당"
+      },
+      {
+        "msds_index": 4,
+        "field": "regulations[6]",
+        "page": 27,
+        "source_text": "미국관리정보(CERCLA 규정) | 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "해당없음 → 비해당"
+      },
+      {
+        "msds_index": 4,
+        "field": "regulations[7]",
+        "page": 27,
+        "source_text": "미국관리정보(EPCRA 302 규정) | 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "해당없음 → 비해당"
+      },
+      {
+        "msds_index": 4,
+        "field": "regulations[8]",
+        "page": 27,
+        "source_text": "미국관리정보(EPCRA 304 규정) | 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "해당없음 → 비해당"
+      },
+      {
+        "msds_index": 4,
+        "field": "regulations[9]",
+        "page": 27,
+        "source_text": "미국관리정보(EPCRA 313 규정) | 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "해당없음 → 비해당"
+      },
+      {
+        "msds_index": 4,
+        "field": "regulations[10]",
+        "page": 27,
+        "source_text": "미국관리정보(로테르담협약물질) | 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "INTL_TREATY"
+      },
+      {
+        "msds_index": 4,
+        "field": "regulations[11]",
+        "page": 27,
+        "source_text": "미국관리정보(스톡홀름협약물질) | 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "INTL_TREATY"
+      },
+      {
+        "msds_index": 4,
+        "field": "regulations[12]",
+        "page": 27,
+        "source_text": "미국관리정보(몬트리올의정서물질) | 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "INTL_TREATY"
+      },
+      {
+        "msds_index": 4,
+        "field": "regulations[13]",
+        "page": 27,
+        "source_text": "EU 분류정보(확정분류결과) | 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "해당없음 → 비해당"
+      },
+      {
+        "msds_index": 4,
+        "field": "intl_class[0]",
+        "page": 27,
+        "source_text": "EU 분류정보(확정분류결과) | 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "status=해당없음"
+      },
+      {
+        "msds_index": 4,
+        "field": "regulations[14]",
+        "page": 27,
+        "source_text": "EU 분류정보(위험문구) | 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "해당없음 → 비해당"
+      },
+      {
+        "msds_index": 4,
+        "field": "regulations[15]",
+        "page": 27,
+        "source_text": "EU 분류정보(안전문구) | 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "해당없음 → 비해당"
+      },
+      {
+        "msds_index": 5,
+        "field": "transport[0]",
+        "page": 30,
+        "source_text": "유엔번호(UN No.) | UN 운송위험물질 분류정보가 없음 | 적정선적명 | 해당없음 | 운송에서의 위험성 등급 | 해당없음",
+        "rules": [
+          "R15",
+          "R17"
+        ],
+        "note": "regulated=null; 용기등급 해당없음·해양오염물질 자료없음은 31쪽"
+      },
+      {
+        "msds_index": 5,
+        "field": "regulations[0]",
+        "page": 31,
+        "source_text": "산업안전보건법에 의한 규제 | 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "해당없음 → 비해당"
+      },
+      {
+        "msds_index": 5,
+        "field": "regulations[1]",
+        "page": 31,
+        "source_text": "유해화학물질관리법에 의한 규제 | 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "해당없음 → 비해당"
+      },
+      {
+        "msds_index": 5,
+        "field": "regulations[2]",
+        "page": 31,
+        "source_text": "위험물안전관리법에 의한 규제 | 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "해당없음 → 비해당"
+      },
+      {
+        "msds_index": 5,
+        "field": "dangerous_goods[0]",
+        "page": 31,
+        "source_text": "위험물안전관리법에 의한 규제 | 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "class=해당없음"
+      },
+      {
+        "msds_index": 5,
+        "field": "regulations[3]",
+        "page": 31,
+        "source_text": "폐기물관리법에 의한 규제 | 폐기시 폐기물관리법 제13조 폐기물처리기준에 따라 처리하여야 함",
+        "rules": [
+          "R17"
+        ],
+        "note": "지정폐기물 여부 미기재, 원문만 보존"
+      },
+      {
+        "msds_index": 5,
+        "field": "regulations[4]",
+        "page": 31,
+        "source_text": "잔류성유기오염물질관리법 | 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "해당없음 → 비해당"
+      },
+      {
+        "msds_index": 5,
+        "field": "regulations[5]",
+        "page": 31,
+        "source_text": "미국관리정보(OSHA 규정) | 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "해당없음 → 비해당"
+      },
+      {
+        "msds_index": 5,
+        "field": "regulations[6]",
+        "page": 31,
+        "source_text": "미국관리정보(CERCLA 규정) | 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "해당없음 → 비해당"
+      },
+      {
+        "msds_index": 5,
+        "field": "regulations[7]",
+        "page": 31,
+        "source_text": "미국관리정보(EPCRA 302 규정) | 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "해당없음 → 비해당"
+      },
+      {
+        "msds_index": 5,
+        "field": "regulations[8]",
+        "page": 31,
+        "source_text": "미국관리정보(EPCRA 304 규정) | 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "해당없음 → 비해당"
+      },
+      {
+        "msds_index": 5,
+        "field": "regulations[9]",
+        "page": 31,
+        "source_text": "미국관리정보(EPCRA 313 규정) | 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "해당없음 → 비해당"
+      },
+      {
+        "msds_index": 5,
+        "field": "regulations[10]",
+        "page": 31,
+        "source_text": "미국관리정보(로테르담협약물질) | 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "INTL_TREATY"
+      },
+      {
+        "msds_index": 5,
+        "field": "regulations[11]",
+        "page": 31,
+        "source_text": "미국관리정보(스톡홀름협약물질) | 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "INTL_TREATY"
+      },
+      {
+        "msds_index": 5,
+        "field": "regulations[12]",
+        "page": 31,
+        "source_text": "미국관리정보(몬트리올의정서물질) | 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "INTL_TREATY"
+      },
+      {
+        "msds_index": 5,
+        "field": "regulations[13]",
+        "page": 31,
+        "source_text": "EU 분류정보(확정분류결과) | 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "해당없음 → 비해당"
+      },
+      {
+        "msds_index": 5,
+        "field": "intl_class[0]",
+        "page": 31,
+        "source_text": "EU 분류정보(확정분류결과) | 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "status=해당없음"
+      },
+      {
+        "msds_index": 5,
+        "field": "regulations[14]",
+        "page": 31,
+        "source_text": "EU 분류정보(위험문구) | 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "해당없음 → 비해당"
+      },
+      {
+        "msds_index": 5,
+        "field": "regulations[15]",
+        "page": 31,
+        "source_text": "EU 분류정보(안전문구) | 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "해당없음 → 비해당"
+      },
+      {
+        "msds_index": 6,
+        "field": "transport[0]",
+        "page": 36,
+        "source_text": "유엔번호(UN No.) | UN 운송위험물질 분류정보가 없음 | 적정선적명 | 해당없음 | 운송에서의 위험성 등급 | 해당없음 | 용기등급 | 해당없음 | 해양오염물질 | 자료없음 | 화재시 비상조치 | 해당없음 | 유출시 비상조치 | 해당없음",
+        "rules": [
+          "R15",
+          "R17"
+        ],
+        "note": "'분류정보가 없음'은 비위험물 명시가 아니라 regulated=null"
+      },
+      {
+        "msds_index": 6,
+        "field": "regulations[0]",
+        "page": 36,
+        "source_text": "산업안전보건법에 의한 규제 | 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "해당없음 → 비해당"
+      },
+      {
+        "msds_index": 6,
+        "field": "regulations[1]",
+        "page": 36,
+        "source_text": "유해화학물질관리법에 의한 규제 | 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "해당없음 → 비해당"
+      },
+      {
+        "msds_index": 6,
+        "field": "regulations[2]",
+        "page": 36,
+        "source_text": "위험물안전관리법에 의한 규제 | 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "해당없음 → 비해당"
+      },
+      {
+        "msds_index": 6,
+        "field": "dangerous_goods[0]",
+        "page": 36,
+        "source_text": "위험물안전관리법에 의한 규제 | 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "class=해당없음"
+      },
+      {
+        "msds_index": 6,
+        "field": "regulations[3]",
+        "page": 36,
+        "source_text": "폐기물관리법에 의한 규제 | 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "해당없음 → 비해당"
+      },
+      {
+        "msds_index": 6,
+        "field": "waste[0]",
+        "page": 36,
+        "source_text": "폐기물관리법에 의한 규제 | 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "designated=비해당"
+      },
+      {
+        "msds_index": 6,
+        "field": "regulations[4]",
+        "page": 36,
+        "source_text": "잔류성유기오염물질관리법 | 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "해당없음 → 비해당"
+      },
+      {
+        "msds_index": 6,
+        "field": "regulations[5]",
+        "page": 36,
+        "source_text": "미국관리정보(OSHA 규정) | 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "해당없음 → 비해당"
+      },
+      {
+        "msds_index": 6,
+        "field": "regulations[6]",
+        "page": 36,
+        "source_text": "미국관리정보(CERCLA 규정) | 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "해당없음 → 비해당"
+      },
+      {
+        "msds_index": 6,
+        "field": "regulations[7]",
+        "page": 36,
+        "source_text": "미국관리정보(EPCRA 302 규정) | 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "해당없음 → 비해당"
+      },
+      {
+        "msds_index": 6,
+        "field": "regulations[8]",
+        "page": 36,
+        "source_text": "미국관리정보(EPCRA 304 규정) | 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "해당없음 → 비해당"
+      },
+      {
+        "msds_index": 6,
+        "field": "regulations[9]",
+        "page": 36,
+        "source_text": "미국관리정보(EPCRA 313 규정) | 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "해당없음 → 비해당"
+      },
+      {
+        "msds_index": 6,
+        "field": "regulations[10]",
+        "page": 36,
+        "source_text": "미국관리정보(로테르담협약물질) | 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "INTL_TREATY"
+      },
+      {
+        "msds_index": 6,
+        "field": "regulations[11]",
+        "page": 36,
+        "source_text": "미국관리정보(스톡홀름협약물질) | 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "INTL_TREATY"
+      },
+      {
+        "msds_index": 6,
+        "field": "regulations[12]",
+        "page": 36,
+        "source_text": "미국관리정보(몬트리올의정서물질) | 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "INTL_TREATY"
+      },
+      {
+        "msds_index": 6,
+        "field": "regulations[13]",
+        "page": 36,
+        "source_text": "EU 분류정보(확정분류결과) | 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "해당없음 → 비해당"
+      },
+      {
+        "msds_index": 6,
+        "field": "intl_class[0]",
+        "page": 36,
+        "source_text": "EU 분류정보(확정분류결과) | 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "status=해당없음"
+      },
+      {
+        "msds_index": 6,
+        "field": "regulations[14]",
+        "page": 36,
+        "source_text": "EU 분류정보(위험문구) | 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "해당없음 → 비해당"
+      },
+      {
+        "msds_index": 6,
+        "field": "regulations[15]",
+        "page": 36,
+        "source_text": "EU 분류정보(안전문구) | 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "해당없음 → 비해당"
+      }
+    ]
+  },
+  "raw_text": "{\"msds\":[{\"transport\":[{\"mode\":\"공통\",\"basis_raw\":null,\"regulated\":false,\"un_no\":null,\"shipping_name\":null,\"hazard_class\":null,\"sub_risk\":null,\"packing_group\":\"해당없음\",\"marine_pollutant\":\"자료없음\",\"ems_fire\":null,\"ems_spill\":null}],\"regulations\":[{\"seq\":1,\"law\":\"OSH\",\"item_code\":null,\"item_raw\":\"산업안전보건법에 의한 규제\",\"comp_ref\":\"MIX\",\"applicable\":\"자료없음\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":null,\"remark\":null},{\"seq\":2,\"law\":\"CCA\",\"item_code\":null,\"item_raw\":\"유해화학물질관리법에 의한 규제\",\"comp_ref\":\"MIX\",\"applicable\":\"자료없음\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":null,\"remark\":null},{\"seq\":3,\"law\":\"DG\",\"item_code\":\"DG_HAZMAT\",\"item_raw\":\"위험물안전관리법에 의한 규제\",\"comp_ref\":\"MIX\",\"applicable\":\"자료없음\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":null,\"remark\":null},{\"seq\":4,\"law\":\"WASTE\",\"item_code\":\"WASTE_DESIG\",\"item_raw\":\"폐기물관리법에 의한 규제\",\"comp_ref\":\"MIX\",\"applicable\":\"해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":\"지정폐기물\",\"remark\":null},{\"seq\":5,\"law\":\"POPS\",\"item_code\":\"POPS\",\"item_raw\":\"잔류성유기오염물질관리법\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":null,\"remark\":null},{\"seq\":6,\"law\":\"INTL\",\"item_code\":\"INTL_US\",\"item_raw\":\"미국관리정보(OSHA 규정)\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"US\",\"value_raw\":null,\"remark\":null},{\"seq\":7,\"law\":\"INTL\",\"item_code\":\"INTL_US\",\"item_raw\":\"미국관리정보(CERCLA 규정)\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"US\",\"value_raw\":null,\"remark\":null},{\"seq\":8,\"law\":\"INTL\",\"item_code\":\"INTL_US\",\"item_raw\":\"미국관리정보(EPCRA 302 규정)\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"US\",\"value_raw\":null,\"remark\":null},{\"seq\":9,\"law\":\"INTL\",\"item_code\":\"INTL_US\",\"item_raw\":\"미국관리정보(EPCRA 304 규정)\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"US\",\"value_raw\":null,\"remark\":null},{\"seq\":10,\"law\":\"INTL\",\"item_code\":\"INTL_US\",\"item_raw\":\"미국관리정보(EPCRA 313 규정)\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"US\",\"value_raw\":null,\"remark\":null},{\"seq\":11,\"law\":\"INTL\",\"item_code\":\"INTL_TREATY\",\"item_raw\":\"미국관리정보(로테르담협약물질)\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":null,\"remark\":null},{\"seq\":12,\"law\":\"INTL\",\"item_code\":\"INTL_TREATY\",\"item_raw\":\"미국관리정보(스톡홀름협약물질)\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":null,\"remark\":null},{\"seq\":13,\"law\":\"INTL\",\"item_code\":\"INTL_TREATY\",\"item_raw\":\"미국관리정보(몬트리올의정서물질)\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":null,\"remark\":null},{\"seq\":14,\"law\":\"INTL\",\"item_code\":\"INTL_EU\",\"item_raw\":\"EU 분류정보(확정분류결과)\",\"comp_ref\":\"MIX\",\"applicable\":null,\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"EU\",\"value_raw\":\"Xn; R22Xi; R36/38\",\"remark\":null},{\"seq\":15,\"law\":\"INTL\",\"item_code\":\"INTL_EU\",\"item_raw\":\"EU 분류정보(위험문구)\",\"comp_ref\":\"MIX\",\"applicable\":null,\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"EU\",\"value_raw\":\"R22, R36/38\",\"remark\":null},{\"seq\":16,\"law\":\"INTL\",\"item_code\":\"INTL_EU\",\"item_raw\":\"EU 분류정보(안전문구)\",\"comp_ref\":\"MIX\",\"applicable\":null,\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"EU\",\"value_raw\":\"S2, S22\",\"remark\":null}],\"dangerous_goods\":[],\"waste\":[{\"comp_ref\":\"MIX\",\"designated\":\"해당\",\"waste_type\":null}],\"intl_class\":[{\"comp_ref\":\"MIX\",\"system\":\"기타\",\"class_raw\":\"Xn; R22\",\"h_code\":null,\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"system\":\"기타\",\"class_raw\":\"Xi; R36/38\",\"h_code\":null,\"status\":\"값있음\"}]},{\"transport\":[{\"mode\":\"공통\",\"basis_raw\":null,\"regulated\":false,\"un_no\":null,\"shipping_name\":null,\"hazard_class\":null,\"sub_risk\":null,\"packing_group\":\"해당없음\",\"marine_pollutant\":\"자료없음\",\"ems_fire\":null,\"ems_spill\":null}],\"regulations\":[{\"seq\":1,\"law\":\"OSH\",\"item_code\":null,\"item_raw\":\"산업안전보건법에 의한 규제\",\"comp_ref\":\"MIX\",\"applicable\":\"자료없음\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":null,\"remark\":null},{\"seq\":2,\"law\":\"CCA\",\"item_code\":null,\"item_raw\":\"유해화학물질관리법에 의한 규제\",\"comp_ref\":\"MIX\",\"applicable\":\"자료없음\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":null,\"remark\":null},{\"seq\":3,\"law\":\"DG\",\"item_code\":\"DG_HAZMAT\",\"item_raw\":\"위험물안전관리법에 의한 규제\",\"comp_ref\":\"MIX\",\"applicable\":\"자료없음\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":null,\"remark\":null},{\"seq\":4,\"law\":\"WASTE\",\"item_code\":\"WASTE_DESIG\",\"item_raw\":\"폐기물관리법에 의한 규제\",\"comp_ref\":\"MIX\",\"applicable\":\"해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":\"지정폐기물\",\"remark\":null},{\"seq\":5,\"law\":\"POPS\",\"item_code\":\"POPS\",\"item_raw\":\"잔류성유기오염물질관리법\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":null,\"remark\":null},{\"seq\":6,\"law\":\"INTL\",\"item_code\":\"INTL_US\",\"item_raw\":\"미국관리정보(OSHA 규정)\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"US\",\"value_raw\":null,\"remark\":null},{\"seq\":7,\"law\":\"INTL\",\"item_code\":\"INTL_US\",\"item_raw\":\"미국관리정보(CERCLA 규정)\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"US\",\"value_raw\":null,\"remark\":null},{\"seq\":8,\"law\":\"INTL\",\"item_code\":\"INTL_US\",\"item_raw\":\"미국관리정보(EPCRA 302 규정)\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"US\",\"value_raw\":null,\"remark\":null},{\"seq\":9,\"law\":\"INTL\",\"item_code\":\"INTL_US\",\"item_raw\":\"미국관리정보(EPCRA 304 규정)\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"US\",\"value_raw\":null,\"remark\":null},{\"seq\":10,\"law\":\"INTL\",\"item_code\":\"INTL_US\",\"item_raw\":\"미국관리정보(EPCRA 313 규정)\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"US\",\"value_raw\":null,\"remark\":null},{\"seq\":11,\"law\":\"INTL\",\"item_code\":\"INTL_TREATY\",\"item_raw\":\"미국관리정보(로테르담협약물질)\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":null,\"remark\":null},{\"seq\":12,\"law\":\"INTL\",\"item_code\":\"INTL_TREATY\",\"item_raw\":\"미국관리정보(스톡홀름협약물질)\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":null,\"remark\":null},{\"seq\":13,\"law\":\"INTL\",\"item_code\":\"INTL_TREATY\",\"item_raw\":\"미국관리정보(몬트리올의정서물질)\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":null,\"remark\":null},{\"seq\":14,\"law\":\"INTL\",\"item_code\":\"INTL_EU\",\"item_raw\":\"EU 분류정보(확정분류결과)\",\"comp_ref\":\"MIX\",\"applicable\":null,\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"EU\",\"value_raw\":\"Xn; R22Xi; R36/38\",\"remark\":null},{\"seq\":15,\"law\":\"INTL\",\"item_code\":\"INTL_EU\",\"item_raw\":\"EU 분류정보(위험문구)\",\"comp_ref\":\"MIX\",\"applicable\":null,\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"EU\",\"value_raw\":\"R22, R36/38\",\"remark\":null},{\"seq\":16,\"law\":\"INTL\",\"item_code\":\"INTL_EU\",\"item_raw\":\"EU 분류정보(안전문구)\",\"comp_ref\":\"MIX\",\"applicable\":null,\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"EU\",\"value_raw\":\"S2, S22\",\"remark\":null}],\"dangerous_goods\":[],\"waste\":[{\"comp_ref\":\"MIX\",\"designated\":\"해당\",\"waste_type\":null}],\"intl_class\":[{\"comp_ref\":\"MIX\",\"system\":\"기타\",\"class_raw\":\"Xn; R22\",\"h_code\":null,\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"system\":\"기타\",\"class_raw\":\"Xi; R36/38\",\"h_code\":null,\"status\":\"값있음\"}]},{\"transport\":[{\"mode\":\"공통\",\"basis_raw\":null,\"regulated\":false,\"un_no\":null,\"shipping_name\":null,\"hazard_class\":null,\"sub_risk\":null,\"packing_group\":\"해당없음\",\"marine_pollutant\":\"자료없음\",\"ems_fire\":null,\"ems_spill\":null}],\"regulations\":[{\"seq\":1,\"law\":\"OSH\",\"item_code\":null,\"item_raw\":\"산업안전보건법에 의한 규제\",\"comp_ref\":\"MIX\",\"applicable\":\"자료없음\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":null,\"remark\":null},{\"seq\":2,\"law\":\"CCA\",\"item_code\":null,\"item_raw\":\"유해화학물질관리법에 의한 규제\",\"comp_ref\":\"MIX\",\"applicable\":\"자료없음\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":null,\"remark\":null},{\"seq\":3,\"law\":\"DG\",\"item_code\":\"DG_HAZMAT\",\"item_raw\":\"위험물안전관리법에 의한 규제\",\"comp_ref\":\"MIX\",\"applicable\":\"자료없음\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":null,\"remark\":null},{\"seq\":4,\"law\":\"WASTE\",\"item_code\":\"WASTE_DESIG\",\"item_raw\":\"폐기물관리법에 의한 규제\",\"comp_ref\":\"MIX\",\"applicable\":\"해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":\"지정폐기물\",\"remark\":null},{\"seq\":5,\"law\":\"POPS\",\"item_code\":\"POPS\",\"item_raw\":\"잔류성유기오염물질관리법\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":null,\"remark\":null},{\"seq\":6,\"law\":\"INTL\",\"item_code\":\"INTL_US\",\"item_raw\":\"미국관리정보(OSHA 규정)\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"US\",\"value_raw\":null,\"remark\":null},{\"seq\":7,\"law\":\"INTL\",\"item_code\":\"INTL_US\",\"item_raw\":\"미국관리정보(CERCLA 규정)\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"US\",\"value_raw\":null,\"remark\":null},{\"seq\":8,\"law\":\"INTL\",\"item_code\":\"INTL_US\",\"item_raw\":\"미국관리정보(EPCRA 302 규정)\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"US\",\"value_raw\":null,\"remark\":null},{\"seq\":9,\"law\":\"INTL\",\"item_code\":\"INTL_US\",\"item_raw\":\"미국관리정보(EPCRA 304 규정)\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"US\",\"value_raw\":null,\"remark\":null},{\"seq\":10,\"law\":\"INTL\",\"item_code\":\"INTL_US\",\"item_raw\":\"미국관리정보(EPCRA 313 규정)\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"US\",\"value_raw\":null,\"remark\":null},{\"seq\":11,\"law\":\"INTL\",\"item_code\":\"INTL_TREATY\",\"item_raw\":\"미국관리정보(로테르담협약물질)\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":null,\"remark\":null},{\"seq\":12,\"law\":\"INTL\",\"item_code\":\"INTL_TREATY\",\"item_raw\":\"미국관리정보(스톡홀름협약물질)\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":null,\"remark\":null},{\"seq\":13,\"law\":\"INTL\",\"item_code\":\"INTL_TREATY\",\"item_raw\":\"미국관리정보(몬트리올의정서물질)\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":null,\"remark\":null},{\"seq\":14,\"law\":\"INTL\",\"item_code\":\"INTL_EU\",\"item_raw\":\"EU 분류정보(확정분류결과)\",\"comp_ref\":\"MIX\",\"applicable\":null,\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"EU\",\"value_raw\":\"Xn; R22Xi; R36/38\",\"remark\":null},{\"seq\":15,\"law\":\"INTL\",\"item_code\":\"INTL_EU\",\"item_raw\":\"EU 분류정보(위험문구)\",\"comp_ref\":\"MIX\",\"applicable\":null,\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"EU\",\"value_raw\":\"R22, R36/38\",\"remark\":null},{\"seq\":16,\"law\":\"INTL\",\"item_code\":\"INTL_EU\",\"item_raw\":\"EU 분류정보(안전문구)\",\"comp_ref\":\"MIX\",\"applicable\":null,\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"EU\",\"value_raw\":\"S2, S22\",\"remark\":null}],\"dangerous_goods\":[],\"waste\":[{\"comp_ref\":\"MIX\",\"designated\":\"해당\",\"waste_type\":null}],\"intl_class\":[{\"comp_ref\":\"MIX\",\"system\":\"기타\",\"class_raw\":\"Xn; R22\",\"h_code\":null,\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"system\":\"기타\",\"class_raw\":\"Xi; R36/38\",\"h_code\":null,\"status\":\"값있음\"}]},{\"transport\":[{\"mode\":\"공통\",\"basis_raw\":null,\"regulated\":null,\"un_no\":null,\"shipping_name\":null,\"hazard_class\":null,\"sub_risk\":null,\"packing_group\":\"해당없음\",\"marine_pollutant\":\"자료없음\",\"ems_fire\":null,\"ems_spill\":null}],\"regulations\":[{\"seq\":1,\"law\":\"OSH\",\"item_code\":null,\"item_raw\":\"산업안전보건법에 의한 규제\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":null,\"remark\":null},{\"seq\":2,\"law\":\"CCA\",\"item_code\":null,\"item_raw\":\"유해화학물질관리법에 의한 규제\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":null,\"remark\":null},{\"seq\":3,\"law\":\"DG\",\"item_code\":\"DG_HAZMAT\",\"item_raw\":\"위험물안전관리법에 의한 규제\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":null,\"remark\":null},{\"seq\":4,\"law\":\"WASTE\",\"item_code\":null,\"item_raw\":\"폐기물관리법에 의한 규제\",\"comp_ref\":\"MIX\",\"applicable\":null,\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":\"폐기시 폐기물관리법 제13조 폐기물처리기준에 따라 처리하여야 함\",\"remark\":null},{\"seq\":5,\"law\":\"POPS\",\"item_code\":\"POPS\",\"item_raw\":\"잔류성유기오염물질관리법\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":null,\"remark\":null},{\"seq\":6,\"law\":\"INTL\",\"item_code\":\"INTL_US\",\"item_raw\":\"미국관리정보(OSHA 규정)\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"US\",\"value_raw\":null,\"remark\":null},{\"seq\":7,\"law\":\"INTL\",\"item_code\":\"INTL_US\",\"item_raw\":\"미국관리정보(CERCLA 규정)\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"US\",\"value_raw\":null,\"remark\":null},{\"seq\":8,\"law\":\"INTL\",\"item_code\":\"INTL_US\",\"item_raw\":\"미국관리정보(EPCRA 302 규정)\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"US\",\"value_raw\":null,\"remark\":null},{\"seq\":9,\"law\":\"INTL\",\"item_code\":\"INTL_US\",\"item_raw\":\"미국관리정보(EPCRA 304 규정)\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"US\",\"value_raw\":null,\"remark\":null},{\"seq\":10,\"law\":\"INTL\",\"item_code\":\"INTL_US\",\"item_raw\":\"미국관리정보(EPCRA 313 규정)\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"US\",\"value_raw\":null,\"remark\":null},{\"seq\":11,\"law\":\"INTL\",\"item_code\":\"INTL_TREATY\",\"item_raw\":\"미국관리정보(로테르담협약물질)\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":null,\"remark\":null},{\"seq\":12,\"law\":\"INTL\",\"item_code\":\"INTL_TREATY\",\"item_raw\":\"미국관리정보(스톡홀름협약물질)\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":null,\"remark\":null},{\"seq\":13,\"law\":\"INTL\",\"item_code\":\"INTL_TREATY\",\"item_raw\":\"미국관리정보(몬트리올의정서물질)\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":null,\"remark\":null},{\"seq\":14,\"law\":\"INTL\",\"item_code\":\"INTL_EU\",\"item_raw\":\"EU 분류정보(확정분류결과)\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"EU\",\"value_raw\":null,\"remark\":null},{\"seq\":15,\"law\":\"INTL\",\"item_code\":\"INTL_EU\",\"item_raw\":\"EU 분류정보(위험문구)\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"EU\",\"value_raw\":null,\"remark\":null},{\"seq\":16,\"law\":\"INTL\",\"item_code\":\"INTL_EU\",\"item_raw\":\"EU 분류정보(안전문구)\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"EU\",\"value_raw\":null,\"remark\":null}],\"dangerous_goods\":[{\"comp_ref\":\"MIX\",\"class\":\"해당없음\",\"item\":null,\"water_soluble\":null,\"grade\":null,\"designated_qty\":null}],\"waste\":[],\"intl_class\":[{\"comp_ref\":\"MIX\",\"system\":\"기타\",\"class_raw\":null,\"h_code\":null,\"status\":\"해당없음\"}]},{\"transport\":[{\"mode\":\"공통\",\"basis_raw\":null,\"regulated\":null,\"un_no\":null,\"shipping_name\":null,\"hazard_class\":null,\"sub_risk\":null,\"packing_group\":\"해당없음\",\"marine_pollutant\":\"자료없음\",\"ems_fire\":null,\"ems_spill\":null}],\"regulations\":[{\"seq\":1,\"law\":\"OSH\",\"item_code\":null,\"item_raw\":\"산업안전보건법에 의한 규제\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":null,\"remark\":null},{\"seq\":2,\"law\":\"CCA\",\"item_code\":null,\"item_raw\":\"유해화학물질관리법에 의한 규제\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":null,\"remark\":null},{\"seq\":3,\"law\":\"DG\",\"item_code\":\"DG_HAZMAT\",\"item_raw\":\"위험물안전관리법에 의한 규제\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":null,\"remark\":null},{\"seq\":4,\"law\":\"WASTE\",\"item_code\":null,\"item_raw\":\"폐기물관리법에 의한 규제\",\"comp_ref\":\"MIX\",\"applicable\":null,\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":\"폐기시 폐기물관리법 제13조 폐기물처리기준에 따라 처리하여야 함\",\"remark\":null},{\"seq\":5,\"law\":\"POPS\",\"item_code\":\"POPS\",\"item_raw\":\"잔류성유기오염물질관리법\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":null,\"remark\":null},{\"seq\":6,\"law\":\"INTL\",\"item_code\":\"INTL_US\",\"item_raw\":\"미국관리정보(OSHA 규정)\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"US\",\"value_raw\":null,\"remark\":null},{\"seq\":7,\"law\":\"INTL\",\"item_code\":\"INTL_US\",\"item_raw\":\"미국관리정보(CERCLA 규정)\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"US\",\"value_raw\":null,\"remark\":null},{\"seq\":8,\"law\":\"INTL\",\"item_code\":\"INTL_US\",\"item_raw\":\"미국관리정보(EPCRA 302 규정)\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"US\",\"value_raw\":null,\"remark\":null},{\"seq\":9,\"law\":\"INTL\",\"item_code\":\"INTL_US\",\"item_raw\":\"미국관리정보(EPCRA 304 규정)\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"US\",\"value_raw\":null,\"remark\":null},{\"seq\":10,\"law\":\"INTL\",\"item_code\":\"INTL_US\",\"item_raw\":\"미국관리정보(EPCRA 313 규정)\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"US\",\"value_raw\":null,\"remark\":null},{\"seq\":11,\"law\":\"INTL\",\"item_code\":\"INTL_TREATY\",\"item_raw\":\"미국관리정보(로테르담협약물질)\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":null,\"remark\":null},{\"seq\":12,\"law\":\"INTL\",\"item_code\":\"INTL_TREATY\",\"item_raw\":\"미국관리정보(스톡홀름협약물질)\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":null,\"remark\":null},{\"seq\":13,\"law\":\"INTL\",\"item_code\":\"INTL_TREATY\",\"item_raw\":\"미국관리정보(몬트리올의정서물질)\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":null,\"remark\":null},{\"seq\":14,\"law\":\"INTL\",\"item_code\":\"INTL_EU\",\"item_raw\":\"EU 분류정보(확정분류결과)\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"EU\",\"value_raw\":null,\"remark\":null},{\"seq\":15,\"law\":\"INTL\",\"item_code\":\"INTL_EU\",\"item_raw\":\"EU 분류정보(위험문구)\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"EU\",\"value_raw\":null,\"remark\":null},{\"seq\":16,\"law\":\"INTL\",\"item_code\":\"INTL_EU\",\"item_raw\":\"EU 분류정보(안전문구)\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"EU\",\"value_raw\":null,\"remark\":null}],\"dangerous_goods\":[{\"comp_ref\":\"MIX\",\"class\":\"해당없음\",\"item\":null,\"water_soluble\":null,\"grade\":null,\"designated_qty\":null}],\"waste\":[],\"intl_class\":[{\"comp_ref\":\"MIX\",\"system\":\"기타\",\"class_raw\":null,\"h_code\":null,\"status\":\"해당없음\"}]},{\"transport\":[{\"mode\":\"공통\",\"basis_raw\":null,\"regulated\":null,\"un_no\":null,\"shipping_name\":null,\"hazard_class\":null,\"sub_risk\":null,\"packing_group\":\"해당없음\",\"marine_pollutant\":\"자료없음\",\"ems_fire\":null,\"ems_spill\":null}],\"regulations\":[{\"seq\":1,\"law\":\"OSH\",\"item_code\":null,\"item_raw\":\"산업안전보건법에 의한 규제\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":null,\"remark\":null},{\"seq\":2,\"law\":\"CCA\",\"item_code\":null,\"item_raw\":\"유해화학물질관리법에 의한 규제\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":null,\"remark\":null},{\"seq\":3,\"law\":\"DG\",\"item_code\":\"DG_HAZMAT\",\"item_raw\":\"위험물안전관리법에 의한 규제\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":null,\"remark\":null},{\"seq\":4,\"law\":\"WASTE\",\"item_code\":null,\"item_raw\":\"폐기물관리법에 의한 규제\",\"comp_ref\":\"MIX\",\"applicable\":null,\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":\"폐기시 폐기물관리법 제13조 폐기물처리기준에 따라 처리하여야 함\",\"remark\":null},{\"seq\":5,\"law\":\"POPS\",\"item_code\":\"POPS\",\"item_raw\":\"잔류성유기오염물질관리법\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":null,\"remark\":null},{\"seq\":6,\"law\":\"INTL\",\"item_code\":\"INTL_US\",\"item_raw\":\"미국관리정보(OSHA 규정)\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"US\",\"value_raw\":null,\"remark\":null},{\"seq\":7,\"law\":\"INTL\",\"item_code\":\"INTL_US\",\"item_raw\":\"미국관리정보(CERCLA 규정)\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"US\",\"value_raw\":null,\"remark\":null},{\"seq\":8,\"law\":\"INTL\",\"item_code\":\"INTL_US\",\"item_raw\":\"미국관리정보(EPCRA 302 규정)\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"US\",\"value_raw\":null,\"remark\":null},{\"seq\":9,\"law\":\"INTL\",\"item_code\":\"INTL_US\",\"item_raw\":\"미국관리정보(EPCRA 304 규정)\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"US\",\"value_raw\":null,\"remark\":null},{\"seq\":10,\"law\":\"INTL\",\"item_code\":\"INTL_US\",\"item_raw\":\"미국관리정보(EPCRA 313 규정)\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"US\",\"value_raw\":null,\"remark\":null},{\"seq\":11,\"law\":\"INTL\",\"item_code\":\"INTL_TREATY\",\"item_raw\":\"미국관리정보(로테르담협약물질)\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":null,\"remark\":null},{\"seq\":12,\"law\":\"INTL\",\"item_code\":\"INTL_TREATY\",\"item_raw\":\"미국관리정보(스톡홀름협약물질)\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":null,\"remark\":null},{\"seq\":13,\"law\":\"INTL\",\"item_code\":\"INTL_TREATY\",\"item_raw\":\"미국관리정보(몬트리올의정서물질)\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":null,\"remark\":null},{\"seq\":14,\"law\":\"INTL\",\"item_code\":\"INTL_EU\",\"item_raw\":\"EU 분류정보(확정분류결과)\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"EU\",\"value_raw\":null,\"remark\":null},{\"seq\":15,\"law\":\"INTL\",\"item_code\":\"INTL_EU\",\"item_raw\":\"EU 분류정보(위험문구)\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"EU\",\"value_raw\":null,\"remark\":null},{\"seq\":16,\"law\":\"INTL\",\"item_code\":\"INTL_EU\",\"item_raw\":\"EU 분류정보(안전문구)\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"EU\",\"value_raw\":null,\"remark\":null}],\"dangerous_goods\":[{\"comp_ref\":\"MIX\",\"class\":\"해당없음\",\"item\":null,\"water_soluble\":null,\"grade\":null,\"designated_qty\":null}],\"waste\":[],\"intl_class\":[{\"comp_ref\":\"MIX\",\"system\":\"기타\",\"class_raw\":null,\"h_code\":null,\"status\":\"해당없음\"}]},{\"transport\":[{\"mode\":\"공통\",\"basis_raw\":null,\"regulated\":null,\"un_no\":null,\"shipping_name\":null,\"hazard_class\":null,\"sub_risk\":null,\"packing_group\":\"해당없음\",\"marine_pollutant\":\"자료없음\",\"ems_fire\":null,\"ems_spill\":null}],\"regulations\":[{\"seq\":1,\"law\":\"OSH\",\"item_code\":null,\"item_raw\":\"산업안전보건법에 의한 규제\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":null,\"remark\":null},{\"seq\":2,\"law\":\"CCA\",\"item_code\":null,\"item_raw\":\"유해화학물질관리법에 의한 규제\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":null,\"remark\":null},{\"seq\":3,\"law\":\"DG\",\"item_code\":\"DG_HAZMAT\",\"item_raw\":\"위험물안전관리법에 의한 규제\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":null,\"remark\":null},{\"seq\":4,\"law\":\"WASTE\",\"item_code\":\"WASTE_DESIG\",\"item_raw\":\"폐기물관리법에 의한 규제\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":null,\"remark\":null},{\"seq\":5,\"law\":\"POPS\",\"item_code\":\"POPS\",\"item_raw\":\"잔류성유기오염물질관리법\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":null,\"remark\":null},{\"seq\":6,\"law\":\"INTL\",\"item_code\":\"INTL_US\",\"item_raw\":\"미국관리정보(OSHA 규정)\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"US\",\"value_raw\":null,\"remark\":null},{\"seq\":7,\"law\":\"INTL\",\"item_code\":\"INTL_US\",\"item_raw\":\"미국관리정보(CERCLA 규정)\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"US\",\"value_raw\":null,\"remark\":null},{\"seq\":8,\"law\":\"INTL\",\"item_code\":\"INTL_US\",\"item_raw\":\"미국관리정보(EPCRA 302 규정)\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"US\",\"value_raw\":null,\"remark\":null},{\"seq\":9,\"law\":\"INTL\",\"item_code\":\"INTL_US\",\"item_raw\":\"미국관리정보(EPCRA 304 규정)\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"US\",\"value_raw\":null,\"remark\":null},{\"seq\":10,\"law\":\"INTL\",\"item_code\":\"INTL_US\",\"item_raw\":\"미국관리정보(EPCRA 313 규정)\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"US\",\"value_raw\":null,\"remark\":null},{\"seq\":11,\"law\":\"INTL\",\"item_code\":\"INTL_TREATY\",\"item_raw\":\"미국관리정보(로테르담협약물질)\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":null,\"remark\":null},{\"seq\":12,\"law\":\"INTL\",\"item_code\":\"INTL_TREATY\",\"item_raw\":\"미국관리정보(스톡홀름협약물질)\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":null,\"remark\":null},{\"seq\":13,\"law\":\"INTL\",\"item_code\":\"INTL_TREATY\",\"item_raw\":\"미국관리정보(몬트리올의정서물질)\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":null,\"remark\":null},{\"seq\":14,\"law\":\"INTL\",\"item_code\":\"INTL_EU\",\"item_raw\":\"EU 분류정보(확정분류결과)\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"EU\",\"value_raw\":null,\"remark\":null},{\"seq\":15,\"law\":\"INTL\",\"item_code\":\"INTL_EU\",\"item_raw\":\"EU 분류정보(위험문구)\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"EU\",\"value_raw\":null,\"remark\":null},{\"seq\":16,\"law\":\"INTL\",\"item_code\":\"INTL_EU\",\"item_raw\":\"EU 분류정보(안전문구)\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"EU\",\"value_raw\":null,\"remark\":null}],\"dangerous_goods\":[{\"comp_ref\":\"MIX\",\"class\":\"해당없음\",\"item\":null,\"water_soluble\":null,\"grade\":null,\"designated_qty\":null}],\"waste\":[{\"comp_ref\":\"MIX\",\"designated\":\"비해당\",\"waste_type\":null}],\"intl_class\":[{\"comp_ref\":\"MIX\",\"system\":\"기타\",\"class_raw\":null,\"h_code\":null,\"status\":\"해당없음\"}]}],\"evidence\":[{\"msds_index\":0,\"field\":\"transport[0]\",\"page\":6,\"source_text\":\"유엔번호(UN No.) | 위험 물질로 분류되지 않음 | 적정선적명 | 해당없음 | 운송에서의 위험성 등급 | 해당없음 | 용기등급 | 해당없음 | 해양오염물질 | 자료없음 | 화재시 비상조치 | 해당없음 | 유출시 비상조치 | 해당없음\",\"rules\":[\"R15\"],\"note\":\"'위험 물질로 분류되지 않음'을 regulated=false로, 해당없음 칸(선적명·등급·EmS)은 null로 둠\"},{\"msds_index\":0,\"field\":\"regulations[0]\",\"page\":6,\"source_text\":\"산업안전보건법에 의한 규제 | 자료없음\",\"rules\":[\"R15\"],\"note\":\"법령 전체 항목이라 item_code 없음\"},{\"msds_index\":0,\"field\":\"regulations[1]\",\"page\":6,\"source_text\":\"유해화학물질관리법에 의한 규제 | 자료없음\",\"rules\":[\"R15\"],\"note\":\"유해화학물질관리법을 CCA로 둠, 세부 항목 없어 item_code null\"},{\"msds_index\":0,\"field\":\"regulations[2]\",\"page\":6,\"source_text\":\"위험물안전관리법에 의한 규제 | 자료없음\",\"rules\":[\"R15\"],\"note\":null},{\"msds_index\":0,\"field\":\"regulations[3]\",\"page\":6,\"source_text\":\"폐기물관리법에 의한 규제 | 지정폐기물\",\"rules\":[\"R25\"],\"note\":\"'지정폐기물' 기재를 해당으로 봄\"},{\"msds_index\":0,\"field\":\"waste[0]\",\"page\":6,\"source_text\":\"폐기물관리법에 의한 규제 | 지정폐기물\",\"rules\":[],\"note\":\"지정폐기물 기재 → designated=해당\"},{\"msds_index\":0,\"field\":\"regulations[4]\",\"page\":6,\"source_text\":\"잔류성유기오염물질관리법 | 해당없음\",\"rules\":[\"R15\",\"R25\"],\"note\":\"해당없음 → 비해당\"},{\"msds_index\":0,\"field\":\"regulations[5]\",\"page\":6,\"source_text\":\"미국관리정보(OSHA 규정) | 해당없음\",\"rules\":[\"R15\",\"R25\"],\"note\":\"해당없음 → 비해당\"},{\"msds_index\":0,\"field\":\"regulations[6]\",\"page\":6,\"source_text\":\"미국관리정보(CERCLA 규정) | 해당없음\",\"rules\":[\"R15\",\"R25\"],\"note\":\"해당없음 → 비해당\"},{\"msds_index\":0,\"field\":\"regulations[7]\",\"page\":6,\"source_text\":\"미국관리정보(EPCRA 302 규정) | 해당없음\",\"rules\":[\"R15\",\"R25\"],\"note\":\"해당없음 → 비해당\"},{\"msds_index\":0,\"field\":\"regulations[8]\",\"page\":6,\"source_text\":\"미국관리정보(EPCRA 304 규정) | 해당없음\",\"rules\":[\"R15\",\"R25\"],\"note\":\"해당없음 → 비해당\"},{\"msds_index\":0,\"field\":\"regulations[9]\",\"page\":6,\"source_text\":\"미국관리정보(EPCRA 313 규정) | 해당없음\",\"rules\":[\"R15\",\"R25\"],\"note\":\"해당없음 → 비해당\"},{\"msds_index\":0,\"field\":\"regulations[10]\",\"page\":6,\"source_text\":\"미국관리정보(로테르담협약물질) | 해당없음\",\"rules\":[\"R15\",\"R25\"],\"note\":\"국제협약 항목이라 INTL_TREATY로 둠\"},{\"msds_index\":0,\"field\":\"regulations[11]\",\"page\":6,\"source_text\":\"미국관리정보(스톡홀름협약물질) | 해당없음\",\"rules\":[\"R15\",\"R25\"],\"note\":\"국제협약 항목이라 INTL_TREATY로 둠\"},{\"msds_index\":0,\"field\":\"regulations[12]\",\"page\":6,\"source_text\":\"미국관리정보(몬트리올의정서물질) | 해당없음\",\"rules\":[\"R15\",\"R25\"],\"note\":\"국제협약 항목이라 INTL_TREATY로 둠\"},{\"msds_index\":0,\"field\":\"regulations[13]\",\"page\":6,\"source_text\":\"EU 분류정보(확정분류결과) | Xn; R22Xi; R36/38\",\"rules\":[\"R25\"],\"note\":\"해당 여부 대신 값이 적혀 value_raw에 원문 보존\"},{\"msds_index\":0,\"field\":\"intl_class[0]\",\"page\":6,\"source_text\":\"EU 분류정보(확정분류결과) | Xn; R22Xi; R36/38\",\"rules\":[\"R11\"],\"note\":\"붙어 있는 원문을 'Xn; R22'와 'Xi; R36/38'로 나눔(구 EU DSD 분류라 system=기타)\"},{\"msds_index\":0,\"field\":\"intl_class[1]\",\"page\":6,\"source_text\":\"EU 분류정보(확정분류결과) | Xn; R22Xi; R36/38\",\"rules\":[\"R11\"],\"note\":\"붙어 있는 원문에서 두 번째 분류 분리\"},{\"msds_index\":0,\"field\":\"regulations[14]\",\"page\":7,\"source_text\":\"EU 분류정보(위험문구) | R22, R36/38\",\"rules\":[\"R25\"],\"note\":\"값을 value_raw에 보존\"},{\"msds_index\":0,\"field\":\"regulations[15]\",\"page\":7,\"source_text\":\"EU 분류정보(안전문구) | S2, S22\",\"rules\":[\"R25\"],\"note\":\"값을 value_raw에 보존\"},{\"msds_index\":1,\"field\":\"transport[0]\",\"page\":12,\"source_text\":\"유엔번호(UN No.) | 위험 물질로 분류되지 않음 | 적정선적명 | 해당없음 | 운송에서의 위험성 등급 | 해당없음 | 용기등급 | 해당없음 | 해양오염물질 | 자료없음 | 화재시 비상조치 | 해당없음 | 유출시 비상조치 | 해당없음\",\"rules\":[\"R15\"],\"note\":\"'위험 물질로 분류되지 않음'을 regulated=false로, 해당없음 칸은 null로 둠\"},{\"msds_index\":1,\"field\":\"regulations[0]\",\"page\":12,\"source_text\":\"산업안전보건법에 의한 규제 | 자료없음\",\"rules\":[\"R15\"],\"note\":null},{\"msds_index\":1,\"field\":\"regulations[1]\",\"page\":12,\"source_text\":\"유해화학물질관리법에 의한 규제 | 자료없음\",\"rules\":[\"R15\"],\"note\":null},{\"msds_index\":1,\"field\":\"regulations[2]\",\"page\":12,\"source_text\":\"위험물안전관리법에 의한 규제 | 자료없음\",\"rules\":[\"R15\"],\"note\":null},{\"msds_index\":1,\"field\":\"regulations[3]\",\"page\":12,\"source_text\":\"폐기물관리법에 의한 규제 | 지정폐기물\",\"rules\":[\"R25\"],\"note\":\"'지정폐기물' 기재를 해당으로 봄\"},{\"msds_index\":1,\"field\":\"waste[0]\",\"page\":12,\"source_text\":\"폐기물관리법에 의한 규제 | 지정폐기물\",\"rules\":[],\"note\":\"지정폐기물 기재 → designated=해당\"},{\"msds_index\":1,\"field\":\"regulations[4]\",\"page\":12,\"source_text\":\"잔류성유기오염물질관리법 | 해당없음\",\"rules\":[\"R15\",\"R25\"],\"note\":\"해당없음 → 비해당\"},{\"msds_index\":1,\"field\":\"regulations[5]\",\"page\":12,\"source_text\":\"미국관리정보(OSHA 규정) | 해당없음\",\"rules\":[\"R15\",\"R25\"],\"note\":\"해당없음 → 비해당\"},{\"msds_index\":1,\"field\":\"regulations[6]\",\"page\":12,\"source_text\":\"미국관리정보(CERCLA 규정) | 해당없음\",\"rules\":[\"R15\",\"R25\"],\"note\":\"해당없음 → 비해당\"},{\"msds_index\":1,\"field\":\"regulations[7]\",\"page\":12,\"source_text\":\"미국관리정보(EPCRA 302 규정) | 해당없음\",\"rules\":[\"R15\",\"R25\"],\"note\":\"해당없음 → 비해당\"},{\"msds_index\":1,\"field\":\"regulations[8]\",\"page\":12,\"source_text\":\"미국관리정보(EPCRA 304 규정) | 해당없음\",\"rules\":[\"R15\",\"R25\"],\"note\":\"해당없음 → 비해당\"},{\"msds_index\":1,\"field\":\"regulations[9]\",\"page\":12,\"source_text\":\"미국관리정보(EPCRA 313 규정) | 해당없음\",\"rules\":[\"R15\",\"R25\"],\"note\":\"해당없음 → 비해당\"},{\"msds_index\":1,\"field\":\"regulations[10]\",\"page\":12,\"source_text\":\"미국관리정보(로테르담협약물질) | 해당없음\",\"rules\":[\"R15\",\"R25\"],\"note\":\"INTL_TREATY\"},{\"msds_index\":1,\"field\":\"regulations[11]\",\"page\":12,\"source_text\":\"미국관리정보(스톡홀름협약물질) | 해당없음\",\"rules\":[\"R15\",\"R25\"],\"note\":\"INTL_TREATY\"},{\"msds_index\":1,\"field\":\"regulations[12]\",\"page\":12,\"source_text\":\"미국관리정보(몬트리올의정서물질) | 해당없음\",\"rules\":[\"R15\",\"R25\"],\"note\":\"INTL_TREATY\"},{\"msds_index\":1,\"field\":\"regulations[13]\",\"page\":12,\"source_text\":\"EU 분류정보(확정분류결과) | Xn; R22Xi; R36/38\",\"rules\":[\"R25\"],\"note\":\"값을 value_raw에 보존\"},{\"msds_index\":1,\"field\":\"intl_class[0]\",\"page\":12,\"source_text\":\"EU 분류정보(확정분류결과) | Xn; R22Xi; R36/38\",\"rules\":[\"R11\"],\"note\":\"붙어 있는 원문을 두 분류로 나눔\"},{\"msds_index\":1,\"field\":\"intl_class[1]\",\"page\":12,\"source_text\":\"EU 분류정보(확정분류결과) | Xn; R22Xi; R36/38\",\"rules\":[\"R11\"],\"note\":\"붙어 있는 원문에서 두 번째 분류 분리\"},{\"msds_index\":1,\"field\":\"regulations[14]\",\"page\":13,\"source_text\":\"EU 분류정보(위험문구) | R22, R36/38\",\"rules\":[\"R25\"],\"note\":\"값을 value_raw에 보존\"},{\"msds_index\":1,\"field\":\"regulations[15]\",\"page\":13,\"source_text\":\"EU 분류정보(안전문구) | S2, S22\",\"rules\":[\"R25\"],\"note\":\"값을 value_raw에 보존\"},{\"msds_index\":2,\"field\":\"transport[0]\",\"page\":18,\"source_text\":\"유엔번호(UN No.) | 위험 물질로 분류되지 않음 | 적정선적명 | 해당없음 | 운송에서의 위험성 등급 | 해당없음 | 용기등급 | 해당없음 | 해양오염물질 | 자료없음 | 화재시 비상조치 | 해당없음 | 유출시 비상조치 | 해당없음\",\"rules\":[\"R15\"],\"note\":\"'위험 물질로 분류되지 않음'을 regulated=false로, 해당없음 칸은 null로 둠\"},{\"msds_index\":2,\"field\":\"regulations[0]\",\"page\":18,\"source_text\":\"산업안전보건법에 의한 규제 | 자료없음\",\"rules\":[\"R15\"],\"note\":null},{\"msds_index\":2,\"field\":\"regulations[1]\",\"page\":18,\"source_text\":\"유해화학물질관리법에 의한 규제 | 자료없음\",\"rules\":[\"R15\"],\"note\":null},{\"msds_index\":2,\"field\":\"regulations[2]\",\"page\":18,\"source_text\":\"위험물안전관리법에 의한 규제 | 자료없음\",\"rules\":[\"R15\"],\"note\":null},{\"msds_index\":2,\"field\":\"regulations[3]\",\"page\":18,\"source_text\":\"폐기물관리법에 의한 규제 | 지정폐기물\",\"rules\":[\"R25\"],\"note\":\"'지정폐기물' 기재를 해당으로 봄\"},{\"msds_index\":2,\"field\":\"waste[0]\",\"page\":18,\"source_text\":\"폐기물관리법에 의한 규제 | 지정폐기물\",\"rules\":[],\"note\":\"지정폐기물 기재 → designated=해당\"},{\"msds_index\":2,\"field\":\"regulations[4]\",\"page\":18,\"source_text\":\"잔류성유기오염물질관리법 | 해당없음\",\"rules\":[\"R15\",\"R25\"],\"note\":\"해당없음 → 비해당\"},{\"msds_index\":2,\"field\":\"regulations[5]\",\"page\":18,\"source_text\":\"미국관리정보(OSHA 규정) | 해당없음\",\"rules\":[\"R15\",\"R25\"],\"note\":\"해당없음 → 비해당\"},{\"msds_index\":2,\"field\":\"regulations[6]\",\"page\":18,\"source_text\":\"미국관리정보(CERCLA 규정) | 해당없음\",\"rules\":[\"R15\",\"R25\"],\"note\":\"해당없음 → 비해당\"},{\"msds_index\":2,\"field\":\"regulations[7]\",\"page\":18,\"source_text\":\"미국관리정보(EPCRA 302 규정) | 해당없음\",\"rules\":[\"R15\",\"R25\"],\"note\":\"해당없음 → 비해당\"},{\"msds_index\":2,\"field\":\"regulations[8]\",\"page\":18,\"source_text\":\"미국관리정보(EPCRA 304 규정) | 해당없음\",\"rules\":[\"R15\",\"R25\"],\"note\":\"해당없음 → 비해당\"},{\"msds_index\":2,\"field\":\"regulations[9]\",\"page\":18,\"source_text\":\"미국관리정보(EPCRA 313 규정) | 해당없음\",\"rules\":[\"R15\",\"R25\"],\"note\":\"해당없음 → 비해당\"},{\"msds_index\":2,\"field\":\"regulations[10]\",\"page\":18,\"source_text\":\"미국관리정보(로테르담협약물질) | 해당없음\",\"rules\":[\"R15\",\"R25\"],\"note\":\"INTL_TREATY\"},{\"msds_index\":2,\"field\":\"regulations[11]\",\"page\":18,\"source_text\":\"미국관리정보(스톡홀름협약물질) | 해당없음\",\"rules\":[\"R15\",\"R25\"],\"note\":\"INTL_TREATY\"},{\"msds_index\":2,\"field\":\"regulations[12]\",\"page\":18,\"source_text\":\"미국관리정보(몬트리올의정서물질) | 해당없음\",\"rules\":[\"R15\",\"R25\"],\"note\":\"INTL_TREATY\"},{\"msds_index\":2,\"field\":\"regulations[13]\",\"page\":18,\"source_text\":\"EU 분류정보(확정분류결과) | Xn; R22Xi; R36/38\",\"rules\":[\"R25\"],\"note\":\"값을 value_raw에 보존\"},{\"msds_index\":2,\"field\":\"intl_class[0]\",\"page\":18,\"source_text\":\"EU 분류정보(확정분류결과) | Xn; R22Xi; R36/38\",\"rules\":[\"R11\"],\"note\":\"붙어 있는 원문을 두 분류로 나눔\"},{\"msds_index\":2,\"field\":\"intl_class[1]\",\"page\":18,\"source_text\":\"EU 분류정보(확정분류결과) | Xn; R22Xi; R36/38\",\"rules\":[\"R11\"],\"note\":\"붙어 있는 원문에서 두 번째 분류 분리\"},{\"msds_index\":2,\"field\":\"regulations[14]\",\"page\":19,\"source_text\":\"EU 분류정보(위험문구) | R22, R36/38\",\"rules\":[\"R25\"],\"note\":\"값을 value_raw에 보존\"},{\"msds_index\":2,\"field\":\"regulations[15]\",\"page\":19,\"source_text\":\"EU 분류정보(안전문구) | S2, S22\",\"rules\":[\"R25\"],\"note\":\"값을 value_raw에 보존\"},{\"msds_index\":3,\"field\":\"transport[0]\",\"page\":22,\"source_text\":\"유엔번호(UN No.) | UN 운송위험물질 분류정보가 없음 | 적정선적명 | 해당없음 | 운송에서의 위험성 등급 | 해당없음 | 용기등급 | 해당없음 | 해양오염물질 | 자료없음\",\"rules\":[\"R15\",\"R17\"],\"note\":\"'분류정보가 없음'은 비위험물 명시가 아니라 regulated=null로 둠; 용기등급은 23쪽\"},{\"msds_index\":3,\"field\":\"regulations[0]\",\"page\":23,\"source_text\":\"산업안전보건법에 의한 규제 | 해당없음\",\"rules\":[\"R15\",\"R25\"],\"note\":\"해당없음 → 비해당\"},{\"msds_index\":3,\"field\":\"regulations[1]\",\"page\":23,\"source_text\":\"유해화학물질관리법에 의한 규제 | 해당없음\",\"rules\":[\"R15\",\"R25\"],\"note\":\"해당없음 → 비해당\"},{\"msds_index\":3,\"field\":\"regulations[2]\",\"page\":23,\"source_text\":\"위험물안전관리법에 의한 규제 | 해당없음\",\"rules\":[\"R15\",\"R25\"],\"note\":\"해당없음 → 비해당\"},{\"msds_index\":3,\"field\":\"dangerous_goods[0]\",\"page\":23,\"source_text\":\"위험물안전관리법에 의한 규제 | 해당없음\",\"rules\":[\"R15\"],\"note\":\"class=해당없음\"},{\"msds_index\":3,\"field\":\"regulations[3]\",\"page\":23,\"source_text\":\"폐기물관리법에 의한 규제 | 폐기시 폐기물관리법 제13조 폐기물처리기준에 따라 처리하여야 함\",\"rules\":[\"R17\"],\"note\":\"지정폐기물 여부가 적혀 있지 않아 item_code·applicable null, 원문만 value_raw에 보존\"},{\"msds_index\":3,\"field\":\"regulations[4]\",\"page\":23,\"source_text\":\"잔류성유기오염물질관리법 | 해당없음\",\"rules\":[\"R15\",\"R25\"],\"note\":\"해당없음 → 비해당\"},{\"msds_index\":3,\"field\":\"regulations[5]\",\"page\":23,\"source_text\":\"미국관리정보(OSHA 규정) | 해당없음\",\"rules\":[\"R15\",\"R25\"],\"note\":\"해당없음 → 비해당\"},{\"msds_index\":3,\"field\":\"regulations[6]\",\"page\":23,\"source_text\":\"미국관리정보(CERCLA 규정) | 해당없음\",\"rules\":[\"R15\",\"R25\"],\"note\":\"해당없음 → 비해당\"},{\"msds_index\":3,\"field\":\"regulations[7]\",\"page\":23,\"source_text\":\"미국관리정보(EPCRA 302 규정) | 해당없음\",\"rules\":[\"R15\",\"R25\"],\"note\":\"해당없음 → 비해당\"},{\"msds_index\":3,\"field\":\"regulations[8]\",\"page\":23,\"source_text\":\"미국관리정보(EPCRA 304 규정) | 해당없음\",\"rules\":[\"R15\",\"R25\"],\"note\":\"해당없음 → 비해당\"},{\"msds_index\":3,\"field\":\"regulations[9]\",\"page\":23,\"source_text\":\"미국관리정보(EPCRA 313 규정) | 해당없음\",\"rules\":[\"R15\",\"R25\"],\"note\":\"해당없음 → 비해당\"},{\"msds_index\":3,\"field\":\"regulations[10]\",\"page\":23,\"source_text\":\"미국관리정보(로테르담협약물질) | 해당없음\",\"rules\":[\"R15\",\"R25\"],\"note\":\"INTL_TREATY\"},{\"msds_index\":3,\"field\":\"regulations[11]\",\"page\":23,\"source_text\":\"미국관리정보(스톡홀름협약물질) | 해당없음\",\"rules\":[\"R15\",\"R25\"],\"note\":\"INTL_TREATY\"},{\"msds_index\":3,\"field\":\"regulations[12]\",\"page\":23,\"source_text\":\"미국관리정보(몬트리올의정서물질) | 해당없음\",\"rules\":[\"R15\",\"R25\"],\"note\":\"INTL_TREATY\"},{\"msds_index\":3,\"field\":\"regulations[13]\",\"page\":23,\"source_text\":\"EU 분류정보(확정분류결과) | 해당없음\",\"rules\":[\"R15\",\"R25\"],\"note\":\"해당없음 → 비해당\"},{\"msds_index\":3,\"field\":\"intl_class[0]\",\"page\":23,\"source_text\":\"EU 분류정보(확정분류결과) | 해당없음\",\"rules\":[\"R15\"],\"note\":\"status=해당없음\"},{\"msds_index\":3,\"field\":\"regulations[14]\",\"page\":23,\"source_text\":\"EU 분류정보(위험문구) | 해당없음\",\"rules\":[\"R15\",\"R25\"],\"note\":\"해당없음 → 비해당\"},{\"msds_index\":3,\"field\":\"regulations[15]\",\"page\":23,\"source_text\":\"EU 분류정보(안전문구) | 해당없음\",\"rules\":[\"R15\",\"R25\"],\"note\":\"해당없음 → 비해당\"},{\"msds_index\":4,\"field\":\"transport[0]\",\"page\":26,\"source_text\":\"유엔번호(UN No.) | UN 운송위험물질 분류정보가 없음 | 적정선적명 | 해당없음 | 운송에서의 위험성 등급 | 해당없음 | 용기등급 | 해당없음\",\"rules\":[\"R15\",\"R17\"],\"note\":\"regulated=null; 해양오염물질 '자료없음'은 27쪽\"},{\"msds_index\":4,\"field\":\"regulations[0]\",\"page\":27,\"source_text\":\"산업안전보건법에 의한 규제 | 해당없음\",\"rules\":[\"R15\",\"R25\"],\"note\":\"해당없음 → 비해당\"},{\"msds_index\":4,\"field\":\"regulations[1]\",\"page\":27,\"source_text\":\"유해화학물질관리법에 의한 규제 | 해당없음\",\"rules\":[\"R15\",\"R25\"],\"note\":\"해당없음 → 비해당\"},{\"msds_index\":4,\"field\":\"regulations[2]\",\"page\":27,\"source_text\":\"위험물안전관리법에 의한 규제 | 해당없음\",\"rules\":[\"R15\",\"R25\"],\"note\":\"해당없음 → 비해당\"},{\"msds_index\":4,\"field\":\"dangerous_goods[0]\",\"page\":27,\"source_text\":\"위험물안전관리법에 의한 규제 | 해당없음\",\"rules\":[\"R15\"],\"note\":\"class=해당없음\"},{\"msds_index\":4,\"field\":\"regulations[3]\",\"page\":27,\"source_text\":\"폐기물관리법에 의한 규제 | 폐기시 폐기물관리법 제13조 폐기물처리기준에 따라 처리하여야 함\",\"rules\":[\"R17\"],\"note\":\"지정폐기물 여부 미기재, 원문만 보존\"},{\"msds_index\":4,\"field\":\"regulations[4]\",\"page\":27,\"source_text\":\"잔류성유기오염물질관리법 | 해당없음\",\"rules\":[\"R15\",\"R25\"],\"note\":\"해당없음 → 비해당\"},{\"msds_index\":4,\"field\":\"regulations[5]\",\"page\":27,\"source_text\":\"미국관리정보(OSHA 규정) | 해당없음\",\"rules\":[\"R15\",\"R25\"],\"note\":\"해당없음 → 비해당\"},{\"msds_index\":4,\"field\":\"regulations[6]\",\"page\":27,\"source_text\":\"미국관리정보(CERCLA 규정) | 해당없음\",\"rules\":[\"R15\",\"R25\"],\"note\":\"해당없음 → 비해당\"},{\"msds_index\":4,\"field\":\"regulations[7]\",\"page\":27,\"source_text\":\"미국관리정보(EPCRA 302 규정) | 해당없음\",\"rules\":[\"R15\",\"R25\"],\"note\":\"해당없음 → 비해당\"},{\"msds_index\":4,\"field\":\"regulations[8]\",\"page\":27,\"source_text\":\"미국관리정보(EPCRA 304 규정) | 해당없음\",\"rules\":[\"R15\",\"R25\"],\"note\":\"해당없음 → 비해당\"},{\"msds_index\":4,\"field\":\"regulations[9]\",\"page\":27,\"source_text\":\"미국관리정보(EPCRA 313 규정) | 해당없음\",\"rules\":[\"R15\",\"R25\"],\"note\":\"해당없음 → 비해당\"},{\"msds_index\":4,\"field\":\"regulations[10]\",\"page\":27,\"source_text\":\"미국관리정보(로테르담협약물질) | 해당없음\",\"rules\":[\"R15\",\"R25\"],\"note\":\"INTL_TREATY\"},{\"msds_index\":4,\"field\":\"regulations[11]\",\"page\":27,\"source_text\":\"미국관리정보(스톡홀름협약물질) | 해당없음\",\"rules\":[\"R15\",\"R25\"],\"note\":\"INTL_TREATY\"},{\"msds_index\":4,\"field\":\"regulations[12]\",\"page\":27,\"source_text\":\"미국관리정보(몬트리올의정서물질) | 해당없음\",\"rules\":[\"R15\",\"R25\"],\"note\":\"INTL_TREATY\"},{\"msds_index\":4,\"field\":\"regulations[13]\",\"page\":27,\"source_text\":\"EU 분류정보(확정분류결과) | 해당없음\",\"rules\":[\"R15\",\"R25\"],\"note\":\"해당없음 → 비해당\"},{\"msds_index\":4,\"field\":\"intl_class[0]\",\"page\":27,\"source_text\":\"EU 분류정보(확정분류결과) | 해당없음\",\"rules\":[\"R15\"],\"note\":\"status=해당없음\"},{\"msds_index\":4,\"field\":\"regulations[14]\",\"page\":27,\"source_text\":\"EU 분류정보(위험문구) | 해당없음\",\"rules\":[\"R15\",\"R25\"],\"note\":\"해당없음 → 비해당\"},{\"msds_index\":4,\"field\":\"regulations[15]\",\"page\":27,\"source_text\":\"EU 분류정보(안전문구) | 해당없음\",\"rules\":[\"R15\",\"R25\"],\"note\":\"해당없음 → 비해당\"},{\"msds_index\":5,\"field\":\"transport[0]\",\"page\":30,\"source_text\":\"유엔번호(UN No.) | UN 운송위험물질 분류정보가 없음 | 적정선적명 | 해당없음 | 운송에서의 위험성 등급 | 해당없음\",\"rules\":[\"R15\",\"R17\"],\"note\":\"regulated=null; 용기등급 해당없음·해양오염물질 자료없음은 31쪽\"},{\"msds_index\":5,\"field\":\"regulations[0]\",\"page\":31,\"source_text\":\"산업안전보건법에 의한 규제 | 해당없음\",\"rules\":[\"R15\",\"R25\"],\"note\":\"해당없음 → 비해당\"},{\"msds_index\":5,\"field\":\"regulations[1]\",\"page\":31,\"source_text\":\"유해화학물질관리법에 의한 규제 | 해당없음\",\"rules\":[\"R15\",\"R25\"],\"note\":\"해당없음 → 비해당\"},{\"msds_index\":5,\"field\":\"regulations[2]\",\"page\":31,\"source_text\":\"위험물안전관리법에 의한 규제 | 해당없음\",\"rules\":[\"R15\",\"R25\"],\"note\":\"해당없음 → 비해당\"},{\"msds_index\":5,\"field\":\"dangerous_goods[0]\",\"page\":31,\"source_text\":\"위험물안전관리법에 의한 규제 | 해당없음\",\"rules\":[\"R15\"],\"note\":\"class=해당없음\"},{\"msds_index\":5,\"field\":\"regulations[3]\",\"page\":31,\"source_text\":\"폐기물관리법에 의한 규제 | 폐기시 폐기물관리법 제13조 폐기물처리기준에 따라 처리하여야 함\",\"rules\":[\"R17\"],\"note\":\"지정폐기물 여부 미기재, 원문만 보존\"},{\"msds_index\":5,\"field\":\"regulations[4]\",\"page\":31,\"source_text\":\"잔류성유기오염물질관리법 | 해당없음\",\"rules\":[\"R15\",\"R25\"],\"note\":\"해당없음 → 비해당\"},{\"msds_index\":5,\"field\":\"regulations[5]\",\"page\":31,\"source_text\":\"미국관리정보(OSHA 규정) | 해당없음\",\"rules\":[\"R15\",\"R25\"],\"note\":\"해당없음 → 비해당\"},{\"msds_index\":5,\"field\":\"regulations[6]\",\"page\":31,\"source_text\":\"미국관리정보(CERCLA 규정) | 해당없음\",\"rules\":[\"R15\",\"R25\"],\"note\":\"해당없음 → 비해당\"},{\"msds_index\":5,\"field\":\"regulations[7]\",\"page\":31,\"source_text\":\"미국관리정보(EPCRA 302 규정) | 해당없음\",\"rules\":[\"R15\",\"R25\"],\"note\":\"해당없음 → 비해당\"},{\"msds_index\":5,\"field\":\"regulations[8]\",\"page\":31,\"source_text\":\"미국관리정보(EPCRA 304 규정) | 해당없음\",\"rules\":[\"R15\",\"R25\"],\"note\":\"해당없음 → 비해당\"},{\"msds_index\":5,\"field\":\"regulations[9]\",\"page\":31,\"source_text\":\"미국관리정보(EPCRA 313 규정) | 해당없음\",\"rules\":[\"R15\",\"R25\"],\"note\":\"해당없음 → 비해당\"},{\"msds_index\":5,\"field\":\"regulations[10]\",\"page\":31,\"source_text\":\"미국관리정보(로테르담협약물질) | 해당없음\",\"rules\":[\"R15\",\"R25\"],\"note\":\"INTL_TREATY\"},{\"msds_index\":5,\"field\":\"regulations[11]\",\"page\":31,\"source_text\":\"미국관리정보(스톡홀름협약물질) | 해당없음\",\"rules\":[\"R15\",\"R25\"],\"note\":\"INTL_TREATY\"},{\"msds_index\":5,\"field\":\"regulations[12]\",\"page\":31,\"source_text\":\"미국관리정보(몬트리올의정서물질) | 해당없음\",\"rules\":[\"R15\",\"R25\"],\"note\":\"INTL_TREATY\"},{\"msds_index\":5,\"field\":\"regulations[13]\",\"page\":31,\"source_text\":\"EU 분류정보(확정분류결과) | 해당없음\",\"rules\":[\"R15\",\"R25\"],\"note\":\"해당없음 → 비해당\"},{\"msds_index\":5,\"field\":\"intl_class[0]\",\"page\":31,\"source_text\":\"EU 분류정보(확정분류결과) | 해당없음\",\"rules\":[\"R15\"],\"note\":\"status=해당없음\"},{\"msds_index\":5,\"field\":\"regulations[14]\",\"page\":31,\"source_text\":\"EU 분류정보(위험문구) | 해당없음\",\"rules\":[\"R15\",\"R25\"],\"note\":\"해당없음 → 비해당\"},{\"msds_index\":5,\"field\":\"regulations[15]\",\"page\":31,\"source_text\":\"EU 분류정보(안전문구) | 해당없음\",\"rules\":[\"R15\",\"R25\"],\"note\":\"해당없음 → 비해당\"},{\"msds_index\":6,\"field\":\"transport[0]\",\"page\":36,\"source_text\":\"유엔번호(UN No.) | UN 운송위험물질 분류정보가 없음 | 적정선적명 | 해당없음 | 운송에서의 위험성 등급 | 해당없음 | 용기등급 | 해당없음 | 해양오염물질 | 자료없음 | 화재시 비상조치 | 해당없음 | 유출시 비상조치 | 해당없음\",\"rules\":[\"R15\",\"R17\"],\"note\":\"'분류정보가 없음'은 비위험물 명시가 아니라 regulated=null\"},{\"msds_index\":6,\"field\":\"regulations[0]\",\"page\":36,\"source_text\":\"산업안전보건법에 의한 규제 | 해당없음\",\"rules\":[\"R15\",\"R25\"],\"note\":\"해당없음 → 비해당\"},{\"msds_index\":6,\"field\":\"regulations[1]\",\"page\":36,\"source_text\":\"유해화학물질관리법에 의한 규제 | 해당없음\",\"rules\":[\"R15\",\"R25\"],\"note\":\"해당없음 → 비해당\"},{\"msds_index\":6,\"field\":\"regulations[2]\",\"page\":36,\"source_text\":\"위험물안전관리법에 의한 규제 | 해당없음\",\"rules\":[\"R15\",\"R25\"],\"note\":\"해당없음 → 비해당\"},{\"msds_index\":6,\"field\":\"dangerous_goods[0]\",\"page\":36,\"source_text\":\"위험물안전관리법에 의한 규제 | 해당없음\",\"rules\":[\"R15\"],\"note\":\"class=해당없음\"},{\"msds_index\":6,\"field\":\"regulations[3]\",\"page\":36,\"source_text\":\"폐기물관리법에 의한 규제 | 해당없음\",\"rules\":[\"R15\",\"R25\"],\"note\":\"해당없음 → 비해당\"},{\"msds_index\":6,\"field\":\"waste[0]\",\"page\":36,\"source_text\":\"폐기물관리법에 의한 규제 | 해당없음\",\"rules\":[\"R15\"],\"note\":\"designated=비해당\"},{\"msds_index\":6,\"field\":\"regulations[4]\",\"page\":36,\"source_text\":\"잔류성유기오염물질관리법 | 해당없음\",\"rules\":[\"R15\",\"R25\"],\"note\":\"해당없음 → 비해당\"},{\"msds_index\":6,\"field\":\"regulations[5]\",\"page\":36,\"source_text\":\"미국관리정보(OSHA 규정) | 해당없음\",\"rules\":[\"R15\",\"R25\"],\"note\":\"해당없음 → 비해당\"},{\"msds_index\":6,\"field\":\"regulations[6]\",\"page\":36,\"source_text\":\"미국관리정보(CERCLA 규정) | 해당없음\",\"rules\":[\"R15\",\"R25\"],\"note\":\"해당없음 → 비해당\"},{\"msds_index\":6,\"field\":\"regulations[7]\",\"page\":36,\"source_text\":\"미국관리정보(EPCRA 302 규정) | 해당없음\",\"rules\":[\"R15\",\"R25\"],\"note\":\"해당없음 → 비해당\"},{\"msds_index\":6,\"field\":\"regulations[8]\",\"page\":36,\"source_text\":\"미국관리정보(EPCRA 304 규정) | 해당없음\",\"rules\":[\"R15\",\"R25\"],\"note\":\"해당없음 → 비해당\"},{\"msds_index\":6,\"field\":\"regulations[9]\",\"page\":36,\"source_text\":\"미국관리정보(EPCRA 313 규정) | 해당없음\",\"rules\":[\"R15\",\"R25\"],\"note\":\"해당없음 → 비해당\"},{\"msds_index\":6,\"field\":\"regulations[10]\",\"page\":36,\"source_text\":\"미국관리정보(로테르담협약물질) | 해당없음\",\"rules\":[\"R15\",\"R25\"],\"note\":\"INTL_TREATY\"},{\"msds_index\":6,\"field\":\"regulations[11]\",\"page\":36,\"source_text\":\"미국관리정보(스톡홀름협약물질) | 해당없음\",\"rules\":[\"R15\",\"R25\"],\"note\":\"INTL_TREATY\"},{\"msds_index\":6,\"field\":\"regulations[12]\",\"page\":36,\"source_text\":\"미국관리정보(몬트리올의정서물질) | 해당없음\",\"rules\":[\"R15\",\"R25\"],\"note\":\"INTL_TREATY\"},{\"msds_index\":6,\"field\":\"regulations[13]\",\"page\":36,\"source_text\":\"EU 분류정보(확정분류결과) | 해당없음\",\"rules\":[\"R15\",\"R25\"],\"note\":\"해당없음 → 비해당\"},{\"msds_index\":6,\"field\":\"intl_class[0]\",\"page\":36,\"source_text\":\"EU 분류정보(확정분류결과) | 해당없음\",\"rules\":[\"R15\"],\"note\":\"status=해당없음\"},{\"msds_index\":6,\"field\":\"regulations[14]\",\"page\":36,\"source_text\":\"EU 분류정보(위험문구) | 해당없음\",\"rules\":[\"R15\",\"R25\"],\"note\":\"해당없음 → 비해당\"},{\"msds_index\":6,\"field\":\"regulations[15]\",\"page\":36,\"source_text\":\"EU 분류정보(안전문구) | 해당없음\",\"rules\":[\"R15\",\"R25\"],\"note\":\"해당없음 → 비해당\"}]}"
+}

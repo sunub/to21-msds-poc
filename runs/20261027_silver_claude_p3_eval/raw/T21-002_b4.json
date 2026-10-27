@@ -1,0 +1,173 @@
+{
+  "doc_id": "T21-002",
+  "bundle": "b4",
+  "model": "claude-opus-5-5",
+  "mode": "none",
+  "finish_reason": "stop",
+  "usage": {
+    "prompt_tokens": 41979,
+    "completion_tokens": 2226,
+    "total_tokens": 44205,
+    "served_model": "claude-opus-5-5"
+  },
+  "seconds": 22.5,
+  "attempts": 1,
+  "errors": [],
+  "parsed": {
+    "msds": [
+      {
+        "transport": [
+          {
+            "mode": "해상",
+            "basis_raw": "선박안전법 위험물 선박운송 및 저장규칙",
+            "regulated": false,
+            "un_no": null,
+            "shipping_name": null,
+            "hazard_class": null,
+            "sub_risk": null,
+            "packing_group": null,
+            "marine_pollutant": null,
+            "ems_fire": null,
+            "ems_spill": null
+          },
+          {
+            "mode": "공통",
+            "basis_raw": "기타 외국으로 운송관련 규정",
+            "regulated": false,
+            "un_no": null,
+            "shipping_name": null,
+            "hazard_class": null,
+            "sub_risk": null,
+            "packing_group": null,
+            "marine_pollutant": null,
+            "ems_fire": null,
+            "ems_spill": null
+          }
+        ],
+        "regulations": [
+          {
+            "seq": 1,
+            "law": "OSH",
+            "item_code": null,
+            "item_raw": "산업안전보건법에 의한 규정",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": "미규정",
+            "remark": null
+          },
+          {
+            "seq": 2,
+            "law": "CCA",
+            "item_code": null,
+            "item_raw": "유해화학물질관리법",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": "미규정",
+            "remark": null
+          },
+          {
+            "seq": 3,
+            "law": "DG",
+            "item_code": "DG_HAZMAT",
+            "item_raw": "소방법",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": "미규정",
+            "remark": null
+          }
+        ],
+        "dangerous_goods": [
+          {
+            "comp_ref": "MIX",
+            "class": "해당없음",
+            "item": null,
+            "water_soluble": null,
+            "grade": null,
+            "designated_qty": null
+          }
+        ],
+        "waste": [],
+        "intl_class": []
+      }
+    ],
+    "evidence": [
+      {
+        "msds_index": 0,
+        "field": "transport[0]",
+        "page": 5,
+        "source_text": "1) 선박안전법 위험물 선박운송 및 저장규칙에 의한 분류 및 규제 | 해당 없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "선박운송 규칙이므로 mode=해상, '해당 없음'을 regulated=false로 기록"
+      },
+      {
+        "msds_index": 0,
+        "field": "transport[1]",
+        "page": 5,
+        "source_text": "3) 기타 외국으로 운송관련 규정에 의한 분류 및 규제 | 해당 없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "운송 방식 구분이 없어 mode=공통, '해당 없음'을 regulated=false로 기록"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[0]",
+        "page": 5,
+        "source_text": "1) 산업안전보건법에 의한 규정 | 미규정",
+        "rules": [
+          "R17"
+        ],
+        "note": "구체적 규제 항목이 없어 item_code=null, '미규정'을 비해당으로 보고 value_raw에 원문 보존"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[1]",
+        "page": 5,
+        "source_text": "유해화학물질관리법 | 미규정",
+        "rules": [
+          "R17"
+        ],
+        "note": "유해화학물질관리법(화관법 전신)을 law=CCA로, 구체 항목이 없어 item_code=null, '미규정'을 비해당으로 기록"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[2]",
+        "page": 5,
+        "source_text": "소방법 | 미규정",
+        "rules": [
+          "R17"
+        ],
+        "note": "소방법(위험물 규정, 현 위험물안전관리법 전신)을 law=DG로 보고 '미규정'을 비해당으로 기록"
+      },
+      {
+        "msds_index": 0,
+        "field": "dangerous_goods[0]",
+        "page": 5,
+        "source_text": "소방법 | 미규정",
+        "rules": [],
+        "note": "소방법상 미규정이므로 류별을 해당없음으로 기록"
+      }
+    ]
+  },
+  "raw_text": "{\"msds\":[{\"transport\":[{\"mode\":\"해상\",\"basis_raw\":\"선박안전법 위험물 선박운송 및 저장규칙\",\"regulated\":false,\"un_no\":null,\"shipping_name\":null,\"hazard_class\":null,\"sub_risk\":null,\"packing_group\":null,\"marine_pollutant\":null,\"ems_fire\":null,\"ems_spill\":null},{\"mode\":\"공통\",\"basis_raw\":\"기타 외국으로 운송관련 규정\",\"regulated\":false,\"un_no\":null,\"shipping_name\":null,\"hazard_class\":null,\"sub_risk\":null,\"packing_group\":null,\"marine_pollutant\":null,\"ems_fire\":null,\"ems_spill\":null}],\"regulations\":[{\"seq\":1,\"law\":\"OSH\",\"item_code\":null,\"item_raw\":\"산업안전보건법에 의한 규정\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":\"미규정\",\"remark\":null},{\"seq\":2,\"law\":\"CCA\",\"item_code\":null,\"item_raw\":\"유해화학물질관리법\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":\"미규정\",\"remark\":null},{\"seq\":3,\"law\":\"DG\",\"item_code\":\"DG_HAZMAT\",\"item_raw\":\"소방법\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":\"미규정\",\"remark\":null}],\"dangerous_goods\":[{\"comp_ref\":\"MIX\",\"class\":\"해당없음\",\"item\":null,\"water_soluble\":null,\"grade\":null,\"designated_qty\":null}],\"waste\":[],\"intl_class\":[]}],\"evidence\":[{\"msds_index\":0,\"field\":\"transport[0]\",\"page\":5,\"source_text\":\"1) 선박안전법 위험물 선박운송 및 저장규칙에 의한 분류 및 규제 | 해당 없음\",\"rules\":[\"R15\"],\"note\":\"선박운송 규칙이므로 mode=해상, '해당 없음'을 regulated=false로 기록\"},{\"msds_index\":0,\"field\":\"transport[1]\",\"page\":5,\"source_text\":\"3) 기타 외국으로 운송관련 규정에 의한 분류 및 규제 | 해당 없음\",\"rules\":[\"R15\"],\"note\":\"운송 방식 구분이 없어 mode=공통, '해당 없음'을 regulated=false로 기록\"},{\"msds_index\":0,\"field\":\"regulations[0]\",\"page\":5,\"source_text\":\"1) 산업안전보건법에 의한 규정 | 미규정\",\"rules\":[\"R17\"],\"note\":\"구체적 규제 항목이 없어 item_code=null, '미규정'을 비해당으로 보고 value_raw에 원문 보존\"},{\"msds_index\":0,\"field\":\"regulations[1]\",\"page\":5,\"source_text\":\"유해화학물질관리법 | 미규정\",\"rules\":[\"R17\"],\"note\":\"유해화학물질관리법(화관법 전신)을 law=CCA로, 구체 항목이 없어 item_code=null, '미규정'을 비해당으로 기록\"},{\"msds_index\":0,\"field\":\"regulations[2]\",\"page\":5,\"source_text\":\"소방법 | 미규정\",\"rules\":[\"R17\"],\"note\":\"소방법(위험물 규정, 현 위험물안전관리법 전신)을 law=DG로 보고 '미규정'을 비해당으로 기록\"},{\"msds_index\":0,\"field\":\"dangerous_goods[0]\",\"page\":5,\"source_text\":\"소방법 | 미규정\",\"rules\":[],\"note\":\"소방법상 미규정이므로 류별을 해당없음으로 기록\"}]}"
+}

@@ -1,0 +1,598 @@
+{
+  "doc_id": "T21-M001",
+  "bundle": "b1",
+  "model": "claude-opus-5-5",
+  "mode": "none",
+  "finish_reason": "stop",
+  "usage": {
+    "prompt_tokens": 88588,
+    "completion_tokens": 5954,
+    "total_tokens": 94542,
+    "served_model": "claude-opus-5-5"
+  },
+  "seconds": 51.5,
+  "attempts": 1,
+  "errors": [],
+  "parsed": {
+    "doc": {
+      "language": "ko",
+      "msds_count": 1
+    },
+    "msds": [
+      {
+        "meta": {
+          "msds_no": "AA00200-0000001195",
+          "doc_code": null,
+          "revision_no": null,
+          "revision_label": "2-2",
+          "header_product_name": null,
+          "source_note": null,
+          "first_issue_date": "2021-09-24",
+          "last_revision_date": "2022-10-31",
+          "page_start": 1,
+          "page_end": 12
+        },
+        "product": {
+          "name": "MN_METHANE(fuel)",
+          "code": null,
+          "synonyms": [],
+          "uses": [
+            "12.연료 및 연료 첨가제"
+          ],
+          "restrictions": [
+            "권고용도 외 사용제한",
+            "생활화학제품 및 살생물제의 안전관리에 관한 법률에 정의된 살생물제로의 사용을 제한합니다.",
+            "무기제조 및 관련 용도로 사용하지 마시오."
+          ],
+          "use_category_code": null
+        },
+        "companies": [
+          {
+            "seq": 1,
+            "role": "공급자",
+            "name": "롯데케미칼 주식회사",
+            "site": null,
+            "address": "서울특별시 송파구 올림픽로 300 롯데월드타워",
+            "postcode": "05551",
+            "department": null,
+            "contacts": [
+              {
+                "type": "대표",
+                "value": "02-829-4114",
+                "hours": null
+              },
+              {
+                "type": "대표",
+                "value": "031-596-3114",
+                "hours": null
+              },
+              {
+                "type": "긴급",
+                "value": "061-688-2100",
+                "hours": null
+              },
+              {
+                "type": "긴급",
+                "value": "052-278-3500",
+                "hours": null
+              },
+              {
+                "type": "긴급",
+                "value": "041-689-5900",
+                "hours": null
+              },
+              {
+                "type": "긴급",
+                "value": "061-689-1100",
+                "hours": null
+              },
+              {
+                "type": "팩스",
+                "value": "02-834-6070",
+                "hours": null
+              }
+            ]
+          }
+        ],
+        "hazard": {
+          "classified": true,
+          "classes": [
+            {
+              "seq": 1,
+              "group": "물리적",
+              "class_code": "PH_FLAM_GAS",
+              "category": "1",
+              "route_form": null,
+              "effect": null,
+              "target_organs": [],
+              "raw": "인화성 가스 구분 1"
+            },
+            {
+              "seq": 2,
+              "group": "물리적",
+              "class_code": "PH_PRESS_GAS",
+              "category": "압축가스",
+              "route_form": null,
+              "effect": null,
+              "target_organs": [],
+              "raw": "고압가스 압축가스"
+            }
+          ],
+          "signal_word": "위험",
+          "pictograms": [
+            {
+              "code": "GHS02",
+              "detection": "이미지판독"
+            },
+            {
+              "code": "GHS04",
+              "detection": "이미지판독"
+            }
+          ],
+          "h_statements": [
+            {
+              "seq": 1,
+              "code": "H220",
+              "system": "GHS",
+              "mark": null,
+              "text": "극인화성 가스"
+            },
+            {
+              "seq": 2,
+              "code": "H280",
+              "system": "GHS",
+              "mark": null,
+              "text": "고압가스 포함: 가열하면 폭발할 수 있음"
+            }
+          ],
+          "p_statements": [
+            {
+              "seq": 1,
+              "code": "P210",
+              "type": "예방",
+              "text": "열, 고온의 표면, 스파크, 화염 및 그 밖의 점화원으로부터 멀리하시오. 금연"
+            },
+            {
+              "seq": 2,
+              "code": "P377",
+              "type": "대응",
+              "text": "가스 누출 화재; 누출을 안전하게 막을 수 없다면 불을 끄려하지 마시오."
+            },
+            {
+              "seq": 3,
+              "code": "P381",
+              "type": "대응",
+              "text": "누출 시 모든 점화원을 제거하시오."
+            },
+            {
+              "seq": 4,
+              "code": "P403",
+              "type": "저장",
+              "text": "환기가 잘 되는 곳에 보관하시오."
+            },
+            {
+              "seq": 5,
+              "code": "P410+P403",
+              "type": "저장",
+              "text": "직사광선을 피하시오. 환기가 잘 되는 곳에 보관하시오."
+            }
+          ],
+          "other_hazards": [
+            {
+              "seq": 1,
+              "key": null,
+              "value": "경험과 제공된 정보에 의하면, 이 제품은 규정대로 사용 및 취급시 유해한 영향을 미치지 않습니다.",
+              "refs": null,
+              "cond": null,
+              "std_code": null,
+              "match_score": null,
+              "text": "경험과 제공된 정보에 의하면, 이 제품은 규정대로 사용 및 취급시 유해한 영향을 미치지 않습니다."
+            }
+          ],
+          "nfpa": {
+            "health": null,
+            "fire": null,
+            "reactivity": null,
+            "special": null
+          }
+        },
+        "composition": {
+          "type": "혼합물",
+          "no_hazardous_component": false
+        },
+        "components": [
+          {
+            "seq": 1,
+            "name": "Methane",
+            "name_en": null,
+            "synonyms": [
+              "biogas",
+              "carbane",
+              "methane"
+            ],
+            "cas_no": "74-82-8",
+            "ke_no": "KE-23181",
+            "ec_no": null,
+            "other_id": null,
+            "other_id_type": null,
+            "parent_seq": null,
+            "read_across_cas": null,
+            "content": {
+              "raw": "85.9",
+              "approx": null,
+              "value": 85.9,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "%",
+              "dp": 1,
+              "status": "값있음",
+              "note": null
+            },
+            "content_note": null,
+            "content_basis": "미표기",
+            "trade_secret": false,
+            "approval_no": null,
+            "approval_expiry": null
+          },
+          {
+            "seq": 2,
+            "name": "Hydrogen",
+            "name_en": null,
+            "synonyms": [
+              "dihydrogen"
+            ],
+            "cas_no": "1333-74-0",
+            "ke_no": "KE-20137",
+            "ec_no": null,
+            "other_id": null,
+            "other_id_type": null,
+            "parent_seq": null,
+            "read_across_cas": null,
+            "content": {
+              "raw": "14",
+              "approx": null,
+              "value": 14,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "%",
+              "dp": 0,
+              "status": "값있음",
+              "note": null
+            },
+            "content_note": null,
+            "content_basis": "미표기",
+            "trade_secret": false,
+            "approval_no": null,
+            "approval_expiry": null
+          },
+          {
+            "seq": 3,
+            "name": "Carbon monoxide",
+            "name_en": null,
+            "synonyms": [
+              "carbon monoxide"
+            ],
+            "cas_no": "630-08-0",
+            "ke_no": "KE-04745",
+            "ec_no": null,
+            "other_id": null,
+            "other_id_type": null,
+            "parent_seq": null,
+            "read_across_cas": null,
+            "content": {
+              "raw": "0.1",
+              "approx": null,
+              "value": 0.1,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "%",
+              "dp": 1,
+              "status": "값있음",
+              "note": null
+            },
+            "content_note": null,
+            "content_basis": "미표기",
+            "trade_secret": false,
+            "approval_no": null,
+            "approval_expiry": null
+          }
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "msds_index": 0,
+        "field": "meta.msds_no",
+        "page": 1,
+        "source_text": "MSDS 번호 : AA00200-0000001195",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.revision_label",
+        "page": 12,
+        "source_text": "○ 개정 횟수 : 2-2",
+        "rules": [
+          "R17"
+        ],
+        "note": "'2-2'는 개정 횟수를 하나의 정수로 확정할 수 없어 revision_no는 null로 두고 원문만 revision_label에 남김"
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.revision_no",
+        "page": 12,
+        "source_text": "○ 개정 횟수 : 2-2",
+        "rules": [
+          "R17"
+        ],
+        "note": "정수 개정 횟수로 해석이 불분명하여 null"
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.first_issue_date",
+        "page": 12,
+        "source_text": "나. 최초작성일자 : 2021-09-24",
+        "rules": [
+          "R01"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.last_revision_date",
+        "page": 1,
+        "source_text": "최종 개정일자 : 2022-10-31",
+        "rules": [
+          "R01"
+        ],
+        "note": "16항에도 같은 날짜로 기재됨"
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.page_start",
+        "page": 1,
+        "source_text": "- 1 -",
+        "rules": [
+          "R16"
+        ],
+        "note": "파일 전체가 MSDS 1건"
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.page_end",
+        "page": 12,
+        "source_text": "- 12 -",
+        "rules": [
+          "R16"
+        ],
+        "note": "파일 전체가 MSDS 1건"
+      },
+      {
+        "msds_index": 0,
+        "field": "product.name",
+        "page": 1,
+        "source_text": "가. 제품명 : MN_METHANE(fuel)",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "product.uses",
+        "page": 1,
+        "source_text": "○ 제품의 권고 용도 12.연료 및 연료 첨가제",
+        "rules": [
+          "R11"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "product.restrictions",
+        "page": 1,
+        "source_text": "권고용도 외 사용제한 생활화학제품 및 살생물제의 안전관리에 관한 법률에 정의된 살생물제로의 사용을 제한합니다. 무기제조 및 관련 용도로 사용하지 마시오.",
+        "rules": [
+          "R11"
+        ],
+        "note": "줄 단위로 3개 항목으로 나눔"
+      },
+      {
+        "msds_index": 0,
+        "field": "companies[0]",
+        "page": 1,
+        "source_text": "○ 판매자 회사명 : 롯데케미칼 주식회사 주소 : 05551 서울특별시 송파구 올림픽로 300 롯데월드타워 기초소재 | 02-829-4114 | 첨단소재 | 031-596-3114 여수공장 | 061-688-2100 | 울산공장 | 052-278-3500 대산공장 | 041-689-5900 | 여수공장(첨단) | 061-689-1100 팩스 : 02-834-6070",
+        "rules": [
+          "R12"
+        ],
+        "note": "'다. 공급자 정보' 아래 판매자를 공급자로 두고, 주소 앞 우편번호 분리, 영업/마케팅 번호는 대표, 긴급전화번호 표의 번호는 각각 긴급으로 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.classified",
+        "page": 1,
+        "source_text": "- 인화성 가스 구분 1 - 고압가스 압축가스",
+        "rules": [],
+        "note": "분류 항목이 있어 true"
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.classes[0]",
+        "page": 1,
+        "source_text": "- 인화성 가스 구분 1",
+        "rules": [
+          "R07"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.classes[1]",
+        "page": 1,
+        "source_text": "- 고압가스 압축가스",
+        "rules": [
+          "R07"
+        ],
+        "note": "구분 표기 대신 '압축가스'가 적혀 있어 그대로 category에 넣음"
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.signal_word",
+        "page": 2,
+        "source_text": "신호어 - 위험",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.pictograms[0]",
+        "page": 1,
+        "source_text": "그림문자",
+        "rules": [],
+        "note": "이미지에서 불꽃 그림 확인"
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.pictograms[1]",
+        "page": 1,
+        "source_text": "그림문자",
+        "rules": [],
+        "note": "이미지에서 가스 실린더 그림 확인"
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.h_statements[0]",
+        "page": 2,
+        "source_text": "H220 극인화성 가스",
+        "rules": [
+          "R05"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.h_statements[1]",
+        "page": 2,
+        "source_text": "H280 고압가스 포함: 가열하면 폭발할 수 있음",
+        "rules": [
+          "R05"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.p_statements[0]",
+        "page": 2,
+        "source_text": "P210 열, 고온의 표면, 스파크, 화염 및 그 밖의 점화원으로부터 멀리하시오. 금연",
+        "rules": [
+          "R05"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.p_statements[1]",
+        "page": 2,
+        "source_text": "P377 가스 누출 화재; 누출을 안전하게 막을 수 없다면 불을 끄려하지 마시오.",
+        "rules": [
+          "R05"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.p_statements[2]",
+        "page": 2,
+        "source_text": "P381 누출 시 모든 점화원을 제거하시오.",
+        "rules": [
+          "R05"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.p_statements[3]",
+        "page": 2,
+        "source_text": "P403 환기가 잘 되는 곳에 보관하시오.",
+        "rules": [
+          "R05"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.p_statements[4]",
+        "page": 2,
+        "source_text": "P410+P403 직사광선을 피하시오. 환기가 잘 되는 곳에 보관하시오.",
+        "rules": [
+          "R05"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.other_hazards[0]",
+        "page": 2,
+        "source_text": "경험과 제공된 정보에 의하면, 이 제품은 규정대로 사용 및 취급시 유해한 영향을 미치지 않습니다.",
+        "rules": [
+          "R14"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "composition.type",
+        "page": 2,
+        "source_text": "Methane | Hydrogen | Carbon monoxide",
+        "rules": [],
+        "note": "성분표에 3개 성분이 있어 혼합물"
+      },
+      {
+        "msds_index": 0,
+        "field": "components[0]",
+        "page": 2,
+        "source_text": "Methane | biogas, carbane, methan e | 74-82-8 | KE-23181 | 85.9",
+        "rules": [
+          "R02",
+          "R03",
+          "R04",
+          "R06",
+          "R11"
+        ],
+        "note": "줄바꿈으로 나뉜 'methan e'를 'methane'으로 이어 붙여 이명 분리, 함유량 단위는 머리글 '함유량(%)'에서 가져옴"
+      },
+      {
+        "msds_index": 0,
+        "field": "components[1]",
+        "page": 2,
+        "source_text": "Hydrogen | dihydrogen | 1333-74-0 | KE-20137 | 14",
+        "rules": [
+          "R02",
+          "R03",
+          "R04",
+          "R06"
+        ],
+        "note": "함유량 단위는 머리글 '함유량(%)'에서 가져옴"
+      },
+      {
+        "msds_index": 0,
+        "field": "components[2]",
+        "page": 2,
+        "source_text": "Carbon monoxide | carbon monoxide | 630-08-0 | KE-04745 | 0.1",
+        "rules": [
+          "R02",
+          "R03",
+          "R04",
+          "R06"
+        ],
+        "note": "함유량 단위는 머리글 '함유량(%)'에서 가져옴"
+      }
+    ]
+  },
+  "raw_text": "{\"doc\":{\"language\":\"ko\",\"msds_count\":1},\"msds\":[{\"meta\":{\"msds_no\":\"AA00200-0000001195\",\"doc_code\":null,\"revision_no\":null,\"revision_label\":\"2-2\",\"header_product_name\":null,\"source_note\":null,\"first_issue_date\":\"2021-09-24\",\"last_revision_date\":\"2022-10-31\",\"page_start\":1,\"page_end\":12},\"product\":{\"name\":\"MN_METHANE(fuel)\",\"code\":null,\"synonyms\":[],\"uses\":[\"12.연료 및 연료 첨가제\"],\"restrictions\":[\"권고용도 외 사용제한\",\"생활화학제품 및 살생물제의 안전관리에 관한 법률에 정의된 살생물제로의 사용을 제한합니다.\",\"무기제조 및 관련 용도로 사용하지 마시오.\"],\"use_category_code\":null},\"companies\":[{\"seq\":1,\"role\":\"공급자\",\"name\":\"롯데케미칼 주식회사\",\"site\":null,\"address\":\"서울특별시 송파구 올림픽로 300 롯데월드타워\",\"postcode\":\"05551\",\"department\":null,\"contacts\":[{\"type\":\"대표\",\"value\":\"02-829-4114\",\"hours\":null},{\"type\":\"대표\",\"value\":\"031-596-3114\",\"hours\":null},{\"type\":\"긴급\",\"value\":\"061-688-2100\",\"hours\":null},{\"type\":\"긴급\",\"value\":\"052-278-3500\",\"hours\":null},{\"type\":\"긴급\",\"value\":\"041-689-5900\",\"hours\":null},{\"type\":\"긴급\",\"value\":\"061-689-1100\",\"hours\":null},{\"type\":\"팩스\",\"value\":\"02-834-6070\",\"hours\":null}]}],\"hazard\":{\"classified\":true,\"classes\":[{\"seq\":1,\"group\":\"물리적\",\"class_code\":\"PH_FLAM_GAS\",\"category\":\"1\",\"route_form\":null,\"effect\":null,\"target_organs\":[],\"raw\":\"인화성 가스 구분 1\"},{\"seq\":2,\"group\":\"물리적\",\"class_code\":\"PH_PRESS_GAS\",\"category\":\"압축가스\",\"route_form\":null,\"effect\":null,\"target_organs\":[],\"raw\":\"고압가스 압축가스\"}],\"signal_word\":\"위험\",\"pictograms\":[{\"code\":\"GHS02\",\"detection\":\"이미지판독\"},{\"code\":\"GHS04\",\"detection\":\"이미지판독\"}],\"h_statements\":[{\"seq\":1,\"code\":\"H220\",\"system\":\"GHS\",\"mark\":null,\"text\":\"극인화성 가스\"},{\"seq\":2,\"code\":\"H280\",\"system\":\"GHS\",\"mark\":null,\"text\":\"고압가스 포함: 가열하면 폭발할 수 있음\"}],\"p_statements\":[{\"seq\":1,\"code\":\"P210\",\"type\":\"예방\",\"text\":\"열, 고온의 표면, 스파크, 화염 및 그 밖의 점화원으로부터 멀리하시오. 금연\"},{\"seq\":2,\"code\":\"P377\",\"type\":\"대응\",\"text\":\"가스 누출 화재; 누출을 안전하게 막을 수 없다면 불을 끄려하지 마시오.\"},{\"seq\":3,\"code\":\"P381\",\"type\":\"대응\",\"text\":\"누출 시 모든 점화원을 제거하시오.\"},{\"seq\":4,\"code\":\"P403\",\"type\":\"저장\",\"text\":\"환기가 잘 되는 곳에 보관하시오.\"},{\"seq\":5,\"code\":\"P410+P403\",\"type\":\"저장\",\"text\":\"직사광선을 피하시오. 환기가 잘 되는 곳에 보관하시오.\"}],\"other_hazards\":[{\"seq\":1,\"key\":null,\"value\":\"경험과 제공된 정보에 의하면, 이 제품은 규정대로 사용 및 취급시 유해한 영향을 미치지 않습니다.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"경험과 제공된 정보에 의하면, 이 제품은 규정대로 사용 및 취급시 유해한 영향을 미치지 않습니다.\"}],\"nfpa\":{\"health\":null,\"fire\":null,\"reactivity\":null,\"special\":null}},\"composition\":{\"type\":\"혼합물\",\"no_hazardous_component\":false},\"components\":[{\"seq\":1,\"name\":\"Methane\",\"name_en\":null,\"synonyms\":[\"biogas\",\"carbane\",\"methane\"],\"cas_no\":\"74-82-8\",\"ke_no\":\"KE-23181\",\"ec_no\":null,\"other_id\":null,\"other_id_type\":null,\"parent_seq\":null,\"read_across_cas\":null,\"content\":{\"raw\":\"85.9\",\"approx\":null,\"value\":85.9,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"%\",\"dp\":1,\"status\":\"값있음\",\"note\":null},\"content_note\":null,\"content_basis\":\"미표기\",\"trade_secret\":false,\"approval_no\":null,\"approval_expiry\":null},{\"seq\":2,\"name\":\"Hydrogen\",\"name_en\":null,\"synonyms\":[\"dihydrogen\"],\"cas_no\":\"1333-74-0\",\"ke_no\":\"KE-20137\",\"ec_no\":null,\"other_id\":null,\"other_id_type\":null,\"parent_seq\":null,\"read_across_cas\":null,\"content\":{\"raw\":\"14\",\"approx\":null,\"value\":14,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"%\",\"dp\":0,\"status\":\"값있음\",\"note\":null},\"content_note\":null,\"content_basis\":\"미표기\",\"trade_secret\":false,\"approval_no\":null,\"approval_expiry\":null},{\"seq\":3,\"name\":\"Carbon monoxide\",\"name_en\":null,\"synonyms\":[\"carbon monoxide\"],\"cas_no\":\"630-08-0\",\"ke_no\":\"KE-04745\",\"ec_no\":null,\"other_id\":null,\"other_id_type\":null,\"parent_seq\":null,\"read_across_cas\":null,\"content\":{\"raw\":\"0.1\",\"approx\":null,\"value\":0.1,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"%\",\"dp\":1,\"status\":\"값있음\",\"note\":null},\"content_note\":null,\"content_basis\":\"미표기\",\"trade_secret\":false,\"approval_no\":null,\"approval_expiry\":null}]}],\"evidence\":[{\"msds_index\":0,\"field\":\"meta.msds_no\",\"page\":1,\"source_text\":\"MSDS 번호 : AA00200-0000001195\",\"rules\":[],\"note\":null},{\"msds_index\":0,\"field\":\"meta.revision_label\",\"page\":12,\"source_text\":\"○ 개정 횟수 : 2-2\",\"rules\":[\"R17\"],\"note\":\"'2-2'는 개정 횟수를 하나의 정수로 확정할 수 없어 revision_no는 null로 두고 원문만 revision_label에 남김\"},{\"msds_index\":0,\"field\":\"meta.revision_no\",\"page\":12,\"source_text\":\"○ 개정 횟수 : 2-2\",\"rules\":[\"R17\"],\"note\":\"정수 개정 횟수로 해석이 불분명하여 null\"},{\"msds_index\":0,\"field\":\"meta.first_issue_date\",\"page\":12,\"source_text\":\"나. 최초작성일자 : 2021-09-24\",\"rules\":[\"R01\"],\"note\":null},{\"msds_index\":0,\"field\":\"meta.last_revision_date\",\"page\":1,\"source_text\":\"최종 개정일자 : 2022-10-31\",\"rules\":[\"R01\"],\"note\":\"16항에도 같은 날짜로 기재됨\"},{\"msds_index\":0,\"field\":\"meta.page_start\",\"page\":1,\"source_text\":\"- 1 -\",\"rules\":[\"R16\"],\"note\":\"파일 전체가 MSDS 1건\"},{\"msds_index\":0,\"field\":\"meta.page_end\",\"page\":12,\"source_text\":\"- 12 -\",\"rules\":[\"R16\"],\"note\":\"파일 전체가 MSDS 1건\"},{\"msds_index\":0,\"field\":\"product.name\",\"page\":1,\"source_text\":\"가. 제품명 : MN_METHANE(fuel)\",\"rules\":[],\"note\":null},{\"msds_index\":0,\"field\":\"product.uses\",\"page\":1,\"source_text\":\"○ 제품의 권고 용도 12.연료 및 연료 첨가제\",\"rules\":[\"R11\"],\"note\":null},{\"msds_index\":0,\"field\":\"product.restrictions\",\"page\":1,\"source_text\":\"권고용도 외 사용제한 생활화학제품 및 살생물제의 안전관리에 관한 법률에 정의된 살생물제로의 사용을 제한합니다. 무기제조 및 관련 용도로 사용하지 마시오.\",\"rules\":[\"R11\"],\"note\":\"줄 단위로 3개 항목으로 나눔\"},{\"msds_index\":0,\"field\":\"companies[0]\",\"page\":1,\"source_text\":\"○ 판매자 회사명 : 롯데케미칼 주식회사 주소 : 05551 서울특별시 송파구 올림픽로 300 롯데월드타워 기초소재 | 02-829-4114 | 첨단소재 | 031-596-3114 여수공장 | 061-688-2100 | 울산공장 | 052-278-3500 대산공장 | 041-689-5900 | 여수공장(첨단) | 061-689-1100 팩스 : 02-834-6070\",\"rules\":[\"R12\"],\"note\":\"'다. 공급자 정보' 아래 판매자를 공급자로 두고, 주소 앞 우편번호 분리, 영업/마케팅 번호는 대표, 긴급전화번호 표의 번호는 각각 긴급으로 분리\"},{\"msds_index\":0,\"field\":\"hazard.classified\",\"page\":1,\"source_text\":\"- 인화성 가스 구분 1 - 고압가스 압축가스\",\"rules\":[],\"note\":\"분류 항목이 있어 true\"},{\"msds_index\":0,\"field\":\"hazard.classes[0]\",\"page\":1,\"source_text\":\"- 인화성 가스 구분 1\",\"rules\":[\"R07\"],\"note\":null},{\"msds_index\":0,\"field\":\"hazard.classes[1]\",\"page\":1,\"source_text\":\"- 고압가스 압축가스\",\"rules\":[\"R07\"],\"note\":\"구분 표기 대신 '압축가스'가 적혀 있어 그대로 category에 넣음\"},{\"msds_index\":0,\"field\":\"hazard.signal_word\",\"page\":2,\"source_text\":\"신호어 - 위험\",\"rules\":[],\"note\":null},{\"msds_index\":0,\"field\":\"hazard.pictograms[0]\",\"page\":1,\"source_text\":\"그림문자\",\"rules\":[],\"note\":\"이미지에서 불꽃 그림 확인\"},{\"msds_index\":0,\"field\":\"hazard.pictograms[1]\",\"page\":1,\"source_text\":\"그림문자\",\"rules\":[],\"note\":\"이미지에서 가스 실린더 그림 확인\"},{\"msds_index\":0,\"field\":\"hazard.h_statements[0]\",\"page\":2,\"source_text\":\"H220 극인화성 가스\",\"rules\":[\"R05\"],\"note\":null},{\"msds_index\":0,\"field\":\"hazard.h_statements[1]\",\"page\":2,\"source_text\":\"H280 고압가스 포함: 가열하면 폭발할 수 있음\",\"rules\":[\"R05\"],\"note\":null},{\"msds_index\":0,\"field\":\"hazard.p_statements[0]\",\"page\":2,\"source_text\":\"P210 열, 고온의 표면, 스파크, 화염 및 그 밖의 점화원으로부터 멀리하시오. 금연\",\"rules\":[\"R05\"],\"note\":null},{\"msds_index\":0,\"field\":\"hazard.p_statements[1]\",\"page\":2,\"source_text\":\"P377 가스 누출 화재; 누출을 안전하게 막을 수 없다면 불을 끄려하지 마시오.\",\"rules\":[\"R05\"],\"note\":null},{\"msds_index\":0,\"field\":\"hazard.p_statements[2]\",\"page\":2,\"source_text\":\"P381 누출 시 모든 점화원을 제거하시오.\",\"rules\":[\"R05\"],\"note\":null},{\"msds_index\":0,\"field\":\"hazard.p_statements[3]\",\"page\":2,\"source_text\":\"P403 환기가 잘 되는 곳에 보관하시오.\",\"rules\":[\"R05\"],\"note\":null},{\"msds_index\":0,\"field\":\"hazard.p_statements[4]\",\"page\":2,\"source_text\":\"P410+P403 직사광선을 피하시오. 환기가 잘 되는 곳에 보관하시오.\",\"rules\":[\"R05\"],\"note\":null},{\"msds_index\":0,\"field\":\"hazard.other_hazards[0]\",\"page\":2,\"source_text\":\"경험과 제공된 정보에 의하면, 이 제품은 규정대로 사용 및 취급시 유해한 영향을 미치지 않습니다.\",\"rules\":[\"R14\"],\"note\":null},{\"msds_index\":0,\"field\":\"composition.type\",\"page\":2,\"source_text\":\"Methane | Hydrogen | Carbon monoxide\",\"rules\":[],\"note\":\"성분표에 3개 성분이 있어 혼합물\"},{\"msds_index\":0,\"field\":\"components[0]\",\"page\":2,\"source_text\":\"Methane | biogas, carbane, methan e | 74-82-8 | KE-23181 | 85.9\",\"rules\":[\"R02\",\"R03\",\"R04\",\"R06\",\"R11\"],\"note\":\"줄바꿈으로 나뉜 'methan e'를 'methane'으로 이어 붙여 이명 분리, 함유량 단위는 머리글 '함유량(%)'에서 가져옴\"},{\"msds_index\":0,\"field\":\"components[1]\",\"page\":2,\"source_text\":\"Hydrogen | dihydrogen | 1333-74-0 | KE-20137 | 14\",\"rules\":[\"R02\",\"R03\",\"R04\",\"R06\"],\"note\":\"함유량 단위는 머리글 '함유량(%)'에서 가져옴\"},{\"msds_index\":0,\"field\":\"components[2]\",\"page\":2,\"source_text\":\"Carbon monoxide | carbon monoxide | 630-08-0 | KE-04745 | 0.1\",\"rules\":[\"R02\",\"R03\",\"R04\",\"R06\"],\"note\":\"함유량 단위는 머리글 '함유량(%)'에서 가져옴\"}]}"
+}

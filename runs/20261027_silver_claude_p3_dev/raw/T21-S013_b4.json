@@ -1,0 +1,119 @@
+{
+  "doc_id": "T21-S013",
+  "bundle": "b4",
+  "model": "claude-opus-5-5",
+  "mode": "none",
+  "finish_reason": "stop",
+  "usage": {
+    "prompt_tokens": 78215,
+    "completion_tokens": 1603,
+    "total_tokens": 79818,
+    "served_model": "claude-opus-5-5"
+  },
+  "seconds": 22.6,
+  "attempts": 1,
+  "errors": [],
+  "parsed": {
+    "msds": [
+      {
+        "transport": [
+          {
+            "mode": "공통",
+            "basis_raw": null,
+            "regulated": true,
+            "un_no": "1049",
+            "shipping_name": "HYDROGEN, COMPRESSED",
+            "hazard_class": "2.1",
+            "sub_risk": null,
+            "packing_group": "해당없음",
+            "marine_pollutant": "비해당",
+            "ems_fire": "F-D",
+            "ems_spill": "S-U"
+          },
+          {
+            "mode": "해상",
+            "basis_raw": "IMDG",
+            "regulated": null,
+            "un_no": null,
+            "shipping_name": null,
+            "hazard_class": null,
+            "sub_risk": null,
+            "packing_group": null,
+            "marine_pollutant": "비해당",
+            "ems_fire": null,
+            "ems_spill": null
+          },
+          {
+            "mode": "항공",
+            "basis_raw": "IATA",
+            "regulated": true,
+            "un_no": "1049",
+            "shipping_name": "HYDROGEN, COMPRESSED",
+            "hazard_class": "2.1",
+            "sub_risk": null,
+            "packing_group": "해당없음",
+            "marine_pollutant": null,
+            "ems_fire": null,
+            "ems_spill": null
+          }
+        ],
+        "regulations": [],
+        "dangerous_goods": [],
+        "waste": [],
+        "intl_class": []
+      }
+    ],
+    "evidence": [
+      {
+        "msds_index": 0,
+        "field": "transport[0]",
+        "page": 9,
+        "source_text": "가. 유엔번호(UN No.) : 1049 | 나. 유엔 적정 선적명 : HYDROGEN, COMPRESSED | 다. 운송에서의 위험성 등급 : 2.1 | 라. 용기등급 : 해당없음 | 마. 해양오염물질 : 해당없음",
+        "rules": [
+          "R09",
+          "R15"
+        ],
+        "note": "운송 방식 구분 없는 14항 본문을 공통 행으로 넣었고, 해양오염물질 '해당없음'은 동의어 사전에 따라 비해당으로 적음. EmS(F-D, S-U)는 10쪽 바항에서 읽음."
+      },
+      {
+        "msds_index": 0,
+        "field": "transport[0].ems_fire",
+        "page": 10,
+        "source_text": "화재시 비상조치의 종류 : F-D | 유출시 비상조치의 종류 : S-U",
+        "rules": [],
+        "note": "바항의 운송 방식 구분 없는 EmS를 공통 행에 넣음."
+      },
+      {
+        "msds_index": 0,
+        "field": "transport[1]",
+        "page": 10,
+        "source_text": "- 해상운송(IMDG) | · 해양오염물질 : 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "해상운송(IMDG) 항목에는 해양오염물질만 적혀 있어 그 칸만 채움. '해당없음'은 비해당으로 적음."
+      },
+      {
+        "msds_index": 0,
+        "field": "transport[2]",
+        "page": 10,
+        "source_text": "- Air transport(IATA) | · 유엔번호 : 1049 | · 유엔 적정 선적명 : HYDROGEN, COMPRESSED | · 운송에서의 위험성 등급 : 2.1 | · 용기등급 : 해당없음",
+        "rules": [
+          "R09"
+        ],
+        "note": "항공운송(IATA) 항목을 항공 행으로 넣음."
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations",
+        "page": 10,
+        "source_text": "15. 법적 규제현황",
+        "rules": [
+          "R18"
+        ],
+        "note": "15항 제목만 있고 내용이 비어 있어 규제·위험물·폐기물·해외분류 행을 만들지 않음."
+      }
+    ]
+  },
+  "raw_text": "{\"msds\":[{\"transport\":[{\"mode\":\"공통\",\"basis_raw\":null,\"regulated\":true,\"un_no\":\"1049\",\"shipping_name\":\"HYDROGEN, COMPRESSED\",\"hazard_class\":\"2.1\",\"sub_risk\":null,\"packing_group\":\"해당없음\",\"marine_pollutant\":\"비해당\",\"ems_fire\":\"F-D\",\"ems_spill\":\"S-U\"},{\"mode\":\"해상\",\"basis_raw\":\"IMDG\",\"regulated\":null,\"un_no\":null,\"shipping_name\":null,\"hazard_class\":null,\"sub_risk\":null,\"packing_group\":null,\"marine_pollutant\":\"비해당\",\"ems_fire\":null,\"ems_spill\":null},{\"mode\":\"항공\",\"basis_raw\":\"IATA\",\"regulated\":true,\"un_no\":\"1049\",\"shipping_name\":\"HYDROGEN, COMPRESSED\",\"hazard_class\":\"2.1\",\"sub_risk\":null,\"packing_group\":\"해당없음\",\"marine_pollutant\":null,\"ems_fire\":null,\"ems_spill\":null}],\"regulations\":[],\"dangerous_goods\":[],\"waste\":[],\"intl_class\":[]}],\"evidence\":[{\"msds_index\":0,\"field\":\"transport[0]\",\"page\":9,\"source_text\":\"가. 유엔번호(UN No.) : 1049 | 나. 유엔 적정 선적명 : HYDROGEN, COMPRESSED | 다. 운송에서의 위험성 등급 : 2.1 | 라. 용기등급 : 해당없음 | 마. 해양오염물질 : 해당없음\",\"rules\":[\"R09\",\"R15\"],\"note\":\"운송 방식 구분 없는 14항 본문을 공통 행으로 넣었고, 해양오염물질 '해당없음'은 동의어 사전에 따라 비해당으로 적음. EmS(F-D, S-U)는 10쪽 바항에서 읽음.\"},{\"msds_index\":0,\"field\":\"transport[0].ems_fire\",\"page\":10,\"source_text\":\"화재시 비상조치의 종류 : F-D | 유출시 비상조치의 종류 : S-U\",\"rules\":[],\"note\":\"바항의 운송 방식 구분 없는 EmS를 공통 행에 넣음.\"},{\"msds_index\":0,\"field\":\"transport[1]\",\"page\":10,\"source_text\":\"- 해상운송(IMDG) | · 해양오염물질 : 해당없음\",\"rules\":[\"R15\"],\"note\":\"해상운송(IMDG) 항목에는 해양오염물질만 적혀 있어 그 칸만 채움. '해당없음'은 비해당으로 적음.\"},{\"msds_index\":0,\"field\":\"transport[2]\",\"page\":10,\"source_text\":\"- Air transport(IATA) | · 유엔번호 : 1049 | · 유엔 적정 선적명 : HYDROGEN, COMPRESSED | · 운송에서의 위험성 등급 : 2.1 | · 용기등급 : 해당없음\",\"rules\":[\"R09\"],\"note\":\"항공운송(IATA) 항목을 항공 행으로 넣음.\"},{\"msds_index\":0,\"field\":\"regulations\",\"page\":10,\"source_text\":\"15. 법적 규제현황\",\"rules\":[\"R18\"],\"note\":\"15항 제목만 있고 내용이 비어 있어 규제·위험물·폐기물·해외분류 행을 만들지 않음.\"}]}"
+}

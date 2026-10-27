@@ -1,0 +1,2612 @@
+{
+  "doc_id": "T21-M002",
+  "bundle": "b3",
+  "model": "claude-opus-5-5",
+  "mode": "none",
+  "finish_reason": "stop",
+  "usage": {
+    "prompt_tokens": 88022,
+    "completion_tokens": 26844,
+    "total_tokens": 114866,
+    "served_model": "claude-opus-5-5"
+  },
+  "seconds": 188.4,
+  "attempts": 1,
+  "errors": [],
+  "parsed": {
+    "msds": [
+      {
+        "toxicity": [
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_ORAL",
+            "descriptor": null,
+            "q": {
+              "raw": "자료없음",
+              "approx": null,
+              "value": null,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": null,
+              "dp": null,
+              "status": "자료없음",
+              "note": null
+            },
+            "species": null,
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [],
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "TX_ORAL",
+            "descriptor": "LD50",
+            "q": {
+              "raw": "1,750 mg/kg",
+              "approx": false,
+              "value": 1750,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "mg/kg",
+              "dp": 0,
+              "status": "값있음",
+              "note": null
+            },
+            "species": "랫드",
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": "GLP",
+            "data_source": null,
+            "classification": null,
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "3",
+            "endpoint": "TX_ORAL",
+            "descriptor": "LD50",
+            "q": {
+              "raw": "4,729 mg/kg",
+              "approx": false,
+              "value": 4729,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "mg/kg",
+              "dp": 0,
+              "status": "값있음",
+              "note": null
+            },
+            "species": "랫드",
+            "sex": "수컷",
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_DERMAL",
+            "descriptor": null,
+            "q": {
+              "raw": "자료없음",
+              "approx": null,
+              "value": null,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": null,
+              "dp": null,
+              "status": "자료없음",
+              "note": null
+            },
+            "species": null,
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [],
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "TX_DERMAL",
+            "descriptor": "LD50",
+            "q": {
+              "raw": "> 2,000 mg/kg",
+              "approx": false,
+              "value": null,
+              "lower_op": ">",
+              "lower": 2000,
+              "upper_op": null,
+              "upper": null,
+              "unit": "mg/kg",
+              "dp": 0,
+              "status": "값있음",
+              "note": null
+            },
+            "species": "토끼",
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": "GLP",
+            "data_source": null,
+            "classification": null,
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "3",
+            "endpoint": "TX_DERMAL",
+            "descriptor": null,
+            "q": {
+              "raw": "자료없음",
+              "approx": null,
+              "value": null,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": null,
+              "dp": null,
+              "status": "자료없음",
+              "note": null
+            },
+            "species": null,
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [],
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_INHAL",
+            "descriptor": "LC50",
+            "q": {
+              "raw": "658mg/L/4h",
+              "approx": false,
+              "value": 658,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "mg/L",
+              "dp": 0,
+              "status": "값있음",
+              "note": null
+            },
+            "species": "랫드",
+            "sex": null,
+            "duration_value": 4,
+            "duration_unit": "hr",
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": "International Uniform Chemical Infomation Database(IUCLID)",
+            "classification": null,
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "TX_INHAL",
+            "descriptor": "LC50",
+            "q": {
+              "raw": "26.16 mg/L/4hr",
+              "approx": false,
+              "value": 26.16,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "mg/L",
+              "dp": 2,
+              "status": "값있음",
+              "note": null
+            },
+            "species": "랫드",
+            "sex": null,
+            "duration_value": 4,
+            "duration_unit": "hr",
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": "GLP",
+            "data_source": null,
+            "classification": null,
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "3",
+            "endpoint": "TX_INHAL",
+            "descriptor": "LC50",
+            "q": {
+              "raw": "81.9 mg/L/4hr",
+              "approx": false,
+              "value": 81.9,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "mg/L",
+              "dp": 1,
+              "status": "값있음",
+              "note": null
+            },
+            "species": "랫드",
+            "sex": null,
+            "duration_value": 4,
+            "duration_unit": "hr",
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": "OECD TG 403, GLP",
+            "data_source": null,
+            "classification": null,
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_SKIN",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": "인간",
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "인간의 피부에 노출되었을 때, 피부자극성은 관찰되지 않았음",
+                "refs": [
+                  "1"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "- NATURAL GAS, LIQUIFIED : 인간의 피부에 노출되었을 때, 피부자극성은 관찰되지 않았음"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "TX_SKIN",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": "토끼",
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": "GLP",
+            "data_source": null,
+            "classification": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "토끼를 이용한 피부자극성시험에서 피부자극성이 관찰되었음 (GLP)",
+                "refs": [
+                  "2"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "- Tetrahydrothiophene : 토끼를 이용한 피부자극성시험에서 피부자극성이 관찰되었음 (GLP)"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "3",
+            "endpoint": "TX_SKIN",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": "토끼",
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": "GLP",
+            "data_source": null,
+            "classification": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "토끼를 이용한 피부자극성시험에서 피부자극성이 관찰되었음 (GLP)",
+                "refs": [
+                  "3"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "- Tert-butyl mercaptan : 토끼를 이용한 피부자극성시험에서 피부자극성이 관찰되었음 (GLP)"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_EYE",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": "인간",
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "인간의 눈에 노출되었을 때, 눈 자극성은 관찰되지 않았음",
+                "refs": [
+                  "1"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "- NATURAL GAS, LIQUIFIED : 인간의 눈에 노출되었을 때, 눈 자극성은 관찰되지 않았음"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "TX_EYE",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": "토끼",
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": "GLP",
+            "data_source": null,
+            "classification": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "토끼를 이용한 눈 자극성시험에서 눈 자극성이 관찰되었음 (GLP)",
+                "refs": [
+                  "2"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "- Tetrahydrothiophene : 토끼를 이용한 눈 자극성시험에서 눈 자극성이 관찰되었음 (GLP)"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "3",
+            "endpoint": "TX_EYE",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": "토끼",
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": "OECD TG 405, GLP",
+            "data_source": null,
+            "classification": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "토끼를 이용한 눈 자극성시험에서 약한 눈 자극성이 관찰되었음 (OECD TG 405, GLP)",
+                "refs": [
+                  "3"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "- Tert-butyl mercaptan : 토끼를 이용한 눈 자극성시험에서 약한 눈 자극성이 관찰되었음 (OECD TG 405, GLP)"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_RESP_SENS",
+            "descriptor": null,
+            "q": {
+              "raw": "자료없음",
+              "approx": null,
+              "value": null,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": null,
+              "dp": null,
+              "status": "자료없음",
+              "note": null
+            },
+            "species": null,
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [],
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_SKIN_SENS",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": "인간",
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "인간에게 노출되었을 때, 피부과민성은 관찰되지 않았음",
+                "refs": [
+                  "1"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "- NATURAL GAS, LIQUIFIED : 인간에게 노출되었을 때, 피부과민성은 관찰되지 않았음"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "TX_SKIN_SENS",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": "기니피그",
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": "OECD TG 406, GLP",
+            "data_source": null,
+            "classification": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "기니피그를 이용한 피부과민성시험에서 피부과민성이 관찰되지 않았음 (OECD TG 406, GLP)",
+                "refs": [
+                  "2"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "- Tetrahydrothiophene : 기니피그를 이용한 피부과민성시험에서 피부과민성이 관찰되지 않았음 (OECD TG 406, GLP)"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "3",
+            "endpoint": "TX_SKIN_SENS",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": "기니피그",
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": "GLP",
+            "data_source": null,
+            "classification": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "기니피그를 이용한 피부과민성시험에서 피부과민성 반응이 나타났음 (GLP)",
+                "refs": [
+                  "3"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "- Tert-butyl mercaptan : 기니피그를 이용한 피부과민성시험에서 피부과민성 반응이 나타났음 (GLP)"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_CARC",
+            "descriptor": null,
+            "q": {
+              "raw": "자료없음",
+              "approx": null,
+              "value": null,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": null,
+              "dp": null,
+              "status": "자료없음",
+              "note": null
+            },
+            "species": null,
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "고용노동부 고시, IARC, NTP, OSHA, ACGIH, EU Regulation 1272/2008: not listed",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "고용노동부 고시, IARC, NTP, OSHA, ACGIH, EU Regulation 1272/2008: not listed"
+              }
+            ],
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_MUTA",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": null,
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": "시험관 내 시험",
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "시험관 내 시험(복귀돌연변이시험)에서 음성반응이 나타남",
+                "refs": [
+                  "1"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "- NATURAL GAS, LIQUIFIED : 시험관 내 시험(복귀돌연변이시험)에서 음성반응이 나타남"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "TX_MUTA",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": null,
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": "시험관 내 시험",
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": "OECD TG 471, OECD TG 476, OECD TG 473, OECD TG 479, GLP",
+            "data_source": null,
+            "classification": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "시험관 내 시험(복귀돌연변이시험(OECD TG 471, GLP), 세포유전자 돌연변이시험(OECD TG 476, GLP), 포유류 염색체 이상시험(OECD TG 473, GLP), 자매염색체 교환 시험(OECD TG 479, GLP))에서 음성반응이 나타남",
+                "refs": [
+                  "2"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "- Tetrahydrothiophene : 시험관 내 시험(복귀돌연변이시험(OECD TG 471, GLP), 세포유전자 돌연변이시험(OECD TG 476, GLP), 포유류 염색체 이상시험(OECD TG 473, GLP), 자매염색체 교환 시험(OECD TG 479, GLP))에서 음성반응이 나타남"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "3",
+            "endpoint": "TX_MUTA",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": null,
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": "시험관 내 시험, 생체 내 시험",
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": "OECD TG 471, OECD TG 476, OECD TG 479, OECD TG 474, GLP",
+            "data_source": null,
+            "classification": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "시험관 내 시험(복귀돌연변이시험(OECD TG 471, GLP), 세포유전자 돌연변이시험(OECD TG 476, GLP), 자매염색체 교환시험(OECD TG 479, GLP))과 생체 내 시험(소핵시험 (OECD TG 474, GLP)) 에서 음성 반응이 나타남",
+                "refs": [
+                  "3"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "- Tert-butyl mercaptan : 시험관 내 시험(복귀돌연변이시험(OECD TG 471, GLP), 세포유전자 돌연변이시험(OECD TG 476, GLP), 자매염색체 교환시험(OECD TG 479, GLP))과 생체 내 시험(소핵시험 (OECD TG 474, GLP)) 에서 음성 반응이 나타남"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_REPRO",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": "인간",
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "물질에 노출되었을 때, 인간에게 생식발달독성 영향은 나타나지 않았음",
+                "refs": [
+                  "1"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "- NATURAL GAS, LIQUIFIED : 물질에 노출되었을 때, 인간에게 생식발달독성 영향은 나타나지 않았음"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "TX_REPRO",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": "랫드",
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": "OECD TG 414, GLP",
+            "data_source": null,
+            "classification": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "랫드를 이용한 생식발달독성시험에서 생식발달독성 관련된 악영향은 관찰되지 않았음(OECD TG 414, GLP)",
+                "refs": [
+                  "2"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "- Tetrahydrothiophene : 랫드를 이용한 생식발달독성시험에서 생식발달독성 관련된 악영향은 관찰되지 않았음(OECD TG 414, GLP)"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "3",
+            "endpoint": "TX_REPRO",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": "랫드",
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": "OECD TG 422, GLP",
+            "data_source": null,
+            "classification": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "랫드를 이용한 생식발달독성시험에서 어떠한 생식발달독성 영향도 관찰되지 않았음 (OECD TG 422, GLP)",
+                "refs": [
+                  "3"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "- Tert-butyl mercaptan : 랫드를 이용한 생식발달독성시험에서 어떠한 생식발달독성 영향도 관찰되지 않았음 (OECD TG 422, GLP)"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_STOT_SE",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": "인간",
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "인간에게 노출되었을 때, 급성독성영향은 나타나지 않았음",
+                "refs": [
+                  "1"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "- NATURAL GAS, LIQUIFIED : 인간에게 노출되었을 때, 급성독성영향은 나타나지 않았음"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "TX_STOT_SE",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": "랫드",
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": "급성흡입",
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": "GLP",
+            "data_source": null,
+            "classification": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "랫드를 이용한 급성흡입독성시험에서 급성독성 악영향은 관찰되지 않았음 (GLP)",
+                "refs": [
+                  "2"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "- Tetrahydrothiophene : 랫드를 이용한 급성흡입독성시험에서 급성독성 악영향은 관찰되지 않았음 (GLP)"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "3",
+            "endpoint": "TX_STOT_SE",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": "랫드",
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": "급성흡입",
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": "OECD TG 403, GLP",
+            "data_source": null,
+            "classification": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "랫드를 이용한 급성흡입독성시험에서 급성독성 악영향은 관찰되지 않았음 (OECD TG 403, GLP)",
+                "refs": [
+                  "3"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "- Tert-butyl mercaptan : 랫드를 이용한 급성흡입독성시험에서 급성독성 악영향은 관찰되지 않았음 (OECD TG 403, GLP)"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_STOT_RE",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": "랫드",
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": "흡입반복",
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "랫드를 이용하여 흡입반복독성시험을 한 결과, 중대한 독성학적 영향은 관찰되지 않았음",
+                "refs": [
+                  "1"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "- NATURAL GAS, LIQUIFIED : 랫드를 이용하여 흡입반복독성시험을 한 결과, 중대한 독성학적 영향은 관찰되지 않았음"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "TX_STOT_RE",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": "랫드",
+            "sex": null,
+            "duration_value": 13,
+            "duration_unit": "week",
+            "physical_form": null,
+            "exposure_type": "흡입반복 13주",
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": "OECD TG 413, GLP",
+            "data_source": null,
+            "classification": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "랫드를 이용하여 13주 동안 흡입반복독성시험을 한 결과, 임상적 증상은 관찰되지 않았음(OECD TG 413, GLP)",
+                "refs": [
+                  "2"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "- Tetrahydrothiophene : 랫드를 이용하여 13주 동안 흡입반복독성시험을 한 결과, 임상적 증상은 관찰되지 않았음(OECD TG 413, GLP)"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "3",
+            "endpoint": "TX_STOT_RE",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": "랫드",
+            "sex": null,
+            "duration_value": 90,
+            "duration_unit": "day",
+            "physical_form": null,
+            "exposure_type": "흡입반복 90일",
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": "OECD TG 413, GLP",
+            "data_source": null,
+            "classification": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "랫드를 이용하여 90일 동안 흡입반복독성시험을 한 결과, 임상적 증상은 관찰되지 않았음 (OECD TG 413, GLP)",
+                "refs": [
+                  "3"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "- Tert-butyl mercaptan : 랫드를 이용하여 90일 동안 흡입반복독성시험을 한 결과, 임상적 증상은 관찰되지 않았음 (OECD TG 413, GLP)"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_ASP",
+            "descriptor": null,
+            "q": {
+              "raw": "자료없음",
+              "approx": null,
+              "value": null,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": null,
+              "dp": null,
+              "status": "자료없음",
+              "note": null
+            },
+            "species": null,
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [],
+            "status": "자료없음"
+          }
+        ],
+        "cmr": [
+          {
+            "comp_ref": "MIX",
+            "hazard": "발암성",
+            "agency": "KR_OSH",
+            "class": null,
+            "status": "해당없음",
+            "note": "not listed"
+          },
+          {
+            "comp_ref": "MIX",
+            "hazard": "발암성",
+            "agency": "IARC",
+            "class": null,
+            "status": "해당없음",
+            "note": "not listed"
+          },
+          {
+            "comp_ref": "MIX",
+            "hazard": "발암성",
+            "agency": "NTP",
+            "class": null,
+            "status": "해당없음",
+            "note": "not listed"
+          },
+          {
+            "comp_ref": "MIX",
+            "hazard": "발암성",
+            "agency": "OSHA",
+            "class": null,
+            "status": "해당없음",
+            "note": "not listed"
+          },
+          {
+            "comp_ref": "MIX",
+            "hazard": "발암성",
+            "agency": "ACGIH",
+            "class": null,
+            "status": "해당없음",
+            "note": "not listed"
+          },
+          {
+            "comp_ref": "MIX",
+            "hazard": "발암성",
+            "agency": "EU_CLP",
+            "class": null,
+            "status": "해당없음",
+            "note": "not listed"
+          }
+        ],
+        "ecotox": [
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_FISH",
+            "descriptor": "LC50",
+            "q": {
+              "raw": "> 1,000 mg/L",
+              "approx": false,
+              "value": null,
+              "lower_op": ">",
+              "lower": 1000,
+              "upper_op": null,
+              "upper": null,
+              "unit": "mg/L",
+              "dp": 0,
+              "status": "값있음",
+              "note": null
+            },
+            "species": "other",
+            "duration_value": 96,
+            "duration_unit": "hr",
+            "guideline": null,
+            "data_source": null,
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "ECO_FISH",
+            "descriptor": "LC50",
+            "q": {
+              "raw": "> 24 mg/L",
+              "approx": false,
+              "value": null,
+              "lower_op": ">",
+              "lower": 24,
+              "upper_op": null,
+              "upper": null,
+              "unit": "mg/L",
+              "dp": 0,
+              "status": "값있음",
+              "note": null
+            },
+            "species": "Daniorerio",
+            "duration_value": 96,
+            "duration_unit": "hr",
+            "guideline": "OECD TG 203, GLP",
+            "data_source": null,
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "3",
+            "endpoint": "ECO_FISH",
+            "descriptor": "LC50",
+            "q": {
+              "raw": "=34mg/L",
+              "approx": false,
+              "value": 34,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "mg/L",
+              "dp": 0,
+              "status": "값있음",
+              "note": null
+            },
+            "species": "Oncorhynchusmykiss",
+            "duration_value": 96,
+            "duration_unit": "hr",
+            "guideline": "OECDTG203,GLP",
+            "data_source": null,
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_CRUST",
+            "descriptor": "LC50",
+            "q": {
+              "raw": "46.56 mg/L",
+              "approx": false,
+              "value": 46.56,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "mg/L",
+              "dp": 2,
+              "status": "값있음",
+              "note": null
+            },
+            "species": "other",
+            "duration_value": 48,
+            "duration_unit": "hr",
+            "guideline": null,
+            "data_source": "ECOSAR Class;neutral organics",
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "ECO_CRUST",
+            "descriptor": "EC50",
+            "q": {
+              "raw": "=24mg/L",
+              "approx": false,
+              "value": 24,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "mg/L",
+              "dp": 0,
+              "status": "값있음",
+              "note": null
+            },
+            "species": "Daphniamagna",
+            "duration_value": 48,
+            "duration_unit": "hr",
+            "guideline": "OECDTG202,GLP",
+            "data_source": null,
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "3",
+            "endpoint": "ECO_CRUST",
+            "descriptor": "EC50",
+            "q": {
+              "raw": "=6.7mg/L",
+              "approx": false,
+              "value": 6.7,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "mg/L",
+              "dp": 1,
+              "status": "값있음",
+              "note": null
+            },
+            "species": "Daphniamagna",
+            "duration_value": 48,
+            "duration_unit": "hr",
+            "guideline": "OECDTG202,GLP",
+            "data_source": null,
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_ALGAE",
+            "descriptor": "EC50",
+            "q": {
+              "raw": "16.47 mg/L",
+              "approx": false,
+              "value": 16.47,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "mg/L",
+              "dp": 2,
+              "status": "값있음",
+              "note": null
+            },
+            "species": "other",
+            "duration_value": 96,
+            "duration_unit": "hr",
+            "guideline": null,
+            "data_source": "ECOSAR Class;neutral organics",
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "ECO_ALGAE",
+            "descriptor": "EC50",
+            "q": {
+              "raw": "=90mg/L",
+              "approx": false,
+              "value": 90,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "mg/L",
+              "dp": 0,
+              "status": "값있음",
+              "note": null
+            },
+            "species": "Selenastrumcapricornutum",
+            "duration_value": 72,
+            "duration_unit": "hr",
+            "guideline": "OECDTG201,GLP",
+            "data_source": null,
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "ECO_ALGAE",
+            "descriptor": "NOEC",
+            "q": {
+              "raw": "=6mg/L",
+              "approx": false,
+              "value": 6,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "mg/L",
+              "dp": 0,
+              "status": "값있음",
+              "note": null
+            },
+            "species": "Selenastrumcapricornutum",
+            "duration_value": 72,
+            "duration_unit": "hr",
+            "guideline": "OECDTG201,GLP",
+            "data_source": null,
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "3",
+            "endpoint": "ECO_ALGAE",
+            "descriptor": "EC50",
+            "q": {
+              "raw": "=24mg/L",
+              "approx": false,
+              "value": 24,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "mg/L",
+              "dp": 0,
+              "status": "값있음",
+              "note": null
+            },
+            "species": "Selenastrumcapricornutum",
+            "duration_value": 72,
+            "duration_unit": "hr",
+            "guideline": "OECDTG201,GLP",
+            "data_source": null,
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "3",
+            "endpoint": "ECO_ALGAE",
+            "descriptor": "NOEC",
+            "q": {
+              "raw": "=6.41mg/L",
+              "approx": false,
+              "value": 6.41,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "mg/L",
+              "dp": 2,
+              "status": "값있음",
+              "note": null
+            },
+            "species": "Selenastrumcapricornutum",
+            "duration_value": 72,
+            "duration_unit": "hr",
+            "guideline": "OECDTG201,GLP",
+            "data_source": null,
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_PERSIST",
+            "descriptor": "logKow",
+            "q": {
+              "raw": "Log Kow ≤ 2.8",
+              "approx": false,
+              "value": null,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": "<=",
+              "upper": 2.8,
+              "unit": null,
+              "dp": 1,
+              "status": "값있음",
+              "note": null
+            },
+            "species": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "guideline": null,
+            "data_source": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "Log Kow가 4미만이므로 잔류성이 낮을 것으로 예측됨 (Log Kow ≤ 2.8)",
+                "refs": [
+                  "1"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "- NATURAL GAS, LIQUIFIED : Log Kow가 4미만이므로 잔류성이 낮을 것으로 예측됨 (Log Kow ≤ 2.8)"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "ECO_PERSIST",
+            "descriptor": "logKow",
+            "q": {
+              "raw": "Log Kow = 1.8",
+              "approx": false,
+              "value": 1.8,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": null,
+              "dp": 1,
+              "status": "값있음",
+              "note": null
+            },
+            "species": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "guideline": null,
+            "data_source": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "Log Kow가 4미만이므로 잔류성이 낮을 것으로 예측됨 (Log Kow = 1.8) (20 ℃)",
+                "refs": [
+                  "2"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "- Tetrahydrothiophene : Log Kow가 4미만이므로 잔류성이 낮을 것으로 예측됨 (Log Kow = 1.8) (20 ℃)"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "3",
+            "endpoint": "ECO_PERSIST",
+            "descriptor": "logKow",
+            "q": {
+              "raw": "Log Kow = 2.14",
+              "approx": false,
+              "value": 2.14,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": null,
+              "dp": 2,
+              "status": "값있음",
+              "note": null
+            },
+            "species": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "guideline": null,
+            "data_source": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "Log Kow가 4미만이므로 잔류성이 낮을 것으로 예측됨 (Log Kow = 2.14) (20 °C)",
+                "refs": [
+                  "3"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "- Tert-butyl mercaptan : Log Kow가 4미만이므로 잔류성이 낮을 것으로 예측됨 (Log Kow = 2.14) (20 °C)"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_PERSIST",
+            "descriptor": "분해율",
+            "q": {
+              "raw": "36.8 %",
+              "approx": false,
+              "value": 36.8,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "%",
+              "dp": 1,
+              "status": "값있음",
+              "note": null
+            },
+            "species": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "guideline": "GLP",
+            "data_source": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "광분해성시험에서 11.3년 후에 36.8 % 분해됨 (GLP)",
+                "refs": [
+                  "1"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "- NATURAL GAS, LIQUIFIED : 광분해성시험에서 11.3년 후에 36.8 % 분해됨 (GLP)"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_BIOACC",
+            "descriptor": "BCF",
+            "q": {
+              "raw": "BCF = 7.27",
+              "approx": false,
+              "value": 7.27,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": null,
+              "dp": 2,
+              "status": "값있음",
+              "note": "예측치"
+            },
+            "species": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "guideline": null,
+            "data_source": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "생물농축성이 낮을 것으로 예측됨(BCF = 7.27) (예측치)",
+                "refs": [
+                  "1"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "- NATURAL GAS, LIQUIFIED : 생물농축성이 낮을 것으로 예측됨(BCF = 7.27) (예측치)"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "ECO_BIOACC",
+            "descriptor": "BCF",
+            "q": {
+              "raw": "BCF = 5.36",
+              "approx": false,
+              "value": 5.36,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": null,
+              "dp": 2,
+              "status": "값있음",
+              "note": "예측치"
+            },
+            "species": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "guideline": null,
+            "data_source": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "생물농축성이 낮을 것으로 예측됨(BCF = 5.36) (예측치)",
+                "refs": [
+                  "2"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "- Tetrahydrothiophene : 생물농축성이 낮을 것으로 예측됨(BCF = 5.36) (예측치)"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "3",
+            "endpoint": "ECO_BIOACC",
+            "descriptor": "BCF",
+            "q": {
+              "raw": "BCF = 11.97",
+              "approx": false,
+              "value": 11.97,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": null,
+              "dp": 2,
+              "status": "값있음",
+              "note": "예측치"
+            },
+            "species": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "guideline": null,
+            "data_source": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "생물농축성이 낮을 것으로 예측됨(BCF = 11.97) (예측치)",
+                "refs": [
+                  "3"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "- Tert-butyl mercaptan : 생물농축성이 낮을 것으로 예측됨(BCF = 11.97) (예측치)"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_BIOACC",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "guideline": null,
+            "data_source": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "이분해성",
+                "refs": [
+                  "1"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "- NATURAL GAS, LIQUIFIED : 이분해성"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "ECO_BIOACC",
+            "descriptor": "분해율",
+            "q": {
+              "raw": "10 %",
+              "approx": false,
+              "value": 10,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "%",
+              "dp": 0,
+              "status": "값있음",
+              "note": null
+            },
+            "species": null,
+            "duration_value": 28,
+            "duration_unit": "day",
+            "guideline": "OECD TG 301F, GLP",
+            "data_source": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "생분해가 되지 않아 생체 내 축적될 잠재성이 높음 (28 일 후에 10 % 생분해 됨) (OECD TG 301F, GLP)",
+                "refs": [
+                  "2"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "- Tetrahydrothiophene : 생분해가 되지 않아 생체 내 축적될 잠재성이 높음 (28 일 후에 10 % 생분해 됨) (OECD TG 301F, GLP)"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "3",
+            "endpoint": "ECO_BIOACC",
+            "descriptor": "분해율",
+            "q": {
+              "raw": "6 %",
+              "approx": false,
+              "value": 6,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "%",
+              "dp": 0,
+              "status": "값있음",
+              "note": null
+            },
+            "species": null,
+            "duration_value": 63,
+            "duration_unit": "day",
+            "guideline": "OECD TG 301D, GLP",
+            "data_source": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "생분해가 되지 않아 생체 내 축적될 잠재성이 높음 (63 일 후에 6 % 생분해 됨) (OECD TG 301D, GLP)",
+                "refs": [
+                  "3"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "- Tert-butyl mercaptan : 생분해가 되지 않아 생체 내 축적될 잠재성이 높음 (63 일 후에 6 % 생분해 됨) (OECD TG 301D, GLP)"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_SOIL",
+            "descriptor": "Koc",
+            "q": {
+              "raw": "Koc = 37.2",
+              "approx": false,
+              "value": 37.2,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": null,
+              "dp": 1,
+              "status": "값있음",
+              "note": "예측치"
+            },
+            "species": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "guideline": null,
+            "data_source": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "토양에 흡착될 가능성이 낮을 것으로 예측됨 (Koc = 37.2) (예측치)",
+                "refs": [
+                  "1"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "- NATURAL GAS, LIQUIFIED : 토양에 흡착될 가능성이 낮을 것으로 예측됨 (Koc = 37.2) (예측치)"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "ECO_SOIL",
+            "descriptor": "Koc",
+            "q": {
+              "raw": "Koc = 20.71",
+              "approx": false,
+              "value": 20.71,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": null,
+              "dp": 2,
+              "status": "값있음",
+              "note": null
+            },
+            "species": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "guideline": null,
+            "data_source": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "토양에 흡착될 가능성이 낮을 것으로 예측됨 (Koc = 20.71)(20 °C)",
+                "refs": [
+                  "2"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "- Tetrahydrothiophene : 토양에 흡착될 가능성이 낮을 것으로 예측됨 (Koc = 20.71)(20 °C)"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "3",
+            "endpoint": "ECO_SOIL",
+            "descriptor": "Koc",
+            "q": {
+              "raw": "Koc = 43.87",
+              "approx": false,
+              "value": 43.87,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": null,
+              "dp": 2,
+              "status": "값있음",
+              "note": null
+            },
+            "species": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "guideline": null,
+            "data_source": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "토양에 흡착될 가능성이 낮을 것으로 예측됨 (Koc = 43.87)(20 °C)",
+                "refs": [
+                  "3"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "- Tert-butyl mercaptan : 토양에 흡착될 가능성이 낮을 것으로 예측됨 (Koc = 43.87)(20 °C)"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": null,
+            "descriptor": null,
+            "q": {
+              "raw": "자료없음",
+              "approx": null,
+              "value": null,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": null,
+              "dp": null,
+              "status": "자료없음",
+              "note": null
+            },
+            "species": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "guideline": null,
+            "data_source": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": "기타 유해 영향",
+                "value": "자료없음",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "마. 기타 유해 영향 : 자료없음"
+              }
+            ],
+            "status": "자료없음"
+          }
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "msds_index": 0,
+        "field": "toxicity[0]",
+        "page": 7,
+        "source_text": "경구 : • NATURAL GAS, LIQUIFIED : 자료없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": "'NATURAL GAS, LIQUIFIED'를 성분 1(NATURAL GAS)로 매칭"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[1]",
+        "page": 7,
+        "source_text": "Tetrahydrothiophene : 랫드, LD50 = 1,750 mg/kg (GLP)",
+        "rules": [
+          "R04",
+          "R06",
+          "R10"
+        ],
+        "note": "콤마 제거해 1750으로 저장"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[2]",
+        "page": 7,
+        "source_text": "Tert-butyl mercaptan : 랫드, LD50 = 4,729 mg/kg (수컷)",
+        "rules": [
+          "R04",
+          "R06",
+          "R10"
+        ],
+        "note": "'(수컷)'을 sex로 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[3]",
+        "page": 7,
+        "source_text": "경피 : • NATURAL GAS, LIQUIFIED : 자료없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[4]",
+        "page": 7,
+        "source_text": "Tetrahydrothiophene : 토끼, LD50 ＞ 2,000 mg/kg (GLP)",
+        "rules": [
+          "R04",
+          "R06",
+          "R10"
+        ],
+        "note": "'＞ 2,000'을 하한 >2000으로 분해"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[5]",
+        "page": 7,
+        "source_text": "Tert-butyl mercaptan : 자료없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[6]",
+        "page": 7,
+        "source_text": "NATURAL GAS, LIQUIFIED : 랫드, LC50 = 658mg/L/4h ※ 출처 : International Uniform Chemical Infomation Database(IUCLID)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "'/4h'를 노출 시간 4 hr로 분리, 흡입 형태는 원문에 없어 null"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[7]",
+        "page": 7,
+        "source_text": "Tetrahydrothiophene : 랫드, LC50 = 26.16 mg/L/4hr (GLP)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "'/4hr'를 노출 시간으로 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[8]",
+        "page": 7,
+        "source_text": "Tert-butyl mercaptan : 랫드, LC50 = 81.9 mg/L/4hr (OECD TG 403, GLP)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "'/4hr'를 노출 시간으로 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[9]",
+        "page": 7,
+        "source_text": "NATURAL GAS, LIQUIFIED : 인간의 피부에 노출되었을 때, 피부자극성은 관찰되지 않았음",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[10]",
+        "page": 7,
+        "source_text": "Tetrahydrothiophene : 토끼를 이용한 피부자극성시험에서 피부자극성이 관찰되었음 (GLP)",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[11]",
+        "page": 7,
+        "source_text": "Tert-butyl mercaptan : 토끼를 이용한 피부자극성시험에서 피부자극성이 관찰되었음 (GLP)",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[12]",
+        "page": 7,
+        "source_text": "NATURAL GAS, LIQUIFIED : 인간의 눈에 노출되었을 때, 눈 자극성은 관찰되지 않았음",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[13]",
+        "page": 8,
+        "source_text": "Tetrahydrothiophene : 토끼를 이용한 눈 자극성시험에서 눈 자극성이 관찰되었음 (GLP)",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[14]",
+        "page": 8,
+        "source_text": "Tert-butyl mercaptan : 토끼를 이용한 눈 자극성시험에서 약한 눈 자극성이 관찰되었음 (OECD TG 405, GLP)",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[15]",
+        "page": 8,
+        "source_text": "호흡기과민성 : 자료없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": "성분 지정이 없어 MIX로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[16]",
+        "page": 8,
+        "source_text": "NATURAL GAS, LIQUIFIED : 인간에게 노출되었을 때, 피부과민성은 관찰되지 않았음",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[17]",
+        "page": 8,
+        "source_text": "Tetrahydrothiophene : 기니피그를 이용한 피부과민성시험에서 피부과민성이 관찰되지 않았음 (OECD TG 406, GLP)",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[18]",
+        "page": 8,
+        "source_text": "Tert-butyl mercaptan : 기니피그를 이용한 피부과민성시험에서 피부과민성 반응이 나타났음 (GLP)",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[19]",
+        "page": 8,
+        "source_text": "발암성 : 자료없음 고용노동부 고시, IARC, NTP, OSHA, ACGIH, EU Regulation 1272/2008: not listed",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": "성분 지정이 없어 MIX로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[20]",
+        "page": 8,
+        "source_text": "NATURAL GAS, LIQUIFIED : 시험관 내 시험(복귀돌연변이시험)에서 음성반응이 나타남",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[21]",
+        "page": 8,
+        "source_text": "Tetrahydrothiophene : 시험관 내 시험(복귀돌연변이시험(OECD TG 471, GLP), 세포유전자 돌연변이시험(OECD TG 476, GLP), 포유류 염색체 이상시험(OECD TG 473, GLP), 자매염색체 교환 시험(OECD TG 479, GLP))에서 음성반응이 나타남",
+        "rules": [
+          "R10"
+        ],
+        "note": "여러 시험 지침을 guideline에 모아 적음"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[22]",
+        "page": 8,
+        "source_text": "Tert-butyl mercaptan : 시험관 내 시험(복귀돌연변이시험(OECD TG 471, GLP), 세포유전자 돌연변이시험(OECD TG 476, GLP), 자매염색체 교환시험(OECD TG 479, GLP))과 생체 내 시험(소핵시험 (OECD TG 474, GLP)) 에서 음성 반응이 나타남",
+        "rules": [
+          "R10"
+        ],
+        "note": "여러 시험 지침을 guideline에 모아 적음"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[23]",
+        "page": 8,
+        "source_text": "NATURAL GAS, LIQUIFIED : 물질에 노출되었을 때, 인간에게 생식발달독성 영향은 나타나지 않았음",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[24]",
+        "page": 8,
+        "source_text": "Tetrahydrothiophene : 랫드를 이용한 생식발달독성시험에서 생식발달독성 관련된 악영향은 관찰되지 않았음(OECD TG 414, GLP)",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[25]",
+        "page": 8,
+        "source_text": "Tert-butyl mercaptan : 랫드를 이용한 생식발달독성시험에서 어떠한 생식발달독성 영향도 관찰되지 않았음 (OECD TG 422, GLP)",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[26]",
+        "page": 8,
+        "source_text": "NATURAL GAS, LIQUIFIED : 인간에게 노출되었을 때, 급성독성영향은 나타나지 않았음",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[27]",
+        "page": 8,
+        "source_text": "Tetrahydrothiophene : 랫드를 이용한 급성흡입독성시험에서 급성독성 악영향은 관찰되지 않았음 (GLP)",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[28]",
+        "page": 8,
+        "source_text": "Tert-butyl mercaptan : 랫드를 이용한 급성흡입독성시험에서 급성독성 악영향은 관찰되지 않았음 (OECD TG 403, GLP)",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[29]",
+        "page": 9,
+        "source_text": "NATURAL GAS, LIQUIFIED : 랫드를 이용하여 흡입반복독성시험을 한 결과, 중대한 독성학적 영향은 관찰되지 않았음",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[30]",
+        "page": 9,
+        "source_text": "Tetrahydrothiophene : 랫드를 이용하여 13주 동안 흡입반복독성시험을 한 결과, 임상적 증상은 관찰되지 않았음(OECD TG 413, GLP)",
+        "rules": [
+          "R10"
+        ],
+        "note": "'13주'를 노출 시간 13 week로 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[31]",
+        "page": 9,
+        "source_text": "Tert-butyl mercaptan : 랫드를 이용하여 90일 동안 흡입반복독성시험을 한 결과, 임상적 증상은 관찰되지 않았음 (OECD TG 413, GLP)",
+        "rules": [
+          "R10"
+        ],
+        "note": "'90일'을 노출 시간 90 day로 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[32]",
+        "page": 9,
+        "source_text": "흡인유해성 : 자료없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[0]",
+        "page": 8,
+        "source_text": "고용노동부 고시, IARC, NTP, OSHA, ACGIH, EU Regulation 1272/2008: not listed",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": "'not listed'를 해당없음으로 보고 고용노동부 고시를 KR_OSH로 매핑"
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[1]",
+        "page": 8,
+        "source_text": "고용노동부 고시, IARC, NTP, OSHA, ACGIH, EU Regulation 1272/2008: not listed",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": "'not listed'를 해당없음으로 저장"
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[2]",
+        "page": 8,
+        "source_text": "고용노동부 고시, IARC, NTP, OSHA, ACGIH, EU Regulation 1272/2008: not listed",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": "'not listed'를 해당없음으로 저장"
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[3]",
+        "page": 8,
+        "source_text": "고용노동부 고시, IARC, NTP, OSHA, ACGIH, EU Regulation 1272/2008: not listed",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": "'not listed'를 해당없음으로 저장"
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[4]",
+        "page": 8,
+        "source_text": "고용노동부 고시, IARC, NTP, OSHA, ACGIH, EU Regulation 1272/2008: not listed",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": "'not listed'를 해당없음으로 저장"
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[5]",
+        "page": 8,
+        "source_text": "고용노동부 고시, IARC, NTP, OSHA, ACGIH, EU Regulation 1272/2008: not listed",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": "EU Regulation 1272/2008을 EU_CLP로 매핑, 'not listed'를 해당없음으로 저장"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[0]",
+        "page": 9,
+        "source_text": "NATURAL GAS, LIQUIFIED : 96hr-LC50(other) ＞ 1,000 mg/L",
+        "rules": [
+          "R04",
+          "R06",
+          "R10"
+        ],
+        "note": "'96hr'를 노출 시간으로, '＞ 1,000'을 하한 >1000으로 분해"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[1]",
+        "page": 9,
+        "source_text": "Tetrahydrothiophene : 96hr-LC50(Daniorerio)＞ 24 mg/L (OECD TG 203, GLP)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "시험종은 원문 표기(Daniorerio) 그대로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[2]",
+        "page": 9,
+        "source_text": "Tert-butyl mercaptan : 96hr-LC50(Oncorhynchusmykiss)=34mg/L(OECDTG203,GLP)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[3]",
+        "page": 9,
+        "source_text": "NATURAL GAS, LIQUIFIED : 48hr-LC50(other) = 46.56 mg/L (ECOSAR Class;neutral organics)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "괄호 속 ECOSAR 표기를 data_source로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[4]",
+        "page": 9,
+        "source_text": "Tetrahydrothiophene : 48hr-EC50(Daphniamagna)=24mg/L(OECDTG202,GLP)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[5]",
+        "page": 9,
+        "source_text": "Tert-butyl mercaptan : 48hr-EC50(Daphniamagna)=6.7mg/L(OECDTG202,GLP)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[6]",
+        "page": 9,
+        "source_text": "NATURAL GAS, LIQUIFIED : 96hr-EC50(other) = 16.47 mg/L (ECOSAR Class;neutral organics)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "괄호 속 ECOSAR 표기를 data_source로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[7]",
+        "page": 9,
+        "source_text": "Tetrahydrothiophene : 72hr-EC50(Selenastrumcapricornutum)=90mg/L(OECDTG201,GLP)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[8]",
+        "page": 9,
+        "source_text": "72hr-NOEC(Selenastrumcapricornutum)=6mg/L(OECDTG201,GLP)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "Tetrahydrothiophene 항목의 둘째 줄"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[9]",
+        "page": 9,
+        "source_text": "Tert-butyl mercaptan : 72hr-EC50(Selenastrumcapricornutum)=24mg/L(OECDTG201,GLP)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[10]",
+        "page": 9,
+        "source_text": "72hr-NOEC(Selenastrumcapricornutum)=6.41mg/L(OECDTG201,GLP)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "Tert-butyl mercaptan 항목의 둘째 줄"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[11]",
+        "page": 9,
+        "source_text": "NATURAL GAS, LIQUIFIED : Log Kow가 4미만이므로 잔류성이 낮을 것으로 예측됨 (Log Kow ≤ 2.8)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "'≤ 2.8'을 상한 <=2.8로 분해"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[12]",
+        "page": 9,
+        "source_text": "Tetrahydrothiophene : Log Kow가 4미만이므로 잔류성이 낮을 것으로 예측됨 (Log Kow = 1.8) (20 ℃)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "측정 온도(20 ℃)는 칸이 없어 statements에 원문으로 남김"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[13]",
+        "page": 9,
+        "source_text": "Tert-butyl mercaptan : Log Kow가 4미만이므로 잔류성이 낮을 것으로 예측됨 (Log Kow = 2.14) (20 °C)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "측정 온도는 statements에 원문으로 남김"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[14]",
+        "page": 9,
+        "source_text": "NATURAL GAS, LIQUIFIED : 광분해성시험에서 11.3년 후에 36.8 % 분해됨 (GLP)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "기간 단위 '년'은 허용 단위(hr/day)에 없어 duration은 null로 두고 statements에 남김"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[15]",
+        "page": 10,
+        "source_text": "NATURAL GAS, LIQUIFIED : 생물농축성이 낮을 것으로 예측됨(BCF = 7.27) (예측치)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "'(예측치)'를 q.note로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[16]",
+        "page": 10,
+        "source_text": "Tetrahydrothiophene : 생물농축성이 낮을 것으로 예측됨(BCF = 5.36) (예측치)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "'(예측치)'를 q.note로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[17]",
+        "page": 10,
+        "source_text": "Tert-butyl mercaptan : 생물농축성이 낮을 것으로 예측됨(BCF = 11.97) (예측치)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "'(예측치)'를 q.note로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[18]",
+        "page": 10,
+        "source_text": "생분해성 : - NATURAL GAS, LIQUIFIED : 이분해성",
+        "rules": [
+          "R10"
+        ],
+        "note": "원문에서 생분해성이 '다. 생물농축성' 아래에 있어 ECO_BIOACC로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[19]",
+        "page": 10,
+        "source_text": "Tetrahydrothiophene : 생분해가 되지 않아 생체 내 축적될 잠재성이 높음 (28 일 후에 10 % 생분해 됨) (OECD TG 301F, GLP)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "원문에서 생물농축성 항목 아래에 있어 ECO_BIOACC로 두고, '28 일'을 노출 시간으로 분리함"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[20]",
+        "page": 10,
+        "source_text": "Tert-butyl mercaptan : 생분해가 되지 않아 생체 내 축적될 잠재성이 높음 (63 일 후에 6 % 생분해 됨) (OECD TG 301D, GLP)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "원문에서 생물농축성 항목 아래에 있어 ECO_BIOACC로 두고, '63 일'을 노출 시간으로 분리함"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[21]",
+        "page": 10,
+        "source_text": "NATURAL GAS, LIQUIFIED : 토양에 흡착될 가능성이 낮을 것으로 예측됨 (Koc = 37.2) (예측치)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "'(예측치)'를 q.note로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[22]",
+        "page": 10,
+        "source_text": "Tetrahydrothiophene : 토양에 흡착될 가능성이 낮을 것으로 예측됨 (Koc = 20.71)(20 °C)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "측정 온도는 statements에 원문으로 남김"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[23]",
+        "page": 10,
+        "source_text": "Tert-butyl mercaptan : 토양에 흡착될 가능성이 낮을 것으로 예측됨 (Koc = 43.87)(20 °C)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "측정 온도는 statements에 원문으로 남김"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[24]",
+        "page": 10,
+        "source_text": "마. 기타 유해 영향 : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "맞는 C5 코드가 없어 endpoint는 null로 두고 statements에 원문을 남김"
+      }
+    ]
+  },
+  "raw_text": "{\"msds\":[{\"toxicity\":[{\"comp_ref\":\"1\",\"endpoint\":\"TX_ORAL\",\"descriptor\":null,\"q\":{\"raw\":\"자료없음\",\"approx\":null,\"value\":null,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":null,\"dp\":null,\"status\":\"자료없음\",\"note\":null},\"species\":null,\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[],\"status\":\"자료없음\"},{\"comp_ref\":\"2\",\"endpoint\":\"TX_ORAL\",\"descriptor\":\"LD50\",\"q\":{\"raw\":\"1,750 mg/kg\",\"approx\":false,\"value\":1750,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"mg/kg\",\"dp\":0,\"status\":\"값있음\",\"note\":null},\"species\":\"랫드\",\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":\"GLP\",\"data_source\":null,\"classification\":null,\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"3\",\"endpoint\":\"TX_ORAL\",\"descriptor\":\"LD50\",\"q\":{\"raw\":\"4,729 mg/kg\",\"approx\":false,\"value\":4729,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"mg/kg\",\"dp\":0,\"status\":\"값있음\",\"note\":null},\"species\":\"랫드\",\"sex\":\"수컷\",\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"1\",\"endpoint\":\"TX_DERMAL\",\"descriptor\":null,\"q\":{\"raw\":\"자료없음\",\"approx\":null,\"value\":null,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":null,\"dp\":null,\"status\":\"자료없음\",\"note\":null},\"species\":null,\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[],\"status\":\"자료없음\"},{\"comp_ref\":\"2\",\"endpoint\":\"TX_DERMAL\",\"descriptor\":\"LD50\",\"q\":{\"raw\":\"> 2,000 mg/kg\",\"approx\":false,\"value\":null,\"lower_op\":\">\",\"lower\":2000,\"upper_op\":null,\"upper\":null,\"unit\":\"mg/kg\",\"dp\":0,\"status\":\"값있음\",\"note\":null},\"species\":\"토끼\",\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":\"GLP\",\"data_source\":null,\"classification\":null,\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"3\",\"endpoint\":\"TX_DERMAL\",\"descriptor\":null,\"q\":{\"raw\":\"자료없음\",\"approx\":null,\"value\":null,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":null,\"dp\":null,\"status\":\"자료없음\",\"note\":null},\"species\":null,\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[],\"status\":\"자료없음\"},{\"comp_ref\":\"1\",\"endpoint\":\"TX_INHAL\",\"descriptor\":\"LC50\",\"q\":{\"raw\":\"658mg/L/4h\",\"approx\":false,\"value\":658,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"mg/L\",\"dp\":0,\"status\":\"값있음\",\"note\":null},\"species\":\"랫드\",\"sex\":null,\"duration_value\":4,\"duration_unit\":\"hr\",\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":\"International Uniform Chemical Infomation Database(IUCLID)\",\"classification\":null,\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"2\",\"endpoint\":\"TX_INHAL\",\"descriptor\":\"LC50\",\"q\":{\"raw\":\"26.16 mg/L/4hr\",\"approx\":false,\"value\":26.16,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"mg/L\",\"dp\":2,\"status\":\"값있음\",\"note\":null},\"species\":\"랫드\",\"sex\":null,\"duration_value\":4,\"duration_unit\":\"hr\",\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":\"GLP\",\"data_source\":null,\"classification\":null,\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"3\",\"endpoint\":\"TX_INHAL\",\"descriptor\":\"LC50\",\"q\":{\"raw\":\"81.9 mg/L/4hr\",\"approx\":false,\"value\":81.9,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"mg/L\",\"dp\":1,\"status\":\"값있음\",\"note\":null},\"species\":\"랫드\",\"sex\":null,\"duration_value\":4,\"duration_unit\":\"hr\",\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":\"OECD TG 403, GLP\",\"data_source\":null,\"classification\":null,\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"1\",\"endpoint\":\"TX_SKIN\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":\"인간\",\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"인간의 피부에 노출되었을 때, 피부자극성은 관찰되지 않았음\",\"refs\":[\"1\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"- NATURAL GAS, LIQUIFIED : 인간의 피부에 노출되었을 때, 피부자극성은 관찰되지 않았음\"}],\"status\":\"값있음\"},{\"comp_ref\":\"2\",\"endpoint\":\"TX_SKIN\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":\"토끼\",\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":\"GLP\",\"data_source\":null,\"classification\":null,\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"토끼를 이용한 피부자극성시험에서 피부자극성이 관찰되었음 (GLP)\",\"refs\":[\"2\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"- Tetrahydrothiophene : 토끼를 이용한 피부자극성시험에서 피부자극성이 관찰되었음 (GLP)\"}],\"status\":\"값있음\"},{\"comp_ref\":\"3\",\"endpoint\":\"TX_SKIN\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":\"토끼\",\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":\"GLP\",\"data_source\":null,\"classification\":null,\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"토끼를 이용한 피부자극성시험에서 피부자극성이 관찰되었음 (GLP)\",\"refs\":[\"3\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"- Tert-butyl mercaptan : 토끼를 이용한 피부자극성시험에서 피부자극성이 관찰되었음 (GLP)\"}],\"status\":\"값있음\"},{\"comp_ref\":\"1\",\"endpoint\":\"TX_EYE\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":\"인간\",\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"인간의 눈에 노출되었을 때, 눈 자극성은 관찰되지 않았음\",\"refs\":[\"1\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"- NATURAL GAS, LIQUIFIED : 인간의 눈에 노출되었을 때, 눈 자극성은 관찰되지 않았음\"}],\"status\":\"값있음\"},{\"comp_ref\":\"2\",\"endpoint\":\"TX_EYE\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":\"토끼\",\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":\"GLP\",\"data_source\":null,\"classification\":null,\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"토끼를 이용한 눈 자극성시험에서 눈 자극성이 관찰되었음 (GLP)\",\"refs\":[\"2\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"- Tetrahydrothiophene : 토끼를 이용한 눈 자극성시험에서 눈 자극성이 관찰되었음 (GLP)\"}],\"status\":\"값있음\"},{\"comp_ref\":\"3\",\"endpoint\":\"TX_EYE\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":\"토끼\",\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":\"OECD TG 405, GLP\",\"data_source\":null,\"classification\":null,\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"토끼를 이용한 눈 자극성시험에서 약한 눈 자극성이 관찰되었음 (OECD TG 405, GLP)\",\"refs\":[\"3\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"- Tert-butyl mercaptan : 토끼를 이용한 눈 자극성시험에서 약한 눈 자극성이 관찰되었음 (OECD TG 405, GLP)\"}],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_RESP_SENS\",\"descriptor\":null,\"q\":{\"raw\":\"자료없음\",\"approx\":null,\"value\":null,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":null,\"dp\":null,\"status\":\"자료없음\",\"note\":null},\"species\":null,\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[],\"status\":\"자료없음\"},{\"comp_ref\":\"1\",\"endpoint\":\"TX_SKIN_SENS\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":\"인간\",\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"인간에게 노출되었을 때, 피부과민성은 관찰되지 않았음\",\"refs\":[\"1\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"- NATURAL GAS, LIQUIFIED : 인간에게 노출되었을 때, 피부과민성은 관찰되지 않았음\"}],\"status\":\"값있음\"},{\"comp_ref\":\"2\",\"endpoint\":\"TX_SKIN_SENS\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":\"기니피그\",\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":\"OECD TG 406, GLP\",\"data_source\":null,\"classification\":null,\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"기니피그를 이용한 피부과민성시험에서 피부과민성이 관찰되지 않았음 (OECD TG 406, GLP)\",\"refs\":[\"2\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"- Tetrahydrothiophene : 기니피그를 이용한 피부과민성시험에서 피부과민성이 관찰되지 않았음 (OECD TG 406, GLP)\"}],\"status\":\"값있음\"},{\"comp_ref\":\"3\",\"endpoint\":\"TX_SKIN_SENS\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":\"기니피그\",\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":\"GLP\",\"data_source\":null,\"classification\":null,\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"기니피그를 이용한 피부과민성시험에서 피부과민성 반응이 나타났음 (GLP)\",\"refs\":[\"3\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"- Tert-butyl mercaptan : 기니피그를 이용한 피부과민성시험에서 피부과민성 반응이 나타났음 (GLP)\"}],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_CARC\",\"descriptor\":null,\"q\":{\"raw\":\"자료없음\",\"approx\":null,\"value\":null,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":null,\"dp\":null,\"status\":\"자료없음\",\"note\":null},\"species\":null,\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"고용노동부 고시, IARC, NTP, OSHA, ACGIH, EU Regulation 1272/2008: not listed\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"고용노동부 고시, IARC, NTP, OSHA, ACGIH, EU Regulation 1272/2008: not listed\"}],\"status\":\"자료없음\"},{\"comp_ref\":\"1\",\"endpoint\":\"TX_MUTA\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":null,\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":\"시험관 내 시험\",\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"시험관 내 시험(복귀돌연변이시험)에서 음성반응이 나타남\",\"refs\":[\"1\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"- NATURAL GAS, LIQUIFIED : 시험관 내 시험(복귀돌연변이시험)에서 음성반응이 나타남\"}],\"status\":\"값있음\"},{\"comp_ref\":\"2\",\"endpoint\":\"TX_MUTA\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":null,\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":\"시험관 내 시험\",\"converted\":null,\"read_across_cas\":null,\"guideline\":\"OECD TG 471, OECD TG 476, OECD TG 473, OECD TG 479, GLP\",\"data_source\":null,\"classification\":null,\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"시험관 내 시험(복귀돌연변이시험(OECD TG 471, GLP), 세포유전자 돌연변이시험(OECD TG 476, GLP), 포유류 염색체 이상시험(OECD TG 473, GLP), 자매염색체 교환 시험(OECD TG 479, GLP))에서 음성반응이 나타남\",\"refs\":[\"2\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"- Tetrahydrothiophene : 시험관 내 시험(복귀돌연변이시험(OECD TG 471, GLP), 세포유전자 돌연변이시험(OECD TG 476, GLP), 포유류 염색체 이상시험(OECD TG 473, GLP), 자매염색체 교환 시험(OECD TG 479, GLP))에서 음성반응이 나타남\"}],\"status\":\"값있음\"},{\"comp_ref\":\"3\",\"endpoint\":\"TX_MUTA\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":null,\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":\"시험관 내 시험, 생체 내 시험\",\"converted\":null,\"read_across_cas\":null,\"guideline\":\"OECD TG 471, OECD TG 476, OECD TG 479, OECD TG 474, GLP\",\"data_source\":null,\"classification\":null,\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"시험관 내 시험(복귀돌연변이시험(OECD TG 471, GLP), 세포유전자 돌연변이시험(OECD TG 476, GLP), 자매염색체 교환시험(OECD TG 479, GLP))과 생체 내 시험(소핵시험 (OECD TG 474, GLP)) 에서 음성 반응이 나타남\",\"refs\":[\"3\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"- Tert-butyl mercaptan : 시험관 내 시험(복귀돌연변이시험(OECD TG 471, GLP), 세포유전자 돌연변이시험(OECD TG 476, GLP), 자매염색체 교환시험(OECD TG 479, GLP))과 생체 내 시험(소핵시험 (OECD TG 474, GLP)) 에서 음성 반응이 나타남\"}],\"status\":\"값있음\"},{\"comp_ref\":\"1\",\"endpoint\":\"TX_REPRO\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":\"인간\",\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"물질에 노출되었을 때, 인간에게 생식발달독성 영향은 나타나지 않았음\",\"refs\":[\"1\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"- NATURAL GAS, LIQUIFIED : 물질에 노출되었을 때, 인간에게 생식발달독성 영향은 나타나지 않았음\"}],\"status\":\"값있음\"},{\"comp_ref\":\"2\",\"endpoint\":\"TX_REPRO\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":\"랫드\",\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":\"OECD TG 414, GLP\",\"data_source\":null,\"classification\":null,\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"랫드를 이용한 생식발달독성시험에서 생식발달독성 관련된 악영향은 관찰되지 않았음(OECD TG 414, GLP)\",\"refs\":[\"2\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"- Tetrahydrothiophene : 랫드를 이용한 생식발달독성시험에서 생식발달독성 관련된 악영향은 관찰되지 않았음(OECD TG 414, GLP)\"}],\"status\":\"값있음\"},{\"comp_ref\":\"3\",\"endpoint\":\"TX_REPRO\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":\"랫드\",\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":\"OECD TG 422, GLP\",\"data_source\":null,\"classification\":null,\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"랫드를 이용한 생식발달독성시험에서 어떠한 생식발달독성 영향도 관찰되지 않았음 (OECD TG 422, GLP)\",\"refs\":[\"3\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"- Tert-butyl mercaptan : 랫드를 이용한 생식발달독성시험에서 어떠한 생식발달독성 영향도 관찰되지 않았음 (OECD TG 422, GLP)\"}],\"status\":\"값있음\"},{\"comp_ref\":\"1\",\"endpoint\":\"TX_STOT_SE\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":\"인간\",\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"인간에게 노출되었을 때, 급성독성영향은 나타나지 않았음\",\"refs\":[\"1\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"- NATURAL GAS, LIQUIFIED : 인간에게 노출되었을 때, 급성독성영향은 나타나지 않았음\"}],\"status\":\"값있음\"},{\"comp_ref\":\"2\",\"endpoint\":\"TX_STOT_SE\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":\"랫드\",\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":\"급성흡입\",\"converted\":null,\"read_across_cas\":null,\"guideline\":\"GLP\",\"data_source\":null,\"classification\":null,\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"랫드를 이용한 급성흡입독성시험에서 급성독성 악영향은 관찰되지 않았음 (GLP)\",\"refs\":[\"2\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"- Tetrahydrothiophene : 랫드를 이용한 급성흡입독성시험에서 급성독성 악영향은 관찰되지 않았음 (GLP)\"}],\"status\":\"값있음\"},{\"comp_ref\":\"3\",\"endpoint\":\"TX_STOT_SE\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":\"랫드\",\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":\"급성흡입\",\"converted\":null,\"read_across_cas\":null,\"guideline\":\"OECD TG 403, GLP\",\"data_source\":null,\"classification\":null,\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"랫드를 이용한 급성흡입독성시험에서 급성독성 악영향은 관찰되지 않았음 (OECD TG 403, GLP)\",\"refs\":[\"3\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"- Tert-butyl mercaptan : 랫드를 이용한 급성흡입독성시험에서 급성독성 악영향은 관찰되지 않았음 (OECD TG 403, GLP)\"}],\"status\":\"값있음\"},{\"comp_ref\":\"1\",\"endpoint\":\"TX_STOT_RE\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":\"랫드\",\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":\"흡입반복\",\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"랫드를 이용하여 흡입반복독성시험을 한 결과, 중대한 독성학적 영향은 관찰되지 않았음\",\"refs\":[\"1\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"- NATURAL GAS, LIQUIFIED : 랫드를 이용하여 흡입반복독성시험을 한 결과, 중대한 독성학적 영향은 관찰되지 않았음\"}],\"status\":\"값있음\"},{\"comp_ref\":\"2\",\"endpoint\":\"TX_STOT_RE\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":\"랫드\",\"sex\":null,\"duration_value\":13,\"duration_unit\":\"week\",\"physical_form\":null,\"exposure_type\":\"흡입반복 13주\",\"converted\":null,\"read_across_cas\":null,\"guideline\":\"OECD TG 413, GLP\",\"data_source\":null,\"classification\":null,\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"랫드를 이용하여 13주 동안 흡입반복독성시험을 한 결과, 임상적 증상은 관찰되지 않았음(OECD TG 413, GLP)\",\"refs\":[\"2\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"- Tetrahydrothiophene : 랫드를 이용하여 13주 동안 흡입반복독성시험을 한 결과, 임상적 증상은 관찰되지 않았음(OECD TG 413, GLP)\"}],\"status\":\"값있음\"},{\"comp_ref\":\"3\",\"endpoint\":\"TX_STOT_RE\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":\"랫드\",\"sex\":null,\"duration_value\":90,\"duration_unit\":\"day\",\"physical_form\":null,\"exposure_type\":\"흡입반복 90일\",\"converted\":null,\"read_across_cas\":null,\"guideline\":\"OECD TG 413, GLP\",\"data_source\":null,\"classification\":null,\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"랫드를 이용하여 90일 동안 흡입반복독성시험을 한 결과, 임상적 증상은 관찰되지 않았음 (OECD TG 413, GLP)\",\"refs\":[\"3\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"- Tert-butyl mercaptan : 랫드를 이용하여 90일 동안 흡입반복독성시험을 한 결과, 임상적 증상은 관찰되지 않았음 (OECD TG 413, GLP)\"}],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_ASP\",\"descriptor\":null,\"q\":{\"raw\":\"자료없음\",\"approx\":null,\"value\":null,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":null,\"dp\":null,\"status\":\"자료없음\",\"note\":null},\"species\":null,\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[],\"status\":\"자료없음\"}],\"cmr\":[{\"comp_ref\":\"MIX\",\"hazard\":\"발암성\",\"agency\":\"KR_OSH\",\"class\":null,\"status\":\"해당없음\",\"note\":\"not listed\"},{\"comp_ref\":\"MIX\",\"hazard\":\"발암성\",\"agency\":\"IARC\",\"class\":null,\"status\":\"해당없음\",\"note\":\"not listed\"},{\"comp_ref\":\"MIX\",\"hazard\":\"발암성\",\"agency\":\"NTP\",\"class\":null,\"status\":\"해당없음\",\"note\":\"not listed\"},{\"comp_ref\":\"MIX\",\"hazard\":\"발암성\",\"agency\":\"OSHA\",\"class\":null,\"status\":\"해당없음\",\"note\":\"not listed\"},{\"comp_ref\":\"MIX\",\"hazard\":\"발암성\",\"agency\":\"ACGIH\",\"class\":null,\"status\":\"해당없음\",\"note\":\"not listed\"},{\"comp_ref\":\"MIX\",\"hazard\":\"발암성\",\"agency\":\"EU_CLP\",\"class\":null,\"status\":\"해당없음\",\"note\":\"not listed\"}],\"ecotox\":[{\"comp_ref\":\"1\",\"endpoint\":\"ECO_FISH\",\"descriptor\":\"LC50\",\"q\":{\"raw\":\"> 1,000 mg/L\",\"approx\":false,\"value\":null,\"lower_op\":\">\",\"lower\":1000,\"upper_op\":null,\"upper\":null,\"unit\":\"mg/L\",\"dp\":0,\"status\":\"값있음\",\"note\":null},\"species\":\"other\",\"duration_value\":96,\"duration_unit\":\"hr\",\"guideline\":null,\"data_source\":null,\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"2\",\"endpoint\":\"ECO_FISH\",\"descriptor\":\"LC50\",\"q\":{\"raw\":\"> 24 mg/L\",\"approx\":false,\"value\":null,\"lower_op\":\">\",\"lower\":24,\"upper_op\":null,\"upper\":null,\"unit\":\"mg/L\",\"dp\":0,\"status\":\"값있음\",\"note\":null},\"species\":\"Daniorerio\",\"duration_value\":96,\"duration_unit\":\"hr\",\"guideline\":\"OECD TG 203, GLP\",\"data_source\":null,\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"3\",\"endpoint\":\"ECO_FISH\",\"descriptor\":\"LC50\",\"q\":{\"raw\":\"=34mg/L\",\"approx\":false,\"value\":34,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"mg/L\",\"dp\":0,\"status\":\"값있음\",\"note\":null},\"species\":\"Oncorhynchusmykiss\",\"duration_value\":96,\"duration_unit\":\"hr\",\"guideline\":\"OECDTG203,GLP\",\"data_source\":null,\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"1\",\"endpoint\":\"ECO_CRUST\",\"descriptor\":\"LC50\",\"q\":{\"raw\":\"46.56 mg/L\",\"approx\":false,\"value\":46.56,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"mg/L\",\"dp\":2,\"status\":\"값있음\",\"note\":null},\"species\":\"other\",\"duration_value\":48,\"duration_unit\":\"hr\",\"guideline\":null,\"data_source\":\"ECOSAR Class;neutral organics\",\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"2\",\"endpoint\":\"ECO_CRUST\",\"descriptor\":\"EC50\",\"q\":{\"raw\":\"=24mg/L\",\"approx\":false,\"value\":24,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"mg/L\",\"dp\":0,\"status\":\"값있음\",\"note\":null},\"species\":\"Daphniamagna\",\"duration_value\":48,\"duration_unit\":\"hr\",\"guideline\":\"OECDTG202,GLP\",\"data_source\":null,\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"3\",\"endpoint\":\"ECO_CRUST\",\"descriptor\":\"EC50\",\"q\":{\"raw\":\"=6.7mg/L\",\"approx\":false,\"value\":6.7,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"mg/L\",\"dp\":1,\"status\":\"값있음\",\"note\":null},\"species\":\"Daphniamagna\",\"duration_value\":48,\"duration_unit\":\"hr\",\"guideline\":\"OECDTG202,GLP\",\"data_source\":null,\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"1\",\"endpoint\":\"ECO_ALGAE\",\"descriptor\":\"EC50\",\"q\":{\"raw\":\"16.47 mg/L\",\"approx\":false,\"value\":16.47,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"mg/L\",\"dp\":2,\"status\":\"값있음\",\"note\":null},\"species\":\"other\",\"duration_value\":96,\"duration_unit\":\"hr\",\"guideline\":null,\"data_source\":\"ECOSAR Class;neutral organics\",\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"2\",\"endpoint\":\"ECO_ALGAE\",\"descriptor\":\"EC50\",\"q\":{\"raw\":\"=90mg/L\",\"approx\":false,\"value\":90,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"mg/L\",\"dp\":0,\"status\":\"값있음\",\"note\":null},\"species\":\"Selenastrumcapricornutum\",\"duration_value\":72,\"duration_unit\":\"hr\",\"guideline\":\"OECDTG201,GLP\",\"data_source\":null,\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"2\",\"endpoint\":\"ECO_ALGAE\",\"descriptor\":\"NOEC\",\"q\":{\"raw\":\"=6mg/L\",\"approx\":false,\"value\":6,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"mg/L\",\"dp\":0,\"status\":\"값있음\",\"note\":null},\"species\":\"Selenastrumcapricornutum\",\"duration_value\":72,\"duration_unit\":\"hr\",\"guideline\":\"OECDTG201,GLP\",\"data_source\":null,\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"3\",\"endpoint\":\"ECO_ALGAE\",\"descriptor\":\"EC50\",\"q\":{\"raw\":\"=24mg/L\",\"approx\":false,\"value\":24,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"mg/L\",\"dp\":0,\"status\":\"값있음\",\"note\":null},\"species\":\"Selenastrumcapricornutum\",\"duration_value\":72,\"duration_unit\":\"hr\",\"guideline\":\"OECDTG201,GLP\",\"data_source\":null,\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"3\",\"endpoint\":\"ECO_ALGAE\",\"descriptor\":\"NOEC\",\"q\":{\"raw\":\"=6.41mg/L\",\"approx\":false,\"value\":6.41,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"mg/L\",\"dp\":2,\"status\":\"값있음\",\"note\":null},\"species\":\"Selenastrumcapricornutum\",\"duration_value\":72,\"duration_unit\":\"hr\",\"guideline\":\"OECDTG201,GLP\",\"data_source\":null,\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"1\",\"endpoint\":\"ECO_PERSIST\",\"descriptor\":\"logKow\",\"q\":{\"raw\":\"Log Kow ≤ 2.8\",\"approx\":false,\"value\":null,\"lower_op\":null,\"lower\":null,\"upper_op\":\"<=\",\"upper\":2.8,\"unit\":null,\"dp\":1,\"status\":\"값있음\",\"note\":null},\"species\":null,\"duration_value\":null,\"duration_unit\":null,\"guideline\":null,\"data_source\":null,\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"Log Kow가 4미만이므로 잔류성이 낮을 것으로 예측됨 (Log Kow ≤ 2.8)\",\"refs\":[\"1\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"- NATURAL GAS, LIQUIFIED : Log Kow가 4미만이므로 잔류성이 낮을 것으로 예측됨 (Log Kow ≤ 2.8)\"}],\"status\":\"값있음\"},{\"comp_ref\":\"2\",\"endpoint\":\"ECO_PERSIST\",\"descriptor\":\"logKow\",\"q\":{\"raw\":\"Log Kow = 1.8\",\"approx\":false,\"value\":1.8,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":null,\"dp\":1,\"status\":\"값있음\",\"note\":null},\"species\":null,\"duration_value\":null,\"duration_unit\":null,\"guideline\":null,\"data_source\":null,\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"Log Kow가 4미만이므로 잔류성이 낮을 것으로 예측됨 (Log Kow = 1.8) (20 ℃)\",\"refs\":[\"2\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"- Tetrahydrothiophene : Log Kow가 4미만이므로 잔류성이 낮을 것으로 예측됨 (Log Kow = 1.8) (20 ℃)\"}],\"status\":\"값있음\"},{\"comp_ref\":\"3\",\"endpoint\":\"ECO_PERSIST\",\"descriptor\":\"logKow\",\"q\":{\"raw\":\"Log Kow = 2.14\",\"approx\":false,\"value\":2.14,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":null,\"dp\":2,\"status\":\"값있음\",\"note\":null},\"species\":null,\"duration_value\":null,\"duration_unit\":null,\"guideline\":null,\"data_source\":null,\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"Log Kow가 4미만이므로 잔류성이 낮을 것으로 예측됨 (Log Kow = 2.14) (20 °C)\",\"refs\":[\"3\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"- Tert-butyl mercaptan : Log Kow가 4미만이므로 잔류성이 낮을 것으로 예측됨 (Log Kow = 2.14) (20 °C)\"}],\"status\":\"값있음\"},{\"comp_ref\":\"1\",\"endpoint\":\"ECO_PERSIST\",\"descriptor\":\"분해율\",\"q\":{\"raw\":\"36.8 %\",\"approx\":false,\"value\":36.8,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"%\",\"dp\":1,\"status\":\"값있음\",\"note\":null},\"species\":null,\"duration_value\":null,\"duration_unit\":null,\"guideline\":\"GLP\",\"data_source\":null,\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"광분해성시험에서 11.3년 후에 36.8 % 분해됨 (GLP)\",\"refs\":[\"1\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"- NATURAL GAS, LIQUIFIED : 광분해성시험에서 11.3년 후에 36.8 % 분해됨 (GLP)\"}],\"status\":\"값있음\"},{\"comp_ref\":\"1\",\"endpoint\":\"ECO_BIOACC\",\"descriptor\":\"BCF\",\"q\":{\"raw\":\"BCF = 7.27\",\"approx\":false,\"value\":7.27,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":null,\"dp\":2,\"status\":\"값있음\",\"note\":\"예측치\"},\"species\":null,\"duration_value\":null,\"duration_unit\":null,\"guideline\":null,\"data_source\":null,\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"생물농축성이 낮을 것으로 예측됨(BCF = 7.27) (예측치)\",\"refs\":[\"1\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"- NATURAL GAS, LIQUIFIED : 생물농축성이 낮을 것으로 예측됨(BCF = 7.27) (예측치)\"}],\"status\":\"값있음\"},{\"comp_ref\":\"2\",\"endpoint\":\"ECO_BIOACC\",\"descriptor\":\"BCF\",\"q\":{\"raw\":\"BCF = 5.36\",\"approx\":false,\"value\":5.36,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":null,\"dp\":2,\"status\":\"값있음\",\"note\":\"예측치\"},\"species\":null,\"duration_value\":null,\"duration_unit\":null,\"guideline\":null,\"data_source\":null,\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"생물농축성이 낮을 것으로 예측됨(BCF = 5.36) (예측치)\",\"refs\":[\"2\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"- Tetrahydrothiophene : 생물농축성이 낮을 것으로 예측됨(BCF = 5.36) (예측치)\"}],\"status\":\"값있음\"},{\"comp_ref\":\"3\",\"endpoint\":\"ECO_BIOACC\",\"descriptor\":\"BCF\",\"q\":{\"raw\":\"BCF = 11.97\",\"approx\":false,\"value\":11.97,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":null,\"dp\":2,\"status\":\"값있음\",\"note\":\"예측치\"},\"species\":null,\"duration_value\":null,\"duration_unit\":null,\"guideline\":null,\"data_source\":null,\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"생물농축성이 낮을 것으로 예측됨(BCF = 11.97) (예측치)\",\"refs\":[\"3\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"- Tert-butyl mercaptan : 생물농축성이 낮을 것으로 예측됨(BCF = 11.97) (예측치)\"}],\"status\":\"값있음\"},{\"comp_ref\":\"1\",\"endpoint\":\"ECO_BIOACC\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":null,\"duration_value\":null,\"duration_unit\":null,\"guideline\":null,\"data_source\":null,\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"이분해성\",\"refs\":[\"1\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"- NATURAL GAS, LIQUIFIED : 이분해성\"}],\"status\":\"값있음\"},{\"comp_ref\":\"2\",\"endpoint\":\"ECO_BIOACC\",\"descriptor\":\"분해율\",\"q\":{\"raw\":\"10 %\",\"approx\":false,\"value\":10,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"%\",\"dp\":0,\"status\":\"값있음\",\"note\":null},\"species\":null,\"duration_value\":28,\"duration_unit\":\"day\",\"guideline\":\"OECD TG 301F, GLP\",\"data_source\":null,\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"생분해가 되지 않아 생체 내 축적될 잠재성이 높음 (28 일 후에 10 % 생분해 됨) (OECD TG 301F, GLP)\",\"refs\":[\"2\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"- Tetrahydrothiophene : 생분해가 되지 않아 생체 내 축적될 잠재성이 높음 (28 일 후에 10 % 생분해 됨) (OECD TG 301F, GLP)\"}],\"status\":\"값있음\"},{\"comp_ref\":\"3\",\"endpoint\":\"ECO_BIOACC\",\"descriptor\":\"분해율\",\"q\":{\"raw\":\"6 %\",\"approx\":false,\"value\":6,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"%\",\"dp\":0,\"status\":\"값있음\",\"note\":null},\"species\":null,\"duration_value\":63,\"duration_unit\":\"day\",\"guideline\":\"OECD TG 301D, GLP\",\"data_source\":null,\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"생분해가 되지 않아 생체 내 축적될 잠재성이 높음 (63 일 후에 6 % 생분해 됨) (OECD TG 301D, GLP)\",\"refs\":[\"3\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"- Tert-butyl mercaptan : 생분해가 되지 않아 생체 내 축적될 잠재성이 높음 (63 일 후에 6 % 생분해 됨) (OECD TG 301D, GLP)\"}],\"status\":\"값있음\"},{\"comp_ref\":\"1\",\"endpoint\":\"ECO_SOIL\",\"descriptor\":\"Koc\",\"q\":{\"raw\":\"Koc = 37.2\",\"approx\":false,\"value\":37.2,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":null,\"dp\":1,\"status\":\"값있음\",\"note\":\"예측치\"},\"species\":null,\"duration_value\":null,\"duration_unit\":null,\"guideline\":null,\"data_source\":null,\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"토양에 흡착될 가능성이 낮을 것으로 예측됨 (Koc = 37.2) (예측치)\",\"refs\":[\"1\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"- NATURAL GAS, LIQUIFIED : 토양에 흡착될 가능성이 낮을 것으로 예측됨 (Koc = 37.2) (예측치)\"}],\"status\":\"값있음\"},{\"comp_ref\":\"2\",\"endpoint\":\"ECO_SOIL\",\"descriptor\":\"Koc\",\"q\":{\"raw\":\"Koc = 20.71\",\"approx\":false,\"value\":20.71,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":null,\"dp\":2,\"status\":\"값있음\",\"note\":null},\"species\":null,\"duration_value\":null,\"duration_unit\":null,\"guideline\":null,\"data_source\":null,\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"토양에 흡착될 가능성이 낮을 것으로 예측됨 (Koc = 20.71)(20 °C)\",\"refs\":[\"2\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"- Tetrahydrothiophene : 토양에 흡착될 가능성이 낮을 것으로 예측됨 (Koc = 20.71)(20 °C)\"}],\"status\":\"값있음\"},{\"comp_ref\":\"3\",\"endpoint\":\"ECO_SOIL\",\"descriptor\":\"Koc\",\"q\":{\"raw\":\"Koc = 43.87\",\"approx\":false,\"value\":43.87,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":null,\"dp\":2,\"status\":\"값있음\",\"note\":null},\"species\":null,\"duration_value\":null,\"duration_unit\":null,\"guideline\":null,\"data_source\":null,\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"토양에 흡착될 가능성이 낮을 것으로 예측됨 (Koc = 43.87)(20 °C)\",\"refs\":[\"3\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"- Tert-butyl mercaptan : 토양에 흡착될 가능성이 낮을 것으로 예측됨 (Koc = 43.87)(20 °C)\"}],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":null,\"descriptor\":null,\"q\":{\"raw\":\"자료없음\",\"approx\":null,\"value\":null,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":null,\"dp\":null,\"status\":\"자료없음\",\"note\":null},\"species\":null,\"duration_value\":null,\"duration_unit\":null,\"guideline\":null,\"data_source\":null,\"statements\":[{\"seq\":1,\"key\":\"기타 유해 영향\",\"value\":\"자료없음\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"마. 기타 유해 영향 : 자료없음\"}],\"status\":\"자료없음\"}]}],\"evidence\":[{\"msds_index\":0,\"field\":\"toxicity[0]\",\"page\":7,\"source_text\":\"경구 : • NATURAL GAS, LIQUIFIED : 자료없음\",\"rules\":[\"R10\",\"R15\"],\"note\":\"'NATURAL GAS, LIQUIFIED'를 성분 1(NATURAL GAS)로 매칭\"},{\"msds_index\":0,\"field\":\"toxicity[1]\",\"page\":7,\"source_text\":\"Tetrahydrothiophene : 랫드, LD50 = 1,750 mg/kg (GLP)\",\"rules\":[\"R04\",\"R06\",\"R10\"],\"note\":\"콤마 제거해 1750으로 저장\"},{\"msds_index\":0,\"field\":\"toxicity[2]\",\"page\":7,\"source_text\":\"Tert-butyl mercaptan : 랫드, LD50 = 4,729 mg/kg (수컷)\",\"rules\":[\"R04\",\"R06\",\"R10\"],\"note\":\"'(수컷)'을 sex로 분리\"},{\"msds_index\":0,\"field\":\"toxicity[3]\",\"page\":7,\"source_text\":\"경피 : • NATURAL GAS, LIQUIFIED : 자료없음\",\"rules\":[\"R10\",\"R15\"],\"note\":null},{\"msds_index\":0,\"field\":\"toxicity[4]\",\"page\":7,\"source_text\":\"Tetrahydrothiophene : 토끼, LD50 ＞ 2,000 mg/kg (GLP)\",\"rules\":[\"R04\",\"R06\",\"R10\"],\"note\":\"'＞ 2,000'을 하한 >2000으로 분해\"},{\"msds_index\":0,\"field\":\"toxicity[5]\",\"page\":7,\"source_text\":\"Tert-butyl mercaptan : 자료없음\",\"rules\":[\"R10\",\"R15\"],\"note\":null},{\"msds_index\":0,\"field\":\"toxicity[6]\",\"page\":7,\"source_text\":\"NATURAL GAS, LIQUIFIED : 랫드, LC50 = 658mg/L/4h ※ 출처 : International Uniform Chemical Infomation Database(IUCLID)\",\"rules\":[\"R04\",\"R10\"],\"note\":\"'/4h'를 노출 시간 4 hr로 분리, 흡입 형태는 원문에 없어 null\"},{\"msds_index\":0,\"field\":\"toxicity[7]\",\"page\":7,\"source_text\":\"Tetrahydrothiophene : 랫드, LC50 = 26.16 mg/L/4hr (GLP)\",\"rules\":[\"R04\",\"R10\"],\"note\":\"'/4hr'를 노출 시간으로 분리\"},{\"msds_index\":0,\"field\":\"toxicity[8]\",\"page\":7,\"source_text\":\"Tert-butyl mercaptan : 랫드, LC50 = 81.9 mg/L/4hr (OECD TG 403, GLP)\",\"rules\":[\"R04\",\"R10\"],\"note\":\"'/4hr'를 노출 시간으로 분리\"},{\"msds_index\":0,\"field\":\"toxicity[9]\",\"page\":7,\"source_text\":\"NATURAL GAS, LIQUIFIED : 인간의 피부에 노출되었을 때, 피부자극성은 관찰되지 않았음\",\"rules\":[\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"toxicity[10]\",\"page\":7,\"source_text\":\"Tetrahydrothiophene : 토끼를 이용한 피부자극성시험에서 피부자극성이 관찰되었음 (GLP)\",\"rules\":[\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"toxicity[11]\",\"page\":7,\"source_text\":\"Tert-butyl mercaptan : 토끼를 이용한 피부자극성시험에서 피부자극성이 관찰되었음 (GLP)\",\"rules\":[\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"toxicity[12]\",\"page\":7,\"source_text\":\"NATURAL GAS, LIQUIFIED : 인간의 눈에 노출되었을 때, 눈 자극성은 관찰되지 않았음\",\"rules\":[\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"toxicity[13]\",\"page\":8,\"source_text\":\"Tetrahydrothiophene : 토끼를 이용한 눈 자극성시험에서 눈 자극성이 관찰되었음 (GLP)\",\"rules\":[\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"toxicity[14]\",\"page\":8,\"source_text\":\"Tert-butyl mercaptan : 토끼를 이용한 눈 자극성시험에서 약한 눈 자극성이 관찰되었음 (OECD TG 405, GLP)\",\"rules\":[\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"toxicity[15]\",\"page\":8,\"source_text\":\"호흡기과민성 : 자료없음\",\"rules\":[\"R10\",\"R15\"],\"note\":\"성분 지정이 없어 MIX로 둠\"},{\"msds_index\":0,\"field\":\"toxicity[16]\",\"page\":8,\"source_text\":\"NATURAL GAS, LIQUIFIED : 인간에게 노출되었을 때, 피부과민성은 관찰되지 않았음\",\"rules\":[\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"toxicity[17]\",\"page\":8,\"source_text\":\"Tetrahydrothiophene : 기니피그를 이용한 피부과민성시험에서 피부과민성이 관찰되지 않았음 (OECD TG 406, GLP)\",\"rules\":[\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"toxicity[18]\",\"page\":8,\"source_text\":\"Tert-butyl mercaptan : 기니피그를 이용한 피부과민성시험에서 피부과민성 반응이 나타났음 (GLP)\",\"rules\":[\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"toxicity[19]\",\"page\":8,\"source_text\":\"발암성 : 자료없음 고용노동부 고시, IARC, NTP, OSHA, ACGIH, EU Regulation 1272/2008: not listed\",\"rules\":[\"R10\",\"R15\"],\"note\":\"성분 지정이 없어 MIX로 둠\"},{\"msds_index\":0,\"field\":\"toxicity[20]\",\"page\":8,\"source_text\":\"NATURAL GAS, LIQUIFIED : 시험관 내 시험(복귀돌연변이시험)에서 음성반응이 나타남\",\"rules\":[\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"toxicity[21]\",\"page\":8,\"source_text\":\"Tetrahydrothiophene : 시험관 내 시험(복귀돌연변이시험(OECD TG 471, GLP), 세포유전자 돌연변이시험(OECD TG 476, GLP), 포유류 염색체 이상시험(OECD TG 473, GLP), 자매염색체 교환 시험(OECD TG 479, GLP))에서 음성반응이 나타남\",\"rules\":[\"R10\"],\"note\":\"여러 시험 지침을 guideline에 모아 적음\"},{\"msds_index\":0,\"field\":\"toxicity[22]\",\"page\":8,\"source_text\":\"Tert-butyl mercaptan : 시험관 내 시험(복귀돌연변이시험(OECD TG 471, GLP), 세포유전자 돌연변이시험(OECD TG 476, GLP), 자매염색체 교환시험(OECD TG 479, GLP))과 생체 내 시험(소핵시험 (OECD TG 474, GLP)) 에서 음성 반응이 나타남\",\"rules\":[\"R10\"],\"note\":\"여러 시험 지침을 guideline에 모아 적음\"},{\"msds_index\":0,\"field\":\"toxicity[23]\",\"page\":8,\"source_text\":\"NATURAL GAS, LIQUIFIED : 물질에 노출되었을 때, 인간에게 생식발달독성 영향은 나타나지 않았음\",\"rules\":[\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"toxicity[24]\",\"page\":8,\"source_text\":\"Tetrahydrothiophene : 랫드를 이용한 생식발달독성시험에서 생식발달독성 관련된 악영향은 관찰되지 않았음(OECD TG 414, GLP)\",\"rules\":[\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"toxicity[25]\",\"page\":8,\"source_text\":\"Tert-butyl mercaptan : 랫드를 이용한 생식발달독성시험에서 어떠한 생식발달독성 영향도 관찰되지 않았음 (OECD TG 422, GLP)\",\"rules\":[\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"toxicity[26]\",\"page\":8,\"source_text\":\"NATURAL GAS, LIQUIFIED : 인간에게 노출되었을 때, 급성독성영향은 나타나지 않았음\",\"rules\":[\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"toxicity[27]\",\"page\":8,\"source_text\":\"Tetrahydrothiophene : 랫드를 이용한 급성흡입독성시험에서 급성독성 악영향은 관찰되지 않았음 (GLP)\",\"rules\":[\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"toxicity[28]\",\"page\":8,\"source_text\":\"Tert-butyl mercaptan : 랫드를 이용한 급성흡입독성시험에서 급성독성 악영향은 관찰되지 않았음 (OECD TG 403, GLP)\",\"rules\":[\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"toxicity[29]\",\"page\":9,\"source_text\":\"NATURAL GAS, LIQUIFIED : 랫드를 이용하여 흡입반복독성시험을 한 결과, 중대한 독성학적 영향은 관찰되지 않았음\",\"rules\":[\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"toxicity[30]\",\"page\":9,\"source_text\":\"Tetrahydrothiophene : 랫드를 이용하여 13주 동안 흡입반복독성시험을 한 결과, 임상적 증상은 관찰되지 않았음(OECD TG 413, GLP)\",\"rules\":[\"R10\"],\"note\":\"'13주'를 노출 시간 13 week로 분리\"},{\"msds_index\":0,\"field\":\"toxicity[31]\",\"page\":9,\"source_text\":\"Tert-butyl mercaptan : 랫드를 이용하여 90일 동안 흡입반복독성시험을 한 결과, 임상적 증상은 관찰되지 않았음 (OECD TG 413, GLP)\",\"rules\":[\"R10\"],\"note\":\"'90일'을 노출 시간 90 day로 분리\"},{\"msds_index\":0,\"field\":\"toxicity[32]\",\"page\":9,\"source_text\":\"흡인유해성 : 자료없음\",\"rules\":[\"R10\",\"R15\"],\"note\":null},{\"msds_index\":0,\"field\":\"cmr[0]\",\"page\":8,\"source_text\":\"고용노동부 고시, IARC, NTP, OSHA, ACGIH, EU Regulation 1272/2008: not listed\",\"rules\":[\"R10\",\"R15\"],\"note\":\"'not listed'를 해당없음으로 보고 고용노동부 고시를 KR_OSH로 매핑\"},{\"msds_index\":0,\"field\":\"cmr[1]\",\"page\":8,\"source_text\":\"고용노동부 고시, IARC, NTP, OSHA, ACGIH, EU Regulation 1272/2008: not listed\",\"rules\":[\"R10\",\"R15\"],\"note\":\"'not listed'를 해당없음으로 저장\"},{\"msds_index\":0,\"field\":\"cmr[2]\",\"page\":8,\"source_text\":\"고용노동부 고시, IARC, NTP, OSHA, ACGIH, EU Regulation 1272/2008: not listed\",\"rules\":[\"R10\",\"R15\"],\"note\":\"'not listed'를 해당없음으로 저장\"},{\"msds_index\":0,\"field\":\"cmr[3]\",\"page\":8,\"source_text\":\"고용노동부 고시, IARC, NTP, OSHA, ACGIH, EU Regulation 1272/2008: not listed\",\"rules\":[\"R10\",\"R15\"],\"note\":\"'not listed'를 해당없음으로 저장\"},{\"msds_index\":0,\"field\":\"cmr[4]\",\"page\":8,\"source_text\":\"고용노동부 고시, IARC, NTP, OSHA, ACGIH, EU Regulation 1272/2008: not listed\",\"rules\":[\"R10\",\"R15\"],\"note\":\"'not listed'를 해당없음으로 저장\"},{\"msds_index\":0,\"field\":\"cmr[5]\",\"page\":8,\"source_text\":\"고용노동부 고시, IARC, NTP, OSHA, ACGIH, EU Regulation 1272/2008: not listed\",\"rules\":[\"R10\",\"R15\"],\"note\":\"EU Regulation 1272/2008을 EU_CLP로 매핑, 'not listed'를 해당없음으로 저장\"},{\"msds_index\":0,\"field\":\"ecotox[0]\",\"page\":9,\"source_text\":\"NATURAL GAS, LIQUIFIED : 96hr-LC50(other) ＞ 1,000 mg/L\",\"rules\":[\"R04\",\"R06\",\"R10\"],\"note\":\"'96hr'를 노출 시간으로, '＞ 1,000'을 하한 >1000으로 분해\"},{\"msds_index\":0,\"field\":\"ecotox[1]\",\"page\":9,\"source_text\":\"Tetrahydrothiophene : 96hr-LC50(Daniorerio)＞ 24 mg/L (OECD TG 203, GLP)\",\"rules\":[\"R04\",\"R10\"],\"note\":\"시험종은 원문 표기(Daniorerio) 그대로 둠\"},{\"msds_index\":0,\"field\":\"ecotox[2]\",\"page\":9,\"source_text\":\"Tert-butyl mercaptan : 96hr-LC50(Oncorhynchusmykiss)=34mg/L(OECDTG203,GLP)\",\"rules\":[\"R04\",\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"ecotox[3]\",\"page\":9,\"source_text\":\"NATURAL GAS, LIQUIFIED : 48hr-LC50(other) = 46.56 mg/L (ECOSAR Class;neutral organics)\",\"rules\":[\"R04\",\"R10\"],\"note\":\"괄호 속 ECOSAR 표기를 data_source로 둠\"},{\"msds_index\":0,\"field\":\"ecotox[4]\",\"page\":9,\"source_text\":\"Tetrahydrothiophene : 48hr-EC50(Daphniamagna)=24mg/L(OECDTG202,GLP)\",\"rules\":[\"R04\",\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"ecotox[5]\",\"page\":9,\"source_text\":\"Tert-butyl mercaptan : 48hr-EC50(Daphniamagna)=6.7mg/L(OECDTG202,GLP)\",\"rules\":[\"R04\",\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"ecotox[6]\",\"page\":9,\"source_text\":\"NATURAL GAS, LIQUIFIED : 96hr-EC50(other) = 16.47 mg/L (ECOSAR Class;neutral organics)\",\"rules\":[\"R04\",\"R10\"],\"note\":\"괄호 속 ECOSAR 표기를 data_source로 둠\"},{\"msds_index\":0,\"field\":\"ecotox[7]\",\"page\":9,\"source_text\":\"Tetrahydrothiophene : 72hr-EC50(Selenastrumcapricornutum)=90mg/L(OECDTG201,GLP)\",\"rules\":[\"R04\",\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"ecotox[8]\",\"page\":9,\"source_text\":\"72hr-NOEC(Selenastrumcapricornutum)=6mg/L(OECDTG201,GLP)\",\"rules\":[\"R04\",\"R10\"],\"note\":\"Tetrahydrothiophene 항목의 둘째 줄\"},{\"msds_index\":0,\"field\":\"ecotox[9]\",\"page\":9,\"source_text\":\"Tert-butyl mercaptan : 72hr-EC50(Selenastrumcapricornutum)=24mg/L(OECDTG201,GLP)\",\"rules\":[\"R04\",\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"ecotox[10]\",\"page\":9,\"source_text\":\"72hr-NOEC(Selenastrumcapricornutum)=6.41mg/L(OECDTG201,GLP)\",\"rules\":[\"R04\",\"R10\"],\"note\":\"Tert-butyl mercaptan 항목의 둘째 줄\"},{\"msds_index\":0,\"field\":\"ecotox[11]\",\"page\":9,\"source_text\":\"NATURAL GAS, LIQUIFIED : Log Kow가 4미만이므로 잔류성이 낮을 것으로 예측됨 (Log Kow ≤ 2.8)\",\"rules\":[\"R04\",\"R10\"],\"note\":\"'≤ 2.8'을 상한 <=2.8로 분해\"},{\"msds_index\":0,\"field\":\"ecotox[12]\",\"page\":9,\"source_text\":\"Tetrahydrothiophene : Log Kow가 4미만이므로 잔류성이 낮을 것으로 예측됨 (Log Kow = 1.8) (20 ℃)\",\"rules\":[\"R04\",\"R10\"],\"note\":\"측정 온도(20 ℃)는 칸이 없어 statements에 원문으로 남김\"},{\"msds_index\":0,\"field\":\"ecotox[13]\",\"page\":9,\"source_text\":\"Tert-butyl mercaptan : Log Kow가 4미만이므로 잔류성이 낮을 것으로 예측됨 (Log Kow = 2.14) (20 °C)\",\"rules\":[\"R04\",\"R10\"],\"note\":\"측정 온도는 statements에 원문으로 남김\"},{\"msds_index\":0,\"field\":\"ecotox[14]\",\"page\":9,\"source_text\":\"NATURAL GAS, LIQUIFIED : 광분해성시험에서 11.3년 후에 36.8 % 분해됨 (GLP)\",\"rules\":[\"R04\",\"R10\"],\"note\":\"기간 단위 '년'은 허용 단위(hr/day)에 없어 duration은 null로 두고 statements에 남김\"},{\"msds_index\":0,\"field\":\"ecotox[15]\",\"page\":10,\"source_text\":\"NATURAL GAS, LIQUIFIED : 생물농축성이 낮을 것으로 예측됨(BCF = 7.27) (예측치)\",\"rules\":[\"R04\",\"R10\"],\"note\":\"'(예측치)'를 q.note로 둠\"},{\"msds_index\":0,\"field\":\"ecotox[16]\",\"page\":10,\"source_text\":\"Tetrahydrothiophene : 생물농축성이 낮을 것으로 예측됨(BCF = 5.36) (예측치)\",\"rules\":[\"R04\",\"R10\"],\"note\":\"'(예측치)'를 q.note로 둠\"},{\"msds_index\":0,\"field\":\"ecotox[17]\",\"page\":10,\"source_text\":\"Tert-butyl mercaptan : 생물농축성이 낮을 것으로 예측됨(BCF = 11.97) (예측치)\",\"rules\":[\"R04\",\"R10\"],\"note\":\"'(예측치)'를 q.note로 둠\"},{\"msds_index\":0,\"field\":\"ecotox[18]\",\"page\":10,\"source_text\":\"생분해성 : - NATURAL GAS, LIQUIFIED : 이분해성\",\"rules\":[\"R10\"],\"note\":\"원문에서 생분해성이 '다. 생물농축성' 아래에 있어 ECO_BIOACC로 둠\"},{\"msds_index\":0,\"field\":\"ecotox[19]\",\"page\":10,\"source_text\":\"Tetrahydrothiophene : 생분해가 되지 않아 생체 내 축적될 잠재성이 높음 (28 일 후에 10 % 생분해 됨) (OECD TG 301F, GLP)\",\"rules\":[\"R04\",\"R10\"],\"note\":\"원문에서 생물농축성 항목 아래에 있어 ECO_BIOACC로 두고, '28 일'을 노출 시간으로 분리함\"},{\"msds_index\":0,\"field\":\"ecotox[20]\",\"page\":10,\"source_text\":\"Tert-butyl mercaptan : 생분해가 되지 않아 생체 내 축적될 잠재성이 높음 (63 일 후에 6 % 생분해 됨) (OECD TG 301D, GLP)\",\"rules\":[\"R04\",\"R10\"],\"note\":\"원문에서 생물농축성 항목 아래에 있어 ECO_BIOACC로 두고, '63 일'을 노출 시간으로 분리함\"},{\"msds_index\":0,\"field\":\"ecotox[21]\",\"page\":10,\"source_text\":\"NATURAL GAS, LIQUIFIED : 토양에 흡착될 가능성이 낮을 것으로 예측됨 (Koc = 37.2) (예측치)\",\"rules\":[\"R04\",\"R10\"],\"note\":\"'(예측치)'를 q.note로 둠\"},{\"msds_index\":0,\"field\":\"ecotox[22]\",\"page\":10,\"source_text\":\"Tetrahydrothiophene : 토양에 흡착될 가능성이 낮을 것으로 예측됨 (Koc = 20.71)(20 °C)\",\"rules\":[\"R04\",\"R10\"],\"note\":\"측정 온도는 statements에 원문으로 남김\"},{\"msds_index\":0,\"field\":\"ecotox[23]\",\"page\":10,\"source_text\":\"Tert-butyl mercaptan : 토양에 흡착될 가능성이 낮을 것으로 예측됨 (Koc = 43.87)(20 °C)\",\"rules\":[\"R04\",\"R10\"],\"note\":\"측정 온도는 statements에 원문으로 남김\"},{\"msds_index\":0,\"field\":\"ecotox[24]\",\"page\":10,\"source_text\":\"마. 기타 유해 영향 : 자료없음\",\"rules\":[\"R15\"],\"note\":\"맞는 C5 코드가 없어 endpoint는 null로 두고 statements에 원문을 남김\"}]}"
+}

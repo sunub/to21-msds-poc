@@ -1,0 +1,491 @@
+{
+  "doc_id": "T21-014",
+  "bundle": "b3",
+  "model": "claude-opus-5-5",
+  "mode": "none",
+  "finish_reason": "stop",
+  "usage": {
+    "prompt_tokens": 47319,
+    "completion_tokens": 4903,
+    "total_tokens": 52222,
+    "served_model": "claude-opus-5-5"
+  },
+  "seconds": 40.8,
+  "attempts": 1,
+  "errors": [],
+  "parsed": {
+    "msds": [
+      {
+        "toxicity": [
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_ORAL",
+            "descriptor": "LD50",
+            "q": {
+              "raw": "> 2,000 mg/kg",
+              "approx": null,
+              "value": null,
+              "lower_op": ">",
+              "lower": 2000,
+              "upper_op": null,
+              "upper": null,
+              "unit": "mg/kg",
+              "dp": 0,
+              "status": "값있음",
+              "note": null
+            },
+            "species": "Rat",
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "The product has not been tested.  The information is derived from the properties of the individual components.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "The product has not been tested.  The information is derived from the properties of the individual components."
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_SKIN",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": null,
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "No skin irritation",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "No skin irritation"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_EYE",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": null,
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "No eye irritation",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "No eye irritation"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_RESP_SENS",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": null,
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "non-sensitizing",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "non-sensitizing"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_SKIN_SENS",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": null,
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "non-sensitizing",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "non-sensitizing"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_ASP",
+            "descriptor": null,
+            "q": null,
+            "species": null,
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [],
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_ORAL",
+            "descriptor": "LD50",
+            "q": {
+              "raw": "> 2,000 mg/kg",
+              "approx": null,
+              "value": null,
+              "lower_op": ">",
+              "lower": 2000,
+              "upper_op": null,
+              "upper": null,
+              "unit": "mg/kg",
+              "dp": 0,
+              "status": "값있음",
+              "note": null
+            },
+            "species": "Rat",
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [],
+            "status": "값있음"
+          }
+        ],
+        "cmr": [],
+        "ecotox": [
+          {
+            "comp_ref": "MIX",
+            "endpoint": null,
+            "descriptor": "결과기술",
+            "q": null,
+            "species": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "guideline": null,
+            "data_source": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": "Physico-chemical eliminability",
+                "value": "The product can be separated out mechanically.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "Physico-chemical eliminability : The product can be separated out mechanically."
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_PERSIST",
+            "descriptor": null,
+            "q": null,
+            "species": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "guideline": null,
+            "data_source": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": "Biodegradability",
+                "value": "not available",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "Biodegradability : not available"
+              }
+            ],
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_BIOACC",
+            "descriptor": null,
+            "q": null,
+            "species": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "guideline": null,
+            "data_source": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": "Bioaccumulation",
+                "value": "not available",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "Bioaccumulation: not available"
+              }
+            ],
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_OTHER",
+            "descriptor": null,
+            "q": null,
+            "species": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "guideline": null,
+            "data_source": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": "Toxicity to soil dwelling organisms",
+                "value": "not available",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "Toxicity to soil dwelling organisms: not available"
+              }
+            ],
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_OTHER",
+            "descriptor": null,
+            "q": null,
+            "species": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "guideline": null,
+            "data_source": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": "Toxicity to terrestrial plants",
+                "value": "not available",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "Toxicity to terrestrial plants: not available"
+              }
+            ],
+            "status": "자료없음"
+          }
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "msds_index": 0,
+        "field": "toxicity[0]",
+        "page": 4,
+        "source_text": "Acute oral toxicity : | LD50   > 2,000 mg/kg (Rat) | The product has not been tested.  The information is derived from the properties of the individual components.",
+        "rules": [
+          "R04",
+          "R06",
+          "R10"
+        ],
+        "note": "'Information related to the product itself' 아래 값이라 comp_ref=MIX, '> 2,000 mg/kg'을 하한 >2000(천단위 콤마 제거), 단위 mg/kg로 분해"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[1]",
+        "page": 5,
+        "source_text": "Skin corrosion/irritation : | No skin irritation",
+        "rules": [
+          "R10"
+        ],
+        "note": "제품 자체 정보로 comp_ref=MIX, 서술을 결과기술로 저장"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[2]",
+        "page": 5,
+        "source_text": "Serious eye damage/irritation: | No eye irritation",
+        "rules": [
+          "R10"
+        ],
+        "note": "제품 자체 정보로 comp_ref=MIX, 서술을 결과기술로 저장"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[3]",
+        "page": 5,
+        "source_text": "Respiratory or skin sensitization : | non-sensitizing",
+        "rules": [
+          "R10"
+        ],
+        "note": "호흡기·피부 과민성이 한 항목으로 적혀 있어 같은 문구를 TX_RESP_SENS 행으로 남김"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[4]",
+        "page": 5,
+        "source_text": "Respiratory or skin sensitization : | non-sensitizing",
+        "rules": [
+          "R10"
+        ],
+        "note": "호흡기·피부 과민성이 한 항목으로 적혀 있어 같은 문구를 TX_SKIN_SENS 행으로 남김"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[5]",
+        "page": 5,
+        "source_text": "Aspiration hazard : | no data available",
+        "rules": [
+          "R15",
+          "R10"
+        ],
+        "note": "'no data available'을 status=자료없음으로 저장"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[6]",
+        "page": 5,
+        "source_text": "Information related to the component: Octadecanamide, N,N'-1,2-ethanediylbis- | Acute oral toxicity : | LD50   > 2,000 mg/kg (Rat)",
+        "rules": [
+          "R04",
+          "R06",
+          "R10"
+        ],
+        "note": "성분명으로 comp_ref=1 매칭, '> 2,000 mg/kg'을 하한 >2000, 단위 mg/kg로 분해"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[0]",
+        "page": 5,
+        "source_text": "Physico-chemical eliminability : | The product can be separated out mechanically.",
+        "rules": [
+          "R10"
+        ],
+        "note": "맞는 C5 코드가 없어 endpoint=null, 항목명을 statements key에 남김"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[1]",
+        "page": 5,
+        "source_text": "Biodegradability : | not available",
+        "rules": [
+          "R15",
+          "R10"
+        ],
+        "note": "'not available'을 status=자료없음으로 저장, 생분해성은 ECO_PERSIST"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[2]",
+        "page": 5,
+        "source_text": "Bioaccumulation: | not available",
+        "rules": [
+          "R15",
+          "R10"
+        ],
+        "note": "'not available'을 status=자료없음으로 저장"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[3]",
+        "page": 5,
+        "source_text": "Toxicity to soil dwelling organisms: | not available",
+        "rules": [
+          "R15",
+          "R10"
+        ],
+        "note": "토양생물 독성은 ECO_OTHER로, 'not available'을 status=자료없음으로 저장"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[4]",
+        "page": 5,
+        "source_text": "Toxicity to terrestrial plants: | not available",
+        "rules": [
+          "R15",
+          "R10"
+        ],
+        "note": "육상식물 독성은 ECO_OTHER로, 'not available'을 status=자료없음으로 저장"
+      }
+    ]
+  },
+  "raw_text": "{\"msds\":[{\"toxicity\":[{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_ORAL\",\"descriptor\":\"LD50\",\"q\":{\"raw\":\"> 2,000 mg/kg\",\"approx\":null,\"value\":null,\"lower_op\":\">\",\"lower\":2000,\"upper_op\":null,\"upper\":null,\"unit\":\"mg/kg\",\"dp\":0,\"status\":\"값있음\",\"note\":null},\"species\":\"Rat\",\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"The product has not been tested.  The information is derived from the properties of the individual components.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"The product has not been tested.  The information is derived from the properties of the individual components.\"}],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_SKIN\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":null,\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"No skin irritation\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"No skin irritation\"}],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_EYE\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":null,\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"No eye irritation\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"No eye irritation\"}],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_RESP_SENS\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":null,\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"non-sensitizing\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"non-sensitizing\"}],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_SKIN_SENS\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":null,\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"non-sensitizing\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"non-sensitizing\"}],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_ASP\",\"descriptor\":null,\"q\":null,\"species\":null,\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[],\"status\":\"자료없음\"},{\"comp_ref\":\"1\",\"endpoint\":\"TX_ORAL\",\"descriptor\":\"LD50\",\"q\":{\"raw\":\"> 2,000 mg/kg\",\"approx\":null,\"value\":null,\"lower_op\":\">\",\"lower\":2000,\"upper_op\":null,\"upper\":null,\"unit\":\"mg/kg\",\"dp\":0,\"status\":\"값있음\",\"note\":null},\"species\":\"Rat\",\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[],\"status\":\"값있음\"}],\"cmr\":[],\"ecotox\":[{\"comp_ref\":\"MIX\",\"endpoint\":null,\"descriptor\":\"결과기술\",\"q\":null,\"species\":null,\"duration_value\":null,\"duration_unit\":null,\"guideline\":null,\"data_source\":null,\"statements\":[{\"seq\":1,\"key\":\"Physico-chemical eliminability\",\"value\":\"The product can be separated out mechanically.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"Physico-chemical eliminability : The product can be separated out mechanically.\"}],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"ECO_PERSIST\",\"descriptor\":null,\"q\":null,\"species\":null,\"duration_value\":null,\"duration_unit\":null,\"guideline\":null,\"data_source\":null,\"statements\":[{\"seq\":1,\"key\":\"Biodegradability\",\"value\":\"not available\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"Biodegradability : not available\"}],\"status\":\"자료없음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"ECO_BIOACC\",\"descriptor\":null,\"q\":null,\"species\":null,\"duration_value\":null,\"duration_unit\":null,\"guideline\":null,\"data_source\":null,\"statements\":[{\"seq\":1,\"key\":\"Bioaccumulation\",\"value\":\"not available\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"Bioaccumulation: not available\"}],\"status\":\"자료없음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"ECO_OTHER\",\"descriptor\":null,\"q\":null,\"species\":null,\"duration_value\":null,\"duration_unit\":null,\"guideline\":null,\"data_source\":null,\"statements\":[{\"seq\":1,\"key\":\"Toxicity to soil dwelling organisms\",\"value\":\"not available\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"Toxicity to soil dwelling organisms: not available\"}],\"status\":\"자료없음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"ECO_OTHER\",\"descriptor\":null,\"q\":null,\"species\":null,\"duration_value\":null,\"duration_unit\":null,\"guideline\":null,\"data_source\":null,\"statements\":[{\"seq\":1,\"key\":\"Toxicity to terrestrial plants\",\"value\":\"not available\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"Toxicity to terrestrial plants: not available\"}],\"status\":\"자료없음\"}]}],\"evidence\":[{\"msds_index\":0,\"field\":\"toxicity[0]\",\"page\":4,\"source_text\":\"Acute oral toxicity : | LD50   > 2,000 mg/kg (Rat) | The product has not been tested.  The information is derived from the properties of the individual components.\",\"rules\":[\"R04\",\"R06\",\"R10\"],\"note\":\"'Information related to the product itself' 아래 값이라 comp_ref=MIX, '> 2,000 mg/kg'을 하한 >2000(천단위 콤마 제거), 단위 mg/kg로 분해\"},{\"msds_index\":0,\"field\":\"toxicity[1]\",\"page\":5,\"source_text\":\"Skin corrosion/irritation : | No skin irritation\",\"rules\":[\"R10\"],\"note\":\"제품 자체 정보로 comp_ref=MIX, 서술을 결과기술로 저장\"},{\"msds_index\":0,\"field\":\"toxicity[2]\",\"page\":5,\"source_text\":\"Serious eye damage/irritation: | No eye irritation\",\"rules\":[\"R10\"],\"note\":\"제품 자체 정보로 comp_ref=MIX, 서술을 결과기술로 저장\"},{\"msds_index\":0,\"field\":\"toxicity[3]\",\"page\":5,\"source_text\":\"Respiratory or skin sensitization : | non-sensitizing\",\"rules\":[\"R10\"],\"note\":\"호흡기·피부 과민성이 한 항목으로 적혀 있어 같은 문구를 TX_RESP_SENS 행으로 남김\"},{\"msds_index\":0,\"field\":\"toxicity[4]\",\"page\":5,\"source_text\":\"Respiratory or skin sensitization : | non-sensitizing\",\"rules\":[\"R10\"],\"note\":\"호흡기·피부 과민성이 한 항목으로 적혀 있어 같은 문구를 TX_SKIN_SENS 행으로 남김\"},{\"msds_index\":0,\"field\":\"toxicity[5]\",\"page\":5,\"source_text\":\"Aspiration hazard : | no data available\",\"rules\":[\"R15\",\"R10\"],\"note\":\"'no data available'을 status=자료없음으로 저장\"},{\"msds_index\":0,\"field\":\"toxicity[6]\",\"page\":5,\"source_text\":\"Information related to the component: Octadecanamide, N,N'-1,2-ethanediylbis- | Acute oral toxicity : | LD50   > 2,000 mg/kg (Rat)\",\"rules\":[\"R04\",\"R06\",\"R10\"],\"note\":\"성분명으로 comp_ref=1 매칭, '> 2,000 mg/kg'을 하한 >2000, 단위 mg/kg로 분해\"},{\"msds_index\":0,\"field\":\"ecotox[0]\",\"page\":5,\"source_text\":\"Physico-chemical eliminability : | The product can be separated out mechanically.\",\"rules\":[\"R10\"],\"note\":\"맞는 C5 코드가 없어 endpoint=null, 항목명을 statements key에 남김\"},{\"msds_index\":0,\"field\":\"ecotox[1]\",\"page\":5,\"source_text\":\"Biodegradability : | not available\",\"rules\":[\"R15\",\"R10\"],\"note\":\"'not available'을 status=자료없음으로 저장, 생분해성은 ECO_PERSIST\"},{\"msds_index\":0,\"field\":\"ecotox[2]\",\"page\":5,\"source_text\":\"Bioaccumulation: | not available\",\"rules\":[\"R15\",\"R10\"],\"note\":\"'not available'을 status=자료없음으로 저장\"},{\"msds_index\":0,\"field\":\"ecotox[3]\",\"page\":5,\"source_text\":\"Toxicity to soil dwelling organisms: | not available\",\"rules\":[\"R15\",\"R10\"],\"note\":\"토양생물 독성은 ECO_OTHER로, 'not available'을 status=자료없음으로 저장\"},{\"msds_index\":0,\"field\":\"ecotox[4]\",\"page\":5,\"source_text\":\"Toxicity to terrestrial plants: | not available\",\"rules\":[\"R15\",\"R10\"],\"note\":\"육상식물 독성은 ECO_OTHER로, 'not available'을 status=자료없음으로 저장\"}]}"
+}

@@ -1,0 +1,51 @@
+# 모델 설정 (결정기록 D-37, D-42, D-44)
+# 모델 이름·주소는 이 파일에서만 바꾼다. 코드에 직접 쓰지 않는다.
+# 접속 정보(키, 주소)는 .env에서 읽는다. base_url_env / api_key_env는 .env의 변수 이름이다.
+#
+# structured: 구조화 출력을 시도하는 순서.
+#   json_schema : 스키마 강제 출력 (response_format=json_schema)
+#   json_object : JSON 응답만 강제하고 스키마는 프롬프트로 전달
+#   none        : 강제 없이 프롬프트만. 응답을 받은 뒤 스키마로 검증한다
+# 어느 방식이든 결과는 TO21 스키마로 다시 검증하고, 실패하면 오류 내용을 붙여 재시도한다(max_retries).
+
+models:
+  gpt:                      # 실버 1 (D-42)
+    model: gpt-5.6-sol
+    base_url_env: LLM_BASE_URL      # MonoRouter
+    api_key_env: LLM_API_KEY
+    token_param: max_completion_tokens   # GPT-5 계열 추론 모델의 출력 한도 이름
+    structured: [json_schema, json_object, none]
+    max_tokens: 64000
+    params: {}              # 추론 강도 등은 모델 기본값 (D-42)
+    image_detail: high
+    evidence_method: vLM
+
+  claude:                   # 실버 2 (D-42 예비안: 교육원 키 사용 불가 → 팀원 키 Claude Opus 5.5)
+    model: claude-opus-5-5
+    provider: anthropic     # OpenAI 호환이 아니라 Anthropic 공식 SDK로 부른다 (client.py)
+    fallback_models: []     # 거절은 서버 쪽 대체 모델(fallbacks: default)이 처리한다
+    api_key_env: ANTHROPIC_API_KEY
+    structured: [json_schema, none]
+    max_tokens: 128000          # Opus 5.5 최대 출력. M013 b5가 p1에서 54,706으로 64,000에 가까웠음
+    params: {}
+    image_detail: high
+    evidence_method: vLM
+
+  qwen38:                   # 기준선 (D-37). A100 40GB라 FP8 (ADR-002)
+    model: Qwen/Qwen3.8-27B-FP8
+    fallback_models: [Qwen/Qwen3.6-27B-FP8]
+    base_url_env: VLLM_BASE_URL      # Colab 안의 vLLM 서버 주소 (http://localhost:8000/v1)
+    api_key_env: VLLM_API_KEY
+    structured: [json_schema, none]
+    max_tokens: 32000
+    params:
+      temperature: 0
+      extra_body:
+        chat_template_kwargs: {enable_thinking: false}   # 생각 모드 끔 (D-37)
+    image_detail: high
+    evidence_method: vLM
+
+run:
+  max_retries: 2            # 스키마 검증 실패 시 재시도 횟수
+  request_timeout: 600      # 초
+  render_dpi: 200           # 쪽 이미지 해상도 (D-44는 150). 10/26 C 자료(C_v0.2)에 맞춰 200. preprocess.py --dpi 200으로 만든다
