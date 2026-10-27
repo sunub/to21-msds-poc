@@ -33,7 +33,7 @@ if __name__ == "__main__":
     a = ap.parse_args()
 
     pages = load_pages(a.doc_id)["pages"]
-    layer = {p["page"]: p["text"] or "" for p in pages}
+    layer = {p["page"]: p["match_text"] or "" for p in pages}
     states = {p["page"]: p["state"] for p in pages}
     ocr = load_ocr_texts(a.doc_id)
     setups = {
