@@ -1,4 +1,4 @@
-"""비교 실험 모델 태그 설정 (역할 B, ADR-010, ADR-011).
+"""비교 실험 모델 태그 설정 (역할 B, ADR-010, ADR-011, ADR-015).
 
 모델 서버와 네트워크를 부르지 않는다. configs/models.yaml만 읽는다.
 """
@@ -6,7 +6,7 @@ import pytest
 
 from msds.extract.client import load_model_config
 
-NEW_TAGS = ["gemma4_31b_rngd", "qwen3vl4b_rngd", "qwen3vl4b_a100"]
+NEW_TAGS = ["gemma4_31b_rngd", "qwen3vl4b_rngd"]
 
 
 def test_gemma_rngd():
@@ -22,18 +22,9 @@ def test_qwen3vl4b_rngd():
     assert m["params"] == {"temperature": 0}
 
 
-def test_qwen3vl4b_a100():
-    m = load_model_config("qwen3vl4b_a100")
-    assert m["model"] == "Qwen/Qwen3-VL-4B-Instruct"
-
-
-def test_4b_tags_differ_only_in_model():
-    a = load_model_config("qwen3vl4b_rngd")
-    b = load_model_config("qwen3vl4b_a100")
-    for m in (a, b):
-        m.pop("model")
-        m.pop("tag")
-    assert a == b
+def test_a100_tag_removed():
+    with pytest.raises(KeyError):
+        load_model_config("qwen3vl4b_a100")
 
 
 @pytest.mark.parametrize("tag", NEW_TAGS)
