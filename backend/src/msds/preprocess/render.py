@@ -4,8 +4,9 @@
 
 출력 (paths 참고)
 - data/pages/<문서번호>/p001.png ...   쪽 이미지 (기본 150dpi)
-- data/pages/<문서번호>/p001.txt ...   쪽 텍스트층 (PyMuPDF get_text)
-- data/pages/<문서번호>/meta.json      쪽수, 쪽별 판별 수치, 문서 판정
+- data/pages/<문서번호>/p001.txt ...   쪽 텍스트층 (PyMuPDF get_text). 모델 입력 (D-44)
+- data/pages/<문서번호>/p001.match.txt 원문 대조용 텍스트층. 겹쳐 찍은 사본을 지운 것 (drop_overstrike)
+- data/pages/<문서번호>/meta.json      쪽수, 쪽별 판별 수치, 문서 판정, 겹쳐찍기 글자 수
 
 텍스트층 판별 (TO21 doc.text_layer 값과 같은 이름)
 - 정상     : 글자를 그대로 믿어도 됨
@@ -30,6 +31,13 @@ SYMBOL_RATIO_LIMIT = 0.3   # 한글·영문이 아닌 글자 비율이 이보다
 MIN_PAGE_CHARS = 20        # 이보다 글자가 적으면 글자가 없는 쪽
 MIN_NN_FOR_KK = 20         # ㄴ받침이 이보다 적은 쪽은 ㄲ받침 비율을 믿을 수 없어 쪽만으로 판정하지 않는다
 SCAN_COVER_LIMIT = 0.5     # 글자 없는 쪽에서 그림이 쪽 면적의 이 비율 이상이면 스캔 쪽 (로고만 있는 빈 쪽과 구분)
+OVERSTRIKE_DX = 1.0        # 같은 글이 이 거리(pt) 안에서 다시 찍히면 겹쳐찍기의 사본이다
+OVERSTRIKE_DY = 0.5        # (45번: 굵은 글씨를 0.1pt씩 밀어 5번 찍는다)
+
+
+def page_match_txt(doc_id: str, page_no: int) -> Path:
+    """원문 대조용 텍스트층. 쪽 번호는 1부터."""
+    return paths.page_dir(doc_id) / f"p{page_no:03d}.match.txt"
 
 
 def _counts(text: str) -> dict:
@@ -84,6 +92,41 @@ def judge_doc(page_states: list[str], totals: dict) -> str:
     return "정상"
 
 
+def drop_overstrike(lines: list[list[dict]]) -> tuple[list[list[dict]], int]:
+    """겹쳐 찍은 사본을 지운다. lines는 줄마다 조각 목록 [{text, bbox}] (get_text('dict') 순서).
+
+    같은 자리(OVERSTRIKE_DX·DY 안)에서 한쪽이 다른 쪽의 앞부분인 글은 사본으로 보고 하나만 남긴다.
+    사본 중 가장 긴 것을 처음 나온 자리에 남긴다 (45번 1쪽: 마지막 사본에만 '(MSDS)'가 이어 붙어 있다).
+    돌려주는 값: (남은 줄, 지운 글자 수)
+    """
+    out: list[list[dict]] = [[] for _ in lines]
+    anchors: list[dict] = []
+    removed = 0
+    for li, line in enumerate(lines):
+        for s in line:
+            t = s["text"].strip()
+            x0, y0 = s["bbox"][0], s["bbox"][1]
+            if t:
+                hit = next((a for a in anchors
+                            if abs(a["y0"] - y0) < OVERSTRIKE_DY and abs(a["x0"] - x0) < OVERSTRIKE_DX
+                            and (t.startswith(a["text"]) or a["text"].startswith(t))), None)
+                if hit:
+                    if len(t) > len(hit["text"]):
+                        removed += len(hit["text"])
+                        out[hit["line"]][hit["pos"]] = dict(s)
+                        hit["text"] = t
+                    else:
+                        removed += len(t)
+                    continue
+                anchors.append({"x0": x0, "y0": y0, "text": t, "line": li, "pos": len(out[li])})
+            out[li].append(dict(s))
+    return out, removed
+
+
+def _lines_text(lines: list[list[dict]]) -> str:
+    return "".join("".join(s["text"] for s in line) + "\n" for line in lines if line)
+
+
 def follow_doc(pages: list[dict], text_layer: str) -> list[dict]:
     """글자가 적어 쪽만으로 깨짐을 판정하지 못한 '정상' 쪽은 문서 판정이 글꼴깨짐이면 그것을 따른다.
 
@@ -130,9 +173,13 @@ def preprocess(pdf_path: Path, doc_id: str, dpi: int = 150, force: bool = False)
         c = _counts(text)
         for k in totals:
             totals[k] += c[k]
+        lines = [[{"text": s["text"], "bbox": s["bbox"]} for s in ln["spans"]]
+                 for b in page.get_text("dict")["blocks"] for ln in b.get("lines", [])]
+        kept, overstrike = drop_overstrike(lines)
+        page_match_txt(doc_id, i).write_text(_lines_text(kept), encoding="utf-8")
         cover = _image_cover(page)
         state = judge_page(c, cover)
-        pages.append({"page": i, "state": state, "image_cover": round(cover, 3), **c})
+        pages.append({"page": i, "state": state, "image_cover": round(cover, 3), **c, "overstrike": overstrike})
 
     text_layer = judge_doc([p["state"] for p in pages], totals)
     pages = follow_doc(pages, text_layer)
@@ -148,6 +195,7 @@ def preprocess(pdf_path: Path, doc_id: str, dpi: int = 150, force: bool = False)
         "language": language,
         "input_mode": "이미지+글자" if text_layer in ("정상", "혼합") else "이미지만",
         "totals": totals,
+        "overstrike": sum(p["overstrike"] for p in pages),   # 겹쳐 찍은 사본 글자 수. 0이 아니면 대조는 p001.match.txt로
         "pages": pages,
     }
     meta_path.write_text(json.dumps(meta, ensure_ascii=False, indent=2), encoding="utf-8")
@@ -155,15 +203,22 @@ def preprocess(pdf_path: Path, doc_id: str, dpi: int = 150, force: bool = False)
 
 
 def load_pages(doc_id: str) -> dict:
-    """추출 단계에서 쓰는 쪽 입력. {'meta': ..., 'pages': [{page, image, text, state}]}"""
+    """추출 단계에서 쓰는 쪽 입력. {'meta': ..., 'pages': [{page, image, text, match_text, state}]}
+
+    text는 모델 입력, match_text는 원문 대조(checks.source_match)에 쓴다. 겹쳐찍기가 없으면 둘의 글자가 같다.
+    match_text 파일이 없으면(이 기능 전에 전처리한 결과) text를 쓴다.
+    """
     meta = json.loads(paths.page_meta(doc_id).read_text(encoding="utf-8"))
     out = []
     for p in meta["pages"]:
         n = p["page"]
+        text = paths.page_txt(doc_id, n).read_text(encoding="utf-8")
+        mt = page_match_txt(doc_id, n)
         out.append({
             "page": n,
             "image": paths.page_png(doc_id, n),
-            "text": paths.page_txt(doc_id, n).read_text(encoding="utf-8"),
+            "text": text,
+            "match_text": mt.read_text(encoding="utf-8") if mt.exists() else text,
             "state": p["state"],
         })
     return {"meta": meta, "pages": out}
