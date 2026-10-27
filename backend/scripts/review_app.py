@@ -10,11 +10,15 @@ import os
 import platform
 import re
 import subprocess
+import unicodedata
 import webbrowser
 from datetime import datetime
+from functools import lru_cache
 from http.server import BaseHTTPRequestHandler, HTTPServer
+from urllib.parse import parse_qs, urlsplit
 
 import openpyxl
+import pymupdf
 from openpyxl.cell.cell import ILLEGAL_CHARACTERS_RE
 
 import _common  # noqa: F401
@@ -22,8 +26,9 @@ from msds.common import paths
 from msds.common.align import generic
 from msds.common.jsonpath import from_cell, to_cell
 from msds.common.priority import priority_of
-from msds.review.build_gold import _KEY_PATH, _ROW_PATH, _excel_value, _schema_at
-from msds.review.make_sheet import label_of
+from msds.common.schema import msds_item_schema
+from msds.review.build_gold import _KEY_PATH, _ROW_PATH, _branch, _excel_value, _resolve, _schema_at
+from msds.review.make_sheet import flat_doc, label_of
 from msds.review.sheet_spec import COLUMNS, SHEET_INFO, SHEET_MAIN
 
 HUMAN = COLUMNS[COLUMNS.index("검수 결과"):]          # 사람이 쓰는 열만 고친다
@@ -113,14 +118,25 @@ class Sheet:
                 b.value = datetime.now().strftime("%Y-%m-%d %H:%M")
 
     def save_row(self, path: str, values: dict) -> dict:
-        r = self._find(path)
-        if r is None:
-            raise ValueError(f"검수표에 없는 경로: {path}")
-        self._put(r, _texted(path, self._check(values)))
-        if values.get("검수 결과"):
+        return self.save_rows([{"경로": path, "values": values}])[0]
+
+    def save_rows(self, items: list) -> list[dict]:
+        """여러 줄을 한 번에 저장한다(묶음 '전부 맞음'). 하나라도 틀리면 아무것도 고치지 않는다."""
+        if not isinstance(items, list) or not items:
+            raise ValueError("items는 [{경로, values}] 목록이어야 함")
+        todo = []
+        for it in items:
+            path = str(it["경로"]).strip()
+            r = self._find(path)
+            if r is None:
+                raise ValueError(f"검수표에 없는 경로: {path}")
+            todo.append((r, _texted(path, self._check(it["values"]))))
+        for r, values in todo:
+            self._put(r, values)
+        if any(v.get("검수 결과") for _, v in todo):
             self._stamp_start()
         self._save()
-        return {c: _cell(self.wb[SHEET_MAIN].cell(r, self.col[c]).value) for c in COLUMNS}
+        return [{c: _cell(self.wb[SHEET_MAIN].cell(r, self.col[c]).value) for c in COLUMNS} for r, _ in todo]
 
     def add_row(self, values: dict) -> dict:
         """누락 추가: 두 모델이 모두 빠뜨린 칸을 새 줄로 넣는다."""
@@ -245,11 +261,186 @@ def _use_repo_data():
         setattr(paths, name, top / getattr(paths, name).relative_to(paths.ROOT))
 
 
+@lru_cache(maxsize=None)
+def field_order(gpath: str) -> list[int]:
+    """번호를 지운 경로의 칸마다 스키마 안 순서 번호. 스키마는 MSDS 문서 순서라, 카드 안 칸을 문서에서 읽는 순서로 놓는 데 쓴다."""
+    s, out = msds_item_schema(), []
+    for name, arr in re.findall(r"([^.\[\]]+)|(\[\])", gpath.removeprefix("msds[].")):
+        if arr:
+            s = (_branch(s, "array") or {}).get("items")
+        else:
+            props = (_branch(s, "object") or {}).get("properties") or {}
+            out.append(list(props).index(name) if name in props else 999)
+            s = props.get(name)
+        if s is None:
+            break
+        s = _resolve(s)
+    return out
+
+
+@lru_cache(maxsize=None)
+def silver_rank(doc_id: str) -> dict[str, int]:
+    """칸 경로마다 실버 JSON 안 순서. 모델은 목록을 문서에 적힌 순서로 내므로, 순번 칸이 없는 목록(8항 노출기준 등)도 문서 순서로 놓을 수 있다."""
+    rank = {}
+    for t in ("claude", "gpt"):
+        f = paths.silver_path(t, doc_id)
+        if f.exists():
+            for p in flat_doc(json.loads(f.read_text(encoding="utf-8"))):
+                rank.setdefault(p, len(rank))
+    return rank
+
+
 def page_count(doc_id: str) -> int:
     return len(list(paths.page_dir(doc_id).glob("p*.png")))
 
 
-def make_handler(sheet: Sheet, readonly: bool):
+_DASH = str.maketrans("‐‑‒–—―−", "-------")    # 글자층의 en dash 등과 조각의 '-'를 같게 본다
+
+
+def _norm(s: str) -> str:
+    return "".join(ch for ch in unicodedata.normalize("NFKC", s or "").lower().translate(_DASH) if not ch.isspace() and ch != "|")
+
+
+class Locator:
+    """고른 칸이 쪽 사진의 어디인지 찾는다. 원본 PDF 글자층에서 값과 원문 조각을 찾아
+    사진 크기에 대한 비율(0~1) 상자로 돌려준다. 글자층이 깨졌거나 순서가 섞여 못 찾으면 빈 목록."""
+
+    def __init__(self, doc_id: str):
+        self.doc, self.ok, self.cache = None, set(), {}
+        meta_path = paths.page_meta(doc_id)
+        if not meta_path.exists():        # 쪽 이미지(C_v0.2)를 아직 안 넣었으면 상자 없이 연다
+            print(f"위치 상자 없이 엽니다: {meta_path} 없음")
+            return
+        meta = json.loads(meta_path.read_text(encoding="utf-8"))
+        pdf = paths.RAW / meta["source_file"]
+        self.doc = pymupdf.open(pdf) if pdf.exists() else None
+        self.ok = {p["page"] for p in meta["pages"] if p["state"] == "정상"}
+
+    def _chars(self, no: int):
+        if no not in self.cache:
+            page, out = self.doc[no - 1], []
+            for b in page.get_text("rawdict")["blocks"]:
+                for line in b.get("lines", []):
+                    for span in line["spans"]:
+                        for c in span["chars"]:
+                            out += [(ch, c["bbox"]) for ch in _norm(c["c"])]
+            self.cache[no] = ("".join(ch for ch, _ in out), [bb for _, bb in out], page)
+        return self.cache[no]
+
+    def locate(self, no: int, value: str, snippet: str) -> dict:
+        if not self.doc or no not in self.ok or not 1 <= no <= len(self.doc):
+            return {"value": [], "area": [], "many": 0}
+        text, boxes, page = self._chars(no)
+        center = lambda s: ((boxes[s][0] + boxes[s][2]) / 2, (boxes[s][1] + boxes[s][3]) / 2)
+        dist = lambda s, a: abs(center(s)[0] - a[0]) / 3 + abs(center(s)[1] - a[1])   # 같은 줄을 더 가깝게 본다
+        near = page.rect.height / 4
+
+        def hits(s):
+            n = _norm(s)
+            return [(m.start(), len(n)) for m in re.finditer(re.escape(n), text)] if len(n) >= 2 else []
+
+        def same(a, b):         # 같은 줄인가 (글자 높이의 절반 안)
+            return abs(center(a)[1] - center(b)[1]) < (boxes[a][3] - boxes[a][1]) * 0.6
+
+        def pick(tokens, anchor, one_line=True):
+            """토큰들이 가장 많이 함께 나오는 자리를 고른다. 같은 점수면 기준점에 가까운 자리.
+            one_line이면 그 줄에 있는 토큰만 쓴다(표 칸, 값). 아니면 그 자리 근처(쪽 높이 1/4 안)까지."""
+            found = [h for h in (hits(t) for t in tokens) if h]
+            if one_line:          # 줄을 넘어 이어 붙은 자리(윗줄 끝 + 아랫줄 처음)는 버린다
+                found = [h for h in ([x for x in h if all(same(i, x[0]) for i in range(x[0], x[0] + x[1]))] for h in found) if h]
+            if not found or (anchor is None and len(found) == 1 and len(found[0]) > 1):   # 한 토큰이 여러 번 나오면 어디인지 모른다
+                return [], anchor
+            close = same if one_line else (lambda x, c: dist(x, center(c)) < near)
+            band = lambda x, c: abs(center(x)[1] - center(c)[1]) <= 2.5 * (boxes[c][3] - boxes[c][1])   # 같은 단락쯤(줄 간격 2.5배 안)
+            score = lambda c: (sum(any(same(x, c) for x, _ in h) for h in found),          # 같은 줄에 함께 있는 토큰 수가 먼저
+                               0 if one_line else sum(any(band(x, c) for x, _ in h) for h in found),   # 그다음 같은 단락에 함께 있는 토큰 수
+                               sum(any(close(x, c) for x, _ in h) for h in found), -dist(c, anchor) if anchor else 0)
+            cands = [s for h in found for s, _ in h if anchor is None or dist(s, anchor) < near]
+            if not cands:
+                return [], anchor
+            best = max(cands, key=score)
+            far = (lambda c, b: not same(c, b)) if one_line else \
+                (lambda c, b: abs(center(c)[1] - center(b)[1]) > 2.5 * (boxes[b][3] - boxes[b][1]))   # 여러 줄이면 다른 단락
+            if anchor is None and any(score(c) == score(best) and far(c, best) for c in cands):
+                return [], anchor     # 점수가 같은 자리가 다른 줄에도 있으면 어디인지 모른다(엉뚱한 곳보다 안 그리는 게 낫다)
+            out = [min((x for x in h if close(x[0], best)), key=lambda x: (not same(x[0], best), dist(x[0], center(best))))
+                   for h in found if any(close(x[0], best) for x in h)]      # 같은 줄에 있으면 그 자리를 먼저
+            if not one_line:      # 여러 줄 덩어리: 고른 줄에서 줄 간격 2.5배 안으로 이어지는 줄만 (다른 단락에 붙지 않게)
+                lh, lo, hi, keep = boxes[best][3] - boxes[best][1], center(best)[1], center(best)[1], []
+                for x in sorted(out, key=lambda x: abs(center(x[0])[1] - center(best)[1])):
+                    y = center(x[0])[1]
+                    if lo - 2.5 * lh <= y <= hi + 2.5 * lh:
+                        keep.append(x)
+                        lo, hi = min(lo, y), max(hi, y)
+                out = keep
+            return out, center(best)
+
+        whole, area, anchor = hits(snippet), [], None
+        if len(whole) == 1:
+            area, anchor = whole, center(whole[0][0])
+        elif whole:               # 조각 전체가 쪽에 여러 번 나오면 어느 것인지 몰라 후보를 모두 칠하고 몇 곳인지 알린다
+            area = whole
+        else:
+            parts = [p for p in re.split(r"\s*\|\s*|\n", snippet or "") if len(_norm(p)) >= 2]
+            area, anchor = pick(parts, None)
+            if not area:          # 여러 줄 덩어리(회사 정보 등)는 낱말로 찾는다
+                area, anchor = pick([t for t in (w.rstrip(".,;:") for w in re.split(r"\s+", snippet or "")) if len(_norm(t)) >= 2], None, one_line=False)
+                # 낱말 끝 마침표는 뗀다: 글자층에서 마침표가 떨어져 있으면 '받으시오.'가 앞 단락 줄에서만 맞는다
+        vh = hits(value)
+        if anchor is not None and vh:       # 원문 조각 상자와 같은 줄에 있는 자리를 먼저, 없으면 가장 가까운 자리
+            m = min(vh, key=lambda x: (not any(same(x[0], s) for s, _ in area), dist(x[0], anchor)))
+            val = [m] if dist(m[0], anchor) < near else []
+        elif whole:               # 후보가 여러 곳이면 값도 후보 줄마다 있는 자리를 모두
+            val = [x for x in vh if any(same(x[0], s) for s, _ in area)]
+        else:
+            val = vh if len(vh) == 1 else []
+        if not val:
+            val, _ = pick([t for t in re.split(r"\s+", value or "") if len(_norm(t)) >= 2], anchor)
+        W, H = page.rect.width, page.rect.height
+
+        def rects(spans):
+            out = []
+            for s, n in spans:
+                line = None
+                for i in range(s, s + n):
+                    r = pymupdf.Rect(boxes[i]) * page.rotation_matrix   # 글자 좌표는 회전 전 기준, 사진은 회전 후
+                    if line is not None and abs(r.y0 - line.y0) < r.height / 2 and r.x0 >= line.x0 - 1:
+                        line |= r
+                    else:
+                        if line is not None:
+                            out.append(line)
+                        line = r
+                out.append(line)
+            return [[round(r.x0 / W, 4), round(r.y0 / H, 4), round(r.width / W, 4), round(r.height / H, 4)] for r in out]
+
+        return {"value": rects(val), "area": rects(area), "many": len(whole)}
+
+
+def _plain(v) -> str:
+    """검수표 칸 글자 → 찾을 글자. '"54588"'처럼 따옴표로 감싼 글자 값은 따옴표를 뗀다."""
+    v = from_cell(str(v)) if v not in (None, "") else ""
+    if isinstance(v, dict):               # Q 객체 등은 원문(raw, text)으로만 찾는다
+        return str(v.get("raw") or v.get("text") or "")
+    return "" if isinstance(v, list) else v if isinstance(v, str) else json.dumps(v, ensure_ascii=False)
+
+
+def make_handler(sheet: Sheet, readonly: bool, locator: Locator):
+    def locate(query: str) -> dict:
+        sheet.fresh()                     # 엑셀에서 고친 직후에도 지금 값으로 찾는다
+        q = parse_qs(query)
+        no, want = int(q["page"][0]), set(q.get("path", []))
+        out = {"value": [], "area": [], "many": 0}
+        for r in sheet.rows():
+            if r["경로"] in want:
+                t = next((t for t in ("Claude", "GPT") if r[f"{t} 값"] != ""), "Claude")
+                edited = r["수정값"] != "" and r["검수 결과"] in NEED_SOURCE
+                got = locator.locate(no, _plain(r["수정값"] if edited else r[f"{t} 값"]),
+                                     r["수정 원문 조각"] if edited else r[f"{t} 원문 조각"])
+                for k in ("value", "area"):
+                    out[k] += [b for b in got.get(k, []) if b not in out[k]]
+                out["many"] = max(out["many"], got.get("many", 0))
+        return out
+
     class Handler(BaseHTTPRequestHandler):
         def log_message(self, *a):        # 요청마다 찍히는 줄은 끈다
             pass
@@ -280,9 +471,17 @@ def make_handler(sheet: Sheet, readonly: bool):
                 return self._send(200, PAGE.encode(), "text/html; charset=utf-8")
             if self.path == "/api/state":
                 reloaded = sheet.fresh()
+                rows = sheet.rows()
                 return self._json(200, {"doc": sheet.doc_id, "file": str(sheet.path), "info": sheet.info(),
-                                        "rows": sheet.rows(), "pages": page_count(sheet.doc_id), "reloaded": reloaded,
+                                        "rank": silver_rank(sheet.doc_id),
+                                        "rows": rows, "order": {r["경로"]: field_order(generic(r["경로"])) for r in rows}, "pages": page_count(sheet.doc_id), "reloaded": reloaded,
                                         "excel_open": sheet.excel_open(), "readonly": readonly})
+            u = urlsplit(self.path)
+            if u.path == "/api/locate":
+                try:
+                    return self._json(200, locate(u.query))
+                except (KeyError, ValueError, IndexError) as e:
+                    return self._json(400, {"error": str(e)})
             m = re.fullmatch(r"/page/(\d+)\.png", self.path)
             if m and (p := paths.page_png(sheet.doc_id, int(m.group(1)))).exists():
                 return self._send(200, p.read_bytes(), "image/png", cache=True)
@@ -300,6 +499,8 @@ def make_handler(sheet: Sheet, readonly: bool):
                 reloaded = sheet.fresh()
                 if self.path == "/api/save":
                     out = {"row": sheet.save_row(str(body["경로"]).strip(), body["values"])}
+                elif self.path == "/api/save_many":
+                    out = {"rows": sheet.save_rows(body["items"])}
                 elif self.path == "/api/add":
                     out = {"row": sheet.add_row(body["values"])}
                 elif self.path == "/api/remove":
@@ -357,7 +558,11 @@ main { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(360px, 1fr
 #pager button.on small { color: #fff; }
 #pager button.clear { border-color: var(--ok); }
 #view { overflow: auto; padding: 10px; scrollbar-gutter: stable; overscroll-behavior: contain; }
-#view img { display: block; margin: 0 auto; box-shadow: 0 1px 4px rgba(0,0,0,.25); background: #fff; }
+#view .pgw { position: relative; margin: 0 auto; }
+#view img { display: block; width: 100%; box-shadow: 0 1px 4px rgba(0,0,0,.25); background: #fff; }
+.hl { position: absolute; pointer-events: none; border-radius: 2px; }
+.hl.area { background: rgba(255, 214, 0, .28); outline: 1px solid rgba(214, 160, 0, .55); }
+.hl.value { background: rgba(232, 99, 10, .22); outline: 2px solid #e8630a; outline-offset: 1px; }
 #right { overflow: auto; padding: 10px 12px 40px; min-height: 0; scrollbar-gutter: stable; overscroll-behavior: contain; }
 .none { color: var(--muted); padding: 30px; text-align: center; }
 .card { content-visibility: auto; contain-intrinsic-size: auto 220px; background: var(--panel); border: 1px solid var(--line); border-left: 4px solid var(--line); border-radius: 8px; padding: 10px 12px; margin-bottom: 10px; }
@@ -369,7 +574,21 @@ main { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(360px, 1fr
 .tag.bad { background: var(--badbg); color: var(--bad); } .tag.ok { background: var(--okbg); color: var(--ok); } .tag.warn { background: var(--warnbg); color: var(--warn); }
 .val { font-size: 1.05rem; font-weight: 700; margin: 6px 0 2px; white-space: pre-wrap; }
 .val small { font-weight: 400; color: var(--muted); font-size: .75rem; margin-right: 6px; }
-.src { font-size: .85rem; color: var(--muted); border-left: 3px solid var(--line); padding-left: 8px; margin: 4px 0; white-space: pre-wrap; }
+.src { font-size: .85rem; color: var(--muted); border-left: 3px solid var(--line); padding-left: 8px; margin: 4px 0; white-space: pre-wrap;
+  display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; overflow: hidden; cursor: zoom-in; }
+.src.full { display: block; cursor: zoom-out; }
+.card h3 { cursor: pointer; }
+.card h3 b { font-weight: 600; color: var(--muted); }
+.ln { border-top: 1px dashed var(--line); padding: 6px 4px 6px 6px; margin: 0 -4px; border-radius: 6px; cursor: pointer; }
+.ln:first-of-type { border-top: 0; }
+.ln.sel { background: rgba(232, 99, 10, .08); }
+.ln.done .lt { opacity: .62; }
+.lt { display: flex; gap: 8px; align-items: baseline; flex-wrap: wrap; }
+.fn { font-size: .8rem; color: var(--muted); min-width: 5.5em; }
+.v { font-weight: 700; white-space: pre-wrap; }
+.v small { font-weight: 400; color: var(--muted); }
+.acts.sm button { padding: 1px 8px; font-size: .82rem; }
+.card > .acts { border-top: 1px solid var(--line); padding-top: 8px; }
 details { font-size: .82rem; color: var(--muted); margin: 4px 0; }
 .acts { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
 .res { font-weight: 700; color: var(--ok); }
@@ -401,9 +620,6 @@ const $ = s => document.querySelector(s);
 const MAC = /Mac/i.test(navigator.userAgentData?.platform || navigator.platform), MOD = MAC ? "⌘" : "Ctrl";
 const CHROMIUM = !!navigator.userAgentData?.brands?.some(b => /Chrom/.test(b.brand));
 const h = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-const SRC_TIP = {"불일치":"기계가 PDF 글자층에서 이 조각을 못 찾음. 지어냈다는 뜻은 아님. 사진에서 직접 확인",
-  "일치":"조각의 글자가 그 쪽에 있음. 값이 맞다는 뜻은 아님. 1순위는 값을 직접 확인",
-  "대조불가":"글자층이 깨진 쪽이거나 조각이 없음. 사진에서 확인"};
 let S = {rows: [], info: {}, pages: 0}, page = 1, mode = "검수", prio = new Set([1]), show = "todo", q = "", open = null, zoom = 100;
 let tags = [];
 const store = (k, v) => { try { v === undefined ? 0 : localStorage.setItem(k, v); return localStorage.getItem(k); } catch { return null; } };
@@ -461,42 +677,140 @@ function renderPager() {
     + `<button id="next" title="다음 쪽 (→)">▶</button><span class="grp" style="margin-left:auto"><button id="zo">−</button><button id="zf">맞춤</button><button id="zi">+</button></span>`;
 }
 function renderView() {
-  const v = $("#view"), img = v.querySelector("img");
-  if (page && img && Number(img.dataset.pg) === page) { img.style.width = zoom + "%"; return; }   // 확대만 바뀌면 사진을 다시 그리지 않는다
-  v.innerHTML = page ? `<img data-pg="${page}" src="/page/${page}.png" alt="${page}쪽" decoding="async" style="width:${zoom}%">`
-    : `<p class="none">쪽 번호가 없는 칸입니다. 원본 PDF에서 직접 찾아 확인해 주세요.</p>`;
+  const v = $("#view"), w = v.querySelector(".pgw");
+  if (page && w && Number(w.dataset.pg) === page) { w.style.width = zoom + "%"; return; }   // 확대만 바뀌면 사진을 다시 그리지 않는다
+  v.innerHTML = page ? `<div class="pgw" data-pg="${page}" style="width:${zoom}%"><img src="/page/${page}.png" alt="${page}쪽" decoding="async"><div id="hls"></div></div>`
+    : noPage();
 }
-function srcTag(r) {
-  const s = r["원문 대조"];
-  if (!s) return "";
-  return `<span class="tag ${s === "일치" ? "ok" : s === "불일치" ? "warn" : ""}" title="${h(SRC_TIP[s] || "")}">원문 대조 ${h(s)}</span>`;
+// 쪽 번호가 없는 칸: 대부분 '문서에 이런 표기가 없다'는 판단이라 가리킬 쪽이 없다. 같은 항이 있는 쪽으로 가는 단추를 준다
+function noPage() {
+  const sec = r => (String(r["칸 이름"]).match(/^\d+항/) || [""])[0];
+  const secs = [...new Set(S.rows.filter(r => visible(r) && pagesOf(r)[0] === 0).map(sec).filter(Boolean))];
+  const jump = secs.map(x => {
+    const ps = [...new Set(S.rows.filter(r => sec(r) === x).flatMap(pagesOf).filter(Boolean))].sort((a, b) => a - b);
+    return ps.length ? `<p>${x}이 있는 쪽: ${ps.map(p => `<button data-go="${p}">${p}쪽</button>`).join(" ")}</p>` : "";
+  }).join("");
+  return `<div class="none"><p>여기 칸들은 모델이 쪽 번호를 적지 않은 칸입니다. 대부분 "문서에 이런 표기가 없다"는 판단이라 가리킬 쪽이 없습니다.
+    예를 들어 "유해성분 미함유 표기: false"는 문서에 "유해성분 없음"이라는 표기가 없다는 뜻입니다.</p>
+    <p>확인하는 법: 아래 쪽을 열어 그 표기가 정말 없는지 보고, 없으면 '맞음'입니다. 있으면 '수정'으로 값과 쪽을 적어 주세요.</p>${jump}</div>`;
 }
-function card(r, i) {
-  const pr = String(r["우선순위"]), done = isDone(r), res = r["검수 결과"];
-  let html = `<div class="card p${h(pr)} ${done ? "done" : ""}" data-i="${i}">
-    <h3><span class="tag">${h(pr)}순위</span>${h(r["칸 이름"])} ${srcTag(r)}
-      ${r["검증기"] ? `<span class="tag bad">${h(r["검증기"])}</span>` : ""}</h3>
-    <div class="path">${h(r["경로"])}</div>`;
-  for (const t of tags) if (r[t + " 값"] !== "")
-    html += `<div class="val"><small>${t}</small>${h(r[t + " 값"])}</div>${r[t + " 원문 조각"] ? `<div class="src">${h(r[t + " 원문 조각"])} <span class="lbl">(${h(r[t + " 쪽"])}쪽)</span></div>` : ""}`;
+$("#view").addEventListener("click", e => { const b = e.target.closest("button[data-go]"); if (b) go(Number(b.dataset.go)); });
+// 고른 칸(또는 묶음)이 사진의 어디인지 표시한다. 노란 상자 = 원문 조각, 주황 테두리 = 값
+let sel = [], selSeq = 0;
+async function highlight(paths) {
+  sel = paths; const seq = ++selSeq;
+  document.querySelectorAll(".ln, .card").forEach(el => el.classList.remove("sel"));
+  for (const p of paths) document.querySelector(`.ln[data-p="${CSS.escape(p)}"]`)?.classList.add("sel");
+  const box = $("#hls"); if (!box || !page || !paths.length) return box && (box.innerHTML = "");
+  const qs = new URLSearchParams([["page", page], ...paths.map(p => ["path", p])]);
+  let j; try { j = await api("/api/locate?" + qs); } catch { return; }
+  if (seq !== selSeq) return;                          // 그사이 다른 칸을 골랐으면 버린다
+  const div = (k, [x, y, w, hh]) => `<div class="hl ${k}" style="left:${x*100}%;top:${y*100}%;width:${w*100}%;height:${hh*100}%"></div>`;
+  box.innerHTML = j.area.map(b => div("area", b)).join("") + j.value.map(b => div("value", b)).join("");
+  const first = box.querySelector(".value") || box.querySelector(".area");
+  if (first) first.scrollIntoView({block: "center", inline: "nearest", behavior: "smooth"});
+  if (j.many > 1) toast(`같은 문장이 이 쪽에 ${j.many}곳 있어 모두 노랗게 칠했습니다. 카드 제목을 보고 맞는 곳을 확인해 주세요`);
+  else if (!first) toast("사진에서 위치를 찾지 못했습니다 (글자층이 없거나 순서가 섞인 쪽). 사진에서 직접 찾아 주세요");
+}
+// 같은 대상(분류 하나, 회사 하나, 성분 하나)의 칸은 카드 한 장으로 묶어 보여 준다. 저장은 지금처럼 칸마다 한 줄
+function gkey(p) {
+  let g = p.slice(0, p.lastIndexOf("]") + 1);
+  if (/^msds\[\d+\]$/.test(g)) g = p.split(".").slice(0, 2).join(".");
+  return g;
+}
+const parts = name => { const m = String(name).match(/^(.*?) · (.*?)(?: \((.*)\))?$/); return m ? {sec: m[1], fn: m[2], key: m[3] || ""} : {sec: name, fn: "", key: ""}; };
+// '"54588"'처럼 글자로 저장한 값은 따옴표 없이 보여 준다
+const plain = v => { const s = String(v ?? ""); if (/^".*"$/s.test(s)) { try { return JSON.parse(s); } catch {} } return s; };
+const GHS = {GHS01: "폭발성 폭탄", GHS02: "불꽃", GHS03: "원 위의 불꽃", GHS04: "가스 실린더", GHS05: "부식성",
+  GHS06: "해골과 X자형 뼈", GHS07: "감탄부호", GHS08: "건강 유해성", GHS09: "환경"};
+// 순번(seq), 대상 성분(comp_ref)은 원문 글자가 아니라 줄끼리 잇는 번호라 숫자 대신 뜻을 보여 준다
+function compName(p, v, t) {
+  if (v === "MIX") return "제품 전체";
+  const m = p.match(/^msds\[\d+\]/)[0];
+  const c = S.rows.find(x => x["경로"].startsWith(m + ".components[") && x["경로"].endsWith("].seq") && plain(x[t + " 값"]) === v);   // 모델마다 성분 번호가 다를 수 있어 같은 모델 값으로 찾는다
+  const k = c && c["경로"].match(/\[k=([^\]]*)\]/);
+  return k ? `${v}번 성분 (${k[1]})` : `${v}번 성분`;
+}
+function meaning(r, v, t) {
+  const p = r["경로"];
+  if (p.endsWith(".comp_ref")) return compName(p, v, t);
+  if (p.endsWith(".parent_seq")) return compName(p, v, t) + "의 하위 성분";
+  if (p.endsWith(".seq")) return p.includes(".components[") ? `성분표 ${v}번째 줄` : `${v}번째`;
+  if (p.includes(".extras[") && p.endsWith(".page")) return v + "쪽";
+  if (p.includes(".extras[") && p.endsWith(".section_no")) return v + "항";
+  return "";
+}
+// Q(숫자와 단위), COND(측정 조건), STMT(서술 한 줄)는 JSON 대신 읽기 쉬운 글로 보여 준다. 검수표에는 JSON 그대로 저장된다
+const OPS = {">=": "≥", ">": ">", "<=": "≤", "<": "<", "=": "="};
+function condText(c) {
+  const L = [["temp", "온도", "temp_unit"], ["pressure", "압력", "pressure_unit"], ["method", "방법"], ["reference", "기준"], ["conc_value", "농도", "conc_unit"]];
+  return L.filter(([k]) => c[k] != null).map(([k, n, u]) => `${n} ${c[k]}${u && c[u] ? " " + c[u] : ""}`).join(", ");
+}
+function fmt(s) {
+  s = String(s ?? "");
+  if (!/^[{[]/.test(s)) return h(s);
+  let o; try { o = JSON.parse(s); } catch { return h(s); }
+  if (Array.isArray(o)) return o.every(x => typeof x !== "object") ? h(o.join("; ")) : h(s);
+  if ("status" in o && "raw" in o) {
+    const b = (op, x) => (op != null || x != null) && (OPS[op] ?? op ?? "") + (x ?? ""), lim = [b(o.lower_op, o.lower), b(o.upper_op, o.upper)].filter(Boolean);
+    const d = [o.value != null && `숫자 ${o.approx ? "약 " : ""}${o.value}`, lim.length && `범위 ${o.approx ? "약 " : ""}${lim.join(" ~ ")}`,
+      o.unit && `단위 ${o.unit}`, o.status && `상태 ${o.status}`, o.note && `괄호 설명 "${o.note}"`].filter(Boolean).join(", ");
+    return `${h(o.raw ?? "")} <small>→ ${h(d)}</small>`;
+  }
+  if ("temp" in o && "method" in o) return h(condText(o) || "조건 없음");
+  if ("seq" in o && "text" in o && "value" in o) {
+    const ex = [o.text && o.text !== o.value && `원문 줄: ${o.text}`, o.refs && `성분 ${o.refs}`,
+      o.cond && `조건 ${o.cond.raw ?? condText(o.cond)}`, o.std_code && `표준문구 ${o.std_code}`].filter(Boolean).join(", ");
+    return `${o.key ? h(o.key) + ": " : ""}${h(o.value)}${ex ? ` <small>${h(ex)}</small>` : ""}`;
+  }
+  return h(s);
+}
+const mainTag = r => tags.find(t => t === "Claude" && r[t + " 값"] !== "") || tags.find(t => r[t + " 값"] !== "");
+const srcOf = r => { const t = mainTag(r); return t ? r[t + " 원문 조각"] : ""; };
+function srcBox(s, pg) { return s ? `<div class="src" title="눌러서 펼치기">${h(s)}${pg ? ` <span class="lbl">(${h(pg)}쪽)</span>` : ""}</div>` : ""; }
+function line(r, i, shared) {
+  const res = r["검수 결과"], {fn} = parts(r["칸 이름"]);
+  let html = `<div class="ln ${isDone(r) ? "done" : ""}" data-i="${i}" data-p="${h(r["경로"])}">
+    <div class="lt"><span class="fn">${h(fn || r["칸 이름"])}</span>`;
+  for (const t of tags) if (r[t + " 값"] !== "") {
+    const v = plain(r[t + " 값"]);
+    html += `<span class="v">${tags.length > 1 ? `<small>${t} </small>` : ""}${meaning(r, v, t) ? h(meaning(r, v, t)) : fmt(v)}${GHS[v] ? ` <small>${GHS[v]}</small>` : ""}</span>`;
+  }
+  html += `${r["검증기"] ? `<span class="tag bad">${h(r["검증기"])}</span>` : ""}</div>`;
+  for (const t of tags) if (r[t + " 원문 조각"] && r[t + " 원문 조각"] !== shared) html += srcBox(r[t + " 원문 조각"], r[t + " 쪽"]);
   if (r["설명"] || r["적용 규칙"]) html += `<details><summary>모델 설명</summary>${h(r["적용 규칙"])} ${h(r["설명"])}</details>`;
-  if (res) html += `<div><span class="res">✔ ${h(res)}</span>${res === "수정" || res === "누락 추가" ? ` → <b>${h(r["수정값"])}</b> <span class="lbl">${h(r["수정 원문 조각"])} ${r["수정 쪽"] ? "(" + h(r["수정 쪽"]) + "쪽)" : ""}</span>` : ""}
+  if (res) html += `<div><span class="res">✔ ${h(res)}</span>${res === "수정" || res === "누락 추가" ? ` → <b>${fmt(plain(r["수정값"]))}</b> <span class="lbl">${h(r["수정 원문 조각"])} ${r["수정 쪽"] ? "(" + h(r["수정 쪽"]) + "쪽)" : ""}</span>` : ""}
     <span class="lbl">${h(r["검수자"])}</span></div>`;
   if (r["교차 확인자"]) html += `<div class="lbl">교차 확인: ${h(r["교차 확인자"])}</div>`;
   if (r["메모"]) html += `<div class="memo">메모: ${h(r["메모"])}</div>`;
-  html += `<div class="acts">`;
+  html += `<div class="acts sm">`;
   if (mode === "교차") return html + `<button data-a="opinion">의견 남기기</button></div>` + (open && open.i === i ? editor(r, "opinion") : "") + `</div>`;
-  for (const t of tags) if (r[t + " 값"] !== "") html += `<button data-a="adopt" data-t="${t}" class="${res === t + " 채택" ? "on" : ""}">맞음 (${t} 채택)</button>`;
+  for (const t of tags) if (r[t + " 값"] !== "") html += `<button data-a="adopt" data-t="${t}" class="${res === t + " 채택" ? "on" : ""}">맞음${tags.length > 1 ? ` (${t})` : ""}</button>`;
   html += `<button data-a="edit" class="${res === "수정" ? "on" : ""}">수정</button><button data-a="del" class="${res === "삭제" ? "on" : ""}">삭제</button>
-    <button data-a="memo">메모</button><button data-a="add" title="이 칸과 같은 종류인데 모델이 빠뜨린 항목">빠진 항목 추가</button>
-    ${res ? `<button data-a="undo">${r["일치"] === "" ? "이 줄 지우기" : "되돌리기"}</button>` : ""}</div>`;
+    <button data-a="memo">메모</button>${res ? `<button data-a="undo">${r["일치"] === "" ? "이 줄 지우기" : "되돌리기"}</button>` : ""}</div>`;
   if (open && open.i === i) html += editor(r, open.kind);
   return html + `</div>`;
 }
+function card(key, items) {
+  const rs = items.map(([r]) => r), pr = Math.min(...rs.map(r => Number(r["우선순위"]) || 3));
+  const {sec, key: k} = parts(rs[0]["칸 이름"]);
+  const srcs = new Set(rs.map(srcOf)), shared = srcs.size === 1 && rs.length > 1 ? [...srcs][0] : null;
+  const todo = rs.filter(r => !r["검수 결과"] && mainTag(r)).length;
+  let html = `<div class="card p${pr} ${rs.every(isDone) ? "done" : ""}" data-g="${h(key)}">
+    <h3><span class="tag">${pr}순위</span>${h(sec)}${k ? ` <b>${h(k)}</b>` : ""}</h3>`;
+  if (shared) html += srcBox(shared, rs[0][mainTag(rs[0]) + " 쪽"]);
+  html += items.map(([r, i]) => line(r, i, shared)).join("");
+  if (mode === "교차") return html + `</div>`;
+  return html + `<div class="acts">${todo > 1 ? `<button data-a="adopt_all">전부 맞음 (${todo}칸)</button>` : ""}
+    <button data-a="add" title="이 묶음과 같은 종류인데 모델이 빠뜨린 항목">빠진 항목 추가</button>
+    <span class="path" title="${h(key)}">${h(key.length > 60 ? key.slice(0, 60) + "…" : key)}</span></div>
+    ${open && open.g === key ? editor(rs[0], "add") : ""}</div>`;
+}
 function editor(r, kind) {
   const t = tags.includes("Claude") ? "Claude" : tags[0];
+  const pv = v => { const p = plain(v); return /^-?[\d.,]+$|^(true|false|null)$/.test(p) ? v : p; };   // 숫자로 읽힐 글자만 따옴표를 남긴다
   if (kind === "edit") return `<div class="ed"><label>수정값 (원문 그대로. 숫자는 숫자만, 글자로 남길 숫자는 "01"처럼 따옴표)</label>
-    <textarea id="e_val" rows="2">${h(r["수정값"] || r[t + " 값"])}</textarea>
+    <textarea id="e_val" rows="2">${h(pv(r["수정값"] || r[t + " 값"]))}</textarea>
     <label>수정 원문 조각 (필수. 값이 적힌 원문 줄 그대로. 값을 고쳤으면 이 줄도 그 값이 적힌 줄로 맞추기)</label><textarea id="e_src" rows="2">${h(r["수정 원문 조각"] || r[t + " 원문 조각"])}</textarea>
     <label>수정 쪽 (필수)</label><input id="e_pg" value="${h(r["수정 쪽"] || page || "")}">
     <label>메모 (선택)</label><input id="e_memo" value="${h(r["메모"])}">
@@ -518,11 +832,43 @@ function editor(r, kind) {
 }
 function renderCards() {
   const list = S.rows.map((r, i) => [r, i]).filter(([r]) => visible(r) && pagesOf(r).includes(page));
+  groups = new Map();
+  RANK = new Map();     // 목록 항목 경로(…[k=…])마다 그 안 칸 가운데 가장 앞선 실버 순서
+  for (const [p, n] of Object.entries(S.rank || {}))
+    for (const m of p.matchAll(/\]/g)) { const k = p.slice(0, m.index + 1); if (!(RANK.get(k) <= n)) RANK.set(k, n); }
+  for (const it of list) { const k = gkey(it[0]["경로"]); groups.has(k) ? groups.get(k).push(it) : groups.set(k, [it]); }
+  for (const items of groups.values()) items.sort(([a], [b]) => byDoc(a["경로"], b["경로"]));
   const hint = mode === "교차" ? "보기 전용입니다. 1순위 줄을 원문과 대조하고, 의견이 있으면 '의견 남기기'로 복사해 디스코드의 문서별 스레드에 붙여 넣으세요. 검수표는 검수 담당이 고칩니다 (역할 A 가이드 4.6)." :
-    "사진과 비교해 맞으면 '맞음', 틀리면 '수정', 원문에 없는 값이면 '삭제'를 누릅니다. 누르면 바로 검수표에 저장됩니다.";
-  $("#right").innerHTML = `<p class="help">${hint}</p>` + (list.length ? list.map(([r, i]) => card(r, i)).join("")
+    "칸을 누르면 왼쪽 사진에 위치가 표시됩니다(노란 상자 = 원문 조각, 주황 테두리 = 값). 맞으면 '맞음', 틀리면 '수정', 원문에 없는 값이면 '삭제'. 누르면 바로 검수표에 저장됩니다. 칸 순서는 문서에 적힌 순서입니다. '1번째', '7번 성분 (CAS)' 같은 칸은 원문 글자가 아니라 줄끼리 잇는 번호라, 카드 제목과 맞으면 '맞음'입니다.";
+  $("#right").innerHTML = `<p class="help">${hint}</p>` + (list.length ? [...groups].map(([k, it]) => [k, it, cardKey(k, it)]).sort(cardCmp).map(([k, items]) => card(k, items)).join("")
     : `<p class="none">${page ? page + "쪽에" : "여기에"} ${show === "todo" ? "남은 칸이 없습니다 ✔" : "칸이 없습니다"}</p>`);
+  for (const p of sel) document.querySelector(`.ln[data-p="${CSS.escape(p)}"]`)?.classList.add("sel");
   if (open) { const el = $("#e_val") || $("#e_memo"); if (el) el.focus(); }
+}
+let groups = new Map();
+// 카드 안 칸은 문서에서 읽는 순서(스키마 순서)로. 검수표 줄 순서는 '문제 있는 줄 먼저'라 카드 안에서는 뒤섞여 보인다
+function byDoc(a, b) {
+  const x = S.order?.[a] || [999], y = S.order?.[b] || [999];
+  for (let i = 0; i < Math.max(x.length, y.length); i++) { const d = (x[i] ?? -1) - (y[i] ?? -1); if (d) return d; }
+  return a.localeCompare(b, "ko", {numeric: true});
+}
+// 카드끼리도 문서 순서로: 경로의 칸마다 [스키마 순서 번호, 그 목록 항목의 실버 순서]를 이어 붙인 목록을 앞에서부터 비교한다.
+// 실버 순서는 화면에 보이는 줄이 아니라 전체 실버에서 오므로, 줄을 '맞음'으로 저장해 숨어도 자리가 그대로
+let RANK = new Map();
+function cardKey(k, it) {
+  const o = S.order?.[it[0][0]["경로"]] || [999], pre = k.match(/^msds\[\d+\]\.?/)?.[0] || "", body = k.slice(pre.length), out = [Number(pre.match(/\d+/)?.[0] ?? 0)];   // 다중 MSDS는 건 번호부터
+  [...body.matchAll(/([^.[\]]+)(\[[^\]]*\])?/g)].forEach((m, i) => {
+    out.push(o[i] ?? 999);
+    if (m[2]) out.push(RANK.get(pre + body.slice(0, m.index + m[0].length)) ?? m[2]);   // 목록 항목: 실버에 적힌 순서(문서 순서). 없으면(누락 추가) [k=…] 글자로 끝에
+  });
+  return out;
+}
+// 없음 < 숫자 < 글자 순. 숫자끼리는 크기, 글자끼리는 숫자를 숫자로 읽어 비교
+const cmp1 = (a, b) => a === b ? 0 : a === undefined ? -1 : b === undefined ? 1 : typeof a !== typeof b ? (typeof a === "number" ? -1 : 1)
+  : typeof a === "number" ? a - b : a.localeCompare(b, "ko", {numeric: true});
+function cardCmp([ka, , x], [kb, , y]) {
+  for (let i = 0; i < Math.max(x.length, y.length); i++) { const d = cmp1(x[i], y[i]); if (d) return d; }
+  return ka.localeCompare(kb, "ko", {numeric: true});
 }
 function needName() {
   const me = $("#me").value.trim();
@@ -539,10 +885,36 @@ async function save(r, values, msg) {
     render();
   } catch (e) { toast(e.message, true); }
 }
+async function saveMany(items, msg) {
+  if (!items.length) return;
+  try {
+    const j = await api("/api/save_many", {items});
+    for (const row of j.rows) { const idx = S.rows.findIndex(x => x["경로"] === row["경로"]); if (idx >= 0) S.rows[idx] = row; }
+    open = null; $("#saved").textContent = "저장됨 " + new Date().toLocaleTimeString("ko-KR");
+    toast(msg); render();
+  } catch (e) { toast(e.message, true); }
+}
 const who = me => ({"검수자": me});
 $("#right").addEventListener("click", async e => {
-  const b = e.target.closest("button[data-a]"); if (!b) return;
-  const i = Number(b.closest(".card").dataset.i), r = S.rows[i], a = b.dataset.a;
+  const src = e.target.closest(".src"); if (src) return src.classList.toggle("full");
+  const b = e.target.closest("button[data-a]"), ln = e.target.closest(".ln"), cd = e.target.closest(".card");
+  if (!e.target.closest(".ed, button, summary")) {      // 칸이나 묶음 제목을 누르면 사진에 위치 표시
+    if (ln) return highlight([ln.dataset.p]);
+    if (cd) return highlight((groups.get(cd.dataset.g) || []).map(([r]) => r["경로"]));
+  }
+  if (!b) return;
+  const g = cd.dataset.g, a = b.dataset.a;
+  if (!ln) {                                            // 묶음 단추
+    const items = groups.get(g) || [];
+    if (a === "add") { open = open && open.g === g ? null : {g, kind: "add"}; return renderCards(); }
+    if (a === "adopt_all") {
+      const me = needName(); if (!me) return;
+      const todo = items.map(([r]) => r).filter(r => !r["검수 결과"] && mainTag(r));
+      return saveMany(todo.map(r => ({"경로": r["경로"], values: {"검수 결과": mainTag(r) + " 채택", ...who(me)}})), `${todo.length}칸을 맞음으로 저장했습니다`);
+    }
+  }
+  const i = ln ? Number(ln.dataset.i) : -1, r = ln ? S.rows[i] : null;      // 묶음 편집기(빠진 항목 추가)는 줄 밖에 있다
+  if (ln && (ln.dataset.p !== sel[0] || sel.length !== 1)) highlight([ln.dataset.p]);
   if (["edit", "del", "memo", "add", "opinion"].includes(a)) { open = open && open.i === i && open.kind === a ? null : {i, kind: a}; return renderCards(); }
   if (a === "close") { open = null; return renderCards(); }
   if (a === "copy_op") {
@@ -582,7 +954,7 @@ $("#right").addEventListener("click", async e => {
   }
 });
 $("#right").addEventListener("keydown", e => { if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) { const b = $(".ed button.on"); if (b) b.click(); } });
-function go(p) { page = p; open = null; render(); $("#view").scrollTop = 0; $("#right").scrollTop = 0; }
+function go(p) { page = p; open = null; sel = []; selSeq++; render(); $("#view").scrollTop = 0; $("#right").scrollTop = 0; }
 $("#pager").addEventListener("click", e => {
   const b = e.target.closest("button"); if (!b) return;
   const list = [...document.querySelectorAll("#pager [data-pg]")].map(x => Number(x.dataset.pg)), k = list.indexOf(page);
@@ -634,10 +1006,11 @@ if __name__ == "__main__":
     sheet = Sheet(a.doc)
     if not page_count(a.doc):
         raise SystemExit(f"{paths.page_dir(a.doc)}에 쪽 사진이 없습니다. C가 나눠 준 쪽 이미지(C_v0.2)를 data/pages/에 두세요")
+    handler = make_handler(sheet, a.cross, Locator(a.doc))
     try:
-        server = HTTPServer(("127.0.0.1", a.port), make_handler(sheet, a.cross))
+        server = HTTPServer(("127.0.0.1", a.port), handler)
     except OSError:                       # 포트가 이미 쓰이면 빈 포트로
-        server = HTTPServer(("127.0.0.1", 0), make_handler(sheet, a.cross))
+        server = HTTPServer(("127.0.0.1", 0), handler)
     url = f"http://127.0.0.1:{server.server_port}/"
     print(f"검수 화면: {url}  (검수표 {sheet.path})")
     print("이 창을 닫거나 Ctrl+C를 누르면 끝납니다. 쓰는 동안 같은 검수표를 엑셀에서 열지 마세요.")
