@@ -243,20 +243,23 @@ def test_select_docs_rejects_eval_in_docs_option(cm, env):
 
 # ── main ───────────────────────────────────────────────
 
-def test_main_writes_files(cm, env):
+def test_main_writes_files(cm, env, monkeypatch):
+    monkeypatch.setattr(paths, "ROOT", env)
     make_run(env, "r1", two_docs())
     make_run(env, "r2", two_docs(toxicity=True))
     out = cm.main(["--title", "시험", "--runs", "첫째=r1", "둘째=r2", "--gold-dir", str(env / "gold")])
     folder = env / "runs" / f"{cm.today()}_models_시험"
     assert out == folder / "compare.md"
     md = out.read_text(encoding="utf-8")
-    for needle in ("시험", "첫째", "둘째", str(env / "gold"),
+    for needle in ("시험", "첫째", "둘째", "정답 자리: gold", f"{cm.DOC_TIME_LIMIT}초 초과",
                    "정답 자리 파일이 실버라면 점수는 순위 비교용이다. 합격 판정에 쓰지 않는다.",
                    "그림문자는 이미지 모델 전이라 모든 실행이 0점이다."):
         assert needle in md
+    assert str(env) not in md                                # 공유 폴더에 이 컴퓨터의 절대 경로를 남기지 않는다
     result = json.loads((folder / "result.json").read_text(encoding="utf-8"))
     assert [r["label"] for r in result["runs"]] == ["첫째", "둘째"]
     assert result["docs"] == [X01, X02]
+    assert result["gold_dir"] == "gold"                      # 저장소 기준 상대 경로 (run_info의 pages_dir와 같은 방식)
 
 
 def test_main_stops_without_run(cm, env):
