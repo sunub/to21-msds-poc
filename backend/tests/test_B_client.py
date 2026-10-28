@@ -110,6 +110,22 @@ def test_nuextract_merges_tag_extra_body():
     assert tag_extra == {"chat_template_kwargs": {"enable_thinking": False}, "top_k": 1}
 
 
+def test_nuextract_examples_for_section_schema_name():
+    from msds.extract import nuextract_examples as ex
+    _, calls = nu_call([resp(json.dumps(GOOD, ensure_ascii=False))], response_schema(3))
+    ctk = calls[0]["extra_body"]["chat_template_kwargs"]
+    assert ctk["examples"] == [ex.example(3)]
+    assert isinstance(ctk["template"], str)
+
+
+def test_nuextract_no_examples_for_other_schema_name():
+    client, calls = make_client(load_model_config(NU_TAG), [resp(json.dumps(GOOD, ensure_ascii=False))])
+    client.call(SYSTEM, USER, response_schema(3), "msds_b1")
+    ctk = calls[0]["extra_body"]["chat_template_kwargs"]
+    assert "examples" not in ctk
+    assert isinstance(ctk["template"], str)
+
+
 # ── 응답 처리 ──────────────────────────────────────────
 
 def test_nuextract_coerces_response():

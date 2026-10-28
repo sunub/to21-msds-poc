@@ -24,7 +24,7 @@ from dotenv import load_dotenv
 
 from ..common.paths import CONFIGS
 from ..common.schema import to_strict, validate
-from . import nuextract
+from . import nuextract, nuextract_examples
 
 load_dotenv()
 
@@ -116,7 +116,7 @@ class ChatClient:
         # 출력 길이 한도 이름: 모델에 따라 max_tokens 또는 max_completion_tokens
         self.token_param = cfg.get("token_param", "max_tokens")
 
-    def _request(self, messages, mode, schema_name, strict_schema, max_tokens, template=None):
+    def _request(self, messages, mode, schema_name, strict_schema, max_tokens, template=None, examples=None):
         params = dict(self.cfg.get("params") or {})
         extra_body = params.pop("extra_body", None)
         kw = dict(model=self.model, messages=messages, **params)
@@ -135,8 +135,10 @@ class ChatClient:
         elif mode == "nuextract_template":
             # NuExtract 2.0은 response_format 대신 대화 틀 인자로 칸 틀을 받는다 (ADR-010)
             eb = extra_body or {}
-            kw["extra_body"] = {**eb, "chat_template_kwargs": {**(eb.get("chat_template_kwargs") or {}),
-                                                               "template": template}}
+            ctk = {**(eb.get("chat_template_kwargs") or {}), "template": template}
+            if examples:
+                ctk["examples"] = examples     # 줄 번호 쓰는 법을 보이는 예시 (ADR-011)
+            kw["extra_body"] = {**eb, "chat_template_kwargs": ctk}
         return self.client.chat.completions.create(**kw)
 
     def call(self, system: str, user_parts: list[dict], schema: dict, schema_name: str,
@@ -144,7 +146,7 @@ class ChatClient:
         """한 묶음 호출. schema는 검증용 원래 스키마(묶음 응답 형식)."""
         max_tokens = max_tokens or self.cfg.get("max_tokens", 32000)
         if self.cfg.get("request_style") == "nuextract_template":
-            return self._call_nuextract(user_parts, schema, max_tokens)
+            return self._call_nuextract(user_parts, schema, max_tokens, schema_name)
         max_retries = self.cfg.get("run", {}).get("max_retries", 2)
         strict_schema = to_strict(schema)
         modes = list(self.cfg.get("structured") or ["none"])
@@ -217,16 +219,19 @@ class ChatClient:
         return CallResult(last_parsed, last_text, None, finish, usage, time.time() - t0, self.model, attempts, errors,
                           requests)
 
-    def _call_nuextract(self, user_parts: list[dict], schema: dict, max_tokens: int) -> CallResult:
+    def _call_nuextract(self, user_parts: list[dict], schema: dict, max_tokens: int, schema_name: str) -> CallResult:
         """NuExtract 2.0 호출 (ADR-010). 사용자 글은 뽑을 원문 그대로 보내고, 칸은 틀로만 넘긴다.
         같은 입력·temperature 0이면 같은 응답이 오고 대화 틀이 오류를 붙인 재요청을 받지 않으므로 한 번만 보낸다.
         항 단위 재추출은 실행기가 한다."""
         mode = "nuextract_template"
         messages = [{"role": "user", "content": user_parts}]
         template = json.dumps(nuextract.template(schema), ensure_ascii=False, indent=4)
+        m = re.fullmatch(r"sec(\d{2})", schema_name or "")
+        no = int(m.group(1)) if m else 0
+        examples = [nuextract_examples.example(no)] if 1 <= no <= 16 else None
         t0 = time.time()
         try:
-            resp = self._call_with_backoff(messages, mode, None, None, max_tokens, template)
+            resp = self._call_with_backoff(messages, mode, None, None, max_tokens, template, examples)
         except _ModeRejected as e:
             return CallResult(None, "", mode, None, {}, time.time() - t0, self.model, 1, [f"[{mode}] 거부됨: {e}"])
         choice = resp.choices[0]
@@ -250,13 +255,13 @@ class ChatClient:
                     errors.append(f"[{mode}] 검증 실패 {len(problems)}건: " + "; ".join(problems[:5]))
         return CallResult(parsed, text, mode, finish, usage, time.time() - t0, self.model, 1, errors, requests)
 
-    def _call_with_backoff(self, messages, mode, schema_name, strict_schema, max_tokens, template=None):
+    def _call_with_backoff(self, messages, mode, schema_name, strict_schema, max_tokens, template=None, examples=None):
         from openai import APIStatusError, APIConnectionError, RateLimitError
 
         delay = 5
         for i in range(5):
             try:
-                return self._request(messages, mode, schema_name, strict_schema, max_tokens, template)
+                return self._request(messages, mode, schema_name, strict_schema, max_tokens, template, examples)
             except RateLimitError:
                 time.sleep(delay); delay *= 2
             except APIConnectionError:
