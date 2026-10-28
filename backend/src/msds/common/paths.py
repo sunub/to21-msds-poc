@@ -7,7 +7,8 @@ from __future__ import annotations
 
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[3]
+BACKEND = Path(__file__).resolve().parents[3]   # 코드·설정 (backend/)
+ROOT = BACKEND.parent                          # 데이터·실행 결과·TO21 자료 (저장소 최상위)
 DATA = ROOT / "data"
 RAW = DATA / "raw"
 PAGES = DATA / "pages"
@@ -16,8 +17,8 @@ REVIEW = DATA / "review"
 GOLD = DATA / "gold"
 MANIFEST = DATA / "manifest.csv"
 RUNS = ROOT / "runs"
-CONFIGS = ROOT / "configs"
-PROMPTS = ROOT / "src" / "msds" / "extract" / "prompts"
+CONFIGS = BACKEND / "configs"
+PROMPTS = BACKEND / "src" / "msds" / "extract" / "prompts"
 TO21 = ROOT / "to21" / "v0.5"
 
 TO21_FILES = {
