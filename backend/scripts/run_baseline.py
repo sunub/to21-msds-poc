@@ -23,6 +23,8 @@ if __name__ == "__main__":
     ap.add_argument("--bundles", nargs="*")
     ap.add_argument("--run-name")
     ap.add_argument("--allow-eval", action="store_true", help="평가용 문서 실행 허용 (D-43)")
+    ap.add_argument("--input-mode", choices=manifest.INPUT_MODES,
+                    help="manifest의 입력 방식을 덮어쓴다 (입력 비교 실험용). 기본: manifest 값")
     a = ap.parse_args()
     targets = manifest.select(a.purpose, a.docs)
     if not targets:
@@ -30,10 +32,10 @@ if __name__ == "__main__":
     if any(r["purpose"] == "평가" for r in targets) and not a.allow_eval:
         ap.error("평가용 문서가 들어 있습니다. 프롬프트를 고정했다면 --allow-eval을 붙이세요 (D-43)")
     run_name = a.run_name or f"{today()}_baseline_{a.model}"
-    save_run_config(run_dir(run_name), a.model, "baseline")
+    save_run_config(run_dir(run_name), a.model, "baseline", a.input_mode)
     for r in targets:
         try:
-            res = extract_document(r["doc_id"], a.model, "baseline", run_name, a.bundles)
+            res = extract_document(r["doc_id"], a.model, "baseline", run_name, a.bundles, a.input_mode)
             print(json.dumps(res, ensure_ascii=False))
         except Exception as e:
             print(f"[실패] {r['doc_id']}: {e}")

@@ -40,17 +40,18 @@ def _log(run: Path, rec: dict) -> None:
         f.write(json.dumps(rec, ensure_ascii=False) + "\n")
 
 
-def save_run_config(run: Path, model_tag: str, mode: str) -> None:
-    """같은 설정으로 다시 돌릴 수 있도록 실행 당시 설정을 복사해 둔다."""
+def save_run_config(run: Path, model_tag: str, mode: str, input_mode: str | None = None) -> None:
+    """같은 설정으로 다시 돌릴 수 있도록 실행 당시 설정을 복사해 둔다. input_mode가 없으면 manifest 값을 썼다."""
     run.mkdir(parents=True, exist_ok=True)
     shutil.copy(paths.CONFIGS / "models.yaml", run / "models.yaml")
     shutil.copy(paths.CONFIGS / "bundles.yaml", run / "bundles.yaml")
-    info = {"model_tag": model_tag, "mode": mode, "prompt_version": PROMPT_VERSION}
+    info = {"model_tag": model_tag, "mode": mode, "prompt_version": PROMPT_VERSION,
+            "input_mode": input_mode or "manifest"}
     (run / "run_info.yaml").write_text(yaml.safe_dump(info, allow_unicode=True), encoding="utf-8")
 
 
 def extract_document(doc_id: str, model_tag: str, mode: str, run_name: str,
-                     bundle_ids: list[str] | None = None) -> dict:
+                     bundle_ids: list[str] | None = None, input_mode: str | None = None) -> dict:
     assert mode in ("silver", "baseline")
     run = paths.run_dir(run_name)
     row = manifest.get(doc_id)
@@ -62,7 +63,7 @@ def extract_document(doc_id: str, model_tag: str, mode: str, run_name: str,
         order = ["b1"] + order       # 성분 목록이 필요하므로 b1은 항상 먼저
 
     pages = load_pages(doc_id)
-    input_mode = row.get("input_mode") or pages["meta"]["input_mode"]
+    input_mode = input_mode or row.get("input_mode") or pages["meta"]["input_mode"]   # 인자는 입력 비교 실험용
     parts = page_parts(pages["pages"], input_mode, cfg.get("image_detail", "high"))
 
     responses: dict[str, dict] = {}

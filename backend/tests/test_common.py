@@ -8,6 +8,7 @@ from msds.common.jsonpath import from_cell, get, set_, to_cell
 from msds.common.merge import merge_bundles
 from msds.common.priority import priority_of
 from msds.common.schema import bundle_response_schema, to_strict, validate, validate_to21
+from msds.extract.client import page_parts
 from msds.extract.prompt_builder import build_bundle_prompt
 
 
@@ -72,3 +73,24 @@ def test_prompts_build():
     for bid in load_bundles():
         p = build_bundle_prompt(bid)
         assert "이번 묶음" in p and "[필드 정의]" in p and "[규칙]" in p
+
+
+def _texts(parts):
+    return [x["text"] for x in parts if x["type"] == "text"]
+
+
+def test_page_parts_input_mode(tmp_path):
+    """이미지만 조건(입력 비교 실험)은 정상 쪽의 글을 빼고, 깨진 쪽 안내는 두 조건 모두 그대로다."""
+    img = tmp_path / "p.png"
+    img.write_bytes(b"png")
+    pages = [{"page": 1, "state": "정상", "source": "텍스트층", "text": "벤젠 71-43-2", "image": img},
+             {"page": 2, "state": "글꼴깨짐", "source": None, "text": "", "image": img}]
+
+    both = _texts(page_parts(pages, "이미지+글자"))
+    assert both[0] == "=== 쪽 1 ===\n[텍스트층]\n벤젠 71-43-2"
+
+    only = page_parts(pages, "이미지만")
+    texts = _texts(only)
+    assert texts[0] == "=== 쪽 1 ===\n[글자 없이 이미지만 보고 읽으세요]"
+    assert texts[1] == both[1] == "=== 쪽 2 ===\n[텍스트층 없음 또는 깨짐: 이미지만 보고 읽으세요]"
+    assert sum(x["type"] == "image_url" for x in only) == 2
