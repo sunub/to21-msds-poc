@@ -1,0 +1,209 @@
+{
+ "doc_id": "T21-S016",
+ "msds_index": 0,
+ "section": 14,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "transport": [
+   {
+    "mode": "공통",
+    "basis_raw": "IMDG CODE/IATA DGR",
+    "regulated": true,
+    "un_no": "1114",
+    "shipping_name": "BENZENE",
+    "hazard_class": "3",
+    "sub_risk": null,
+    "packing_group": "II",
+    "marine_pollutant": "해당",
+    "ems_fire": "F-E",
+    "ems_spill": "S-D",
+    "line": "p8:L3"
+   }
+  ],
+  "narratives": [
+   {
+    "item_code": "S14_SPECIAL",
+    "title_raw": "바. 사용자가 운송 또는 운송 수단에 관련해 알 필요가 있거나 필요한 특별한 안전 대책",
+    "start": "p8:L12",
+    "end": "p8:L16"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S14_SPECIAL",
+    "title_raw": "가. 유엔번호(IMDG CODE/IATA DGR)",
+    "reason": "필드없음",
+    "comp_name": "벤젠",
+    "comp_cas": "71-43-2",
+    "q": {
+     "raw": "1114",
+     "value": 1114,
+     "approx": false,
+     "lower_op": null,
+     "lower": null,
+     "upper_op": null,
+     "upper": null,
+     "unit": null
+    },
+    "statements": [
+     {
+      "key": "유엔번호",
+      "value": "1114",
+      "refs": [],
+      "cond": null,
+      "line": "p8:L3"
+     }
+    ],
+    "suggested_code": "UN_NUMBER",
+    "line": "p8:L3"
+   },
+   {
+    "after_item": "S14_SPECIAL",
+    "title_raw": "나. 유엔 적정 선적명",
+    "reason": "필드없음",
+    "comp_name": "벤젠",
+    "comp_cas": "71-43-2",
+    "q": null,
+    "statements": [
+     {
+      "key": "유엔 적정 선적명",
+      "value": "BENZENE",
+      "refs": [],
+      "cond": null,
+      "line": "p8:L5"
+     }
+    ],
+    "suggested_code": "SHIPPING_NAME",
+    "line": "p8:L5"
+   },
+   {
+    "after_item": "S14_SPECIAL",
+    "title_raw": "다. 운송에서의 위험성 등급",
+    "reason": "필드없음",
+    "comp_name": "벤젠",
+    "comp_cas": "71-43-2",
+    "q": {
+     "raw": "3",
+     "value": 3,
+     "approx": false,
+     "lower_op": null,
+     "lower": null,
+     "upper_op": null,
+     "upper": null,
+     "unit": null
+    },
+    "statements": [
+     {
+      "key": "위험성 등급",
+      "value": "3",
+      "refs": [],
+      "cond": null,
+      "line": "p8:L7"
+     }
+    ],
+    "suggested_code": "HAZARD_CLASS",
+    "line": "p8:L7"
+   },
+   {
+    "after_item": "S14_SPECIAL",
+    "title_raw": "라. 용기등급(IMDG CODE/IATA DGR)",
+    "reason": "필드없음",
+    "comp_name": "벤젠",
+    "comp_cas": "71-43-2",
+    "q": {
+     "raw": "Ⅱ",
+     "value": null,
+     "approx": false,
+     "lower_op": null,
+     "lower": null,
+     "upper_op": null,
+     "upper": null,
+     "unit": null
+    },
+    "statements": [
+     {
+      "key": "용기등급",
+      "value": "Ⅱ",
+      "refs": [],
+      "cond": null,
+      "line": "p8:L9"
+     }
+    ],
+    "suggested_code": "PACKING_GROUP",
+    "line": "p8:L9"
+   },
+   {
+    "after_item": "S14_SPECIAL",
+    "title_raw": "마. 해양오염물질",
+    "reason": "필드없음",
+    "comp_name": "벤젠",
+    "comp_cas": "71-43-2",
+    "q": null,
+    "statements": [
+     {
+      "key": "해양오염물질",
+      "value": "해당됨",
+      "refs": [],
+      "cond": null,
+      "line": "p8:L11"
+     }
+    ],
+    "suggested_code": "MARINE_POLLUTANT",
+    "line": "p8:L11"
+   },
+   {
+    "after_item": "S14_SPECIAL",
+    "title_raw": "바. 사용자가 운송 또는 운송 수단에 관련해 알 필요가 있거나 필요한 특별한 안전 대책",
+    "reason": "필드없음",
+    "comp_name": "벤젠",
+    "comp_cas": "71-43-2",
+    "q": null,
+    "statements": [
+     {
+      "key": "지역 운송 시",
+      "value": "위험물안전관리법에 따름",
+      "refs": [],
+      "cond": null,
+      "line": "p8:L13"
+     },
+     {
+      "key": "DOT 및 기타 규정",
+      "value": "에 맞게 포장 및 운송",
+      "refs": [],
+      "cond": null,
+      "line": "p8:L14"
+     },
+     {
+      "key": "화재 시 비상조치의 종류",
+      "value": "F-E (Non-water-reactive flammable liquids)",
+      "refs": [],
+      "cond": null,
+      "line": "p8:L15"
+     },
+     {
+      "key": "유출 시 비상조치의 종류",
+      "value": "S-D (Flammable liquids)",
+      "refs": [],
+      "cond": null,
+      "line": "p8:L16"
+     }
+    ],
+    "suggested_code": "S14_SPECIAL",
+    "line": "p8:L12"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"transport\": [\n    {\n      \"mode\": \"공통\",\n      \"basis_raw\": \"IMDG CODE/IATA DGR\",\n      \"regulated\": true,\n      \"un_no\": \"1114\",\n      \"shipping_name\": \"BENZENE\",\n      \"hazard_class\": \"3\",\n      \"sub_risk\": null,\n      \"packing_group\": \"II\",\n      \"marine_pollutant\": \"해당\",\n      \"ems_fire\": \"F-E\",\n      \"ems_spill\": \"S-D\",\n      \"line\": \"p8:L3\"\n    }\n  ],\n  \"narratives\": [\n    {\n      \"item_code\": \"S14_SPECIAL\",\n      \"title_raw\": \"바. 사용자가 운송 또는 운송 수단에 관련해 알 필요가 있거나 필요한 특별한 안전 대책\",\n      \"start\": \"p8:L12\",\n      \"end\": \"p8:L16\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S14_SPECIAL\",\n      \"title_raw\": \"가. 유엔번호(IMDG CODE/IATA DGR)\",\n      \"reason\": \"필드없음\",\n      \"comp_name\": \"벤젠\",\n      \"comp_cas\": \"71-43-2\"\n    ,\n      \"q\": {\n        \"raw\": \"1114\"\n      ,\n      \"value\": 1114\n    ,\n      \"approx\": false\n    ,\n      \"lower_op\": null\n    ,\n      \"lower\": null\n    ,\n      \"upper_op\": null\n    ,\n      \"upper\": null\n    ,\n      \"unit\": null\n    },\n      \"statements\": [\n        {\n          \"key\": \"유엔번호\",\n          \"value\": \"1114\"\n        ,\n        \"refs\": []\n      ,\n        \"cond\": null\n      ,\n        \"line\": \"p8:L3\"\n    }\n  ],\n    \"suggested_code\": \"UN_NUMBER\"\n  ,\n    \"line\": \"p8:L3\"\n  },\n    {\n      \"after_item\": \"S14_SPECIAL\",\n      \"title_raw\": \"나. 유엔 적정 선적명\",\n      \"reason\": \"필드없음\",\n      \"comp_name\": \"벤젠\",\n      \"comp_cas\": \"71-43-2\"\n    ,\n      \"q\": null,\n      \"statements\": [\n        {\n          \"key\": \"유엔 적정 선적명\",\n          \"value\": \"BENZENE\"\n        ,\n        \"refs\": []\n      ,\n        \"cond\": null\n      ,\n        \"line\": \"p8:L5\"\n    }\n  ],\n    \"suggested_code\": \"SHIPPING_NAME\"\n  ,\n    \"line\": \"p8:L5\"\n  },\n    {\n      \"after_item\": \"S14_SPECIAL\",\n      \"title_raw\": \"다. 운송에서의 위험성 등급\",\n      \"reason\": \"필드없음\",\n      \"comp_name\": \"벤젠\",\n      \"comp_cas\": \"71-43-2\"\n    ,\n      \"q\": {\n        \"raw\": \"3\"\n      ,\n      \"value\": 3\n    ,\n      \"approx\": false\n    ,\n      \"lower_op\": null\n    ,\n      \"lower\": null\n    ,\n      \"upper_op\": null\n    ,\n      \"upper\": null\n    ,\n      \"unit\": null\n    },\n      \"statements\": [\n        {\n          \"key\": \"위험성 등급\",\n          \"value\": \"3\"\n        ,\n        \"refs\": []\n      ,\n        \"cond\": null\n      ,\n        \"line\": \"p8:L7\"\n    }\n  ],\n    \"suggested_code\": \"HAZARD_CLASS\"\n  ,\n    \"line\": \"p8:L7\"\n  },\n    {\n      \"after_item\": \"S14_SPECIAL\",\n      \"title_raw\": \"라. 용기등급(IMDG CODE/IATA DGR)\",\n      \"reason\": \"필드없음\",\n      \"comp_name\": \"벤젠\",\n      \"comp_cas\": \"71-43-2\"\n    ,\n      \"q\": {\n        \"raw\": \"Ⅱ\"\n      ,\n      \"value\": null\n    ,\n      \"approx\": false\n    ,\n      \"lower_op\": null\n    ,\n      \"lower\": null\n    ,\n      \"upper_op\": null\n    ,\n      \"upper\": null\n    ,\n      \"unit\": null\n    },\n      \"statements\": [\n        {\n          \"key\": \"용기등급\",\n          \"value\": \"Ⅱ\"\n        ,\n        \"refs\": []\n      ,\n        \"cond\": null\n      ,\n        \"line\": \"p8:L9\"\n    }\n  ],\n    \"suggested_code\": \"PACKING_GROUP\"\n  ,\n    \"line\": \"p8:L9\"\n  },\n    {\n      \"after_item\": \"S14_SPECIAL\",\n      \"title_raw\": \"마. 해양오염물질\",\n      \"reason\": \"필드없음\",\n      \"comp_name\": \"벤젠\",\n      \"comp_cas\": \"71-43-2\"\n    ,\n      \"q\": null,\n      \"statements\": [\n        {\n          \"key\": \"해양오염물질\",\n          \"value\": \"해당됨\"\n        ,\n        \"refs\": []\n      ,\n        \"cond\": null\n      ,\n        \"line\": \"p8:L11\"\n    }\n  ],\n    \"suggested_code\": \"MARINE_POLLUTANT\"\n  ,\n    \"line\": \"p8:L11\"\n  },\n    {\n      \"after_item\": \"S14_SPECIAL\",\n      \"title_raw\": \"바. 사용자가 운송 또는 운송 수단에 관련해 알 필요가 있거나 필요한 특별한 안전 대책\",\n      \"reason\": \"필드없음\",\n      \"comp_name\": \"벤젠\",\n      \"comp_cas\": \"71-43-2\"\n    ,\n      \"q\": null,\n      \"statements\": [\n        {\n          \"key\": \"지역 운송 시\",\n          \"value\": \"위험물안전관리법에 따름\"\n        ,\n        \"refs\": []\n      ,\n        \"cond\": null\n      ,\n        \"line\": \"p8:L13\"\n    },\n        {\n          \"key\": \"DOT 및 기타 규정\",\n          \"value\": \"에 맞게 포장 및 운송\"\n        ,\n        \"refs\": []\n      ,\n        \"cond\": null\n      ,\n        \"line\": \"p8:L14\"\n    },\n        {\n          \"key\": \"화재 시 비상조치의 종류\",\n          \"value\": \"F-E (Non-water-reactive flammable liquids)\"\n        ,\n        \"refs\": []\n      ,\n        \"cond\": null\n      ,\n        \"line\": \"p8:L15\"\n    },\n        {\n          \"key\": \"유출 시 비상조치의 종류\",\n          \"value\": \"S-D (Flammable liquids)\"\n        ,\n        \"refs\": []\n      ,\n        \"cond\": null\n      ,\n        \"line\": \"p8:L16\"\n    }\n  ],\n    \"suggested_code\": \"S14_SPECIAL\"\n  ,\n    \"line\": \"p8:L12\"\n  }\n]\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 12481,
+  "completion_tokens": 1579,
+  "total_tokens": 14060
+ },
+ "attempts": 1,
+ "errors": [],
+ "seconds": 37.05,
+ "check_problems": []
+}
