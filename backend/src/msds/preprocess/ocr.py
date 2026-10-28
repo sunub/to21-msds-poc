@@ -1,7 +1,8 @@
 """깨진 텍스트층 보완: 쪽 이미지 → PaddleOCR → 줄 단위 글자 (역할 C, 시험 단계).
 
-모델 입력(p001.txt, D-44)은 바꾸지 않는다. OCR 결과는 원문 대조(D-14)와 2주차 검사(D-38, D-40)에서
-깨진 쪽을 대조할 글자로만 쓴다. 모델 입력으로 쓸지는 F와 정한다.
+OCR 결과는 원문 대조(D-14)와 2주차 검사(D-38, D-40)에서 깨진 쪽을 대조할 글자로 쓴다.
+글꼴 판정이 '정상'인데 텍스트층과 어절이 크게 다른 쪽은 OCR 글을 모델 입력으로 쓴다 (source.choose, 2026-10-27).
+글꼴깨짐 쪽을 모델 입력으로 쓸지는 F와 정한다.
 
 출력 (data/pages/<문서번호>/, 저장소에 올리지 않는다)
 - p001.ocr.json   {dpi, items}. items는 줄마다 {text, score, box}. box는 OCR 이미지 좌표(dpi 픽셀)
@@ -17,6 +18,7 @@ S003 시험(2026-10-26, paddleocr 3.7.0): 원문 조각 44개 중 42개 일치. 
 from __future__ import annotations
 
 import json
+import re
 import tempfile
 from pathlib import Path
 
@@ -270,6 +272,25 @@ def read_ocr_json(path: Path) -> tuple[list[dict], int]:
     if isinstance(data, list):
         return data, OCR_DPI
     return data["items"], data["dpi"]
+
+
+_DEG_C = re.compile(r"(?<=\d)(\s?)(?:°c|C)(?![A-Za-z0-9])")
+
+
+def fix_symbols(text: str) -> str:
+    """OCR이 낼 수 없는 기호를 되돌린다. 한국어 인식 모델 사전에 '℃'가 없어 숫자 뒤 'C'나 '°c'로 읽힌다 (S003).
+
+    숫자 바로 뒤(공백 하나까지)의 단독 'C', '°c'만 '°C'로 바꾼다 ('℃'와 NFKC로 같다).
+    'DEG C'처럼 숫자 뒤가 아니거나 'Cl', 'CO2'처럼 뒤에 글자가 붙은 C는 그대로 둔다.
+    """
+    return _DEG_C.sub(r"\1°C", text)
+
+
+def page_text(items: list[dict], dpi: int) -> str:
+    """OCR 조각 → 읽는 순서의 글 (텍스트층이 깨진 쪽의 대조 글). 기호를 되돌린다 (fix_symbols)."""
+    from .layout import reading_text
+
+    return fix_symbols(reading_text(items))
 
 
 def write_cells(doc_id: str, page_no: int, items: list[dict], dpi: int) -> dict:
