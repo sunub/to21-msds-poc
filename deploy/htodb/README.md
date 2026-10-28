@@ -7,29 +7,19 @@ TO21이 준 HTODB(SQL Server mdf, 16개 테이블)를 로컬 PostgreSQL에 **값
 - 적재는 한 트랜잭션이고, 테이블마다 원본 SQL Server와 행 수·값 해시가 같아야 커밋한다. 번역표는 다시 읽은 값이 시트와 셀 단위로 같아야 커밋한다.
 - API는 쓰기 권한 없는 계정 `kdb_reader`(`pg_read_all_data`만) + 읽기 전용 세션으로 붙는다.
 
-## 적재 (최초 1회, 새 버전을 받으면 다시)
+## 처음 한 번: 적재
+
+준비: Docker(compose), `backend/.venv`(`cd backend && python3.11 -m venv .venv && .venv/bin/pip install -r requirements-dev.txt`), `to21/v0.6/`의 명세서 xlsx, TO21에서 받은 HTODB.zip.
+Windows는 WSL2 안에서 실행한다. Apple Silicon Mac은 Docker Desktop의 Rosetta 사용을 켠다(SQL Server 이미지가 amd64 전용).
 
 ```bash
-cd deploy/htodb
-cp .env.example .env            # 값 채우기. HTODB_MDF_DIR = HTODB.zip을 풀 폴더(저장소 밖 절대 경로)
-set -a; . ./.env; set +a
-mkdir -p "$HTODB_MDF_DIR" && python3 -c "import zipfile,sys; zipfile.ZipFile(sys.argv[1]).extractall(sys.argv[2])" <HTODB.zip> "$HTODB_MDF_DIR"
-chmod -R a+rwX "$HTODB_MDF_DIR"    # SQL Server 컨테이너 사용자가 열 수 있게
-docker compose --profile export up -d
-# SQL Server가 다 뜬 뒤(수십 초) mdf 사본 연결 + 읽기 전용
-docker compose exec -T mssql /opt/mssql-tools18/bin/sqlcmd -C -S localhost -U sa -P "$HTODB_MSSQL_SA_PASSWORD" -b -Q "
-CREATE DATABASE HTODB ON (FILENAME='/var/opt/mssql/attach/HTODB.mdf'),(FILENAME='/var/opt/mssql/attach/HTODB_log.ldf') FOR ATTACH;
-ALTER DATABASE HTODB SET READ_ONLY WITH ROLLBACK IMMEDIATE;"
-# 조회 계정
-printf "CREATE ROLE kdb_reader LOGIN PASSWORD :'pw';\nGRANT pg_read_all_data TO kdb_reader;\nALTER ROLE kdb_reader SET default_transaction_read_only = on;\n" \
-  | docker compose exec -T pg psql -v ON_ERROR_STOP=1 -U kdb -d kdb -v pw="$HTODB_READER_PASSWORD"
-
-cd ../../backend
-.venv/bin/pip install -r requirements-dev.txt
-.venv/bin/python scripts/load_htodb.py --source <HTODB.zip>
-.venv/bin/python scripts/load_htodb_map.py         # to21/v0.6/의 명세서 xlsx를 읽음
-docker compose -f ../deploy/htodb/compose.yaml stop mssql   # 적재 뒤에는 pg만 있으면 됨
+deploy/htodb/setup.sh <HTODB.zip 경로>     # 1분 안팎(첫 실행은 SQL Server 이미지 약 1.5GB 내려받기). 여러 번 실행해도 됨
+deploy/htodb/setup.sh --fresh <HTODB.zip>  # SQL Server 쪽 사본을 강제로 새로 풀 때(새 버전 zip은 해시로 알아서 다시 풂)
 ```
+
+스크립트가 하는 일: `.env`가 없으면 무작위 비밀번호로 만듦(git 제외, mdf 사본은 `~/.local/share/to21-htodb/mdf`, 폴더 권한 700) → PostgreSQL·SQL Server 띄움 → zip을 풀어 SQL Server에 사본을 읽기 전용으로 연결(이미 같은 zip의 사본이 연결돼 있으면 건너뜀) → 적재 계정·조회 계정 `kdb_reader` 비밀번호를 `.env`에 맞춤 → `scripts/load_htodb.py`·`scripts/load_htodb_map.py` 적재 → SQL Server 끔(중간에 실패해도 끔).
+PostgreSQL은 `restart: unless-stopped`라 컴퓨터를 다시 켜도 Docker가 켜지면 자동으로 뜬다(다시 적재할 필요 없음). 수동으로 켜려면 `docker compose -f deploy/htodb/compose.yaml up -d pg`.
+처음 상태로 지우려면 `docker compose -f deploy/htodb/compose.yaml --profile export down -v` 후 `deploy/htodb/.env`와 mdf 폴더를 지운다.
 
 ## 조회 API
 

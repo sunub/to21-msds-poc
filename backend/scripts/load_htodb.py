@@ -122,7 +122,7 @@ def main() -> None:
     ms_cur = ms.cursor()
     ms_cur.execute("SELECT is_read_only FROM sys.databases WHERE name='HTODB'")
     if ms_cur.fetchone()[0] != 1:
-        raise SystemExit("HTODB가 읽기 전용이 아님 → deploy/htodb/README.md의 연결 절차로 READ_ONLY 설정 후 실행")
+        raise SystemExit("HTODB가 읽기 전용이 아님 → deploy/htodb/setup.sh로 다시 실행(필요하면 --fresh)")
     ms_cur.execute("SELECT @@VERSION")
     ms_version = ms_cur.fetchone()[0].splitlines()[0]
 
