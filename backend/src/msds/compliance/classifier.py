@@ -1,18 +1,20 @@
-"""단일물질/혼합물 판별기 — 역할 D가 채운다 (TO21 정합성 설계서 v0.2, 1단계).
+"""단일물질·혼합물 판별.
 
-판별 결과에 따라 2항 검증 경로가 갈린다.
-- 단일물질: 기준 분류(환경부 → 고용노동부 순)와 비교
-- 혼합물: 성분 정보로 계산 (ATEmix, 가산법, 한계농도 등 — 2주차 이후)
+표기(composition.type)를 먼저 따르고, 표기가 없을 때만 성분 개수로 추정한다.
+"성분 1개 + 함유량 하한 80% 이상이면 단일물질" 같은 임계값은 근거를 확인하지 못해 두지 않았다
+(설계서 v0.2 가 저장소에 없다, docs/adr/0001). 근거가 부족하면 판단불가로 사람에게 넘긴다.
 """
-from __future__ import annotations
 
 
 def product_type(inputs: dict) -> dict:
-    """{"type": "단일물질" | "혼합물" | "판단불가", "basis": 판단 근거 문장}  TODO(D)
-
-    판단 순서 (설계서 기준으로 D가 확정)
-    1. composition.type이 적혀 있으면 그 값
-    2. 없으면 성분 수와 함유량으로 판단 (예: 성분 1개, 함유량 하한 ≥ 80 이면 단일물질 후보)
-    3. 판단할 수 없으면 '판단불가'로 두고 근거부족 판정으로 넘긴다
-    """
-    raise NotImplementedError("TODO(D): product_type")
+    """load_inputs 결과로 {"type": 단일물질|혼합물|판단불가, "basis": 근거 문구} 를 돌려준다."""
+    t = (inputs.get("composition") or {}).get("type")
+    if t in ("단일물질", "혼합물"):  # TO21 스키마의 값은 이 둘뿐이다
+        return {"type": t, "basis": f"3항 단일/혼합 표기 '{t}'"}
+    n = len(inputs.get("components") or [])
+    if n >= 2:
+        return {"type": "혼합물", "basis": f"표기 없음, 성분 {n}개로 추정"}
+    return {
+        "type": "판단불가",
+        "basis": f"단일/혼합 표기가 없고 성분이 {n}개라 판단할 근거가 부족함",
+    }
