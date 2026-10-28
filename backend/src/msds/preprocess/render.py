@@ -4,9 +4,14 @@
 
 출력 (paths 참고)
 - data/pages/<문서번호>/p001.png ...   쪽 이미지 (기본 150dpi)
-- data/pages/<문서번호>/p001.txt ...   쪽 텍스트층 (PyMuPDF get_text). 모델 입력 (D-44)
-- data/pages/<문서번호>/p001.match.txt 원문 대조용 텍스트층. 겹쳐 찍은 사본을 지운 것 (drop_overstrike)
-- data/pages/<문서번호>/meta.json      쪽수, 쪽별 판별 수치, 문서 판정, 겹쳐찍기 글자 수
+- data/pages/<문서번호>/p001.txt ...   쪽 텍스트층을 읽기 순서(layout.reading_order)로 놓은 것. 모델 입력 (D-44)
+                                        선으로 그린 표는 한 행을 칸 순서대로 한 줄로 묶는다 (칸 사이는 공백 두 칸)
+                                        PDF에 저장된 순서는 읽는 순서와 다를 수 있다 (S001 2쪽: 2번 항목이 1번보다 먼저)
+- data/pages/<문서번호>/p001.match.txt 원문 대조용 텍스트층. 같은 읽기 순서에서 겹쳐 찍은 사본을 지운 것 (drop_overstrike)
+- data/pages/<문서번호>/p001.ocr_input.txt 텍스트층을 믿을 수 없는 정상 쪽의 모델 입력·대조 글 (OCR, source.choose)
+- data/pages/<문서번호>/tables/p002_t1.md 선으로 그린 데이터 표(성분·노출기준 등)를 Markdown으로 따로 꺼낸 것 (layout.is_data_table)
+                                        항목|값 틀은 꺼내지 않는다. 모델 입력은 아니다. 쪽 번호와 그 쪽 표 순번(1부터)
+- data/pages/<문서번호>/meta.json      쪽수, 쪽별 판별 수치·입력 출처(input_source), 문서 판정, 겹쳐찍기 글자 수, 전처리 버전
 
 텍스트층 판별 (TO21 doc.text_layer 값과 같은 이름)
 - 정상     : 글자를 그대로 믿어도 됨
@@ -20,11 +25,24 @@
 from __future__ import annotations
 
 import json
+import shutil
 from pathlib import Path
 
 import pymupdf
 
 from ..common import paths
+from .layout import (char_items, continue_grid, is_data_table, page_lines, page_tables, reading_text, table_columns,
+                     table_grid, table_md)
+from .ocr import fix_symbols, read_ocr_json
+from .source import choose, ocr_json_for, page_ocr_input
+
+# 모델 입력(p001.txt)이 달라지는 변경마다 올린다. meta.json과 실행 기록(run_info.yaml)에 남아,
+# 어떤 입력으로 돌린 실행인지 구분한다. 버전이 다른 meta로는 추출하지 않는다 (extract.runner)
+PREPROCESS_VERSION = "2026-10-28-chars-wrap"   # 칸 글이 다음 줄로 넘어간 것을 그 칸에 잇는다 (layout.join_wrapped)
+# 이전: "2026-10-28-chars" 텍스트층을 줄이 아니라 글자 좌표로 다시 맞춘다 (layout.char_items)
+# 이전: "2026-10-27-xycut-tables-ocrpick" 텍스트층을 믿을 수 없는 정상 쪽은 OCR 글 (source.choose)
+# 이전: "2026-10-27-xycut-tables" 선으로 그린 표의 행을 칸 순서대로 한 줄로 (layout.page_tables)
+# 이전: "2026-10-27-xycut" 저장 순서(get_text) → 읽기 순서(layout.reading_order)
 
 KK_RATIO_LIMIT = 0.05      # ㄲ받침 / ㄴ받침 비율이 이보다 크면 글꼴깨짐
 SYMBOL_RATIO_LIMIT = 0.3   # 한글·영문이 아닌 글자 비율이 이보다 크면 글꼴깨짐
@@ -38,6 +56,11 @@ OVERSTRIKE_DY = 0.5        # (45번: 굵은 글씨를 0.1pt씩 밀어 5번 찍�
 def page_match_txt(doc_id: str, page_no: int) -> Path:
     """원문 대조용 텍스트층. 쪽 번호는 1부터."""
     return paths.page_dir(doc_id) / f"p{page_no:03d}.match.txt"
+
+
+def tables_dir(doc_id: str) -> Path:
+    """데이터 표 Markdown을 두는 곳."""
+    return paths.page_dir(doc_id) / "tables"
 
 
 def _counts(text: str) -> dict:
@@ -162,32 +185,43 @@ def preprocess(pdf_path: Path, doc_id: str, dpi: int = 150, force: bool = False)
     if meta_path.exists() and not force:
         return json.loads(meta_path.read_text(encoding="utf-8"))
     out_dir.mkdir(parents=True, exist_ok=True)
+    shutil.rmtree(tables_dir(doc_id), ignore_errors=True)   # 예전 실행의 표가 남지 않게
 
     doc = pymupdf.open(pdf_path)
     pages = []
+    layer_match = {}   # 쪽 번호 → 사본을 지운 텍스트층 (출처 고르기에 쓴다)
+    page_obj = {}      # 쪽 번호 → PyMuPDF 쪽 (OCR 글에도 같은 표 묶기를 하려고)
+    layer_items = {}   # 쪽 번호 → 텍스트층 조각 (표 Markdown에 쓴다)
     totals = {"chars": 0, "hangul": 0, "kk": 0, "nn": 0, "latin": 0, "symbol": 0}
     for i, page in enumerate(doc, start=1):
-        text = page.get_text()
+        lines = page_lines(page)
+        tables = page_tables(page)
+        items = char_items(page)
+        text = reading_text(items, tables) + "\n"
         paths.page_txt(doc_id, i).write_text(text, encoding="utf-8")
         page.get_pixmap(dpi=dpi).save(paths.page_png(doc_id, i))
         c = _counts(text)
         for k in totals:
             totals[k] += c[k]
-        lines = [[{"text": s["text"], "bbox": s["bbox"]} for s in ln["spans"]]
-                 for b in page.get_text("dict")["blocks"] for ln in b.get("lines", [])]
-        kept, overstrike = drop_overstrike(lines)
-        page_match_txt(doc_id, i).write_text(_lines_text(kept), encoding="utf-8")
+        _, overstrike = drop_overstrike(lines)   # 사본 글자 수만 센다. char_items가 사본을 이미 지웠다
+        layer_match[i], page_obj[i], layer_items[i] = text, page, items
+        page_match_txt(doc_id, i).write_text(layer_match[i], encoding="utf-8")
         cover = _image_cover(page)
         state = judge_page(c, cover)
         pages.append({"page": i, "state": state, "image_cover": round(cover, 3), **c, "overstrike": overstrike})
 
     text_layer = judge_doc([p["state"] for p in pages], totals)
     pages = follow_doc(pages, text_layer)
+    pages = [_pick_source(doc_id, p, layer_match[p["page"]], page_obj[p["page"]]) for p in pages]
+    prev = None   # 앞 쪽 마지막 데이터 표 (열 자리, 머리글). 다음 쪽에서 이어지는 표를 나눌 때 쓴다
+    for k, p in enumerate(pages):
+        pages[k], prev = _write_tables(doc_id, p, layer_items[p["page"]], page_obj[p["page"]], prev)
     language = judge_language(totals)
     if text_layer in ("글꼴깨짐", "없음") and totals["hangul"] == 0:
         language = None   # 글자를 믿을 수 없어 언어를 판정하지 않는다. manifest에서 사람이 채운다
     meta = {
         "doc_id": doc_id,
+        "preprocess_version": PREPROCESS_VERSION,
         "source_file": pdf_path.name,
         "page_count": len(pages),
         "dpi": dpi,
@@ -202,11 +236,67 @@ def preprocess(pdf_path: Path, doc_id: str, dpi: int = 150, force: bool = False)
     return meta
 
 
+def _pick_source(doc_id: str, p: dict, layer: str, page) -> dict:
+    """정상 쪽의 모델 입력 출처를 고른다 (source.choose). OCR이면 p001.ocr_input.txt를 쓴다.
+
+    OCR 결과가 없으면 텍스트층이다. OCR을 나중에 돌렸으면 전처리를 --force로 다시 돌려야 반영된다.
+    정상이 아닌 쪽(글꼴깨짐·이미지만)은 모델이 이미지만 보므로 고르지 않는다.
+    """
+    out_ocr = page_ocr_input(doc_id, p["page"])
+    out_ocr.unlink(missing_ok=True)
+    if p["state"] != "정상":
+        return p
+    f = ocr_json_for(doc_id, p["page"])
+    ocr = None
+    if f is not None:
+        items, dpi = read_ocr_json(f)
+        ocr = fix_symbols(reading_text(items, page_tables(page, dpi / 72))) + "\n"
+    pick = choose(layer, ocr)
+    if pick["input_source"] == "OCR":
+        out_ocr.write_text(ocr, encoding="utf-8")
+    return {**p, **pick}
+
+
+def _write_tables(doc_id: str, p: dict, items: list[dict], page, prev: dict | None) -> tuple[dict, dict | None]:
+    """정상 쪽의 선으로 그린 표 중 데이터 표만 tables/pXXX_tN.md로 쓴다. 칸 글은 모델 입력과 같은 출처에서 읽는다.
+
+    meta 쪽 항목에 tables(쓴 파일 이름)와 frames(꺼내지 않은 항목|값 틀 수)를 남긴다.
+    글꼴깨짐·이미지만 쪽은 글자를 믿을 수 없어 꺼내지 않는다.
+    prev는 앞 쪽 마지막 데이터 표의 열 자리(pt)와 머리글이다. 이 쪽 표가 그 머리글로 시작하면 열 선이 없어도
+    앞 쪽 열 자리로 나눈다 (layout.continue_grid, M013 3쪽). 바로 앞 쪽의 표만 잇는다.
+    돌려주는 값: (쪽 항목, 다음 쪽에 넘길 prev)
+    """
+    if p["state"] != "정상":
+        return p, None
+    scale = 1.0
+    if p.get("input_source") == "OCR":
+        items, dpi = read_ocr_json(ocr_json_for(doc_id, p["page"]))
+        scale = dpi / 72
+    written, frames, last = [], 0, None
+    for n, table in enumerate(page_tables(page, scale), start=1):
+        grid = table_grid(items, table)
+        if is_data_table(grid):
+            last = {"cols": [(a / scale, b / scale) for a, b in table_columns(table)], "head": grid[0]}
+        else:
+            cols = prev and [(a * scale, b * scale) for a, b in prev["cols"]]
+            grid = cols and n == 1 and continue_grid(items, table, cols, prev["head"])   # 이어진 표는 쪽 맨 위에 있다
+            if not grid:
+                frames += 1
+                continue
+            last = prev
+        name = f"p{p['page']:03d}_t{n}.md"
+        tables_dir(doc_id).mkdir(exist_ok=True)
+        (tables_dir(doc_id) / name).write_text(table_md(grid), encoding="utf-8")
+        written.append(name)
+    return {**p, "tables": written, "frames": frames}, last
+
+
 def load_pages(doc_id: str) -> dict:
-    """추출 단계에서 쓰는 쪽 입력. {'meta': ..., 'pages': [{page, image, text, match_text, state}]}
+    """추출 단계에서 쓰는 쪽 입력. {'meta': ..., 'pages': [{page, image, text, match_text, state, source}]}
 
     text는 모델 입력, match_text는 원문 대조(checks.source_match)에 쓴다. 겹쳐찍기가 없으면 둘의 글자가 같다.
     match_text 파일이 없으면(이 기능 전에 전처리한 결과) text를 쓴다.
+    source가 'OCR'인 쪽은 둘 다 OCR 글(p001.ocr_input.txt)이다. 모델이 읽은 글과 대조하는 글을 맞춘다.
     """
     meta = json.loads(paths.page_meta(doc_id).read_text(encoding="utf-8"))
     out = []
@@ -214,11 +304,16 @@ def load_pages(doc_id: str) -> dict:
         n = p["page"]
         text = paths.page_txt(doc_id, n).read_text(encoding="utf-8")
         mt = page_match_txt(doc_id, n)
+        match_text = mt.read_text(encoding="utf-8") if mt.exists() else text
+        source = p.get("input_source", "텍스트층")
+        if source == "OCR":
+            text = match_text = page_ocr_input(doc_id, n).read_text(encoding="utf-8")
         out.append({
             "page": n,
             "image": paths.page_png(doc_id, n),
             "text": text,
-            "match_text": mt.read_text(encoding="utf-8") if mt.exists() else text,
+            "match_text": match_text,
             "state": p["state"],
+            "source": source,
         })
     return {"meta": meta, "pages": out}
