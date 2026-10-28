@@ -21,12 +21,13 @@ from msds.extract.inputs import Line, render_lines
 from msds.extract.prompt_builder import _BASE_RULES, _code_table, _field_rows, _referenced_rules, _rows, _rules
 from msds.extract.section_specs import SectionSpec, load_specs, response_schema
 
-SECTION_PROMPT_VERSION = "s1"   # 안내문 내용을 고치면 올린다. 실행 기록에 남는다
+SECTION_PROMPT_VERSION = "s2"   # 안내문 내용을 고치면 올린다. 실행 기록에 남는다
 
 _COMMON = """너는 한국어 물질안전보건자료(MSDS)의 {no}항 "{title}"만 읽어 정해진 JSON 형식으로 옮기는 추출기다. 해석하거나 추측하지 않는다.
 - 원문에 적힌 행만 쓴다. 원문에 없는 행을 만들지 않는다. 값이 "자료없음", "해당없음"처럼 적힌 행도 원문에 있으면 행으로 쓰고, 그 글자를 숫자 묶음의 `raw`에 그대로 둔다.
 - 모든 행의 `line`(객체 칸은 `lines`의 칸 이름마다)에는 그 값이 적힌 줄 앞의 줄 번호를 보이는 그대로 적는다. 예: `p2:L23`. 숫자만 쓰지 않는다.
 - 숫자 묶음은 `raw`에 원문 그대로 두고, 나머지 칸(value, lower_op, lower, upper_op, upper, unit, approx)은 규칙(R04, R06, R08)대로 나눈다.
+- `value`와 `lower`·`upper`는 함께 쓰지 않는다. 단일값이면 `value`만 쓰고 `lower_op`·`lower`·`upper_op`·`upper`는 null로 둔다. 부등호나 범위로 적힌 값은 `lower`·`upper` 쪽만 쓰고 `value`는 null로 둔다. 예: `99.92` → value 99.92 / `≥ 95` → lower_op ">=", lower 95
 - 다른 항의 내용이 섞여 보이면 무시한다. 스키마에 맞는 칸이 없는 이 항의 내용은 `extras`에 담는다(R24)."""
 
 # 이 항의 안내: 명세서에 없는, 행을 나누는 단위와 자주 틀리는 점

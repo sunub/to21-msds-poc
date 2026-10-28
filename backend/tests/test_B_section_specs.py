@@ -304,7 +304,7 @@ def test_meta_revision_copies_to21_meta():
     assert list(mr["properties"]) == [*ss.META_REVISION_FIELDS, "lines"]
     assert list(mr["properties"]["lines"]["properties"]) == list(ss.META_REVISION_FIELDS)
     for f in ss.META_REVISION_FIELDS:
-        assert mr["properties"][f] == meta[f]
+        assert mr["properties"][f] == ss._drop_value_checks(meta[f])
 
 
 def test_response_schema_returns_fresh_copy():
@@ -335,6 +335,42 @@ def test_example_with_code_owned_field_fails(key, value):
     ex = example(8)
     ex["exposure_limits"][0][key] = value
     assert validate(complete(ex, strict, strict), strict)
+
+
+VALUE_CHECKS = {"pattern", "format", "minimum", "maximum", "minLength", "maxLength", "minItems", "maxItems"}
+
+
+@pytest.mark.parametrize("no", NOS)
+def test_no_value_checks(no):
+    """to_strict가 빼고 보내는 값 조건은 서버가 지키게 할 수 없으므로 항별 검증에서도 요구하지 않는다."""
+    s = ss.response_schema(no)
+    found = [f"{p}/{k}" for p, n in nodes(s) if not p.endswith("/properties") for k in n if k in VALUE_CHECKS]
+    assert found == []
+
+
+def test_format_stays_in_description():
+    """모델은 설명에서 형식을 계속 본다."""
+    ec = ss.response_schema(3)["properties"]["components"]["items"]["properties"]["ec_no"]
+    to21_ec = msds_item_schema()["properties"]["components"]["items"]["properties"]["ec_no"]
+    assert ec["description"] == to21_ec["description"]
+
+
+@pytest.mark.parametrize("no, edit", [
+    (3, lambda ex: ex["components"][0].update(ec_no="")),
+    (2, lambda ex: ex["hazard"].update(nfpa={"health": 5})),
+])
+def test_bad_format_does_not_fail_section(no, edit):
+    """형식이 틀린 칸 하나 때문에 항 전체를 잃지 않는다."""
+    s = ss.response_schema(no)
+    ex = example(no)
+    edit(ex)
+    assert validate(complete(ex, s, s), s) == []
+
+
+def test_to21_schema_still_checks_format():
+    """형식 검사는 펼친 뒤 TO21 원래 스키마(validate_to21)가 맡는다."""
+    ec = msds_item_schema()["properties"]["components"]["items"]["properties"]["ec_no"]
+    assert not Draft202012Validator(ec).is_valid("")
 
 
 def test_print_schema_sizes(capsys):

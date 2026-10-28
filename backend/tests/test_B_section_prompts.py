@@ -157,8 +157,14 @@ def test_prompt_hash_differs_by_section():
     assert len({sp.prompt_hash(no) for no in NOS}) == 16
 
 
+@pytest.mark.parametrize("no", NOS)
+def test_value_and_range_are_exclusive(systems, no):
+    """value와 lower/upper를 함께 쓰지 않게 한다 (TO21 검증기 V03)."""
+    assert "`value`와 `lower`·`upper`는 함께 쓰지 않는다" in systems[no]
+
+
 def test_version():
-    assert sp.SECTION_PROMPT_VERSION == "s1"
+    assert sp.SECTION_PROMPT_VERSION == "s2"
 
 
 def test_build_all_under_one_second():
