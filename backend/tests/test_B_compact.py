@@ -107,6 +107,37 @@ def test_no_compact_without_config():
     assert any("출력 길이 한도" in e for e in res.errors)
 
 
+def test_requests_keep_length_hit_before_compact():
+    """성공해도 출력 한도에 걸린 앞 요청이 요청 기록에 남는다. 거의 빈 응답도 지금은 성공으로 본다."""
+    runaway = '{"a": ' + "\n" * 100
+    client, _ = make_client(compact_cfg(), [resp(runaway, "length"), resp('{"a": ""}')])
+    res = client.call(SYSTEM, USER, SCHEMA, "msds_b1")
+    assert res.ok and res.errors == []
+    assert [(r["mode"], r["finish_reason"]) for r in res.requests] == [
+        ("json_schema", "length"), ("json_schema_compact", "stop")]
+    first = res.requests[0]
+    assert first["usage"] == {"prompt_tokens": 10, "completion_tokens": 5, "total_tokens": 15}
+    assert (first["chars"], first["whitespace"]) == (106, 101)
+    assert first["head"] == runaway and first["tail"] == ""
+    assert first["seconds"] >= 0
+
+
+def test_request_record_keeps_head_and_tail():
+    text = '{"a": "' + "가" * 1200 + '"}'
+    client, _ = make_client(compact_cfg(), [resp(text)])
+    res = client.call(SYSTEM, USER, SCHEMA, "msds_b1")
+    r = res.requests[0]
+    assert r["head"] == text[:500] and r["tail"] == text[-500:]
+    assert r["chars"] == len(text)
+
+
+def test_requests_on_validation_retry():
+    client, _ = make_client(compact_cfg(), [resp('{"b": 1}'), ok()])
+    res = client.call(SYSTEM, USER, SCHEMA, "msds_b1")
+    assert res.ok
+    assert [(r["mode"], r["head"]) for r in res.requests] == [("json_schema", '{"b": 1}'), ("json_schema", '{"a": "x"}')]
+
+
 def test_no_compact_in_current_tags():
     for tag in ("qwen38", "gpt", "claude"):
         assert "json_schema_compact" not in (load_model_config(tag).get("structured") or [])

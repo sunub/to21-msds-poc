@@ -291,6 +291,25 @@ def test_failed_call_is_retried_and_replaced(env):
     assert "가짜 시간 초과" in client.calls_for(5)[1]["user"]
     assert summary["sections_failed"] == 0 and summary["reextracted"] == 1
     assert section_check(env, 5)["ok"] is True
+    raw = read_json(env / "runs" / RUN / "raw" / f"{DOC}_m0_s05.json")
+    assert raw["first_attempt"]["requests"] == []
+
+
+def test_raw_keeps_requests(env):
+    """client의 요청 기록이 raw/에 그대로 남는다. 출력 한도에 걸린 앞 요청도 보인다."""
+    reqs = [{"mode": "json_schema", "finish_reason": "length", "usage": {"completion_tokens": 8192}},
+            {"mode": "json_schema_compact", "finish_reason": "stop", "usage": {"completion_tokens": 57}}]
+
+    class Client(FakeClient):
+        def call(self, system, user_parts, schema, schema_name):
+            r = super().call(system, user_parts, schema, schema_name)
+            if schema_name == "sec03":
+                r.requests = reqs
+            return r
+
+    run(env, Client())
+    assert read_json(env / "runs" / RUN / "raw" / f"{DOC}_m0_s03.json")["requests"] == reqs
+    assert read_json(env / "runs" / RUN / "raw" / f"{DOC}_m0_s04.json")["requests"] == []
 
 
 def test_exception_section_fails_others_remain(env):
