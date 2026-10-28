@@ -15,6 +15,7 @@ import yaml
 
 from msds.common import manifest
 from msds.common.merge import SCHEMA_VERSION
+from msds.common.paths import PAGES
 from msds.common.schema import validate, validate_to21
 from msds.extract import section_runner as sr
 from msds.extract import section_specs as ss
@@ -392,8 +393,16 @@ def test_save_run_info(tmp_path, monkeypatch):
     assert info["schema_version"] == SCHEMA_VERSION
     assert info["started_at"].endswith("+09:00")
     assert info["git_commit"] is None or isinstance(info["git_commit"], str)
+    assert info["pages_dir"] == "data/pages"
     for secret in ("secret-host", "sk-secret", cfg["base_url_env"], cfg["api_key_env"]):
         assert secret not in text
+
+
+def test_save_run_info_pages_dir(tmp_path):
+    """쪽 글자 폴더를 바꿔 돌렸으면 저장소 기준 상대 경로로 남긴다 (절대 경로의 사용자 이름을 남기지 않는다)."""
+    sr.save_run_info(tmp_path / "r", TAG, pages_dir=PAGES / "chars_wrap")
+    info = yaml.safe_load((tmp_path / "r" / "run_info.yaml").read_text(encoding="utf-8"))
+    assert info["pages_dir"] == "data/pages/chars_wrap"
 
 
 def test_no_system_prompt_or_schema_in_run_files(env):

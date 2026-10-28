@@ -14,6 +14,7 @@ runs/<실행 이름>/ 에 남는 것
 from __future__ import annotations
 
 import json
+import os
 import subprocess
 import time
 from concurrent.futures import ThreadPoolExecutor
@@ -245,8 +246,9 @@ def _git_commit() -> str | None:
     return (r.stdout.strip() or None) if r.returncode == 0 else None
 
 
-def save_run_info(run: Path, model_tag: str) -> None:
-    """같은 조건으로 다시 돌릴 수 있게 모델·프롬프트·스키마 버전을 남긴다. 주소·키·환경변수 값은 쓰지 않는다."""
+def save_run_info(run: Path, model_tag: str, pages_dir=PAGES) -> None:
+    """같은 조건으로 다시 돌릴 수 있게 모델·프롬프트·스키마 버전과 쪽 글자 폴더를 남긴다.
+    주소·키·환경변수 값은 쓰지 않는다. 쪽 글자 폴더는 저장소 기준 상대 경로로 쓴다."""
     cfg = load_model_config(model_tag)
     info = {
         "model_tag": model_tag,
@@ -254,6 +256,7 @@ def save_run_info(run: Path, model_tag: str) -> None:
         "prompt_version": SECTION_PROMPT_VERSION,
         "prompt_hashes": {no: prompt_hash(no) for no in SECTION_NOS},
         "schema_version": SCHEMA_VERSION,
+        "pages_dir": os.path.relpath(pages_dir, ROOT),
         "started_at": now_kst(),
         "git_commit": _git_commit(),
     }
