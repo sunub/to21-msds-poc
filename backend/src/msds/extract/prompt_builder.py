@@ -127,7 +127,7 @@ def build_bundle_prompt(bundle_id: str) -> str:
     fields = _field_rows(wb, b.keys, b.doc_keys)
     rule_codes = _BASE_RULES | _BUNDLE_RULES.get(bundle_id, set()) | _referenced_rules(fields)
     parts = [
-        f"<!-- 프롬프트 {PROMPT_VERSION} / {bundle_id} / 명세서 v0.5에서 생성 ({date.today().isoformat()}). "
+        f"<!-- 프롬프트 {PROMPT_VERSION} / {bundle_id} / 명세서 v0.6에서 생성 ({date.today().isoformat()}). "
         f"직접 고치지 말고 prompt_builder.py를 고친 뒤 다시 만든다 -->",
         f"# 이번 묶음: {b.name}",
         f"읽을 곳: {b.sections}",
