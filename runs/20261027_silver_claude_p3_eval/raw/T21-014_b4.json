@@ -1,0 +1,83 @@
+{
+  "doc_id": "T21-014",
+  "bundle": "b4",
+  "model": "claude-opus-5-5",
+  "mode": "none",
+  "finish_reason": "stop",
+  "usage": {
+    "prompt_tokens": 50729,
+    "completion_tokens": 1002,
+    "total_tokens": 51731,
+    "served_model": "claude-opus-5-5"
+  },
+  "seconds": 14.0,
+  "attempts": 1,
+  "errors": [],
+  "parsed": {
+    "msds": [
+      {
+        "transport": [
+          {
+            "mode": "항공",
+            "basis_raw": "IATA",
+            "regulated": false,
+            "un_no": null,
+            "shipping_name": null,
+            "hazard_class": null,
+            "sub_risk": null,
+            "packing_group": null,
+            "marine_pollutant": null,
+            "ems_fire": null,
+            "ems_spill": null
+          },
+          {
+            "mode": "해상",
+            "basis_raw": "IMDG",
+            "regulated": false,
+            "un_no": null,
+            "shipping_name": null,
+            "hazard_class": null,
+            "sub_risk": null,
+            "packing_group": null,
+            "marine_pollutant": null,
+            "ems_fire": null,
+            "ems_spill": null
+          }
+        ],
+        "regulations": [],
+        "dangerous_goods": [],
+        "waste": [],
+        "intl_class": []
+      }
+    ],
+    "evidence": [
+      {
+        "msds_index": 0,
+        "field": "transport[0]",
+        "page": 5,
+        "source_text": "IATA | not restricted",
+        "rules": [],
+        "note": "IATA 'not restricted'를 항공 운송 비규제(regulated=false)로 기록. 유엔번호·등급·용기등급은 원문에 없어 null로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "transport[1]",
+        "page": 5,
+        "source_text": "IMDG | not restricted",
+        "rules": [],
+        "note": "IMDG 'not restricted'를 해상 운송 비규제(regulated=false)로 기록. 해양오염물질·EmS 등은 원문에 없어 null로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations",
+        "page": 6,
+        "source_text": "Other regulations | Not a dangerous substance or mixture according to the Globally Harmonised System (GHS).",
+        "rules": [
+          "R18"
+        ],
+        "note": "15항에는 GHS 비분류 문장만 있고, 국내 법령(산안법·화평법·화관법·위험물안전관리법·폐기물관리법)과 해외 규제 항목은 적혀 있지 않음. 규제 항목을 지어 넣지 않으려고 regulations·dangerous_goods·waste·intl_class를 빈 목록으로 둠"
+      }
+    ]
+  },
+  "raw_text": "{\"msds\":[{\"transport\":[{\"mode\":\"항공\",\"basis_raw\":\"IATA\",\"regulated\":false,\"un_no\":null,\"shipping_name\":null,\"hazard_class\":null,\"sub_risk\":null,\"packing_group\":null,\"marine_pollutant\":null,\"ems_fire\":null,\"ems_spill\":null},{\"mode\":\"해상\",\"basis_raw\":\"IMDG\",\"regulated\":false,\"un_no\":null,\"shipping_name\":null,\"hazard_class\":null,\"sub_risk\":null,\"packing_group\":null,\"marine_pollutant\":null,\"ems_fire\":null,\"ems_spill\":null}],\"regulations\":[],\"dangerous_goods\":[],\"waste\":[],\"intl_class\":[]}],\"evidence\":[{\"msds_index\":0,\"field\":\"transport[0]\",\"page\":5,\"source_text\":\"IATA | not restricted\",\"rules\":[],\"note\":\"IATA 'not restricted'를 항공 운송 비규제(regulated=false)로 기록. 유엔번호·등급·용기등급은 원문에 없어 null로 둠\"},{\"msds_index\":0,\"field\":\"transport[1]\",\"page\":5,\"source_text\":\"IMDG | not restricted\",\"rules\":[],\"note\":\"IMDG 'not restricted'를 해상 운송 비규제(regulated=false)로 기록. 해양오염물질·EmS 등은 원문에 없어 null로 둠\"},{\"msds_index\":0,\"field\":\"regulations\",\"page\":6,\"source_text\":\"Other regulations | Not a dangerous substance or mixture according to the Globally Harmonised System (GHS).\",\"rules\":[\"R18\"],\"note\":\"15항에는 GHS 비분류 문장만 있고, 국내 법령(산안법·화평법·화관법·위험물안전관리법·폐기물관리법)과 해외 규제 항목은 적혀 있지 않음. 규제 항목을 지어 넣지 않으려고 regulations·dangerous_goods·waste·intl_class를 빈 목록으로 둠\"}]}"
+}

@@ -1,0 +1,2586 @@
+{
+  "doc_id": "T21-M005",
+  "bundle": "b3",
+  "model": "claude-opus-5-5",
+  "mode": "none",
+  "finish_reason": "stop",
+  "usage": {
+    "prompt_tokens": 88966,
+    "completion_tokens": 26250,
+    "total_tokens": 115216,
+    "served_model": "claude-opus-5-5"
+  },
+  "seconds": 185.4,
+  "attempts": 1,
+  "errors": [],
+  "parsed": {
+    "msds": [
+      {
+        "toxicity": [
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_ORAL",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": null,
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": "분류되지않음",
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_ORAL",
+            "descriptor": null,
+            "q": null,
+            "species": null,
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [],
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "TX_ORAL",
+            "descriptor": "LD50",
+            "q": {
+              "raw": "5480 mg/kg bw",
+              "approx": null,
+              "value": 5480,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "mg/kg bw",
+              "dp": 0,
+              "status": "값있음",
+              "note": null
+            },
+            "species": "rat",
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": "ChemIDplus",
+            "classification": null,
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_DERMAL",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": null,
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": "분류되지않음",
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_DERMAL",
+            "descriptor": null,
+            "q": null,
+            "species": null,
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [],
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "TX_DERMAL",
+            "descriptor": null,
+            "q": null,
+            "species": null,
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [],
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_INHAL",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": null,
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": "가스",
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": "분류되지않음",
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_INHAL",
+            "descriptor": "LC50",
+            "q": {
+              "raw": "> 2,551 ppm",
+              "approx": null,
+              "value": null,
+              "lower_op": ">",
+              "lower": 2551,
+              "upper_op": null,
+              "upper": null,
+              "unit": "ppm",
+              "dp": 0,
+              "status": "값있음",
+              "note": null
+            },
+            "species": "Rat",
+            "sex": null,
+            "duration_value": 4,
+            "duration_unit": "hr",
+            "physical_form": "가스",
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": "OECD Guideline 403",
+            "data_source": "CSR",
+            "classification": null,
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "TX_INHAL",
+            "descriptor": "LC50",
+            "q": {
+              "raw": "285 mg/L air",
+              "approx": null,
+              "value": 285,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "mg/L air",
+              "dp": 0,
+              "status": "값있음",
+              "note": null
+            },
+            "species": "rat",
+            "sex": null,
+            "duration_value": 4,
+            "duration_unit": "hr",
+            "physical_form": "가스",
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": "ChemIDplus",
+            "classification": null,
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_INHAL",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": null,
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": "증기",
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": "분류되지않음",
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_INHAL",
+            "descriptor": null,
+            "q": null,
+            "species": null,
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": "증기",
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [],
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "TX_INHAL",
+            "descriptor": null,
+            "q": null,
+            "species": null,
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": "증기",
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [],
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_INHAL",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": null,
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": "분진·미스트",
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": "분류되지않음",
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_INHAL",
+            "descriptor": null,
+            "q": null,
+            "species": null,
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": "분진·미스트",
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [],
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "TX_INHAL",
+            "descriptor": null,
+            "q": null,
+            "species": null,
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": "분진·미스트",
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [],
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_SKIN",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": null,
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": "분류되지않음",
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_SKIN",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": "Rabbit",
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": "dermal(occlusive)",
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": "Mobil (1985)",
+            "classification": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "Screening test, Rabbit, dermal(occlusive), no irritation",
+                "refs": [
+                  "1"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "Screening test, Rabbit, dermal(occlusive), no irritation, 자료출처 : Mobil (1985),  출처 : Mobil (1985)"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "TX_SKIN",
+            "descriptor": null,
+            "q": null,
+            "species": null,
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [],
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_EYE",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": null,
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": "분류되지않음",
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_EYE",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": "Rabbit",
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": "Mobil (1985)",
+            "classification": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "Screening test, Rabbit, no irritation",
+                "refs": [
+                  "1"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "Screening test, Rabbit, no irritation, 자료출처 : Mobil (1985),  출처 : Mobil (1985)"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "TX_EYE",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": "other: Dog and rabbit",
+            "sex": null,
+            "duration_value": 8,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": "ECHA",
+            "classification": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "비자극성, 1,3-부타디엔은 최대 6,700 ppm의 농도에서 8개월 동안 노출 된 래빗과 강아지의 눈에 자극적이지 않음.",
+                "refs": [
+                  "2"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "비자극성, 1,3-부타디엔은 최대 6,700 ppm의 농도에서 8개월 동안 노출 된 래빗과 강아지의 눈에 자극적이지 않음. (other: Dog and rabbit),  출처 : ECHA"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_RESP_SENS",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": null,
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": "분류되지않음",
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_RESP_SENS",
+            "descriptor": null,
+            "q": null,
+            "species": null,
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [],
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "TX_RESP_SENS",
+            "descriptor": null,
+            "q": null,
+            "species": null,
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [],
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_SKIN_SENS",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": null,
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": "분류되지않음",
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_SKIN_SENS",
+            "descriptor": null,
+            "q": null,
+            "species": null,
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [],
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "TX_SKIN_SENS",
+            "descriptor": null,
+            "q": null,
+            "species": null,
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [],
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_CARC",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": null,
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": "구분 1A",
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_CARC",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": "Mouse",
+            "sex": null,
+            "duration_value": 103,
+            "duration_unit": "week",
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": "OECD TG 453",
+            "data_source": "NTP (1993)",
+            "classification": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "OECD TG 453 test, Mouse, 103 weeks, 발암성 확인",
+                "refs": [
+                  "1"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "OECD TG 453 test, Mouse, 103 weeks, 발암성 확인, 자료출처 : NTP (1993)"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "TX_CARC",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": null,
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": "환경부 고시",
+            "classification": "구분 1A",
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "환경부 고시(구분 1A) - 유독물질(2014-1-693)",
+                "refs": [
+                  "2"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "환경부 고시(구분 1A) - 유독물질(2014-1-693)"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_MUTA",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": null,
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": "구분 1B",
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_MUTA",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": null,
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": "106-99-0",
+            "guideline": null,
+            "data_source": "Adler et al. (1994)",
+            "classification": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "1,3-butadiene(CAS No.106-99-0) 에 대한 복귀돌연변이 시험: 양성(OECD 471), 염색체이상: 양성(OECD473), 소핵시험: 양성(OECD 474), 설치류 우성치사: 양성(OECD 478)으로 0.1% 이상 포함 시 분류됨",
+                "refs": [
+                  "1"
+                ],
+                "cond": {
+                  "raw": "0.1% 이상",
+                  "approx": null,
+                  "value": null,
+                  "lower_op": ">=",
+                  "lower": 0.1,
+                  "upper_op": null,
+                  "upper": null,
+                  "unit": "%",
+                  "dp": 1,
+                  "status": "값있음",
+                  "note": null
+                },
+                "std_code": null,
+                "match_score": null,
+                "text": "1,3-butadiene(CAS No.106-99-0) 에 대한 복귀돌연변이 시험: 양성(OECD 471), 염색체이상: 양성(OECD473), 소핵시험: 양성(OECD 474), 설치류 우성치사: 양성(OECD 478)으로 0.1% 이상 포함 시 분류됨, 자료출처 : Adler et al. (1994)"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "TX_MUTA",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": null,
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": "환경부 고시",
+            "classification": "구분 1B",
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "환경부 고시(구분 1B) - 유독물질(2014-1-693)",
+                "refs": [
+                  "2"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "환경부 고시(구분 1B) - 유독물질(2014-1-693)"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_REPRO",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": null,
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": "분류되지않음",
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_REPRO",
+            "descriptor": "결과기술",
+            "q": {
+              "raw": "NOAEC=40 ppm",
+              "approx": null,
+              "value": 40,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "ppm",
+              "dp": 0,
+              "status": "값있음",
+              "note": null
+            },
+            "species": "Mouse",
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": "inhalation(whole body)",
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": "EPA OPPT 83-3",
+            "data_source": "Hackett (1987)",
+            "classification": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "EPA OPPT 83-3 test, Mouse, inhalation(whole body), NOAEC=40 ppm, 물질 노출에 따른 발달독성 확인되지 않음",
+                "refs": [
+                  "1"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "EPA OPPT 83-3 test, Mouse, inhalation(whole body), NOAEC=40 ppm, 물질 노출에 따른 발달독성 확인되지 않음, 자료출처 : Hackett (1987),  출처 : Hackett (1987)"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "TX_REPRO",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": "rat",
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": "OECD Guideline 421",
+            "data_source": "ECHA",
+            "classification": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "생식기능, 짝짓기, 임신, 출산, F0 세대 수유, 임신부터 이유까지의 F1자손 발달에는 영향이 없음.",
+                "refs": [
+                  "2"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "생식기능, 짝짓기, 임신, 출산, F0 세대 수유, 임신부터 이유까지의 F1자손 발달에는 영향이 없음. (rat, OECD Guideline 421),  출처 : ECHA"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_STOT_SE",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": null,
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": "구분 3(마취)",
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_STOT_SE",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": null,
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": "CSR",
+            "classification": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "중추신경계 기능저하, 호흡곤란, 마취작용",
+                "refs": [
+                  "1"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "중추신경계 기능저하, 호흡곤란, 마취작용,  출처 : CSR"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "TX_STOT_SE",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": "사람",
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": "ChemIDPLUS",
+            "classification": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "사람에서 기침을 수반하는 눈, 비도, 후두 및 폐 자극이 나타남",
+                "refs": [
+                  "2"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "사람에서 기침을 수반하는 눈, 비도, 후두 및 폐 자극이 나타남,  출처 : ChemIDPLUS"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_STOT_RE",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": null,
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": "분류되지않음",
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_STOT_RE",
+            "descriptor": "결과기술",
+            "q": {
+              "raw": "NOAEC=13 mg/m3",
+              "approx": null,
+              "value": 13,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "mg/m3",
+              "dp": 0,
+              "status": "값있음",
+              "note": null
+            },
+            "species": "Mouse",
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": "inhalation(whole body), 2 yrs",
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": "OECD TG 453",
+            "data_source": "NTP (1993)",
+            "classification": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "OECD TG 453 test, Mouse, inhalation(whole body), 2 yrs, NOAEC=13 mg/m3, 전신독성영향 관찰",
+                "refs": [
+                  "1"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "OECD TG 453 test, Mouse, inhalation(whole body), 2 yrs, NOAEC=13 mg/m3, 전신독성영향 관찰, 자료출처 : NTP (1993),  출처 : NTP (1993)"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "TX_STOT_RE",
+            "descriptor": "결과기술",
+            "q": {
+              "raw": "NOAEC=1000 ppm",
+              "approx": null,
+              "value": 1000,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "ppm",
+              "dp": 0,
+              "status": "값있음",
+              "note": null
+            },
+            "species": "랫드",
+            "sex": null,
+            "duration_value": 103,
+            "duration_unit": "week",
+            "physical_form": null,
+            "exposure_type": "흡입",
+            "converted": {
+              "raw": "2212 mg/m3",
+              "approx": null,
+              "value": 2212,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "mg/m3",
+              "dp": 0,
+              "status": "값있음",
+              "note": null
+            },
+            "read_across_cas": null,
+            "guideline": "OECD TG 453, GLP",
+            "data_source": "ECHA",
+            "classification": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "랫드를 이용한 103주 흡입 발암성시험 OECD TG 453, GLP, 결과 8000ppm, 17701 mg/m3 농도군에서 심장무게 증가 및 신장내 세뇨관 변성신장증이 관찰되어 NOAEC=1000 ppm2212 mg/m3",
+                "refs": [
+                  "2"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "랫드를 이용한 103주 흡입 발암성시험 OECD TG 453, GLP, 결과 8000ppm, 17701 mg/m3 농도군에서 심장무게 증가 및 신장내 세뇨관 변성신장증이 관찰되어 NOAEC=1000 ppm2212 mg/m3"
+              },
+              {
+                "seq": 2,
+                "key": "표적장기",
+                "value": "난소, 정소, 골수",
+                "refs": [
+                  "2"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "표적장기 : 난소, 정소, 골수,  출처 : ECHA"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_ASP",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": null,
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": "분류되지않음",
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_ASP",
+            "descriptor": null,
+            "q": null,
+            "species": null,
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [],
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "TX_ASP",
+            "descriptor": null,
+            "q": null,
+            "species": null,
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [],
+            "status": "자료없음"
+          }
+        ],
+        "cmr": [
+          {
+            "comp_ref": "2",
+            "hazard": "발암성",
+            "agency": "KR_CCA",
+            "class": "1A",
+            "status": "값있음",
+            "note": "유독물질(2014-1-693)"
+          },
+          {
+            "comp_ref": "2",
+            "hazard": "생식세포변이원성",
+            "agency": "KR_CCA",
+            "class": "1B",
+            "status": "값있음",
+            "note": "유독물질(2014-1-693)"
+          }
+        ],
+        "ecotox": [
+          {
+            "comp_ref": "MIX",
+            "endpoint": null,
+            "descriptor": "결과기술",
+            "q": null,
+            "species": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "guideline": null,
+            "data_source": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": "PRODUCT",
+                "value": "분류되지않음",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "가. 생태독성 > PRODUCT : 분류되지않음"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_FISH",
+            "descriptor": "LC50",
+            "q": {
+              "raw": "27.9 mg/L",
+              "approx": null,
+              "value": 27.9,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "mg/L",
+              "dp": 1,
+              "status": "값있음",
+              "note": null
+            },
+            "species": null,
+            "duration_value": 96,
+            "duration_unit": "hr",
+            "guideline": null,
+            "data_source": "CSR",
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "ECOWIN v1",
+                "refs": [
+                  "1"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "LC50= 27.9 mg/L (96h, ECOWIN v1),  출처 : CSR"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_FISH",
+            "descriptor": "LC50",
+            "q": {
+              "raw": "19 ㎎/ℓ",
+              "approx": null,
+              "value": 19,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "mg/L",
+              "dp": 0,
+              "status": "값있음",
+              "note": null
+            },
+            "species": "Fish",
+            "duration_value": 96,
+            "duration_unit": "hr",
+            "guideline": null,
+            "data_source": "Nabholz & Mayo-Bean (2009)",
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "ECOWIN v1, Read-across Butane(CAS No. 106-97-8)",
+                "refs": [
+                  "1"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "LC50 19 ㎎/ℓ 96hr Fish (ECOWIN v1), Read-across Butane(CAS No. 106-97-8), 출처 : Nabholz & Mayo-Bean (2009)"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "ECO_FISH",
+            "descriptor": "LC50",
+            "q": {
+              "raw": "45 mg/L",
+              "approx": null,
+              "value": 45,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "mg/L",
+              "dp": 0,
+              "status": "값있음",
+              "note": "추정치"
+            },
+            "species": "Pimephales promelas",
+            "duration_value": 96,
+            "duration_unit": "hr",
+            "guideline": null,
+            "data_source": "ECHA",
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "QSAR, 추정치",
+                "refs": [
+                  "2"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "LC50= 45 mg/L (Pimephales promelas, 96h, QSAR, 추정치)"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "ECO_FISH",
+            "descriptor": "기타",
+            "q": {
+              "raw": "NOELR= 6.62 mg/L",
+              "approx": null,
+              "value": 6.62,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "mg/L",
+              "dp": 2,
+              "status": "값있음",
+              "note": "추정치"
+            },
+            "species": "Oncorhynchus mykiss",
+            "duration_value": 21,
+            "duration_unit": "day",
+            "guideline": null,
+            "data_source": "ECHA",
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "NOELR, QSAR, 추정치",
+                "refs": [
+                  "2"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "NOELR= 6.62 mg/L (Oncorhynchus mykiss, 21d, QSAR, 추정치),  출처 : ECHA"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_CRUST",
+            "descriptor": "LC50",
+            "q": {
+              "raw": "14.2 mg/L",
+              "approx": null,
+              "value": 14.2,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "mg/L",
+              "dp": 1,
+              "status": "값있음",
+              "note": null
+            },
+            "species": null,
+            "duration_value": 48,
+            "duration_unit": "hr",
+            "guideline": null,
+            "data_source": "CSR",
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "ECOWIN v1",
+                "refs": [
+                  "1"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "LC50= 14.2 mg/L (48h, ECOWIN v1),  출처 : CSR"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "ECO_CRUST",
+            "descriptor": "기타",
+            "q": {
+              "raw": "LL50= 64.642 mg/L",
+              "approx": null,
+              "value": 64.642,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "mg/L",
+              "dp": 3,
+              "status": "값있음",
+              "note": "추정치"
+            },
+            "species": "Daphnia magna",
+            "duration_value": 48,
+            "duration_unit": "hr",
+            "guideline": null,
+            "data_source": "ECHA",
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "LL50, QSAR, 추정치",
+                "refs": [
+                  "2"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "LL50= 64.642 mg/L (Daphnia magna, 48h, QSAR, 추정치),  출처 : ECHA"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_ALGAE",
+            "descriptor": "EC50",
+            "q": {
+              "raw": "8.6 mg/L",
+              "approx": null,
+              "value": 8.6,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "mg/L",
+              "dp": 1,
+              "status": "값있음",
+              "note": null
+            },
+            "species": null,
+            "duration_value": 96,
+            "duration_unit": "hr",
+            "guideline": null,
+            "data_source": "CSR",
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "ECOWIN v1",
+                "refs": [
+                  "1"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "EC50= 8.6 mg/L (96h, ECOWIN v1),  출처 : CSR"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_ALGAE",
+            "descriptor": "EC50",
+            "q": {
+              "raw": "7.7 ㎎/ℓ",
+              "approx": null,
+              "value": 7.7,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "mg/L",
+              "dp": 1,
+              "status": "값있음",
+              "note": null
+            },
+            "species": "Fish",
+            "duration_value": 96,
+            "duration_unit": "hr",
+            "guideline": null,
+            "data_source": "Nabholz & Mayo-Bean (2009)",
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "ECOWIN v1, Read-across Butenes(CAS No. 25167-67-3)",
+                "refs": [
+                  "1"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "EC50 7.7 ㎎/ℓ 96hr Fish (ECOWIN v1), Read-across Butenes(CAS No. 25167-67-3), 출처 : Nabholz & Mayo-Bean (2009)"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "ECO_ALGAE",
+            "descriptor": "기타",
+            "q": {
+              "raw": "EL50= 35.77 mg/L",
+              "approx": null,
+              "value": 35.77,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "mg/L",
+              "dp": 2,
+              "status": "값있음",
+              "note": "추정치"
+            },
+            "species": "Pseudokirchneriella subcapitata",
+            "duration_value": 72,
+            "duration_unit": "hr",
+            "guideline": null,
+            "data_source": "ECHA",
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "EL50, QSAR, 추정치",
+                "refs": [
+                  "2"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "EL50= 35.77 mg/L (Pseudokirchneriella subcapitata, 72h, QSAR, 추정치),  출처 : ECHA"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_PERSIST",
+            "descriptor": "logKow",
+            "q": {
+              "raw": "1.99 ~ 2.4",
+              "approx": null,
+              "value": null,
+              "lower_op": ">=",
+              "lower": 1.99,
+              "upper_op": "<=",
+              "upper": 2.4,
+              "unit": null,
+              "dp": 2,
+              "status": "값있음",
+              "note": null
+            },
+            "species": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "guideline": null,
+            "data_source": "Hansch et al. (1995), CRC (2008)",
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "20 ~ 25 ℃, pH = 7",
+                "refs": [
+                  "1"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "log Kow = 1.99 ~ 2.4 (20 ~ 25 ℃, pH = 7), 출처 : Hansch et al. (1995), CRC (2008)"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "ECO_PERSIST",
+            "descriptor": "logKow",
+            "q": {
+              "raw": "1.99",
+              "approx": null,
+              "value": 1.99,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": null,
+              "dp": 2,
+              "status": "값있음",
+              "note": null
+            },
+            "species": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "guideline": null,
+            "data_source": "ECHA",
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_PERSIST",
+            "descriptor": "분해율",
+            "q": null,
+            "species": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "guideline": null,
+            "data_source": null,
+            "statements": [],
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "ECO_PERSIST",
+            "descriptor": "분해율",
+            "q": null,
+            "species": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "guideline": null,
+            "data_source": null,
+            "statements": [],
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_PERSIST",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "guideline": null,
+            "data_source": "Howard et al.(2005)",
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "이분해성 물질",
+                "refs": [
+                  "1"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "이분해성 물질, 자료출처 : Howard et al.(2005),  출처 : Howard et al.(2005)"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "ECO_PERSIST",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "guideline": null,
+            "data_source": "EPI SUITE",
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "쉽게 생분해 될 것으로 예상됨. (추정치)",
+                "refs": [
+                  "2"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "쉽게 생분해 될 것으로 예상됨. (추정치),  출처 : EPI SUITE"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_BIOACC",
+            "descriptor": "기타",
+            "q": {
+              "raw": "37.48",
+              "approx": null,
+              "value": 37.48,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": null,
+              "dp": 2,
+              "status": "값있음",
+              "note": "추정치"
+            },
+            "species": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "guideline": null,
+            "data_source": "EPISUITE",
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "ECO_BIOACC",
+            "descriptor": "BCF",
+            "q": {
+              "raw": "9.55 L/kg",
+              "approx": null,
+              "value": 9.55,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "L/kg",
+              "dp": 2,
+              "status": "값있음",
+              "note": "추정치"
+            },
+            "species": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "guideline": null,
+            "data_source": "EPI SUITE",
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_SOIL",
+            "descriptor": "Koc",
+            "q": {
+              "raw": "31.82 ~ 322L/kg",
+              "approx": null,
+              "value": null,
+              "lower_op": ">=",
+              "lower": 31.82,
+              "upper_op": "<=",
+              "upper": 322,
+              "unit": "L/kg",
+              "dp": 2,
+              "status": "값있음",
+              "note": "KOCWIN"
+            },
+            "species": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "guideline": null,
+            "data_source": "EPI Suite 4.1",
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "ECO_SOIL",
+            "descriptor": "Koc",
+            "q": {
+              "raw": "39.6 L/kg",
+              "approx": null,
+              "value": 39.6,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "L/kg",
+              "dp": 1,
+              "status": "값있음",
+              "note": "추정치"
+            },
+            "species": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "guideline": null,
+            "data_source": "EPI SUITE",
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": null,
+            "descriptor": "결과기술",
+            "q": null,
+            "species": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "guideline": null,
+            "data_source": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": "PRODUCT",
+                "value": "분류되지않음",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "마. 기타 유해 영향 > PRODUCT : 분류되지않음"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": null,
+            "descriptor": null,
+            "q": null,
+            "species": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "guideline": null,
+            "data_source": null,
+            "statements": [],
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": null,
+            "descriptor": null,
+            "q": null,
+            "species": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "guideline": null,
+            "data_source": null,
+            "statements": [],
+            "status": "자료없음"
+          }
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "msds_index": 0,
+        "field": "toxicity[0]",
+        "page": 8,
+        "source_text": "● 급성독성물질(경구)   PRODUCT : 분류되지않음",
+        "rules": [
+          "R10"
+        ],
+        "note": "제품 전체 분류 결과를 MIX 행 classification에 기록"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[1]",
+        "page": 8,
+        "source_text": "- Hydrocarbons, (C=4), ethylene-manuf.-by-product : 자료없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": "자료없음 행을 status로 남김"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[2]",
+        "page": 8,
+        "source_text": "- 1,3-Butadiene : LD50= 5480 mg/kg bw (rat),  출처 : ChemIDplus",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "LD50 5480 mg/kg bw, rat, 출처 ChemIDplus로 분해"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[3]",
+        "page": 8,
+        "source_text": "● 급성독성물질(경피)   PRODUCT : 분류되지않음",
+        "rules": [
+          "R10"
+        ],
+        "note": "제품 전체 분류 결과를 MIX 행으로 기록"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[4]",
+        "page": 8,
+        "source_text": "- Hydrocarbons, (C=4), ethylene-manuf.-by-product : 자료없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[5]",
+        "page": 9,
+        "source_text": "- 1,3-Butadiene : 자료없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[6]",
+        "page": 9,
+        "source_text": "● 급성독성물질(흡입:가스)   PRODUCT : 분류되지않음",
+        "rules": [
+          "R10"
+        ],
+        "note": "흡입:가스 → physical_form 가스"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[7]",
+        "page": 9,
+        "source_text": "- Hydrocarbons, (C=4), ethylene-manuf.-by-product : LC50> 2,551 ppm (Rat, 4h, OECD Guideline 403),  출처 : CSR",
+        "rules": [
+          "R04",
+          "R06",
+          "R10"
+        ],
+        "note": "'> 2,551 ppm'을 하한 2551(>)로 분해, 4h → 4 hr"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[8]",
+        "page": 9,
+        "source_text": "- 1,3-Butadiene : LC50= 285 mg/L air (rat, 4h),  출처 : ChemIDplus",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "단위 'mg/L air' 원문 유지, 4h → 4 hr"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[9]",
+        "page": 9,
+        "source_text": "● 급성독성물질(흡입:증기)   PRODUCT : 분류되지않음",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[10]",
+        "page": 9,
+        "source_text": "- Hydrocarbons, (C=4), ethylene-manuf.-by-product : 자료없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[11]",
+        "page": 9,
+        "source_text": "- 1,3-Butadiene : 자료없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[12]",
+        "page": 9,
+        "source_text": "● 급성독성물질(흡입:분진/미스트)   PRODUCT : 분류되지않음",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[13]",
+        "page": 9,
+        "source_text": "- Hydrocarbons, (C=4), ethylene-manuf.-by-product : 자료없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[14]",
+        "page": 9,
+        "source_text": "- 1,3-Butadiene : 자료없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[15]",
+        "page": 9,
+        "source_text": "○ 피부 부식성 또는 자극성 물질   PRODUCT : 분류되지않음",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[16]",
+        "page": 9,
+        "source_text": "Screening test, Rabbit, dermal(occlusive), no irritation, 자료출처 : Mobil (1985),  출처 : Mobil (1985)",
+        "rules": [
+          "R10"
+        ],
+        "note": "서술 결과를 결과기술로 기록"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[17]",
+        "page": 9,
+        "source_text": "- 1,3-Butadiene : 자료없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[18]",
+        "page": 9,
+        "source_text": "○ 심한 눈 손상 또는 자극성 물질   PRODUCT : 분류되지않음",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[19]",
+        "page": 9,
+        "source_text": "Screening test, Rabbit, no irritation, 자료출처 : Mobil (1985),  출처 : Mobil (1985)",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[20]",
+        "page": 9,
+        "source_text": "- 1,3-Butadiene : 비자극성, 1,3-부타디엔은 최대 6,700 ppm의 농도에서 8개월 동안 노출 된 래빗과 강아지의 눈에 자극적이지 않음. (other: Dog and rabbit),  출처 : ECHA",
+        "rules": [
+          "R10"
+        ],
+        "note": "8개월은 단위 코드가 없어 duration_unit을 비우고 문장으로 보존"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[21]",
+        "page": 9,
+        "source_text": "○ 호흡기 과민성 물질   PRODUCT : 분류되지않음",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[22]",
+        "page": 9,
+        "source_text": "- Hydrocarbons, (C=4), ethylene-manuf.-by-product : 자료없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[23]",
+        "page": 9,
+        "source_text": "- 1,3-Butadiene : 자료없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[24]",
+        "page": 9,
+        "source_text": "○ 피부 과민성 물질   PRODUCT : 분류되지않음",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[25]",
+        "page": 9,
+        "source_text": "- Hydrocarbons, (C=4), ethylene-manuf.-by-product : 자료없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[26]",
+        "page": 9,
+        "source_text": "- 1,3-Butadiene : 자료없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[27]",
+        "page": 9,
+        "source_text": "○ 발암성물질   PRODUCT : 구분 1A",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[28]",
+        "page": 9,
+        "source_text": "OECD TG 453 test, Mouse, 103 weeks, 발암성 확인, 자료출처 : NTP (1993)",
+        "rules": [
+          "R10"
+        ],
+        "note": "103 weeks → 103 week"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[29]",
+        "page": 9,
+        "source_text": "- 1,3-Butadiene : 환경부 고시(구분 1A) - 유독물질(2014-1-693)",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[30]",
+        "page": 9,
+        "source_text": "○ 생식세포 변이원성 물질   PRODUCT : 구분 1B",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[31]",
+        "page": 9,
+        "source_text": "1,3-butadiene(CAS No.106-99-0) 에 대한 복귀돌연변이 시험: 양성(OECD 471), ... 0.1% 이상 포함 시 분류됨, 자료출처 : Adler et al. (1994)",
+        "rules": [
+          "R02",
+          "R04",
+          "R10"
+        ],
+        "note": "참조 물질 CAS 106-99-0을 read_across_cas에, '0.1% 이상'을 cond로 분해"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[32]",
+        "page": 9,
+        "source_text": "- 1,3-Butadiene : 환경부 고시(구분 1B) - 유독물질(2014-1-693)",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[33]",
+        "page": 9,
+        "source_text": "○ 생식독성 물질   PRODUCT : 분류되지않음",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[34]",
+        "page": 9,
+        "source_text": "EPA OPPT 83-3 test, Mouse, inhalation(whole body), NOAEC=40 ppm, 물질 노출에 따른 발달독성 확인되지 않음, 자료출처 : Hackett (1987)",
+        "rules": [
+          "R04",
+          "R10",
+          "R17"
+        ],
+        "note": "NOAEC는 지표 목록에 없어 결과기술로 두고 값 40 ppm을 q에 기록(raw에 NOAEC 보존)"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[35]",
+        "page": 10,
+        "source_text": "- 1,3-Butadiene : 생식기능, 짝짓기, 임신, 출산, F0 세대 수유, 임신부터 이유까지의 F1자손 발달에는 영향이 없음. (rat, OECD Guideline 421),  출처 : ECHA",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[36]",
+        "page": 10,
+        "source_text": "○ 특정표적장기·전신 독성 물질(1회 노출)   PRODUCT : 구분 3(마취)",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[37]",
+        "page": 10,
+        "source_text": "- Hydrocarbons, (C=4), ethylene-manuf.-by-product : 중추신경계 기능저하, 호흡곤란, 마취작용,  출처 : CSR",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[38]",
+        "page": 10,
+        "source_text": "- 1,3-Butadiene : 사람에서 기침을 수반하는 눈, 비도, 후두 및 폐 자극이 나타남,  출처 : ChemIDPLUS",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[39]",
+        "page": 10,
+        "source_text": "○ 특정표적장기·전신 독성 물질(반복 노출)   PRODUCT : 분류되지않음",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[40]",
+        "page": 10,
+        "source_text": "OECD TG 453 test, Mouse, inhalation(whole body), 2 yrs, NOAEC=13 mg/m3, 전신독성영향 관찰, 자료출처 : NTP (1993)",
+        "rules": [
+          "R04",
+          "R10",
+          "R17"
+        ],
+        "note": "NOAEC는 결과기술로 두고 값을 q에, '2 yrs'는 단위 코드가 없어 exposure_type에 보존"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[41]",
+        "page": 10,
+        "source_text": "랫드를 이용한 103주 흡입 발암성시험 OECD TG 453, GLP, ... NOAEC=1000 ppm2212 mg/m3 표적장기 : 난소, 정소, 골수,  출처 : ECHA",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "NOAEC 1000 ppm을 q, 병기된 2212 mg/m3을 converted로 분리, 103주 → 103 week"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[42]",
+        "page": 10,
+        "source_text": "○ 흡인유해성 물질   PRODUCT : 분류되지않음",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[43]",
+        "page": 10,
+        "source_text": "- Hydrocarbons, (C=4), ethylene-manuf.-by-product : 자료없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[44]",
+        "page": 10,
+        "source_text": "- 1,3-Butadiene : 자료없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[0]",
+        "page": 9,
+        "source_text": "- 1,3-Butadiene : 환경부 고시(구분 1A) - 유독물질(2014-1-693)",
+        "rules": [
+          "R10"
+        ],
+        "note": "환경부 고시 → KR_CCA, 등급 1A"
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[1]",
+        "page": 9,
+        "source_text": "- 1,3-Butadiene : 환경부 고시(구분 1B) - 유독물질(2014-1-693)",
+        "rules": [
+          "R10"
+        ],
+        "note": "환경부 고시 → KR_CCA, 등급 1B"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[0]",
+        "page": 10,
+        "source_text": "가. 생태독성 > PRODUCT : 분류되지않음",
+        "rules": [
+          "R10"
+        ],
+        "note": "어류·갑각류·조류 전체에 대한 제품 분류이므로 endpoint를 비우고 MIX 행으로 기록"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[1]",
+        "page": 10,
+        "source_text": "- Hydrocarbons, (C=4), ethylene-manuf.-by-product : LC50= 27.9 mg/L (96h, ECOWIN v1),  출처 : CSR",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "96h → 96 hr"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[2]",
+        "page": 10,
+        "source_text": "LC50 19 ㎎/ℓ 96hr Fish (ECOWIN v1), Read-across Butane(CAS No. 106-97-8), 출처 : Nabholz & Mayo-Bean (2009)",
+        "rules": [
+          "R04",
+          "R08",
+          "R10"
+        ],
+        "note": "㎎/ℓ → mg/L, read-across 정보는 문장으로 보존"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[3]",
+        "page": 10,
+        "source_text": "- 1,3-Butadiene : LC50= 45 mg/L (Pimephales promelas, 96h, QSAR, 추정치)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[4]",
+        "page": 10,
+        "source_text": "NOELR= 6.62 mg/L (Oncorhynchus mykiss, 21d, QSAR, 추정치),  출처 : ECHA",
+        "rules": [
+          "R04",
+          "R10",
+          "R17"
+        ],
+        "note": "NOELR는 지표 목록에 없어 기타로 기록, 21d → 21 day"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[5]",
+        "page": 10,
+        "source_text": "- Hydrocarbons, (C=4), ethylene-manuf.-by-product : LC50= 14.2 mg/L (48h, ECOWIN v1),  출처 : CSR",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[6]",
+        "page": 10,
+        "source_text": "- 1,3-Butadiene : LL50= 64.642 mg/L (Daphnia magna, 48h, QSAR, 추정치),  출처 : ECHA",
+        "rules": [
+          "R04",
+          "R10",
+          "R17"
+        ],
+        "note": "LL50는 지표 목록에 없어 기타로 기록"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[7]",
+        "page": 10,
+        "source_text": "- Hydrocarbons, (C=4), ethylene-manuf.-by-product : EC50= 8.6 mg/L (96h, ECOWIN v1),  출처 : CSR",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[8]",
+        "page": 10,
+        "source_text": "EC50 7.7 ㎎/ℓ 96hr Fish (ECOWIN v1), Read-across Butenes(CAS No. 25167-67-3), 출처 : Nabholz & Mayo-Bean (2009)",
+        "rules": [
+          "R04",
+          "R08",
+          "R10"
+        ],
+        "note": "조류 항목 아래 있으나 원문 시험종 'Fish' 그대로 유지"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[9]",
+        "page": 10,
+        "source_text": "- 1,3-Butadiene : EL50= 35.77 mg/L (Pseudokirchneriella subcapitata, 72h, QSAR, 추정치),  출처 : ECHA",
+        "rules": [
+          "R04",
+          "R10",
+          "R17"
+        ],
+        "note": "EL50는 지표 목록에 없어 기타로 기록"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[10]",
+        "page": 10,
+        "source_text": "- Hydrocarbons, (C=4), ethylene-manuf.-by-product : log Kow = 1.99 ~ 2.4 (20 ~ 25 ℃, pH = 7), 출처 : Hansch et al. (1995), CRC (2008)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "'1.99 ~ 2.4'를 하한 1.99(>=), 상한 2.4(<=)로 분해"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[11]",
+        "page": 10,
+        "source_text": "- 1,3-Butadiene : log Kow= 1.99,  출처 : ECHA",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[12]",
+        "page": 11,
+        "source_text": "● 분해성 - Hydrocarbons, (C=4), ethylene-manuf.-by-product : 자료없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[13]",
+        "page": 11,
+        "source_text": "- 1,3-Butadiene : 자료없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[14]",
+        "page": 11,
+        "source_text": "- Hydrocarbons, (C=4), ethylene-manuf.-by-product : 이분해성 물질, 자료출처 : Howard et al.(2005),  출처 : Howard et al.(2005)",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[15]",
+        "page": 11,
+        "source_text": "- 1,3-Butadiene : 쉽게 생분해 될 것으로 예상됨. (추정치),  출처 : EPI SUITE",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[16]",
+        "page": 11,
+        "source_text": "- Hydrocarbons, (C=4), ethylene-manuf.-by-product : 37.48,  출처 : EPISUITE(추정치)",
+        "rules": [
+          "R04",
+          "R10",
+          "R17"
+        ],
+        "note": "지표명이 표기되지 않아 기타로 기록"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[17]",
+        "page": 11,
+        "source_text": "- 1,3-Butadiene : BCF= 9.55 L/kg (추정치),  출처 : EPI SUITE",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[18]",
+        "page": 11,
+        "source_text": "- Hydrocarbons, (C=4), ethylene-manuf.-by-product : Koc=  31.82 ~ 322L/kg (KOCWIN),  출처 : EPI Suite 4.1",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "범위를 하한 31.82(>=), 상한 322(<=)로 분해"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[19]",
+        "page": 11,
+        "source_text": "- 1,3-Butadiene : Koc= 39.6 L/kg (추정치),  출처 : EPI SUITE",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[20]",
+        "page": 11,
+        "source_text": "마. 기타 유해 영향 > PRODUCT : 분류되지않음",
+        "rules": [
+          "R10"
+        ],
+        "note": "기타 유해 영향은 C5 코드에 맞는 항목이 없어 endpoint null"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[21]",
+        "page": 11,
+        "source_text": "- Hydrocarbons, (C=4), ethylene-manuf.-by-product : 자료없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": "기타 유해 영향 항목, endpoint null"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[22]",
+        "page": 11,
+        "source_text": "- 1,3-Butadiene : 자료없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": "기타 유해 영향 항목, endpoint null"
+      }
+    ]
+  },
+  "raw_text": "{\"msds\":[{\"toxicity\":[{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_ORAL\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":null,\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":\"분류되지않음\",\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"1\",\"endpoint\":\"TX_ORAL\",\"descriptor\":null,\"q\":null,\"species\":null,\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[],\"status\":\"자료없음\"},{\"comp_ref\":\"2\",\"endpoint\":\"TX_ORAL\",\"descriptor\":\"LD50\",\"q\":{\"raw\":\"5480 mg/kg bw\",\"approx\":null,\"value\":5480,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"mg/kg bw\",\"dp\":0,\"status\":\"값있음\",\"note\":null},\"species\":\"rat\",\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":\"ChemIDplus\",\"classification\":null,\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_DERMAL\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":null,\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":\"분류되지않음\",\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"1\",\"endpoint\":\"TX_DERMAL\",\"descriptor\":null,\"q\":null,\"species\":null,\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[],\"status\":\"자료없음\"},{\"comp_ref\":\"2\",\"endpoint\":\"TX_DERMAL\",\"descriptor\":null,\"q\":null,\"species\":null,\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[],\"status\":\"자료없음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_INHAL\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":null,\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":\"가스\",\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":\"분류되지않음\",\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"1\",\"endpoint\":\"TX_INHAL\",\"descriptor\":\"LC50\",\"q\":{\"raw\":\"> 2,551 ppm\",\"approx\":null,\"value\":null,\"lower_op\":\">\",\"lower\":2551,\"upper_op\":null,\"upper\":null,\"unit\":\"ppm\",\"dp\":0,\"status\":\"값있음\",\"note\":null},\"species\":\"Rat\",\"sex\":null,\"duration_value\":4,\"duration_unit\":\"hr\",\"physical_form\":\"가스\",\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":\"OECD Guideline 403\",\"data_source\":\"CSR\",\"classification\":null,\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"2\",\"endpoint\":\"TX_INHAL\",\"descriptor\":\"LC50\",\"q\":{\"raw\":\"285 mg/L air\",\"approx\":null,\"value\":285,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"mg/L air\",\"dp\":0,\"status\":\"값있음\",\"note\":null},\"species\":\"rat\",\"sex\":null,\"duration_value\":4,\"duration_unit\":\"hr\",\"physical_form\":\"가스\",\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":\"ChemIDplus\",\"classification\":null,\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_INHAL\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":null,\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":\"증기\",\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":\"분류되지않음\",\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"1\",\"endpoint\":\"TX_INHAL\",\"descriptor\":null,\"q\":null,\"species\":null,\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":\"증기\",\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[],\"status\":\"자료없음\"},{\"comp_ref\":\"2\",\"endpoint\":\"TX_INHAL\",\"descriptor\":null,\"q\":null,\"species\":null,\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":\"증기\",\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[],\"status\":\"자료없음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_INHAL\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":null,\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":\"분진·미스트\",\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":\"분류되지않음\",\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"1\",\"endpoint\":\"TX_INHAL\",\"descriptor\":null,\"q\":null,\"species\":null,\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":\"분진·미스트\",\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[],\"status\":\"자료없음\"},{\"comp_ref\":\"2\",\"endpoint\":\"TX_INHAL\",\"descriptor\":null,\"q\":null,\"species\":null,\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":\"분진·미스트\",\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[],\"status\":\"자료없음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_SKIN\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":null,\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":\"분류되지않음\",\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"1\",\"endpoint\":\"TX_SKIN\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":\"Rabbit\",\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":\"dermal(occlusive)\",\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":\"Mobil (1985)\",\"classification\":null,\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"Screening test, Rabbit, dermal(occlusive), no irritation\",\"refs\":[\"1\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"Screening test, Rabbit, dermal(occlusive), no irritation, 자료출처 : Mobil (1985),  출처 : Mobil (1985)\"}],\"status\":\"값있음\"},{\"comp_ref\":\"2\",\"endpoint\":\"TX_SKIN\",\"descriptor\":null,\"q\":null,\"species\":null,\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[],\"status\":\"자료없음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_EYE\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":null,\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":\"분류되지않음\",\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"1\",\"endpoint\":\"TX_EYE\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":\"Rabbit\",\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":\"Mobil (1985)\",\"classification\":null,\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"Screening test, Rabbit, no irritation\",\"refs\":[\"1\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"Screening test, Rabbit, no irritation, 자료출처 : Mobil (1985),  출처 : Mobil (1985)\"}],\"status\":\"값있음\"},{\"comp_ref\":\"2\",\"endpoint\":\"TX_EYE\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":\"other: Dog and rabbit\",\"sex\":null,\"duration_value\":8,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":\"ECHA\",\"classification\":null,\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"비자극성, 1,3-부타디엔은 최대 6,700 ppm의 농도에서 8개월 동안 노출 된 래빗과 강아지의 눈에 자극적이지 않음.\",\"refs\":[\"2\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"비자극성, 1,3-부타디엔은 최대 6,700 ppm의 농도에서 8개월 동안 노출 된 래빗과 강아지의 눈에 자극적이지 않음. (other: Dog and rabbit),  출처 : ECHA\"}],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_RESP_SENS\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":null,\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":\"분류되지않음\",\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"1\",\"endpoint\":\"TX_RESP_SENS\",\"descriptor\":null,\"q\":null,\"species\":null,\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[],\"status\":\"자료없음\"},{\"comp_ref\":\"2\",\"endpoint\":\"TX_RESP_SENS\",\"descriptor\":null,\"q\":null,\"species\":null,\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[],\"status\":\"자료없음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_SKIN_SENS\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":null,\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":\"분류되지않음\",\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"1\",\"endpoint\":\"TX_SKIN_SENS\",\"descriptor\":null,\"q\":null,\"species\":null,\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[],\"status\":\"자료없음\"},{\"comp_ref\":\"2\",\"endpoint\":\"TX_SKIN_SENS\",\"descriptor\":null,\"q\":null,\"species\":null,\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[],\"status\":\"자료없음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_CARC\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":null,\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":\"구분 1A\",\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"1\",\"endpoint\":\"TX_CARC\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":\"Mouse\",\"sex\":null,\"duration_value\":103,\"duration_unit\":\"week\",\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":\"OECD TG 453\",\"data_source\":\"NTP (1993)\",\"classification\":null,\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"OECD TG 453 test, Mouse, 103 weeks, 발암성 확인\",\"refs\":[\"1\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"OECD TG 453 test, Mouse, 103 weeks, 발암성 확인, 자료출처 : NTP (1993)\"}],\"status\":\"값있음\"},{\"comp_ref\":\"2\",\"endpoint\":\"TX_CARC\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":null,\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":\"환경부 고시\",\"classification\":\"구분 1A\",\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"환경부 고시(구분 1A) - 유독물질(2014-1-693)\",\"refs\":[\"2\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"환경부 고시(구분 1A) - 유독물질(2014-1-693)\"}],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_MUTA\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":null,\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":\"구분 1B\",\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"1\",\"endpoint\":\"TX_MUTA\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":null,\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":\"106-99-0\",\"guideline\":null,\"data_source\":\"Adler et al. (1994)\",\"classification\":null,\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"1,3-butadiene(CAS No.106-99-0) 에 대한 복귀돌연변이 시험: 양성(OECD 471), 염색체이상: 양성(OECD473), 소핵시험: 양성(OECD 474), 설치류 우성치사: 양성(OECD 478)으로 0.1% 이상 포함 시 분류됨\",\"refs\":[\"1\"],\"cond\":{\"raw\":\"0.1% 이상\",\"approx\":null,\"value\":null,\"lower_op\":\">=\",\"lower\":0.1,\"upper_op\":null,\"upper\":null,\"unit\":\"%\",\"dp\":1,\"status\":\"값있음\",\"note\":null},\"std_code\":null,\"match_score\":null,\"text\":\"1,3-butadiene(CAS No.106-99-0) 에 대한 복귀돌연변이 시험: 양성(OECD 471), 염색체이상: 양성(OECD473), 소핵시험: 양성(OECD 474), 설치류 우성치사: 양성(OECD 478)으로 0.1% 이상 포함 시 분류됨, 자료출처 : Adler et al. (1994)\"}],\"status\":\"값있음\"},{\"comp_ref\":\"2\",\"endpoint\":\"TX_MUTA\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":null,\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":\"환경부 고시\",\"classification\":\"구분 1B\",\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"환경부 고시(구분 1B) - 유독물질(2014-1-693)\",\"refs\":[\"2\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"환경부 고시(구분 1B) - 유독물질(2014-1-693)\"}],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_REPRO\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":null,\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":\"분류되지않음\",\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"1\",\"endpoint\":\"TX_REPRO\",\"descriptor\":\"결과기술\",\"q\":{\"raw\":\"NOAEC=40 ppm\",\"approx\":null,\"value\":40,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"ppm\",\"dp\":0,\"status\":\"값있음\",\"note\":null},\"species\":\"Mouse\",\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":\"inhalation(whole body)\",\"converted\":null,\"read_across_cas\":null,\"guideline\":\"EPA OPPT 83-3\",\"data_source\":\"Hackett (1987)\",\"classification\":null,\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"EPA OPPT 83-3 test, Mouse, inhalation(whole body), NOAEC=40 ppm, 물질 노출에 따른 발달독성 확인되지 않음\",\"refs\":[\"1\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"EPA OPPT 83-3 test, Mouse, inhalation(whole body), NOAEC=40 ppm, 물질 노출에 따른 발달독성 확인되지 않음, 자료출처 : Hackett (1987),  출처 : Hackett (1987)\"}],\"status\":\"값있음\"},{\"comp_ref\":\"2\",\"endpoint\":\"TX_REPRO\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":\"rat\",\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":\"OECD Guideline 421\",\"data_source\":\"ECHA\",\"classification\":null,\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"생식기능, 짝짓기, 임신, 출산, F0 세대 수유, 임신부터 이유까지의 F1자손 발달에는 영향이 없음.\",\"refs\":[\"2\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"생식기능, 짝짓기, 임신, 출산, F0 세대 수유, 임신부터 이유까지의 F1자손 발달에는 영향이 없음. (rat, OECD Guideline 421),  출처 : ECHA\"}],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_STOT_SE\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":null,\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":\"구분 3(마취)\",\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"1\",\"endpoint\":\"TX_STOT_SE\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":null,\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":\"CSR\",\"classification\":null,\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"중추신경계 기능저하, 호흡곤란, 마취작용\",\"refs\":[\"1\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"중추신경계 기능저하, 호흡곤란, 마취작용,  출처 : CSR\"}],\"status\":\"값있음\"},{\"comp_ref\":\"2\",\"endpoint\":\"TX_STOT_SE\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":\"사람\",\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":\"ChemIDPLUS\",\"classification\":null,\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"사람에서 기침을 수반하는 눈, 비도, 후두 및 폐 자극이 나타남\",\"refs\":[\"2\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"사람에서 기침을 수반하는 눈, 비도, 후두 및 폐 자극이 나타남,  출처 : ChemIDPLUS\"}],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_STOT_RE\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":null,\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":\"분류되지않음\",\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"1\",\"endpoint\":\"TX_STOT_RE\",\"descriptor\":\"결과기술\",\"q\":{\"raw\":\"NOAEC=13 mg/m3\",\"approx\":null,\"value\":13,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"mg/m3\",\"dp\":0,\"status\":\"값있음\",\"note\":null},\"species\":\"Mouse\",\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":\"inhalation(whole body), 2 yrs\",\"converted\":null,\"read_across_cas\":null,\"guideline\":\"OECD TG 453\",\"data_source\":\"NTP (1993)\",\"classification\":null,\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"OECD TG 453 test, Mouse, inhalation(whole body), 2 yrs, NOAEC=13 mg/m3, 전신독성영향 관찰\",\"refs\":[\"1\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"OECD TG 453 test, Mouse, inhalation(whole body), 2 yrs, NOAEC=13 mg/m3, 전신독성영향 관찰, 자료출처 : NTP (1993),  출처 : NTP (1993)\"}],\"status\":\"값있음\"},{\"comp_ref\":\"2\",\"endpoint\":\"TX_STOT_RE\",\"descriptor\":\"결과기술\",\"q\":{\"raw\":\"NOAEC=1000 ppm\",\"approx\":null,\"value\":1000,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"ppm\",\"dp\":0,\"status\":\"값있음\",\"note\":null},\"species\":\"랫드\",\"sex\":null,\"duration_value\":103,\"duration_unit\":\"week\",\"physical_form\":null,\"exposure_type\":\"흡입\",\"converted\":{\"raw\":\"2212 mg/m3\",\"approx\":null,\"value\":2212,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"mg/m3\",\"dp\":0,\"status\":\"값있음\",\"note\":null},\"read_across_cas\":null,\"guideline\":\"OECD TG 453, GLP\",\"data_source\":\"ECHA\",\"classification\":null,\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"랫드를 이용한 103주 흡입 발암성시험 OECD TG 453, GLP, 결과 8000ppm, 17701 mg/m3 농도군에서 심장무게 증가 및 신장내 세뇨관 변성신장증이 관찰되어 NOAEC=1000 ppm2212 mg/m3\",\"refs\":[\"2\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"랫드를 이용한 103주 흡입 발암성시험 OECD TG 453, GLP, 결과 8000ppm, 17701 mg/m3 농도군에서 심장무게 증가 및 신장내 세뇨관 변성신장증이 관찰되어 NOAEC=1000 ppm2212 mg/m3\"},{\"seq\":2,\"key\":\"표적장기\",\"value\":\"난소, 정소, 골수\",\"refs\":[\"2\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"표적장기 : 난소, 정소, 골수,  출처 : ECHA\"}],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_ASP\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":null,\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":\"분류되지않음\",\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"1\",\"endpoint\":\"TX_ASP\",\"descriptor\":null,\"q\":null,\"species\":null,\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[],\"status\":\"자료없음\"},{\"comp_ref\":\"2\",\"endpoint\":\"TX_ASP\",\"descriptor\":null,\"q\":null,\"species\":null,\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[],\"status\":\"자료없음\"}],\"cmr\":[{\"comp_ref\":\"2\",\"hazard\":\"발암성\",\"agency\":\"KR_CCA\",\"class\":\"1A\",\"status\":\"값있음\",\"note\":\"유독물질(2014-1-693)\"},{\"comp_ref\":\"2\",\"hazard\":\"생식세포변이원성\",\"agency\":\"KR_CCA\",\"class\":\"1B\",\"status\":\"값있음\",\"note\":\"유독물질(2014-1-693)\"}],\"ecotox\":[{\"comp_ref\":\"MIX\",\"endpoint\":null,\"descriptor\":\"결과기술\",\"q\":null,\"species\":null,\"duration_value\":null,\"duration_unit\":null,\"guideline\":null,\"data_source\":null,\"statements\":[{\"seq\":1,\"key\":\"PRODUCT\",\"value\":\"분류되지않음\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"가. 생태독성 > PRODUCT : 분류되지않음\"}],\"status\":\"값있음\"},{\"comp_ref\":\"1\",\"endpoint\":\"ECO_FISH\",\"descriptor\":\"LC50\",\"q\":{\"raw\":\"27.9 mg/L\",\"approx\":null,\"value\":27.9,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"mg/L\",\"dp\":1,\"status\":\"값있음\",\"note\":null},\"species\":null,\"duration_value\":96,\"duration_unit\":\"hr\",\"guideline\":null,\"data_source\":\"CSR\",\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"ECOWIN v1\",\"refs\":[\"1\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"LC50= 27.9 mg/L (96h, ECOWIN v1),  출처 : CSR\"}],\"status\":\"값있음\"},{\"comp_ref\":\"1\",\"endpoint\":\"ECO_FISH\",\"descriptor\":\"LC50\",\"q\":{\"raw\":\"19 ㎎/ℓ\",\"approx\":null,\"value\":19,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"mg/L\",\"dp\":0,\"status\":\"값있음\",\"note\":null},\"species\":\"Fish\",\"duration_value\":96,\"duration_unit\":\"hr\",\"guideline\":null,\"data_source\":\"Nabholz & Mayo-Bean (2009)\",\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"ECOWIN v1, Read-across Butane(CAS No. 106-97-8)\",\"refs\":[\"1\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"LC50 19 ㎎/ℓ 96hr Fish (ECOWIN v1), Read-across Butane(CAS No. 106-97-8), 출처 : Nabholz & Mayo-Bean (2009)\"}],\"status\":\"값있음\"},{\"comp_ref\":\"2\",\"endpoint\":\"ECO_FISH\",\"descriptor\":\"LC50\",\"q\":{\"raw\":\"45 mg/L\",\"approx\":null,\"value\":45,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"mg/L\",\"dp\":0,\"status\":\"값있음\",\"note\":\"추정치\"},\"species\":\"Pimephales promelas\",\"duration_value\":96,\"duration_unit\":\"hr\",\"guideline\":null,\"data_source\":\"ECHA\",\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"QSAR, 추정치\",\"refs\":[\"2\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"LC50= 45 mg/L (Pimephales promelas, 96h, QSAR, 추정치)\"}],\"status\":\"값있음\"},{\"comp_ref\":\"2\",\"endpoint\":\"ECO_FISH\",\"descriptor\":\"기타\",\"q\":{\"raw\":\"NOELR= 6.62 mg/L\",\"approx\":null,\"value\":6.62,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"mg/L\",\"dp\":2,\"status\":\"값있음\",\"note\":\"추정치\"},\"species\":\"Oncorhynchus mykiss\",\"duration_value\":21,\"duration_unit\":\"day\",\"guideline\":null,\"data_source\":\"ECHA\",\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"NOELR, QSAR, 추정치\",\"refs\":[\"2\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"NOELR= 6.62 mg/L (Oncorhynchus mykiss, 21d, QSAR, 추정치),  출처 : ECHA\"}],\"status\":\"값있음\"},{\"comp_ref\":\"1\",\"endpoint\":\"ECO_CRUST\",\"descriptor\":\"LC50\",\"q\":{\"raw\":\"14.2 mg/L\",\"approx\":null,\"value\":14.2,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"mg/L\",\"dp\":1,\"status\":\"값있음\",\"note\":null},\"species\":null,\"duration_value\":48,\"duration_unit\":\"hr\",\"guideline\":null,\"data_source\":\"CSR\",\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"ECOWIN v1\",\"refs\":[\"1\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"LC50= 14.2 mg/L (48h, ECOWIN v1),  출처 : CSR\"}],\"status\":\"값있음\"},{\"comp_ref\":\"2\",\"endpoint\":\"ECO_CRUST\",\"descriptor\":\"기타\",\"q\":{\"raw\":\"LL50= 64.642 mg/L\",\"approx\":null,\"value\":64.642,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"mg/L\",\"dp\":3,\"status\":\"값있음\",\"note\":\"추정치\"},\"species\":\"Daphnia magna\",\"duration_value\":48,\"duration_unit\":\"hr\",\"guideline\":null,\"data_source\":\"ECHA\",\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"LL50, QSAR, 추정치\",\"refs\":[\"2\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"LL50= 64.642 mg/L (Daphnia magna, 48h, QSAR, 추정치),  출처 : ECHA\"}],\"status\":\"값있음\"},{\"comp_ref\":\"1\",\"endpoint\":\"ECO_ALGAE\",\"descriptor\":\"EC50\",\"q\":{\"raw\":\"8.6 mg/L\",\"approx\":null,\"value\":8.6,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"mg/L\",\"dp\":1,\"status\":\"값있음\",\"note\":null},\"species\":null,\"duration_value\":96,\"duration_unit\":\"hr\",\"guideline\":null,\"data_source\":\"CSR\",\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"ECOWIN v1\",\"refs\":[\"1\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"EC50= 8.6 mg/L (96h, ECOWIN v1),  출처 : CSR\"}],\"status\":\"값있음\"},{\"comp_ref\":\"1\",\"endpoint\":\"ECO_ALGAE\",\"descriptor\":\"EC50\",\"q\":{\"raw\":\"7.7 ㎎/ℓ\",\"approx\":null,\"value\":7.7,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"mg/L\",\"dp\":1,\"status\":\"값있음\",\"note\":null},\"species\":\"Fish\",\"duration_value\":96,\"duration_unit\":\"hr\",\"guideline\":null,\"data_source\":\"Nabholz & Mayo-Bean (2009)\",\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"ECOWIN v1, Read-across Butenes(CAS No. 25167-67-3)\",\"refs\":[\"1\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"EC50 7.7 ㎎/ℓ 96hr Fish (ECOWIN v1), Read-across Butenes(CAS No. 25167-67-3), 출처 : Nabholz & Mayo-Bean (2009)\"}],\"status\":\"값있음\"},{\"comp_ref\":\"2\",\"endpoint\":\"ECO_ALGAE\",\"descriptor\":\"기타\",\"q\":{\"raw\":\"EL50= 35.77 mg/L\",\"approx\":null,\"value\":35.77,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"mg/L\",\"dp\":2,\"status\":\"값있음\",\"note\":\"추정치\"},\"species\":\"Pseudokirchneriella subcapitata\",\"duration_value\":72,\"duration_unit\":\"hr\",\"guideline\":null,\"data_source\":\"ECHA\",\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"EL50, QSAR, 추정치\",\"refs\":[\"2\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"EL50= 35.77 mg/L (Pseudokirchneriella subcapitata, 72h, QSAR, 추정치),  출처 : ECHA\"}],\"status\":\"값있음\"},{\"comp_ref\":\"1\",\"endpoint\":\"ECO_PERSIST\",\"descriptor\":\"logKow\",\"q\":{\"raw\":\"1.99 ~ 2.4\",\"approx\":null,\"value\":null,\"lower_op\":\">=\",\"lower\":1.99,\"upper_op\":\"<=\",\"upper\":2.4,\"unit\":null,\"dp\":2,\"status\":\"값있음\",\"note\":null},\"species\":null,\"duration_value\":null,\"duration_unit\":null,\"guideline\":null,\"data_source\":\"Hansch et al. (1995), CRC (2008)\",\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"20 ~ 25 ℃, pH = 7\",\"refs\":[\"1\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"log Kow = 1.99 ~ 2.4 (20 ~ 25 ℃, pH = 7), 출처 : Hansch et al. (1995), CRC (2008)\"}],\"status\":\"값있음\"},{\"comp_ref\":\"2\",\"endpoint\":\"ECO_PERSIST\",\"descriptor\":\"logKow\",\"q\":{\"raw\":\"1.99\",\"approx\":null,\"value\":1.99,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":null,\"dp\":2,\"status\":\"값있음\",\"note\":null},\"species\":null,\"duration_value\":null,\"duration_unit\":null,\"guideline\":null,\"data_source\":\"ECHA\",\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"1\",\"endpoint\":\"ECO_PERSIST\",\"descriptor\":\"분해율\",\"q\":null,\"species\":null,\"duration_value\":null,\"duration_unit\":null,\"guideline\":null,\"data_source\":null,\"statements\":[],\"status\":\"자료없음\"},{\"comp_ref\":\"2\",\"endpoint\":\"ECO_PERSIST\",\"descriptor\":\"분해율\",\"q\":null,\"species\":null,\"duration_value\":null,\"duration_unit\":null,\"guideline\":null,\"data_source\":null,\"statements\":[],\"status\":\"자료없음\"},{\"comp_ref\":\"1\",\"endpoint\":\"ECO_PERSIST\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":null,\"duration_value\":null,\"duration_unit\":null,\"guideline\":null,\"data_source\":\"Howard et al.(2005)\",\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"이분해성 물질\",\"refs\":[\"1\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"이분해성 물질, 자료출처 : Howard et al.(2005),  출처 : Howard et al.(2005)\"}],\"status\":\"값있음\"},{\"comp_ref\":\"2\",\"endpoint\":\"ECO_PERSIST\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":null,\"duration_value\":null,\"duration_unit\":null,\"guideline\":null,\"data_source\":\"EPI SUITE\",\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"쉽게 생분해 될 것으로 예상됨. (추정치)\",\"refs\":[\"2\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"쉽게 생분해 될 것으로 예상됨. (추정치),  출처 : EPI SUITE\"}],\"status\":\"값있음\"},{\"comp_ref\":\"1\",\"endpoint\":\"ECO_BIOACC\",\"descriptor\":\"기타\",\"q\":{\"raw\":\"37.48\",\"approx\":null,\"value\":37.48,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":null,\"dp\":2,\"status\":\"값있음\",\"note\":\"추정치\"},\"species\":null,\"duration_value\":null,\"duration_unit\":null,\"guideline\":null,\"data_source\":\"EPISUITE\",\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"2\",\"endpoint\":\"ECO_BIOACC\",\"descriptor\":\"BCF\",\"q\":{\"raw\":\"9.55 L/kg\",\"approx\":null,\"value\":9.55,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"L/kg\",\"dp\":2,\"status\":\"값있음\",\"note\":\"추정치\"},\"species\":null,\"duration_value\":null,\"duration_unit\":null,\"guideline\":null,\"data_source\":\"EPI SUITE\",\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"1\",\"endpoint\":\"ECO_SOIL\",\"descriptor\":\"Koc\",\"q\":{\"raw\":\"31.82 ~ 322L/kg\",\"approx\":null,\"value\":null,\"lower_op\":\">=\",\"lower\":31.82,\"upper_op\":\"<=\",\"upper\":322,\"unit\":\"L/kg\",\"dp\":2,\"status\":\"값있음\",\"note\":\"KOCWIN\"},\"species\":null,\"duration_value\":null,\"duration_unit\":null,\"guideline\":null,\"data_source\":\"EPI Suite 4.1\",\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"2\",\"endpoint\":\"ECO_SOIL\",\"descriptor\":\"Koc\",\"q\":{\"raw\":\"39.6 L/kg\",\"approx\":null,\"value\":39.6,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"L/kg\",\"dp\":1,\"status\":\"값있음\",\"note\":\"추정치\"},\"species\":null,\"duration_value\":null,\"duration_unit\":null,\"guideline\":null,\"data_source\":\"EPI SUITE\",\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":null,\"descriptor\":\"결과기술\",\"q\":null,\"species\":null,\"duration_value\":null,\"duration_unit\":null,\"guideline\":null,\"data_source\":null,\"statements\":[{\"seq\":1,\"key\":\"PRODUCT\",\"value\":\"분류되지않음\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"마. 기타 유해 영향 > PRODUCT : 분류되지않음\"}],\"status\":\"값있음\"},{\"comp_ref\":\"1\",\"endpoint\":null,\"descriptor\":null,\"q\":null,\"species\":null,\"duration_value\":null,\"duration_unit\":null,\"guideline\":null,\"data_source\":null,\"statements\":[],\"status\":\"자료없음\"},{\"comp_ref\":\"2\",\"endpoint\":null,\"descriptor\":null,\"q\":null,\"species\":null,\"duration_value\":null,\"duration_unit\":null,\"guideline\":null,\"data_source\":null,\"statements\":[],\"status\":\"자료없음\"}]}],\"evidence\":[{\"msds_index\":0,\"field\":\"toxicity[0]\",\"page\":8,\"source_text\":\"● 급성독성물질(경구)   PRODUCT : 분류되지않음\",\"rules\":[\"R10\"],\"note\":\"제품 전체 분류 결과를 MIX 행 classification에 기록\"},{\"msds_index\":0,\"field\":\"toxicity[1]\",\"page\":8,\"source_text\":\"- Hydrocarbons, (C=4), ethylene-manuf.-by-product : 자료없음\",\"rules\":[\"R10\",\"R15\"],\"note\":\"자료없음 행을 status로 남김\"},{\"msds_index\":0,\"field\":\"toxicity[2]\",\"page\":8,\"source_text\":\"- 1,3-Butadiene : LD50= 5480 mg/kg bw (rat),  출처 : ChemIDplus\",\"rules\":[\"R04\",\"R10\"],\"note\":\"LD50 5480 mg/kg bw, rat, 출처 ChemIDplus로 분해\"},{\"msds_index\":0,\"field\":\"toxicity[3]\",\"page\":8,\"source_text\":\"● 급성독성물질(경피)   PRODUCT : 분류되지않음\",\"rules\":[\"R10\"],\"note\":\"제품 전체 분류 결과를 MIX 행으로 기록\"},{\"msds_index\":0,\"field\":\"toxicity[4]\",\"page\":8,\"source_text\":\"- Hydrocarbons, (C=4), ethylene-manuf.-by-product : 자료없음\",\"rules\":[\"R10\",\"R15\"],\"note\":null},{\"msds_index\":0,\"field\":\"toxicity[5]\",\"page\":9,\"source_text\":\"- 1,3-Butadiene : 자료없음\",\"rules\":[\"R10\",\"R15\"],\"note\":null},{\"msds_index\":0,\"field\":\"toxicity[6]\",\"page\":9,\"source_text\":\"● 급성독성물질(흡입:가스)   PRODUCT : 분류되지않음\",\"rules\":[\"R10\"],\"note\":\"흡입:가스 → physical_form 가스\"},{\"msds_index\":0,\"field\":\"toxicity[7]\",\"page\":9,\"source_text\":\"- Hydrocarbons, (C=4), ethylene-manuf.-by-product : LC50> 2,551 ppm (Rat, 4h, OECD Guideline 403),  출처 : CSR\",\"rules\":[\"R04\",\"R06\",\"R10\"],\"note\":\"'> 2,551 ppm'을 하한 2551(>)로 분해, 4h → 4 hr\"},{\"msds_index\":0,\"field\":\"toxicity[8]\",\"page\":9,\"source_text\":\"- 1,3-Butadiene : LC50= 285 mg/L air (rat, 4h),  출처 : ChemIDplus\",\"rules\":[\"R04\",\"R10\"],\"note\":\"단위 'mg/L air' 원문 유지, 4h → 4 hr\"},{\"msds_index\":0,\"field\":\"toxicity[9]\",\"page\":9,\"source_text\":\"● 급성독성물질(흡입:증기)   PRODUCT : 분류되지않음\",\"rules\":[\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"toxicity[10]\",\"page\":9,\"source_text\":\"- Hydrocarbons, (C=4), ethylene-manuf.-by-product : 자료없음\",\"rules\":[\"R10\",\"R15\"],\"note\":null},{\"msds_index\":0,\"field\":\"toxicity[11]\",\"page\":9,\"source_text\":\"- 1,3-Butadiene : 자료없음\",\"rules\":[\"R10\",\"R15\"],\"note\":null},{\"msds_index\":0,\"field\":\"toxicity[12]\",\"page\":9,\"source_text\":\"● 급성독성물질(흡입:분진/미스트)   PRODUCT : 분류되지않음\",\"rules\":[\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"toxicity[13]\",\"page\":9,\"source_text\":\"- Hydrocarbons, (C=4), ethylene-manuf.-by-product : 자료없음\",\"rules\":[\"R10\",\"R15\"],\"note\":null},{\"msds_index\":0,\"field\":\"toxicity[14]\",\"page\":9,\"source_text\":\"- 1,3-Butadiene : 자료없음\",\"rules\":[\"R10\",\"R15\"],\"note\":null},{\"msds_index\":0,\"field\":\"toxicity[15]\",\"page\":9,\"source_text\":\"○ 피부 부식성 또는 자극성 물질   PRODUCT : 분류되지않음\",\"rules\":[\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"toxicity[16]\",\"page\":9,\"source_text\":\"Screening test, Rabbit, dermal(occlusive), no irritation, 자료출처 : Mobil (1985),  출처 : Mobil (1985)\",\"rules\":[\"R10\"],\"note\":\"서술 결과를 결과기술로 기록\"},{\"msds_index\":0,\"field\":\"toxicity[17]\",\"page\":9,\"source_text\":\"- 1,3-Butadiene : 자료없음\",\"rules\":[\"R10\",\"R15\"],\"note\":null},{\"msds_index\":0,\"field\":\"toxicity[18]\",\"page\":9,\"source_text\":\"○ 심한 눈 손상 또는 자극성 물질   PRODUCT : 분류되지않음\",\"rules\":[\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"toxicity[19]\",\"page\":9,\"source_text\":\"Screening test, Rabbit, no irritation, 자료출처 : Mobil (1985),  출처 : Mobil (1985)\",\"rules\":[\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"toxicity[20]\",\"page\":9,\"source_text\":\"- 1,3-Butadiene : 비자극성, 1,3-부타디엔은 최대 6,700 ppm의 농도에서 8개월 동안 노출 된 래빗과 강아지의 눈에 자극적이지 않음. (other: Dog and rabbit),  출처 : ECHA\",\"rules\":[\"R10\"],\"note\":\"8개월은 단위 코드가 없어 duration_unit을 비우고 문장으로 보존\"},{\"msds_index\":0,\"field\":\"toxicity[21]\",\"page\":9,\"source_text\":\"○ 호흡기 과민성 물질   PRODUCT : 분류되지않음\",\"rules\":[\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"toxicity[22]\",\"page\":9,\"source_text\":\"- Hydrocarbons, (C=4), ethylene-manuf.-by-product : 자료없음\",\"rules\":[\"R10\",\"R15\"],\"note\":null},{\"msds_index\":0,\"field\":\"toxicity[23]\",\"page\":9,\"source_text\":\"- 1,3-Butadiene : 자료없음\",\"rules\":[\"R10\",\"R15\"],\"note\":null},{\"msds_index\":0,\"field\":\"toxicity[24]\",\"page\":9,\"source_text\":\"○ 피부 과민성 물질   PRODUCT : 분류되지않음\",\"rules\":[\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"toxicity[25]\",\"page\":9,\"source_text\":\"- Hydrocarbons, (C=4), ethylene-manuf.-by-product : 자료없음\",\"rules\":[\"R10\",\"R15\"],\"note\":null},{\"msds_index\":0,\"field\":\"toxicity[26]\",\"page\":9,\"source_text\":\"- 1,3-Butadiene : 자료없음\",\"rules\":[\"R10\",\"R15\"],\"note\":null},{\"msds_index\":0,\"field\":\"toxicity[27]\",\"page\":9,\"source_text\":\"○ 발암성물질   PRODUCT : 구분 1A\",\"rules\":[\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"toxicity[28]\",\"page\":9,\"source_text\":\"OECD TG 453 test, Mouse, 103 weeks, 발암성 확인, 자료출처 : NTP (1993)\",\"rules\":[\"R10\"],\"note\":\"103 weeks → 103 week\"},{\"msds_index\":0,\"field\":\"toxicity[29]\",\"page\":9,\"source_text\":\"- 1,3-Butadiene : 환경부 고시(구분 1A) - 유독물질(2014-1-693)\",\"rules\":[\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"toxicity[30]\",\"page\":9,\"source_text\":\"○ 생식세포 변이원성 물질   PRODUCT : 구분 1B\",\"rules\":[\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"toxicity[31]\",\"page\":9,\"source_text\":\"1,3-butadiene(CAS No.106-99-0) 에 대한 복귀돌연변이 시험: 양성(OECD 471), ... 0.1% 이상 포함 시 분류됨, 자료출처 : Adler et al. (1994)\",\"rules\":[\"R02\",\"R04\",\"R10\"],\"note\":\"참조 물질 CAS 106-99-0을 read_across_cas에, '0.1% 이상'을 cond로 분해\"},{\"msds_index\":0,\"field\":\"toxicity[32]\",\"page\":9,\"source_text\":\"- 1,3-Butadiene : 환경부 고시(구분 1B) - 유독물질(2014-1-693)\",\"rules\":[\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"toxicity[33]\",\"page\":9,\"source_text\":\"○ 생식독성 물질   PRODUCT : 분류되지않음\",\"rules\":[\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"toxicity[34]\",\"page\":9,\"source_text\":\"EPA OPPT 83-3 test, Mouse, inhalation(whole body), NOAEC=40 ppm, 물질 노출에 따른 발달독성 확인되지 않음, 자료출처 : Hackett (1987)\",\"rules\":[\"R04\",\"R10\",\"R17\"],\"note\":\"NOAEC는 지표 목록에 없어 결과기술로 두고 값 40 ppm을 q에 기록(raw에 NOAEC 보존)\"},{\"msds_index\":0,\"field\":\"toxicity[35]\",\"page\":10,\"source_text\":\"- 1,3-Butadiene : 생식기능, 짝짓기, 임신, 출산, F0 세대 수유, 임신부터 이유까지의 F1자손 발달에는 영향이 없음. (rat, OECD Guideline 421),  출처 : ECHA\",\"rules\":[\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"toxicity[36]\",\"page\":10,\"source_text\":\"○ 특정표적장기·전신 독성 물질(1회 노출)   PRODUCT : 구분 3(마취)\",\"rules\":[\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"toxicity[37]\",\"page\":10,\"source_text\":\"- Hydrocarbons, (C=4), ethylene-manuf.-by-product : 중추신경계 기능저하, 호흡곤란, 마취작용,  출처 : CSR\",\"rules\":[\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"toxicity[38]\",\"page\":10,\"source_text\":\"- 1,3-Butadiene : 사람에서 기침을 수반하는 눈, 비도, 후두 및 폐 자극이 나타남,  출처 : ChemIDPLUS\",\"rules\":[\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"toxicity[39]\",\"page\":10,\"source_text\":\"○ 특정표적장기·전신 독성 물질(반복 노출)   PRODUCT : 분류되지않음\",\"rules\":[\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"toxicity[40]\",\"page\":10,\"source_text\":\"OECD TG 453 test, Mouse, inhalation(whole body), 2 yrs, NOAEC=13 mg/m3, 전신독성영향 관찰, 자료출처 : NTP (1993)\",\"rules\":[\"R04\",\"R10\",\"R17\"],\"note\":\"NOAEC는 결과기술로 두고 값을 q에, '2 yrs'는 단위 코드가 없어 exposure_type에 보존\"},{\"msds_index\":0,\"field\":\"toxicity[41]\",\"page\":10,\"source_text\":\"랫드를 이용한 103주 흡입 발암성시험 OECD TG 453, GLP, ... NOAEC=1000 ppm2212 mg/m3 표적장기 : 난소, 정소, 골수,  출처 : ECHA\",\"rules\":[\"R04\",\"R10\"],\"note\":\"NOAEC 1000 ppm을 q, 병기된 2212 mg/m3을 converted로 분리, 103주 → 103 week\"},{\"msds_index\":0,\"field\":\"toxicity[42]\",\"page\":10,\"source_text\":\"○ 흡인유해성 물질   PRODUCT : 분류되지않음\",\"rules\":[\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"toxicity[43]\",\"page\":10,\"source_text\":\"- Hydrocarbons, (C=4), ethylene-manuf.-by-product : 자료없음\",\"rules\":[\"R10\",\"R15\"],\"note\":null},{\"msds_index\":0,\"field\":\"toxicity[44]\",\"page\":10,\"source_text\":\"- 1,3-Butadiene : 자료없음\",\"rules\":[\"R10\",\"R15\"],\"note\":null},{\"msds_index\":0,\"field\":\"cmr[0]\",\"page\":9,\"source_text\":\"- 1,3-Butadiene : 환경부 고시(구분 1A) - 유독물질(2014-1-693)\",\"rules\":[\"R10\"],\"note\":\"환경부 고시 → KR_CCA, 등급 1A\"},{\"msds_index\":0,\"field\":\"cmr[1]\",\"page\":9,\"source_text\":\"- 1,3-Butadiene : 환경부 고시(구분 1B) - 유독물질(2014-1-693)\",\"rules\":[\"R10\"],\"note\":\"환경부 고시 → KR_CCA, 등급 1B\"},{\"msds_index\":0,\"field\":\"ecotox[0]\",\"page\":10,\"source_text\":\"가. 생태독성 > PRODUCT : 분류되지않음\",\"rules\":[\"R10\"],\"note\":\"어류·갑각류·조류 전체에 대한 제품 분류이므로 endpoint를 비우고 MIX 행으로 기록\"},{\"msds_index\":0,\"field\":\"ecotox[1]\",\"page\":10,\"source_text\":\"- Hydrocarbons, (C=4), ethylene-manuf.-by-product : LC50= 27.9 mg/L (96h, ECOWIN v1),  출처 : CSR\",\"rules\":[\"R04\",\"R10\"],\"note\":\"96h → 96 hr\"},{\"msds_index\":0,\"field\":\"ecotox[2]\",\"page\":10,\"source_text\":\"LC50 19 ㎎/ℓ 96hr Fish (ECOWIN v1), Read-across Butane(CAS No. 106-97-8), 출처 : Nabholz & Mayo-Bean (2009)\",\"rules\":[\"R04\",\"R08\",\"R10\"],\"note\":\"㎎/ℓ → mg/L, read-across 정보는 문장으로 보존\"},{\"msds_index\":0,\"field\":\"ecotox[3]\",\"page\":10,\"source_text\":\"- 1,3-Butadiene : LC50= 45 mg/L (Pimephales promelas, 96h, QSAR, 추정치)\",\"rules\":[\"R04\",\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"ecotox[4]\",\"page\":10,\"source_text\":\"NOELR= 6.62 mg/L (Oncorhynchus mykiss, 21d, QSAR, 추정치),  출처 : ECHA\",\"rules\":[\"R04\",\"R10\",\"R17\"],\"note\":\"NOELR는 지표 목록에 없어 기타로 기록, 21d → 21 day\"},{\"msds_index\":0,\"field\":\"ecotox[5]\",\"page\":10,\"source_text\":\"- Hydrocarbons, (C=4), ethylene-manuf.-by-product : LC50= 14.2 mg/L (48h, ECOWIN v1),  출처 : CSR\",\"rules\":[\"R04\",\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"ecotox[6]\",\"page\":10,\"source_text\":\"- 1,3-Butadiene : LL50= 64.642 mg/L (Daphnia magna, 48h, QSAR, 추정치),  출처 : ECHA\",\"rules\":[\"R04\",\"R10\",\"R17\"],\"note\":\"LL50는 지표 목록에 없어 기타로 기록\"},{\"msds_index\":0,\"field\":\"ecotox[7]\",\"page\":10,\"source_text\":\"- Hydrocarbons, (C=4), ethylene-manuf.-by-product : EC50= 8.6 mg/L (96h, ECOWIN v1),  출처 : CSR\",\"rules\":[\"R04\",\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"ecotox[8]\",\"page\":10,\"source_text\":\"EC50 7.7 ㎎/ℓ 96hr Fish (ECOWIN v1), Read-across Butenes(CAS No. 25167-67-3), 출처 : Nabholz & Mayo-Bean (2009)\",\"rules\":[\"R04\",\"R08\",\"R10\"],\"note\":\"조류 항목 아래 있으나 원문 시험종 'Fish' 그대로 유지\"},{\"msds_index\":0,\"field\":\"ecotox[9]\",\"page\":10,\"source_text\":\"- 1,3-Butadiene : EL50= 35.77 mg/L (Pseudokirchneriella subcapitata, 72h, QSAR, 추정치),  출처 : ECHA\",\"rules\":[\"R04\",\"R10\",\"R17\"],\"note\":\"EL50는 지표 목록에 없어 기타로 기록\"},{\"msds_index\":0,\"field\":\"ecotox[10]\",\"page\":10,\"source_text\":\"- Hydrocarbons, (C=4), ethylene-manuf.-by-product : log Kow = 1.99 ~ 2.4 (20 ~ 25 ℃, pH = 7), 출처 : Hansch et al. (1995), CRC (2008)\",\"rules\":[\"R04\",\"R10\"],\"note\":\"'1.99 ~ 2.4'를 하한 1.99(>=), 상한 2.4(<=)로 분해\"},{\"msds_index\":0,\"field\":\"ecotox[11]\",\"page\":10,\"source_text\":\"- 1,3-Butadiene : log Kow= 1.99,  출처 : ECHA\",\"rules\":[\"R04\",\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"ecotox[12]\",\"page\":11,\"source_text\":\"● 분해성 - Hydrocarbons, (C=4), ethylene-manuf.-by-product : 자료없음\",\"rules\":[\"R10\",\"R15\"],\"note\":null},{\"msds_index\":0,\"field\":\"ecotox[13]\",\"page\":11,\"source_text\":\"- 1,3-Butadiene : 자료없음\",\"rules\":[\"R10\",\"R15\"],\"note\":null},{\"msds_index\":0,\"field\":\"ecotox[14]\",\"page\":11,\"source_text\":\"- Hydrocarbons, (C=4), ethylene-manuf.-by-product : 이분해성 물질, 자료출처 : Howard et al.(2005),  출처 : Howard et al.(2005)\",\"rules\":[\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"ecotox[15]\",\"page\":11,\"source_text\":\"- 1,3-Butadiene : 쉽게 생분해 될 것으로 예상됨. (추정치),  출처 : EPI SUITE\",\"rules\":[\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"ecotox[16]\",\"page\":11,\"source_text\":\"- Hydrocarbons, (C=4), ethylene-manuf.-by-product : 37.48,  출처 : EPISUITE(추정치)\",\"rules\":[\"R04\",\"R10\",\"R17\"],\"note\":\"지표명이 표기되지 않아 기타로 기록\"},{\"msds_index\":0,\"field\":\"ecotox[17]\",\"page\":11,\"source_text\":\"- 1,3-Butadiene : BCF= 9.55 L/kg (추정치),  출처 : EPI SUITE\",\"rules\":[\"R04\",\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"ecotox[18]\",\"page\":11,\"source_text\":\"- Hydrocarbons, (C=4), ethylene-manuf.-by-product : Koc=  31.82 ~ 322L/kg (KOCWIN),  출처 : EPI Suite 4.1\",\"rules\":[\"R04\",\"R10\"],\"note\":\"범위를 하한 31.82(>=), 상한 322(<=)로 분해\"},{\"msds_index\":0,\"field\":\"ecotox[19]\",\"page\":11,\"source_text\":\"- 1,3-Butadiene : Koc= 39.6 L/kg (추정치),  출처 : EPI SUITE\",\"rules\":[\"R04\",\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"ecotox[20]\",\"page\":11,\"source_text\":\"마. 기타 유해 영향 > PRODUCT : 분류되지않음\",\"rules\":[\"R10\"],\"note\":\"기타 유해 영향은 C5 코드에 맞는 항목이 없어 endpoint null\"},{\"msds_index\":0,\"field\":\"ecotox[21]\",\"page\":11,\"source_text\":\"- Hydrocarbons, (C=4), ethylene-manuf.-by-product : 자료없음\",\"rules\":[\"R10\",\"R15\"],\"note\":\"기타 유해 영향 항목, endpoint null\"},{\"msds_index\":0,\"field\":\"ecotox[22]\",\"page\":11,\"source_text\":\"- 1,3-Butadiene : 자료없음\",\"rules\":[\"R10\",\"R15\"],\"note\":\"기타 유해 영향 항목, endpoint null\"}]}"
+}

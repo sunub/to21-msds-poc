@@ -1,0 +1,1363 @@
+{
+  "doc_id": "T21-S003",
+  "bundle": "b5",
+  "model": "claude-opus-5-5",
+  "mode": "none",
+  "finish_reason": "stop",
+  "usage": {
+    "prompt_tokens": 42944,
+    "completion_tokens": 16108,
+    "total_tokens": 59052,
+    "served_model": "claude-opus-5-5"
+  },
+  "seconds": 112.9,
+  "attempts": 1,
+  "errors": [],
+  "parsed": {
+    "msds": [
+      {
+        "narratives": [
+          {
+            "item_code": "S4_EYE",
+            "title_raw": "가. 눈에 들어갔을 때",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "눈에 화학물질이 들어간 경우 즉시 의사의 진찰과 치료를 받으시오.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "눈에 화학물질이 들어간 경우 즉시 의사의 진찰과 치료를 받으시오."
+              }
+            ]
+          },
+          {
+            "item_code": "S4_SKIN",
+            "title_raw": "나. 피부에 접촉했을 때",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "화학물질의 피부 접촉 즉시 의사의 진찰과 치료를 받으시오.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "화학물질의 피부 접촉 즉시 의사의 진찰과 치료를 받으시오."
+              },
+              {
+                "seq": 2,
+                "key": null,
+                "value": "해당물질에 접촉 시 동상을 입을 가능성이 있으니 치료에 주의하시오.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "해당물질에 접촉 시 동상을 입을 가능성이 있으니 치료에 주의하시오."
+              }
+            ]
+          },
+          {
+            "item_code": "S4_INHAL",
+            "title_raw": "다. 흡입했을 때",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "호흡이 없으면 인공호흡을 실시하시오.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "호흡이 없으면 인공호흡을 실시하시오."
+              },
+              {
+                "seq": 2,
+                "key": null,
+                "value": "화학물질을 흡입한 경우 의사의 진찰과 치료를 받으시오.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "화학물질을 흡입한 경우 의사의 진찰과 치료를 받으시오."
+              },
+              {
+                "seq": 3,
+                "key": null,
+                "value": "노출로 인항 영향이 나타나면 환자를 비오염지역으로 옮기시오.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "노출로 인항 영향이 나타나면 환자를 비오염지역으로 옮기시오."
+              },
+              {
+                "seq": 4,
+                "key": null,
+                "value": "화학물질을 흡입한 경우 즉시 의사의 진찰과 치료를 받으시오.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "화학물질을 흡입한 경우 즉시 의사의 진찰과 치료를 받으시오."
+              },
+              {
+                "seq": 5,
+                "key": null,
+                "value": "호흡이 곤란하면 의사등의 지시에 따라 산소를 공급하시오.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "호흡이 곤란하면 의사등의 지시에 따라 산소를 공급하시오."
+              }
+            ]
+          },
+          {
+            "item_code": "S4_INGEST",
+            "title_raw": "라. 먹었을 때",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "많은 양의 화학물질을 섭취한 경우 의사의 진찰을 받으시오.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "많은 양의 화학물질을 섭취한 경우 의사의 진찰을 받으시오."
+              }
+            ]
+          },
+          {
+            "item_code": "S4_DOCTOR",
+            "title_raw": "마. 기타 의사의 주의사항",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "화학물질을 흡입한 경우 산소 공급을 고려하시오.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "화학물질을 흡입한 경우 산소 공급을 고려하시오."
+              }
+            ]
+          },
+          {
+            "item_code": "S5_MEDIA",
+            "title_raw": "가. 적절한(부적절한) 소화제",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "적절한 소화제",
+                "value": "CO2.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "적절한 소화제 CO2."
+              },
+              {
+                "seq": 2,
+                "key": "부적절한 소화제",
+                "value": "자료없음",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "부적절한 소화제 자료없음"
+              },
+              {
+                "seq": 3,
+                "key": "대형 화재시",
+                "value": "일반적인 소화약제 및 미세 물분무를 사용하시오",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "대형 화재시 일반적인 소화약제 및 미세 물분무를 사용하시오"
+              }
+            ]
+          },
+          {
+            "item_code": "S5_SPECIFIC",
+            "title_raw": "나. 화학물질로부터 생기는 특정 유해성",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "열분해 생성물",
+                "value": "질소산화물",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "열분해 생성물 질소산화물"
+              },
+              {
+                "seq": 2,
+                "key": "화재 및 폭발위험",
+                "value": "용기가 열에 노출되면 파열되거나 폭발할 수도 있음.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "화재 및 폭발위험 용기가 열에 노출되면 파열되거나 폭발할 수도 있음."
+              },
+              {
+                "seq": 3,
+                "key": "화재 및 폭발위험",
+                "value": "화재 위험은 무시할 수 있음.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "화재 위험은 무시할 수 있음."
+              }
+            ]
+          },
+          {
+            "item_code": "S5_FIREFIGHT",
+            "title_raw": "다. 화재진압시 착용할 보호구 및 예방조치",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "위험없이 할 수 있으면 용기를 화재지역으로부터 이동시킬 것",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "위험없이 할 수 있으면 용기를 화재지역으로부터 이동시킬 것"
+              },
+              {
+                "seq": 2,
+                "key": null,
+                "value": "진화가 된 후에도 상당 시간 동안 물분무기로 용기를 냉각시킬 것",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "진화가 된 후에도 상당 시간 동안 물분무기로 용기를 냉각시킬 것"
+              },
+              {
+                "seq": 3,
+                "key": null,
+                "value": "탱크의 양 끝에는 접근하지 말 것",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "탱크의 양 끝에는 접근하지 말 것"
+              },
+              {
+                "seq": 4,
+                "key": null,
+                "value": "화재로 인하여 안전장치가 작동하는 소리가 나거나 탱크가 변색되는 경우에는 즉시 대피할 것",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "화재로 인하여 안전장치가 작동하는 소리가 나거나 탱크가 변색되는 경우에는 즉시 대피할 것"
+              },
+              {
+                "seq": 5,
+                "key": "탱크, 철도 차량 또는 탱크 트럭의 경우",
+                "value": "대피반경:0.8km(1/2마일)",
+                "refs": null,
+                "cond": {
+                  "raw": "0.8km(1/2마일)",
+                  "approx": null,
+                  "value": 0.8,
+                  "lower_op": null,
+                  "lower": null,
+                  "upper_op": null,
+                  "upper": null,
+                  "unit": "km",
+                  "dp": 1,
+                  "status": "값있음",
+                  "note": "1/2마일"
+                },
+                "std_code": null,
+                "match_score": null,
+                "text": "탱크, 철도 차량 또는 탱크 트럭의 경우 : 대피반경:0.8km(1/2마일)"
+              }
+            ]
+          },
+          {
+            "item_code": "S6_PERSONAL",
+            "title_raw": "가. 인체를 보호하기 위해 필요한 조치사항 및 보호구",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "작업자가 위험하지 않다면 직접 화학물질 누출을 중지시키시오.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "작업자가 위험하지 않다면 직접 화학물질 누출을 중지시키시오."
+              },
+              {
+                "seq": 2,
+                "key": null,
+                "value": "노출지역을 격리조치하고 관계자 이외인의 접근을 통제하시오.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "노출지역을 격리조치하고 관계자 이외인의 접근을 통제하시오."
+              },
+              {
+                "seq": 3,
+                "key": null,
+                "value": "저지대를 피하고 바람과 반대방향에 있도록 하시오.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "저지대를 피하고 바람과 반대방향에 있도록 하시오."
+              }
+            ]
+          },
+          {
+            "item_code": "S6_ENV",
+            "title_raw": "나. 환경을 보호하기 위해 필요한 조치사항",
+            "status": "자료없음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "대기",
+                "value": "자료없음",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "대기 자료없음"
+              },
+              {
+                "seq": 2,
+                "key": "토양",
+                "value": "자료없음",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "토양 자료없음"
+              },
+              {
+                "seq": 3,
+                "key": "수중",
+                "value": "자료없음",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "수중 자료없음"
+              }
+            ]
+          },
+          {
+            "item_code": "S6_CLEANUP",
+            "title_raw": "다. 정화 또는 제거 방법",
+            "status": "자료없음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "소량 누출시",
+                "value": "자료없음",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "소량 누출시 자료없음"
+              },
+              {
+                "seq": 2,
+                "key": "다량 누출시",
+                "value": "자료없음",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "다량 누출시 자료없음"
+              }
+            ]
+          },
+          {
+            "item_code": "S7_HANDLING",
+            "title_raw": "가. 안전취급요령",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "해당물질 취급 담당자만 사용하시오.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "해당물질 취급 담당자만 사용하시오."
+              },
+              {
+                "seq": 2,
+                "key": null,
+                "value": "적합하고 인증된 안전, 보호장비를 사용하시오.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "적합하고 인증된 안전, 보호장비를 사용하시오."
+              },
+              {
+                "seq": 3,
+                "key": null,
+                "value": "직접적인 신체 접촉을 피하시오.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "직접적인 신체 접촉을 피하시오."
+              },
+              {
+                "seq": 4,
+                "key": null,
+                "value": "적절한 제어풍속을 갖는 국소배기장치에서 사용하시오.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "적절한 제어풍속을 갖는 국소배기장치에서 사용하시오."
+              }
+            ]
+          },
+          {
+            "item_code": "S7_STORAGE",
+            "title_raw": "나. 안전한 저장방법",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "어두운 장소에 저장하시오.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "어두운 장소에 저장하시오."
+              },
+              {
+                "seq": 2,
+                "key": null,
+                "value": "밀폐용기에 저장하시오.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "밀폐용기에 저장하시오."
+              },
+              {
+                "seq": 3,
+                "key": null,
+                "value": "서늘하고 건조한 장소에 저장하시오.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "서늘하고 건조한 장소에 저장하시오."
+              },
+              {
+                "seq": 4,
+                "key": null,
+                "value": "정부부처 및 지방자치단체의 법규 및 규정에 의하여 저장, 사용하시오.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "정부부처 및 지방자치단체의 법규 및 규정에 의하여 저장, 사용하시오."
+              },
+              {
+                "seq": 5,
+                "key": null,
+                "value": "가압, 절단, 연마, 가열 등의 물리적인 충격을 피하시오",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "가압, 절단, 연마, 가열 등의 물리적인 충격을 피하시오"
+              }
+            ]
+          },
+          {
+            "item_code": "S8_ENG",
+            "title_raw": "나. 적절한 공학적 관리",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "국소배기장치 등의 환기장치를 설치하고 적정 제어풍속이 유지되도록 관리하시오",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "국소배기장치 등의 환기장치를 설치하고 적정 제어풍속이 유지되도록 관리하시오"
+              },
+              {
+                "seq": 2,
+                "key": null,
+                "value": "작업공정이 노동부 허용기준 및 노출기준에 적합한지 확인하시오.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "작업공정이 노동부 허용기준 및 노출기준에 적합한지 확인하시오."
+              }
+            ]
+          },
+          {
+            "item_code": "S8_RESP",
+            "title_raw": "호흡기 보호",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "한국산업안전보건공단의 인증을 필한 호흡용보호구를 착용하시오",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "한국산업안전보건공단의 인증을 필한 호흡용보호구를 착용하시오"
+              }
+            ]
+          },
+          {
+            "item_code": "S8_EYE",
+            "title_raw": "눈 보호",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "가능하면 보안경을 착용하시오.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "가능하면 보안경을 착용하시오."
+              }
+            ]
+          },
+          {
+            "item_code": "S8_HAND",
+            "title_raw": "손 보호",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "정상 상태에서는 보호장갑이 필요하지 않음.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "정상 상태에서는 보호장갑이 필요하지 않음."
+              }
+            ]
+          },
+          {
+            "item_code": "S8_BODY",
+            "title_raw": "신체 보호",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "별도의 개인 보호의가 필요하지 않음.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "별도의 개인 보호의가 필요하지 않음."
+              }
+            ]
+          },
+          {
+            "item_code": "S10_STABILITY",
+            "title_raw": "가. 화학적 안정성 및 유해 반응의 가능성",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "반응성",
+                "value": "상온 상압에서 안정함",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "반응성 : 상온 상압에서 안정함"
+              },
+              {
+                "seq": 2,
+                "key": "중합반응",
+                "value": "중합하지 않음",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "중합반응 : 중합하지 않음"
+              }
+            ]
+          },
+          {
+            "item_code": "S10_CONDITIONS",
+            "title_raw": "나. 피해야 할 조건",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "물리적 손상과 열로 부터 보호할 것. 용기가 열에 노출되면 파열되거나 폭발할 수 도 있음",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "물리적 손상과 열로 부터 보호할 것. 용기가 열에 노출되면 파열되거나 폭발할 수 도 있음"
+              }
+            ]
+          },
+          {
+            "item_code": "S10_INCOMPAT",
+            "title_raw": "다. 피해야 할 물질",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "혼합금지물질",
+                "value": "금속, 산화제",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "혼합금지물질 : 금속, 산화제"
+              }
+            ]
+          },
+          {
+            "item_code": "S10_DECOMP",
+            "title_raw": "라. 분해시 생성되는 유해물질",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "열분해생성물",
+                "value": "질소산화물",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "열분해생성물 : 질소산화물"
+              }
+            ]
+          },
+          {
+            "item_code": "S11_ROUTE",
+            "title_raw": "가. 가능성이 높은 노출 경로에 관한 정보",
+            "status": "자료없음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "자료없음",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "자료없음"
+              }
+            ]
+          },
+          {
+            "item_code": "S12_OTHER",
+            "title_raw": "마. 기타 유해 영향",
+            "status": "자료없음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "자료없음",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "자료없음"
+              }
+            ]
+          },
+          {
+            "item_code": "S13_METHOD",
+            "title_raw": "가. 폐기방법",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "폐기물관리법에 명시된 경우 규정에 따라 내용물 및 용기를 폐기하시오.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "폐기물관리법에 명시된 경우 규정에 따라 내용물 및 용기를 폐기하시오."
+              }
+            ]
+          },
+          {
+            "item_code": "S13_CAUTION",
+            "title_raw": "나. 폐기시 주의사항",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "폐기물관리법에 명시된 경우 규정에 명시된 주의사항을 고려하시오.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "폐기물관리법에 명시된 경우 규정에 명시된 주의사항을 고려하시오."
+              }
+            ]
+          },
+          {
+            "item_code": "S14_SPECIAL",
+            "title_raw": "바. 사용자가 운송 또는 운송수단에 관련해 알 필요가 있거나 필요한 특별한 안전대책",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "화재시 비상조치",
+                "value": "F-C",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "화재시 비상조치 F-C"
+              },
+              {
+                "seq": 2,
+                "key": "유출시 비상조치",
+                "value": "S-V",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "유출시 비상조치 S-V"
+              }
+            ]
+          },
+          {
+            "item_code": "S16_SOURCE",
+            "title_raw": "가.자료의 출처",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "National Library of Medicine/Hazardous Substances Data Bank(NLM/HSDB)(http://toxnet.nlm.nih.gov/cgi-bin/sis/htmlgen?HSDB)(성상)",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "National Library of Medicine/Hazardous Substances Data Bank(NLM/HSDB)(http://toxnet.nlm.nih.gov/cgi-bin/sis/htmlgen?HSDB)(성상)"
+              },
+              {
+                "seq": 2,
+                "key": null,
+                "value": "National Library of Medicine/Hazardous Substances Data Bank(NLM/HSDB)(http://toxnet.nlm.nih.gov/cgi-bin/sis/htmlgen?HSDB)(나. 냄새)",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "National Library of Medicine/Hazardous Substances Data Bank(NLM/HSDB)(http://toxnet.nlm.nih.gov/cgi-bin/sis/htmlgen?HSDB)(나. 냄새)"
+              },
+              {
+                "seq": 3,
+                "key": null,
+                "value": "International Chemical Safety Cards (ICSC)(http://www.ilo.org/public/english/protection/safework/cis/products/icsc/dtasht/index.htm)(마. 녹는점/어는점)",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "International Chemical Safety Cards (ICSC)(http://www.ilo.org/public/english/protection/safework/cis/products/icsc/dtasht/index.htm)(마. 녹는점/어는점)"
+              },
+              {
+                "seq": 4,
+                "key": null,
+                "value": "International Chemical Safety Cards (ICSC)(http://www.ilo.org/public/english/protection/safework/cis/products/icsc/dtasht/index.htm)(바. 초기 끓는점과 끓는",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "International Chemical Safety Cards (ICSC)(http://www.ilo.org/public/english/protection/safework/cis/products/icsc/dtasht/index.htm)(바. 초기 끓는점과 끓는"
+              },
+              {
+                "seq": 5,
+                "key": null,
+                "value": "National Library of Medicine/Hazardous Substances Data Bank(NLM/HSDB)(http://toxnet.nlm.nih.gov/cgi-bin/sis/htmlgen?HSDB)(카. 증기압)",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "National Library of Medicine/Hazardous Substances Data Bank(NLM/HSDB)(http://toxnet.nlm.nih.gov/cgi-bin/sis/htmlgen?HSDB)(카. 증기압)"
+              },
+              {
+                "seq": 6,
+                "key": null,
+                "value": "SRC(타. 용해도)",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "SRC(타. 용해도)"
+              },
+              {
+                "seq": 7,
+                "key": null,
+                "value": "International Chemical Safety Cards (ICSC)(http://www.ilo.org/public/english/protection/safework/cis/products/icsc/dtasht/index.htm)(파. 증기밀도)",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "International Chemical Safety Cards (ICSC)(http://www.ilo.org/public/english/protection/safework/cis/products/icsc/dtasht/index.htm)(파. 증기밀도)"
+              },
+              {
+                "seq": 8,
+                "key": null,
+                "value": "International Chemical Safety Cards (ICSC)(http://www.ilo.org/public/english/protection/safework/cis/products/icsc/dtasht/index.htm)(하. 비중)",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "International Chemical Safety Cards (ICSC)(http://www.ilo.org/public/english/protection/safework/cis/products/icsc/dtasht/index.htm)(하. 비중)"
+              },
+              {
+                "seq": 9,
+                "key": null,
+                "value": "National Library of Medicine/Hazardous Substances Data Bank(NLM/HSDB)(http://toxnet.nlm.nih.gov/cgi-bin/sis/htmlgen?HSDB)(거. n-옥탄올/물분배계수)",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "National Library of Medicine/Hazardous Substances Data Bank(NLM/HSDB)(http://toxnet.nlm.nih.gov/cgi-bin/sis/htmlgen?HSDB)(거. n-옥탄올/물분배계수)"
+              },
+              {
+                "seq": 10,
+                "key": null,
+                "value": "Corporate Solution From Thomson Micromedex(http://csi.micromedex.com)(머. 분자량)",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "Corporate Solution From Thomson Micromedex(http://csi.micromedex.com)(머. 분자량)"
+              },
+              {
+                "seq": 11,
+                "key": null,
+                "value": "National Library of Medicine/Hazardous Substances Data Bank(NLM/HSDB)(http://toxnet.nlm.nih.gov/cgi-bin/sis/htmlgen?HSDB)(피부부식성 또는 자극성 )",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "National Library of Medicine/Hazardous Substances Data Bank(NLM/HSDB)(http://toxnet.nlm.nih.gov/cgi-bin/sis/htmlgen?HSDB)(피부부식성 또는 자극성 )"
+              },
+              {
+                "seq": 12,
+                "key": null,
+                "value": "National Library of Medicine/Hazardous Substances Data Bank(NLM/HSDB)(http://toxnet.nlm.nih.gov/cgi-bin/sis/htmlgen?HSDB) (심한 눈손상 또는 자극성 )",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "National Library of Medicine/Hazardous Substances Data Bank(NLM/HSDB)(http://toxnet.nlm.nih.gov/cgi-bin/sis/htmlgen?HSDB) (심한 눈손상 또는 자극성 )"
+              },
+              {
+                "seq": 13,
+                "key": null,
+                "value": "International Chemical Safety Cards (ICSC)(http://www.ilo.org/public/english/protection/safework/cis/products/icsc/dtasht/index.htm)(특정 표적장기 독성 (1회",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "International Chemical Safety Cards (ICSC)(http://www.ilo.org/public/english/protection/safework/cis/products/icsc/dtasht/index.htm)(특정 표적장기 독성 (1회"
+              },
+              {
+                "seq": 14,
+                "key": null,
+                "value": "National Library of Medicine/Hazardous Substances Data Bank(NLM/HSDB)(http://toxnet.nlm.nih.gov/cgi-bin/sis/htmlgen?HSDB)(잔류성)",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "National Library of Medicine/Hazardous Substances Data Bank(NLM/HSDB)(http://toxnet.nlm.nih.gov/cgi-bin/sis/htmlgen?HSDB)(잔류성)"
+              }
+            ]
+          },
+          {
+            "item_code": "S16_OTHER",
+            "title_raw": "16. 그 밖의 참고사항",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "작성된 물질안전보건자료(MSDS)는 한국산업안전보건공단에서 제공한 MSDS를 참고하여 편집, 일부 수정한 자료입니다.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "○ 작성된 물질안전보건자료(MSDS)는 한국산업안전보건공단에서 제공한 MSDS를 참고하여 편집, 일부 수정한 자료입니다."
+              }
+            ]
+          }
+        ],
+        "extras": [
+          {
+            "seq": 1,
+            "section_no": 2,
+            "after_item": "S2_END",
+            "title_raw": "보건",
+            "reason": "필드없음",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "3",
+              "approx": null,
+              "value": 3,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": null,
+              "dp": 0,
+              "status": "값있음",
+              "note": null
+            },
+            "statements": [
+              {
+                "seq": 1,
+                "key": "다. 유해·위험성 분류기준에 포함되지 않는 기타 유해·위험성(NFPA)",
+                "value": "보건 3",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "보건 3"
+              }
+            ],
+            "suggested_code": "NFPA_HEALTH",
+            "page": 1
+          },
+          {
+            "seq": 2,
+            "section_no": 2,
+            "after_item": "S2_END",
+            "title_raw": "화재",
+            "reason": "필드없음",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "0",
+              "approx": null,
+              "value": 0,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": null,
+              "dp": 0,
+              "status": "값있음",
+              "note": null
+            },
+            "statements": [
+              {
+                "seq": 1,
+                "key": "다. 유해·위험성 분류기준에 포함되지 않는 기타 유해·위험성(NFPA)",
+                "value": "화재 0",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "화재 0"
+              }
+            ],
+            "suggested_code": "NFPA_FIRE",
+            "page": 1
+          },
+          {
+            "seq": 3,
+            "section_no": 2,
+            "after_item": "S2_END",
+            "title_raw": "반응성",
+            "reason": "필드없음",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "0",
+              "approx": null,
+              "value": 0,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": null,
+              "dp": 0,
+              "status": "값있음",
+              "note": null
+            },
+            "statements": [
+              {
+                "seq": 1,
+                "key": "다. 유해·위험성 분류기준에 포함되지 않는 기타 유해·위험성(NFPA)",
+                "value": "반응성 0",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "반응성 0"
+              }
+            ],
+            "suggested_code": "NFPA_REACTIVITY",
+            "page": 1
+          }
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "msds_index": 0,
+        "field": "narratives[0]",
+        "page": 2,
+        "source_text": "가. 눈에 들어갔을 때 | 눈에 화학물질이 들어간 경우 즉시 의사의 진찰과 치료를 받으시오.",
+        "rules": [
+          "R14"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[1]",
+        "page": 2,
+        "source_text": "나. 피부에 접촉했을 때 | 화학물질의 피부 접촉 즉시 의사의 진찰과 치료를 받으시오. | 해당물질에 접촉 시 동상을 입을 가능성이 있으니 치료에 주의하시오.",
+        "rules": [
+          "R14"
+        ],
+        "note": "줄 단위로 2문장으로 나눔"
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[2]",
+        "page": 2,
+        "source_text": "다. 흡입했을 때 | 호흡이 없으면 인공호흡을 실시하시오. | 화학물질을 흡입한 경우 의사의 진찰과 치료를 받으시오. | ...",
+        "rules": [
+          "R14"
+        ],
+        "note": "줄 단위로 5문장으로 나눔"
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[3]",
+        "page": 2,
+        "source_text": "라. 먹었을 때 | 많은 양의 화학물질을 섭취한 경우 의사의 진찰을 받으시오.",
+        "rules": [
+          "R14"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[4]",
+        "page": 2,
+        "source_text": "마. 기타 의사의 주의사항 | 화학물질을 흡입한 경우 산소 공급을 고려하시오.",
+        "rules": [
+          "R14"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[5]",
+        "page": 2,
+        "source_text": "적절한 소화제 | CO2. | 부적절한 소화제 | 자료없음 | 대형 화재시 | 일반적인 소화약제 및 미세 물분무를 사용하시오",
+        "rules": [
+          "R14"
+        ],
+        "note": "소제목을 key로 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[6]",
+        "page": 2,
+        "source_text": "열분해 생성물 | 질소산화물 | 화재 및 폭발위험 | 용기가 열에 노출되면 파열되거나 폭발할 수도 있음. | 화재 위험은 무시할 수 있음.",
+        "rules": [
+          "R14"
+        ],
+        "note": "소제목을 key로 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[7]",
+        "page": 2,
+        "source_text": "위험없이 할 수 있으면 용기를 화재지역으로부터 이동시킬 것 ... 탱크, 철도 차량 또는 탱크 트럭의 경우 : 대피반경:0.8km(1/2마일)",
+        "rules": [
+          "R14",
+          "R04"
+        ],
+        "note": "줄 단위로 나누고 대피반경 0.8km를 cond Q로 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[8]",
+        "page": 2,
+        "source_text": "작업자가 위험하지 않다면 직접 화학물질 누출을 중지시키시오. | 노출지역을 격리조치하고 관계자 이외인의 접근을 통제하시오. | 저지대를 피하고 바람과 반대방향에 있도록 하시오.",
+        "rules": [
+          "R14"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[9]",
+        "page": 2,
+        "source_text": "대기 | 자료없음 | 토양 | 자료없음 | 수중 | 자료없음",
+        "rules": [
+          "R14",
+          "R15"
+        ],
+        "note": "모든 하위 항목이 자료없음이므로 status 자료없음"
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[10]",
+        "page": 2,
+        "source_text": "소량 누출시 | 자료없음 | 다량 누출시 | 자료없음",
+        "rules": [
+          "R14",
+          "R15"
+        ],
+        "note": "모든 하위 항목이 자료없음이므로 status 자료없음"
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[11]",
+        "page": 2,
+        "source_text": "가. 안전취급요령 | 해당물질 취급 담당자만 사용하시오. | 적합하고 인증된 안전, 보호장비를 사용하시오. | ...",
+        "rules": [
+          "R14"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[12]",
+        "page": 2,
+        "source_text": "나. 안전한 저장방법 | 어두운 장소에 저장하시오. | 밀폐용기에 저장하시오. | ...",
+        "rules": [
+          "R14"
+        ],
+        "note": "2쪽에서 3쪽으로 이어지는 문장을 이어 붙임"
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[13]",
+        "page": 3,
+        "source_text": "나. 적절한 공학적 관리 | 국소배기장치 등의 환기장치를 설치하고 적정 제어풍속이 유지되도록 관리하시오 | 작업공정이 노동부 허용기준 및 노출기준에 적합한지 확인하시오.",
+        "rules": [
+          "R14"
+        ],
+        "note": "줄바꿈된 '관리하시오'를 이어 붙임"
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[14]",
+        "page": 3,
+        "source_text": "호흡기 보호 | 한국산업안전보건공단의 인증을 필한 호흡용보호구를 착용하시오",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[15]",
+        "page": 3,
+        "source_text": "눈 보호 | 가능하면 보안경을 착용하시오.",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[16]",
+        "page": 3,
+        "source_text": "손 보호 | 정상 상태에서는 보호장갑이 필요하지 않음.",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[17]",
+        "page": 3,
+        "source_text": "신체 보호 | 별도의 개인 보호의가 필요하지 않음.",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[18]",
+        "page": 3,
+        "source_text": "반응성 : 상온 상압에서 안정함 | 중합반응 : 중합하지 않음",
+        "rules": [
+          "R14"
+        ],
+        "note": "키:값 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[19]",
+        "page": 3,
+        "source_text": "물리적 손상과 열로 부터 보호할 것. 용기가 열에 노출되면 파열되거나 폭발할 수 도 있음",
+        "rules": [
+          "R14"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[20]",
+        "page": 3,
+        "source_text": "혼합금지물질 : 금속, 산화제",
+        "rules": [
+          "R14"
+        ],
+        "note": "키:값 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[21]",
+        "page": 3,
+        "source_text": "열분해생성물 : 질소산화물",
+        "rules": [
+          "R14"
+        ],
+        "note": "키:값 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[22]",
+        "page": 4,
+        "source_text": "가. 가능성이 높은 노출 경로에 관한 정보 | 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[23]",
+        "page": 4,
+        "source_text": "마. 기타 유해 영향 | 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[24]",
+        "page": 4,
+        "source_text": "가. 폐기방법 | 폐기물관리법에 명시된 경우 규정에 따라 내용물 및 용기를 폐기하시오.",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[25]",
+        "page": 4,
+        "source_text": "나. 폐기시 주의사항 | 폐기물관리법에 명시된 경우 규정에 명시된 주의사항을 고려하시오.",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[26]",
+        "page": 5,
+        "source_text": "화재시 비상조치 | F-C | 유출시 비상조치 | S-V",
+        "rules": [
+          "R14"
+        ],
+        "note": "소제목을 key로 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[27]",
+        "page": 5,
+        "source_text": "가.자료의 출처 | National Library of Medicine/Hazardous Substances Data Bank(NLM/HSDB)(...)(성상) ...",
+        "rules": [
+          "R14"
+        ],
+        "note": "5~6쪽의 출처 14줄을 줄 단위로 나누고 줄바꿈된 URL을 이어 붙임"
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[28]",
+        "page": 6,
+        "source_text": "○ 작성된 물질안전보건자료(MSDS)는 한국산업안전보건공단에서 제공한 MSDS를 참고하여 편집, 일부 수정한 자료입니다.",
+        "rules": [
+          "R14"
+        ],
+        "note": "16항 끝 각주를 S16_OTHER 문장으로 넣음, 소제목이 없어 16항 제목을 title_raw로 사용"
+      },
+      {
+        "msds_index": 0,
+        "field": "extras[0]",
+        "page": 1,
+        "source_text": "다. 유해·위험성 분류기준에 포함되지 않는 기타 유해·위험성(NFPA) | 보건 | 3",
+        "rules": [
+          "R24",
+          "R04"
+        ],
+        "note": "NFPA 등급을 담을 칸이 없어 extras로 보냄"
+      },
+      {
+        "msds_index": 0,
+        "field": "extras[1]",
+        "page": 1,
+        "source_text": "화재 | 0",
+        "rules": [
+          "R24",
+          "R04"
+        ],
+        "note": "NFPA 등급을 담을 칸이 없어 extras로 보냄"
+      },
+      {
+        "msds_index": 0,
+        "field": "extras[2]",
+        "page": 1,
+        "source_text": "반응성 | 0",
+        "rules": [
+          "R24",
+          "R04"
+        ],
+        "note": "NFPA 등급을 담을 칸이 없어 extras로 보냄"
+      }
+    ]
+  },
+  "raw_text": "{\"msds\":[{\"narratives\":[{\"item_code\":\"S4_EYE\",\"title_raw\":\"가. 눈에 들어갔을 때\",\"status\":\"값있음\",\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"눈에 화학물질이 들어간 경우 즉시 의사의 진찰과 치료를 받으시오.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"눈에 화학물질이 들어간 경우 즉시 의사의 진찰과 치료를 받으시오.\"}]},{\"item_code\":\"S4_SKIN\",\"title_raw\":\"나. 피부에 접촉했을 때\",\"status\":\"값있음\",\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"화학물질의 피부 접촉 즉시 의사의 진찰과 치료를 받으시오.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"화학물질의 피부 접촉 즉시 의사의 진찰과 치료를 받으시오.\"},{\"seq\":2,\"key\":null,\"value\":\"해당물질에 접촉 시 동상을 입을 가능성이 있으니 치료에 주의하시오.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"해당물질에 접촉 시 동상을 입을 가능성이 있으니 치료에 주의하시오.\"}]},{\"item_code\":\"S4_INHAL\",\"title_raw\":\"다. 흡입했을 때\",\"status\":\"값있음\",\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"호흡이 없으면 인공호흡을 실시하시오.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"호흡이 없으면 인공호흡을 실시하시오.\"},{\"seq\":2,\"key\":null,\"value\":\"화학물질을 흡입한 경우 의사의 진찰과 치료를 받으시오.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"화학물질을 흡입한 경우 의사의 진찰과 치료를 받으시오.\"},{\"seq\":3,\"key\":null,\"value\":\"노출로 인항 영향이 나타나면 환자를 비오염지역으로 옮기시오.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"노출로 인항 영향이 나타나면 환자를 비오염지역으로 옮기시오.\"},{\"seq\":4,\"key\":null,\"value\":\"화학물질을 흡입한 경우 즉시 의사의 진찰과 치료를 받으시오.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"화학물질을 흡입한 경우 즉시 의사의 진찰과 치료를 받으시오.\"},{\"seq\":5,\"key\":null,\"value\":\"호흡이 곤란하면 의사등의 지시에 따라 산소를 공급하시오.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"호흡이 곤란하면 의사등의 지시에 따라 산소를 공급하시오.\"}]},{\"item_code\":\"S4_INGEST\",\"title_raw\":\"라. 먹었을 때\",\"status\":\"값있음\",\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"많은 양의 화학물질을 섭취한 경우 의사의 진찰을 받으시오.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"많은 양의 화학물질을 섭취한 경우 의사의 진찰을 받으시오.\"}]},{\"item_code\":\"S4_DOCTOR\",\"title_raw\":\"마. 기타 의사의 주의사항\",\"status\":\"값있음\",\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"화학물질을 흡입한 경우 산소 공급을 고려하시오.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"화학물질을 흡입한 경우 산소 공급을 고려하시오.\"}]},{\"item_code\":\"S5_MEDIA\",\"title_raw\":\"가. 적절한(부적절한) 소화제\",\"status\":\"값있음\",\"statements\":[{\"seq\":1,\"key\":\"적절한 소화제\",\"value\":\"CO2.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"적절한 소화제 CO2.\"},{\"seq\":2,\"key\":\"부적절한 소화제\",\"value\":\"자료없음\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"부적절한 소화제 자료없음\"},{\"seq\":3,\"key\":\"대형 화재시\",\"value\":\"일반적인 소화약제 및 미세 물분무를 사용하시오\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"대형 화재시 일반적인 소화약제 및 미세 물분무를 사용하시오\"}]},{\"item_code\":\"S5_SPECIFIC\",\"title_raw\":\"나. 화학물질로부터 생기는 특정 유해성\",\"status\":\"값있음\",\"statements\":[{\"seq\":1,\"key\":\"열분해 생성물\",\"value\":\"질소산화물\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"열분해 생성물 질소산화물\"},{\"seq\":2,\"key\":\"화재 및 폭발위험\",\"value\":\"용기가 열에 노출되면 파열되거나 폭발할 수도 있음.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"화재 및 폭발위험 용기가 열에 노출되면 파열되거나 폭발할 수도 있음.\"},{\"seq\":3,\"key\":\"화재 및 폭발위험\",\"value\":\"화재 위험은 무시할 수 있음.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"화재 위험은 무시할 수 있음.\"}]},{\"item_code\":\"S5_FIREFIGHT\",\"title_raw\":\"다. 화재진압시 착용할 보호구 및 예방조치\",\"status\":\"값있음\",\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"위험없이 할 수 있으면 용기를 화재지역으로부터 이동시킬 것\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"위험없이 할 수 있으면 용기를 화재지역으로부터 이동시킬 것\"},{\"seq\":2,\"key\":null,\"value\":\"진화가 된 후에도 상당 시간 동안 물분무기로 용기를 냉각시킬 것\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"진화가 된 후에도 상당 시간 동안 물분무기로 용기를 냉각시킬 것\"},{\"seq\":3,\"key\":null,\"value\":\"탱크의 양 끝에는 접근하지 말 것\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"탱크의 양 끝에는 접근하지 말 것\"},{\"seq\":4,\"key\":null,\"value\":\"화재로 인하여 안전장치가 작동하는 소리가 나거나 탱크가 변색되는 경우에는 즉시 대피할 것\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"화재로 인하여 안전장치가 작동하는 소리가 나거나 탱크가 변색되는 경우에는 즉시 대피할 것\"},{\"seq\":5,\"key\":\"탱크, 철도 차량 또는 탱크 트럭의 경우\",\"value\":\"대피반경:0.8km(1/2마일)\",\"refs\":null,\"cond\":{\"raw\":\"0.8km(1/2마일)\",\"approx\":null,\"value\":0.8,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"km\",\"dp\":1,\"status\":\"값있음\",\"note\":\"1/2마일\"},\"std_code\":null,\"match_score\":null,\"text\":\"탱크, 철도 차량 또는 탱크 트럭의 경우 : 대피반경:0.8km(1/2마일)\"}]},{\"item_code\":\"S6_PERSONAL\",\"title_raw\":\"가. 인체를 보호하기 위해 필요한 조치사항 및 보호구\",\"status\":\"값있음\",\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"작업자가 위험하지 않다면 직접 화학물질 누출을 중지시키시오.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"작업자가 위험하지 않다면 직접 화학물질 누출을 중지시키시오.\"},{\"seq\":2,\"key\":null,\"value\":\"노출지역을 격리조치하고 관계자 이외인의 접근을 통제하시오.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"노출지역을 격리조치하고 관계자 이외인의 접근을 통제하시오.\"},{\"seq\":3,\"key\":null,\"value\":\"저지대를 피하고 바람과 반대방향에 있도록 하시오.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"저지대를 피하고 바람과 반대방향에 있도록 하시오.\"}]},{\"item_code\":\"S6_ENV\",\"title_raw\":\"나. 환경을 보호하기 위해 필요한 조치사항\",\"status\":\"자료없음\",\"statements\":[{\"seq\":1,\"key\":\"대기\",\"value\":\"자료없음\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"대기 자료없음\"},{\"seq\":2,\"key\":\"토양\",\"value\":\"자료없음\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"토양 자료없음\"},{\"seq\":3,\"key\":\"수중\",\"value\":\"자료없음\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"수중 자료없음\"}]},{\"item_code\":\"S6_CLEANUP\",\"title_raw\":\"다. 정화 또는 제거 방법\",\"status\":\"자료없음\",\"statements\":[{\"seq\":1,\"key\":\"소량 누출시\",\"value\":\"자료없음\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"소량 누출시 자료없음\"},{\"seq\":2,\"key\":\"다량 누출시\",\"value\":\"자료없음\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"다량 누출시 자료없음\"}]},{\"item_code\":\"S7_HANDLING\",\"title_raw\":\"가. 안전취급요령\",\"status\":\"값있음\",\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"해당물질 취급 담당자만 사용하시오.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"해당물질 취급 담당자만 사용하시오.\"},{\"seq\":2,\"key\":null,\"value\":\"적합하고 인증된 안전, 보호장비를 사용하시오.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"적합하고 인증된 안전, 보호장비를 사용하시오.\"},{\"seq\":3,\"key\":null,\"value\":\"직접적인 신체 접촉을 피하시오.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"직접적인 신체 접촉을 피하시오.\"},{\"seq\":4,\"key\":null,\"value\":\"적절한 제어풍속을 갖는 국소배기장치에서 사용하시오.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"적절한 제어풍속을 갖는 국소배기장치에서 사용하시오.\"}]},{\"item_code\":\"S7_STORAGE\",\"title_raw\":\"나. 안전한 저장방법\",\"status\":\"값있음\",\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"어두운 장소에 저장하시오.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"어두운 장소에 저장하시오.\"},{\"seq\":2,\"key\":null,\"value\":\"밀폐용기에 저장하시오.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"밀폐용기에 저장하시오.\"},{\"seq\":3,\"key\":null,\"value\":\"서늘하고 건조한 장소에 저장하시오.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"서늘하고 건조한 장소에 저장하시오.\"},{\"seq\":4,\"key\":null,\"value\":\"정부부처 및 지방자치단체의 법규 및 규정에 의하여 저장, 사용하시오.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"정부부처 및 지방자치단체의 법규 및 규정에 의하여 저장, 사용하시오.\"},{\"seq\":5,\"key\":null,\"value\":\"가압, 절단, 연마, 가열 등의 물리적인 충격을 피하시오\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"가압, 절단, 연마, 가열 등의 물리적인 충격을 피하시오\"}]},{\"item_code\":\"S8_ENG\",\"title_raw\":\"나. 적절한 공학적 관리\",\"status\":\"값있음\",\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"국소배기장치 등의 환기장치를 설치하고 적정 제어풍속이 유지되도록 관리하시오\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"국소배기장치 등의 환기장치를 설치하고 적정 제어풍속이 유지되도록 관리하시오\"},{\"seq\":2,\"key\":null,\"value\":\"작업공정이 노동부 허용기준 및 노출기준에 적합한지 확인하시오.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"작업공정이 노동부 허용기준 및 노출기준에 적합한지 확인하시오.\"}]},{\"item_code\":\"S8_RESP\",\"title_raw\":\"호흡기 보호\",\"status\":\"값있음\",\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"한국산업안전보건공단의 인증을 필한 호흡용보호구를 착용하시오\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"한국산업안전보건공단의 인증을 필한 호흡용보호구를 착용하시오\"}]},{\"item_code\":\"S8_EYE\",\"title_raw\":\"눈 보호\",\"status\":\"값있음\",\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"가능하면 보안경을 착용하시오.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"가능하면 보안경을 착용하시오.\"}]},{\"item_code\":\"S8_HAND\",\"title_raw\":\"손 보호\",\"status\":\"값있음\",\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"정상 상태에서는 보호장갑이 필요하지 않음.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"정상 상태에서는 보호장갑이 필요하지 않음.\"}]},{\"item_code\":\"S8_BODY\",\"title_raw\":\"신체 보호\",\"status\":\"값있음\",\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"별도의 개인 보호의가 필요하지 않음.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"별도의 개인 보호의가 필요하지 않음.\"}]},{\"item_code\":\"S10_STABILITY\",\"title_raw\":\"가. 화학적 안정성 및 유해 반응의 가능성\",\"status\":\"값있음\",\"statements\":[{\"seq\":1,\"key\":\"반응성\",\"value\":\"상온 상압에서 안정함\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"반응성 : 상온 상압에서 안정함\"},{\"seq\":2,\"key\":\"중합반응\",\"value\":\"중합하지 않음\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"중합반응 : 중합하지 않음\"}]},{\"item_code\":\"S10_CONDITIONS\",\"title_raw\":\"나. 피해야 할 조건\",\"status\":\"값있음\",\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"물리적 손상과 열로 부터 보호할 것. 용기가 열에 노출되면 파열되거나 폭발할 수 도 있음\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"물리적 손상과 열로 부터 보호할 것. 용기가 열에 노출되면 파열되거나 폭발할 수 도 있음\"}]},{\"item_code\":\"S10_INCOMPAT\",\"title_raw\":\"다. 피해야 할 물질\",\"status\":\"값있음\",\"statements\":[{\"seq\":1,\"key\":\"혼합금지물질\",\"value\":\"금속, 산화제\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"혼합금지물질 : 금속, 산화제\"}]},{\"item_code\":\"S10_DECOMP\",\"title_raw\":\"라. 분해시 생성되는 유해물질\",\"status\":\"값있음\",\"statements\":[{\"seq\":1,\"key\":\"열분해생성물\",\"value\":\"질소산화물\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"열분해생성물 : 질소산화물\"}]},{\"item_code\":\"S11_ROUTE\",\"title_raw\":\"가. 가능성이 높은 노출 경로에 관한 정보\",\"status\":\"자료없음\",\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"자료없음\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"자료없음\"}]},{\"item_code\":\"S12_OTHER\",\"title_raw\":\"마. 기타 유해 영향\",\"status\":\"자료없음\",\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"자료없음\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"자료없음\"}]},{\"item_code\":\"S13_METHOD\",\"title_raw\":\"가. 폐기방법\",\"status\":\"값있음\",\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"폐기물관리법에 명시된 경우 규정에 따라 내용물 및 용기를 폐기하시오.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"폐기물관리법에 명시된 경우 규정에 따라 내용물 및 용기를 폐기하시오.\"}]},{\"item_code\":\"S13_CAUTION\",\"title_raw\":\"나. 폐기시 주의사항\",\"status\":\"값있음\",\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"폐기물관리법에 명시된 경우 규정에 명시된 주의사항을 고려하시오.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"폐기물관리법에 명시된 경우 규정에 명시된 주의사항을 고려하시오.\"}]},{\"item_code\":\"S14_SPECIAL\",\"title_raw\":\"바. 사용자가 운송 또는 운송수단에 관련해 알 필요가 있거나 필요한 특별한 안전대책\",\"status\":\"값있음\",\"statements\":[{\"seq\":1,\"key\":\"화재시 비상조치\",\"value\":\"F-C\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"화재시 비상조치 F-C\"},{\"seq\":2,\"key\":\"유출시 비상조치\",\"value\":\"S-V\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"유출시 비상조치 S-V\"}]},{\"item_code\":\"S16_SOURCE\",\"title_raw\":\"가.자료의 출처\",\"status\":\"값있음\",\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"National Library of Medicine/Hazardous Substances Data Bank(NLM/HSDB)(http://toxnet.nlm.nih.gov/cgi-bin/sis/htmlgen?HSDB)(성상)\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"National Library of Medicine/Hazardous Substances Data Bank(NLM/HSDB)(http://toxnet.nlm.nih.gov/cgi-bin/sis/htmlgen?HSDB)(성상)\"},{\"seq\":2,\"key\":null,\"value\":\"National Library of Medicine/Hazardous Substances Data Bank(NLM/HSDB)(http://toxnet.nlm.nih.gov/cgi-bin/sis/htmlgen?HSDB)(나. 냄새)\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"National Library of Medicine/Hazardous Substances Data Bank(NLM/HSDB)(http://toxnet.nlm.nih.gov/cgi-bin/sis/htmlgen?HSDB)(나. 냄새)\"},{\"seq\":3,\"key\":null,\"value\":\"International Chemical Safety Cards (ICSC)(http://www.ilo.org/public/english/protection/safework/cis/products/icsc/dtasht/index.htm)(마. 녹는점/어는점)\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"International Chemical Safety Cards (ICSC)(http://www.ilo.org/public/english/protection/safework/cis/products/icsc/dtasht/index.htm)(마. 녹는점/어는점)\"},{\"seq\":4,\"key\":null,\"value\":\"International Chemical Safety Cards (ICSC)(http://www.ilo.org/public/english/protection/safework/cis/products/icsc/dtasht/index.htm)(바. 초기 끓는점과 끓는\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"International Chemical Safety Cards (ICSC)(http://www.ilo.org/public/english/protection/safework/cis/products/icsc/dtasht/index.htm)(바. 초기 끓는점과 끓는\"},{\"seq\":5,\"key\":null,\"value\":\"National Library of Medicine/Hazardous Substances Data Bank(NLM/HSDB)(http://toxnet.nlm.nih.gov/cgi-bin/sis/htmlgen?HSDB)(카. 증기압)\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"National Library of Medicine/Hazardous Substances Data Bank(NLM/HSDB)(http://toxnet.nlm.nih.gov/cgi-bin/sis/htmlgen?HSDB)(카. 증기압)\"},{\"seq\":6,\"key\":null,\"value\":\"SRC(타. 용해도)\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"SRC(타. 용해도)\"},{\"seq\":7,\"key\":null,\"value\":\"International Chemical Safety Cards (ICSC)(http://www.ilo.org/public/english/protection/safework/cis/products/icsc/dtasht/index.htm)(파. 증기밀도)\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"International Chemical Safety Cards (ICSC)(http://www.ilo.org/public/english/protection/safework/cis/products/icsc/dtasht/index.htm)(파. 증기밀도)\"},{\"seq\":8,\"key\":null,\"value\":\"International Chemical Safety Cards (ICSC)(http://www.ilo.org/public/english/protection/safework/cis/products/icsc/dtasht/index.htm)(하. 비중)\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"International Chemical Safety Cards (ICSC)(http://www.ilo.org/public/english/protection/safework/cis/products/icsc/dtasht/index.htm)(하. 비중)\"},{\"seq\":9,\"key\":null,\"value\":\"National Library of Medicine/Hazardous Substances Data Bank(NLM/HSDB)(http://toxnet.nlm.nih.gov/cgi-bin/sis/htmlgen?HSDB)(거. n-옥탄올/물분배계수)\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"National Library of Medicine/Hazardous Substances Data Bank(NLM/HSDB)(http://toxnet.nlm.nih.gov/cgi-bin/sis/htmlgen?HSDB)(거. n-옥탄올/물분배계수)\"},{\"seq\":10,\"key\":null,\"value\":\"Corporate Solution From Thomson Micromedex(http://csi.micromedex.com)(머. 분자량)\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"Corporate Solution From Thomson Micromedex(http://csi.micromedex.com)(머. 분자량)\"},{\"seq\":11,\"key\":null,\"value\":\"National Library of Medicine/Hazardous Substances Data Bank(NLM/HSDB)(http://toxnet.nlm.nih.gov/cgi-bin/sis/htmlgen?HSDB)(피부부식성 또는 자극성 )\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"National Library of Medicine/Hazardous Substances Data Bank(NLM/HSDB)(http://toxnet.nlm.nih.gov/cgi-bin/sis/htmlgen?HSDB)(피부부식성 또는 자극성 )\"},{\"seq\":12,\"key\":null,\"value\":\"National Library of Medicine/Hazardous Substances Data Bank(NLM/HSDB)(http://toxnet.nlm.nih.gov/cgi-bin/sis/htmlgen?HSDB) (심한 눈손상 또는 자극성 )\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"National Library of Medicine/Hazardous Substances Data Bank(NLM/HSDB)(http://toxnet.nlm.nih.gov/cgi-bin/sis/htmlgen?HSDB) (심한 눈손상 또는 자극성 )\"},{\"seq\":13,\"key\":null,\"value\":\"International Chemical Safety Cards (ICSC)(http://www.ilo.org/public/english/protection/safework/cis/products/icsc/dtasht/index.htm)(특정 표적장기 독성 (1회\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"International Chemical Safety Cards (ICSC)(http://www.ilo.org/public/english/protection/safework/cis/products/icsc/dtasht/index.htm)(특정 표적장기 독성 (1회\"},{\"seq\":14,\"key\":null,\"value\":\"National Library of Medicine/Hazardous Substances Data Bank(NLM/HSDB)(http://toxnet.nlm.nih.gov/cgi-bin/sis/htmlgen?HSDB)(잔류성)\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"National Library of Medicine/Hazardous Substances Data Bank(NLM/HSDB)(http://toxnet.nlm.nih.gov/cgi-bin/sis/htmlgen?HSDB)(잔류성)\"}]},{\"item_code\":\"S16_OTHER\",\"title_raw\":\"16. 그 밖의 참고사항\",\"status\":\"값있음\",\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"작성된 물질안전보건자료(MSDS)는 한국산업안전보건공단에서 제공한 MSDS를 참고하여 편집, 일부 수정한 자료입니다.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"○ 작성된 물질안전보건자료(MSDS)는 한국산업안전보건공단에서 제공한 MSDS를 참고하여 편집, 일부 수정한 자료입니다.\"}]}],\"extras\":[{\"seq\":1,\"section_no\":2,\"after_item\":\"S2_END\",\"title_raw\":\"보건\",\"reason\":\"필드없음\",\"comp_ref\":\"MIX\",\"q\":{\"raw\":\"3\",\"approx\":null,\"value\":3,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":null,\"dp\":0,\"status\":\"값있음\",\"note\":null},\"statements\":[{\"seq\":1,\"key\":\"다. 유해·위험성 분류기준에 포함되지 않는 기타 유해·위험성(NFPA)\",\"value\":\"보건 3\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"보건 3\"}],\"suggested_code\":\"NFPA_HEALTH\",\"page\":1},{\"seq\":2,\"section_no\":2,\"after_item\":\"S2_END\",\"title_raw\":\"화재\",\"reason\":\"필드없음\",\"comp_ref\":\"MIX\",\"q\":{\"raw\":\"0\",\"approx\":null,\"value\":0,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":null,\"dp\":0,\"status\":\"값있음\",\"note\":null},\"statements\":[{\"seq\":1,\"key\":\"다. 유해·위험성 분류기준에 포함되지 않는 기타 유해·위험성(NFPA)\",\"value\":\"화재 0\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"화재 0\"}],\"suggested_code\":\"NFPA_FIRE\",\"page\":1},{\"seq\":3,\"section_no\":2,\"after_item\":\"S2_END\",\"title_raw\":\"반응성\",\"reason\":\"필드없음\",\"comp_ref\":\"MIX\",\"q\":{\"raw\":\"0\",\"approx\":null,\"value\":0,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":null,\"dp\":0,\"status\":\"값있음\",\"note\":null},\"statements\":[{\"seq\":1,\"key\":\"다. 유해·위험성 분류기준에 포함되지 않는 기타 유해·위험성(NFPA)\",\"value\":\"반응성 0\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"반응성 0\"}],\"suggested_code\":\"NFPA_REACTIVITY\",\"page\":1}]}],\"evidence\":[{\"msds_index\":0,\"field\":\"narratives[0]\",\"page\":2,\"source_text\":\"가. 눈에 들어갔을 때 | 눈에 화학물질이 들어간 경우 즉시 의사의 진찰과 치료를 받으시오.\",\"rules\":[\"R14\"],\"note\":null},{\"msds_index\":0,\"field\":\"narratives[1]\",\"page\":2,\"source_text\":\"나. 피부에 접촉했을 때 | 화학물질의 피부 접촉 즉시 의사의 진찰과 치료를 받으시오. | 해당물질에 접촉 시 동상을 입을 가능성이 있으니 치료에 주의하시오.\",\"rules\":[\"R14\"],\"note\":\"줄 단위로 2문장으로 나눔\"},{\"msds_index\":0,\"field\":\"narratives[2]\",\"page\":2,\"source_text\":\"다. 흡입했을 때 | 호흡이 없으면 인공호흡을 실시하시오. | 화학물질을 흡입한 경우 의사의 진찰과 치료를 받으시오. | ...\",\"rules\":[\"R14\"],\"note\":\"줄 단위로 5문장으로 나눔\"},{\"msds_index\":0,\"field\":\"narratives[3]\",\"page\":2,\"source_text\":\"라. 먹었을 때 | 많은 양의 화학물질을 섭취한 경우 의사의 진찰을 받으시오.\",\"rules\":[\"R14\"],\"note\":null},{\"msds_index\":0,\"field\":\"narratives[4]\",\"page\":2,\"source_text\":\"마. 기타 의사의 주의사항 | 화학물질을 흡입한 경우 산소 공급을 고려하시오.\",\"rules\":[\"R14\"],\"note\":null},{\"msds_index\":0,\"field\":\"narratives[5]\",\"page\":2,\"source_text\":\"적절한 소화제 | CO2. | 부적절한 소화제 | 자료없음 | 대형 화재시 | 일반적인 소화약제 및 미세 물분무를 사용하시오\",\"rules\":[\"R14\"],\"note\":\"소제목을 key로 분리\"},{\"msds_index\":0,\"field\":\"narratives[6]\",\"page\":2,\"source_text\":\"열분해 생성물 | 질소산화물 | 화재 및 폭발위험 | 용기가 열에 노출되면 파열되거나 폭발할 수도 있음. | 화재 위험은 무시할 수 있음.\",\"rules\":[\"R14\"],\"note\":\"소제목을 key로 분리\"},{\"msds_index\":0,\"field\":\"narratives[7]\",\"page\":2,\"source_text\":\"위험없이 할 수 있으면 용기를 화재지역으로부터 이동시킬 것 ... 탱크, 철도 차량 또는 탱크 트럭의 경우 : 대피반경:0.8km(1/2마일)\",\"rules\":[\"R14\",\"R04\"],\"note\":\"줄 단위로 나누고 대피반경 0.8km를 cond Q로 분리\"},{\"msds_index\":0,\"field\":\"narratives[8]\",\"page\":2,\"source_text\":\"작업자가 위험하지 않다면 직접 화학물질 누출을 중지시키시오. | 노출지역을 격리조치하고 관계자 이외인의 접근을 통제하시오. | 저지대를 피하고 바람과 반대방향에 있도록 하시오.\",\"rules\":[\"R14\"],\"note\":null},{\"msds_index\":0,\"field\":\"narratives[9]\",\"page\":2,\"source_text\":\"대기 | 자료없음 | 토양 | 자료없음 | 수중 | 자료없음\",\"rules\":[\"R14\",\"R15\"],\"note\":\"모든 하위 항목이 자료없음이므로 status 자료없음\"},{\"msds_index\":0,\"field\":\"narratives[10]\",\"page\":2,\"source_text\":\"소량 누출시 | 자료없음 | 다량 누출시 | 자료없음\",\"rules\":[\"R14\",\"R15\"],\"note\":\"모든 하위 항목이 자료없음이므로 status 자료없음\"},{\"msds_index\":0,\"field\":\"narratives[11]\",\"page\":2,\"source_text\":\"가. 안전취급요령 | 해당물질 취급 담당자만 사용하시오. | 적합하고 인증된 안전, 보호장비를 사용하시오. | ...\",\"rules\":[\"R14\"],\"note\":null},{\"msds_index\":0,\"field\":\"narratives[12]\",\"page\":2,\"source_text\":\"나. 안전한 저장방법 | 어두운 장소에 저장하시오. | 밀폐용기에 저장하시오. | ...\",\"rules\":[\"R14\"],\"note\":\"2쪽에서 3쪽으로 이어지는 문장을 이어 붙임\"},{\"msds_index\":0,\"field\":\"narratives[13]\",\"page\":3,\"source_text\":\"나. 적절한 공학적 관리 | 국소배기장치 등의 환기장치를 설치하고 적정 제어풍속이 유지되도록 관리하시오 | 작업공정이 노동부 허용기준 및 노출기준에 적합한지 확인하시오.\",\"rules\":[\"R14\"],\"note\":\"줄바꿈된 '관리하시오'를 이어 붙임\"},{\"msds_index\":0,\"field\":\"narratives[14]\",\"page\":3,\"source_text\":\"호흡기 보호 | 한국산업안전보건공단의 인증을 필한 호흡용보호구를 착용하시오\",\"rules\":[],\"note\":null},{\"msds_index\":0,\"field\":\"narratives[15]\",\"page\":3,\"source_text\":\"눈 보호 | 가능하면 보안경을 착용하시오.\",\"rules\":[],\"note\":null},{\"msds_index\":0,\"field\":\"narratives[16]\",\"page\":3,\"source_text\":\"손 보호 | 정상 상태에서는 보호장갑이 필요하지 않음.\",\"rules\":[],\"note\":null},{\"msds_index\":0,\"field\":\"narratives[17]\",\"page\":3,\"source_text\":\"신체 보호 | 별도의 개인 보호의가 필요하지 않음.\",\"rules\":[],\"note\":null},{\"msds_index\":0,\"field\":\"narratives[18]\",\"page\":3,\"source_text\":\"반응성 : 상온 상압에서 안정함 | 중합반응 : 중합하지 않음\",\"rules\":[\"R14\"],\"note\":\"키:값 분리\"},{\"msds_index\":0,\"field\":\"narratives[19]\",\"page\":3,\"source_text\":\"물리적 손상과 열로 부터 보호할 것. 용기가 열에 노출되면 파열되거나 폭발할 수 도 있음\",\"rules\":[\"R14\"],\"note\":null},{\"msds_index\":0,\"field\":\"narratives[20]\",\"page\":3,\"source_text\":\"혼합금지물질 : 금속, 산화제\",\"rules\":[\"R14\"],\"note\":\"키:값 분리\"},{\"msds_index\":0,\"field\":\"narratives[21]\",\"page\":3,\"source_text\":\"열분해생성물 : 질소산화물\",\"rules\":[\"R14\"],\"note\":\"키:값 분리\"},{\"msds_index\":0,\"field\":\"narratives[22]\",\"page\":4,\"source_text\":\"가. 가능성이 높은 노출 경로에 관한 정보 | 자료없음\",\"rules\":[\"R15\"],\"note\":null},{\"msds_index\":0,\"field\":\"narratives[23]\",\"page\":4,\"source_text\":\"마. 기타 유해 영향 | 자료없음\",\"rules\":[\"R15\"],\"note\":null},{\"msds_index\":0,\"field\":\"narratives[24]\",\"page\":4,\"source_text\":\"가. 폐기방법 | 폐기물관리법에 명시된 경우 규정에 따라 내용물 및 용기를 폐기하시오.\",\"rules\":[],\"note\":null},{\"msds_index\":0,\"field\":\"narratives[25]\",\"page\":4,\"source_text\":\"나. 폐기시 주의사항 | 폐기물관리법에 명시된 경우 규정에 명시된 주의사항을 고려하시오.\",\"rules\":[],\"note\":null},{\"msds_index\":0,\"field\":\"narratives[26]\",\"page\":5,\"source_text\":\"화재시 비상조치 | F-C | 유출시 비상조치 | S-V\",\"rules\":[\"R14\"],\"note\":\"소제목을 key로 분리\"},{\"msds_index\":0,\"field\":\"narratives[27]\",\"page\":5,\"source_text\":\"가.자료의 출처 | National Library of Medicine/Hazardous Substances Data Bank(NLM/HSDB)(...)(성상) ...\",\"rules\":[\"R14\"],\"note\":\"5~6쪽의 출처 14줄을 줄 단위로 나누고 줄바꿈된 URL을 이어 붙임\"},{\"msds_index\":0,\"field\":\"narratives[28]\",\"page\":6,\"source_text\":\"○ 작성된 물질안전보건자료(MSDS)는 한국산업안전보건공단에서 제공한 MSDS를 참고하여 편집, 일부 수정한 자료입니다.\",\"rules\":[\"R14\"],\"note\":\"16항 끝 각주를 S16_OTHER 문장으로 넣음, 소제목이 없어 16항 제목을 title_raw로 사용\"},{\"msds_index\":0,\"field\":\"extras[0]\",\"page\":1,\"source_text\":\"다. 유해·위험성 분류기준에 포함되지 않는 기타 유해·위험성(NFPA) | 보건 | 3\",\"rules\":[\"R24\",\"R04\"],\"note\":\"NFPA 등급을 담을 칸이 없어 extras로 보냄\"},{\"msds_index\":0,\"field\":\"extras[1]\",\"page\":1,\"source_text\":\"화재 | 0\",\"rules\":[\"R24\",\"R04\"],\"note\":\"NFPA 등급을 담을 칸이 없어 extras로 보냄\"},{\"msds_index\":0,\"field\":\"extras[2]\",\"page\":1,\"source_text\":\"반응성 | 0\",\"rules\":[\"R24\",\"R04\"],\"note\":\"NFPA 등급을 담을 칸이 없어 extras로 보냄\"}]}"
+}

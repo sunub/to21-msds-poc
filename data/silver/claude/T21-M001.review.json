@@ -1,0 +1,1894 @@
+[
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "meta.msds_no",
+    "page": 1,
+    "source_text": "MSDS 번호 : AA00200-0000001195",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "meta.revision_label",
+    "page": 12,
+    "source_text": "○ 개정 횟수 : 2-2",
+    "rules": [
+      "R17"
+    ],
+    "note": "'2-2'는 개정 횟수를 하나의 정수로 확정할 수 없어 revision_no는 null로 두고 원문만 revision_label에 남김"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "meta.revision_no",
+    "page": 12,
+    "source_text": "○ 개정 횟수 : 2-2",
+    "rules": [
+      "R17"
+    ],
+    "note": "정수 개정 횟수로 해석이 불분명하여 null"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "meta.first_issue_date",
+    "page": 12,
+    "source_text": "나. 최초작성일자 : 2021-09-24",
+    "rules": [
+      "R01"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "meta.last_revision_date",
+    "page": 1,
+    "source_text": "최종 개정일자 : 2022-10-31",
+    "rules": [
+      "R01"
+    ],
+    "note": "16항에도 같은 날짜로 기재됨"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "meta.page_start",
+    "page": 1,
+    "source_text": "- 1 -",
+    "rules": [
+      "R16"
+    ],
+    "note": "파일 전체가 MSDS 1건"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "meta.page_end",
+    "page": 12,
+    "source_text": "- 12 -",
+    "rules": [
+      "R16"
+    ],
+    "note": "파일 전체가 MSDS 1건"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "product.name",
+    "page": 1,
+    "source_text": "가. 제품명 : MN_METHANE(fuel)",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "product.uses",
+    "page": 1,
+    "source_text": "○ 제품의 권고 용도 12.연료 및 연료 첨가제",
+    "rules": [
+      "R11"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "product.restrictions",
+    "page": 1,
+    "source_text": "권고용도 외 사용제한 생활화학제품 및 살생물제의 안전관리에 관한 법률에 정의된 살생물제로의 사용을 제한합니다. 무기제조 및 관련 용도로 사용하지 마시오.",
+    "rules": [
+      "R11"
+    ],
+    "note": "줄 단위로 3개 항목으로 나눔"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "companies[0]",
+    "page": 1,
+    "source_text": "○ 판매자 회사명 : 롯데케미칼 주식회사 주소 : 05551 서울특별시 송파구 올림픽로 300 롯데월드타워 기초소재 | 02-829-4114 | 첨단소재 | 031-596-3114 여수공장 | 061-688-2100 | 울산공장 | 052-278-3500 대산공장 | 041-689-5900 | 여수공장(첨단) | 061-689-1100 팩스 : 02-834-6070",
+    "rules": [
+      "R12"
+    ],
+    "note": "'다. 공급자 정보' 아래 판매자를 공급자로 두고, 주소 앞 우편번호 분리, 영업/마케팅 번호는 대표, 긴급전화번호 표의 번호는 각각 긴급으로 분리"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.classified",
+    "page": 1,
+    "source_text": "- 인화성 가스 구분 1 - 고압가스 압축가스",
+    "rules": [],
+    "note": "분류 항목이 있어 true"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.classes[0]",
+    "page": 1,
+    "source_text": "- 인화성 가스 구분 1",
+    "rules": [
+      "R07"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.classes[1]",
+    "page": 1,
+    "source_text": "- 고압가스 압축가스",
+    "rules": [
+      "R07"
+    ],
+    "note": "구분 표기 대신 '압축가스'가 적혀 있어 그대로 category에 넣음"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.signal_word",
+    "page": 2,
+    "source_text": "신호어 - 위험",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.pictograms[0]",
+    "page": 1,
+    "source_text": "그림문자",
+    "rules": [],
+    "note": "이미지에서 불꽃 그림 확인"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.pictograms[1]",
+    "page": 1,
+    "source_text": "그림문자",
+    "rules": [],
+    "note": "이미지에서 가스 실린더 그림 확인"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.h_statements[0]",
+    "page": 2,
+    "source_text": "H220 극인화성 가스",
+    "rules": [
+      "R05"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.h_statements[1]",
+    "page": 2,
+    "source_text": "H280 고압가스 포함: 가열하면 폭발할 수 있음",
+    "rules": [
+      "R05"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.p_statements[0]",
+    "page": 2,
+    "source_text": "P210 열, 고온의 표면, 스파크, 화염 및 그 밖의 점화원으로부터 멀리하시오. 금연",
+    "rules": [
+      "R05"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.p_statements[1]",
+    "page": 2,
+    "source_text": "P377 가스 누출 화재; 누출을 안전하게 막을 수 없다면 불을 끄려하지 마시오.",
+    "rules": [
+      "R05"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.p_statements[2]",
+    "page": 2,
+    "source_text": "P381 누출 시 모든 점화원을 제거하시오.",
+    "rules": [
+      "R05"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.p_statements[3]",
+    "page": 2,
+    "source_text": "P403 환기가 잘 되는 곳에 보관하시오.",
+    "rules": [
+      "R05"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.p_statements[4]",
+    "page": 2,
+    "source_text": "P410+P403 직사광선을 피하시오. 환기가 잘 되는 곳에 보관하시오.",
+    "rules": [
+      "R05"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.other_hazards[0]",
+    "page": 2,
+    "source_text": "경험과 제공된 정보에 의하면, 이 제품은 규정대로 사용 및 취급시 유해한 영향을 미치지 않습니다.",
+    "rules": [
+      "R14"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "composition.type",
+    "page": 2,
+    "source_text": "Methane | Hydrogen | Carbon monoxide",
+    "rules": [],
+    "note": "성분표에 3개 성분이 있어 혼합물"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "components[0]",
+    "page": 2,
+    "source_text": "Methane | biogas, carbane, methan e | 74-82-8 | KE-23181 | 85.9",
+    "rules": [
+      "R02",
+      "R03",
+      "R04",
+      "R06",
+      "R11"
+    ],
+    "note": "줄바꿈으로 나뉜 'methan e'를 'methane'으로 이어 붙여 이명 분리, 함유량 단위는 머리글 '함유량(%)'에서 가져옴"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "components[1]",
+    "page": 2,
+    "source_text": "Hydrogen | dihydrogen | 1333-74-0 | KE-20137 | 14",
+    "rules": [
+      "R02",
+      "R03",
+      "R04",
+      "R06"
+    ],
+    "note": "함유량 단위는 머리글 '함유량(%)'에서 가져옴"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "components[2]",
+    "page": 2,
+    "source_text": "Carbon monoxide | carbon monoxide | 630-08-0 | KE-04745 | 0.1",
+    "rules": [
+      "R02",
+      "R03",
+      "R04",
+      "R06"
+    ],
+    "note": "함유량 단위는 머리글 '함유량(%)'에서 가져옴"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[0]",
+    "page": 5,
+    "source_text": "Carbon monoxide | 30.0ppm TWA 200.0ppm STEL",
+    "rules": [
+      "R04",
+      "R06",
+      "R08",
+      "R10"
+    ],
+    "note": "국내기준 칸의 TWA 값을 분리. CAS 대신 이름으로 성분 3 매칭. 8항 표에 노출/허용기준 구분이 없어 kr_basis는 null"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[1]",
+    "page": 5,
+    "source_text": "Carbon monoxide | 30.0ppm TWA 200.0ppm STEL",
+    "rules": [
+      "R04",
+      "R06",
+      "R08",
+      "R10"
+    ],
+    "note": "국내기준 칸의 STEL 값을 별도 행으로 분리"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[2]",
+    "page": 5,
+    "source_text": "Carbon monoxide | 25 ppm TWA",
+    "rules": [
+      "R04",
+      "R10"
+    ],
+    "note": "ACGIH 칸의 TWA 값"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[3]",
+    "page": 5,
+    "source_text": "3.5 % of hemoglobin Medium: blood Time: end of shift Parameter: Carboxyhemoglobin (background, nonspecific)",
+    "rules": [
+      "R04",
+      "R10",
+      "R11",
+      "R17"
+    ],
+    "note": "생물학적 노출기준 첫 항목. 매체·시기·지표를 나누고 괄호 표기를 notations로 분리"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[4]",
+    "page": 5,
+    "source_text": "20 Medium: endexhaled air Time: end of shift Parameter: Carbon monoxide (background, nonspecific)",
+    "rules": [
+      "R04",
+      "R10",
+      "R11",
+      "R17"
+    ],
+    "note": "생물학적 노출기준 두 번째 항목. 원문에 단위가 없어 unit은 null"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[0]",
+    "page": 6,
+    "source_text": "성상 | 기체 | ECHA",
+    "rules": [
+      "R25"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[1]",
+    "page": 6,
+    "source_text": "색상 | 무색 | ECHA",
+    "rules": [
+      "R25"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[2]",
+    "page": 6,
+    "source_text": "냄새 | 무취 | ECHA",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[3]",
+    "page": 6,
+    "source_text": "냄새역치 | 자료없음",
+    "rules": [
+      "R15",
+      "R25"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[4]",
+    "page": 6,
+    "source_text": "pH | 자료없음",
+    "rules": [
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[5]",
+    "page": 6,
+    "source_text": "녹는점/어는점 | -183 | ECHA",
+    "rules": [
+      "R04",
+      "R17"
+    ],
+    "note": "원문에 단위가 없어 unit은 null"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[6]",
+    "page": 6,
+    "source_text": "초기 끓는점과 끓는점 범위(℃) | -161°C | ECHA",
+    "rules": [
+      "R04",
+      "R08"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[7]",
+    "page": 6,
+    "source_text": "인화점(℃) | -188℃(closed cup) | HSDB",
+    "rules": [
+      "R04",
+      "R08"
+    ],
+    "note": "괄호 안 closed cup을 cond.method로 분리"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[8]",
+    "page": 6,
+    "source_text": "증발속도 | 자료없음",
+    "rules": [
+      "R15",
+      "R25"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[9]",
+    "page": 6,
+    "source_text": "인화성(고체, 기체) | 인화성 가스 | ECHA",
+    "rules": [
+      "R25"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[10]",
+    "page": 6,
+    "source_text": "인화 또는 폭발 범위의 상한/하한 | 인화 상한값 15 %(V) 인화 하한값 5 %(V) | ECHA",
+    "rules": [
+      "R04",
+      "R25"
+    ],
+    "note": "상한/하한 한 칸을 UEL·LEL 두 행으로 나눔"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[11]",
+    "page": 6,
+    "source_text": "인화 또는 폭발 범위의 상한/하한 | 인화 상한값 15 %(V) 인화 하한값 5 %(V) | ECHA",
+    "rules": [
+      "R04",
+      "R25"
+    ],
+    "note": "하한값 5 %(V)를 LEL 행으로 분리"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[12]",
+    "page": 6,
+    "source_text": "증기압 | 62,128Kpa (25˚C) | HSDB",
+    "rules": [
+      "R04",
+      "R06",
+      "R08"
+    ],
+    "note": "천단위 콤마를 없애 62128로 적고, 단위 Kpa는 kPa로 통일. 25˚C는 cond로 분리"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[13]",
+    "page": 6,
+    "source_text": "용해도 | 24.4mg/L (25˚C) | ECHA",
+    "rules": [
+      "R04"
+    ],
+    "note": "25˚C를 cond로 분리"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[14]",
+    "page": 6,
+    "source_text": "증기밀도 | 0.554(공기 = 1.0) | HSDB",
+    "rules": [
+      "R04",
+      "R25"
+    ],
+    "note": "기준 물질 '공기 = 1.0'을 cond.reference로 분리"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[15]",
+    "page": 6,
+    "source_text": "상대밀도 | 자료없음",
+    "rules": [
+      "R15",
+      "R25"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[16]",
+    "page": 6,
+    "source_text": "n-옥탄올/물분배계수 | logPow : 1.09 | ECHA",
+    "rules": [
+      "R04",
+      "R25"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[17]",
+    "page": 6,
+    "source_text": "자연발화온도 | 537 | ECHA",
+    "rules": [
+      "R04",
+      "R17"
+    ],
+    "note": "원문에 단위가 없어 unit은 null"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[18]",
+    "page": 6,
+    "source_text": "분해온도 | 자료없음",
+    "rules": [
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[19]",
+    "page": 6,
+    "source_text": "점도(㎟/s, 40℃) | 자료없음",
+    "rules": [
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[20]",
+    "page": 6,
+    "source_text": "분자량 | 16.04",
+    "rules": [
+      "R04"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[21]",
+    "page": 6,
+    "source_text": "비중 | 자료없음",
+    "rules": [
+      "R15",
+      "R25"
+    ],
+    "note": "상대밀도와 같은 코드라서 seq 2로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[0]",
+    "page": 7,
+    "source_text": "● 급성독성물질(경구) PRODUCT : 분류되지않음 - 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "제품 전체 분류와 '자료없음'을 MIX 행으로 남김"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[1]",
+    "page": 7,
+    "source_text": "● 급성독성물질(경피) PRODUCT : 분류되지않음 - 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "제품 전체 분류와 '자료없음'을 MIX 행으로 남김"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[2]",
+    "page": 7,
+    "source_text": "● 급성독성물질(흡입:가스) PRODUCT : 분류되지않음",
+    "rules": [
+      "R10"
+    ],
+    "note": "제품 전체 분류를 MIX 행으로 남김"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[3]",
+    "page": 7,
+    "source_text": "- Carbon monoxide : 환경부 고시(구분 3 : 700ppm)",
+    "rules": [
+      "R04",
+      "R10",
+      "R17"
+    ],
+    "note": "구분 3과 700ppm을 분리; 지표가 명시되지 않아 descriptor는 null"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[4]",
+    "page": 7,
+    "source_text": "- Hydrogen : LC50 >15000 ppm 1 hr 실험종 : Mouse",
+    "rules": [
+      "R04",
+      "R10"
+    ],
+    "note": "'>15000 ppm'을 하한 15000(>)로 분해, 1 hr를 노출 시간으로"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[5]",
+    "page": 7,
+    "source_text": "- Methane : LC50 500000 ppm 2 hr 실험종 : Mouse",
+    "rules": [
+      "R04",
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[6]",
+    "page": 7,
+    "source_text": "● 급성독성물질(흡입:증기) PRODUCT : 분류되지않음 - 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[7]",
+    "page": 7,
+    "source_text": "● 급성독성물질(흡입:분진/미스트) PRODUCT : 분류되지않음 - 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[8]",
+    "page": 7,
+    "source_text": "○ 피부 부식성 또는 자극성 물질 PRODUCT : 분류되지않음",
+    "rules": [
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[9]",
+    "page": 7,
+    "source_text": "- Carbon monoxide : 무미 무취의 가스",
+    "rules": [
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[10]",
+    "page": 7,
+    "source_text": "○ 심한 눈 손상 또는 자극성 물질 PRODUCT : 분류되지않음",
+    "rules": [
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[11]",
+    "page": 8,
+    "source_text": "- Carbon monoxide : 흡연자들에 대해 일상적으로 흡입하고 있지만 과민성에 대한 정보는 없음, 무미 무취의 가스",
+    "rules": [
+      "R10"
+    ],
+    "note": "7쪽 눈 손상 항목에 이어지는 8쪽 서술"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[12]",
+    "page": 8,
+    "source_text": "○ 호흡기 과민성 물질 PRODUCT : 분류되지않음 - 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[13]",
+    "page": 8,
+    "source_text": "○ 피부 과민성 물질 PRODUCT : 분류되지않음",
+    "rules": [
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[14]",
+    "page": 8,
+    "source_text": "- Carbon monoxide : 흡연자들에 대해 일상적으로 흡입하고 있지만 과민성에 대한 정보는 없음",
+    "rules": [
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[15]",
+    "page": 8,
+    "source_text": "○ 발암성물질 PRODUCT : 분류되지않음 - 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[16]",
+    "page": 8,
+    "source_text": "○ 생식세포 변이원성 물질 PRODUCT : 분류되지않음",
+    "rules": [
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[17]",
+    "page": 8,
+    "source_text": "- Carbon monoxide : 시험관 내 포유류(마우스) 유전자돌연변이시험 결과 음성(OECD Guideline 476, GLP) 생체 내 포유류 적혈구를 이용한 소핵시험결과 (OECD TG 474) 음성",
+    "rules": [
+      "R10"
+    ],
+    "note": "두 시험 지침이 섞여 있어 guideline은 비우고 서술로 보존"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[18]",
+    "page": 8,
+    "source_text": "○ 생식독성 물질 PRODUCT : 분류되지않음",
+    "rules": [
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[19]",
+    "page": 8,
+    "source_text": "- Carbon monoxide : 환경부 고시(구분 1)",
+    "rules": [
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[20]",
+    "page": 8,
+    "source_text": "○ 특정표적장기·전신 독성 물질(1회 노출) PRODUCT : 분류되지않음",
+    "rules": [
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[21]",
+    "page": 8,
+    "source_text": "성인 수컷 랫드의 4 시간 노출 동안 일산화탄소에 대한 LC50은 1300 ppm 인 것으로 간주되었습니다.(랫드 / 수컷 / equivalent or similar to Guideline: OECD TG 403)",
+    "rules": [
+      "R04",
+      "R10"
+    ],
+    "note": "서술에서 LC50 1300 ppm, 4시간, 랫드 수컷, OECD TG 403을 분리하고 전문은 statements에 보존"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[22]",
+    "page": 8,
+    "source_text": "○ 특정표적장기·전신 독성 물질(반복 노출) PRODUCT : 분류되지않음",
+    "rules": [
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[23]",
+    "page": 8,
+    "source_text": "- Carbon monoxide : 환경부 고시(구분 2)",
+    "rules": [
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[24]",
+    "page": 8,
+    "source_text": "○ 흡인유해성 물질 PRODUCT : 분류되지않음 - 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[0]",
+    "page": 8,
+    "source_text": "○ 발암성물질 PRODUCT : 분류되지않음 - 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "분류 기관이 명시되지 않아 agency는 null"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[1]",
+    "page": 8,
+    "source_text": "○ 생식세포 변이원성 물질 PRODUCT : 분류되지않음",
+    "rules": [
+      "R10"
+    ],
+    "note": "분류 기관이 명시되지 않아 agency는 null"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[2]",
+    "page": 8,
+    "source_text": "○ 생식독성 물질 PRODUCT : 분류되지않음",
+    "rules": [
+      "R10"
+    ],
+    "note": "분류 기관이 명시되지 않아 agency는 null"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[3]",
+    "page": 8,
+    "source_text": "- Carbon monoxide : 환경부 고시(구분 1)",
+    "rules": [
+      "R10"
+    ],
+    "note": "'환경부 고시'를 KR_CCA로 코드화"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[0]",
+    "page": 8,
+    "source_text": "- Carbon monoxide : LC50 672.6 ㎎/ℓ 96 Fishes species, (반지수식, 담수, GLP)",
+    "rules": [
+      "R04",
+      "R08",
+      "R10",
+      "R17"
+    ],
+    "note": "㎎/ℓ→mg/L; 96의 시간 단위가 없어 duration_unit은 null"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[1]",
+    "page": 9,
+    "source_text": "- Carbon monoxide : LC50 307.5 ㎎/ℓ 48 hr",
+    "rules": [
+      "R04",
+      "R08",
+      "R10"
+    ],
+    "note": "㎎/ℓ→mg/L"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[2]",
+    "page": 9,
+    "source_text": "- Methane : LC50 164.244 ㎎/ℓ 48 hr",
+    "rules": [
+      "R04",
+      "R08",
+      "R10"
+    ],
+    "note": "㎎/ℓ→mg/L"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[3]",
+    "page": 9,
+    "source_text": "- Carbon monoxide : EC50 124.4 ㎎/ℓ 96 hr Green algae",
+    "rules": [
+      "R04",
+      "R08",
+      "R10"
+    ],
+    "note": "㎎/ℓ→mg/L"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[4]",
+    "page": 9,
+    "source_text": "- Methane : EC50 95.717 ㎎/ℓ 96 hr",
+    "rules": [
+      "R04",
+      "R08",
+      "R10"
+    ],
+    "note": "㎎/ℓ→mg/L"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[5]",
+    "page": 9,
+    "source_text": "● 분해성 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[6]",
+    "page": 9,
+    "source_text": "● 생분해성 - Methane : 65.7 (%) 35 day",
+    "rules": [
+      "R04",
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[7]",
+    "page": 9,
+    "source_text": "- Carbon monoxide : 1.78 log Kow (log Pow)",
+    "rules": [
+      "R04",
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[8]",
+    "page": 9,
+    "source_text": "- Hydrogen : 0.45 log Kow (추정치)",
+    "rules": [
+      "R04",
+      "R10"
+    ],
+    "note": "'(추정치)'를 q.note로"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[9]",
+    "page": 9,
+    "source_text": "- Methane : 1.09 log Kow",
+    "rules": [
+      "R04",
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[10]",
+    "page": 9,
+    "source_text": "● 생물농축계수 - Methane : 1",
+    "rules": [
+      "R04",
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[11]",
+    "page": 9,
+    "source_text": "라. 토양 이동성 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[12]",
+    "page": 9,
+    "source_text": "마. 기타 유해 영향 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "맞는 C5 코드가 없어 endpoint는 null"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "transport[0]",
+    "page": 10,
+    "source_text": "가. 유엔번호(UN No.) : 2034 | 나. 적정선적명 : HYDROGEN AND METHANE MIXTURE, COMPRESSED | 다. 운송에서의 위험성 등급 : 2.1 | 라. 용기등급 : 해당없음 | 마. 해양오염물질 : 해당없음 | 화재시 비상조치의 종류 : F-D | 유출시 비상조치의 종류 : S-U",
+    "rules": [
+      "R09",
+      "R15"
+    ],
+    "note": "구분 없는 공통 항목을 mode=공통으로, 해양오염물질 '해당없음'을 비해당으로 옮김"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "transport[1]",
+    "page": 10,
+    "source_text": "- 육상운송(ADR) | · Tunnel restriction code : B/D",
+    "rules": [],
+    "note": "육상운송 항목에는 터널제한코드만 있어 해당 칸이 없으므로 나머지는 null로 둠"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "transport[2]",
+    "page": 10,
+    "source_text": "- 해상운송(IMDG) | · 해양오염물질 : 해당없음",
+    "rules": [
+      "R15"
+    ],
+    "note": "'해당없음'을 marine_pollutant=비해당으로 옮김"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "transport[3]",
+    "page": 10,
+    "source_text": "- Air transport(IATA) | · 유엔번호 : 2034 | · 유엔 적정 선적명 : HYDROGEN AND METHANE MIXTURE, COMPRESSED | · 운송에서의 위험성 등급 : 2.1 | · 용기등급 : 해당없음",
+    "rules": [
+      "R09"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[0]",
+    "page": 10,
+    "source_text": "(PRODUCT : 노출기준 설정물질, 허용기준 준수물질, 공정안전관리(PSM) 대상물질)",
+    "rules": [
+      "R25",
+      "R10"
+    ],
+    "note": "제품 전체 표기를 MIX 해당으로 옮김"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[1]",
+    "page": 10,
+    "source_text": "(PRODUCT : 노출기준 설정물질, 허용기준 준수물질, 공정안전관리(PSM) 대상물질)",
+    "rules": [
+      "R25",
+      "R10"
+    ],
+    "note": "'허용기준 준수물질'을 OSH_PERMISSIBLE로 매핑"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[2]",
+    "page": 10,
+    "source_text": "(PRODUCT : 노출기준 설정물질, 허용기준 준수물질, 공정안전관리(PSM) 대상물질)",
+    "rules": [
+      "R25",
+      "R10"
+    ],
+    "note": "제품 전체 PSM 대상 표기를 MIX 해당으로 옮김"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[3]",
+    "page": 10,
+    "source_text": "● 금지대상 유해물질 | - 해당없음",
+    "rules": [
+      "R25",
+      "R15"
+    ],
+    "note": "'해당없음'을 비해당으로 옮김"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[4]",
+    "page": 10,
+    "source_text": "● 허가대상 유해물질 | - 해당없음",
+    "rules": [
+      "R25",
+      "R15"
+    ],
+    "note": "'해당없음'을 비해당으로 옮김"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[5]",
+    "page": 10,
+    "source_text": "● 노출기준 설정물질 | - Carbon monoxide : TWA:30.0ppm STEL:200.0ppm",
+    "rules": [
+      "R25",
+      "R10"
+    ],
+    "note": "Carbon monoxide를 comp_ref=3으로 매칭하고 값은 value_raw에 둠"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[6]",
+    "page": 10,
+    "source_text": "● 관리대상 유해물질 | - 해당없음",
+    "rules": [
+      "R25",
+      "R15"
+    ],
+    "note": "'해당없음'을 비해당으로 옮김"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[7]",
+    "page": 10,
+    "source_text": "● 작업환경 측정물질 | - 해당없음",
+    "rules": [
+      "R25",
+      "R15"
+    ],
+    "note": "'해당없음'을 비해당으로 옮김"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[8]",
+    "page": 11,
+    "source_text": "● 특수건강 진단대상 유해인자 | - 해당없음",
+    "rules": [
+      "R25",
+      "R15"
+    ],
+    "note": "'해당없음'을 비해당으로 옮김"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[9]",
+    "page": 11,
+    "source_text": "● 특별관리물질 | - 해당없음",
+    "rules": [
+      "R25",
+      "R15"
+    ],
+    "note": "특별관리물질을 OSH_MANAGED의 sub_class로 두고 비해당으로 옮김"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[10]",
+    "page": 11,
+    "source_text": "● 허용기준 준수물질 | - Carbon monoxide : TWA:30ppm STEL:200ppm",
+    "rules": [
+      "R25",
+      "R10"
+    ],
+    "note": "comp_ref=3, 값은 value_raw에 둠"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[11]",
+    "page": 11,
+    "source_text": "- Carbon monoxide : PSM 대상물질 (취급: 5,000kg/일, 저장: 200,000kg/일) 인화성 가스",
+    "rules": [
+      "R10",
+      "R17"
+    ],
+    "note": "취급·저장 수량이 둘이라 qty로 나누지 않고 value_raw에 원문 보존"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[12]",
+    "page": 11,
+    "source_text": "- Hydrogen : PSM 대상물질 (취급: 5,000kg/일, 저장: 5,000kg/일)",
+    "rules": [
+      "R10",
+      "R17"
+    ],
+    "note": "취급·저장 수량을 value_raw에 원문 보존"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[13]",
+    "page": 11,
+    "source_text": "- Methane : PSM 대상물질 (취급: 5,000kg/일, 저장: 200,000kg/일) 인화성 가스",
+    "rules": [
+      "R10",
+      "R17"
+    ],
+    "note": "취급·저장 수량을 value_raw에 원문 보존"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[14]",
+    "page": 11,
+    "source_text": "● 신규화학물질",
+    "rules": [
+      "R15",
+      "R17"
+    ],
+    "note": "항목 제목만 있고 내용이 비어 있어 미기재, 코드표에 맞는 항목이 없어 item_code null"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[15]",
+    "page": 11,
+    "source_text": "(PRODUCT : 화학물질 배출량조사 대상물질, 배출저감계획서 제출 대상 물질)",
+    "rules": [
+      "R25",
+      "R10"
+    ],
+    "note": "제품 전체 표기를 MIX 해당으로 옮김"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[16]",
+    "page": 11,
+    "source_text": "(PRODUCT : 화학물질 배출량조사 대상물질, 배출저감계획서 제출 대상 물질)",
+    "rules": [
+      "R10"
+    ],
+    "note": "코드표에 없는 항목이라 item_code null, item_raw에 원문 보존"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[17]",
+    "page": 11,
+    "source_text": "● 유독물질 | - 해당없음",
+    "rules": [
+      "R25",
+      "R15"
+    ],
+    "note": "'해당없음'을 비해당으로 옮김"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[18]",
+    "page": 11,
+    "source_text": "● 제한물질 | - 해당없음",
+    "rules": [
+      "R25",
+      "R15"
+    ],
+    "note": "'해당없음'을 비해당으로 옮김"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[19]",
+    "page": 11,
+    "source_text": "● 금지물질 | - 해당없음",
+    "rules": [
+      "R25",
+      "R15"
+    ],
+    "note": "'해당없음'을 비해당으로 옮김"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[20]",
+    "page": 11,
+    "source_text": "● 사고대비물질 | - 해당없음",
+    "rules": [
+      "R25",
+      "R15"
+    ],
+    "note": "'해당없음'을 비해당으로 옮김"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[21]",
+    "page": 11,
+    "source_text": "- Carbon monoxide : Carbon monoxide(II-213) : 함유율(0.1 wt% 이상), 취급량(10 ton/yr)",
+    "rules": [
+      "R04",
+      "R10",
+      "R25"
+    ],
+    "note": "'0.1 wt% 이상'을 threshold 하한 0.1(>=)로, 취급량 10 ton/yr를 qty로 나눔"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[22]",
+    "page": 11,
+    "source_text": "● 배출저감계획서 제출 대상 물질 | - Carbon monoxide : 일산화 탄소",
+    "rules": [
+      "R10"
+    ],
+    "note": "코드표에 없는 항목이라 item_code null, comp_ref=3"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[23]",
+    "page": 11,
+    "source_text": "다. 위험물안전관리법에 의한 규제 | 해당없음",
+    "rules": [
+      "R15"
+    ],
+    "note": "'해당없음'을 비해당으로 옮김"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[24]",
+    "page": 11,
+    "source_text": "- 지정폐기물 | - 폐기시 폐기물관리법 제13조 폐기물처리기준에 따라 처리하여야 함",
+    "rules": [
+      "R17"
+    ],
+    "note": "지정폐기물 해당 여부가 명시되지 않아 미기재로 둠"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[25]",
+    "page": 12,
+    "source_text": "● EU - REACH (1907/2006) - Article 59(1) - Candidate List of Substances of Very High Concern (SVHC) for Authorisation | - unlisted",
+    "rules": [
+      "R25"
+    ],
+    "note": "'unlisted'를 비해당으로 옮김"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[26]",
+    "page": 12,
+    "source_text": "● Regulation (EU) 2019/1021 POPs (Persistent Organic Pollutants) | - unlisted",
+    "rules": [
+      "R25"
+    ],
+    "note": "'unlisted'를 비해당으로 옮김"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[27]",
+    "page": null,
+    "source_text": null,
+    "rules": [
+      "R18"
+    ],
+    "note": "15항에 화평법 항목이 없어 미기재로 둠"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "dangerous_goods[0]",
+    "page": 11,
+    "source_text": "다. 위험물안전관리법에 의한 규제 | 해당없음",
+    "rules": [
+      "R15"
+    ],
+    "note": "class=해당없음, 나머지는 원문에 없어 null"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "waste[0]",
+    "page": 11,
+    "source_text": "라. 폐기물관리법에 의한 규제 | - 지정폐기물 | - 폐기시 폐기물관리법 제13조 폐기물처리기준에 따라 처리하여야 함",
+    "rules": [
+      "R17"
+    ],
+    "note": "지정폐기물 해당 여부가 적혀 있지 않아 designated를 null로 둠"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[0]",
+    "page": 2,
+    "source_text": "가. 눈에 들어갔을 때 - 긴급 의료조치를 받으시오.",
+    "rules": [
+      "R14"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[1]",
+    "page": 2,
+    "source_text": "나. 피부에 접촉했을 때 - 긴급 의료조치를 받으시오. - 액화가스에 접촉한 경우 미지근한 물로 해당 부위를 녹이시오. - 오염된 옷과 신발을 제거하고 격리하시오.",
+    "rules": [
+      "R14"
+    ],
+    "note": "불릿 3개를 문장으로 나눔"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[2]",
+    "page": 2,
+    "source_text": "다. 흡입했을 때 - 따뜻하게 하고 안정되게 해주시오. - 신선한 공기가 있는 곳으로 옮기시오. - 호흡이 힘들 경우 산소를 공급하시오.",
+    "rules": [
+      "R14"
+    ],
+    "note": "3쪽 첫 줄 '호흡하지 않는 경우 인공호흡을 실시하시오.'를 이어 붙임"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[3]",
+    "page": 3,
+    "source_text": "라. 먹었을 때 - 긴급 의료조치를 받으시오.",
+    "rules": [
+      "R14"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[4]",
+    "page": 3,
+    "source_text": "마. 기타 의사의 주의사항 - 의료인력이 해당물질에 대해 인지하고 보호조치를 취하도록 하시오.",
+    "rules": [
+      "R14"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[5]",
+    "page": 3,
+    "source_text": "가. 적절한(부적절한) 소화제 ○ 적절한 소화제 - 이 물질과 관련된 소화시 알콜 포말, 이산화탄소 또는 물분무를 사용할 것. - CO2 ... ○ 부적절한 소화제",
+    "rules": [
+      "R14"
+    ],
+    "note": "○ 소제목을 각 문장의 key로 둠"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[6]",
+    "page": 3,
+    "source_text": "나. 화학물질로부터 생기는 특정 유해성 ○ 열분해성 생성물 - 자료없음 ○ 화재 및 폭발 위험 ... ○ 기타 - 물질의 흡입은 유해할 수 있습니다.",
+    "rules": [
+      "R14"
+    ],
+    "note": "○ 소제목을 key로 둠"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[7]",
+    "page": 3,
+    "source_text": "다. 화재 진압 시 착용할 보호구 및 예방조치 - 탱크 화재시 화염에 휩싸인 탱크에서 물러나시오.",
+    "rules": [
+      "R14"
+    ],
+    "note": "4쪽 불릿 9개를 이어 붙여 총 13문장"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[8]",
+    "page": 4,
+    "source_text": "가. 인체를 보호하기 위해 필요한 조치사항 및 보호구 - 오염지역을 환기하시오. ...",
+    "rules": [
+      "R14"
+    ],
+    "note": "불릿 13개로 나눔"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[9]",
+    "page": 4,
+    "source_text": "나. 환경을 보호하기 위해 필요한 조치사항 - 수로, 하수구, 지하실, 밀폐공간으로의 유입을 방지하시오.",
+    "rules": [
+      "R14"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[10]",
+    "page": 4,
+    "source_text": "다. 정화 또는 제거 방법 - 소화를 위해 제방을 쌓고 물을 수거하시오.",
+    "rules": [
+      "R14"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[11]",
+    "page": 4,
+    "source_text": "가. 안전취급요령 - 공학적 관리 및 개인보호구를 참조하여 작업하시오. ...",
+    "rules": [
+      "R14"
+    ],
+    "note": "두 줄로 나뉜 세 번째 불릿을 이어 붙임"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[12]",
+    "page": 4,
+    "source_text": "나. 안전한 저장방법 - 밀폐하여 보관하시오.",
+    "rules": [
+      "R14"
+    ],
+    "note": "5쪽 첫 불릿을 이어 붙임"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[13]",
+    "page": 5,
+    "source_text": "나. 적절한 공학적 관리 - 작업장에 적절한 배기 및 환기가 이루어 지도록 하시오.",
+    "rules": [
+      "R14"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[14]",
+    "page": 5,
+    "source_text": "○ 호흡기 보호 - 해당 물질에 직접적인 접촉 또는 노출 가능성이 있는 경우 인증받은 알맞은 형태의 호흡기 보호구를 착용하십시오.",
+    "rules": [
+      "R14"
+    ],
+    "note": "줄바뀜을 이어 붙임"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[15]",
+    "page": 5,
+    "source_text": "○ 눈 보호 - 작업 환경이나 활동 상 먼지나 연무 또는 에어로졸이 많은 조건이 개입될 경우, 적절한 보안경을 착용하십시오 .",
+    "rules": [
+      "R14"
+    ],
+    "note": "줄바뀜으로 떨어진 마침표를 이어 붙임"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[16]",
+    "page": 5,
+    "source_text": "○ 손 보호 - 화학물질용 안전장갑을 착용 하십시요.",
+    "rules": [
+      "R14"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[17]",
+    "page": 5,
+    "source_text": "○ 신체 보호 - 보호 장갑/보호복/보안경/보안면/귀마개를 착용하십시오.",
+    "rules": [
+      "R14"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[18]",
+    "page": 6,
+    "source_text": "가. 화학적 안정성 및 유해 반응의 가능성 - 화재에 노출된 실린더는 가연성 가스를 방출할 수 있음. ...",
+    "rules": [
+      "R14"
+    ],
+    "note": "7쪽 불릿 4개를 이어 붙임"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[19]",
+    "page": 7,
+    "source_text": "나. 피해야 할 조건 - 열, 스파크, 화염 등 점화원. - 열, 오염.",
+    "rules": [
+      "R14"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[20]",
+    "page": 7,
+    "source_text": "다. 피해야 할 물질 - 가연성 물질",
+    "rules": [
+      "R14"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[21]",
+    "page": 7,
+    "source_text": "라. 분해시 생성되는 유해물질 - 자극성, 부식성, 독성 가스.",
+    "rules": [
+      "R14"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[22]",
+    "page": 7,
+    "source_text": "가. 가능성이 높은 노출 경로에 관한 정보 ○ 호흡기를 통한 흡입 - 흡입에 의해 신체 흡수 가능.",
+    "rules": [
+      "R14"
+    ],
+    "note": "○ 소제목을 key로 둠"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[23]",
+    "page": 9,
+    "source_text": "마. 기타 유해 영향 자료없음",
+    "rules": [
+      "R15"
+    ],
+    "note": "'자료없음'을 status 자료없음으로 둠"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[24]",
+    "page": 9,
+    "source_text": "가. 폐기방법 - 빈용기는 재활용 또는 폐기를 위해 허가된 폐기물 처리장에 수집되어야 합니다.",
+    "rules": [
+      "R14"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[25]",
+    "page": 9,
+    "source_text": "나. 폐기시 주의사항 - 국가 규정에 따라 폐기하십시오. - 인가받은 폐기물 관리업체에 보내십시오.",
+    "rules": [
+      "R14"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[26]",
+    "page": 10,
+    "source_text": "화재시 비상조치의 종류 : F-D | 유출시 비상조치의 종류 : S-U",
+    "rules": [
+      "R14"
+    ],
+    "note": "'키 : 값'을 key/value로 나눔"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[27]",
+    "page": 12,
+    "source_text": "가. 자료의 출처 환경부, 고용노동부, 몬트리올 의정서, ECHA, OECD SIDS, EU IUCLID, HSDB(PubChem), NITE, NTP, ACGIH, IARC, NIOSH, ChemIDplus, EPA, EPIWIN, INCHEM",
+    "rules": [
+      "R14"
+    ],
+    "note": "두 줄을 이어 붙임"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[28]",
+    "page": 12,
+    "source_text": "라. 기타 해당 물질안전보건자료는 산업안전보건법 제110조에 의거하여 현재 당사 최선의 지식, 정보 등에 근거하여 작성되었습니다. ... KOR/KO",
+    "rules": [
+      "R14"
+    ],
+    "note": "문단을 문장 단위로 나누고 끝의 'KOR/KO'를 마지막 문장으로 둠"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "extras[0]",
+    "page": 1,
+    "source_text": "출력일자 : 2025-05-08",
+    "rules": [
+      "R24"
+    ],
+    "note": "담을 칸이 없어 extras로 보냄"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "extras[1]",
+    "page": 10,
+    "source_text": "- 육상운송(ADR) · Tunnel restriction code : B/D",
+    "rules": [
+      "R24",
+      "R14"
+    ],
+    "note": "운송 수단별 항목은 담을 칸이 없어 extras로 보냄"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "extras[2]",
+    "page": 10,
+    "source_text": "- 해상운송(IMDG) · 해양오염물질 : 해당없음",
+    "rules": [
+      "R24",
+      "R14"
+    ],
+    "note": "운송 수단별 항목은 담을 칸이 없어 extras로 보냄"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "extras[3]",
+    "page": 10,
+    "source_text": "- Air transport(IATA) · 유엔번호 : 2034 · 유엔 적정 선적명 : HYDROGEN AND METHANE MIXTURE, COMPRESSED · 운송에서의 위험성 등급 : 2.1 · 용기등급 : 해당없음",
+    "rules": [
+      "R24",
+      "R14"
+    ],
+    "note": "운송 수단별 항목은 담을 칸이 없어 extras로 보냄"
+  }
+]

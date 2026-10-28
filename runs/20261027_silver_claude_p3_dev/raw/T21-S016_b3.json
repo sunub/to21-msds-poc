@@ -1,0 +1,1151 @@
+{
+  "doc_id": "T21-S016",
+  "bundle": "b3",
+  "model": "claude-opus-5-5",
+  "mode": "none",
+  "finish_reason": "stop",
+  "usage": {
+    "prompt_tokens": 67419,
+    "completion_tokens": 11858,
+    "total_tokens": 79277,
+    "served_model": "claude-opus-5-5"
+  },
+  "seconds": 89.8,
+  "attempts": 1,
+  "errors": [],
+  "parsed": {
+    "msds": [
+      {
+        "toxicity": [
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_ORAL",
+            "descriptor": "LD50",
+            "q": {
+              "raw": "> 2000 mg/kg",
+              "approx": null,
+              "value": null,
+              "lower_op": ">",
+              "lower": 2000,
+              "upper_op": null,
+              "upper": null,
+              "unit": "mg/kg",
+              "dp": 0,
+              "status": "값있음",
+              "note": null
+            },
+            "species": "Rat",
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": "OECD TG 401",
+            "data_source": "ECHA",
+            "classification": null,
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_DERMAL",
+            "descriptor": "LD50",
+            "q": {
+              "raw": "> 8260 mg/kg",
+              "approx": null,
+              "value": null,
+              "lower_op": ">",
+              "lower": 8260,
+              "upper_op": null,
+              "upper": null,
+              "unit": "mg/kg",
+              "dp": 0,
+              "status": "값있음",
+              "note": null
+            },
+            "species": "Guinea pig and rabbit",
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": {
+              "raw": "9.4 mL/kg",
+              "approx": null,
+              "value": 9.4,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "mL/kg",
+              "dp": 1,
+              "status": "값있음",
+              "note": null
+            },
+            "read_across_cas": null,
+            "guideline": "OECD TG 402",
+            "data_source": "ECHA",
+            "classification": null,
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_INHAL",
+            "descriptor": "LC50",
+            "q": {
+              "raw": "43.7 mg/L",
+              "approx": null,
+              "value": 43.7,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "mg/L",
+              "dp": 1,
+              "status": "값있음",
+              "note": null
+            },
+            "species": "Rat",
+            "sex": null,
+            "duration_value": 4,
+            "duration_unit": "hr",
+            "physical_form": "증기",
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": "OECD TG 403",
+            "data_source": "ECHA",
+            "classification": null,
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_SKIN",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": "토끼",
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": "OECD TG 404",
+            "data_source": "ECHA",
+            "classification": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "토끼를 대상으로 피부 부식성/자극성 시험 결과 자극성 있음",
+                "refs": [
+                  "1"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "- [Benzene] :   토끼를 대상으로 피부 부식성/자극성 시험 결과 자극성 있음 (OECD TG 404) (ECHA)"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_EYE",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": "토끼",
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": "ECHA",
+            "classification": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "토끼를 대상으로 눈 손상성/자극성 시험 결과 자극성 있음",
+                "refs": [
+                  "1"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "- [Benzene] :   토끼를 대상으로 눈 손상성/자극성 시험 결과 자극성 있음 (ECHA)"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_RESP_SENS",
+            "descriptor": null,
+            "q": null,
+            "species": null,
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [],
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_SKIN_SENS",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": "마우스와 기니피그",
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": "OECD TG 406",
+            "data_source": "ECHA",
+            "classification": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "마우스와 기니피그를 대상으로 피부 과민성 시험 결과 과민성 없음",
+                "refs": [
+                  "1"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "- [Benzene] :   마우스와 기니피그를 대상으로 피부 과민성 시험 결과 과민성 없음 (OECD TG 406) (ECHA)"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_MUTA",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": "미생물",
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": "In vitro",
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": "OECD TG 471",
+            "data_source": "ECHA",
+            "classification": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "In vitro 미생물을 이용한 복귀돌연변이시험 결과 대사활성계 유무와 관계없이 음성",
+                "refs": [
+                  "1"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "In vitro 미생물을 이용한 복귀돌연변이시험 결과 대사활성계 유무와 관계없이 음성 (OECD TG 471)"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_MUTA",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": "마우스",
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": "In vivo",
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": "OECD TG 474",
+            "data_source": "ECHA",
+            "classification": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "In vivo 마우스를 대상으로 포유류 적혈구 소핵 검사 결과 양성",
+                "refs": [
+                  "1"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "In vivo 마우스를 대상으로 포유류 적혈구 소핵 검사 결과 양성 (OECD TG 474) (ECHA)"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_REPRO",
+            "descriptor": null,
+            "q": {
+              "raw": "NOAEC 960 mg/m3",
+              "approx": null,
+              "value": 960,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "mg/m3",
+              "dp": 0,
+              "status": "값있음",
+              "note": null
+            },
+            "species": "랫드",
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": "1세대 생식독성 연구",
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": "OECD TG 415",
+            "data_source": "ECHA",
+            "classification": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "랫드를 대상으로 1세대 생식독성 연구 결과 독성 영향, 체중, 생식기능과 관련된 영향이 관찰되지 않음.",
+                "refs": [
+                  "1"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "랫드를 대상으로 1세대 생식독성 연구 결과 독성 영향, 체중, 생식기능과 관련된 영향이 관찰되지 않음."
+              },
+              {
+                "seq": 2,
+                "key": null,
+                "value": "시험물질과 관련된 새끼 생존, 부검, 유의한 이상 영향이 관찰되지 않음.",
+                "refs": [
+                  "1"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "시험물질과 관련된 새끼 생존, 부검, 유의한 이상 영향이 관찰되지 않음."
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_STOT_SE",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": null,
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": "NICNAS2001, OECD, NIOSH",
+            "classification": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "폐와 간에 출혈(Congestion) 흡입독성 결과 지라의 T림프구의 수가 감소되었고 골수의 B림프구의 수 역시 감소됨.",
+                "refs": [
+                  "1"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "폐와 간에 출혈(Congestion) 흡입독성 결과 지라의 T림프구의 수가 감소되었고 골수의 B림프구의 수 역시 감소됨."
+              },
+              {
+                "seq": 2,
+                "key": null,
+                "value": "사람에서는 피부, 비, 구, 인두에의 자극, 기관염, 후두염, 기관지염, 폐로의 대량 출혈",
+                "refs": [
+                  "1"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "사람에서는 피부, 비, 구, 인두에의 자극, 기관염, 후두염, 기관지염, 폐로의 대량 출혈"
+              },
+              {
+                "seq": 3,
+                "key": "표적장기",
+                "value": "호흡기, 중추신경계, 조혈계",
+                "refs": [
+                  "1"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "(표적장기 : 호흡기, 중추신경계, 조혈계)"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_STOT_RE",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": "마우스",
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": "반복흡입투여",
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": "OECD TG 413, GLP",
+            "data_source": "ECHA",
+            "classification": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "마우스를 대상으로 반복흡입투여 시험 결과 14일 후 총 헤모글로빈, 적혈구 수, 혈소판 수 등이 유의하게 감소함.",
+                "refs": [
+                  "1"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "마우스를 대상으로 반복흡입투여 시험 결과 14일 후 총 헤모글로빈, 적혈구 수, 혈소판 수 등이 유의하게 감소함."
+              },
+              {
+                "seq": 2,
+                "key": null,
+                "value": "장기간 또는 반복노출 되면 장기(조혈계)에 손상을 일으킴",
+                "refs": [
+                  "1"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "장기간 또는 반복노출 되면 장기(조혈계)에 손상을 일으킴 (OECD TG 413, GLP) (ECHA)"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_ASP",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": null,
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": "NLM",
+            "classification": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "액체를 삼키면 화학성 폐렴을 일으킬 위험이 있음",
+                "refs": [
+                  "1"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "- [Benzene] :   액체를 삼키면 화학성 폐렴을 일으킬 위험이 있음 (NLM)"
+              }
+            ],
+            "status": "값있음"
+          }
+        ],
+        "cmr": [
+          {
+            "comp_ref": "1",
+            "hazard": "발암성",
+            "agency": "KR_CCA",
+            "class": "구분1A",
+            "status": "값있음",
+            "note": null
+          },
+          {
+            "comp_ref": "1",
+            "hazard": "발암성",
+            "agency": "IARC",
+            "class": "Group 1",
+            "status": "값있음",
+            "note": null
+          },
+          {
+            "comp_ref": "1",
+            "hazard": "발암성",
+            "agency": "OSHA",
+            "class": null,
+            "status": "해당없음",
+            "note": null
+          },
+          {
+            "comp_ref": "1",
+            "hazard": "발암성",
+            "agency": "ACGIH",
+            "class": "A1",
+            "status": "값있음",
+            "note": null
+          },
+          {
+            "comp_ref": "1",
+            "hazard": "발암성",
+            "agency": "NTP",
+            "class": "K",
+            "status": "값있음",
+            "note": null
+          },
+          {
+            "comp_ref": "1",
+            "hazard": "발암성",
+            "agency": "EU_CLP",
+            "class": "Carc. 1A",
+            "status": "값있음",
+            "note": null
+          },
+          {
+            "comp_ref": "1",
+            "hazard": "발암성",
+            "agency": "KR_OSH",
+            "class": "1A",
+            "status": "값있음",
+            "note": null
+          },
+          {
+            "comp_ref": "1",
+            "hazard": "생식세포변이원성",
+            "agency": "KR_OSH",
+            "class": "1B",
+            "status": "값있음",
+            "note": null
+          },
+          {
+            "comp_ref": "1",
+            "hazard": "생식독성",
+            "agency": "KR_OSH",
+            "class": null,
+            "status": "해당없음",
+            "note": null
+          }
+        ],
+        "ecotox": [
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_FISH",
+            "descriptor": "LC50",
+            "q": {
+              "raw": "5.3 mg/L",
+              "approx": null,
+              "value": 5.3,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "mg/L",
+              "dp": 1,
+              "status": "값있음",
+              "note": null
+            },
+            "species": "Oncorhynchus mykiss",
+            "duration_value": 96,
+            "duration_unit": "hr",
+            "guideline": null,
+            "data_source": "ECHA",
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_FISH",
+            "descriptor": "NOEC",
+            "q": {
+              "raw": "0.8 mg/L",
+              "approx": null,
+              "value": 0.8,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "mg/L",
+              "dp": 1,
+              "status": "값있음",
+              "note": null
+            },
+            "species": "Pimephales promelas",
+            "duration_value": 32,
+            "duration_unit": "day",
+            "guideline": null,
+            "data_source": "ECHA",
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_CRUST",
+            "descriptor": "EC50",
+            "q": {
+              "raw": "10 mg/L",
+              "approx": null,
+              "value": 10,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "mg/L",
+              "dp": 0,
+              "status": "값있음",
+              "note": null
+            },
+            "species": "Daphnia magna",
+            "duration_value": 48,
+            "duration_unit": "hr",
+            "guideline": null,
+            "data_source": "ECHA",
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_ALGAE",
+            "descriptor": "EC50",
+            "q": {
+              "raw": "32 mg/L",
+              "approx": null,
+              "value": 32,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "mg/L",
+              "dp": 0,
+              "status": "값있음",
+              "note": null
+            },
+            "species": "Raphidocelis subcapitata",
+            "duration_value": 72,
+            "duration_unit": "hr",
+            "guideline": null,
+            "data_source": "ECHA",
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_PERSIST",
+            "descriptor": "logKow",
+            "q": {
+              "raw": "log Pow 2.13 (25 °C)",
+              "approx": null,
+              "value": 2.13,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": null,
+              "dp": 2,
+              "status": "값있음",
+              "note": null
+            },
+            "species": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "guideline": null,
+            "data_source": "ECHA",
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "log Pow 2.13 (25 °C)",
+                "refs": [
+                  "1"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "- [Benzene] :   log Pow 2.13 (25 °C) (ECHA)"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_PERSIST",
+            "descriptor": null,
+            "q": null,
+            "species": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "guideline": null,
+            "data_source": null,
+            "statements": [],
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_BIOACC",
+            "descriptor": null,
+            "q": null,
+            "species": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "guideline": null,
+            "data_source": null,
+            "statements": [],
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_PERSIST",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "guideline": null,
+            "data_source": "NIER",
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "Not readily biodegradable",
+                "refs": [
+                  "1"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "- [Benzene] :   Not readily biodegradable (NIER)"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_SOIL",
+            "descriptor": null,
+            "q": null,
+            "species": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "guideline": null,
+            "data_source": null,
+            "statements": [],
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_OZONE",
+            "descriptor": null,
+            "q": null,
+            "species": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "guideline": null,
+            "data_source": null,
+            "statements": [],
+            "status": "해당없음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": null,
+            "descriptor": null,
+            "q": null,
+            "species": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "guideline": null,
+            "data_source": null,
+            "statements": [],
+            "status": "자료없음"
+          }
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "msds_index": 0,
+        "field": "toxicity[0]",
+        "page": 6,
+        "source_text": "* 경구 독성 - [Benzene] :   LD50 > 2000 mg/kg Rat (OECD TG 401) (ECHA)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "'> 2000 mg/kg'를 하한 >2000으로 분해, 시험지침·출처를 괄호에서 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[1]",
+        "page": 6,
+        "source_text": "* 경피 독성 - [Benzene] :   LD50 > 8260 mg/kg (9.4 mL/kg) Guinea pig and rabbit (OECD TG 402) (ECHA)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "괄호 속 '9.4 mL/kg'는 병기된 환산값으로 converted에 넣음(부등호 표기 없어 단일값으로 둠)"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[2]",
+        "page": 6,
+        "source_text": "* 흡입 독성 - [Benzene] :   Vapor LC50 43.7 mg/L 4 hr Rat (OECD TG 403) (ECHA)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "'Vapor'를 흡입 형태 증기로, '4 hr'를 노출 시간으로 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[3]",
+        "page": 6,
+        "source_text": "- [Benzene] :   토끼를 대상으로 피부 부식성/자극성 시험 결과 자극성 있음 (OECD TG 404) (ECHA)",
+        "rules": [
+          "R10"
+        ],
+        "note": "서술형 결과로 결과기술 처리"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[4]",
+        "page": 6,
+        "source_text": "- [Benzene] :   토끼를 대상으로 눈 손상성/자극성 시험 결과 자극성 있음 (ECHA)",
+        "rules": [
+          "R10"
+        ],
+        "note": "서술형 결과로 결과기술 처리"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[5]",
+        "page": 6,
+        "source_text": "○ 호흡기 과민성 - [Benzene] :   자료없음",
+        "rules": [
+          "R15",
+          "R10"
+        ],
+        "note": "자료없음을 status로 기록"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[6]",
+        "page": 6,
+        "source_text": "- [Benzene] :   마우스와 기니피그를 대상으로 피부 과민성 시험 결과 과민성 없음 (OECD TG 406) (ECHA)",
+        "rules": [
+          "R10"
+        ],
+        "note": "서술형 결과로 결과기술 처리"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[7]",
+        "page": 6,
+        "source_text": "- [Benzene] :   In vitro 미생물을 이용한 복귀돌연변이시험 결과 대사활성계 유무와 관계없이 음성 (OECD TG 471)",
+        "rules": [
+          "R10"
+        ],
+        "note": "in vitro·in vivo 두 시험을 각각 한 행으로 나눔(이 행은 in vitro)"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[8]",
+        "page": 6,
+        "source_text": "In vivo 마우스를 대상으로 포유류 적혈구 소핵 검사 결과 양성 (OECD TG 474) (ECHA)",
+        "rules": [
+          "R10"
+        ],
+        "note": "in vivo 시험 행. 출처 ECHA는 문장 끝 공통 출처로 적용"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[9]",
+        "page": 6,
+        "source_text": "- [Benzene] :   랫드를 대상으로 1세대 생식독성 연구 결과 ... NOAEC 960 mg/m3 (OECD TG 415) (ECHA)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "지표 NOAEC는 descriptor 목록에 없어 null로 두고 q raw에 'NOAEC'를 남김"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[10]",
+        "page": 7,
+        "source_text": "- [Benzene] :   폐와 간에 출혈(Congestion) 흡입독성 결과 ... (표적장기 : 호흡기, 중추신경계, 조혈계) (NICNAS2001, OECD, NIOSH)",
+        "rules": [
+          "R10"
+        ],
+        "note": "문장 단위로 statements 분리, 괄호 속 출처를 data_source로"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[11]",
+        "page": 7,
+        "source_text": "- [Benzene] :   마우스를 대상으로 반복흡입투여 시험 결과 14일 후 ... 장기(조혈계)에 손상을 일으킴 (OECD TG 413, GLP) (ECHA)",
+        "rules": [
+          "R10"
+        ],
+        "note": "문장 단위로 statements 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[12]",
+        "page": 7,
+        "source_text": "- [Benzene] :   액체를 삼키면 화학성 폐렴을 일으킬 위험이 있음 (NLM)",
+        "rules": [
+          "R10"
+        ],
+        "note": "서술형 결과로 결과기술 처리"
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[0]",
+        "page": 6,
+        "source_text": "* 환경부 화학물질관리법 - [Benzene] :   환경부 화학물질관리법 유독물질 고시에 따라 발암성 구분1A로 분류됨",
+        "rules": [
+          "R10"
+        ],
+        "note": "문장에서 등급 '구분1A'를 옮김"
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[1]",
+        "page": 6,
+        "source_text": "* IARC - [Benzene] :   Group 1",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[2]",
+        "page": 6,
+        "source_text": "* OSHA - [Benzene] :   해당없음",
+        "rules": [
+          "R15",
+          "R10"
+        ],
+        "note": "해당없음을 status로 기록"
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[3]",
+        "page": 6,
+        "source_text": "* ACGIH - [Benzene] :   A1",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[4]",
+        "page": 6,
+        "source_text": "* NTP - [Benzene] :   K",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[5]",
+        "page": 6,
+        "source_text": "* EU CLP - [Benzene] :   Carc. 1A",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[6]",
+        "page": 7,
+        "source_text": "○ 고용노동부고시 * 발암성 - [Benzene] :   발암성 1A",
+        "rules": [
+          "R10"
+        ],
+        "note": "고용노동부고시를 KR_OSH로"
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[7]",
+        "page": 7,
+        "source_text": "* 생식세포 변이원성 - [Benzene] :   생식세포변이원성 1B",
+        "rules": [
+          "R10"
+        ],
+        "note": "고용노동부고시를 KR_OSH로"
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[8]",
+        "page": 7,
+        "source_text": "* 생식독성 - [Benzene] :   해당없음",
+        "rules": [
+          "R15",
+          "R10"
+        ],
+        "note": "해당없음을 status로 기록"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[0]",
+        "page": 7,
+        "source_text": "○ 어류 - [Benzene] :   LC50 5.3 mg/L 96 hr Oncorhynchus mykiss",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "어류 첫 번째 값을 한 행으로 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[1]",
+        "page": 7,
+        "source_text": "NOEC 0.8 mg/L 32 d Pimephales promelas (ECHA)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "어류 두 번째 값을 별도 행으로, '32 d'를 32 day로"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[2]",
+        "page": 7,
+        "source_text": "○ 갑각류 - [Benzene] :   EC50 10 mg/L 48 hr Daphnia magna (ECHA)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[3]",
+        "page": 7,
+        "source_text": "○ 조류 - [Benzene] :   EC50 32 mg/L 72 hr Raphidocelis subcapitata (ECHA)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[4]",
+        "page": 7,
+        "source_text": "○ 잔류성 - [Benzene] :   log Pow 2.13 (25 °C) (ECHA)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "log Pow를 logKow 지표로, 측정온도는 ecotox에 조건 칸이 없어 raw와 statements에 남김"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[5]",
+        "page": 7,
+        "source_text": "○ 분해성 - [Benzene] :   자료없음",
+        "rules": [
+          "R15",
+          "R10"
+        ],
+        "note": "자료없음을 status로 기록"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[6]",
+        "page": 7,
+        "source_text": "○ 생물 농축성 - [Benzene] :   자료없음",
+        "rules": [
+          "R15",
+          "R10"
+        ],
+        "note": "자료없음을 status로 기록"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[7]",
+        "page": 7,
+        "source_text": "○ 생분해성 - [Benzene] :   Not readily biodegradable (NIER)",
+        "rules": [
+          "R10"
+        ],
+        "note": "원문에서는 '다. 생물 농축성' 아래에 있으나 생분해성 항목이라 ECO_PERSIST로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[8]",
+        "page": 7,
+        "source_text": "라. 토양 이동성 - [Benzene] :   자료없음",
+        "rules": [
+          "R15",
+          "R10"
+        ],
+        "note": "자료없음을 status로 기록"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[9]",
+        "page": 7,
+        "source_text": "마. 오존층 유해성 - [Benzene] :   해당없음",
+        "rules": [
+          "R15",
+          "R10"
+        ],
+        "note": "해당없음을 status로 기록"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[10]",
+        "page": 7,
+        "source_text": "바. 기타 유해 영향 - [Benzene] :   자료없음",
+        "rules": [
+          "R15",
+          "R10"
+        ],
+        "note": "맞는 C5 코드가 없어 endpoint는 null, 자료없음을 status로 기록"
+      }
+    ]
+  },
+  "raw_text": "{\"msds\":[{\"toxicity\":[{\"comp_ref\":\"1\",\"endpoint\":\"TX_ORAL\",\"descriptor\":\"LD50\",\"q\":{\"raw\":\"> 2000 mg/kg\",\"approx\":null,\"value\":null,\"lower_op\":\">\",\"lower\":2000,\"upper_op\":null,\"upper\":null,\"unit\":\"mg/kg\",\"dp\":0,\"status\":\"값있음\",\"note\":null},\"species\":\"Rat\",\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":\"OECD TG 401\",\"data_source\":\"ECHA\",\"classification\":null,\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"1\",\"endpoint\":\"TX_DERMAL\",\"descriptor\":\"LD50\",\"q\":{\"raw\":\"> 8260 mg/kg\",\"approx\":null,\"value\":null,\"lower_op\":\">\",\"lower\":8260,\"upper_op\":null,\"upper\":null,\"unit\":\"mg/kg\",\"dp\":0,\"status\":\"값있음\",\"note\":null},\"species\":\"Guinea pig and rabbit\",\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":{\"raw\":\"9.4 mL/kg\",\"approx\":null,\"value\":9.4,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"mL/kg\",\"dp\":1,\"status\":\"값있음\",\"note\":null},\"read_across_cas\":null,\"guideline\":\"OECD TG 402\",\"data_source\":\"ECHA\",\"classification\":null,\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"1\",\"endpoint\":\"TX_INHAL\",\"descriptor\":\"LC50\",\"q\":{\"raw\":\"43.7 mg/L\",\"approx\":null,\"value\":43.7,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"mg/L\",\"dp\":1,\"status\":\"값있음\",\"note\":null},\"species\":\"Rat\",\"sex\":null,\"duration_value\":4,\"duration_unit\":\"hr\",\"physical_form\":\"증기\",\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":\"OECD TG 403\",\"data_source\":\"ECHA\",\"classification\":null,\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"1\",\"endpoint\":\"TX_SKIN\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":\"토끼\",\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":\"OECD TG 404\",\"data_source\":\"ECHA\",\"classification\":null,\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"토끼를 대상으로 피부 부식성/자극성 시험 결과 자극성 있음\",\"refs\":[\"1\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"- [Benzene] :   토끼를 대상으로 피부 부식성/자극성 시험 결과 자극성 있음 (OECD TG 404) (ECHA)\"}],\"status\":\"값있음\"},{\"comp_ref\":\"1\",\"endpoint\":\"TX_EYE\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":\"토끼\",\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":\"ECHA\",\"classification\":null,\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"토끼를 대상으로 눈 손상성/자극성 시험 결과 자극성 있음\",\"refs\":[\"1\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"- [Benzene] :   토끼를 대상으로 눈 손상성/자극성 시험 결과 자극성 있음 (ECHA)\"}],\"status\":\"값있음\"},{\"comp_ref\":\"1\",\"endpoint\":\"TX_RESP_SENS\",\"descriptor\":null,\"q\":null,\"species\":null,\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[],\"status\":\"자료없음\"},{\"comp_ref\":\"1\",\"endpoint\":\"TX_SKIN_SENS\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":\"마우스와 기니피그\",\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":\"OECD TG 406\",\"data_source\":\"ECHA\",\"classification\":null,\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"마우스와 기니피그를 대상으로 피부 과민성 시험 결과 과민성 없음\",\"refs\":[\"1\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"- [Benzene] :   마우스와 기니피그를 대상으로 피부 과민성 시험 결과 과민성 없음 (OECD TG 406) (ECHA)\"}],\"status\":\"값있음\"},{\"comp_ref\":\"1\",\"endpoint\":\"TX_MUTA\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":\"미생물\",\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":\"In vitro\",\"converted\":null,\"read_across_cas\":null,\"guideline\":\"OECD TG 471\",\"data_source\":\"ECHA\",\"classification\":null,\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"In vitro 미생물을 이용한 복귀돌연변이시험 결과 대사활성계 유무와 관계없이 음성\",\"refs\":[\"1\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"In vitro 미생물을 이용한 복귀돌연변이시험 결과 대사활성계 유무와 관계없이 음성 (OECD TG 471)\"}],\"status\":\"값있음\"},{\"comp_ref\":\"1\",\"endpoint\":\"TX_MUTA\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":\"마우스\",\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":\"In vivo\",\"converted\":null,\"read_across_cas\":null,\"guideline\":\"OECD TG 474\",\"data_source\":\"ECHA\",\"classification\":null,\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"In vivo 마우스를 대상으로 포유류 적혈구 소핵 검사 결과 양성\",\"refs\":[\"1\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"In vivo 마우스를 대상으로 포유류 적혈구 소핵 검사 결과 양성 (OECD TG 474) (ECHA)\"}],\"status\":\"값있음\"},{\"comp_ref\":\"1\",\"endpoint\":\"TX_REPRO\",\"descriptor\":null,\"q\":{\"raw\":\"NOAEC 960 mg/m3\",\"approx\":null,\"value\":960,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"mg/m3\",\"dp\":0,\"status\":\"값있음\",\"note\":null},\"species\":\"랫드\",\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":\"1세대 생식독성 연구\",\"converted\":null,\"read_across_cas\":null,\"guideline\":\"OECD TG 415\",\"data_source\":\"ECHA\",\"classification\":null,\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"랫드를 대상으로 1세대 생식독성 연구 결과 독성 영향, 체중, 생식기능과 관련된 영향이 관찰되지 않음.\",\"refs\":[\"1\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"랫드를 대상으로 1세대 생식독성 연구 결과 독성 영향, 체중, 생식기능과 관련된 영향이 관찰되지 않음.\"},{\"seq\":2,\"key\":null,\"value\":\"시험물질과 관련된 새끼 생존, 부검, 유의한 이상 영향이 관찰되지 않음.\",\"refs\":[\"1\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"시험물질과 관련된 새끼 생존, 부검, 유의한 이상 영향이 관찰되지 않음.\"}],\"status\":\"값있음\"},{\"comp_ref\":\"1\",\"endpoint\":\"TX_STOT_SE\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":null,\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":\"NICNAS2001, OECD, NIOSH\",\"classification\":null,\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"폐와 간에 출혈(Congestion) 흡입독성 결과 지라의 T림프구의 수가 감소되었고 골수의 B림프구의 수 역시 감소됨.\",\"refs\":[\"1\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"폐와 간에 출혈(Congestion) 흡입독성 결과 지라의 T림프구의 수가 감소되었고 골수의 B림프구의 수 역시 감소됨.\"},{\"seq\":2,\"key\":null,\"value\":\"사람에서는 피부, 비, 구, 인두에의 자극, 기관염, 후두염, 기관지염, 폐로의 대량 출혈\",\"refs\":[\"1\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"사람에서는 피부, 비, 구, 인두에의 자극, 기관염, 후두염, 기관지염, 폐로의 대량 출혈\"},{\"seq\":3,\"key\":\"표적장기\",\"value\":\"호흡기, 중추신경계, 조혈계\",\"refs\":[\"1\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"(표적장기 : 호흡기, 중추신경계, 조혈계)\"}],\"status\":\"값있음\"},{\"comp_ref\":\"1\",\"endpoint\":\"TX_STOT_RE\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":\"마우스\",\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":\"반복흡입투여\",\"converted\":null,\"read_across_cas\":null,\"guideline\":\"OECD TG 413, GLP\",\"data_source\":\"ECHA\",\"classification\":null,\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"마우스를 대상으로 반복흡입투여 시험 결과 14일 후 총 헤모글로빈, 적혈구 수, 혈소판 수 등이 유의하게 감소함.\",\"refs\":[\"1\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"마우스를 대상으로 반복흡입투여 시험 결과 14일 후 총 헤모글로빈, 적혈구 수, 혈소판 수 등이 유의하게 감소함.\"},{\"seq\":2,\"key\":null,\"value\":\"장기간 또는 반복노출 되면 장기(조혈계)에 손상을 일으킴\",\"refs\":[\"1\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"장기간 또는 반복노출 되면 장기(조혈계)에 손상을 일으킴 (OECD TG 413, GLP) (ECHA)\"}],\"status\":\"값있음\"},{\"comp_ref\":\"1\",\"endpoint\":\"TX_ASP\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":null,\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":\"NLM\",\"classification\":null,\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"액체를 삼키면 화학성 폐렴을 일으킬 위험이 있음\",\"refs\":[\"1\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"- [Benzene] :   액체를 삼키면 화학성 폐렴을 일으킬 위험이 있음 (NLM)\"}],\"status\":\"값있음\"}],\"cmr\":[{\"comp_ref\":\"1\",\"hazard\":\"발암성\",\"agency\":\"KR_CCA\",\"class\":\"구분1A\",\"status\":\"값있음\",\"note\":null},{\"comp_ref\":\"1\",\"hazard\":\"발암성\",\"agency\":\"IARC\",\"class\":\"Group 1\",\"status\":\"값있음\",\"note\":null},{\"comp_ref\":\"1\",\"hazard\":\"발암성\",\"agency\":\"OSHA\",\"class\":null,\"status\":\"해당없음\",\"note\":null},{\"comp_ref\":\"1\",\"hazard\":\"발암성\",\"agency\":\"ACGIH\",\"class\":\"A1\",\"status\":\"값있음\",\"note\":null},{\"comp_ref\":\"1\",\"hazard\":\"발암성\",\"agency\":\"NTP\",\"class\":\"K\",\"status\":\"값있음\",\"note\":null},{\"comp_ref\":\"1\",\"hazard\":\"발암성\",\"agency\":\"EU_CLP\",\"class\":\"Carc. 1A\",\"status\":\"값있음\",\"note\":null},{\"comp_ref\":\"1\",\"hazard\":\"발암성\",\"agency\":\"KR_OSH\",\"class\":\"1A\",\"status\":\"값있음\",\"note\":null},{\"comp_ref\":\"1\",\"hazard\":\"생식세포변이원성\",\"agency\":\"KR_OSH\",\"class\":\"1B\",\"status\":\"값있음\",\"note\":null},{\"comp_ref\":\"1\",\"hazard\":\"생식독성\",\"agency\":\"KR_OSH\",\"class\":null,\"status\":\"해당없음\",\"note\":null}],\"ecotox\":[{\"comp_ref\":\"1\",\"endpoint\":\"ECO_FISH\",\"descriptor\":\"LC50\",\"q\":{\"raw\":\"5.3 mg/L\",\"approx\":null,\"value\":5.3,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"mg/L\",\"dp\":1,\"status\":\"값있음\",\"note\":null},\"species\":\"Oncorhynchus mykiss\",\"duration_value\":96,\"duration_unit\":\"hr\",\"guideline\":null,\"data_source\":\"ECHA\",\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"1\",\"endpoint\":\"ECO_FISH\",\"descriptor\":\"NOEC\",\"q\":{\"raw\":\"0.8 mg/L\",\"approx\":null,\"value\":0.8,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"mg/L\",\"dp\":1,\"status\":\"값있음\",\"note\":null},\"species\":\"Pimephales promelas\",\"duration_value\":32,\"duration_unit\":\"day\",\"guideline\":null,\"data_source\":\"ECHA\",\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"1\",\"endpoint\":\"ECO_CRUST\",\"descriptor\":\"EC50\",\"q\":{\"raw\":\"10 mg/L\",\"approx\":null,\"value\":10,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"mg/L\",\"dp\":0,\"status\":\"값있음\",\"note\":null},\"species\":\"Daphnia magna\",\"duration_value\":48,\"duration_unit\":\"hr\",\"guideline\":null,\"data_source\":\"ECHA\",\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"1\",\"endpoint\":\"ECO_ALGAE\",\"descriptor\":\"EC50\",\"q\":{\"raw\":\"32 mg/L\",\"approx\":null,\"value\":32,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"mg/L\",\"dp\":0,\"status\":\"값있음\",\"note\":null},\"species\":\"Raphidocelis subcapitata\",\"duration_value\":72,\"duration_unit\":\"hr\",\"guideline\":null,\"data_source\":\"ECHA\",\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"1\",\"endpoint\":\"ECO_PERSIST\",\"descriptor\":\"logKow\",\"q\":{\"raw\":\"log Pow 2.13 (25 °C)\",\"approx\":null,\"value\":2.13,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":null,\"dp\":2,\"status\":\"값있음\",\"note\":null},\"species\":null,\"duration_value\":null,\"duration_unit\":null,\"guideline\":null,\"data_source\":\"ECHA\",\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"log Pow 2.13 (25 °C)\",\"refs\":[\"1\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"- [Benzene] :   log Pow 2.13 (25 °C) (ECHA)\"}],\"status\":\"값있음\"},{\"comp_ref\":\"1\",\"endpoint\":\"ECO_PERSIST\",\"descriptor\":null,\"q\":null,\"species\":null,\"duration_value\":null,\"duration_unit\":null,\"guideline\":null,\"data_source\":null,\"statements\":[],\"status\":\"자료없음\"},{\"comp_ref\":\"1\",\"endpoint\":\"ECO_BIOACC\",\"descriptor\":null,\"q\":null,\"species\":null,\"duration_value\":null,\"duration_unit\":null,\"guideline\":null,\"data_source\":null,\"statements\":[],\"status\":\"자료없음\"},{\"comp_ref\":\"1\",\"endpoint\":\"ECO_PERSIST\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":null,\"duration_value\":null,\"duration_unit\":null,\"guideline\":null,\"data_source\":\"NIER\",\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"Not readily biodegradable\",\"refs\":[\"1\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"- [Benzene] :   Not readily biodegradable (NIER)\"}],\"status\":\"값있음\"},{\"comp_ref\":\"1\",\"endpoint\":\"ECO_SOIL\",\"descriptor\":null,\"q\":null,\"species\":null,\"duration_value\":null,\"duration_unit\":null,\"guideline\":null,\"data_source\":null,\"statements\":[],\"status\":\"자료없음\"},{\"comp_ref\":\"1\",\"endpoint\":\"ECO_OZONE\",\"descriptor\":null,\"q\":null,\"species\":null,\"duration_value\":null,\"duration_unit\":null,\"guideline\":null,\"data_source\":null,\"statements\":[],\"status\":\"해당없음\"},{\"comp_ref\":\"1\",\"endpoint\":null,\"descriptor\":null,\"q\":null,\"species\":null,\"duration_value\":null,\"duration_unit\":null,\"guideline\":null,\"data_source\":null,\"statements\":[],\"status\":\"자료없음\"}]}],\"evidence\":[{\"msds_index\":0,\"field\":\"toxicity[0]\",\"page\":6,\"source_text\":\"* 경구 독성 - [Benzene] :   LD50 > 2000 mg/kg Rat (OECD TG 401) (ECHA)\",\"rules\":[\"R04\",\"R10\"],\"note\":\"'> 2000 mg/kg'를 하한 >2000으로 분해, 시험지침·출처를 괄호에서 분리\"},{\"msds_index\":0,\"field\":\"toxicity[1]\",\"page\":6,\"source_text\":\"* 경피 독성 - [Benzene] :   LD50 > 8260 mg/kg (9.4 mL/kg) Guinea pig and rabbit (OECD TG 402) (ECHA)\",\"rules\":[\"R04\",\"R10\"],\"note\":\"괄호 속 '9.4 mL/kg'는 병기된 환산값으로 converted에 넣음(부등호 표기 없어 단일값으로 둠)\"},{\"msds_index\":0,\"field\":\"toxicity[2]\",\"page\":6,\"source_text\":\"* 흡입 독성 - [Benzene] :   Vapor LC50 43.7 mg/L 4 hr Rat (OECD TG 403) (ECHA)\",\"rules\":[\"R04\",\"R10\"],\"note\":\"'Vapor'를 흡입 형태 증기로, '4 hr'를 노출 시간으로 분리\"},{\"msds_index\":0,\"field\":\"toxicity[3]\",\"page\":6,\"source_text\":\"- [Benzene] :   토끼를 대상으로 피부 부식성/자극성 시험 결과 자극성 있음 (OECD TG 404) (ECHA)\",\"rules\":[\"R10\"],\"note\":\"서술형 결과로 결과기술 처리\"},{\"msds_index\":0,\"field\":\"toxicity[4]\",\"page\":6,\"source_text\":\"- [Benzene] :   토끼를 대상으로 눈 손상성/자극성 시험 결과 자극성 있음 (ECHA)\",\"rules\":[\"R10\"],\"note\":\"서술형 결과로 결과기술 처리\"},{\"msds_index\":0,\"field\":\"toxicity[5]\",\"page\":6,\"source_text\":\"○ 호흡기 과민성 - [Benzene] :   자료없음\",\"rules\":[\"R15\",\"R10\"],\"note\":\"자료없음을 status로 기록\"},{\"msds_index\":0,\"field\":\"toxicity[6]\",\"page\":6,\"source_text\":\"- [Benzene] :   마우스와 기니피그를 대상으로 피부 과민성 시험 결과 과민성 없음 (OECD TG 406) (ECHA)\",\"rules\":[\"R10\"],\"note\":\"서술형 결과로 결과기술 처리\"},{\"msds_index\":0,\"field\":\"toxicity[7]\",\"page\":6,\"source_text\":\"- [Benzene] :   In vitro 미생물을 이용한 복귀돌연변이시험 결과 대사활성계 유무와 관계없이 음성 (OECD TG 471)\",\"rules\":[\"R10\"],\"note\":\"in vitro·in vivo 두 시험을 각각 한 행으로 나눔(이 행은 in vitro)\"},{\"msds_index\":0,\"field\":\"toxicity[8]\",\"page\":6,\"source_text\":\"In vivo 마우스를 대상으로 포유류 적혈구 소핵 검사 결과 양성 (OECD TG 474) (ECHA)\",\"rules\":[\"R10\"],\"note\":\"in vivo 시험 행. 출처 ECHA는 문장 끝 공통 출처로 적용\"},{\"msds_index\":0,\"field\":\"toxicity[9]\",\"page\":6,\"source_text\":\"- [Benzene] :   랫드를 대상으로 1세대 생식독성 연구 결과 ... NOAEC 960 mg/m3 (OECD TG 415) (ECHA)\",\"rules\":[\"R04\",\"R10\"],\"note\":\"지표 NOAEC는 descriptor 목록에 없어 null로 두고 q raw에 'NOAEC'를 남김\"},{\"msds_index\":0,\"field\":\"toxicity[10]\",\"page\":7,\"source_text\":\"- [Benzene] :   폐와 간에 출혈(Congestion) 흡입독성 결과 ... (표적장기 : 호흡기, 중추신경계, 조혈계) (NICNAS2001, OECD, NIOSH)\",\"rules\":[\"R10\"],\"note\":\"문장 단위로 statements 분리, 괄호 속 출처를 data_source로\"},{\"msds_index\":0,\"field\":\"toxicity[11]\",\"page\":7,\"source_text\":\"- [Benzene] :   마우스를 대상으로 반복흡입투여 시험 결과 14일 후 ... 장기(조혈계)에 손상을 일으킴 (OECD TG 413, GLP) (ECHA)\",\"rules\":[\"R10\"],\"note\":\"문장 단위로 statements 분리\"},{\"msds_index\":0,\"field\":\"toxicity[12]\",\"page\":7,\"source_text\":\"- [Benzene] :   액체를 삼키면 화학성 폐렴을 일으킬 위험이 있음 (NLM)\",\"rules\":[\"R10\"],\"note\":\"서술형 결과로 결과기술 처리\"},{\"msds_index\":0,\"field\":\"cmr[0]\",\"page\":6,\"source_text\":\"* 환경부 화학물질관리법 - [Benzene] :   환경부 화학물질관리법 유독물질 고시에 따라 발암성 구분1A로 분류됨\",\"rules\":[\"R10\"],\"note\":\"문장에서 등급 '구분1A'를 옮김\"},{\"msds_index\":0,\"field\":\"cmr[1]\",\"page\":6,\"source_text\":\"* IARC - [Benzene] :   Group 1\",\"rules\":[\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"cmr[2]\",\"page\":6,\"source_text\":\"* OSHA - [Benzene] :   해당없음\",\"rules\":[\"R15\",\"R10\"],\"note\":\"해당없음을 status로 기록\"},{\"msds_index\":0,\"field\":\"cmr[3]\",\"page\":6,\"source_text\":\"* ACGIH - [Benzene] :   A1\",\"rules\":[\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"cmr[4]\",\"page\":6,\"source_text\":\"* NTP - [Benzene] :   K\",\"rules\":[\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"cmr[5]\",\"page\":6,\"source_text\":\"* EU CLP - [Benzene] :   Carc. 1A\",\"rules\":[\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"cmr[6]\",\"page\":7,\"source_text\":\"○ 고용노동부고시 * 발암성 - [Benzene] :   발암성 1A\",\"rules\":[\"R10\"],\"note\":\"고용노동부고시를 KR_OSH로\"},{\"msds_index\":0,\"field\":\"cmr[7]\",\"page\":7,\"source_text\":\"* 생식세포 변이원성 - [Benzene] :   생식세포변이원성 1B\",\"rules\":[\"R10\"],\"note\":\"고용노동부고시를 KR_OSH로\"},{\"msds_index\":0,\"field\":\"cmr[8]\",\"page\":7,\"source_text\":\"* 생식독성 - [Benzene] :   해당없음\",\"rules\":[\"R15\",\"R10\"],\"note\":\"해당없음을 status로 기록\"},{\"msds_index\":0,\"field\":\"ecotox[0]\",\"page\":7,\"source_text\":\"○ 어류 - [Benzene] :   LC50 5.3 mg/L 96 hr Oncorhynchus mykiss\",\"rules\":[\"R04\",\"R10\"],\"note\":\"어류 첫 번째 값을 한 행으로 분리\"},{\"msds_index\":0,\"field\":\"ecotox[1]\",\"page\":7,\"source_text\":\"NOEC 0.8 mg/L 32 d Pimephales promelas (ECHA)\",\"rules\":[\"R04\",\"R10\"],\"note\":\"어류 두 번째 값을 별도 행으로, '32 d'를 32 day로\"},{\"msds_index\":0,\"field\":\"ecotox[2]\",\"page\":7,\"source_text\":\"○ 갑각류 - [Benzene] :   EC50 10 mg/L 48 hr Daphnia magna (ECHA)\",\"rules\":[\"R04\",\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"ecotox[3]\",\"page\":7,\"source_text\":\"○ 조류 - [Benzene] :   EC50 32 mg/L 72 hr Raphidocelis subcapitata (ECHA)\",\"rules\":[\"R04\",\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"ecotox[4]\",\"page\":7,\"source_text\":\"○ 잔류성 - [Benzene] :   log Pow 2.13 (25 °C) (ECHA)\",\"rules\":[\"R04\",\"R10\"],\"note\":\"log Pow를 logKow 지표로, 측정온도는 ecotox에 조건 칸이 없어 raw와 statements에 남김\"},{\"msds_index\":0,\"field\":\"ecotox[5]\",\"page\":7,\"source_text\":\"○ 분해성 - [Benzene] :   자료없음\",\"rules\":[\"R15\",\"R10\"],\"note\":\"자료없음을 status로 기록\"},{\"msds_index\":0,\"field\":\"ecotox[6]\",\"page\":7,\"source_text\":\"○ 생물 농축성 - [Benzene] :   자료없음\",\"rules\":[\"R15\",\"R10\"],\"note\":\"자료없음을 status로 기록\"},{\"msds_index\":0,\"field\":\"ecotox[7]\",\"page\":7,\"source_text\":\"○ 생분해성 - [Benzene] :   Not readily biodegradable (NIER)\",\"rules\":[\"R10\"],\"note\":\"원문에서는 '다. 생물 농축성' 아래에 있으나 생분해성 항목이라 ECO_PERSIST로 둠\"},{\"msds_index\":0,\"field\":\"ecotox[8]\",\"page\":7,\"source_text\":\"라. 토양 이동성 - [Benzene] :   자료없음\",\"rules\":[\"R15\",\"R10\"],\"note\":\"자료없음을 status로 기록\"},{\"msds_index\":0,\"field\":\"ecotox[9]\",\"page\":7,\"source_text\":\"마. 오존층 유해성 - [Benzene] :   해당없음\",\"rules\":[\"R15\",\"R10\"],\"note\":\"해당없음을 status로 기록\"},{\"msds_index\":0,\"field\":\"ecotox[10]\",\"page\":7,\"source_text\":\"바. 기타 유해 영향 - [Benzene] :   자료없음\",\"rules\":[\"R15\",\"R10\"],\"note\":\"맞는 C5 코드가 없어 endpoint는 null, 자료없음을 status로 기록\"}]}"
+}

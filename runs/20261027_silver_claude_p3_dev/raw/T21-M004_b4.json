@@ -1,0 +1,2494 @@
+{
+  "doc_id": "T21-M004",
+  "bundle": "b4",
+  "model": "claude-opus-5-5",
+  "mode": "none",
+  "finish_reason": "stop",
+  "usage": {
+    "prompt_tokens": 114865,
+    "completion_tokens": 23737,
+    "total_tokens": 138602,
+    "served_model": "claude-opus-5-5"
+  },
+  "seconds": 171.0,
+  "attempts": 1,
+  "errors": [],
+  "parsed": {
+    "msds": [
+      {
+        "transport": [
+          {
+            "mode": "공통",
+            "basis_raw": null,
+            "regulated": true,
+            "un_no": "1075",
+            "shipping_name": "PETROLEUM GASES, LIQUEFIED",
+            "hazard_class": "2.1",
+            "sub_risk": null,
+            "packing_group": "해당없음",
+            "marine_pollutant": "비해당",
+            "ems_fire": "F-D",
+            "ems_spill": "S-U"
+          }
+        ],
+        "regulations": [
+          {
+            "seq": 1,
+            "law": "OSH",
+            "item_code": "OSH_MANAGED",
+            "item_raw": "관리대상유해물질",
+            "comp_ref": "MIX",
+            "applicable": "해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 2,
+            "law": "OSH",
+            "item_code": "OSH_MANAGED",
+            "item_raw": "특별관리물질",
+            "comp_ref": "MIX",
+            "applicable": "해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": "특별관리물질",
+            "cycle": null,
+            "country": null,
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 3,
+            "law": "OSH",
+            "item_code": "OSH_EXPOSURE_STD",
+            "item_raw": "노출기준설정대상물질",
+            "comp_ref": "MIX",
+            "applicable": "해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 4,
+            "law": "OSH",
+            "item_code": "OSH_MEASURE",
+            "item_raw": "작업환경측정대상물질",
+            "comp_ref": "MIX",
+            "applicable": "해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 5,
+            "law": "OSH",
+            "item_code": "OSH_HEALTH_EXAM",
+            "item_raw": "특수건강진단물질",
+            "comp_ref": "MIX",
+            "applicable": "해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 6,
+            "law": "OSH",
+            "item_code": "OSH_EXPOSURE_STD",
+            "item_raw": "노출기준설정대상물질",
+            "comp_ref": "4",
+            "applicable": "해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 7,
+            "law": "OSH",
+            "item_code": null,
+            "item_raw": "산업안전보건법에 의한 규제",
+            "comp_ref": "3",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": "해당없음",
+            "remark": null
+          },
+          {
+            "seq": 8,
+            "law": "OSH",
+            "item_code": "OSH_MANAGED",
+            "item_raw": "관리대상유해물질",
+            "comp_ref": "1",
+            "applicable": "해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 9,
+            "law": "OSH",
+            "item_code": "OSH_EXPOSURE_STD",
+            "item_raw": "노출기준설정대상물질",
+            "comp_ref": "1",
+            "applicable": "해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 10,
+            "law": "OSH",
+            "item_code": "OSH_MEASURE",
+            "item_raw": "작업환경측정대상물질",
+            "comp_ref": "1",
+            "applicable": "해당",
+            "threshold": {
+              "raw": "1 wt% 이상",
+              "approx": null,
+              "value": null,
+              "lower_op": ">=",
+              "lower": 1,
+              "upper_op": null,
+              "upper": null,
+              "unit": "wt%",
+              "dp": 0,
+              "status": "값있음",
+              "note": null
+            },
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": {
+              "raw": "6개월",
+              "approx": null,
+              "value": 6,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "개월",
+              "dp": 0,
+              "status": "값있음",
+              "note": null
+            },
+            "country": null,
+            "value_raw": null,
+            "remark": "진단:대상작업장 지정 후 30일 이내"
+          },
+          {
+            "seq": 11,
+            "law": "OSH",
+            "item_code": "OSH_MANAGED",
+            "item_raw": "특별관리대상물질",
+            "comp_ref": "1",
+            "applicable": "해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": "특별관리대상물질",
+            "cycle": null,
+            "country": null,
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 12,
+            "law": "OSH",
+            "item_code": "OSH_HEALTH_EXAM",
+            "item_raw": "특수건강진단물질",
+            "comp_ref": "1",
+            "applicable": "해당",
+            "threshold": {
+              "raw": "1 wt% 이상",
+              "approx": null,
+              "value": null,
+              "lower_op": ">=",
+              "lower": 1,
+              "upper_op": null,
+              "upper": null,
+              "unit": "wt%",
+              "dp": 0,
+              "status": "값있음",
+              "note": null
+            },
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": {
+              "raw": "12개월",
+              "approx": null,
+              "value": 12,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "개월",
+              "dp": 0,
+              "status": "값있음",
+              "note": null
+            },
+            "country": null,
+            "value_raw": null,
+            "remark": "진단:6개월 이내"
+          },
+          {
+            "seq": 13,
+            "law": "OSH",
+            "item_code": null,
+            "item_raw": "산업안전보건법에 의한 규제",
+            "comp_ref": "2",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": "해당없음",
+            "remark": null
+          },
+          {
+            "seq": 14,
+            "law": "OSH",
+            "item_code": null,
+            "item_raw": "산업안전보건법에 의한 규제",
+            "comp_ref": "5",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": "해당없음",
+            "remark": null
+          },
+          {
+            "seq": 15,
+            "law": "OSH",
+            "item_code": null,
+            "item_raw": "산업안전보건법에 의한 규제",
+            "comp_ref": "6",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": "해당없음",
+            "remark": null
+          },
+          {
+            "seq": 16,
+            "law": "CCA",
+            "item_code": "CCA_TOXIC",
+            "item_raw": "유독물질",
+            "comp_ref": "MIX",
+            "applicable": "해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 17,
+            "law": "CCA",
+            "item_code": null,
+            "item_raw": "화학물질관리법에 의한 규제",
+            "comp_ref": "4",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": "해당없음",
+            "remark": null
+          },
+          {
+            "seq": 18,
+            "law": "CCA",
+            "item_code": null,
+            "item_raw": "화학물질관리법에 의한 규제",
+            "comp_ref": "3",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": "해당없음",
+            "remark": null
+          },
+          {
+            "seq": 19,
+            "law": "CCA",
+            "item_code": "CCA_TOXIC",
+            "item_raw": "유독물질",
+            "comp_ref": "1",
+            "applicable": "해당",
+            "threshold": {
+              "raw": "0.1%이상",
+              "approx": null,
+              "value": null,
+              "lower_op": ">=",
+              "lower": 0.1,
+              "upper_op": null,
+              "upper": null,
+              "unit": "%",
+              "dp": 1,
+              "status": "값있음",
+              "note": null
+            },
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": null,
+            "remark": "이를 0.1%이상 함유한 혼합물질"
+          },
+          {
+            "seq": 20,
+            "law": "CCA",
+            "item_code": null,
+            "item_raw": "화학물질관리법에 의한 규제",
+            "comp_ref": "2",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": "해당없음",
+            "remark": null
+          },
+          {
+            "seq": 21,
+            "law": "CCA",
+            "item_code": null,
+            "item_raw": "화학물질관리법에 의한 규제",
+            "comp_ref": "5",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": "해당없음",
+            "remark": null
+          },
+          {
+            "seq": 22,
+            "law": "CCA",
+            "item_code": null,
+            "item_raw": "화학물질관리법에 의한 규제",
+            "comp_ref": "6",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": "해당없음",
+            "remark": null
+          },
+          {
+            "seq": 23,
+            "law": "DG",
+            "item_code": "DG_HAZMAT",
+            "item_raw": "위험물안전관리법에 의한 규제",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": "해당없음",
+            "remark": null
+          },
+          {
+            "seq": 24,
+            "law": "WASTE",
+            "item_code": "WASTE_DESIG",
+            "item_raw": "폐기물관리법",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": "해당없음",
+            "remark": "단, 용기에 보관중인 경우 지정폐기물(폐유독물질)임."
+          },
+          {
+            "seq": 25,
+            "law": "KR_ETC",
+            "item_code": "KR_ETC",
+            "item_raw": "대기환경보전법에 의한 규제",
+            "comp_ref": "MIX",
+            "applicable": "해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": "대기오염물질",
+            "cycle": null,
+            "country": null,
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 26,
+            "law": "KR_ETC",
+            "item_code": "KR_ETC",
+            "item_raw": "대기환경보전법에 의한 규제",
+            "comp_ref": "MIX",
+            "applicable": "해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": "유해성대기감시물질",
+            "cycle": null,
+            "country": null,
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 27,
+            "law": "KR_ETC",
+            "item_code": "KR_ETC",
+            "item_raw": "대기환경보전법에 의한 규제",
+            "comp_ref": "MIX",
+            "applicable": "해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": "특정대기유해물질",
+            "cycle": null,
+            "country": null,
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 28,
+            "law": "KR_ETC",
+            "item_code": "KR_ETC",
+            "item_raw": "대기환경보전법에 의한 규제",
+            "comp_ref": "MIX",
+            "applicable": "해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": "휘발성유기화합물",
+            "cycle": null,
+            "country": null,
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 29,
+            "law": "POPS",
+            "item_code": "POPS",
+            "item_raw": "잔류성유기오염물질관리법에 의한 규제",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": "해당없음",
+            "remark": null
+          },
+          {
+            "seq": 30,
+            "law": "KR_ETC",
+            "item_code": "KR_ETC",
+            "item_raw": "수질 및 수생태계보전법에 의한 규제",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": "해당없음",
+            "remark": null
+          },
+          {
+            "seq": 31,
+            "law": "KR_ETC",
+            "item_code": "KR_ETC",
+            "item_raw": "고압가스안전관리법에 의한 규제",
+            "comp_ref": "MIX",
+            "applicable": "해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": "가연성 가스",
+            "cycle": null,
+            "country": null,
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 32,
+            "law": "KR_ETC",
+            "item_code": "KR_ETC",
+            "item_raw": "고압가스안전관리법에 의한 규제",
+            "comp_ref": "MIX",
+            "applicable": "해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": "액화가스",
+            "cycle": null,
+            "country": null,
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 33,
+            "law": "INTL",
+            "item_code": "INTL_EU",
+            "item_raw": "EU 분류정보(위험문구)",
+            "comp_ref": "4",
+            "applicable": "해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "EU",
+            "value_raw": "R12",
+            "remark": null
+          },
+          {
+            "seq": 34,
+            "law": "INTL",
+            "item_code": "INTL_EU",
+            "item_raw": "EU 분류정보(위험문구)",
+            "comp_ref": "3",
+            "applicable": "해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "EU",
+            "value_raw": "R12",
+            "remark": null
+          },
+          {
+            "seq": 35,
+            "law": "INTL",
+            "item_code": "INTL_EU",
+            "item_raw": "EU 분류정보(위험문구)",
+            "comp_ref": "1",
+            "applicable": "해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "EU",
+            "value_raw": "R12, R45, R46",
+            "remark": null
+          },
+          {
+            "seq": 36,
+            "law": "INTL",
+            "item_code": "INTL_EU",
+            "item_raw": "EU 분류정보(위험문구)",
+            "comp_ref": "2",
+            "applicable": "해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "EU",
+            "value_raw": "R12",
+            "remark": null
+          },
+          {
+            "seq": 37,
+            "law": "INTL",
+            "item_code": "INTL_EU",
+            "item_raw": "EU 분류정보(위험문구)",
+            "comp_ref": "5",
+            "applicable": "해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "EU",
+            "value_raw": "R12",
+            "remark": null
+          },
+          {
+            "seq": 38,
+            "law": "INTL",
+            "item_code": "INTL_EU",
+            "item_raw": "EU 분류정보(위험문구)",
+            "comp_ref": "6",
+            "applicable": "해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "EU",
+            "value_raw": "R12",
+            "remark": null
+          },
+          {
+            "seq": 39,
+            "law": "INTL",
+            "item_code": "INTL_EU",
+            "item_raw": "EU 분류정보(안전문구)",
+            "comp_ref": "4",
+            "applicable": "해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "EU",
+            "value_raw": "S:(2)-9-16",
+            "remark": null
+          },
+          {
+            "seq": 40,
+            "law": "INTL",
+            "item_code": "INTL_EU",
+            "item_raw": "EU 분류정보(안전문구)",
+            "comp_ref": "3",
+            "applicable": "해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "EU",
+            "value_raw": "S:(2)-9-16-33",
+            "remark": null
+          },
+          {
+            "seq": 41,
+            "law": "INTL",
+            "item_code": "INTL_EU",
+            "item_raw": "EU 분류정보(안전문구)",
+            "comp_ref": "1",
+            "applicable": "해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "EU",
+            "value_raw": "S:53-45",
+            "remark": null
+          },
+          {
+            "seq": 42,
+            "law": "INTL",
+            "item_code": "INTL_EU",
+            "item_raw": "EU 분류정보(안전문구)",
+            "comp_ref": "2",
+            "applicable": "해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "EU",
+            "value_raw": "S:(2)-9-16-33",
+            "remark": null
+          },
+          {
+            "seq": 43,
+            "law": "INTL",
+            "item_code": "INTL_EU",
+            "item_raw": "EU 분류정보(안전문구)",
+            "comp_ref": "5",
+            "applicable": "해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "EU",
+            "value_raw": "S:(2)-9-16-33",
+            "remark": null
+          },
+          {
+            "seq": 44,
+            "law": "INTL",
+            "item_code": "INTL_EU",
+            "item_raw": "EU 분류정보(안전문구)",
+            "comp_ref": "6",
+            "applicable": "해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "EU",
+            "value_raw": "S:(2)-9-16-33",
+            "remark": null
+          },
+          {
+            "seq": 45,
+            "law": "INTL",
+            "item_code": "INTL_EU",
+            "item_raw": "2006/507/EC",
+            "comp_ref": "4",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "EU",
+            "value_raw": "해당없음",
+            "remark": null
+          },
+          {
+            "seq": 46,
+            "law": "INTL",
+            "item_code": "INTL_EU",
+            "item_raw": "2006/507/EC",
+            "comp_ref": "3",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "EU",
+            "value_raw": "해당없음",
+            "remark": null
+          },
+          {
+            "seq": 47,
+            "law": "INTL",
+            "item_code": "INTL_EU",
+            "item_raw": "2006/507/EC",
+            "comp_ref": "1",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "EU",
+            "value_raw": "해당없음",
+            "remark": null
+          },
+          {
+            "seq": 48,
+            "law": "INTL",
+            "item_code": "INTL_EU",
+            "item_raw": "2006/507/EC",
+            "comp_ref": "2",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "EU",
+            "value_raw": "해당없음",
+            "remark": null
+          },
+          {
+            "seq": 49,
+            "law": "INTL",
+            "item_code": "INTL_EU",
+            "item_raw": "2006/507/EC",
+            "comp_ref": "5",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "EU",
+            "value_raw": "해당없음",
+            "remark": null
+          },
+          {
+            "seq": 50,
+            "law": "INTL",
+            "item_code": "INTL_EU",
+            "item_raw": "2006/507/EC",
+            "comp_ref": "6",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "EU",
+            "value_raw": "해당없음",
+            "remark": null
+          },
+          {
+            "seq": 51,
+            "law": "INTL",
+            "item_code": "INTL_EU",
+            "item_raw": "689/2008/EC",
+            "comp_ref": "4",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "EU",
+            "value_raw": "해당없음",
+            "remark": null
+          },
+          {
+            "seq": 52,
+            "law": "INTL",
+            "item_code": "INTL_EU",
+            "item_raw": "689/2008/EC",
+            "comp_ref": "3",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "EU",
+            "value_raw": "해당없음",
+            "remark": null
+          },
+          {
+            "seq": 53,
+            "law": "INTL",
+            "item_code": "INTL_EU",
+            "item_raw": "689/2008/EC",
+            "comp_ref": "1",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "EU",
+            "value_raw": "해당없음",
+            "remark": null
+          },
+          {
+            "seq": 54,
+            "law": "INTL",
+            "item_code": "INTL_EU",
+            "item_raw": "689/2008/EC",
+            "comp_ref": "2",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "EU",
+            "value_raw": "해당없음",
+            "remark": null
+          },
+          {
+            "seq": 55,
+            "law": "INTL",
+            "item_code": "INTL_EU",
+            "item_raw": "689/2008/EC",
+            "comp_ref": "5",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "EU",
+            "value_raw": "해당없음",
+            "remark": null
+          },
+          {
+            "seq": 56,
+            "law": "INTL",
+            "item_code": "INTL_EU",
+            "item_raw": "689/2008/EC",
+            "comp_ref": "6",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "EU",
+            "value_raw": "해당없음",
+            "remark": null
+          },
+          {
+            "seq": 57,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "Designation, Reportable Quantities, and Notification",
+            "comp_ref": "4",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "US",
+            "value_raw": "해당없음",
+            "remark": null
+          },
+          {
+            "seq": 58,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "Designation, Reportable Quantities, and Notification",
+            "comp_ref": "3",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "US",
+            "value_raw": "해당없음",
+            "remark": null
+          },
+          {
+            "seq": 59,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "Designation, Reportable Quantities, and Notification",
+            "comp_ref": "1",
+            "applicable": "해당",
+            "threshold": null,
+            "qty": {
+              "raw": "10 lb final RQ",
+              "approx": null,
+              "value": 10,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "lb",
+              "dp": 0,
+              "status": "값있음",
+              "note": "final RQ"
+            },
+            "qty_alt": {
+              "raw": "4.54 kg final RQ",
+              "approx": null,
+              "value": 4.54,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "kg",
+              "dp": 2,
+              "status": "값있음",
+              "note": "final RQ"
+            },
+            "sub_class": null,
+            "cycle": null,
+            "country": "US",
+            "value_raw": "10 lb final RQ; 4.54 kg final RQ",
+            "remark": null
+          },
+          {
+            "seq": 60,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "Designation, Reportable Quantities, and Notification",
+            "comp_ref": "2",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "US",
+            "value_raw": "해당없음",
+            "remark": null
+          },
+          {
+            "seq": 61,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "Designation, Reportable Quantities, and Notification",
+            "comp_ref": "5",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "US",
+            "value_raw": "해당없음",
+            "remark": null
+          },
+          {
+            "seq": 62,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "Designation, Reportable Quantities, and Notification",
+            "comp_ref": "6",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "US",
+            "value_raw": "해당없음",
+            "remark": null
+          },
+          {
+            "seq": 63,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "Emergency Planning and Notification",
+            "comp_ref": "4",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "US",
+            "value_raw": "해당없음",
+            "remark": null
+          },
+          {
+            "seq": 64,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "Emergency Planning and Notification",
+            "comp_ref": "3",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "US",
+            "value_raw": "해당없음",
+            "remark": null
+          },
+          {
+            "seq": 65,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "Emergency Planning and Notification",
+            "comp_ref": "1",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "US",
+            "value_raw": "해당없음",
+            "remark": null
+          },
+          {
+            "seq": 66,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "Emergency Planning and Notification",
+            "comp_ref": "2",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "US",
+            "value_raw": "해당없음",
+            "remark": null
+          },
+          {
+            "seq": 67,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "Emergency Planning and Notification",
+            "comp_ref": "5",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "US",
+            "value_raw": "해당없음",
+            "remark": null
+          },
+          {
+            "seq": 68,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "Emergency Planning and Notification",
+            "comp_ref": "6",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "US",
+            "value_raw": "해당없음",
+            "remark": null
+          },
+          {
+            "seq": 69,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "Toxic Chemical Release Reporting - Community Right-to-Know",
+            "comp_ref": "4",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "US",
+            "value_raw": "해당없음",
+            "remark": null
+          },
+          {
+            "seq": 70,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "Toxic Chemical Release Reporting - Community Right-to-Know",
+            "comp_ref": "3",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "US",
+            "value_raw": "해당없음",
+            "remark": null
+          },
+          {
+            "seq": 71,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "Toxic Chemical Release Reporting - Community Right-to-Know",
+            "comp_ref": "1",
+            "applicable": "해당",
+            "threshold": {
+              "raw": "0.1 % de minimis concentration",
+              "approx": null,
+              "value": 0.1,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "%",
+              "dp": 1,
+              "status": "값있음",
+              "note": "de minimis concentration"
+            },
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "US",
+            "value_raw": "0.1 % de minimis concentration",
+            "remark": null
+          },
+          {
+            "seq": 72,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "Toxic Chemical Release Reporting - Community Right-to-Know",
+            "comp_ref": "2",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "US",
+            "value_raw": "해당없음",
+            "remark": null
+          },
+          {
+            "seq": 73,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "Toxic Chemical Release Reporting - Community Right-to-Know",
+            "comp_ref": "5",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "US",
+            "value_raw": "해당없음",
+            "remark": null
+          },
+          {
+            "seq": 74,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "Toxic Chemical Release Reporting - Community Right-to-Know",
+            "comp_ref": "6",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "US",
+            "value_raw": "해당없음",
+            "remark": null
+          },
+          {
+            "seq": 75,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "Process Safety Management of Highly Hazardous Chemicals",
+            "comp_ref": "4",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "US",
+            "value_raw": "해당없음",
+            "remark": null
+          },
+          {
+            "seq": 76,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "Process Safety Management of Highly Hazardous Chemicals",
+            "comp_ref": "3",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "US",
+            "value_raw": "해당없음",
+            "remark": null
+          },
+          {
+            "seq": 77,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "Process Safety Management of Highly Hazardous Chemicals",
+            "comp_ref": "1",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "US",
+            "value_raw": "해당없음",
+            "remark": null
+          },
+          {
+            "seq": 78,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "Process Safety Management of Highly Hazardous Chemicals",
+            "comp_ref": "2",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "US",
+            "value_raw": "해당없음",
+            "remark": null
+          },
+          {
+            "seq": 79,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "Process Safety Management of Highly Hazardous Chemicals",
+            "comp_ref": "5",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "US",
+            "value_raw": "해당없음",
+            "remark": null
+          },
+          {
+            "seq": 80,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "Process Safety Management of Highly Hazardous Chemicals",
+            "comp_ref": "6",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "US",
+            "value_raw": "해당없음",
+            "remark": null
+          }
+        ],
+        "dangerous_goods": [
+          {
+            "comp_ref": "MIX",
+            "class": "해당없음",
+            "item": null,
+            "water_soluble": null,
+            "grade": null,
+            "designated_qty": null
+          }
+        ],
+        "waste": [
+          {
+            "comp_ref": "MIX",
+            "designated": "비해당",
+            "waste_type": null
+          }
+        ],
+        "intl_class": [
+          {
+            "comp_ref": "4",
+            "system": "기타",
+            "class_raw": "F+; R12",
+            "h_code": null,
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "3",
+            "system": "기타",
+            "class_raw": "F+; R12",
+            "h_code": null,
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "system": "기타",
+            "class_raw": "F+; R12",
+            "h_code": null,
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "system": "기타",
+            "class_raw": "Carc.Cat.1; R45",
+            "h_code": null,
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "system": "기타",
+            "class_raw": "Muta.Cat.2; R46",
+            "h_code": null,
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "2",
+            "system": "기타",
+            "class_raw": "F+; R12",
+            "h_code": null,
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "5",
+            "system": "기타",
+            "class_raw": "F+; R12",
+            "h_code": null,
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "6",
+            "system": "기타",
+            "class_raw": "F+; R12",
+            "h_code": null,
+            "status": "값있음"
+          }
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "msds_index": 0,
+        "field": "transport[0]",
+        "page": 13,
+        "source_text": "가. 유엔 번호 : 1075 | 나. 유엔 적정 선적명 : PETROLEUM GASES, LIQUEFIED | 다. 운송에서의 위험성 등급 : 2.1 | 라. 용기등급 : 해당없음 | 마. 해양오염물질 : 해당없음 | F-D | S-U",
+        "rules": [
+          "R09",
+          "R15"
+        ],
+        "note": "운송 방식 구분이 없어 mode=공통, 해양오염물질 '해당없음'을 비해당으로 옮김"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[0]",
+        "page": 14,
+        "source_text": "가. 산업안전보건법에 의한 규제 PRODUCT : 관리대상유해물질, 특별관리물질, 노출기준설정대상물질, 작업환경측정대상물질, 특수건강진단물질",
+        "rules": [
+          "R10",
+          "R25"
+        ],
+        "note": "PRODUCT 값이므로 comp_ref=MIX"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[1]",
+        "page": 14,
+        "source_text": "PRODUCT : 관리대상유해물질, 특별관리물질, ...",
+        "rules": [
+          "R10",
+          "R25"
+        ],
+        "note": "특별관리물질을 OSH_MANAGED, sub_class로 기록"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[2]",
+        "page": 14,
+        "source_text": "PRODUCT : ... 노출기준설정대상물질 ...",
+        "rules": [
+          "R10",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[3]",
+        "page": 14,
+        "source_text": "PRODUCT : ... 작업환경측정대상물질 ...",
+        "rules": [
+          "R10",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[4]",
+        "page": 14,
+        "source_text": "PRODUCT : ... 특수건강진단물질",
+        "rules": [
+          "R10",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[5]",
+        "page": 14,
+        "source_text": "- 부탄 : 노출기준설정대상물질",
+        "rules": [
+          "R10",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[6]",
+        "page": 14,
+        "source_text": "- 부텐 1 : 해당없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": "법령 전체 해당없음이라 item_code는 null"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[7]",
+        "page": 14,
+        "source_text": "- 1,3 부타디엔 : 관리대상유해물질, 노출기준설정대상물질, ...",
+        "rules": [
+          "R10",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[8]",
+        "page": 14,
+        "source_text": "- 1,3 부타디엔 : 관리대상유해물질, 노출기준설정대상물질, ...",
+        "rules": [
+          "R10",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[9]",
+        "page": 14,
+        "source_text": "작업환경측정대상물질(및 이를 1 wt% 이상 함유한 제제, 측정주기:6개월, 진단:대상작업장 지정 후 30일 이내)",
+        "rules": [
+          "R04",
+          "R10",
+          "R25"
+        ],
+        "note": "'1 wt% 이상'을 threshold(>=1 wt%), 측정주기 6개월을 cycle로 나눔"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[10]",
+        "page": 14,
+        "source_text": "- 1,3 부타디엔 : ... 특별관리대상물질 ...",
+        "rules": [
+          "R10",
+          "R25"
+        ],
+        "note": "특별관리대상물질을 동의어 사전에 따라 OSH_MANAGED로 매핑"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[11]",
+        "page": 14,
+        "source_text": "특수건강진단물질(및 이를 1 wt% 이상 함유한 제제, 측정주기:12개월, 진단:6개월 이내)",
+        "rules": [
+          "R04",
+          "R10",
+          "R25"
+        ],
+        "note": "'1 wt% 이상'을 threshold, 측정주기 12개월을 cycle로 나눔"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[12]",
+        "page": 14,
+        "source_text": "- 이소부텐 : 해당없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[13]",
+        "page": 14,
+        "source_text": "- 시스 2 부텐 : 해당없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[14]",
+        "page": 14,
+        "source_text": "- 트랜스 2 부텐 : 해당없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[15]",
+        "page": 14,
+        "source_text": "나. 화학물질관리법에 의한 규제 PRODUCT : 유독물질",
+        "rules": [
+          "R10",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[16]",
+        "page": 14,
+        "source_text": "- 부탄 : 해당없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[17]",
+        "page": 14,
+        "source_text": "- 부텐 1 : 해당없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[18]",
+        "page": 14,
+        "source_text": "- 1,3 부타디엔 : 유독물질 (이를 0.1%이상 함유한 혼합물질)",
+        "rules": [
+          "R04",
+          "R10",
+          "R25"
+        ],
+        "note": "'0.1%이상'을 threshold(>=0.1 %)로 나눔"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[19]",
+        "page": 14,
+        "source_text": "- 이소부텐 : 해당없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[20]",
+        "page": 14,
+        "source_text": "- 시스 2 부텐 : 해당없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[21]",
+        "page": 14,
+        "source_text": "- 트랜스 2 부텐 : 해당없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[22]",
+        "page": 14,
+        "source_text": "다. 위험물안전관리법에 의한 규제 PRODUCT : 해당없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[23]",
+        "page": 14,
+        "source_text": "라. 폐기물관리법 PRODUCT : 해당없음. 단, 용기에 보관중인 경우 지정폐기물(폐유독물질)임.",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": "조건부 지정폐기물 문구는 remark에 보존"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[24]",
+        "page": 14,
+        "source_text": "대기환경보전법에 의한 규제 PRODUCT : 대기오염물질, 유해성대기감시물질, 특정대기유해물질, 휘발성유기화합물",
+        "rules": [
+          "R10",
+          "R11"
+        ],
+        "note": "항목별로 행을 나눔"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[25]",
+        "page": 14,
+        "source_text": "대기환경보전법에 의한 규제 PRODUCT : ... 유해성대기감시물질 ...",
+        "rules": [
+          "R10",
+          "R11"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[26]",
+        "page": 14,
+        "source_text": "대기환경보전법에 의한 규제 PRODUCT : ... 특정대기유해물질 ...",
+        "rules": [
+          "R10",
+          "R11"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[27]",
+        "page": 14,
+        "source_text": "대기환경보전법에 의한 규제 PRODUCT : ... 휘발성유기화합물",
+        "rules": [
+          "R10",
+          "R11"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[28]",
+        "page": 14,
+        "source_text": "잔류성유기오염물질관리법에 의한 규제 PRODUCT : 해당없음",
+        "rules": [
+          "R10",
+          "R15",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[29]",
+        "page": 14,
+        "source_text": "수질 및 수생태계보전법에 의한 규제 PRODUCT : 해당없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[30]",
+        "page": 15,
+        "source_text": "고압가스안전관리법에 의한 규제 PRODUCT : 가연성 가스, 액화가스",
+        "rules": [
+          "R10",
+          "R11"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[31]",
+        "page": 15,
+        "source_text": "고압가스안전관리법에 의한 규제 PRODUCT : 가연성 가스, 액화가스",
+        "rules": [
+          "R10",
+          "R11"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[32]",
+        "page": 15,
+        "source_text": "EU 분류정보(위험문구) | - 부탄 : R12",
+        "rules": [
+          "R10",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[33]",
+        "page": 15,
+        "source_text": "- 부텐 1 : R12",
+        "rules": [
+          "R10",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[34]",
+        "page": 15,
+        "source_text": "- 1,3 부타디엔 : R12, R45, R46",
+        "rules": [
+          "R10",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[35]",
+        "page": 15,
+        "source_text": "- 이소부텐 : R12",
+        "rules": [
+          "R10",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[36]",
+        "page": 15,
+        "source_text": "- 시스 2 부텐 : R12",
+        "rules": [
+          "R10",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[37]",
+        "page": 15,
+        "source_text": "- 트랜스 2 부텐 : R12",
+        "rules": [
+          "R10",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[38]",
+        "page": 15,
+        "source_text": "EU 분류정보(안전문구) | - 부탄 : S:(2)-9-16",
+        "rules": [
+          "R10",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[39]",
+        "page": 15,
+        "source_text": "- 부텐 1 : S:(2)-9-16-33",
+        "rules": [
+          "R10",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[40]",
+        "page": 15,
+        "source_text": "- 1,3 부타디엔 : S:53-45",
+        "rules": [
+          "R10",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[41]",
+        "page": 15,
+        "source_text": "- 이소부텐 : S:(2)-9-16-33",
+        "rules": [
+          "R10",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[42]",
+        "page": 15,
+        "source_text": "- 시스 2 부텐 : S:(2)-9-16-33",
+        "rules": [
+          "R10",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[43]",
+        "page": 15,
+        "source_text": "- 트랜스 2 부텐 : S:(2)-9-16-33",
+        "rules": [
+          "R10",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[44]",
+        "page": 15,
+        "source_text": "2006/507/EC | - 부탄 : 해당없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[45]",
+        "page": 15,
+        "source_text": "- 부텐 1 : 해당없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[46]",
+        "page": 15,
+        "source_text": "- 1,3 부타디엔 : 해당없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[47]",
+        "page": 15,
+        "source_text": "- 이소부텐 : 해당없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[48]",
+        "page": 15,
+        "source_text": "- 시스 2 부텐 : 해당없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[49]",
+        "page": 15,
+        "source_text": "- 트랜스 2 부텐 : 해당없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[50]",
+        "page": 15,
+        "source_text": "689/2008/EC | - 부탄 : 해당없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[51]",
+        "page": 15,
+        "source_text": "- 부텐 1 : 해당없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[52]",
+        "page": 16,
+        "source_text": "- 1,3 부타디엔 : 해당없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[53]",
+        "page": 16,
+        "source_text": "- 이소부텐 : 해당없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[54]",
+        "page": 16,
+        "source_text": "- 시스 2 부텐 : 해당없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[55]",
+        "page": 16,
+        "source_text": "- 트랜스 2 부텐 : 해당없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[56]",
+        "page": 16,
+        "source_text": "Designation, Reportable Quantities, and Notification | - 부탄 : 해당없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[57]",
+        "page": 16,
+        "source_text": "- 부텐 1 : 해당없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[58]",
+        "page": 16,
+        "source_text": "- 1,3 부타디엔 : 10 lb final RQ; 4.54 kg final RQ",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "10 lb를 qty, 4.54 kg를 qty_alt로 나눔"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[59]",
+        "page": 16,
+        "source_text": "- 이소부텐 : 해당없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[60]",
+        "page": 16,
+        "source_text": "- 시스 2 부텐 : 해당없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[61]",
+        "page": 16,
+        "source_text": "- 트랜스 2 부텐 : 해당없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[62]",
+        "page": 16,
+        "source_text": "Emergency Planning and Notification | - 부탄 : 해당없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[63]",
+        "page": 16,
+        "source_text": "- 부텐 1 : 해당없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[64]",
+        "page": 16,
+        "source_text": "- 1,3 부타디엔 : 해당없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[65]",
+        "page": 16,
+        "source_text": "- 이소부텐 : 해당없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[66]",
+        "page": 16,
+        "source_text": "- 시스 2 부텐 : 해당없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[67]",
+        "page": 16,
+        "source_text": "- 트랜스 2 부텐 : 해당없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[68]",
+        "page": 16,
+        "source_text": "Toxic Chemical Release Reporting - Community Right-to-Know | - 부탄 : 해당없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[69]",
+        "page": 16,
+        "source_text": "- 부텐 1 : 해당없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[70]",
+        "page": 16,
+        "source_text": "- 1,3 부타디엔 : 0.1 % de minimis concentration",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "부등호 표기가 없어 threshold를 단일값 0.1 %로 기록"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[71]",
+        "page": 16,
+        "source_text": "- 이소부텐 : 해당없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[72]",
+        "page": 16,
+        "source_text": "- 시스 2 부텐 : 해당없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[73]",
+        "page": 16,
+        "source_text": "- 트랜스 2 부텐 : 해당없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[74]",
+        "page": 16,
+        "source_text": "Process Safety Management of Highly Hazardous Chemicals | - 부탄 : 해당없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[75]",
+        "page": 16,
+        "source_text": "- 부텐 1 : 해당없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[76]",
+        "page": 16,
+        "source_text": "- 1,3 부타디엔 : 해당없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[77]",
+        "page": 16,
+        "source_text": "- 이소부텐 : 해당없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[78]",
+        "page": 16,
+        "source_text": "- 시스 2 부텐 : 해당없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[79]",
+        "page": 16,
+        "source_text": "- 트랜스 2 부텐 : 해당없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "dangerous_goods[0]",
+        "page": 14,
+        "source_text": "다. 위험물안전관리법에 의한 규제 PRODUCT : 해당없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": "class=해당없음"
+      },
+      {
+        "msds_index": 0,
+        "field": "waste[0]",
+        "page": 14,
+        "source_text": "라. 폐기물관리법 PRODUCT : 해당없음. 단, 용기에 보관중인 경우 지정폐기물(폐유독물질)임.",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": "기본값 해당없음을 비해당으로 기록, 조건부 지정폐기물 문구는 regulations remark에 보존"
+      },
+      {
+        "msds_index": 0,
+        "field": "intl_class[0]",
+        "page": 15,
+        "source_text": "EU 분류정보(확정분류결과) | - 부탄 : F+; R12",
+        "rules": [
+          "R10",
+          "R11"
+        ],
+        "note": "CLP가 아닌 구 EU 분류(R문구)이므로 system=기타"
+      },
+      {
+        "msds_index": 0,
+        "field": "intl_class[1]",
+        "page": 15,
+        "source_text": "- 부텐 1 : F+; R12",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "intl_class[2]",
+        "page": 15,
+        "source_text": "- 1,3 부타디엔 : F+; R12 Carc.Cat.1; R45 Muta.Cat.2; R46",
+        "rules": [
+          "R10",
+          "R11"
+        ],
+        "note": "분류별로 하나씩 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "intl_class[3]",
+        "page": 15,
+        "source_text": "- 1,3 부타디엔 : F+; R12 Carc.Cat.1; R45 Muta.Cat.2; R46",
+        "rules": [
+          "R10",
+          "R11"
+        ],
+        "note": "분류별로 하나씩 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "intl_class[4]",
+        "page": 15,
+        "source_text": "- 1,3 부타디엔 : F+; R12 Carc.Cat.1; R45 Muta.Cat.2; R46",
+        "rules": [
+          "R10",
+          "R11"
+        ],
+        "note": "분류별로 하나씩 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "intl_class[5]",
+        "page": 15,
+        "source_text": "- 이소부텐 : F+; R12",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "intl_class[6]",
+        "page": 15,
+        "source_text": "- 시스 2 부텐 : F+; R12",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "intl_class[7]",
+        "page": 15,
+        "source_text": "- 트랜스 2 부텐 : F+; R12",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      }
+    ]
+  },
+  "raw_text": "{\"msds\":[{\"transport\":[{\"mode\":\"공통\",\"basis_raw\":null,\"regulated\":true,\"un_no\":\"1075\",\"shipping_name\":\"PETROLEUM GASES, LIQUEFIED\",\"hazard_class\":\"2.1\",\"sub_risk\":null,\"packing_group\":\"해당없음\",\"marine_pollutant\":\"비해당\",\"ems_fire\":\"F-D\",\"ems_spill\":\"S-U\"}],\"regulations\":[\n{\"seq\":1,\"law\":\"OSH\",\"item_code\":\"OSH_MANAGED\",\"item_raw\":\"관리대상유해물질\",\"comp_ref\":\"MIX\",\"applicable\":\"해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":null,\"remark\":null},\n{\"seq\":2,\"law\":\"OSH\",\"item_code\":\"OSH_MANAGED\",\"item_raw\":\"특별관리물질\",\"comp_ref\":\"MIX\",\"applicable\":\"해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":\"특별관리물질\",\"cycle\":null,\"country\":null,\"value_raw\":null,\"remark\":null},\n{\"seq\":3,\"law\":\"OSH\",\"item_code\":\"OSH_EXPOSURE_STD\",\"item_raw\":\"노출기준설정대상물질\",\"comp_ref\":\"MIX\",\"applicable\":\"해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":null,\"remark\":null},\n{\"seq\":4,\"law\":\"OSH\",\"item_code\":\"OSH_MEASURE\",\"item_raw\":\"작업환경측정대상물질\",\"comp_ref\":\"MIX\",\"applicable\":\"해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":null,\"remark\":null},\n{\"seq\":5,\"law\":\"OSH\",\"item_code\":\"OSH_HEALTH_EXAM\",\"item_raw\":\"특수건강진단물질\",\"comp_ref\":\"MIX\",\"applicable\":\"해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":null,\"remark\":null},\n{\"seq\":6,\"law\":\"OSH\",\"item_code\":\"OSH_EXPOSURE_STD\",\"item_raw\":\"노출기준설정대상물질\",\"comp_ref\":\"4\",\"applicable\":\"해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":null,\"remark\":null},\n{\"seq\":7,\"law\":\"OSH\",\"item_code\":null,\"item_raw\":\"산업안전보건법에 의한 규제\",\"comp_ref\":\"3\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":\"해당없음\",\"remark\":null},\n{\"seq\":8,\"law\":\"OSH\",\"item_code\":\"OSH_MANAGED\",\"item_raw\":\"관리대상유해물질\",\"comp_ref\":\"1\",\"applicable\":\"해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":null,\"remark\":null},\n{\"seq\":9,\"law\":\"OSH\",\"item_code\":\"OSH_EXPOSURE_STD\",\"item_raw\":\"노출기준설정대상물질\",\"comp_ref\":\"1\",\"applicable\":\"해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":null,\"remark\":null},\n{\"seq\":10,\"law\":\"OSH\",\"item_code\":\"OSH_MEASURE\",\"item_raw\":\"작업환경측정대상물질\",\"comp_ref\":\"1\",\"applicable\":\"해당\",\"threshold\":{\"raw\":\"1 wt% 이상\",\"approx\":null,\"value\":null,\"lower_op\":\">=\",\"lower\":1,\"upper_op\":null,\"upper\":null,\"unit\":\"wt%\",\"dp\":0,\"status\":\"값있음\",\"note\":null},\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":{\"raw\":\"6개월\",\"approx\":null,\"value\":6,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"개월\",\"dp\":0,\"status\":\"값있음\",\"note\":null},\"country\":null,\"value_raw\":null,\"remark\":\"진단:대상작업장 지정 후 30일 이내\"},\n{\"seq\":11,\"law\":\"OSH\",\"item_code\":\"OSH_MANAGED\",\"item_raw\":\"특별관리대상물질\",\"comp_ref\":\"1\",\"applicable\":\"해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":\"특별관리대상물질\",\"cycle\":null,\"country\":null,\"value_raw\":null,\"remark\":null},\n{\"seq\":12,\"law\":\"OSH\",\"item_code\":\"OSH_HEALTH_EXAM\",\"item_raw\":\"특수건강진단물질\",\"comp_ref\":\"1\",\"applicable\":\"해당\",\"threshold\":{\"raw\":\"1 wt% 이상\",\"approx\":null,\"value\":null,\"lower_op\":\">=\",\"lower\":1,\"upper_op\":null,\"upper\":null,\"unit\":\"wt%\",\"dp\":0,\"status\":\"값있음\",\"note\":null},\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":{\"raw\":\"12개월\",\"approx\":null,\"value\":12,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"개월\",\"dp\":0,\"status\":\"값있음\",\"note\":null},\"country\":null,\"value_raw\":null,\"remark\":\"진단:6개월 이내\"},\n{\"seq\":13,\"law\":\"OSH\",\"item_code\":null,\"item_raw\":\"산업안전보건법에 의한 규제\",\"comp_ref\":\"2\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":\"해당없음\",\"remark\":null},\n{\"seq\":14,\"law\":\"OSH\",\"item_code\":null,\"item_raw\":\"산업안전보건법에 의한 규제\",\"comp_ref\":\"5\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":\"해당없음\",\"remark\":null},\n{\"seq\":15,\"law\":\"OSH\",\"item_code\":null,\"item_raw\":\"산업안전보건법에 의한 규제\",\"comp_ref\":\"6\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":\"해당없음\",\"remark\":null},\n{\"seq\":16,\"law\":\"CCA\",\"item_code\":\"CCA_TOXIC\",\"item_raw\":\"유독물질\",\"comp_ref\":\"MIX\",\"applicable\":\"해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":null,\"remark\":null},\n{\"seq\":17,\"law\":\"CCA\",\"item_code\":null,\"item_raw\":\"화학물질관리법에 의한 규제\",\"comp_ref\":\"4\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":\"해당없음\",\"remark\":null},\n{\"seq\":18,\"law\":\"CCA\",\"item_code\":null,\"item_raw\":\"화학물질관리법에 의한 규제\",\"comp_ref\":\"3\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":\"해당없음\",\"remark\":null},\n{\"seq\":19,\"law\":\"CCA\",\"item_code\":\"CCA_TOXIC\",\"item_raw\":\"유독물질\",\"comp_ref\":\"1\",\"applicable\":\"해당\",\"threshold\":{\"raw\":\"0.1%이상\",\"approx\":null,\"value\":null,\"lower_op\":\">=\",\"lower\":0.1,\"upper_op\":null,\"upper\":null,\"unit\":\"%\",\"dp\":1,\"status\":\"값있음\",\"note\":null},\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":null,\"remark\":\"이를 0.1%이상 함유한 혼합물질\"},\n{\"seq\":20,\"law\":\"CCA\",\"item_code\":null,\"item_raw\":\"화학물질관리법에 의한 규제\",\"comp_ref\":\"2\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":\"해당없음\",\"remark\":null},\n{\"seq\":21,\"law\":\"CCA\",\"item_code\":null,\"item_raw\":\"화학물질관리법에 의한 규제\",\"comp_ref\":\"5\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":\"해당없음\",\"remark\":null},\n{\"seq\":22,\"law\":\"CCA\",\"item_code\":null,\"item_raw\":\"화학물질관리법에 의한 규제\",\"comp_ref\":\"6\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":\"해당없음\",\"remark\":null},\n{\"seq\":23,\"law\":\"DG\",\"item_code\":\"DG_HAZMAT\",\"item_raw\":\"위험물안전관리법에 의한 규제\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":\"해당없음\",\"remark\":null},\n{\"seq\":24,\"law\":\"WASTE\",\"item_code\":\"WASTE_DESIG\",\"item_raw\":\"폐기물관리법\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":\"해당없음\",\"remark\":\"단, 용기에 보관중인 경우 지정폐기물(폐유독물질)임.\"},\n{\"seq\":25,\"law\":\"KR_ETC\",\"item_code\":\"KR_ETC\",\"item_raw\":\"대기환경보전법에 의한 규제\",\"comp_ref\":\"MIX\",\"applicable\":\"해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":\"대기오염물질\",\"cycle\":null,\"country\":null,\"value_raw\":null,\"remark\":null},\n{\"seq\":26,\"law\":\"KR_ETC\",\"item_code\":\"KR_ETC\",\"item_raw\":\"대기환경보전법에 의한 규제\",\"comp_ref\":\"MIX\",\"applicable\":\"해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":\"유해성대기감시물질\",\"cycle\":null,\"country\":null,\"value_raw\":null,\"remark\":null},\n{\"seq\":27,\"law\":\"KR_ETC\",\"item_code\":\"KR_ETC\",\"item_raw\":\"대기환경보전법에 의한 규제\",\"comp_ref\":\"MIX\",\"applicable\":\"해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":\"특정대기유해물질\",\"cycle\":null,\"country\":null,\"value_raw\":null,\"remark\":null},\n{\"seq\":28,\"law\":\"KR_ETC\",\"item_code\":\"KR_ETC\",\"item_raw\":\"대기환경보전법에 의한 규제\",\"comp_ref\":\"MIX\",\"applicable\":\"해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":\"휘발성유기화합물\",\"cycle\":null,\"country\":null,\"value_raw\":null,\"remark\":null},\n{\"seq\":29,\"law\":\"POPS\",\"item_code\":\"POPS\",\"item_raw\":\"잔류성유기오염물질관리법에 의한 규제\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":\"해당없음\",\"remark\":null},\n{\"seq\":30,\"law\":\"KR_ETC\",\"item_code\":\"KR_ETC\",\"item_raw\":\"수질 및 수생태계보전법에 의한 규제\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":\"해당없음\",\"remark\":null},\n{\"seq\":31,\"law\":\"KR_ETC\",\"item_code\":\"KR_ETC\",\"item_raw\":\"고압가스안전관리법에 의한 규제\",\"comp_ref\":\"MIX\",\"applicable\":\"해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":\"가연성 가스\",\"cycle\":null,\"country\":null,\"value_raw\":null,\"remark\":null},\n{\"seq\":32,\"law\":\"KR_ETC\",\"item_code\":\"KR_ETC\",\"item_raw\":\"고압가스안전관리법에 의한 규제\",\"comp_ref\":\"MIX\",\"applicable\":\"해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":\"액화가스\",\"cycle\":null,\"country\":null,\"value_raw\":null,\"remark\":null},\n{\"seq\":33,\"law\":\"INTL\",\"item_code\":\"INTL_EU\",\"item_raw\":\"EU 분류정보(위험문구)\",\"comp_ref\":\"4\",\"applicable\":\"해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"EU\",\"value_raw\":\"R12\",\"remark\":null},\n{\"seq\":34,\"law\":\"INTL\",\"item_code\":\"INTL_EU\",\"item_raw\":\"EU 분류정보(위험문구)\",\"comp_ref\":\"3\",\"applicable\":\"해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"EU\",\"value_raw\":\"R12\",\"remark\":null},\n{\"seq\":35,\"law\":\"INTL\",\"item_code\":\"INTL_EU\",\"item_raw\":\"EU 분류정보(위험문구)\",\"comp_ref\":\"1\",\"applicable\":\"해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"EU\",\"value_raw\":\"R12, R45, R46\",\"remark\":null},\n{\"seq\":36,\"law\":\"INTL\",\"item_code\":\"INTL_EU\",\"item_raw\":\"EU 분류정보(위험문구)\",\"comp_ref\":\"2\",\"applicable\":\"해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"EU\",\"value_raw\":\"R12\",\"remark\":null},\n{\"seq\":37,\"law\":\"INTL\",\"item_code\":\"INTL_EU\",\"item_raw\":\"EU 분류정보(위험문구)\",\"comp_ref\":\"5\",\"applicable\":\"해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"EU\",\"value_raw\":\"R12\",\"remark\":null},\n{\"seq\":38,\"law\":\"INTL\",\"item_code\":\"INTL_EU\",\"item_raw\":\"EU 분류정보(위험문구)\",\"comp_ref\":\"6\",\"applicable\":\"해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"EU\",\"value_raw\":\"R12\",\"remark\":null},\n{\"seq\":39,\"law\":\"INTL\",\"item_code\":\"INTL_EU\",\"item_raw\":\"EU 분류정보(안전문구)\",\"comp_ref\":\"4\",\"applicable\":\"해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"EU\",\"value_raw\":\"S:(2)-9-16\",\"remark\":null},\n{\"seq\":40,\"law\":\"INTL\",\"item_code\":\"INTL_EU\",\"item_raw\":\"EU 분류정보(안전문구)\",\"comp_ref\":\"3\",\"applicable\":\"해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"EU\",\"value_raw\":\"S:(2)-9-16-33\",\"remark\":null},\n{\"seq\":41,\"law\":\"INTL\",\"item_code\":\"INTL_EU\",\"item_raw\":\"EU 분류정보(안전문구)\",\"comp_ref\":\"1\",\"applicable\":\"해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"EU\",\"value_raw\":\"S:53-45\",\"remark\":null},\n{\"seq\":42,\"law\":\"INTL\",\"item_code\":\"INTL_EU\",\"item_raw\":\"EU 분류정보(안전문구)\",\"comp_ref\":\"2\",\"applicable\":\"해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"EU\",\"value_raw\":\"S:(2)-9-16-33\",\"remark\":null},\n{\"seq\":43,\"law\":\"INTL\",\"item_code\":\"INTL_EU\",\"item_raw\":\"EU 분류정보(안전문구)\",\"comp_ref\":\"5\",\"applicable\":\"해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"EU\",\"value_raw\":\"S:(2)-9-16-33\",\"remark\":null},\n{\"seq\":44,\"law\":\"INTL\",\"item_code\":\"INTL_EU\",\"item_raw\":\"EU 분류정보(안전문구)\",\"comp_ref\":\"6\",\"applicable\":\"해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"EU\",\"value_raw\":\"S:(2)-9-16-33\",\"remark\":null},\n{\"seq\":45,\"law\":\"INTL\",\"item_code\":\"INTL_EU\",\"item_raw\":\"2006/507/EC\",\"comp_ref\":\"4\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"EU\",\"value_raw\":\"해당없음\",\"remark\":null},\n{\"seq\":46,\"law\":\"INTL\",\"item_code\":\"INTL_EU\",\"item_raw\":\"2006/507/EC\",\"comp_ref\":\"3\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"EU\",\"value_raw\":\"해당없음\",\"remark\":null},\n{\"seq\":47,\"law\":\"INTL\",\"item_code\":\"INTL_EU\",\"item_raw\":\"2006/507/EC\",\"comp_ref\":\"1\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"EU\",\"value_raw\":\"해당없음\",\"remark\":null},\n{\"seq\":48,\"law\":\"INTL\",\"item_code\":\"INTL_EU\",\"item_raw\":\"2006/507/EC\",\"comp_ref\":\"2\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"EU\",\"value_raw\":\"해당없음\",\"remark\":null},\n{\"seq\":49,\"law\":\"INTL\",\"item_code\":\"INTL_EU\",\"item_raw\":\"2006/507/EC\",\"comp_ref\":\"5\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"EU\",\"value_raw\":\"해당없음\",\"remark\":null},\n{\"seq\":50,\"law\":\"INTL\",\"item_code\":\"INTL_EU\",\"item_raw\":\"2006/507/EC\",\"comp_ref\":\"6\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"EU\",\"value_raw\":\"해당없음\",\"remark\":null},\n{\"seq\":51,\"law\":\"INTL\",\"item_code\":\"INTL_EU\",\"item_raw\":\"689/2008/EC\",\"comp_ref\":\"4\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"EU\",\"value_raw\":\"해당없음\",\"remark\":null},\n{\"seq\":52,\"law\":\"INTL\",\"item_code\":\"INTL_EU\",\"item_raw\":\"689/2008/EC\",\"comp_ref\":\"3\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"EU\",\"value_raw\":\"해당없음\",\"remark\":null},\n{\"seq\":53,\"law\":\"INTL\",\"item_code\":\"INTL_EU\",\"item_raw\":\"689/2008/EC\",\"comp_ref\":\"1\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"EU\",\"value_raw\":\"해당없음\",\"remark\":null},\n{\"seq\":54,\"law\":\"INTL\",\"item_code\":\"INTL_EU\",\"item_raw\":\"689/2008/EC\",\"comp_ref\":\"2\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"EU\",\"value_raw\":\"해당없음\",\"remark\":null},\n{\"seq\":55,\"law\":\"INTL\",\"item_code\":\"INTL_EU\",\"item_raw\":\"689/2008/EC\",\"comp_ref\":\"5\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"EU\",\"value_raw\":\"해당없음\",\"remark\":null},\n{\"seq\":56,\"law\":\"INTL\",\"item_code\":\"INTL_EU\",\"item_raw\":\"689/2008/EC\",\"comp_ref\":\"6\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"EU\",\"value_raw\":\"해당없음\",\"remark\":null},\n{\"seq\":57,\"law\":\"INTL\",\"item_code\":\"INTL_US\",\"item_raw\":\"Designation, Reportable Quantities, and Notification\",\"comp_ref\":\"4\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"US\",\"value_raw\":\"해당없음\",\"remark\":null},\n{\"seq\":58,\"law\":\"INTL\",\"item_code\":\"INTL_US\",\"item_raw\":\"Designation, Reportable Quantities, and Notification\",\"comp_ref\":\"3\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"US\",\"value_raw\":\"해당없음\",\"remark\":null},\n{\"seq\":59,\"law\":\"INTL\",\"item_code\":\"INTL_US\",\"item_raw\":\"Designation, Reportable Quantities, and Notification\",\"comp_ref\":\"1\",\"applicable\":\"해당\",\"threshold\":null,\"qty\":{\"raw\":\"10 lb final RQ\",\"approx\":null,\"value\":10,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"lb\",\"dp\":0,\"status\":\"값있음\",\"note\":\"final RQ\"},\"qty_alt\":{\"raw\":\"4.54 kg final RQ\",\"approx\":null,\"value\":4.54,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"kg\",\"dp\":2,\"status\":\"값있음\",\"note\":\"final RQ\"},\"sub_class\":null,\"cycle\":null,\"country\":\"US\",\"value_raw\":\"10 lb final RQ; 4.54 kg final RQ\",\"remark\":null},\n{\"seq\":60,\"law\":\"INTL\",\"item_code\":\"INTL_US\",\"item_raw\":\"Designation, Reportable Quantities, and Notification\",\"comp_ref\":\"2\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"US\",\"value_raw\":\"해당없음\",\"remark\":null},\n{\"seq\":61,\"law\":\"INTL\",\"item_code\":\"INTL_US\",\"item_raw\":\"Designation, Reportable Quantities, and Notification\",\"comp_ref\":\"5\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"US\",\"value_raw\":\"해당없음\",\"remark\":null},\n{\"seq\":62,\"law\":\"INTL\",\"item_code\":\"INTL_US\",\"item_raw\":\"Designation, Reportable Quantities, and Notification\",\"comp_ref\":\"6\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"US\",\"value_raw\":\"해당없음\",\"remark\":null},\n{\"seq\":63,\"law\":\"INTL\",\"item_code\":\"INTL_US\",\"item_raw\":\"Emergency Planning and Notification\",\"comp_ref\":\"4\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"US\",\"value_raw\":\"해당없음\",\"remark\":null},\n{\"seq\":64,\"law\":\"INTL\",\"item_code\":\"INTL_US\",\"item_raw\":\"Emergency Planning and Notification\",\"comp_ref\":\"3\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"US\",\"value_raw\":\"해당없음\",\"remark\":null},\n{\"seq\":65,\"law\":\"INTL\",\"item_code\":\"INTL_US\",\"item_raw\":\"Emergency Planning and Notification\",\"comp_ref\":\"1\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"US\",\"value_raw\":\"해당없음\",\"remark\":null},\n{\"seq\":66,\"law\":\"INTL\",\"item_code\":\"INTL_US\",\"item_raw\":\"Emergency Planning and Notification\",\"comp_ref\":\"2\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"US\",\"value_raw\":\"해당없음\",\"remark\":null},\n{\"seq\":67,\"law\":\"INTL\",\"item_code\":\"INTL_US\",\"item_raw\":\"Emergency Planning and Notification\",\"comp_ref\":\"5\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"US\",\"value_raw\":\"해당없음\",\"remark\":null},\n{\"seq\":68,\"law\":\"INTL\",\"item_code\":\"INTL_US\",\"item_raw\":\"Emergency Planning and Notification\",\"comp_ref\":\"6\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"US\",\"value_raw\":\"해당없음\",\"remark\":null},\n{\"seq\":69,\"law\":\"INTL\",\"item_code\":\"INTL_US\",\"item_raw\":\"Toxic Chemical Release Reporting - Community Right-to-Know\",\"comp_ref\":\"4\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"US\",\"value_raw\":\"해당없음\",\"remark\":null},\n{\"seq\":70,\"law\":\"INTL\",\"item_code\":\"INTL_US\",\"item_raw\":\"Toxic Chemical Release Reporting - Community Right-to-Know\",\"comp_ref\":\"3\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"US\",\"value_raw\":\"해당없음\",\"remark\":null},\n{\"seq\":71,\"law\":\"INTL\",\"item_code\":\"INTL_US\",\"item_raw\":\"Toxic Chemical Release Reporting - Community Right-to-Know\",\"comp_ref\":\"1\",\"applicable\":\"해당\",\"threshold\":{\"raw\":\"0.1 % de minimis concentration\",\"approx\":null,\"value\":0.1,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"%\",\"dp\":1,\"status\":\"값있음\",\"note\":\"de minimis concentration\"},\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"US\",\"value_raw\":\"0.1 % de minimis concentration\",\"remark\":null},\n{\"seq\":72,\"law\":\"INTL\",\"item_code\":\"INTL_US\",\"item_raw\":\"Toxic Chemical Release Reporting - Community Right-to-Know\",\"comp_ref\":\"2\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"US\",\"value_raw\":\"해당없음\",\"remark\":null},\n{\"seq\":73,\"law\":\"INTL\",\"item_code\":\"INTL_US\",\"item_raw\":\"Toxic Chemical Release Reporting - Community Right-to-Know\",\"comp_ref\":\"5\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"US\",\"value_raw\":\"해당없음\",\"remark\":null},\n{\"seq\":74,\"law\":\"INTL\",\"item_code\":\"INTL_US\",\"item_raw\":\"Toxic Chemical Release Reporting - Community Right-to-Know\",\"comp_ref\":\"6\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"US\",\"value_raw\":\"해당없음\",\"remark\":null},\n{\"seq\":75,\"law\":\"INTL\",\"item_code\":\"INTL_US\",\"item_raw\":\"Process Safety Management of Highly Hazardous Chemicals\",\"comp_ref\":\"4\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"US\",\"value_raw\":\"해당없음\",\"remark\":null},\n{\"seq\":76,\"law\":\"INTL\",\"item_code\":\"INTL_US\",\"item_raw\":\"Process Safety Management of Highly Hazardous Chemicals\",\"comp_ref\":\"3\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"US\",\"value_raw\":\"해당없음\",\"remark\":null},\n{\"seq\":77,\"law\":\"INTL\",\"item_code\":\"INTL_US\",\"item_raw\":\"Process Safety Management of Highly Hazardous Chemicals\",\"comp_ref\":\"1\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"US\",\"value_raw\":\"해당없음\",\"remark\":null},\n{\"seq\":78,\"law\":\"INTL\",\"item_code\":\"INTL_US\",\"item_raw\":\"Process Safety Management of Highly Hazardous Chemicals\",\"comp_ref\":\"2\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"US\",\"value_raw\":\"해당없음\",\"remark\":null},\n{\"seq\":79,\"law\":\"INTL\",\"item_code\":\"INTL_US\",\"item_raw\":\"Process Safety Management of Highly Hazardous Chemicals\",\"comp_ref\":\"5\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"US\",\"value_raw\":\"해당없음\",\"remark\":null},\n{\"seq\":80,\"law\":\"INTL\",\"item_code\":\"INTL_US\",\"item_raw\":\"Process Safety Management of Highly Hazardous Chemicals\",\"comp_ref\":\"6\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"US\",\"value_raw\":\"해당없음\",\"remark\":null}\n],\"dangerous_goods\":[{\"comp_ref\":\"MIX\",\"class\":\"해당없음\",\"item\":null,\"water_soluble\":null,\"grade\":null,\"designated_qty\":null}],\"waste\":[{\"comp_ref\":\"MIX\",\"designated\":\"비해당\",\"waste_type\":null}],\"intl_class\":[\n{\"comp_ref\":\"4\",\"system\":\"기타\",\"class_raw\":\"F+; R12\",\"h_code\":null,\"status\":\"값있음\"},\n{\"comp_ref\":\"3\",\"system\":\"기타\",\"class_raw\":\"F+; R12\",\"h_code\":null,\"status\":\"값있음\"},\n{\"comp_ref\":\"1\",\"system\":\"기타\",\"class_raw\":\"F+; R12\",\"h_code\":null,\"status\":\"값있음\"},\n{\"comp_ref\":\"1\",\"system\":\"기타\",\"class_raw\":\"Carc.Cat.1; R45\",\"h_code\":null,\"status\":\"값있음\"},\n{\"comp_ref\":\"1\",\"system\":\"기타\",\"class_raw\":\"Muta.Cat.2; R46\",\"h_code\":null,\"status\":\"값있음\"},\n{\"comp_ref\":\"2\",\"system\":\"기타\",\"class_raw\":\"F+; R12\",\"h_code\":null,\"status\":\"값있음\"},\n{\"comp_ref\":\"5\",\"system\":\"기타\",\"class_raw\":\"F+; R12\",\"h_code\":null,\"status\":\"값있음\"},\n{\"comp_ref\":\"6\",\"system\":\"기타\",\"class_raw\":\"F+; R12\",\"h_code\":null,\"status\":\"값있음\"}\n]}],\"evidence\":[\n{\"msds_index\":0,\"field\":\"transport[0]\",\"page\":13,\"source_text\":\"가. 유엔 번호 : 1075 | 나. 유엔 적정 선적명 : PETROLEUM GASES, LIQUEFIED | 다. 운송에서의 위험성 등급 : 2.1 | 라. 용기등급 : 해당없음 | 마. 해양오염물질 : 해당없음 | F-D | S-U\",\"rules\":[\"R09\",\"R15\"],\"note\":\"운송 방식 구분이 없어 mode=공통, 해양오염물질 '해당없음'을 비해당으로 옮김\"},\n{\"msds_index\":0,\"field\":\"regulations[0]\",\"page\":14,\"source_text\":\"가. 산업안전보건법에 의한 규제 PRODUCT : 관리대상유해물질, 특별관리물질, 노출기준설정대상물질, 작업환경측정대상물질, 특수건강진단물질\",\"rules\":[\"R10\",\"R25\"],\"note\":\"PRODUCT 값이므로 comp_ref=MIX\"},\n{\"msds_index\":0,\"field\":\"regulations[1]\",\"page\":14,\"source_text\":\"PRODUCT : 관리대상유해물질, 특별관리물질, ...\",\"rules\":[\"R10\",\"R25\"],\"note\":\"특별관리물질을 OSH_MANAGED, sub_class로 기록\"},\n{\"msds_index\":0,\"field\":\"regulations[2]\",\"page\":14,\"source_text\":\"PRODUCT : ... 노출기준설정대상물질 ...\",\"rules\":[\"R10\",\"R25\"],\"note\":null},\n{\"msds_index\":0,\"field\":\"regulations[3]\",\"page\":14,\"source_text\":\"PRODUCT : ... 작업환경측정대상물질 ...\",\"rules\":[\"R10\",\"R25\"],\"note\":null},\n{\"msds_index\":0,\"field\":\"regulations[4]\",\"page\":14,\"source_text\":\"PRODUCT : ... 특수건강진단물질\",\"rules\":[\"R10\",\"R25\"],\"note\":null},\n{\"msds_index\":0,\"field\":\"regulations[5]\",\"page\":14,\"source_text\":\"- 부탄 : 노출기준설정대상물질\",\"rules\":[\"R10\",\"R25\"],\"note\":null},\n{\"msds_index\":0,\"field\":\"regulations[6]\",\"page\":14,\"source_text\":\"- 부텐 1 : 해당없음\",\"rules\":[\"R10\",\"R15\"],\"note\":\"법령 전체 해당없음이라 item_code는 null\"},\n{\"msds_index\":0,\"field\":\"regulations[7]\",\"page\":14,\"source_text\":\"- 1,3 부타디엔 : 관리대상유해물질, 노출기준설정대상물질, ...\",\"rules\":[\"R10\",\"R25\"],\"note\":null},\n{\"msds_index\":0,\"field\":\"regulations[8]\",\"page\":14,\"source_text\":\"- 1,3 부타디엔 : 관리대상유해물질, 노출기준설정대상물질, ...\",\"rules\":[\"R10\",\"R25\"],\"note\":null},\n{\"msds_index\":0,\"field\":\"regulations[9]\",\"page\":14,\"source_text\":\"작업환경측정대상물질(및 이를 1 wt% 이상 함유한 제제, 측정주기:6개월, 진단:대상작업장 지정 후 30일 이내)\",\"rules\":[\"R04\",\"R10\",\"R25\"],\"note\":\"'1 wt% 이상'을 threshold(>=1 wt%), 측정주기 6개월을 cycle로 나눔\"},\n{\"msds_index\":0,\"field\":\"regulations[10]\",\"page\":14,\"source_text\":\"- 1,3 부타디엔 : ... 특별관리대상물질 ...\",\"rules\":[\"R10\",\"R25\"],\"note\":\"특별관리대상물질을 동의어 사전에 따라 OSH_MANAGED로 매핑\"},\n{\"msds_index\":0,\"field\":\"regulations[11]\",\"page\":14,\"source_text\":\"특수건강진단물질(및 이를 1 wt% 이상 함유한 제제, 측정주기:12개월, 진단:6개월 이내)\",\"rules\":[\"R04\",\"R10\",\"R25\"],\"note\":\"'1 wt% 이상'을 threshold, 측정주기 12개월을 cycle로 나눔\"},\n{\"msds_index\":0,\"field\":\"regulations[12]\",\"page\":14,\"source_text\":\"- 이소부텐 : 해당없음\",\"rules\":[\"R10\",\"R15\"],\"note\":null},\n{\"msds_index\":0,\"field\":\"regulations[13]\",\"page\":14,\"source_text\":\"- 시스 2 부텐 : 해당없음\",\"rules\":[\"R10\",\"R15\"],\"note\":null},\n{\"msds_index\":0,\"field\":\"regulations[14]\",\"page\":14,\"source_text\":\"- 트랜스 2 부텐 : 해당없음\",\"rules\":[\"R10\",\"R15\"],\"note\":null},\n{\"msds_index\":0,\"field\":\"regulations[15]\",\"page\":14,\"source_text\":\"나. 화학물질관리법에 의한 규제 PRODUCT : 유독물질\",\"rules\":[\"R10\",\"R25\"],\"note\":null},\n{\"msds_index\":0,\"field\":\"regulations[16]\",\"page\":14,\"source_text\":\"- 부탄 : 해당없음\",\"rules\":[\"R10\",\"R15\"],\"note\":null},\n{\"msds_index\":0,\"field\":\"regulations[17]\",\"page\":14,\"source_text\":\"- 부텐 1 : 해당없음\",\"rules\":[\"R10\",\"R15\"],\"note\":null},\n{\"msds_index\":0,\"field\":\"regulations[18]\",\"page\":14,\"source_text\":\"- 1,3 부타디엔 : 유독물질 (이를 0.1%이상 함유한 혼합물질)\",\"rules\":[\"R04\",\"R10\",\"R25\"],\"note\":\"'0.1%이상'을 threshold(>=0.1 %)로 나눔\"},\n{\"msds_index\":0,\"field\":\"regulations[19]\",\"page\":14,\"source_text\":\"- 이소부텐 : 해당없음\",\"rules\":[\"R10\",\"R15\"],\"note\":null},\n{\"msds_index\":0,\"field\":\"regulations[20]\",\"page\":14,\"source_text\":\"- 시스 2 부텐 : 해당없음\",\"rules\":[\"R10\",\"R15\"],\"note\":null},\n{\"msds_index\":0,\"field\":\"regulations[21]\",\"page\":14,\"source_text\":\"- 트랜스 2 부텐 : 해당없음\",\"rules\":[\"R10\",\"R15\"],\"note\":null},\n{\"msds_index\":0,\"field\":\"regulations[22]\",\"page\":14,\"source_text\":\"다. 위험물안전관리법에 의한 규제 PRODUCT : 해당없음\",\"rules\":[\"R10\",\"R15\"],\"note\":null},\n{\"msds_index\":0,\"field\":\"regulations[23]\",\"page\":14,\"source_text\":\"라. 폐기물관리법 PRODUCT : 해당없음. 단, 용기에 보관중인 경우 지정폐기물(폐유독물질)임.\",\"rules\":[\"R10\",\"R15\"],\"note\":\"조건부 지정폐기물 문구는 remark에 보존\"},\n{\"msds_index\":0,\"field\":\"regulations[24]\",\"page\":14,\"source_text\":\"대기환경보전법에 의한 규제 PRODUCT : 대기오염물질, 유해성대기감시물질, 특정대기유해물질, 휘발성유기화합물\",\"rules\":[\"R10\",\"R11\"],\"note\":\"항목별로 행을 나눔\"},\n{\"msds_index\":0,\"field\":\"regulations[25]\",\"page\":14,\"source_text\":\"대기환경보전법에 의한 규제 PRODUCT : ... 유해성대기감시물질 ...\",\"rules\":[\"R10\",\"R11\"],\"note\":null},\n{\"msds_index\":0,\"field\":\"regulations[26]\",\"page\":14,\"source_text\":\"대기환경보전법에 의한 규제 PRODUCT : ... 특정대기유해물질 ...\",\"rules\":[\"R10\",\"R11\"],\"note\":null},\n{\"msds_index\":0,\"field\":\"regulations[27]\",\"page\":14,\"source_text\":\"대기환경보전법에 의한 규제 PRODUCT : ... 휘발성유기화합물\",\"rules\":[\"R10\",\"R11\"],\"note\":null},\n{\"msds_index\":0,\"field\":\"regulations[28]\",\"page\":14,\"source_text\":\"잔류성유기오염물질관리법에 의한 규제 PRODUCT : 해당없음\",\"rules\":[\"R10\",\"R15\",\"R25\"],\"note\":null},\n{\"msds_index\":0,\"field\":\"regulations[29]\",\"page\":14,\"source_text\":\"수질 및 수생태계보전법에 의한 규제 PRODUCT : 해당없음\",\"rules\":[\"R10\",\"R15\"],\"note\":null},\n{\"msds_index\":0,\"field\":\"regulations[30]\",\"page\":15,\"source_text\":\"고압가스안전관리법에 의한 규제 PRODUCT : 가연성 가스, 액화가스\",\"rules\":[\"R10\",\"R11\"],\"note\":null},\n{\"msds_index\":0,\"field\":\"regulations[31]\",\"page\":15,\"source_text\":\"고압가스안전관리법에 의한 규제 PRODUCT : 가연성 가스, 액화가스\",\"rules\":[\"R10\",\"R11\"],\"note\":null},\n{\"msds_index\":0,\"field\":\"regulations[32]\",\"page\":15,\"source_text\":\"EU 분류정보(위험문구) | - 부탄 : R12\",\"rules\":[\"R10\",\"R25\"],\"note\":null},\n{\"msds_index\":0,\"field\":\"regulations[33]\",\"page\":15,\"source_text\":\"- 부텐 1 : R12\",\"rules\":[\"R10\",\"R25\"],\"note\":null},\n{\"msds_index\":0,\"field\":\"regulations[34]\",\"page\":15,\"source_text\":\"- 1,3 부타디엔 : R12, R45, R46\",\"rules\":[\"R10\",\"R25\"],\"note\":null},\n{\"msds_index\":0,\"field\":\"regulations[35]\",\"page\":15,\"source_text\":\"- 이소부텐 : R12\",\"rules\":[\"R10\",\"R25\"],\"note\":null},\n{\"msds_index\":0,\"field\":\"regulations[36]\",\"page\":15,\"source_text\":\"- 시스 2 부텐 : R12\",\"rules\":[\"R10\",\"R25\"],\"note\":null},\n{\"msds_index\":0,\"field\":\"regulations[37]\",\"page\":15,\"source_text\":\"- 트랜스 2 부텐 : R12\",\"rules\":[\"R10\",\"R25\"],\"note\":null},\n{\"msds_index\":0,\"field\":\"regulations[38]\",\"page\":15,\"source_text\":\"EU 분류정보(안전문구) | - 부탄 : S:(2)-9-16\",\"rules\":[\"R10\",\"R25\"],\"note\":null},\n{\"msds_index\":0,\"field\":\"regulations[39]\",\"page\":15,\"source_text\":\"- 부텐 1 : S:(2)-9-16-33\",\"rules\":[\"R10\",\"R25\"],\"note\":null},\n{\"msds_index\":0,\"field\":\"regulations[40]\",\"page\":15,\"source_text\":\"- 1,3 부타디엔 : S:53-45\",\"rules\":[\"R10\",\"R25\"],\"note\":null},\n{\"msds_index\":0,\"field\":\"regulations[41]\",\"page\":15,\"source_text\":\"- 이소부텐 : S:(2)-9-16-33\",\"rules\":[\"R10\",\"R25\"],\"note\":null},\n{\"msds_index\":0,\"field\":\"regulations[42]\",\"page\":15,\"source_text\":\"- 시스 2 부텐 : S:(2)-9-16-33\",\"rules\":[\"R10\",\"R25\"],\"note\":null},\n{\"msds_index\":0,\"field\":\"regulations[43]\",\"page\":15,\"source_text\":\"- 트랜스 2 부텐 : S:(2)-9-16-33\",\"rules\":[\"R10\",\"R25\"],\"note\":null},\n{\"msds_index\":0,\"field\":\"regulations[44]\",\"page\":15,\"source_text\":\"2006/507/EC | - 부탄 : 해당없음\",\"rules\":[\"R10\",\"R15\"],\"note\":null},\n{\"msds_index\":0,\"field\":\"regulations[45]\",\"page\":15,\"source_text\":\"- 부텐 1 : 해당없음\",\"rules\":[\"R10\",\"R15\"],\"note\":null},\n{\"msds_index\":0,\"field\":\"regulations[46]\",\"page\":15,\"source_text\":\"- 1,3 부타디엔 : 해당없음\",\"rules\":[\"R10\",\"R15\"],\"note\":null},\n{\"msds_index\":0,\"field\":\"regulations[47]\",\"page\":15,\"source_text\":\"- 이소부텐 : 해당없음\",\"rules\":[\"R10\",\"R15\"],\"note\":null},\n{\"msds_index\":0,\"field\":\"regulations[48]\",\"page\":15,\"source_text\":\"- 시스 2 부텐 : 해당없음\",\"rules\":[\"R10\",\"R15\"],\"note\":null},\n{\"msds_index\":0,\"field\":\"regulations[49]\",\"page\":15,\"source_text\":\"- 트랜스 2 부텐 : 해당없음\",\"rules\":[\"R10\",\"R15\"],\"note\":null},\n{\"msds_index\":0,\"field\":\"regulations[50]\",\"page\":15,\"source_text\":\"689/2008/EC | - 부탄 : 해당없음\",\"rules\":[\"R10\",\"R15\"],\"note\":null},\n{\"msds_index\":0,\"field\":\"regulations[51]\",\"page\":15,\"source_text\":\"- 부텐 1 : 해당없음\",\"rules\":[\"R10\",\"R15\"],\"note\":null},\n{\"msds_index\":0,\"field\":\"regulations[52]\",\"page\":16,\"source_text\":\"- 1,3 부타디엔 : 해당없음\",\"rules\":[\"R10\",\"R15\"],\"note\":null},\n{\"msds_index\":0,\"field\":\"regulations[53]\",\"page\":16,\"source_text\":\"- 이소부텐 : 해당없음\",\"rules\":[\"R10\",\"R15\"],\"note\":null},\n{\"msds_index\":0,\"field\":\"regulations[54]\",\"page\":16,\"source_text\":\"- 시스 2 부텐 : 해당없음\",\"rules\":[\"R10\",\"R15\"],\"note\":null},\n{\"msds_index\":0,\"field\":\"regulations[55]\",\"page\":16,\"source_text\":\"- 트랜스 2 부텐 : 해당없음\",\"rules\":[\"R10\",\"R15\"],\"note\":null},\n{\"msds_index\":0,\"field\":\"regulations[56]\",\"page\":16,\"source_text\":\"Designation, Reportable Quantities, and Notification | - 부탄 : 해당없음\",\"rules\":[\"R10\",\"R15\"],\"note\":null},\n{\"msds_index\":0,\"field\":\"regulations[57]\",\"page\":16,\"source_text\":\"- 부텐 1 : 해당없음\",\"rules\":[\"R10\",\"R15\"],\"note\":null},\n{\"msds_index\":0,\"field\":\"regulations[58]\",\"page\":16,\"source_text\":\"- 1,3 부타디엔 : 10 lb final RQ; 4.54 kg final RQ\",\"rules\":[\"R04\",\"R10\"],\"note\":\"10 lb를 qty, 4.54 kg를 qty_alt로 나눔\"},\n{\"msds_index\":0,\"field\":\"regulations[59]\",\"page\":16,\"source_text\":\"- 이소부텐 : 해당없음\",\"rules\":[\"R10\",\"R15\"],\"note\":null},\n{\"msds_index\":0,\"field\":\"regulations[60]\",\"page\":16,\"source_text\":\"- 시스 2 부텐 : 해당없음\",\"rules\":[\"R10\",\"R15\"],\"note\":null},\n{\"msds_index\":0,\"field\":\"regulations[61]\",\"page\":16,\"source_text\":\"- 트랜스 2 부텐 : 해당없음\",\"rules\":[\"R10\",\"R15\"],\"note\":null},\n{\"msds_index\":0,\"field\":\"regulations[62]\",\"page\":16,\"source_text\":\"Emergency Planning and Notification | - 부탄 : 해당없음\",\"rules\":[\"R10\",\"R15\"],\"note\":null},\n{\"msds_index\":0,\"field\":\"regulations[63]\",\"page\":16,\"source_text\":\"- 부텐 1 : 해당없음\",\"rules\":[\"R10\",\"R15\"],\"note\":null},\n{\"msds_index\":0,\"field\":\"regulations[64]\",\"page\":16,\"source_text\":\"- 1,3 부타디엔 : 해당없음\",\"rules\":[\"R10\",\"R15\"],\"note\":null},\n{\"msds_index\":0,\"field\":\"regulations[65]\",\"page\":16,\"source_text\":\"- 이소부텐 : 해당없음\",\"rules\":[\"R10\",\"R15\"],\"note\":null},\n{\"msds_index\":0,\"field\":\"regulations[66]\",\"page\":16,\"source_text\":\"- 시스 2 부텐 : 해당없음\",\"rules\":[\"R10\",\"R15\"],\"note\":null},\n{\"msds_index\":0,\"field\":\"regulations[67]\",\"page\":16,\"source_text\":\"- 트랜스 2 부텐 : 해당없음\",\"rules\":[\"R10\",\"R15\"],\"note\":null},\n{\"msds_index\":0,\"field\":\"regulations[68]\",\"page\":16,\"source_text\":\"Toxic Chemical Release Reporting - Community Right-to-Know | - 부탄 : 해당없음\",\"rules\":[\"R10\",\"R15\"],\"note\":null},\n{\"msds_index\":0,\"field\":\"regulations[69]\",\"page\":16,\"source_text\":\"- 부텐 1 : 해당없음\",\"rules\":[\"R10\",\"R15\"],\"note\":null},\n{\"msds_index\":0,\"field\":\"regulations[70]\",\"page\":16,\"source_text\":\"- 1,3 부타디엔 : 0.1 % de minimis concentration\",\"rules\":[\"R04\",\"R10\"],\"note\":\"부등호 표기가 없어 threshold를 단일값 0.1 %로 기록\"},\n{\"msds_index\":0,\"field\":\"regulations[71]\",\"page\":16,\"source_text\":\"- 이소부텐 : 해당없음\",\"rules\":[\"R10\",\"R15\"],\"note\":null},\n{\"msds_index\":0,\"field\":\"regulations[72]\",\"page\":16,\"source_text\":\"- 시스 2 부텐 : 해당없음\",\"rules\":[\"R10\",\"R15\"],\"note\":null},\n{\"msds_index\":0,\"field\":\"regulations[73]\",\"page\":16,\"source_text\":\"- 트랜스 2 부텐 : 해당없음\",\"rules\":[\"R10\",\"R15\"],\"note\":null},\n{\"msds_index\":0,\"field\":\"regulations[74]\",\"page\":16,\"source_text\":\"Process Safety Management of Highly Hazardous Chemicals | - 부탄 : 해당없음\",\"rules\":[\"R10\",\"R15\"],\"note\":null},\n{\"msds_index\":0,\"field\":\"regulations[75]\",\"page\":16,\"source_text\":\"- 부텐 1 : 해당없음\",\"rules\":[\"R10\",\"R15\"],\"note\":null},\n{\"msds_index\":0,\"field\":\"regulations[76]\",\"page\":16,\"source_text\":\"- 1,3 부타디엔 : 해당없음\",\"rules\":[\"R10\",\"R15\"],\"note\":null},\n{\"msds_index\":0,\"field\":\"regulations[77]\",\"page\":16,\"source_text\":\"- 이소부텐 : 해당없음\",\"rules\":[\"R10\",\"R15\"],\"note\":null},\n{\"msds_index\":0,\"field\":\"regulations[78]\",\"page\":16,\"source_text\":\"- 시스 2 부텐 : 해당없음\",\"rules\":[\"R10\",\"R15\"],\"note\":null},\n{\"msds_index\":0,\"field\":\"regulations[79]\",\"page\":16,\"source_text\":\"- 트랜스 2 부텐 : 해당없음\",\"rules\":[\"R10\",\"R15\"],\"note\":null},\n{\"msds_index\":0,\"field\":\"dangerous_goods[0]\",\"page\":14,\"source_text\":\"다. 위험물안전관리법에 의한 규제 PRODUCT : 해당없음\",\"rules\":[\"R10\",\"R15\"],\"note\":\"class=해당없음\"},\n{\"msds_index\":0,\"field\":\"waste[0]\",\"page\":14,\"source_text\":\"라. 폐기물관리법 PRODUCT : 해당없음. 단, 용기에 보관중인 경우 지정폐기물(폐유독물질)임.\",\"rules\":[\"R10\",\"R15\"],\"note\":\"기본값 해당없음을 비해당으로 기록, 조건부 지정폐기물 문구는 regulations remark에 보존\"},\n{\"msds_index\":0,\"field\":\"intl_class[0]\",\"page\":15,\"source_text\":\"EU 분류정보(확정분류결과) | - 부탄 : F+; R12\",\"rules\":[\"R10\",\"R11\"],\"note\":\"CLP가 아닌 구 EU 분류(R문구)이므로 system=기타\"},\n{\"msds_index\":0,\"field\":\"intl_class[1]\",\"page\":15,\"source_text\":\"- 부텐 1 : F+; R12\",\"rules\":[\"R10\"],\"note\":null},\n{\"msds_index\":0,\"field\":\"intl_class[2]\",\"page\":15,\"source_text\":\"- 1,3 부타디엔 : F+; R12 Carc.Cat.1; R45 Muta.Cat.2; R46\",\"rules\":[\"R10\",\"R11\"],\"note\":\"분류별로 하나씩 분리\"},\n{\"msds_index\":0,\"field\":\"intl_class[3]\",\"page\":15,\"source_text\":\"- 1,3 부타디엔 : F+; R12 Carc.Cat.1; R45 Muta.Cat.2; R46\",\"rules\":[\"R10\",\"R11\"],\"note\":\"분류별로 하나씩 분리\"},\n{\"msds_index\":0,\"field\":\"intl_class[4]\",\"page\":15,\"source_text\":\"- 1,3 부타디엔 : F+; R12 Carc.Cat.1; R45 Muta.Cat.2; R46\",\"rules\":[\"R10\",\"R11\"],\"note\":\"분류별로 하나씩 분리\"},\n{\"msds_index\":0,\"field\":\"intl_class[5]\",\"page\":15,\"source_text\":\"- 이소부텐 : F+; R12\",\"rules\":[\"R10\"],\"note\":null},\n{\"msds_index\":0,\"field\":\"intl_class[6]\",\"page\":15,\"source_text\":\"- 시스 2 부텐 : F+; R12\",\"rules\":[\"R10\"],\"note\":null},\n{\"msds_index\":0,\"field\":\"intl_class[7]\",\"page\":15,\"source_text\":\"- 트랜스 2 부텐 : F+; R12\",\"rules\":[\"R10\"],\"note\":null}\n]}"
+}

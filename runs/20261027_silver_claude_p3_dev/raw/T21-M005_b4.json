@@ -1,0 +1,703 @@
+{
+  "doc_id": "T21-M005",
+  "bundle": "b4",
+  "model": "claude-opus-5-5",
+  "mode": "none",
+  "finish_reason": "stop",
+  "usage": {
+    "prompt_tokens": 92376,
+    "completion_tokens": 7996,
+    "total_tokens": 100372,
+    "served_model": "claude-opus-5-5"
+  },
+  "seconds": 72.4,
+  "attempts": 1,
+  "errors": [],
+  "parsed": {
+    "msds": [
+      {
+        "transport": [
+          {
+            "mode": "공통",
+            "basis_raw": null,
+            "regulated": true,
+            "un_no": "1010",
+            "shipping_name": "BUTADIENES, STABILIZED or BUTADIENES AND HYDROCARBON MIXTURE, STABILIZED, containing more than 40 % butadienes",
+            "hazard_class": "2.1",
+            "sub_risk": null,
+            "packing_group": "해당없음",
+            "marine_pollutant": "비해당",
+            "ems_fire": "F-D",
+            "ems_spill": "S-U"
+          },
+          {
+            "mode": "해상",
+            "basis_raw": "IMDG",
+            "regulated": null,
+            "un_no": null,
+            "shipping_name": null,
+            "hazard_class": null,
+            "sub_risk": null,
+            "packing_group": null,
+            "marine_pollutant": "비해당",
+            "ems_fire": null,
+            "ems_spill": null
+          },
+          {
+            "mode": "항공",
+            "basis_raw": "IATA",
+            "regulated": true,
+            "un_no": "1010",
+            "shipping_name": "BUTADIENES, STABILIZED or BUTADIENES AND HYDROCARBON MIXTURE, STABILIZED, containing more than 40 % butadienes",
+            "hazard_class": "2.1",
+            "sub_risk": null,
+            "packing_group": "해당없음",
+            "marine_pollutant": null,
+            "ems_fire": null,
+            "ems_spill": null
+          }
+        ],
+        "regulations": [
+          {
+            "seq": 1,
+            "law": "OSH",
+            "item_code": "OSH_PSM",
+            "item_raw": "공정안전관리(PSM) 대상물질",
+            "comp_ref": "MIX",
+            "applicable": "해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 2,
+            "law": "OSH",
+            "item_code": "OSH_MANAGED",
+            "item_raw": "관리대상 유해물질",
+            "comp_ref": "MIX",
+            "applicable": "해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 3,
+            "law": "OSH",
+            "item_code": "OSH_MEASURE",
+            "item_raw": "작업환경 측정물질",
+            "comp_ref": "MIX",
+            "applicable": "해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 4,
+            "law": "OSH",
+            "item_code": "OSH_MANAGED",
+            "item_raw": "특별관리물질",
+            "comp_ref": "MIX",
+            "applicable": "해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": "특별관리물질",
+            "cycle": null,
+            "country": null,
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 5,
+            "law": "OSH",
+            "item_code": "OSH_PSM",
+            "item_raw": "공정안전관리(PSM) 대상물질",
+            "comp_ref": "1",
+            "applicable": "해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 6,
+            "law": "OSH",
+            "item_code": "OSH_PSM",
+            "item_raw": "공정안전관리(PSM) 대상물질",
+            "comp_ref": "2",
+            "applicable": "해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 7,
+            "law": "OSH",
+            "item_code": "OSH_MANAGED",
+            "item_raw": "관리대상 유해물질(0.1% 이상)",
+            "comp_ref": "2",
+            "applicable": "해당",
+            "threshold": {
+              "raw": "0.1% 이상",
+              "approx": null,
+              "value": null,
+              "lower_op": ">=",
+              "lower": 0.1,
+              "upper_op": null,
+              "upper": null,
+              "unit": "%",
+              "dp": 1,
+              "status": "값있음",
+              "note": null
+            },
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 8,
+            "law": "OSH",
+            "item_code": "OSH_EXPOSURE_STD",
+            "item_raw": "노출기준 설정물질",
+            "comp_ref": "2",
+            "applicable": "해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 9,
+            "law": "OSH",
+            "item_code": "OSH_MEASURE",
+            "item_raw": "작업환경 측정물질(1% 이상)",
+            "comp_ref": "2",
+            "applicable": "해당",
+            "threshold": {
+              "raw": "1% 이상",
+              "approx": null,
+              "value": null,
+              "lower_op": ">=",
+              "lower": 1,
+              "upper_op": null,
+              "upper": null,
+              "unit": "%",
+              "dp": 0,
+              "status": "값있음",
+              "note": null
+            },
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 10,
+            "law": "OSH",
+            "item_code": "OSH_MANAGED",
+            "item_raw": "특별관리물질(0.1% 이상)",
+            "comp_ref": "2",
+            "applicable": "해당",
+            "threshold": {
+              "raw": "0.1% 이상",
+              "approx": null,
+              "value": null,
+              "lower_op": ">=",
+              "lower": 0.1,
+              "upper_op": null,
+              "upper": null,
+              "unit": "%",
+              "dp": 1,
+              "status": "값있음",
+              "note": null
+            },
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": "특별관리물질",
+            "cycle": null,
+            "country": null,
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 11,
+            "law": "OSH",
+            "item_code": "OSH_HEALTH_EXAM",
+            "item_raw": "특수건강 진단대상 유해인자(1% 이상)",
+            "comp_ref": "2",
+            "applicable": "해당",
+            "threshold": {
+              "raw": "1% 이상",
+              "approx": null,
+              "value": null,
+              "lower_op": ">=",
+              "lower": 1,
+              "upper_op": null,
+              "upper": null,
+              "unit": "%",
+              "dp": 0,
+              "status": "값있음",
+              "note": null
+            },
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 12,
+            "law": "OSH",
+            "item_code": "OSH_PERMISSIBLE",
+            "item_raw": "허용기준 준수물질",
+            "comp_ref": "2",
+            "applicable": "해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 13,
+            "law": "CCA",
+            "item_code": "CCA_PRTR",
+            "item_raw": "PRTR물질",
+            "comp_ref": "MIX",
+            "applicable": "해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 14,
+            "law": "CCA",
+            "item_code": "CCA_TOXIC",
+            "item_raw": "유독물질",
+            "comp_ref": "MIX",
+            "applicable": "해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 15,
+            "law": "DG",
+            "item_code": "DG_HAZMAT",
+            "item_raw": "위험물안전관리법에 의한 규제",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 16,
+            "law": "WASTE",
+            "item_code": "WASTE_DESIG",
+            "item_raw": "지정폐기물",
+            "comp_ref": "MIX",
+            "applicable": "해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": null,
+            "remark": "폐유독물질"
+          },
+          {
+            "seq": 17,
+            "law": "KREACH",
+            "item_code": "KREACH_EXIST",
+            "item_raw": "기존화학물질",
+            "comp_ref": "1",
+            "applicable": "해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 18,
+            "law": "KREACH",
+            "item_code": "KREACH_EXIST",
+            "item_raw": "기존화학물질",
+            "comp_ref": "2",
+            "applicable": "해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 19,
+            "law": "KREACH",
+            "item_code": "KREACH_REG",
+            "item_raw": "등록대상기존화학물질",
+            "comp_ref": "2",
+            "applicable": "해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": null,
+            "remark": null
+          }
+        ],
+        "dangerous_goods": [
+          {
+            "comp_ref": "MIX",
+            "class": "해당없음",
+            "item": null,
+            "water_soluble": null,
+            "grade": null,
+            "designated_qty": null
+          }
+        ],
+        "waste": [
+          {
+            "comp_ref": "MIX",
+            "designated": "해당",
+            "waste_type": "폐유독물질"
+          }
+        ],
+        "intl_class": []
+      }
+    ],
+    "evidence": [
+      {
+        "msds_index": 0,
+        "field": "transport[0]",
+        "page": 11,
+        "source_text": "가. 유엔번호(UN No.) : 1010 | 나. 유엔 적정 선적명 : BUTADIENES, STABILIZED or BUTADIENES AND HYDROCARBON MIXTURE, STABILIZED, containing more than 40 % butadienes | 다. 운송에서의 위험성 등급 : 2.1 | 라. 용기등급 : 해당없음 | 마. 해양오염물질 : 해당없음",
+        "rules": [
+          "R09",
+          "R15",
+          "R25"
+        ],
+        "note": "구분 없는 공통 항목을 mode=공통으로 두고, 해양오염물질 '해당없음'을 동의어에 따라 비해당으로, 화재·유출시 비상조치 F-D/S-U를 EmS 칸에 넣음"
+      },
+      {
+        "msds_index": 0,
+        "field": "transport[1]",
+        "page": 12,
+        "source_text": "- 해상운송(IMDG) | · 해양오염물질 : 해당없음",
+        "rules": [
+          "R25"
+        ],
+        "note": "해상운송(IMDG) 항목의 해양오염물질 '해당없음'을 비해당으로 매핑"
+      },
+      {
+        "msds_index": 0,
+        "field": "transport[2]",
+        "page": 12,
+        "source_text": "- Air transport(IATA) | · 유엔번호 : 1010 | · 유엔 적정 선적명 : BUTADIENES, STABILIZED or BUTADIENES AND HYDROCARBON MIXTURE, STABILIZED, containing more than 40 % butadienes | · 운송에서의 위험성 등급 : 2.1 | · 용기등급 : 해당없음",
+        "rules": [
+          "R09"
+        ],
+        "note": "Air transport(IATA) 항목을 mode=항공 행으로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[0]",
+        "page": 12,
+        "source_text": "PRODUCT : 공정안전관리(PSM) 대상물질, 관리대상 유해물질, 작업환경 측정물질, 특별관리물질",
+        "rules": [
+          "R10",
+          "R25"
+        ],
+        "note": "PRODUCT 행을 MIX로, 공정안전관리(PSM) 대상물질을 OSH_PSM으로 매핑"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[1]",
+        "page": 12,
+        "source_text": "PRODUCT : 공정안전관리(PSM) 대상물질, 관리대상 유해물질, 작업환경 측정물질, 특별관리물질",
+        "rules": [
+          "R10",
+          "R25"
+        ],
+        "note": "관리대상 유해물질을 OSH_MANAGED로 매핑"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[2]",
+        "page": 12,
+        "source_text": "PRODUCT : 공정안전관리(PSM) 대상물질, 관리대상 유해물질, 작업환경 측정물질, 특별관리물질",
+        "rules": [
+          "R10",
+          "R25"
+        ],
+        "note": "작업환경 측정물질을 OSH_MEASURE로 매핑"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[3]",
+        "page": 12,
+        "source_text": "PRODUCT : 공정안전관리(PSM) 대상물질, 관리대상 유해물질, 작업환경 측정물질, 특별관리물질",
+        "rules": [
+          "R10",
+          "R25"
+        ],
+        "note": "특별관리물질을 OSH_MANAGED 행으로 두고 sub_class에 특별관리물질 기록"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[4]",
+        "page": 12,
+        "source_text": "- Hydrocarbons, (C=4), ethylene-manuf.-by-product : 공정안전관리(PSM) 대상물질",
+        "rules": [
+          "R10",
+          "R25"
+        ],
+        "note": "성분명으로 comp_ref=1 매칭"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[5]",
+        "page": 12,
+        "source_text": "- 1,3-Butadiene : 공정안전관리(PSM) 대상물질",
+        "rules": [
+          "R10",
+          "R25"
+        ],
+        "note": "성분명으로 comp_ref=2 매칭"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[6]",
+        "page": 12,
+        "source_text": "- 1,3-Butadiene : 관리대상 유해물질(0.1% 이상)",
+        "rules": [
+          "R10",
+          "R25",
+          "R04"
+        ],
+        "note": "'0.1% 이상'을 threshold 하한 0.1(>=), 단위 %로 분해"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[7]",
+        "page": 12,
+        "source_text": "- 1,3-Butadiene : 노출기준 설정물질",
+        "rules": [
+          "R10",
+          "R25"
+        ],
+        "note": "노출기준 설정물질을 OSH_EXPOSURE_STD로 매핑"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[8]",
+        "page": 12,
+        "source_text": "- 1,3-Butadiene : 작업환경 측정물질(1% 이상)",
+        "rules": [
+          "R10",
+          "R25",
+          "R04"
+        ],
+        "note": "'1% 이상'을 threshold 하한 1(>=), 단위 %로 분해"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[9]",
+        "page": 12,
+        "source_text": "- 1,3-Butadiene : 특별관리물질(0.1% 이상)",
+        "rules": [
+          "R10",
+          "R25",
+          "R04"
+        ],
+        "note": "특별관리물질을 OSH_MANAGED(sub_class 특별관리물질)로 두고 '0.1% 이상'을 하한 0.1(>=)로 분해"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[10]",
+        "page": 12,
+        "source_text": "- 1,3-Butadiene : 특수건강 진단대상 유해인자(1% 이상)",
+        "rules": [
+          "R10",
+          "R25",
+          "R04"
+        ],
+        "note": "특수건강 진단대상 유해인자를 OSH_HEALTH_EXAM으로 매핑하고 '1% 이상'을 하한 1(>=)로 분해"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[11]",
+        "page": 12,
+        "source_text": "- 1,3-Butadiene : 허용기준 준수물질",
+        "rules": [
+          "R10",
+          "R25"
+        ],
+        "note": "'허용기준 준수물질'은 동의어 사전에 없는 변형이나 허용기준 설정물질(OSH_PERMISSIBLE)로 매핑, item_raw에 원문 보존"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[12]",
+        "page": 12,
+        "source_text": "PRODUCT : PRTR물질, 유독물질",
+        "rules": [
+          "R10",
+          "R25"
+        ],
+        "note": "'PRTR물질'은 동의어 사전에 없는 표기이나 배출량조사 대상화학물질(CCA_PRTR)로 매핑, item_raw에 원문 보존"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[13]",
+        "page": 12,
+        "source_text": "PRODUCT : PRTR물질, 유독물질",
+        "rules": [
+          "R10",
+          "R25"
+        ],
+        "note": "유독물질을 CCA_TOXIC으로 매핑"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[14]",
+        "page": 12,
+        "source_text": "다. 위험물안전관리법에 의한 규제 | PRODUCT : 해당없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": "'해당없음'을 applicable=비해당으로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[15]",
+        "page": 12,
+        "source_text": "라. 폐기물관리법에 의한 규제 | PRODUCT : 지정폐기물 (폐유독물질)",
+        "rules": [
+          "R10"
+        ],
+        "note": "괄호 속 '폐유독물질'을 remark에 기록"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[16]",
+        "page": 12,
+        "source_text": "- Hydrocarbons, (C=4), ethylene-manuf.-by-product : 기존화학물질",
+        "rules": [
+          "R10",
+          "R25"
+        ],
+        "note": "화평법 기존화학물질을 KREACH_EXIST로 매핑"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[17]",
+        "page": 12,
+        "source_text": "- 1,3-Butadiene : 기존화학물질, 등록대상기존화학물질",
+        "rules": [
+          "R10",
+          "R25"
+        ],
+        "note": "기존화학물질을 KREACH_EXIST로 매핑"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[18]",
+        "page": 12,
+        "source_text": "- 1,3-Butadiene : 기존화학물질, 등록대상기존화학물질",
+        "rules": [
+          "R10",
+          "R25"
+        ],
+        "note": "등록대상기존화학물질을 KREACH_REG로 매핑"
+      },
+      {
+        "msds_index": 0,
+        "field": "dangerous_goods[0]",
+        "page": 12,
+        "source_text": "다. 위험물안전관리법에 의한 규제 | PRODUCT : 해당없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": "위험물 비해당으로 class=해당없음, 나머지 칸 null"
+      },
+      {
+        "msds_index": 0,
+        "field": "waste[0]",
+        "page": 12,
+        "source_text": "라. 폐기물관리법에 의한 규제 | PRODUCT : 지정폐기물 (폐유독물질)",
+        "rules": [
+          "R10"
+        ],
+        "note": "지정폐기물 해당, 괄호 속 폐유독물질을 waste_type으로"
+      }
+    ]
+  },
+  "raw_text": "{\"msds\":[{\"transport\":[{\"mode\":\"공통\",\"basis_raw\":null,\"regulated\":true,\"un_no\":\"1010\",\"shipping_name\":\"BUTADIENES, STABILIZED or BUTADIENES AND HYDROCARBON MIXTURE, STABILIZED, containing more than 40 % butadienes\",\"hazard_class\":\"2.1\",\"sub_risk\":null,\"packing_group\":\"해당없음\",\"marine_pollutant\":\"비해당\",\"ems_fire\":\"F-D\",\"ems_spill\":\"S-U\"},{\"mode\":\"해상\",\"basis_raw\":\"IMDG\",\"regulated\":null,\"un_no\":null,\"shipping_name\":null,\"hazard_class\":null,\"sub_risk\":null,\"packing_group\":null,\"marine_pollutant\":\"비해당\",\"ems_fire\":null,\"ems_spill\":null},{\"mode\":\"항공\",\"basis_raw\":\"IATA\",\"regulated\":true,\"un_no\":\"1010\",\"shipping_name\":\"BUTADIENES, STABILIZED or BUTADIENES AND HYDROCARBON MIXTURE, STABILIZED, containing more than 40 % butadienes\",\"hazard_class\":\"2.1\",\"sub_risk\":null,\"packing_group\":\"해당없음\",\"marine_pollutant\":null,\"ems_fire\":null,\"ems_spill\":null}],\"regulations\":[{\"seq\":1,\"law\":\"OSH\",\"item_code\":\"OSH_PSM\",\"item_raw\":\"공정안전관리(PSM) 대상물질\",\"comp_ref\":\"MIX\",\"applicable\":\"해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":null,\"remark\":null},{\"seq\":2,\"law\":\"OSH\",\"item_code\":\"OSH_MANAGED\",\"item_raw\":\"관리대상 유해물질\",\"comp_ref\":\"MIX\",\"applicable\":\"해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":null,\"remark\":null},{\"seq\":3,\"law\":\"OSH\",\"item_code\":\"OSH_MEASURE\",\"item_raw\":\"작업환경 측정물질\",\"comp_ref\":\"MIX\",\"applicable\":\"해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":null,\"remark\":null},{\"seq\":4,\"law\":\"OSH\",\"item_code\":\"OSH_MANAGED\",\"item_raw\":\"특별관리물질\",\"comp_ref\":\"MIX\",\"applicable\":\"해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":\"특별관리물질\",\"cycle\":null,\"country\":null,\"value_raw\":null,\"remark\":null},{\"seq\":5,\"law\":\"OSH\",\"item_code\":\"OSH_PSM\",\"item_raw\":\"공정안전관리(PSM) 대상물질\",\"comp_ref\":\"1\",\"applicable\":\"해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":null,\"remark\":null},{\"seq\":6,\"law\":\"OSH\",\"item_code\":\"OSH_PSM\",\"item_raw\":\"공정안전관리(PSM) 대상물질\",\"comp_ref\":\"2\",\"applicable\":\"해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":null,\"remark\":null},{\"seq\":7,\"law\":\"OSH\",\"item_code\":\"OSH_MANAGED\",\"item_raw\":\"관리대상 유해물질(0.1% 이상)\",\"comp_ref\":\"2\",\"applicable\":\"해당\",\"threshold\":{\"raw\":\"0.1% 이상\",\"approx\":null,\"value\":null,\"lower_op\":\">=\",\"lower\":0.1,\"upper_op\":null,\"upper\":null,\"unit\":\"%\",\"dp\":1,\"status\":\"값있음\",\"note\":null},\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":null,\"remark\":null},{\"seq\":8,\"law\":\"OSH\",\"item_code\":\"OSH_EXPOSURE_STD\",\"item_raw\":\"노출기준 설정물질\",\"comp_ref\":\"2\",\"applicable\":\"해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":null,\"remark\":null},{\"seq\":9,\"law\":\"OSH\",\"item_code\":\"OSH_MEASURE\",\"item_raw\":\"작업환경 측정물질(1% 이상)\",\"comp_ref\":\"2\",\"applicable\":\"해당\",\"threshold\":{\"raw\":\"1% 이상\",\"approx\":null,\"value\":null,\"lower_op\":\">=\",\"lower\":1,\"upper_op\":null,\"upper\":null,\"unit\":\"%\",\"dp\":0,\"status\":\"값있음\",\"note\":null},\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":null,\"remark\":null},{\"seq\":10,\"law\":\"OSH\",\"item_code\":\"OSH_MANAGED\",\"item_raw\":\"특별관리물질(0.1% 이상)\",\"comp_ref\":\"2\",\"applicable\":\"해당\",\"threshold\":{\"raw\":\"0.1% 이상\",\"approx\":null,\"value\":null,\"lower_op\":\">=\",\"lower\":0.1,\"upper_op\":null,\"upper\":null,\"unit\":\"%\",\"dp\":1,\"status\":\"값있음\",\"note\":null},\"qty\":null,\"qty_alt\":null,\"sub_class\":\"특별관리물질\",\"cycle\":null,\"country\":null,\"value_raw\":null,\"remark\":null},{\"seq\":11,\"law\":\"OSH\",\"item_code\":\"OSH_HEALTH_EXAM\",\"item_raw\":\"특수건강 진단대상 유해인자(1% 이상)\",\"comp_ref\":\"2\",\"applicable\":\"해당\",\"threshold\":{\"raw\":\"1% 이상\",\"approx\":null,\"value\":null,\"lower_op\":\">=\",\"lower\":1,\"upper_op\":null,\"upper\":null,\"unit\":\"%\",\"dp\":0,\"status\":\"값있음\",\"note\":null},\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":null,\"remark\":null},{\"seq\":12,\"law\":\"OSH\",\"item_code\":\"OSH_PERMISSIBLE\",\"item_raw\":\"허용기준 준수물질\",\"comp_ref\":\"2\",\"applicable\":\"해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":null,\"remark\":null},{\"seq\":13,\"law\":\"CCA\",\"item_code\":\"CCA_PRTR\",\"item_raw\":\"PRTR물질\",\"comp_ref\":\"MIX\",\"applicable\":\"해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":null,\"remark\":null},{\"seq\":14,\"law\":\"CCA\",\"item_code\":\"CCA_TOXIC\",\"item_raw\":\"유독물질\",\"comp_ref\":\"MIX\",\"applicable\":\"해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":null,\"remark\":null},{\"seq\":15,\"law\":\"DG\",\"item_code\":\"DG_HAZMAT\",\"item_raw\":\"위험물안전관리법에 의한 규제\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":null,\"remark\":null},{\"seq\":16,\"law\":\"WASTE\",\"item_code\":\"WASTE_DESIG\",\"item_raw\":\"지정폐기물\",\"comp_ref\":\"MIX\",\"applicable\":\"해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":null,\"remark\":\"폐유독물질\"},{\"seq\":17,\"law\":\"KREACH\",\"item_code\":\"KREACH_EXIST\",\"item_raw\":\"기존화학물질\",\"comp_ref\":\"1\",\"applicable\":\"해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":null,\"remark\":null},{\"seq\":18,\"law\":\"KREACH\",\"item_code\":\"KREACH_EXIST\",\"item_raw\":\"기존화학물질\",\"comp_ref\":\"2\",\"applicable\":\"해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":null,\"remark\":null},{\"seq\":19,\"law\":\"KREACH\",\"item_code\":\"KREACH_REG\",\"item_raw\":\"등록대상기존화학물질\",\"comp_ref\":\"2\",\"applicable\":\"해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":null,\"remark\":null}],\"dangerous_goods\":[{\"comp_ref\":\"MIX\",\"class\":\"해당없음\",\"item\":null,\"water_soluble\":null,\"grade\":null,\"designated_qty\":null}],\"waste\":[{\"comp_ref\":\"MIX\",\"designated\":\"해당\",\"waste_type\":\"폐유독물질\"}],\"intl_class\":[]}],\"evidence\":[{\"msds_index\":0,\"field\":\"transport[0]\",\"page\":11,\"source_text\":\"가. 유엔번호(UN No.) : 1010 | 나. 유엔 적정 선적명 : BUTADIENES, STABILIZED or BUTADIENES AND HYDROCARBON MIXTURE, STABILIZED, containing more than 40 % butadienes | 다. 운송에서의 위험성 등급 : 2.1 | 라. 용기등급 : 해당없음 | 마. 해양오염물질 : 해당없음\",\"rules\":[\"R09\",\"R15\",\"R25\"],\"note\":\"구분 없는 공통 항목을 mode=공통으로 두고, 해양오염물질 '해당없음'을 동의어에 따라 비해당으로, 화재·유출시 비상조치 F-D/S-U를 EmS 칸에 넣음\"},{\"msds_index\":0,\"field\":\"transport[1]\",\"page\":12,\"source_text\":\"- 해상운송(IMDG) | · 해양오염물질 : 해당없음\",\"rules\":[\"R25\"],\"note\":\"해상운송(IMDG) 항목의 해양오염물질 '해당없음'을 비해당으로 매핑\"},{\"msds_index\":0,\"field\":\"transport[2]\",\"page\":12,\"source_text\":\"- Air transport(IATA) | · 유엔번호 : 1010 | · 유엔 적정 선적명 : BUTADIENES, STABILIZED or BUTADIENES AND HYDROCARBON MIXTURE, STABILIZED, containing more than 40 % butadienes | · 운송에서의 위험성 등급 : 2.1 | · 용기등급 : 해당없음\",\"rules\":[\"R09\"],\"note\":\"Air transport(IATA) 항목을 mode=항공 행으로 둠\"},{\"msds_index\":0,\"field\":\"regulations[0]\",\"page\":12,\"source_text\":\"PRODUCT : 공정안전관리(PSM) 대상물질, 관리대상 유해물질, 작업환경 측정물질, 특별관리물질\",\"rules\":[\"R10\",\"R25\"],\"note\":\"PRODUCT 행을 MIX로, 공정안전관리(PSM) 대상물질을 OSH_PSM으로 매핑\"},{\"msds_index\":0,\"field\":\"regulations[1]\",\"page\":12,\"source_text\":\"PRODUCT : 공정안전관리(PSM) 대상물질, 관리대상 유해물질, 작업환경 측정물질, 특별관리물질\",\"rules\":[\"R10\",\"R25\"],\"note\":\"관리대상 유해물질을 OSH_MANAGED로 매핑\"},{\"msds_index\":0,\"field\":\"regulations[2]\",\"page\":12,\"source_text\":\"PRODUCT : 공정안전관리(PSM) 대상물질, 관리대상 유해물질, 작업환경 측정물질, 특별관리물질\",\"rules\":[\"R10\",\"R25\"],\"note\":\"작업환경 측정물질을 OSH_MEASURE로 매핑\"},{\"msds_index\":0,\"field\":\"regulations[3]\",\"page\":12,\"source_text\":\"PRODUCT : 공정안전관리(PSM) 대상물질, 관리대상 유해물질, 작업환경 측정물질, 특별관리물질\",\"rules\":[\"R10\",\"R25\"],\"note\":\"특별관리물질을 OSH_MANAGED 행으로 두고 sub_class에 특별관리물질 기록\"},{\"msds_index\":0,\"field\":\"regulations[4]\",\"page\":12,\"source_text\":\"- Hydrocarbons, (C=4), ethylene-manuf.-by-product : 공정안전관리(PSM) 대상물질\",\"rules\":[\"R10\",\"R25\"],\"note\":\"성분명으로 comp_ref=1 매칭\"},{\"msds_index\":0,\"field\":\"regulations[5]\",\"page\":12,\"source_text\":\"- 1,3-Butadiene : 공정안전관리(PSM) 대상물질\",\"rules\":[\"R10\",\"R25\"],\"note\":\"성분명으로 comp_ref=2 매칭\"},{\"msds_index\":0,\"field\":\"regulations[6]\",\"page\":12,\"source_text\":\"- 1,3-Butadiene : 관리대상 유해물질(0.1% 이상)\",\"rules\":[\"R10\",\"R25\",\"R04\"],\"note\":\"'0.1% 이상'을 threshold 하한 0.1(>=), 단위 %로 분해\"},{\"msds_index\":0,\"field\":\"regulations[7]\",\"page\":12,\"source_text\":\"- 1,3-Butadiene : 노출기준 설정물질\",\"rules\":[\"R10\",\"R25\"],\"note\":\"노출기준 설정물질을 OSH_EXPOSURE_STD로 매핑\"},{\"msds_index\":0,\"field\":\"regulations[8]\",\"page\":12,\"source_text\":\"- 1,3-Butadiene : 작업환경 측정물질(1% 이상)\",\"rules\":[\"R10\",\"R25\",\"R04\"],\"note\":\"'1% 이상'을 threshold 하한 1(>=), 단위 %로 분해\"},{\"msds_index\":0,\"field\":\"regulations[9]\",\"page\":12,\"source_text\":\"- 1,3-Butadiene : 특별관리물질(0.1% 이상)\",\"rules\":[\"R10\",\"R25\",\"R04\"],\"note\":\"특별관리물질을 OSH_MANAGED(sub_class 특별관리물질)로 두고 '0.1% 이상'을 하한 0.1(>=)로 분해\"},{\"msds_index\":0,\"field\":\"regulations[10]\",\"page\":12,\"source_text\":\"- 1,3-Butadiene : 특수건강 진단대상 유해인자(1% 이상)\",\"rules\":[\"R10\",\"R25\",\"R04\"],\"note\":\"특수건강 진단대상 유해인자를 OSH_HEALTH_EXAM으로 매핑하고 '1% 이상'을 하한 1(>=)로 분해\"},{\"msds_index\":0,\"field\":\"regulations[11]\",\"page\":12,\"source_text\":\"- 1,3-Butadiene : 허용기준 준수물질\",\"rules\":[\"R10\",\"R25\"],\"note\":\"'허용기준 준수물질'은 동의어 사전에 없는 변형이나 허용기준 설정물질(OSH_PERMISSIBLE)로 매핑, item_raw에 원문 보존\"},{\"msds_index\":0,\"field\":\"regulations[12]\",\"page\":12,\"source_text\":\"PRODUCT : PRTR물질, 유독물질\",\"rules\":[\"R10\",\"R25\"],\"note\":\"'PRTR물질'은 동의어 사전에 없는 표기이나 배출량조사 대상화학물질(CCA_PRTR)로 매핑, item_raw에 원문 보존\"},{\"msds_index\":0,\"field\":\"regulations[13]\",\"page\":12,\"source_text\":\"PRODUCT : PRTR물질, 유독물질\",\"rules\":[\"R10\",\"R25\"],\"note\":\"유독물질을 CCA_TOXIC으로 매핑\"},{\"msds_index\":0,\"field\":\"regulations[14]\",\"page\":12,\"source_text\":\"다. 위험물안전관리법에 의한 규제 | PRODUCT : 해당없음\",\"rules\":[\"R10\",\"R15\"],\"note\":\"'해당없음'을 applicable=비해당으로 둠\"},{\"msds_index\":0,\"field\":\"regulations[15]\",\"page\":12,\"source_text\":\"라. 폐기물관리법에 의한 규제 | PRODUCT : 지정폐기물 (폐유독물질)\",\"rules\":[\"R10\"],\"note\":\"괄호 속 '폐유독물질'을 remark에 기록\"},{\"msds_index\":0,\"field\":\"regulations[16]\",\"page\":12,\"source_text\":\"- Hydrocarbons, (C=4), ethylene-manuf.-by-product : 기존화학물질\",\"rules\":[\"R10\",\"R25\"],\"note\":\"화평법 기존화학물질을 KREACH_EXIST로 매핑\"},{\"msds_index\":0,\"field\":\"regulations[17]\",\"page\":12,\"source_text\":\"- 1,3-Butadiene : 기존화학물질, 등록대상기존화학물질\",\"rules\":[\"R10\",\"R25\"],\"note\":\"기존화학물질을 KREACH_EXIST로 매핑\"},{\"msds_index\":0,\"field\":\"regulations[18]\",\"page\":12,\"source_text\":\"- 1,3-Butadiene : 기존화학물질, 등록대상기존화학물질\",\"rules\":[\"R10\",\"R25\"],\"note\":\"등록대상기존화학물질을 KREACH_REG로 매핑\"},{\"msds_index\":0,\"field\":\"dangerous_goods[0]\",\"page\":12,\"source_text\":\"다. 위험물안전관리법에 의한 규제 | PRODUCT : 해당없음\",\"rules\":[\"R10\",\"R15\"],\"note\":\"위험물 비해당으로 class=해당없음, 나머지 칸 null\"},{\"msds_index\":0,\"field\":\"waste[0]\",\"page\":12,\"source_text\":\"라. 폐기물관리법에 의한 규제 | PRODUCT : 지정폐기물 (폐유독물질)\",\"rules\":[\"R10\"],\"note\":\"지정폐기물 해당, 괄호 속 폐유독물질을 waste_type으로\"}]}"
+}
