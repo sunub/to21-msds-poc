@@ -9,10 +9,11 @@ TO21 스키마에서 바꾸는 것
 - comp_ref는 comp_name·comp_cas로 바꾼다. 이 호출은 3항의 성분 번호를 모르고, 펼치기가 3항과 맞춰 붙인다.
 - narratives 행은 item_code·title_raw·start·end만 받는다. 문장(statements)은 코드가 줄을 나눠 만든다 (R14).
 - CODE_OWNED의 칸은 받지 않는다.
+- 값 조건(pattern, minimum 등)은 뺀다. 구조화 출력이 지키게 할 수 없어서, 칸 하나가 틀리면 항 전체를 잃는다.
+  형식은 설명(description)에 남고, 펼친 뒤 validate_to21이 TO21 원래 스키마로 검사한다.
 """
 from __future__ import annotations
 
-import copy
 import json
 import re
 from dataclasses import dataclass
@@ -60,6 +61,8 @@ _SECTIONS = {
 
 _LINE = {"type": "string", "description": "근거 줄 번호. 입력 줄 앞의 번호를 그대로 쓴다 (예: p2:L23)"}
 _NULL_STR = {"anyOf": [{"type": "string"}, {"type": "null"}]}
+# to_strict가 서버로 보낼 때 빼는 값 조건
+_VALUE_CHECKS = {"pattern", "format", "minimum", "maximum", "minLength", "maxLength", "minItems", "maxItems"}
 
 
 @dataclass(frozen=True)
@@ -176,6 +179,21 @@ def _defs() -> dict:
     return {"QM": qm, "COND": d["COND"], "STMT": _row(d["STMT"], "STMT")}
 
 
+def _drop_value_checks(node):
+    """값 조건을 뺀 새 사본. properties의 키는 칸 이름이므로 빼지 않는다."""
+    if isinstance(node, list):
+        return [_drop_value_checks(v) for v in node]
+    if not isinstance(node, dict):
+        return node
+    out = {}
+    for k, v in node.items():
+        if k == "properties":
+            out[k] = {f: _drop_value_checks(s) for f, s in v.items()}
+        elif k not in _VALUE_CHECKS:
+            out[k] = _drop_value_checks(v)
+    return out
+
+
 def _refs(node) -> set[str]:
     return set(re.findall(r'"#/\$defs/(\w+)"', json.dumps(node)))
 
@@ -201,6 +219,6 @@ def response_schema(no: int) -> dict:
         name = todo.pop()
         used.add(name)
         todo |= _refs(defs[name]) - used
-    return copy.deepcopy({"type": "object", "additionalProperties": False,
-                          "$defs": {k: v for k, v in defs.items() if k in used},
-                          "properties": props, "required": list(props)})
+    return _drop_value_checks({"type": "object", "additionalProperties": False,
+                               "$defs": {k: v for k, v in defs.items() if k in used},
+                               "properties": props, "required": list(props)})
