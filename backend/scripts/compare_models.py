@@ -10,6 +10,7 @@
 """
 import argparse
 import json
+import os
 import statistics
 from pathlib import Path
 
@@ -189,7 +190,7 @@ def write_compare(result: dict, out_dir: Path, title: str) -> Path:
     lines += ["", "## 실행별 요약", ""]
     lines += _table(
         ["라벨", "모델 태그", "가중 종합", "필수 통과", "값 칸(%)", "시간 중앙값(초)", "시간 최대(초)",
-         f"{300}초 초과", "실패 항목", "검증기 오류"],
+         f"{DOC_TIME_LIMIT}초 초과", "실패 항목", "검증기 오류"],
         [[r["label"], r["model_tag"], _num(r["weighted"]), f"{r['must_passed']}/{r['must_total']}",
           _pct(r["value_score"]), _num(r["time"]["median"], 0), _num(r["time"]["max"], 0), r["time"]["over_limit"],
           r["sections_failed"], r["validator_errors"]] for r in runs])
@@ -248,7 +249,8 @@ def main(argv: list[str] | None = None) -> Path:
     if not docs:
         ap.error("채점할 문서가 없습니다. 빠진 문서: " + "; ".join(f"{e['doc_id']}({e['reason']})" for e in excluded))
     golds = {d: _read_json(gold_dir / f"{d}.json") for d in docs}
-    result = {"title": a.title, "gold_dir": str(gold_dir), "excluded": excluded, **compare_runs(runs, golds, docs)}
+    result = {"title": a.title, "gold_dir": os.path.relpath(gold_dir, paths.ROOT), "excluded": excluded,
+              **compare_runs(runs, golds, docs)}
     out = write_compare(result, paths.run_dir(f"{today()}_models_{a.title}"), a.title)
     for r in result["runs"]:
         print(f"{r['label']}: 가중 종합 {r['weighted']:.1f}, 필수 {r['must_passed']}/{r['must_total']}, "
