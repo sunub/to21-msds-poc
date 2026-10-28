@@ -1,0 +1,544 @@
+{
+ "doc_id": "T21-S013",
+ "msds_index": 0,
+ "section": 2,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "hazard": {
+   "classified": true,
+   "classes": [
+    {
+     "group": "물리적",
+     "class_code": "PH_FLAM_GAS",
+     "category": "1",
+     "route_form": "가스",
+     "effect": null,
+     "target_organs": [],
+     "raw": "인화성 가스 구분 1",
+     "line": "p1:L18"
+    },
+    {
+     "group": "물리적",
+     "class_code": "PH_PRESS_GAS",
+     "category": "1",
+     "route_form": null,
+     "effect": null,
+     "target_organs": [],
+     "raw": "고압가스 압축가스",
+     "line": "p1:L19"
+    }
+   ],
+   "signal_word": "위험",
+   "h_statements": [
+    {
+     "code": "H220",
+     "system": "GHS",
+     "mark": "",
+     "text": "극인화성 가스",
+     "line": "p1:L25"
+    },
+    {
+     "code": "H280",
+     "system": "GHS",
+     "mark": "",
+     "text": "고압가스 포함: 가열하면 폭발할 수 있음",
+     "line": "p1:L26"
+    }
+   ],
+   "p_statements": [
+    {
+     "code": "P210",
+     "type": "예방",
+     "text": "열, 고온의 표면, 스파크, 화염 및 그 밖의 점화원으로부터 멀리하시오. 금연",
+     "line": "p2:L3"
+    },
+    {
+     "code": "P377",
+     "type": "대응",
+     "text": "가스 누출 화재; 누출을 안전하게 막을 수 없다면 불을 끄려하지 마시오.",
+     "line": "p2:L5"
+    },
+    {
+     "code": "P381",
+     "type": "대응",
+     "text": "누출 시 모든 점화원을 제거하시오.",
+     "line": "p2:L6"
+    },
+    {
+     "code": "P403",
+     "type": "저장",
+     "text": "환기가 잘 되는 곳에 보관하시오.",
+     "line": "p2:L8"
+    },
+    {
+     "code": "P410+P403",
+     "type": "저장",
+     "text": "직사광선을 피하시오. 환기가 잘 되는 곳에 보관하시오.",
+     "line": "p2:L9"
+    }
+   ],
+   "other_hazards": [
+    {
+     "key": "NFPA",
+     "value": "보건(Health)  화재(Flammability)  반응성(Reactivity)",
+     "refs": [],
+     "cond": null,
+     "line": "p2:L13"
+    },
+    {
+     "key": "NFPA",
+     "value": "0  4  0",
+     "refs": [],
+     "cond": null,
+     "line": "p2:L14"
+    }
+   ],
+   "nfpa": {
+    "health": 0,
+    "fire": 4,
+    "reactivity": 0,
+    "special": ""
+   },
+   "lines": {
+    "classified": "p1:L17",
+    "signal_word": "p1:L23",
+    "nfpa": "p2:L13"
+   }
+  },
+  "narratives": [
+   {
+    "item_code": "S2_LABEL_NOTE",
+    "title_raw": "경고표지 관련 기타 서술",
+    "start": "p1:L21",
+    "end": "p1:L22"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S2_LABEL_NOTE",
+    "title_raw": "자료없음",
+    "reason": "필드없음",
+    "comp_name": "",
+    "comp_cas": "",
+    "q": null,
+    "statements": [],
+    "suggested_code": "",
+    "line": "p2:L11"
+   },
+   {
+    "after_item": "S2_LABEL_NOTE",
+    "title_raw": "제품 NFPA 등급",
+    "reason": "필드없음",
+    "comp_name": "",
+    "comp_cas": "",
+    "q": null,
+    "statements": [],
+    "suggested_code": "",
+    "line": "p2:L12"
+   },
+   {
+    "after_item": "S2_LABEL_NOTE",
+    "title_raw": "부적절한 소화제",
+    "reason": "필드없음",
+    "comp_name": "",
+    "comp_cas": "",
+    "q": null,
+    "statements": [],
+    "suggested_code": "",
+    "line": "p3:L19"
+   },
+   {
+    "after_item": "S2_LABEL_NOTE",
+    "title_raw": "열분해성 생성물",
+    "reason": "필드없음",
+    "comp_name": "",
+    "comp_cas": "",
+    "q": null,
+    "statements": [],
+    "suggested_code": "",
+    "line": "p3:L22"
+   },
+   {
+    "after_item": "S2_LABEL_NOTE",
+    "title_raw": "화재 및 폭발 위험",
+    "reason": "필드없음",
+    "comp_name": "",
+    "comp_cas": "",
+    "q": null,
+    "statements": [],
+    "suggested_code": "",
+    "line": "p3:L23"
+   },
+   {
+    "after_item": "S2_LABEL_NOTE",
+    "title_raw": "기타",
+    "reason": "필드없음",
+    "comp_name": "",
+    "comp_cas": "",
+    "q": null,
+    "statements": [],
+    "suggested_code": "",
+    "line": "p3:L32"
+   },
+   {
+    "after_item": "S2_LABEL_NOTE",
+    "title_raw": "화재진압시 착용할 보호구 및 예방조치",
+    "reason": "필드없음",
+    "comp_name": "",
+    "comp_cas": "",
+    "q": null,
+    "statements": [],
+    "suggested_code": "",
+    "line": "p4:L1"
+   },
+   {
+    "after_item": "S2_LABEL_NOTE",
+    "title_raw": "인체를 보호하기 위해 필요한 조치사항 및 보호구",
+    "reason": "필드없음",
+    "comp_name": "",
+    "comp_cas": "",
+    "q": null,
+    "statements": [],
+    "suggested_code": "",
+    "line": "p4:L16"
+   },
+   {
+    "after_item": "S2_LABEL_NOTE",
+    "title_raw": "환경을 보호하기 위해 필요한 조치사항",
+    "reason": "필드없음",
+    "comp_name": "",
+    "comp_cas": "",
+    "q": null,
+    "statements": [],
+    "suggested_code": "",
+    "line": "p4:L29"
+   },
+   {
+    "after_item": "S2_LABEL_NOTE",
+    "title_raw": "정화 또는 제거 방법",
+    "reason": "필드없음",
+    "comp_name": "",
+    "comp_cas": "",
+    "q": null,
+    "statements": [],
+    "suggested_code": "",
+    "line": "p4:L31"
+   },
+   {
+    "after_item": "S2_LABEL_NOTE",
+    "title_raw": "안전취급요령",
+    "reason": "필드없음",
+    "comp_name": "",
+    "comp_cas": "",
+    "q": null,
+    "statements": [],
+    "suggested_code": "",
+    "line": "p4:L33"
+   },
+   {
+    "after_item": "S2_LABEL_NOTE",
+    "title_raw": "안전한 저장방법",
+    "reason": "필드없음",
+    "comp_name": "",
+    "comp_cas": "",
+    "q": null,
+    "statements": [],
+    "suggested_code": "",
+    "line": "p5:L5"
+   },
+   {
+    "after_item": "S2_LABEL_NOTE",
+    "title_raw": "화학물질의 노출기준, 생물학적 노출기준 등",
+    "reason": "필드없음",
+    "comp_name": "",
+    "comp_cas": "",
+    "q": null,
+    "statements": [],
+    "suggested_code": "",
+    "line": "p5:L8"
+   },
+   {
+    "after_item": "S2_LABEL_NOTE",
+    "title_raw": "적절한 공학적 관리",
+    "reason": "필드없음",
+    "comp_name": "",
+    "comp_cas": "",
+    "q": null,
+    "statements": [],
+    "suggested_code": "",
+    "line": "p5:L13"
+   },
+   {
+    "after_item": "S2_LABEL_NOTE",
+    "title_raw": "개인보호구",
+    "reason": "필드없음",
+    "comp_name": "",
+    "comp_cas": "",
+    "q": null,
+    "statements": [],
+    "suggested_code": "",
+    "line": "p5:L15"
+   },
+   {
+    "after_item": "S2_LABEL_NOTE",
+    "title_raw": "물리 화학적 특성",
+    "reason": "필드없음",
+    "comp_name": "",
+    "comp_cas": "",
+    "q": null,
+    "statements": [],
+    "suggested_code": "",
+    "line": "p5:L24"
+   },
+   {
+    "after_item": "S2_LABEL_NOTE",
+    "title_raw": "화학적 안정성 및 유해 반응의 가능성",
+    "reason": "필드없음",
+    "comp_name": "",
+    "comp_cas": "",
+    "q": null,
+    "statements": [],
+    "suggested_code": "",
+    "line": "p6:L18"
+   },
+   {
+    "after_item": "S2_LABEL_NOTE",
+    "title_raw": "피해야 할 조건",
+    "reason": "필드없음",
+    "comp_name": "",
+    "comp_cas": "",
+    "q": null,
+    "statements": [],
+    "suggested_code": "",
+    "line": "p6:L29"
+   },
+   {
+    "after_item": "S2_LABEL_NOTE",
+    "title_raw": "피해야 할 물질",
+    "reason": "필드없음",
+    "comp_name": "",
+    "comp_cas": "",
+    "q": null,
+    "statements": [],
+    "suggested_code": "",
+    "line": "p7:L5"
+   },
+   {
+    "after_item": "S2_LABEL_NOTE",
+    "title_raw": "분해시 생성되는 유해물질",
+    "reason": "필드없음",
+    "comp_name": "",
+    "comp_cas": "",
+    "q": null,
+    "statements": [],
+    "suggested_code": "",
+    "line": "p7:L14"
+   },
+   {
+    "after_item": "S2_LABEL_NOTE",
+    "title_raw": "가능성이 높은 노출 경로에 관한 정보",
+    "reason": "필드없음",
+    "comp_name": "",
+    "comp_cas": "",
+    "q": null,
+    "statements": [],
+    "suggested_code": "",
+    "line": "p7:L19"
+   },
+   {
+    "after_item": "S2_LABEL_NOTE",
+    "title_raw": "건강 유해성 정보",
+    "reason": "필드없음",
+    "comp_name": "",
+    "comp_cas": "",
+    "q": null,
+    "statements": [],
+    "suggested_code": "",
+    "line": "p7:L29"
+   },
+   {
+    "after_item": "S2_LABEL_NOTE",
+    "title_raw": "생태독성 > PRODUCT : 분류되지않음",
+    "reason": "필드없음",
+    "comp_name": "",
+    "comp_cas": "",
+    "q": null,
+    "statements": [],
+    "suggested_code": "",
+    "line": "p8:L32"
+   },
+   {
+    "after_item": "S2_LABEL_NOTE",
+    "title_raw": "잔류성 및 분해성",
+    "reason": "필드없음",
+    "comp_name": "",
+    "comp_cas": "",
+    "q": null,
+    "statements": [],
+    "suggested_code": "",
+    "line": "p9:L8"
+   },
+   {
+    "after_item": "S2_LABEL_NOTE",
+    "title_raw": "생물농축성",
+    "reason": "필드없음",
+    "comp_name": "",
+    "comp_cas": "",
+    "q": null,
+    "statements": [],
+    "suggested_code": "",
+    "line": "p9:L17"
+   },
+   {
+    "after_item": "S2_LABEL_NOTE",
+    "title_raw": "토양이동성",
+    "reason": "필드없음",
+    "comp_name": "",
+    "comp_cas": "",
+    "q": null,
+    "statements": [],
+    "suggested_code": "",
+    "line": "p9:L20"
+   },
+   {
+    "after_item": "S2_LABEL_NOTE",
+    "title_raw": "기타 유해 영향 > PRODUCT : 분류되지않음",
+    "reason": "필드없음",
+    "comp_name": "",
+    "comp_cas": "",
+    "q": null,
+    "statements": [],
+    "suggested_code": "",
+    "line": "p9:L23"
+   },
+   {
+    "after_item": "S2_LABEL_NOTE",
+    "title_raw": "폐기방법",
+    "reason": "필드없음",
+    "comp_name": "",
+    "comp_cas": "",
+    "q": null,
+    "statements": [],
+    "suggested_code": "",
+    "line": "p9:L27"
+   },
+   {
+    "after_item": "S2_LABEL_NOTE",
+    "title_raw": "폐기시 주의사항",
+    "reason": "필드없음",
+    "comp_name": "",
+    "comp_cas": "",
+    "q": null,
+    "statements": [],
+    "suggested_code": "",
+    "line": "p9:L29"
+   },
+   {
+    "after_item": "S2_LABEL_NOTE",
+    "title_raw": "운송에 필요한 정보",
+    "reason": "필드없음",
+    "comp_name": "",
+    "comp_cas": "",
+    "q": null,
+    "statements": [],
+    "suggested_code": "",
+    "line": "p9:L31"
+   },
+   {
+    "after_item": "S2_LABEL_NOTE",
+    "title_raw": "사용자가 운송 또는 운송수단에 관련해 알 필요가 있거나 필요한 특별한 안전 대책 :",
+    "reason": "필드없음",
+    "comp_name": "",
+    "comp_cas": "",
+    "q": null,
+    "statements": [],
+    "suggested_code": "",
+    "line": "p10:L2"
+   },
+   {
+    "after_item": "S2_LABEL_NOTE",
+    "title_raw": "자료의 출처",
+    "reason": "필드없음",
+    "comp_name": "",
+    "comp_cas": "",
+    "q": null,
+    "statements": [],
+    "suggested_code": "",
+    "line": "p10:L15"
+   },
+   {
+    "after_item": "S2_LABEL_NOTE",
+    "title_raw": "최초 작성일자",
+    "reason": "필드없음",
+    "comp_name": "",
+    "comp_cas": "",
+    "q": null,
+    "statements": [],
+    "suggested_code": "",
+    "line": "p10:L18"
+   },
+   {
+    "after_item": "S2_LABEL_NOTE",
+    "title_raw": "개정 횟수 및 최종 개정일자",
+    "reason": "필드없음",
+    "comp_name": "",
+    "comp_cas": "",
+    "q": null,
+    "statements": [],
+    "suggested_code": "",
+    "line": "p10:L19"
+   },
+   {
+    "after_item": "S2_LABEL_NOTE",
+    "title_raw": "최종 개정이력 :",
+    "reason": "필드없음",
+    "comp_name": "",
+    "comp_cas": "",
+    "q": null,
+    "statements": [],
+    "suggested_code": "",
+    "line": "p10:L22"
+   },
+   {
+    "after_item": "S2_LABEL_NOTE",
+    "title_raw": "기타",
+    "reason": "필드없음",
+    "comp_name": "",
+    "comp_cas": "",
+    "q": null,
+    "statements": [],
+    "suggested_code": "",
+    "line": "p10:L23"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"hazard\": {\n    \"classified\": true,\n    \"classes\": [\n      {\n        \"group\": \"물리적\",\n        \"class_code\": \"PH_FLAM_GAS\",\n        \"category\": \"1\",\n        \"route_form\": \"가스\",\n        \"effect\": null,\n        \"target_organs\": [],\n        \"raw\": \"인화성 가스 구분 1\"\n      ,\n        \"line\": \"p1:L18\"\n      },\n      {\n        \"group\": \"물리적\",\n        \"class_code\": \"PH_PRESS_GAS\",\n        \"category\": \"1\",\n        \"route_form\": null,\n        \"effect\": null,\n        \"target_organs\": [],\n        \"raw\": \"고압가스 압축가스\",\n        \"line\": \"p1:L19\"\n      }\n    ],\n    \"signal_word\": \"위험\",\n    \"h_statements\": [\n      {\n        \"code\": \"H220\",\n        \"system\": \"GHS\",\n        \"mark\": \"\",\n        \"text\": \"극인화성 가스\",\n        \"line\": \"p1:L25\"\n      },\n      {\n        \"code\": \"H280\",\n        \"system\": \"GHS\",\n        \"mark\": \"\",\n        \"text\": \"고압가스 포함: 가열하면 폭발할 수 있음\",\n        \"line\": \"p1:L26\"\n      }\n    ],\n    \"p_statements\": [\n      {\n        \"code\": \"P210\",\n        \"type\": \"예방\",\n        \"text\": \"열, 고온의 표면, 스파크, 화염 및 그 밖의 점화원으로부터 멀리하시오. 금연\",\n        \"line\": \"p2:L3\"\n      },\n      {\n        \"code\": \"P377\",\n        \"type\": \"대응\",\n        \"text\": \"가스 누출 화재; 누출을 안전하게 막을 수 없다면 불을 끄려하지 마시오.\",\n        \"line\": \"p2:L5\"\n      },\n      {\n        \"code\": \"P381\",\n        \"type\": \"대응\",\n        \"text\": \"누출 시 모든 점화원을 제거하시오.\",\n        \"line\": \"p2:L6\"\n      },\n      {\n        \"code\": \"P403\",\n        \"type\": \"저장\",\n        \"text\": \"환기가 잘 되는 곳에 보관하시오.\",\n        \"line\": \"p2:L8\"\n      },\n      {\n        \"code\": \"P410+P403\",\n        \"type\": \"저장\",\n        \"text\": \"직사광선을 피하시오. 환기가 잘 되는 곳에 보관하시오.\",\n        \"line\": \"p2:L9\"\n      }\n    ],\n    \"other_hazards\": [\n      {\n        \"key\": \"NFPA\",\n        \"value\": \"보건(Health)  화재(Flammability)  반응성(Reactivity)\",\n        \"refs\": []\n      ,\n        \"cond\": null\n      ,\n        \"line\": \"p2:L13\"\n      },\n      {\n        \"key\": \"NFPA\",\n        \"value\": \"0  4  0\",\n        \"refs\": []\n      ,\n        \"cond\": null\n      ,\n        \"line\": \"p2:L14\"\n      }\n    ],\n    \"nfpa\": {\n      \"health\": 0,\n      \"fire\": 4,\n      \"reactivity\": 0,\n      \"special\": \"\"\n    }\n  ,\n    \"lines\": {\n      \"classified\": \"p1:L17\",\n      \"signal_word\": \"p1:L23\",\n      \"nfpa\": \"p2:L13\"\n    }\n  },\n  \"narratives\": [\n    {\n      \"item_code\": \"S2_LABEL_NOTE\",\n      \"title_raw\": \"경고표지 관련 기타 서술\",\n      \"start\": \"p1:L21\",\n      \"end\": \"p1:L22\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S2_LABEL_NOTE\",\n      \"title_raw\": \"자료없음\",\n      \"reason\": \"필드없음\",\n      \"comp_name\": \"\",\n      \"comp_cas\": \"\",\n      \"q\": null,\n      \"statements\": [],\n      \"suggested_code\": \"\"\n    ,\n      \"line\": \"p2:L11\"\n    },\n    {\n      \"after_item\": \"S2_LABEL_NOTE\",\n      \"title_raw\": \"제품 NFPA 등급\",\n      \"reason\": \"필드없음\",\n      \"comp_name\": \"\",\n      \"comp_cas\": \"\",\n      \"q\": null,\n      \"statements\": [],\n      \"suggested_code\": \"\"\n    ,\n      \"line\": \"p2:L12\"\n    },\n    {\n      \"after_item\": \"S2_LABEL_NOTE\",\n      \"title_raw\": \"부적절한 소화제\",\n      \"reason\": \"필드없음\",\n      \"comp_name\": \"\",\n      \"comp_cas\": \"\",\n      \"q\": null,\n      \"statements\": [],\n      \"suggested_code\": \"\"\n    ,\n      \"line\": \"p3:L19\"\n    },\n    {\n      \"after_item\": \"S2_LABEL_NOTE\",\n      \"title_raw\": \"열분해성 생성물\",\n      \"reason\": \"필드없음\",\n      \"comp_name\": \"\",\n      \"comp_cas\": \"\",\n      \"q\": null,\n      \"statements\": [],\n      \"suggested_code\": \"\"\n    ,\n      \"line\": \"p3:L22\"\n    },\n    {\n      \"after_item\": \"S2_LABEL_NOTE\",\n      \"title_raw\": \"화재 및 폭발 위험\",\n      \"reason\": \"필드없음\",\n      \"comp_name\": \"\",\n      \"comp_cas\": \"\",\n      \"q\": null,\n      \"statements\": [],\n      \"suggested_code\": \"\"\n    ,\n      \"line\": \"p3:L23\"\n    },\n    {\n      \"after_item\": \"S2_LABEL_NOTE\",\n      \"title_raw\": \"기타\",\n      \"reason\": \"필드없음\",\n      \"comp_name\": \"\",\n      \"comp_cas\": \"\",\n      \"q\": null,\n      \"statements\": [],\n      \"suggested_code\": \"\"\n    ,\n      \"line\": \"p3:L32\"\n    },\n    {\n      \"after_item\": \"S2_LABEL_NOTE\",\n      \"title_raw\": \"화재진압시 착용할 보호구 및 예방조치\",\n      \"reason\": \"필드없음\",\n      \"comp_name\": \"\",\n      \"comp_cas\": \"\",\n      \"q\": null,\n      \"statements\": [],\n      \"suggested_code\": \"\"\n    ,\n      \"line\": \"p4:L1\"\n    },\n    {\n      \"after_item\": \"S2_LABEL_NOTE\",\n      \"title_raw\": \"인체를 보호하기 위해 필요한 조치사항 및 보호구\",\n      \"reason\": \"필드없음\",\n      \"comp_name\": \"\",\n      \"comp_cas\": \"\",\n      \"q\": null,\n      \"statements\": [],\n      \"suggested_code\": \"\"\n    ,\n      \"line\": \"p4:L16\"\n    },\n    {\n      \"after_item\": \"S2_LABEL_NOTE\",\n      \"title_raw\": \"환경을 보호하기 위해 필요한 조치사항\",\n      \"reason\": \"필드없음\",\n      \"comp_name\": \"\",\n      \"comp_cas\": \"\",\n      \"q\": null,\n      \"statements\": [],\n      \"suggested_code\": \"\"\n    ,\n      \"line\": \"p4:L29\"\n    },\n    {\n      \"after_item\": \"S2_LABEL_NOTE\",\n      \"title_raw\": \"정화 또는 제거 방법\",\n      \"reason\": \"필드없음\",\n      \"comp_name\": \"\",\n      \"comp_cas\": \"\",\n      \"q\": null,\n      \"statements\": [],\n      \"suggested_code\": \"\"\n    ,\n      \"line\": \"p4:L31\"\n    },\n    {\n      \"after_item\": \"S2_LABEL_NOTE\",\n      \"title_raw\": \"안전취급요령\",\n      \"reason\": \"필드없음\",\n      \"comp_name\": \"\",\n      \"comp_cas\": \"\",\n      \"q\": null,\n      \"statements\": [],\n      \"suggested_code\": \"\"\n    ,\n      \"line\": \"p4:L33\"\n    },\n    {\n      \"after_item\": \"S2_LABEL_NOTE\",\n      \"title_raw\": \"안전한 저장방법\",\n      \"reason\": \"필드없음\",\n      \"comp_name\": \"\",\n      \"comp_cas\": \"\",\n      \"q\": null,\n      \"statements\": [],\n      \"suggested_code\": \"\"\n    ,\n      \"line\": \"p5:L5\"\n    },\n    {\n      \"after_item\": \"S2_LABEL_NOTE\",\n      \"title_raw\": \"화학물질의 노출기준, 생물학적 노출기준 등\",\n      \"reason\": \"필드없음\",\n      \"comp_name\": \"\",\n      \"comp_cas\": \"\",\n      \"q\": null,\n      \"statements\": [],\n      \"suggested_code\": \"\"\n    ,\n      \"line\": \"p5:L8\"\n    },\n    {\n      \"after_item\": \"S2_LABEL_NOTE\",\n      \"title_raw\": \"적절한 공학적 관리\",\n      \"reason\": \"필드없음\",\n      \"comp_name\": \"\",\n      \"comp_cas\": \"\",\n      \"q\": null,\n      \"statements\": [],\n      \"suggested_code\": \"\"\n    ,\n      \"line\": \"p5:L13\"\n    },\n    {\n      \"after_item\": \"S2_LABEL_NOTE\",\n      \"title_raw\": \"개인보호구\",\n      \"reason\": \"필드없음\",\n      \"comp_name\": \"\",\n      \"comp_cas\": \"\",\n      \"q\": null,\n      \"statements\": [],\n      \"suggested_code\": \"\"\n    ,\n      \"line\": \"p5:L15\"\n    },\n    {\n      \"after_item\": \"S2_LABEL_NOTE\",\n      \"title_raw\": \"물리 화학적 특성\",\n      \"reason\": \"필드없음\",\n      \"comp_name\": \"\",\n      \"comp_cas\": \"\",\n      \"q\": null,\n      \"statements\": [],\n      \"suggested_code\": \"\"\n    ,\n      \"line\": \"p5:L24\"\n    },\n    {\n      \"after_item\": \"S2_LABEL_NOTE\",\n      \"title_raw\": \"화학적 안정성 및 유해 반응의 가능성\",\n      \"reason\": \"필드없음\",\n      \"comp_name\": \"\",\n      \"comp_cas\": \"\",\n      \"q\": null,\n      \"statements\": [],\n      \"suggested_code\": \"\"\n    ,\n      \"line\": \"p6:L18\"\n    },\n    {\n      \"after_item\": \"S2_LABEL_NOTE\",\n      \"title_raw\": \"피해야 할 조건\",\n      \"reason\": \"필드없음\",\n      \"comp_name\": \"\",\n      \"comp_cas\": \"\",\n      \"q\": null,\n      \"statements\": [],\n      \"suggested_code\": \"\"\n    ,\n      \"line\": \"p6:L29\"\n    },\n    {\n      \"after_item\": \"S2_LABEL_NOTE\",\n      \"title_raw\": \"피해야 할 물질\",\n      \"reason\": \"필드없음\",\n      \"comp_name\": \"\",\n      \"comp_cas\": \"\",\n      \"q\": null,\n      \"statements\": [],\n      \"suggested_code\": \"\"\n    ,\n      \"line\": \"p7:L5\"\n    },\n    {\n      \"after_item\": \"S2_LABEL_NOTE\",\n      \"title_raw\": \"분해시 생성되는 유해물질\",\n      \"reason\": \"필드없음\",\n      \"comp_name\": \"\",\n      \"comp_cas\": \"\",\n      \"q\": null,\n      \"statements\": [],\n      \"suggested_code\": \"\"\n    ,\n      \"line\": \"p7:L14\"\n    },\n    {\n      \"after_item\": \"S2_LABEL_NOTE\",\n      \"title_raw\": \"가능성이 높은 노출 경로에 관한 정보\",\n      \"reason\": \"필드없음\",\n      \"comp_name\": \"\",\n      \"comp_cas\": \"\",\n      \"q\": null,\n      \"statements\": [],\n      \"suggested_code\": \"\"\n    ,\n      \"line\": \"p7:L19\"\n    },\n    {\n      \"after_item\": \"S2_LABEL_NOTE\",\n      \"title_raw\": \"건강 유해성 정보\",\n      \"reason\": \"필드없음\",\n      \"comp_name\": \"\",\n      \"comp_cas\": \"\",\n      \"q\": null,\n      \"statements\": [],\n      \"suggested_code\": \"\"\n    ,\n      \"line\": \"p7:L29\"\n    },\n    {\n      \"after_item\": \"S2_LABEL_NOTE\",\n      \"title_raw\": \"생태독성 > PRODUCT : 분류되지않음\",\n      \"reason\": \"필드없음\",\n      \"comp_name\": \"\",\n      \"comp_cas\": \"\",\n      \"q\": null,\n      \"statements\": [],\n      \"suggested_code\": \"\"\n    ,\n      \"line\": \"p8:L32\"\n    },\n    {\n      \"after_item\": \"S2_LABEL_NOTE\",\n      \"title_raw\": \"잔류성 및 분해성\",\n      \"reason\": \"필드없음\",\n      \"comp_name\": \"\",\n      \"comp_cas\": \"\",\n      \"q\": null,\n      \"statements\": [],\n      \"suggested_code\": \"\"\n    ,\n      \"line\": \"p9:L8\"\n    },\n    {\n      \"after_item\": \"S2_LABEL_NOTE\",\n      \"title_raw\": \"생물농축성\",\n      \"reason\": \"필드없음\",\n      \"comp_name\": \"\",\n      \"comp_cas\": \"\",\n      \"q\": null,\n      \"statements\": [],\n      \"suggested_code\": \"\"\n    ,\n      \"line\": \"p9:L17\"\n    },\n    {\n      \"after_item\": \"S2_LABEL_NOTE\",\n      \"title_raw\": \"토양이동성\",\n      \"reason\": \"필드없음\",\n      \"comp_name\": \"\",\n      \"comp_cas\": \"\",\n      \"q\": null,\n      \"statements\": [],\n      \"suggested_code\": \"\"\n    ,\n      \"line\": \"p9:L20\"\n    },\n    {\n      \"after_item\": \"S2_LABEL_NOTE\",\n      \"title_raw\": \"기타 유해 영향 > PRODUCT : 분류되지않음\",\n      \"reason\": \"필드없음\",\n      \"comp_name\": \"\",\n      \"comp_cas\": \"\",\n      \"q\": null,\n      \"statements\": [],\n      \"suggested_code\": \"\"\n    ,\n      \"line\": \"p9:L23\"\n    },\n    {\n      \"after_item\": \"S2_LABEL_NOTE\",\n      \"title_raw\": \"폐기방법\",\n      \"reason\": \"필드없음\",\n      \"comp_name\": \"\",\n      \"comp_cas\": \"\",\n      \"q\": null,\n      \"statements\": [],\n      \"suggested_code\": \"\"\n    ,\n      \"line\": \"p9:L27\"\n    },\n    {\n      \"after_item\": \"S2_LABEL_NOTE\",\n      \"title_raw\": \"폐기시 주의사항\",\n      \"reason\": \"필드없음\",\n      \"comp_name\": \"\",\n      \"comp_cas\": \"\",\n      \"q\": null,\n      \"statements\": [],\n      \"suggested_code\": \"\"\n    ,\n      \"line\": \"p9:L29\"\n    },\n    {\n      \"after_item\": \"S2_LABEL_NOTE\",\n      \"title_raw\": \"운송에 필요한 정보\",\n      \"reason\": \"필드없음\",\n      \"comp_name\": \"\",\n      \"comp_cas\": \"\",\n      \"q\": null,\n      \"statements\": [],\n      \"suggested_code\": \"\"\n    ,\n      \"line\": \"p9:L31\"\n    },\n    {\n      \"after_item\": \"S2_LABEL_NOTE\",\n      \"title_raw\": \"사용자가 운송 또는 운송수단에 관련해 알 필요가 있거나 필요한 특별한 안전 대책 :\",\n      \"reason\": \"필드없음\",\n      \"comp_name\": \"\",\n      \"comp_cas\": \"\",\n      \"q\": null,\n      \"statements\": [],\n      \"suggested_code\": \"\"\n    ,\n      \"line\": \"p10:L2\"\n    },\n    {\n      \"after_item\": \"S2_LABEL_NOTE\",\n      \"title_raw\": \"자료의 출처\",\n      \"reason\": \"필드없음\",\n      \"comp_name\": \"\",\n      \"comp_cas\": \"\",\n      \"q\": null,\n      \"statements\": [],\n      \"suggested_code\": \"\"\n    ,\n      \"line\": \"p10:L15\"\n    },\n    {\n      \"after_item\": \"S2_LABEL_NOTE\",\n      \"title_raw\": \"최초 작성일자\",\n      \"reason\": \"필드없음\",\n      \"comp_name\": \"\",\n      \"comp_cas\": \"\",\n      \"q\": null,\n      \"statements\": [],\n      \"suggested_code\": \"\"\n    ,\n      \"line\": \"p10:L18\"\n    },\n    {\n      \"after_item\": \"S2_LABEL_NOTE\",\n      \"title_raw\": \"개정 횟수 및 최종 개정일자\",\n      \"reason\": \"필드없음\",\n      \"comp_name\": \"\",\n      \"comp_cas\": \"\",\n      \"q\": null,\n      \"statements\": [],\n      \"suggested_code\": \"\"\n    ,\n      \"line\": \"p10:L19\"\n    },\n    {\n      \"after_item\": \"S2_LABEL_NOTE\",\n      \"title_raw\": \"최종 개정이력 :\",\n      \"reason\": \"필드없음\",\n      \"comp_name\": \"\",\n      \"comp_cas\": \"\",\n      \"q\": null,\n      \"statements\": [],\n      \"suggested_code\": \"\"\n    ,\n      \"line\": \"p10:L22\"\n    },\n    {\n      \"after_item\": \"S2_LABEL_NOTE\",\n      \"title_raw\": \"기타\",\n      \"reason\": \"필드없음\",\n      \"comp_name\": \"\",\n      \"comp_cas\": \"\",\n      \"q\": null,\n      \"statements\": [],\n      \"suggested_code\": \"\"\n    ,\n      \"line\": \"p10:L23\"\n    }\n  ]\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 11568,
+  "completion_tokens": 3981,
+  "total_tokens": 15549
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 11568,
+    "completion_tokens": 3981,
+    "total_tokens": 15549
+   },
+   "seconds": 60.868,
+   "chars": 11397,
+   "whitespace": 4223,
+   "head": "{\n  \"hazard\": {\n    \"classified\": true,\n    \"classes\": [\n      {\n        \"group\": \"물리적\",\n        \"class_code\": \"PH_FLAM_GAS\",\n        \"category\": \"1\",\n        \"route_form\": \"가스\",\n        \"effect\": null,\n        \"target_organs\": [],\n        \"raw\": \"인화성 가스 구분 1\"\n      ,\n        \"line\": \"p1:L18\"\n      },\n      {\n        \"group\": \"물리적\",\n        \"class_code\": \"PH_PRESS_GAS\",\n        \"category\": \"1\",\n        \"route_form\": null,\n        \"effect\": null,\n        \"target_organs\": [],\n        \"raw\": \"고압가스 ",
+   "tail": "  },\n    {\n      \"after_item\": \"S2_LABEL_NOTE\",\n      \"title_raw\": \"최종 개정이력 :\",\n      \"reason\": \"필드없음\",\n      \"comp_name\": \"\",\n      \"comp_cas\": \"\",\n      \"q\": null,\n      \"statements\": [],\n      \"suggested_code\": \"\"\n    ,\n      \"line\": \"p10:L22\"\n    },\n    {\n      \"after_item\": \"S2_LABEL_NOTE\",\n      \"title_raw\": \"기타\",\n      \"reason\": \"필드없음\",\n      \"comp_name\": \"\",\n      \"comp_cas\": \"\",\n      \"q\": null,\n      \"statements\": [],\n      \"suggested_code\": \"\"\n    ,\n      \"line\": \"p10:L23\"\n    }\n  ]\n}"
+  }
+ ],
+ "seconds": 60.873,
+ "check_problems": []
+}
