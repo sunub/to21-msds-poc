@@ -1,39 +1,118 @@
-"""지식 제공자 인터페이스 — 역할 D (TO21 정합성 설계서 v0.2, 2단계).
+"""2차가 기준 정보를 꺼내는 함수 3개의 입출력 형태.
 
-판정에 쓰는 기준 정보(기준 분류, ATE, 규제)를 함수 3개로만 꺼낸다.
-PoC에서는 TO21 엑셀을 적재한 DB가 이 함수를 구현하고, 운영에서는 TO21 API로 바꾼다.
-TO21 지식DB 엑셀이 오기 전이라 1주차에는 입출력 형태만 정한다.
+PoC 에서는 TO21 엑셀, 운영에서는 TO21 API 로 바꿔 끼우므로 판정 코드는 이 함수로만 지식을 읽는다.
+실데이터 구현은 아직 없으며, 지식DB 엑셀이 오기 전에는 EmptyProvider 로 빈 지식을 돌려준다.
+
+형태는 임시다. 기준은 정합성검증 개발설계서 v0.2 의 메시지 명세인데 저장소에 없어 확인하지 못했고,
+지금은 D 가이드 3.4 의 예시와 E 가이드 3.4 의 15항 칸 구성을 따랐다 (docs/adr/0001). 설계서와
+다르면 설계서를 따른다.
+
+공통 약속
+- 모든 응답에 knowledge_version 과 as_of(기준일)를 남긴다. 같은 입력이면 같은 응답이어야 하고,
+  지식을 바꿨을 때 결과 차이를 비교할 수 있어야 한다.
+- 지식이 없으면 knowledge_version 이 None 이다. 빈 목록만으로는 "조회했으나 해당 없음"과
+  "지식 없음"을 구분할 수 없어서, 목록도 상자(dict)에 담아 돌려준다.
 """
-from __future__ import annotations
 
-from typing import Protocol
+import csv
+from pathlib import Path
 
+from .ghs.models import CutOffRule, MixtureRuleKnowledge, ReferenceKnowledge, RegulationKnowledge
 
-class KnowledgeProvider(Protocol):
-    knowledge_version: str   # 응답마다 지식 버전을 남긴다 (설계서 메시지 명세)
-
-    def get_reference(self, cas_no: str, as_of: str) -> dict:
-        """성분의 기준 정보: 기준 분류, ATE, 노출기준, UN번호 등. 입력: CAS, 기준일"""
-        ...
-
-    def classify_mixture(self, components: list[dict], as_of: str) -> dict:
-        """혼합물 분류 계산에 필요한 기준값 묶음 (한계농도, 가산 규칙 등)"""
-        ...
-
-    def get_regulation(self, cas_no: str, as_of: str) -> list[dict]:
-        """15항 국내 규제: 법령·항목·기준 농도. 입력: CAS, 기준일"""
-        ...
+CUT_OFF_CSV = Path(__file__).parent / "rules" / "cut_off.csv"
 
 
 class EmptyProvider:
-    """데이터가 오기 전 개발용. 모든 조회에 '근거부족'이 나오도록 빈 값을 돌려준다."""
-    knowledge_version = "empty-0"
+    """기준 데이터가 없을 때 호출자가 근거 부족으로 처리할 빈 지식을 돌려준다."""
 
-    def get_reference(self, cas_no: str, as_of: str) -> dict:
-        return {}
+    def get_reference(self, cas_no: str, as_of: str | None) -> ReferenceKnowledge:
+        return {
+            "cas_no": cas_no,
+            "as_of": as_of,
+            "knowledge_version": None,
+            "classes": [],
+            "ate": {},
+            "un_no": None,
+            "source": None,
+        }
 
-    def classify_mixture(self, components: list[dict], as_of: str) -> dict:
-        return {}
+    def get_regulation(self, cas_no: str, as_of: str | None) -> RegulationKnowledge:
+        return {
+            "cas_no": cas_no,
+            "as_of": as_of,
+            "knowledge_version": None,
+            "rows": [],
+        }
 
-    def get_regulation(self, cas_no: str, as_of: str) -> list[dict]:
-        return []
+    def classify_mixture(
+        self, components: list[dict], as_of: str | None
+    ) -> MixtureRuleKnowledge:
+        return {
+            "as_of": as_of,
+            "knowledge_version": None,
+            "cut_off": {},
+            "additivity": {},
+        }
+
+
+def get_reference(cas_no: str, as_of: str | None) -> ReferenceKnowledge:
+    """CAS 하나의 기준 분류와 독성 기준값.
+
+    {
+      "cas_no": str, "as_of": str | None, "knowledge_version": str | None,
+      "classes": [{"class_code", "category", "route_form", "source"}],  # 기준 분류
+      "ate": {"oral", "dermal", "inhal"},   # 급성독성 추정값. 모르면 키가 없거나 None
+      "un_no": str | None,
+      "source": str | None,
+    }
+    """
+    raise NotImplementedError
+
+
+def get_regulation(cas_no: str, as_of: str | None) -> RegulationKnowledge:
+    """CAS 하나에 걸리는 국내 법규제 기준 행.
+
+    {
+      "cas_no": str, "as_of": str | None, "knowledge_version": str | None,
+      "rows": [{"law", "item_code", "item_name", "threshold_op", "threshold_value",
+                "threshold_unit", "valid_from", "source", "note"}],
+    }
+    rows 의 칸 이름은 E 의 rules/sec15_rules.csv 머리글(E 가이드 3.4)을 따른다.
+    cas_no 는 조회 키라서 rows 에는 다시 담지 않는다. note 는 사람이 읽는 참고라 판정에 쓰지 않는다.
+    """
+    raise NotImplementedError
+
+
+def classify_mixture(components: list[dict], as_of: str | None) -> MixtureRuleKnowledge:
+    """혼합물 분류에 쓰는 한계농도와 가산 규칙.
+
+    components 는 load_inputs 결과의 components(seq, name, cas_no, content, ...) 이다.
+    {
+      "as_of": str | None, "knowledge_version": str | None,
+      "cut_off": {class_code: [CutOffRule]},   # 한계농도. load_cut_off() 의 형태
+      "additivity": {...},   # 가산 규칙. 안의 구조는 설계서 확인 후 정한다
+    }
+    """
+    raise NotImplementedError
+
+
+def load_cut_off(path: Path = CUT_OFF_CSV) -> dict[str, list[CutOffRule]]:
+    """고시 별표6 한계농도를 class_code 별 행 목록으로 읽는다.
+
+    성분 함량이 threshold 이상(>=)인 성분만 그 유해성 계산에 넣는다. 제11조⑨가 한계농도 "미만"을
+    기재 생략 대상으로 정하기 때문이다. 제11조⑨ 자체는 MSDS 기재 생략 기준이고, 이를 분류 계산의
+    제외 기준으로 쓰는 것은 「MSDS GHS분류 로직 설계 V6」 7번 슬라이드의 해석이다 (docs/adr/0002).
+    한계농도는 계산에 넣을 성분을 고르는 값이며, 별표1의 혼합물 분류 기준(예: 발암성 구분 2는 1%)과 다르다.
+    categories 가 None 이면 모든 구분에 적용한다. note 칸은 사람이 읽는 참고라 넘기지 않는다.
+    """
+    out: dict[str, list[CutOffRule]] = {}
+    with path.open(encoding="utf-8-sig", newline="") as f:
+        for r in csv.DictReader(f):
+            out.setdefault(r["class_code"], []).append({
+                "categories": r["categories"].split(";") if r["categories"] else None,
+                "threshold_op": r["threshold_op"],
+                "threshold_value": float(r["threshold_value"]),
+                "threshold_unit": r["threshold_unit"],
+                "source": r["source"],
+            })
+    return out
