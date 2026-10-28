@@ -1,0 +1,90 @@
+{
+ "doc_id": "T21-M005",
+ "msds_index": 0,
+ "section": 4,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S4_EYE",
+    "title_raw": "가. 눈에 들어갔을 때",
+    "start": "p3:L4",
+    "end": "p3:L6"
+   },
+   {
+    "item_code": "S4_SKIN",
+    "title_raw": "나. 피부에 접촉했을 때",
+    "start": "p3:L7",
+    "end": "p3:L15"
+   },
+   {
+    "item_code": "S4_INHAL",
+    "title_raw": "다. 흡입했을 때",
+    "start": "p3:L16",
+    "end": "p3:L23"
+   },
+   {
+    "item_code": "S4_INGEST",
+    "title_raw": "라. 먹었을 때",
+    "start": "p3:L24",
+    "end": "p3:L26"
+   },
+   {
+    "item_code": "S4_DOCTOR",
+    "title_raw": "마. 기타 의사의 주의사항",
+    "start": "p3:L27",
+    "end": "p3:L29"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S9_END",
+    "title_raw": "4. 응급조치요령",
+    "reason": "코드없음",
+    "comp_name": "4. 응급조치요령",
+    "comp_cas": "4. 응급조치요령",
+    "q": null,
+    "statements": [
+     {
+      "key": "항목번호",
+      "value": "4",
+      "refs": null,
+      "cond": null,
+      "line": "p3:L3"
+     }
+    ],
+    "suggested_code": "SECTION_NO",
+    "line": "p3:L3"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S4_EYE\",\n      \"title_raw\": \"가. 눈에 들어갔을 때\",\n      \"start\": \"p3:L4\",\n      \"end\": \"p3:L6\"\n    },\n    {\n      \"item_code\": \"S4_SKIN\",\n      \"title_raw\": \"나. 피부에 접촉했을 때\",\n      \"start\": \"p3:L7\",\n      \"end\": \"p3:L15\"\n    },\n    {\n      \"item_code\": \"S4_INHAL\",\n      \"title_raw\": \"다. 흡입했을 때\",\n      \"start\": \"p3:L16\",\n      \"end\": \"p3:L23\"\n    },\n    {\n      \"item_code\": \"S4_INGEST\",\n      \"title_raw\": \"라. 먹었을 때\",\n      \"start\": \"p3:L24\",\n      \"end\": \"p3:L26\"\n    },\n    {\n      \"item_code\": \"S4_DOCTOR\",\n      \"title_raw\": \"마. 기타 의사의 주의사항\",\n      \"start\": \"p3:L27\",\n      \"end\": \"p3:L29\"\n    }\n  ]\n,\n  \"extras\": [\n    {\n      \"after_item\": \"S9_END\",\n      \"title_raw\": \"4. 응급조치요령\",\n      \"reason\": \"코드없음\",\n      \"comp_name\": \"4. 응급조치요령\"\n    ,\n      \"comp_cas\": \"4. 응급조치요령\"\n    ,\n      \"q\": null,\n      \"statements\": [\n        {\n          \"key\": \"항목번호\",\n          \"value\": \"4\"\n        ,\n          \"refs\": null,\n          \"cond\": null,\n          \"line\": \"p3:L3\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"SECTION_NO\"\n    ,\n      \"line\": \"p3:L3\"\n    }\n  ]\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 11618,
+  "completion_tokens": 490,
+  "total_tokens": 12108
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 11618,
+    "completion_tokens": 490,
+    "total_tokens": 12108
+   },
+   "seconds": 13.271,
+   "chars": 1107,
+   "whitespace": 438,
+   "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S4_EYE\",\n      \"title_raw\": \"가. 눈에 들어갔을 때\",\n      \"start\": \"p3:L4\",\n      \"end\": \"p3:L6\"\n    },\n    {\n      \"item_code\": \"S4_SKIN\",\n      \"title_raw\": \"나. 피부에 접촉했을 때\",\n      \"start\": \"p3:L7\",\n      \"end\": \"p3:L15\"\n    },\n    {\n      \"item_code\": \"S4_INHAL\",\n      \"title_raw\": \"다. 흡입했을 때\",\n      \"start\": \"p3:L16\",\n      \"end\": \"p3:L23\"\n    },\n    {\n      \"item_code\": \"S4_INGEST\",\n      \"title_raw\": \"라. 먹었을 때\",\n      \"start\": \"p3:L24\",\n      \"end\": \"p3",
+   "tail": "L27\",\n      \"end\": \"p3:L29\"\n    }\n  ]\n,\n  \"extras\": [\n    {\n      \"after_item\": \"S9_END\",\n      \"title_raw\": \"4. 응급조치요령\",\n      \"reason\": \"코드없음\",\n      \"comp_name\": \"4. 응급조치요령\"\n    ,\n      \"comp_cas\": \"4. 응급조치요령\"\n    ,\n      \"q\": null,\n      \"statements\": [\n        {\n          \"key\": \"항목번호\",\n          \"value\": \"4\"\n        ,\n          \"refs\": null,\n          \"cond\": null,\n          \"line\": \"p3:L3\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"SECTION_NO\"\n    ,\n      \"line\": \"p3:L3\"\n    }\n  ]\n}"
+  }
+ ],
+ "seconds": 13.272,
+ "check_problems": []
+}
