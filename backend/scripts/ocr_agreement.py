@@ -16,7 +16,8 @@
 - p001.agree.json  쪽 지표
 - data/pages/ocr_all_summary.jsonl  모든 쪽 지표를 한 줄씩 (끝날 때 다시 만든다)
 
-이미 OCR한 쪽은 건너뛴다(중간에 멈춰도 다시 돌리면 이어진다). --seed로 다른 곳에서 같은 설정으로 OCR한
+이미 같은 설정(CONFIG: dpi·모델·버전)으로 OCR한 쪽은 OCR을 다시 하지 않고 지표만 다시 잰다(중간에 멈춰도 다시 돌리면 이어진다).
+설정이 다른 결과는 다시 OCR한다. --seed로 다른 곳에서 같은 설정으로 OCR한
 결과(dpi가 없는 예전 형식은 300dpi)를 먼저 가져올 수 있다.
 
 사용법 (backend/에서, PaddleOCR 환경)
@@ -109,6 +110,17 @@ def seed(doc_id: str, src: Path) -> int:
     return n
 
 
+def same_config(oj: Path) -> bool:
+    """이 쪽 OCR 결과가 있고 지금 설정(CONFIG)으로 OCR한 것인가. 가져온 곳(seeded_from)은 보지 않는다."""
+    if not oj.exists():
+        return False
+    data = json.loads(oj.read_text(encoding="utf-8"))
+    if not isinstance(data, dict):
+        return False   # dpi·설정이 없는 예전 형식
+    got = {k: v for k, v in (data.get("config") or {}).items() if k != "seeded_from"}
+    return got == CONFIG
+
+
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--docs", nargs="*")
@@ -135,7 +147,7 @@ if __name__ == "__main__":
             n = p["page"]
             oj, aj = out_dir(doc_id) / f"p{n:03d}.ocr.json", out_dir(doc_id) / f"p{n:03d}.agree.json"
             t0 = time.time()
-            if not oj.exists():
+            if not same_config(oj):
                 engine = engine or _engine()
                 with tempfile.TemporaryDirectory() as tmp:
                     png = Path(tmp) / "p.png"
