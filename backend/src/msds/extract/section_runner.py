@@ -6,7 +6,7 @@
 runs/<실행 이름>/ 에 남는 것
   outputs/<문서>.json            TO21 v0.6 문서
   checks/<문서>.json             항별 결과, 스키마·TO21 검증기 결과, 펼치기 문제, 경고, 사람 검토할 항
-  raw/<문서>_m<i>_s<NN>.json     항별 모델 응답과 사용량 (재추출했으면 다른 시도도)
+  raw/<문서>_m<i>_s<NN>.json     항별 모델 응답과 사용량, 요청별 기록 requests (재추출했으면 다른 시도도)
   timing.jsonl                   단계별 시간: inputs, call, reextract, expand, checks, total
   run_info.yaml                  모델, 프롬프트 버전·해시, 스키마 버전, 시각, git 커밋 (save_run_info)
 시스템 안내문과 중간 형식 스키마는 명세서 내용이라 저장하지 않는다 (D-47).
@@ -87,10 +87,11 @@ def _attempt(client, system: str, user: list[dict], schema: dict, schema_name: s
         r = client.call(system, user, schema, schema_name)
         rec = {"ok": r.ok, "parsed": r.parsed, "raw_text": r.raw_text, "mode": r.mode,
                "finish_reason": r.finish_reason, "usage": r.usage or {}, "attempts": r.attempts,
-               "errors": list(r.errors)}
+               "errors": list(r.errors), "requests": list(r.requests)}
     except Exception as e:
         rec = {"ok": False, "parsed": None, "raw_text": None, "mode": None, "finish_reason": None,
-               "usage": {}, "attempts": 1, "errors": [f"호출 예외: {type(e).__name__}: {str(e)[:300]}"]}
+               "usage": {}, "attempts": 1, "errors": [f"호출 예외: {type(e).__name__}: {str(e)[:300]}"],
+               "requests": []}
     rec["seconds"] = round(time.perf_counter() - t0, 3)
     rec["check_problems"] = check_section(rec["parsed"], allowed)
     return rec

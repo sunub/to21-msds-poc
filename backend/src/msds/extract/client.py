@@ -47,6 +47,7 @@ class CallResult:
     model: str
     attempts: int
     errors: list[str] = field(default_factory=list)
+    requests: list[dict] = field(default_factory=list)   # 받은 응답마다 하나 (_request_record)
 
     @property
     def ok(self) -> bool:
@@ -69,6 +70,16 @@ def page_parts(pages: list[dict], input_mode: str, detail: str = "high") -> list
             parts.append({"type": "text", "text": f"{header}\n[텍스트층 없음 또는 깨짐: 이미지만 보고 읽으세요]"})
         parts.append(image_part(p["image"], detail))
     return parts
+
+
+_TEXT_EDGE = 500   # 요청 기록에 남기는 응답 앞·뒤 글자 수
+
+
+def _request_record(mode: str, finish: str | None, usage: dict, seconds: float, text: str) -> dict:
+    """요청 하나의 기록. 성공해도 앞선 요청이 출력 한도에 걸린 이유(공백 폭주, 진짜 긴 출력)를 볼 수 있게 남긴다."""
+    return {"mode": mode, "finish_reason": finish, "usage": usage, "seconds": round(seconds, 3),
+            "chars": len(text), "whitespace": sum(c.isspace() for c in text),
+            "head": text[:_TEXT_EDGE], "tail": text[_TEXT_EDGE:][-_TEXT_EDGE:]}
 
 
 _FENCE = re.compile(r"^```(?:json)?\s*|\s*```$", re.S)
@@ -136,6 +147,7 @@ class ChatClient:
                        + json.dumps(strict_schema, ensure_ascii=False))
         t0 = time.time()
         errors: list[str] = []
+        requests: list[dict] = []
         attempts = 0
         usage: dict = {}
         last_text = ""
@@ -149,6 +161,7 @@ class ChatClient:
             retry = 0
             while retry <= max_retries:
                 attempts += 1
+                t_req = time.time()
                 try:
                     resp = self._call_with_backoff(messages, mode, schema_name, strict_schema, max_tokens)
                 except _ModeRejected as e:
@@ -162,11 +175,14 @@ class ChatClient:
                 u = getattr(resp, "usage", None)
                 if u is not None:
                     usage = {k: getattr(u, k, None) for k in ("prompt_tokens", "completion_tokens", "total_tokens")}
+                requests.append(_request_record(mode, finish, usage if u is not None else {},
+                                                time.time() - t_req, last_text))
                 if finish == "length":
                     errors.append(f"[{mode}] 출력 길이 한도에 걸려 잘림 (max_tokens={max_tokens})")
                     if mode == "json_schema" and modes[i + 1:i + 2] == ["json_schema_compact"]:
                         break      # 공백을 막아 한 번 더 보낸다 (ADR-016)
-                    return CallResult(None, last_text, mode, finish, usage, time.time() - t0, self.model, attempts, errors)
+                    return CallResult(None, last_text, mode, finish, usage, time.time() - t0, self.model, attempts,
+                                      errors, requests)
                 try:
                     parsed = parse_json(last_text)
                 except (json.JSONDecodeError, ValueError) as e:
@@ -175,7 +191,8 @@ class ChatClient:
                     last_parsed = parsed
                     problems = validate(parsed, schema)
                     if not problems:
-                        return CallResult(parsed, last_text, mode, finish, usage, time.time() - t0, self.model, attempts, [])
+                        return CallResult(parsed, last_text, mode, finish, usage, time.time() - t0, self.model, attempts,
+                                          [], requests)
                 retry += 1
                 errors.append(f"[{mode}] 검증 실패 {len(problems)}건: " + "; ".join(problems[:5]))
                 messages = messages + [
@@ -186,8 +203,10 @@ class ChatClient:
             else:
                 # 방식은 받아들여졌지만 재시도해도 형식이 맞지 않음: 다른 방식으로 바꿔도 나아지지 않으므로 멈춘다.
                 # 읽을 수 있는 JSON이 있으면 넘겨서 쓸 수 있는 부분은 쓰게 한다 (ok=False로 표시됨).
-                return CallResult(last_parsed, last_text, mode, finish, usage, time.time() - t0, self.model, attempts, errors)
-        return CallResult(last_parsed, last_text, None, finish, usage, time.time() - t0, self.model, attempts, errors)
+                return CallResult(last_parsed, last_text, mode, finish, usage, time.time() - t0, self.model, attempts,
+                                  errors, requests)
+        return CallResult(last_parsed, last_text, None, finish, usage, time.time() - t0, self.model, attempts, errors,
+                          requests)
 
     def _call_with_backoff(self, messages, mode, schema_name, strict_schema, max_tokens):
         from openai import APIStatusError, APIConnectionError, RateLimitError
