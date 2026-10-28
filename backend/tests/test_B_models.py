@@ -14,6 +14,7 @@ NEW_TAGS = {
     "nuextract2_8b_runpod": ("numind/NuExtract-2.0-8B", "RUNPOD_VLLM_BASE_URL", "RUNPOD_VLLM_API_KEY"),
 }
 RNGD_TAGS = {"qwen3_30b_a3b_rngd", "gpt_oss_20b_rngd", "qwen3vl4b_rngd"}
+COMPACT_TAGS = RNGD_TAGS - {"gpt_oss_20b_rngd"}   # gpt-oss는 구조화 출력을 쓰지 않는다 (아래 시험)
 
 
 @pytest.mark.parametrize("tag", NEW_TAGS)
@@ -36,7 +37,12 @@ def test_온도_0과_동시_호출_수(tag):
 @pytest.mark.parametrize("tag", NEW_TAGS)
 def test_compact는_RNGD_태그에만_있다(tag):
     has = "json_schema_compact" in load_model_config(tag)["structured"]
-    assert has == (tag in RNGD_TAGS)
+    assert has == (tag in COMPACT_TAGS)
+
+
+def test_gpt_oss는_구조화_출력을_쓰지_않는다():
+    # furiosa-llm에서 json_schema를 켜면 gpt-oss가 추론을 건너뛰고 공백·말줄임표를 반복한다 (10/28 S003)
+    assert load_model_config("gpt_oss_20b_rngd")["structured"] == ["none"]
 
 
 @pytest.mark.parametrize("tag", RNGD_TAGS)

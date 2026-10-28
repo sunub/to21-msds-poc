@@ -65,7 +65,7 @@ models:
     base_url_env: RNGD_BASE_URL
     api_key_env: RNGD_API_KEY
     token_param: max_completion_tokens
-    structured: [json_schema, json_schema_compact, none]
+    structured: [none]                   # json_schema를 켜면 추론을 건너뛰고 공백·말줄임표를 반복한다 (10/28 S003)
     max_tokens: 8192
     concurrency: 16
     params: {temperature: 0}
