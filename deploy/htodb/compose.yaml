@@ -3,6 +3,7 @@
 name: to21-htodb
 services:
   pg:
+    restart: unless-stopped   # Docker가 켜지면 자동으로 뜸
     image: postgres:16.15@sha256:ca0bd484cb98bf4b24eb1010e73fb3fcbd6714d240fbc1a10eea5b7dbecb641d
     environment:
       POSTGRES_USER: kdb
@@ -12,6 +13,7 @@ services:
     volumes: [pgdata:/var/lib/postgresql/data]
   mssql:
     profiles: [export]
+    platform: linux/amd64   # 이미지가 amd64 전용. Apple Silicon은 Docker Desktop의 Rosetta 사용을 켠다
     image: mcr.microsoft.com/mssql/server:2022-latest@sha256:cf8f0ab2ebe61feec2eed2629061a07d247f791c2a8ddda74a4ac9f06a291718  # 16.0.4305.5 (CU27-GDR)
     environment:
       ACCEPT_EULA: "Y"
