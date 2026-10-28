@@ -13,8 +13,8 @@ from __future__ import annotations
 from datetime import datetime, timedelta, timezone
 
 KST = timezone(timedelta(hours=9))
-SCHEMA_VERSION = "TO21-MSDS-EXT v0.5"
-DICTIONARY_VERSION = "v0.5"
+SCHEMA_VERSION = "TO21-MSDS-EXT v0.6"
+DICTIONARY_VERSION = "v0.6"
 
 
 def now_kst() -> str:
