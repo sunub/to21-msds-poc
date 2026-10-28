@@ -99,7 +99,7 @@ models:
     model: numind/NuExtract-2.0-8B
     base_url_env: RUNPOD_VLLM_BASE_URL
     api_key_env: RUNPOD_VLLM_API_KEY
-    # 시스템 안내문 대신 chat_template_kwargs.template로 칸 틀을 받는다. ChatClient는 아직 이 방식을 쓰지 않는다 (10/30에 더함)
+    # 시스템 안내문 대신 chat_template_kwargs.template로 칸 틀을 받는다. ChatClient가 항별 스키마를 틀로 바꿔 보내고 다시 보내지 않는다 (ADR-010)
     request_style: nuextract_template
     structured: [none]
     max_tokens: 8192

@@ -7,6 +7,7 @@
 - 어떤 방식이 거부되면(400 오류 등) 다음 방식으로 넘어가고, 성공한 방식은 기억해 다음 호출부터 바로 쓴다.
 - 어느 방식이든 응답을 JSON으로 읽은 뒤 스키마로 검증하고, 실패하면 오류 내용을 붙여 다시 요청한다.
 - RNGD 태그는 json_schema가 출력 한도에 걸리면 json_schema_compact(공백을 막은 스키마 강제)로 한 번 더 보낸다 (ADR-016).
+- request_style: nuextract_template 태그는 시스템 메시지 없이 칸 틀만 보내고, 다시 보내지 않는다 (ADR-010).
 """
 from __future__ import annotations
 
@@ -23,6 +24,7 @@ from dotenv import load_dotenv
 
 from ..common.paths import CONFIGS
 from ..common.schema import to_strict, validate
+from . import nuextract
 
 load_dotenv()
 
@@ -114,7 +116,7 @@ class ChatClient:
         # 출력 길이 한도 이름: 모델에 따라 max_tokens 또는 max_completion_tokens
         self.token_param = cfg.get("token_param", "max_tokens")
 
-    def _request(self, messages, mode, schema_name, strict_schema, max_tokens):
+    def _request(self, messages, mode, schema_name, strict_schema, max_tokens, template=None):
         params = dict(self.cfg.get("params") or {})
         extra_body = params.pop("extra_body", None)
         kw = dict(model=self.model, messages=messages, **params)
@@ -130,12 +132,19 @@ class ChatClient:
                                 "structured_outputs": {"json": strict_schema, "disable_any_whitespace": True}}
         elif mode == "json_object":
             kw["response_format"] = {"type": "json_object"}
+        elif mode == "nuextract_template":
+            # NuExtract 2.0은 response_format 대신 대화 틀 인자로 칸 틀을 받는다 (ADR-010)
+            eb = extra_body or {}
+            kw["extra_body"] = {**eb, "chat_template_kwargs": {**(eb.get("chat_template_kwargs") or {}),
+                                                               "template": template}}
         return self.client.chat.completions.create(**kw)
 
     def call(self, system: str, user_parts: list[dict], schema: dict, schema_name: str,
              max_tokens: int | None = None) -> CallResult:
         """한 묶음 호출. schema는 검증용 원래 스키마(묶음 응답 형식)."""
         max_tokens = max_tokens or self.cfg.get("max_tokens", 32000)
+        if self.cfg.get("request_style") == "nuextract_template":
+            return self._call_nuextract(user_parts, schema, max_tokens)
         max_retries = self.cfg.get("run", {}).get("max_retries", 2)
         strict_schema = to_strict(schema)
         modes = list(self.cfg.get("structured") or ["none"])
@@ -208,13 +217,46 @@ class ChatClient:
         return CallResult(last_parsed, last_text, None, finish, usage, time.time() - t0, self.model, attempts, errors,
                           requests)
 
-    def _call_with_backoff(self, messages, mode, schema_name, strict_schema, max_tokens):
+    def _call_nuextract(self, user_parts: list[dict], schema: dict, max_tokens: int) -> CallResult:
+        """NuExtract 2.0 호출 (ADR-010). 사용자 글은 뽑을 원문 그대로 보내고, 칸은 틀로만 넘긴다.
+        같은 입력·temperature 0이면 같은 응답이 오고 대화 틀이 오류를 붙인 재요청을 받지 않으므로 한 번만 보낸다.
+        항 단위 재추출은 실행기가 한다."""
+        mode = "nuextract_template"
+        messages = [{"role": "user", "content": user_parts}]
+        template = json.dumps(nuextract.template(schema), ensure_ascii=False, indent=4)
+        t0 = time.time()
+        try:
+            resp = self._call_with_backoff(messages, mode, None, None, max_tokens, template)
+        except _ModeRejected as e:
+            return CallResult(None, "", mode, None, {}, time.time() - t0, self.model, 1, [f"[{mode}] 거부됨: {e}"])
+        choice = resp.choices[0]
+        finish = choice.finish_reason
+        text = choice.message.content or ""
+        u = getattr(resp, "usage", None)
+        usage = ({k: getattr(u, k, None) for k in ("prompt_tokens", "completion_tokens", "total_tokens")}
+                 if u is not None else {})
+        requests = [_request_record(mode, finish, usage, time.time() - t0, text)]
+        parsed, errors = None, []
+        if finish == "length":
+            errors.append(f"[{mode}] 출력 길이 한도에 걸려 잘림 (max_tokens={max_tokens})")
+        else:
+            try:
+                parsed = nuextract.coerce(parse_json(text), schema)
+            except (json.JSONDecodeError, ValueError) as e:
+                errors.append(f"[{mode}] JSON으로 읽을 수 없음: {e}")
+            else:
+                problems = validate(parsed, schema)
+                if problems:
+                    errors.append(f"[{mode}] 검증 실패 {len(problems)}건: " + "; ".join(problems[:5]))
+        return CallResult(parsed, text, mode, finish, usage, time.time() - t0, self.model, 1, errors, requests)
+
+    def _call_with_backoff(self, messages, mode, schema_name, strict_schema, max_tokens, template=None):
         from openai import APIStatusError, APIConnectionError, RateLimitError
 
         delay = 5
         for i in range(5):
             try:
-                return self._request(messages, mode, schema_name, strict_schema, max_tokens)
+                return self._request(messages, mode, schema_name, strict_schema, max_tokens, template)
             except RateLimitError:
                 time.sleep(delay); delay *= 2
             except APIConnectionError:
