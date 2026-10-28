@@ -45,6 +45,67 @@ models:
     image_detail: high
     evidence_method: vLM
 
+  # --- 항목별 추출 비교 후보 (재계획 10/28). 항목 하나의 중간 형식은 짧아 max_tokens 8192면 충분하다.
+  # concurrency: 문서 하나의 항목별 동시 호출 수. RNGD Qwen3-30B-A3B는 16개 동시에서 요청당 초당 약 136토큰 (10/28 측정)
+
+  # RNGD furiosa-llm, 카드 4장
+  qwen3_30b_a3b_rngd:
+    model: furiosa-ai/Qwen3-30B-A3B-Instruct-2507-FP8
+    base_url_env: RNGD_BASE_URL
+    api_key_env: RNGD_API_KEY
+    token_param: max_completion_tokens   # furiosa-llm에서 max_tokens는 옛 이름
+    structured: [json_schema, json_schema_compact, none]
+    max_tokens: 8192
+    concurrency: 16
+    params: {temperature: 0}             # 지정하지 않으면 서버가 모델의 generation_config(1.0)를 쓴다
+
+  # RNGD furiosa-llm, 카드 1장
+  gpt_oss_20b_rngd:
+    model: furiosa-ai/gpt-oss-20b
+    base_url_env: RNGD_BASE_URL
+    api_key_env: RNGD_API_KEY
+    token_param: max_completion_tokens
+    structured: [json_schema, json_schema_compact, none]
+    max_tokens: 8192
+    concurrency: 16
+    params: {temperature: 0}
+
+  # RNGD furiosa-llm, 카드 1장 (그림문자 판별, 10/31)
+  qwen3vl4b_rngd:
+    model: furiosa-ai/Qwen3-VL-4B-Instruct
+    base_url_env: RNGD_BASE_URL
+    api_key_env: RNGD_API_KEY
+    token_param: max_completion_tokens
+    structured: [json_schema, json_schema_compact, none]
+    max_tokens: 8192
+    concurrency: 16
+    params: {temperature: 0}
+
+  # RunPod vLLM 0.32.0
+  qwen36_35b_runpod:
+    model: Qwen/Qwen3.6-35B-A3B-FP8
+    base_url_env: RUNPOD_VLLM_BASE_URL
+    api_key_env: RUNPOD_VLLM_API_KEY
+    structured: [json_schema, json_object, none]   # vLLM 0.32.0은 요청별 공백 금지 옵션을 무시해서 compact를 넣지 않는다
+    max_tokens: 8192
+    concurrency: 16
+    params:
+      temperature: 0
+      extra_body:
+        chat_template_kwargs: {enable_thinking: false}
+
+  # RunPod vLLM 0.32.0
+  nuextract2_8b_runpod:
+    model: numind/NuExtract-2.0-8B
+    base_url_env: RUNPOD_VLLM_BASE_URL
+    api_key_env: RUNPOD_VLLM_API_KEY
+    # 시스템 안내문 대신 chat_template_kwargs.template로 칸 틀을 받는다. ChatClient는 아직 이 방식을 쓰지 않는다 (10/30에 더함)
+    request_style: nuextract_template
+    structured: [none]
+    max_tokens: 8192
+    concurrency: 16
+    params: {temperature: 0}
+
 run:
   max_retries: 2            # 스키마 검증 실패 시 재시도 횟수
   request_timeout: 600      # 초
