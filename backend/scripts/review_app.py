@@ -308,7 +308,7 @@ class Locator:
     def __init__(self, doc_id: str):
         self.doc, self.ok, self.cache = None, set(), {}
         meta_path = paths.page_meta(doc_id)
-        if not meta_path.exists():        # 쪽 이미지(C_v0.2)를 아직 안 넣었으면 상자 없이 연다
+        if not meta_path.exists():        # preprocess.py의 meta.json이 없으면(version2만 복사했을 때 등) 상자 없이 연다
             print(f"위치 상자 없이 엽니다: {meta_path} 없음")
             return
         meta = json.loads(meta_path.read_text(encoding="utf-8"))
@@ -1005,7 +1005,7 @@ if __name__ == "__main__":
     _use_repo_data()
     sheet = Sheet(a.doc)
     if not page_count(a.doc):
-        raise SystemExit(f"{paths.page_dir(a.doc)}에 쪽 사진이 없습니다. C가 나눠 준 쪽 이미지(C_v0.2)를 data/pages/에 두세요")
+        raise SystemExit(f"{paths.page_dir(a.doc)}에 쪽 사진이 없습니다. C의 OCR 결과(data/pages/version2/{a.doc}/)를 이 폴더에 복사하세요")
     handler = make_handler(sheet, a.cross, Locator(a.doc))
     try:
         server = HTTPServer(("127.0.0.1", a.port), handler)
