@@ -1,0 +1,72 @@
+{
+ "doc_id": "T21-S013",
+ "msds_index": 0,
+ "section": 12,
+ "reextracted": false,
+ "ok": false,
+ "parsed": null,
+ "raw_text": "",
+ "mode": "none",
+ "finish_reason": "length",
+ "usage": {
+  "prompt_tokens": 11637,
+  "completion_tokens": 8192,
+  "total_tokens": 19829
+ },
+ "attempts": 1,
+ "errors": [
+  "[none] 출력 길이 한도에 걸려 잘림 (max_tokens=8192)"
+ ],
+ "requests": [
+  {
+   "mode": "none",
+   "finish_reason": "length",
+   "usage": {
+    "prompt_tokens": 11637,
+    "completion_tokens": 8192,
+    "total_tokens": 19829
+   },
+   "seconds": 241.828,
+   "chars": 0,
+   "whitespace": 0,
+   "head": "",
+   "tail": ""
+  }
+ ],
+ "seconds": 241.825,
+ "check_problems": [],
+ "reextract_attempt": {
+  "ok": false,
+  "parsed": null,
+  "raw_text": "{\"ecotox\":[{\"comp_name\":\"Hydrogen\",\"comp_cas\":null,\"endpoint\":\"ECO_FISH\",\"descriptor\":\"LC50\",\"q\":{\"raw\":\"40.846 mg/L\",\"value\":40.846,\"approx\":null,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"mg/L\"},\"species\":\"Hydrogen\",\"duration_value\":96,\"duration_unit\":\"hr\",\"guideline\":null,\"data_source\":\"EPI SUITE\",\"statements\":[{\"key\":\"Hydrogen\",\"value\":\"LC50= 40.846 mg/L (96h, 추정치), 출처 : EPI SUITE\",\"refs\":null,\"cond\":null,\"line\":\"p8:L34\"}],\"status\":\"값있음\",\"line\":\"p8:L34\"},{\"comp",
+  "mode": "none",
+  "finish_reason": "length",
+  "usage": {
+   "prompt_tokens": 11666,
+   "completion_tokens": 8192,
+   "total_tokens": 19858
+  },
+  "attempts": 1,
+  "errors": [
+   "[none] 출력 길이 한도에 걸려 잘림 (max_tokens=8192)"
+  ],
+  "requests": [
+   {
+    "mode": "none",
+    "finish_reason": "length",
+    "usage": {
+     "prompt_tokens": 11666,
+     "completion_tokens": 8192,
+     "total_tokens": 19858
+    },
+    "seconds": 106.788,
+    "chars": 492,
+    "whitespace": 10,
+    "head": "{\"ecotox\":[{\"comp_name\":\"Hydrogen\",\"comp_cas\":null,\"endpoint\":\"ECO_FISH\",\"descriptor\":\"LC50\",\"q\":{\"raw\":\"40.846 mg/L\",\"value\":40.846,\"approx\":null,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"mg/L\"},\"species\":\"Hydrogen\",\"duration_value\":96,\"duration_unit\":\"hr\",\"guideline\":null,\"data_source\":\"EPI SUITE\",\"statements\":[{\"key\":\"Hydrogen\",\"value\":\"LC50= 40.846 mg/L (96h, 추정치), 출처 : EPI SUITE\",\"refs\":null,\"cond\":null,\"line\":\"p8:L34\"}],\"status\":\"값있음\",\"line\":\"p8:L34\"},{\"comp",
+    "tail": ""
+   }
+  ],
+  "seconds": 106.79,
+  "check_problems": []
+ }
+}
