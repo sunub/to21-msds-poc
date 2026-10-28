@@ -1,0 +1,45 @@
+# 추출 묶음 정의 (결정기록 D-35, D-39)
+# keys: TO21 스키마 msds[] 항목 안의 최상위 키. 묶음마다 이 키만 뽑는다.
+# doc_keys: 묶음 ①에서 함께 받는 doc 칸.
+# 순서: b1을 먼저 돌리고, b1의 성분 목록을 b2~b4에 넘긴다(성분 참조 번호 comp_ref를 맞추기 위함).
+
+bundles:
+  b1:
+    name: "① 머리글·1·2·3항"
+    sections: "머리글(관리정보), 1항 화학제품과 회사, 2항 유해성·위험성, 3항 구성성분"
+    keys: [meta, product, companies, hazard, composition, components]
+    doc_keys: [language, msds_count]
+    code_tables: ["5-1_유해성분류", "5-2_그림문자", "5-7_기타코드"]
+    dictionary: [headings]
+  b2:
+    name: "② 8·9항"
+    sections: "8항 노출방지 및 개인보호구(노출기준), 9항 물리화학적 특성"
+    keys: [exposure_limits, physchem]
+    code_tables: ["5-4_물리화학", "5-7_기타코드"]
+    dictionary: [physchem]
+  b3:
+    name: "③ 11·12항"
+    sections: "11항 독성에 관한 정보, 12항 환경에 미치는 영향"
+    keys: [toxicity, cmr, ecotox]
+    code_tables: ["5-5_독성생태", "5-8_발암성기관", "5-7_기타코드"]
+    dictionary: []
+  b4:
+    name: "④ 14·15항"
+    sections: "14항 운송에 필요한 정보, 15항 법적규제 현황"
+    keys: [transport, regulations, dangerous_goods, waste, intl_class]
+    code_tables: ["5-6_법규제", "5-7_기타코드"]
+    dictionary: [regulations]
+  b5:
+    name: "⑤ 서술형"
+    sections: "4·5·6·7·8·10·11·12·13·14·16항의 서술 문장, 그리고 문서 전체에서 스키마에 맞는 칸이 없는 항목"
+    keys: [narratives, extras]
+    code_tables: ["5-3_서술항목", "5-7_기타코드"]
+    dictionary: [sections, narratives]
+
+# 2주차 세 결과 대조(D-39)에서 나머지 두 결과가 부르는 범위. 1주차에는 쓰지 않는다.
+priority1_only:
+  b1: all
+  b2: "exposure_limits 전체 + physchem 중 필수 물성 9종"
+  b3: "toxicity 중 급성독성(TX_ORAL, TX_DERMAL, TX_INHAL)"
+  b4: "transport, regulations 중 국내 법령, dangerous_goods"
+  b5: none

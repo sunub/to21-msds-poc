@@ -1,0 +1,1289 @@
+{
+  "doc_id": "T21-023",
+  "bundle": "b3",
+  "model": "claude-opus-5-5",
+  "mode": "none",
+  "finish_reason": "stop",
+  "usage": {
+    "prompt_tokens": 95208,
+    "completion_tokens": 15886,
+    "total_tokens": 111094,
+    "served_model": "claude-opus-5-5"
+  },
+  "seconds": 118.1,
+  "attempts": 1,
+  "errors": [],
+  "parsed": {
+    "msds": [
+      {
+        "toxicity": [
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_ORAL",
+            "descriptor": "LD50",
+            "q": {
+              "raw": "238 ~ 277 mg/kg",
+              "approx": false,
+              "value": null,
+              "lower_op": ">=",
+              "lower": 238,
+              "upper_op": "<=",
+              "upper": 277,
+              "unit": "mg/kg",
+              "dp": 0,
+              "status": "값있음",
+              "note": null
+            },
+            "species": "랫드",
+            "sex": "암컷",
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": "화평법 등록서류",
+            "classification": "구분 3",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "유독물질의 지정고시",
+                "value": "구분 3",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "• 유독물질의 지정고시 : 구분 3"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_DERMAL",
+            "descriptor": null,
+            "q": null,
+            "species": null,
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [],
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_INHAL",
+            "descriptor": "LC50",
+            "q": {
+              "raw": "8.3 mg/L",
+              "approx": false,
+              "value": 8.3,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "mg/L",
+              "dp": 1,
+              "status": "값있음",
+              "note": null
+            },
+            "species": "마우스",
+            "sex": null,
+            "duration_value": 30,
+            "duration_unit": "min",
+            "physical_form": "분진·미스트",
+            "exposure_type": "에어로졸",
+            "converted": {
+              "raw": "1.0375 ppm/4h",
+              "approx": false,
+              "value": 1.0375,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "ppm",
+              "dp": 4,
+              "status": "값있음",
+              "note": "4h 환산"
+            },
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": "화평법 등록서류",
+            "classification": "구분 3",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "유독물질의 지정고시",
+                "value": "구분 3",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "• 유독물질의 지정고시 : 구분 3"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_SKIN",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": "인체 피부 모델",
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": "OECD TG 431",
+            "data_source": "화평법 등록서류",
+            "classification": "구분 1",
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "인체 피부 모델을 대상으로 피부 부식성/자극성 시험결과, 부식성이 관찰됨 (OECD TG 431) (화평법 등록서류)",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "• 인체 피부 모델을 대상으로 피부 부식성/자극성 시험결과, 부식성이 관찰됨 (OECD TG 431) (화평법 등록서류)"
+              },
+              {
+                "seq": 2,
+                "key": "유독물질의 지정고시",
+                "value": "구분 1",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "• 유독물질의 지정고시 : 구분 1"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_EYE",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": "토끼",
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": "OECD TG 405",
+            "data_source": "화평법 등록서류",
+            "classification": "구분 1",
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "토끼를 대상으로 심한 눈손상성/자극성 시험결과, 1% 이상의 농도로부터 눈에 비가역적 영향이 관찰됨 (전체 자극 점수 : (평균) 최대의 10.67) (OECD TG 405) (화평법 등록서류)",
+                "refs": null,
+                "cond": {
+                  "raw": "1% 이상",
+                  "approx": false,
+                  "value": null,
+                  "lower_op": ">=",
+                  "lower": 1,
+                  "upper_op": null,
+                  "upper": null,
+                  "unit": "%",
+                  "dp": 0,
+                  "status": "값있음",
+                  "note": null
+                },
+                "std_code": null,
+                "match_score": null,
+                "text": "• 토끼를 대상으로 심한 눈손상성/자극성 시험결과, 1% 이상의 농도로부터 눈에 비가역적 영향이 관찰됨 (전체 자극 점수 : (평균) 최대의 10.67) (OECD TG 405) (화평법 등록서류)"
+              },
+              {
+                "seq": 2,
+                "key": null,
+                "value": "피부 부식성 물질 (고용노동부고시)",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "• 피부 부식성 물질 (고용노동부고시)"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_RESP_SENS",
+            "descriptor": null,
+            "q": null,
+            "species": null,
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [],
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_SKIN_SENS",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": "마우스, 기니피그",
+            "sex": "암컷",
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": "OECD TG 406",
+            "data_source": "화평법 등록서류",
+            "classification": "분류되지 않음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "마우스(암)를 이용한 귀팽창시험법(MEST)과 기니피그(암)을 이용한 감작성시험 (GPMT)결과, 과민성을 유발하지 않음 (시험물질 : 염화수소) (OECD TG 406) (화평법 등록서류)",
+                "refs": [
+                  "1"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "• 마우스(암)를 이용한 귀팽창시험법(MEST)과 기니피그(암)을 이용한 감작성시험 (GPMT)결과, 과민성을 유발하지 않음 (시험물질 : 염화수소) (OECD TG 406) (화평법 등록서류)"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_CARC",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": null,
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": "화평법 등록서류",
+            "classification": "분류되지 않음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "IARC",
+                "value": "Group 3 (발암성으로 분류되지 않음)",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "• IARC : Group 3 (발암성으로 분류되지 않음)"
+              },
+              {
+                "seq": 2,
+                "key": "ACGIH",
+                "value": "A4 (인체 발암성으로 분류되지 않음)",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "• ACGIH : A4 (인체 발암성으로 분류되지 않음)"
+              },
+              {
+                "seq": 3,
+                "key": null,
+                "value": "염화수소 가스 10 ppm을 랫드(수)에게 128주간 흡입연구에서 발암성과 관련된 종양전 또는 종양 비강 병변이 관찰되지 않음. 흡입, 경구, 경피로 수행된 기타 동물 연구에서도 발암성과 관련된 증거는 발견되지 않음. 사람에게 염화수소 노출과 종양 발생 사이의 연관성은 관찰되지 않음 (화평법 등록서류)",
+                "refs": [
+                  "1"
+                ],
+                "cond": {
+                  "raw": "10 ppm",
+                  "approx": false,
+                  "value": 10,
+                  "lower_op": null,
+                  "lower": null,
+                  "upper_op": null,
+                  "upper": null,
+                  "unit": "ppm",
+                  "dp": 0,
+                  "status": "값있음",
+                  "note": null
+                },
+                "std_code": null,
+                "match_score": null,
+                "text": "• 염화수소 가스 10 ppm을 랫드(수)에게 128주간 흡입연구에서 발암성과 관련된 종양전 또는 종양 비강 병변이 관찰되지 않음. 흡입, 경구, 경피로 수행된 기타 동물 연구에서도 발암성과 관련된 증거는 발견되지 않음. 사람에게 염화수소 노출과 종양 발생 사이의 연관성은 관찰되지 않음 (화평법 등록서류)"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_MUTA",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": "미생물",
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": "시험관 내 복귀돌연변이시험",
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": "OECD TG 471, EU Method B.13/14",
+            "data_source": null,
+            "classification": "분류되지 않음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "시험관 내 미생물을 이용한 복귀돌연변이시험결과, 대사활성계 유무에 상관없이 음성 (시험물질 : 염화수소) (OECD TG 471, EU Method B.13/14)",
+                "refs": [
+                  "1"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "• 시험관 내 미생물을 이용한 복귀돌연변이시험결과, 대사활성계 유무에 상관없이 음성 (시험물질 : 염화수소) (OECD TG 471, EU Method B.13/14)"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_MUTA",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": "포유류세포",
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": "시험관 내 염색체이상시험",
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": "OECD TG 473, EU Method B.10",
+            "data_source": null,
+            "classification": "분류되지 않음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "시험관 내 포유류세포를 이용한 염색체이상시험결과, 대사활성계 유무에 상관없이 음성 (시험물질 : 염화수소) (OECD TG 473, EU Method B.10)",
+                "refs": [
+                  "1"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "• 시험관 내 포유류세포를 이용한 염색체이상시험결과, 대사활성계 유무에 상관없이 음성 (시험물질 : 염화수소) (OECD TG 473, EU Method B.10)"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_REPRO",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": "랫드 및 마우스",
+            "sex": null,
+            "duration_value": 90,
+            "duration_unit": "day",
+            "physical_form": null,
+            "exposure_type": "90일간 흡입 아만성",
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": "화평법 등록서류",
+            "classification": "분류되지 않음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "랫드 및 마우스를 대상으로 90일간 흡입 아만성시험결과, 조직병리학적 검사에서 생식기관 관련 영향은 관찰되지 않음 (시험물질 : 염화수소) (화평법 등록서류)",
+                "refs": [
+                  "1"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "• 랫드 및 마우스를 대상으로 90일간 흡입 아만성시험결과, 조직병리학적 검사에서 생식기관 관련 영향은 관찰되지 않음 (시험물질 : 염화수소) (화평법 등록서류)"
+              },
+              {
+                "seq": 2,
+                "key": null,
+                "value": "물과 접촉하여 완전히 해리되어 유기체에 생리학적으로 풍부하게 존재하는 히드로늄 및 염소 이온은 생식이나 발생에 위험을 초래하지 않을 것임 (화평법 등록서류)",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "• 물과 접촉하여 완전히 해리되어 유기체에 생리학적으로 풍부하게 존재하는 히드로늄 및 염소 이온은 생식이나 발생에 위험을 초래하지 않을 것임 (화평법 등록서류)"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_STOT_SE",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": "마우스",
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": "구분 3 (호흡기 자극)",
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "HCl은 고농도에서 마우스 호흡기관에 조직파괴(부식)을 유발함",
+                "refs": [
+                  "1"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "• HCl은 고농도에서 마우스 호흡기관에 조직파괴(부식)을 유발함"
+              },
+              {
+                "seq": 2,
+                "key": "유독물질의 지정고시",
+                "value": "구분 3 (호흡기 자극)",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "• 유독물질의 지정고시 : 구분 3 (호흡기 자극)"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_STOT_RE",
+            "descriptor": "LOAEL",
+            "q": {
+              "raw": "50 ppm",
+              "approx": false,
+              "value": 50,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "ppm",
+              "dp": 0,
+              "status": "값있음",
+              "note": "체중을 근거로 함"
+            },
+            "species": "랫드와 마우스",
+            "sex": null,
+            "duration_value": 90,
+            "duration_unit": "day",
+            "physical_form": null,
+            "exposure_type": "90 일간 흡입 아만성",
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": "OECD TG 413",
+            "data_source": "화평법 등록서류",
+            "classification": "분류되지 않음",
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_STOT_RE",
+            "descriptor": "NOAEL",
+            "q": {
+              "raw": "20 ppm",
+              "approx": false,
+              "value": 20,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "ppm",
+              "dp": 0,
+              "status": "값있음",
+              "note": "체중과 접촉에 따른 자극영향이 관찰되는 것을 근거로 함"
+            },
+            "species": "랫드와 마우스",
+            "sex": null,
+            "duration_value": 90,
+            "duration_unit": "day",
+            "physical_form": null,
+            "exposure_type": "90 일간 흡입 아만성",
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": "OECD TG 413",
+            "data_source": "화평법 등록서류",
+            "classification": "분류되지 않음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "NOEL = 10 ppm(15 mg/m3)으로 결정됨 (시험물질 : 염화수소) (OECD TG 413) (화평법 등록서류)",
+                "refs": [
+                  "1"
+                ],
+                "cond": {
+                  "raw": "10 ppm(15 mg/m3)",
+                  "approx": false,
+                  "value": 10,
+                  "lower_op": null,
+                  "lower": null,
+                  "upper_op": null,
+                  "upper": null,
+                  "unit": "ppm",
+                  "dp": 0,
+                  "status": "값있음",
+                  "note": null
+                },
+                "std_code": null,
+                "match_score": null,
+                "text": "NOEL = 10 ppm(15 mg/m3)으로 결정됨 (시험물질 : 염화수소) (OECD TG 413) (화평법 등록서류)"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_ASP",
+            "descriptor": null,
+            "q": null,
+            "species": null,
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [],
+            "status": "자료없음"
+          }
+        ],
+        "cmr": [
+          {
+            "comp_ref": "MIX",
+            "hazard": "발암성",
+            "agency": "IARC",
+            "class": "Group 3",
+            "status": "값있음",
+            "note": "발암성으로 분류되지 않음"
+          },
+          {
+            "comp_ref": "MIX",
+            "hazard": "발암성",
+            "agency": "ACGIH",
+            "class": "A4",
+            "status": "값있음",
+            "note": "인체 발암성으로 분류되지 않음"
+          }
+        ],
+        "ecotox": [
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_OTHER",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "guideline": null,
+            "data_source": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": "급성 수생 독성",
+                "value": "분류되지 않음",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "○ 급성 수생 독성 | 분류되지 않음"
+              },
+              {
+                "seq": 2,
+                "key": "만성 수생 독성",
+                "value": "분류되지 않음",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "○ 만성 수생 독성 | 분류되지 않음"
+              },
+              {
+                "seq": 3,
+                "key": null,
+                "value": "염산의 배출은 수생환경에서 pH를 국부적으로 감소시킬 가능성이 있으나 일반적으로 수용하는 물(receiving water)의 pH 변화는 자연적인 pH 범위 내에서 유지되어야 하므로 인위적 또는 자연적으로 발생하는 염산으로 인해 수생환경에 대한 악영향을 기대할 수 없으므로 수생환경유해성은 분류되지 않음으로 분류",
+                "refs": [
+                  "1"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "• 염산의 배출은 수생환경에서 pH를 국부적으로 감소시킬 가능성이 있으나 일반적으로 수용하는 물(receiving water)의 pH 변화는 자연적인 pH 범위 내에서 유지되어야 하므로 인위적 또는 자연적으로 발생하는 염산으로 인해 수생환경에 대한 악영향을 기대할 수 없으므로 수생환경유해성은 분류되지 않음으로 분류"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_FISH",
+            "descriptor": "LC50",
+            "q": {
+              "raw": "20.5 mg/L",
+              "approx": false,
+              "value": 20.5,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "mg/L",
+              "dp": 1,
+              "status": "값있음",
+              "note": null
+            },
+            "species": "Lepomis macrochirus",
+            "duration_value": 96,
+            "duration_unit": "hr",
+            "guideline": null,
+            "data_source": "화평법 등록서류",
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_CRUST",
+            "descriptor": "EC50",
+            "q": {
+              "raw": "0.492 mg/L",
+              "approx": false,
+              "value": 0.492,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "mg/L",
+              "dp": 3,
+              "status": "값있음",
+              "note": null
+            },
+            "species": "Daphnia magna",
+            "duration_value": 48,
+            "duration_unit": "hr",
+            "guideline": "OECD TG 202",
+            "data_source": "화평법 등록서류",
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "지수식, 담수",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "(지수식, 담수)"
+              },
+              {
+                "seq": 2,
+                "key": null,
+                "value": "pH 5.3",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "(pH 5.3, OECD TG 202)"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_ALGAE",
+            "descriptor": "ErC50",
+            "q": {
+              "raw": "0.492 mg/L",
+              "approx": false,
+              "value": 0.492,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "mg/L",
+              "dp": 3,
+              "status": "값있음",
+              "note": null
+            },
+            "species": "Selenastrum capriornutum",
+            "duration_value": 72,
+            "duration_unit": "hr",
+            "guideline": "OECD TG 201",
+            "data_source": "화평법 등록서류",
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "pH 5.3",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "(pH 5.3, OECD TG 201)"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_ALGAE",
+            "descriptor": "NOEC",
+            "q": {
+              "raw": "0.097 mg/L",
+              "approx": false,
+              "value": 0.097,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "mg/L",
+              "dp": 3,
+              "status": "값있음",
+              "note": null
+            },
+            "species": "Selenastrum capriornutum",
+            "duration_value": 72,
+            "duration_unit": "hr",
+            "guideline": "OECD TG 201",
+            "data_source": "화평법 등록서류",
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "pH 6.0",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "(pH 6.0, OECD TG 201)"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_PERSIST",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "guideline": null,
+            "data_source": "화평법 등록서류",
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "HCl은 물에서 히드로늄 및 염소이온으로 완전히 해리됨. 이러한 고유 특성으로 인해 무생물적 분해성 시험을 수행하는 것이 과학적으로 불가능함 (화평법 등록서류)",
+                "refs": [
+                  "1"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "• HCl은 물에서 히드로늄 및 염소이온으로 완전히 해리됨. 이러한 고유 특성으로 인해 무생물적 분해성 시험을 수행하는 것이 과학적으로 불가능함 (화평법 등록서류)"
+              },
+              {
+                "seq": 2,
+                "key": null,
+                "value": "생분해성에 대한 시험을 위한 요구 사항은 유기 화합물임. 활성 물질인 염산은 생물학적 분해가능성, 빠른 생분해성, 본질적 분해성이 아닌 무기 화합물이므로, 수계에서의 생분해는 과학적으로 수행 불가능함 (화평법 등록서류)",
+                "refs": [
+                  "1"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "• 생분해성에 대한 시험을 위한 요구 사항은 유기 화합물임. 활성 물질인 염산은 생물학적 분해가능성, 빠른 생분해성, 본질적 분해성이 아닌 무기 화합물이므로, 수계에서의 생분해는 과학적으로 수행 불가능함 (화평법 등록서류)"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_BIOACC",
+            "descriptor": "logKow",
+            "q": {
+              "raw": "-2.65 (계산치)",
+              "approx": false,
+              "value": -2.65,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": null,
+              "dp": 2,
+              "status": "값있음",
+              "note": "계산치"
+            },
+            "species": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "guideline": null,
+            "data_source": "화평법 등록서류",
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_BIOACC",
+            "descriptor": "BCF",
+            "q": {
+              "raw": "3.162 (예측치)",
+              "approx": false,
+              "value": 3.162,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": null,
+              "dp": 3,
+              "status": "값있음",
+              "note": "예측치"
+            },
+            "species": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "guideline": null,
+            "data_source": "EPISUITE",
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_SOIL",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "guideline": null,
+            "data_source": "화평법 등록서류",
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "물에서 HCl 해리의 결과로써 형성된 이온은 토양에서 이온-교환 과정을 겪을 것임. 요약하자면, 온전한 분자에 대한 Koc의 결정은 기술적으로 가능하지 않으며, 요구되는 시험 방법은 해리되는 분자에는 적용할 수 없음. 물에서의 해리 후에, 생성된 이온은 토양 내에서 이온교환을 겪을 것으로 예상됨 (화평법 등록서류)",
+                "refs": [
+                  "1"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "• 물에서 HCl 해리의 결과로써 형성된 이온은 토양에서 이온-교환 과정을 겪을 것임. 요약하자면, 온전한 분자에 대한 Koc의 결정은 기술적으로 가능하지 않으며, 요구되는 시험 방법은 해리되는 분자에는 적용할 수 없음. 물에서의 해리 후에, 생성된 이온은 토양 내에서 이온교환을 겪을 것으로 예상됨 (화평법 등록서류)"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_OTHER",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "guideline": null,
+            "data_source": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": "PBT 및 vPvB 평가",
+                "value": "PBT 및 vPvB 물질 아님",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "마. PBT 및 vPvB 평가 | PBT 및 vPvB 물질 아님"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_OZONE",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "guideline": null,
+            "data_source": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "분류되지 않음",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "바. 오존층 유해성 | 분류되지 않음"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_OTHER",
+            "descriptor": null,
+            "q": null,
+            "species": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "guideline": null,
+            "data_source": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": "기타 유해 영향",
+                "value": "자료없음",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "사. 기타 유해 영향 | 자료없음"
+              }
+            ],
+            "status": "자료없음"
+          }
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "msds_index": 0,
+        "field": "toxicity[0]",
+        "page": 8,
+        "source_text": "경구 | 구분 3 | • LD50 (랫드, 암) = 238 ~ 277 mg/kg (시험물질 : 염산) (화평법 등록서류) | • 유독물질의 지정고시 : 구분 3",
+        "rules": [
+          "R04",
+          "R08",
+          "R10"
+        ],
+        "note": "'238 ~ 277'을 R04에 따라 하한 238(>=), 상한 277(<=)로 나눔. 시험물질이 염산이라 comp_ref=1"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[1]",
+        "page": 8,
+        "source_text": "경피 | 자료없음",
+        "rules": [
+          "R15",
+          "R10"
+        ],
+        "note": "자료없음을 status로 표시, 특정 성분 지정이 없어 MIX"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[2]",
+        "page": 8,
+        "source_text": "흡입(분진/미스트) | 구분 3 | • LC50(마우스, 에어로졸) = 8.3 mg/L (30 min) (환산 : 1.0375 ppm/4h) (화평법 등록서류) | • 유독물질의 지정고시 : 구분 3",
+        "rules": [
+          "R04",
+          "R06",
+          "R10"
+        ],
+        "note": "30 min을 노출시간으로, 환산값 1.0375 ppm/4h를 converted에 넣음. 시험물질 표기가 없어 MIX"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[3]",
+        "page": 8,
+        "source_text": "○ 피부 부식성 또는 자극성 | 구분 1 | • 인체 피부 모델을 대상으로 피부 부식성/자극성 시험결과, 부식성이 관찰됨 (OECD TG 431) (화평법 등록서류) | • 유독물질의 지정고시 : 구분 1",
+        "rules": [
+          "R10"
+        ],
+        "note": "8~9쪽에 걸친 행을 하나로 합침"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[4]",
+        "page": 9,
+        "source_text": "○ 심한 눈손상 또는 자극성 | 구분 1 | • 토끼를 대상으로 심한 눈손상성/자극성 시험결과, 1% 이상의 농도로부터 눈에 비가역적 영향이 관찰됨 (전체 자극 점수 : (평균) 최대의 10.67) (OECD TG 405) (화평법 등록서류)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "'1% 이상'을 문장 조건 cond로 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[5]",
+        "page": 9,
+        "source_text": "○ 호흡기과민성 | 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[6]",
+        "page": 9,
+        "source_text": "○ 피부과민성 | 분류되지 않음 | • 마우스(암)를 이용한 귀팽창시험법(MEST)과 기니피그(암)을 이용한 감작성시험 (GPMT)결과, 과민성을 유발하지 않음 (시험물질 : 염화수소) (OECD TG 406) (화평법 등록서류)",
+        "rules": [
+          "R10"
+        ],
+        "note": "시험물질 염화수소 → comp_ref=1"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[7]",
+        "page": 9,
+        "source_text": "○ 발암성 | 분류되지 않음 | • IARC : Group 3 (발암성으로 분류되지 않음) | • ACGIH : A4 (인체 발암성으로 분류되지 않음) | • 염화수소 가스 10 ppm을 랫드(수)에게 128주간 흡입연구에서 ...",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[8]",
+        "page": 9,
+        "source_text": "○ 생식세포 변이원성 | 분류되지 않음 | • 시험관 내 미생물을 이용한 복귀돌연변이시험결과, 대사활성계 유무에 상관없이 음성 (시험물질 : 염화수소) (OECD TG 471, EU Method B.13/14)",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[9]",
+        "page": 9,
+        "source_text": "• 시험관 내 포유류세포를 이용한 염색체이상시험결과, 대사활성계 유무에 상관없이 음성 (시험물질 : 염화수소) (OECD TG 473, EU Method B.10)",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[10]",
+        "page": 9,
+        "source_text": "○ 생식독성 | 분류되지 않음 | • 랫드 및 마우스를 대상으로 90일간 흡입 아만성시험결과, 조직병리학적 검사에서 생식기관 관련 영향은 관찰되지 않음 (시험물질 : 염화수소) (화평법 등록서류)",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[11]",
+        "page": 9,
+        "source_text": "○ 특정 표적장기 전신독성 (1회 노출) | 구분 3 (호흡기 자극) | • HCl은 고농도에서 마우스 호흡기관에 조직파괴(부식)을 유발함 | • 유독물질의 지정고시 : 구분 3 (호흡기 자극)",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[12]",
+        "page": 10,
+        "source_text": "랫드와 마우스를 대상으로 90 일간 흡입 아만성시험결과, 체중을 근거로 한 LOAEL = 50 ppm",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "9~10쪽에 걸친 문장에서 LOAEL을 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[13]",
+        "page": 10,
+        "source_text": "체중과 접촉에 따른 자극영향이 관찰되는 것을 근거로 한 NOAEL = 20 ppm, NOEL = 10 ppm(15 mg/m3)으로 결정됨 (시험물질 : 염화수소) (OECD TG 413) (화평법 등록서류)",
+        "rules": [
+          "R04",
+          "R08",
+          "R10"
+        ],
+        "note": "NOEL은 지표 목록에 없어 statements로 남김"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[14]",
+        "page": 10,
+        "source_text": "○ 흡인 유해성 | 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[0]",
+        "page": 9,
+        "source_text": "• IARC : Group 3 (발암성으로 분류되지 않음)",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[1]",
+        "page": 9,
+        "source_text": "• ACGIH : A4 (인체 발암성으로 분류되지 않음)",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[0]",
+        "page": 10,
+        "source_text": "○ 급성 수생 독성 | 분류되지 않음 | ○ 만성 수생 독성 | 분류되지 않음",
+        "rules": [
+          "R10"
+        ],
+        "note": "맞는 생태 항목 코드가 없어 ECO_OTHER로 서술 보존"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[1]",
+        "page": 10,
+        "source_text": "• 어 류: 96h-LC50((Lepomis macrochirus) = 20.5 mg/L (화평법 등록서류)",
+        "rules": [
+          "R04"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[2]",
+        "page": 10,
+        "source_text": "• 갑각류: 48h-EC50(Daphnia magna)=0.492 mg/L (지수식, 담수) (pH 5.3, OECD TG 202) (화평법 등록서류)",
+        "rules": [
+          "R04"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[3]",
+        "page": 10,
+        "source_text": "• 조 류: 72h-ErC50(Selenastrum capriornutum)=0.492 mg/L (pH 5.3, OECD TG 201) (화평법 등록서류)",
+        "rules": [
+          "R04"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[4]",
+        "page": 10,
+        "source_text": "72h-NOEC(Selenastrum capriornutum)=0.097 mg/L (pH 6.0, OECD TG 201) (화평법 등록서류)",
+        "rules": [
+          "R04"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[5]",
+        "page": 10,
+        "source_text": "나. 잔류성 및 분해성 | • HCl은 물에서 히드로늄 및 염소이온으로 완전히 해리됨. ...",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[6]",
+        "page": 10,
+        "source_text": "• Log Kow = -2.65 (계산치) (화평법 등록서류)",
+        "rules": [
+          "R04"
+        ],
+        "note": "'계산치'를 note에 넣음"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[7]",
+        "page": 10,
+        "source_text": "• BCF = 3.162 (예측치) (EPISUITE)",
+        "rules": [
+          "R04"
+        ],
+        "note": "'예측치'를 note에 넣음"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[8]",
+        "page": 10,
+        "source_text": "라. 토양이동성 | • 물에서 HCl 해리의 결과로써 형성된 이온은 토양에서 이온-교환 과정을 겪을 것임. ...",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[9]",
+        "page": 10,
+        "source_text": "마. PBT 및 vPvB 평가 | PBT 및 vPvB 물질 아님",
+        "rules": [],
+        "note": "전용 코드가 없어 ECO_OTHER로 보존"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[10]",
+        "page": 10,
+        "source_text": "바. 오존층 유해성 | 분류되지 않음",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[11]",
+        "page": 11,
+        "source_text": "사. 기타 유해 영향 | 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      }
+    ]
+  },
+  "raw_text": "{\"msds\":[{\"toxicity\":[{\"comp_ref\":\"1\",\"endpoint\":\"TX_ORAL\",\"descriptor\":\"LD50\",\"q\":{\"raw\":\"238 ~ 277 mg/kg\",\"approx\":false,\"value\":null,\"lower_op\":\">=\",\"lower\":238,\"upper_op\":\"<=\",\"upper\":277,\"unit\":\"mg/kg\",\"dp\":0,\"status\":\"값있음\",\"note\":null},\"species\":\"랫드\",\"sex\":\"암컷\",\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":\"화평법 등록서류\",\"classification\":\"구분 3\",\"statements\":[{\"seq\":1,\"key\":\"유독물질의 지정고시\",\"value\":\"구분 3\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"• 유독물질의 지정고시 : 구분 3\"}],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_DERMAL\",\"descriptor\":null,\"q\":null,\"species\":null,\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[],\"status\":\"자료없음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_INHAL\",\"descriptor\":\"LC50\",\"q\":{\"raw\":\"8.3 mg/L\",\"approx\":false,\"value\":8.3,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"mg/L\",\"dp\":1,\"status\":\"값있음\",\"note\":null},\"species\":\"마우스\",\"sex\":null,\"duration_value\":30,\"duration_unit\":\"min\",\"physical_form\":\"분진·미스트\",\"exposure_type\":\"에어로졸\",\"converted\":{\"raw\":\"1.0375 ppm/4h\",\"approx\":false,\"value\":1.0375,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"ppm\",\"dp\":4,\"status\":\"값있음\",\"note\":\"4h 환산\"},\"read_across_cas\":null,\"guideline\":null,\"data_source\":\"화평법 등록서류\",\"classification\":\"구분 3\",\"statements\":[{\"seq\":1,\"key\":\"유독물질의 지정고시\",\"value\":\"구분 3\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"• 유독물질의 지정고시 : 구분 3\"}],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_SKIN\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":\"인체 피부 모델\",\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":\"OECD TG 431\",\"data_source\":\"화평법 등록서류\",\"classification\":\"구분 1\",\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"인체 피부 모델을 대상으로 피부 부식성/자극성 시험결과, 부식성이 관찰됨 (OECD TG 431) (화평법 등록서류)\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"• 인체 피부 모델을 대상으로 피부 부식성/자극성 시험결과, 부식성이 관찰됨 (OECD TG 431) (화평법 등록서류)\"},{\"seq\":2,\"key\":\"유독물질의 지정고시\",\"value\":\"구분 1\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"• 유독물질의 지정고시 : 구분 1\"}],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_EYE\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":\"토끼\",\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":\"OECD TG 405\",\"data_source\":\"화평법 등록서류\",\"classification\":\"구분 1\",\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"토끼를 대상으로 심한 눈손상성/자극성 시험결과, 1% 이상의 농도로부터 눈에 비가역적 영향이 관찰됨 (전체 자극 점수 : (평균) 최대의 10.67) (OECD TG 405) (화평법 등록서류)\",\"refs\":null,\"cond\":{\"raw\":\"1% 이상\",\"approx\":false,\"value\":null,\"lower_op\":\">=\",\"lower\":1,\"upper_op\":null,\"upper\":null,\"unit\":\"%\",\"dp\":0,\"status\":\"값있음\",\"note\":null},\"std_code\":null,\"match_score\":null,\"text\":\"• 토끼를 대상으로 심한 눈손상성/자극성 시험결과, 1% 이상의 농도로부터 눈에 비가역적 영향이 관찰됨 (전체 자극 점수 : (평균) 최대의 10.67) (OECD TG 405) (화평법 등록서류)\"},{\"seq\":2,\"key\":null,\"value\":\"피부 부식성 물질 (고용노동부고시)\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"• 피부 부식성 물질 (고용노동부고시)\"}],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_RESP_SENS\",\"descriptor\":null,\"q\":null,\"species\":null,\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[],\"status\":\"자료없음\"},{\"comp_ref\":\"1\",\"endpoint\":\"TX_SKIN_SENS\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":\"마우스, 기니피그\",\"sex\":\"암컷\",\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":\"OECD TG 406\",\"data_source\":\"화평법 등록서류\",\"classification\":\"분류되지 않음\",\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"마우스(암)를 이용한 귀팽창시험법(MEST)과 기니피그(암)을 이용한 감작성시험 (GPMT)결과, 과민성을 유발하지 않음 (시험물질 : 염화수소) (OECD TG 406) (화평법 등록서류)\",\"refs\":[\"1\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"• 마우스(암)를 이용한 귀팽창시험법(MEST)과 기니피그(암)을 이용한 감작성시험 (GPMT)결과, 과민성을 유발하지 않음 (시험물질 : 염화수소) (OECD TG 406) (화평법 등록서류)\"}],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_CARC\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":null,\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":\"화평법 등록서류\",\"classification\":\"분류되지 않음\",\"statements\":[{\"seq\":1,\"key\":\"IARC\",\"value\":\"Group 3 (발암성으로 분류되지 않음)\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"• IARC : Group 3 (발암성으로 분류되지 않음)\"},{\"seq\":2,\"key\":\"ACGIH\",\"value\":\"A4 (인체 발암성으로 분류되지 않음)\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"• ACGIH : A4 (인체 발암성으로 분류되지 않음)\"},{\"seq\":3,\"key\":null,\"value\":\"염화수소 가스 10 ppm을 랫드(수)에게 128주간 흡입연구에서 발암성과 관련된 종양전 또는 종양 비강 병변이 관찰되지 않음. 흡입, 경구, 경피로 수행된 기타 동물 연구에서도 발암성과 관련된 증거는 발견되지 않음. 사람에게 염화수소 노출과 종양 발생 사이의 연관성은 관찰되지 않음 (화평법 등록서류)\",\"refs\":[\"1\"],\"cond\":{\"raw\":\"10 ppm\",\"approx\":false,\"value\":10,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"ppm\",\"dp\":0,\"status\":\"값있음\",\"note\":null},\"std_code\":null,\"match_score\":null,\"text\":\"• 염화수소 가스 10 ppm을 랫드(수)에게 128주간 흡입연구에서 발암성과 관련된 종양전 또는 종양 비강 병변이 관찰되지 않음. 흡입, 경구, 경피로 수행된 기타 동물 연구에서도 발암성과 관련된 증거는 발견되지 않음. 사람에게 염화수소 노출과 종양 발생 사이의 연관성은 관찰되지 않음 (화평법 등록서류)\"}],\"status\":\"값있음\"},{\"comp_ref\":\"1\",\"endpoint\":\"TX_MUTA\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":\"미생물\",\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":\"시험관 내 복귀돌연변이시험\",\"converted\":null,\"read_across_cas\":null,\"guideline\":\"OECD TG 471, EU Method B.13/14\",\"data_source\":null,\"classification\":\"분류되지 않음\",\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"시험관 내 미생물을 이용한 복귀돌연변이시험결과, 대사활성계 유무에 상관없이 음성 (시험물질 : 염화수소) (OECD TG 471, EU Method B.13/14)\",\"refs\":[\"1\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"• 시험관 내 미생물을 이용한 복귀돌연변이시험결과, 대사활성계 유무에 상관없이 음성 (시험물질 : 염화수소) (OECD TG 471, EU Method B.13/14)\"}],\"status\":\"값있음\"},{\"comp_ref\":\"1\",\"endpoint\":\"TX_MUTA\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":\"포유류세포\",\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":\"시험관 내 염색체이상시험\",\"converted\":null,\"read_across_cas\":null,\"guideline\":\"OECD TG 473, EU Method B.10\",\"data_source\":null,\"classification\":\"분류되지 않음\",\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"시험관 내 포유류세포를 이용한 염색체이상시험결과, 대사활성계 유무에 상관없이 음성 (시험물질 : 염화수소) (OECD TG 473, EU Method B.10)\",\"refs\":[\"1\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"• 시험관 내 포유류세포를 이용한 염색체이상시험결과, 대사활성계 유무에 상관없이 음성 (시험물질 : 염화수소) (OECD TG 473, EU Method B.10)\"}],\"status\":\"값있음\"},{\"comp_ref\":\"1\",\"endpoint\":\"TX_REPRO\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":\"랫드 및 마우스\",\"sex\":null,\"duration_value\":90,\"duration_unit\":\"day\",\"physical_form\":null,\"exposure_type\":\"90일간 흡입 아만성\",\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":\"화평법 등록서류\",\"classification\":\"분류되지 않음\",\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"랫드 및 마우스를 대상으로 90일간 흡입 아만성시험결과, 조직병리학적 검사에서 생식기관 관련 영향은 관찰되지 않음 (시험물질 : 염화수소) (화평법 등록서류)\",\"refs\":[\"1\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"• 랫드 및 마우스를 대상으로 90일간 흡입 아만성시험결과, 조직병리학적 검사에서 생식기관 관련 영향은 관찰되지 않음 (시험물질 : 염화수소) (화평법 등록서류)\"},{\"seq\":2,\"key\":null,\"value\":\"물과 접촉하여 완전히 해리되어 유기체에 생리학적으로 풍부하게 존재하는 히드로늄 및 염소 이온은 생식이나 발생에 위험을 초래하지 않을 것임 (화평법 등록서류)\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"• 물과 접촉하여 완전히 해리되어 유기체에 생리학적으로 풍부하게 존재하는 히드로늄 및 염소 이온은 생식이나 발생에 위험을 초래하지 않을 것임 (화평법 등록서류)\"}],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_STOT_SE\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":\"마우스\",\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":\"구분 3 (호흡기 자극)\",\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"HCl은 고농도에서 마우스 호흡기관에 조직파괴(부식)을 유발함\",\"refs\":[\"1\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"• HCl은 고농도에서 마우스 호흡기관에 조직파괴(부식)을 유발함\"},{\"seq\":2,\"key\":\"유독물질의 지정고시\",\"value\":\"구분 3 (호흡기 자극)\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"• 유독물질의 지정고시 : 구분 3 (호흡기 자극)\"}],\"status\":\"값있음\"},{\"comp_ref\":\"1\",\"endpoint\":\"TX_STOT_RE\",\"descriptor\":\"LOAEL\",\"q\":{\"raw\":\"50 ppm\",\"approx\":false,\"value\":50,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"ppm\",\"dp\":0,\"status\":\"값있음\",\"note\":\"체중을 근거로 함\"},\"species\":\"랫드와 마우스\",\"sex\":null,\"duration_value\":90,\"duration_unit\":\"day\",\"physical_form\":null,\"exposure_type\":\"90 일간 흡입 아만성\",\"converted\":null,\"read_across_cas\":null,\"guideline\":\"OECD TG 413\",\"data_source\":\"화평법 등록서류\",\"classification\":\"분류되지 않음\",\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"1\",\"endpoint\":\"TX_STOT_RE\",\"descriptor\":\"NOAEL\",\"q\":{\"raw\":\"20 ppm\",\"approx\":false,\"value\":20,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"ppm\",\"dp\":0,\"status\":\"값있음\",\"note\":\"체중과 접촉에 따른 자극영향이 관찰되는 것을 근거로 함\"},\"species\":\"랫드와 마우스\",\"sex\":null,\"duration_value\":90,\"duration_unit\":\"day\",\"physical_form\":null,\"exposure_type\":\"90 일간 흡입 아만성\",\"converted\":null,\"read_across_cas\":null,\"guideline\":\"OECD TG 413\",\"data_source\":\"화평법 등록서류\",\"classification\":\"분류되지 않음\",\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"NOEL = 10 ppm(15 mg/m3)으로 결정됨 (시험물질 : 염화수소) (OECD TG 413) (화평법 등록서류)\",\"refs\":[\"1\"],\"cond\":{\"raw\":\"10 ppm(15 mg/m3)\",\"approx\":false,\"value\":10,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"ppm\",\"dp\":0,\"status\":\"값있음\",\"note\":null},\"std_code\":null,\"match_score\":null,\"text\":\"NOEL = 10 ppm(15 mg/m3)으로 결정됨 (시험물질 : 염화수소) (OECD TG 413) (화평법 등록서류)\"}],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_ASP\",\"descriptor\":null,\"q\":null,\"species\":null,\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[],\"status\":\"자료없음\"}],\"cmr\":[{\"comp_ref\":\"MIX\",\"hazard\":\"발암성\",\"agency\":\"IARC\",\"class\":\"Group 3\",\"status\":\"값있음\",\"note\":\"발암성으로 분류되지 않음\"},{\"comp_ref\":\"MIX\",\"hazard\":\"발암성\",\"agency\":\"ACGIH\",\"class\":\"A4\",\"status\":\"값있음\",\"note\":\"인체 발암성으로 분류되지 않음\"}],\"ecotox\":[{\"comp_ref\":\"MIX\",\"endpoint\":\"ECO_OTHER\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":null,\"duration_value\":null,\"duration_unit\":null,\"guideline\":null,\"data_source\":null,\"statements\":[{\"seq\":1,\"key\":\"급성 수생 독성\",\"value\":\"분류되지 않음\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"○ 급성 수생 독성 | 분류되지 않음\"},{\"seq\":2,\"key\":\"만성 수생 독성\",\"value\":\"분류되지 않음\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"○ 만성 수생 독성 | 분류되지 않음\"},{\"seq\":3,\"key\":null,\"value\":\"염산의 배출은 수생환경에서 pH를 국부적으로 감소시킬 가능성이 있으나 일반적으로 수용하는 물(receiving water)의 pH 변화는 자연적인 pH 범위 내에서 유지되어야 하므로 인위적 또는 자연적으로 발생하는 염산으로 인해 수생환경에 대한 악영향을 기대할 수 없으므로 수생환경유해성은 분류되지 않음으로 분류\",\"refs\":[\"1\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"• 염산의 배출은 수생환경에서 pH를 국부적으로 감소시킬 가능성이 있으나 일반적으로 수용하는 물(receiving water)의 pH 변화는 자연적인 pH 범위 내에서 유지되어야 하므로 인위적 또는 자연적으로 발생하는 염산으로 인해 수생환경에 대한 악영향을 기대할 수 없으므로 수생환경유해성은 분류되지 않음으로 분류\"}],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"ECO_FISH\",\"descriptor\":\"LC50\",\"q\":{\"raw\":\"20.5 mg/L\",\"approx\":false,\"value\":20.5,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"mg/L\",\"dp\":1,\"status\":\"값있음\",\"note\":null},\"species\":\"Lepomis macrochirus\",\"duration_value\":96,\"duration_unit\":\"hr\",\"guideline\":null,\"data_source\":\"화평법 등록서류\",\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"ECO_CRUST\",\"descriptor\":\"EC50\",\"q\":{\"raw\":\"0.492 mg/L\",\"approx\":false,\"value\":0.492,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"mg/L\",\"dp\":3,\"status\":\"값있음\",\"note\":null},\"species\":\"Daphnia magna\",\"duration_value\":48,\"duration_unit\":\"hr\",\"guideline\":\"OECD TG 202\",\"data_source\":\"화평법 등록서류\",\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"지수식, 담수\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"(지수식, 담수)\"},{\"seq\":2,\"key\":null,\"value\":\"pH 5.3\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"(pH 5.3, OECD TG 202)\"}],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"ECO_ALGAE\",\"descriptor\":\"ErC50\",\"q\":{\"raw\":\"0.492 mg/L\",\"approx\":false,\"value\":0.492,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"mg/L\",\"dp\":3,\"status\":\"값있음\",\"note\":null},\"species\":\"Selenastrum capriornutum\",\"duration_value\":72,\"duration_unit\":\"hr\",\"guideline\":\"OECD TG 201\",\"data_source\":\"화평법 등록서류\",\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"pH 5.3\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"(pH 5.3, OECD TG 201)\"}],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"ECO_ALGAE\",\"descriptor\":\"NOEC\",\"q\":{\"raw\":\"0.097 mg/L\",\"approx\":false,\"value\":0.097,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"mg/L\",\"dp\":3,\"status\":\"값있음\",\"note\":null},\"species\":\"Selenastrum capriornutum\",\"duration_value\":72,\"duration_unit\":\"hr\",\"guideline\":\"OECD TG 201\",\"data_source\":\"화평법 등록서류\",\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"pH 6.0\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"(pH 6.0, OECD TG 201)\"}],\"status\":\"값있음\"},{\"comp_ref\":\"1\",\"endpoint\":\"ECO_PERSIST\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":null,\"duration_value\":null,\"duration_unit\":null,\"guideline\":null,\"data_source\":\"화평법 등록서류\",\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"HCl은 물에서 히드로늄 및 염소이온으로 완전히 해리됨. 이러한 고유 특성으로 인해 무생물적 분해성 시험을 수행하는 것이 과학적으로 불가능함 (화평법 등록서류)\",\"refs\":[\"1\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"• HCl은 물에서 히드로늄 및 염소이온으로 완전히 해리됨. 이러한 고유 특성으로 인해 무생물적 분해성 시험을 수행하는 것이 과학적으로 불가능함 (화평법 등록서류)\"},{\"seq\":2,\"key\":null,\"value\":\"생분해성에 대한 시험을 위한 요구 사항은 유기 화합물임. 활성 물질인 염산은 생물학적 분해가능성, 빠른 생분해성, 본질적 분해성이 아닌 무기 화합물이므로, 수계에서의 생분해는 과학적으로 수행 불가능함 (화평법 등록서류)\",\"refs\":[\"1\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"• 생분해성에 대한 시험을 위한 요구 사항은 유기 화합물임. 활성 물질인 염산은 생물학적 분해가능성, 빠른 생분해성, 본질적 분해성이 아닌 무기 화합물이므로, 수계에서의 생분해는 과학적으로 수행 불가능함 (화평법 등록서류)\"}],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"ECO_BIOACC\",\"descriptor\":\"logKow\",\"q\":{\"raw\":\"-2.65 (계산치)\",\"approx\":false,\"value\":-2.65,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":null,\"dp\":2,\"status\":\"값있음\",\"note\":\"계산치\"},\"species\":null,\"duration_value\":null,\"duration_unit\":null,\"guideline\":null,\"data_source\":\"화평법 등록서류\",\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"ECO_BIOACC\",\"descriptor\":\"BCF\",\"q\":{\"raw\":\"3.162 (예측치)\",\"approx\":false,\"value\":3.162,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":null,\"dp\":3,\"status\":\"값있음\",\"note\":\"예측치\"},\"species\":null,\"duration_value\":null,\"duration_unit\":null,\"guideline\":null,\"data_source\":\"EPISUITE\",\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"1\",\"endpoint\":\"ECO_SOIL\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":null,\"duration_value\":null,\"duration_unit\":null,\"guideline\":null,\"data_source\":\"화평법 등록서류\",\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"물에서 HCl 해리의 결과로써 형성된 이온은 토양에서 이온-교환 과정을 겪을 것임. 요약하자면, 온전한 분자에 대한 Koc의 결정은 기술적으로 가능하지 않으며, 요구되는 시험 방법은 해리되는 분자에는 적용할 수 없음. 물에서의 해리 후에, 생성된 이온은 토양 내에서 이온교환을 겪을 것으로 예상됨 (화평법 등록서류)\",\"refs\":[\"1\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"• 물에서 HCl 해리의 결과로써 형성된 이온은 토양에서 이온-교환 과정을 겪을 것임. 요약하자면, 온전한 분자에 대한 Koc의 결정은 기술적으로 가능하지 않으며, 요구되는 시험 방법은 해리되는 분자에는 적용할 수 없음. 물에서의 해리 후에, 생성된 이온은 토양 내에서 이온교환을 겪을 것으로 예상됨 (화평법 등록서류)\"}],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"ECO_OTHER\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":null,\"duration_value\":null,\"duration_unit\":null,\"guideline\":null,\"data_source\":null,\"statements\":[{\"seq\":1,\"key\":\"PBT 및 vPvB 평가\",\"value\":\"PBT 및 vPvB 물질 아님\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"마. PBT 및 vPvB 평가 | PBT 및 vPvB 물질 아님\"}],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"ECO_OZONE\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":null,\"duration_value\":null,\"duration_unit\":null,\"guideline\":null,\"data_source\":null,\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"분류되지 않음\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"바. 오존층 유해성 | 분류되지 않음\"}],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"ECO_OTHER\",\"descriptor\":null,\"q\":null,\"species\":null,\"duration_value\":null,\"duration_unit\":null,\"guideline\":null,\"data_source\":null,\"statements\":[{\"seq\":1,\"key\":\"기타 유해 영향\",\"value\":\"자료없음\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"사. 기타 유해 영향 | 자료없음\"}],\"status\":\"자료없음\"}]}],\"evidence\":[{\"msds_index\":0,\"field\":\"toxicity[0]\",\"page\":8,\"source_text\":\"경구 | 구분 3 | • LD50 (랫드, 암) = 238 ~ 277 mg/kg (시험물질 : 염산) (화평법 등록서류) | • 유독물질의 지정고시 : 구분 3\",\"rules\":[\"R04\",\"R08\",\"R10\"],\"note\":\"'238 ~ 277'을 R04에 따라 하한 238(>=), 상한 277(<=)로 나눔. 시험물질이 염산이라 comp_ref=1\"},{\"msds_index\":0,\"field\":\"toxicity[1]\",\"page\":8,\"source_text\":\"경피 | 자료없음\",\"rules\":[\"R15\",\"R10\"],\"note\":\"자료없음을 status로 표시, 특정 성분 지정이 없어 MIX\"},{\"msds_index\":0,\"field\":\"toxicity[2]\",\"page\":8,\"source_text\":\"흡입(분진/미스트) | 구분 3 | • LC50(마우스, 에어로졸) = 8.3 mg/L (30 min) (환산 : 1.0375 ppm/4h) (화평법 등록서류) | • 유독물질의 지정고시 : 구분 3\",\"rules\":[\"R04\",\"R06\",\"R10\"],\"note\":\"30 min을 노출시간으로, 환산값 1.0375 ppm/4h를 converted에 넣음. 시험물질 표기가 없어 MIX\"},{\"msds_index\":0,\"field\":\"toxicity[3]\",\"page\":8,\"source_text\":\"○ 피부 부식성 또는 자극성 | 구분 1 | • 인체 피부 모델을 대상으로 피부 부식성/자극성 시험결과, 부식성이 관찰됨 (OECD TG 431) (화평법 등록서류) | • 유독물질의 지정고시 : 구분 1\",\"rules\":[\"R10\"],\"note\":\"8~9쪽에 걸친 행을 하나로 합침\"},{\"msds_index\":0,\"field\":\"toxicity[4]\",\"page\":9,\"source_text\":\"○ 심한 눈손상 또는 자극성 | 구분 1 | • 토끼를 대상으로 심한 눈손상성/자극성 시험결과, 1% 이상의 농도로부터 눈에 비가역적 영향이 관찰됨 (전체 자극 점수 : (평균) 최대의 10.67) (OECD TG 405) (화평법 등록서류)\",\"rules\":[\"R04\",\"R10\"],\"note\":\"'1% 이상'을 문장 조건 cond로 분리\"},{\"msds_index\":0,\"field\":\"toxicity[5]\",\"page\":9,\"source_text\":\"○ 호흡기과민성 | 자료없음\",\"rules\":[\"R15\"],\"note\":null},{\"msds_index\":0,\"field\":\"toxicity[6]\",\"page\":9,\"source_text\":\"○ 피부과민성 | 분류되지 않음 | • 마우스(암)를 이용한 귀팽창시험법(MEST)과 기니피그(암)을 이용한 감작성시험 (GPMT)결과, 과민성을 유발하지 않음 (시험물질 : 염화수소) (OECD TG 406) (화평법 등록서류)\",\"rules\":[\"R10\"],\"note\":\"시험물질 염화수소 → comp_ref=1\"},{\"msds_index\":0,\"field\":\"toxicity[7]\",\"page\":9,\"source_text\":\"○ 발암성 | 분류되지 않음 | • IARC : Group 3 (발암성으로 분류되지 않음) | • ACGIH : A4 (인체 발암성으로 분류되지 않음) | • 염화수소 가스 10 ppm을 랫드(수)에게 128주간 흡입연구에서 ...\",\"rules\":[\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"toxicity[8]\",\"page\":9,\"source_text\":\"○ 생식세포 변이원성 | 분류되지 않음 | • 시험관 내 미생물을 이용한 복귀돌연변이시험결과, 대사활성계 유무에 상관없이 음성 (시험물질 : 염화수소) (OECD TG 471, EU Method B.13/14)\",\"rules\":[\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"toxicity[9]\",\"page\":9,\"source_text\":\"• 시험관 내 포유류세포를 이용한 염색체이상시험결과, 대사활성계 유무에 상관없이 음성 (시험물질 : 염화수소) (OECD TG 473, EU Method B.10)\",\"rules\":[\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"toxicity[10]\",\"page\":9,\"source_text\":\"○ 생식독성 | 분류되지 않음 | • 랫드 및 마우스를 대상으로 90일간 흡입 아만성시험결과, 조직병리학적 검사에서 생식기관 관련 영향은 관찰되지 않음 (시험물질 : 염화수소) (화평법 등록서류)\",\"rules\":[\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"toxicity[11]\",\"page\":9,\"source_text\":\"○ 특정 표적장기 전신독성 (1회 노출) | 구분 3 (호흡기 자극) | • HCl은 고농도에서 마우스 호흡기관에 조직파괴(부식)을 유발함 | • 유독물질의 지정고시 : 구분 3 (호흡기 자극)\",\"rules\":[\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"toxicity[12]\",\"page\":10,\"source_text\":\"랫드와 마우스를 대상으로 90 일간 흡입 아만성시험결과, 체중을 근거로 한 LOAEL = 50 ppm\",\"rules\":[\"R04\",\"R10\"],\"note\":\"9~10쪽에 걸친 문장에서 LOAEL을 분리\"},{\"msds_index\":0,\"field\":\"toxicity[13]\",\"page\":10,\"source_text\":\"체중과 접촉에 따른 자극영향이 관찰되는 것을 근거로 한 NOAEL = 20 ppm, NOEL = 10 ppm(15 mg/m3)으로 결정됨 (시험물질 : 염화수소) (OECD TG 413) (화평법 등록서류)\",\"rules\":[\"R04\",\"R08\",\"R10\"],\"note\":\"NOEL은 지표 목록에 없어 statements로 남김\"},{\"msds_index\":0,\"field\":\"toxicity[14]\",\"page\":10,\"source_text\":\"○ 흡인 유해성 | 자료없음\",\"rules\":[\"R15\"],\"note\":null},{\"msds_index\":0,\"field\":\"cmr[0]\",\"page\":9,\"source_text\":\"• IARC : Group 3 (발암성으로 분류되지 않음)\",\"rules\":[],\"note\":null},{\"msds_index\":0,\"field\":\"cmr[1]\",\"page\":9,\"source_text\":\"• ACGIH : A4 (인체 발암성으로 분류되지 않음)\",\"rules\":[],\"note\":null},{\"msds_index\":0,\"field\":\"ecotox[0]\",\"page\":10,\"source_text\":\"○ 급성 수생 독성 | 분류되지 않음 | ○ 만성 수생 독성 | 분류되지 않음\",\"rules\":[\"R10\"],\"note\":\"맞는 생태 항목 코드가 없어 ECO_OTHER로 서술 보존\"},{\"msds_index\":0,\"field\":\"ecotox[1]\",\"page\":10,\"source_text\":\"• 어 류: 96h-LC50((Lepomis macrochirus) = 20.5 mg/L (화평법 등록서류)\",\"rules\":[\"R04\"],\"note\":null},{\"msds_index\":0,\"field\":\"ecotox[2]\",\"page\":10,\"source_text\":\"• 갑각류: 48h-EC50(Daphnia magna)=0.492 mg/L (지수식, 담수) (pH 5.3, OECD TG 202) (화평법 등록서류)\",\"rules\":[\"R04\"],\"note\":null},{\"msds_index\":0,\"field\":\"ecotox[3]\",\"page\":10,\"source_text\":\"• 조 류: 72h-ErC50(Selenastrum capriornutum)=0.492 mg/L (pH 5.3, OECD TG 201) (화평법 등록서류)\",\"rules\":[\"R04\"],\"note\":null},{\"msds_index\":0,\"field\":\"ecotox[4]\",\"page\":10,\"source_text\":\"72h-NOEC(Selenastrum capriornutum)=0.097 mg/L (pH 6.0, OECD TG 201) (화평법 등록서류)\",\"rules\":[\"R04\"],\"note\":null},{\"msds_index\":0,\"field\":\"ecotox[5]\",\"page\":10,\"source_text\":\"나. 잔류성 및 분해성 | • HCl은 물에서 히드로늄 및 염소이온으로 완전히 해리됨. ...\",\"rules\":[\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"ecotox[6]\",\"page\":10,\"source_text\":\"• Log Kow = -2.65 (계산치) (화평법 등록서류)\",\"rules\":[\"R04\"],\"note\":\"'계산치'를 note에 넣음\"},{\"msds_index\":0,\"field\":\"ecotox[7]\",\"page\":10,\"source_text\":\"• BCF = 3.162 (예측치) (EPISUITE)\",\"rules\":[\"R04\"],\"note\":\"'예측치'를 note에 넣음\"},{\"msds_index\":0,\"field\":\"ecotox[8]\",\"page\":10,\"source_text\":\"라. 토양이동성 | • 물에서 HCl 해리의 결과로써 형성된 이온은 토양에서 이온-교환 과정을 겪을 것임. ...\",\"rules\":[\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"ecotox[9]\",\"page\":10,\"source_text\":\"마. PBT 및 vPvB 평가 | PBT 및 vPvB 물질 아님\",\"rules\":[],\"note\":\"전용 코드가 없어 ECO_OTHER로 보존\"},{\"msds_index\":0,\"field\":\"ecotox[10]\",\"page\":10,\"source_text\":\"바. 오존층 유해성 | 분류되지 않음\",\"rules\":[],\"note\":null},{\"msds_index\":0,\"field\":\"ecotox[11]\",\"page\":11,\"source_text\":\"사. 기타 유해 영향 | 자료없음\",\"rules\":[\"R15\"],\"note\":null}]}"
+}

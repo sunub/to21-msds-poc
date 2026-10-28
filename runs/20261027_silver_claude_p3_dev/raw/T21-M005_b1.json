@@ -1,0 +1,806 @@
+{
+  "doc_id": "T21-M005",
+  "bundle": "b1",
+  "model": "claude-opus-5-5",
+  "mode": "none",
+  "finish_reason": "stop",
+  "usage": {
+    "prompt_tokens": 96886,
+    "completion_tokens": 7490,
+    "total_tokens": 104376,
+    "served_model": "claude-opus-5-5"
+  },
+  "seconds": 60.7,
+  "attempts": 1,
+  "errors": [],
+  "parsed": {
+    "doc": {
+      "language": "ko",
+      "msds_count": 1
+    },
+    "msds": [
+      {
+        "meta": {
+          "msds_no": "AA00566-2100002277",
+          "doc_code": null,
+          "revision_no": 1,
+          "revision_label": null,
+          "header_product_name": null,
+          "source_note": null,
+          "first_issue_date": "2021-12-08",
+          "last_revision_date": "2023-09-08",
+          "page_start": 1,
+          "page_end": 13
+        },
+        "product": {
+          "name": "MIXED C4",
+          "code": null,
+          "synonyms": [],
+          "uses": [
+            "원료 및 중간체"
+          ],
+          "restrictions": [
+            "확인된 용도 이외의 제품 사용은 금지됩니다."
+          ],
+          "use_category_code": null
+        },
+        "companies": [
+          {
+            "seq": 1,
+            "role": "제조자",
+            "name": "(주)LG화학",
+            "site": null,
+            "address": "충청남도 서산시 대산읍 독곶1로 54",
+            "postcode": null,
+            "department": null,
+            "contacts": [
+              {
+                "type": "긴급",
+                "value": "+82-41-661-2521",
+                "hours": "08:30~17:30, KST"
+              }
+            ]
+          }
+        ],
+        "hazard": {
+          "classified": true,
+          "classes": [
+            {
+              "seq": 1,
+              "group": "물리적",
+              "class_code": "PH_FLAM_GAS",
+              "category": "1",
+              "route_form": null,
+              "effect": null,
+              "target_organs": [],
+              "raw": "인화성 가스 구분 1"
+            },
+            {
+              "seq": 2,
+              "group": "물리적",
+              "class_code": "PH_PRESS_GAS",
+              "category": "액화가스",
+              "route_form": null,
+              "effect": null,
+              "target_organs": [],
+              "raw": "고압가스 액화가스"
+            },
+            {
+              "seq": 3,
+              "group": "건강",
+              "class_code": "HH_CARCINOGEN",
+              "category": "1A",
+              "route_form": null,
+              "effect": null,
+              "target_organs": [],
+              "raw": "발암성물질 구분 1A"
+            },
+            {
+              "seq": 4,
+              "group": "건강",
+              "class_code": "HH_MUTAGEN",
+              "category": "1B",
+              "route_form": null,
+              "effect": null,
+              "target_organs": [],
+              "raw": "생식세포 변이원성 물질 구분 1B"
+            },
+            {
+              "seq": 5,
+              "group": "건강",
+              "class_code": "HH_STOT_SE",
+              "category": "3",
+              "route_form": null,
+              "effect": "마취",
+              "target_organs": [],
+              "raw": "특정표적장기독성-1회노출 구분 3(마취)"
+            }
+          ],
+          "signal_word": "위험",
+          "pictograms": [
+            {
+              "code": "GHS02",
+              "detection": "이미지판독"
+            },
+            {
+              "code": "GHS04",
+              "detection": "이미지판독"
+            },
+            {
+              "code": "GHS07",
+              "detection": "이미지판독"
+            },
+            {
+              "code": "GHS08",
+              "detection": "이미지판독"
+            }
+          ],
+          "h_statements": [
+            {
+              "seq": 1,
+              "code": "H220",
+              "system": "GHS",
+              "mark": null,
+              "text": "극인화성 가스"
+            },
+            {
+              "seq": 2,
+              "code": "H280",
+              "system": "GHS",
+              "mark": null,
+              "text": "고압가스 포함: 가열하면 폭발할 수 있음"
+            },
+            {
+              "seq": 3,
+              "code": "H336",
+              "system": "GHS",
+              "mark": null,
+              "text": "졸음 또는 현기증을 일으킬 수 있음"
+            },
+            {
+              "seq": 4,
+              "code": "H340",
+              "system": "GHS",
+              "mark": null,
+              "text": "유전적인 결함을 일으킬 수 있음"
+            },
+            {
+              "seq": 5,
+              "code": "H350",
+              "system": "GHS",
+              "mark": null,
+              "text": "암을 일으킬 수 있음"
+            }
+          ],
+          "p_statements": [
+            {
+              "seq": 1,
+              "code": "P201",
+              "type": "예방",
+              "text": "사용 전 취급 설명서를 확보하시오."
+            },
+            {
+              "seq": 2,
+              "code": "P202",
+              "type": "예방",
+              "text": "모든 안전 예방조치 문구를 읽고 이해하기 전에는 취급하지 마시오."
+            },
+            {
+              "seq": 3,
+              "code": "P210",
+              "type": "예방",
+              "text": "열, 고온의 표면, 스파크, 화염 및 그 밖의 점화원으로부터 멀리하시오. 금연"
+            },
+            {
+              "seq": 4,
+              "code": "P261",
+              "type": "예방",
+              "text": "가스·미스트·스프레이의 흡입을 피하시오."
+            },
+            {
+              "seq": 5,
+              "code": "P271",
+              "type": "예방",
+              "text": "옥외 또는 환기가 잘 되는 곳에서만 취급하시오."
+            },
+            {
+              "seq": 6,
+              "code": "P280",
+              "type": "예방",
+              "text": "보호장갑·보호의·보안경·안면보호구를 착용하시오."
+            },
+            {
+              "seq": 7,
+              "code": "P304+P340",
+              "type": "대응",
+              "text": "흡입하면: 신선한 공기가 있는 곳으로 옮기고 호흡하기 쉬운 자세로 안정을 취하시오."
+            },
+            {
+              "seq": 8,
+              "code": "P308+P313",
+              "type": "대응",
+              "text": "노출되거나 노출이 우려되면: 의학적인 조치·조언을 구하시오."
+            },
+            {
+              "seq": 9,
+              "code": "P312",
+              "type": "대응",
+              "text": "불편함을 느끼면 의료기관·의사의 진찰을 받으시오."
+            },
+            {
+              "seq": 10,
+              "code": "P377",
+              "type": "대응",
+              "text": "가스 누출 화재; 누출을 안전하게 막을 수 없다면 불을 끄려하지 마시오."
+            },
+            {
+              "seq": 11,
+              "code": "P381",
+              "type": "대응",
+              "text": "누출 시 모든 점화원을 제거하시오."
+            },
+            {
+              "seq": 12,
+              "code": "P403",
+              "type": "저장",
+              "text": "환기가 잘 되는 곳에 보관하시오."
+            },
+            {
+              "seq": 13,
+              "code": "P403+P233",
+              "type": "저장",
+              "text": "환기가 잘 되는 곳에 보관하시오. 용기를 단단히 밀폐하시오."
+            },
+            {
+              "seq": 14,
+              "code": "P405",
+              "type": "저장",
+              "text": "잠금장치를 하여 저장하시오."
+            },
+            {
+              "seq": 15,
+              "code": "P410+P403",
+              "type": "저장",
+              "text": "직사광선을 피하시오. 환기가 잘 되는 곳에 보관하시오."
+            },
+            {
+              "seq": 16,
+              "code": "P501",
+              "type": "폐기",
+              "text": "폐기물 관련 법령에 따라 내용물·용기를 폐기하시오"
+            }
+          ],
+          "other_hazards": [
+            {
+              "seq": 1,
+              "key": null,
+              "value": "자료없음",
+              "refs": null,
+              "cond": null,
+              "std_code": null,
+              "match_score": null,
+              "text": "- 자료없음"
+            }
+          ],
+          "nfpa": {
+            "health": 2,
+            "fire": 4,
+            "reactivity": 2,
+            "special": null
+          }
+        },
+        "composition": {
+          "type": "혼합물",
+          "no_hazardous_component": false
+        },
+        "components": [
+          {
+            "seq": 1,
+            "name": "Hydrocarbons, (C=4), ethylene-manuf.-by-product",
+            "name_en": "Hydrocarbons, (C=4), ethylene-manuf.-by-product",
+            "synonyms": [
+              "Hydrocarbons, (C=4), ethylene-manuf.-by-product"
+            ],
+            "cas_no": "68476-52-8",
+            "ke_no": null,
+            "ec_no": null,
+            "other_id": null,
+            "other_id_type": null,
+            "parent_seq": null,
+            "read_across_cas": null,
+            "content": {
+              "raw": "0-100",
+              "approx": null,
+              "value": null,
+              "lower_op": ">=",
+              "lower": 0,
+              "upper_op": "<=",
+              "upper": 100,
+              "unit": "%",
+              "dp": 0,
+              "status": "값있음",
+              "note": null
+            },
+            "content_note": null,
+            "content_basis": "미표기",
+            "trade_secret": false,
+            "approval_no": null,
+            "approval_expiry": null
+          },
+          {
+            "seq": 2,
+            "name": "1,3-Butadiene",
+            "name_en": "1,3-Butadiene",
+            "synonyms": [
+              "1,3-Butadiene"
+            ],
+            "cas_no": "106-99-0",
+            "ke_no": null,
+            "ec_no": null,
+            "other_id": null,
+            "other_id_type": null,
+            "parent_seq": null,
+            "read_across_cas": null,
+            "content": {
+              "raw": "0-43.9",
+              "approx": null,
+              "value": null,
+              "lower_op": ">=",
+              "lower": 0,
+              "upper_op": "<=",
+              "upper": 43.9,
+              "unit": "%",
+              "dp": 1,
+              "status": "값있음",
+              "note": null
+            },
+            "content_note": null,
+            "content_basis": "미표기",
+            "trade_secret": false,
+            "approval_no": null,
+            "approval_expiry": null
+          }
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "msds_index": 0,
+        "field": "meta.msds_no",
+        "page": 1,
+        "source_text": "MSDS 관리번호 : AA00566-2100002277",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.revision_no",
+        "page": 12,
+        "source_text": "○ 개정 횟수 : 1",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.first_issue_date",
+        "page": 12,
+        "source_text": "나. 최초 작성일자 : 2021-12-08",
+        "rules": [
+          "R01"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.last_revision_date",
+        "page": 1,
+        "source_text": "최종 개정일자 : 2023-09-08",
+        "rules": [
+          "R01"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.page_start",
+        "page": 1,
+        "source_text": "- 1",
+        "rules": [
+          "R16"
+        ],
+        "note": "단일 MSDS로 1쪽부터 시작"
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.page_end",
+        "page": 13,
+        "source_text": "- 13",
+        "rules": [
+          "R16"
+        ],
+        "note": "단일 MSDS로 13쪽에서 끝남"
+      },
+      {
+        "msds_index": 0,
+        "field": "product.name",
+        "page": 1,
+        "source_text": "가. 제품명 : MIXED C4",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "product.uses",
+        "page": 1,
+        "source_text": "○ 제품의 권고용도 1.원료 및 중간체",
+        "rules": [
+          "R11"
+        ],
+        "note": "앞의 번호 '1.'은 목록 번호로 보고 제외"
+      },
+      {
+        "msds_index": 0,
+        "field": "product.restrictions",
+        "page": 1,
+        "source_text": "○ (입력된 제품권고 용도)외 사용 금지 확인된 용도 이외의 제품 사용은 금지됩니다.",
+        "rules": [
+          "R11"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "companies[0]",
+        "page": 1,
+        "source_text": "○ 제조회사명 회사명 : (주)LG화학 주소 : 충청남도 서산시 대산읍 독곶1로 54 긴급전화번호 : +82-41-661-2521 (08:30~17:30, KST)",
+        "rules": [
+          "R12"
+        ],
+        "note": "'제조회사명' 소제목에 따라 role=제조자, 괄호 속 시간은 hours로 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.classified",
+        "page": 1,
+        "source_text": "가. 유해·위험성 분류 - 인화성 가스 구분 1",
+        "rules": [],
+        "note": "분류 항목이 있으므로 true"
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.classes[0]",
+        "page": 1,
+        "source_text": "- 인화성 가스 구분 1",
+        "rules": [
+          "R07"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.classes[1]",
+        "page": 1,
+        "source_text": "- 고압가스 액화가스",
+        "rules": [],
+        "note": "고압가스의 구분 '액화가스'를 category에 넣음"
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.classes[2]",
+        "page": 1,
+        "source_text": "- 발암성물질 구분 1A",
+        "rules": [
+          "R07"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.classes[3]",
+        "page": 1,
+        "source_text": "- 생식세포 변이원성 물질 구분 1B",
+        "rules": [
+          "R07"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.classes[4]",
+        "page": 1,
+        "source_text": "- 특정표적장기독성-1회노출 구분 3(마취)",
+        "rules": [
+          "R07"
+        ],
+        "note": "괄호 속 '마취'를 effect로 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.signal_word",
+        "page": 1,
+        "source_text": "신호어 - 위험",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.pictograms",
+        "page": 1,
+        "source_text": "그림문자",
+        "rules": [],
+        "note": "이미지에서 불꽃, 가스 실린더, 감탄부호, 건강 유해성 그림 4개 확인"
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.h_statements[0]",
+        "page": 2,
+        "source_text": "H220 극인화성 가스",
+        "rules": [
+          "R05"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.h_statements[1]",
+        "page": 2,
+        "source_text": "H280 고압가스 포함: 가열하면 폭발할 수 있음",
+        "rules": [
+          "R05"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.h_statements[2]",
+        "page": 2,
+        "source_text": "H336 졸음 또는 현기증을 일으킬 수 있음",
+        "rules": [
+          "R05"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.h_statements[3]",
+        "page": 2,
+        "source_text": "H340 유전적인 결함을 일으킬 수 있음",
+        "rules": [
+          "R05"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.h_statements[4]",
+        "page": 2,
+        "source_text": "H350 암을 일으킬 수 있음",
+        "rules": [
+          "R05"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.p_statements[0]",
+        "page": 2,
+        "source_text": "P201 사용 전 취급 설명서를 확보하시오.",
+        "rules": [
+          "R05"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.p_statements[1]",
+        "page": 2,
+        "source_text": "P202 모든 안전 예방조치 문구를 읽고 이해하기 전에는 취급하지 마시오.",
+        "rules": [
+          "R05"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.p_statements[2]",
+        "page": 2,
+        "source_text": "P210 열, 고온의 표면, 스파크, 화염 및 그 밖의 점화원으로부터 멀리하시오. 금연",
+        "rules": [
+          "R05"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.p_statements[3]",
+        "page": 2,
+        "source_text": "P261 가스·미스트·스프레이의 흡입을 피하시오.",
+        "rules": [
+          "R05"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.p_statements[4]",
+        "page": 2,
+        "source_text": "P271 옥외 또는 환기가 잘 되는 곳에서만 취급하시오.",
+        "rules": [
+          "R05"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.p_statements[5]",
+        "page": 2,
+        "source_text": "P280 보호장갑·보호의·보안경·안면보호구를 착용하시오.",
+        "rules": [
+          "R05"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.p_statements[6]",
+        "page": 2,
+        "source_text": "P304+P340 흡입하면: 신선한 공기가 있는 곳으로 옮기고 호흡하기 쉬운 자세로 안정을 취하시오.",
+        "rules": [
+          "R05"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.p_statements[7]",
+        "page": 2,
+        "source_text": "P308+P313 노출되거나 노출이 우려되면: 의학적인 조치·조언을 구하시오.",
+        "rules": [
+          "R05"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.p_statements[8]",
+        "page": 2,
+        "source_text": "P312 불편함을 느끼면 의료기관·의사의 진찰을 받으시오.",
+        "rules": [
+          "R05"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.p_statements[9]",
+        "page": 2,
+        "source_text": "P377 가스 누출 화재; 누출을 안전하게 막을 수 없다면 불을 끄려하지 마시오.",
+        "rules": [
+          "R05"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.p_statements[10]",
+        "page": 2,
+        "source_text": "P381 누출 시 모든 점화원을 제거하시오.",
+        "rules": [
+          "R05"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.p_statements[11]",
+        "page": 2,
+        "source_text": "P403 환기가 잘 되는 곳에 보관하시오.",
+        "rules": [
+          "R05"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.p_statements[12]",
+        "page": 2,
+        "source_text": "P403+P233 환기가 잘 되는 곳에 보관하시오. 용기를 단단히 밀폐하시오.",
+        "rules": [
+          "R05"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.p_statements[13]",
+        "page": 2,
+        "source_text": "P405 잠금장치를 하여 저장하시오.",
+        "rules": [
+          "R05"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.p_statements[14]",
+        "page": 2,
+        "source_text": "P410+P403 직사광선을 피하시오. 환기가 잘 되는 곳에 보관하시오.",
+        "rules": [
+          "R05"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.p_statements[15]",
+        "page": 2,
+        "source_text": "P501 폐기물 관련 법령에 따라 내용물·용기를 폐기하시오",
+        "rules": [
+          "R05"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.other_hazards[0]",
+        "page": 2,
+        "source_text": "다. 유해·위험성 분류기준에 포함되지 않는 기타 유해·위험성 - 자료없음",
+        "rules": [
+          "R14",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.nfpa",
+        "page": 2,
+        "source_text": "보건(Health) | 화재(Flammability) | 반응성(Reactivity) / 2 | 4 | 2",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "composition.type",
+        "page": 2,
+        "source_text": "3. 구성성분의 명칭 및 함유량",
+        "rules": [],
+        "note": "성분표에 성분 2개가 있어 혼합물로 기록"
+      },
+      {
+        "msds_index": 0,
+        "field": "composition.no_hazardous_component",
+        "page": 2,
+        "source_text": "구성성분 | 관용명 및 이명 | CAS No. | 대표함유율(%)",
+        "rules": [],
+        "note": "성분표가 있으므로 false"
+      },
+      {
+        "msds_index": 0,
+        "field": "components[0]",
+        "page": 2,
+        "source_text": "Hydrocarbons, (C=4), ethylene-manuf.-by-product | Hydrocarbons, (C=4), ethylene-manuf.-by-product | 68476-52-8 | 0-100",
+        "rules": [
+          "R02",
+          "R04",
+          "R17",
+          "R19"
+        ],
+        "note": "'0-100'을 하한 0(>=), 상한 100(<=), 단위 %(머리글)로 나눔. 이명은 이름 안의 쉼표 때문에 쪼개지 않음"
+      },
+      {
+        "msds_index": 0,
+        "field": "components[1]",
+        "page": 3,
+        "source_text": "1,3-Butadiene | 1,3-Butadiene | 106-99-0 | 0-43.9",
+        "rules": [
+          "R02",
+          "R04",
+          "R19"
+        ],
+        "note": "'0-43.9'를 하한 0(>=), 상한 43.9(<=), 단위 %(머리글)로 나눔"
+      }
+    ]
+  },
+  "raw_text": "{\"doc\":{\"language\":\"ko\",\"msds_count\":1},\"msds\":[{\"meta\":{\"msds_no\":\"AA00566-2100002277\",\"doc_code\":null,\"revision_no\":1,\"revision_label\":null,\"header_product_name\":null,\"source_note\":null,\"first_issue_date\":\"2021-12-08\",\"last_revision_date\":\"2023-09-08\",\"page_start\":1,\"page_end\":13},\"product\":{\"name\":\"MIXED C4\",\"code\":null,\"synonyms\":[],\"uses\":[\"원료 및 중간체\"],\"restrictions\":[\"확인된 용도 이외의 제품 사용은 금지됩니다.\"],\"use_category_code\":null},\"companies\":[{\"seq\":1,\"role\":\"제조자\",\"name\":\"(주)LG화학\",\"site\":null,\"address\":\"충청남도 서산시 대산읍 독곶1로 54\",\"postcode\":null,\"department\":null,\"contacts\":[{\"type\":\"긴급\",\"value\":\"+82-41-661-2521\",\"hours\":\"08:30~17:30, KST\"}]}],\"hazard\":{\"classified\":true,\"classes\":[{\"seq\":1,\"group\":\"물리적\",\"class_code\":\"PH_FLAM_GAS\",\"category\":\"1\",\"route_form\":null,\"effect\":null,\"target_organs\":[],\"raw\":\"인화성 가스 구분 1\"},{\"seq\":2,\"group\":\"물리적\",\"class_code\":\"PH_PRESS_GAS\",\"category\":\"액화가스\",\"route_form\":null,\"effect\":null,\"target_organs\":[],\"raw\":\"고압가스 액화가스\"},{\"seq\":3,\"group\":\"건강\",\"class_code\":\"HH_CARCINOGEN\",\"category\":\"1A\",\"route_form\":null,\"effect\":null,\"target_organs\":[],\"raw\":\"발암성물질 구분 1A\"},{\"seq\":4,\"group\":\"건강\",\"class_code\":\"HH_MUTAGEN\",\"category\":\"1B\",\"route_form\":null,\"effect\":null,\"target_organs\":[],\"raw\":\"생식세포 변이원성 물질 구분 1B\"},{\"seq\":5,\"group\":\"건강\",\"class_code\":\"HH_STOT_SE\",\"category\":\"3\",\"route_form\":null,\"effect\":\"마취\",\"target_organs\":[],\"raw\":\"특정표적장기독성-1회노출 구분 3(마취)\"}],\"signal_word\":\"위험\",\"pictograms\":[{\"code\":\"GHS02\",\"detection\":\"이미지판독\"},{\"code\":\"GHS04\",\"detection\":\"이미지판독\"},{\"code\":\"GHS07\",\"detection\":\"이미지판독\"},{\"code\":\"GHS08\",\"detection\":\"이미지판독\"}],\"h_statements\":[{\"seq\":1,\"code\":\"H220\",\"system\":\"GHS\",\"mark\":null,\"text\":\"극인화성 가스\"},{\"seq\":2,\"code\":\"H280\",\"system\":\"GHS\",\"mark\":null,\"text\":\"고압가스 포함: 가열하면 폭발할 수 있음\"},{\"seq\":3,\"code\":\"H336\",\"system\":\"GHS\",\"mark\":null,\"text\":\"졸음 또는 현기증을 일으킬 수 있음\"},{\"seq\":4,\"code\":\"H340\",\"system\":\"GHS\",\"mark\":null,\"text\":\"유전적인 결함을 일으킬 수 있음\"},{\"seq\":5,\"code\":\"H350\",\"system\":\"GHS\",\"mark\":null,\"text\":\"암을 일으킬 수 있음\"}],\"p_statements\":[{\"seq\":1,\"code\":\"P201\",\"type\":\"예방\",\"text\":\"사용 전 취급 설명서를 확보하시오.\"},{\"seq\":2,\"code\":\"P202\",\"type\":\"예방\",\"text\":\"모든 안전 예방조치 문구를 읽고 이해하기 전에는 취급하지 마시오.\"},{\"seq\":3,\"code\":\"P210\",\"type\":\"예방\",\"text\":\"열, 고온의 표면, 스파크, 화염 및 그 밖의 점화원으로부터 멀리하시오. 금연\"},{\"seq\":4,\"code\":\"P261\",\"type\":\"예방\",\"text\":\"가스·미스트·스프레이의 흡입을 피하시오.\"},{\"seq\":5,\"code\":\"P271\",\"type\":\"예방\",\"text\":\"옥외 또는 환기가 잘 되는 곳에서만 취급하시오.\"},{\"seq\":6,\"code\":\"P280\",\"type\":\"예방\",\"text\":\"보호장갑·보호의·보안경·안면보호구를 착용하시오.\"},{\"seq\":7,\"code\":\"P304+P340\",\"type\":\"대응\",\"text\":\"흡입하면: 신선한 공기가 있는 곳으로 옮기고 호흡하기 쉬운 자세로 안정을 취하시오.\"},{\"seq\":8,\"code\":\"P308+P313\",\"type\":\"대응\",\"text\":\"노출되거나 노출이 우려되면: 의학적인 조치·조언을 구하시오.\"},{\"seq\":9,\"code\":\"P312\",\"type\":\"대응\",\"text\":\"불편함을 느끼면 의료기관·의사의 진찰을 받으시오.\"},{\"seq\":10,\"code\":\"P377\",\"type\":\"대응\",\"text\":\"가스 누출 화재; 누출을 안전하게 막을 수 없다면 불을 끄려하지 마시오.\"},{\"seq\":11,\"code\":\"P381\",\"type\":\"대응\",\"text\":\"누출 시 모든 점화원을 제거하시오.\"},{\"seq\":12,\"code\":\"P403\",\"type\":\"저장\",\"text\":\"환기가 잘 되는 곳에 보관하시오.\"},{\"seq\":13,\"code\":\"P403+P233\",\"type\":\"저장\",\"text\":\"환기가 잘 되는 곳에 보관하시오. 용기를 단단히 밀폐하시오.\"},{\"seq\":14,\"code\":\"P405\",\"type\":\"저장\",\"text\":\"잠금장치를 하여 저장하시오.\"},{\"seq\":15,\"code\":\"P410+P403\",\"type\":\"저장\",\"text\":\"직사광선을 피하시오. 환기가 잘 되는 곳에 보관하시오.\"},{\"seq\":16,\"code\":\"P501\",\"type\":\"폐기\",\"text\":\"폐기물 관련 법령에 따라 내용물·용기를 폐기하시오\"}],\"other_hazards\":[{\"seq\":1,\"key\":null,\"value\":\"자료없음\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"- 자료없음\"}],\"nfpa\":{\"health\":2,\"fire\":4,\"reactivity\":2,\"special\":null}},\"composition\":{\"type\":\"혼합물\",\"no_hazardous_component\":false},\"components\":[{\"seq\":1,\"name\":\"Hydrocarbons, (C=4), ethylene-manuf.-by-product\",\"name_en\":\"Hydrocarbons, (C=4), ethylene-manuf.-by-product\",\"synonyms\":[\"Hydrocarbons, (C=4), ethylene-manuf.-by-product\"],\"cas_no\":\"68476-52-8\",\"ke_no\":null,\"ec_no\":null,\"other_id\":null,\"other_id_type\":null,\"parent_seq\":null,\"read_across_cas\":null,\"content\":{\"raw\":\"0-100\",\"approx\":null,\"value\":null,\"lower_op\":\">=\",\"lower\":0,\"upper_op\":\"<=\",\"upper\":100,\"unit\":\"%\",\"dp\":0,\"status\":\"값있음\",\"note\":null},\"content_note\":null,\"content_basis\":\"미표기\",\"trade_secret\":false,\"approval_no\":null,\"approval_expiry\":null},{\"seq\":2,\"name\":\"1,3-Butadiene\",\"name_en\":\"1,3-Butadiene\",\"synonyms\":[\"1,3-Butadiene\"],\"cas_no\":\"106-99-0\",\"ke_no\":null,\"ec_no\":null,\"other_id\":null,\"other_id_type\":null,\"parent_seq\":null,\"read_across_cas\":null,\"content\":{\"raw\":\"0-43.9\",\"approx\":null,\"value\":null,\"lower_op\":\">=\",\"lower\":0,\"upper_op\":\"<=\",\"upper\":43.9,\"unit\":\"%\",\"dp\":1,\"status\":\"값있음\",\"note\":null},\"content_note\":null,\"content_basis\":\"미표기\",\"trade_secret\":false,\"approval_no\":null,\"approval_expiry\":null}]}],\"evidence\":[{\"msds_index\":0,\"field\":\"meta.msds_no\",\"page\":1,\"source_text\":\"MSDS 관리번호 : AA00566-2100002277\",\"rules\":[],\"note\":null},{\"msds_index\":0,\"field\":\"meta.revision_no\",\"page\":12,\"source_text\":\"○ 개정 횟수 : 1\",\"rules\":[],\"note\":null},{\"msds_index\":0,\"field\":\"meta.first_issue_date\",\"page\":12,\"source_text\":\"나. 최초 작성일자 : 2021-12-08\",\"rules\":[\"R01\"],\"note\":null},{\"msds_index\":0,\"field\":\"meta.last_revision_date\",\"page\":1,\"source_text\":\"최종 개정일자 : 2023-09-08\",\"rules\":[\"R01\"],\"note\":null},{\"msds_index\":0,\"field\":\"meta.page_start\",\"page\":1,\"source_text\":\"- 1\",\"rules\":[\"R16\"],\"note\":\"단일 MSDS로 1쪽부터 시작\"},{\"msds_index\":0,\"field\":\"meta.page_end\",\"page\":13,\"source_text\":\"- 13\",\"rules\":[\"R16\"],\"note\":\"단일 MSDS로 13쪽에서 끝남\"},{\"msds_index\":0,\"field\":\"product.name\",\"page\":1,\"source_text\":\"가. 제품명 : MIXED C4\",\"rules\":[],\"note\":null},{\"msds_index\":0,\"field\":\"product.uses\",\"page\":1,\"source_text\":\"○ 제품의 권고용도 1.원료 및 중간체\",\"rules\":[\"R11\"],\"note\":\"앞의 번호 '1.'은 목록 번호로 보고 제외\"},{\"msds_index\":0,\"field\":\"product.restrictions\",\"page\":1,\"source_text\":\"○ (입력된 제품권고 용도)외 사용 금지 확인된 용도 이외의 제품 사용은 금지됩니다.\",\"rules\":[\"R11\"],\"note\":null},{\"msds_index\":0,\"field\":\"companies[0]\",\"page\":1,\"source_text\":\"○ 제조회사명 회사명 : (주)LG화학 주소 : 충청남도 서산시 대산읍 독곶1로 54 긴급전화번호 : +82-41-661-2521 (08:30~17:30, KST)\",\"rules\":[\"R12\"],\"note\":\"'제조회사명' 소제목에 따라 role=제조자, 괄호 속 시간은 hours로 분리\"},{\"msds_index\":0,\"field\":\"hazard.classified\",\"page\":1,\"source_text\":\"가. 유해·위험성 분류 - 인화성 가스 구분 1\",\"rules\":[],\"note\":\"분류 항목이 있으므로 true\"},{\"msds_index\":0,\"field\":\"hazard.classes[0]\",\"page\":1,\"source_text\":\"- 인화성 가스 구분 1\",\"rules\":[\"R07\"],\"note\":null},{\"msds_index\":0,\"field\":\"hazard.classes[1]\",\"page\":1,\"source_text\":\"- 고압가스 액화가스\",\"rules\":[],\"note\":\"고압가스의 구분 '액화가스'를 category에 넣음\"},{\"msds_index\":0,\"field\":\"hazard.classes[2]\",\"page\":1,\"source_text\":\"- 발암성물질 구분 1A\",\"rules\":[\"R07\"],\"note\":null},{\"msds_index\":0,\"field\":\"hazard.classes[3]\",\"page\":1,\"source_text\":\"- 생식세포 변이원성 물질 구분 1B\",\"rules\":[\"R07\"],\"note\":null},{\"msds_index\":0,\"field\":\"hazard.classes[4]\",\"page\":1,\"source_text\":\"- 특정표적장기독성-1회노출 구분 3(마취)\",\"rules\":[\"R07\"],\"note\":\"괄호 속 '마취'를 effect로 분리\"},{\"msds_index\":0,\"field\":\"hazard.signal_word\",\"page\":1,\"source_text\":\"신호어 - 위험\",\"rules\":[],\"note\":null},{\"msds_index\":0,\"field\":\"hazard.pictograms\",\"page\":1,\"source_text\":\"그림문자\",\"rules\":[],\"note\":\"이미지에서 불꽃, 가스 실린더, 감탄부호, 건강 유해성 그림 4개 확인\"},{\"msds_index\":0,\"field\":\"hazard.h_statements[0]\",\"page\":2,\"source_text\":\"H220 극인화성 가스\",\"rules\":[\"R05\"],\"note\":null},{\"msds_index\":0,\"field\":\"hazard.h_statements[1]\",\"page\":2,\"source_text\":\"H280 고압가스 포함: 가열하면 폭발할 수 있음\",\"rules\":[\"R05\"],\"note\":null},{\"msds_index\":0,\"field\":\"hazard.h_statements[2]\",\"page\":2,\"source_text\":\"H336 졸음 또는 현기증을 일으킬 수 있음\",\"rules\":[\"R05\"],\"note\":null},{\"msds_index\":0,\"field\":\"hazard.h_statements[3]\",\"page\":2,\"source_text\":\"H340 유전적인 결함을 일으킬 수 있음\",\"rules\":[\"R05\"],\"note\":null},{\"msds_index\":0,\"field\":\"hazard.h_statements[4]\",\"page\":2,\"source_text\":\"H350 암을 일으킬 수 있음\",\"rules\":[\"R05\"],\"note\":null},{\"msds_index\":0,\"field\":\"hazard.p_statements[0]\",\"page\":2,\"source_text\":\"P201 사용 전 취급 설명서를 확보하시오.\",\"rules\":[\"R05\"],\"note\":null},{\"msds_index\":0,\"field\":\"hazard.p_statements[1]\",\"page\":2,\"source_text\":\"P202 모든 안전 예방조치 문구를 읽고 이해하기 전에는 취급하지 마시오.\",\"rules\":[\"R05\"],\"note\":null},{\"msds_index\":0,\"field\":\"hazard.p_statements[2]\",\"page\":2,\"source_text\":\"P210 열, 고온의 표면, 스파크, 화염 및 그 밖의 점화원으로부터 멀리하시오. 금연\",\"rules\":[\"R05\"],\"note\":null},{\"msds_index\":0,\"field\":\"hazard.p_statements[3]\",\"page\":2,\"source_text\":\"P261 가스·미스트·스프레이의 흡입을 피하시오.\",\"rules\":[\"R05\"],\"note\":null},{\"msds_index\":0,\"field\":\"hazard.p_statements[4]\",\"page\":2,\"source_text\":\"P271 옥외 또는 환기가 잘 되는 곳에서만 취급하시오.\",\"rules\":[\"R05\"],\"note\":null},{\"msds_index\":0,\"field\":\"hazard.p_statements[5]\",\"page\":2,\"source_text\":\"P280 보호장갑·보호의·보안경·안면보호구를 착용하시오.\",\"rules\":[\"R05\"],\"note\":null},{\"msds_index\":0,\"field\":\"hazard.p_statements[6]\",\"page\":2,\"source_text\":\"P304+P340 흡입하면: 신선한 공기가 있는 곳으로 옮기고 호흡하기 쉬운 자세로 안정을 취하시오.\",\"rules\":[\"R05\"],\"note\":null},{\"msds_index\":0,\"field\":\"hazard.p_statements[7]\",\"page\":2,\"source_text\":\"P308+P313 노출되거나 노출이 우려되면: 의학적인 조치·조언을 구하시오.\",\"rules\":[\"R05\"],\"note\":null},{\"msds_index\":0,\"field\":\"hazard.p_statements[8]\",\"page\":2,\"source_text\":\"P312 불편함을 느끼면 의료기관·의사의 진찰을 받으시오.\",\"rules\":[\"R05\"],\"note\":null},{\"msds_index\":0,\"field\":\"hazard.p_statements[9]\",\"page\":2,\"source_text\":\"P377 가스 누출 화재; 누출을 안전하게 막을 수 없다면 불을 끄려하지 마시오.\",\"rules\":[\"R05\"],\"note\":null},{\"msds_index\":0,\"field\":\"hazard.p_statements[10]\",\"page\":2,\"source_text\":\"P381 누출 시 모든 점화원을 제거하시오.\",\"rules\":[\"R05\"],\"note\":null},{\"msds_index\":0,\"field\":\"hazard.p_statements[11]\",\"page\":2,\"source_text\":\"P403 환기가 잘 되는 곳에 보관하시오.\",\"rules\":[\"R05\"],\"note\":null},{\"msds_index\":0,\"field\":\"hazard.p_statements[12]\",\"page\":2,\"source_text\":\"P403+P233 환기가 잘 되는 곳에 보관하시오. 용기를 단단히 밀폐하시오.\",\"rules\":[\"R05\"],\"note\":null},{\"msds_index\":0,\"field\":\"hazard.p_statements[13]\",\"page\":2,\"source_text\":\"P405 잠금장치를 하여 저장하시오.\",\"rules\":[\"R05\"],\"note\":null},{\"msds_index\":0,\"field\":\"hazard.p_statements[14]\",\"page\":2,\"source_text\":\"P410+P403 직사광선을 피하시오. 환기가 잘 되는 곳에 보관하시오.\",\"rules\":[\"R05\"],\"note\":null},{\"msds_index\":0,\"field\":\"hazard.p_statements[15]\",\"page\":2,\"source_text\":\"P501 폐기물 관련 법령에 따라 내용물·용기를 폐기하시오\",\"rules\":[\"R05\"],\"note\":null},{\"msds_index\":0,\"field\":\"hazard.other_hazards[0]\",\"page\":2,\"source_text\":\"다. 유해·위험성 분류기준에 포함되지 않는 기타 유해·위험성 - 자료없음\",\"rules\":[\"R14\",\"R15\"],\"note\":null},{\"msds_index\":0,\"field\":\"hazard.nfpa\",\"page\":2,\"source_text\":\"보건(Health) | 화재(Flammability) | 반응성(Reactivity) / 2 | 4 | 2\",\"rules\":[],\"note\":null},{\"msds_index\":0,\"field\":\"composition.type\",\"page\":2,\"source_text\":\"3. 구성성분의 명칭 및 함유량\",\"rules\":[],\"note\":\"성분표에 성분 2개가 있어 혼합물로 기록\"},{\"msds_index\":0,\"field\":\"composition.no_hazardous_component\",\"page\":2,\"source_text\":\"구성성분 | 관용명 및 이명 | CAS No. | 대표함유율(%)\",\"rules\":[],\"note\":\"성분표가 있으므로 false\"},{\"msds_index\":0,\"field\":\"components[0]\",\"page\":2,\"source_text\":\"Hydrocarbons, (C=4), ethylene-manuf.-by-product | Hydrocarbons, (C=4), ethylene-manuf.-by-product | 68476-52-8 | 0-100\",\"rules\":[\"R02\",\"R04\",\"R17\",\"R19\"],\"note\":\"'0-100'을 하한 0(>=), 상한 100(<=), 단위 %(머리글)로 나눔. 이명은 이름 안의 쉼표 때문에 쪼개지 않음\"},{\"msds_index\":0,\"field\":\"components[1]\",\"page\":3,\"source_text\":\"1,3-Butadiene | 1,3-Butadiene | 106-99-0 | 0-43.9\",\"rules\":[\"R02\",\"R04\",\"R19\"],\"note\":\"'0-43.9'를 하한 0(>=), 상한 43.9(<=), 단위 %(머리글)로 나눔\"}]}"
+}

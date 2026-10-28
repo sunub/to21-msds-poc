@@ -1,0 +1,1003 @@
+[
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "meta.revision_no",
+    "page": 1,
+    "source_text": "Revision: 2",
+    "rules": [],
+    "note": "'Revision: 2'에서 개정 횟수 2를 취함"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "meta.revision_label",
+    "page": 1,
+    "source_text": "Revision: 2",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "meta.source_note",
+    "page": 5,
+    "source_text": "1) 자료의 출처: 본 물질안전보건자료(MSDS)는 한국산업안전공단의 자료를 바탕으로 '주식회사 크레진'에서 산업안전보건법 제41조 규정 및 노동부 고시 제 96-12호의 규정에 맞도록 편집한 것임.",
+    "rules": [],
+    "note": "번호 '1)'을 빼고 문구를 옮김"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "meta.first_issue_date",
+    "page": 1,
+    "source_text": "제정 일자 2006년 1월 3일",
+    "rules": [
+      "R01"
+    ],
+    "note": "'2006년 1월 3일'을 2006-01-03으로 변환"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "meta.last_revision_date",
+    "page": 1,
+    "source_text": "개정 일자 2011년 10월 1일",
+    "rules": [
+      "R01"
+    ],
+    "note": "'2011년 10월 1일'을 2011-10-01로 변환(머리글 Date: 2011/10/01과 일치)"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "meta.page_start",
+    "page": 1,
+    "source_text": "Page 1 / 5",
+    "rules": [
+      "R16"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "meta.page_end",
+    "page": 5,
+    "source_text": "Page 5 / 5",
+    "rules": [
+      "R16"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "product.name",
+    "page": 1,
+    "source_text": "제품명 CREAMIDE 6 G108",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "product.uses",
+    "page": 1,
+    "source_text": "제품의 용도 사출성형용 열가소성 수지",
+    "rules": [
+      "R11"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "companies[0]",
+    "page": 1,
+    "source_text": "제조자 정보 주식회사 크레진 | 경상북도 성주군 선남면 문방리 1415-3 | TEL : 054 931 1488",
+    "rules": [
+      "R12"
+    ],
+    "note": "전화번호 '054 931 1488'을 054-931-1488로 정규화"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.classified",
+    "page": 1,
+    "source_text": "1) 긴급한 위험, 유해성 정보 해당 없음",
+    "rules": [
+      "R17"
+    ],
+    "note": "GHS 분류 항목 자체가 없는 구양식이므로 분류 여부를 판단하지 않고 null로 둠"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.signal_word",
+    "page": 1,
+    "source_text": null,
+    "rules": [],
+    "note": "신호어 표기 없음"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.other_hazards",
+    "page": 1,
+    "source_text": "1) 긴급한 위험, 유해성 정보 해당 없음 ... 6) 만성 징후와 증상 일반적으로 위험 없음.",
+    "rules": [
+      "R14"
+    ],
+    "note": "3항 유해위험성 1)~6) 항목을 키/값 문장으로 분해"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.nfpa",
+    "page": 1,
+    "source_text": "NFPA 등급 (0-4 단계) 보건 =1, 화재 = 1, 반응성 = 0",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "composition.type",
+    "page": 1,
+    "source_text": "Polyamide 6 | Glass fiber | 첨가제 등",
+    "rules": [],
+    "note": "성분표에 3개 행이 있어 혼합물로 기록"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "components[0]",
+    "page": 1,
+    "source_text": "Polyamide 6 | 25038-54-4 |",
+    "rules": [
+      "R02",
+      "R15"
+    ],
+    "note": "함유량 칸이 비어 있어 status=미기재"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "components[1]",
+    "page": 1,
+    "source_text": "Glass fiber | 65997-17-3 | 35 ~ 45",
+    "rules": [
+      "R02",
+      "R04"
+    ],
+    "note": "'35 ~ 45'를 하한 35(>=), 상한 45(<=)로 나누고 표 머리 '함유량 (%)'에서 단위 %"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "components[2]",
+    "page": 1,
+    "source_text": "첨가제 등 | - | < 1",
+    "rules": [
+      "R04",
+      "R15"
+    ],
+    "note": "CAS '-'는 null, '< 1'을 상한 1(<), 단위 %로 분해"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[0]",
+    "page": 3,
+    "source_text": "- 미국 (A.C.G.I.H) | 기준 없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "'기준 없음'은 자료가 없다는 표기로 보아 status 자료없음, TWA·STEL 표시가 없어 limit_type 기타, 성분 지정이 없어 comp_ref MIX로 둠"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[1]",
+    "page": 3,
+    "source_text": "- 프랑스 | 기준 없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "프랑스 기준은 출처 코드에 없어 standard 기타로 둠. '기준 없음'은 status 자료없음으로 둠"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[2]",
+    "page": 3,
+    "source_text": "- 한국 | 기준 없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "'기준 없음'은 status 자료없음으로 둠. 노출기준과 허용기준 중 어느 것인지 원문에 없어 kr_basis는 null로 둠"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[0]",
+    "page": 3,
+    "source_text": "1) 외관 | 흰색 또는 특정색상의 쌀알형상의 고체",
+    "rules": [
+      "R25"
+    ],
+    "note": "'외관'을 APPEARANCE_STATE로 정하고 원문 전체를 text_value에 옮김"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[1]",
+    "page": 3,
+    "source_text": "2) 냄새 | 약한 특이한 냄새",
+    "rules": [
+      "R25"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[2]",
+    "page": 3,
+    "source_text": "3) pH | 해당 없음",
+    "rules": [
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[3]",
+    "page": 3,
+    "source_text": "4) 용해도 | 물에 불용성. 자일렌과 같은 유기용매에는 일부 용해됨",
+    "rules": [
+      "R25"
+    ],
+    "note": "숫자가 아닌 서술이어서 q는 null로 두고 text_value에 옮김"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[4]",
+    "page": 3,
+    "source_text": "5) 끓는점 /끓는점 범위 | 관련 없음",
+    "rules": [
+      "R15",
+      "R25"
+    ],
+    "note": "'관련 없음'은 해당없음과 같은 뜻의 상태 표기로 보고 status를 해당없음으로 둠. 동의어 사전에 없는 표기는 사전 추가 요청 대상"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[5]",
+    "page": 3,
+    "source_text": "6) 녹는점 /녹는점 범위 | 215 ~ 225℃",
+    "rules": [
+      "R04",
+      "R08",
+      "R25"
+    ],
+    "note": "'215 ~ 225℃'를 하한 215(>=), 상한 225(<=)로 나누고 단위 ℃를 C로 바꿈"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[6]",
+    "page": 3,
+    "source_text": "7) 폭발성 | 관련 없음",
+    "rules": [
+      "R15",
+      "R25"
+    ],
+    "note": "'폭발성'에 맞는 C4 코드가 없어 prop_code는 null로 둠(extras 대상). '관련 없음'은 status 해당없음으로 둠"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[7]",
+    "page": 3,
+    "source_text": "8) 산화성 | 관련 없음",
+    "rules": [
+      "R15",
+      "R25"
+    ],
+    "note": "'산화성'에 맞는 C4 코드가 없어 prop_code는 null로 둠(extras 대상). '관련 없음'은 status 해당없음으로 둠"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[8]",
+    "page": 3,
+    "source_text": "9) 증기압 | 관련 없음",
+    "rules": [
+      "R15"
+    ],
+    "note": "'관련 없음'은 status 해당없음으로 둠"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[9]",
+    "page": 3,
+    "source_text": "10) 비중 | 1.40 ~ 1.50",
+    "rules": [
+      "R04",
+      "R06",
+      "R25"
+    ],
+    "note": "하한 1.4(>=), 상한 1.5(<=)로 나누고 원문 소수 자릿수 2를 dp에 기록함"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[10]",
+    "page": 3,
+    "source_text": "11) 분배계수 | 관련 없음",
+    "rules": [
+      "R15",
+      "R25"
+    ],
+    "note": "'분배계수'를 LOG_KOW로 정함(사전 추가 요청 대상). '관련 없음'은 status 해당없음으로 둠"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[11]",
+    "page": 3,
+    "source_text": "12) 증기 밀도 | 관련 없음",
+    "rules": [
+      "R15",
+      "R25"
+    ],
+    "note": "'관련 없음'은 status 해당없음으로 둠"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[12]",
+    "page": 3,
+    "source_text": "13) 점도 (R.V.) | 자료 없음",
+    "rules": [
+      "R15",
+      "R25"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[13]",
+    "page": 3,
+    "source_text": "14) 분자량 | 자료 없음",
+    "rules": [
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[0]",
+    "page": 4,
+    "source_text": "1) 급성 독성 | 자료 없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "경구·경피·흡입 구분 없이 '급성 독성'으로만 적혀 있어 endpoint는 null로 두고 제품 전체(MIX) 자료없음 행으로 남김"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[1]",
+    "page": 4,
+    "source_text": "2) 아급성/만성 독성 | 자료 없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "C5에 정확히 대응하는 코드가 없어 endpoint null, 자료없음 행으로 남김"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[2]",
+    "page": 4,
+    "source_text": "3) 변이원성 영향 | 자료 없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "변이원성 영향을 TX_MUTA로, '자료 없음'을 status 자료없음으로 기록"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[3]",
+    "page": 4,
+    "source_text": "4) 차세대 양향 (생식독성) | 자료 없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "생식독성을 TX_REPRO로, '자료 없음'을 status 자료없음으로 기록"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[4]",
+    "page": 4,
+    "source_text": "5) 발암성 영향 | 자료 없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "발암성 영향을 TX_CARC로, '자료 없음'을 status 자료없음으로 기록. 기관별 분류가 없어 cmr 행은 만들지 않음"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[0]",
+    "page": 4,
+    "source_text": "1) 수생 및 생태 독성 | 현재까지 유용한 자료 없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "어류·갑각류·조류 구분이 없어 endpoint null, 자료없음 행으로 남김"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[1]",
+    "page": 4,
+    "source_text": "2) 토양 이동성 | 현재까지 유용한 자료 없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "토양 이동성을 ECO_SOIL로, status 자료없음으로 기록"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[2]",
+    "page": 4,
+    "source_text": "3) 잔류성 및 분해성 | 현재까지 유용한 자료 없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "잔류성 및 분해성을 ECO_PERSIST로, status 자료없음으로 기록"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[3]",
+    "page": 4,
+    "source_text": "4) 동식물의 생체 내 축적 가능성 | 자료 없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "생체 내 축적 가능성을 ECO_BIOACC로, status 자료없음으로 기록"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "transport[0]",
+    "page": 5,
+    "source_text": "1) 선박안전법 위험물 선박운송 및 저장규칙에 의한 분류 및 규제 | 해당 없음",
+    "rules": [
+      "R15"
+    ],
+    "note": "선박운송 규칙이므로 mode=해상, '해당 없음'을 regulated=false로 기록"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "transport[1]",
+    "page": 5,
+    "source_text": "3) 기타 외국으로 운송관련 규정에 의한 분류 및 규제 | 해당 없음",
+    "rules": [
+      "R15"
+    ],
+    "note": "운송 방식 구분이 없어 mode=공통, '해당 없음'을 regulated=false로 기록"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[0]",
+    "page": 5,
+    "source_text": "1) 산업안전보건법에 의한 규정 | 미규정",
+    "rules": [
+      "R17"
+    ],
+    "note": "구체적 규제 항목이 없어 item_code=null, '미규정'을 비해당으로 보고 value_raw에 원문 보존"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[1]",
+    "page": 5,
+    "source_text": "유해화학물질관리법 | 미규정",
+    "rules": [
+      "R17"
+    ],
+    "note": "유해화학물질관리법(화관법 전신)을 law=CCA로, 구체 항목이 없어 item_code=null, '미규정'을 비해당으로 기록"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[2]",
+    "page": 5,
+    "source_text": "소방법 | 미규정",
+    "rules": [
+      "R17"
+    ],
+    "note": "소방법(위험물 규정, 현 위험물안전관리법 전신)을 law=DG로 보고 '미규정'을 비해당으로 기록"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "dangerous_goods[0]",
+    "page": 5,
+    "source_text": "소방법 | 미규정",
+    "rules": [],
+    "note": "소방법상 미규정이므로 류별을 해당없음으로 기록"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[0]",
+    "page": 2,
+    "source_text": "1) 눈에 들어 갔을 때 | 화학물질이 완전히 제거될 때까지 많은 양의 물이나 생리식염수로 아래위 눈꺼풀과 눈을 씻을 것.",
+    "rules": [
+      "R14"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[1]",
+    "page": 2,
+    "source_text": "2) 피부에 접촉했을 때 | 오염된 의복, 장신구 및 신발을 즉시 제거할 것. 화학물질이 완전히 제거될 때까지 다량의 물을 사용하여 비누, 중성세제로 세척할 것.",
+    "rules": [
+      "R14"
+    ],
+    "note": "두 문장을 문장 단위로 나눔"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[2]",
+    "page": 2,
+    "source_text": "3) 흡입했을 때 | 오염장소로부터 탈피하여 깨끗한 공기를 흡입할 것.",
+    "rules": [
+      "R14"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[3]",
+    "page": 2,
+    "source_text": "4) 섭취했을 때 | 응급구조 조치는 일반적으로 필요 없으며 구토 등으로 토해낸다. 만약 사람이 의식불명이면 머리를 옆으로 돌리게 하고 즉시 의사의 치료를 받도록 한다.",
+    "rules": [
+      "R14",
+      "R25"
+    ],
+    "note": "'섭취했을 때'를 S4_INGEST로 매핑하고 두 문장으로 나눔"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[4]",
+    "page": 2,
+    "source_text": "5) 의사의 주의 사항 | 특별한 해독제는 없음. 증상에 따라 지지요법을 사용할 것.",
+    "rules": [
+      "R14",
+      "R25"
+    ],
+    "note": "두 문장으로 나눔"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[5]",
+    "page": 2,
+    "source_text": "5) 소화제 | 입자상 분말 소화약제, 이산화탄소, 물, 일반적인 포말.",
+    "rules": [
+      "R14",
+      "R25"
+    ],
+    "note": "'소화제'를 S5_MEDIA로 매핑"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[6]",
+    "page": 2,
+    "source_text": "6) 소화방법 및 장비 | 가능하면 용기를 화재지역으로부터 이동시키고 고압 물줄기를 뿌려 비산되지 않도록 한다. 소화요원은 호흡용 장비와 눈 보호장비를 반드시 갖추고 연소 생성물의 흡입을 피한다.",
+    "rules": [
+      "R14",
+      "R25"
+    ],
+    "note": "'소화방법 및 장비'를 S5_FIREFIGHT로 매핑하고 두 문장으로 나눔"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[7]",
+    "page": 2,
+    "source_text": "7) 연소 시 발생 유해물질 | 일산화탄소, 질소화합물, 할로겐화합물 등과 자극성의 연기가 발생할 수 있음.",
+    "rules": [
+      "R14",
+      "R25"
+    ],
+    "note": "'연소 시 발생 유해물질'을 S5_SPECIFIC로 매핑"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[8]",
+    "page": 2,
+    "source_text": "1) 인체보호 필요조치 | 고체는 미끄러짐의 우려가 있으니 즉각 수거한다.",
+    "rules": [
+      "R14",
+      "R25"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[9]",
+    "page": 2,
+    "source_text": "2) 환경보호 필요조치 | 해당 없음",
+    "rules": [
+      "R15"
+    ],
+    "note": "'해당 없음'을 status 해당없음으로 둠"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[10]",
+    "page": 2,
+    "source_text": "3) 정화 및 제거방법 | 산업폐기물 처리 규정에 따라 승인된 장소로 옮길 것",
+    "rules": [
+      "R14",
+      "R25"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[11]",
+    "page": 3,
+    "source_text": "1) 현행법규 및 규정에 의하여 저장 및 취급한다.",
+    "rules": [
+      "R14"
+    ],
+    "note": "7항에 소제목이 없어 항 제목을 title_raw로 쓰고, 취급을 함께 언급한 1)을 S7_HANDLING에 넣음"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[12]",
+    "page": 3,
+    "source_text": "2) 서늘하고 건조한 장소에 혼합금지 물질과 분리, 보관한다.",
+    "rules": [
+      "R14"
+    ],
+    "note": "보관 내용인 2)를 S7_STORAGE에 넣음"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[13]",
+    "page": 3,
+    "source_text": "1) 공학적 관리방법 | 작업 중 생성될 수 있는 먼지 및 가스를 빼낼 수 있는 배기장치를 필요로 한다. 필요 시 먼지 및 유기용제용으로 공인된 마스크를 사용한다.",
+    "rules": [
+      "R14",
+      "R25"
+    ],
+    "note": "두 문장으로 나눔"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[14]",
+    "page": 3,
+    "source_text": "- 호흡기 보호 | 작업자는 분진 방지용 마스크를 사용할 것.",
+    "rules": [
+      "R14"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[15]",
+    "page": 3,
+    "source_text": "- 눈 보호 | 보안경 착용 및 가까운 곳에 눈 세척시설 및 비상세척 설비를 설치한다.",
+    "rules": [
+      "R14"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[16]",
+    "page": 3,
+    "source_text": "- 신체 보호 | 사출기 작업자는 장갑, 팔 보호대 또는 내열성 보호구를 착용한다.",
+    "rules": [
+      "R14"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[17]",
+    "page": 4,
+    "source_text": "1) 화학적 안정성 | 상온, 상압에서 안정함",
+    "rules": [
+      "R14",
+      "R25"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[18]",
+    "page": 4,
+    "source_text": "* 피해야 할 조건 | 열, 화염, 스파크 및 기타 점화원 등 발화 물질",
+    "rules": [
+      "R14"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[19]",
+    "page": 4,
+    "source_text": "* 피해야 할 물질 | 산, 염기, 산화제",
+    "rules": [
+      "R14"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[20]",
+    "page": 4,
+    "source_text": "3) 분해 시 생성물질 | 유독한 탄소화물을 포함할 수 있음.",
+    "rules": [
+      "R14",
+      "R25"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[21]",
+    "page": 4,
+    "source_text": "2) 폐기 시 주의사항 | 폐기물 관리법에 따라 처리할 것.",
+    "rules": [
+      "R14"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[22]",
+    "page": 5,
+    "source_text": "2) 운송 시 주의사항 | 해당 없음",
+    "rules": [
+      "R15"
+    ],
+    "note": "'해당 없음'을 status 해당없음으로 둠"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[23]",
+    "page": 5,
+    "source_text": "1) 자료의 출처: 본 물질안전보건자료(MSDS)는 한국산업안전공단의 자료를 바탕으로 '주식회사 크레진'에서 산업안전보건법 제41조 규정 및 노동부 고시 제 96-12호의 규정에 맞도록 편집한 것임.",
+    "rules": [
+      "R14"
+    ],
+    "note": "'자료의 출처'를 key로 분리"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[24]",
+    "page": 5,
+    "source_text": "2) 이 자료에 포함된 정보는 현재 이 제품에 대한 우리의 지식을 토대로 작성된 것이며, … 4) 사용자의 책임: 사용자는 반드시 이 물질 안전 보건 정보를 읽고 숙지하여 …",
+    "rules": [
+      "R14"
+    ],
+    "note": "16항 2)~4)를 S16_OTHER 하나로 묶고, 4)는 '사용자의 책임'을 key로 분리"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "extras[0]",
+    "page": 1,
+    "source_text": "일반적 특성 | 고체상태로 연한 백색 또는 특정 색상, 약간 특이한 냄새",
+    "rules": [
+      "R24"
+    ],
+    "note": "1항에 맞는 칸이 없어 extras로 보냄"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "extras[1]",
+    "page": 1,
+    "source_text": "화학물질 성분 | 폴리아마이드6 중합체",
+    "rules": [
+      "R24"
+    ],
+    "note": "1항에 맞는 칸이 없어 extras로 보냄"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "extras[2]",
+    "page": 1,
+    "source_text": "NFPA 등급 (0-4 단계) | 보건 =1, | 화재 = 1, | 반응성 = 0",
+    "rules": [
+      "R24",
+      "R14"
+    ],
+    "note": "원문 '3. 유해 위험성'을 표준 2항(유해성·위험성)으로 보고 section_no=2로 둠"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "extras[3]",
+    "page": 1,
+    "source_text": "1) 긴급한 위험, 유해성 정보 | 해당 없음",
+    "rules": [
+      "R24"
+    ],
+    "note": "원문 3항(유해 위험성)을 표준 2항으로 둠"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "extras[4]",
+    "page": 1,
+    "source_text": "2) 눈에 대한 영향 | 녹은 수지, 입자 또는 비산먼지가 눈에 들어가면 상처 및 물리적 자극을 줄 수 있음",
+    "rules": [
+      "R24"
+    ],
+    "note": "원문 3항(유해 위험성)을 표준 2항으로 둠"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "extras[5]",
+    "page": 1,
+    "source_text": "3) 피부에 대한 영향 | 분진이 피부에 접촉 시 발진, 가려움증을 일으킬 수 있음.",
+    "rules": [
+      "R24"
+    ],
+    "note": "원문 3항(유해 위험성)을 표준 2항으로 둠"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "extras[6]",
+    "page": 1,
+    "source_text": "4) 흡입시의 영향 | 분진이 기도를 자극할 수 있음.",
+    "rules": [
+      "R24"
+    ],
+    "note": "원문 3항(유해 위험성)을 표준 2항으로 둠"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "extras[7]",
+    "page": 1,
+    "source_text": "5) 섭취시의 영향 | 일반적으로 위험 없음.",
+    "rules": [
+      "R24"
+    ],
+    "note": "원문 3항(유해 위험성)을 표준 2항으로 둠"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "extras[8]",
+    "page": 1,
+    "source_text": "6) 만성 징후와 증상 | 일반적으로 위험 없음.",
+    "rules": [
+      "R24"
+    ],
+    "note": "원문 3항(유해 위험성)을 표준 2항으로 둠"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "extras[9]",
+    "page": 3,
+    "source_text": "- 위생상 주의 사항 | 취급 후 깨끗이 씻을 것.",
+    "rules": [
+      "R24"
+    ],
+    "note": "C3에 위생상 주의사항 코드가 없어 extras로 보냄"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "extras[10]",
+    "page": 3,
+    "source_text": "7) 폭발성 | 관련 없음",
+    "rules": [
+      "R24",
+      "R17"
+    ],
+    "note": "9항 표준 물성에 없는 항목이라 extras로 보냄. '관련 없음'은 동의어 사전에 없어 원문 그대로 둠"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "extras[11]",
+    "page": 3,
+    "source_text": "8) 산화성 | 관련 없음",
+    "rules": [
+      "R24",
+      "R17"
+    ],
+    "note": "9항 표준 물성에 없는 항목이라 extras로 보냄. '관련 없음'은 원문 그대로 둠"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "extras[12]",
+    "page": 4,
+    "source_text": "4) 반응 시 유해물질 | 중합하지 않음.",
+    "rules": [
+      "R24"
+    ],
+    "note": "맞는 C3 코드가 없어 extras로 보내고 S10_STABILITY를 편입 후보로 제안"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "extras[13]",
+    "page": 4,
+    "source_text": "1) 폐기물 관리법상 규제 현황 | 특정 폐기물",
+    "rules": [
+      "R24"
+    ],
+    "note": "13항 안의 폐기물관리법 규제 서술이라 extras로 보내고 S15_WASTE를 편입 후보로 제안"
+  }
+]

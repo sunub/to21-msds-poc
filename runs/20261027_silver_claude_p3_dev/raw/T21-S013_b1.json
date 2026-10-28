@@ -1,0 +1,531 @@
+{
+  "doc_id": "T21-S013",
+  "bundle": "b1",
+  "model": "claude-opus-5-5",
+  "mode": "none",
+  "finish_reason": "stop",
+  "usage": {
+    "prompt_tokens": 82752,
+    "completion_tokens": 5177,
+    "total_tokens": 87929,
+    "served_model": "claude-opus-5-5"
+  },
+  "seconds": 44.9,
+  "attempts": 1,
+  "errors": [],
+  "parsed": {
+    "doc": {
+      "language": "ko",
+      "msds_count": 1
+    },
+    "msds": [
+      {
+        "meta": {
+          "msds_no": "AA00566-2100003313",
+          "doc_code": null,
+          "revision_no": 0,
+          "revision_label": null,
+          "header_product_name": null,
+          "source_note": null,
+          "first_issue_date": "2025-08-27",
+          "last_revision_date": "2025-08-27",
+          "page_start": 1,
+          "page_end": 11
+        },
+        "product": {
+          "name": "HYDROGEN",
+          "code": null,
+          "synonyms": [],
+          "uses": [
+            "12.연료 및 연료 첨가제"
+          ],
+          "restrictions": [
+            "확인된 용도 이외의 제품 사용 금지됩니다."
+          ],
+          "use_category_code": null
+        },
+        "companies": [
+          {
+            "seq": 1,
+            "role": "제조자",
+            "name": "(주)LG화학",
+            "site": null,
+            "address": "전라남도 여수시 여수산단4로 58",
+            "postcode": null,
+            "department": null,
+            "contacts": [
+              {
+                "type": "긴급",
+                "value": "+82-2-3773-1114",
+                "hours": "08:30~18:00, KST"
+              }
+            ]
+          }
+        ],
+        "hazard": {
+          "classified": true,
+          "classes": [
+            {
+              "seq": 1,
+              "group": "물리적",
+              "class_code": "PH_FLAM_GAS",
+              "category": "1",
+              "route_form": null,
+              "effect": null,
+              "target_organs": [],
+              "raw": "인화성 가스 구분 1"
+            },
+            {
+              "seq": 2,
+              "group": "물리적",
+              "class_code": "PH_PRESS_GAS",
+              "category": "압축가스",
+              "route_form": null,
+              "effect": null,
+              "target_organs": [],
+              "raw": "고압가스 압축가스"
+            }
+          ],
+          "signal_word": "위험",
+          "pictograms": [
+            {
+              "code": "GHS02",
+              "detection": "이미지판독"
+            },
+            {
+              "code": "GHS04",
+              "detection": "이미지판독"
+            }
+          ],
+          "h_statements": [
+            {
+              "seq": 1,
+              "code": "H220",
+              "system": "GHS",
+              "mark": null,
+              "text": "극인화성 가스"
+            },
+            {
+              "seq": 2,
+              "code": "H280",
+              "system": "GHS",
+              "mark": null,
+              "text": "고압가스 포함: 가열하면 폭발할 수 있음"
+            }
+          ],
+          "p_statements": [
+            {
+              "seq": 1,
+              "code": "P210",
+              "type": "예방",
+              "text": "열, 고온의 표면, 스파크, 화염 및 그 밖의 점화원으로부터 멀리하시오. 금연"
+            },
+            {
+              "seq": 2,
+              "code": "P377",
+              "type": "대응",
+              "text": "가스 누출 화재; 누출을 안전하게 막을 수 없다면 불을 끄려하지 마시오."
+            },
+            {
+              "seq": 3,
+              "code": "P381",
+              "type": "대응",
+              "text": "누출 시 모든 점화원을 제거하시오."
+            },
+            {
+              "seq": 4,
+              "code": "P403",
+              "type": "저장",
+              "text": "환기가 잘 되는 곳에 보관하시오."
+            },
+            {
+              "seq": 5,
+              "code": "P410+P403",
+              "type": "저장",
+              "text": "직사광선을 피하시오. 환기가 잘 되는 곳에 보관하시오."
+            }
+          ],
+          "other_hazards": [
+            {
+              "seq": 1,
+              "key": null,
+              "value": "자료없음",
+              "refs": null,
+              "cond": null,
+              "std_code": null,
+              "match_score": null,
+              "text": "- 자료없음"
+            }
+          ],
+          "nfpa": {
+            "health": 0,
+            "fire": 4,
+            "reactivity": 0,
+            "special": null
+          }
+        },
+        "composition": {
+          "type": "혼합물",
+          "no_hazardous_component": false
+        },
+        "components": [
+          {
+            "seq": 1,
+            "name": "Hydrogen",
+            "name_en": null,
+            "synonyms": [
+              "Hydrogen"
+            ],
+            "cas_no": "1333-74-0",
+            "ke_no": null,
+            "ec_no": null,
+            "other_id": null,
+            "other_id_type": null,
+            "parent_seq": null,
+            "read_across_cas": null,
+            "content": {
+              "raw": "95",
+              "approx": null,
+              "value": 95,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "%",
+              "dp": 0,
+              "status": "값있음",
+              "note": null
+            },
+            "content_note": null,
+            "content_basis": "미표기",
+            "trade_secret": false,
+            "approval_no": null,
+            "approval_expiry": null
+          },
+          {
+            "seq": 2,
+            "name": "Methane",
+            "name_en": null,
+            "synonyms": [
+              "Methane"
+            ],
+            "cas_no": "74-82-8",
+            "ke_no": null,
+            "ec_no": null,
+            "other_id": null,
+            "other_id_type": null,
+            "parent_seq": null,
+            "read_across_cas": null,
+            "content": {
+              "raw": "5",
+              "approx": null,
+              "value": 5,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "%",
+              "dp": 0,
+              "status": "값있음",
+              "note": null
+            },
+            "content_note": null,
+            "content_basis": "미표기",
+            "trade_secret": false,
+            "approval_no": null,
+            "approval_expiry": null
+          }
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "msds_index": 0,
+        "field": "meta.msds_no",
+        "page": 1,
+        "source_text": "MSDS 관리번호 : AA00566-2100003313",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.revision_no",
+        "page": 10,
+        "source_text": "○ 개정 횟수 : 0",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.first_issue_date",
+        "page": 10,
+        "source_text": "나. 최초 작성일자 : 2025-08-27",
+        "rules": [
+          "R01"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.last_revision_date",
+        "page": 1,
+        "source_text": "최종 개정일자 : 2025-08-27",
+        "rules": [
+          "R01"
+        ],
+        "note": "16항(10쪽) 최종 개정일자와 같음"
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.page_start",
+        "page": 1,
+        "source_text": "물질안전보건자료(MSDS)",
+        "rules": [
+          "R16"
+        ],
+        "note": "파일 전체가 1건의 MSDS임"
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.page_end",
+        "page": 11,
+        "source_text": "- 11",
+        "rules": [
+          "R16"
+        ],
+        "note": "11쪽은 로고와 쪽번호만 있는 빈 쪽이나 파일의 마지막 쪽으로 포함"
+      },
+      {
+        "msds_index": 0,
+        "field": "product.name",
+        "page": 1,
+        "source_text": "가. 제품명 : HYDROGEN",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "product.uses",
+        "page": 1,
+        "source_text": "○ 제품의 권고용도 12.연료 및 연료 첨가제",
+        "rules": [
+          "R11"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "product.restrictions",
+        "page": 1,
+        "source_text": "○ (입력된 제품권고 용도)외 사용 금지 확인된 용도 이외의 제품 사용 금지됩니다.",
+        "rules": [
+          "R11"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "companies[0]",
+        "page": 1,
+        "source_text": "○ 제조회사명 회사명 : (주)LG화학 주소 : 전라남도 여수시 여수산단4로 58 긴급전화번호 : +82-2-3773-1114 (08:30~18:00, KST)",
+        "rules": [
+          "R12"
+        ],
+        "note": "'제조회사명' 소제목에 따라 role=제조자, 긴급전화의 괄호 안 시간은 hours로 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.classified",
+        "page": 1,
+        "source_text": "- 인화성 가스 구분 1 - 고압가스 압축가스",
+        "rules": [],
+        "note": "분류 항목이 있어 true"
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.classes[0]",
+        "page": 1,
+        "source_text": "- 인화성 가스 구분 1",
+        "rules": [
+          "R07"
+        ],
+        "note": "'구분' 글자를 빼고 category=1"
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.classes[1]",
+        "page": 1,
+        "source_text": "- 고압가스 압축가스",
+        "rules": [],
+        "note": "구분 표기 '압축가스'를 category에 원문대로 넣음"
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.signal_word",
+        "page": 1,
+        "source_text": "신호어 - 위험",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.pictograms[0]",
+        "page": 1,
+        "source_text": "그림문자",
+        "rules": [],
+        "note": "이미지에서 불꽃 그림문자를 확인함"
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.pictograms[1]",
+        "page": 1,
+        "source_text": "그림문자",
+        "rules": [],
+        "note": "이미지에서 가스 실린더 그림문자를 확인함"
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.h_statements[0]",
+        "page": 1,
+        "source_text": "H220 극인화성 가스",
+        "rules": [
+          "R05"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.h_statements[1]",
+        "page": 1,
+        "source_text": "H280 고압가스 포함: 가열하면 폭발할 수 있음",
+        "rules": [
+          "R05"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.p_statements[0]",
+        "page": 2,
+        "source_text": "P210 열, 고온의 표면, 스파크, 화염 및 그 밖의 점화원으로부터 멀리하시오. 금연",
+        "rules": [
+          "R05"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.p_statements[1]",
+        "page": 2,
+        "source_text": "P377 가스 누출 화재; 누출을 안전하게 막을 수 없다면 불을 끄려하지 마시오.",
+        "rules": [
+          "R05"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.p_statements[2]",
+        "page": 2,
+        "source_text": "P381 누출 시 모든 점화원을 제거하시오.",
+        "rules": [
+          "R05"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.p_statements[3]",
+        "page": 2,
+        "source_text": "P403 환기가 잘 되는 곳에 보관하시오.",
+        "rules": [
+          "R05"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.p_statements[4]",
+        "page": 2,
+        "source_text": "P410+P403 직사광선을 피하시오. 환기가 잘 되는 곳에 보관하시오.",
+        "rules": [
+          "R05"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.other_hazards[0]",
+        "page": 2,
+        "source_text": "다. 유해·위험성 분류기준에 포함되지 않는 기타 유해·위험성 - 자료없음",
+        "rules": [
+          "R14"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.nfpa.health",
+        "page": 2,
+        "source_text": "보건(Health) | 화재(Flammability) | 반응성(Reactivity) / 0 | 4 | 0",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.nfpa.fire",
+        "page": 2,
+        "source_text": "보건(Health) | 화재(Flammability) | 반응성(Reactivity) / 0 | 4 | 0",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.nfpa.reactivity",
+        "page": 2,
+        "source_text": "보건(Health) | 화재(Flammability) | 반응성(Reactivity) / 0 | 4 | 0",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "composition.type",
+        "page": 2,
+        "source_text": "Hydrogen | Hydrogen | 1333-74-0 | 95 / Methane | Methane | 74-82-8 | 5",
+        "rules": [],
+        "note": "성분이 2개라 혼합물로 기록"
+      },
+      {
+        "msds_index": 0,
+        "field": "composition.no_hazardous_component",
+        "page": 2,
+        "source_text": "구성성분 | 관용명 및 이명 | CAS No. | 대표함유율(%)",
+        "rules": [],
+        "note": "성분표가 있어 false"
+      },
+      {
+        "msds_index": 0,
+        "field": "components[0]",
+        "page": 2,
+        "source_text": "Hydrogen | Hydrogen | 1333-74-0 | 95",
+        "rules": [
+          "R02",
+          "R04"
+        ],
+        "note": "단위는 열 제목 '대표함유율(%)'에서 %로 붙임, 체크디지트 확인됨"
+      },
+      {
+        "msds_index": 0,
+        "field": "components[1]",
+        "page": 2,
+        "source_text": "Methane | Methane | 74-82-8 | 5",
+        "rules": [
+          "R02",
+          "R04"
+        ],
+        "note": "단위는 열 제목 '대표함유율(%)'에서 %로 붙임, 체크디지트 확인됨"
+      }
+    ]
+  },
+  "raw_text": "{\"doc\":{\"language\":\"ko\",\"msds_count\":1},\"msds\":[{\"meta\":{\"msds_no\":\"AA00566-2100003313\",\"doc_code\":null,\"revision_no\":0,\"revision_label\":null,\"header_product_name\":null,\"source_note\":null,\"first_issue_date\":\"2025-08-27\",\"last_revision_date\":\"2025-08-27\",\"page_start\":1,\"page_end\":11},\"product\":{\"name\":\"HYDROGEN\",\"code\":null,\"synonyms\":[],\"uses\":[\"12.연료 및 연료 첨가제\"],\"restrictions\":[\"확인된 용도 이외의 제품 사용 금지됩니다.\"],\"use_category_code\":null},\"companies\":[{\"seq\":1,\"role\":\"제조자\",\"name\":\"(주)LG화학\",\"site\":null,\"address\":\"전라남도 여수시 여수산단4로 58\",\"postcode\":null,\"department\":null,\"contacts\":[{\"type\":\"긴급\",\"value\":\"+82-2-3773-1114\",\"hours\":\"08:30~18:00, KST\"}]}],\"hazard\":{\"classified\":true,\"classes\":[{\"seq\":1,\"group\":\"물리적\",\"class_code\":\"PH_FLAM_GAS\",\"category\":\"1\",\"route_form\":null,\"effect\":null,\"target_organs\":[],\"raw\":\"인화성 가스 구분 1\"},{\"seq\":2,\"group\":\"물리적\",\"class_code\":\"PH_PRESS_GAS\",\"category\":\"압축가스\",\"route_form\":null,\"effect\":null,\"target_organs\":[],\"raw\":\"고압가스 압축가스\"}],\"signal_word\":\"위험\",\"pictograms\":[{\"code\":\"GHS02\",\"detection\":\"이미지판독\"},{\"code\":\"GHS04\",\"detection\":\"이미지판독\"}],\"h_statements\":[{\"seq\":1,\"code\":\"H220\",\"system\":\"GHS\",\"mark\":null,\"text\":\"극인화성 가스\"},{\"seq\":2,\"code\":\"H280\",\"system\":\"GHS\",\"mark\":null,\"text\":\"고압가스 포함: 가열하면 폭발할 수 있음\"}],\"p_statements\":[{\"seq\":1,\"code\":\"P210\",\"type\":\"예방\",\"text\":\"열, 고온의 표면, 스파크, 화염 및 그 밖의 점화원으로부터 멀리하시오. 금연\"},{\"seq\":2,\"code\":\"P377\",\"type\":\"대응\",\"text\":\"가스 누출 화재; 누출을 안전하게 막을 수 없다면 불을 끄려하지 마시오.\"},{\"seq\":3,\"code\":\"P381\",\"type\":\"대응\",\"text\":\"누출 시 모든 점화원을 제거하시오.\"},{\"seq\":4,\"code\":\"P403\",\"type\":\"저장\",\"text\":\"환기가 잘 되는 곳에 보관하시오.\"},{\"seq\":5,\"code\":\"P410+P403\",\"type\":\"저장\",\"text\":\"직사광선을 피하시오. 환기가 잘 되는 곳에 보관하시오.\"}],\"other_hazards\":[{\"seq\":1,\"key\":null,\"value\":\"자료없음\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"- 자료없음\"}],\"nfpa\":{\"health\":0,\"fire\":4,\"reactivity\":0,\"special\":null}},\"composition\":{\"type\":\"혼합물\",\"no_hazardous_component\":false},\"components\":[{\"seq\":1,\"name\":\"Hydrogen\",\"name_en\":null,\"synonyms\":[\"Hydrogen\"],\"cas_no\":\"1333-74-0\",\"ke_no\":null,\"ec_no\":null,\"other_id\":null,\"other_id_type\":null,\"parent_seq\":null,\"read_across_cas\":null,\"content\":{\"raw\":\"95\",\"approx\":null,\"value\":95,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"%\",\"dp\":0,\"status\":\"값있음\",\"note\":null},\"content_note\":null,\"content_basis\":\"미표기\",\"trade_secret\":false,\"approval_no\":null,\"approval_expiry\":null},{\"seq\":2,\"name\":\"Methane\",\"name_en\":null,\"synonyms\":[\"Methane\"],\"cas_no\":\"74-82-8\",\"ke_no\":null,\"ec_no\":null,\"other_id\":null,\"other_id_type\":null,\"parent_seq\":null,\"read_across_cas\":null,\"content\":{\"raw\":\"5\",\"approx\":null,\"value\":5,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"%\",\"dp\":0,\"status\":\"값있음\",\"note\":null},\"content_note\":null,\"content_basis\":\"미표기\",\"trade_secret\":false,\"approval_no\":null,\"approval_expiry\":null}]}],\"evidence\":[{\"msds_index\":0,\"field\":\"meta.msds_no\",\"page\":1,\"source_text\":\"MSDS 관리번호 : AA00566-2100003313\",\"rules\":[],\"note\":null},{\"msds_index\":0,\"field\":\"meta.revision_no\",\"page\":10,\"source_text\":\"○ 개정 횟수 : 0\",\"rules\":[],\"note\":null},{\"msds_index\":0,\"field\":\"meta.first_issue_date\",\"page\":10,\"source_text\":\"나. 최초 작성일자 : 2025-08-27\",\"rules\":[\"R01\"],\"note\":null},{\"msds_index\":0,\"field\":\"meta.last_revision_date\",\"page\":1,\"source_text\":\"최종 개정일자 : 2025-08-27\",\"rules\":[\"R01\"],\"note\":\"16항(10쪽) 최종 개정일자와 같음\"},{\"msds_index\":0,\"field\":\"meta.page_start\",\"page\":1,\"source_text\":\"물질안전보건자료(MSDS)\",\"rules\":[\"R16\"],\"note\":\"파일 전체가 1건의 MSDS임\"},{\"msds_index\":0,\"field\":\"meta.page_end\",\"page\":11,\"source_text\":\"- 11\",\"rules\":[\"R16\"],\"note\":\"11쪽은 로고와 쪽번호만 있는 빈 쪽이나 파일의 마지막 쪽으로 포함\"},{\"msds_index\":0,\"field\":\"product.name\",\"page\":1,\"source_text\":\"가. 제품명 : HYDROGEN\",\"rules\":[],\"note\":null},{\"msds_index\":0,\"field\":\"product.uses\",\"page\":1,\"source_text\":\"○ 제품의 권고용도 12.연료 및 연료 첨가제\",\"rules\":[\"R11\"],\"note\":null},{\"msds_index\":0,\"field\":\"product.restrictions\",\"page\":1,\"source_text\":\"○ (입력된 제품권고 용도)외 사용 금지 확인된 용도 이외의 제품 사용 금지됩니다.\",\"rules\":[\"R11\"],\"note\":null},{\"msds_index\":0,\"field\":\"companies[0]\",\"page\":1,\"source_text\":\"○ 제조회사명 회사명 : (주)LG화학 주소 : 전라남도 여수시 여수산단4로 58 긴급전화번호 : +82-2-3773-1114 (08:30~18:00, KST)\",\"rules\":[\"R12\"],\"note\":\"'제조회사명' 소제목에 따라 role=제조자, 긴급전화의 괄호 안 시간은 hours로 분리\"},{\"msds_index\":0,\"field\":\"hazard.classified\",\"page\":1,\"source_text\":\"- 인화성 가스 구분 1 - 고압가스 압축가스\",\"rules\":[],\"note\":\"분류 항목이 있어 true\"},{\"msds_index\":0,\"field\":\"hazard.classes[0]\",\"page\":1,\"source_text\":\"- 인화성 가스 구분 1\",\"rules\":[\"R07\"],\"note\":\"'구분' 글자를 빼고 category=1\"},{\"msds_index\":0,\"field\":\"hazard.classes[1]\",\"page\":1,\"source_text\":\"- 고압가스 압축가스\",\"rules\":[],\"note\":\"구분 표기 '압축가스'를 category에 원문대로 넣음\"},{\"msds_index\":0,\"field\":\"hazard.signal_word\",\"page\":1,\"source_text\":\"신호어 - 위험\",\"rules\":[],\"note\":null},{\"msds_index\":0,\"field\":\"hazard.pictograms[0]\",\"page\":1,\"source_text\":\"그림문자\",\"rules\":[],\"note\":\"이미지에서 불꽃 그림문자를 확인함\"},{\"msds_index\":0,\"field\":\"hazard.pictograms[1]\",\"page\":1,\"source_text\":\"그림문자\",\"rules\":[],\"note\":\"이미지에서 가스 실린더 그림문자를 확인함\"},{\"msds_index\":0,\"field\":\"hazard.h_statements[0]\",\"page\":1,\"source_text\":\"H220 극인화성 가스\",\"rules\":[\"R05\"],\"note\":null},{\"msds_index\":0,\"field\":\"hazard.h_statements[1]\",\"page\":1,\"source_text\":\"H280 고압가스 포함: 가열하면 폭발할 수 있음\",\"rules\":[\"R05\"],\"note\":null},{\"msds_index\":0,\"field\":\"hazard.p_statements[0]\",\"page\":2,\"source_text\":\"P210 열, 고온의 표면, 스파크, 화염 및 그 밖의 점화원으로부터 멀리하시오. 금연\",\"rules\":[\"R05\"],\"note\":null},{\"msds_index\":0,\"field\":\"hazard.p_statements[1]\",\"page\":2,\"source_text\":\"P377 가스 누출 화재; 누출을 안전하게 막을 수 없다면 불을 끄려하지 마시오.\",\"rules\":[\"R05\"],\"note\":null},{\"msds_index\":0,\"field\":\"hazard.p_statements[2]\",\"page\":2,\"source_text\":\"P381 누출 시 모든 점화원을 제거하시오.\",\"rules\":[\"R05\"],\"note\":null},{\"msds_index\":0,\"field\":\"hazard.p_statements[3]\",\"page\":2,\"source_text\":\"P403 환기가 잘 되는 곳에 보관하시오.\",\"rules\":[\"R05\"],\"note\":null},{\"msds_index\":0,\"field\":\"hazard.p_statements[4]\",\"page\":2,\"source_text\":\"P410+P403 직사광선을 피하시오. 환기가 잘 되는 곳에 보관하시오.\",\"rules\":[\"R05\"],\"note\":null},{\"msds_index\":0,\"field\":\"hazard.other_hazards[0]\",\"page\":2,\"source_text\":\"다. 유해·위험성 분류기준에 포함되지 않는 기타 유해·위험성 - 자료없음\",\"rules\":[\"R14\"],\"note\":null},{\"msds_index\":0,\"field\":\"hazard.nfpa.health\",\"page\":2,\"source_text\":\"보건(Health) | 화재(Flammability) | 반응성(Reactivity) / 0 | 4 | 0\",\"rules\":[],\"note\":null},{\"msds_index\":0,\"field\":\"hazard.nfpa.fire\",\"page\":2,\"source_text\":\"보건(Health) | 화재(Flammability) | 반응성(Reactivity) / 0 | 4 | 0\",\"rules\":[],\"note\":null},{\"msds_index\":0,\"field\":\"hazard.nfpa.reactivity\",\"page\":2,\"source_text\":\"보건(Health) | 화재(Flammability) | 반응성(Reactivity) / 0 | 4 | 0\",\"rules\":[],\"note\":null},{\"msds_index\":0,\"field\":\"composition.type\",\"page\":2,\"source_text\":\"Hydrogen | Hydrogen | 1333-74-0 | 95 / Methane | Methane | 74-82-8 | 5\",\"rules\":[],\"note\":\"성분이 2개라 혼합물로 기록\"},{\"msds_index\":0,\"field\":\"composition.no_hazardous_component\",\"page\":2,\"source_text\":\"구성성분 | 관용명 및 이명 | CAS No. | 대표함유율(%)\",\"rules\":[],\"note\":\"성분표가 있어 false\"},{\"msds_index\":0,\"field\":\"components[0]\",\"page\":2,\"source_text\":\"Hydrogen | Hydrogen | 1333-74-0 | 95\",\"rules\":[\"R02\",\"R04\"],\"note\":\"단위는 열 제목 '대표함유율(%)'에서 %로 붙임, 체크디지트 확인됨\"},{\"msds_index\":0,\"field\":\"components[1]\",\"page\":2,\"source_text\":\"Methane | Methane | 74-82-8 | 5\",\"rules\":[\"R02\",\"R04\"],\"note\":\"단위는 열 제목 '대표함유율(%)'에서 %로 붙임, 체크디지트 확인됨\"}]}"
+}

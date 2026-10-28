@@ -1,0 +1,1619 @@
+[
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "meta.msds_no",
+    "page": 1,
+    "source_text": "MSDS 관리번호 : AA00566-2100003313",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "meta.revision_no",
+    "page": 10,
+    "source_text": "○ 개정 횟수 : 0",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "meta.first_issue_date",
+    "page": 10,
+    "source_text": "나. 최초 작성일자 : 2025-08-27",
+    "rules": [
+      "R01"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "meta.last_revision_date",
+    "page": 1,
+    "source_text": "최종 개정일자 : 2025-08-27",
+    "rules": [
+      "R01"
+    ],
+    "note": "16항(10쪽) 최종 개정일자와 같음"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "meta.page_start",
+    "page": 1,
+    "source_text": "물질안전보건자료(MSDS)",
+    "rules": [
+      "R16"
+    ],
+    "note": "파일 전체가 1건의 MSDS임"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "meta.page_end",
+    "page": 11,
+    "source_text": "- 11",
+    "rules": [
+      "R16"
+    ],
+    "note": "11쪽은 로고와 쪽번호만 있는 빈 쪽이나 파일의 마지막 쪽으로 포함"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "product.name",
+    "page": 1,
+    "source_text": "가. 제품명 : HYDROGEN",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "product.uses",
+    "page": 1,
+    "source_text": "○ 제품의 권고용도 12.연료 및 연료 첨가제",
+    "rules": [
+      "R11"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "product.restrictions",
+    "page": 1,
+    "source_text": "○ (입력된 제품권고 용도)외 사용 금지 확인된 용도 이외의 제품 사용 금지됩니다.",
+    "rules": [
+      "R11"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "companies[0]",
+    "page": 1,
+    "source_text": "○ 제조회사명 회사명 : (주)LG화학 주소 : 전라남도 여수시 여수산단4로 58 긴급전화번호 : +82-2-3773-1114 (08:30~18:00, KST)",
+    "rules": [
+      "R12"
+    ],
+    "note": "'제조회사명' 소제목에 따라 role=제조자, 긴급전화의 괄호 안 시간은 hours로 분리"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.classified",
+    "page": 1,
+    "source_text": "- 인화성 가스 구분 1 - 고압가스 압축가스",
+    "rules": [],
+    "note": "분류 항목이 있어 true"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.classes[0]",
+    "page": 1,
+    "source_text": "- 인화성 가스 구분 1",
+    "rules": [
+      "R07"
+    ],
+    "note": "'구분' 글자를 빼고 category=1"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.classes[1]",
+    "page": 1,
+    "source_text": "- 고압가스 압축가스",
+    "rules": [],
+    "note": "구분 표기 '압축가스'를 category에 원문대로 넣음"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.signal_word",
+    "page": 1,
+    "source_text": "신호어 - 위험",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.pictograms[0]",
+    "page": 1,
+    "source_text": "그림문자",
+    "rules": [],
+    "note": "이미지에서 불꽃 그림문자를 확인함"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.pictograms[1]",
+    "page": 1,
+    "source_text": "그림문자",
+    "rules": [],
+    "note": "이미지에서 가스 실린더 그림문자를 확인함"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.h_statements[0]",
+    "page": 1,
+    "source_text": "H220 극인화성 가스",
+    "rules": [
+      "R05"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.h_statements[1]",
+    "page": 1,
+    "source_text": "H280 고압가스 포함: 가열하면 폭발할 수 있음",
+    "rules": [
+      "R05"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.p_statements[0]",
+    "page": 2,
+    "source_text": "P210 열, 고온의 표면, 스파크, 화염 및 그 밖의 점화원으로부터 멀리하시오. 금연",
+    "rules": [
+      "R05"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.p_statements[1]",
+    "page": 2,
+    "source_text": "P377 가스 누출 화재; 누출을 안전하게 막을 수 없다면 불을 끄려하지 마시오.",
+    "rules": [
+      "R05"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.p_statements[2]",
+    "page": 2,
+    "source_text": "P381 누출 시 모든 점화원을 제거하시오.",
+    "rules": [
+      "R05"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.p_statements[3]",
+    "page": 2,
+    "source_text": "P403 환기가 잘 되는 곳에 보관하시오.",
+    "rules": [
+      "R05"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.p_statements[4]",
+    "page": 2,
+    "source_text": "P410+P403 직사광선을 피하시오. 환기가 잘 되는 곳에 보관하시오.",
+    "rules": [
+      "R05"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.other_hazards[0]",
+    "page": 2,
+    "source_text": "다. 유해·위험성 분류기준에 포함되지 않는 기타 유해·위험성 - 자료없음",
+    "rules": [
+      "R14"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.nfpa.health",
+    "page": 2,
+    "source_text": "보건(Health) | 화재(Flammability) | 반응성(Reactivity) / 0 | 4 | 0",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.nfpa.fire",
+    "page": 2,
+    "source_text": "보건(Health) | 화재(Flammability) | 반응성(Reactivity) / 0 | 4 | 0",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.nfpa.reactivity",
+    "page": 2,
+    "source_text": "보건(Health) | 화재(Flammability) | 반응성(Reactivity) / 0 | 4 | 0",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "composition.type",
+    "page": 2,
+    "source_text": "Hydrogen | Hydrogen | 1333-74-0 | 95 / Methane | Methane | 74-82-8 | 5",
+    "rules": [],
+    "note": "성분이 2개라 혼합물로 기록"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "composition.no_hazardous_component",
+    "page": 2,
+    "source_text": "구성성분 | 관용명 및 이명 | CAS No. | 대표함유율(%)",
+    "rules": [],
+    "note": "성분표가 있어 false"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "components[0]",
+    "page": 2,
+    "source_text": "Hydrogen | Hydrogen | 1333-74-0 | 95",
+    "rules": [
+      "R02",
+      "R04"
+    ],
+    "note": "단위는 열 제목 '대표함유율(%)'에서 %로 붙임, 체크디지트 확인됨"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "components[1]",
+    "page": 2,
+    "source_text": "Methane | Methane | 74-82-8 | 5",
+    "rules": [
+      "R02",
+      "R04"
+    ],
+    "note": "단위는 열 제목 '대표함유율(%)'에서 %로 붙임, 체크디지트 확인됨"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[0]",
+    "page": 5,
+    "source_text": "Hydrogen | TWA : 해당없음  STEL : 해당없음 | TWA : 해당없음  STEL : 해당없음 | 해당없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "국내기준 열의 TWA '해당없음'을 status 해당없음으로 저장; 국내 기준 구분(노출/허용) 표기가 없어 kr_basis는 null"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[1]",
+    "page": 5,
+    "source_text": "Hydrogen | TWA : 해당없음  STEL : 해당없음 | TWA : 해당없음  STEL : 해당없음 | 해당없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "국내기준 열의 STEL '해당없음'을 별도 행으로 나눔"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[2]",
+    "page": 5,
+    "source_text": "Hydrogen | TWA : 해당없음  STEL : 해당없음 | TWA : 해당없음  STEL : 해당없음 | 해당없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "ACGIH규정 열의 TWA '해당없음'"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[3]",
+    "page": 5,
+    "source_text": "Hydrogen | TWA : 해당없음  STEL : 해당없음 | TWA : 해당없음  STEL : 해당없음 | 해당없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "ACGIH규정 열의 STEL '해당없음'을 별도 행으로 나눔"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[4]",
+    "page": 5,
+    "source_text": "Hydrogen | TWA : 해당없음  STEL : 해당없음 | TWA : 해당없음  STEL : 해당없음 | 해당없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "생물학적 기준 열 '해당없음'; 기준 종류 표시가 없어 limit_type 기타"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[5]",
+    "page": 5,
+    "source_text": "Methane | TWA : 해당없음  STEL : 해당없음 | TWA : 해당없음  STEL : 해당없음 | 해당없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "국내기준 열의 TWA '해당없음'"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[6]",
+    "page": 5,
+    "source_text": "Methane | TWA : 해당없음  STEL : 해당없음 | TWA : 해당없음  STEL : 해당없음 | 해당없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "국내기준 열의 STEL '해당없음'을 별도 행으로 나눔"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[7]",
+    "page": 5,
+    "source_text": "Methane | TWA : 해당없음  STEL : 해당없음 | TWA : 해당없음  STEL : 해당없음 | 해당없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "ACGIH규정 열의 TWA '해당없음'"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[8]",
+    "page": 5,
+    "source_text": "Methane | TWA : 해당없음  STEL : 해당없음 | TWA : 해당없음  STEL : 해당없음 | 해당없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "ACGIH규정 열의 STEL '해당없음'을 별도 행으로 나눔"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[9]",
+    "page": 5,
+    "source_text": "Methane | TWA : 해당없음  STEL : 해당없음 | TWA : 해당없음  STEL : 해당없음 | 해당없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "생물학적 기준 열 '해당없음'; 기준 종류 표시가 없어 limit_type 기타"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[0]",
+    "page": 5,
+    "source_text": "외관 | 자료없음 | 자료없음",
+    "rules": [
+      "R25",
+      "R15"
+    ],
+    "note": "'외관'을 APPEARANCE_STATE로 매핑, 자료없음은 status로 저장"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[1]",
+    "page": 5,
+    "source_text": "성상 | 기체 | 자료없음",
+    "rules": [
+      "R25"
+    ],
+    "note": "'성상'을 APPEARANCE_STATE seq 2로 저장"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[2]",
+    "page": 5,
+    "source_text": "색상 | 무색 | 자료없음",
+    "rules": [
+      "R25"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[3]",
+    "page": 5,
+    "source_text": "냄새 | 무취 | 자료없음",
+    "rules": [
+      "R25"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[4]",
+    "page": 5,
+    "source_text": "냄새역치 | 자료없음 | 자료없음",
+    "rules": [
+      "R25",
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[5]",
+    "page": 5,
+    "source_text": "pH | 자료없음 | 자료없음",
+    "rules": [
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[6]",
+    "page": 6,
+    "source_text": "녹는점/어는점 | -259.2℃ at 54mmHg | 자료없음",
+    "rules": [
+      "R04",
+      "R06",
+      "R08"
+    ],
+    "note": "값 -259.2 C, 'at 54mmHg'를 cond 압력으로 분리"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[7]",
+    "page": 6,
+    "source_text": "초기 끓는점과 끓는점 범위 | -252.8 | 자료없음",
+    "rules": [
+      "R04",
+      "R06",
+      "R17"
+    ],
+    "note": "원문에 단위가 없어 unit은 null"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[8]",
+    "page": 6,
+    "source_text": "인화점 | 자료없음 | 자료없음",
+    "rules": [
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[9]",
+    "page": 6,
+    "source_text": "증발속도 | 자료없음 | 자료없음",
+    "rules": [
+      "R25",
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[10]",
+    "page": 6,
+    "source_text": "인화성(고체, 기체) | 인화성가스 | 자료없음",
+    "rules": [
+      "R25"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[11]",
+    "page": 6,
+    "source_text": "인화 또는 폭발 범위의 상한/하한 | 4.0~76% | 자료없음",
+    "rules": [
+      "R25",
+      "R04",
+      "R08"
+    ],
+    "note": "'4.0~76%' 중 상한 76을 UEL로 저장"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[12]",
+    "page": 6,
+    "source_text": "인화 또는 폭발 범위의 상한/하한 | 4.0~76% | 자료없음",
+    "rules": [
+      "R25",
+      "R04",
+      "R06",
+      "R08"
+    ],
+    "note": "'4.0~76%' 중 하한 4.0을 LEL로 저장(dp=1)"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[13]",
+    "page": 6,
+    "source_text": "증기압 | 자료없음 | 자료없음",
+    "rules": [
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[14]",
+    "page": 6,
+    "source_text": "용해도 | 1.62mg/L(21℃) | 자료없음",
+    "rules": [
+      "R04",
+      "R08"
+    ],
+    "note": "괄호 속 21℃를 cond 온도로 분리"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[15]",
+    "page": 6,
+    "source_text": "증기밀도 | 0.07 | 자료없음",
+    "rules": [
+      "R04",
+      "R06"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[16]",
+    "page": 6,
+    "source_text": "비중 | 자료없음 | 자료없음",
+    "rules": [
+      "R25",
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[17]",
+    "page": 6,
+    "source_text": "n-옥탄올/물분배계수 | 0.458(추정치) | 자료없음",
+    "rules": [
+      "R25",
+      "R04",
+      "R06"
+    ],
+    "note": "괄호 속 '추정치'를 q.note로 분리"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[18]",
+    "page": 6,
+    "source_text": "자연발화온도 | 472℃ | 자료없음",
+    "rules": [
+      "R04",
+      "R08"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[19]",
+    "page": 6,
+    "source_text": "분해온도 | 자료없음 | 자료없음",
+    "rules": [
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[20]",
+    "page": 6,
+    "source_text": "점도 | 자료없음 | 자료없음",
+    "rules": [
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[21]",
+    "page": 6,
+    "source_text": "분자량 | 자료없음 | 자료없음",
+    "rules": [
+      "R15"
+    ],
+    "note": "'입자특성(입자크기) | 자료없음'은 C4 코드가 없어 행으로 만들지 않음"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[0]",
+    "page": 7,
+    "source_text": "● 급성독성물질(경구)   PRODUCT : 분류되지않음 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "제품 전체 행으로 분류 결과와 자료없음 상태를 기록"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[1]",
+    "page": 7,
+    "source_text": "● 급성독성물질(경피)   PRODUCT : 분류되지않음 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "제품 전체 행으로 분류 결과와 자료없음 상태를 기록"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[2]",
+    "page": 7,
+    "source_text": "● 급성독성물질(흡입:가스)   PRODUCT : 분류되지않음(ATEmix = 7631096.5ppm)",
+    "rules": [
+      "R04",
+      "R06",
+      "R10"
+    ],
+    "note": "ATEmix 값을 ATE 지표로, 흡입 형태는 '가스'로 기록"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[3]",
+    "page": 7,
+    "source_text": "- Hydrogen : LC50> 7500 ppm (4h),  출처 : NITE",
+    "rules": [
+      "R04",
+      "R10"
+    ],
+    "note": "'>' 7500 ppm을 하한으로, 4h를 노출시간으로 분리. 시험종은 원문에 없음"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[4]",
+    "page": 7,
+    "source_text": "- Methane : LC50= 539600 ppm (mouse, 120min),  출처 : ECHA",
+    "rules": [
+      "R04",
+      "R10"
+    ],
+    "note": "120min을 노출시간 120 min으로 분리"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[5]",
+    "page": 8,
+    "source_text": "● 급성독성물질(흡입:증기)   PRODUCT : 분류되지않음 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "흡입 형태 '증기', 자료없음"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[6]",
+    "page": 8,
+    "source_text": "● 급성독성물질(흡입:분진/미스트)   PRODUCT : 분류되지않음 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "흡입 형태 '분진·미스트', 자료없음"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[7]",
+    "page": 8,
+    "source_text": "○ 피부 부식성 또는 자극성 물질   PRODUCT : 분류되지않음",
+    "rules": [
+      "R10"
+    ],
+    "note": "제품 분류 결과를 MIX 행으로 기록"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[8]",
+    "page": 8,
+    "source_text": "- Hydrogen : 극저온 액체 수소에 노출 시 피부에 동상과 심한 화상을 유발할 수 있음 (human),  출처 : HSDB",
+    "rules": [
+      "R10"
+    ],
+    "note": "서술을 statements로, 시험종 human, 출처 HSDB"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[9]",
+    "page": 8,
+    "source_text": "○ 심한 눈 손상 또는 자극성 물질   PRODUCT : 분류되지않음",
+    "rules": [
+      "R10"
+    ],
+    "note": "제품 분류 결과를 MIX 행으로 기록"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[10]",
+    "page": 8,
+    "source_text": "- Hydrogen : 수소는 알려진 독성 영향이 없음 (human),  출처 : HSDB",
+    "rules": [
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[11]",
+    "page": 8,
+    "source_text": "○ 호흡기 과민성 물질   PRODUCT : 분류되지않음 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[12]",
+    "page": 8,
+    "source_text": "○ 피부 과민성 물질   PRODUCT : 분류되지않음 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[13]",
+    "page": 8,
+    "source_text": "○ 발암성물질   PRODUCT : 분류되지않음 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "기관별 분류가 없어 cmr 행은 만들지 않음"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[14]",
+    "page": 8,
+    "source_text": "○ 생식세포 변이원성 물질   PRODUCT : 분류되지않음",
+    "rules": [
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[15]",
+    "page": 8,
+    "source_text": "- Methane : 음성, 메탄은 대사 활성화 유무에 관계없이 테스트한 모든 균주에서 Ames 음성 (Salmonella typhimurium, bacterial reverse mutation assay, OECD Guideline 471, Metabolic activation: with and without)",
+    "rules": [
+      "R10"
+    ],
+    "note": "출처 ECHA는 이어지는 줄 끝의 출처를 적용"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[16]",
+    "page": 8,
+    "source_text": "음성 (rat, micronucleus assay, OECD Guideline 474),  출처 : ECHA",
+    "rules": [
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[17]",
+    "page": 8,
+    "source_text": "○ 생식독성 물질   PRODUCT : 분류되지않음",
+    "rules": [
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[18]",
+    "page": 8,
+    "source_text": "- Hydrogen : 미숙아의 염증과 관련된 폐의 이동성을 감소시킬 수 있음 (rat),  출처 : HSDB",
+    "rules": [
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[19]",
+    "page": 8,
+    "source_text": "- Methane : 생식능력에 영향을 미치지 않음 (rat, OECD Guideline 422),  출처 : ECHA",
+    "rules": [
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[20]",
+    "page": 8,
+    "source_text": "○ 특정표적장기·전신 독성 물질(1회 노출)   PRODUCT : 분류되지않음",
+    "rules": [
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[21]",
+    "page": 8,
+    "source_text": "- Methane : 약간의 운동실조, 정위 반사 상실, 운동 상실, 마취, 얕은 호흡 및 결국 호흡 억제로 인한 사망. (rat),  출처 : ECHA",
+    "rules": [
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[22]",
+    "page": 8,
+    "source_text": "○ 특정표적장기·전신 독성 물질(반복 노출)   PRODUCT : 분류되지않음",
+    "rules": [
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[23]",
+    "page": 8,
+    "source_text": "- Hydrogen : 산화 스트레스와 배아 유전자 발현 감소 (hamster),  출처 : HSDB",
+    "rules": [
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[24]",
+    "page": 8,
+    "source_text": "- Methane : 900, 3000 및 9000ppm의 목표 농도에 대한 수컷 및 암컷 렛드의 노출은 ...; NOAEC= 9000 ppm (rat, OECD Guideline 422),  출처 : ECHA",
+    "rules": [
+      "R04",
+      "R10",
+      "R17"
+    ],
+    "note": "NOAEC는 지표 목록에 없어 descriptor는 null로 두고 raw에 보존. 수컷 및 암컷이므로 성별 혼합"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[25]",
+    "page": 8,
+    "source_text": "○ 흡인유해성 물질   PRODUCT : 분류되지않음 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[0]",
+    "page": 8,
+    "source_text": "가. 생태독성 > PRODUCT : 분류되지않음",
+    "rules": [
+      "R10"
+    ],
+    "note": "제품 전체 분류 문구를 statements로 기록"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[1]",
+    "page": 8,
+    "source_text": "- Hydrogen : LC50= 40.846 mg/L (96h, 추정치),  출처 : EPI SUITE",
+    "rules": [
+      "R04",
+      "R06",
+      "R10"
+    ],
+    "note": "'추정치'는 q.note로"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[2]",
+    "page": 9,
+    "source_text": "- Methane : LC50= 91.42 mg/L (96h, 추정치),  출처 : ECHA",
+    "rules": [
+      "R04",
+      "R10"
+    ],
+    "note": "'추정치'는 q.note로"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[3]",
+    "page": 9,
+    "source_text": "- Hydrogen : LC50= 20.100 mg/L (Daphnid, 48h, 추정치),  출처 : EPI SUITE",
+    "rules": [
+      "R04",
+      "R06",
+      "R10"
+    ],
+    "note": "20.100을 value 20.1, dp 3으로 저장"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[4]",
+    "page": 9,
+    "source_text": "- Methane : LC50= 69.43 mg/L (Daphnia sp., 48h, 추정치),  출처 : ECHA",
+    "rules": [
+      "R04",
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[5]",
+    "page": 9,
+    "source_text": "- Hydrogen : EC50= 8.285 mg/L (Green algae, 96h, 추정치),  출처 : EPI SUITE",
+    "rules": [
+      "R04",
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[6]",
+    "page": 9,
+    "source_text": "- Methane : EC50= 8.57 mg/L (Green algea, 96h),  출처 : ECHA",
+    "rules": [
+      "R04",
+      "R10"
+    ],
+    "note": "시험종 철자 원문 그대로 유지"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[7]",
+    "page": 9,
+    "source_text": "- Hydrogen : log Pow= 3.9,  출처 : ICSC",
+    "rules": [
+      "R04",
+      "R10"
+    ],
+    "note": "잔류성 항목의 log Pow를 logKow 지표로 기록"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[8]",
+    "page": 9,
+    "source_text": "- Methane : log Pow= 1.09,  출처 : ECHA",
+    "rules": [
+      "R04",
+      "R10"
+    ],
+    "note": "log Pow를 logKow 지표로 기록"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[9]",
+    "page": 9,
+    "source_text": "● 분해성 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[10]",
+    "page": 9,
+    "source_text": "- Hydrogen : 쉽게 생분해 될 것으로 예측됨 (추정치),  출처 : EPI SUITE",
+    "rules": [
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[11]",
+    "page": 9,
+    "source_text": "- Methane : other:half-life in days (QSAR/QSPR)= 3.187 (추정치),  출처 : ECHA",
+    "rules": [
+      "R04",
+      "R10",
+      "R17"
+    ],
+    "note": "반감기 단위는 지표명에 포함되어 unit은 null로 두고 raw 보존"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[12]",
+    "page": 9,
+    "source_text": "- Hydrogen : BCF= 3.162 L/kg (추정치),  출처 : EPI SUITE",
+    "rules": [
+      "R04",
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[13]",
+    "page": 9,
+    "source_text": "- Methane : BCF= 2,  출처 : HSDB",
+    "rules": [
+      "R04",
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[14]",
+    "page": 9,
+    "source_text": "- Hydrogen : Koc= 13.22 (추정치),  출처 : EPI SUITE",
+    "rules": [
+      "R04",
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[15]",
+    "page": 9,
+    "source_text": "- Methane : Koc= 9,  출처 : HSDB",
+    "rules": [
+      "R04",
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[16]",
+    "page": 9,
+    "source_text": "마. 기타 유해 영향 > PRODUCT : 분류되지않음 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "기타 유해 영향은 맞는 C5 코드가 없어 endpoint null"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "transport[0]",
+    "page": 9,
+    "source_text": "가. 유엔번호(UN No.) : 1049 | 나. 유엔 적정 선적명 : HYDROGEN, COMPRESSED | 다. 운송에서의 위험성 등급 : 2.1 | 라. 용기등급 : 해당없음 | 마. 해양오염물질 : 해당없음",
+    "rules": [
+      "R09",
+      "R15"
+    ],
+    "note": "운송 방식 구분 없는 14항 본문을 공통 행으로 넣었고, 해양오염물질 '해당없음'은 동의어 사전에 따라 비해당으로 적음. EmS(F-D, S-U)는 10쪽 바항에서 읽음."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "transport[0].ems_fire",
+    "page": 10,
+    "source_text": "화재시 비상조치의 종류 : F-D | 유출시 비상조치의 종류 : S-U",
+    "rules": [],
+    "note": "바항의 운송 방식 구분 없는 EmS를 공통 행에 넣음."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "transport[1]",
+    "page": 10,
+    "source_text": "- 해상운송(IMDG) | · 해양오염물질 : 해당없음",
+    "rules": [
+      "R15"
+    ],
+    "note": "해상운송(IMDG) 항목에는 해양오염물질만 적혀 있어 그 칸만 채움. '해당없음'은 비해당으로 적음."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "transport[2]",
+    "page": 10,
+    "source_text": "- Air transport(IATA) | · 유엔번호 : 1049 | · 유엔 적정 선적명 : HYDROGEN, COMPRESSED | · 운송에서의 위험성 등급 : 2.1 | · 용기등급 : 해당없음",
+    "rules": [
+      "R09"
+    ],
+    "note": "항공운송(IATA) 항목을 항공 행으로 넣음."
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations",
+    "page": 10,
+    "source_text": "15. 법적 규제현황",
+    "rules": [
+      "R18"
+    ],
+    "note": "15항 제목만 있고 내용이 비어 있어 규제·위험물·폐기물·해외분류 행을 만들지 않음."
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[0]",
+    "page": 2,
+    "source_text": "가. 눈에 들어갔을 때 - 긴급 의료조치를 받으시오.",
+    "rules": [
+      "R14"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[1]",
+    "page": 2,
+    "source_text": "나. 피부에 접촉했을 때 - 가스 또는 액화 가스와 접촉 시 화상, 심각한 상해, 동상을 유발할 수 있음.",
+    "rules": [
+      "R14"
+    ],
+    "note": "불릿 6개를 문장 단위로 나누고 줄바꿈된 3번째 문장을 이어 붙임"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[2]",
+    "page": 3,
+    "source_text": "다. 흡입했을 때 - 긴급 의료조치를 받으시오.",
+    "rules": [
+      "R14"
+    ],
+    "note": "제목은 2쪽, 내용은 3쪽에 있어 이어 붙임"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[3]",
+    "page": 3,
+    "source_text": "라. 먹었을 때 - 긴급 의료조치를 받으시오.",
+    "rules": [
+      "R14"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[4]",
+    "page": 3,
+    "source_text": "마. 기타 의사의 주의사항 - 의료인력이 해당물질에 대해 인지하고 보호조치를 취하도록 하시오.",
+    "rules": [
+      "R14"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[5]",
+    "page": 3,
+    "source_text": "○ 적절한 소화제 - CO2 - 건조화학제 … ○ 부적절한 소화제 - 자료없음",
+    "rules": [
+      "R14",
+      "R15"
+    ],
+    "note": "소제목을 key로 남김"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[6]",
+    "page": 3,
+    "source_text": "○ 열분해성 생성물 - 자료없음 ○ 화재 및 폭발 위험 - 가열시 용기가 폭발할 수 있음. … ○ 기타",
+    "rules": [
+      "R14",
+      "R15"
+    ],
+    "note": "소제목을 key로 남김"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[7]",
+    "page": 4,
+    "source_text": "다. 화재진압시 착용할 보호구 및 예방조치 - 누출이 중지되지 않는다면 누출가스화재를 소화하지 마시오.",
+    "rules": [
+      "R14"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[8]",
+    "page": 4,
+    "source_text": "가. 인체를 보호하기 위해 필요한 조치사항 및 보호구 - 가능하다면 누출용기를 돌려 액체보다는 가스로 방출되도록 하시오.",
+    "rules": [
+      "R14"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[9]",
+    "page": 4,
+    "source_text": "나. 환경을 보호하기 위해 필요한 조치사항 - 수로, 하수구, 지하실, 밀폐공간으로의 유입을 방지하시오.",
+    "rules": [
+      "R14"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[10]",
+    "page": 4,
+    "source_text": "다. 정화 또는 제거 방법 - 소화를 위해 제방을 쌓고 물을 수거하시오.",
+    "rules": [
+      "R14"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[11]",
+    "page": 4,
+    "source_text": "- 압력을 가하거나, 자르거나, 용접, 납땜, 접합, 뚫기, 연마 또는 열에 폭로, 화염, 불꽃, 정전기 또는 다른 점화원에 폭로하 | 지 마시오.",
+    "rules": [
+      "R14"
+    ],
+    "note": "4쪽과 5쪽에 걸친 문장을 이어 붙임"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[12]",
+    "page": 5,
+    "source_text": "나. 안전한 저장방법 - 밀폐하여 보관하시오.",
+    "rules": [
+      "R14"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[13]",
+    "page": 5,
+    "source_text": "나. 적절한 공학적 관리 - 해당없음",
+    "rules": [
+      "R14",
+      "R15"
+    ],
+    "note": "'해당없음'이라 status를 해당없음으로 둠"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[14]",
+    "page": 5,
+    "source_text": "○ 호흡기 보호 - 산소가 부족한 경우(<19.6%), 송기마스크, 혹은 자급식 호흡보호구를 착용하시오.",
+    "rules": [
+      "R14",
+      "R04"
+    ],
+    "note": "'<19.6%'를 cond의 상한 19.6(<), 단위 %로 나눔"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[15]",
+    "page": 5,
+    "source_text": "○ 눈 보호 - 화학물질 방어용 안경과 보안면을 사용하시오.",
+    "rules": [
+      "R14"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[16]",
+    "page": 5,
+    "source_text": "○ 손 보호 - 적합한 내화학성 장갑을 착용하시오.",
+    "rules": [
+      "R14"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[17]",
+    "page": 5,
+    "source_text": "○ 신체 보호 - 적합한 내화학성 보호의를 착용하시오.",
+    "rules": [
+      "R14"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[18]",
+    "page": 6,
+    "source_text": "가. 화학적 안정성 및 유해 반응의 가능성 - 가열시 용기가 폭발할 수 있음.",
+    "rules": [
+      "R14"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[19]",
+    "page": 6,
+    "source_text": "나. 피해야 할 조건 - 가열시 용기가 폭발할 수 있음. … - 열.",
+    "rules": [
+      "R14"
+    ],
+    "note": "6쪽에서 7쪽으로 이어지는 불릿을 합침"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[20]",
+    "page": 7,
+    "source_text": "다. 피해야 할 물질 - 가열시 용기가 폭발할 수 있음.",
+    "rules": [
+      "R14"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[21]",
+    "page": 7,
+    "source_text": "라. 분해시 생성되는 유해물질 - 열, 스파크, 화염 등 점화원. - 열. - 자극성, 부식성, 독성 가스.",
+    "rules": [
+      "R14"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[22]",
+    "page": 7,
+    "source_text": "○ 호흡기를 통한 흡입 - 해당없음 ○ 피부접촉 - 해당없음 ○ 눈 접촉 - 해당없음 ○ 입을 통한 섭취 - 해당없음",
+    "rules": [
+      "R14",
+      "R15"
+    ],
+    "note": "경로별 소제목을 key로 남김"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[23]",
+    "page": 9,
+    "source_text": "마. 기타 유해 영향 > PRODUCT : 분류되지않음 | 자료없음",
+    "rules": [
+      "R14",
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[24]",
+    "page": 9,
+    "source_text": "가. 폐기방법 - 빈용기와 폐기 대상 제품은 국가 규정에 따른 폐기물 보관장에 수집되어 적법하게 처리되어야 합니다.",
+    "rules": [
+      "R14"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[25]",
+    "page": 9,
+    "source_text": "나. 폐기시 주의사항 - 하천, 호수, 토양, 배수구 등에 직접 유출을 피할 것.",
+    "rules": [
+      "R14"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[26]",
+    "page": 10,
+    "source_text": "화재시 비상조치의 종류 : F-D | 유출시 비상조치의 종류 : S-U | · Tunnel restriction code : B/D",
+    "rules": [
+      "R14"
+    ],
+    "note": "'키 : 값'을 나누고, 운송 수단 소제목을 key 앞에 붙임"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[27]",
+    "page": 10,
+    "source_text": "가. 자료의 출처 - 고용노동부 - 환경부",
+    "rules": [
+      "R14"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[28]",
+    "page": 10,
+    "source_text": "라. 기타",
+    "rules": [
+      "R15"
+    ],
+    "note": "제목만 있고 내용이 비어 있어 미기재로 둠"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "extras[0]",
+    "page": 2,
+    "source_text": "○ 제품 NFPA 등급 | 보건(Health) | 0",
+    "rules": [
+      "R24",
+      "R04"
+    ],
+    "note": "NFPA 등급을 담을 칸이 없어 extras로 보냄"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "extras[1]",
+    "page": 2,
+    "source_text": "○ 제품 NFPA 등급 | 화재(Flammability) | 4",
+    "rules": [
+      "R24",
+      "R04"
+    ],
+    "note": "NFPA 등급을 담을 칸이 없어 extras로 보냄"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "extras[2]",
+    "page": 2,
+    "source_text": "○ 제품 NFPA 등급 | 반응성(Reactivity) | 0",
+    "rules": [
+      "R24",
+      "R04"
+    ],
+    "note": "NFPA 등급을 담을 칸이 없어 extras로 보냄"
+  }
+]
