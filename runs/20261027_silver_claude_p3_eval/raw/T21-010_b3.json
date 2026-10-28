@@ -1,0 +1,2241 @@
+{
+  "doc_id": "T21-010",
+  "bundle": "b3",
+  "model": "claude-opus-5-5",
+  "mode": "none",
+  "finish_reason": "stop",
+  "usage": {
+    "prompt_tokens": 116537,
+    "completion_tokens": 20869,
+    "total_tokens": 137406,
+    "served_model": "claude-opus-5-5"
+  },
+  "seconds": 151.6,
+  "attempts": 1,
+  "errors": [],
+  "parsed": {
+    "msds": [
+      {
+        "toxicity": [
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_ORAL",
+            "descriptor": "LD50",
+            "q": {
+              "raw": "2000 mg/kg",
+              "approx": null,
+              "value": 2000,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "mg/kg",
+              "dp": 0,
+              "status": "값있음",
+              "note": null
+            },
+            "species": "Rat",
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": "노동부 구분 4",
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_DERMAL",
+            "descriptor": "LD50",
+            "q": {
+              "raw": "> 16000 mg/kg",
+              "approx": null,
+              "value": null,
+              "lower_op": ">",
+              "lower": 16000,
+              "upper_op": null,
+              "upper": null,
+              "unit": "mg/kg",
+              "dp": 0,
+              "status": "값있음",
+              "note": null
+            },
+            "species": "Rabbit",
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_INHAL",
+            "descriptor": null,
+            "q": null,
+            "species": null,
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [],
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_SKIN",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": "래빗",
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": "OECD Guide-line 404",
+            "data_source": null,
+            "classification": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": "래빗/OECD Guide-line 404",
+                "value": "자극성 없음.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "- 래빗/OECD Guide-line 404 : 자극성 없음."
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_SKIN",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": "사람",
+            "sex": null,
+            "duration_value": 2,
+            "duration_unit": "day",
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": "사람/피부(104 mg/2D)",
+                "value": "중간 자극성",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "- 사람/피부(104 mg/2D) : 중간 자극성"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_SKIN",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": "남성",
+            "sex": "수컷",
+            "duration_value": 2,
+            "duration_unit": "day",
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": "남성/피부(10%/2D)",
+                "value": "중간 자극성",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "- 남성/피부(10%/2D) : 중간 자극성"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_SKIN",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": "어린이",
+            "sex": null,
+            "duration_value": 96,
+            "duration_unit": "hr",
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": "어린이/피부(30%/96H)",
+                "value": "중간 자극성",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "- 어린이/피부(30%/96H) : 중간 자극성"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_EYE",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": "사람",
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": "사람/눈",
+                "value": "약한 자극성",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "- 사람/눈 : 약한 자극성"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_EYE",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": "래빗",
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": "래빗/눈(100 mg)",
+                "value": "경미한 자극",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "- 래빗/눈(100 mg) : 경미한 자극"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_RESP_SENS",
+            "descriptor": null,
+            "q": null,
+            "species": null,
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [],
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_SKIN_SENS",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": "사람",
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": "Draize Test",
+            "data_source": null,
+            "classification": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": "사람/Draize Test",
+                "value": "과민성 없음",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "o 피부과민성 : 사람/Draize Test : 과민성 없음"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_MUTA",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": "Salmonella typhimurium",
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": "In vitro",
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": "In vitro - Salmonella typhimurium/TA 98, TA100, TA1535, TA1537 (복귀돌연변이시험; Ames test)",
+                "value": "Negative(음성)",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "- In vitro - Salmonella typhimurium/TA 98, TA100, TA1535, TA1537 (복귀돌연변이시험; Ames test): Negative(음성)"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_MUTA",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": "Human",
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": "Human/자매염색분체교환시험",
+                "value": "Negative(음성)",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "Human/자매염색분체교환시험: Negative(음성)"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_REPRO",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": "래빗",
+            "sex": "암컷",
+            "duration_value": 10,
+            "duration_unit": "day",
+            "physical_form": null,
+            "exposure_type": "식이 투여",
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "임신 래빗에 1230 mg/kg 으로 10 일간 식이로 투여 시 수정률의 영향은 없으며, 태아 또는 모체의 생존률의 영향도 없었음.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "- 임신 래빗에 1230 mg/kg 으로 10 일간 식이로 투여 시 수정률의 영향은 없으며, 태아 또는 모체의 생존률의 영향도 없었음."
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_REPRO",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": null,
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "모체 독성이 없는 태아 발생독성은 골격계 및 기형발생이 가장 큰 지표이며, 마우스는 ≥500 mg/kg/day, 래트는 ≥1,000 mg/kg/day 에서 관찰됨. 태자의 무게와 생존율의 영향은 더 높은 농도에서 발생됨.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "- 모체 독성이 없는 태아 발생독성은 골격계 및 기형발생이 가장 큰 지표이며, 마우스는 ≥500 mg/kg/day, 래트는 ≥1,000 mg/kg/day 에서 관찰됨. 태자의 무게와 생존율의 영향은 더 높은 농도에서 발생됨."
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_STOT_SE",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": null,
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "비독성 증후는 마취 시 중추신경억제이다. 표적으로 삼을만한 장기가 없음.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "- 비독성 증후는 마취 시 중추신경억제이다. 표적으로 삼을만한 장기가 없음."
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_STOT_RE",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": "래트",
+            "sex": null,
+            "duration_value": 90,
+            "duration_unit": "day",
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "래트에 90 일동안 노출 시 무게 및 사료섭취량이 감소하지만 임상-화학적 및 혈액학적 수치의 변화는 없음. 장기(간, 신장, 췌장, 폐)및 혈액은 어떠한 독성학적 영향이 없음.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "- 래트에 90 일동안 노출 시 무게 및 사료섭취량이 감소하지만 임상-화학적 및 혈액학적 수치의 변화는 없음. 장기(간, 신장, 췌장, 폐)및 혈액은 어떠한 독성학적 영향이 없음."
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_ASP",
+            "descriptor": null,
+            "q": null,
+            "species": null,
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [],
+            "status": "자료없음"
+          }
+        ],
+        "cmr": [
+          {
+            "comp_ref": "MIX",
+            "hazard": "발암성",
+            "agency": "IARC",
+            "class": null,
+            "status": "자료없음",
+            "note": null
+          },
+          {
+            "comp_ref": "MIX",
+            "hazard": "발암성",
+            "agency": "NTP",
+            "class": null,
+            "status": "자료없음",
+            "note": null
+          },
+          {
+            "comp_ref": "MIX",
+            "hazard": "발암성",
+            "agency": "OSHA",
+            "class": null,
+            "status": "자료없음",
+            "note": null
+          },
+          {
+            "comp_ref": "MIX",
+            "hazard": "발암성",
+            "agency": "기타",
+            "class": null,
+            "status": "자료없음",
+            "note": "WISHA"
+          },
+          {
+            "comp_ref": "MIX",
+            "hazard": "발암성",
+            "agency": "ACGIH",
+            "class": null,
+            "status": "자료없음",
+            "note": null
+          }
+        ],
+        "ecotox": [
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_FISH",
+            "descriptor": "LC50",
+            "q": {
+              "raw": "710 mg/ℓ",
+              "approx": null,
+              "value": 710,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "mg/L",
+              "dp": 0,
+              "status": "값있음",
+              "note": null
+            },
+            "species": "Oncorhynchus mykiss",
+            "duration_value": 96,
+            "duration_unit": "hr",
+            "guideline": null,
+            "data_source": null,
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_CRUST",
+            "descriptor": "EC50",
+            "q": {
+              "raw": "> 1000 mg/ℓ",
+              "approx": null,
+              "value": null,
+              "lower_op": ">",
+              "lower": 1000,
+              "upper_op": null,
+              "upper": null,
+              "unit": "mg/L",
+              "dp": 0,
+              "status": "값있음",
+              "note": null
+            },
+            "species": "Daphnia magna",
+            "duration_value": 48,
+            "duration_unit": "hr",
+            "guideline": null,
+            "data_source": null,
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_ALGAE",
+            "descriptor": "EC50",
+            "q": {
+              "raw": "> 1000 mg/ℓ",
+              "approx": null,
+              "value": null,
+              "lower_op": ">",
+              "lower": 1000,
+              "upper_op": null,
+              "upper": null,
+              "unit": "mg/L",
+              "dp": 0,
+              "status": "값있음",
+              "note": null
+            },
+            "species": "Selenastrum capricornutum",
+            "duration_value": 72,
+            "duration_unit": "hr",
+            "guideline": null,
+            "data_source": null,
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_PERSIST",
+            "descriptor": "logKow",
+            "q": {
+              "raw": "-1.4",
+              "approx": null,
+              "value": -1.4,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": null,
+              "dp": 1,
+              "status": "값있음",
+              "note": null
+            },
+            "species": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "guideline": null,
+            "data_source": null,
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_PERSIST",
+            "descriptor": null,
+            "q": null,
+            "species": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "guideline": null,
+            "data_source": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": "분해성",
+                "value": "자료 없음",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "o 분해성 : 자료 없음"
+              }
+            ],
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_BIOACC",
+            "descriptor": "BCF",
+            "q": {
+              "raw": "< 1",
+              "approx": null,
+              "value": null,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": "<",
+              "upper": 1,
+              "unit": null,
+              "dp": 0,
+              "status": "값있음",
+              "note": null
+            },
+            "species": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "guideline": null,
+            "data_source": null,
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_PERSIST",
+            "descriptor": "분해율",
+            "q": {
+              "raw": "> 60 (%)",
+              "approx": null,
+              "value": null,
+              "lower_op": ">",
+              "lower": 60,
+              "upper_op": null,
+              "upper": null,
+              "unit": "%",
+              "dp": 0,
+              "status": "값있음",
+              "note": null
+            },
+            "species": null,
+            "duration_value": 10,
+            "duration_unit": "day",
+            "guideline": null,
+            "data_source": null,
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_SOIL",
+            "descriptor": null,
+            "q": null,
+            "species": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "guideline": null,
+            "data_source": null,
+            "statements": [],
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": null,
+            "descriptor": null,
+            "q": null,
+            "species": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "guideline": null,
+            "data_source": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": "기타 유해 영향",
+                "value": "자료 없음",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "마. 기타 유해 영향 : 자료 없음"
+              }
+            ],
+            "status": "자료없음"
+          }
+        ]
+      },
+      {
+        "toxicity": [
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_ORAL",
+            "descriptor": "LD50",
+            "q": {
+              "raw": "2000 mg/kg",
+              "approx": null,
+              "value": 2000,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "mg/kg",
+              "dp": 0,
+              "status": "값있음",
+              "note": null
+            },
+            "species": "Rat",
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": "노동부 구분 4",
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_DERMAL",
+            "descriptor": "LD50",
+            "q": {
+              "raw": "> 16000 mg/kg",
+              "approx": null,
+              "value": null,
+              "lower_op": ">",
+              "lower": 16000,
+              "upper_op": null,
+              "upper": null,
+              "unit": "mg/kg",
+              "dp": 0,
+              "status": "값있음",
+              "note": null
+            },
+            "species": "Rabbit",
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_INHAL",
+            "descriptor": null,
+            "q": null,
+            "species": null,
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [],
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_SKIN",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": "래빗",
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": "OECD Guide-line 404",
+            "data_source": null,
+            "classification": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": "래빗/OECD Guide-line 404",
+                "value": "자극성 없음.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "- 래빗/OECD Guide-line 404 : 자극성 없음."
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_SKIN",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": "사람",
+            "sex": null,
+            "duration_value": 2,
+            "duration_unit": "day",
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": "사람/피부(104 mg/2D)",
+                "value": "중간 자극성",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "- 사람/피부(104 mg/2D) : 중간 자극성"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_SKIN",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": "남성",
+            "sex": "수컷",
+            "duration_value": 2,
+            "duration_unit": "day",
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": "남성/피부(10%/2D)",
+                "value": "중간 자극성",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "- 남성/피부(10%/2D) : 중간 자극성"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_SKIN",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": "어린이",
+            "sex": null,
+            "duration_value": 96,
+            "duration_unit": "hr",
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": "어린이/피부(30%/96H)",
+                "value": "중간 자극성",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "- 어린이/피부(30%/96H) : 중간 자극성"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_EYE",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": "사람",
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": "사람/눈",
+                "value": "약한 자극성",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "- 사람/눈 : 약한 자극성"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_EYE",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": "래빗",
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": "래빗/눈(100 mg)",
+                "value": "경미한 자극",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "- 래빗/눈(100 mg) : 경미한 자극"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_RESP_SENS",
+            "descriptor": null,
+            "q": null,
+            "species": null,
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [],
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_SKIN_SENS",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": "사람",
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": "Draize Test",
+            "data_source": null,
+            "classification": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": "사람/Draize Test",
+                "value": "과민성 없음",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "o 피부과민성 : 사람/Draize Test : 과민성 없음"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_MUTA",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": "Salmonella typhimurium",
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": "In vitro",
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": "In vitro - Salmonella typhimurium/TA 98, TA100, TA1535, TA1537 (복귀돌연변이시험; Ames test)",
+                "value": "Negative(음성)",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "- In vitro - Salmonella typhimurium/TA 98, TA100, TA1535, TA1537 (복귀돌연변이시험; Ames test): Negative(음성)"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_MUTA",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": "Human",
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": "Human/자매염색분체교환시험",
+                "value": "Negative(음성)",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "Human/자매염색분체교환시험: Negative(음성)"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_REPRO",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": "래빗",
+            "sex": "암컷",
+            "duration_value": 10,
+            "duration_unit": "day",
+            "physical_form": null,
+            "exposure_type": "식이 투여",
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "임신 래빗에 1230 mg/kg 으로 10 일간 식이로 투여 시 수정률의 영향은 없으며, 태아 또는 모체의 생존률의 영향도 없었음.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "- 임신 래빗에 1230 mg/kg 으로 10 일간 식이로 투여 시 수정률의 영향은 없으며, 태아 또는 모체의 생존률의 영향도 없었음."
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_REPRO",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": null,
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "모체 독성이 없는 태아 발생독성은 골격계 및 기형발생이 가장 큰 지표이며, 마우스는 ≥500 mg/kg/day, 래트는 ≥1,000 mg/kg/day 에서 관찰됨. 태자의 무게와 생존율의 영향은 더 높은 농도에서 발생됨.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "- 모체 독성이 없는 태아 발생독성은 골격계 및 기형발생이 가장 큰 지표이며, 마우스는 ≥500 mg/kg/day, 래트는 ≥1,000 mg/kg/day 에서 관찰됨. 태자의 무게와 생존율의 영향은 더 높은 농도에서 발생됨."
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_STOT_SE",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": null,
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "비독성 증후는 마취 시 중추신경억제이다. 표적으로 삼을만한 장기가 없음.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "- 비독성 증후는 마취 시 중추신경억제이다. 표적으로 삼을만한 장기가 없음."
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_STOT_RE",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": "래트",
+            "sex": null,
+            "duration_value": 90,
+            "duration_unit": "day",
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "래트에 90 일동안 노출 시 무게 및 사료섭취량이 감소하지만 임상-화학적 및 혈액학적 수치의 변화는 없음. 장기(간, 신장, 췌장, 폐)및 혈액은 어떠한 독성학적 영향이 없음.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "- 래트에 90 일동안 노출 시 무게 및 사료섭취량이 감소하지만 임상-화학적 및 혈액학적 수치의 변화는 없음. 장기(간, 신장, 췌장, 폐)및 혈액은 어떠한 독성학적 영향이 없음."
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_ASP",
+            "descriptor": null,
+            "q": null,
+            "species": null,
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [],
+            "status": "자료없음"
+          }
+        ],
+        "cmr": [
+          {
+            "comp_ref": "MIX",
+            "hazard": "발암성",
+            "agency": "IARC",
+            "class": null,
+            "status": "자료없음",
+            "note": null
+          },
+          {
+            "comp_ref": "MIX",
+            "hazard": "발암성",
+            "agency": "NTP",
+            "class": null,
+            "status": "자료없음",
+            "note": null
+          },
+          {
+            "comp_ref": "MIX",
+            "hazard": "발암성",
+            "agency": "OSHA",
+            "class": null,
+            "status": "자료없음",
+            "note": null
+          },
+          {
+            "comp_ref": "MIX",
+            "hazard": "발암성",
+            "agency": "기타",
+            "class": null,
+            "status": "자료없음",
+            "note": "WISHA"
+          },
+          {
+            "comp_ref": "MIX",
+            "hazard": "발암성",
+            "agency": "ACGIH",
+            "class": null,
+            "status": "자료없음",
+            "note": null
+          }
+        ],
+        "ecotox": [
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_FISH",
+            "descriptor": "LC50",
+            "q": {
+              "raw": "710 mg/ℓ",
+              "approx": null,
+              "value": 710,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "mg/L",
+              "dp": 0,
+              "status": "값있음",
+              "note": null
+            },
+            "species": "Oncorhynchus mykiss",
+            "duration_value": 96,
+            "duration_unit": "hr",
+            "guideline": null,
+            "data_source": null,
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_CRUST",
+            "descriptor": "EC50",
+            "q": {
+              "raw": "> 1000 mg/ℓ",
+              "approx": null,
+              "value": null,
+              "lower_op": ">",
+              "lower": 1000,
+              "upper_op": null,
+              "upper": null,
+              "unit": "mg/L",
+              "dp": 0,
+              "status": "값있음",
+              "note": null
+            },
+            "species": "Daphnia magna",
+            "duration_value": 48,
+            "duration_unit": "hr",
+            "guideline": null,
+            "data_source": null,
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_ALGAE",
+            "descriptor": "EC50",
+            "q": {
+              "raw": "> 1000 mg/ℓ",
+              "approx": null,
+              "value": null,
+              "lower_op": ">",
+              "lower": 1000,
+              "upper_op": null,
+              "upper": null,
+              "unit": "mg/L",
+              "dp": 0,
+              "status": "값있음",
+              "note": null
+            },
+            "species": "Selenastrum capricornutum",
+            "duration_value": 72,
+            "duration_unit": "hr",
+            "guideline": null,
+            "data_source": null,
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_PERSIST",
+            "descriptor": "logKow",
+            "q": {
+              "raw": "-1.4",
+              "approx": null,
+              "value": -1.4,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": null,
+              "dp": 1,
+              "status": "값있음",
+              "note": null
+            },
+            "species": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "guideline": null,
+            "data_source": null,
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_PERSIST",
+            "descriptor": null,
+            "q": null,
+            "species": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "guideline": null,
+            "data_source": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": "분해성",
+                "value": "자료 없음",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "o 분해성 : 자료 없음"
+              }
+            ],
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_BIOACC",
+            "descriptor": "BCF",
+            "q": {
+              "raw": "< 1",
+              "approx": null,
+              "value": null,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": "<",
+              "upper": 1,
+              "unit": null,
+              "dp": 0,
+              "status": "값있음",
+              "note": null
+            },
+            "species": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "guideline": null,
+            "data_source": null,
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_PERSIST",
+            "descriptor": "분해율",
+            "q": {
+              "raw": "> 60 (%)",
+              "approx": null,
+              "value": null,
+              "lower_op": ">",
+              "lower": 60,
+              "upper_op": null,
+              "upper": null,
+              "unit": "%",
+              "dp": 0,
+              "status": "값있음",
+              "note": null
+            },
+            "species": null,
+            "duration_value": 10,
+            "duration_unit": "day",
+            "guideline": null,
+            "data_source": null,
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_SOIL",
+            "descriptor": null,
+            "q": null,
+            "species": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "guideline": null,
+            "data_source": null,
+            "statements": [],
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": null,
+            "descriptor": null,
+            "q": null,
+            "species": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "guideline": null,
+            "data_source": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": "기타 유해 영향",
+                "value": "자료 없음",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "마. 기타 유해 영향 : 자료 없음"
+              }
+            ],
+            "status": "자료없음"
+          }
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "msds_index": 0,
+        "field": "toxicity[0]",
+        "page": 5,
+        "source_text": "- 경구 : LD50 2000 mg/kg Rat (노동부 구분 4)",
+        "rules": [
+          "R04",
+          "R08",
+          "R10"
+        ],
+        "note": "성분 지정이 없어 MIX로, 괄호 속 '노동부 구분 4'는 classification으로 옮김"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[1]",
+        "page": 5,
+        "source_text": "- 경피 : LD50 > 16000 mg/kg Rabbit",
+        "rules": [
+          "R04",
+          "R08",
+          "R10"
+        ],
+        "note": "'> 16000'을 하한 >16000으로 분해"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[2]",
+        "page": 5,
+        "source_text": "- 흡입 : 자료 없음",
+        "rules": [
+          "R15",
+          "R10"
+        ],
+        "note": "'자료 없음'을 status 자료없음으로"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[3]",
+        "page": 5,
+        "source_text": "- 래빗/OECD Guide-line 404 : 자극성 없음.",
+        "rules": [
+          "R10"
+        ],
+        "note": "시험지침을 guideline에, 결과는 statements로"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[4]",
+        "page": 5,
+        "source_text": "- 사람/피부(104 mg/2D) : 중간 자극성",
+        "rules": [
+          "R10"
+        ],
+        "note": "'2D'를 노출 시간 2 day로 기록, 원문은 statements에 보존"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[5]",
+        "page": 5,
+        "source_text": "- 남성/피부(10%/2D) : 중간 자극성",
+        "rules": [
+          "R10"
+        ],
+        "note": "'남성'을 sex 수컷으로, '2D'를 2 day로 기록"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[6]",
+        "page": 5,
+        "source_text": "- 어린이/피부(30%/96H) : 중간 자극성",
+        "rules": [
+          "R10"
+        ],
+        "note": "'96H'를 노출 시간 96 hr로 기록"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[7]",
+        "page": 5,
+        "source_text": "- 사람/눈 : 약한 자극성",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[8]",
+        "page": 5,
+        "source_text": "- 래빗/눈(100 mg) : 경미한 자극",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[9]",
+        "page": 5,
+        "source_text": "o 호흡기과민성 : 자료 없음",
+        "rules": [
+          "R15",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[10]",
+        "page": 5,
+        "source_text": "o 피부과민성 : 사람/Draize Test : 과민성 없음",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[11]",
+        "page": 5,
+        "source_text": "- In vitro - Salmonella typhimurium/TA 98, TA100, TA1535, TA1537 (복귀돌연변이시험; Ames test): Negative(음성)",
+        "rules": [
+          "R10"
+        ],
+        "note": "6쪽으로 이어지는 문장을 시험별로 나눔"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[12]",
+        "page": 6,
+        "source_text": "Human/자매염색분체교환시험: Negative(음성)",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[13]",
+        "page": 6,
+        "source_text": "- 임신 래빗에 1230 mg/kg 으로 10 일간 식이로 투여 시 수정률의 영향은 없으며, 태아 또는 모체의 생존률의 영향도 없었음.",
+        "rules": [
+          "R10"
+        ],
+        "note": "'임신'을 sex 암컷으로, '10 일간'을 10 day로 기록"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[14]",
+        "page": 6,
+        "source_text": "- 모체 독성이 없는 태아 발생독성은 골격계 및 기형발생이 가장 큰 지표이며, 마우스는 ≥500 mg/kg/day, 래트는 ≥1,000 mg/kg/day 에서 관찰됨.",
+        "rules": [
+          "R10",
+          "R17"
+        ],
+        "note": "지표가 명시되지 않아 수치로 분해하지 않고 문장으로 보존"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[15]",
+        "page": 6,
+        "source_text": "- 비독성 증후는 마취 시 중추신경억제이다. 표적으로 삼을만한 장기가 없음.",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[16]",
+        "page": 6,
+        "source_text": "- 래트에 90 일동안 노출 시 무게 및 사료섭취량이 감소하지만 임상-화학적 및 혈액학적 수치의 변화는 없음.",
+        "rules": [
+          "R10"
+        ],
+        "note": "'90 일동안'을 90 day로 기록"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[17]",
+        "page": 6,
+        "source_text": "o 흡인유해성 : 자료 없음",
+        "rules": [
+          "R15",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[0]",
+        "page": 5,
+        "source_text": "- IARC : 자료 없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[1]",
+        "page": 5,
+        "source_text": "- NTP : 자료 없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[2]",
+        "page": 5,
+        "source_text": "- OSHA : 자료 없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[3]",
+        "page": 5,
+        "source_text": "- WISHA : 자료 없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "코드표에 WISHA가 없어 기타로 두고 note에 기관명 기록"
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[4]",
+        "page": 5,
+        "source_text": "- ACGIH : 자료 없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[0]",
+        "page": 6,
+        "source_text": "o 어류 : LC50 710 mg/ℓ 96 hr Oncorhynchus mykiss",
+        "rules": [
+          "R04",
+          "R08",
+          "R10"
+        ],
+        "note": "mg/ℓ을 mg/L로 표기 통일"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[1]",
+        "page": 6,
+        "source_text": "o 갑각류 : EC50 > 1000 mg/ℓ 48 hr Daphnia magna",
+        "rules": [
+          "R04",
+          "R08",
+          "R10"
+        ],
+        "note": "'> 1000'을 하한 >1000으로 분해"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[2]",
+        "page": 6,
+        "source_text": "o 조류 : EC50 > 1000 mg/ℓ 72 hr Selenastrum capricornutum",
+        "rules": [
+          "R04",
+          "R08",
+          "R10"
+        ],
+        "note": "'> 1000'을 하한 >1000으로 분해"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[3]",
+        "page": 6,
+        "source_text": "o 잔류성 : log Kow -1.4",
+        "rules": [
+          "R04",
+          "R06",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[4]",
+        "page": 6,
+        "source_text": "o 분해성 : 자료 없음",
+        "rules": [
+          "R15",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[5]",
+        "page": 6,
+        "source_text": "o 농축성 : BCF< 1",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "'< 1'을 상한 <1로 분해"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[6]",
+        "page": 6,
+        "source_text": "o 생분해성 : > 60 (%) 10 day",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "원문 '다. 생물농축성' 아래에 있으나 생분해 값이므로 ECO_PERSIST/분해율로 기록"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[7]",
+        "page": 6,
+        "source_text": "라. 토양이동성 : 자료 없음",
+        "rules": [
+          "R15",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[8]",
+        "page": 6,
+        "source_text": "마. 기타 유해 영향 : 자료 없음",
+        "rules": [
+          "R15",
+          "R10"
+        ],
+        "note": "맞는 C5 코드가 없어 endpoint는 null로 두고 원문을 statements에 보존"
+      },
+      {
+        "msds_index": 1,
+        "field": "toxicity[0]",
+        "page": 14,
+        "source_text": "- 경구 : LD50 2000 mg/kg Rat (노동부 구분 4)",
+        "rules": [
+          "R04",
+          "R08",
+          "R10"
+        ],
+        "note": "성분 지정이 없어 MIX로, 괄호 속 '노동부 구분 4'는 classification으로 옮김"
+      },
+      {
+        "msds_index": 1,
+        "field": "toxicity[1]",
+        "page": 14,
+        "source_text": "- 경피 : LD50 > 16000 mg/kg Rabbit",
+        "rules": [
+          "R04",
+          "R08",
+          "R10"
+        ],
+        "note": "'> 16000'을 하한 >16000으로 분해"
+      },
+      {
+        "msds_index": 1,
+        "field": "toxicity[2]",
+        "page": 14,
+        "source_text": "- 흡입 : 자료 없음",
+        "rules": [
+          "R15",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 1,
+        "field": "toxicity[3]",
+        "page": 14,
+        "source_text": "- 래빗/OECD Guide-line 404 : 자극성 없음.",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 1,
+        "field": "toxicity[4]",
+        "page": 14,
+        "source_text": "- 사람/피부(104 mg/2D) : 중간 자극성",
+        "rules": [
+          "R10"
+        ],
+        "note": "'2D'를 2 day로 기록"
+      },
+      {
+        "msds_index": 1,
+        "field": "toxicity[5]",
+        "page": 14,
+        "source_text": "- 남성/피부(10%/2D) : 중간 자극성",
+        "rules": [
+          "R10"
+        ],
+        "note": "'남성'을 sex 수컷으로, '2D'를 2 day로 기록"
+      },
+      {
+        "msds_index": 1,
+        "field": "toxicity[6]",
+        "page": 14,
+        "source_text": "- 어린이/피부(30%/96H) : 중간 자극성",
+        "rules": [
+          "R10"
+        ],
+        "note": "'96H'를 96 hr로 기록"
+      },
+      {
+        "msds_index": 1,
+        "field": "toxicity[7]",
+        "page": 14,
+        "source_text": "- 사람/눈 : 약한 자극성",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 1,
+        "field": "toxicity[8]",
+        "page": 14,
+        "source_text": "- 래빗/눈(100 mg) : 경미한 자극",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 1,
+        "field": "toxicity[9]",
+        "page": 14,
+        "source_text": "o 호흡기과민성 : 자료 없음",
+        "rules": [
+          "R15",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 1,
+        "field": "toxicity[10]",
+        "page": 14,
+        "source_text": "o 피부과민성 : 사람/Draize Test : 과민성 없음",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 1,
+        "field": "toxicity[11]",
+        "page": 14,
+        "source_text": "- In vitro - Salmonella typhimurium/TA 98, TA100, TA1535, TA1537 (복귀돌연변이시험; Ames test): Negative(음성)",
+        "rules": [
+          "R10"
+        ],
+        "note": "시험별로 행을 나눔"
+      },
+      {
+        "msds_index": 1,
+        "field": "toxicity[12]",
+        "page": 14,
+        "source_text": "Human/자매염색분체교환시험: Negative(음성)",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 1,
+        "field": "toxicity[13]",
+        "page": 15,
+        "source_text": "- 임신 래빗에 1230 mg/kg 으로 10 일간 식이로 투여 시 수정률의 영향은 없으며, 태아 또는 모체의 생존률의 영향도 없었음.",
+        "rules": [
+          "R10"
+        ],
+        "note": "'임신'을 sex 암컷으로, '10 일간'을 10 day로 기록"
+      },
+      {
+        "msds_index": 1,
+        "field": "toxicity[14]",
+        "page": 15,
+        "source_text": "- 모체 독성이 없는 태아 발생독성은 골격계 및 기형발생이 가장 큰 지표이며, 마우스는 ≥500 mg/kg/day, 래트는 ≥1,000 mg/kg/day 에서 관찰됨.",
+        "rules": [
+          "R10",
+          "R17"
+        ],
+        "note": "지표가 명시되지 않아 문장으로 보존"
+      },
+      {
+        "msds_index": 1,
+        "field": "toxicity[15]",
+        "page": 15,
+        "source_text": "- 비독성 증후는 마취 시 중추신경억제이다. 표적으로 삼을만한 장기가 없음.",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 1,
+        "field": "toxicity[16]",
+        "page": 15,
+        "source_text": "- 래트에 90 일동안 노출 시 무게 및 사료섭취량이 감소하지만 임상-화학적 및 혈액학적 수치의 변화는 없음.",
+        "rules": [
+          "R10"
+        ],
+        "note": "'90 일동안'을 90 day로 기록"
+      },
+      {
+        "msds_index": 1,
+        "field": "toxicity[17]",
+        "page": 15,
+        "source_text": "o 흡인유해성 : 자료 없음",
+        "rules": [
+          "R15",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 1,
+        "field": "cmr[0]",
+        "page": 14,
+        "source_text": "- IARC : 자료 없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 1,
+        "field": "cmr[1]",
+        "page": 14,
+        "source_text": "- NTP : 자료 없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 1,
+        "field": "cmr[2]",
+        "page": 14,
+        "source_text": "- OSHA : 자료 없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 1,
+        "field": "cmr[3]",
+        "page": 14,
+        "source_text": "- WISHA : 자료 없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "코드표에 WISHA가 없어 기타로 두고 note에 기관명 기록"
+      },
+      {
+        "msds_index": 1,
+        "field": "cmr[4]",
+        "page": 14,
+        "source_text": "- ACGIH : 자료 없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 1,
+        "field": "ecotox[0]",
+        "page": 15,
+        "source_text": "o 어류 : LC50 710 mg/ℓ 96 hr Oncorhynchus mykiss",
+        "rules": [
+          "R04",
+          "R08",
+          "R10"
+        ],
+        "note": "mg/ℓ을 mg/L로 표기 통일"
+      },
+      {
+        "msds_index": 1,
+        "field": "ecotox[1]",
+        "page": 15,
+        "source_text": "o 갑각류 : EC50 > 1000 mg/ℓ 48 hr Daphnia magna",
+        "rules": [
+          "R04",
+          "R08",
+          "R10"
+        ],
+        "note": "'> 1000'을 하한 >1000으로 분해"
+      },
+      {
+        "msds_index": 1,
+        "field": "ecotox[2]",
+        "page": 15,
+        "source_text": "o 조류 : EC50 > 1000 mg/ℓ 72 hr Selenastrum capricornutum",
+        "rules": [
+          "R04",
+          "R08",
+          "R10"
+        ],
+        "note": "'> 1000'을 하한 >1000으로 분해"
+      },
+      {
+        "msds_index": 1,
+        "field": "ecotox[3]",
+        "page": 15,
+        "source_text": "o 잔류성 : log Kow -1.4",
+        "rules": [
+          "R04",
+          "R06",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 1,
+        "field": "ecotox[4]",
+        "page": 15,
+        "source_text": "o 분해성 : 자료 없음",
+        "rules": [
+          "R15",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 1,
+        "field": "ecotox[5]",
+        "page": 15,
+        "source_text": "o 농축성 : BCF< 1",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "'< 1'을 상한 <1로 분해"
+      },
+      {
+        "msds_index": 1,
+        "field": "ecotox[6]",
+        "page": 15,
+        "source_text": "o 생분해성 : > 60 (%) 10 day",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "원문 '다. 생물농축성' 아래에 있으나 생분해 값이므로 ECO_PERSIST/분해율로 기록"
+      },
+      {
+        "msds_index": 1,
+        "field": "ecotox[7]",
+        "page": 15,
+        "source_text": "라. 토양이동성 : 자료 없음",
+        "rules": [
+          "R15",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 1,
+        "field": "ecotox[8]",
+        "page": 15,
+        "source_text": "마. 기타 유해 영향 : 자료 없음",
+        "rules": [
+          "R15",
+          "R10"
+        ],
+        "note": "맞는 C5 코드가 없어 endpoint는 null로 두고 원문을 statements에 보존"
+      }
+    ]
+  },
+  "raw_text": "{\"msds\":[{\"toxicity\":[{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_ORAL\",\"descriptor\":\"LD50\",\"q\":{\"raw\":\"2000 mg/kg\",\"approx\":null,\"value\":2000,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"mg/kg\",\"dp\":0,\"status\":\"값있음\",\"note\":null},\"species\":\"Rat\",\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":\"노동부 구분 4\",\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_DERMAL\",\"descriptor\":\"LD50\",\"q\":{\"raw\":\"> 16000 mg/kg\",\"approx\":null,\"value\":null,\"lower_op\":\">\",\"lower\":16000,\"upper_op\":null,\"upper\":null,\"unit\":\"mg/kg\",\"dp\":0,\"status\":\"값있음\",\"note\":null},\"species\":\"Rabbit\",\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_INHAL\",\"descriptor\":null,\"q\":null,\"species\":null,\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[],\"status\":\"자료없음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_SKIN\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":\"래빗\",\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":\"OECD Guide-line 404\",\"data_source\":null,\"classification\":null,\"statements\":[{\"seq\":1,\"key\":\"래빗/OECD Guide-line 404\",\"value\":\"자극성 없음.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"- 래빗/OECD Guide-line 404 : 자극성 없음.\"}],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_SKIN\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":\"사람\",\"sex\":null,\"duration_value\":2,\"duration_unit\":\"day\",\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[{\"seq\":1,\"key\":\"사람/피부(104 mg/2D)\",\"value\":\"중간 자극성\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"- 사람/피부(104 mg/2D) : 중간 자극성\"}],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_SKIN\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":\"남성\",\"sex\":\"수컷\",\"duration_value\":2,\"duration_unit\":\"day\",\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[{\"seq\":1,\"key\":\"남성/피부(10%/2D)\",\"value\":\"중간 자극성\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"- 남성/피부(10%/2D) : 중간 자극성\"}],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_SKIN\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":\"어린이\",\"sex\":null,\"duration_value\":96,\"duration_unit\":\"hr\",\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[{\"seq\":1,\"key\":\"어린이/피부(30%/96H)\",\"value\":\"중간 자극성\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"- 어린이/피부(30%/96H) : 중간 자극성\"}],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_EYE\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":\"사람\",\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[{\"seq\":1,\"key\":\"사람/눈\",\"value\":\"약한 자극성\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"- 사람/눈 : 약한 자극성\"}],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_EYE\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":\"래빗\",\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[{\"seq\":1,\"key\":\"래빗/눈(100 mg)\",\"value\":\"경미한 자극\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"- 래빗/눈(100 mg) : 경미한 자극\"}],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_RESP_SENS\",\"descriptor\":null,\"q\":null,\"species\":null,\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[],\"status\":\"자료없음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_SKIN_SENS\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":\"사람\",\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":\"Draize Test\",\"data_source\":null,\"classification\":null,\"statements\":[{\"seq\":1,\"key\":\"사람/Draize Test\",\"value\":\"과민성 없음\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"o 피부과민성 : 사람/Draize Test : 과민성 없음\"}],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_MUTA\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":\"Salmonella typhimurium\",\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":\"In vitro\",\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[{\"seq\":1,\"key\":\"In vitro - Salmonella typhimurium/TA 98, TA100, TA1535, TA1537 (복귀돌연변이시험; Ames test)\",\"value\":\"Negative(음성)\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"- In vitro - Salmonella typhimurium/TA 98, TA100, TA1535, TA1537 (복귀돌연변이시험; Ames test): Negative(음성)\"}],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_MUTA\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":\"Human\",\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[{\"seq\":1,\"key\":\"Human/자매염색분체교환시험\",\"value\":\"Negative(음성)\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"Human/자매염색분체교환시험: Negative(음성)\"}],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_REPRO\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":\"래빗\",\"sex\":\"암컷\",\"duration_value\":10,\"duration_unit\":\"day\",\"physical_form\":null,\"exposure_type\":\"식이 투여\",\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"임신 래빗에 1230 mg/kg 으로 10 일간 식이로 투여 시 수정률의 영향은 없으며, 태아 또는 모체의 생존률의 영향도 없었음.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"- 임신 래빗에 1230 mg/kg 으로 10 일간 식이로 투여 시 수정률의 영향은 없으며, 태아 또는 모체의 생존률의 영향도 없었음.\"}],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_REPRO\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":null,\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"모체 독성이 없는 태아 발생독성은 골격계 및 기형발생이 가장 큰 지표이며, 마우스는 ≥500 mg/kg/day, 래트는 ≥1,000 mg/kg/day 에서 관찰됨. 태자의 무게와 생존율의 영향은 더 높은 농도에서 발생됨.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"- 모체 독성이 없는 태아 발생독성은 골격계 및 기형발생이 가장 큰 지표이며, 마우스는 ≥500 mg/kg/day, 래트는 ≥1,000 mg/kg/day 에서 관찰됨. 태자의 무게와 생존율의 영향은 더 높은 농도에서 발생됨.\"}],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_STOT_SE\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":null,\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"비독성 증후는 마취 시 중추신경억제이다. 표적으로 삼을만한 장기가 없음.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"- 비독성 증후는 마취 시 중추신경억제이다. 표적으로 삼을만한 장기가 없음.\"}],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_STOT_RE\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":\"래트\",\"sex\":null,\"duration_value\":90,\"duration_unit\":\"day\",\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"래트에 90 일동안 노출 시 무게 및 사료섭취량이 감소하지만 임상-화학적 및 혈액학적 수치의 변화는 없음. 장기(간, 신장, 췌장, 폐)및 혈액은 어떠한 독성학적 영향이 없음.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"- 래트에 90 일동안 노출 시 무게 및 사료섭취량이 감소하지만 임상-화학적 및 혈액학적 수치의 변화는 없음. 장기(간, 신장, 췌장, 폐)및 혈액은 어떠한 독성학적 영향이 없음.\"}],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_ASP\",\"descriptor\":null,\"q\":null,\"species\":null,\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[],\"status\":\"자료없음\"}],\"cmr\":[{\"comp_ref\":\"MIX\",\"hazard\":\"발암성\",\"agency\":\"IARC\",\"class\":null,\"status\":\"자료없음\",\"note\":null},{\"comp_ref\":\"MIX\",\"hazard\":\"발암성\",\"agency\":\"NTP\",\"class\":null,\"status\":\"자료없음\",\"note\":null},{\"comp_ref\":\"MIX\",\"hazard\":\"발암성\",\"agency\":\"OSHA\",\"class\":null,\"status\":\"자료없음\",\"note\":null},{\"comp_ref\":\"MIX\",\"hazard\":\"발암성\",\"agency\":\"기타\",\"class\":null,\"status\":\"자료없음\",\"note\":\"WISHA\"},{\"comp_ref\":\"MIX\",\"hazard\":\"발암성\",\"agency\":\"ACGIH\",\"class\":null,\"status\":\"자료없음\",\"note\":null}],\"ecotox\":[{\"comp_ref\":\"MIX\",\"endpoint\":\"ECO_FISH\",\"descriptor\":\"LC50\",\"q\":{\"raw\":\"710 mg/ℓ\",\"approx\":null,\"value\":710,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"mg/L\",\"dp\":0,\"status\":\"값있음\",\"note\":null},\"species\":\"Oncorhynchus mykiss\",\"duration_value\":96,\"duration_unit\":\"hr\",\"guideline\":null,\"data_source\":null,\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"ECO_CRUST\",\"descriptor\":\"EC50\",\"q\":{\"raw\":\"> 1000 mg/ℓ\",\"approx\":null,\"value\":null,\"lower_op\":\">\",\"lower\":1000,\"upper_op\":null,\"upper\":null,\"unit\":\"mg/L\",\"dp\":0,\"status\":\"값있음\",\"note\":null},\"species\":\"Daphnia magna\",\"duration_value\":48,\"duration_unit\":\"hr\",\"guideline\":null,\"data_source\":null,\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"ECO_ALGAE\",\"descriptor\":\"EC50\",\"q\":{\"raw\":\"> 1000 mg/ℓ\",\"approx\":null,\"value\":null,\"lower_op\":\">\",\"lower\":1000,\"upper_op\":null,\"upper\":null,\"unit\":\"mg/L\",\"dp\":0,\"status\":\"값있음\",\"note\":null},\"species\":\"Selenastrum capricornutum\",\"duration_value\":72,\"duration_unit\":\"hr\",\"guideline\":null,\"data_source\":null,\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"ECO_PERSIST\",\"descriptor\":\"logKow\",\"q\":{\"raw\":\"-1.4\",\"approx\":null,\"value\":-1.4,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":null,\"dp\":1,\"status\":\"값있음\",\"note\":null},\"species\":null,\"duration_value\":null,\"duration_unit\":null,\"guideline\":null,\"data_source\":null,\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"ECO_PERSIST\",\"descriptor\":null,\"q\":null,\"species\":null,\"duration_value\":null,\"duration_unit\":null,\"guideline\":null,\"data_source\":null,\"statements\":[{\"seq\":1,\"key\":\"분해성\",\"value\":\"자료 없음\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"o 분해성 : 자료 없음\"}],\"status\":\"자료없음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"ECO_BIOACC\",\"descriptor\":\"BCF\",\"q\":{\"raw\":\"< 1\",\"approx\":null,\"value\":null,\"lower_op\":null,\"lower\":null,\"upper_op\":\"<\",\"upper\":1,\"unit\":null,\"dp\":0,\"status\":\"값있음\",\"note\":null},\"species\":null,\"duration_value\":null,\"duration_unit\":null,\"guideline\":null,\"data_source\":null,\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"ECO_PERSIST\",\"descriptor\":\"분해율\",\"q\":{\"raw\":\"> 60 (%)\",\"approx\":null,\"value\":null,\"lower_op\":\">\",\"lower\":60,\"upper_op\":null,\"upper\":null,\"unit\":\"%\",\"dp\":0,\"status\":\"값있음\",\"note\":null},\"species\":null,\"duration_value\":10,\"duration_unit\":\"day\",\"guideline\":null,\"data_source\":null,\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"ECO_SOIL\",\"descriptor\":null,\"q\":null,\"species\":null,\"duration_value\":null,\"duration_unit\":null,\"guideline\":null,\"data_source\":null,\"statements\":[],\"status\":\"자료없음\"},{\"comp_ref\":\"MIX\",\"endpoint\":null,\"descriptor\":null,\"q\":null,\"species\":null,\"duration_value\":null,\"duration_unit\":null,\"guideline\":null,\"data_source\":null,\"statements\":[{\"seq\":1,\"key\":\"기타 유해 영향\",\"value\":\"자료 없음\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"마. 기타 유해 영향 : 자료 없음\"}],\"status\":\"자료없음\"}]},{\"toxicity\":[{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_ORAL\",\"descriptor\":\"LD50\",\"q\":{\"raw\":\"2000 mg/kg\",\"approx\":null,\"value\":2000,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"mg/kg\",\"dp\":0,\"status\":\"값있음\",\"note\":null},\"species\":\"Rat\",\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":\"노동부 구분 4\",\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_DERMAL\",\"descriptor\":\"LD50\",\"q\":{\"raw\":\"> 16000 mg/kg\",\"approx\":null,\"value\":null,\"lower_op\":\">\",\"lower\":16000,\"upper_op\":null,\"upper\":null,\"unit\":\"mg/kg\",\"dp\":0,\"status\":\"값있음\",\"note\":null},\"species\":\"Rabbit\",\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_INHAL\",\"descriptor\":null,\"q\":null,\"species\":null,\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[],\"status\":\"자료없음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_SKIN\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":\"래빗\",\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":\"OECD Guide-line 404\",\"data_source\":null,\"classification\":null,\"statements\":[{\"seq\":1,\"key\":\"래빗/OECD Guide-line 404\",\"value\":\"자극성 없음.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"- 래빗/OECD Guide-line 404 : 자극성 없음.\"}],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_SKIN\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":\"사람\",\"sex\":null,\"duration_value\":2,\"duration_unit\":\"day\",\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[{\"seq\":1,\"key\":\"사람/피부(104 mg/2D)\",\"value\":\"중간 자극성\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"- 사람/피부(104 mg/2D) : 중간 자극성\"}],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_SKIN\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":\"남성\",\"sex\":\"수컷\",\"duration_value\":2,\"duration_unit\":\"day\",\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[{\"seq\":1,\"key\":\"남성/피부(10%/2D)\",\"value\":\"중간 자극성\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"- 남성/피부(10%/2D) : 중간 자극성\"}],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_SKIN\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":\"어린이\",\"sex\":null,\"duration_value\":96,\"duration_unit\":\"hr\",\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[{\"seq\":1,\"key\":\"어린이/피부(30%/96H)\",\"value\":\"중간 자극성\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"- 어린이/피부(30%/96H) : 중간 자극성\"}],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_EYE\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":\"사람\",\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[{\"seq\":1,\"key\":\"사람/눈\",\"value\":\"약한 자극성\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"- 사람/눈 : 약한 자극성\"}],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_EYE\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":\"래빗\",\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[{\"seq\":1,\"key\":\"래빗/눈(100 mg)\",\"value\":\"경미한 자극\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"- 래빗/눈(100 mg) : 경미한 자극\"}],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_RESP_SENS\",\"descriptor\":null,\"q\":null,\"species\":null,\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[],\"status\":\"자료없음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_SKIN_SENS\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":\"사람\",\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":\"Draize Test\",\"data_source\":null,\"classification\":null,\"statements\":[{\"seq\":1,\"key\":\"사람/Draize Test\",\"value\":\"과민성 없음\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"o 피부과민성 : 사람/Draize Test : 과민성 없음\"}],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_MUTA\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":\"Salmonella typhimurium\",\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":\"In vitro\",\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[{\"seq\":1,\"key\":\"In vitro - Salmonella typhimurium/TA 98, TA100, TA1535, TA1537 (복귀돌연변이시험; Ames test)\",\"value\":\"Negative(음성)\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"- In vitro - Salmonella typhimurium/TA 98, TA100, TA1535, TA1537 (복귀돌연변이시험; Ames test): Negative(음성)\"}],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_MUTA\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":\"Human\",\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[{\"seq\":1,\"key\":\"Human/자매염색분체교환시험\",\"value\":\"Negative(음성)\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"Human/자매염색분체교환시험: Negative(음성)\"}],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_REPRO\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":\"래빗\",\"sex\":\"암컷\",\"duration_value\":10,\"duration_unit\":\"day\",\"physical_form\":null,\"exposure_type\":\"식이 투여\",\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"임신 래빗에 1230 mg/kg 으로 10 일간 식이로 투여 시 수정률의 영향은 없으며, 태아 또는 모체의 생존률의 영향도 없었음.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"- 임신 래빗에 1230 mg/kg 으로 10 일간 식이로 투여 시 수정률의 영향은 없으며, 태아 또는 모체의 생존률의 영향도 없었음.\"}],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_REPRO\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":null,\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"모체 독성이 없는 태아 발생독성은 골격계 및 기형발생이 가장 큰 지표이며, 마우스는 ≥500 mg/kg/day, 래트는 ≥1,000 mg/kg/day 에서 관찰됨. 태자의 무게와 생존율의 영향은 더 높은 농도에서 발생됨.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"- 모체 독성이 없는 태아 발생독성은 골격계 및 기형발생이 가장 큰 지표이며, 마우스는 ≥500 mg/kg/day, 래트는 ≥1,000 mg/kg/day 에서 관찰됨. 태자의 무게와 생존율의 영향은 더 높은 농도에서 발생됨.\"}],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_STOT_SE\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":null,\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"비독성 증후는 마취 시 중추신경억제이다. 표적으로 삼을만한 장기가 없음.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"- 비독성 증후는 마취 시 중추신경억제이다. 표적으로 삼을만한 장기가 없음.\"}],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_STOT_RE\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":\"래트\",\"sex\":null,\"duration_value\":90,\"duration_unit\":\"day\",\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"래트에 90 일동안 노출 시 무게 및 사료섭취량이 감소하지만 임상-화학적 및 혈액학적 수치의 변화는 없음. 장기(간, 신장, 췌장, 폐)및 혈액은 어떠한 독성학적 영향이 없음.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"- 래트에 90 일동안 노출 시 무게 및 사료섭취량이 감소하지만 임상-화학적 및 혈액학적 수치의 변화는 없음. 장기(간, 신장, 췌장, 폐)및 혈액은 어떠한 독성학적 영향이 없음.\"}],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_ASP\",\"descriptor\":null,\"q\":null,\"species\":null,\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[],\"status\":\"자료없음\"}],\"cmr\":[{\"comp_ref\":\"MIX\",\"hazard\":\"발암성\",\"agency\":\"IARC\",\"class\":null,\"status\":\"자료없음\",\"note\":null},{\"comp_ref\":\"MIX\",\"hazard\":\"발암성\",\"agency\":\"NTP\",\"class\":null,\"status\":\"자료없음\",\"note\":null},{\"comp_ref\":\"MIX\",\"hazard\":\"발암성\",\"agency\":\"OSHA\",\"class\":null,\"status\":\"자료없음\",\"note\":null},{\"comp_ref\":\"MIX\",\"hazard\":\"발암성\",\"agency\":\"기타\",\"class\":null,\"status\":\"자료없음\",\"note\":\"WISHA\"},{\"comp_ref\":\"MIX\",\"hazard\":\"발암성\",\"agency\":\"ACGIH\",\"class\":null,\"status\":\"자료없음\",\"note\":null}],\"ecotox\":[{\"comp_ref\":\"MIX\",\"endpoint\":\"ECO_FISH\",\"descriptor\":\"LC50\",\"q\":{\"raw\":\"710 mg/ℓ\",\"approx\":null,\"value\":710,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"mg/L\",\"dp\":0,\"status\":\"값있음\",\"note\":null},\"species\":\"Oncorhynchus mykiss\",\"duration_value\":96,\"duration_unit\":\"hr\",\"guideline\":null,\"data_source\":null,\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"ECO_CRUST\",\"descriptor\":\"EC50\",\"q\":{\"raw\":\"> 1000 mg/ℓ\",\"approx\":null,\"value\":null,\"lower_op\":\">\",\"lower\":1000,\"upper_op\":null,\"upper\":null,\"unit\":\"mg/L\",\"dp\":0,\"status\":\"값있음\",\"note\":null},\"species\":\"Daphnia magna\",\"duration_value\":48,\"duration_unit\":\"hr\",\"guideline\":null,\"data_source\":null,\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"ECO_ALGAE\",\"descriptor\":\"EC50\",\"q\":{\"raw\":\"> 1000 mg/ℓ\",\"approx\":null,\"value\":null,\"lower_op\":\">\",\"lower\":1000,\"upper_op\":null,\"upper\":null,\"unit\":\"mg/L\",\"dp\":0,\"status\":\"값있음\",\"note\":null},\"species\":\"Selenastrum capricornutum\",\"duration_value\":72,\"duration_unit\":\"hr\",\"guideline\":null,\"data_source\":null,\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"ECO_PERSIST\",\"descriptor\":\"logKow\",\"q\":{\"raw\":\"-1.4\",\"approx\":null,\"value\":-1.4,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":null,\"dp\":1,\"status\":\"값있음\",\"note\":null},\"species\":null,\"duration_value\":null,\"duration_unit\":null,\"guideline\":null,\"data_source\":null,\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"ECO_PERSIST\",\"descriptor\":null,\"q\":null,\"species\":null,\"duration_value\":null,\"duration_unit\":null,\"guideline\":null,\"data_source\":null,\"statements\":[{\"seq\":1,\"key\":\"분해성\",\"value\":\"자료 없음\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"o 분해성 : 자료 없음\"}],\"status\":\"자료없음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"ECO_BIOACC\",\"descriptor\":\"BCF\",\"q\":{\"raw\":\"< 1\",\"approx\":null,\"value\":null,\"lower_op\":null,\"lower\":null,\"upper_op\":\"<\",\"upper\":1,\"unit\":null,\"dp\":0,\"status\":\"값있음\",\"note\":null},\"species\":null,\"duration_value\":null,\"duration_unit\":null,\"guideline\":null,\"data_source\":null,\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"ECO_PERSIST\",\"descriptor\":\"분해율\",\"q\":{\"raw\":\"> 60 (%)\",\"approx\":null,\"value\":null,\"lower_op\":\">\",\"lower\":60,\"upper_op\":null,\"upper\":null,\"unit\":\"%\",\"dp\":0,\"status\":\"값있음\",\"note\":null},\"species\":null,\"duration_value\":10,\"duration_unit\":\"day\",\"guideline\":null,\"data_source\":null,\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"ECO_SOIL\",\"descriptor\":null,\"q\":null,\"species\":null,\"duration_value\":null,\"duration_unit\":null,\"guideline\":null,\"data_source\":null,\"statements\":[],\"status\":\"자료없음\"},{\"comp_ref\":\"MIX\",\"endpoint\":null,\"descriptor\":null,\"q\":null,\"species\":null,\"duration_value\":null,\"duration_unit\":null,\"guideline\":null,\"data_source\":null,\"statements\":[{\"seq\":1,\"key\":\"기타 유해 영향\",\"value\":\"자료 없음\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"마. 기타 유해 영향 : 자료 없음\"}],\"status\":\"자료없음\"}]}],\"evidence\":[{\"msds_index\":0,\"field\":\"toxicity[0]\",\"page\":5,\"source_text\":\"- 경구 : LD50 2000 mg/kg Rat (노동부 구분 4)\",\"rules\":[\"R04\",\"R08\",\"R10\"],\"note\":\"성분 지정이 없어 MIX로, 괄호 속 '노동부 구분 4'는 classification으로 옮김\"},{\"msds_index\":0,\"field\":\"toxicity[1]\",\"page\":5,\"source_text\":\"- 경피 : LD50 > 16000 mg/kg Rabbit\",\"rules\":[\"R04\",\"R08\",\"R10\"],\"note\":\"'> 16000'을 하한 >16000으로 분해\"},{\"msds_index\":0,\"field\":\"toxicity[2]\",\"page\":5,\"source_text\":\"- 흡입 : 자료 없음\",\"rules\":[\"R15\",\"R10\"],\"note\":\"'자료 없음'을 status 자료없음으로\"},{\"msds_index\":0,\"field\":\"toxicity[3]\",\"page\":5,\"source_text\":\"- 래빗/OECD Guide-line 404 : 자극성 없음.\",\"rules\":[\"R10\"],\"note\":\"시험지침을 guideline에, 결과는 statements로\"},{\"msds_index\":0,\"field\":\"toxicity[4]\",\"page\":5,\"source_text\":\"- 사람/피부(104 mg/2D) : 중간 자극성\",\"rules\":[\"R10\"],\"note\":\"'2D'를 노출 시간 2 day로 기록, 원문은 statements에 보존\"},{\"msds_index\":0,\"field\":\"toxicity[5]\",\"page\":5,\"source_text\":\"- 남성/피부(10%/2D) : 중간 자극성\",\"rules\":[\"R10\"],\"note\":\"'남성'을 sex 수컷으로, '2D'를 2 day로 기록\"},{\"msds_index\":0,\"field\":\"toxicity[6]\",\"page\":5,\"source_text\":\"- 어린이/피부(30%/96H) : 중간 자극성\",\"rules\":[\"R10\"],\"note\":\"'96H'를 노출 시간 96 hr로 기록\"},{\"msds_index\":0,\"field\":\"toxicity[7]\",\"page\":5,\"source_text\":\"- 사람/눈 : 약한 자극성\",\"rules\":[\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"toxicity[8]\",\"page\":5,\"source_text\":\"- 래빗/눈(100 mg) : 경미한 자극\",\"rules\":[\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"toxicity[9]\",\"page\":5,\"source_text\":\"o 호흡기과민성 : 자료 없음\",\"rules\":[\"R15\",\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"toxicity[10]\",\"page\":5,\"source_text\":\"o 피부과민성 : 사람/Draize Test : 과민성 없음\",\"rules\":[\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"toxicity[11]\",\"page\":5,\"source_text\":\"- In vitro - Salmonella typhimurium/TA 98, TA100, TA1535, TA1537 (복귀돌연변이시험; Ames test): Negative(음성)\",\"rules\":[\"R10\"],\"note\":\"6쪽으로 이어지는 문장을 시험별로 나눔\"},{\"msds_index\":0,\"field\":\"toxicity[12]\",\"page\":6,\"source_text\":\"Human/자매염색분체교환시험: Negative(음성)\",\"rules\":[\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"toxicity[13]\",\"page\":6,\"source_text\":\"- 임신 래빗에 1230 mg/kg 으로 10 일간 식이로 투여 시 수정률의 영향은 없으며, 태아 또는 모체의 생존률의 영향도 없었음.\",\"rules\":[\"R10\"],\"note\":\"'임신'을 sex 암컷으로, '10 일간'을 10 day로 기록\"},{\"msds_index\":0,\"field\":\"toxicity[14]\",\"page\":6,\"source_text\":\"- 모체 독성이 없는 태아 발생독성은 골격계 및 기형발생이 가장 큰 지표이며, 마우스는 ≥500 mg/kg/day, 래트는 ≥1,000 mg/kg/day 에서 관찰됨.\",\"rules\":[\"R10\",\"R17\"],\"note\":\"지표가 명시되지 않아 수치로 분해하지 않고 문장으로 보존\"},{\"msds_index\":0,\"field\":\"toxicity[15]\",\"page\":6,\"source_text\":\"- 비독성 증후는 마취 시 중추신경억제이다. 표적으로 삼을만한 장기가 없음.\",\"rules\":[\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"toxicity[16]\",\"page\":6,\"source_text\":\"- 래트에 90 일동안 노출 시 무게 및 사료섭취량이 감소하지만 임상-화학적 및 혈액학적 수치의 변화는 없음.\",\"rules\":[\"R10\"],\"note\":\"'90 일동안'을 90 day로 기록\"},{\"msds_index\":0,\"field\":\"toxicity[17]\",\"page\":6,\"source_text\":\"o 흡인유해성 : 자료 없음\",\"rules\":[\"R15\",\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"cmr[0]\",\"page\":5,\"source_text\":\"- IARC : 자료 없음\",\"rules\":[\"R15\"],\"note\":null},{\"msds_index\":0,\"field\":\"cmr[1]\",\"page\":5,\"source_text\":\"- NTP : 자료 없음\",\"rules\":[\"R15\"],\"note\":null},{\"msds_index\":0,\"field\":\"cmr[2]\",\"page\":5,\"source_text\":\"- OSHA : 자료 없음\",\"rules\":[\"R15\"],\"note\":null},{\"msds_index\":0,\"field\":\"cmr[3]\",\"page\":5,\"source_text\":\"- WISHA : 자료 없음\",\"rules\":[\"R15\"],\"note\":\"코드표에 WISHA가 없어 기타로 두고 note에 기관명 기록\"},{\"msds_index\":0,\"field\":\"cmr[4]\",\"page\":5,\"source_text\":\"- ACGIH : 자료 없음\",\"rules\":[\"R15\"],\"note\":null},{\"msds_index\":0,\"field\":\"ecotox[0]\",\"page\":6,\"source_text\":\"o 어류 : LC50 710 mg/ℓ 96 hr Oncorhynchus mykiss\",\"rules\":[\"R04\",\"R08\",\"R10\"],\"note\":\"mg/ℓ을 mg/L로 표기 통일\"},{\"msds_index\":0,\"field\":\"ecotox[1]\",\"page\":6,\"source_text\":\"o 갑각류 : EC50 > 1000 mg/ℓ 48 hr Daphnia magna\",\"rules\":[\"R04\",\"R08\",\"R10\"],\"note\":\"'> 1000'을 하한 >1000으로 분해\"},{\"msds_index\":0,\"field\":\"ecotox[2]\",\"page\":6,\"source_text\":\"o 조류 : EC50 > 1000 mg/ℓ 72 hr Selenastrum capricornutum\",\"rules\":[\"R04\",\"R08\",\"R10\"],\"note\":\"'> 1000'을 하한 >1000으로 분해\"},{\"msds_index\":0,\"field\":\"ecotox[3]\",\"page\":6,\"source_text\":\"o 잔류성 : log Kow -1.4\",\"rules\":[\"R04\",\"R06\",\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"ecotox[4]\",\"page\":6,\"source_text\":\"o 분해성 : 자료 없음\",\"rules\":[\"R15\",\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"ecotox[5]\",\"page\":6,\"source_text\":\"o 농축성 : BCF< 1\",\"rules\":[\"R04\",\"R10\"],\"note\":\"'< 1'을 상한 <1로 분해\"},{\"msds_index\":0,\"field\":\"ecotox[6]\",\"page\":6,\"source_text\":\"o 생분해성 : > 60 (%) 10 day\",\"rules\":[\"R04\",\"R10\"],\"note\":\"원문 '다. 생물농축성' 아래에 있으나 생분해 값이므로 ECO_PERSIST/분해율로 기록\"},{\"msds_index\":0,\"field\":\"ecotox[7]\",\"page\":6,\"source_text\":\"라. 토양이동성 : 자료 없음\",\"rules\":[\"R15\",\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"ecotox[8]\",\"page\":6,\"source_text\":\"마. 기타 유해 영향 : 자료 없음\",\"rules\":[\"R15\",\"R10\"],\"note\":\"맞는 C5 코드가 없어 endpoint는 null로 두고 원문을 statements에 보존\"},{\"msds_index\":1,\"field\":\"toxicity[0]\",\"page\":14,\"source_text\":\"- 경구 : LD50 2000 mg/kg Rat (노동부 구분 4)\",\"rules\":[\"R04\",\"R08\",\"R10\"],\"note\":\"성분 지정이 없어 MIX로, 괄호 속 '노동부 구분 4'는 classification으로 옮김\"},{\"msds_index\":1,\"field\":\"toxicity[1]\",\"page\":14,\"source_text\":\"- 경피 : LD50 > 16000 mg/kg Rabbit\",\"rules\":[\"R04\",\"R08\",\"R10\"],\"note\":\"'> 16000'을 하한 >16000으로 분해\"},{\"msds_index\":1,\"field\":\"toxicity[2]\",\"page\":14,\"source_text\":\"- 흡입 : 자료 없음\",\"rules\":[\"R15\",\"R10\"],\"note\":null},{\"msds_index\":1,\"field\":\"toxicity[3]\",\"page\":14,\"source_text\":\"- 래빗/OECD Guide-line 404 : 자극성 없음.\",\"rules\":[\"R10\"],\"note\":null},{\"msds_index\":1,\"field\":\"toxicity[4]\",\"page\":14,\"source_text\":\"- 사람/피부(104 mg/2D) : 중간 자극성\",\"rules\":[\"R10\"],\"note\":\"'2D'를 2 day로 기록\"},{\"msds_index\":1,\"field\":\"toxicity[5]\",\"page\":14,\"source_text\":\"- 남성/피부(10%/2D) : 중간 자극성\",\"rules\":[\"R10\"],\"note\":\"'남성'을 sex 수컷으로, '2D'를 2 day로 기록\"},{\"msds_index\":1,\"field\":\"toxicity[6]\",\"page\":14,\"source_text\":\"- 어린이/피부(30%/96H) : 중간 자극성\",\"rules\":[\"R10\"],\"note\":\"'96H'를 96 hr로 기록\"},{\"msds_index\":1,\"field\":\"toxicity[7]\",\"page\":14,\"source_text\":\"- 사람/눈 : 약한 자극성\",\"rules\":[\"R10\"],\"note\":null},{\"msds_index\":1,\"field\":\"toxicity[8]\",\"page\":14,\"source_text\":\"- 래빗/눈(100 mg) : 경미한 자극\",\"rules\":[\"R10\"],\"note\":null},{\"msds_index\":1,\"field\":\"toxicity[9]\",\"page\":14,\"source_text\":\"o 호흡기과민성 : 자료 없음\",\"rules\":[\"R15\",\"R10\"],\"note\":null},{\"msds_index\":1,\"field\":\"toxicity[10]\",\"page\":14,\"source_text\":\"o 피부과민성 : 사람/Draize Test : 과민성 없음\",\"rules\":[\"R10\"],\"note\":null},{\"msds_index\":1,\"field\":\"toxicity[11]\",\"page\":14,\"source_text\":\"- In vitro - Salmonella typhimurium/TA 98, TA100, TA1535, TA1537 (복귀돌연변이시험; Ames test): Negative(음성)\",\"rules\":[\"R10\"],\"note\":\"시험별로 행을 나눔\"},{\"msds_index\":1,\"field\":\"toxicity[12]\",\"page\":14,\"source_text\":\"Human/자매염색분체교환시험: Negative(음성)\",\"rules\":[\"R10\"],\"note\":null},{\"msds_index\":1,\"field\":\"toxicity[13]\",\"page\":15,\"source_text\":\"- 임신 래빗에 1230 mg/kg 으로 10 일간 식이로 투여 시 수정률의 영향은 없으며, 태아 또는 모체의 생존률의 영향도 없었음.\",\"rules\":[\"R10\"],\"note\":\"'임신'을 sex 암컷으로, '10 일간'을 10 day로 기록\"},{\"msds_index\":1,\"field\":\"toxicity[14]\",\"page\":15,\"source_text\":\"- 모체 독성이 없는 태아 발생독성은 골격계 및 기형발생이 가장 큰 지표이며, 마우스는 ≥500 mg/kg/day, 래트는 ≥1,000 mg/kg/day 에서 관찰됨.\",\"rules\":[\"R10\",\"R17\"],\"note\":\"지표가 명시되지 않아 문장으로 보존\"},{\"msds_index\":1,\"field\":\"toxicity[15]\",\"page\":15,\"source_text\":\"- 비독성 증후는 마취 시 중추신경억제이다. 표적으로 삼을만한 장기가 없음.\",\"rules\":[\"R10\"],\"note\":null},{\"msds_index\":1,\"field\":\"toxicity[16]\",\"page\":15,\"source_text\":\"- 래트에 90 일동안 노출 시 무게 및 사료섭취량이 감소하지만 임상-화학적 및 혈액학적 수치의 변화는 없음.\",\"rules\":[\"R10\"],\"note\":\"'90 일동안'을 90 day로 기록\"},{\"msds_index\":1,\"field\":\"toxicity[17]\",\"page\":15,\"source_text\":\"o 흡인유해성 : 자료 없음\",\"rules\":[\"R15\",\"R10\"],\"note\":null},{\"msds_index\":1,\"field\":\"cmr[0]\",\"page\":14,\"source_text\":\"- IARC : 자료 없음\",\"rules\":[\"R15\"],\"note\":null},{\"msds_index\":1,\"field\":\"cmr[1]\",\"page\":14,\"source_text\":\"- NTP : 자료 없음\",\"rules\":[\"R15\"],\"note\":null},{\"msds_index\":1,\"field\":\"cmr[2]\",\"page\":14,\"source_text\":\"- OSHA : 자료 없음\",\"rules\":[\"R15\"],\"note\":null},{\"msds_index\":1,\"field\":\"cmr[3]\",\"page\":14,\"source_text\":\"- WISHA : 자료 없음\",\"rules\":[\"R15\"],\"note\":\"코드표에 WISHA가 없어 기타로 두고 note에 기관명 기록\"},{\"msds_index\":1,\"field\":\"cmr[4]\",\"page\":14,\"source_text\":\"- ACGIH : 자료 없음\",\"rules\":[\"R15\"],\"note\":null},{\"msds_index\":1,\"field\":\"ecotox[0]\",\"page\":15,\"source_text\":\"o 어류 : LC50 710 mg/ℓ 96 hr Oncorhynchus mykiss\",\"rules\":[\"R04\",\"R08\",\"R10\"],\"note\":\"mg/ℓ을 mg/L로 표기 통일\"},{\"msds_index\":1,\"field\":\"ecotox[1]\",\"page\":15,\"source_text\":\"o 갑각류 : EC50 > 1000 mg/ℓ 48 hr Daphnia magna\",\"rules\":[\"R04\",\"R08\",\"R10\"],\"note\":\"'> 1000'을 하한 >1000으로 분해\"},{\"msds_index\":1,\"field\":\"ecotox[2]\",\"page\":15,\"source_text\":\"o 조류 : EC50 > 1000 mg/ℓ 72 hr Selenastrum capricornutum\",\"rules\":[\"R04\",\"R08\",\"R10\"],\"note\":\"'> 1000'을 하한 >1000으로 분해\"},{\"msds_index\":1,\"field\":\"ecotox[3]\",\"page\":15,\"source_text\":\"o 잔류성 : log Kow -1.4\",\"rules\":[\"R04\",\"R06\",\"R10\"],\"note\":null},{\"msds_index\":1,\"field\":\"ecotox[4]\",\"page\":15,\"source_text\":\"o 분해성 : 자료 없음\",\"rules\":[\"R15\",\"R10\"],\"note\":null},{\"msds_index\":1,\"field\":\"ecotox[5]\",\"page\":15,\"source_text\":\"o 농축성 : BCF< 1\",\"rules\":[\"R04\",\"R10\"],\"note\":\"'< 1'을 상한 <1로 분해\"},{\"msds_index\":1,\"field\":\"ecotox[6]\",\"page\":15,\"source_text\":\"o 생분해성 : > 60 (%) 10 day\",\"rules\":[\"R04\",\"R10\"],\"note\":\"원문 '다. 생물농축성' 아래에 있으나 생분해 값이므로 ECO_PERSIST/분해율로 기록\"},{\"msds_index\":1,\"field\":\"ecotox[7]\",\"page\":15,\"source_text\":\"라. 토양이동성 : 자료 없음\",\"rules\":[\"R15\",\"R10\"],\"note\":null},{\"msds_index\":1,\"field\":\"ecotox[8]\",\"page\":15,\"source_text\":\"마. 기타 유해 영향 : 자료 없음\",\"rules\":[\"R15\",\"R10\"],\"note\":\"맞는 C5 코드가 없어 endpoint는 null로 두고 원문을 statements에 보존\"}]}"
+}

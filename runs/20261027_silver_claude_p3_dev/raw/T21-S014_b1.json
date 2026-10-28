@@ -1,0 +1,612 @@
+{
+  "doc_id": "T21-S014",
+  "bundle": "b1",
+  "model": "claude-opus-5-5",
+  "mode": "none",
+  "finish_reason": "stop",
+  "usage": {
+    "prompt_tokens": 63652,
+    "completion_tokens": 6367,
+    "total_tokens": 70019,
+    "served_model": "claude-opus-5-5"
+  },
+  "seconds": 53.1,
+  "attempts": 1,
+  "errors": [],
+  "parsed": {
+    "doc": {
+      "language": "ko",
+      "msds_count": 1
+    },
+    "msds": [
+      {
+        "meta": {
+          "msds_no": "AA02562-0000000001",
+          "doc_code": "SPG-표준-SE-001",
+          "revision_no": 13,
+          "revision_label": "13",
+          "header_product_name": "수소",
+          "source_note": "작성된 물질안전보건자료(MSDS)는 한국산업안전보건공단에서 제공한 MSDS를 참고하여 편집, 일부 수정한 자료입니다.",
+          "first_issue_date": "2005-08-16",
+          "last_revision_date": "2026-05-22",
+          "page_start": 1,
+          "page_end": 7
+        },
+        "product": {
+          "name": "수소(Hydrogen)",
+          "code": null,
+          "synonyms": [],
+          "uses": [
+            "테스트/교정 가스",
+            "실험",
+            "화학반응/합성",
+            "연료",
+            "반도체 분위기 가스",
+            "광휘 소둔",
+            "용접 공정을 위한 실드 가스",
+            "전자/광전지 부품 제조 외"
+          ],
+          "restrictions": [
+            "밀폐 공간에서의 사용 주의",
+            "누출 시 혼합물에 의한 폭발 위험"
+          ],
+          "use_category_code": null
+        },
+        "companies": [
+          {
+            "seq": 1,
+            "role": "제조자",
+            "name": "㈜SPG수소",
+            "site": "당진공장",
+            "address": "충청남도 당진시 송산면 가곡로 191",
+            "postcode": null,
+            "department": null,
+            "contacts": [
+              {
+                "type": "긴급",
+                "value": "041-354-0858",
+                "hours": null
+              }
+            ]
+          },
+          {
+            "seq": 2,
+            "role": "제조자",
+            "name": "㈜SPG수소",
+            "site": "대산공장",
+            "address": "충청남도 서산시 대산읍 독곶2로 88",
+            "postcode": null,
+            "department": null,
+            "contacts": [
+              {
+                "type": "긴급",
+                "value": "041-681-3890",
+                "hours": null
+              }
+            ]
+          },
+          {
+            "seq": 3,
+            "role": "제조자",
+            "name": "㈜SPG수소",
+            "site": "안산공장",
+            "address": "경기도 안산시 단원구 원시로 98",
+            "postcode": null,
+            "department": null,
+            "contacts": [
+              {
+                "type": "긴급",
+                "value": "031-498-7319",
+                "hours": null
+              }
+            ]
+          },
+          {
+            "seq": 4,
+            "role": "제조자",
+            "name": "㈜SPG수소",
+            "site": "여수공장",
+            "address": "전라남도 여수시 여수산단로 603",
+            "postcode": null,
+            "department": null,
+            "contacts": [
+              {
+                "type": "긴급",
+                "value": "061-692-0858",
+                "hours": null
+              }
+            ]
+          },
+          {
+            "seq": 5,
+            "role": "제조자",
+            "name": "㈜SPG산업",
+            "site": "울산공장",
+            "address": "울산광역시 울주군 온산읍 화산1길 13-20",
+            "postcode": null,
+            "department": null,
+            "contacts": [
+              {
+                "type": "긴급",
+                "value": "052-239-8081",
+                "hours": null
+              }
+            ]
+          }
+        ],
+        "hazard": {
+          "classified": true,
+          "classes": [
+            {
+              "seq": 1,
+              "group": "물리적",
+              "class_code": "PH_FLAM_GAS",
+              "category": "1",
+              "route_form": null,
+              "effect": null,
+              "target_organs": [],
+              "raw": "인화성 가스 : 구분1"
+            },
+            {
+              "seq": 2,
+              "group": "물리적",
+              "class_code": "PH_PRESS_GAS",
+              "category": "압축가스",
+              "route_form": null,
+              "effect": null,
+              "target_organs": [],
+              "raw": "압축가스"
+            }
+          ],
+          "signal_word": "위험",
+          "pictograms": [
+            {
+              "code": "GHS02",
+              "detection": "이미지판독"
+            },
+            {
+              "code": "GHS04",
+              "detection": "이미지판독"
+            }
+          ],
+          "h_statements": [
+            {
+              "seq": 1,
+              "code": "H220",
+              "system": "GHS",
+              "mark": null,
+              "text": "극인화성 가스"
+            },
+            {
+              "seq": 2,
+              "code": "H280",
+              "system": "GHS",
+              "mark": null,
+              "text": "압축가스 : 가열하면 폭발할 수 있음"
+            }
+          ],
+          "p_statements": [
+            {
+              "seq": 1,
+              "code": "P210",
+              "type": "예방",
+              "text": "열,고온의 표면,스파크,화염 및 그 밖의 점화원으로부터 멀리하시오.금연"
+            },
+            {
+              "seq": 2,
+              "code": "P377",
+              "type": "대응",
+              "text": "누출성 가스 화재 시 누출을 안전하게 막을 수 없다면 불을 끄려하지 마시오."
+            },
+            {
+              "seq": 3,
+              "code": "P381",
+              "type": "대응",
+              "text": "누출 시 모든 점화원을 제거하시오."
+            },
+            {
+              "seq": 4,
+              "code": "P403",
+              "type": "저장",
+              "text": "환기가 잘 되는 곳에 보관하시오."
+            },
+            {
+              "seq": 5,
+              "code": "P410+P403",
+              "type": "저장",
+              "text": "직사광선을 피하시오. 환기가 잘 되는 곳에 보관하시오."
+            }
+          ],
+          "other_hazards": [],
+          "nfpa": {
+            "health": 0,
+            "fire": 4,
+            "reactivity": 0,
+            "special": null
+          }
+        },
+        "composition": {
+          "type": "단일물질",
+          "no_hazardous_component": false
+        },
+        "components": [
+          {
+            "seq": 1,
+            "name": "수소",
+            "name_en": null,
+            "synonyms": [
+              "HYDROGEN GAS"
+            ],
+            "cas_no": "1333-74-0",
+            "ke_no": "KE-20137",
+            "ec_no": "215-605-7",
+            "other_id": null,
+            "other_id_type": null,
+            "parent_seq": null,
+            "read_across_cas": null,
+            "content": {
+              "raw": "99.999%",
+              "approx": null,
+              "value": 99.999,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "%",
+              "dp": 3,
+              "status": "값있음",
+              "note": null
+            },
+            "content_note": null,
+            "content_basis": "미표기",
+            "trade_secret": false,
+            "approval_no": null,
+            "approval_expiry": null
+          }
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "msds_index": 0,
+        "field": "meta.msds_no",
+        "page": 1,
+        "source_text": "MSDS번호 : AA02562-0000000001",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.doc_code",
+        "page": 1,
+        "source_text": "Doc. code: SPG-표준-SE-001",
+        "rules": [],
+        "note": "쪽 바닥글의 회사 문서번호"
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.revision_no",
+        "page": 1,
+        "source_text": "개정번호 | 13",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.revision_label",
+        "page": 1,
+        "source_text": "개정번호 | 13",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.header_product_name",
+        "page": 1,
+        "source_text": "물질명 | 수소",
+        "rules": [],
+        "note": "머리글 아래 물질 식별표의 물질명"
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.source_note",
+        "page": 7,
+        "source_text": "○ 작성된 물질안전보건자료(MSDS)는 한국산업안전보건공단에서 제공한 MSDS를 참고하여 편집, 일부 수정한 자료입니다.",
+        "rules": [],
+        "note": "앞의 불릿 기호 ○는 제외"
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.first_issue_date",
+        "page": 1,
+        "source_text": "작성일자 | 2005-08-16",
+        "rules": [
+          "R01"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.last_revision_date",
+        "page": 1,
+        "source_text": "개정일자 | 2026-05-22",
+        "rules": [
+          "R01"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.page_start",
+        "page": 1,
+        "source_text": "물질안전보건자료 (Material Safety Data Sheet)",
+        "rules": [
+          "R16"
+        ],
+        "note": "단일 MSDS로 1쪽부터 시작"
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.page_end",
+        "page": 7,
+        "source_text": "16. 그 밖의 참고사항",
+        "rules": [
+          "R16"
+        ],
+        "note": "16항이 있는 7쪽에서 끝남"
+      },
+      {
+        "msds_index": 0,
+        "field": "product.name",
+        "page": 1,
+        "source_text": "가. 제품명 | 수소(Hydrogen)",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "product.uses",
+        "page": 1,
+        "source_text": "테스트/교정 가스, 실험, 화학반응/합성, 연료, 반도체 분위기 가스, 광휘 소둔, 용접 공정을 위한 실드 가스, 전자/광전지 부품 제조 외",
+        "rules": [
+          "R11"
+        ],
+        "note": "쉼표 기준으로 8개 항목으로 나눔"
+      },
+      {
+        "msds_index": 0,
+        "field": "product.restrictions",
+        "page": 1,
+        "source_text": "밀폐 공간에서의 사용 주의, 누출 시 혼합물에 의한 폭발 위험",
+        "rules": [
+          "R11"
+        ],
+        "note": "쉼표 기준으로 2개 항목으로 나눔"
+      },
+      {
+        "msds_index": 0,
+        "field": "companies[0]",
+        "page": 1,
+        "source_text": "(주)SPG산업/수소 | ㈜SPG수소 당진공장: 충청남도 당진시 송산면 가곡로 191 | ㈜SPG수소 당진공장: 041-354-0858",
+        "rules": [
+          "R12"
+        ],
+        "note": "'제조자/수입자/유통업자 정보'에 공장별로 적혀 있어 사업장마다 나누고 role은 제조자로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "companies[1]",
+        "page": 1,
+        "source_text": "㈜SPG수소 대산공장: 충청남도 서산시 대산읍 독곶2로 88 | ㈜SPG수소 대산공장: 041-681-3890",
+        "rules": [
+          "R12"
+        ],
+        "note": "사업장별로 분리, 긴급전화번호는 type=긴급"
+      },
+      {
+        "msds_index": 0,
+        "field": "companies[2]",
+        "page": 1,
+        "source_text": "㈜SPG수소 안산공장: 경기도 안산시 단원구 원시로 98 | ㈜SPG수소 안산공장: 031-498-7319",
+        "rules": [
+          "R12"
+        ],
+        "note": "사업장별로 분리, 긴급전화번호는 type=긴급"
+      },
+      {
+        "msds_index": 0,
+        "field": "companies[3]",
+        "page": 1,
+        "source_text": "㈜SPG수소 여수공장: 전라남도 여수시 여수산단로 603 | ㈜SPG수소 여수공장: 061-692-0858",
+        "rules": [
+          "R12"
+        ],
+        "note": "사업장별로 분리, 긴급전화번호는 type=긴급"
+      },
+      {
+        "msds_index": 0,
+        "field": "companies[4]",
+        "page": 1,
+        "source_text": "㈜SPG산업 울산공장: 울산광역시 울주군 온산읍 화산1길 13-20 | ㈜SPG산업 울산공장: 052-239-8081",
+        "rules": [
+          "R12"
+        ],
+        "note": "사업장별로 분리, 긴급전화번호는 type=긴급"
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.classified",
+        "page": 1,
+        "source_text": "인화성 가스 : 구분1 | 압축가스",
+        "rules": [],
+        "note": "분류 항목이 있어 true"
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.classes[0]",
+        "page": 1,
+        "source_text": "인화성 가스 : 구분1",
+        "rules": [
+          "R07"
+        ],
+        "note": "'구분' 글자 제거하여 category 1"
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.classes[1]",
+        "page": 1,
+        "source_text": "압축가스",
+        "rules": [],
+        "note": "고압가스의 압축가스로 보고 PH_PRESS_GAS, category에 원문 '압축가스'를 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.signal_word",
+        "page": 1,
+        "source_text": "신호어 | 위험",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.pictograms[0]",
+        "page": 1,
+        "source_text": "· GHS : (불꽃 그림)",
+        "rules": [],
+        "note": "GHS 그림문자 이미지에서 불꽃 확인"
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.pictograms[1]",
+        "page": 1,
+        "source_text": "· GHS : (가스 실린더 그림)",
+        "rules": [],
+        "note": "GHS 그림문자 이미지에서 가스 실린더 확인. RTDG(EU) 운송 표지는 제외"
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.h_statements[0]",
+        "page": 1,
+        "source_text": "H220 : 극인화성 가스",
+        "rules": [
+          "R05"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.h_statements[1]",
+        "page": 1,
+        "source_text": "H280 : 압축가스 : 가열하면 폭발할 수 있음",
+        "rules": [
+          "R05"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.p_statements[0]",
+        "page": 1,
+        "source_text": "P210 : 열,고온의 표면,스파크,화염 및 그 밖의 점화원으로부터 멀리하시오.금연",
+        "rules": [
+          "R05"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.p_statements[1]",
+        "page": 1,
+        "source_text": "P377 : 누출성 가스 화재 시 누출을 안전하게 막을 수 없다면 불을 끄려하지 마시오.",
+        "rules": [
+          "R05"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.p_statements[2]",
+        "page": 1,
+        "source_text": "P381 : 누출 시 모든 점화원을 제거하시오.",
+        "rules": [
+          "R05"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.p_statements[3]",
+        "page": 1,
+        "source_text": "P403 : 환기가 잘 되는 곳에 보관하시오.",
+        "rules": [
+          "R05"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.p_statements[4]",
+        "page": 1,
+        "source_text": "P410+P403 : 직사광선을 피하시오. 환기가 잘 되는 곳에 보관하시오.",
+        "rules": [
+          "R05"
+        ],
+        "note": "폐기 항목은 '자료없음'이라 P5 코드 없음"
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.nfpa.health",
+        "page": 1,
+        "source_text": "- 보건 (Health) | 0",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.nfpa.fire",
+        "page": 1,
+        "source_text": "- 화재 (Flammability) | 4",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.nfpa.reactivity",
+        "page": 1,
+        "source_text": "- 반응성 (Instability) | 0",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "composition.type",
+        "page": 2,
+        "source_text": "물질명 | 수소 | CAS 번호 | 1333-74-0 | 함유량(%) | 99.999%",
+        "rules": [],
+        "note": "성분이 하나뿐이라 단일물질로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "composition.no_hazardous_component",
+        "page": 2,
+        "source_text": "물질명 | 수소",
+        "rules": [],
+        "note": "성분표가 있어 false"
+      },
+      {
+        "msds_index": 0,
+        "field": "components[0]",
+        "page": 2,
+        "source_text": "수소 | HYDROGEN GAS | 1333-74-0 | 99.999%",
+        "rules": [
+          "R02",
+          "R03",
+          "R04",
+          "R06"
+        ],
+        "note": "KE-20137과 EU No. 215-605-7은 1쪽 물질 식별표에서 가져옴. CAS 체크디지트 일치. 함유량 99.999를 단일값(dp=3, %)으로 저장"
+      }
+    ]
+  },
+  "raw_text": "{\"doc\":{\"language\":\"ko\",\"msds_count\":1},\"msds\":[{\"meta\":{\"msds_no\":\"AA02562-0000000001\",\"doc_code\":\"SPG-표준-SE-001\",\"revision_no\":13,\"revision_label\":\"13\",\"header_product_name\":\"수소\",\"source_note\":\"작성된 물질안전보건자료(MSDS)는 한국산업안전보건공단에서 제공한 MSDS를 참고하여 편집, 일부 수정한 자료입니다.\",\"first_issue_date\":\"2005-08-16\",\"last_revision_date\":\"2026-05-22\",\"page_start\":1,\"page_end\":7},\"product\":{\"name\":\"수소(Hydrogen)\",\"code\":null,\"synonyms\":[],\"uses\":[\"테스트/교정 가스\",\"실험\",\"화학반응/합성\",\"연료\",\"반도체 분위기 가스\",\"광휘 소둔\",\"용접 공정을 위한 실드 가스\",\"전자/광전지 부품 제조 외\"],\"restrictions\":[\"밀폐 공간에서의 사용 주의\",\"누출 시 혼합물에 의한 폭발 위험\"],\"use_category_code\":null},\"companies\":[{\"seq\":1,\"role\":\"제조자\",\"name\":\"㈜SPG수소\",\"site\":\"당진공장\",\"address\":\"충청남도 당진시 송산면 가곡로 191\",\"postcode\":null,\"department\":null,\"contacts\":[{\"type\":\"긴급\",\"value\":\"041-354-0858\",\"hours\":null}]},{\"seq\":2,\"role\":\"제조자\",\"name\":\"㈜SPG수소\",\"site\":\"대산공장\",\"address\":\"충청남도 서산시 대산읍 독곶2로 88\",\"postcode\":null,\"department\":null,\"contacts\":[{\"type\":\"긴급\",\"value\":\"041-681-3890\",\"hours\":null}]},{\"seq\":3,\"role\":\"제조자\",\"name\":\"㈜SPG수소\",\"site\":\"안산공장\",\"address\":\"경기도 안산시 단원구 원시로 98\",\"postcode\":null,\"department\":null,\"contacts\":[{\"type\":\"긴급\",\"value\":\"031-498-7319\",\"hours\":null}]},{\"seq\":4,\"role\":\"제조자\",\"name\":\"㈜SPG수소\",\"site\":\"여수공장\",\"address\":\"전라남도 여수시 여수산단로 603\",\"postcode\":null,\"department\":null,\"contacts\":[{\"type\":\"긴급\",\"value\":\"061-692-0858\",\"hours\":null}]},{\"seq\":5,\"role\":\"제조자\",\"name\":\"㈜SPG산업\",\"site\":\"울산공장\",\"address\":\"울산광역시 울주군 온산읍 화산1길 13-20\",\"postcode\":null,\"department\":null,\"contacts\":[{\"type\":\"긴급\",\"value\":\"052-239-8081\",\"hours\":null}]}],\"hazard\":{\"classified\":true,\"classes\":[{\"seq\":1,\"group\":\"물리적\",\"class_code\":\"PH_FLAM_GAS\",\"category\":\"1\",\"route_form\":null,\"effect\":null,\"target_organs\":[],\"raw\":\"인화성 가스 : 구분1\"},{\"seq\":2,\"group\":\"물리적\",\"class_code\":\"PH_PRESS_GAS\",\"category\":\"압축가스\",\"route_form\":null,\"effect\":null,\"target_organs\":[],\"raw\":\"압축가스\"}],\"signal_word\":\"위험\",\"pictograms\":[{\"code\":\"GHS02\",\"detection\":\"이미지판독\"},{\"code\":\"GHS04\",\"detection\":\"이미지판독\"}],\"h_statements\":[{\"seq\":1,\"code\":\"H220\",\"system\":\"GHS\",\"mark\":null,\"text\":\"극인화성 가스\"},{\"seq\":2,\"code\":\"H280\",\"system\":\"GHS\",\"mark\":null,\"text\":\"압축가스 : 가열하면 폭발할 수 있음\"}],\"p_statements\":[{\"seq\":1,\"code\":\"P210\",\"type\":\"예방\",\"text\":\"열,고온의 표면,스파크,화염 및 그 밖의 점화원으로부터 멀리하시오.금연\"},{\"seq\":2,\"code\":\"P377\",\"type\":\"대응\",\"text\":\"누출성 가스 화재 시 누출을 안전하게 막을 수 없다면 불을 끄려하지 마시오.\"},{\"seq\":3,\"code\":\"P381\",\"type\":\"대응\",\"text\":\"누출 시 모든 점화원을 제거하시오.\"},{\"seq\":4,\"code\":\"P403\",\"type\":\"저장\",\"text\":\"환기가 잘 되는 곳에 보관하시오.\"},{\"seq\":5,\"code\":\"P410+P403\",\"type\":\"저장\",\"text\":\"직사광선을 피하시오. 환기가 잘 되는 곳에 보관하시오.\"}],\"other_hazards\":[],\"nfpa\":{\"health\":0,\"fire\":4,\"reactivity\":0,\"special\":null}},\"composition\":{\"type\":\"단일물질\",\"no_hazardous_component\":false},\"components\":[{\"seq\":1,\"name\":\"수소\",\"name_en\":null,\"synonyms\":[\"HYDROGEN GAS\"],\"cas_no\":\"1333-74-0\",\"ke_no\":\"KE-20137\",\"ec_no\":\"215-605-7\",\"other_id\":null,\"other_id_type\":null,\"parent_seq\":null,\"read_across_cas\":null,\"content\":{\"raw\":\"99.999%\",\"approx\":null,\"value\":99.999,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"%\",\"dp\":3,\"status\":\"값있음\",\"note\":null},\"content_note\":null,\"content_basis\":\"미표기\",\"trade_secret\":false,\"approval_no\":null,\"approval_expiry\":null}]}],\"evidence\":[{\"msds_index\":0,\"field\":\"meta.msds_no\",\"page\":1,\"source_text\":\"MSDS번호 : AA02562-0000000001\",\"rules\":[],\"note\":null},{\"msds_index\":0,\"field\":\"meta.doc_code\",\"page\":1,\"source_text\":\"Doc. code: SPG-표준-SE-001\",\"rules\":[],\"note\":\"쪽 바닥글의 회사 문서번호\"},{\"msds_index\":0,\"field\":\"meta.revision_no\",\"page\":1,\"source_text\":\"개정번호 | 13\",\"rules\":[],\"note\":null},{\"msds_index\":0,\"field\":\"meta.revision_label\",\"page\":1,\"source_text\":\"개정번호 | 13\",\"rules\":[],\"note\":null},{\"msds_index\":0,\"field\":\"meta.header_product_name\",\"page\":1,\"source_text\":\"물질명 | 수소\",\"rules\":[],\"note\":\"머리글 아래 물질 식별표의 물질명\"},{\"msds_index\":0,\"field\":\"meta.source_note\",\"page\":7,\"source_text\":\"○ 작성된 물질안전보건자료(MSDS)는 한국산업안전보건공단에서 제공한 MSDS를 참고하여 편집, 일부 수정한 자료입니다.\",\"rules\":[],\"note\":\"앞의 불릿 기호 ○는 제외\"},{\"msds_index\":0,\"field\":\"meta.first_issue_date\",\"page\":1,\"source_text\":\"작성일자 | 2005-08-16\",\"rules\":[\"R01\"],\"note\":null},{\"msds_index\":0,\"field\":\"meta.last_revision_date\",\"page\":1,\"source_text\":\"개정일자 | 2026-05-22\",\"rules\":[\"R01\"],\"note\":null},{\"msds_index\":0,\"field\":\"meta.page_start\",\"page\":1,\"source_text\":\"물질안전보건자료 (Material Safety Data Sheet)\",\"rules\":[\"R16\"],\"note\":\"단일 MSDS로 1쪽부터 시작\"},{\"msds_index\":0,\"field\":\"meta.page_end\",\"page\":7,\"source_text\":\"16. 그 밖의 참고사항\",\"rules\":[\"R16\"],\"note\":\"16항이 있는 7쪽에서 끝남\"},{\"msds_index\":0,\"field\":\"product.name\",\"page\":1,\"source_text\":\"가. 제품명 | 수소(Hydrogen)\",\"rules\":[],\"note\":null},{\"msds_index\":0,\"field\":\"product.uses\",\"page\":1,\"source_text\":\"테스트/교정 가스, 실험, 화학반응/합성, 연료, 반도체 분위기 가스, 광휘 소둔, 용접 공정을 위한 실드 가스, 전자/광전지 부품 제조 외\",\"rules\":[\"R11\"],\"note\":\"쉼표 기준으로 8개 항목으로 나눔\"},{\"msds_index\":0,\"field\":\"product.restrictions\",\"page\":1,\"source_text\":\"밀폐 공간에서의 사용 주의, 누출 시 혼합물에 의한 폭발 위험\",\"rules\":[\"R11\"],\"note\":\"쉼표 기준으로 2개 항목으로 나눔\"},{\"msds_index\":0,\"field\":\"companies[0]\",\"page\":1,\"source_text\":\"(주)SPG산업/수소 | ㈜SPG수소 당진공장: 충청남도 당진시 송산면 가곡로 191 | ㈜SPG수소 당진공장: 041-354-0858\",\"rules\":[\"R12\"],\"note\":\"'제조자/수입자/유통업자 정보'에 공장별로 적혀 있어 사업장마다 나누고 role은 제조자로 둠\"},{\"msds_index\":0,\"field\":\"companies[1]\",\"page\":1,\"source_text\":\"㈜SPG수소 대산공장: 충청남도 서산시 대산읍 독곶2로 88 | ㈜SPG수소 대산공장: 041-681-3890\",\"rules\":[\"R12\"],\"note\":\"사업장별로 분리, 긴급전화번호는 type=긴급\"},{\"msds_index\":0,\"field\":\"companies[2]\",\"page\":1,\"source_text\":\"㈜SPG수소 안산공장: 경기도 안산시 단원구 원시로 98 | ㈜SPG수소 안산공장: 031-498-7319\",\"rules\":[\"R12\"],\"note\":\"사업장별로 분리, 긴급전화번호는 type=긴급\"},{\"msds_index\":0,\"field\":\"companies[3]\",\"page\":1,\"source_text\":\"㈜SPG수소 여수공장: 전라남도 여수시 여수산단로 603 | ㈜SPG수소 여수공장: 061-692-0858\",\"rules\":[\"R12\"],\"note\":\"사업장별로 분리, 긴급전화번호는 type=긴급\"},{\"msds_index\":0,\"field\":\"companies[4]\",\"page\":1,\"source_text\":\"㈜SPG산업 울산공장: 울산광역시 울주군 온산읍 화산1길 13-20 | ㈜SPG산업 울산공장: 052-239-8081\",\"rules\":[\"R12\"],\"note\":\"사업장별로 분리, 긴급전화번호는 type=긴급\"},{\"msds_index\":0,\"field\":\"hazard.classified\",\"page\":1,\"source_text\":\"인화성 가스 : 구분1 | 압축가스\",\"rules\":[],\"note\":\"분류 항목이 있어 true\"},{\"msds_index\":0,\"field\":\"hazard.classes[0]\",\"page\":1,\"source_text\":\"인화성 가스 : 구분1\",\"rules\":[\"R07\"],\"note\":\"'구분' 글자 제거하여 category 1\"},{\"msds_index\":0,\"field\":\"hazard.classes[1]\",\"page\":1,\"source_text\":\"압축가스\",\"rules\":[],\"note\":\"고압가스의 압축가스로 보고 PH_PRESS_GAS, category에 원문 '압축가스'를 둠\"},{\"msds_index\":0,\"field\":\"hazard.signal_word\",\"page\":1,\"source_text\":\"신호어 | 위험\",\"rules\":[],\"note\":null},{\"msds_index\":0,\"field\":\"hazard.pictograms[0]\",\"page\":1,\"source_text\":\"· GHS : (불꽃 그림)\",\"rules\":[],\"note\":\"GHS 그림문자 이미지에서 불꽃 확인\"},{\"msds_index\":0,\"field\":\"hazard.pictograms[1]\",\"page\":1,\"source_text\":\"· GHS : (가스 실린더 그림)\",\"rules\":[],\"note\":\"GHS 그림문자 이미지에서 가스 실린더 확인. RTDG(EU) 운송 표지는 제외\"},{\"msds_index\":0,\"field\":\"hazard.h_statements[0]\",\"page\":1,\"source_text\":\"H220 : 극인화성 가스\",\"rules\":[\"R05\"],\"note\":null},{\"msds_index\":0,\"field\":\"hazard.h_statements[1]\",\"page\":1,\"source_text\":\"H280 : 압축가스 : 가열하면 폭발할 수 있음\",\"rules\":[\"R05\"],\"note\":null},{\"msds_index\":0,\"field\":\"hazard.p_statements[0]\",\"page\":1,\"source_text\":\"P210 : 열,고온의 표면,스파크,화염 및 그 밖의 점화원으로부터 멀리하시오.금연\",\"rules\":[\"R05\"],\"note\":null},{\"msds_index\":0,\"field\":\"hazard.p_statements[1]\",\"page\":1,\"source_text\":\"P377 : 누출성 가스 화재 시 누출을 안전하게 막을 수 없다면 불을 끄려하지 마시오.\",\"rules\":[\"R05\"],\"note\":null},{\"msds_index\":0,\"field\":\"hazard.p_statements[2]\",\"page\":1,\"source_text\":\"P381 : 누출 시 모든 점화원을 제거하시오.\",\"rules\":[\"R05\"],\"note\":null},{\"msds_index\":0,\"field\":\"hazard.p_statements[3]\",\"page\":1,\"source_text\":\"P403 : 환기가 잘 되는 곳에 보관하시오.\",\"rules\":[\"R05\"],\"note\":null},{\"msds_index\":0,\"field\":\"hazard.p_statements[4]\",\"page\":1,\"source_text\":\"P410+P403 : 직사광선을 피하시오. 환기가 잘 되는 곳에 보관하시오.\",\"rules\":[\"R05\"],\"note\":\"폐기 항목은 '자료없음'이라 P5 코드 없음\"},{\"msds_index\":0,\"field\":\"hazard.nfpa.health\",\"page\":1,\"source_text\":\"- 보건 (Health) | 0\",\"rules\":[],\"note\":null},{\"msds_index\":0,\"field\":\"hazard.nfpa.fire\",\"page\":1,\"source_text\":\"- 화재 (Flammability) | 4\",\"rules\":[],\"note\":null},{\"msds_index\":0,\"field\":\"hazard.nfpa.reactivity\",\"page\":1,\"source_text\":\"- 반응성 (Instability) | 0\",\"rules\":[],\"note\":null},{\"msds_index\":0,\"field\":\"composition.type\",\"page\":2,\"source_text\":\"물질명 | 수소 | CAS 번호 | 1333-74-0 | 함유량(%) | 99.999%\",\"rules\":[],\"note\":\"성분이 하나뿐이라 단일물질로 둠\"},{\"msds_index\":0,\"field\":\"composition.no_hazardous_component\",\"page\":2,\"source_text\":\"물질명 | 수소\",\"rules\":[],\"note\":\"성분표가 있어 false\"},{\"msds_index\":0,\"field\":\"components[0]\",\"page\":2,\"source_text\":\"수소 | HYDROGEN GAS | 1333-74-0 | 99.999%\",\"rules\":[\"R02\",\"R03\",\"R04\",\"R06\"],\"note\":\"KE-20137과 EU No. 215-605-7은 1쪽 물질 식별표에서 가져옴. CAS 체크디지트 일치. 함유량 99.999를 단일값(dp=3, %)으로 저장\"}]}"
+}

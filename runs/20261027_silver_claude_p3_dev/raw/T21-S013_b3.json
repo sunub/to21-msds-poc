@@ -1,0 +1,1599 @@
+{
+  "doc_id": "T21-S013",
+  "bundle": "b3",
+  "model": "claude-opus-5-5",
+  "mode": "none",
+  "finish_reason": "stop",
+  "usage": {
+    "prompt_tokens": 74805,
+    "completion_tokens": 15483,
+    "total_tokens": 90288,
+    "served_model": "claude-opus-5-5"
+  },
+  "seconds": 119.7,
+  "attempts": 1,
+  "errors": [],
+  "parsed": {
+    "msds": [
+      {
+        "toxicity": [
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_ORAL",
+            "descriptor": null,
+            "q": null,
+            "species": null,
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": "분류되지않음",
+            "statements": [],
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_DERMAL",
+            "descriptor": null,
+            "q": null,
+            "species": null,
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": "분류되지않음",
+            "statements": [],
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_INHAL",
+            "descriptor": "ATE",
+            "q": {
+              "raw": "ATEmix = 7631096.5ppm",
+              "approx": false,
+              "value": 7631096.5,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "ppm",
+              "dp": 1,
+              "status": "값있음",
+              "note": null
+            },
+            "species": null,
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": "가스",
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": "분류되지않음",
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_INHAL",
+            "descriptor": "LC50",
+            "q": {
+              "raw": "LC50> 7500 ppm",
+              "approx": false,
+              "value": null,
+              "lower_op": ">",
+              "lower": 7500,
+              "upper_op": null,
+              "upper": null,
+              "unit": "ppm",
+              "dp": 0,
+              "status": "값있음",
+              "note": null
+            },
+            "species": null,
+            "sex": null,
+            "duration_value": 4,
+            "duration_unit": "hr",
+            "physical_form": "가스",
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": "NITE",
+            "classification": null,
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "TX_INHAL",
+            "descriptor": "LC50",
+            "q": {
+              "raw": "LC50= 539600 ppm",
+              "approx": false,
+              "value": 539600,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "ppm",
+              "dp": 0,
+              "status": "값있음",
+              "note": null
+            },
+            "species": "mouse",
+            "sex": null,
+            "duration_value": 120,
+            "duration_unit": "min",
+            "physical_form": "가스",
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": "ECHA",
+            "classification": null,
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_INHAL",
+            "descriptor": null,
+            "q": null,
+            "species": null,
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": "증기",
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": "분류되지않음",
+            "statements": [],
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_INHAL",
+            "descriptor": null,
+            "q": null,
+            "species": null,
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": "분진·미스트",
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": "분류되지않음",
+            "statements": [],
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_SKIN",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": null,
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": "분류되지않음",
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_SKIN",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": "human",
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": "HSDB",
+            "classification": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "극저온 액체 수소에 노출 시 피부에 동상과 심한 화상을 유발할 수 있음",
+                "refs": [
+                  "1"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "- Hydrogen : 극저온 액체 수소에 노출 시 피부에 동상과 심한 화상을 유발할 수 있음 (human),  출처 : HSDB"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_EYE",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": null,
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": "분류되지않음",
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_EYE",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": "human",
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": "HSDB",
+            "classification": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "수소는 알려진 독성 영향이 없음",
+                "refs": [
+                  "1"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "- Hydrogen : 수소는 알려진 독성 영향이 없음 (human),  출처 : HSDB"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_RESP_SENS",
+            "descriptor": null,
+            "q": null,
+            "species": null,
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": "분류되지않음",
+            "statements": [],
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_SKIN_SENS",
+            "descriptor": null,
+            "q": null,
+            "species": null,
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": "분류되지않음",
+            "statements": [],
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_CARC",
+            "descriptor": null,
+            "q": null,
+            "species": null,
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": "분류되지않음",
+            "statements": [],
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_MUTA",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": null,
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": "분류되지않음",
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "TX_MUTA",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": "Salmonella typhimurium",
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": "bacterial reverse mutation assay",
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": "OECD Guideline 471",
+            "data_source": "ECHA",
+            "classification": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "음성, 메탄은 대사 활성화 유무에 관계없이 테스트한 모든 균주에서 Ames 음성",
+                "refs": [
+                  "2"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "- Methane : 음성, 메탄은 대사 활성화 유무에 관계없이 테스트한 모든 균주에서 Ames 음성 (Salmonella typhimurium, bacterial reverse mutation assay, OECD Guideline 471, Metabolic activation: with and without)"
+              },
+              {
+                "seq": 2,
+                "key": "Metabolic activation",
+                "value": "with and without",
+                "refs": [
+                  "2"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "Metabolic activation: with and without"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "TX_MUTA",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": "rat",
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": "micronucleus assay",
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": "OECD Guideline 474",
+            "data_source": "ECHA",
+            "classification": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "음성",
+                "refs": [
+                  "2"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "음성 (rat, micronucleus assay, OECD Guideline 474),  출처 : ECHA"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_REPRO",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": null,
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": "분류되지않음",
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_REPRO",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": "rat",
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": "HSDB",
+            "classification": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "미숙아의 염증과 관련된 폐의 이동성을 감소시킬 수 있음",
+                "refs": [
+                  "1"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "- Hydrogen : 미숙아의 염증과 관련된 폐의 이동성을 감소시킬 수 있음 (rat),  출처 : HSDB"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "TX_REPRO",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": "rat",
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": "OECD Guideline 422",
+            "data_source": "ECHA",
+            "classification": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "생식능력에 영향을 미치지 않음",
+                "refs": [
+                  "2"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "- Methane : 생식능력에 영향을 미치지 않음 (rat, OECD Guideline 422),  출처 : ECHA"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_STOT_SE",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": null,
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": "분류되지않음",
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "TX_STOT_SE",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": "rat",
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": "ECHA",
+            "classification": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "약간의 운동실조, 정위 반사 상실, 운동 상실, 마취, 얕은 호흡 및 결국 호흡 억제로 인한 사망.",
+                "refs": [
+                  "2"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "- Methane : 약간의 운동실조, 정위 반사 상실, 운동 상실, 마취, 얕은 호흡 및 결국 호흡 억제로 인한 사망. (rat),  출처 : ECHA"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_STOT_RE",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": null,
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": "분류되지않음",
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_STOT_RE",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": "hamster",
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": "HSDB",
+            "classification": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "산화 스트레스와 배아 유전자 발현 감소",
+                "refs": [
+                  "1"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "- Hydrogen : 산화 스트레스와 배아 유전자 발현 감소 (hamster),  출처 : HSDB"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "TX_STOT_RE",
+            "descriptor": null,
+            "q": {
+              "raw": "NOAEC= 9000 ppm",
+              "approx": false,
+              "value": 9000,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "ppm",
+              "dp": 0,
+              "status": "값있음",
+              "note": null
+            },
+            "species": "rat",
+            "sex": "혼합",
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": "OECD Guideline 422",
+            "data_source": "ECHA",
+            "classification": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "900, 3000 및 9000ppm의 목표 농도에 대한 수컷 및 암컷 렛드의 노출은 일반적인 전신 독성, 신경학적 영향이 나타내지 않았음.",
+                "refs": [
+                  "2"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "- Methane : 900, 3000 및 9000ppm의 목표 농도에 대한 수컷 및 암컷 렛드의 노출은 일반적인 전신 독성, 신경학적 영향이 나타내지 않았음.; NOAEC= 9000 ppm (rat, OECD Guideline 422),  출처 : ECHA"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_ASP",
+            "descriptor": null,
+            "q": null,
+            "species": null,
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": "분류되지않음",
+            "statements": [],
+            "status": "자료없음"
+          }
+        ],
+        "cmr": [],
+        "ecotox": [
+          {
+            "comp_ref": "MIX",
+            "endpoint": null,
+            "descriptor": "결과기술",
+            "q": null,
+            "species": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "guideline": null,
+            "data_source": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": "PRODUCT",
+                "value": "분류되지않음",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "가. 생태독성 > PRODUCT : 분류되지않음"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_FISH",
+            "descriptor": "LC50",
+            "q": {
+              "raw": "LC50= 40.846 mg/L",
+              "approx": false,
+              "value": 40.846,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "mg/L",
+              "dp": 3,
+              "status": "값있음",
+              "note": "추정치"
+            },
+            "species": null,
+            "duration_value": 96,
+            "duration_unit": "hr",
+            "guideline": null,
+            "data_source": "EPI SUITE",
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "ECO_FISH",
+            "descriptor": "LC50",
+            "q": {
+              "raw": "LC50= 91.42 mg/L",
+              "approx": false,
+              "value": 91.42,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "mg/L",
+              "dp": 2,
+              "status": "값있음",
+              "note": "추정치"
+            },
+            "species": null,
+            "duration_value": 96,
+            "duration_unit": "hr",
+            "guideline": null,
+            "data_source": "ECHA",
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_CRUST",
+            "descriptor": "LC50",
+            "q": {
+              "raw": "LC50= 20.100 mg/L",
+              "approx": false,
+              "value": 20.1,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "mg/L",
+              "dp": 3,
+              "status": "값있음",
+              "note": "추정치"
+            },
+            "species": "Daphnid",
+            "duration_value": 48,
+            "duration_unit": "hr",
+            "guideline": null,
+            "data_source": "EPI SUITE",
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "ECO_CRUST",
+            "descriptor": "LC50",
+            "q": {
+              "raw": "LC50= 69.43 mg/L",
+              "approx": false,
+              "value": 69.43,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "mg/L",
+              "dp": 2,
+              "status": "값있음",
+              "note": "추정치"
+            },
+            "species": "Daphnia sp.",
+            "duration_value": 48,
+            "duration_unit": "hr",
+            "guideline": null,
+            "data_source": "ECHA",
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_ALGAE",
+            "descriptor": "EC50",
+            "q": {
+              "raw": "EC50= 8.285 mg/L",
+              "approx": false,
+              "value": 8.285,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "mg/L",
+              "dp": 3,
+              "status": "값있음",
+              "note": "추정치"
+            },
+            "species": "Green algae",
+            "duration_value": 96,
+            "duration_unit": "hr",
+            "guideline": null,
+            "data_source": "EPI SUITE",
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "ECO_ALGAE",
+            "descriptor": "EC50",
+            "q": {
+              "raw": "EC50= 8.57 mg/L",
+              "approx": false,
+              "value": 8.57,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "mg/L",
+              "dp": 2,
+              "status": "값있음",
+              "note": null
+            },
+            "species": "Green algea",
+            "duration_value": 96,
+            "duration_unit": "hr",
+            "guideline": null,
+            "data_source": "ECHA",
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_PERSIST",
+            "descriptor": "logKow",
+            "q": {
+              "raw": "log Pow= 3.9",
+              "approx": false,
+              "value": 3.9,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": null,
+              "dp": 1,
+              "status": "값있음",
+              "note": null
+            },
+            "species": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "guideline": null,
+            "data_source": "ICSC",
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "ECO_PERSIST",
+            "descriptor": "logKow",
+            "q": {
+              "raw": "log Pow= 1.09",
+              "approx": false,
+              "value": 1.09,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": null,
+              "dp": 2,
+              "status": "값있음",
+              "note": null
+            },
+            "species": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "guideline": null,
+            "data_source": "ECHA",
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_PERSIST",
+            "descriptor": null,
+            "q": null,
+            "species": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "guideline": null,
+            "data_source": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": "분해성",
+                "value": "자료없음",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "● 분해성 자료없음"
+              }
+            ],
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_PERSIST",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "guideline": null,
+            "data_source": "EPI SUITE",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "생분해성",
+                "value": "쉽게 생분해 될 것으로 예측됨 (추정치)",
+                "refs": [
+                  "1"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "- Hydrogen : 쉽게 생분해 될 것으로 예측됨 (추정치),  출처 : EPI SUITE"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "ECO_PERSIST",
+            "descriptor": "기타",
+            "q": {
+              "raw": "other:half-life in days (QSAR/QSPR)= 3.187",
+              "approx": false,
+              "value": 3.187,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": null,
+              "dp": 3,
+              "status": "값있음",
+              "note": "추정치"
+            },
+            "species": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "guideline": null,
+            "data_source": "ECHA",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "생분해성",
+                "value": "other:half-life in days (QSAR/QSPR)= 3.187 (추정치)",
+                "refs": [
+                  "2"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "- Methane : other:half-life in days (QSAR/QSPR)= 3.187 (추정치),  출처 : ECHA"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_BIOACC",
+            "descriptor": "BCF",
+            "q": {
+              "raw": "BCF= 3.162 L/kg",
+              "approx": false,
+              "value": 3.162,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "L/kg",
+              "dp": 3,
+              "status": "값있음",
+              "note": "추정치"
+            },
+            "species": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "guideline": null,
+            "data_source": "EPI SUITE",
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "ECO_BIOACC",
+            "descriptor": "BCF",
+            "q": {
+              "raw": "BCF= 2",
+              "approx": false,
+              "value": 2,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": null,
+              "dp": 0,
+              "status": "값있음",
+              "note": null
+            },
+            "species": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "guideline": null,
+            "data_source": "HSDB",
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_SOIL",
+            "descriptor": "Koc",
+            "q": {
+              "raw": "Koc= 13.22",
+              "approx": false,
+              "value": 13.22,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": null,
+              "dp": 2,
+              "status": "값있음",
+              "note": "추정치"
+            },
+            "species": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "guideline": null,
+            "data_source": "EPI SUITE",
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "ECO_SOIL",
+            "descriptor": "Koc",
+            "q": {
+              "raw": "Koc= 9",
+              "approx": false,
+              "value": 9,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": null,
+              "dp": 0,
+              "status": "값있음",
+              "note": null
+            },
+            "species": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "guideline": null,
+            "data_source": "HSDB",
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": null,
+            "descriptor": null,
+            "q": null,
+            "species": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "guideline": null,
+            "data_source": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": "기타 유해 영향 > PRODUCT",
+                "value": "분류되지않음",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "마. 기타 유해 영향 > PRODUCT : 분류되지않음"
+              }
+            ],
+            "status": "자료없음"
+          }
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "msds_index": 0,
+        "field": "toxicity[0]",
+        "page": 7,
+        "source_text": "● 급성독성물질(경구)   PRODUCT : 분류되지않음 자료없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": "제품 전체 행으로 분류 결과와 자료없음 상태를 기록"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[1]",
+        "page": 7,
+        "source_text": "● 급성독성물질(경피)   PRODUCT : 분류되지않음 자료없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": "제품 전체 행으로 분류 결과와 자료없음 상태를 기록"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[2]",
+        "page": 7,
+        "source_text": "● 급성독성물질(흡입:가스)   PRODUCT : 분류되지않음(ATEmix = 7631096.5ppm)",
+        "rules": [
+          "R04",
+          "R06",
+          "R10"
+        ],
+        "note": "ATEmix 값을 ATE 지표로, 흡입 형태는 '가스'로 기록"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[3]",
+        "page": 7,
+        "source_text": "- Hydrogen : LC50> 7500 ppm (4h),  출처 : NITE",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "'>' 7500 ppm을 하한으로, 4h를 노출시간으로 분리. 시험종은 원문에 없음"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[4]",
+        "page": 7,
+        "source_text": "- Methane : LC50= 539600 ppm (mouse, 120min),  출처 : ECHA",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "120min을 노출시간 120 min으로 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[5]",
+        "page": 8,
+        "source_text": "● 급성독성물질(흡입:증기)   PRODUCT : 분류되지않음 자료없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": "흡입 형태 '증기', 자료없음"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[6]",
+        "page": 8,
+        "source_text": "● 급성독성물질(흡입:분진/미스트)   PRODUCT : 분류되지않음 자료없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": "흡입 형태 '분진·미스트', 자료없음"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[7]",
+        "page": 8,
+        "source_text": "○ 피부 부식성 또는 자극성 물질   PRODUCT : 분류되지않음",
+        "rules": [
+          "R10"
+        ],
+        "note": "제품 분류 결과를 MIX 행으로 기록"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[8]",
+        "page": 8,
+        "source_text": "- Hydrogen : 극저온 액체 수소에 노출 시 피부에 동상과 심한 화상을 유발할 수 있음 (human),  출처 : HSDB",
+        "rules": [
+          "R10"
+        ],
+        "note": "서술을 statements로, 시험종 human, 출처 HSDB"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[9]",
+        "page": 8,
+        "source_text": "○ 심한 눈 손상 또는 자극성 물질   PRODUCT : 분류되지않음",
+        "rules": [
+          "R10"
+        ],
+        "note": "제품 분류 결과를 MIX 행으로 기록"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[10]",
+        "page": 8,
+        "source_text": "- Hydrogen : 수소는 알려진 독성 영향이 없음 (human),  출처 : HSDB",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[11]",
+        "page": 8,
+        "source_text": "○ 호흡기 과민성 물질   PRODUCT : 분류되지않음 자료없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[12]",
+        "page": 8,
+        "source_text": "○ 피부 과민성 물질   PRODUCT : 분류되지않음 자료없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[13]",
+        "page": 8,
+        "source_text": "○ 발암성물질   PRODUCT : 분류되지않음 자료없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": "기관별 분류가 없어 cmr 행은 만들지 않음"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[14]",
+        "page": 8,
+        "source_text": "○ 생식세포 변이원성 물질   PRODUCT : 분류되지않음",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[15]",
+        "page": 8,
+        "source_text": "- Methane : 음성, 메탄은 대사 활성화 유무에 관계없이 테스트한 모든 균주에서 Ames 음성 (Salmonella typhimurium, bacterial reverse mutation assay, OECD Guideline 471, Metabolic activation: with and without)",
+        "rules": [
+          "R10"
+        ],
+        "note": "출처 ECHA는 이어지는 줄 끝의 출처를 적용"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[16]",
+        "page": 8,
+        "source_text": "음성 (rat, micronucleus assay, OECD Guideline 474),  출처 : ECHA",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[17]",
+        "page": 8,
+        "source_text": "○ 생식독성 물질   PRODUCT : 분류되지않음",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[18]",
+        "page": 8,
+        "source_text": "- Hydrogen : 미숙아의 염증과 관련된 폐의 이동성을 감소시킬 수 있음 (rat),  출처 : HSDB",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[19]",
+        "page": 8,
+        "source_text": "- Methane : 생식능력에 영향을 미치지 않음 (rat, OECD Guideline 422),  출처 : ECHA",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[20]",
+        "page": 8,
+        "source_text": "○ 특정표적장기·전신 독성 물질(1회 노출)   PRODUCT : 분류되지않음",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[21]",
+        "page": 8,
+        "source_text": "- Methane : 약간의 운동실조, 정위 반사 상실, 운동 상실, 마취, 얕은 호흡 및 결국 호흡 억제로 인한 사망. (rat),  출처 : ECHA",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[22]",
+        "page": 8,
+        "source_text": "○ 특정표적장기·전신 독성 물질(반복 노출)   PRODUCT : 분류되지않음",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[23]",
+        "page": 8,
+        "source_text": "- Hydrogen : 산화 스트레스와 배아 유전자 발현 감소 (hamster),  출처 : HSDB",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[24]",
+        "page": 8,
+        "source_text": "- Methane : 900, 3000 및 9000ppm의 목표 농도에 대한 수컷 및 암컷 렛드의 노출은 ...; NOAEC= 9000 ppm (rat, OECD Guideline 422),  출처 : ECHA",
+        "rules": [
+          "R04",
+          "R10",
+          "R17"
+        ],
+        "note": "NOAEC는 지표 목록에 없어 descriptor는 null로 두고 raw에 보존. 수컷 및 암컷이므로 성별 혼합"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[25]",
+        "page": 8,
+        "source_text": "○ 흡인유해성 물질   PRODUCT : 분류되지않음 자료없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[0]",
+        "page": 8,
+        "source_text": "가. 생태독성 > PRODUCT : 분류되지않음",
+        "rules": [
+          "R10"
+        ],
+        "note": "제품 전체 분류 문구를 statements로 기록"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[1]",
+        "page": 8,
+        "source_text": "- Hydrogen : LC50= 40.846 mg/L (96h, 추정치),  출처 : EPI SUITE",
+        "rules": [
+          "R04",
+          "R06",
+          "R10"
+        ],
+        "note": "'추정치'는 q.note로"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[2]",
+        "page": 9,
+        "source_text": "- Methane : LC50= 91.42 mg/L (96h, 추정치),  출처 : ECHA",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "'추정치'는 q.note로"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[3]",
+        "page": 9,
+        "source_text": "- Hydrogen : LC50= 20.100 mg/L (Daphnid, 48h, 추정치),  출처 : EPI SUITE",
+        "rules": [
+          "R04",
+          "R06",
+          "R10"
+        ],
+        "note": "20.100을 value 20.1, dp 3으로 저장"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[4]",
+        "page": 9,
+        "source_text": "- Methane : LC50= 69.43 mg/L (Daphnia sp., 48h, 추정치),  출처 : ECHA",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[5]",
+        "page": 9,
+        "source_text": "- Hydrogen : EC50= 8.285 mg/L (Green algae, 96h, 추정치),  출처 : EPI SUITE",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[6]",
+        "page": 9,
+        "source_text": "- Methane : EC50= 8.57 mg/L (Green algea, 96h),  출처 : ECHA",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "시험종 철자 원문 그대로 유지"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[7]",
+        "page": 9,
+        "source_text": "- Hydrogen : log Pow= 3.9,  출처 : ICSC",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "잔류성 항목의 log Pow를 logKow 지표로 기록"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[8]",
+        "page": 9,
+        "source_text": "- Methane : log Pow= 1.09,  출처 : ECHA",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "log Pow를 logKow 지표로 기록"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[9]",
+        "page": 9,
+        "source_text": "● 분해성 자료없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[10]",
+        "page": 9,
+        "source_text": "- Hydrogen : 쉽게 생분해 될 것으로 예측됨 (추정치),  출처 : EPI SUITE",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[11]",
+        "page": 9,
+        "source_text": "- Methane : other:half-life in days (QSAR/QSPR)= 3.187 (추정치),  출처 : ECHA",
+        "rules": [
+          "R04",
+          "R10",
+          "R17"
+        ],
+        "note": "반감기 단위는 지표명에 포함되어 unit은 null로 두고 raw 보존"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[12]",
+        "page": 9,
+        "source_text": "- Hydrogen : BCF= 3.162 L/kg (추정치),  출처 : EPI SUITE",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[13]",
+        "page": 9,
+        "source_text": "- Methane : BCF= 2,  출처 : HSDB",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[14]",
+        "page": 9,
+        "source_text": "- Hydrogen : Koc= 13.22 (추정치),  출처 : EPI SUITE",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[15]",
+        "page": 9,
+        "source_text": "- Methane : Koc= 9,  출처 : HSDB",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[16]",
+        "page": 9,
+        "source_text": "마. 기타 유해 영향 > PRODUCT : 분류되지않음 자료없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": "기타 유해 영향은 맞는 C5 코드가 없어 endpoint null"
+      }
+    ]
+  },
+  "raw_text": "{\"msds\":[{\"toxicity\":[{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_ORAL\",\"descriptor\":null,\"q\":null,\"species\":null,\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":\"분류되지않음\",\"statements\":[],\"status\":\"자료없음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_DERMAL\",\"descriptor\":null,\"q\":null,\"species\":null,\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":\"분류되지않음\",\"statements\":[],\"status\":\"자료없음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_INHAL\",\"descriptor\":\"ATE\",\"q\":{\"raw\":\"ATEmix = 7631096.5ppm\",\"approx\":false,\"value\":7631096.5,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"ppm\",\"dp\":1,\"status\":\"값있음\",\"note\":null},\"species\":null,\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":\"가스\",\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":\"분류되지않음\",\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"1\",\"endpoint\":\"TX_INHAL\",\"descriptor\":\"LC50\",\"q\":{\"raw\":\"LC50> 7500 ppm\",\"approx\":false,\"value\":null,\"lower_op\":\">\",\"lower\":7500,\"upper_op\":null,\"upper\":null,\"unit\":\"ppm\",\"dp\":0,\"status\":\"값있음\",\"note\":null},\"species\":null,\"sex\":null,\"duration_value\":4,\"duration_unit\":\"hr\",\"physical_form\":\"가스\",\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":\"NITE\",\"classification\":null,\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"2\",\"endpoint\":\"TX_INHAL\",\"descriptor\":\"LC50\",\"q\":{\"raw\":\"LC50= 539600 ppm\",\"approx\":false,\"value\":539600,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"ppm\",\"dp\":0,\"status\":\"값있음\",\"note\":null},\"species\":\"mouse\",\"sex\":null,\"duration_value\":120,\"duration_unit\":\"min\",\"physical_form\":\"가스\",\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":\"ECHA\",\"classification\":null,\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_INHAL\",\"descriptor\":null,\"q\":null,\"species\":null,\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":\"증기\",\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":\"분류되지않음\",\"statements\":[],\"status\":\"자료없음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_INHAL\",\"descriptor\":null,\"q\":null,\"species\":null,\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":\"분진·미스트\",\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":\"분류되지않음\",\"statements\":[],\"status\":\"자료없음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_SKIN\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":null,\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":\"분류되지않음\",\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"1\",\"endpoint\":\"TX_SKIN\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":\"human\",\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":\"HSDB\",\"classification\":null,\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"극저온 액체 수소에 노출 시 피부에 동상과 심한 화상을 유발할 수 있음\",\"refs\":[\"1\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"- Hydrogen : 극저온 액체 수소에 노출 시 피부에 동상과 심한 화상을 유발할 수 있음 (human),  출처 : HSDB\"}],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_EYE\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":null,\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":\"분류되지않음\",\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"1\",\"endpoint\":\"TX_EYE\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":\"human\",\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":\"HSDB\",\"classification\":null,\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"수소는 알려진 독성 영향이 없음\",\"refs\":[\"1\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"- Hydrogen : 수소는 알려진 독성 영향이 없음 (human),  출처 : HSDB\"}],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_RESP_SENS\",\"descriptor\":null,\"q\":null,\"species\":null,\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":\"분류되지않음\",\"statements\":[],\"status\":\"자료없음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_SKIN_SENS\",\"descriptor\":null,\"q\":null,\"species\":null,\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":\"분류되지않음\",\"statements\":[],\"status\":\"자료없음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_CARC\",\"descriptor\":null,\"q\":null,\"species\":null,\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":\"분류되지않음\",\"statements\":[],\"status\":\"자료없음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_MUTA\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":null,\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":\"분류되지않음\",\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"2\",\"endpoint\":\"TX_MUTA\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":\"Salmonella typhimurium\",\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":\"bacterial reverse mutation assay\",\"converted\":null,\"read_across_cas\":null,\"guideline\":\"OECD Guideline 471\",\"data_source\":\"ECHA\",\"classification\":null,\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"음성, 메탄은 대사 활성화 유무에 관계없이 테스트한 모든 균주에서 Ames 음성\",\"refs\":[\"2\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"- Methane : 음성, 메탄은 대사 활성화 유무에 관계없이 테스트한 모든 균주에서 Ames 음성 (Salmonella typhimurium, bacterial reverse mutation assay, OECD Guideline 471, Metabolic activation: with and without)\"},{\"seq\":2,\"key\":\"Metabolic activation\",\"value\":\"with and without\",\"refs\":[\"2\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"Metabolic activation: with and without\"}],\"status\":\"값있음\"},{\"comp_ref\":\"2\",\"endpoint\":\"TX_MUTA\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":\"rat\",\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":\"micronucleus assay\",\"converted\":null,\"read_across_cas\":null,\"guideline\":\"OECD Guideline 474\",\"data_source\":\"ECHA\",\"classification\":null,\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"음성\",\"refs\":[\"2\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"음성 (rat, micronucleus assay, OECD Guideline 474),  출처 : ECHA\"}],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_REPRO\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":null,\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":\"분류되지않음\",\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"1\",\"endpoint\":\"TX_REPRO\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":\"rat\",\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":\"HSDB\",\"classification\":null,\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"미숙아의 염증과 관련된 폐의 이동성을 감소시킬 수 있음\",\"refs\":[\"1\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"- Hydrogen : 미숙아의 염증과 관련된 폐의 이동성을 감소시킬 수 있음 (rat),  출처 : HSDB\"}],\"status\":\"값있음\"},{\"comp_ref\":\"2\",\"endpoint\":\"TX_REPRO\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":\"rat\",\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":\"OECD Guideline 422\",\"data_source\":\"ECHA\",\"classification\":null,\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"생식능력에 영향을 미치지 않음\",\"refs\":[\"2\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"- Methane : 생식능력에 영향을 미치지 않음 (rat, OECD Guideline 422),  출처 : ECHA\"}],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_STOT_SE\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":null,\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":\"분류되지않음\",\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"2\",\"endpoint\":\"TX_STOT_SE\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":\"rat\",\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":\"ECHA\",\"classification\":null,\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"약간의 운동실조, 정위 반사 상실, 운동 상실, 마취, 얕은 호흡 및 결국 호흡 억제로 인한 사망.\",\"refs\":[\"2\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"- Methane : 약간의 운동실조, 정위 반사 상실, 운동 상실, 마취, 얕은 호흡 및 결국 호흡 억제로 인한 사망. (rat),  출처 : ECHA\"}],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_STOT_RE\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":null,\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":\"분류되지않음\",\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"1\",\"endpoint\":\"TX_STOT_RE\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":\"hamster\",\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":\"HSDB\",\"classification\":null,\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"산화 스트레스와 배아 유전자 발현 감소\",\"refs\":[\"1\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"- Hydrogen : 산화 스트레스와 배아 유전자 발현 감소 (hamster),  출처 : HSDB\"}],\"status\":\"값있음\"},{\"comp_ref\":\"2\",\"endpoint\":\"TX_STOT_RE\",\"descriptor\":null,\"q\":{\"raw\":\"NOAEC= 9000 ppm\",\"approx\":false,\"value\":9000,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"ppm\",\"dp\":0,\"status\":\"값있음\",\"note\":null},\"species\":\"rat\",\"sex\":\"혼합\",\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":\"OECD Guideline 422\",\"data_source\":\"ECHA\",\"classification\":null,\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"900, 3000 및 9000ppm의 목표 농도에 대한 수컷 및 암컷 렛드의 노출은 일반적인 전신 독성, 신경학적 영향이 나타내지 않았음.\",\"refs\":[\"2\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"- Methane : 900, 3000 및 9000ppm의 목표 농도에 대한 수컷 및 암컷 렛드의 노출은 일반적인 전신 독성, 신경학적 영향이 나타내지 않았음.; NOAEC= 9000 ppm (rat, OECD Guideline 422),  출처 : ECHA\"}],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_ASP\",\"descriptor\":null,\"q\":null,\"species\":null,\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":\"분류되지않음\",\"statements\":[],\"status\":\"자료없음\"}],\"cmr\":[],\"ecotox\":[{\"comp_ref\":\"MIX\",\"endpoint\":null,\"descriptor\":\"결과기술\",\"q\":null,\"species\":null,\"duration_value\":null,\"duration_unit\":null,\"guideline\":null,\"data_source\":null,\"statements\":[{\"seq\":1,\"key\":\"PRODUCT\",\"value\":\"분류되지않음\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"가. 생태독성 > PRODUCT : 분류되지않음\"}],\"status\":\"값있음\"},{\"comp_ref\":\"1\",\"endpoint\":\"ECO_FISH\",\"descriptor\":\"LC50\",\"q\":{\"raw\":\"LC50= 40.846 mg/L\",\"approx\":false,\"value\":40.846,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"mg/L\",\"dp\":3,\"status\":\"값있음\",\"note\":\"추정치\"},\"species\":null,\"duration_value\":96,\"duration_unit\":\"hr\",\"guideline\":null,\"data_source\":\"EPI SUITE\",\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"2\",\"endpoint\":\"ECO_FISH\",\"descriptor\":\"LC50\",\"q\":{\"raw\":\"LC50= 91.42 mg/L\",\"approx\":false,\"value\":91.42,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"mg/L\",\"dp\":2,\"status\":\"값있음\",\"note\":\"추정치\"},\"species\":null,\"duration_value\":96,\"duration_unit\":\"hr\",\"guideline\":null,\"data_source\":\"ECHA\",\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"1\",\"endpoint\":\"ECO_CRUST\",\"descriptor\":\"LC50\",\"q\":{\"raw\":\"LC50= 20.100 mg/L\",\"approx\":false,\"value\":20.1,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"mg/L\",\"dp\":3,\"status\":\"값있음\",\"note\":\"추정치\"},\"species\":\"Daphnid\",\"duration_value\":48,\"duration_unit\":\"hr\",\"guideline\":null,\"data_source\":\"EPI SUITE\",\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"2\",\"endpoint\":\"ECO_CRUST\",\"descriptor\":\"LC50\",\"q\":{\"raw\":\"LC50= 69.43 mg/L\",\"approx\":false,\"value\":69.43,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"mg/L\",\"dp\":2,\"status\":\"값있음\",\"note\":\"추정치\"},\"species\":\"Daphnia sp.\",\"duration_value\":48,\"duration_unit\":\"hr\",\"guideline\":null,\"data_source\":\"ECHA\",\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"1\",\"endpoint\":\"ECO_ALGAE\",\"descriptor\":\"EC50\",\"q\":{\"raw\":\"EC50= 8.285 mg/L\",\"approx\":false,\"value\":8.285,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"mg/L\",\"dp\":3,\"status\":\"값있음\",\"note\":\"추정치\"},\"species\":\"Green algae\",\"duration_value\":96,\"duration_unit\":\"hr\",\"guideline\":null,\"data_source\":\"EPI SUITE\",\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"2\",\"endpoint\":\"ECO_ALGAE\",\"descriptor\":\"EC50\",\"q\":{\"raw\":\"EC50= 8.57 mg/L\",\"approx\":false,\"value\":8.57,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"mg/L\",\"dp\":2,\"status\":\"값있음\",\"note\":null},\"species\":\"Green algea\",\"duration_value\":96,\"duration_unit\":\"hr\",\"guideline\":null,\"data_source\":\"ECHA\",\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"1\",\"endpoint\":\"ECO_PERSIST\",\"descriptor\":\"logKow\",\"q\":{\"raw\":\"log Pow= 3.9\",\"approx\":false,\"value\":3.9,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":null,\"dp\":1,\"status\":\"값있음\",\"note\":null},\"species\":null,\"duration_value\":null,\"duration_unit\":null,\"guideline\":null,\"data_source\":\"ICSC\",\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"2\",\"endpoint\":\"ECO_PERSIST\",\"descriptor\":\"logKow\",\"q\":{\"raw\":\"log Pow= 1.09\",\"approx\":false,\"value\":1.09,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":null,\"dp\":2,\"status\":\"값있음\",\"note\":null},\"species\":null,\"duration_value\":null,\"duration_unit\":null,\"guideline\":null,\"data_source\":\"ECHA\",\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"ECO_PERSIST\",\"descriptor\":null,\"q\":null,\"species\":null,\"duration_value\":null,\"duration_unit\":null,\"guideline\":null,\"data_source\":null,\"statements\":[{\"seq\":1,\"key\":\"분해성\",\"value\":\"자료없음\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"● 분해성 자료없음\"}],\"status\":\"자료없음\"},{\"comp_ref\":\"1\",\"endpoint\":\"ECO_PERSIST\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":null,\"duration_value\":null,\"duration_unit\":null,\"guideline\":null,\"data_source\":\"EPI SUITE\",\"statements\":[{\"seq\":1,\"key\":\"생분해성\",\"value\":\"쉽게 생분해 될 것으로 예측됨 (추정치)\",\"refs\":[\"1\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"- Hydrogen : 쉽게 생분해 될 것으로 예측됨 (추정치),  출처 : EPI SUITE\"}],\"status\":\"값있음\"},{\"comp_ref\":\"2\",\"endpoint\":\"ECO_PERSIST\",\"descriptor\":\"기타\",\"q\":{\"raw\":\"other:half-life in days (QSAR/QSPR)= 3.187\",\"approx\":false,\"value\":3.187,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":null,\"dp\":3,\"status\":\"값있음\",\"note\":\"추정치\"},\"species\":null,\"duration_value\":null,\"duration_unit\":null,\"guideline\":null,\"data_source\":\"ECHA\",\"statements\":[{\"seq\":1,\"key\":\"생분해성\",\"value\":\"other:half-life in days (QSAR/QSPR)= 3.187 (추정치)\",\"refs\":[\"2\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"- Methane : other:half-life in days (QSAR/QSPR)= 3.187 (추정치),  출처 : ECHA\"}],\"status\":\"값있음\"},{\"comp_ref\":\"1\",\"endpoint\":\"ECO_BIOACC\",\"descriptor\":\"BCF\",\"q\":{\"raw\":\"BCF= 3.162 L/kg\",\"approx\":false,\"value\":3.162,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"L/kg\",\"dp\":3,\"status\":\"값있음\",\"note\":\"추정치\"},\"species\":null,\"duration_value\":null,\"duration_unit\":null,\"guideline\":null,\"data_source\":\"EPI SUITE\",\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"2\",\"endpoint\":\"ECO_BIOACC\",\"descriptor\":\"BCF\",\"q\":{\"raw\":\"BCF= 2\",\"approx\":false,\"value\":2,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":null,\"dp\":0,\"status\":\"값있음\",\"note\":null},\"species\":null,\"duration_value\":null,\"duration_unit\":null,\"guideline\":null,\"data_source\":\"HSDB\",\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"1\",\"endpoint\":\"ECO_SOIL\",\"descriptor\":\"Koc\",\"q\":{\"raw\":\"Koc= 13.22\",\"approx\":false,\"value\":13.22,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":null,\"dp\":2,\"status\":\"값있음\",\"note\":\"추정치\"},\"species\":null,\"duration_value\":null,\"duration_unit\":null,\"guideline\":null,\"data_source\":\"EPI SUITE\",\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"2\",\"endpoint\":\"ECO_SOIL\",\"descriptor\":\"Koc\",\"q\":{\"raw\":\"Koc= 9\",\"approx\":false,\"value\":9,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":null,\"dp\":0,\"status\":\"값있음\",\"note\":null},\"species\":null,\"duration_value\":null,\"duration_unit\":null,\"guideline\":null,\"data_source\":\"HSDB\",\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":null,\"descriptor\":null,\"q\":null,\"species\":null,\"duration_value\":null,\"duration_unit\":null,\"guideline\":null,\"data_source\":null,\"statements\":[{\"seq\":1,\"key\":\"기타 유해 영향 > PRODUCT\",\"value\":\"분류되지않음\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"마. 기타 유해 영향 > PRODUCT : 분류되지않음\"}],\"status\":\"자료없음\"}]}],\"evidence\":[{\"msds_index\":0,\"field\":\"toxicity[0]\",\"page\":7,\"source_text\":\"● 급성독성물질(경구)   PRODUCT : 분류되지않음 자료없음\",\"rules\":[\"R10\",\"R15\"],\"note\":\"제품 전체 행으로 분류 결과와 자료없음 상태를 기록\"},{\"msds_index\":0,\"field\":\"toxicity[1]\",\"page\":7,\"source_text\":\"● 급성독성물질(경피)   PRODUCT : 분류되지않음 자료없음\",\"rules\":[\"R10\",\"R15\"],\"note\":\"제품 전체 행으로 분류 결과와 자료없음 상태를 기록\"},{\"msds_index\":0,\"field\":\"toxicity[2]\",\"page\":7,\"source_text\":\"● 급성독성물질(흡입:가스)   PRODUCT : 분류되지않음(ATEmix = 7631096.5ppm)\",\"rules\":[\"R04\",\"R06\",\"R10\"],\"note\":\"ATEmix 값을 ATE 지표로, 흡입 형태는 '가스'로 기록\"},{\"msds_index\":0,\"field\":\"toxicity[3]\",\"page\":7,\"source_text\":\"- Hydrogen : LC50> 7500 ppm (4h),  출처 : NITE\",\"rules\":[\"R04\",\"R10\"],\"note\":\"'>' 7500 ppm을 하한으로, 4h를 노출시간으로 분리. 시험종은 원문에 없음\"},{\"msds_index\":0,\"field\":\"toxicity[4]\",\"page\":7,\"source_text\":\"- Methane : LC50= 539600 ppm (mouse, 120min),  출처 : ECHA\",\"rules\":[\"R04\",\"R10\"],\"note\":\"120min을 노출시간 120 min으로 분리\"},{\"msds_index\":0,\"field\":\"toxicity[5]\",\"page\":8,\"source_text\":\"● 급성독성물질(흡입:증기)   PRODUCT : 분류되지않음 자료없음\",\"rules\":[\"R10\",\"R15\"],\"note\":\"흡입 형태 '증기', 자료없음\"},{\"msds_index\":0,\"field\":\"toxicity[6]\",\"page\":8,\"source_text\":\"● 급성독성물질(흡입:분진/미스트)   PRODUCT : 분류되지않음 자료없음\",\"rules\":[\"R10\",\"R15\"],\"note\":\"흡입 형태 '분진·미스트', 자료없음\"},{\"msds_index\":0,\"field\":\"toxicity[7]\",\"page\":8,\"source_text\":\"○ 피부 부식성 또는 자극성 물질   PRODUCT : 분류되지않음\",\"rules\":[\"R10\"],\"note\":\"제품 분류 결과를 MIX 행으로 기록\"},{\"msds_index\":0,\"field\":\"toxicity[8]\",\"page\":8,\"source_text\":\"- Hydrogen : 극저온 액체 수소에 노출 시 피부에 동상과 심한 화상을 유발할 수 있음 (human),  출처 : HSDB\",\"rules\":[\"R10\"],\"note\":\"서술을 statements로, 시험종 human, 출처 HSDB\"},{\"msds_index\":0,\"field\":\"toxicity[9]\",\"page\":8,\"source_text\":\"○ 심한 눈 손상 또는 자극성 물질   PRODUCT : 분류되지않음\",\"rules\":[\"R10\"],\"note\":\"제품 분류 결과를 MIX 행으로 기록\"},{\"msds_index\":0,\"field\":\"toxicity[10]\",\"page\":8,\"source_text\":\"- Hydrogen : 수소는 알려진 독성 영향이 없음 (human),  출처 : HSDB\",\"rules\":[\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"toxicity[11]\",\"page\":8,\"source_text\":\"○ 호흡기 과민성 물질   PRODUCT : 분류되지않음 자료없음\",\"rules\":[\"R10\",\"R15\"],\"note\":null},{\"msds_index\":0,\"field\":\"toxicity[12]\",\"page\":8,\"source_text\":\"○ 피부 과민성 물질   PRODUCT : 분류되지않음 자료없음\",\"rules\":[\"R10\",\"R15\"],\"note\":null},{\"msds_index\":0,\"field\":\"toxicity[13]\",\"page\":8,\"source_text\":\"○ 발암성물질   PRODUCT : 분류되지않음 자료없음\",\"rules\":[\"R10\",\"R15\"],\"note\":\"기관별 분류가 없어 cmr 행은 만들지 않음\"},{\"msds_index\":0,\"field\":\"toxicity[14]\",\"page\":8,\"source_text\":\"○ 생식세포 변이원성 물질   PRODUCT : 분류되지않음\",\"rules\":[\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"toxicity[15]\",\"page\":8,\"source_text\":\"- Methane : 음성, 메탄은 대사 활성화 유무에 관계없이 테스트한 모든 균주에서 Ames 음성 (Salmonella typhimurium, bacterial reverse mutation assay, OECD Guideline 471, Metabolic activation: with and without)\",\"rules\":[\"R10\"],\"note\":\"출처 ECHA는 이어지는 줄 끝의 출처를 적용\"},{\"msds_index\":0,\"field\":\"toxicity[16]\",\"page\":8,\"source_text\":\"음성 (rat, micronucleus assay, OECD Guideline 474),  출처 : ECHA\",\"rules\":[\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"toxicity[17]\",\"page\":8,\"source_text\":\"○ 생식독성 물질   PRODUCT : 분류되지않음\",\"rules\":[\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"toxicity[18]\",\"page\":8,\"source_text\":\"- Hydrogen : 미숙아의 염증과 관련된 폐의 이동성을 감소시킬 수 있음 (rat),  출처 : HSDB\",\"rules\":[\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"toxicity[19]\",\"page\":8,\"source_text\":\"- Methane : 생식능력에 영향을 미치지 않음 (rat, OECD Guideline 422),  출처 : ECHA\",\"rules\":[\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"toxicity[20]\",\"page\":8,\"source_text\":\"○ 특정표적장기·전신 독성 물질(1회 노출)   PRODUCT : 분류되지않음\",\"rules\":[\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"toxicity[21]\",\"page\":8,\"source_text\":\"- Methane : 약간의 운동실조, 정위 반사 상실, 운동 상실, 마취, 얕은 호흡 및 결국 호흡 억제로 인한 사망. (rat),  출처 : ECHA\",\"rules\":[\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"toxicity[22]\",\"page\":8,\"source_text\":\"○ 특정표적장기·전신 독성 물질(반복 노출)   PRODUCT : 분류되지않음\",\"rules\":[\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"toxicity[23]\",\"page\":8,\"source_text\":\"- Hydrogen : 산화 스트레스와 배아 유전자 발현 감소 (hamster),  출처 : HSDB\",\"rules\":[\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"toxicity[24]\",\"page\":8,\"source_text\":\"- Methane : 900, 3000 및 9000ppm의 목표 농도에 대한 수컷 및 암컷 렛드의 노출은 ...; NOAEC= 9000 ppm (rat, OECD Guideline 422),  출처 : ECHA\",\"rules\":[\"R04\",\"R10\",\"R17\"],\"note\":\"NOAEC는 지표 목록에 없어 descriptor는 null로 두고 raw에 보존. 수컷 및 암컷이므로 성별 혼합\"},{\"msds_index\":0,\"field\":\"toxicity[25]\",\"page\":8,\"source_text\":\"○ 흡인유해성 물질   PRODUCT : 분류되지않음 자료없음\",\"rules\":[\"R10\",\"R15\"],\"note\":null},{\"msds_index\":0,\"field\":\"ecotox[0]\",\"page\":8,\"source_text\":\"가. 생태독성 > PRODUCT : 분류되지않음\",\"rules\":[\"R10\"],\"note\":\"제품 전체 분류 문구를 statements로 기록\"},{\"msds_index\":0,\"field\":\"ecotox[1]\",\"page\":8,\"source_text\":\"- Hydrogen : LC50= 40.846 mg/L (96h, 추정치),  출처 : EPI SUITE\",\"rules\":[\"R04\",\"R06\",\"R10\"],\"note\":\"'추정치'는 q.note로\"},{\"msds_index\":0,\"field\":\"ecotox[2]\",\"page\":9,\"source_text\":\"- Methane : LC50= 91.42 mg/L (96h, 추정치),  출처 : ECHA\",\"rules\":[\"R04\",\"R10\"],\"note\":\"'추정치'는 q.note로\"},{\"msds_index\":0,\"field\":\"ecotox[3]\",\"page\":9,\"source_text\":\"- Hydrogen : LC50= 20.100 mg/L (Daphnid, 48h, 추정치),  출처 : EPI SUITE\",\"rules\":[\"R04\",\"R06\",\"R10\"],\"note\":\"20.100을 value 20.1, dp 3으로 저장\"},{\"msds_index\":0,\"field\":\"ecotox[4]\",\"page\":9,\"source_text\":\"- Methane : LC50= 69.43 mg/L (Daphnia sp., 48h, 추정치),  출처 : ECHA\",\"rules\":[\"R04\",\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"ecotox[5]\",\"page\":9,\"source_text\":\"- Hydrogen : EC50= 8.285 mg/L (Green algae, 96h, 추정치),  출처 : EPI SUITE\",\"rules\":[\"R04\",\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"ecotox[6]\",\"page\":9,\"source_text\":\"- Methane : EC50= 8.57 mg/L (Green algea, 96h),  출처 : ECHA\",\"rules\":[\"R04\",\"R10\"],\"note\":\"시험종 철자 원문 그대로 유지\"},{\"msds_index\":0,\"field\":\"ecotox[7]\",\"page\":9,\"source_text\":\"- Hydrogen : log Pow= 3.9,  출처 : ICSC\",\"rules\":[\"R04\",\"R10\"],\"note\":\"잔류성 항목의 log Pow를 logKow 지표로 기록\"},{\"msds_index\":0,\"field\":\"ecotox[8]\",\"page\":9,\"source_text\":\"- Methane : log Pow= 1.09,  출처 : ECHA\",\"rules\":[\"R04\",\"R10\"],\"note\":\"log Pow를 logKow 지표로 기록\"},{\"msds_index\":0,\"field\":\"ecotox[9]\",\"page\":9,\"source_text\":\"● 분해성 자료없음\",\"rules\":[\"R10\",\"R15\"],\"note\":null},{\"msds_index\":0,\"field\":\"ecotox[10]\",\"page\":9,\"source_text\":\"- Hydrogen : 쉽게 생분해 될 것으로 예측됨 (추정치),  출처 : EPI SUITE\",\"rules\":[\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"ecotox[11]\",\"page\":9,\"source_text\":\"- Methane : other:half-life in days (QSAR/QSPR)= 3.187 (추정치),  출처 : ECHA\",\"rules\":[\"R04\",\"R10\",\"R17\"],\"note\":\"반감기 단위는 지표명에 포함되어 unit은 null로 두고 raw 보존\"},{\"msds_index\":0,\"field\":\"ecotox[12]\",\"page\":9,\"source_text\":\"- Hydrogen : BCF= 3.162 L/kg (추정치),  출처 : EPI SUITE\",\"rules\":[\"R04\",\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"ecotox[13]\",\"page\":9,\"source_text\":\"- Methane : BCF= 2,  출처 : HSDB\",\"rules\":[\"R04\",\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"ecotox[14]\",\"page\":9,\"source_text\":\"- Hydrogen : Koc= 13.22 (추정치),  출처 : EPI SUITE\",\"rules\":[\"R04\",\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"ecotox[15]\",\"page\":9,\"source_text\":\"- Methane : Koc= 9,  출처 : HSDB\",\"rules\":[\"R04\",\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"ecotox[16]\",\"page\":9,\"source_text\":\"마. 기타 유해 영향 > PRODUCT : 분류되지않음 자료없음\",\"rules\":[\"R10\",\"R15\"],\"note\":\"기타 유해 영향은 맞는 C5 코드가 없어 endpoint null\"}]}"
+}

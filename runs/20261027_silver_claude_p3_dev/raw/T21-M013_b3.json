@@ -1,0 +1,1802 @@
+{
+  "doc_id": "T21-M013",
+  "bundle": "b3",
+  "model": "claude-opus-5-5",
+  "mode": "none",
+  "finish_reason": "stop",
+  "usage": {
+    "prompt_tokens": 84647,
+    "completion_tokens": 17227,
+    "total_tokens": 101874,
+    "served_model": "claude-opus-5-5"
+  },
+  "seconds": 124.9,
+  "attempts": 1,
+  "errors": [],
+  "parsed": {
+    "msds": [
+      {
+        "toxicity": [
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_ORAL",
+            "descriptor": "LD50",
+            "q": {
+              "raw": "1649 mg/kg GHS 첨가식에 따라 계산",
+              "approx": null,
+              "value": 1649,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "mg/kg",
+              "dp": 0,
+              "status": "값있음",
+              "note": "GHS 첨가식에 따라 계산"
+            },
+            "species": "쥐",
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_DERMAL",
+            "descriptor": "LD50",
+            "q": {
+              "raw": "> 5000 mg/kg GHS 첨가식에 따라 계산",
+              "approx": null,
+              "value": null,
+              "lower_op": ">",
+              "lower": 5000,
+              "upper_op": null,
+              "upper": null,
+              "unit": "mg/kg",
+              "dp": 0,
+              "status": "값있음",
+              "note": "GHS 첨가식에 따라 계산"
+            },
+            "species": "토끼",
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_INHAL",
+            "descriptor": "LC50",
+            "q": {
+              "raw": "> 6.53 mg/l, 4 시간 GHS 첨가식에 따라 계산",
+              "approx": null,
+              "value": null,
+              "lower_op": ">",
+              "lower": 6.53,
+              "upper_op": null,
+              "upper": null,
+              "unit": "mg/l",
+              "dp": 2,
+              "status": "값있음",
+              "note": "GHS 첨가식에 따라 계산"
+            },
+            "species": "쥐",
+            "sex": null,
+            "duration_value": 4,
+            "duration_unit": "hr",
+            "physical_form": "증기",
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "TX_ORAL",
+            "descriptor": "LD50",
+            "q": {
+              "raw": "5000 mg/kg",
+              "approx": null,
+              "value": 5000,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "mg/kg",
+              "dp": 0,
+              "status": "값있음",
+              "note": null
+            },
+            "species": "쥐",
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "TX_DERMAL",
+            "descriptor": "LD50",
+            "q": {
+              "raw": "> 3160 mg/kg",
+              "approx": null,
+              "value": null,
+              "lower_op": ">",
+              "lower": 3160,
+              "upper_op": null,
+              "upper": null,
+              "unit": "mg/kg",
+              "dp": 0,
+              "status": "값있음",
+              "note": null
+            },
+            "species": "토끼",
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "TX_INHAL",
+            "descriptor": "LC50",
+            "q": {
+              "raw": "18 mg/l, 4 시간",
+              "approx": null,
+              "value": 18,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "mg/l",
+              "dp": 0,
+              "status": "값있음",
+              "note": null
+            },
+            "species": "쥐",
+            "sex": null,
+            "duration_value": 4,
+            "duration_unit": "hr",
+            "physical_form": "증기",
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "7",
+            "endpoint": "TX_ORAL",
+            "descriptor": "LD50",
+            "q": {
+              "raw": "5000 mg/kg",
+              "approx": null,
+              "value": 5000,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "mg/kg",
+              "dp": 0,
+              "status": "값있음",
+              "note": null
+            },
+            "species": "쥐",
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "7",
+            "endpoint": "TX_DERMAL",
+            "descriptor": "LD50",
+            "q": {
+              "raw": "> 3400 mg/kg",
+              "approx": null,
+              "value": null,
+              "lower_op": ">",
+              "lower": 3400,
+              "upper_op": null,
+              "upper": null,
+              "unit": "mg/kg",
+              "dp": 0,
+              "status": "값있음",
+              "note": null
+            },
+            "species": "쥐",
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "7",
+            "endpoint": "TX_INHAL",
+            "descriptor": "LC50",
+            "q": {
+              "raw": "24 mg/l, 4 시간",
+              "approx": null,
+              "value": 24,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "mg/l",
+              "dp": 0,
+              "status": "값있음",
+              "note": null
+            },
+            "species": "쥐",
+            "sex": null,
+            "duration_value": 4,
+            "duration_unit": "hr",
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "4",
+            "endpoint": "TX_ORAL",
+            "descriptor": "LD50",
+            "q": {
+              "raw": "> 5000 mg/kg",
+              "approx": null,
+              "value": null,
+              "lower_op": ">",
+              "lower": 5000,
+              "upper_op": null,
+              "upper": null,
+              "unit": "mg/kg",
+              "dp": 0,
+              "status": "값있음",
+              "note": null
+            },
+            "species": "쥐",
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "3",
+            "endpoint": "TX_ORAL",
+            "descriptor": "LD50",
+            "q": {
+              "raw": "50 - 500 mg/kg",
+              "approx": null,
+              "value": null,
+              "lower_op": ">=",
+              "lower": 50,
+              "upper_op": "<=",
+              "upper": 500,
+              "unit": "mg/kg",
+              "dp": 0,
+              "status": "값있음",
+              "note": null
+            },
+            "species": "쥐",
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "3",
+            "endpoint": "TX_DERMAL",
+            "descriptor": "LD50",
+            "q": {
+              "raw": "756 mg/kg",
+              "approx": null,
+              "value": 756,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "mg/kg",
+              "dp": 0,
+              "status": "값있음",
+              "note": null
+            },
+            "species": "토끼",
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "5",
+            "endpoint": "TX_ORAL",
+            "descriptor": "LD50",
+            "q": {
+              "raw": "2190 mg/kg",
+              "approx": null,
+              "value": 2190,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "mg/kg",
+              "dp": 0,
+              "status": "값있음",
+              "note": null
+            },
+            "species": "쥐",
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "5",
+            "endpoint": "TX_DERMAL",
+            "descriptor": "LD50",
+            "q": {
+              "raw": "1300 mg/kg",
+              "approx": null,
+              "value": 1300,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "mg/kg",
+              "dp": 0,
+              "status": "값있음",
+              "note": null
+            },
+            "species": "토끼",
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "5",
+            "endpoint": "TX_INHAL",
+            "descriptor": "LC50",
+            "q": {
+              "raw": "9.5 mg/l, 4 시간",
+              "approx": null,
+              "value": 9.5,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "mg/l",
+              "dp": 1,
+              "status": "값있음",
+              "note": null
+            },
+            "species": "쥐",
+            "sex": null,
+            "duration_value": 4,
+            "duration_unit": "hr",
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "6",
+            "endpoint": "TX_ORAL",
+            "descriptor": "LD50",
+            "q": {
+              "raw": "> 2000 mg/kg",
+              "approx": null,
+              "value": null,
+              "lower_op": ">",
+              "lower": 2000,
+              "upper_op": null,
+              "upper": null,
+              "unit": "mg/kg",
+              "dp": 0,
+              "status": "값있음",
+              "note": null
+            },
+            "species": "쥐",
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "6",
+            "endpoint": "TX_DERMAL",
+            "descriptor": "LD50",
+            "q": {
+              "raw": "> 16000 mg/kg",
+              "approx": null,
+              "value": null,
+              "lower_op": ">",
+              "lower": 16000,
+              "upper_op": null,
+              "upper": null,
+              "unit": "mg/kg",
+              "dp": 0,
+              "status": "값있음",
+              "note": null
+            },
+            "species": "토끼",
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_ORAL",
+            "descriptor": "LD50",
+            "q": {
+              "raw": "7050 mg/kg",
+              "approx": null,
+              "value": 7050,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "mg/kg",
+              "dp": 0,
+              "status": "값있음",
+              "note": null
+            },
+            "species": "쥐",
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_DERMAL",
+            "descriptor": "LD50",
+            "q": {
+              "raw": "> 3160 mg/kg",
+              "approx": null,
+              "value": null,
+              "lower_op": ">",
+              "lower": 3160,
+              "upper_op": null,
+              "upper": null,
+              "unit": "mg/kg",
+              "dp": 0,
+              "status": "값있음",
+              "note": null
+            },
+            "species": "토끼",
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_INHAL",
+            "descriptor": "LC50",
+            "q": {
+              "raw": "> 5.2 mg/l, 4 시간",
+              "approx": null,
+              "value": null,
+              "lower_op": ">",
+              "lower": 5.2,
+              "upper_op": null,
+              "upper": null,
+              "unit": "mg/l",
+              "dp": 1,
+              "status": "값있음",
+              "note": null
+            },
+            "species": "쥐",
+            "sex": null,
+            "duration_value": 4,
+            "duration_unit": "hr",
+            "physical_form": "증기",
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": null,
+            "descriptor": "결과기술",
+            "q": null,
+            "species": null,
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": "급성 독성 (노출가능한 모든 경로에 대해 기재)",
+                "value": "삼켜서 기도로 유입되면 치명적일 수 있음. 삼키면 유해함. 흡입하면 유해함.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "o 급성 독성 (노출가능한 모든 경로에 대해 기재) 삼켜서 기도로 유입되면 치명적일 수 있음. 삼키면 유해함. 흡입하면 유해함."
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_SKIN",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": null,
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "피부에 심한 화상과 눈에 손상을 일으킴.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "o 피부 부식성 또는 자극성 피부에 심한 화상과 눈에 손상을 일으킴."
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_EYE",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": null,
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "눈에 심한 손상을 일으킴.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "o 심한 눈 손상 또는 자극성 눈에 심한 손상을 일으킴."
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_RESP_SENS",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": null,
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "호흡기 감작제가 아님.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "o 호흡기 과민성 호흡기 감작제가 아님."
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_SKIN_SENS",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": null,
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "알레르기성 피부 반응을 일으킬 수 있음.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "o 피부 과민성 알레르기성 피부 반응을 일으킬 수 있음."
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_CARC",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": null,
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "암을 일으킬 것으로 의심됨.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "o 발암성 암을 일으킬 것으로 의심됨."
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_MUTA",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": null,
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "제품이나 0.1%이상 함유된 성분이 변이원성 또는 유전독성을 나타냄을 의미하는 자료가 없음.",
+                "refs": null,
+                "cond": {
+                  "raw": "0.1%이상",
+                  "approx": null,
+                  "value": null,
+                  "lower_op": ">=",
+                  "lower": 0.1,
+                  "upper_op": null,
+                  "upper": null,
+                  "unit": "%",
+                  "dp": 1,
+                  "status": "값있음",
+                  "note": null
+                },
+                "std_code": null,
+                "match_score": null,
+                "text": "o 생식세포 변이원성 제품이나 0.1%이상 함유된 성분이 변이원성 또는 유전독성을 나타냄을 의미하는 자료가 없음."
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_REPRO",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": null,
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "본 제품은 생식 또는 발달 영향을 일으킬 것으로 예상되지 않음.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "o 생식 독성 본 제품은 생식 또는 발달 영향을 일으킬 것으로 예상되지 않음."
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_STOT_SE",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": null,
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "졸음 또는 현기증을 일으킬 수 있음.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "졸음 또는 현기증을 일으킬 수 있음."
+              },
+              {
+                "seq": 2,
+                "key": null,
+                "value": "호흡기 자극을 일으킬 수 있음.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "호흡기 자극을 일으킬 수 있음."
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_STOT_RE",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": null,
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "장기간 또는 반복노출 되면 장기에 손상을 일으킬 수 있음.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "o 특정 표적장기 독성 (반복 노출) 장기간 또는 반복노출 되면 장기에 손상을 일으킬 수 있음."
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_ASP",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": null,
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "삼켜서 기도로 유입되면 치명적일 수 있음.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "o 흡인 유해성 삼켜서 기도로 유입되면 치명적일 수 있음."
+              }
+            ],
+            "status": "값있음"
+          }
+        ],
+        "cmr": [
+          {
+            "comp_ref": "6",
+            "hazard": "발암성",
+            "agency": "IARC",
+            "class": "2B",
+            "status": "값있음",
+            "note": "인체 발암성 가능 물질"
+          }
+        ],
+        "ecotox": [
+          {
+            "comp_ref": "MIX",
+            "endpoint": null,
+            "descriptor": "결과기술",
+            "q": null,
+            "species": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "guideline": null,
+            "data_source": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": "생태독성",
+                "value": "장기적 영향에 의해 수생생물에 매우 유독함.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "가. 생태독성 장기적 영향에 의해 수생생물에 매우 유독함."
+              },
+              {
+                "seq": 2,
+                "key": "수생환경 유해성, 급성",
+                "value": "비전문가가 취급하거나 폐기하는 경우 환경적 유해성을 배제할 수 없음.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "수생환경 유해성, 급성 비전문가가 취급하거나 폐기하는 경우 환경적 유해성을 배제할 수 없음."
+              },
+              {
+                "seq": 3,
+                "key": "수생환경 유해성, 만성",
+                "value": "장기적 영향에 의해 수생생물에 매우 유독함.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "수생환경 유해성, 만성 장기적 영향에 의해 수생생물에 매우 유독함."
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_CRUST",
+            "descriptor": "LC50",
+            "q": {
+              "raw": "4.9 mg/l, 48 시간 (계산값)",
+              "approx": null,
+              "value": 4.9,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "mg/l",
+              "dp": 1,
+              "status": "값있음",
+              "note": "계산값"
+            },
+            "species": "물벼룩",
+            "duration_value": 48,
+            "duration_unit": "hr",
+            "guideline": null,
+            "data_source": null,
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_FISH",
+            "descriptor": "LC50",
+            "q": {
+              "raw": "0.61 mg/l, 96 시간 (계산값)",
+              "approx": null,
+              "value": 0.61,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "mg/l",
+              "dp": 2,
+              "status": "값있음",
+              "note": "계산값"
+            },
+            "species": "잉어과 작은 물고기",
+            "duration_value": 96,
+            "duration_unit": "hr",
+            "guideline": null,
+            "data_source": null,
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_PERSIST",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "guideline": null,
+            "data_source": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "이 제품의 분해성에 대한 유용한 자료가 없음.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "이 제품의 분해성에 대한 유용한 자료가 없음."
+              }
+            ],
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_PERSIST",
+            "descriptor": "COD",
+            "q": {
+              "raw": "2129 (계산 데이터)",
+              "approx": null,
+              "value": 2129,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "mgO2/g",
+              "dp": 0,
+              "status": "값있음",
+              "note": "계산 데이터"
+            },
+            "species": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "guideline": null,
+            "data_source": null,
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_PERSIST",
+            "descriptor": "BOD",
+            "q": {
+              "raw": "348 (계산 데이터)",
+              "approx": null,
+              "value": 348,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "mgO2/g",
+              "dp": 0,
+              "status": "값있음",
+              "note": "계산 데이터"
+            },
+            "species": null,
+            "duration_value": 5,
+            "duration_unit": "day",
+            "guideline": null,
+            "data_source": null,
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_PERSIST",
+            "descriptor": "BOD",
+            "q": {
+              "raw": "1295 (계산 데이터)",
+              "approx": null,
+              "value": 1295,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "mgO2/g",
+              "dp": 0,
+              "status": "값있음",
+              "note": "계산 데이터"
+            },
+            "species": null,
+            "duration_value": 28,
+            "duration_unit": "day",
+            "guideline": null,
+            "data_source": null,
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_PERSIST",
+            "descriptor": "분해율",
+            "q": {
+              "raw": "42 (계산 데이터)",
+              "approx": null,
+              "value": 42,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "%",
+              "dp": 0,
+              "status": "값있음",
+              "note": "계산 데이터"
+            },
+            "species": null,
+            "duration_value": 28,
+            "duration_unit": "day",
+            "guideline": "밀폐 병 시험",
+            "data_source": null,
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_PERSIST",
+            "descriptor": "기타",
+            "q": {
+              "raw": "849 (계산 데이터)",
+              "approx": null,
+              "value": 849,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "mg C/g",
+              "dp": 0,
+              "status": "값있음",
+              "note": "계산 데이터"
+            },
+            "species": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "guideline": null,
+            "data_source": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": "- TOC (mg C/g)",
+                "value": "849 (계산 데이터)",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "- TOC (mg C/g) 849 (계산 데이터)"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "6",
+            "endpoint": "ECO_BIOACC",
+            "descriptor": "logKow",
+            "q": {
+              "raw": "3.3",
+              "approx": null,
+              "value": 3.3,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": null,
+              "dp": 1,
+              "status": "값있음",
+              "note": null
+            },
+            "species": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "guideline": null,
+            "data_source": null,
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_SOIL",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "guideline": null,
+            "data_source": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "본 제품에 관한 이용가능한 자료가 없음.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "라. 토양 이동성 본 제품에 관한 이용가능한 자료가 없음."
+              }
+            ],
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": null,
+            "descriptor": "결과기술",
+            "q": null,
+            "species": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "guideline": null,
+            "data_source": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": "기타 유해 영향",
+                "value": "제품은 광화학 반응에 의한 오존 생성 가능성이 있는 휘발성, 유기 화합물이 함유됨.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "마. 기타 유해 영향 제품은 광화학 반응에 의한 오존 생성 가능성이 있는 휘발성, 유기 화합물이 함유됨."
+              }
+            ],
+            "status": "값있음"
+          }
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "msds_index": 0,
+        "field": "toxicity[0]",
+        "page": 6,
+        "source_text": "PETROFLO 20Y97 | 경구 | LD50 | 쥐 | 1649 mg/kg GHS 첨가식에 따라 계산",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "제품 전체 값이므로 MIX, 'GHS 첨가식에 따라 계산'은 q.note에 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[1]",
+        "page": 6,
+        "source_text": "경피 | LD50 | 토끼 | > 5000 mg/kg GHS 첨가식에 따라 계산",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "'>'를 하한 부등호로 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[2]",
+        "page": 6,
+        "source_text": "흡입 | 증기 | LC50 | 쥐 | > 6.53 mg/l, 4 시간 GHS 첨가식에 따라 계산",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "4 시간을 duration 4 hr로, 증기를 physical_form으로 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[3]",
+        "page": 6,
+        "source_text": "1, 2,4-트리메틸벤젠 (CAS 95-63-6) | 경구 | LD50 | 쥐 | 5000 mg/kg",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "CAS 95-63-6으로 성분 2에 매칭"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[4]",
+        "page": 6,
+        "source_text": "경피 | LD50 | 토끼 | > 3160 mg/kg",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[5]",
+        "page": 6,
+        "source_text": "흡입 | 증기 | LC50 | 쥐 | 18 mg/l, 4 시간",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "4 시간을 duration 4 hr로 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[6]",
+        "page": 7,
+        "source_text": "1, 3,5-트리메틸벤젠 (CAS 108-67-8) | 경구 | LD50 | 쥐 | 5000 mg/kg",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "CAS 108-67-8로 성분 7에 매칭"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[7]",
+        "page": 7,
+        "source_text": "경피 | LD50 | 쥐 | > 3400 mg/kg",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[8]",
+        "page": 7,
+        "source_text": "흡입 | LC50 | 쥐 | 24 mg/l, 4 시간",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "흡입 형태 표기가 없어 physical_form null"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[9]",
+        "page": 7,
+        "source_text": "1,2,3-trimethylbenzene (CAS 526-73-8) | 경구 | LD50 | 쥐 | > 5000 mg/kg",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "CAS 526-73-8로 성분 4에 매칭"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[10]",
+        "page": 7,
+        "source_text": "N,N 디sec-부틸, p-페닐렌 디아민 (CAS 101-96-2) | 경구 | LD50 | 쥐 | 50 - 500 mg/kg",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "'50 - 500'을 범위로 보아 하한 50(>=), 상한 500(<=)으로 나눔"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[11]",
+        "page": 7,
+        "source_text": "경피 | LD50 | 토끼 | 756 mg/kg",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[12]",
+        "page": 7,
+        "source_text": "N,N 디에틸히드록실아민 (CAS 3710-84-7) | 경구 | LD50 | 쥐 | 2190 mg/kg",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "CAS 3710-84-7로 성분 5에 매칭"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[13]",
+        "page": 7,
+        "source_text": "경피 | LD50 | 토끼 | 1300 mg/kg",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[14]",
+        "page": 7,
+        "source_text": "흡입 | LC50 | 쥐 | 9.5 mg/l, 4 시간",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "흡입 형태 표기 없음"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[15]",
+        "page": 7,
+        "source_text": "나프탈렌 (CAS 91-20-3) | 경구 | LD50 | 쥐 | > 2000 mg/kg",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "CAS 91-20-3으로 성분 6에 매칭"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[16]",
+        "page": 7,
+        "source_text": "경피 | LD50 | 토끼 | > 16000 mg/kg",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[17]",
+        "page": 7,
+        "source_text": "용매 나프타 (석유), 중 방향족 (CAS 64742-94-5) | 경구 | LD50 | 쥐 | 7050 mg/kg",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "CAS 64742-94-5로 성분 1에 매칭"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[18]",
+        "page": 7,
+        "source_text": "경피 | LD50 | 토끼 | > 3160 mg/kg",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[19]",
+        "page": 7,
+        "source_text": "흡입 | 증기 | LC50 | 쥐 | > 5.2 mg/l, 4 시간",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "4 시간을 duration 4 hr로, 증기를 physical_form으로 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[20]",
+        "page": 6,
+        "source_text": "o 급성 독성 (노출가능한 모든 경로에 대해 기재) 삼켜서 기도로 유입되면 치명적일 수 있음. 삼키면 유해함. 흡입하면 유해함.",
+        "rules": [
+          "R10"
+        ],
+        "note": "여러 경로를 묶은 서술이라 endpoint는 null로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[21]",
+        "page": 7,
+        "source_text": "o 피부 부식성 또는 자극성 피부에 심한 화상과 눈에 손상을 일으킴.",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[22]",
+        "page": 7,
+        "source_text": "o 심한 눈 손상 또는 자극성 눈에 심한 손상을 일으킴.",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[23]",
+        "page": 7,
+        "source_text": "o 호흡기 과민성 호흡기 감작제가 아님.",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[24]",
+        "page": 7,
+        "source_text": "o 피부 과민성 알레르기성 피부 반응을 일으킬 수 있음.",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[25]",
+        "page": 7,
+        "source_text": "o 발암성 암을 일으킬 것으로 의심됨.",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[26]",
+        "page": 8,
+        "source_text": "o 생식세포 변이원성 제품이나 0.1%이상 함유된 성분이 변이원성 또는 유전독성을 나타냄을 의미하는 자료가 없음.",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "'0.1%이상'을 조건 수치 cond(>=0.1 %)로 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[27]",
+        "page": 8,
+        "source_text": "o 생식 독성 본 제품은 생식 또는 발달 영향을 일으킬 것으로 예상되지 않음.",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[28]",
+        "page": 8,
+        "source_text": "o 특정 표적장기 독성 (1회 노출) 졸음 또는 현기증을 일으킬 수 있음. 호흡기 자극을 일으킬 수 있음.",
+        "rules": [
+          "R10"
+        ],
+        "note": "두 문장으로 나눔"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[29]",
+        "page": 8,
+        "source_text": "o 특정 표적장기 독성 (반복 노출) 장기간 또는 반복노출 되면 장기에 손상을 일으킬 수 있음.",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[30]",
+        "page": 8,
+        "source_text": "o 흡인 유해성 삼켜서 기도로 유입되면 치명적일 수 있음.",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[0]",
+        "page": 8,
+        "source_text": "IARC 단행본. 발암성에 관한 총평 | 나프탈렌 (CAS 91-20-3) | 2B 인체 발암성 가능 물질",
+        "rules": [
+          "R10"
+        ],
+        "note": "등급 2B를 class로, 설명을 note로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[0]",
+        "page": 8,
+        "source_text": "가. 생태독성 장기적 영향에 의해 수생생물에 매우 유독함. / 수생환경 유해성, 급성 … / 수생환경 유해성, 만성 …",
+        "rules": [
+          "R10"
+        ],
+        "note": "생태독성 일반 서술을 endpoint null 결과기술 행으로 묶음"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[1]",
+        "page": 8,
+        "source_text": "갑각류 | LC50 | 물벼룩 | 4.9 mg/l, 48 시간 (계산값)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "48 시간을 duration으로, '계산값'을 q.note로 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[2]",
+        "page": 8,
+        "source_text": "어류 | LC50 | 잉어과 작은 물고기 | 0.61 mg/l, 96 시간 (계산값)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "96 시간을 duration으로, '계산값'을 q.note로 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[3]",
+        "page": 8,
+        "source_text": "나. 잔류성 및 분해성 이 제품의 분해성에 대한 유용한 자료가 없음.",
+        "rules": [
+          "R15"
+        ],
+        "note": "'유용한 자료가 없음'을 자료없음으로 표시"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[4]",
+        "page": 8,
+        "source_text": "화학적 산소 요구량 (mgO2/g) | 2129 (계산 데이터)",
+        "rules": [
+          "R04"
+        ],
+        "note": "단위는 항목명의 mgO2/g"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[5]",
+        "page": 8,
+        "source_text": "생물학적 산소 요구량 5 (mgO2/g) | 348 (계산 데이터)",
+        "rules": [
+          "R04"
+        ],
+        "note": "항목명의 '5'를 5일(BOD5)로 보아 duration 5 day"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[6]",
+        "page": 8,
+        "source_text": "생물학적 산소 요구량 28 (mgO2/g) | 1295 (계산 데이터)",
+        "rules": [
+          "R04"
+        ],
+        "note": "항목명의 '28'을 28일로 보아 duration 28 day"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[7]",
+        "page": 8,
+        "source_text": "밀폐 병 시험 (% 28일 이내 분해) | 42 (계산 데이터)",
+        "rules": [
+          "R04"
+        ],
+        "note": "단위 %, 28일을 duration으로 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[8]",
+        "page": 8,
+        "source_text": "- TOC (mg C/g) | 849 (계산 데이터)",
+        "rules": [
+          "R04"
+        ],
+        "note": "TOC는 지표 목록에 없어 '기타'로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[9]",
+        "page": 8,
+        "source_text": "옥탄올/물 분배 계수 log Kow | 나프탈렌 | 3.3",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "나프탈렌을 성분 6에 매칭"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[10]",
+        "page": 8,
+        "source_text": "라. 토양 이동성 본 제품에 관한 이용가능한 자료가 없음.",
+        "rules": [
+          "R15"
+        ],
+        "note": "'이용가능한 자료가 없음'을 자료없음으로 표시"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[11]",
+        "page": 8,
+        "source_text": "마. 기타 유해 영향 제품은 광화학 반응에 의한 오존 생성 가능성이 있는 휘발성, 유기 화합물이 함유됨.",
+        "rules": [
+          "R10"
+        ],
+        "note": "오존층 유해성과 다른 내용이라 endpoint null"
+      }
+    ]
+  },
+  "raw_text": "{\"msds\":[{\"toxicity\":[{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_ORAL\",\"descriptor\":\"LD50\",\"q\":{\"raw\":\"1649 mg/kg GHS 첨가식에 따라 계산\",\"approx\":null,\"value\":1649,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"mg/kg\",\"dp\":0,\"status\":\"값있음\",\"note\":\"GHS 첨가식에 따라 계산\"},\"species\":\"쥐\",\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_DERMAL\",\"descriptor\":\"LD50\",\"q\":{\"raw\":\"> 5000 mg/kg GHS 첨가식에 따라 계산\",\"approx\":null,\"value\":null,\"lower_op\":\">\",\"lower\":5000,\"upper_op\":null,\"upper\":null,\"unit\":\"mg/kg\",\"dp\":0,\"status\":\"값있음\",\"note\":\"GHS 첨가식에 따라 계산\"},\"species\":\"토끼\",\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_INHAL\",\"descriptor\":\"LC50\",\"q\":{\"raw\":\"> 6.53 mg/l, 4 시간 GHS 첨가식에 따라 계산\",\"approx\":null,\"value\":null,\"lower_op\":\">\",\"lower\":6.53,\"upper_op\":null,\"upper\":null,\"unit\":\"mg/l\",\"dp\":2,\"status\":\"값있음\",\"note\":\"GHS 첨가식에 따라 계산\"},\"species\":\"쥐\",\"sex\":null,\"duration_value\":4,\"duration_unit\":\"hr\",\"physical_form\":\"증기\",\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"2\",\"endpoint\":\"TX_ORAL\",\"descriptor\":\"LD50\",\"q\":{\"raw\":\"5000 mg/kg\",\"approx\":null,\"value\":5000,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"mg/kg\",\"dp\":0,\"status\":\"값있음\",\"note\":null},\"species\":\"쥐\",\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"2\",\"endpoint\":\"TX_DERMAL\",\"descriptor\":\"LD50\",\"q\":{\"raw\":\"> 3160 mg/kg\",\"approx\":null,\"value\":null,\"lower_op\":\">\",\"lower\":3160,\"upper_op\":null,\"upper\":null,\"unit\":\"mg/kg\",\"dp\":0,\"status\":\"값있음\",\"note\":null},\"species\":\"토끼\",\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"2\",\"endpoint\":\"TX_INHAL\",\"descriptor\":\"LC50\",\"q\":{\"raw\":\"18 mg/l, 4 시간\",\"approx\":null,\"value\":18,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"mg/l\",\"dp\":0,\"status\":\"값있음\",\"note\":null},\"species\":\"쥐\",\"sex\":null,\"duration_value\":4,\"duration_unit\":\"hr\",\"physical_form\":\"증기\",\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"7\",\"endpoint\":\"TX_ORAL\",\"descriptor\":\"LD50\",\"q\":{\"raw\":\"5000 mg/kg\",\"approx\":null,\"value\":5000,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"mg/kg\",\"dp\":0,\"status\":\"값있음\",\"note\":null},\"species\":\"쥐\",\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"7\",\"endpoint\":\"TX_DERMAL\",\"descriptor\":\"LD50\",\"q\":{\"raw\":\"> 3400 mg/kg\",\"approx\":null,\"value\":null,\"lower_op\":\">\",\"lower\":3400,\"upper_op\":null,\"upper\":null,\"unit\":\"mg/kg\",\"dp\":0,\"status\":\"값있음\",\"note\":null},\"species\":\"쥐\",\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"7\",\"endpoint\":\"TX_INHAL\",\"descriptor\":\"LC50\",\"q\":{\"raw\":\"24 mg/l, 4 시간\",\"approx\":null,\"value\":24,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"mg/l\",\"dp\":0,\"status\":\"값있음\",\"note\":null},\"species\":\"쥐\",\"sex\":null,\"duration_value\":4,\"duration_unit\":\"hr\",\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"4\",\"endpoint\":\"TX_ORAL\",\"descriptor\":\"LD50\",\"q\":{\"raw\":\"> 5000 mg/kg\",\"approx\":null,\"value\":null,\"lower_op\":\">\",\"lower\":5000,\"upper_op\":null,\"upper\":null,\"unit\":\"mg/kg\",\"dp\":0,\"status\":\"값있음\",\"note\":null},\"species\":\"쥐\",\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"3\",\"endpoint\":\"TX_ORAL\",\"descriptor\":\"LD50\",\"q\":{\"raw\":\"50 - 500 mg/kg\",\"approx\":null,\"value\":null,\"lower_op\":\">=\",\"lower\":50,\"upper_op\":\"<=\",\"upper\":500,\"unit\":\"mg/kg\",\"dp\":0,\"status\":\"값있음\",\"note\":null},\"species\":\"쥐\",\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"3\",\"endpoint\":\"TX_DERMAL\",\"descriptor\":\"LD50\",\"q\":{\"raw\":\"756 mg/kg\",\"approx\":null,\"value\":756,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"mg/kg\",\"dp\":0,\"status\":\"값있음\",\"note\":null},\"species\":\"토끼\",\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"5\",\"endpoint\":\"TX_ORAL\",\"descriptor\":\"LD50\",\"q\":{\"raw\":\"2190 mg/kg\",\"approx\":null,\"value\":2190,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"mg/kg\",\"dp\":0,\"status\":\"값있음\",\"note\":null},\"species\":\"쥐\",\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"5\",\"endpoint\":\"TX_DERMAL\",\"descriptor\":\"LD50\",\"q\":{\"raw\":\"1300 mg/kg\",\"approx\":null,\"value\":1300,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"mg/kg\",\"dp\":0,\"status\":\"값있음\",\"note\":null},\"species\":\"토끼\",\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"5\",\"endpoint\":\"TX_INHAL\",\"descriptor\":\"LC50\",\"q\":{\"raw\":\"9.5 mg/l, 4 시간\",\"approx\":null,\"value\":9.5,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"mg/l\",\"dp\":1,\"status\":\"값있음\",\"note\":null},\"species\":\"쥐\",\"sex\":null,\"duration_value\":4,\"duration_unit\":\"hr\",\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"6\",\"endpoint\":\"TX_ORAL\",\"descriptor\":\"LD50\",\"q\":{\"raw\":\"> 2000 mg/kg\",\"approx\":null,\"value\":null,\"lower_op\":\">\",\"lower\":2000,\"upper_op\":null,\"upper\":null,\"unit\":\"mg/kg\",\"dp\":0,\"status\":\"값있음\",\"note\":null},\"species\":\"쥐\",\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"6\",\"endpoint\":\"TX_DERMAL\",\"descriptor\":\"LD50\",\"q\":{\"raw\":\"> 16000 mg/kg\",\"approx\":null,\"value\":null,\"lower_op\":\">\",\"lower\":16000,\"upper_op\":null,\"upper\":null,\"unit\":\"mg/kg\",\"dp\":0,\"status\":\"값있음\",\"note\":null},\"species\":\"토끼\",\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"1\",\"endpoint\":\"TX_ORAL\",\"descriptor\":\"LD50\",\"q\":{\"raw\":\"7050 mg/kg\",\"approx\":null,\"value\":7050,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"mg/kg\",\"dp\":0,\"status\":\"값있음\",\"note\":null},\"species\":\"쥐\",\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"1\",\"endpoint\":\"TX_DERMAL\",\"descriptor\":\"LD50\",\"q\":{\"raw\":\"> 3160 mg/kg\",\"approx\":null,\"value\":null,\"lower_op\":\">\",\"lower\":3160,\"upper_op\":null,\"upper\":null,\"unit\":\"mg/kg\",\"dp\":0,\"status\":\"값있음\",\"note\":null},\"species\":\"토끼\",\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"1\",\"endpoint\":\"TX_INHAL\",\"descriptor\":\"LC50\",\"q\":{\"raw\":\"> 5.2 mg/l, 4 시간\",\"approx\":null,\"value\":null,\"lower_op\":\">\",\"lower\":5.2,\"upper_op\":null,\"upper\":null,\"unit\":\"mg/l\",\"dp\":1,\"status\":\"값있음\",\"note\":null},\"species\":\"쥐\",\"sex\":null,\"duration_value\":4,\"duration_unit\":\"hr\",\"physical_form\":\"증기\",\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":null,\"descriptor\":\"결과기술\",\"q\":null,\"species\":null,\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[{\"seq\":1,\"key\":\"급성 독성 (노출가능한 모든 경로에 대해 기재)\",\"value\":\"삼켜서 기도로 유입되면 치명적일 수 있음. 삼키면 유해함. 흡입하면 유해함.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"o 급성 독성 (노출가능한 모든 경로에 대해 기재) 삼켜서 기도로 유입되면 치명적일 수 있음. 삼키면 유해함. 흡입하면 유해함.\"}],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_SKIN\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":null,\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"피부에 심한 화상과 눈에 손상을 일으킴.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"o 피부 부식성 또는 자극성 피부에 심한 화상과 눈에 손상을 일으킴.\"}],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_EYE\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":null,\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"눈에 심한 손상을 일으킴.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"o 심한 눈 손상 또는 자극성 눈에 심한 손상을 일으킴.\"}],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_RESP_SENS\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":null,\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"호흡기 감작제가 아님.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"o 호흡기 과민성 호흡기 감작제가 아님.\"}],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_SKIN_SENS\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":null,\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"알레르기성 피부 반응을 일으킬 수 있음.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"o 피부 과민성 알레르기성 피부 반응을 일으킬 수 있음.\"}],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_CARC\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":null,\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"암을 일으킬 것으로 의심됨.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"o 발암성 암을 일으킬 것으로 의심됨.\"}],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_MUTA\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":null,\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"제품이나 0.1%이상 함유된 성분이 변이원성 또는 유전독성을 나타냄을 의미하는 자료가 없음.\",\"refs\":null,\"cond\":{\"raw\":\"0.1%이상\",\"approx\":null,\"value\":null,\"lower_op\":\">=\",\"lower\":0.1,\"upper_op\":null,\"upper\":null,\"unit\":\"%\",\"dp\":1,\"status\":\"값있음\",\"note\":null},\"std_code\":null,\"match_score\":null,\"text\":\"o 생식세포 변이원성 제품이나 0.1%이상 함유된 성분이 변이원성 또는 유전독성을 나타냄을 의미하는 자료가 없음.\"}],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_REPRO\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":null,\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"본 제품은 생식 또는 발달 영향을 일으킬 것으로 예상되지 않음.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"o 생식 독성 본 제품은 생식 또는 발달 영향을 일으킬 것으로 예상되지 않음.\"}],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_STOT_SE\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":null,\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"졸음 또는 현기증을 일으킬 수 있음.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"졸음 또는 현기증을 일으킬 수 있음.\"},{\"seq\":2,\"key\":null,\"value\":\"호흡기 자극을 일으킬 수 있음.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"호흡기 자극을 일으킬 수 있음.\"}],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_STOT_RE\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":null,\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"장기간 또는 반복노출 되면 장기에 손상을 일으킬 수 있음.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"o 특정 표적장기 독성 (반복 노출) 장기간 또는 반복노출 되면 장기에 손상을 일으킬 수 있음.\"}],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_ASP\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":null,\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"삼켜서 기도로 유입되면 치명적일 수 있음.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"o 흡인 유해성 삼켜서 기도로 유입되면 치명적일 수 있음.\"}],\"status\":\"값있음\"}],\"cmr\":[{\"comp_ref\":\"6\",\"hazard\":\"발암성\",\"agency\":\"IARC\",\"class\":\"2B\",\"status\":\"값있음\",\"note\":\"인체 발암성 가능 물질\"}],\"ecotox\":[{\"comp_ref\":\"MIX\",\"endpoint\":null,\"descriptor\":\"결과기술\",\"q\":null,\"species\":null,\"duration_value\":null,\"duration_unit\":null,\"guideline\":null,\"data_source\":null,\"statements\":[{\"seq\":1,\"key\":\"생태독성\",\"value\":\"장기적 영향에 의해 수생생물에 매우 유독함.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"가. 생태독성 장기적 영향에 의해 수생생물에 매우 유독함.\"},{\"seq\":2,\"key\":\"수생환경 유해성, 급성\",\"value\":\"비전문가가 취급하거나 폐기하는 경우 환경적 유해성을 배제할 수 없음.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"수생환경 유해성, 급성 비전문가가 취급하거나 폐기하는 경우 환경적 유해성을 배제할 수 없음.\"},{\"seq\":3,\"key\":\"수생환경 유해성, 만성\",\"value\":\"장기적 영향에 의해 수생생물에 매우 유독함.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"수생환경 유해성, 만성 장기적 영향에 의해 수생생물에 매우 유독함.\"}],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"ECO_CRUST\",\"descriptor\":\"LC50\",\"q\":{\"raw\":\"4.9 mg/l, 48 시간 (계산값)\",\"approx\":null,\"value\":4.9,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"mg/l\",\"dp\":1,\"status\":\"값있음\",\"note\":\"계산값\"},\"species\":\"물벼룩\",\"duration_value\":48,\"duration_unit\":\"hr\",\"guideline\":null,\"data_source\":null,\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"ECO_FISH\",\"descriptor\":\"LC50\",\"q\":{\"raw\":\"0.61 mg/l, 96 시간 (계산값)\",\"approx\":null,\"value\":0.61,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"mg/l\",\"dp\":2,\"status\":\"값있음\",\"note\":\"계산값\"},\"species\":\"잉어과 작은 물고기\",\"duration_value\":96,\"duration_unit\":\"hr\",\"guideline\":null,\"data_source\":null,\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"ECO_PERSIST\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":null,\"duration_value\":null,\"duration_unit\":null,\"guideline\":null,\"data_source\":null,\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"이 제품의 분해성에 대한 유용한 자료가 없음.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"이 제품의 분해성에 대한 유용한 자료가 없음.\"}],\"status\":\"자료없음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"ECO_PERSIST\",\"descriptor\":\"COD\",\"q\":{\"raw\":\"2129 (계산 데이터)\",\"approx\":null,\"value\":2129,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"mgO2/g\",\"dp\":0,\"status\":\"값있음\",\"note\":\"계산 데이터\"},\"species\":null,\"duration_value\":null,\"duration_unit\":null,\"guideline\":null,\"data_source\":null,\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"ECO_PERSIST\",\"descriptor\":\"BOD\",\"q\":{\"raw\":\"348 (계산 데이터)\",\"approx\":null,\"value\":348,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"mgO2/g\",\"dp\":0,\"status\":\"값있음\",\"note\":\"계산 데이터\"},\"species\":null,\"duration_value\":5,\"duration_unit\":\"day\",\"guideline\":null,\"data_source\":null,\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"ECO_PERSIST\",\"descriptor\":\"BOD\",\"q\":{\"raw\":\"1295 (계산 데이터)\",\"approx\":null,\"value\":1295,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"mgO2/g\",\"dp\":0,\"status\":\"값있음\",\"note\":\"계산 데이터\"},\"species\":null,\"duration_value\":28,\"duration_unit\":\"day\",\"guideline\":null,\"data_source\":null,\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"ECO_PERSIST\",\"descriptor\":\"분해율\",\"q\":{\"raw\":\"42 (계산 데이터)\",\"approx\":null,\"value\":42,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"%\",\"dp\":0,\"status\":\"값있음\",\"note\":\"계산 데이터\"},\"species\":null,\"duration_value\":28,\"duration_unit\":\"day\",\"guideline\":\"밀폐 병 시험\",\"data_source\":null,\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"ECO_PERSIST\",\"descriptor\":\"기타\",\"q\":{\"raw\":\"849 (계산 데이터)\",\"approx\":null,\"value\":849,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"mg C/g\",\"dp\":0,\"status\":\"값있음\",\"note\":\"계산 데이터\"},\"species\":null,\"duration_value\":null,\"duration_unit\":null,\"guideline\":null,\"data_source\":null,\"statements\":[{\"seq\":1,\"key\":\"- TOC (mg C/g)\",\"value\":\"849 (계산 데이터)\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"- TOC (mg C/g) 849 (계산 데이터)\"}],\"status\":\"값있음\"},{\"comp_ref\":\"6\",\"endpoint\":\"ECO_BIOACC\",\"descriptor\":\"logKow\",\"q\":{\"raw\":\"3.3\",\"approx\":null,\"value\":3.3,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":null,\"dp\":1,\"status\":\"값있음\",\"note\":null},\"species\":null,\"duration_value\":null,\"duration_unit\":null,\"guideline\":null,\"data_source\":null,\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"ECO_SOIL\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":null,\"duration_value\":null,\"duration_unit\":null,\"guideline\":null,\"data_source\":null,\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"본 제품에 관한 이용가능한 자료가 없음.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"라. 토양 이동성 본 제품에 관한 이용가능한 자료가 없음.\"}],\"status\":\"자료없음\"},{\"comp_ref\":\"MIX\",\"endpoint\":null,\"descriptor\":\"결과기술\",\"q\":null,\"species\":null,\"duration_value\":null,\"duration_unit\":null,\"guideline\":null,\"data_source\":null,\"statements\":[{\"seq\":1,\"key\":\"기타 유해 영향\",\"value\":\"제품은 광화학 반응에 의한 오존 생성 가능성이 있는 휘발성, 유기 화합물이 함유됨.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"마. 기타 유해 영향 제품은 광화학 반응에 의한 오존 생성 가능성이 있는 휘발성, 유기 화합물이 함유됨.\"}],\"status\":\"값있음\"}]}],\"evidence\":[{\"msds_index\":0,\"field\":\"toxicity[0]\",\"page\":6,\"source_text\":\"PETROFLO 20Y97 | 경구 | LD50 | 쥐 | 1649 mg/kg GHS 첨가식에 따라 계산\",\"rules\":[\"R04\",\"R10\"],\"note\":\"제품 전체 값이므로 MIX, 'GHS 첨가식에 따라 계산'은 q.note에 둠\"},{\"msds_index\":0,\"field\":\"toxicity[1]\",\"page\":6,\"source_text\":\"경피 | LD50 | 토끼 | > 5000 mg/kg GHS 첨가식에 따라 계산\",\"rules\":[\"R04\",\"R10\"],\"note\":\"'>'를 하한 부등호로 분리\"},{\"msds_index\":0,\"field\":\"toxicity[2]\",\"page\":6,\"source_text\":\"흡입 | 증기 | LC50 | 쥐 | > 6.53 mg/l, 4 시간 GHS 첨가식에 따라 계산\",\"rules\":[\"R04\",\"R10\"],\"note\":\"4 시간을 duration 4 hr로, 증기를 physical_form으로 분리\"},{\"msds_index\":0,\"field\":\"toxicity[3]\",\"page\":6,\"source_text\":\"1, 2,4-트리메틸벤젠 (CAS 95-63-6) | 경구 | LD50 | 쥐 | 5000 mg/kg\",\"rules\":[\"R04\",\"R10\"],\"note\":\"CAS 95-63-6으로 성분 2에 매칭\"},{\"msds_index\":0,\"field\":\"toxicity[4]\",\"page\":6,\"source_text\":\"경피 | LD50 | 토끼 | > 3160 mg/kg\",\"rules\":[\"R04\",\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"toxicity[5]\",\"page\":6,\"source_text\":\"흡입 | 증기 | LC50 | 쥐 | 18 mg/l, 4 시간\",\"rules\":[\"R04\",\"R10\"],\"note\":\"4 시간을 duration 4 hr로 분리\"},{\"msds_index\":0,\"field\":\"toxicity[6]\",\"page\":7,\"source_text\":\"1, 3,5-트리메틸벤젠 (CAS 108-67-8) | 경구 | LD50 | 쥐 | 5000 mg/kg\",\"rules\":[\"R04\",\"R10\"],\"note\":\"CAS 108-67-8로 성분 7에 매칭\"},{\"msds_index\":0,\"field\":\"toxicity[7]\",\"page\":7,\"source_text\":\"경피 | LD50 | 쥐 | > 3400 mg/kg\",\"rules\":[\"R04\",\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"toxicity[8]\",\"page\":7,\"source_text\":\"흡입 | LC50 | 쥐 | 24 mg/l, 4 시간\",\"rules\":[\"R04\",\"R10\"],\"note\":\"흡입 형태 표기가 없어 physical_form null\"},{\"msds_index\":0,\"field\":\"toxicity[9]\",\"page\":7,\"source_text\":\"1,2,3-trimethylbenzene (CAS 526-73-8) | 경구 | LD50 | 쥐 | > 5000 mg/kg\",\"rules\":[\"R04\",\"R10\"],\"note\":\"CAS 526-73-8로 성분 4에 매칭\"},{\"msds_index\":0,\"field\":\"toxicity[10]\",\"page\":7,\"source_text\":\"N,N 디sec-부틸, p-페닐렌 디아민 (CAS 101-96-2) | 경구 | LD50 | 쥐 | 50 - 500 mg/kg\",\"rules\":[\"R04\",\"R10\"],\"note\":\"'50 - 500'을 범위로 보아 하한 50(>=), 상한 500(<=)으로 나눔\"},{\"msds_index\":0,\"field\":\"toxicity[11]\",\"page\":7,\"source_text\":\"경피 | LD50 | 토끼 | 756 mg/kg\",\"rules\":[\"R04\",\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"toxicity[12]\",\"page\":7,\"source_text\":\"N,N 디에틸히드록실아민 (CAS 3710-84-7) | 경구 | LD50 | 쥐 | 2190 mg/kg\",\"rules\":[\"R04\",\"R10\"],\"note\":\"CAS 3710-84-7로 성분 5에 매칭\"},{\"msds_index\":0,\"field\":\"toxicity[13]\",\"page\":7,\"source_text\":\"경피 | LD50 | 토끼 | 1300 mg/kg\",\"rules\":[\"R04\",\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"toxicity[14]\",\"page\":7,\"source_text\":\"흡입 | LC50 | 쥐 | 9.5 mg/l, 4 시간\",\"rules\":[\"R04\",\"R10\"],\"note\":\"흡입 형태 표기 없음\"},{\"msds_index\":0,\"field\":\"toxicity[15]\",\"page\":7,\"source_text\":\"나프탈렌 (CAS 91-20-3) | 경구 | LD50 | 쥐 | > 2000 mg/kg\",\"rules\":[\"R04\",\"R10\"],\"note\":\"CAS 91-20-3으로 성분 6에 매칭\"},{\"msds_index\":0,\"field\":\"toxicity[16]\",\"page\":7,\"source_text\":\"경피 | LD50 | 토끼 | > 16000 mg/kg\",\"rules\":[\"R04\",\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"toxicity[17]\",\"page\":7,\"source_text\":\"용매 나프타 (석유), 중 방향족 (CAS 64742-94-5) | 경구 | LD50 | 쥐 | 7050 mg/kg\",\"rules\":[\"R04\",\"R10\"],\"note\":\"CAS 64742-94-5로 성분 1에 매칭\"},{\"msds_index\":0,\"field\":\"toxicity[18]\",\"page\":7,\"source_text\":\"경피 | LD50 | 토끼 | > 3160 mg/kg\",\"rules\":[\"R04\",\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"toxicity[19]\",\"page\":7,\"source_text\":\"흡입 | 증기 | LC50 | 쥐 | > 5.2 mg/l, 4 시간\",\"rules\":[\"R04\",\"R10\"],\"note\":\"4 시간을 duration 4 hr로, 증기를 physical_form으로 분리\"},{\"msds_index\":0,\"field\":\"toxicity[20]\",\"page\":6,\"source_text\":\"o 급성 독성 (노출가능한 모든 경로에 대해 기재) 삼켜서 기도로 유입되면 치명적일 수 있음. 삼키면 유해함. 흡입하면 유해함.\",\"rules\":[\"R10\"],\"note\":\"여러 경로를 묶은 서술이라 endpoint는 null로 둠\"},{\"msds_index\":0,\"field\":\"toxicity[21]\",\"page\":7,\"source_text\":\"o 피부 부식성 또는 자극성 피부에 심한 화상과 눈에 손상을 일으킴.\",\"rules\":[\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"toxicity[22]\",\"page\":7,\"source_text\":\"o 심한 눈 손상 또는 자극성 눈에 심한 손상을 일으킴.\",\"rules\":[\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"toxicity[23]\",\"page\":7,\"source_text\":\"o 호흡기 과민성 호흡기 감작제가 아님.\",\"rules\":[\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"toxicity[24]\",\"page\":7,\"source_text\":\"o 피부 과민성 알레르기성 피부 반응을 일으킬 수 있음.\",\"rules\":[\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"toxicity[25]\",\"page\":7,\"source_text\":\"o 발암성 암을 일으킬 것으로 의심됨.\",\"rules\":[\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"toxicity[26]\",\"page\":8,\"source_text\":\"o 생식세포 변이원성 제품이나 0.1%이상 함유된 성분이 변이원성 또는 유전독성을 나타냄을 의미하는 자료가 없음.\",\"rules\":[\"R04\",\"R10\"],\"note\":\"'0.1%이상'을 조건 수치 cond(>=0.1 %)로 분리\"},{\"msds_index\":0,\"field\":\"toxicity[27]\",\"page\":8,\"source_text\":\"o 생식 독성 본 제품은 생식 또는 발달 영향을 일으킬 것으로 예상되지 않음.\",\"rules\":[\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"toxicity[28]\",\"page\":8,\"source_text\":\"o 특정 표적장기 독성 (1회 노출) 졸음 또는 현기증을 일으킬 수 있음. 호흡기 자극을 일으킬 수 있음.\",\"rules\":[\"R10\"],\"note\":\"두 문장으로 나눔\"},{\"msds_index\":0,\"field\":\"toxicity[29]\",\"page\":8,\"source_text\":\"o 특정 표적장기 독성 (반복 노출) 장기간 또는 반복노출 되면 장기에 손상을 일으킬 수 있음.\",\"rules\":[\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"toxicity[30]\",\"page\":8,\"source_text\":\"o 흡인 유해성 삼켜서 기도로 유입되면 치명적일 수 있음.\",\"rules\":[\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"cmr[0]\",\"page\":8,\"source_text\":\"IARC 단행본. 발암성에 관한 총평 | 나프탈렌 (CAS 91-20-3) | 2B 인체 발암성 가능 물질\",\"rules\":[\"R10\"],\"note\":\"등급 2B를 class로, 설명을 note로 둠\"},{\"msds_index\":0,\"field\":\"ecotox[0]\",\"page\":8,\"source_text\":\"가. 생태독성 장기적 영향에 의해 수생생물에 매우 유독함. / 수생환경 유해성, 급성 … / 수생환경 유해성, 만성 …\",\"rules\":[\"R10\"],\"note\":\"생태독성 일반 서술을 endpoint null 결과기술 행으로 묶음\"},{\"msds_index\":0,\"field\":\"ecotox[1]\",\"page\":8,\"source_text\":\"갑각류 | LC50 | 물벼룩 | 4.9 mg/l, 48 시간 (계산값)\",\"rules\":[\"R04\",\"R10\"],\"note\":\"48 시간을 duration으로, '계산값'을 q.note로 분리\"},{\"msds_index\":0,\"field\":\"ecotox[2]\",\"page\":8,\"source_text\":\"어류 | LC50 | 잉어과 작은 물고기 | 0.61 mg/l, 96 시간 (계산값)\",\"rules\":[\"R04\",\"R10\"],\"note\":\"96 시간을 duration으로, '계산값'을 q.note로 분리\"},{\"msds_index\":0,\"field\":\"ecotox[3]\",\"page\":8,\"source_text\":\"나. 잔류성 및 분해성 이 제품의 분해성에 대한 유용한 자료가 없음.\",\"rules\":[\"R15\"],\"note\":\"'유용한 자료가 없음'을 자료없음으로 표시\"},{\"msds_index\":0,\"field\":\"ecotox[4]\",\"page\":8,\"source_text\":\"화학적 산소 요구량 (mgO2/g) | 2129 (계산 데이터)\",\"rules\":[\"R04\"],\"note\":\"단위는 항목명의 mgO2/g\"},{\"msds_index\":0,\"field\":\"ecotox[5]\",\"page\":8,\"source_text\":\"생물학적 산소 요구량 5 (mgO2/g) | 348 (계산 데이터)\",\"rules\":[\"R04\"],\"note\":\"항목명의 '5'를 5일(BOD5)로 보아 duration 5 day\"},{\"msds_index\":0,\"field\":\"ecotox[6]\",\"page\":8,\"source_text\":\"생물학적 산소 요구량 28 (mgO2/g) | 1295 (계산 데이터)\",\"rules\":[\"R04\"],\"note\":\"항목명의 '28'을 28일로 보아 duration 28 day\"},{\"msds_index\":0,\"field\":\"ecotox[7]\",\"page\":8,\"source_text\":\"밀폐 병 시험 (% 28일 이내 분해) | 42 (계산 데이터)\",\"rules\":[\"R04\"],\"note\":\"단위 %, 28일을 duration으로 분리\"},{\"msds_index\":0,\"field\":\"ecotox[8]\",\"page\":8,\"source_text\":\"- TOC (mg C/g) | 849 (계산 데이터)\",\"rules\":[\"R04\"],\"note\":\"TOC는 지표 목록에 없어 '기타'로 둠\"},{\"msds_index\":0,\"field\":\"ecotox[9]\",\"page\":8,\"source_text\":\"옥탄올/물 분배 계수 log Kow | 나프탈렌 | 3.3\",\"rules\":[\"R04\",\"R10\"],\"note\":\"나프탈렌을 성분 6에 매칭\"},{\"msds_index\":0,\"field\":\"ecotox[10]\",\"page\":8,\"source_text\":\"라. 토양 이동성 본 제품에 관한 이용가능한 자료가 없음.\",\"rules\":[\"R15\"],\"note\":\"'이용가능한 자료가 없음'을 자료없음으로 표시\"},{\"msds_index\":0,\"field\":\"ecotox[11]\",\"page\":8,\"source_text\":\"마. 기타 유해 영향 제품은 광화학 반응에 의한 오존 생성 가능성이 있는 휘발성, 유기 화합물이 함유됨.\",\"rules\":[\"R10\"],\"note\":\"오존층 유해성과 다른 내용이라 endpoint null\"}]}"
+}
