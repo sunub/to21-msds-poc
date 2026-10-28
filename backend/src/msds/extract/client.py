@@ -64,6 +64,8 @@ def page_parts(pages: list[dict], input_mode: str, detail: str = "high") -> list
         header = f"=== 쪽 {p['page']} ==="
         if input_mode == "이미지+글자" and p.get("state") == "정상":
             parts.append({"type": "text", "text": f"{header}\n[텍스트층]\n{p['text'].strip()}"})
+        elif p.get("state") == "정상":   # 이미지만 조건(입력 비교 실험): 읽을 글이 있지만 일부러 뺀 쪽
+            parts.append({"type": "text", "text": f"{header}\n[글자 없이 이미지만 보고 읽으세요]"})
         else:
             parts.append({"type": "text", "text": f"{header}\n[텍스트층 없음 또는 깨짐: 이미지만 보고 읽으세요]"})
         parts.append(image_part(p["image"], detail))
