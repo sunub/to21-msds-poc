@@ -3,6 +3,7 @@
 파일을 읽거나 쓰지 않고 모델을 부르지 않는다. 모양은 TO21 스키마(msds_item_schema)를 따라 만든다.
 - 스키마에 있는 칸은 모두 넣는다(없으면 null, 배열은 []). 스키마에 없는 중간 형식 칸(line, lines,
   comp_name, comp_cas, start, end)은 남지 않는다.
+- 형식(pattern)이 정해진 칸의 빈 글자("")는 null로 둔다. 중간 형식에는 형식 조건이 없어 모델이 ""를 쓴다.
 - seq, Q의 status·dp·note, comp_ref, 서술 문장, extras의 쪽·항 번호, 근거(evidence)는 코드가 채운다.
 - 값 없는 행의 표기는 A의 규칙 함수(msds.common.conventions.apply)에 맡긴다.
 """
@@ -140,9 +141,10 @@ def _shape(node: dict, value, lines_by_id: dict[str, Line]):
             out["text"] = line.text if line else None
         return out
     if "anyOf" in node:
-        if value is None:
+        branch = next(b for b in node["anyOf"] if b.get("type") != "null")
+        if value is None or (value == "" and "pattern" in branch):   # 형식이 정해진 칸의 빈 글자는 값 없음
             return None
-        return _shape(next(b for b in node["anyOf"] if b.get("type") != "null"), value, lines_by_id)
+        return _shape(branch, value, lines_by_id)
     if node.get("type") == "object" and "properties" in node:
         value = value or {}
         return {k: _shape(sub, value.get(k), lines_by_id) for k, sub in node["properties"].items()}

@@ -303,6 +303,17 @@ def test_bad_range():
     assert m["narratives"][0]["statements"] == [] and m["narratives"][0]["status"] is None
 
 
+def test_empty_string_in_format_field_becomes_null(no_conventions):
+    """형식(pattern)이 정해진 칸의 빈 글자는 값 없음(null)으로 펼친다. 형식이 없는 칸의 빈 글자는 그대로 둔다."""
+    r = responses()
+    r[3]["components"][0].update(ec_no="", ke_no="", other_id="")
+    doc, _ = ex.to_to21(DOC_META, [r], LINES, "가상엔진 v1")
+    comp = doc["msds"][0]["components"][0]
+    assert comp["ec_no"] is None and comp["ke_no"] is None
+    assert comp["other_id"] == ""
+    assert validate_to21(doc) == []
+
+
 def test_unlinked_component():
     r = responses()
     r[8]["exposure_limits"][0].update(comp_name="없는 물질", comp_cas="9999-99-9")
