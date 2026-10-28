@@ -163,8 +163,17 @@ def test_value_and_range_are_exclusive(systems, no):
     assert "`value`와 `lower`·`upper`는 함께 쓰지 않는다" in systems[no]
 
 
+@pytest.mark.parametrize("no", NOS)
+def test_extras_rules(systems, no):
+    """extras 행을 비우지 않고, 날짜를 q에 넣지 않고, 성분 칸에 줄 번호를 쓰지 않게 한다 (TO21 검증기 V22·V03·V15)."""
+    text = systems[no]
+    assert "숫자 묶음(`q`)이나 문장(`statements`) 중 하나 이상을 채운다" in text
+    assert "날짜와 글자 값은 `q`에 넣지 않고 `statements`에 원문 그대로 쓴다" in text
+    assert "`comp_name`·`comp_cas`에는 성분 이름과 CAS 번호만 쓴다" in text
+
+
 def test_version():
-    assert sp.SECTION_PROMPT_VERSION == "s2"
+    assert sp.SECTION_PROMPT_VERSION == "s3"
 
 
 def test_build_all_under_one_second():
