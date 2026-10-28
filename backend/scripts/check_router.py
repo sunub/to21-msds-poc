@@ -10,7 +10,7 @@
 사용법
   python scripts/check_router.py                       # gpt, claude
   python scripts/check_router.py --models qwen38       # RunPod vLLM
-  python scripts/check_router.py --image ../data/pages/T21-S016/p001.png
+  python scripts/check_router.py --image data/pages/T21-S016/p001.png
 """
 import argparse
 import json
@@ -19,7 +19,6 @@ import os
 import requests
 
 import _common  # noqa: F401
-from msds.common.paths import page_png
 from msds.extract.client import image_part, load_model_config
 
 TINY_SCHEMA = {"type": "object", "additionalProperties": False,
@@ -47,7 +46,7 @@ if __name__ == "__main__":
 
     ap = argparse.ArgumentParser()
     ap.add_argument("--models", nargs="*", default=["gpt", "claude"])
-    ap.add_argument("--image", default=str(page_png("T21-S016", 1)))
+    ap.add_argument("--image", default="data/pages/T21-S016/p001.png")
     a = ap.parse_args()
 
     key, base = os.getenv("LLM_API_KEY"), os.getenv("LLM_BASE_URL")
