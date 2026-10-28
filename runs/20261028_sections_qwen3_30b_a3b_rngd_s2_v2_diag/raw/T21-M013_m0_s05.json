@@ -1,0 +1,72 @@
+{
+ "doc_id": "T21-M013",
+ "msds_index": 0,
+ "section": 5,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S5_MEDIA",
+    "title_raw": "가적절한및부적절한소화제",
+    "start": "p3:L120",
+    "end": "p3:L129"
+   },
+   {
+    "item_code": "S5_SPECIFIC",
+    "title_raw": "나화학물질로부터생기는특정",
+    "start": "p3:L133",
+    "end": "p3:L137"
+   },
+   {
+    "item_code": "S5_FIREFIGHT",
+    "title_raw": "다화재진압시착용할보호구및예방조치",
+    "start": "p3:L145",
+    "end": "p3:L155"
+   }
+  ],
+  "extras": []
+ },
+ "raw_text": "{\"narratives\": [{\"item_code\": \"S5_MEDIA\", \"title_raw\": \"가적절한및부적절한소화제\", \"start\": \"p3:L120\", \"end\": \"p3:L129\"}, {\"item_code\": \"S5_SPECIFIC\", \"title_raw\": \"나화학물질로부터생기는특정\", \"start\": \"p3:L133\", \"end\": \"p3:L137\"}, {\"item_code\": \"S5_FIREFIGHT\", \"title_raw\": \"다화재진압시착용할보호구및예방조치\", \"start\": \"p3:L145\", \"end\": \"p3:L155\"}], \"extras\": []}",
+ "mode": "json_schema_compact",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 24539,
+  "completion_tokens": 165,
+  "total_tokens": 24704
+ },
+ "attempts": 2,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "length",
+   "usage": {
+    "prompt_tokens": 24539,
+    "completion_tokens": 8192,
+    "total_tokens": 32731
+   },
+   "seconds": 202.751,
+   "chars": 44447,
+   "whitespace": 32150,
+   "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S5_MEDIA\",\n      \"title_raw\": \"가적절한및부적절한소화제\",\n      \"start\": \"p3:L120\",\n      \"end\": \"p3:L129\"\n    },\n    {\n      \"item_code\": \"S5_SPECIFIC\",\n      \"title_raw\": \"나화학물질로부터생기는특정\",\n      \"start\": \"p3:L133\",\n      \"end\": \"p3:L137\"\n    },\n    {\n      \"item_code\": \"S5_FIREFIGHT\",\n      \"title_raw\": \"다화재진압시착용할보호구및예방조치\",\n      \"start\": \"p3:L145\",\n      \"end\": \"p3:L155\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S5_FIREFIGHT\",\n      \"title_raw\": \"나화학",
+   "tail": "]\n                                                      ,\n                                                      \"suggested_code\": \"S5_FIREFIGHT\"\n                                                      ,\n                                                      \"line\": \"p3:L145\"\n                                                    }\n                                                    ,\n                                                    {\n                                                      \"after_item"
+  },
+  {
+   "mode": "json_schema_compact",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 24539,
+    "completion_tokens": 165,
+    "total_tokens": 24704
+   },
+   "seconds": 2.724,
+   "chars": 325,
+   "whitespace": 26,
+   "head": "{\"narratives\": [{\"item_code\": \"S5_MEDIA\", \"title_raw\": \"가적절한및부적절한소화제\", \"start\": \"p3:L120\", \"end\": \"p3:L129\"}, {\"item_code\": \"S5_SPECIFIC\", \"title_raw\": \"나화학물질로부터생기는특정\", \"start\": \"p3:L133\", \"end\": \"p3:L137\"}, {\"item_code\": \"S5_FIREFIGHT\", \"title_raw\": \"다화재진압시착용할보호구및예방조치\", \"start\": \"p3:L145\", \"end\": \"p3:L155\"}], \"extras\": []}",
+   "tail": ""
+  }
+ ],
+ "seconds": 205.479,
+ "check_problems": []
+}
