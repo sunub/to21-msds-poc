@@ -6,6 +6,7 @@
 구조화 출력은 설정의 순서대로 시도한다 (기본: json_schema → json_object → none).
 - 어떤 방식이 거부되면(400 오류 등) 다음 방식으로 넘어가고, 성공한 방식은 기억해 다음 호출부터 바로 쓴다.
 - 어느 방식이든 응답을 JSON으로 읽은 뒤 스키마로 검증하고, 실패하면 오류 내용을 붙여 다시 요청한다.
+- RNGD 태그는 json_schema가 출력 한도에 걸리면 json_schema_compact(공백을 막은 스키마 강제)로 한 번 더 보낸다 (ADR-016).
 """
 from __future__ import annotations
 
@@ -112,6 +113,10 @@ class ChatClient:
         if mode == "json_schema":
             kw["response_format"] = {"type": "json_schema",
                                      "json_schema": {"name": schema_name, "schema": strict_schema, "strict": True}}
+        elif mode == "json_schema_compact":
+            # furiosa-llm은 structured_outputs와 response_format을 함께 받지 않는다 (ADR-016)
+            kw["extra_body"] = {**(extra_body or {}),
+                                "structured_outputs": {"json": strict_schema, "disable_any_whitespace": True}}
         elif mode == "json_object":
             kw["response_format"] = {"type": "json_object"}
         return self.client.chat.completions.create(**kw)
@@ -137,8 +142,8 @@ class ChatClient:
         finish = None
 
         last_parsed = None
-        for mode in modes:
-            sys_text = system if mode == "json_schema" else system + schema_hint
+        for i, mode in enumerate(modes):
+            sys_text = system if mode in ("json_schema", "json_schema_compact") else system + schema_hint
             messages = [{"role": "system", "content": sys_text},
                         {"role": "user", "content": user_parts}]
             retry = 0
@@ -149,7 +154,8 @@ class ChatClient:
                 except _ModeRejected as e:
                     errors.append(f"[{mode}] 거부됨: {e}")
                     break          # 이 방식은 지원되지 않음 → 다음 방식으로
-                self._working_mode[self.model] = mode   # 요청이 받아들여진 방식은 기억한다
+                if mode != "json_schema_compact":   # 공백 막기는 출력 한도에 걸린 묶음에만 쓴다 (ADR-016)
+                    self._working_mode[self.model] = mode   # 요청이 받아들여진 방식은 기억한다
                 choice = resp.choices[0]
                 finish = choice.finish_reason
                 last_text = choice.message.content or ""
@@ -158,6 +164,8 @@ class ChatClient:
                     usage = {k: getattr(u, k, None) for k in ("prompt_tokens", "completion_tokens", "total_tokens")}
                 if finish == "length":
                     errors.append(f"[{mode}] 출력 길이 한도에 걸려 잘림 (max_tokens={max_tokens})")
+                    if mode == "json_schema" and modes[i + 1:i + 2] == ["json_schema_compact"]:
+                        break      # 공백을 막아 한 번 더 보낸다 (ADR-016)
                     return CallResult(None, last_text, mode, finish, usage, time.time() - t0, self.model, attempts, errors)
                 try:
                     parsed = parse_json(last_text)

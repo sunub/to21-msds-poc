@@ -7,7 +7,8 @@ from __future__ import annotations
 
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[3]
+BACKEND = Path(__file__).resolve().parents[3]   # 코드·설정 (backend/)
+ROOT = BACKEND.parent                          # 데이터·실행 결과·TO21 자료 (저장소 최상위)
 DATA = ROOT / "data"
 RAW = DATA / "raw"
 PAGES = DATA / "pages"
@@ -16,19 +17,19 @@ REVIEW = DATA / "review"
 GOLD = DATA / "gold"
 MANIFEST = DATA / "manifest.csv"
 RUNS = ROOT / "runs"
-CONFIGS = ROOT / "configs"
-PROMPTS = ROOT / "src" / "msds" / "extract" / "prompts"
-TO21 = ROOT / "to21" / "v0.5"
+CONFIGS = BACKEND / "configs"
+PROMPTS = BACKEND / "src" / "msds" / "extract" / "prompts"
+TO21 = ROOT / "to21" / "v0.6"
 
 TO21_FILES = {
-    "schema": "TO21_MSDS_추출스키마_v0.5.json",
-    "spec": "TO21_MSDS_추출명세서_v0.5.xlsx",
-    "dictionary": "TO21_MSDS_동의어사전_v0.5.json",
-    "validator": "TO21_MSDS_검증기_v0.5.py",
-    "scorer": "TO21_MSDS_채점기_v0.5.py",
-    "regen": "TO21_MSDS_DB적재_재생성_v0.5.py",
-    "coverage": "TO21_MSDS_커버리지점검_v0.5.py",
-    "example25": "TO21_MSDS_추출예제_25_황산_v0.5.json",
+    "schema": "TO21_MSDS_추출스키마_v0.6.json",
+    "spec": "TO21_MSDS_추출명세서_v0.6.xlsx",
+    "dictionary": "TO21_MSDS_동의어사전_v0.6.json",
+    "validator": "TO21_MSDS_검증기_v0.6.py",
+    "scorer": "TO21_MSDS_채점기_v0.6.py",
+    "regen": "TO21_MSDS_DB적재_재생성_v0.6.py",
+    "coverage": "TO21_MSDS_커버리지점검_v0.6.py",
+    "example25": "TO21_MSDS_추출예제_25_황산_v0.6.json",
 }
 
 
@@ -36,14 +37,14 @@ def to21_file(kind: str) -> Path:
     """TO21 제공 파일 경로. kind는 TO21_FILES의 키.
 
     TO21 제공 자료는 TO21 확인 전까지 저장소에 올리지 않는다(결정 D-47).
-    각자 팀 공유 위치에서 받아 to21/v0.5/에 원래 이름 그대로 둔다. 목록은 to21/README.md.
+    각자 팀 공유 위치에서 받아 to21/v0.6/에 원래 이름 그대로 둔다. 목록은 to21/README.md.
     """
     p = TO21 / TO21_FILES[kind]
     if not p.exists():
         raise FileNotFoundError(
             f"TO21 제공 파일이 없습니다: {p}\n"
             "TO21 자료는 저장소에 올리지 않습니다(D-47). 팀 공유 위치(노션)에서 받아 "
-            "to21/v0.5/에 원래 파일 이름 그대로 두세요. 목록: to21/README.md"
+            "to21/v0.6/에 원래 파일 이름 그대로 두세요. 목록: to21/README.md"
         )
     return p
 
