@@ -1,0 +1,41 @@
+{
+ "doc_id": "T21-S016",
+ "msds_index": 0,
+ "section": 11,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "toxicity": [],
+  "cmr": [],
+  "narratives": [],
+  "extras": []
+ },
+ "raw_text": "{\"toxicity\": [{\"comp_name\": \"벤젠\", \"comp_cas\": \"71-43-2\", \"endpoint\": \"TX_ASP\", \"descriptor\": \"LD50\", \"q\": {\"raw\": \"2000\", \"value\": 2000, \"approx\": \"false\", \"lower_op\": \">=\", \"lower\": null, \"upper_op\": \"<=\", \"upper\": null, \"unit\": \"mg/kg\"}, \"species\": \"미표기\", \"sex\": \"미표기\", \"duration_value\": null, \"duration_unit\": null, \"physical_form\": \"액체\", \"exposure_type\": \"ingestion\", \"converted\": {\"raw\": null, \"value\": null, \"approx\": \"false\", \"lower_op\": null, \"lower\": null, \"upper_op\": null, \"upper\": null, \"unit\": null}, \"read_across_cas\": null, \"guideline\": null, \"data_source\": \"OECD TG 401\", \"classification\": null, \"statements\": [{\"key\": \"경구 독성\", \"value\": \"[Benzene] : LD50 > 2000 mg/kg Rat (OECD TG 401)\", \"refs\": [], \"cond\": {\"raw\": null, \"value\": null, \"approx\": \"false\", \"lower_op\": null, \"lower\": null, \"upper_op\": null, \"upper\": null, \"unit\": null}, \"line\": null}], \"status\": \"값있음\", \"line\": null}], \"cmr\": [{\"comp_name\": \"벤젠\", \"comp_cas\": \"71-43-2\", \"hazard\": \"발암성\", \"agency\": \"IARC\", \"class\": \"Group 1\", \"status\": \"값있음\", \"note\": \"[Benzene] : Group 1\", \"line\": null}], \"narratives\": [{\"item_code\": [\"S11_ROUTE\"], \"title_raw\": \"벤젠의 안전성 및 위험성\", \"start\": \"11항\", \"end\": null}], \"extras\": [{\"after_item\": \"14. 운송에 필요한 정보\", \"title_raw\": \"운송에 필요한 정보\", \"reason\": \"필드없음\", \"comp_name\": \"벤젠\", \"comp_cas\": \"71-43-2\", \"q\": {\"raw\": null, \"value\": null, \"approx\": \"false\", \"lower_op\": null, \"lower\": null, \"upper_op\": null, \"upper\": null, \"unit\": null}, \"statements\": [{\"key\": \"유엔번호\", \"value\": \"1114\", \"refs\": [], \"cond\": {\"raw\": null, \"value\": null, \"approx\": \"false\", \"lower_op\": null, \"lower\": null, \"upper_op\": null, \"upper\": null, \"unit\": null}, \"line\": null}], \"suggested_code\": null, \"line\": null}]}",
+ "mode": "nuextract_template",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 10764,
+  "completion_tokens": 648,
+  "total_tokens": 11412
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "nuextract_template",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 10764,
+    "completion_tokens": 648,
+    "total_tokens": 11412
+   },
+   "seconds": 18.028,
+   "chars": 1694,
+   "whitespace": 200,
+   "head": "{\"toxicity\": [{\"comp_name\": \"벤젠\", \"comp_cas\": \"71-43-2\", \"endpoint\": \"TX_ASP\", \"descriptor\": \"LD50\", \"q\": {\"raw\": \"2000\", \"value\": 2000, \"approx\": \"false\", \"lower_op\": \">=\", \"lower\": null, \"upper_op\": \"<=\", \"upper\": null, \"unit\": \"mg/kg\"}, \"species\": \"미표기\", \"sex\": \"미표기\", \"duration_value\": null, \"duration_unit\": null, \"physical_form\": \"액체\", \"exposure_type\": \"ingestion\", \"converted\": {\"raw\": null, \"value\": null, \"approx\": \"false\", \"lower_op\": null, \"lower\": null, \"upper_op\": null, \"upper\": null, \"",
+   "tail": "r_item\": \"14. 운송에 필요한 정보\", \"title_raw\": \"운송에 필요한 정보\", \"reason\": \"필드없음\", \"comp_name\": \"벤젠\", \"comp_cas\": \"71-43-2\", \"q\": {\"raw\": null, \"value\": null, \"approx\": \"false\", \"lower_op\": null, \"lower\": null, \"upper_op\": null, \"upper\": null, \"unit\": null}, \"statements\": [{\"key\": \"유엔번호\", \"value\": \"1114\", \"refs\": [], \"cond\": {\"raw\": null, \"value\": null, \"approx\": \"false\", \"lower_op\": null, \"lower\": null, \"upper_op\": null, \"upper\": null, \"unit\": null}, \"line\": null}], \"suggested_code\": null, \"line\": null}]}"
+  }
+ ],
+ "seconds": 18.028,
+ "check_problems": []
+}
