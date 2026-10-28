@@ -58,6 +58,21 @@ def page_match_txt(doc_id: str, page_no: int) -> Path:
     return paths.page_dir(doc_id) / f"p{page_no:03d}.match.txt"
 
 
+def png_matches(png: Path, page, dpi: int) -> bool:
+    """이미 그린 쪽 이미지가 이 화질(dpi)로 그린 크기와 같은가. 같으면 다시 그리지 않는다 (그리는 데 시간이 든다).
+
+    PNG 머리(16~24바이트)의 가로·세로를 get_pixmap(dpi)이 낼 크기와 비교한다. 없거나 깨졌으면 False.
+    """
+    try:
+        head = png.read_bytes()[:24]
+    except FileNotFoundError:
+        return False
+    if head[:8] != b"\x89PNG\r\n\x1a\n":
+        return False
+    want = (page.rect * pymupdf.Matrix(dpi / 72, dpi / 72)).irect   # get_pixmap(dpi)이 내는 크기
+    return int.from_bytes(head[16:20], "big") == want.width and int.from_bytes(head[20:24], "big") == want.height
+
+
 def tables_dir(doc_id: str) -> Path:
     """데이터 표 Markdown을 두는 곳."""
     return paths.page_dir(doc_id) / "tables"
@@ -199,7 +214,8 @@ def preprocess(pdf_path: Path, doc_id: str, dpi: int = 150, force: bool = False)
         items = char_items(page)
         text = reading_text(items, tables) + "\n"
         paths.page_txt(doc_id, i).write_text(text, encoding="utf-8")
-        page.get_pixmap(dpi=dpi).save(paths.page_png(doc_id, i))
+        if not png_matches(paths.page_png(doc_id, i), page, dpi):
+            page.get_pixmap(dpi=dpi).save(paths.page_png(doc_id, i))
         c = _counts(text)
         for k in totals:
             totals[k] += c[k]
