@@ -1,6 +1,6 @@
 """텍스트 추출 평가 점수 (역할 C): 사람이 검수한 정답 두 가지로 추출한 글을 엄격하게 채점한다.
 
-1. 행 점수: data/gold/layout/rows_dev10.json (개발 문서 10쪽, 151행, 골드)
+1. 행 점수: data/gold/layout/table_goldset_data.json (개발 문서 10쪽, 151행, 골드)
    모델 입력 글(render.load_pages의 text)의 **한 줄 안에** 행의 칸들이 차례로 들어 있으면 맞음.
    NFKC 뒤 공백만 지우고 비교한다. 문장부호·기호·대소문자는 그대로 본다.
    (score_layout_rows.py는 글자·숫자만 보고 줄바꿈도 무시해서, 문장부호가 떨어져 나간 글과
@@ -11,7 +11,7 @@
 
 종합 점수 = 두 점수의 평균. 합격 = 두 점수가 모두 90 이상.
 
-3. 표 점수 (참고, 합격에 넣지 않음): rows_dev10.json의 데이터 표 칸 격자와 tables/*.md의 칸을 자리별로 비교한다.
+3. 표 점수 (참고, 합격에 넣지 않음): table_goldset_data.json의 데이터 표 칸 격자와 tables/*.md의 칸을 자리별로 비교한다.
    정답의 글이 든 칸 중 같은 자리에 같은 글이 든 비율. 그 쪽에서 가장 잘 맞는 md 표와 비교한다.
    어느 정답 표가 데이터 표인지(DATA_TABLES)는 Claude가 붙인 구분이고 사람이 검수하지 않았다 (미검수).
    그래서 이 점수는 참고로만 본다. 정답 쪽에서 데이터 표와 맞지 않는 md는 '잘못 꺼냄'으로 센다.
@@ -33,7 +33,7 @@ from msds.common import paths
 from msds.preprocess.ocr import page_text, read_ocr_json
 from msds.preprocess.render import PREPROCESS_VERSION, load_pages
 
-ROWS_GOLD = paths.DATA / "gold" / "layout" / "rows_dev10.json"
+ROWS_GOLD = paths.DATA / "gold" / "layout" / "table_goldset_data.json"
 FRAGMENTS = paths.ROOT / "runs" / "20261026_s003_ocr_source_match" / "fragments.json"
 FRAGMENT_DOC = "T21-S003"
 PASS = 90

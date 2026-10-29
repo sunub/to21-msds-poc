@@ -1,6 +1,6 @@
 """읽기 순서 회귀 시험: 골드 행 정답(개발 문서 10쪽)에서 표 행 묶기 점수가 떨어지지 않는가.
 
-정답: data/gold/layout/rows_dev10.json (사람 검수, 2026-10-27). 채점: scripts/score_layout_rows.py
+정답: data/gold/layout/table_goldset_data.json (사람 검수, 2026-10-27). 채점: scripts/score_layout_rows.py
 하한은 2026-10-27 점수다. layout을 고쳐 점수가 오르면 하한도 올린다. 내리지 않는다.
 원본 PDF·OCR 결과는 저장소에 없어(D-47) 없으면 건너뛴다. 모델입력은 data/pages/의 전처리 결과를 읽는다
 (전처리 버전이 코드와 다르면 건너뛴다).
