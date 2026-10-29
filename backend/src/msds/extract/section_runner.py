@@ -5,7 +5,7 @@
 
 runs/<실행 이름>/ 에 남는 것
   outputs/<문서>.json            TO21 v0.6 문서
-  checks/<문서>.json             항별 결과, 스키마·TO21 검증기 결과, 펼치기 문제, 경고, 사람 검토할 항
+  checks/<문서>.json             항별 결과, 스키마·TO21 검증기 결과, 펼치기 문제, 경고, 항목 분할 방식, 사람 검토할 항
   raw/<문서>_m<i>_s<NN>.json     항별 모델 응답과 사용량, 요청별 기록 requests (재추출했으면 다른 시도도)
   timing.jsonl                   단계별 시간: inputs, call, reextract, expand, checks, total
   run_info.yaml                  모델, 프롬프트 버전·해시, 스키마 버전, 시각, git 커밋 (save_run_info)
@@ -224,6 +224,7 @@ def run_document(doc_id: str, model_tag: str, run_name: str, client=None, *,
         "to21_validator": validator,
         "expand_problems": expand_problems,
         "warnings": warnings,
+        "sections_method": doc.sections_method,
         "needs_review": [{"msds_index": i, "section": no} for i, no in sorted(review)],
     })
     run.mkdir(parents=True, exist_ok=True)
