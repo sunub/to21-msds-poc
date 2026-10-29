@@ -10,6 +10,8 @@ from msds.common.schema import load_schema, msds_item_schema, validate, validate
 from msds.extract import expand as ex
 from msds.extract import section_specs as ss
 from msds.extract.inputs import Line, line_index
+from msds.extract.section_prompts import _unwrap
+from msds.extract.section_runner import check_section
 
 FORBIDDEN = {"line", "lines", "comp_name", "comp_cas", "start", "end"}
 DOC_META = {"doc_id": "T21-X01", "source_file": "가상 세정액 A.pdf", "pages": "7",
@@ -117,6 +119,26 @@ def keys_in(node):
     elif isinstance(node, list):
         for v in node:
             yield from keys_in(v)
+
+
+def omit_empty(response: dict, schema: dict) -> dict:
+    """필수 칸을 줄인 서버 스키마로 받은 응답 모양 (ADR-017). 객체마다 그 객체의 required에 없는 칸 중
+    값이 None이거나 []인 칸을 지운 새 사본. required에 있는 칸은 None이어도 남긴다(서버 문법이 늘 쓰게 한다)."""
+    def walk(value, node):
+        node = _unwrap(schema, node)
+        if isinstance(value, list):
+            return [walk(v, node) for v in value]
+        if isinstance(value, dict):
+            props, required = node.get("properties", {}), set(node.get("required", []))
+            return {k: walk(v, props.get(k, {})) for k, v in value.items()
+                    if k in required or not (v is None or v == [])}
+        return value
+
+    return walk(response, schema)
+
+
+def omitted_responses():
+    return {no: omit_empty(r, ss.response_schema(no)) for no, r in responses().items()}
 
 
 @pytest.fixture
@@ -271,6 +293,40 @@ def test_two_msds(no_conventions):
     assert doc["doc"]["msds_count"] == 2 and len(doc["msds"]) == 2
     assert {p["msds_index"] for p in problems} == {1}
     assert len(problems) == 15
+
+
+# ── 값 없는 칸을 뺀 응답 (ADR-017) ─────────────────────
+
+def test_omit_empty_drops_optional_empty_fields():
+    """도우미가 실제로 칸을 지우는지: 선택 칸의 None은 사라지고, 필수 칸과 값 있는 칸은 남는다."""
+    r = responses()
+    out = omitted_responses()
+    tox, cmr = out[11]["toxicity"][0], out[11]["cmr"][0]
+    assert "comp_cas" not in tox and tox["comp_name"] == "가상물질을" and tox["line"] == "p5:L8"
+    assert "comp_name" not in cmr and "comp_cas" not in cmr and cmr["agency"] == "IARC"
+    assert out[11]["narratives"] == [] and out[11]["extras"] == []          # 응답 최상위 칸은 모두 필수
+    assert "last_revision_date" not in out[1]["meta"]
+    assert out[1]["meta"]["lines"] == {"revision_no": "p1:L2"}
+    assert out[3] == r[3]                                                   # 빈 칸이 없으면 그대로
+    assert r == responses()                                                 # 입력은 바꾸지 않는다
+
+
+@pytest.mark.parametrize("no", range(1, 17))
+def test_omit_empty_follows_section_schema(no):
+    assert validate(omit_empty(responses()[no], ss.response_schema(no)), ss.response_schema(no)) == []
+
+
+def test_omit_empty_expands_to_same_document(no_conventions, monkeypatch):
+    monkeypatch.setattr(ex, "now_kst", lambda: "2026-10-29T00:00:00+09:00")
+    full = ex.to_to21(DOC_META, [responses()], LINES, "가상엔진 v1")
+    omitted = ex.to_to21(DOC_META, [omitted_responses()], LINES, "가상엔진 v1")
+    assert omitted == full
+    assert validate_to21(omitted[0]) == []
+
+
+def test_omit_empty_check_section_no_problems():
+    ids = {l.id for l in LINES}
+    assert {no: check_section(r, ids) for no, r in omitted_responses().items()} == {no: [] for no in range(1, 17)}
 
 
 # ── 문제 목록 ──────────────────────────────────────────

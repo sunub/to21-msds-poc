@@ -1,7 +1,7 @@
 """extract/section_runner.py와 scripts/run_sections.py 시험.
 
 쪽 글자·항목 분할·manifest는 tmp_path에 만든 가짜 MSDS다 (D-43). 모델 서버와 .env를 쓰지 않는다:
-call(system, user_parts, schema, schema_name)만 가진 가짜 클라이언트를 넘긴다 (ADR-007).
+call(system, user_parts, schema, schema_name, require_all)만 가진 가짜 클라이언트를 넘긴다 (ADR-007).
 """
 import copy
 import importlib
@@ -105,11 +105,11 @@ class FakeClient:
         self.calls: list[dict] = []
         self._lock = threading.Lock()
 
-    def call(self, system, user_parts, schema, schema_name):
+    def call(self, system, user_parts, schema, schema_name, require_all=True):
         no = int(schema_name.removeprefix("sec"))
         with self._lock:
             self.calls.append({"no": no, "system": system, "user": user_parts[0]["text"],
-                               "schema": schema, "schema_name": schema_name})
+                               "schema": schema, "schema_name": schema_name, "require_all": require_all})
             out = self.plan[no].pop(0) if self.plan.get(no) else responses()[no]
         if no in self.fail:
             raise ConnectionError("가짜 연결 오류")
@@ -248,6 +248,14 @@ def test_calls_one_section_each_with_its_lines(env):
     assert all("[다시 확인할 점]" not in c["user"] for c in client.calls)
 
 
+def test_all_calls_send_require_all_false(env):
+    """항목별 경로는 서버 스키마의 필수 칸을 줄여 보낸다. 재추출 호출도 같다 (ADR-017)."""
+    client = FakeClient(plan={2: [bad_line()], 5: [TimeoutError("가짜 시간 초과")]})
+    run(env, client)
+    assert len(client.calls) == 18
+    assert [c["require_all"] for c in client.calls] == [False] * 18
+
+
 def test_bad_line_is_reextracted_once(env):
     client = FakeClient(plan={2: [bad_line()]})
     summary = run(env, client)
@@ -302,8 +310,8 @@ def test_raw_keeps_requests(env):
             {"mode": "json_schema_compact", "finish_reason": "stop", "usage": {"completion_tokens": 57}}]
 
     class Client(FakeClient):
-        def call(self, system, user_parts, schema, schema_name):
-            r = super().call(system, user_parts, schema, schema_name)
+        def call(self, system, user_parts, schema, schema_name, require_all=True):
+            r = super().call(system, user_parts, schema, schema_name, require_all)
             if schema_name == "sec03":
                 r.requests = reqs
             return r
