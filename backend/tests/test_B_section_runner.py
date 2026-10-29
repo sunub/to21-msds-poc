@@ -4,6 +4,7 @@
 call(system, user_parts, schema, schema_name, require_all)과 call_text(system, user_parts)만 가진
 가짜 클라이언트를 넘긴다 (ADR-007).
 """
+import base64
 import copy
 import importlib
 import json
@@ -12,6 +13,7 @@ import threading
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
+import pymupdf
 import pytest
 import yaml
 
@@ -19,6 +21,7 @@ from msds.common import manifest
 from msds.common.merge import SCHEMA_VERSION
 from msds.common.paths import PAGES
 from msds.common.schema import validate, validate_to21
+from msds.extract import pictogram_check as pc
 from msds.extract import rows as rw
 from msds.extract import section_runner as sr
 from msds.extract import section_specs as ss
@@ -125,7 +128,8 @@ class FakeClient:
         no = int(schema_name.removeprefix("sec"))
         with self._lock:
             self.calls.append({"no": no, "method": "call", "system": system, "user": user_parts[0]["text"],
-                               "schema": schema, "schema_name": schema_name, "require_all": require_all})
+                               "parts": user_parts, "schema": schema, "schema_name": schema_name,
+                               "require_all": require_all})
             out = self.plan[no].pop(0) if self.plan.get(no) else responses()[no]
         if no in self.fail:
             raise ConnectionError("가짜 연결 오류")
@@ -138,7 +142,8 @@ class FakeClient:
     def call_text(self, system, user_parts, max_tokens=None):
         no = int(re.match(r"\[(\d+)항 원문\]", user_parts[0]["text"]).group(1))
         with self._lock:
-            self.calls.append({"no": no, "method": "call_text", "system": system, "user": user_parts[0]["text"]})
+            self.calls.append({"no": no, "method": "call_text", "system": system, "user": user_parts[0]["text"],
+                               "parts": user_parts})
             out = self.plan[no].pop(0) if self.plan.get(no) else rows11()
         if no in self.fail:
             raise ConnectionError("가짜 연결 오류")
@@ -247,7 +252,7 @@ def test_end_to_end_writes_all_files(env):
 
     c = checks(env)
     assert set(c) == {"sections", "schema_errors", "to21_validator", "expand_problems", "warnings", "needs_review",
-                      "sections_method"}
+                      "sections_method", "pictogram_check"}
     assert c["sections_method"] == "file"
     assert [(s["msds_index"], s["section"]) for s in c["sections"]] == [(0, n) for n in range(1, 17)]
     assert all(s["ok"] and s["errors"] == [] and s["check_problems"] == [] and not s["reextracted"]
@@ -541,6 +546,154 @@ def test_save_run_info_rows_prompt_hash(tmp_path, rows_cfg):
     info = yaml.safe_load((tmp_path / "r" / "run_info.yaml").read_text(encoding="utf-8"))
     assert info["prompt_hashes"][11] == prompt_hash(11, rows=True) != prompt_hash(11)
     assert info["prompt_hashes"][3] == prompt_hash(3)
+
+
+# ── 2항 쪽 이미지 (ADR-019) ───────────────────────────
+
+IMAGE_NOTE = "[2항이 있는 쪽 이미지. 그림문자(마름모 안 그림)를 보고 pictograms에 GHS 코드를 적는다]"
+
+
+@pytest.fixture
+def image_cfg(monkeypatch):
+    """image_input: true인 가짜 설정. models.yaml은 이 step에서 바꾸지 않는다."""
+    cfg = {**load_model_config(TAG), "image_input": True}
+    monkeypatch.setattr(sr, "load_model_config", lambda tag: cfg)
+    return cfg
+
+
+def fake_png(path: Path, width: int, height: int) -> Path:
+    """tmp_path에 만드는 회색 PNG. 실제 쪽 이미지(data/pages/)를 읽지 않는다 (D-43)."""
+    pix = pymupdf.Pixmap(pymupdf.csRGB, pymupdf.IRect(0, 0, width, height), False)
+    pix.clear_with(200)
+    pix.save(str(path))
+    return path
+
+
+def set_span(env: Path, no: int, start: str, end: str) -> None:
+    path = env / "sections" / f"{DOC}.json"
+    data = read_json(path)
+    data["msds"][0]["sections"][str(no)] = {"start": start, "end": end, "method": "title"}
+    path.write_text(json.dumps(data), encoding="utf-8")
+
+
+def images(call: dict) -> list[pymupdf.Pixmap]:
+    return [pymupdf.Pixmap(base64.b64decode(p["image_url"]["url"].split(",", 1)[1]))
+            for p in call["parts"] if p["type"] == "image_url"]
+
+
+def test_image_parts_only_for_section_2(env, image_cfg):
+    set_span(env, 2, "p1:L5", "p2:L2")                      # 2항이 두 쪽에 걸친다
+    fake_png(env / "pages" / DOC / "p001.png", 60, 40)
+    fake_png(env / "pages" / DOC / "p002.png", 30, 80)
+    client = FakeClient()
+    summary = run(env, client)
+    assert summary["sections_failed"] == 0 and summary["warnings"] == []
+    sec2 = client.calls_for(2)[0]
+    assert [(p.width, p.height) for p in images(sec2)] == [(60, 40), (30, 80)]   # 쪽 순서대로
+    assert [p["type"] for p in sec2["parts"]] == ["text", "text", "image_url", "image_url"]
+    assert sec2["parts"][1]["text"] == IMAGE_NOTE
+    assert all(images(c) == [] and len(c["parts"]) == 1 for c in client.calls if c["no"] != 2)
+
+
+def test_image_at_most_two_pages(env, image_cfg):
+    (env / "pages" / DOC / "p003.txt").write_text("L1 가상 내용 3쪽\n", encoding="utf-8")
+    set_span(env, 2, "p1:L5", "p3:L1")
+    for n in (1, 2, 3):
+        fake_png(env / "pages" / DOC / f"p{n:03d}.png", 10 * n, 10)
+    client = FakeClient()
+    run(env, client)
+    assert [p.width for p in images(client.calls_for(2)[0])] == [10, 20]
+
+
+def test_image_long_side_capped_1200(env, image_cfg):
+    fake_png(env / "pages" / DOC / "p001.png", 1500, 300)
+    client = FakeClient()
+    run(env, client)
+    [img] = images(client.calls_for(2)[0])
+    assert max(img.width, img.height) <= 1200 and img.width >= 1199
+
+
+def test_image_also_on_reextract(env, image_cfg):
+    fake_png(env / "pages" / DOC / "p001.png", 60, 40)
+    client = FakeClient(plan={2: [bad_line()]})
+    run(env, client)
+    calls = client.calls_for(2)
+    assert len(calls) == 2 and "[다시 확인할 점]" in calls[1]["user"]
+    assert [len(images(c)) for c in calls] == [1, 1]
+
+
+def test_image_input_absent_sends_text_only(env):
+    """image_input이 없는 태그(RNGD)는 PNG가 있어도 글만 보낸다."""
+    assert not load_model_config(TAG).get("image_input")
+    fake_png(env / "pages" / DOC / "p001.png", 60, 40)
+    client = FakeClient()
+    run(env, client)
+    assert all(len(c["parts"]) == 1 and images(c) == [] for c in client.calls)
+
+
+def test_image_png_missing_warns(env, image_cfg):
+    client = FakeClient()
+    summary = run(env, client)
+    assert summary["sections_failed"] == 0
+    assert len(client.calls_for(2)[0]["parts"]) == 1                # 이미지도 안내 글도 붙이지 않는다
+    warning = "2항 쪽 이미지 없음: p001.png, 글만 보냄 (MSDS 0)"
+    assert warning in checks(env)["warnings"] and warning in summary["warnings"]
+
+
+# ── 그림문자 대조 (ADR-019) ────────────────────────────
+
+FAKE_MAP = "h_code,class_code,category,pictogram,signal_word,source,note\nH900,FAKE_A,1,GHS02,위험,가짜 출처,\n"
+
+
+def with_pictograms(codes: list[str]) -> dict:
+    """2항 응답: 가짜 H코드 H900 한 줄과 모델이 읽은 그림문자."""
+    r = copy.deepcopy(responses()[2])
+    r["hazard"]["h_statements"] = [{"code": "H900", "text": "가짜 유해 문구", "line": "p1:L6"}]
+    r["hazard"]["pictograms"] = [{"code": c} for c in codes]
+    return r
+
+
+@pytest.fixture
+def fake_map(tmp_path, monkeypatch):
+    path = tmp_path / "hazard_label_map.csv"
+    path.write_text(FAKE_MAP, encoding="utf-8")
+    monkeypatch.setattr(pc, "HAZARD_MAP", path)
+
+
+def test_pictograms_match_map(env, fake_map):
+    assert validate(with_pictograms(["GHS02"]), ss.response_schema(2)) == []
+    run(env, FakeClient(plan={2: [with_pictograms(["GHS02"])]}))
+    c = checks(env)
+    assert c["pictogram_check"] == [{"msds_index": 0, "model": ["GHS02"], "inferred": ["GHS02"], "missing": [],
+                                     "extra": [], "ok": True}]
+    assert c["needs_review"] == []
+    out = read_json(env / "runs" / RUN / "outputs" / f"{DOC}.json")
+    assert out["msds"][0]["hazard"]["pictograms"] == [{"code": "GHS02", "detection": None}]
+
+
+def test_pictograms_mismatch_marks_review_without_reextract(env, fake_map):
+    client = FakeClient(plan={2: [with_pictograms(["GHS07"])]})
+    summary = run(env, client)
+    assert len(client.calls_for(2)) == 1 and summary["reextracted"] == 0     # 대조 결과로 다시 보내지 않는다
+    c = checks(env)
+    assert c["pictogram_check"] == [{"msds_index": 0, "model": ["GHS07"], "inferred": ["GHS02"],
+                                     "missing": ["GHS02"], "extra": ["GHS07"], "ok": False}]
+    assert c["needs_review"] == [{"msds_index": 0, "section": 2}]
+
+
+def test_pictograms_map_missing_skipped(env, tmp_path, monkeypatch):
+    monkeypatch.setattr(pc, "HAZARD_MAP", tmp_path / "없음.csv")
+    run(env, FakeClient(plan={2: [with_pictograms(["GHS07"])]}))
+    c = checks(env)
+    assert c["pictogram_check"] == [{"msds_index": 0, "skipped": "hazard_label_map.csv 없음"}]
+    assert c["needs_review"] == []
+
+
+def test_pictograms_check_uses_configs_copy_by_default(env):
+    """실제 표(configs/)가 있으면 실행에서는 늘 대조한다. 가짜 응답에는 H코드가 없어 추론도 비어 있다."""
+    run(env, FakeClient())
+    assert checks(env)["pictogram_check"] == [{"msds_index": 0, "model": [], "inferred": [], "missing": [],
+                                               "extra": [], "ok": True}]
 
 
 # ── 실행 기록과 명세서 내용 (D-47) ─────────────────────

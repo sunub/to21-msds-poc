@@ -286,6 +286,21 @@ def test_evidence_method_follows_text_layer(no_conventions):
     assert {e["method"] for e in doc["msds"][0]["evidence"]} == {"OCR"}
 
 
+def test_pictograms_from_section_2_response(no_conventions):
+    """2항 응답의 그림문자(쪽 이미지에서 읽은 코드)가 hazard.pictograms로 펼쳐진다. 판독 방식은 받지 않아 null이다."""
+    r = responses()
+    r[2]["hazard"]["pictograms"] = [{"code": "GHS02"}, {"code": "GHS07"}]
+    r[2]["hazard"]["lines"]["pictograms"] = "p1:L19"
+    assert validate(r[2], ss.response_schema(2)) == []
+    doc, problems = ex.to_to21(DOC_META, [r], LINES, "e")
+    assert validate_to21(doc) == [] and problems == []
+    hz = doc["msds"][0]["hazard"]
+    assert hz["pictograms"] == [{"code": "GHS02", "detection": None}, {"code": "GHS07", "detection": None}]
+    ev = {e["field"]: e for e in doc["msds"][0]["evidence"]}
+    assert ev["hazard.pictograms"]["source_text"] == "유해성·위험성 분류 : 해당"
+    assert not FORBIDDEN & set(keys_in(doc))
+
+
 def test_empty_msds_is_valid(no_conventions):
     doc, problems = ex.to_to21(DOC_META, [{}], LINES, "e")
     assert validate_to21(doc) == []

@@ -4,10 +4,13 @@
 한 항의 호출이 실패해도 그 항만 실패로 남기고 나머지는 계속한다.
 모델 설정의 rows_sections에 든 항은 행 형식으로 받는다: call_text → rows.parse_rows → 스키마 검증.
 버린 줄의 오류도 재추출 피드백에 넣는다 (ADR-019).
+모델 설정의 image_input이 참이면 2항 호출에 2항이 있는 쪽 이미지를 붙인다. 펼친 뒤 H코드로 추론한 그림문자와
+모델이 읽은 그림문자를 대조해 checks에 남긴다. 대조 결과로 재추출하지 않고 다르면 사람 검토로 표시한다 (ADR-019).
 
 runs/<실행 이름>/ 에 남는 것
   outputs/<문서>.json            TO21 v0.6 문서
-  checks/<문서>.json             항별 결과(받은 방식 mode 포함), 스키마·TO21 검증기 결과, 펼치기 문제, 경고, 항목 분할 방식, 사람 검토할 항
+  checks/<문서>.json             항별 결과(받은 방식 mode 포함), 스키마·TO21 검증기 결과, 펼치기 문제, 경고, 항목 분할 방식,
+                                 그림문자 대조(pictogram_check), 사람 검토할 항
   raw/<문서>_m<i>_s<NN>.json     항별 모델 응답과 사용량, 요청별 기록 requests (재추출했으면 다른 시도도)
   timing.jsonl                   단계별 시간: inputs, call, reextract, expand, checks, total
   run_info.yaml                  모델, 프롬프트 버전·해시, 스키마 버전, 시각, git 커밋 (save_run_info)
@@ -33,6 +36,7 @@ from msds.common.schema import validate, validate_to21
 from msds.extract.client import ChatClient, load_model_config
 from msds.extract.expand import to_to21
 from msds.extract.inputs import SECTION_NOS, DocumentInput, load_document, section_lines
+from msds.extract.pictogram_check import check_msds, load_hazard_map
 from msds.extract.rows import parse_rows
 from msds.extract.section_prompts import SECTION_PROMPT_VERSION, build_system, build_user, prompt_hash
 from msds.extract.section_specs import response_schema
@@ -40,6 +44,8 @@ from msds.extract.section_specs import response_schema
 DOC_TIME_LIMIT = 300          # 초. 넘으면 경고만 남기고 멈추지 않는다
 _LINE_KEYS = ("line", "start", "end")
 _FEEDBACK_MAX = 20            # 다시 보낼 때 적는 문제 수
+IMAGE_SECTION = 2             # 쪽 이미지를 붙이는 항 (그림문자, ADR-019)
+IMAGE_PAGES = 2               # 붙이는 쪽 이미지 수 상한
 
 
 @dataclass
@@ -128,15 +134,30 @@ def _problems(attempt: dict) -> list[str]:
     return attempt["errors"] + attempt["check_problems"]
 
 
+def section_images(doc: DocumentInput, msds_index: int, pages_dir: Path) -> tuple[list[Path], list[str]]:
+    """2항 구간 줄이 있는 쪽의 이미지 pages_dir/<문서>/pNNN.png를 쪽 순서대로 최대 IMAGE_PAGES장.
+    반환: (있는 파일, 없는 파일의 경고)."""
+    pages = list(dict.fromkeys(l.page for l in section_lines(doc, msds_index, IMAGE_SECTION)))[:IMAGE_PAGES]
+    found, warnings = [], []
+    for page in pages:
+        path = Path(pages_dir) / doc.doc_id / f"p{page:03d}.png"
+        if path.is_file():
+            found.append(path)
+        else:
+            warnings.append(f"{IMAGE_SECTION}항 쪽 이미지 없음: {path.name}, 글만 보냄 (MSDS {msds_index})")
+    return found, warnings
+
+
 def _run_section(client, doc: DocumentInput, msds_index: int, no: int, system: str, schema: dict,
-                 allowed: set[str], rows: bool = False) -> tuple[SectionResult, dict, dict | None]:
-    """반환: (항 결과, 첫 시도, 재추출 시도 또는 None)."""
+                 allowed: set[str], rows: bool = False,
+                 images: list[Path] = ()) -> tuple[SectionResult, dict, dict | None]:
+    """반환: (항 결과, 첫 시도, 재추출 시도 또는 None). images는 첫 시도와 재추출 모두에 붙인다."""
     lines = section_lines(doc, msds_index, no)
-    first = _attempt(client, no, system, build_user(no, lines), schema, allowed, rows)
+    first = _attempt(client, no, system, build_user(no, lines, images=images), schema, allowed, rows)
     second = None
     if not first["ok"] or _problems(first):
         feedback = "\n".join(f"- {x}" for x in _problems(first)[:_FEEDBACK_MAX])
-        second = _attempt(client, no, system, build_user(no, lines, feedback), schema, allowed, rows)
+        second = _attempt(client, no, system, build_user(no, lines, feedback, images), schema, allowed, rows)
     better = (second is not None and second["ok"]
               and (not first["ok"] or len(_problems(second)) < len(_problems(first))))
     chosen = second if better else first
@@ -179,14 +200,20 @@ def run_document(doc_id: str, model_tag: str, run_name: str, client=None, *,
     # 2~3. 항목별 동시 호출과 1회 재추출. 안내문은 워크북을 읽으므로 스레드에 넘기기 전에 만든다.
     rows = set(cfg.get("rows_sections") or [])
     prompts = {no: (build_system(no, no in rows), response_schema(no)) for no in SECTION_NOS}
+    image_warnings: list[str] = []
     futures = {}
     with ThreadPoolExecutor(max_workers=workers(cfg, max_workers)) as pool:
         for part in doc.msds:
             first_page, last_page = part.pages
             allowed = {l.id for l in doc.lines if first_page <= l.page <= last_page}
+            images: list[Path] = []
+            if cfg.get("image_input"):
+                images, missing = section_images(doc, part.index, pages_dir)
+                image_warnings += missing
             for no in SECTION_NOS:
                 futures[(part.index, no)] = pool.submit(_run_section, client, doc, part.index, no,
-                                                        *prompts[no], allowed, no in rows)
+                                                        *prompts[no], allowed, no in rows,
+                                                        images if no == IMAGE_SECTION else [])
     outcomes = [futures[k].result() for k in sorted(futures)]
 
     results: list[SectionResult] = []
@@ -224,10 +251,12 @@ def run_document(doc_id: str, model_tag: str, run_name: str, client=None, *,
         validator = run_to21_validator(out)
     except Exception as e:
         validator = [{"level": "예외", "rule": None, "field": None, "message": f"{type(e).__name__}: {e}"}]
+    hazard_map = load_hazard_map()
+    pictogram_check = [{"msds_index": i, **check_msds(m, hazard_map)} for i, m in enumerate(out["msds"])]
     stage("checks", time.perf_counter() - t)
 
     total = time.perf_counter() - t_start
-    warnings = list(doc.warnings)
+    warnings = list(doc.warnings) + image_warnings
     if total > DOC_TIME_LIMIT:
         warnings.append(f"5분 초과: {total:.0f}초")
     stage("total", total, usage=_sum_usage(*(r.usage for r in results)))
@@ -235,6 +264,7 @@ def run_document(doc_id: str, model_tag: str, run_name: str, client=None, *,
     review = {(r.msds_index, r.section_no) for r in results if not r.ok}
     review |= {(c["msds_index"], c["section"]) for c in section_checks if c["check_problems"] or c["errors"]}
     review |= {(p["msds_index"], p["section"]) for p in expand_problems}
+    review |= {(p["msds_index"], IMAGE_SECTION) for p in pictogram_check if p.get("ok") is False}
 
     # 6. 기록
     _write_json(run / "outputs" / f"{doc_id}.json", out)
@@ -245,6 +275,7 @@ def run_document(doc_id: str, model_tag: str, run_name: str, client=None, *,
         "expand_problems": expand_problems,
         "warnings": warnings,
         "sections_method": doc.sections_method,
+        "pictogram_check": pictogram_check,
         "needs_review": [{"msds_index": i, "section": no} for i, no in sorted(review)],
     })
     run.mkdir(parents=True, exist_ok=True)

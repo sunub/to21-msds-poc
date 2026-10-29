@@ -8,6 +8,7 @@
 - 평가용 문서(25번 포함)의 내용을 예시로 넣지 않는다. 명세서의 '예시(가상)' 값만 쓴다 (D-43).
 - 행 형식 항(build_system(no, rows=True))은 공통 지시를 _COMMON_ROWS로 바꾸고 끝에 [응답 형식](rows_guide)을
   붙인다. 이 항의 안내·필드 정의·규칙·코드표·동의어는 JSON 안내문과 같은 것을 쓴다 (ADR-019).
+- 2항은 쪽 이미지를 받는 태그면 사용자 메시지 끝에 쪽 이미지를 붙인다(build_user의 images). 모델이 그림문자를 읽는다 (ADR-019).
 """
 from __future__ import annotations
 
@@ -15,6 +16,7 @@ import hashlib
 import json
 import re
 from functools import lru_cache
+from pathlib import Path
 
 import openpyxl
 
@@ -24,7 +26,9 @@ from msds.extract.prompt_builder import _BASE_RULES, _code_table, _field_rows, _
 from msds.extract.rows import rows_guide
 from msds.extract.section_specs import SectionSpec, load_specs, response_schema
 
-SECTION_PROMPT_VERSION = "s5"   # 안내문 내용을 고치면 올린다. 실행 기록에 남는다. s3은 10/28에 되돌린 extras 규칙판이 썼다. s5: 행 형식 안내 추가 (JSON 안내문은 s4와 같다)
+SECTION_PROMPT_VERSION = "s5"   # 안내문 내용을 고치면 올린다. 실행 기록에 남는다. s3은 10/28에 되돌린 extras 규칙판이 썼다. s5: 행 형식 안내, 2항 그림문자(C2 코드표·이미지 안내) 추가. 그 밖의 JSON 안내문은 s4와 같다
+IMAGE_MAX_SIDE = 1200           # 2항에 붙이는 쪽 이미지의 긴 변 픽셀 (ADR-019)
+_IMAGE_NOTE = "[2항이 있는 쪽 이미지. 그림문자(마름모 안 그림)를 보고 pictograms에 GHS 코드를 적는다]"
 
 _COMMON = """너는 한국어 물질안전보건자료(MSDS)의 {no}항 "{title}"만 읽어 정해진 JSON 형식으로 옮기는 추출기다. 해석하거나 추측하지 않는다.
 - 원문에 적힌 행만 쓴다. 원문에 없는 행을 만들지 않는다. 값이 "자료없음", "해당없음"처럼 적힌 행도 원문에 있으면 행으로 쓰고, 그 글자를 숫자 묶음의 `raw`에 그대로 둔다.
@@ -48,7 +52,7 @@ GUIDES = {
     2: """- 유해성 분류(hazard.classes)는 분류마다 한 행이다. 구분(category)에서 '구분' 글자를 뺀다(R07).
 - 노출 형태(가스 / 증기 / 분진·미스트)가 적혀 있으면 route_form에 원문대로 둔다.
 - H·P코드는 R05, R21. P코드의 type은 첫 자리로 정한다.
-- 그림문자는 쓰지 않는다. 다른 모델이 쪽 이미지에서 따로 읽는다.""",
+- 그림문자(pictograms)는 붙은 쪽 이미지에서 마름모 안 그림을 보고 그림 하나에 한 행으로 GHS 코드(`code`)만 적는다. 이미지가 없으면 pictograms를 쓰지 않는다.""",
     3: """- 성분(components)은 성분표의 행마다 한 성분이다.
 - CAS 번호와 KE 번호가 한 칸에 있어도 나눈다(R02, R03).
 - 함유량(content)은 숫자 묶음으로 나눈다(R04, R06, R19).
@@ -70,9 +74,9 @@ _COMP_GUIDE = ("- 성분이 따로 적힌 행은 `comp_name`·`comp_cas`에 원�
 _NARRATIVE_GUIDE = ("- 서술 항목(narratives)은 항목 코드마다 한 행이다. `item_code`, 원문 제목(`title_raw`), "
                     "내용이 시작·끝나는 줄 번호(`start`, `end`)만 적는다. 문장을 다시 쓰지 않는다.")
 
-# 필드 정의의 [참조]에 나온 코드표. C2(그림문자)는 그림문자 모델 몫이라 넣지 않고, C3은 이 항의 줄만 넣는다.
-_CODE_TABLES = {"C1": "5-1_유해성분류", "C4": "5-4_물리화학", "C5": "5-5_독성생태", "C6": "5-6_법규제",
-                "C7": "5-7_기타코드", "C8": "5-8_발암성기관"}
+# 필드 정의의 [참조]에 나온 코드표. C3은 이 항의 줄만 넣는다. C2(그림문자)는 2항 필드 정의만 가리킨다.
+_CODE_TABLES = {"C1": "5-1_유해성분류", "C2": "5-2_그림문자", "C4": "5-4_물리화학", "C5": "5-5_독성생태",
+                "C6": "5-6_법규제", "C7": "5-7_기타코드", "C8": "5-8_발암성기관"}
 _DICTIONARY = {9: "physchem", 15: "regulations"}   # R25
 _FIELD_PATH = re.compile(r"^- `([^`]+)`")
 
@@ -174,11 +178,18 @@ def build_system(no: int, rows: bool = False) -> str:
     return "\n".join(parts).strip() + "\n"
 
 
-def build_user(no: int, lines: list[Line], retry_feedback: str | None = None) -> list[dict]:
+def build_user(no: int, lines: list[Line], retry_feedback: str | None = None,
+               images: list[Path] = ()) -> list[dict]:
+    """글 part 하나. images가 있으면 그 뒤에 안내 글 하나와 쪽 이미지(긴 변 IMAGE_MAX_SIDE 이하)를 차례로 붙인다."""
     text = f"[{no}항 원문]\n" + render_lines(lines)
     if retry_feedback:
         text += "\n\n[다시 확인할 점]\n" + retry_feedback
-    return [{"type": "text", "text": text}]
+    parts = [{"type": "text", "text": text}]
+    if images:
+        from msds.extract.client import image_part   # client가 nuextract_examples를 거쳐 이 모듈을 import하므로 여기서 부른다
+
+        parts += [{"type": "text", "text": _IMAGE_NOTE}, *(image_part(p, max_side=IMAGE_MAX_SIDE) for p in images)]
+    return parts
 
 
 def prompt_hash(no: int, rows: bool = False) -> str:
