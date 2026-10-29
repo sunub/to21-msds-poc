@@ -13,7 +13,7 @@ from msds.extract.inputs import SECTION_NOS, Line
 _NUMBERED = re.compile(r"^\s*(\d{1,2})(?!\d)\s*(?:[.)]|항)?\s*(.*)$")
 _NOISE = re.compile(r"[\W_ㆍ]")   # 공백·구두점·가운뎃점. ' | ' 칸 구분도 여기서 빠진다
 HEADER_MIN_PAGES = 3              # 쪽 첫 줄이 이만큼의 쪽에서 같으면 머리글
-TOC_RUN = 8                       # 한 쪽에서 제목 후보가 이보다 많이 연달아 나오면 목차
+TOC_RUN = 8                       # 한 쪽에서 번호 줄이 이보다 많이 연달아 나오고 그 안에 제목 후보가 이만큼 있으면 목차
 NEW_MSDS_MIN_FOUND = 3            # 1항 제목이 다시 나올 때 앞에서 찾은 항이 이만큼 있으면 새 건
 
 
@@ -43,13 +43,26 @@ def _candidates(lines: list[Line], variants: dict[int, list[str]]) -> list[tuple
     cands = [(i, no) for i, l in enumerate(lines)
              if i not in headers and (no := _title_no(l.text, variants)) is not None]
 
+    # 목차 쪽: 연달아 이어지는 번호 줄(1~16)이 TOC_RUN보다 많고, 그 안에 사전과 맞는 제목이 TOC_RUN 이상
+    cand_pos = {i for i, _ in cands}
     toc_pages: set[int] = set()
-    run = 0
-    for k, (i, _) in enumerate(cands):
-        prev = cands[k - 1][0] if k else None
-        run = run + 1 if prev == i - 1 and lines[prev].page == lines[i].page else 1
-        if run > TOC_RUN:
-            toc_pages.add(lines[i].page)
+    run: list[int] = []
+
+    def close(run: list[int]) -> None:
+        if len(run) > TOC_RUN and sum(i in cand_pos for i in run) >= TOC_RUN:
+            toc_pages.add(lines[run[0]].page)
+
+    for i, l in enumerate(lines):
+        m = _NUMBERED.match(l.text)
+        if i not in headers and m and 1 <= int(m.group(1)) <= 16:
+            if run and lines[run[-1]].page != l.page:
+                close(run)
+                run = []
+            run.append(i)
+        else:
+            close(run)
+            run = []
+    close(run)
     return [(i, no) for i, no in cands if lines[i].page not in toc_pages]
 
 
