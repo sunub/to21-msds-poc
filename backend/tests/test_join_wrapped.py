@@ -43,3 +43,13 @@ def test_merged_table_row_keeps_cells():
            "parts": [{"text": "가. 눈에 들어갔을 때", "x0": 30, "x1": 120}, {"text": "즉시 의사 또는", "x0": 150, "x1": 500}]}
     rows = [[row], [it("의료기관의 진찰을 받으시오.", 150, 300, 12)]]
     assert texts(join_wrapped(rows, 10)) == ["가. 눈에 들어갔을 때  즉시 의사 또는 의료기관의 진찰을 받으시오."]
+
+
+def test_narrow_label_column_is_not_wrapped():
+    """M013 7쪽 독성 표: '경피'는 LD50 줄에서 넘어간 글이 아니라 다음 시험의 라벨이다.
+    짧은 낱말만 있는 좁은 열(h의 MIN_WRAP_COL배 미만)은 줄이 넘어갈 일이 없어 잇지 않는다."""
+    rows = [[it("경구", 70, 92, 0)],
+            [it("LD50", 70, 92, 12), it("쥐", 185, 195, 12), it("5000 mg/kg", 393, 440, 12)],
+            [it("경피", 70, 90, 26)],
+            [it("LD50", 70, 92, 38), it("쥐", 185, 195, 38), it("> 3400 mg/kg", 393, 448, 38)]]
+    assert texts(join_wrapped(rows, 10)) == texts(rows)

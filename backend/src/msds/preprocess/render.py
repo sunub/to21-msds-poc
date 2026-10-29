@@ -38,7 +38,8 @@ from .source import choose, ocr_json_for, page_ocr_input
 
 # 모델 입력(p001.txt)이 달라지는 변경마다 올린다. meta.json과 실행 기록(run_info.yaml)에 남아,
 # 어떤 입력으로 돌린 실행인지 구분한다. 버전이 다른 meta로는 추출하지 않는다 (extract.runner)
-PREPROCESS_VERSION = "2026-10-28-chars-wrap"   # 칸 글이 다음 줄로 넘어간 것을 그 칸에 잇는다 (layout.join_wrapped)
+PREPROCESS_VERSION = "2026-10-29-wrap-mincol"   # 좁은 열(라벨)은 다음 줄을 잇지 않는다 (layout.MIN_WRAP_COL)
+# 이전: "2026-10-28-chars-wrap" 칸 글이 다음 줄로 넘어간 것을 그 칸에 잇는다 (layout.join_wrapped)
 # 이전: "2026-10-28-chars" 텍스트층을 줄이 아니라 글자 좌표로 다시 맞춘다 (layout.char_items)
 # 이전: "2026-10-27-xycut-tables-ocrpick" 텍스트층을 믿을 수 없는 정상 쪽은 OCR 글 (source.choose)
 # 이전: "2026-10-27-xycut-tables" 선으로 그린 표의 행을 칸 순서대로 한 줄로 (layout.page_tables)
