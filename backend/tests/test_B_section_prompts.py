@@ -194,7 +194,7 @@ def test_value_and_range_are_exclusive(systems, no):
 
 
 def test_version():
-    assert sp.SECTION_PROMPT_VERSION == "s5"
+    assert sp.SECTION_PROMPT_VERSION == "s6"
 
 
 @pytest.mark.parametrize("no", NOS)
@@ -225,8 +225,8 @@ def rows_systems():
     return {no: sp.build_system(no, rows=True) for no in ROWS_SECTIONS_DEFAULT}
 
 
-def test_rows_version_s5():
-    assert sp.SECTION_PROMPT_VERSION == "s5"
+def test_rows_version_s6():
+    assert sp.SECTION_PROMPT_VERSION == "s6"
 
 
 @pytest.mark.parametrize("no", ROWS_SECTIONS_DEFAULT)
@@ -237,6 +237,14 @@ def test_rows_system_has_table_headers_and_columns(rows_systems, no):
     fmt = _part(text, "[응답 형식]")
     for name, cols in row_tables(no).items():
         assert f"### {name}\n" + " | ".join(cols) + "\n" in fmt
+
+
+def test_rows_system_has_enum_lines(rows_systems):
+    """행 형식 안내문의 [응답 형식]에 표마다 선택지 줄이 있다 (s6)."""
+    fmt = _part(rows_systems[15], "[응답 형식]")
+    assert "- `applicable`: 해당 / 비해당" in fmt
+    assert "- `item_code`: [코드표]의 코드만" in fmt
+    assert "- `limit_type`: " in _part(rows_systems[8], "[응답 형식]")
 
 
 @pytest.mark.parametrize("no", ROWS_SECTIONS_DEFAULT)
