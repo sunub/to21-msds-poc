@@ -443,3 +443,92 @@ def test_parse_rows_skips_guide_enum_lines():
                           line="p9:L3")])
     parsed, errors = rw.parse_rows(text, 15)
     assert errors == [] and len(parsed["regulations"]) == 1
+
+
+# ── 열 수가 하나 어긋난 행 살리기 (ADR-021) ───────────
+
+ALIGN = {"endpoint": "TX_ORAL", "descriptor": "LD50", "q": "> 2000 mg/kg", "species": "랫드", "status": "값있음",
+         "line": "p8:L8"}
+
+
+def cells(no: int, name: str, **values) -> list[str]:
+    """열 이름 → 값으로 행의 칸 목록. 빠진 열은 빈 칸. 칸을 빼거나 더해 열 수가 어긋난 행을 만든다."""
+    return [str(values.get(c, "")) for c in rw.row_tables(no)[name]]
+
+
+def tox_rows(*rows: list[str]) -> str:
+    return table(11, "toxicity", *(" | ".join(r) for r in rows))
+
+
+def test_parse_rows_align_missing_blank_in_gap():
+    """19열 표에 가운데 빈 칸 하나를 빠뜨린 18칸 행: 빈 칸을 그 빈 칸 줄 어디에 끼워도 값 칸의 열이 같아 살린다.
+    '값있음 | p8:L8' 사이에 끼우면 값있음이 statements(자유 글)로 가지만, status(선택지)를 비우는 해석이라 따지지 않는다."""
+    full = cells(11, "toxicity", **ALIGN)
+    short = full[:10] + full[11:]                  # exposure_type의 빈 칸 하나를 뺀다
+    assert len(short) == 18 and not any(short[6:16])
+    parsed, errors = rw.parse_rows(tox_rows(short), 11)
+    assert errors == []
+    [r] = parsed["toxicity"]
+    assert (r["endpoint"], r["status"], r["line"]) == ("TX_ORAL", "값있음", "p8:L8")
+    assert r["exposure_type"] is None and r["statements"] == []
+    assert parsed["toxicity"] == rw.parse_rows(tox_rows(full), 11)[0]["toxicity"]
+
+
+def test_parse_rows_align_value_in_middle_is_error():
+    """빈 칸 줄 사이에 값(증기)이 있으면 빠진 빈 칸이 그 앞인지 뒤인지에 따라 physical_form과 exposure_type으로 갈려 버린다."""
+    full = cells(11, "toxicity", **ALIGN, physical_form="증기")
+    short = full[:10] + full[11:]
+    assert short[9] == "증기" and not any(short[6:9]) and not any(short[10:16])
+    parsed, errors = rw.parse_rows(tox_rows(short), 11)
+    assert parsed["toxicity"] == []
+    assert len(errors) == 1 and errors[0].endswith(": 열 18개, 기대 19개")
+
+
+def test_parse_rows_align_extra_blank_in_gap():
+    full = cells(11, "toxicity", **ALIGN)
+    parsed, errors = rw.parse_rows(tox_rows(full[:10] + [""] + full[10:]), 11)
+    assert errors == []
+    assert parsed["toxicity"] == rw.parse_rows(tox_rows(full), 11)[0]["toxicity"]
+
+
+def test_parse_rows_align_trailing_separator():
+    """줄 끝에 '|'를 하나 더 붙인 행(마지막 칸이 빈 칸)도 빈 칸 하나 더로 보고 살린다."""
+    full = cells(11, "toxicity", **ALIGN)
+    parsed, errors = rw.parse_rows(table(11, "toxicity", " | ".join(full) + " |"), 11)
+    assert errors == [] and parsed["toxicity"][0]["line"] == "p8:L8"
+
+
+@pytest.mark.parametrize("n", [17, 21])
+def test_parse_rows_align_two_off_is_error(n):
+    full = cells(11, "toxicity", **ALIGN)
+    bad = full[:9] + full[11:] if n == 17 else full[:10] + ["", ""] + full[10:]
+    assert len(bad) == n
+    parsed, errors = rw.parse_rows(tox_rows(bad, full), 11)
+    assert len(parsed["toxicity"]) == 1
+    assert len(errors) == 1 and errors[0].endswith(f": 열 {n}개, 기대 19개")
+
+
+def test_parse_rows_align_no_blank_to_remove_is_error():
+    """칸이 하나 많은데 빈 칸이 없으면 뺄 칸을 고를 수 없어 버린다."""
+    full = cells(11, "cmr", **COMP, hazard="발암성", agency="IARC", status="값있음", note="가상 비고", line="p5:L9",
+                 **{"class": "Group 3"})
+    parsed, errors = rw.parse_rows(table(11, "cmr", " | ".join(full[:-1] + ["가상 비고 둘", full[-1]])), 11)
+    assert parsed["cmr"] == [] and len(errors) == 1 and errors[0].endswith(": 열 9개, 기대 8개")
+
+
+def test_parse_rows_align_choice_between_values_is_error():
+    """값 두 칸 사이의 빈 칸(class)을 빠뜨린 행: 빈 칸 줄 옆에 끼우면 해당없음이 class(자유 글)로,
+    값 사이에 끼우면 status(선택지)로 간다. 값 사이 해석이 선택지 열을 더 채우므로 모호하다고 보고 버린다."""
+    full = cells(11, "cmr", **COMP, hazard="발암성", agency="KR_OSH", status="해당없음", line="p5:L10")
+    short = full[:4] + full[5:]
+    parsed, errors = rw.parse_rows(table(11, "cmr", " | ".join(short)), 11)
+    assert parsed["cmr"] == []
+    assert len(errors) == 1 and errors[0].endswith(": 열 7개, 기대 8개")
+
+
+def test_parse_rows_align_object_table():
+    """객체 칸(3항 composition)의 한 행짜리 표도 같은 규칙으로 살린다."""
+    full = cells(3, "composition", type="혼합물", line="p2:L3")
+    parsed, errors = rw.parse_rows(table(3, "composition", " | ".join(full[:1] + full[2:])), 3)
+    assert errors == []
+    assert parsed["composition"] == rw.parse_rows(table(3, "composition", " | ".join(full)), 3)[0]["composition"]

@@ -91,15 +91,16 @@ def check_section(parsed: dict | None, allowed_ids: set[str]) -> list[str]:
 # ── 항 하나 ────────────────────────────────────────────
 
 def _attempt(client, no: int, system: str, user: list[dict], schema: dict, allowed: set[str],
-             rows: bool = False) -> dict:
+             rows: bool = False, rows_max_tokens: int | None = None) -> dict:
     """호출 한 번. 예외도 실패한 시도로 돌려준다.
     JSON 경로는 서버 스키마의 필수 칸을 TO21 필수 칸과 line·lines로 줄여, 모델이 값 없는 칸을 쓰지 않게 한다 (ADR-017).
     rows면 글로 받아 parse_rows로 바꾸고 schema로 검증한다. 버린 줄과 검증 문제는 errors에 담는다.
+    출력 한도는 rows_max_tokens다. None이면 call_text가 설정의 max_tokens를 쓴다 (ADR-021).
     표 하나라도 읽혀 검증을 통과하면 ok다. 버린 줄이 있어도 남은 행은 쓴다 (ADR-019)."""
     t0 = time.perf_counter()
     try:
         if rows:
-            r = client.call_text(system, user)
+            r = client.call_text(system, user, max_tokens=rows_max_tokens)
             parsed, errors = parse_rows(r.raw_text, no)
             schema_errors = validate(parsed, schema) if parsed else []
             errors += [f"검증 실패: {e}" for e in schema_errors]
@@ -150,15 +151,17 @@ def section_images(doc: DocumentInput, msds_index: int, pages_dir: Path) -> tupl
 
 
 def _run_section(client, doc: DocumentInput, msds_index: int, no: int, system: str, schema: dict,
-                 allowed: set[str], rows: bool = False,
-                 images: list[Path] = ()) -> tuple[SectionResult, dict, dict | None]:
+                 allowed: set[str], rows: bool = False, images: list[Path] = (),
+                 rows_max_tokens: int | None = None) -> tuple[SectionResult, dict, dict | None]:
     """반환: (항 결과, 첫 시도, 재추출 시도 또는 None). images는 첫 시도와 재추출 모두에 붙인다."""
     lines = section_lines(doc, msds_index, no)
-    first = _attempt(client, no, system, build_user(no, lines, images=images), schema, allowed, rows)
+    first = _attempt(client, no, system, build_user(no, lines, images=images), schema, allowed, rows,
+                     rows_max_tokens)
     second = None
     if not first["ok"] or _problems(first):
         feedback = "\n".join(f"- {x}" for x in _problems(first)[:_FEEDBACK_MAX])
-        second = _attempt(client, no, system, build_user(no, lines, feedback, images), schema, allowed, rows)
+        second = _attempt(client, no, system, build_user(no, lines, feedback, images), schema, allowed, rows,
+                          rows_max_tokens)
     better = (second is not None and second["ok"]
               and (not first["ok"] or len(_problems(second)) < len(_problems(first))))
     chosen = second if better else first
@@ -214,7 +217,8 @@ def run_document(doc_id: str, model_tag: str, run_name: str, client=None, *,
                 allowed = {l.id for l in section_lines(doc, part.index, no)}
                 futures[(part.index, no)] = pool.submit(_run_section, client, doc, part.index, no,
                                                         *prompts[no], allowed, no in rows,
-                                                        images if no == IMAGE_SECTION else [])
+                                                        images if no == IMAGE_SECTION else [],
+                                                        cfg.get("rows_max_tokens"))
     outcomes = [futures[k].result() for k in sorted(futures)]
 
     results: list[SectionResult] = []
@@ -315,6 +319,7 @@ def save_run_info(run: Path, model_tag: str, pages_dir=PAGES, max_workers: int |
         "model": cfg["model"],
         "prompt_version": SECTION_PROMPT_VERSION,
         "rows_sections": sorted(rows),
+        "rows_max_tokens": cfg.get("rows_max_tokens"),      # 행 형식 호출의 출력 한도. 없으면 max_tokens (ADR-021)
         "image_input": bool(cfg.get("image_input")),
         "prompt_hashes": {no: prompt_hash(no, no in rows) for no in SECTION_NOS},   # 실제로 보내는 안내문의 해시
         "schema_version": SCHEMA_VERSION,

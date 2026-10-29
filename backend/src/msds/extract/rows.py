@@ -8,6 +8,7 @@ parse_rows가 지금의 중간 형식 dict(section_specs.response_schema)로 바
 - 숫자 묶음(QM)은 열 하나다. 모델은 원문 표기대로 쓰고 parse_qm이 R04·R06·R08대로 나눈다.
 - 목록 칸은 '; '로 나누고, 서술 문장(statements)은 그 행의 줄을 근거로 단다. 조건(cond)은 '칸=값; 칸=값'이다.
 - 행마다 그 행의 스키마로 검증한다. 틀린 줄은 버리고 줄 단위 오류로 돌려준다. 실행기가 재추출 피드백에 넣는다.
+- 열 수가 하나 어긋난 행은 빈 칸 하나가 빠졌거나 더 들어간 것으로 보고, 값 칸의 열이 하나로 정해질 때만 살린다 (ADR-021).
 - 선택지(enum) 열은 표마다 열 이름 줄 아래에 스키마의 값 목록을 적는다. 파서는 공백을 지운 값과
   '해당없음' → '비해당'만 맞추고, 그 밖의 값은 검증 오류로 버린다 (rows-tune, ADR-020).
 예시 행은 직접 만든 가짜 값이다 (D-43).
@@ -346,10 +347,8 @@ def _value(text: str, kind: str, node: dict, defs: dict, line: str | None):
     return text
 
 
-def _row(t: _Table, cells: list[str]) -> tuple[dict | None, str | None]:
-    """행 한 줄 → (행 dict, None) 또는 (None, 문제)."""
-    if len(cells) != len(t.columns):
-        return None, f"열 {len(cells)}개, 기대 {len(t.columns)}개"
+def _build(t: _Table, cells: list[str]) -> tuple[dict | None, str | None]:
+    """열 수가 맞는 칸 목록 → (행 dict, None) 또는 (None, 문제)."""
     values = dict(zip(t.columns, cells))
     for c in t.columns:
         if t.kinds[c] == "line" and not _LINE_ID.fullmatch(values[c]):
@@ -371,6 +370,41 @@ def _row(t: _Table, cells: list[str]) -> tuple[dict | None, str | None]:
     return (None, "; ".join(problems[:2])) if problems else (row, None)
 
 
+def _realign(t: _Table, cells: list[str]) -> dict | None:
+    """열 수가 하나 어긋난 행을 살린 행 dict. 살릴 수 없으면 None (ADR-021).
+    모델이 긴 빈 칸 줄에서 빈 칸 하나를 빠뜨리거나 더 쓴 행을 살린다. 예: 19열 독성 표의 ` |  | TX_ORAL | … |  | 값있음 | p8:L8`(18칸)
+    - 하나 적으면 모든 자리에 빈 칸을 하나 끼워 보고, 하나 많으면 빈 칸을 하나씩 빼 본다. 검증을 통과한 해석만 남긴다.
+    - 값 두 칸 사이에 끼운 해석은 빈 칸 옆·줄 끝에 끼운 해석보다 선택지 열을 덜 채우면 뺀다.
+      예: '값있음 | p8:L8' 사이에 끼우면 값있음이 status 대신 statements로 간다.
+    - 남은 해석에서 값이 있는 칸의 열 배치가 모두 같을 때만 그 행을 쓴다. 다르면 어느 열인지 모호하다."""
+    n = len(t.columns)
+    if len(cells) == n + 1:
+        tries = [(cells[:k] + cells[k + 1:], True) for k, c in enumerate(cells) if not c]
+    elif len(cells) == n - 1:
+        blank = [True, *(not c for c in cells), True]       # 줄 양 끝 바깥은 빈 칸으로 본다
+        tries = [(cells[:k] + [""] + cells[k:], blank[k] or blank[k + 1]) for k in range(n)]
+    else:
+        return None
+    choice_cols = [c for c in t.columns if _choices(t.schema["properties"].get(c, {}), t.schema["$defs"])]
+    readings = []                                           # (값 칸의 열 배치, 채운 선택지 열 수, 빈 칸 옆인가, 행)
+    for x, by_blank in tries:
+        row, problem = _build(t, x)
+        if problem is None:
+            readings.append((tuple(i for i, c in enumerate(x) if c), sum(row[c] is not None for c in choice_cols),
+                             by_blank, row))
+    best = max((f for _, f, b, _ in readings if b), default=0)
+    kept = [(p, row) for p, f, b, row in readings if b or f >= best]
+    return kept[0][1] if len({p for p, _ in kept}) == 1 else None
+
+
+def _row(t: _Table, cells: list[str]) -> tuple[dict | None, str | None]:
+    """행 한 줄 → (행 dict, None) 또는 (None, 문제). 열 수가 하나 어긋나도 _realign이 살리면 문제 없이 돌려준다."""
+    if len(cells) == len(t.columns):
+        return _build(t, cells)
+    row = _realign(t, cells)
+    return (row, None) if row is not None else (None, f"열 {len(cells)}개, 기대 {len(t.columns)}개")
+
+
 def parse_rows(text: str, no: int) -> tuple[dict, list[str]]:
     """모델 응답 글을 {표 이름: [행 dict, ...], ..., "extras": [...]}로. 둘째 값은 줄 단위 오류 목록.
     - '### 표 이름' 머리글로 표를 나눈다. 머리글이 하나라도 있으면 응답 스키마의 모든 표를 담는다
@@ -379,6 +413,7 @@ def parse_rows(text: str, no: int) -> tuple[dict, list[str]]:
       건너뛴다. 첫 머리글 앞의 글은 버린다.
     - 행은 '|'로 쪼개고 앞뒤 공백을 뗀다. 열 수가 다르거나, 줄 열이 'p2:L23' 모양이 아니거나, 형이 안 맞거나,
       그 행 스키마 검증에 실패한 줄은 버리고 오류 "<표> p?:L? <줄 앞부분>: <문제>"를 남긴다.
+      열 수가 하나 어긋난 줄은 _realign이 살리면 오류 없이 쓴다.
     - 빈 칸은 None(목록 칸은 []). 숫자 묶음은 parse_qm, 숫자 칸은 숫자, enum 칸은 _choice로 맞춘 글자.
     - 상태 열이 자료없음·해당없음·미기재이고 값 열(첫 숫자 묶음 열)이 비면 값 열을 {"raw": 상태}로 채운다."""
     tables = {t.name: t for t in _tables(no)}

@@ -525,3 +525,7 @@ def test_run_config_model_settings():
     assert q30["rows_sections"] == [3, 8, 9, 11, 12, 14, 15] and "image_input" not in q30
     for tag in ("gpt_oss_20b_rngd", "qwen3vl4b_rngd", "nuextract2_8b_runpod"):
         assert "rows_sections" not in load_model_config(tag)
+    # 행 형식의 출력 한도는 Qwen3.6에만 둔다. 없으면 max_tokens를 쓴다 (ADR-021)
+    assert q36["rows_max_tokens"] == 16384
+    for tag in ("qwen3_30b_a3b_rngd", "gpt_oss_20b_rngd", "qwen3vl4b_rngd", "nuextract2_8b_runpod"):
+        assert "rows_max_tokens" not in load_model_config(tag)
