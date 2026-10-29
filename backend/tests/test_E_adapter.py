@@ -35,3 +35,10 @@ def test_표기된_혼합물_ATE(inputs):
     oral = next(x for x in stated_mix_ate(inputs) if x["route"] == "경구")
     assert (oral["lower_op"], oral["lower"]) == (">", 2000)
     assert (oral["upper_op"], oral["upper"]) == ("<=", 5000)
+
+
+def test_노출시간이_hours로_넘어감(inputs):
+    mist = next(t for t in to_acute_components(inputs)[0]["tox"] if t["route"] == "흡입")
+    assert mist["hours"] == 4
+    oral = next(t for t in to_acute_components(inputs)[0]["tox"] if t["route"] == "경구")
+    assert "hours" not in oral
