@@ -293,6 +293,99 @@ def test_require_all_false_schema_hint(mode):
     assert json.dumps(to_strict(RELAX_SCHEMA), ensure_ascii=False) not in sys_text
 
 
+# ── 공백 폭주로 한도에 걸리면 문법 없는 방식으로 한 번 더 (ADR-021) ──
+
+SMALL = {"type": "object", "properties": {"a": {"type": "string"}}, "required": ["a"]}
+SMALL_OK = '{"a": "x"}'
+
+
+def runaway(ratio: float) -> str:
+    """앞 5자 '{"a":' 뒤에 공백을 붙여 공백 비율이 ratio인 잘린 응답 글을 만든다."""
+    head = '{"a":'
+    n = round(len(head) * ratio / (1 - ratio))
+    return head + " " * n
+
+
+def test_whitespace_fallback_to_json_object():
+    cfg = load_model_config("qwen36_35b_runpod")
+    assert cfg["structured"] == ["json_schema", "json_object", "none"]
+    client, calls = make_client(cfg, [resp(runaway(0.8), "length"), resp(SMALL_OK)])
+    res = client.call(SYSTEM, USER, SMALL, "sec02")
+    assert res.ok and res.parsed == {"a": "x"}
+    assert res.mode == "json_object"
+    assert res.errors == []          # 성공하면 앞 시도의 오류를 넘기지 않는다 (압축 재시도와 같다)
+    assert res.attempts == 2 and len(calls) == 2
+    assert [(r["mode"], r["finish_reason"]) for r in res.requests] == [
+        ("json_schema", "length"), ("json_object", "stop")]
+    assert res.requests[0]["whitespace"] / res.requests[0]["chars"] == pytest.approx(0.8)
+    assert calls[0]["response_format"]["type"] == "json_schema"
+    assert calls[0]["messages"][0]["content"] == SYSTEM
+    assert calls[1]["response_format"] == {"type": "json_object"}
+    sys_text = calls[1]["messages"][0]["content"]
+    assert sys_text.startswith(SYSTEM) and "[응답 형식]" in sys_text
+    assert client._working_mode[client.model] == "json_schema"
+
+
+def test_whitespace_fallback_not_remembered_for_next_call():
+    cfg = load_model_config("qwen36_35b_runpod")
+    client, calls = make_client(cfg, [resp(runaway(0.8), "length"), resp(SMALL_OK), resp(SMALL_OK)])
+    client.call(SYSTEM, USER, SMALL, "sec02")
+    res = client.call(SYSTEM, USER, SMALL, "sec04")
+    assert res.ok and res.mode == "json_schema"
+    assert len(calls) == 3 and calls[2]["response_format"]["type"] == "json_schema"
+
+
+def test_whitespace_fallback_to_none():
+    cfg = dict(load_model_config("qwen36_35b_runpod"), structured=["json_schema", "none"])
+    client, calls = make_client(cfg, [resp(runaway(0.5), "length"), resp(SMALL_OK)])
+    res = client.call(SYSTEM, USER, SMALL, "sec02")
+    assert res.ok and res.mode == "none"
+    assert "response_format" not in calls[1]
+    assert "[응답 형식]" in calls[1]["messages"][0]["content"]
+    assert client._working_mode[client.model] == "json_schema"
+
+
+def test_whitespace_fallback_failure_keeps_note():
+    """넘어간 방식도 실패하면 오류 목록에 공백 폭주로 넘어간 사실이 남는다."""
+    cfg = load_model_config("qwen36_35b_runpod")
+    client, calls = make_client(cfg, [resp(runaway(0.8), "length"), resp('{"a": "가', "length")])
+    res = client.call(SYSTEM, USER, SMALL, "sec02")
+    assert not res.ok and len(calls) == 2
+    assert "[json_schema] 공백 폭주로 한도에 걸림 → json_object으로 다시 보냄" in res.errors
+    assert res.mode == "json_object" and res.finish_reason == "length"
+    assert client._working_mode[client.model] == "json_schema"
+
+
+def test_whitespace_fallback_not_for_long_output():
+    """공백 비율이 0.5 미만인 한도 초과(정말 긴 출력)는 지금처럼 요청 1개로 실패한다."""
+    cfg = load_model_config("qwen36_35b_runpod")
+    client, calls = make_client(cfg, [resp(runaway(0.1), "length")])
+    res = client.call(SYSTEM, USER, SMALL, "sec02")
+    assert len(calls) == 1 and len(res.requests) == 1
+    assert not res.ok and res.finish_reason == "length" and res.mode == "json_schema"
+    assert any("출력 길이 한도" in e for e in res.errors)
+    assert not any("공백 폭주" in e for e in res.errors)
+
+
+def test_whitespace_fallback_needs_next_mode():
+    cfg = dict(load_model_config("qwen36_35b_runpod"), structured=["json_schema"])
+    client, calls = make_client(cfg, [resp(runaway(0.8), "length")])
+    res = client.call(SYSTEM, USER, SMALL, "sec02")
+    assert len(calls) == 1 and len(res.requests) == 1
+    assert not res.ok and res.finish_reason == "length"
+    assert not any("공백 폭주" in e for e in res.errors)
+
+
+def test_whitespace_fallback_compact_rule_unchanged():
+    """다음 방식이 json_schema_compact이면 공백 비율과 상관없이 지금 규칙(압축으로 한 번 더)을 따른다."""
+    cfg = dict(load_model_config("qwen3_30b_a3b_rngd"), structured=["json_schema", "json_schema_compact", "none"])
+    client, calls = make_client(cfg, [resp(runaway(0.8), "length"), resp(SMALL_OK)])
+    res = client.call(SYSTEM, USER, SMALL, "sec02")
+    assert res.ok and res.mode == "json_schema_compact"
+    assert not any("공백 폭주" in e for e in res.errors)
+    assert calls[1]["messages"][0]["content"] == SYSTEM
+
+
 def test_require_all_false_response_without_optional_fields_ok():
     client, calls = make_client(mode_cfg("json_schema"), [resp(RELAX_OK)])
     res = client.call(SYSTEM, USER, RELAX_SCHEMA, "sec03", require_all=False)

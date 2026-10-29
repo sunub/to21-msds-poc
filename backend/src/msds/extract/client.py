@@ -8,6 +8,8 @@
 - 어느 방식이든 응답을 JSON으로 읽은 뒤 스키마로 검증하고, 실패하면 오류 내용을 붙여 다시 요청한다.
 - structured가 json_schema_compact로 시작하면 처음부터 공백을 막는다. 한도에 걸리면 다음 방식으로 넘어가지 않고 실패로 돌려준다 (ADR-017).
 - json_schema 다음이 json_schema_compact이면 json_schema가 출력 한도에 걸릴 때만 압축(공백을 막은 스키마 강제)으로 한 번 더 보낸다 (ADR-017).
+- json_schema 다음이 json_object나 none이면 json_schema가 공백 폭주(응답의 절반 이상이 공백)로 한도에 걸릴 때만
+  그 방식(문법 강제 없음)으로 한 번 더 보낸다. 넘어간 방식은 기억하지 않는다 (ADR-021).
 - request_style: nuextract_template 태그는 시스템 메시지 없이 칸 틀만 보내고, 다시 보내지 않는다 (ADR-010).
 - call_text는 표 항목의 행 형식 출력용이다. 구조화 출력 없이 글로 받아 그대로 돌려준다 (ADR-019).
 """
@@ -212,6 +214,7 @@ class ChatClient:
         finish = None
 
         last_parsed = None
+        runaway = False    # 공백 폭주로 다음 방식에 넘어왔으면 True. 넘어온 방식은 기억하지 않는다 (ADR-021)
         for i, mode in enumerate(modes):
             sys_text = system if mode in ("json_schema", "json_schema_compact") else system + schema_hint
             messages = [{"role": "system", "content": sys_text},
@@ -225,7 +228,7 @@ class ChatClient:
                 except _ModeRejected as e:
                     errors.append(f"[{mode}] 거부됨: {e}")
                     break          # 이 방식은 지원되지 않음 → 다음 방식으로
-                if mode != "json_schema_compact":   # 압축 방식은 기억하지 않는다. json_schema 다음에 둔 태그는 한도에 걸린 묶음에만 쓴다 (ADR-017)
+                if mode != "json_schema_compact" and not runaway:   # 압축 방식은 기억하지 않는다. json_schema 다음에 둔 태그는 한도에 걸린 묶음에만 쓴다 (ADR-017)
                     self._working_mode[self.model] = mode   # 요청이 받아들여진 방식은 기억한다
                 choice = resp.choices[0]
                 finish = choice.finish_reason
@@ -239,6 +242,12 @@ class ChatClient:
                     errors.append(f"[{mode}] 출력 길이 한도에 걸려 잘림 (max_tokens={max_tokens})")
                     if mode == "json_schema" and modes[i + 1:i + 2] == ["json_schema_compact"]:
                         break      # 공백을 막아 한 번 더 보낸다 (ADR-017)
+                    rec = requests[-1]
+                    if (mode == "json_schema" and modes[i + 1:i + 2] in (["json_object"], ["none"])
+                            and rec["whitespace"] / max(rec["chars"], 1) >= 0.5):
+                        errors.append(f"[{mode}] 공백 폭주로 한도에 걸림 → {modes[i + 1]}으로 다시 보냄")
+                        runaway = True
+                        break      # 문법 강제 없이 한 번 더 보낸다 (ADR-021)
                     return CallResult(None, last_text, mode, finish, usage, time.time() - t0, self.model, attempts,
                                       errors, requests)
                 try:
