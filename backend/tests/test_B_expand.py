@@ -199,8 +199,8 @@ def test_full_example_fields(no_conventions):
     assert m["toxicity"][0]["statements"][0]["text"] == "가상물질 을 | 경구 LD50 > 2000 mg/kg (랫드)"
     assert m["companies"][0]["seq"] == 1 and m["companies"][0]["contacts"][0]["value"] == "000-0000-0000"
 
-    # 16항 개정 정보는 1항 meta의 빈 칸만 채운다
-    assert m["meta"]["revision_no"] == 3
+    # 개정 정보는 16항 값이 1항 값보다 우선한다 (meta_from_16 시험 참고)
+    assert m["meta"]["revision_no"] == 5
     assert m["meta"]["last_revision_date"] == "2024-05-01"
     assert m["meta"]["page_start"] is None and m["meta"]["msds_no"] is None
 
@@ -245,7 +245,7 @@ def test_evidence(no_conventions):
     assert ev["components[1]"] == {"field": "components[1]", "page": 2, "bbox": None,
                                    "source_text": "가상물질 을 | 2345-67-7 | 0.5", "confidence": None,
                                    "method": "텍스트층", "needs_review": None}
-    assert ev["meta.revision_no"]["page"] == 1                     # 1항 값을 썼으므로 1항 줄
+    assert ev["meta.revision_no"]["page"] == 7                     # 16항 값이 우선이므로 16항 줄
     assert ev["meta.last_revision_date"]["page"] == 7              # 16항에서 채운 칸
     assert ev["product.name"]["source_text"] == "제품명 : 가상 세정액 A"
     assert ev["hazard.classified"]["page"] == 1
@@ -323,6 +323,34 @@ def test_two_msds(no_conventions):
     assert doc["doc"]["msds_count"] == 2 and len(doc["msds"]) == 2
     assert {p["msds_index"] for p in problems} == {1}
     assert len(problems) == 15
+
+
+def test_meta_from_16_overrides_section_1_dates():
+    r = responses()
+    r[1]["meta"].update({"first_issue_date": "2023-01-01", "lines": {"first_issue_date": "p1:L2"}})
+    r[16]["meta_revision"].update({"first_issue_date": "2010-06-21",
+                                   "lines": {**r[16]["meta_revision"]["lines"], "first_issue_date": "p7:L3"}})
+    m, _ = expand_one(r)
+    assert m["meta"]["first_issue_date"] == "2010-06-21"
+    hits = [e for e in m["evidence"] if e["field"] == "meta.first_issue_date"]
+    assert len(hits) == 1 and hits[0]["page"] == 7
+
+
+def test_meta_from_16_keeps_section_1_when_16_has_none():
+    r = responses()
+    r[1]["meta"].update({"first_issue_date": "2023-01-01", "lines": {"first_issue_date": "p1:L2"}})
+    m, _ = expand_one(r)
+    assert m["meta"]["first_issue_date"] == "2023-01-01"
+    hits = [e for e in m["evidence"] if e["field"] == "meta.first_issue_date"]
+    assert len(hits) == 1 and hits[0]["page"] == 1
+
+
+def test_meta_from_16_keeps_section_1_for_other_fields():
+    r = responses()
+    r[1]["meta"].update({"msds_no": "A-1", "lines": {"msds_no": "p1:L2"}})
+    r[16]["meta_revision"].update({"msds_no": "B-2"})
+    m, _ = expand_one(r)
+    assert m["meta"]["msds_no"] == "A-1"
 
 
 # ── 값 없는 칸을 뺀 응답 (ADR-017) ─────────────────────

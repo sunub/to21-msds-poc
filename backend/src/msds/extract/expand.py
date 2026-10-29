@@ -282,12 +282,13 @@ def expand_msds(sections: dict[int, dict | None], lines_by_id: dict[str, Line],
         for i, (no, r) in enumerate(pairs):
             walk(no, r, f"{key}[{i}]")
 
-    # 3. 16항 개정 정보는 1항 meta의 빈 칸만 채운다.
+    # 3. 개정 정보는 16항 값이 1항 값보다 우선한다. 16항에 값이 없을 때만 1항 값을 둔다.
     no, rev = objects.get("meta_revision", (16, None))
     rev_lines = (rev or {}).get("lines") or {}
     for f in META_REVISION_FIELDS:
-        if rev and item["meta"][f] is None and rev.get(f) is not None:
+        if rev and rev.get(f) is not None:
             item["meta"][f] = rev[f]
+            evidence[:] = [e for e in evidence if e["field"] != f"meta.{f}"]
             if rev_lines.get(f) is not None:
                 add_evidence(no, f"meta.{f}", rev_lines[f])
 
