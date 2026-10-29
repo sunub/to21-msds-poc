@@ -8,6 +8,7 @@ from msds.checks.validator import run_to21_validator
 from msds.common.merge import DICTIONARY_VERSION, SCHEMA_VERSION
 from msds.common.schema import load_schema, msds_item_schema, validate, validate_to21
 from msds.extract import expand as ex
+from msds.extract import rows as rw
 from msds.extract import section_specs as ss
 from msds.extract.inputs import Line, line_index
 from msds.extract.section_prompts import _unwrap
@@ -336,6 +337,71 @@ def test_omit_empty_expands_to_same_document(no_conventions, monkeypatch):
     omitted = ex.to_to21(DOC_META, [omitted_responses()], LINES, "가상엔진 v1")
     assert omitted == full
     assert validate_to21(omitted[0]) == []
+
+
+def as_cell(v) -> str:
+    """중간 형식 값 하나를 행 글 한 칸으로. 숫자 묶음은 raw, 서술 문장은 value를 '; '로 잇는다."""
+    if v is None:
+        return ""
+    if isinstance(v, dict):
+        return v["raw"]
+    if isinstance(v, list):
+        return "; ".join(x["value"] if isinstance(x, dict) else x for x in v)
+    return str(v).lower() if isinstance(v, bool) else str(v)
+
+
+def rows_text(no: int, response: dict) -> str:
+    """JSON 응답과 같은 내용의 행 글 (ADR-019)."""
+    out = []
+    for name, cols in rw.row_tables(no).items():
+        out += [f"### {name}", " | ".join(cols), *(" | ".join(as_cell(r.get(c)) for c in cols)
+                                                  for r in response.get(name, []))]
+    return "\n".join(out)
+
+
+def test_rows_same_document_as_json(no_conventions, monkeypatch):
+    """행 글을 parse_rows로 바꾼 11항은 같은 내용의 JSON 응답과 같은 TO21 문서로 펼쳐진다."""
+    monkeypatch.setattr(ex, "now_kst", lambda: "2026-10-29T00:00:00+09:00")
+    text = rows_text(11, responses()[11])
+    assert "가상 독성 설명" in text and "> 2000 mg/kg" in text
+    parsed, errors = rw.parse_rows(text, 11)
+    assert errors == []
+    assert validate(parsed, ss.response_schema(11)) == []
+    assert parsed != responses()[11]                       # 빈 칸이 None으로 들어 있어 dict는 다르다
+    by_json = ex.to_to21(DOC_META, [responses()], LINES, "가상엔진 v1")
+    by_rows = ex.to_to21(DOC_META, [{**responses(), 11: parsed}], LINES, "가상엔진 v1")
+    assert by_rows == by_json
+    assert by_rows[0]["msds"][0]["toxicity"][0]["q"]["lower"] == 2000
+
+
+def kreach(**kw) -> dict:
+    return {"law": "KREACH", "item_code": "KREACH_REG", "line": "p6:L10", **kw}
+
+
+def regulations_of(rows: list[dict]) -> list[dict]:
+    r = responses()
+    r[15]["regulations"] = rows
+    doc, _ = ex.to_to21(DOC_META, [r], LINES, "가상엔진 v1")
+    assert validate_to21(doc) == []
+    return doc["msds"][0]["regulations"]
+
+
+def test_applicable_kreach_with_value_becomes_haedang(no_conventions):
+    """화평법 행에 값(value_raw 또는 threshold)이 있고 해당 여부가 비면 '해당' (사용자 결정 10/29, A-1 참고)."""
+    regs = regulations_of([kreach(value_raw="가상-0001"),
+                           kreach(threshold={"raw": "1 %", "value": 1, "unit": "%"}),
+                           kreach(value_raw="CMR", applicable=None)])
+    assert [x["applicable"] for x in regs] == ["해당", "해당", "해당"]
+
+
+def test_applicable_no_value_or_other_law_unchanged(no_conventions):
+    regs = regulations_of([kreach(),
+                           kreach(value_raw="자료없음"),
+                           kreach(value_raw="비해당"),
+                           kreach(threshold={"raw": "해당 없음"}),
+                           kreach(value_raw="가상-0002", applicable="비해당"),
+                           {"law": "OSH", "item_code": "OSH_MEASURE", "value_raw": "가상", "line": "p6:L10"}])
+    assert [x["applicable"] for x in regs] == [None, None, None, None, "비해당", None]
 
 
 def test_omit_empty_check_section_no_problems():

@@ -6,6 +6,8 @@
 - 안내문은 파일로 저장하지 않는다. 명세서 내용이 들어 있어 저장소에 남기면 안 된다 (D-47).
   실행 기록에는 SECTION_PROMPT_VERSION과 prompt_hash만 남긴다.
 - 평가용 문서(25번 포함)의 내용을 예시로 넣지 않는다. 명세서의 '예시(가상)' 값만 쓴다 (D-43).
+- 행 형식 항(build_system(no, rows=True))은 공통 지시를 _COMMON_ROWS로 바꾸고 끝에 [응답 형식](rows_guide)을
+  붙인다. 이 항의 안내·필드 정의·규칙·코드표·동의어는 JSON 안내문과 같은 것을 쓴다 (ADR-019).
 """
 from __future__ import annotations
 
@@ -19,9 +21,10 @@ import openpyxl
 from msds.common.paths import to21_file
 from msds.extract.inputs import Line, render_lines
 from msds.extract.prompt_builder import _BASE_RULES, _code_table, _field_rows, _referenced_rules, _rows, _rules
+from msds.extract.rows import rows_guide
 from msds.extract.section_specs import SectionSpec, load_specs, response_schema
 
-SECTION_PROMPT_VERSION = "s4"   # 안내문 내용을 고치면 올린다. 실행 기록에 남는다. s3은 10/28에 되돌린 extras 규칙판이 썼다
+SECTION_PROMPT_VERSION = "s5"   # 안내문 내용을 고치면 올린다. 실행 기록에 남는다. s3은 10/28에 되돌린 extras 규칙판이 썼다. s5: 행 형식 안내 추가 (JSON 안내문은 s4와 같다)
 
 _COMMON = """너는 한국어 물질안전보건자료(MSDS)의 {no}항 "{title}"만 읽어 정해진 JSON 형식으로 옮기는 추출기다. 해석하거나 추측하지 않는다.
 - 원문에 적힌 행만 쓴다. 원문에 없는 행을 만들지 않는다. 값이 "자료없음", "해당없음"처럼 적힌 행도 원문에 있으면 행으로 쓰고, 그 글자를 숫자 묶음의 `raw`에 그대로 둔다.
@@ -30,6 +33,12 @@ _COMMON = """너는 한국어 물질안전보건자료(MSDS)의 {no}항 "{title}
 - 숫자 묶음은 `raw`에 원문 그대로 두고, 나머지 칸(value, lower_op, lower, upper_op, upper, unit, approx)은 규칙(R04, R06, R08)대로 나눈다.
 - `value`와 `lower`·`upper`는 함께 쓰지 않는다. 단일값이면 `value`만 쓴다. 부등호나 범위로 적힌 값은 `lower_op`·`lower`·`upper_op`·`upper` 쪽만 쓴다. 예: `99.92` → value 99.92 / `≥ 95` → lower_op ">=", lower 95
 - 다른 항의 내용이 섞여 보이면 무시한다. 스키마에 맞는 칸이 없는 이 항의 내용은 `extras`에 담는다(R24)."""
+
+# 행 형식 항의 공통 지시. 칸을 나누는 규칙은 맨 끝의 [응답 형식](rows.rows_guide)에 있다.
+_COMMON_ROWS = """너는 한국어 물질안전보건자료(MSDS)의 {no}항 "{title}"만 읽어 정해진 행 형식으로 옮기는 추출기다. 해석하거나 추측하지 않는다.
+- 원문에 적힌 행만 쓴다. 원문에 없는 행을 만들지 않는다.
+- 응답은 맨 끝의 [응답 형식]대로 쓴다. [필드 정의]의 경로 `표[].열`(객체 칸은 `표.열`)은 [응답 형식]의 그 표의 그 열이다.
+- 다른 항의 내용이 섞여 보이면 무시한다. 맞는 열이 없는 이 항의 내용은 `extras` 표에 담는다(R24)."""
 
 # 이 항의 안내: 명세서에 없는, 행을 나누는 단위와 자주 틀리는 점
 GUIDES = {
@@ -124,11 +133,12 @@ def _narrative_table(wb, codes: tuple[str, ...]) -> list[str]:
             *(" | ".join(x for x in r if x) for r in rows[4:] if r[1] in codes)]
 
 
-def build_system(no: int) -> str:
+def build_system(no: int, rows: bool = False) -> str:
+    """rows=True면 표를 한 줄 한 행으로 받는 안내문이다 (ADR-019)."""
     spec = load_specs()[no]
     schema = response_schema(no)
     wb = _workbook()
-    common = _COMMON.format(no=no, title=spec.title)
+    common = (_COMMON_ROWS if rows else _COMMON).format(no=no, title=spec.title)
     guide = _guide(spec, schema)
     fields = _fields(wb, spec, schema)
     rule_codes = _BASE_RULES | _referenced_rules(fields) | set(re.findall(r"R\d{2}", common + guide))
@@ -159,6 +169,8 @@ def build_system(no: int) -> str:
         key = _DICTIONARY[no]
         parts += ["", "## [동의어] 표기가 달라도 같은 코드로 본다 (공백·구두점·가운뎃점은 무시)", f"### {key}",
                   *(f"- {code}: " + " / ".join(names) for code, names in _dictionary()[key].items())]
+    if rows:
+        parts += ["", "## [응답 형식] 한 줄에 한 행", rows_guide(no)]
     return "\n".join(parts).strip() + "\n"
 
 
@@ -169,6 +181,6 @@ def build_user(no: int, lines: list[Line], retry_feedback: str | None = None) ->
     return [{"type": "text", "text": text}]
 
 
-def prompt_hash(no: int) -> str:
-    """build_system(no)의 sha256 앞 12자리. 실행 기록용."""
-    return hashlib.sha256(build_system(no).encode("utf-8")).hexdigest()[:12]
+def prompt_hash(no: int, rows: bool = False) -> str:
+    """build_system(no, rows)의 sha256 앞 12자리. 실행 기록용."""
+    return hashlib.sha256(build_system(no, rows).encode("utf-8")).hexdigest()[:12]

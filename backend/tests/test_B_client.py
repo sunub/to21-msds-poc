@@ -334,3 +334,51 @@ def test_require_all_relax_required_drops_names_not_in_properties():
     out = relax_required(strict, schema)
     assert out["required"] == ["name"]
     assert out["additionalProperties"] is False
+
+
+# ── 행 형식: 구조화 출력 없이 글로 받기 (call_text, ADR-019) ──
+
+ROWS_TEXT = "### cmr\ncomp_name | line\n가상물질 갑 | p1:L9"
+
+
+def test_call_text_sends_no_response_format():
+    client, calls = make_client(load_model_config("qwen36_35b_runpod"), [resp(ROWS_TEXT)])
+    res = client.call_text(SYSTEM, USER)
+    assert len(calls) == 1
+    kw = calls[0]
+    assert "response_format" not in kw
+    assert kw["messages"] == [{"role": "system", "content": SYSTEM}, {"role": "user", "content": USER}]
+    assert kw["extra_body"] == {"chat_template_kwargs": {"enable_thinking": False}}   # 태그의 extra_body는 그대로
+    assert kw["max_tokens"] == 8192 and kw["temperature"] == 0
+    assert res.raw_text == ROWS_TEXT and res.parsed is None and res.mode == "rows"
+    assert res.finish_reason == "stop" and res.errors == [] and res.attempts == 1
+    assert res.usage == {"prompt_tokens": 10, "completion_tokens": 5, "total_tokens": 15}
+    assert len(res.requests) == 1
+    rec = res.requests[0]
+    assert rec["mode"] == "rows" and rec["finish_reason"] == "stop"
+    assert rec["chars"] == len(ROWS_TEXT) and rec["head"] == ROWS_TEXT
+
+
+def test_call_text_ignores_structured_setting():
+    """태그의 structured가 무엇이든 문법 강제(response_format, structured_outputs)를 보내지 않는다."""
+    for mode in ("json_schema", "json_schema_compact", "json_object"):
+        client, calls = make_client(mode_cfg(mode), [resp(ROWS_TEXT)])
+        client.call_text(SYSTEM, USER, max_tokens=100)
+        assert "response_format" not in calls[0] and "extra_body" not in calls[0]
+        assert calls[0]["max_completion_tokens"] == 100
+
+
+def test_call_text_length_keeps_text_and_records_error():
+    client, calls = make_client(mode_cfg("json_schema"), [resp(ROWS_TEXT, finish="length")])
+    res = client.call_text(SYSTEM, USER)
+    assert len(calls) == 1
+    assert res.raw_text == ROWS_TEXT and res.finish_reason == "length"
+    assert len(res.errors) == 1 and "출력 길이 한도" in res.errors[0]
+
+
+def test_call_text_rejected_request():
+    client, calls = make_client(mode_cfg("none"), [FakeBadRequest("context too long")])
+    res = client.call_text(SYSTEM, USER)
+    assert len(calls) == 1
+    assert res.raw_text == "" and res.mode == "rows"
+    assert len(res.errors) == 1 and "거부됨" in res.errors[0]

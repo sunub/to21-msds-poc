@@ -9,6 +9,7 @@
 - structured가 json_schema_compact로 시작하면 처음부터 공백을 막는다. 한도에 걸리면 다음 방식으로 넘어가지 않고 실패로 돌려준다 (ADR-017).
 - json_schema 다음이 json_schema_compact이면 json_schema가 출력 한도에 걸릴 때만 압축(공백을 막은 스키마 강제)으로 한 번 더 보낸다 (ADR-017).
 - request_style: nuextract_template 태그는 시스템 메시지 없이 칸 틀만 보내고, 다시 보내지 않는다 (ADR-010).
+- call_text는 표 항목의 행 형식 출력용이다. 구조화 출력 없이 글로 받아 그대로 돌려준다 (ADR-019).
 """
 from __future__ import annotations
 
@@ -285,6 +286,28 @@ class ChatClient:
                 if problems:
                     errors.append(f"[{mode}] 검증 실패 {len(problems)}건: " + "; ".join(problems[:5]))
         return CallResult(parsed, text, mode, finish, usage, time.time() - t0, self.model, 1, errors, requests)
+
+    def call_text(self, system: str, user_parts: list[dict], max_tokens: int | None = None) -> CallResult:
+        """구조화 출력 없이 글로 받는다 (행 형식, ADR-019). response_format·structured_outputs를 보내지 않는다.
+        응답 글은 raw_text에 두고 parsed는 None이다. 글을 읽고 검증해 다시 보내는 일은 실행기가 한다.
+        다시 보내는 것은 연결 오류뿐이고, 그 대기 재시도는 _call_with_backoff가 한다."""
+        max_tokens = max_tokens or self.cfg.get("max_tokens", 32000)
+        mode = "rows"
+        messages = [{"role": "system", "content": system}, {"role": "user", "content": user_parts}]
+        t0 = time.time()
+        try:
+            resp = self._call_with_backoff(messages, mode, None, None, max_tokens)
+        except _ModeRejected as e:
+            return CallResult(None, "", mode, None, {}, time.time() - t0, self.model, 1, [f"[{mode}] 거부됨: {e}"])
+        choice = resp.choices[0]
+        finish = choice.finish_reason
+        text = choice.message.content or ""
+        u = getattr(resp, "usage", None)
+        usage = ({k: getattr(u, k, None) for k in ("prompt_tokens", "completion_tokens", "total_tokens")}
+                 if u is not None else {})
+        requests = [_request_record(mode, finish, usage, time.time() - t0, text)]
+        errors = [f"[{mode}] 출력 길이 한도에 걸려 잘림 (max_tokens={max_tokens})"] if finish == "length" else []
+        return CallResult(None, text, mode, finish, usage, time.time() - t0, self.model, 1, errors, requests)
 
     def _call_with_backoff(self, messages, mode, schema_name, strict_schema, max_tokens, template=None, examples=None):
         from openai import APIStatusError, APIConnectionError, RateLimitError
