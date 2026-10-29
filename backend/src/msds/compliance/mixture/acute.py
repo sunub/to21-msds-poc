@@ -55,24 +55,28 @@ def _ref_cat5(route, value):
 
 def _side(comps, side, route, form, include_min, unknown_limit):
     sigma = unknown = 0.0
-    use = []
+    use, part = [], []
     for c in comps:
         pct, kind = c["content"][side], c["ate"]["kind"]
         if pct < include_min:
             use.append("한계농도미만")
         elif kind in ("value", "conversion"):
-            sigma += pct / c["ate"]["value"]
+            part.append(pct / c["ate"]["value"])
+            sigma += part[-1]
             use.append("계산")
         elif kind == "unknown":
             unknown += pct
             use.append("이용불가")
         else:  # inequality, non_toxic: Σ에는 넣지 않고 이용 가능 성분으로만 센다
             use.append("이용가능")
+        if len(part) < len(use):
+            part.append(None)
     formula = "공식2" if unknown > unknown_limit else "공식1"
     ate = (100 - unknown if formula == "공식2" else 100) / sigma if sigma else None
     cat = value_to_category(route, form, ate) if ate is not None else None
     return {"ate_mix": ate, "category": cat or "분류안됨", "formula": formula, "unknown_pct": unknown,
-            "ref_cat5": cat is None and ate is not None and route != "흡입" and _ref_cat5(route, ate)}, use
+            "ref_cat5": cat is None and ate is not None and route != "흡입" and _ref_cat5(route, ate),
+            "sigma": sigma}, use, [p / sigma if p is not None and sigma else None for p in part]
 
 
 def mix_acute(comps, route, form=None, *, include_min=1.0, unknown_limit=10):
@@ -82,13 +86,14 @@ def mix_acute(comps, route, form=None, *, include_min=1.0, unknown_limit=10):
     route: oral|dermal|inhal, form: gas|vapour|mist (inhal만)
     """
     r, f = _ROUTE[route], _FORM.get(form)
-    out, uses = {}, {}
+    out, uses, shares = {}, {}, {}
     for side in ("low", "high"):
-        out[side], uses[side] = _side(comps, side, r, f, include_min, unknown_limit)
+        out[side], uses[side], shares[side] = _side(comps, side, r, f, include_min, unknown_limit)
     lack = any(out[s]["ate_mix"] is None and out[s]["unknown_pct"] > 0 for s in out)
     same = out["low"]["category"] == out["high"]["category"]
     out["status"] = "근거부족" if lack else "확정" if same else "경계"
     out["terms"] = [{"name": c["name"], "content": c["content"], "ate": c["ate"].get("value"),
                      "src": c["ate"].get("src"), "step": c["ate"].get("step"),
-                     "사용여부": {s: uses[s][i] for s in uses}} for i, c in enumerate(comps)]
+                     "사용여부": {s: uses[s][i] for s in uses},
+                     "share": {s: shares[s][i] for s in shares}} for i, c in enumerate(comps)]
     return out
