@@ -1,6 +1,7 @@
 """C의 전처리 결과를 읽어 줄 번호 붙은 줄 목록과 MSDS별 항목 구간을 만든다 (B).
 
-C의 항목 분할·코드 추출 파일이 없으면 대체 경로로 간다(ADR-006).
+C의 항목 분할 파일이 없으면 제목으로 임시 분할을 만든다(sections.py, ADR-019). 제목을 하나도 못 찾거나
+코드 추출 파일이 없으면 대체 경로로 간다(ADR-006).
 """
 from __future__ import annotations
 
@@ -28,7 +29,7 @@ class Line:
 class SectionSpan:
     start: str | None
     end: str | None
-    method: str          # "title" | "synonym" | "failed" | "fallback"
+    method: str          # "title" | "synonym" | "provisional" | "failed" | "fallback"
 
 
 @dataclass
@@ -45,6 +46,7 @@ class DocumentInput:
     msds: list[MsdsPart]
     codes: dict | None
     warnings: list[str]
+    sections_method: str             # "file" | "provisional"(B 임시 분할) | "fallback"(문서 전체)
 
 
 def read_page_lines(doc_id: str, pages_dir: Path = PAGES) -> list[Line]:
@@ -110,14 +112,26 @@ def load_document(doc_id: str, pages_dir: Path = PAGES, sections_dir: Path = DAT
     sections_path = sections_dir / f"{doc_id}.json"
     if sections_path.exists():
         data = json.loads(sections_path.read_text(encoding="utf-8"))
-        msds = [_build_part(i, e, pos, warnings) for i, e in enumerate(data["msds"])]
+        method = "file"
     else:
+        # section_prompts와 sections가 이 모듈을 import하므로 여기서 부른다
+        from msds.extract.section_prompts import _dictionary
+        from msds.extract.sections import find_sections
+
+        data = find_sections(lines, _dictionary()["sections"])
+        found, count = data["stats"]["found"], data["stats"]["msds"]
+        method = "provisional" if found else "fallback"
+        if found:
+            warnings.append(f"항목 분할 파일 없음: 임시 분할 (찾은 항 {found}/{16 * count}, MSDS {count}건)")
+    if method == "fallback":
         warnings.append("항목 분할 파일 없음: 대체 경로")
         msds = [MsdsPart(0, (lines[0].page, lines[-1].page), _fallback_sections())]
+    else:
+        msds = [_build_part(i, e, pos, warnings) for i, e in enumerate(data["msds"])]
 
     codes_path = codes_dir / f"{doc_id}.json"
     codes = json.loads(codes_path.read_text(encoding="utf-8")) if codes_path.exists() else None
-    return DocumentInput(doc_id, lines, msds, codes, warnings)
+    return DocumentInput(doc_id, lines, msds, codes, warnings, method)
 
 
 def section_lines(doc: DocumentInput, msds_index: int, section_no: int) -> list[Line]:

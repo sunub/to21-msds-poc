@@ -218,7 +218,9 @@ def test_end_to_end_writes_all_files(env):
     assert m["narratives"][0]["statements"][0]["text"] == "- 즉시 다량의 물로 씻어내시오."
 
     c = checks(env)
-    assert set(c) == {"sections", "schema_errors", "to21_validator", "expand_problems", "warnings", "needs_review"}
+    assert set(c) == {"sections", "schema_errors", "to21_validator", "expand_problems", "warnings", "needs_review",
+                      "sections_method"}
+    assert c["sections_method"] == "file"
     assert [(s["msds_index"], s["section"]) for s in c["sections"]] == [(0, n) for n in range(1, 17)]
     assert all(s["ok"] and s["errors"] == [] and s["check_problems"] == [] and not s["reextracted"]
                for s in c["sections"])
@@ -367,9 +369,28 @@ def test_no_sections_file_warns(env):
     (env / "sections" / f"{DOC}.json").unlink()
     client = FakeClient()
     run(env, client)
+    assert "항목 분할 파일 없음: 임시 분할 (찾은 항 16/16, MSDS 1건)" in checks(env)["warnings"]
+    # 임시 분할: 제목으로 찾은 그 항의 줄만 들어간다
+    assert "p1:L3" in client.calls_for(1)[0]["user"]
+    assert "p2:L24" not in client.calls_for(1)[0]["user"]
+
+
+def test_checks_record_sections_method(env):
+    run(env, FakeClient())
+    assert checks(env)["sections_method"] == "file"
+
+    (env / "sections" / f"{DOC}.json").unlink()
+    run(env, FakeClient())
+    assert checks(env)["sections_method"] == "provisional"
+
+    for name in ("p001.txt", "p002.txt"):
+        (env / "pages" / DOC / name).write_text("L1 가상 내용\n", encoding="utf-8")
+    client = FakeClient()
+    run(env, client)
+    assert checks(env)["sections_method"] == "fallback"
     assert "항목 분할 파일 없음: 대체 경로" in checks(env)["warnings"]
     # 대체 경로: 항마다 MSDS 전체 줄이 들어간다
-    assert "p2:L24" in client.calls_for(1)[0]["user"]
+    assert "p2:L1" in client.calls_for(1)[0]["user"]
 
 
 def test_workers_default_from_config(env, monkeypatch):
