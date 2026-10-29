@@ -43,12 +43,29 @@ def infer_pictograms(h_codes: list[str], hmap: dict[str, set[str]]) -> set[str]:
     return out
 
 
-def compare(model_codes: list[str], inferred: set[str]) -> dict:
+def compare(model_codes: list[str], inferred: set[str], unmapped_h: list[str] | None = None) -> dict:
     """{"model": [...], "inferred": [...], "missing": [...], "extra": [...], "ok": bool}
-    missing은 추론했는데 모델이 안 쓴 것, extra는 모델이 썼는데 추론에 없는 것이다."""
+    missing은 추론했는데 모델이 안 쓴 것, extra는 모델이 썼는데 추론에 없는 것이다.
+    unmapped_h(매핑표에 없는 모델 H코드)를 주면 결과에 넣고, 그 코드가 있을 때는 extra를 불일치로 치지 않는다
+    (추론이 불완전해서 생긴 extra이므로). unmapped_h가 비었으면 추론이 완전하니 extra도 불일치다."""
     model = {c for c in model_codes if c}
-    return {"model": sorted(model), "inferred": sorted(inferred), "missing": sorted(inferred - model),
-            "extra": sorted(model - inferred), "ok": model == inferred}
+    out = {"model": sorted(model), "inferred": sorted(inferred), "missing": sorted(inferred - model),
+           "extra": sorted(model - inferred), "ok": model == inferred}
+    if unmapped_h is not None:
+        out["unmapped_h"] = list(unmapped_h)
+        out["ok"] = not out["missing"] and (not out["extra"] or bool(unmapped_h))
+    return out
+
+
+def unmapped_codes(h_codes: list[str], hmap: dict[str, set[str]]) -> list[str]:
+    """매핑표로 그림문자를 하나도 못 찾는 H코드(결합 코드는 부분별)를 정렬해 돌려준다."""
+    out: set[str] = set()
+    for code in h_codes:
+        for part in (code or "").split("+"):
+            part = part.strip()
+            if part and not infer_pictograms([part], hmap):
+                out.add(part)
+    return sorted(out)
 
 
 def check_msds(msds_item: dict, hmap: dict[str, set[str]] | None) -> dict:
@@ -58,4 +75,5 @@ def check_msds(msds_item: dict, hmap: dict[str, set[str]] | None) -> dict:
         return {"skipped": SKIPPED}
     hazard = msds_item.get("hazard") or {}
     h_codes = [r.get("code") for r in hazard.get("h_statements") or []]
-    return compare([r.get("code") for r in hazard.get("pictograms") or []], infer_pictograms(h_codes, hmap))
+    return compare([r.get("code") for r in hazard.get("pictograms") or []], infer_pictograms(h_codes, hmap),
+                   unmapped_codes(h_codes, hmap))

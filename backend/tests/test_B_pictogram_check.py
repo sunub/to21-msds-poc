@@ -97,8 +97,27 @@ def test_compare_empty_and_none_codes():
 def test_check_msds(tmp_path):
     hmap = pc.load_hazard_map(fake_map(tmp_path))
     assert pc.check_msds(item(["H900"], ["GHS07"]), hmap) == {
-        "model": ["GHS07"], "inferred": ["GHS02"], "missing": ["GHS02"], "extra": ["GHS07"], "ok": False}
+        "model": ["GHS07"], "inferred": ["GHS02"], "missing": ["GHS02"], "extra": ["GHS07"], "ok": False,
+        "unmapped_h": []}
     assert pc.check_msds(item(["H900"], ["GHS02"]), hmap)["ok"] is True
+
+
+def test_check_msds_unmapped_h_extra_is_not_mismatch():
+    hmap = {"H9A1": {"GHS07"}}
+    r = pc.check_msds(item(["H9A1", "H9Z9"], ["GHS07", "GHS02"]), hmap)
+    assert (r["missing"], r["extra"], r["unmapped_h"], r["ok"]) == ([], ["GHS02"], ["H9Z9"], True)
+
+
+def test_check_msds_unmapped_h_empty_extra_is_mismatch():
+    hmap = {"H9A1": {"GHS07"}}
+    r = pc.check_msds(item(["H9A1"], ["GHS07", "GHS02"]), hmap)
+    assert (r["extra"], r["unmapped_h"], r["ok"]) == (["GHS02"], [], False)
+
+
+def test_check_msds_unmapped_h_missing_is_mismatch():
+    hmap = {"H9A1": {"GHS07"}}
+    r = pc.check_msds(item(["H9A1", "H9Z9"], []), hmap)
+    assert (r["missing"], r["unmapped_h"], r["ok"]) == (["GHS07"], ["H9Z9"], False)
 
 
 def test_check_msds_without_map_is_skipped():
