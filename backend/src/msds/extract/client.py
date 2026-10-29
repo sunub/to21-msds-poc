@@ -205,7 +205,7 @@ class ChatClient:
                 except _ModeRejected as e:
                     errors.append(f"[{mode}] 거부됨: {e}")
                     break          # 이 방식은 지원되지 않음 → 다음 방식으로
-                if mode != "json_schema_compact":   # 공백 막기는 출력 한도에 걸린 묶음에만 쓴다 (ADR-017)
+                if mode != "json_schema_compact":   # 압축 방식은 기억하지 않는다. json_schema 다음에 둔 태그는 한도에 걸린 묶음에만 쓴다 (ADR-017)
                     self._working_mode[self.model] = mode   # 요청이 받아들여진 방식은 기억한다
                 choice = resp.choices[0]
                 finish = choice.finish_reason

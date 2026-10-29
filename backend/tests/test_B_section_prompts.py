@@ -164,15 +164,11 @@ def test_value_and_range_are_exclusive(systems, no):
 
 
 def test_version():
-    assert sp.SECTION_PROMPT_VERSION == "s3"
-
-
-def test_s3_version():
-    assert sp.SECTION_PROMPT_VERSION == "s3"
+    assert sp.SECTION_PROMPT_VERSION == "s4"
 
 
 @pytest.mark.parametrize("no", NOS)
-def test_s3_omit_empty_cells(systems, no):
+def test_s4_omit_empty_cells(systems, no):
     """값 없는 칸은 쓰지 않게 한다 (ADR-017)."""
     assert "값이 없는 칸은 쓰지 않는다" in systems[no]
     assert "null로 둔다" not in systems[no]
