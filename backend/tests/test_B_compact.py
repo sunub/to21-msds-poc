@@ -1,4 +1,4 @@
-"""출력 한도에 걸린 묶음만 공백을 막아 한 번 더 보내기 (역할 B, ADR-016).
+"""출력 한도에 걸린 묶음만 공백을 막아 한 번 더 보내기 (역할 B, ADR-017).
 
 모델 서버와 네트워크를 부르지 않는다. ChatClient의 client를 가짜 객체로 바꾼다.
 """
@@ -141,3 +141,29 @@ def test_requests_on_validation_retry():
 def test_no_compact_in_current_tags():
     for tag in ("qwen38", "gpt", "claude"):
         assert "json_schema_compact" not in (load_model_config(tag).get("structured") or [])
+
+
+def compact_first_cfg() -> dict:
+    return dict(compact_cfg(), structured=["json_schema_compact", "none"])
+
+
+def test_compact_first_request_has_no_whitespace_and_no_response_format():
+    client, calls = make_client(compact_first_cfg(), [ok()])
+    client.call(SYSTEM, USER, SCHEMA, "msds_b1")
+    kw = calls[0]
+    assert kw["extra_body"]["structured_outputs"]["disable_any_whitespace"] is True
+    assert "response_format" not in kw
+
+
+def test_compact_first_length_fails_after_one_request():
+    client, calls = make_client(compact_first_cfg(), [cut()])
+    res = client.call(SYSTEM, USER, SCHEMA, "msds_b1")
+    assert len(calls) == 1
+    assert not res.ok
+
+
+def test_compact_first_ok_reports_compact_mode():
+    client, calls = make_client(compact_first_cfg(), [ok()])
+    res = client.call(SYSTEM, USER, SCHEMA, "msds_b1")
+    assert res.ok
+    assert res.mode == "json_schema_compact"

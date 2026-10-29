@@ -184,7 +184,8 @@ def test_nuextract_rejected_request():
 
 def test_other_tag_keeps_system_and_json_schema():
     schema = response_schema(3)
-    client, calls = make_client(load_model_config("qwen3_30b_a3b_rngd"),
+    cfg = dict(load_model_config("qwen3_30b_a3b_rngd"), structured=["json_schema", "none"])
+    client, calls = make_client(cfg,
                                 [resp(json.dumps(nx.coerce({}, schema)))])
     res = client.call(SYSTEM, USER, schema, "sec03")
     assert res.ok
