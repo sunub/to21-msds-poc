@@ -82,10 +82,11 @@ def check_section(parsed: dict | None, allowed_ids: set[str]) -> list[str]:
 # ── 항 하나 ────────────────────────────────────────────
 
 def _attempt(client, system: str, user: list[dict], schema: dict, schema_name: str, allowed: set[str]) -> dict:
-    """호출 한 번. 예외도 실패한 시도로 돌려준다."""
+    """호출 한 번. 예외도 실패한 시도로 돌려준다.
+    서버 스키마의 필수 칸을 TO21 필수 칸과 line·lines로 줄여, 모델이 값 없는 칸을 쓰지 않게 한다 (ADR-017)."""
     t0 = time.perf_counter()
     try:
-        r = client.call(system, user, schema, schema_name)
+        r = client.call(system, user, schema, schema_name, require_all=False)
         rec = {"ok": r.ok, "parsed": r.parsed, "raw_text": r.raw_text, "mode": r.mode,
                "finish_reason": r.finish_reason, "usage": r.usage or {}, "attempts": r.attempts,
                "errors": list(r.errors), "requests": list(r.requests)}
