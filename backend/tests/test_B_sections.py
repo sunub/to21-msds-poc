@@ -184,6 +184,33 @@ def test_provisional_many_titles_with_content_between_kept():
     assert out["stats"] == {"found": 16, "msds": 1}
 
 
+def test_toc_with_unknown_titles_still_skipped():
+    # 목차 번호 줄 16개 중 4개는 제목 글자가 사전과 달라도 목차로 잡는다
+    unknown = {7, 8, 9, 11}
+    toc = [f"{n}. 가상 목차 제목" if n in unknown else f"{n}. {t(n)} | {n}" for n in range(1, 17)]
+    lines = make_lines({
+        1: ["가상 물질안전보건자료", "목차"] + toc,
+        2: titled(range(1, 9)),
+        3: titled(range(9, 17)),
+    })
+    out = find_sections(lines, TITLES)
+    assert out["stats"] == {"found": 16, "msds": 1}
+    assert all(int(s.split(":")[0][1:]) >= 2 for s in starts(out["msds"][0]).values())
+
+
+def test_toc_not_triggered_by_numbered_property_list():
+    # 번호 줄 16개가 연달아 있어도 사전과 맞는 제목이 거의 없으면 목차가 아니다
+    props = [f"{n}) 가상 물성 {n}" for n in range(1, 17)]
+    lines = make_lines({
+        1: titled(range(1, 9)),
+        2: [f"9. {t(9)}"] + props,
+        3: titled(range(10, 17)),
+    })
+    out = find_sections(lines, TITLES)
+    assert out["stats"] == {"found": 16, "msds": 1}
+    assert starts(out["msds"][0])[9] == "p2:L1"
+
+
 def test_provisional_no_titles_and_no_lines():
     out = find_sections(make_lines({1: ["가", "나"], 2: ["다"]}), TITLES)
     assert out["stats"] == {"found": 0, "msds": 1}
