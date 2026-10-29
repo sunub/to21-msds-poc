@@ -6,6 +6,7 @@
 - 형식(pattern)이 정해진 칸의 빈 글자("")는 null로 둔다. 중간 형식에는 형식 조건이 없어 모델이 ""를 쓴다.
 - seq, Q의 status·dp·note, comp_ref, 서술 문장, extras의 쪽·항 번호, 근거(evidence)는 코드가 채운다.
 - 값 없는 행의 표기는 A의 규칙 함수(msds.common.conventions.apply)에 맡긴다.
+- 15항 화평법 행은 값이 있는데 해당 여부가 비면 '해당'으로 채운다 (사용자 결정 10/29).
 """
 from __future__ import annotations
 
@@ -116,6 +117,22 @@ def link_components(rows: list[dict], components: list[dict]) -> list[dict]:
         out.append({**{k: v for k, v in r.items() if k not in _COMP_KEYS},
                     "comp_ref": str(c["seq"]) if c else "MIX"})
     return out
+
+
+# ── 15항 화평법 해당 여부 ──────────────────────────────
+
+def _has_value(text: str | None) -> bool:
+    t = re.sub(r"\s+", "", text or "")
+    return bool(t) and t not in _NO_VALUE | {"비해당"}
+
+
+def fill_kreach_applicable(regulations: list[dict]) -> None:
+    """화평법(KREACH) 행에 값(value_raw 또는 threshold)이 있는데 해당 여부(applicable)가 비면 '해당'으로 채운다.
+    값 없는 행과 다른 법령 행은 그대로 둔다 (사용자 결정 10/29, A-1 답의 참고: TO21 정답이 '해당')."""
+    for r in regulations:
+        if (r.get("law") == "KREACH" and r.get("applicable") is None
+                and (_has_value(r.get("value_raw")) or _has_value((r.get("threshold") or {}).get("raw")))):
+            r["applicable"] = "해당"
 
 
 # ── 표기 규칙 자리 (ADR-004) ───────────────────────────
@@ -260,6 +277,8 @@ def expand_msds(sections: dict[int, dict | None], lines_by_id: dict[str, Line],
                 if linked["comp_ref"] == "MIX" and (_norm(r.get("comp_name")) or _norm(r.get("comp_cas"))):
                     problem(no, "unlinked_component", f"{key}[{i}]: {r.get('comp_name')} / {r.get('comp_cas')}")
         item[key] = components if key == "components" else _shape(node, src, lines_by_id)
+        if key == "regulations":
+            fill_kreach_applicable(item[key])
         for i, (no, r) in enumerate(pairs):
             walk(no, r, f"{key}[{i}]")
 

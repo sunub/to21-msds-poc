@@ -2,10 +2,12 @@
 
 입력 읽기 → 항목별 동시 호출 → 줄 번호 검사, 실패·문제 항만 1회 재추출 → 펼치기 → 검사 → 기록.
 한 항의 호출이 실패해도 그 항만 실패로 남기고 나머지는 계속한다.
+모델 설정의 rows_sections에 든 항은 행 형식으로 받는다: call_text → rows.parse_rows → 스키마 검증.
+버린 줄의 오류도 재추출 피드백에 넣는다 (ADR-019).
 
 runs/<실행 이름>/ 에 남는 것
   outputs/<문서>.json            TO21 v0.6 문서
-  checks/<문서>.json             항별 결과, 스키마·TO21 검증기 결과, 펼치기 문제, 경고, 항목 분할 방식, 사람 검토할 항
+  checks/<문서>.json             항별 결과(받은 방식 mode 포함), 스키마·TO21 검증기 결과, 펼치기 문제, 경고, 항목 분할 방식, 사람 검토할 항
   raw/<문서>_m<i>_s<NN>.json     항별 모델 응답과 사용량, 요청별 기록 requests (재추출했으면 다른 시도도)
   timing.jsonl                   단계별 시간: inputs, call, reextract, expand, checks, total
   run_info.yaml                  모델, 프롬프트 버전·해시, 스키마 버전, 시각, git 커밋 (save_run_info)
@@ -27,10 +29,11 @@ from msds.checks.validator import run_to21_validator
 from msds.common import manifest
 from msds.common.merge import SCHEMA_VERSION, now_kst
 from msds.common.paths import DATA, PAGES, ROOT, RUNS
-from msds.common.schema import validate_to21
+from msds.common.schema import validate, validate_to21
 from msds.extract.client import ChatClient, load_model_config
 from msds.extract.expand import to_to21
 from msds.extract.inputs import SECTION_NOS, DocumentInput, load_document, section_lines
+from msds.extract.rows import parse_rows
 from msds.extract.section_prompts import SECTION_PROMPT_VERSION, build_system, build_user, prompt_hash
 from msds.extract.section_specs import response_schema
 
@@ -81,15 +84,26 @@ def check_section(parsed: dict | None, allowed_ids: set[str]) -> list[str]:
 
 # ── 항 하나 ────────────────────────────────────────────
 
-def _attempt(client, system: str, user: list[dict], schema: dict, schema_name: str, allowed: set[str]) -> dict:
+def _attempt(client, no: int, system: str, user: list[dict], schema: dict, allowed: set[str],
+             rows: bool = False) -> dict:
     """호출 한 번. 예외도 실패한 시도로 돌려준다.
-    서버 스키마의 필수 칸을 TO21 필수 칸과 line·lines로 줄여, 모델이 값 없는 칸을 쓰지 않게 한다 (ADR-017)."""
+    JSON 경로는 서버 스키마의 필수 칸을 TO21 필수 칸과 line·lines로 줄여, 모델이 값 없는 칸을 쓰지 않게 한다 (ADR-017).
+    rows면 글로 받아 parse_rows로 바꾸고 schema로 검증한다. 버린 줄과 검증 문제는 errors에 담는다.
+    표 하나라도 읽혀 검증을 통과하면 ok다. 버린 줄이 있어도 남은 행은 쓴다 (ADR-019)."""
     t0 = time.perf_counter()
     try:
-        r = client.call(system, user, schema, schema_name, require_all=False)
-        rec = {"ok": r.ok, "parsed": r.parsed, "raw_text": r.raw_text, "mode": r.mode,
+        if rows:
+            r = client.call_text(system, user)
+            parsed, errors = parse_rows(r.raw_text, no)
+            schema_errors = validate(parsed, schema) if parsed else []
+            errors += [f"검증 실패: {e}" for e in schema_errors]
+            parsed, ok = parsed or None, bool(parsed) and not schema_errors
+        else:
+            r = client.call(system, user, schema, f"sec{no:02d}", require_all=False)
+            parsed, ok, errors = r.parsed, r.ok, []
+        rec = {"ok": ok, "parsed": parsed, "raw_text": r.raw_text, "mode": r.mode,
                "finish_reason": r.finish_reason, "usage": r.usage or {}, "attempts": r.attempts,
-               "errors": list(r.errors), "requests": list(r.requests)}
+               "errors": list(r.errors) + errors, "requests": list(r.requests)}
     except Exception as e:
         rec = {"ok": False, "parsed": None, "raw_text": None, "mode": None, "finish_reason": None,
                "usage": {}, "attempts": 1, "errors": [f"호출 예외: {type(e).__name__}: {str(e)[:300]}"],
@@ -108,18 +122,23 @@ def _sum_usage(*usages: dict) -> dict:
     return out
 
 
+def _problems(attempt: dict) -> list[str]:
+    """다시 보낼 때 적을 문제: 호출·검증 오류(행 형식이면 버린 줄 포함)와 줄 번호 검사 문제.
+    JSON 경로는 ok이면 errors가 비어 있어, 지금까지처럼 줄 번호 검사 문제만 남는다."""
+    return attempt["errors"] + attempt["check_problems"]
+
+
 def _run_section(client, doc: DocumentInput, msds_index: int, no: int, system: str, schema: dict,
-                 allowed: set[str]) -> tuple[SectionResult, dict, dict | None]:
+                 allowed: set[str], rows: bool = False) -> tuple[SectionResult, dict, dict | None]:
     """반환: (항 결과, 첫 시도, 재추출 시도 또는 None)."""
     lines = section_lines(doc, msds_index, no)
-    name = f"sec{no:02d}"
-    first = _attempt(client, system, build_user(no, lines), schema, name, allowed)
+    first = _attempt(client, no, system, build_user(no, lines), schema, allowed, rows)
     second = None
-    if not first["ok"] or first["check_problems"]:
-        feedback = "\n".join(f"- {x}" for x in (first["errors"] + first["check_problems"])[:_FEEDBACK_MAX])
-        second = _attempt(client, system, build_user(no, lines, feedback), schema, name, allowed)
+    if not first["ok"] or _problems(first):
+        feedback = "\n".join(f"- {x}" for x in _problems(first)[:_FEEDBACK_MAX])
+        second = _attempt(client, no, system, build_user(no, lines, feedback), schema, allowed, rows)
     better = (second is not None and second["ok"]
-              and (not first["ok"] or len(second["check_problems"]) < len(first["check_problems"])))
+              and (not first["ok"] or len(_problems(second)) < len(_problems(first))))
     chosen = second if better else first
     tried = [first] + ([second] if second else [])
     result = SectionResult(msds_index, no, chosen["parsed"], chosen["ok"], chosen["errors"],
@@ -158,7 +177,8 @@ def run_document(doc_id: str, model_tag: str, run_name: str, client=None, *,
     stage("inputs", time.perf_counter() - t)
 
     # 2~3. 항목별 동시 호출과 1회 재추출. 안내문은 워크북을 읽으므로 스레드에 넘기기 전에 만든다.
-    prompts = {no: (build_system(no), response_schema(no)) for no in SECTION_NOS}
+    rows = set(cfg.get("rows_sections") or [])
+    prompts = {no: (build_system(no, no in rows), response_schema(no)) for no in SECTION_NOS}
     futures = {}
     with ThreadPoolExecutor(max_workers=workers(cfg, max_workers)) as pool:
         for part in doc.msds:
@@ -166,7 +186,7 @@ def run_document(doc_id: str, model_tag: str, run_name: str, client=None, *,
             allowed = {l.id for l in doc.lines if first_page <= l.page <= last_page}
             for no in SECTION_NOS:
                 futures[(part.index, no)] = pool.submit(_run_section, client, doc, part.index, no,
-                                                        *prompts[no], allowed)
+                                                        *prompts[no], allowed, no in rows)
     outcomes = [futures[k].result() for k in sorted(futures)]
 
     results: list[SectionResult] = []
@@ -185,7 +205,7 @@ def run_document(doc_id: str, model_tag: str, run_name: str, client=None, *,
             raw["reextract_attempt"] = second
         _write_json(run / "raw" / f"{doc_id}_m{res.msds_index}_s{res.section_no:02d}.json", raw)
         section_checks.append({"msds_index": res.msds_index, "section": res.section_no, "ok": res.ok,
-                               "errors": res.errors, "check_problems": chosen["check_problems"],
+                               "mode": chosen["mode"], "errors": res.errors, "check_problems": chosen["check_problems"],
                                "reextracted": res.reextracted, "attempts": res.attempts,
                                "seconds": res.seconds, "usage": res.usage})
 
@@ -213,7 +233,7 @@ def run_document(doc_id: str, model_tag: str, run_name: str, client=None, *,
     stage("total", total, usage=_sum_usage(*(r.usage for r in results)))
 
     review = {(r.msds_index, r.section_no) for r in results if not r.ok}
-    review |= {(c["msds_index"], c["section"]) for c in section_checks if c["check_problems"]}
+    review |= {(c["msds_index"], c["section"]) for c in section_checks if c["check_problems"] or c["errors"]}
     review |= {(p["msds_index"], p["section"]) for p in expand_problems}
 
     # 6. 기록
@@ -257,11 +277,12 @@ def save_run_info(run: Path, model_tag: str, pages_dir=PAGES, max_workers: int |
     """같은 조건으로 다시 돌릴 수 있게 모델·프롬프트·스키마 버전과 쪽 글자 폴더를 남긴다.
     주소·키·환경변수 값은 쓰지 않는다. 쪽 글자 폴더는 저장소 기준 상대 경로로 쓴다."""
     cfg = load_model_config(model_tag)
+    rows = set(cfg.get("rows_sections") or [])
     info = {
         "model_tag": model_tag,
         "model": cfg["model"],
         "prompt_version": SECTION_PROMPT_VERSION,
-        "prompt_hashes": {no: prompt_hash(no) for no in SECTION_NOS},
+        "prompt_hashes": {no: prompt_hash(no, no in rows) for no in SECTION_NOS},   # 실제로 보내는 안내문의 해시
         "schema_version": SCHEMA_VERSION,
         "pages_dir": os.path.relpath(pages_dir, ROOT),
         "concurrency": workers(cfg, max_workers),

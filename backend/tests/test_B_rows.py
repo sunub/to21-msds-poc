@@ -1,0 +1,294 @@
+"""extract/rows.py 시험. 행 글은 직접 만든 가짜 MSDS 값이다 (D-43). 모델 서버를 부르지 않는다."""
+import pytest
+
+from msds.common.schema import validate
+from msds.extract import rows as rw
+from msds.extract.section_specs import response_schema
+
+COMP = {"comp_name": "가상물질 갑", "comp_cas": "1234-56-6"}
+
+
+def row(no: int, table: str, **values) -> str:
+    """열 이름 → 값으로 행 한 줄을 만든다. 빠진 열은 빈 칸."""
+    return " | ".join(str(values.get(c, "")) for c in rw.row_tables(no)[table])
+
+
+def table(no: int, name: str, *lines: str) -> str:
+    """'### 표 이름', 열 이름 줄, 행 줄."""
+    return "\n".join([f"### {name}", " | ".join(rw.row_tables(no)[name]), *lines])
+
+
+def tox_text() -> str:
+    """11항: 독성 3행, 발암성 2행(해당없음 행 포함)."""
+    return "\n".join([
+        table(11, "toxicity",
+              row(11, "toxicity", **COMP, endpoint="TX_ORAL", descriptor="LD50", q="> 2000 mg/kg", species="랫드",
+                  status="값있음", line="p5:L3"),
+              row(11, "toxicity", **COMP, endpoint="TX_INHAL", descriptor="LC50", q="5.2 mg/L", species="랫드",
+                  duration_value="4", duration_unit="hr", physical_form="증기", status="값있음", line="p5:L4"),
+              row(11, "toxicity", **COMP, endpoint="TX_SKIN", q="자료없음", statements="가상 설명 하나; 가상 설명 둘",
+                  status="자료없음", line="p5:L5")),
+        table(11, "cmr",
+              row(11, "cmr", **COMP, hazard="발암성", agency="IARC", **{"class": "Group 3"}, status="값있음",
+                  line="p5:L9"),
+              row(11, "cmr", **COMP, hazard="발암성", agency="KR_OSH", status="해당없음", line="p5:L10")),
+    ])
+
+
+# ── row_tables ─────────────────────────────────────────
+
+@pytest.mark.parametrize("no", rw.ROWS_SECTIONS_DEFAULT)
+def test_row_tables_follow_schema_order(no):
+    props = response_schema(no)["properties"]
+    tables = rw.row_tables(no)
+    assert list(tables) == list(props)
+    for name, cols in tables.items():
+        node = props[name]
+        if node["type"] == "array":
+            assert cols == list(node["items"]["properties"])
+        else:   # 객체 칸은 한 행짜리 표: lines 대신 line 열 하나
+            assert cols == [k for k in node["properties"] if k != "lines"] + ["line"]
+        assert cols[-1] in ("line", "end")    # 마지막 열은 늘 줄 번호
+
+
+def test_row_tables_examples():
+    t11 = rw.row_tables(11)
+    assert list(t11) == ["toxicity", "cmr", "narratives", "extras"]
+    assert t11["toxicity"][:5] == ["comp_name", "comp_cas", "endpoint", "descriptor", "q"]
+    assert t11["toxicity"][-2:] == ["status", "line"]
+    assert len(t11["toxicity"]) == 19
+    assert t11["narratives"] == ["item_code", "title_raw", "start", "end"]
+    assert rw.row_tables(3)["composition"] == ["type", "no_hazardous_component", "line"]
+    assert rw.ROWS_SECTIONS_DEFAULT == (3, 8, 9, 11, 12, 15)
+
+
+def test_row_tables_rejects_nested_rows():
+    """2항 hazard처럼 객체 안에 행 목록이 있는 항은 행 형식으로 쓸 수 없다."""
+    with pytest.raises(ValueError, match="hazard"):
+        rw.row_tables(2)
+
+
+# ── parse_qm ───────────────────────────────────────────
+
+@pytest.mark.parametrize("text, expected", [
+    ("658 mg/L", {"raw": "658 mg/L", "value": 658, "unit": "mg/L"}),
+    ("20 ~ 30 %", {"raw": "20 ~ 30 %", "lower_op": ">=", "lower": 20, "upper_op": "<=", "upper": 30, "unit": "%"}),
+    (">= 99.96 %", {"raw": ">= 99.96 %", "lower_op": ">=", "lower": 99.96, "unit": "%"}),
+    ("약 1.2 g/cm3", {"raw": "약 1.2 g/cm3", "value": 1.2, "approx": True, "unit": "g/cm3"}),
+    ("해당없음", {"raw": "해당없음"}),
+    ("", None),
+])
+def test_parse_qm_examples(text, expected):
+    assert rw.parse_qm(text) == expected
+
+
+@pytest.mark.parametrize("text, expected", [    # R04 부등호·범위, R06 숫자, R08 단위 기호
+    ("<1 %", {"upper_op": "<", "upper": 1, "unit": "%"}),
+    ("10% 이상", {"lower_op": ">=", "lower": 10, "unit": "%"}),
+    ("1 미만", {"upper_op": "<", "upper": 1}),
+    ("5 초과", {"lower_op": ">", "lower": 5}),
+    ("≤ 0.5 ppm", {"upper_op": "<=", "upper": 0.5, "unit": "ppm"}),
+    ("> 2000 mg/kg", {"lower_op": ">", "lower": 2000, "unit": "mg/kg"}),
+    ("약 23 ℃", {"value": 23, "approx": True, "unit": "C"}),
+    ("1,000 mg/㎥", {"value": 1000, "unit": "mg/m3"}),
+    ("1.2E-3", {"value": 0.0012}),
+    ("-20 ℃", {"value": -20, "unit": "C"}),
+    ("10-20 %", {"lower_op": ">=", "lower": 10, "upper_op": "<=", "upper": 20, "unit": "%"}),
+    ("60 ℃ (밀폐식)", {"value": 60, "unit": "C"}),
+    ("약간 있음", {}),
+    ("자료없음", {}),
+])
+def test_parse_qm_rules(text, expected):
+    assert rw.parse_qm(text) == {"raw": text, **expected}
+
+
+def test_parse_qm_blank_and_types():
+    assert rw.parse_qm("   ") is None
+    assert rw.parse_qm(" 658 mg/L ")["raw"] == "658 mg/L"
+    assert isinstance(rw.parse_qm("658 mg/L")["value"], int)
+    assert isinstance(rw.parse_qm("2.0")["value"], float)     # 소수 자릿수(dp)는 fill_q가 raw로 정한다
+
+
+# ── parse_rows ─────────────────────────────────────────
+
+def test_parse_rows_toxicity_and_cmr():
+    parsed, errors = rw.parse_rows(tox_text(), 11)
+    assert errors == []
+    assert validate(parsed, response_schema(11)) == []
+    assert list(parsed) == ["toxicity", "cmr", "narratives", "extras"]
+    assert parsed["narratives"] == [] and parsed["extras"] == []
+    tox, cmr = parsed["toxicity"], parsed["cmr"]
+    assert len(tox) == 3 and len(cmr) == 2
+    assert tox[0]["q"] == {"raw": "> 2000 mg/kg", "lower_op": ">", "lower": 2000, "unit": "mg/kg"}
+    assert tox[0]["species"] == "랫드" and tox[0]["sex"] is None and tox[0]["statements"] == []
+    assert tox[1]["duration_value"] == 4 and tox[1]["duration_unit"] == "hr" and tox[1]["physical_form"] == "증기"
+    assert tox[2]["q"] == {"raw": "자료없음"} and tox[2]["status"] == "자료없음"
+    assert tox[2]["statements"] == [{"value": "가상 설명 하나", "line": "p5:L5"},
+                                    {"value": "가상 설명 둘", "line": "p5:L5"}]
+    assert cmr[1] == {"comp_name": "가상물질 갑", "comp_cas": "1234-56-6", "hazard": "발암성", "agency": "KR_OSH",
+                      "class": None, "status": "해당없음", "note": None, "line": "p5:L10"}
+
+
+def test_parse_rows_wrong_column_count_drops_only_that_line():
+    lines = tox_text().splitlines()
+    bad = row(11, "toxicity", **COMP, endpoint="TX_EYE", status="자료없음", line="p5:L6").replace(" | ", " / ", 1)
+    parsed, errors = rw.parse_rows("\n".join(lines[:3] + [bad] + lines[3:]), 11)
+    assert len(errors) == 1
+    assert errors[0].startswith("toxicity p5:L6 가상물질 갑 / 1234-56-6")
+    assert errors[0].endswith(": 열 18개, 기대 19개")
+    assert len(parsed["toxicity"]) == 3 and len(parsed["cmr"]) == 2
+    assert validate(parsed, response_schema(11)) == []
+
+
+@pytest.mark.parametrize("bad", ["", "22", "L23", "p2 L23", "p2:L"])
+def test_parse_rows_bad_line_id_is_error(bad):
+    text = table(11, "cmr",
+                 row(11, "cmr", **COMP, hazard="발암성", agency="IARC", status="해당없음", line=bad),
+                 row(11, "cmr", **COMP, hazard="발암성", agency="KR_OSH", status="해당없음", line="p5:L10"))
+    parsed, errors = rw.parse_rows(text, 11)
+    assert len(errors) == 1 and "line 열" in errors[0]
+    assert [r["line"] for r in parsed["cmr"]] == ["p5:L10"]
+
+
+def test_parse_rows_narrative_start_end_are_line_ids():
+    text = table(11, "narratives", row(11, "narratives", item_code="S11_ROUTE", title_raw="가. 가상 제목",
+                                        start="p5:L20", end="p5:L22"),
+                 row(11, "narratives", item_code="S11_ROUTE", start="p5:L23", end="끝"))
+    parsed, errors = rw.parse_rows(text, 11)
+    assert parsed["narratives"] == [{"item_code": "S11_ROUTE", "title_raw": "가. 가상 제목",
+                                     "start": "p5:L20", "end": "p5:L22"}]
+    assert len(errors) == 1 and "end 열" in errors[0]
+
+
+@pytest.mark.parametrize("text", ["", "   \n\n", "표가 없습니다.", "가상물질 갑 | p5:L3"])
+def test_parse_rows_no_header_is_one_error(text):
+    parsed, errors = rw.parse_rows(text, 11)
+    assert parsed == {} and len(errors) == 1
+
+
+def test_parse_rows_slash_in_value_kept():
+    text = table(11, "toxicity", row(11, "toxicity", **COMP, endpoint="TX_ORAL", descriptor="LD50", q="> 2000 mg/kg",
+                                     species="랫드/마우스", status="값있음", line="p5:L3"))
+    parsed, errors = rw.parse_rows(text, 11)
+    assert errors == [] and parsed["toxicity"][0]["species"] == "랫드/마우스"
+
+
+def test_parse_rows_markdown_style():
+    """코드 울타리, 마크다운 구분 줄, 앞뒤에 |를 붙인 줄도 읽는다. 행이 없는 표는 머리글만 있어도 된다."""
+    cols = rw.row_tables(11)["cmr"]
+    r = row(11, "cmr", **COMP, hazard="발암성", agency="IARC", status="해당없음", line="p5:L10")
+    text = "\n".join(["```", "### toxicity", "", "### cmr", f"| {' | '.join(cols)} |", "|" + "---|" * len(cols),
+                      f"| {r} |", "```"])
+    parsed, errors = rw.parse_rows(text, 11)
+    assert errors == []
+    assert parsed["toxicity"] == [] and [x["agency"] for x in parsed["cmr"]] == ["IARC"]
+
+
+def test_parse_rows_first_cell_empty():
+    """첫 칸이 빈 행(제품 전체 값)도 읽는다."""
+    text = table(11, "toxicity", row(11, "toxicity", endpoint="TX_ORAL", descriptor="ATE", q="3,500 mg/kg",
+                                     status="값있음", line="p5:L3"))
+    parsed, errors = rw.parse_rows(text, 11)
+    assert errors == []
+    assert parsed["toxicity"][0]["comp_name"] is None and parsed["toxicity"][0]["q"]["value"] == 3500
+
+
+def test_parse_rows_unknown_table_is_error():
+    text = "### 독성\n가상물질 갑 | p5:L3\n" + table(11, "cmr", row(11, "cmr", **COMP, hazard="발암성", agency="IARC",
+                                                                       status="해당없음", line="p5:L10"))
+    parsed, errors = rw.parse_rows(text, 11)
+    assert len(errors) == 1 and "독성" in errors[0] and "toxicity" in errors[0]
+    assert parsed["toxicity"] == [] and len(parsed["cmr"]) == 1
+
+
+def test_parse_rows_bad_enum_or_number_drops_row():
+    text = table(11, "toxicity",
+                 row(11, "toxicity", **COMP, endpoint="TX_ORL", line="p5:L3"),
+                 row(11, "toxicity", **COMP, endpoint="TX_ORAL", duration_value="4h", line="p5:L4"),
+                 row(11, "toxicity", **COMP, endpoint="TX_ORAL", line="p5:L5"))
+    parsed, errors = rw.parse_rows(text, 11)
+    assert len(errors) == 2
+    assert "p5:L3" in errors[0] and "endpoint" in errors[0]
+    assert "p5:L4" in errors[1] and "duration_value" in errors[1]
+    assert [r["line"] for r in parsed["toxicity"]] == ["p5:L5"]
+    assert validate(parsed, response_schema(11)) == []
+
+
+def test_parse_rows_section3_object_bool_list():
+    text = "\n".join([
+        table(3, "composition", row(3, "composition", type="혼합물", no_hazardous_component="false", line="p2:L3")),
+        table(3, "components",
+              row(3, "components", name="가상물질 갑", synonyms="가상명 A; 가상명 B", cas_no="1234-56-6",
+                  content="10 ~ 20 %", line="p2:L5"),
+              row(3, "components", name="영업비밀 성분", content="1 ~ 5 %", trade_secret="true", line="p2:L6")),
+    ])
+    parsed, errors = rw.parse_rows(text, 3)
+    assert errors == []
+    assert validate(parsed, response_schema(3)) == []
+    assert parsed["composition"] == {"type": "혼합물", "no_hazardous_component": False,
+                                     "lines": {"type": "p2:L3", "no_hazardous_component": "p2:L3"}}
+    c = parsed["components"]
+    assert c[0]["synonyms"] == ["가상명 A", "가상명 B"] and c[0]["trade_secret"] is None
+    assert c[0]["content"] == {"raw": "10 ~ 20 %", "lower_op": ">=", "lower": 10, "upper_op": "<=", "upper": 20,
+                               "unit": "%"}
+    assert c[1]["trade_secret"] is True and c[1]["synonyms"] == []
+    assert parsed["extras"] == []
+
+
+def test_parse_rows_composition_missing_or_twice():
+    parsed, errors = rw.parse_rows(table(3, "components"), 3)
+    assert errors == [] and parsed["composition"] == {"lines": {}} and parsed["components"] == []
+    assert validate(parsed, response_schema(3)) == []
+
+    text = table(3, "composition", row(3, "composition", type="혼합물", line="p2:L3"),
+                 row(3, "composition", type="단일물질", line="p2:L4"))
+    parsed, errors = rw.parse_rows(text, 3)
+    assert parsed["composition"]["type"] == "혼합물"
+    assert len(errors) == 1 and "p2:L4" in errors[0]
+
+
+def test_parse_rows_bool_must_be_true_false():
+    text = table(3, "components", row(3, "components", name="가상물질 갑", trade_secret="예", line="p2:L5"))
+    parsed, errors = rw.parse_rows(text, 3)
+    assert parsed["components"] == [] and len(errors) == 1 and "trade_secret" in errors[0]
+
+
+def test_parse_rows_cond_pairs():
+    text = table(9, "physchem",
+                 row(9, "physchem", prop_code="VAPOR_PRESSURE", q="2.3 kPa", cond="temp=20; temp_unit=C",
+                     line="p5:L4"),
+                 row(9, "physchem", prop_code="FLASH_POINT", q="60 ℃", cond="method=밀폐식", line="p5:L1"),
+                 row(9, "physchem", prop_code="FLASH_POINT", q="60 ℃", cond="온도 20", line="p5:L2"))
+    parsed, errors = rw.parse_rows(text, 9)
+    assert [r["cond"] for r in parsed["physchem"]] == [{"temp": 20, "temp_unit": "C"}, {"method": "밀폐식"}]
+    assert parsed["physchem"][1]["q"] == {"raw": "60 ℃", "value": 60, "unit": "C"}
+    assert len(errors) == 1 and "cond" in errors[0] and "p5:L2" in errors[0]
+
+
+# ── rows_guide ─────────────────────────────────────────
+
+@pytest.mark.parametrize("no", rw.ROWS_SECTIONS_DEFAULT)
+def test_rows_guide_tables_and_examples_parse(no):
+    """표마다 머리글과 열 이름 줄이 있고, 예시 행은 그 항 스키마 검증을 통과한다."""
+    guide = rw.rows_guide(no)
+    for name, cols in rw.row_tables(no).items():
+        assert f"### {name}\n{' | '.join(cols)}\n" in guide
+    parsed, errors = rw.parse_rows(guide, no)
+    assert errors == []
+    assert validate(parsed, response_schema(no)) == []
+    for name in response_schema(no)["properties"]:
+        assert parsed[name], f"{no}항 {name} 예시 없음"
+
+
+def test_rows_guide_rules():
+    g = rw.rows_guide(11)
+    for s in ("`|`", "`/`", "p2:L23", "자료없음", "해당없음", "미기재", "비워", "`converted`", "`statements`"):
+        assert s in g, s
+    assert "temp_unit" not in g and "temp_unit" in rw.rows_guide(9)          # 조건 열은 9항에만
+    assert "`true`" not in g and "`true`" in rw.rows_guide(3)                # 참/거짓 열은 3항에만
+    assert "S11_ROUTE" in g and "S12_OTHER" not in g                          # 서술 항목 코드는 이 항의 것
+
+
+def test_rows_guide_only_this_section_tables():
+    g = rw.rows_guide(12)
+    assert "### ecotox\n" in g and "### toxicity\n" not in g and "### composition\n" not in g

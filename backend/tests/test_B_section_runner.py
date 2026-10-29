@@ -1,11 +1,13 @@
 """extract/section_runner.py와 scripts/run_sections.py 시험.
 
 쪽 글자·항목 분할·manifest는 tmp_path에 만든 가짜 MSDS다 (D-43). 모델 서버와 .env를 쓰지 않는다:
-call(system, user_parts, schema, schema_name, require_all)만 가진 가짜 클라이언트를 넘긴다 (ADR-007).
+call(system, user_parts, schema, schema_name, require_all)과 call_text(system, user_parts)만 가진
+가짜 클라이언트를 넘긴다 (ADR-007).
 """
 import copy
 import importlib
 import json
+import re
 import threading
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
@@ -17,6 +19,7 @@ from msds.common import manifest
 from msds.common.merge import SCHEMA_VERSION
 from msds.common.paths import PAGES
 from msds.common.schema import validate, validate_to21
+from msds.extract import rows as rw
 from msds.extract import section_runner as sr
 from msds.extract import section_specs as ss
 from msds.extract.client import CallResult, load_model_config
@@ -88,6 +91,19 @@ def responses() -> dict[int, dict]:
     return r
 
 
+def rows11(tox_line: str = "p2:L14", extra: str = "") -> str:
+    """11항 행 글: 독성 1행, 발암성 해당없음 1행. 줄은 가짜 문서의 11항 내용 줄(p2:L14). extra는 cmr 표 끝에 붙인다."""
+    t = rw.row_tables(11)
+    comp = {"comp_name": "가상물질 갑", "comp_cas": "1234-56-6"}
+    tox = {**comp, "endpoint": "TX_ORAL", "descriptor": "LD50", "q": "> 2000 mg/kg", "species": "랫드",
+           "status": "값있음", "line": tox_line}
+    cmr = {**comp, "hazard": "발암성", "agency": "IARC", "status": "해당없음", "line": "p2:L14"}
+    out = []
+    for name, r in (("toxicity", tox), ("cmr", cmr)):
+        out += [f"### {name}", " | ".join(t[name]), " | ".join(r.get(c, "") for c in t[name])]
+    return "\n".join(out + ([extra] if extra else []))
+
+
 def bad_line() -> dict:
     """2항 응답에 원문에 없는 줄 번호가 하나 있다."""
     r = copy.deepcopy(responses()[2])
@@ -96,8 +112,8 @@ def bad_line() -> dict:
 
 
 class FakeClient:
-    """항 번호마다 plan의 응답(dict 또는 예외)을 차례로 돌려주고, 다 쓰면 responses()의 응답을 돌려준다.
-    fail에 든 항은 언제나 예외를 낸다."""
+    """항 번호마다 plan의 응답(dict, 행 글 또는 예외)을 차례로 돌려주고, 다 쓰면 responses()의 응답을 돌려준다.
+    call_text(행 형식)는 다 쓰면 11항이면 rows11()을 돌려준다. fail에 든 항은 언제나 예외를 낸다."""
 
     def __init__(self, plan: dict[int, list] | None = None, fail: set[int] = frozenset()):
         self.plan = {k: list(v) for k, v in (plan or {}).items()}
@@ -108,7 +124,7 @@ class FakeClient:
     def call(self, system, user_parts, schema, schema_name, require_all=True):
         no = int(schema_name.removeprefix("sec"))
         with self._lock:
-            self.calls.append({"no": no, "system": system, "user": user_parts[0]["text"],
+            self.calls.append({"no": no, "method": "call", "system": system, "user": user_parts[0]["text"],
                                "schema": schema, "schema_name": schema_name, "require_all": require_all})
             out = self.plan[no].pop(0) if self.plan.get(no) else responses()[no]
         if no in self.fail:
@@ -118,6 +134,18 @@ class FakeClient:
         return CallResult(out, json.dumps(out, ensure_ascii=False), "json_schema", "stop",
                           {"prompt_tokens": 100, "completion_tokens": 10, "total_tokens": 110},
                           0.01, "fake-model", 1, [])
+
+    def call_text(self, system, user_parts, max_tokens=None):
+        no = int(re.match(r"\[(\d+)항 원문\]", user_parts[0]["text"]).group(1))
+        with self._lock:
+            self.calls.append({"no": no, "method": "call_text", "system": system, "user": user_parts[0]["text"]})
+            out = self.plan[no].pop(0) if self.plan.get(no) else rows11()
+        if no in self.fail:
+            raise ConnectionError("가짜 연결 오류")
+        if isinstance(out, Exception):
+            raise out
+        return CallResult(None, out, "rows", "stop", {"prompt_tokens": 100, "completion_tokens": 10,
+                                                      "total_tokens": 110}, 0.01, "fake-model", 1, [])
 
     def calls_for(self, no: int) -> list[dict]:
         return [c for c in self.calls if c["no"] == no]
@@ -405,6 +433,114 @@ def test_workers_default_from_config(env, monkeypatch):
     run(env, FakeClient())
     run(env, FakeClient(), max_workers=3)
     assert seen == [load_model_config(TAG)["concurrency"], 3]
+
+
+# ── 행 형식 항 (ADR-019) ───────────────────────────────
+
+@pytest.fixture
+def rows_cfg(monkeypatch):
+    """rows_sections: [11]인 가짜 설정. models.yaml은 이 step에서 바꾸지 않는다."""
+    cfg = {**load_model_config(TAG), "rows_sections": [11]}
+    monkeypatch.setattr(sr, "load_model_config", lambda tag: cfg)
+    return cfg
+
+
+def test_rows_section_goes_to_call_text(env, rows_cfg):
+    client = FakeClient()
+    summary = run(env, client)
+    assert (summary["sections_ok"], summary["sections_failed"], summary["reextracted"]) == (16, 0, 0)
+    assert len(client.calls) == 16
+    assert [c["method"] for c in client.calls_for(11)] == ["call_text"]
+    assert all(c["method"] == "call" for c in client.calls if c["no"] != 11)
+    assert client.calls_for(11)[0]["system"] == build_system(11, rows=True)
+    assert client.calls_for(12)[0]["system"] == build_system(12)
+
+    s = section_check(env, 11)
+    assert s["mode"] == "rows" and s["ok"] and s["errors"] == [] and s["check_problems"] == []
+    assert section_check(env, 3)["mode"] == "json_schema"
+    raw = read_json(env / "runs" / RUN / "raw" / f"{DOC}_m0_s11.json")
+    assert raw["mode"] == "rows" and raw["raw_text"] == rows11()
+    assert raw["parsed"]["toxicity"][0]["q"]["lower"] == 2000
+
+    out = read_json(env / "runs" / RUN / "outputs" / f"{DOC}.json")
+    assert validate_to21(out) == []
+    tox, cmr = out["msds"][0]["toxicity"], out["msds"][0]["cmr"]
+    assert len(tox) == 1 and tox[0]["comp_ref"] == "1" and tox[0]["q"]["status"] == "값있음"
+    assert len(cmr) == 1 and cmr[0]["status"] == "해당없음"
+
+
+def test_rows_default_config_never_calls_call_text(env):
+    """rows_sections가 없는 태그는 모든 항이 JSON 경로(call)다."""
+    client = FakeClient()
+    run(env, client)
+    assert len(client.calls) == 16 and all(c["method"] == "call" for c in client.calls)
+
+
+def test_rows_parse_error_goes_to_feedback(env, rows_cfg):
+    client = FakeClient(plan={11: [rows11(extra="가상물질 갑 | 1234-56-6 | p2:L14")]})
+    summary = run(env, client)
+    calls = client.calls_for(11)
+    assert [c["method"] for c in calls] == ["call_text", "call_text"]
+    assert "[다시 확인할 점]" not in calls[0]["user"]
+    assert "[다시 확인할 점]" in calls[1]["user"]
+    assert "cmr p2:L14 가상물질 갑 | 1234-56-6 | p2:L14: 열 3개, 기대 8개" in calls[1]["user"]
+    assert summary["reextracted"] == 1
+    s = section_check(env, 11)
+    assert s["reextracted"] is True and s["ok"] and s["errors"] == []
+    assert checks(env)["needs_review"] == []
+    raw = read_json(env / "runs" / RUN / "raw" / f"{DOC}_m0_s11.json")
+    assert raw["first_attempt"]["errors"] == ["cmr p2:L14 가상물질 갑 | 1234-56-6 | p2:L14: 열 3개, 기대 8개"]
+
+
+def test_rows_errors_twice_keep_rows_and_review(env, rows_cfg):
+    """두 번 다 틀린 줄이 있으면 첫 시도의 살아남은 행을 쓰고 사람 검토로 표시한다."""
+    bad = rows11(extra="가상물질 갑 | p2:L14")
+    client = FakeClient(plan={11: [bad, bad]})
+    summary = run(env, client)
+    assert len(client.calls_for(11)) == 2
+    assert summary["reextracted"] == 0 and summary["sections_failed"] == 0
+    s = section_check(env, 11)
+    assert s["ok"] is True and s["reextracted"] is False and len(s["errors"]) == 1
+    assert checks(env)["needs_review"] == [{"msds_index": 0, "section": 11}]
+    out = read_json(env / "runs" / RUN / "outputs" / f"{DOC}.json")
+    assert len(out["msds"][0]["toxicity"]) == 1 and len(out["msds"][0]["cmr"]) == 1
+
+
+def test_rows_bad_line_id_reextracted(env, rows_cfg):
+    """행 글의 줄 번호가 원문에 없으면 JSON 경로와 같이 줄 번호 검사로 한 번 더 보낸다."""
+    client = FakeClient(plan={11: [rows11(tox_line="p9:L99")]})
+    run(env, client)
+    calls = client.calls_for(11)
+    assert len(calls) == 2 and "p9:L99" in calls[1]["user"]
+    assert section_check(env, 11)["reextracted"] is True
+
+
+def test_rows_no_header_fails_then_retried(env, rows_cfg):
+    client = FakeClient(plan={11: ["표가 없습니다.", "표가 없습니다."]})
+    summary = run(env, client)
+    assert len(client.calls_for(11)) == 2
+    assert "표 머리글이 없음" in client.calls_for(11)[1]["user"]
+    s = section_check(env, 11)
+    assert s["ok"] is False and s["mode"] == "rows"
+    assert summary["sections_failed"] == 1
+    c = checks(env)
+    assert {"msds_index": 0, "section": 11} in c["needs_review"]
+    assert any(p["section"] == 11 and p["kind"] == "missing_section" for p in c["expand_problems"])
+
+
+def test_rows_call_exception_retried(env, rows_cfg):
+    client = FakeClient(plan={11: [TimeoutError("가짜 시간 초과")]})
+    summary = run(env, client)
+    assert [c["method"] for c in client.calls_for(11)] == ["call_text", "call_text"]
+    assert summary["reextracted"] == 1 and section_check(env, 11)["ok"] is True
+
+
+def test_save_run_info_rows_prompt_hash(tmp_path, rows_cfg):
+    """행 형식 항은 실제로 보내는 안내문(rows=True)의 해시를 남긴다."""
+    sr.save_run_info(tmp_path / "r", TAG)
+    info = yaml.safe_load((tmp_path / "r" / "run_info.yaml").read_text(encoding="utf-8"))
+    assert info["prompt_hashes"][11] == prompt_hash(11, rows=True) != prompt_hash(11)
+    assert info["prompt_hashes"][3] == prompt_hash(3)
 
 
 # ── 실행 기록과 명세서 내용 (D-47) ─────────────────────

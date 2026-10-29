@@ -9,6 +9,7 @@ import pytest
 from msds.common.paths import to21_file
 from msds.extract import section_prompts as sp
 from msds.extract.inputs import Line
+from msds.extract.rows import ROWS_SECTIONS_DEFAULT, row_tables
 from msds.extract.section_specs import load_specs
 
 NOS = range(1, 17)
@@ -164,7 +165,7 @@ def test_value_and_range_are_exclusive(systems, no):
 
 
 def test_version():
-    assert sp.SECTION_PROMPT_VERSION == "s4"
+    assert sp.SECTION_PROMPT_VERSION == "s5"
 
 
 @pytest.mark.parametrize("no", NOS)
@@ -186,3 +187,53 @@ def test_build_all_under_one_second():
 def test_print_sizes(systems):
     """항별 안내문 글자 수 (실패 조건 아님). 보려면 -s."""
     print("\n항별 안내문 글자 수: " + ", ".join(f"{no}항 {len(systems[no]):,}" for no in NOS))
+
+
+# ── 행 형식 안내문 (ADR-019) ───────────────────────────
+
+@pytest.fixture(scope="module")
+def rows_systems():
+    return {no: sp.build_system(no, rows=True) for no in ROWS_SECTIONS_DEFAULT}
+
+
+def test_rows_version_s5():
+    assert sp.SECTION_PROMPT_VERSION == "s5"
+
+
+@pytest.mark.parametrize("no", ROWS_SECTIONS_DEFAULT)
+def test_rows_system_has_table_headers_and_columns(rows_systems, no):
+    text = rows_systems[no]
+    assert f'{no}항 "{load_specs()[no].title}"' in text
+    assert "p2:L23" in text
+    fmt = _part(text, "[응답 형식]")
+    for name, cols in row_tables(no).items():
+        assert f"### {name}\n" + " | ".join(cols) + "\n" in fmt
+
+
+@pytest.mark.parametrize("no", ROWS_SECTIONS_DEFAULT)
+def test_rows_system_replaces_json_rules_only(rows_systems, systems, no):
+    """JSON 지시는 빠지고, 이 항의 안내·필드 정의·코드표는 JSON 안내문과 같다."""
+    text = rows_systems[no]
+    assert "JSON 형식" not in text and "값이 없는 칸은 쓰지 않는다" not in text
+    assert "JSON을 쓰지 않는다" in text
+    for title in ("이 항의 안내", "[필드 정의]", "[코드표]"):
+        assert _part(text, title).strip() == _part(systems[no], title).strip(), title
+
+
+@pytest.mark.parametrize("no", ROWS_SECTIONS_DEFAULT)
+def test_rows_system_only_this_section_tables(rows_systems, no):
+    for key in ALL_KEYS - TARGETS[no]:
+        assert f"### {key}\n" not in rows_systems[no], f"{no}항 행 안내문에 {key}"
+
+
+@pytest.mark.parametrize("no", NOS)
+def test_rows_false_is_json_prompt(systems, no):
+    assert sp.build_system(no, rows=False) == systems[no]
+    assert "[응답 형식]" not in systems[no]
+
+
+@pytest.mark.parametrize("no", ROWS_SECTIONS_DEFAULT)
+def test_rows_prompt_hash(rows_systems, no):
+    h = sp.prompt_hash(no, rows=True)
+    assert h == hashlib.sha256(rows_systems[no].encode("utf-8")).hexdigest()[:12]
+    assert h != sp.prompt_hash(no)
