@@ -224,6 +224,20 @@ def test_narratives(no_conventions):
                                                             "환기가 잘 되는 곳에서 취급하시오."]
 
 
+def test_split_statements_bullet_pipe():
+    """version9는 불릿 기호를 표 칸처럼 ' | '로 묶어 준다. 표 행은 건드리지 않는다."""
+    lines = [L("p1:L1", "- | 즉시 의료조치를 취하시오."),
+             L("p1:L2", "· | 고용노동부고시 : 해당없음"),
+             L("p1:L3", "| 환기가 잘 되는 곳에서 취급하시오."),
+             L("p1:L4", "가상물질 | 가상 이름 | 1234-56-6 | 20 ~ 30")]
+    st = ex.split_statements(lines)
+    assert [s["value"] for s in st] == ["즉시 의료조치를 취하시오.", "해당없음",
+                                        "환기가 잘 되는 곳에서 취급하시오.",
+                                        "가상물질 | 가상 이름 | 1234-56-6 | 20 ~ 30"]
+    assert [s["key"] for s in st] == [None, "고용노동부고시", None, None]
+    assert [s["text"] for s in st] == [l.text for l in lines]
+
+
 def test_evidence(no_conventions):
     m, _ = expand_one(responses())
     ev = {e["field"]: e for e in m["evidence"]}

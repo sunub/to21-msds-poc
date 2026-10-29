@@ -23,6 +23,7 @@ _NO_VALUE = {"자료없음", "해당없음", "미기재"}
 _NUM = re.compile(r"\d[\d,]*(?:\.\d+)?")
 _BULLET = re.compile(r"^\s*(?:[-–](?!\d)|[•·○●◦■□▪*]|[①-⑳]|\(?\d{1,2}\)|\d{1,2}\.(?!\d)"
                      r"|\(?[가나다라마바사아자차카타파하][.)])\s*")
+_PIPE_LEAD = re.compile(r"^\|\s*")    # version9: 불릿 기호가 표 칸처럼 ' | '로 묶여 온다
 _COLON = re.compile(r"[:：]")
 _COMP_KEYS = ("comp_name", "comp_cas")
 _SOURCE_MAX = 200    # TO21 evidence.source_text: 200자 이내
@@ -66,7 +67,8 @@ def fill_q(qm: dict | None) -> dict | None:
 # ── 서술 문장 ──────────────────────────────────────────
 
 def _strip_bullet(text: str) -> str:
-    return _BULLET.sub("", text, count=1).strip() or text.strip()
+    body = _PIPE_LEAD.sub("", _BULLET.sub("", text, count=1).strip(), count=1)
+    return body.strip() or text.strip()
 
 
 def _key_value(body: str) -> tuple[str | None, str]:
