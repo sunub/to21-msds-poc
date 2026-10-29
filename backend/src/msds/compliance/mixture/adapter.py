@@ -4,6 +4,7 @@
 """
 from ..ghs.models import GhsInputs
 
+_HOURS = {"min": 1 / 60, "hr": 1, "day": 24, "week": 168}  # 스키마 duration_unit 값
 _ROUTE = {"TX_ORAL": "경구", "TX_DERMAL": "경피"}  # 흡입은 TX_INHAL 로 시작하는 endpoint 전부
 
 
@@ -47,6 +48,8 @@ def to_acute_components(inputs: GhsInputs) -> list[dict]:
             row = {"route": route, "op": one[0], "value": one[1], "unit": t["q"].get("unit")}
             if route == "흡입":  # acute.py 의 ATE 표가 흡입은 form(가스·증기·분진·미스트)별이다
                 row["form"] = t.get("physical_form")
+            if t.get("duration_value") is not None and t.get("duration_unit") in _HOURS:
+                row["hours"] = t["duration_value"] * _HOURS[t["duration_unit"]]
             tox.append(row)
         out.append({"seq": c.seq, "name": c.name, "cas_no": c.cas_no,
                     "content_lower": lower, "content_upper": upper, "content_unit": "%", "tox": tox})

@@ -1,0 +1,11 @@
+# 출처: 설계서 v0.4 19장·규칙표 units U-01~U-07, T-01~T-04 (직접 적음). 목표 단위는 acute_tox_ate.csv의 unit 열.
+# needs: 환산에 꼭 필요한 입력(mw 분자량, density 밀도 g/mL). form_only: 그 흡입 형태에서만 적용.
+# U-05 value x mw / U-06 value x density x 1000 / U-07 value x mw / 24450 (25도). 시간 환산은 units_time.csv.
+rule_id,from_unit,to_unit,factor,needs,form_only,note
+U-01,g/kg,mg/kg,1000,,,
+U-02,µg/kg,mg/kg,0.001,,,
+U-03,mg/m3,mg/L,0.001,,,
+U-04,g/m3,mg/L,1,,,
+U-05,mmol/kg,mg/kg,,mw,,
+U-06,mL/kg,mg/kg,,density,,
+U-07,ppm,mg/L,,mw,vapour,참고
