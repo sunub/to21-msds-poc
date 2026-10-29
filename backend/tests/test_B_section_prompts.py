@@ -1,9 +1,11 @@
 """extract/section_prompts.py 시험. 명세서·동의어 사전은 읽기만 하고, 원문 줄은 직접 만든 가짜 값이다 (D-43)."""
+import base64
 import hashlib
 import json
 import re
 import time
 
+import pymupdf
 import pytest
 
 from msds.common.paths import to21_file
@@ -64,18 +66,21 @@ def test_no_transport_in_section_3(systems):
 @pytest.mark.parametrize("no", NOS)
 def test_code_owned_fields_excluded(systems, no):
     text = systems[no]
-    for path in ["hazard.pictograms", "meta.page_start", "meta.page_end", "narratives[].status",
+    for path in ["hazard.pictograms[].detection", "meta.page_start", "meta.page_end", "narratives[].status",
                  "narratives[].statements", "extras[].page", "extras[].section_no", "evidence", "validation"]:
         assert f"`{path}" not in text
     assert not re.search(r"`[\w.\[\]]*\.seq`", text)                    # 순번은 코드가 붙인다
     assert not re.search(r"`[\w.\[\]]*\.comp_ref`", text)               # 이 호출은 comp_name·comp_cas로 쓴다
 
 
-def test_no_pictogram_table_in_section_2(systems):
+def test_pictogram_table_only_in_section_2(systems):
+    """2항 호출이 쪽 이미지에서 그림문자를 읽으므로 2항 안내문에만 C2 코드표가 들어간다 (ADR-019)."""
     text = systems[2]
-    assert "(C2)" not in text
-    assert "GHS01" not in text
+    assert "(C2)" in text and "GHS01" in text
+    assert "`hazard.pictograms[].code`" in text
+    assert "이미지가 없으면 pictograms를 쓰지 않는다" in text
     assert "### 5-1. 유해성 분류 코드(C1)" in text
+    assert all("(C2)" not in systems[n] for n in NOS if n != 2)
 
 
 @pytest.mark.parametrize("no", NOS)
@@ -88,7 +93,7 @@ def test_narrative_codes_only_this_section(systems, no):
 
 
 @pytest.mark.parametrize("no, tables", [
-    (1, {"C7"}), (2, {"C1", "C3"}), (3, set()), (9, {"C4"}), (11, {"C3", "C5", "C7", "C8"}),
+    (1, {"C7"}), (2, {"C1", "C2", "C3"}), (3, set()), (9, {"C4"}), (11, {"C3", "C5", "C7", "C8"}),
     (15, {"C3", "C6", "C7"}),
 ])
 def test_code_tables_from_field_refs(systems, no, tables):
@@ -145,6 +150,30 @@ def test_build_user_retry_feedback():
     out = sp.build_user(3, lines, retry_feedback="components[0].line: p9:L99는 없는 줄")
     assert out == [{"type": "text", "text": "[3항 원문]\np3:L7 가짜 성분 | 000-00-0 | 10~20"
                                              "\n\n[다시 확인할 점]\ncomponents[0].line: p9:L99는 없는 줄"}]
+
+
+def test_build_user_images(tmp_path):
+    """이미지는 글 뒤에, 안내 글 하나 다음 차례로 붙는다. 긴 변은 IMAGE_MAX_SIDE 이하로 줄인다 (ADR-019)."""
+    paths = []
+    for name, w in (("p001.png", 1500), ("p002.png", 40)):
+        pix = pymupdf.Pixmap(pymupdf.csRGB, pymupdf.IRect(0, 0, w, 30), False)
+        pix.clear_with(200)
+        pix.save(str(tmp_path / name))
+        paths.append(tmp_path / name)
+    lines = [Line("p1:L5", 1, 5, "2. 유해성·위험성")]
+    out = sp.build_user(2, lines, "가짜 피드백", images=paths)
+    assert out[0] == sp.build_user(2, lines, "가짜 피드백")[0]
+    assert out[1] == {"type": "text",
+                      "text": "[2항이 있는 쪽 이미지. 그림문자(마름모 안 그림)를 보고 pictograms에 GHS 코드를 적는다]"}
+    assert [p["type"] for p in out[2:]] == ["image_url", "image_url"]
+    widths = [pymupdf.Pixmap(base64.b64decode(p["image_url"]["url"].split(",", 1)[1])).width for p in out[2:]]
+    assert sp.IMAGE_MAX_SIDE == 1200 and widths[0] <= 1200 and widths[1] == 40
+
+
+def test_build_user_no_images_text_only():
+    lines = [Line("p1:L5", 1, 5, "2. 유해성·위험성")]
+    assert sp.build_user(2, lines, images=[]) == sp.build_user(2, lines)
+    assert len(sp.build_user(2, lines)) == 1
 
 
 @pytest.mark.parametrize("no", NOS)

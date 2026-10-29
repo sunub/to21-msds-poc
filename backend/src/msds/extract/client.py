@@ -21,6 +21,7 @@ import time
 from dataclasses import dataclass, field
 from pathlib import Path
 
+import pymupdf
 import yaml
 from dotenv import load_dotenv
 
@@ -58,8 +59,22 @@ class CallResult:
         return self.parsed is not None and not self.errors
 
 
-def image_part(path: Path, detail: str = "high") -> dict:
-    b64 = base64.b64encode(Path(path).read_bytes()).decode()
+def _shrink_png(data: bytes, max_side: int) -> bytes:
+    """긴 변이 max_side 이하가 되게 비율을 지켜 줄인 PNG. 이미 작으면 그대로 돌려준다."""
+    pix = pymupdf.Pixmap(data)
+    w, h = pix.width, pix.height
+    if max(w, h) <= max_side:
+        return data
+    scale = max_side / max(w, h)
+    return pymupdf.Pixmap(pix, max(1, round(w * scale)), max(1, round(h * scale)), None).tobytes("png")
+
+
+def image_part(path: Path, detail: str = "high", max_side: int | None = None) -> dict:
+    """max_side가 있으면 긴 변을 그 값 이하로 줄여 넣는다 (2항 쪽 이미지, ADR-019)."""
+    data = Path(path).read_bytes()
+    if max_side:
+        data = _shrink_png(data, max_side)
+    b64 = base64.b64encode(data).decode()
     return {"type": "image_url", "image_url": {"url": f"data:image/png;base64,{b64}", "detail": detail}}
 
 

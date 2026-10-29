@@ -9,6 +9,7 @@ TO21 스키마에서 바꾸는 것
 - comp_ref는 comp_name·comp_cas로 바꾼다. 이 호출은 3항의 성분 번호를 모르고, 펼치기가 3항과 맞춰 붙인다.
 - narratives 행은 item_code·title_raw·start·end만 받는다. 문장(statements)은 코드가 줄을 나눠 만든다 (R14).
 - CODE_OWNED의 칸은 받지 않는다.
+- 쪽 이미지에서 읽는 행(IMAGE_ROWS, 그림문자)은 원문 줄이 없어 line을 더하지 않고 정한 칸만 받는다 (ADR-019).
 - 값 조건(pattern, minimum 등)은 뺀다. 구조화 출력이 지키게 할 수 없어서, 칸 하나가 틀리면 항 전체를 잃는다.
   형식은 설명(description)에 남고, 펼친 뒤 validate_to21이 TO21 원래 스키마로 검사한다.
 """
@@ -32,11 +33,13 @@ CODE_OWNED: dict[str, set[str]] = {
     "msds": {"evidence", "validation"},           # 근거는 줄 번호로 코드가 채우고, 검증은 검사 단계가 쓴다
     "*": {"seq"},                                 # 순번은 행 순서대로 코드가 붙인다
     "meta": {"page_start", "page_end"},           # 항목 분할의 쪽 범위(MsdsPart.pages)로 안다
-    "hazard": {"pictograms"},                     # 그림문자 모델 몫 (10/31)
     "narratives": {"status", "statements"},       # 코드가 start~end 줄을 문장으로 나눈다 (R14)
     "extras": {"page", "section_no"},             # 쪽은 line에서, 항 번호는 호출에서 안다
     "STMT": {"text", "std_code", "match_score"},  # 원문 줄은 line에서 채우고, 문구DB 매칭은 하지 않는다
 }
+
+# 쪽 이미지에서 읽는 행: 행 경로 → 받는 칸. 판독 방식(detection)은 받지 않는다. 근거 줄은 객체의 lines에 적을 수 있다.
+IMAGE_ROWS: dict[str, tuple[str, ...]] = {"hazard.pictograms": ("code",)}
 
 # 항 번호 → (법정 항목 이름, 채울 TO21 키). 명세서 1_항목정의의 'MSDS 항목' 열과 같다.
 # meta_revision은 TO21 키가 아니라 16항 전용 객체다. 펼치기가 1항 meta의 빈 칸만 채운다.
@@ -117,8 +120,11 @@ def _props(node: dict, path: str, owned: set[str] = frozenset()) -> dict:
 
 
 def _row(item: dict, path: str) -> dict:
-    """행(객체 배열의 항목) 하나: 근거 줄 line을 더한다."""
+    """행(객체 배열의 항목) 하나: 근거 줄 line을 더한다. IMAGE_ROWS의 행은 정한 칸만 남기고 모두 필수로 둔다."""
     props = _props(item, path, CODE_OWNED["*"])
+    if path in IMAGE_ROWS:
+        keep = IMAGE_ROWS[path]
+        return {**item, "properties": {k: props[k] for k in keep}, "required": list(keep)}
     props["line"] = _LINE
     return {**item, "properties": props, "required": _required(item, props) + ["line"]}
 

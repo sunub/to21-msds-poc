@@ -214,6 +214,8 @@ def test_rows_have_line(no):
         props = item["properties"]
         if path == "/properties/narratives":
             assert list(props) == ["item_code", "title_raw", "start", "end"]
+        elif path == "/properties/hazard/properties/pictograms":   # 쪽 이미지에서 읽어 원문 줄이 없다 (ADR-019)
+            assert list(props) == ["code"]
         else:
             assert props["line"] == {"type": "string", "description": props["line"]["description"]}, path
             assert "line" in item["required"], path
@@ -260,17 +262,22 @@ def test_comp_ref_becomes_name_and_cas():
             assert {"type": "null"} in props[f]["anyOf"]
 
 
-def test_hazard_has_no_pictograms():
+def test_hazard_pictograms_code_only():
+    """그림문자는 쪽 이미지에서 읽어 원문 줄이 없다. 행은 code만 받고 line·detection은 받지 않는다 (ADR-019).
+    근거 줄은 hazard의 lines에 적을 수 있다."""
     hz = ss.response_schema(2)["properties"]["hazard"]["properties"]
-    assert "pictograms" not in hz
-    assert "pictograms" not in hz["lines"]["properties"]
+    item = hz["pictograms"]["items"]
+    assert set(item["properties"]) == {"code"} and item["required"] == ["code"]
+    enum = next(b for b in item["properties"]["code"]["anyOf"] if b.get("type") == "string")["enum"]
+    assert enum == [f"GHS0{n}" for n in range(1, 10)]
+    assert "pictograms" in hz["lines"]["properties"]
 
 
 def test_code_owned_fields_are_not_asked():
     co = ss.CODE_OWNED
     assert {"evidence", "validation"} <= co["msds"]
     assert "seq" in co["*"]
-    assert "pictograms" in co["hazard"]
+    assert "hazard" not in co                 # 그림문자는 2항 호출이 쪽 이미지에서 읽는다 (ADR-019)
     assert {"status", "statements"} <= co["narratives"]
     for no in NOS:
         s = ss.response_schema(no)

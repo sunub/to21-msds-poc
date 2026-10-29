@@ -3,14 +3,16 @@
 모델 서버와 네트워크를 부르지 않는다. ChatClient의 client를 가짜 객체로 바꾼다.
 응답 예는 직접 만든 가짜 값이다 (D-43).
 """
+import base64
 import json
 from types import SimpleNamespace
 
 import openai
+import pymupdf
 import pytest
 
 from msds.extract import nuextract as nx
-from msds.extract.client import ChatClient, load_model_config
+from msds.extract.client import ChatClient, image_part, load_model_config
 from msds.extract.section_specs import response_schema
 
 SYSTEM = "시스템 안내문"
@@ -382,3 +384,42 @@ def test_call_text_rejected_request():
     assert len(calls) == 1
     assert res.raw_text == "" and res.mode == "rows"
     assert len(res.errors) == 1 and "거부됨" in res.errors[0]
+
+
+# ── 쪽 이미지 줄이기 (2항 그림문자, ADR-019) ───────────
+
+def fake_png(path, width: int, height: int):
+    """시험에서 만든 회색 PNG. 실제 쪽 이미지(data/pages/)를 읽지 않는다 (D-43)."""
+    pix = pymupdf.Pixmap(pymupdf.csRGB, pymupdf.IRect(0, 0, width, height), False)
+    pix.clear_with(200)
+    pix.save(str(path))
+    return path
+
+
+def decoded(part: dict) -> pymupdf.Pixmap:
+    url = part["image_url"]["url"]
+    assert url.startswith("data:image/png;base64,")
+    return pymupdf.Pixmap(base64.b64decode(url.removeprefix("data:image/png;base64,")))
+
+
+@pytest.mark.parametrize("size", [(300, 120), (120, 300), (101, 77)])
+def test_image_part_max_side_shrinks_long_side(tmp_path, size):
+    part = image_part(fake_png(tmp_path / "p001.png", *size), max_side=50)
+    pix = decoded(part)
+    assert max(pix.width, pix.height) <= 50
+    assert max(pix.width, pix.height) >= 49                          # 긴 변을 한도 가까이 맞춘다
+    assert abs(pix.width / pix.height - size[0] / size[1]) < 0.1     # 가로세로 비율은 그대로
+    assert part["type"] == "image_url" and part["image_url"]["detail"] == "high"
+
+
+def test_image_part_max_side_small_image_unchanged(tmp_path):
+    path = fake_png(tmp_path / "p001.png", 40, 30)
+    part = image_part(path, max_side=50)
+    assert base64.b64decode(part["image_url"]["url"].split(",", 1)[1]) == path.read_bytes()
+
+
+def test_image_part_without_max_side_unchanged(tmp_path):
+    path = fake_png(tmp_path / "p001.png", 300, 120)
+    part = image_part(path, "low")
+    assert base64.b64decode(part["image_url"]["url"].split(",", 1)[1]) == path.read_bytes()
+    assert part["image_url"]["detail"] == "low"
