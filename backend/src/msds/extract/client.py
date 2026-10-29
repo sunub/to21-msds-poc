@@ -59,12 +59,14 @@ def image_part(path: Path, detail: str = "high") -> dict:
 
 
 def page_parts(pages: list[dict], input_mode: str, detail: str = "high") -> list[dict]:
-    """쪽마다 '=== 쪽 N ===' 표시, 텍스트층(이미지+글자 모드), 쪽 이미지를 차례로 넣는다."""
+    """쪽마다 '=== 쪽 N ===' 표시, 텍스트층 또는 OCR 글(이미지+글자 모드, render.load_pages의 source), 쪽 이미지를 차례로 넣는다."""
     parts: list[dict] = []
     for p in pages:
         header = f"=== 쪽 {p['page']} ==="
         if input_mode == "이미지+글자" and p.get("state") == "정상":
-            parts.append({"type": "text", "text": f"{header}\n[텍스트층]\n{p['text'].strip()}"})
+            label = ("[OCR 글: 텍스트층을 믿을 수 없어 쪽 이미지를 OCR로 읽은 글. 오인식이 있을 수 있으니 이미지와 함께 보세요]"
+                     if p.get("source") == "OCR" else "[텍스트층]")
+            parts.append({"type": "text", "text": f"{header}\n{label}\n{p['text'].strip()}"})
         elif p.get("state") == "정상":   # 이미지만 조건(입력 비교 실험): 읽을 글이 있지만 일부러 뺀 쪽
             parts.append({"type": "text", "text": f"{header}\n[글자 없이 이미지만 보고 읽으세요]"})
         else:
