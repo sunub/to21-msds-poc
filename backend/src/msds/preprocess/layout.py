@@ -13,6 +13,7 @@ PDF에 저장된 순서는 사람이 읽는 순서와 다를 수 있다 (S001 2�
 """
 from __future__ import annotations
 
+import re
 import statistics
 
 SHRINK = 0.15      # 위아래로 상자 높이의 이 비율만큼 줄여서 본다 (조금 겹쳐 잡힌 이웃 줄을 떼어 낸다)
@@ -208,6 +209,35 @@ def table_md(grid: list[list[str]]) -> str:
     def line(cells):
         return "| " + " | ".join(c.replace("|", "\\|") for c in cells) + " |\n"
     return line(grid[0]) + line(["---"] * len(grid[0])) + "".join(line(r) for r in grid[1:])
+
+
+# MSDS 1~16항 제목에 들어가는 낱말 (문서마다 표현이 조금씩 다르다: '응급조치요령'/'응급처치요령', '안정성'/'안전성')
+SECTION_WORDS = {1: ("화학제품",), 2: ("유해", "위험"), 3: ("구성성분",), 4: ("응급",), 5: ("화재", "폭발"),
+                 6: ("누출",), 7: ("취급", "저장"), 8: ("노출", "보호구"), 9: ("물리", "특성"), 10: ("반응",),
+                 11: ("독성",), 12: ("환경",), 13: ("폐기",), 14: ("운송",), 15: ("법",), 16: ("참고",)}
+_SECTION_NO = re.compile(r"^(\d{1,2})(?:\s*[.:]\s*|\s+)(?=[가-힣])")   # '3. 제목', '3.제목', '3 제목', '3: 제목'(045). '2차'는 아니다
+
+
+def section_headings(items: list[dict], after: int = 0) -> list[tuple[float, int, str]]:
+    """조각 → 이 쪽의 항 제목 [(줄 위 y, 항 번호, 제목)]. 위에서 아래 순서.
+
+    줄 글이 '번호. 한글'(또는 '번호 한글', '번호: 한글')로 시작하고, 번호가 1~16이며 그 항의 낱말(SECTION_WORDS)이
+    들어 있어야 한다. 번호는 앞 항(after, 앞 쪽까지 본 마지막 항)보다 커야 한다. 본문의 번호 목록('1. 눈에 들어갔을 때')과
+    1항 안의 '12.연료 및 연료 첨가제'(S013) 같은 줄을 항으로 잡지 않기 위해서다.
+    다만 1항은 언제든 다시 시작한다. 목차(S001 1쪽) 뒤의 본문과, MSDS 여러 건을 이은 문서(039)가 그렇다.
+    """
+    out = []
+    for row in _rows([i for i in items if i["text"].strip()]):
+        row = sorted(row, key=lambda i: i["box"][0])
+        text = re.sub(r"\s+", " ", " ".join(i["text"].strip() for i in row)).strip()
+        m = _SECTION_NO.match(text)
+        if not m:
+            continue
+        n = int(m[1])
+        if (after < n <= 16 or n == 1) and any(w in text.replace(" ", "") for w in SECTION_WORDS[n]):
+            out.append((min(i["box"][1] for i in row), n, text))
+            after = n
+    return out
 
 
 def reading_order(items: list[dict], tables: list[list[list]] | None = None) -> list[list[dict]]:
