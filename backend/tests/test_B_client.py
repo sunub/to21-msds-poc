@@ -427,8 +427,8 @@ def test_image_part_without_max_side_unchanged(tmp_path):
 
 def test_run_config_model_settings():
     q36 = load_model_config("qwen36_35b_runpod")
-    assert q36["rows_sections"] == [3, 8, 9, 11, 12, 15] and q36["image_input"] is True
+    assert q36["rows_sections"] == [3, 8, 9, 11, 12, 14, 15] and q36["image_input"] is True
     q30 = load_model_config("qwen3_30b_a3b_rngd")
-    assert q30["rows_sections"] == [3, 8, 9, 11, 12, 15] and "image_input" not in q30
+    assert q30["rows_sections"] == [3, 8, 9, 11, 12, 14, 15] and "image_input" not in q30
     for tag in ("gpt_oss_20b_rngd", "qwen3vl4b_rngd", "nuextract2_8b_runpod"):
         assert "rows_sections" not in load_model_config(tag)

@@ -1,6 +1,6 @@
 """표 항목의 행 형식 출력: 안내와 파서 (B, ADR-019).
 
-표 항목(3·8·9·11·12·15항)은 JSON 대신 '한 줄 한 행' 글로 받는다. 칸 이름이 행마다 반복되지 않아 출력이
+표 항목(3·8·9·11·12·14·15항)은 JSON 대신 '한 줄 한 행' 글로 받는다. 칸 이름이 행마다 반복되지 않아 출력이
 짧고, 문법 강제가 없어 공백 폭주가 없다. 모델은 표마다 `### 표 이름` 아래에 ` | `로 나눈 고정 열을 쓰고,
 parse_rows가 지금의 중간 형식 dict(section_specs.response_schema)로 바꾼다. 펼치기는 그대로 쓴다.
 - 열은 response_schema(no)의 행 칸 순서 그대로다. 스키마의 칸과 필수 칸은 바꾸지 않는다.
@@ -18,7 +18,7 @@ from dataclasses import dataclass
 from msds.common.schema import validate
 from msds.extract.section_specs import response_schema
 
-ROWS_SECTIONS_DEFAULT = (3, 8, 9, 11, 12, 15)   # 표 항목. models.yaml 태그의 rows_sections로 켠다
+ROWS_SECTIONS_DEFAULT = (3, 8, 9, 11, 12, 14, 15)   # 표 항목. models.yaml 태그의 rows_sections로 켠다
 
 _LINE_COLS = ("line", "start", "end")
 _LINE_ID = re.compile(r"p\d+:L\d+")
@@ -211,6 +211,12 @@ _EXAMPLES: dict[str, list[dict]] = {
         {"comp_name": "가상물질 갑", "comp_cas": "1234-56-6", "system": "EU_CLP", "class_raw": "Flam. Liq. 3",
          "h_code": "H226", "status": "값있음", "line": "p9:L15"},
         {"comp_name": "가상물질 갑", "comp_cas": "1234-56-6", "system": "JP", "status": "자료없음", "line": "p9:L16"}],
+    "transport": [
+        {"mode": "해상", "regulated": "true", "un_no": "9999", "shipping_name": "가상 액체", "hazard_class": "8",
+         "packing_group": "II", "marine_pollutant": "비해당", "ems_fire": "F-A", "ems_spill": "S-B",
+         "line": "p10:L3"},
+        {"mode": "공통", "regulated": "false", "packing_group": "해당없음", "marine_pollutant": "자료없음",
+         "line": "p10:L6"}],
     "narratives": [
         {"title_raw": "가. 가상 제목", "start": "p3:L10", "end": "p3:L14"},
         {"title_raw": "나. 가상 제목", "start": "p3:L15", "end": "p3:L18"}],
