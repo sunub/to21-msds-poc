@@ -143,7 +143,7 @@ class FakeClient:
         no = int(re.match(r"\[(\d+)항 원문\]", user_parts[0]["text"]).group(1))
         with self._lock:
             self.calls.append({"no": no, "method": "call_text", "system": system, "user": user_parts[0]["text"],
-                               "parts": user_parts})
+                               "parts": user_parts, "max_tokens": max_tokens})
             out = self.plan[no].pop(0) if self.plan.get(no) else rows11()
         if no in self.fail:
             raise ConnectionError("가짜 연결 오류")
@@ -588,6 +588,29 @@ def test_rows_call_exception_retried(env, rows_cfg):
     assert summary["reextracted"] == 1 and section_check(env, 11)["ok"] is True
 
 
+def test_rows_max_tokens_passed_to_call_text(env, rows_cfg):
+    """행 형식 호출은 설정의 rows_max_tokens를 출력 한도로 보낸다. 재추출도 같다 (ADR-021)."""
+    rows_cfg["rows_max_tokens"] = 16384
+    client = FakeClient(plan={11: [rows11(extra="가상물질 갑 | p2:L14")]})
+    run(env, client)
+    assert [c["max_tokens"] for c in client.calls_for(11)] == [16384, 16384]
+
+
+def test_rows_max_tokens_absent_is_none(env, rows_cfg):
+    """설정에 없으면 None을 넘겨 call_text가 max_tokens를 쓴다."""
+    client = FakeClient()
+    run(env, client)
+    assert [c["max_tokens"] for c in client.calls_for(11)] == [None]
+
+
+def test_save_run_info_rows_max_tokens(tmp_path, rows_cfg):
+    sr.save_run_info(tmp_path / "a", TAG)
+    rows_cfg["rows_max_tokens"] = 16384
+    sr.save_run_info(tmp_path / "b", TAG)
+    info = {k: yaml.safe_load((tmp_path / k / "run_info.yaml").read_text(encoding="utf-8")) for k in "ab"}
+    assert info["a"]["rows_max_tokens"] is None and info["b"]["rows_max_tokens"] == 16384
+
+
 def test_save_run_info_rows_prompt_hash(tmp_path, rows_cfg):
     """행 형식 항은 실제로 보내는 안내문(rows=True)의 해시를 남긴다."""
     sr.save_run_info(tmp_path / "r", TAG)
@@ -864,3 +887,10 @@ def test_run_config_save_run_info_writes_settings(tmp_path):
     sr.save_run_info(tmp_path / "r", "qwen36_35b_runpod")
     info = yaml.safe_load((tmp_path / "r" / "run_info.yaml").read_text(encoding="utf-8"))
     assert info["rows_sections"] == [3, 8, 9, 11, 12, 14, 15] and info["image_input"] is True
+
+
+def test_run_config_save_run_info_rows_max_tokens(tmp_path):
+    sr.save_run_info(tmp_path / "a", "qwen36_35b_runpod")
+    sr.save_run_info(tmp_path / "b", TAG)
+    info = {k: yaml.safe_load((tmp_path / k / "run_info.yaml").read_text(encoding="utf-8")) for k in "ab"}
+    assert info["a"]["rows_max_tokens"] == 16384 and info["b"]["rows_max_tokens"] is None
