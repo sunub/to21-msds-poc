@@ -17,7 +17,7 @@ def pytest_sessionstart(session):
         pytest.exit(
             "TO21 제공 파일이 없습니다 (" + ", ".join(missing) + ").\n"
             "TO21 자료는 저장소에 올리지 않습니다(D-47). 팀 공유 위치(노션)에서 받아 "
-            "to21/v0.5/에 원래 파일 이름 그대로 두세요. 목록: to21/README.md",
+            "to21/v0.6/에 원래 파일 이름 그대로 두세요. 목록: to21/README.md",
             returncode=2,
         )
 

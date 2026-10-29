@@ -9,3 +9,7 @@ jsonschema==4.26.0        # TO21 스키마 검증 (common/schema)
 PyYAML==6.0.3             # 설정 읽기 (configs/*.yaml)
 openpyxl==3.1.5           # 명세서 읽기 (extract/prompt_builder가 import), 검수표
 python-dotenv==1.2.4      # .env 읽기 (extract/client)
+fastapi==0.162.0          # 지식DB(HTODB) 조회 API (api/htodb_app)
+uvicorn==0.54.0           # 조회 API 실행
+psycopg[binary]==3.3.6    # 지식DB(PostgreSQL) 접속 (compliance/htodb)
+psycopg-pool==3.3.3       # 조회 API 연결 풀
