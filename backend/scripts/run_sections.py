@@ -45,7 +45,7 @@ if __name__ == "__main__":
     except (KeyError, ValueError) as e:
         ap.error(e.args[0])
     run_name = a.run_name or f"{today()}_sections_{a.model}"
-    save_run_info(run_dir(run_name), a.model, a.pages_dir)
+    save_run_info(run_dir(run_name), a.model, a.pages_dir, max_workers=a.workers)
     for r in targets:
         try:
             res = run_document(r["doc_id"], a.model, run_name, max_workers=a.workers, pages_dir=a.pages_dir)

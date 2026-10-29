@@ -48,6 +48,7 @@ def load_run(run: Path, label: str | None = None) -> dict:
                 seconds[rec["doc_id"]] = rec["seconds"]          # 같은 문서 줄이 여럿이면 마지막 줄
     return {"label": label or run.name, "name": run.name, "model_tag": info.get("model_tag"),
             "prompt_version": info.get("prompt_version"), "pages_dir": info.get("pages_dir"),
+            "concurrency": info.get("concurrency"),
             "outputs": outputs, "checks": checks, "seconds": seconds}
 
 
@@ -115,6 +116,7 @@ def _run_summary(run: dict, golds: dict, docs: list[str], per_doc: dict) -> dict
     return {
         "label": run["label"], "name": run["name"], "model_tag": run["model_tag"],
         "prompt_version": run["prompt_version"], "pages_dir": run["pages_dir"],
+        "concurrency": run["concurrency"],
         "weighted": ss["weighted"], "must_passed": ss["must_passed_count"], "must_total": ss["must_total"],
         "value_score": _mean(value),
         "items": items,
@@ -133,7 +135,7 @@ def _run_summary(run: dict, golds: dict, docs: list[str], per_doc: dict) -> dict
 
 
 def _group_summary(key: tuple, members: list[dict], per_doc: dict, docs: list[str]) -> dict:
-    g = {"model_tag": key[0], "prompt_version": key[1], "pages_dir": key[2],
+    g = {"model_tag": key[0], "prompt_version": key[1], "pages_dir": key[2], "concurrency": key[3],
          "runs": [m["label"] for m in members],
          "weighted_mean": _mean(m["weighted"] for m in members),
          "value_mean": _mean(m["value_score"] for m in members),
@@ -154,7 +156,7 @@ def compare_runs(runs: list[dict], golds: dict[str, dict], docs: list[str]) -> d
     summaries = [_run_summary(r, golds, docs, per_doc) for r in runs]
     keys: dict[tuple, list[dict]] = {}
     for r, s in zip(runs, summaries):
-        keys.setdefault((r["model_tag"], r["prompt_version"], r["pages_dir"]), []).append(s)
+        keys.setdefault((r["model_tag"], r["prompt_version"], r["pages_dir"], r["concurrency"]), []).append(s)
     groups = [_group_summary(k, m, per_doc, docs) for k, m in keys.items()]
     for s in summaries:
         del s["_rows_by_doc"]
@@ -196,9 +198,9 @@ def write_compare(result: dict, out_dir: Path, title: str) -> Path:
           r["sections_failed"], r["validator_errors"]] for r in runs])
     lines += ["## 조건 묶음", ""]
     lines += _table(
-        ["묶음", "모델 태그", "안내문 버전", "쪽 글자 폴더", "실행 수", "가중 종합 평균", "값 칸 평균(%)",
+        ["묶음", "모델 태그", "안내문 버전", "쪽 글자 폴더", "동시 호출", "실행 수", "가중 종합 평균", "값 칸 평균(%)",
          "전체 흔들림(%p)", "문서 가중 종합 흔들림(점)"],
-        [[i + 1, g["model_tag"], g["prompt_version"], g["pages_dir"], len(g["runs"]), _num(g["weighted_mean"]),
+        [[i + 1, g["model_tag"], g["prompt_version"], g["pages_dir"], _num(g["concurrency"], 0), len(g["runs"]), _num(g["weighted_mean"]),
           _pct(g["value_mean"]), _pct(g["spread"]), _num(g["doc_weighted_spread"])] for i, g in enumerate(groups)])
     spread_groups = [(i + 1, g) for i, g in enumerate(groups) if g["spread"] is not None]
     lines += ["## 항목별 점수 (%)", ""]
