@@ -160,7 +160,7 @@ def run_document(doc_id: str, model_tag: str, run_name: str, client=None, *,
     # 2~3. 항목별 동시 호출과 1회 재추출. 안내문은 워크북을 읽으므로 스레드에 넘기기 전에 만든다.
     prompts = {no: (build_system(no), response_schema(no)) for no in SECTION_NOS}
     futures = {}
-    with ThreadPoolExecutor(max_workers=max_workers or cfg.get("concurrency") or 16) as pool:
+    with ThreadPoolExecutor(max_workers=workers(cfg, max_workers)) as pool:
         for part in doc.msds:
             first_page, last_page = part.pages
             allowed = {l.id for l in doc.lines if first_page <= l.page <= last_page}
@@ -247,7 +247,12 @@ def _git_commit() -> str | None:
     return (r.stdout.strip() or None) if r.returncode == 0 else None
 
 
-def save_run_info(run: Path, model_tag: str, pages_dir=PAGES) -> None:
+def workers(cfg: dict, max_workers: int | None = None) -> int:
+    """항목별 동시 호출 수: max_workers or cfg["concurrency"] or 16. run_document와 save_run_info가 함께 쓴다."""
+    return max_workers or cfg.get("concurrency") or 16
+
+
+def save_run_info(run: Path, model_tag: str, pages_dir=PAGES, max_workers: int | None = None) -> None:
     """같은 조건으로 다시 돌릴 수 있게 모델·프롬프트·스키마 버전과 쪽 글자 폴더를 남긴다.
     주소·키·환경변수 값은 쓰지 않는다. 쪽 글자 폴더는 저장소 기준 상대 경로로 쓴다."""
     cfg = load_model_config(model_tag)
@@ -258,6 +263,7 @@ def save_run_info(run: Path, model_tag: str, pages_dir=PAGES) -> None:
         "prompt_hashes": {no: prompt_hash(no) for no in SECTION_NOS},
         "schema_version": SCHEMA_VERSION,
         "pages_dir": os.path.relpath(pages_dir, ROOT),
+        "concurrency": workers(cfg, max_workers),
         "started_at": now_kst(),
         "git_commit": _git_commit(),
     }

@@ -41,11 +41,13 @@ def write_json(path: Path, data) -> None:
 
 
 def make_run(root: Path, name: str, docs: dict, model_tag="m1", prompt="p1", pages="data/pages",
-             timing: list | None = None, checks: dict | None = None) -> Path:
+             timing: list | None = None, checks: dict | None = None, concurrency: int | None = None) -> Path:
     run = root / "runs" / name
     run.mkdir(parents=True)
-    (run / "run_info.yaml").write_text(
-        yaml.safe_dump({"model_tag": model_tag, "prompt_version": prompt, "pages_dir": pages}), encoding="utf-8")
+    info = {"model_tag": model_tag, "prompt_version": prompt, "pages_dir": pages}
+    if concurrency is not None:
+        info["concurrency"] = concurrency
+    (run / "run_info.yaml").write_text(yaml.safe_dump(info), encoding="utf-8")
     for d, doc in docs.items():
         write_json(run / "outputs" / f"{d}.json", doc)
     for d, c in (checks or {}).items():
@@ -183,6 +185,27 @@ def test_different_prompt_makes_two_groups(cm, env):
     for grp in res["groups"]:
         assert grp["spread"] is None and grp["item_spread"] == {} and grp["row_spread"] == {}
         assert len(grp["runs"]) == 1
+
+
+def test_concurrency_makes_two_groups(cm, env):
+    make_run(env, "r1", two_docs(), concurrency=1)
+    make_run(env, "r2", two_docs(), concurrency=16)
+    res = cm.compare_runs(loaded(cm, env, [("a", "r1"), ("b", "r2")]), golds(env), [X01, X02])
+    assert len(res["groups"]) == 2
+    assert [g["concurrency"] for g in res["groups"]] == [1, 16]
+    assert [r["concurrency"] for r in res["runs"]] == [1, 16]
+
+
+def test_concurrency_missing_reads_as_none_and_dash(cm, env):
+    make_run(env, "r1", two_docs())
+    runs = loaded(cm, env, [("a", "r1")])
+    assert runs[0]["concurrency"] is None
+    res = cm.compare_runs(runs, golds(env), [X01, X02])
+    assert res["groups"][0]["concurrency"] is None
+    cm.write_compare(res, env / "out", "t")
+    md = (env / "out" / "compare.md").read_text(encoding="utf-8")
+    assert "| 쪽 글자 폴더 | 동시 호출 |" in md
+    assert "| data/pages | - |" in md
 
 
 def test_time_uses_last_total_and_limit(cm, env):

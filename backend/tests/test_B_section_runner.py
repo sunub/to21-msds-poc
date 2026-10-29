@@ -413,6 +413,24 @@ def test_save_run_info_pages_dir(tmp_path):
     assert info["pages_dir"] == "data/pages/chars_wrap"
 
 
+def test_save_run_info_concurrency_default(tmp_path):
+    sr.save_run_info(tmp_path / "r", TAG)
+    info = yaml.safe_load((tmp_path / "r" / "run_info.yaml").read_text(encoding="utf-8"))
+    assert info["concurrency"] == load_model_config(TAG)["concurrency"]
+
+
+def test_save_run_info_concurrency_max_workers(tmp_path):
+    sr.save_run_info(tmp_path / "r", TAG, max_workers=1)
+    info = yaml.safe_load((tmp_path / "r" / "run_info.yaml").read_text(encoding="utf-8"))
+    assert info["concurrency"] == 1
+
+
+def test_workers_concurrency_fallback():
+    assert sr.workers({"concurrency": 8}, 3) == 3
+    assert sr.workers({"concurrency": 8}) == 8
+    assert sr.workers({}) == 16
+
+
 def test_no_system_prompt_or_schema_in_run_files(env):
     run_path = env / "runs" / RUN
     sr.save_run_info(run_path, TAG)
