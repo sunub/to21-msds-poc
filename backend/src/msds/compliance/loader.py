@@ -1,34 +1,72 @@
-"""2차 입력 로더 — 역할 D가 채운다 (TO21 정합성 설계서 v0.2, 1단계).
+"""추출 JSON 한 건에서 2차가 읽는 값만 꺼낸다 (2차 입력).
 
-추출 JSON(TO21 v0.5)에서 2차 엔진이 쓰는 칸만 꺼내 정리한다.
-처음에는 data/gold/ 또는 TO21 정답 예제(25번)를 입력으로 쓰고, 추출이 완성되면 runs/의 결과로 경로만 바꾼다 (D-30).
-
-설계서가 정한 2차 입력 칸 (claude/TO21_정합성설계서_검토_20261024.md 4장)
-- 최종 개정일(없으면 최초 작성일)
-- 3항: 단일/혼합 구분, 유해성분 미함유 표기, 성분 CAS·함유량(Q)·함유량 부가 표기·영업비밀 여부
-- 2항: 분류(코드·구분·노출 형태), H코드, 그림문자, 신호어
-- 9항: 인화점, 끓는점, 동점도, pH, 성상
-- 11항: 독성값(성분·항목·지표·값·노출 형태·노출 시간)
-- 12항: 생태독성(성분·지표·값)
-- 15항: 규제 행(법령·항목·성분·해당 여부·기준 농도), 위험물(류·품명·수용성·등급)
-
-완료 확인: pytest tests/test_D_compliance.py
+입력 칸 목록은 D 가이드 3.2 표를 따른다. 정합성검증 개발설계서 v0.2 는 저장소에 없어
+확인하지 못했다 (docs/adr/0001). missing 에 넣는 칸은 최소 목록이며 설계서를 받으면 맞춘다.
+검증기(V01~V23)가 보는 형식 검사는 여기서 하지 않는다.
 """
-from __future__ import annotations
+from typing import Any
+
+from ..common.align import comp_map
+from .ghs.models import GhsInputs
+
+_COMPONENT_KEYS = ("seq", "name", "cas_no", "content", "content_note", "trade_secret")
+_CLASS_KEYS = ("class_code", "category", "route_form")
+
+
+def _empty(v: Any) -> bool:
+    return v in (None, "", [], {})
+
+
+def _with_cas(rows: list[dict] | None, cm: dict[str, str]) -> list[dict]:
+    """11·12·15항 행에 comp_ref 가 가리키는 성분의 CAS(없으면 이름)를 cas_no 로 붙인다."""
+    return [{**r, "cas_no": cm.get(str(r.get("comp_ref")))} for r in rows or []]
 
 
 def load_inputs(doc: dict, msds_index: int = 0) -> dict:
-    """2차 엔진 입력 묶음을 만든다. TODO(D)
+    """추출 JSON(doc) 의 msds[msds_index] 에서 2차 입력을 만든다.
 
-    돌려주는 값 예:
-    {
-      "doc_id": ..., "as_of_date": 최종 개정일 또는 최초 작성일,
-      "composition": {"type": ..., "no_hazardous_component": ...},
-      "components": [{"seq", "name", "cas_no", "content": Q, "content_note", "trade_secret"}],
-      "hazard": {"classes": [...], "h_codes": [...], "pictograms": [...], "signal_word": ...},
-      "physchem": {"FLASH_POINT": Q, ...}, "toxicity": [...], "ecotox": [...],
-      "regulations": [...], "dangerous_goods": [...],
-      "missing": [2차에 필요한데 비어 있는 칸 경로]
-    }
+    칸이 없거나 null 이어도 KeyError 없이 빈 값으로 읽는다. 판정에 꼭 필요한데 비어 있는 칸은
+    missing 에 경로 이름으로 담긴다.
     """
-    raise NotImplementedError("TODO(D): load_inputs")
+    m = (doc.get("msds") or [{}])[msds_index]  # msds 칸이 없으면 빈 MSDS 한 건으로 읽는다
+    meta, hz = m.get("meta") or {}, m.get("hazard") or {}
+    cm = comp_map(m)
+    comps = [{k: c.get(k) for k in _COMPONENT_KEYS} for c in m.get("components") or []]
+
+    # 같은 prop_code 가 여러 줄일 수 있다 (예: 조건이 다른 pH). 덮어쓰지 않고 줄을 모은다.
+    physchem: dict[str, list[dict]] = {}
+    for p in m.get("physchem") or []:
+        physchem.setdefault(p.get("prop_code"), []).append(p)
+
+    out = {
+        "doc_id": (doc.get("doc") or {}).get("doc_id"),
+        "msds_index": msds_index,
+        "as_of_date": meta.get("last_revision_date") or meta.get("first_issue_date"),
+        "composition": m.get("composition") or {},
+        "components": comps,
+        "hazard": {
+            "classes": [{k: x.get(k) for k in _CLASS_KEYS} for x in hz.get("classes") or []],
+            "h_codes": [h.get("code") for h in hz.get("h_statements") or []],
+            "pictograms": [p.get("code") for p in hz.get("pictograms") or []],
+            "signal_word": hz.get("signal_word"),
+        },
+        "physchem": physchem,
+        "toxicity": _with_cas(m.get("toxicity"), cm),
+        "ecotox": _with_cas(m.get("ecotox"), cm),
+        "regulations": _with_cas(m.get("regulations"), cm),
+        "dangerous_goods": m.get("dangerous_goods") or [],
+    }
+    need = {
+        "as_of_date": out["as_of_date"],
+        "composition.type": out["composition"].get("type"),
+        "components": comps,
+        "hazard.classes": out["hazard"]["classes"],
+        "hazard.signal_word": out["hazard"]["signal_word"],
+    }
+    out["missing"] = [k for k, v in need.items() if _empty(v)]
+    return out
+
+
+def load_ghs_inputs(doc: dict, msds_index: int = 0) -> GhsInputs:
+    """기존 2차 입력을 TO21 이름을 보존하는 타입 계약으로 검증해 돌려준다."""
+    return GhsInputs.model_validate(load_inputs(doc, msds_index))
