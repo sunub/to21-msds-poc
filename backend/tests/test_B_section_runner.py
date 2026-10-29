@@ -289,7 +289,9 @@ def test_calls_one_section_each_with_its_lines(env):
     sec3 = client.calls_for(3)[0]
     assert sec3["system"] == build_system(3)
     assert sec3["schema"] == ss.response_schema(3)
-    assert sec3["user"] == "[3항 원문]\np1:L8 3. 구성성분의 명칭 및 함유량\np1:L9 가상물질 갑 | 1234-56-6 | 10 ~ 20"
+    # 1항 제목(p1:L2) 앞 p1:L1은 문서 머리라 3항 구간 앞에 붙는다 (ADR-020)
+    assert sec3["user"] == ("[3항 원문]\np1:L1 물질안전보건자료\n"
+                            "p1:L8 3. 구성성분의 명칭 및 함유량\np1:L9 가상물질 갑 | 1234-56-6 | 10 ~ 20")
     assert all("[다시 확인할 점]" not in c["user"] for c in client.calls)
 
 
@@ -406,6 +408,42 @@ def test_over_time_limit_warns(env, monkeypatch):
     summary = run(env, FakeClient())
     assert any("5분 초과" in w for w in summary["warnings"])
     assert any("5분 초과" in w for w in checks(env)["warnings"])
+
+
+def test_preamble_in_every_section_request(env):
+    """가짜 문서의 1항 제목(p1:L2) 앞 줄 p1:L1은 문서 머리라 모든 항 호출에 붙는다 (ADR-020)."""
+    client = FakeClient()
+    run(env, client)
+    assert len(client.calls) == 16
+    assert all(c["user"].split("\n")[1] == "p1:L1 물질안전보건자료" for c in client.calls)
+    assert "p1:L1 물질안전보건자료\np1:L8 3. 구성성분의 명칭 및 함유량" in client.calls_for(3)[0]["user"]
+
+
+def test_preamble_line_allowed_as_evidence(env):
+    r3 = copy.deepcopy(responses()[3])
+    r3["components"][0]["line"] = "p1:L1"          # 머리 줄은 3항 요청에 들어 있어 근거로 쓸 수 있다
+    client = FakeClient(plan={3: [r3]})
+    run(env, client)
+    assert section_check(env, 3)["check_problems"] == []
+    assert len(client.calls_for(3)) == 1
+
+
+def test_preamble_line_outside_section_is_problem(env):
+    """줄 번호 검사는 건의 쪽 전체가 아니라 그 항 요청에 보낸 줄(머리 + 항 구간) 기준이다."""
+    other_span = copy.deepcopy(responses()[3])
+    other_span["components"][0]["line"] = "p1:L11"   # 같은 건 같은 쪽이지만 4항 구간
+    missing = copy.deepcopy(responses()[3])
+    missing["components"][0]["line"] = "p9:L1"       # 문서에 없는 줄
+    client = FakeClient(plan={3: [other_span, missing]})
+    run(env, client)
+    calls = client.calls_for(3)
+    assert len(calls) == 2
+    assert "p1:L11" not in calls[0]["user"] and "p1:L11" in calls[1]["user"]   # 재추출 피드백
+    s = section_check(env, 3)
+    assert s["check_problems"] == ["components[0].line: 원문에 없는 줄 번호 p1:L11"]
+    raw = read_json(env / "runs" / RUN / "raw" / f"{DOC}_m0_s03.json")
+    assert raw["reextract_attempt"]["check_problems"] == ["components[0].line: 원문에 없는 줄 번호 p9:L1"]
+    assert {"msds_index": 0, "section": 3} in checks(env)["needs_review"]
 
 
 def test_no_sections_file_warns(env):
@@ -648,6 +686,18 @@ def test_image_png_missing_warns(env, image_cfg):
     assert len(client.calls_for(2)[0]["parts"]) == 1                # 이미지도 안내 글도 붙이지 않는다
     warning = "2항 쪽 이미지 없음: p001.png, 글만 보냄 (MSDS 0)"
     assert warning in checks(env)["warnings"] and warning in summary["warnings"]
+
+
+def test_preamble_page_not_in_image_pages(env, image_cfg):
+    """쪽 이미지는 2항 구간이 있는 쪽만 붙인다. 문서 머리(p1:L1)의 쪽은 세지 않는다."""
+    set_span(env, 2, "p2:L1", "p2:L2")
+    fake_png(env / "pages" / DOC / "p001.png", 60, 40)
+    fake_png(env / "pages" / DOC / "p002.png", 30, 80)
+    client = FakeClient()
+    run(env, client)
+    sec2 = client.calls_for(2)[0]
+    assert "p1:L1 물질안전보건자료" in sec2["user"]
+    assert [(p.width, p.height) for p in images(sec2)] == [(30, 80)]
 
 
 # ── 그림문자 대조 (ADR-019) ────────────────────────────

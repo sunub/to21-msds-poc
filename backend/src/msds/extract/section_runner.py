@@ -135,9 +135,10 @@ def _problems(attempt: dict) -> list[str]:
 
 
 def section_images(doc: DocumentInput, msds_index: int, pages_dir: Path) -> tuple[list[Path], list[str]]:
-    """2항 구간 줄이 있는 쪽의 이미지 pages_dir/<문서>/pNNN.png를 쪽 순서대로 최대 IMAGE_PAGES장.
+    """2항 구간 줄이 있는 쪽의 이미지 pages_dir/<문서>/pNNN.png를 쪽 순서대로 최대 IMAGE_PAGES장. 문서 머리의 쪽은 세지 않는다.
     반환: (있는 파일, 없는 파일의 경고)."""
-    pages = list(dict.fromkeys(l.page for l in section_lines(doc, msds_index, IMAGE_SECTION)))[:IMAGE_PAGES]
+    span = section_lines(doc, msds_index, IMAGE_SECTION, with_preamble=False)
+    pages = list(dict.fromkeys(l.page for l in span))[:IMAGE_PAGES]
     found, warnings = [], []
     for page in pages:
         path = Path(pages_dir) / doc.doc_id / f"p{page:03d}.png"
@@ -204,13 +205,13 @@ def run_document(doc_id: str, model_tag: str, run_name: str, client=None, *,
     futures = {}
     with ThreadPoolExecutor(max_workers=workers(cfg, max_workers)) as pool:
         for part in doc.msds:
-            first_page, last_page = part.pages
-            allowed = {l.id for l in doc.lines if first_page <= l.page <= last_page}
             images: list[Path] = []
             if cfg.get("image_input"):
                 images, missing = section_images(doc, part.index, pages_dir)
                 image_warnings += missing
             for no in SECTION_NOS:
+                # 줄 번호 검사는 그 항에 보낸 줄(문서 머리 + 항 구간, fallback 항은 건의 쪽 전체) 기준 (ADR-020)
+                allowed = {l.id for l in section_lines(doc, part.index, no)}
                 futures[(part.index, no)] = pool.submit(_run_section, client, doc, part.index, no,
                                                         *prompts[no], allowed, no in rows,
                                                         images if no == IMAGE_SECTION else [])

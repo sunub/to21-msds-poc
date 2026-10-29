@@ -2,6 +2,7 @@
 
 C의 항목 분할 파일이 없으면 제목으로 임시 분할을 만든다(sections.py, ADR-019). 제목을 하나도 못 찾거나
 코드 추출 파일이 없으면 대체 경로로 간다(ADR-006).
+어느 항에도 속하지 않는 1항 제목 앞 줄(문서 머리)은 읽을 때 계산해 모든 항 호출에 붙인다(ADR-020).
 """
 from __future__ import annotations
 
@@ -15,6 +16,7 @@ from msds.common.paths import DATA, PAGES
 _LINE_NO = re.compile(r"^L(\d+) (.*)$")
 _PAGE_FILE = re.compile(r"^p(\d+)\.txt$")
 SECTION_NOS = range(1, 17)
+PREAMBLE_MAX = 40     # 문서 머리로 붙이는 줄 수 상한. 목차·표지는 길어도 값이 적다
 
 
 @dataclass(frozen=True)
@@ -37,6 +39,7 @@ class MsdsPart:
     index: int                       # 0부터
     pages: tuple[int, int]           # 시작·끝 쪽 (끝 포함)
     sections: dict[int, SectionSpan]  # 1~16 모두 들어 있다
+    preamble: tuple[str, str] | None = None   # 문서 머리의 첫 줄·끝 줄 id. 없으면 None
 
 
 @dataclass
@@ -77,7 +80,19 @@ def _fallback_sections() -> dict[int, SectionSpan]:
     return {n: SectionSpan(None, None, "fallback") for n in SECTION_NOS}
 
 
-def _build_part(index: int, entry: dict, pos: dict[str, int], warnings: list[str]) -> MsdsPart:
+def _preamble(index: int, first_page: int, sections: dict[int, SectionSpan], lines: list[Line],
+              pos: dict[str, int]) -> tuple[str, str] | None:
+    """건의 첫 줄부터 그 건에서 가장 앞에 있는 항 구간 start 바로 앞 줄까지(최대 PREAMBLE_MAX줄).
+    건의 첫 줄은 첫 건이면 문서 첫 줄, 다음 건이면 그 건 첫 쪽의 첫 줄이다."""
+    starts = [pos[s.start] for s in sections.values() if s.method != "fallback"]
+    begin = 0 if index == 0 else next((i for i, l in enumerate(lines) if l.page >= first_page), None)
+    if not starts or begin is None or min(starts) <= begin:
+        return None
+    end = min(min(starts) - 1, begin + PREAMBLE_MAX - 1)
+    return lines[begin].id, lines[end].id
+
+
+def _build_part(index: int, entry: dict, lines: list[Line], pos: dict[str, int], warnings: list[str]) -> MsdsPart:
     first, last = entry["pages"]
     raw = entry.get("sections") or {}
     sections = {}
@@ -100,7 +115,7 @@ def _build_part(index: int, entry: dict, pos: dict[str, int], warnings: list[str
             sections[n] = SectionSpan(None, None, "fallback")
         else:
             sections[n] = SectionSpan(span["start"], span["end"], span.get("method", "title"))
-    return MsdsPart(index, (first, last), sections)
+    return MsdsPart(index, (first, last), sections, _preamble(index, first, sections, lines, pos))
 
 
 def load_document(doc_id: str, pages_dir: Path = PAGES, sections_dir: Path = DATA / "sections",
@@ -127,21 +142,27 @@ def load_document(doc_id: str, pages_dir: Path = PAGES, sections_dir: Path = DAT
         warnings.append("항목 분할 파일 없음: 대체 경로")
         msds = [MsdsPart(0, (lines[0].page, lines[-1].page), _fallback_sections())]
     else:
-        msds = [_build_part(i, e, pos, warnings) for i, e in enumerate(data["msds"])]
+        msds = [_build_part(i, e, lines, pos, warnings) for i, e in enumerate(data["msds"])]
 
     codes_path = codes_dir / f"{doc_id}.json"
     codes = json.loads(codes_path.read_text(encoding="utf-8")) if codes_path.exists() else None
     return DocumentInput(doc_id, lines, msds, codes, warnings, method)
 
 
-def section_lines(doc: DocumentInput, msds_index: int, section_no: int) -> list[Line]:
+def section_lines(doc: DocumentInput, msds_index: int, section_no: int, with_preamble: bool = True) -> list[Line]:
+    """그 항 호출에 보내는 줄. fallback 항은 건의 쪽 전체, 아니면 문서 머리 + 항 구간(겹치면 한 번만, 문서 순서).
+    with_preamble=False면 항 구간만 (2항 쪽 이미지 고르기)."""
     part = doc.msds[msds_index]
     span = part.sections[section_no]
     if span.method == "fallback":
         first, last = part.pages
         return [l for l in doc.lines if first <= l.page <= last]
     pos = {l.id: i for i, l in enumerate(doc.lines)}
-    return doc.lines[pos[span.start]:pos[span.end] + 1]
+    keep = set(range(pos[span.start], pos[span.end] + 1))
+    if with_preamble and part.preamble:
+        a, b = part.preamble
+        keep |= set(range(pos[a], pos[b] + 1))
+    return [doc.lines[i] for i in sorted(keep)]
 
 
 def render_lines(lines: list[Line]) -> str:
