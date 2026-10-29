@@ -103,8 +103,8 @@ def test_broken_page_tables_come_from_ocr(doc, monkeypatch):
     garbled = [{"text": "Ɒ㫼⮹", "box": [80, 76, 140, 86]}]
     p = {"page": 1, "state": "글꼴깨짐", "text_source": "OCR", "text_file": "p001.ocr_input.txt"}
     out, _, _ = render._write_tables("T21-X", p, garbled, None, None, None)
-    assert [t["file"] for t in out["tables"]] == ["p001_t1.md"]
-    assert (doc / "tables" / "p001_t1.md").read_text(encoding="utf-8") == (
+    assert [t["file"] for t in out["tables"]] == ["tables/p001_t1.md"]   # text_file처럼 문서 폴더 기준 경로
+    assert (doc / out["tables"][0]["file"]).read_text(encoding="utf-8") == (
         "| 물질명 | CAS No. | UN No. |\n| --- | --- | --- |\n| 질소 | 7727-37-9 | 1977 |\n")
 
 
@@ -129,7 +129,7 @@ def test_table_records_section_heading_and_box(doc, monkeypatch):
              _line("4. 응급조치 요령", 40, 130)]
     p = {"page": 2, "state": "정상", "text_source": "텍스트층", "text_file": "p002.match.txt"}
     out, _, section = render._write_tables("T21-X", p, items, None, None, (1, "1. 화학제품과 회사에 관한 정보"))
-    assert out["tables"] == [{"file": "p002_t1.md", "section": "3. 구성성분의 명칭 및 함유량",
+    assert out["tables"] == [{"file": "tables/p002_t1.md", "section": "3. 구성성분의 명칭 및 함유량",
                               "box": [72.0, 72.0, 372.0, 112.0]}]
     assert section == (4, "4. 응급조치 요령")   # 다음 쪽은 이 쪽의 마지막 항에서 시작한다
 
