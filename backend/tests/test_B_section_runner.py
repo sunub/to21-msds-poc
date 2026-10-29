@@ -156,6 +156,16 @@ class FakeClient:
         return [c for c in self.calls if c["no"] == no]
 
 
+@pytest.fixture(autouse=True)
+def plain_json_cfg(request, monkeypatch):
+    """models.yaml의 TAG는 행 형식(rows_sections)을 켜 두었다. 옛 JSON 경로 시험은 그 설정을 뺀 사본으로 돌린다.
+    행 형식 시험(rows_cfg)과 실제 설정을 보는 run_config 시험은 이 대체를 쓰지 않는다."""
+    if "run_config" in request.node.name:
+        return
+    cfg = {k: v for k, v in load_model_config(TAG).items() if k != "rows_sections"}
+    monkeypatch.setattr(sr, "load_model_config", lambda tag: cfg if tag == TAG else load_model_config(tag))
+
+
 @pytest.fixture
 def env(tmp_path, monkeypatch):
     """tmp_path에 가짜 쪽 글자·항목 분할·manifest를 만든다. 저장소의 data/·runs/는 건드리지 않는다."""
@@ -777,3 +787,29 @@ def test_select_docs_by_purpose(env, script):
         script.select_docs(None, None, False)          # 평가용이 섞인 전체 목록
     with pytest.raises(KeyError):
         script.select_docs(["T21-NONE"], None, False)
+
+
+# ── run_config: 실행 기록에 행 형식·이미지 입력 설정을 남긴다 (ADR-019) ──
+
+def test_run_config_save_run_info_defaults(tmp_path):
+    cfg = load_model_config(TAG)
+    sr.save_run_info(tmp_path / "r", TAG)
+    info = yaml.safe_load((tmp_path / "r" / "run_info.yaml").read_text(encoding="utf-8"))
+    assert info["rows_sections"] == list(cfg.get("rows_sections") or [])
+    assert info["image_input"] is bool(cfg.get("image_input"))
+    assert info["prompt_version"] == SECTION_PROMPT_VERSION
+
+
+def test_run_config_save_run_info_missing_settings(tmp_path, monkeypatch):
+    """설정에 없으면 []와 false다."""
+    cfg = {k: v for k, v in load_model_config("qwen3vl4b_rngd").items() if k not in ("rows_sections", "image_input")}
+    monkeypatch.setattr(sr, "load_model_config", lambda tag: cfg)
+    sr.save_run_info(tmp_path / "r", "qwen3vl4b_rngd")
+    info = yaml.safe_load((tmp_path / "r" / "run_info.yaml").read_text(encoding="utf-8"))
+    assert info["rows_sections"] == [] and info["image_input"] is False
+
+
+def test_run_config_save_run_info_writes_settings(tmp_path):
+    sr.save_run_info(tmp_path / "r", "qwen36_35b_runpod")
+    info = yaml.safe_load((tmp_path / "r" / "run_info.yaml").read_text(encoding="utf-8"))
+    assert info["rows_sections"] == [3, 8, 9, 11, 12, 15] and info["image_input"] is True
