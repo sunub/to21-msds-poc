@@ -378,3 +378,24 @@ def test_print_schema_sizes(capsys):
     sizes = {no: len(json.dumps(to_strict(ss.response_schema(no)), ensure_ascii=False)) for no in NOS}
     with capsys.disabled():
         print("\n[항별 중간 형식 스키마 크기, 글자] " + ", ".join(f"{no}항 {n:,}" for no, n in sizes.items()))
+
+
+def _described(node, names):
+    """스키마 안에서 이름이 names에 있는 칸의 설명을 모은다."""
+    found = []
+    if isinstance(node, dict):
+        for k, v in node.get("properties", {}).items():
+            if k in names and isinstance(v, dict):
+                found.append((k, v.get("description", "")))
+        for v in node.values():
+            found += _described(v, names)
+    elif isinstance(node, list):
+        for v in node:
+            found += _described(v, names)
+    return found
+
+
+@pytest.mark.parametrize("no", NOS)
+def test_s3_own_descriptions_do_not_say_null(no):
+    for name, desc in _described(ss.response_schema(no), {"comp_name", "comp_cas", "lines"}):
+        assert "null" not in desc, (no, name)

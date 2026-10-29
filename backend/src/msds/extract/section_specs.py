@@ -109,8 +109,8 @@ def _props(node: dict, path: str, owned: set[str] = frozenset()) -> dict:
         if k in owned:
             continue
         if k == "comp_ref":
-            out["comp_name"] = {**_NULL_STR, "description": "대상 성분 이름. 원문 그대로. 제품 전체 값이면 null"}
-            out["comp_cas"] = {**_NULL_STR, "description": "대상 성분의 CAS 번호. 원문에 없으면 null"}
+            out["comp_name"] = {**_NULL_STR, "description": "대상 성분 이름. 원문 그대로. 제품 전체 값이면 쓰지 않는다"}
+            out["comp_cas"] = {**_NULL_STR, "description": "대상 성분의 CAS 번호. 원문에 없으면 쓰지 않는다"}
             continue
         out[k] = _convert(v, f"{path}.{k}")
     return out
@@ -149,7 +149,7 @@ def _object(node: dict, path: str) -> dict:
     props = _props(node, path)
     lines = {k: _NULL_STR for k, v in props.items() if not _has_own_line(v)}
     props["lines"] = {"type": "object", "additionalProperties": False,
-                      "description": "칸 이름 → 근거 줄 번호 (예: p2:L23). 값이 없는 칸은 null",
+                      "description": "칸 이름 → 근거 줄 번호 (예: p2:L23). 값이 없는 칸은 쓰지 않는다",
                       "properties": lines}
     return {**node, "properties": props, "required": _required(node, props) + ["lines"]}
 

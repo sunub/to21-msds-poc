@@ -21,13 +21,14 @@ from msds.extract.inputs import Line, render_lines
 from msds.extract.prompt_builder import _BASE_RULES, _code_table, _field_rows, _referenced_rules, _rows, _rules
 from msds.extract.section_specs import SectionSpec, load_specs, response_schema
 
-SECTION_PROMPT_VERSION = "s2"   # 안내문 내용을 고치면 올린다. 실행 기록에 남는다
+SECTION_PROMPT_VERSION = "s3"   # 안내문 내용을 고치면 올린다. 실행 기록에 남는다
 
 _COMMON = """너는 한국어 물질안전보건자료(MSDS)의 {no}항 "{title}"만 읽어 정해진 JSON 형식으로 옮기는 추출기다. 해석하거나 추측하지 않는다.
 - 원문에 적힌 행만 쓴다. 원문에 없는 행을 만들지 않는다. 값이 "자료없음", "해당없음"처럼 적힌 행도 원문에 있으면 행으로 쓰고, 그 글자를 숫자 묶음의 `raw`에 그대로 둔다.
+- 값이 없는 칸은 쓰지 않는다. null이나 빈 배열([])을 쓰지 말고 칸 이름째 뺀다. 칸 설명에 "없으면 null"이라고 적혀 있어도 같다. 행의 `line`과 객체 칸의 `lines`는 늘 쓴다.
 - 모든 행의 `line`(객체 칸은 `lines`의 칸 이름마다)에는 그 값이 적힌 줄 앞의 줄 번호를 보이는 그대로 적는다. 예: `p2:L23`. 숫자만 쓰지 않는다.
 - 숫자 묶음은 `raw`에 원문 그대로 두고, 나머지 칸(value, lower_op, lower, upper_op, upper, unit, approx)은 규칙(R04, R06, R08)대로 나눈다.
-- `value`와 `lower`·`upper`는 함께 쓰지 않는다. 단일값이면 `value`만 쓰고 `lower_op`·`lower`·`upper_op`·`upper`는 null로 둔다. 부등호나 범위로 적힌 값은 `lower`·`upper` 쪽만 쓰고 `value`는 null로 둔다. 예: `99.92` → value 99.92 / `≥ 95` → lower_op ">=", lower 95
+- `value`와 `lower`·`upper`는 함께 쓰지 않는다. 단일값이면 `value`만 쓴다. 부등호나 범위로 적힌 값은 `lower_op`·`lower`·`upper_op`·`upper` 쪽만 쓴다. 예: `99.92` → value 99.92 / `≥ 95` → lower_op ">=", lower 95
 - 다른 항의 내용이 섞여 보이면 무시한다. 스키마에 맞는 칸이 없는 이 항의 내용은 `extras`에 담는다(R24)."""
 
 # 이 항의 안내: 명세서에 없는, 행을 나누는 단위와 자주 틀리는 점
@@ -56,7 +57,7 @@ GUIDES = {
     16: """- 최초 작성일·개정 횟수·최종 개정일이 있으면 `meta_revision`에 적는다. 날짜는 R01.""",
 }
 _COMP_GUIDE = ("- 성분이 따로 적힌 행은 `comp_name`·`comp_cas`에 원문의 성분 이름과 CAS 번호를 적는다. "
-               "제품 전체 값이면 둘 다 null로 둔다.")
+               "제품 전체 값이면 둘 다 쓰지 않는다.")
 _NARRATIVE_GUIDE = ("- 서술 항목(narratives)은 항목 코드마다 한 행이다. `item_code`, 원문 제목(`title_raw`), "
                     "내용이 시작·끝나는 줄 번호(`start`, `end`)만 적는다. 문장을 다시 쓰지 않는다.")
 
