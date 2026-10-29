@@ -53,10 +53,20 @@ def _ref_cat5(route, value):
                for r in _rows(route, None))
 
 
+def _no_content(c):
+    """함량이 없다: content가 None이거나 low·high 중 하나라도 None."""
+    ct = c.get("content")
+    return not ct or ct.get("low") is None or ct.get("high") is None
+
+
 def _side(comps, side, route, form, include_min, unknown_limit):
     sigma = unknown = 0.0
     use, part = [], []
     for c in comps:
+        if _no_content(c):  # 여기까지 온 함량 없는 성분은 non_toxic·inequality뿐이라 Σ·이용불가에 영향이 없다
+            use.append("이용가능")
+            part.append(None)
+            continue
         pct, kind = c["content"][side], c["ate"]["kind"]
         if pct < include_min:
             use.append("한계농도미만")
@@ -79,6 +89,18 @@ def _side(comps, side, route, form, include_min, unknown_limit):
             "sigma": sigma}, use, [p / sigma if p is not None and sigma else None for p in part]
 
 
+def _insufficient(comps):
+    """함량 없는 성분 때문에 이 경로를 계산할 수 없다. 그 성분을 빼고 계산하지 않는다."""
+    side = {"ate_mix": None, "category": None, "formula": None, "unknown_pct": None, "ref_cat5": False, "sigma": None}
+    blocked = lambda c: _no_content(c) and c["ate"]["kind"] in ("value", "conversion", "unknown")
+    use = {s: "함량없음" for s in ("low", "high")}
+    return {"low": dict(side), "high": dict(side), "status": "근거부족", "reason": "함량 없음",
+            "terms": [{"name": c["name"], "content": c.get("content"), "ate": c["ate"].get("value"),
+                       "src": c["ate"].get("src"), "step": c["ate"].get("step"),
+                       "사용여부": use if blocked(c) else {s: "미계산" for s in use},
+                       "share": {"low": None, "high": None}} for c in comps]}
+
+
 def mix_acute(comps, route, form=None, *, include_min=1.0, unknown_limit=10):
     """성분별 ATE로 혼합물 급성독성 ATEmix와 구분을 함량 하한(low)·상한(high) 각각 계산한다.
 
@@ -86,13 +108,15 @@ def mix_acute(comps, route, form=None, *, include_min=1.0, unknown_limit=10):
     route: oral|dermal|inhal, form: gas|vapour|mist (inhal만)
     """
     r, f = _ROUTE[route], _FORM.get(form)
+    if any(_no_content(c) and c["ate"]["kind"] in ("value", "conversion", "unknown") for c in comps):
+        return _insufficient(comps)
     out, uses, shares = {}, {}, {}
     for side in ("low", "high"):
         out[side], uses[side], shares[side] = _side(comps, side, r, f, include_min, unknown_limit)
     lack = any(out[s]["ate_mix"] is None and out[s]["unknown_pct"] > 0 for s in out)
     same = out["low"]["category"] == out["high"]["category"]
     out["status"] = "근거부족" if lack else "확정" if same else "경계"
-    out["terms"] = [{"name": c["name"], "content": c["content"], "ate": c["ate"].get("value"),
+    out["terms"] = [{"name": c["name"], "content": c.get("content"), "ate": c["ate"].get("value"),
                      "src": c["ate"].get("src"), "step": c["ate"].get("step"),
                      "사용여부": {s: uses[s][i] for s in uses},
                      "share": {s: shares[s][i] for s in shares}} for i, c in enumerate(comps)]
