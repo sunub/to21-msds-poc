@@ -812,4 +812,4 @@ def test_run_config_save_run_info_missing_settings(tmp_path, monkeypatch):
 def test_run_config_save_run_info_writes_settings(tmp_path):
     sr.save_run_info(tmp_path / "r", "qwen36_35b_runpod")
     info = yaml.safe_load((tmp_path / "r" / "run_info.yaml").read_text(encoding="utf-8"))
-    assert info["rows_sections"] == [3, 8, 9, 11, 12, 15] and info["image_input"] is True
+    assert info["rows_sections"] == [3, 8, 9, 11, 12, 14, 15] and info["image_input"] is True

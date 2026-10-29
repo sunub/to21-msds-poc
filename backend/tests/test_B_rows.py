@@ -59,7 +59,40 @@ def test_row_tables_examples():
     assert len(t11["toxicity"]) == 19
     assert t11["narratives"] == ["item_code", "title_raw", "start", "end"]
     assert rw.row_tables(3)["composition"] == ["type", "no_hazardous_component", "line"]
-    assert rw.ROWS_SECTIONS_DEFAULT == (3, 8, 9, 11, 12, 15)
+    assert rw.ROWS_SECTIONS_DEFAULT == (3, 8, 9, 11, 12, 14, 15)
+
+
+def transport_text() -> str:
+    """14항: 규제 해당 행과 비위험물 행 (가짜 값)."""
+    return table(14, "transport",
+                 row(14, "transport", mode="해상", regulated="true", un_no="9999", shipping_name="가상 액체",
+                     hazard_class="8", packing_group="II", marine_pollutant="비해당", ems_fire="F-A",
+                     ems_spill="S-B", line="p6:L3"),
+                 row(14, "transport", mode="공통", regulated="false", packing_group="해당없음",
+                     marine_pollutant="자료없음", line="p6:L5"))
+
+
+def test_transport_rows_guide():
+    g = rw.rows_guide(14)
+    assert "### transport" in g
+    assert " | ".join(rw.row_tables(14)["transport"]) in g
+    assert any(ln.startswith("- 참/거짓 열(") and "`regulated`" in ln for ln in g.splitlines())
+
+
+def test_transport_parse_rows():
+    parsed, errors = rw.parse_rows(transport_text(), 14)
+    assert errors == []
+    assert validate(parsed, response_schema(14)) == []
+    on, off = parsed["transport"]
+    assert on["regulated"] is True and on["un_no"] == "9999" and on["packing_group"] == "II"
+    assert off["regulated"] is False and off["packing_group"] == "해당없음"
+
+
+def test_transport_bad_packing_group_only_that_line():
+    bad = row(14, "transport", mode="육상", regulated="true", un_no="9998", packing_group="IV", line="p6:L4")
+    parsed, errors = rw.parse_rows(transport_text() + "\n" + bad, 14)
+    assert len(parsed["transport"]) == 2
+    assert len(errors) == 1 and "p6:L4" in errors[0]
 
 
 def test_row_tables_rejects_nested_rows():

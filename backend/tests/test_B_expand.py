@@ -389,6 +389,29 @@ def test_rows_same_document_as_json(no_conventions, monkeypatch):
     assert by_rows[0]["msds"][0]["toxicity"][0]["q"]["lower"] == 2000
 
 
+def test_transport_rows_same_document_as_json(no_conventions, monkeypatch):
+    """14항 운송 2행 글도 같은 내용의 JSON 응답과 같은 TO21 문서가 되고 un_no가 들어간다."""
+    monkeypatch.setattr(ex, "now_kst", lambda: "2026-10-29T00:00:00+09:00")
+    text = "\n".join([
+        "### transport", " | ".join(rw.row_tables(14)["transport"]),
+        "해상 |  | true | 9999 | 가상 액체 | 8 |  | II | 비해당 | F-A | S-B | p6:L5",
+        "공통 |  | false |  |  |  |  | 해당없음 | 자료없음 |  |  | p6:L10"])
+    parsed, errors = rw.parse_rows(text, 14)
+    assert errors == []
+    as_json = {"transport": [
+        {"mode": "해상", "regulated": True, "un_no": "9999", "shipping_name": "가상 액체", "hazard_class": "8",
+         "packing_group": "II", "marine_pollutant": "비해당", "ems_fire": "F-A", "ems_spill": "S-B",
+         "line": "p6:L5"},
+        {"mode": "공통", "regulated": False, "packing_group": "해당없음", "marine_pollutant": "자료없음",
+         "line": "p6:L10"}], "narratives": [], "extras": []}
+    r_json, r_rows = responses(), responses()
+    r_json[14], r_rows[14] = as_json, parsed
+    by_json = ex.to_to21(DOC_META, [r_json], LINES, "가상엔진 v1")
+    by_rows = ex.to_to21(DOC_META, [r_rows], LINES, "가상엔진 v1")
+    assert by_rows == by_json
+    assert by_rows[0]["msds"][0]["transport"][0]["un_no"] == "9999"
+
+
 def kreach(**kw) -> dict:
     return {"law": "KREACH", "item_code": "KREACH_REG", "line": "p6:L10", **kw}
 
