@@ -12,7 +12,7 @@ import json
 
 from _common import today
 from msds.common import manifest
-from msds.extract.runner import extract_document, save_run_config
+from msds.extract.runner import extract_document, parse_pages, save_run_config
 from msds.common.paths import run_dir
 
 if __name__ == "__main__":
@@ -25,17 +25,21 @@ if __name__ == "__main__":
     ap.add_argument("--allow-eval", action="store_true", help="평가용 문서 실행 허용 (D-43)")
     ap.add_argument("--input-mode", choices=manifest.INPUT_MODES,
                     help="manifest의 입력 방식을 덮어쓴다 (입력 비교 실험용). 기본: manifest 값")
+    ap.add_argument("--pages", help="이 쪽만 넣는다 (부분 시험용, 문서 1건일 때만). 예: 2-6 또는 1,2")
     a = ap.parse_args()
     targets = manifest.select(a.purpose, a.docs)
     if not targets:
         ap.error("대상 문서가 없습니다")
     if any(r["purpose"] == "평가" for r in targets) and not a.allow_eval:
         ap.error("평가용 문서가 들어 있습니다. 프롬프트를 고정했다면 --allow-eval을 붙이세요 (D-43)")
+    if a.pages and len(targets) != 1:
+        ap.error("--pages는 문서 1건에만 쓸 수 있습니다")
+    page_nos = parse_pages(a.pages) if a.pages else None
     run_name = a.run_name or f"{today()}_baseline_{a.model}"
-    save_run_config(run_dir(run_name), a.model, "baseline", a.input_mode)
+    save_run_config(run_dir(run_name), a.model, "baseline", a.input_mode, page_nos)
     for r in targets:
         try:
-            res = extract_document(r["doc_id"], a.model, "baseline", run_name, a.bundles, a.input_mode)
+            res = extract_document(r["doc_id"], a.model, "baseline", run_name, a.bundles, a.input_mode, page_nos)
             print(json.dumps(res, ensure_ascii=False))
         except Exception as e:
             print(f"[실패] {r['doc_id']}: {e}")
