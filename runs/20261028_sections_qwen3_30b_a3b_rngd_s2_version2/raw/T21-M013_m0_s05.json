@@ -1,0 +1,111 @@
+{
+ "doc_id": "T21-M013",
+ "msds_index": 0,
+ "section": 5,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S5_MEDIA",
+    "title_raw": "가적절한및부적절한소화제",
+    "start": "p3:L120",
+    "end": "p3:L129"
+   },
+   {
+    "item_code": "S5_SPECIFIC",
+    "title_raw": "나화학물질로부터생기는특정",
+    "start": "p3:L133",
+    "end": "p3:L137"
+   },
+   {
+    "item_code": "S5_FIREFIGHT",
+    "title_raw": "다화재진압시착용할보호구및예방조치",
+    "start": "p3:L145",
+    "end": "p3:L155"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S5_FIREFIGHT",
+    "title_raw": "나화학물질로부터생기는특정",
+    "reason": "필드없음",
+    "comp_name": "화학물질로부터생기는특정",
+    "comp_cas": "",
+    "q": {
+     "raw": "증기는공기와섞이면서폭발성혼합물을생성할수있음증기는먼거리에있는점화원으로이동하여역화할수있음",
+     "value": null,
+     "approx": null,
+     "lower_op": null,
+     "lower": null,
+     "upper_op": null,
+     "upper": null,
+     "unit": null
+    },
+    "statements": [
+     {
+      "key": "증기",
+      "value": "공기와섞이면서폭발성혼합물을생성할수있음",
+      "refs": [],
+      "cond": null,
+      "line": "p3:L135"
+     },
+     {
+      "key": "증기",
+      "value": "먼거리에있는점화원으로이동하여역화할수있음",
+      "refs": [],
+      "cond": null,
+      "line": "p3:L136"
+     }
+    ],
+    "suggested_code": "FIRE_SPECIFIC",
+    "line": "p3:L133"
+   },
+   {
+    "after_item": "S5_FIREFIGHT",
+    "title_raw": "나환경을보호하기위해필요한",
+    "reason": "필드없음",
+    "comp_name": "환경을보호하기위해필요한",
+    "comp_cas": "",
+    "q": null,
+    "statements": [
+     {
+      "key": "환경보호",
+      "value": "모든환경적누출에대해적절한매니저급또는관리자급인원에게통보할것",
+      "refs": [],
+      "cond": null,
+      "line": "p3:L190"
+     },
+     {
+      "key": "환경보호",
+      "value": "안전하게처리하는것이가능하면추가누설또는누출을방지할것",
+      "refs": [],
+      "cond": null,
+      "line": "p3:L193"
+     },
+     {
+      "key": "환경보호",
+      "value": "하수도수로또는지표로배출하지마시오",
+      "refs": [],
+      "cond": null,
+      "line": "p3:L194"
+     }
+    ],
+    "suggested_code": "ENVIRONMENTAL_PRECAUTION",
+    "line": "p3:L188"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S5_MEDIA\",\n      \"title_raw\": \"가적절한및부적절한소화제\",\n      \"start\": \"p3:L120\",\n      \"end\": \"p3:L129\"\n    },\n    {\n      \"item_code\": \"S5_SPECIFIC\",\n      \"title_raw\": \"나화학물질로부터생기는특정\",\n      \"start\": \"p3:L133\",\n      \"end\": \"p3:L137\"\n    },\n    {\n      \"item_code\": \"S5_FIREFIGHT\",\n      \"title_raw\": \"다화재진압시착용할보호구및예방조치\",\n      \"start\": \"p3:L145\",\n      \"end\": \"p3:L155\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S5_FIREFIGHT\",\n      \"title_raw\": \"나화학물질로부터생기는특정\",\n      \"reason\": \"필드없음\",\n      \"comp_name\": \"화학물질로부터생기는특정\",\n      \"comp_cas\": \"\",\n      \"q\": {\n        \"raw\": \"증기는공기와섞이면서폭발성혼합물을생성할수있음증기는먼거리에있는점화원으로이동하여역화할수있음\"\n      ,\n      \"value\": null,\n      \"approx\": null,\n      \"lower_op\": null,\n      \"lower\": null,\n      \"upper_op\": null,\n      \"upper\": null,\n      \"unit\": null\n    },\n    \"statements\": [\n      {\n        \"key\": \"증기\",\n        \"value\": \"공기와섞이면서폭발성혼합물을생성할수있음\"\n      ,\n      \"refs\": []\n    ,\n      \"cond\": null\n    ,\n      \"line\": \"p3:L135\"\n    },\n    {\n      \"key\": \"증기\",\n      \"value\": \"먼거리에있는점화원으로이동하여역화할수있음\"\n      ,\n      \"refs\": []\n    ,\n      \"cond\": null\n    ,\n      \"line\": \"p3:L136\"\n    }\n  ]\n    ,\n    \"suggested_code\": \"FIRE_SPECIFIC\"\n  ,\n    \"line\": \"p3:L133\"\n  },\n  {\n    \"after_item\": \"S5_FIREFIGHT\",\n    \"title_raw\": \"나환경을보호하기위해필요한\",\n    \"reason\": \"필드없음\",\n    \"comp_name\": \"환경을보호하기위해필요한\",\n    \"comp_cas\": \"\",\n    \"q\": null,\n    \"statements\": [\n      {\n        \"key\": \"환경보호\",\n        \"value\": \"모든환경적누출에대해적절한매니저급또는관리자급인원에게통보할것\"\n      ,\n      \"refs\": []\n    ,\n      \"cond\": null\n    ,\n      \"line\": \"p3:L190\"\n    },\n    {\n      \"key\": \"환경보호\",\n        \"value\": \"안전하게처리하는것이가능하면추가누설또는누출을방지할것\"\n      ,\n      \"refs\": []\n    ,\n      \"cond\": null\n    ,\n      \"line\": \"p3:L193\"\n    },\n    {\n      \"key\": \"환경보호\",\n        \"value\": \"하수도수로또는지표로배출하지마시오\"\n      ,\n      \"refs\": []\n    ,\n      \"cond\": null\n    ,\n      \"line\": \"p3:L194\"\n    }\n  ]\n    ,\n    \"suggested_code\": \"ENVIRONMENTAL_PRECAUTION\"\n  ,\n    \"line\": \"p3:L188\"\n  }\n  ]\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 24539,
+  "completion_tokens": 849,
+  "total_tokens": 25388
+ },
+ "attempts": 1,
+ "errors": [],
+ "seconds": 43.153,
+ "check_problems": []
+}

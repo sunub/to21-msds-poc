@@ -1,0 +1,72 @@
+{
+ "doc_id": "T21-M013",
+ "msds_index": 0,
+ "section": 13,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S13_METHOD",
+    "title_raw": "가. 폐기방법",
+    "start": "p8:L38",
+    "end": "p8:L39"
+   },
+   {
+    "item_code": "S13_CAUTION",
+    "title_raw": "나. 폐기시 주의사항 (오염된 용기 및 빈 용기에 제품잔여물이 있을 수 있으므로, 용기를 비운 후에도 제품표지의 경고사항을 따를 것. 빈용기는 재활용 또는 포장의 폐기 방법을 포함함)",
+    "start": "p8:L40",
+    "end": "p8:L41"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S13_CAUTION",
+    "title_raw": "지정폐기물의 분류번호",
+    "reason": "필드없음",
+    "comp_name": "지정폐기물의 분류번호",
+    "comp_cas": "사용자, 생산자, 폐기물 처리업체가 협의하여 폐기물 코드를 부여해야 함.",
+    "q": null,
+    "statements": [
+     {
+      "key": "사용자, 생산자, 폐기물 처리업체가 협의하여 폐기물 코드를 부여해야 함.",
+      "value": null,
+      "refs": null,
+      "cond": null,
+      "line": "p8:L42"
+     }
+    ],
+    "suggested_code": "DISPOSAL_CODE",
+    "line": "p8:L42"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S13_METHOD\",\n      \"title_raw\": \"가. 폐기방법\",\n      \"start\": \"p8:L38\",\n      \"end\": \"p8:L39\"\n    },\n    {\n      \"item_code\": \"S13_CAUTION\",\n      \"title_raw\": \"나. 폐기시 주의사항 (오염된 용기 및 빈 용기에 제품잔여물이 있을 수 있으므로, 용기를 비운 후에도 제품표지의 경고사항을 따를 것. 빈용기는 재활용 또는 포장의 폐기 방법을 포함함)\",\n      \"start\": \"p8:L40\",\n      \"end\": \"p8:L41\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S13_CAUTION\",\n      \"title_raw\": \"지정폐기물의 분류번호\",\n      \"reason\": \"필드없음\",\n      \"comp_name\": \"지정폐기물의 분류번호\",\n      \"comp_cas\": \"사용자, 생산자, 폐기물 처리업체가 협의하여 폐기물 코드를 부여해야 함.\",\n      \"q\": null,\n      \"statements\": [\n        {\n          \"key\": \"사용자, 생산자, 폐기물 처리업체가 협의하여 폐기물 코드를 부여해야 함.\"\n        ,\n          \"value\": null\n        ,\n          \"refs\": null\n        ,\n          \"cond\": null\n        ,\n          \"line\": \"p8:L42\"\n        }\n      ],\n      \"suggested_code\": \"DISPOSAL_CODE\"\n    ,\n      \"line\": \"p8:L42\"\n    }\n  ]\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 14071,
+  "completion_tokens": 402,
+  "total_tokens": 14473
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 14071,
+    "completion_tokens": 402,
+    "total_tokens": 14473
+   },
+   "seconds": 13.367,
+   "chars": 920,
+   "whitespace": 351,
+   "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S13_METHOD\",\n      \"title_raw\": \"가. 폐기방법\",\n      \"start\": \"p8:L38\",\n      \"end\": \"p8:L39\"\n    },\n    {\n      \"item_code\": \"S13_CAUTION\",\n      \"title_raw\": \"나. 폐기시 주의사항 (오염된 용기 및 빈 용기에 제품잔여물이 있을 수 있으므로, 용기를 비운 후에도 제품표지의 경고사항을 따를 것. 빈용기는 재활용 또는 포장의 폐기 방법을 포함함)\",\n      \"start\": \"p8:L40\",\n      \"end\": \"p8:L41\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S13_CAUTION\",\n      \"title_raw\": \"지정폐기물의 분류번호\",\n      \"reason\": \"필드없음\",\n      \"comp_name\": \"지",
+   "tail": "정폐기물의 분류번호\",\n      \"comp_cas\": \"사용자, 생산자, 폐기물 처리업체가 협의하여 폐기물 코드를 부여해야 함.\",\n      \"q\": null,\n      \"statements\": [\n        {\n          \"key\": \"사용자, 생산자, 폐기물 처리업체가 협의하여 폐기물 코드를 부여해야 함.\"\n        ,\n          \"value\": null\n        ,\n          \"refs\": null\n        ,\n          \"cond\": null\n        ,\n          \"line\": \"p8:L42\"\n        }\n      ],\n      \"suggested_code\": \"DISPOSAL_CODE\"\n    ,\n      \"line\": \"p8:L42\"\n    }\n  ]\n}"
+  }
+ ],
+ "seconds": 13.368,
+ "check_problems": []
+}

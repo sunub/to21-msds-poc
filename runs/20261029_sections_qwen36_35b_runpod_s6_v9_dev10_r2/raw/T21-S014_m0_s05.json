@@ -1,0 +1,149 @@
+{
+ "doc_id": "T21-S014",
+ "msds_index": 0,
+ "section": 5,
+ "reextracted": true,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S5_MEDIA",
+    "title_raw": "가. 적절한(부적절한) 소화제",
+    "start": "p2:L22",
+    "end": "p2:L23"
+   },
+   {
+    "item_code": "S5_SPECIFIC",
+    "title_raw": "나. 화학물질로부터 생기는 특정 유해성",
+    "start": "p2:L24",
+    "end": "p2:L37"
+   },
+   {
+    "item_code": "S5_FIREFIGHT",
+    "title_raw": "다. 화재진압시 착용할 보호구 및 예방조치",
+    "start": "p2:L38",
+    "end": "p2:L51"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S5_FIREFIGHT",
+    "title_raw": "Doc. code",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "key": "Doc. code",
+      "value": "SPG-표준-SE-001",
+      "line": "p2:L52"
+     }
+    ],
+    "line": "p2:L52"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S5_MEDIA\",\n      \"title_raw\": \"가. 적절한(부적절한) 소화제\",\n      \"start\": \"p2:L22\",\n      \"end\": \"p2:L23\"\n    },\n    {\n      \"item_code\": \"S5_SPECIFIC\",\n      \"title_raw\": \"나. 화학물질로부터 생기는 특정 유해성\",\n      \"start\": \"p2:L24\",\n      \"end\": \"p2:L37\"\n    },\n    {\n      \"item_code\": \"S5_FIREFIGHT\",\n      \"title_raw\": \"다. 화재진압시 착용할 보호구 및 예방조치\",\n      \"start\": \"p2:L38\",\n      \"end\": \"p2:L51\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S5_FIREFIGHT\",\n      \"title_raw\": \"Doc. code\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"key\": \"Doc. code\",\n          \"value\": \"SPG-표준-SE-001\",\n          \"line\": \"p2:L52\"\n        }\n      ],\n      \"line\": \"p2:L52\"\n    }\n  ]\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 2826,
+  "completion_tokens": 318,
+  "total_tokens": 3144
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 2826,
+    "completion_tokens": 318,
+    "total_tokens": 3144
+   },
+   "seconds": 5.243,
+   "chars": 723,
+   "whitespace": 265,
+   "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S5_MEDIA\",\n      \"title_raw\": \"가. 적절한(부적절한) 소화제\",\n      \"start\": \"p2:L22\",\n      \"end\": \"p2:L23\"\n    },\n    {\n      \"item_code\": \"S5_SPECIFIC\",\n      \"title_raw\": \"나. 화학물질로부터 생기는 특정 유해성\",\n      \"start\": \"p2:L24\",\n      \"end\": \"p2:L37\"\n    },\n    {\n      \"item_code\": \"S5_FIREFIGHT\",\n      \"title_raw\": \"다. 화재진압시 착용할 보호구 및 예방조치\",\n      \"start\": \"p2:L38\",\n      \"end\": \"p2:L51\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S5_FIREFIGHT\",\n      \"titl",
+   "tail": "e_raw\": \"Doc. code\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"key\": \"Doc. code\",\n          \"value\": \"SPG-표준-SE-001\",\n          \"line\": \"p2:L52\"\n        }\n      ],\n      \"line\": \"p2:L52\"\n    }\n  ]\n}"
+  }
+ ],
+ "seconds": 5.245,
+ "check_problems": [],
+ "first_attempt": {
+  "ok": true,
+  "parsed": {
+   "narratives": [
+    {
+     "item_code": "S5_MEDIA",
+     "title_raw": "가. 적절한(부적절한) 소화제",
+     "start": "L22",
+     "end": "L23"
+    },
+    {
+     "item_code": "S5_SPECIFIC",
+     "title_raw": "나. 화학물질로부터 생기는 특정 유해성",
+     "start": "L24",
+     "end": "L37"
+    },
+    {
+     "item_code": "S5_FIREFIGHT",
+     "title_raw": "다. 화재진압시 착용할 보호구 및 예방조치",
+     "start": "L38",
+     "end": "L51"
+    }
+   ],
+   "extras": [
+    {
+     "after_item": "S5_FIREFIGHT",
+     "title_raw": "Doc. code: SPG-표준-SE-001",
+     "reason": "코드없음",
+     "statements": [
+      {
+       "key": "Doc. code",
+       "value": "SPG-표준-SE-001",
+       "line": "L52"
+      }
+     ],
+     "line": "L52"
+    }
+   ]
+  },
+  "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S5_MEDIA\",\n      \"title_raw\": \"가. 적절한(부적절한) 소화제\",\n      \"start\": \"L22\",\n      \"end\": \"L23\"\n    },\n    {\n      \"item_code\": \"S5_SPECIFIC\",\n      \"title_raw\": \"나. 화학물질로부터 생기는 특정 유해성\",\n      \"start\": \"L24\",\n      \"end\": \"L37\"\n    },\n    {\n      \"item_code\": \"S5_FIREFIGHT\",\n      \"title_raw\": \"다. 화재진압시 착용할 보호구 및 예방조치\",\n      \"start\": \"L38\",\n      \"end\": \"L51\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S5_FIREFIGHT\",\n      \"title_raw\": \"Doc. code: SPG-표준-SE-001\",\n      \"reason\": \"코드없음\"\n    ,\n      \"statements\": [\n        {\n          \"key\": \"Doc. code\",\n          \"value\": \"SPG-표준-SE-001\"\n        ,\n          \"line\": \"L52\"\n        }\n      ]\n    ,\n      \"line\": \"L52\"\n    }\n  ]\n}",
+  "mode": "json_schema",
+  "finish_reason": "stop",
+  "usage": {
+   "prompt_tokens": 2687,
+   "completion_tokens": 323,
+   "total_tokens": 3010
+  },
+  "attempts": 1,
+  "errors": [],
+  "requests": [
+   {
+    "mode": "json_schema",
+    "finish_reason": "stop",
+    "usage": {
+     "prompt_tokens": 2687,
+     "completion_tokens": 323,
+     "total_tokens": 3010
+    },
+    "seconds": 5.067,
+    "chars": 733,
+    "whitespace": 285,
+    "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S5_MEDIA\",\n      \"title_raw\": \"가. 적절한(부적절한) 소화제\",\n      \"start\": \"L22\",\n      \"end\": \"L23\"\n    },\n    {\n      \"item_code\": \"S5_SPECIFIC\",\n      \"title_raw\": \"나. 화학물질로부터 생기는 특정 유해성\",\n      \"start\": \"L24\",\n      \"end\": \"L37\"\n    },\n    {\n      \"item_code\": \"S5_FIREFIGHT\",\n      \"title_raw\": \"다. 화재진압시 착용할 보호구 및 예방조치\",\n      \"start\": \"L38\",\n      \"end\": \"L51\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S5_FIREFIGHT\",\n      \"title_raw\": \"Doc. code",
+    "tail": ": SPG-표준-SE-001\",\n      \"reason\": \"코드없음\"\n    ,\n      \"statements\": [\n        {\n          \"key\": \"Doc. code\",\n          \"value\": \"SPG-표준-SE-001\"\n        ,\n          \"line\": \"L52\"\n        }\n      ]\n    ,\n      \"line\": \"L52\"\n    }\n  ]\n}"
+   }
+  ],
+  "seconds": 5.068,
+  "check_problems": [
+   "narratives[0].start: 원문에 없는 줄 번호 L22",
+   "narratives[0].end: 원문에 없는 줄 번호 L23",
+   "narratives[1].start: 원문에 없는 줄 번호 L24",
+   "narratives[1].end: 원문에 없는 줄 번호 L37",
+   "narratives[2].start: 원문에 없는 줄 번호 L38",
+   "narratives[2].end: 원문에 없는 줄 번호 L51",
+   "extras[0].statements[0].line: 원문에 없는 줄 번호 L52",
+   "extras[0].line: 원문에 없는 줄 번호 L52"
+  ]
+ }
+}

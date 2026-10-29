@@ -1,0 +1,625 @@
+{
+ "doc_id": "T21-M004",
+ "msds_index": 0,
+ "section": 15,
+ "reextracted": true,
+ "ok": true,
+ "parsed": {
+  "regulations": [
+   {
+    "law": "OSH",
+    "item_code": "OSH_MANAGED",
+    "item_raw": "관리대상유해물질",
+    "applicable": "해당",
+    "threshold": {
+     "raw": "1 wt% 이상 함유한 제제, 측정주기:6개월, 진단:대상작업장 지정 후 30일 이내)",
+     "lower_op": ">=",
+     "lower": 1,
+     "unit": "%"
+    },
+    "sub_class": "1,3 부타디엔",
+    "cycle": {
+     "raw": "6개월",
+     "value": 6,
+     "unit": "개월"
+    },
+    "remark": "측정주기:6개월, 진단:대상작업장 지정 후 30일 이내",
+    "line": "p14:L7"
+   },
+   {
+    "law": "OSH",
+    "item_code": "OSH_EXPOSURE_STD",
+    "item_raw": "노출기준설정대상물질",
+    "applicable": "해당",
+    "sub_class": "1,3 부타디엔",
+    "line": "p14:L7"
+   },
+   {
+    "law": "OSH",
+    "item_code": "OSH_MEASURE",
+    "item_raw": "작업환경측정대상물질",
+    "applicable": "해당",
+    "sub_class": "1,3 부타디엔",
+    "cycle": {
+     "raw": "6개월",
+     "value": 6,
+     "unit": "개월"
+    },
+    "remark": "측정주기:6개월, 진단:대상작업장 지정 후 30일 이내",
+    "line": "p14:L7"
+   },
+   {
+    "law": "OSH",
+    "item_code": "OSH_SPECIAL",
+    "item_raw": "특별관리대상물질",
+    "applicable": "해당",
+    "sub_class": "1,3 부타디엔",
+    "cycle": {
+     "raw": "12개월",
+     "value": 12,
+     "unit": "개월"
+    },
+    "remark": "측정주기:12개월, 진단:6개월 이내",
+    "line": "p14:L8"
+   },
+   {
+    "law": "OSH",
+    "item_code": "OSH_HEALTH_EXAM",
+    "item_raw": "특수건강진단물질",
+    "applicable": "해당",
+    "sub_class": "1,3 부타디엔",
+    "cycle": {
+     "raw": "6개월",
+     "value": 6,
+     "unit": "개월"
+    },
+    "remark": "측정주기:12개월, 진단:6개월 이내",
+    "line": "p14:L8"
+   },
+   {
+    "law": "OSH",
+    "item_code": "OSH_EXPOSURE_STD",
+    "item_raw": "노출기준설정대상물질",
+    "applicable": "해당",
+    "sub_class": "부탄",
+    "line": "p14:L5"
+   },
+   {
+    "law": "CCA",
+    "item_code": "CCA_TOXIC",
+    "item_raw": "유독물질",
+    "applicable": "해당",
+    "threshold": {
+     "raw": "0.1%이상 함유한 혼합물질",
+     "lower_op": ">=",
+     "lower": 0.1,
+     "unit": "%"
+    },
+    "sub_class": "1,3 부타디엔",
+    "line": "p14:L16"
+   },
+   {
+    "law": "DG",
+    "item_code": "DG_HAZMAT",
+    "item_raw": "위험물안전관리법 위험물",
+    "applicable": "비해당",
+    "line": "p14:L20"
+   },
+   {
+    "law": "WASTE",
+    "item_code": "WASTE_DESIG",
+    "item_raw": "지정폐기물",
+    "applicable": "해당",
+    "remark": "용기에 보관중인 경우 지정폐기물(폐유독물질)임.",
+    "line": "p14:L22"
+   },
+   {
+    "law": "INTL",
+    "item_code": "INTL_EU",
+    "item_raw": "EU 분류정보(확정분류결과)",
+    "applicable": "해당",
+    "sub_class": "1,3 부타디엔",
+    "line": "p15:L6"
+   },
+   {
+    "law": "INTL",
+    "item_code": "INTL_EU",
+    "item_raw": "EU 분류정보(위험문구)",
+    "applicable": "해당",
+    "sub_class": "1,3 부타디엔",
+    "line": "p15:L13"
+   },
+   {
+    "law": "INTL",
+    "item_code": "INTL_EU",
+    "item_raw": "EU 분류정보(안전문구)",
+    "applicable": "해당",
+    "sub_class": "1,3 부타디엔",
+    "line": "p15:L20"
+   },
+   {
+    "law": "INTL",
+    "item_code": "INTL_US",
+    "item_raw": "Designation, Reportable Quantities, and Notification",
+    "applicable": "해당",
+    "threshold": {
+     "raw": "10 lb final RQ; 4.54 kg final RQ",
+     "lower_op": ">=",
+     "lower": 10,
+     "unit": "lb"
+    },
+    "qty": {
+     "raw": "4.54 kg final RQ",
+     "value": 4.54,
+     "unit": "kg"
+    },
+    "sub_class": "1,3 부타디엔",
+    "line": "p16:L9"
+   },
+   {
+    "law": "INTL",
+    "item_code": "INTL_US",
+    "item_raw": "Toxic Chemical Release Reporting - Community Right-to-Know",
+    "applicable": "해당",
+    "threshold": {
+     "raw": "0.1 % de minimis concentration",
+     "lower_op": ">=",
+     "lower": 0.1,
+     "unit": "%"
+    },
+    "sub_class": "1,3 부타디엔",
+    "line": "p16:L23"
+   }
+  ],
+  "dangerous_goods": [
+   {
+    "class": "제2류",
+    "item": "가연성 가스",
+    "water_soluble": "비수용성",
+    "grade": "II",
+    "designated_qty": {
+     "raw": "200L",
+     "value": 200,
+     "unit": "L"
+    },
+    "line": "p14:L32"
+   }
+  ],
+  "waste": [
+   {
+    "designated": "해당",
+    "waste_type": "폐유독물질",
+    "line": "p14:L22"
+   }
+  ],
+  "intl_class": [
+   {
+    "system": "EU_CLP",
+    "class_raw": "F+; R12",
+    "h_code": "H220",
+    "status": "값있음",
+    "line": "p15:L4"
+   },
+   {
+    "system": "EU_CLP",
+    "class_raw": "F+; R12",
+    "h_code": "H220",
+    "status": "값있음",
+    "line": "p15:L5"
+   },
+   {
+    "system": "EU_CLP",
+    "class_raw": "F+; R12 Carc.Cat.1; R45 Muta.Cat.2; R46",
+    "h_code": "H220+H304+H314+H317+H340+H341+H350+H351+H360+H361+H372+H373+H374+H375+H376+H377+H378+H379+H380+H381+H382+H383+H384+H385+H386+H387+H388+H389+H390+H391+H392+H393+H394+H395+H396+H397+H398+H399+H400+H401+H402+H403+H404+H405+H406+H407+H408+H409+H410+H411+H412+H413+H414+H415+H416+H417+H418+H419+H420+H421+H422+H423+H424+H425+H426+H427+H428+H429+H430+H431+H432+H433+H434+H435+H436+H437+H438+H439+H440+H441+H442+H443+H444+H445+H446+H447+H448+H449+H450+H451+H452+H453+H454+H455+H456+H457+H458+H459+H460+H461+H462+H463+H464+H465+H466+H467+H468+H469+H470+H471+H472+H473+H474+H475+H476+H477+H478+H479+H480+H481+H482+H483+H484+H485+H486+H487+H488+H489+H490+H491+H492+H493+H494+H495+H496+H497+H498+H499+H500+H501+H502+H503+H504+H505+H506+H507+H508+H509+H510+H511+H512+H513+H514+H515+H516+H517+H518+H519+H520+H521+H522+H523+H524+H525+H526+H527+H528+H529+H530+H531+H532+H533+H534+H535+H536+H537+H538+H539+H540+H541+H542+H543+H544+H545+H546+H547+H548+H549+H550+H551+H552+H553+H554+H555+H556+H557+H558+H559+H560+H561+H562+H563+H564+H565+H566+H567+H568+H569+H570+H571+H572+H573+H574+H575+H576+H577+H578+H579+H580+H581+H582+H583+H584+H585+H586+H587+H588+H589+H590+H591+H592+H593+H594+H595+H596+H597+H598+H599+H600+H601+H602+H603+H604+H605+H606+H607+H608+H609+H610+H611+H612+H613+H614+H615+H616+H617+H618+H619+H620+H621+H622+H623+H624+H625+H626+H627+H628+H629+H630+H631+H632+H633+H634+H635+H636+H637+H638+H639+H640+H641+H642+H643+H644+H645+H646+H647+H648+H649+H650+H651+H652+H653+H654+H655+H656+H657+H658+H659+H660+H661+H662+H663+H664+H665+H666+H667+H668+H669+H670+H671+H672+H673+H674+H675+H676+H677+H678+H679+H680+H681+H682+H683+H684+H685+H686+H687+H688+H689+H690+H691+H692+H693+H694+H695+H696+H697+H698+H699+H700+H701+H702+H703+H704+H705+H706+H707+H708+H709+H710+H711+H712+H713+H714+H715+H716+H717+H718+H719+H720+H721+H722+H723+H724+H725+H726+H727+H728+H729+H730+H731+H732+H733+H734+H735+H736+H737+H738+H739+H740+H741+H742+H743+H744+H745+H746+H747+H748+H749+H750+H751+H752+H753+H754+H755+H756+H757+H758+H759+H760+H761+H762+H763+H764+H765+H766+H767+H768+H769+H770+H771+H772+H773+H774+H775+H776+H777+H778+H779+H780+H781+H782+H783+H784+H785+H786+H787+H788+H789+H790+H791+H792+H793+H794+H795+H796+H797+H798+H799+H800+H801+H802+H803+H804+H805+H806+H807+H808+H809+H810+H811+H812+H813+H814+H815+H816+H817+H818+H819+H820+H821+H822+H823+H824+H825+H826+H827+H828+H829+H830+H831+H832+H833+H834+H835+H836+H837+H838+H839+H840+H841+H842+H843+H844+H845+H846+H847+H848+H849+H850+H851+H852+H853+H854+H855+H856+H857+H858+H859+H860+H861+H862+H863+H864+H865+H866+H867+H868+H869+H870+H871+H872+H873+H874+H875+H876+H877+H878+H879+H880+H881+H882+H883+H884+H885+H886+H887+H888+H889+H890+H891+H892+H893+H894+H895+H896+H897+H898+H899+H900+H901+H902+H903+H904+H905+H906+H907+H908+H909+H910+H911+H912+H913+H914+H915+H916+H917+H918+H919+H920+H921+H922+H923+H924+H925+H926+H927+H928+H929+H930+H931+H932+H933+H934+H935+H936+H937+H938+H939+H940+H941+H942+H943+H944+H945+H946+H947+H948+H949+H950+H951+H952+H953+H954+H955+H956+H957+H958+H959+H960+H961+H962+H963+H964+H965+H966+H967+H968+H969+H970+H971+H972+H973+H974+H975+H976+H977+H978+H979+H980+H981+H982+H983+H984+H985+H986+H987+H988+H989+H990+H991+H992+H993+H994+H995+H996+H997+H998+H999",
+    "status": "값있음",
+    "line": "p15:L6"
+   },
+   {
+    "system": "EU_CLP",
+    "class_raw": "F+; R12",
+    "h_code": "H220",
+    "status": "값있음",
+    "line": "p15:L7"
+   },
+   {
+    "system": "EU_CLP",
+    "class_raw": "F+; R12",
+    "h_code": "H220",
+    "status": "값있음",
+    "line": "p15:L8"
+   },
+   {
+    "system": "EU_CLP",
+    "class_raw": "F+; R12",
+    "h_code": "H220",
+    "status": "값있음",
+    "line": "p15:L9"
+   },
+   {
+    "system": "EU_CLP",
+    "class_raw": "F+; R12",
+    "h_code": "H220",
+    "status": "값있음",
+    "line": "p15:L10"
+   },
+   {
+    "system": "EU_CLP",
+    "class_raw": "F+; R12",
+    "h_code": "H220",
+    "status": "값있음",
+    "line": "p15:L11"
+   },
+   {
+    "system": "EU_CLP",
+    "class_raw": "F+; R12",
+    "h_code": "H220",
+    "status": "값있음",
+    "line": "p15:L12"
+   },
+   {
+    "system": "EU_CLP",
+    "class_raw": "F+; R12",
+    "h_code": "H220",
+    "status": "값있음",
+    "line": "p15:L13"
+   },
+   {
+    "system": "EU_CLP",
+    "class_raw": "F+; R12",
+    "h_code": "H220",
+    "status": "값있음",
+    "line": "p15:L14"
+   },
+   {
+    "system": "EU_CLP",
+    "class_raw": "F+; R12",
+    "h_code": "H220",
+    "status": "값있음",
+    "line": "p15:L15"
+   },
+   {
+    "system": "EU_CLP",
+    "class_raw": "F+; R12",
+    "h_code": "H220",
+    "status": "값있음",
+    "line": "p15:L16"
+   },
+   {
+    "system": "EU_CLP",
+    "class_raw": "F+; R12",
+    "h_code": "H220",
+    "status": "값있음",
+    "line": "p15:L17"
+   },
+   {
+    "system": "EU_CLP",
+    "class_raw": "F+; R12",
+    "h_code": "H220",
+    "status": "값있음",
+    "line": "p15:L18"
+   },
+   {
+    "system": "EU_CLP",
+    "class_raw": "F+; R12",
+    "h_code": "H220",
+    "status": "값있음",
+    "line": "p15:L19"
+   },
+   {
+    "system": "EU_CLP",
+    "class_raw": "F+; R12",
+    "h_code": "H220",
+    "status": "값있음",
+    "line": "p15:L20"
+   },
+   {
+    "system": "EU_CLP",
+    "class_raw": "F+; R12",
+    "h_code": "H220",
+    "status": "값있음",
+    "line": "p15:L21"
+   },
+   {
+    "system": "EU_CLP",
+    "class_raw": "F+; R12",
+    "h_code": "H220",
+    "status": "값있음",
+    "line": "p15:L22"
+   },
+   {
+    "system": "EU_CLP",
+    "class_raw": "F+; R12",
+    "h_code": "H220",
+    "status": "값있음",
+    "line": "p15:L23"
+   },
+   {
+    "system": "EU_CLP",
+    "class_raw": "F+; R12",
+    "h_code": "H220",
+    "status": "값있음",
+    "line": "p15:L24"
+   },
+   {
+    "system": "EU_CLP",
+    "class_raw": "F+; R12",
+    "h_code": "H220",
+    "status": "값있음",
+    "line": "p15:L25"
+   },
+   {
+    "system": "EU_CLP",
+    "class_raw": "F+; R12",
+    "h_code": "H220",
+    "status": "값있음",
+    "line": "p15:L26"
+   },
+   {
+    "system": "EU_CLP",
+    "class_raw": "F+; R12",
+    "h_code": "H220",
+    "status": "값있음",
+    "line": "p15:L27"
+   },
+   {
+    "system": "EU_CLP",
+    "class_raw": "F+; R12",
+    "h_code": "H220",
+    "status": "값있음",
+    "line": "p15:L28"
+   },
+   {
+    "system": "EU_CLP",
+    "class_raw": "F+; R12",
+    "h_code": "H220",
+    "status": "값있음",
+    "line": "p15:L29"
+   },
+   {
+    "system": "EU_CLP",
+    "class_raw": "F+; R12",
+    "h_code": "H220",
+    "status": "값있음",
+    "line": "p15:L30"
+   },
+   {
+    "system": "EU_CLP",
+    "class_raw": "F+; R12",
+    "h_code": "H220",
+    "status": "값있음",
+    "line": "p15:L31"
+   },
+   {
+    "system": "EU_CLP",
+    "class_raw": "F+; R12",
+    "h_code": "H220",
+    "status": "값있음",
+    "line": "p15:L32"
+   },
+   {
+    "system": "EU_CLP",
+    "class_raw": "F+; R12",
+    "h_code": "H220",
+    "status": "값있음",
+    "line": "p15:L33"
+   }
+  ],
+  "narratives": [
+   {
+    "item_code": "S15_DG",
+    "title_raw": "가. 산업안전보건법에 의한 규제",
+    "start": "p14:L3",
+    "end": "p14:L9"
+   },
+   {
+    "item_code": "S15_WASTE",
+    "title_raw": "라. 폐기물관리법",
+    "start": "p14:L21",
+    "end": "p14:L22"
+   },
+   {
+    "item_code": "S15_OTHER",
+    "title_raw": "마. 기타 국내 및 외국법에 의한 규제",
+    "start": "p14:L23",
+    "end": "p14:L33"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S15_OTHER",
+    "title_raw": "가. 산업안전보건법에 의한 규제",
+    "reason": "필드없음",
+    "q": {
+     "raw": "1 wt% 이상 함유한 제제, 측정주기:6개월, 진단:대상작업장 지정 후 30일 이내)",
+     "lower_op": ">=",
+     "lower": 1,
+     "unit": "%"
+    },
+    "statements": [
+     {
+      "key": "측정주기",
+      "value": "6개월, 진단:대상작업장 지정 후 30일 이내",
+      "refs": [
+       "1"
+      ],
+      "line": "p14:L7"
+     }
+    ],
+    "line": "p14:L7"
+   },
+   {
+    "after_item": "S15_OTHER",
+    "title_raw": "가. 산업안전보건법에 의한 규제",
+    "reason": "필드없음",
+    "q": {
+     "raw": "12개월",
+     "value": 12,
+     "unit": "개월"
+    },
+    "statements": [
+     {
+      "key": "측정주기",
+      "value": "12개월, 진단:6개월 이내",
+      "refs": [
+       "1"
+      ],
+      "line": "p14:L8"
+     }
+    ],
+    "line": "p14:L8"
+   },
+   {
+    "after_item": "S15_OTHER",
+    "title_raw": "나. 화학물질관리법에 의한 규제",
+    "reason": "필드없음",
+    "q": {
+     "raw": "0.1%이상 함유한 혼합물질",
+     "lower_op": ">=",
+     "lower": 0.1,
+     "unit": "%"
+    },
+    "statements": [
+     {
+      "key": "기준",
+      "value": "0.1%이상 함유한 혼합물질",
+      "refs": [
+       "1"
+      ],
+      "line": "p14:L16"
+     }
+    ],
+    "line": "p14:L16"
+   },
+   {
+    "after_item": "S15_OTHER",
+    "title_raw": "라. 폐기물관리법",
+    "reason": "필드없음",
+    "q": {
+     "raw": "용기에 보관중인 경우 지정폐기물(폐유독물질)임.",
+     "value": 1,
+     "unit": "개"
+    },
+    "statements": [
+     {
+      "key": "비고",
+      "value": "용기에 보관중인 경우 지정폐기물(폐유독물질)임.",
+      "refs": [
+       "1"
+      ],
+      "line": "p14:L22"
+     }
+    ],
+    "line": "p14:L22"
+   },
+   {
+    "after_item": "S15_OTHER",
+    "title_raw": "마. 기타 국내 및 외국법에 의한 규제",
+    "reason": "필드없음",
+    "q": {
+     "raw": "10 lb final RQ; 4.54 kg final RQ",
+     "lower_op": ">=",
+     "lower": 10,
+     "unit": "lb"
+    },
+    "statements": [
+     {
+      "key": "보고수량",
+      "value": "10 lb final RQ; 4.54 kg final RQ",
+      "refs": [
+       "1"
+      ],
+      "line": "p16:L9"
+     }
+    ],
+    "line": "p16:L9"
+   },
+   {
+    "after_item": "S15_OTHER",
+    "title_raw": "마. 기타 국내 및 외국법에 의한 규제",
+    "reason": "필드없음",
+    "q": {
+     "raw": "0.1 % de minimis concentration",
+     "lower_op": ">=",
+     "lower": 0.1,
+     "unit": "%"
+    },
+    "statements": [
+     {
+      "key": "기준",
+      "value": "0.1 % de minimis concentration",
+      "refs": [
+       "1"
+      ],
+      "line": "p16:L23"
+     }
+    ],
+    "line": "p16:L23"
+   }
+  ]
+ },
+ "raw_text": "{\"regulations\": [{\"law\": \"OSH\", \"item_code\": \"OSH_MANAGED\", \"item_raw\": \"관리대상유해물질\", \"applicable\": \"해당\", \"threshold\": {\"raw\": \"1 wt% 이상 함유한 제제, 측정주기:6개월, 진단:대상작업장 지정 후 30일 이내)\", \"lower_op\": \">=\", \"lower\": 1, \"unit\": \"%\"}, \"sub_class\": \"1,3 부타디엔\", \"cycle\": {\"raw\": \"6개월\", \"value\": 6, \"unit\": \"개월\"}, \"remark\": \"측정주기:6개월, 진단:대상작업장 지정 후 30일 이내\", \"line\": \"p14:L7\"}, {\"law\": \"OSH\", \"item_code\": \"OSH_EXPOSURE_STD\", \"item_raw\": \"노출기준설정대상물질\", \"applicable\": \"해당\", \"sub_class\": \"1,3 부타디엔\", \"line\": \"p14:L7\"}, {\"law\": \"OSH\", \"item_code\": \"OSH_MEASURE\", \"item_raw\": \"작업환경측정대상물질\", \"applicable\": \"해당\", \"sub_class\": \"1,3 부타디엔\", \"cycle\": {\"raw\": \"6개월\", \"value\": 6, \"unit\": \"개월\"}, \"remark\": \"측정주기:6개월, 진단:대상작업장 지정 후 30일 이내\", \"line\": \"p14:L7\"}, {\"law\": \"OSH\", \"item_code\": \"OSH_SPECIAL\", \"item_raw\": \"특별관리대상물질\", \"applicable\": \"해당\", \"sub_class\": \"1,3 부타디엔\", \"cycle\": {\"raw\": \"12개월\", \"value\": 12, \"unit\": \"개월\"}, \"remark\": \"측정주기:12개월, 진단:6개월 이내\", \"line\": \"p14:L8\"}, {\"law\": \"OSH\", \"item_code\": \"OSH_HEALTH_EXAM\", \"item_raw\": \"특수건강진단물질\", \"applicable\": \"해당\", \"sub_class\": \"1,3 부타디엔\", \"cycle\": {\"raw\": \"6개월\", \"value\": 6, \"unit\": \"개월\"}, \"remark\": \"측정주기:12개월, 진단:6개월 이내\", \"line\": \"p14:L8\"}, {\"law\": \"OSH\", \"item_code\": \"OSH_EXPOSURE_STD\", \"item_raw\": \"노출기준설정대상물질\", \"applicable\": \"해당\", \"sub_class\": \"부탄\", \"line\": \"p14:L5\"}, {\"law\": \"CCA\", \"item_code\": \"CCA_TOXIC\", \"item_raw\": \"유독물질\", \"applicable\": \"해당\", \"threshold\": {\"raw\": \"0.1%이상 함유한 혼합물질\", \"lower_op\": \">=\", \"lower\": 0.1, \"unit\": \"%\"}, \"sub_class\": \"1,3 부타디엔\", \"line\": \"p14:L16\"}, {\"law\": \"DG\", \"item_code\": \"DG_HAZMAT\", \"item_raw\": \"위험물안전관리법 위험물\", \"applicable\": \"비해당\", \"line\": \"p14:L20\"}, {\"law\": \"WASTE\", \"item_code\": \"WASTE_DESIG\", \"item_raw\": \"지정폐기물\", \"applicable\": \"해당\", \"remark\": \"용기에 보관중인 경우 지정폐기물(폐유독물질)임.\", \"line\": \"p14:L22\"}, {\"law\": \"INTL\", \"item_code\": \"INTL_EU\", \"item_raw\": \"EU 분류정보(확정분류결과)\", \"applicable\": \"해당\", \"sub_class\": \"1,3 부타디엔\", \"line\": \"p15:L6\"}, {\"law\": \"INTL\", \"item_code\": \"INTL_EU\", \"item_raw\": \"EU 분류정보(위험문구)\", \"applicable\": \"해당\", \"sub_class\": \"1,3 부타디엔\", \"line\": \"p15:L13\"}, {\"law\": \"INTL\", \"item_code\": \"INTL_EU\", \"item_raw\": \"EU 분류정보(안전문구)\", \"applicable\": \"해당\", \"sub_class\": \"1,3 부타디엔\", \"line\": \"p15:L20\"}, {\"law\": \"INTL\", \"item_code\": \"INTL_US\", \"item_raw\": \"Designation, Reportable Quantities, and Notification\", \"applicable\": \"해당\", \"threshold\": {\"raw\": \"10 lb final RQ; 4.54 kg final RQ\", \"lower_op\": \">=\", \"lower\": 10, \"unit\": \"lb\"}, \"qty\": {\"raw\": \"4.54 kg final RQ\", \"value\": 4.54, \"unit\": \"kg\"}, \"sub_class\": \"1,3 부타디엔\", \"line\": \"p16:L9\"}, {\"law\": \"INTL\", \"item_code\": \"INTL_US\", \"item_raw\": \"Toxic Chemical Release Reporting - Community Right-to-Know\", \"applicable\": \"해당\", \"threshold\": {\"raw\": \"0.1 % de minimis concentration\", \"lower_op\": \">=\", \"lower\": 0.1, \"unit\": \"%\"}, \"sub_class\": \"1,3 부타디엔\", \"line\": \"p16:L23\"}], \"dangerous_goods\": [{\"class\": \"제2류\", \"item\": \"가연성 가스\", \"water_soluble\": \"비수용성\", \"grade\": \"II\", \"designated_qty\": {\"raw\": \"200L\", \"value\": 200, \"unit\": \"L\"}, \"line\": \"p14:L32\"}], \"waste\": [{\"designated\": \"해당\", \"waste_type\": \"폐유독물질\", \"line\": \"p14:L22\"}], \"intl_class\": [{\"system\": \"EU_CLP\", \"class_raw\": \"F+; R12\", \"h_code\": \"H220\", \"status\": \"값있음\", \"line\": \"p15:L4\"}, {\"system\": \"EU_CLP\", \"class_raw\": \"F+; R12\", \"h_code\": \"H220\", \"status\": \"값있음\", \"line\": \"p15:L5\"}, {\"system\": \"EU_CLP\", \"class_raw\": \"F+; R12 Carc.Cat.1; R45 Muta.Cat.2; R46\", \"h_code\": \"H220+H304+H314+H317+H340+H341+H350+H351+H360+H361+H372+H373+H374+H375+H376+H377+H378+H379+H380+H381+H382+H383+H384+H385+H386+H387+H388+H389+H390+H391+H392+H393+H394+H395+H396+H397+H398+H399+H400+H401+H402+H403+H404+H405+H406+H407+H408+H409+H410+H411+H412+H413+H414+H415+H416+H417+H418+H419+H420+H421+H422+H423+H424+H425+H426+H427+H428+H429+H430+H431+H432+H433+H434+H435+H436+H437+H438+H439+H440+H441+H442+H443+H444+H445+H446+H447+H448+H449+H450+H451+H452+H453+H454+H455+H456+H457+H458+H459+H460+H461+H462+H463+H464+H465+H466+H467+H468+H469+H470+H471+H472+H473+H474+H475+H476+H477+H478+H479+H480+H481+H482+H483+H484+H485+H486+H487+H488+H489+H490+H491+H492+H493+H494+H495+H496+H497+H498+H499+H500+H501+H502+H503+H504+H505+H506+H507+H508+H509+H510+H511+H512+H513+H514+H515+H516+H517+H518+H519+H520+H521+H522+H523+H524+H525+H526+H527+H528+H529+H530+H531+H532+H533+H534+H535+H536+H537+H538+H539+H540+H541+H542+H543+H544+H545+H546+H547+H548+H549+H550+H551+H552+H553+H554+H555+H556+H557+H558+H559+H560+H561+H562+H563+H564+H565+H566+H567+H568+H569+H570+H571+H572+H573+H574+H575+H576+H577+H578+H579+H580+H581+H582+H583+H584+H585+H586+H587+H588+H589+H590+H591+H592+H593+H594+H595+H596+H597+H598+H599+H600+H601+H602+H603+H604+H605+H606+H607+H608+H609+H610+H611+H612+H613+H614+H615+H616+H617+H618+H619+H620+H621+H622+H623+H624+H625+H626+H627+H628+H629+H630+H631+H632+H633+H634+H635+H636+H637+H638+H639+H640+H641+H642+H643+H644+H645+H646+H647+H648+H649+H650+H651+H652+H653+H654+H655+H656+H657+H658+H659+H660+H661+H662+H663+H664+H665+H666+H667+H668+H669+H670+H671+H672+H673+H674+H675+H676+H677+H678+H679+H680+H681+H682+H683+H684+H685+H686+H687+H688+H689+H690+H691+H692+H693+H694+H695+H696+H697+H698+H699+H700+H701+H702+H703+H704+H705+H706+H707+H708+H709+H710+H711+H712+H713+H714+H715+H716+H717+H718+H719+H720+H721+H722+H723+H724+H725+H726+H727+H728+H729+H730+H731+H732+H733+H734+H735+H736+H737+H738+H739+H740+H741+H742+H743+H744+H745+H746+H747+H748+H749+H750+H751+H752+H753+H754+H755+H756+H757+H758+H759+H760+H761+H762+H763+H764+H765+H766+H767+H768+H769+H770+H771+H772+H773+H774+H775+H776+H777+H778+H779+H780+H781+H782+H783+H784+H785+H786+H787+H788+H789+H790+H791+H792+H793+H794+H795+H796+H797+H798+H799+H800+H801+H802+H803+H804+H805+H806+H807+H808+H809+H810+H811+H812+H813+H814+H815+H816+H817+H818+H819+H820+H821+H822+H823+H824+H825+H826+H827+H828+H829+H830+H831+H832+H833+H834+H835+H836+H837+H838+H839+H840+H841+H842+H843+H844+H845+H846+H847+H848+H849+H850+H851+H852+H853+H854+H855+H856+H857+H858+H859+H860+H861+H862+H863+H864+H865+H866+H867+H868+H869+H870+H871+H872+H873+H874+H875+H876+H877+H878+H879+H880+H881+H882+H883+H884+H885+H886+H887+H888+H889+H890+H891+H892+H893+H894+H895+H896+H897+H898+H899+H900+H901+H902+H903+H904+H905+H906+H907+H908+H909+H910+H911+H912+H913+H914+H915+H916+H917+H918+H919+H920+H921+H922+H923+H924+H925+H926+H927+H928+H929+H930+H931+H932+H933+H934+H935+H936+H937+H938+H939+H940+H941+H942+H943+H944+H945+H946+H947+H948+H949+H950+H951+H952+H953+H954+H955+H956+H957+H958+H959+H960+H961+H962+H963+H964+H965+H966+H967+H968+H969+H970+H971+H972+H973+H974+H975+H976+H977+H978+H979+H980+H981+H982+H983+H984+H985+H986+H987+H988+H989+H990+H991+H992+H993+H994+H995+H996+H997+H998+H999\", \"status\": \"값있음\", \"line\": \"p15:L6\"}, {\"system\": \"EU_CLP\", \"class_raw\": \"F+; R12\", \"h_code\": \"H220\", \"status\": \"값있음\", \"line\": \"p15:L7\"}, {\"system\": \"EU_CLP\", \"class_raw\": \"F+; R12\", \"h_code\": \"H220\", \"status\": \"값있음\", \"line\": \"p15:L8\"}, {\"system\": \"EU_CLP\", \"class_raw\": \"F+; R12\", \"h_code\": \"H220\", \"status\": \"값있음\", \"line\": \"p15:L9\"}, {\"system\": \"EU_CLP\", \"class_raw\": \"F+; R12\", \"h_code\": \"H220\", \"status\": \"값있음\", \"line\": \"p15:L10\"}, {\"system\": \"EU_CLP\", \"class_raw\": \"F+; R12\", \"h_code\": \"H220\", \"status\": \"값있음\", \"line\": \"p15:L11\"}, {\"system\": \"EU_CLP\", \"class_raw\": \"F+; R12\", \"h_code\": \"H220\", \"status\": \"값있음\", \"line\": \"p15:L12\"}, {\"system\": \"EU_CLP\", \"class_raw\": \"F+; R12\", \"h_code\": \"H220\", \"status\": \"값있음\", \"line\": \"p15:L13\"}, {\"system\": \"EU_CLP\", \"class_raw\": \"F+; R12\", \"h_code\": \"H220\", \"status\": \"값있음\", \"line\": \"p15:L14\"}, {\"system\": \"EU_CLP\", \"class_raw\": \"F+; R12\", \"h_code\": \"H220\", \"status\": \"값있음\", \"line\": \"p15:L15\"}, {\"system\": \"EU_CLP\", \"class_raw\": \"F+; R12\", \"h_code\": \"H220\", \"status\": \"값있음\", \"line\": \"p15:L16\"}, {\"system\": \"EU_CLP\", \"class_raw\": \"F+; R12\", \"h_code\": \"H220\", \"status\": \"값있음\", \"line\": \"p15:L17\"}, {\"system\": \"EU_CLP\", \"class_raw\": \"F+; R12\", \"h_code\": \"H220\", \"status\": \"값있음\", \"line\": \"p15:L18\"}, {\"system\": \"EU_CLP\", \"class_raw\": \"F+; R12\", \"h_code\": \"H220\", \"status\": \"값있음\", \"line\": \"p15:L19\"}, {\"system\": \"EU_CLP\", \"class_raw\": \"F+; R12\", \"h_code\": \"H220\", \"status\": \"값있음\", \"line\": \"p15:L20\"}, {\"system\": \"EU_CLP\", \"class_raw\": \"F+; R12\", \"h_code\": \"H220\", \"status\": \"값있음\", \"line\": \"p15:L21\"}, {\"system\": \"EU_CLP\", \"class_raw\": \"F+; R12\", \"h_code\": \"H220\", \"status\": \"값있음\", \"line\": \"p15:L22\"}, {\"system\": \"EU_CLP\", \"class_raw\": \"F+; R12\", \"h_code\": \"H220\", \"status\": \"값있음\", \"line\": \"p15:L23\"}, {\"system\": \"EU_CLP\", \"class_raw\": \"F+; R12\", \"h_code\": \"H220\", \"status\": \"값있음\", \"line\": \"p15:L24\"}, {\"system\": \"EU_CLP\", \"class_raw\": \"F+; R12\", \"h_code\": \"H220\", \"status\": \"값있음\", \"line\": \"p15:L25\"}, {\"system\": \"EU_CLP\", \"class_raw\": \"F+; R12\", \"h_code\": \"H220\", \"status\": \"값있음\", \"line\": \"p15:L26\"}, {\"system\": \"EU_CLP\", \"class_raw\": \"F+; R12\", \"h_code\": \"H220\", \"status\": \"값있음\", \"line\": \"p15:L27\"}, {\"system\": \"EU_CLP\", \"class_raw\": \"F+; R12\", \"h_code\": \"H220\", \"status\": \"값있음\", \"line\": \"p15:L28\"}, {\"system\": \"EU_CLP\", \"class_raw\": \"F+; R12\", \"h_code\": \"H220\", \"status\": \"값있음\", \"line\": \"p15:L29\"}, {\"system\": \"EU_CLP\", \"class_raw\": \"F+; R12\", \"h_code\": \"H220\", \"status\": \"값있음\", \"line\": \"p15:L30\"}, {\"system\": \"EU_CLP\", \"class_raw\": \"F+; R12\", \"h_code\": \"H220\", \"status\": \"값있음\", \"line\": \"p15:L31\"}, {\"system\": \"EU_CLP\", \"class_raw\": \"F+; R12\", \"h_code\": \"H220\", \"status\": \"값있음\", \"line\": \"p15:L32\"}, {\"system\": \"EU_CLP\", \"class_raw\": \"F+; R12\", \"h_code\": \"H220\", \"status\": \"값있음\", \"line\": \"p15:L33\"}], \"narratives\": [{\"item_code\": \"S15_DG\", \"title_raw\": \"가. 산업안전보건법에 의한 규제\", \"start\": \"p14:L3\", \"end\": \"p14:L9\"}, {\"item_code\": \"S15_WASTE\", \"title_raw\": \"라. 폐기물관리법\", \"start\": \"p14:L21\", \"end\": \"p14:L22\"}, {\"item_code\": \"S15_OTHER\", \"title_raw\": \"마. 기타 국내 및 외국법에 의한 규제\", \"start\": \"p14:L23\", \"end\": \"p14:L33\"}], \"extras\": [{\"after_item\": \"S15_OTHER\", \"title_raw\": \"가. 산업안전보건법에 의한 규제\", \"reason\": \"필드없음\", \"q\": {\"raw\": \"1 wt% 이상 함유한 제제, 측정주기:6개월, 진단:대상작업장 지정 후 30일 이내)\", \"lower_op\": \">=\", \"lower\": 1, \"unit\": \"%\"}, \"statements\": [{\"key\": \"측정주기\", \"value\": \"6개월, 진단:대상작업장 지정 후 30일 이내\", \"refs\": [\"1\"], \"line\": \"p14:L7\"}], \"line\": \"p14:L7\"}, {\"after_item\": \"S15_OTHER\", \"title_raw\": \"가. 산업안전보건법에 의한 규제\", \"reason\": \"필드없음\", \"q\": {\"raw\": \"12개월\", \"value\": 12, \"unit\": \"개월\"}, \"statements\": [{\"key\": \"측정주기\", \"value\": \"12개월, 진단:6개월 이내\", \"refs\": [\"1\"], \"line\": \"p14:L8\"}], \"line\": \"p14:L8\"}, {\"after_item\": \"S15_OTHER\", \"title_raw\": \"나. 화학물질관리법에 의한 규제\", \"reason\": \"필드없음\", \"q\": {\"raw\": \"0.1%이상 함유한 혼합물질\", \"lower_op\": \">=\", \"lower\": 0.1, \"unit\": \"%\"}, \"statements\": [{\"key\": \"기준\", \"value\": \"0.1%이상 함유한 혼합물질\", \"refs\": [\"1\"], \"line\": \"p14:L16\"}], \"line\": \"p14:L16\"}, {\"after_item\": \"S15_OTHER\", \"title_raw\": \"라. 폐기물관리법\", \"reason\": \"필드없음\", \"q\": {\"raw\": \"용기에 보관중인 경우 지정폐기물(폐유독물질)임.\", \"value\": 1, \"unit\": \"개\"}, \"statements\": [{\"key\": \"비고\", \"value\": \"용기에 보관중인 경우 지정폐기물(폐유독물질)임.\", \"refs\": [\"1\"], \"line\": \"p14:L22\"}], \"line\": \"p14:L22\"}, {\"after_item\": \"S15_OTHER\", \"title_raw\": \"마. 기타 국내 및 외국법에 의한 규제\", \"reason\": \"필드없음\", \"q\": {\"raw\": \"10 lb final RQ; 4.54 kg final RQ\", \"lower_op\": \">=\", \"lower\": 10, \"unit\": \"lb\"}, \"statements\": [{\"key\": \"보고수량\", \"value\": \"10 lb final RQ; 4.54 kg final RQ\", \"refs\": [\"1\"], \"line\": \"p16:L9\"}], \"line\": \"p16:L9\"}, {\"after_item\": \"S15_OTHER\", \"title_raw\": \"마. 기타 국내 및 외국법에 의한 규제\", \"reason\": \"필드없음\", \"q\": {\"raw\": \"0.1 % de minimis concentration\", \"lower_op\": \">=\", \"lower\": 0.1, \"unit\": \"%\"}, \"statements\": [{\"key\": \"기준\", \"value\": \"0.1 % de minimis concentration\", \"refs\": [\"1\"], \"line\": \"p16:L23\"}], \"line\": \"p16:L23\"}]}",
+ "mode": "json_schema_compact",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 20807,
+  "completion_tokens": 7079,
+  "total_tokens": 27886
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema_compact",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 20807,
+    "completion_tokens": 7079,
+    "total_tokens": 27886
+   },
+   "seconds": 58.342,
+   "chars": 11289,
+   "whitespace": 933,
+   "head": "{\"regulations\": [{\"law\": \"OSH\", \"item_code\": \"OSH_MANAGED\", \"item_raw\": \"관리대상유해물질\", \"applicable\": \"해당\", \"threshold\": {\"raw\": \"1 wt% 이상 함유한 제제, 측정주기:6개월, 진단:대상작업장 지정 후 30일 이내)\", \"lower_op\": \">=\", \"lower\": 1, \"unit\": \"%\"}, \"sub_class\": \"1,3 부타디엔\", \"cycle\": {\"raw\": \"6개월\", \"value\": 6, \"unit\": \"개월\"}, \"remark\": \"측정주기:6개월, 진단:대상작업장 지정 후 30일 이내\", \"line\": \"p14:L7\"}, {\"law\": \"OSH\", \"item_code\": \"OSH_EXPOSURE_STD\", \"item_raw\": \"노출기준설정대상물질\", \"applicable\": \"해당\", \"sub_class\": \"1,3 부타디엔\", \"line\": \"p14:L7\"}, {\"",
+   "tail": "4.54 kg final RQ\", \"lower_op\": \">=\", \"lower\": 10, \"unit\": \"lb\"}, \"statements\": [{\"key\": \"보고수량\", \"value\": \"10 lb final RQ; 4.54 kg final RQ\", \"refs\": [\"1\"], \"line\": \"p16:L9\"}], \"line\": \"p16:L9\"}, {\"after_item\": \"S15_OTHER\", \"title_raw\": \"마. 기타 국내 및 외국법에 의한 규제\", \"reason\": \"필드없음\", \"q\": {\"raw\": \"0.1 % de minimis concentration\", \"lower_op\": \">=\", \"lower\": 0.1, \"unit\": \"%\"}, \"statements\": [{\"key\": \"기준\", \"value\": \"0.1 % de minimis concentration\", \"refs\": [\"1\"], \"line\": \"p16:L23\"}], \"line\": \"p16:L23\"}]}"
+  }
+ ],
+ "seconds": 58.362,
+ "check_problems": [
+  "dangerous_goods[0].line: 원문에 없는 줄 번호 p14:L32",
+  "narratives[2].end: 원문에 없는 줄 번호 p14:L33"
+ ],
+ "first_attempt": {
+  "ok": false,
+  "parsed": null,
+  "raw_text": "{\"regulations\": [{\"law\": \"OSH\", \"item_code\": \"OSH_MANAGED\", \"item_raw\": \"관리대상유해물질\", \"applicable\": \"해당\", \"threshold\": {\"raw\": \"1 wt% 이상 함유한 제제, 측정주기:6개월, 진단:대상작업장 지정 후 30일 이내)\", \"lower_op\": \">=\", \"lower\": 1, \"unit\": \"%\"}, \"sub_class\": \"1,3 부타디엔\", \"cycle\": {\"raw\": \"6개월\", \"value\": 6, \"unit\": \"개월\"}, \"remark\": \"측정주기:6개월, 진단:대상작업장 지정 후 30일 이내\", \"line\": \"p14:L7\"}, {\"law\": \"OSH\", \"item_code\": \"OSH_SPECIAL\", \"item_raw\": \"특별관리물질\", \"applicable\": \"해당\", \"threshold\": {\"raw\": \"1 wt% 이상 함유한 제제, 측정주기:12개월, 진단:6개월 이내)\", \"lower_op\": \">=\", \"lower\": 1, \"unit\": \"%\"}, \"sub_class\": \"1,3 부타디엔\", \"cycle\": {\"raw\": \"12개월\", \"value\": 12, \"unit\": \"개월\"}, \"remark\": \"측정주기:12개월, 진단:6개월 이내\", \"line\": \"p14:L8\"}, {\"law\": \"OSH\", \"item_code\": \"OSH_EXPOSURE_STD\", \"item_raw\": \"노출기준설정대상물질\", \"applicable\": \"해당\", \"sub_class\": \"부탄\", \"line\": \"p14:L5\"}, {\"law\": \"OSH\", \"item_code\": \"OSH_MEASURE\", \"item_raw\": \"작업환경측정대상물질\", \"applicable\": \"해당\", \"threshold\": {\"raw\": \"1 wt% 이상 함유한 제제, 측정주기:6개월, 진단:대상작업장 지정 후 30일 이내)\", \"lower_op\": \">=\", \"lower\": 1, \"unit\": \"%\"}, \"sub_class\": \"1,3 부타디엔\", \"cycle\": {\"raw\": \"6개월\", \"value\": 6, \"unit\": \"개월\"}, \"remark\": \"측정주기:6개월, 진단:대상작업장 지정 후 30일 이내\", \"line\": \"p14:L7\"}, {\"law\": \"OSH\", \"item_code\": \"OSH_HEALTH_EXAM\", \"item_raw\": \"특수건강진단대상물질\", \"applicable\": \"해당\", \"threshold\": {\"raw\": \"1 wt% 이상 함유한 제제, 측정주기:12개월, 진단:6개월 이내)\", \"lower_op\": \">=\", \"lower\": 1, \"unit\": \"%\"}, \"sub_class\": \"1,3 부타디엔\", \"cycle\": {\"raw\": \"12개월\", \"value\": 12, \"unit\": \"개월\"}, \"remark\": \"측정주기:12개월, 진단:6개월 이내\", \"line\": \"p14:L8\"}, {\"law\": \"CCA\", \"item_code\": \"CCA_TOXIC\", \"item_raw\": \"유독물질\", \"applicable\": \"해당\", \"threshold\": {\"raw\": \"0.1%이상 함유한 혼합물질\", \"lower_op\": \">=\", \"lower\": 0.1, \"unit\": \"%\"}, \"sub_class\": \"1,3 부타디엔\", \"line\": \"p14:L16\"}, {\"law\": \"DG\", \"item_code\": \"DG_HAZMAT\", \"item_raw\": \"위험물안전관리법 위험물\", \"applicable\": \"비해당\", \"line\": \"p14:L20\"}, {\"law\": \"WASTE\", \"item_code\": \"WASTE_DESIG\", \"item_raw\": \"지정폐기물\", \"applicable\": \"해당\", \"remark\": \"용기에 보관중인 경우 지정폐기물(폐유독물질)임.\", \"line\": \"p14:L22\"}, {\"law\": \"INTL\", \"item_code\": \"INTL_EU\", \"item_raw\": \"EU 분류정보(확정분류결과)\", \"applicable\": \"해당\", \"sub_class\": \"부탄\", \"line\": \"p15:L4\"}, {\"law\": \"INTL\", \"item_code\": \"INTL_EU\", \"item_raw\": \"EU 분류정보(확정분류결과)\", \"applicable\": \"해당\", \"sub_class\": \"부텐 1\", \"line\": \"p15:L5\"}, {\"law\": \"INTL\", \"item_code\": \"INTL_EU\", \"item_raw\": \"EU 분류정보(확정분류결과)\", \"applicable\": \"해당\", \"sub_class\": \"1,3 부타디엔\", \"line\": \"p15:L6\"}, {\"law\": \"INTL\", \"item_code\": \"INTL_EU\", \"item_raw\": \"EU 분류정보(확정분류결과)\", \"applicable\": \"해당\", \"sub_class\": \"이소부텐\", \"line\": \"p15:L7\"}, {\"law\": \"INTL\", \"item_code\": \"INTL_EU\", \"item_raw\": \"EU 분류정보(확정분류결과)\", \"applicable\": \"해당\", \"sub_class\": \"시스 2 부텐\", \"line\": \"p15:L8\"}, {\"law\": \"INTL\", \"item_code\": \"INTL_EU\", \"item_raw\": \"EU 분류정보(확정분류결과)\", \"applicable\": \"해당\", \"sub_class\": \"트랜스 2 부텐\", \"line\": \"p15:L9\"}, {\"law\": \"INTL\", \"item_code\": \"INTL_US\", \"item_raw\": \"Designation, Reportable Quantities, and Notification\", \"applicable\": \"해당\", \"threshold\": {\"raw\": \"10 lb final RQ; 4.54 kg final RQ\", \"lower_op\": \">=\", \"lower\": 10, \"unit\": \"lb\"}, \"qty\": {\"raw\": \"4.54 kg final RQ\", \"value\": 4.54, \"unit\": \"kg\"}, \"sub_class\": \"1,3 부타디엔\", \"line\": \"p16:L9\"}, {\"law\": \"INTL\", \"item_code\": \"INTL_US\", \"item_raw\": \"Toxic Chemical Release Reporting - Community Right-to-Know\", \"applicable\": \"해당\", \"threshold\": {\"raw\": \"0.1 % de minimis concentration\", \"lower_op\": \">=\", \"lower\": 0.1, \"unit\": \"%\"}, \"sub_class\": \"1,3 부타디엔\", \"line\": \"p16:L23\"}], \"dangerous_goods\": [{\"class\": \"제2류\", \"item\": \"가연성 가스\", \"water_soluble\": \"비수용성\", \"grade\": \"II\", \"designated_qty\": {\"raw\": \"1075\", \"value\": 1075, \"unit\": \"UN\"}, \"line\": \"p13:L32\"}, {\"class\": \"제2류\", \"item\": \"액화가스\", \"water_soluble\": \"비수용성\", \"grade\": \"II\", \"designated_qty\": {\"raw\": \"1075\", \"value\": 1075, \"unit\": \"UN\"}, \"line\": \"p15:L2\"}], \"waste\": [{\"designated\": \"해당\", \"waste_type\": \"폐유독물질\", \"line\": \"p14:L22\"}], \"intl_class\": [{\"system\": \"EU_CLP\", \"class_raw\": \"F+; R12\", \"h_code\": \"H220\", \"status\": \"값있음\", \"line\": \"p15:L4\"}, {\"system\": \"EU_CLP\", \"class_raw\": \"F+; R12\", \"h_code\": \"H220\", \"status\": \"값있음\", \"line\": \"p15:L5\"}, {\"system\": \"EU_CLP\", \"class_raw\": \"F+; R12 Carc.Cat.1; R45 Muta.Cat.2; R46\", \"h_code\": \"H220+H304+H314+H317+H340+H341+H350+H351+H360+H361+H372+H373+H374+H375+H376+H377+H378+H379+H380+H381+H382+H383+H384+H385+H386+H387+H388+H389+H390+H391+H392+H393+H394+H395+H396+H397+H398+H399\", \"status\": \"값있음\", \"line\": \"p15:L6\"}, {\"system\": \"EU_CLP\", \"class_raw\": \"F+; R12\", \"h_code\": \"H220\", \"status\": \"값있음\", \"line\": \"p15:L7\"}, {\"system\": \"EU_CLP\", \"class_raw\": \"F+; R12\", \"h_code\": \"H220\", \"status\": \"값있음\", \"line\": \"p15:L8\"}, {\"system\": \"EU_CLP\", \"class_raw\": \"F+; R12\", \"h_code\": \"H220\", \"status\": \"값있음\", \"line\": \"p15:L9\"}, {\"system\": \"EU_CLP\", \"class_raw\": \"R12\", \"h_code\": \"H220\", \"status\": \"값있음\", \"line\": \"p15:L11\"}, {\"system\": \"EU_CLP\", \"class_raw\": \"R12\", \"h_code\": \"H220\", \"status\": \"값있음\", \"line\": \"p15:L12\"}, {\"system\": \"EU_CLP\", \"class_raw\": \"R12, R45, R46\", \"h_code\": \"H220+H304+H314+H317+H340+H341+H350+H351+H360+H361+H372+H373+H374+H375+H376+H377+H378+H379+H380+H381+H382+H383+H384+H385+H386+H387+H388+H389+H390+H391+H392+H393+H394+H395+H396+H397+H398+H399\", \"status\": \"값있음\", \"line\": \"p15:L13\"}, {\"system\": \"EU_CLP\", \"class_raw\": \"R12\", \"h_code\": \"H220\", \"status\": \"값있음\", \"line\": \"p15:L14\"}, {\"system\": \"EU_CLP\", \"class_raw\": \"R12\", \"h_code\": \"H220\", \"status\": \"값있음\", \"line\": \"p15:L15\"}, {\"system\": \"EU_CLP\", \"class_raw\": \"R12\", \"h_code\": \"H220\", \"status\": \"값있음\", \"line\": \"p15:L16\"}, {\"system\": \"EU_CLP\", \"class_raw\": \"S:(2)-9-16\", \"h_code\": \"P201+P202+P210+P220+P221+P222+P223+P231+P232+P233+P234+P235+P236+P237+P238+P239+P240+P241+P242+P243+P244+P245+P246+P247+P248+P249+P250+P251+P252+P253+P254+P255+P256+P257+P258+P259+P260+P261+P262+P263+P264+P265+P266+P267+P268+P269+P270+P271+P272+P273+P274+P275+P276+P277+P278+P279+P280+P281+P282+P283+P284+P285+P286+P287+P288+P289+P290+P291+P292+P293+P294+P295+P296+P297+P298+P299+P301+P302+P303+P304+P305+P306+P307+P308+P309+P310+P311+P312+P313+P314+P315+P316+P317+P318+P319+P320+P321+P322+P323+P324+P325+P326+P327+P328+P329+P330+P331+P332+P333+P334+P335+P336+P337+P338+P339+P340+P341+P342+P343+P344+P345+P346+P347+P348+P349+P350+P351+P352+P353+P354+P355+P356+P357+P358+P359+P360+P361+P362+P363+P364+P365+P366+P367+P368+P369+P370+P371+P372+P373+P374+P375+P376+P377+P378+P379+P380+P381+P382+P383+P384+P385+P386+P387+P388+P389+P390+P391+P392+P393+P394+P395+P396+P397+P398+P399\", \"status\": \"값있음\", \"line\": \"p15:L18\"}, {\"system\": \"EU_CLP\", \"class_raw\": \"S:(2)-9-16-33\", \"h_code\": \"P201+P202+P210+P220+P221+P222+P223+P231+P232+P233+P234+P235+P236+P237+P238+P239+P240+P241+P242+P243+P244+P245+P246+P247+P248+P249+P250+P251+P252+P253+P254+P255+P256+P257+P258+P259+P260+P261+P262+P263+P264+P265+P266+P267+P268+P269+P270+P271+P272+P273+P274+P275+P276+P277+P278+P279+P280+P281+P282+P283+P284+P285+P286+P287+P288+P289+P290+P291+P292+P293+P294+P295+P296+P297+P298+P299+P301+P302+P303+P304+P305+P306+P307+P308+P309+P310+P311+P312+P313+P314+P315+P316+P317+P318+P319+P320+P321+P322+P323+P324+P325+P326+P327+P328+P329+P330+P331+P332+P333+P334+P335+P336+P337+P338+P339+P340+P341+P342+P343+P344+P345+P346+P347+P348+P349+P350+P351+P352+P353+P354+P355+P356+P357+P358+P359+P360+P361+P362+P363+P364+P365+P366+P367+P368+P369+P370+P371+P372+P373+P374+P375+P376+P377+P378+P379+P380+P381+P382+P383+P384+P385+P386+P387+P388+P389+P390+P391+P392+P393+P394+P395+P396+P397+P398+P399\", \"status\": \"값있음\", \"line\": \"p15:L19\"}, {\"system\": \"EU_CLP\", \"class_raw\": \"S:53-45\", \"h_code\": \"P201+P202+P210+P220+P221+P222+P223+P231+P232+P233+P234+P235+P236+P237+P238+P239+P240+P241+P242+P243+P244+P245+P246+P247+P248+P249+P250+P251+P252+P253+P254+P255+P256+P257+P258+P259+P260+P261+P262+P263+P264+P265+P266+P267+P268+P269+P270+P271+P272+P273+P274+P275+P276+P277+P278+P279+P280+P281+P282+P283+P284+P285+P286+P287+P288+P289+P290+P291+P292+P293+P294+P295+P296+P297+P298+P299+P301+P302+P303+P304+P305+P306+P307+P308+P309+P310+P311+P312+P313+P314+P315+P316+P317+P318+P319+P320+P321+P322+P323+P324+P325+P326+P327+P328+P329+P330+P331+P332+P333+P334+P335+P336+P337+P338+P339+P340+P341+P342+P343+P344+P345+P346+P347+P348+P349+P350+P351+P352+P353+P354+P355+P356+P357+P358+P359+P360+P361+P362+P363+P364+P365+P366+P367+P368+P369+P370+P371+P372+P373+P374+P375+P376+P377+P378+P379+P380+P381+P382+P383+P384+P385+P386+P387+P388+P389+P390+P391+P392+P393+P394+P395+P396+P397+P398+P399\", \"status\": \"값있음\", \"line\": \"p15:L20\"}, {\"system\": \"EU_CLP\", \"class_raw\": \"S:(2)-9-16-33\", \"h_code\": \"P201+P202+P210+P220+P221+P222+P223+P231+P232+P233+P234+P235+P236+P237+P238+P239+P240+P241+P242+P243+P244+P245+P246+P247+P248+P249+P250+P251+P252+P253+P254+P255+P256+P257+P258+P259+P260+P261+P262+P263+P264+P265+P266+P267+P268+P269+P270+P271+P272+P273+P274+P275+P276+P277+P278+P279+P280+P281+P282+P283+P284+P285+P286+P287+P288+P289+P290+P291+P292+P293+P294+P295+P296+P297+P298+P299+P301+P302+P303+P304+P305+P306+P307+P308+P309+P310+P311+P312+P313+P314+P315+P316+P317+P318+P319+P320+P321+P322+P323+P324+P325+P326+P327+P328+P329+P330+P331+P332+P333+P334+P335+P336+P337+P338+P339+P340+P341+P342+P343+P344+P345+P346+P347+P348+P349+P350+P351+P352+P353+P354+P355+P356+P357+P358+P359+P360+P361+P362+P363+P364+P365+P366+P367+P368+P369+P370+P371+P372+P373+P374+P375+P376+P377+P378+P379+P380+P381+P382+P383+P384+P385+P386+P387+P388+P389+P390+P391+P392+P393+P394+P395+P396+P397+P398+P399\", \"status\": \"값있음\", \"line\": \"p15:L21\"}, {\"system\": \"EU_CLP\", \"class_raw\": \"S:(2)-9-16-33\", \"h_code\": \"P201+P202+P210+P220+P221+P222+P223+P231+P232+P233+P234+P235+P236+P237+P238+P239+P240+P241+P242+P243+P244+P245+P246+P247+P248+P249+P250+P251+P252+P253+P254+P255+P256+P257+P258+P259+P260+P261+P262+P263+P264+P265+P266+P267+P268+P269+P270+P271+P272+P273+P274+P275+P276+P277+P278+P279+P280+P281+P282+P283+P284+P285+P286+P287+P288+P289+P290+P291+P292+P293+P294+P295+P296+P297+P298+P299+P301+P302+P303+P304+P305+P306+P307+P308+P309+P310+P311+P312+P313+P314+P315+P316+P317+P318+P319+P320+P321+P322+P323+P324+P325+P326+P327+P328+P329+P330+P331+P332+P333+P334+P335+P336+P337+P338+P339+P340+P341+P342+P343+P344+P345+P346+P347+P348+P349+P350+P351+P352+P353+P354+P355+P356+P357+P358+P359+P360+P361+P362+P363+P364+P365+P366+P367+P368+P369+P370+P371+P372+P373+P374+P375+P376+P377+P378+P379+P380+P381+P382+P383+P384+P385+P386+P387+P388+P389+P390+P391+P392+P393+P394+P395+P396+P397+P398+P399\", \"status\": \"값있음\", \"line\": \"p15:L22\"}, {\"system\": \"EU_CLP\", \"class_raw\": \"S:(2)-9-16-33\", \"h_code\": \"P201+P202+P210+P220+P221+P222+P223+P231+P232+P233+P234+P235+P236+P237+P238+P239+P240+P241+P242+P243+P244+P245+P246+P247+P248+P249+P250+P251+P252+P253+P254+P255+P256+P257+P258+P259+P260+P261+P262+P263+P264+P265+P266+P267+P268+P269+P270+P271+P272+P273+P274+P275+P276+P277+P278+P279+P280+P281+P282+P283+P284+P285+P286+P287+P288+P289+P290+P291+P292+P293+P294+P295+P296+P297+P298+P299+P301+P302+P303+P304+P305+P306+P307+P308+P309+P310+P311+P312+P313+P314+P315+P316+P317+P318+P319+P320+P321+P322+P323+P324+P325+P326+P327+P328+P329+P330+P331+P332+P333+P334+P335+P336+P337+P338+P339+P340+P341+P342+P343+P344+P345+P346+P347+P348+P349+P350+P351+P352+P353+P354+P355+P356+P357+P358+P359+P360+P361+P362+P363+P364+P365+P366+P367+P368+P369+P370+P371+P372+P373+P374+P375+P376+P377+P378+P379+P380+P381+P382+P383+P384+P385+P386",
+  "mode": "json_schema_compact",
+  "finish_reason": "length",
+  "usage": {
+   "prompt_tokens": 20771,
+   "completion_tokens": 8192,
+   "total_tokens": 28963
+  },
+  "attempts": 1,
+  "errors": [
+   "[json_schema_compact] 출력 길이 한도에 걸려 잘림 (max_tokens=8192)"
+  ],
+  "requests": [
+   {
+    "mode": "json_schema_compact",
+    "finish_reason": "length",
+    "usage": {
+     "prompt_tokens": 20771,
+     "completion_tokens": 8192,
+     "total_tokens": 28963
+    },
+    "seconds": 99.801,
+    "chars": 11124,
+    "whitespace": 625,
+    "head": "{\"regulations\": [{\"law\": \"OSH\", \"item_code\": \"OSH_MANAGED\", \"item_raw\": \"관리대상유해물질\", \"applicable\": \"해당\", \"threshold\": {\"raw\": \"1 wt% 이상 함유한 제제, 측정주기:6개월, 진단:대상작업장 지정 후 30일 이내)\", \"lower_op\": \">=\", \"lower\": 1, \"unit\": \"%\"}, \"sub_class\": \"1,3 부타디엔\", \"cycle\": {\"raw\": \"6개월\", \"value\": 6, \"unit\": \"개월\"}, \"remark\": \"측정주기:6개월, 진단:대상작업장 지정 후 30일 이내\", \"line\": \"p14:L7\"}, {\"law\": \"OSH\", \"item_code\": \"OSH_SPECIAL\", \"item_raw\": \"특별관리물질\", \"applicable\": \"해당\", \"threshold\": {\"raw\": \"1 wt% 이상 함유한 제제, 측정주기:12개월, 진단:6개",
+    "tail": "+P286+P287+P288+P289+P290+P291+P292+P293+P294+P295+P296+P297+P298+P299+P301+P302+P303+P304+P305+P306+P307+P308+P309+P310+P311+P312+P313+P314+P315+P316+P317+P318+P319+P320+P321+P322+P323+P324+P325+P326+P327+P328+P329+P330+P331+P332+P333+P334+P335+P336+P337+P338+P339+P340+P341+P342+P343+P344+P345+P346+P347+P348+P349+P350+P351+P352+P353+P354+P355+P356+P357+P358+P359+P360+P361+P362+P363+P364+P365+P366+P367+P368+P369+P370+P371+P372+P373+P374+P375+P376+P377+P378+P379+P380+P381+P382+P383+P384+P385+P386"
+   }
+  ],
+  "seconds": 99.807,
+  "check_problems": []
+ }
+}

@@ -1,0 +1,104 @@
+{
+ "doc_id": "T21-M004",
+ "msds_index": 0,
+ "section": 4,
+ "reextracted": true,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S4_EYE",
+    "title_raw": "가. 눈에 들어갔을 때",
+    "start": "p3:L9",
+    "end": "p3:L14"
+   },
+   {
+    "item_code": "S4_SKIN",
+    "title_raw": "나. 피부에 접촉했을 때",
+    "start": "p3:L15",
+    "end": "p3:L22"
+   },
+   {
+    "item_code": "S4_INHAL",
+    "title_raw": "다. 흡입했을 때",
+    "start": "p3:L23",
+    "end": "p3:L29"
+   },
+   {
+    "item_code": "S4_INGEST",
+    "title_raw": "라. 먹었을 때",
+    "start": "p3:L30",
+    "end": "p3:L34"
+   },
+   {
+    "item_code": "S4_DOCTOR",
+    "title_raw": "마. 기타 의사의 주의사항",
+    "start": "p3:L35",
+    "end": "p3:L38"
+   }
+  ],
+  "extras": []
+ },
+ "raw_text": "{\"narratives\":[{\"item_code\":\"S4_EYE\",\"title_raw\":\"가. 눈에 들어갔을 때\",\"start\":\"p3:L9\",\"end\":\"p3:L14\"},{\"item_code\":\"S4_SKIN\",\"title_raw\":\"나. 피부에 접촉했을 때\",\"start\":\"p3:L15\",\"end\":\"p3:L22\"},{\"item_code\":\"S4_INHAL\",\"title_raw\":\"다. 흡입했을 때\",\"start\":\"p3:L23\",\"end\":\"p3:L29\"},{\"item_code\":\"S4_INGEST\",\"title_raw\":\"라. 먹었을 때\",\"start\":\"p3:L30\",\"end\":\"p3:L34\"},{\"item_code\":\"S4_DOCTOR\",\"title_raw\":\"마. 기타 의사의 주의사항\",\"start\":\"p3:L35\",\"end\":\"p3:L38\"}],\"extras\":[]}",
+ "mode": "none",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 16467,
+  "completion_tokens": 2032,
+  "total_tokens": 18499
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "none",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 16467,
+    "completion_tokens": 2032,
+    "total_tokens": 18499
+   },
+   "seconds": 50.219,
+   "chars": 442,
+   "whitespace": 13,
+   "head": "{\"narratives\":[{\"item_code\":\"S4_EYE\",\"title_raw\":\"가. 눈에 들어갔을 때\",\"start\":\"p3:L9\",\"end\":\"p3:L14\"},{\"item_code\":\"S4_SKIN\",\"title_raw\":\"나. 피부에 접촉했을 때\",\"start\":\"p3:L15\",\"end\":\"p3:L22\"},{\"item_code\":\"S4_INHAL\",\"title_raw\":\"다. 흡입했을 때\",\"start\":\"p3:L23\",\"end\":\"p3:L29\"},{\"item_code\":\"S4_INGEST\",\"title_raw\":\"라. 먹었을 때\",\"start\":\"p3:L30\",\"end\":\"p3:L34\"},{\"item_code\":\"S4_DOCTOR\",\"title_raw\":\"마. 기타 의사의 주의사항\",\"start\":\"p3:L35\",\"end\":\"p3:L38\"}],\"extras\":[]}",
+   "tail": ""
+  }
+ ],
+ "seconds": 50.22,
+ "check_problems": [],
+ "first_attempt": {
+  "ok": false,
+  "parsed": null,
+  "raw_text": "",
+  "mode": "none",
+  "finish_reason": "length",
+  "usage": {
+   "prompt_tokens": 16438,
+   "completion_tokens": 8192,
+   "total_tokens": 24630
+  },
+  "attempts": 1,
+  "errors": [
+   "[none] 출력 길이 한도에 걸려 잘림 (max_tokens=8192)"
+  ],
+  "requests": [
+   {
+    "mode": "none",
+    "finish_reason": "length",
+    "usage": {
+     "prompt_tokens": 16438,
+     "completion_tokens": 8192,
+     "total_tokens": 24630
+    },
+    "seconds": 299.549,
+    "chars": 0,
+    "whitespace": 0,
+    "head": "",
+    "tail": ""
+   }
+  ],
+  "seconds": 299.551,
+  "check_problems": []
+ }
+}

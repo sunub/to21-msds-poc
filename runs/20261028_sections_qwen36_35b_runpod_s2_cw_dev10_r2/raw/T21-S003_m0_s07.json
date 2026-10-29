@@ -1,0 +1,193 @@
+{
+ "doc_id": "T21-S003",
+ "msds_index": 0,
+ "section": 7,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S7_HANDLING",
+    "title_raw": "가.안전취급요령",
+    "start": "L42",
+    "end": "L45"
+   },
+   {
+    "item_code": "S7_STORAGE",
+    "title_raw": "나.안전한 저장방법",
+    "start": "L46",
+    "end": "L3"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S6_END",
+    "title_raw": "7.취급 및 저장방법",
+    "reason": "코드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [
+     {
+      "key": "항목명",
+      "value": "7.취급 및 저장방법",
+      "refs": null,
+      "cond": null,
+      "line": "L41"
+     }
+    ],
+    "suggested_code": "SECTION_TITLE",
+    "line": "L41"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S7_HANDLING\",\n      \"title_raw\": \"가.안전취급요령\",\n      \"start\": \"L42\",\n      \"end\": \"L45\"\n    },\n    {\n      \"item_code\": \"S7_STORAGE\",\n      \"title_raw\": \"나.안전한 저장방법\",\n      \"start\": \"L46\",\n      \"end\": \"L3\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S6_END\",\n      \"title_raw\": \"7.취급 및 저장방법\",\n      \"reason\": \"코드없음\",\n      \"comp_name\": null,\n      \"comp_cas\": null,\n      \"q\": null,\n      \"statements\": [\n        {\n          \"key\": \"항목명\",\n          \"value\": \"7.취급 및 저장방법\"\n        ,\n          \"refs\": null\n        ,\n          \"cond\": null\n        ,\n          \"line\": \"L41\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"SECTION_TITLE\"\n    ,\n      \"line\": \"L41\"\n    }\n  ]\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 6283,
+  "completion_tokens": 295,
+  "total_tokens": 6578
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 6283,
+    "completion_tokens": 295,
+    "total_tokens": 6578
+   },
+   "seconds": 7.875,
+   "chars": 726,
+   "whitespace": 308,
+   "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S7_HANDLING\",\n      \"title_raw\": \"가.안전취급요령\",\n      \"start\": \"L42\",\n      \"end\": \"L45\"\n    },\n    {\n      \"item_code\": \"S7_STORAGE\",\n      \"title_raw\": \"나.안전한 저장방법\",\n      \"start\": \"L46\",\n      \"end\": \"L3\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S6_END\",\n      \"title_raw\": \"7.취급 및 저장방법\",\n      \"reason\": \"코드없음\",\n      \"comp_name\": null,\n      \"comp_cas\": null,\n      \"q\": null,\n      \"statements\": [\n        {\n          \"key\": \"항목명\",\n        ",
+   "tail": "  \"value\": \"7.취급 및 저장방법\"\n        ,\n          \"refs\": null\n        ,\n          \"cond\": null\n        ,\n          \"line\": \"L41\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"SECTION_TITLE\"\n    ,\n      \"line\": \"L41\"\n    }\n  ]\n}"
+  }
+ ],
+ "seconds": 7.876,
+ "check_problems": [
+  "narratives[0].start: 원문에 없는 줄 번호 L42",
+  "narratives[0].end: 원문에 없는 줄 번호 L45",
+  "narratives[1].start: 원문에 없는 줄 번호 L46",
+  "narratives[1].end: 원문에 없는 줄 번호 L3",
+  "extras[0].statements[0].line: 원문에 없는 줄 번호 L41",
+  "extras[0].line: 원문에 없는 줄 번호 L41"
+ ],
+ "reextract_attempt": {
+  "ok": true,
+  "parsed": {
+   "narratives": [
+    {
+     "item_code": "S7_HANDLING",
+     "title_raw": "가.안전취급요령",
+     "start": "L42",
+     "end": "L45"
+    },
+    {
+     "item_code": "S7_STORAGE",
+     "title_raw": "나.안전한 저장방법",
+     "start": "L46",
+     "end": "L3"
+    }
+   ],
+   "extras": [
+    {
+     "after_item": "S7_END",
+     "title_raw": "가.안전취급요령",
+     "reason": "코드없음",
+     "comp_name": "가.안전취급요령",
+     "comp_cas": "가.안전취급요령",
+     "q": {
+      "raw": "해당없음",
+      "value": null,
+      "approx": null,
+      "lower_op": null,
+      "lower": null,
+      "upper_op": null,
+      "upper": null,
+      "unit": null
+     },
+     "statements": [
+      {
+       "key": "가.안전취급요령",
+       "value": "해당없음",
+       "refs": [],
+       "cond": null,
+       "line": "L41"
+      }
+     ],
+     "suggested_code": "S7_HANDLING",
+     "line": "L41"
+    },
+    {
+     "after_item": "S7_HANDLING",
+     "title_raw": "나.안전한 저장방법",
+     "reason": "코드없음",
+     "comp_name": "나.안전한 저장방법",
+     "comp_cas": "나.안전한 저장방법",
+     "q": {
+      "raw": "해당없음",
+      "value": null,
+      "approx": null,
+      "lower_op": null,
+      "lower": null,
+      "upper_op": null,
+      "upper": null,
+      "unit": null
+     },
+     "statements": [
+      {
+       "key": "나.안전한 저장방법",
+       "value": "해당없음",
+       "refs": [],
+       "cond": null,
+       "line": "L41"
+      }
+     ],
+     "suggested_code": "S7_STORAGE",
+     "line": "L41"
+    }
+   ]
+  },
+  "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S7_HANDLING\",\n      \"title_raw\": \"가.안전취급요령\",\n      \"start\": \"L42\",\n      \"end\": \"L45\"\n    },\n    {\n      \"item_code\": \"S7_STORAGE\",\n      \"title_raw\": \"나.안전한 저장방법\",\n      \"start\": \"L46\",\n      \"end\": \"L3\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S7_END\",\n      \"title_raw\": \"가.안전취급요령\",\n      \"reason\": \"코드없음\",\n      \"comp_name\": \"가.안전취급요령\",\n      \"comp_cas\": \"가.안전취급요령\",\n      \"q\": {\n        \"raw\": \"해당없음\"\n      ,\n        \"value\": null,\n        \"approx\": null,\n        \"lower_op\": null,\n        \"lower\": null,\n        \"upper_op\": null,\n        \"upper\": null,\n        \"unit\": null\n      },\n      \"statements\": [\n        {\n          \"key\": \"가.안전취급요령\",\n          \"value\": \"해당없음\",\n          \"refs\": [],\n          \"cond\": null,\n          \"line\": \"L41\"\n        }\n      ],\n      \"suggested_code\": \"S7_HANDLING\",\n      \"line\": \"L41\"\n    },\n    {\n      \"after_item\": \"S7_HANDLING\",\n      \"title_raw\": \"나.안전한 저장방법\",\n      \"reason\": \"코드없음\",\n      \"comp_name\": \"나.안전한 저장방법\",\n      \"comp_cas\": \"나.안전한 저장방법\",\n      \"q\": {\n        \"raw\": \"해당없음\"\n      ,\n        \"value\": null,\n        \"approx\": null,\n        \"lower_op\": null,\n        \"lower\": null,\n        \"upper_op\": null,\n        \"upper\": null,\n        \"unit\": null\n      },\n      \"statements\": [\n        {\n          \"key\": \"나.안전한 저장방법\",\n          \"value\": \"해당없음\",\n          \"refs\": [],\n          \"cond\": null,\n          \"line\": \"L41\"\n        }\n      ],\n      \"suggested_code\": \"S7_STORAGE\",\n      \"line\": \"L41\"\n    }\n  ]\n}",
+  "mode": "json_schema",
+  "finish_reason": "stop",
+  "usage": {
+   "prompt_tokens": 6389,
+   "completion_tokens": 591,
+   "total_tokens": 6980
+  },
+  "attempts": 1,
+  "errors": [],
+  "requests": [
+   {
+    "mode": "json_schema",
+    "finish_reason": "stop",
+    "usage": {
+     "prompt_tokens": 6389,
+     "completion_tokens": 591,
+     "total_tokens": 6980
+    },
+    "seconds": 9.64,
+    "chars": 1518,
+    "whitespace": 626,
+    "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S7_HANDLING\",\n      \"title_raw\": \"가.안전취급요령\",\n      \"start\": \"L42\",\n      \"end\": \"L45\"\n    },\n    {\n      \"item_code\": \"S7_STORAGE\",\n      \"title_raw\": \"나.안전한 저장방법\",\n      \"start\": \"L46\",\n      \"end\": \"L3\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S7_END\",\n      \"title_raw\": \"가.안전취급요령\",\n      \"reason\": \"코드없음\",\n      \"comp_name\": \"가.안전취급요령\",\n      \"comp_cas\": \"가.안전취급요령\",\n      \"q\": {\n        \"raw\": \"해당없음\"\n      ,\n        \"value\": null,\n      ",
+    "tail": ",\n      \"comp_cas\": \"나.안전한 저장방법\",\n      \"q\": {\n        \"raw\": \"해당없음\"\n      ,\n        \"value\": null,\n        \"approx\": null,\n        \"lower_op\": null,\n        \"lower\": null,\n        \"upper_op\": null,\n        \"upper\": null,\n        \"unit\": null\n      },\n      \"statements\": [\n        {\n          \"key\": \"나.안전한 저장방법\",\n          \"value\": \"해당없음\",\n          \"refs\": [],\n          \"cond\": null,\n          \"line\": \"L41\"\n        }\n      ],\n      \"suggested_code\": \"S7_STORAGE\",\n      \"line\": \"L41\"\n    }\n  ]\n}"
+   }
+  ],
+  "seconds": 9.643,
+  "check_problems": [
+   "narratives[0].start: 원문에 없는 줄 번호 L42",
+   "narratives[0].end: 원문에 없는 줄 번호 L45",
+   "narratives[1].start: 원문에 없는 줄 번호 L46",
+   "narratives[1].end: 원문에 없는 줄 번호 L3",
+   "extras[0].statements[0].line: 원문에 없는 줄 번호 L41",
+   "extras[0].line: 원문에 없는 줄 번호 L41",
+   "extras[1].statements[0].line: 원문에 없는 줄 번호 L41",
+   "extras[1].line: 원문에 없는 줄 번호 L41"
+  ]
+ }
+}

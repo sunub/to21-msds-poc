@@ -1,0 +1,151 @@
+{
+ "doc_id": "T21-S014",
+ "msds_index": 0,
+ "section": 3,
+ "reextracted": true,
+ "ok": true,
+ "parsed": {
+  "composition": {
+   "type": "혼합물",
+   "no_hazardous_component": false,
+   "lines": {
+    "type": "p2:L1",
+    "no_hazardous_component": "p2:L1"
+   }
+  },
+  "components": [
+   {
+    "name": "수소",
+    "name_en": "HYDROGEN GAS",
+    "synonyms": [],
+    "cas_no": "1333-74-0",
+    "ke_no": "KE-20137",
+    "ec_no": "215-605-7",
+    "other_id": "1049",
+    "other_id_type": "UN No.",
+    "parent_seq": null,
+    "read_across_cas": null,
+    "content": {
+     "raw": "99.999%",
+     "value": null,
+     "approx": null,
+     "lower_op": null,
+     "lower": null,
+     "upper_op": null,
+     "upper": null,
+     "unit": "%"
+    },
+    "content_note": null,
+    "content_basis": "중량",
+    "trade_secret": false,
+    "approval_no": null,
+    "approval_expiry": null,
+    "line": "p2:L5"
+   }
+  ],
+  "extras": []
+ },
+ "raw_text": "{\n  \"composition\": {\n    \"type\": \"혼합물\",\n    \"no_hazardous_component\": false,\n    \"lines\": {\n      \"type\": \"p2:L1\",\n      \"no_hazardous_component\": \"p2:L1\"\n    }\n  },\n  \"components\": [\n    {\n      \"name\": \"수소\",\n      \"name_en\": \"HYDROGEN GAS\",\n      \"synonyms\": [],\n      \"cas_no\": \"1333-74-0\",\n      \"ke_no\": \"KE-20137\",\n      \"ec_no\": \"215-605-7\",\n      \"other_id\": \"1049\",\n      \"other_id_type\": \"UN No.\",\n      \"parent_seq\": null,\n      \"read_across_cas\": null,\n      \"content\": {\n        \"raw\": \"99.999%\",\n        \"value\": null,\n        \"approx\": null,\n        \"lower_op\": null,\n        \"lower\": null,\n        \"upper_op\": null,\n        \"upper\": null,\n        \"unit\": \"%\"\n      },\n      \"content_note\": null,\n      \"content_basis\": \"중량\",\n      \"trade_secret\": false,\n      \"approval_no\": null,\n      \"approval_expiry\": null\n   \n    ,\n    \"line\": \"p2:L5\"\n    }\n  ],\n  \"extras\": []\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 10786,
+  "completion_tokens": 300,
+  "total_tokens": 11086
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 10786,
+    "completion_tokens": 300,
+    "total_tokens": 11086
+   },
+   "seconds": 5.579,
+   "chars": 884,
+   "whitespace": 300,
+   "head": "{\n  \"composition\": {\n    \"type\": \"혼합물\",\n    \"no_hazardous_component\": false,\n    \"lines\": {\n      \"type\": \"p2:L1\",\n      \"no_hazardous_component\": \"p2:L1\"\n    }\n  },\n  \"components\": [\n    {\n      \"name\": \"수소\",\n      \"name_en\": \"HYDROGEN GAS\",\n      \"synonyms\": [],\n      \"cas_no\": \"1333-74-0\",\n      \"ke_no\": \"KE-20137\",\n      \"ec_no\": \"215-605-7\",\n      \"other_id\": \"1049\",\n      \"other_id_type\": \"UN No.\",\n      \"parent_seq\": null,\n      \"read_across_cas\": null,\n      \"content\": {\n        \"raw\": \"",
+   "tail": "99.999%\",\n        \"value\": null,\n        \"approx\": null,\n        \"lower_op\": null,\n        \"lower\": null,\n        \"upper_op\": null,\n        \"upper\": null,\n        \"unit\": \"%\"\n      },\n      \"content_note\": null,\n      \"content_basis\": \"중량\",\n      \"trade_secret\": false,\n      \"approval_no\": null,\n      \"approval_expiry\": null\n   \n    ,\n    \"line\": \"p2:L5\"\n    }\n  ],\n  \"extras\": []\n}"
+  }
+ ],
+ "seconds": 5.58,
+ "check_problems": [],
+ "first_attempt": {
+  "ok": true,
+  "parsed": {
+   "composition": {
+    "type": "혼합물",
+    "no_hazardous_component": false,
+    "lines": {
+     "type": "array",
+     "no_hazardous_component": "boolean"
+    }
+   },
+   "components": [
+    {
+     "name": "수소",
+     "name_en": "Hydrogen",
+     "synonyms": [],
+     "cas_no": "1333-74-0",
+     "ke_no": "KE-20137",
+     "ec_no": "215-605-7",
+     "other_id": "",
+     "other_id_type": "",
+     "parent_seq": null,
+     "read_across_cas": "",
+     "content": {
+      "raw": "99.999%",
+      "value": null,
+      "approx": false,
+      "lower_op": null,
+      "lower": null,
+      "upper_op": null,
+      "upper": null,
+      "unit": "%"
+     },
+     "content_note": null,
+     "content_basis": "중량",
+     "trade_secret": false,
+     "approval_no": "",
+     "approval_expiry": null,
+     "line": "p2:L5"
+    }
+   ],
+   "extras": []
+  },
+  "raw_text": "{\n  \"composition\": {\n    \"type\": \"혼합물\",\n    \"no_hazardous_component\": false\n  ,\n    \"lines\": {\n      \"type\": \"array\",\n      \"no_hazardous_component\": \"boolean\"\n    }\n  },\n  \"components\": [\n    {\n      \"name\": \"수소\",\n      \"name_en\": \"Hydrogen\",\n      \"synonyms\": [],\n      \"cas_no\": \"1333-74-0\",\n      \"ke_no\": \"KE-20137\",\n      \"ec_no\": \"215-605-7\",\n      \"other_id\": \"\",\n      \"other_id_type\": \"\",\n      \"parent_seq\": null,\n      \"read_across_cas\": \"\",\n      \"content\": {\n        \"raw\": \"99.999%\",\n        \"value\": null,\n        \"approx\": false,\n        \"lower_op\": null,\n        \"lower\": null,\n        \"upper_op\": null,\n        \"upper\": null,\n        \"unit\": \"%\"\n      },\n      \"content_note\": null,\n      \"content_basis\": \"중량\",\n      \"trade_secret\": false,\n      \"approval_no\": \"\",\n      \"approval_expiry\": null\n    ,\n      \"line\": \"p2:L5\"\n    }\n  ],\n  \"extras\": []\n}",
+  "mode": "json_schema",
+  "finish_reason": "stop",
+  "usage": {
+   "prompt_tokens": 10744,
+   "completion_tokens": 283,
+   "total_tokens": 11027
+  },
+  "attempts": 1,
+  "errors": [],
+  "requests": [
+   {
+    "mode": "json_schema",
+    "finish_reason": "stop",
+    "usage": {
+     "prompt_tokens": 10744,
+     "completion_tokens": 283,
+     "total_tokens": 11027
+    },
+    "seconds": 10.788,
+    "chars": 870,
+    "whitespace": 299,
+    "head": "{\n  \"composition\": {\n    \"type\": \"혼합물\",\n    \"no_hazardous_component\": false\n  ,\n    \"lines\": {\n      \"type\": \"array\",\n      \"no_hazardous_component\": \"boolean\"\n    }\n  },\n  \"components\": [\n    {\n      \"name\": \"수소\",\n      \"name_en\": \"Hydrogen\",\n      \"synonyms\": [],\n      \"cas_no\": \"1333-74-0\",\n      \"ke_no\": \"KE-20137\",\n      \"ec_no\": \"215-605-7\",\n      \"other_id\": \"\",\n      \"other_id_type\": \"\",\n      \"parent_seq\": null,\n      \"read_across_cas\": \"\",\n      \"content\": {\n        \"raw\": \"99.999%\",\n ",
+    "tail": "       \"value\": null,\n        \"approx\": false,\n        \"lower_op\": null,\n        \"lower\": null,\n        \"upper_op\": null,\n        \"upper\": null,\n        \"unit\": \"%\"\n      },\n      \"content_note\": null,\n      \"content_basis\": \"중량\",\n      \"trade_secret\": false,\n      \"approval_no\": \"\",\n      \"approval_expiry\": null\n    ,\n      \"line\": \"p2:L5\"\n    }\n  ],\n  \"extras\": []\n}"
+   }
+  ],
+  "seconds": 10.789,
+  "check_problems": [
+   "composition.lines.type: 원문에 없는 줄 번호 array",
+   "composition.lines.no_hazardous_component: 원문에 없는 줄 번호 boolean"
+  ]
+ }
+}

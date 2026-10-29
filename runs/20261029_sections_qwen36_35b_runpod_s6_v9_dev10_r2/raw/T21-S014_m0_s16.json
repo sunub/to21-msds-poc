@@ -1,0 +1,104 @@
+{
+ "doc_id": "T21-S014",
+ "msds_index": 0,
+ "section": 16,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S16_SOURCE",
+    "title_raw": "가. 자료의 출처",
+    "start": "p7:L2",
+    "end": "p7:L14"
+   },
+   {
+    "item_code": "S16_OTHER",
+    "title_raw": "라. 기타",
+    "start": "p7:L19",
+    "end": "p7:L21"
+   }
+  ],
+  "meta_revision": {
+   "revision_no": 13,
+   "revision_label": "13",
+   "last_revision_date": "2026-05-22",
+   "lines": {
+    "revision_no": "p7:L17",
+    "revision_label": "p7:L17",
+    "last_revision_date": "p7:L18"
+   }
+  },
+  "extras": [
+   {
+    "after_item": "S16_SOURCE",
+    "title_raw": "나. 최초작성일",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "key": "최초작성일",
+      "value": "2005-08-16",
+      "line": "p7:L15"
+     }
+    ],
+    "suggested_code": "meta_revision.first_issue_date",
+    "line": "p7:L15"
+   },
+   {
+    "after_item": "S16_OTHER",
+    "title_raw": "○ 작성된 물질안전보건자료(MSDS)는 한국산업안전보건공단에서 제공한 MSDS를 참고하여 편집, 일부 수정한 자료입니다.",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "value": "작성된 물질안전보건자료(MSDS)는 한국산업안전보건공단에서 제공한 MSDS를 참고하여 편집, 일부 수정한 자료입니다.",
+      "line": "p7:L20"
+     }
+    ],
+    "suggested_code": "narratives[].statements",
+    "line": "p7:L20"
+   },
+   {
+    "after_item": "S16_OTHER",
+    "title_raw": "Doc. code: SPG-표준-SE-001",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "key": "Doc. code",
+      "value": "SPG-표준-SE-001",
+      "line": "p7:L21"
+     }
+    ],
+    "suggested_code": "meta_revision.revision_label",
+    "line": "p7:L21"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S16_SOURCE\",\n      \"title_raw\": \"가. 자료의 출처\",\n      \"start\": \"p7:L2\",\n      \"end\": \"p7:L14\"\n    },\n    {\n      \"item_code\": \"S16_OTHER\",\n      \"title_raw\": \"라. 기타\",\n      \"start\": \"p7:L19\",\n      \"end\": \"p7:L21\"\n    }\n  ],\n  \"meta_revision\": {\n    \"revision_no\": 13,\n    \"revision_label\": \"13\",\n    \"last_revision_date\": \"2026-05-22\",\n    \"lines\": {\n      \"revision_no\": \"p7:L17\",\n      \"revision_label\": \"p7:L17\",\n      \"last_revision_date\": \"p7:L18\"\n    }\n  },\n  \"extras\": [\n    {\n      \"after_item\": \"S16_SOURCE\",\n      \"title_raw\": \"나. 최초작성일\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"key\": \"최초작성일\",\n          \"value\": \"2005-08-16\",\n          \"line\": \"p7:L15\"\n        }\n      ]\n    ,\n    \"suggested_code\": \"meta_revision.first_issue_date\"\n    ,\n    \"line\": \"p7:L15\"\n    },\n    {\n      \"after_item\": \"S16_OTHER\",\n      \"title_raw\": \"○ 작성된 물질안전보건자료(MSDS)는 한국산업안전보건공단에서 제공한 MSDS를 참고하여 편집, 일부 수정한 자료입니다.\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"작성된 물질안전보건자료(MSDS)는 한국산업안전보건공단에서 제공한 MSDS를 참고하여 편집, 일부 수정한 자료입니다.\",\n          \"line\": \"p7:L20\"\n        }\n      ]\n    ,\n    \"suggested_code\": \"narratives[].statements\"\n    ,\n    \"line\": \"p7:L20\"\n    },\n    {\n      \"after_item\": \"S16_OTHER\",\n      \"title_raw\": \"Doc. code: SPG-표준-SE-001\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"key\": \"Doc. code\",\n          \"value\": \"SPG-표준-SE-001\",\n          \"line\": \"p7:L21\"\n        }\n      ]\n    ,\n    \"suggested_code\": \"meta_revision.revision_label\"\n    ,\n    \"line\": \"p7:L21\"\n    }\n  ]\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 2655,
+  "completion_tokens": 658,
+  "total_tokens": 3313
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 2655,
+    "completion_tokens": 658,
+    "total_tokens": 3313
+   },
+   "seconds": 11.419,
+   "chars": 1604,
+   "whitespace": 548,
+   "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S16_SOURCE\",\n      \"title_raw\": \"가. 자료의 출처\",\n      \"start\": \"p7:L2\",\n      \"end\": \"p7:L14\"\n    },\n    {\n      \"item_code\": \"S16_OTHER\",\n      \"title_raw\": \"라. 기타\",\n      \"start\": \"p7:L19\",\n      \"end\": \"p7:L21\"\n    }\n  ],\n  \"meta_revision\": {\n    \"revision_no\": 13,\n    \"revision_label\": \"13\",\n    \"last_revision_date\": \"2026-05-22\",\n    \"lines\": {\n      \"revision_no\": \"p7:L17\",\n      \"revision_label\": \"p7:L17\",\n      \"last_revision_date\": \"p7:L18\"\n   ",
+   "tail": " 일부 수정한 자료입니다.\",\n          \"line\": \"p7:L20\"\n        }\n      ]\n    ,\n    \"suggested_code\": \"narratives[].statements\"\n    ,\n    \"line\": \"p7:L20\"\n    },\n    {\n      \"after_item\": \"S16_OTHER\",\n      \"title_raw\": \"Doc. code: SPG-표준-SE-001\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"key\": \"Doc. code\",\n          \"value\": \"SPG-표준-SE-001\",\n          \"line\": \"p7:L21\"\n        }\n      ]\n    ,\n    \"suggested_code\": \"meta_revision.revision_label\"\n    ,\n    \"line\": \"p7:L21\"\n    }\n  ]\n}"
+  }
+ ],
+ "seconds": 11.42,
+ "check_problems": []
+}

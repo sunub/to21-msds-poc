@@ -1,0 +1,95 @@
+{
+ "doc_id": "T21-S003",
+ "msds_index": 0,
+ "section": 14,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "transport": [
+   {
+    "mode": "공통",
+    "basis_raw": null,
+    "regulated": true,
+    "un_no": "1977",
+    "shipping_name": "질소(Nitrogen.Refrigerated Liquid)",
+    "hazard_class": "2.2",
+    "sub_risk": null,
+    "packing_group": "해당없음",
+    "marine_pollutant": "자료없음",
+    "ems_fire": "F-C",
+    "ems_spill": "S-V",
+    "line": "p5:L1"
+   }
+  ],
+  "narratives": [
+   {
+    "item_code": "S14_SPECIAL",
+    "title_raw": "가.유엔번호(UNNo.)",
+    "start": "p5:L1",
+    "end": "p5:L9"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": null,
+    "title_raw": "마.해양오염물질",
+    "reason": "필드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [
+     {
+      "value": "자료없음",
+      "line": "p5:L5"
+     }
+    ],
+    "suggested_code": null,
+    "line": "p5:L5"
+   },
+   {
+    "after_item": null,
+    "title_raw": "라.용기등급",
+    "reason": "필드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [
+     {
+      "value": "–",
+      "line": "p5:L4"
+     }
+    ],
+    "suggested_code": null,
+    "line": "p5:L4"
+   }
+  ]
+ },
+ "raw_text": "### transport\nmode | basis_raw | regulated | un_no | shipping_name | hazard_class | sub_risk | packing_group | marine_pollutant | ems_fire | ems_spill | line\n공통 |  | true | 1977 | 질소(Nitrogen.Refrigerated Liquid) | 2.2 |  | 해당없음 | 자료없음 | F-C | S-V | p5:L1\n\n### narratives\nitem_code | title_raw | start | end\nS14_SPECIAL | 가.유엔번호(UNNo.) | p5:L1 | p5:L9\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\n | 마.해양오염물질 | 필드없음 |  |  |  | 자료없음 |  | p5:L5\n | 라.용기등급 | 필드없음 |  |  |  | – |  | p5:L4",
+ "mode": "rows",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 2665,
+  "completion_tokens": 214,
+  "total_tokens": 2879
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "rows",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 2665,
+    "completion_tokens": 214,
+    "total_tokens": 2879
+   },
+   "seconds": 6.451,
+   "chars": 546,
+   "whitespace": 119,
+   "head": "### transport\nmode | basis_raw | regulated | un_no | shipping_name | hazard_class | sub_risk | packing_group | marine_pollutant | ems_fire | ems_spill | line\n공통 |  | true | 1977 | 질소(Nitrogen.Refrigerated Liquid) | 2.2 |  | 해당없음 | 자료없음 | F-C | S-V | p5:L1\n\n### narratives\nitem_code | title_raw | start | end\nS14_SPECIAL | 가.유엔번호(UNNo.) | p5:L1 | p5:L9\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\n | 마.해양오염물질 | 필드없음 |  |  |  | 자료없음 |  | ",
+   "tail": "p5:L5\n | 라.용기등급 | 필드없음 |  |  |  | – |  | p5:L4"
+  }
+ ],
+ "seconds": 6.452,
+ "check_problems": []
+}
