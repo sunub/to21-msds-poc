@@ -68,3 +68,7 @@ def test_nuextract는_구조화_출력을_쓰지_않는다():
 ])
 def test_기존_태그는_그대로다(tag, model):
     assert load_model_config(tag)["model"] == model
+
+
+def test_compact_first_qwen3_30b는_처음부터_공백을_막는다():
+    assert load_model_config("qwen3_30b_a3b_rngd")["structured"][0] == "json_schema_compact"

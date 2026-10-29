@@ -54,7 +54,7 @@ models:
     base_url_env: RNGD_BASE_URL
     api_key_env: RNGD_API_KEY
     token_param: max_completion_tokens   # furiosa-llm에서 max_tokens는 옛 이름
-    structured: [json_schema, json_schema_compact, none]
+    structured: [json_schema_compact, none]   # 처음부터 공백을 막는다. json_schema는 공백 폭주와 반복으로 한도에 걸린 뒤 압축으로 다시 보내 시간을 버렸다 (10/28, ADR-017)
     max_tokens: 8192
     concurrency: 16
     params: {temperature: 0}             # 지정하지 않으면 서버가 모델의 generation_config(1.0)를 쓴다
@@ -86,7 +86,7 @@ models:
     model: Qwen/Qwen3.6-35B-A3B-FP8
     base_url_env: RUNPOD_VLLM_BASE_URL
     api_key_env: RUNPOD_VLLM_API_KEY
-    structured: [json_schema, json_object, none]   # vLLM 0.32.0은 요청별 공백 금지 옵션을 무시해서 compact를 넣지 않는다
+    structured: [json_schema, json_object, none]   # vLLM 0.32.0은 요청별 공백 금지를 무시한다. 서버를 공백 금지 설정(structured_outputs_config의 disable_any_whitespace)으로 띄운다 (ADR-017)
     max_tokens: 8192
     concurrency: 16
     params:
