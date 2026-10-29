@@ -313,6 +313,8 @@ def save_run_info(run: Path, model_tag: str, pages_dir=PAGES, max_workers: int |
         "model_tag": model_tag,
         "model": cfg["model"],
         "prompt_version": SECTION_PROMPT_VERSION,
+        "rows_sections": sorted(rows),
+        "image_input": bool(cfg.get("image_input")),
         "prompt_hashes": {no: prompt_hash(no, no in rows) for no in SECTION_NOS},   # 실제로 보내는 안내문의 해시
         "schema_version": SCHEMA_VERSION,
         "pages_dir": os.path.relpath(pages_dir, ROOT),

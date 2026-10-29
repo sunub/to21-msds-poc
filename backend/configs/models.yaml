@@ -57,6 +57,7 @@ models:
     structured: [json_schema_compact, none]   # 처음부터 공백을 막는다. json_schema는 공백 폭주와 반복으로 한도에 걸린 뒤 압축으로 다시 보내 시간을 버렸다 (10/28, ADR-017)
     max_tokens: 8192
     concurrency: 16
+    rows_sections: [3, 8, 9, 11, 12, 15]   # 표 항목은 행 형식 글로 받는다. 이미지를 못 받아 image_input은 없다 (ADR-019)
     params: {temperature: 0}             # 지정하지 않으면 서버가 모델의 generation_config(1.0)를 쓴다
 
   # RNGD furiosa-llm, 카드 1장
@@ -89,6 +90,8 @@ models:
     structured: [json_schema, json_object, none]   # vLLM 0.32.0은 요청별 공백 금지를 무시한다. 서버를 공백 금지 설정(structured_outputs_config의 disable_any_whitespace)으로 띄운다 (ADR-017)
     max_tokens: 8192
     concurrency: 16
+    rows_sections: [3, 8, 9, 11, 12, 15]   # 표 항목은 행 형식 글로 받는다. 11·12·15항 JSON이 8,192토큰에서 잘렸다 (ADR-019)
+    image_input: true                      # 2항 호출에 쪽 이미지를 붙여 그림문자를 읽게 한다 (ADR-019)
     params:
       temperature: 0
       extra_body:

@@ -4,7 +4,7 @@
   python scripts/run_sections.py --model qwen3_30b_a3b_rngd --docs T21-S003 T21-S016 T21-M013
   python scripts/run_sections.py --model qwen36_35b_runpod --purpose 개발 --workers 8
   python scripts/run_sections.py --model qwen3_30b_a3b_rngd --docs T21-025 --allow-eval   # 프롬프트 고정 후 (D-43)
-  python scripts/run_sections.py --model qwen3_30b_a3b_rngd --docs T21-M013 --pages-dir ../data/pages/chars_wrap
+  python scripts/run_sections.py --model qwen3_30b_a3b_rngd --docs T21-M013 --pages-dir ../data/pages/version9   # 실행 입력은 version9 (ADR-018)
 
 결과: runs/<날짜>_sections_<모델 태그>/outputs/<문서>.json, checks/, raw/, timing.jsonl, run_info.yaml
 """
