@@ -8,10 +8,13 @@
                                         선으로 그린 표는 한 행을 칸 순서대로 한 줄로 묶는다 (칸 사이는 공백 두 칸)
                                         PDF에 저장된 순서는 읽는 순서와 다를 수 있다 (S001 2쪽: 2번 항목이 1번보다 먼저)
 - data/pages/<문서번호>/p001.match.txt 원문 대조용 텍스트층. 같은 읽기 순서에서 겹쳐 찍은 사본을 지운 것 (drop_overstrike)
-- data/pages/<문서번호>/p001.ocr_input.txt 텍스트층을 믿을 수 없는 정상 쪽의 모델 입력·대조 글 (OCR, source.choose)
+- data/pages/<문서번호>/p001.ocr_input.txt 출처가 OCR인 쪽의 최종 글 (OCR). 텍스트층을 믿을 수 없는 정상 쪽(source.choose)은
+                                        모델 입력이기도 하다. 깨진 쪽(S003)은 대조에만 쓰고 모델은 이미지만 본다
 - data/pages/<문서번호>/tables/p002_t1.md 선으로 그린 데이터 표(성분·노출기준 등)를 Markdown으로 따로 꺼낸 것 (layout.is_data_table)
                                         항목|값 틀은 꺼내지 않는다. 모델 입력은 아니다. 쪽 번호와 그 쪽 표 순번(1부터)
 - data/pages/<문서번호>/meta.json      쪽수, 쪽별 판별 수치·입력 출처(input_source), 문서 판정, 겹쳐찍기 글자 수, 전처리 버전
+                                        쪽마다 최종 글 하나: text_source(텍스트층 / OCR / 없음)와 text_file(그 글 파일 이름, 없음이면 null).
+                                        밖에서 쪽 글을 읽을 때는 text_file만 본다 (_pick_source)
 
 텍스트층 판별 (TO21 doc.text_layer 값과 같은 이름)
 - 정상     : 글자를 그대로 믿어도 됨
@@ -31,8 +34,8 @@ from pathlib import Path
 import pymupdf
 
 from ..common import paths
-from .layout import (char_items, continue_grid, is_data_table, page_lines, page_tables, reading_text, table_columns,
-                     table_grid, table_md)
+from .layout import (char_items, continue_grid, is_data_table, page_lines, page_tables, reading_text, section_headings,
+                     table_columns, table_grid, table_md)
 from .ocr import fix_symbols, read_ocr_json
 from .source import choose, ocr_json_for, page_ocr_input
 
@@ -231,8 +234,9 @@ def preprocess(pdf_path: Path, doc_id: str, dpi: int = 150, force: bool = False)
     pages = follow_doc(pages, text_layer)
     pages = [_pick_source(doc_id, p, layer_match[p["page"]], page_obj[p["page"]]) for p in pages]
     prev = None   # 앞 쪽 마지막 데이터 표 (열 자리, 머리글). 다음 쪽에서 이어지는 표를 나눌 때 쓴다
+    section = None   # 앞 쪽까지 본 마지막 항 (번호, 제목). 쪽 맨 위의 표는 이 항에 속한다
     for k, p in enumerate(pages):
-        pages[k], prev = _write_tables(doc_id, p, layer_items[p["page"]], page_obj[p["page"]], prev)
+        pages[k], prev, section = _write_tables(doc_id, p, layer_items[p["page"]], page_obj[p["page"]], prev, section)
     language = judge_language(totals)
     if text_layer in ("글꼴깨짐", "없음") and totals["hangul"] == 0:
         language = None   # 글자를 믿을 수 없어 언어를 판정하지 않는다. manifest에서 사람이 채운다
@@ -254,41 +258,54 @@ def preprocess(pdf_path: Path, doc_id: str, dpi: int = 150, force: bool = False)
 
 
 def _pick_source(doc_id: str, p: dict, layer: str, page) -> dict:
-    """정상 쪽의 모델 입력 출처를 고른다 (source.choose). OCR이면 p001.ocr_input.txt를 쓴다.
+    """쪽의 최종 글(text_source, text_file)과, 정상 쪽이면 모델 입력 출처(input_source, source.choose)를 고른다.
 
+    최종 글은 쪽마다 하나다. 원문 대조와 외부에서 쪽 글을 읽을 때는 text_file만 본다.
+    - 정상 쪽: 모델 입력과 같은 출처. 텍스트층이면 p001.match.txt, OCR이면 p001.ocr_input.txt
+    - 정상이 아닌 쪽(글꼴깨짐·이미지만): OCR이 있으면 OCR(p001.ocr_input.txt), 없으면 '없음'(text_file None).
+      모델은 여전히 이미지만 보므로 input_source는 두지 않는다 (client.page_parts)
     OCR 결과가 없으면 텍스트층이다. OCR을 나중에 돌렸으면 전처리를 --force로 다시 돌려야 반영된다.
-    정상이 아닌 쪽(글꼴깨짐·이미지만)은 모델이 이미지만 보므로 고르지 않는다.
     """
-    out_ocr = page_ocr_input(doc_id, p["page"])
+    n = p["page"]
+    out_ocr = page_ocr_input(doc_id, n)
     out_ocr.unlink(missing_ok=True)
-    if p["state"] != "정상":
-        return p
-    f = ocr_json_for(doc_id, p["page"])
+    f = ocr_json_for(doc_id, n)
     ocr = None
     if f is not None:
         items, dpi = read_ocr_json(f)
         ocr = fix_symbols(reading_text(items, page_tables(page, dpi / 72))) + "\n"
-    pick = choose(layer, ocr)
-    if pick["input_source"] == "OCR":
+    if p["state"] != "정상":
+        pick = {"text_source": "OCR" if ocr is not None else "없음"}
+    else:
+        pick = choose(layer, ocr)
+        pick["text_source"] = pick["input_source"]
+    if pick["text_source"] == "OCR":
         out_ocr.write_text(ocr, encoding="utf-8")
+    pick["text_file"] = {"OCR": out_ocr.name, "텍스트층": page_match_txt(doc_id, n).name}.get(pick["text_source"])
     return {**p, **pick}
 
 
-def _write_tables(doc_id: str, p: dict, items: list[dict], page, prev: dict | None) -> tuple[dict, dict | None]:
-    """정상 쪽의 선으로 그린 표 중 데이터 표만 tables/pXXX_tN.md로 쓴다. 칸 글은 모델 입력과 같은 출처에서 읽는다.
+def _write_tables(doc_id: str, p: dict, items: list[dict], page, prev: dict | None,
+                  section: tuple[int, str] | None) -> tuple[dict, dict | None, tuple[int, str] | None]:
+    """선으로 그린 표 중 데이터 표만 tables/pXXX_tN.md로 쓴다. 칸 글은 그 쪽의 최종 글(text_source)과 같은 출처에서 읽는다.
 
-    meta 쪽 항목에 tables(쓴 파일 이름)와 frames(꺼내지 않은 항목|값 틀 수)를 남긴다.
-    글꼴깨짐·이미지만 쪽은 글자를 믿을 수 없어 꺼내지 않는다.
+    meta 쪽 항목에 tables와 frames(꺼내지 않은 항목|값 틀 수)를 남긴다. tables는 표마다
+    {"file": 파일 이름, "section": 속한 항 제목 (못 찾으면 null), "box": 쪽 안 위치 [x0, y0, x1, y1] (pt, 72dpi)}.
+    항은 표 위에서 가장 가까운 항 제목(layout.section_headings)이고, 이 쪽에서 표 위에 항 제목이 없으면
+    앞 쪽에서 넘어온 항(section)이다. 쪽 이미지(p001.png)는 dpi/72배 좌표다.
+    최종 글이 OCR이면 글꼴깨짐 쪽도 OCR 글로 칸을 채운다 (S003 1쪽: 글꼴은 깨졌지만 표 선은 멀쩡하다).
+    최종 글이 없는 쪽(없음)은 꺼내지 않는다.
     prev는 앞 쪽 마지막 데이터 표의 열 자리(pt)와 머리글이다. 이 쪽 표가 그 머리글로 시작하면 열 선이 없어도
     앞 쪽 열 자리로 나눈다 (layout.continue_grid, M013 3쪽). 바로 앞 쪽의 표만 잇는다.
-    돌려주는 값: (쪽 항목, 다음 쪽에 넘길 prev)
+    돌려주는 값: (쪽 항목, 다음 쪽에 넘길 prev, 다음 쪽에 넘길 section). 글이 없는 쪽은 section을 그대로 넘긴다
     """
-    if p["state"] != "정상":
-        return p, None
+    if p.get("text_source") not in ("텍스트층", "OCR"):
+        return p, None, section
     scale = 1.0
-    if p.get("input_source") == "OCR":
+    if p["text_source"] == "OCR":
         items, dpi = read_ocr_json(ocr_json_for(doc_id, p["page"]))
         scale = dpi / 72
+    heads = section_headings(items, after=section[0] if section else 0)
     written, frames, last = [], 0, None
     for n, table in enumerate(page_tables(page, scale), start=1):
         grid = table_grid(items, table)
@@ -304,27 +321,41 @@ def _write_tables(doc_id: str, p: dict, items: list[dict], page, prev: dict | No
         name = f"p{p['page']:03d}_t{n}.md"
         tables_dir(doc_id).mkdir(exist_ok=True)
         (tables_dir(doc_id) / name).write_text(table_md(grid), encoding="utf-8")
-        written.append(name)
-    return {**p, "tables": written, "frames": frames}, last
+        boxes = [c for r in table for c in r if c]
+        top = min(c[1] for c in boxes)
+        above = [(h[1], h[2]) for h in heads if h[0] < top]
+        sec = above[-1] if above else section
+        box = [round(f(c[k] for c in boxes) / scale, 1) for f, k in ((min, 0), (min, 1), (max, 2), (max, 3))]
+        written.append({"file": name, "section": sec and sec[1], "box": box})
+    if heads:
+        section = heads[-1][1:]
+    return {**p, "tables": written, "frames": frames}, last, section
 
 
 def load_pages(doc_id: str) -> dict:
     """추출 단계에서 쓰는 쪽 입력. {'meta': ..., 'pages': [{page, image, text, match_text, state, source}]}
 
-    text는 모델 입력, match_text는 원문 대조(checks.source_match)에 쓴다. 겹쳐찍기가 없으면 둘의 글자가 같다.
-    match_text 파일이 없으면(이 기능 전에 전처리한 결과) text를 쓴다.
-    source가 'OCR'인 쪽은 둘 다 OCR 글(p001.ocr_input.txt)이다. 모델이 읽은 글과 대조하는 글을 맞춘다.
+    source는 그 쪽의 최종 글 출처(meta의 text_source: 텍스트층 / OCR / 없음), match_text는 최종 글로
+    원문 대조(checks.source_match, match_pages)에 쓴다. text는 모델 입력 글이다.
+    - 정상 쪽: 텍스트층이면 text는 p001.txt, match_text는 겹쳐찍기 사본을 지운 p001.match.txt (없으면 text).
+      OCR이면 둘 다 OCR 글(p001.ocr_input.txt). 모델이 읽은 글과 대조하는 글을 맞춘다
+    - 정상이 아닌 쪽: 모델은 이미지만 보므로 text는 "". 깨진 텍스트층은 내보내지 않는다
+    text_source가 없는 meta(이 기능 전에 전처리한 결과)는 정상 쪽은 input_source, 아닌 쪽은 '없음'으로 본다.
     """
     meta = json.loads(paths.page_meta(doc_id).read_text(encoding="utf-8"))
     out = []
     for p in meta["pages"]:
         n = p["page"]
-        text = paths.page_txt(doc_id, n).read_text(encoding="utf-8")
-        mt = page_match_txt(doc_id, n)
-        match_text = mt.read_text(encoding="utf-8") if mt.exists() else text
-        source = p.get("input_source", "텍스트층")
+        normal = p["state"] == "정상"
+        source = p.get("text_source") or (p.get("input_source", "텍스트층") if normal else "없음")
+        text = match_text = ""
         if source == "OCR":
-            text = match_text = page_ocr_input(doc_id, n).read_text(encoding="utf-8")
+            match_text = page_ocr_input(doc_id, n).read_text(encoding="utf-8")
+            text = match_text if normal else ""
+        elif source == "텍스트층":
+            text = paths.page_txt(doc_id, n).read_text(encoding="utf-8")
+            mt = page_match_txt(doc_id, n)
+            match_text = mt.read_text(encoding="utf-8") if mt.exists() else text
         out.append({
             "page": n,
             "image": paths.page_png(doc_id, n),
@@ -334,3 +365,14 @@ def load_pages(doc_id: str) -> dict:
             "source": source,
         })
     return {"meta": meta, "pages": out}
+
+
+def match_pages(pages: list[dict]) -> tuple[dict[int, str], dict[int, str]]:
+    """load_pages의 쪽 목록 → 원문 대조(checks.source_match.match)에 넘길 (쪽 글, 쪽 상태).
+
+    쪽 글은 최종 글(match_text)이다. 최종 글이 있는 쪽은 텍스트층이 깨졌어도(S003, OCR) '정상'으로 넘겨 대조하고,
+    최종 글이 없는 쪽(source '없음')만 원래 상태를 넘겨 '대조불가'가 되게 한다.
+    """
+    texts = {p["page"]: p["match_text"] for p in pages}
+    states = {p["page"]: "정상" if p["source"] != "없음" else p["state"] for p in pages}
+    return texts, states
