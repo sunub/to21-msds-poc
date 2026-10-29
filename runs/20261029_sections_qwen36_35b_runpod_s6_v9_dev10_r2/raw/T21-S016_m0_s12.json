@@ -1,0 +1,300 @@
+{
+ "doc_id": "T21-S016",
+ "msds_index": 0,
+ "section": 12,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "ecotox": [
+   {
+    "comp_name": "Benzene",
+    "comp_cas": "71-43-2",
+    "endpoint": "ECO_FISH",
+    "descriptor": "LC50",
+    "q": {
+     "raw": "5.3 mg/L",
+     "value": 5.3,
+     "unit": "mg/L"
+    },
+    "species": "Oncorhynchus mykiss",
+    "duration_value": 96,
+    "duration_unit": "hr",
+    "guideline": null,
+    "data_source": "ECHA",
+    "statements": [],
+    "status": "값있음",
+    "line": "p7:L19"
+   },
+   {
+    "comp_name": "Benzene",
+    "comp_cas": "71-43-2",
+    "endpoint": "ECO_FISH",
+    "descriptor": "NOEC",
+    "q": {
+     "raw": "0.8 mg/L",
+     "value": 0.8,
+     "unit": "mg/L"
+    },
+    "species": "Pimephales promelas",
+    "duration_value": 32,
+    "duration_unit": "day",
+    "guideline": null,
+    "data_source": "ECHA",
+    "statements": [],
+    "status": "값있음",
+    "line": "p7:L19"
+   },
+   {
+    "comp_name": "Benzene",
+    "comp_cas": "71-43-2",
+    "endpoint": "ECO_CRUST",
+    "descriptor": "EC50",
+    "q": {
+     "raw": "10 mg/L",
+     "value": 10,
+     "unit": "mg/L"
+    },
+    "species": "Daphnia magna",
+    "duration_value": 48,
+    "duration_unit": "hr",
+    "guideline": null,
+    "data_source": "ECHA",
+    "statements": [],
+    "status": "값있음",
+    "line": "p7:L21"
+   },
+   {
+    "comp_name": "Benzene",
+    "comp_cas": "71-43-2",
+    "endpoint": "ECO_ALGAE",
+    "descriptor": "EC50",
+    "q": {
+     "raw": "32 mg/L",
+     "value": 32,
+     "unit": "mg/L"
+    },
+    "species": "Raphidocelis subcapitata",
+    "duration_value": 72,
+    "duration_unit": "hr",
+    "guideline": null,
+    "data_source": "ECHA",
+    "statements": [],
+    "status": "값있음",
+    "line": "p7:L23"
+   },
+   {
+    "comp_name": "Benzene",
+    "comp_cas": "71-43-2",
+    "endpoint": "ECO_BIOACC",
+    "descriptor": "logKow",
+    "q": {
+     "raw": "2.13",
+     "value": 2.13
+    },
+    "species": null,
+    "duration_value": null,
+    "duration_unit": null,
+    "guideline": null,
+    "data_source": "ECHA",
+    "statements": [
+     {
+      "value": "25 °C",
+      "line": "p7:L26"
+     }
+    ],
+    "status": "값있음",
+    "line": "p7:L26"
+   },
+   {
+    "comp_name": "Benzene",
+    "comp_cas": "71-43-2",
+    "endpoint": "ECO_PERSIST",
+    "descriptor": "분해율",
+    "q": null,
+    "species": null,
+    "duration_value": null,
+    "duration_unit": null,
+    "guideline": null,
+    "data_source": null,
+    "statements": [
+     {
+      "value": "Not readily biodegradable",
+      "line": "p7:L33"
+     }
+    ],
+    "status": "값있음",
+    "line": "p7:L33"
+   }
+  ],
+  "narratives": [
+   {
+    "item_code": "S12_OTHER",
+    "title_raw": "가. 생태독성",
+    "start": "p7:L17",
+    "end": "p7:L23"
+   },
+   {
+    "item_code": "S12_OTHER",
+    "title_raw": "나. 잔류성 및 분해성",
+    "start": "p7:L24",
+    "end": "p7:L33"
+   },
+   {
+    "item_code": "S12_OTHER",
+    "title_raw": "다. 생물 농축성",
+    "start": "p7:L29",
+    "end": "p7:L33"
+   },
+   {
+    "item_code": "S12_OTHER",
+    "title_raw": "라. 토양 이동성",
+    "start": "p7:L34",
+    "end": "p7:L35"
+   },
+   {
+    "item_code": "S12_OTHER",
+    "title_raw": "마. 오존층 유해성",
+    "start": "p7:L36",
+    "end": "p7:L37"
+   },
+   {
+    "item_code": "S12_OTHER",
+    "title_raw": "바. 기타 유해 영향",
+    "start": "p7:L38",
+    "end": "p7:L39"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S12_OTHER",
+    "title_raw": "○ 잔류성",
+    "reason": "필드없음",
+    "comp_name": "Benzene",
+    "comp_cas": "71-43-2",
+    "q": null,
+    "statements": [],
+    "suggested_code": "ECO_PERSIST",
+    "line": "p7:L25"
+   },
+   {
+    "after_item": "S12_OTHER",
+    "title_raw": "○ 분해성",
+    "reason": "필드없음",
+    "comp_name": "Benzene",
+    "comp_cas": "71-43-2",
+    "q": null,
+    "statements": [
+     {
+      "value": "자료없음",
+      "line": "p7:L28"
+     }
+    ],
+    "suggested_code": "ECO_PERSIST",
+    "line": "p7:L28"
+   },
+   {
+    "after_item": "S12_OTHER",
+    "title_raw": "○ 생물 농축성",
+    "reason": "필드없음",
+    "comp_name": "Benzene",
+    "comp_cas": "71-43-2",
+    "q": null,
+    "statements": [
+     {
+      "value": "자료없음",
+      "line": "p7:L31"
+     }
+    ],
+    "suggested_code": "ECO_BIOACC",
+    "line": "p7:L31"
+   },
+   {
+    "after_item": "S12_OTHER",
+    "title_raw": "○ 생분해성",
+    "reason": "필드없음",
+    "comp_name": "Benzene",
+    "comp_cas": "71-43-2",
+    "q": null,
+    "statements": [],
+    "suggested_code": "ECO_PERSIST",
+    "line": "p7:L32"
+   },
+   {
+    "after_item": "S12_OTHER",
+    "title_raw": "- [Benzene] :   자료없음",
+    "reason": "필드없음",
+    "comp_name": "Benzene",
+    "comp_cas": "71-43-2",
+    "q": null,
+    "statements": [
+     {
+      "value": "자료없음",
+      "line": "p7:L35"
+     }
+    ],
+    "suggested_code": "ECO_SOIL",
+    "line": "p7:L35"
+   },
+   {
+    "after_item": "S12_OTHER",
+    "title_raw": "- [Benzene] :   해당없음",
+    "reason": "필드없음",
+    "comp_name": "Benzene",
+    "comp_cas": "71-43-2",
+    "q": null,
+    "statements": [
+     {
+      "value": "해당없음",
+      "line": "p7:L37"
+     }
+    ],
+    "suggested_code": "ECO_OZONE",
+    "line": "p7:L37"
+   },
+   {
+    "after_item": "S12_OTHER",
+    "title_raw": "- [Benzene] :   자료없음",
+    "reason": "필드없음",
+    "comp_name": "Benzene",
+    "comp_cas": "71-43-2",
+    "q": null,
+    "statements": [
+     {
+      "value": "자료없음",
+      "line": "p7:L39"
+     }
+    ],
+    "suggested_code": "S12_OTHER",
+    "line": "p7:L39"
+   }
+  ]
+ },
+ "raw_text": "### ecotox\ncomp_name | comp_cas | endpoint | descriptor | q | species | duration_value | duration_unit | guideline | data_source | statements | status | line\nBenzene | 71-43-2 | ECO_FISH | LC50 | 5.3 mg/L | Oncorhynchus mykiss | 96 | hr |  | ECHA |  | 값있음 | p7:L19\nBenzene | 71-43-2 | ECO_FISH | NOEC | 0.8 mg/L | Pimephales promelas | 32 | day |  | ECHA |  | 값있음 | p7:L19\nBenzene | 71-43-2 | ECO_CRUST | EC50 | 10 mg/L | Daphnia magna | 48 | hr |  | ECHA |  | 값있음 | p7:L21\nBenzene | 71-43-2 | ECO_ALGAE | EC50 | 32 mg/L | Raphidocelis subcapitata | 72 | hr |  | ECHA |  | 값있음 | p7:L23\nBenzene | 71-43-2 | ECO_BIOACC | logKow | 2.13 |  |  |  |  | ECHA | 25 °C | 값있음 | p7:L26\nBenzene | 71-43-2 | ECO_PERSIST | 분해율 |  |  |  |  |  |  | Not readily biodegradable | 값있음 | p7:L33\n\n### narratives\nitem_code | title_raw | start | end\nS12_OTHER | 가. 생태독성 | p7:L17 | p7:L23\nS12_OTHER | 나. 잔류성 및 분해성 | p7:L24 | p7:L33\nS12_OTHER | 다. 생물 농축성 | p7:L29 | p7:L33\nS12_OTHER | 라. 토양 이동성 | p7:L34 | p7:L35\nS12_OTHER | 마. 오존층 유해성 | p7:L36 | p7:L37\nS12_OTHER | 바. 기타 유해 영향 | p7:L38 | p7:L39\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\nS12_OTHER | ○ 잔류성 | 필드없음 | Benzene | 71-43-2 |  |  | ECO_PERSIST | p7:L25\nS12_OTHER | ○ 분해성 | 필드없음 | Benzene | 71-43-2 |  | 자료없음 | ECO_PERSIST | p7:L28\nS12_OTHER | ○ 생물 농축성 | 필드없음 | Benzene | 71-43-2 |  | 자료없음 | ECO_BIOACC | p7:L31\nS12_OTHER | ○ 생분해성 | 필드없음 | Benzene | 71-43-2 |  |  | ECO_PERSIST | p7:L32\nS12_OTHER | - [Benzene] :   자료없음 | 필드없음 | Benzene | 71-43-2 |  | 자료없음 | ECO_SOIL | p7:L35\nS12_OTHER | - [Benzene] :   해당없음 | 필드없음 | Benzene | 71-43-2 |  | 해당없음 | ECO_OZONE | p7:L37\nS12_OTHER | - [Benzene] :   자료없음 | 필드없음 | Benzene | 71-43-2 |  | 자료없음 | S12_OTHER | p7:L39",
+ "mode": "rows",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 3803,
+  "completion_tokens": 873,
+  "total_tokens": 4676
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "rows",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 3803,
+    "completion_tokens": 873,
+    "total_tokens": 4676
+   },
+   "seconds": 13.963,
+   "chars": 1756,
+   "whitespace": 411,
+   "head": "### ecotox\ncomp_name | comp_cas | endpoint | descriptor | q | species | duration_value | duration_unit | guideline | data_source | statements | status | line\nBenzene | 71-43-2 | ECO_FISH | LC50 | 5.3 mg/L | Oncorhynchus mykiss | 96 | hr |  | ECHA |  | 값있음 | p7:L19\nBenzene | 71-43-2 | ECO_FISH | NOEC | 0.8 mg/L | Pimephales promelas | 32 | day |  | ECHA |  | 값있음 | p7:L19\nBenzene | 71-43-2 | ECO_CRUST | EC50 | 10 mg/L | Daphnia magna | 48 | hr |  | ECHA |  | 값있음 | p7:L21\nBenzene | 71-43-2 | ECO_AL",
+   "tail": "OTHER | ○ 분해성 | 필드없음 | Benzene | 71-43-2 |  | 자료없음 | ECO_PERSIST | p7:L28\nS12_OTHER | ○ 생물 농축성 | 필드없음 | Benzene | 71-43-2 |  | 자료없음 | ECO_BIOACC | p7:L31\nS12_OTHER | ○ 생분해성 | 필드없음 | Benzene | 71-43-2 |  |  | ECO_PERSIST | p7:L32\nS12_OTHER | - [Benzene] :   자료없음 | 필드없음 | Benzene | 71-43-2 |  | 자료없음 | ECO_SOIL | p7:L35\nS12_OTHER | - [Benzene] :   해당없음 | 필드없음 | Benzene | 71-43-2 |  | 해당없음 | ECO_OZONE | p7:L37\nS12_OTHER | - [Benzene] :   자료없음 | 필드없음 | Benzene | 71-43-2 |  | 자료없음 | S12_OTHER | p7:L39"
+  }
+ ],
+ "seconds": 13.967,
+ "check_problems": []
+}

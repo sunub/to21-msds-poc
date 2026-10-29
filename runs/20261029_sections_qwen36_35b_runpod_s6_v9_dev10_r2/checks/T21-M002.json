@@ -1,0 +1,785 @@
+{
+ "sections": [
+  {
+   "msds_index": 0,
+   "section": 1,
+   "ok": true,
+   "mode": "json_schema",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 1,
+   "seconds": 10.294,
+   "usage": {
+    "prompt_tokens": 3302,
+    "completion_tokens": 704,
+    "total_tokens": 4006
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 2,
+   "ok": true,
+   "mode": "json_schema",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 1,
+   "seconds": 16.105,
+   "usage": {
+    "prompt_tokens": 6416,
+    "completion_tokens": 943,
+    "total_tokens": 7359
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 3,
+   "ok": true,
+   "mode": "rows",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 1,
+   "seconds": 13.122,
+   "usage": {
+    "prompt_tokens": 3782,
+    "completion_tokens": 768,
+    "total_tokens": 4550
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 4,
+   "ok": true,
+   "mode": "json_schema",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 1,
+   "seconds": 17.796,
+   "usage": {
+    "prompt_tokens": 2105,
+    "completion_tokens": 1100,
+    "total_tokens": 3205
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 5,
+   "ok": true,
+   "mode": "json_schema",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": true,
+   "attempts": 2,
+   "seconds": 36.236,
+   "usage": {
+    "prompt_tokens": 4811,
+    "completion_tokens": 2977,
+    "total_tokens": 7788
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 6,
+   "ok": true,
+   "mode": "json_schema",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 1,
+   "seconds": 6.062,
+   "usage": {
+    "prompt_tokens": 2173,
+    "completion_tokens": 279,
+    "total_tokens": 2452
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 7,
+   "ok": true,
+   "mode": "json_schema",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 1,
+   "seconds": 16.84,
+   "usage": {
+    "prompt_tokens": 2052,
+    "completion_tokens": 1027,
+    "total_tokens": 3079
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 8,
+   "ok": true,
+   "mode": "rows",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 1,
+   "seconds": 7.365,
+   "usage": {
+    "prompt_tokens": 3737,
+    "completion_tokens": 364,
+    "total_tokens": 4101
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 9,
+   "ok": true,
+   "mode": "rows",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": true,
+   "attempts": 2,
+   "seconds": 24.485,
+   "usage": {
+    "prompt_tokens": 8623,
+    "completion_tokens": 1668,
+    "total_tokens": 10291
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 10,
+   "ok": true,
+   "mode": "json_schema",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": true,
+   "attempts": 2,
+   "seconds": 25.967,
+   "usage": {
+    "prompt_tokens": 4529,
+    "completion_tokens": 1748,
+    "total_tokens": 6277
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 11,
+   "ok": true,
+   "mode": "rows",
+   "errors": [
+    "toxicity p7:L27 NATURAL GAS, LIQUIFIED |  | TX_SKIN |  |…: 열 18개, 기대 19개",
+    "toxicity p7:L29 Tetrahydrothiophene |  | TX_SKIN |  |  |…: 열 18개, 기대 19개",
+    "toxicity p7:L31 Tert-butyl mercaptan |  | TX_SKIN |  |  …: 열 18개, 기대 19개",
+    "toxicity p7:L34 NATURAL GAS, LIQUIFIED |  | TX_EYE |  | …: 열 18개, 기대 19개",
+    "toxicity p8:L1 Tetrahydrothiophene |  | TX_EYE |  |  | …: 열 18개, 기대 19개",
+    "toxicity p8:L3 Tert-butyl mercaptan |  | TX_EYE |  |  |…: 열 18개, 기대 19개",
+    "toxicity p8:L7 NATURAL GAS, LIQUIFIED |  | TX_SKIN_SENS…: 열 18개, 기대 19개",
+    "toxicity p8:L9 Tetrahydrothiophene |  | TX_SKIN_SENS | …: 열 18개, 기대 19개",
+    "toxicity p8:L11 Tert-butyl mercaptan |  | TX_SKIN_SENS |…: 열 18개, 기대 19개",
+    "toxicity p8:L16 NATURAL GAS, LIQUIFIED |  | TX_MUTA |  |…: 열 18개, 기대 19개",
+    "toxicity p8:L18 Tetrahydrothiophene |  | TX_MUTA |  |  |…: 열 18개, 기대 19개",
+    "toxicity p8:L22 Tert-butyl mercaptan |  | TX_MUTA |  |  …: 열 18개, 기대 19개",
+    "toxicity p8:L27 NATURAL GAS, LIQUIFIED |  | TX_REPRO |  …: 열 18개, 기대 19개",
+    "toxicity p8:L29 Tetrahydrothiophene |  | TX_REPRO |  |  …: 열 18개, 기대 19개",
+    "toxicity p8:L31 Tert-butyl mercaptan |  | TX_REPRO |  | …: 열 18개, 기대 19개",
+    "toxicity p8:L34 NATURAL GAS, LIQUIFIED |  | TX_STOT_SE |…: 열 18개, 기대 19개",
+    "toxicity p8:L36 Tetrahydrothiophene |  | TX_STOT_SE |  |…: 열 18개, 기대 19개",
+    "toxicity p8:L38 Tert-butyl mercaptan |  | TX_STOT_SE |  …: 열 18개, 기대 19개",
+    "toxicity p9:L2 NATURAL GAS, LIQUIFIED |  | TX_STOT_RE |…: 열 18개, 기대 19개"
+   ],
+   "check_problems": [],
+   "reextracted": true,
+   "attempts": 2,
+   "seconds": 67.033,
+   "usage": {
+    "prompt_tokens": 12505,
+    "completion_tokens": 7115,
+    "total_tokens": 19620
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 12,
+   "ok": true,
+   "mode": "rows",
+   "errors": [
+    "ecotox p9:L34 NATURAL GAS, LIQUIFIED |  | ECO_PERSIST …: .duration_unit: 'year' is not valid under any of the given schemas"
+   ],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 2,
+   "seconds": 47.994,
+   "usage": {
+    "prompt_tokens": 9139,
+    "completion_tokens": 4369,
+    "total_tokens": 13508
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 13,
+   "ok": true,
+   "mode": "json_schema",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 1,
+   "seconds": 6.019,
+   "usage": {
+    "prompt_tokens": 1870,
+    "completion_tokens": 279,
+    "total_tokens": 2149
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 14,
+   "ok": true,
+   "mode": "rows",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 1,
+   "seconds": 7.673,
+   "usage": {
+    "prompt_tokens": 3000,
+    "completion_tokens": 388,
+    "total_tokens": 3388
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 15,
+   "ok": true,
+   "mode": "rows",
+   "errors": [
+    "regulations p11:L16 INTL | INTL_EU | EU 분류 정보 | Tetrahydroth…: 열 14개, 기대 15개",
+    "regulations p11:L20 INTL | INTL_EU | EU 분류 정보 | Tetrahydroth…: 열 14개, 기대 15개",
+    "regulations p11:L24 INTL | INTL_EU | EU 분류 정보 | Tetrahydroth…: 열 14개, 기대 15개",
+    "regulations p12:L10 INTL | INTL_US | 미국관리정보 | NATURAL GAS, L…: 열 14개, 기대 15개",
+    "regulations p12:L11 INTL | INTL_ETC | 중국관리정보 | NATURAL GAS, …: 열 14개, 기대 15개",
+    "regulations p12:L12 INTL | INTL_ETC | 캐나다관리정보 | NATURAL GAS,…: 열 14개, 기대 15개",
+    "regulations p12:L13 INTL | INTL_ETC | 호주관리정보 | NATURAL GAS, …: 열 14개, 기대 15개",
+    "regulations p12:L15 INTL | INTL_US | 미국관리정보 | Tetrahydrothio…: 열 14개, 기대 15개",
+    "regulations p12:L16 INTL | INTL_JP | 일본관리정보 | Tetrahydrothio…: 열 14개, 기대 15개",
+    "regulations p12:L17 INTL | INTL_ETC | 중국관리정보 | Tetrahydrothi…: 열 14개, 기대 15개",
+    "regulations p12:L18 INTL | INTL_ETC | 캐나다관리정보 | Tetrahydroth…: 열 14개, 기대 15개",
+    "regulations p12:L19 INTL | INTL_ETC | 호주관리정보 | Tetrahydrothi…: 열 14개, 기대 15개",
+    "regulations p12:L20 INTL | INTL_ETC | 뉴질랜드관리정보 | Tetrahydrot…: 열 14개, 기대 15개",
+    "regulations p12:L21 INTL | INTL_ETC | 필리핀관리정보 | Tetrahydroth…: 열 14개, 기대 15개",
+    "regulations p12:L23 INTL | INTL_US | 미국관리정보 | Tert-butylmerc…: 열 14개, 기대 15개",
+    "regulations p12:L24 INTL | INTL_JP | 일본관리정보 | Tert-butylmerc…: 열 14개, 기대 15개",
+    "regulations p12:L25 INTL | INTL_ETC | 중국관리정보 | Tert-butylmer…: 열 14개, 기대 15개",
+    "regulations p12:L26 INTL | INTL_ETC | 캐나다관리정보 | Tert-butylme…: 열 14개, 기대 15개",
+    "regulations p12:L27 INTL | INTL_ETC | 호주관리정보 | Tert-butylmer…: 열 14개, 기대 15개",
+    "regulations p12:L28 INTL | INTL_ETC | 뉴질랜드관리정보 | Tert-butylm…: 열 14개, 기대 15개",
+    "regulations p12:L29 INTL | INTL_ETC | 필리핀관리정보 | Tert-butylme…: 열 14개, 기대 15개"
+   ],
+   "check_problems": [],
+   "reextracted": true,
+   "attempts": 2,
+   "seconds": 64.755,
+   "usage": {
+    "prompt_tokens": 15135,
+    "completion_tokens": 6662,
+    "total_tokens": 21797
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 16,
+   "ok": true,
+   "mode": "json_schema",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": true,
+   "attempts": 2,
+   "seconds": 22.143,
+   "usage": {
+    "prompt_tokens": 5928,
+    "completion_tokens": 1410,
+    "total_tokens": 7338
+   }
+  }
+ ],
+ "schema_errors": [],
+ "to21_validator": [
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[3]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[4]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[5]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[6]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[7]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[8]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[9]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[10]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[11]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[12]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[13]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[14]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[15]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[24]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[47]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[48]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[49]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[50]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[51]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[52]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[53]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[55]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[56]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[57]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[58]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[59]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[64]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[65]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[66]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[67]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[68]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[69]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[70]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[71]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "경고",
+   "rule": "V13",
+   "field": "msds[0].physchem[7]",
+   "message": "FLASH_POINT 값 -188 범위 밖"
+  },
+  {
+   "level": "경고",
+   "rule": "V15",
+   "field": "msds[0].extras[72].q",
+   "message": "값 20100615가 원문 '2010. 06. 15'에 없음"
+  }
+ ],
+ "expand_problems": [
+  {
+   "msds_index": 0,
+   "section": 11,
+   "kind": "unlinked_component",
+   "detail": "toxicity[0]: NATURAL GAS, LIQUIFIED / None"
+  },
+  {
+   "msds_index": 0,
+   "section": 11,
+   "kind": "unlinked_component",
+   "detail": "toxicity[2]: Tert-butyl mercaptan / None"
+  },
+  {
+   "msds_index": 0,
+   "section": 11,
+   "kind": "unlinked_component",
+   "detail": "toxicity[3]: NATURAL GAS, LIQUIFIED / None"
+  },
+  {
+   "msds_index": 0,
+   "section": 11,
+   "kind": "unlinked_component",
+   "detail": "toxicity[5]: Tert-butyl mercaptan / None"
+  },
+  {
+   "msds_index": 0,
+   "section": 11,
+   "kind": "unlinked_component",
+   "detail": "toxicity[6]: NATURAL GAS, LIQUIFIED / None"
+  },
+  {
+   "msds_index": 0,
+   "section": 11,
+   "kind": "unlinked_component",
+   "detail": "toxicity[8]: Tert-butyl mercaptan / None"
+  },
+  {
+   "msds_index": 0,
+   "section": 11,
+   "kind": "unlinked_component",
+   "detail": "toxicity[9]: NATURAL GAS, LIQUIFIED / None"
+  },
+  {
+   "msds_index": 0,
+   "section": 11,
+   "kind": "unlinked_component",
+   "detail": "toxicity[10]: NATURAL GAS, LIQUIFIED / None"
+  },
+  {
+   "msds_index": 0,
+   "section": 11,
+   "kind": "unlinked_component",
+   "detail": "toxicity[12]: Tert-butyl mercaptan / None"
+  },
+  {
+   "msds_index": 0,
+   "section": 11,
+   "kind": "unlinked_component",
+   "detail": "toxicity[13]: NATURAL GAS, LIQUIFIED / None"
+  },
+  {
+   "msds_index": 0,
+   "section": 11,
+   "kind": "unlinked_component",
+   "detail": "cmr[0]: NATURAL GAS, LIQUIFIED / None"
+  },
+  {
+   "msds_index": 0,
+   "section": 11,
+   "kind": "unlinked_component",
+   "detail": "cmr[1]: NATURAL GAS, LIQUIFIED / None"
+  },
+  {
+   "msds_index": 0,
+   "section": 11,
+   "kind": "unlinked_component",
+   "detail": "cmr[2]: NATURAL GAS, LIQUIFIED / None"
+  },
+  {
+   "msds_index": 0,
+   "section": 11,
+   "kind": "unlinked_component",
+   "detail": "cmr[3]: NATURAL GAS, LIQUIFIED / None"
+  },
+  {
+   "msds_index": 0,
+   "section": 11,
+   "kind": "unlinked_component",
+   "detail": "cmr[4]: NATURAL GAS, LIQUIFIED / None"
+  },
+  {
+   "msds_index": 0,
+   "section": 11,
+   "kind": "unlinked_component",
+   "detail": "cmr[5]: NATURAL GAS, LIQUIFIED / None"
+  },
+  {
+   "msds_index": 0,
+   "section": 12,
+   "kind": "unlinked_component",
+   "detail": "ecotox[0]: NATURAL GAS, LIQUIFIED / None"
+  },
+  {
+   "msds_index": 0,
+   "section": 12,
+   "kind": "unlinked_component",
+   "detail": "ecotox[2]: Tert-butyl mercaptan / None"
+  },
+  {
+   "msds_index": 0,
+   "section": 12,
+   "kind": "unlinked_component",
+   "detail": "ecotox[3]: NATURAL GAS, LIQUIFIED / None"
+  },
+  {
+   "msds_index": 0,
+   "section": 12,
+   "kind": "unlinked_component",
+   "detail": "ecotox[5]: Tert-butyl mercaptan / None"
+  },
+  {
+   "msds_index": 0,
+   "section": 12,
+   "kind": "unlinked_component",
+   "detail": "ecotox[6]: NATURAL GAS, LIQUIFIED / None"
+  },
+  {
+   "msds_index": 0,
+   "section": 12,
+   "kind": "unlinked_component",
+   "detail": "ecotox[9]: Tert-butyl mercaptan / None"
+  },
+  {
+   "msds_index": 0,
+   "section": 12,
+   "kind": "unlinked_component",
+   "detail": "ecotox[10]: Tert-butyl mercaptan / None"
+  },
+  {
+   "msds_index": 0,
+   "section": 12,
+   "kind": "unlinked_component",
+   "detail": "ecotox[11]: NATURAL GAS, LIQUIFIED / None"
+  },
+  {
+   "msds_index": 0,
+   "section": 12,
+   "kind": "unlinked_component",
+   "detail": "ecotox[13]: Tert-butyl mercaptan / None"
+  },
+  {
+   "msds_index": 0,
+   "section": 12,
+   "kind": "unlinked_component",
+   "detail": "ecotox[14]: NATURAL GAS, LIQUIFIED / None"
+  },
+  {
+   "msds_index": 0,
+   "section": 12,
+   "kind": "unlinked_component",
+   "detail": "ecotox[16]: Tert-butyl mercaptan / None"
+  },
+  {
+   "msds_index": 0,
+   "section": 12,
+   "kind": "unlinked_component",
+   "detail": "ecotox[17]: NATURAL GAS, LIQUIFIED / None"
+  },
+  {
+   "msds_index": 0,
+   "section": 12,
+   "kind": "unlinked_component",
+   "detail": "ecotox[19]: Tert-butyl mercaptan / None"
+  },
+  {
+   "msds_index": 0,
+   "section": 12,
+   "kind": "unlinked_component",
+   "detail": "ecotox[20]: NATURAL GAS, LIQUIFIED / None"
+  },
+  {
+   "msds_index": 0,
+   "section": 12,
+   "kind": "unlinked_component",
+   "detail": "ecotox[22]: Tert-butyl mercaptan / None"
+  },
+  {
+   "msds_index": 0,
+   "section": 15,
+   "kind": "unlinked_component",
+   "detail": "regulations[5]: NATURAL GAS, LIQUIFIED / None"
+  },
+  {
+   "msds_index": 0,
+   "section": 15,
+   "kind": "unlinked_component",
+   "detail": "regulations[6]: Tert-butyl mercaptan / None"
+  },
+  {
+   "msds_index": 0,
+   "section": 15,
+   "kind": "unlinked_component",
+   "detail": "regulations[7]: NATURAL GAS, LIQUIFIED / None"
+  },
+  {
+   "msds_index": 0,
+   "section": 15,
+   "kind": "unlinked_component",
+   "detail": "regulations[8]: Tert-butyl mercaptan / None"
+  },
+  {
+   "msds_index": 0,
+   "section": 15,
+   "kind": "unlinked_component",
+   "detail": "regulations[9]: NATURAL GAS, LIQUIFIED / None"
+  },
+  {
+   "msds_index": 0,
+   "section": 15,
+   "kind": "unlinked_component",
+   "detail": "regulations[10]: Tert-butyl mercaptan / None"
+  }
+ ],
+ "warnings": [
+  "항목 분할 파일 없음: 임시 분할 (찾은 항 16/16, MSDS 1건)"
+ ],
+ "sections_method": "provisional",
+ "pictogram_check": [
+  {
+   "msds_index": 0,
+   "model": [
+    "GHS02",
+    "GHS04"
+   ],
+   "inferred": [],
+   "missing": [],
+   "extra": [
+    "GHS02",
+    "GHS04"
+   ],
+   "ok": true,
+   "unmapped_h": [
+    "H220",
+    "H280"
+   ]
+  }
+ ],
+ "needs_review": [
+  {
+   "msds_index": 0,
+   "section": 11
+  },
+  {
+   "msds_index": 0,
+   "section": 12
+  },
+  {
+   "msds_index": 0,
+   "section": 15
+  }
+ ]
+}

@@ -1,0 +1,485 @@
+{
+ "doc_id": "T21-M013",
+ "msds_index": 0,
+ "section": 12,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "ecotox": [
+   {
+    "comp_name": null,
+    "comp_cas": null,
+    "endpoint": "ECO_CRUST",
+    "descriptor": "LC50",
+    "q": {
+     "raw": "4.9 mg/l",
+     "value": 4.9,
+     "unit": "mg/l"
+    },
+    "species": "물벼룩",
+    "duration_value": 48,
+    "duration_unit": "hr",
+    "guideline": null,
+    "data_source": null,
+    "statements": [],
+    "status": "값있음",
+    "line": "p8:L20"
+   },
+   {
+    "comp_name": null,
+    "comp_cas": null,
+    "endpoint": "ECO_FISH",
+    "descriptor": "LC50",
+    "q": {
+     "raw": "0.61 mg/l",
+     "value": 0.61,
+     "unit": "mg/l"
+    },
+    "species": "잉어과작은물고기",
+    "duration_value": 96,
+    "duration_unit": "hr",
+    "guideline": null,
+    "data_source": null,
+    "statements": [],
+    "status": "값있음",
+    "line": "p8:L21"
+   },
+   {
+    "comp_name": null,
+    "comp_cas": null,
+    "endpoint": "ECO_PERSIST",
+    "descriptor": "분해율",
+    "q": {
+     "raw": "42 %",
+     "value": 42,
+     "unit": "%"
+    },
+    "species": null,
+    "duration_value": 28,
+    "duration_unit": "day",
+    "guideline": null,
+    "data_source": "계산데이터",
+    "statements": [],
+    "status": "값있음",
+    "line": "p8:L31"
+   },
+   {
+    "comp_name": null,
+    "comp_cas": null,
+    "endpoint": "ECO_PERSIST",
+    "descriptor": "COD",
+    "q": {
+     "raw": "2129 mgO2/g",
+     "value": 2129,
+     "unit": "mgO2/g"
+    },
+    "species": null,
+    "duration_value": null,
+    "duration_unit": null,
+    "guideline": null,
+    "data_source": "계산데이터",
+    "statements": [],
+    "status": "값있음",
+    "line": "p8:L26"
+   },
+   {
+    "comp_name": null,
+    "comp_cas": null,
+    "endpoint": "ECO_BIOACC",
+    "descriptor": "logKow",
+    "q": {
+     "raw": "3.3",
+     "value": 3.3
+    },
+    "species": "나프탈렌",
+    "duration_value": null,
+    "duration_unit": null,
+    "guideline": null,
+    "data_source": null,
+    "statements": [],
+    "status": "값있음",
+    "line": "p8:L35"
+   }
+  ],
+  "narratives": [
+   {
+    "item_code": "S12_OTHER",
+    "title_raw": "가.생태독성",
+    "start": "p8:L17",
+    "end": "p8:L23"
+   },
+   {
+    "item_code": "S12_OTHER",
+    "title_raw": "나.잔류성및분해성",
+    "start": "p8:L24",
+    "end": "p8:L32"
+   },
+   {
+    "item_code": "S12_OTHER",
+    "title_raw": "다.생물농축성",
+    "start": "p8:L33",
+    "end": "p8:L35"
+   },
+   {
+    "item_code": "S12_OTHER",
+    "title_raw": "라.토양이동성",
+    "start": "p8:L36",
+    "end": "p8:L36"
+   },
+   {
+    "item_code": "S12_OTHER",
+    "title_raw": "마.기타유해영향",
+    "start": "p8:L37",
+    "end": "p8:L37"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S12_OTHER",
+    "title_raw": "수생환경유해성급성",
+    "reason": "필드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [
+     {
+      "value": "비전문가가취급하거나폐기하는경우환경적유해성을배제할수없음",
+      "line": "p8:L22"
+     }
+    ],
+    "suggested_code": "ECO_TOXICITY",
+    "line": "p8:L22"
+   },
+   {
+    "after_item": "S12_OTHER",
+    "title_raw": "수생환경유해성만성",
+    "reason": "필드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [
+     {
+      "value": "장기적영향에의해수생생물에매우유독함",
+      "line": "p8:L23"
+     }
+    ],
+    "suggested_code": "ECO_TOXICITY",
+    "line": "p8:L23"
+   },
+   {
+    "after_item": "S12_OTHER",
+    "title_raw": "이제품의분해성에대한유용한자료가없음",
+    "reason": "필드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [],
+    "suggested_code": "ECO_PERSIST",
+    "line": "p8:L25"
+   },
+   {
+    "after_item": "S12_OTHER",
+    "title_raw": "- TOC (mg C/g)",
+    "reason": "필드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": {
+     "raw": "849",
+     "value": 849
+    },
+    "statements": [
+     {
+      "value": "계산데이터",
+      "line": "p8:L32"
+     }
+    ],
+    "suggested_code": "ECO_PERSIST",
+    "line": "p8:L32"
+   }
+  ]
+ },
+ "raw_text": "### ecotox\ncomp_name | comp_cas | endpoint | descriptor | q | species | duration_value | duration_unit | guideline | data_source | statements | status | line\n |  | ECO_CRUST | LC50 | 4.9 mg/l | 물벼룩 | 48 | hr |  |  |  | 값있음 | p8:L20\n |  | ECO_FISH | LC50 | 0.61 mg/l | 잉어과작은물고기 | 96 | hr |  |  |  | 값있음 | p8:L21\n |  | ECO_PERSIST | BOD5 | 348 mgO2/g |  |  |  |  | 계산데이터 |  | 값있음 | p8:L27\n |  | ECO_PERSIST | BOD28 | 1295 mgO2/g |  |  |  |  | 계산데이터 |  | 값있음 | p8:L29\n |  | ECO_PERSIST | 분해율 | 42 % |  | 28 | day |  | 계산데이터 |  | 값있음 | p8:L31\n |  | ECO_PERSIST | COD | 2129 mgO2/g |  |  |  |  | 계산데이터 |  | 값있음 | p8:L26\n |  | ECO_BIOACC | logKow | 3.3 | 나프탈렌 |  |  |  |  |  | 값있음 | p8:L35\n\n### narratives\nitem_code | title_raw | start | end\nS12_OTHER | 가.생태독성 | p8:L17 | p8:L23\nS12_OTHER | 나.잔류성및분해성 | p8:L24 | p8:L32\nS12_OTHER | 다.생물농축성 | p8:L33 | p8:L35\nS12_OTHER | 라.토양이동성 | p8:L36 | p8:L36\nS12_OTHER | 마.기타유해영향 | p8:L37 | p8:L37\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\nS12_OTHER | 수생환경유해성급성 | 필드없음 |  |  |  | 비전문가가취급하거나폐기하는경우환경적유해성을배제할수없음 | ECO_TOXICITY | p8:L22\nS12_OTHER | 수생환경유해성만성 | 필드없음 |  |  |  | 장기적영향에의해수생생물에매우유독함 | ECO_TOXICITY | p8:L23\nS12_OTHER | 이제품의분해성에대한유용한자료가없음 | 필드없음 |  |  |  |  | ECO_PERSIST | p8:L25\nS12_OTHER | - TOC (mg C/g) | 필드없음 |  |  | 849 | 계산데이터 | ECO_PERSIST | p8:L32",
+ "mode": "rows",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 3975,
+  "completion_tokens": 707,
+  "total_tokens": 4682
+ },
+ "attempts": 1,
+ "errors": [
+  "ecotox p8:L27 |  | ECO_PERSIST | BOD5 | 348 mgO2/g |  …: .descriptor: 'BOD5' is not valid under any of the given schemas",
+  "ecotox p8:L29 |  | ECO_PERSIST | BOD28 | 1295 mgO2/g |…: .descriptor: 'BOD28' is not valid under any of the given schemas"
+ ],
+ "requests": [
+  {
+   "mode": "rows",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 3975,
+    "completion_tokens": 707,
+    "total_tokens": 4682
+   },
+   "seconds": 13.174,
+   "chars": 1362,
+   "whitespace": 343,
+   "head": "### ecotox\ncomp_name | comp_cas | endpoint | descriptor | q | species | duration_value | duration_unit | guideline | data_source | statements | status | line\n |  | ECO_CRUST | LC50 | 4.9 mg/l | 물벼룩 | 48 | hr |  |  |  | 값있음 | p8:L20\n |  | ECO_FISH | LC50 | 0.61 mg/l | 잉어과작은물고기 | 96 | hr |  |  |  | 값있음 | p8:L21\n |  | ECO_PERSIST | BOD5 | 348 mgO2/g |  |  |  |  | 계산데이터 |  | 값있음 | p8:L27\n |  | ECO_PERSIST | BOD28 | 1295 mgO2/g |  |  |  |  | 계산데이터 |  | 값있음 | p8:L29\n |  | ECO_PERSIST | 분해율 | 42 % |  |",
+   "tail": " 라.토양이동성 | p8:L36 | p8:L36\nS12_OTHER | 마.기타유해영향 | p8:L37 | p8:L37\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\nS12_OTHER | 수생환경유해성급성 | 필드없음 |  |  |  | 비전문가가취급하거나폐기하는경우환경적유해성을배제할수없음 | ECO_TOXICITY | p8:L22\nS12_OTHER | 수생환경유해성만성 | 필드없음 |  |  |  | 장기적영향에의해수생생물에매우유독함 | ECO_TOXICITY | p8:L23\nS12_OTHER | 이제품의분해성에대한유용한자료가없음 | 필드없음 |  |  |  |  | ECO_PERSIST | p8:L25\nS12_OTHER | - TOC (mg C/g) | 필드없음 |  |  | 849 | 계산데이터 | ECO_PERSIST | p8:L32"
+  }
+ ],
+ "seconds": 13.177,
+ "check_problems": [],
+ "reextract_attempt": {
+  "ok": true,
+  "parsed": {
+   "ecotox": [
+    {
+     "comp_name": null,
+     "comp_cas": null,
+     "endpoint": "ECO_CRUST",
+     "descriptor": "LC50",
+     "q": {
+      "raw": "4.9 mg/l",
+      "value": 4.9,
+      "unit": "mg/l"
+     },
+     "species": "물벼룩",
+     "duration_value": 48,
+     "duration_unit": "hr",
+     "guideline": null,
+     "data_source": null,
+     "statements": [],
+     "status": "값있음",
+     "line": "p8:L20"
+    },
+    {
+     "comp_name": null,
+     "comp_cas": null,
+     "endpoint": "ECO_FISH",
+     "descriptor": "LC50",
+     "q": {
+      "raw": "0.61 mg/l",
+      "value": 0.61,
+      "unit": "mg/l"
+     },
+     "species": "잉어과작은물고기",
+     "duration_value": 96,
+     "duration_unit": "hr",
+     "guideline": null,
+     "data_source": null,
+     "statements": [],
+     "status": "값있음",
+     "line": "p8:L21"
+    },
+    {
+     "comp_name": null,
+     "comp_cas": null,
+     "endpoint": "ECO_PERSIST",
+     "descriptor": "결과기술",
+     "q": {
+      "raw": "장기적영향에의해수생생물에매우유독함"
+     },
+     "species": null,
+     "duration_value": null,
+     "duration_unit": null,
+     "guideline": null,
+     "data_source": null,
+     "statements": [],
+     "status": "값있음",
+     "line": "p8:L17"
+    },
+    {
+     "comp_name": null,
+     "comp_cas": null,
+     "endpoint": "ECO_PERSIST",
+     "descriptor": "결과기술",
+     "q": {
+      "raw": "수생환경유해성급성, 비전문가가취급하거나폐기하는경우환경적유해성을배제할수없음"
+     },
+     "species": null,
+     "duration_value": null,
+     "duration_unit": null,
+     "guideline": null,
+     "data_source": null,
+     "statements": [],
+     "status": "값있음",
+     "line": "p8:L22"
+    },
+    {
+     "comp_name": null,
+     "comp_cas": null,
+     "endpoint": "ECO_PERSIST",
+     "descriptor": "결과기술",
+     "q": {
+      "raw": "수생환경유해성만성, 장기적영향에의해수생생물에매우유독함"
+     },
+     "species": null,
+     "duration_value": null,
+     "duration_unit": null,
+     "guideline": null,
+     "data_source": null,
+     "statements": [],
+     "status": "값있음",
+     "line": "p8:L23"
+    },
+    {
+     "comp_name": null,
+     "comp_cas": null,
+     "endpoint": "ECO_PERSIST",
+     "descriptor": "분해율",
+     "q": {
+      "raw": "42 %",
+      "value": 42,
+      "unit": "%"
+     },
+     "species": null,
+     "duration_value": 28,
+     "duration_unit": "day",
+     "guideline": null,
+     "data_source": null,
+     "statements": [],
+     "status": "값있음",
+     "line": "p8:L31"
+    },
+    {
+     "comp_name": null,
+     "comp_cas": null,
+     "endpoint": "ECO_PERSIST",
+     "descriptor": "결과기술",
+     "q": {
+      "raw": "이제품의분해성에대한유용한자료가없음"
+     },
+     "species": null,
+     "duration_value": null,
+     "duration_unit": null,
+     "guideline": null,
+     "data_source": null,
+     "statements": [],
+     "status": "값있음",
+     "line": "p8:L25"
+    },
+    {
+     "comp_name": null,
+     "comp_cas": null,
+     "endpoint": "ECO_BIOACC",
+     "descriptor": "logKow",
+     "q": {
+      "raw": "3.3",
+      "value": 3.3
+     },
+     "species": null,
+     "duration_value": null,
+     "duration_unit": null,
+     "guideline": null,
+     "data_source": null,
+     "statements": [],
+     "status": "값있음",
+     "line": "p8:L35"
+    },
+    {
+     "comp_name": null,
+     "comp_cas": null,
+     "endpoint": "ECO_SOIL",
+     "descriptor": "결과기술",
+     "q": {
+      "raw": "본제품에관한이용가능한자료가없음"
+     },
+     "species": null,
+     "duration_value": null,
+     "duration_unit": null,
+     "guideline": null,
+     "data_source": null,
+     "statements": [],
+     "status": "값있음",
+     "line": "p8:L36"
+    }
+   ],
+   "narratives": [],
+   "extras": [
+    {
+     "after_item": "S12_OTHER",
+     "title_raw": "수생",
+     "reason": null,
+     "comp_name": null,
+     "comp_cas": null,
+     "q": null,
+     "statements": [],
+     "suggested_code": null,
+     "line": "p8:L19"
+    },
+    {
+     "after_item": "S12_OTHER",
+     "title_raw": "(mgO2/g)",
+     "reason": null,
+     "comp_name": null,
+     "comp_cas": null,
+     "q": null,
+     "statements": [],
+     "suggested_code": null,
+     "line": "p8:L28"
+    },
+    {
+     "after_item": "S12_OTHER",
+     "title_raw": "(mgO2/g)",
+     "reason": null,
+     "comp_name": null,
+     "comp_cas": null,
+     "q": null,
+     "statements": [],
+     "suggested_code": null,
+     "line": "p8:L30"
+    }
+   ]
+  },
+  "raw_text": "### ecotox\ncomp_name | comp_cas | endpoint | descriptor | q | species | duration_value | duration_unit | guideline | data_source | statements | status | line\n |  | ECO_CRUST | LC50 | 4.9 mg/l | 물벼룩 | 48 | hr |  |  |  | 값있음 | p8:L20\n |  | ECO_FISH | LC50 | 0.61 mg/l | 잉어과작은물고기 | 96 | hr |  |  |  | 값있음 | p8:L21\n |  | ECO_PERSIST | 결과기술 | 장기적영향에의해수생생물에매우유독함 |  |  |  |  |  |  |  | 값있음 | p8:L17\n |  | ECO_PERSIST | 결과기술 | 수생환경유해성급성, 비전문가가취급하거나폐기하는경우환경적유해성을배제할수없음 |  |  |  |  |  |  |  | 값있음 | p8:L22\n |  | ECO_PERSIST | 결과기술 | 수생환경유해성만성, 장기적영향에의해수생생물에매우유독함 |  |  |  |  |  |  |  | 값있음 | p8:L23\n |  | ECO_PERSIST | BOD5 | 348 mgO2/g |  |  |  |  |  |  |  | 값있음 | p8:L27\n |  | ECO_PERSIST | BOD28 | 1295 mgO2/g |  |  |  |  |  |  |  | 값있음 | p8:L29\n |  | ECO_PERSIST | 분해율 | 42 % |  | 28 | day |  |  |  |  | 값있음 | p8:L31\n |  | ECO_PERSIST | 결과기술 | 이제품의분해성에대한유용한자료가없음 |  |  |  |  |  |  |  | 값있음 | p8:L25\n |  | ECO_BIOACC | logKow | 3.3 |  |  |  |  |  |  |  | 값있음 | p8:L35\n |  | ECO_SOIL | 결과기술 | 본제품에관한이용가능한자료가없음 |  |  |  |  |  |  |  | 값있음 | p8:L36\n\n### narratives\nitem_code | title_raw | start | end\nS12_OTHER | 12. | 환경에미치는영향 | p8:L16 | p8:L37\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\nS12_OTHER | 가생태독성 | . | 장기적영향에의해수생생물에매우유독함 | . |  |  |  | p8:L17\nS12_OTHER | 제품유형및이용 | 종 | 시험결과 |  |  |  |  | p8:L18\nS12_OTHER | 수생 |  |  |  |  |  |  | p8:L19\nS12_OTHER | 갑각류 | LC50 | 물벼룩 | 4.9 mg/l, 48 시간계산값 ( ) |  |  |  | p8:L20\nS12_OTHER | 어류 | LC50 | 잉어과작은물고기 | 0.61 mg/l, 96 시간계산값 ( ) |  |  |  | p8:L21\nS12_OTHER | 수생환경유해성급성 | , | 비전문가가취급하거나폐기하는경우환경적유해성을배제할수없음 | . |  |  |  | p8:L22\nS12_OTHER | 수생환경유해성만성 | , | 장기적영향에의해수생생물에매우유독함 | . |  |  |  | p8:L23\nS12_OTHER | 나잔류성및분해성 | . |  |  |  |  |  | p8:L24\nS12_OTHER | 이제품의분해성에대한유용한자료가없음 | . |  |  |  |  |  | p8:L25\nS12_OTHER | 화학적산소요구량 | (mgO2/g) | 2129 ( 계산데이터 ) |  |  |  |  | p8:L26\nS12_OTHER | 생물학적산소요구량 | 5 | 348 ( 계산데이터 ) |  |  |  |  | p8:L27\nS12_OTHER | (mgO2/g) |  |  |  |  |  |  | p8:L28\nS12_OTHER | 생물학적산소요구랑 | 28 | 1295 ( 계산데이터 ) |  |  |  |  | p8:L29\nS12_OTHER | (mgO2/g) |  |  |  |  |  |  | p8:L30\nS12_OTHER | 밀폐병시험 | (% 28 일이내분해 ) | 42 ( 계산데이터 ) |  |  |  |  | p8:L31\nS12_OTHER | - TOC (mg C/g) | 849 ( 계산데이터 ) |  |  |  |  |  | p8:L32\nS12_OTHER | 다생물농축성 | . |  |  |  |  |  | p8:L33\nS12_OTHER | 옥탄올물분배계수 | / | log Kow |  |  |  |  | p8:L34\nS12_OTHER | 나프탈렌 | 3.3 |  |  |  |  |  | p8:L35\nS12_OTHER | 라토양이동성 | . | 본제품에관한이용가능한자료가없음 | . |  |  |  | p8:L36\nS12_OTHER | 마기타유해영향 | . | 제품은광화학반응에의한오존생성가능성이있는휘발성유기화합물이함유됨 , . |  |  |  |  | p8:L37",
+  "mode": "rows",
+  "finish_reason": "stop",
+  "usage": {
+   "prompt_tokens": 4084,
+   "completion_tokens": 1466,
+   "total_tokens": 5550
+  },
+  "attempts": 1,
+  "errors": [
+   "ecotox p8:L27 |  | ECO_PERSIST | BOD5 | 348 mgO2/g |  …: 열 14개, 기대 13개",
+   "ecotox p8:L29 |  | ECO_PERSIST | BOD28 | 1295 mgO2/g |…: 열 14개, 기대 13개",
+   "narratives p8:L37 S12_OTHER | 12. | 환경에미치는영향 | p8:L16 | p8…: 열 5개, 기대 4개",
+   "extras p8:L17 S12_OTHER | 가생태독성 | . | 장기적영향에의해수생생물에매우유…: .reason: '.' is not valid under any of the given schemas",
+   "extras p8:L18 S12_OTHER | 제품유형및이용 | 종 | 시험결과 |  |  |  …: .reason: '종' is not valid under any of the given schemas",
+   "extras p8:L20 S12_OTHER | 갑각류 | LC50 | 물벼룩 | 4.9 mg/l,…: .reason: 'LC50' is not valid under any of the given schemas",
+   "extras p8:L21 S12_OTHER | 어류 | LC50 | 잉어과작은물고기 | 0.61 …: .reason: 'LC50' is not valid under any of the given schemas",
+   "extras p8:L22 S12_OTHER | 수생환경유해성급성 | , | 비전문가가취급하거나폐기…: .reason: ',' is not valid under any of the given schemas",
+   "extras p8:L23 S12_OTHER | 수생환경유해성만성 | , | 장기적영향에의해수생생물…: .reason: ',' is not valid under any of the given schemas",
+   "extras p8:L24 S12_OTHER | 나잔류성및분해성 | . |  |  |  |  |  …: .reason: '.' is not valid under any of the given schemas",
+   "extras p8:L25 S12_OTHER | 이제품의분해성에대한유용한자료가없음 | . |  | …: .reason: '.' is not valid under any of the given schemas",
+   "extras p8:L26 S12_OTHER | 화학적산소요구량 | (mgO2/g) | 2129 (…: .reason: '(mgO2/g)' is not valid under any of the given schemas",
+   "extras p8:L27 S12_OTHER | 생물학적산소요구량 | 5 | 348 ( 계산데이터 …: .reason: '5' is not valid under any of the given schemas",
+   "extras p8:L29 S12_OTHER | 생물학적산소요구랑 | 28 | 1295 ( 계산데이…: .reason: '28' is not valid under any of the given schemas",
+   "extras p8:L31 S12_OTHER | 밀폐병시험 | (% 28 일이내분해 ) | 42 (…: .reason: '(% 28 일이내분해 )' is not valid under any of the given schemas",
+   "extras p8:L32 S12_OTHER | - TOC (mg C/g) | 849 ( 계산데이터…: .reason: '849 ( 계산데이터 )' is not valid under any of the given schemas",
+   "extras p8:L33 S12_OTHER | 다생물농축성 | . |  |  |  |  |  | …: .reason: '.' is not valid under any of the given schemas",
+   "extras p8:L34 S12_OTHER | 옥탄올물분배계수 | / | log Kow |  | …: .reason: '/' is not valid under any of the given schemas",
+   "extras p8:L35 S12_OTHER | 나프탈렌 | 3.3 |  |  |  |  |  | …: .reason: '3.3' is not valid under any of the given schemas",
+   "extras p8:L36 S12_OTHER | 라토양이동성 | . | 본제품에관한이용가능한자료가없…: .reason: '.' is not valid under any of the given schemas",
+   "extras p8:L37 S12_OTHER | 마기타유해영향 | . | 제품은광화학반응에의한오존생…: .reason: '.' is not valid under any of the given schemas"
+  ],
+  "requests": [
+   {
+    "mode": "rows",
+    "finish_reason": "stop",
+    "usage": {
+     "prompt_tokens": 4084,
+     "completion_tokens": 1466,
+     "total_tokens": 5550
+    },
+    "seconds": 19.195,
+    "chars": 2538,
+    "whitespace": 756,
+    "head": "### ecotox\ncomp_name | comp_cas | endpoint | descriptor | q | species | duration_value | duration_unit | guideline | data_source | statements | status | line\n |  | ECO_CRUST | LC50 | 4.9 mg/l | 물벼룩 | 48 | hr |  |  |  | 값있음 | p8:L20\n |  | ECO_FISH | LC50 | 0.61 mg/l | 잉어과작은물고기 | 96 | hr |  |  |  | 값있음 | p8:L21\n |  | ECO_PERSIST | 결과기술 | 장기적영향에의해수생생물에매우유독함 |  |  |  |  |  |  |  | 값있음 | p8:L17\n |  | ECO_PERSIST | 결과기술 | 수생환경유해성급성, 비전문가가취급하거나폐기하는경우환경적유해성을배제할수없음 |  |  |  |  |  |  |  | 값있음 | p8:L22\n | ",
+    "tail": "  |  |  | p8:L29\nS12_OTHER | (mgO2/g) |  |  |  |  |  |  | p8:L30\nS12_OTHER | 밀폐병시험 | (% 28 일이내분해 ) | 42 ( 계산데이터 ) |  |  |  |  | p8:L31\nS12_OTHER | - TOC (mg C/g) | 849 ( 계산데이터 ) |  |  |  |  |  | p8:L32\nS12_OTHER | 다생물농축성 | . |  |  |  |  |  | p8:L33\nS12_OTHER | 옥탄올물분배계수 | / | log Kow |  |  |  |  | p8:L34\nS12_OTHER | 나프탈렌 | 3.3 |  |  |  |  |  | p8:L35\nS12_OTHER | 라토양이동성 | . | 본제품에관한이용가능한자료가없음 | . |  |  |  | p8:L36\nS12_OTHER | 마기타유해영향 | . | 제품은광화학반응에의한오존생성가능성이있는휘발성유기화합물이함유됨 , . |  |  |  |  | p8:L37"
+   }
+  ],
+  "seconds": 19.217,
+  "check_problems": []
+ }
+}

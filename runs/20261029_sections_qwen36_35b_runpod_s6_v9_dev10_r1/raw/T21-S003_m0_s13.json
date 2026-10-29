@@ -1,0 +1,66 @@
+{
+ "doc_id": "T21-S003",
+ "msds_index": 0,
+ "section": 13,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S13_METHOD",
+    "title_raw": "가.폐기방법",
+    "start": "p4:L43",
+    "end": "p4:L43"
+   },
+   {
+    "item_code": "S13_CAUTION",
+    "title_raw": "나.폐기시 주의사항",
+    "start": "p4:L44",
+    "end": "p4:L44"
+   }
+  ],
+  "extras": []
+ },
+ "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S13_METHOD\",\n      \"title_raw\": \"가.폐기방법\",\n      \"start\": \"p4:L43\",\n      \"end\": \"p4:L43\"\n    },\n    {\n      \"item_code\": \"S13_CAUTION\",\n      \"title_raw\": \"나.폐기시 주의사항\",\n      \"start\": \"p4:L44\",\n      \"end\": \"p4:L44\"\n    }\n  ],\n  \"extras\": []\n}",
+ "mode": "json_object",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 3321,
+  "completion_tokens": 134,
+  "total_tokens": 3455
+ },
+ "attempts": 2,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "length",
+   "usage": {
+    "prompt_tokens": 1946,
+    "completion_tokens": 8192,
+    "total_tokens": 10138
+   },
+   "seconds": 59.32,
+   "chars": 16460,
+   "whitespace": 16145,
+   "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S13_METHOD\",\n      \"title_raw\": \"가.폐기방법\",\n      \"start\": \"L43\",\n      \"end\": \"L43\"\n    },\n    {\n      \"item_code\": \"S13_CAUTION\",\n      \"title_raw\": \"나.폐기시 주의사항\",\n      \"start\": \"L44\",\n      \"end\": \"L44\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S13_METHOD\",\n      \"title_raw\": \"나.폐기시 주의사항\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"key\": \"폐기시 주의사항\",\n          \"value\": \"폐기물관리법에 명시된 경우 규정에 명시된 주의사항을 고려하시오.\"\n       \n  ",
+   "tail": "   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n   \n"
+  },
+  {
+   "mode": "json_object",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 3321,
+    "completion_tokens": 134,
+    "total_tokens": 3455
+   },
+   "seconds": 2.089,
+   "chars": 289,
+   "whitespace": 97,
+   "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S13_METHOD\",\n      \"title_raw\": \"가.폐기방법\",\n      \"start\": \"p4:L43\",\n      \"end\": \"p4:L43\"\n    },\n    {\n      \"item_code\": \"S13_CAUTION\",\n      \"title_raw\": \"나.폐기시 주의사항\",\n      \"start\": \"p4:L44\",\n      \"end\": \"p4:L44\"\n    }\n  ],\n  \"extras\": []\n}",
+   "tail": ""
+  }
+ ],
+ "seconds": 61.411,
+ "check_problems": []
+}
