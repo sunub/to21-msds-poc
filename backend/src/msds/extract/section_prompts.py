@@ -21,7 +21,7 @@ from msds.extract.inputs import Line, render_lines
 from msds.extract.prompt_builder import _BASE_RULES, _code_table, _field_rows, _referenced_rules, _rows, _rules
 from msds.extract.section_specs import SectionSpec, load_specs, response_schema
 
-SECTION_PROMPT_VERSION = "s3"   # 안내문 내용을 고치면 올린다. 실행 기록에 남는다
+SECTION_PROMPT_VERSION = "s4"   # 안내문 내용을 고치면 올린다. 실행 기록에 남는다. s3은 10/28에 되돌린 extras 규칙판이 썼다
 
 _COMMON = """너는 한국어 물질안전보건자료(MSDS)의 {no}항 "{title}"만 읽어 정해진 JSON 형식으로 옮기는 추출기다. 해석하거나 추측하지 않는다.
 - 원문에 적힌 행만 쓴다. 원문에 없는 행을 만들지 않는다. 값이 "자료없음", "해당없음"처럼 적힌 행도 원문에 있으면 행으로 쓰고, 그 글자를 숫자 묶음의 `raw`에 그대로 둔다.

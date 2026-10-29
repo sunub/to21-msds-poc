@@ -396,6 +396,6 @@ def _described(node, names):
 
 
 @pytest.mark.parametrize("no", NOS)
-def test_s3_own_descriptions_do_not_say_null(no):
+def test_s4_own_descriptions_do_not_say_null(no):
     for name, desc in _described(ss.response_schema(no), {"comp_name", "comp_cas", "lines"}):
         assert "null" not in desc, (no, name)
