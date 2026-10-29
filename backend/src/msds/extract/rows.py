@@ -8,6 +8,8 @@ parse_rows가 지금의 중간 형식 dict(section_specs.response_schema)로 바
 - 숫자 묶음(QM)은 열 하나다. 모델은 원문 표기대로 쓰고 parse_qm이 R04·R06·R08대로 나눈다.
 - 목록 칸은 '; '로 나누고, 서술 문장(statements)은 그 행의 줄을 근거로 단다. 조건(cond)은 '칸=값; 칸=값'이다.
 - 행마다 그 행의 스키마로 검증한다. 틀린 줄은 버리고 줄 단위 오류로 돌려준다. 실행기가 재추출 피드백에 넣는다.
+- 선택지(enum) 열은 표마다 열 이름 줄 아래에 스키마의 값 목록을 적는다. 파서는 공백을 지운 값과
+  '해당없음' → '비해당'만 맞추고, 그 밖의 값은 검증 오류로 버린다 (rows-tune, ADR-020).
 예시 행은 직접 만든 가짜 값이다 (D-43).
 """
 from __future__ import annotations
@@ -25,6 +27,10 @@ _LINE_ID = re.compile(r"p\d+:L\d+")
 _HEADER = re.compile(r"^#+\s*(\S*)")
 _SCALARS = ("string", "number", "integer", "boolean")
 _EXCERPT = 40         # 오류에 적는 줄 앞부분 글자 수
+_CHOICES_MAX = 12     # 선택지가 이보다 많고 칸 설명이 코드표를 가리키면 목록 대신 [코드표]를 가리킨다
+_CODE_TABLE_REF = re.compile(r"\bC\d\b")             # 칸 설명의 코드표 표시. 예: '[필수] 특성 코드 — C4'
+_CHOICE_LINE = re.compile(r"^- `[^`]+`: [^|]*$")     # 안내문의 선택지 줄. 모델이 따라 써도 행으로 읽지 않는다
+_NO_VALUE = ("자료없음", "해당없음", "미기재")       # 값 없는 행의 상태 (expand._NO_VALUE와 같다)
 
 
 # ── 숫자 묶음 ──────────────────────────────────────────
@@ -112,6 +118,11 @@ def _resolve(node: dict, defs: dict) -> dict:
     return defs[b["$ref"].rsplit("/", 1)[1]] if "$ref" in b else b
 
 
+def _choices(node: dict, defs: dict) -> list[str] | None:
+    """선택지(enum) 칸이면 그 값 목록."""
+    return _resolve(node, defs).get("enum")
+
+
 def _kind(node: dict, defs: dict, path: str) -> str:
     """칸 하나를 글 한 칸으로 쓰는 방식: qm, pairs(칸=값 목록), stmts, list, 또는 스칼라 형 이름."""
     if _branch(node).get("$ref") == "#/$defs/QM":
@@ -158,8 +169,9 @@ _GUIDE = """JSON을 쓰지 않는다. 아래 표마다 `### 표 이름` 줄을 �
 - 칸은 ` | `로 나눈다. 열의 순서와 수는 열 이름 줄과 같다. 값이 없는 칸은 비워 두되 ` | `는 남긴다.
 - 값 안에 `|`가 있으면 `/`로 바꿔 쓴다.
 - 줄 열(`line`, 서술 항목은 `start`·`end`)에는 입력 줄 앞의 줄 번호를 보이는 그대로 쓴다. 예: `p2:L23`
-- 원문에 값 없이 "자료없음", "해당없음"처럼 적힌 행도 빠뜨리지 말고 쓴다. 그 글자는 숫자 묶음 열이 있으면 거기에 쓰고, 상태 열(`status`)이 있으면 상태 열에 `자료없음`·`해당없음`·`미기재` 중 원문의 것을 쓴다.
-- 숫자 묶음 열({qm})에는 부등호·숫자·단위를 원문 표기대로 쓴다. 나누기는 코드가 한다. 단위가 표 머리글에만 있으면 값 뒤에 붙인다. 예: `20 ~ 30 %`, `> 2000 mg/kg`, `약 1.2 g/cm3`
+- 원문에 값 없이 `자료없음`·`해당없음`·`미기재`로 적힌 행도 빠뜨리지 말고 쓴다. 그 글자는 숫자 묶음 열이 있으면 거기에 쓰고, 상태 열(`status`)이 있으면 상태 열에도 원문의 것을 쓴다. 그 글자가 선택지에 있는 열이 아니면 다른 열(출처·비고 등)에는 쓰지 않는다.
+- 숫자 묶음 열({qm})에는 부등호·숫자·단위를 한 칸에 원문 표기대로 쓴다. 나누기는 코드가 한다. 단위를 다른 열로 옮기지 않는다. 단위가 표 머리글에만 있으면 값 뒤에 붙인다. 예: `20 ~ 30 %`, `> 2000 mg/kg`, `약 1.2 g/cm3`, `-210 ℃`
+- 선택지 열에는 목록의 값만 쓴다. 목록은 표마다 열 이름 줄 아래에 열마다 한 줄씩 있다(응답에는 쓰지 않는다). `[코드표]의 코드만`인 열은 [코드표]에 있는 코드만 쓴다. 맞는 값이 없으면 비워 둔다.
 - 쓸 행이 없는 표는 `### 표 이름` 줄만 쓴다.
 - 아래 예시 행의 값은 형식만 보이는 가짜다. 원문에 있는 값만 쓴다."""
 
@@ -234,25 +246,47 @@ def _examples(t: _Table) -> list[dict]:
     return rows
 
 
+def _choice_lines(t: _Table) -> list[str]:
+    """열 이름 줄 아래에 붙일 선택지 줄: 선택지 열마다 '- `열`: 값1 / 값2'. 값은 스키마에서 읽는다.
+    선택지가 _CHOICES_MAX개를 넘고 칸 설명이 코드표를 가리키면 목록 대신 '[코드표]의 코드만'이다."""
+    out = []
+    for c in t.columns:
+        node = t.schema["properties"].get(c, {})
+        if values := _choices(node, t.schema["$defs"]):
+            to_table = len(values) > _CHOICES_MAX and _CODE_TABLE_REF.search(node.get("description", ""))
+            out.append(f"- `{c}`: " + ("[코드표]의 코드만" if to_table else " / ".join(values)))
+    return out
+
+
 def rows_guide(no: int) -> str:
-    """안내문 끝에 붙일 [응답 형식]: 쓰는 규칙과, 표마다 '### 표 이름' 줄 + 열 이름 줄 + 예시 행(가짜 값)."""
+    """안내문 끝에 붙일 [응답 형식]: 쓰는 규칙과, 표마다 '### 표 이름' 줄 + 열 이름 줄 + 선택지 줄 + 예시 행(가짜 값)."""
     tables = _tables(no)
 
     def cols(*kinds: str) -> str:
         return ", ".join(dict.fromkeys(f"`{c}`" for t in tables for c in t.columns if t.kinds[c] in kinds))
+
+    def no_hae_dang_eopseum(t: _Table, c: str) -> bool:
+        values = _choices(t.schema["properties"].get(c, {}), t.schema["$defs"]) or []
+        return "비해당" in values and "해당없음" not in values
 
     out = [_GUIDE.format(qm=cols("qm"))]
     if multi := cols("list", "stmts"):
         out.append(f"- 값 여러 개를 담는 열({multi})은 값마다 `; `로 나눈다.")
     if flags := cols("boolean"):
         out.append(f"- 참/거짓 열({flags})에는 `true` 또는 `false`를 쓴다.")
+    if nonap := ", ".join(dict.fromkeys(f"`{c}`" for t in tables for c in t.columns if no_hae_dang_eopseum(t, c))):
+        out.append(f"- 원문이 `해당 없음`·`해당없음`이어도 선택지에 `비해당`만 있는 열({nonap})에는 `비해당`을 쓴다.")
     for t in tables:
         for c in t.columns:
             if t.kinds[c] == "pairs":
                 fields = _resolve(t.schema["properties"][c], t.schema["$defs"])["properties"]
-                out.append(f"- `{c}` 열에는 `칸=값`을 `; `로 이어 쓴다. 칸: {', '.join(fields)}")
+                out.append(f"- `{c}` 열에는 `칸=값`을 `; `로 이어 쓴다. 칸: {', '.join(fields)}. "
+                           "측정 조건(온도·압력 등)만 쓰고, 값의 단위는 숫자 묶음 열에 값과 함께 쓴다.")
+    if any(t.name == "narratives" for t in tables):
+        out.append("- 서술 항목 코드(`narratives`의 `item_code`)에 속하는 소제목과 그 아래 문장은 `extras`에 쓰지 않는다. "
+                   "그 항목의 `start`~`end`에 들어간다. `extras`에는 어느 표·열·코드에도 맞지 않는 제목이 붙은 값만 쓴다.")
     for t in tables:
-        out += ["", f"### {t.name}", " | ".join(t.columns),
+        out += ["", f"### {t.name}", " | ".join(t.columns), *_choice_lines(t),
                 *(" | ".join(r.get(c, "") for c in t.columns) for r in _examples(t))]
     return "\n".join(out)
 
@@ -269,6 +303,16 @@ def _where(table: str, s: str) -> str:
     """오류 앞머리: 표 이름, 그 줄의 줄 번호, 줄 앞부분."""
     excerpt = s if len(s) <= _EXCERPT else s[:_EXCERPT] + "…"
     return " ".join([table, *_LINE_ID.findall(s)[-1:], excerpt])
+
+
+def _choice(text: str, values: list[str]) -> str:
+    """선택지 열 값: 공백을 지운 값이 선택지에 있으면 그 값. '해당없음'은 선택지에 없고 '비해당'이 있으면 '비해당'.
+    그 밖은 그대로 돌려줘 행 검증이 잡는다. 예: '해당 없음' → 14항 용기등급 '해당없음', 15항 해당 여부 '비해당'"""
+    compact = {re.sub(r"\s+", "", v): v for v in values}
+    key = re.sub(r"\s+", "", text)
+    if key == "해당없음" and key not in compact and "비해당" in compact:
+        return compact["비해당"]
+    return compact.get(key, text)
 
 
 def _value(text: str, kind: str, node: dict, defs: dict, line: str | None):
@@ -297,6 +341,8 @@ def _value(text: str, kind: str, node: dict, defs: dict, line: str | None):
         if text.lower() not in ("true", "false"):
             raise ValueError(f"true 또는 false가 아님 '{text}'")
         return text.lower() == "true"
+    if values := _choices(node, defs):
+        return _choice(text, values)
     return text
 
 
@@ -315,6 +361,9 @@ def _row(t: _Table, cells: list[str]) -> tuple[dict | None, str | None]:
             row[c] = _value(values[c], t.kinds[c], t.schema["properties"].get(c, {}), t.schema["$defs"], line)
         except ValueError as e:
             return None, f"{c} 열: {e}"
+    qm = next((c for c in t.columns if t.kinds[c] == "qm"), None)   # 값 열. 11항 converted(환산값)는 둘째라 채우지 않는다
+    if qm and row[qm] is None and row.get("status") in _NO_VALUE:  # JSON 경로처럼 값 없는 행의 raw에 상태 글자
+        row[qm] = {"raw": row["status"]}
     if t.is_object:
         del row["line"]
         row["lines"] = {k: line for k, v in row.items() if v is not None}
@@ -326,10 +375,12 @@ def parse_rows(text: str, no: int) -> tuple[dict, list[str]]:
     """모델 응답 글을 {표 이름: [행 dict, ...], ..., "extras": [...]}로. 둘째 값은 줄 단위 오류 목록.
     - '### 표 이름' 머리글로 표를 나눈다. 머리글이 하나라도 있으면 응답 스키마의 모든 표를 담는다
       (쓰지 않은 표는 [], 객체 칸은 {"lines": {}}). 머리글이 하나도 없으면 오류 하나와 빈 dict.
-    - 열 이름 줄, 빈 줄, 코드 울타리(```), 마크다운 구분 줄(---|---)은 건너뛴다. 첫 머리글 앞의 글은 버린다.
+    - 열 이름 줄, 안내문의 선택지 줄('- `열`: 값 / 값'), 빈 줄, 코드 울타리(```), 마크다운 구분 줄(---|---)은
+      건너뛴다. 첫 머리글 앞의 글은 버린다.
     - 행은 '|'로 쪼개고 앞뒤 공백을 뗀다. 열 수가 다르거나, 줄 열이 'p2:L23' 모양이 아니거나, 형이 안 맞거나,
       그 행 스키마 검증에 실패한 줄은 버리고 오류 "<표> p?:L? <줄 앞부분>: <문제>"를 남긴다.
-    - 빈 칸은 None(목록 칸은 []). 숫자 묶음은 parse_qm, 숫자 칸은 숫자, enum 칸은 글자 그대로."""
+    - 빈 칸은 None(목록 칸은 []). 숫자 묶음은 parse_qm, 숫자 칸은 숫자, enum 칸은 _choice로 맞춘 글자.
+    - 상태 열이 자료없음·해당없음·미기재이고 값 열(첫 숫자 묶음 열)이 비면 값 열을 {"raw": 상태}로 채운다."""
     tables = {t.name: t for t in _tables(no)}
     out: dict | None = None
     errors: list[str] = []
@@ -347,7 +398,7 @@ def parse_rows(text: str, no: int) -> tuple[dict, list[str]]:
         if current is None:
             continue
         cells = _cells(s)
-        if cells == list(current.columns):
+        if cells == list(current.columns) or _CHOICE_LINE.match(s):
             continue
         row, problem = _row(current, cells)
         if problem is None and current.is_object and out[current.name] != {"lines": {}}:

@@ -325,3 +325,121 @@ def test_rows_guide_rules():
 def test_rows_guide_only_this_section_tables():
     g = rw.rows_guide(12)
     assert "### ecotox\n" in g and "### toxicity\n" not in g and "### composition\n" not in g
+
+
+# ── 선택지 열 (rows-tune step 0) ───────────────────────
+
+def _enum(no: int, table: str, col: str) -> list[str]:
+    """응답 스키마에서 읽은 그 열의 선택지."""
+    t = next(t for t in rw._tables(no) if t.name == table)
+    return rw._resolve(t.schema["properties"][col], t.schema["$defs"])["enum"]
+
+
+def _choice_line(no: int, col: str) -> str:
+    return next(ln for ln in rw.rows_guide(no).splitlines() if ln.startswith(f"- `{col}`: "))
+
+
+def test_rows_guide_enum_applicable_15():
+    line = _choice_line(15, "applicable")
+    values = line.split(": ", 1)[1].split(" / ")
+    assert "해당" in values and "비해당" in values
+    assert values == _enum(15, "regulations", "applicable")      # 값은 스키마에서 읽는다
+
+
+def test_rows_guide_enum_long_list_points_to_code_table():
+    line = _choice_line(9, "prop_code")
+    assert line == "- `prop_code`: [코드표]의 코드만"
+    assert not any(code in line for code in _enum(9, "physchem", "prop_code"))
+    assert _choice_line(15, "item_code") == "- `item_code`: [코드표]의 코드만"
+    assert _choice_line(11, "endpoint") == "- `endpoint`: [코드표]의 코드만"
+
+
+def test_rows_guide_enum_long_list_without_code_table_is_listed():
+    """12항 지표는 선택지가 많아도 코드표에 없어 목록으로 쓴다."""
+    values = _enum(12, "ecotox", "descriptor")
+    assert len(values) > 12
+    assert _choice_line(12, "descriptor") == "- `descriptor`: " + " / ".join(values)
+
+
+@pytest.mark.parametrize("no", rw.ROWS_SECTIONS_DEFAULT)
+def test_rows_guide_enum_lines_under_column_line(no):
+    """표마다 열 이름 줄 바로 아래, 예시 행 위에 선택지 열마다 한 줄씩 열 순서대로 둔다."""
+    lines = rw.rows_guide(no).splitlines()
+    for t in rw._tables(no):
+        i = lines.index(f"### {t.name}") + 2
+        enum_cols = [c for c in t.columns
+                     if "enum" in rw._resolve(t.schema["properties"].get(c, {}), t.schema["$defs"])]
+        block = lines[i:i + len(enum_cols)]
+        assert [ln.split("`")[1] for ln in block] == enum_cols, t.name
+        assert all(ln.startswith("- `") for ln in block)
+        assert " | " in lines[i + len(enum_cols)]                    # 그다음은 예시 행
+
+
+def test_rows_guide_enum_rules():
+    g = rw.rows_guide(15)
+    assert "선택지" in g and "목록의 값만" in g
+    assert any("`비해당`" in ln and "`applicable`" in ln and "`해당 없음`" in ln for ln in g.splitlines())
+    assert "`-210 ℃`" in g and "다른 열" in g
+    assert "extras" in g and "start" in g
+    g9 = rw.rows_guide(9)
+    assert any(ln.startswith("- `cond` 열에는") and "측정 조건" in ln for ln in g9.splitlines())
+    assert "`비해당`을 쓴다" not in rw.rows_guide(11)          # 비해당만 있는 열이 없는 항
+    assert "`start`~`end`" not in rw.rows_guide(9)             # 서술 항목이 없는 항
+
+
+def test_parse_rows_enum_hae_dang_eopseum_to_bihaedang():
+    text = table(15, "regulations",
+                 row(15, "regulations", law="OSH", item_code="OSH_MEASURE", **COMP, applicable="해당 없음",
+                     line="p9:L3"),
+                 row(15, "regulations", law="OSH", item_code="OSH_MEASURE", **COMP, applicable=" 해당없음 ",
+                     line="p9:L4"))
+    parsed, errors = rw.parse_rows(text, 15)
+    assert errors == []
+    expected = "해당없음" if "해당없음" in _enum(15, "regulations", "applicable") else "비해당"
+    assert [r["applicable"] for r in parsed["regulations"]] == [expected, expected]
+    assert validate(parsed, response_schema(15)) == []
+
+
+def test_parse_rows_enum_spaces_removed_when_in_choices():
+    """선택지에 해당없음이 있는 열은 공백만 지운다 (14항 용기등급)."""
+    text = table(14, "transport",
+                 row(14, "transport", mode="해상", regulated="false", packing_group="해당 없음",
+                     marine_pollutant="해당없음", line="p6:L3"))
+    parsed, errors = rw.parse_rows(text, 14)
+    assert errors == []
+    tr = parsed["transport"][0]
+    assert tr["packing_group"] == "해당없음" and tr["marine_pollutant"] == "비해당"
+
+
+def test_parse_rows_enum_out_of_choices_is_error():
+    text = table(15, "regulations",
+                 row(15, "regulations", law="OSH", item_code="OSH_MEASURE", **COMP, applicable="값있음",
+                     line="p9:L3"))
+    parsed, errors = rw.parse_rows(text, 15)
+    assert parsed["regulations"] == []
+    assert len(errors) == 1 and "p9:L3" in errors[0] and "applicable" in errors[0]
+
+
+def test_parse_rows_enum_status_fills_blank_q():
+    text = table(11, "toxicity",
+                 row(11, "toxicity", **COMP, endpoint="TX_SKIN", status="자료없음", line="p5:L5"),
+                 row(11, "toxicity", **COMP, endpoint="TX_EYE", status="해당 없음", line="p5:L6"),
+                 row(11, "toxicity", **COMP, endpoint="TX_ORAL", q="자료없음", status="미기재", line="p5:L7"),
+                 row(11, "toxicity", **COMP, endpoint="TX_RESP_SENS", status="값있음", line="p5:L8"))
+    parsed, errors = rw.parse_rows(text, 11)
+    assert errors == []
+    skin, eye, oral, sens = parsed["toxicity"]
+    assert skin["q"] == {"raw": "자료없음"} and skin["converted"] is None     # 환산값 열은 채우지 않는다
+    assert eye["status"] == "해당없음" and eye["q"] == {"raw": "해당없음"}
+    assert oral["q"] == {"raw": "자료없음"}                                   # 쓴 값은 그대로
+    assert sens["q"] is None
+    assert validate(parsed, response_schema(11)) == []
+
+
+def test_parse_rows_skips_guide_enum_lines():
+    """모델이 안내문의 선택지 줄을 따라 써도 행으로 읽지 않는다."""
+    text = "\n".join([table(15, "regulations"), _choice_line(15, "applicable"), _choice_line(15, "item_code"),
+                      row(15, "regulations", law="OSH", item_code="OSH_MEASURE", **COMP, applicable="해당",
+                          line="p9:L3")])
+    parsed, errors = rw.parse_rows(text, 15)
+    assert errors == [] and len(parsed["regulations"]) == 1
