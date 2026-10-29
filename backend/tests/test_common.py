@@ -1,6 +1,8 @@
 """공용 코드 시험 (이미 동작해야 하는 것)."""
 import copy
 
+import pytest
+
 from msds.checks.validator import run_to21_validator
 from msds.common.align import item_path_map, keyed_flatten, to_keyed, unflatten_keyed
 from msds.common.bundles import load_bundles
@@ -94,3 +96,17 @@ def test_page_parts_input_mode(tmp_path):
     assert texts[0] == "=== 쪽 1 ===\n[글자 없이 이미지만 보고 읽으세요]"
     assert texts[1] == both[1] == "=== 쪽 2 ===\n[텍스트층 없음 또는 깨짐: 이미지만 보고 읽으세요]"
     assert sum(x["type"] == "image_url" for x in only) == 2
+
+
+def test_pick_pages():
+    """부분 시험(--pages): 고른 쪽만 넣고, 모델 안내에 어느 쪽인지 적는다. 안 고르면 지금과 같다."""
+    from msds.extract.runner import parse_pages, pick_pages
+
+    assert parse_pages("2-4,6") == [2, 3, 4, 6]
+    pages = [{"page": n} for n in (1, 2, 3)]
+    assert pick_pages(pages, None) == (pages, "아래는 문서 전체 쪽이다.")
+    got, note = pick_pages(pages, [3, 2])
+    assert [p["page"] for p in got] == [2, 3]
+    assert note == "아래는 문서의 2, 3쪽이다 (일부 쪽만 넣었다)."
+    with pytest.raises(ValueError):
+        pick_pages(pages, [4])
