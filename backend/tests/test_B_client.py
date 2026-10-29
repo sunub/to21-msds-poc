@@ -193,3 +193,143 @@ def test_other_tag_keeps_system_and_json_schema():
     assert kw["messages"][1] == {"role": "user", "content": USER}
     assert kw["response_format"]["type"] == "json_schema"
     assert "extra_body" not in kw
+
+
+# ── 필수 칸 줄이기 (require_all, ADR-017) ──────────────
+
+# 직접 만든 작은 스키마. 행은 line만, 숫자 묶음은 raw만, 객체 칸은 lines만 필수다.
+RELAX_SCHEMA = {
+    "type": "object",
+    "$defs": {
+        "QM": {"type": "object",
+               "properties": {"raw": {"type": ["string", "null"]}, "value": {"type": ["number", "null"]},
+                              "unit": {"type": ["string", "null"]}},
+               "required": ["raw"]},
+    },
+    "properties": {
+        "info": {"type": "object",
+                 "properties": {"kind": {"type": ["string", "null"], "x-to21": "메모"},
+                                "lines": {"type": "object", "properties": {"kind": {"type": ["string", "null"]}}}},
+                 "required": ["lines"]},
+        "rows": {"type": "array",
+                 "items": {"type": "object",
+                           "properties": {"a": {"type": ["string", "null"]}, "b": {"$ref": "#/$defs/QM"},
+                                          "line": {"type": "string"}},
+                           "required": ["line"]}},
+    },
+    "required": ["rows"],
+}
+RELAX_OK = '{"rows": [{"line": "p1:L1"}]}'
+
+
+def relaxed_schema() -> dict:
+    from msds.extract.client import relax_required
+    from msds.common.schema import to_strict
+    return relax_required(to_strict(RELAX_SCHEMA), RELAX_SCHEMA)
+
+
+def mode_cfg(*modes: str) -> dict:
+    return dict(load_model_config("qwen3_30b_a3b_rngd"), structured=list(modes))
+
+
+def test_require_all_default_sends_to_strict():
+    from msds.common.schema import to_strict
+    client, calls = make_client(mode_cfg("json_schema"), [resp(RELAX_OK)])
+    res = client.call(SYSTEM, USER, RELAX_SCHEMA, "sec03")
+    assert res.ok
+    sent = calls[0]["response_format"]["json_schema"]["schema"]
+    assert sent == to_strict(RELAX_SCHEMA)
+    assert sent["properties"]["rows"]["items"]["required"] == ["a", "b", "line"]
+
+
+@pytest.mark.parametrize("mode", ["json_schema", "json_schema_compact", "json_object", "none"])
+def test_require_all_true_same_request_as_default(mode):
+    """require_all=True는 지금 요청과 글자 하나까지 같다."""
+    client, calls = make_client(mode_cfg(mode), [resp(RELAX_OK), resp(RELAX_OK)])
+    client.call(SYSTEM, USER, RELAX_SCHEMA, "sec03")
+    client.call(SYSTEM, USER, RELAX_SCHEMA, "sec03", require_all=True)
+    assert json.dumps(calls[0], ensure_ascii=False) == json.dumps(calls[1], ensure_ascii=False)
+
+
+def test_require_all_false_json_schema_keeps_original_required():
+    client, calls = make_client(mode_cfg("json_schema"), [resp(RELAX_OK)])
+    client.call(SYSTEM, USER, RELAX_SCHEMA, "sec03", require_all=False)
+    sent = calls[0]["response_format"]["json_schema"]["schema"]
+    assert sent == relaxed_schema()
+    assert sent["required"] == ["rows"]
+    info = sent["properties"]["info"]
+    assert info["required"] == ["lines"]                       # 중첩 객체
+    assert info["properties"]["lines"]["required"] == []       # 원래 required가 없는 객체
+    row = sent["properties"]["rows"]["items"]
+    assert row["required"] == ["line"]                         # 객체 배열의 행
+    assert sent["$defs"]["QM"]["required"] == ["raw"]          # $defs 안 객체
+    for obj in (sent, info, info["properties"]["lines"], row, sent["$defs"]["QM"]):
+        assert obj["additionalProperties"] is False
+    assert "x-to21" not in info["properties"]["kind"]          # to_strict가 뺀 키는 그대로 빠져 있다
+    assert calls[0]["response_format"]["json_schema"]["strict"] is True
+
+
+def test_require_all_false_json_schema_compact():
+    client, calls = make_client(mode_cfg("json_schema_compact"), [resp(RELAX_OK)])
+    res = client.call(SYSTEM, USER, RELAX_SCHEMA, "sec03", require_all=False)
+    assert res.ok
+    so = calls[0]["extra_body"]["structured_outputs"]
+    assert so == {"json": relaxed_schema(), "disable_any_whitespace": True}
+    assert so["json"]["properties"]["rows"]["items"]["required"] == ["line"]
+    assert "response_format" not in calls[0]
+
+
+@pytest.mark.parametrize("mode", ["json_object", "none"])
+def test_require_all_false_schema_hint(mode):
+    from msds.common.schema import to_strict
+    client, calls = make_client(mode_cfg(mode), [resp(RELAX_OK)])
+    client.call(SYSTEM, USER, RELAX_SCHEMA, "sec03", require_all=False)
+    sys_text = calls[0]["messages"][0]["content"]
+    assert sys_text.startswith(SYSTEM)
+    assert json.dumps(relaxed_schema(), ensure_ascii=False) in sys_text
+    assert json.dumps(to_strict(RELAX_SCHEMA), ensure_ascii=False) not in sys_text
+
+
+def test_require_all_false_response_without_optional_fields_ok():
+    client, calls = make_client(mode_cfg("json_schema"), [resp(RELAX_OK)])
+    res = client.call(SYSTEM, USER, RELAX_SCHEMA, "sec03", require_all=False)
+    assert res.ok and res.errors == []
+    assert res.parsed == {"rows": [{"line": "p1:L1"}]}
+    assert len(calls) == 1
+
+
+def test_require_all_false_still_validates_with_original_schema():
+    """줄인 스키마를 보내도 검증은 원래 스키마로 한다. 원래 필수 칸(line)이 빠지면 다시 요청한다."""
+    client, calls = make_client(mode_cfg("json_schema"), [resp('{"rows": [{"a": "x"}]}'), resp(RELAX_OK)])
+    res = client.call(SYSTEM, USER, RELAX_SCHEMA, "sec03", require_all=False)
+    assert res.ok
+    assert len(calls) == 2 and res.attempts == 2
+    retry_note = calls[1]["messages"][-1]["content"]
+    assert "형식에 맞지 않습니다" in retry_note and "line" in retry_note
+
+
+def test_require_all_relax_required_new_copy():
+    from msds.common.schema import to_strict
+    from msds.extract.client import relax_required
+    strict = to_strict(RELAX_SCHEMA)
+    before = json.dumps(strict, ensure_ascii=False)
+    original = json.dumps(RELAX_SCHEMA, ensure_ascii=False)
+    out = relax_required(strict, RELAX_SCHEMA)
+    assert json.dumps(strict, ensure_ascii=False) == before
+    assert json.dumps(RELAX_SCHEMA, ensure_ascii=False) == original
+    assert out is not strict
+    assert out["properties"]["rows"]["items"] is not strict["properties"]["rows"]["items"]
+
+
+def test_require_all_relax_required_drops_names_not_in_properties():
+    """to_strict가 칸 이름째 뺀 칸(예: title)은 required에서도 뺀다."""
+    from msds.common.schema import to_strict
+    from msds.extract.client import relax_required
+    schema = {"type": "object", "properties": {"title": {"type": "string"}, "name": {"type": "string"},
+                                               "note": {"type": ["string", "null"]}},
+              "required": ["title", "name"]}
+    strict = to_strict(schema)
+    assert "title" not in strict["properties"]
+    out = relax_required(strict, schema)
+    assert out["required"] == ["name"]
+    assert out["additionalProperties"] is False
