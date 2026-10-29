@@ -1,0 +1,121 @@
+{
+ "doc_id": "T21-S003",
+ "msds_index": 0,
+ "section": 12,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "ecotox": [
+   {
+    "endpoint": "ECO_FISH",
+    "descriptor": "EC50",
+    "status": "자료없음",
+    "line": "p4:L31"
+   },
+   {
+    "endpoint": "ECO_CRUST",
+    "descriptor": "EC50",
+    "status": "자료없음",
+    "line": "p4:L32"
+   },
+   {
+    "endpoint": "ECO_ALGAE",
+    "descriptor": "EC50",
+    "status": "자료없음",
+    "line": "p4:L33"
+   },
+   {
+    "endpoint": "ECO_PERSIST",
+    "descriptor": "logKow",
+    "status": "값있음",
+    "line": "p4:L35"
+   }
+  ],
+  "narratives": [
+   {
+    "item_code": "S12_OTHER",
+    "title_raw": "마.기타 유해 영향",
+    "start": "p4:L41",
+    "end": "p4:L41"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S12_OTHER",
+    "title_raw": "다.생물농축성",
+    "reason": "필드없음",
+    "q": {
+     "raw": "자료없음"
+    },
+    "statements": [
+     {
+      "key": "농축성",
+      "value": "자료없음",
+      "line": "p4:L38"
+     }
+    ],
+    "line": "p4:L38"
+   },
+   {
+    "after_item": "S12_OTHER",
+    "title_raw": "라.토양이동성",
+    "reason": "필드없음",
+    "q": {
+     "raw": "자료없음"
+    },
+    "statements": [
+     {
+      "key": "토양이동성",
+      "value": "자료없음",
+      "line": "p4:L40"
+     }
+    ],
+    "line": "p4:L40"
+   },
+   {
+    "after_item": "S12_OTHER",
+    "title_raw": "다.생물농축성",
+    "reason": "필드없음",
+    "q": {
+     "raw": "생분해성 자료없음"
+    },
+    "statements": [
+     {
+      "key": "생분해성",
+      "value": "자료없음",
+      "line": "p4:L39"
+     }
+    ],
+    "line": "p4:L39"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"ecotox\": [\n    {\n      \"endpoint\": \"ECO_FISH\",\n      \"descriptor\": \"EC50\",\n      \"status\": \"자료없음\",\n      \"line\": \"p4:L31\"\n    },\n    {\n      \"endpoint\": \"ECO_CRUST\",\n      \"descriptor\": \"EC50\",\n      \"status\": \"자료없음\",\n      \"line\": \"p4:L32\"\n    },\n    {\n      \"endpoint\": \"ECO_ALGAE\",\n      \"descriptor\": \"EC50\",\n      \"status\": \"자료없음\",\n      \"line\": \"p4:L33\"\n    },\n    {\n      \"endpoint\": \"ECO_PERSIST\",\n      \"descriptor\": \"logKow\",\n      \"status\": \"값있음\",\n      \"line\": \"p4:L35\"\n    }\n  ],\n  \"narratives\": [\n    {\n      \"item_code\": \"S12_OTHER\",\n      \"title_raw\": \"마.기타 유해 영향\",\n      \"start\": \"p4:L41\",\n      \"end\": \"p4:L41\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S12_OTHER\",\n      \"title_raw\": \"다.생물농축성\",\n      \"reason\": \"필드없음\",\n      \"q\": {\n        \"raw\": \"자료없음\"\n      },\n      \"statements\": [\n        {\n          \"key\": \"농축성\",\n          \"value\": \"자료없음\"\n        ,\n        \"line\": \"p4:L38\"\n      }\n    ],\n    \"line\": \"p4:L38\"\n    },\n    {\n      \"after_item\": \"S12_OTHER\",\n      \"title_raw\": \"라.토양이동성\",\n      \"reason\": \"필드없음\",\n      \"q\": {\n        \"raw\": \"자료없음\"\n      },\n      \"statements\": [\n        {\n          \"key\": \"토양이동성\",\n          \"value\": \"자료없음\"\n        ,\n        \"line\": \"p4:L40\"\n      }\n    ],\n    \"line\": \"p4:L40\"\n    },\n    {\n      \"after_item\": \"S12_OTHER\",\n      \"title_raw\": \"다.생물농축성\",\n      \"reason\": \"필드없음\",\n      \"q\": {\n        \"raw\": \"생분해성 자료없음\"\n      },\n      \"statements\": [\n        {\n          \"key\": \"생분해성\",\n          \"value\": \"자료없음\"\n        ,\n        \"line\": \"p4:L39\"\n      }\n    ],\n    \"line\": \"p4:L39\"\n    }\n  ]\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 8289,
+  "completion_tokens": 593,
+  "total_tokens": 8882
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 8289,
+    "completion_tokens": 593,
+    "total_tokens": 8882
+   },
+   "seconds": 11.083,
+   "chars": 1562,
+   "whitespace": 646,
+   "head": "{\n  \"ecotox\": [\n    {\n      \"endpoint\": \"ECO_FISH\",\n      \"descriptor\": \"EC50\",\n      \"status\": \"자료없음\",\n      \"line\": \"p4:L31\"\n    },\n    {\n      \"endpoint\": \"ECO_CRUST\",\n      \"descriptor\": \"EC50\",\n      \"status\": \"자료없음\",\n      \"line\": \"p4:L32\"\n    },\n    {\n      \"endpoint\": \"ECO_ALGAE\",\n      \"descriptor\": \"EC50\",\n      \"status\": \"자료없음\",\n      \"line\": \"p4:L33\"\n    },\n    {\n      \"endpoint\": \"ECO_PERSIST\",\n      \"descriptor\": \"logKow\",\n      \"status\": \"값있음\",\n      \"line\": \"p4:L35\"\n    }\n  ],\n  ",
+   "tail": "        \"raw\": \"자료없음\"\n      },\n      \"statements\": [\n        {\n          \"key\": \"토양이동성\",\n          \"value\": \"자료없음\"\n        ,\n        \"line\": \"p4:L40\"\n      }\n    ],\n    \"line\": \"p4:L40\"\n    },\n    {\n      \"after_item\": \"S12_OTHER\",\n      \"title_raw\": \"다.생물농축성\",\n      \"reason\": \"필드없음\",\n      \"q\": {\n        \"raw\": \"생분해성 자료없음\"\n      },\n      \"statements\": [\n        {\n          \"key\": \"생분해성\",\n          \"value\": \"자료없음\"\n        ,\n        \"line\": \"p4:L39\"\n      }\n    ],\n    \"line\": \"p4:L39\"\n    }\n  ]\n}"
+  }
+ ],
+ "seconds": 11.084,
+ "check_problems": []
+}

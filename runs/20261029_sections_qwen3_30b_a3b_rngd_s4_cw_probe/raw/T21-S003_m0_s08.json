@@ -1,0 +1,81 @@
+{
+ "doc_id": "T21-S003",
+ "msds_index": 0,
+ "section": 8,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "exposure_limits": [],
+  "narratives": [
+   {
+    "item_code": "S8_ENG",
+    "title_raw": "가.적절한 공학적 관리",
+    "start": "p3:L10",
+    "end": "p3:L11"
+   },
+   {
+    "item_code": "S8_RESP",
+    "title_raw": "다.개인보호구",
+    "start": "p3:L13",
+    "end": "p3:L16"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S8_RESP",
+    "title_raw": "가.화학물질의 노출기준,생물학적 노출기준",
+    "reason": "필드없음",
+    "q": {
+     "raw": "자료없음"
+    },
+    "statements": [
+     {
+      "key": "국내규정",
+      "value": "자료없음",
+      "line": "p3:L7"
+     },
+     {
+      "key": "ACGIH 규정",
+      "value": "단순질식제",
+      "line": "p3:L8"
+     },
+     {
+      "key": "생물학적 노출기준",
+      "value": "자료없음",
+      "line": "p3:L9"
+     }
+    ],
+    "suggested_code": "EXPOSURE_LIMITS_STANDARD",
+    "line": "p3:L6"
+   }
+  ]
+ },
+ "raw_text": "{\"exposure_limits\": [], \"narratives\": [{\"item_code\": \"S8_ENG\", \"title_raw\": \"가.적절한 공학적 관리\", \"start\": \"p3:L10\", \"end\": \"p3:L11\"}, {\"item_code\": \"S8_RESP\", \"title_raw\": \"다.개인보호구\", \"start\": \"p3:L13\", \"end\": \"p3:L16\"}], \"extras\": [{\"after_item\": \"S8_RESP\", \"title_raw\": \"가.화학물질의 노출기준,생물학적 노출기준\", \"reason\": \"필드없음\", \"q\": {\"raw\": \"자료없음\"}, \"statements\": [{\"key\": \"국내규정\", \"value\": \"자료없음\", \"line\": \"p3:L7\"}, {\"key\": \"ACGIH 규정\", \"value\": \"단순질식제\", \"line\": \"p3:L8\"}, {\"key\": \"생물학적 노출기준\", \"value\": \"자료없음\", \"line\": \"p3:L9\"}], \"suggested_code\": \"EXPOSURE_LIMITS_STANDARD\", \"line\": \"p3:L6\"}]}",
+ "mode": "json_schema_compact",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 8210,
+  "completion_tokens": 275,
+  "total_tokens": 8485
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema_compact",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 8210,
+    "completion_tokens": 275,
+    "total_tokens": 8485
+   },
+   "seconds": 9.76,
+   "chars": 575,
+   "whitespace": 57,
+   "head": "{\"exposure_limits\": [], \"narratives\": [{\"item_code\": \"S8_ENG\", \"title_raw\": \"가.적절한 공학적 관리\", \"start\": \"p3:L10\", \"end\": \"p3:L11\"}, {\"item_code\": \"S8_RESP\", \"title_raw\": \"다.개인보호구\", \"start\": \"p3:L13\", \"end\": \"p3:L16\"}], \"extras\": [{\"after_item\": \"S8_RESP\", \"title_raw\": \"가.화학물질의 노출기준,생물학적 노출기준\", \"reason\": \"필드없음\", \"q\": {\"raw\": \"자료없음\"}, \"statements\": [{\"key\": \"국내규정\", \"value\": \"자료없음\", \"line\": \"p3:L7\"}, {\"key\": \"ACGIH 규정\", \"value\": \"단순질식제\", \"line\": \"p3:L8\"}, {\"key\": \"생물학적 노출기준\", \"value\": \"자료없음\", \"line\": ",
+   "tail": "\"p3:L9\"}], \"suggested_code\": \"EXPOSURE_LIMITS_STANDARD\", \"line\": \"p3:L6\"}]}"
+  }
+ ],
+ "seconds": 9.761,
+ "check_problems": []
+}

@@ -1,0 +1,68 @@
+{
+ "doc_id": "T21-S003",
+ "msds_index": 0,
+ "section": 3,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "composition": {
+   "type": "혼합물",
+   "no_hazardous_component": false,
+   "lines": {
+    "type": "p2:L1",
+    "no_hazardous_component": "p2:L1"
+   }
+  },
+  "components": [
+   {
+    "name": "질소",
+    "name_en": "NITROGEN(Refrigerated)",
+    "synonyms": [
+     "질소(Nitrogen)"
+    ],
+    "cas_no": "7727-37-9",
+    "ke_no": "KE-25994",
+    "ec_no": "231-783-9",
+    "content": {
+     "raw": "100%",
+     "value": 100,
+     "unit": "%"
+    },
+    "content_basis": "중량",
+    "trade_secret": false,
+    "approval_no": null,
+    "approval_expiry": null,
+    "line": "p2:L2"
+   }
+  ],
+  "extras": []
+ },
+ "raw_text": "{\n  \"composition\": {\n    \"type\": \"혼합물\",\n    \"no_hazardous_component\": false\n  ,\n    \"lines\": {\n      \"type\": \"p2:L1\",\n      \"no_hazardous_component\": \"p2:L1\"\n    }\n  },\n  \"components\": [\n    {\n      \"name\": \"질소\",\n      \"name_en\": \"NITROGEN(Refrigerated)\",\n      \"synonyms\": [\n        \"질소(Nitrogen)\"\n      ],\n      \"cas_no\": \"7727-37-9\",\n      \"ke_no\": \"KE-25994\",\n      \"ec_no\": \"231-783-9\",\n      \"content\": {\n        \"raw\": \"100%\",\n        \"value\": 100,\n        \"unit\": \"%\"\n      },\n      \"content_basis\": \"중량\",\n      \"trade_secret\": false,\n      \"approval_no\": null,\n      \"approval_expiry\": null,\n      \"line\": \"p2:L2\"\n    }\n  ],\n  \"extras\": []\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 8508,
+  "completion_tokens": 236,
+  "total_tokens": 8744
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 8508,
+    "completion_tokens": 236,
+    "total_tokens": 8744
+   },
+   "seconds": 5.578,
+   "chars": 650,
+   "whitespace": 220,
+   "head": "{\n  \"composition\": {\n    \"type\": \"혼합물\",\n    \"no_hazardous_component\": false\n  ,\n    \"lines\": {\n      \"type\": \"p2:L1\",\n      \"no_hazardous_component\": \"p2:L1\"\n    }\n  },\n  \"components\": [\n    {\n      \"name\": \"질소\",\n      \"name_en\": \"NITROGEN(Refrigerated)\",\n      \"synonyms\": [\n        \"질소(Nitrogen)\"\n      ],\n      \"cas_no\": \"7727-37-9\",\n      \"ke_no\": \"KE-25994\",\n      \"ec_no\": \"231-783-9\",\n      \"content\": {\n        \"raw\": \"100%\",\n        \"value\": 100,\n        \"unit\": \"%\"\n      },\n      \"content_",
+   "tail": "basis\": \"중량\",\n      \"trade_secret\": false,\n      \"approval_no\": null,\n      \"approval_expiry\": null,\n      \"line\": \"p2:L2\"\n    }\n  ],\n  \"extras\": []\n}"
+  }
+ ],
+ "seconds": 5.579,
+ "check_problems": []
+}
