@@ -1,0 +1,7709 @@
+{
+ "doc": {
+  "doc_id": "T21-M002",
+  "source_file": "M002_한국가스공사-천연가스.pdf",
+  "page_count": 13,
+  "text_layer": "정상",
+  "language": "ko",
+  "msds_count": 1,
+  "schema_version": "TO21-MSDS-EXT v0.6",
+  "dictionary_version": "v0.6",
+  "extraction": {
+   "engine": "qwen3_30b_a3b_rngd:furiosa-ai/Qwen3-30B-A3B-Instruct-2507-FP8",
+   "extracted_at": "2026-10-28T17:31:11+09:00"
+  }
+ },
+ "msds": [
+  {
+   "meta": {
+    "msds_no": "AA01234-0000000056",
+    "doc_code": "SDS-KR-0451",
+    "revision_no": 11,
+    "revision_label": "11회",
+    "header_product_name": "천연가스(Natural Gas with Odorant)",
+    "source_note": "자료없음",
+    "first_issue_date": "2010-06-15",
+    "last_revision_date": "2019-03-08",
+    "page_start": null,
+    "page_end": null
+   },
+   "product": {
+    "name": "천연가스(Natural Gas with Odorant)",
+    "code": "",
+    "synonyms": [],
+    "uses": [
+     "천연가스",
+     "연료가스"
+    ],
+    "restrictions": [
+     "권고된 용도 외에 사용하지 마시오."
+    ],
+    "use_category_code": ""
+   },
+   "companies": [
+    {
+     "seq": 1,
+     "role": "공급자",
+     "name": "한국가스공사",
+     "site": "",
+     "address": "대구광역시 동구 첨단로 120 길 (우 : 701-300)",
+     "postcode": "701-300",
+     "department": "안전관리부(김석진 주임)",
+     "contacts": [
+      {
+       "type": "긴급",
+       "value": "053-670-0427",
+       "hours": ""
+      }
+     ]
+    }
+   ],
+   "hazard": {
+    "classified": true,
+    "classes": [
+     {
+      "seq": 1,
+      "group": "물리적",
+      "class_code": "PH_FLAM_GAS",
+      "category": "1",
+      "route_form": null,
+      "effect": null,
+      "target_organs": [],
+      "raw": "인화성 가스 : 구분 1"
+     },
+     {
+      "seq": 2,
+      "group": "물리적",
+      "class_code": "PH_PRESS_GAS",
+      "category": "1",
+      "route_form": null,
+      "effect": null,
+      "target_organs": [],
+      "raw": "고압가스 : 구분 1"
+     }
+    ],
+    "signal_word": "위험",
+    "pictograms": [],
+    "h_statements": [
+     {
+      "seq": 1,
+      "code": "H220",
+      "system": "GHS",
+      "mark": "",
+      "text": "극인화성 가스"
+     },
+     {
+      "seq": 2,
+      "code": "H280",
+      "system": "GHS",
+      "mark": "",
+      "text": "고압가스"
+     }
+    ],
+    "p_statements": [
+     {
+      "seq": 1,
+      "code": "P210",
+      "type": "예방",
+      "text": "열·스파크·화염·고열로부터 멀리하시오. - 금연"
+     },
+     {
+      "seq": 2,
+      "code": "P377",
+      "type": "대응",
+      "text": "누출성 가스 화재 시 누출을 안전하게 막을 수 없다면 불을 끄려하지 마시오."
+     },
+     {
+      "seq": 3,
+      "code": "P381",
+      "type": "대응",
+      "text": "안전하게 처리하는 것이 가능하면 모든 점화원을 제거하시오."
+     },
+     {
+      "seq": 4,
+      "code": "P403",
+      "type": "저장",
+      "text": "환기가 잘 되는 곳에 보관하시오."
+     }
+    ],
+    "other_hazards": [
+     {
+      "seq": 1,
+      "key": "NFPA 보건",
+      "value": "0",
+      "refs": [],
+      "cond": null,
+      "std_code": null,
+      "match_score": null,
+      "text": " ο 보건 : 0"
+     },
+     {
+      "seq": 2,
+      "key": "NFPA 화재",
+      "value": "4",
+      "refs": [],
+      "cond": null,
+      "std_code": null,
+      "match_score": null,
+      "text": " ο 화재 : 4"
+     },
+     {
+      "seq": 3,
+      "key": "NFPA 반응성",
+      "value": "0",
+      "refs": [],
+      "cond": null,
+      "std_code": null,
+      "match_score": null,
+      "text": " ο 반응성 : 0"
+     }
+    ],
+    "nfpa": {
+     "health": 0,
+     "fire": 4,
+     "reactivity": 0,
+     "special": ""
+    }
+   },
+   "composition": {
+    "type": "혼합물",
+    "no_hazardous_component": false
+   },
+   "components": [
+    {
+     "seq": 1,
+     "name": "천연가스",
+     "name_en": "NATURAL GAS",
+     "synonyms": [
+      "LNG",
+      "Natural gas, dried",
+      "Methane, refrigerated liquid (cryogenic liquid)"
+     ],
+     "cas_no": "8006-14-2",
+     "ke_no": "KE-24725",
+     "ec_no": null,
+     "other_id": "",
+     "other_id_type": "",
+     "parent_seq": null,
+     "read_across_cas": "",
+     "content": {
+      "raw": "≥ 99.96",
+      "approx": null,
+      "value": null,
+      "lower_op": ">=",
+      "lower": 99.96,
+      "upper_op": null,
+      "upper": null,
+      "unit": "%",
+      "dp": 2,
+      "status": "값있음",
+      "note": null
+     },
+     "content_note": null,
+     "content_basis": "중량",
+     "trade_secret": false,
+     "approval_no": "",
+     "approval_expiry": null
+    },
+    {
+     "seq": 2,
+     "name": "테트라하이드로티오펜",
+     "name_en": "Tetrahydrothiophene",
+     "synonyms": [
+      "Thiolane",
+      "Tetramethylene sulfide",
+      "Thiacyclopentane"
+     ],
+     "cas_no": "110-01-0",
+     "ke_no": "KE-24725",
+     "ec_no": null,
+     "other_id": "",
+     "other_id_type": "",
+     "parent_seq": null,
+     "read_across_cas": "",
+     "content": {
+      "raw": "0.03",
+      "approx": null,
+      "value": 0.03,
+      "lower_op": null,
+      "lower": null,
+      "upper_op": null,
+      "upper": null,
+      "unit": "%",
+      "dp": 2,
+      "status": "값있음",
+      "note": null
+     },
+     "content_note": null,
+     "content_basis": "중량",
+     "trade_secret": false,
+     "approval_no": "",
+     "approval_expiry": null
+    },
+    {
+     "seq": 3,
+     "name": "테르트부틸머캅탄",
+     "name_en": "Tert-butylmercaptan",
+     "synonyms": [
+      "2-Methyl-2-propanethiol",
+      "2-Methylpropane-2-thiol"
+     ],
+     "cas_no": "75-66-1",
+     "ke_no": "KE-24725",
+     "ec_no": null,
+     "other_id": "",
+     "other_id_type": "",
+     "parent_seq": null,
+     "read_across_cas": "",
+     "content": {
+      "raw": "0.01",
+      "approx": null,
+      "value": 0.01,
+      "lower_op": null,
+      "lower": null,
+      "upper_op": null,
+      "upper": null,
+      "unit": "%",
+      "dp": 2,
+      "status": "값있음",
+      "note": null
+     },
+     "content_note": null,
+     "content_basis": "중량",
+     "trade_secret": false,
+     "approval_no": "",
+     "approval_expiry": null
+    }
+   ],
+   "narratives": [
+    {
+     "item_code": "S2_LABEL_NOTE",
+     "title_raw": "경고표지 관련 기타 서술",
+     "status": "값있음",
+     "statements": [
+      {
+       "seq": 1,
+       "key": null,
+       "value": "ο 그림문자 :",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": " ο 그림문자 :"
+      }
+     ]
+    },
+    {
+     "item_code": "S4_EYE",
+     "title_raw": "가. 눈에 들어갔을 때",
+     "status": "값있음",
+     "statements": [
+      {
+       "seq": 1,
+       "key": null,
+       "value": "지속적인 자극이 발생하는 경우, 긴급 의료조치를 받으시오.",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "- 지속적인 자극이 발생하는 경우, 긴급 의료조치를 받으시오."
+      }
+     ]
+    },
+    {
+     "item_code": "S4_SKIN",
+     "title_raw": "나. 피부에 접촉했을 때",
+     "status": "값있음",
+     "statements": [
+      {
+       "seq": 1,
+       "key": null,
+       "value": "지속적인 자극이 발생하는 경우, 긴급 의료조치를 받으시오.",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "- 지속적인 자극이 발생하는 경우, 긴급 의료조치를 받으시오."
+      }
+     ]
+    },
+    {
+     "item_code": "S4_INHAL",
+     "title_raw": "다. 흡입했을 때",
+     "status": "값있음",
+     "statements": [
+      {
+       "seq": 1,
+       "key": null,
+       "value": "신선한 공기가 있는 곳으로 옮기시오.",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "- 신선한 공기가 있는 곳으로 옮기시오."
+      },
+      {
+       "seq": 2,
+       "key": null,
+       "value": "긴급 의료조치를 받으시오.",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "- 긴급 의료조치를 받으시오."
+      },
+      {
+       "seq": 3,
+       "key": null,
+       "value": "호흡하지 않는 경우 인공호흡을 실시하시오.",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "- 호흡하지 않는 경우 인공호흡을 실시하시오."
+      },
+      {
+       "seq": 4,
+       "key": null,
+       "value": "호흡이 힘들 경우 산소를 공급하시오.",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "- 호흡이 힘들 경우 산소를 공급하시오."
+      },
+      {
+       "seq": 5,
+       "key": null,
+       "value": "따뜻하게 하고 안정되게 해주시오.",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "- 따뜻하게 하고 안정되게 해주시오."
+      }
+     ]
+    },
+    {
+     "item_code": "S4_INGEST",
+     "title_raw": "라. 먹었을 때",
+     "status": "값있음",
+     "statements": [
+      {
+       "seq": 1,
+       "key": null,
+       "value": "물질을 먹거나 흡입하였을 경우, 구강대구강법으로 인공호흡을 하지 말고 적절한 호흡 의료장비를 이용하시오.",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "- 물질을 먹거나 흡입하였을 경우, 구강대구강법으로 인공호흡을 하지 말고 적절한 호흡 의료장비를 이용하시오."
+      }
+     ]
+    },
+    {
+     "item_code": "S4_DOCTOR",
+     "title_raw": "마. 기타 의사의 주의사항",
+     "status": "값있음",
+     "statements": [
+      {
+       "seq": 1,
+       "key": null,
+       "value": "의료인력이 해당물질에 대해 인지하고 보호조치를 취하도록 하시오.",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "- 의료인력이 해당물질에 대해 인지하고 보호조치를 취하도록 하시오."
+      }
+     ]
+    },
+    {
+     "item_code": "S5_MEDIA",
+     "title_raw": "가. 적절한(및 부적절한) 소화제",
+     "status": "값있음",
+     "statements": [
+      {
+       "seq": 1,
+       "key": null,
+       "value": "이 물질과 관련된 소화 시 알코올 포말, 이산화탄소 또는 물 분무를 사용할 것",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "- 이 물질과 관련된 소화 시 알코올 포말, 이산화탄소 또는 물 분무를 사용할 것"
+      },
+      {
+       "seq": 2,
+       "key": null,
+       "value": "질식소화 시 건조한 모래 또는 흙을 사용할 것",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "- 질식소화 시 건조한 모래 또는 흙을 사용할 것"
+      }
+     ]
+    },
+    {
+     "item_code": "S5_SPECIFIC",
+     "title_raw": "나. 화학물질로부터 생기는 특정 유해성",
+     "status": "값있음",
+     "statements": [
+      {
+       "seq": 1,
+       "key": null,
+       "value": "공기와 폭발성 혼합물을 형성함",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "- 공기와 폭발성 혼합물을 형성함"
+      },
+      {
+       "seq": 2,
+       "key": null,
+       "value": "극인화성 가스",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "- 극인화성 가스"
+      },
+      {
+       "seq": 3,
+       "key": null,
+       "value": "열, 스파크, 화염에 의해 쉽게 점화함",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "- 열, 스파크, 화염에 의해 쉽게 점화함"
+      },
+      {
+       "seq": 4,
+       "key": null,
+       "value": "현기증 또는 질식을 유발할 수 있음",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "- 현기증 또는 질식을 유발할 수 있음"
+      },
+      {
+       "seq": 5,
+       "key": null,
+       "value": "점화원까지 이동하여 역화(flash back)할 수 있음",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "- 점화원까지 이동하여 역화(flash back)할 수 있음"
+      }
+     ]
+    },
+    {
+     "item_code": "S5_FIREFIGHT",
+     "title_raw": "다. 화재진압 시 착용할 보호구 및 예방조치",
+     "status": "값있음",
+     "statements": [
+      {
+       "seq": 1,
+       "key": null,
+       "value": "누출성 가스 화재 시 누출을 안전하게 막을 수 없다면 불을 끄려하지 마시오.",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "- 누출성 가스 화재 시 누출을 안전하게 막을 수 없다면 불을 끄려하지 마시오."
+      },
+      {
+       "seq": 2,
+       "key": null,
+       "value": "누출이 중지되지 않는다면 누출가스화재를 소화하지 마시오.",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "- 누출이 중지되지 않는다면 누출가스화재를 소화하지 마시오."
+      },
+      {
+       "seq": 3,
+       "key": null,
+       "value": "안전하게 처리하는 것이 가능하면 모든 점화원을 제거하시오.",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "- 안전하게 처리하는 것이 가능하면 모든 점화원을 제거하시오."
+      },
+      {
+       "seq": 4,
+       "key": null,
+       "value": "위험하지 않다면 화재지역에서 용기를 옮기시오.",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "- 위험하지 않다면 화재지역에서 용기를 옮기시오."
+      },
+      {
+       "seq": 5,
+       "key": null,
+       "value": "지역을 벗어나 안전거리를 유지하여 소화하시오.",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "- 지역을 벗어나 안전거리를 유지하여 소화하시오."
+      },
+      {
+       "seq": 6,
+       "key": null,
+       "value": "탱크 화재 시 결빙될 수 있으므로 노출원 또는 안전장치에 직접 주수하지 마시오.",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "- 탱크 화재 시 결빙될 수 있으므로 노출원 또는 안전장치에 직접 주수하지 마시오."
+      },
+      {
+       "seq": 7,
+       "key": null,
+       "value": "탱크 화재 시 대규모 화재의 경우 무인 소화장비를 이용하고 불가능하다면 물러나 타게",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "- 탱크 화재 시 대규모 화재의 경우 무인 소화장비를 이용하고 불가능하다면 물러나 타게"
+      },
+      {
+       "seq": 8,
+       "key": null,
+       "value": "놔두시오.",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "놔두시오."
+      },
+      {
+       "seq": 9,
+       "key": null,
+       "value": "탱크 화재 시 소화가 진화된 후에도 다량의 물로 용기를 식히시오.",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "- 탱크 화재 시 소화가 진화된 후에도 다량의 물로 용기를 식히시오."
+      },
+      {
+       "seq": 10,
+       "key": null,
+       "value": "탱크 화재 시 압력 방출장치에서 고음이 있거나 탱크가 변색할 경우 즉시 물러나시오.",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "- 탱크 화재 시 압력 방출장치에서 고음이 있거나 탱크가 변색할 경우 즉시 물러나시오."
+      },
+      {
+       "seq": 11,
+       "key": null,
+       "value": "탱크 화재 시 최대거리에서 소화하거나 무인 소화장비를 이용하시오.",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "- 탱크 화재 시 최대거리에서 소화하거나 무인 소화장비를 이용하시오."
+      },
+      {
+       "seq": 12,
+       "key": null,
+       "value": "탱크 화재 시 화염에 휩싸인 탱크에서 물러나시오.",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "- 탱크 화재 시 화염에 휩싸인 탱크에서 물러나시오."
+      },
+      {
+       "seq": 13,
+       "key": null,
+       "value": "파손된 실린더는 날아오를 수 있음.",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "- 파손된 실린더는 날아오를 수 있음."
+      }
+     ]
+    },
+    {
+     "item_code": "S6_PERSONAL",
+     "title_raw": "가. 인체를 보호하기 위해 필요한 조치사항 및 보호구",
+     "status": "값있음",
+     "statements": [
+      {
+       "seq": 1,
+       "key": null,
+       "value": "가능하다면 누출용기를 돌려 액체보다는 가스로 방출되도록 하시오.",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "- 가능하다면 누출용기를 돌려 액체보다는 가스로 방출되도록 하시오."
+      },
+      {
+       "seq": 2,
+       "key": null,
+       "value": "가스가 완전히 확산되어 희석될 때까지 오염지역을 격리하시오.",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "- 가스가 완전히 확산되어 희석될 때까지 오염지역을 격리하시오."
+      },
+      {
+       "seq": 3,
+       "key": null,
+       "value": "유출물을 만지거나 유출된 곳을 걸어 다니지 마시오.",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "- 유출물을 만지거나 유출된 곳을 걸어 다니지 마시오."
+      },
+      {
+       "seq": 4,
+       "key": null,
+       "value": "누출성 가스 화재 시 누출을 안전하게 막을 수 없다면 불을 끄려하지 마시오.",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "- 누출성 가스 화재 시 누출을 안전하게 막을 수 없다면 불을 끄려하지 마시오."
+      },
+      {
+       "seq": 5,
+       "key": null,
+       "value": "누출원에 직접 주수하지 마시오.",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "- 누출원에 직접 주수하지 마시오."
+      },
+      {
+       "seq": 6,
+       "key": null,
+       "value": "매우 미세한 입자는 화재나 폭발을 일으킬 수 있으므로 모든 점화원을 제거하시오.",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "- 매우 미세한 입자는 화재나 폭발을 일으킬 수 있으므로 모든 점화원을 제거하시오."
+      },
+      {
+       "seq": 7,
+       "key": null,
+       "value": "물 분무를 이용하여 증기를 줄이거나 증기구름을 흩어트리고 물이 누출물과 접촉되지",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "- 물 분무를 이용하여 증기를 줄이거나 증기구름을 흩어트리고 물이 누출물과 접촉되지"
+      },
+      {
+       "seq": 8,
+       "key": null,
+       "value": "않도록 하시오.",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "않도록 하시오."
+      },
+      {
+       "seq": 9,
+       "key": null,
+       "value": "물질 취급 시 모든 장비를 반드시 접지하시오.",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "- 물질 취급 시 모든 장비를 반드시 접지하시오."
+      },
+      {
+       "seq": 10,
+       "key": null,
+       "value": "위험하지 않다면 누출을 멈추시오.",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "- 위험하지 않다면 누출을 멈추시오."
+      },
+      {
+       "seq": 11,
+       "key": null,
+       "value": "피해야 할 물질 및 조건에 유의하시오.",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "- 피해야 할 물질 및 조건에 유의하시오."
+      }
+     ]
+    },
+    {
+     "item_code": "S6_ENV",
+     "title_raw": "나. 환경을 보호하기 위해 필요한 조치사항",
+     "status": "값있음",
+     "statements": [
+      {
+       "seq": 1,
+       "key": null,
+       "value": "증기가 하수구, 환기장치, 밀폐공간을 통해 확산되지 않도록 하시오.",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "- 증기가 하수구, 환기장치, 밀폐공간을 통해 확산되지 않도록 하시오."
+      },
+      {
+       "seq": 2,
+       "key": null,
+       "value": "정화 또는 제거 방법",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "   다. 정화 또는 제거 방법"
+      }
+     ]
+    },
+    {
+     "item_code": "S6_CLEANUP",
+     "title_raw": "다. 정화 또는 제거 방법",
+     "status": "값있음",
+     "statements": [
+      {
+       "seq": 1,
+       "key": null,
+       "value": "가스가 완전히 기화되어 제거될 때까지 기다리시오. 단, 주변에 가연성 물질 등 점화원이",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "- 가스가 완전히 기화되어 제거될 때까지 기다리시오. 단, 주변에 가연성 물질 등 점화원이"
+      },
+      {
+       "seq": 2,
+       "key": null,
+       "value": "있는 경우에는 모든 점화원을 제거하시오.",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "있는 경우에는 모든 점화원을 제거하시오."
+      },
+      {
+       "seq": 3,
+       "key": null,
+       "value": "취급 및 저장방법",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "7. 취급 및 저장방법"
+      }
+     ]
+    },
+    {
+     "item_code": "S7_HANDLING",
+     "title_raw": "가. 안전취급요령",
+     "status": "값있음",
+     "statements": [
+      {
+       "seq": 1,
+       "key": null,
+       "value": "공학적 관리 및 개인보호구를 참조하여 작업하시오.",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "- 공학적 관리 및 개인보호구를 참조하여 작업하시오."
+      },
+      {
+       "seq": 2,
+       "key": null,
+       "value": "물질 취급 시 모든 장비를 반드시 접지하시오.",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "- 물질 취급 시 모든 장비를 반드시 접지하시오."
+      },
+      {
+       "seq": 3,
+       "key": null,
+       "value": "압력을 가하거나, 자르거나, 용접, 납땜, 접합, 뚫기, 연마 또는 열에 폭로, 화염, 불꽃,",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "- 압력을 가하거나, 자르거나, 용접, 납땜, 접합, 뚫기, 연마 또는 열에 폭로, 화염, 불꽃,"
+      },
+      {
+       "seq": 4,
+       "key": null,
+       "value": "정전기 또는 다른 점화원에 폭로하지 마시오.",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "정전기 또는 다른 점화원에 폭로하지 마시오."
+      },
+      {
+       "seq": 5,
+       "key": null,
+       "value": "용기가 비워진 후에도 제품 찌꺼기가 남아 있을 수 있으므로 모든 MSDS/경고표시",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "- 용기가 비워진 후에도 제품 찌꺼기가 남아 있을 수 있으므로 모든 MSDS/경고표시"
+      },
+      {
+       "seq": 6,
+       "key": null,
+       "value": "예방조치를 따르시오.",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "예방조치를 따르시오."
+      },
+      {
+       "seq": 7,
+       "key": null,
+       "value": "피해야 할 물질 및 조건에 유의하시오.",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "- 피해야 할 물질 및 조건에 유의하시오."
+      }
+     ]
+    },
+    {
+     "item_code": "S7_STORAGE",
+     "title_raw": "나. 안전한 저장방법",
+     "status": "값있음",
+     "statements": [
+      {
+       "seq": 1,
+       "key": null,
+       "value": "밀폐하여 보관하시오.",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "- 밀폐하여 보관하시오."
+      },
+      {
+       "seq": 2,
+       "key": null,
+       "value": "열·스파크·화염·고열로부터 멀리하시오. - 금연",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "- 열·스파크·화염·고열로부터 멀리하시오. - 금연"
+      },
+      {
+       "seq": 3,
+       "key": null,
+       "value": "피해야 할 물질 및 조건에 유의하시오.",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "- 피해야 할 물질 및 조건에 유의하시오."
+      },
+      {
+       "seq": 4,
+       "key": null,
+       "value": "환기가 잘 되는 곳에 보관하시오.",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "- 환기가 잘 되는 곳에 보관하시오."
+      }
+     ]
+    },
+    {
+     "item_code": "S8_ENG",
+     "title_raw": "나. 적절한 공학적 관리",
+     "status": "값있음",
+     "statements": [
+      {
+       "seq": 1,
+       "key": null,
+       "value": "공정격리, 국소배기를 사용하거나, 공기수준을 노출기준 이하로 조절하는 다른 공학적",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "- 공정격리, 국소배기를 사용하거나, 공기수준을 노출기준 이하로 조절하는 다른 공학적"
+      },
+      {
+       "seq": 2,
+       "key": null,
+       "value": "관리를 하시오.",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "관리를 하시오."
+      }
+     ]
+    },
+    {
+     "item_code": "S8_RESP",
+     "title_raw": "다. 개인보호구",
+     "status": "값있음",
+     "statements": [
+      {
+       "seq": 1,
+       "key": null,
+       "value": "ο 호흡기 보호",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": " ο 호흡기 보호"
+      },
+      {
+       "seq": 2,
+       "key": null,
+       "value": "이 물질에 다량 노출되었을 시, 노출되는 기체의 물리 화학적 특성에 맞는 안전보건공단의",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "- 이 물질에 다량 노출되었을 시, 노출되는 기체의 물리 화학적 특성에 맞는 안전보건공단의"
+      },
+      {
+       "seq": 3,
+       "key": null,
+       "value": "인증을 필한 호흡용 보호구를 착용하시오.",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "인증을 필한 호흡용 보호구를 착용하시오."
+      },
+      {
+       "seq": 4,
+       "key": null,
+       "value": "이 물질에 다량 노출되었을 시, 기체 물질의 경우 다음과 같은 호흡기 보호구가 권고됨",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "- 이 물질에 다량 노출되었을 시, 기체 물질의 경우 다음과 같은 호흡기 보호구가 권고됨"
+      },
+      {
+       "seq": 5,
+       "key": null,
+       "value": ";격리식 전면형 방독 마스크(유기화합물용(산성가스인 경우 산성가스용)) 또는 격리식",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": ";격리식 전면형 방독 마스크(유기화합물용(산성가스인 경우 산성가스용)) 또는 격리식"
+      },
+      {
+       "seq": 6,
+       "key": null,
+       "value": "반면형 방독 마스크(유기화합물용(산성가스인 경우 산성가스용)) 또는 직결식 전면형",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "반면형 방독 마스크(유기화합물용(산성가스인 경우 산성가스용)) 또는 직결식 전면형"
+      },
+      {
+       "seq": 7,
+       "key": null,
+       "value": "방독 마스크 (유기화합물용(산성가스인 경우 산성가스용)) 또는 반면형 방독",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "방독 마스크 (유기화합물용(산성가스인 경우 산성가스용)) 또는 반면형 방독"
+      },
+      {
+       "seq": 8,
+       "key": null,
+       "value": "마스크(유기화합물용(산성 가스인 경우 산성가스용)) 또는 전동식 방독마스크",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "마스크(유기화합물용(산성 가스인 경우 산성가스용)) 또는 전동식 방독마스크"
+      },
+      {
+       "seq": 9,
+       "key": null,
+       "value": "산소가 부족한 경우(< 19.5%), 송기마스크 혹은 자급식공기호흡기를 착용하시오.",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "- 산소가 부족한 경우(< 19.5%), 송기마스크 혹은 자급식공기호흡기를 착용하시오."
+      }
+     ]
+    },
+    {
+     "item_code": "S8_EYE",
+     "title_raw": "ο 눈 보호",
+     "status": "값있음",
+     "statements": [
+      {
+       "seq": 1,
+       "key": null,
+       "value": "자료없음",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "- 자료없음"
+      }
+     ]
+    },
+    {
+     "item_code": "S8_HAND",
+     "title_raw": "ο 손 보호",
+     "status": "값있음",
+     "statements": [
+      {
+       "seq": 1,
+       "key": null,
+       "value": "자료없음",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "- 자료없음"
+      }
+     ]
+    },
+    {
+     "item_code": "S8_BODY",
+     "title_raw": "ο 신체 보호",
+     "status": "값있음",
+     "statements": [
+      {
+       "seq": 1,
+       "key": null,
+       "value": "자료없음",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "- 자료없음"
+      }
+     ]
+    },
+    {
+     "item_code": "S10_STABILITY",
+     "title_raw": "가. 화학적 안정성 및 유해 반응의 가능성 :",
+     "status": "값있음",
+     "statements": [
+      {
+       "seq": 1,
+       "key": null,
+       "value": "극인화성",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "- 극인화성"
+      },
+      {
+       "seq": 2,
+       "key": null,
+       "value": "격렬하게 중합반응하여 화재와 폭발을 일으킬 수 있음",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "- 격렬하게 중합반응하여 화재와 폭발을 일으킬 수 있음"
+      },
+      {
+       "seq": 3,
+       "key": null,
+       "value": "공기와 폭발성 혼합물을 형성함",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "- 공기와 폭발성 혼합물을 형성함"
+      },
+      {
+       "seq": 4,
+       "key": null,
+       "value": "열, 스파크, 화염에 의해 쉽게 점화함",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "- 열, 스파크, 화염에 의해 쉽게 점화함"
+      },
+      {
+       "seq": 5,
+       "key": null,
+       "value": "증기는 점화원까지 이동하여 역화(flash back)할 수 있음",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "- 증기는 점화원까지 이동하여 역화(flash back)할 수 있음"
+      },
+      {
+       "seq": 6,
+       "key": null,
+       "value": "화재 시 자극성, 부식성, 독성 가스를 발생할 수 있음",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "- 화재 시 자극성, 부식성, 독성 가스를 발생할 수 있음"
+      },
+      {
+       "seq": 7,
+       "key": null,
+       "value": "현기증 또는 질식을 유발할 수 있음",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "- 현기증 또는 질식을 유발할 수 있음"
+      },
+      {
+       "seq": 8,
+       "key": null,
+       "value": "피해야 할 조건 :",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "   나. 피해야 할 조건 :"
+      }
+     ]
+    },
+    {
+     "item_code": "S10_CONDITIONS",
+     "title_raw": "나. 피해야 할 조건 :",
+     "status": "값있음",
+     "statements": [
+      {
+       "seq": 1,
+       "key": null,
+       "value": "열·스파크·화염·고열로부터 멀리하시오. - 금연",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "- 열·스파크·화염·고열로부터 멀리하시오. - 금연"
+      },
+      {
+       "seq": 2,
+       "key": null,
+       "value": "피해야 할 물질 :",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "   다. 피해야 할 물질 :"
+      }
+     ]
+    },
+    {
+     "item_code": "S10_INCOMPAT",
+     "title_raw": "다. 피해야 할 물질 :",
+     "status": "값있음",
+     "statements": [
+      {
+       "seq": 1,
+       "key": null,
+       "value": "할로겐, 산화제, 가연성물질",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "- 할로겐, 산화제, 가연성물질"
+      },
+      {
+       "seq": 2,
+       "key": null,
+       "value": "분해시 생성되는 유해물질 :",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "   라. 분해시 생성되는 유해물질 :"
+      }
+     ]
+    },
+    {
+     "item_code": "S10_DECOMP",
+     "title_raw": "라. 분해시 생성되는 유해물질 :",
+     "status": "값있음",
+     "statements": [
+      {
+       "seq": 1,
+       "key": null,
+       "value": "자극성, 부식성, 독성 가스",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "- 자극성, 부식성, 독성 가스"
+      },
+      {
+       "seq": 2,
+       "key": null,
+       "value": "독성에 관한 정보",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "11. 독성에 관한 정보"
+      }
+     ]
+    },
+    {
+     "item_code": "S12_OTHER",
+     "title_raw": "마. 기타 유해 영향",
+     "status": "값있음",
+     "statements": [
+      {
+       "seq": 1,
+       "key": "기타 유해 영향",
+       "value": "자료없음",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "   마. 기타 유해 영향 : 자료없음"
+      }
+     ]
+    },
+    {
+     "item_code": "S13_METHOD",
+     "title_raw": "가. 폐기방법",
+     "status": "값있음",
+     "statements": [
+      {
+       "seq": 1,
+       "key": null,
+       "value": "폐기물관리법에 명시된 경우 규정에 따라 내용물 및 용기를 폐기하시오.",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "   폐기물관리법에 명시된 경우 규정에 따라 내용물 및 용기를 폐기하시오."
+      }
+     ]
+    },
+    {
+     "item_code": "S13_CAUTION",
+     "title_raw": "나. 폐기시 주의사항",
+     "status": "값있음",
+     "statements": [
+      {
+       "seq": 1,
+       "key": null,
+       "value": "폐기물관리법에 명시된 경우 규정에 명시된 주의사항을 고려하시오.",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "   폐기물관리법에 명시된 경우 규정에 명시된 주의사항을 고려하시오."
+      }
+     ]
+    },
+    {
+     "item_code": "S14_SPECIAL",
+     "title_raw": "바. 사용자가 운송 또는 운송수단에 관련해 알 필요가 있거나 필요한 특별한 안전대책",
+     "status": "값있음",
+     "statements": [
+      {
+       "seq": 1,
+       "key": "ο 화재시 비상조치",
+       "value": "F-D",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "    ο 화재시 비상조치 : F-D"
+      },
+      {
+       "seq": 2,
+       "key": "ο 유출시 비상조치",
+       "value": "S-U",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "    ο 유출시 비상조치 : S-U"
+      }
+     ]
+    },
+    {
+     "item_code": "S15_DG",
+     "title_raw": "가. 산업안전보건법에 의한 규제",
+     "status": "값있음",
+     "statements": [
+      {
+       "seq": 1,
+       "key": "산업안전보건법에 의한 규제",
+       "value": "공정안전보고서(PSM) 대상물질(단, 산업안전보건법 시행령",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "   가. 산업안전보건법에 의한 규제 : 공정안전보고서(PSM) 대상물질(단, 산업안전보건법 시행령"
+      },
+      {
+       "seq": 2,
+       "key": null,
+       "value": "제33조의 6 및 별표 10에 해당하는 경우에 한함)",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "                                   제33조의 6 및 별표 10에 해당하는 경우에 한함)"
+      }
+     ]
+    },
+    {
+     "item_code": "S15_WASTE",
+     "title_raw": "다. 폐기물관리법에 의한 규제",
+     "status": "값있음",
+     "statements": [
+      {
+       "seq": 1,
+       "key": "폐기물관리법에 의한 규제",
+       "value": "해당없음",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "   라. 폐기물관리법에 의한 규제 : 해당없음"
+      }
+     ]
+    },
+    {
+     "item_code": "S15_OTHER",
+     "title_raw": "마. 기타 국내 및 외국법에 의한 규제",
+     "status": "값있음",
+     "statements": [
+      {
+       "seq": 1,
+       "key": null,
+       "value": "ο 국내규제",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": " ο 국내규제"
+      },
+      {
+       "seq": 2,
+       "key": "잔류성유기오염물질관리법",
+       "value": "해당없음",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "- 잔류성유기오염물질관리법 : 해당없음"
+      },
+      {
+       "seq": 3,
+       "key": null,
+       "value": "ο 국외규제 :",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": " ο 국외규제 :"
+      },
+      {
+       "seq": 4,
+       "key": null,
+       "value": "EU 분류정보(확정분류결과) :",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "- EU 분류정보(확정분류결과) :"
+      },
+      {
+       "seq": 5,
+       "key": "NATURAL GAS, LIQUIFIED",
+       "value": "해당없음",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "• NATURAL GAS, LIQUIFIED : 해당없음"
+      },
+      {
+       "seq": 6,
+       "key": "Tetrahydrothiophene",
+       "value": "F; R11 Xn; R20/21/22 Xi; R36/38 R52-53",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "• Tetrahydrothiophene : F; R11 Xn; R20/21/22 Xi; R36/38 R52-53"
+      },
+      {
+       "seq": 7,
+       "key": "Tert-butyl mercaptan",
+       "value": "해당없음",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "• Tert-butyl mercaptan : 해당없음"
+      },
+      {
+       "seq": 8,
+       "key": null,
+       "value": "EU 분류정보(위험문구) :",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "- EU 분류정보(위험문구) :"
+      },
+      {
+       "seq": 9,
+       "key": "NATURAL GAS, LIQUIFIED",
+       "value": "해당없음",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "• NATURAL GAS, LIQUIFIED : 해당없음"
+      },
+      {
+       "seq": 10,
+       "key": "Tetrahydrothiophene",
+       "value": "R11 R20/21/22 R36/38 R52/53",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "• Tetrahydrothiophene : R11 R20/21/22 R36/38 R52/53"
+      },
+      {
+       "seq": 11,
+       "key": "Tert-butyl mercaptan",
+       "value": "해당없음",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "• Tert-butyl mercaptan : 해당없음"
+      },
+      {
+       "seq": 12,
+       "key": null,
+       "value": "EU 분류정보(안전문구) :",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "- EU 분류정보(안전문구) :"
+      },
+      {
+       "seq": 13,
+       "key": "NATURAL GAS, LIQUIFIED",
+       "value": "해당없음",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "• NATURAL GAS, LIQUIFIED : 해당없음"
+      },
+      {
+       "seq": 14,
+       "key": "Tetrahydrothiophene",
+       "value": "S2 S16 S23 S36/37 S61",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "• Tetrahydrothiophene : S2 S16 S23 S36/37 S61"
+      },
+      {
+       "seq": 15,
+       "key": "Tert-butyl mercaptan",
+       "value": "해당없음",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "• Tert-butyl mercaptan : 해당없음"
+      },
+      {
+       "seq": 16,
+       "key": "EU 규제정보(EU SVHC list)",
+       "value": "해당없음",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "- EU 규제정보(EU SVHC list) : 해당없음"
+      },
+      {
+       "seq": 17,
+       "key": "EU 규제정보(EU Authorization List)",
+       "value": "해당없음",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "- EU 규제정보(EU Authorization List) : 해당없음"
+      },
+      {
+       "seq": 18,
+       "key": "EU 규제정보(EU Restriction list)",
+       "value": "해당없음",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "- EU 규제정보(EU Restriction list) : 해당없음"
+      },
+      {
+       "seq": 19,
+       "key": "미국관리정보(OSHA 규정)",
+       "value": "해당없음",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "- 미국관리정보(OSHA 규정) : 해당없음"
+      },
+      {
+       "seq": 20,
+       "key": "미국관리정보(CERCLA 규정)",
+       "value": "해당없음",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "- 미국관리정보(CERCLA 규정) : 해당없음"
+      },
+      {
+       "seq": 21,
+       "key": "미국관리정보(EPCRA 302 규정)",
+       "value": "해당없음",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "- 미국관리정보(EPCRA 302 규정) : 해당없음"
+      },
+      {
+       "seq": 22,
+       "key": "미국관리정보(EPCRA 304 규정)",
+       "value": "해당없음",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "- 미국관리정보(EPCRA 304 규정) : 해당없음"
+      },
+      {
+       "seq": 23,
+       "key": "미국관리정보(EPCRA 313 규정)",
+       "value": "해당없음",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "- 미국관리정보(EPCRA 313 규정) : 해당없음"
+      },
+      {
+       "seq": 24,
+       "key": "로테르담협약물질",
+       "value": "해당없음",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "- 로테르담협약물질 : 해당없음"
+      },
+      {
+       "seq": 25,
+       "key": "스톡홀름협약물질",
+       "value": "해당없음",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "- 스톡홀름협약물질 : 해당없음"
+      },
+      {
+       "seq": 26,
+       "key": "몬트리올의정서물질",
+       "value": "해당없음",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "- 몬트리올의정서물질 : 해당없음"
+      },
+      {
+       "seq": 27,
+       "key": null,
+       "value": "ο 기타 규제",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": " ο 기타 규제"
+      },
+      {
+       "seq": 28,
+       "key": null,
+       "value": "NATURAL GAS, LIQUIFIED :",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "- NATURAL GAS, LIQUIFIED :"
+      },
+      {
+       "seq": 29,
+       "key": "미국관리정보",
+       "value": "Section 8(b) Inventory (TSCA): 존재함",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": " • 미국관리정보 : Section 8(b) Inventory (TSCA): 존재함"
+      },
+      {
+       "seq": 30,
+       "key": "중국관리정보",
+       "value": "Inventory of Existing Chemical Substances (IECSC): 존재함 13445",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": " • 중국관리정보 : Inventory of Existing Chemical Substances (IECSC): 존재함 13445"
+      },
+      {
+       "seq": 31,
+       "key": "캐나다관리정보",
+       "value": "Domestic Substances List (DSL): 존재함",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": " • 캐나다관리정보 : Domestic Substances List (DSL): 존재함"
+      },
+      {
+       "seq": 32,
+       "key": "호주관리정보",
+       "value": "Inventory of Chemical Substances (AICS): 존재함",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": " • 호주관리정보 : Inventory of Chemical Substances (AICS): 존재함"
+      },
+      {
+       "seq": 33,
+       "key": null,
+       "value": "Tetrahydrothiophene :",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "- Tetrahydrothiophene :"
+      },
+      {
+       "seq": 34,
+       "key": "미국관리정보",
+       "value": "Section 8(b) Inventory (TSCA): 존재함",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": " • 미국관리정보 : Section 8(b) Inventory (TSCA): 존재함"
+      },
+      {
+       "seq": 35,
+       "key": "일본관리정보",
+       "value": "Existing and New Chemical Substances (ENCS): (5)-75, 8-(6)-605",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": " • 일본관리정보 : Existing and New Chemical Substances (ENCS): (5)-75, 8-(6)-605"
+      },
+      {
+       "seq": 36,
+       "key": "중국관리정보",
+       "value": "Inventory of Existing Chemical Substances (IECSC): 존재함 32997",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": " • 중국관리정보 : Inventory of Existing Chemical Substances (IECSC): 존재함 32997"
+      },
+      {
+       "seq": 37,
+       "key": "캐나다관리정보",
+       "value": "Domestic Substances List (DSL): 존재함",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "• 캐나다관리정보 : Domestic Substances List (DSL): 존재함"
+      },
+      {
+       "seq": 38,
+       "key": "호주관리정보",
+       "value": "Inventory of Chemical Substances (AICS): 존재함",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": " • 호주관리정보 : Inventory of Chemical Substances (AICS): 존재함"
+      },
+      {
+       "seq": 39,
+       "key": "뉴질랜드관리정보",
+       "value": "Inventory of Chemicals (NZIoC): 존재함 HSR001225",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": " • 뉴질랜드관리정보 : Inventory of Chemicals (NZIoC): 존재함 HSR001225"
+      },
+      {
+       "seq": 40,
+       "key": "필리핀관리정보",
+       "value": "Inventory of Chemicals and Chemical Substances (PICCS): 존재함",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": " • 필리핀관리정보 : Inventory of Chemicals and Chemical Substances (PICCS): 존재함"
+      },
+      {
+       "seq": 41,
+       "key": null,
+       "value": "Tert-butylmercaptan :",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "- Tert-butylmercaptan :"
+      },
+      {
+       "seq": 42,
+       "key": "미국관리정보",
+       "value": "Section 8(b) Inventory (TSCA): 존재함",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": " • 미국관리정보 : Section 8(b) Inventory (TSCA): 존재함"
+      },
+      {
+       "seq": 43,
+       "key": "일본관리정보",
+       "value": "Existing and New Chemical Substances (ENCS): (2)-464",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": " • 일본관리정보 : Existing and New Chemical Substances (ENCS): (2)-464"
+      },
+      {
+       "seq": 44,
+       "key": "중국관리정보",
+       "value": "Inventory of Existing Chemical Substances (IECSC): 존재함 17067",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": " • 중국관리정보 : Inventory of Existing Chemical Substances (IECSC): 존재함 17067"
+      },
+      {
+       "seq": 45,
+       "key": "캐나다관리정보",
+       "value": "Domestic Substances List (DSL): 존재함",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "• 캐나다관리정보 : Domestic Substances List (DSL): 존재함"
+      },
+      {
+       "seq": 46,
+       "key": "호주관리정보",
+       "value": "Inventory of Chemical Substances (AICS): 존재함",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": " • 호주관리정보 : Inventory of Chemical Substances (AICS): 존재함"
+      },
+      {
+       "seq": 47,
+       "key": "뉴질랜드관리정보",
+       "value": "Inventory of Chemicals (NZIoC): 존재함 HSR001102",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": " • 뉴질랜드관리정보 : Inventory of Chemicals (NZIoC): 존재함 HSR001102"
+      },
+      {
+       "seq": 48,
+       "key": "필리핀관리정보",
+       "value": "Inventory of Chemicals and Chemical Substances (PICCS): 존재함",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": " • 필리핀관리정보 : Inventory of Chemicals and Chemical Substances (PICCS): 존재함"
+      }
+     ]
+    },
+    {
+     "item_code": "S16_SOURCE",
+     "title_raw": "가. 자료의 출처",
+     "status": "값있음",
+     "statements": [
+      {
+       "seq": 1,
+       "key": null,
+       "value": "International Uniform Chemical Information Database(IUCLID); http://esis.jrc.ec.europa.eu/",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "  - International Uniform Chemical Information Database(IUCLID); http://esis.jrc.ec.europa.eu/"
+      },
+      {
+       "seq": 2,
+       "key": null,
+       "value": "The Chemical Database -The Department of Chemistry at the University of Akron;",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "  - The Chemical Database -The Department of Chemistry at the University of Akron;"
+      },
+      {
+       "seq": 3,
+       "key": null,
+       "value": "http://ull.chemistry.uakron.edu/erd/",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "    http://ull.chemistry.uakron.edu/erd/"
+      },
+      {
+       "seq": 4,
+       "key": "EPISUITE",
+       "value": "http://www.epa.gov/opt/exposure/pubs/episuitedl.htm",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "  - EPISUITE : http://www.epa.gov/opt/exposure/pubs/episuitedl.htm"
+      },
+      {
+       "seq": 5,
+       "key": null,
+       "value": "U.S. National library of Medicine (NLM) Hazardous Substances Data Bank (HSDB) ;",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "  - U.S. National library of Medicine (NLM) Hazardous Substances Data Bank (HSDB) ;"
+      },
+      {
+       "seq": 6,
+       "key": null,
+       "value": "http://toxnet.nlm.nih.gov/cgi-bin/sis/htmlgen?HSDB.htm",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "    http://toxnet.nlm.nih.gov/cgi-bin/sis/htmlgen?HSDB.htm"
+      },
+      {
+       "seq": 7,
+       "key": null,
+       "value": "TOMESLOLI; http://csi.micromedex.com/fraMain.asp?Mnu=0",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "  - TOMESLOLI; http://csi.micromedex.com/fraMain.asp?Mnu=0"
+      },
+      {
+       "seq": 8,
+       "key": null,
+       "value": "EU Regulation 1272/2008",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "  - EU Regulation 1272/2008"
+      },
+      {
+       "seq": 9,
+       "key": null,
+       "value": "ERG2008",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "  - ERG2008"
+      },
+      {
+       "seq": 10,
+       "key": null,
+       "value": "UN Recommendations on the transport of dangerous goods 17th",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "  - UN Recommendations on the transport of dangerous goods 17th"
+      },
+      {
+       "seq": 11,
+       "key": null,
+       "value": "안전보건공단 http://www.kosha.or.kr",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "  - 안전보건공단 http://www.kosha.or.kr"
+      },
+      {
+       "seq": 12,
+       "key": null,
+       "value": "화학물질정보시스템(NCIS); http://ncis.nier.go.kr/ncis/",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "  - 화학물질정보시스템(NCIS); http://ncis.nier.go.kr/ncis/"
+      },
+      {
+       "seq": 13,
+       "key": null,
+       "value": "소방방재청 국가위험물정보시스템 http://www.nema.go.kr/hazmat/main/main.jsp",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "  - 소방방재청 국가위험물정보시스템 http://www.nema.go.kr/hazmat/main/main.jsp"
+      },
+      {
+       "seq": 14,
+       "key": null,
+       "value": "폐기물관리법시행규칙 별표[1]",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "  - 폐기물관리법시행규칙 별표[1]"
+      },
+      {
+       "seq": 15,
+       "key": null,
+       "value": "최초작성일자 2010. 06. 15",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "   나. 최초작성일자 2010. 06. 15"
+      }
+     ]
+    }
+   ],
+   "exposure_limits": [],
+   "physchem": [
+    {
+     "prop_code": "APPEARANCE_STATE",
+     "comp_ref": "MIX",
+     "q": null,
+     "text_value": "기체",
+     "cond": null,
+     "seq": 1,
+     "data_source": null
+    },
+    {
+     "prop_code": "APPEARANCE_COLOR",
+     "comp_ref": "MIX",
+     "q": null,
+     "text_value": "무색",
+     "cond": null,
+     "seq": 2,
+     "data_source": null
+    },
+    {
+     "prop_code": "ODOR",
+     "comp_ref": "MIX",
+     "q": null,
+     "text_value": "양파 썩는 냄새",
+     "cond": null,
+     "seq": 3,
+     "data_source": null
+    },
+    {
+     "prop_code": "ODOR_THRESHOLD",
+     "comp_ref": "MIX",
+     "q": null,
+     "text_value": "자료없음",
+     "cond": null,
+     "seq": 4,
+     "data_source": null
+    },
+    {
+     "prop_code": "PH",
+     "comp_ref": "MIX",
+     "q": null,
+     "text_value": "자료없음",
+     "cond": null,
+     "seq": 5,
+     "data_source": null
+    },
+    {
+     "prop_code": "MELT_FREEZE",
+     "comp_ref": "MIX",
+     "q": {
+      "raw": "-182.6 ℃ (-296.7 ℉)",
+      "approx": false,
+      "value": -182.6,
+      "lower_op": null,
+      "lower": null,
+      "upper_op": null,
+      "upper": null,
+      "unit": "C",
+      "dp": 1,
+      "status": "값있음",
+      "note": null
+     },
+     "text_value": null,
+     "cond": null,
+     "seq": 6,
+     "data_source": null
+    },
+    {
+     "prop_code": "BOILING",
+     "comp_ref": "MIX",
+     "q": {
+      "raw": "-161.67~-160.44 ℃",
+      "approx": false,
+      "value": null,
+      "lower_op": ">=",
+      "lower": -161.67,
+      "upper_op": "<=",
+      "upper": -160.44,
+      "unit": "C",
+      "dp": 2,
+      "status": "값있음",
+      "note": null
+     },
+     "text_value": null,
+     "cond": null,
+     "seq": 7,
+     "data_source": null
+    },
+    {
+     "prop_code": "FLASH_POINT",
+     "comp_ref": "MIX",
+     "q": {
+      "raw": "-188 ℃ (-306 ℉)",
+      "approx": false,
+      "value": -188,
+      "lower_op": null,
+      "lower": null,
+      "upper_op": null,
+      "upper": null,
+      "unit": "C",
+      "dp": 0,
+      "status": "값있음",
+      "note": null
+     },
+     "text_value": null,
+     "cond": null,
+     "seq": 8,
+     "data_source": null
+    },
+    {
+     "prop_code": "EVAP_RATE",
+     "comp_ref": "MIX",
+     "q": null,
+     "text_value": "자료없음",
+     "cond": null,
+     "seq": 9,
+     "data_source": null
+    },
+    {
+     "prop_code": "FLAMMABILITY",
+     "comp_ref": "MIX",
+     "q": null,
+     "text_value": "극인화성",
+     "cond": null,
+     "seq": 10,
+     "data_source": null
+    },
+    {
+     "prop_code": "UEL",
+     "comp_ref": "MIX",
+     "q": {
+      "raw": "15 %",
+      "approx": false,
+      "value": 15,
+      "lower_op": null,
+      "lower": null,
+      "upper_op": null,
+      "upper": null,
+      "unit": "%",
+      "dp": 0,
+      "status": "값있음",
+      "note": null
+     },
+     "text_value": null,
+     "cond": null,
+     "seq": 11,
+     "data_source": null
+    },
+    {
+     "prop_code": "LEL",
+     "comp_ref": "MIX",
+     "q": {
+      "raw": "5 %",
+      "approx": false,
+      "value": 5,
+      "lower_op": null,
+      "lower": null,
+      "upper_op": null,
+      "upper": null,
+      "unit": "%",
+      "dp": 0,
+      "status": "값있음",
+      "note": null
+     },
+     "text_value": null,
+     "cond": null,
+     "seq": 12,
+     "data_source": null
+    },
+    {
+     "prop_code": "VAPOR_PRESSURE",
+     "comp_ref": "MIX",
+     "q": {
+      "raw": "8.7 ㎪ (87~1013.25 hPa at -185 ℃)",
+      "approx": false,
+      "value": 8.7,
+      "lower_op": null,
+      "lower": null,
+      "upper_op": null,
+      "upper": null,
+      "unit": "kPa",
+      "dp": 1,
+      "status": "값있음",
+      "note": null
+     },
+     "text_value": null,
+     "cond": {
+      "temp": -185,
+      "temp_unit": "C",
+      "pressure": null,
+      "pressure_unit": null,
+      "method": null,
+      "reference": null,
+      "conc_value": null,
+      "conc_unit": null
+     },
+     "seq": 13,
+     "data_source": "International Uniform Chemical Infomation Database(IUCLID)"
+    },
+    {
+     "prop_code": "SOLUBILITY",
+     "comp_ref": "MIX",
+     "q": {
+      "raw": "0.024 g/100㎖ (0.024~0.061 g/L at 20℃)",
+      "approx": false,
+      "value": 0.024,
+      "lower_op": ">=",
+      "lower": 0.024,
+      "upper_op": "<=",
+      "upper": 0.061,
+      "unit": "g/L",
+      "dp": 3,
+      "status": "값있음",
+      "note": null
+     },
+     "text_value": null,
+     "cond": {
+      "temp": 20,
+      "temp_unit": "C",
+      "pressure": null,
+      "pressure_unit": null,
+      "method": null,
+      "reference": null,
+      "conc_value": null,
+      "conc_unit": null
+     },
+     "seq": 14,
+     "data_source": "Corporate Solution From Thomson Micromedex"
+    },
+    {
+     "prop_code": "VAPOR_DENSITY",
+     "comp_ref": "MIX",
+     "q": {
+      "raw": "0.8",
+      "approx": false,
+      "value": 0.8,
+      "lower_op": null,
+      "lower": null,
+      "upper_op": null,
+      "upper": null,
+      "unit": null,
+      "dp": 1,
+      "status": "값있음",
+      "note": null
+     },
+     "text_value": null,
+     "cond": null,
+     "seq": 15,
+     "data_source": null
+    },
+    {
+     "prop_code": "RELATIVE_DENSITY",
+     "comp_ref": "MIX",
+     "q": {
+      "raw": "0.7731~0.7784 kg/m3 (0 °C, 101.325 kPa) (밀도)",
+      "approx": false,
+      "value": null,
+      "lower_op": ">=",
+      "lower": 0.7731,
+      "upper_op": "<=",
+      "upper": 0.7784,
+      "unit": "kg/m3",
+      "dp": 4,
+      "status": "값있음",
+      "note": null
+     },
+     "text_value": null,
+     "cond": {
+      "temp": 0,
+      "temp_unit": "C",
+      "pressure": 101.325,
+      "pressure_unit": "kPa",
+      "method": null,
+      "reference": null,
+      "conc_value": null,
+      "conc_unit": null
+     },
+     "seq": 16,
+     "data_source": null
+    },
+    {
+     "prop_code": "LOG_KOW",
+     "comp_ref": "MIX",
+     "q": {
+      "raw": "log Kow ≤ 2.8",
+      "approx": false,
+      "value": null,
+      "lower_op": null,
+      "lower": null,
+      "upper_op": "<=",
+      "upper": 2.8,
+      "unit": null,
+      "dp": 1,
+      "status": "값있음",
+      "note": null
+     },
+     "text_value": null,
+     "cond": null,
+     "seq": 17,
+     "data_source": null
+    },
+    {
+     "prop_code": "AUTOIGNITION",
+     "comp_ref": "MIX",
+     "q": {
+      "raw": "540 ℃ (1,004 ℉)",
+      "approx": false,
+      "value": 540,
+      "lower_op": null,
+      "lower": null,
+      "upper_op": null,
+      "upper": null,
+      "unit": "C",
+      "dp": 0,
+      "status": "값있음",
+      "note": null
+     },
+     "text_value": null,
+     "cond": null,
+     "seq": 18,
+     "data_source": null
+    },
+    {
+     "prop_code": "DECOMPOSITION",
+     "comp_ref": "MIX",
+     "q": null,
+     "text_value": "자료없음",
+     "cond": null,
+     "seq": 19,
+     "data_source": null
+    },
+    {
+     "prop_code": "VISCOSITY",
+     "comp_ref": "MIX",
+     "q": {
+      "raw": "9.952x10-6~1.002X10-5 Pa-s",
+      "approx": false,
+      "value": null,
+      "lower_op": ">=",
+      "lower": 9.952e-06,
+      "upper_op": "<=",
+      "upper": 1.002e-05,
+      "unit": "Pa-s",
+      "dp": null,
+      "status": "값있음",
+      "note": null
+     },
+     "text_value": null,
+     "cond": null,
+     "seq": 20,
+     "data_source": null
+    },
+    {
+     "prop_code": "MOL_WEIGHT",
+     "comp_ref": "MIX",
+     "q": {
+      "raw": "17.12~18.19",
+      "approx": false,
+      "value": null,
+      "lower_op": ">=",
+      "lower": 17.12,
+      "upper_op": "<=",
+      "upper": 18.19,
+      "unit": null,
+      "dp": 2,
+      "status": "값있음",
+      "note": null
+     },
+     "text_value": null,
+     "cond": null,
+     "seq": 21,
+     "data_source": null
+    }
+   ],
+   "toxicity": [],
+   "cmr": [],
+   "ecotox": [
+    {
+     "comp_ref": "1",
+     "endpoint": "ECO_FISH",
+     "descriptor": "LC50",
+     "q": {
+      "raw": "96hr-LC50(other) ＞ 1,000 mg/L",
+      "approx": null,
+      "value": null,
+      "lower_op": ">",
+      "lower": 1000,
+      "upper_op": null,
+      "upper": null,
+      "unit": "mg/L",
+      "dp": 0,
+      "status": "값있음",
+      "note": null
+     },
+     "species": "other",
+     "duration_value": 96,
+     "duration_unit": "hr",
+     "guideline": null,
+     "data_source": null,
+     "statements": [],
+     "status": "값있음"
+    },
+    {
+     "comp_ref": "2",
+     "endpoint": "ECO_FISH",
+     "descriptor": "LC50",
+     "q": {
+      "raw": "96hr-LC50(Daniorerio)＞ 24 mg/L (OECD TG 203, GLP)",
+      "approx": null,
+      "value": null,
+      "lower_op": ">",
+      "lower": 24,
+      "upper_op": null,
+      "upper": null,
+      "unit": "mg/L",
+      "dp": 0,
+      "status": "값있음",
+      "note": null
+     },
+     "species": "Daniorerio",
+     "duration_value": 96,
+     "duration_unit": "hr",
+     "guideline": "OECD TG 203",
+     "data_source": "GLP",
+     "statements": [],
+     "status": "값있음"
+    },
+    {
+     "comp_ref": "3",
+     "endpoint": "ECO_FISH",
+     "descriptor": "LC50",
+     "q": {
+      "raw": "96hr-LC50(Oncorhynchusmykiss)=34mg/L(OECDTG203,GLP)",
+      "approx": null,
+      "value": 34,
+      "lower_op": null,
+      "lower": null,
+      "upper_op": null,
+      "upper": null,
+      "unit": "mg/L",
+      "dp": 0,
+      "status": "값있음",
+      "note": null
+     },
+     "species": "Oncorhynchusmykiss",
+     "duration_value": 96,
+     "duration_unit": "hr",
+     "guideline": "OECDTG203",
+     "data_source": "GLP",
+     "statements": [],
+     "status": "값있음"
+    },
+    {
+     "comp_ref": "1",
+     "endpoint": "ECO_CRUST",
+     "descriptor": "LC50",
+     "q": {
+      "raw": "48hr-LC50(other) = 46.56 mg/L (ECOSAR Class;neutral organics)",
+      "approx": null,
+      "value": 46.56,
+      "lower_op": null,
+      "lower": null,
+      "upper_op": null,
+      "upper": null,
+      "unit": "mg/L",
+      "dp": 2,
+      "status": "값있음",
+      "note": null
+     },
+     "species": "other",
+     "duration_value": 48,
+     "duration_unit": "hr",
+     "guideline": "ECOSAR Class;neutral organics",
+     "data_source": null,
+     "statements": [],
+     "status": "값있음"
+    },
+    {
+     "comp_ref": "2",
+     "endpoint": "ECO_CRUST",
+     "descriptor": "EC50",
+     "q": {
+      "raw": "48hr-EC50(Daphniamagna)=24mg/L(OECDTG202,GLP)",
+      "approx": null,
+      "value": 24,
+      "lower_op": null,
+      "lower": null,
+      "upper_op": null,
+      "upper": null,
+      "unit": "mg/L",
+      "dp": 0,
+      "status": "값있음",
+      "note": null
+     },
+     "species": "Daphniamagna",
+     "duration_value": 48,
+     "duration_unit": "hr",
+     "guideline": "OECDTG202",
+     "data_source": "GLP",
+     "statements": [],
+     "status": "값있음"
+    },
+    {
+     "comp_ref": "3",
+     "endpoint": "ECO_CRUST",
+     "descriptor": "EC50",
+     "q": {
+      "raw": "48hr-EC50(Daphniamagna)=6.7mg/L(OECDTG202,GLP)",
+      "approx": null,
+      "value": 6.7,
+      "lower_op": null,
+      "lower": null,
+      "upper_op": null,
+      "upper": null,
+      "unit": "mg/L",
+      "dp": 1,
+      "status": "값있음",
+      "note": null
+     },
+     "species": "Daphniamagna",
+     "duration_value": 48,
+     "duration_unit": "hr",
+     "guideline": "OECDTG202",
+     "data_source": "GLP",
+     "statements": [],
+     "status": "값있음"
+    },
+    {
+     "comp_ref": "1",
+     "endpoint": "ECO_ALGAE",
+     "descriptor": "EC50",
+     "q": {
+      "raw": "96hr-EC50(other) = 16.47 mg/L (ECOSAR Class;neutral organics)",
+      "approx": null,
+      "value": 16.47,
+      "lower_op": null,
+      "lower": null,
+      "upper_op": null,
+      "upper": null,
+      "unit": "mg/L",
+      "dp": 2,
+      "status": "값있음",
+      "note": null
+     },
+     "species": "other",
+     "duration_value": 96,
+     "duration_unit": "hr",
+     "guideline": "ECOSAR Class;neutral organics",
+     "data_source": null,
+     "statements": [],
+     "status": "값있음"
+    },
+    {
+     "comp_ref": "2",
+     "endpoint": "ECO_ALGAE",
+     "descriptor": "EC50",
+     "q": {
+      "raw": "72hr-EC50(Selenastrumcapricornutum)=90mg/L(OECDTG201,GLP)",
+      "approx": null,
+      "value": 90,
+      "lower_op": null,
+      "lower": null,
+      "upper_op": null,
+      "upper": null,
+      "unit": "mg/L",
+      "dp": 0,
+      "status": "값있음",
+      "note": null
+     },
+     "species": "Selenastrumcapricornutum",
+     "duration_value": 72,
+     "duration_unit": "hr",
+     "guideline": "OECDTG201",
+     "data_source": "GLP",
+     "statements": [],
+     "status": "값있음"
+    },
+    {
+     "comp_ref": "2",
+     "endpoint": "ECO_ALGAE",
+     "descriptor": "NOEC",
+     "q": {
+      "raw": "72hr-NOEC(Selenastrumcapricornutum)=6mg/L(OECDTG201,GLP)",
+      "approx": null,
+      "value": 6,
+      "lower_op": null,
+      "lower": null,
+      "upper_op": null,
+      "upper": null,
+      "unit": "mg/L",
+      "dp": 0,
+      "status": "값있음",
+      "note": null
+     },
+     "species": "Selenastrumcapricornutum",
+     "duration_value": 72,
+     "duration_unit": "hr",
+     "guideline": "OECDTG201",
+     "data_source": "GLP",
+     "statements": [],
+     "status": "값있음"
+    },
+    {
+     "comp_ref": "3",
+     "endpoint": "ECO_ALGAE",
+     "descriptor": "EC50",
+     "q": {
+      "raw": "72hr-EC50(Selenastrumcapricornutum)=24mg/L(OECDTG201,GLP)",
+      "approx": null,
+      "value": 24,
+      "lower_op": null,
+      "lower": null,
+      "upper_op": null,
+      "upper": null,
+      "unit": "mg/L",
+      "dp": 0,
+      "status": "값있음",
+      "note": null
+     },
+     "species": "Selenastrumcapricornutum",
+     "duration_value": 72,
+     "duration_unit": "hr",
+     "guideline": "OECDTG201",
+     "data_source": "GLP",
+     "statements": [],
+     "status": "값있음"
+    },
+    {
+     "comp_ref": "3",
+     "endpoint": "ECO_ALGAE",
+     "descriptor": "NOEC",
+     "q": {
+      "raw": "72hr-NOEC(Selenastrumcapricornutum)=6.41mg/L(OECDTG201,GLP)",
+      "approx": null,
+      "value": 6.41,
+      "lower_op": null,
+      "lower": null,
+      "upper_op": null,
+      "upper": null,
+      "unit": "mg/L",
+      "dp": 2,
+      "status": "값있음",
+      "note": null
+     },
+     "species": "Selenastrumcapricornutum",
+     "duration_value": 72,
+     "duration_unit": "hr",
+     "guideline": "OECDTG201",
+     "data_source": "GLP",
+     "statements": [],
+     "status": "값있음"
+    }
+   ],
+   "transport": [
+    {
+     "mode": "공통",
+     "basis_raw": "UN Recommendations on the transport of dangerous goods 17th",
+     "regulated": true,
+     "un_no": "1971",
+     "shipping_name": "METHANE, REFRIGERATED LIQUID or NATURAL GAS, REFRIGERATED LIQUID with high methane content",
+     "hazard_class": "2.1",
+     "sub_risk": null,
+     "packing_group": "해당없음",
+     "marine_pollutant": "해당",
+     "ems_fire": "F-D",
+     "ems_spill": "S-U"
+    }
+   ],
+   "regulations": [
+    {
+     "seq": 1,
+     "law": "OSH",
+     "item_code": "OSH_PSM",
+     "item_raw": "공정안전보고서(PSM) 대상물질(단, 산업안전보건법 시행령 제33조의 6 및 별표 10에 해당하는 경우에 한함)",
+     "comp_ref": "MIX",
+     "applicable": "해당",
+     "threshold": null,
+     "qty": null,
+     "qty_alt": null,
+     "sub_class": null,
+     "cycle": null,
+     "country": null,
+     "value_raw": null,
+     "remark": null
+    },
+    {
+     "seq": 2,
+     "law": "CCA",
+     "item_code": "CCA_PROHIBIT",
+     "item_raw": "해당없음",
+     "comp_ref": "MIX",
+     "applicable": "해당",
+     "threshold": null,
+     "qty": null,
+     "qty_alt": null,
+     "sub_class": null,
+     "cycle": null,
+     "country": null,
+     "value_raw": null,
+     "remark": null
+    },
+    {
+     "seq": 3,
+     "law": "DG",
+     "item_code": "DG_HAZMAT",
+     "item_raw": "해당없음",
+     "comp_ref": "MIX",
+     "applicable": "해당",
+     "threshold": null,
+     "qty": null,
+     "qty_alt": null,
+     "sub_class": null,
+     "cycle": null,
+     "country": null,
+     "value_raw": null,
+     "remark": null
+    },
+    {
+     "seq": 4,
+     "law": "WASTE",
+     "item_code": "WASTE_DESIG",
+     "item_raw": "해당없음",
+     "comp_ref": "MIX",
+     "applicable": "해당",
+     "threshold": null,
+     "qty": null,
+     "qty_alt": null,
+     "sub_class": null,
+     "cycle": null,
+     "country": null,
+     "value_raw": null,
+     "remark": null
+    },
+    {
+     "seq": 5,
+     "law": "INTL",
+     "item_code": "INTL_EU",
+     "item_raw": "EU 분류정보(확정분류결과) :",
+     "comp_ref": "1",
+     "applicable": "해당",
+     "threshold": null,
+     "qty": null,
+     "qty_alt": null,
+     "sub_class": null,
+     "cycle": null,
+     "country": "EU",
+     "value_raw": "해당없음",
+     "remark": null
+    },
+    {
+     "seq": 6,
+     "law": "INTL",
+     "item_code": "INTL_EU",
+     "item_raw": "EU 분류정보(확정분류결과) :",
+     "comp_ref": "2",
+     "applicable": "해당",
+     "threshold": null,
+     "qty": null,
+     "qty_alt": null,
+     "sub_class": null,
+     "cycle": null,
+     "country": "EU",
+     "value_raw": "F; R11 Xn; R20/21/22 Xi; R36/38 R52-53",
+     "remark": null
+    },
+    {
+     "seq": 7,
+     "law": "INTL",
+     "item_code": "INTL_EU",
+     "item_raw": "EU 분류정보(확정분류결과) :",
+     "comp_ref": "3",
+     "applicable": "해당",
+     "threshold": null,
+     "qty": null,
+     "qty_alt": null,
+     "sub_class": null,
+     "cycle": null,
+     "country": "EU",
+     "value_raw": "해당없음",
+     "remark": null
+    },
+    {
+     "seq": 8,
+     "law": "INTL",
+     "item_code": "INTL_EU",
+     "item_raw": "EU 분류정보(위험문구) :",
+     "comp_ref": "1",
+     "applicable": "해당",
+     "threshold": null,
+     "qty": null,
+     "qty_alt": null,
+     "sub_class": null,
+     "cycle": null,
+     "country": "EU",
+     "value_raw": "해당없음",
+     "remark": null
+    },
+    {
+     "seq": 9,
+     "law": "INTL",
+     "item_code": "INTL_EU",
+     "item_raw": "EU 분류정보(위험문구) :",
+     "comp_ref": "2",
+     "applicable": "해당",
+     "threshold": null,
+     "qty": null,
+     "qty_alt": null,
+     "sub_class": null,
+     "cycle": null,
+     "country": "EU",
+     "value_raw": "R11 R20/21/22 R36/38 R52/53",
+     "remark": null
+    },
+    {
+     "seq": 10,
+     "law": "INTL",
+     "item_code": "INTL_EU",
+     "item_raw": "EU 분류정보(위험문구) :",
+     "comp_ref": "3",
+     "applicable": "해당",
+     "threshold": null,
+     "qty": null,
+     "qty_alt": null,
+     "sub_class": null,
+     "cycle": null,
+     "country": "EU",
+     "value_raw": "해당없음",
+     "remark": null
+    },
+    {
+     "seq": 11,
+     "law": "INTL",
+     "item_code": "INTL_EU",
+     "item_raw": "EU 분류정보(안전문구) :",
+     "comp_ref": "1",
+     "applicable": "해당",
+     "threshold": null,
+     "qty": null,
+     "qty_alt": null,
+     "sub_class": null,
+     "cycle": null,
+     "country": "EU",
+     "value_raw": "해당없음",
+     "remark": null
+    },
+    {
+     "seq": 12,
+     "law": "INTL",
+     "item_code": "INTL_EU",
+     "item_raw": "EU 분류정보(안전문구) :",
+     "comp_ref": "2",
+     "applicable": "해당",
+     "threshold": null,
+     "qty": null,
+     "qty_alt": null,
+     "sub_class": null,
+     "cycle": null,
+     "country": "EU",
+     "value_raw": "S2 S16 S23 S36/37 S61",
+     "remark": null
+    },
+    {
+     "seq": 13,
+     "law": "INTL",
+     "item_code": "INTL_EU",
+     "item_raw": "EU 분류정보(안전문구) :",
+     "comp_ref": "3",
+     "applicable": "해당",
+     "threshold": null,
+     "qty": null,
+     "qty_alt": null,
+     "sub_class": null,
+     "cycle": null,
+     "country": "EU",
+     "value_raw": "해당없음",
+     "remark": null
+    },
+    {
+     "seq": 14,
+     "law": "INTL",
+     "item_code": "INTL_EU",
+     "item_raw": "EU 규제정보(EU SVHC list) :",
+     "comp_ref": "MIX",
+     "applicable": "해당",
+     "threshold": null,
+     "qty": null,
+     "qty_alt": null,
+     "sub_class": null,
+     "cycle": null,
+     "country": "EU",
+     "value_raw": "해당없음",
+     "remark": null
+    },
+    {
+     "seq": 15,
+     "law": "INTL",
+     "item_code": "INTL_EU",
+     "item_raw": "EU 규제정보(EU Authorization List) :",
+     "comp_ref": "MIX",
+     "applicable": "해당",
+     "threshold": null,
+     "qty": null,
+     "qty_alt": null,
+     "sub_class": null,
+     "cycle": null,
+     "country": "EU",
+     "value_raw": "해당없음",
+     "remark": null
+    },
+    {
+     "seq": 16,
+     "law": "INTL",
+     "item_code": "INTL_EU",
+     "item_raw": "EU 규제정보(EU Restriction list) :",
+     "comp_ref": "MIX",
+     "applicable": "해당",
+     "threshold": null,
+     "qty": null,
+     "qty_alt": null,
+     "sub_class": null,
+     "cycle": null,
+     "country": "EU",
+     "value_raw": "해당없음",
+     "remark": null
+    },
+    {
+     "seq": 17,
+     "law": "INTL",
+     "item_code": "INTL_US",
+     "item_raw": "미국관리정보(OSHA 규정) :",
+     "comp_ref": "MIX",
+     "applicable": "해당",
+     "threshold": null,
+     "qty": null,
+     "qty_alt": null,
+     "sub_class": null,
+     "cycle": null,
+     "country": "US",
+     "value_raw": "해당없음",
+     "remark": null
+    },
+    {
+     "seq": 18,
+     "law": "INTL",
+     "item_code": "INTL_US",
+     "item_raw": "미국관리정보(CERCLA 규정) :",
+     "comp_ref": "MIX",
+     "applicable": "해당",
+     "threshold": null,
+     "qty": null,
+     "qty_alt": null,
+     "sub_class": null,
+     "cycle": null,
+     "country": "US",
+     "value_raw": "해당없음",
+     "remark": null
+    },
+    {
+     "seq": 19,
+     "law": "INTL",
+     "item_code": "INTL_US",
+     "item_raw": "미국관리정보(EPCRA 302 규정) :",
+     "comp_ref": "MIX",
+     "applicable": "해당",
+     "threshold": null,
+     "qty": null,
+     "qty_alt": null,
+     "sub_class": null,
+     "cycle": null,
+     "country": "US",
+     "value_raw": "해당없음",
+     "remark": null
+    },
+    {
+     "seq": 20,
+     "law": "INTL",
+     "item_code": "INTL_US",
+     "item_raw": "미국관리정보(EPCRA 304 규정) :",
+     "comp_ref": "MIX",
+     "applicable": "해당",
+     "threshold": null,
+     "qty": null,
+     "qty_alt": null,
+     "sub_class": null,
+     "cycle": null,
+     "country": "US",
+     "value_raw": "해당없음",
+     "remark": null
+    },
+    {
+     "seq": 21,
+     "law": "INTL",
+     "item_code": "INTL_US",
+     "item_raw": "미국관리정보(EPCRA 313 규정) :",
+     "comp_ref": "MIX",
+     "applicable": "해당",
+     "threshold": null,
+     "qty": null,
+     "qty_alt": null,
+     "sub_class": null,
+     "cycle": null,
+     "country": "US",
+     "value_raw": "해당없음",
+     "remark": null
+    },
+    {
+     "seq": 22,
+     "law": "INTL",
+     "item_code": "INTL_TREATY",
+     "item_raw": "로테르담협약물질 :",
+     "comp_ref": "MIX",
+     "applicable": "해당",
+     "threshold": null,
+     "qty": null,
+     "qty_alt": null,
+     "sub_class": null,
+     "cycle": null,
+     "country": null,
+     "value_raw": "해당없음",
+     "remark": null
+    },
+    {
+     "seq": 23,
+     "law": "INTL",
+     "item_code": "INTL_TREATY",
+     "item_raw": "스톡홀름협약물질 :",
+     "comp_ref": "MIX",
+     "applicable": "해당",
+     "threshold": null,
+     "qty": null,
+     "qty_alt": null,
+     "sub_class": null,
+     "cycle": null,
+     "country": null,
+     "value_raw": "해당없음",
+     "remark": null
+    },
+    {
+     "seq": 24,
+     "law": "INTL",
+     "item_code": "INTL_TREATY",
+     "item_raw": "몬트리올의정서물질 :",
+     "comp_ref": "MIX",
+     "applicable": "해당",
+     "threshold": null,
+     "qty": null,
+     "qty_alt": null,
+     "sub_class": null,
+     "cycle": null,
+     "country": null,
+     "value_raw": "해당없음",
+     "remark": null
+    }
+   ],
+   "dangerous_goods": [
+    {
+     "comp_ref": "MIX",
+     "class": "제2류",
+     "item": "고압가스",
+     "water_soluble": "비수용성",
+     "grade": "I",
+     "designated_qty": {
+      "raw": "200L",
+      "approx": false,
+      "value": 200,
+      "lower_op": null,
+      "lower": null,
+      "upper_op": null,
+      "upper": null,
+      "unit": "L",
+      "dp": 0,
+      "status": "값있음",
+      "note": null
+     }
+    },
+    {
+     "comp_ref": "MIX",
+     "class": "제2류",
+     "item": "인화성 가스",
+     "water_soluble": "비수용성",
+     "grade": "I",
+     "designated_qty": {
+      "raw": "200L",
+      "approx": false,
+      "value": 200,
+      "lower_op": null,
+      "lower": null,
+      "upper_op": null,
+      "upper": null,
+      "unit": "L",
+      "dp": 0,
+      "status": "값있음",
+      "note": null
+     }
+    }
+   ],
+   "waste": [
+    {
+     "comp_ref": "MIX",
+     "designated": "해당",
+     "waste_type": "지정폐기물"
+    }
+   ],
+   "intl_class": [
+    {
+     "comp_ref": "2",
+     "system": "EU_CLP",
+     "class_raw": "F; R11 Xn; R20/21/22 Xi; R36/38 R52-53",
+     "h_code": "H224; H315; H317; H318; H335; H341; H351; H361; H373",
+     "status": "값있음"
+    },
+    {
+     "comp_ref": "2",
+     "system": "EU_CLP",
+     "class_raw": "R11 R20/21/22 R36/38 R52/53",
+     "h_code": "H224; H315; H317; H318; H335; H341; H351; H361; H373",
+     "status": "값있음"
+    },
+    {
+     "comp_ref": "2",
+     "system": "EU_CLP",
+     "class_raw": "S2 S16 S23 S36/37 S61",
+     "h_code": "P210; P233; P240; P241; P242; P243; P280; P302+P352; P304+P340; P305+P351+P338; P310; P312; P321; P332+P313; P337+P313; P361; P363; P370+P378; P381; P403+P233; P405; P501",
+     "status": "값있음"
+    }
+   ],
+   "evidence": [
+    {
+     "field": "meta.msds_no",
+     "page": 1,
+     "bbox": null,
+     "source_text": "물질안전성보건자료",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "meta.doc_code",
+     "page": 1,
+     "bbox": null,
+     "source_text": "1. 화학제품과 회사에 관한 정보",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "meta.revision_no",
+     "page": 1,
+     "bbox": null,
+     "source_text": "   가. 제품명 : 천연가스(Natural Gas with Odorant)",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "meta.revision_label",
+     "page": 1,
+     "bbox": null,
+     "source_text": "   나. 제품의 권고 용도와 사용상의 제한",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "meta.header_product_name",
+     "page": 1,
+     "bbox": null,
+     "source_text": "ο 제품의 권고 용도 : 천연가스, 연료가스",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "meta.source_note",
+     "page": 1,
+     "bbox": null,
+     "source_text": "ο 제품의 사용상의 제한 : 권고된 용도 외에 사용하지 마시오.",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "meta.first_issue_date",
+     "page": 1,
+     "bbox": null,
+     "source_text": "   다. 공급자 정보",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "meta.last_revision_date",
+     "page": 1,
+     "bbox": null,
+     "source_text": " ο 회사명 : 한국가스공사",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "product.name",
+     "page": 1,
+     "bbox": null,
+     "source_text": "   가. 제품명 : 천연가스(Natural Gas with Odorant)",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "product.code",
+     "page": 1,
+     "bbox": null,
+     "source_text": "   나. 제품의 권고 용도와 사용상의 제한",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "product.synonyms",
+     "page": 1,
+     "bbox": null,
+     "source_text": "ο 제품의 권고 용도 : 천연가스, 연료가스",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "product.uses",
+     "page": 1,
+     "bbox": null,
+     "source_text": "ο 제품의 사용상의 제한 : 권고된 용도 외에 사용하지 마시오.",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "product.restrictions",
+     "page": 1,
+     "bbox": null,
+     "source_text": "   다. 공급자 정보",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "product.use_category_code",
+     "page": 1,
+     "bbox": null,
+     "source_text": " ο 회사명 : 한국가스공사",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "companies[0]",
+     "page": 1,
+     "bbox": null,
+     "source_text": " ο 회사명 : 한국가스공사",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "companies[0].contacts[0]",
+     "page": 1,
+     "bbox": null,
+     "source_text": " ο 긴급전화번호 : 053-670-0427",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "hazard.classified",
+     "page": 1,
+     "bbox": null,
+     "source_text": "2. 유해성·위험성",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "hazard.signal_word",
+     "page": 1,
+     "bbox": null,
+     "source_text": " ο 신호어 : 위험",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "hazard.nfpa",
+     "page": 2,
+     "bbox": null,
+     "source_text": " ο 보건 : 0",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "hazard.classes[0]",
+     "page": 1,
+     "bbox": null,
+     "source_text": " ο 인화성 가스 : 구분 1",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "hazard.classes[1]",
+     "page": 1,
+     "bbox": null,
+     "source_text": " ο 고압가스 : 구분 1",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "hazard.h_statements[0]",
+     "page": 1,
+     "bbox": null,
+     "source_text": "H220 : 극인화성 가스",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "hazard.h_statements[1]",
+     "page": 1,
+     "bbox": null,
+     "source_text": "H280 : 고압가스",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "hazard.p_statements[0]",
+     "page": 2,
+     "bbox": null,
+     "source_text": "P210 : 열·스파크·화염·고열로부터 멀리하시오. - 금연",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "hazard.p_statements[1]",
+     "page": 2,
+     "bbox": null,
+     "source_text": "P377 : 누출성 가스 화재 시 누출을 안전하게 막을 수 없다면 불을 끄려하지 마시오.",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "hazard.p_statements[2]",
+     "page": 2,
+     "bbox": null,
+     "source_text": "P381 : 안전하게 처리하는 것이 가능하면 모든 점화원을 제거하시오.",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "hazard.p_statements[3]",
+     "page": 2,
+     "bbox": null,
+     "source_text": "P403 : 환기가 잘 되는 곳에 보관하시오.",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "hazard.other_hazards[0]",
+     "page": 2,
+     "bbox": null,
+     "source_text": " ο 보건 : 0",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "hazard.other_hazards[1]",
+     "page": 2,
+     "bbox": null,
+     "source_text": " ο 화재 : 4",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "hazard.other_hazards[2]",
+     "page": 2,
+     "bbox": null,
+     "source_text": " ο 반응성 : 0",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "composition.type",
+     "page": 2,
+     "bbox": null,
+     "source_text": "물질명  이명(관용명)  CAS 번호  함유량(%)",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "composition.no_hazardous_component",
+     "page": 2,
+     "bbox": null,
+     "source_text": "물질명  이명(관용명)  CAS 번호  함유량(%)",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "components[0]",
+     "page": 2,
+     "bbox": null,
+     "source_text": "NATURAL GAS  • LNG • Natural gas, dried • Methane, refrigerated liquid (cryogenic liquid)  8006-14-2  ≥ 99.96",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "components[1]",
+     "page": 2,
+     "bbox": null,
+     "source_text": "Tetrahydrothiophene  • Thiolane • Tetramethylene sulfide • Thiacyclopentane  110-01-0  0.03",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "components[2]",
+     "page": 2,
+     "bbox": null,
+     "source_text": "Tert-butylmercaptan  • 2-Methyl-2-propanethiol • 2-Methylpropane-2-thiol  75-66-1  0.01",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "narratives[0]",
+     "page": 1,
+     "bbox": null,
+     "source_text": " ο 그림문자 :",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "narratives[1]",
+     "page": 2,
+     "bbox": null,
+     "source_text": "   가. 눈에 들어갔을 때\n- 지속적인 자극이 발생하는 경우, 긴급 의료조치를 받으시오.",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "narratives[2]",
+     "page": 2,
+     "bbox": null,
+     "source_text": "   나. 피부에 접촉했을 때\n- 지속적인 자극이 발생하는 경우, 긴급 의료조치를 받으시오.",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "narratives[3]",
+     "page": 2,
+     "bbox": null,
+     "source_text": "   다. 흡입했을 때\n- 신선한 공기가 있는 곳으로 옮기시오.\n- 긴급 의료조치를 받으시오.",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "narratives[4]",
+     "page": 3,
+     "bbox": null,
+     "source_text": "   라. 먹었을 때\n- 물질을 먹거나 흡입하였을 경우, 구강대구강법으로 인공호흡을 하지 말고 적절한 호흡 의료장비를 이용하시오.",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "narratives[5]",
+     "page": 3,
+     "bbox": null,
+     "source_text": "   마. 기타 의사의 주의사항\n- 의료인력이 해당물질에 대해 인지하고 보호조치를 취하도록 하시오.",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "narratives[6]",
+     "page": 3,
+     "bbox": null,
+     "source_text": "   가. 적절한(및 부적절한) 소화제\n- 이 물질과 관련된 소화 시 알코올 포말, 이산화탄소 또는 물 분무를 사용할 것\n- 질식소화 시 건조한 모래 또는 흙을 사용할 것",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "narratives[7]",
+     "page": 3,
+     "bbox": null,
+     "source_text": "   나. 화학물질로부터 생기는 특정 유해성\n- 공기와 폭발성 혼합물을 형성함\n- 극인화성 가스\n- 열, 스파크, 화염에 의해 쉽게 점화함\n- 현기증 또는 질식을 유발할 수 있음\n- 점화원까지 이동하여 역화(flash back)할 수 있음",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "narratives[8]",
+     "page": 3,
+     "bbox": null,
+     "source_text": "   다. 화재진압 시 착용할 보호구 및 예방조치\n- 누출성 가스 화재 시 누출을 안전하게 막을 수 없다면 불을 끄려하지 마시오.\n- 누출이 중지되지 않는다면 누출가스화재를 소화하지 마시오.\n- 안전하게 처리하는 것이 가능하면 모든 점화원을 제거하시오.\n- 위험하지 않다면 화재지역에서 용기를 옮기시오.\n- 지역을 벗어나 안전거리를 유지하여 소화하시오.\n- ",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "narratives[9]",
+     "page": 4,
+     "bbox": null,
+     "source_text": "- 가능하다면 누출용기를 돌려 액체보다는 가스로 방출되도록 하시오.\n- 가스가 완전히 확산되어 희석될 때까지 오염지역을 격리하시오.\n- 유출물을 만지거나 유출된 곳을 걸어 다니지 마시오.\n- 누출성 가스 화재 시 누출을 안전하게 막을 수 없다면 불을 끄려하지 마시오.\n- 누출원에 직접 주수하지 마시오.\n- 매우 미세한 입자는 화재나 폭발을 일으킬 수 있으므",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "narratives[10]",
+     "page": 4,
+     "bbox": null,
+     "source_text": "- 증기가 하수구, 환기장치, 밀폐공간을 통해 확산되지 않도록 하시오.\n   다. 정화 또는 제거 방법",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "narratives[11]",
+     "page": 4,
+     "bbox": null,
+     "source_text": "- 가스가 완전히 기화되어 제거될 때까지 기다리시오. 단, 주변에 가연성 물질 등 점화원이\n있는 경우에는 모든 점화원을 제거하시오.\n7. 취급 및 저장방법",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "narratives[12]",
+     "page": 4,
+     "bbox": null,
+     "source_text": "- 공학적 관리 및 개인보호구를 참조하여 작업하시오.\n- 물질 취급 시 모든 장비를 반드시 접지하시오.\n- 압력을 가하거나, 자르거나, 용접, 납땜, 접합, 뚫기, 연마 또는 열에 폭로, 화염, 불꽃,\n정전기 또는 다른 점화원에 폭로하지 마시오.\n- 용기가 비워진 후에도 제품 찌꺼기가 남아 있을 수 있으므로 모든 MSDS/경고표시\n예방조치를 따르시오.\n- ",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "narratives[13]",
+     "page": 4,
+     "bbox": null,
+     "source_text": "- 밀폐하여 보관하시오.\n- 열·스파크·화염·고열로부터 멀리하시오. - 금연\n- 피해야 할 물질 및 조건에 유의하시오.\n- 환기가 잘 되는 곳에 보관하시오.",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "narratives[14]",
+     "page": 5,
+     "bbox": null,
+     "source_text": "- 공정격리, 국소배기를 사용하거나, 공기수준을 노출기준 이하로 조절하는 다른 공학적\n관리를 하시오.",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "narratives[15]",
+     "page": 5,
+     "bbox": null,
+     "source_text": " ο 호흡기 보호\n- 이 물질에 다량 노출되었을 시, 노출되는 기체의 물리 화학적 특성에 맞는 안전보건공단의\n인증을 필한 호흡용 보호구를 착용하시오.\n- 이 물질에 다량 노출되었을 시, 기체 물질의 경우 다음과 같은 호흡기 보호구가 권고됨\n;격리식 전면형 방독 마스크(유기화합물용(산성가스인 경우 산성가스용)) 또는 격리식\n반면형 방독 마스크(유기화합물용(산",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "narratives[16]",
+     "page": 5,
+     "bbox": null,
+     "source_text": " ο 눈 보호\n- 자료없음",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "narratives[17]",
+     "page": 5,
+     "bbox": null,
+     "source_text": " ο 손 보호\n- 자료없음",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "narratives[18]",
+     "page": 5,
+     "bbox": null,
+     "source_text": " ο 신체 보호\n- 자료없음",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "narratives[19]",
+     "page": 6,
+     "bbox": null,
+     "source_text": "   가. 화학적 안정성 및 유해 반응의 가능성 :\n- 극인화성\n- 격렬하게 중합반응하여 화재와 폭발을 일으킬 수 있음\n- 공기와 폭발성 혼합물을 형성함\n- 열, 스파크, 화염에 의해 쉽게 점화함",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "narratives[20]",
+     "page": 7,
+     "bbox": null,
+     "source_text": "- 열·스파크·화염·고열로부터 멀리하시오. - 금연\n   다. 피해야 할 물질 :",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "narratives[21]",
+     "page": 7,
+     "bbox": null,
+     "source_text": "- 할로겐, 산화제, 가연성물질\n   라. 분해시 생성되는 유해물질 :",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "narratives[22]",
+     "page": 7,
+     "bbox": null,
+     "source_text": "- 자극성, 부식성, 독성 가스\n11. 독성에 관한 정보",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "narratives[23]",
+     "page": 10,
+     "bbox": null,
+     "source_text": "   마. 기타 유해 영향 : 자료없음",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "narratives[24]",
+     "page": 10,
+     "bbox": null,
+     "source_text": "   폐기물관리법에 명시된 경우 규정에 따라 내용물 및 용기를 폐기하시오.",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "narratives[25]",
+     "page": 10,
+     "bbox": null,
+     "source_text": "   폐기물관리법에 명시된 경우 규정에 명시된 주의사항을 고려하시오.",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "narratives[26]",
+     "page": 11,
+     "bbox": null,
+     "source_text": "    ο 화재시 비상조치 : F-D\n    ο 유출시 비상조치 : S-U",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "narratives[27]",
+     "page": 11,
+     "bbox": null,
+     "source_text": "   가. 산업안전보건법에 의한 규제 : 공정안전보고서(PSM) 대상물질(단, 산업안전보건법 시행령\n                                   제33조의 6 및 별표 10에 해당하는 경우에 한함)",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "narratives[28]",
+     "page": 11,
+     "bbox": null,
+     "source_text": "   라. 폐기물관리법에 의한 규제 : 해당없음",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "narratives[29]",
+     "page": 11,
+     "bbox": null,
+     "source_text": "   마. 기타 국내 및 외국법에 의한 규제\n ο 국내규제\n- 잔류성유기오염물질관리법 : 해당없음\n ο 국외규제 :\n- EU 분류정보(확정분류결과) :\n• NATURAL GAS, LIQUIFIED : 해당없음\n• Tetrahydrothiophene : F; R11 Xn; R20/21/22 Xi; R36/38 R52-53\n• Tert-butyl mercapt",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "narratives[30]",
+     "page": 13,
+     "bbox": null,
+     "source_text": "  - International Uniform Chemical Information Database(IUCLID); http://esis.jrc.ec.europa.eu/\n  - The Chemical Database -The Department of Chemistry at the University of Akron;\n    http://ull.chemist",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "physchem[0]",
+     "page": 6,
+     "bbox": null,
+     "source_text": " ο 성상 : 기체",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "physchem[1]",
+     "page": 6,
+     "bbox": null,
+     "source_text": " ο 색상 : 무색",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "physchem[2]",
+     "page": 6,
+     "bbox": null,
+     "source_text": "   나. 냄새 : 양파 썩는 냄새",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "physchem[3]",
+     "page": 6,
+     "bbox": null,
+     "source_text": "   다. 냄새역치 : 자료없음",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "physchem[4]",
+     "page": 6,
+     "bbox": null,
+     "source_text": "   라. pH : 자료없음",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "physchem[5]",
+     "page": 6,
+     "bbox": null,
+     "source_text": "   마. 녹는점/어는점 : -182.6 ℃ (-296.7 ℉)",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "physchem[6]",
+     "page": 6,
+     "bbox": null,
+     "source_text": "   바. 초기 끓는점과 끓는점 범위 : -161.67~-160.44 ℃",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "physchem[7]",
+     "page": 6,
+     "bbox": null,
+     "source_text": "   사. 인화점 : -188 ℃ (-306 ℉)",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "physchem[8]",
+     "page": 6,
+     "bbox": null,
+     "source_text": "   아. 증발속도 : 자료없음",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "physchem[9]",
+     "page": 6,
+     "bbox": null,
+     "source_text": "   자. 인화성(고체, 기체) : 극인화성",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "physchem[10]",
+     "page": 6,
+     "bbox": null,
+     "source_text": "   차. 인화 또는 폭발 범위의 상한/하한 : 15 % / 5 %",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "physchem[11]",
+     "page": 6,
+     "bbox": null,
+     "source_text": "   차. 인화 또는 폭발 범위의 상한/하한 : 15 % / 5 %",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "physchem[12]",
+     "page": 6,
+     "bbox": null,
+     "source_text": "   카. 증기압 : 8.7 ㎪ (87~1013.25 hPa at -185 ℃)",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "physchem[13]",
+     "page": 6,
+     "bbox": null,
+     "source_text": "   타. 용해도 : 0.024 g/100㎖ (0.024~0.061 g/L at 20℃)",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "physchem[14]",
+     "page": 6,
+     "bbox": null,
+     "source_text": "   파. 증기밀도 : 0.8",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "physchem[15]",
+     "page": 6,
+     "bbox": null,
+     "source_text": "   하. 비중/밀도 : 0.7731~0.7784 kg/m3 (0 °C, 101.325 kPa) (밀도)",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "physchem[16]",
+     "page": 6,
+     "bbox": null,
+     "source_text": "   거. n-옥탄올/물분배계수 : log Kow ≤ 2.8",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "physchem[17]",
+     "page": 6,
+     "bbox": null,
+     "source_text": "   너. 자연발화온도 : 540 ℃ (1,004 ℉)",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "physchem[18]",
+     "page": 6,
+     "bbox": null,
+     "source_text": "   더. 분해온도 : 자료없음",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "physchem[19]",
+     "page": 6,
+     "bbox": null,
+     "source_text": "   러. 점도 : 9.952x10-6~1.002X10-5 Pa-s",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "physchem[20]",
+     "page": 6,
+     "bbox": null,
+     "source_text": "   머. 분자량 : 17.12~18.19",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "ecotox[0]",
+     "page": 9,
+     "bbox": null,
+     "source_text": "    - NATURAL GAS, LIQUIFIED : 96hr-LC50(other) ＞ 1,000 mg/L",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "ecotox[1]",
+     "page": 9,
+     "bbox": null,
+     "source_text": "    - Tetrahydrothiophene : 96hr-LC50(Daniorerio)＞ 24 mg/L (OECD TG 203, GLP)",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "ecotox[2]",
+     "page": 9,
+     "bbox": null,
+     "source_text": "    - Tert-butyl mercaptan : 96hr-LC50(Oncorhynchusmykiss)=34mg/L(OECDTG203,GLP)",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "ecotox[3]",
+     "page": 9,
+     "bbox": null,
+     "source_text": "    - NATURAL GAS, LIQUIFIED : 48hr-LC50(other) = 46.56 mg/L (ECOSAR Class;neutral organics)",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "ecotox[4]",
+     "page": 9,
+     "bbox": null,
+     "source_text": "    - Tetrahydrothiophene : 48hr-EC50(Daphniamagna)=24mg/L(OECDTG202,GLP)",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "ecotox[5]",
+     "page": 9,
+     "bbox": null,
+     "source_text": "    - Tert-butyl mercaptan : 48hr-EC50(Daphniamagna)=6.7mg/L(OECDTG202,GLP)",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "ecotox[6]",
+     "page": 9,
+     "bbox": null,
+     "source_text": "    - NATURAL GAS, LIQUIFIED : 96hr-EC50(other) = 16.47 mg/L (ECOSAR Class;neutral organics)",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "ecotox[7]",
+     "page": 9,
+     "bbox": null,
+     "source_text": "    - Tetrahydrothiophene : 72hr-EC50(Selenastrumcapricornutum)=90mg/L(OECDTG201,GLP)",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "ecotox[8]",
+     "page": 9,
+     "bbox": null,
+     "source_text": "                           72hr-NOEC(Selenastrumcapricornutum)=6mg/L(OECDTG201,GLP)",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "ecotox[9]",
+     "page": 9,
+     "bbox": null,
+     "source_text": "    - Tert-butyl mercaptan : 72hr-EC50(Selenastrumcapricornutum)=24mg/L(OECDTG201,GLP)",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "ecotox[10]",
+     "page": 9,
+     "bbox": null,
+     "source_text": "                            72hr-NOEC(Selenastrumcapricornutum)=6.41mg/L(OECDTG201,GLP)",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "transport[0]",
+     "page": 10,
+     "bbox": null,
+     "source_text": "   가. 유엔번호(UN NO.) : 1971",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "regulations[0]",
+     "page": 11,
+     "bbox": null,
+     "source_text": "   가. 산업안전보건법에 의한 규제 : 공정안전보고서(PSM) 대상물질(단, 산업안전보건법 시행령",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "regulations[1]",
+     "page": 11,
+     "bbox": null,
+     "source_text": "   나. 화학물질관리법에 의한 규제 : 해당없음",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "regulations[2]",
+     "page": 11,
+     "bbox": null,
+     "source_text": "   다. 위험물안전관리법에 의한 규제 : 해당없음",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "regulations[3]",
+     "page": 11,
+     "bbox": null,
+     "source_text": "   라. 폐기물관리법에 의한 규제 : 해당없음",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "regulations[4]",
+     "page": 11,
+     "bbox": null,
+     "source_text": "• NATURAL GAS, LIQUIFIED : 해당없음",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "regulations[5]",
+     "page": 11,
+     "bbox": null,
+     "source_text": "• Tetrahydrothiophene : F; R11 Xn; R20/21/22 Xi; R36/38 R52-53",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "regulations[6]",
+     "page": 11,
+     "bbox": null,
+     "source_text": "• Tert-butyl mercaptan : 해당없음",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "regulations[7]",
+     "page": 11,
+     "bbox": null,
+     "source_text": "• NATURAL GAS, LIQUIFIED : 해당없음",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "regulations[8]",
+     "page": 11,
+     "bbox": null,
+     "source_text": "• Tetrahydrothiophene : R11 R20/21/22 R36/38 R52/53",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "regulations[9]",
+     "page": 11,
+     "bbox": null,
+     "source_text": "• Tert-butyl mercaptan : 해당없음",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "regulations[10]",
+     "page": 11,
+     "bbox": null,
+     "source_text": "• NATURAL GAS, LIQUIFIED : 해당없음",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "regulations[11]",
+     "page": 11,
+     "bbox": null,
+     "source_text": "• Tetrahydrothiophene : S2 S16 S23 S36/37 S61",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "regulations[12]",
+     "page": 11,
+     "bbox": null,
+     "source_text": "• Tert-butyl mercaptan : 해당없음",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "regulations[13]",
+     "page": 11,
+     "bbox": null,
+     "source_text": "- EU 규제정보(EU SVHC list) : 해당없음",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "regulations[14]",
+     "page": 11,
+     "bbox": null,
+     "source_text": "- EU 규제정보(EU Authorization List) : 해당없음",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "regulations[15]",
+     "page": 11,
+     "bbox": null,
+     "source_text": "- EU 규제정보(EU Restriction list) : 해당없음",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "regulations[16]",
+     "page": 11,
+     "bbox": null,
+     "source_text": "- 미국관리정보(OSHA 규정) : 해당없음",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "regulations[17]",
+     "page": 12,
+     "bbox": null,
+     "source_text": "- 미국관리정보(CERCLA 규정) : 해당없음",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "regulations[18]",
+     "page": 12,
+     "bbox": null,
+     "source_text": "- 미국관리정보(EPCRA 302 규정) : 해당없음",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "regulations[19]",
+     "page": 12,
+     "bbox": null,
+     "source_text": "- 미국관리정보(EPCRA 304 규정) : 해당없음",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "regulations[20]",
+     "page": 12,
+     "bbox": null,
+     "source_text": "- 미국관리정보(EPCRA 313 규정) : 해당없음",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "regulations[21]",
+     "page": 12,
+     "bbox": null,
+     "source_text": "- 로테르담협약물질 : 해당없음",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "regulations[22]",
+     "page": 12,
+     "bbox": null,
+     "source_text": "- 스톡홀름협약물질 : 해당없음",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "regulations[23]",
+     "page": 12,
+     "bbox": null,
+     "source_text": "- 몬트리올의정서물질 : 해당없음",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "dangerous_goods[0]",
+     "page": 10,
+     "bbox": null,
+     "source_text": "   다. 운송에서의 위험성 등급 : 2.1",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "dangerous_goods[1]",
+     "page": 10,
+     "bbox": null,
+     "source_text": "   다. 운송에서의 위험성 등급 : 2.1",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "waste[0]",
+     "page": 11,
+     "bbox": null,
+     "source_text": "   라. 폐기물관리법에 의한 규제 : 해당없음",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "intl_class[0]",
+     "page": 11,
+     "bbox": null,
+     "source_text": "• Tetrahydrothiophene : F; R11 Xn; R20/21/22 Xi; R36/38 R52-53",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "intl_class[1]",
+     "page": 11,
+     "bbox": null,
+     "source_text": "• Tetrahydrothiophene : R11 R20/21/22 R36/38 R52/53",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "intl_class[2]",
+     "page": 11,
+     "bbox": null,
+     "source_text": "• Tetrahydrothiophene : S2 S16 S23 S36/37 S61",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[0]",
+     "page": 1,
+     "bbox": null,
+     "source_text": "물질안전성보건자료",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[0].statements[0]",
+     "page": 1,
+     "bbox": null,
+     "source_text": "   가. 제품명 : 천연가스(Natural Gas with Odorant)",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[0].statements[1]",
+     "page": 1,
+     "bbox": null,
+     "source_text": "ο 제품의 권고 용도 : 천연가스, 연료가스",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[0].statements[2]",
+     "page": 1,
+     "bbox": null,
+     "source_text": "ο 제품의 사용상의 제한 : 권고된 용도 외에 사용하지 마시오.",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[0].statements[3]",
+     "page": 1,
+     "bbox": null,
+     "source_text": " ο 회사명 : 한국가스공사",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[0].statements[4]",
+     "page": 1,
+     "bbox": null,
+     "source_text": " ο 주소 : 대구광역시 동구 첨단로 120 길 (우 : 701-300)",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[0].statements[5]",
+     "page": 1,
+     "bbox": null,
+     "source_text": " ο 긴급전화번호 : 053-670-0427",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[0].statements[6]",
+     "page": 1,
+     "bbox": null,
+     "source_text": " ο 담당자 : 안전관리부(김석진 주임)",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[1]",
+     "page": 1,
+     "bbox": null,
+     "source_text": " ο 그림문자 :",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[2]",
+     "page": 1,
+     "bbox": null,
+     "source_text": " ο 유해·위험문구 :",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[3]",
+     "page": 1,
+     "bbox": null,
+     "source_text": " ο 예방조치문구",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[4]",
+     "page": 2,
+     "bbox": null,
+     "source_text": "- 폐기 : 자료없음",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[5]",
+     "page": 2,
+     "bbox": null,
+     "source_text": "물질명  이명(관용명)  CAS 번호  함유량(%)",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[5].statements[0]",
+     "page": 2,
+     "bbox": null,
+     "source_text": "물질명  이명(관용명)  CAS 번호  함유량(%)",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[5].statements[1]",
+     "page": 2,
+     "bbox": null,
+     "source_text": "물질명  이명(관용명)  CAS 번호  함유량(%)",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[5].statements[2]",
+     "page": 2,
+     "bbox": null,
+     "source_text": "물질명  이명(관용명)  CAS 번호  함유량(%)",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[5].statements[3]",
+     "page": 2,
+     "bbox": null,
+     "source_text": "물질명  이명(관용명)  CAS 번호  함유량(%)",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[6]",
+     "page": 5,
+     "bbox": null,
+     "source_text": "  Tetrahydrothiophene :",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[6].statements[0]",
+     "page": 5,
+     "bbox": null,
+     "source_text": "  스위스: TWA= 50 ppm (180 mg/m3), STEL= 50 ppm (180 mg/m3)",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[6].statements[1]",
+     "page": 5,
+     "bbox": null,
+     "source_text": "  스위스: TWA= 50 ppm (180 mg/m3), STEL= 50 ppm (180 mg/m3)",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[6].statements[2]",
+     "page": 5,
+     "bbox": null,
+     "source_text": "  스위스: TWA= 50 ppm (180 mg/m3), STEL= 50 ppm (180 mg/m3)",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[7]",
+     "page": 5,
+     "bbox": null,
+     "source_text": "  Tetrahydrothiophene :",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[7].statements[0]",
+     "page": 5,
+     "bbox": null,
+     "source_text": "  스위스: TWA= 50 ppm (180 mg/m3), STEL= 50 ppm (180 mg/m3)",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[7].statements[1]",
+     "page": 5,
+     "bbox": null,
+     "source_text": "  스위스: TWA= 50 ppm (180 mg/m3), STEL= 50 ppm (180 mg/m3)",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[8]",
+     "page": 5,
+     "bbox": null,
+     "source_text": "  Tetrahydrothiophene :",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[8].statements[0]",
+     "page": 5,
+     "bbox": null,
+     "source_text": "  스위스: TWA= 50 ppm (180 mg/m3), STEL= 50 ppm (180 mg/m3)",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[8].statements[1]",
+     "page": 5,
+     "bbox": null,
+     "source_text": "  스위스: TWA= 50 ppm (180 mg/m3), STEL= 50 ppm (180 mg/m3)",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[9]",
+     "page": 6,
+     "bbox": null,
+     "source_text": "10. 안정성 및 반응성",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[10]",
+     "page": 9,
+     "bbox": null,
+     "source_text": "    - NATURAL GAS, LIQUIFIED : Log Kow가 4미만이므로 잔류성이 낮을 것으로 예측됨",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[10].statements[0]",
+     "page": 9,
+     "bbox": null,
+     "source_text": "    - NATURAL GAS, LIQUIFIED : Log Kow가 4미만이므로 잔류성이 낮을 것으로 예측됨",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[10].statements[1]",
+     "page": 9,
+     "bbox": null,
+     "source_text": "                                (Log Kow ≤ 2.8)",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[10].statements[2]",
+     "page": 9,
+     "bbox": null,
+     "source_text": "                                (Log Kow ≤ 2.8)",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[11]",
+     "page": 9,
+     "bbox": null,
+     "source_text": "    - Tetrahydrothiophene : Log Kow가 4미만이므로 잔류성이 낮을 것으로 예측됨",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[11].statements[0]",
+     "page": 9,
+     "bbox": null,
+     "source_text": "    - Tetrahydrothiophene : Log Kow가 4미만이므로 잔류성이 낮을 것으로 예측됨",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[11].statements[1]",
+     "page": 9,
+     "bbox": null,
+     "source_text": "                           (Log Kow = 1.8) (20 ℃)",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[11].statements[2]",
+     "page": 9,
+     "bbox": null,
+     "source_text": "                           (Log Kow = 1.8) (20 ℃)",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[12]",
+     "page": 9,
+     "bbox": null,
+     "source_text": "    - Tert-butyl mercaptan : Log Kow가 4미만이므로 잔류성이 낮을 것으로 예측됨",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[12].statements[0]",
+     "page": 9,
+     "bbox": null,
+     "source_text": "    - Tert-butyl mercaptan : Log Kow가 4미만이므로 잔류성이 낮을 것으로 예측됨",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[12].statements[1]",
+     "page": 9,
+     "bbox": null,
+     "source_text": "                           (Log Kow = 2.14) (20 °C)",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[12].statements[2]",
+     "page": 9,
+     "bbox": null,
+     "source_text": "                           (Log Kow = 2.14) (20 °C)",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[13]",
+     "page": 9,
+     "bbox": null,
+     "source_text": "    - NATURAL GAS, LIQUIFIED : 광분해성시험에서 11.3년 후에 36.8 % 분해됨 (GLP)",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[13].statements[0]",
+     "page": 9,
+     "bbox": null,
+     "source_text": "    - NATURAL GAS, LIQUIFIED : 광분해성시험에서 11.3년 후에 36.8 % 분해됨 (GLP)",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[13].statements[1]",
+     "page": 9,
+     "bbox": null,
+     "source_text": "    - NATURAL GAS, LIQUIFIED : 광분해성시험에서 11.3년 후에 36.8 % 분해됨 (GLP)",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[13].statements[2]",
+     "page": 9,
+     "bbox": null,
+     "source_text": "    - NATURAL GAS, LIQUIFIED : 광분해성시험에서 11.3년 후에 36.8 % 분해됨 (GLP)",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[14]",
+     "page": 10,
+     "bbox": null,
+     "source_text": "    - NATURAL GAS, LIQUIFIED : 생물농축성이 낮을 것으로 예측됨(BCF = 7.27) (예측치)",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[14].statements[0]",
+     "page": 10,
+     "bbox": null,
+     "source_text": "    - NATURAL GAS, LIQUIFIED : 생물농축성이 낮을 것으로 예측됨(BCF = 7.27) (예측치)",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[14].statements[1]",
+     "page": 10,
+     "bbox": null,
+     "source_text": "    - NATURAL GAS, LIQUIFIED : 생물농축성이 낮을 것으로 예측됨(BCF = 7.27) (예측치)",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[14].statements[2]",
+     "page": 10,
+     "bbox": null,
+     "source_text": "    - NATURAL GAS, LIQUIFIED : 생물농축성이 낮을 것으로 예측됨(BCF = 7.27) (예측치)",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[15]",
+     "page": 10,
+     "bbox": null,
+     "source_text": "    - Tetrahydrothiophene : 생물농축성이 낮을 것으로 예측됨(BCF = 5.36) (예측치)",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[15].statements[0]",
+     "page": 10,
+     "bbox": null,
+     "source_text": "    - Tetrahydrothiophene : 생물농축성이 낮을 것으로 예측됨(BCF = 5.36) (예측치)",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[15].statements[1]",
+     "page": 10,
+     "bbox": null,
+     "source_text": "    - Tetrahydrothiophene : 생물농축성이 낮을 것으로 예측됨(BCF = 5.36) (예측치)",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[15].statements[2]",
+     "page": 10,
+     "bbox": null,
+     "source_text": "    - Tetrahydrothiophene : 생물농축성이 낮을 것으로 예측됨(BCF = 5.36) (예측치)",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[16]",
+     "page": 10,
+     "bbox": null,
+     "source_text": "    - Tert-butyl mercaptan : 생물농축성이 낮을 것으로 예측됨(BCF = 11.97) (예측치)",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[16].statements[0]",
+     "page": 10,
+     "bbox": null,
+     "source_text": "    - Tert-butyl mercaptan : 생물농축성이 낮을 것으로 예측됨(BCF = 11.97) (예측치)",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[16].statements[1]",
+     "page": 10,
+     "bbox": null,
+     "source_text": "    - Tert-butyl mercaptan : 생물농축성이 낮을 것으로 예측됨(BCF = 11.97) (예측치)",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[16].statements[2]",
+     "page": 10,
+     "bbox": null,
+     "source_text": "    - Tert-butyl mercaptan : 생물농축성이 낮을 것으로 예측됨(BCF = 11.97) (예측치)",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[17]",
+     "page": 10,
+     "bbox": null,
+     "source_text": "    - NATURAL GAS, LIQUIFIED : 이분해성",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[17].statements[0]",
+     "page": 10,
+     "bbox": null,
+     "source_text": "    - NATURAL GAS, LIQUIFIED : 이분해성",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[17].statements[1]",
+     "page": 10,
+     "bbox": null,
+     "source_text": "    - NATURAL GAS, LIQUIFIED : 이분해성",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[18]",
+     "page": 10,
+     "bbox": null,
+     "source_text": "    - Tetrahydrothiophene : 생분해가 되지 않아 생체 내 축적될 잠재성이 높음",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[18].statements[0]",
+     "page": 10,
+     "bbox": null,
+     "source_text": "    - Tetrahydrothiophene : 생분해가 되지 않아 생체 내 축적될 잠재성이 높음",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[18].statements[1]",
+     "page": 10,
+     "bbox": null,
+     "source_text": "    - Tetrahydrothiophene : 생분해가 되지 않아 생체 내 축적될 잠재성이 높음",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[18].statements[2]",
+     "page": 10,
+     "bbox": null,
+     "source_text": "    - Tetrahydrothiophene : 생분해가 되지 않아 생체 내 축적될 잠재성이 높음",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[18].statements[3]",
+     "page": 10,
+     "bbox": null,
+     "source_text": "    - Tetrahydrothiophene : 생분해가 되지 않아 생체 내 축적될 잠재성이 높음",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[19]",
+     "page": 10,
+     "bbox": null,
+     "source_text": "    - Tert-butyl mercaptan : 생분해가 되지 않아 생체 내 축적될 잠재성이 높음",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[19].statements[0]",
+     "page": 10,
+     "bbox": null,
+     "source_text": "    - Tert-butyl mercaptan : 생분해가 되지 않아 생체 내 축적될 잠재성이 높음",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[19].statements[1]",
+     "page": 10,
+     "bbox": null,
+     "source_text": "    - Tert-butyl mercaptan : 생분해가 되지 않아 생체 내 축적될 잠재성이 높음",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[19].statements[2]",
+     "page": 10,
+     "bbox": null,
+     "source_text": "    - Tert-butyl mercaptan : 생분해가 되지 않아 생체 내 축적될 잠재성이 높음",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[19].statements[3]",
+     "page": 10,
+     "bbox": null,
+     "source_text": "    - Tert-butyl mercaptan : 생분해가 되지 않아 생체 내 축적될 잠재성이 높음",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[20]",
+     "page": 10,
+     "bbox": null,
+     "source_text": "   - NATURAL GAS, LIQUIFIED : 토양에 흡착될 가능성이 낮을 것으로 예측됨",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[20].statements[0]",
+     "page": 10,
+     "bbox": null,
+     "source_text": "                               (Koc = 37.2) (예측치)",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[20].statements[1]",
+     "page": 10,
+     "bbox": null,
+     "source_text": "                               (Koc = 37.2) (예측치)",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[20].statements[2]",
+     "page": 10,
+     "bbox": null,
+     "source_text": "   - NATURAL GAS, LIQUIFIED : 토양에 흡착될 가능성이 낮을 것으로 예측됨",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[21]",
+     "page": 10,
+     "bbox": null,
+     "source_text": "   - Tetrahydrothiophene : 토양에 흡착될 가능성이 낮을 것으로 예측됨",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[21].statements[0]",
+     "page": 10,
+     "bbox": null,
+     "source_text": "                          (Koc = 20.71)(20 °C)",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[21].statements[1]",
+     "page": 10,
+     "bbox": null,
+     "source_text": "                          (Koc = 20.71)(20 °C)",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[21].statements[2]",
+     "page": 10,
+     "bbox": null,
+     "source_text": "   - Tetrahydrothiophene : 토양에 흡착될 가능성이 낮을 것으로 예측됨",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[22]",
+     "page": 10,
+     "bbox": null,
+     "source_text": "   - Tert-butyl mercaptan : 토양에 흡착될 가능성이 낮을 것으로 예측됨",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[22].statements[0]",
+     "page": 10,
+     "bbox": null,
+     "source_text": "                           (Koc = 43.87)(20 °C)",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[22].statements[1]",
+     "page": 10,
+     "bbox": null,
+     "source_text": "                           (Koc = 43.87)(20 °C)",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[22].statements[2]",
+     "page": 10,
+     "bbox": null,
+     "source_text": "   - Tert-butyl mercaptan : 토양에 흡착될 가능성이 낮을 것으로 예측됨",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[23]",
+     "page": 11,
+     "bbox": null,
+     "source_text": "- 잔류성유기오염물질관리법 : 해당없음",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[23].statements[0]",
+     "page": 11,
+     "bbox": null,
+     "source_text": "- 잔류성유기오염물질관리법 : 해당없음",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[24]",
+     "page": 11,
+     "bbox": null,
+     "source_text": "- EU 분류정보(확정분류결과) :",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[24].statements[0]",
+     "page": 11,
+     "bbox": null,
+     "source_text": "- EU 분류정보(확정분류결과) :",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[25]",
+     "page": 11,
+     "bbox": null,
+     "source_text": "- EU 분류정보(위험문구) :",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[25].statements[0]",
+     "page": 11,
+     "bbox": null,
+     "source_text": "- EU 분류정보(위험문구) :",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[26]",
+     "page": 11,
+     "bbox": null,
+     "source_text": "- EU 분류정보(안전문구) :",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[26].statements[0]",
+     "page": 11,
+     "bbox": null,
+     "source_text": "- EU 분류정보(안전문구) :",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[27]",
+     "page": 11,
+     "bbox": null,
+     "source_text": "- EU 규제정보(EU SVHC list) : 해당없음",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[27].statements[0]",
+     "page": 11,
+     "bbox": null,
+     "source_text": "- EU 규제정보(EU SVHC list) : 해당없음",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[28]",
+     "page": 11,
+     "bbox": null,
+     "source_text": "- EU 규제정보(EU Authorization List) : 해당없음",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[28].statements[0]",
+     "page": 11,
+     "bbox": null,
+     "source_text": "- EU 규제정보(EU Authorization List) : 해당없음",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[29]",
+     "page": 11,
+     "bbox": null,
+     "source_text": "- EU 규제정보(EU Restriction list) : 해당없음",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[29].statements[0]",
+     "page": 11,
+     "bbox": null,
+     "source_text": "- EU 규제정보(EU Restriction list) : 해당없음",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[30]",
+     "page": 11,
+     "bbox": null,
+     "source_text": "- 미국관리정보(OSHA 규정) : 해당없음",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[30].statements[0]",
+     "page": 11,
+     "bbox": null,
+     "source_text": "- 미국관리정보(OSHA 규정) : 해당없음",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[31]",
+     "page": 12,
+     "bbox": null,
+     "source_text": "- 미국관리정보(CERCLA 규정) : 해당없음",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[31].statements[0]",
+     "page": 12,
+     "bbox": null,
+     "source_text": "- 미국관리정보(CERCLA 규정) : 해당없음",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[32]",
+     "page": 12,
+     "bbox": null,
+     "source_text": "- 미국관리정보(EPCRA 302 규정) : 해당없음",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[32].statements[0]",
+     "page": 12,
+     "bbox": null,
+     "source_text": "- 미국관리정보(EPCRA 302 규정) : 해당없음",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[33]",
+     "page": 12,
+     "bbox": null,
+     "source_text": "- 미국관리정보(EPCRA 304 규정) : 해당없음",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[33].statements[0]",
+     "page": 12,
+     "bbox": null,
+     "source_text": "- 미국관리정보(EPCRA 304 규정) : 해당없음",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[34]",
+     "page": 12,
+     "bbox": null,
+     "source_text": "- 미국관리정보(EPCRA 313 규정) : 해당없음",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[34].statements[0]",
+     "page": 12,
+     "bbox": null,
+     "source_text": "- 미국관리정보(EPCRA 313 규정) : 해당없음",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[35]",
+     "page": 12,
+     "bbox": null,
+     "source_text": "- 로테르담협약물질 : 해당없음",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[35].statements[0]",
+     "page": 12,
+     "bbox": null,
+     "source_text": "- 로테르담협약물질 : 해당없음",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[36]",
+     "page": 12,
+     "bbox": null,
+     "source_text": "- 스톡홀름협약물질 : 해당없음",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[36].statements[0]",
+     "page": 12,
+     "bbox": null,
+     "source_text": "- 스톡홀름협약물질 : 해당없음",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[37]",
+     "page": 12,
+     "bbox": null,
+     "source_text": "- 몬트리올의정서물질 : 해당없음",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[37].statements[0]",
+     "page": 12,
+     "bbox": null,
+     "source_text": "- 몬트리올의정서물질 : 해당없음",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[38]",
+     "page": 12,
+     "bbox": null,
+     "source_text": "- NATURAL GAS, LIQUIFIED :",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[38].statements[0]",
+     "page": 12,
+     "bbox": null,
+     "source_text": " • 미국관리정보 : Section 8(b) Inventory (TSCA): 존재함",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[38].statements[1]",
+     "page": 12,
+     "bbox": null,
+     "source_text": " • 중국관리정보 : Inventory of Existing Chemical Substances (IECSC): 존재함 13445",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[38].statements[2]",
+     "page": 12,
+     "bbox": null,
+     "source_text": " • 캐나다관리정보 : Domestic Substances List (DSL): 존재함",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[38].statements[3]",
+     "page": 12,
+     "bbox": null,
+     "source_text": " • 호주관리정보 : Inventory of Chemical Substances (AICS): 존재함",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[39]",
+     "page": 12,
+     "bbox": null,
+     "source_text": "- Tetrahydrothiophene :",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[39].statements[0]",
+     "page": 12,
+     "bbox": null,
+     "source_text": " • 미국관리정보 : Section 8(b) Inventory (TSCA): 존재함",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[39].statements[1]",
+     "page": 12,
+     "bbox": null,
+     "source_text": " • 일본관리정보 : Existing and New Chemical Substances (ENCS): (5)-75, 8-(6)-605",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[39].statements[2]",
+     "page": 12,
+     "bbox": null,
+     "source_text": " • 중국관리정보 : Inventory of Existing Chemical Substances (IECSC): 존재함 32997",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[39].statements[3]",
+     "page": 12,
+     "bbox": null,
+     "source_text": "• 캐나다관리정보 : Domestic Substances List (DSL): 존재함",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[39].statements[4]",
+     "page": 12,
+     "bbox": null,
+     "source_text": " • 호주관리정보 : Inventory of Chemical Substances (AICS): 존재함",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[39].statements[5]",
+     "page": 12,
+     "bbox": null,
+     "source_text": " • 뉴질랜드관리정보 : Inventory of Chemicals (NZIoC): 존재함 HSR001225",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[39].statements[6]",
+     "page": 12,
+     "bbox": null,
+     "source_text": " • 필리핀관리정보 : Inventory of Chemicals and Chemical Substances (PICCS): 존재함",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[40]",
+     "page": 12,
+     "bbox": null,
+     "source_text": "- Tert-butylmercaptan :",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[40].statements[0]",
+     "page": 12,
+     "bbox": null,
+     "source_text": " • 미국관리정보 : Section 8(b) Inventory (TSCA): 존재함",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[40].statements[1]",
+     "page": 12,
+     "bbox": null,
+     "source_text": " • 일본관리정보 : Existing and New Chemical Substances (ENCS): (2)-464",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[40].statements[2]",
+     "page": 12,
+     "bbox": null,
+     "source_text": " • 중국관리정보 : Inventory of Existing Chemical Substances (IECSC): 존재함 17067",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[40].statements[3]",
+     "page": 12,
+     "bbox": null,
+     "source_text": "• 캐나다관리정보 : Domestic Substances List (DSL): 존재함",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[40].statements[4]",
+     "page": 12,
+     "bbox": null,
+     "source_text": " • 호주관리정보 : Inventory of Chemical Substances (AICS): 존재함",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[40].statements[5]",
+     "page": 12,
+     "bbox": null,
+     "source_text": " • 뉴질랜드관리정보 : Inventory of Chemicals (NZIoC): 존재함 HSR001102",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[40].statements[6]",
+     "page": 12,
+     "bbox": null,
+     "source_text": " • 필리핀관리정보 : Inventory of Chemicals and Chemical Substances (PICCS): 존재함",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[41]",
+     "page": 13,
+     "bbox": null,
+     "source_text": "   나. 최초작성일자 2010. 06. 15",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[41].statements[0]",
+     "page": 13,
+     "bbox": null,
+     "source_text": "   나. 최초작성일자 2010. 06. 15",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[42]",
+     "page": 13,
+     "bbox": null,
+     "source_text": "   개정횟수 : 11회",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[42].statements[0]",
+     "page": 13,
+     "bbox": null,
+     "source_text": "   개정횟수 : 11회",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[42].statements[1]",
+     "page": 13,
+     "bbox": null,
+     "source_text": "   최종 개정일자 : 2019. 03. 08",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[43]",
+     "page": 13,
+     "bbox": null,
+     "source_text": "   라. 기타",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[43].statements[0]",
+     "page": 13,
+     "bbox": null,
+     "source_text": "  화학물질의 분류 표시 및 물질안전보건자료에 관한 기준(고용노동부 고시)의 개정 내용을",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[43].statements[1]",
+     "page": 13,
+     "bbox": null,
+     "source_text": "  - 이 MSDS는 산업안전보건법 제 41조에 의거하여 한국가스공사에서 작성한 것입니다.",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[43].statements[2]",
+     "page": 13,
+     "bbox": null,
+     "source_text": "    내용은 현재의 지식과 정보를 토대로 우리가 알고 있는 최신 DATA을 근거하여",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[43].statements[3]",
+     "page": 13,
+     "bbox": null,
+     "source_text": "    표현에 대해서는 어떠한 보증도 할 수 없고, 어떠한 기술적∙법적 책임도 질 수 없음에",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[43].statements[4]",
+     "page": 13,
+     "bbox": null,
+     "source_text": "  - 이 MSDS에 포함된 내용은 국가 및 지역에 따라 상이할 수 있으며, 실제 관련 규정의",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    },
+    {
+     "field": "extras[43].statements[5]",
+     "page": 13,
+     "bbox": null,
+     "source_text": "  - 이 MSDS는 한국가스공사에서 송출하는 천연가스를 대상으로 작성되었으며, 감압 등",
+     "confidence": null,
+     "method": "텍스트층",
+     "needs_review": null
+    }
+   ],
+   "validation": [],
+   "extras": [
+    {
+     "seq": 1,
+     "section_no": 1,
+     "after_item": "S16_END",
+     "title_raw": "1. 화학제품과 회사에 관한 정보",
+     "reason": "필드없음",
+     "comp_ref": "1",
+     "q": {
+      "raw": "≥ 99.96",
+      "approx": false,
+      "value": null,
+      "lower_op": ">=",
+      "lower": 99.96,
+      "upper_op": null,
+      "upper": null,
+      "unit": "%",
+      "dp": 2,
+      "status": "값있음",
+      "note": null
+     },
+     "statements": [
+      {
+       "seq": 1,
+       "key": "제품명",
+       "value": "천연가스(Natural Gas with Odorant)",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "   가. 제품명 : 천연가스(Natural Gas with Odorant)"
+      },
+      {
+       "seq": 2,
+       "key": "제품의 권고 용도",
+       "value": "천연가스, 연료가스",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "ο 제품의 권고 용도 : 천연가스, 연료가스"
+      },
+      {
+       "seq": 3,
+       "key": "제품의 사용상의 제한",
+       "value": "권고된 용도 외에 사용하지 마시오.",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "ο 제품의 사용상의 제한 : 권고된 용도 외에 사용하지 마시오."
+      },
+      {
+       "seq": 4,
+       "key": "회사명",
+       "value": "한국가스공사",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": " ο 회사명 : 한국가스공사"
+      },
+      {
+       "seq": 5,
+       "key": "주소",
+       "value": "대구광역시 동구 첨단로 120 길 (우 : 701-300)",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": " ο 주소 : 대구광역시 동구 첨단로 120 길 (우 : 701-300)"
+      },
+      {
+       "seq": 6,
+       "key": "긴급전화번호",
+       "value": "053-670-0427",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": " ο 긴급전화번호 : 053-670-0427"
+      },
+      {
+       "seq": 7,
+       "key": "담당자",
+       "value": "안전관리부(김석진 주임)",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": " ο 담당자 : 안전관리부(김석진 주임)"
+      }
+     ],
+     "suggested_code": "PRODUCT_INFO",
+     "page": 1
+    },
+    {
+     "seq": 2,
+     "section_no": 2,
+     "after_item": "S2_LABEL_NOTE",
+     "title_raw": "그림문자",
+     "reason": "필드없음",
+     "comp_ref": "MIX",
+     "q": null,
+     "statements": [],
+     "suggested_code": "",
+     "page": 1
+    },
+    {
+     "seq": 3,
+     "section_no": 2,
+     "after_item": "S2_LABEL_NOTE",
+     "title_raw": "유해·위험문구",
+     "reason": "필드없음",
+     "comp_ref": "MIX",
+     "q": null,
+     "statements": [],
+     "suggested_code": "",
+     "page": 1
+    },
+    {
+     "seq": 4,
+     "section_no": 2,
+     "after_item": "S2_LABEL_NOTE",
+     "title_raw": "예방조치문구",
+     "reason": "필드없음",
+     "comp_ref": "MIX",
+     "q": null,
+     "statements": [],
+     "suggested_code": "",
+     "page": 1
+    },
+    {
+     "seq": 5,
+     "section_no": 2,
+     "after_item": "S2_LABEL_NOTE",
+     "title_raw": "폐기",
+     "reason": "필드없음",
+     "comp_ref": "MIX",
+     "q": null,
+     "statements": [],
+     "suggested_code": "",
+     "page": 2
+    },
+    {
+     "seq": 6,
+     "section_no": 3,
+     "after_item": "S3_END",
+     "title_raw": "3. 구성성분의 명칭 및 함유량",
+     "reason": "필드없음",
+     "comp_ref": "MIX",
+     "q": {
+      "raw": "p2:L13",
+      "approx": null,
+      "value": null,
+      "lower_op": null,
+      "lower": null,
+      "upper_op": null,
+      "upper": null,
+      "unit": "",
+      "dp": null,
+      "status": null,
+      "note": null
+     },
+     "statements": [
+      {
+       "seq": 1,
+       "key": "물질명",
+       "value": "p2:L13",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "물질명  이명(관용명)  CAS 번호  함유량(%)"
+      },
+      {
+       "seq": 2,
+       "key": "이명(관용명)",
+       "value": "p2:L13",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "물질명  이명(관용명)  CAS 번호  함유량(%)"
+      },
+      {
+       "seq": 3,
+       "key": "CAS 번호",
+       "value": "p2:L13",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "물질명  이명(관용명)  CAS 번호  함유량(%)"
+      },
+      {
+       "seq": 4,
+       "key": "함유량(%)",
+       "value": "p2:L13",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "물질명  이명(관용명)  CAS 번호  함유량(%)"
+      }
+     ],
+     "suggested_code": "COMPOSITION",
+     "page": 2
+    },
+    {
+     "seq": 7,
+     "section_no": 8,
+     "after_item": "S8_RESP",
+     "title_raw": "가. 화학물질의 노출기준, 생물학적 노출기준 등",
+     "reason": "필드없음",
+     "comp_ref": "2",
+     "q": {
+      "raw": "스위스: TWA= 50 ppm (180 mg/m3), STEL= 50 ppm (180 mg/m3)",
+      "approx": false,
+      "value": 50,
+      "lower_op": ">=",
+      "lower": 50,
+      "upper_op": "<=",
+      "upper": 50,
+      "unit": "ppm",
+      "dp": 0,
+      "status": "값있음",
+      "note": null
+     },
+     "statements": [
+      {
+       "seq": 1,
+       "key": "TWA",
+       "value": "50 ppm (180 mg/m3)",
+       "refs": [
+        "1"
+       ],
+       "cond": {
+        "raw": "스위스: TWA= 50 ppm (180 mg/m3), STEL= 50 ppm (180 mg/m3)",
+        "approx": false,
+        "value": 50,
+        "lower_op": ">=",
+        "lower": 50,
+        "upper_op": "<=",
+        "upper": 50,
+        "unit": "ppm",
+        "dp": 0,
+        "status": "값있음",
+        "note": null
+       },
+       "std_code": null,
+       "match_score": null,
+       "text": "  스위스: TWA= 50 ppm (180 mg/m3), STEL= 50 ppm (180 mg/m3)"
+      },
+      {
+       "seq": 2,
+       "key": "STEL",
+       "value": "50 ppm (180 mg/m3)",
+       "refs": [
+        "1"
+       ],
+       "cond": {
+        "raw": "스위스: TWA= 50 ppm (180 mg/m3), STEL= 50 ppm (180 mg/m3)",
+        "approx": false,
+        "value": 50,
+        "lower_op": ">=",
+        "lower": 50,
+        "upper_op": "<=",
+        "upper": 50,
+        "unit": "ppm",
+        "dp": 0,
+        "status": "값있음",
+        "note": null
+       },
+       "std_code": null,
+       "match_score": null,
+       "text": "  스위스: TWA= 50 ppm (180 mg/m3), STEL= 50 ppm (180 mg/m3)"
+      },
+      {
+       "seq": 3,
+       "key": "출처",
+       "value": "스위스",
+       "refs": [
+        "1"
+       ],
+       "cond": {
+        "raw": "스위스: TWA= 50 ppm (180 mg/m3), STEL= 50 ppm (180 mg/m3)",
+        "approx": false,
+        "value": 50,
+        "lower_op": ">=",
+        "lower": 50,
+        "upper_op": "<=",
+        "upper": 50,
+        "unit": "ppm",
+        "dp": 0,
+        "status": "값있음",
+        "note": null
+       },
+       "std_code": null,
+       "match_score": null,
+       "text": "  스위스: TWA= 50 ppm (180 mg/m3), STEL= 50 ppm (180 mg/m3)"
+      }
+     ],
+     "suggested_code": "EXPOSURE_LIMIT",
+     "page": 5
+    },
+    {
+     "seq": 8,
+     "section_no": 8,
+     "after_item": "S8_ENG",
+     "title_raw": "가. 화학물질의 노출기준, 생물학적 노출기준 등",
+     "reason": "필드없음",
+     "comp_ref": "2",
+     "q": {
+      "raw": "스위스: TWA= 50 ppm (180 mg/m3), STEL= 50 ppm (180 mg/m3)",
+      "approx": false,
+      "value": 50,
+      "lower_op": ">=",
+      "lower": 50,
+      "upper_op": "<=",
+      "upper": 50,
+      "unit": "ppm",
+      "dp": 0,
+      "status": "값있음",
+      "note": null
+     },
+     "statements": [
+      {
+       "seq": 1,
+       "key": "TWA",
+       "value": "50 ppm (180 mg/m3)",
+       "refs": [
+        "1"
+       ],
+       "cond": {
+        "raw": "스위스: TWA= 50 ppm (180 mg/m3), STEL= 50 ppm (180 mg/m3)",
+        "approx": false,
+        "value": 50,
+        "lower_op": ">=",
+        "lower": 50,
+        "upper_op": "<=",
+        "upper": 50,
+        "unit": "ppm",
+        "dp": 0,
+        "status": "값있음",
+        "note": null
+       },
+       "std_code": null,
+       "match_score": null,
+       "text": "  스위스: TWA= 50 ppm (180 mg/m3), STEL= 50 ppm (180 mg/m3)"
+      },
+      {
+       "seq": 2,
+       "key": "STEL",
+       "value": "50 ppm (180 mg/m3)",
+       "refs": [
+        "1"
+       ],
+       "cond": {
+        "raw": "스위스: TWA= 50 ppm (180 mg/m3), STEL= 50 ppm (180 mg/m3)",
+        "approx": false,
+        "value": 50,
+        "lower_op": ">=",
+        "lower": 50,
+        "upper_op": "<=",
+        "upper": 50,
+        "unit": "ppm",
+        "dp": 0,
+        "status": "값있음",
+        "note": null
+       },
+       "std_code": null,
+       "match_score": null,
+       "text": "  스위스: TWA= 50 ppm (180 mg/m3), STEL= 50 ppm (180 mg/m3)"
+      }
+     ],
+     "suggested_code": "EXPOSURE_LIMIT",
+     "page": 5
+    },
+    {
+     "seq": 9,
+     "section_no": 8,
+     "after_item": "S8_RESP",
+     "title_raw": "다. 개인보호구",
+     "reason": "필드없음",
+     "comp_ref": "2",
+     "q": {
+      "raw": "스위스: TWA= 50 ppm (180 mg/m3), STEL= 50 ppm (180 mg/m3)",
+      "approx": false,
+      "value": 50,
+      "lower_op": ">=",
+      "lower": 50,
+      "upper_op": "<=",
+      "upper": 50,
+      "unit": "ppm",
+      "dp": 0,
+      "status": "값있음",
+      "note": null
+     },
+     "statements": [
+      {
+       "seq": 1,
+       "key": "TWA",
+       "value": "50 ppm (180 mg/m3)",
+       "refs": [
+        "1"
+       ],
+       "cond": {
+        "raw": "스위스: TWA= 50 ppm (180 mg/m3), STEL= 50 ppm (180 mg/m3)",
+        "approx": false,
+        "value": 50,
+        "lower_op": ">=",
+        "lower": 50,
+        "upper_op": "<=",
+        "upper": 50,
+        "unit": "ppm",
+        "dp": 0,
+        "status": "값있음",
+        "note": null
+       },
+       "std_code": null,
+       "match_score": null,
+       "text": "  스위스: TWA= 50 ppm (180 mg/m3), STEL= 50 ppm (180 mg/m3)"
+      },
+      {
+       "seq": 2,
+       "key": "STEL",
+       "value": "50 ppm (180 mg/m3)",
+       "refs": [
+        "1"
+       ],
+       "cond": {
+        "raw": "스위스: TWA= 50 ppm (180 mg/m3), STEL= 50 ppm (180 mg/m3)",
+        "approx": false,
+        "value": 50,
+        "lower_op": ">=",
+        "lower": 50,
+        "upper_op": "<=",
+        "upper": 50,
+        "unit": "ppm",
+        "dp": 0,
+        "status": "값있음",
+        "note": null
+       },
+       "std_code": null,
+       "match_score": null,
+       "text": "  스위스: TWA= 50 ppm (180 mg/m3), STEL= 50 ppm (180 mg/m3)"
+      }
+     ],
+     "suggested_code": "EXPOSURE_LIMIT",
+     "page": 5
+    },
+    {
+     "seq": 10,
+     "section_no": 9,
+     "after_item": "S9_END",
+     "title_raw": "거. 입자 크기",
+     "reason": "필드없음",
+     "comp_ref": "MIX",
+     "q": null,
+     "statements": [],
+     "suggested_code": null,
+     "page": 6
+    },
+    {
+     "seq": 11,
+     "section_no": 12,
+     "after_item": "ECO_ALGAE",
+     "title_raw": "나. 잔류성 및 분해성",
+     "reason": "필드없음",
+     "comp_ref": "1",
+     "q": {
+      "raw": "Log Kow가 4미만이므로 잔류성이 낮을 것으로 예측됨 (Log Kow ≤ 2.8)",
+      "approx": null,
+      "value": null,
+      "lower_op": null,
+      "lower": null,
+      "upper_op": null,
+      "upper": null,
+      "unit": null,
+      "dp": null,
+      "status": null,
+      "note": null
+     },
+     "statements": [
+      {
+       "seq": 1,
+       "key": "지표",
+       "value": "잔류성",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "    - NATURAL GAS, LIQUIFIED : Log Kow가 4미만이므로 잔류성이 낮을 것으로 예측됨"
+      },
+      {
+       "seq": 2,
+       "key": "지표",
+       "value": "Log Kow",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "                                (Log Kow ≤ 2.8)"
+      },
+      {
+       "seq": 3,
+       "key": "값",
+       "value": "≤ 2.8",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "                                (Log Kow ≤ 2.8)"
+      }
+     ],
+     "suggested_code": "ECO_PERSIST",
+     "page": 9
+    },
+    {
+     "seq": 12,
+     "section_no": 12,
+     "after_item": "ECO_PERSIST",
+     "title_raw": "나. 잔류성 및 분해성",
+     "reason": "필드없음",
+     "comp_ref": "2",
+     "q": {
+      "raw": "Log Kow가 4미만이므로 잔류성이 낮을 것으로 예측됨 (Log Kow = 1.8) (20 ℃)",
+      "approx": null,
+      "value": null,
+      "lower_op": null,
+      "lower": null,
+      "upper_op": null,
+      "upper": null,
+      "unit": null,
+      "dp": null,
+      "status": null,
+      "note": null
+     },
+     "statements": [
+      {
+       "seq": 1,
+       "key": "지표",
+       "value": "잔류성",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "    - Tetrahydrothiophene : Log Kow가 4미만이므로 잔류성이 낮을 것으로 예측됨"
+      },
+      {
+       "seq": 2,
+       "key": "지표",
+       "value": "Log Kow",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "                           (Log Kow = 1.8) (20 ℃)"
+      },
+      {
+       "seq": 3,
+       "key": "값",
+       "value": "= 1.8",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "                           (Log Kow = 1.8) (20 ℃)"
+      }
+     ],
+     "suggested_code": "ECO_PERSIST",
+     "page": 9
+    },
+    {
+     "seq": 13,
+     "section_no": 12,
+     "after_item": "ECO_PERSIST",
+     "title_raw": "나. 잔류성 및 분해성",
+     "reason": "필드없음",
+     "comp_ref": "3",
+     "q": {
+      "raw": "Log Kow가 4미만이므로 잔류성이 낮을 것으로 예측됨 (Log Kow = 2.14) (20 °C)",
+      "approx": null,
+      "value": null,
+      "lower_op": null,
+      "lower": null,
+      "upper_op": null,
+      "upper": null,
+      "unit": null,
+      "dp": null,
+      "status": null,
+      "note": null
+     },
+     "statements": [
+      {
+       "seq": 1,
+       "key": "지표",
+       "value": "잔류성",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "    - Tert-butyl mercaptan : Log Kow가 4미만이므로 잔류성이 낮을 것으로 예측됨"
+      },
+      {
+       "seq": 2,
+       "key": "지표",
+       "value": "Log Kow",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "                           (Log Kow = 2.14) (20 °C)"
+      },
+      {
+       "seq": 3,
+       "key": "값",
+       "value": "= 2.14",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "                           (Log Kow = 2.14) (20 °C)"
+      }
+     ],
+     "suggested_code": "ECO_PERSIST",
+     "page": 9
+    },
+    {
+     "seq": 14,
+     "section_no": 12,
+     "after_item": "ECO_PERSIST",
+     "title_raw": "나. 잔류성 및 분해성",
+     "reason": "필드없음",
+     "comp_ref": "1",
+     "q": {
+      "raw": "광분해성시험에서 11.3년 후에 36.8 % 분해됨 (GLP)",
+      "approx": null,
+      "value": null,
+      "lower_op": null,
+      "lower": null,
+      "upper_op": null,
+      "upper": null,
+      "unit": null,
+      "dp": null,
+      "status": null,
+      "note": null
+     },
+     "statements": [
+      {
+       "seq": 1,
+       "key": "지표",
+       "value": "분해성",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "    - NATURAL GAS, LIQUIFIED : 광분해성시험에서 11.3년 후에 36.8 % 분해됨 (GLP)"
+      },
+      {
+       "seq": 2,
+       "key": "값",
+       "value": "36.8 %",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "    - NATURAL GAS, LIQUIFIED : 광분해성시험에서 11.3년 후에 36.8 % 분해됨 (GLP)"
+      },
+      {
+       "seq": 3,
+       "key": "시간",
+       "value": "11.3년 후",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "    - NATURAL GAS, LIQUIFIED : 광분해성시험에서 11.3년 후에 36.8 % 분해됨 (GLP)"
+      }
+     ],
+     "suggested_code": "ECO_PERSIST",
+     "page": 9
+    },
+    {
+     "seq": 15,
+     "section_no": 12,
+     "after_item": "ECO_PERSIST",
+     "title_raw": "다. 생물농축성",
+     "reason": "필드없음",
+     "comp_ref": "1",
+     "q": {
+      "raw": "생물농축성이 낮을 것으로 예측됨(BCF = 7.27) (예측치)",
+      "approx": null,
+      "value": null,
+      "lower_op": null,
+      "lower": null,
+      "upper_op": null,
+      "upper": null,
+      "unit": null,
+      "dp": null,
+      "status": null,
+      "note": null
+     },
+     "statements": [
+      {
+       "seq": 1,
+       "key": "지표",
+       "value": "BCF",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "    - NATURAL GAS, LIQUIFIED : 생물농축성이 낮을 것으로 예측됨(BCF = 7.27) (예측치)"
+      },
+      {
+       "seq": 2,
+       "key": "값",
+       "value": "= 7.27",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "    - NATURAL GAS, LIQUIFIED : 생물농축성이 낮을 것으로 예측됨(BCF = 7.27) (예측치)"
+      },
+      {
+       "seq": 3,
+       "key": "지표",
+       "value": "생물농축성",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "    - NATURAL GAS, LIQUIFIED : 생물농축성이 낮을 것으로 예측됨(BCF = 7.27) (예측치)"
+      }
+     ],
+     "suggested_code": "ECO_BIOACC",
+     "page": 10
+    },
+    {
+     "seq": 16,
+     "section_no": 12,
+     "after_item": "ECO_BIOACC",
+     "title_raw": "다. 생물농축성",
+     "reason": "필드없음",
+     "comp_ref": "2",
+     "q": {
+      "raw": "생물농축성이 낮을 것으로 예측됨(BCF = 5.36) (예측치)",
+      "approx": null,
+      "value": null,
+      "lower_op": null,
+      "lower": null,
+      "upper_op": null,
+      "upper": null,
+      "unit": null,
+      "dp": null,
+      "status": null,
+      "note": null
+     },
+     "statements": [
+      {
+       "seq": 1,
+       "key": "지표",
+       "value": "BCF",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "    - Tetrahydrothiophene : 생물농축성이 낮을 것으로 예측됨(BCF = 5.36) (예측치)"
+      },
+      {
+       "seq": 2,
+       "key": "값",
+       "value": "= 5.36",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "    - Tetrahydrothiophene : 생물농축성이 낮을 것으로 예측됨(BCF = 5.36) (예측치)"
+      },
+      {
+       "seq": 3,
+       "key": "지표",
+       "value": "생물농축성",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "    - Tetrahydrothiophene : 생물농축성이 낮을 것으로 예측됨(BCF = 5.36) (예측치)"
+      }
+     ],
+     "suggested_code": "ECO_BIOACC",
+     "page": 10
+    },
+    {
+     "seq": 17,
+     "section_no": 12,
+     "after_item": "ECO_BIOACC",
+     "title_raw": "다. 생물농축성",
+     "reason": "필드없음",
+     "comp_ref": "3",
+     "q": {
+      "raw": "생물농축성이 낮을 것으로 예측됨(BCF = 11.97) (예측치)",
+      "approx": null,
+      "value": null,
+      "lower_op": null,
+      "lower": null,
+      "upper_op": null,
+      "upper": null,
+      "unit": null,
+      "dp": null,
+      "status": null,
+      "note": null
+     },
+     "statements": [
+      {
+       "seq": 1,
+       "key": "지표",
+       "value": "BCF",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "    - Tert-butyl mercaptan : 생물농축성이 낮을 것으로 예측됨(BCF = 11.97) (예측치)"
+      },
+      {
+       "seq": 2,
+       "key": "값",
+       "value": "= 11.97",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "    - Tert-butyl mercaptan : 생물농축성이 낮을 것으로 예측됨(BCF = 11.97) (예측치)"
+      },
+      {
+       "seq": 3,
+       "key": "지표",
+       "value": "생물농축성",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "    - Tert-butyl mercaptan : 생물농축성이 낮을 것으로 예측됨(BCF = 11.97) (예측치)"
+      }
+     ],
+     "suggested_code": "ECO_BIOACC",
+     "page": 10
+    },
+    {
+     "seq": 18,
+     "section_no": 12,
+     "after_item": "ECO_BIOACC",
+     "title_raw": "다. 생물농축성",
+     "reason": "필드없음",
+     "comp_ref": "1",
+     "q": {
+      "raw": "이분해성",
+      "approx": null,
+      "value": null,
+      "lower_op": null,
+      "lower": null,
+      "upper_op": null,
+      "upper": null,
+      "unit": null,
+      "dp": null,
+      "status": null,
+      "note": null
+     },
+     "statements": [
+      {
+       "seq": 1,
+       "key": "지표",
+       "value": "생분해성",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "    - NATURAL GAS, LIQUIFIED : 이분해성"
+      },
+      {
+       "seq": 2,
+       "key": "값",
+       "value": "이분해성",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "    - NATURAL GAS, LIQUIFIED : 이분해성"
+      }
+     ],
+     "suggested_code": "ECO_PERSIST",
+     "page": 10
+    },
+    {
+     "seq": 19,
+     "section_no": 12,
+     "after_item": "ECO_PERSIST",
+     "title_raw": "다. 생물농축성",
+     "reason": "필드없음",
+     "comp_ref": "2",
+     "q": {
+      "raw": "생분해가 되지 않아 생체 내 축적될 잠재성이 높음 (28 일 후에 10 % 생분해 됨) (OECD TG 301F, GLP)",
+      "approx": null,
+      "value": null,
+      "lower_op": null,
+      "lower": null,
+      "upper_op": null,
+      "upper": null,
+      "unit": null,
+      "dp": null,
+      "status": null,
+      "note": null
+     },
+     "statements": [
+      {
+       "seq": 1,
+       "key": "지표",
+       "value": "생분해성",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "    - Tetrahydrothiophene : 생분해가 되지 않아 생체 내 축적될 잠재성이 높음"
+      },
+      {
+       "seq": 2,
+       "key": "값",
+       "value": "10 %",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "    - Tetrahydrothiophene : 생분해가 되지 않아 생체 내 축적될 잠재성이 높음"
+      },
+      {
+       "seq": 3,
+       "key": "시간",
+       "value": "28 일 후",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "    - Tetrahydrothiophene : 생분해가 되지 않아 생체 내 축적될 잠재성이 높음"
+      },
+      {
+       "seq": 4,
+       "key": "지표",
+       "value": "생체 내 축적 잠재성",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "    - Tetrahydrothiophene : 생분해가 되지 않아 생체 내 축적될 잠재성이 높음"
+      }
+     ],
+     "suggested_code": "ECO_PERSIST",
+     "page": 10
+    },
+    {
+     "seq": 20,
+     "section_no": 12,
+     "after_item": "ECO_PERSIST",
+     "title_raw": "다. 생물농축성",
+     "reason": "필드없음",
+     "comp_ref": "3",
+     "q": {
+      "raw": "생분해가 되지 않아 생체 내 축적될 잠재성이 높음 (63 일 후에 6 % 생분해 됨) (OECD TG 301D, GLP)",
+      "approx": null,
+      "value": null,
+      "lower_op": null,
+      "lower": null,
+      "upper_op": null,
+      "upper": null,
+      "unit": null,
+      "dp": null,
+      "status": null,
+      "note": null
+     },
+     "statements": [
+      {
+       "seq": 1,
+       "key": "지표",
+       "value": "생분해성",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "    - Tert-butyl mercaptan : 생분해가 되지 않아 생체 내 축적될 잠재성이 높음"
+      },
+      {
+       "seq": 2,
+       "key": "값",
+       "value": "6 %",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "    - Tert-butyl mercaptan : 생분해가 되지 않아 생체 내 축적될 잠재성이 높음"
+      },
+      {
+       "seq": 3,
+       "key": "시간",
+       "value": "63 일 후",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "    - Tert-butyl mercaptan : 생분해가 되지 않아 생체 내 축적될 잠재성이 높음"
+      },
+      {
+       "seq": 4,
+       "key": "지표",
+       "value": "생체 내 축적 잠재성",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "    - Tert-butyl mercaptan : 생분해가 되지 않아 생체 내 축적될 잠재성이 높음"
+      }
+     ],
+     "suggested_code": "ECO_PERSIST",
+     "page": 10
+    },
+    {
+     "seq": 21,
+     "section_no": 12,
+     "after_item": "ECO_PERSIST",
+     "title_raw": "라. 토양이동성",
+     "reason": "필드없음",
+     "comp_ref": "1",
+     "q": {
+      "raw": "토양에 흡착될 가능성이 낮을 것으로 예측됨 (Koc = 37.2) (예측치)",
+      "approx": null,
+      "value": null,
+      "lower_op": null,
+      "lower": null,
+      "upper_op": null,
+      "upper": null,
+      "unit": null,
+      "dp": null,
+      "status": null,
+      "note": null
+     },
+     "statements": [
+      {
+       "seq": 1,
+       "key": "지표",
+       "value": "Koc",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "                               (Koc = 37.2) (예측치)"
+      },
+      {
+       "seq": 2,
+       "key": "값",
+       "value": "= 37.2",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "                               (Koc = 37.2) (예측치)"
+      },
+      {
+       "seq": 3,
+       "key": "지표",
+       "value": "토양이동성",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "   - NATURAL GAS, LIQUIFIED : 토양에 흡착될 가능성이 낮을 것으로 예측됨"
+      }
+     ],
+     "suggested_code": "ECO_SOIL",
+     "page": 10
+    },
+    {
+     "seq": 22,
+     "section_no": 12,
+     "after_item": "ECO_SOIL",
+     "title_raw": "라. 토양이동성",
+     "reason": "필드없음",
+     "comp_ref": "2",
+     "q": {
+      "raw": "토양에 흡착될 가능성이 낮을 것으로 예측됨 (Koc = 20.71)(20 °C)",
+      "approx": null,
+      "value": null,
+      "lower_op": null,
+      "lower": null,
+      "upper_op": null,
+      "upper": null,
+      "unit": null,
+      "dp": null,
+      "status": null,
+      "note": null
+     },
+     "statements": [
+      {
+       "seq": 1,
+       "key": "지표",
+       "value": "Koc",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "                          (Koc = 20.71)(20 °C)"
+      },
+      {
+       "seq": 2,
+       "key": "값",
+       "value": "= 20.71",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "                          (Koc = 20.71)(20 °C)"
+      },
+      {
+       "seq": 3,
+       "key": "지표",
+       "value": "토양이동성",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "   - Tetrahydrothiophene : 토양에 흡착될 가능성이 낮을 것으로 예측됨"
+      }
+     ],
+     "suggested_code": "ECO_SOIL",
+     "page": 10
+    },
+    {
+     "seq": 23,
+     "section_no": 12,
+     "after_item": "ECO_SOIL",
+     "title_raw": "라. 토양이동성",
+     "reason": "필드없음",
+     "comp_ref": "3",
+     "q": {
+      "raw": "토양에 흡착될 가능성이 낮을 것으로 예측됨 (Koc = 43.87)(20 °C)",
+      "approx": null,
+      "value": null,
+      "lower_op": null,
+      "lower": null,
+      "upper_op": null,
+      "upper": null,
+      "unit": null,
+      "dp": null,
+      "status": null,
+      "note": null
+     },
+     "statements": [
+      {
+       "seq": 1,
+       "key": "지표",
+       "value": "Koc",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "                           (Koc = 43.87)(20 °C)"
+      },
+      {
+       "seq": 2,
+       "key": "값",
+       "value": "= 43.87",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "                           (Koc = 43.87)(20 °C)"
+      },
+      {
+       "seq": 3,
+       "key": "지표",
+       "value": "토양이동성",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "   - Tert-butyl mercaptan : 토양에 흡착될 가능성이 낮을 것으로 예측됨"
+      }
+     ],
+     "suggested_code": "ECO_SOIL",
+     "page": 10
+    },
+    {
+     "seq": 24,
+     "section_no": 15,
+     "after_item": "S15_OTHER",
+     "title_raw": "국내규제",
+     "reason": "필드없음",
+     "comp_ref": "MIX",
+     "q": null,
+     "statements": [
+      {
+       "seq": 1,
+       "key": "규제",
+       "value": "잔류성유기오염물질관리법",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "- 잔류성유기오염물질관리법 : 해당없음"
+      }
+     ],
+     "suggested_code": "POPS",
+     "page": 11
+    },
+    {
+     "seq": 25,
+     "section_no": 15,
+     "after_item": "S15_OTHER",
+     "title_raw": "국외규제 :",
+     "reason": "필드없음",
+     "comp_ref": "MIX",
+     "q": null,
+     "statements": [
+      {
+       "seq": 1,
+       "key": "규제",
+       "value": "EU 분류정보(확정분류결과)",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "- EU 분류정보(확정분류결과) :"
+      }
+     ],
+     "suggested_code": "INTL_EU",
+     "page": 11
+    },
+    {
+     "seq": 26,
+     "section_no": 15,
+     "after_item": "S15_OTHER",
+     "title_raw": "국외규제 :",
+     "reason": "필드없음",
+     "comp_ref": "MIX",
+     "q": null,
+     "statements": [
+      {
+       "seq": 1,
+       "key": "규제",
+       "value": "EU 분류정보(위험문구)",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "- EU 분류정보(위험문구) :"
+      }
+     ],
+     "suggested_code": "INTL_EU",
+     "page": 11
+    },
+    {
+     "seq": 27,
+     "section_no": 15,
+     "after_item": "S15_OTHER",
+     "title_raw": "국외규제 :",
+     "reason": "필드없음",
+     "comp_ref": "MIX",
+     "q": null,
+     "statements": [
+      {
+       "seq": 1,
+       "key": "규제",
+       "value": "EU 분류정보(안전문구)",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "- EU 분류정보(안전문구) :"
+      }
+     ],
+     "suggested_code": "INTL_EU",
+     "page": 11
+    },
+    {
+     "seq": 28,
+     "section_no": 15,
+     "after_item": "S15_OTHER",
+     "title_raw": "국외규제 :",
+     "reason": "필드없음",
+     "comp_ref": "MIX",
+     "q": null,
+     "statements": [
+      {
+       "seq": 1,
+       "key": "규제",
+       "value": "EU 규제정보(EU SVHC list)",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "- EU 규제정보(EU SVHC list) : 해당없음"
+      }
+     ],
+     "suggested_code": "INTL_EU",
+     "page": 11
+    },
+    {
+     "seq": 29,
+     "section_no": 15,
+     "after_item": "S15_OTHER",
+     "title_raw": "국외규제 :",
+     "reason": "필드없음",
+     "comp_ref": "MIX",
+     "q": null,
+     "statements": [
+      {
+       "seq": 1,
+       "key": "규제",
+       "value": "EU 규제정보(EU Authorization List)",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "- EU 규제정보(EU Authorization List) : 해당없음"
+      }
+     ],
+     "suggested_code": "INTL_EU",
+     "page": 11
+    },
+    {
+     "seq": 30,
+     "section_no": 15,
+     "after_item": "S15_OTHER",
+     "title_raw": "국외규제 :",
+     "reason": "필드없음",
+     "comp_ref": "MIX",
+     "q": null,
+     "statements": [
+      {
+       "seq": 1,
+       "key": "규제",
+       "value": "EU 규제정보(EU Restriction list)",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "- EU 규제정보(EU Restriction list) : 해당없음"
+      }
+     ],
+     "suggested_code": "INTL_EU",
+     "page": 11
+    },
+    {
+     "seq": 31,
+     "section_no": 15,
+     "after_item": "S15_OTHER",
+     "title_raw": "국외규제 :",
+     "reason": "필드없음",
+     "comp_ref": "MIX",
+     "q": null,
+     "statements": [
+      {
+       "seq": 1,
+       "key": "규제",
+       "value": "미국관리정보(OSHA 규정)",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "- 미국관리정보(OSHA 규정) : 해당없음"
+      }
+     ],
+     "suggested_code": "INTL_US",
+     "page": 11
+    },
+    {
+     "seq": 32,
+     "section_no": 15,
+     "after_item": "S15_OTHER",
+     "title_raw": "국외규제 :",
+     "reason": "필드없음",
+     "comp_ref": "MIX",
+     "q": null,
+     "statements": [
+      {
+       "seq": 1,
+       "key": "규제",
+       "value": "미국관리정보(CERCLA 규정)",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "- 미국관리정보(CERCLA 규정) : 해당없음"
+      }
+     ],
+     "suggested_code": "INTL_US",
+     "page": 12
+    },
+    {
+     "seq": 33,
+     "section_no": 15,
+     "after_item": "S15_OTHER",
+     "title_raw": "국외규제 :",
+     "reason": "필드없음",
+     "comp_ref": "MIX",
+     "q": null,
+     "statements": [
+      {
+       "seq": 1,
+       "key": "규제",
+       "value": "미국관리정보(EPCRA 302 규정)",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "- 미국관리정보(EPCRA 302 규정) : 해당없음"
+      }
+     ],
+     "suggested_code": "INTL_US",
+     "page": 12
+    },
+    {
+     "seq": 34,
+     "section_no": 15,
+     "after_item": "S15_OTHER",
+     "title_raw": "국외규제 :",
+     "reason": "필드없음",
+     "comp_ref": "MIX",
+     "q": null,
+     "statements": [
+      {
+       "seq": 1,
+       "key": "규제",
+       "value": "미국관리정보(EPCRA 304 규정)",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "- 미국관리정보(EPCRA 304 규정) : 해당없음"
+      }
+     ],
+     "suggested_code": "INTL_US",
+     "page": 12
+    },
+    {
+     "seq": 35,
+     "section_no": 15,
+     "after_item": "S15_OTHER",
+     "title_raw": "국외규제 :",
+     "reason": "필드없음",
+     "comp_ref": "MIX",
+     "q": null,
+     "statements": [
+      {
+       "seq": 1,
+       "key": "규제",
+       "value": "미국관리정보(EPCRA 313 규정)",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "- 미국관리정보(EPCRA 313 규정) : 해당없음"
+      }
+     ],
+     "suggested_code": "INTL_US",
+     "page": 12
+    },
+    {
+     "seq": 36,
+     "section_no": 15,
+     "after_item": "S15_OTHER",
+     "title_raw": "국외규제 :",
+     "reason": "필드없음",
+     "comp_ref": "MIX",
+     "q": null,
+     "statements": [
+      {
+       "seq": 1,
+       "key": "규제",
+       "value": "로테르담협약물질",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "- 로테르담협약물질 : 해당없음"
+      }
+     ],
+     "suggested_code": "INTL_TREATY",
+     "page": 12
+    },
+    {
+     "seq": 37,
+     "section_no": 15,
+     "after_item": "S15_OTHER",
+     "title_raw": "국외규제 :",
+     "reason": "필드없음",
+     "comp_ref": "MIX",
+     "q": null,
+     "statements": [
+      {
+       "seq": 1,
+       "key": "규제",
+       "value": "스톡홀름협약물질",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "- 스톡홀름협약물질 : 해당없음"
+      }
+     ],
+     "suggested_code": "INTL_TREATY",
+     "page": 12
+    },
+    {
+     "seq": 38,
+     "section_no": 15,
+     "after_item": "S15_OTHER",
+     "title_raw": "국외규제 :",
+     "reason": "필드없음",
+     "comp_ref": "MIX",
+     "q": null,
+     "statements": [
+      {
+       "seq": 1,
+       "key": "규제",
+       "value": "몬트리올의정서물질",
+       "refs": [],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "- 몬트리올의정서물질 : 해당없음"
+      }
+     ],
+     "suggested_code": "INTL_TREATY",
+     "page": 12
+    },
+    {
+     "seq": 39,
+     "section_no": 15,
+     "after_item": "S15_OTHER",
+     "title_raw": "기타 규제",
+     "reason": "필드없음",
+     "comp_ref": "1",
+     "q": null,
+     "statements": [
+      {
+       "seq": 1,
+       "key": "규제",
+       "value": "미국관리정보",
+       "refs": [
+        "1"
+       ],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": " • 미국관리정보 : Section 8(b) Inventory (TSCA): 존재함"
+      },
+      {
+       "seq": 2,
+       "key": "규제",
+       "value": "중국관리정보",
+       "refs": [
+        "1"
+       ],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": " • 중국관리정보 : Inventory of Existing Chemical Substances (IECSC): 존재함 13445"
+      },
+      {
+       "seq": 3,
+       "key": "규제",
+       "value": "캐나다관리정보",
+       "refs": [
+        "1"
+       ],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": " • 캐나다관리정보 : Domestic Substances List (DSL): 존재함"
+      },
+      {
+       "seq": 4,
+       "key": "규제",
+       "value": "호주관리정보",
+       "refs": [
+        "1"
+       ],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": " • 호주관리정보 : Inventory of Chemical Substances (AICS): 존재함"
+      }
+     ],
+     "suggested_code": "INTL_ETC",
+     "page": 12
+    },
+    {
+     "seq": 40,
+     "section_no": 15,
+     "after_item": "S15_OTHER",
+     "title_raw": "기타 규제",
+     "reason": "필드없음",
+     "comp_ref": "2",
+     "q": null,
+     "statements": [
+      {
+       "seq": 1,
+       "key": "규제",
+       "value": "미국관리정보",
+       "refs": [
+        "2"
+       ],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": " • 미국관리정보 : Section 8(b) Inventory (TSCA): 존재함"
+      },
+      {
+       "seq": 2,
+       "key": "규제",
+       "value": "일본관리정보",
+       "refs": [
+        "2"
+       ],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": " • 일본관리정보 : Existing and New Chemical Substances (ENCS): (5)-75, 8-(6)-605"
+      },
+      {
+       "seq": 3,
+       "key": "규제",
+       "value": "중국관리정보",
+       "refs": [
+        "2"
+       ],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": " • 중국관리정보 : Inventory of Existing Chemical Substances (IECSC): 존재함 32997"
+      },
+      {
+       "seq": 4,
+       "key": "규제",
+       "value": "캐나다관리정보",
+       "refs": [
+        "2"
+       ],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "• 캐나다관리정보 : Domestic Substances List (DSL): 존재함"
+      },
+      {
+       "seq": 5,
+       "key": "규제",
+       "value": "호주관리정보",
+       "refs": [
+        "2"
+       ],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": " • 호주관리정보 : Inventory of Chemical Substances (AICS): 존재함"
+      },
+      {
+       "seq": 6,
+       "key": "규제",
+       "value": "뉴질랜드관리정보",
+       "refs": [
+        "2"
+       ],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": " • 뉴질랜드관리정보 : Inventory of Chemicals (NZIoC): 존재함 HSR001225"
+      },
+      {
+       "seq": 7,
+       "key": "규제",
+       "value": "필리핀관리정보",
+       "refs": [
+        "2"
+       ],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": " • 필리핀관리정보 : Inventory of Chemicals and Chemical Substances (PICCS): 존재함"
+      }
+     ],
+     "suggested_code": "INTL_ETC",
+     "page": 12
+    },
+    {
+     "seq": 41,
+     "section_no": 15,
+     "after_item": "S15_OTHER",
+     "title_raw": "기타 규제",
+     "reason": "필드없음",
+     "comp_ref": "3",
+     "q": null,
+     "statements": [
+      {
+       "seq": 1,
+       "key": "규제",
+       "value": "미국관리정보",
+       "refs": [
+        "3"
+       ],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": " • 미국관리정보 : Section 8(b) Inventory (TSCA): 존재함"
+      },
+      {
+       "seq": 2,
+       "key": "규제",
+       "value": "일본관리정보",
+       "refs": [
+        "3"
+       ],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": " • 일본관리정보 : Existing and New Chemical Substances (ENCS): (2)-464"
+      },
+      {
+       "seq": 3,
+       "key": "규제",
+       "value": "중국관리정보",
+       "refs": [
+        "3"
+       ],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": " • 중국관리정보 : Inventory of Existing Chemical Substances (IECSC): 존재함 17067"
+      },
+      {
+       "seq": 4,
+       "key": "규제",
+       "value": "캐나다관리정보",
+       "refs": [
+        "3"
+       ],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": "• 캐나다관리정보 : Domestic Substances List (DSL): 존재함"
+      },
+      {
+       "seq": 5,
+       "key": "규제",
+       "value": "호주관리정보",
+       "refs": [
+        "3"
+       ],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": " • 호주관리정보 : Inventory of Chemical Substances (AICS): 존재함"
+      },
+      {
+       "seq": 6,
+       "key": "규제",
+       "value": "뉴질랜드관리정보",
+       "refs": [
+        "3"
+       ],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": " • 뉴질랜드관리정보 : Inventory of Chemicals (NZIoC): 존재함 HSR001102"
+      },
+      {
+       "seq": 7,
+       "key": "규제",
+       "value": "필리핀관리정보",
+       "refs": [
+        "3"
+       ],
+       "cond": null,
+       "std_code": null,
+       "match_score": null,
+       "text": " • 필리핀관리정보 : Inventory of Chemicals and Chemical Substances (PICCS): 존재함"
+      }
+     ],
+     "suggested_code": "INTL_ETC",
+     "page": 12
+    },
+    {
+     "seq": 42,
+     "section_no": 16,
+     "after_item": "S16_SOURCE",
+     "title_raw": "나. 최초작성일자",
+     "reason": "필드없음",
+     "comp_ref": "MIX",
+     "q": {
+      "raw": "2010. 06. 15",
+      "approx": true,
+      "value": 2010,
+      "lower_op": ">=",
+      "lower": 2010,
+      "upper_op": "<=",
+      "upper": 2010,
+      "unit": "year",
+      "dp": 0,
+      "status": "값있음",
+      "note": null
+     },
+     "statements": [
+      {
+       "seq": 1,
+       "key": "최초작성일자",
+       "value": "2010. 06. 15",
+       "refs": [],
+       "cond": {
+        "raw": "2010. 06. 15",
+        "approx": true,
+        "value": 2010,
+        "lower_op": ">=",
+        "lower": 2010,
+        "upper_op": "<=",
+        "upper": 2010,
+        "unit": "year",
+        "dp": 0,
+        "status": "값있음",
+        "note": null
+       },
+       "std_code": null,
+       "match_score": null,
+       "text": "   나. 최초작성일자 2010. 06. 15"
+      }
+     ],
+     "suggested_code": "S16_SOURCE",
+     "page": 13
+    },
+    {
+     "seq": 43,
+     "section_no": 16,
+     "after_item": "S16_SOURCE",
+     "title_raw": "다. 개정횟수 및 최종 개정일자",
+     "reason": "필드없음",
+     "comp_ref": "MIX",
+     "q": {
+      "raw": "11회",
+      "approx": false,
+      "value": 11,
+      "lower_op": null,
+      "lower": null,
+      "upper_op": null,
+      "upper": null,
+      "unit": "회",
+      "dp": 0,
+      "status": "값있음",
+      "note": null
+     },
+     "statements": [
+      {
+       "seq": 1,
+       "key": "개정횟수",
+       "value": "11회",
+       "refs": [],
+       "cond": {
+        "raw": "11회",
+        "approx": false,
+        "value": 11,
+        "lower_op": null,
+        "lower": null,
+        "upper_op": null,
+        "upper": null,
+        "unit": "회",
+        "dp": 0,
+        "status": "값있음",
+        "note": null
+       },
+       "std_code": null,
+       "match_score": null,
+       "text": "   개정횟수 : 11회"
+      },
+      {
+       "seq": 2,
+       "key": "최종 개정일자",
+       "value": "2019. 03. 08",
+       "refs": [],
+       "cond": {
+        "raw": "2019. 03. 08",
+        "approx": true,
+        "value": 2019,
+        "lower_op": ">=",
+        "lower": 2019,
+        "upper_op": "<=",
+        "upper": 2019,
+        "unit": "year",
+        "dp": 0,
+        "status": "값있음",
+        "note": null
+       },
+       "std_code": null,
+       "match_score": null,
+       "text": "   최종 개정일자 : 2019. 03. 08"
+      }
+     ],
+     "suggested_code": "S16_SOURCE",
+     "page": 13
+    },
+    {
+     "seq": 44,
+     "section_no": 16,
+     "after_item": "S16_SOURCE",
+     "title_raw": "라. 기타",
+     "reason": "필드없음",
+     "comp_ref": "MIX",
+     "q": {
+      "raw": "",
+      "approx": false,
+      "value": null,
+      "lower_op": null,
+      "lower": null,
+      "upper_op": null,
+      "upper": null,
+      "unit": null,
+      "dp": null,
+      "status": null,
+      "note": null
+     },
+     "statements": [
+      {
+       "seq": 1,
+       "key": "내용",
+       "value": "화학물질의 분류 표시 및 물질안전보건자료에 관한 기준(고용노동부 고시)의 개정 내용을 반영하여 물질안전보건자료를 수정함.",
+       "refs": [],
+       "cond": {
+        "raw": "화학물질의 분류 표시 및 물질안전보건자료에 관한 기준(고용노동부 고시)의 개정 내용을 반영하여 물질안전보건자료를 수정함.",
+        "approx": false,
+        "value": null,
+        "lower_op": null,
+        "lower": null,
+        "upper_op": null,
+        "upper": null,
+        "unit": null,
+        "dp": null,
+        "status": null,
+        "note": null
+       },
+       "std_code": null,
+       "match_score": null,
+       "text": "  화학물질의 분류 표시 및 물질안전보건자료에 관한 기준(고용노동부 고시)의 개정 내용을"
+      },
+      {
+       "seq": 2,
+       "key": "작성자",
+       "value": "이 MSDS는 산업안전보건법 제 41조에 의거하여 한국가스공사에서 작성한 것입니다.",
+       "refs": [],
+       "cond": {
+        "raw": "이 MSDS는 산업안전보건법 제 41조에 의거하여 한국가스공사에서 작성한 것입니다.",
+        "approx": false,
+        "value": null,
+        "lower_op": null,
+        "lower": null,
+        "upper_op": null,
+        "upper": null,
+        "unit": null,
+        "dp": null,
+        "status": null,
+        "note": null
+       },
+       "std_code": null,
+       "match_score": null,
+       "text": "  - 이 MSDS는 산업안전보건법 제 41조에 의거하여 한국가스공사에서 작성한 것입니다."
+      },
+      {
+       "seq": 3,
+       "key": "내용",
+       "value": "내용은 현재의 지식과 정보를 토대로 우리가 알고 있는 최신 DATA을 근거하여 기술하였습니다.",
+       "refs": [],
+       "cond": {
+        "raw": "내용은 현재의 지식과 정보를 토대로 우리가 알고 있는 최신 DATA을 근거하여 기술하였습니다.",
+        "approx": false,
+        "value": null,
+        "lower_op": null,
+        "lower": null,
+        "upper_op": null,
+        "upper": null,
+        "unit": null,
+        "dp": null,
+        "status": null,
+        "note": null
+       },
+       "std_code": null,
+       "match_score": null,
+       "text": "    내용은 현재의 지식과 정보를 토대로 우리가 알고 있는 최신 DATA을 근거하여"
+      },
+      {
+       "seq": 4,
+       "key": "보증",
+       "value": "이 MSDS는 구매자, 취급자 또는 제 3자의 물질안전취급에 도움을 주고자 작성되었으 민으로 특수한 목적의 적합성이나 다른 물질과 병용하여 사용하는, 상업적 적용이나 표현에 대해서는 어떠한 보증도 할 수 없고, 어떠한 기술적∙법적 책임도 질 수 없음에 유의하여야 합니다.",
+       "refs": [],
+       "cond": {
+        "raw": "이 MSDS는 구매자, 취급자 또는 제 3자의 물질안전취급에 도움을 주고자 작성되었으 민으로 특수한 목적의 적합성이나 다른 물질과 병용하여 사용하는, 상업적 적용이나 표현에 대해서는 어떠한 보증도 할 수 없고, 어떠한 기술적∙법적 책임도 질 수 없음에 유의하여야 합니다.",
+        "approx": false,
+        "value": null,
+        "lower_op": null,
+        "lower": null,
+        "upper_op": null,
+        "upper": null,
+        "unit": null,
+        "dp": null,
+        "status": null,
+        "note": null
+       },
+       "std_code": null,
+       "match_score": null,
+       "text": "    표현에 대해서는 어떠한 보증도 할 수 없고, 어떠한 기술적∙법적 책임도 질 수 없음에"
+      },
+      {
+       "seq": 5,
+       "key": "법적 책임",
+       "value": "이 MSDS에 포함된 내용은 국가 및 지역에 따라 상이할 수 있으며, 실제 관련 규정의 내용과 일치하지 않을 수 있으므로, 구매자 및 취급자는 정부 및 해당 지역의 관련 규정을 확인하여 준수할 책임이 있습니다.",
+       "refs": [],
+       "cond": {
+        "raw": "이 MSDS에 포함된 내용은 국가 및 지역에 따라 상이할 수 있으며, 실제 관련 규정의 내용과 일치하지 않을 수 있으므로, 구매자 및 취급자는 정부 및 해당 지역의 관련 규정을 확인하여 준수할 책임이 있습니다.",
+        "approx": false,
+        "value": null,
+        "lower_op": null,
+        "lower": null,
+        "upper_op": null,
+        "upper": null,
+        "unit": null,
+        "dp": null,
+        "status": null,
+        "note": null
+       },
+       "std_code": null,
+       "match_score": null,
+       "text": "  - 이 MSDS에 포함된 내용은 국가 및 지역에 따라 상이할 수 있으며, 실제 관련 규정의"
+      },
+      {
+       "seq": 6,
+       "key": "제한사항",
+       "value": "이 MSDS는 한국가스공사에서 송출하는 천연가스를 대상으로 작성되었으며, 감압 등 재가공된 천연가스의 물질안전보건성에 대한 어떠한 기술적∙법적 책임도 질 수 없음에 유의하여야 합니다.",
+       "refs": [],
+       "cond": {
+        "raw": "이 MSDS는 한국가스공사에서 송출하는 천연가스를 대상으로 작성되었으며, 감압 등 재가공된 천연가스의 물질안전보건성에 대한 어떠한 기술적∙법적 책임도 질 수 없음에 유의하여야 합니다.",
+        "approx": false,
+        "value": null,
+        "lower_op": null,
+        "lower": null,
+        "upper_op": null,
+        "upper": null,
+        "unit": null,
+        "dp": null,
+        "status": null,
+        "note": null
+       },
+       "std_code": null,
+       "match_score": null,
+       "text": "  - 이 MSDS는 한국가스공사에서 송출하는 천연가스를 대상으로 작성되었으며, 감압 등"
+      }
+     ],
+     "suggested_code": "S16_OTHER",
+     "page": 13
+    }
+   ]
+  }
+ ]
+}

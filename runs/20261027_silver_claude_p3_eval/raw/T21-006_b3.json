@@ -1,0 +1,1444 @@
+{
+  "doc_id": "T21-006",
+  "bundle": "b3",
+  "model": "claude-opus-5-5",
+  "mode": "none",
+  "finish_reason": "stop",
+  "usage": {
+    "prompt_tokens": 71281,
+    "completion_tokens": 14893,
+    "total_tokens": 86174,
+    "served_model": "claude-opus-5-5"
+  },
+  "seconds": 110.5,
+  "attempts": 1,
+  "errors": [],
+  "parsed": {
+    "msds": [
+      {
+        "toxicity": [
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_ORAL",
+            "descriptor": "LD50",
+            "q": {
+              "raw": "5200 mg/kg",
+              "approx": null,
+              "value": 5200,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "mg/kg",
+              "dp": 0,
+              "status": "값있음",
+              "note": null
+            },
+            "species": "랫드",
+            "sex": "수컷",
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_ORAL",
+            "descriptor": "LD50",
+            "q": {
+              "raw": "5300mg/kg",
+              "approx": null,
+              "value": 5300,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "mg/kg",
+              "dp": 0,
+              "status": "값있음",
+              "note": null
+            },
+            "species": "랫드",
+            "sex": "암컷",
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_DERMAL",
+            "descriptor": "LD50",
+            "q": {
+              "raw": ">2000 mg/kg",
+              "approx": null,
+              "value": null,
+              "lower_op": ">",
+              "lower": 2000,
+              "upper_op": null,
+              "upper": null,
+              "unit": "mg/kg",
+              "dp": 0,
+              "status": "값있음",
+              "note": null
+            },
+            "species": "랫드",
+            "sex": "미표기",
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_INHAL",
+            "descriptor": "LC50",
+            "q": {
+              "raw": "<6.75 mg/L/4hr",
+              "approx": null,
+              "value": null,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": "<",
+              "upper": 6.75,
+              "unit": "mg/L",
+              "dp": 2,
+              "status": "값있음",
+              "note": null
+            },
+            "species": "랫드",
+            "sex": "미표기",
+            "duration_value": 4,
+            "duration_unit": "hr",
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_SKIN",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": "토끼",
+            "sex": "미표기",
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "약한 자극",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "토끼 약한 자극"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_EYE",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": "토끼",
+            "sex": "미표기",
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "약한 자극",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "토끼 약한 자극"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_RESP_SENS",
+            "descriptor": null,
+            "q": null,
+            "species": null,
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [],
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_SKIN_SENS",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": "기니피그",
+            "sex": "미표기",
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "과민성 없음",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "기니피그 과민성 없음"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "3",
+            "endpoint": "TX_CARC",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": null,
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": "Group 3",
+                "value": "사람 발암성으로 분류되지 않음 (IARC)",
+                "refs": [
+                  "3"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "Group 3: 사람 발암성으로 분류되지 않음 (IARC)"
+              },
+              {
+                "seq": 2,
+                "key": "A3",
+                "value": "동물에서는 발암성이나 사람에의 발암성은 알려지지 않음 (ACGIH)",
+                "refs": [
+                  "3"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "A3: 동물에서는 발암성이나 사람에의 발암성은 알려지지 않음 (ACGIH)"
+              },
+              {
+                "seq": 3,
+                "key": "발암성 구분 2",
+                "value": "고용노동부고시",
+                "refs": [
+                  "3"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "발암성 구분 2: 고용노동부고시"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": null,
+            "endpoint": "TX_MUTA",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": null,
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": "IUCLID",
+            "classification": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": "Mineral oil",
+                "value": "In vitro - Salmonella typhimurium/TA98 (복귀돌연변이시험; Ames test) (GLP): 대사활성계 유무와 상관없이 음성,",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "In vitro - Salmonella typhimurium/TA98 (복귀돌연변이시험; Ames test) (GLP): 대사활성계 유무와 상관없이 음성,"
+              },
+              {
+                "seq": 2,
+                "key": "Mineral oil",
+                "value": "마우스 림프구세포/유전자돌연변이시험 (GLP): 대사활성계 유무와 상관없이 음성 (IUCLID)",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "마우스 림프구세포/유전자돌연변이시험 (GLP): 대사활성계 유무와 상관없이 음성 (IUCLID)"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "3",
+            "endpoint": "TX_MUTA",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": null,
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": "SIDS",
+            "classification": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "생식세포 변이원성 아님",
+                "refs": [
+                  "3"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "생식세포 변이원성 아님 (SIDS)"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": null,
+            "endpoint": "TX_REPRO",
+            "descriptor": "결과기술",
+            "q": {
+              "raw": "4350 mg/kg/day",
+              "approx": null,
+              "value": 4350,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "mg/kg/day",
+              "dp": 0,
+              "status": "값있음",
+              "note": null
+            },
+            "species": "랫드",
+            "sex": "미표기",
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": "경구",
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": "OECD Guideline 415",
+            "data_source": "IUCLID",
+            "classification": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": "Mineral oil",
+                "value": "생식독성 없음.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "랫드 경구 (4350 mg/kg/day) (OECD Guideline 415, GLP): 생식독성 없음. (IUCLID)"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "3",
+            "endpoint": "TX_REPRO",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": "랫드",
+            "sex": "미표기",
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": "2세대 생식 연구",
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": "SIDS",
+            "classification": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": "랫드 2세대 생식 연구",
+                "value": "생식 독성 없음.",
+                "refs": [
+                  "3"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "랫드 2세대 생식 연구: 생식 독성 없음. (SIDS)"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_STOT_SE",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": null,
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": "구분 3",
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "Aromatic hydrocarbons 함유",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "Aromatic hydrocarbons 함유"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": null,
+            "endpoint": "TX_STOT_RE",
+            "descriptor": "결과기술",
+            "q": {
+              "raw": "0, 1.7, 18, 180, 1800 mg/kg/day",
+              "approx": null,
+              "value": null,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "mg/kg/day",
+              "dp": 1,
+              "status": "값있음",
+              "note": null
+            },
+            "species": "랫드",
+            "sex": "미표기",
+            "duration_value": 90,
+            "duration_unit": "day",
+            "physical_form": null,
+            "exposure_type": "경구",
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": "IUCLID",
+            "classification": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": "Mineral oil",
+                "value": "간에 육아종성 영향, 장간막 림프선에 조직구증식증이 관찰됨.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "랫드 경구 (0, 1.7, 18, 180, 1800 mg/kg/day for 90D): 간에 육아종성 영향, 장간막 림프선에 조직구증식증이 관찰됨."
+              },
+              {
+                "seq": 2,
+                "key": null,
+                "value": "암컷이 수컷보다 더 민감성임.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "암컷이 수컷보다 더 민감성임. (IUCLID)"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": null,
+            "endpoint": "TX_STOT_RE",
+            "descriptor": "결과기술",
+            "q": {
+              "raw": "92000 mg/kg",
+              "approx": null,
+              "value": 92000,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "mg/kg",
+              "dp": 0,
+              "status": "값있음",
+              "note": null
+            },
+            "species": "랫드",
+            "sex": "미표기",
+            "duration_value": 92,
+            "duration_unit": "day",
+            "physical_form": null,
+            "exposure_type": "경구",
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": "Retecs",
+            "classification": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": "Mineral oil",
+                "value": "간 무게변화, 백혈구 수 변화, 무게 감소",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "랫드 경구 (92000 mg/kg/92D): 간 무게변화, 백혈구 수 변화, 무게 감소 (Retecs)"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_ASP",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": null,
+            "sex": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "physical_form": null,
+            "exposure_type": null,
+            "converted": null,
+            "read_across_cas": null,
+            "guideline": null,
+            "data_source": null,
+            "classification": "구분 1",
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "구분1인 Aromatic hydrocarbon 성분을 10% 이상 함유,",
+                "refs": [
+                  "2"
+                ],
+                "cond": {
+                  "raw": "10% 이상",
+                  "approx": null,
+                  "value": null,
+                  "lower_op": ">=",
+                  "lower": 10,
+                  "upper_op": null,
+                  "upper": null,
+                  "unit": "%",
+                  "dp": 0,
+                  "status": "값있음",
+                  "note": null
+                },
+                "std_code": null,
+                "match_score": null,
+                "text": "구분1인 Aromatic hydrocarbon 성분을 10% 이상 함유,"
+              },
+              {
+                "seq": 2,
+                "key": "40℃에서의 동점성율",
+                "value": "≤20.5 ㎟/s",
+                "refs": null,
+                "cond": {
+                  "raw": "≤20.5 ㎟/s",
+                  "approx": null,
+                  "value": null,
+                  "lower_op": null,
+                  "lower": null,
+                  "upper_op": "<=",
+                  "upper": 20.5,
+                  "unit": "mm2/s",
+                  "dp": 1,
+                  "status": "값있음",
+                  "note": null
+                },
+                "std_code": null,
+                "match_score": null,
+                "text": "40℃에서의 동점성율: ≤20.5 ㎟/s"
+              }
+            ],
+            "status": "값있음"
+          }
+        ],
+        "cmr": [
+          {
+            "comp_ref": "3",
+            "hazard": "발암성",
+            "agency": "IARC",
+            "class": "Group 3",
+            "status": "값있음",
+            "note": null
+          },
+          {
+            "comp_ref": "3",
+            "hazard": "발암성",
+            "agency": "ACGIH",
+            "class": "A3",
+            "status": "값있음",
+            "note": null
+          },
+          {
+            "comp_ref": "3",
+            "hazard": "발암성",
+            "agency": "KR_OSH",
+            "class": "구분 2",
+            "status": "값있음",
+            "note": null
+          }
+        ],
+        "ecotox": [
+          {
+            "comp_ref": "MIX",
+            "endpoint": null,
+            "descriptor": "결과기술",
+            "q": null,
+            "species": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "guideline": null,
+            "data_source": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "급성 수생환경유해성 구분 1",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "급성 수생환경유해성 구분 1"
+              },
+              {
+                "seq": 2,
+                "key": null,
+                "value": "만성 수생환경유해성 구분 1",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "만성 수생환경유해성 구분 1"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_FISH",
+            "descriptor": "LC50",
+            "q": {
+              "raw": "0.45 mg/L",
+              "approx": null,
+              "value": 0.45,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "mg/L",
+              "dp": 2,
+              "status": "값있음",
+              "note": null
+            },
+            "species": "Rainbow trout",
+            "duration_value": 96,
+            "duration_unit": "hr",
+            "guideline": null,
+            "data_source": null,
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_FISH",
+            "descriptor": "NOEC",
+            "q": {
+              "raw": "0.18 mg/L",
+              "approx": null,
+              "value": 0.18,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "mg/L",
+              "dp": 2,
+              "status": "값있음",
+              "note": null
+            },
+            "species": "Rainbow trout",
+            "duration_value": null,
+            "duration_unit": null,
+            "guideline": null,
+            "data_source": null,
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_CRUST",
+            "descriptor": "EC50",
+            "q": {
+              "raw": "0.42 mg/L",
+              "approx": null,
+              "value": 0.42,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "mg/L",
+              "dp": 2,
+              "status": "값있음",
+              "note": null
+            },
+            "species": "Daphnia magna",
+            "duration_value": 48,
+            "duration_unit": "hr",
+            "guideline": null,
+            "data_source": null,
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_CRUST",
+            "descriptor": "NOEC",
+            "q": {
+              "raw": "0.17 mg/L",
+              "approx": null,
+              "value": 0.17,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "mg/L",
+              "dp": 2,
+              "status": "값있음",
+              "note": null
+            },
+            "species": "Daphnia magna",
+            "duration_value": null,
+            "duration_unit": null,
+            "guideline": null,
+            "data_source": null,
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_ALGAE",
+            "descriptor": "EC50",
+            "q": {
+              "raw": ">89 mg/L",
+              "approx": null,
+              "value": null,
+              "lower_op": ">",
+              "lower": 89,
+              "upper_op": null,
+              "upper": null,
+              "unit": "mg/L",
+              "dp": 0,
+              "status": "값있음",
+              "note": null
+            },
+            "species": "Pseudokirchneriella subcaptitata",
+            "duration_value": 120,
+            "duration_unit": "hr",
+            "guideline": null,
+            "data_source": null,
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_ALGAE",
+            "descriptor": "NOEC",
+            "q": {
+              "raw": "5.7 mg/L",
+              "approx": null,
+              "value": 5.7,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "mg/L",
+              "dp": 1,
+              "status": "값있음",
+              "note": null
+            },
+            "species": "Pseudokirchneriella subcaptitata",
+            "duration_value": null,
+            "duration_unit": null,
+            "guideline": null,
+            "data_source": null,
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_CRUST",
+            "descriptor": "EC50",
+            "q": {
+              "raw": "0.01 mg/L",
+              "approx": null,
+              "value": 0.01,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "mg/L",
+              "dp": 2,
+              "status": "값있음",
+              "note": null
+            },
+            "species": "Daphnia magna",
+            "duration_value": 48,
+            "duration_unit": "hr",
+            "guideline": null,
+            "data_source": null,
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "ECO_PERSIST",
+            "descriptor": "기타",
+            "q": {
+              "raw": "BOD5/COD=0.43",
+              "approx": null,
+              "value": 0.43,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": null,
+              "dp": 2,
+              "status": "값있음",
+              "note": "생분해성 아님"
+            },
+            "species": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "guideline": null,
+            "data_source": "IUCLID",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "BOD5/COD",
+                "value": "0.43 (생분해성 아님)",
+                "refs": [
+                  "2"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "BOD5/COD=0.43 (생분해성 아님) (IUCLID)"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": null,
+            "endpoint": "ECO_PERSIST",
+            "descriptor": "logKow",
+            "q": {
+              "raw": "LogKow=5.18",
+              "approx": null,
+              "value": 5.18,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": null,
+              "dp": 2,
+              "status": "값있음",
+              "note": null
+            },
+            "species": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "guideline": null,
+            "data_source": "IUCLID",
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": null,
+            "endpoint": "ECO_PERSIST",
+            "descriptor": "분해율",
+            "q": {
+              "raw": "0%",
+              "approx": null,
+              "value": 0,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "%",
+              "dp": 0,
+              "status": "값있음",
+              "note": null
+            },
+            "species": null,
+            "duration_value": 28,
+            "duration_unit": "day",
+            "guideline": "OECD TG 301",
+            "data_source": "IUCLID",
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "3",
+            "endpoint": "ECO_PERSIST",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "guideline": null,
+            "data_source": "SIDS",
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "생분해성",
+                "refs": [
+                  "3"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "생분해성 (SIDS)"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "3",
+            "endpoint": "ECO_BIOACC",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "guideline": null,
+            "data_source": "SIDS",
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "생물축적성 낮음",
+                "refs": [
+                  "3"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "생물축적성 낮음 (SIDS)"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "3",
+            "endpoint": "ECO_SOIL",
+            "descriptor": "결과기술",
+            "q": null,
+            "species": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "guideline": null,
+            "data_source": "SIDS",
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "높은 토양 이동성",
+                "refs": [
+                  "3"
+                ],
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "높은 토양 이동성 (SIDS)"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": null,
+            "descriptor": null,
+            "q": null,
+            "species": null,
+            "duration_value": null,
+            "duration_unit": null,
+            "guideline": null,
+            "data_source": null,
+            "statements": [],
+            "status": "자료없음"
+          }
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "msds_index": 0,
+        "field": "toxicity[0]",
+        "page": 6,
+        "source_text": "○ 급성 독성 자료 (경구) | 랫드(male) LD50 5200 mg/kg",
+        "rules": [
+          "R04",
+          "R08",
+          "R10"
+        ],
+        "note": "제품 전체 값으로 보아 MIX, male을 수컷으로 적음"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[1]",
+        "page": 6,
+        "source_text": "○ 급성 독성 자료 (경구) | 랫드(female) LD50 5300mg/kg",
+        "rules": [
+          "R04",
+          "R08",
+          "R10"
+        ],
+        "note": "female을 암컷으로 적음"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[2]",
+        "page": 7,
+        "source_text": "○ 급성 독성 자료 (경피) | 랫드 LD50>2000 mg/kg",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "'>2000'을 하한 2000(>)으로 나눔"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[3]",
+        "page": 7,
+        "source_text": "○ 급성 독성 자료 (흡입) | 랫드 LC50<6.75 mg/L/4hr",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "'<6.75 mg/L/4hr'을 상한 6.75(<), 단위 mg/L, 노출 4hr로 나눔. 흡입 형태는 원문에 없어 null"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[4]",
+        "page": 7,
+        "source_text": "○ 피부 자극성 | 토끼 약한 자극",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[5]",
+        "page": 7,
+        "source_text": "○ 눈 손상 또는 자극성 | 토끼 약한 자극",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[6]",
+        "page": 7,
+        "source_text": "○ 호흡기 과민성 | 자료 없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "'자료 없음'을 status 자료없음으로 적음"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[7]",
+        "page": 7,
+        "source_text": "○ 피부 과민성 | 기니피그 과민성 없음",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[8]",
+        "page": 7,
+        "source_text": "○ 발암성 | Cyclohexanone | Group 3: 사람 발암성으로 분류되지 않음 (IARC) | A3: 동물에서는 발암성이나 사람에의 발암성은 알려지지 않음 (ACGIH) | 발암성 구분 2: 고용노동부고시",
+        "rules": [
+          "R10"
+        ],
+        "note": "Cyclohexanone을 이름으로 매칭해 comp_ref 3"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[9]",
+        "page": 7,
+        "source_text": "○ 생식세포 변이원성 | Mineral oil | In vitro - Salmonella typhimurium/TA98 (복귀돌연변이시험; Ames test) (GLP): 대사활성계 유무와 상관없이 음성, 마우스 림프구세포/유전자돌연변이시험 (GLP): 대사활성계 유무와 상관없이 음성 (IUCLID)",
+        "rules": [
+          "R10",
+          "R17"
+        ],
+        "note": "Mineral oil은 성분 목록에 없어 comp_ref를 null로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[10]",
+        "page": 7,
+        "source_text": "Cyclohexanone | 생식세포 변이원성 아님 (SIDS)",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[11]",
+        "page": 7,
+        "source_text": "○ 생식독성 | Mineral oil | 랫드 경구 (4350 mg/kg/day) (OECD Guideline 415, GLP): 생식독성 없음. (IUCLID)",
+        "rules": [
+          "R04",
+          "R10",
+          "R17"
+        ],
+        "note": "Mineral oil은 성분 목록에 없어 comp_ref null, 투여량을 q로 적음"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[12]",
+        "page": 7,
+        "source_text": "Cyclohexanone | 랫드 2세대 생식 연구: 생식 독성 없음. (SIDS)",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[13]",
+        "page": 7,
+        "source_text": "○ 특정표적 장기 독성 (1회 노출) | 구분 3 | Aromatic hydrocarbons 함유",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[14]",
+        "page": 7,
+        "source_text": "○ 특정표적 장기 독성 (반복 노출) | Mineral oil | 랫드 경구 (0, 1.7, 18, 180, 1800 mg/kg/day for 90D): 간에 육아종성 영향, 장간막 림프선에 조직구증식증이 관찰됨. 암컷이 수컷보다 더 민감성임. (IUCLID)",
+        "rules": [
+          "R04",
+          "R17"
+        ],
+        "note": "여러 투여량이라 값은 나누지 않고 raw만 남김, 90D를 90 day로 적음, comp_ref null"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[15]",
+        "page": 7,
+        "source_text": "랫드 경구 (92000 mg/kg/92D): 간 무게변화, 백혈구 수 변화, 무게 감소 (Retecs)",
+        "rules": [
+          "R04",
+          "R17"
+        ],
+        "note": "'92000 mg/kg/92D'를 값 92000 mg/kg, 노출 92 day로 나눔, comp_ref null"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[16]",
+        "page": 7,
+        "source_text": "○ 흡인유해성 | 구분 1 | 구분1인 Aromatic hydrocarbon 성분을 10% 이상 함유, 40℃에서의 동점성율: ≤20.5 ㎟/s",
+        "rules": [
+          "R04",
+          "R08",
+          "R10"
+        ],
+        "note": "조건 수치 10% 이상, ≤20.5 ㎟/s를 cond로 나눔"
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[0]",
+        "page": 7,
+        "source_text": "Cyclohexanone | Group 3: 사람 발암성으로 분류되지 않음 (IARC)",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[1]",
+        "page": 7,
+        "source_text": "Cyclohexanone | A3: 동물에서는 발암성이나 사람에의 발암성은 알려지지 않음 (ACGIH)",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[2]",
+        "page": 7,
+        "source_text": "Cyclohexanone | 발암성 구분 2: 고용노동부고시",
+        "rules": [
+          "R10"
+        ],
+        "note": "고용노동부고시를 KR_OSH로 적음"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[0]",
+        "page": 8,
+        "source_text": "가) 수생 생태독성 | 급성 수생환경유해성 구분 1 | 만성 수생환경유해성 구분 1",
+        "rules": [
+          "R10"
+        ],
+        "note": "분류 문장으로 endpoint 코드 없이 남김"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[1]",
+        "page": 8,
+        "source_text": "어류 Rainbow trout 96hr LC50=0.45 mg/L NOEC 0.18 mg/L",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[2]",
+        "page": 8,
+        "source_text": "어류 Rainbow trout 96hr LC50=0.45 mg/L NOEC 0.18 mg/L",
+        "rules": [
+          "R04",
+          "R10",
+          "R17"
+        ],
+        "note": "NOEC 노출 시간은 명시되지 않아 null"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[3]",
+        "page": 8,
+        "source_text": "갑각류 Daphnia magna 48hr EC50=0.42 mg/L",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[4]",
+        "page": 8,
+        "source_text": "갑각류 Daphnia magna 48hr EC50=0.42 mg/L | NOEC 0.17 mg/L",
+        "rules": [
+          "R04",
+          "R10",
+          "R17"
+        ],
+        "note": "NOEC 노출 시간은 명시되지 않아 null"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[5]",
+        "page": 8,
+        "source_text": "조류 Pseudokirchneriella subcaptitata 120hr EC50>89 mg/L",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "'>89'를 하한 89(>)로 나눔"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[6]",
+        "page": 8,
+        "source_text": "조류 Pseudokirchneriella subcaptitata 120hr EC50>89 mg/L | NOEC 5.7 mg/L",
+        "rules": [
+          "R04",
+          "R10",
+          "R17"
+        ],
+        "note": "NOEC 노출 시간은 명시되지 않아 null"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[7]",
+        "page": 8,
+        "source_text": "Milbemectin | 갑각류 Daphnia magna 48hr EC50=0.01 mg/L",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "Milbemectin을 comp_ref 1로 매칭"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[8]",
+        "page": 8,
+        "source_text": "Aromatic hydrocarbon | BOD5/COD=0.43 (생분해성 아님) (IUCLID)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "BOD5/COD 비율이라 지표를 기타로 적음"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[9]",
+        "page": 8,
+        "source_text": "Mineral oil | LogKow=5.18, 생분해성: 0% 28일 (OECD TG 301) (IUCLID)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "Mineral oil은 성분 목록에 없어 comp_ref null"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[10]",
+        "page": 8,
+        "source_text": "Mineral oil | LogKow=5.18, 생분해성: 0% 28일 (OECD TG 301) (IUCLID)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "생분해성 0% 28일을 분해율로 적음, comp_ref null"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[11]",
+        "page": 8,
+        "source_text": "Cyclohexanone | 생분해성 (SIDS)",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[12]",
+        "page": 8,
+        "source_text": "다) 생물 농축성 | Cyclohexanone | 생물축적성 낮음 (SIDS)",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[13]",
+        "page": 8,
+        "source_text": "라) 토양 이동성 | Cyclohexanone | 높은 토양 이동성 (SIDS)",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[14]",
+        "page": 8,
+        "source_text": "마) 기타 유해영향 | 자료 없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "기타 유해영향에 맞는 코드가 없어 endpoint null, status 자료없음"
+      }
+    ]
+  },
+  "raw_text": "{\"msds\":[{\"toxicity\":[{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_ORAL\",\"descriptor\":\"LD50\",\"q\":{\"raw\":\"5200 mg/kg\",\"approx\":null,\"value\":5200,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"mg/kg\",\"dp\":0,\"status\":\"값있음\",\"note\":null},\"species\":\"랫드\",\"sex\":\"수컷\",\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_ORAL\",\"descriptor\":\"LD50\",\"q\":{\"raw\":\"5300mg/kg\",\"approx\":null,\"value\":5300,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"mg/kg\",\"dp\":0,\"status\":\"값있음\",\"note\":null},\"species\":\"랫드\",\"sex\":\"암컷\",\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_DERMAL\",\"descriptor\":\"LD50\",\"q\":{\"raw\":\">2000 mg/kg\",\"approx\":null,\"value\":null,\"lower_op\":\">\",\"lower\":2000,\"upper_op\":null,\"upper\":null,\"unit\":\"mg/kg\",\"dp\":0,\"status\":\"값있음\",\"note\":null},\"species\":\"랫드\",\"sex\":\"미표기\",\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_INHAL\",\"descriptor\":\"LC50\",\"q\":{\"raw\":\"<6.75 mg/L/4hr\",\"approx\":null,\"value\":null,\"lower_op\":null,\"lower\":null,\"upper_op\":\"<\",\"upper\":6.75,\"unit\":\"mg/L\",\"dp\":2,\"status\":\"값있음\",\"note\":null},\"species\":\"랫드\",\"sex\":\"미표기\",\"duration_value\":4,\"duration_unit\":\"hr\",\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_SKIN\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":\"토끼\",\"sex\":\"미표기\",\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"약한 자극\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"토끼 약한 자극\"}],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_EYE\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":\"토끼\",\"sex\":\"미표기\",\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"약한 자극\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"토끼 약한 자극\"}],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_RESP_SENS\",\"descriptor\":null,\"q\":null,\"species\":null,\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[],\"status\":\"자료없음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_SKIN_SENS\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":\"기니피그\",\"sex\":\"미표기\",\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"과민성 없음\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"기니피그 과민성 없음\"}],\"status\":\"값있음\"},{\"comp_ref\":\"3\",\"endpoint\":\"TX_CARC\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":null,\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":null,\"statements\":[{\"seq\":1,\"key\":\"Group 3\",\"value\":\"사람 발암성으로 분류되지 않음 (IARC)\",\"refs\":[\"3\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"Group 3: 사람 발암성으로 분류되지 않음 (IARC)\"},{\"seq\":2,\"key\":\"A3\",\"value\":\"동물에서는 발암성이나 사람에의 발암성은 알려지지 않음 (ACGIH)\",\"refs\":[\"3\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"A3: 동물에서는 발암성이나 사람에의 발암성은 알려지지 않음 (ACGIH)\"},{\"seq\":3,\"key\":\"발암성 구분 2\",\"value\":\"고용노동부고시\",\"refs\":[\"3\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"발암성 구분 2: 고용노동부고시\"}],\"status\":\"값있음\"},{\"comp_ref\":null,\"endpoint\":\"TX_MUTA\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":null,\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":\"IUCLID\",\"classification\":null,\"statements\":[{\"seq\":1,\"key\":\"Mineral oil\",\"value\":\"In vitro - Salmonella typhimurium/TA98 (복귀돌연변이시험; Ames test) (GLP): 대사활성계 유무와 상관없이 음성,\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"In vitro - Salmonella typhimurium/TA98 (복귀돌연변이시험; Ames test) (GLP): 대사활성계 유무와 상관없이 음성,\"},{\"seq\":2,\"key\":\"Mineral oil\",\"value\":\"마우스 림프구세포/유전자돌연변이시험 (GLP): 대사활성계 유무와 상관없이 음성 (IUCLID)\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"마우스 림프구세포/유전자돌연변이시험 (GLP): 대사활성계 유무와 상관없이 음성 (IUCLID)\"}],\"status\":\"값있음\"},{\"comp_ref\":\"3\",\"endpoint\":\"TX_MUTA\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":null,\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":\"SIDS\",\"classification\":null,\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"생식세포 변이원성 아님\",\"refs\":[\"3\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"생식세포 변이원성 아님 (SIDS)\"}],\"status\":\"값있음\"},{\"comp_ref\":null,\"endpoint\":\"TX_REPRO\",\"descriptor\":\"결과기술\",\"q\":{\"raw\":\"4350 mg/kg/day\",\"approx\":null,\"value\":4350,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"mg/kg/day\",\"dp\":0,\"status\":\"값있음\",\"note\":null},\"species\":\"랫드\",\"sex\":\"미표기\",\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":\"경구\",\"converted\":null,\"read_across_cas\":null,\"guideline\":\"OECD Guideline 415\",\"data_source\":\"IUCLID\",\"classification\":null,\"statements\":[{\"seq\":1,\"key\":\"Mineral oil\",\"value\":\"생식독성 없음.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"랫드 경구 (4350 mg/kg/day) (OECD Guideline 415, GLP): 생식독성 없음. (IUCLID)\"}],\"status\":\"값있음\"},{\"comp_ref\":\"3\",\"endpoint\":\"TX_REPRO\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":\"랫드\",\"sex\":\"미표기\",\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":\"2세대 생식 연구\",\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":\"SIDS\",\"classification\":null,\"statements\":[{\"seq\":1,\"key\":\"랫드 2세대 생식 연구\",\"value\":\"생식 독성 없음.\",\"refs\":[\"3\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"랫드 2세대 생식 연구: 생식 독성 없음. (SIDS)\"}],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_STOT_SE\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":null,\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":\"구분 3\",\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"Aromatic hydrocarbons 함유\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"Aromatic hydrocarbons 함유\"}],\"status\":\"값있음\"},{\"comp_ref\":null,\"endpoint\":\"TX_STOT_RE\",\"descriptor\":\"결과기술\",\"q\":{\"raw\":\"0, 1.7, 18, 180, 1800 mg/kg/day\",\"approx\":null,\"value\":null,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"mg/kg/day\",\"dp\":1,\"status\":\"값있음\",\"note\":null},\"species\":\"랫드\",\"sex\":\"미표기\",\"duration_value\":90,\"duration_unit\":\"day\",\"physical_form\":null,\"exposure_type\":\"경구\",\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":\"IUCLID\",\"classification\":null,\"statements\":[{\"seq\":1,\"key\":\"Mineral oil\",\"value\":\"간에 육아종성 영향, 장간막 림프선에 조직구증식증이 관찰됨.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"랫드 경구 (0, 1.7, 18, 180, 1800 mg/kg/day for 90D): 간에 육아종성 영향, 장간막 림프선에 조직구증식증이 관찰됨.\"},{\"seq\":2,\"key\":null,\"value\":\"암컷이 수컷보다 더 민감성임.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"암컷이 수컷보다 더 민감성임. (IUCLID)\"}],\"status\":\"값있음\"},{\"comp_ref\":null,\"endpoint\":\"TX_STOT_RE\",\"descriptor\":\"결과기술\",\"q\":{\"raw\":\"92000 mg/kg\",\"approx\":null,\"value\":92000,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"mg/kg\",\"dp\":0,\"status\":\"값있음\",\"note\":null},\"species\":\"랫드\",\"sex\":\"미표기\",\"duration_value\":92,\"duration_unit\":\"day\",\"physical_form\":null,\"exposure_type\":\"경구\",\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":\"Retecs\",\"classification\":null,\"statements\":[{\"seq\":1,\"key\":\"Mineral oil\",\"value\":\"간 무게변화, 백혈구 수 변화, 무게 감소\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"랫드 경구 (92000 mg/kg/92D): 간 무게변화, 백혈구 수 변화, 무게 감소 (Retecs)\"}],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"TX_ASP\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":null,\"sex\":null,\"duration_value\":null,\"duration_unit\":null,\"physical_form\":null,\"exposure_type\":null,\"converted\":null,\"read_across_cas\":null,\"guideline\":null,\"data_source\":null,\"classification\":\"구분 1\",\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"구분1인 Aromatic hydrocarbon 성분을 10% 이상 함유,\",\"refs\":[\"2\"],\"cond\":{\"raw\":\"10% 이상\",\"approx\":null,\"value\":null,\"lower_op\":\">=\",\"lower\":10,\"upper_op\":null,\"upper\":null,\"unit\":\"%\",\"dp\":0,\"status\":\"값있음\",\"note\":null},\"std_code\":null,\"match_score\":null,\"text\":\"구분1인 Aromatic hydrocarbon 성분을 10% 이상 함유,\"},{\"seq\":2,\"key\":\"40℃에서의 동점성율\",\"value\":\"≤20.5 ㎟/s\",\"refs\":null,\"cond\":{\"raw\":\"≤20.5 ㎟/s\",\"approx\":null,\"value\":null,\"lower_op\":null,\"lower\":null,\"upper_op\":\"<=\",\"upper\":20.5,\"unit\":\"mm2/s\",\"dp\":1,\"status\":\"값있음\",\"note\":null},\"std_code\":null,\"match_score\":null,\"text\":\"40℃에서의 동점성율: ≤20.5 ㎟/s\"}],\"status\":\"값있음\"}],\"cmr\":[{\"comp_ref\":\"3\",\"hazard\":\"발암성\",\"agency\":\"IARC\",\"class\":\"Group 3\",\"status\":\"값있음\",\"note\":null},{\"comp_ref\":\"3\",\"hazard\":\"발암성\",\"agency\":\"ACGIH\",\"class\":\"A3\",\"status\":\"값있음\",\"note\":null},{\"comp_ref\":\"3\",\"hazard\":\"발암성\",\"agency\":\"KR_OSH\",\"class\":\"구분 2\",\"status\":\"값있음\",\"note\":null}],\"ecotox\":[{\"comp_ref\":\"MIX\",\"endpoint\":null,\"descriptor\":\"결과기술\",\"q\":null,\"species\":null,\"duration_value\":null,\"duration_unit\":null,\"guideline\":null,\"data_source\":null,\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"급성 수생환경유해성 구분 1\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"급성 수생환경유해성 구분 1\"},{\"seq\":2,\"key\":null,\"value\":\"만성 수생환경유해성 구분 1\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"만성 수생환경유해성 구분 1\"}],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"ECO_FISH\",\"descriptor\":\"LC50\",\"q\":{\"raw\":\"0.45 mg/L\",\"approx\":null,\"value\":0.45,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"mg/L\",\"dp\":2,\"status\":\"값있음\",\"note\":null},\"species\":\"Rainbow trout\",\"duration_value\":96,\"duration_unit\":\"hr\",\"guideline\":null,\"data_source\":null,\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"ECO_FISH\",\"descriptor\":\"NOEC\",\"q\":{\"raw\":\"0.18 mg/L\",\"approx\":null,\"value\":0.18,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"mg/L\",\"dp\":2,\"status\":\"값있음\",\"note\":null},\"species\":\"Rainbow trout\",\"duration_value\":null,\"duration_unit\":null,\"guideline\":null,\"data_source\":null,\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"ECO_CRUST\",\"descriptor\":\"EC50\",\"q\":{\"raw\":\"0.42 mg/L\",\"approx\":null,\"value\":0.42,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"mg/L\",\"dp\":2,\"status\":\"값있음\",\"note\":null},\"species\":\"Daphnia magna\",\"duration_value\":48,\"duration_unit\":\"hr\",\"guideline\":null,\"data_source\":null,\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"ECO_CRUST\",\"descriptor\":\"NOEC\",\"q\":{\"raw\":\"0.17 mg/L\",\"approx\":null,\"value\":0.17,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"mg/L\",\"dp\":2,\"status\":\"값있음\",\"note\":null},\"species\":\"Daphnia magna\",\"duration_value\":null,\"duration_unit\":null,\"guideline\":null,\"data_source\":null,\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"ECO_ALGAE\",\"descriptor\":\"EC50\",\"q\":{\"raw\":\">89 mg/L\",\"approx\":null,\"value\":null,\"lower_op\":\">\",\"lower\":89,\"upper_op\":null,\"upper\":null,\"unit\":\"mg/L\",\"dp\":0,\"status\":\"값있음\",\"note\":null},\"species\":\"Pseudokirchneriella subcaptitata\",\"duration_value\":120,\"duration_unit\":\"hr\",\"guideline\":null,\"data_source\":null,\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":\"ECO_ALGAE\",\"descriptor\":\"NOEC\",\"q\":{\"raw\":\"5.7 mg/L\",\"approx\":null,\"value\":5.7,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"mg/L\",\"dp\":1,\"status\":\"값있음\",\"note\":null},\"species\":\"Pseudokirchneriella subcaptitata\",\"duration_value\":null,\"duration_unit\":null,\"guideline\":null,\"data_source\":null,\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"1\",\"endpoint\":\"ECO_CRUST\",\"descriptor\":\"EC50\",\"q\":{\"raw\":\"0.01 mg/L\",\"approx\":null,\"value\":0.01,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"mg/L\",\"dp\":2,\"status\":\"값있음\",\"note\":null},\"species\":\"Daphnia magna\",\"duration_value\":48,\"duration_unit\":\"hr\",\"guideline\":null,\"data_source\":null,\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"2\",\"endpoint\":\"ECO_PERSIST\",\"descriptor\":\"기타\",\"q\":{\"raw\":\"BOD5/COD=0.43\",\"approx\":null,\"value\":0.43,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":null,\"dp\":2,\"status\":\"값있음\",\"note\":\"생분해성 아님\"},\"species\":null,\"duration_value\":null,\"duration_unit\":null,\"guideline\":null,\"data_source\":\"IUCLID\",\"statements\":[{\"seq\":1,\"key\":\"BOD5/COD\",\"value\":\"0.43 (생분해성 아님)\",\"refs\":[\"2\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"BOD5/COD=0.43 (생분해성 아님) (IUCLID)\"}],\"status\":\"값있음\"},{\"comp_ref\":null,\"endpoint\":\"ECO_PERSIST\",\"descriptor\":\"logKow\",\"q\":{\"raw\":\"LogKow=5.18\",\"approx\":null,\"value\":5.18,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":null,\"dp\":2,\"status\":\"값있음\",\"note\":null},\"species\":null,\"duration_value\":null,\"duration_unit\":null,\"guideline\":null,\"data_source\":\"IUCLID\",\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":null,\"endpoint\":\"ECO_PERSIST\",\"descriptor\":\"분해율\",\"q\":{\"raw\":\"0%\",\"approx\":null,\"value\":0,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"%\",\"dp\":0,\"status\":\"값있음\",\"note\":null},\"species\":null,\"duration_value\":28,\"duration_unit\":\"day\",\"guideline\":\"OECD TG 301\",\"data_source\":\"IUCLID\",\"statements\":[],\"status\":\"값있음\"},{\"comp_ref\":\"3\",\"endpoint\":\"ECO_PERSIST\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":null,\"duration_value\":null,\"duration_unit\":null,\"guideline\":null,\"data_source\":\"SIDS\",\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"생분해성\",\"refs\":[\"3\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"생분해성 (SIDS)\"}],\"status\":\"값있음\"},{\"comp_ref\":\"3\",\"endpoint\":\"ECO_BIOACC\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":null,\"duration_value\":null,\"duration_unit\":null,\"guideline\":null,\"data_source\":\"SIDS\",\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"생물축적성 낮음\",\"refs\":[\"3\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"생물축적성 낮음 (SIDS)\"}],\"status\":\"값있음\"},{\"comp_ref\":\"3\",\"endpoint\":\"ECO_SOIL\",\"descriptor\":\"결과기술\",\"q\":null,\"species\":null,\"duration_value\":null,\"duration_unit\":null,\"guideline\":null,\"data_source\":\"SIDS\",\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"높은 토양 이동성\",\"refs\":[\"3\"],\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"높은 토양 이동성 (SIDS)\"}],\"status\":\"값있음\"},{\"comp_ref\":\"MIX\",\"endpoint\":null,\"descriptor\":null,\"q\":null,\"species\":null,\"duration_value\":null,\"duration_unit\":null,\"guideline\":null,\"data_source\":null,\"statements\":[],\"status\":\"자료없음\"}]}],\"evidence\":[{\"msds_index\":0,\"field\":\"toxicity[0]\",\"page\":6,\"source_text\":\"○ 급성 독성 자료 (경구) | 랫드(male) LD50 5200 mg/kg\",\"rules\":[\"R04\",\"R08\",\"R10\"],\"note\":\"제품 전체 값으로 보아 MIX, male을 수컷으로 적음\"},{\"msds_index\":0,\"field\":\"toxicity[1]\",\"page\":6,\"source_text\":\"○ 급성 독성 자료 (경구) | 랫드(female) LD50 5300mg/kg\",\"rules\":[\"R04\",\"R08\",\"R10\"],\"note\":\"female을 암컷으로 적음\"},{\"msds_index\":0,\"field\":\"toxicity[2]\",\"page\":7,\"source_text\":\"○ 급성 독성 자료 (경피) | 랫드 LD50>2000 mg/kg\",\"rules\":[\"R04\",\"R10\"],\"note\":\"'>2000'을 하한 2000(>)으로 나눔\"},{\"msds_index\":0,\"field\":\"toxicity[3]\",\"page\":7,\"source_text\":\"○ 급성 독성 자료 (흡입) | 랫드 LC50<6.75 mg/L/4hr\",\"rules\":[\"R04\",\"R10\"],\"note\":\"'<6.75 mg/L/4hr'을 상한 6.75(<), 단위 mg/L, 노출 4hr로 나눔. 흡입 형태는 원문에 없어 null\"},{\"msds_index\":0,\"field\":\"toxicity[4]\",\"page\":7,\"source_text\":\"○ 피부 자극성 | 토끼 약한 자극\",\"rules\":[\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"toxicity[5]\",\"page\":7,\"source_text\":\"○ 눈 손상 또는 자극성 | 토끼 약한 자극\",\"rules\":[\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"toxicity[6]\",\"page\":7,\"source_text\":\"○ 호흡기 과민성 | 자료 없음\",\"rules\":[\"R15\"],\"note\":\"'자료 없음'을 status 자료없음으로 적음\"},{\"msds_index\":0,\"field\":\"toxicity[7]\",\"page\":7,\"source_text\":\"○ 피부 과민성 | 기니피그 과민성 없음\",\"rules\":[\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"toxicity[8]\",\"page\":7,\"source_text\":\"○ 발암성 | Cyclohexanone | Group 3: 사람 발암성으로 분류되지 않음 (IARC) | A3: 동물에서는 발암성이나 사람에의 발암성은 알려지지 않음 (ACGIH) | 발암성 구분 2: 고용노동부고시\",\"rules\":[\"R10\"],\"note\":\"Cyclohexanone을 이름으로 매칭해 comp_ref 3\"},{\"msds_index\":0,\"field\":\"toxicity[9]\",\"page\":7,\"source_text\":\"○ 생식세포 변이원성 | Mineral oil | In vitro - Salmonella typhimurium/TA98 (복귀돌연변이시험; Ames test) (GLP): 대사활성계 유무와 상관없이 음성, 마우스 림프구세포/유전자돌연변이시험 (GLP): 대사활성계 유무와 상관없이 음성 (IUCLID)\",\"rules\":[\"R10\",\"R17\"],\"note\":\"Mineral oil은 성분 목록에 없어 comp_ref를 null로 둠\"},{\"msds_index\":0,\"field\":\"toxicity[10]\",\"page\":7,\"source_text\":\"Cyclohexanone | 생식세포 변이원성 아님 (SIDS)\",\"rules\":[\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"toxicity[11]\",\"page\":7,\"source_text\":\"○ 생식독성 | Mineral oil | 랫드 경구 (4350 mg/kg/day) (OECD Guideline 415, GLP): 생식독성 없음. (IUCLID)\",\"rules\":[\"R04\",\"R10\",\"R17\"],\"note\":\"Mineral oil은 성분 목록에 없어 comp_ref null, 투여량을 q로 적음\"},{\"msds_index\":0,\"field\":\"toxicity[12]\",\"page\":7,\"source_text\":\"Cyclohexanone | 랫드 2세대 생식 연구: 생식 독성 없음. (SIDS)\",\"rules\":[\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"toxicity[13]\",\"page\":7,\"source_text\":\"○ 특정표적 장기 독성 (1회 노출) | 구분 3 | Aromatic hydrocarbons 함유\",\"rules\":[\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"toxicity[14]\",\"page\":7,\"source_text\":\"○ 특정표적 장기 독성 (반복 노출) | Mineral oil | 랫드 경구 (0, 1.7, 18, 180, 1800 mg/kg/day for 90D): 간에 육아종성 영향, 장간막 림프선에 조직구증식증이 관찰됨. 암컷이 수컷보다 더 민감성임. (IUCLID)\",\"rules\":[\"R04\",\"R17\"],\"note\":\"여러 투여량이라 값은 나누지 않고 raw만 남김, 90D를 90 day로 적음, comp_ref null\"},{\"msds_index\":0,\"field\":\"toxicity[15]\",\"page\":7,\"source_text\":\"랫드 경구 (92000 mg/kg/92D): 간 무게변화, 백혈구 수 변화, 무게 감소 (Retecs)\",\"rules\":[\"R04\",\"R17\"],\"note\":\"'92000 mg/kg/92D'를 값 92000 mg/kg, 노출 92 day로 나눔, comp_ref null\"},{\"msds_index\":0,\"field\":\"toxicity[16]\",\"page\":7,\"source_text\":\"○ 흡인유해성 | 구분 1 | 구분1인 Aromatic hydrocarbon 성분을 10% 이상 함유, 40℃에서의 동점성율: ≤20.5 ㎟/s\",\"rules\":[\"R04\",\"R08\",\"R10\"],\"note\":\"조건 수치 10% 이상, ≤20.5 ㎟/s를 cond로 나눔\"},{\"msds_index\":0,\"field\":\"cmr[0]\",\"page\":7,\"source_text\":\"Cyclohexanone | Group 3: 사람 발암성으로 분류되지 않음 (IARC)\",\"rules\":[\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"cmr[1]\",\"page\":7,\"source_text\":\"Cyclohexanone | A3: 동물에서는 발암성이나 사람에의 발암성은 알려지지 않음 (ACGIH)\",\"rules\":[\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"cmr[2]\",\"page\":7,\"source_text\":\"Cyclohexanone | 발암성 구분 2: 고용노동부고시\",\"rules\":[\"R10\"],\"note\":\"고용노동부고시를 KR_OSH로 적음\"},{\"msds_index\":0,\"field\":\"ecotox[0]\",\"page\":8,\"source_text\":\"가) 수생 생태독성 | 급성 수생환경유해성 구분 1 | 만성 수생환경유해성 구분 1\",\"rules\":[\"R10\"],\"note\":\"분류 문장으로 endpoint 코드 없이 남김\"},{\"msds_index\":0,\"field\":\"ecotox[1]\",\"page\":8,\"source_text\":\"어류 Rainbow trout 96hr LC50=0.45 mg/L NOEC 0.18 mg/L\",\"rules\":[\"R04\",\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"ecotox[2]\",\"page\":8,\"source_text\":\"어류 Rainbow trout 96hr LC50=0.45 mg/L NOEC 0.18 mg/L\",\"rules\":[\"R04\",\"R10\",\"R17\"],\"note\":\"NOEC 노출 시간은 명시되지 않아 null\"},{\"msds_index\":0,\"field\":\"ecotox[3]\",\"page\":8,\"source_text\":\"갑각류 Daphnia magna 48hr EC50=0.42 mg/L\",\"rules\":[\"R04\",\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"ecotox[4]\",\"page\":8,\"source_text\":\"갑각류 Daphnia magna 48hr EC50=0.42 mg/L | NOEC 0.17 mg/L\",\"rules\":[\"R04\",\"R10\",\"R17\"],\"note\":\"NOEC 노출 시간은 명시되지 않아 null\"},{\"msds_index\":0,\"field\":\"ecotox[5]\",\"page\":8,\"source_text\":\"조류 Pseudokirchneriella subcaptitata 120hr EC50>89 mg/L\",\"rules\":[\"R04\",\"R10\"],\"note\":\"'>89'를 하한 89(>)로 나눔\"},{\"msds_index\":0,\"field\":\"ecotox[6]\",\"page\":8,\"source_text\":\"조류 Pseudokirchneriella subcaptitata 120hr EC50>89 mg/L | NOEC 5.7 mg/L\",\"rules\":[\"R04\",\"R10\",\"R17\"],\"note\":\"NOEC 노출 시간은 명시되지 않아 null\"},{\"msds_index\":0,\"field\":\"ecotox[7]\",\"page\":8,\"source_text\":\"Milbemectin | 갑각류 Daphnia magna 48hr EC50=0.01 mg/L\",\"rules\":[\"R04\",\"R10\"],\"note\":\"Milbemectin을 comp_ref 1로 매칭\"},{\"msds_index\":0,\"field\":\"ecotox[8]\",\"page\":8,\"source_text\":\"Aromatic hydrocarbon | BOD5/COD=0.43 (생분해성 아님) (IUCLID)\",\"rules\":[\"R04\",\"R10\"],\"note\":\"BOD5/COD 비율이라 지표를 기타로 적음\"},{\"msds_index\":0,\"field\":\"ecotox[9]\",\"page\":8,\"source_text\":\"Mineral oil | LogKow=5.18, 생분해성: 0% 28일 (OECD TG 301) (IUCLID)\",\"rules\":[\"R04\",\"R10\"],\"note\":\"Mineral oil은 성분 목록에 없어 comp_ref null\"},{\"msds_index\":0,\"field\":\"ecotox[10]\",\"page\":8,\"source_text\":\"Mineral oil | LogKow=5.18, 생분해성: 0% 28일 (OECD TG 301) (IUCLID)\",\"rules\":[\"R04\",\"R10\"],\"note\":\"생분해성 0% 28일을 분해율로 적음, comp_ref null\"},{\"msds_index\":0,\"field\":\"ecotox[11]\",\"page\":8,\"source_text\":\"Cyclohexanone | 생분해성 (SIDS)\",\"rules\":[\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"ecotox[12]\",\"page\":8,\"source_text\":\"다) 생물 농축성 | Cyclohexanone | 생물축적성 낮음 (SIDS)\",\"rules\":[\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"ecotox[13]\",\"page\":8,\"source_text\":\"라) 토양 이동성 | Cyclohexanone | 높은 토양 이동성 (SIDS)\",\"rules\":[\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"ecotox[14]\",\"page\":8,\"source_text\":\"마) 기타 유해영향 | 자료 없음\",\"rules\":[\"R15\"],\"note\":\"기타 유해영향에 맞는 코드가 없어 endpoint null, status 자료없음\"}]}"
+}

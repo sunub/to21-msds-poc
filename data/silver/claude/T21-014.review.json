@@ -1,0 +1,1004 @@
+[
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "meta.doc_code",
+    "page": 1,
+    "source_text": "Substance key: 000000672835",
+    "rules": [],
+    "note": "회사 내부 식별번호(Substance key)로 보아 doc_code에 기록, 제출번호 형식 아님"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "meta.revision_no",
+    "page": 1,
+    "source_text": "Version : 1 - 0 / SGP",
+    "rules": [],
+    "note": "'1 - 0'을 버전 1.0으로 보고 정수부 1을 개정 횟수로 기록"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "meta.revision_label",
+    "page": 1,
+    "source_text": "Version : 1 - 0 / SGP",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "meta.header_product_name",
+    "page": 1,
+    "source_text": "RENOL SUPERCPD-P WHT/ABS HI121/107602-17",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "meta.last_revision_date",
+    "page": 1,
+    "source_text": "Revision Date: 12.04.2017",
+    "rules": [
+      "R01"
+    ],
+    "note": "DD.MM.YYYY 표기를 2017-04-12로 변환"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "meta.page_start",
+    "page": 1,
+    "source_text": "Page 1",
+    "rules": [
+      "R16"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "meta.page_end",
+    "page": 6,
+    "source_text": "Page 6",
+    "rules": [
+      "R16"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "product.name",
+    "page": 1,
+    "source_text": "Trade name RENOL SUPERCPD-P WHT/ABS HI121/107602-17",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "product.code",
+    "page": 1,
+    "source_text": "Material number: SB02415093",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "product.uses",
+    "page": 1,
+    "source_text": "Industry sector : Plastic processing industry. Type of use : Additive for plastic material processing",
+    "rules": [
+      "R11"
+    ],
+    "note": "Industry sector와 Type of use 값을 각각 용도 항목으로 기록"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "companies[0]",
+    "page": 1,
+    "source_text": "Identification of the company Clariant (Singapore) Pte. Ltd. 1 International Business Park #08-01-04 The Synergy 609917 Singapore Telephone no. : +65 6563 0288",
+    "rules": [
+      "R12"
+    ],
+    "note": "역할이 명시되지 않아 role=기타, 전화번호 공백을 하이픈으로 정규화"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "companies[0].department",
+    "page": 1,
+    "source_text": "Information about the substance/preparation BU Masterbatches Product Safety",
+    "rules": [],
+    "note": "정보 제공 부서로 보아 department에 기록"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "companies[0].contacts[1]",
+    "page": 1,
+    "source_text": "Emergency telephone number : +65 6265 5866",
+    "rules": [
+      "R12"
+    ],
+    "note": "긴급 연락처, 공백을 하이픈으로 정규화"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.classified",
+    "page": 1,
+    "source_text": "Not a dangerous substance according to GHS.",
+    "rules": [],
+    "note": "분류 비해당 문구로 false"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.pictograms",
+    "page": 1,
+    "source_text": "Pictograms - Hazard symbols",
+    "rules": [],
+    "note": "제목만 있고 그림문자 이미지 없음"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.other_hazards[0]",
+    "page": 1,
+    "source_text": "Spilled granules give rise to a slipping hazard. Clean up immediately.",
+    "rules": [
+      "R14"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "composition.type",
+    "page": 1,
+    "source_text": "Chemical characterization Colourant preparation",
+    "rules": [],
+    "note": "preparation 표기로 혼합물"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "components[0]",
+    "page": 1,
+    "source_text": "Octadecanamide, N,N'-1,2-ethanediylbis- | 110-30-5 | 0.5 - 1 %",
+    "rules": [
+      "R02",
+      "R04",
+      "R06"
+    ],
+    "note": "'0.5 - 1 %'를 하한 0.5(>=), 상한 1(<=), 단위 %로 분해, CAS 체크디지트 검증 통과"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits",
+    "page": 3,
+    "source_text": "8. Exposure controls/personal protection",
+    "rules": [],
+    "note": "8항에 노출기준 값(국내·ACGIH 등)이 기재되어 있지 않아 행을 만들지 않음"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[0]",
+    "page": 3,
+    "source_text": "Form : | Granules",
+    "rules": [
+      "R25"
+    ],
+    "note": "'Form'을 외관-성상(APPEARANCE_STATE)으로 매핑"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[1]",
+    "page": 3,
+    "source_text": "Colour : | white",
+    "rules": [
+      "R25"
+    ],
+    "note": "'Colour'를 APPEARANCE_COLOR로 매핑"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[2]",
+    "page": 3,
+    "source_text": "Odour : | characteristic",
+    "rules": [
+      "R25"
+    ],
+    "note": "'Odour'를 ODOR로 매핑"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[3]",
+    "page": 4,
+    "source_text": "Odour threshold : | not available",
+    "rules": [
+      "R15",
+      "R25"
+    ],
+    "note": "'not available'을 자료없음으로 처리"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[4]",
+    "page": 4,
+    "source_text": "pH value : | Not applicable",
+    "rules": [
+      "R15"
+    ],
+    "note": "'Not applicable'을 해당없음으로 처리"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[5]",
+    "page": 4,
+    "source_text": "Melting point : | > 90 °C",
+    "rules": [
+      "R04",
+      "R08"
+    ],
+    "note": "'> 90 °C'를 하한 90(>), 단위 C로 분해"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[6]",
+    "page": 4,
+    "source_text": "Boiling point : | Not applicable",
+    "rules": [
+      "R15"
+    ],
+    "note": "'Not applicable'을 해당없음으로 처리"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[7]",
+    "page": 4,
+    "source_text": "Flash point : | Not applicable",
+    "rules": [
+      "R15"
+    ],
+    "note": "'Not applicable'을 해당없음으로 처리"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[8]",
+    "page": 4,
+    "source_text": "Evaporation rate : | Not applicable",
+    "rules": [
+      "R15"
+    ],
+    "note": "'Not applicable'을 해당없음으로 처리"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[9]",
+    "page": 4,
+    "source_text": "Self-ignition temperature : | Not applicable",
+    "rules": [
+      "R15",
+      "R25"
+    ],
+    "note": "'Self-ignition temperature'를 자연발화온도(AUTOIGNITION)로 매핑(동의어 사전에 없는 영문 표기, 사전 추가 요청)"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[10]",
+    "page": 4,
+    "source_text": "Lower explosion limit : | Not applicable",
+    "rules": [
+      "R15",
+      "R25"
+    ],
+    "note": "'Lower explosion limit'를 LEL로 매핑, 해당없음 처리"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[11]",
+    "page": 4,
+    "source_text": "Upper explosion limit : | Not applicable",
+    "rules": [
+      "R15",
+      "R25"
+    ],
+    "note": "'Upper explosion limit'를 UEL로 매핑, 해당없음 처리"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[12]",
+    "page": 4,
+    "source_text": "Vapour pressure : | Not applicable",
+    "rules": [
+      "R15"
+    ],
+    "note": "'Not applicable'을 해당없음으로 처리"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[13]",
+    "page": 4,
+    "source_text": "Density : | approx. 1.08 g/cm3 | Value determined from data on raw material.",
+    "rules": [
+      "R04",
+      "R06",
+      "R25"
+    ],
+    "note": "'Density'를 밀도(RELATIVE_DENSITY)로 매핑, 'approx.'로 approx=true, 값 1.08(dp 2), 단위 g/cm3; 뒤 문장은 자료 출처로 기록"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[14]",
+    "page": 4,
+    "source_text": "Solubility in water : | insoluble",
+    "rules": [
+      "R25"
+    ],
+    "note": "숫자가 아닌 말이므로 text_value에만 기록"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[15]",
+    "page": 4,
+    "source_text": "Octanol/water partition coefficient (log Pow) : | Not applicable",
+    "rules": [
+      "R15",
+      "R25"
+    ],
+    "note": "log Pow를 LOG_KOW로 매핑, 해당없음 처리"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[16]",
+    "page": 4,
+    "source_text": "Thermal decomposition : | To the best of our current knowledge, no thermal decomposition of the product is expected if it is processed according to good manufacturing practices.",
+    "rules": [
+      "R25"
+    ],
+    "note": "'Thermal decomposition'을 DECOMPOSITION으로 매핑, 서술문이므로 text_value에 기록"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[17]",
+    "page": 4,
+    "source_text": "Viscosity (dynamic) : | Not applicable",
+    "rules": [
+      "R15",
+      "R25"
+    ],
+    "note": "'Viscosity (dynamic)'을 VISCOSITY로 매핑, 해당없음 처리"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[18]",
+    "page": 4,
+    "source_text": "Combustion number : | Not applicable",
+    "rules": [
+      "R15",
+      "R25"
+    ],
+    "note": "'Combustion number'는 C4 코드에 맞는 것이 없어 prop_code를 null로 두고 해당없음 처리(사전 추가 요청)"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[0]",
+    "page": 4,
+    "source_text": "Acute oral toxicity : | LD50   > 2,000 mg/kg (Rat) | The product has not been tested.  The information is derived from the properties of the individual components.",
+    "rules": [
+      "R04",
+      "R06",
+      "R10"
+    ],
+    "note": "'Information related to the product itself' 아래 값이라 comp_ref=MIX, '> 2,000 mg/kg'을 하한 >2000(천단위 콤마 제거), 단위 mg/kg로 분해"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[1]",
+    "page": 5,
+    "source_text": "Skin corrosion/irritation : | No skin irritation",
+    "rules": [
+      "R10"
+    ],
+    "note": "제품 자체 정보로 comp_ref=MIX, 서술을 결과기술로 저장"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[2]",
+    "page": 5,
+    "source_text": "Serious eye damage/irritation: | No eye irritation",
+    "rules": [
+      "R10"
+    ],
+    "note": "제품 자체 정보로 comp_ref=MIX, 서술을 결과기술로 저장"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[3]",
+    "page": 5,
+    "source_text": "Respiratory or skin sensitization : | non-sensitizing",
+    "rules": [
+      "R10"
+    ],
+    "note": "호흡기·피부 과민성이 한 항목으로 적혀 있어 같은 문구를 TX_RESP_SENS 행으로 남김"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[4]",
+    "page": 5,
+    "source_text": "Respiratory or skin sensitization : | non-sensitizing",
+    "rules": [
+      "R10"
+    ],
+    "note": "호흡기·피부 과민성이 한 항목으로 적혀 있어 같은 문구를 TX_SKIN_SENS 행으로 남김"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[5]",
+    "page": 5,
+    "source_text": "Aspiration hazard : | no data available",
+    "rules": [
+      "R15",
+      "R10"
+    ],
+    "note": "'no data available'을 status=자료없음으로 저장"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[6]",
+    "page": 5,
+    "source_text": "Information related to the component: Octadecanamide, N,N'-1,2-ethanediylbis- | Acute oral toxicity : | LD50   > 2,000 mg/kg (Rat)",
+    "rules": [
+      "R04",
+      "R06",
+      "R10"
+    ],
+    "note": "성분명으로 comp_ref=1 매칭, '> 2,000 mg/kg'을 하한 >2000, 단위 mg/kg로 분해"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[0]",
+    "page": 5,
+    "source_text": "Physico-chemical eliminability : | The product can be separated out mechanically.",
+    "rules": [
+      "R10"
+    ],
+    "note": "맞는 C5 코드가 없어 endpoint=null, 항목명을 statements key에 남김"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[1]",
+    "page": 5,
+    "source_text": "Biodegradability : | not available",
+    "rules": [
+      "R15",
+      "R10"
+    ],
+    "note": "'not available'을 status=자료없음으로 저장, 생분해성은 ECO_PERSIST"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[2]",
+    "page": 5,
+    "source_text": "Bioaccumulation: | not available",
+    "rules": [
+      "R15",
+      "R10"
+    ],
+    "note": "'not available'을 status=자료없음으로 저장"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[3]",
+    "page": 5,
+    "source_text": "Toxicity to soil dwelling organisms: | not available",
+    "rules": [
+      "R15",
+      "R10"
+    ],
+    "note": "토양생물 독성은 ECO_OTHER로, 'not available'을 status=자료없음으로 저장"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[4]",
+    "page": 5,
+    "source_text": "Toxicity to terrestrial plants: | not available",
+    "rules": [
+      "R15",
+      "R10"
+    ],
+    "note": "육상식물 독성은 ECO_OTHER로, 'not available'을 status=자료없음으로 저장"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "transport[0]",
+    "page": 5,
+    "source_text": "IATA | not restricted",
+    "rules": [],
+    "note": "IATA 'not restricted'를 항공 운송 비규제(regulated=false)로 기록. 유엔번호·등급·용기등급은 원문에 없어 null로 둠"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "transport[1]",
+    "page": 5,
+    "source_text": "IMDG | not restricted",
+    "rules": [],
+    "note": "IMDG 'not restricted'를 해상 운송 비규제(regulated=false)로 기록. 해양오염물질·EmS 등은 원문에 없어 null로 둠"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations",
+    "page": 6,
+    "source_text": "Other regulations | Not a dangerous substance or mixture according to the Globally Harmonised System (GHS).",
+    "rules": [
+      "R18"
+    ],
+    "note": "15항에는 GHS 비분류 문장만 있고, 국내 법령(산안법·화평법·화관법·위험물안전관리법·폐기물관리법)과 해외 규제 항목은 적혀 있지 않음. 규제 항목을 지어 넣지 않으려고 regulations·dangerous_goods·waste·intl_class를 빈 목록으로 둠"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[0]",
+    "page": 1,
+    "source_text": "After inhalation | No special measures necessary.",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[1]",
+    "page": 2,
+    "source_text": "After contact with skin | Cool skin rapidly with cold water after contact with molten material. Do not peel solidified product off the skin. Get medical attention.",
+    "rules": [
+      "R14"
+    ],
+    "note": "줄 단위로 3문장으로 나눔"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[2]",
+    "page": 2,
+    "source_text": "After contact with eyes | Obtain medical attention. In case of contact, immediately flush eyes with plenty of water for at least 15 minutes.",
+    "rules": [
+      "R14",
+      "R04"
+    ],
+    "note": "2문장으로 나누고 'at least 15 minutes'를 cond 하한 15(>=) min으로 분리"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[3]",
+    "page": 2,
+    "source_text": "After ingestion | Do NOT induce vomiting. Call in a physician immediately and show him the Safety Data Sheet.",
+    "rules": [
+      "R14"
+    ],
+    "note": "줄 단위로 2문장으로 나눔"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[4]",
+    "page": 2,
+    "source_text": "Most important symptoms/effects, acute and delayed | Symptoms | No symptoms known currently.",
+    "rules": [
+      "R14"
+    ],
+    "note": "소제목 'Symptoms'를 key로 둠"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[5]",
+    "page": 2,
+    "source_text": "Suitable extinguishing media | Water spray jet | Foam | Carbon dioxide (CO2) | Dry powder | Extinguishing media that must not be used for safety reasons | High volume water jet",
+    "rules": [
+      "R14",
+      "R25"
+    ],
+    "note": "적절/부적절 소화제를 S5_MEDIA 한 묶음으로 합치고 소제목을 key로 둠"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[6]",
+    "page": 2,
+    "source_text": "Specific hazards arising from the chemical | In case of fire hazardous decomposition products may be produced such as: | Styrene | Hydrogen cyanide (hydrocyanic acid) | Acrylonitrile | Carbon monoxide | Carbon dioxide (CO2)",
+    "rules": [
+      "R14"
+    ],
+    "note": "줄 단위로 6문장으로 나눔"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[7]",
+    "page": 2,
+    "source_text": "Special protective equipment and precautions for fire fighters | Self-contained breathing apparatus",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[8]",
+    "page": 2,
+    "source_text": "Personal precautions, protective equipment and emergency procedures | See: Exposure controls and personal protection. | Sweep up to prevent slipping hazard.",
+    "rules": [
+      "R14"
+    ],
+    "note": "'See: …'를 key/value로 분리"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[9]",
+    "page": 2,
+    "source_text": "Environmental precautions | Do not allow to enter drains or waterways",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[10]",
+    "page": 2,
+    "source_text": "Methods and materials for containment and cleaning up | Treat recovered material as described in the section \"Disposal considerations\".",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[11]",
+    "page": 3,
+    "source_text": "Precautions for safe handling | Ensure good general ventilation in the workplace; local exhaust ventilation may be necessary... | Advice on protection against fire and explosion | Take measures to prevent the build up of electrostatic charge.",
+    "rules": [
+      "R14"
+    ],
+    "note": "두 소제목을 S7_HANDLING 한 묶음으로 합치고 소제목을 key로 둠, 줄바꿈된 문장은 이어 붙임"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[12]",
+    "page": 3,
+    "source_text": "Requirements for storage rooms and vessels | Keep container tightly closed in a cool, well-ventilated place. | Protect from moisture. | Keep away from direct sunlight. | Advice on storage compatibility | not required",
+    "rules": [
+      "R14"
+    ],
+    "note": "하위 소제목을 key로 두고 줄 단위로 나눔"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[13]",
+    "page": 3,
+    "source_text": "Appropriate engineering controls | No special measures necessary.",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[14]",
+    "page": 3,
+    "source_text": "Eye/face protection : | Safety glasses",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[15]",
+    "page": 3,
+    "source_text": "Skin/Hand protection : | Leather gloves | Nitrile rubber gloves. | Minimum thickness (glove): valid statement not possible. | Minimum breakthrough time (glove): valid statement not possible.",
+    "rules": [
+      "R14"
+    ],
+    "note": "줄·문장 단위로 7문장으로 나누고 'Minimum … (glove):'는 key/value로 분리"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[16]",
+    "page": 3,
+    "source_text": "Respiratory protection : | In case of insufficient exhaust ventilation or prolonged exposure use respiratory protection equipment.",
+    "rules": [
+      "R14"
+    ],
+    "note": "줄바꿈된 문장을 이어 붙임"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[17]",
+    "page": 3,
+    "source_text": "Thermal hazards / Body protection : | Wear suitable protective clothing.",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[18]",
+    "page": 4,
+    "source_text": "Possibility of hazardous reactions | No dangerous reaction known under conditions of normal use.",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[19]",
+    "page": 4,
+    "source_text": "Conditions to avoid | Temperatures exceeding thermal stability of the masterbatch. Electrostatic charges.",
+    "rules": [
+      "R14"
+    ],
+    "note": "문장 단위로 2개로 나눔"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[20]",
+    "page": 4,
+    "source_text": "Incompatible materials | not known",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[21]",
+    "page": 4,
+    "source_text": "Hazardous decomposition products | No decomposition if used as directed.",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[22]",
+    "page": 5,
+    "source_text": "Remarks | Do not allow to enter ground water, waterways or waste water.",
+    "rules": [],
+    "note": "12항 Remarks를 S12_OTHER로 둠"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[23]",
+    "page": 5,
+    "source_text": "Product | The product must be taken to a special waste disposal site. ... | Uncleaned packaging | Contaminated packaging material should be treated equivalent to residual chemicals. ...",
+    "rules": [
+      "R14"
+    ],
+    "note": "Product/Uncleaned packaging을 S13_METHOD 한 묶음으로 합치고 소제목을 key로 둠"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[24]",
+    "page": 6,
+    "source_text": "Other regulations | Not a dangerous substance or mixture according to the Globally Harmonised System (GHS).",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[25]",
+    "page": 6,
+    "source_text": "This information corresponds to the present state of our knowledge and is intended as a general description of our products and their possible applications. Clariant makes no warranties...",
+    "rules": [
+      "R14"
+    ],
+    "note": "16항 면책 문단을 문장 단위 9개로 나눔"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "extras[0]",
+    "page": 1,
+    "source_text": "Substance key: 000000672835",
+    "rules": [
+      "R24"
+    ],
+    "note": "머리글의 Substance key는 맞는 칸이 없어 extras로 보냄"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "extras[1]",
+    "page": 1,
+    "source_text": "Information about the substance/preparation | BU Masterbatches | Product Safety",
+    "rules": [
+      "R24"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "extras[2]",
+    "page": 1,
+    "source_text": "Chemical characterization | Colourant preparation",
+    "rules": [
+      "R24"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "extras[3]",
+    "page": 1,
+    "source_text": "General information | No special measures necessary.",
+    "rules": [
+      "R24"
+    ],
+    "note": "4항 일반 정보는 C3 코드가 없어 extras로 보냄"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "extras[4]",
+    "page": 3,
+    "source_text": "General protective measures | Observe the usual precautions for handling chemicals.",
+    "rules": [
+      "R24"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "extras[5]",
+    "page": 3,
+    "source_text": "Hygiene measures | The usual Industrial Hygiene precautions must be taken during work, in particular: do not drink, eat or smoke during the handling of the product and clean hands and face...",
+    "rules": [
+      "R24",
+      "R14"
+    ],
+    "note": "줄바꿈된 문장을 이어 붙임"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "extras[6]",
+    "page": 4,
+    "source_text": "Thermal decomposition : | To the best of our current knowledge, no thermal decomposition of the product is expected if it is processed according to good manufacturing practices.",
+    "rules": [
+      "R24"
+    ],
+    "note": "수치 없는 서술이라 분해온도 칸 편입 여부를 판단하지 못해 extras로 보냄"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "extras[7]",
+    "page": 4,
+    "source_text": "Combustion number : | Not applicable",
+    "rules": [
+      "R24",
+      "R15"
+    ],
+    "note": "'Not applicable'을 해당없음으로 둠"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "extras[8]",
+    "page": 4,
+    "source_text": "Further information | Explosion hazard: Not an explosion hazard.",
+    "rules": [
+      "R24",
+      "R14"
+    ],
+    "note": "'Explosion hazard:'를 key/value로 분리"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "extras[9]",
+    "page": 4,
+    "source_text": "Acute oral toxicity : | LD50 > 2,000 mg/kg (Rat) | The product has not been tested.  The information is derived from the properties of the individual components.",
+    "rules": [
+      "R24",
+      "R14"
+    ],
+    "note": "급성독성 값 뒤 설명 문장만 extras로 보냄"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "extras[10]",
+    "page": 5,
+    "source_text": "Remarks | Determined on raw material components.",
+    "rules": [
+      "R24"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "extras[11]",
+    "page": 5,
+    "source_text": "Physico-chemical eliminability : | The product can be separated out mechanically.",
+    "rules": [
+      "R24"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "extras[12]",
+    "page": 5,
+    "source_text": "Toxicity to soil dwelling organisms: | not available",
+    "rules": [
+      "R24",
+      "R15"
+    ],
+    "note": "'not available'을 자료없음으로 둠"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "extras[13]",
+    "page": 5,
+    "source_text": "Toxicity to terrestrial plants: | not available",
+    "rules": [
+      "R24",
+      "R15"
+    ],
+    "note": "'not available'을 자료없음으로 둠"
+  }
+]

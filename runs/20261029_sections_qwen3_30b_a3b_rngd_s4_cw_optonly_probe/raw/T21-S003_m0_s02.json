@@ -1,0 +1,362 @@
+{
+ "doc_id": "T21-S003",
+ "msds_index": 0,
+ "section": 2,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "hazard": {
+   "classified": true,
+   "classes": [
+    {
+     "group": "물리적",
+     "class_code": "PH_PRESS_GAS",
+     "category": "고압가스",
+     "route_form": "증기",
+     "raw": "고압가스:냉동액화가스",
+     "line": "p1:L21"
+    },
+    {
+     "group": "건강",
+     "class_code": "HH_STOT_SE",
+     "category": "1회 노출",
+     "effect": "동상",
+     "target_organs": [
+      "피부계"
+     ],
+     "raw": "액체는 동상의 원인이 될 수 있음",
+     "line": "p4:L26"
+    }
+   ],
+   "signal_word": "경고",
+   "h_statements": [
+    {
+     "code": "H281",
+     "system": "GHS",
+     "text": "냉동가스 :극저온 냉화상 또는 손상을 줄 수 있음",
+     "line": "p1:L27"
+    }
+   ],
+   "p_statements": [
+    {
+     "code": "P282",
+     "type": "예방",
+     "text": "방한장갑 안면보호구 보안경을 착용하시오",
+     "line": "p1:L29"
+    },
+    {
+     "code": "P336",
+     "type": "대응",
+     "text": "미지근한 물로 언 부분을 녹이시오,손상된 부위를 문지르지 마시오",
+     "line": "p1:L30"
+    },
+    {
+     "code": "P315",
+     "type": "대응",
+     "text": "즉시 의학적인 조치 조언을 구하시오",
+     "line": "p1:L31"
+    },
+    {
+     "code": "P403",
+     "type": "저장",
+     "text": "환기가 잘 되는 곳에 보관하시오",
+     "line": "p1:L32"
+    }
+   ],
+   "other_hazards": [],
+   "nfpa": {
+    "health": 3,
+    "fire": 0,
+    "reactivity": 0,
+    "special": ""
+   },
+   "lines": {
+    "signal_word": "p1:L26",
+    "nfpa": "p1:L35-p1:L37"
+   }
+  },
+  "narratives": [
+   {
+    "item_code": "S2_LABEL_NOTE",
+    "title_raw": "나.예방조치문구를 포함한 경고표지 항목",
+    "start": "p1:L22",
+    "end": "p1:L25"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S2_LABEL_NOTE",
+    "title_raw": "그림문자",
+    "reason": "필드없음",
+    "q": {
+     "raw": "/"
+    },
+    "statements": [],
+    "suggested_code": "S2_LABEL_NOTE",
+    "line": "p1:L23"
+   },
+   {
+    "after_item": "S2_LABEL_NOTE",
+    "title_raw": "자료없음",
+    "reason": "필드없음",
+    "q": {
+     "raw": "자료없음"
+    },
+    "statements": [],
+    "suggested_code": "S2_LABEL_NOTE",
+    "line": "p1:L25"
+   },
+   {
+    "after_item": "S2_LABEL_NOTE",
+    "title_raw": "다.유해·위험성 분류기준에 포함되지 않는 기타 유해·위험성(NFPA)",
+    "reason": "필드없음",
+    "q": {
+     "raw": "보건 3"
+    },
+    "statements": [
+     {
+      "key": "보건",
+      "value": "3",
+      "line": "p1:L35"
+     }
+    ],
+    "suggested_code": "NFPA",
+    "line": "p1:L35"
+   },
+   {
+    "after_item": "S2_LABEL_NOTE",
+    "title_raw": "다.유해·위험성 분류기준에 포함되지 않는 기타 유해·위험성(NFPA)",
+    "reason": "필드없음",
+    "q": {
+     "raw": "화재 0"
+    },
+    "statements": [
+     {
+      "key": "화재",
+      "value": "0",
+      "line": "p1:L36"
+     }
+    ],
+    "suggested_code": "NFPA",
+    "line": "p1:L36"
+   },
+   {
+    "after_item": "S2_LABEL_NOTE",
+    "title_raw": "다.유해·위험성 분류기준에 포함되지 않는 기타 유해·위험성(NFPA)",
+    "reason": "필드없음",
+    "q": {
+     "raw": "반응성 0"
+    },
+    "statements": [
+     {
+      "key": "반응성",
+      "value": "0",
+      "line": "p1:L37"
+     }
+    ],
+    "suggested_code": "NFPA",
+    "line": "p1:L37"
+   }
+  ]
+ },
+ "raw_text": "{\"hazard\": {\"classified\": true, \"classes\": [{\"group\": \"물리적\", \"class_code\": \"PH_PRESS_GAS\", \"category\": \"고압가스\", \"route_form\": \"증기\", \"raw\": \"고압가스:냉동액화가스\", \"line\": \"p1:L21\"}, {\"group\": \"건강\", \"class_code\": \"HH_STOT_SE\", \"category\": \"1회 노출\", \"effect\": \"동상\", \"target_organs\": [\"피부계\"], \"raw\": \"액체는 동상의 원인이 될 수 있음\", \"line\": \"p4:L26\"}], \"signal_word\": \"경고\", \"h_statements\": [{\"code\": \"H281\", \"system\": \"GHS\", \"text\": \"냉동가스 :극저온 냉화상 또는 손상을 줄 수 있음\", \"line\": \"p1:L27\"}], \"p_statements\": [{\"code\": \"P282\", \"type\": \"예방\", \"text\": \"방한장갑 안면보호구 보안경을 착용하시오\", \"line\": \"p1:L29\"}, {\"code\": \"P336\", \"type\": \"대응\", \"text\": \"미지근한 물로 언 부분을 녹이시오,손상된 부위를 문지르지 마시오\", \"line\": \"p1:L30\"}, {\"code\": \"P315\", \"type\": \"대응\", \"text\": \"즉시 의학적인 조치 조언을 구하시오\", \"line\": \"p1:L31\"}, {\"code\": \"P403\", \"type\": \"저장\", \"text\": \"환기가 잘 되는 곳에 보관하시오\", \"line\": \"p1:L32\"}], \"other_hazards\": [], \"nfpa\": {\"health\": 3, \"fire\": 0, \"reactivity\": 0, \"special\": \"\"}, \"lines\": {\"signal_word\": \"p1:L26\", \"nfpa\": \"p1:L35-p1:L37\"}}, \"narratives\": [{\"item_code\": \"S2_LABEL_NOTE\", \"title_raw\": \"나.예방조치문구를 포함한 경고표지 항목\", \"start\": \"p1:L22\", \"end\": \"p1:L25\"}], \"extras\": [{\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"그림문자\", \"reason\": \"필드없음\", \"q\": {\"raw\": \"/\"}, \"statements\": [], \"suggested_code\": \"S2_LABEL_NOTE\", \"line\": \"p1:L23\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"자료없음\", \"reason\": \"필드없음\", \"q\": {\"raw\": \"자료없음\"}, \"statements\": [], \"suggested_code\": \"S2_LABEL_NOTE\", \"line\": \"p1:L25\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"다.유해·위험성 분류기준에 포함되지 않는 기타 유해·위험성(NFPA)\", \"reason\": \"필드없음\", \"q\": {\"raw\": \"보건 3\"}, \"statements\": [{\"key\": \"보건\", \"value\": \"3\", \"line\": \"p1:L35\"}], \"suggested_code\": \"NFPA\", \"line\": \"p1:L35\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"다.유해·위험성 분류기준에 포함되지 않는 기타 유해·위험성(NFPA)\", \"reason\": \"필드없음\", \"q\": {\"raw\": \"화재 0\"}, \"statements\": [{\"key\": \"화재\", \"value\": \"0\", \"line\": \"p1:L36\"}], \"suggested_code\": \"NFPA\", \"line\": \"p1:L36\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"다.유해·위험성 분류기준에 포함되지 않는 기타 유해·위험성(NFPA)\", \"reason\": \"필드없음\", \"q\": {\"raw\": \"반응성 0\"}, \"statements\": [{\"key\": \"반응성\", \"value\": \"0\", \"line\": \"p1:L37\"}], \"suggested_code\": \"NFPA\", \"line\": \"p1:L37\"}]}",
+ "mode": "json_schema_compact",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 9344,
+  "completion_tokens": 1001,
+  "total_tokens": 10345
+ },
+ "attempts": 2,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "length",
+   "usage": {
+    "prompt_tokens": 9344,
+    "completion_tokens": 8192,
+    "total_tokens": 17536
+   },
+   "seconds": 76.924,
+   "chars": 24265,
+   "whitespace": 23465,
+   "head": "{\n  \"hazard\": {\n    \"classified\": true,\n    \"signal_word\": \"경고\",\n    \"h_statements\": [\n      {\n        \"code\": \"H281\",\n        \"system\": \"GHS\",\n        \"text\": \"냉동가스 :극저온 냉화상 또는 손상을 줄 수 있음\",\n        \"line\": \"p1:L27\"\n      }\n    ],\n    \"p_statements\": [\n      {\n        \"code\": \"P282\",\n        \"type\": \"예방\",\n        \"text\": \"방한장갑 안면보호구 보안경을 착용하시오\",\n        \"line\": \"p1:L29\"\n      },\n      {\n        \"code\": \"P336\",\n        \"type\": \"대응\",\n        \"text\": \"미지근한 물로 언 부분을 녹이시오,손상된 부위를 문지르지 마시오\",\n        \"",
+   "tail": " \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n"
+  },
+  {
+   "mode": "json_schema_compact",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 9344,
+    "completion_tokens": 1001,
+    "total_tokens": 10345
+   },
+   "seconds": 7.665,
+   "chars": 2133,
+   "whitespace": 241,
+   "head": "{\"hazard\": {\"classified\": true, \"classes\": [{\"group\": \"물리적\", \"class_code\": \"PH_PRESS_GAS\", \"category\": \"고압가스\", \"route_form\": \"증기\", \"raw\": \"고압가스:냉동액화가스\", \"line\": \"p1:L21\"}, {\"group\": \"건강\", \"class_code\": \"HH_STOT_SE\", \"category\": \"1회 노출\", \"effect\": \"동상\", \"target_organs\": [\"피부계\"], \"raw\": \"액체는 동상의 원인이 될 수 있음\", \"line\": \"p4:L26\"}], \"signal_word\": \"경고\", \"h_statements\": [{\"code\": \"H281\", \"system\": \"GHS\", \"text\": \"냉동가스 :극저온 냉화상 또는 손상을 줄 수 있음\", \"line\": \"p1:L27\"}], \"p_statements\": [{\"code\": \"P282\", \"type\":",
+   "tail": " \"NFPA\", \"line\": \"p1:L35\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"다.유해·위험성 분류기준에 포함되지 않는 기타 유해·위험성(NFPA)\", \"reason\": \"필드없음\", \"q\": {\"raw\": \"화재 0\"}, \"statements\": [{\"key\": \"화재\", \"value\": \"0\", \"line\": \"p1:L36\"}], \"suggested_code\": \"NFPA\", \"line\": \"p1:L36\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"다.유해·위험성 분류기준에 포함되지 않는 기타 유해·위험성(NFPA)\", \"reason\": \"필드없음\", \"q\": {\"raw\": \"반응성 0\"}, \"statements\": [{\"key\": \"반응성\", \"value\": \"0\", \"line\": \"p1:L37\"}], \"suggested_code\": \"NFPA\", \"line\": \"p1:L37\"}]}"
+  }
+ ],
+ "seconds": 84.595,
+ "check_problems": [
+  "hazard.lines.nfpa: 원문에 없는 줄 번호 p1:L35-p1:L37"
+ ],
+ "reextract_attempt": {
+  "ok": true,
+  "parsed": {
+   "hazard": {
+    "classified": true,
+    "signal_word": "경고",
+    "h_statements": [
+     {
+      "code": "H281",
+      "system": "GHS",
+      "text": "냉동가스 :극저온 냉화상 또는 손상을 줄 수 있음",
+      "line": "p1:L27"
+     }
+    ],
+    "p_statements": [
+     {
+      "code": "P282",
+      "type": "예방",
+      "text": "방한장갑 안면보호구 보안경을 착용하시오",
+      "line": "p1:L29"
+     },
+     {
+      "code": "P336",
+      "type": "대응",
+      "text": "미지근한 물로 언 부분을 녹이시오,손상된 부위를 문지르지 마시오",
+      "line": "p1:L30"
+     },
+     {
+      "code": "P315",
+      "type": "대응",
+      "text": "즉시 의학적인 조치 조언을 구하시오",
+      "line": "p1:L31"
+     },
+     {
+      "code": "P403",
+      "type": "저장",
+      "text": "환기가 잘 되는 곳에 보관하시오",
+      "line": "p1:L32"
+     }
+    ],
+    "nfpa": {
+     "health": 3,
+     "fire": 0,
+     "reactivity": 0,
+     "special": ""
+    },
+    "lines": {
+     "nfpa": "p1:L35-p1:L37"
+    }
+   },
+   "narratives": [
+    {
+     "item_code": "S2_LABEL_NOTE",
+     "title_raw": "그림문자",
+     "start": "p1:L23",
+     "end": "p1:L24"
+    }
+   ],
+   "extras": [
+    {
+     "after_item": "S2_LABEL_NOTE",
+     "title_raw": "자료없음",
+     "reason": "필드없음",
+     "q": {
+      "raw": "자료없음"
+     },
+     "statements": [
+      {
+       "key": "자료없음",
+       "value": "자료없음",
+       "line": "p1:L25"
+      }
+     ],
+     "suggested_code": "S2_LABEL_NOTE",
+     "line": "p1:L25"
+    },
+    {
+     "after_item": "S2_LABEL_NOTE",
+     "title_raw": "다.유해·위험성 분류기준에 포함되지 않는 기타 유해·위험성(NFPA)",
+     "reason": "필드없음",
+     "line": "p1:L34"
+    },
+    {
+     "after_item": "S2_LABEL_NOTE",
+     "title_raw": "보건 3",
+     "reason": "필드없음",
+     "q": {
+      "raw": "3"
+     },
+     "line": "p1:L35"
+    },
+    {
+     "after_item": "S2_LABEL_NOTE",
+     "title_raw": "화재 0",
+     "reason": "필드없음",
+     "q": {
+      "raw": "0"
+     },
+     "line": "p1:L36"
+    },
+    {
+     "after_item": "S2_LABEL_NOTE",
+     "title_raw": "반응성 0",
+     "reason": "필드없음",
+     "q": {
+      "raw": "0"
+     },
+     "line": "p1:L37"
+    }
+   ]
+  },
+  "raw_text": "{\"hazard\": {\"classified\": true, \"signal_word\": \"경고\", \"h_statements\": [{\"code\": \"H281\", \"system\": \"GHS\", \"text\": \"냉동가스 :극저온 냉화상 또는 손상을 줄 수 있음\", \"line\": \"p1:L27\"}], \"p_statements\": [{\"code\": \"P282\", \"type\": \"예방\", \"text\": \"방한장갑 안면보호구 보안경을 착용하시오\", \"line\": \"p1:L29\"}, {\"code\": \"P336\", \"type\": \"대응\", \"text\": \"미지근한 물로 언 부분을 녹이시오,손상된 부위를 문지르지 마시오\", \"line\": \"p1:L30\"}, {\"code\": \"P315\", \"type\": \"대응\", \"text\": \"즉시 의학적인 조치 조언을 구하시오\", \"line\": \"p1:L31\"}, {\"code\": \"P403\", \"type\": \"저장\", \"text\": \"환기가 잘 되는 곳에 보관하시오\", \"line\": \"p1:L32\"}], \"nfpa\": {\"health\": 3, \"fire\": 0, \"reactivity\": 0, \"special\": \"\"}, \"lines\": {\"nfpa\": \"p1:L35-p1:L37\"}}, \"narratives\": [{\"item_code\": \"S2_LABEL_NOTE\", \"title_raw\": \"그림문자\", \"start\": \"p1:L23\", \"end\": \"p1:L24\"}], \"extras\": [{\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"자료없음\", \"reason\": \"필드없음\", \"q\": {\"raw\": \"자료없음\"}, \"statements\": [{\"key\": \"자료없음\", \"value\": \"자료없음\", \"line\": \"p1:L25\"}], \"suggested_code\": \"S2_LABEL_NOTE\", \"line\": \"p1:L25\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"다.유해·위험성 분류기준에 포함되지 않는 기타 유해·위험성(NFPA)\", \"reason\": \"필드없음\", \"line\": \"p1:L34\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"보건 3\", \"reason\": \"필드없음\", \"q\": {\"raw\": \"3\"}, \"line\": \"p1:L35\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"화재 0\", \"reason\": \"필드없음\", \"q\": {\"raw\": \"0\"}, \"line\": \"p1:L36\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"반응성 0\", \"reason\": \"필드없음\", \"q\": {\"raw\": \"0\"}, \"line\": \"p1:L37\"}]}",
+  "mode": "json_schema_compact",
+  "finish_reason": "stop",
+  "usage": {
+   "prompt_tokens": 9377,
+   "completion_tokens": 677,
+   "total_tokens": 10054
+  },
+  "attempts": 2,
+  "errors": [],
+  "requests": [
+   {
+    "mode": "json_schema",
+    "finish_reason": "length",
+    "usage": {
+     "prompt_tokens": 9377,
+     "completion_tokens": 8192,
+     "total_tokens": 17569
+    },
+    "seconds": 63.823,
+    "chars": 24268,
+    "whitespace": 23471,
+    "head": "{\n  \"hazard\": {\n    \"classified\": true,\n    \"signal_word\": \"경고\",\n    \"h_statements\": [\n      {\n        \"code\": \"H281\",\n        \"system\": \"GHS\",\n        \"text\": \"냉동가스 :극저온 냉화상 또는 손상을 줄 수 있음\",\n        \"line\": \"p1:L27\"\n      }\n    ],\n    \"p_statements\": [\n      {\n        \"code\": \"P282\",\n        \"type\": \"예방\",\n        \"text\": \"방한장갑 안면보호구 보안경을 착용하시오\",\n        \"line\": \"p1:L29\"\n      },\n      {\n        \"code\": \"P336\",\n        \"type\": \"대응\",\n        \"text\": \"미지근한 물로 언 부분을 녹이시오,손상된 부위를 문지르지 마시오\",\n        \"",
+    "tail": " \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n     \n"
+   },
+   {
+    "mode": "json_schema_compact",
+    "finish_reason": "stop",
+    "usage": {
+     "prompt_tokens": 9377,
+     "completion_tokens": 677,
+     "total_tokens": 10054
+    },
+    "seconds": 5.211,
+    "chars": 1407,
+    "whitespace": 162,
+    "head": "{\"hazard\": {\"classified\": true, \"signal_word\": \"경고\", \"h_statements\": [{\"code\": \"H281\", \"system\": \"GHS\", \"text\": \"냉동가스 :극저온 냉화상 또는 손상을 줄 수 있음\", \"line\": \"p1:L27\"}], \"p_statements\": [{\"code\": \"P282\", \"type\": \"예방\", \"text\": \"방한장갑 안면보호구 보안경을 착용하시오\", \"line\": \"p1:L29\"}, {\"code\": \"P336\", \"type\": \"대응\", \"text\": \"미지근한 물로 언 부분을 녹이시오,손상된 부위를 문지르지 마시오\", \"line\": \"p1:L30\"}, {\"code\": \"P315\", \"type\": \"대응\", \"text\": \"즉시 의학적인 조치 조언을 구하시오\", \"line\": \"p1:L31\"}, {\"code\": \"P403\", \"type\": \"저장\", \"text\": \"환기가 잘 되는 곳에 보관하시오\",",
+    "tail": "sted_code\": \"S2_LABEL_NOTE\", \"line\": \"p1:L25\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"다.유해·위험성 분류기준에 포함되지 않는 기타 유해·위험성(NFPA)\", \"reason\": \"필드없음\", \"line\": \"p1:L34\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"보건 3\", \"reason\": \"필드없음\", \"q\": {\"raw\": \"3\"}, \"line\": \"p1:L35\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"화재 0\", \"reason\": \"필드없음\", \"q\": {\"raw\": \"0\"}, \"line\": \"p1:L36\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"반응성 0\", \"reason\": \"필드없음\", \"q\": {\"raw\": \"0\"}, \"line\": \"p1:L37\"}]}"
+   }
+  ],
+  "seconds": 69.04,
+  "check_problems": [
+   "hazard.lines.nfpa: 원문에 없는 줄 번호 p1:L35-p1:L37"
+  ]
+ }
+}

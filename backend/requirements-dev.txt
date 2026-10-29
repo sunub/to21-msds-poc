@@ -1,0 +1,7 @@
+# 개발 전용 의존성: 폐쇄망에 반입하지 않는다.
+-r requirements.txt
+
+requests==2.34.2          # scripts/check_router.py 크레딧 조회
+pytest==9.1.1
+pymssql==2.4.6            # scripts/load_htodb.py: TO21 HTODB(SQL Server mdf) 읽기, 적재 때만
+httpx==0.28.1             # 조회 API 시험(TestClient)

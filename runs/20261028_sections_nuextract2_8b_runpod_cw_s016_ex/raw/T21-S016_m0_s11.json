@@ -1,0 +1,90 @@
+{
+ "doc_id": "T21-S016",
+ "msds_index": 0,
+ "section": 11,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "toxicity": [
+   {
+    "comp_name": "벤젠",
+    "comp_cas": "71-43-2",
+    "endpoint": "TX_ORAL",
+    "descriptor": "LD50",
+    "q": {
+     "raw": "2000 mg/kg Rat",
+     "value": 2000,
+     "approx": null,
+     "lower_op": null,
+     "lower": null,
+     "upper_op": null,
+     "upper": null,
+     "unit": "mg/kg"
+    },
+    "species": "Rat",
+    "sex": null,
+    "duration_value": null,
+    "duration_unit": null,
+    "physical_form": null,
+    "exposure_type": null,
+    "converted": null,
+    "read_across_cas": null,
+    "guideline": null,
+    "data_source": null,
+    "classification": null,
+    "statements": [],
+    "status": "값있음",
+    "line": "p6:L16"
+   }
+  ],
+  "cmr": [
+   {
+    "comp_name": "벤젠",
+    "comp_cas": "71-43-2",
+    "hazard": "발암성",
+    "agency": "IARC",
+    "class": "Group 1",
+    "status": "값있음",
+    "note": null,
+    "line": "p6:L33"
+   }
+  ],
+  "narratives": [
+   {
+    "item_code": "S11_ROUTE",
+    "title_raw": "가. 가능성이 높은 노출 경로에 관한 정보",
+    "start": "p6:L6",
+    "end": "p6:L6"
+   }
+  ],
+  "extras": []
+ },
+ "raw_text": "{\"toxicity\": [{\"comp_name\": \"벤젠\", \"comp_cas\": \"71-43-2\", \"endpoint\": \"TX_ORAL\", \"descriptor\": \"LD50\", \"q\": {\"raw\": \"2000 mg/kg Rat\", \"value\": 2000, \"approx\": null, \"lower_op\": null, \"lower\": null, \"upper_op\": null, \"upper\": null, \"unit\": \"mg/kg\"}, \"species\": \"Rat\", \"sex\": null, \"duration_value\": null, \"duration_unit\": null, \"physical_form\": null, \"exposure_type\": null, \"converted\": {\"raw\": null, \"value\": null, \"approx\": null, \"lower_op\": null, \"lower\": null, \"upper_op\": null, \"upper\": null, \"unit\": null}, \"read_across_cas\": null, \"guideline\": null, \"data_source\": null, \"classification\": null, \"statements\": [], \"status\": \"값있음\", \"line\": \"p6:L16\"}], \"cmr\": [{\"comp_name\": \"벤젠\", \"comp_cas\": \"71-43-2\", \"hazard\": \"발암성\", \"agency\": \"IARC\", \"class\": \"Group 1\", \"status\": \"값있음\", \"note\": null, \"line\": \"p6:L33\"}], \"narratives\": [{\"item_code\": \"S11_ROUTE\", \"title_raw\": \"가. 가능성이 높은 노출 경로에 관한 정보\", \"start\": \"p6:L6\", \"end\": \"p6:L6\"}], \"extras\": []}",
+ "mode": "nuextract_template",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 12785,
+  "completion_tokens": 367,
+  "total_tokens": 13152
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "nuextract_template",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 12785,
+    "completion_tokens": 367,
+    "total_tokens": 13152
+   },
+   "seconds": 15.536,
+   "chars": 943,
+   "whitespace": 105,
+   "head": "{\"toxicity\": [{\"comp_name\": \"벤젠\", \"comp_cas\": \"71-43-2\", \"endpoint\": \"TX_ORAL\", \"descriptor\": \"LD50\", \"q\": {\"raw\": \"2000 mg/kg Rat\", \"value\": 2000, \"approx\": null, \"lower_op\": null, \"lower\": null, \"upper_op\": null, \"upper\": null, \"unit\": \"mg/kg\"}, \"species\": \"Rat\", \"sex\": null, \"duration_value\": null, \"duration_unit\": null, \"physical_form\": null, \"exposure_type\": null, \"converted\": {\"raw\": null, \"value\": null, \"approx\": null, \"lower_op\": null, \"lower\": null, \"upper_op\": null, \"upper\": null, \"uni",
+   "tail": "t\": null}, \"read_across_cas\": null, \"guideline\": null, \"data_source\": null, \"classification\": null, \"statements\": [], \"status\": \"값있음\", \"line\": \"p6:L16\"}], \"cmr\": [{\"comp_name\": \"벤젠\", \"comp_cas\": \"71-43-2\", \"hazard\": \"발암성\", \"agency\": \"IARC\", \"class\": \"Group 1\", \"status\": \"값있음\", \"note\": null, \"line\": \"p6:L33\"}], \"narratives\": [{\"item_code\": \"S11_ROUTE\", \"title_raw\": \"가. 가능성이 높은 노출 경로에 관한 정보\", \"start\": \"p6:L6\", \"end\": \"p6:L6\"}], \"extras\": []}"
+  }
+ ],
+ "seconds": 15.537,
+ "check_problems": []
+}

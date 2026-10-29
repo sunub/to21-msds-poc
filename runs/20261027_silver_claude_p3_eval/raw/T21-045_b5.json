@@ -1,0 +1,2473 @@
+{
+  "doc_id": "T21-045",
+  "bundle": "b5",
+  "model": "claude-opus-5-5",
+  "mode": "none",
+  "finish_reason": "stop",
+  "usage": {
+    "prompt_tokens": 72983,
+    "completion_tokens": 31267,
+    "total_tokens": 104250,
+    "served_model": "claude-opus-5-5"
+  },
+  "seconds": 222.4,
+  "attempts": 1,
+  "errors": [],
+  "parsed": {
+    "msds": [
+      {
+        "narratives": [
+          {
+            "item_code": "S4_EYE",
+            "title_raw": "가. 눈에 들어갔을 때",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "다량의 물로 최소 15분간 위, 아래 눈꺼풀을 들면서 철저히 씻어낼 것.",
+                "refs": null,
+                "cond": {
+                  "raw": "최소 15분간",
+                  "approx": null,
+                  "value": null,
+                  "lower_op": ">=",
+                  "lower": 15,
+                  "upper_op": null,
+                  "upper": null,
+                  "unit": "min",
+                  "dp": 0,
+                  "status": "값있음",
+                  "note": null
+                },
+                "std_code": null,
+                "match_score": null,
+                "text": "다량의 물로 최소 15분간 위, 아래 눈꺼풀을 들면서 철저히 씻어낼 것. 의학적인 조치/조언을  구하시오."
+              },
+              {
+                "seq": 2,
+                "key": null,
+                "value": "의학적인 조치/조언을  구하시오.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "다량의 물로 최소 15분간 위, 아래 눈꺼풀을 들면서 철저히 씻어낼 것. 의학적인 조치/조언을  구하시오."
+              }
+            ]
+          },
+          {
+            "item_code": "S4_SKIN",
+            "title_raw": "나. 피부에 접촉했을 때",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "피부를 비누와 물로 씻어 내시오.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "피부를 비누와 물로 씻어 내시오."
+              }
+            ]
+          },
+          {
+            "item_code": "S4_INHAL",
+            "title_raw": "다. 흡입했을 때",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "신선한 공기가 있는 곳으로 옮길 것.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "신선한 공기가 있는 곳으로 옮길 것."
+              }
+            ]
+          },
+          {
+            "item_code": "S4_INGEST",
+            "title_raw": "라. 먹었을 때",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "입을 씻어내시오.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "입을 씻어내시오."
+              }
+            ]
+          },
+          {
+            "item_code": "S4_DOCTOR",
+            "title_raw": "마. 기타 의사의 주의사항",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "의사 참고 사항",
+                "value": "징후에 따라 치료하시오.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "의사 참고 사항 징후에 따라 치료하시오."
+              },
+              {
+                "seq": 2,
+                "key": "증상",
+                "value": "자료 없음.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "증상 자료 없음."
+              },
+              {
+                "seq": 3,
+                "key": "노출 영향",
+                "value": "자료 없음.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "노출 영향 자료 없음."
+              }
+            ]
+          },
+          {
+            "item_code": "S5_MEDIA",
+            "title_raw": "가. 적절한 (및 부적절한) 소화제",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "적절한 소화제",
+                "value": "현지 상황과 주변 환경에 적절한 소화 방법을 사용하시오.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "적절한 소화제 현지 상황과 주변 환경에 적절한 소화 방법을 사용하시오."
+              },
+              {
+                "seq": 2,
+                "key": "대형 화재",
+                "value": "주의: 화재 진압시 물 스프레이를 사용하는 것은 비효율적일 수 있음.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "대형 화재 주의: 화재 진압시 물 스프레이를 사용하는 것은 비효율적일 수 있음."
+              },
+              {
+                "seq": 3,
+                "key": "부적절한 소화제",
+                "value": "누출된 물질을 강한 압력의 물줄기로 흩어트리지 말 것.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "부적절한 소화제 누출된 물질을 강한 압력의 물줄기로 흩어트리지 말 것."
+              }
+            ]
+          },
+          {
+            "item_code": "S5_SPECIFIC",
+            "title_raw": "나. 화학물질로부터 생기는 특정 유해성",
+            "status": "자료없음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "자료 없음.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "자료 없음."
+              }
+            ]
+          },
+          {
+            "item_code": "S5_FIREFIGHT",
+            "title_raw": "다. 화재 진압 시 착용할 보호구 및 예방조치",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "소방대원은 자급식 호흡보호구와 완전 화재진압 보호장비를 착용하여야 함.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "소방대원은 자급식 호흡보호구와 완전 화재진압 보호장비를 착용하여야 함. 개인 보호장비를 사용하시오."
+              },
+              {
+                "seq": 2,
+                "key": null,
+                "value": "개인 보호장비를 사용하시오.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "소방대원은 자급식 호흡보호구와 완전 화재진압 보호장비를 착용하여야 함. 개인 보호장비를 사용하시오."
+              }
+            ]
+          },
+          {
+            "item_code": "S6_PERSONAL",
+            "title_raw": "가. 인체를 보호하기 위한 필요한 조치 사항 및 보호구",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "개인 주의사항",
+                "value": "적절한 환기가 되도록 할 것.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "개인 주의사항 적절한 환기가 되도록 할 것."
+              },
+              {
+                "seq": 2,
+                "key": "응급 구조대원용",
+                "value": "8항의 권장 개인보호구를 사용할 것.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "응급 구조대원용 8항의 권장 개인보호구를 사용할 것."
+              }
+            ]
+          },
+          {
+            "item_code": "S6_ENV",
+            "title_raw": "나. 환경을 보호하기 위해 필요한 조치사항",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "추가 생태학적 정보는 12항을 참조.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "추가 생태학적 정보는 12항을 참조."
+              }
+            ]
+          },
+          {
+            "item_code": "S6_CLEANUP",
+            "title_raw": "다. 정화 또는 제거 방법",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "봉쇄 방법",
+                "value": "안전하게 처리하는 것이 가능하면 추가 누출 또는 유출을 막으시오.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "봉쇄 방법 안전하게 처리하는 것이 가능하면 추가 누출 또는 유출을 막으시오."
+              },
+              {
+                "seq": 2,
+                "key": "정화 방법",
+                "value": "둑으로 막을 것.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "정화 방법 둑으로 막을 것. 불활성 흡수제로 빨아들이시오. 적절하게 라벨이 부착된 용기로 들어 운반하시오. 오염된 표면을 철저히 세척하시오."
+              },
+              {
+                "seq": 3,
+                "key": "정화 방법",
+                "value": "불활성 흡수제로 빨아들이시오.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "정화 방법 둑으로 막을 것. 불활성 흡수제로 빨아들이시오. 적절하게 라벨이 부착된 용기로 들어 운반하시오. 오염된 표면을 철저히 세척하시오."
+              },
+              {
+                "seq": 4,
+                "key": "정화 방법",
+                "value": "적절하게 라벨이 부착된 용기로 들어 운반하시오.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "정화 방법 둑으로 막을 것. 불활성 흡수제로 빨아들이시오. 적절하게 라벨이 부착된 용기로 들어 운반하시오. 오염된 표면을 철저히 세척하시오."
+              },
+              {
+                "seq": 5,
+                "key": "정화 방법",
+                "value": "오염된 표면을 철저히 세척하시오.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "정화 방법 둑으로 막을 것. 불활성 흡수제로 빨아들이시오. 적절하게 라벨이 부착된 용기로 들어 운반하시오. 오염된 표면을 철저히 세척하시오."
+              },
+              {
+                "seq": 6,
+                "key": "2차 유해/위험 방지",
+                "value": "환경 규정을 준수하여 오염된 물체와 지역을 철저히 세척하시오.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "2차 유해/위험 방지 환경 규정을 준수하여 오염된 물체와 지역을 철저히 세척하시오."
+              }
+            ]
+          },
+          {
+            "item_code": "S7_HANDLING",
+            "title_raw": "가. 안전취급요령",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "안전취급조언",
+                "value": "올바른 산업 위생과 안전 조치에 맞게 취급하시오.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "안전취급조언 올바른 산업 위생과 안전 조치에 맞게 취급하시오."
+              }
+            ]
+          },
+          {
+            "item_code": "S7_STORAGE",
+            "title_raw": "나. 안전한 저장 방법(피해야 할 조건을 포함함)",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "보관 조건",
+                "value": "용기를 단단히 밀폐하여 건조하고 서늘하며 환기가 잘 되는 곳에 보관하시오.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "보관 조건 용기를 단단히 밀폐하여 건조하고 서늘하며 환기가 잘 되는 곳에 보관하시오."
+              },
+              {
+                "seq": 2,
+                "key": "일반 위생 고려사항",
+                "value": "올바른 산업 위생과 안전 조치에 맞게 취급하시오.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "일반 위생 고려사항 올바른 산업 위생과 안전 조치에 맞게 취급하시오."
+              }
+            ]
+          },
+          {
+            "item_code": "S8_ENG",
+            "title_raw": "나. 적절한 공학적 관리",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "공학적 관리",
+                "value": "샤워기",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "공학적 관리 샤워기"
+              },
+              {
+                "seq": 2,
+                "key": "공학적 관리",
+                "value": "세안기",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "세안기"
+              },
+              {
+                "seq": 3,
+                "key": "공학적 관리",
+                "value": "환기 시스템.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "환기 시스템."
+              },
+              {
+                "seq": 4,
+                "key": "환경 노출 관리",
+                "value": "자료 없음.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "환경 노출 관리 자료 없음."
+              }
+            ]
+          },
+          {
+            "item_code": "S8_RESP",
+            "title_raw": "호흡기 보호",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "일반적 사용 조건 하에서는 보호 장비가 필요하지 않음.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "일반적 사용 조건 하에서는 보호 장비가 필요하지 않음. 노출 기준이 초과되었거나 자극을 경험한 경우, 환기 및 대피가 필요할 수 있음."
+              },
+              {
+                "seq": 2,
+                "key": null,
+                "value": "노출 기준이 초과되었거나 자극을 경험한 경우, 환기 및 대피가 필요할 수 있음.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "일반적 사용 조건 하에서는 보호 장비가 필요하지 않음. 노출 기준이 초과되었거나 자극을 경험한 경우, 환기 및 대피가 필요할 수 있음."
+              }
+            ]
+          },
+          {
+            "item_code": "S8_EYE",
+            "title_raw": "눈 보호",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "특별한 보호구가 필요하지 않음.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "특별한 보호구가 필요하지 않음."
+              }
+            ]
+          },
+          {
+            "item_code": "S8_HAND",
+            "title_raw": "손 보호",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "특별한 보호구가 필요하지 않음.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "특별한 보호구가 필요하지 않음."
+              }
+            ]
+          },
+          {
+            "item_code": "S8_BODY",
+            "title_raw": "신체 보호",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "특별한 보호구가 필요하지 않음.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "특별한 보호구가 필요하지 않음."
+              }
+            ]
+          },
+          {
+            "item_code": "S10_STABILITY",
+            "title_raw": "가. 화학적 안정성 및 유해 반응의 가능성",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "안정성",
+                "value": "일반 조건하에서 안정함.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "안정성 일반 조건하에서 안정함."
+              },
+              {
+                "seq": 2,
+                "key": "유해 반응의 가능성",
+                "value": "정상 처리 시 없음.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "유해 반응의 가능성 정상 처리 시 없음."
+              },
+              {
+                "seq": 3,
+                "key": "기계충격감도",
+                "value": "없음.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "폭발 데이터 기계충격감도 없음."
+              },
+              {
+                "seq": 4,
+                "key": "정전 방전감도",
+                "value": "없음.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "정전 방전감도 없음."
+              }
+            ]
+          },
+          {
+            "item_code": "S10_CONDITIONS",
+            "title_raw": "나. 피해야 할 조건(정전기 방전, 충격, 진동 등)",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "제공된 정보에 근거하면 알려진 바 없음.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "제공된 정보에 근거하면 알려진 바 없음."
+              }
+            ]
+          },
+          {
+            "item_code": "S10_INCOMPAT",
+            "title_raw": "다. 피해야 할 물질",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "제공된 정보에 근거하면 알려진 바 없음.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "제공된 정보에 근거하면 알려진 바 없음."
+              }
+            ]
+          },
+          {
+            "item_code": "S10_DECOMP",
+            "title_raw": "라. 분해시 생성되는 유해물질",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "제공된 정보에 근거하면 알려진 바 없음.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "제공된 정보에 근거하면 알려진 바 없음."
+              }
+            ]
+          },
+          {
+            "item_code": "S11_ROUTE",
+            "title_raw": "가. 가능성이 높은 노출 경로에 관한 정보",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "흡입",
+                "value": "물질 또는 혼합물에 대한 구체적인 자료가 이용가능하지 않음.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "흡입 물질 또는 혼합물에 대한 구체적인 자료가 이용가능하지 않음."
+              },
+              {
+                "seq": 2,
+                "key": "섭취",
+                "value": "물질 또는 혼합물에 대한 구체적인 자료가 이용가능하지 않음.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "섭취 물질 또는 혼합물에 대한 구체적인 자료가 이용가능하지 않음."
+              },
+              {
+                "seq": 3,
+                "key": "눈 접촉",
+                "value": "물질 또는 혼합물에 대한 구체적인 자료가 이용가능하지 않음.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "눈 접촉 물질 또는 혼합물에 대한 구체적인 자료가 이용가능하지 않음."
+              },
+              {
+                "seq": 4,
+                "key": "피부 접촉",
+                "value": "물질 또는 혼합물에 대한 구체적인 자료가 이용가능하지 않음.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "피부 접촉 물질 또는 혼합물에 대한 구체적인 자료가 이용가능하지 않음."
+              },
+              {
+                "seq": 5,
+                "key": "증상",
+                "value": "자료 없음.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "증상 자료 없음."
+              }
+            ]
+          },
+          {
+            "item_code": "S12_OTHER",
+            "title_raw": "마. 기타 유해 영향",
+            "status": "자료없음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "자료 없음.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "자료 없음."
+              }
+            ]
+          },
+          {
+            "item_code": "S13_METHOD",
+            "title_raw": "가. 폐기물 처리방법",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "잔여물/미사용 제품의 폐기물",
+                "value": "지역 규정에 따라 폐기 하시오.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "잔여물/미사용 제품의 폐기물 지역 규정에 따라 폐기 하시오. 폐기물을 환경 법규에 따라 폐기할 것."
+              },
+              {
+                "seq": 2,
+                "key": "잔여물/미사용 제품의 폐기물",
+                "value": "폐기물을 환경 법규에 따라 폐기할 것.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "잔여물/미사용 제품의 폐기물 지역 규정에 따라 폐기 하시오. 폐기물을 환경 법규에 따라 폐기할 것."
+              }
+            ]
+          },
+          {
+            "item_code": "S13_CAUTION",
+            "title_raw": "나. 폐기시 주의사항(오염된 용기 및 포장의 폐기 방법을 포함함)",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "오염된 포장",
+                "value": "빈 용기를 재사용하지 마시오.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "오염된 포장 빈 용기를 재사용하지 마시오."
+              }
+            ]
+          },
+          {
+            "item_code": "S14_SPECIAL",
+            "title_raw": "바. 사용자에 대한 특별 주의사항",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "규제되지 않음",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "바. 사용자에 대한 특별 주의사항 규제되지 않음"
+              }
+            ]
+          },
+          {
+            "item_code": "S16_SOURCE",
+            "title_raw": "가. 자료의 출처",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "안전 보건 자료에서 사용된 약어에 대한 기호표 또는 범례",
+                "value": "목록에는 본 제품에 적용되지 않는 문구가 포함될 수 있음",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "목록에는 본 제품에 적용되지 않는 문구가 포함될 수 있음"
+              },
+              {
+                "seq": 2,
+                "key": "ACGIH",
+                "value": "미국 산업 위생 전문가 협의회",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "ACGIH 미국 산업 위생 전문가 협의회"
+              },
+              {
+                "seq": 3,
+                "key": "ADN",
+                "value": "국제 위험물 내륙 수로 운송에 관한 협정 (유럽)",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "ADN 국제 위험물 내륙 수로 운송에 관한 협정 (유럽)"
+              },
+              {
+                "seq": 4,
+                "key": "ADR",
+                "value": "도로를 통한 위험물 국제 운송에 관한 협정 (유럽)",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "ADR 도로를 통한 위험물 국제 운송에 관한 협정 (유럽)"
+              },
+              {
+                "seq": 5,
+                "key": "AIIC",
+                "value": "호주 산업 화학물질 목록",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "AIIC 호주 산업 화학물질 목록"
+              },
+              {
+                "seq": 6,
+                "key": "ATE",
+                "value": "급성 독성 추정치",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "ATE 급성 독성 추정치"
+              },
+              {
+                "seq": 7,
+                "key": "ASTM",
+                "value": "미국재료시험학회",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "ASTM 미국재료시험학회"
+              },
+              {
+                "seq": 8,
+                "key": "bar",
+                "value": "작업 지역 내 화학물질 화합물에 대한 생물학적 기준값",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "bar 작업 지역 내 화학물질 화합물에 대한 생물학적 기준값"
+              },
+              {
+                "seq": 9,
+                "key": "BAT",
+                "value": "작업적 노출에 대한 생물학적 내성 값",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "BAT 작업적 노출에 대한 생물학적 내성 값"
+              },
+              {
+                "seq": 10,
+                "key": "BEL",
+                "value": "생물학적 노출 기준",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "BEL 생물학적 노출 기준"
+              },
+              {
+                "seq": 11,
+                "key": "bw",
+                "value": "몸무게",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "bw 몸무게"
+              },
+              {
+                "seq": 12,
+                "key": "최대",
+                "value": "최대 한계치",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "최대 최대 한계치"
+              },
+              {
+                "seq": 13,
+                "key": "CMR",
+                "value": "발암성, 변이원성 및 생식 독성",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "CMR 발암성, 변이원성 및 생식 독성"
+              },
+              {
+                "seq": 14,
+                "key": "DOT",
+                "value": "교통부 (미국)",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "DOT 교통부 (미국)"
+              },
+              {
+                "seq": 15,
+                "key": "DSL",
+                "value": "국내 화학물질 목록 (캐나다)",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "DSL 국내 화학물질 목록 (캐나다)"
+              },
+              {
+                "seq": 16,
+                "key": "EmS",
+                "value": "비상 일정",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "EmS 비상 일정"
+              },
+              {
+                "seq": 17,
+                "key": "ENCS",
+                "value": "기존 및 신규 화학물질 (일본)",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "ENCS 기존 및 신규 화학물질 (일본)"
+              },
+              {
+                "seq": 18,
+                "key": "EPA",
+                "value": "미국 환경 보호국 (Environmental Protection Agency)",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "EPA 미국 환경 보호국 (Environmental Protection Agency)"
+              },
+              {
+                "seq": 19,
+                "key": "GHS",
+                "value": "세계조화시스템",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "GHS 세계조화시스템"
+              },
+              {
+                "seq": 20,
+                "key": "IARC",
+                "value": "국제 암 연구 센터",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "IARC 국제 암 연구 센터"
+              },
+              {
+                "seq": 21,
+                "key": "IATA",
+                "value": "국제 항공 운송 협회",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "IATA 국제 항공 운송 협회"
+              },
+              {
+                "seq": 22,
+                "key": "IBC",
+                "value": "위험 화학물질을 벌크로 운반하는 선박의 건조 및 장비에 관한 국제 규정",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "IBC 위험 화학물질을 벌크로 운반하는 선박의 건조 및 장비에 관한 국제 규정"
+              },
+              {
+                "seq": 23,
+                "key": "ICAO",
+                "value": "국제 민간 항공 기구",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "ICAO 국제 민간 항공 기구"
+              },
+              {
+                "seq": 24,
+                "key": "IECSC",
+                "value": "중국 기존화학물질 목록",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "IECSC 중국 기존화학물질 목록"
+              },
+              {
+                "seq": 25,
+                "key": "IMDG",
+                "value": "국제해상위험물",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "IMDG 국제해상위험물"
+              },
+              {
+                "seq": 26,
+                "key": "IMO",
+                "value": "국제해사기구",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "IMO 국제해사기구"
+              },
+              {
+                "seq": 27,
+                "key": "ISO",
+                "value": "국제표준화기구",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "ISO 국제표준화기구"
+              },
+              {
+                "seq": 28,
+                "key": "KECI",
+                "value": "한국 기존화학물질 목록",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "KECI 한국 기존화학물질 목록"
+              },
+              {
+                "seq": 29,
+                "key": "LC50(반수치사농도)",
+                "value": "검사 대상의 50%에 대한 치사 농도",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "LC50(반수치사농도) 검사 대상의 50%에 대한 치사 농도"
+              },
+              {
+                "seq": 30,
+                "key": "LD50 (50% 치사용량)",
+                "value": "검사 대상의 50%에 대한 치사량 (치사량 중앙값)",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "LD50 (50% 치사용량) 검사 대상의 50%에 대한 치사량 (치사량 중앙값)"
+              },
+              {
+                "seq": 31,
+                "key": "MARPOL",
+                "value": "선박으로부터의 오염 방지를 위한 국제 협약",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "MARPOL 선박으로부터의 오염 방지를 위한 국제 협약"
+              },
+              {
+                "seq": 32,
+                "key": "MSDS",
+                "value": "물질안전보건자료",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "MSDS 물질안전보건자료"
+              },
+              {
+                "seq": 33,
+                "key": "n.o.s.",
+                "value": "별도로 지정되지 않음",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "n.o.s. 별도로 지정되지 않음"
+              },
+              {
+                "seq": 34,
+                "key": "NOAEC",
+                "value": "무영향관찰농도",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "NOAEC 무영향관찰농도"
+              },
+              {
+                "seq": 35,
+                "key": "NOAEL",
+                "value": "무독성량",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "NOAEL 무독성량"
+              },
+              {
+                "seq": 36,
+                "key": "NOELR",
+                "value": "무영향관찰 로딩률",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "NOELR 무영향관찰 로딩률"
+              },
+              {
+                "seq": 37,
+                "key": "NZIoC",
+                "value": "뉴질랜드 화학 물질 목록",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "NZIoC 뉴질랜드 화학 물질 목록"
+              },
+              {
+                "seq": 38,
+                "key": "OECD",
+                "value": "경제협력개발기구",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "OECD 경제협력개발기구"
+              },
+              {
+                "seq": 39,
+                "key": "OEL",
+                "value": "작업노출기준",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "OEL 작업노출기준"
+              },
+              {
+                "seq": 40,
+                "key": "PBT",
+                "value": "잔류성, 생물농축성 및 독성 물질",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "PBT 잔류성, 생물농축성 및 독성 물질"
+              },
+              {
+                "seq": 41,
+                "key": "PICCS",
+                "value": "필리핀 화학 물질 목록",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "PICCS 필리핀 화학 물질 목록"
+              },
+              {
+                "seq": 42,
+                "key": "PMT",
+                "value": "잔류성, 이동성 및 독성",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "PMT 잔류성, 이동성 및 독성"
+              },
+              {
+                "seq": 43,
+                "key": "PPE",
+                "value": "개인 보호구",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "PPE 개인 보호구"
+              },
+              {
+                "seq": 44,
+                "key": "QSAR",
+                "value": "정량적 구조 활성관계",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "QSAR 정량적 구조 활성관계"
+              },
+              {
+                "seq": 45,
+                "key": "RID",
+                "value": "위험물의 철도 국제 운송에 관한 협정 (유럽)",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "RID 위험물의 철도 국제 운송에 관한 협정 (유럽)"
+              },
+              {
+                "seq": 46,
+                "key": "SADT",
+                "value": "자기 가속 분해 온도",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "SADT 자기 가속 분해 온도"
+              },
+              {
+                "seq": 47,
+                "key": "SAR",
+                "value": "구조-활성 관계",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "SAR 구조-활성 관계"
+              },
+              {
+                "seq": 48,
+                "key": "SDS",
+                "value": "물질안전보건자료",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "SDS 물질안전보건자료"
+              },
+              {
+                "seq": 49,
+                "key": "SL",
+                "value": "표면 한계",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "SL 표면 한계"
+              },
+              {
+                "seq": 50,
+                "key": "STEL",
+                "value": "단기 노출 기준",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "STEL 단기 노출 기준"
+              },
+              {
+                "seq": 51,
+                "key": "STOT RE",
+                "value": "특정표적장기독성 - 반복 노출",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "STOT RE 특정표적장기독성 - 반복 노출"
+              },
+              {
+                "seq": 52,
+                "key": "STOT SE",
+                "value": "특정표적장기독성 - 1회 노출",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "STOT SE 특정표적장기독성 - 1회 노출"
+              },
+              {
+                "seq": 53,
+                "key": "TCSI",
+                "value": "대만 화학 물질 목록",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "TCSI 대만 화학 물질 목록"
+              },
+              {
+                "seq": 54,
+                "key": "TDG",
+                "value": "위험물 운송 (캐나다)",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "TDG 위험물 운송 (캐나다)"
+              },
+              {
+                "seq": 55,
+                "key": "TSCA",
+                "value": "독성물질관리법 (미국)",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "TSCA 독성물질관리법 (미국)"
+              },
+              {
+                "seq": 56,
+                "key": "TWA",
+                "value": "시간 가중 평균",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "TWA 시간 가중 평균"
+              },
+              {
+                "seq": 57,
+                "key": "UN",
+                "value": "국제 연합",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "UN 국제 연합"
+              },
+              {
+                "seq": 58,
+                "key": "VOC",
+                "value": "휘발성 유기 화합물",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "VOC 휘발성 유기 화합물"
+              },
+              {
+                "seq": 59,
+                "key": "vPvB",
+                "value": "고 잔류성 및 고 생물농축성",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "vPvB 고 잔류성 및 고 생물농축성"
+              },
+              {
+                "seq": 60,
+                "key": "vPvM",
+                "value": "고 잔류성 및 고 이동성",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "vPvM 고 잔류성 및 고 이동성"
+              },
+              {
+                "seq": 61,
+                "key": "As",
+                "value": "알레르기 물질",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "As 알레르기 물질"
+              },
+              {
+                "seq": 62,
+                "key": "DS",
+                "value": "피부 감작제",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "DS 피부 감작제"
+              },
+              {
+                "seq": 63,
+                "key": "Ot",
+                "value": "이독성",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "Ot 이독성"
+              },
+              {
+                "seq": 64,
+                "key": "pOt",
+                "value": "이독성 물질 - 청각 장애를 일으킬 가능성이 있음",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "pOt 이독성 물질 - 청각 장애를 일으킬 가능성이 있음"
+              },
+              {
+                "seq": 65,
+                "key": "PS",
+                "value": "감광제",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "PS 감광제"
+              },
+              {
+                "seq": 66,
+                "key": "RS",
+                "value": "호흡기 과민성",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "RS 호흡기 과민성"
+              },
+              {
+                "seq": 67,
+                "key": "머",
+                "value": "증감제",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "머 증감제"
+              },
+              {
+                "seq": 68,
+                "key": "poS",
+                "value": "감작제 - 직업적 천식을 유발할 수 있음",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "poS 감작제 - 직업적 천식을 유발할 수 있음"
+              },
+              {
+                "seq": 69,
+                "key": "Sa",
+                "value": "단순 질식",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "Sa 단순 질식"
+              },
+              {
+                "seq": 70,
+                "key": "Sd",
+                "value": "피부 지정",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "Sd 피부 지정"
+              },
+              {
+                "seq": 71,
+                "key": "pSd",
+                "value": "피부 지정 - 피부 흡수 가능성",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "pSd 피부 지정 - 피부 흡수 가능성"
+              },
+              {
+                "seq": 72,
+                "key": "Sdv",
+                "value": "피부 지정 - 비어 있음",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "Sdv 피부 지정 - 비어 있음"
+              },
+              {
+                "seq": 73,
+                "key": "Sk",
+                "value": "피부 표기",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "Sk 피부 표기"
+              },
+              {
+                "seq": 74,
+                "key": "dSk",
+                "value": "피부 표기 - 피부 흡수 위험성",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "dSk 피부 표기 - 피부 흡수 위험성"
+              },
+              {
+                "seq": 75,
+                "key": "pSk",
+                "value": "피부 표기 - 피부 흡수 가능성",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "pSk 피부 표기 - 피부 흡수 가능성"
+              },
+              {
+                "seq": 76,
+                "key": "본 물질안전보건자료를 작성하는데 사용된 주요 참조 문헌 및 출처",
+                "value": "미국 독성 물질 및 질병 등록 기관 (Agency for Toxic Substances and Disease Registry, ATSDR)",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "미국 독성 물질 및 질병 등록 기관 (Agency for Toxic Substances and Disease Registry, ATSDR)"
+              },
+              {
+                "seq": 77,
+                "key": "본 물질안전보건자료를 작성하는데 사용된 주요 참조 문헌 및 출처",
+                "value": "미국 환경보호국 ChemView 데이터베이스",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "미국 환경보호국 ChemView 데이터베이스"
+              },
+              {
+                "seq": 78,
+                "key": "본 물질안전보건자료를 작성하는데 사용된 주요 참조 문헌 및 출처",
+                "value": "유럽 식품 안정청 (EFSA)",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "유럽 식품 안정청 (EFSA)"
+              },
+              {
+                "seq": 79,
+                "key": "본 물질안전보건자료를 작성하는데 사용된 주요 참조 문헌 및 출처",
+                "value": "미국 환경 보호국 (Environmental Protection Agency)",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "미국 환경 보호국 (Environmental Protection Agency)"
+              },
+              {
+                "seq": 80,
+                "key": "본 물질안전보건자료를 작성하는데 사용된 주요 참조 문헌 및 출처",
+                "value": "미국 환경보호청(EPA) 급성 노출 가이드라인 수준(AEGL)",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "미국 환경보호청(EPA) 급성 노출 가이드라인 수준(AEGL)"
+              },
+              {
+                "seq": 81,
+                "key": "본 물질안전보건자료를 작성하는데 사용된 주요 참조 문헌 및 출처",
+                "value": "미국 환경보호국 연방 살충제, 살진균제 및 살서제 법",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "미국 환경보호국 연방 살충제, 살진균제 및 살서제 법"
+              },
+              {
+                "seq": 82,
+                "key": "본 물질안전보건자료를 작성하는데 사용된 주요 참조 문헌 및 출처",
+                "value": "미국 환경보호국 대량 생산 화학물질",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "미국 환경보호국 대량 생산 화학물질"
+              },
+              {
+                "seq": 83,
+                "key": "본 물질안전보건자료를 작성하는데 사용된 주요 참조 문헌 및 출처",
+                "value": "식품 연구 저널 (Food Research Journal)",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "식품 연구 저널 (Food Research Journal)"
+              },
+              {
+                "seq": 84,
+                "key": "본 물질안전보건자료를 작성하는데 사용된 주요 참조 문헌 및 출처",
+                "value": "유해 물질 데이터베이스",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "유해 물질 데이터베이스"
+              },
+              {
+                "seq": 85,
+                "key": "본 물질안전보건자료를 작성하는데 사용된 주요 참조 문헌 및 출처",
+                "value": "국제 통합 화학물질 정보 데이타베이스 (IUCLID)",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "국제 통합 화학물질 정보 데이타베이스 (IUCLID)"
+              },
+              {
+                "seq": 86,
+                "key": "본 물질안전보건자료를 작성하는데 사용된 주요 참조 문헌 및 출처",
+                "value": "일본 국립 기술 평가 연구소 (National Institute of Technology and Evaluation, NITE)",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "일본 국립 기술 평가 연구소 (National Institute of Technology and Evaluation, NITE)"
+              },
+              {
+                "seq": 87,
+                "key": "본 물질안전보건자료를 작성하는데 사용된 주요 참조 문헌 및 출처",
+                "value": "호주 국립 산업 화학물질 신고 및 평가 계획 (NICNAS)",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "호주 국립 산업 화학물질 신고 및 평가 계획 (NICNAS)"
+              },
+              {
+                "seq": 88,
+                "key": "본 물질안전보건자료를 작성하는데 사용된 주요 참조 문헌 및 출처",
+                "value": "NIOSH (산업 안전 및 보건에 관한 국립 연구소)",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "NIOSH (산업 안전 및 보건에 관한 국립 연구소)"
+              },
+              {
+                "seq": 89,
+                "key": "본 물질안전보건자료를 작성하는데 사용된 주요 참조 문헌 및 출처",
+                "value": "의약품의 ChemID 플러스의 국립 라이브러리 (NLM CIP)",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "의약품의 ChemID 플러스의 국립 라이브러리 (NLM CIP)"
+              },
+              {
+                "seq": 90,
+                "key": "본 물질안전보건자료를 작성하는데 사용된 주요 참조 문헌 및 출처",
+                "value": "국립 의약품 PubMed 데이터베이스 라이브러리 (NLM PUBMED)",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "국립 의약품 PubMed 데이터베이스 라이브러리 (NLM PUBMED)"
+              },
+              {
+                "seq": 91,
+                "key": "본 물질안전보건자료를 작성하는데 사용된 주요 참조 문헌 및 출처",
+                "value": "미국 국립 독성 프로그램 (NTP)",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "미국 국립 독성 프로그램 (NTP)"
+              },
+              {
+                "seq": 92,
+                "key": "본 물질안전보건자료를 작성하는데 사용된 주요 참조 문헌 및 출처",
+                "value": "뉴질랜드 화학물질 분류 및 정보 데이터베이스 (CCID)",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "뉴질랜드 화학물질 분류 및 정보 데이터베이스 (CCID)"
+              },
+              {
+                "seq": 93,
+                "key": "본 물질안전보건자료를 작성하는데 사용된 주요 참조 문헌 및 출처",
+                "value": "국제 경제협력개발기구 (International Organization for Economic Co-operation and Development , OECD) 환경, 보건 및 안전 간행물",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "국제 경제협력개발기구 (International Organization for Economic Co-operation and Development , OECD) 환경, 보건 및 안전 간행물"
+              },
+              {
+                "seq": 94,
+                "key": "본 물질안전보건자료를 작성하는데 사용된 주요 참조 문헌 및 출처",
+                "value": "국제 경제협력개발기구 (International Organization for Economic Co-operation and Development , OECD) 대량 생산 화학물질 프로그램",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "국제 경제협력개발기구 (International Organization for Economic Co-operation and Development , OECD) 대량 생산 화학물질 프로그램"
+              },
+              {
+                "seq": 95,
+                "key": "본 물질안전보건자료를 작성하는데 사용된 주요 참조 문헌 및 출처",
+                "value": "국제 경제협력개발기구 (International Organization for Economic Co-operation and Development , OECD)) 스크리닝 정보 자료 세트",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "국제 경제협력개발기구 (International Organization for Economic Co-operation and Development , OECD)) 스크리닝 정보 자료 세트"
+              },
+              {
+                "seq": 96,
+                "key": "본 물질안전보건자료를 작성하는데 사용된 주요 참조 문헌 및 출처",
+                "value": "유엔 세계보건기구 (World Health Organization, WHO)",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "유엔 세계보건기구 (World Health Organization, WHO)"
+              }
+            ]
+          },
+          {
+            "item_code": "S16_OTHER",
+            "title_raw": "라. 기타",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "라. 기타",
+                "value": "-.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "라. 기타 -."
+              },
+              {
+                "seq": 2,
+                "key": "책임 제한",
+                "value": "본 물질안전보건자료에서 제공되는 정보는 발행 시점에서 당사의 최선의 지식과 믿음에 따라 정확한 것임.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "본 물질안전보건자료에서 제공되는 정보는 발행 시점에서 당사의 최선의 지식과 믿음에 따라 정확한 것임."
+              },
+              {
+                "seq": 3,
+                "key": "책임 제한",
+                "value": "본 정보는 안전한 취급, 사용, 처리, 보관, 운송, 폐기 및 누출에 대한 지침으로만 의도된 것이고 보증 또는 품질 규격으로 간주되어서는 안됨.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "본 정보는 안전한 취급, 사용, 처리, 보관, 운송, 폐기 및 누출에 대한 지침으로만 의도된 것이고 보증 또는 품질 규격으로 간주되어서는 안됨."
+              },
+              {
+                "seq": 4,
+                "key": "책임 제한",
+                "value": "본 정보는 명시된 물질에만 관련되며 다른 물질과 결합되어 사용되는 물질 또는 기타 본문에 구체적으로 명시되지 않은 다른 공정에 대해서는 유효하지 않을 수 있음.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "본 정보는 명시된 물질에만 관련되며 다른 물질과 결합되어 사용되는 물질 또는 기타 본문에 구체적으로 명시되지 않은 다른 공정에 대해서는 유효하지 않을 수 있음."
+              },
+              {
+                "seq": 5,
+                "key": "책임 제한",
+                "value": "New England Biolabs는 본 제품의 취급 또는 접촉으로부터 초래되는 어떠한 손해에 대해서도 책임이 없음.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "New England Biolabs는 본 제품의 취급 또는 접촉으로부터 초래되는 어떠한 손해에 대해서도 책임이 없음."
+              },
+              {
+                "seq": 6,
+                "key": null,
+                "value": "안전 보건 자료의 끝",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "안전 보건 자료의 끝"
+              }
+            ]
+          }
+        ],
+        "extras": [
+          {
+            "seq": 1,
+            "section_no": 0,
+            "after_item": null,
+            "title_raw": "MOEL AA Number",
+            "reason": "판단불가",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "이용가능한 자료 없음",
+              "approx": null,
+              "value": null,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": null,
+              "dp": null,
+              "status": "자료없음",
+              "note": null
+            },
+            "statements": [
+              {
+                "seq": 1,
+                "key": "MOEL AA Number",
+                "value": "이용가능한 자료 없음",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "MOEL AA Number 이용가능한 자료 없음"
+              }
+            ],
+            "suggested_code": "meta.moel_no",
+            "page": 1
+          },
+          {
+            "seq": 2,
+            "section_no": 0,
+            "after_item": null,
+            "title_raw": "본 물질안전보건자료는 다음의 요구사항에 따라 작성되었음:",
+            "reason": "필드없음",
+            "comp_ref": "MIX",
+            "q": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": "본 물질안전보건자료는 다음의 요구사항에 따라 작성되었음",
+                "value": "고용노동부 고시 제2023-9호 화학물질의 분류, 표시 및 물질안전보건자료에 관한 기준",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "본 물질안전보건자료는 다음의 요구사항에 따라 작성되었음: 고용노동부 고시 제2023-9호 화학물질의 분류, 표시 및 물질안전보건자료에 관한 기준"
+              }
+            ],
+            "suggested_code": "meta.compliance_basis",
+            "page": 1
+          },
+          {
+            "seq": 3,
+            "section_no": 9,
+            "after_item": "기타 정보",
+            "title_raw": "VOC 함량",
+            "reason": "판단불가",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료 없음",
+              "approx": null,
+              "value": null,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": null,
+              "dp": null,
+              "status": "자료없음",
+              "note": null
+            },
+            "statements": [],
+            "suggested_code": "VOC_CONTENT",
+            "page": 4
+          },
+          {
+            "seq": 4,
+            "section_no": 9,
+            "after_item": "하. 비중",
+            "title_raw": "벌크 밀도",
+            "reason": "판단불가",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료 없음",
+              "approx": null,
+              "value": null,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": null,
+              "dp": null,
+              "status": "자료없음",
+              "note": null
+            },
+            "statements": [],
+            "suggested_code": "BULK_DENSITY",
+            "page": 4
+          },
+          {
+            "seq": 5,
+            "section_no": 9,
+            "after_item": "벌크 밀도",
+            "title_raw": "액체 밀도",
+            "reason": "판단불가",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료 없음",
+              "approx": null,
+              "value": null,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": null,
+              "dp": null,
+              "status": "자료없음",
+              "note": null
+            },
+            "statements": [],
+            "suggested_code": "LIQUID_DENSITY",
+            "page": 4
+          },
+          {
+            "seq": 6,
+            "section_no": 9,
+            "after_item": "더. 분해 온도",
+            "title_raw": "SADT (°C)",
+            "reason": "판단불가",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료 없음",
+              "approx": null,
+              "value": null,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": null,
+              "dp": null,
+              "status": "자료없음",
+              "note": null
+            },
+            "statements": [
+              {
+                "seq": 1,
+                "key": "참조 • 방법",
+                "value": "알려진 것 없음",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "SADT (°C) 자료 없음 알려진 것 없음"
+              }
+            ],
+            "suggested_code": "SADT",
+            "page": 4
+          },
+          {
+            "seq": 7,
+            "section_no": 11,
+            "after_item": "특정표적장기독성 - 반복 노출",
+            "title_raw": "표적 장기 영향",
+            "reason": "판단불가",
+            "comp_ref": "MIX",
+            "q": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": "표적 장기 영향",
+                "value": "자료 없음.",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "표적 장기 영향 자료 없음."
+              }
+            ],
+            "suggested_code": "TARGET_ORGAN_EFFECTS",
+            "page": 5
+          },
+          {
+            "seq": 8,
+            "section_no": 15,
+            "after_item": "국제 화학물질 목록",
+            "title_raw": "범례:",
+            "reason": "필드없음",
+            "comp_ref": null,
+            "q": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": "TSCA",
+                "value": "미국 독성물질관리법 8(b) 목록",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "TSCA  - 미국 독성물질관리법 8(b) 목록"
+              },
+              {
+                "seq": 2,
+                "key": "DSL/NDSL",
+                "value": "캐나다 국내 화학물질 목록/비국내 화학물질 목록",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "DSL/NDSL  - 캐나다 국내 화학물질 목록/비국내 화학물질 목록"
+              },
+              {
+                "seq": 3,
+                "key": "EINECS/ELINCS",
+                "value": "유럽 기존화학물질 목록/유럽 등록 화학물질 목록",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "EINECS/ELINCS  - 유럽 기존화학물질 목록/유럽 등록 화학물질 목록"
+              },
+              {
+                "seq": 4,
+                "key": "ENCS",
+                "value": "일본 기존 및 신규 화학 물질",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "ENCS  - 일본 기존 및 신규 화학 물질"
+              },
+              {
+                "seq": 5,
+                "key": "IECSC",
+                "value": "중국 기존 화학 물질 목록",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "IECSC  - 중국 기존 화학 물질 목록"
+              },
+              {
+                "seq": 6,
+                "key": "KECL",
+                "value": "한국 기존화학물질 목록",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "KECL  - 한국 기존화학물질 목록"
+              },
+              {
+                "seq": 7,
+                "key": "PICCS",
+                "value": "필리핀 화학 물질 목록",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "PICCS  - 필리핀 화학 물질 목록"
+              },
+              {
+                "seq": 8,
+                "key": "AICS",
+                "value": "호주 화학물질 목록",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "AICS  - 호주 화학물질 목록"
+              },
+              {
+                "seq": 9,
+                "key": "NZIoC",
+                "value": "뉴질랜드 화학 물질 목록",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "NZIoC  - 뉴질랜드 화학 물질 목록"
+              },
+              {
+                "seq": 10,
+                "key": "TCSI",
+                "value": "대만 화학 물질 목록",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "TCSI  - 대만 화학 물질 목록"
+              }
+            ],
+            "suggested_code": "S15_OTHER",
+            "page": 7
+          },
+          {
+            "seq": 9,
+            "section_no": 16,
+            "after_item": "S16_SOURCE",
+            "title_raw": "개정 비고",
+            "reason": "판단불가",
+            "comp_ref": "MIX",
+            "q": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": "개정 비고",
+                "value": "컴포지션으로 변경",
+                "refs": null,
+                "cond": null,
+                "std_code": null,
+                "match_score": null,
+                "text": "개정 비고 컴포지션으로 변경"
+              }
+            ],
+            "suggested_code": "meta.revision_note",
+            "page": 9
+          }
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "msds_index": 0,
+        "field": "narratives[0]",
+        "page": 2,
+        "source_text": "가. 눈에 들어갔을 때 | 다량의 물로 최소 15분간 위, 아래 눈꺼풀을 들면서 철저히 씻어낼 것. 의학적인 조치/조언을  구하시오.",
+        "rules": [
+          "R14",
+          "R04"
+        ],
+        "note": "두 문장으로 나누고 '최소 15분간'을 cond(>=15 min)로 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[1]",
+        "page": 2,
+        "source_text": "나. 피부에 접촉했을 때 | 피부를 비누와 물로 씻어 내시오.",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[2]",
+        "page": 2,
+        "source_text": "다. 흡입했을 때 | 신선한 공기가 있는 곳으로 옮길 것.",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[3]",
+        "page": 2,
+        "source_text": "라. 먹었을 때 | 입을 씻어내시오.",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[4]",
+        "page": 2,
+        "source_text": "의사 참고 사항 | 징후에 따라 치료하시오. | 증상 | 자료 없음. | 노출 영향 | 자료 없음.",
+        "rules": [
+          "R14"
+        ],
+        "note": "소항목명을 key로 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[5]",
+        "page": 2,
+        "source_text": "적절한 소화제 | 현지 상황과 주변 환경에 적절한 소화 방법을 사용하시오. | 대형 화재 | 주의: 화재 진압시 물 스프레이를 사용하는 것은 비효율적일 수 있음. | 부적절한 소화제 | 누출된 물질을 강한 압력의 물줄기로 흩어트리지 말 것.",
+        "rules": [
+          "R14"
+        ],
+        "note": "소항목명을 key로 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[6]",
+        "page": 2,
+        "source_text": "나. 화학물질로부터 생기는 특정 유해성 | 자료 없음.",
+        "rules": [
+          "R15"
+        ],
+        "note": "'자료 없음'을 status 자료없음으로 기록"
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[7]",
+        "page": 2,
+        "source_text": "소방대원은 자급식 호흡보호구와 완전 화재진압 보호장비를 착용하여야 함. 개인 보호장비를 사용하시오.",
+        "rules": [
+          "R14"
+        ],
+        "note": "두 문장으로 나눔"
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[8]",
+        "page": 2,
+        "source_text": "개인 주의사항 | 적절한 환기가 되도록 할 것. | 응급 구조대원용 | 8항의 권장 개인보호구를 사용할 것.",
+        "rules": [
+          "R14"
+        ],
+        "note": "소항목명을 key로 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[9]",
+        "page": 2,
+        "source_text": "추가 생태학적 정보는 12항을 참조.",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[10]",
+        "page": 3,
+        "source_text": "봉쇄 방법 | 안전하게 처리하는 것이 가능하면 추가 누출 또는 유출을 막으시오. | 정화 방법 | 둑으로 막을 것. 불활성 흡수제로 빨아들이시오. ... | 2차 유해/위험 방지 | 환경 규정을 준수하여 ...",
+        "rules": [
+          "R14"
+        ],
+        "note": "소항목명을 key로, 두 줄에 걸친 정화 방법 문장을 이어 붙여 문장 단위로 나눔"
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[11]",
+        "page": 3,
+        "source_text": "안전취급조언 | 올바른 산업 위생과 안전 조치에 맞게 취급하시오.",
+        "rules": [
+          "R14"
+        ],
+        "note": "소항목명을 key로 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[12]",
+        "page": 3,
+        "source_text": "보관 조건 | 용기를 단단히 밀폐하여 건조하고 서늘하며 환기가 잘 되는 곳에 보관하시오. | 일반 위생 고려사항 | 올바른 산업 위생과 안전 조치에 맞게 취급하시오.",
+        "rules": [
+          "R14"
+        ],
+        "note": "소항목명을 key로 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[13]",
+        "page": 3,
+        "source_text": "공학적 관리 | 샤워기 | 세안기 | 환기 시스템. | 환경 노출 관리 | 자료 없음.",
+        "rules": [
+          "R14"
+        ],
+        "note": "줄 단위로 나누고 소항목명을 key로 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[14]",
+        "page": 3,
+        "source_text": "호흡기 보호 | 일반적 사용 조건 하에서는 보호 장비가 필요하지 않음. 노출 기준이 초과되었거나 자극을 경험한 경우, 환기 및 대피가 필요할 수 있음.",
+        "rules": [
+          "R14"
+        ],
+        "note": "두 줄을 이어 붙여 두 문장으로 나눔"
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[15]",
+        "page": 3,
+        "source_text": "눈 보호 | 특별한 보호구가 필요하지 않음.",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[16]",
+        "page": 3,
+        "source_text": "손 보호 | 특별한 보호구가 필요하지 않음.",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[17]",
+        "page": 3,
+        "source_text": "신체 보호 | 특별한 보호구가 필요하지 않음.",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[18]",
+        "page": 4,
+        "source_text": "안정성 | 일반 조건하에서 안정함. | 유해 반응의 가능성 | 정상 처리 시 없음. | 폭발 데이터 | 기계충격감도 | 없음. | 정전 방전감도 | 없음.",
+        "rules": [
+          "R14"
+        ],
+        "note": "소항목명을 key로 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[19]",
+        "page": 4,
+        "source_text": "나. 피해야 할 조건(정전기 방전, 충격, 진동 등) | 제공된 정보에 근거하면 알려진 바 없음.",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[20]",
+        "page": 4,
+        "source_text": "다. 피해야 할 물질 | 제공된 정보에 근거하면 알려진 바 없음.",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[21]",
+        "page": 4,
+        "source_text": "라. 분해시 생성되는 유해물질 | 제공된 정보에 근거하면 알려진 바 없음.",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[22]",
+        "page": 5,
+        "source_text": "흡입 | 물질 또는 혼합물에 대한 구체적인 자료가 이용가능하지 않음. | 섭취 | ... | 눈 접촉 | ... | 피부 접촉 | ... | 증상 | 자료 없음.",
+        "rules": [
+          "R14"
+        ],
+        "note": "노출 경로명을 key로 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[23]",
+        "page": 6,
+        "source_text": "마. 기타 유해 영향 | 자료 없음.",
+        "rules": [
+          "R15"
+        ],
+        "note": "'자료 없음'을 status 자료없음으로 기록"
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[24]",
+        "page": 6,
+        "source_text": "잔여물/미사용 제품의 폐기물 | 지역 규정에 따라 폐기 하시오. 폐기물을 환경 법규에 따라 폐기할 것.",
+        "rules": [
+          "R14"
+        ],
+        "note": "소항목명을 key로, 두 문장으로 나눔"
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[25]",
+        "page": 6,
+        "source_text": "오염된 포장 | 빈 용기를 재사용하지 마시오.",
+        "rules": [
+          "R14"
+        ],
+        "note": "소항목명을 key로 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[26]",
+        "page": 6,
+        "source_text": "바. 사용자에 대한 특별 주의사항 | 규제되지 않음",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[27]",
+        "page": 7,
+        "source_text": "가. 자료의 출처 | 안전 보건 자료에서 사용된 약어에 대한 기호표 또는 범례 | 목록에는 본 제품에 적용되지 않는 문구가 포함될 수 있음 | ACGIH | 미국 산업 위생 전문가 협의회",
+        "rules": [
+          "R14"
+        ],
+        "note": "7~9쪽에 걸친 약어 표 각 행을 약어=key로, 9쪽 참조 문헌 목록은 소제목을 key로 하여 줄 단위로 나눔"
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[28]",
+        "page": 9,
+        "source_text": "라. 기타 | -. | 책임 제한 | 본 물질안전보건자료에서 제공되는 정보는 발행 시점에서 당사의 최선의 지식과 믿음에 따라 정확한 것임. ...",
+        "rules": [
+          "R14"
+        ],
+        "note": "라. 기타와 책임 제한 각주를 S16_OTHER 하나로 합치고 원래 소제목을 key로 남김"
+      },
+      {
+        "msds_index": 0,
+        "field": "extras[0]",
+        "page": 1,
+        "source_text": "MOEL AA Number 이용가능한 자료 없음",
+        "rules": [
+          "R24",
+          "R15"
+        ],
+        "note": "맞는 칸을 확신할 수 없어 extras(판단불가)로 보냄"
+      },
+      {
+        "msds_index": 0,
+        "field": "extras[1]",
+        "page": 1,
+        "source_text": "본 물질안전보건자료는 다음의 요구사항에 따라 작성되었음: 고용노동부 고시 제2023-9호 화학물질의 분류, 표시 및 물질안전보건자료에 관한 기준",
+        "rules": [
+          "R24"
+        ],
+        "note": "작성 근거 고시 문구를 담을 칸이 없어 extras로 보냄"
+      },
+      {
+        "msds_index": 0,
+        "field": "extras[2]",
+        "page": 4,
+        "source_text": "VOC 함량 | 자료 없음",
+        "rules": [
+          "R24",
+          "R15"
+        ],
+        "note": "정식 물성 칸 여부가 불확실하여 extras(판단불가)로 보냄"
+      },
+      {
+        "msds_index": 0,
+        "field": "extras[3]",
+        "page": 4,
+        "source_text": "벌크 밀도 | 자료 없음",
+        "rules": [
+          "R24",
+          "R15"
+        ],
+        "note": "정식 물성 칸 여부가 불확실하여 extras(판단불가)로 보냄"
+      },
+      {
+        "msds_index": 0,
+        "field": "extras[4]",
+        "page": 4,
+        "source_text": "액체 밀도 | 자료 없음",
+        "rules": [
+          "R24",
+          "R15"
+        ],
+        "note": "정식 물성 칸 여부가 불확실하여 extras(판단불가)로 보냄"
+      },
+      {
+        "msds_index": 0,
+        "field": "extras[5]",
+        "page": 4,
+        "source_text": "SADT (°C) | 자료 없음 | 알려진 것 없음",
+        "rules": [
+          "R24",
+          "R15"
+        ],
+        "note": "정식 물성 칸 여부가 불확실하여 extras(판단불가)로 보냄"
+      },
+      {
+        "msds_index": 0,
+        "field": "extras[6]",
+        "page": 5,
+        "source_text": "표적 장기 영향 | 자료 없음.",
+        "rules": [
+          "R24"
+        ],
+        "note": "독성 정식 칸 여부가 불확실하여 extras(판단불가)로 보냄"
+      },
+      {
+        "msds_index": 0,
+        "field": "extras[7]",
+        "page": 7,
+        "source_text": "범례: | TSCA - 미국 독성물질관리법 8(b) 목록 | DSL/NDSL - 캐나다 국내 화학물질 목록/비국내 화학물질 목록 | ...",
+        "rules": [
+          "R24",
+          "R14"
+        ],
+        "note": "15항 국제 화학물질 목록 범례를 담을 칸이 없어 약어=key로 나누어 extras로 보냄"
+      },
+      {
+        "msds_index": 0,
+        "field": "extras[8]",
+        "page": 9,
+        "source_text": "개정 비고 | 컴포지션으로 변경",
+        "rules": [
+          "R24"
+        ],
+        "note": "관리정보 칸 존재 여부가 불확실하여 extras(판단불가)로 보냄"
+      }
+    ]
+  },
+  "raw_text": "{\"msds\":[{\"narratives\":[{\"item_code\":\"S4_EYE\",\"title_raw\":\"가. 눈에 들어갔을 때\",\"status\":\"값있음\",\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"다량의 물로 최소 15분간 위, 아래 눈꺼풀을 들면서 철저히 씻어낼 것.\",\"refs\":null,\"cond\":{\"raw\":\"최소 15분간\",\"approx\":null,\"value\":null,\"lower_op\":\">=\",\"lower\":15,\"upper_op\":null,\"upper\":null,\"unit\":\"min\",\"dp\":0,\"status\":\"값있음\",\"note\":null},\"std_code\":null,\"match_score\":null,\"text\":\"다량의 물로 최소 15분간 위, 아래 눈꺼풀을 들면서 철저히 씻어낼 것. 의학적인 조치/조언을  구하시오.\"},{\"seq\":2,\"key\":null,\"value\":\"의학적인 조치/조언을  구하시오.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"다량의 물로 최소 15분간 위, 아래 눈꺼풀을 들면서 철저히 씻어낼 것. 의학적인 조치/조언을  구하시오.\"}]},{\"item_code\":\"S4_SKIN\",\"title_raw\":\"나. 피부에 접촉했을 때\",\"status\":\"값있음\",\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"피부를 비누와 물로 씻어 내시오.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"피부를 비누와 물로 씻어 내시오.\"}]},{\"item_code\":\"S4_INHAL\",\"title_raw\":\"다. 흡입했을 때\",\"status\":\"값있음\",\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"신선한 공기가 있는 곳으로 옮길 것.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"신선한 공기가 있는 곳으로 옮길 것.\"}]},{\"item_code\":\"S4_INGEST\",\"title_raw\":\"라. 먹었을 때\",\"status\":\"값있음\",\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"입을 씻어내시오.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"입을 씻어내시오.\"}]},{\"item_code\":\"S4_DOCTOR\",\"title_raw\":\"마. 기타 의사의 주의사항\",\"status\":\"값있음\",\"statements\":[{\"seq\":1,\"key\":\"의사 참고 사항\",\"value\":\"징후에 따라 치료하시오.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"의사 참고 사항 징후에 따라 치료하시오.\"},{\"seq\":2,\"key\":\"증상\",\"value\":\"자료 없음.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"증상 자료 없음.\"},{\"seq\":3,\"key\":\"노출 영향\",\"value\":\"자료 없음.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"노출 영향 자료 없음.\"}]},{\"item_code\":\"S5_MEDIA\",\"title_raw\":\"가. 적절한 (및 부적절한) 소화제\",\"status\":\"값있음\",\"statements\":[{\"seq\":1,\"key\":\"적절한 소화제\",\"value\":\"현지 상황과 주변 환경에 적절한 소화 방법을 사용하시오.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"적절한 소화제 현지 상황과 주변 환경에 적절한 소화 방법을 사용하시오.\"},{\"seq\":2,\"key\":\"대형 화재\",\"value\":\"주의: 화재 진압시 물 스프레이를 사용하는 것은 비효율적일 수 있음.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"대형 화재 주의: 화재 진압시 물 스프레이를 사용하는 것은 비효율적일 수 있음.\"},{\"seq\":3,\"key\":\"부적절한 소화제\",\"value\":\"누출된 물질을 강한 압력의 물줄기로 흩어트리지 말 것.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"부적절한 소화제 누출된 물질을 강한 압력의 물줄기로 흩어트리지 말 것.\"}]},{\"item_code\":\"S5_SPECIFIC\",\"title_raw\":\"나. 화학물질로부터 생기는 특정 유해성\",\"status\":\"자료없음\",\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"자료 없음.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"자료 없음.\"}]},{\"item_code\":\"S5_FIREFIGHT\",\"title_raw\":\"다. 화재 진압 시 착용할 보호구 및 예방조치\",\"status\":\"값있음\",\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"소방대원은 자급식 호흡보호구와 완전 화재진압 보호장비를 착용하여야 함.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"소방대원은 자급식 호흡보호구와 완전 화재진압 보호장비를 착용하여야 함. 개인 보호장비를 사용하시오.\"},{\"seq\":2,\"key\":null,\"value\":\"개인 보호장비를 사용하시오.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"소방대원은 자급식 호흡보호구와 완전 화재진압 보호장비를 착용하여야 함. 개인 보호장비를 사용하시오.\"}]},{\"item_code\":\"S6_PERSONAL\",\"title_raw\":\"가. 인체를 보호하기 위한 필요한 조치 사항 및 보호구\",\"status\":\"값있음\",\"statements\":[{\"seq\":1,\"key\":\"개인 주의사항\",\"value\":\"적절한 환기가 되도록 할 것.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"개인 주의사항 적절한 환기가 되도록 할 것.\"},{\"seq\":2,\"key\":\"응급 구조대원용\",\"value\":\"8항의 권장 개인보호구를 사용할 것.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"응급 구조대원용 8항의 권장 개인보호구를 사용할 것.\"}]},{\"item_code\":\"S6_ENV\",\"title_raw\":\"나. 환경을 보호하기 위해 필요한 조치사항\",\"status\":\"값있음\",\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"추가 생태학적 정보는 12항을 참조.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"추가 생태학적 정보는 12항을 참조.\"}]},{\"item_code\":\"S6_CLEANUP\",\"title_raw\":\"다. 정화 또는 제거 방법\",\"status\":\"값있음\",\"statements\":[{\"seq\":1,\"key\":\"봉쇄 방법\",\"value\":\"안전하게 처리하는 것이 가능하면 추가 누출 또는 유출을 막으시오.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"봉쇄 방법 안전하게 처리하는 것이 가능하면 추가 누출 또는 유출을 막으시오.\"},{\"seq\":2,\"key\":\"정화 방법\",\"value\":\"둑으로 막을 것.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"정화 방법 둑으로 막을 것. 불활성 흡수제로 빨아들이시오. 적절하게 라벨이 부착된 용기로 들어 운반하시오. 오염된 표면을 철저히 세척하시오.\"},{\"seq\":3,\"key\":\"정화 방법\",\"value\":\"불활성 흡수제로 빨아들이시오.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"정화 방법 둑으로 막을 것. 불활성 흡수제로 빨아들이시오. 적절하게 라벨이 부착된 용기로 들어 운반하시오. 오염된 표면을 철저히 세척하시오.\"},{\"seq\":4,\"key\":\"정화 방법\",\"value\":\"적절하게 라벨이 부착된 용기로 들어 운반하시오.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"정화 방법 둑으로 막을 것. 불활성 흡수제로 빨아들이시오. 적절하게 라벨이 부착된 용기로 들어 운반하시오. 오염된 표면을 철저히 세척하시오.\"},{\"seq\":5,\"key\":\"정화 방법\",\"value\":\"오염된 표면을 철저히 세척하시오.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"정화 방법 둑으로 막을 것. 불활성 흡수제로 빨아들이시오. 적절하게 라벨이 부착된 용기로 들어 운반하시오. 오염된 표면을 철저히 세척하시오.\"},{\"seq\":6,\"key\":\"2차 유해/위험 방지\",\"value\":\"환경 규정을 준수하여 오염된 물체와 지역을 철저히 세척하시오.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"2차 유해/위험 방지 환경 규정을 준수하여 오염된 물체와 지역을 철저히 세척하시오.\"}]},{\"item_code\":\"S7_HANDLING\",\"title_raw\":\"가. 안전취급요령\",\"status\":\"값있음\",\"statements\":[{\"seq\":1,\"key\":\"안전취급조언\",\"value\":\"올바른 산업 위생과 안전 조치에 맞게 취급하시오.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"안전취급조언 올바른 산업 위생과 안전 조치에 맞게 취급하시오.\"}]},{\"item_code\":\"S7_STORAGE\",\"title_raw\":\"나. 안전한 저장 방법(피해야 할 조건을 포함함)\",\"status\":\"값있음\",\"statements\":[{\"seq\":1,\"key\":\"보관 조건\",\"value\":\"용기를 단단히 밀폐하여 건조하고 서늘하며 환기가 잘 되는 곳에 보관하시오.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"보관 조건 용기를 단단히 밀폐하여 건조하고 서늘하며 환기가 잘 되는 곳에 보관하시오.\"},{\"seq\":2,\"key\":\"일반 위생 고려사항\",\"value\":\"올바른 산업 위생과 안전 조치에 맞게 취급하시오.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"일반 위생 고려사항 올바른 산업 위생과 안전 조치에 맞게 취급하시오.\"}]},{\"item_code\":\"S8_ENG\",\"title_raw\":\"나. 적절한 공학적 관리\",\"status\":\"값있음\",\"statements\":[{\"seq\":1,\"key\":\"공학적 관리\",\"value\":\"샤워기\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"공학적 관리 샤워기\"},{\"seq\":2,\"key\":\"공학적 관리\",\"value\":\"세안기\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"세안기\"},{\"seq\":3,\"key\":\"공학적 관리\",\"value\":\"환기 시스템.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"환기 시스템.\"},{\"seq\":4,\"key\":\"환경 노출 관리\",\"value\":\"자료 없음.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"환경 노출 관리 자료 없음.\"}]},{\"item_code\":\"S8_RESP\",\"title_raw\":\"호흡기 보호\",\"status\":\"값있음\",\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"일반적 사용 조건 하에서는 보호 장비가 필요하지 않음.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"일반적 사용 조건 하에서는 보호 장비가 필요하지 않음. 노출 기준이 초과되었거나 자극을 경험한 경우, 환기 및 대피가 필요할 수 있음.\"},{\"seq\":2,\"key\":null,\"value\":\"노출 기준이 초과되었거나 자극을 경험한 경우, 환기 및 대피가 필요할 수 있음.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"일반적 사용 조건 하에서는 보호 장비가 필요하지 않음. 노출 기준이 초과되었거나 자극을 경험한 경우, 환기 및 대피가 필요할 수 있음.\"}]},{\"item_code\":\"S8_EYE\",\"title_raw\":\"눈 보호\",\"status\":\"값있음\",\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"특별한 보호구가 필요하지 않음.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"특별한 보호구가 필요하지 않음.\"}]},{\"item_code\":\"S8_HAND\",\"title_raw\":\"손 보호\",\"status\":\"값있음\",\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"특별한 보호구가 필요하지 않음.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"특별한 보호구가 필요하지 않음.\"}]},{\"item_code\":\"S8_BODY\",\"title_raw\":\"신체 보호\",\"status\":\"값있음\",\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"특별한 보호구가 필요하지 않음.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"특별한 보호구가 필요하지 않음.\"}]},{\"item_code\":\"S10_STABILITY\",\"title_raw\":\"가. 화학적 안정성 및 유해 반응의 가능성\",\"status\":\"값있음\",\"statements\":[{\"seq\":1,\"key\":\"안정성\",\"value\":\"일반 조건하에서 안정함.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"안정성 일반 조건하에서 안정함.\"},{\"seq\":2,\"key\":\"유해 반응의 가능성\",\"value\":\"정상 처리 시 없음.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"유해 반응의 가능성 정상 처리 시 없음.\"},{\"seq\":3,\"key\":\"기계충격감도\",\"value\":\"없음.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"폭발 데이터 기계충격감도 없음.\"},{\"seq\":4,\"key\":\"정전 방전감도\",\"value\":\"없음.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"정전 방전감도 없음.\"}]},{\"item_code\":\"S10_CONDITIONS\",\"title_raw\":\"나. 피해야 할 조건(정전기 방전, 충격, 진동 등)\",\"status\":\"값있음\",\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"제공된 정보에 근거하면 알려진 바 없음.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"제공된 정보에 근거하면 알려진 바 없음.\"}]},{\"item_code\":\"S10_INCOMPAT\",\"title_raw\":\"다. 피해야 할 물질\",\"status\":\"값있음\",\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"제공된 정보에 근거하면 알려진 바 없음.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"제공된 정보에 근거하면 알려진 바 없음.\"}]},{\"item_code\":\"S10_DECOMP\",\"title_raw\":\"라. 분해시 생성되는 유해물질\",\"status\":\"값있음\",\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"제공된 정보에 근거하면 알려진 바 없음.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"제공된 정보에 근거하면 알려진 바 없음.\"}]},{\"item_code\":\"S11_ROUTE\",\"title_raw\":\"가. 가능성이 높은 노출 경로에 관한 정보\",\"status\":\"값있음\",\"statements\":[{\"seq\":1,\"key\":\"흡입\",\"value\":\"물질 또는 혼합물에 대한 구체적인 자료가 이용가능하지 않음.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"흡입 물질 또는 혼합물에 대한 구체적인 자료가 이용가능하지 않음.\"},{\"seq\":2,\"key\":\"섭취\",\"value\":\"물질 또는 혼합물에 대한 구체적인 자료가 이용가능하지 않음.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"섭취 물질 또는 혼합물에 대한 구체적인 자료가 이용가능하지 않음.\"},{\"seq\":3,\"key\":\"눈 접촉\",\"value\":\"물질 또는 혼합물에 대한 구체적인 자료가 이용가능하지 않음.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"눈 접촉 물질 또는 혼합물에 대한 구체적인 자료가 이용가능하지 않음.\"},{\"seq\":4,\"key\":\"피부 접촉\",\"value\":\"물질 또는 혼합물에 대한 구체적인 자료가 이용가능하지 않음.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"피부 접촉 물질 또는 혼합물에 대한 구체적인 자료가 이용가능하지 않음.\"},{\"seq\":5,\"key\":\"증상\",\"value\":\"자료 없음.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"증상 자료 없음.\"}]},{\"item_code\":\"S12_OTHER\",\"title_raw\":\"마. 기타 유해 영향\",\"status\":\"자료없음\",\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"자료 없음.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"자료 없음.\"}]},{\"item_code\":\"S13_METHOD\",\"title_raw\":\"가. 폐기물 처리방법\",\"status\":\"값있음\",\"statements\":[{\"seq\":1,\"key\":\"잔여물/미사용 제품의 폐기물\",\"value\":\"지역 규정에 따라 폐기 하시오.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"잔여물/미사용 제품의 폐기물 지역 규정에 따라 폐기 하시오. 폐기물을 환경 법규에 따라 폐기할 것.\"},{\"seq\":2,\"key\":\"잔여물/미사용 제품의 폐기물\",\"value\":\"폐기물을 환경 법규에 따라 폐기할 것.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"잔여물/미사용 제품의 폐기물 지역 규정에 따라 폐기 하시오. 폐기물을 환경 법규에 따라 폐기할 것.\"}]},{\"item_code\":\"S13_CAUTION\",\"title_raw\":\"나. 폐기시 주의사항(오염된 용기 및 포장의 폐기 방법을 포함함)\",\"status\":\"값있음\",\"statements\":[{\"seq\":1,\"key\":\"오염된 포장\",\"value\":\"빈 용기를 재사용하지 마시오.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"오염된 포장 빈 용기를 재사용하지 마시오.\"}]},{\"item_code\":\"S14_SPECIAL\",\"title_raw\":\"바. 사용자에 대한 특별 주의사항\",\"status\":\"값있음\",\"statements\":[{\"seq\":1,\"key\":null,\"value\":\"규제되지 않음\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"바. 사용자에 대한 특별 주의사항 규제되지 않음\"}]},{\"item_code\":\"S16_SOURCE\",\"title_raw\":\"가. 자료의 출처\",\"status\":\"값있음\",\"statements\":[{\"seq\":1,\"key\":\"안전 보건 자료에서 사용된 약어에 대한 기호표 또는 범례\",\"value\":\"목록에는 본 제품에 적용되지 않는 문구가 포함될 수 있음\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"목록에는 본 제품에 적용되지 않는 문구가 포함될 수 있음\"},{\"seq\":2,\"key\":\"ACGIH\",\"value\":\"미국 산업 위생 전문가 협의회\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"ACGIH 미국 산업 위생 전문가 협의회\"},{\"seq\":3,\"key\":\"ADN\",\"value\":\"국제 위험물 내륙 수로 운송에 관한 협정 (유럽)\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"ADN 국제 위험물 내륙 수로 운송에 관한 협정 (유럽)\"},{\"seq\":4,\"key\":\"ADR\",\"value\":\"도로를 통한 위험물 국제 운송에 관한 협정 (유럽)\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"ADR 도로를 통한 위험물 국제 운송에 관한 협정 (유럽)\"},{\"seq\":5,\"key\":\"AIIC\",\"value\":\"호주 산업 화학물질 목록\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"AIIC 호주 산업 화학물질 목록\"},{\"seq\":6,\"key\":\"ATE\",\"value\":\"급성 독성 추정치\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"ATE 급성 독성 추정치\"},{\"seq\":7,\"key\":\"ASTM\",\"value\":\"미국재료시험학회\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"ASTM 미국재료시험학회\"},{\"seq\":8,\"key\":\"bar\",\"value\":\"작업 지역 내 화학물질 화합물에 대한 생물학적 기준값\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"bar 작업 지역 내 화학물질 화합물에 대한 생물학적 기준값\"},{\"seq\":9,\"key\":\"BAT\",\"value\":\"작업적 노출에 대한 생물학적 내성 값\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"BAT 작업적 노출에 대한 생물학적 내성 값\"},{\"seq\":10,\"key\":\"BEL\",\"value\":\"생물학적 노출 기준\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"BEL 생물학적 노출 기준\"},{\"seq\":11,\"key\":\"bw\",\"value\":\"몸무게\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"bw 몸무게\"},{\"seq\":12,\"key\":\"최대\",\"value\":\"최대 한계치\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"최대 최대 한계치\"},{\"seq\":13,\"key\":\"CMR\",\"value\":\"발암성, 변이원성 및 생식 독성\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"CMR 발암성, 변이원성 및 생식 독성\"},{\"seq\":14,\"key\":\"DOT\",\"value\":\"교통부 (미국)\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"DOT 교통부 (미국)\"},{\"seq\":15,\"key\":\"DSL\",\"value\":\"국내 화학물질 목록 (캐나다)\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"DSL 국내 화학물질 목록 (캐나다)\"},{\"seq\":16,\"key\":\"EmS\",\"value\":\"비상 일정\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"EmS 비상 일정\"},{\"seq\":17,\"key\":\"ENCS\",\"value\":\"기존 및 신규 화학물질 (일본)\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"ENCS 기존 및 신규 화학물질 (일본)\"},{\"seq\":18,\"key\":\"EPA\",\"value\":\"미국 환경 보호국 (Environmental Protection Agency)\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"EPA 미국 환경 보호국 (Environmental Protection Agency)\"},{\"seq\":19,\"key\":\"GHS\",\"value\":\"세계조화시스템\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"GHS 세계조화시스템\"},{\"seq\":20,\"key\":\"IARC\",\"value\":\"국제 암 연구 센터\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"IARC 국제 암 연구 센터\"},{\"seq\":21,\"key\":\"IATA\",\"value\":\"국제 항공 운송 협회\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"IATA 국제 항공 운송 협회\"},{\"seq\":22,\"key\":\"IBC\",\"value\":\"위험 화학물질을 벌크로 운반하는 선박의 건조 및 장비에 관한 국제 규정\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"IBC 위험 화학물질을 벌크로 운반하는 선박의 건조 및 장비에 관한 국제 규정\"},{\"seq\":23,\"key\":\"ICAO\",\"value\":\"국제 민간 항공 기구\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"ICAO 국제 민간 항공 기구\"},{\"seq\":24,\"key\":\"IECSC\",\"value\":\"중국 기존화학물질 목록\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"IECSC 중국 기존화학물질 목록\"},{\"seq\":25,\"key\":\"IMDG\",\"value\":\"국제해상위험물\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"IMDG 국제해상위험물\"},{\"seq\":26,\"key\":\"IMO\",\"value\":\"국제해사기구\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"IMO 국제해사기구\"},{\"seq\":27,\"key\":\"ISO\",\"value\":\"국제표준화기구\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"ISO 국제표준화기구\"},{\"seq\":28,\"key\":\"KECI\",\"value\":\"한국 기존화학물질 목록\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"KECI 한국 기존화학물질 목록\"},{\"seq\":29,\"key\":\"LC50(반수치사농도)\",\"value\":\"검사 대상의 50%에 대한 치사 농도\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"LC50(반수치사농도) 검사 대상의 50%에 대한 치사 농도\"},{\"seq\":30,\"key\":\"LD50 (50% 치사용량)\",\"value\":\"검사 대상의 50%에 대한 치사량 (치사량 중앙값)\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"LD50 (50% 치사용량) 검사 대상의 50%에 대한 치사량 (치사량 중앙값)\"},{\"seq\":31,\"key\":\"MARPOL\",\"value\":\"선박으로부터의 오염 방지를 위한 국제 협약\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"MARPOL 선박으로부터의 오염 방지를 위한 국제 협약\"},{\"seq\":32,\"key\":\"MSDS\",\"value\":\"물질안전보건자료\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"MSDS 물질안전보건자료\"},{\"seq\":33,\"key\":\"n.o.s.\",\"value\":\"별도로 지정되지 않음\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"n.o.s. 별도로 지정되지 않음\"},{\"seq\":34,\"key\":\"NOAEC\",\"value\":\"무영향관찰농도\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"NOAEC 무영향관찰농도\"},{\"seq\":35,\"key\":\"NOAEL\",\"value\":\"무독성량\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"NOAEL 무독성량\"},{\"seq\":36,\"key\":\"NOELR\",\"value\":\"무영향관찰 로딩률\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"NOELR 무영향관찰 로딩률\"},{\"seq\":37,\"key\":\"NZIoC\",\"value\":\"뉴질랜드 화학 물질 목록\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"NZIoC 뉴질랜드 화학 물질 목록\"},{\"seq\":38,\"key\":\"OECD\",\"value\":\"경제협력개발기구\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"OECD 경제협력개발기구\"},{\"seq\":39,\"key\":\"OEL\",\"value\":\"작업노출기준\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"OEL 작업노출기준\"},{\"seq\":40,\"key\":\"PBT\",\"value\":\"잔류성, 생물농축성 및 독성 물질\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"PBT 잔류성, 생물농축성 및 독성 물질\"},{\"seq\":41,\"key\":\"PICCS\",\"value\":\"필리핀 화학 물질 목록\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"PICCS 필리핀 화학 물질 목록\"},{\"seq\":42,\"key\":\"PMT\",\"value\":\"잔류성, 이동성 및 독성\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"PMT 잔류성, 이동성 및 독성\"},{\"seq\":43,\"key\":\"PPE\",\"value\":\"개인 보호구\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"PPE 개인 보호구\"},{\"seq\":44,\"key\":\"QSAR\",\"value\":\"정량적 구조 활성관계\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"QSAR 정량적 구조 활성관계\"},{\"seq\":45,\"key\":\"RID\",\"value\":\"위험물의 철도 국제 운송에 관한 협정 (유럽)\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"RID 위험물의 철도 국제 운송에 관한 협정 (유럽)\"},{\"seq\":46,\"key\":\"SADT\",\"value\":\"자기 가속 분해 온도\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"SADT 자기 가속 분해 온도\"},{\"seq\":47,\"key\":\"SAR\",\"value\":\"구조-활성 관계\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"SAR 구조-활성 관계\"},{\"seq\":48,\"key\":\"SDS\",\"value\":\"물질안전보건자료\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"SDS 물질안전보건자료\"},{\"seq\":49,\"key\":\"SL\",\"value\":\"표면 한계\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"SL 표면 한계\"},{\"seq\":50,\"key\":\"STEL\",\"value\":\"단기 노출 기준\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"STEL 단기 노출 기준\"},{\"seq\":51,\"key\":\"STOT RE\",\"value\":\"특정표적장기독성 - 반복 노출\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"STOT RE 특정표적장기독성 - 반복 노출\"},{\"seq\":52,\"key\":\"STOT SE\",\"value\":\"특정표적장기독성 - 1회 노출\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"STOT SE 특정표적장기독성 - 1회 노출\"},{\"seq\":53,\"key\":\"TCSI\",\"value\":\"대만 화학 물질 목록\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"TCSI 대만 화학 물질 목록\"},{\"seq\":54,\"key\":\"TDG\",\"value\":\"위험물 운송 (캐나다)\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"TDG 위험물 운송 (캐나다)\"},{\"seq\":55,\"key\":\"TSCA\",\"value\":\"독성물질관리법 (미국)\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"TSCA 독성물질관리법 (미국)\"},{\"seq\":56,\"key\":\"TWA\",\"value\":\"시간 가중 평균\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"TWA 시간 가중 평균\"},{\"seq\":57,\"key\":\"UN\",\"value\":\"국제 연합\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"UN 국제 연합\"},{\"seq\":58,\"key\":\"VOC\",\"value\":\"휘발성 유기 화합물\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"VOC 휘발성 유기 화합물\"},{\"seq\":59,\"key\":\"vPvB\",\"value\":\"고 잔류성 및 고 생물농축성\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"vPvB 고 잔류성 및 고 생물농축성\"},{\"seq\":60,\"key\":\"vPvM\",\"value\":\"고 잔류성 및 고 이동성\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"vPvM 고 잔류성 및 고 이동성\"},{\"seq\":61,\"key\":\"As\",\"value\":\"알레르기 물질\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"As 알레르기 물질\"},{\"seq\":62,\"key\":\"DS\",\"value\":\"피부 감작제\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"DS 피부 감작제\"},{\"seq\":63,\"key\":\"Ot\",\"value\":\"이독성\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"Ot 이독성\"},{\"seq\":64,\"key\":\"pOt\",\"value\":\"이독성 물질 - 청각 장애를 일으킬 가능성이 있음\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"pOt 이독성 물질 - 청각 장애를 일으킬 가능성이 있음\"},{\"seq\":65,\"key\":\"PS\",\"value\":\"감광제\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"PS 감광제\"},{\"seq\":66,\"key\":\"RS\",\"value\":\"호흡기 과민성\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"RS 호흡기 과민성\"},{\"seq\":67,\"key\":\"머\",\"value\":\"증감제\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"머 증감제\"},{\"seq\":68,\"key\":\"poS\",\"value\":\"감작제 - 직업적 천식을 유발할 수 있음\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"poS 감작제 - 직업적 천식을 유발할 수 있음\"},{\"seq\":69,\"key\":\"Sa\",\"value\":\"단순 질식\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"Sa 단순 질식\"},{\"seq\":70,\"key\":\"Sd\",\"value\":\"피부 지정\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"Sd 피부 지정\"},{\"seq\":71,\"key\":\"pSd\",\"value\":\"피부 지정 - 피부 흡수 가능성\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"pSd 피부 지정 - 피부 흡수 가능성\"},{\"seq\":72,\"key\":\"Sdv\",\"value\":\"피부 지정 - 비어 있음\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"Sdv 피부 지정 - 비어 있음\"},{\"seq\":73,\"key\":\"Sk\",\"value\":\"피부 표기\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"Sk 피부 표기\"},{\"seq\":74,\"key\":\"dSk\",\"value\":\"피부 표기 - 피부 흡수 위험성\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"dSk 피부 표기 - 피부 흡수 위험성\"},{\"seq\":75,\"key\":\"pSk\",\"value\":\"피부 표기 - 피부 흡수 가능성\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"pSk 피부 표기 - 피부 흡수 가능성\"},{\"seq\":76,\"key\":\"본 물질안전보건자료를 작성하는데 사용된 주요 참조 문헌 및 출처\",\"value\":\"미국 독성 물질 및 질병 등록 기관 (Agency for Toxic Substances and Disease Registry, ATSDR)\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"미국 독성 물질 및 질병 등록 기관 (Agency for Toxic Substances and Disease Registry, ATSDR)\"},{\"seq\":77,\"key\":\"본 물질안전보건자료를 작성하는데 사용된 주요 참조 문헌 및 출처\",\"value\":\"미국 환경보호국 ChemView 데이터베이스\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"미국 환경보호국 ChemView 데이터베이스\"},{\"seq\":78,\"key\":\"본 물질안전보건자료를 작성하는데 사용된 주요 참조 문헌 및 출처\",\"value\":\"유럽 식품 안정청 (EFSA)\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"유럽 식품 안정청 (EFSA)\"},{\"seq\":79,\"key\":\"본 물질안전보건자료를 작성하는데 사용된 주요 참조 문헌 및 출처\",\"value\":\"미국 환경 보호국 (Environmental Protection Agency)\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"미국 환경 보호국 (Environmental Protection Agency)\"},{\"seq\":80,\"key\":\"본 물질안전보건자료를 작성하는데 사용된 주요 참조 문헌 및 출처\",\"value\":\"미국 환경보호청(EPA) 급성 노출 가이드라인 수준(AEGL)\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"미국 환경보호청(EPA) 급성 노출 가이드라인 수준(AEGL)\"},{\"seq\":81,\"key\":\"본 물질안전보건자료를 작성하는데 사용된 주요 참조 문헌 및 출처\",\"value\":\"미국 환경보호국 연방 살충제, 살진균제 및 살서제 법\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"미국 환경보호국 연방 살충제, 살진균제 및 살서제 법\"},{\"seq\":82,\"key\":\"본 물질안전보건자료를 작성하는데 사용된 주요 참조 문헌 및 출처\",\"value\":\"미국 환경보호국 대량 생산 화학물질\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"미국 환경보호국 대량 생산 화학물질\"},{\"seq\":83,\"key\":\"본 물질안전보건자료를 작성하는데 사용된 주요 참조 문헌 및 출처\",\"value\":\"식품 연구 저널 (Food Research Journal)\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"식품 연구 저널 (Food Research Journal)\"},{\"seq\":84,\"key\":\"본 물질안전보건자료를 작성하는데 사용된 주요 참조 문헌 및 출처\",\"value\":\"유해 물질 데이터베이스\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"유해 물질 데이터베이스\"},{\"seq\":85,\"key\":\"본 물질안전보건자료를 작성하는데 사용된 주요 참조 문헌 및 출처\",\"value\":\"국제 통합 화학물질 정보 데이타베이스 (IUCLID)\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"국제 통합 화학물질 정보 데이타베이스 (IUCLID)\"},{\"seq\":86,\"key\":\"본 물질안전보건자료를 작성하는데 사용된 주요 참조 문헌 및 출처\",\"value\":\"일본 국립 기술 평가 연구소 (National Institute of Technology and Evaluation, NITE)\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"일본 국립 기술 평가 연구소 (National Institute of Technology and Evaluation, NITE)\"},{\"seq\":87,\"key\":\"본 물질안전보건자료를 작성하는데 사용된 주요 참조 문헌 및 출처\",\"value\":\"호주 국립 산업 화학물질 신고 및 평가 계획 (NICNAS)\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"호주 국립 산업 화학물질 신고 및 평가 계획 (NICNAS)\"},{\"seq\":88,\"key\":\"본 물질안전보건자료를 작성하는데 사용된 주요 참조 문헌 및 출처\",\"value\":\"NIOSH (산업 안전 및 보건에 관한 국립 연구소)\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"NIOSH (산업 안전 및 보건에 관한 국립 연구소)\"},{\"seq\":89,\"key\":\"본 물질안전보건자료를 작성하는데 사용된 주요 참조 문헌 및 출처\",\"value\":\"의약품의 ChemID 플러스의 국립 라이브러리 (NLM CIP)\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"의약품의 ChemID 플러스의 국립 라이브러리 (NLM CIP)\"},{\"seq\":90,\"key\":\"본 물질안전보건자료를 작성하는데 사용된 주요 참조 문헌 및 출처\",\"value\":\"국립 의약품 PubMed 데이터베이스 라이브러리 (NLM PUBMED)\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"국립 의약품 PubMed 데이터베이스 라이브러리 (NLM PUBMED)\"},{\"seq\":91,\"key\":\"본 물질안전보건자료를 작성하는데 사용된 주요 참조 문헌 및 출처\",\"value\":\"미국 국립 독성 프로그램 (NTP)\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"미국 국립 독성 프로그램 (NTP)\"},{\"seq\":92,\"key\":\"본 물질안전보건자료를 작성하는데 사용된 주요 참조 문헌 및 출처\",\"value\":\"뉴질랜드 화학물질 분류 및 정보 데이터베이스 (CCID)\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"뉴질랜드 화학물질 분류 및 정보 데이터베이스 (CCID)\"},{\"seq\":93,\"key\":\"본 물질안전보건자료를 작성하는데 사용된 주요 참조 문헌 및 출처\",\"value\":\"국제 경제협력개발기구 (International Organization for Economic Co-operation and Development , OECD) 환경, 보건 및 안전 간행물\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"국제 경제협력개발기구 (International Organization for Economic Co-operation and Development , OECD) 환경, 보건 및 안전 간행물\"},{\"seq\":94,\"key\":\"본 물질안전보건자료를 작성하는데 사용된 주요 참조 문헌 및 출처\",\"value\":\"국제 경제협력개발기구 (International Organization for Economic Co-operation and Development , OECD) 대량 생산 화학물질 프로그램\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"국제 경제협력개발기구 (International Organization for Economic Co-operation and Development , OECD) 대량 생산 화학물질 프로그램\"},{\"seq\":95,\"key\":\"본 물질안전보건자료를 작성하는데 사용된 주요 참조 문헌 및 출처\",\"value\":\"국제 경제협력개발기구 (International Organization for Economic Co-operation and Development , OECD)) 스크리닝 정보 자료 세트\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"국제 경제협력개발기구 (International Organization for Economic Co-operation and Development , OECD)) 스크리닝 정보 자료 세트\"},{\"seq\":96,\"key\":\"본 물질안전보건자료를 작성하는데 사용된 주요 참조 문헌 및 출처\",\"value\":\"유엔 세계보건기구 (World Health Organization, WHO)\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"유엔 세계보건기구 (World Health Organization, WHO)\"}]},{\"item_code\":\"S16_OTHER\",\"title_raw\":\"라. 기타\",\"status\":\"값있음\",\"statements\":[{\"seq\":1,\"key\":\"라. 기타\",\"value\":\"-.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"라. 기타 -.\"},{\"seq\":2,\"key\":\"책임 제한\",\"value\":\"본 물질안전보건자료에서 제공되는 정보는 발행 시점에서 당사의 최선의 지식과 믿음에 따라 정확한 것임.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"본 물질안전보건자료에서 제공되는 정보는 발행 시점에서 당사의 최선의 지식과 믿음에 따라 정확한 것임.\"},{\"seq\":3,\"key\":\"책임 제한\",\"value\":\"본 정보는 안전한 취급, 사용, 처리, 보관, 운송, 폐기 및 누출에 대한 지침으로만 의도된 것이고 보증 또는 품질 규격으로 간주되어서는 안됨.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"본 정보는 안전한 취급, 사용, 처리, 보관, 운송, 폐기 및 누출에 대한 지침으로만 의도된 것이고 보증 또는 품질 규격으로 간주되어서는 안됨.\"},{\"seq\":4,\"key\":\"책임 제한\",\"value\":\"본 정보는 명시된 물질에만 관련되며 다른 물질과 결합되어 사용되는 물질 또는 기타 본문에 구체적으로 명시되지 않은 다른 공정에 대해서는 유효하지 않을 수 있음.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"본 정보는 명시된 물질에만 관련되며 다른 물질과 결합되어 사용되는 물질 또는 기타 본문에 구체적으로 명시되지 않은 다른 공정에 대해서는 유효하지 않을 수 있음.\"},{\"seq\":5,\"key\":\"책임 제한\",\"value\":\"New England Biolabs는 본 제품의 취급 또는 접촉으로부터 초래되는 어떠한 손해에 대해서도 책임이 없음.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"New England Biolabs는 본 제품의 취급 또는 접촉으로부터 초래되는 어떠한 손해에 대해서도 책임이 없음.\"},{\"seq\":6,\"key\":null,\"value\":\"안전 보건 자료의 끝\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"안전 보건 자료의 끝\"}]}],\"extras\":[{\"seq\":1,\"section_no\":0,\"after_item\":null,\"title_raw\":\"MOEL AA Number\",\"reason\":\"판단불가\",\"comp_ref\":\"MIX\",\"q\":{\"raw\":\"이용가능한 자료 없음\",\"approx\":null,\"value\":null,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":null,\"dp\":null,\"status\":\"자료없음\",\"note\":null},\"statements\":[{\"seq\":1,\"key\":\"MOEL AA Number\",\"value\":\"이용가능한 자료 없음\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"MOEL AA Number 이용가능한 자료 없음\"}],\"suggested_code\":\"meta.moel_no\",\"page\":1},{\"seq\":2,\"section_no\":0,\"after_item\":null,\"title_raw\":\"본 물질안전보건자료는 다음의 요구사항에 따라 작성되었음:\",\"reason\":\"필드없음\",\"comp_ref\":\"MIX\",\"q\":null,\"statements\":[{\"seq\":1,\"key\":\"본 물질안전보건자료는 다음의 요구사항에 따라 작성되었음\",\"value\":\"고용노동부 고시 제2023-9호 화학물질의 분류, 표시 및 물질안전보건자료에 관한 기준\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"본 물질안전보건자료는 다음의 요구사항에 따라 작성되었음: 고용노동부 고시 제2023-9호 화학물질의 분류, 표시 및 물질안전보건자료에 관한 기준\"}],\"suggested_code\":\"meta.compliance_basis\",\"page\":1},{\"seq\":3,\"section_no\":9,\"after_item\":\"기타 정보\",\"title_raw\":\"VOC 함량\",\"reason\":\"판단불가\",\"comp_ref\":\"MIX\",\"q\":{\"raw\":\"자료 없음\",\"approx\":null,\"value\":null,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":null,\"dp\":null,\"status\":\"자료없음\",\"note\":null},\"statements\":[],\"suggested_code\":\"VOC_CONTENT\",\"page\":4},{\"seq\":4,\"section_no\":9,\"after_item\":\"하. 비중\",\"title_raw\":\"벌크 밀도\",\"reason\":\"판단불가\",\"comp_ref\":\"MIX\",\"q\":{\"raw\":\"자료 없음\",\"approx\":null,\"value\":null,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":null,\"dp\":null,\"status\":\"자료없음\",\"note\":null},\"statements\":[],\"suggested_code\":\"BULK_DENSITY\",\"page\":4},{\"seq\":5,\"section_no\":9,\"after_item\":\"벌크 밀도\",\"title_raw\":\"액체 밀도\",\"reason\":\"판단불가\",\"comp_ref\":\"MIX\",\"q\":{\"raw\":\"자료 없음\",\"approx\":null,\"value\":null,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":null,\"dp\":null,\"status\":\"자료없음\",\"note\":null},\"statements\":[],\"suggested_code\":\"LIQUID_DENSITY\",\"page\":4},{\"seq\":6,\"section_no\":9,\"after_item\":\"더. 분해 온도\",\"title_raw\":\"SADT (°C)\",\"reason\":\"판단불가\",\"comp_ref\":\"MIX\",\"q\":{\"raw\":\"자료 없음\",\"approx\":null,\"value\":null,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":null,\"dp\":null,\"status\":\"자료없음\",\"note\":null},\"statements\":[{\"seq\":1,\"key\":\"참조 • 방법\",\"value\":\"알려진 것 없음\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"SADT (°C) 자료 없음 알려진 것 없음\"}],\"suggested_code\":\"SADT\",\"page\":4},{\"seq\":7,\"section_no\":11,\"after_item\":\"특정표적장기독성 - 반복 노출\",\"title_raw\":\"표적 장기 영향\",\"reason\":\"판단불가\",\"comp_ref\":\"MIX\",\"q\":null,\"statements\":[{\"seq\":1,\"key\":\"표적 장기 영향\",\"value\":\"자료 없음.\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"표적 장기 영향 자료 없음.\"}],\"suggested_code\":\"TARGET_ORGAN_EFFECTS\",\"page\":5},{\"seq\":8,\"section_no\":15,\"after_item\":\"국제 화학물질 목록\",\"title_raw\":\"범례:\",\"reason\":\"필드없음\",\"comp_ref\":null,\"q\":null,\"statements\":[{\"seq\":1,\"key\":\"TSCA\",\"value\":\"미국 독성물질관리법 8(b) 목록\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"TSCA  - 미국 독성물질관리법 8(b) 목록\"},{\"seq\":2,\"key\":\"DSL/NDSL\",\"value\":\"캐나다 국내 화학물질 목록/비국내 화학물질 목록\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"DSL/NDSL  - 캐나다 국내 화학물질 목록/비국내 화학물질 목록\"},{\"seq\":3,\"key\":\"EINECS/ELINCS\",\"value\":\"유럽 기존화학물질 목록/유럽 등록 화학물질 목록\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"EINECS/ELINCS  - 유럽 기존화학물질 목록/유럽 등록 화학물질 목록\"},{\"seq\":4,\"key\":\"ENCS\",\"value\":\"일본 기존 및 신규 화학 물질\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"ENCS  - 일본 기존 및 신규 화학 물질\"},{\"seq\":5,\"key\":\"IECSC\",\"value\":\"중국 기존 화학 물질 목록\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"IECSC  - 중국 기존 화학 물질 목록\"},{\"seq\":6,\"key\":\"KECL\",\"value\":\"한국 기존화학물질 목록\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"KECL  - 한국 기존화학물질 목록\"},{\"seq\":7,\"key\":\"PICCS\",\"value\":\"필리핀 화학 물질 목록\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"PICCS  - 필리핀 화학 물질 목록\"},{\"seq\":8,\"key\":\"AICS\",\"value\":\"호주 화학물질 목록\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"AICS  - 호주 화학물질 목록\"},{\"seq\":9,\"key\":\"NZIoC\",\"value\":\"뉴질랜드 화학 물질 목록\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"NZIoC  - 뉴질랜드 화학 물질 목록\"},{\"seq\":10,\"key\":\"TCSI\",\"value\":\"대만 화학 물질 목록\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"TCSI  - 대만 화학 물질 목록\"}],\"suggested_code\":\"S15_OTHER\",\"page\":7},{\"seq\":9,\"section_no\":16,\"after_item\":\"S16_SOURCE\",\"title_raw\":\"개정 비고\",\"reason\":\"판단불가\",\"comp_ref\":\"MIX\",\"q\":null,\"statements\":[{\"seq\":1,\"key\":\"개정 비고\",\"value\":\"컴포지션으로 변경\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"개정 비고 컴포지션으로 변경\"}],\"suggested_code\":\"meta.revision_note\",\"page\":9}]}],\"evidence\":[{\"msds_index\":0,\"field\":\"narratives[0]\",\"page\":2,\"source_text\":\"가. 눈에 들어갔을 때 | 다량의 물로 최소 15분간 위, 아래 눈꺼풀을 들면서 철저히 씻어낼 것. 의학적인 조치/조언을  구하시오.\",\"rules\":[\"R14\",\"R04\"],\"note\":\"두 문장으로 나누고 '최소 15분간'을 cond(>=15 min)로 분리\"},{\"msds_index\":0,\"field\":\"narratives[1]\",\"page\":2,\"source_text\":\"나. 피부에 접촉했을 때 | 피부를 비누와 물로 씻어 내시오.\",\"rules\":[],\"note\":null},{\"msds_index\":0,\"field\":\"narratives[2]\",\"page\":2,\"source_text\":\"다. 흡입했을 때 | 신선한 공기가 있는 곳으로 옮길 것.\",\"rules\":[],\"note\":null},{\"msds_index\":0,\"field\":\"narratives[3]\",\"page\":2,\"source_text\":\"라. 먹었을 때 | 입을 씻어내시오.\",\"rules\":[],\"note\":null},{\"msds_index\":0,\"field\":\"narratives[4]\",\"page\":2,\"source_text\":\"의사 참고 사항 | 징후에 따라 치료하시오. | 증상 | 자료 없음. | 노출 영향 | 자료 없음.\",\"rules\":[\"R14\"],\"note\":\"소항목명을 key로 분리\"},{\"msds_index\":0,\"field\":\"narratives[5]\",\"page\":2,\"source_text\":\"적절한 소화제 | 현지 상황과 주변 환경에 적절한 소화 방법을 사용하시오. | 대형 화재 | 주의: 화재 진압시 물 스프레이를 사용하는 것은 비효율적일 수 있음. | 부적절한 소화제 | 누출된 물질을 강한 압력의 물줄기로 흩어트리지 말 것.\",\"rules\":[\"R14\"],\"note\":\"소항목명을 key로 분리\"},{\"msds_index\":0,\"field\":\"narratives[6]\",\"page\":2,\"source_text\":\"나. 화학물질로부터 생기는 특정 유해성 | 자료 없음.\",\"rules\":[\"R15\"],\"note\":\"'자료 없음'을 status 자료없음으로 기록\"},{\"msds_index\":0,\"field\":\"narratives[7]\",\"page\":2,\"source_text\":\"소방대원은 자급식 호흡보호구와 완전 화재진압 보호장비를 착용하여야 함. 개인 보호장비를 사용하시오.\",\"rules\":[\"R14\"],\"note\":\"두 문장으로 나눔\"},{\"msds_index\":0,\"field\":\"narratives[8]\",\"page\":2,\"source_text\":\"개인 주의사항 | 적절한 환기가 되도록 할 것. | 응급 구조대원용 | 8항의 권장 개인보호구를 사용할 것.\",\"rules\":[\"R14\"],\"note\":\"소항목명을 key로 분리\"},{\"msds_index\":0,\"field\":\"narratives[9]\",\"page\":2,\"source_text\":\"추가 생태학적 정보는 12항을 참조.\",\"rules\":[],\"note\":null},{\"msds_index\":0,\"field\":\"narratives[10]\",\"page\":3,\"source_text\":\"봉쇄 방법 | 안전하게 처리하는 것이 가능하면 추가 누출 또는 유출을 막으시오. | 정화 방법 | 둑으로 막을 것. 불활성 흡수제로 빨아들이시오. ... | 2차 유해/위험 방지 | 환경 규정을 준수하여 ...\",\"rules\":[\"R14\"],\"note\":\"소항목명을 key로, 두 줄에 걸친 정화 방법 문장을 이어 붙여 문장 단위로 나눔\"},{\"msds_index\":0,\"field\":\"narratives[11]\",\"page\":3,\"source_text\":\"안전취급조언 | 올바른 산업 위생과 안전 조치에 맞게 취급하시오.\",\"rules\":[\"R14\"],\"note\":\"소항목명을 key로 분리\"},{\"msds_index\":0,\"field\":\"narratives[12]\",\"page\":3,\"source_text\":\"보관 조건 | 용기를 단단히 밀폐하여 건조하고 서늘하며 환기가 잘 되는 곳에 보관하시오. | 일반 위생 고려사항 | 올바른 산업 위생과 안전 조치에 맞게 취급하시오.\",\"rules\":[\"R14\"],\"note\":\"소항목명을 key로 분리\"},{\"msds_index\":0,\"field\":\"narratives[13]\",\"page\":3,\"source_text\":\"공학적 관리 | 샤워기 | 세안기 | 환기 시스템. | 환경 노출 관리 | 자료 없음.\",\"rules\":[\"R14\"],\"note\":\"줄 단위로 나누고 소항목명을 key로 분리\"},{\"msds_index\":0,\"field\":\"narratives[14]\",\"page\":3,\"source_text\":\"호흡기 보호 | 일반적 사용 조건 하에서는 보호 장비가 필요하지 않음. 노출 기준이 초과되었거나 자극을 경험한 경우, 환기 및 대피가 필요할 수 있음.\",\"rules\":[\"R14\"],\"note\":\"두 줄을 이어 붙여 두 문장으로 나눔\"},{\"msds_index\":0,\"field\":\"narratives[15]\",\"page\":3,\"source_text\":\"눈 보호 | 특별한 보호구가 필요하지 않음.\",\"rules\":[],\"note\":null},{\"msds_index\":0,\"field\":\"narratives[16]\",\"page\":3,\"source_text\":\"손 보호 | 특별한 보호구가 필요하지 않음.\",\"rules\":[],\"note\":null},{\"msds_index\":0,\"field\":\"narratives[17]\",\"page\":3,\"source_text\":\"신체 보호 | 특별한 보호구가 필요하지 않음.\",\"rules\":[],\"note\":null},{\"msds_index\":0,\"field\":\"narratives[18]\",\"page\":4,\"source_text\":\"안정성 | 일반 조건하에서 안정함. | 유해 반응의 가능성 | 정상 처리 시 없음. | 폭발 데이터 | 기계충격감도 | 없음. | 정전 방전감도 | 없음.\",\"rules\":[\"R14\"],\"note\":\"소항목명을 key로 분리\"},{\"msds_index\":0,\"field\":\"narratives[19]\",\"page\":4,\"source_text\":\"나. 피해야 할 조건(정전기 방전, 충격, 진동 등) | 제공된 정보에 근거하면 알려진 바 없음.\",\"rules\":[],\"note\":null},{\"msds_index\":0,\"field\":\"narratives[20]\",\"page\":4,\"source_text\":\"다. 피해야 할 물질 | 제공된 정보에 근거하면 알려진 바 없음.\",\"rules\":[],\"note\":null},{\"msds_index\":0,\"field\":\"narratives[21]\",\"page\":4,\"source_text\":\"라. 분해시 생성되는 유해물질 | 제공된 정보에 근거하면 알려진 바 없음.\",\"rules\":[],\"note\":null},{\"msds_index\":0,\"field\":\"narratives[22]\",\"page\":5,\"source_text\":\"흡입 | 물질 또는 혼합물에 대한 구체적인 자료가 이용가능하지 않음. | 섭취 | ... | 눈 접촉 | ... | 피부 접촉 | ... | 증상 | 자료 없음.\",\"rules\":[\"R14\"],\"note\":\"노출 경로명을 key로 분리\"},{\"msds_index\":0,\"field\":\"narratives[23]\",\"page\":6,\"source_text\":\"마. 기타 유해 영향 | 자료 없음.\",\"rules\":[\"R15\"],\"note\":\"'자료 없음'을 status 자료없음으로 기록\"},{\"msds_index\":0,\"field\":\"narratives[24]\",\"page\":6,\"source_text\":\"잔여물/미사용 제품의 폐기물 | 지역 규정에 따라 폐기 하시오. 폐기물을 환경 법규에 따라 폐기할 것.\",\"rules\":[\"R14\"],\"note\":\"소항목명을 key로, 두 문장으로 나눔\"},{\"msds_index\":0,\"field\":\"narratives[25]\",\"page\":6,\"source_text\":\"오염된 포장 | 빈 용기를 재사용하지 마시오.\",\"rules\":[\"R14\"],\"note\":\"소항목명을 key로 분리\"},{\"msds_index\":0,\"field\":\"narratives[26]\",\"page\":6,\"source_text\":\"바. 사용자에 대한 특별 주의사항 | 규제되지 않음\",\"rules\":[],\"note\":null},{\"msds_index\":0,\"field\":\"narratives[27]\",\"page\":7,\"source_text\":\"가. 자료의 출처 | 안전 보건 자료에서 사용된 약어에 대한 기호표 또는 범례 | 목록에는 본 제품에 적용되지 않는 문구가 포함될 수 있음 | ACGIH | 미국 산업 위생 전문가 협의회\",\"rules\":[\"R14\"],\"note\":\"7~9쪽에 걸친 약어 표 각 행을 약어=key로, 9쪽 참조 문헌 목록은 소제목을 key로 하여 줄 단위로 나눔\"},{\"msds_index\":0,\"field\":\"narratives[28]\",\"page\":9,\"source_text\":\"라. 기타 | -. | 책임 제한 | 본 물질안전보건자료에서 제공되는 정보는 발행 시점에서 당사의 최선의 지식과 믿음에 따라 정확한 것임. ...\",\"rules\":[\"R14\"],\"note\":\"라. 기타와 책임 제한 각주를 S16_OTHER 하나로 합치고 원래 소제목을 key로 남김\"},{\"msds_index\":0,\"field\":\"extras[0]\",\"page\":1,\"source_text\":\"MOEL AA Number 이용가능한 자료 없음\",\"rules\":[\"R24\",\"R15\"],\"note\":\"맞는 칸을 확신할 수 없어 extras(판단불가)로 보냄\"},{\"msds_index\":0,\"field\":\"extras[1]\",\"page\":1,\"source_text\":\"본 물질안전보건자료는 다음의 요구사항에 따라 작성되었음: 고용노동부 고시 제2023-9호 화학물질의 분류, 표시 및 물질안전보건자료에 관한 기준\",\"rules\":[\"R24\"],\"note\":\"작성 근거 고시 문구를 담을 칸이 없어 extras로 보냄\"},{\"msds_index\":0,\"field\":\"extras[2]\",\"page\":4,\"source_text\":\"VOC 함량 | 자료 없음\",\"rules\":[\"R24\",\"R15\"],\"note\":\"정식 물성 칸 여부가 불확실하여 extras(판단불가)로 보냄\"},{\"msds_index\":0,\"field\":\"extras[3]\",\"page\":4,\"source_text\":\"벌크 밀도 | 자료 없음\",\"rules\":[\"R24\",\"R15\"],\"note\":\"정식 물성 칸 여부가 불확실하여 extras(판단불가)로 보냄\"},{\"msds_index\":0,\"field\":\"extras[4]\",\"page\":4,\"source_text\":\"액체 밀도 | 자료 없음\",\"rules\":[\"R24\",\"R15\"],\"note\":\"정식 물성 칸 여부가 불확실하여 extras(판단불가)로 보냄\"},{\"msds_index\":0,\"field\":\"extras[5]\",\"page\":4,\"source_text\":\"SADT (°C) | 자료 없음 | 알려진 것 없음\",\"rules\":[\"R24\",\"R15\"],\"note\":\"정식 물성 칸 여부가 불확실하여 extras(판단불가)로 보냄\"},{\"msds_index\":0,\"field\":\"extras[6]\",\"page\":5,\"source_text\":\"표적 장기 영향 | 자료 없음.\",\"rules\":[\"R24\"],\"note\":\"독성 정식 칸 여부가 불확실하여 extras(판단불가)로 보냄\"},{\"msds_index\":0,\"field\":\"extras[7]\",\"page\":7,\"source_text\":\"범례: | TSCA - 미국 독성물질관리법 8(b) 목록 | DSL/NDSL - 캐나다 국내 화학물질 목록/비국내 화학물질 목록 | ...\",\"rules\":[\"R24\",\"R14\"],\"note\":\"15항 국제 화학물질 목록 범례를 담을 칸이 없어 약어=key로 나누어 extras로 보냄\"},{\"msds_index\":0,\"field\":\"extras[8]\",\"page\":9,\"source_text\":\"개정 비고 | 컴포지션으로 변경\",\"rules\":[\"R24\"],\"note\":\"관리정보 칸 존재 여부가 불확실하여 extras(판단불가)로 보냄\"}]}"
+}

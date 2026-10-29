@@ -1,0 +1,110 @@
+{
+ "doc_id": "T21-S016",
+ "msds_index": 0,
+ "section": 14,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "transport": [
+   {
+    "mode": "해상",
+    "basis_raw": null,
+    "regulated": true,
+    "un_no": "1114",
+    "shipping_name": "BENZENE",
+    "hazard_class": "3",
+    "sub_risk": "II",
+    "packing_group": "II",
+    "marine_pollutant": "해당",
+    "ems_fire": "F-E (Non-water-reactive flammable liquids)",
+    "ems_spill": "S-D (Flammable liquids)",
+    "line": "15"
+   }
+  ],
+  "narratives": [],
+  "extras": []
+ },
+ "raw_text": "{\"transport\": [{\"mode\": \"해상\", \"basis_raw\": null, \"regulated\": \"true\", \"un_no\": \"1114\", \"shipping_name\": \"BENZENE\", \"hazard_class\": \"3\", \"sub_risk\": \"II\", \"packing_group\": \"II\", \"marine_pollutant\": \"해당\", \"ems_fire\": \"F-E (Non-water-reactive flammable liquids)\", \"ems_spill\": \"S-D (Flammable liquids)\", \"line\": \"15\"}], \"narratives\": [{\"item_code\": [\"S14_SPECIAL\"], \"title_raw\": null, \"start\": null, \"end\": null}], \"extras\": []}",
+ "mode": "nuextract_template",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 10050,
+  "completion_tokens": 149,
+  "total_tokens": 10199
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "nuextract_template",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 10050,
+    "completion_tokens": 149,
+    "total_tokens": 10199
+   },
+   "seconds": 10.766,
+   "chars": 425,
+   "whitespace": 40,
+   "head": "{\"transport\": [{\"mode\": \"해상\", \"basis_raw\": null, \"regulated\": \"true\", \"un_no\": \"1114\", \"shipping_name\": \"BENZENE\", \"hazard_class\": \"3\", \"sub_risk\": \"II\", \"packing_group\": \"II\", \"marine_pollutant\": \"해당\", \"ems_fire\": \"F-E (Non-water-reactive flammable liquids)\", \"ems_spill\": \"S-D (Flammable liquids)\", \"line\": \"15\"}], \"narratives\": [{\"item_code\": [\"S14_SPECIAL\"], \"title_raw\": null, \"start\": null, \"end\": null}], \"extras\": []}",
+   "tail": ""
+  }
+ ],
+ "seconds": 10.766,
+ "check_problems": [
+  "transport[0].line: 원문에 없는 줄 번호 15"
+ ],
+ "reextract_attempt": {
+  "ok": true,
+  "parsed": {
+   "transport": [
+    {
+     "mode": "해상",
+     "basis_raw": null,
+     "regulated": true,
+     "un_no": "1114",
+     "shipping_name": "BENZENE",
+     "hazard_class": "3",
+     "sub_risk": null,
+     "packing_group": "II",
+     "marine_pollutant": "해당",
+     "ems_fire": "F-E (Non-water-reactive flammable liquids)",
+     "ems_spill": "S-D (Flammable liquids)",
+     "line": "15"
+    }
+   ],
+   "narratives": [],
+   "extras": []
+  },
+  "raw_text": "{\"transport\": [{\"mode\": \"해상\", \"basis_raw\": null, \"regulated\": \"true\", \"un_no\": \"1114\", \"shipping_name\": \"BENZENE\", \"hazard_class\": \"3\", \"sub_risk\": null, \"packing_group\": \"II\", \"marine_pollutant\": \"해당\", \"ems_fire\": \"F-E (Non-water-reactive flammable liquids)\", \"ems_spill\": \"S-D (Flammable liquids)\", \"line\": \"15\"}], \"narratives\": [{\"item_code\": [\"S14_SPECIAL\"], \"title_raw\": null, \"start\": null, \"end\": null}], \"extras\": [{\"after_item\": null, \"title_raw\": null, \"reason\": \"필드없음\", \"comp_name\": null, \"comp_cas\": null, \"q\": {\"raw\": null, \"value\": null, \"approx\": null, \"lower_op\": null, \"lower\": null, \"upper_op\": null, \"upper\": null, \"unit\": null}, \"statements\": [], \"suggested_code\": null, \"line\": null}]}",
+  "mode": "nuextract_template",
+  "finish_reason": "stop",
+  "usage": {
+   "prompt_tokens": 10077,
+   "completion_tokens": 242,
+   "total_tokens": 10319
+  },
+  "attempts": 1,
+  "errors": [],
+  "requests": [
+   {
+    "mode": "nuextract_template",
+    "finish_reason": "stop",
+    "usage": {
+     "prompt_tokens": 10077,
+     "completion_tokens": 242,
+     "total_tokens": 10319
+    },
+    "seconds": 4.908,
+    "chars": 706,
+    "whitespace": 72,
+    "head": "{\"transport\": [{\"mode\": \"해상\", \"basis_raw\": null, \"regulated\": \"true\", \"un_no\": \"1114\", \"shipping_name\": \"BENZENE\", \"hazard_class\": \"3\", \"sub_risk\": null, \"packing_group\": \"II\", \"marine_pollutant\": \"해당\", \"ems_fire\": \"F-E (Non-water-reactive flammable liquids)\", \"ems_spill\": \"S-D (Flammable liquids)\", \"line\": \"15\"}], \"narratives\": [{\"item_code\": [\"S14_SPECIAL\"], \"title_raw\": null, \"start\": null, \"end\": null}], \"extras\": [{\"after_item\": null, \"title_raw\": null, \"reason\": \"필드없음\", \"comp_name\": null, ",
+    "tail": "\"comp_cas\": null, \"q\": {\"raw\": null, \"value\": null, \"approx\": null, \"lower_op\": null, \"lower\": null, \"upper_op\": null, \"upper\": null, \"unit\": null}, \"statements\": [], \"suggested_code\": null, \"line\": null}]}"
+   }
+  ],
+  "seconds": 4.909,
+  "check_problems": [
+   "transport[0].line: 원문에 없는 줄 번호 15"
+  ]
+ }
+}

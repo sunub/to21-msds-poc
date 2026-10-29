@@ -1,0 +1,113 @@
+{
+ "doc_id": "T21-S003",
+ "msds_index": 0,
+ "section": 7,
+ "reextracted": true,
+ "ok": true,
+ "parsed": {
+  "narratives": [],
+  "extras": []
+ },
+ "raw_text": "{\"narratives\":[],\"extras\":[] }",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 6520,
+  "completion_tokens": 10,
+  "total_tokens": 6530
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 6520,
+    "completion_tokens": 10,
+    "total_tokens": 6530
+   },
+   "seconds": 0.474,
+   "chars": 30,
+   "whitespace": 1,
+   "head": "{\"narratives\":[],\"extras\":[] }",
+   "tail": ""
+  }
+ ],
+ "seconds": 0.475,
+ "check_problems": [],
+ "first_attempt": {
+  "ok": true,
+  "parsed": {
+   "narratives": [
+    {
+     "item_code": "S7_HANDLING",
+     "title_raw": "가.안전취급요령",
+     "start": "p2:L42",
+     "end": "p2:L45"
+    },
+    {
+     "item_code": "S7_STORAGE",
+     "title_raw": "나.안전한 저장방법",
+     "start": "p2:L46",
+     "end": "p??"
+    }
+   ],
+   "extras": [
+    {
+     "after_item": "S7_HANDLING",
+     "title_raw": "나.안전한 저장방법",
+     "reason": "필드없음",
+     "comp_name": "지금은지금..???..??..??..??..??............................................................................................................?",
+     "comp_cas": "??..??..??............................................??..??..................??......??..??..??..??....................................................................................??",
+     "q": null,
+     "statements": [
+      {
+       "key": "지표",
+       "value": "D50",
+       "refs": [
+        "1"
+       ],
+       "cond": null,
+       "line": "p??"
+      }
+     ],
+     "suggested_code": "PARTICLE_SIZE",
+     "line": "p??"
+    }
+   ]
+  },
+  "raw_text": "{\"narratives\":[{\"item_code\":\"S7_HANDLING\",\"title_raw\":\"가.안전취급요령\",\"start\":\"p2:L42\",\"end\":\"p2:L45\"},{\"item_code\":\"S7_STORAGE\",\"title_raw\":\"나.안전한 저장방법\",\"start\":\"p2:L46\",\"end\":\"p??\"}]\n\n  \n  \t\t\n \t\t\n \t\t\n \t\t\n \t\t\n \t\t\n \t\t\n \t\t\n \t\t\n \t\t\n \t\t\n \t\t\n \t\t\n \t\t\n \t\t\n \t\t\n \t\t\n \t\t\n \t\t\n \t\t\n \t\t\n \t\t\n \t\t\n \t\t\n \t\t\n \t\t\n \t\t\n \t\t\n \t\t\n \t\t\n \t\t\n \t\t\n \t\t\n \t\t\n \t\t\n \t\t\n \t\t\n \t\t\n \t\t\n \t\t\n \t\t\n \t\t\n \t\t\n \t\t\n \t\t\n \t\t\n \t\t\n \t\t\n \t\t\n \t\t\n \t,  \n \t\t\n \t\t\n \t\t\n \t\t\n \t\"extras\":[{\"after_item\":\"S7_HANDLING\",\"title_raw\":\"나.안전한 저장방법\",\"reason\":\"필드없음\",\"comp_name\":\"지금은지금..???..??..??..??..??............................................................................................................?\",\"comp_cas\":\"??..??..??............................................??..??..................??......??..??..??..??....................................................................................??\",\"q\":null,\"statements\":[{\"key\":\"지표\",\"value\":\"D50\",\"refs\":[\"1\"],\"cond\":null,\"line\":\"p??\"}],\"suggested_code\":\"PARTICLE_SIZE\",\"line\":\"p??\"}]}",
+  "mode": "json_schema",
+  "finish_reason": "stop",
+  "usage": {
+   "prompt_tokens": 6463,
+   "completion_tokens": 448,
+   "total_tokens": 6911
+  },
+  "attempts": 1,
+  "errors": [],
+  "requests": [
+   {
+    "mode": "json_schema",
+    "finish_reason": "stop",
+    "usage": {
+     "prompt_tokens": 6463,
+     "completion_tokens": 448,
+     "total_tokens": 6911
+    },
+    "seconds": 30.439,
+    "chars": 975,
+    "whitespace": 231,
+    "head": "{\"narratives\":[{\"item_code\":\"S7_HANDLING\",\"title_raw\":\"가.안전취급요령\",\"start\":\"p2:L42\",\"end\":\"p2:L45\"},{\"item_code\":\"S7_STORAGE\",\"title_raw\":\"나.안전한 저장방법\",\"start\":\"p2:L46\",\"end\":\"p??\"}]\n\n  \n  \t\t\n \t\t\n \t\t\n \t\t\n \t\t\n \t\t\n \t\t\n \t\t\n \t\t\n \t\t\n \t\t\n \t\t\n \t\t\n \t\t\n \t\t\n \t\t\n \t\t\n \t\t\n \t\t\n \t\t\n \t\t\n \t\t\n \t\t\n \t\t\n \t\t\n \t\t\n \t\t\n \t\t\n \t\t\n \t\t\n \t\t\n \t\t\n \t\t\n \t\t\n \t\t\n \t\t\n \t\t\n \t\t\n \t\t\n \t\t\n \t\t\n \t\t\n \t\t\n \t\t\n \t\t\n \t\t\n \t\t\n \t\t\n \t\t\n \t\t\n \t,  \n \t\t\n \t\t\n \t\t\n \t\t\n \t\"extras\":[{\"after_item\":\"S7_HANDLING\",\"title_raw\":\"나.안전한 저장방법\",\"reason\":\"필드없음\",\"comp_name\":",
+    "tail": "\"지금은지금..???..??..??..??..??............................................................................................................?\",\"comp_cas\":\"??..??..??............................................??..??..................??......??..??..??..??....................................................................................??\",\"q\":null,\"statements\":[{\"key\":\"지표\",\"value\":\"D50\",\"refs\":[\"1\"],\"cond\":null,\"line\":\"p??\"}],\"suggested_code\":\"PARTICLE_SIZE\",\"line\":\"p??\"}]}"
+   }
+  ],
+  "seconds": 30.441,
+  "check_problems": [
+   "narratives[1].end: 원문에 없는 줄 번호 p??",
+   "extras[0].statements[0].line: 원문에 없는 줄 번호 p??",
+   "extras[0].line: 원문에 없는 줄 번호 p??"
+  ]
+ }
+}

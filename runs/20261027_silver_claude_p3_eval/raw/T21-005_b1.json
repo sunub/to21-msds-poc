@@ -1,0 +1,355 @@
+{
+  "doc_id": "T21-005",
+  "bundle": "b1",
+  "model": "claude-opus-5-5",
+  "mode": "none",
+  "finish_reason": "stop",
+  "usage": {
+    "prompt_tokens": 46143,
+    "completion_tokens": 4289,
+    "total_tokens": 50432,
+    "served_model": "claude-opus-5-5"
+  },
+  "seconds": 35.6,
+  "attempts": 1,
+  "errors": [],
+  "parsed": {
+    "doc": {
+      "language": "ko",
+      "msds_count": 1
+    },
+    "msds": [
+      {
+        "meta": {
+          "msds_no": null,
+          "doc_code": null,
+          "revision_no": 5,
+          "revision_label": null,
+          "header_product_name": null,
+          "source_note": null,
+          "first_issue_date": "1996-07-01",
+          "last_revision_date": "2024-01-20",
+          "page_start": 1,
+          "page_end": 4
+        },
+        "product": {
+          "name": "YUHWA POLYPRO",
+          "code": "1088",
+          "synonyms": [],
+          "uses": [
+            "범용 플라스틱의 원료"
+          ],
+          "restrictions": [],
+          "use_category_code": null
+        },
+        "companies": [
+          {
+            "seq": 1,
+            "role": "공급자",
+            "name": "대한유화(주)",
+            "site": "울산공장",
+            "address": "울산광역시 남구 처용로 260-158",
+            "postcode": null,
+            "department": "품질보증1팀",
+            "contacts": [
+              {
+                "type": "긴급",
+                "value": "052-278-8242",
+                "hours": null
+              },
+              {
+                "type": "긴급",
+                "value": "052-278-8243",
+                "hours": null
+              },
+              {
+                "type": "긴급",
+                "value": "052-278-8244",
+                "hours": null
+              },
+              {
+                "type": "긴급",
+                "value": "052-278-8245",
+                "hours": null
+              },
+              {
+                "type": "긴급",
+                "value": "052-278-8246",
+                "hours": null
+              }
+            ]
+          }
+        ],
+        "hazard": {
+          "classified": false,
+          "classes": [],
+          "signal_word": null,
+          "pictograms": [],
+          "h_statements": [],
+          "p_statements": [],
+          "other_hazards": [
+            {
+              "seq": 1,
+              "key": "NFPA지수(0-4)",
+              "value": "보건=1, 화재=1, 반응성=0",
+              "refs": null,
+              "cond": null,
+              "std_code": null,
+              "match_score": null,
+              "text": "NFPA지수(0-4) : 보건=1, 화재=1, 반응성=0"
+            }
+          ],
+          "nfpa": {
+            "health": 1,
+            "fire": 1,
+            "reactivity": 0,
+            "special": null
+          }
+        },
+        "composition": {
+          "type": "단일물질",
+          "no_hazardous_component": false
+        },
+        "components": [
+          {
+            "seq": 1,
+            "name": "폴리프로필렌",
+            "name_en": "Polypropylene",
+            "synonyms": [
+              "1-프로펜, 호모중합물(1-Propene, Homopolymer)",
+              "프로펜 폴리머(Propene Polymer)",
+              "폴리프로펜(Polypropene)"
+            ],
+            "cas_no": "9003-07-0",
+            "ke_no": null,
+            "ec_no": null,
+            "other_id": null,
+            "other_id_type": null,
+            "parent_seq": null,
+            "read_across_cas": null,
+            "content": {
+              "raw": "99% 이상 (첨가제 : 1% 이하)",
+              "approx": false,
+              "value": null,
+              "lower_op": ">=",
+              "lower": 99,
+              "upper_op": null,
+              "upper": null,
+              "unit": "%",
+              "dp": 0,
+              "status": "값있음",
+              "note": "첨가제 : 1% 이하"
+            },
+            "content_note": null,
+            "content_basis": "미표기",
+            "trade_secret": false,
+            "approval_no": null,
+            "approval_expiry": null
+          }
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "msds_index": 0,
+        "field": "meta.msds_no",
+        "page": null,
+        "source_text": null,
+        "rules": [],
+        "note": "문서 어디에도 MSDS 제출번호(AA…)가 없어 null로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.revision_no",
+        "page": 4,
+        "source_text": "1) 최종 개정횟수 : 5",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.first_issue_date",
+        "page": 4,
+        "source_text": "나. 최초작성일자 1996년 7월 1일",
+        "rules": [
+          "R01"
+        ],
+        "note": "'1996년 7월 1일'을 R01에 따라 1996-07-01로 바꿈"
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.last_revision_date",
+        "page": 4,
+        "source_text": "2) 최종 개정일자 : 2024년 1월 20일",
+        "rules": [
+          "R01"
+        ],
+        "note": "'2024년 1월 20일'을 R01에 따라 2024-01-20으로 바꿈"
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.page_start",
+        "page": 1,
+        "source_text": "물질안전보건자료(MSDS)",
+        "rules": [
+          "R16"
+        ],
+        "note": "단일 MSDS로 1쪽부터 시작"
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.page_end",
+        "page": 4,
+        "source_text": "16. 기타 참고사항",
+        "rules": [
+          "R16"
+        ],
+        "note": "16항이 있는 4쪽에서 끝남"
+      },
+      {
+        "msds_index": 0,
+        "field": "product.name",
+        "page": 1,
+        "source_text": "가. 제품명 : YUHWA POLYPRO  Grade : 1088",
+        "rules": [],
+        "note": "제품명과 Grade를 나누어 제품명만 옮김"
+      },
+      {
+        "msds_index": 0,
+        "field": "product.code",
+        "page": 1,
+        "source_text": "가. 제품명 : YUHWA POLYPRO  Grade : 1088",
+        "rules": [],
+        "note": "'Grade : 1088'에서 1088을 제품코드로 옮김"
+      },
+      {
+        "msds_index": 0,
+        "field": "product.uses",
+        "page": 1,
+        "source_text": "나. 제품의 권고 용도와 사용상의 제한 : 범용 플라스틱의 원료",
+        "rules": [
+          "R11"
+        ],
+        "note": "용도만 적혀 있고 사용상의 제한은 따로 적혀 있지 않음"
+      },
+      {
+        "msds_index": 0,
+        "field": "companies[0]",
+        "page": 1,
+        "source_text": "1) 공급회사명 : 대한유화(주) 울산공장 | 2) 주 소 : 울산광역시 남구 처용로 260-158 | 3) 정보제공서비스/긴급연락 전화번호 : (052) 278-8242~8246 | 4) 담당부서 : 품질보증1팀",
+        "rules": [
+          "R12"
+        ],
+        "note": "'공급회사명'이라 role=공급자로 하고 '울산공장'을 사업장으로 나눔. 번호 범위 8242~8246을 다섯 개의 긴급 연락처로 나눔"
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.classified",
+        "page": 1,
+        "source_text": "가. 유해∙위험성 분류 : 해당 없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "'해당 없음'이라 false로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.signal_word",
+        "page": 1,
+        "source_text": "2) 신호어 : 자료 없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "'자료 없음'은 enum 값 '없음'과 뜻이 달라 null로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.pictograms",
+        "page": 1,
+        "source_text": "1) 그림문자 : 자료 없음",
+        "rules": [],
+        "note": "그림문자 그림이 보이지 않아 넣지 않음"
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.h_statements",
+        "page": 1,
+        "source_text": "3) 유해∙위험문구 : 자료 없음",
+        "rules": [],
+        "note": "H 문구가 없어 빈 목록으로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.p_statements",
+        "page": 1,
+        "source_text": "- 예방 : 자료 없음 | - 대응 : 자료 없음 | - 저장 : 자료 없음 | - 폐기 : 자료 없음",
+        "rules": [],
+        "note": "P 문구가 없어 빈 목록으로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.other_hazards[0]",
+        "page": 1,
+        "source_text": "NFPA지수(0-4) : 보건=1, 화재=1, 반응성=0",
+        "rules": [
+          "R14"
+        ],
+        "note": "콜론 앞을 key, 뒤를 value로 나눔"
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.nfpa.health",
+        "page": 1,
+        "source_text": "NFPA지수(0-4) : 보건=1, 화재=1, 반응성=0",
+        "rules": [],
+        "note": "보건=1"
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.nfpa.fire",
+        "page": 1,
+        "source_text": "NFPA지수(0-4) : 보건=1, 화재=1, 반응성=0",
+        "rules": [],
+        "note": "화재=1"
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.nfpa.reactivity",
+        "page": 1,
+        "source_text": "NFPA지수(0-4) : 보건=1, 화재=1, 반응성=0",
+        "rules": [],
+        "note": "반응성=0"
+      },
+      {
+        "msds_index": 0,
+        "field": "composition.type",
+        "page": 1,
+        "source_text": "가. 화학물질명 : 폴리프로필렌 (Polypropylene)",
+        "rules": [],
+        "note": "화학물질명이 하나만 적혀 있어 단일물질로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "composition.no_hazardous_component",
+        "page": 1,
+        "source_text": "가. 화학물질명 : 폴리프로필렌 (Polypropylene)",
+        "rules": [],
+        "note": "성분 정보가 적혀 있어 false로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "components[0]",
+        "page": 1,
+        "source_text": "폴리프로필렌 (Polypropylene) | 1-프로펜, 호모중합물(1-Propene, Homopolymer), 프로펜 폴리머(Propene Polymer), 폴리프로펜(Polypropene) | 9003-07-0 | 99% 이상 (첨가제 : 1% 이하)",
+        "rules": [
+          "R02",
+          "R04",
+          "R11",
+          "R17"
+        ],
+        "note": "'99% 이상'을 하한 99(>=)로 하고 첨가제 문구는 note에 둠. '1-프로펜, 호모중합물'은 하나의 이름이므로 R17에 따라 쪼개지 않음. CAS 체크디지트 확인함"
+      }
+    ]
+  },
+  "raw_text": "{\"doc\":{\"language\":\"ko\",\"msds_count\":1},\"msds\":[{\"meta\":{\"msds_no\":null,\"doc_code\":null,\"revision_no\":5,\"revision_label\":null,\"header_product_name\":null,\"source_note\":null,\"first_issue_date\":\"1996-07-01\",\"last_revision_date\":\"2024-01-20\",\"page_start\":1,\"page_end\":4},\"product\":{\"name\":\"YUHWA POLYPRO\",\"code\":\"1088\",\"synonyms\":[],\"uses\":[\"범용 플라스틱의 원료\"],\"restrictions\":[],\"use_category_code\":null},\"companies\":[{\"seq\":1,\"role\":\"공급자\",\"name\":\"대한유화(주)\",\"site\":\"울산공장\",\"address\":\"울산광역시 남구 처용로 260-158\",\"postcode\":null,\"department\":\"품질보증1팀\",\"contacts\":[{\"type\":\"긴급\",\"value\":\"052-278-8242\",\"hours\":null},{\"type\":\"긴급\",\"value\":\"052-278-8243\",\"hours\":null},{\"type\":\"긴급\",\"value\":\"052-278-8244\",\"hours\":null},{\"type\":\"긴급\",\"value\":\"052-278-8245\",\"hours\":null},{\"type\":\"긴급\",\"value\":\"052-278-8246\",\"hours\":null}]}],\"hazard\":{\"classified\":false,\"classes\":[],\"signal_word\":null,\"pictograms\":[],\"h_statements\":[],\"p_statements\":[],\"other_hazards\":[{\"seq\":1,\"key\":\"NFPA지수(0-4)\",\"value\":\"보건=1, 화재=1, 반응성=0\",\"refs\":null,\"cond\":null,\"std_code\":null,\"match_score\":null,\"text\":\"NFPA지수(0-4) : 보건=1, 화재=1, 반응성=0\"}],\"nfpa\":{\"health\":1,\"fire\":1,\"reactivity\":0,\"special\":null}},\"composition\":{\"type\":\"단일물질\",\"no_hazardous_component\":false},\"components\":[{\"seq\":1,\"name\":\"폴리프로필렌\",\"name_en\":\"Polypropylene\",\"synonyms\":[\"1-프로펜, 호모중합물(1-Propene, Homopolymer)\",\"프로펜 폴리머(Propene Polymer)\",\"폴리프로펜(Polypropene)\"],\"cas_no\":\"9003-07-0\",\"ke_no\":null,\"ec_no\":null,\"other_id\":null,\"other_id_type\":null,\"parent_seq\":null,\"read_across_cas\":null,\"content\":{\"raw\":\"99% 이상 (첨가제 : 1% 이하)\",\"approx\":false,\"value\":null,\"lower_op\":\">=\",\"lower\":99,\"upper_op\":null,\"upper\":null,\"unit\":\"%\",\"dp\":0,\"status\":\"값있음\",\"note\":\"첨가제 : 1% 이하\"},\"content_note\":null,\"content_basis\":\"미표기\",\"trade_secret\":false,\"approval_no\":null,\"approval_expiry\":null}]}],\"evidence\":[{\"msds_index\":0,\"field\":\"meta.msds_no\",\"page\":null,\"source_text\":null,\"rules\":[],\"note\":\"문서 어디에도 MSDS 제출번호(AA…)가 없어 null로 둠\"},{\"msds_index\":0,\"field\":\"meta.revision_no\",\"page\":4,\"source_text\":\"1) 최종 개정횟수 : 5\",\"rules\":[],\"note\":null},{\"msds_index\":0,\"field\":\"meta.first_issue_date\",\"page\":4,\"source_text\":\"나. 최초작성일자 1996년 7월 1일\",\"rules\":[\"R01\"],\"note\":\"'1996년 7월 1일'을 R01에 따라 1996-07-01로 바꿈\"},{\"msds_index\":0,\"field\":\"meta.last_revision_date\",\"page\":4,\"source_text\":\"2) 최종 개정일자 : 2024년 1월 20일\",\"rules\":[\"R01\"],\"note\":\"'2024년 1월 20일'을 R01에 따라 2024-01-20으로 바꿈\"},{\"msds_index\":0,\"field\":\"meta.page_start\",\"page\":1,\"source_text\":\"물질안전보건자료(MSDS)\",\"rules\":[\"R16\"],\"note\":\"단일 MSDS로 1쪽부터 시작\"},{\"msds_index\":0,\"field\":\"meta.page_end\",\"page\":4,\"source_text\":\"16. 기타 참고사항\",\"rules\":[\"R16\"],\"note\":\"16항이 있는 4쪽에서 끝남\"},{\"msds_index\":0,\"field\":\"product.name\",\"page\":1,\"source_text\":\"가. 제품명 : YUHWA POLYPRO  Grade : 1088\",\"rules\":[],\"note\":\"제품명과 Grade를 나누어 제품명만 옮김\"},{\"msds_index\":0,\"field\":\"product.code\",\"page\":1,\"source_text\":\"가. 제품명 : YUHWA POLYPRO  Grade : 1088\",\"rules\":[],\"note\":\"'Grade : 1088'에서 1088을 제품코드로 옮김\"},{\"msds_index\":0,\"field\":\"product.uses\",\"page\":1,\"source_text\":\"나. 제품의 권고 용도와 사용상의 제한 : 범용 플라스틱의 원료\",\"rules\":[\"R11\"],\"note\":\"용도만 적혀 있고 사용상의 제한은 따로 적혀 있지 않음\"},{\"msds_index\":0,\"field\":\"companies[0]\",\"page\":1,\"source_text\":\"1) 공급회사명 : 대한유화(주) 울산공장 | 2) 주 소 : 울산광역시 남구 처용로 260-158 | 3) 정보제공서비스/긴급연락 전화번호 : (052) 278-8242~8246 | 4) 담당부서 : 품질보증1팀\",\"rules\":[\"R12\"],\"note\":\"'공급회사명'이라 role=공급자로 하고 '울산공장'을 사업장으로 나눔. 번호 범위 8242~8246을 다섯 개의 긴급 연락처로 나눔\"},{\"msds_index\":0,\"field\":\"hazard.classified\",\"page\":1,\"source_text\":\"가. 유해∙위험성 분류 : 해당 없음\",\"rules\":[\"R15\"],\"note\":\"'해당 없음'이라 false로 둠\"},{\"msds_index\":0,\"field\":\"hazard.signal_word\",\"page\":1,\"source_text\":\"2) 신호어 : 자료 없음\",\"rules\":[\"R15\"],\"note\":\"'자료 없음'은 enum 값 '없음'과 뜻이 달라 null로 둠\"},{\"msds_index\":0,\"field\":\"hazard.pictograms\",\"page\":1,\"source_text\":\"1) 그림문자 : 자료 없음\",\"rules\":[],\"note\":\"그림문자 그림이 보이지 않아 넣지 않음\"},{\"msds_index\":0,\"field\":\"hazard.h_statements\",\"page\":1,\"source_text\":\"3) 유해∙위험문구 : 자료 없음\",\"rules\":[],\"note\":\"H 문구가 없어 빈 목록으로 둠\"},{\"msds_index\":0,\"field\":\"hazard.p_statements\",\"page\":1,\"source_text\":\"- 예방 : 자료 없음 | - 대응 : 자료 없음 | - 저장 : 자료 없음 | - 폐기 : 자료 없음\",\"rules\":[],\"note\":\"P 문구가 없어 빈 목록으로 둠\"},{\"msds_index\":0,\"field\":\"hazard.other_hazards[0]\",\"page\":1,\"source_text\":\"NFPA지수(0-4) : 보건=1, 화재=1, 반응성=0\",\"rules\":[\"R14\"],\"note\":\"콜론 앞을 key, 뒤를 value로 나눔\"},{\"msds_index\":0,\"field\":\"hazard.nfpa.health\",\"page\":1,\"source_text\":\"NFPA지수(0-4) : 보건=1, 화재=1, 반응성=0\",\"rules\":[],\"note\":\"보건=1\"},{\"msds_index\":0,\"field\":\"hazard.nfpa.fire\",\"page\":1,\"source_text\":\"NFPA지수(0-4) : 보건=1, 화재=1, 반응성=0\",\"rules\":[],\"note\":\"화재=1\"},{\"msds_index\":0,\"field\":\"hazard.nfpa.reactivity\",\"page\":1,\"source_text\":\"NFPA지수(0-4) : 보건=1, 화재=1, 반응성=0\",\"rules\":[],\"note\":\"반응성=0\"},{\"msds_index\":0,\"field\":\"composition.type\",\"page\":1,\"source_text\":\"가. 화학물질명 : 폴리프로필렌 (Polypropylene)\",\"rules\":[],\"note\":\"화학물질명이 하나만 적혀 있어 단일물질로 둠\"},{\"msds_index\":0,\"field\":\"composition.no_hazardous_component\",\"page\":1,\"source_text\":\"가. 화학물질명 : 폴리프로필렌 (Polypropylene)\",\"rules\":[],\"note\":\"성분 정보가 적혀 있어 false로 둠\"},{\"msds_index\":0,\"field\":\"components[0]\",\"page\":1,\"source_text\":\"폴리프로필렌 (Polypropylene) | 1-프로펜, 호모중합물(1-Propene, Homopolymer), 프로펜 폴리머(Propene Polymer), 폴리프로펜(Polypropene) | 9003-07-0 | 99% 이상 (첨가제 : 1% 이하)\",\"rules\":[\"R02\",\"R04\",\"R11\",\"R17\"],\"note\":\"'99% 이상'을 하한 99(>=)로 하고 첨가제 문구는 note에 둠. '1-프로펜, 호모중합물'은 하나의 이름이므로 R17에 따라 쪼개지 않음. CAS 체크디지트 확인함\"}]}"
+}

@@ -1,0 +1,782 @@
+{
+  "doc_id": "T21-006",
+  "bundle": "b4",
+  "model": "claude-opus-5-5",
+  "mode": "none",
+  "finish_reason": "stop",
+  "usage": {
+    "prompt_tokens": 74691,
+    "completion_tokens": 7363,
+    "total_tokens": 82054,
+    "served_model": "claude-opus-5-5"
+  },
+  "seconds": 59.2,
+  "attempts": 1,
+  "errors": [],
+  "parsed": {
+    "msds": [
+      {
+        "transport": [
+          {
+            "mode": "공통",
+            "basis_raw": null,
+            "regulated": true,
+            "un_no": "1993",
+            "shipping_name": "Flammable liquid, n.o.s. (Cyclohexanone and Aromatic hydrocarbon mixture)",
+            "hazard_class": "3",
+            "sub_risk": null,
+            "packing_group": "III",
+            "marine_pollutant": "해당",
+            "ems_fire": null,
+            "ems_spill": null
+          }
+        ],
+        "regulations": [
+          {
+            "seq": 1,
+            "law": "OSH",
+            "item_code": "OSH_EXPOSURE_STD",
+            "item_raw": "노출기준설정물질",
+            "comp_ref": "3",
+            "applicable": "해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 2,
+            "law": "OSH",
+            "item_code": "OSH_MEASURE",
+            "item_raw": "작업환경측정물질",
+            "comp_ref": "3",
+            "applicable": "해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 3,
+            "law": "OSH",
+            "item_code": "OSH_MANAGED",
+            "item_raw": "관리대상유해물질",
+            "comp_ref": "3",
+            "applicable": "해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 4,
+            "law": "OSH",
+            "item_code": "OSH_HEALTH_EXAM",
+            "item_raw": "특수건강진단물질",
+            "comp_ref": "3",
+            "applicable": "해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": null,
+            "remark": null
+          },
+          {
+            "seq": 5,
+            "law": "CCA",
+            "item_code": null,
+            "item_raw": "유해화학물질 관리법에 의한 규제",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": "규제되지 않음",
+            "remark": null
+          },
+          {
+            "seq": 6,
+            "law": "DG",
+            "item_code": "DG_HAZMAT",
+            "item_raw": "위험물안전관리법에 의한 규제",
+            "comp_ref": "MIX",
+            "applicable": "해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": "제4류제2석유류",
+            "remark": null
+          },
+          {
+            "seq": 7,
+            "law": "DG",
+            "item_code": "DG_HAZMAT",
+            "item_raw": "위험물안전관리법에 의한 규제",
+            "comp_ref": "3",
+            "applicable": "해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": "제 4 류제 2 석유류(비수용성)",
+            "remark": null
+          },
+          {
+            "seq": 8,
+            "law": "WASTE",
+            "item_code": "WASTE_DESIG",
+            "item_raw": "폐기물관리법에 의한 규제",
+            "comp_ref": "MIX",
+            "applicable": "해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": "지정폐기물",
+            "remark": null
+          },
+          {
+            "seq": 9,
+            "law": "POPS",
+            "item_code": "POPS",
+            "item_raw": "잔류성유기오염물질관리법",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": "규제되지 않음",
+            "remark": null
+          },
+          {
+            "seq": 10,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보(OSHA 규정)",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "US",
+            "value_raw": "규제되지 않음",
+            "remark": null
+          },
+          {
+            "seq": 11,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보(SARA 302 규정, SARA 304 규정)",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "US",
+            "value_raw": "규제되지 않음",
+            "remark": null
+          },
+          {
+            "seq": 12,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보(SARA 311/312 규정)",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "US",
+            "value_raw": "규제되지 않음",
+            "remark": null
+          },
+          {
+            "seq": 13,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보(EPCRA 313조)",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "US",
+            "value_raw": "규제되지 않음",
+            "remark": null
+          },
+          {
+            "seq": 14,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보(CERCLA RQ)",
+            "comp_ref": "3",
+            "applicable": "해당",
+            "threshold": null,
+            "qty": {
+              "raw": "2267.995 kg",
+              "approx": null,
+              "value": 2267.995,
+              "lower_op": null,
+              "lower": null,
+              "upper_op": null,
+              "upper": null,
+              "unit": "kg",
+              "dp": 3,
+              "status": "값있음",
+              "note": null
+            },
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "US",
+            "value_raw": "Cyclohexanone: - 2267.995 kg",
+            "remark": null
+          },
+          {
+            "seq": 15,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "Toxic Substance Control Act (TSCA) Inventory",
+            "comp_ref": "2",
+            "applicable": "해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "US",
+            "value_raw": "등록됨",
+            "remark": null
+          },
+          {
+            "seq": 16,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "Toxic Substance Control Act (TSCA) Inventory",
+            "comp_ref": null,
+            "applicable": "해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "US",
+            "value_raw": "Mineral oil: 등록됨",
+            "remark": null
+          },
+          {
+            "seq": 17,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "Toxic Substance Control Act (TSCA) Inventory",
+            "comp_ref": "3",
+            "applicable": "해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": "US",
+            "value_raw": "등록됨",
+            "remark": null
+          },
+          {
+            "seq": 18,
+            "law": "INTL",
+            "item_code": "INTL_TREATY",
+            "item_raw": "로테르담협약물질",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": "규제되지 않음",
+            "remark": null
+          },
+          {
+            "seq": 19,
+            "law": "INTL",
+            "item_code": "INTL_TREATY",
+            "item_raw": "스톡홀름협약물질",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": "규제되지 않음",
+            "remark": null
+          },
+          {
+            "seq": 20,
+            "law": "INTL",
+            "item_code": "INTL_TREATY",
+            "item_raw": "몬트리올의정서물질",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "threshold": null,
+            "qty": null,
+            "qty_alt": null,
+            "sub_class": null,
+            "cycle": null,
+            "country": null,
+            "value_raw": "규제되지 않음",
+            "remark": null
+          }
+        ],
+        "dangerous_goods": [
+          {
+            "comp_ref": "MIX",
+            "class": "제4류",
+            "item": "제2석유류",
+            "water_soluble": "미표기",
+            "grade": null,
+            "designated_qty": null
+          },
+          {
+            "comp_ref": "3",
+            "class": "제4류",
+            "item": "제2석유류",
+            "water_soluble": "비수용성",
+            "grade": null,
+            "designated_qty": null
+          }
+        ],
+        "waste": [
+          {
+            "comp_ref": "MIX",
+            "designated": "해당",
+            "waste_type": null
+          }
+        ],
+        "intl_class": [
+          {
+            "comp_ref": "2",
+            "system": "EU_CLP",
+            "class_raw": "Carc. 1B",
+            "h_code": null,
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "2",
+            "system": "EU_CLP",
+            "class_raw": "Muta. 1B",
+            "h_code": null,
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "2",
+            "system": "EU_CLP",
+            "class_raw": "Asp. Tox. 1",
+            "h_code": null,
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "3",
+            "system": "EU_CLP",
+            "class_raw": "Flam. Liq. 3",
+            "h_code": null,
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "3",
+            "system": "EU_CLP",
+            "class_raw": "Acute Tox. 3",
+            "h_code": null,
+            "status": "값있음"
+          }
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "msds_index": 0,
+        "field": "transport[0].un_no",
+        "page": 8,
+        "source_text": "가) 유엔 번호 | UN1993",
+        "rules": [
+          "R09"
+        ],
+        "note": "'UN' 제거"
+      },
+      {
+        "msds_index": 0,
+        "field": "transport[0].shipping_name",
+        "page": 8,
+        "source_text": "나) 유엔 적정 선적 명 | Flammable liquid, n.o.s. (Cyclohexanone and Aromatic hydrocarbon mixture)",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "transport[0].hazard_class",
+        "page": 8,
+        "source_text": "다) 운송에서의 위험성 등급 | 3",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "transport[0].packing_group",
+        "page": 9,
+        "source_text": "라) 용기 등급 | III",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "transport[0].marine_pollutant",
+        "page": 9,
+        "source_text": "마) 해양 오염 물질 | 해당",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "transport[0].mode",
+        "page": 8,
+        "source_text": "14. 운송에 필요한 정보",
+        "rules": [],
+        "note": "운송 방식 구분이 없어 공통으로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "transport[0].regulated",
+        "page": 8,
+        "source_text": "UN1993",
+        "rules": [],
+        "note": "유엔번호·등급이 기재되어 규제 대상으로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[0]",
+        "page": 9,
+        "source_text": "Cyclohexanone: : 노출기준설정물질, 작업환경측정물질, 관리대상유해물질, 특수건강진단물질.",
+        "rules": [
+          "R10",
+          "R25"
+        ],
+        "note": "노출기준설정물질을 OSH_EXPOSURE_STD로 매핑"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[1]",
+        "page": 9,
+        "source_text": "Cyclohexanone: : 노출기준설정물질, 작업환경측정물질, 관리대상유해물질, 특수건강진단물질.",
+        "rules": [
+          "R10",
+          "R25"
+        ],
+        "note": "작업환경측정물질을 OSH_MEASURE로 매핑"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[2]",
+        "page": 9,
+        "source_text": "Cyclohexanone: : 노출기준설정물질, 작업환경측정물질, 관리대상유해물질, 특수건강진단물질.",
+        "rules": [
+          "R10",
+          "R25"
+        ],
+        "note": "관리대상유해물질을 OSH_MANAGED로 매핑"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[3]",
+        "page": 9,
+        "source_text": "Cyclohexanone: : 노출기준설정물질, 작업환경측정물질, 관리대상유해물질, 특수건강진단물질.",
+        "rules": [
+          "R10",
+          "R25"
+        ],
+        "note": "특수건강진단물질을 OSH_HEALTH_EXAM으로 매핑"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[4]",
+        "page": 9,
+        "source_text": "나) 유해화학물질 관리법에 의한 규제: 규제되지 않음",
+        "rules": [
+          "R10"
+        ],
+        "note": "법 전체에 대한 표기라 item_code는 null, '규제되지 않음'을 비해당으로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[5]",
+        "page": 9,
+        "source_text": "다) 위험물안전관리법에 의한 규제: 제4류제2석유류",
+        "rules": [
+          "R10"
+        ],
+        "note": "제품 전체 값으로 MIX"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[6]",
+        "page": 9,
+        "source_text": "Cyclohexanone: : 제 4 류제 2 석유류(비수용성)",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[7]",
+        "page": 9,
+        "source_text": "라) 폐기물관리법에 의한 규제: 지정폐기물",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[8]",
+        "page": 9,
+        "source_text": "- 잔류성유기오염물질관리법: 규제되지 않음",
+        "rules": [
+          "R25"
+        ],
+        "note": "'규제되지 않음'을 비해당으로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[9]",
+        "page": 9,
+        "source_text": "- 미국관리정보(OSHA 규정): 규제되지 않음",
+        "rules": [
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[10]",
+        "page": 9,
+        "source_text": "- 미국관리정보(SARA 302 규정, SARA 304 규정): 규제되지 않음",
+        "rules": [
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[11]",
+        "page": 9,
+        "source_text": "- 미국관리정보(SARA 311/312 규정): 규제되지 않음",
+        "rules": [
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[12]",
+        "page": 9,
+        "source_text": "- 미국관리정보(EPCRA 313조): 규제되지 않음",
+        "rules": [
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[13]",
+        "page": 9,
+        "source_text": "- 미국관리정보(CERCLA RQ): Cyclohexanone: - 2267.995 kg",
+        "rules": [
+          "R04",
+          "R10",
+          "R25"
+        ],
+        "note": "보고수량 2267.995 kg을 qty로 분해"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[14]",
+        "page": 9,
+        "source_text": "- Toxic Substance Control Act (TSCA) Inventory: Aromatic hydrocarbon, Mineral oil, Cyclohexanone: : 등록됨.",
+        "rules": [
+          "R10"
+        ],
+        "note": "Aromatic hydrocarbon 행"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[15]",
+        "page": 9,
+        "source_text": "- Toxic Substance Control Act (TSCA) Inventory: Aromatic hydrocarbon, Mineral oil, Cyclohexanone: : 등록됨.",
+        "rules": [
+          "R10",
+          "R17"
+        ],
+        "note": "Mineral oil은 성분 목록에 없어 comp_ref null, value_raw에 이름 보존"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[16]",
+        "page": 9,
+        "source_text": "- Toxic Substance Control Act (TSCA) Inventory: Aromatic hydrocarbon, Mineral oil, Cyclohexanone: : 등록됨.",
+        "rules": [
+          "R10"
+        ],
+        "note": "Cyclohexanone 행"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[17]",
+        "page": 9,
+        "source_text": "- 로테르담협약물질: 규제되지 않음",
+        "rules": [
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[18]",
+        "page": 10,
+        "source_text": "- 스톡홀름협약물질: 규제되지 않음",
+        "rules": [
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[19]",
+        "page": 10,
+        "source_text": "- 몬트리올의정서물질: 규제되지 않음",
+        "rules": [
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "dangerous_goods[0]",
+        "page": 9,
+        "source_text": "다) 위험물안전관리법에 의한 규제: 제4류제2석유류",
+        "rules": [],
+        "note": "류별 제4류, 품명 제2석유류로 나눔. 수용성 표기 없음"
+      },
+      {
+        "msds_index": 0,
+        "field": "dangerous_goods[1]",
+        "page": 9,
+        "source_text": "Cyclohexanone: : 제 4 류제 2 석유류(비수용성)",
+        "rules": [
+          "R10"
+        ],
+        "note": "류별 제4류, 품명 제2석유류, 비수용성으로 나눔"
+      },
+      {
+        "msds_index": 0,
+        "field": "waste[0]",
+        "page": 9,
+        "source_text": "라) 폐기물관리법에 의한 규제: 지정폐기물",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "intl_class[0]",
+        "page": 9,
+        "source_text": "Aromatic hydrocarbon | Carc. 1B | 암을 일으킬 수 있음.",
+        "rules": [
+          "R10",
+          "R11"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "intl_class[1]",
+        "page": 9,
+        "source_text": "Aromatic hydrocarbon | Muta. 1B | 유전적인 결함을 일으킬 수 있음",
+        "rules": [
+          "R10",
+          "R11"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "intl_class[2]",
+        "page": 9,
+        "source_text": "Aromatic hydrocarbon | Asp. Tox. 1 | 삼켜서 기도로 유입되면 치명적일 수 있음",
+        "rules": [
+          "R10",
+          "R11"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "intl_class[3]",
+        "page": 9,
+        "source_text": "Cyclohexanone | Flam. Liq. 3 | 인화성 액체",
+        "rules": [
+          "R10",
+          "R11"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "intl_class[4]",
+        "page": 9,
+        "source_text": "Cyclohexanone | Acute Tox. 3 | 흡입하면 유해함",
+        "rules": [
+          "R10",
+          "R11"
+        ],
+        "note": null
+      }
+    ]
+  },
+  "raw_text": "{\"msds\":[{\"transport\":[{\"mode\":\"공통\",\"basis_raw\":null,\"regulated\":true,\"un_no\":\"1993\",\"shipping_name\":\"Flammable liquid, n.o.s. (Cyclohexanone and Aromatic hydrocarbon mixture)\",\"hazard_class\":\"3\",\"sub_risk\":null,\"packing_group\":\"III\",\"marine_pollutant\":\"해당\",\"ems_fire\":null,\"ems_spill\":null}],\"regulations\":[{\"seq\":1,\"law\":\"OSH\",\"item_code\":\"OSH_EXPOSURE_STD\",\"item_raw\":\"노출기준설정물질\",\"comp_ref\":\"3\",\"applicable\":\"해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":null,\"remark\":null},{\"seq\":2,\"law\":\"OSH\",\"item_code\":\"OSH_MEASURE\",\"item_raw\":\"작업환경측정물질\",\"comp_ref\":\"3\",\"applicable\":\"해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":null,\"remark\":null},{\"seq\":3,\"law\":\"OSH\",\"item_code\":\"OSH_MANAGED\",\"item_raw\":\"관리대상유해물질\",\"comp_ref\":\"3\",\"applicable\":\"해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":null,\"remark\":null},{\"seq\":4,\"law\":\"OSH\",\"item_code\":\"OSH_HEALTH_EXAM\",\"item_raw\":\"특수건강진단물질\",\"comp_ref\":\"3\",\"applicable\":\"해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":null,\"remark\":null},{\"seq\":5,\"law\":\"CCA\",\"item_code\":null,\"item_raw\":\"유해화학물질 관리법에 의한 규제\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":\"규제되지 않음\",\"remark\":null},{\"seq\":6,\"law\":\"DG\",\"item_code\":\"DG_HAZMAT\",\"item_raw\":\"위험물안전관리법에 의한 규제\",\"comp_ref\":\"MIX\",\"applicable\":\"해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":\"제4류제2석유류\",\"remark\":null},{\"seq\":7,\"law\":\"DG\",\"item_code\":\"DG_HAZMAT\",\"item_raw\":\"위험물안전관리법에 의한 규제\",\"comp_ref\":\"3\",\"applicable\":\"해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":\"제 4 류제 2 석유류(비수용성)\",\"remark\":null},{\"seq\":8,\"law\":\"WASTE\",\"item_code\":\"WASTE_DESIG\",\"item_raw\":\"폐기물관리법에 의한 규제\",\"comp_ref\":\"MIX\",\"applicable\":\"해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":\"지정폐기물\",\"remark\":null},{\"seq\":9,\"law\":\"POPS\",\"item_code\":\"POPS\",\"item_raw\":\"잔류성유기오염물질관리법\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":\"규제되지 않음\",\"remark\":null},{\"seq\":10,\"law\":\"INTL\",\"item_code\":\"INTL_US\",\"item_raw\":\"미국관리정보(OSHA 규정)\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"US\",\"value_raw\":\"규제되지 않음\",\"remark\":null},{\"seq\":11,\"law\":\"INTL\",\"item_code\":\"INTL_US\",\"item_raw\":\"미국관리정보(SARA 302 규정, SARA 304 규정)\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"US\",\"value_raw\":\"규제되지 않음\",\"remark\":null},{\"seq\":12,\"law\":\"INTL\",\"item_code\":\"INTL_US\",\"item_raw\":\"미국관리정보(SARA 311/312 규정)\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"US\",\"value_raw\":\"규제되지 않음\",\"remark\":null},{\"seq\":13,\"law\":\"INTL\",\"item_code\":\"INTL_US\",\"item_raw\":\"미국관리정보(EPCRA 313조)\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"US\",\"value_raw\":\"규제되지 않음\",\"remark\":null},{\"seq\":14,\"law\":\"INTL\",\"item_code\":\"INTL_US\",\"item_raw\":\"미국관리정보(CERCLA RQ)\",\"comp_ref\":\"3\",\"applicable\":\"해당\",\"threshold\":null,\"qty\":{\"raw\":\"2267.995 kg\",\"approx\":null,\"value\":2267.995,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"kg\",\"dp\":3,\"status\":\"값있음\",\"note\":null},\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"US\",\"value_raw\":\"Cyclohexanone: - 2267.995 kg\",\"remark\":null},{\"seq\":15,\"law\":\"INTL\",\"item_code\":\"INTL_US\",\"item_raw\":\"Toxic Substance Control Act (TSCA) Inventory\",\"comp_ref\":\"2\",\"applicable\":\"해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"US\",\"value_raw\":\"등록됨\",\"remark\":null},{\"seq\":16,\"law\":\"INTL\",\"item_code\":\"INTL_US\",\"item_raw\":\"Toxic Substance Control Act (TSCA) Inventory\",\"comp_ref\":null,\"applicable\":\"해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"US\",\"value_raw\":\"Mineral oil: 등록됨\",\"remark\":null},{\"seq\":17,\"law\":\"INTL\",\"item_code\":\"INTL_US\",\"item_raw\":\"Toxic Substance Control Act (TSCA) Inventory\",\"comp_ref\":\"3\",\"applicable\":\"해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":\"US\",\"value_raw\":\"등록됨\",\"remark\":null},{\"seq\":18,\"law\":\"INTL\",\"item_code\":\"INTL_TREATY\",\"item_raw\":\"로테르담협약물질\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":\"규제되지 않음\",\"remark\":null},{\"seq\":19,\"law\":\"INTL\",\"item_code\":\"INTL_TREATY\",\"item_raw\":\"스톡홀름협약물질\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":\"규제되지 않음\",\"remark\":null},{\"seq\":20,\"law\":\"INTL\",\"item_code\":\"INTL_TREATY\",\"item_raw\":\"몬트리올의정서물질\",\"comp_ref\":\"MIX\",\"applicable\":\"비해당\",\"threshold\":null,\"qty\":null,\"qty_alt\":null,\"sub_class\":null,\"cycle\":null,\"country\":null,\"value_raw\":\"규제되지 않음\",\"remark\":null}],\"dangerous_goods\":[{\"comp_ref\":\"MIX\",\"class\":\"제4류\",\"item\":\"제2석유류\",\"water_soluble\":\"미표기\",\"grade\":null,\"designated_qty\":null},{\"comp_ref\":\"3\",\"class\":\"제4류\",\"item\":\"제2석유류\",\"water_soluble\":\"비수용성\",\"grade\":null,\"designated_qty\":null}],\"waste\":[{\"comp_ref\":\"MIX\",\"designated\":\"해당\",\"waste_type\":null}],\"intl_class\":[{\"comp_ref\":\"2\",\"system\":\"EU_CLP\",\"class_raw\":\"Carc. 1B\",\"h_code\":null,\"status\":\"값있음\"},{\"comp_ref\":\"2\",\"system\":\"EU_CLP\",\"class_raw\":\"Muta. 1B\",\"h_code\":null,\"status\":\"값있음\"},{\"comp_ref\":\"2\",\"system\":\"EU_CLP\",\"class_raw\":\"Asp. Tox. 1\",\"h_code\":null,\"status\":\"값있음\"},{\"comp_ref\":\"3\",\"system\":\"EU_CLP\",\"class_raw\":\"Flam. Liq. 3\",\"h_code\":null,\"status\":\"값있음\"},{\"comp_ref\":\"3\",\"system\":\"EU_CLP\",\"class_raw\":\"Acute Tox. 3\",\"h_code\":null,\"status\":\"값있음\"}]}],\"evidence\":[{\"msds_index\":0,\"field\":\"transport[0].un_no\",\"page\":8,\"source_text\":\"가) 유엔 번호 | UN1993\",\"rules\":[\"R09\"],\"note\":\"'UN' 제거\"},{\"msds_index\":0,\"field\":\"transport[0].shipping_name\",\"page\":8,\"source_text\":\"나) 유엔 적정 선적 명 | Flammable liquid, n.o.s. (Cyclohexanone and Aromatic hydrocarbon mixture)\",\"rules\":[],\"note\":null},{\"msds_index\":0,\"field\":\"transport[0].hazard_class\",\"page\":8,\"source_text\":\"다) 운송에서의 위험성 등급 | 3\",\"rules\":[],\"note\":null},{\"msds_index\":0,\"field\":\"transport[0].packing_group\",\"page\":9,\"source_text\":\"라) 용기 등급 | III\",\"rules\":[],\"note\":null},{\"msds_index\":0,\"field\":\"transport[0].marine_pollutant\",\"page\":9,\"source_text\":\"마) 해양 오염 물질 | 해당\",\"rules\":[],\"note\":null},{\"msds_index\":0,\"field\":\"transport[0].mode\",\"page\":8,\"source_text\":\"14. 운송에 필요한 정보\",\"rules\":[],\"note\":\"운송 방식 구분이 없어 공통으로 둠\"},{\"msds_index\":0,\"field\":\"transport[0].regulated\",\"page\":8,\"source_text\":\"UN1993\",\"rules\":[],\"note\":\"유엔번호·등급이 기재되어 규제 대상으로 둠\"},{\"msds_index\":0,\"field\":\"regulations[0]\",\"page\":9,\"source_text\":\"Cyclohexanone: : 노출기준설정물질, 작업환경측정물질, 관리대상유해물질, 특수건강진단물질.\",\"rules\":[\"R10\",\"R25\"],\"note\":\"노출기준설정물질을 OSH_EXPOSURE_STD로 매핑\"},{\"msds_index\":0,\"field\":\"regulations[1]\",\"page\":9,\"source_text\":\"Cyclohexanone: : 노출기준설정물질, 작업환경측정물질, 관리대상유해물질, 특수건강진단물질.\",\"rules\":[\"R10\",\"R25\"],\"note\":\"작업환경측정물질을 OSH_MEASURE로 매핑\"},{\"msds_index\":0,\"field\":\"regulations[2]\",\"page\":9,\"source_text\":\"Cyclohexanone: : 노출기준설정물질, 작업환경측정물질, 관리대상유해물질, 특수건강진단물질.\",\"rules\":[\"R10\",\"R25\"],\"note\":\"관리대상유해물질을 OSH_MANAGED로 매핑\"},{\"msds_index\":0,\"field\":\"regulations[3]\",\"page\":9,\"source_text\":\"Cyclohexanone: : 노출기준설정물질, 작업환경측정물질, 관리대상유해물질, 특수건강진단물질.\",\"rules\":[\"R10\",\"R25\"],\"note\":\"특수건강진단물질을 OSH_HEALTH_EXAM으로 매핑\"},{\"msds_index\":0,\"field\":\"regulations[4]\",\"page\":9,\"source_text\":\"나) 유해화학물질 관리법에 의한 규제: 규제되지 않음\",\"rules\":[\"R10\"],\"note\":\"법 전체에 대한 표기라 item_code는 null, '규제되지 않음'을 비해당으로 둠\"},{\"msds_index\":0,\"field\":\"regulations[5]\",\"page\":9,\"source_text\":\"다) 위험물안전관리법에 의한 규제: 제4류제2석유류\",\"rules\":[\"R10\"],\"note\":\"제품 전체 값으로 MIX\"},{\"msds_index\":0,\"field\":\"regulations[6]\",\"page\":9,\"source_text\":\"Cyclohexanone: : 제 4 류제 2 석유류(비수용성)\",\"rules\":[\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"regulations[7]\",\"page\":9,\"source_text\":\"라) 폐기물관리법에 의한 규제: 지정폐기물\",\"rules\":[\"R10\"],\"note\":null},{\"msds_index\":0,\"field\":\"regulations[8]\",\"page\":9,\"source_text\":\"- 잔류성유기오염물질관리법: 규제되지 않음\",\"rules\":[\"R25\"],\"note\":\"'규제되지 않음'을 비해당으로 둠\"},{\"msds_index\":0,\"field\":\"regulations[9]\",\"page\":9,\"source_text\":\"- 미국관리정보(OSHA 규정): 규제되지 않음\",\"rules\":[\"R25\"],\"note\":null},{\"msds_index\":0,\"field\":\"regulations[10]\",\"page\":9,\"source_text\":\"- 미국관리정보(SARA 302 규정, SARA 304 규정): 규제되지 않음\",\"rules\":[\"R25\"],\"note\":null},{\"msds_index\":0,\"field\":\"regulations[11]\",\"page\":9,\"source_text\":\"- 미국관리정보(SARA 311/312 규정): 규제되지 않음\",\"rules\":[\"R25\"],\"note\":null},{\"msds_index\":0,\"field\":\"regulations[12]\",\"page\":9,\"source_text\":\"- 미국관리정보(EPCRA 313조): 규제되지 않음\",\"rules\":[\"R25\"],\"note\":null},{\"msds_index\":0,\"field\":\"regulations[13]\",\"page\":9,\"source_text\":\"- 미국관리정보(CERCLA RQ): Cyclohexanone: - 2267.995 kg\",\"rules\":[\"R04\",\"R10\",\"R25\"],\"note\":\"보고수량 2267.995 kg을 qty로 분해\"},{\"msds_index\":0,\"field\":\"regulations[14]\",\"page\":9,\"source_text\":\"- Toxic Substance Control Act (TSCA) Inventory: Aromatic hydrocarbon, Mineral oil, Cyclohexanone: : 등록됨.\",\"rules\":[\"R10\"],\"note\":\"Aromatic hydrocarbon 행\"},{\"msds_index\":0,\"field\":\"regulations[15]\",\"page\":9,\"source_text\":\"- Toxic Substance Control Act (TSCA) Inventory: Aromatic hydrocarbon, Mineral oil, Cyclohexanone: : 등록됨.\",\"rules\":[\"R10\",\"R17\"],\"note\":\"Mineral oil은 성분 목록에 없어 comp_ref null, value_raw에 이름 보존\"},{\"msds_index\":0,\"field\":\"regulations[16]\",\"page\":9,\"source_text\":\"- Toxic Substance Control Act (TSCA) Inventory: Aromatic hydrocarbon, Mineral oil, Cyclohexanone: : 등록됨.\",\"rules\":[\"R10\"],\"note\":\"Cyclohexanone 행\"},{\"msds_index\":0,\"field\":\"regulations[17]\",\"page\":9,\"source_text\":\"- 로테르담협약물질: 규제되지 않음\",\"rules\":[\"R25\"],\"note\":null},{\"msds_index\":0,\"field\":\"regulations[18]\",\"page\":10,\"source_text\":\"- 스톡홀름협약물질: 규제되지 않음\",\"rules\":[\"R25\"],\"note\":null},{\"msds_index\":0,\"field\":\"regulations[19]\",\"page\":10,\"source_text\":\"- 몬트리올의정서물질: 규제되지 않음\",\"rules\":[\"R25\"],\"note\":null},{\"msds_index\":0,\"field\":\"dangerous_goods[0]\",\"page\":9,\"source_text\":\"다) 위험물안전관리법에 의한 규제: 제4류제2석유류\",\"rules\":[],\"note\":\"류별 제4류, 품명 제2석유류로 나눔. 수용성 표기 없음\"},{\"msds_index\":0,\"field\":\"dangerous_goods[1]\",\"page\":9,\"source_text\":\"Cyclohexanone: : 제 4 류제 2 석유류(비수용성)\",\"rules\":[\"R10\"],\"note\":\"류별 제4류, 품명 제2석유류, 비수용성으로 나눔\"},{\"msds_index\":0,\"field\":\"waste[0]\",\"page\":9,\"source_text\":\"라) 폐기물관리법에 의한 규제: 지정폐기물\",\"rules\":[],\"note\":null},{\"msds_index\":0,\"field\":\"intl_class[0]\",\"page\":9,\"source_text\":\"Aromatic hydrocarbon | Carc. 1B | 암을 일으킬 수 있음.\",\"rules\":[\"R10\",\"R11\"],\"note\":null},{\"msds_index\":0,\"field\":\"intl_class[1]\",\"page\":9,\"source_text\":\"Aromatic hydrocarbon | Muta. 1B | 유전적인 결함을 일으킬 수 있음\",\"rules\":[\"R10\",\"R11\"],\"note\":null},{\"msds_index\":0,\"field\":\"intl_class[2]\",\"page\":9,\"source_text\":\"Aromatic hydrocarbon | Asp. Tox. 1 | 삼켜서 기도로 유입되면 치명적일 수 있음\",\"rules\":[\"R10\",\"R11\"],\"note\":null},{\"msds_index\":0,\"field\":\"intl_class[3]\",\"page\":9,\"source_text\":\"Cyclohexanone | Flam. Liq. 3 | 인화성 액체\",\"rules\":[\"R10\",\"R11\"],\"note\":null},{\"msds_index\":0,\"field\":\"intl_class[4]\",\"page\":9,\"source_text\":\"Cyclohexanone | Acute Tox. 3 | 흡입하면 유해함\",\"rules\":[\"R10\",\"R11\"],\"note\":null}]}"
+}

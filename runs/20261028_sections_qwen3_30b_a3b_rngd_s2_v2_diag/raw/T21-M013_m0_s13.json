@@ -1,0 +1,88 @@
+{
+ "doc_id": "T21-M013",
+ "msds_index": 0,
+ "section": 13,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S13_METHOD",
+    "title_raw": "가폐기방법",
+    "start": "p8:L127",
+    "end": "p8:L132"
+   },
+   {
+    "item_code": "S13_CAUTION",
+    "title_raw": "나폐기시주의사항오염된용기및",
+    "start": "p8:L138",
+    "end": "p8:L147"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S13_CAUTION",
+    "title_raw": "지정폐기물의분류번호",
+    "reason": "필드없음",
+    "comp_name": "지정폐기물의분류번호",
+    "comp_cas": "",
+    "q": {
+     "raw": "사용자생산자폐기물처리업체가협의하여폐기물코드를부여해야함",
+     "value": null,
+     "approx": null,
+     "lower_op": null,
+     "lower": null,
+     "upper_op": null,
+     "upper": null,
+     "unit": null
+    },
+    "statements": [
+     {
+      "key": "사용자생산자폐기물처리업체가협의하여폐기물코드를부여해야함",
+      "value": "사용자생산자폐기물처리업체가협의하여폐기물코드를부여해야함",
+      "refs": [],
+      "cond": null,
+      "line": "p8:L149"
+     },
+     {
+      "key": "지정폐기물의분류번호",
+      "value": "사용자생산자폐기물처리업체가협의하여폐기물코드를부여해야함",
+      "refs": [],
+      "cond": null,
+      "line": "p8:L149"
+     }
+    ],
+    "suggested_code": "WASTE_CODE",
+    "line": "p8:L149"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S13_METHOD\",\n      \"title_raw\": \"가폐기방법\",\n      \"start\": \"p8:L127\",\n      \"end\": \"p8:L132\"\n    },\n    {\n      \"item_code\": \"S13_CAUTION\",\n      \"title_raw\": \"나폐기시주의사항오염된용기및\",\n      \"start\": \"p8:L138\",\n      \"end\": \"p8:L147\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S13_CAUTION\",\n      \"title_raw\": \"지정폐기물의분류번호\",\n      \"reason\": \"필드없음\",\n      \"comp_name\": \"지정폐기물의분류번호\",\n      \"comp_cas\": \"\",\n      \"q\": {\n        \"raw\": \"사용자생산자폐기물처리업체가협의하여폐기물코드를부여해야함\"\n      ,\n      \"value\": null,\n      \"approx\": null,\n      \"lower_op\": null,\n      \"lower\": null,\n      \"upper_op\": null,\n      \"upper\": null,\n      \"unit\": null\n    },\n    \"statements\": [\n      {\n        \"key\": \"사용자생산자폐기물처리업체가협의하여폐기물코드를부여해야함\",\n        \"value\": \"사용자생산자폐기물처리업체가협의하여폐기물코드를부여해야함\"\n      ,\n      \"refs\": []\n    ,\n    \"cond\": null\n  ,\n  \"line\": \"p8:L149\"\n},\n{\n  \"key\": \"지정폐기물의분류번호\",\n  \"value\": \"사용자생산자폐기물처리업체가협의하여폐기물코드를부여해야함\",\n  \"refs\": [],\n  \"cond\": null,\n  \"line\": \"p8:L149\"\n}\n]\n,\n\"suggested_code\": \"WASTE_CODE\"\n,\n\"line\": \"p8:L149\"\n}\n]\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 24503,
+  "completion_tokens": 474,
+  "total_tokens": 24977
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 24503,
+    "completion_tokens": 474,
+    "total_tokens": 24977
+   },
+   "seconds": 36.741,
+   "chars": 1055,
+   "whitespace": 325,
+   "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S13_METHOD\",\n      \"title_raw\": \"가폐기방법\",\n      \"start\": \"p8:L127\",\n      \"end\": \"p8:L132\"\n    },\n    {\n      \"item_code\": \"S13_CAUTION\",\n      \"title_raw\": \"나폐기시주의사항오염된용기및\",\n      \"start\": \"p8:L138\",\n      \"end\": \"p8:L147\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S13_CAUTION\",\n      \"title_raw\": \"지정폐기물의분류번호\",\n      \"reason\": \"필드없음\",\n      \"comp_name\": \"지정폐기물의분류번호\",\n      \"comp_cas\": \"\",\n      \"q\": {\n        \"raw\": \"사용자생산자폐기물처리업체가협의하여폐기물코드를",
+   "tail": "l,\n      \"lower_op\": null,\n      \"lower\": null,\n      \"upper_op\": null,\n      \"upper\": null,\n      \"unit\": null\n    },\n    \"statements\": [\n      {\n        \"key\": \"사용자생산자폐기물처리업체가협의하여폐기물코드를부여해야함\",\n        \"value\": \"사용자생산자폐기물처리업체가협의하여폐기물코드를부여해야함\"\n      ,\n      \"refs\": []\n    ,\n    \"cond\": null\n  ,\n  \"line\": \"p8:L149\"\n},\n{\n  \"key\": \"지정폐기물의분류번호\",\n  \"value\": \"사용자생산자폐기물처리업체가협의하여폐기물코드를부여해야함\",\n  \"refs\": [],\n  \"cond\": null,\n  \"line\": \"p8:L149\"\n}\n]\n,\n\"suggested_code\": \"WASTE_CODE\"\n,\n\"line\": \"p8:L149\"\n}\n]\n}"
+  }
+ ],
+ "seconds": 36.742,
+ "check_problems": []
+}

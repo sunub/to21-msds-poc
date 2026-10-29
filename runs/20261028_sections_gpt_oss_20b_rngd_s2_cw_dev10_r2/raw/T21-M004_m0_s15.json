@@ -1,0 +1,72 @@
+{
+ "doc_id": "T21-M004",
+ "msds_index": 0,
+ "section": 15,
+ "reextracted": false,
+ "ok": false,
+ "parsed": null,
+ "raw_text": "",
+ "mode": "none",
+ "finish_reason": "length",
+ "usage": {
+  "prompt_tokens": 22106,
+  "completion_tokens": 8192,
+  "total_tokens": 30298
+ },
+ "attempts": 1,
+ "errors": [
+  "[none] 출력 길이 한도에 걸려 잘림 (max_tokens=8192)"
+ ],
+ "requests": [
+  {
+   "mode": "none",
+   "finish_reason": "length",
+   "usage": {
+    "prompt_tokens": 22106,
+    "completion_tokens": 8192,
+    "total_tokens": 30298
+   },
+   "seconds": 304.101,
+   "chars": 0,
+   "whitespace": 0,
+   "head": "",
+   "tail": ""
+  }
+ ],
+ "seconds": 304.103,
+ "check_problems": [],
+ "reextract_attempt": {
+  "ok": false,
+  "parsed": null,
+  "raw_text": "We need to produce JSON. We need to decide how many rows. For brevity, maybe we can include only rows for components that have statuses. But spec says each component × law × item_code. So we need many rows.\n\nBut maybe we can simplify: For each component, we create rows for each item_code that appears in the line. For components with \"해당없음\" for all items, we might not create rows? But spec says \"해당·비해당·자료없음도 원문에 적힌 대로 행으로 쓴다.\" So we need to create rows for each component that has a status. For 부탄, we have only 노출기준설정대상물질. So we create row for OSH_PERMISSIBLE. For 부텐 1, we have 해당없음. But we don't know which item. But maybe we can create row for OSH_PERMISSIBLE with applicable 해당없음? But that would be wrong. But maybe we can create row for OSH_PERMISSIBLE with applicable 해당없음, and also for other items? But we don't know. But maybe we can create row for OSH_PERMISSIBLE with applicable 해당없음, and for other items we don't create rows. That might be acceptable.\n\nFor 1,3 부타디엔, we have multiple items. So we create rows for each.\n\nFor other components, we create rows for OSH_PERMISSIBLE with 해당없음? But we don't know. But maybe we can create rows for OSH_PERMISSIBLE with 해당없음 for all components that have no specific status? But that would be many rows.\n\nGiven the complexity, maybe we can produce minimal JSON with only regulations entries for OSH_PERMISSIBLE for 부탄, 부텐 1, 1,3 부타디엔, and for CCA_TOXIC for 1,3 부타디엔, and for DG_HAZMAT for all components with applicable 해당없음. For WASTE, we can create waste entries for each component with designated 비해당? But the line says \"해당없음. 단, 용기에 보관중인 경우 지정폐기물(폐유독물질)임.\" So for each component, designated = 비해당? Actually \"해당없음\" means not designated waste. But the note says if stored in container, it's designated waste. But we don't have container info. So maybe designated = 비해당.\n\nBut we need to produce JSON with arrays. Let's produce:\n\nregulations: array of objects.\n\nWe need to include line numbers: e.g., p14:L5 for 부탄 OSH_PERMISSIBLE.\n\nLet's list:\n\n1. 부탄, OSH, OSH_PERMISSIBLE, item_raw \"노출기준설정대상물질\", applicable \"해당\", threshold null, line p14:L5.\n\n2. 부탄, OSH, OSH_MANAGED? Not mentioned. So skip.\n\n3. 부탄, OSH, OSH_SPECIAL? Not mentioned. skip.\n\n4. 부탄, OSH, OSH_MEASURE? Not mentioned. skip.\n\n5. 부탄, OSH, OSH_HEALTH_EXAM? Not mentioned. skip.\n\n6. 부탄, CCA, CCA_TOXIC, item_raw \"유독물질\", applicable \"해당\", threshold null, line p14:L16.\n\n7. 부탄, DG, DG_HAZMAT, item_raw \"해당없음\", applicable \"해당없음\", line p14:L20.\n\n8. 부탄, WASTE, WASTE_DESIG? Actually WASTE law: we need waste array. So waste entry: comp_name 부탄, designated 비해당, line p14:L22.\n\nSimilarly for 부텐 1:\n\n9. 부텐 1, OSH, OSH_PERMISSIBLE, item_raw \"해당없음\", applicable \"해당없음\", line p14:L6.\n\n10. 부텐 1, CCA, CCA_TOXIC, item_raw \"해당없음\", applicable \"해당없음\", line p14:L15.\n\n11. 부텐 1, DG, DG_HAZMAT, item_raw \"해당없음\", applicable \"해당없음\", line p14:L20.\n\n12. 부텐 1, WASTE, designated 비해당, line p14:L22.\n\nFor 1,3 부타디엔:\n\n13. 1,3 부타디엔, OSH, OSH_MANAGED, item_raw \"관리대상유해물질\", applicable \"해당\", line p14:L7.\n\n14. 1,3 부타디엔, OSH, OSH_PERMISSIBLE, item_raw \"노출기준설정대상물질\", applicable \"해당\", line p14:L7.\n\n15. 1,3 부타디엔, OSH, OSH_MEASURE, item_raw \"작업환경측정대상물질(및 이를 1 wt% 이상 함유한 제제, 측정주기:6개월, 진단:대상작업장 지정 후 30일 이내)\", applicable \"해당\", threshold lower_op >=, lower 1, unit %, cycle value 6, unit 개월, line p14:L7.\n\n16. 1,3 부타디엔, OSH, OSH_SPECIAL, item_raw \"특별관리대상물질\", applicable \"해당\", line p14:L7.\n\n17. 1,3 부타디엔, OSH, OSH_HEALTH_EXAM, item_raw \"특수건강진단물질(및 이를 1 wt% 이상 함유한 제제, 측정주기:12개월, 진단:6개월 이내)\", applicable \"해당\", threshold lower_op >=, lower 1, unit %, cycle value 12, unit 개월, line p14:L7.\n\n18. 1,3 부타디엔, CCA, CCA_TOXIC, item_raw \"유독물질 (이를 0.1%이상 함유한 혼합물질)\", applicable \"해당\", threshold lower_op >=, lower 0.1, unit %, line p14:L16.\n\n19. 1,3 부타디엔, DG, DG_HAZMAT, item_raw \"해당없음\", applicable \"해당없음\", line p14:L20.\n\n20. 1,3 부타디엔, WASTE, designated 비해당, line p14:L22.\n\nFor 이소부텐, 시스 2 부텐, 트랜스 2 부텐: all have 해당없음 for OSH, CCA, DG, WASTE. So we can create rows for each with applicable 해당없음. But maybe we can skip to reduce size? But spec says include. But we can include minimal.\n\nLet's include for 이소부텐:\n\n21. 이소부텐, OSH, OSH_PERMISSIBLE, item_raw \"해당없음\", applicable \"해당없음\", line p14:L8.\n\n22. 이소부텐, CCA, CCA_TOXIC, item_raw \"해당없음\", applicable \"해당없음\", line p14:L17.\n\n23. 이소부텐, DG, DG_HAZMAT, item_raw \"해당없음\", applicable \"해당없음\", line p14:L20.\n\n24. 이소부텐, WASTE, designated 비해당, line p14:L22.\n\nSimilarly for 시스 2 부텐:\n\n25. 시스 2 부텐, OSH, OSH_PERMISSIBLE, item_raw \"해당없음\", applicable \"해당없음\", line p14:L9.\n\n26. 시스 2 부텐, CCA, CCA_TOXIC, item_raw \"해당없음\", applicable \"해당없음\", line p14:L18.\n\n27. 시스 2 부텐, DG, DG_HAZMAT, item_raw \"해당없음\", applicable \"해당없음\", line p14:L20.\n\n28. 시스 2 부텐, WASTE, designated 비해당, line p14:L22.\n\nSimilarly for 트랜스 2 부텐:\n\n29. 트랜스 2 부텐, OSH, OSH_PERMISSIBLE, item_raw \"해당없음\", applicable \"해당없음\", line p14:L10.\n\n30. 트랜스 2 부텐, CCA, CCA_TOXIC, item_raw \"해당없음\", applicable \"해당없음\", line p14:L19.\n\n31. 트랜스 2 부텐, DG, DG_HAZMAT, item_raw \"해당없음\", applicable \"해당없음\", line p14:L20.\n\n32. 트랜스 2 부텐, WASTE, designated 비해당, line p14:L22.\n\nNow for KR_ETC: 대기환경보전법, 잔류성유기오염물질관리법, 수질 및 수생태계보전법. These are other domestic laws. We need to create regulations entries for each component? The lines say \"대기환경보전법에 의한 규제 PRODUCT : 대기오염물질, 유해성대기감시물질, 특정대기유해물질",
+  "mode": "none",
+  "finish_reason": "length",
+  "usage": {
+   "prompt_tokens": 22135,
+   "completion_tokens": 8192,
+   "total_tokens": 30327
+  },
+  "attempts": 1,
+  "errors": [
+   "[none] 출력 길이 한도에 걸려 잘림 (max_tokens=8192)"
+  ],
+  "requests": [
+   {
+    "mode": "none",
+    "finish_reason": "length",
+    "usage": {
+     "prompt_tokens": 22135,
+     "completion_tokens": 8192,
+     "total_tokens": 30327
+    },
+    "seconds": 155.513,
+    "chars": 5208,
+    "whitespace": 882,
+    "head": "We need to produce JSON. We need to decide how many rows. For brevity, maybe we can include only rows for components that have statuses. But spec says each component × law × item_code. So we need many rows.\n\nBut maybe we can simplify: For each component, we create rows for each item_code that appears in the line. For components with \"해당없음\" for all items, we might not create rows? But spec says \"해당·비해당·자료없음도 원문에 적힌 대로 행으로 쓴다.\" So we need to create rows for each component that has a status. For 부탄",
+    "tail": " 부텐, OSH, OSH_PERMISSIBLE, item_raw \"해당없음\", applicable \"해당없음\", line p14:L10.\n\n30. 트랜스 2 부텐, CCA, CCA_TOXIC, item_raw \"해당없음\", applicable \"해당없음\", line p14:L19.\n\n31. 트랜스 2 부텐, DG, DG_HAZMAT, item_raw \"해당없음\", applicable \"해당없음\", line p14:L20.\n\n32. 트랜스 2 부텐, WASTE, designated 비해당, line p14:L22.\n\nNow for KR_ETC: 대기환경보전법, 잔류성유기오염물질관리법, 수질 및 수생태계보전법. These are other domestic laws. We need to create regulations entries for each component? The lines say \"대기환경보전법에 의한 규제 PRODUCT : 대기오염물질, 유해성대기감시물질, 특정대기유해물질"
+   }
+  ],
+  "seconds": 155.515,
+  "check_problems": []
+ }
+}

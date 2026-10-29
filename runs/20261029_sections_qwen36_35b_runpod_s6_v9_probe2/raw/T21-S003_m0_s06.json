@@ -1,0 +1,132 @@
+{
+ "doc_id": "T21-S003",
+ "msds_index": 0,
+ "section": 6,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "narratives": [],
+  "extras": [
+   {
+    "after_item": "S9_END",
+    "title_raw": "6.누출사고시 대처방법",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "key": "가.인체를 보호하기 위해 필요한 조치사항 및 보호구",
+      "value": "작업자가 위험하지 않다면 직접 화학물질 누출을 중지시키시오.\n노출지역을 격리조치하고 관계자 이외인의 접근을 통제하시오.\n저지대를 피하고 바람과 반대방향에 있도록 하시오.",
+      "line": "p2:L30-p2:L32"
+     },
+     {
+      "key": "나.환경을 보호하기 위해 필요한 조치사항",
+      "value": "대기 : 자료없음\n토양 : 자료없음\n수중 : 자료없음",
+      "line": "p2:L33-p2:L36"
+     },
+     {
+      "key": "다.정화 또는 제거 방법",
+      "value": "소량 누출시 : 자료없음\n다량 누출시 : 자료없음",
+      "line": "p2:L37-p2:L39"
+     }
+    ],
+    "suggested_code": "S6_NARRATIVE",
+    "line": "p2:L29"
+   }
+  ]
+ },
+ "raw_text": "{\"narratives\":[],\"extras\":[{\"after_item\":\"S9_END\",\"title_raw\":\"6.누출사고시 대처방법\",\"reason\":\"코드없음\",\"statements\":[{\"key\":\"가.인체를 보호하기 위해 필요한 조치사항 및 보호구\",\"value\":\"작업자가 위험하지 않다면 직접 화학물질 누출을 중지시키시오.\\n노출지역을 격리조치하고 관계자 이외인의 접근을 통제하시오.\\n저지대를 피하고 바람과 반대방향에 있도록 하시오.\",\"line\":\"p2:L30-p2:L32\"},{\"key\":\"나.환경을 보호하기 위해 필요한 조치사항\",\"value\":\"대기 : 자료없음\\n토양 : 자료없음\\n수중 : 자료없음\",\"line\":\"p2:L33-p2:L36\"},{\"key\":\"다.정화 또는 제거 방법\",\"value\":\"소량 누출시 : 자료없음\\n다량 누출시 : 자료없음\",\"line\":\"p2:L37-p2:L39\"}],\"suggested_code\":\"S6_NARRATIVE\",\"line\":\"p2:L29\"}]}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 2068,
+  "completion_tokens": 237,
+  "total_tokens": 2305
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 2068,
+    "completion_tokens": 237,
+    "total_tokens": 2305
+   },
+   "seconds": 6.753,
+   "chars": 511,
+   "whitespace": 42,
+   "head": "{\"narratives\":[],\"extras\":[{\"after_item\":\"S9_END\",\"title_raw\":\"6.누출사고시 대처방법\",\"reason\":\"코드없음\",\"statements\":[{\"key\":\"가.인체를 보호하기 위해 필요한 조치사항 및 보호구\",\"value\":\"작업자가 위험하지 않다면 직접 화학물질 누출을 중지시키시오.\\n노출지역을 격리조치하고 관계자 이외인의 접근을 통제하시오.\\n저지대를 피하고 바람과 반대방향에 있도록 하시오.\",\"line\":\"p2:L30-p2:L32\"},{\"key\":\"나.환경을 보호하기 위해 필요한 조치사항\",\"value\":\"대기 : 자료없음\\n토양 : 자료없음\\n수중 : 자료없음\",\"line\":\"p2:L33-p2:L36\"},{\"key\":\"다.정화 또는 제거 방법\",\"value\":\"소량 누출시 : 자료없음\\n다량 누출시 : 자료없음\",\"line\":\"p2:L37-p2:L39\"}],\"suggested_code\":\"S6_NARRATIVE\",\"line\":",
+   "tail": "\"p2:L29\"}]}"
+  }
+ ],
+ "seconds": 6.754,
+ "check_problems": [
+  "extras[0].statements[0].line: 원문에 없는 줄 번호 p2:L30-p2:L32",
+  "extras[0].statements[1].line: 원문에 없는 줄 번호 p2:L33-p2:L36",
+  "extras[0].statements[2].line: 원문에 없는 줄 번호 p2:L37-p2:L39"
+ ],
+ "reextract_attempt": {
+  "ok": true,
+  "parsed": {
+   "narratives": [],
+   "extras": [
+    {
+     "after_item": "S9_END",
+     "title_raw": "6.누출사고시 대처방법",
+     "reason": "코드없음",
+     "statements": [
+      {
+       "key": "가.인체를 보호하기 위해 필요한 조치사항 및 보호구",
+       "value": "작업자가 위험하지 않다면 직접 화학물질 누출을 중지시키시오. 노출지역을 격리조치하고 관계자 이외인의 접근을 통제하시오. 저지대를 피하고 바람과 반대방향에 있도록 하시오.",
+       "line": "p2:L30-p2:L32"
+      },
+      {
+       "key": "나.환경을 보호하기 위해 필요한 조치사항",
+       "value": "대기 : 자료없음\n토양 : 자료없음\n수중 : 자료없음",
+       "line": "p2:L33-p2:L36"
+      },
+      {
+       "key": "다.정화 또는 제거 방법",
+       "value": "소량 누출시 : 자료없음\n다량 누출시 : 자료없음",
+       "line": "p2:L37-p2:L39"
+      }
+     ],
+     "suggested_code": "S6_NARRATIVE_RAW",
+     "line": "p2:L29"
+    }
+   ]
+  },
+  "raw_text": "{\"narratives\":[],\"extras\":[{\"after_item\":\"S9_END\",\"title_raw\":\"6.누출사고시 대처방법\",\"reason\":\"코드없음\",\"statements\":[{\"key\":\"가.인체를 보호하기 위해 필요한 조치사항 및 보호구\",\"value\":\"작업자가 위험하지 않다면 직접 화학물질 누출을 중지시키시오. 노출지역을 격리조치하고 관계자 이외인의 접근을 통제하시오. 저지대를 피하고 바람과 반대방향에 있도록 하시오.\",\"line\":\"p2:L30-p2:L32\"},{\"key\":\"나.환경을 보호하기 위해 필요한 조치사항\",\"value\":\"대기 : 자료없음\\n토양 : 자료없음\\n수중 : 자료없음\",\"line\":\"p2:L33-p2:L36\"},{\"key\":\"다.정화 또는 제거 방법\",\"value\":\"소량 누출시 : 자료없음\\n다량 누출시 : 자료없음\",\"line\":\"p2:L37-p2:L39\"}],\"suggested_code\":\"S6_NARRATIVE_RAW\",\"line\":\"p2:L29\"}]}",
+  "mode": "json_schema",
+  "finish_reason": "stop",
+  "usage": {
+   "prompt_tokens": 2156,
+   "completion_tokens": 233,
+   "total_tokens": 2389
+  },
+  "attempts": 1,
+  "errors": [],
+  "requests": [
+   {
+    "mode": "json_schema",
+    "finish_reason": "stop",
+    "usage": {
+     "prompt_tokens": 2156,
+     "completion_tokens": 233,
+     "total_tokens": 2389
+    },
+    "seconds": 4.151,
+    "chars": 513,
+    "whitespace": 44,
+    "head": "{\"narratives\":[],\"extras\":[{\"after_item\":\"S9_END\",\"title_raw\":\"6.누출사고시 대처방법\",\"reason\":\"코드없음\",\"statements\":[{\"key\":\"가.인체를 보호하기 위해 필요한 조치사항 및 보호구\",\"value\":\"작업자가 위험하지 않다면 직접 화학물질 누출을 중지시키시오. 노출지역을 격리조치하고 관계자 이외인의 접근을 통제하시오. 저지대를 피하고 바람과 반대방향에 있도록 하시오.\",\"line\":\"p2:L30-p2:L32\"},{\"key\":\"나.환경을 보호하기 위해 필요한 조치사항\",\"value\":\"대기 : 자료없음\\n토양 : 자료없음\\n수중 : 자료없음\",\"line\":\"p2:L33-p2:L36\"},{\"key\":\"다.정화 또는 제거 방법\",\"value\":\"소량 누출시 : 자료없음\\n다량 누출시 : 자료없음\",\"line\":\"p2:L37-p2:L39\"}],\"suggested_code\":\"S6_NARRATIVE_RAW\",\"line",
+    "tail": "\":\"p2:L29\"}]}"
+   }
+  ],
+  "seconds": 4.153,
+  "check_problems": [
+   "extras[0].statements[0].line: 원문에 없는 줄 번호 p2:L30-p2:L32",
+   "extras[0].statements[1].line: 원문에 없는 줄 번호 p2:L33-p2:L36",
+   "extras[0].statements[2].line: 원문에 없는 줄 번호 p2:L37-p2:L39"
+  ]
+ }
+}

@@ -1,0 +1,96 @@
+{
+ "doc_id": "T21-S001",
+ "msds_index": 0,
+ "section": 5,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S5_MEDIA",
+    "title_raw": "적절한(및 부적절한) 소화제",
+    "start": "p4:L10",
+    "end": "p4:L13"
+   },
+   {
+    "item_code": "S5_SPECIFIC",
+    "title_raw": "화학물질로부터 생기는 특정 유해성",
+    "start": "p4:L20",
+    "end": "p4:L24"
+   },
+   {
+    "item_code": "S5_FIREFIGHT",
+    "title_raw": "화재 진압 시 착용할 보호구 및 예방조치",
+    "start": "p4:L25",
+    "end": "p4:L31"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S5_FIREFIGHT",
+    "title_raw": "화재 진압 시 착용할 보호구 및 예방조치",
+    "reason": "필드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": {
+     "raw": "반마일(약 800M)이상",
+     "value": null,
+     "approx": true,
+     "lower_op": ">=",
+     "lower": 800,
+     "upper_op": null,
+     "upper": null,
+     "unit": "m"
+    },
+    "statements": [
+     {
+      "key": null,
+      "value": "- 탱크, 화차, 탱크 트럭이 화재에 휩싸인 경우 사방으로 반마일(약 800M)이상 격리할 것",
+      "refs": null,
+      "cond": {
+       "raw": "반마일(약 800M)이상",
+       "value": null,
+       "approx": true,
+       "lower_op": ">=",
+       "lower": 800,
+       "upper_op": null,
+       "upper": null,
+       "unit": "m"
+      },
+      "line": "p4:L30"
+     }
+    ],
+    "suggested_code": null,
+    "line": "p4:L30"
+   }
+  ]
+ },
+ "raw_text": "{\"narratives\":[{\"item_code\":\"S5_MEDIA\",\"title_raw\":\"적절한(및 부적절한) 소화제\",\"start\":\"p4:L10\",\"end\":\"p4:L13\"},{\"item_code\":\"S5_SPECIFIC\",\"title_raw\":\"화학물질로부터 생기는 특정 유해성\",\"start\":\"p4:L20\",\"end\":\"p4:L24\"},{\"item_code\":\"S5_FIREFIGHT\",\"title_raw\":\"화재 진압 시 착용할 보호구 및 예방조치\",\"start\":\"p4:L25\",\"end\":\"p4:L31\"}],\"extras\":[{\"after_item\":\"S5_FIREFIGHT\",\"title_raw\":\"화재 진압 시 착용할 보호구 및 예방조치\",\"reason\":\"필드없음\",\"comp_name\":null,\"comp_cas\":null,\"q\":{\"raw\":\"반마일(약 800M)이상\",\"value\":null,\"approx\":true,\"lower_op\":\">=\",\"lower\":800,\"upper_op\":null,\"upper\":null,\"unit\":\"m\"},\"statements\":[{\"key\":null,\"value\":\"- 탱크, 화차, 탱크 트럭이 화재에 휩싸인 경우 사방으로 반마일(약 800M)이상 격리할 것\",\"refs\":null,\"cond\":{\"raw\":\"반마일(약 800M)이상\",\"value\":null,\"approx\":true,\"lower_op\":\">=\",\"lower\":800,\"upper_op\":null,\"upper\":null,\"unit\":\"m\"},\"line\":\"p4:L30\"}],\"suggested_code\":null,\"line\":\"p4:L30\"}]}",
+ "mode": "none",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 9477,
+  "completion_tokens": 3474,
+  "total_tokens": 12951
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "none",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 9477,
+    "completion_tokens": 3474,
+    "total_tokens": 12951
+   },
+   "seconds": 126.053,
+   "chars": 827,
+   "whitespace": 31,
+   "head": "{\"narratives\":[{\"item_code\":\"S5_MEDIA\",\"title_raw\":\"적절한(및 부적절한) 소화제\",\"start\":\"p4:L10\",\"end\":\"p4:L13\"},{\"item_code\":\"S5_SPECIFIC\",\"title_raw\":\"화학물질로부터 생기는 특정 유해성\",\"start\":\"p4:L20\",\"end\":\"p4:L24\"},{\"item_code\":\"S5_FIREFIGHT\",\"title_raw\":\"화재 진압 시 착용할 보호구 및 예방조치\",\"start\":\"p4:L25\",\"end\":\"p4:L31\"}],\"extras\":[{\"after_item\":\"S5_FIREFIGHT\",\"title_raw\":\"화재 진압 시 착용할 보호구 및 예방조치\",\"reason\":\"필드없음\",\"comp_name\":null,\"comp_cas\":null,\"q\":{\"raw\":\"반마일(약 800M)이상\",\"value\":null,\"approx\":true,\"lower_op\":\">=\",\"lower\":800",
+   "tail": ",\"upper_op\":null,\"upper\":null,\"unit\":\"m\"},\"statements\":[{\"key\":null,\"value\":\"- 탱크, 화차, 탱크 트럭이 화재에 휩싸인 경우 사방으로 반마일(약 800M)이상 격리할 것\",\"refs\":null,\"cond\":{\"raw\":\"반마일(약 800M)이상\",\"value\":null,\"approx\":true,\"lower_op\":\">=\",\"lower\":800,\"upper_op\":null,\"upper\":null,\"unit\":\"m\"},\"line\":\"p4:L30\"}],\"suggested_code\":null,\"line\":\"p4:L30\"}]}"
+  }
+ ],
+ "seconds": 126.056,
+ "check_problems": []
+}

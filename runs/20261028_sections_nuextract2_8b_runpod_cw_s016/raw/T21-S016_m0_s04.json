@@ -1,0 +1,39 @@
+{
+ "doc_id": "T21-S016",
+ "msds_index": 0,
+ "section": 4,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "narratives": [],
+  "extras": []
+ },
+ "raw_text": "{\"narratives\": [{\"item_code\": \"S4_INGEST\", \"title_raw\": null, \"start\": \"P301+P310 삼켰다면: 즉시 의료기관/의사의 진찰을 받으시오.\", \"end\": null}, {\"item_code\": \"S4_SYMPTOM\", \"title_raw\": null, \"start\": \"P302+P352 피부에 묻으면: 다량의 물로 씻으시오.\", \"end\": null}, {\"item_code\": \"S4_INHAL\", \"title_raw\": null, \"start\": \"P201 사용 전 취급 설명서를 확보하시오.\", \"end\": null}], \"extras\": [{\"after_item\": \"P301+P310 삼켰다면: 즉시 의료기관/의사의 진찰을 받으시오.\", \"title_raw\": \"H225 고인화성 액체 및 증기\", \"reason\": \"필드없음\", \"comp_name\": null, \"comp_cas\": null, \"q\": {\"raw\": null, \"value\": null, \"approx\": \"false\", \"lower_op\": null, \"lower\": null, \"upper_op\": null, \"upper\": null, \"unit\": null}, \"statements\": [{\"key\": \"P301+P310\", \"value\": \"삼켰다면: 즉시 의료기관/의사의 진찰을 받으시오.\", \"refs\": [], \"cond\": {\"raw\": null, \"value\": null, \"approx\": \"false\", \"lower_op\": null, \"lower\": null, \"upper_op\": null, \"upper\": null, \"unit\": null}, \"line\": null}], \"suggested_code\": null, \"line\": null}]}",
+ "mode": "nuextract_template",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 9910,
+  "completion_tokens": 395,
+  "total_tokens": 10305
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "nuextract_template",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 9910,
+    "completion_tokens": 395,
+    "total_tokens": 10305
+   },
+   "seconds": 14.542,
+   "chars": 898,
+   "whitespace": 110,
+   "head": "{\"narratives\": [{\"item_code\": \"S4_INGEST\", \"title_raw\": null, \"start\": \"P301+P310 삼켰다면: 즉시 의료기관/의사의 진찰을 받으시오.\", \"end\": null}, {\"item_code\": \"S4_SYMPTOM\", \"title_raw\": null, \"start\": \"P302+P352 피부에 묻으면: 다량의 물로 씻으시오.\", \"end\": null}, {\"item_code\": \"S4_INHAL\", \"title_raw\": null, \"start\": \"P201 사용 전 취급 설명서를 확보하시오.\", \"end\": null}], \"extras\": [{\"after_item\": \"P301+P310 삼켰다면: 즉시 의료기관/의사의 진찰을 받으시오.\", \"title_raw\": \"H225 고인화성 액체 및 증기\", \"reason\": \"필드없음\", \"comp_name\": null, \"comp_cas\": null, \"q\": {\"raw\": nul",
+   "tail": "l, \"value\": null, \"approx\": \"false\", \"lower_op\": null, \"lower\": null, \"upper_op\": null, \"upper\": null, \"unit\": null}, \"statements\": [{\"key\": \"P301+P310\", \"value\": \"삼켰다면: 즉시 의료기관/의사의 진찰을 받으시오.\", \"refs\": [], \"cond\": {\"raw\": null, \"value\": null, \"approx\": \"false\", \"lower_op\": null, \"lower\": null, \"upper_op\": null, \"upper\": null, \"unit\": null}, \"line\": null}], \"suggested_code\": null, \"line\": null}]}"
+  }
+ ],
+ "seconds": 14.542,
+ "check_problems": []
+}

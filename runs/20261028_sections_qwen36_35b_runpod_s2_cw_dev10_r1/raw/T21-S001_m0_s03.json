@@ -1,0 +1,97 @@
+{
+ "doc_id": "T21-S001",
+ "msds_index": 0,
+ "section": 3,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "composition": {
+   "type": "단일물질",
+   "no_hazardous_component": false,
+   "lines": {
+    "type": "p3:L1",
+    "no_hazardous_component": null
+   }
+  },
+  "components": [
+   {
+    "name": "질소가스",
+    "name_en": "NITROGEN",
+    "synonyms": [],
+    "cas_no": "7727-37-9",
+    "ke_no": null,
+    "ec_no": null,
+    "other_id": null,
+    "other_id_type": null,
+    "parent_seq": null,
+    "read_across_cas": null,
+    "content": {
+     "raw": "100%",
+     "value": 100,
+     "approx": false,
+     "lower_op": null,
+     "lower": null,
+     "upper_op": null,
+     "upper": null,
+     "unit": "%"
+    },
+    "content_note": null,
+    "content_basis": "중량",
+    "trade_secret": false,
+    "approval_no": null,
+    "approval_expiry": null,
+    "line": "p3:L3"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S3_END",
+    "title_raw": "총합",
+    "reason": "필드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": {
+     "raw": "100%",
+     "value": 100,
+     "approx": false,
+     "lower_op": null,
+     "lower": null,
+     "upper_op": null,
+     "upper": null,
+     "unit": "%"
+    },
+    "statements": [],
+    "suggested_code": "TOTAL_CONTENT",
+    "line": "p3:L4"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"composition\": {\n    \"type\": \"단일물질\",\n    \"no_hazardous_component\": false\n  ,\n  \"lines\": {\n    \"type\": \"p3:L1\",\n    \"no_hazardous_component\": null\n  }\n  },\n  \"components\": [\n    {\n      \"name\": \"질소가스\",\n      \"name_en\": \"NITROGEN\",\n      \"synonyms\": [],\n      \"cas_no\": \"7727-37-9\",\n      \"ke_no\": null,\n      \"ec_no\": null,\n      \"other_id\": null,\n      \"other_id_type\": null,\n      \"parent_seq\": null,\n      \"read_across_cas\": null,\n      \"content\": {\n        \"raw\": \"100%\",\n        \"value\": 100,\n        \"approx\": false,\n        \"lower_op\": null,\n        \"lower\": null,\n        \"upper_op\": null,\n        \"upper\": null,\n        \"unit\": \"%\"\n      },\n      \"content_note\": null,\n      \"content_basis\": \"중량\",\n      \"trade_secret\": false,\n      \"approval_no\": null,\n      \"approval_expiry\": null\n    ,\n      \"line\": \"p3:L3\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S3_END\",\n      \"title_raw\": \"총합\",\n      \"reason\": \"필드없음\",\n      \"comp_name\": null,\n      \"comp_cas\": null,\n      \"q\": {\n        \"raw\": \"100%\",\n        \"value\": 100,\n        \"approx\": false,\n        \"lower_op\": null,\n        \"lower\": null,\n        \"upper_op\": null,\n        \"upper\": null,\n        \"unit\": \"%\"\n      },\n      \"statements\": [],\n      \"suggested_code\": \"TOTAL_CONTENT\"\n    ,\n      \"line\": \"p3:L4\"\n    }\n  ]\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 8914,
+  "completion_tokens": 476,
+  "total_tokens": 9390
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 8914,
+    "completion_tokens": 476,
+    "total_tokens": 9390
+   },
+   "seconds": 11.986,
+   "chars": 1296,
+   "whitespace": 468,
+   "head": "{\n  \"composition\": {\n    \"type\": \"단일물질\",\n    \"no_hazardous_component\": false\n  ,\n  \"lines\": {\n    \"type\": \"p3:L1\",\n    \"no_hazardous_component\": null\n  }\n  },\n  \"components\": [\n    {\n      \"name\": \"질소가스\",\n      \"name_en\": \"NITROGEN\",\n      \"synonyms\": [],\n      \"cas_no\": \"7727-37-9\",\n      \"ke_no\": null,\n      \"ec_no\": null,\n      \"other_id\": null,\n      \"other_id_type\": null,\n      \"parent_seq\": null,\n      \"read_across_cas\": null,\n      \"content\": {\n        \"raw\": \"100%\",\n        \"value\": 100,",
+   "tail": "    ,\n      \"line\": \"p3:L3\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S3_END\",\n      \"title_raw\": \"총합\",\n      \"reason\": \"필드없음\",\n      \"comp_name\": null,\n      \"comp_cas\": null,\n      \"q\": {\n        \"raw\": \"100%\",\n        \"value\": 100,\n        \"approx\": false,\n        \"lower_op\": null,\n        \"lower\": null,\n        \"upper_op\": null,\n        \"upper\": null,\n        \"unit\": \"%\"\n      },\n      \"statements\": [],\n      \"suggested_code\": \"TOTAL_CONTENT\"\n    ,\n      \"line\": \"p3:L4\"\n    }\n  ]\n}"
+  }
+ ],
+ "seconds": 11.987,
+ "check_problems": []
+}

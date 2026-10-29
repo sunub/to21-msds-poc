@@ -1,0 +1,316 @@
+{
+ "doc_id": "T21-S013",
+ "msds_index": 0,
+ "section": 2,
+ "reextracted": true,
+ "ok": true,
+ "parsed": {
+  "hazard": {
+   "classified": true,
+   "classes": [
+    {
+     "group": "물리적",
+     "class_code": "PH_FLAM_GAS",
+     "category": "1",
+     "route_form": "가스",
+     "effect": null,
+     "target_organs": [],
+     "raw": "인화성 가스 구분 1",
+     "line": "p1:L18"
+    },
+    {
+     "group": "물리적",
+     "class_code": "PH_PRESS_GAS",
+     "category": "1",
+     "route_form": null,
+     "effect": null,
+     "target_organs": [],
+     "raw": "고압가스 압축가스",
+     "line": "p1:L19"
+    }
+   ],
+   "signal_word": "위험",
+   "h_statements": [
+    {
+     "code": "H220",
+     "system": "GHS",
+     "mark": null,
+     "text": "극인화성 가스",
+     "line": "p1:L25"
+    },
+    {
+     "code": "H280",
+     "system": "GHS",
+     "mark": null,
+     "text": "고압가스 포함: 가열하면 폭발할 수 있음",
+     "line": "p1:L26"
+    }
+   ],
+   "p_statements": [
+    {
+     "code": "P210",
+     "type": "예방",
+     "text": "열, 고온의 표면, 스파크, 화염 및 그 밖의 점화원으로부터 멀리하시오. 금연",
+     "line": "p2:L3"
+    },
+    {
+     "code": "P377",
+     "type": "대응",
+     "text": "가스 누출 화재; 누출을 안전하게 막을 수 없다면 불을 끄려하지 마시오.",
+     "line": "p2:L5"
+    },
+    {
+     "code": "P381",
+     "type": "대응",
+     "text": "누출 시 모든 점화원을 제거하시오.",
+     "line": "p2:L6"
+    },
+    {
+     "code": "P403",
+     "type": "저장",
+     "text": "환기가 잘 되는 곳에 보관하시오.",
+     "line": "p2:L8"
+    },
+    {
+     "code": "P410+P403",
+     "type": "저장",
+     "text": "직사광선을 피하시오. 환기가 잘 되는 곳에 보관하시오.",
+     "line": "p2:L9"
+    }
+   ],
+   "other_hazards": [
+    {
+     "key": "NFPA 보건",
+     "value": "0",
+     "refs": [],
+     "cond": null,
+     "line": "p2:L13"
+    },
+    {
+     "key": "NFPA 화재",
+     "value": "4",
+     "refs": [],
+     "cond": null,
+     "line": "p2:L14"
+    },
+    {
+     "key": "NFPA 반응성",
+     "value": "0",
+     "refs": [],
+     "cond": null,
+     "line": "p2:L15"
+    },
+    {
+     "key": "NFPA 특수",
+     "value": "W",
+     "refs": [],
+     "cond": null,
+     "line": "p2:L18"
+    }
+   ],
+   "nfpa": {
+    "health": 0,
+    "fire": 4,
+    "reactivity": 0,
+    "special": "W"
+   },
+   "lines": {
+    "classified": "p1:L17",
+    "signal_word": "p1:L23",
+    "nfpa": "p2:L12"
+   }
+  },
+  "narratives": [
+   {
+    "item_code": "S2_LABEL_NOTE",
+    "title_raw": "그림문자",
+    "start": "p1:L21",
+    "end": "p1:L22"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S2_LABEL_NOTE",
+    "title_raw": "신호어",
+    "reason": "필드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [
+     {
+      "key": "신호어",
+      "value": "위험",
+      "refs": [],
+      "cond": null,
+      "line": "p1:L23"
+     }
+    ],
+    "suggested_code": "SIGNAL_WORD",
+    "line": "p1:L23"
+   },
+   {
+    "after_item": "S2_LABEL_NOTE",
+    "title_raw": "유해·위험문구",
+    "reason": "필드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [
+     {
+      "key": "H220",
+      "value": "극인화성 가스",
+      "refs": [],
+      "cond": null,
+      "line": "p1:L25"
+     },
+     {
+      "key": "H280",
+      "value": "고압가스 포함: 가열하면 폭발할 수 있음",
+      "refs": [],
+      "cond": null,
+      "line": "p1:L26"
+     }
+    ],
+    "suggested_code": "H_STATEMENT",
+    "line": "p1:L25"
+   },
+   {
+    "after_item": "S2_LABEL_NOTE",
+    "title_raw": "예방조치문구",
+    "reason": "필드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [
+     {
+      "key": "P210",
+      "value": "열, 고온의 표면, 스파크, 화염 및 그 밖의 점화원으로부터 멀리하시오. 금연",
+      "refs": [],
+      "cond": null,
+      "line": "p2:L3"
+     },
+     {
+      "key": "P377",
+      "value": "가스 누출 화재; 누출을 안전하게 막을 수 없다면 불을 끄려하지 마시오.",
+      "refs": [],
+      "cond": null,
+      "line": "p2:L5"
+     },
+     {
+      "key": "P381",
+      "value": "누출 시 모든 점화원을 제거하시오.",
+      "refs": [],
+      "cond": null,
+      "line": "p2:L6"
+     },
+     {
+      "key": "P403",
+      "value": "환기가 잘 되는 곳에 보관하시오.",
+      "refs": [],
+      "cond": null,
+      "line": "p2:L8"
+     },
+     {
+      "key": "P410+P403",
+      "value": "직사광선을 피하시오. 환기가 잘 되는 곳에 보관하시오.",
+      "refs": [],
+      "cond": null,
+      "line": "p2:L9"
+     }
+    ],
+    "suggested_code": "P_STATEMENT",
+    "line": "p2:L2"
+   },
+   {
+    "after_item": "S2_LABEL_NOTE",
+    "title_raw": "제품 NFPA 등급",
+    "reason": "필드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [
+     {
+      "key": "보건(Health)",
+      "value": "0",
+      "refs": [],
+      "cond": null,
+      "line": "p2:L12"
+     },
+     {
+      "key": "화재(Flammability)",
+      "value": "4",
+      "refs": [],
+      "cond": null,
+      "line": "p2:L13"
+     },
+     {
+      "key": "반응성(Reactivity)",
+      "value": "0",
+      "refs": [],
+      "cond": null,
+      "line": "p2:L14"
+     },
+     {
+      "key": "※ 0 = 불충분 , 1 = 약간 , 2 = 보통 , 3 = 높음 , 4 = 매우 높음",
+      "value": "",
+      "refs": [],
+      "cond": null,
+      "line": "p2:L18"
+     }
+    ],
+    "suggested_code": "NFPA",
+    "line": "p2:L11"
+   },
+   {
+    "after_item": "S2_LABEL_NOTE",
+    "title_raw": "자료없음",
+    "reason": "필드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [
+     {
+      "key": "자료없음",
+      "value": "",
+      "refs": [],
+      "cond": null,
+      "line": "p2:L19"
+     }
+    ],
+    "suggested_code": "UNKNOWN",
+    "line": "p2:L19"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"hazard\": {\n    \"classified\": true,\n    \"classes\": [\n      {\n        \"group\": \"물리적\",\n        \"class_code\": \"PH_FLAM_GAS\",\n        \"category\": \"1\",\n        \"route_form\": \"가스\",\n        \"effect\": null,\n        \"target_organs\": [],\n        \"raw\": \"인화성 가스 구분 1\"\n      ,\n        \"line\": \"p1:L18\"\n      },\n      {\n        \"group\": \"물리적\",\n        \"class_code\": \"PH_PRESS_GAS\",\n        \"category\": \"1\",\n        \"route_form\": null,\n        \"effect\": null,\n        \"target_organs\": [],\n        \"raw\": \"고압가스 압축가스\",\n        \"line\": \"p1:L19\"\n      }\n    ],\n    \"signal_word\": \"위험\",\n    \"h_statements\": [\n      {\n        \"code\": \"H220\",\n        \"system\": \"GHS\",\n        \"mark\": null,\n        \"text\": \"극인화성 가스\",\n        \"line\": \"p1:L25\"\n      },\n      {\n        \"code\": \"H280\",\n        \"system\": \"GHS\",\n        \"mark\": null,\n        \"text\": \"고압가스 포함: 가열하면 폭발할 수 있음\",\n        \"line\": \"p1:L26\"\n      }\n    ],\n    \"p_statements\": [\n      {\n        \"code\": \"P210\",\n        \"type\": \"예방\",\n        \"text\": \"열, 고온의 표면, 스파크, 화염 및 그 밖의 점화원으로부터 멀리하시오. 금연\",\n        \"line\": \"p2:L3\"\n      },\n      {\n        \"code\": \"P377\",\n        \"type\": \"대응\",\n        \"text\": \"가스 누출 화재; 누출을 안전하게 막을 수 없다면 불을 끄려하지 마시오.\",\n        \"line\": \"p2:L5\"\n      },\n      {\n        \"code\": \"P381\",\n        \"type\": \"대응\",\n        \"text\": \"누출 시 모든 점화원을 제거하시오.\",\n        \"line\": \"p2:L6\"\n      },\n      {\n        \"code\": \"P403\",\n        \"type\": \"저장\",\n        \"text\": \"환기가 잘 되는 곳에 보관하시오.\",\n        \"line\": \"p2:L8\"\n      },\n      {\n        \"code\": \"P410+P403\",\n        \"type\": \"저장\",\n        \"text\": \"직사광선을 피하시오. 환기가 잘 되는 곳에 보관하시오.\",\n        \"line\": \"p2:L9\"\n      }\n    ],\n    \"other_hazards\": [\n      {\n        \"key\": \"NFPA 보건\",\n        \"value\": \"0\"\n      ,\n        \"refs\": []\n      ,\n        \"cond\": null\n      ,\n        \"line\": \"p2:L13\"\n      },\n      {\n        \"key\": \"NFPA 화재\",\n        \"value\": \"4\"\n      ,\n        \"refs\": []\n      ,\n        \"cond\": null\n      ,\n        \"line\": \"p2:L14\"\n      },\n      {\n        \"key\": \"NFPA 반응성\",\n        \"value\": \"0\"\n      ,\n        \"refs\": []\n      ,\n        \"cond\": null\n      ,\n        \"line\": \"p2:L15\"\n      },\n      {\n        \"key\": \"NFPA 특수\",\n        \"value\": \"W\"\n      ,\n        \"refs\": []\n      ,\n        \"cond\": null\n      ,\n        \"line\": \"p2:L18\"\n      }\n    ],\n    \"nfpa\": {\n      \"health\": 0,\n      \"fire\": 4,\n      \"reactivity\": 0,\n      \"special\": \"W\"\n    }\n  ,\n    \"lines\": {\n      \"classified\": \"p1:L17\",\n      \"signal_word\": \"p1:L23\",\n      \"nfpa\": \"p2:L12\"\n    }\n  },\n  \"narratives\": [\n    {\n      \"item_code\": \"S2_LABEL_NOTE\",\n      \"title_raw\": \"그림문자\",\n      \"start\": \"p1:L21\",\n      \"end\": \"p1:L22\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S2_LABEL_NOTE\",\n      \"title_raw\": \"신호어\",\n      \"reason\": \"필드없음\",\n      \"comp_name\": null,\n      \"comp_cas\": null,\n      \"q\": null,\n      \"statements\": [\n        {\n          \"key\": \"신호어\",\n          \"value\": \"위험\"\n        ,\n          \"refs\": []\n        ,\n          \"cond\": null\n        ,\n          \"line\": \"p1:L23\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"SIGNAL_WORD\"\n    ,\n      \"line\": \"p1:L23\"\n    },\n    {\n      \"after_item\": \"S2_LABEL_NOTE\",\n      \"title_raw\": \"유해·위험문구\",\n      \"reason\": \"필드없음\",\n      \"comp_name\": null,\n      \"comp_cas\": null,\n      \"q\": null,\n      \"statements\": [\n        {\n          \"key\": \"H220\",\n          \"value\": \"극인화성 가스\"\n        ,\n          \"refs\": []\n        ,\n          \"cond\": null\n        ,\n          \"line\": \"p1:L25\"\n        },\n        {\n          \"key\": \"H280\",\n          \"value\": \"고압가스 포함: 가열하면 폭발할 수 있음\"\n        ,\n          \"refs\": []\n        ,\n          \"cond\": null\n        ,\n          \"line\": \"p1:L26\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"H_STATEMENT\"\n    ,\n      \"line\": \"p1:L25\"\n    },\n    {\n      \"after_item\": \"S2_LABEL_NOTE\",\n      \"title_raw\": \"예방조치문구\",\n      \"reason\": \"필드없음\",\n      \"comp_name\": null,\n      \"comp_cas\": null,\n      \"q\": null,\n      \"statements\": [\n        {\n          \"key\": \"P210\",\n          \"value\": \"열, 고온의 표면, 스파크, 화염 및 그 밖의 점화원으로부터 멀리하시오. 금연\"\n        ,\n          \"refs\": []\n        ,\n          \"cond\": null\n        ,\n          \"line\": \"p2:L3\"\n        },\n        {\n          \"key\": \"P377\",\n          \"value\": \"가스 누출 화재; 누출을 안전하게 막을 수 없다면 불을 끄려하지 마시오.\"\n        ,\n          \"refs\": []\n        ,\n          \"cond\": null\n        ,\n          \"line\": \"p2:L5\"\n        },\n        {\n          \"key\": \"P381\",\n          \"value\": \"누출 시 모든 점화원을 제거하시오.\"\n        ,\n          \"refs\": []\n        ,\n          \"cond\": null\n        ,\n          \"line\": \"p2:L6\"\n        },\n        {\n          \"key\": \"P403\",\n          \"value\": \"환기가 잘 되는 곳에 보관하시오.\"\n        ,\n          \"refs\": []\n        ,\n          \"cond\": null\n        ,\n          \"line\": \"p2:L8\"\n        },\n        {\n          \"key\": \"P410+P403\",\n          \"value\": \"직사광선을 피하시오. 환기가 잘 되는 곳에 보관하시오.\"\n        ,\n          \"refs\": []\n        ,\n          \"cond\": null\n        ,\n          \"line\": \"p2:L9\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"P_STATEMENT\"\n    ,\n      \"line\": \"p2:L2\"\n    },\n    {\n      \"after_item\": \"S2_LABEL_NOTE\",\n      \"title_raw\": \"제품 NFPA 등급\",\n      \"reason\": \"필드없음\",\n      \"comp_name\": null,\n      \"comp_cas\": null,\n      \"q\": null,\n      \"statements\": [\n        {\n          \"key\": \"보건(Health)\",\n          \"value\": \"0\"\n        ,\n          \"refs\": []\n        ,\n          \"cond\": null\n        ,\n          \"line\": \"p2:L12\"\n        },\n        {\n          \"key\": \"화재(Flammability)\",\n          \"value\": \"4\"\n        ,\n          \"refs\": []\n        ,\n          \"cond\": null\n        ,\n          \"line\": \"p2:L13\"\n        },\n        {\n          \"key\": \"반응성(Reactivity)\",\n          \"value\": \"0\"\n        ,\n          \"refs\": []\n        ,\n          \"cond\": null\n        ,\n          \"line\": \"p2:L14\"\n        },\n        {\n          \"key\": \"※ 0 = 불충분 , 1 = 약간 , 2 = 보통 , 3 = 높음 , 4 = 매우 높음\",\n          \"value\": \"\"\n        ,\n          \"refs\": []\n        ,\n          \"cond\": null\n        ,\n          \"line\": \"p2:L18\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"NFPA\"\n    ,\n      \"line\": \"p2:L11\"\n    },\n    {\n      \"after_item\": \"S2_LABEL_NOTE\",\n      \"title_raw\": \"자료없음\",\n      \"reason\": \"필드없음\",\n      \"comp_name\": null,\n      \"comp_cas\": null,\n      \"q\": null,\n      \"statements\": [\n        {\n          \"key\": \"자료없음\",\n          \"value\": \"\"\n        ,\n          \"refs\": []\n        ,\n          \"cond\": null\n        ,\n          \"line\": \"p2:L19\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"UNKNOWN\"\n    ,\n      \"line\": \"p2:L19\"\n    }\n  ]\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 12453,
+  "completion_tokens": 2282,
+  "total_tokens": 14735
+ },
+ "attempts": 1,
+ "errors": [],
+ "seconds": 17.422,
+ "check_problems": [],
+ "first_attempt": {
+  "ok": false,
+  "parsed": null,
+  "raw_text": "{\"hazard\": {\"classified\": true, \"classes\": [{\"group\": \"물리적\", \"class_code\": \"PH_FLAM_GAS\", \"category\": \"1\", \"route_form\": \"가스\", \"effect\": null, \"target_organs\": [], \"raw\": \"인화성 가스 구분 1\", \"line\": \"p1:L18\"}, {\"group\": \"물리적\", \"class_code\": \"PH_PRESS_GAS\", \"category\": \"1\", \"route_form\": null, \"effect\": null, \"target_organs\": [], \"raw\": \"고압가스 압축가스\", \"line\": \"p1:L19\"}], \"signal_word\": \"위험\", \"h_statements\": [{\"code\": \"H220\", \"system\": \"GHS\", \"mark\": null, \"text\": \"극인화성 가스\", \"line\": \"p1:L25\"}, {\"code\": \"H280\", \"system\": \"GHS\", \"mark\": null, \"text\": \"고압가스 포함: 가열하면 폭발할 수 있음\", \"line\": \"p1:L26\"}], \"p_statements\": [{\"code\": \"P210\", \"type\": \"예방\", \"text\": \"열, 고온의 표면, 스파크, 화염 및 그 밖의 점화원으로부터 멀리하시오. 금연\", \"line\": \"p2:L3\"}, {\"code\": \"P377\", \"type\": \"대응\", \"text\": \"가스 누출 화재; 누출을 안전하게 막을 수 없다면 불을 끄려하지 마시오.\", \"line\": \"p2:L5\"}, {\"code\": \"P381\", \"type\": \"대응\", \"text\": \"누출 시 모든 점화원을 제거하시오.\", \"line\": \"p2:L6\"}, {\"code\": \"P403\", \"type\": \"저장\", \"text\": \"환기가 잘 되는 곳에 보관하시오.\", \"line\": \"p2:L8\"}, {\"code\": \"P410+P403\", \"type\": \"저장\", \"text\": \"직사광선을 피하시오. 환기가 잘 되는 곳에 보관하시오.\", \"line\": \"p2:L9\"}], \"other_hazards\": [], \"nfpa\": {\"health\": 4, \"fire\": 0, \"reactivity\": 0, \"special\": \"W\"}, \"lines\": {\"classified\": \"p1:L17\", \"signal_word\": \"p1:L23\", \"nfpa\": \"p2:L11\"}}, \"narratives\": [{\"item_code\": \"S2_LABEL_NOTE\", \"title_raw\": \"경고표지 관련 기타 서술\", \"start\": \"p1:L21\", \"end\": \"p1:L22\"}], \"extras\": [{\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"자료없음\", \"reason\": \"필드없음\", \"comp_name\": \"자료없음\", \"comp_cas\": \"자료없음\", \"q\": null, \"statements\": [], \"suggested_code\": null, \"line\": \"p1:L24\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"자료없음\", \"reason\": \"필드없음\", \"comp_name\": \"자료없음\", \"comp_cas\": \"자료없음\", \"q\": null, \"statements\": [], \"suggested_code\": null, \"line\": \"p2:L19\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"자료없음\", \"reason\": \"필드없음\", \"comp_name\": \"자료없음\", \"comp_cas\": \"자료없음\", \"q\": null, \"statements\": [], \"suggested_code\": null, \"line\": \"p2:L24\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"자료없음\", \"reason\": \"필드없음\", \"comp_name\": \"자료없음\", \"comp_cas\": \"자료없음\", \"q\": null, \"statements\": [], \"suggested_code\": null, \"line\": \"p3:L23\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"자료없음\", \"reason\": \"필드없음\", \"comp_name\": \"자료없음\", \"comp_cas\": \"자료없음\", \"q\": null, \"statements\": [], \"suggested_code\": null, \"line\": \"p3:L27\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"자료없음\", \"reason\": \"필드없음\", \"comp_name\": \"자료없음\", \"comp_cas\": \"자료없음\", \"q\": null, \"statements\": [], \"suggested_code\": null, \"line\": \"p4:L23\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"자료없음\", \"reason\": \"필드없음\", \"comp_name\": \"자료없음\", \"comp_cas\": \"자료없음\", \"q\": null, \"statements\": [], \"suggested_code\": null, \"line\": \"p4:L39\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"자료없음\", \"reason\": \"필드없음\", \"comp_name\": \"자료없음\", \"comp_cas\": \"자료없음\", \"q\": null, \"statements\": [], \"suggested_code\": null, \"line\": \"p5:L31\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"자료없음\", \"reason\": \"필드없음\", \"comp_name\": \"자료없음\", \"comp_cas\": \"자료없음\", \"q\": null, \"statements\": [], \"suggested_code\": null, \"line\": \"p6:L1\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"자료없음\", \"reason\": \"필드없음\", \"comp_name\": \"자료없음\", \"comp_cas\": \"자료없음\", \"q\": null, \"statements\": [], \"suggested_code\": null, \"line\": \"p6:L3\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"자료없음\", \"reason\": \"필드없음\", \"comp_name\": \"자료없음\", \"comp_cas\": \"자료없음\", \"q\": null, \"statements\": [], \"suggested_code\": null, \"line\": \"p6:L6\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"자료없음\", \"reason\": \"필드없음\", \"comp_name\": \"자료없음\", \"comp_cas\": \"자료없음\", \"q\": null, \"statements\": [], \"suggested_code\": null, \"line\": \"p6:L9\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"자료없음\", \"reason\": \"필드없음\", \"comp_name\": \"자료없음\", \"comp_cas\": \"자료없음\", \"q\": null, \"statements\": [], \"suggested_code\": null, \"line\": \"p6:L11\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"자료없음\", \"reason\": \"필드없음\", \"comp_name\": \"자료없음\", \"comp_cas\": \"자료없음\", \"q\": null, \"statements\": [], \"suggested_code\": null, \"line\": \"p6:L12\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"자료없음\", \"reason\": \"필드없음\", \"comp_name\": \"자료없음\", \"comp_cas\": \"자료없음\", \"q\": null, \"statements\": [], \"suggested_code\": null, \"line\": \"p6:L13\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"자료없음\", \"reason\": \"필드없음\", \"comp_name\": \"자료없음\", \"comp_cas\": \"자료없음\", \"q\": null, \"statements\": [], \"suggested_code\": null, \"line\": \"p6:L14\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"자료없음\", \"reason\": \"필드없음\", \"comp_name\": \"자료없음\", \"comp_cas\": \"자료없음\", \"q\": null, \"statements\": [], \"suggested_code\": null, \"line\": \"p6:L15\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"자료없음\", \"reason\": \"필드없음\", \"comp_name\": \"자료없음\", \"comp_cas\": \"자료없음\", \"q\": null, \"statements\": [], \"suggested_code\": null, \"line\": \"p6:L16\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"자료없음\", \"reason\": \"필드없음\", \"comp_name\": \"자료없음\", \"comp_cas\": \"자료없음\", \"q\": null, \"statements\": [], \"suggested_code\": null, \"line\": \"p6:L17\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"자료없음\", \"reason\": \"필드없음\", \"comp_name\": \"자료없음\", \"comp_cas\": \"자료없음\", \"q\": null, \"statements\": [], \"suggested_code\": null, \"line\": \"p6:L18\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"자료없음\", \"reason\": \"필드없음\", \"comp_name\": \"자료없음\", \"comp_cas\": \"자료없음\", \"q\": null, \"statements\": [], \"suggested_code\": null, \"line\": \"p6:L19\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"자료없음\", \"reason\": \"필드없음\", \"comp_name\": \"자료없음\", \"comp_cas\": \"자료없음\", \"q\": null, \"statements\": [], \"suggested_code\": null, \"line\": \"p6:L20\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"자료없음\", \"reason\": \"필드없음\", \"comp_name\": \"자료없음\", \"comp_cas\": \"자료없음\", \"q\": null, \"statements\": [], \"suggested_code\": null, \"line\": \"p6:L21\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"자료없음\", \"reason\": \"필드없음\", \"comp_name\": \"자료없음\", \"comp_cas\": \"자료없음\", \"q\": null, \"statements\": [], \"suggested_code\": null, \"line\": \"p6:L22\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"자료없음\", \"reason\": \"필드없음\", \"comp_name\": \"자료없음\", \"comp_cas\": \"자료없음\", \"q\": null, \"statements\": [], \"suggested_code\": null, \"line\": \"p6:L23\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"자료없음\", \"reason\": \"필드없음\", \"comp_name\": \"자료없음\", \"comp_cas\": \"자료없음\", \"q\": null, \"statements\": [], \"suggested_code\": null, \"line\": \"p6:L24\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"자료없음\", \"reason\": \"필드없음\", \"comp_name\": \"자료없음\", \"comp_cas\": \"자료없음\", \"q\": null, \"statements\": [], \"suggested_code\": null, \"line\": \"p6:L25\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"자료없음\", \"reason\": \"필드없음\", \"comp_name\": \"자료없음\", \"comp_cas\": \"자료없음\", \"q\": null, \"statements\": [], \"suggested_code\": null, \"line\": \"p6:L26\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"자료없음\", \"reason\": \"필드없음\", \"comp_name\": \"자료없음\", \"comp_cas\": \"자료없음\", \"q\": null, \"statements\": [], \"suggested_code\": null, \"line\": \"p6:L27\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"자료없음\", \"reason\": \"필드없음\", \"comp_name\": \"자료없음\", \"comp_cas\": \"자료없음\", \"q\": null, \"statements\": [], \"suggested_code\": null, \"line\": \"p6:L28\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"자료없음\", \"reason\": \"필드없음\", \"comp_name\": \"자료없음\", \"comp_cas\": \"자료없음\", \"q\": null, \"statements\": [], \"suggested_code\": null, \"line\": \"p6:L29\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"자료없음\", \"reason\": \"필드없음\", \"comp_name\": \"자료없음\", \"comp_cas\": \"자료없음\", \"q\": null, \"statements\": [], \"suggested_code\": null, \"line\": \"p6:L30\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"자료없음\", \"reason\": \"필드없음\", \"comp_name\": \"자료없음\", \"comp_cas\": \"자료없음\", \"q\": null, \"statements\": [], \"suggested_code\": null, \"line\": \"p6:L31\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"자료없음\", \"reason\": \"필드없음\", \"comp_name\": \"자료없음\", \"comp_cas\": \"자료없음\", \"q\": null, \"statements\": [], \"suggested_code\": null, \"line\": \"p6:L32\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"자료없음\", \"reason\": \"필드없음\", \"comp_name\": \"자료없음\", \"comp_cas\": \"자료없음\", \"q\": null, \"statements\": [], \"suggested_code\": null, \"line\": \"p6:L33\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"자료없음\", \"reason\": \"필드없음\", \"comp_name\": \"자료없음\", \"comp_cas\": \"자료없음\", \"q\": null, \"statements\": [], \"suggested_code\": null, \"line\": \"p6:L34\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"자료없음\", \"reason\": \"필드없음\", \"comp_name\": \"자료없음\", \"comp_cas\": \"자료없음\", \"q\": null, \"statements\": [], \"suggested_code\": null, \"line\": \"p6:L35\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"자료없음\", \"reason\": \"필드없음\", \"comp_name\": \"자료없음\", \"comp_cas\": \"자료없음\", \"q\": null, \"statements\": [], \"suggested_code\": null, \"line\": \"p6:L36\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"자료없음\", \"reason\": \"필드없음\", \"comp_name\": \"자료없음\", \"comp_cas\": \"자료없음\", \"q\": null, \"statements\": [], \"suggested_code\": null, \"line\": \"p6:L37\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"자료없음\", \"reason\": \"필드없음\", \"comp_name\": \"자료없음\", \"comp_cas\": \"자료없음\", \"q\": null, \"statements\": [], \"suggested_code\": null, \"line\": \"p6:L38\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"자료없음\", \"reason\": \"필드없음\", \"comp_name\": \"자료없음\", \"comp_cas\": \"자료없음\", \"q\": null, \"statements\": [], \"suggested_code\": null, \"line\": \"p6:L39\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"자료없음\", \"reason\": \"필드없음\", \"comp_name\": \"자료없음\", \"comp_cas\": \"자료없음\", \"q\": null, \"statements\": [], \"suggested_code\": null, \"line\": \"p6:L40\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"자료없음\", \"reason\": \"필드없음\", \"comp_name\": \"자료없음\", \"comp_cas\": \"자료없음\", \"q\": null, \"statements\": [], \"suggested_code\": null, \"line\": \"p6:L41\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"자료없음\", \"reason\": \"필드없음\", \"comp_name\": \"자료없음\", \"comp_cas\": \"자료없음\", \"q\": null, \"statements\": [], \"suggested_code\": null, \"line\": \"p6:L42\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"자료없음\", \"reason\": \"필드없음\", \"comp_name\": \"자료없음\", \"comp_cas\": \"자료없음\", \"q\": null, \"statements\": [], \"suggested_code\": null, \"line\": \"p6:L43\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"자료없음\", \"reason\": \"필드없음\", \"comp_name\": \"자료없음\", \"comp_cas\": \"자료없음\", \"q\": null, \"statements\": [], \"suggested_code\": null, \"line\": \"p6:L44\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"자료없음\", \"reason\": \"필드없음\", \"comp_name\": \"자료없음\", \"comp_cas\": \"자료없음\", \"q\": null, \"statements\": [], \"suggested_code\": null, \"line\": \"p6:L45\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"자료없음\", \"reason\": \"필드없음\", \"comp_name\": \"자료없음\", \"comp_cas\": \"자료없음\", \"q\": null, \"statements\": [], \"suggested_code\": null, \"line\": \"p6:L46\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"자료없음\", \"reason\": \"필드없음\", \"comp_name\": \"자료없음\", \"comp_cas\": \"자료없음\", \"q\": null, \"statements\": [], \"suggested_code\": null, \"line\": \"p6:L47\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"자료없음\", \"reason\": \"필드없음\", \"comp_name\": \"자료없음\", \"comp_cas\": \"자료없음\", \"q\": null, \"statements\": [], \"suggested_code\": null, \"line\": \"p6:L48\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"자료없음\", \"reason\": \"필드없음\", \"comp_name\": \"자료없음\", \"comp_cas\": \"자료없음\", \"q\": null, \"statements\": [], \"suggested_code\": null, \"line\": \"p6:L49\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"자료없음\", \"reason\": \"필드없음\", \"comp_name\": \"자료없음\", \"comp_cas\": \"자료없음\", \"q\": null, \"statements\": [], \"suggested_code\": null, \"line\": \"p6:L50\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"자료없음\", \"reason\": \"필드없음\", \"comp_name\": \"자료없음\", \"comp_cas\": \"자료없음\", \"q\": null, \"statements\": [], \"suggested_code\": null, \"line\": \"p6:L51\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"자료없음\", \"reason\": \"필드없음\", \"comp_name\": \"자료없음\", \"comp_cas\": \"자료없음\", \"q\": null, \"statements\": [], \"suggested_code\": null, \"line\": \"p6:L52\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"자료없음\", \"reason\": \"필드없음\", \"comp_name\": \"자료없음\", \"comp_cas\": \"자료없음\", \"q\": null, \"statements\": [], \"suggested_code\": null, \"line\": \"p6:L53\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"자료없음\", \"reason\": \"필드없음\", \"comp_name\": \"자료없음\", \"comp_cas\": \"자료없음\", \"q\": null, \"statements\": [], \"suggested_code\": null, \"line\": \"p6:L54\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"자료없음\", \"reason\": \"필드없음\", \"comp_name\": \"자료없음\", \"comp_cas\": \"자료없음\", \"q\": null, \"statements\": [], \"suggested_code\": null, \"line\": \"p6:L55\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"자료없음\", \"reason\": \"필드없음\", \"comp_name\": \"자료없음\", \"comp_cas\": \"자료없음\", \"q\": null, \"statements\": [], \"suggested_code\": null, \"line\": \"p6:L56\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"자료없음\", \"reason\": \"필드없음\", \"comp_name\": \"자료없음\", \"comp_cas\": \"자료없음\", \"q\": null, \"statements\": [], \"suggested_code\": null, \"line\": \"p6:L57\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"자료없음\", \"reason\": \"필드없음\", \"comp_name\": \"자료없음\", \"comp_cas\": \"자료없음\", \"q\": null, \"statements\": [], \"suggested_code\": null, \"line\": \"p6:L58\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"자료없음\", \"reason\": \"필드없음\", \"comp_name\": \"자료없음\", \"comp_cas\": \"자료없음\", \"q\": null, \"statements\": [], \"suggested_code\": null, \"line\": \"p6:L59\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"자료없음\", \"reason\": \"필드없음\", \"comp_name\": \"자료없음\", \"comp_cas\": \"자료없음\", \"q\": null, \"statements\": [], \"suggested_code\": null, \"line\": \"p6:L60\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"자료없음\", \"reason\": \"필드없음\", \"comp_name\": \"자료없음\", \"comp_cas\": \"자료없음\", \"q\": null, \"statements\": [], \"suggested_code\": null, \"line\": \"p6:L61\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"자료없음\", \"reason\": \"필드없음\", \"comp_name\": \"자료없음\", \"comp_cas\": \"자료없음\", \"q\": null, \"statements\": [], \"suggested_code\": null, \"line\": \"p6:L62\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"자료없음\", \"reason\": \"필드없음\", \"comp_name\": \"자료없음\", \"comp_cas\": \"자료없음\", \"q\": null, \"statements\": [], \"suggested_code\": null, \"line\": \"p6:L63\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"자료없음\", \"reason\": \"필드없음\", \"comp_name\": \"자료없음\", \"comp_cas\": \"자료없음\", \"q\": null, \"statements\": [], \"suggested_code\": null, \"line\": \"p6:L64\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"자료없음\", \"reason\": \"필드없음\", \"comp_name\": \"자료없음\", \"comp_cas\": \"자료없음\", \"q\": null, \"statements\": [], \"suggested_code\": null, \"line\": \"p6:L65\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"자료없음\", \"reason\": \"필드없음\", \"comp_name\": \"자료없음\", \"comp_cas\": \"자료없음\", \"q\": null, \"statements\": [], \"suggested_code\": null, \"line\": \"p6:L66\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"자료없음\", \"reason\": \"필드없음\", \"comp_name\": \"자료없음\", \"comp_cas\": \"자료없음\", \"q\": null, \"statements\": [], \"suggested_code\": null, \"line\": \"p6:L67\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"자료없음\", \"reason\": \"필드없음\", \"comp_name\": \"자료없음\", \"comp_cas\": \"자료없음\", \"q\": null, \"statements\": [], \"suggested_code\": null, \"line\": \"p6:L68\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"자료없음\", \"reason\": \"필드없음\", \"comp_name\": \"자료없음\", \"comp_cas\": \"자료없음\", \"q\": null, \"statements\": [], \"suggested_code\": null, \"line\": \"p6:L69\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"자료없음\", \"reason\": \"필드없음\", \"comp_name\": \"자료없음\", \"comp_cas\": \"자료없음\", \"q\": null, \"statements\": [], \"suggested_code\": null, \"line\": \"p6:L70\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"자료없음\", \"reason\": \"필드없음\", \"comp_name\": \"자료없음\", \"comp_cas\": \"자료없음\", \"q\": null, \"statements\": [], \"suggested_code\": null, \"line\": \"p6:L71\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"자료없음\", \"reason\": \"필드없음\", \"comp_name\": \"자료없음\", \"comp_cas\": \"자료없음\", \"q\": null, \"statements\": [], \"suggested_code\": null, \"line\": \"p6:L72\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"자료없음\", \"reason\": \"필드없음\", \"comp_name\": \"자료없음\", \"comp_cas\": \"자료없음\", \"q\": null, \"statements\": [], \"suggested_code\": null, \"line\": \"p6:L73\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"자료없음\", \"reason\": \"필드없음\", \"comp_name\": \"자료없음\", \"comp_cas\": \"자료없음\", \"q\": null, \"statements\": [], \"suggested_code\": null, \"line\": \"p6:L74\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"자료없음\", \"reason\": \"필드없음\", \"comp_name\": \"자료없음\", \"comp_cas\": \"자료없음\", \"q\": null, \"statements\": [], \"suggested_code\": null, \"line\": \"p6:L75\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"자료없음\", \"reason\": \"필드없음\", \"comp_name\": \"자료없음\", \"comp_cas\": \"자료없음\", \"q\": null, \"statements\": [], \"suggested_code\": null, \"line\": \"p6:L76\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"자료없음\", \"reason\": \"필드없음\", \"comp_name\": \"자료없음\", \"comp_cas\": \"자료없음\", \"q\": null, \"statements\": [], \"suggested_code\": null, \"line\": \"p6:L77\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"자료없음\", \"reason\": \"필드없음\", \"comp_name\": \"자료없음\", \"comp_cas\": \"자료없음\", \"q\": null, \"statements\": [], \"suggested_code\": null, \"line\": \"p6:L78\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"자료없음\", \"reason\": \"필드없음\", \"comp_name\": \"자료없음\", \"comp_cas\": \"자료없음\", \"q\": null, \"statements\": [], \"suggested_code\": null, \"line\": \"p6:L79\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"자료없음\", \"reason\": \"필드없음\", \"comp_name\": \"자료없음\", \"comp_cas\": \"자료없음\", \"q\": null, \"statements\": [], \"suggested_code\": null, \"line\": \"p6:L80\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"자료없음\", \"reason\": \"필드없음\", \"comp_name\": \"자료없음\", \"comp_cas\": \"자료없음\", \"q\": null, \"statements\": [], \"suggested_code\": null, \"line\": \"p6:L81\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"자료없음\", \"reason\": \"필드없음\", \"comp_name\": \"자료없음\", \"comp_cas\": \"자료없음\", \"q\": null, \"statements\": [], \"suggested_code\": null, \"line\": \"p6:L82\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"자료없음\", \"reason\": \"필드없음\", \"comp_name\": \"자료없음\", \"comp_cas\": \"자료없음\", \"q\": null, \"statements\": [], \"suggested_code\": null, \"line\": \"p6:L83\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"자료없음\", \"reason\": \"필드없음\", \"comp_name\": \"자료없음\", \"comp_cas\": \"자료없음\", \"q\": null, \"statements\": [], \"suggested_code\": null, \"line\": \"p6:L84\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"자료없음\", \"reason\": \"필드없음\", \"comp_name\": \"자료없음\", \"comp_cas\": \"자료없음\", \"q\": null, \"statements\": [], \"suggested_code\": null, \"line\": \"p6:L85\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"자료없음\", \"reason\": \"필드없음\", \"comp_name\": \"자료없음\", \"comp_cas\": \"자료없음\", \"q\": null, \"statements\": [], \"suggested_code\": null, \"line\": \"p7:L1\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"자료없음\", \"reason\": \"필드없음\", \"comp_name\": \"자료없음\", \"comp_cas\": \"자료없음\", \"q\": null, \"statements\": [], \"suggested_code\": null, \"line\": \"p7:L2\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"자료없음\", \"reason\": \"필드없음\", \"comp_name\": \"자료없음\", \"comp_cas\": \"자료없음\", \"q\": null, \"statements\": [], \"suggested_code\": null, \"line\": \"p7:L3\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"자료없음\", \"reason\": \"필드없음\", \"comp_name\": \"자료없음\", \"comp_cas\": \"자료없음\", \"q\": null, \"statements\": [], \"suggested_code\": null, \"line\": \"p7:L4\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"자료없음\", \"reason\": \"필드없음\", \"comp_name\": \"자료없음\", \"comp_cas\": \"자료없음\", \"q\": null, \"statements\": [], \"suggested_code\": null, \"line\": \"p7:L5\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"자료없음\", \"reason\": \"필드없음\", \"comp_name\": \"자료없음\", \"comp_cas\": \"자료없음\", \"q\": null, \"statements\": [], \"suggested_code\": null, \"line\": \"p7:L6\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"자료없음\", \"reason\": \"필드없음\", \"comp_name\": \"자료없음\", \"comp_cas\": \"자료없음\", \"q\": null, \"statements\": [], \"suggested_code\": null, \"line\": \"p7:L7\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"자료없음\", \"reason\": \"필드없음\", \"comp_name\": \"자료없음\", \"comp_cas\": \"자료없음\", \"q\": null, \"statements\": [], \"suggested_code\": null, \"line\": \"p7:L8\"}, {\"after_item\": \"S2_LABEL_NOTE\", \"title_raw\": \"자료없음\", \"reason\": \"필드없음\", \"comp_name\": \"자료없음",
+  "mode": "json_schema_compact",
+  "finish_reason": "length",
+  "usage": {
+   "prompt_tokens": 12392,
+   "completion_tokens": 8192,
+   "total_tokens": 20584
+  },
+  "attempts": 2,
+  "errors": [
+   "[json_schema] 출력 길이 한도에 걸려 잘림 (max_tokens=8192)",
+   "[json_schema_compact] 출력 길이 한도에 걸려 잘림 (max_tokens=8192)"
+  ],
+  "seconds": 152.275,
+  "check_problems": []
+ }
+}

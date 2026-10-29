@@ -1,0 +1,120 @@
+{
+ "doc_id": "T21-S016",
+ "msds_index": 0,
+ "section": 12,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "ecotox": [
+   {
+    "comp_name": "벤젠",
+    "comp_cas": "71-43-2",
+    "endpoint": "ECO_FISH",
+    "descriptor": "LC50",
+    "q": {
+     "raw": "5.3 mg/L",
+     "value": 5.3,
+     "approx": null,
+     "lower_op": null,
+     "lower": null,
+     "upper_op": null,
+     "upper": null,
+     "unit": "mg/L"
+    },
+    "species": "Oncorhynchus mykiss",
+    "duration_value": 96,
+    "duration_unit": "hr",
+    "guideline": null,
+    "data_source": null,
+    "statements": [],
+    "status": "값있음",
+    "line": "p7:L18"
+   },
+   {
+    "comp_name": "벤젠",
+    "comp_cas": "71-43-2",
+    "endpoint": "ECO_FISH",
+    "descriptor": "EC50",
+    "q": {
+     "raw": "10 mg/L",
+     "value": 10,
+     "approx": null,
+     "lower_op": null,
+     "lower": null,
+     "upper_op": null,
+     "upper": null,
+     "unit": "mg/L"
+    },
+    "species": "Daphnia magna",
+    "duration_value": 48,
+    "duration_unit": "hr",
+    "guideline": null,
+    "data_source": null,
+    "statements": [],
+    "status": "값있음",
+    "line": "p7:L21"
+   },
+   {
+    "comp_name": "벤젠",
+    "comp_cas": "71-43-2",
+    "endpoint": "ECO_FISH",
+    "descriptor": "EC50",
+    "q": {
+     "raw": "32 mg/L",
+     "value": 32,
+     "approx": null,
+     "lower_op": null,
+     "lower": null,
+     "upper_op": null,
+     "upper": null,
+     "unit": "mg/L"
+    },
+    "species": "Raphidocelis subcapitata",
+    "duration_value": 72,
+    "duration_unit": "hr",
+    "guideline": null,
+    "data_source": null,
+    "statements": [],
+    "status": "값있음",
+    "line": "p7:L23"
+   }
+  ],
+  "narratives": [
+   {
+    "item_code": "S12_OTHER",
+    "title_raw": "나. 기타 유해 영향",
+    "start": "p2:L19",
+    "end": "p2:L19"
+   }
+  ],
+  "extras": []
+ },
+ "raw_text": "{\"ecotox\": [{\"comp_name\": \"벤젠\", \"comp_cas\": \"71-43-2\", \"endpoint\": \"ECO_FISH\", \"descriptor\": \"LC50\", \"q\": {\"raw\": \"5.3 mg/L\", \"value\": 5.3, \"approx\": null, \"lower_op\": null, \"lower\": null, \"upper_op\": null, \"upper\": null, \"unit\": \"mg/L\"}, \"species\": \"Oncorhynchus mykiss\", \"duration_value\": 96, \"duration_unit\": \"hr\", \"guideline\": null, \"data_source\": null, \"statements\": [], \"status\": \"값있음\", \"line\": \"p7:L18\"}, {\"comp_name\": \"벤젠\", \"comp_cas\": \"71-43-2\", \"endpoint\": \"ECO_FISH\", \"descriptor\": \"EC50\", \"q\": {\"raw\": \"10 mg/L\", \"value\": 10, \"approx\": null, \"lower_op\": null, \"lower\": null, \"upper_op\": null, \"upper\": null, \"unit\": \"mg/L\"}, \"species\": \"Daphnia magna\", \"duration_value\": 48, \"duration_unit\": \"hr\", \"guideline\": null, \"data_source\": null, \"statements\": [], \"status\": \"값있음\", \"line\": \"p7:L21\"}, {\"comp_name\": \"벤젠\", \"comp_cas\": \"71-43-2\", \"endpoint\": \"ECO_FISH\", \"descriptor\": \"EC50\", \"q\": {\"raw\": \"32 mg/L\", \"value\": 32, \"approx\": null, \"lower_op\": null, \"lower\": null, \"upper_op\": null, \"upper\": null, \"unit\": \"mg/L\"}, \"species\": \"Raphidocelis subcapitata\", \"duration_value\": 72, \"duration_unit\": \"hr\", \"guideline\": null, \"data_source\": null, \"statements\": [], \"status\": \"값있음\", \"line\": \"p7:L23\"}], \"narratives\": [{\"item_code\": \"S12_OTHER\", \"title_raw\": \"나. 기타 유해 영향\", \"start\": \"p2:L19\", \"end\": \"p2:L19\"}], \"extras\": []}",
+ "mode": "nuextract_template",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 12352,
+  "completion_tokens": 524,
+  "total_tokens": 12876
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "nuextract_template",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 12352,
+    "completion_tokens": 524,
+    "total_tokens": 12876
+   },
+   "seconds": 17.65,
+   "chars": 1329,
+   "whitespace": 143,
+   "head": "{\"ecotox\": [{\"comp_name\": \"벤젠\", \"comp_cas\": \"71-43-2\", \"endpoint\": \"ECO_FISH\", \"descriptor\": \"LC50\", \"q\": {\"raw\": \"5.3 mg/L\", \"value\": 5.3, \"approx\": null, \"lower_op\": null, \"lower\": null, \"upper_op\": null, \"upper\": null, \"unit\": \"mg/L\"}, \"species\": \"Oncorhynchus mykiss\", \"duration_value\": 96, \"duration_unit\": \"hr\", \"guideline\": null, \"data_source\": null, \"statements\": [], \"status\": \"값있음\", \"line\": \"p7:L18\"}, {\"comp_name\": \"벤젠\", \"comp_cas\": \"71-43-2\", \"endpoint\": \"ECO_FISH\", \"descriptor\": \"EC50\",",
+   "tail": "_cas\": \"71-43-2\", \"endpoint\": \"ECO_FISH\", \"descriptor\": \"EC50\", \"q\": {\"raw\": \"32 mg/L\", \"value\": 32, \"approx\": null, \"lower_op\": null, \"lower\": null, \"upper_op\": null, \"upper\": null, \"unit\": \"mg/L\"}, \"species\": \"Raphidocelis subcapitata\", \"duration_value\": 72, \"duration_unit\": \"hr\", \"guideline\": null, \"data_source\": null, \"statements\": [], \"status\": \"값있음\", \"line\": \"p7:L23\"}], \"narratives\": [{\"item_code\": \"S12_OTHER\", \"title_raw\": \"나. 기타 유해 영향\", \"start\": \"p2:L19\", \"end\": \"p2:L19\"}], \"extras\": []}"
+  }
+ ],
+ "seconds": 17.652,
+ "check_problems": []
+}

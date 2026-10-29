@@ -1,0 +1,110 @@
+{
+ "doc_id": "T21-S014",
+ "msds_index": 0,
+ "section": 7,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S7_HANDLING",
+    "title_raw": "가. 안전취급요령",
+    "start": "L22",
+    "end": "L32"
+   },
+   {
+    "item_code": "S7_STORAGE",
+    "title_raw": "나. 안전한 저장방법",
+    "start": "L33",
+    "end": "L37"
+   }
+  ],
+  "extras": []
+ },
+ "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S7_HANDLING\",\n      \"title_raw\": \"가. 안전취급요령\",\n      \"start\": \"L22\",\n      \"end\": \"L32\"\n    },\n    {\n      \"item_code\": \"S7_STORAGE\",\n      \"title_raw\": \"나. 안전한 저장방법\",\n      \"start\": \"L33\",\n      \"end\": \"L37\"\n    }\n  ],\n  \"extras\": []\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 8042,
+  "completion_tokens": 124,
+  "total_tokens": 8166
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 8042,
+    "completion_tokens": 124,
+    "total_tokens": 8166
+   },
+   "seconds": 6.078,
+   "chars": 281,
+   "whitespace": 99,
+   "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S7_HANDLING\",\n      \"title_raw\": \"가. 안전취급요령\",\n      \"start\": \"L22\",\n      \"end\": \"L32\"\n    },\n    {\n      \"item_code\": \"S7_STORAGE\",\n      \"title_raw\": \"나. 안전한 저장방법\",\n      \"start\": \"L33\",\n      \"end\": \"L37\"\n    }\n  ],\n  \"extras\": []\n}",
+   "tail": ""
+  }
+ ],
+ "seconds": 6.078,
+ "check_problems": [
+  "narratives[0].start: 원문에 없는 줄 번호 L22",
+  "narratives[0].end: 원문에 없는 줄 번호 L32",
+  "narratives[1].start: 원문에 없는 줄 번호 L33",
+  "narratives[1].end: 원문에 없는 줄 번호 L37"
+ ],
+ "reextract_attempt": {
+  "ok": true,
+  "parsed": {
+   "narratives": [
+    {
+     "item_code": "S7_HANDLING",
+     "title_raw": "가. 안전취급요령",
+     "start": "L22",
+     "end": "L32"
+    },
+    {
+     "item_code": "S7_STORAGE",
+     "title_raw": "나. 안전한 저장방법",
+     "start": "L33",
+     "end": "L37"
+    }
+   ],
+   "extras": []
+  },
+  "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S7_HANDLING\",\n      \"title_raw\": \"가. 안전취급요령\",\n      \"start\": \"L22\",\n      \"end\": \"L32\"\n    },\n    {\n      \"item_code\": \"S7_STORAGE\",\n      \"title_raw\": \"나. 안전한 저장방법\",\n      \"start\": \"L33\",\n      \"end\": \"L37\"\n    }\n  ],\n  \"extras\": []\n}",
+  "mode": "json_schema",
+  "finish_reason": "stop",
+  "usage": {
+   "prompt_tokens": 8113,
+   "completion_tokens": 124,
+   "total_tokens": 8237
+  },
+  "attempts": 1,
+  "errors": [],
+  "requests": [
+   {
+    "mode": "json_schema",
+    "finish_reason": "stop",
+    "usage": {
+     "prompt_tokens": 8113,
+     "completion_tokens": 124,
+     "total_tokens": 8237
+    },
+    "seconds": 3.328,
+    "chars": 281,
+    "whitespace": 99,
+    "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S7_HANDLING\",\n      \"title_raw\": \"가. 안전취급요령\",\n      \"start\": \"L22\",\n      \"end\": \"L32\"\n    },\n    {\n      \"item_code\": \"S7_STORAGE\",\n      \"title_raw\": \"나. 안전한 저장방법\",\n      \"start\": \"L33\",\n      \"end\": \"L37\"\n    }\n  ],\n  \"extras\": []\n}",
+    "tail": ""
+   }
+  ],
+  "seconds": 3.329,
+  "check_problems": [
+   "narratives[0].start: 원문에 없는 줄 번호 L22",
+   "narratives[0].end: 원문에 없는 줄 번호 L32",
+   "narratives[1].start: 원문에 없는 줄 번호 L33",
+   "narratives[1].end: 원문에 없는 줄 번호 L37"
+  ]
+ }
+}

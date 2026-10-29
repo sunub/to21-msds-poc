@@ -1,0 +1,87 @@
+{
+ "doc_id": "T21-M013",
+ "msds_index": 0,
+ "section": 9,
+ "reextracted": false,
+ "ok": false,
+ "parsed": null,
+ "raw_text": "",
+ "mode": "none",
+ "finish_reason": "length",
+ "usage": {
+  "prompt_tokens": 19394,
+  "completion_tokens": 8192,
+  "total_tokens": 27586
+ },
+ "attempts": 2,
+ "errors": [
+  "[none] 검증 실패 3건: .physchem[5].q: {'raw': '< -34 °C', 'value': None, 'approx': None, 'lower_op': '<', 'lower': -34, 'upper_op': None, 'upper': None, 'unit': 'C'} is not valid under any of the given schemas; .physchem[12].q: {'raw': '< 5 mmHg', 'value': None, 'approx': None, 'lower_op': '<', 'lower': 5, 'upper_op': None, 'upper': None, 'unit': 'mmHg'} is not valid under any of the given schemas; .physchem[13].q: {'raw': '< 0.01 %', 'value': None, 'approx': None, 'lower_op': '<', 'lower': 0.01, 'upper_op': None, 'upper': None, 'unit': '%'} is not valid under any of the given schemas",
+  "[none] 출력 길이 한도에 걸려 잘림 (max_tokens=8192)"
+ ],
+ "requests": [
+  {
+   "mode": "none",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 17768,
+    "completion_tokens": 5298,
+    "total_tokens": 23066
+   },
+   "seconds": 211.991,
+   "chars": 4222,
+   "whitespace": 14,
+   "head": "{\"physchem\":[{\"prop_code\":\"APPEARANCE_STATE\",\"comp_name\":null,\"comp_cas\":null,\"q\":null,\"text_value\":\"액체\",\"cond\":null,\"data_source\":null,\"line\":\"p5:L26\"},{\"prop_code\":\"APPEARANCE_STATE\",\"comp_name\":null,\"comp_cas\":null,\"q\":null,\"text_value\":\"액체\",\"cond\":null,\"data_source\":null,\"line\":\"p5:L27\"},{\"prop_code\":\"APPEARANCE_COLOR\",\"comp_name\":null,\"comp_cas\":null,\"q\":null,\"text_value\":\"붉은 갈색\",\"cond\":null,\"data_source\":null,\"line\":\"p5:L29\"},{\"prop_code\":\"ODOR\",\"comp_name\":null,\"comp_cas\":null,\"q\":null,\"t",
+   "tail": ":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"mPa.s\"},\"text_value\":null,\"cond\":{\"temp\":21,\"temp_unit\":\"C\",\"pressure\":null,\"pressure_unit\":null,\"method\":null,\"reference\":null,\"conc_value\":null,\"conc_unit\":null},\"data_source\":null,\"line\":\"p5:L50\"}],\"extras\":[{\"after_item\":\"APPEARANCE_STATE\",\"title_raw\":\"형태\",\"reason\":\"코드없음\",\"comp_name\":null,\"comp_cas\":null,\"q\":null,\"statements\":[{\"key\":null,\"value\":\"형태 액체.\",\"refs\":null,\"cond\":null,\"line\":\"p5:L28\"}],\"suggested_code\":null,\"line\":\"p5:L28\"}]}"
+  },
+  {
+   "mode": "none",
+   "finish_reason": "length",
+   "usage": {
+    "prompt_tokens": 19394,
+    "completion_tokens": 8192,
+    "total_tokens": 27586
+   },
+   "seconds": 141.583,
+   "chars": 0,
+   "whitespace": 0,
+   "head": "",
+   "tail": ""
+  }
+ ],
+ "seconds": 353.584,
+ "check_problems": [],
+ "reextract_attempt": {
+  "ok": false,
+  "parsed": null,
+  "raw_text": "{\"physchem\":[{\"prop_code\":\"APPEARANCE_STATE\",\"comp_name\":null,\"comp_cas\":null,\"q\":null,\"text_value\":\"액체\",\"cond\":null,\"data_source\":null,\"line\":\"p5:L26\"},{\"prop_code\":\"APPEARANCE_COLOR\",\"comp_name\":null,\"comp_cas\":null,\"q\":null,\"text_value\":\"붉은 갈색\",\"cond\":null,\"data_source\":null,\"line\":\"p5:L29\"},{\"prop_code\":\"ODOR\",\"comp_name\":null,\"comp_cas\":null,\"q\":null,\"text_value\":\"탄화 수소\",\"cond\":null,\"data_source\":null,\"line\":\"p5:L30\"},{\"prop_code\":\"ODOR_THRESHOLD\",\"comp_name\":null,\"comp_cas\":null,\"q\":{\"raw\":\"자료없음\",\"value\":null,\"approx\":null,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":null},\"text_value\":null,\"cond\":null,\"data_source\":null,\"line\":\"p5:L31\"},{\"prop_code\":\"MELT_FREEZE\",\"comp_name\":null,\"comp_cas\":null,\"q\":{\"raw\":\"< -34 °C\",\"value\":null,\"approx\":null,\"lower_op\":\"<\",\"lower\":-34,\"upper_op\":null,\"upper\":null,\"unit\":\"C\"},\"text_value\":null,\"cond\":null,\"data_source\":null,\"line\":\"p5:L33\"},{\"prop_code\":\"BOILING\",\"comp_name\":null,\"comp_cas\":null,\"q\":{\"raw\":\"177 °C\",\"value\":177,\"approx\":null,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"C\"},\"text_value\":null,\"cond\":null,\"data_source\":null,\"line\":\"p5:L34\"},{\"prop_code\":\"FLASH_POINT\",\"comp_name\":null,\"comp_cas\":null,\"q\":{\"raw\":\"58 °C\",\"value\":58,\"approx\":null,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":\"C\"},\"text_value\":null,\"cond\":null,\"data_source\":\"P-M(CC)\",\"line\":\"p5:L35\"},{\"prop_code\":\"EVAP_RATE\",\"comp_name\":null,\"comp_cas\":null,\"q\":null,\"text_value\":\"에테르보다 늦음\",\"cond\":null,\"data_source\":null,\"line\":\"p5:L36\"},{\"prop_code\":\"FLAMMABILITY\",\"comp_name\":null,\"comp_cas\":null,\"q\":null,\"text_value\":\"해당없음\",\"cond\":null,\"data_source\":null,\"line\":\"p5:L37\"},{\"prop_code\":\"LEL\",\"comp_name\":null,\"comp_cas\":null,\"q\":{\"raw\":\"자료없음\",\"value\":null,\"approx\":null,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":null},\"text_value\":null,\"cond\":null,\"data_source\":null,\"line\":\"p5:L39\"},{\"prop_code\":\"UEL\",\"comp_name\":null,\"comp_cas\":null,\"q\":{\"raw\":\"자료없음\",\"value\":null,\"approx\":null,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":null},\"text_value\":null,\"cond\":null,\"data_source\":null,\"line\":\"p5:L40\"},{\"prop_code\":\"VAPOR_PRESSURE\",\"comp_name\":null,\"comp_cas\":null,\"q\":{\"raw\":\"< 5 mmHg\",\"value\":null,\"approx\":null,\"lower_op\":\"<\",\"lower\":5,\"upper_op\":null,\"upper\":null,\"unit\":\"mmHg\"},\"text_value\":null,\"cond\":{\"temp\":21,\"temp_unit\":\"C\",\"pressure\":null,\"pressure_unit\":null,\"method\":null,\"reference\":null,\"conc_value\":null,\"conc_unit\":null},\"data_source\":null,\"line\":\"p5:L41\"},{\"prop_code\":\"SOLUBILITY\",\"comp_name\":null,\"comp_cas\":null,\"q\":{\"raw\":\"< 0.01 %\",\"value\":null,\"approx\":null,\"lower_op\":\"<\",\"lower\":0.01,\"upper_op\":null,\"upper\":null,\"unit\":\"%\"},\"text_value\":null,\"cond\":null,\"data_source\":null,\"line\":\"p5:L44\"},{\"prop_code\":\"VAPOR_DENSITY\",\"comp_name\":null,\"comp_cas\":null,\"q\":{\"raw\":\"> 1\",\"value\":null,\"approx\":null,\"lower_op\":\">\",\"lower\":1,\"upper_op\":null,\"upper\":null,\"unit\":null},\"text_value\":null,\"cond\":null,\"data_source\":null,\"line\":\"p5:L45\"},{\"prop_code\":\"RELATIVE_DENSITY\",\"comp_name\":null,\"comp_cas\":null,\"q\":{\"raw\":\"0.9\",\"value\":0.9,\"approx\":null,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":null},\"text_value\":null,\"cond\":null,\"data_source\":null,\"line\":\"",
+  "mode": "none",
+  "finish_reason": "length",
+  "usage": {
+   "prompt_tokens": 18009,
+   "completion_tokens": 8192,
+   "total_tokens": 26201
+  },
+  "attempts": 1,
+  "errors": [
+   "[none] 출력 길이 한도에 걸려 잘림 (max_tokens=8192)"
+  ],
+  "requests": [
+   {
+    "mode": "none",
+    "finish_reason": "length",
+    "usage": {
+     "prompt_tokens": 18009,
+     "completion_tokens": 8192,
+     "total_tokens": 26201
+    },
+    "seconds": 87.631,
+    "chars": 3234,
+    "whitespace": 12,
+    "head": "{\"physchem\":[{\"prop_code\":\"APPEARANCE_STATE\",\"comp_name\":null,\"comp_cas\":null,\"q\":null,\"text_value\":\"액체\",\"cond\":null,\"data_source\":null,\"line\":\"p5:L26\"},{\"prop_code\":\"APPEARANCE_COLOR\",\"comp_name\":null,\"comp_cas\":null,\"q\":null,\"text_value\":\"붉은 갈색\",\"cond\":null,\"data_source\":null,\"line\":\"p5:L29\"},{\"prop_code\":\"ODOR\",\"comp_name\":null,\"comp_cas\":null,\"q\":null,\"text_value\":\"탄화 수소\",\"cond\":null,\"data_source\":null,\"line\":\"p5:L30\"},{\"prop_code\":\"ODOR_THRESHOLD\",\"comp_name\":null,\"comp_cas\":null,\"q\":{\"raw\"",
+    "tail": "e\":null,\"line\":\"p5:L44\"},{\"prop_code\":\"VAPOR_DENSITY\",\"comp_name\":null,\"comp_cas\":null,\"q\":{\"raw\":\"> 1\",\"value\":null,\"approx\":null,\"lower_op\":\">\",\"lower\":1,\"upper_op\":null,\"upper\":null,\"unit\":null},\"text_value\":null,\"cond\":null,\"data_source\":null,\"line\":\"p5:L45\"},{\"prop_code\":\"RELATIVE_DENSITY\",\"comp_name\":null,\"comp_cas\":null,\"q\":{\"raw\":\"0.9\",\"value\":0.9,\"approx\":null,\"lower_op\":null,\"lower\":null,\"upper_op\":null,\"upper\":null,\"unit\":null},\"text_value\":null,\"cond\":null,\"data_source\":null,\"line\":\""
+   }
+  ],
+  "seconds": 87.632,
+  "check_problems": []
+ }
+}

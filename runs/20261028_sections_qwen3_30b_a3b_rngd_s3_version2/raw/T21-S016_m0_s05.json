@@ -1,0 +1,416 @@
+{
+ "doc_id": "T21-S016",
+ "msds_index": 0,
+ "section": 5,
+ "reextracted": true,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S5_MEDIA",
+    "title_raw": "가. 적절한(및 부적절한) 소화제",
+    "start": "p3:L43",
+    "end": "p3:L46"
+   },
+   {
+    "item_code": "S5_SPECIFIC",
+    "title_raw": "나. 화학물질로부터 생기는 특정 유해성",
+    "start": "p3:L47",
+    "end": "p3:L53"
+   },
+   {
+    "item_code": "S5_FIREFIGHT",
+    "title_raw": "다. 화재 진압 시 착용할 보호구 및 예방조치",
+    "start": "p3:L53",
+    "end": "p4:L6"
+   }
+  ],
+  "extras": []
+ },
+ "raw_text": "{\"narratives\": [{\"item_code\": \"S5_MEDIA\", \"title_raw\": \"가. 적절한(및 부적절한) 소화제\", \"start\": \"p3:L43\", \"end\": \"p3:L46\"}, {\"item_code\": \"S5_SPECIFIC\", \"title_raw\": \"나. 화학물질로부터 생기는 특정 유해성\", \"start\": \"p3:L47\", \"end\": \"p3:L53\"}, {\"item_code\": \"S5_FIREFIGHT\", \"title_raw\": \"다. 화재 진압 시 착용할 보호구 및 예방조치\", \"start\": \"p3:L53\", \"end\": \"p4:L6\"}], \"extras\": []}",
+ "mode": "json_schema_compact",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 11942,
+  "completion_tokens": 169,
+  "total_tokens": 12111
+ },
+ "attempts": 2,
+ "errors": [],
+ "seconds": 82.359,
+ "check_problems": [],
+ "first_attempt": {
+  "ok": true,
+  "parsed": {
+   "narratives": [
+    {
+     "item_code": "S5_MEDIA",
+     "title_raw": "가. 적절한(및 부적절한) 소화제",
+     "start": "p3:L44",
+     "end": "p3:L45"
+    },
+    {
+     "item_code": "S5_SPECIFIC",
+     "title_raw": "나. 화학물질로부터 생기는 특정 유해성",
+     "start": "p3:L48",
+     "end": "p3:L52"
+    },
+    {
+     "item_code": "S5_FIREFIGHT",
+     "title_raw": "다. 화재 진압 시 착용할 보호구 및 예방조치",
+     "start": "p3:L53",
+     "end": "p3:L56"
+    }
+   ],
+   "extras": [
+    {
+     "after_item": "S5_FIREFIGHT",
+     "title_raw": "가. 적절한(및 부적절한) 소화제",
+     "reason": "필드없음",
+     "comp_name": "분말소화제",
+     "comp_cas": "자료없음",
+     "q": {
+      "raw": "분말소화제, 탄산가스, 일반 포말소화제, 분무",
+      "value": 1,
+      "approx": true,
+      "lower_op": ">=",
+      "lower": 1,
+      "upper_op": "<=",
+      "upper": 1,
+      "unit": "분말소화제"
+     },
+     "statements": [
+      {
+       "key": "소화제",
+       "value": "분말소화제",
+       "refs": [
+        "1"
+       ],
+       "cond": {
+        "raw": "분말소화제, 탄산가스, 일반 포말소화제, 분무",
+        "value": 1,
+        "approx": true,
+        "lower_op": ">=",
+        "lower": 1,
+        "upper_op": "<=",
+        "upper": 1,
+        "unit": "분말소화제"
+       },
+       "line": "p3:L44"
+      },
+      {
+       "key": "소화제",
+       "value": "탄산가스",
+       "refs": [
+        "2"
+       ],
+       "cond": {
+        "raw": "분말소화제, 탄산가스, 일반 포말소화제, 분무",
+        "value": 1,
+        "approx": true,
+        "lower_op": ">=",
+        "lower": 1,
+        "upper_op": "<=",
+        "upper": 1,
+        "unit": "탄산가스"
+       },
+       "line": "p3:L44"
+      },
+      {
+       "key": "소화제",
+       "value": "일반 포말소화제",
+       "refs": [
+        "3"
+       ],
+       "cond": {
+        "raw": "분말소화제, 탄산가스, 일반 포말소화제, 분무",
+        "value": 1,
+        "approx": true,
+        "lower_op": ">=",
+        "lower": 1,
+        "upper_op": "<=",
+        "upper": 1,
+        "unit": "일반 포말소화제"
+       },
+       "line": "p3:L44"
+      },
+      {
+       "key": "소화제",
+       "value": "분무",
+       "refs": [
+        "4"
+       ],
+       "cond": {
+        "raw": "분말소화제, 탄산가스, 일반 포말소화제, 분무",
+        "value": 1,
+        "approx": true,
+        "lower_op": ">=",
+        "lower": 1,
+        "upper_op": "<=",
+        "upper": 1,
+        "unit": "분무"
+       },
+       "line": "p3:L44"
+      },
+      {
+       "key": "소화제",
+       "value": "직사주수",
+       "refs": [
+        "5"
+       ],
+       "cond": {
+        "raw": "직사주수를 사용한 소화는 피하시오.",
+        "value": 1,
+        "approx": true,
+        "lower_op": ">=",
+        "lower": 1,
+        "upper_op": "<=",
+        "upper": 1,
+        "unit": "직사주수"
+       },
+       "line": "p3:L45"
+      }
+     ],
+     "suggested_code": "S5_MEDIA",
+     "line": "p3:L44"
+    },
+    {
+     "after_item": "S5_MEDIA",
+     "title_raw": "나. 화학물질로부터 생기는 특정 유해성",
+     "reason": "필드없음",
+     "comp_name": "고인화성 액체 및 증기",
+     "comp_cas": "자료없음",
+     "q": {
+      "raw": "고인화성 액체 및 증기",
+      "value": 1,
+      "approx": true,
+      "lower_op": ">=",
+      "lower": 1,
+      "upper_op": "<=",
+      "upper": 1,
+      "unit": "고인화성 액체 및 증기"
+     },
+     "statements": [
+      {
+       "key": "유해성",
+       "value": "고인화성 액체 및 증기",
+       "refs": [
+        "1"
+       ],
+       "cond": {
+        "raw": "고인화성 액체 및 증기",
+        "value": 1,
+        "approx": true,
+        "lower_op": ">=",
+        "lower": 1,
+        "upper_op": "<=",
+        "upper": 1,
+        "unit": "고인화성 액체 및 증기"
+       },
+       "line": "p3:L48"
+      },
+      {
+       "key": "유해성",
+       "value": "눈에 심한 자극을 일으킴",
+       "refs": [
+        "2"
+       ],
+       "cond": {
+        "raw": "눈에 심한 자극을 일으킴",
+        "value": 1,
+        "approx": true,
+        "lower_op": ">=",
+        "lower": 1,
+        "upper_op": "<=",
+        "upper": 1,
+        "unit": "눈에 심한 자극을 일으킴"
+       },
+       "line": "p3:L49"
+      },
+      {
+       "key": "유해성",
+       "value": "삼켜서 기도로 유입되면 치명적일 수 있음",
+       "refs": [
+        "3"
+       ],
+       "cond": {
+        "raw": "삼켜서 기도로 유입되면 치명적일 수 있음",
+        "value": 1,
+        "approx": true,
+        "lower_op": ">=",
+        "lower": 1,
+        "upper_op": "<=",
+        "upper": 1,
+        "unit": "삼켜서 기도로 유입되면 치명적일 수 있음"
+       },
+       "line": "p3:L50"
+      },
+      {
+       "key": "유해성",
+       "value": "암을 일으킬 수 있음",
+       "refs": [
+        "4"
+       ],
+       "cond": {
+        "raw": "암을 일으킬 수 있음",
+        "value": 1,
+        "approx": true,
+        "lower_op": ">=",
+        "lower": 1,
+        "upper_op": "<=",
+        "upper": 1,
+        "unit": "암을 일으킬 수 있음"
+       },
+       "line": "p3:L51"
+      },
+      {
+       "key": "유해성",
+       "value": "유전적인 결함을 일으킬 수 있음",
+       "refs": [
+        "5"
+       ],
+       "cond": {
+        "raw": "유전적인 결함을 일으킬 수 있음",
+        "value": 1,
+        "approx": true,
+        "lower_op": ">=",
+        "lower": 1,
+        "upper_op": "<=",
+        "upper": 1,
+        "unit": "유전적인 결함을 일으킬 수 있음"
+       },
+       "line": "p3:L52"
+      }
+     ],
+     "suggested_code": "S5_SPECIFIC",
+     "line": "p3:L48"
+    },
+    {
+     "after_item": "S5_SPECIFIC",
+     "title_raw": "다. 화재 진압 시 착용할 보호구 및 예방조치",
+     "reason": "필드없음",
+     "comp_name": "관계인 외 접근을 막고 위험 지역의 출입을 금지하시오.",
+     "comp_cas": "자료없음",
+     "q": {
+      "raw": "관계인 외 접근을 막고 위험 지역의 출입을 금지하시오.",
+      "value": 1,
+      "approx": true,
+      "lower_op": ">=",
+      "lower": 1,
+      "upper_op": "<=",
+      "upper": 1,
+      "unit": "관계인 외 접근을 막고 위험 지역의 출입을 금지하시오."
+     },
+     "statements": [
+      {
+       "key": "조치",
+       "value": "관계인 외 접근을 막고 위험 지역의 출입을 금지하시오.",
+       "refs": [
+        "1"
+       ],
+       "cond": {
+        "raw": "관계인 외 접근을 막고 위험 지역의 출입을 금지하시오.",
+        "value": 1,
+        "approx": true,
+        "lower_op": ">=",
+        "lower": 1,
+        "upper_op": "<=",
+        "upper": 1,
+        "unit": "관계인 외 접근을 막고 위험 지역의 출입을 금지하시오."
+       },
+       "line": "p4:L1"
+      },
+      {
+       "key": "조치",
+       "value": "대규모 화재인 경우 무인방수장치를 활용하며, 여의치 않을 경우 물러나서 타도록 내버려 두시오.",
+       "refs": [
+        "2"
+       ],
+       "cond": {
+        "raw": "대규모 화재인 경우 무인방수장치를 활용하며, 여의치 않을 경우 물러나서 타도록 내버려 두시오.",
+        "value": 1,
+        "approx": true,
+        "lower_op": ">=",
+        "lower": 1,
+        "upper_op": "<=",
+        "upper": 1,
+        "unit": "대규모 화재인 경우 무인방수장치를 활용하며, 여의치 않을 경우 물러나서 타도록 내버려 두시오."
+       },
+       "line": "p4:L2"
+      },
+      {
+       "key": "조치",
+       "value": "물질 자체 또는 연소 생성물의 흡입을 피하시오.",
+       "refs": [
+        "3"
+       ],
+       "cond": {
+        "raw": "물질 자체 또는 연소 생성물의 흡입을 피하시오.",
+        "value": 1,
+        "approx": true,
+        "lower_op": ">=",
+        "lower": 1,
+        "upper_op": "<=",
+        "upper": 1,
+        "unit": "물질 자체 또는 연소 생성물의 흡입을 피하시오."
+       },
+       "line": "p4:L3"
+      },
+      {
+       "key": "조치",
+       "value": "소방서에 알리고, 화재 위치와 유해한 특징을 알려주시오.",
+       "refs": [
+        "4"
+       ],
+       "cond": {
+        "raw": "소방서에 알리고, 화재 위치와 유해한 특징을 알려주시오.",
+        "value": 1,
+        "approx": true,
+        "lower_op": ">=",
+        "lower": 1,
+        "upper_op": "<=",
+        "upper": 1,
+        "unit": "소방서에 알리고, 화재 위치와 유해한 특징을 알려주시오."
+       },
+       "line": "p4:L4"
+      },
+      {
+       "key": "조치",
+       "value": "위험 없이 할 수 있다면 용기를 화재지역으로부터 이동시키시오.",
+       "refs": [
+        "5"
+       ],
+       "cond": {
+        "raw": "위험 없이 할 수 있다면 용기를 화재지역으로부터 이동시키시오.",
+        "value": 1,
+        "approx": true,
+        "lower_op": ">=",
+        "lower": 1,
+        "upper_op": "<=",
+        "upper": 1,
+        "unit": "위험 없이 할 수 있다면 용기를 화재지역으로부터 이동시키시오."
+       },
+       "line": "p4:L5"
+      }
+     ],
+     "suggested_code": "S5_FIREFIGHT",
+     "line": "p4:L1"
+    }
+   ]
+  },
+  "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S5_MEDIA\",\n      \"title_raw\": \"가. 적절한(및 부적절한) 소화제\",\n      \"start\": \"p3:L44\",\n      \"end\": \"p3:L45\"\n    },\n    {\n      \"item_code\": \"S5_SPECIFIC\",\n      \"title_raw\": \"나. 화학물질로부터 생기는 특정 유해성\",\n      \"start\": \"p3:L48\",\n      \"end\": \"p3:L52\"\n    },\n    {\n      \"item_code\": \"S5_FIREFIGHT\",\n      \"title_raw\": \"다. 화재 진압 시 착용할 보호구 및 예방조치\",\n      \"start\": \"p3:L53\",\n      \"end\": \"p3:L56\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S5_FIREFIGHT\",\n      \"title_raw\": \"가. 적절한(및 부적절한) 소화제\",\n      \"reason\": \"필드없음\",\n      \"comp_name\": \"분말소화제\",\n      \"comp_cas\": \"자료없음\",\n      \"q\": {\n        \"raw\": \"분말소화제, 탄산가스, 일반 포말소화제, 분무\"\n      ,\n      \"value\": 1,\n      \"approx\": true,\n      \"lower_op\": \">=\",\n      \"lower\": 1,\n      \"upper_op\": \"<=\",\n      \"upper\": 1,\n      \"unit\": \"분말소화제\"\n      },\n      \"statements\": [\n        {\n          \"key\": \"소화제\",\n          \"value\": \"분말소화제\"\n        ,\n        \"refs\": [\n          \"1\"\n        ]\n      ,\n        \"cond\": {\n          \"raw\": \"분말소화제, 탄산가스, 일반 포말소화제, 분무\"\n        ,\n        \"value\": 1,\n        \"approx\": true,\n        \"lower_op\": \">=\",\n        \"lower\": 1,\n        \"upper_op\": \"<=\",\n        \"upper\": 1,\n        \"unit\": \"분말소화제\"\n        }\n      ,\n        \"line\": \"p3:L44\"\n      },\n      {\n        \"key\": \"소화제\",\n        \"value\": \"탄산가스\"\n      ,\n        \"refs\": [\n          \"2\"\n        ]\n      ,\n        \"cond\": {\n          \"raw\": \"분말소화제, 탄산가스, 일반 포말소화제, 분무\"\n        ,\n        \"value\": 1,\n        \"approx\": true,\n        \"lower_op\": \">=\",\n        \"lower\": 1,\n        \"upper_op\": \"<=\",\n        \"upper\": 1,\n        \"unit\": \"탄산가스\"\n        }\n      ,\n        \"line\": \"p3:L44\"\n      },\n      {\n        \"key\": \"소화제\",\n        \"value\": \"일반 포말소화제\"\n      ,\n        \"refs\": [\n          \"3\"\n        ]\n      ,\n        \"cond\": {\n          \"raw\": \"분말소화제, 탄산가스, 일반 포말소화제, 분무\"\n        ,\n        \"value\": 1,\n        \"approx\": true,\n        \"lower_op\": \">=\",\n        \"lower\": 1,\n        \"upper_op\": \"<=\",\n        \"upper\": 1,\n        \"unit\": \"일반 포말소화제\"\n        }\n      ,\n        \"line\": \"p3:L44\"\n      },\n      {\n        \"key\": \"소화제\",\n        \"value\": \"분무\"\n      ,\n        \"refs\": [\n          \"4\"\n        ]\n      ,\n        \"cond\": {\n          \"raw\": \"분말소화제, 탄산가스, 일반 포말소화제, 분무\"\n        ,\n        \"value\": 1,\n        \"approx\": true,\n        \"lower_op\": \">=\",\n        \"lower\": 1,\n        \"upper_op\": \"<=\",\n        \"upper\": 1,\n        \"unit\": \"분무\"\n        }\n      ,\n        \"line\": \"p3:L44\"\n      },\n      {\n        \"key\": \"소화제\",\n        \"value\": \"직사주수\"\n      ,\n        \"refs\": [\n          \"5\"\n        ]\n      ,\n        \"cond\": {\n          \"raw\": \"직사주수를 사용한 소화는 피하시오.\"\n        ,\n        \"value\": 1,\n        \"approx\": true,\n        \"lower_op\": \">=\",\n        \"lower\": 1,\n        \"upper_op\": \"<=\",\n        \"upper\": 1,\n        \"unit\": \"직사주수\"\n        }\n      ,\n        \"line\": \"p3:L45\"\n      }\n    ],\n    \"suggested_code\": \"S5_MEDIA\"\n  ,\n    \"line\": \"p3:L44\"\n  },\n  {\n    \"after_item\": \"S5_MEDIA\",\n    \"title_raw\": \"나. 화학물질로부터 생기는 특정 유해성\",\n    \"reason\": \"필드없음\",\n    \"comp_name\": \"고인화성 액체 및 증기\",\n    \"comp_cas\": \"자료없음\",\n    \"q\": {\n      \"raw\": \"고인화성 액체 및 증기\"\n    ,\n    \"value\": 1,\n    \"approx\": true,\n    \"lower_op\": \">=\",\n    \"lower\": 1,\n    \"upper_op\": \"<=\",\n    \"upper\": 1,\n    \"unit\": \"고인화성 액체 및 증기\"\n    },\n    \"statements\": [\n      {\n        \"key\": \"유해성\",\n        \"value\": \"고인화성 액체 및 증기\"\n      ,\n        \"refs\": [\n          \"1\"\n        ]\n      ,\n        \"cond\": {\n          \"raw\": \"고인화성 액체 및 증기\"\n        ,\n        \"value\": 1,\n        \"approx\": true,\n        \"lower_op\": \">=\",\n        \"lower\": 1,\n        \"upper_op\": \"<=\",\n        \"upper\": 1,\n        \"unit\": \"고인화성 액체 및 증기\"\n        }\n      ,\n        \"line\": \"p3:L48\"\n      },\n      {\n        \"key\": \"유해성\",\n        \"value\": \"눈에 심한 자극을 일으킴\"\n      ,\n        \"refs\": [\n          \"2\"\n        ]\n      ,\n        \"cond\": {\n          \"raw\": \"눈에 심한 자극을 일으킴\"\n        ,\n        \"value\": 1,\n        \"approx\": true,\n        \"lower_op\": \">=\",\n        \"lower\": 1,\n        \"upper_op\": \"<=\",\n        \"upper\": 1,\n        \"unit\": \"눈에 심한 자극을 일으킴\"\n        }\n      ,\n        \"line\": \"p3:L49\"\n      },\n      {\n        \"key\": \"유해성\",\n        \"value\": \"삼켜서 기도로 유입되면 치명적일 수 있음\"\n      ,\n        \"refs\": [\n          \"3\"\n        ]\n      ,\n        \"cond\": {\n          \"raw\": \"삼켜서 기도로 유입되면 치명적일 수 있음\"\n        ,\n        \"value\": 1,\n        \"approx\": true,\n        \"lower_op\": \">=\",\n        \"lower\": 1,\n        \"upper_op\": \"<=\",\n        \"upper\": 1,\n        \"unit\": \"삼켜서 기도로 유입되면 치명적일 수 있음\"\n        }\n      ,\n        \"line\": \"p3:L50\"\n      },\n      {\n        \"key\": \"유해성\",\n        \"value\": \"암을 일으킬 수 있음\"\n      ,\n        \"refs\": [\n          \"4\"\n        ]\n      ,\n        \"cond\": {\n          \"raw\": \"암을 일으킬 수 있음\"\n        ,\n        \"value\": 1,\n        \"approx\": true,\n        \"lower_op\": \">=\",\n        \"lower\": 1,\n        \"upper_op\": \"<=\",\n        \"upper\": 1,\n        \"unit\": \"암을 일으킬 수 있음\"\n        }\n      ,\n        \"line\": \"p3:L51\"\n      },\n      {\n        \"key\": \"유해성\",\n        \"value\": \"유전적인 결함을 일으킬 수 있음\"\n      ,\n        \"refs\": [\n          \"5\"\n        ]\n      ,\n        \"cond\": {\n          \"raw\": \"유전적인 결함을 일으킬 수 있음\"\n        ,\n        \"value\": 1,\n        \"approx\": true,\n        \"lower_op\": \">=\",\n        \"lower\": 1,\n        \"upper_op\": \"<=\",\n        \"upper\": 1,\n        \"unit\": \"유전적인 결함을 일으킬 수 있음\"\n        }\n      ,\n        \"line\": \"p3:L52\"\n      }\n    ],\n    \"suggested_code\": \"S5_SPECIFIC\"\n  ,\n    \"line\": \"p3:L48\"\n  },\n  {\n    \"after_item\": \"S5_SPECIFIC\",\n    \"title_raw\": \"다. 화재 진압 시 착용할 보호구 및 예방조치\",\n    \"reason\": \"필드없음\",\n    \"comp_name\": \"관계인 외 접근을 막고 위험 지역의 출입을 금지하시오.\",\n    \"comp_cas\": \"자료없음\",\n    \"q\": {\n      \"raw\": \"관계인 외 접근을 막고 위험 지역의 출입을 금지하시오.\"\n    ,\n    \"value\": 1,\n    \"approx\": true,\n    \"lower_op\": \">=\",\n    \"lower\": 1,\n    \"upper_op\": \"<=\",\n    \"upper\": 1,\n    \"unit\": \"관계인 외 접근을 막고 위험 지역의 출입을 금지하시오.\"\n    },\n    \"statements\": [\n      {\n        \"key\": \"조치\",\n        \"value\": \"관계인 외 접근을 막고 위험 지역의 출입을 금지하시오.\"\n      ,\n        \"refs\": [\n          \"1\"\n        ]\n      ,\n        \"cond\": {\n          \"raw\": \"관계인 외 접근을 막고 위험 지역의 출입을 금지하시오.\"\n        ,\n        \"value\": 1,\n        \"approx\": true,\n        \"lower_op\": \">=\",\n        \"lower\": 1,\n        \"upper_op\": \"<=\",\n        \"upper\": 1,\n        \"unit\": \"관계인 외 접근을 막고 위험 지역의 출입을 금지하시오.\"\n        }\n      ,\n        \"line\": \"p4:L1\"\n      },\n      {\n        \"key\": \"조치\",\n        \"value\": \"대규모 화재인 경우 무인방수장치를 활용하며, 여의치 않을 경우 물러나서 타도록 내버려 두시오.\"\n      ,\n        \"refs\": [\n          \"2\"\n        ]\n      ,\n        \"cond\": {\n          \"raw\": \"대규모 화재인 경우 무인방수장치를 활용하며, 여의치 않을 경우 물러나서 타도록 내버려 두시오.\"\n        ,\n        \"value\": 1,\n        \"approx\": true,\n        \"lower_op\": \">=\",\n        \"lower\": 1,\n        \"upper_op\": \"<=\",\n        \"upper\": 1,\n        \"unit\": \"대규모 화재인 경우 무인방수장치를 활용하며, 여의치 않을 경우 물러나서 타도록 내버려 두시오.\"\n        }\n      ,\n        \"line\": \"p4:L2\"\n      },\n      {\n        \"key\": \"조치\",\n        \"value\": \"물질 자체 또는 연소 생성물의 흡입을 피하시오.\"\n      ,\n        \"refs\": [\n          \"3\"\n        ]\n      ,\n        \"cond\": {\n          \"raw\": \"물질 자체 또는 연소 생성물의 흡입을 피하시오.\"\n        ,\n        \"value\": 1,\n        \"approx\": true,\n        \"lower_op\": \">=\",\n        \"lower\": 1,\n        \"upper_op\": \"<=\",\n        \"upper\": 1,\n        \"unit\": \"물질 자체 또는 연소 생성물의 흡입을 피하시오.\"\n        }\n      ,\n        \"line\": \"p4:L3\"\n      },\n      {\n        \"key\": \"조치\",\n        \"value\": \"소방서에 알리고, 화재 위치와 유해한 특징을 알려주시오.\"\n      ,\n        \"refs\": [\n          \"4\"\n        ]\n      ,\n        \"cond\": {\n          \"raw\": \"소방서에 알리고, 화재 위치와 유해한 특징을 알려주시오.\"\n        ,\n        \"value\": 1,\n        \"approx\": true,\n        \"lower_op\": \">=\",\n        \"lower\": 1,\n        \"upper_op\": \"<=\",\n        \"upper\": 1,\n        \"unit\": \"소방서에 알리고, 화재 위치와 유해한 특징을 알려주시오.\"\n        }\n      ,\n        \"line\": \"p4:L4\"\n      },\n      {\n        \"key\": \"조치\",\n        \"value\": \"위험 없이 할 수 있다면 용기를 화재지역으로부터 이동시키시오.\"\n      ,\n        \"refs\": [\n          \"5\"\n        ]\n      ,\n        \"cond\": {\n          \"raw\": \"위험 없이 할 수 있다면 용기를 화재지역으로부터 이동시키시오.\"\n        ,\n        \"value\": 1,\n        \"approx\": true,\n        \"lower_op\": \">=\",\n        \"lower\": 1,\n        \"upper_op\": \"<=\",\n        \"upper\": 1,\n        \"unit\": \"위험 없이 할 수 있다면 용기를 화재지역으로부터 이동시키시오.\"\n        }\n      ,\n        \"line\": \"p4:L5\"\n      }\n    ],\n    \"suggested_code\": \"S5_FIREFIGHT\"\n  ,\n    \"line\": \"p4:L1\"\n  }\n]\n}",
+  "mode": "json_schema",
+  "finish_reason": "stop",
+  "usage": {
+   "prompt_tokens": 11913,
+   "completion_tokens": 3162,
+   "total_tokens": 15075
+  },
+  "attempts": 1,
+  "errors": [],
+  "seconds": 51.856,
+  "check_problems": [
+   "narratives[2].end: 원문에 없는 줄 번호 p3:L56"
+  ]
+ }
+}

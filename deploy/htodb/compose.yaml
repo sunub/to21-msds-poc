@@ -1,0 +1,25 @@
+# TO21 지식DB(HTODB) 로컬 적재용. pg = 적재 대상(조회 API가 붙음), mssql = 원본 mdf를 읽기 위한 임시 서버(profile export).
+# 값은 같은 폴더의 .env(git 제외)에서 읽는다. 견본: .env.example
+name: to21-htodb
+services:
+  pg:
+    restart: unless-stopped   # Docker가 켜지면 자동으로 뜸
+    image: postgres:16.15@sha256:ca0bd484cb98bf4b24eb1010e73fb3fcbd6714d240fbc1a10eea5b7dbecb641d
+    environment:
+      POSTGRES_USER: kdb
+      POSTGRES_PASSWORD: ${HTODB_PG_PASSWORD:?}
+      POSTGRES_DB: kdb
+    ports: ["127.0.0.1:${HTODB_PG_PORT:-5433}:5432"]
+    volumes: [pgdata:/var/lib/postgresql/data]
+  mssql:
+    profiles: [export]
+    platform: linux/amd64   # 이미지가 amd64 전용. Apple Silicon은 Docker Desktop의 Rosetta 사용을 켠다
+    image: mcr.microsoft.com/mssql/server:2022-latest@sha256:cf8f0ab2ebe61feec2eed2629061a07d247f791c2a8ddda74a4ac9f06a291718  # 16.0.4305.5 (CU27-GDR)
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_PID: Developer
+      MSSQL_SA_PASSWORD: ${HTODB_MSSQL_SA_PASSWORD:?}
+    ports: ["127.0.0.1:${HTODB_MSSQL_PORT:-14330}:1433"]
+    volumes: ["${HTODB_MDF_DIR:-/tmp/htodb-mdf-unset}:/var/opt/mssql/attach"]   # export 때만 필요, pg만 띄울 땐 비워도 됨
+volumes:
+  pgdata:

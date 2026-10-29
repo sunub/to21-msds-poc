@@ -1,0 +1,62 @@
+{
+ "doc_id": "T21-S014",
+ "msds_index": 0,
+ "section": 11,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "toxicity": [],
+  "cmr": [],
+  "narratives": [
+   {
+    "item_code": "S11_ROUTE",
+    "title_raw": "가. 가능성이 높은 노출 경로에 관한 정보",
+    "start": "p5:L2",
+    "end": "p5:L2"
+   }
+  ],
+  "extras": []
+ },
+ "raw_text": "{\"toxicity\": [], \"cmr\": [], \"narratives\": [{\"item_code\": \"S11_ROUTE\", \"title_raw\": \"가. 가능성이 높은 노출 경로에 관한 정보\", \"start\": \"p5:L2\", \"end\": \"p5:L2\"}], \"extras\": []}",
+ "mode": "json_schema_compact",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 11264,
+  "completion_tokens": 73,
+  "total_tokens": 11337
+ },
+ "attempts": 2,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "length",
+   "usage": {
+    "prompt_tokens": 11264,
+    "completion_tokens": 8192,
+    "total_tokens": 19456
+   },
+   "seconds": 88.263,
+   "chars": 20002,
+   "whitespace": 7200,
+   "head": "{\n  \"toxicity\": [\n    {\n      \"comp_name\": \"수소\",\n      \"comp_cas\": \"1333-74-0\",\n      \"endpoint\": \"TX_INHAL\",\n      \"descriptor\": \"LC50\",\n      \"q\": {\n        \"raw\": \"7,500 ppm 4hr Mouse\",\n        \"value\": 7500,\n        \"approx\": false,\n        \"lower_op\": \">=\",\n        \"lower\": 7500,\n        \"upper_op\": \"<=\",\n        \"upper\": 7500,\n        \"unit\": \"ppm\"\n      },\n      \"species\": \"Mouse\",\n      \"sex\": \"미표기\",\n      \"duration_value\": 4,\n      \"duration_unit\": \"hr\",\n      \"physical_form\": \"증기\",\n   ",
+   "tail": "     \"line\": \"p5:L21\"\n    },\n    {\n      \"comp_name\": \"수소\",\n      \"comp_cas\": \"1333-74-0\",\n      \"hazard\": \"생식독성\",\n      \"agency\": \"KR_CCA\",\n      \"class\": \"자료없음\",\n      \"status\": \"자료없음\",\n      \"note\": null,\n      \"line\": \"p5:L21\"\n    },\n    {\n      \"comp_name\": \"수소\",\n      \"comp_cas\": \"1333-74-0\",\n      \"hazard\": \"생식독성\",\n      \"agency\": \"IARC\",\n      \"class\": \"자료없음\",\n      \"status\": \"자료없음\",\n      \"note\": null,\n      \"line\": \"p5:L21\"\n    },\n    {\n      \"comp_name\": \"수소\",\n      \"comp_cas\": \"1333-"
+  },
+  {
+   "mode": "json_schema_compact",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 11264,
+    "completion_tokens": 73,
+    "total_tokens": 11337
+   },
+   "seconds": 0.647,
+   "chars": 159,
+   "whitespace": 20,
+   "head": "{\"toxicity\": [], \"cmr\": [], \"narratives\": [{\"item_code\": \"S11_ROUTE\", \"title_raw\": \"가. 가능성이 높은 노출 경로에 관한 정보\", \"start\": \"p5:L2\", \"end\": \"p5:L2\"}], \"extras\": []}",
+   "tail": ""
+  }
+ ],
+ "seconds": 88.911,
+ "check_problems": []
+}

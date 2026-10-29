@@ -1,0 +1,96 @@
+{
+ "doc_id": "T21-M013",
+ "msds_index": 0,
+ "section": 4,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S4_EYE",
+    "title_raw": "가. 눈에 들어갔을 때",
+    "start": "p3:L11",
+    "end": "p3:L11"
+   },
+   {
+    "item_code": "S4_SKIN",
+    "title_raw": "나. 피부에 접촉했을 때",
+    "start": "p3:L12",
+    "end": "p3:L12"
+   },
+   {
+    "item_code": "S4_INHAL",
+    "title_raw": "다. 흡입했을 때",
+    "start": "p3:L13",
+    "end": "p3:L13"
+   },
+   {
+    "item_code": "S4_INGEST",
+    "title_raw": "라. 먹었을 때",
+    "start": "p3:L14",
+    "end": "p3:L14"
+   },
+   {
+    "item_code": "S4_SYMPTOM",
+    "title_raw": "마. 기타 의사의 주의사항",
+    "start": "p3:L15",
+    "end": "p3:L17"
+   },
+   {
+    "item_code": "S4_DOCTOR",
+    "title_raw": "일반적인 조치사항",
+    "start": "p3:L18",
+    "end": "p3:L19"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S4_DOCTOR",
+    "title_raw": "5. 폭발·화재시 대처방법",
+    "reason": "코드없음",
+    "comp_name": "PETROFLO 20Y97",
+    "comp_cas": "N/A",
+    "q": null,
+    "statements": [
+     {
+      "key": "항목번호",
+      "value": "5",
+      "refs": [],
+      "cond": null,
+      "line": "p3:L19"
+     }
+    ],
+    "suggested_code": "S5_FIRE",
+    "line": "p3:L19"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S4_EYE\",\n      \"title_raw\": \"가. 눈에 들어갔을 때\",\n      \"start\":  \"p3:L11\",\n      \"end\":    \"p3:L11\"\n    },\n    {\n      \"item_code\": \"S4_SKIN\",\n      \"title_raw\": \"나. 피부에 접촉했을 때\",\n      \"start\":  \"p3:L12\",\n      \"end\":    \"p3:L12\"\n    },\n    {\n      \"item_code\": \"S4_INHAL\",\n      \"title_raw\": \"다. 흡입했을 때\",\n      \"start\":  \"p3:L13\",\n      \"end\":    \"p3:L13\"\n    },\n    {\n      \"item_code\": \"S4_INGEST\",\n      \"title_raw\": \"라. 먹었을 때\",\n      \"start\":  \"p3:L14\",\n      \"end\":    \"p3:L14\"\n    },\n    {\n      \"item_code\": \"S4_SYMPTOM\",\n      \"title_raw\": \"마. 기타 의사의 주의사항\",\n      \"start\":  \"p3:L15\",\n      \"end\":    \"p3:L17\"\n    },\n    {\n      \"item_code\": \"S4_DOCTOR\",\n      \"title_raw\": \"일반적인 조치사항\",\n      \"start\":  \"p3:L18\",\n      \"end\":    \"p3:L19\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S4_DOCTOR\",\n      \"title_raw\": \"5. 폭발·화재시 대처방법\",\n      \"reason\": \"코드없음\",\n      \"comp_name\": \"PETROFLO 20Y97\",\n      \"comp_cas\": \"N/A\",\n      \"q\": null,\n      \"statements\": [\n        {\n          \"key\": \"항목번호\",\n          \"value\": \"5\"\n        ,\n        \"refs\": []\n        ,\n        \"cond\": null\n        ,\n        \"line\": \"p3:L19\"\n        }\n      ]\n    ,\n    \"suggested_code\": \"S5_FIRE\"\n    ,\n    \"line\": \"p3:L19\"\n    }\n  ]\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 14130,
+  "completion_tokens": 557,
+  "total_tokens": 14687
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 14130,
+    "completion_tokens": 557,
+    "total_tokens": 14687
+   },
+   "seconds": 15.472,
+   "chars": 1260,
+   "whitespace": 502,
+   "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S4_EYE\",\n      \"title_raw\": \"가. 눈에 들어갔을 때\",\n      \"start\":  \"p3:L11\",\n      \"end\":    \"p3:L11\"\n    },\n    {\n      \"item_code\": \"S4_SKIN\",\n      \"title_raw\": \"나. 피부에 접촉했을 때\",\n      \"start\":  \"p3:L12\",\n      \"end\":    \"p3:L12\"\n    },\n    {\n      \"item_code\": \"S4_INHAL\",\n      \"title_raw\": \"다. 흡입했을 때\",\n      \"start\":  \"p3:L13\",\n      \"end\":    \"p3:L13\"\n    },\n    {\n      \"item_code\": \"S4_INGEST\",\n      \"title_raw\": \"라. 먹었을 때\",\n      \"start\":  \"p3:L14\",\n",
+   "tail": ",\n      \"end\":    \"p3:L19\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S4_DOCTOR\",\n      \"title_raw\": \"5. 폭발·화재시 대처방법\",\n      \"reason\": \"코드없음\",\n      \"comp_name\": \"PETROFLO 20Y97\",\n      \"comp_cas\": \"N/A\",\n      \"q\": null,\n      \"statements\": [\n        {\n          \"key\": \"항목번호\",\n          \"value\": \"5\"\n        ,\n        \"refs\": []\n        ,\n        \"cond\": null\n        ,\n        \"line\": \"p3:L19\"\n        }\n      ]\n    ,\n    \"suggested_code\": \"S5_FIRE\"\n    ,\n    \"line\": \"p3:L19\"\n    }\n  ]\n}"
+  }
+ ],
+ "seconds": 15.473,
+ "check_problems": []
+}
