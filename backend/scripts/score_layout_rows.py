@@ -1,6 +1,6 @@
 """표 행 묶기 채점 (역할 C, 시험 단계): 정답 행의 칸들이 읽기 순서 글에서 붙어 나오는가.
 
-정답: data/gold/layout/rows_dev10.json (개발 문서 10쪽, 골드. 초안은 data/silver/claude/layout/)
+정답: data/gold/layout/table_goldset_data.json (개발 문서 10쪽, 골드. 초안은 data/silver/claude/layout/)
 표마다 열 수를 두고 행은 열 자리에 맞춰 칸을 적었다(빈 칸은 ""). 표 밖 제목(title)과
 여러 칸에 걸친 칸(spans)은 행 채점에 쓰지 않는다. 글이 있는 칸이 2개 이상인 행만 채점한다.
 
@@ -35,7 +35,7 @@ from msds.preprocess.layout import layer_items, page_tables, reading_text
 from msds.preprocess.ocr import read_ocr_json
 from msds.preprocess.render import load_pages
 
-GOLD = paths.DATA / "gold" / "layout" / "rows_dev10.json"
+GOLD = paths.DATA / "gold" / "layout" / "table_goldset_data.json"
 COVER = 0.9   # 글자의 이 비율 이상이 맞으면 있다고 본다
 SPAN = 1.15   # 행 글자가 이 배수 길이 구간 안에 있어야 붙어 나온 것이다
 
