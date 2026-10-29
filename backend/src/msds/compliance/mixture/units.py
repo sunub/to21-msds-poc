@@ -1,11 +1,10 @@
 """독성값의 단위·노출시간을 ATE 표의 목표 단위와 4시간 기준으로 맞춘다 (설계서 v0.4 19장)."""
-import csv
 from functools import lru_cache
 
 from .acute import _FORM, _ROUTE, RULES, _rows
+from .params import param, read_rules
 
 _DIR = RULES.parent
-_STD_HOURS = 4  # 고시 ATE 표의 흡입 기준 노출시간
 _ALIAS = {
     "mg/kg": "mg/kg", "㎎/㎏": "mg/kg", "mg/kgbw": "mg/kg", "㎎/㎏bw": "mg/kg",
     "mg/l": "mg/L", "㎎/ℓ": "mg/L", "㎎/l": "mg/L",
@@ -22,15 +21,14 @@ def _canon(unit):
 
 @lru_cache
 def _table(name):
-    with open(_DIR / name, encoding="utf-8-sig", newline="") as f:
-        return list(csv.DictReader(line for line in f if not line.startswith("#")))
+    return read_rules(_DIR / name)
 
 
 def _convert(rule, value, mw, density):
     if rule["needs"] == "mw":
-        return value * mw / (24450 if rule["rule_id"] == "U-07" else 1)
+        return value * mw / (param("ppm_vapour_molar_volume") if rule["rule_id"] == "U-07" else 1)
     if rule["needs"] == "density":
-        return value * density * 1000
+        return value * density * param("density_to_mg_factor")
     return value * float(rule["factor"])
 
 
@@ -49,11 +47,12 @@ def to_target(value, unit, route, form=None, *, mw=None, density=None, hours=Non
             return None
         value = _convert(rule, value, mw, density)
         notes.append(f"{rule['rule_id']} 환산" + (f" {rule['note']}" if rule["note"] else ""))
-    if route == "inhal" and hours not in (None, _STD_HOURS):
+    base = param("inhal_base_hours")
+    if route == "inhal" and hours not in (None, base):
         t = next((r for r in _table("units_time.csv") if r["form"] == form and float(r["hours"]) == hours), None)
         if t:
             value /= float(t["divisor"])
-            notes.append(f"{t['rule_id']} {hours:g}시간→{_STD_HOURS}시간")
+            notes.append(f"{t['rule_id']} {hours:g}시간→{base}시간")
         else:
             notes.append("참고(노출시간 미환산)")
     return {"value": value, "unit": target, "note": " · ".join(notes)}

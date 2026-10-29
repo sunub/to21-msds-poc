@@ -1,16 +1,15 @@
 """급성독성 혼합물 ATEmix 계산 (고시 별표1 3.1)."""
-import csv
 import operator
 from pathlib import Path
+
+from .params import param, read_rules
 
 RULES = Path(__file__).resolve().parents[1] / "rules" / "acute_tox_ate.csv"
 OPS = {"<": operator.lt, "<=": operator.le, ">": operator.gt, ">=": operator.ge}
 
 
 def _rows(route, form):
-    with open(RULES, encoding="utf-8-sig", newline="") as f:
-        return [r for r in csv.DictReader(f)
-                if r["route"] == route and (r["form"] or None) == (form or None)]
+    return [r for r in read_rules(RULES) if r["route"] == route and (r["form"] or None) == (form or None)]
 
 
 def category_to_ate(route, form, category):
@@ -33,12 +32,13 @@ def value_to_category(route, form, value):
     return None
 
 
-def ate_mix(parts):
+def ate_mix(parts, unknown_limit=None):
+    limit = param("acute_unknown_limit") if unknown_limit is None else unknown_limit
     unknown = sum(p["c"] for p in parts if not p["known"])
     total = sum(p["c"] / p["ate"] for p in parts if p["ate"])
     if total == 0:
-        return None, "공식1" if unknown <= 10 else "공식2"
-    if unknown <= 10:
+        return None, "공식1" if unknown <= limit else "공식2"
+    if unknown <= limit:
         return 100 / total, "공식1"
     return sum(p["c"] for p in parts if p["known"]) / total, "공식2"
 
@@ -101,12 +101,14 @@ def _insufficient(comps):
                        "share": {"low": None, "high": None}} for c in comps]}
 
 
-def mix_acute(comps, route, form=None, *, include_min=1.0, unknown_limit=10):
+def mix_acute(comps, route, form=None, *, include_min=None, unknown_limit=None):
     """성분별 ATE로 혼합물 급성독성 ATEmix와 구분을 함량 하한(low)·상한(high) 각각 계산한다.
 
     comps: [{"name","cas","content":{"low","high"},"ate":{"kind","value","src","step"}}]
     route: oral|dermal|inhal, form: gas|vapour|mist (inhal만)
     """
+    include_min = param("acute_include_min") if include_min is None else include_min
+    unknown_limit = param("acute_unknown_limit") if unknown_limit is None else unknown_limit
     r, f = _ROUTE[route], _FORM.get(form)
     if any(_no_content(c) and c["ate"]["kind"] in ("value", "conversion", "unknown") for c in comps):
         return _insufficient(comps)

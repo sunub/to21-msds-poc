@@ -1,7 +1,7 @@
 """3항 함량 표기를 low/high로 바꾼다 (설계서 v0.4 26장). 표에 없는 표기는 만들지 않고 None으로 표시한다."""
 
-# 미검출·극미량의 상한 %: 설계서 v0.4 미결 9의 가정, 규칙표 assumptions의 trace_amount_upper_percent
-TRACE_AMOUNT_UPPER_PERCENT = 0.1
+from .params import param
+
 _PERCENT = {None, "", "%", "wt%", "w/w%"}
 
 
@@ -29,7 +29,7 @@ def _first_pass(c):
     value, lo, hi = q.get("value"), q.get("lower"), q.get("upper")
     if value is None and lo is None and hi is None:
         if note in ("미검출", "극미량"):
-            out.update(low=0.0, high=TRACE_AMOUNT_UPPER_PERCENT)
+            out.update(low=0.0, high=float(param("trace_amount_upper_percent")))
             out["flags"].append("극미량(가정)")
         else:
             out["flags"].append("함량 없음")
