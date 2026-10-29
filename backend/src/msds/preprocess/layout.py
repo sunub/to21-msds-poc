@@ -227,6 +227,8 @@ def reading_order(items: list[dict], tables: list[list[list]] | None = None) -> 
 COL_TOL = 1.0     # 두 칸의 시작 x가 h의 이 배수 안이면 같은 열이다
 WRAP_FILL = 2.0   # 칸 글이 그 열의 오른쪽 끝에서 h의 이 배수 안까지 차 있으면 다음 줄로 넘어간 것이다
 LINE_GAP = 1.0    # 다음 줄이 위 줄 아래 h의 이 배수 안에서 시작해야 이어진 줄이다
+MIN_WRAP_COL = 6.0   # 열 너비가 h의 이 배수보다 좁으면 잇지 않는다. 짧은 낱말만 있는 열은 줄이 넘어갈 일이 없다
+                     # (M013 6·7쪽 독성 표: 'LD50' 아래 '경피'·'흡입' 라벨을 넘어간 글로 붙였다, 2026-10-29)
 
 
 def _parts(item: dict) -> list[dict]:
@@ -240,6 +242,7 @@ def join_wrapped(rows: list[list[dict]], h: float) -> list[list[dict]]:
     - 바로 아래 줄이다 (LINE_GAP)
     - 칸 수가 위 줄보다 적고, 칸마다 시작 x가 위 줄의 어느 칸과 같다 (새 행은 칸이 다 있다)
     - 그 칸의 위 줄 글이 열 오른쪽 끝까지 찼다 (WRAP_FILL). 짧은 칸 아래 줄은 빈 칸이 있는 새 행이다
+    - 그 열이 MIN_WRAP_COL×h 이상 넓다. 좁은 열은 모든 칸이 '끝까지 찬' 것처럼 보이지만 라벨일 뿐이다
     잇는 곳은 공백 하나, '-'로 끝났으면 붙인다 (CAS '64742-' / '94-5').
     """
     every = [p for r in rows for i in r for p in _parts(i)]
@@ -283,7 +286,8 @@ def _wrap_pairs(prev: list[dict], row: list[dict], h: float, right_edge):
         if not hit:
             return None
         i, p = hit[0]
-        if p["last"] < right_edge(p["x0"]) - WRAP_FILL * h:
+        edge = right_edge(p["x0"])
+        if p["last"] < edge - WRAP_FILL * h or edge - p["x0"] < MIN_WRAP_COL * h:
             return None
         used.add(id(p))
         pairs.append(((i, p), new))
