@@ -24,7 +24,7 @@ from ..common import manifest, paths
 from ..common.bundles import load_bundles
 from ..common.merge import components_summary, merge_bundles
 from ..common.schema import bundle_response_schema, validate_to21
-from ..preprocess.render import load_pages
+from ..preprocess.render import PREPROCESS_VERSION, load_pages
 from .client import ChatClient, load_model_config, page_parts
 from .prompt_builder import PROMPT_VERSION, load_prompt
 
@@ -40,17 +40,41 @@ def _log(run: Path, rec: dict) -> None:
         f.write(json.dumps(rec, ensure_ascii=False) + "\n")
 
 
-def save_run_config(run: Path, model_tag: str, mode: str) -> None:
-    """같은 설정으로 다시 돌릴 수 있도록 실행 당시 설정을 복사해 둔다."""
+def parse_pages(spec: str) -> list[int]:
+    """'2-4,6' → [2, 3, 4, 6]"""
+    out = []
+    for part in spec.split(","):
+        a, _, b = part.partition("-")
+        out += range(int(a), int(b or a) + 1)
+    return out
+
+
+def pick_pages(pages: list[dict], page_nos: list[int] | None) -> tuple[list[dict], str]:
+    """page_nos 쪽만 고른다 (부분 시험용). 돌려주는 값: (쪽 목록, 모델에게 주는 안내). 안 고르면 전체 쪽."""
+    if not page_nos:
+        return pages, "아래는 문서 전체 쪽이다."
+    missing = sorted(set(page_nos) - {p["page"] for p in pages})
+    if missing:
+        raise ValueError(f"문서에 없는 쪽: {missing}")
+    picked = [p for p in pages if p["page"] in set(page_nos)]
+    return picked, f"아래는 문서의 {', '.join(str(p['page']) for p in picked)}쪽이다 (일부 쪽만 넣었다)."
+
+
+def save_run_config(run: Path, model_tag: str, mode: str, input_mode: str | None = None,
+                    page_nos: list[int] | None = None) -> None:
+    """같은 설정으로 다시 돌릴 수 있도록 실행 당시 설정을 복사해 둔다. input_mode가 없으면 manifest 값을, page_nos가 없으면 전체 쪽을 썼다."""
     run.mkdir(parents=True, exist_ok=True)
     shutil.copy(paths.CONFIGS / "models.yaml", run / "models.yaml")
     shutil.copy(paths.CONFIGS / "bundles.yaml", run / "bundles.yaml")
-    info = {"model_tag": model_tag, "mode": mode, "prompt_version": PROMPT_VERSION}
+    info = {"model_tag": model_tag, "mode": mode, "prompt_version": PROMPT_VERSION,
+            "preprocess_version": PREPROCESS_VERSION, "input_mode": input_mode or "manifest",
+            "pages": page_nos or "전체"}
     (run / "run_info.yaml").write_text(yaml.safe_dump(info, allow_unicode=True), encoding="utf-8")
 
 
 def extract_document(doc_id: str, model_tag: str, mode: str, run_name: str,
-                     bundle_ids: list[str] | None = None) -> dict:
+                     bundle_ids: list[str] | None = None, input_mode: str | None = None,
+                     page_nos: list[int] | None = None) -> dict:
     assert mode in ("silver", "baseline")
     run = paths.run_dir(run_name)
     row = manifest.get(doc_id)
@@ -62,8 +86,13 @@ def extract_document(doc_id: str, model_tag: str, mode: str, run_name: str,
         order = ["b1"] + order       # 성분 목록이 필요하므로 b1은 항상 먼저
 
     pages = load_pages(doc_id)
-    input_mode = row.get("input_mode") or pages["meta"]["input_mode"]
-    parts = page_parts(pages["pages"], input_mode, cfg.get("image_detail", "high"))
+    got = pages["meta"].get("preprocess_version")
+    if got != PREPROCESS_VERSION:   # 실행 기록의 전처리 버전과 실제 입력이 어긋나지 않게 한다
+        raise RuntimeError(f"{doc_id}: 전처리 버전 {got} ≠ {PREPROCESS_VERSION}. "
+                           f"python scripts/preprocess.py --docs {doc_id} --force 로 다시 만드세요")
+    input_mode = input_mode or row.get("input_mode") or pages["meta"]["input_mode"]   # 인자는 입력 비교 실험용
+    picked, pages_note = pick_pages(pages["pages"], page_nos)
+    parts = page_parts(picked, input_mode, cfg.get("image_detail", "high"))
 
     responses: dict[str, dict] = {}
     comp_text = ""
@@ -74,7 +103,7 @@ def extract_document(doc_id: str, model_tag: str, mode: str, run_name: str,
         intro = bundle_prompt
         if bid != "b1":
             intro += "\n\n## [성분 목록] 묶음 ①에서 뽑은 성분. comp_ref·refs는 이 번호를 쓴다\n" + comp_text
-        user = [{"type": "text", "text": intro + "\n\n아래는 문서 전체 쪽이다."}] + parts
+        user = [{"type": "text", "text": intro + "\n\n" + pages_note}] + parts
 
         res = client.call(system, user, schema, schema_name=f"msds_{bid}")
         # 대체 모델(fallback_models)로 한 번 더
@@ -109,6 +138,7 @@ def extract_document(doc_id: str, model_tag: str, mode: str, run_name: str,
     v_results = run_to21_validator(doc)
     _write_json(run / "validation" / f"{doc_id}.json", {
         "merge_warnings": warnings,
+        "input_sources": {p["page"]: p["source"] for p in pages["pages"] if p["state"] == "정상"},   # 쪽마다 모델이 읽은 글
         "missing_bundles": [b for b in order if b not in responses],
         "schema_errors": schema_errors,
         "to21_validator": v_results,
