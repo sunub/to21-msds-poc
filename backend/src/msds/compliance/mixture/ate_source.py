@@ -1,8 +1,8 @@
 """성분 하나의 ATE를 수집 순서대로 고른다 (설계서 v0.4 21장, D-04·D-05·D-12·D-22)."""
 from .acute import _FORM, _ROUTE, _rows, category_to_ate
+from .params import has_param, param_list
 from .units import to_target
 
-_STATE_FORMS = {"기체": ["gas"], "액체": ["vapour", "mist"], "고체": ["mist"]}
 _CLASS = {"oral": "HH_ACUTE_ORAL", "dermal": "HH_ACUTE_DERMAL", "inhal": "HH_ACUTE_INHAL"}
 _EXACT = {"=", ">=", "<="}
 _BOUND = {">", "<"}
@@ -12,7 +12,8 @@ _FORM_EN = {**{k: k for k in _FORM}, **{v: k for k, v in _FORM.items()}}
 
 
 def inhal_forms(state: str) -> list[str]:
-    return list(_STATE_FORMS.get(state, []))
+    key = f"inhal_forms_{state}"  # 규칙 파일에 없는 성상은 형태를 정하지 않는다
+    return param_list(key) if has_param(key) else []
 
 
 def _match(row, route, form):
@@ -54,12 +55,13 @@ def _from_class(comp, route, form, order):
     return None
 
 
-def get_ate(comp: dict, route: str, form: str | None = None, *, source_order=("환경부", "고용노동부")) -> dict:
+def get_ate(comp: dict, route: str, form: str | None = None, *, source_order=None) -> dict:
     """반환: {"kind", "value", "src", "step", "ref_cat5"} — mix_acute 입력의 ate 칸과 같은 모양."""
     def out(kind, value, src, step, ref=False, note=""):
         return {"kind": kind, "value": value, "src": src + (f" · {note}" if note else ""), "step": step,
                 "ref_cat5": ref, "note": note}
 
+    source_order = param_list("classification_source_order") if source_order is None else source_order
     if comp.get("non_toxic"):
         return out("non_toxic", None, "무독성 성분", 5)
     db, msds = comp.get("db") or [], comp.get("msds") or []

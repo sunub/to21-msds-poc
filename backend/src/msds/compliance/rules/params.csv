@@ -1,0 +1,14 @@
+# version: e0.1 | source: 설계서 v0.4·규칙표 assumptions | checked_by: | checked_date: | effective_from:
+rule_id,key,value,unit,source,note
+ACUTE-P01,acute_include_min,1.0,%,"별표6 한계농도(급성독성), 설계서 D-15",
+ACUTE-P02,acute_unknown_limit,10,%,"별표1 3.1 다(공식1/2 경계), 설계서 D-12",
+ACUTE-P03,acute_mix_rule_id,ATE-MIX-01,,설계서 41장,
+ACUTE-P04,acute_basis,고시 별표1,,설계서 41장,
+UNITS-P01,ppm_vapour_molar_volume,24450,,"설계서 U-07 (25℃, 참고)",
+UNITS-P02,density_to_mg_factor,1000,,설계서 U-06,
+UNITS-P03,inhal_base_hours,4,hr,설계서 19장,
+RANGE-P01,trace_amount_upper_percent,0.1,%,설계서 미결 9 가정,
+SRC-P01,classification_source_order,환경부;고용노동부,,설계서 D-05,
+FORM-P01,inhal_forms_기체,gas,,설계서 D-22,
+FORM-P02,inhal_forms_액체,vapour;mist,,설계서 D-22,
+FORM-P03,inhal_forms_고체,mist,,설계서 D-22,

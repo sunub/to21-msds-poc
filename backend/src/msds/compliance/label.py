@@ -1,7 +1,8 @@
 """분류(class_code, category) 목록에서 그림문자·신호어·H코드를 도출한다 (고시 별표2, 제6조의2)."""
-import csv
 from functools import lru_cache
 from pathlib import Path
+
+from .mixture.params import read_rules
 
 _MAP = Path(__file__).parent / "rules" / "hazard_label_map.csv"
 _IRRITANT = {"HH_SKIN_CORR", "HH_EYE_DMG"}  # 자극성에서 온 GHS07만 부식성(GHS05) 아래로 숨는다
@@ -9,8 +10,7 @@ _IRRITANT = {"HH_SKIN_CORR", "HH_EYE_DMG"}  # 자극성에서 온 GHS07만 부�
 
 @lru_cache
 def _rows() -> list[dict]:
-    with open(_MAP, encoding="utf-8", newline="") as f:
-        return list(csv.DictReader(f))
+    return read_rules(_MAP)
 
 
 def _find(code: str, cat: str | None) -> list[dict]:
