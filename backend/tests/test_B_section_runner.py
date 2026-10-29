@@ -725,7 +725,7 @@ def test_pictograms_match_map(env, fake_map):
     run(env, FakeClient(plan={2: [with_pictograms(["GHS02"])]}))
     c = checks(env)
     assert c["pictogram_check"] == [{"msds_index": 0, "model": ["GHS02"], "inferred": ["GHS02"], "missing": [],
-                                     "extra": [], "ok": True}]
+                                     "extra": [], "ok": True, "unmapped_h": []}]
     assert c["needs_review"] == []
     out = read_json(env / "runs" / RUN / "outputs" / f"{DOC}.json")
     assert out["msds"][0]["hazard"]["pictograms"] == [{"code": "GHS02", "detection": None}]
@@ -737,7 +737,8 @@ def test_pictograms_mismatch_marks_review_without_reextract(env, fake_map):
     assert len(client.calls_for(2)) == 1 and summary["reextracted"] == 0     # 대조 결과로 다시 보내지 않는다
     c = checks(env)
     assert c["pictogram_check"] == [{"msds_index": 0, "model": ["GHS07"], "inferred": ["GHS02"],
-                                     "missing": ["GHS02"], "extra": ["GHS07"], "ok": False}]
+                                     "missing": ["GHS02"], "extra": ["GHS07"], "ok": False,
+                                         "unmapped_h": []}]
     assert c["needs_review"] == [{"msds_index": 0, "section": 2}]
 
 
@@ -753,7 +754,7 @@ def test_pictograms_check_uses_configs_copy_by_default(env):
     """실제 표(configs/)가 있으면 실행에서는 늘 대조한다. 가짜 응답에는 H코드가 없어 추론도 비어 있다."""
     run(env, FakeClient())
     assert checks(env)["pictogram_check"] == [{"msds_index": 0, "model": [], "inferred": [], "missing": [],
-                                               "extra": [], "ok": True}]
+                                               "extra": [], "ok": True, "unmapped_h": []}]
 
 
 # ── 실행 기록과 명세서 내용 (D-47) ─────────────────────
