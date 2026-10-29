@@ -290,7 +290,8 @@ def _write_tables(doc_id: str, p: dict, items: list[dict], page, prev: dict | No
     """선으로 그린 표 중 데이터 표만 tables/pXXX_tN.md로 쓴다. 칸 글은 그 쪽의 최종 글(text_source)과 같은 출처에서 읽는다.
 
     meta 쪽 항목에 tables와 frames(꺼내지 않은 항목|값 틀 수)를 남긴다. tables는 표마다
-    {"file": 파일 이름, "section": 속한 항 제목 (못 찾으면 null), "box": 쪽 안 위치 [x0, y0, x1, y1] (pt, 72dpi)}.
+    {"file": 문서 폴더 기준 경로 (tables/p002_t1.md, text_file과 같은 기준), "section": 속한 항 제목 (못 찾으면 null),
+     "box": 쪽 안 위치 [x0, y0, x1, y1] (pt, 72dpi)}.
     항은 표 위에서 가장 가까운 항 제목(layout.section_headings)이고, 이 쪽에서 표 위에 항 제목이 없으면
     앞 쪽에서 넘어온 항(section)이다. 쪽 이미지(p001.png)는 dpi/72배 좌표다.
     최종 글이 OCR이면 글꼴깨짐 쪽도 OCR 글로 칸을 채운다 (S003 1쪽: 글꼴은 깨졌지만 표 선은 멀쩡하다).
@@ -326,7 +327,7 @@ def _write_tables(doc_id: str, p: dict, items: list[dict], page, prev: dict | No
         above = [(h[1], h[2]) for h in heads if h[0] < top]
         sec = above[-1] if above else section
         box = [round(f(c[k] for c in boxes) / scale, 1) for f, k in ((min, 0), (min, 1), (max, 2), (max, 3))]
-        written.append({"file": name, "section": sec and sec[1], "box": box})
+        written.append({"file": f"{tables_dir(doc_id).name}/{name}", "section": sec and sec[1], "box": box})
     if heads:
         section = heads[-1][1:]
     return {**p, "tables": written, "frames": frames}, last, section
