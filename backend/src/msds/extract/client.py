@@ -84,6 +84,28 @@ def _request_record(mode: str, finish: str | None, usage: dict, seconds: float, 
             "head": text[:_TEXT_EDGE], "tail": text[_TEXT_EDGE:][-_TEXT_EDGE:]}
 
 
+def relax_required(strict: dict, schema: dict) -> dict:
+    """to_strict(schema)의 결과(strict)에서, properties가 있는 객체마다 required를
+    원래 schema의 같은 자리 객체의 required로 되돌린 새 사본.
+    원래 객체에 required가 없으면 []. 그 객체의 properties에 없는 이름은 뺀다.
+    additionalProperties: false 와 그 밖의 키는 strict 그대로 둔다. $defs 안의 객체도 같다.
+
+    to_strict는 키를 빼기만 하므로, 두 스키마를 같은 키·같은 순번으로 함께 따라가면 같은 자리를 찾는다 (ADR-017)."""
+    def walk(s, o):
+        if isinstance(s, dict):
+            o = o if isinstance(o, dict) else {}
+            out = {k: walk(v, o.get(k)) for k, v in s.items()}
+            if out.get("type") == "object" and "properties" in out:   # to_strict가 required를 바꾼 객체
+                out["required"] = [n for n in o.get("required", []) if n in out["properties"]]
+            return out
+        if isinstance(s, list):
+            o = o if isinstance(o, list) else []
+            return [walk(v, o[i] if i < len(o) else None) for i, v in enumerate(s)]
+        return s
+
+    return walk(strict, schema)
+
+
 _FENCE = re.compile(r"^```(?:json)?\s*|\s*```$", re.S)
 
 
@@ -142,13 +164,17 @@ class ChatClient:
         return self.client.chat.completions.create(**kw)
 
     def call(self, system: str, user_parts: list[dict], schema: dict, schema_name: str,
-             max_tokens: int | None = None) -> CallResult:
-        """한 묶음 호출. schema는 검증용 원래 스키마(묶음 응답 형식)."""
+             max_tokens: int | None = None, require_all: bool = True) -> CallResult:
+        """한 묶음 호출. schema는 검증용 원래 스키마(묶음 응답 형식).
+        require_all=False면 서버에 보내는 스키마의 필수 칸을 원래 schema의 required로 줄인다.
+        모델이 값 없는 칸을 쓰지 않아도 되게 한다 (ADR-017). 검증은 어느 쪽이든 원래 schema로 한다."""
         max_tokens = max_tokens or self.cfg.get("max_tokens", 32000)
         if self.cfg.get("request_style") == "nuextract_template":
             return self._call_nuextract(user_parts, schema, max_tokens, schema_name)
         max_retries = self.cfg.get("run", {}).get("max_retries", 2)
         strict_schema = to_strict(schema)
+        if not require_all:
+            strict_schema = relax_required(strict_schema, schema)
         modes = list(self.cfg.get("structured") or ["none"])
         known = self._working_mode.get(self.model)
         if known in modes:
