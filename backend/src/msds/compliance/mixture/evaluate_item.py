@@ -86,23 +86,27 @@ def build_props(mixture_props, rules=None) -> dict:
 
 
 def build_m(item_id, item, components, used):
-    """(m, [(함량, M)] 또는 None, 설명). rule_eval의 sumx는 m 하나를 합 전체에 곱한다.
+    """(m, [(함량, M)] 또는 None, 설명 목록). 구분 "1" 성분의 M 계수를 정한다.
 
-    구분 "1" 성분의 M이 모두 같으면 그 값을 m으로 쓰고(정확), 다르면 함량에 M을 먼저 곱해 m=1로 넘긴다.
+    M이 모두 같으면 그 값을 m으로 넘기고, 서로 다르면 구분 1 값을 (함량, M) 쌍으로 만들어 넘긴다(m=1).
+    쌍은 rule_eval의 sumx만 함량×M으로 쓰고 sum()은 함량만 쓴다. 성분에 M이 없으면 m_factor_default를 쓴다.
     """
     default = item.get("m_factor_default", 1)
     who = {(c.get("cas"), c.get("name")): c for c in components}
     entries = [u for u in used if u["class_code"] == item_id and u["key"] == "1"]
-    ms = []
+    ms, notes, missing = [], [], []
     for u in entries:
         m = who[(u["cas"], u["name"])].get("m")
         m = m.get(item_id) if isinstance(m, dict) else m
+        if m is None:
+            missing.append(u["name"])
         ms.append(default if m is None else m)
+    if missing:
+        notes.append(f"M 계수 없음 → 규칙표 m_factor_default({default}) 사용: {', '.join(missing)}")
     if len(set(ms)) <= 1:
-        return (ms[0] if ms else default), None, None
-    note = ("성분마다 M 계수가 달라 구분 1 함량에 M을 먼저 곱하고 m=1로 넘김 "
-            "(rule_eval sumx는 m 하나만 받음. 같은 구분의 sum()도 가중된 값이 됨)")
-    return 1, [(u["content"], m) for u, m in zip(entries, ms)], note
+        return (ms[0] if ms else default), None, notes
+    notes.append("성분마다 M 계수가 달라 구분 1 값을 (함량, M) 쌍으로 넘김 (sumx만 함량×M)")
+    return 1, [(u["content"], m) for u, m in zip(entries, ms)], notes
 
 
 def evaluate_item(item_id, components, mixture_props, *, mode, rules=None, class_map=None, source_order=None) -> dict:
@@ -120,11 +124,10 @@ def evaluate_item(item_id, components, mixture_props, *, mode, rules=None, class
     # other()는 규칙 해석기가 한계농도를 걸러 주지 않으므로, 그 항목 자신의 한계농도로 미리 거른다
     other = {c: apply_include_min(k, include_min_for(c, rules) if c in rules["classes"] else None)
              for c, k in by_class.items()}
-    m, weighted, note = build_m(item_id, item, components, built["used"]) if item["method"] == "summation" else (1, None, None)
-    if note:
-        assumptions.append(note)
-        lim = imin.get("1", 0) if isinstance(imin, dict) else imin or 0
-        comps["1"] = [pct * mf for pct, mf in weighted if pct >= lim]  # 한계농도는 M을 곱하기 전 함량으로 거른다
+    m, pairs, notes = build_m(item_id, item, components, built["used"]) if item["method"] == "summation" else (1, None, [])
+    assumptions += notes
+    if pairs:
+        comps["1"] = pairs  # 한계농도는 rule_eval이 쌍의 함량으로 걸러 준다
     flags = build_flags(components, mixture_props, mode=mode, include_min=imin, rules=rules)
     props = build_props(mixture_props, rules)
     kw = {"other": other, "flags": flags, "props": props, "m": m, "include_min": imin}

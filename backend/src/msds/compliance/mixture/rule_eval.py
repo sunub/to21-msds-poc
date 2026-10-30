@@ -29,26 +29,36 @@ def parse_when(expr: str) -> ast.Expression:
     return tree
 
 
+def _pct(v):
+    """구분별 값이 숫자면 함량, (함량, M) 쌍이면 앞의 함량."""
+    return v[0] if isinstance(v, (tuple, list)) else v
+
+
+def _weighted(v):
+    """sumx가 쓰는 값: (함량, M) 쌍이면 함량×M, 숫자면 그대로(M은 인자 m이 곱한다)."""
+    return v[0] * v[1] if isinstance(v, (tuple, list)) else v
+
+
 def apply_include_min(comps: dict, minimum) -> dict:
-    """한계농도 미만 함량을 뺀다. minimum은 숫자 또는 {구분: 숫자}."""
+    """한계농도 미만 함량을 뺀다(쌍이면 쌍째로). minimum은 숫자 또는 {구분: 숫자}."""
     if not minimum:
         return comps
     lim = (lambda c: minimum.get(c.split(":")[0], 0)) if isinstance(minimum, dict) else (lambda c: minimum)
-    return {c: [v for v in vs if v >= lim(c)] for c, vs in comps.items()}
+    return {c: [v for v in vs if _pct(v) >= lim(c)] for c, vs in comps.items()}
 
 
 def _call(n, c):
     f, a = n.func.id, [x.value for x in n.args]
     comps = c["comps"]
     if f == "sum":
-        return sum(sum(comps.get(k, [])) for k in a)
+        return sum(_pct(v) for k in a for v in comps.get(k, []))
     if f == "max":
-        return max([v for k in a for v in comps.get(k, [])] or [0])
+        return max([_pct(v) for k in a for v in comps.get(k, [])] or [0])
     if f == "sumx":
-        return c["m"] * sum(sum(comps.get(k, [])) for k in a)
+        return c["m"] * sum(_weighted(v) for k in a for v in comps.get(k, []))
     if f == "other":
         oc = c["other"].get(a[0], {})
-        return sum(sum(oc.get(k, [])) for k in a[1:])
+        return sum(_pct(v) for k in a[1:] for v in oc.get(k, []))
     if f == "flag":
         return c["flags"].get(a[0], 0)
     if f == "has":
@@ -85,7 +95,7 @@ def _ev(n, c):
 def evaluate_rules(rules, comps, *, other=None, flags=None, props=None, m=1, include_min=None) -> str:
     """rules를 위에서부터 검사해 처음 참인 규칙의 category를 돌려준다. 모두 거짓이면 '분류안됨'.
 
-    comps {구분: [함량…]}, other {class_code: {구분: [함량…]}}, flags {이름: 함량}, props {이름: 값}, m = M-factor.
+    comps {구분: [함량 또는 (함량, M)…]}, other {class_code: {구분: [함량…]}}, flags {이름: 함량}, props {이름: 값}, m = M-factor.
     prop 값이 없으면 '근거부족(prop 이름)'.
     """
     ctx = {"comps": apply_include_min(comps, include_min), "other": other or {}, "flags": flags or {},
