@@ -198,6 +198,21 @@ def judge_language(totals: dict) -> str | None:
     return "mixed"
 
 
+def judge_states(doc) -> tuple[list[str], str]:
+    """PyMuPDF 문서 → (쪽마다 텍스트층 상태, 문서 판정). preprocess와 같은 판정이다 (judge_page, judge_doc, follow_doc).
+
+    파일을 쓰지 않는다. 전처리 밖의 출력 폴더(scripts/ocr_batch_version13.py)가 meta에 쪽 상태를 남길 때 쓴다.
+    """
+    pages, totals = [], {"chars": 0, "hangul": 0, "kk": 0, "nn": 0, "latin": 0, "symbol": 0}
+    for i, page in enumerate(doc, start=1):
+        c = _counts(reading_text(char_items(page), page_tables(page)) + "\n")
+        for k in totals:
+            totals[k] += c[k]
+        pages.append({"page": i, "state": judge_page(c, _image_cover(page)), **c})   # follow_doc이 글자 수(nn)를 본다
+    text_layer = judge_doc([p["state"] for p in pages], totals)
+    return [p["state"] for p in follow_doc(pages, text_layer)], text_layer
+
+
 def preprocess(pdf_path: Path, doc_id: str, dpi: int = 150, force: bool = False) -> dict:
     out_dir = paths.page_dir(doc_id)
     meta_path = paths.page_meta(doc_id)
@@ -306,6 +321,16 @@ def _write_tables(doc_id: str, p: dict, items: list[dict], page, prev: dict | No
     if p["text_source"] == "OCR":
         items, dpi = read_ocr_json(ocr_json_for(doc_id, p["page"]))
         scale = dpi / 72
+    return write_page_tables(tables_dir(doc_id), p, items, page, scale, prev, section)
+
+
+def write_page_tables(out_dir: Path, p: dict, items: list[dict], page, scale: float, prev: dict | None,
+                      section: tuple[int, str] | None) -> tuple[dict, dict | None, tuple[int, str] | None]:
+    """_write_tables의 본체. 조각(items, 좌표는 pt의 scale배)에서 데이터 표를 out_dir/pXXX_tN.md로 쓴다.
+
+    tables[].file은 out_dir의 이름을 붙인 문서 폴더 기준 경로다 (out_dir은 문서 폴더 바로 아래 tables/).
+    전처리 밖의 출력 폴더(scripts/ocr_batch_version13.py)도 이 함수로 같은 meta를 남긴다.
+    """
     heads = section_headings(items, after=section[0] if section else 0)
     written, frames, last = [], 0, None
     for n, table in enumerate(page_tables(page, scale), start=1):
@@ -320,14 +345,14 @@ def _write_tables(doc_id: str, p: dict, items: list[dict], page, prev: dict | No
                 continue
             last = prev
         name = f"p{p['page']:03d}_t{n}.md"
-        tables_dir(doc_id).mkdir(exist_ok=True)
-        (tables_dir(doc_id) / name).write_text(table_md(grid), encoding="utf-8")
+        out_dir.mkdir(exist_ok=True)
+        (out_dir / name).write_text(table_md(grid), encoding="utf-8")
         boxes = [c for r in table for c in r if c]
         top = min(c[1] for c in boxes)
         above = [(h[1], h[2]) for h in heads if h[0] < top]
         sec = above[-1] if above else section
         box = [round(f(c[k] for c in boxes) / scale, 1) for f, k in ((min, 0), (min, 1), (max, 2), (max, 3))]
-        written.append({"file": f"{tables_dir(doc_id).name}/{name}", "section": sec and sec[1], "box": box})
+        written.append({"file": f"{out_dir.name}/{name}", "section": sec and sec[1], "box": box})
     if heads:
         section = heads[-1][1:]
     return {**p, "tables": written, "frames": frames}, last, section
