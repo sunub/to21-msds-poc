@@ -19,13 +19,18 @@ def read_pages(doc_dir: Path) -> dict[int, str]:
 
 
 def write_codes(doc_id: str, pages_root: Path, output_dir: Path) -> dict:
-    pages = read_pages(pages_root / doc_id)
+    source_dir = (pages_root / doc_id).resolve()
+    pages = read_pages(source_dir)
     if not pages:
-        raise FileNotFoundError(f"쪽 글자 없음: {pages_root / doc_id}")
+        raise FileNotFoundError(f"쪽 글자 없음: {source_dir}")
     details = scan_codes(pages)
+    try:
+        source = str(source_dir.relative_to(ROOT))
+    except ValueError:
+        source = str(source_dir)
     result = {
         "doc_id": doc_id,
-        "source": str((pages_root / doc_id).relative_to(ROOT)),
+        "source": source,
         "cas": [item["value"] for item in details["cas"]],
         "h": [item["value"] for item in details["h"]],
         "p": [item["value"] for item in details["p"]],
