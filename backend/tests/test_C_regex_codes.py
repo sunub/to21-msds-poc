@@ -1,6 +1,11 @@
+import json
+from pathlib import Path
+from unittest import SkipTest
+
 from msds.checks.regex_codes import (
     compare,
     find_codes,
+    model_codes,
     normalize_cas,
     normalize_h,
     p_type,
@@ -8,6 +13,9 @@ from msds.checks.regex_codes import (
     valid_cas_checksum,
 )
 from msds.common.models import ExtractionDoc
+
+
+ROOT = Path(__file__).resolve().parents[2]
 
 
 def test_v06_normalization_and_checksum():
@@ -86,3 +94,28 @@ def test_common_model_accepts_v06_p_statements_and_transport():
     }]})
     assert parsed.msds[0].hazard.p_statements[0].code == "P280"
     assert parsed.msds[0].transport[0].un_no == "1830"
+
+
+def test_t21_025_number_plates_match_to21_v06_gold():
+    """TO21 제공 황산 정답과 실제 전처리 텍스트의 번호판을 대조한다."""
+    gold_path = ROOT / "to21" / "v0.6" / "TO21_MSDS_추출예제_25_황산_v0.6.json"
+    pages_dir = ROOT / "data" / "pages" / "version14" / "T21-025"
+    if not gold_path.is_file() or not pages_dir.is_dir():
+        raise SkipTest("로컬 TO21 v0.6 황산 정답 또는 version14 전처리 결과가 없음")
+
+    gold = json.loads(gold_path.read_text(encoding="utf-8"))
+    page_texts = {
+        int(path.stem[1:]): path.read_text(encoding="utf-8")
+        for path in sorted(pages_dir.glob("p[0-9][0-9][0-9].txt"))
+    }
+    assert page_texts, "T21-025 페이지 텍스트가 없음"
+
+    found = find_codes(page_texts)
+    expected = model_codes(gold)
+    assert found == expected, {
+        kind: {
+            "missing": sorted(expected[kind] - found[kind]),
+            "extra": sorted(found[kind] - expected[kind]),
+        }
+        for kind in ("cas", "h", "p", "un")
+    }
