@@ -7,6 +7,7 @@
 - 11항 독성: 지표(descriptor)가 비었으면 '결과기술', 혼합물(MIX) 급성독성은 'ATE'
 - 12항 생태: 지표가 비었으면 '결과기술', 잔류성은 '분해율', 생물농축성은 같은 성분에 아직 없는 'BCF'→'분해율' 순
 - 11항 CMR: 등급(class)은 null
+- 11·12항 값 없는 행의 수치(q)가 비었으면 상태만 담은 빈 수치 객체(채점기가 줄을 짝지을 때 q의 상태까지 본다)
 """
 from __future__ import annotations
 
@@ -17,6 +18,12 @@ NO_VALUE = {"자료없음", "해당없음", "미기재"}
 LIMIT_TYPE = {"국내": "TWA", "ACGIH": "TWA", "생물학적": "BEI"}
 ACUTE = {"TX_ORAL", "TX_DERMAL", "TX_INHAL"}
 ECO_DESCRIPTORS = {"ECO_PERSIST": ["분해율"], "ECO_BIOACC": ["BCF", "분해율"]}
+
+
+def _blank_q(status: str) -> dict:
+    # 예제의 미기재 행은 원문이 빈칸이라 raw가 ''
+    return {"raw": "" if status == "미기재" else status, "approx": False, "value": None, "lower_op": None, "lower": None,
+            "upper_op": None, "upper": None, "unit": None, "dp": None, "status": status, "note": None}
 
 
 def apply(msds_item: dict) -> dict:
@@ -39,4 +46,7 @@ def apply(msds_item: dict) -> dict:
     for r in m.get("cmr") or []:
         if r.get("status") in NO_VALUE:
             r["class"] = None
+    for r in (m.get("toxicity") or []) + eco:
+        if r.get("status") in NO_VALUE and r.get("q") is None:
+            r["q"] = _blank_q(r["status"])
     return m
