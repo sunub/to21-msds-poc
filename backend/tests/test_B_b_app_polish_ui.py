@@ -10,6 +10,20 @@ def run_js(body):
     _run_js("if (typeof UI !== 'undefined') Object.assign(UI, " + json.dumps(copy) + ");" + body)
 
 
+def test_server_log_copy_instruction_only_appears_with_lines():
+    run_js(r"""
+      S.srv.data={log_tail:[]};
+      renderSrvLog();
+      const card=document.getElementById('srv-log-card');
+      assert.match(card.textContent,/아직 기록이 없습니다/);
+      assert.doesNotMatch(card.textContent,/옮기세요/);
+      S.srv.data.log_tail=['가짜 기록 한 줄'];
+      renderSrvLog();
+      assert.match(card.textContent,/가짜 기록 한 줄/);
+      assert.match(card.textContent,/새 줄이 생기면.*옮기세요/);
+    """)
+
+
 def test_item_toggle_is_button_and_preserves_focus_and_expansion():
     run_js(r"""
       S.criteria={items:[],weights:{'필수':3}};

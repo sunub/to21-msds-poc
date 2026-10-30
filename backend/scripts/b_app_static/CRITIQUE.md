@@ -445,7 +445,7 @@ Questions skipped: non-interactive
 ### 남긴 결함
 
 - 검출기 오탐 1건: `index.html` 본문이 검정이라고 보고한다. `/static/app.css`를 `b_app_static/static/app.css`로 잘못 해석해 읽지 못한 결과다. 앱 서버의 `/static/app.css`는 정상 CSS를 반환하며 실제 선언은 `--ink: #1f2328`이다. 배포 경로를 검출기에 맞춰 바꾸지 않았다.
-- 검증 한계(DEGRADED): 로컬 미리보기 서버가 `PermissionError: [Errno 1] Operation not permitted`로 포트를 열지 못했다. 실제 1280/1680px 배치·키보드 순회·말풍선 위치·화면 읽기·첫 성공 흐름은 관찰하지 못했다. DOM 시험은 이를 대체하지 않는다.
+- 검증 한계(DEGRADED): 로컬 미리보기 서버가 `PermissionError: [Errno 1] Operation not permitted`로 포트를 열지 못했다. 실제 1280/1680px 배치·키보드 순회·말풍선 위치·화면 읽기·첫 성공 흐름은 관찰하지 못했다. DOM 시험은 이를 대체하지 않는다. **step 9에서 실측함**: 사용자가 제공한 Chromium 1280/1440px의 첫 성공·복원·오류·배치 기록을 아래에 추가했다. 1680px·키보드 순회·화면 읽기는 그 실측의 확인 범위에 포함되지 않는다.
 - 범위 밖: 실제 모델 서버·SSH·RunPod·과금 동작은 실행하지 않았다. 성능은 소스 점검이며 실제 지연 시간은 측정하지 않았다.
 
 ### 검증 기록
@@ -465,5 +465,44 @@ Questions skipped: non-interactive
 경고 7개는 기존 SwigPyPacked·SwigPyObject·swigvarlink의 폐기 예정 API 경고다.
 모델 서버·네트워크·SSH는 시험에서 부르지 않았다. 비밀값과 평가용 문서 내용은 읽거나 추가하지 않았다.
 `.impeccable/`은 생성되지 않았다. 커밋하지 않았다.
+
+Questions skipped: non-interactive
+
+## step 9 브라우저 실측
+
+아래 실측은 사용자가 제공한 **수정 전** 관찰 기록이다. 이번 코드 수정 후 검증과 구분한다.
+환경: dev-browser의 Chromium, 1280/1440px, 실행 기록 36개, `127.0.0.1:8765`.
+실행 명령: `backend/`에서 `.venv/bin/python scripts/b_app.py --no-browser`.
+
+| 실측에서 통과한 동작 | 확인된 결과 |
+|---|---|
+| 시작 → 최근 실행 점수 → 원문 대조 → 다른 값 선택 | 5쪽 8항으로 이동. `b_app.journey`에 `last_step:3`, `completed:true`, `first_success_at` 저장. “첫 안내를 마쳤습니다” 표시 |
+| 새로고침·안내 닫기 | `last_step`·`dismissed` 복원. 닫은 뒤 새로고침하면 점수판부터 표시 |
+| 처음부터 다시 보기 | `b_app.journey`만 초기화. `b_app.advanced` 유지 |
+| 브라우저 저장 실패 | `localStorage.setItem`이 예외를 던져도 안내·기능 유지. 오류 글 없음 |
+| 안내·실행 목록 조회 실패 | `/api/start`·`/api/runs` 실패 시 “자료를 불러오지 못했습니다 / 할 일 / 원문 보기” 표시 |
+| 화면 폭·길이 | 1280px에서 `scrollWidth == clientWidth`. 높이: 점수판 2,225px, 비교 2,319px, 원문 1,492px, 작업 1,065px |
+
+| 번호·등급 | 실측 결함 | 고침 |
+|---|---|---|
+| 1 · P0 | 시작 탭에 `null`·`nullnull` 표시 | `renderStart`의 직접 자식에서 null·undefined·false를 제외. 전체 `replaceChildren`·`append` 호출도 점검 |
+| 2 · P1 | 연결되지 않은 모델을 빨간 오류 띠로 표시 | `connection_note`·`connection_notes`가 모델 이름·서버 없이 보는 기능·재시험 경로를 설명. 미연결은 회색, 조회 실패만 빨강 |
+| 3 · P1 | 값 말풍선이 JSON 원문 | `VALUE_FIELD_LABELS`·`value_tip_lines`가 빈 칸을 뺀 한국어 설명을 생성. API의 `ui_text`에만 추가. 양쪽 값·실버 전용 값의 원래 JSON은 선택 영역의 “원문 보기”에 보존 |
+| 4 · P1 | 원문 대조 윗줄의 반말 | 지정된 “정답 초안(실버)이 있습니다” 문장으로 교체 |
+| 5 · P1 | 기록이 없는데 “이 줄을 옮기세요” 표시 | 기록이 있을 때만 “새 줄이 생기면 … 손으로 옮기세요” 표시 |
+| 6 · P2 | 세 번째 원문 이동 단추만 다음 줄로 분리 | 목록을 flex 배치로 통일. 문장은 남는 폭에서 줄바꿈하고 단추의 최소 높이 32px 유지 |
+
+### 수정 후 검증
+
+- 실패부터 확인: 새 회귀 시험 12개가 구현 전에 모두 실패했다. 기존 점수·원문 값 보존 시험은 유지했다.
+- 기존 시험 변경 1곳: `test_run_labels_are_added_without_changing_score_or_cache`에서 새 표시 키 `connection_notes`만 비교에서 제외했다. 모든 원래 점수 키와 캐시의 동일성 검사는 그대로다.
+- 글·화면·API 관련 시험: 168개 통과. 앱 전체 시험: 354개 통과, 1,190개 선택 제외. Node `/opt/homebrew/bin/node`로 DOM 대역 시험을 실제 실행했다.
+- 지정 완료 기준(AC) 8개 모두 종료 0. 지정 4개 시험 파일은 120개 통과. 전체 시험은 **1,514개 통과, 30개 건너뜀, 기존 경고 7개**(35.89초). 위험한 `tests/test_preprocess.py`는 제외했다.
+- JS 문법 검사와 `git diff --check` 모두 종료 0. `.impeccable/`은 생성되지 않았다.
+- 디자인 검출기: 지정 `impeccable detect --json backend/scripts/b_app_static` 종료 0. 신규 지적 0개. 기존 `/static/app.css` 경로 해석에 따른 검정 글자 오탐 1개만 남았다.
+- 수정 후 브라우저 재실측 미확인(DEGRADED): 별도 미리보기 서버의 8766 포트도 `PermissionError: [Errno 1] Operation not permitted`로 열리지 않았다. 위 사용자 실측을 수정 후 관찰로 간주하지 않는다.
+- 아키텍처: B 앱·B 시험·이 기록·자기 step 상태만 변경. 채점기·런타임 추출·다른 역할·데이터·보호 문서는 변경하지 않음. 새 패키지·외부 주소·글꼴·움직임 없음.
+- 시험은 가짜 값·가짜 서버 객체만 사용했다. 모델 서버·네트워크·SSH 호출 없음. 커밋하지 않음.
+- 마지막 작업 트리 확인에서 추적되지 않은 `runs/manual/server_log.md`가 새로 보였다. 이번 패치에서 쓰거나 지우지 않았으며 그대로 보존했다.
 
 Questions skipped: non-interactive

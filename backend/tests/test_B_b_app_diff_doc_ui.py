@@ -2,6 +2,35 @@
 from test_B_b_app_score_ui import run_js
 
 
+def test_doc_value_tooltips_and_raw_json_for_both_sides_and_silver_only():
+    run_js(r"""
+      markLines=()=>{}; markValues=()=>{}; scrollInto=()=>{};
+      const value={seq:1,value:'<em>가짜</em>',cond:null,refs:[],unknown:0};
+      const silver={seq:2,value:'다른 값',cond:null};
+      const v={path:'msds[0].fake',field:'fake',section:8,value,text:'가짜',lines:[],
+        tip_lines:['순서: 1','값: <em>가짜</em>','unknown: 0'],
+        silver:{value:silver,text:'다른 값',same:false,tip_lines:['순서: 2','값: 다른 값']}};
+      S.doc.value={[v.path]:v}; S.doc.line={};
+      S.doc.data={ui_text:{value_tips:{result:{[v.path]:v.tip_lines},
+        silver:{[v.path]:v.silver.tip_lines},silver_only:{[v.path]:v.silver.tip_lines}}}};
+      const row=valueRow({v,only:false});
+      assert.equal(row.querySelector('.pv').getAttribute('data-tip'),v.tip_lines.join('\n'));
+      assert.equal(row.querySelector('.sv').getAttribute('data-tip'),v.silver.tip_lines.join('\n'));
+      row.querySelector('.pv').querySelector('button').click();
+      let sel=document.getElementById('doc-sel');
+      assert.equal(sel.querySelector('summary').textContent,'원문 보기');
+      assert.deepEqual(JSON.parse(sel.querySelector('.raw').textContent),value);
+      assert.equal(sel.querySelectorAll('em').length,0);
+      row.querySelector('.sv').querySelector('button').click();
+      assert.deepEqual(JSON.parse(sel.querySelector('.raw').textContent),silver);
+      const only={...v,value:silver,tip_lines:['순서: 2','값: 다른 값']};
+      const missing=valueRow({v:only,only:true});
+      assert.equal(missing.querySelector('.sv').getAttribute('data-tip'),'순서: 2\n값: 다른 값');
+      missing.querySelector('.sv').querySelector('button').click();
+      assert.deepEqual(JSON.parse(sel.querySelector('.raw').textContent),silver);
+    """)
+
+
 def test_diff_filter_retains_all_rows_and_candidate_reasons():
     run_js(r"""
       S.criteria = {items:[]};

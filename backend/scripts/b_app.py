@@ -97,7 +97,7 @@ def _run_with_text(run: Path, ctx: AppContext) -> dict:
     summaries = {kind: bt.card_summary(kind, info) for kind in ("docs", "grid", "rows")}
     summaries["history"] = bt.card_summary("history", {"runs": history})
     return {**info, "status_text": bt.score_status(info, br.criteria(), connected=connected),
-            "card_summaries": summaries}
+            "card_summaries": summaries, "connection_notes": bt.connection_notes(info.get("model"))}
 
 
 def _static(rel: str, ctx: AppContext) -> tuple[int, str, bytes]:

@@ -332,7 +332,7 @@ function renderStart() {
   const note = S.runsError ? null : !S.runsLoaded ? t.loading : !runsShown().length ? t.empty_runs :
     !S.run?.status_text ? t.unscored : passed ? t.no_drops :
       !S.run.status_text.top_drops.length ? t.no_candidates : j.last_step >= 2 && !journeyTargetReady() ? t.resume : "";
-  el.replaceChildren(h("div", {class: "journey-intro"}, t.intro.map(line => h("p", null, line))),
+  el.replaceChildren(...[h("div", {class: "journey-intro"}, t.intro.map(line => h("p", null, line))),
     h("p", {class: "hint"}, t.offline),
     S.runsError ? loadFailure(S.runsError) : null,
     h("h2", {class: "journey-heading"}, t.heading),
@@ -351,7 +351,8 @@ function renderStart() {
         h("button", {type: "button", onclick: () => visitTab(item.tab)}, item.button)))),
     h("div", {class: "journey-actions"},
       h("button", {type: "button", onclick: dismissJourney}, t.dismiss),
-      h("button", {type: "button", onclick: resetJourney}, t.replay)));
+      h("button", {type: "button", onclick: resetJourney}, t.replay))
+    ].filter(k => k !== null && k !== undefined && k !== false));
   const replay = document.getElementById("journey-replay");
   if (replay) { replay.textContent = t.replay; replay.hidden = false; }
 }
@@ -1059,7 +1060,7 @@ const TABLE_NAME = {
   extras: "남는 값 extras",
 };
 const pad3 = n => String(n).padStart(3, "0");
-const tipOf = v => v !== null && typeof v === "object" ? JSON.stringify(v, null, 1) : null;
+const tipOf = (cell, side = "result") => S.doc.data?.ui_text?.value_tips?.[side]?.[cell.path]?.join("\n") || null;
 
 // 고른 실행의 개발용 문서(채점한 문서 + 정답 없는 문서). 평가용은 서버가 목록에서 이미 뺐다
 function docsOf(name) {
@@ -1247,16 +1248,18 @@ function rowHead(rk) {
 
 function valueRow({v, only}) {
   const D = S.doc, field = h("td", {class: "mono fld"}, v.field || "(행 전체)");
-  if (only) return h("tr", null, field, h("td", {class: "hint"}, "—"), h("td", {class: "sv only", "data-tip": tipOf(v.value)},
-    v.text, h("small", {class: "cell-state"}, UI.silver_labels?.only)));
+  if (only) return h("tr", null, field, h("td", {class: "hint"}, "—"), h("td", {class: "sv only", "data-tip": tipOf(v, "silver_only")},
+    h("button", {type: "button", class: "value-pick", onclick: () => pickSilverOnly(v)},
+      v.text, h("small", {class: "cell-state"}, UI.silver_labels?.only))));
   const sv = v.silver;
   return h("tr", null, field,
-    h("td", {class: "pv" + (D.selPaths.has(v.path) ? " hl" : ""), "data-path": v.path, "data-tip": tipOf(v.value)},
+    h("td", {class: "pv" + (D.selPaths.has(v.path) ? " hl" : ""), "data-path": v.path, "data-tip": tipOf(v)},
       h("button", {type: "button", class: "value-pick", "aria-pressed": String(D.selPaths.has(v.path)), onclick: () => pickValue(v.path)},
         v.text, h("small", {class: "lref mono"}, v.lines.length ? v.lines.join(" ") : "근거 줄 못 찾음"))),
-    h("td", {class: "sv " + (sv.same ? "same" : "diff"), "data-tip": sv.value === null ? "실버에 이 값이 없습니다" : tipOf(sv.value)},
-      sv.value === null ? "—" : sv.text,
-      h("small", {class: "cell-state"}, UI.silver_labels?.[sv.value === null ? "missing" : sv.same ? "same" : "diff"])));
+    h("td", {class: "sv " + (sv.same ? "same" : "diff"), "data-tip": sv.value === null ? "실버에 이 값이 없습니다" : tipOf(v, "silver")},
+      h("button", {type: "button", class: "value-pick", onclick: () => pickValue(v.path, true)},
+        sv.value === null ? "—" : sv.text,
+        h("small", {class: "cell-state"}, UI.silver_labels?.[sv.value === null ? "missing" : sv.same ? "same" : "diff"]))));
 }
 
 // 고른 것 표시: 다시 그리지 않고 글자 줄·값 칸의 켜짐만 바꾼다(스크롤 자리를 지킨다)
@@ -1280,6 +1283,8 @@ function noteSel() {
   const D = S.doc, el = document.getElementById("doc-sel");
   if (!el) return;
   if (!D.pick) return el.replaceChildren("값이나 줄을 눌러 보세요.");
+  if (D.pick.only) return el.replaceChildren(UI.silver_labels?.only || "실버에만 있음",
+    rawError(JSON.stringify(D.pick.only.value, null, 2)));
   if (D.pick.line) {
     const n = D.selPaths.size;
     return el.replaceChildren(`고른 줄 ${D.pick.line}: `, n ? `이 줄을 근거로 쓴 결과 값 ${n}개가 오른쪽에 켜졌습니다.` : "이 줄을 근거로 쓴 결과 값이 없습니다.");
@@ -1287,7 +1292,8 @@ function noteSel() {
   const v = D.value[D.pick.value], noBox = v.lines.filter(id => D.line[id] && !D.line[id].bbox);
   el.replaceChildren(`고른 값 ${v.path.replace(/^msds\[0\]\./, "")}: `,
     v.lines.length ? `근거 줄 ${v.lines.join(", ")}` : "근거 줄을 찾지 못했습니다(실행이 다른 쪽 글자로 돌았거나 원문 조각이 없습니다).",
-    noBox.length ? ` · 그림 위 자리를 못 찾은 줄 ${noBox.join(", ")}은 글자만 켭니다.` : "");
+    noBox.length ? ` · 그림 위 자리를 못 찾은 줄 ${noBox.join(", ")}은 글자만 켭니다.` : "",
+    rawError(JSON.stringify(D.pick.silver ? v.silver.value : v.value, null, 2)));
 }
 
 function scrollInto(box, el, start) {
@@ -1308,9 +1314,19 @@ function goSection(no) {
   scrollInto(document.getElementById("doc-lines"), lineEl(sp.start), true);
 }
 
-function pickValue(path) {
+function pickSilverOnly(v) {
+  const D = S.doc;
+  D.pick = {only: v};
+  D.selPaths.clear();
+  D.selLines.clear();
+  markLines();
+  markValues();
+  noteSel();
+}
+
+function pickValue(path, silver = false) {
   const D = S.doc, v = D.value[path];
-  D.pick = {value: path};
+  D.pick = {value: path, silver};
   D.selPaths = new Set([path]);
   D.selLines = new Set(v.lines);
   const first = v.lines.map(id => D.line[id]).find(Boolean);
@@ -1826,19 +1842,23 @@ const serverUiText = () => (S.srv.data || {}).ui_text || (S.jobs.opts || {}).ui_
 const serverGuide = () => (serverUiText().guide || {})[
   document.getElementById("advanced").checked ? "advanced_on" : "advanced_off"] || "";
 
-// 지금 연결된 모델 한 줄. small이면 탭 ① 점수 카드용이고, 보고 있는 실행의 모델이 연결돼 있지 않으면 눈에 띄게 한다
+// 점수판은 서버에서 만든 연결 안내를 고른다. 저장된 결과를 보는 데 연결은 필요 없다.
 function connLine(small) {
   const V = S.srv, list = connected();
   const attrs = small ? {id: "conn-now", class: "connline"} : {class: "connbig"};
+  if (small) {
+    const state = V.error ? "error" : !V.data ? "loading"
+      : list.some(m => m.model_expected === S.run?.model) ? "ok" : "hint";
+    const mode = document.getElementById("advanced").checked ? "advanced_on" : "advanced_off";
+    const note = S.run?.connection_notes?.[state]?.[mode];
+    attrs.class += note?.level === "error" ? " connwarn" : " hint";
+    return h("p", attrs, note?.text || UI.loading);
+  }
   if (V.error || !V.data) return h("p", attrs, V.error ? "모델 서버 연결을 확인하지 못했습니다." : "모델 서버 연결을 확인하는 중…");
   const text = list.length
     ? "지금 연결된 모델: " + list.map(m => `${m.model_expected} (${m.where}, 태그 ${m.tag})`).join(" · ")
     : "연결된 모델 0개 — " + serverGuide();
-  const r = small ? S.run : null;
-  const off = r && r.model && !list.some(m => m.model_expected === r.model);
-  if (off) attrs.class += " connwarn";
-  return h("p", attrs, text, off ? ` — 이 실행의 모델(${r.model})은 지금 연결돼 있지 않습니다` : "",
-    small && list.length ? h("small", null, " (", serverGuide(), ")") : "");
+  return h("p", attrs, text);
 }
 
 function renderConnNow() {
@@ -1950,7 +1970,7 @@ function renderSrvLog() {
   const d = S.srv.data, rows = (d && d.log_tail) || [];
   card("srv-log-card", "서버 기록", [term("Pod"), " 만들기·지우기와 ", term("RNGD"), ` 올리기·내리기를 ${SRV_LOG}에 한 줄씩 남깁니다. 키는 남기지 않습니다. 마지막 10줄입니다.`],
     rows.length ? h("pre", {class: "log"}, rows.join("\n")) : h("p", {class: "hint"}, "아직 기록이 없습니다."),
-    h("p", {class: "warn"}, "이 줄을 docs/plan/RunPod_사용기록.md에 옮기세요. 앱은 docs/ 아래에 쓰지 않습니다(하네스가 지키는 폴더)."));
+    rows.length ? h("p", {class: "warn"}, "새 줄이 생기면 docs/plan/RunPod_사용기록.md에 손으로 옮기세요. 앱은 docs/ 아래에 쓰지 않습니다(하네스가 지키는 폴더).") : null);
 }
 
 // 1단계: 요약과 확인 토큰을 받아 창을 띄운다

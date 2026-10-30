@@ -7,6 +7,45 @@ import pytest
 from test_B_compare_models import SCRIPTS
 
 
+@pytest.mark.parametrize("connected, level, fact", [
+    (["가짜 모델"], "ok", "연결돼 있습니다"),
+    (["다른 모델"], "hint", "연결돼 있지 않습니다"),
+    (None, "error", "확인하지 못했습니다"),
+])
+def test_connection_note_facts_and_offline_reading(text, connected, level, fact):
+    note = text.connection_note("가짜 모델", connected, "고급을 켜고 서버 탭에서 모델을 올리세요.")
+    assert note["level"] == level
+    assert "가짜 모델" in note["text"] and fact in note["text"]
+    assert "서버 없이" in note["text"]
+    assert "점수" in note["text"] and "비교" in note["text"] and "원문 대조" in note["text"]
+    assert "④ 작업" in note["text"]
+    if level != "ok":
+        assert "고급을 켜고 서버 탭" in note["text"]
+
+
+def test_connection_notes_cover_loading_and_both_advanced_states(text):
+    notes = text.connection_notes("가짜 모델")
+    for state in ("ok", "hint", "error", "loading"):
+        assert set(notes[state]) == {"advanced_on", "advanced_off"}
+        assert all("가짜 모델" in note["text"] for note in notes[state].values())
+    assert notes["loading"]["advanced_off"]["level"] == "hint"
+    assert "확인하는 중" in notes["loading"]["advanced_off"]["text"]
+    assert "None" not in text.connection_note(None, [], "서버 탭에서 올리세요.")["text"]
+
+
+def test_value_tip_lines_translate_and_keep_unknown_nonempty_values(text):
+    value = {"seq": 1, "value": "직접 만든 값", "text": "가짜 원문", "refs": ["p5:L25", "p5:L26"],
+             "cond": None, "key": "", "empty": [], "std_code": None, "match_score": 0,
+             "unknown": False, "nested": {"value": "두\n줄", "cond": None}}
+    before = copy.deepcopy(value)
+    lines = text.value_tip_lines(value, text.VALUE_FIELD_LABELS)
+    assert lines == ["순서: 1", "값: 직접 만든 값", "원문 글: 가짜 원문", "근거 줄: p5:L25, p5:L26",
+                     "맞춤 점수: 0", "unknown: false", "nested: 값: 두 줄"]
+    assert value == before
+    assert text.value_tip_lines({"value": "", "refs": [], "cond": None}, text.VALUE_FIELD_LABELS) == []
+    assert text.value_tip_lines([{"value": "가짜"}, "둘"], text.VALUE_FIELD_LABELS) == ["값: 가짜, 둘"]
+
+
 def test_start_text_contract(text):
     start = text.START_TEXT
     assert len(start["intro"]) == 3 and all(start["intro"])

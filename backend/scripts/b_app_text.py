@@ -380,6 +380,69 @@ def diff_ui_text(diff: dict) -> dict:
             "candidate": "후보입니다. 확정은 ③ 원문 대조에서 눈으로 합니다."}
 
 
+def connection_note(run_model: str | None, connected: list[str] | None, advanced_hint: str,
+                    *, checked: bool = True) -> dict:
+    """점수 조회와 재시험의 연결 요구를 구분한다. None은 조회 실패다."""
+    model = f"이 실행의 모델({run_model})" if run_model else "모델 서버"
+    if not checked:
+        fact, level = f"{model} 연결을 확인하는 중입니다.", "hint"
+    elif connected is None:
+        fact, level = f"{model} 연결을 확인하지 못했습니다.", "error"
+    elif (run_model in connected if run_model else bool(connected)):
+        fact, level = f"{model}은 지금 연결돼 있습니다.", "ok"
+    else:
+        fact, level = f"{model}은 지금 연결돼 있지 않습니다.", "hint"
+    reading = "점수·비교·원문 대조는 서버 없이 볼 수 있습니다."
+    action = "다시 시험하려면 ④ 작업에서 연결을 확인하세요."
+    if level != "ok":
+        action += " " + advanced_hint
+    return {"text": f"{fact} {reading} {action}", "level": level}
+
+
+def connection_notes(run_model: str | None) -> dict:
+    """화면의 최신 연결 상태와 고급 스위치로 고를 문장을 미리 만든다."""
+    hints = {"advanced_on": "연결이 없으면 서버 탭에서 모델을 올리세요.",
+             "advanced_off": "연결이 없으면 고급을 켜고 서버 탭에서 모델을 올리세요."}
+    return {state: {mode: connection_note(run_model, connected, hint, checked=state != "loading")
+                    for mode, hint in hints.items()}
+            for state, connected in (("ok", [run_model] if run_model else ["모델"]),
+                                     ("hint", []), ("error", None), ("loading", []))}
+
+
+VALUE_FIELD_LABELS = {
+    "value": "값", "text": "원문 글", "refs": "근거 줄", "cond": "조건",
+    "std_code": "표준 코드", "match_score": "맞춤 점수", "seq": "순서", "key": "이름",
+    "raw": "원래 표기", "unit": "단위", "status": "상태", "name": "이름",
+    "code": "코드", "source_text": "근거 원문", "page": "쪽", "line": "근거 줄",
+    "lines": "근거 줄", "source": "출처", "note": "비고", "type": "종류",
+    "lower": "최솟값", "upper": "최댓값", "lower_op": "최솟값 비교 기호",
+    "upper_op": "최댓값 비교 기호", "approx": "근삿값 여부", "dp": "소수 자릿수",
+    "cas_no": "물질 식별 번호(CAS)", "ke_no": "국내 물질 번호(KE)", "comp_ref": "성분 참조",
+}
+
+
+def value_tip_lines(value, labels: dict) -> list[str]:
+    """빈 칸을 뺀 한 줄씩의 설명. 모르는 키와 0·false는 보존한다."""
+    def compact(item):
+        if item is None:
+            return ""
+        if isinstance(item, dict):
+            return ", ".join(f"{labels.get(k, k)}: {shown}" for k, v in item.items()
+                             if (shown := compact(v)))
+        if isinstance(item, list):
+            return ", ".join(shown for v in item if (shown := compact(v)))
+        if isinstance(item, bool):
+            return "true" if item else "false"
+        return " ".join(str(item).split())
+
+    if isinstance(value, dict):
+        return [f"{labels.get(k, k)}: {shown}" for k, v in value.items() if (shown := compact(v))]
+    if isinstance(value, list):
+        shown = compact(value)
+        return [shown] if shown else []
+    return []
+
+
 def doc_legend() -> list[dict]:
     """app.css의 기존 원문 대조 색을 그대로 쓴다."""
     return [{"key": key, "label": label, "color": color} for key, label, color in [
@@ -402,7 +465,16 @@ def doc_ui_text(view: dict) -> dict:
             else:
                 count[0] += 1
                 count[1] += not value.get("silver", {}).get("same", False)
-    return {"howto": "오른쪽에서 값을 누르면 왼쪽 원문 줄이 노랗게 켜집니다. "
+    tips = {
+        "result": {v["path"]: value_tip_lines(v.get("value"), VALUE_FIELD_LABELS)
+                   for v in view.get("values", []) if "path" in v},
+        "silver": {v["path"]: value_tip_lines(v.get("silver", {}).get("value"), VALUE_FIELD_LABELS)
+                   for v in view.get("values", []) if "path" in v},
+        "silver_only": {v["path"]: value_tip_lines(v.get("value"), VALUE_FIELD_LABELS)
+                        for v in view.get("silver_only", []) if "path" in v},
+    }
+    return {"value_field_labels": VALUE_FIELD_LABELS, "value_tips": tips,
+            "howto": "오른쪽에서 값을 누르면 왼쪽 원문 줄이 노랗게 켜집니다. "
                      "줄을 누르면 그 줄을 근거로 쓴 값이 켜집니다.",
             "sections": {key: f"값 {total}개 중 실버와 다른 것 {different}개, 결과가 빠뜨린 것 {missing}개"
                          for key, (total, different, missing) in counts.items()}}

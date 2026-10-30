@@ -66,6 +66,30 @@ def run_js(body):
     assert result.returncode == 0, result.stdout + result.stderr
 
 
+def test_connection_banner_renders_server_copy_and_reserves_red_for_errors():
+    run_js(r"""
+      S.run={model:'fake-model',connection_notes:{}};
+      for (const [state,level] of [['hint','hint'],['ok','ok'],['error','error'],['loading','hint']]) {
+        S.run.connection_notes[state]={advanced_off:{text:'받은 '+state,level},advanced_on:{text:'고급 '+state,level}};
+      }
+      S.srv.data={models:[]};
+      let note=connLine(true);
+      assert.equal(note.getAttribute('id'),'conn-now');
+      assert.equal(note.classList.contains('connwarn'),false);
+      assert.equal(note.textContent,'받은 hint');
+      S.srv.data.models=[{model_expected:'fake-model',reachable:true,match:true}];
+      assert.equal(connLine(true).textContent,'받은 ok');
+      S.srv.error='x';
+      assert.equal(connLine(true).textContent,'받은 error');
+      assert.equal(connLine(true).classList.contains('connwarn'),true);
+      S.srv.error=null; S.srv.data=null;
+      assert.equal(connLine(true).textContent,'받은 loading');
+      assert.equal(connLine(true).classList.contains('connwarn'),false);
+      document.getElementById('advanced').checked=true;
+      assert.equal(connLine(true).textContent,'고급 loading');
+    """)
+
+
 def test_score_status_card_and_filter_preserve_all_values():
     run_js(r"""
       S.criteria = {items: [], weights: {'필수':3,'중요':2,'일반':1}};
