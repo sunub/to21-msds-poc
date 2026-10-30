@@ -3,7 +3,9 @@
 // 글은 모두 글자 노드로 넣는다(결과 값에 어떤 글자가 들어 있어도 화면 코드가 되지 않게).
 
 const S = {list: [], criteria: null, gaps: [], limit: 300, name: null, run: null, open: null, pick: loadPick(),
-  diff: {a: null, b: null, key: null, data: null, error: null, why: new Set(), vals: new Set(), open: new Set(), prompts: {}}};
+  diff: {a: null, b: null, key: null, data: null, error: null, why: new Set(), vals: new Set(), open: new Set(), prompts: {}},
+  doc: {run: null, doc: null, key: null, data: null, error: null, page: null, pick: null,
+    selLines: new Set(), selPaths: new Set(), open: new Set()}};
 const LEVELS = ["필수", "중요", "일반"];
 const COLORS = ["#0969da", "#8250df", "#bf3989", "#1a7f37", "#9a6700", "#57606a"];
 const ROW_LABEL = {
@@ -101,6 +103,7 @@ async function loadAll() {
   const keep = runsShown().some(r => r.name === S.name);
   await loadRun(keep ? S.name : data.current);
   await initDiff();
+  await initDoc();
   const broken = S.list.filter(r => r.error).length;
   status(broken ? `읽지 못한 실행 ${broken}개 (쓰는 중일 수 있습니다)` : "");
 }
@@ -594,6 +597,283 @@ function renderDiffRows() {
       return h("tr", null, h("td", null, ROW_LABEL[k]), h("td", {class: "num"}, r.a ?? "—"),
         h("td", {class: "num " + (trend(far(r)) || "")}, r.b ?? "—"), h("td", {class: "num"}, r.gold ?? "—"));
     }))));
+}
+
+// ── 탭 ③ 원문 대조 ─────────────────────────────────────
+
+const SECTION_NAME = {1: "제품·회사 정보", 2: "유해성·위험성", 3: "구성성분", 4: "응급조치", 5: "폭발·화재 시 대처",
+  6: "누출 사고 시 대처", 7: "취급·저장", 8: "노출방지·개인보호구", 9: "물리화학적 특성", 10: "안정성·반응성",
+  11: "독성", 12: "환경 영향", 13: "폐기", 14: "운송", 15: "법적 규제", 16: "그 밖의 참고사항"};
+const TABLE_NAME = {
+  meta: "관리정보", product: "제품", companies: "회사", hazard: "유해성", "hazard.classes": "유해성 분류",
+  "hazard.pictograms": "그림문자", "hazard.h_statements": "H 코드", "hazard.p_statements": "P 코드",
+  "hazard.other_hazards": "기타 유해성", composition: "조성", components: "성분", narratives: "서술 문장",
+  exposure_limits: "노출기준", physchem: "물리·화학 성질", toxicity: "독성", cmr: "발암성 등 CMR", ecotox: "생태 독성",
+  transport: "운송", regulations: "규제", dangerous_goods: "위험물", waste: "폐기물", intl_class: "국제 분류",
+  extras: "남는 값 extras",
+};
+const pad3 = n => String(n).padStart(3, "0");
+const tipOf = v => v !== null && typeof v === "object" ? JSON.stringify(v, null, 1) : null;
+
+// 고른 실행의 개발용 문서(채점한 문서 + 정답 없는 문서). 평가용은 서버가 목록에서 이미 뺐다
+function docsOf(name) {
+  const r = S.list.find(x => x.name === name);
+  return r ? [...(r.docs || []), ...(r.no_gold || [])].sort() : [];
+}
+
+async function initDoc() {
+  const D = S.doc;
+  if (!runsShown().some(r => r.name === D.run)) D.run = S.name;
+  if (!docsOf(D.run).includes(D.doc)) D.doc = docsOf(D.run)[0] || null;
+  await loadDoc();
+}
+
+async function loadDoc() {
+  const D = S.doc, key = `${D.run}|${D.doc}`;
+  Object.assign(D, {key, data: null, error: null, page: null, pick: null});
+  [D.selLines, D.selPaths, D.open].forEach(x => x.clear());
+  renderDoc();
+  if (!D.run || !D.doc) return;
+  try {
+    const data = await api("/api/doc?" + query({run: D.run, doc: D.doc}));
+    if (D.key === key) prepDoc(data);
+  } catch (e) {
+    if (D.key === key) D.error = e.message;
+  }
+  if (D.key === key) renderDoc();
+}
+
+function prepDoc(d) {
+  const D = S.doc;
+  D.data = d;
+  D.page = d.pages.length ? d.pages[0] : null;
+  D.line = Object.fromEntries(d.lines.map(l => [l.id, l]));
+  D.value = Object.fromEntries(d.values.map(v => [v.path, v]));
+  const pos = Object.fromEntries(d.lines.map((l, i) => [l.id, i]));
+  D.sec = {};                                        // 줄 → 그 줄이 든 항 (항 구간 띠)
+  for (const [no, sp] of Object.entries(d.sections)) {
+    if (!(sp.start in pos) || !(sp.end in pos)) continue;
+    for (let i = pos[sp.start]; i <= pos[sp.end]; i++) D.sec[d.lines[i].id] = +no;
+  }
+  // 항 → 표 → 행 → 칸. 실버에만 있는 행은 같은 표 끝에 실버 행 번호로 붙인다
+  const secs = new Map();
+  const add = (v, only) => {
+    const sk = v.section ?? "?";
+    if (!secs.has(sk)) secs.set(sk, new Map());
+    const tables = secs.get(sk);
+    if (!tables.has(v.table)) tables.set(v.table, new Map());
+    // 실버에만 있는 칸도 짝 행이 결과에 있으면(pair_row) 그 결과 행 아래에 둔다
+    const row = only && v.pair_row !== null && v.pair_row !== undefined ? "r" + v.pair_row : (only ? "s" : "r") + (v.row ?? "");
+    const rows = tables.get(v.table), rk = row;
+    if (!rows.has(rk)) rows.set(rk, []);
+    rows.get(rk).push({v, only});
+  };
+  d.values.forEach(v => add(v, false));
+  d.silver_only.forEach(v => add(v, true));
+  const order = k => k === "?" ? 99 : +k;
+  D.groups = [...secs.entries()].sort((a, b) => order(a[0]) - order(b[0]));
+}
+
+function renderDoc() {
+  renderDocTop();
+  renderDocMain();
+}
+
+function renderDocTop() {
+  const D = S.doc, d = D.data;
+  const hint = "실행과 문서를 고르면 아래에 쪽 그림·쪽 글자(왼쪽), 결과 값과 실버 값(오른쪽)이 나옵니다. 개발용 문서만 고를 수 있습니다.";
+  const docs = docsOf(D.run);
+  const runSel = h("select", {onchange: e => { D.run = e.target.value; D.doc = docsOf(D.run)[0] || null; loadDoc(); }},
+    runsShown().slice().reverse().map(x => h("option", {value: x.name, selected: x.name === D.run}, runLabel(x))));
+  const docSel = h("select", {onchange: e => { D.doc = e.target.value; loadDoc(); }},
+    docs.length ? docs.map(x => h("option", {value: x, selected: x === D.doc}, x))
+      : h("option", {value: ""}, "— 이 실행에는 결과가 있는 개발용 문서가 없습니다 —"));
+  const pick = h("div", {class: "pickcol"}, h("label", null, "실행 ", runSel), h("label", null, "문서 ", docSel));
+  if (D.error) return card("doc-top-card", "실행과 문서", hint, pick, h("p", {class: "badt"}, "불러오지 못했습니다: " + D.error));
+  if (!d) return card("doc-top-card", "실행과 문서", hint, pick, h("p", {class: "hint"}, D.doc ? "불러오는 중…" : "문서를 고르세요."));
+  const pageSel = h("select", {id: "doc-page", onchange: e => showPage(+e.target.value)},
+    d.pages.map(p => h("option", {value: p, selected: p === D.page}, `${p}쪽`)));
+  const secBtns = Array.from({length: 16}, (_, i) => i + 1).map(no => {
+    const sp = d.sections[no];
+    return h("button", {type: "button", class: "secbtn", disabled: !sp, onclick: () => goSection(no),
+      "data-tip": sp ? `${no}항 ${SECTION_NAME[no]}\n구간 ${sp.start} ~ ${sp.end}\n누르면 왼쪽 줄 목록이 이 항의 첫 줄로 갑니다.`
+        : `${no}항 ${SECTION_NAME[no]}: 제목을 찾지 못해 구간이 없습니다`}, no);
+  });
+  const same = d.values.filter(v => v.silver.same).length;
+  card("doc-top-card", "실행과 문서", hint, pick,
+    h("div", {class: "pickcol"}, h("label", null, "쪽 ", pageSel), h("span", null, "항 ", secBtns)),
+    h("p", {class: "hint"}, `결과 값 ${d.values.length}개 · 실버와 같음 ${same}개 · 다름 ${d.values.length - same}개 · 실버에만 ${d.silver_only.length}개`,
+      d.has_gold ? "" : " (이 문서는 실버가 없습니다)"),
+    d.warnings.map(w => h("p", {class: "warn"}, "주의: " + w)));
+}
+
+function renderDocMain() {
+  const D = S.doc, d = D.data;
+  const hint = "값을 누르면 근거 줄과 쪽 그림의 그 자리가 노랗게 켜집니다. 줄을 누르면 그 줄을 근거로 쓴 값이 켜집니다. 근거 줄은 결과 파일의 원문 조각(evidence)을 같은 쪽 줄과 맞춰 찾습니다. 그림 위 자리는 쪽 좌표 파일(pNNN.json)의 칸 글자와 줄 글자를 맞춰 찾고, 못 맞춘 줄은 글자만 켭니다.";
+  if (!d) return card("doc-main-card", "원문 · 결과 · 실버", hint, h("p", {class: "hint"}, "실행과 문서를 고르면 나옵니다."));
+  const legend = h("p", {class: "legend"},
+    h("span", {class: "sw lg-same"}, "회색 = 실버와 같음"), h("span", {class: "sw lg-diff"}, "주황 = 실버와 다르거나 실버에 없음"),
+    h("span", {class: "sw lg-only"}, "빨강 테두리 = 실버에만 있음(결과가 빠뜨림)"), h("span", {class: "sw lg-hl"}, "노랑 = 고른 값·줄"),
+    h("span", {class: "sw"}, "줄 왼쪽 띠 = 항 구간"));
+  card("doc-main-card", "원문 · 결과 · 실버", hint, legend, h("p", {class: "selnote", id: "doc-sel"}),
+    h("div", {class: "dgrid"}, h("div", {class: "dleft", id: "doc-left"}), h("div", {class: "dright", id: "doc-right"})));
+  renderDocLeft();
+  renderDocRight();
+  noteSel();
+}
+
+// 고른 줄을 쪽 그림 위 사각형으로 그리고, 그림 상자를 첫 사각형으로 옮긴다
+function drawBoxes(img, svg) {
+  const D = S.doc;
+  if (!img.naturalWidth) return;
+  svg.setAttribute("viewBox", `0 0 ${img.naturalWidth} ${img.naturalHeight}`);
+  const lines = [...D.selLines].map(id => D.line[id]).filter(l => l && l.page === D.page && l.bbox);
+  svg.replaceChildren(...lines.map(({bbox: [x0, y0, x1, y1]}) =>
+    s("rect", {x: x0 - 6, y: y0 - 6, width: x1 - x0 + 12, height: y1 - y0 + 12, rx: 4, class: "box"})));
+  const box = img.closest(".pagebox");
+  if (lines.length && box) box.scrollTop = lines[0].bbox[1] / img.naturalHeight * img.clientHeight - box.clientHeight / 3;
+}
+
+function renderDocLeft() {
+  const D = S.doc, d = D.data, el = document.getElementById("doc-left");
+  if (!el || !d) return;
+  const sel = document.getElementById("doc-page");
+  if (sel) sel.value = D.page;
+  const img = h("img", {src: `/pages/${encodeURIComponent(d.doc_id)}/p${pad3(D.page)}.png`, alt: `${D.page}쪽 그림`});
+  const svg = s("svg", {class: "boxes"});
+  const wrap = h("div", {class: "pagewrap"}, img, svg);
+  img.addEventListener("load", () => drawBoxes(img, svg));
+  img.addEventListener("error", () => wrap.replaceChildren(h("p", {class: "hint"}, `${D.page}쪽 그림 파일이 없습니다.`)));
+  D.draw = () => drawBoxes(img, svg);
+  let prev = null;
+  const lines = d.lines.filter(l => l.page === D.page).map(l => {
+    const no = D.sec[l.id], first = no && no !== prev, used = (d.line_index[l.id] || []).length;
+    prev = no;
+    return h("div", {class: `ln${no ? " band b" + (no % 2) : ""}${D.selLines.has(l.id) ? " hl" : ""}`, "data-id": l.id,
+      onclick: () => pickLine(l.id)},
+      h("span", {class: "lsec", "data-tip": no ? `${no}항 ${SECTION_NAME[no]} 구간` : null}, first ? `${no}항` : ""),
+      h("span", {class: "lno mono"}, `L${pad3(l.no)}`), h("span", {class: "ltx"}, l.text),
+      used ? h("span", {class: "luse", "data-tip": "이 줄을 근거로 쓴 결과 값 수"}, `값 ${used}`) : h("span"));
+  });
+  el.replaceChildren(h("div", {class: "pagebox"}, wrap), h("div", {class: "linebox", id: "doc-lines"}, lines));
+}
+
+function renderDocRight() {
+  const D = S.doc, el = document.getElementById("doc-right");
+  if (!el || !D.data) return;
+  if (!D.groups.length) return el.replaceChildren(h("p", {class: "hint"}, "결과 값이 없습니다."));
+  el.replaceChildren(...D.groups.map(([sec, tables]) => {
+    const k = `s${sec}`, all = [...tables.values()].flatMap(rows => [...rows.values()].flat());
+    const only = all.filter(x => x.only).length, diff = all.filter(x => !x.only && !x.v.silver.same).length;
+    return h("details", {class: "dsec", open: D.open.has(k), ontoggle: e => setOpen(k, e.target.open)},
+      h("summary", null, sec === "?" ? "항을 모르는 값" : `${sec}항 ${SECTION_NAME[sec] || ""}`,
+        h("small", null, ` 값 ${all.length - only} · 다름 ${diff} · 실버에만 ${only}`)),
+      [...tables.entries()].map(([t, rows]) => tableBlock(sec, t, rows)));
+  }));
+}
+
+function setOpen(k, open) {
+  open ? S.doc.open.add(k) : S.doc.open.delete(k);
+}
+
+function tableBlock(sec, t, rows) {
+  const D = S.doc, k = `s${sec}|${t}`, n = [...rows.values()].flat().length;
+  return h("details", {class: "dtab", open: D.open.has(k), ontoggle: e => setOpen(k, e.target.open)},
+    h("summary", null, TABLE_NAME[t] || t, h("small", {class: "mono"}, ` ${t} · ${n}칸`)),
+    h("table", {class: "list vals"},
+      h("thead", null, h("tr", null, h("th", null, "칸"), h("th", null, "결과 값 (근거 줄)"), h("th", null, "실버 값"))),
+      h("tbody", null, [...rows.entries()].map(([rk, xs]) => [rowHead(rk), xs.map(valueRow)]))));
+}
+
+function rowHead(rk) {
+  if (rk === "r") return null;                       // 객체 칸(행 번호 없음)
+  if (rk === "s") return h("tr", {class: "rhead"}, h("td", {colspan: 3}, "실버에만 있는 칸"));
+  const n = +rk.slice(1) + 1;
+  return h("tr", {class: "rhead"}, h("td", {colspan: 3}, rk[0] === "s" ? `실버 ${n}번째 행에만 있는 칸` : `${n}번째 행`));
+}
+
+function valueRow({v, only}) {
+  const D = S.doc, field = h("td", {class: "mono fld"}, v.field || "(행 전체)");
+  if (only) return h("tr", null, field, h("td", {class: "hint"}, "—"), h("td", {class: "sv only", "data-tip": tipOf(v.value)}, v.text));
+  const sv = v.silver;
+  return h("tr", null, field,
+    h("td", {class: "pv" + (D.selPaths.has(v.path) ? " hl" : ""), "data-path": v.path, "data-tip": tipOf(v.value),
+      onclick: () => pickValue(v.path)},
+      v.text, h("small", {class: "lref mono"}, v.lines.length ? v.lines.join(" ") : "근거 줄 못 찾음")),
+    h("td", {class: "sv " + (sv.same ? "same" : "diff"), "data-tip": sv.value === null ? "실버에 이 값이 없습니다" : tipOf(sv.value)},
+      sv.value === null ? "—" : sv.text));
+}
+
+// 고른 것 표시: 다시 그리지 않고 글자 줄·값 칸의 켜짐만 바꾼다(스크롤 자리를 지킨다)
+function markLines() {
+  const D = S.doc;
+  document.querySelectorAll("#doc-lines .ln").forEach(n => n.classList.toggle("hl", D.selLines.has(n.dataset.id)));
+  if (D.draw) D.draw();
+}
+
+function markValues() {
+  document.querySelectorAll("#doc-right .pv").forEach(n => n.classList.toggle("hl", S.doc.selPaths.has(n.dataset.path)));
+}
+
+function noteSel() {
+  const D = S.doc, el = document.getElementById("doc-sel");
+  if (!el) return;
+  if (!D.pick) return el.replaceChildren("값이나 줄을 눌러 보세요.");
+  if (D.pick.line) {
+    const n = D.selPaths.size;
+    return el.replaceChildren(`고른 줄 ${D.pick.line}: `, n ? `이 줄을 근거로 쓴 결과 값 ${n}개가 오른쪽에 켜졌습니다.` : "이 줄을 근거로 쓴 결과 값이 없습니다.");
+  }
+  const v = D.value[D.pick.value], noBox = v.lines.filter(id => D.line[id] && !D.line[id].bbox);
+  el.replaceChildren(`고른 값 ${v.path.replace(/^msds\[0\]\./, "")}: `,
+    v.lines.length ? `근거 줄 ${v.lines.join(", ")}` : "근거 줄을 찾지 못했습니다(실행이 다른 쪽 글자로 돌았거나 원문 조각이 없습니다).",
+    noBox.length ? ` · 그림 위 자리를 못 찾은 줄 ${noBox.join(", ")}은 글자만 켭니다.` : "");
+}
+
+function scrollInto(box, el, start) {
+  if (box && el) box.scrollTop += el.getBoundingClientRect().top - box.getBoundingClientRect().top - (start ? 4 : box.clientHeight / 2);
+}
+
+const lineEl = id => document.querySelector(`#doc-lines .ln[data-id="${CSS.escape(id)}"]`);
+
+function showPage(p) {
+  if (p === S.doc.page) return markLines();
+  S.doc.page = p;
+  renderDocLeft();
+}
+
+function goSection(no) {
+  const D = S.doc, sp = D.data.sections[no];
+  showPage(D.line[sp.start].page);
+  scrollInto(document.getElementById("doc-lines"), lineEl(sp.start), true);
+}
+
+function pickValue(path) {
+  const D = S.doc, v = D.value[path];
+  D.pick = {value: path};
+  D.selPaths = new Set([path]);
+  D.selLines = new Set(v.lines);
+  const first = v.lines.map(id => D.line[id]).find(Boolean);
+  if (first) showPage(first.page);
+  markLines();
+  markValues();
+  noteSel();
+  if (first) scrollInto(document.getElementById("doc-lines"), lineEl(first.id));
+}
+
+function pickLine(id) {
+  const D = S.doc, paths = D.data.line_index[id] || [];
+  D.pick = {line: id};
+  D.selLines = new Set([id]);
+  D.selPaths = new Set(paths);
+  let opened = false;
+  for (const p of paths) {
+    const v = D.value[p], sk = `s${v.section ?? "?"}`;
+    for (const k of [sk, `${sk}|${v.table}`]) if (!D.open.has(k)) { D.open.add(k); opened = true; }
+  }
+  markLines();
+  opened ? renderDocRight() : markValues();
+  noteSel();
+  scrollInto(document.getElementById("doc-right"), document.querySelector("#doc-right .pv.hl"));
 }
 
 // ── 시작 ───────────────────────────────────────────────
