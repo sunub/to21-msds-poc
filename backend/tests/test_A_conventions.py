@@ -31,6 +31,18 @@ def test_no_value_rows_follow_to21_example():
     assert item["toxicity"][0]["descriptor"] is None                                    # 입력은 바꾸지 않는다
 
 
+def test_no_value_rows_get_status_only_q():
+    item = {"toxicity": [{"endpoint": "TX_ORAL", "descriptor": "LD50", "status": "자료없음", "q": None},
+                         {"endpoint": "TX_ORAL", "descriptor": "LD50", "status": "값있음", "q": None, "classification": "분류되지않음"}],
+            "ecotox": [{"endpoint": "ECO_FISH", "descriptor": "LC50", "status": "미기재", "q": None},
+                       {"endpoint": "ECO_FISH", "descriptor": "LC50", "status": "해당없음", "q": {"raw": "해당 없음", "status": "해당없음"}}]}
+    out = apply(item)
+    assert out["toxicity"][0]["q"]["raw"] == "자료없음" and out["toxicity"][0]["q"]["status"] == "자료없음"
+    assert out["toxicity"][1]["q"] is None                                              # 값있음 행은 그대로
+    assert out["ecotox"][0]["q"]["raw"] == "" and out["ecotox"][0]["q"]["status"] == "미기재"
+    assert out["ecotox"][1]["q"] == {"raw": "해당 없음", "status": "해당없음"}           # 이미 있는 q는 그대로
+
+
 def test_missing_tables_are_fine():
     assert apply({"meta": {}}) == {"meta": {}}
 
