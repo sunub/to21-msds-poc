@@ -34,7 +34,7 @@ from msds.common import manifest, paths
 from msds.common.align import generic, item_path_map, keyed_flatten, to_keyed
 from msds.common.jsonpath import to_cell
 from msds.common.priority import priority_of
-from msds.preprocess.render import load_pages
+from msds.preprocess.render import load_pages, match_pages
 
 from .sheet_spec import (COLUMNS, EXCLUDED_TOP, INFO_FIELDS, MATCH_ORDER, RESULT_OPTIONS,  # noqa: F401
                          SHEET_INFO, SHEET_MAIN)
@@ -255,10 +255,9 @@ def make_review_sheet(doc_id: str) -> Path:
     reviews = {m: read(paths.silver_review_path(m, doc_id), []) for m in MODELS}
     pages = load_pages(doc_id)["pages"]
     vals = {m: run_to21_validator(d) if d.get("msds") else [] for m, d in docs.items()}
+    page_texts, page_states = match_pages(pages)   # 쪽마다 최종 글. 깨진 쪽도 OCR이 있으면 대조한다
     rows = build_rows(docs["gpt"], docs["claude"], reviews["gpt"], reviews["claude"],
-                      {p["page"]: p["text"] for p in pages},
-                      vals,
-                      {p["page"]: p["state"] for p in pages})
+                      page_texts, vals, page_states)
     row = manifest.get(doc_id)
     info = {"문서 번호": doc_id, "원본 파일": row["source_file"], "쪽수": len(pages),
             "검수자": row.get("reviewer", ""), "교차 확인자": row.get("cross_checker", "")}
