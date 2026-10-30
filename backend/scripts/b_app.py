@@ -3,7 +3,8 @@
 내 컴퓨터(127.0.0.1)에서만 연다. 다른 주소에는 묶지 않는다. 쪽 글자·그림·안내문은 화면에만 보이고 파일로 남기지 않는다 (D-47).
 표준 http.server만 쓴다. 요청 처리는 순수 함수 route()가 하고 핸들러는 그것을 부르기만 한다(시험은 route를 직접 부른다).
 탭 ① 점수판은 b_app_runs의 요약을, 탭 ② 두 실행 비교는 b_app_diff의 결과를, 탭 ③ 원문 대조는 b_app_doc의 결과를 보여 준다.
-쪽 그림(/pages/<문서>/pNNN.png)은 요청 때 pages_dir에서 읽어 보낸다. 평가용 문서는 보내지 않는다 (D-43).
+쪽 그림(/pages/<문서>/pNNN.png)은 요청 때 pages_dir(?set=이 있으면 그 묶음 폴더)에서 읽어 보낸다. 평가용 문서는 보내지 않는다 (D-43).
+원문 대조는 그 실행이 실제로 쓴 입력 폴더(run_info.yaml의 pages_dir, prev/로 옮겨졌으면 그 자리)를 읽는다. 실행 없이도 연다.
 탭 ④ 작업은 b_app_jobs의 JobManager로 시험·본 실행·비교표를 띄운다. POST는 같은 화면에서 보낸 JSON만 받는다(다른 웹페이지의
 폼 보내기 막기). 안내문 글(/api/prompt)은 요청 때 만들어 보여 주기만 한다 (D-47).
 탭 ⑤ 서버는 b_app_servers.ServerActions를 부른다. 바꾸는 동작은 propose(요약·확인 토큰) → execute(토큰) 두 단계이고,
@@ -21,7 +22,7 @@ from dataclasses import dataclass
 from typing import Callable
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
-from urllib.parse import parse_qs, unquote, urlsplit
+from urllib.parse import parse_qs, quote, unquote, urlsplit
 
 import yaml
 
@@ -46,7 +47,6 @@ _HEAVY = ("details", "per_doc", "grid")              # /api/runs 목록에서 �
 _TYPES = {".html": "text/html; charset=utf-8", ".js": "text/javascript; charset=utf-8",
           ".css": "text/css; charset=utf-8"}
 _LOCK = threading.Lock()                             # 요약 캐시 파일을 두 요청이 함께 쓰지 않게 한다
-_DOC_ID = re.compile(r"^T21-[A-Z0-9]+$")              # 쪽 그림·원문 대조 주소에서 받는 문서 번호 (경로 탈출 막기)
 _PAGE_PNG = re.compile(r"^p\d{3}\.png$")
 _JOB_PATH = re.compile(r"^/api/jobs/([\w-]+)/(log|result|stop)$")
 MAX_BODY = 2 * 1024 * 1024                           # POST 본문 한도 (바꾼 안내문 글이 가장 길다)
@@ -167,34 +167,94 @@ def _prompt_diff(query: dict[str, list[str]], pair: list[Path], ctx: AppContext)
     return _json(200, {**res, "rows": rows, "recorded": {"a": recorded[0], "b": recorded[1]}})
 
 
-def _page_png(rest: str, ctx: AppContext) -> tuple[int, str, bytes]:
-    """/pages/<문서>/pNNN.png. 정규식 밖의 주소는 400, 평가용·manifest 밖 문서와 없는 쪽은 404."""
+def _set_list(ctx: AppContext) -> list[dict]:
+    return bsets.list_sets(Path(ctx.pages_root)) if ctx.pages_root is not None else []
+
+
+def _page_png(rest: str, query: dict[str, list[str]], ctx: AppContext) -> tuple[int, str, bytes]:
+    """/pages/<문서>/pNNN.png[?set=<묶음>]. 정규식 밖의 주소는 400, 없는 묶음·잠긴 문서·없는 쪽은 404."""
     parts = rest.split("/")
-    if len(parts) != 2 or not _DOC_ID.fullmatch(parts[0]) or not _PAGE_PNG.fullmatch(parts[1]):
+    if len(parts) != 2 or not bsets.DOC_ID.fullmatch(parts[0]) or not _PAGE_PNG.fullmatch(parts[1]):
         return _json(400, {"error": "잘못된 쪽 그림 주소"})
-    f = ctx.pages_dir / parts[0] / parts[1]
-    if not bdoc.allowed_doc(parts[0]) or not f.is_file():
-        return _json(404, {"error": "없는 쪽 그림"})
+    not_found = _json(404, {"error": "없는 쪽 그림"})
+    want = (query.get("set") or [None])[0]
+    if want is None:
+        folder = Path(ctx.pages_dir)
+    elif bsets.find_set(_set_list(ctx), want) is None:
+        return not_found
+    else:
+        folder = bsets.set_dir(Path(ctx.pages_root), want)
+    f = folder / parts[0] / parts[1]
+    if not bdoc.allowed_doc(parts[0], folder / parts[0]) or not f.is_file():
+        return not_found
     return 200, "image/png", f.read_bytes()
 
 
+def _doc_folder(doc_id: str, run: Path | None, want: str | None, ctx: AppContext, missing):
+    """원문 대조가 읽을 쪽 글자 폴더와 응답의 set 정보. 고르는 순서: ?set= → 실행이 쓴 폴더 → 켤 때 받은 폴더 → 기본 묶음.
+    잘못된 묶음이면 (None, 오류 응답). 묶음 id는 목록(find_set)에 있는 것만 경로로 바꾼다."""
+    sets = _set_list(ctx)
+    root = Path(ctx.pages_root) if ctx.pages_root is not None else None
+
+    def picked(set_id, source, note=None):
+        return bsets.set_dir(root, set_id), {"id": set_id, "label": bt.set_label(set_id), "source": source, "note": note}
+
+    if want is not None:
+        s = bsets.find_set(sets, want)
+        if s is None:
+            return None, _json(404, {"error": f"없는 문서 묶음: {want}"})
+        return picked(want, "param") if bsets.has_doc(s, doc_id) else (None, missing)
+    recorded = None
+    if run is not None:
+        info = run / "run_info.yaml"
+        recorded = (yaml.safe_load(info.read_text(encoding="utf-8")) or {}).get("pages_dir") if info.exists() else None
+        set_id, source = bsets.resolve_run_set(recorded, doc_id, sets)
+        if set_id is not None:
+            note = bt.SET_TEXT["run_moved"].format(recorded=recorded, id=set_id) if source == "moved" else None
+            return picked(set_id, source, note)
+    startup = Path(ctx.pages_dir)
+    here = startup.resolve()
+    default = bsets.default_set(sets, startup, root) if sets else None
+    if (startup / doc_id).is_dir() or default is None or not bsets.has_doc(bsets.find_set(sets, default), doc_id):
+        # 켤 때 받은 폴더에 문서가 없고 기본 묶음에도 없으면 그 폴더를 그대로 읽는다(옛 동작: 없으면 '쪽 글자가 없습니다')
+        set_id = next((s["id"] for s in sets if bsets.set_dir(root, s["id"]).resolve() == here), None)
+        folder, info = startup, {"id": set_id, "label": bt.set_label(set_id) if set_id else startup.name,
+                                 "source": "startup", "note": None}
+    else:
+        folder, info = picked(default, "default")
+    if run is not None:
+        info["note"] = bt.SET_TEXT["run_missing"].format(recorded=recorded or "기록 없음", name=info["label"])
+    return folder, info
+
+
 def _doc(query: dict[str, list[str]], ctx: AppContext) -> tuple[int, str, bytes]:
+    """원문 대조. doc은 필수, run·set은 고를 수 있다. run이 없으면 결과 값 없이 쪽 글자만 보인다(신규 RAW-xx 보기)."""
     name, doc_id = [(query.get(k) or [""])[0] for k in ("run", "doc")]
-    if not name or not _DOC_ID.fullmatch(doc_id):
-        return _json(400, {"error": "run에 실행 이름, doc에 문서 번호(T21-…)를 주세요"})
-    run = _run_paths(ctx).get(name)
-    if run is None:
-        return _json(404, {"error": f"없는 실행: {name}"})
-    missing = _json(404, {"error": f"이 실행에 없는 문서: {doc_id}"})     # 평가용도 같은 말로 돌려준다(이유를 말하지 않는다)
-    if not bdoc.allowed_doc(doc_id) or not (run / "outputs" / f"{doc_id}.json").is_file():
+    if not bsets.DOC_ID.fullmatch(doc_id):
+        return _json(400, {"error": "doc에 문서 번호(T21-…, RAW-…)를 주세요"})
+    run = None
+    if name:
+        run = _run_paths(ctx).get(name)
+        if run is None:
+            return _json(404, {"error": f"없는 실행: {name}"})
+    # 평가용·용도를 모르는 문서도 같은 말로 돌려준다(이유를 말하지 않는다). 잠긴 이유는 /api/sets 목록이 보인다
+    missing = _json(404, {"error": f"이 실행에 없는 문서: {doc_id}" if run else f"이 묶음에 없는 문서: {doc_id}"})
+    if run is not None and not (run / "outputs" / f"{doc_id}.json").is_file():
+        return missing
+    folder, info = _doc_folder(doc_id, run, (query.get("set") or [None])[0], ctx, missing)
+    if folder is None:
+        return info
+    if not bdoc.allowed_doc(doc_id, folder / doc_id):
         return missing
     try:
-        view = bdoc.doc_view(run, doc_id, ctx.pages_dir, ctx.gold_dir)
-        return _json(200, {**view, "legend": bt.doc_legend(), "ui_text": bt.doc_ui_text(view)})
+        view = bdoc.doc_view(run, doc_id, folder, ctx.gold_dir) if run else bdoc.pages_view(doc_id, folder)
     except PermissionError:
         return missing
     except FileNotFoundError:
-        return _json(404, {"error": f"쪽 글자가 없습니다: {ctx.pages_dir.name}/{doc_id}"})
+        return _json(404, {"error": f"쪽 글자가 없습니다: {folder.name}/{doc_id}"})
+    return _json(200, {**view, "legend": bt.doc_legend(), "ui_text": bt.doc_ui_text(view), "set": info,
+                       "image_base": f"/pages/{doc_id}/",
+                       "image_query": f"?set={quote(info['id'], safe='')}" if info["id"] else ""})
 
 
 def _why_offline(s: dict | None) -> str | None:
@@ -377,7 +437,7 @@ def route(method: str, path: str, query: dict[str, list[str]], body: bytes | Non
     if path == "/api/doc":
         return _doc(query, ctx)
     if path.startswith("/pages/"):
-        return _page_png(path[len("/pages/"):], ctx)
+        return _page_png(path[len("/pages/"):], query, ctx)
     if path == "/api/jobs" or path.startswith("/api/jobs/"):
         if ctx.jobs is None:
             return _json(503, {"error": "작업 탭이 꺼져 있습니다(--runs-dir를 기본 runs/가 아닌 곳으로 주면 꺼집니다)"})

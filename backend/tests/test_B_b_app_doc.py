@@ -326,7 +326,8 @@ def test_route_doc_adds_legend_and_text_without_changing_values(app, view_env):
     assert code == 200
     assert data["legend"] == app.bt.doc_legend()
     assert data["ui_text"] == app.bt.doc_ui_text(expected)
-    assert {k: v for k, v in data.items() if k not in {"legend", "ui_text"}} == json.loads(json.dumps(expected))
+    assert {k: v for k, v in data.items() if k not in {"legend", "ui_text", "set", "image_base", "image_query"}} \
+        == json.loads(json.dumps(expected))
 
 
 def test_route_doc_errors(app, view_env):
@@ -369,3 +370,188 @@ def test_route_page_eval_doc_404(app, env, one_page):
 def test_app_js_calls_doc_api(app):
     js = (app.STATIC / "app.js").read_text(encoding="utf-8")
     assert "/api/doc" in js and "/pages/" in js
+
+
+# ── 묶음을 따르는 원문 대조 (ADR-028) ─────────────────
+
+V9_PAGE = ["L001 가상 판 9 첫 줄", "L002 제품명 : 가상 세정액 A", "L003 가상물질 갑 | 1234-56-6"]
+V13_PAGE = ["L001 가상 판 13 첫 줄", "L002 가상 다른 판"]
+STARTUP_PAGE = ["L001 켤 때 받은 가상 판", "L002 가상 글"]
+RAW_PAGE = ["L001 가상 신규 문서", "L002 제품명 : 가상 도료 B"]
+V9_PNG = b"\x89PNG\r\n\x1a\nfake-v9"
+RAW_PNG = b"\x89PNG\r\n\x1a\nfake-raw"
+ADDED = {"legend", "ui_text", "set", "image_base", "image_query"}
+
+
+@pytest.fixture
+def sets_env(env):
+    """가짜 data/pages: prev/v9(X01·X02·X09), prev/v13(X01), 바로 아래 RAW-90(meta.json 있음)·RAW-91(없음).
+    앱을 켤 때 받은 폴더(startup/)에는 X01만 다른 글로 있다. 실행 r1은 옛 경로 data/pages/v9로 돌았다고 적혀 있다."""
+    root = env / "data" / "pages"
+    for d in (X01, X02, X09):
+        write_page(root / "prev" / "v9" / d, 1, V9_PAGE, ENTRIES, png=V9_PNG)
+    write_page(root / "prev" / "v13" / X01, 1, V13_PAGE, [])
+    write_page(root / "RAW-90", 1, RAW_PAGE, png=RAW_PNG)                 # pNNN.json이 없는 판
+    write_json(root / "RAW-90" / "meta.json", {"doc_id": "RAW-90", "source_file": "가상.pdf"})
+    write_page(root / "RAW-91", 1, RAW_PAGE)                               # meta.json 없음 → 용도를 모름
+    write_page(env / "startup" / X01, 1, STARTUP_PAGE, [])
+    make_run(env / "runs", "r1", {X01: make_doc(X01), X09: make_doc(X09)}, info={"pages_dir": "data/pages/v9"})
+    return env
+
+
+def sets_ctx(app, env, **kw):
+    return app.AppContext(runs_dir=env / "runs", gold_dir=env / "gold", pages_dir=env / "startup",
+                          static_dir=app.STATIC, cache_dir=None, gaps_file=env / "silver_gaps.yaml",
+                          pages_root=kw.pop("pages_root", env / "data" / "pages"), **kw)
+
+
+def get_doc(app, ctx, **q):
+    code, _, body = app.route("GET", "/api/doc", {k: [v] for k, v in q.items()}, None, ctx)
+    return code, json.loads(body)
+
+
+def texts(data):
+    return [l["text"] for l in data["lines"]]
+
+
+def plain(page):
+    return [t.split(" ", 1)[1] for t in page]
+
+
+def test_allowed_doc_with_folder(bd, sets_env):
+    root = sets_env / "data" / "pages"
+    assert bd.allowed_doc(X01) is True and bd.allowed_doc(X09) is False
+    assert bd.allowed_doc("RAW-90") is False                              # 인자 하나: manifest 밖은 막는다(옛 동작)
+    assert bd.allowed_doc("RAW-90", root / "RAW-90") is True              # meta.json의 doc_id가 폴더 이름과 같다
+    assert bd.allowed_doc("RAW-91", root / "RAW-91") is False
+    assert bd.allowed_doc(X09, root / "prev" / "v9" / X09) is False
+
+
+def test_pages_view(bd, sets_env):
+    root = sets_env / "data" / "pages"
+    pv = bd.pages_view("RAW-90", root)
+    assert texts(pv) == plain(RAW_PAGE) and all(l["bbox"] is None for l in pv["lines"])   # 칸 좌표 없이 글자만
+    assert pv["doc_id"] == "RAW-90" and pv["pages"] == [1] and pv["sections"] == {}
+    assert (pv["values"], pv["silver_only"], pv["line_index"], pv["has_gold"], pv["warnings"]) == ([], [], {}, False, [])
+    dv = bd.doc_view(sets_env / "runs" / "r1", X01, root / "prev" / "v9", sets_env / "gold")
+    assert set(pv) == set(dv)
+    assert bd.pages_view(X01, root / "prev" / "v9")["lines"][2]["bbox"] == [10, 98, 400, 122]
+    for doc_id, folder in (("RAW-91", root), (X09, root / "prev" / "v9")):
+        with pytest.raises(PermissionError):
+            bd.pages_view(doc_id, folder)
+
+
+def test_doc_view_locks_by_folder(bd, sets_env):
+    root = sets_env / "data" / "pages"
+    make_run(sets_env / "runs", "r_raw", {"RAW-90": make_doc("RAW-90"), "RAW-91": make_doc("RAW-91")})
+    dv = bd.doc_view(sets_env / "runs" / "r_raw", "RAW-90", root, sets_env / "gold")
+    assert texts(dv) == plain(RAW_PAGE)
+    with pytest.raises(PermissionError):
+        bd.doc_view(sets_env / "runs" / "r_raw", "RAW-91", root, sets_env / "gold")
+
+
+def test_route_doc_follows_moved_run_folder(app, sets_env):
+    root = sets_env / "data" / "pages"
+    code, data = get_doc(app, sets_ctx(app, sets_env), run="r1", doc=X01)
+    assert code == 200
+    assert texts(data) == plain(V9_PAGE)                                   # 켤 때 받은 폴더(startup/)가 아니다
+    assert data["set"]["id"] == "prev/v9" and data["set"]["source"] == "moved"
+    assert data["set"]["label"] == app.bt.set_label("prev/v9")
+    assert data["set"]["note"] == app.bt.SET_TEXT["run_moved"].format(recorded="data/pages/v9", id="prev/v9")
+    assert data["set"]["note"] not in data["warnings"]
+    assert data["image_base"] == f"/pages/{X01}/" and data["image_query"] == "?set=prev%2Fv9"
+    expected = app.bdoc.doc_view(sets_env / "runs" / "r1", X01, root / "prev" / "v9", sets_env / "gold")
+    assert {k: v for k, v in data.items() if k not in ADDED} == json.loads(json.dumps(expected))
+
+
+def test_route_doc_run_folder_as_recorded(app, sets_env):
+    make_run(sets_env / "runs", "r_new", {X01: make_doc(X01)}, info={"pages_dir": "data/pages/prev/v13"})
+    code, data = get_doc(app, sets_ctx(app, sets_env), run="r_new", doc=X01)
+    assert code == 200 and texts(data) == plain(V13_PAGE)
+    assert data["set"] == {"id": "prev/v13", "label": "prev/v13", "source": "run", "note": None}
+
+
+def test_route_doc_set_param_comes_first(app, sets_env):
+    ctx = sets_ctx(app, sets_env)
+    code, data = get_doc(app, ctx, run="r1", doc=X01, set="prev/v13")
+    assert code == 200 and texts(data) == plain(V13_PAGE)
+    assert data["set"] == {"id": "prev/v13", "label": "prev/v13", "source": "param", "note": None}
+    assert data["image_query"] == "?set=prev%2Fv13"
+    code, data = get_doc(app, ctx, run="r1", doc=X01, set="없는_묶음")
+    assert code == 404
+    assert get_doc(app, ctx, run="r1", doc=X01, set="../x")[0] == 404
+    assert get_doc(app, ctx, run="r1", doc=X01, set=".")[0] == 404        # 그 묶음에 문서가 없다
+    code, data = get_doc(app, ctx, run="r1", doc=X09, set="prev/v9")
+    assert code == 404 and "평가" not in data["error"]
+
+
+def test_route_doc_run_folder_not_found_falls_back(app, sets_env, monkeypatch):
+    ctx = sets_ctx(app, sets_env)
+    make_run(sets_env / "runs", "r_lost", {X01: make_doc(X01), X02: make_doc(X02)},
+             info={"pages_dir": "data/pages/없는판"})
+    code, data = get_doc(app, ctx, run="r_lost", doc=X01)
+    assert code == 200 and texts(data) == plain(STARTUP_PAGE)              # 3. 켤 때 받은 폴더
+    assert data["set"]["id"] is None and data["set"]["source"] == "startup"
+    assert data["set"]["note"] == app.bt.SET_TEXT["run_missing"].format(recorded="data/pages/없는판", name="startup")
+    assert data["image_query"] == ""
+    monkeypatch.setattr(app.bsets, "DEFAULT_SET", "prev/v9")
+    code, data = get_doc(app, ctx, run="r_lost", doc=X02)                  # 4. 켤 때 받은 폴더에 없으면 기본 묶음
+    assert code == 200 and texts(data) == plain(V9_PAGE)
+    assert data["set"]["id"] == "prev/v9" and data["set"]["source"] == "default"
+    assert data["set"]["note"] == app.bt.SET_TEXT["run_missing"].format(recorded="data/pages/없는판", name="prev/v9")
+    make_run(sets_env / "runs", "r_none", {X01: make_doc(X01)}, info={"pages_dir": None})
+    code, data = get_doc(app, ctx, run="r_none", doc=X01)
+    assert code == 200 and "기록 없음" in data["set"]["note"]
+
+
+def test_route_doc_without_run(app, sets_env, monkeypatch):
+    ctx = sets_ctx(app, sets_env)
+    code, data = get_doc(app, ctx, doc="RAW-90", set=".")
+    assert code == 200 and texts(data) == plain(RAW_PAGE)
+    assert data["values"] == [] and data["lines"] and data["has_gold"] is False
+    assert data["set"] == {"id": ".", "label": app.bt.set_label("."), "source": "param", "note": None}
+    assert data["image_base"] == "/pages/RAW-90/" and data["image_query"] == "?set=."
+    assert {k: v for k, v in data.items() if k not in ADDED} == app.bdoc.pages_view("RAW-90", sets_env / "data" / "pages")
+    assert get_doc(app, ctx, doc="RAW-91", set=".")[0] == 404
+    code, data = get_doc(app, ctx, doc=X09, set="prev/v9")
+    assert code == 404 and "평가" not in data["error"]
+    code, data = get_doc(app, ctx, doc=X09)
+    assert code == 404 and "평가" not in data["error"]
+    code, data = get_doc(app, ctx, doc=X01)                                # 묶음 없이: 켤 때 받은 폴더
+    assert code == 200 and texts(data) == plain(STARTUP_PAGE)
+    assert data["set"] == {"id": None, "label": "startup", "source": "startup", "note": None}
+    monkeypatch.setattr(app.bsets, "DEFAULT_SET", "prev/v9")
+    code, data = get_doc(app, ctx, doc=X02)
+    assert code == 200 and data["set"]["source"] == "default" and data["set"]["note"] is None
+    assert get_doc(app, ctx, doc="RAW-01", run="없는실행")[0] == 404
+    assert get_doc(app, ctx, doc="raw-90", set=".")[0] == 400
+    assert get_doc(app, ctx, doc="..", set=".")[0] == 400
+
+
+def test_route_doc_without_root_is_old_behavior(app, sets_env):
+    ctx = make_ctx(app, sets_env, sets_env / "startup")
+    assert ctx.pages_root is None
+    code, data = get_doc(app, ctx, run="r1", doc=X01)
+    assert code == 200 and texts(data) == plain(STARTUP_PAGE)
+    assert data["set"]["source"] == "startup" and data["set"]["id"] is None
+    assert get_doc(app, ctx, run="r1", doc=X01, set="prev/v9")[0] == 404  # 묶음 목록이 없다
+
+
+def test_route_page_png_with_set(app, sets_env):
+    ctx = sets_ctx(app, sets_env)
+
+    def png(path, **q):
+        return app.route("GET", path, {k: [v] for k, v in q.items()}, None, ctx)
+
+    assert png("/pages/RAW-90/p001.png", set=".") == (200, "image/png", RAW_PNG)
+    assert png(f"/pages/{X01}/p001.png", set="prev/v9") == (200, "image/png", V9_PNG)
+    assert png(f"/pages/{X01}/p001.png") == (200, "image/png", PNG)        # 쿼리가 없으면 켤 때 받은 폴더
+    for path, q in ((f"/pages/{X09}/p001.png", "prev/v9"), (f"/pages/{X01}/p001.png", "../x"),
+                    ("/pages/RAW-91/p001.png", "."), (f"/pages/{X01}/p001.png", "."),
+                    (f"/pages/{X01}/p002.png", "prev/v9"), (f"/pages/{X01}/p001.png", "없는_묶음")):
+        code, _, body = png(path, set=q)
+        assert code == 404 and body not in (PNG, V9_PNG, RAW_PNG), (path, q)
+    assert png("/pages/RAW-90/p001.png")[0] == 404                         # 켤 때 받은 폴더에 없다
+    assert png("/pages/raw-90/p001.png", set=".")[0] == 400
+    no_root = make_ctx(app, sets_env, sets_env / "startup")
+    assert app.route("GET", f"/pages/{X01}/p001.png", {"set": ["prev/v9"]}, None, no_root)[0] == 404

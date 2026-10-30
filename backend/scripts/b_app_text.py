@@ -607,6 +607,9 @@ SET_TEXT: dict[str, str] = {
     "eval_only": "평가용 문서만 있어 고를 수 없습니다 (D-43).",
     "no_line_numbers": "줄 번호(L001)가 없는 판이라 새 실행 입력으로 고를 수 없습니다. 지난 실행을 볼 때만 씁니다.",
     "nothing_open": "열 수 있는 문서가 없습니다.",
+    # 원문 대조가 실행이 쓴 입력 폴더를 따라갈 때의 안내 (format으로 채운다)
+    "run_moved": "이 실행은 {recorded}로 돌았고 그 폴더가 prev/로 옮겨져 {id}를 읽습니다.",
+    "run_missing": "이 실행이 쓴 입력 폴더({recorded})를 찾지 못해 {name}을 보여 줍니다. 줄 번호가 다를 수 있습니다.",
 }
 
 

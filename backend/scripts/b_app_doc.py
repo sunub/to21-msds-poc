@@ -19,6 +19,7 @@ from pathlib import Path
 import yaml
 
 import _common  # noqa: F401  src 경로 등록
+import b_app_sets as bsets
 from msds.common import manifest
 from msds.common.align import item_path_map, keyed_flatten, to_keyed
 from msds.common.jsonpath import flatten, is_cond, is_q, is_stmt, to_cell
@@ -264,17 +265,24 @@ def align_silver(pred_values: list[dict], gold_json: dict) -> dict[str, dict]:
     return {v["path"]: _silver(v, match.get(v["path"])) for v in pred_values}
 
 
-def _purpose(doc_id: str) -> str | None:
-    return next((r["purpose"] for r in manifest.load() if r["doc_id"] == doc_id), None)
+def allowed_doc(doc_id: str, doc_dir: Path | None = None) -> bool:
+    """평가용과 용도를 확인할 수 없는 문서는 보여 주지 않는다 (D-43). manifest 밖 문서(신규 RAW-xx)는 doc_dir의
+    meta.json에 같은 doc_id가 있을 때만 연다. 기준은 문서 묶음 목록(b_app_sets.doc_lock)과 같다."""
+    return bsets.doc_lock(doc_id, doc_dir, manifest.load()) is None
 
 
-def allowed_doc(doc_id: str) -> bool:
-    """평가용과 manifest에 없는 문서(용도를 확인할 수 없음)는 보여 주지 않는다 (D-43, b_app_runs와 같은 기준)."""
-    return _purpose(doc_id) not in (None, "평가")
+def pages_view(doc_id: str, pages_dir: Path) -> dict:
+    """실행 없이 쪽 글자만. doc_view와 같은 키에 결과·실버 값은 비운다. pNNN.json이 없는 판은 칸 좌표 없이 글자만 준다."""
+    if not allowed_doc(doc_id, pages_dir / doc_id):
+        raise PermissionError(f"보여 줄 수 없는 문서: {doc_id}")
+    lines = page_lines(doc_id, pages_dir)
+    return {"doc_id": doc_id, "pages": sorted({l["page"] for l in lines}), "lines": lines,
+            "sections": section_spans(doc_id, pages_dir), "values": [], "silver_only": [], "line_index": {},
+            "has_gold": False, "warnings": []}
 
 
 def doc_view(run: Path, doc_id: str, pages_dir: Path, gold_dir: Path) -> dict:
-    if not allowed_doc(doc_id):
+    if not allowed_doc(doc_id, pages_dir / doc_id):
         raise PermissionError(f"보여 줄 수 없는 문서: {doc_id}")
     doc = json.loads((run / "outputs" / f"{doc_id}.json").read_text(encoding="utf-8"))
     lines = page_lines(doc_id, pages_dir)

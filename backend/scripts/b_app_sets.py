@@ -123,6 +123,31 @@ def find_set(sets: list[dict], set_id) -> dict | None:
     return next((s for s in sets if s["id"] == set_id), None)
 
 
+def has_doc(s: dict, doc_id: str) -> bool:
+    """그 묶음에 문서가 잠기지 않은 채 들어 있는가."""
+    return any(d["doc_id"] == doc_id and not d["locked"] for d in s["docs"])
+
+
+def resolve_run_set(recorded: str | None, doc_id: str, sets: list[dict]) -> tuple[str | None, str]:
+    """(묶음 id, source). recorded는 run_info.yaml의 pages_dir(저장소 기준, 예 "data/pages/version9")다.
+    기록대로의 묶음이 있으면 "run", 10/30 배치 변경으로 prev/ 아래로 옮겨진 묶음이면 "moved", 못 찾으면 (None, "none").
+    쓸 수 없는 묶음(줄 번호 없는 판)도 돌려준다. 지난 실행을 그때 입력 그대로 보여 주기 위해서다."""
+    if not recorded:
+        return None, "none"
+    rel = str(recorded).replace("\\", "/")
+    while rel.startswith(("./", "../")):
+        rel = rel.split("/", 1)[1]
+    parts = [p for p in rel.split("/") if p]
+    if parts[:2] != ["data", "pages"]:
+        return None, "none"
+    rest = "/".join(parts[2:]) or "."
+    for set_id, source in ((rest, "run"), ("prev" if rest == "." else f"prev/{rest}", "moved")):
+        s = find_set(sets, set_id)
+        if s is not None and has_doc(s, doc_id):
+            return set_id, source
+    return None, "none"
+
+
 def set_dir(pages_root: Path, set_id: str) -> Path:
     """묶음 폴더. set_id는 find_set으로 확인한 목록의 id만 넘긴다."""
     return pages_root / set_id
