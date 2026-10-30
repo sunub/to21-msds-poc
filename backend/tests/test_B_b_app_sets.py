@@ -215,6 +215,32 @@ def test_default_set_constant(bsets):
     assert bsets.DEFAULT_SET == "prev/version9"
 
 
+# ── 실행이 쓴 묶음 ─────────────────────────────────────
+
+@pytest.mark.parametrize("recorded,doc_id,expected", [
+    ("data/pages/v9", X01, ("prev/v9", "moved")),             # 10/30 배치 변경으로 prev/ 아래로 옮겨진 판
+    ("data/pages/prev/v9", X01, ("prev/v9", "run")),
+    ("./data/pages/prev/v9/", X01, ("prev/v9", "run")),       # 앞의 ./와 끝의 /는 뗀다
+    ("../data/pages/v9", X01, ("prev/v9", "moved")),
+    ("data/pages", X01, ("prev", "moved")),                    # 바로 아래 문서별 복사본은 prev/로 옮겨졌다
+    ("data/pages", "RAW-90", (".", "run")),
+    ("data/pages/v2", X01, ("prev/v2", "moved")),             # 줄 번호가 없는 판도 지난 실행이면 그대로 보인다
+    (None, X01, (None, "none")),
+    ("", X01, (None, "none")),
+    ("data/pages/v2", X02, (None, "none")),                   # 그 묶음에 문서가 없다
+    ("data/pages/v9", X09, (None, "none")),                   # 평가용은 잠겨 있다
+    ("data/pages/없는판", X01, (None, "none")),
+    ("data/pagesX/v9", X01, (None, "none")),                  # data/pages 폴더 밖
+    ("runs/v9", X01, (None, "none")),
+])
+def test_resolve_run_set(bsets, pages, recorded, doc_id, expected):
+    assert bsets.resolve_run_set(recorded, doc_id, bsets.list_sets(pages)) == expected
+
+
+def test_resolve_run_set_without_sets(bsets):
+    assert bsets.resolve_run_set("data/pages/prev/v9", X01, []) == (None, "none")
+
+
 # ── 글 ─────────────────────────────────────────────────
 
 def test_set_text(bt):
@@ -226,6 +252,10 @@ def test_set_text(bt):
     assert "L001" in bt.SET_TEXT["no_line_numbers"]
     assert "data/pages" in bt.set_label(".")
     assert bt.set_label("prev/version9") == "prev/version9"
+    moved = bt.SET_TEXT["run_moved"].format(recorded="data/pages/version9", id="prev/version9")
+    assert "data/pages/version9" in moved and "prev/version9" in moved and "prev/" in moved
+    missing = bt.SET_TEXT["run_missing"].format(recorded="기록 없음", name="prev/version9")
+    assert "기록 없음" in missing and "prev/version9" in missing and "줄 번호" in missing
 
 
 # ── 앱 ─────────────────────────────────────────────────
