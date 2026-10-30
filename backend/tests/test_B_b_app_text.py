@@ -13,6 +13,131 @@ def text(monkeypatch):
     return importlib.import_module("b_app_text")
 
 
+@pytest.fixture
+def score_info():
+    return {
+        "weighted": 72.7, "must_passed": 5, "must_total": 17,
+        "items": [
+            {"name": "8항 노출기준", "level": "필수", "target": .95, "score": .403,
+             "pass": False, "빠뜨림": 47, "틀림": 47, "지어냄": 47},
+            {"name": "11항 기타 독성", "level": "중요", "target": .9, "score": .1,
+             "pass": False, "빠뜨림": 1, "틀림": 4, "지어냄": 4},
+            {"name": "9항 기타 물성", "level": "일반", "target": .8, "score": 0,
+             "pass": False, "빠뜨림": 0, "틀림": 1, "지어냄": 3},
+            {"name": "14항 운송", "level": "필수", "target": .95, "score": 1,
+             "pass": True, "빠뜨림": 0, "틀림": 0, "지어냄": 0},
+        ],
+    }
+
+
+def test_status_ranks_weighted_gaps_and_cause_ties_without_mutation(text, score_info):
+    before = copy.deepcopy(score_info)
+    result = text.score_status(score_info, {"pass_score": 90})
+    assert result["verdict"] == "fail"
+    for phrase in ("72.7점", "90점", "17/17", "17.3점", "필수 12개"):
+        assert phrase in result["headline"]
+    drops = result["top_drops"]
+    assert [d["name"] for d in drops] == ["8항 노출기준", "11항 기타 독성", "9항 기타 물성"]
+    assert [d["cause"] for d in drops] == ["빠뜨림", "틀림", "지어냄"]
+    assert [d["weight"] for d in drops] == [3, 2, 1]
+    assert drops[0]["score"] == pytest.approx(40.3)
+    assert drops[0]["target"] == 95
+    assert drops[0]["gap"] == pytest.approx(54.7)
+    assert drops[0]["sentence"] == "8항 노출기준 40.3점(목표 95). 주원인은 빠뜨림 47개입니다."
+    assert drops[0]["section"] == 8
+    assert score_info == before
+
+
+@pytest.mark.parametrize("connected", [None, False, True])
+def test_status_next_action_uses_last_known_connection(text, score_info, connected):
+    result = text.score_status(score_info, {"pass_score": 90}, connected=connected)
+    expected = ("④ 작업 탭에서 8항만 다시 시험해 보세요." if connected else
+                "③ 원문 대조에서 8항 노출기준의 틀린 값이 원문 어디서 왔는지 확인하세요.")
+    assert result["next_action"] == expected
+
+
+def test_status_section_from_help_or_falls_back_to_source(text, score_info):
+    score_info["items"] = [{**score_info["items"][0], "name": "가짜 검사"}]
+    c = {"pass_score": 90, "items": [{"name": "가짜 검사", "help": "3항의 가짜 값을 비교합니다."}]}
+    result = text.score_status(score_info, c, connected=True)
+    assert result["top_drops"][0]["section"] == 3
+    assert result["next_action"] == "④ 작업 탭에서 3항만 다시 시험해 보세요."
+    result = text.score_status(score_info, {"pass_score": 90}, connected=True)
+    assert result["top_drops"][0]["section"] is None
+    assert result["next_action"].startswith("③ 원문 대조에서 가짜 검사")
+
+
+def test_status_pass_none_and_weighted_pass_with_required_failure(text):
+    c = {"pass_score": 90, "items": [{"level": "필수"}, {"level": "필수"}]}
+    good = text.score_status({"weighted": 90, "must_passed": 2, "items": []}, c)
+    assert good["verdict"] == "pass"
+    assert "2/2" in good["headline"]
+    assert good["top_drops"] == []
+    assert good["next_action"] == "합격 기준을 넘었습니다. ② 두 실행 비교로 흔들림을 확인하세요."
+    missing = text.score_status({"weighted": None}, c)
+    assert missing["verdict"] == "none"
+    assert missing["headline"] == "점수가 없는 실행입니다."
+    assert missing["top_drops"] == [] and "합격" not in missing["next_action"]
+    failed = text.score_status({"weighted": 93, "must_passed": 1}, c)
+    assert failed["verdict"] == "fail" and "필수 1개" in failed["headline"]
+    assert "-3" not in failed["headline"] and "합격 기준을 넘었습니다" not in failed["next_action"]
+
+
+def test_status_limits_three_ignores_unscored_and_preserves_zero(text, score_info):
+    score_info["items"] += [
+        {**score_info["items"][0], "name": "12항 생태", "score": 0},
+        {**score_info["items"][0], "name": "미채점", "score": None},
+    ]
+    score_info["weighted"] = 0
+    result = text.score_status(score_info, {"pass_score": 90})
+    assert result["verdict"] == "fail" and "0.0점" in result["headline"]
+    assert len(result["top_drops"]) == 3
+    assert result["top_drops"][0]["name"] == "12항 생태"
+    assert result["top_drops"][0]["score"] == 0
+
+
+def test_summary_history_uses_scored_main_runs_and_label(text):
+    runs = [{"kind": "run", "name": "a", "weighted": 0},
+            {"kind": "run", "name": "b", "weighted": 81.25, "label": {"title": "가짜 실행"}},
+            {"kind": "run", "name": "pending", "weighted": None},
+            {"kind": "manual", "name": "manual/c", "weighted": 100}]
+    assert text.card_summary("history", {"runs": runs}) == "실행 2개, 최고 81.2점(가짜 실행)"
+    assert text.card_summary("history", {"runs": runs[:1]}) == "실행 1개, 최고 0.0점(a)"
+
+
+def test_summary_docs_handles_zero_and_missing_time_independently(text):
+    info = {"per_doc": {"T21-X01": {"weighted": 0, "seconds": 15},
+                        "T21-X02": {"weighted": 80, "seconds": 84}}}
+    assert text.card_summary("docs", info) == "문서 2건, 가장 낮은 T21-X01 0.0점, 가장 오래 걸린 T21-X02 84초"
+    info["per_doc"]["T21-X02"]["seconds"] = None
+    assert "가장 오래 걸린 T21-X01 15초" in text.card_summary("docs", info)
+    info["per_doc"]["T21-X01"]["seconds"] = None
+    assert "시간 자료 없음" in text.card_summary("docs", info)
+
+
+def test_summary_grid_matches_cell_priority_including_multi_msds(text):
+    info = {"grid": {"T21-X01": {"1": {"ok": True}, "2": {"ok": True, "reextracted": True}},
+                     "T21-X02": {"m0:1": {"ok": True, "reextracted": True, "limit_kind": "긴출력"},
+                                 "m1:1": {"ok": False, "reextracted": True, "limit_kind": "공백폭주"}}}}
+    assert text.card_summary("grid", info) == "호출 4개 중 성공 1, 재추출 1, 한도 걸림 1, 실패 1"
+
+
+def test_summary_rows_includes_all_nine_and_largest_absolute_shortfall(text):
+    keys = ("components", "exposure_limits", "physchem", "toxicity", "cmr", "ecotox", "regulations", "intl_class", "extras")
+    info = {"rows": {key: {"pred": 2, "gold": 2} for key in keys}}
+    info["rows"]["toxicity"] = {"pred": 3, "gold": 12}
+    info["rows"]["cmr"] = {"pred": 0, "gold": 2}
+    assert text.card_summary("rows", info) == "표 9개 중 정답보다 적은 표 2개(가장 모자란 독성 (11항) 3/12)"
+    for row in info["rows"].values():
+        row["pred"] = row["gold"]
+    assert text.card_summary("rows", info) == "표 9개 중 정답보다 적은 표 0개"
+
+
+@pytest.mark.parametrize("kind", ["history", "docs", "grid", "rows"])
+def test_summary_empty(text, kind):
+    assert text.card_summary(kind, {}) == "자료 없음"
+
+
 def test_glossary_has_required_terms_and_safe_examples(text):
     required = {
         "실버", "골드", "가중 종합", "필수 통과", "필수", "중요", "일반", "항", "항목",

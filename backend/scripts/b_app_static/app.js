@@ -3,6 +3,7 @@
 // 글은 모두 글자 노드로 넣는다(결과 값에 어떤 글자가 들어 있어도 화면 코드가 되지 않게).
 
 const S = {list: [], criteria: null, glossary: [], gaps: [], limit: 300, name: null, run: null, open: null, pick: loadPick(),
+  cards: loadCards(), itemsAll: false,
   diff: {a: null, b: null, key: null, data: null, error: null, why: new Set(), vals: new Set(), open: new Set(), prompts: {}},
   doc: {run: null, doc: null, key: null, data: null, error: null, page: null, pick: null,
     selLines: new Set(), selPaths: new Set(), open: new Set()},
@@ -90,13 +91,49 @@ function fail(e) {
 
 function card(id, title, hint, ...kids) {
   const el = document.getElementById(id);
-  el.replaceChildren(h("h2", null, title), hint ? h("p", {class: "hint"}, hint) : "", ...kids.flat().filter(k => k));
+  // 4번째 인수의 옵션만 읽는다. 기존 card(id, title, hint, ...kids) 호출은 그대로 동작한다.
+  const first = kids[0];
+  const options = first && !(first instanceof Node) && typeof first === "object" && "collapsed" in first ? kids.shift() : null;
+  const content = [hint ? h("p", {class: "hint"}, hint) : "", ...kids.flat().filter(k => k)];
+  if (options) {
+    const titleText = title instanceof Node ? title.textContent : title;
+    const body = h("div", {id: id + "-body", class: "card-body"}, content);
+    const toggle = h("button", {type: "button", class: "card-toggle", "aria-controls": id + "-body"});
+    const setCollapsed = collapsed => {
+      S.cards[id] = collapsed;
+      body.hidden = collapsed;
+      toggle.setAttribute("aria-expanded", String(!collapsed));
+      toggle.setAttribute("aria-label", `${titleText} ${collapsed ? "펼치기" : "접기"}`);
+      toggle.replaceChildren(h("span", {"aria-hidden": "true"}, collapsed ? "▶ " : "▼ "), collapsed ? "펼치기" : "접기");
+    };
+    setCollapsed(typeof S.cards[id] === "boolean" ? S.cards[id] : options.collapsed);
+    toggle.addEventListener("click", () => {
+      setCollapsed(!S.cards[id]);
+      try { localStorage.setItem("b_app.cards", JSON.stringify(S.cards)); } catch (e) { /* 저장 없이 현재 선택 유지 */ }
+    });
+    el.replaceChildren(h("div", {class: "card-head"}, h("h2", null, title),
+      h("p", {class: "card-summary"}, options.summary || "자료 없음"), toggle), body);
+  } else {
+    el.replaceChildren(h("h2", null, title), ...content);
+  }
   // 같은 카드에서는 별칭도 같은 용어로 세어 첫 자리만 밑줄 친다.
   const seen = new Set();
   el.querySelectorAll(".term").forEach(t => {
     if (seen.has(t.dataset.term)) t.replaceWith(h("span", null, t.textContent));
     else seen.add(t.dataset.term);
   });
+}
+
+function loadCards() {
+  try {
+    const saved = JSON.parse(localStorage.getItem("b_app.cards"));
+    return saved && typeof saved === "object" && !Array.isArray(saved)
+      ? Object.fromEntries(Object.entries(saved).filter(([, v]) => typeof v === "boolean")) : {};
+  } catch (e) { return {}; }
+}
+
+function collapsedCard(kind) {
+  return {collapsed: true, summary: S.run?.card_summaries?.[kind] || "자료 없음"};
 }
 
 function loadPick() {
@@ -194,6 +231,10 @@ const runsShown = () => S.list.filter(r => r.kind !== "models" && !r.error);
 
 async function loadAll() {
   status("불러오는 중… (처음에는 실행마다 채점하느라 수십 초 걸릴 수 있습니다)");
+  renderScoreLoading("실행 목록을 확인하는 중…");
+  try {
+  const {count} = await api("/api/runs?count=1");
+  renderScoreLoading(`실행 ${count}개를 채점하는 중…(처음 한 번은 수십 초)`);
   const data = await api("/api/runs");
   S.gaps = await api("/api/silver_gaps");
   S.list = data.runs;
@@ -206,16 +247,29 @@ async function loadAll() {
   if (S.jobs.opts) renderJobs();                     // 새 실행 목록으로 기준 실행·비교표 고르기를 다시 그린다
   const broken = S.list.filter(r => r.error).length;
   status(broken ? `읽지 못한 실행 ${broken}개 (쓰는 중일 수 있습니다)` : "");
+  } catch (e) {
+    scoreLoadFailure(e);
+    throw e;
+  }
 }
 
 async function loadRun(name) {
   S.name = name;
   S.open = null;
-  S.run = name ? await api("/api/run/" + name.split("/").map(encodeURIComponent).join("/")) : null;
-  renderScore();
+  renderScoreLoading("실행 결과를 불러오는 중…");
+  try {
+    const run = name ? await api("/api/run/" + name.split("/").map(encodeURIComponent).join("/")) : null;
+    if (S.name !== name) return;
+    S.run = run;
+    renderScore();
+  } catch (e) {
+    if (S.name === name) scoreLoadFailure(e);
+    throw e;
+  }
 }
 
 function renderScore() {
+  renderStatus(S.run);
   renderNow(S.run);
   renderRule();
   renderItems(S.run);
@@ -223,6 +277,51 @@ function renderScore() {
   renderDocs(S.run);
   renderGrid(S.run);
   renderRows(S.run);
+}
+
+function renderScoreLoading(text) {
+  const el = document.getElementById("status-card");
+  el.classList.remove("status-pass");
+  el.setAttribute("aria-busy", "true");
+  card("status-card", "지금 상태", null, h("p", {class: "status-headline"}, text));
+}
+
+function scoreLoadFailure(e) {
+  document.getElementById("status-card").setAttribute("aria-busy", "false");
+  card("status-card", "지금 상태", null, loadFailure(e.message));
+}
+
+function renderStatus(r) {
+  const el = document.getElementById("status-card"), info = r && r.status_text;
+  el.setAttribute("aria-busy", "false");
+  el.classList.toggle("status-pass", info?.verdict === "pass");
+  if (!info) return card("status-card", "지금 상태", null, h("p", null, "점수를 낸 실행이 아직 없습니다."));
+  card("status-card", "지금 상태", null,
+    h("p", {class: "status-headline"}, info.headline),
+    info.top_drops.length ? h("div", {class: "top-drops"},
+      h("h3", null, "가장 많이 깎은 항목 3개"),
+      h("ol", null, info.top_drops.map(drop => h("li", null,
+        h("span", null, drop.sentence), h("button", {type: "button",
+          "aria-label": `${drop.name} 원문 대조로 이동하기`,
+          onclick: () => openScoreSource(r, drop).catch(fail)}, "원문 대조로 →"))))) : null,
+    h("p", {class: "next-action"}, h("strong", null, "다음에 할 일: "), info.next_action));
+}
+
+async function openScoreSource(run, drop) {
+  const D = S.doc, docs = docsOf(run.name);
+  const issueDoc = (run.details || []).find(d => d.item === drop.name && docs.includes(d.doc_id))?.doc_id;
+  D.doc = issueDoc || (D.run === run.name && docs.includes(D.doc) ? D.doc : docs[0] || null);
+  D.run = run.name;
+  const key = `${D.run}|${D.doc}`;
+  const tab = document.querySelector('.tabs button[data-tab="doc"]');
+  tab.click();
+  tab.focus(); // 이동 전 단추는 숨겨지므로 보이는 탭에서 키보드 조작을 이어 간다.
+  await loadDoc();
+  if (`${D.run}|${D.doc}` !== key || !D.data || !drop.section) return;
+  D.open.add(`s${drop.section}`);
+  renderDocRight();
+  const span = D.data.sections[drop.section];
+  if (span && D.line[span.start]) goSection(drop.section);
 }
 
 function progressLine(r) {
@@ -358,17 +457,26 @@ function itemRow(i, naScore, r) {
 
 function renderItems(r) {
   const items = r && r.items && r.items.length ? r.items : S.criteria.items;
+  const visible = S.itemsAll ? items : items.filter(i => i.pass === false);
+  const hidden = items.filter(i => i.pass === true).length;
   const na = Object.fromEntries(((r && r.items_na_excluded) || []).map(i => [i.name, i.score]));
   card("items-card", "항목 23개 신호등",
     "항목마다 점수 막대와 목표선(세로선)을 보여 줍니다. 초록은 통과, 빨강은 미달입니다. 이름에 마우스를 올리면 무엇을 재는지 나오고, 줄을 누르면 틀린 값 목록이 펴집니다.",
+    h("div", {class: "item-filter", role: "group", "aria-label": "항목 표시 범위"},
+      h("button", {type: "button", "aria-pressed": String(!S.itemsAll),
+        onclick: () => { S.itemsAll = false; renderItems(S.run); }}, "미달만 보기(기본)"),
+      h("button", {type: "button", "aria-pressed": String(S.itemsAll),
+        onclick: () => { S.itemsAll = true; renderItems(S.run); }}, "모두 보기"),
+      !S.itemsAll ? h("span", {class: "hint", role: "status"}, `통과한 항목 ${hidden}개 숨김`) : null),
+    !visible.length ? h("p", {class: "hint"}, "미달로 기록된 항목이 없습니다. 모두 보기에서 전체 항목을 볼 수 있습니다.") : null,
     h("p", {class: "legend"},
       h("span", {class: "k-빠뜨림"}, term("빠뜨림")), " = 정답에는 있는데 결과에 없음 · ",
       h("span", {class: "k-지어냄"}, term("지어냄")), " = 결과에는 있는데 정답에 없음 · ",
       h("span", {class: "k-틀림"}, term("틀림")), " = 둘 다 있지만 값이 다름 · ",
       h("span", {class: "gapdot"}, "●"), " = ", term("실버 빈 곳"), "(정답 초안이 틀렸을 수 있음)"),
-    LEVELS.map(lv => h("div", {class: "group"},
+    LEVELS.filter(lv => visible.some(i => i.level === lv)).map(lv => h("div", {class: "group"},
       h("h3", null, `${lv} 항목 (무게 ×${S.criteria.weights[lv]})`),
-      items.filter(i => i.level === lv).map(i => itemRow(i, na[i.name], r)))));
+      visible.filter(i => i.level === lv).map(i => itemRow(i, na[i.name], r)))));
 }
 
 // ── 5. 실행 역사 ───────────────────────────────────────
@@ -392,7 +500,7 @@ function savePick(list) {
 function renderHistory() {
   const runs = runsShown().filter(r => r.kind === "run" && num(r.weighted));
   const hint = ["점 하나가 ", term("본 실행"), " 하나입니다. 왼쪽이 먼저 돌린 실행입니다. ", term("시험", "수동 시험"), "(runs/manual)은 문서 수가 달라 뺐습니다. 점을 두 개 차례로 누르면 탭 ②(두 실행 비교)에 넘길 두 실행으로 고릅니다."];
-  if (!runs.length) return card("history-card", "실행 역사", hint, h("p", null, "점수를 낸 본 실행이 없습니다."));
+  if (!runs.length) return card("history-card", "실행 역사", hint, collapsedCard("history"), h("p", null, "점수를 낸 본 실행이 없습니다."));
   const W = 900, H = 240, L = 44, R = 16, T = 14, B = 34, pass = S.criteria.pass_score;
   const lo = Math.max(0, Math.floor((Math.min(...runs.map(r => r.weighted)) - 5) / 10) * 10), hi = 100;
   const x = i => L + (runs.length === 1 ? (W - L - R) / 2 : i * (W - L - R) / (runs.length - 1));
@@ -434,7 +542,7 @@ function renderHistory() {
       h("button", {type: "button", onclick: () => savePick([])}, "고른 것 지우기"),
       S.pick.length === 2 ? " → 탭 ②에서 ①을 A(전), ②를 B(후)로 비교합니다." : " → 하나 더 고르세요.")
     : h("p", {class: "picks"}, "아직 고른 실행이 없습니다.");
-  card("history-card", "실행 역사", hint, h("div", {class: "scroll"}, g), legend, picks);
+  card("history-card", "실행 역사", hint, collapsedCard("history"), h("div", {class: "scroll"}, g), legend, picks);
 }
 
 // ── 6. 문서별 ──────────────────────────────────────────
@@ -442,7 +550,7 @@ function renderHistory() {
 function renderDocs(r) {
   const docs = Object.keys((r && r.per_doc) || {});
   const hint = ["문서마다 ", term("가중 종합"), ` 점수와 걸린 시간(초)입니다. 목표는 PDF 하나를 ${S.limit}초(5분) 안에 끝내는 것입니다. 빨간 시간 막대는 ${S.limit}초를 넘은 문서입니다.`];
-  if (!docs.length) return card("docs-card", "문서별 점수와 시간", hint, progressLine(r), h("p", null, "채점한 문서가 없습니다."));
+  if (!docs.length) return card("docs-card", "문서별 점수와 시간", hint, collapsedCard("docs"), progressLine(r), h("p", null, "채점한 문서가 없습니다."));
   const W = 900, rowH = 26, top = 26, L = 100, sw = 330, tx = 520, tw = 320;
   const maxSec = Math.max(S.limit * 1.1, ...docs.map(d => r.per_doc[d].seconds || 0));
   const xs = v => tx + v / maxSec * tw;
@@ -467,7 +575,7 @@ function renderDocs(r) {
   });
   g.append(s("line", {x1: xs(S.limit), x2: xs(S.limit), y1: top - 6, y2: top + docs.length * rowH, class: "goalline"}),
     s("text", {x: xs(S.limit) + 4, y: 14, class: "ax"}, `${S.limit}초`));
-  card("docs-card", "문서별 점수와 시간", hint, progressLine(r), h("div", {class: "scroll"}, g));
+  card("docs-card", "문서별 점수와 시간", hint, collapsedCard("docs"), progressLine(r), h("div", {class: "scroll"}, g));
 }
 
 // ── 7. 호출 격자 ───────────────────────────────────────
@@ -496,7 +604,7 @@ function renderGrid(r) {
     Object.keys(byM).map(Number).sort((a, b) => a - b).forEach(mi => rows.push([doc, mi, byM[mi]]));
   }
   const hint = ["줄은 문서, 칸은 법정 ", term("항"), " 1~16항입니다. 칸 하나가 모델 호출 하나입니다. 마우스를 올리면 시간과 시도 수가 나옵니다."];
-  if (!rows.length) return card("grid-card", term("호출 격자"), hint, h("p", null, "호출 기록(checks)이 없습니다."));
+  if (!rows.length) return card("grid-card", term("호출 격자"), hint, collapsedCard("grid"), h("p", null, "호출 기록(checks)이 없습니다."));
   const nos = Array.from({length: 16}, (_, i) => i + 1);
   const legend = h("p", {class: "legend"},
     h("span", {class: "sw c-ok"}, "성공"), h("span", {class: "sw c-re"}, "재 = ", term("재추출"), " 뒤 성공"),
@@ -505,7 +613,7 @@ function renderGrid(r) {
     h("thead", null, h("tr", null, h("th", null, "문서"), nos.map(n => h("th", null, `${n}항`)))),
     h("tbody", null, rows.map(([doc, mi, cells]) => h("tr", null,
       h("th", {class: "mono"}, mi ? `${doc} (${mi + 1})` : doc), nos.map(n => gridCell(doc, mi, n, cells[n]))))));
-  card("grid-card", term("호출 격자"), hint, legend, h("div", {class: "scroll"}, table));
+  card("grid-card", term("호출 격자"), hint, collapsedCard("grid"), legend, h("div", {class: "scroll"}, table));
 }
 
 // ── 8. 표 행 수 ────────────────────────────────────────
@@ -514,7 +622,7 @@ function renderRows(r) {
   const rows = (r && r.rows) || {};
   const keys = Object.keys(ROW_LABEL).filter(k => rows[k]);
   const hint = ["표마다 결과 행 수(파랑)와 정답 행 수(회색)입니다. 결과가 짧으면 행을 빠뜨린 것이고, ", term("extras", "남는 값(extras)"), "가 길면 자리가 없는 칸에 값을 많이 보낸 것입니다."];
-  if (!keys.length) return card("rows-card", "표 행 수", hint, h("p", null, "채점한 문서가 없습니다."));
+  if (!keys.length) return card("rows-card", "표 행 수", hint, collapsedCard("rows"), h("p", null, "채점한 문서가 없습니다."));
   const W = 900, rowH = 34, L = 230, bw = 520;
   const max = Math.max(1, ...keys.map(k => Math.max(rows[k].pred, rows[k].gold)));
   const g = s("svg", {viewBox: `0 0 ${W} ${keys.length * rowH + 6}`, class: "chart"});
@@ -526,7 +634,7 @@ function renderRows(r) {
       s("rect", {x: L, y: yy + 14, width: gold / max * bw, height: 12, class: "goldbar", "data-tip": `${ROW_LABEL[k]} 정답 ${gold}행`}),
       s("text", {x: L + bw + 10, y: yy + 17, class: "lab"}, `결과 ${pred} / 정답 ${gold}${ratio}`));
   });
-  card("rows-card", "표 행 수", hint, h("div", {class: "scroll"}, g));
+  card("rows-card", "표 행 수", hint, collapsedCard("rows"), h("div", {class: "scroll"}, g));
 }
 
 // ── 탭 ② 두 실행 비교 ─────────────────────────────────

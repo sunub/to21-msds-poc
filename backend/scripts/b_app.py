@@ -63,6 +63,8 @@ class AppContext:
     pages_root: Path = PAGES                         # 쪽 폴더 후보(version*)를 찾는 곳
     model_status: Callable[[], list[dict]] | None = None   # 모델 서버 연결 상태 (ServerActions.model_status). 없으면 확인하지 않는다
     servers: bs.ServerActions | None = None          # 탭 ⑤ 서버. 없으면 서버 주소는 503
+    last_model_connections: dict[str, bool] | None = None  # 마지막 조회 결과만. 점수 요청은 서버를 부르지 않는다
+    run_history: list[dict] | None = None            # /api/runs가 읽은 가벼운 목록. 새로 읽을 때 갱신
 
 
 def _json(code: int, obj) -> tuple[int, str, bytes]:
@@ -72,6 +74,30 @@ def _json(code: int, obj) -> tuple[int, str, bytes]:
 def _labeled_run(info: dict) -> dict:
     """채점·캐시는 그대로 두고 응답에만 표시 글을 붙인다."""
     return {**info, "label": bt.run_label(info), "model_label": bt.model_label(info.get("model_tag"))}
+
+
+def _remember_connections(ctx: AppContext, models: list[dict]) -> None:
+    ctx.last_model_connections = {m["tag"]: bool(m.get("reachable") and m.get("match")) for m in models}
+
+
+def _run_list(ctx: AppContext) -> dict:
+    data = br.load_all(ctx.runs_dir, ctx.gold_dir, cache_dir=ctx.cache_dir)
+    runs = [_labeled_run({k: v for k, v in r.items() if k not in _HEAVY}) for r in data["runs"]]
+    ctx.run_history = runs
+    return {**data, "runs": runs, "current": pick_current(runs), "doc_time_limit": DOC_TIME_LIMIT}
+
+
+def _run_with_text(run: Path, ctx: AppContext) -> dict:
+    info = _labeled_run(br.summarize_run(run, ctx.gold_dir, cache_dir=ctx.cache_dir))
+    if ctx.run_history is None:
+        _run_list(ctx)
+    connected = (ctx.last_model_connections or {}).get(info.get("model_tag"))
+    # 지금 요청한 실행은 가장 최근 값을 쓴다. 원본 채점 dict와 캐시는 수정하지 않는다.
+    history = [info if r["name"] == info["name"] else r for r in ctx.run_history]
+    summaries = {kind: bt.card_summary(kind, info) for kind in ("docs", "grid", "rows")}
+    summaries["history"] = bt.card_summary("history", {"runs": history})
+    return {**info, "status_text": bt.score_status(info, br.criteria(), connected=connected),
+            "card_summaries": summaries}
 
 
 def _static(rel: str, ctx: AppContext) -> tuple[int, str, bytes]:
@@ -179,6 +205,8 @@ def _options(ctx: AppContext) -> tuple[int, str, bytes]:
     """탭 ④의 고를 거리: 모델 태그(연결 여부), 개발용 문서, 쪽 폴더 후보, 추천 실행 이름."""
     cfg = yaml.safe_load((CONFIGS / "models.yaml").read_text(encoding="utf-8"))["models"]
     status = ctx.model_status() if ctx.model_status else None
+    if status is not None:
+        _remember_connections(ctx, status)
     by_tag = {s["tag"]: s for s in status or []}
     models = [{"tag": tag, "label": bt.model_label(tag), "model": c["model"], "connected": None if status is None else _why_offline(by_tag.get(tag)) is None,
                "error": None if status is None else _why_offline(by_tag.get(tag)),
@@ -303,16 +331,16 @@ def route(method: str, path: str, query: dict[str, list[str]], body: bytes | Non
     if path.startswith("/static/"):
         return _static(path[len("/static/"):], ctx)
     if path == "/api/runs":
+        if query.get("count") == ["1"]:
+            return _json(200, {"count": len(br.list_runs(ctx.runs_dir))})
         with _LOCK:
-            data = br.load_all(ctx.runs_dir, ctx.gold_dir, cache_dir=ctx.cache_dir)
-        runs = [_labeled_run({k: v for k, v in r.items() if k not in _HEAVY}) for r in data["runs"]]
-        return _json(200, {**data, "runs": runs, "current": pick_current(runs), "doc_time_limit": DOC_TIME_LIMIT})
+            return _json(200, _run_list(ctx))
     if path.startswith("/api/run/"):
         run = _run_paths(ctx).get(path[len("/api/run/"):])
         if run is None:
             return _json(404, {"error": f"없는 실행: {path[len('/api/run/'):]}"})
         with _LOCK:
-            return _json(200, _labeled_run(br.summarize_run(run, ctx.gold_dir, cache_dir=ctx.cache_dir)))
+            return _json(200, _run_with_text(run, ctx))
     if path in ("/api/diff", "/api/prompt_diff"):
         err, pair = _pair(query, ctx)
         if err:
@@ -335,7 +363,9 @@ def route(method: str, path: str, query: dict[str, list[str]], body: bytes | Non
     if path == "/api/servers":
         if ctx.servers is None:
             return _json(503, {"error": "서버 탭이 꺼져 있습니다"})
-        return _json(200, ctx.servers.status())
+        result = ctx.servers.status()
+        _remember_connections(ctx, result.get("models") or [])
+        return _json(200, result)
     if path == "/api/prompt":
         return _prompt(query)
     if path == "/api/criteria":

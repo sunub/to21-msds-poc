@@ -46,6 +46,29 @@ main { padding: 12px 20px 40px; max-width: 1240px; }
 .card { border: 1px solid var(--line); border-radius: 8px; padding: 12px 16px; margin-bottom: 12px; background: #fff; }
 .card h2 { font-size: 16px; margin: 0 0 4px; }
 .card h3 { font-size: 14px; margin: 12px 0 4px; color: var(--muted); }
+.card-head { display: flex; gap: 12px; align-items: baseline; }
+.card-head h2 { flex: none; margin: 0; }
+.card-summary { margin: 0; flex: 1; min-width: 0; overflow-wrap: anywhere; }
+.card-toggle { flex: none; min-height: 32px; }
+.card-body { margin-top: 12px; }
+.score-top { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); align-items: start; }
+#status-card { border-top: 4px solid var(--limit); }
+#status-card.status-pass { border-top-color: var(--ok); }
+.status-headline { font-size: 18px; font-weight: 600; margin: 8px 0 16px; overflow-wrap: anywhere; }
+.top-drops ol { margin: 4px 0 12px; padding-left: 20px; }
+.top-drops li { margin-bottom: 8px; }
+.top-drops button { margin-left: 4px; min-height: 32px; }
+.next-action { margin: 12px 0 0; padding-top: 12px; border-top: 1px solid var(--line); }
+.item-filter { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin: 12px 0; }
+.item-filter button { min-height: 32px; }
+.item-filter button[aria-pressed="true"] { color: #fff; background: var(--now); border-color: var(--now); }
+.item-filter .hint { margin: 0; }
+@media (max-width: 960px) {
+  .score-top { grid-template-columns: minmax(0, 1fr); }
+  .card-head { flex-wrap: wrap; }
+  .card-summary { flex-basis: 100%; order: 1; }
+  .card-toggle { margin-left: auto; }
+}
 .hint { color: var(--muted); font-size: 13px; margin: 2px 0 8px; }
 .running { color: var(--re); font-weight: 600; }
 .warn { background: #fff8c5; border: 1px solid #eac54f; border-radius: 6px; padding: 6px 10px; }
