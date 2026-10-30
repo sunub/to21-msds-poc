@@ -13,6 +13,49 @@ def text(monkeypatch):
     return importlib.import_module("b_app_text")
 
 
+def test_order_models_stable_with_labels_and_without_mutating_input(text):
+    models = [
+        {"tag": "off1", "label": "꺼진 모델 1", "connected": False, "extra": [1]},
+        {"tag": "unknown1", "label": "모르는 모델 1", "connected": None},
+        {"tag": "on1", "label": "켜진 모델 1", "connected": True},
+        {"tag": "on2", "label": "켜진 모델 2", "connected": True},
+        {"tag": "off2", "label": "꺼진 모델 2", "connected": False},
+        {"tag": "unknown2", "label": "모르는 모델 2", "connected": None},
+    ]
+    before = copy.deepcopy(models)
+    result = text.order_models(models)
+    assert [m["tag"] for m in result] == ["on1", "on2", "unknown1", "unknown2", "off1", "off2"]
+    suffix = {True: "연결됨", None: "연결 모름", False: "연결 안 됨"}
+    for m in result:
+        assert m["option_label"] == f"{m['label']} — {suffix[m['connected']]}"
+        assert {k: v for k, v in m.items() if k != "option_label"} == next(x for x in models if x["tag"] == m["tag"])
+    assert models == before
+    assert text.order_models([]) == []
+
+
+@pytest.mark.parametrize("advanced", [False, True])
+@pytest.mark.parametrize("connections", [[], [None, False], [True, False, None], [True, True]])
+def test_try_hint_connection_count_and_advanced(text, advanced, connections):
+    models = [{"connected": c} for c in connections]
+    count = connections.count(True)
+    guide = "" if advanced else "고급을 켜고 "
+    expected = (f"연결된 모델 {count}개. 모델을 고르고 돌리기를 누르세요." if count else
+                "연결된 모델이 없어 서버 없이 입력·안내문만 봅니다(dry-run). "
+                f"모델을 쓰려면 {guide}서버 탭에서 먼저 올리세요.")
+    assert text.try_hint(models, advanced) == {"dry_run_forced": not count, "note": expected}
+
+
+def test_field_help_and_try_stage_help_are_complete(text):
+    assert set(text.FIELD_HELP) == {"model", "doc", "pages", "scope", "prompt", "base_run",
+                                    "dry_run", "repeat", "run_name", "compare_label"}
+    assert all(isinstance(v, str) and v.strip() for v in text.FIELD_HELP.values())
+    assert len(text.TRY_STAGE_HELP) == 6
+    assert text.TRY_STAGE_HELP["① 보낸 입력"].startswith("모델에게 준 줄 글자")
+    assert text.TRY_STAGE_HELP["② 안내문"].startswith("모델에게 준 지시문")
+    assert "중간 형식" in text.TRY_STAGE_HELP["④ 읽은 결과"]
+    assert all(text.TRY_STAGE_HELP.values())
+
+
 @pytest.fixture
 def score_info():
     return {

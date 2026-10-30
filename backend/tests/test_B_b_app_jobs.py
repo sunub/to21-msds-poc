@@ -507,6 +507,26 @@ def test_route_options_without_status(bj, app, where):
     assert data["status_checked"] is False and all(m["connected"] is None for m in data["models"])
 
 
+@pytest.mark.parametrize("advanced", [None, "0", "1"])
+def test_route_options_help_sorting_and_dry_run(bj, app, where, advanced):
+    ctx = ctx_of(app, where, manager(bj, where))
+    query = {} if advanced is None else {"advanced": [advanced]}
+    code, data = call(app, ctx, "GET", "/api/options", query=query)
+    assert code == 200
+    assert data["field_help"] == app.bt.FIELD_HELP
+    assert data["try_stage_help"] == app.bt.TRY_STAGE_HELP
+    assert data["try_hint"] == app.bt.try_hint(data["models"], advanced == "1")
+    assert data["try_hint"]["dry_run_forced"] is True
+    assert all(m["option_label"].endswith("연결 모름") for m in data["models"])
+    ctx.model_status = lambda: [{"tag": TAG, "reachable": True, "match": True}]
+    data = call(app, ctx, "GET", "/api/options", query=query)[1]
+    assert data["models"][0]["tag"] == TAG
+    assert data["models"][0]["option_label"].endswith("연결됨")
+    assert all(m["option_label"].endswith("연결 안 됨") for m in data["models"][1:])
+    assert data["try_hint"]["dry_run_forced"] is False
+    assert [d["doc_id"] for d in data["docs"]] == [X01, X02]
+
+
 def test_route_prompt_text(bj, app, where):
     from msds.extract.section_prompts import build_system
     ctx = ctx_of(app, where, manager(bj, where))

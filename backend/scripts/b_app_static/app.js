@@ -196,7 +196,7 @@ function setupTabs() {
     serverTab.hidden = !enabled;
     try { localStorage.setItem("b_app.advanced", enabled ? "1" : "0"); } catch (e) { /* 선택은 현재 화면에 유지 */ }
     if (!enabled && document.getElementById("tab-servers").classList.contains("on")) show("score");
-    if (S.jobs.opts) renderJobs();
+    if (S.jobs.opts) loadOptions().then(renderJobs).catch(fail);
     renderConnNow();
   };
   const show = id => {
@@ -1117,6 +1117,16 @@ const JOB_STATUS = {running: "돌아감", done: "끝남", failed: "실패", stop
 const JOB_TIP = {unknown: "앱을 다시 켜기 전에 시작한 작업이라 결과를 모릅니다. 로그나 실행 폴더를 보세요.\n아직 돌고 있으면 아래에 '다른 터미널에서'로 따로 보입니다."};
 const range16 = () => Array.from({length: 16}, (_, i) => i + 1);
 const field = (label, ...kids) => h("div", {class: "jfield"}, h("span", {class: "jlab"}, label), ...kids);
+let jobFieldId = 0;
+function jobField(key, label, ...kids) {
+  const id = "job-field-" + (++jobFieldId), controls = h("div", {class: "jcontrol"}, ...kids);
+  for (const tag of ["select", "input", "textarea"]) controls.querySelectorAll(tag).forEach(el => {
+    if (!["radio", "checkbox"].includes(el.getAttribute("type"))) el.setAttribute("aria-labelledby", id);
+    el.setAttribute("aria-describedby", id + "-help");
+  });
+  return field(h("span", {id}, label), controls,
+    h("small", {id: id + "-help", class: "jhelp"}, S.jobs.opts.field_help[key]));
+}
 const fromRuns = p => { const s = String(p || ""), i = s.lastIndexOf("/runs/"); return i >= 0 ? s.slice(i + 1) : s; };
 const clock = t => {
   const d = new Date(t * 1000), p = n => String(n).padStart(2, "0");
@@ -1135,26 +1145,29 @@ async function initJobs() {
   await pollJobs();
 }
 
-// 모델(연결 여부)·개발용 문서·쪽 폴더·추천 실행 이름. 처음 고를 모델은 연결된 항목별 추출 모델(행 형식 항이 있는 태그)
+// 서버가 정렬한 첫 연결 모델을 기본으로 고른다. 갱신해도 고쳐 쓴 입력은 유지한다.
 async function loadOptions() {
-  const J = S.jobs;
+  const J = S.jobs, previous = J.opts;
   try {
-    J.opts = await api("/api/options");
+    J.opts = await api("/api/options?advanced=" + (document.getElementById("advanced").checked ? "1" : "0"));
     J.error = null;
   } catch (e) {
     J.error = e.message;
     return;
   }
-  const o = J.opts, usable = m => !o.status_checked || m.connected;
-  const extract = m => m.rows_sections.length > 0;   // 실버용 태그(gpt·claude)보다 항목별 추출 모델을 먼저
-  const pick = o.models.find(m => usable(m) && extract(m)) || o.models.find(usable) || o.models.find(extract) || o.models[0];
+  const o = J.opts, usable = m => m && m.connected === true;
+  const pick = o.models.find(usable) || o.models[0];
   for (const f of [J.t, J.r]) {
-    if (!o.models.some(m => m.tag === f.model && usable(m))) f.model = pick ? pick.tag : null;
+    const current = o.models.find(m => m.tag === f.model);
+    if (!current || (usable(pick) && !usable(current) &&
+        (f === J.r || !J.t.dry || previous?.try_hint.dry_run_forced))) f.model = pick ? pick.tag : null;
     if (!o.pages_dirs.some(p => p.value === f.pages)) f.pages = o.default_pages_dir;
   }
   if (!o.docs.some(d => d.doc_id === J.t.doc)) J.t.doc = o.docs.length ? o.docs[0].doc_id : null;
   if (!J.r.docs) J.r.docs = new Set(o.docs.map(d => d.doc_id));
   if (!J.r.edited) J.r.name = suggestName();
+  if (o.try_hint.dry_run_forced) J.t.dry = true;
+  return JSON.stringify(previous) !== JSON.stringify(o);
 }
 
 function suggestName() {
@@ -1164,6 +1177,7 @@ function suggestName() {
 }
 
 function renderJobs() {
+  renderJobMore();
   renderJobTry();
   renderJobRun();
   renderJobCompare();
@@ -1171,11 +1185,17 @@ function renderJobs() {
   renderJobList();
 }
 
+function renderJobMore() {
+  card("jobs-more-card", "더 하기", null,
+    {collapsed: true, summary: S.jobs.opts?.job_ui_text.more_summary || "불러오는 중…"},
+    document.getElementById("jobs-run-card"), document.getElementById("jobs-compare-card"));
+}
+
 function modelSelect(f, anyModel, after) {
-  const o = S.jobs.opts, off = m => o.status_checked && !m.connected;
+  const o = S.jobs.opts, off = m => m.connected !== true;
   return h("select", {onchange: e => { f.model = e.target.value; after(); }},
     o.models.map(m => h("option", {value: m.tag, title: m.tag, selected: m.tag === f.model, disabled: off(m) && !anyModel},
-      `${m.label || m.tag} — ${!o.status_checked ? "연결 확인 안 함" : off(m) ? "연결 안 됨" : "연결됨"}`)));
+      m.option_label)));
 }
 
 function pagesSelect(f, after) {
@@ -1185,10 +1205,11 @@ function pagesSelect(f, after) {
 
 function connNote() {
   const o = S.jobs.opts;
-  const tip = o.models.map(m => `${m.label || m.tag} (${m.tag}): ${m.connected ? "연결됨" : m.connected === false ? "연결 안 됨 (" + m.error + ")" : "확인 안 함"}`).join("\n");
-  return h("span", {class: "hint", "data-tip": tip},
-    o.status_checked ? `연결된 모델 ${o.models.filter(m => m.connected).length}개 ` : "모델 서버 연결은 확인하지 않았습니다 ",
-    o.status_checked && !o.models.some(m => m.connected) ? h("span", null, serverGuide(), " ") : null,
+  return h("div", {class: "hint"},
+    h("p", {role: "status"}, o.try_hint.note),
+    h("details", null, h("summary", null, "연결 상태 보기"),
+      o.models.map(m => h("div", null, m.option_label, h("small", {class: "raw"}, " " + m.tag),
+        m.error ? rawError(m.error) : null))),
     h("button", {type: "button", onclick: () => loadOptions().then(renderJobs).catch(fail)}, "연결 다시 보기"));
 }
 
@@ -1206,6 +1227,9 @@ function renderJobTry() {
   const J = S.jobs, o = J.opts, T = J.t;
   const hint = [term("시험"), "은 항 하나·여러 개·문서 전체를 모델에 다시 보내 봅니다. 결과는 ", term("기준 실행"), "의 다른 항 답에 끼워 채점합니다. 기록은 runs/manual/에 남습니다."];
   if (!o) return loadingCard("jobs-try-card", "시험하기", hint);
+  const forced = o.try_hint.dry_run_forced;
+  if (forced) T.dry = true;
+  const model = o.models.find(m => m.tag === T.model);
   const one = !T.all && T.secs.size === 1, no = one ? [...T.secs][0] : null;
   if (!one) T.edit = false;
   const radio = (name, on, text, set, attrs) => h("label", {class: "chk", ...(attrs || {})},
@@ -1221,26 +1245,30 @@ function renderJobTry() {
     T.textFor && T.textFor !== `${T.model}|${no}` ? h("span", {class: "hint"}, " 글상자의 글은 다른 모델이나 항에서 불러온 것입니다.") : null,
     h("textarea", {class: "jtext", rows: 14, spellcheck: "false", oninput: e => { T.text = e.target.value; }}, T.text)) : null;
   card("jobs-try-card", "시험하기", hint,
-    field("모델", modelSelect(T, T.dry, renderJobTry)),
-    field("문서", h("select", {onchange: e => { T.doc = e.target.value; renderJobTry(); }},
+    jobField("model", "① 모델", modelSelect(T, T.dry, renderJobTry)),
+    model ? h("p", {class: "raw"}, model.tag) : null,
+    jobField("doc", "② 문서", h("select", {onchange: e => { T.doc = e.target.value; renderJobTry(); }},
       o.docs.map(d => h("option", {value: d.doc_id, selected: d.doc_id === T.doc}, d.doc_id)))),
-    field(term("입력 판", "쪽 폴더(입력 판)"), pagesSelect(T, renderJobTry)),
-    field("범위", radio("tscope", !T.all, "항 고르기", () => { T.all = false; }),
+    jobField("pages", term("입력 판", "쪽 폴더(입력 판)"), pagesSelect(T, renderJobTry)),
+    jobField("scope", "③ 범위(항)", radio("tscope", !T.all, "항 고르기", () => { T.all = false; }),
       radio("tscope", T.all, "문서 전체(16개 항)", () => { T.all = true; })),
     h("div", {class: "boxes"}, boxes),
-    field(term("안내문"), radio("tprompt", !T.edit, "코드가 만든 것", () => { T.edit = false; }),
+    jobField("prompt", term("안내문"), radio("tprompt", !T.edit, "코드가 만든 것", () => { T.edit = false; }),
       radio("tprompt", T.edit, "고쳐 쓰기", () => { T.edit = true; },
         {disabled: !one, "data-tip": one ? null : "항을 하나만 고르면 쓸 수 있습니다"})),
     editor,
-    field("기준 실행", h("select", {onchange: e => { T.base = e.target.value; renderJobTry(); }, "data-tip": "새 항 답을 끼워 넣을 실행. 그 실행의 점수가 '전', 끼운 뒤 점수가 '후'입니다"},
-      h("option", {value: "", selected: !T.base}, "자동 (같은 모델의 가장 최근 dev10 실행)"),
+    jobField("base_run", "기준 실행", h("select", {onchange: e => { T.base = e.target.value; renderJobTry(); }},
+      h("option", {value: "", selected: !T.base}, "자동 (같은 모델의 가장 최근 개발 10건 실행)"),
       bases.map(r => runOption(r, T.base)))),
     rawRun(T.base),
-    h("label", {class: "chk", "data-tip": "서버를 부르지 않고 ① 보낸 입력과 ② 안내문만 봅니다. 연결 안 된 모델도 고를 수 있습니다"},
-      h("input", {type: "checkbox", checked: T.dry, onchange: e => { T.dry = e.target.checked; renderJobTry(); }}), term("dry-run", "서버 없이 입력·안내문만(dry-run)")),
+    jobField("dry_run", "④ 돌리기", h("label", {class: "chk"},
+      h("input", {id: "try-dry", type: "checkbox", checked: T.dry, disabled: forced,
+        onchange: e => { T.dry = e.target.checked; renderJobTry(); }}), term("dry-run", "서버 없이 입력·안내문만(dry-run)"))),
+    connNote(),
     h("div", {class: "pickrow"},
-      h("button", {type: "button", class: "primary", onclick: () => startTry().catch(e => { J.msg.try = {text: e.message}; renderJobTry(); })},
-        T.dry ? "입력·안내문 보기" : "돌리기"), connNote()),
+      h("button", {type: "button", class: "primary", disabled: !model || (!T.dry && model.connected !== true),
+        onclick: () => startTry().catch(e => { J.msg.try = {text: e.message}; renderJobTry(); })},
+        T.dry ? o.job_ui_text.preview : o.job_ui_text.send)),
     jobMsg("try"));
 }
 
@@ -1254,7 +1282,7 @@ async function loadPrompt(no) {
 
 async function startTry() {
   const J = S.jobs, T = J.t, o = J.opts, m = o.models.find(x => x.tag === T.model);
-  if (!T.dry && o.status_checked && !(m && m.connected)) throw new Error("연결된 모델을 고르세요. dry-run은 연결 없이 됩니다.");
+  if (!T.dry && !(m && m.connected === true)) throw new Error("연결된 모델을 고르세요. dry-run은 연결 없이 됩니다.");
   if (T.edit && !T.text.trim()) throw new Error("고쳐 쓴 안내문이 비었습니다. '지금 안내문 불러오기'로 채운 뒤 고치세요.");
   const {status, data} = await post("/api/jobs/try", {model: T.model, doc: T.doc, all: T.all,
     sections: T.all ? null : [...T.secs].sort((a, b) => a - b), pages_dir: T.pages,
@@ -1283,7 +1311,10 @@ function renderJobResult() {
 }
 
 function stage(title, open, ...kids) {
-  return h("details", {class: "stage", open: open || null}, h("summary", null, title), h("div", {class: "stagebody"}, ...kids));
+  const help = S.jobs.opts?.try_stage_help[title];
+  return h("details", {class: "stage", open: open || null},
+    h("summary", null, title, help ? h("small", {class: "stage-help"}, help) : null),
+    h("div", {class: "stagebody"}, ...kids));
 }
 
 function tryStages(R) {
@@ -1369,32 +1400,35 @@ function renderJobRun() {
   const J = S.jobs, o = J.opts, R = J.r;
   const hint = ["개발용 문서를 run_sections.py로 n회 돌립니다. ", term("회차"), "마다 실행 이름 끝에 _r1, _r2…가 붙습니다. Mac이 잠들어 멈추지 않게 caffeinate로 감쌉니다."];
   if (!o) return loadingCard("jobs-run-card", term("본 실행"), hint);
+  const canRun = o.models.some(m => m.tag === R.model && m.connected === true);
   const refill = () => { if (!R.edited) R.name = suggestName(); renderJobRun(); };
   const boxes = o.docs.map(d => h("label", {class: "chk"}, h("input", {type: "checkbox", checked: R.docs.has(d.doc_id),
     onchange: e => { e.target.checked ? R.docs.add(d.doc_id) : R.docs.delete(d.doc_id); refill(); }}), d.doc_id));
   card("jobs-run-card", term("본 실행"), hint,
-    field("모델", modelSelect(R, false, refill)),
-    field(term("입력 판", "쪽 폴더(입력 판)"), pagesSelect(R, refill)),
-    field("문서", `${R.docs.size}/${o.docs.length}건`,
+    jobField("model", "모델", modelSelect(R, false, refill)),
+    h("p", {class: "raw"}, R.model),
+    jobField("pages", term("입력 판", "쪽 폴더(입력 판)"), pagesSelect(R, refill)),
+    jobField("doc", "문서", `${R.docs.size}/${o.docs.length}건`,
       h("button", {type: "button", onclick: () => { R.docs = new Set(o.docs.map(d => d.doc_id)); refill(); }}, "모두"),
       h("button", {type: "button", onclick: () => { R.docs.clear(); refill(); }}, "없음")),
     h("div", {class: "boxes"}, boxes),
-    field("반복", h("input", {type: "number", min: 1, max: 10, value: R.repeat, class: "jnum",
+    jobField("repeat", "반복", h("input", {type: "number", min: 1, max: 10, value: R.repeat, class: "jnum",
       oninput: e => { R.repeat = Math.round(+e.target.value); }}), "회"),
-    field("실행 이름", h("input", {type: "text", class: "jname mono", value: R.name,
+    jobField("run_name", "실행 이름", h("input", {type: "text", class: "jname mono", value: R.name,
       oninput: e => { R.name = e.target.value; R.edited = true; }}),
       h("button", {type: "button", "data-tip": "날짜_sections_모델 태그_안내문 버전_입력판_용도.\n개발용 10건을 모두 고르면 dev10, 아니면 probe. 같은 이름이 있으면 _2를 붙입니다.",
         onclick: () => { R.edited = false; refill(); }}, "추천 이름")),
     h("p", {class: "hint"}, "이름에 dev10이 든 실행은 점수판이 먼저 보여 주고, 시험하기의 '자동' 기준 실행이 됩니다."),
     h("div", {class: "pickrow"},
-      h("button", {type: "button", class: "primary", onclick: () => startRun().catch(e => { J.msg.run = {text: e.message}; renderJobRun(); })}, "시작"),
-      connNote()),
+      h("button", {type: "button", class: "primary", disabled: !canRun,
+        onclick: () => startRun().catch(e => { J.msg.run = {text: e.message}; renderJobRun(); })}, "시작")),
+    !canRun ? h("p", {class: "hint", role: "status"}, o.job_ui_text.run_unavailable) : null,
     jobMsg("run"));
 }
 
 async function startRun() {
   const J = S.jobs, R = J.r, o = J.opts, m = o.models.find(x => x.tag === R.model);
-  if (o.status_checked && !(m && m.connected)) throw new Error("연결된 모델을 고르세요.");
+  if (!(m && m.connected === true)) throw new Error("연결된 모델을 고르세요.");
   const body = {model: R.model, docs: o.docs.map(d => d.doc_id).filter(d => R.docs.has(d)), pages_dir: R.pages,
     run_name: R.name.trim(), repeat: R.repeat};
   if (!body.docs.length) throw new Error("문서를 하나 이상 고르세요.");
@@ -1422,10 +1456,11 @@ function renderJobCompare() {
         renderJobCompare();
       }}), h("span", null, runLabel(r), h("span", {class: "raw"}, r.name))),
       on ? h("span", null, h("small", null, `${C.picked.indexOf(r.name) + 1}번 `),
-        h("input", {type: "text", class: "jlabel", placeholder: "라벨", value: C.labels[r.name] || "",
+        h("input", {type: "text", class: "jlabel", placeholder: "라벨", "aria-label": "비교표 표시 이름", "aria-describedby": "compare-label-help", value: C.labels[r.name] || "",
           oninput: e => { C.labels[r.name] = e.target.value; }})) : null);
   });
   card("jobs-compare-card", term("비교표"), hint,
+    h("p", {class: "hint", id: "compare-label-help"}, J.opts?.field_help.compare_label),
     h("div", {class: "cmplist"}, rows.length ? rows : h("p", {class: "hint"}, "실행 목록을 불러오는 중이거나 실행이 없습니다.")),
     h("p", {class: "hint"}, `고른 실행 ${C.picked.length}개. 목록은 점수판의 '다시 읽기'를 누르면 새로 읽습니다.`),
     field("제목", h("input", {type: "text", class: "jname", value: C.title, placeholder: "예: rows_s7_v9_vs_s6",
@@ -1513,10 +1548,14 @@ async function stopJob(j) {
   await pollJobs();
 }
 
-// 도는 작업이 있으면 3초마다, 없으면 15초마다 다시 읽는다
+// 10초마다 연결 상태와 작업을 다시 읽는다. 옵션이 같으면 편집 중인 폼은 그대로 둔다.
 async function pollJobs() {
   const J = S.jobs;
   clearTimeout(J.timer);
+  if (await loadOptions()) {
+    renderJobTry();
+    renderJobRun();
+  }
   try {
     const d = await api("/api/jobs");
     Object.assign(J, {list: d.jobs, running: d.running, pollError: null});
@@ -1532,8 +1571,7 @@ async function pollJobs() {
     if (J.log) J.log.final = lj.status !== "running";
   }
   renderJobList();
-  const busy = J.list.some(j => j.status === "running") || J.running.length > 0;
-  J.timer = setTimeout(() => pollJobs().catch(fail), busy ? 3000 : 15000);
+  J.timer = setTimeout(() => pollJobs().catch(fail), 10000);
 }
 
 // ── 탭 ⑤ 서버 ─────────────────────────────────────────

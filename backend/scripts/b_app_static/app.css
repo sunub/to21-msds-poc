@@ -219,9 +219,24 @@ td.sv.only, .lg-only { outline: 2px solid var(--no); outline-offset: -2px; }
 .lg-hl { background: #fff8c5; }
 
 /* 작업 */
-.jcols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.jcols { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: 12px; align-items: start; }
 @media (max-width: 1100px) { .jcols { grid-template-columns: 1fr; } }
 .jcols .card { margin-bottom: 12px; }
+.jcols .card { min-width: 0; }
+#jobs-more-card .card-head { flex-wrap: wrap; }
+#jobs-more-card .card-summary { flex-basis: 100%; order: 1; }
+#jobs-more-card .card-toggle { margin-left: auto; }
+.job-extra + .job-extra { border-top: 1px solid var(--line); margin-top: 24px; padding-top: 16px; }
+.jcontrol { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; min-width: 0; flex: 1 1 220px; }
+.jhelp { flex: 1 1 200px; min-width: 0; overflow-wrap: anywhere; }
+#jobs-try-card .jfield { margin: 12px 0; align-items: start; }
+#jobs-try-card .jlab { width: 88px; }
+#jobs-try-card .boxes { margin-left: 94px; }
+#tab-jobs .chk { white-space: normal; }
+#tab-jobs .chk input { flex-shrink: 0; }
+#tab-jobs button:disabled { background: var(--soft); border-color: var(--line); color: var(--muted); cursor: not-allowed; }
+#tab-jobs .primary { min-height: 32px; }
+.stage-help { font-weight: 400; margin-left: 8px; }
 .jfield { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; margin: 4px 0; }
 .jlab { width: 64px; flex: none; color: var(--muted); }
 .jfield select { max-width: 100%; min-width: 0; flex: 1 1 200px; }

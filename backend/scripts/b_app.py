@@ -201,7 +201,7 @@ def _why_offline(s: dict | None) -> str | None:
     return "주소가 .env에 없음"
 
 
-def _options(ctx: AppContext) -> tuple[int, str, bytes]:
+def _options(ctx: AppContext, *, advanced: bool = False) -> tuple[int, str, bytes]:
     """탭 ④의 고를 거리: 모델 태그(연결 여부), 개발용 문서, 쪽 폴더 후보, 추천 실행 이름."""
     cfg = yaml.safe_load((CONFIGS / "models.yaml").read_text(encoding="utf-8"))["models"]
     status = ctx.model_status() if ctx.model_status else None
@@ -221,7 +221,9 @@ def _options(ctx: AppContext) -> tuple[int, str, bytes]:
     names = {tag: {v["value"]: {purpose: bj.free_run_name(runs_dir, bj.suggest_run_name(
         tag, SECTION_PROMPT_VERSION, v["value"], purpose)) for purpose in ("dev10", "probe")} for v in pages}
         for tag in cfg}
-    return _json(200, {"models": models, "status_checked": status is not None, "ui_text": bt.server_ui_text(),
+    return _json(200, {"models": bt.order_models(models), "status_checked": status is not None, "ui_text": bt.server_ui_text(),
+                       "field_help": bt.FIELD_HELP, "try_hint": bt.try_hint(models, advanced),
+                       "try_stage_help": bt.TRY_STAGE_HELP, "job_ui_text": bt.JOB_UI_TEXT,
                        "docs": [{"doc_id": r["doc_id"], "pages": r.get("pages")} for r in manifest.select("개발")],
                        "pages_dirs": pages, "default_pages_dir": default, "prompt_version": SECTION_PROMPT_VERSION,
                        "run_names": names})
@@ -359,7 +361,7 @@ def route(method: str, path: str, query: dict[str, list[str]], body: bytes | Non
             return _json(503, {"error": "작업 탭이 꺼져 있습니다(--runs-dir를 기본 runs/가 아닌 곳으로 주면 꺼집니다)"})
         return _job_get(path, query, ctx)
     if path == "/api/options":
-        return _options(ctx)
+        return _options(ctx, advanced=(query.get("advanced") or ["0"])[0] == "1")
     if path == "/api/servers":
         if ctx.servers is None:
             return _json(503, {"error": "서버 탭이 꺼져 있습니다"})
