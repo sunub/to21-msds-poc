@@ -1,0 +1,103 @@
+{
+ "doc_id": "T21-S016",
+ "msds_index": 0,
+ "section": 16,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S16_SOURCE",
+    "title_raw": "가. 자료의 출처",
+    "start": "p9:L38",
+    "end": "p9:L41"
+   },
+   {
+    "item_code": "S16_OTHER",
+    "title_raw": "라. 기타",
+    "start": "p9:L46",
+    "end": "p9:L47"
+   }
+  ],
+  "meta_revision": {
+   "first_issue_date": "2016-04-12",
+   "revision_no": 5,
+   "revision_label": "3.0",
+   "last_revision_date": "2024-01-30",
+   "lines": {
+    "first_issue_date": "p9:L42",
+    "revision_no": "p9:L44",
+    "revision_label": "p1:L3",
+    "last_revision_date": "p9:L44"
+   }
+  },
+  "extras": [
+   {
+    "title_raw": "나. 최초 작성일자",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "value": "2016-04-12",
+      "line": "p9:L42"
+     }
+    ],
+    "line": "p9:L42",
+    "after_item": "S16_SOURCE"
+   },
+   {
+    "title_raw": "다. 개정횟수 및 최종 개정일자",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "value": "5 회,   2024-01-30",
+      "line": "p9:L44"
+     }
+    ],
+    "line": "p9:L44",
+    "after_item": "S16_OTHER"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S16_SOURCE\",\n      \"title_raw\": \"가. 자료의 출처\",\n      \"start\": \"p9:L38\",\n      \"end\": \"p9:L41\"\n    },\n    {\n      \"item_code\": \"S16_OTHER\",\n      \"title_raw\": \"라. 기타\",\n      \"start\": \"p9:L46\",\n      \"end\": \"p9:L47\"\n    }\n  ],\n  \"meta_revision\": {\n    \"first_issue_date\": \"2016-04-12\",\n    \"revision_no\": 5,\n    \"revision_label\": \"3.0\",\n    \"last_revision_date\": \"2024-01-30\",\n    \"lines\": {\n      \"first_issue_date\": \"p9:L42\",\n      \"revision_no\": \"p9:L44\",\n      \"revision_label\": \"p1:L3\",\n      \"last_revision_date\": \"p9:L44\"\n    }\n  },\n  \"extras\": [\n    {\n      \"title_raw\": \"나. 최초 작성일자\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"2016-04-12\",\n          \"line\": \"p9:L42\"\n        }\n      ],\n      \"line\": \"p9:L42\",\n      \"after_item\": \"S16_SOURCE\"\n    },\n    {\n      \"title_raw\": \"다. 개정횟수 및 최종 개정일자\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"5 회,   2024-01-30\",\n          \"line\": \"p9:L44\"\n        }\n      ],\n      \"line\": \"p9:L44\",\n      \"after_item\": \"S16_OTHER\"\n    }\n  ]\n}",
+ "mode": "json_object",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 4314,
+  "completion_tokens": 466,
+  "total_tokens": 4780
+ },
+ "attempts": 2,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "length",
+   "usage": {
+    "prompt_tokens": 2572,
+    "completion_tokens": 8192,
+    "total_tokens": 10764
+   },
+   "seconds": 76.018,
+   "chars": 8255,
+   "whitespace": 8184,
+   "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S16_SOURCE\",\n      \"title_raw\": \"가. 자료의 출처\",\n      \"start\":                                                                                                                                                                                                                                                                                                                                                                                                           ",
+   "tail": "                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    "
+  },
+  {
+   "mode": "json_object",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 4314,
+    "completion_tokens": 466,
+    "total_tokens": 4780
+   },
+   "seconds": 4.54,
+   "chars": 1089,
+   "whitespace": 384,
+   "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S16_SOURCE\",\n      \"title_raw\": \"가. 자료의 출처\",\n      \"start\": \"p9:L38\",\n      \"end\": \"p9:L41\"\n    },\n    {\n      \"item_code\": \"S16_OTHER\",\n      \"title_raw\": \"라. 기타\",\n      \"start\": \"p9:L46\",\n      \"end\": \"p9:L47\"\n    }\n  ],\n  \"meta_revision\": {\n    \"first_issue_date\": \"2016-04-12\",\n    \"revision_no\": 5,\n    \"revision_label\": \"3.0\",\n    \"last_revision_date\": \"2024-01-30\",\n    \"lines\": {\n      \"first_issue_date\": \"p9:L42\",\n      \"revision_no\": \"p9:L44\",",
+   "tail": "as\": [\n    {\n      \"title_raw\": \"나. 최초 작성일자\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"2016-04-12\",\n          \"line\": \"p9:L42\"\n        }\n      ],\n      \"line\": \"p9:L42\",\n      \"after_item\": \"S16_SOURCE\"\n    },\n    {\n      \"title_raw\": \"다. 개정횟수 및 최종 개정일자\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"5 회,   2024-01-30\",\n          \"line\": \"p9:L44\"\n        }\n      ],\n      \"line\": \"p9:L44\",\n      \"after_item\": \"S16_OTHER\"\n    }\n  ]\n}"
+  }
+ ],
+ "seconds": 80.56,
+ "check_problems": []
+}

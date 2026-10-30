@@ -1,0 +1,227 @@
+{
+ "doc_id": "T21-S014",
+ "msds_index": 0,
+ "section": 2,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "hazard": {
+   "classified": true,
+   "signal_word": "위험",
+   "pictograms": [
+    {
+     "code": "GHS02"
+    },
+    {
+     "code": "GHS04"
+    }
+   ],
+   "h_statements": [
+    {
+     "code": "H220",
+     "text": "극인화성 가스",
+     "line": "p1:L34"
+    },
+    {
+     "code": "H280",
+     "text": "압축가스 : 가열하면 폭발할 수 있음",
+     "line": "p1:L35"
+    }
+   ],
+   "p_statements": [
+    {
+     "code": "P210",
+     "type": "예방",
+     "text": "열,고온의 표면,스파크,화염 및 그 밖의 점화원으로부터 멀리하시오.금연",
+     "line": "p1:L37"
+    },
+    {
+     "code": "P377",
+     "type": "대응",
+     "text": "누출성 가스 화재 시 누출을 안전하게 막을 수 없다면 불을 끄려하지 마시오.",
+     "line": "p1:L38"
+    },
+    {
+     "code": "P381",
+     "type": "대응",
+     "text": "누출 시 모든 점화원을 제거하시오.",
+     "line": "p1:L39"
+    },
+    {
+     "code": "P403",
+     "type": "저장",
+     "text": "환기가 잘 되는 곳에 보관하시오.",
+     "line": "p1:L40"
+    },
+    {
+     "code": "P410+P403",
+     "type": "저장",
+     "text": "직사광선을 피하시오. 환기가 잘 되는 곳에 보관하시오.",
+     "line": "p1:L41"
+    }
+   ],
+   "nfpa": {
+    "health": 0,
+    "fire": 4,
+    "reactivity": 0,
+    "special": "4"
+   },
+   "lines": {
+    "pictograms": "p1:L31",
+    "nfpa": "p1:L46"
+   }
+  },
+  "narratives": [
+   {
+    "item_code": "S2_LABEL_NOTE",
+    "title_raw": "가. 유해성·위험성 분류",
+    "start": "p1:L29",
+    "end": "p1:L30"
+   },
+   {
+    "item_code": "S2_LABEL_NOTE",
+    "title_raw": "나. 예방조치문구를 포함한 경고표지 항목",
+    "start": "p1:L31",
+    "end": "p1:L42"
+   },
+   {
+    "item_code": "S2_LABEL_NOTE",
+    "title_raw": "다. 유해·위험성 분류기준에 포함되지 않는 기타 유해·위험성(예. 분진폭발 위험성)",
+    "start": "p1:L43",
+    "end": "p1:L48"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S2_LABEL_NOTE",
+    "title_raw": "가. 유해성·위험성 분류",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "key": "인화성 가스",
+      "value": "구분1",
+      "line": "p1:L29"
+     },
+     {
+      "key": "압축가스",
+      "value": "",
+      "line": "p1:L30"
+     }
+    ],
+    "suggested_code": "hazard.classes",
+    "line": "p1:L29"
+   },
+   {
+    "after_item": "S2_LABEL_NOTE",
+    "title_raw": "나. 예방조치문구를 포함한 경고표지 항목",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "key": "그림문자",
+      "value": "",
+      "line": "p1:L31"
+     },
+     {
+      "key": "GHS",
+      "value": "",
+      "line": "p1:L32"
+     },
+     {
+      "key": "RTDG(EU)",
+      "value": "",
+      "line": "p1:L32"
+     },
+     {
+      "key": "신호어",
+      "value": "위험",
+      "line": "p1:L33"
+     },
+     {
+      "key": "유해·위험문구",
+      "value": "",
+      "line": "p1:L34"
+     },
+     {
+      "key": "예방조치문구",
+      "value": "",
+      "line": "p1:L36"
+     },
+     {
+      "key": "예방",
+      "value": "",
+      "line": "p1:L37"
+     },
+     {
+      "key": "대응",
+      "value": "",
+      "line": "p1:L38"
+     },
+     {
+      "key": "저장",
+      "value": "",
+      "line": "p1:L40"
+     },
+     {
+      "key": "폐기",
+      "value": "자료없음",
+      "line": "p1:L42"
+     }
+    ],
+    "suggested_code": "hazard",
+    "line": "p1:L31"
+   },
+   {
+    "after_item": "S2_LABEL_NOTE",
+    "title_raw": "다. 유해·위험성 분류기준에 포함되지 않는 기타 유해·위험성(예. 분진폭발 위험성)",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "key": "보건 (Health)",
+      "value": "0",
+      "line": "p1:L46"
+     },
+     {
+      "key": "화재 (Flammability)",
+      "value": "4",
+      "line": "p1:L47"
+     },
+     {
+      "key": "반응성 (Instability)",
+      "value": "0",
+      "line": "p1:L48"
+     }
+    ],
+    "suggested_code": "hazard.nfpa",
+    "line": "p1:L43"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"hazard\": {\n    \"classified\": true,\n    \"signal_word\": \"위험\",\n    \"pictograms\": [\n      {\n        \"code\": \"GHS02\"\n      },\n      {\n        \"code\": \"GHS04\"\n      }\n    ],\n    \"h_statements\": [\n      {\n        \"code\": \"H220\",\n        \"text\": \"극인화성 가스\",\n        \"line\": \"p1:L34\"\n      },\n      {\n        \"code\": \"H280\",\n        \"text\": \"압축가스 : 가열하면 폭발할 수 있음\",\n        \"line\": \"p1:L35\"\n      }\n    ],\n    \"p_statements\": [\n      {\n        \"code\": \"P210\",\n        \"type\": \"예방\",\n        \"text\": \"열,고온의 표면,스파크,화염 및 그 밖의 점화원으로부터 멀리하시오.금연\",\n        \"line\": \"p1:L37\"\n      },\n      {\n        \"code\": \"P377\",\n        \"type\": \"대응\",\n        \"text\": \"누출성 가스 화재 시 누출을 안전하게 막을 수 없다면 불을 끄려하지 마시오.\",\n        \"line\": \"p1:L38\"\n      },\n      {\n        \"code\": \"P381\",\n        \"type\": \"대응\",\n        \"text\": \"누출 시 모든 점화원을 제거하시오.\",\n        \"line\": \"p1:L39\"\n      },\n      {\n        \"code\": \"P403\",\n        \"type\": \"저장\",\n        \"text\": \"환기가 잘 되는 곳에 보관하시오.\",\n        \"line\": \"p1:L40\"\n      },\n      {\n        \"code\": \"P410+P403\",\n        \"type\": \"저장\",\n        \"text\": \"직사광선을 피하시오. 환기가 잘 되는 곳에 보관하시오.\",\n        \"line\": \"p1:L41\"\n      }\n    ],\n    \"nfpa\": {\n      \"health\": 0,\n      \"fire\": 4,\n      \"reactivity\": 0,\n      \"special\": \"4\"\n    },\n    \"lines\": {\n      \"pictograms\": \"p1:L31\",\n      \"nfpa\": \"p1:L46\"\n    }\n  },\n  \"narratives\": [\n    {\n      \"item_code\": \"S2_LABEL_NOTE\",\n      \"title_raw\": \"가. 유해성·위험성 분류\",\n      \"start\":  \t\"p1:L29\",\n      \"end\": \"p1:L30\"\n    },\n    {\n      \"item_code\": \"S2_LABEL_NOTE\",\n      \"title_raw\": \"나. 예방조치문구를 포함한 경고표지 항목\",\n      \"start\": \"p1:L31\",\n      \"end\": \"p1:L42\"\n    },\n    {\n      \"item_code\": \"S2_LABEL_NOTE\",\n      \"title_raw\": \"다. 유해·위험성 분류기준에 포함되지 않는 기타 유해·위험성(예. 분진폭발 위험성)\",\n      \"start\": \"p1:L43\",\n      \"end\": \"p1:L48\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S2_LABEL_NOTE\",\n      \"title_raw\": \"가. 유해성·위험성 분류\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"key\": \"인화성 가스\",\n          \"value\": \"구분1\"\n        ,\n          \"line\": \"p1:L29\"\n        },\n        {\n          \"key\": \"압축가스\",\n          \"value\": \"\",\n          \"line\": \"p1:L30\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"hazard.classes\"\n    ,\n      \"line\": \"p1:L29\"\n    },\n    {\n      \"after_item\": \"S2_LABEL_NOTE\",\n      \"title_raw\": \"나. 예방조치문구를 포함한 경고표지 항목\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"key\": \"그림문자\",\n          \"value\": \"\",\n          \"line\": \"p1:L31\"\n        },\n        {\n          \"key\": \"GHS\",\n          \"value\": \"\",\n          \"line\": \"p1:L32\"\n        },\n        {\n          \"key\": \"RTDG(EU)\",\n          \"value\": \"\",\n          \"line\": \"p1:L32\"\n        },\n        {\n          \"key\": \"신호어\",\n          \"value\": \"위험\",\n          \"line\": \"p1:L33\"\n        },\n        {\n          \"key\": \"유해·위험문구\",\n          \"value\": \"\",\n          \"line\": \"p1:L34\"\n        },\n        {\n          \"key\": \"예방조치문구\",\n          \"value\": \"\",\n          \"line\": \"p1:L36\"\n        },\n        {\n          \"key\": \"예방\",\n          \"value\": \"\",\n          \"line\": \"p1:L37\"\n        },\n        {\n          \"key\": \"대응\",\n          \"value\": \"\",\n          \"line\": \"p1:L38\"\n        },\n        {\n          \"key\": \"저장\",\n          \"value\": \"\",\n          \"line\": \"p1:L40\"\n        },\n        {\n          \"key\": \"폐기\",\n          \"value\": \"자료없음\",\n          \"line\": \"p1:L42\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"hazard\"\n    ,\n      \"line\": \"p1:L31\"\n    },\n    {\n      \"after_item\": \"S2_LABEL_NOTE\",\n      \"title_raw\": \"다. 유해·위험성 분류기준에 포함되지 않는 기타 유해·위험성(예. 분진폭발 위험성)\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"key\": \"보건 (Health)\",\n          \"value\": \"0\",\n          \"line\": \"p1:L46\"\n        },\n        {\n          \"key\": \"화재 (Flammability)\",\n          \"value\": \"4\",\n          \"line\": \"p1:L47\"\n        },\n        {\n          \"key\": \"반응성 (Instability)\",\n          \"value\": \"0\",\n          \"line\": \"p1:L48\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"hazard.nfpa\"\n    ,\n      \"line\": \"p1:L43\"\n    }\n  ]\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 5628,
+  "completion_tokens": 1619,
+  "total_tokens": 7247
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 5628,
+    "completion_tokens": 1619,
+    "total_tokens": 7247
+   },
+   "seconds": 22.151,
+   "chars": 3952,
+   "whitespace": 1784,
+   "head": "{\n  \"hazard\": {\n    \"classified\": true,\n    \"signal_word\": \"위험\",\n    \"pictograms\": [\n      {\n        \"code\": \"GHS02\"\n      },\n      {\n        \"code\": \"GHS04\"\n      }\n    ],\n    \"h_statements\": [\n      {\n        \"code\": \"H220\",\n        \"text\": \"극인화성 가스\",\n        \"line\": \"p1:L34\"\n      },\n      {\n        \"code\": \"H280\",\n        \"text\": \"압축가스 : 가열하면 폭발할 수 있음\",\n        \"line\": \"p1:L35\"\n      }\n    ],\n    \"p_statements\": [\n      {\n        \"code\": \"P210\",\n        \"type\": \"예방\",\n        \"text\": \"열,고온의 표",
+   "tail": "분류기준에 포함되지 않는 기타 유해·위험성(예. 분진폭발 위험성)\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"key\": \"보건 (Health)\",\n          \"value\": \"0\",\n          \"line\": \"p1:L46\"\n        },\n        {\n          \"key\": \"화재 (Flammability)\",\n          \"value\": \"4\",\n          \"line\": \"p1:L47\"\n        },\n        {\n          \"key\": \"반응성 (Instability)\",\n          \"value\": \"0\",\n          \"line\": \"p1:L48\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"hazard.nfpa\"\n    ,\n      \"line\": \"p1:L43\"\n    }\n  ]\n}"
+  }
+ ],
+ "seconds": 22.128,
+ "check_problems": []
+}

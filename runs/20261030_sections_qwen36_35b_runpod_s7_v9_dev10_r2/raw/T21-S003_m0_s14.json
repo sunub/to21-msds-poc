@@ -1,0 +1,129 @@
+{
+ "doc_id": "T21-S003",
+ "msds_index": 0,
+ "section": 14,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "transport": [
+   {
+    "mode": "공통",
+    "basis_raw": null,
+    "regulated": true,
+    "un_no": "1977",
+    "shipping_name": "질소(Nitrogen.Refrigerated Liquid)",
+    "hazard_class": "2.2",
+    "sub_risk": null,
+    "packing_group": "해당없음",
+    "marine_pollutant": "자료없음",
+    "ems_fire": "F-C",
+    "ems_spill": "S-V",
+    "line": "p5:L1"
+   }
+  ],
+  "narratives": [
+   {
+    "item_code": "S14_SPECIAL",
+    "title_raw": "가.유엔번호(UNNo.)",
+    "start": "p5:L1",
+    "end": "p5:L9"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": null,
+    "title_raw": "나.적정선적명",
+    "reason": "코드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [],
+    "suggested_code": "SHIPPING_NAME",
+    "line": "p5:L2"
+   },
+   {
+    "after_item": null,
+    "title_raw": "다.운송에서의 위험성 등급",
+    "reason": "코드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [],
+    "suggested_code": "HAZARD_CLASS",
+    "line": "p5:L3"
+   },
+   {
+    "after_item": null,
+    "title_raw": "라.용기등급",
+    "reason": "코드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [],
+    "suggested_code": "PACKING_GROUP",
+    "line": "p5:L4"
+   },
+   {
+    "after_item": null,
+    "title_raw": "마.해양오염물질",
+    "reason": "코드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [],
+    "suggested_code": "MARINE_POLLUTANT",
+    "line": "p5:L5"
+   },
+   {
+    "after_item": null,
+    "title_raw": "바.사용자가 운송 또는 운송수단에 관련해",
+    "reason": "코드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [],
+    "suggested_code": null,
+    "line": "p5:L6"
+   },
+   {
+    "after_item": null,
+    "title_raw": "알 필요가 있거나 필요한 특별한 안전대책",
+    "reason": "코드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [],
+    "suggested_code": null,
+    "line": "p5:L7"
+   }
+  ]
+ },
+ "raw_text": "### transport\nmode | basis_raw | regulated | un_no | shipping_name | hazard_class | sub_risk | packing_group | marine_pollutant | ems_fire | ems_spill | line\n공통 |  | true | 1977 | 질소(Nitrogen.Refrigerated Liquid) | 2.2 |  | 해당없음 | 자료없음 | F-C | S-V | p5:L1\n\n### narratives\nitem_code | title_raw | start | end\nS14_SPECIAL | 가.유엔번호(UNNo.) | p5:L1 | p5:L9\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\n | 나.적정선적명 | 코드없음 |  |  |  |  | SHIPPING_NAME | p5:L2\n | 다.운송에서의 위험성 등급 | 코드없음 |  |  |  |  | HAZARD_CLASS | p5:L3\n | 라.용기등급 | 코드없음 |  |  |  |  | PACKING_GROUP | p5:L4\n | 마.해양오염물질 | 코드없음 |  |  |  |  | MARINE_POLLUTANT | p5:L5\n | 바.사용자가 운송 또는 운송수단에 관련해 | 코드없음 |  |  |  |  |  | p5:L6\n | 알 필요가 있거나 필요한 특별한 안전대책 | 코드없음 |  |  |  |  |  | p5:L7",
+ "mode": "rows",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 3055,
+  "completion_tokens": 339,
+  "total_tokens": 3394
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "rows",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 3055,
+    "completion_tokens": 339,
+    "total_tokens": 3394
+   },
+   "seconds": 6.19,
+   "chars": 796,
+   "whitespace": 198,
+   "head": "### transport\nmode | basis_raw | regulated | un_no | shipping_name | hazard_class | sub_risk | packing_group | marine_pollutant | ems_fire | ems_spill | line\n공통 |  | true | 1977 | 질소(Nitrogen.Refrigerated Liquid) | 2.2 |  | 해당없음 | 자료없음 | F-C | S-V | p5:L1\n\n### narratives\nitem_code | title_raw | start | end\nS14_SPECIAL | 가.유엔번호(UNNo.) | p5:L1 | p5:L9\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\n | 나.적정선적명 | 코드없음 |  |  |  |  | SHIPPING",
+   "tail": "_NAME | p5:L2\n | 다.운송에서의 위험성 등급 | 코드없음 |  |  |  |  | HAZARD_CLASS | p5:L3\n | 라.용기등급 | 코드없음 |  |  |  |  | PACKING_GROUP | p5:L4\n | 마.해양오염물질 | 코드없음 |  |  |  |  | MARINE_POLLUTANT | p5:L5\n | 바.사용자가 운송 또는 운송수단에 관련해 | 코드없음 |  |  |  |  |  | p5:L6\n | 알 필요가 있거나 필요한 특별한 안전대책 | 코드없음 |  |  |  |  |  | p5:L7"
+  }
+ ],
+ "seconds": 6.191,
+ "check_problems": []
+}

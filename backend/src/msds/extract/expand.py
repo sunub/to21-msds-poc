@@ -13,7 +13,8 @@ from __future__ import annotations
 import importlib
 import importlib.util
 import re
-from collections import defaultdict
+from functools import lru_cache
+from collections import Counter, defaultdict
 
 from msds.common.merge import DICTIONARY_VERSION, SCHEMA_VERSION, now_kst
 from msds.common.schema import load_schema, msds_item_schema
@@ -126,13 +127,40 @@ def _has_value(text: str | None) -> bool:
     return bool(t) and t not in _NO_VALUE | {"비해당"}
 
 
+_KREACH_NEGATIVE_EXTRA = ("규제되지않음", "비위험물", "미규정", "unlisted")  # A의 답 10/30, A-1
+
+
+def _norm(text: str | None) -> str:
+    return re.sub(r"\s+", "", text or "").lower()
+
+
+@lru_cache(maxsize=1)
+def _kreach_negatives() -> frozenset[str]:
+    """부정 표현: TO21 사전 status.해당없음(실행 때 읽음, 못 읽으면 없음) + A의 추가 표기."""
+    try:
+        from msds.extract.section_prompts import _dictionary
+        words = _dictionary()["status"]["해당없음"]
+    except Exception:
+        words = []
+    return frozenset({_norm(w) for w in words} | set(_KREACH_NEGATIVE_EXTRA))
+
+
 def fill_kreach_applicable(regulations: list[dict]) -> None:
-    """화평법(KREACH) 행에 값(value_raw 또는 threshold)이 있는데 해당 여부(applicable)가 비면 '해당'으로 채운다.
-    값 없는 행과 다른 법령 행은 그대로 둔다 (사용자 결정 10/29, A-1 답의 참고: TO21 정답이 '해당')."""
+    """화평법(KREACH) 행의 해당 여부(applicable)가 비었을 때 값(value_raw 또는 threshold)으로 채운다.
+    값이 부정 표현이면 '비해당', '문의' 안내문이면 비워 두고, 그 밖에 값이 있으면 '해당'이다.
+    값 없는 행과 다른 법령 행은 그대로 둔다 (사용자 결정 10/29, A-1 답 10/30)."""
     for r in regulations:
-        if (r.get("law") == "KREACH" and r.get("applicable") is None
-                and (_has_value(r.get("value_raw")) or _has_value((r.get("threshold") or {}).get("raw")))):
-            r["applicable"] = "해당"
+        if r.get("law") != "KREACH" or r.get("applicable") is not None:
+            continue
+        for text in (r.get("value_raw"), (r.get("threshold") or {}).get("raw")):
+            t = _norm(text)
+            if t in _kreach_negatives():
+                r["applicable"] = "비해당"
+            elif _has_value(text) and "문의" not in t:
+                r["applicable"] = "해당"
+            else:
+                continue
+            break
 
 
 # ── 표기 규칙 자리 (ADR-004) ───────────────────────────
@@ -248,6 +276,14 @@ def expand_msds(sections: dict[int, dict | None], lines_by_id: dict[str, Line],
             elif isinstance(val, dict):
                 objects[key] = (no, val)
 
+    # 서술 구간(양 끝 포함 줄 위치)을 항마다 모은다. extras 거르기에 쓰므로 펼치기 전에 끝낸다 (ADR-022).
+    # narrative()가 문장을 만드는 구간과 같다: 두 끝이 원문에 있고 start <= end.
+    spans: dict[int, list[tuple[int, int]]] = defaultdict(list)
+    for no, r in rows["narratives"]:
+        start, end = r.get("start"), r.get("end")
+        if start in pos and end in pos and pos[start] <= pos[end]:
+            spans[no].append((pos[start], pos[end]))
+
     # 2. TO21 키 순서대로 펼친다. 성분은 다른 행의 comp_ref가 가리키므로 먼저 만든다.
     components = _shape(props["components"], [r for _, r in rows["components"]], lines_by_id)
     item: dict = {}
@@ -268,6 +304,17 @@ def expand_msds(sections: dict[int, dict | None], lines_by_id: dict[str, Line],
             continue
         src = [r for _, r in pairs]
         if key == "extras":
+            # 같은 항 서술 구간 안의 줄을 가리키는 extras는 서술 문장을 다시 쓴 것이라 버리고 항마다 센다
+            kept, dropped = [], Counter()
+            for no, r in pairs:
+                at = pos.get(r.get("line"))
+                if at is not None and any(s <= at <= e for s, e in spans.get(no, ())):
+                    dropped[no] += 1
+                else:
+                    kept.append((no, r))
+            for no, n in dropped.items():
+                problem(no, "extras_in_narrative", f"{n}행")
+            pairs = kept
             src = [{**r, "section_no": no,
                     "page": lines_by_id[r["line"]].page if r.get("line") in lines_by_id else None}
                    for no, r in pairs]

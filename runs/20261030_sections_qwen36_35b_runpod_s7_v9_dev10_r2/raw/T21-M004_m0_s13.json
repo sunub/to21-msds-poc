@@ -1,0 +1,103 @@
+{
+ "doc_id": "T21-M004",
+ "msds_index": 0,
+ "section": 13,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S13_METHOD",
+    "title_raw": "가. 폐기방법",
+    "start": "p13:L21",
+    "end": "p13:L23"
+   },
+   {
+    "item_code": "S13_CAUTION",
+    "title_raw": "나. 폐기시 주의사항",
+    "start": "p13:L24",
+    "end": "p13:L30"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S13_METHOD",
+    "title_raw": "폐기방법 내용",
+    "reason": "필드없음",
+    "statements": [
+     {
+      "value": "- 폐가스소각시설(플레어스택)에 유입하여 소각처리할 것.",
+      "line": "p13:L22"
+     },
+     {
+      "value": "- 단, RTO나 VCU에 유입하여 소각처리할 경우 사전에 운전부서와 협의할 것.",
+      "line": "p13:L23"
+     }
+    ],
+    "suggested_code": "S13_METHOD_CONTENT",
+    "line": "p13:L22"
+   },
+   {
+    "after_item": "S13_CAUTION",
+    "title_raw": "폐기시 주의사항 내용",
+    "reason": "필드없음",
+    "statements": [
+     {
+      "value": "- 빈 용기는 환경관련 법규에 의거 처리 재생할 것.",
+      "line": "p13:L25"
+     },
+     {
+      "value": "- | 빈 용기를 용접, 가열, 절단시 폭발하여 잔류물이 발화할 수도 있음.",
+      "line": "p13:L26"
+     },
+     {
+      "value": "- 빈 용기에 압력을 주면 파열하는 경우가 있음.",
+      "line": "p13:L27"
+     },
+     {
+      "value": "- 작업시에는 \"제8항\"에 의한 적절한 개인보호구를 착용할 것.",
+      "line": "p13:L28"
+     },
+     {
+      "value": "- 화기엄금, 흡입금지, 밀폐보관, 대기중 누출금지",
+      "line": "p13:L29"
+     },
+     {
+      "value": "- 특히 겨울철 액체로 존재할 경우에도 소각처리 불가. 기화시켜 플레어스택에 유입하여 처리할",
+      "line": "p13:L30"
+     }
+    ],
+    "suggested_code": "S13_CAUTION_CONTENT",
+    "line": "p13:L25"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S13_METHOD\",\n      \"title_raw\": \"가. 폐기방법\",\n      \"start\": \"p13:L21\",\n      \"end\": \"p13:L23\"\n    },\n    {\n      \"item_code\": \"S13_CAUTION\",\n      \"title_raw\": \"나. 폐기시 주의사항\",\n      \"start\": \"p13:L24\",\n      \"end\": \"p13:L30\"\n    }\n  ]\n  ,\n  \"extras\": [\n    {\n      \"after_item\": \"S13_METHOD\",\n      \"title_raw\": \"폐기방법 내용\",\n      \"reason\": \"필드없음\",\n      \"statements\": [\n        {\n          \"value\": \"- 폐가스소각시설(플레어스택)에 유입하여 소각처리할 것.\"\n        ,\n          \"line\": \"p13:L22\"\n        },\n        {\n          \"value\": \"- 단, RTO나 VCU에 유입하여 소각처리할 경우 사전에 운전부서와 협의할 것.\"\n        ,\n          \"line\": \"p13:L23\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S13_METHOD_CONTENT\"\n    ,\n      \"line\": \"p13:L22\"\n    },\n    {\n      \"after_item\": \"S13_CAUTION\",\n      \"title_raw\": \"폐기시 주의사항 내용\",\n      \"reason\": \"필드없음\",\n      \"statements\": [\n        {\n          \"value\": \"- 빈 용기는 환경관련 법규에 의거 처리 재생할 것.\"\n        ,\n          \"line\": \"p13:L25\"\n        },\n        {\n          \"value\": \"- | 빈 용기를 용접, 가열, 절단시 폭발하여 잔류물이 발화할 수도 있음.\"\n        ,\n          \"line\": \"p13:L26\"\n        },\n        {\n          \"value\": \"- 빈 용기에 압력을 주면 파열하는 경우가 있음.\"\n        ,\n          \"line\": \"p13:L27\"\n        },\n        {\n          \"value\": \"- 작업시에는 \\\"제8항\\\"에 의한 적절한 개인보호구를 착용할 것.\"\n        ,\n          \"line\": \"p13:L28\"\n        },\n        {\n          \"value\": \"- 화기엄금, 흡입금지, 밀폐보관, 대기중 누출금지\"\n        ,\n          \"line\": \"p13:L29\"\n        },\n        {\n          \"value\": \"- 특히 겨울철 액체로 존재할 경우에도 소각처리 불가. 기화시켜 플레어스택에 유입하여 처리할\"\n        ,\n          \"line\": \"p13:L30\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S13_CAUTION_CONTENT\"\n    ,\n      \"line\": \"p13:L25\"\n    }\n  ]\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 2137,
+  "completion_tokens": 706,
+  "total_tokens": 2843
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 2137,
+    "completion_tokens": 706,
+    "total_tokens": 2843
+   },
+   "seconds": 12.353,
+   "chars": 1666,
+   "whitespace": 729,
+   "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S13_METHOD\",\n      \"title_raw\": \"가. 폐기방법\",\n      \"start\": \"p13:L21\",\n      \"end\": \"p13:L23\"\n    },\n    {\n      \"item_code\": \"S13_CAUTION\",\n      \"title_raw\": \"나. 폐기시 주의사항\",\n      \"start\": \"p13:L24\",\n      \"end\": \"p13:L30\"\n    }\n  ]\n  ,\n  \"extras\": [\n    {\n      \"after_item\": \"S13_METHOD\",\n      \"title_raw\": \"폐기방법 내용\",\n      \"reason\": \"필드없음\",\n      \"statements\": [\n        {\n          \"value\": \"- 폐가스소각시설(플레어스택)에 유입하여 소각처리할 것.\"\n        ,\n          \"line",
+   "tail": ",\n          \"line\": \"p13:L27\"\n        },\n        {\n          \"value\": \"- 작업시에는 \\\"제8항\\\"에 의한 적절한 개인보호구를 착용할 것.\"\n        ,\n          \"line\": \"p13:L28\"\n        },\n        {\n          \"value\": \"- 화기엄금, 흡입금지, 밀폐보관, 대기중 누출금지\"\n        ,\n          \"line\": \"p13:L29\"\n        },\n        {\n          \"value\": \"- 특히 겨울철 액체로 존재할 경우에도 소각처리 불가. 기화시켜 플레어스택에 유입하여 처리할\"\n        ,\n          \"line\": \"p13:L30\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S13_CAUTION_CONTENT\"\n    ,\n      \"line\": \"p13:L25\"\n    }\n  ]\n}"
+  }
+ ],
+ "seconds": 12.355,
+ "check_problems": []
+}

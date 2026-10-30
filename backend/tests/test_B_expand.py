@@ -461,13 +461,32 @@ def test_applicable_kreach_with_value_becomes_haedang(no_conventions):
 
 
 def test_applicable_no_value_or_other_law_unchanged(no_conventions):
+    """값 없는 행, 이미 채워진 행, 다른 법령 행은 그대로다.
+    '비해당'·'해당 없음' 값은 A의 답(10/30, A-1 예외 ①)으로 이제 '비해당'이 된다(예전 기대치 None)."""
     regs = regulations_of([kreach(),
                            kreach(value_raw="자료없음"),
                            kreach(value_raw="비해당"),
                            kreach(threshold={"raw": "해당 없음"}),
                            kreach(value_raw="가상-0002", applicable="비해당"),
                            {"law": "OSH", "item_code": "OSH_MEASURE", "value_raw": "가상", "line": "p6:L10"}])
-    assert [x["applicable"] for x in regs] == [None, None, None, None, "비해당", None]
+    assert [x["applicable"] for x in regs] == [None, None, "비해당", "비해당", "비해당", None]
+
+
+def test_kreach_negative_values_become_bihaedang(no_conventions):
+    regs = regulations_of([kreach(value_raw="해당없음"),
+                           kreach(value_raw="규제되지 않음"),
+                           kreach(value_raw="Not applicable"),
+                           kreach(value_raw="비위험물"),
+                           kreach(value_raw="Unlisted"),
+                           kreach(threshold={"raw": "해당 없음"})])
+    assert [x["applicable"] for x in regs] == ["비해당"] * 6
+
+
+def test_kreach_guidance_and_no_value_not_filled(no_conventions):
+    regs = regulations_of([kreach(value_raw="공급자에게 문의할 것"),
+                           kreach(value_raw="자료없음"),
+                           kreach(value_raw="가상-0001")])
+    assert [x["applicable"] for x in regs] == [None, None, "해당"]
 
 
 def test_omit_empty_check_section_no_problems():
@@ -503,6 +522,66 @@ def test_bad_range():
     m, problems = expand_one(r)
     assert [(p["section"], p["kind"]) for p in problems] == [(4, "bad_range")]
     assert m["narratives"][0]["statements"] == [] and m["narratives"][0]["status"] is None
+
+
+# ── 서술 구간 안의 extras (ADR-022) ────────────────────
+
+NARR_LINES = [L(f"p3:L{i}", f"가상 독성 문장 {i}") for i in range(1, 13)]
+EXTRA_IN = {"title_raw": "가. 소제목", "reason": "코드없음", "line": "p3:L4"}
+EXTRA_OUT = {"title_raw": "비고", "reason": "필드없음", "line": "p3:L9"}
+
+
+def expand_narr(extras_11=(), extras_12=(), start="p3:L2", end="p3:L6"):
+    """11항 서술 구간 하나(start~end)와 11·12항 extras만 있는 가짜 MSDS를 펼친다. 다른 항은 빈 응답이다."""
+    sections = {no: {} for no in range(1, 17)}
+    sections[11] = {"narratives": [narr(11, start, end, "가. 독성 정보")], "extras": list(extras_11)}
+    sections[12] = {"extras": list(extras_12)}
+    return ex.expand_msds(sections, line_index(NARR_LINES), 0, "텍스트층")
+
+
+def kinds(problems, kind="extras_in_narrative"):
+    return [p for p in problems if p["kind"] == kind]
+
+
+def test_extras_in_narrative_dropped(no_conventions):
+    m, problems = expand_narr(extras_11=[EXTRA_IN, EXTRA_OUT])
+    assert [(e["seq"], e["section_no"], e["title_raw"]) for e in m["extras"]] == [(1, 11, "비고")]
+    assert kinds(problems) == [{"msds_index": 0, "section": 11, "kind": "extras_in_narrative", "detail": "1행"}]
+    # 뺀 행은 근거도 남지 않고, 남은 행의 근거가 extras[0]이다
+    extras_ev = [e for e in m["evidence"] if e["field"].startswith("extras")]
+    assert [(e["field"], e["source_text"]) for e in extras_ev] == [("extras[0]", "가상 독성 문장 9")]
+    # 서술 문장은 그대로다
+    assert [s["text"] for s in m["narratives"][0]["statements"]] == [f"가상 독성 문장 {i}" for i in range(2, 7)]
+
+
+def test_extras_in_narrative_bounds_inclusive(no_conventions):
+    """구간 양 끝 줄은 거르고, 바로 바깥 줄은 남긴다."""
+    rows = [{**EXTRA_IN, "title_raw": lid, "line": lid} for lid in ("p3:L1", "p3:L2", "p3:L6", "p3:L7")]
+    m, problems = expand_narr(extras_11=rows)
+    assert [e["title_raw"] for e in m["extras"]] == ["p3:L1", "p3:L7"]
+    assert [p["detail"] for p in kinds(problems)] == ["2행"]
+
+
+def test_extras_in_narrative_other_section_kept(no_conventions):
+    """12항 extras가 11항 서술 구간 안의 줄을 가리켜도 남긴다."""
+    m, problems = expand_narr(extras_12=[EXTRA_IN])
+    assert [(e["section_no"], e["title_raw"]) for e in m["extras"]] == [(12, "가. 소제목")]
+    assert kinds(problems) == []
+
+
+@pytest.mark.parametrize("start, end, kind", [("p3:L6", "p3:L2", "bad_range"), ("p3:L2", "p3:L99", "bad_line")])
+def test_extras_in_narrative_ignores_bad_span(no_conventions, start, end, kind):
+    """구간이 잘못된 서술 행은 거르기에 쓰지 않는다."""
+    m, problems = expand_narr(extras_11=[EXTRA_IN], start=start, end=end)
+    assert [e["title_raw"] for e in m["extras"]] == ["가. 소제목"]
+    assert [p["kind"] for p in problems] == [kind]
+
+
+def test_extras_in_narrative_unknown_line_kept(no_conventions):
+    """원문에 없는 줄을 가리키는 extras는 지금처럼 남기고 bad_line으로 센다."""
+    m, problems = expand_narr(extras_11=[{**EXTRA_IN, "line": "p9:L99"}])
+    assert [e["title_raw"] for e in m["extras"]] == ["가. 소제목"]
+    assert [(p["kind"], p["detail"]) for p in problems] == [("bad_line", "extras[0]: p9:L99")]
 
 
 def test_empty_string_in_format_field_becomes_null(no_conventions):
@@ -629,3 +708,15 @@ def test_module_without_apply_is_ignored(monkeypatch):
     monkeypatch.setitem(sys.modules, name, mod)
     item = {"meta": {}}
     assert ex.apply_conventions(item) is item
+
+
+def test_rows_physchem_no_value_expands_to_q_status(no_conventions, monkeypatch):
+    """행 형식 9항의 text_value 자료없음은 q.status 자료없음이 되고 text_value는 null이다."""
+    monkeypatch.setattr(ex, "now_kst", lambda: "2026-10-29T00:00:00+09:00")
+    text = "\n".join(["### physchem", " | ".join(rw.row_tables(9)["physchem"]),
+                      "ODOR_THRESHOLD |  |  |  | 자료없음 |  |  | p3:L2"])
+    parsed, errors = rw.parse_rows(text, 9)
+    assert errors == []
+    doc = ex.to_to21(DOC_META, [{**responses(), 9: parsed}], LINES, "가상엔진 v1")
+    row = next(r for r in doc[0]["msds"][0]["physchem"] if r["prop_code"] == "ODOR_THRESHOLD")
+    assert row["q"]["status"] == "자료없음" and row["text_value"] is None
