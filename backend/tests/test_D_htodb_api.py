@@ -1,8 +1,11 @@
-"""지식DB 조회 API 통합 시험. 각자 적재한 로컬 PostgreSQL(deploy/htodb/README.md)에 붙는다. DB가 없으면 건너뛴다.
+"""지식DB 조회 API 통합 시험. 각자 적재한 로컬 PostgreSQL(deploy/htodb/README.md)에 붙는다.
 
+DB에 못 붙으면 안내와 함께 실패한다. 건너뛰려면 HTODB_SKIP=1을 준다(일부러 끌 때만).
+DB는 있는데 시험할 행이 없으면 적재가 덜 된 것이므로 건너뛰지 않고 실패한다.
 TO21 자료의 값은 시험 코드에 적지 않는다(D-47). 기대값은 실행 때 DB에서 직접 SQL로 읽어
 'API가 원본 행을 그대로 돌려주는지'를 비교한다. 쓰기 확인은 항상 되돌리는 트랜잭션 안에서만 한다.
 """
+import os
 from decimal import Decimal
 
 import psycopg
@@ -14,15 +17,24 @@ from msds.compliance.htodb.config import pg_kwargs
 from msds.compliance.htodb.mapping import code_sites
 
 
-def _db_up() -> bool:
+def _db_error() -> str | None:
     try:
         psycopg.connect(**pg_kwargs("reader"), connect_timeout=2).close()
-        return True
-    except Exception:
-        return False
+        return None
+    except Exception as e:
+        return f"{type(e).__name__}: {e}".strip()
 
 
-pytestmark = pytest.mark.skipif(not _db_up(), reason="지식DB(로컬 PostgreSQL) 없음: deploy/htodb/README.md")
+if os.environ.get("HTODB_SKIP") == "1":
+    pytestmark = pytest.mark.skip(reason="HTODB_SKIP=1: 지식DB 시험을 일부러 끔")
+elif (_err := _db_error()) is not None:
+    # 시험 수십 개가 같은 이유로 실패하므로, 수집 단계에서 한 번만 알리고 멈춘다(conftest의 TO21 파일 확인과 같은 방식).
+    pytest.fail(
+        f"지식DB(로컬 PostgreSQL)에 붙지 못했습니다 ({_err}).\n"
+        "deploy/htodb/README.md 순서로 적재하고 띄운 뒤 다시 실행하세요.\n"
+        "지식DB 없이 다른 시험만 돌리려면 HTODB_SKIP=1 을 주세요.",
+        pytrace=False,
+    )
 T = "htodb"
 
 
@@ -48,7 +60,7 @@ def sql(db, query, params=()):
 def one(db, query, params=()):
     rows = sql(db, query, params)
     if not rows:
-        pytest.skip(f"조건에 맞는 행이 없음: {query}")
+        pytest.fail(f"지식DB에 시험할 행이 없습니다. 적재가 덜 됐는지 확인하세요: {query}")
     return rows[0]
 
 
@@ -160,17 +172,17 @@ def _expected_parsed(part, rows, chem_row):
 def test_parsed_matches_parsers_per_rule(client, db, rule):
     """규칙마다 그 규칙이 값을 뽑아내는 행을 가진 물질을 골라, API의 parsed가 행마다 parsers 결과와 같은지 본다."""
     part, table, col, keys = PARSE_RULES[rule]
-    cands = sql(db, f"SELECT DISTINCT chem_id FROM {T}.{table} WHERE {col} = ANY(%s) ORDER BY chem_id LIMIT 50", (keys,))
-    for c in cands:
-        d = data(client.get(f"/chemicals/{c['chem_id']}/{part}", params={"parsed": "true"}))
-        hit = [x for x in d["parsed"] if x and x["rule"] == rule and x["result"] is not None]
-        if hit:
-            break
-    else:
-        pytest.skip(f"{rule}: 값이 뽑히는 행을 가진 물질이 없음")
-    chem_row = sql(db, f"SELECT * FROM {T}.tb_eng_chem_master_info WHERE chem_id = %s", (c["chem_id"],))[0]
+    parse = parsers.parse_toxicity_row if part == "toxicity" else parsers.parse_property_row
+    # 그 규칙의 행을 모두 읽어 값이 뽑히는 첫 물질을 고른다(분자량은 성공 여부에 영향 없음). 없으면 적재 문제로 보고 실패.
+    rows = sql(db, f"SELECT * FROM {T}.{table} WHERE {col} = ANY(%s) ORDER BY chem_id", (keys,))
+    chem_id = next((r["chem_id"] for r in rows if (x := parse(r)) and x["result"] is not None), None)
+    if chem_id is None:
+        pytest.fail(f"{rule}: 지식DB에 값이 뽑히는 행이 없습니다. 적재가 덜 됐는지 확인하세요")
+    d = data(client.get(f"/chemicals/{chem_id}/{part}", params={"parsed": "true"}))
+    assert any(x and x["rule"] == rule and x["result"] is not None for x in d["parsed"])
+    chem_row = sql(db, f"SELECT * FROM {T}.tb_eng_chem_master_info WHERE chem_id = %s", (chem_id,))[0]
     assert d["parsed"] == _expected_parsed(part, d["rows"], chem_row)                    # 행 순서까지 맞물림
-    assert same_rows(d["rows"], sql(db, f"SELECT * FROM {T}.{table} WHERE chem_id = %s", (c["chem_id"],)))
+    assert same_rows(d["rows"], sql(db, f"SELECT * FROM {T}.{table} WHERE chem_id = %s", (chem_id,)))
 
 
 def test_parsed_uses_molecular_weight(client, db):
