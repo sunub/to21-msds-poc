@@ -27,6 +27,23 @@ select { font: inherit; max-width: 100%; }
 .status { color: var(--muted); font-size: 13px; flex-basis: 100%; min-width: 0; }
 .status:empty { display: none; }
 .status.bad { color: var(--no); }
+.status-row { display: flex; align-items: baseline; gap: 12px; flex-basis: 100%; min-width: 0; }
+.status-row .status { flex: 1; }
+.start-link { font-size: 13px; color: var(--now); white-space: nowrap; }
+#start-content { max-width: 75ch; }
+.journey-intro p { margin: 4px 0; }
+.journey-heading { font-size: 18px; margin: 20px 0 8px; }
+.journey-steps { list-style: none; padding: 0; margin: 0; }
+.journey-step { border: 1px solid var(--line); border-radius: 6px; padding: 12px 16px; margin-bottom: 12px; }
+.journey-step.current { border-color: var(--now); background: var(--soft); }
+.journey-step h3 { font-size: 15px; margin: 0 0 4px; }
+.journey-step p { margin: 4px 0 8px; }
+.journey-state { font-size: 13px; margin-left: 8px; }
+.journey-later { margin: 16px 0; }
+.journey-later summary { cursor: pointer; }
+.journey-later p { margin: 4px 0 8px; }
+.journey-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.value-pick { text-align: left; color: inherit; background: transparent; border-radius: 4px; width: 100%; overflow-wrap: anywhere; }
 .error-note { max-width: 75ch; overflow-wrap: anywhere; }
 .error-note p { margin: 2px 0 8px; }
 .error-note pre { white-space: pre-wrap; }

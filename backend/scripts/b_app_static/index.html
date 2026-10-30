@@ -10,6 +10,7 @@
 <header class="top">
   <h1>B 작업 화면</h1>
   <nav class="tabs">
+    <button type="button" data-tab="start">시작</button>
     <button type="button" data-tab="score">① 점수판</button>
     <button type="button" data-tab="diff">② 두 실행 비교</button>
     <button type="button" data-tab="doc">③ 원문 대조</button>
@@ -18,10 +19,16 @@
     <button type="button" data-tab="help">도움말</button>
   </nav>
   <label class="advanced"><input type="checkbox" id="advanced"> 고급(서버 관리) 보기</label>
-  <div id="status" class="status" role="status" aria-live="polite"></div>
+  <div class="status-row">
+    <div id="status" class="status" role="status" aria-live="polite"></div>
+    <a href="#start" class="start-link">시작 안내</a>
+  </div>
 </header>
 
 <main>
+  <section id="tab-start" class="tab">
+    <div id="start-content"></div>
+  </section>
   <section id="tab-score" class="tab">
     <p class="what">이 화면은 실행 하나의 점수가 합격 기준까지 얼마나 남았는지 보여 줍니다.<br>
       어느 항목이 왜 깎였는지, 문서마다 걸린 시간과 모델 호출 상태도 함께 봅니다. <a href="#help" data-help="s2">자세히 → 도움말 2장</a></p>
@@ -85,6 +92,7 @@
   <section id="tab-help" class="tab">
     <p class="what">이 화면은 작업 화면의 용어와 읽는 법을 설명합니다.<br>
       처음 보는 말이 나오면 여기서 찾습니다.</p>
+    <button type="button" id="journey-replay" hidden></button>
     <iframe id="help-frame" class="helpframe" title="도움말" data-src="/static/guide.html"></iframe>
   </section>
 </main>

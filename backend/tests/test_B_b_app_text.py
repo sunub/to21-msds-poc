@@ -7,6 +7,24 @@ import pytest
 from test_B_compare_models import SCRIPTS
 
 
+def test_start_text_contract(text):
+    start = text.START_TEXT
+    assert len(start["intro"]) == 3 and all(start["intro"])
+    assert [s["no"] for s in start["steps"]] == [1, 2, 3]
+    assert len(start["later"]) == 3
+    tabs = {"score", "doc", "diff", "jobs", "servers"}
+    for step in start["steps"]:
+        assert all(step[k] for k in ("title", "why", "button", "tab"))
+        assert step["tab"] in tabs
+    for later in start["later"]:
+        assert all(later[k] for k in ("title", "line", "button", "tab"))
+        assert later["tab"] in tabs
+    for key in ("empty_runs", "no_drops", "no_line"):
+        assert isinstance(start[key], str) and start[key]
+    assert "runs/" in start["empty_runs"] and "run_sections.py" in start["empty_runs"]
+    assert "②" in start["no_drops"] and "다른 값" in start["no_line"]
+
+
 @pytest.fixture
 def text(monkeypatch):
     monkeypatch.syspath_prepend(str(SCRIPTS))
