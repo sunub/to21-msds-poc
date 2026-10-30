@@ -21,7 +21,8 @@ def fake_silver(tmp_path: Path, applied: bool = False) -> Path:
         "exposure_limits": [{"standard": "국내", "limit_type": "TWA" if applied else "기타",
                              "q": {"status": "자료없음"}}],
         "toxicity": [{"comp_ref": "C1", "endpoint": "TX_ORAL", "status": "자료없음",
-                      "descriptor": "결과기술" if applied else None}],
+                      "descriptor": "결과기술" if applied else None,
+                      "q": {"raw": "자료없음", "status": "자료없음"} if applied else None}],
     }
     p = tmp_path / "T21-X01.json"
     p.write_text(json.dumps({"doc": {"doc_id": "T21-X01"}, "msds": [msds]}, ensure_ascii=False, indent=2),
