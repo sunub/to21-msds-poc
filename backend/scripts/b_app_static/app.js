@@ -5,7 +5,12 @@
 const S = {list: [], criteria: null, gaps: [], limit: 300, name: null, run: null, open: null, pick: loadPick(),
   diff: {a: null, b: null, key: null, data: null, error: null, why: new Set(), vals: new Set(), open: new Set(), prompts: {}},
   doc: {run: null, doc: null, key: null, data: null, error: null, page: null, pick: null,
-    selLines: new Set(), selPaths: new Set(), open: new Set()}};
+    selLines: new Set(), selPaths: new Set(), open: new Set()},
+  jobs: {opts: null, error: null, list: [], running: [], pollError: null, timer: null, watch: null, result: null, tried: null,
+    log: null, msg: {},
+    t: {model: null, doc: null, pages: null, all: false, secs: new Set([11]), edit: false, text: "", textFor: null, base: "", dry: false},
+    r: {model: null, pages: null, docs: null, repeat: 2, name: "", edited: false},
+    c: {picked: [], labels: {}, title: ""}}};
 const LEVELS = ["필수", "중요", "일반"];
 const COLORS = ["#0969da", "#8250df", "#bf3989", "#1a7f37", "#9a6700", "#57606a"];
 const ROW_LABEL = {
@@ -104,6 +109,7 @@ async function loadAll() {
   await loadRun(keep ? S.name : data.current);
   await initDiff();
   await initDoc();
+  if (S.jobs.opts) renderJobs();                     // 새 실행 목록으로 기준 실행·비교표 고르기를 다시 그린다
   const broken = S.list.filter(r => r.error).length;
   status(broken ? `읽지 못한 실행 ${broken}개 (쓰는 중일 수 있습니다)` : "");
 }
@@ -876,8 +882,435 @@ function pickLine(id) {
   scrollInto(document.getElementById("doc-right"), document.querySelector("#doc-right .pv.hl"));
 }
 
+// ── 탭 ④ 작업 ─────────────────────────────────────────
+// 시험(try_section.py)·본 실행(run_sections.py)·비교표(compare_models.py)를 띄우고 진행을 본다. 고쳐 쓴 안내문은 이 화면의
+// 메모리에만 있고 보낼 때 서버가 저장소 밖 임시 파일로 넘긴 뒤 지운다 (D-47).
+
+const JOB_KIND = {try: "시험", run: "본 실행", compare: "비교표"};
+const JOB_STATUS = {running: "돌아감", done: "끝남", failed: "실패", stopped: "멈춤", unknown: "모름"};
+const JOB_TIP = {unknown: "앱을 다시 켜기 전에 시작한 작업이라 결과를 모릅니다. 로그나 실행 폴더를 보세요.\n아직 돌고 있으면 아래에 '다른 터미널에서'로 따로 보입니다."};
+const range16 = () => Array.from({length: 16}, (_, i) => i + 1);
+const field = (label, ...kids) => h("div", {class: "jfield"}, h("span", {class: "jlab"}, label), ...kids);
+const fromRuns = p => { const s = String(p || ""), i = s.lastIndexOf("/runs/"); return i >= 0 ? s.slice(i + 1) : s; };
+const clock = t => {
+  const d = new Date(t * 1000), p = n => String(n).padStart(2, "0");
+  return `${p(d.getMonth() + 1)}-${p(d.getDate())} ${p(d.getHours())}:${p(d.getMinutes())}`;
+};
+
+async function post(path, body) {
+  const r = await fetch(path, {method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify(body),
+    cache: "no-store"});
+  return {status: r.status, data: await r.json().catch(() => ({}))};
+}
+
+async function initJobs() {
+  if (!S.jobs.opts) await loadOptions();
+  renderJobs();
+  await pollJobs();
+}
+
+// 모델(연결 여부)·개발용 문서·쪽 폴더·추천 실행 이름. 처음 고를 모델은 연결된 항목별 추출 모델(행 형식 항이 있는 태그)
+async function loadOptions() {
+  const J = S.jobs;
+  try {
+    J.opts = await api("/api/options");
+    J.error = null;
+  } catch (e) {
+    J.error = e.message;
+    return;
+  }
+  const o = J.opts, usable = m => !o.status_checked || m.connected;
+  const extract = m => m.rows_sections.length > 0;   // 실버용 태그(gpt·claude)보다 항목별 추출 모델을 먼저
+  const pick = o.models.find(m => usable(m) && extract(m)) || o.models.find(usable) || o.models.find(extract) || o.models[0];
+  for (const f of [J.t, J.r]) {
+    if (!o.models.some(m => m.tag === f.model && usable(m))) f.model = pick ? pick.tag : null;
+    if (!o.pages_dirs.some(p => p.value === f.pages)) f.pages = o.default_pages_dir;
+  }
+  if (!o.docs.some(d => d.doc_id === J.t.doc)) J.t.doc = o.docs.length ? o.docs[0].doc_id : null;
+  if (!J.r.docs) J.r.docs = new Set(o.docs.map(d => d.doc_id));
+  if (!J.r.edited) J.r.name = suggestName();
+}
+
+function suggestName() {
+  const o = S.jobs.opts, R = S.jobs.r;
+  const all = o.docs.length > 0 && o.docs.every(d => R.docs.has(d.doc_id));
+  return (((o.run_names[R.model] || {})[R.pages] || {})[all ? "dev10" : "probe"]) || "";
+}
+
+function renderJobs() {
+  renderJobTry();
+  renderJobRun();
+  renderJobCompare();
+  renderJobResult();
+  renderJobList();
+}
+
+function modelSelect(f, anyModel, after) {
+  const o = S.jobs.opts, off = m => o.status_checked && !m.connected;
+  return h("select", {onchange: e => { f.model = e.target.value; after(); }},
+    o.models.map(m => h("option", {value: m.tag, selected: m.tag === f.model, disabled: off(m) && !anyModel},
+      m.tag + (off(m) ? " — 연결 안 됨" : ""))));
+}
+
+function pagesSelect(f, after) {
+  return h("select", {onchange: e => { f.pages = e.target.value; after(); }},
+    S.jobs.opts.pages_dirs.map(p => h("option", {value: p.value, selected: p.value === f.pages}, p.name)));
+}
+
+function connNote() {
+  const o = S.jobs.opts;
+  const tip = o.models.map(m => `${m.tag}: ${m.connected ? "연결됨" : m.connected === false ? "연결 안 됨 (" + m.error + ")" : "확인 안 함"}`).join("\n");
+  return h("span", {class: "hint", "data-tip": tip},
+    o.status_checked ? `연결된 모델 ${o.models.filter(m => m.connected).length}개 ` : "모델 서버 연결은 확인하지 않았습니다 ",
+    h("button", {type: "button", onclick: () => loadOptions().then(renderJobs).catch(fail)}, "연결 다시 보기"));
+}
+
+function jobMsg(key) {
+  const m = S.jobs.msg[key];
+  return m ? h("p", {class: m.ok ? "okt" : "badt"}, m.text) : null;
+}
+
+const loadingCard = (id, title, hint) => card(id, title, hint, h("p", {class: S.jobs.error ? "badt" : "hint"},
+  S.jobs.error ? "고를 거리를 불러오지 못했습니다: " + S.jobs.error : "불러오는 중… (모델 서버 연결을 확인하느라 몇 초 걸릴 수 있습니다)"));
+
+// ── 시험하기 ─────────────────────────────────────────
+
+function renderJobTry() {
+  const J = S.jobs, o = J.opts, T = J.t;
+  const hint = "항 하나·여러 개·문서 전체를 모델에 다시 보내 봅니다. 결과는 기준 실행의 다른 항 답에 끼워 채점합니다. 기록은 runs/manual/에 남습니다.";
+  if (!o) return loadingCard("jobs-try-card", "시험하기", hint);
+  const one = !T.all && T.secs.size === 1, no = one ? [...T.secs][0] : null;
+  if (!one) T.edit = false;
+  const radio = (name, on, text, set, attrs) => h("label", {class: "chk", ...(attrs || {})},
+    h("input", {type: "radio", name, checked: on, disabled: (attrs || {}).disabled, onchange: () => { set(); renderJobTry(); }}), text);
+  const boxes = range16().map(n => h("label", {class: "chk"}, h("input", {type: "checkbox", checked: T.secs.has(n), disabled: T.all,
+    onchange: e => { e.target.checked ? T.secs.add(n) : T.secs.delete(n); renderJobTry(); }}), n));
+  const bases = runsShown().filter(r => r.model_tag === T.model && [...(r.docs || []), ...(r.no_gold || [])].includes(T.doc)).reverse();
+  if (T.base && !bases.some(r => r.name === T.base)) T.base = "";
+  const editor = T.edit ? h("div", {class: "jedit"},
+    h("p", {class: "warn"}, "고쳐 쓴 글은 저장되지 않습니다. 화면을 새로 고치면 사라집니다. 보낸 뒤 임시 파일은 지우고, 기록에는 글의 해시만 남습니다."),
+    h("button", {type: "button", onclick: () => loadPrompt(no).catch(e => { J.msg.try = {text: e.message}; renderJobTry(); })},
+      `${no}항의 지금 안내문 불러오기`),
+    T.textFor && T.textFor !== `${T.model}|${no}` ? h("span", {class: "hint"}, " 글상자의 글은 다른 모델이나 항에서 불러온 것입니다.") : null,
+    h("textarea", {class: "jtext", rows: 14, spellcheck: "false", oninput: e => { T.text = e.target.value; }}, T.text)) : null;
+  card("jobs-try-card", "시험하기", hint,
+    field("모델", modelSelect(T, T.dry, renderJobTry)),
+    field("문서", h("select", {onchange: e => { T.doc = e.target.value; renderJobTry(); }},
+      o.docs.map(d => h("option", {value: d.doc_id, selected: d.doc_id === T.doc}, d.doc_id)))),
+    field("쪽 폴더", pagesSelect(T, renderJobTry)),
+    field("범위", radio("tscope", !T.all, "항 고르기", () => { T.all = false; }),
+      radio("tscope", T.all, "문서 전체(16개 항)", () => { T.all = true; })),
+    h("div", {class: "boxes"}, boxes),
+    field("안내문", radio("tprompt", !T.edit, "코드가 만든 것", () => { T.edit = false; }),
+      radio("tprompt", T.edit, "고쳐 쓰기", () => { T.edit = true; },
+        {disabled: !one, "data-tip": one ? null : "항을 하나만 고르면 쓸 수 있습니다"})),
+    editor,
+    field("기준 실행", h("select", {onchange: e => { T.base = e.target.value; }, "data-tip": "새 항 답을 끼워 넣을 실행. 그 실행의 점수가 '전', 끼운 뒤 점수가 '후'입니다"},
+      h("option", {value: "", selected: !T.base}, "자동 (같은 모델의 가장 최근 dev10 실행)"),
+      bases.map(r => h("option", {value: r.name, selected: r.name === T.base}, runLabel(r))))),
+    h("label", {class: "chk", "data-tip": "서버를 부르지 않고 ① 보낸 입력과 ② 안내문만 봅니다. 연결 안 된 모델도 고를 수 있습니다"},
+      h("input", {type: "checkbox", checked: T.dry, onchange: e => { T.dry = e.target.checked; renderJobTry(); }}), "dry-run (서버 없이 입력·안내문만)"),
+    h("div", {class: "pickrow"},
+      h("button", {type: "button", class: "primary", onclick: () => startTry().catch(e => { J.msg.try = {text: e.message}; renderJobTry(); })},
+        T.dry ? "입력·안내문 보기" : "돌리기"), connNote()),
+    jobMsg("try"));
+}
+
+async function loadPrompt(no) {
+  const T = S.jobs.t;
+  const d = await api("/api/prompt?" + query({model: T.model, no}));
+  T.text = d.text;
+  T.textFor = `${T.model}|${no}`;
+  renderJobTry();
+}
+
+async function startTry() {
+  const J = S.jobs, T = J.t, o = J.opts, m = o.models.find(x => x.tag === T.model);
+  if (!T.dry && o.status_checked && !(m && m.connected)) throw new Error("연결된 모델을 고르세요. dry-run은 연결 없이 됩니다.");
+  if (T.edit && !T.text.trim()) throw new Error("고쳐 쓴 안내문이 비었습니다. '지금 안내문 불러오기'로 채운 뒤 고치세요.");
+  const {status, data} = await post("/api/jobs/try", {model: T.model, doc: T.doc, all: T.all,
+    sections: T.all ? null : [...T.secs].sort((a, b) => a - b), pages_dir: T.pages,
+    system_text: T.edit ? T.text : null, base_run: T.base || null, dry_run: T.dry});
+  if (status !== 200) throw new Error(data.error || `요청 실패 (${status})`);
+  J.msg.try = null;
+  Object.assign(J, {watch: data.id, result: null, tried: null});
+  renderJobTry();
+  await pollJobs();
+  document.getElementById("jobs-result-card").scrollIntoView({behavior: "smooth", block: "start"});
+}
+
+// ── 시험 결과: 단계 6개를 접고 펼친다 ─────────────────
+
+function renderJobResult() {
+  const J = S.jobs, id = J.watch;
+  const hint = "시험하기에서 돌린 결과를 단계별로 접어 둡니다. 제목을 누르면 펼칩니다. 작업 목록의 '결과'로 지난 시험도 볼 수 있습니다.";
+  if (!id) return card("jobs-result-card", "시험 결과", hint, h("p", {class: "hint"}, "아직 고른 시험이 없습니다."));
+  const job = J.list.find(j => j.id === id);
+  const head = h("p", null, h("b", null, job ? job.label : id), " — ", job ? jobStatus(job) : "…");
+  if (!J.result) {
+    const why = !job || job.status === "running" ? "끝나면 여기에 나옵니다." : "로그에 결과 JSON이 없습니다. 아래 작업 목록에서 로그를 보세요.";
+    return card("jobs-result-card", "시험 결과", hint, head, h("p", {class: "hint"}, why));
+  }
+  card("jobs-result-card", "시험 결과", hint, head, tryStages(J.result));
+}
+
+function stage(title, open, ...kids) {
+  return h("details", {class: "stage", open: open || null}, h("summary", null, title), h("div", {class: "stagebody"}, ...kids));
+}
+
+function tryStages(R) {
+  const p = R.plan || {}, secs = Object.values(p.sections || {});
+  const out = [
+    stage("① 보낸 입력", false,
+      h("p", null, `${p.doc_id} · ${p.model_tag} (${p.model}) · 쪽 글자 ${p.pages_dir} · 항목 분할 ${p.sections_method} · MSDS ${p.msds_count}건(첫 건만)`),
+      h("table", {class: "list"},
+        h("thead", null, h("tr", null, ["항", "형식", "보낸 줄(머리)", "항 구간", "분할", "쪽", "이미지"].map(x => h("th", null, x)))),
+        h("tbody", null, secs.map(s => h("tr", null, h("td", null, `${s.section}항`), h("td", null, s.rows ? "행 형식" : "JSON"),
+          h("td", {class: "num"}, `${s.lines} (${s.preamble_lines})`), h("td", {class: "mono"}, `${s.first} ~ ${s.last}`),
+          h("td", null, s.method), h("td", null, (s.pages || []).join(", ")), h("td", null, (s.images || []).join(", ") || "없음"))))),
+      (p.warnings || []).map(w => h("p", {class: "warn"}, "주의: " + w))),
+    stage("② 안내문", false,
+      h("p", {class: "hint"}, "안내문 글은 기록하지 않습니다. 실행 기록과 같은 규칙의 해시(sha256 앞 12자리)만 보입니다. 글은 위 '고쳐 쓰기 → 불러오기'로 봅니다."),
+      h("ul", null, secs.map(s => h("li", null, `${s.section}항 해시 `, h("span", {class: "mono"}, s.prompt_hash),
+        s.system_override ? h("b", null, " (고쳐 쓴 안내문)") : ""))))];
+  if (R.run) {                                       // 문서 전체 (--all)
+    const run = R.run;
+    out.push(stage("③~⑤ 문서 전체 실행", true,
+      h("p", null, `성공 ${run.sections_ok}항 · 실패 ${run.sections_failed}항 · 재추출 ${run.reextracted}항 · ${fmt1(run.seconds)}초`),
+      h("p", {class: "hint"}, "문서 전체는 실행기로 돌려서 항별 원문 답은 기록 폴더의 raw/에 있습니다. 탭 ①·③에서 그 기록([수동])을 고르면 값과 줄을 봅니다.")));
+    out.push(stage("⑥ 점수 전 → 후", true, scoreView(R.score, (R.summary || {}).weighted, R.base_run, null)));
+  } else if (!R.results) {
+    out.push(h("p", {class: "hint"}, "dry-run이라 서버를 부르지 않았습니다. ③~⑥은 없습니다."));
+  } else {
+    const res = Object.values(R.results);
+    out.push(stage("③ 모델 원문 답", false, res.map(r => h("details", {class: "dtab"},
+      h("summary", null, `${r.section}항 · 방식 ${r.mode || "—"} · 끝난 이유 ${r.finish_reason || "—"} · ${fmt1(r.seconds)}초`),
+      h("pre", {class: "log"}, r.raw_text || "(응답 없음)")))));
+    out.push(stage("④ 읽은 결과", false, res.map(r => h("div", {class: "secres"},
+      h("p", null, h("b", {class: r.ok ? "okt" : "badt"}, `${r.section}항 ${r.ok ? "성공" : "실패"}`),
+        ` · 버린 줄 ${r.dropped_rows} · ${r.reextracted ? "재추출 결과" : "첫 시도"} · 시도 ${r.attempts}회`,
+        ` · 입력 ${(r.usage || {}).prompt_tokens ?? "—"} / 출력 ${(r.usage || {}).completion_tokens ?? "—"} 토큰`),
+      (r.errors || []).map(e => h("p", {class: "badt"}, "오류: " + e)),
+      (r.check_problems || []).map(e => h("p", {class: "warn"}, "줄 번호 검사: " + e)),
+      r.parsed ? h("details", {class: "dtab"}, h("summary", null, "읽은 값 (JSON)"), h("pre", {class: "log"}, JSON.stringify(r.parsed, null, 1))) : null))));
+    out.push(stage("⑤ 펼친 TO21 칸", false,
+      h("p", {class: "hint"}, "표는 행 수, 객체는 값이 있는 칸 수입니다. 서술·extras는 그 항의 것만 셉니다."),
+      h("ul", null, Object.entries(R.fields || {}).map(([no, f]) => h("li", null, `${no}항: `,
+        Object.entries(f).map(([k, n]) => `${ROW_LABEL[k] || k} ${n}`).join(", ") || "없음")))));
+    out.push(stage("⑥ 점수 전 → 후", true, scoreView(R.score, null, R.base_run, R.score_skipped)));
+  }
+  if (R.saved) out.push(h("p", {class: "hint"}, "기록: ", h("span", {class: "mono"}, fromRuns(R.saved))));
+  return out;
+}
+
+function scoreView(sc, weighted, base, skipped) {
+  if (!sc) {
+    return [num(weighted) ? h("p", null, `가중 종합 ${fmt1(weighted)}점`) : null,
+      h("p", {class: "hint"}, "점수 전 → 후는 건너뛰었습니다: " + (skipped || "기준 실행이나 정답이 없습니다"))];
+  }
+  const d = sc.after.weighted - sc.before.weighted;
+  return [h("div", {class: "chgrow"}, h("span", {class: "glabel"}, "가중 종합"),
+      h("b", null, `${fmt1(sc.before.weighted)} → ${fmt1(sc.after.weighted)}`), h("span", {class: trend(d)}, `(${signed(d)})`)),
+    base ? h("p", {class: "hint"}, "기준 실행: ", h("span", {class: "mono"}, fromRuns(base))) : null,
+    sc.changed.length
+      ? h("table", {class: "list cond"}, h("thead", null, h("tr", null, h("th", null, "바뀐 항목"), h("th", null, "전"), h("th", null, "후"))),
+        h("tbody", null, sc.changed.map(c => h("tr", null, h("td", null, c.name), h("td", {class: "num"}, pct(c.before)),
+          h("td", {class: "num " + (trend((c.after ?? 0) - (c.before ?? 0)) || "")}, pct(c.after))))))
+      : h("p", null, "바뀐 항목 없음"),
+    (sc.warnings || []).map(w => h("p", {class: "warn"}, "주의: " + w))];
+}
+
+async function loadResult(id) {
+  const r = await fetch(`/api/jobs/${encodeURIComponent(id)}/result`, {cache: "no-store"});
+  const data = r.status === 200 ? await r.json().catch(() => null) : null;
+  if (S.jobs.watch !== id) return;
+  Object.assign(S.jobs, {result: data, tried: id});
+  renderJobResult();
+}
+
+function watchTry(id) {
+  Object.assign(S.jobs, {watch: id, result: null, tried: null});
+  renderJobResult();
+  loadResult(id).catch(fail);
+  document.getElementById("jobs-result-card").scrollIntoView({behavior: "smooth", block: "start"});
+}
+
+// ── 본 실행 ───────────────────────────────────────────
+
+function renderJobRun() {
+  const J = S.jobs, o = J.opts, R = J.r;
+  const hint = "개발용 문서를 run_sections.py로 n회 돌립니다. 실행 이름 끝에 _r1, _r2…가 붙습니다. Mac이 잠들어 멈추지 않게 caffeinate로 감쌉니다.";
+  if (!o) return loadingCard("jobs-run-card", "본 실행", hint);
+  const refill = () => { if (!R.edited) R.name = suggestName(); renderJobRun(); };
+  const boxes = o.docs.map(d => h("label", {class: "chk"}, h("input", {type: "checkbox", checked: R.docs.has(d.doc_id),
+    onchange: e => { e.target.checked ? R.docs.add(d.doc_id) : R.docs.delete(d.doc_id); refill(); }}), d.doc_id));
+  card("jobs-run-card", "본 실행", hint,
+    field("모델", modelSelect(R, false, refill)),
+    field("쪽 폴더", pagesSelect(R, refill)),
+    field("문서", `${R.docs.size}/${o.docs.length}건`,
+      h("button", {type: "button", onclick: () => { R.docs = new Set(o.docs.map(d => d.doc_id)); refill(); }}, "모두"),
+      h("button", {type: "button", onclick: () => { R.docs.clear(); refill(); }}, "없음")),
+    h("div", {class: "boxes"}, boxes),
+    field("반복", h("input", {type: "number", min: 1, max: 10, value: R.repeat, class: "jnum",
+      oninput: e => { R.repeat = Math.round(+e.target.value); }}), "회"),
+    field("실행 이름", h("input", {type: "text", class: "jname mono", value: R.name,
+      oninput: e => { R.name = e.target.value; R.edited = true; }}),
+      h("button", {type: "button", "data-tip": "날짜_sections_모델 태그_안내문 버전_입력판_용도.\n개발용 10건을 모두 고르면 dev10, 아니면 probe. 같은 이름이 있으면 _2를 붙입니다.",
+        onclick: () => { R.edited = false; refill(); }}, "추천 이름")),
+    h("p", {class: "hint"}, "이름에 dev10이 든 실행은 점수판이 먼저 보여 주고, 시험하기의 '자동' 기준 실행이 됩니다."),
+    h("div", {class: "pickrow"},
+      h("button", {type: "button", class: "primary", onclick: () => startRun().catch(e => { J.msg.run = {text: e.message}; renderJobRun(); })}, "시작"),
+      connNote()),
+    jobMsg("run"));
+}
+
+async function startRun() {
+  const J = S.jobs, R = J.r, o = J.opts, m = o.models.find(x => x.tag === R.model);
+  if (o.status_checked && !(m && m.connected)) throw new Error("연결된 모델을 고르세요.");
+  const body = {model: R.model, docs: o.docs.map(d => d.doc_id).filter(d => R.docs.has(d)), pages_dir: R.pages,
+    run_name: R.name.trim(), repeat: R.repeat};
+  if (!body.docs.length) throw new Error("문서를 하나 이상 고르세요.");
+  let {status, data} = await post("/api/jobs/run", body);
+  if (status === 409 && data.needs_confirm) {           // 서버가 요약을 돌려주면 확인 창을 띄우고 한 번 더 보낸다
+    if (!window.confirm(data.summary + "\n\n이대로 시작할까요?")) return;
+    ({status, data} = await post("/api/jobs/run", {...body, confirm: true}));
+  }
+  if (status !== 200) throw new Error(data.error || `요청 실패 (${status})`);
+  J.msg.run = {ok: true, text: `시작했습니다: ${body.run_name}_r1${body.repeat > 1 ? ` ~ _r${body.repeat}` : ""}. 진행은 아래 작업 목록에 나옵니다.`};
+  renderJobRun();
+  await pollJobs();
+}
+
+// ── 비교표 ───────────────────────────────────────────
+
+function renderJobCompare() {
+  const J = S.jobs, C = J.c;
+  const hint = "실행 여러 개를 정답 자리(실버)와 채점해 비교표 compare.md를 만듭니다. 고른 순서대로 들어갑니다. 라벨을 비우면 실행 이름이 쓰입니다.";
+  const rows = runsShown().slice().reverse().map(r => {
+    const on = C.picked.includes(r.name);
+    return h("div", {class: "cmprow"},
+      h("label", {class: "chk", "data-tip": runLabel(r)}, h("input", {type: "checkbox", checked: on, onchange: e => {
+        if (e.target.checked) C.picked.push(r.name); else C.picked.splice(C.picked.indexOf(r.name), 1);
+        renderJobCompare();
+      }}), h("span", {class: "mono"}, r.name)),
+      on ? h("span", null, h("small", null, `${C.picked.indexOf(r.name) + 1}번 `),
+        h("input", {type: "text", class: "jlabel", placeholder: "라벨", value: C.labels[r.name] || "",
+          oninput: e => { C.labels[r.name] = e.target.value; }})) : null);
+  });
+  card("jobs-compare-card", "비교표", hint,
+    h("div", {class: "cmplist"}, rows.length ? rows : h("p", {class: "hint"}, "실행 목록을 불러오는 중이거나 실행이 없습니다.")),
+    h("p", {class: "hint"}, `고른 실행 ${C.picked.length}개. 목록은 점수판의 '다시 읽기'를 누르면 새로 읽습니다.`),
+    field("제목", h("input", {type: "text", class: "jname", value: C.title, placeholder: "예: rows_s7_v9_vs_s6",
+      oninput: e => { C.title = e.target.value; }})),
+    h("div", {class: "pickrow"}, h("button", {type: "button", class: "primary",
+      onclick: () => startCompare().catch(e => { J.msg.cmp = {text: e.message}; renderJobCompare(); })}, "만들기")),
+    jobMsg("cmp"));
+}
+
+async function startCompare() {
+  const J = S.jobs, C = J.c;
+  if (!C.picked.length) throw new Error("실행을 하나 이상 고르세요.");
+  const labels = C.picked.map(n => (C.labels[n] || "").trim() || null);
+  const {status, data} = await post("/api/jobs/compare", {title: C.title.trim(), runs: C.picked,
+    labels: labels.some(Boolean) ? labels : null});
+  if (status !== 200) throw new Error(data.error || `요청 실패 (${status})`);
+  J.msg.cmp = {ok: true, text: "만들기 시작했습니다. 끝나면 작업 목록의 진행 칸에 compare.md 경로가 나옵니다."};
+  renderJobCompare();
+  await pollJobs();
+}
+
+// ── 작업 목록 ─────────────────────────────────────────
+
+function jobStatus(j) {
+  const st = j.status;
+  return h("span", {class: "st-" + st, "data-tip": JOB_TIP[st] || null},
+    (JOB_STATUS[st] || st) + (st === "failed" && j.returncode !== null ? ` (종료 코드 ${j.returncode})` : ""));
+}
+
+function progressText(j) {
+  if (j.kind === "run" && j.progress) return j.progress.map((p, i) => `r${i + 1}: ${p.total}건 중 ${p.done}건`).join(" · ");
+  if (j.kind === "compare" && j.output) return h("span", {class: "mono"}, j.output);
+  return "";
+}
+
+function renderJobList() {
+  const J = S.jobs;
+  const hint = "이 화면에서 띄운 작업과, 다른 터미널·지난 앱에서 돌고 있는 run_sections.py·try_section.py를 보여 줍니다. 로그는 runs/manual/jobs/에 남습니다.";
+  const outside = J.running.filter(r => !r.mine);
+  const mark = j => j.id === J.watch || (J.log && J.log.id === j.id);
+  const rows = J.list.map(j => h("tr", {class: mark(j) ? "chg" : null},
+    h("td", null, JOB_KIND[j.kind] || j.kind), h("td", {"data-tip": j.command}, j.label), h("td", null, clock(j.started)),
+    h("td", null, jobStatus(j)), h("td", null, progressText(j)),
+    h("td", null,
+      h("button", {type: "button", onclick: () => openLog(j.id).catch(fail)}, "로그"),
+      j.kind === "try" ? h("button", {type: "button", onclick: () => watchTry(j.id)}, "결과") : null,
+      j.stoppable ? h("button", {type: "button", class: "danger", onclick: () => stopJob(j).catch(fail)}, "멈추기") : null)));
+  const ext = outside.map(r => h("tr", {class: "outside"},
+    h("td", null, JOB_KIND[r.kind] || r.kind), h("td", null, [r.run_name, r.doc, r.model].filter(Boolean).join(" · ") || "—"),
+    h("td", null, "—"), h("td", null, h("span", {class: "st-running"}, "돌아감 — 다른 터미널에서")), h("td", null, ""),
+    h("td", {class: "mono"}, `pid ${r.pid}`)));
+  const empty = !rows.length && !ext.length ? h("tr", null, h("td", {colspan: 6, class: "hint"}, "아직 작업이 없습니다.")) : null;
+  card("jobs-list-card", "작업 목록", hint,
+    J.pollError ? h("p", {class: "badt"}, "작업 목록을 읽지 못했습니다: " + J.pollError) : null,
+    h("table", {class: "list jobs"},
+      h("thead", null, h("tr", null, ["종류", "내용", "시작", "상태", "진행", ""].map(x => h("th", null, x)))),
+      h("tbody", null, rows, ext, empty)),
+    J.log ? h("div", {class: "logbox"},
+      h("div", {class: "pickrow"}, h("b", null, "로그"), h("span", {class: "mono"}, J.log.id),
+        h("button", {type: "button", onclick: () => { J.log = null; renderJobList(); }}, "닫기")),
+      h("pre", {class: "log", id: "job-log", onscroll: e => {
+        const el = e.target;
+        Object.assign(J.log, {scroll: el.scrollTop, bottom: el.scrollTop + el.clientHeight >= el.scrollHeight - 4});
+      }}, J.log.text || "(아직 비어 있음)")) : null);
+  const el = document.getElementById("job-log");    // 다시 그려도 읽던 자리를 지킨다. 맨 아래였으면 새 줄을 따라간다
+  if (el) el.scrollTop = J.log.bottom ? el.scrollHeight : J.log.scroll;
+}
+
+async function refreshLog() {
+  const L = S.jobs.log;
+  const d = await api(`/api/jobs/${encodeURIComponent(L.id)}/log?lines=400`);
+  if (S.jobs.log === L) L.text = d.text;
+}
+
+async function openLog(id) {
+  S.jobs.log = {id, text: "", scroll: 0, bottom: true, final: false};
+  await refreshLog();
+  renderJobList();
+}
+
+async function stopJob(j) {
+  if (!window.confirm(`이 작업을 멈출까요?\n${j.label}\n\n돌던 문서의 결과는 남지 않을 수 있습니다.`)) return;
+  const {data} = await post(`/api/jobs/${encodeURIComponent(j.id)}/stop`, {});
+  status(data.stopped ? "작업을 멈췄습니다." : "멈출 작업이 없습니다(이미 끝났을 수 있습니다).");
+  await pollJobs();
+}
+
+// 도는 작업이 있으면 3초마다, 없으면 15초마다 다시 읽는다
+async function pollJobs() {
+  const J = S.jobs;
+  clearTimeout(J.timer);
+  try {
+    const d = await api("/api/jobs");
+    Object.assign(J, {list: d.jobs, running: d.running, pollError: null});
+  } catch (e) {
+    J.pollError = e.message;
+  }
+  const w = J.watch && J.list.find(j => j.id === J.watch);
+  if (w && w.status !== "running" && J.tried !== w.id) await loadResult(w.id).catch(fail);
+  else if (J.watch && !J.result) renderJobResult();
+  const lj = J.log && J.list.find(j => j.id === J.log.id);
+  if (lj && !J.log.final) {
+    await refreshLog().catch(fail);
+    if (J.log) J.log.final = lj.status !== "running";
+  }
+  renderJobList();
+  const busy = J.list.some(j => j.status === "running") || J.running.length > 0;
+  J.timer = setTimeout(() => pollJobs().catch(fail), busy ? 3000 : 15000);
+}
+
 // ── 시작 ───────────────────────────────────────────────
 
 setupTabs();
 setupTip();
 loadAll().catch(fail);
+initJobs().catch(e => { S.jobs.error = e.message; renderJobs(); });
