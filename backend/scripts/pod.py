@@ -28,8 +28,8 @@ def api_key(env: Mapping[str, str] | None = None) -> str:
     return key
 
 
-def request(method: str, path: str, body=None, *, opener=None):
-    headers = {"Authorization": f"Bearer {api_key()}", "Content-Type": "application/json", "User-Agent": USER_AGENT}
+def request(method: str, path: str, body=None, *, opener=None, env: Mapping[str, str] | None = None):
+    headers = {"Authorization": f"Bearer {api_key(env)}", "Content-Type": "application/json", "User-Agent": USER_AGENT}
     data = json.dumps(body).encode() if body is not None else None
     req = urllib.request.Request(API + path, data=data, method=method, headers=headers)
     try:
@@ -43,31 +43,31 @@ def request(method: str, path: str, body=None, *, opener=None):
     return json.loads(raw) if raw else None
 
 
-def list_pods(*, opener=None) -> list[dict]:
-    pods = request("GET", "/pods", opener=opener) or []
+def list_pods(*, opener=None, env=None) -> list[dict]:
+    pods = request("GET", "/pods", opener=opener, env=env) or []
     return [{k: p.get(k) for k in POD_FIELDS} for p in pods]
 
 
-def get_pod(pod_id, *, opener=None) -> dict:
-    return request("GET", f"/pods/{pod_id}", opener=opener)
+def get_pod(pod_id, *, opener=None, env=None) -> dict:
+    return request("GET", f"/pods/{pod_id}", opener=opener, env=env)
 
 
-def delete_pod(pod_id, *, opener=None) -> None:
-    request("DELETE", f"/pods/{pod_id}", opener=opener)
+def delete_pod(pod_id, *, opener=None, env=None) -> None:
+    request("DELETE", f"/pods/{pod_id}", opener=opener, env=env)
 
 
-def list_volumes(*, opener=None) -> list[dict]:
-    vols = request("GET", "/networkvolumes", opener=opener) or []
+def list_volumes(*, opener=None, env=None) -> list[dict]:
+    vols = request("GET", "/networkvolumes", opener=opener, env=env) or []
     return [{k: v.get(k) for k in ("id", "name", "size")} for v in vols]
 
 
 def create_pod(start_cmd: str, vllm_key: str, *, name="to21-b-qwen36",
                gpu="NVIDIA RTX PRO 6000 Blackwell Server Edition", image="vllm/vllm-openai:v0.32.0",
-               disk_gb=100, opener=None) -> str:
+               disk_gb=100, opener=None, env=None) -> str:
     body = {"name": name, "imageName": image, "cloudType": "SECURE", "gpuCount": 1, "gpuTypeIds": [gpu],
             "containerDiskInGb": disk_gb, "volumeInGb": 0, "ports": ["8000/http"],
             "env": {"VLLM_API_KEY": vllm_key}, "dockerEntrypoint": ["bash", "-c"], "dockerStartCmd": [start_cmd]}
-    return request("POST", "/pods", body, opener=opener)["id"]
+    return request("POST", "/pods", body, opener=opener, env=env)["id"]
 
 
 def pod_url(pod_id) -> str:

@@ -10,7 +10,8 @@ const S = {list: [], criteria: null, gaps: [], limit: 300, name: null, run: null
     log: null, msg: {},
     t: {model: null, doc: null, pages: null, all: false, secs: new Set([11]), edit: false, text: "", textFor: null, base: "", dry: false},
     r: {model: null, pages: null, docs: null, repeat: 2, name: "", edited: false},
-    c: {picked: [], labels: {}, title: ""}}};
+    c: {picked: [], labels: {}, title: ""}},
+  srv: {data: null, error: null, at: null, timer: null, started: false, busy: null, result: null}};
 const LEVELS = ["필수", "중요", "일반"];
 const COLORS = ["#0969da", "#8250df", "#bf3989", "#1a7f37", "#9a6700", "#57606a"];
 const ROW_LABEL = {
@@ -88,6 +89,7 @@ function setupTabs() {
     buttons.forEach(b => b.classList.toggle("on", b.dataset.tab === id));
     document.querySelectorAll("section.tab").forEach(t => t.classList.toggle("on", t.id === "tab-" + id));
     history.replaceState(null, "", "#" + id);
+    if (id === "servers" && S.srv.started) pollServers().catch(fail);   // 서버 탭을 열면 바로 다시 본다
   };
   buttons.forEach(b => b.addEventListener("click", () => show(b.dataset.tab)));
   const first = location.hash.slice(1);
@@ -159,7 +161,7 @@ function renderNow(r) {
     runsShown().slice().reverse().map(x => h("option", {value: x.name, selected: x.name === S.name}, runLabel(x))));
   const top = h("div", {class: "pickrow"}, h("label", null, "실행 ", sel),
     h("button", {type: "button", onclick: () => loadAll().catch(fail)}, "다시 읽기"));
-  if (!r) return card("now-card", "지금 점수", null, top, h("p", null, "점수를 낸 실행이 아직 없습니다."));
+  if (!r) return card("now-card", "지금 점수", null, top, connLine(true), h("p", null, "점수를 낸 실행이 아직 없습니다."));
   const pass = S.criteria.pass_score;
   const mustTotal = r.must_total || S.criteria.items.filter(i => i.level === "필수").length;
   const must = r.must_passed || 0;
@@ -167,6 +169,7 @@ function renderNow(r) {
   card("now-card", "지금 점수",
     "가장 최근 개발용 10건 본 실행(이름에 dev10)을 먼저 보여 줍니다. 위 상자에서 다른 실행을 고를 수 있습니다.",
     top,
+    connLine(true),
     h("div", {class: "bigrow"},
       h("div", {class: "big", "data-tip": "가중 종합 점수(weighted). 항목 점수에 무게를 곱해 평균 낸 값"}, fmt1(r.weighted),
         h("small", null, "점")),
@@ -1308,9 +1311,217 @@ async function pollJobs() {
   J.timer = setTimeout(() => pollJobs().catch(fail), busy ? 3000 : 15000);
 }
 
+// ── 탭 ⑤ 서버 ─────────────────────────────────────────
+// 모델 서버 연결, RunPod Pod, RNGD 모델을 보여 주고 바꾼다. 바꾸는 단추는 모두 두 단계다: 요약과 확인 토큰을 받고
+// (/api/servers/propose) → 창에서 '확인'을 눌러야 실행한다(/api/servers/execute). 서버는 키를 보내지 않는다.
+
+const SRV_LOG = "runs/manual/server_log.md";
+const connected = () => ((S.srv.data && S.srv.data.models) || []).filter(m => m.reachable && m.match);
+const stamp = d => d ? d.toTimeString().slice(0, 8) : "—";
+
+// 지금 연결된 모델 한 줄. small이면 탭 ① 점수 카드용이고, 보고 있는 실행의 모델이 연결돼 있지 않으면 눈에 띄게 한다
+function connLine(small) {
+  const V = S.srv, list = connected();
+  const attrs = small ? {id: "conn-now", class: "connline"} : {class: "connbig"};
+  if (!V.data) return h("p", attrs, V.error ? "모델 서버 연결을 보지 못했습니다: " + V.error : "모델 서버 연결을 확인하는 중…");
+  const text = list.length
+    ? "지금 연결된 모델: " + list.map(m => `${m.model_expected} (${m.where}, 태그 ${m.tag})`).join(" · ")
+    : "연결된 모델 없음";
+  const r = small ? S.run : null;
+  const off = r && r.model && !list.some(m => m.model_expected === r.model);
+  if (off) attrs.class += " connwarn";
+  return h("p", attrs, text, off ? ` — 이 실행의 모델(${r.model})은 지금 연결돼 있지 않습니다` : "",
+    small ? h("small", null, " (서버 탭에서 바꿉니다)") : "");
+}
+
+function renderConnNow() {
+  const el = document.getElementById("conn-now");
+  if (el) el.replaceWith(connLine(true));
+}
+
+function renderServers() {
+  renderSrvTop();
+  renderSrvModels();
+  renderSrvRunpod();
+  renderSrvRngd();
+  renderSrvLog();
+}
+
+// 실행 중이면 잠근다. 다른 서버 동작이 진행 중일 때도 잠근다
+function srvBtn(label, action, params, cls) {
+  const d = S.srv.data, locked = !d || d.locked || !!S.srv.busy;
+  return h("button", {type: "button", class: cls || null, disabled: locked,
+    "data-tip": d && d.locked ? "잠김: " + d.lock_reason : null,
+    onclick: () => srvPropose(action, params, label).catch(fail)}, label);
+}
+
+function lockNote() {
+  const d = S.srv.data;
+  return d && d.locked ? h("p", {class: "warn"}, `잠김: ${d.lock_reason}. 실행이 끝나면 단추가 풀립니다. 돌고 있는 실행이 서버를 쓰고 있어, 지금 바꾸면 연결 오류로 실패합니다.`) : null;
+}
+
+function renderSrvTop() {
+  const V = S.srv, d = V.data, R = V.result, sess = d && d.session;
+  card("srv-top-card", "지금 연결된 모델", "모델 서버의 /v1/models에 물어 기대한 모델이 답하면 '연결'로 봅니다. 이 탭을 보는 동안 10초마다 다시 묻습니다.",
+    connLine(false),
+    lockNote(),
+    V.busy ? h("p", {class: "running"}, `진행 중: ${V.busy}… (Pod 지우기·RNGD 내리기는 확인까지 5초쯤 걸립니다)`) : null,
+    R ? h("div", {class: R.ok ? "srvres ok" : "srvres bad"}, h("b", null, R.text), R.detail ? h("div", null, R.detail) : null,
+      R.line ? h("div", {class: "mono"}, "기록: " + R.line) : null) : null,
+    sess ? h("p", null, h("b", null, `이 앱이 만든 Pod: ${sess.pod_id} `), sess.ready ? h("span", {class: "okt"}, "준비됨") : h("span", {class: "running"}, "준비 중 — 모델을 받는 중"),
+      h("br"), h("small", null, "작업 탭에서 띄우는 실행·시험은 이 Pod의 주소와 키를 받습니다. 키는 이 앱의 메모리에만 있어 앱을 끄면 이 Pod를 쓸 수 없습니다. 4시간 자동 삭제 감시는 앱을 꺼도 돕니다.")) : null,
+    h("div", {class: "pickrow"}, h("small", null, `마지막으로 본 시각 ${stamp(V.at)}`),
+      h("button", {type: "button", onclick: () => pollServers().catch(fail)}, "지금 다시 보기")));
+}
+
+function renderSrvModels() {
+  const d = S.srv.data;
+  if (!d) return card("srv-models-card", "모델별 연결", null, h("p", {class: "hint"}, "불러오는 중…"));
+  const yes = (v, ok, no) => v === true ? h("span", {class: "okt"}, ok) : v === false ? h("span", {class: "badt"}, no) : h("span", {class: "hint"}, "—");
+  card("srv-models-card", "모델별 연결", "configs/models.yaml의 항목별 추출 태그만 봅니다(실버용 태그는 보지 않습니다). 주소와 키는 .env에서 읽습니다. 앱이 Pod를 만들었으면 RunPod 태그는 그 Pod를 봅니다.",
+    h("table", {class: "list"},
+      h("thead", null, h("tr", null, ["태그", "기대 모델", "서버", "주소 설정", "응답", "서버가 말한 모델", "일치"].map(x => h("th", null, x)))),
+      h("tbody", null, d.models.map(m => h("tr", null,
+        h("td", {class: "mono"}, m.tag), h("td", {class: "mono"}, m.model_expected), h("td", null, m.where),
+        h("td", null, m.url_set ? "있음" : h("span", {class: "hint"}, "없음 (.env)")),
+        h("td", null, m.url_set ? yes(m.reachable, "응답함", "응답 없음" + (m.error ? ` (${m.error})` : "")) : h("span", {class: "hint"}, "—")),
+        h("td", {class: "mono"}, m.model_served || "—"),
+        h("td", null, yes(m.match, "일치", "다름")))))));
+}
+
+function renderSrvRunpod() {
+  const d = S.srv.data;
+  const hint = "RunPod 계정의 Pod 목록입니다. 켜져 있는 동안 시간당 요금이 붙습니다. 이 도구가 만든 Pod는 이름이 to21-b-로 시작합니다.";
+  if (!d) return card("srv-runpod-card", "RunPod", hint, h("p", {class: "hint"}, "불러오는 중…"));
+  const money = v => num(v) ? "$" + v.toFixed(2) : "—";
+  const rows = d.pods.map(p => h("tr", {class: p.ours ? null : "notours"},
+    h("td", {class: "mono"}, p.id),
+    h("td", null, p.name || "—", p.ours ? null : h("small", {"data-tip": "다른 사람이 쓰는 Pod일 수 있습니다. 지우기 전에 확인하세요."}, " (이 도구가 만든 것이 아님)")),
+    h("td", null, p.state ? h("span", {class: p.state === "준비됨" ? "okt" : "running"}, p.state) : (p.status || "—"),
+      num(p.auto_delete_min) ? h("small", null, ` · 자동 삭제까지 ${p.auto_delete_min}분`) : null),
+    h("td", {class: "num"}, money(p.cost_per_hr)), h("td", {class: "num"}, num(p.minutes) ? Math.round(p.minutes) + "분" : "—"),
+    h("td", {class: "num"}, money(p.est_cost)),
+    h("td", null, srvBtn("지우기", "pod_delete", {pod_id: p.id}, "danger"))));
+  card("srv-runpod-card", "RunPod", hint,
+    d.runpod_error ? h("p", {class: "badt"}, "RunPod을 보지 못했습니다: " + d.runpod_error) : null,
+    h("table", {class: "list"},
+      h("thead", null, h("tr", null, ["Pod", "이름", "상태", "시간당", "켜진 시간", "추정 비용", ""].map(x => h("th", null, x)))),
+      h("tbody", null, rows.length ? rows : h("tr", null, h("td", {colspan: 7, class: "hint"}, d.runpod_error ? "—" : "켜진 Pod가 없습니다.")))),
+    h("p", {class: "hint"}, num(d.volumes) ? `네트워크 볼륨 ${d.volumes}개${d.volumes ? " — 볼륨도 쓰지 않는 동안 요금이 붙습니다" : ""}` : "네트워크 볼륨 수를 보지 못했습니다"),
+    h("div", {class: "srvbtns"}, srvBtn("Pod 만들기(Qwen3.6)", "pod_create", {}, "primary")));
+}
+
+function renderSrvRngd() {
+  const d = S.srv.data;
+  const hint = "사내 RNGD 장비(카드 4장)의 furiosa-llm 서버입니다. 카드가 4장뿐이라 모델을 번갈아 띄웁니다. 아래 글은 furiosa-smi ps 출력이고 --api-key 값은 ***로 가립니다.";
+  if (!d) return card("srv-rngd-card", "RNGD", hint, h("p", {class: "hint"}, "불러오는 중…"));
+  const g = d.rngd || {};
+  card("srv-rngd-card", "RNGD", hint,
+    g.ok ? null : h("p", {class: "badt"}, "RNGD를 보지 못했습니다: " + (g.error || "알 수 없음"),
+      g.error === "RNGD_SSH 없음" ? h("small", null, " (.env의 RNGD_SSH에 ssh 접속 인자를 넣고 앱을 다시 켜세요)") : null),
+    g.ok ? h("div", null, h("b", null, "떠 있는 모델"),
+      g.models.length ? h("ul", null, g.models.map(m => h("li", null, h("span", {class: "mono"}, `${m.model} (pid ${m.pid}) `),
+        srvBtn("내리기", "rngd_down", {model: m.model}, "danger")))) : h("p", {class: "hint"}, "떠 있는 모델이 없습니다.")) : null,
+    h("div", {class: "srvbtns"}, (d.rngd_choices || []).map(c => srvBtn(`${c.label} 올리기(${c.cards}장)`, "rngd_up", {tag: c.tag}))),
+    g.ok && g.text ? h("details", null, h("summary", null, "furiosa-smi ps 글 보기"), h("pre", {class: "log"}, g.text)) : null);
+}
+
+function renderSrvLog() {
+  const d = S.srv.data, rows = (d && d.log_tail) || [];
+  card("srv-log-card", "서버 기록", `Pod 만들기·지우기와 RNGD 올리기·내리기를 ${SRV_LOG}에 한 줄씩 남깁니다. 키는 남기지 않습니다. 마지막 10줄입니다.`,
+    rows.length ? h("pre", {class: "log"}, rows.join("\n")) : h("p", {class: "hint"}, "아직 기록이 없습니다."),
+    h("p", {class: "warn"}, "이 줄을 docs/plan/RunPod_사용기록.md에 옮기세요. 앱은 docs/ 아래에 쓰지 않습니다(하네스가 지키는 폴더)."));
+}
+
+// 1단계: 요약과 확인 토큰을 받아 창을 띄운다
+async function srvPropose(action, params, label) {
+  const V = S.srv;
+  V.busy = label + " 요약 받는 중";
+  renderServers();
+  try {
+    const {status, data} = await post("/api/servers/propose", {action, params});
+    if (status !== 200) {
+      V.result = {ok: false, text: `${label}: ${data.error || "요청 실패 (" + status + ")"}`, detail: data.lock_reason ? "잠김: " + data.lock_reason : null};
+      return;
+    }
+    openSrvDialog({label, ...data});
+  } finally {
+    V.busy = null;
+    renderServers();
+  }
+}
+
+// 창의 '확인'은 이 창의 토큰(P)만 쓴다. 그만두기·Esc로 닫으면 토큰은 쓰이지 않고 10분 뒤 버려진다
+function openSrvDialog(P) {
+  const dlg = document.getElementById("srv-dialog");
+  dlg.replaceChildren(...[
+    h("h2", null, P.label),
+    h("p", null, P.summary),
+    P.warning ? h("p", {class: "warn"}, "주의: " + P.warning) : null,
+    h("p", {class: "hint"}, `'확인'을 누르면 바로 실행합니다. 이 확인은 ${Math.round(P.expires_in / 60)}분 동안만 쓸 수 있고, 한 번 쓰면 끝납니다.`),
+    h("div", {class: "pickrow"},
+      h("button", {type: "button", onclick: closeSrvDialog}, "그만두기"),
+      h("button", {type: "button", class: "confirm", onclick: () => srvExecute(P).catch(fail)}, "확인"))].filter(Boolean));
+  if (!dlg.open) dlg.showModal();
+}
+
+function closeSrvDialog() {
+  const dlg = document.getElementById("srv-dialog");
+  if (dlg.open) dlg.close();
+}
+
+function srvDetail(action, r) {
+  if (!r) return null;
+  if (action === "pod_create") return `Pod ${r.pod_id}를 만들었습니다. 모델이 뜨면 RunPod 표의 상태가 '준비됨'으로 바뀝니다. `
+    + (r.watchdog ? "4시간 뒤 자동으로 지웁니다." : "자동 삭제 감시를 띄우지 못했습니다. 다 쓰면 직접 지우세요.");
+  if (action === "pod_delete") return r.gone ? `Pod ${r.pod_id}를 지웠습니다. 남은 Pod ${r.remaining.length}개.`
+    : `지운 뒤에도 목록에 ${r.pod_id}가 남아 있습니다. 잠시 뒤 다시 보세요.`;
+  if (action === "rngd_up") return r.started ? "프로세스가 떴습니다. 모델을 읽는 데 15~25분 걸립니다. 모델별 연결 표의 '응답'이 초록이 되면 씁니다."
+    : "올리지 못했습니다: " + (r.error || "프로세스를 찾지 못함");
+  if (action === "rngd_down") return `멈춘 pid ${r.killed.join(", ") || "없음"}` + (r.remaining.length ? ` · 아직 남은 pid ${r.remaining.join(", ")}` : "");
+  return null;
+}
+
+// 2단계: 확인 토큰으로 실행한다
+async function srvExecute(P) {
+  const V = S.srv;
+  closeSrvDialog();
+  V.busy = P.label;
+  renderServers();
+  try {
+    const {status, data} = await post("/api/servers/execute", {token: P.token});
+    V.result = {ok: status === 200 && data.ok, line: data.log_line || null,
+      text: `${P.label}: ` + (status === 200 && data.ok ? "끝났습니다." : (data.error || (status === 200 ? "확인하지 못했습니다." : `요청 실패 (${status})`))),
+      detail: srvDetail(P.action, data.result) || (data.lock_reason ? "잠김: " + data.lock_reason : null)};
+  } finally {
+    V.busy = null;
+    await pollServers();
+  }
+}
+
+// 서버 탭을 보는 동안 10초마다, 아니면 60초마다 다시 본다(탭 ① 점수 카드의 한 줄도 같이 고친다)
+async function pollServers() {
+  const V = S.srv;
+  clearTimeout(V.timer);
+  V.started = true;
+  try {
+    V.data = await api("/api/servers");
+    V.error = null;
+    V.at = new Date();
+  } catch (e) {
+    V.error = e.message;
+  }
+  renderServers();
+  renderConnNow();
+  const on = document.getElementById("tab-servers").classList.contains("on");
+  V.timer = setTimeout(() => pollServers().catch(fail), on ? 10000 : 60000);
+}
+
 // ── 시작 ───────────────────────────────────────────────
 
 setupTabs();
 setupTip();
 loadAll().catch(fail);
 initJobs().catch(e => { S.jobs.error = e.message; renderJobs(); });
+renderServers();
+pollServers().catch(fail);

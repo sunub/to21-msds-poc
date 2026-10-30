@@ -75,10 +75,12 @@ class _Group:
         self._signal(signal.SIGKILL)
 
 
-def _spawn(argv: list[str], log_path: Path, cwd: Path) -> _Group:
+def _spawn(argv: list[str], log_path: Path, cwd: Path, extra_env: dict[str, str] | None = None) -> _Group:
+    """extra_env: 서버 탭이 만든 Pod의 주소·키(RUNPOD_VLLM_*). 자식 환경에만 넣고 상태 파일·로그에는 남기지 않는다."""
     with open(log_path, "ab") as log:                # 자식이 파일을 물려받으므로 여기서는 닫아도 된다
         proc = subprocess.Popen(argv, cwd=cwd, stdout=log, stderr=subprocess.STDOUT, stdin=subprocess.DEVNULL,
-                                start_new_session=True, env={**os.environ, "PYTHONUNBUFFERED": "1"})
+                                start_new_session=True,
+                                env={**os.environ, "PYTHONUNBUFFERED": "1", **(extra_env or {})})
     return _Group(proc)
 
 
@@ -194,13 +196,14 @@ class JobManager:
 
     # ── 띄우기 ─────────────────────────────────────────
 
-    def _start(self, kind: str, argv: list[str], label: str, **extra) -> Job:
+    def _start(self, kind: str, argv: list[str], label: str, extra_env: dict[str, str] | None = None, **extra) -> Job:
         self.jobs_dir.mkdir(parents=True, exist_ok=True)
         job_id = f"{datetime.now():%Y%m%d_%H%M%S}_{kind}_{os.urandom(3).hex()}"
         job = Job(id=job_id, kind=kind, argv=argv, log=self.jobs_dir / f"{job_id}.log", started=time.time(),
                   pid=None, returncode=None, label=label, **extra)
         try:
-            proc = self._spawner(argv, job.log, self.backend_dir)
+            # 넘길 환경이 있을 때만 인자로 준다(Job에는 담지 않아 상태 파일에 키가 남지 않는다)
+            proc = self._spawner(argv, job.log, self.backend_dir, **({"extra_env": extra_env} if extra_env else {}))
         except Exception:
             self._remove_tmp(job)
             raise
@@ -212,7 +215,8 @@ class JobManager:
         return job
 
     def start_try(self, *, model: str, doc: str, sections: list[int] | None, all_: bool, pages_dir: str,
-                  system_text: str | None, base_run: str | None, dry_run: bool = False) -> Job:
+                  system_text: str | None, base_run: str | None, dry_run: bool = False,
+                  extra_env: dict[str, str] | None = None) -> Job:
         self._model(model)
         self._dev_docs([doc])
         pages_dir = self._pages(pages_dir)
@@ -246,7 +250,7 @@ class JobManager:
             argv += ["--system-file", tmp]
         scope = "문서 전체" if all_ else "·".join(map(str, secs)) + "항"
         label = " · ".join([f"{doc} {scope}", model] + (["바꾼 안내문"] if tmp else []) + (["dry-run"] if dry_run else []))
-        return self._start("try", argv, label, tmp=tmp)
+        return self._start("try", argv, label, extra_env=extra_env, tmp=tmp)
 
     def _check_run(self, model, docs, pages_dir, run_name, repeat) -> tuple[dict, list[str], list[str], str]:
         cfg = self._model(model)
@@ -271,7 +275,8 @@ class JobManager:
             text += f"\n주의: 지금 도는 실행·시험이 {len(busy)}개 있습니다. 같은 서버를 함께 쓰면 문서 시간이 늘어납니다."
         return text
 
-    def start_run(self, *, model: str, docs: list[str] | None, pages_dir: str, run_name: str, repeat: int) -> list[Job]:
+    def start_run(self, *, model: str, docs: list[str] | None, pages_dir: str, run_name: str, repeat: int,
+                  extra_env: dict[str, str] | None = None) -> list[Job]:
         """repeat번의 run_sections.py를 차례로 돌리는 셸 한 줄을 작업 하나로 띄운다. Mac이 잠들면 실행이 멈추므로(10/28)
         darwin에 caffeinate가 있으면 그것으로 감싼다."""
         _, doc_ids, names, pages_dir = self._check_run(model, docs, pages_dir, run_name, repeat)
@@ -281,7 +286,7 @@ class JobManager:
         if self._platform == "darwin" and self._which("caffeinate"):
             argv = ["caffeinate", "-dimsu", *argv]
         label = f"{run_name} · {len(doc_ids)}건 × {repeat}회 · {model}"
-        return [self._start("run", argv, label, runs=names, total=len(doc_ids))]
+        return [self._start("run", argv, label, extra_env=extra_env, runs=names, total=len(doc_ids))]
 
     def start_compare(self, *, title: str, runs: list[str], labels: list[str | None] | None) -> Job:
         """labels의 빈 칸은 라벨 없이(실행 이름 그대로) 넘긴다."""
