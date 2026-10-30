@@ -26,7 +26,7 @@ from msds.extract.prompt_builder import _BASE_RULES, _code_table, _field_rows, _
 from msds.extract.rows import rows_guide
 from msds.extract.section_specs import SectionSpec, load_specs, response_schema
 
-SECTION_PROMPT_VERSION = "s6"   # 안내문 내용을 고치면 올린다. 실행 기록에 남는다. s3은 10/28에 되돌린 extras 규칙판이 썼다. s5: 행 형식 안내, 2항 그림문자(C2 코드표·이미지 안내) 추가. 14항도 행 형식(s5 실행 전이라 버전 유지). 그 밖의 JSON 안내문은 s4와 같다. s6: 행 형식 안내에 표마다 선택지 줄, 비해당·단위·값 없는 행·extras 규칙 추가 (rows-tune. s5로 돌린 실행 기록이 이미 있어 올림)
+SECTION_PROMPT_VERSION = "s7"   # 안내문 내용을 고치면 올린다. 실행 기록에 남는다. s3은 10/28에 되돌린 extras 규칙판이 썼다. s5: 행 형식 안내, 2항 그림문자(C2 코드표·이미지 안내) 추가. 14항도 행 형식(s5 실행 전이라 버전 유지). 그 밖의 JSON 안내문은 s4와 같다. s6: 행 형식 안내에 표마다 선택지 줄, 비해당·단위·값 없는 행·extras 규칙 추가 (rows-tune. s5로 돌린 실행 기록이 이미 있어 올림). s7: 16항 관리정보 칸 대응(rows-tune3)
 IMAGE_MAX_SIDE = 1200           # 2항에 붙이는 쪽 이미지의 긴 변 픽셀 (ADR-019)
 _IMAGE_NOTE = "[2항이 있는 쪽 이미지. 그림문자(마름모 안 그림)를 보고 pictograms에 GHS 코드를 적는다]"
 
@@ -67,7 +67,11 @@ GUIDES = {
     15: """- 국내 규제(regulations)는 성분 × 법령(law) × 규제 항목(item_code)마다 한 행이다. 해당·비해당·자료없음도 원문에 적힌 대로 행으로 쓴다.
 - 규제 항목 이름의 표기가 달라도 [동의어]로 item_code를 정한다(R25).
 - 위험물안전관리법은 dangerous_goods, 폐기물관리법의 지정폐기물 여부는 waste, 해외 분류는 intl_class에 둔다.""",
-    16: """- 최초 작성일·개정 횟수·최종 개정일이 있으면 `meta_revision`에 적는다. 날짜는 R01.""",
+    16: """- 최초 작성일·개정 횟수·최종 개정일이 있으면 `meta_revision`에 적는다. 날짜는 R01.
+- 원문의 `최초작성일`·`작성일자`·`작성일`·`최초 작성일자`는 `meta_revision.first_issue_date`에 적는다.
+- 원문의 `최종 개정일자`·`개정일자`·`개정일`·`최종 개정일`은 `meta_revision.last_revision_date`에 적는다. 최초작성일 값을 여기에 쓰지 않는다.
+- 원문의 `개정횟수`·`개정 번호`는 `meta_revision.revision_no`(숫자)와 `meta_revision.revision_label`(원문 글자, 예: `0 회`)에 적는다.
+- 값이 `자료없음`이거나 비어 있으면 그 칸을 쓰지 않는다. 이 네 칸은 `extras`에 쓰지 않는다.""",
 }
 _COMP_GUIDE = ("- 성분이 따로 적힌 행은 `comp_name`·`comp_cas`에 원문의 성분 이름과 CAS 번호를 적는다. "
                "제품 전체 값이면 둘 다 쓰지 않는다.")

@@ -61,9 +61,16 @@ class SectionResult:
     reextracted: bool         # 재추출 결과를 썼는가
 
 
-def check_section(parsed: dict | None, allowed_ids: set[str]) -> list[str]:
-    """응답 안의 모든 line, lines 값, start, end가 allowed_ids 안에 있는지. 문제 문장 목록."""
+def check_section(parsed: dict | None, allowed_ids: set[str], no: int | None = None) -> list[str]:
+    """응답 안의 모든 line, lines 값, start, end가 allowed_ids 안에 있는지. 문제 문장 목록.
+    2항(no=2)은 H코드가 있는데 유해성 분류(hazard.classes)가 비면 문제로 잡는다. classified가 거짓이면 잡지 않는다 (ADR-024)."""
     problems: list[str] = []
+    hazard = parsed.get("hazard") if no == 2 and isinstance(parsed, dict) else None
+    if isinstance(hazard, dict) and hazard.get("classified") is not False:
+        h = hazard.get("h_statements")
+        if isinstance(h, list) and h and not hazard.get("classes"):
+            problems.append(f"hazard.classes가 비었음: 원문의 유해성 분류 행(예: 인화성 액체 구분 2)을 "
+                            f"hazard.classes에 한 행씩 쓴다 (H코드 {len(h)}개가 있음)")
 
     def check(path: str, value) -> None:
         if value is not None and not (isinstance(value, str) and value in allowed_ids):
@@ -116,7 +123,7 @@ def _attempt(client, no: int, system: str, user: list[dict], schema: dict, allow
                "usage": {}, "attempts": 1, "errors": [f"호출 예외: {type(e).__name__}: {str(e)[:300]}"],
                "requests": []}
     rec["seconds"] = round(time.perf_counter() - t0, 3)
-    rec["check_problems"] = check_section(rec["parsed"], allowed)
+    rec["check_problems"] = check_section(rec["parsed"], allowed, no)
     return rec
 
 
