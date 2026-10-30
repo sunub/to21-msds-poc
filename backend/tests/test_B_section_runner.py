@@ -237,6 +237,38 @@ def test_check_section_ok_and_none():
     assert sr.check_section(None, set()) == []
 
 
+H_ONLY = {"hazard": {"classified": True, "h_statements": [{"code": "H225", "line": "p1:L5"}], "lines": {}}}
+CLASS_ROW = {"group": "물리적", "class_code": "PH_FLAM_LIQ", "category": "2", "line": "p1:L4"}
+
+
+def test_classes_check_h_codes_without_classes():
+    """2항에 H코드는 있는데 유해성 분류가 비면 문제 하나 (ADR-024)."""
+    ids = {"p1:L4", "p1:L5"}
+    problems = sr.check_section(copy.deepcopy(H_ONLY), ids, no=2)
+    assert len(problems) == 1 and "hazard.classes" in problems[0]
+    empty_list = copy.deepcopy(H_ONLY)
+    empty_list["hazard"]["classes"] = []
+    assert len(sr.check_section(empty_list, ids, no=2)) == 1
+
+
+def test_classes_check_no_problem_cases():
+    ids = {"p1:L4", "p1:L5"}
+    with_classes = copy.deepcopy(H_ONLY)
+    with_classes["hazard"]["classes"] = [CLASS_ROW]
+    assert sr.check_section(with_classes, ids, no=2) == []
+    no_h = copy.deepcopy(H_ONLY)
+    del no_h["hazard"]["h_statements"]
+    assert sr.check_section(no_h, ids, no=2) == []
+    no_h["hazard"]["h_statements"] = []
+    assert sr.check_section(no_h, ids, no=2) == []
+    not_classified = copy.deepcopy(H_ONLY)
+    not_classified["hazard"]["classified"] = False
+    assert sr.check_section(not_classified, ids, no=2) == []
+    assert sr.check_section(copy.deepcopy(H_ONLY), ids, no=11) == []
+    assert sr.check_section(copy.deepcopy(H_ONLY), ids) == []
+    assert sr.check_section(None, set(), no=2) == []
+
+
 # ── 문서 하나 끝까지 ───────────────────────────────────
 
 def test_end_to_end_writes_all_files(env):
@@ -338,6 +370,42 @@ def test_reextract_not_better_keeps_first(env):
     assert out["msds"][0]["hazard"]["classes"][0]["class_code"] == "HH_EYE_DMG"
     raw = read_json(env / "runs" / RUN / "raw" / f"{DOC}_m0_s02.json")
     assert raw["reextract_attempt"]["parsed"] == bad_line()
+
+
+def with_h(classes: bool) -> dict:
+    """2항 응답에 H코드 한 줄. classes가 거짓이면 유해성 분류를 쓰지 않은 응답."""
+    r = copy.deepcopy(responses()[2])
+    r["hazard"]["h_statements"] = [{"code": "H319", "line": "p1:L7"}]
+    if not classes:
+        del r["hazard"]["classes"]
+    return r
+
+
+def test_classes_reextract_when_first_has_no_classes(env):
+    client = FakeClient(plan={2: [with_h(False), with_h(True)]})
+    summary = run(env, client)
+    calls = client.calls_for(2)
+    assert len(calls) == 2
+    assert "hazard.classes" in calls[1]["user"]
+    assert summary["reextracted"] == 1
+    s = section_check(env, 2)
+    assert s["reextracted"] is True and s["check_problems"] == []
+    raw = read_json(env / "runs" / RUN / "raw" / f"{DOC}_m0_s02.json")
+    assert len(raw["parsed"]["hazard"]["classes"]) == 1
+    out = read_json(env / "runs" / RUN / "outputs" / f"{DOC}.json")
+    assert [c["class_code"] for c in out["msds"][0]["hazard"]["classes"]] == ["HH_EYE_DMG"]
+
+
+def test_classes_reextract_still_empty_keeps_first(env):
+    """둘째도 비면 문제 수가 같아 첫 것을 쓰고 사람 검토로 남긴다. 재추출은 한 번뿐이다."""
+    client = FakeClient(plan={2: [with_h(False), with_h(False)]})
+    summary = run(env, client)
+    assert len(client.calls_for(2)) == 2
+    assert summary["reextracted"] == 0
+    s = section_check(env, 2)
+    assert s["reextracted"] is False and s["ok"] is True
+    assert len(s["check_problems"]) == 1 and "hazard.classes" in s["check_problems"][0]
+    assert {"msds_index": 0, "section": 2} in checks(env)["needs_review"]
 
 
 def test_failed_call_is_retried_and_replaced(env):
