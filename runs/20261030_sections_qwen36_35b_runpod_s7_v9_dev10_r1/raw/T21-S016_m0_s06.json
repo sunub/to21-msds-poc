@@ -1,0 +1,98 @@
+{
+ "doc_id": "T21-S016",
+ "msds_index": 0,
+ "section": 6,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S6_PERSONAL",
+    "title_raw": "가. 인체를 보호하기 위해 필요한 조치 사항 및 보호구",
+    "start": "p4:L7",
+    "end": "p4:L12"
+   },
+   {
+    "item_code": "S6_ENV",
+    "title_raw": "나. 환경을 보호하기 위해 필요한 조치사항",
+    "start": "p4:L13",
+    "end": "p4:L15"
+   },
+   {
+    "item_code": "S6_CLEANUP",
+    "title_raw": "다. 정화 또는 제거 방법",
+    "start": "p4:L16",
+    "end": "p4:L21"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S9_END",
+    "title_raw": "6. 누출 사고 시 대처방법",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "value": "가. 인체를 보호하기 위해 필요한 조치 사항 및 보호구",
+      "line": "p4:L7"
+     }
+    ],
+    "suggested_code": "S6_PERSONAL",
+    "line": "p4:L6"
+   },
+   {
+    "after_item": "S6_PERSONAL",
+    "title_raw": "나. 환경을 보호하기 위해 필요한 조치사항",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "value": "가. 인체를 보호하기 위해 필요한 조치 사항 및 보호구",
+      "line": "p4:L7"
+     }
+    ],
+    "suggested_code": "S6_ENV",
+    "line": "p4:L13"
+   },
+   {
+    "after_item": "S6_ENV",
+    "title_raw": "다. 정화 또는 제거 방법",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "value": "가. 인체를 보호하기 위해 필요한 조치 사항 및 보호구",
+      "line": "p4:L7"
+     }
+    ],
+    "suggested_code": "S6_CLEANUP",
+    "line": "p4:L16"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S6_PERSONAL\",\n      \"title_raw\": \"가. 인체를 보호하기 위해 필요한 조치 사항 및 보호구\",\n      \"start\": \"p4:L7\",\n      \"end\": \"p4:L12\"\n    },\n    {\n      \"item_code\": \"S6_ENV\",\n      \"title_raw\": \"나. 환경을 보호하기 위해 필요한 조치사항\",\n      \"start\": \"p4:L13\",\n      \"end\": \"p4:L15\"\n    },\n    {\n      \"item_code\": \"S6_CLEANUP\",\n      \"title_raw\": \"다. 정화 또는 제거 방법\",\n      \"start\": \"p4:L16\",\n      \"end\": \"p4:L21\"\n    }\n  ]\n  ,\n  \"extras\": [\n    {\n      \"after_item\": \"S9_END\",\n      \"title_raw\": \"6. 누출 사고 시 대처방법\",\n      \"reason\": \"코드없음\"\n    ,\n      \"statements\": [\n        {\n          \"value\": \"가. 인체를 보호하기 위해 필요한 조치 사항 및 보호구\"\n        ,\n          \"line\": \"p4:L7\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S6_PERSONAL\"\n    ,\n      \"line\": \"p4:L6\"\n    }\n  ,\n    {\n      \"after_item\": \"S6_PERSONAL\",\n      \"title_raw\": \"나. 환경을 보호하기 위해 필요한 조치사항\",\n      \"reason\": \"코드없음\"\n    ,\n      \"statements\": [\n        {\n          \"value\": \"가. 인체를 보호하기 위해 필요한 조치 사항 및 보호구\"\n        ,\n          \"line\": \"p4:L7\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S6_ENV\"\n    ,\n      \"line\": \"p4:L13\"\n    }\n  ,\n    {\n      \"after_item\": \"S6_ENV\",\n      \"title_raw\": \"다. 정화 또는 제거 방법\",\n      \"reason\": \"코드없음\"\n    ,\n      \"statements\": [\n        {\n          \"value\": \"가. 인체를 보호하기 위해 필요한 조치 사항 및 보호구\"\n        ,\n          \"line\": \"p4:L7\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S6_CLEANUP\"\n    ,\n      \"line\": \"p4:L16\"\n    }\n  ]\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 2235,
+  "completion_tokens": 587,
+  "total_tokens": 2822
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 2235,
+    "completion_tokens": 587,
+    "total_tokens": 2822
+   },
+   "seconds": 10.157,
+   "chars": 1430,
+   "whitespace": 597,
+   "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S6_PERSONAL\",\n      \"title_raw\": \"가. 인체를 보호하기 위해 필요한 조치 사항 및 보호구\",\n      \"start\": \"p4:L7\",\n      \"end\": \"p4:L12\"\n    },\n    {\n      \"item_code\": \"S6_ENV\",\n      \"title_raw\": \"나. 환경을 보호하기 위해 필요한 조치사항\",\n      \"start\": \"p4:L13\",\n      \"end\": \"p4:L15\"\n    },\n    {\n      \"item_code\": \"S6_CLEANUP\",\n      \"title_raw\": \"다. 정화 또는 제거 방법\",\n      \"start\": \"p4:L16\",\n      \"end\": \"p4:L21\"\n    }\n  ]\n  ,\n  \"extras\": [\n    {\n      \"after_item\": \"S9_END\",\n      \"title",
+   "tail": "   \"value\": \"가. 인체를 보호하기 위해 필요한 조치 사항 및 보호구\"\n        ,\n          \"line\": \"p4:L7\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S6_ENV\"\n    ,\n      \"line\": \"p4:L13\"\n    }\n  ,\n    {\n      \"after_item\": \"S6_ENV\",\n      \"title_raw\": \"다. 정화 또는 제거 방법\",\n      \"reason\": \"코드없음\"\n    ,\n      \"statements\": [\n        {\n          \"value\": \"가. 인체를 보호하기 위해 필요한 조치 사항 및 보호구\"\n        ,\n          \"line\": \"p4:L7\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S6_CLEANUP\"\n    ,\n      \"line\": \"p4:L16\"\n    }\n  ]\n}"
+  }
+ ],
+ "seconds": 10.158,
+ "check_problems": []
+}

@@ -1,0 +1,67 @@
+{
+ "doc_id": "T21-S003",
+ "msds_index": 0,
+ "section": 13,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S13_METHOD",
+    "title_raw": "가.폐기방법",
+    "start": "p4:L43",
+    "end": "p4:L43"
+   },
+   {
+    "item_code": "S13_CAUTION",
+    "title_raw": "나.폐기시 주의사항",
+    "start": "p4:L44",
+    "end": "p4:L44"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S13_METHOD",
+    "title_raw": "폐기시 주의사항",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "key": "폐기시 주의사항",
+      "value": "폐기물관리법에 명시된 경우 규정에 명시된 주의사항을 고려하시오.",
+      "line": "p4:L44"
+     }
+    ],
+    "suggested_code": "S13_CAUTION",
+    "line": "p4:L44"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S13_METHOD\",\n      \"title_raw\": \"가.폐기방법\",\n      \"start\": \"p4:L43\",\n      \"end\": \"p4:L43\"\n    },\n    {\n      \"item_code\": \"S13_CAUTION\",\n      \"title_raw\": \"나.폐기시 주의사항\",\n      \"start\": \"p4:L44\",\n      \"end\": \"p4:L44\"\n    }\n  ]\n  ,\n  \"extras\": [\n    {\n      \"after_item\": \"S13_METHOD\",\n      \"title_raw\": \"폐기시 주의사항\",\n      \"reason\": \"코드없음\"\n    ,\n      \"statements\": [\n        {\n          \"key\": \"폐기시 주의사항\",\n          \"value\": \"폐기물관리법에 명시된 경우 규정에 명시된 주의사항을 고려하시오.\"\n        ,\n          \"line\": \"p4:L44\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S13_CAUTION\"\n    ,\n      \"line\": \"p4:L44\"\n    }\n  ]\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 1946,
+  "completion_tokens": 283,
+  "total_tokens": 2229
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 1946,
+    "completion_tokens": 283,
+    "total_tokens": 2229
+   },
+   "seconds": 5.429,
+   "chars": 647,
+   "whitespace": 254,
+   "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S13_METHOD\",\n      \"title_raw\": \"가.폐기방법\",\n      \"start\": \"p4:L43\",\n      \"end\": \"p4:L43\"\n    },\n    {\n      \"item_code\": \"S13_CAUTION\",\n      \"title_raw\": \"나.폐기시 주의사항\",\n      \"start\": \"p4:L44\",\n      \"end\": \"p4:L44\"\n    }\n  ]\n  ,\n  \"extras\": [\n    {\n      \"after_item\": \"S13_METHOD\",\n      \"title_raw\": \"폐기시 주의사항\",\n      \"reason\": \"코드없음\"\n    ,\n      \"statements\": [\n        {\n          \"key\": \"폐기시 주의사항\",\n          \"value\": \"폐기물관리법에 명시된 경우 규정에 명시된 주의사항을 ",
+   "tail": "고려하시오.\"\n        ,\n          \"line\": \"p4:L44\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S13_CAUTION\"\n    ,\n      \"line\": \"p4:L44\"\n    }\n  ]\n}"
+  }
+ ],
+ "seconds": 5.43,
+ "check_problems": []
+}

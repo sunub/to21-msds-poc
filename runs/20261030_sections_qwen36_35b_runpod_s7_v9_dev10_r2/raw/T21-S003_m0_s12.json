@@ -1,0 +1,349 @@
+{
+ "doc_id": "T21-S003",
+ "msds_index": 0,
+ "section": 12,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "ecotox": [
+   {
+    "comp_name": null,
+    "comp_cas": null,
+    "endpoint": "ECO_FISH",
+    "descriptor": null,
+    "q": {
+     "raw": "자료없음"
+    },
+    "species": null,
+    "duration_value": null,
+    "duration_unit": null,
+    "guideline": null,
+    "data_source": null,
+    "statements": [],
+    "status": "자료없음",
+    "line": "p4:L31"
+   }
+  ],
+  "narratives": [
+   {
+    "item_code": "S12_OTHER",
+    "title_raw": "가.생태독성",
+    "start": "p4:L30",
+    "end": "p4:L33"
+   },
+   {
+    "item_code": "S12_OTHER",
+    "title_raw": "나.잔류성 및 분해성",
+    "start": "p4:L34",
+    "end": "p4:L36"
+   },
+   {
+    "item_code": "S12_OTHER",
+    "title_raw": "다.생물농축성",
+    "start": "p4:L37",
+    "end": "p4:L39"
+   },
+   {
+    "item_code": "S12_OTHER",
+    "title_raw": "라.토양이동성",
+    "start": "p4:L40",
+    "end": "p4:L40"
+   },
+   {
+    "item_code": "S12_OTHER",
+    "title_raw": "마.기타 유해 영향",
+    "start": "p4:L41",
+    "end": "p4:L41"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S12_OTHER",
+    "title_raw": "잔류성",
+    "reason": "필드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": {
+     "raw": "0.67",
+     "value": 0.67
+    },
+    "statements": [
+     {
+      "value": "log Kow",
+      "line": "p4:L35"
+     }
+    ],
+    "suggested_code": "ECO_PERSIST",
+    "line": "p4:L35"
+   },
+   {
+    "after_item": "S12_OTHER",
+    "title_raw": "분해성",
+    "reason": "필드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [],
+    "suggested_code": "ECO_PERSIST",
+    "line": "p4:L36"
+   },
+   {
+    "after_item": "S12_OTHER",
+    "title_raw": "농축성",
+    "reason": "필드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [],
+    "suggested_code": "ECO_BIOACC",
+    "line": "p4:L38"
+   },
+   {
+    "after_item": "S12_OTHER",
+    "title_raw": "생분해성",
+    "reason": "필드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [],
+    "suggested_code": "ECO_PERSIST",
+    "line": "p4:L39"
+   }
+  ]
+ },
+ "raw_text": "### ecotox\ncomp_name | comp_cas | endpoint | descriptor | q | species | duration_value | duration_unit | guideline | data_source | statements | status | line\n |  | ECO_FISH |  |  |  |  |  |  |  |  | 자료없음 | p4:L31\n |  | ECO_CRUST |  |  |  |  |  |  |  |  |  | 자료없음 | p4:L32\n |  | ECO_ALGAE |  |  |  |  |  |  |  |  |  | 자료없음 | p4:L33\n\n### narratives\nitem_code | title_raw | start | end\nS12_OTHER | 가.생태독성 | p4:L30 | p4:L33\nS12_OTHER | 나.잔류성 및 분해성 | p4:L34 | p4:L36\nS12_OTHER | 다.생물농축성 | p4:L37 | p4:L39\nS12_OTHER | 라.토양이동성 | p4:L40 | p4:L40\nS12_OTHER | 마.기타 유해 영향 | p4:L41 | p4:L41\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\nS12_OTHER | 잔류성 | 필드없음 |  |  | 0.67 | log Kow | ECO_PERSIST | p4:L35\nS12_OTHER | 분해성 | 필드없음 |  |  |  |  | ECO_PERSIST | p4:L36\nS12_OTHER | 농축성 | 필드없음 |  |  |  |  | ECO_BIOACC | p4:L38\nS12_OTHER | 생분해성 | 필드없음 |  |  |  |  | ECO_PERSIST | p4:L39",
+ "mode": "rows",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 3577,
+  "completion_tokens": 443,
+  "total_tokens": 4020
+ },
+ "attempts": 1,
+ "errors": [
+  "ecotox p4:L32 |  | ECO_CRUST |  |  |  |  |  |  |  |  |…: 열 14개, 기대 13개",
+  "ecotox p4:L33 |  | ECO_ALGAE |  |  |  |  |  |  |  |  |…: 열 14개, 기대 13개"
+ ],
+ "requests": [
+  {
+   "mode": "rows",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 3577,
+    "completion_tokens": 443,
+    "total_tokens": 4020
+   },
+   "seconds": 9.0,
+   "chars": 929,
+   "whitespace": 243,
+   "head": "### ecotox\ncomp_name | comp_cas | endpoint | descriptor | q | species | duration_value | duration_unit | guideline | data_source | statements | status | line\n |  | ECO_FISH |  |  |  |  |  |  |  |  | 자료없음 | p4:L31\n |  | ECO_CRUST |  |  |  |  |  |  |  |  |  | 자료없음 | p4:L32\n |  | ECO_ALGAE |  |  |  |  |  |  |  |  |  | 자료없음 | p4:L33\n\n### narratives\nitem_code | title_raw | start | end\nS12_OTHER | 가.생태독성 | p4:L30 | p4:L33\nS12_OTHER | 나.잔류성 및 분해성 | p4:L34 | p4:L36\nS12_OTHER | 다.생물농축성 | p4:L37 | p4:L39\n",
+   "tail": "S12_OTHER | 라.토양이동성 | p4:L40 | p4:L40\nS12_OTHER | 마.기타 유해 영향 | p4:L41 | p4:L41\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\nS12_OTHER | 잔류성 | 필드없음 |  |  | 0.67 | log Kow | ECO_PERSIST | p4:L35\nS12_OTHER | 분해성 | 필드없음 |  |  |  |  | ECO_PERSIST | p4:L36\nS12_OTHER | 농축성 | 필드없음 |  |  |  |  | ECO_BIOACC | p4:L38\nS12_OTHER | 생분해성 | 필드없음 |  |  |  |  | ECO_PERSIST | p4:L39"
+  }
+ ],
+ "seconds": 9.016,
+ "check_problems": [],
+ "reextract_attempt": {
+  "ok": true,
+  "parsed": {
+   "ecotox": [
+    {
+     "comp_name": null,
+     "comp_cas": null,
+     "endpoint": "ECO_FISH",
+     "descriptor": null,
+     "q": {
+      "raw": "자료없음"
+     },
+     "species": null,
+     "duration_value": null,
+     "duration_unit": null,
+     "guideline": null,
+     "data_source": null,
+     "statements": [],
+     "status": "자료없음",
+     "line": "p4:L31"
+    }
+   ],
+   "narratives": [
+    {
+     "item_code": "S12_OTHER",
+     "title_raw": "12.환경에 미치는 영향",
+     "start": "p4:L29",
+     "end": "p4:L41"
+    }
+   ],
+   "extras": [
+    {
+     "after_item": "S12_OTHER",
+     "title_raw": "가.생태독성",
+     "reason": "코드없음",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": null,
+     "statements": [],
+     "suggested_code": null,
+     "line": "p4:L30"
+    },
+    {
+     "after_item": "S12_OTHER",
+     "title_raw": "어류",
+     "reason": "코드없음",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": null,
+     "statements": [],
+     "suggested_code": null,
+     "line": "p4:L31"
+    },
+    {
+     "after_item": "S12_OTHER",
+     "title_raw": "갑각류",
+     "reason": "코드없음",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": null,
+     "statements": [],
+     "suggested_code": null,
+     "line": "p4:L32"
+    },
+    {
+     "after_item": "S12_OTHER",
+     "title_raw": "조류",
+     "reason": "코드없음",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": null,
+     "statements": [],
+     "suggested_code": null,
+     "line": "p4:L33"
+    },
+    {
+     "after_item": "S12_OTHER",
+     "title_raw": "나.잔류성 및 분해성",
+     "reason": "코드없음",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": null,
+     "statements": [],
+     "suggested_code": null,
+     "line": "p4:L34"
+    },
+    {
+     "after_item": "S12_OTHER",
+     "title_raw": "잔류성",
+     "reason": "필드없음",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": {
+      "raw": "{value:0.67,unit:'log Kow'}"
+     },
+     "statements": [
+      {
+       "value": "지표 : log Kow 0.67",
+       "line": "p4:L35"
+      }
+     ],
+     "suggested_code": "ECO_PERSIST",
+     "line": "p4:L35"
+    },
+    {
+     "after_item": "S12_OTHER",
+     "title_raw": "분해성",
+     "reason": "코드없음",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": null,
+     "statements": [],
+     "suggested_code": null,
+     "line": "p4:L36"
+    },
+    {
+     "after_item": "S12_OTHER",
+     "title_raw": "다.생물농축성",
+     "reason": "코드없음",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": null,
+     "statements": [],
+     "suggested_code": null,
+     "line": "p4:L37"
+    },
+    {
+     "after_item": "S12_OTHER",
+     "title_raw": "농축성",
+     "reason": "코드없음",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": null,
+     "statements": [],
+     "suggested_code": null,
+     "line": "p4:L38"
+    },
+    {
+     "after_item": "S12_OTHER",
+     "title_raw": "생분해성",
+     "reason": "코드없음",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": null,
+     "statements": [],
+     "suggested_code": null,
+     "line": "p4:L39"
+    },
+    {
+     "after_item": "S12_OTHER",
+     "title_raw": "라.토양이동성",
+     "reason": "코드없음",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": null,
+     "statements": [],
+     "suggested_code": null,
+     "line": "p4:L40"
+    },
+    {
+     "after_item": "S12_OTHER",
+     "title_raw": "마.기타 유해 영향",
+     "reason": "코드없음",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": null,
+     "statements": [],
+     "suggested_code": null,
+     "line": "p4:L41"
+    }
+   ]
+  },
+  "raw_text": "### ecotox\ncomp_name | comp_cas | endpoint | descriptor | q | species | duration_value | duration_unit | guideline | data_source | statements | status | line\n |  | ECO_FISH |  |  |  |  |  |  |  |  | 자료없음 | p4:L31\n |  | ECO_CRUST |  |  |  |  |  |  |  |  |  | 자료없음 | p4:L32\n |  | ECO_ALGAE |  |  |  |  |  |  |  |  |  | 자료없음 | p4:L33\n\n### narratives\nitem_code | title_raw | start | end\nS12_OTHER | 12.환경에 미치는 영향 | p4:L29 | p4:L41\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\nS12_OTHER | 가.생태독성 | 코드없음 |  |  |  |  |  | p4:L30\nS12_OTHER | 어류 | 코드없음 |  |  |  |  |  | p4:L31\nS12_OTHER | 갑각류 | 코드없음 |  |  |  |  |  | p4:L32\nS12_OTHER | 조류 | 코드없음 |  |  |  |  |  | p4:L33\nS12_OTHER | 나.잔류성 및 분해성 | 코드없음 |  |  |  |  |  | p4:L34\nS12_OTHER | 잔류성 | 필드없음 |  |  | {value:0.67,unit:'log Kow'} | 지표 : log Kow 0.67 | ECO_PERSIST | p4:L35\nS12_OTHER | 분해성 | 코드없음 |  |  |  |  |  | p4:L36\nS12_OTHER | 다.생물농축성 | 코드없음 |  |  |  |  |  | p4:L37\nS12_OTHER | 농축성 | 코드없음 |  |  |  |  |  | p4:L38\nS12_OTHER | 생분해성 | 코드없음 |  |  |  |  |  | p4:L39\nS12_OTHER | 라.토양이동성 | 코드없음 |  |  |  |  |  | p4:L40\nS12_OTHER | 마.기타 유해 영향 | 코드없음 |  |  |  |  |  | p4:L41",
+  "mode": "rows",
+  "finish_reason": "stop",
+  "usage": {
+   "prompt_tokens": 3677,
+   "completion_tokens": 600,
+   "total_tokens": 4277
+  },
+  "attempts": 1,
+  "errors": [
+   "ecotox p4:L32 |  | ECO_CRUST |  |  |  |  |  |  |  |  |…: 열 14개, 기대 13개",
+   "ecotox p4:L33 |  | ECO_ALGAE |  |  |  |  |  |  |  |  |…: 열 14개, 기대 13개"
+  ],
+  "requests": [
+   {
+    "mode": "rows",
+    "finish_reason": "stop",
+    "usage": {
+     "prompt_tokens": 3677,
+     "completion_tokens": 600,
+     "total_tokens": 4277
+    },
+    "seconds": 8.902,
+    "chars": 1178,
+    "whitespace": 357,
+    "head": "### ecotox\ncomp_name | comp_cas | endpoint | descriptor | q | species | duration_value | duration_unit | guideline | data_source | statements | status | line\n |  | ECO_FISH |  |  |  |  |  |  |  |  | 자료없음 | p4:L31\n |  | ECO_CRUST |  |  |  |  |  |  |  |  |  | 자료없음 | p4:L32\n |  | ECO_ALGAE |  |  |  |  |  |  |  |  |  | 자료없음 | p4:L33\n\n### narratives\nitem_code | title_raw | start | end\nS12_OTHER | 12.환경에 미치는 영향 | p4:L29 | p4:L41\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | ",
+    "tail": "S12_OTHER | 조류 | 코드없음 |  |  |  |  |  | p4:L33\nS12_OTHER | 나.잔류성 및 분해성 | 코드없음 |  |  |  |  |  | p4:L34\nS12_OTHER | 잔류성 | 필드없음 |  |  | {value:0.67,unit:'log Kow'} | 지표 : log Kow 0.67 | ECO_PERSIST | p4:L35\nS12_OTHER | 분해성 | 코드없음 |  |  |  |  |  | p4:L36\nS12_OTHER | 다.생물농축성 | 코드없음 |  |  |  |  |  | p4:L37\nS12_OTHER | 농축성 | 코드없음 |  |  |  |  |  | p4:L38\nS12_OTHER | 생분해성 | 코드없음 |  |  |  |  |  | p4:L39\nS12_OTHER | 라.토양이동성 | 코드없음 |  |  |  |  |  | p4:L40\nS12_OTHER | 마.기타 유해 영향 | 코드없음 |  |  |  |  |  | p4:L41"
+   }
+  ],
+  "seconds": 8.922,
+  "check_problems": []
+ }
+}
