@@ -461,13 +461,32 @@ def test_applicable_kreach_with_value_becomes_haedang(no_conventions):
 
 
 def test_applicable_no_value_or_other_law_unchanged(no_conventions):
+    """값 없는 행, 이미 채워진 행, 다른 법령 행은 그대로다.
+    '비해당'·'해당 없음' 값은 A의 답(10/30, A-1 예외 ①)으로 이제 '비해당'이 된다(예전 기대치 None)."""
     regs = regulations_of([kreach(),
                            kreach(value_raw="자료없음"),
                            kreach(value_raw="비해당"),
                            kreach(threshold={"raw": "해당 없음"}),
                            kreach(value_raw="가상-0002", applicable="비해당"),
                            {"law": "OSH", "item_code": "OSH_MEASURE", "value_raw": "가상", "line": "p6:L10"}])
-    assert [x["applicable"] for x in regs] == [None, None, None, None, "비해당", None]
+    assert [x["applicable"] for x in regs] == [None, None, "비해당", "비해당", "비해당", None]
+
+
+def test_kreach_negative_values_become_bihaedang(no_conventions):
+    regs = regulations_of([kreach(value_raw="해당없음"),
+                           kreach(value_raw="규제되지 않음"),
+                           kreach(value_raw="Not applicable"),
+                           kreach(value_raw="비위험물"),
+                           kreach(value_raw="Unlisted"),
+                           kreach(threshold={"raw": "해당 없음"})])
+    assert [x["applicable"] for x in regs] == ["비해당"] * 6
+
+
+def test_kreach_guidance_and_no_value_not_filled(no_conventions):
+    regs = regulations_of([kreach(value_raw="공급자에게 문의할 것"),
+                           kreach(value_raw="자료없음"),
+                           kreach(value_raw="가상-0001")])
+    assert [x["applicable"] for x in regs] == [None, None, "해당"]
 
 
 def test_omit_empty_check_section_no_problems():
