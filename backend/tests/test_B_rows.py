@@ -183,6 +183,35 @@ def test_parse_rows_bad_line_id_is_error(bad):
     assert [r["line"] for r in parsed["cmr"]] == ["p5:L10"]
 
 
+@pytest.mark.parametrize("raw", ["p2:L2;p2:L3;p2:L4;p2:L5", "p2:L2 ~ p2:L5", "p2:L2, p2:L3", "p2:L2 (표)"])
+def test_parse_rows_line_first_id_components(raw):
+    text = table(3, "components", row(3, "components", name="가상물질 갑", cas_no="1234-56-6",
+                                      content="10 ~ 20 %", line=raw))
+    parsed, errors = rw.parse_rows(text, 3)
+    assert errors == []
+    assert [c["line"] for c in parsed["components"]] == ["p2:L2"]
+
+
+def test_parse_rows_line_first_id_without_page_is_error():
+    text = table(3, "components", row(3, "components", name="가상물질 갑", content="10 %", line="L2;L3"))
+    parsed, errors = rw.parse_rows(text, 3)
+    assert parsed["components"] == [] and len(errors) == 1 and "줄 번호" in errors[0]
+
+
+def test_parse_rows_line_first_id_narrative_start_end():
+    text = table(11, "narratives", row(11, "narratives", item_code="S11_ROUTE", title_raw="가. 가상 제목",
+                                        start="p3:L4;p3:L5", end="p3:L9"))
+    parsed, errors = rw.parse_rows(text, 11)
+    assert errors == []
+    assert parsed["narratives"][0]["start"] == "p3:L4" and parsed["narratives"][0]["end"] == "p3:L9"
+
+
+def test_parse_rows_line_first_id_composition_object():
+    text = table(3, "composition", row(3, "composition", type="혼합물", line="p2:L3;p2:L4"))
+    parsed, errors = rw.parse_rows(text, 3)
+    assert errors == [] and parsed["composition"]["lines"]["type"] == "p2:L3"
+
+
 def test_parse_rows_narrative_start_end_are_line_ids():
     text = table(11, "narratives", row(11, "narratives", item_code="S11_ROUTE", title_raw="가. 가상 제목",
                                         start="p5:L20", end="p5:L22"),
