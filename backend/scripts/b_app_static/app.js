@@ -4,7 +4,7 @@
 
 const S = {list: [], criteria: null, glossary: [], gaps: [], limit: 300, name: null, run: null, open: null, pick: loadPick(),
   cards: loadCards(), itemsAll: false, journey: loadJourney(), journeyTarget: null,
-  startText: null, startError: null, runsLoaded: false, scoreReady: false,
+  startText: null, startError: null, runsError: null, runsLoaded: false, scoreReady: false,
   diff: {a: null, b: null, key: null, data: null, error: null, itemsAll: false,
     why: new Set(), vals: new Set(), open: new Set(), prompts: {}},
   doc: {run: null, doc: null, key: null, data: null, error: null, page: null, pick: null,
@@ -27,6 +27,11 @@ const SVGNS = (() => { const d = document.createElement("div"); d.innerHTML = "<
 
 // ── 작은 도구 ─────────────────────────────────────────
 
+const UI = (() => {
+  try { return JSON.parse(document.getElementById("ui-text")?.textContent || "{}"); }
+  catch (e) { return {}; }
+})();
+
 function fill(n, attrs, kids) {
   for (const [k, v] of Object.entries(attrs || {})) {
     if (v === null || v === undefined || v === false) continue;
@@ -35,6 +40,24 @@ function fill(n, attrs, kids) {
   }
   for (const k of kids.flat(Infinity)) {
     if (k !== null && k !== undefined && k !== false) n.append(k instanceof Node ? k : String(k));
+  }
+  // 기존 data-tip도 키보드로 읽는다. 단추 안에는 추가 탭 정지점을 만들지 않는다.
+  if (["button", "summary"].includes(n.tagName.toLowerCase())) {
+    const tips = [];
+    n.querySelectorAll("*").forEach(child => {
+      if (child.getAttribute("data-tip")) {
+        tips.push(child.getAttribute("data-tip"));
+        child.setAttribute("tabindex", "-1");
+      }
+    });
+    if (tips.length && !n.getAttribute("data-tip")) n.setAttribute("data-tip", tips.join("\n"));
+  }
+  if (n.getAttribute("data-tip")) {
+    if (!n.getAttribute("tabindex") && n.tagName.toLowerCase() !== "button") n.setAttribute("tabindex", "0");
+    n.setAttribute("aria-describedby", "tip");
+  }
+  if (n.tagName.toLowerCase() === "button" && !n.getAttribute("data-focus")) {
+    n.setAttribute("data-focus", n.getAttribute("aria-label") || n.textContent);
   }
   return n;
 }
@@ -76,14 +99,13 @@ function errorCopy(text) {
 }
 
 function friendlyError(info) {
-  return info ? h("div", {class: "error-note"},
+  return info ? h("div", {class: "error-note", role: "alert"},
     h("p", {class: "badt"}, h("strong", null, errorCopy(info.message))),
     h("p", null, "할 일: ", errorCopy(info.fix)), rawError(info.raw)) : null;
 }
 
 function loadFailure(raw) {
-  return h("div", {class: "error-note"},
-    h("strong", null, "불러오지 못했습니다. 앱을 켠 터미널의 오류를 보세요."), rawError(raw));
+  return friendlyError({...UI.load_error, raw});
 }
 
 function fail(e) {
@@ -93,6 +115,8 @@ function fail(e) {
 
 function card(id, title, hint, ...kids) {
   const el = document.getElementById(id);
+  const focused = document.activeElement;
+  const focusKey = focused?.getAttribute("data-focus");
   // 4번째 인수의 옵션만 읽는다. 기존 card(id, title, hint, ...kids) 호출은 그대로 동작한다.
   const first = kids[0];
   const options = first && !(first instanceof Node) && typeof first === "object" && "collapsed" in first ? kids.shift() : null;
@@ -124,6 +148,9 @@ function card(id, title, hint, ...kids) {
     if (seen.has(t.dataset.term)) t.replaceWith(h("span", null, t.textContent));
     else seen.add(t.dataset.term);
   });
+  if (focusKey) el.querySelectorAll("*").forEach(n => {
+    if (n.getAttribute("data-focus") === focusKey) n.focus({preventScroll: true});
+  });
 }
 
 function loadCards() {
@@ -146,7 +173,7 @@ function loadPick() {
 function setupTip() {
   const tip = document.getElementById("tip");
   tip.setAttribute("role", "tooltip");
-  let hovered = null, focused = null, dismissed = null;
+  let hovered = null, focused = null, dismissed = null, hideTimer = null;
   const target = el => el && el.closest ? el.closest("[data-tip]") : null;
   const show = (t, point = null) => {
     if (!t || !t.isConnected || t === dismissed) { tip.hidden = true; return; }
@@ -160,15 +187,19 @@ function setupTip() {
     tip.style.top = Math.max(8, y + tip.offsetHeight < window.innerHeight ? y : above - tip.offsetHeight - 10) + "px";
   };
   document.addEventListener("mouseover", e => {
+    clearTimeout(hideTimer);
+    if (e.target === tip || tip.contains(e.target)) return;
     const t = target(e.target);
     if (t !== hovered) dismissed = null;
     hovered = t;
-    show(focused || hovered, focused ? null : e);
-  });
-  document.addEventListener("mousemove", e => { if (!focused) show(hovered, e); });
-  document.addEventListener("mouseout", e => {
-    hovered = target(e.relatedTarget);
     show(focused || hovered);
+  });
+  document.addEventListener("mouseout", e => {
+    if (e.relatedTarget === tip || tip.contains(e.relatedTarget)) return;
+    hovered = target(e.relatedTarget);
+    clearTimeout(hideTimer);
+    if (focused || hovered) show(focused || hovered);
+    else hideTimer = setTimeout(() => show(null), 150);
   });
   document.addEventListener("focusin", e => {
     focused = target(e.target);
@@ -182,7 +213,7 @@ function setupTip() {
   document.addEventListener("keydown", e => {
     if (e.key === "Escape") { dismissed = focused || hovered; tip.hidden = true; }
   });
-  window.addEventListener("blur", () => { focused = hovered = null; tip.hidden = true; });
+  window.addEventListener("blur", () => { clearTimeout(hideTimer); focused = hovered = null; tip.hidden = true; });
   window.addEventListener("resize", () => show(focused || hovered));
   document.addEventListener("scroll", () => show(focused || hovered), true);
 }
@@ -293,15 +324,17 @@ async function loadStart() {
 function renderStart() {
   const el = document.getElementById("start-content"), t = S.startText;
   if (!el) return;
-  if (!t) { if (S.startError) el.replaceChildren(loadFailure(S.startError)); return; }
+  if (!t) return el.replaceChildren(S.startError ? loadFailure(S.startError)
+    : h("p", {class: "hint", role: "status"}, UI.loading));
   const passed = journeyPassed(), j = S.journey;
   // 복원한 이력과 지금 조작 가능한 선택을 구분한다. 문서 선택은 저장하지 않는다.
   const current = j.completed ? 0 : !S.scoreReady || j.last_step === 0 ? 1 : journeyTargetReady() ? 3 : 2;
-  const note = !S.runsLoaded ? t.loading : !runsShown().length ? t.empty_runs :
+  const note = S.runsError ? null : !S.runsLoaded ? t.loading : !runsShown().length ? t.empty_runs :
     !S.run?.status_text ? t.unscored : passed ? t.no_drops :
       !S.run.status_text.top_drops.length ? t.no_candidates : j.last_step >= 2 && !journeyTargetReady() ? t.resume : "";
   el.replaceChildren(h("div", {class: "journey-intro"}, t.intro.map(line => h("p", null, line))),
     h("p", {class: "hint"}, t.offline),
+    S.runsError ? loadFailure(S.runsError) : null,
     h("h2", {class: "journey-heading"}, t.heading),
     note ? h("p", {class: "hint", role: "status"}, note) : null,
     j.completed ? h("p", {class: "okt", role: "status"}, t.success) : null,
@@ -339,7 +372,10 @@ function setupTabs() {
   };
   const show = id => {
     if (id === "servers" && !advanced.checked) setAdvanced(true);
-    buttons.forEach(b => b.classList.toggle("on", b.dataset.tab === id));
+    buttons.forEach(b => {
+      b.classList.toggle("on", b.dataset.tab === id);
+      b.setAttribute("aria-current", b.dataset.tab === id ? "page" : "false");
+    });
     document.querySelectorAll("section.tab").forEach(t => t.classList.toggle("on", t.id === "tab-" + id));
     history.replaceState(null, "", "#" + id);
     // 처음 원문 탭을 열 때의 점수판 실행을 쓴다. 점수판에서 넘긴 선택은 유지한다.
@@ -374,6 +410,7 @@ function setupTabs() {
 const runsShown = () => S.list.filter(r => r.kind !== "models" && !r.error);
 
 async function loadAll() {
+  S.runsError = null;
   status("불러오는 중… (처음에는 실행마다 채점하느라 수십 초 걸릴 수 있습니다)");
   renderScoreLoading("실행 목록을 확인하는 중…");
   try {
@@ -438,6 +475,7 @@ function renderScoreLoading(text) {
 }
 
 function scoreLoadFailure(e) {
+  S.runsError = e.message;
   document.getElementById("status-card").setAttribute("aria-busy", "false");
   card("status-card", "지금 상태", null, loadFailure(e.message));
   renderStart();
@@ -596,7 +634,8 @@ function itemRow(i, naScore, r) {
   const gaps = S.gaps.filter(g => i.name.startsWith(g.item));
   const scored = num(i.score), ok = scored && i.score >= i.target;
   const kinds = ["빠뜨림", "지어냄", "틀림"].map(k => h("span", {class: "k-" + k}, `${k} ${i[k] ?? 0}`));
-  const row = h("div", {class: "item " + (!scored ? "none" : ok ? "pass" : "fail"),
+  const row = h("button", {type: "button", class: "item " + (!scored ? "none" : ok ? "pass" : "fail"),
+    "data-focus": `item:${i.name}`, "aria-expanded": String(S.open === i.name),
     onclick: () => { S.open = S.open === i.name ? null : i.name; renderItems(S.run); }},
     h("span", {class: "iname", "data-tip": `${i.name}\n${help}\n잰 방법: ${i.metric} · 목표 ${pct(i.target)}`}, i.name),
     gaps.length ? h("span", {class: "gapdot", "data-tip": gaps.map(g => `실버 빈 곳: ${g.note}\n(${g.source}, ${g.since})`).join("\n\n")}, "●")
@@ -645,7 +684,7 @@ function dayOf(r) {
 
 function savePick(list) {
   S.pick = list;
-  localStorage.setItem("b_app_pick", JSON.stringify(list));   // 탭 ②가 읽는다
+  try { localStorage.setItem("b_app_pick", JSON.stringify(list)); } catch (e) { /* 저장 없이도 두 실행 선택 유지 */ }
   renderHistory();
   if (list.length === 2) {
     [S.diff.a, S.diff.b] = list;
@@ -683,8 +722,11 @@ function renderHistory() {
     const picked = S.pick.indexOf(r.name);
     const tip = `${runLabel(r)}\n${r.name}\n모델: ${r.model_label || r.model_tag || "—"}\n안내문 버전: ${r.prompt_version || "—"}\n입력 판: ${lastPart(r.pages_dir)}\n가중 종합: ${fmt1(r.weighted)}점 · 필수 ${r.must_passed}/${r.must_total}`;
     const toggle = () => savePick(picked >= 0 ? S.pick.filter(n => n !== r.name) : [...S.pick, r.name].slice(-2));
-    g.append(s("circle", {cx: x(i), cy: y(r.weighted), r: r.name === S.name ? 8 : 5.5, fill: color(r.model_tag),
-      class: "pt" + (picked >= 0 ? " picked" : ""), "data-tip": tip, onclick: toggle}));
+    // 그래프 좌표와 색은 유지하고 실제 HTML 단추로 Enter/Space 조작을 받는다.
+    g.append(s("foreignObject", {x: x(i) - 12, y: y(r.weighted) - 12, width: 24, height: 24},
+      h("button", {type: "button", class: "history-point", "data-focus": `history:${r.name}`,
+        "aria-label": tip, "aria-pressed": String(picked >= 0), "data-tip": tip, onclick: toggle},
+        h("span", {class: "history-dot" + (r.name === S.name ? " current" : ""), style: `background:${color(r.model_tag)}`}))));
     if (picked >= 0) g.append(s("text", {x: x(i), y: y(r.weighted) - 12, class: "picknum", "text-anchor": "middle"}, picked ? "②" : "①"));
   });
   const legend = h("p", {class: "legend"}, tags.map(t => h("span", {class: "sw"}, h("i", {style: `background:${color(t)}`}),
@@ -707,7 +749,7 @@ function renderDocs(r) {
   const docs = Object.keys((r && r.per_doc) || {});
   const hint = ["문서마다 ", term("가중 종합"), ` 점수와 걸린 시간(초)입니다. 목표는 PDF 하나를 ${S.limit}초(5분) 안에 끝내는 것입니다. 빨간 시간 막대는 ${S.limit}초를 넘은 문서입니다.`];
   if (!docs.length) return card("docs-card", "문서별 점수와 시간", hint, collapsedCard("docs"), progressLine(r), h("p", null, "채점한 문서가 없습니다."));
-  const W = 900, rowH = 26, top = 26, L = 100, sw = 330, tx = 520, tw = 320;
+  const W = 900, rowH = 26, top = 26, L = 100, sw = 330, tx = 520, tw = 230;
   const maxSec = Math.max(S.limit * 1.1, ...docs.map(d => r.per_doc[d].seconds || 0));
   const xs = v => tx + v / maxSec * tw;
   const g = s("svg", {viewBox: `0 0 ${W} ${top + docs.length * rowH + 8}`, class: "chart"},
@@ -724,7 +766,7 @@ function renderDocs(r) {
     if (num(p.seconds)) {
       g.append(s("rect", {x: tx, y: yy + 2, width: xs(p.seconds) - tx, height: 14,
         class: p.seconds > S.limit ? "no" : "time", "data-tip": `${d}: ${p.seconds.toFixed(0)}초`}),
-        s("text", {x: xs(p.seconds) + 6, y: yy + 13, class: "lab"}, `${p.seconds.toFixed(0)}초`));
+        s("text", {x: xs(p.seconds) + 6, y: yy + 13, class: "lab"}, `${p.seconds.toFixed(0)}초${p.seconds > S.limit ? " " + UI.time_over : ""}`));
     } else {
       g.append(s("text", {x: tx, y: yy + 13, class: "lab"}, "시간 기록 없음"));
     }
@@ -738,10 +780,10 @@ function renderDocs(r) {
 
 function gridCell(doc, mi, no, c) {
   const where = `${doc}${mi ? ` (${mi + 1}번째 MSDS)` : ""} ${no}항`;
-  if (!c) return h("td", {class: "c-none", "data-tip": `${where}: 기록 없음`});
+  if (!c) return h("td", {class: "c-none", "data-tip": `${where}: 기록 없음`}, UI.cell_labels?.["c-none"]);
   const kind = c.limit_kind;
   const cls = !c.ok ? "c-fail" : kind ? "c-limit" : c.reextracted ? "c-re" : "c-ok";
-  const text = kind || (!c.ok ? "✕" : c.reextracted ? "재" : "");
+  const text = [UI.cell_labels?.[cls], kind].filter(Boolean).join(" · ");
   const tip = [where, c.ok ? "성공" : "실패", `시도 ${c.attempts ?? "?"}번 · ${fmt1(c.seconds)}초`,
     c.mode ? `방식 ${c.mode}` : null, c.reextracted ? "검사에 걸려 한 번 더 뽑음(재추출)" : null,
     kind ? `출력 한도에 걸린 요청이 있음: ${kind}` : null].filter(Boolean).join("\n");
@@ -852,7 +894,7 @@ function renderDiffTop() {
     h("div", null, h("label", null, "A (전) ", diffSelect("a")), rawRun(D.a)),
     h("div", null, h("label", null, "B (후) ", diffSelect("b")), rawRun(D.b)),
     h("button", {type: "button", onclick: () => { [D.a, D.b] = [D.b, D.a]; loadDiff(); }}, "A ↔ B 바꾸기"));
-  if (D.error) return card("diff-top-card", "고른 두 실행", hint, pick, h("p", {class: "badt"}, "비교하지 못했습니다: " + D.error));
+  if (D.error) return card("diff-top-card", "고른 두 실행", hint, pick, loadFailure(D.error));
   if (!d) {
     return card("diff-top-card", "고른 두 실행", hint, pick,
       h("p", {class: "hint"}, D.a && D.b ? "비교하는 중… (처음에는 두 실행을 채점하느라 몇 초 걸립니다)" : "A와 B를 둘 다 고르세요."));
@@ -864,7 +906,7 @@ function renderDiffTop() {
   const cond = h("table", {class: "list cond"},
     h("thead", null, h("tr", null, h("th", null, "조건"), h("th", null, "A"), h("th", null, "B"))),
     h("tbody", null, d.conditions.map(c => h("tr", {class: c.changed ? "chg" : null},
-      h("td", null, term(c.what)), h("td", {class: c.what === "모델" ? null : "mono"}, show(c, c.a, "a")),
+      h("td", null, term(c.what), c.changed ? h("small", {class: "cell-state"}, UI.changed) : null), h("td", {class: c.what === "모델" ? null : "mono"}, show(c, c.a, "a")),
       h("td", {class: c.what === "모델" ? null : "mono"}, show(c, c.b, "b"))))));
   const nos = d.prompt_changed_sections;
   const docs = d.docs, odd = docs.only_a.length || docs.only_b.length;
@@ -907,7 +949,7 @@ function togglePrompt(item, no) {
 function promptView(no) {
   const D = S.diff, p = D.prompts[`${D.a}|${D.b}|${no}`] || {}, r = p.data;
   if (p.loading) return h("p", {class: "hint"}, `${no}항 안내문을 두 실행의 커밋에서 다시 만드는 중… (몇 초 걸립니다)`);
-  if (p.error) return h("p", {class: "badt"}, `${no}항 안내문 차이를 만들지 못했습니다: ${p.error}`);
+  if (p.error) return loadFailure(p.error);
   if (!r) return null;
   const form = x => x ? "행 형식" : "JSON";
   const notes = ["a", "b"].filter(w => r.recorded[w] && r.recorded[w] !== r[w + "_hash"]).map(w => h("p", {class: "warn"},
@@ -978,7 +1020,8 @@ function renderDiffValues() {
   card("diff-values-card", "바뀐 값", hint, names.map(n => {
     const c = d.changed_values[n], open = D.vals.has(n);
     return h("div", {class: "itembox" + (open ? " open" : "")},
-      h("div", {class: "vrow", onclick: () => { open ? D.vals.delete(n) : D.vals.add(n); renderDiffValues(); }},
+      h("button", {type: "button", class: "vrow", "data-focus": `value:${n}`, "aria-expanded": String(open),
+        onclick: () => { open ? D.vals.delete(n) : D.vals.add(n); renderDiffValues(); }},
         h("span", {class: "iname"}, n), h("span", {class: "okt"}, `새로 맞춘 것 ${c.fixed.length}개`),
         h("span", {class: "badt"}, `새로 틀린 것 ${c.broken.length}개`)),
       open ? h("div", {class: "detail"}, valueTable("새로 맞춘 것", c.fixed), valueTable("새로 틀린 것", c.broken)) : null);
@@ -996,7 +1039,9 @@ function renderDiffRows() {
     h("tbody", null, keys.map(k => {
       const r = d.rows[k];
       return h("tr", null, h("td", null, ROW_LABEL[k]), h("td", {class: "num"}, r.a ?? "—"),
-        h("td", {class: "num " + (trend(far(r)) || "")}, r.b ?? "—"), h("td", {class: "num"}, r.gold ?? "—"));
+        h("td", {class: "num " + (trend(far(r)) || "")}, r.b ?? "—",
+          num(far(r)) ? h("small", {class: "cell-state"}, UI.row_change?.[trend(far(r)) || "same"]) : null),
+        h("td", {class: "num"}, r.gold ?? "—"));
     }))));
 }
 
@@ -1091,7 +1136,7 @@ function renderDocTop() {
       : h("option", {value: ""}, "— 이 실행에는 결과가 있는 개발용 문서가 없습니다 —"));
   const pick = h("div", {class: "pickcol"},
     h("div", null, h("label", null, "실행 ", runSel), rawRun(D.run)), h("label", null, "문서 ", docSel));
-  if (D.error) return card("doc-top-card", "실행과 문서", hint, pick, h("p", {class: "badt"}, "불러오지 못했습니다: " + D.error));
+  if (D.error) return card("doc-top-card", "실행과 문서", hint, pick, loadFailure(D.error));
   if (!d) return card("doc-top-card", "실행과 문서", hint, pick, h("p", {class: "hint"}, D.doc ? "불러오는 중…" : "문서를 고르세요."));
   const pageSel = h("select", {id: "doc-page", onchange: e => showPage(+e.target.value)},
     d.pages.map(p => h("option", {value: p, selected: p === D.page}, `${p}쪽`)));
@@ -1142,8 +1187,10 @@ function drawBoxes(img, svg) {
 function renderDocLeft() {
   const D = S.doc, d = D.data, el = document.getElementById("doc-left");
   if (!el || !d) return;
+  if (D.page === null) return el.replaceChildren(h("p", {class: "hint"}, UI.no_pages));
   const sel = document.getElementById("doc-page");
   if (sel) sel.value = D.page;
+  // <img alt="1쪽 그림">처럼 실제 쪽 번호를 대체 글로 남긴다.
   const img = h("img", {src: `/pages/${encodeURIComponent(d.doc_id)}/p${pad3(D.page)}.png`, alt: `${D.page}쪽 그림`});
   const svg = s("svg", {class: "boxes"});
   const wrap = h("div", {class: "pagewrap"}, img, svg);
@@ -1154,13 +1201,15 @@ function renderDocLeft() {
   const lines = d.lines.filter(l => l.page === D.page).map(l => {
     const no = D.sec[l.id], first = no && no !== prev, used = (d.line_index[l.id] || []).length;
     prev = no;
-    return h("div", {class: `ln${no ? " band b" + (no % 2) : ""}${D.selLines.has(l.id) ? " hl" : ""}`, "data-id": l.id,
+    return h("button", {type: "button", class: `ln${no ? " band b" + (no % 2) : ""}${D.selLines.has(l.id) ? " hl" : ""}`, "data-id": l.id,
+      "aria-pressed": String(D.selLines.has(l.id)),
       onclick: () => pickLine(l.id)},
       h("span", {class: "lsec", "data-tip": no ? `${no}항 ${SECTION_NAME[no]} 구간` : null}, first ? `${no}항` : ""),
       h("span", {class: "lno mono"}, `L${pad3(l.no)}`), h("span", {class: "ltx"}, l.text),
       used ? h("span", {class: "luse", "data-tip": "이 줄을 근거로 쓴 결과 값 수"}, `값 ${used}`) : h("span"));
   });
-  el.replaceChildren(h("div", {class: "pagebox"}, wrap), h("div", {class: "linebox", id: "doc-lines"}, lines));
+  el.replaceChildren(h("div", {class: "pagebox"}, wrap), h("div", {class: "linebox", id: "doc-lines"},
+    lines.length ? lines : h("p", {class: "hint"}, UI.no_lines)));
 }
 
 function renderDocRight() {
@@ -1198,25 +1247,33 @@ function rowHead(rk) {
 
 function valueRow({v, only}) {
   const D = S.doc, field = h("td", {class: "mono fld"}, v.field || "(행 전체)");
-  if (only) return h("tr", null, field, h("td", {class: "hint"}, "—"), h("td", {class: "sv only", "data-tip": tipOf(v.value)}, v.text));
+  if (only) return h("tr", null, field, h("td", {class: "hint"}, "—"), h("td", {class: "sv only", "data-tip": tipOf(v.value)},
+    v.text, h("small", {class: "cell-state"}, UI.silver_labels?.only)));
   const sv = v.silver;
   return h("tr", null, field,
     h("td", {class: "pv" + (D.selPaths.has(v.path) ? " hl" : ""), "data-path": v.path, "data-tip": tipOf(v.value)},
-      h("button", {type: "button", class: "value-pick", onclick: () => pickValue(v.path)},
+      h("button", {type: "button", class: "value-pick", "aria-pressed": String(D.selPaths.has(v.path)), onclick: () => pickValue(v.path)},
         v.text, h("small", {class: "lref mono"}, v.lines.length ? v.lines.join(" ") : "근거 줄 못 찾음"))),
     h("td", {class: "sv " + (sv.same ? "same" : "diff"), "data-tip": sv.value === null ? "실버에 이 값이 없습니다" : tipOf(sv.value)},
-      sv.value === null ? "—" : sv.text));
+      sv.value === null ? "—" : sv.text,
+      h("small", {class: "cell-state"}, UI.silver_labels?.[sv.value === null ? "missing" : sv.same ? "same" : "diff"])));
 }
 
 // 고른 것 표시: 다시 그리지 않고 글자 줄·값 칸의 켜짐만 바꾼다(스크롤 자리를 지킨다)
 function markLines() {
   const D = S.doc;
-  document.querySelectorAll("#doc-lines .ln").forEach(n => n.classList.toggle("hl", D.selLines.has(n.dataset.id)));
+  document.querySelectorAll("#doc-lines .ln").forEach(n => {
+    n.classList.toggle("hl", D.selLines.has(n.dataset.id));
+    n.setAttribute("aria-pressed", String(D.selLines.has(n.dataset.id)));
+  });
   if (D.draw) D.draw();
 }
 
 function markValues() {
-  document.querySelectorAll("#doc-right .pv").forEach(n => n.classList.toggle("hl", S.doc.selPaths.has(n.dataset.path)));
+  document.querySelectorAll("#doc-right .pv").forEach(n => {
+    n.classList.toggle("hl", S.doc.selPaths.has(n.dataset.path));
+    n.querySelector("button")?.setAttribute("aria-pressed", String(S.doc.selPaths.has(n.dataset.path)));
+  });
 }
 
 function noteSel() {
@@ -1322,6 +1379,7 @@ async function post(path, body) {
 }
 
 async function initJobs() {
+  if (!S.jobs.opts) renderJobs();
   if (!S.jobs.opts) await loadOptions();
   renderJobs();
   await pollJobs();
@@ -1329,13 +1387,13 @@ async function initJobs() {
 
 // 서버가 정렬한 첫 연결 모델을 기본으로 고른다. 갱신해도 고쳐 쓴 입력은 유지한다.
 async function loadOptions() {
-  const J = S.jobs, previous = J.opts;
+  const J = S.jobs, previous = J.opts, hadError = !!J.error;
   try {
     J.opts = await api("/api/options?advanced=" + (document.getElementById("advanced").checked ? "1" : "0"));
     J.error = null;
   } catch (e) {
     J.error = e.message;
-    return;
+    return !hadError;
   }
   const o = J.opts, usable = m => m && m.connected === true;
   const pick = o.models.find(usable) || o.models[0];
@@ -1349,7 +1407,7 @@ async function loadOptions() {
   if (!J.r.docs) J.r.docs = new Set(o.docs.map(d => d.doc_id));
   if (!J.r.edited) J.r.name = suggestName();
   if (o.try_hint.dry_run_forced) J.t.dry = true;
-  return JSON.stringify(previous) !== JSON.stringify(o);
+  return hadError || JSON.stringify(previous) !== JSON.stringify(o);
 }
 
 function suggestName() {
@@ -1397,18 +1455,19 @@ function connNote() {
 
 function jobMsg(key) {
   const m = S.jobs.msg[key];
-  return m ? h("p", {class: m.ok ? "okt" : "badt"}, m.text) : null;
+  return m ? m.ok ? h("p", {class: "okt", role: "status"}, m.text)
+    : friendlyError({...UI.request_error, raw: m.text}) : null;
 }
 
-const loadingCard = (id, title, hint) => card(id, title, hint, h("p", {class: S.jobs.error ? "badt" : "hint"},
-  S.jobs.error ? "고를 거리를 불러오지 못했습니다: " + S.jobs.error : "불러오는 중… (모델 서버 연결을 확인하느라 몇 초 걸릴 수 있습니다)"));
+const loadingCard = (id, title, hint) => card(id, title, hint, S.jobs.error ? loadFailure(S.jobs.error)
+  : h("p", {class: "hint", role: "status"}, "불러오는 중… (모델 서버 연결을 확인하느라 몇 초 걸릴 수 있습니다)"));
 
 // ── 시험하기 ─────────────────────────────────────────
 
 function renderJobTry() {
   const J = S.jobs, o = J.opts, T = J.t;
   const hint = [term("시험"), "은 항 하나·여러 개·문서 전체를 모델에 다시 보내 봅니다. 결과는 ", term("기준 실행"), "의 다른 항 답에 끼워 채점합니다. 기록은 runs/manual/에 남습니다."];
-  if (!o) return loadingCard("jobs-try-card", "시험하기", hint);
+  if (!o || J.error) return loadingCard("jobs-try-card", "시험하기", hint);
   const forced = o.try_hint.dry_run_forced;
   if (forced) T.dry = true;
   const model = o.models.find(m => m.tag === T.model);
@@ -1474,7 +1533,7 @@ async function startTry() {
   Object.assign(J, {watch: data.id, result: null, tried: null});
   renderJobTry();
   await pollJobs();
-  document.getElementById("jobs-result-card").scrollIntoView({behavior: "smooth", block: "start"});
+  document.getElementById("jobs-result-card").scrollIntoView({block: "start"});
 }
 
 // ── 시험 결과: 단계 6개를 접고 펼친다 ─────────────────
@@ -1573,7 +1632,7 @@ function watchTry(id) {
   Object.assign(S.jobs, {watch: id, result: null, tried: null});
   renderJobResult();
   loadResult(id).catch(fail);
-  document.getElementById("jobs-result-card").scrollIntoView({behavior: "smooth", block: "start"});
+  document.getElementById("jobs-result-card").scrollIntoView({block: "start"});
 }
 
 // ── 본 실행 ───────────────────────────────────────────
@@ -1581,7 +1640,7 @@ function watchTry(id) {
 function renderJobRun() {
   const J = S.jobs, o = J.opts, R = J.r;
   const hint = ["개발용 문서를 run_sections.py로 n회 돌립니다. ", term("회차"), "마다 실행 이름 끝에 _r1, _r2…가 붙습니다. Mac이 잠들어 멈추지 않게 caffeinate로 감쌉니다."];
-  if (!o) return loadingCard("jobs-run-card", term("본 실행"), hint);
+  if (!o || J.error) return loadingCard("jobs-run-card", term("본 실행"), hint);
   const canRun = o.models.some(m => m.tag === R.model && m.connected === true);
   const refill = () => { if (!R.edited) R.name = suggestName(); renderJobRun(); };
   const boxes = o.docs.map(d => h("label", {class: "chk"}, h("input", {type: "checkbox", checked: R.docs.has(d.doc_id),
@@ -1645,7 +1704,7 @@ function renderJobCompare() {
     h("p", {class: "hint", id: "compare-label-help"}, J.opts?.field_help.compare_label),
     h("div", {class: "cmplist"}, rows.length ? rows : h("p", {class: "hint"}, "실행 목록을 불러오는 중이거나 실행이 없습니다.")),
     h("p", {class: "hint"}, `고른 실행 ${C.picked.length}개. 목록은 점수판의 '다시 읽기'를 누르면 새로 읽습니다.`),
-    field("제목", h("input", {type: "text", class: "jname", value: C.title, placeholder: "예: rows_s7_v9_vs_s6",
+    field("제목", h("input", {type: "text", class: "jname", "aria-label": "비교표 제목", value: C.title, placeholder: "예: rows_s7_v9_vs_s6",
       oninput: e => { C.title = e.target.value; }})),
     h("div", {class: "pickrow"}, h("button", {type: "button", class: "primary",
       onclick: () => startCompare().catch(e => { J.msg.cmp = {text: e.message}; renderJobCompare(); })}, "만들기")),
@@ -1696,7 +1755,7 @@ function renderJobList() {
     h("td", {class: "mono"}, `pid ${r.pid}`)));
   const empty = !rows.length && !ext.length ? h("tr", null, h("td", {colspan: 6, class: "hint"}, "아직 작업이 없습니다.")) : null;
   card("jobs-list-card", "작업 목록", hint,
-    J.pollError ? h("p", {class: "badt"}, "작업 목록을 읽지 못했습니다: " + J.pollError) : null,
+    J.pollError ? loadFailure(J.pollError) : null,
     h("table", {class: "list jobs"},
       h("thead", null, h("tr", null, ["종류", "내용", "시작", "상태", "진행", ""].map(x => h("th", null, x)))),
       h("tbody", null, rows, ext, empty)),
@@ -1847,7 +1906,8 @@ function renderSrvModels() {
         h("td", null, m.url_set ? yes(m.reachable, "응답함", "응답 없음") : h("span", {class: "hint"}, "—")),
         h("td", {class: "mono"}, m.model_served || "—"),
         h("td", null, yes(m.match, "일치", "다름"))),
-        m.friendly ? h("tr", null, h("td", {colspan: 7}, friendlyError(m.friendly))) : null]))));
+        m.friendly ? h("tr", null, h("td", {colspan: 7}, friendlyError(m.friendly))) : null])),
+      !d.models.length ? h("caption", null, UI.no_models) : null));
 }
 
 function renderSrvRunpod() {
@@ -1915,7 +1975,7 @@ async function srvPropose(action, params, label) {
 function openSrvDialog(P) {
   const dlg = document.getElementById("srv-dialog");
   dlg.replaceChildren(...[
-    h("h2", null, P.label),
+    h("h2", {id: "srv-dialog-title"}, P.label),
     h("p", null, P.summary),
     P.warning ? h("p", {class: "warn"}, "주의: " + P.warning) : null,
     h("p", {class: "hint"}, `'확인'을 누르면 바로 실행합니다. 이 확인은 ${Math.round(P.expires_in / 60)}분 동안만 쓸 수 있고, 한 번 쓰면 끝납니다.`),

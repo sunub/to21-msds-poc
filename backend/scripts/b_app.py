@@ -106,7 +106,12 @@ def _static(rel: str, ctx: AppContext) -> tuple[int, str, bytes]:
     f = ctx.static_dir / rel
     if not f.is_file():
         return _json(404, {"error": f"없는 파일: {rel}"})
-    return 200, _TYPES.get(f.suffix, "application/octet-stream"), f.read_bytes()
+    content = f.read_bytes()
+    if rel == "index.html":
+        # script의 닫는 태그가 글 안에 있어도 HTML로 해석되지 않게 한다.
+        copy = json.dumps(bt.POLISH_TEXT, ensure_ascii=False).replace("<", "\\u003c")
+        content = content.replace(b"__B_APP_UI_TEXT__", copy.encode("utf-8"))
+    return 200, _TYPES.get(f.suffix, "application/octet-stream"), content
 
 
 def pick_current(runs: list[dict]) -> str | None:
