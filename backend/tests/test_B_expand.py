@@ -505,6 +505,66 @@ def test_bad_range():
     assert m["narratives"][0]["statements"] == [] and m["narratives"][0]["status"] is None
 
 
+# ── 서술 구간 안의 extras (ADR-022) ────────────────────
+
+NARR_LINES = [L(f"p3:L{i}", f"가상 독성 문장 {i}") for i in range(1, 13)]
+EXTRA_IN = {"title_raw": "가. 소제목", "reason": "코드없음", "line": "p3:L4"}
+EXTRA_OUT = {"title_raw": "비고", "reason": "필드없음", "line": "p3:L9"}
+
+
+def expand_narr(extras_11=(), extras_12=(), start="p3:L2", end="p3:L6"):
+    """11항 서술 구간 하나(start~end)와 11·12항 extras만 있는 가짜 MSDS를 펼친다. 다른 항은 빈 응답이다."""
+    sections = {no: {} for no in range(1, 17)}
+    sections[11] = {"narratives": [narr(11, start, end, "가. 독성 정보")], "extras": list(extras_11)}
+    sections[12] = {"extras": list(extras_12)}
+    return ex.expand_msds(sections, line_index(NARR_LINES), 0, "텍스트층")
+
+
+def kinds(problems, kind="extras_in_narrative"):
+    return [p for p in problems if p["kind"] == kind]
+
+
+def test_extras_in_narrative_dropped(no_conventions):
+    m, problems = expand_narr(extras_11=[EXTRA_IN, EXTRA_OUT])
+    assert [(e["seq"], e["section_no"], e["title_raw"]) for e in m["extras"]] == [(1, 11, "비고")]
+    assert kinds(problems) == [{"msds_index": 0, "section": 11, "kind": "extras_in_narrative", "detail": "1행"}]
+    # 뺀 행은 근거도 남지 않고, 남은 행의 근거가 extras[0]이다
+    extras_ev = [e for e in m["evidence"] if e["field"].startswith("extras")]
+    assert [(e["field"], e["source_text"]) for e in extras_ev] == [("extras[0]", "가상 독성 문장 9")]
+    # 서술 문장은 그대로다
+    assert [s["text"] for s in m["narratives"][0]["statements"]] == [f"가상 독성 문장 {i}" for i in range(2, 7)]
+
+
+def test_extras_in_narrative_bounds_inclusive(no_conventions):
+    """구간 양 끝 줄은 거르고, 바로 바깥 줄은 남긴다."""
+    rows = [{**EXTRA_IN, "title_raw": lid, "line": lid} for lid in ("p3:L1", "p3:L2", "p3:L6", "p3:L7")]
+    m, problems = expand_narr(extras_11=rows)
+    assert [e["title_raw"] for e in m["extras"]] == ["p3:L1", "p3:L7"]
+    assert [p["detail"] for p in kinds(problems)] == ["2행"]
+
+
+def test_extras_in_narrative_other_section_kept(no_conventions):
+    """12항 extras가 11항 서술 구간 안의 줄을 가리켜도 남긴다."""
+    m, problems = expand_narr(extras_12=[EXTRA_IN])
+    assert [(e["section_no"], e["title_raw"]) for e in m["extras"]] == [(12, "가. 소제목")]
+    assert kinds(problems) == []
+
+
+@pytest.mark.parametrize("start, end, kind", [("p3:L6", "p3:L2", "bad_range"), ("p3:L2", "p3:L99", "bad_line")])
+def test_extras_in_narrative_ignores_bad_span(no_conventions, start, end, kind):
+    """구간이 잘못된 서술 행은 거르기에 쓰지 않는다."""
+    m, problems = expand_narr(extras_11=[EXTRA_IN], start=start, end=end)
+    assert [e["title_raw"] for e in m["extras"]] == ["가. 소제목"]
+    assert [p["kind"] for p in problems] == [kind]
+
+
+def test_extras_in_narrative_unknown_line_kept(no_conventions):
+    """원문에 없는 줄을 가리키는 extras는 지금처럼 남기고 bad_line으로 센다."""
+    m, problems = expand_narr(extras_11=[{**EXTRA_IN, "line": "p9:L99"}])
+    assert [e["title_raw"] for e in m["extras"]] == ["가. 소제목"]
+    assert [(p["kind"], p["detail"]) for p in problems] == [("bad_line", "extras[0]: p9:L99")]
+
+
 def test_empty_string_in_format_field_becomes_null(no_conventions):
     """형식(pattern)이 정해진 칸의 빈 글자는 값 없음(null)으로 펼친다. 형식이 없는 칸의 빈 글자는 그대로 둔다."""
     r = responses()

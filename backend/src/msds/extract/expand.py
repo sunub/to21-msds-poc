@@ -13,7 +13,7 @@ from __future__ import annotations
 import importlib
 import importlib.util
 import re
-from collections import defaultdict
+from collections import Counter, defaultdict
 
 from msds.common.merge import DICTIONARY_VERSION, SCHEMA_VERSION, now_kst
 from msds.common.schema import load_schema, msds_item_schema
@@ -248,6 +248,14 @@ def expand_msds(sections: dict[int, dict | None], lines_by_id: dict[str, Line],
             elif isinstance(val, dict):
                 objects[key] = (no, val)
 
+    # 서술 구간(양 끝 포함 줄 위치)을 항마다 모은다. extras 거르기에 쓰므로 펼치기 전에 끝낸다 (ADR-022).
+    # narrative()가 문장을 만드는 구간과 같다: 두 끝이 원문에 있고 start <= end.
+    spans: dict[int, list[tuple[int, int]]] = defaultdict(list)
+    for no, r in rows["narratives"]:
+        start, end = r.get("start"), r.get("end")
+        if start in pos and end in pos and pos[start] <= pos[end]:
+            spans[no].append((pos[start], pos[end]))
+
     # 2. TO21 키 순서대로 펼친다. 성분은 다른 행의 comp_ref가 가리키므로 먼저 만든다.
     components = _shape(props["components"], [r for _, r in rows["components"]], lines_by_id)
     item: dict = {}
@@ -268,6 +276,17 @@ def expand_msds(sections: dict[int, dict | None], lines_by_id: dict[str, Line],
             continue
         src = [r for _, r in pairs]
         if key == "extras":
+            # 같은 항 서술 구간 안의 줄을 가리키는 extras는 서술 문장을 다시 쓴 것이라 버리고 항마다 센다
+            kept, dropped = [], Counter()
+            for no, r in pairs:
+                at = pos.get(r.get("line"))
+                if at is not None and any(s <= at <= e for s, e in spans.get(no, ())):
+                    dropped[no] += 1
+                else:
+                    kept.append((no, r))
+            for no, n in dropped.items():
+                problem(no, "extras_in_narrative", f"{n}행")
+            pairs = kept
             src = [{**r, "section_no": no,
                     "page": lines_by_id[r["line"]].page if r.get("line") in lines_by_id else None}
                    for no, r in pairs]
