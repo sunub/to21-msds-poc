@@ -121,3 +121,26 @@ table.grid td { width: 52px; height: 24px; white-space: nowrap; }
 /* 말풍선 */
 .tip { position: fixed; z-index: 20; max-width: 460px; padding: 6px 9px; border-radius: 6px; pointer-events: none;
   background: #24292f; color: #fff; font-size: 12px; white-space: pre-line; }
+
+/* 두 실행 비교 */
+.pickcol { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; margin-bottom: 8px; }
+.pickcol select { width: 440px; }
+table.cond { width: auto; margin: 4px 0 8px; }
+table.cond tr.chg td { background: #fff8c5; }
+.chgrow { display: flex; gap: 10px; align-items: baseline; margin: 4px 0; font-size: 15px; }
+.chgrow .glabel { width: 150px; }
+.up { color: var(--ok); font-weight: 600; }
+.down { color: var(--no); font-weight: 600; }
+td.num { text-align: right; font-variant-numeric: tabular-nums; }
+table.ditems tr.sub > td { background: var(--soft); }
+table.ditems button { margin: 1px 4px 1px 0; font-size: 12px; padding: 1px 8px; }
+table.rowsdiff { width: auto; }
+ul.why { margin: 4px 0; padding-left: 20px; }
+pre.diff { max-height: 520px; overflow: auto; margin: 4px 0; padding: 6px; border: 1px solid var(--line); border-radius: 6px;
+  background: #fff; font-size: 12px; white-space: pre-wrap; word-break: break-all; }
+pre.diff span { display: block; min-height: 1.4em; }
+pre.diff .ddel { background: #ffebe9; color: #82071e; }
+pre.diff .dadd { background: #dafbe1; color: #116329; }
+pre.diff .dhunk, pre.diff .dfile { color: var(--muted); }
+.vrow { display: grid; grid-template-columns: 330px 150px 150px; gap: 8px; padding: 3px 4px; cursor: pointer; }
+.vrow:hover { background: #f0f6fc; }
