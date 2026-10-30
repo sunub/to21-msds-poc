@@ -116,8 +116,8 @@ def score_tables(gold: dict, bad: list) -> dict:
     out = {"ok": 0, "n": 0, "tables": 0, "found": 0, "extra": 0}
     for p in gold["pages"]:
         meta = load_pages(p["doc_id"])["meta"]["pages"][p["page"] - 1]
-        md = {n: read_md((paths.page_dir(p["doc_id"]) / "tables" / n).read_text(encoding="utf-8"))
-              for n in meta.get("tables", [])}
+        md = {t["file"]: read_md((paths.page_dir(p["doc_id"]) / t["file"]).read_text(encoding="utf-8"))
+              for t in meta.get("tables", [])}
         used = set()
         for t in p["tables"]:
             if (p["doc_id"], p["page"], t["rows"][0][0]) not in DATA_TABLES:
