@@ -1,7 +1,9 @@
 """version13: PR #91's XY-cut reading-order text extraction (layout.py) as the
-base method, kept as plain image+txt output (not layout.py's own meta.json /
-.match.txt / tables/*.md convention), with version12's Docling TableFormer
-grid substitution layered on top.
+base method, kept as plain image+txt output (no .match.txt), with version12's
+Docling TableFormer grid substitution layered on top. Like the preprocessing
+step (render.preprocess) it also writes meta.json and tables/*.md: the final
+text and data tables of every page, with paths relative to the document folder
+(see write_meta).
 
 Why: PR #91 (now on origin/main) replaced the naive "join lines by y-distance"
 approach we used in version2/8/9/12 with a proper recursive XY-cut reading-
@@ -36,7 +38,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 import pymupdf
 
-from msds.preprocess import layout  # noqa: E402
+from msds.preprocess import layout, render  # noqa: E402
 
 from ocr_batch_version2 import VERIFIED_IMAGE_TEXT, find_pdf, paddle_data  # noqa: E402
 from ocr_batch_version12 import (  # noqa: E402
@@ -134,6 +136,32 @@ def page_text(items: list[dict], tables: list, table_matches: list[tuple[list[di
     return "\n".join(lines).rstrip() + "\n"
 
 
+def write_meta(output: Path, doc_id: str, source_file: str, version: str, document, pages: list[dict]) -> dict:
+    """출력 폴더에 meta.json과 tables/*.md를 쓴다. 전처리(render.preprocess)의 meta와 같은 방식이다.
+
+    pages는 쪽마다 {"items": 조각, "scale": 조각 좌표 / pt, "mode": "pdf_xycut" | "paddle_full_page"}.
+    쪽마다 최종 글은 이 스크립트가 쓴 pNNN.txt 하나다. text_source는 그 글의 출처(PDF 글자 → 텍스트층,
+    PaddleOCR → OCR)이고, state는 PDF 텍스트층 판정(render.judge_states)이다.
+    데이터 표는 tables/pNNN_tN.md로 꺼내고 항 제목과 쪽 안 위치(pt)를 남긴다 (render.write_page_tables).
+    meta 안의 경로(text_file, tables[].file)는 모두 이 문서 폴더 기준이다.
+    """
+    states, text_layer = render.judge_states(document)
+    tables = output / "tables"
+    shutil.rmtree(tables, ignore_errors=True)   # 예전 실행의 표가 남지 않게
+    prev = section = None
+    out_pages = []
+    for index, page in enumerate(pages):
+        page_no = index + 1
+        p = {"page": page_no, "state": states[index],
+             "text_source": "텍스트층" if page["mode"] == "pdf_xycut" else "OCR", "text_file": f"p{page_no:03d}.txt"}
+        p, prev, section = render.write_page_tables(tables, p, page["items"], document[index], page["scale"], prev, section)
+        out_pages.append(p)
+    meta = {"doc_id": doc_id, "version": version, "source_file": source_file, "page_count": len(out_pages),
+            "dpi": 200, "text_layer": text_layer, "pages": out_pages}
+    (output / "meta.json").write_text(json.dumps(meta, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    return meta
+
+
 def main(
     output_version: str = "version13",
     line_numbers: bool = True,
@@ -190,6 +218,7 @@ def main(
         docling_seconds = round(time.perf_counter() - docling_started, 6)
 
         page_rows = []
+        meta_pages = []
         with pymupdf.open(pdf) as document:
             for index, image in enumerate(images):
                 page_started = time.perf_counter()
@@ -203,6 +232,7 @@ def main(
                     paddle_started = time.perf_counter()
                     items = paddle_items(ocr, image, doc_id)
                     tables = []
+                    scale = pymupdf.Pixmap(str(image)).width / document[index].rect.width   # 쪽 이미지 좌표 / pt
                     paddle_seconds = round(time.perf_counter() - paddle_started, 6)
 
                 already_covered = covered_by_layout_tables(items, tables)
@@ -212,6 +242,8 @@ def main(
                     if matched is not None:
                         table_matches.append((matched, table_rows))
 
+                meta_pages.append({"items": items, "scale": 1.0 if usable_pdf_text else scale,
+                                   "mode": "pdf_xycut" if usable_pdf_text else "paddle_full_page"})
                 text = page_text(items, tables, table_matches, line_numbers)
                 (output / f"p{page_no:03d}.txt").write_text(text, encoding="utf-8")
                 page_rows.append({
@@ -223,6 +255,7 @@ def main(
                     "page_total_seconds": round(time.perf_counter() - page_started, 6),
                 })
                 print(f"[{doc_id}] {page_no}/{len(images)}", flush=True)
+            write_meta(output, doc_id, row["source_file"], output_version, document, meta_pages)
 
         config = {
             "doc_id": doc_id,
