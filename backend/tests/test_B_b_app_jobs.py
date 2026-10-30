@@ -278,6 +278,130 @@ def test_free_run_name(bj, where):
     assert bj.free_run_name(runs, "가상") == "가상_2"
 
 
+# ── 문서 묶음 (ADR-028) ─────────────────────────────────
+
+RAW = "RAW-90"
+
+
+@pytest.fixture
+def where40(where):
+    """where에 신규 문서 RAW-90(data/pages 바로 아래, 가짜 meta.json), 줄 번호 없는 옛 판 prev/v2, 빈 폴더를 더한다."""
+    pages = where / "data" / "pages"
+    (pages / RAW).mkdir()
+    (pages / RAW / "meta.json").write_text(json.dumps(
+        {"doc_id": RAW, "source_file": "가짜.pdf", "page_count": 1, "text_layer": "정상", "pages": []},
+        ensure_ascii=False), encoding="utf-8")
+    (pages / RAW / "p001.txt").write_text("L001 가짜 글\n", encoding="utf-8")
+    (pages / "prev" / "v2" / X01).mkdir(parents=True)
+    (pages / "prev" / "v2" / X01 / "p001.txt").write_text("가짜 글\n", encoding="utf-8")
+    (pages / "version13_신규40").mkdir()
+    return where
+
+
+@pytest.fixture
+def bt(monkeypatch):
+    monkeypatch.syspath_prepend(str(SCRIPTS))
+    return importlib.import_module("b_app_text")
+
+
+def outside_support(monkeypatch, on: bool):
+    """실행기가 manifest 밖 문서를 받는 경우(phase format40 합친 뒤)와 아닌 경우."""
+    from msds.extract import section_runner
+    if on:
+        monkeypatch.setattr(section_runner, "doc_meta_from_pages", lambda *a, **k: None, raising=False)
+    else:
+        monkeypatch.delattr(section_runner, "doc_meta_from_pages", raising=False)
+
+
+def test_run_outside_doc_waits_for_runner(bj, where40, monkeypatch):
+    outside_support(monkeypatch, False)
+    sp = FakeSpawner()
+    m = manager(bj, where40, sp)
+    with pytest.raises(ValueError, match="format40"):
+        run_job(m, docs=[RAW], pages_dir="../data/pages")
+    with pytest.raises(ValueError, match=f"{RAW}.*format40"):
+        m.run_summary(model=TAG, docs=[RAW], pages_dir="../data/pages", run_name="신규", repeat=1)
+    assert sp.calls == []
+
+
+def test_run_outside_doc_when_runner_supports(bj, where40, monkeypatch):
+    outside_support(monkeypatch, True)
+    sp = FakeSpawner()
+    m = manager(bj, where40, sp)
+    assert "1건 × 1회" in m.run_summary(model=TAG, docs=[RAW], pages_dir="../data/pages", run_name="신규", repeat=1)
+    jobs = run_job(m, docs=[RAW], pages_dir="../data/pages", repeat=1)
+    assert len(jobs) == 1 and len(sp.calls) == 1
+    p = shlex.split(sp.calls[0]["argv"][2])
+    assert p[p.index("--docs") + 1:p.index("--run-name")] == [RAW]
+    assert opt(p, "--pages-dir") == "../data/pages" and "--allow-eval" not in p
+
+
+@pytest.mark.parametrize("on", [True, False])
+def test_try_outside_doc_is_refused(bj, bt, where40, monkeypatch, on):
+    outside_support(monkeypatch, on)
+    sp = FakeSpawner()
+    m = manager(bj, where40, sp)
+    with pytest.raises(ValueError) as e:
+        try_job(m, doc=RAW, pages_dir="../data/pages")
+    assert bt.SET_TEXT["outside_try"] in str(e.value) and RAW in str(e.value)
+    assert sp.calls == []
+
+
+def test_refuses_set_without_line_numbers(bj, bt, where40):
+    sp = FakeSpawner()
+    m = manager(bj, where40, sp)
+    with pytest.raises(ValueError) as e:
+        try_job(m, pages_dir="../data/pages/prev/v2")
+    assert "고를 수 없는 묶음" in str(e.value) and bt.SET_TEXT["no_line_numbers"] in str(e.value)
+    with pytest.raises(ValueError, match="고를 수 없는 묶음"):
+        run_job(m, docs=[X01], pages_dir="../data/pages/prev/v2")
+    assert sp.calls == []
+
+
+def test_refuses_doc_without_line_numbers_in_usable_set(bj, bt, where40):
+    (where40 / "data" / "pages" / "version9" / X02 / "p001.txt").write_text("가짜 글\n", encoding="utf-8")
+    sp = FakeSpawner()
+    m = manager(bj, where40, sp)
+    with pytest.raises(ValueError) as e:
+        try_job(m, doc=X02)
+    assert str(e.value) == f"{X02}: {bt.SET_TEXT['no_line_numbers_doc']}"
+    try_job(m, doc=X01)                                                   # 같은 묶음의 다른 문서는 돈다
+    assert len(sp.calls) == 1
+
+
+def test_refuses_folder_that_is_not_a_set(bj, where40):
+    """data/pages 밖 폴더는 쪽 글자가 있어도 묶음이 아니라 띄우지 않는다."""
+    outside = where40 / "backend" / "다른_쪽" / X01
+    outside.mkdir(parents=True)
+    (outside / "p001.txt").write_text("L001 가짜 글\n", encoding="utf-8")
+    sp = FakeSpawner()
+    m = manager(bj, where40, sp)
+    with pytest.raises(ValueError, match="고를 수 없는 묶음"):
+        try_job(m, pages_dir="다른_쪽")
+    assert sp.calls == []
+
+
+def test_refuses_bad_doc_id_before_paths(bj, where40):
+    sp = FakeSpawner()
+    m = manager(bj, where40, sp)
+    with pytest.raises(ValueError, match="문서 번호"):
+        try_job(m, doc="../T21-X01")
+    with pytest.raises(ValueError, match="문서 번호"):
+        run_job(m, docs=[X01, "../T21-X01"])
+    with pytest.raises(ValueError, match="평가"):                           # 폴더에 없어도 평가용은 먼저 거부
+        try_job(m, doc=X09, pages_dir="../data/pages")
+    assert sp.calls == []
+
+
+def test_pages_root_default_and_override(bj, where40, tmp_path):
+    m = manager(bj, where40)
+    assert m.pages_root == where40 / "data" / "pages"
+    other = bj.JobManager(where40 / "jobs", Path("/가상/python"), where40 / "backend", spawner=FakeSpawner(),
+                          runs_dir=where40 / "runs", pages_root=tmp_path / "없음")
+    with pytest.raises(ValueError, match="고를 수 없는 묶음"):              # 묶음을 찾는 곳이 다르면 그 폴더는 묶음이 아니다
+        try_job(other)
+
+
 # ── 비교표 ─────────────────────────────────────────────
 
 def test_start_compare(bj, where):
@@ -563,3 +687,59 @@ def test_allowed_post(app):
     assert not app.allowed_post("text/plain", None, 8765)               # 다른 웹페이지의 폼 보내기
     assert not app.allowed_post("application/json", "http://evil.example", 8765)
     assert not app.allowed_post(None, None, 8765)
+
+
+# ── 앱 라우트: 문서 묶음 (ADR-028) ─────────────────────
+
+@pytest.mark.parametrize("on", [True, False])
+def test_route_options_sets_and_runnable(bj, app, where40, monkeypatch, on):
+    outside_support(monkeypatch, on)
+    ctx = ctx_of(app, where40, manager(bj, where40))
+    code, data = call(app, ctx, "GET", "/api/options")
+    assert code == 200
+    ids = [p["id"] for p in data["pages_dirs"]]
+    assert ids == [".", "version13", "version9"]                          # 빈 폴더·줄 번호 없는 prev/v2는 없다
+    assert {p["id"]: p["value"] for p in data["pages_dirs"]}["."] == "../data/pages"
+    assert data["default_pages_dir"] == "../data/pages/version9" and data["default_set"] == "version9"
+    assert data["outside_run_support"] is on
+    sets = {s["id"]: s for s in data["sets"]}
+    assert {"version13_신규40", "prev/v2"} <= set(sets) and sets["prev/v2"]["usable"] is False
+    raw = {d["doc_id"]: d for d in sets["."]["docs"]}[RAW]
+    assert raw["runnable"] == {"try": False, "run": on}
+    assert isinstance(raw["run_reason"]["try"], str) and raw["run_reason"]["try"].strip()
+    assert (raw["run_reason"]["run"] is None) is on
+    x01 = {d["doc_id"]: d for d in sets["version9"]["docs"]}[X01]
+    assert x01["runnable"] == {"try": True, "run": True} and x01["run_reason"] == {"try": None, "run": None}
+    old = {d["doc_id"]: d for d in sets["prev/v2"]["docs"]}[X01]
+    assert old["runnable"] == {"try": False, "run": False}
+    assert [d["doc_id"] for d in data["docs"]] == [X01, X02]             # 지금 화면이 쓰는 키는 그대로
+
+
+def test_route_options_without_pages_root(bj, app, where):
+    ctx = ctx_of(app, where, manager(bj, where))
+    ctx.pages_root = None
+    data = call(app, ctx, "GET", "/api/options")[1]
+    assert [p["value"] for p in data["pages_dirs"]] == ["../data/pages/version9"]
+    assert data["default_pages_dir"] == "../data/pages/version9"
+    assert data["sets"] == [] and data["default_set"] is None
+
+
+def test_route_jobs_take_set_id(bj, app, where40, monkeypatch):
+    outside_support(monkeypatch, True)
+    sp = FakeSpawner()
+    ctx = ctx_of(app, where40, manager(bj, where40, sp))
+    code, data = call(app, ctx, "POST", "/api/jobs/try", {"model": TAG, "doc": X01, "sections": [11], "set": "version9"})
+    assert code == 200 and opt(sp.calls[0]["argv"], "--pages-dir") == "../data/pages/version9"
+    for bad in ("../x", "/tmp", "없는_묶음"):
+        code, data = call(app, ctx, "POST", "/api/jobs/try", {"model": TAG, "doc": X01, "sections": [11], "set": bad})
+        assert code == 400 and data["error"]
+    code, data = call(app, ctx, "POST", "/api/jobs/try", {"model": TAG, "doc": X01, "sections": [11], "set": "prev/v2"})
+    assert code == 400 and "고를 수 없는 묶음" in data["error"]
+    body = {"model": TAG, "docs": [RAW], "set": ".", "run_name": "신규", "repeat": 1}
+    code, data = call(app, ctx, "POST", "/api/jobs/run", body)
+    assert code == 409 and data["needs_confirm"] is True
+    code, data = call(app, ctx, "POST", "/api/jobs/run", {**body, "confirm": True})
+    assert code == 200
+    p = shlex.split(sp.calls[-1]["argv"][2])
+    assert opt(p, "--pages-dir") == "../data/pages" and opt(p, "--docs") == RAW
+    assert len(sp.calls) == 2

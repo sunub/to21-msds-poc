@@ -2,6 +2,8 @@
 
 명령줄 도구(try_section.py, run_sections.py, compare_models.py)를 고치지 않고 그대로 부른다. backend/에서 돈다.
 - 평가용 문서는 어떤 작업에도 넣지 않는다. --allow-eval을 넘기지 않는다 (D-43).
+- 쪽 폴더는 data/pages 아래의 쓸 수 있는 문서 묶음(b_app_sets)이어야 하고, 문서마다 b_app_sets.job_check를 지난다.
+  manifest 밖 문서(RAW-xx)는 실행기 능력(outside_run_support)이 있을 때만 본 실행에 넣는다 (ADR-028).
 - 바꾼 안내문 글은 저장소 밖 임시 파일(tempfile)에만 쓰고, 작업이 끝나면 지운다. 로그·상태 파일에는 경로만 남는다 (D-47).
 - 작업마다 jobs_dir(runs/manual/jobs)에 로그 <id>.log와 상태 <id>.json을 남긴다. 앱을 다시 켜도 지난 작업이 보인다.
 - 작업은 새 세션(프로세스 묶음)으로 띄운다. 앱을 꺼도 작업은 계속 돌고, 멈추기는 묶음 전체(bash와 그 아래 python)에 보낸다.
@@ -24,6 +26,7 @@ from dataclasses import asdict, dataclass, field
 from datetime import datetime
 from pathlib import Path
 
+import b_app_sets as bsets
 from _common import today
 from msds.common import manifest
 from msds.common.paths import RUNS
@@ -144,9 +147,12 @@ def free_run_name(runs_dir: Path, name: str) -> str:
 
 class JobManager:
     def __init__(self, jobs_dir: Path, python: Path, backend_dir: Path, *, spawner=None, runs_dir: Path = RUNS,
-                 platform: str = sys.platform, which=shutil.which, ps=None, sleep=time.sleep):
+                 platform: str = sys.platform, which=shutil.which, ps=None, sleep=time.sleep,
+                 pages_root: Path | None = None):
         self.jobs_dir, self.python, self.backend_dir = Path(jobs_dir), Path(python), Path(backend_dir)
         self.runs_dir = Path(runs_dir)
+        # 문서 묶음을 찾는 곳. 쪽 폴더는 이 아래의 묶음이어야 한다
+        self.pages_root = Path(pages_root) if pages_root is not None else self.backend_dir.parent / "data" / "pages"
         self._spawner, self._platform, self._which = spawner or _spawn, platform, which
         self._ps, self._sleep = ps or _ps_text, sleep
         self._jobs: dict[str, Job] = {}                  # 이 앱이 띄운 작업
@@ -162,23 +168,6 @@ class JobManager:
         except (KeyError, TypeError):
             raise ValueError(f"configs/models.yaml에 없는 모델 태그: {tag}") from None
 
-    @staticmethod
-    def _dev_docs(doc_ids) -> list[str]:
-        """개발용 문서만 (순서 유지). 평가용이 있으면 ValueError (D-43)."""
-        if not isinstance(doc_ids, list) or not all(isinstance(d, str) for d in doc_ids):
-            raise ValueError(f"문서 번호 목록을 확인하세요: {doc_ids}")
-        try:
-            rows = manifest.select(None, doc_ids)
-        except KeyError as e:
-            raise ValueError(f"문서 번호를 확인하세요: {e}") from None
-        evals = [r["doc_id"] for r in rows if r["purpose"] == "평가"]
-        if evals:
-            raise ValueError(f"평가용 문서는 작업에 넣을 수 없습니다: {', '.join(evals)} (D-43)")
-        others = [r["doc_id"] for r in rows if r["purpose"] != "개발"]
-        if others:
-            raise ValueError(f"개발용 문서만 넣을 수 있습니다: {', '.join(others)}")
-        return list(dict.fromkeys(doc_ids))
-
     def _pages(self, pages_dir, doc_ids: list[str]) -> str:
         """쪽 폴더와 그 안의 문서별 pNNN.txt를 띄우기 전에 본다. 예: version13_신규40(RAW-01~)에는 개발용 문서가 없다."""
         if not isinstance(pages_dir, str) or not pages_dir or not (self.backend_dir / pages_dir).is_dir():
@@ -189,6 +178,34 @@ class JobManager:
             raise ValueError(f"{Path(pages_dir).name}에 쪽 글자(pNNN.txt)가 없는 문서: {', '.join(missing)}. "
                              "다른 쪽 폴더를 고르세요")
         return pages_dir
+
+    def _check_docs(self, doc_ids, pages_dir, kind: str) -> list[str]:
+        """작업에 넣을 문서 (순서 유지, 중복 제거). kind는 "try" | "run". 걸리면 ValueError.
+        순서: 형·문서 번호 → 평가용(폴더를 보기 전에, D-43) → 쪽 폴더(_pages) → 쓸 수 있는 묶음 → 문서별 job_check."""
+        if not isinstance(doc_ids, list) or not all(isinstance(d, str) for d in doc_ids):
+            raise ValueError(f"문서 번호 목록을 확인하세요: {doc_ids}")
+        bad = [d for d in doc_ids if not bsets.DOC_ID.fullmatch(d)]
+        if bad:
+            raise ValueError(f"문서 번호를 확인하세요: {', '.join(bad)}")
+        rows = manifest.load()
+        evals = [r["doc_id"] for r in rows if r["doc_id"] in doc_ids and r["purpose"] == "평가"]
+        if evals:
+            raise ValueError(f"평가용 문서는 작업에 넣을 수 없습니다: {', '.join(evals)} (D-43)")
+        doc_ids = list(dict.fromkeys(doc_ids))
+        self._pages(pages_dir, doc_ids)
+        here = (self.backend_dir / pages_dir).resolve()
+        found = next((s for s in bsets.list_sets(self.pages_root, rows)
+                      if bsets.set_dir(self.pages_root, s["id"]).resolve() == here), None)
+        if found is None:
+            raise ValueError(f"고를 수 없는 묶음입니다: {pages_dir}는 data/pages 아래의 문서 묶음이 아닙니다")
+        if not found["usable"]:
+            raise ValueError(f"고를 수 없는 묶음입니다: {found['reason']}")
+        entries = {d["doc_id"]: d for d in found["docs"]}
+        for d in doc_ids:
+            reason = bsets.job_check(entries[d], kind)   # _pages를 지났으니 문서 폴더가 묶음 안에 있다
+            if reason:
+                raise ValueError(f"{d}: {reason}")
+        return doc_ids
 
     @staticmethod
     def _name(value, what: str) -> str:
@@ -225,8 +242,7 @@ class JobManager:
                   system_text: str | None, base_run: str | None, dry_run: bool = False,
                   extra_env: dict[str, str] | None = None) -> Job:
         self._model(model)
-        self._dev_docs([doc])
-        pages_dir = self._pages(pages_dir, [doc])
+        self._check_docs([doc], pages_dir, "try")
         if all_:
             secs = None
         else:
@@ -261,8 +277,7 @@ class JobManager:
 
     def _check_run(self, model, docs, pages_dir, run_name, repeat) -> tuple[dict, list[str], list[str], str]:
         cfg = self._model(model)
-        doc_ids = self._dev_docs(docs) if docs else [r["doc_id"] for r in manifest.select("개발")]
-        pages_dir = self._pages(pages_dir, doc_ids)
+        doc_ids = self._check_docs(docs if docs else [r["doc_id"] for r in manifest.select("개발")], pages_dir, "run")
         self._name(run_name, "실행 이름")
         if not isinstance(repeat, int) or isinstance(repeat, bool) or not 1 <= repeat <= MAX_REPEAT:
             raise ValueError(f"반복 수는 1~{MAX_REPEAT}입니다: {repeat}")
