@@ -629,3 +629,15 @@ def test_module_without_apply_is_ignored(monkeypatch):
     monkeypatch.setitem(sys.modules, name, mod)
     item = {"meta": {}}
     assert ex.apply_conventions(item) is item
+
+
+def test_rows_physchem_no_value_expands_to_q_status(no_conventions, monkeypatch):
+    """행 형식 9항의 text_value 자료없음은 q.status 자료없음이 되고 text_value는 null이다."""
+    monkeypatch.setattr(ex, "now_kst", lambda: "2026-10-29T00:00:00+09:00")
+    text = "\n".join(["### physchem", " | ".join(rw.row_tables(9)["physchem"]),
+                      "ODOR_THRESHOLD |  |  |  | 자료없음 |  |  | p3:L2"])
+    parsed, errors = rw.parse_rows(text, 9)
+    assert errors == []
+    doc = ex.to_to21(DOC_META, [{**responses(), 9: parsed}], LINES, "가상엔진 v1")
+    row = next(r for r in doc[0]["msds"][0]["physchem"] if r["prop_code"] == "ODOR_THRESHOLD")
+    assert row["q"]["status"] == "자료없음" and row["text_value"] is None

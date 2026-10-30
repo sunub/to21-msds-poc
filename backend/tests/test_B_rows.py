@@ -561,3 +561,47 @@ def test_parse_rows_align_object_table():
     parsed, errors = rw.parse_rows(table(3, "composition", " | ".join(full[:1] + full[2:])), 3)
     assert errors == []
     assert parsed["composition"] == rw.parse_rows(table(3, "composition", " | ".join(full)), 3)[0]["composition"]
+
+
+# ── 표별 기본값: 함유량 단위, 9항 값 없음 (ADR-022) ───
+
+def _content(cell: str) -> dict:
+    text = table(3, "components", row(3, "components", name="가상물질 갑", cas_no="1234-56-6", content=cell,
+                                      line="p2:L5"))
+    parsed, errors = rw.parse_rows(text, 3)
+    assert errors == []
+    return parsed["components"][0]["content"]
+
+
+def test_content_unit_defaults_to_percent():
+    assert _content("99.999") == {"raw": "99.999", "value": 99.999, "unit": "%"}
+    q = _content("40 ~ 50")
+    assert (q["lower"], q["upper"], q["unit"], q["raw"]) == (40, 50, "%", "40 ~ 50")
+
+
+def test_content_unit_keeps_written_unit():
+    assert _content("10 ~ 20 %")["unit"] == "%"
+    assert _content("1 ppm")["unit"] == "ppm"
+
+
+def test_content_unit_not_added_without_number():
+    assert _content("자료없음") == {"raw": "자료없음"}
+
+
+def _physchem(**values) -> dict:
+    text = table(9, "physchem", row(9, "physchem", **values))
+    parsed, errors = rw.parse_rows(text, 9)
+    assert errors == []
+    return parsed["physchem"][0]
+
+
+def test_physchem_no_value_moves_to_q():
+    r = _physchem(prop_code="ODOR_THRESHOLD", text_value="자료없음", line="p5:L6")
+    assert r["q"] == {"raw": "자료없음"} and r["text_value"] is None
+
+
+def test_physchem_no_value_keeps_real_text_and_existing_q():
+    r = _physchem(prop_code="APPEARANCE_COLOR", text_value="무색", line="p5:L2")
+    assert r["text_value"] == "무색" and r["q"] is None
+    r = _physchem(prop_code="ODOR_THRESHOLD", q="0.5 ppm", text_value="자료없음", line="p5:L6")
+    assert r["q"]["value"] == 0.5 and r["text_value"] == "자료없음"

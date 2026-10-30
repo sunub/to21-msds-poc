@@ -366,6 +366,11 @@ def _build(t: _Table, cells: list[str]) -> tuple[dict | None, str | None]:
     qm = next((c for c in t.columns if t.kinds[c] == "qm"), None)   # 값 열. 11항 converted(환산값)는 둘째라 채우지 않는다
     if qm and row[qm] is None and row.get("status") in _NO_VALUE:  # JSON 경로처럼 값 없는 행의 raw에 상태 글자
         row[qm] = {"raw": row["status"]}
+    if t.name == "components" and (q := row.get("content")):    # 함유량은 늘 백분율 (R19). 표 머리글에만 %가 있다
+        if any(q.get(k) is not None for k in ("value", "lower", "upper")) and not q.get("unit"):
+            q["unit"] = "%"
+    if t.name == "physchem" and row.get("q") is None and row.get("text_value") in _NO_VALUE:
+        row["q"], row["text_value"] = {"raw": row["text_value"]}, None   # 9항은 상태 열이 없어 값 없음을 q.raw로 옮긴다
     if t.is_object:
         del row["line"]
         row["lines"] = {k: line for k, v in row.items() if v is not None}
