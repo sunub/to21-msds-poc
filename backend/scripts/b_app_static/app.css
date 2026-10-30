@@ -83,8 +83,9 @@ main { padding: 12px 20px 40px; max-width: 1240px; }
 #status-card.status-pass { border-top-color: var(--ok); }
 .status-headline { font-size: 18px; font-weight: 600; margin: 8px 0 16px; overflow-wrap: anywhere; }
 .top-drops ol { margin: 4px 0 12px; padding-left: 20px; }
-.top-drops li { margin-bottom: 8px; }
-.top-drops button { margin-left: 4px; min-height: 32px; }
+.top-drops li { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 8px; margin-bottom: 8px; }
+.top-drops li > span { flex: 1 1 0; min-width: 0; }
+.top-drops button { flex: 0 0 auto; min-height: 32px; }
 .next-action { margin: 12px 0 0; padding-top: 12px; border-top: 1px solid var(--line); }
 .item-filter { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin: 12px 0; }
 .item-filter button { min-height: 32px; }

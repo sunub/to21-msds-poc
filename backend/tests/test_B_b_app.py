@@ -141,10 +141,36 @@ def test_run_labels_are_added_without_changing_score_or_cache(app, ctx, env, mon
             "parts": ["10/30 Qwen3.6 35B (RunPod)", "안내문 s7", "입력 version9", "분류 검사", "개발 10건", "2회차"],
         }
         assert result["model_label"] == "Qwen3.6 35B (RunPod)"
-    # Step 4 adds presentation fields; every original scoring field remains identical.
+    # Steps 4/9 add presentation fields; every original scoring field remains identical.
     assert {k: v for k, v in detail.items()
-            if k not in ("label", "model_label", "status_text", "card_summaries")} == before
+            if k not in ("label", "model_label", "status_text", "card_summaries", "connection_notes")} == before
     assert summary == before
+
+
+def test_run_connection_notes_are_additive_and_need_no_server(app, ctx, env):
+    make_run(env / "runs", "fake-run", {X01: make_doc(X01)}, info={"model": "가짜 모델"})
+    ctx.model_status = lambda: pytest.fail("점수 조회는 연결을 새로 검사하지 않는다")
+    code, result = get_json(app, ctx, "/api/run/fake-run")
+    assert code == 200
+    assert result["connection_notes"] == app.bt.connection_notes(result["model"])
+
+
+def test_doc_tooltips_preserve_raw_values_and_translate_all_sides(app, ctx, env, monkeypatch):
+    make_run(env / "runs", "fake-run", {X01: make_doc(X01)})
+    value = {"seq": 1, "value": "직접 만든 값", "cond": None, "unknown": 0}
+    view = {"values": [{"path": "fake", "value": value, "silver": {"value": value, "same": True}}],
+            "silver_only": [{"path": "fake", "value": value}]}
+    before = json.loads(json.dumps(view))
+    monkeypatch.setattr(app.bdoc, "doc_view", lambda *a: view)
+    code, _, body = app.route("GET", "/api/doc", {"run": ["fake-run"], "doc": [X01]}, None, ctx)
+    result = json.loads(body)
+    assert code == 200
+    assert result["ui_text"]["value_field_labels"] == app.bt.VALUE_FIELD_LABELS
+    for cell in (result["values"][0], result["values"][0]["silver"], result["silver_only"][0]):
+        assert cell["value"] == value
+    for side in ("result", "silver", "silver_only"):
+        assert result["ui_text"]["value_tips"][side]["fake"] == ["순서: 1", "값: 직접 만든 값", "unknown: 0"]
+    assert view == before
 
 
 def test_all_run_kinds_get_labels(app, ctx, env):

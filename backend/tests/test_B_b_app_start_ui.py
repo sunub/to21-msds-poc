@@ -1,5 +1,24 @@
 """시작 안내 사건·저장 계약의 DOM 대역 시험. 실제 브라우저 검증과 구분한다."""
 from test_B_b_app_score_ui import run_js
+import json
+
+import pytest
+
+
+@pytest.mark.parametrize("runs_error", [None, "x"])
+def test_start_optional_children_never_render_null(runs_error):
+    run_js("S.runsError = " + json.dumps(runs_error) + r""";
+      S.startText={intro:['안내'],heading:'지금 할 일',offline:'서버 없이 보기',
+        steps:[],later:[],later_title:'다음',dismiss:'닫기',replay:'다시 보기'};
+      S.runsLoaded=true; S.list=[{name:'fake-run'}]; S.name='fake-run';
+      S.run={name:S.name,status_text:{verdict:'fail',top_drops:[{section:8}]}};
+      S.journey.completed=false;
+      renderStart();
+      const text=document.getElementById('start-content').textContent;
+      assert.doesNotMatch(text,/null|undefined|false/);
+      assert.match(text,/지금 할 일/);
+      if (S.runsError) assert.match(text,/x/);
+    """)
 
 
 def test_start_state_restore_reset_and_storage_denied():
