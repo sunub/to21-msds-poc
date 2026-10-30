@@ -1,0 +1,87 @@
+{
+ "doc_id": "T21-S016",
+ "msds_index": 0,
+ "section": 5,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S5_MEDIA",
+    "title_raw": "가. 적절한(및 부적절한) 소화제",
+    "start": "p3:L38",
+    "end": "p3:L39"
+   },
+   {
+    "item_code": "S5_SPECIFIC",
+    "title_raw": "나. 화학물질로부터 생기는 특정 유해성",
+    "start": "p3:L42",
+    "end": "p3:L46"
+   },
+   {
+    "item_code": "S5_FIREFIGHT",
+    "title_raw": "다. 화재 진압 시 착용할 보호구 및 예방조치",
+    "start": "p3:L40",
+    "end": "p4:L5"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S5_MEDIA",
+    "title_raw": "다. 화재 진압 시 착용할 보호구 및 예방조치",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "key": "내용",
+      "value": "화재 진압 시 방화복, 소방용 구조헬멧, 소방용 안전화, 소방용 안전장갑, 공기호흡기를 착용하시오.",
+      "line": "p3:L40"
+     }
+    ],
+    "suggested_code": "S5_FIREFIGHT",
+    "line": "p3:L40"
+   },
+   {
+    "after_item": "S5_FIREFIGHT",
+    "title_raw": "3/9",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "key": "내용",
+      "value": "3/9",
+      "line": "p3:L48"
+     }
+    ],
+    "suggested_code": "PAGE_NUMBER",
+    "line": "p3:L48"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S5_MEDIA\",\n      \"title_raw\": \"가. 적절한(및 부적절한) 소화제\",\n      \"start\": \"p3:L38\",\n      \"end\": \"p3:L39\"\n    },\n    {\n      \"item_code\": \"S5_SPECIFIC\",\n      \"title_raw\": \"나. 화학물질로부터 생기는 특정 유해성\",\n      \"start\": \"p3:L42\",\n      \"end\": \"p3:L46\"\n    },\n    {\n      \"item_code\": \"S5_FIREFIGHT\",\n      \"title_raw\": \"다. 화재 진압 시 착용할 보호구 및 예방조치\",\n      \"start\": \"p3:L40\",\n      \"end\": \"p4:L5\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S5_MEDIA\",\n      \"title_raw\": \"다. 화재 진압 시 착용할 보호구 및 예방조치\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"key\": \"내용\",\n          \"value\": \"화재 진압 시 방화복, 소방용 구조헬멧, 소방용 안전화, 소방용 안전장갑, 공기호흡기를 착용하시오.\"\n        ,\n          \"line\": \"p3:L40\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S5_FIREFIGHT\"\n    ,\n      \"line\": \"p3:L40\"\n    },\n    {\n      \"after_item\": \"S5_FIREFIGHT\",\n      \"title_raw\": \"3/9\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"key\": \"내용\",\n          \"value\": \"3/9\"\n        ,\n          \"line\": \"p3:L48\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"PAGE_NUMBER\"\n    ,\n      \"line\": \"p3:L48\"\n    }\n  ]\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 2249,
+  "completion_tokens": 488,
+  "total_tokens": 2737
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 2249,
+    "completion_tokens": 488,
+    "total_tokens": 2737
+   },
+   "seconds": 8.829,
+   "chars": 1139,
+   "whitespace": 449,
+   "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S5_MEDIA\",\n      \"title_raw\": \"가. 적절한(및 부적절한) 소화제\",\n      \"start\": \"p3:L38\",\n      \"end\": \"p3:L39\"\n    },\n    {\n      \"item_code\": \"S5_SPECIFIC\",\n      \"title_raw\": \"나. 화학물질로부터 생기는 특정 유해성\",\n      \"start\": \"p3:L42\",\n      \"end\": \"p3:L46\"\n    },\n    {\n      \"item_code\": \"S5_FIREFIGHT\",\n      \"title_raw\": \"다. 화재 진압 시 착용할 보호구 및 예방조치\",\n      \"start\": \"p3:L40\",\n      \"end\": \"p4:L5\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S5_MEDIA\",\n      \"title",
+   "tail": "압 시 방화복, 소방용 구조헬멧, 소방용 안전화, 소방용 안전장갑, 공기호흡기를 착용하시오.\"\n        ,\n          \"line\": \"p3:L40\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S5_FIREFIGHT\"\n    ,\n      \"line\": \"p3:L40\"\n    },\n    {\n      \"after_item\": \"S5_FIREFIGHT\",\n      \"title_raw\": \"3/9\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"key\": \"내용\",\n          \"value\": \"3/9\"\n        ,\n          \"line\": \"p3:L48\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"PAGE_NUMBER\"\n    ,\n      \"line\": \"p3:L48\"\n    }\n  ]\n}"
+  }
+ ],
+ "seconds": 8.83,
+ "check_problems": []
+}
