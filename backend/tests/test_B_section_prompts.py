@@ -194,7 +194,7 @@ def test_value_and_range_are_exclusive(systems, no):
 
 
 def test_version():
-    assert sp.SECTION_PROMPT_VERSION == "s6"
+    assert sp.SECTION_PROMPT_VERSION == "s7"
 
 
 @pytest.mark.parametrize("no", NOS)
@@ -226,7 +226,7 @@ def rows_systems():
 
 
 def test_rows_version_s6():
-    assert sp.SECTION_PROMPT_VERSION == "s6"
+    assert sp.SECTION_PROMPT_VERSION == "s7"
 
 
 @pytest.mark.parametrize("no", ROWS_SECTIONS_DEFAULT)
@@ -274,3 +274,11 @@ def test_rows_prompt_hash(rows_systems, no):
     h = sp.prompt_hash(no, rows=True)
     assert h == hashlib.sha256(rows_systems[no].encode("utf-8")).hexdigest()[:12]
     assert h != sp.prompt_hash(no)
+
+
+def test_section_16_meta_revision_labels(systems):
+    text = systems[16]
+    for word in ("first_issue_date", "last_revision_date", "revision_no",
+                 "최초작성일", "최종 개정일자", "개정횟수"):
+        assert word in text, word
+    assert "최초작성일" not in systems[15]
