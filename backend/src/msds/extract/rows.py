@@ -351,8 +351,11 @@ def _build(t: _Table, cells: list[str]) -> tuple[dict | None, str | None]:
     """열 수가 맞는 칸 목록 → (행 dict, None) 또는 (None, 문제)."""
     values = dict(zip(t.columns, cells))
     for c in t.columns:
-        if t.kinds[c] == "line" and not _LINE_ID.fullmatch(values[c]):
-            return None, f"{c} 열이 줄 번호(p2:L23 모양)가 아님 '{values[c]}'" if values[c] else f"{c} 열이 비었음"
+        if t.kinds[c] == "line":
+            ids = _LINE_ID.findall(values[c])               # 줄 번호가 여럿이거나 글이 섞여도 첫 번째를 쓴다
+            if not ids:
+                return None, f"{c} 열이 줄 번호(p2:L23 모양)가 아님 '{values[c]}'" if values[c] else f"{c} 열이 비었음"
+            values[c] = ids[0]
     line = values.get("line") or values.get("start")
     row = {}
     for c in t.columns:
