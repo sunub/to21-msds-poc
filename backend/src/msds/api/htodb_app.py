@@ -1,4 +1,7 @@
-"""TO21 지식DB(HTODB) 조회 API (읽기 전용). 원본 값을 그대로 돌려주고, 해석·판정은 하지 않는다.
+"""TO21 지식DB(HTODB) 조회 API (읽기 전용).
+
+기본 응답은 원본 값을 그대로 돌려준다. 독성·물성 조회에 ``parsed=true``를 주면
+원본 행은 유지한 채 판정 입력용 파싱 결과를 별도 필드로 덧붙인다.
 
 실행: cd backend && .venv/bin/uvicorn --app-dir src msds.api.htodb_app:app --port 8010  (문서: /docs)
 """
