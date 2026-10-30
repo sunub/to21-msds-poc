@@ -113,7 +113,9 @@ def test_run_labels_are_added_without_changing_score_or_cache(app, ctx, env, mon
             "parts": ["10/30 Qwen3.6 35B (RunPod)", "안내문 s7", "입력 version9", "분류 검사", "개발 10건", "2회차"],
         }
         assert result["model_label"] == "Qwen3.6 35B (RunPod)"
-    assert {k: v for k, v in detail.items() if k not in ("label", "model_label")} == before
+    # Step 4 adds presentation fields; every original scoring field remains identical.
+    assert {k: v for k, v in detail.items()
+            if k not in ("label", "model_label", "status_text", "card_summaries")} == before
     assert summary == before
 
 
@@ -168,6 +170,60 @@ def test_api_run_unknown(app, ctx, env):
     for path in ("/api/run/없는실행", "/api/run/../gold", "/api/run/"):
         code, data = get_json(app, ctx, path)
         assert code == 404 and data["error"], path
+
+
+def test_run_status_and_summaries_do_not_change_cached_scores(app, ctx, env, monkeypatch):
+    three_runs(env)
+    name = "20261029_sections_m1_dev10_r1"
+    summary = app.br.summarize_run(env / "runs" / name, ctx.gold_dir, cache_dir=None)
+    before = json.loads(json.dumps(summary))
+    original = app.br.summarize_run
+    monkeypatch.setattr(app.br, "summarize_run", lambda run, *a, **kw:
+                        summary if run.name == name else original(run, *a, **kw))
+    ctx.model_status = lambda: pytest.fail("점수 요청은 모델 서버를 부르면 안 됩니다")
+    code, result = get_json(app, ctx, "/api/run/" + name)
+    assert code == 200
+    assert result["status_text"] == app.bt.score_status(before, app.br.criteria(), connected=None)
+    assert set(result["card_summaries"]) == {"history", "docs", "grid", "rows"}
+    assert result["card_summaries"]["history"].startswith("실행 2개,")
+    for kind in ("docs", "grid", "rows"):
+        assert result["card_summaries"][kind] == app.bt.card_summary(kind, before)
+    assert all(result[k] == v for k, v in before.items())
+    assert summary == before
+
+
+@pytest.mark.parametrize("reachable, match, expected", [(True, True, True), (True, False, False), (False, False, False)])
+def test_run_status_uses_cached_server_model_state(app, ctx, env, monkeypatch, reachable, match, expected):
+    from types import SimpleNamespace
+    three_runs(env)
+    calls = []
+    model = {"tag": "m1", "reachable": reachable, "match": match}
+    def server_status():
+        calls.append("status")
+        return {"models": [model]}
+    ctx.servers = SimpleNamespace(status=server_status)
+    get_json(app, ctx, "/api/servers")
+    seen = []
+    real = app.bt.score_status
+    def capture(info, criteria, *, connected=None):
+        seen.append(connected)
+        return real(info, criteria, connected=connected)
+    monkeypatch.setattr(app.bt, "score_status", capture)
+    for _ in range(2):
+        get_json(app, ctx, "/api/run/20261029_sections_m1_dev10_r1")
+    assert seen == [expected, expected]
+    assert calls == ["status"]
+    model["tag"] = "another-model"
+    get_json(app, ctx, "/api/servers")
+    get_json(app, ctx, "/api/run/20261029_sections_m1_dev10_r1")
+    assert seen[-1] is None
+
+
+def test_runs_count_is_available_before_scoring(app, ctx, env, monkeypatch):
+    three_runs(env)
+    monkeypatch.setattr(app.br, "load_all", lambda *a, **kw: pytest.fail("목록 수만 확인할 때 채점하면 안 됩니다"))
+    code, _, body = app.route("GET", "/api/runs", {"count": ["1"]}, None, ctx)
+    assert code == 200 and json.loads(body) == {"count": 3}
 
 
 def test_api_criteria(app, ctx):

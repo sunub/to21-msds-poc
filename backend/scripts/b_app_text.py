@@ -5,6 +5,7 @@
 """
 import re
 from datetime import datetime
+from math import isfinite
 from pathlib import PurePosixPath
 
 
@@ -218,6 +219,114 @@ def explain(term: str) -> str | None:
         if term == name or term in entry["also"]:
             return entry["short"]
     return None
+
+
+_SCORE_WEIGHTS = {"필수": 3, "중요": 2, "일반": 1}
+_ROW_LABELS = {
+    "components": "성분 (3항)", "exposure_limits": "노출기준 (8항)", "physchem": "물리·화학 성질 (9항)",
+    "toxicity": "독성 (11항)", "cmr": "발암성 등 CMR (11항)", "ecotox": "생태 독성 (12항)",
+    "regulations": "규제 (15항)", "intl_class": "국제 분류 (15항)", "extras": "남는 값 extras (자리가 없는 값)",
+}
+
+
+def _number(value) -> bool:
+    return isinstance(value, (int, float)) and not isinstance(value, bool) and isfinite(value)
+
+
+def _item_section(item: dict, criteria: dict) -> int | None:
+    """항목 이름 또는 ITEM_HELP에서 온 설명에 적힌 항만 쓴다. 추측하지 않는다."""
+    match = re.match(r"^(1[0-6]|[1-9])항", item["name"])
+    if not match:
+        help_text = next((i.get("help", "") for i in criteria.get("items", []) if i.get("name") == item["name"]), "")
+        match = re.search(r"(?<!\d)(1[0-6]|[1-9])항", help_text)
+    return int(match[1]) if match else None
+
+
+def score_status(info: dict, criteria: dict, *, connected: bool | None = None) -> dict:
+    """채점 값은 그대로 두고 100점 단위의 요약과 확인 순서를 만든다."""
+    weighted = info.get("weighted")
+    if not _number(weighted):
+        return {"headline": "점수가 없는 실행입니다.", "verdict": "none", "top_drops": [],
+                "next_action": "실행에 채점할 결과와 정답 초안(실버)이 있는지 확인하세요."}
+    target = criteria["pass_score"]
+    must_total = info.get("must_total")
+    if must_total is None:
+        must_total = sum(i.get("level") == "필수" for i in criteria.get("items", []))
+    must_passed = info.get("must_passed") or 0
+    missing = max(0, must_total - must_passed)
+    passed = weighted >= target and missing == 0
+    headline = f"{weighted:.1f}점입니다. 합격 기준은 가중 종합 {target:g}점과 필수 {must_total}/{must_total}입니다."
+    if passed:
+        headline += " 합격 기준을 넘었습니다."
+    else:
+        if weighted < target:
+            headline += f" 점수는 {target - weighted:.1f}점 부족합니다."
+        headline += f" 필수 {missing}개가 목표 아래입니다."
+
+    drops = []
+    for item in info.get("items", []):
+        if item.get("pass") is not False or not all(_number(item.get(k)) for k in ("score", "target")):
+            continue
+        # max는 같은 수일 때 앞의 값을 택한다: 빠뜨림 > 틀림 > 지어냄.
+        cause = max(("빠뜨림", "틀림", "지어냄"), key=lambda k: item.get(k) or 0)
+        score, goal = item["score"] * 100, item["target"] * 100
+        drops.append({"name": item["name"], "score": score, "target": goal,
+                      "gap": round(goal - score, 10), "weight": _SCORE_WEIGHTS[item["level"]], "cause": cause,
+                      "section": _item_section(item, criteria),
+                      "sentence": f"{item['name']} {score:.1f}점(목표 {goal:g}). 주원인은 {cause} {item.get(cause) or 0}개입니다."})
+    drops.sort(key=lambda d: d["gap"] * d["weight"], reverse=True)
+    drops = drops[:3]
+    if drops:
+        top = drops[0]
+        next_action = (f"④ 작업 탭에서 {top['section']}항만 다시 시험해 보세요."
+                       if connected is True and top["section"] is not None else
+                       f"③ 원문 대조에서 {top['name']}의 틀린 값이 원문 어디서 왔는지 확인하세요.")
+    elif passed:
+        next_action = "합격 기준을 넘었습니다. ② 두 실행 비교로 흔들림을 확인하세요."
+    else:
+        next_action = "항목 신호등에서 모두 보기를 눌러 점수와 목표를 확인하세요."
+    return {"headline": headline, "verdict": "pass" if passed else "fail", "top_drops": drops,
+            "next_action": next_action}
+
+
+def card_summary(kind: str, info: dict) -> str:
+    """접힌 카드의 요약. 격자는 화면과 같이 실패 > 한도 > 재추출 > 성공으로 한 번씩 센다."""
+    if kind == "history":
+        runs = [r for r in info.get("runs", [])
+                if r.get("kind", "run") == "run" and not r.get("error") and _number(r.get("weighted"))]
+        if runs:
+            best = max(runs, key=lambda r: r["weighted"])
+            title = (best.get("label") or {}).get("title") or best.get("name", "")
+            return f"실행 {len(runs)}개, 최고 {best['weighted']:.1f}점({title})"
+    elif kind == "docs":
+        docs = info.get("per_doc") or {}
+        scored = [(d, p["weighted"]) for d, p in docs.items() if _number(p.get("weighted"))]
+        timed = [(d, p["seconds"]) for d, p in docs.items() if _number(p.get("seconds"))]
+        if docs and (scored or timed):
+            low = min(scored, key=lambda x: x[1]) if scored else None
+            slow = max(timed, key=lambda x: x[1]) if timed else None
+            score_text = f"가장 낮은 {low[0]} {low[1]:.1f}점" if low else "점수 자료 없음"
+            time_text = f"가장 오래 걸린 {slow[0]} {slow[1]:.0f}초" if slow else "시간 자료 없음"
+            return f"문서 {len(docs)}건, {score_text}, {time_text}"
+    elif kind == "grid":
+        cells = [c for cells in (info.get("grid") or {}).values() for c in cells.values() if c]
+        if cells:
+            counts = {k: 0 for k in ("성공", "재추출", "한도 걸림", "실패")}
+            for c in cells:
+                key = "실패" if not c.get("ok") else "한도 걸림" if c.get("limit_kind") else "재추출" if c.get("reextracted") else "성공"
+                counts[key] += 1
+            return f"호출 {len(cells)}개 중 " + ", ".join(f"{k} {v}" for k, v in counts.items())
+    elif kind == "rows":
+        rows = {k: v for k, v in (info.get("rows") or {}).items()
+                if k in _ROW_LABELS and all(_number(v.get(f)) for f in ("pred", "gold"))}
+        if rows and (info.get("docs") or any(v["pred"] or v["gold"] for v in rows.values())):
+            short = [(k, v) for k, v in rows.items() if v["pred"] < v["gold"]]
+            result = f"표 {len(rows)}개 중 정답보다 적은 표 {len(short)}개"
+            if short:
+                key, row = max(short, key=lambda kv: kv[1]["gold"] - kv[1]["pred"])
+                result += f"(가장 모자란 {_ROW_LABELS[key]} {row['pred']}/{row['gold']})"
+            return result
+    return "자료 없음"
 
 
 MODEL_LABELS: dict[str, str] = {

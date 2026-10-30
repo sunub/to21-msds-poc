@@ -25,10 +25,11 @@
   <section id="tab-score" class="tab">
     <p class="what">이 화면은 실행 하나의 점수가 합격 기준까지 얼마나 남았는지 보여 줍니다.<br>
       어느 항목이 왜 깎였는지, 문서마다 걸린 시간과 모델 호출 상태도 함께 봅니다. <a href="#help" data-help="s2">자세히 → 도움말 2장</a></p>
-    <div class="cols">
-      <div class="card" id="now-card"></div>
+    <div class="cols score-top">
+      <div class="card" id="status-card" role="status" aria-live="polite"></div>
       <div class="card" id="rule-card"></div>
     </div>
+    <div class="card" id="now-card"></div>
     <div class="card" id="items-card"></div>
     <div class="card" id="history-card"></div>
     <div class="card" id="docs-card"></div>
