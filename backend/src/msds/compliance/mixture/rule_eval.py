@@ -1,6 +1,7 @@
 """규칙표 조건식 해석기 (설계서 45장 rule_eval). 규칙표_v0.3 rules_check.py와 같은 문법이며 eval은 쓰지 않는다."""
 
 import ast
+import json
 import operator as op
 
 FUNCS = {"sum", "max", "sumx", "other", "flag", "prop", "has"}
@@ -107,3 +108,39 @@ def evaluate_rules(rules, comps, *, other=None, flags=None, props=None, m=1, inc
         except Missing as e:
             return f"근거부족(prop {e})"
     return "분류안됨"
+
+
+def _values(tree, ctx) -> dict:
+    """when에 쓰인 함수 호출과 계산된 값. prop 값이 없어 계산하지 못한 호출은 None."""
+    out = {}
+    for n in ast.walk(tree):
+        if isinstance(n, ast.Call):
+            args = ",".join(json.dumps(x.value, ensure_ascii=False) for x in n.args)
+            try:
+                out[f"{n.func.id}({args})"] = _call(n, ctx)
+            except Missing:
+                out[f"{n.func.id}({args})"] = None
+    return out
+
+
+def evaluate_rules_trace(rules, comps, *, other=None, flags=None, props=None, m=1, include_min=None) -> dict:
+    """evaluate_rules와 같은 인자·같은 판정에 근거를 더한다.
+
+    반환: {"category", "rule_id"(처음 참인 규칙 id 또는 None), "checked": [{"id","when","result","values"}]}.
+    checked에는 처음 참이 될 때까지(또는 근거부족이 날 때까지) 검사한 규칙만 담는다. result는 True, False, "근거부족".
+    """
+    ctx = {"comps": apply_include_min(comps, include_min), "other": other or {}, "flags": flags or {},
+           "props": props or {}, "m": m}
+    checked = []
+    for r in rules:
+        tree = parse_when(r["when"])
+        row = {"id": r.get("id"), "when": r["when"], "values": _values(tree, ctx)}
+        try:
+            row["result"] = bool(_ev(tree, ctx))
+        except Missing as e:
+            checked.append({**row, "result": "근거부족"})
+            return {"category": f"근거부족(prop {e})", "rule_id": None, "checked": checked}
+        checked.append(row)
+        if row["result"]:
+            return {"category": str(r["category"]), "rule_id": r.get("id"), "checked": checked}
+    return {"category": "분류안됨", "rule_id": None, "checked": checked}
