@@ -11,7 +11,7 @@ from fastapi import Body, FastAPI, HTTPException, Query
 from psycopg.rows import dict_row
 from psycopg_pool import ConnectionPool
 
-from msds.compliance.htodb import repo
+from msds.compliance.htodb import parsers, repo
 from msds.compliance.htodb.config import pg_kwargs
 from msds.compliance.htodb.mapping import Map13, code_sites, normalize_cas, normalize_un
 
@@ -81,13 +81,27 @@ PARTS = {
 }
 
 
+def _parse_rows(part: str, chem: dict, out: dict) -> dict:
+    """원본 rows는 그대로 두고, 같은 순서의 파싱 결과 목록을 'parsed'로 붙인다(parsers.py)."""
+    if part == "toxicity":
+        mw = parsers.to_float(chem.get("molecular_weight"))
+        return {**out, "parsed": [parsers.parse_toxicity_row(r, mw) for r in out["rows"]]}
+    return {**out, "parsed": [parsers.parse_property_row(r) for r in out["rows"]]}
+
+
+PARSED_PARTS = ("toxicity", "physical-properties")
+
+
 @app.get("/chemicals/{chem_id}/{part}")
-def get_chemical_part(chem_id: str, part: str):
+def get_chemical_part(chem_id: str, part: str, parsed: bool = False):
     if part not in PARTS:
         raise HTTPException(404, f"알 수 없는 항목: {part} (가능: {', '.join(PARTS)})")
+    if parsed and part not in PARSED_PARTS:
+        raise HTTPException(422, f"parsed는 {', '.join(PARSED_PARTS)}에만 쓸 수 있음")
     with _conn() as conn:
-        _chem_or_404(conn, chem_id)
-        return _wrap(PARTS[part](conn, chem_id))
+        chem = _chem_or_404(conn, chem_id)
+        out = PARTS[part](conn, chem_id)
+        return _wrap(_parse_rows(part, chem, out) if parsed else out)
 
 
 # ---- 코드 기준정보 ----
