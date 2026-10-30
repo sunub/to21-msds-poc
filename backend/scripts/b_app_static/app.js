@@ -56,7 +56,30 @@ function status(text, bad) {
   el.textContent = text || "";
   el.classList.toggle("bad", !!bad);
 }
-const fail = e => status("불러오지 못했습니다: " + e.message, true);
+function rawError(raw) {
+  return h("details", null, h("summary", null, "원문 보기"), h("pre", {class: "raw"}, raw));
+}
+
+// 서버가 만든 문장만 표시한다. 백틱으로 감싼 변수·명령은 글자 노드로 안전하게 그린다.
+function errorCopy(text) {
+  return String(text || "").split(/`([^`]+)`/g).map((part, i) => i % 2 ? h("code", null, part) : part);
+}
+
+function friendlyError(info) {
+  return info ? h("div", {class: "error-note"},
+    h("p", {class: "badt"}, h("strong", null, errorCopy(info.message))),
+    h("p", null, "할 일: ", errorCopy(info.fix)), rawError(info.raw)) : null;
+}
+
+function loadFailure(raw) {
+  return h("div", {class: "error-note"},
+    h("strong", null, "불러오지 못했습니다. 앱을 켠 터미널의 오류를 보세요."), rawError(raw));
+}
+
+function fail(e) {
+  status("", true);
+  document.getElementById("status").append(loadFailure(e.message));
+}
 
 function card(id, title, hint, ...kids) {
   document.getElementById(id).replaceChildren(h("h2", null, title), hint ? h("p", {class: "hint"}, hint) : "", ...kids.flat().filter(k => k));
@@ -85,12 +108,26 @@ function setupTip() {
 
 function setupTabs() {
   const buttons = document.querySelectorAll(".tabs button");
+  const advanced = document.getElementById("advanced");
+  const serverTab = document.querySelector('.tabs button[data-tab="servers"]');
+  let saved = false;
+  try { saved = localStorage.getItem("b_app.advanced") === "1"; } catch (e) { /* 저장 없이도 조작 가능 */ }
+  const setAdvanced = enabled => {
+    advanced.checked = enabled;
+    serverTab.hidden = !enabled;
+    try { localStorage.setItem("b_app.advanced", enabled ? "1" : "0"); } catch (e) { /* 선택은 현재 화면에 유지 */ }
+    if (!enabled && document.getElementById("tab-servers").classList.contains("on")) show("score");
+    if (S.jobs.opts) renderJobs();
+    renderConnNow();
+  };
   const show = id => {
+    if (id === "servers" && !advanced.checked) setAdvanced(true);
     buttons.forEach(b => b.classList.toggle("on", b.dataset.tab === id));
     document.querySelectorAll("section.tab").forEach(t => t.classList.toggle("on", t.id === "tab-" + id));
     history.replaceState(null, "", "#" + id);
     if (id === "servers" && S.srv.started) pollServers().catch(fail);   // 서버 탭을 열면 바로 다시 본다
   };
+  advanced.addEventListener("change", () => setAdvanced(advanced.checked));
   buttons.forEach(b => b.addEventListener("click", () => show(b.dataset.tab)));
   // "자세히 → 도움말 N장" 링크: 도움말 탭을 열고 그 장으로 간다
   document.querySelectorAll("a[data-help]").forEach(a => a.addEventListener("click", e => {
@@ -101,7 +138,12 @@ function setupTabs() {
   const frame = document.getElementById("help-frame");
   if (!frame.getAttribute("src")) frame.src = frame.dataset.src;
   const first = location.hash.slice(1);
+  setAdvanced(first === "servers" || saved);
   show(document.getElementById("tab-" + first) ? first : "score");
+  window.addEventListener("hashchange", () => {
+    const id = location.hash.slice(1);
+    if (document.getElementById("tab-" + id)) show(id);
+  });
 }
 
 // ── 불러오기 ──────────────────────────────────────────
@@ -996,6 +1038,7 @@ function connNote() {
   const tip = o.models.map(m => `${m.label || m.tag} (${m.tag}): ${m.connected ? "연결됨" : m.connected === false ? "연결 안 됨 (" + m.error + ")" : "확인 안 함"}`).join("\n");
   return h("span", {class: "hint", "data-tip": tip},
     o.status_checked ? `연결된 모델 ${o.models.filter(m => m.connected).length}개 ` : "모델 서버 연결은 확인하지 않았습니다 ",
+    o.status_checked && !o.models.some(m => m.connected) ? h("span", null, serverGuide(), " ") : null,
     h("button", {type: "button", onclick: () => loadOptions().then(renderJobs).catch(fail)}, "연결 다시 보기"));
 }
 
@@ -1350,20 +1393,23 @@ async function pollJobs() {
 const SRV_LOG = "runs/manual/server_log.md";
 const connected = () => ((S.srv.data && S.srv.data.models) || []).filter(m => m.reachable && m.match);
 const stamp = d => d ? d.toTimeString().slice(0, 8) : "—";
+const serverUiText = () => (S.srv.data || {}).ui_text || (S.jobs.opts || {}).ui_text || {};
+const serverGuide = () => (serverUiText().guide || {})[
+  document.getElementById("advanced").checked ? "advanced_on" : "advanced_off"] || "";
 
 // 지금 연결된 모델 한 줄. small이면 탭 ① 점수 카드용이고, 보고 있는 실행의 모델이 연결돼 있지 않으면 눈에 띄게 한다
 function connLine(small) {
   const V = S.srv, list = connected();
   const attrs = small ? {id: "conn-now", class: "connline"} : {class: "connbig"};
-  if (!V.data) return h("p", attrs, V.error ? "모델 서버 연결을 보지 못했습니다: " + V.error : "모델 서버 연결을 확인하는 중…");
+  if (V.error || !V.data) return h("p", attrs, V.error ? "모델 서버 연결을 확인하지 못했습니다." : "모델 서버 연결을 확인하는 중…");
   const text = list.length
     ? "지금 연결된 모델: " + list.map(m => `${m.model_expected} (${m.where}, 태그 ${m.tag})`).join(" · ")
-    : "연결된 모델 없음";
+    : "연결된 모델 0개 — " + serverGuide();
   const r = small ? S.run : null;
   const off = r && r.model && !list.some(m => m.model_expected === r.model);
   if (off) attrs.class += " connwarn";
   return h("p", attrs, text, off ? ` — 이 실행의 모델(${r.model})은 지금 연결돼 있지 않습니다` : "",
-    small ? h("small", null, " (서버 탭에서 바꿉니다)") : "");
+    small && list.length ? h("small", null, " (", serverGuide(), ")") : "");
 }
 
 function renderConnNow() {
@@ -1379,12 +1425,21 @@ function renderServers() {
   renderSrvLog();
 }
 
-// 실행 중이면 잠근다. 다른 서버 동작이 진행 중일 때도 잠근다
+// 연결을 확인하지 못했거나 실행 중이면 잠근다. 지난 상태가 남아 있어도 최신 조회가 실패하면 잠근다.
+let srvButtonId = 0;
 function srvBtn(label, action, params, cls) {
-  const d = S.srv.data, locked = !d || d.locked || !!S.srv.busy;
-  return h("button", {type: "button", class: cls || null, disabled: locked,
-    "data-tip": d && d.locked ? "잠김: " + d.lock_reason : null,
-    onclick: () => srvPropose(action, params, label).catch(fail)}, label);
+  const V = S.srv, d = V.data;
+  const copy = serverUiText();
+  const reason = !d || V.error ? copy.unavailable
+    : V.busy ? copy.busy
+    : (d.why || {})[action] || "";
+  const locked = !d || !!V.error || d.locked || !!V.busy || !d.can || d.can[action] !== true;
+  const noteId = "srv-action-note-" + ++srvButtonId;
+  return h("div", {class: "srv-action"},
+    h("button", {type: "button", class: cls || null, disabled: locked,
+      "aria-describedby": locked ? noteId : null,
+      onclick: () => srvPropose(action, params, label).catch(fail)}, label),
+    locked ? h("p", {id: noteId, class: "hint"}, reason || copy.unavailable) : null);
 }
 
 function lockNote() {
@@ -1396,9 +1451,12 @@ function renderSrvTop() {
   const V = S.srv, d = V.data, R = V.result, sess = d && d.session;
   card("srv-top-card", "지금 연결된 모델", "모델 서버의 /v1/models에 물어 기대한 모델이 답하면 '연결'로 봅니다. 이 탭을 보는 동안 10초마다 다시 묻습니다.",
     connLine(false),
+    V.error ? loadFailure(V.error) : null,
     lockNote(),
     V.busy ? h("p", {class: "running"}, `진행 중: ${V.busy}… (Pod 지우기·RNGD 내리기는 확인까지 5초쯤 걸립니다)`) : null,
-    R ? h("div", {class: R.ok ? "srvres ok" : "srvres bad"}, h("b", null, R.text), R.detail ? h("div", null, R.detail) : null,
+    R ? h("div", {class: R.ok ? "srvres ok" : "srvres bad"},
+      R.ok ? h("div", null, h("b", null, R.text), R.detail ? h("div", null, R.detail) : null)
+        : friendlyError({...serverUiText().action_failure, raw: [R.text, R.detail].filter(Boolean).join("\n")}),
       R.line ? h("div", {class: "mono"}, "기록: " + R.line) : null) : null,
     sess ? h("p", null, h("b", null, `이 앱이 만든 Pod: ${sess.pod_id} `), sess.ready ? h("span", {class: "okt"}, "준비됨") : h("span", {class: "running"}, "준비 중 — 모델을 받는 중"),
       h("br"), h("small", null, "작업 탭에서 띄우는 실행·시험은 이 Pod의 주소와 키를 받습니다. 키는 이 앱의 메모리에만 있어 앱을 끄면 이 Pod를 쓸 수 없습니다. 4시간 자동 삭제 감시는 앱을 꺼도 돕니다.")) : null,
@@ -1413,12 +1471,13 @@ function renderSrvModels() {
   card("srv-models-card", "모델별 연결", "configs/models.yaml의 항목별 추출 태그만 봅니다(실버용 태그는 보지 않습니다). 주소와 키는 .env에서 읽습니다. 앱이 Pod를 만들었으면 RunPod 태그는 그 Pod를 봅니다.",
     h("table", {class: "list"},
       h("thead", null, h("tr", null, ["태그", "기대 모델", "서버", "주소 설정", "응답", "서버가 말한 모델", "일치"].map(x => h("th", null, x)))),
-      h("tbody", null, d.models.map(m => h("tr", null,
+      h("tbody", null, d.models.flatMap(m => [h("tr", null,
         h("td", {class: "mono"}, m.tag), h("td", {class: "mono"}, m.model_expected), h("td", null, m.where),
         h("td", null, m.url_set ? "있음" : h("span", {class: "hint"}, "없음 (.env)")),
-        h("td", null, m.url_set ? yes(m.reachable, "응답함", "응답 없음" + (m.error ? ` (${m.error})` : "")) : h("span", {class: "hint"}, "—")),
+        h("td", null, m.url_set ? yes(m.reachable, "응답함", "응답 없음") : h("span", {class: "hint"}, "—")),
         h("td", {class: "mono"}, m.model_served || "—"),
-        h("td", null, yes(m.match, "일치", "다름")))))));
+        h("td", null, yes(m.match, "일치", "다름"))),
+        m.friendly ? h("tr", null, h("td", {colspan: 7}, friendlyError(m.friendly))) : null]))));
 }
 
 function renderSrvRunpod() {
@@ -1435,7 +1494,7 @@ function renderSrvRunpod() {
     h("td", {class: "num"}, money(p.est_cost)),
     h("td", null, srvBtn("지우기", "pod_delete", {pod_id: p.id}, "danger"))));
   card("srv-runpod-card", "RunPod", hint,
-    d.runpod_error ? h("p", {class: "badt"}, "RunPod을 보지 못했습니다: " + d.runpod_error) : null,
+    d.friendly ? friendlyError(d.friendly) : d.runpod_error ? loadFailure(d.runpod_error) : null,
     h("table", {class: "list"},
       h("thead", null, h("tr", null, ["Pod", "이름", "상태", "시간당", "켜진 시간", "추정 비용", ""].map(x => h("th", null, x)))),
       h("tbody", null, rows.length ? rows : h("tr", null, h("td", {colspan: 7, class: "hint"}, d.runpod_error ? "—" : "켜진 Pod가 없습니다.")))),
@@ -1449,8 +1508,7 @@ function renderSrvRngd() {
   if (!d) return card("srv-rngd-card", "RNGD", hint, h("p", {class: "hint"}, "불러오는 중…"));
   const g = d.rngd || {};
   card("srv-rngd-card", "RNGD", hint,
-    g.ok ? null : h("p", {class: "badt"}, "RNGD를 보지 못했습니다: " + (g.error || "알 수 없음"),
-      g.error === "RNGD_SSH 없음" ? h("small", null, " (.env의 RNGD_SSH에 ssh 접속 인자를 넣고 앱을 다시 켜세요)") : null),
+    g.ok ? null : friendlyError(g.friendly) || loadFailure(g.error || "알 수 없음"),
     g.ok ? h("div", null, h("b", null, "떠 있는 모델"),
       g.models.length ? h("ul", null, g.models.map(m => h("li", null, h("span", {class: "mono"}, `${m.model} (pid ${m.pid}) `),
         srvBtn("내리기", "rngd_down", {model: m.model}, "danger")))) : h("p", {class: "hint"}, "떠 있는 모델이 없습니다.")) : null,

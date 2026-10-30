@@ -14,10 +14,11 @@
     <button type="button" data-tab="diff">② 두 실행 비교</button>
     <button type="button" data-tab="doc">③ 원문 대조</button>
     <button type="button" data-tab="jobs">④ 작업</button>
-    <button type="button" data-tab="servers">⑤ 서버</button>
+    <button type="button" data-tab="servers" hidden>⑤ 서버</button>
     <button type="button" data-tab="help">도움말</button>
   </nav>
-  <span id="status" class="status"></span>
+  <label class="advanced"><input type="checkbox" id="advanced"> 고급(서버 관리) 보기</label>
+  <div id="status" class="status" role="status" aria-live="polite"></div>
 </header>
 
 <main>

@@ -23,8 +23,16 @@ select { font: inherit; max-width: 100%; }
 .tabs { display: flex; gap: 4px; flex-wrap: wrap; }
 .tabs button { border-radius: 6px 6px 0 0; border-bottom: none; background: #fff; }
 .tabs button.on { background: var(--now); border-color: var(--now); color: #fff; }
-.status { color: var(--muted); font-size: 13px; }
+.advanced { margin-left: auto; color: var(--muted); }
+.status { color: var(--muted); font-size: 13px; flex-basis: 100%; min-width: 0; }
+.status:empty { display: none; }
 .status.bad { color: var(--no); }
+.error-note { max-width: 75ch; overflow-wrap: anywhere; }
+.error-note p { margin: 2px 0 8px; }
+.error-note pre { white-space: pre-wrap; }
+.error-note summary { color: var(--muted); cursor: pointer; }
+.srv-action { min-width: 0; max-width: 100%; }
+.srv-action .hint { margin-top: 4px; }
 
 main { padding: 12px 20px 40px; max-width: 1240px; }
 .tab { display: none; }

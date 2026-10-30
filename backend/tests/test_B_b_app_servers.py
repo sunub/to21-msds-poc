@@ -154,3 +154,35 @@ def test_append_server_log(srv, tmp_path):
     lines = text.splitlines()
     assert text.count("| 시각 |") == 1 and len([l for l in lines if "pod_" in l]) == 2
     assert FAKE_KEY not in text
+
+
+@pytest.mark.parametrize("prefix", ["ssh ", "  ssh  ", "'ssh' "])
+def test_ssh_accepts_command_or_arguments(srv, prefix):
+    assert srv.rngd_ssh_args({**ENV, "RNGD_SSH": prefix + ENV["RNGD_SSH"]}) == srv.rngd_ssh_args(ENV)
+
+
+def test_ssh_preserves_quoted_arguments(srv):
+    value = '-i "<키 경로>" -p <포트> <사용자>@<호스트>'
+    expected = ["ssh", "-n", "-o", "BatchMode=yes", "-i", "<키 경로>", "-p", "<포트>", "<사용자>@<호스트>"]
+    assert srv.rngd_ssh_args({"RNGD_SSH": value}) == expected
+    assert srv.rngd_ssh_args({"RNGD_SSH": "ssh " + value}) == expected
+
+
+def test_model_status_friendly_missing_url(srv):
+    result = srv.model_status("t", CFG, {}, opener=lambda *a, **kw: pytest.fail("must not call"))
+    assert result["error"] is None  # 기존 응답 키는 그대로 둔다.
+    assert CFG["base_url_env"] in result["friendly"]["message"]
+    assert result["friendly"]["raw"] == "주소 설정 없음"
+
+
+@pytest.mark.parametrize("wrapped", [False, True])
+@pytest.mark.parametrize("error", [ConnectionRefusedError, TimeoutError])
+def test_model_status_friendly_connection_failure(srv, wrapped, error):
+    from urllib.error import URLError
+    exc = error(FAKE_KEY)
+    if wrapped:
+        exc = URLError(exc)
+    result = srv.model_status("t", CFG, ENV, opener=opener_of(error=exc))
+    assert result["error"] == type(exc).__name__
+    assert result["friendly"]["message"] == "서버가 응답하지 않습니다."
+    no_key(result)

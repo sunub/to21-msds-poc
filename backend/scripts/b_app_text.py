@@ -31,6 +31,62 @@ def model_label(tag: str | None) -> str:
     return MODEL_LABELS.get(tag, tag or "")
 
 
+def friendly_error(where: str, raw: str, env_names: dict[str, str] | None = None) -> dict:
+    """오류를 안내로 바꾼다. 원문은 호출자가 비밀값을 가린 뒤 넘긴다."""
+    if "Could not resolve hostname ssh" in raw or "RNGD_SSH starts with ssh" in raw:
+        message = "`.env`의 RNGD_SSH 값이 `ssh`로 시작합니다."
+        fix = "`ssh`를 빼고 `-i <키> -p <포트> <사용자>@<호스트>`처럼 인자만 적으세요. 앱은 이제 `ssh`를 빼고 읽습니다."
+    elif raw == "RNGD_SSH 없음":
+        message = "RNGD 접속 정보(RNGD_SSH)가 `.env`에 없습니다."
+        fix = "`.env.example`의 RNGD_SSH 줄을 복사해 값을 채우세요."
+    elif "SSLCertVerificationError" in raw or "CERTIFICATE_VERIFY_FAILED" in raw:
+        message = "RunPod 주소의 인증서를 확인하지 못했습니다. 파이썬 3.11에 인증서 묶음이 없을 때 생깁니다."
+        fix = "터미널에서 `/Applications/Python 3.11/Install Certificates.command`를 한 번 실행한 뒤 앱을 다시 켜세요."
+    elif "401" in raw or "Unauthorized" in raw:
+        message = "RunPod 관리 키(RUNPOD_API_KEY)가 거절됐습니다."
+        fix = "RunPod 설정 화면에서 키를 다시 만들어 `.env`에 넣으세요."
+    elif where == "env" and env_names:
+        variable = env_names.get("base_url") or next(iter(env_names.values()))
+        message = f"`.env`에 {variable}가 없습니다."
+        fix = (f"서버 주소를 `.env`의 {variable}에 적으세요. 예: http://127.0.0.1:8000/v1 "
+               "(SSH 터널을 거친 내 컴퓨터 쪽 주소)")
+    elif any(token in raw for token in ("timed out", "Connection refused", "TimeoutError",
+                                        "ConnectionRefusedError", "TimeoutExpired")):
+        # 기존 연결 검사는 비밀값 보호를 위해 예외의 종류만 남긴다.
+        message = "서버가 응답하지 않습니다."
+        fix = "SSH 터널이 열려 있는지, 서버가 켜져 있는지 확인하세요."
+    else:
+        message = "서버를 보지 못했습니다."
+        fix = "아래 원문을 보고 .env와 터널을 확인하세요."
+    return {"message": message, "fix": fix, "raw": raw}
+
+
+def server_controls(*, running: bool, runpod_ok: bool, rngd_ok: bool) -> dict:
+    """모델 연결과 별개로 관리 서버를 볼 수 있어야 변경 단추를 연다."""
+    reasons = {}
+    for action, ready, offline in (
+        ("pod_create", runpod_ok, "RunPod를 보지 못해 Pod를 만들 수 없습니다."),
+        ("pod_delete", runpod_ok, "RunPod를 보지 못해 Pod를 지울 수 없습니다."),
+        ("rngd_up", rngd_ok, "RNGD를 보지 못해 모델을 올릴 수 없습니다."),
+        ("rngd_down", rngd_ok, "RNGD를 보지 못해 모델을 내릴 수 없습니다."),
+    ):
+        reasons[action] = ("실행이나 시험이 돌고 있어 서버를 바꿀 수 없습니다." if running
+                           else offline if not ready else "")
+    return {"can": {action: not reason for action, reason in reasons.items()}, "why": reasons}
+
+
+def server_ui_text() -> dict:
+    """브라우저 상태에 따라 고를 안내문. 화면에서는 받은 글만 표시한다."""
+    return {
+        "guide": {"advanced_on": "서버 탭에서 모델을 올리세요",
+                  "advanced_off": "고급을 켜고 서버 탭에서 모델을 올리세요"},
+        "busy": "서버 변경이 진행 중입니다. 끝날 때까지 기다리세요.",
+        "unavailable": "서버 상태를 확인하지 못해 동작을 잠갔습니다. 지금 다시 보기를 누르세요.",
+        "action_failure": {"message": "서버 변경을 끝내지 못했습니다.",
+                           "fix": "아래 원문을 보고 서버 연결과 실행 상태를 확인하세요."},
+    }
+
+
 def _date(name: str, started_at) -> str:
     candidates = []
     if re.match(r"^\d{8}(?:_|$)", name):

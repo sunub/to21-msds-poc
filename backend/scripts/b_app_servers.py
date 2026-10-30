@@ -21,6 +21,7 @@ import yaml
 
 import _common  # noqa: F401  src 경로 등록
 import b_app_jobs as bj
+import b_app_text as bt
 import pod
 from msds.common.paths import CONFIGS
 
@@ -47,6 +48,7 @@ def model_status(tag: str, cfg: dict, env: Mapping[str, str], *, opener=None, ti
            "model_served": None, "match": None, "error": None}
     base = env.get(cfg["base_url_env"])
     if not base:
+        out["friendly"] = bt.friendly_error("env", "주소 설정 없음", {"base_url": cfg["base_url_env"]})
         return out
     out["url_set"] = True
     headers = {"User-Agent": "to21-b-app/1.0"}
@@ -60,6 +62,9 @@ def model_status(tag: str, cfg: dict, env: Mapping[str, str], *, opener=None, ti
     except Exception as e:  # 키가 메시지에 섞일 수 있어 종류만 남긴다
         code = getattr(e, "code", None)
         out["error"] = f"HTTP {code}" if code else type(e).__name__
+        reason = getattr(e, "reason", None)
+        raw = out["error"] + (f": {type(reason).__name__}" if isinstance(reason, Exception) else "")
+        out["friendly"] = bt.friendly_error("model", raw)
         return out
     out["reachable"] = True
     ids = [m.get("id") for m in data.get("data", []) if isinstance(m, dict)]
@@ -78,7 +83,10 @@ def rngd_ssh_args(env) -> list[str] | None:
     raw = env.get("RNGD_SSH")
     if not raw:
         return None
-    return ["ssh", "-n", "-o", "BatchMode=yes", *shlex.split(raw)]
+    args = shlex.split(raw)
+    if args and args[0] == "ssh":
+        args = args[1:]
+    return ["ssh", "-n", "-o", "BatchMode=yes", *args] if args else None
 
 
 def _run(args, timeout):
@@ -251,6 +259,7 @@ class ServerActions:
         running = self._running()
         models = self.model_status()
         out = {"models": models, "pods": [], "volumes": None, "rngd": rngd_ps(self.env, runner=self._runner),
+               "ui_text": bt.server_ui_text(),
                "running_jobs": running, "locked": bool(running),
                "lock_reason": "; ".join(map(_running_text, running)) or None,
                "session": None, "rngd_choices": self._rngd_choices(), "log_tail": self._log_tail(10)}
@@ -263,13 +272,21 @@ class ServerActions:
                               "tag": POD_TAG, "ready": ready}
         if not self.env.get("RUNPOD_API_KEY"):
             out["runpod_error"] = "RUNPOD_API_KEY 없음"
-            return out
-        try:
-            now = self._now()
-            out["pods"] = [self._pod_view(pod.brief(p, now=now), ready) for p in self._pods()]
-            out["volumes"] = len(pod.list_volumes(opener=self._opener, env=self.env))
-        except RuntimeError as e:                    # RunPod 연결·HTTP 오류. 다른 칸은 그대로 보인다
-            out["runpod_error"] = self._mask(str(e))
+        else:
+            try:
+                now = self._now()
+                out["pods"] = [self._pod_view(pod.brief(p, now=now), ready) for p in self._pods()]
+                out["volumes"] = len(pod.list_volumes(opener=self._opener, env=self.env))
+            except RuntimeError as e:                # RunPod 연결·HTTP 오류. 다른 칸은 그대로 보인다
+                out["runpod_error"] = self._mask(str(e))
+        if out.get("runpod_error"):
+            out["friendly"] = bt.friendly_error("runpod", out["runpod_error"])
+        if not out["rngd"]["ok"]:
+            out["rngd"]["error"] = self._mask(out["rngd"]["error"] or "")
+            out["rngd"]["friendly"] = bt.friendly_error("rngd", out["rngd"]["error"])
+        controls = bt.server_controls(running=bool(running), runpod_ok=not bool(out.get("runpod_error")),
+                                      rngd_ok=out["rngd"]["ok"])
+        out["can"], out["why"] = controls["can"], controls["why"]
         return out
 
     # ── 두 단계: 요약·토큰 → 실행 ─────────────────────────
