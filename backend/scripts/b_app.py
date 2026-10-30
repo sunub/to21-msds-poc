@@ -11,8 +11,12 @@
 이 앱이 만든 Pod의 주소·키는 작업을 띄울 때 그 작업의 환경에만 넣는다(파일에 쓰지 않는다). 도움말은 다음 step에서 채운다.
 문서 묶음(/api/sets)은 b_app_sets가 data/pages 아래에서 찾는다. 평가용 문서는 파일을 열지 않고 잠긴 이유만 준다 (D-43).
 작업 POST는 본문의 set(묶음 id)을 목록에서 찾아 그 폴더를 쓴다. /api/options는 묶음별 문서의 작업 가능 여부와 이유를 준다.
+정답지(/api/keys)는 b_app_sets가 data/silver·data/gold 아래에서 찾는다. 점수가 든 응답(/api/runs, /api/run, /api/diff,
+/api/doc)은 ?key=로 고른 정답지로 채점하고 무엇과 비교했는지(key)를 붙인다. ?key=가 없으면 켤 때 받은 --gold-dir다.
+요약 캐시와 실행 역사는 정답지별로 나눠 둔다(정답지를 오가도 서로 덮어쓰지 않는다).
 """
 import argparse
+import hashlib
 import json
 import os
 import re
@@ -36,7 +40,7 @@ import b_app_servers as bs
 import b_app_sets as bsets
 import b_app_text as bt
 from msds.common import manifest
-from msds.common.paths import BACKEND, CONFIGS, PAGES, ROOT, RUNS, SILVER
+from msds.common.paths import BACKEND, CONFIGS, DATA, PAGES, ROOT, RUNS, SILVER
 from msds.extract.client import load_model_config
 from msds.extract.section_prompts import SECTION_PROMPT_VERSION, build_system, prompt_hash
 from msds.extract.section_runner import DOC_TIME_LIMIT
@@ -44,6 +48,7 @@ from msds.extract.section_runner import DOC_TIME_LIMIT
 HOST = "127.0.0.1"
 STATIC = Path(__file__).resolve().parent / "b_app_static"
 GAPS_FILE = CONFIGS / "silver_gaps.yaml"
+GAPS_KEY = "silver/claude"                           # silver_gaps.yaml은 Claude 실버의 빈 곳만 적는다
 _HEAVY = ("details", "per_doc", "grid")              # /api/runs 목록에서 빼는 큰 칸. /api/run/<이름>에만 준다
 _TYPES = {".html": "text/html; charset=utf-8", ".js": "text/javascript; charset=utf-8",
           ".css": "text/css; charset=utf-8"}
@@ -67,7 +72,8 @@ class AppContext:
     model_status: Callable[[], list[dict]] | None = None   # 모델 서버 연결 상태 (ServerActions.model_status). 없으면 확인하지 않는다
     servers: bs.ServerActions | None = None          # 탭 ⑤ 서버. 없으면 서버 주소는 503
     last_model_connections: dict[str, bool] | None = None  # 마지막 조회 결과만. 점수 요청은 서버를 부르지 않는다
-    run_history: list[dict] | None = None            # /api/runs가 읽은 가벼운 목록. 새로 읽을 때 갱신
+    run_history: dict[str, list[dict]] | None = None  # /api/runs가 읽은 가벼운 목록. 정답지 폴더(글자)별, 새로 읽을 때 갱신
+    data_root: Path | None = None                    # 정답지(data/silver·gold)를 찾는 곳(main은 data/). None이면 gold_dir 하나만 쓴다
 
 
 def _json(code: int, obj) -> tuple[int, str, bytes]:
@@ -83,24 +89,65 @@ def _remember_connections(ctx: AppContext, models: list[dict]) -> None:
     ctx.last_model_connections = {m["tag"]: bool(m.get("reachable") and m.get("match")) for m in models}
 
 
-def _run_list(ctx: AppContext) -> dict:
-    data = br.load_all(ctx.runs_dir, ctx.gold_dir, cache_dir=ctx.cache_dir)
+class UnknownKey(ValueError):
+    """목록에 없는 정답지 id. GET은 404, 작업 POST는 400(다른 ValueError와 같이)."""
+
+
+def _key_list(ctx: AppContext) -> list[dict]:
+    return bsets.list_keys(Path(ctx.data_root)) if ctx.data_root is not None else []
+
+
+def _pick_key(ctx: AppContext, want) -> tuple[Path, dict]:
+    """(정답지 폴더, {"id", "label"}). want가 None이면 켤 때 받은 gold_dir. 목록 밖의 gold_dir는 그 id로도 다시 받는다.
+    없는 id는 UnknownKey, 고를 수 없는 정답지는 ValueError. 요청의 글로 경로를 만들지 않는다(목록의 id만 경로로 바꾼다)."""
+    keys = _key_list(ctx)
+    startup = bsets.key_for_dir(keys, Path(ctx.gold_dir))
+    if want is None or (startup["kind"] == "custom" and want == startup["id"]):
+        return Path(ctx.gold_dir), {"id": startup["id"], "label": startup["label"]}
+    k = bsets.find_key(keys, want)
+    if k is None:
+        raise UnknownKey(bt.KEY_TEXT["unknown_key"].format(id=want))
+    if not k["usable"]:
+        raise ValueError(bt.KEY_TEXT["unusable_key"].format(reason=k["reason"]))
+    return bsets.key_dir(Path(ctx.data_root), k["id"]), {"id": k["id"], "label": k["label"]}
+
+
+def _query_key(query: dict[str, list[str]], ctx: AppContext):
+    """쿼리 key의 정답지. (폴더, key 정보, None) 또는 잘못되면 (None, None, 오류 응답)."""
+    try:
+        return (*_pick_key(ctx, (query.get("key") or [None])[0]), None)
+    except UnknownKey as e:
+        return None, None, _json(404, {"error": str(e)})
+    except ValueError as e:
+        return None, None, _json(400, {"error": str(e)})
+
+
+def _cache_dir(ctx: AppContext, gold_dir: Path) -> Path | None:
+    """정답지별 요약 캐시 폴더. b_app_runs의 캐시 파일 이름이 실행 이름뿐이라 폴더를 나눠야 서로 덮어쓰지 않는다."""
+    if ctx.cache_dir is None:
+        return None
+    return Path(ctx.cache_dir) / hashlib.sha1(str(Path(gold_dir).resolve()).encode()).hexdigest()[:12]
+
+
+def _run_list(ctx: AppContext, gold_dir: Path, key: dict) -> dict:
+    data = br.load_all(ctx.runs_dir, gold_dir, cache_dir=_cache_dir(ctx, gold_dir))
     runs = [_labeled_run({k: v for k, v in r.items() if k not in _HEAVY}) for r in data["runs"]]
-    ctx.run_history = runs
-    return {**data, "runs": runs, "current": pick_current(runs), "doc_time_limit": DOC_TIME_LIMIT}
+    ctx.run_history = {**(ctx.run_history or {}), str(gold_dir): runs}
+    return {**data, "runs": runs, "current": pick_current(runs), "doc_time_limit": DOC_TIME_LIMIT, "key": key}
 
 
-def _run_with_text(run: Path, ctx: AppContext) -> dict:
-    info = _labeled_run(br.summarize_run(run, ctx.gold_dir, cache_dir=ctx.cache_dir))
-    if ctx.run_history is None:
-        _run_list(ctx)
+def _run_with_text(run: Path, ctx: AppContext, gold_dir: Path, key: dict) -> dict:
+    info = _labeled_run(br.summarize_run(run, gold_dir, cache_dir=_cache_dir(ctx, gold_dir)))
+    runs = (ctx.run_history or {}).get(str(gold_dir))
+    if runs is None:
+        runs = _run_list(ctx, gold_dir, key)["runs"]
     connected = (ctx.last_model_connections or {}).get(info.get("model_tag"))
     # 지금 요청한 실행은 가장 최근 값을 쓴다. 원본 채점 dict와 캐시는 수정하지 않는다.
-    history = [info if r["name"] == info["name"] else r for r in ctx.run_history]
+    history = [info if r["name"] == info["name"] else r for r in runs]
     summaries = {kind: bt.card_summary(kind, info) for kind in ("docs", "grid", "rows")}
     summaries["history"] = bt.card_summary("history", {"runs": history})
     return {**info, "status_text": bt.score_status(info, br.criteria(), connected=connected),
-            "card_summaries": summaries, "connection_notes": bt.connection_notes(info.get("model"))}
+            "card_summaries": summaries, "connection_notes": bt.connection_notes(info.get("model")), "key": key}
 
 
 def _static(rel: str, ctx: AppContext) -> tuple[int, str, bytes]:
@@ -242,20 +289,23 @@ def _doc(query: dict[str, list[str]], ctx: AppContext) -> tuple[int, str, bytes]
     missing = _json(404, {"error": f"이 실행에 없는 문서: {doc_id}" if run else f"이 묶음에 없는 문서: {doc_id}"})
     if run is not None and not (run / "outputs" / f"{doc_id}.json").is_file():
         return missing
+    gold_dir, key, err = _query_key(query, ctx)
+    if err:
+        return err
     folder, info = _doc_folder(doc_id, run, (query.get("set") or [None])[0], ctx, missing)
     if folder is None:
         return info
     if not bdoc.allowed_doc(doc_id, folder / doc_id):
         return missing
     try:
-        view = bdoc.doc_view(run, doc_id, folder, ctx.gold_dir) if run else bdoc.pages_view(doc_id, folder)
+        view = bdoc.doc_view(run, doc_id, folder, gold_dir) if run else bdoc.pages_view(doc_id, folder)
     except PermissionError:
         return missing
     except FileNotFoundError:
         return _json(404, {"error": f"쪽 글자가 없습니다: {folder.name}/{doc_id}"})
     return _json(200, {**view, "legend": bt.doc_legend(), "ui_text": bt.doc_ui_text(view), "set": info,
                        "image_base": f"/pages/{doc_id}/",
-                       "image_query": f"?set={quote(info['id'], safe='')}" if info["id"] else ""})
+                       "image_query": f"?set={quote(info['id'], safe='')}" if info["id"] else "", "key": key})
 
 
 def _why_offline(s: dict | None) -> str | None:
@@ -323,6 +373,22 @@ def _sets(ctx: AppContext) -> tuple[int, str, bytes]:
     root = Path(ctx.pages_root)
     sets = bsets.list_sets(root)
     return _json(200, {"sets": sets, "default": bsets.default_set(sets, ctx.pages_dir, root)})
+
+
+def _keys(ctx: AppContext) -> tuple[int, str, bytes]:
+    """data/silver·data/gold 아래의 정답지와 기본 정답지. data_root가 없으면 빈 목록과 켤 때 받은 폴더의 id다."""
+    keys = _key_list(ctx)
+    return _json(200, {"keys": keys, "default": bsets.default_key(keys, Path(ctx.gold_dir))})
+
+
+def _silver_gaps(query: dict[str, list[str]], ctx: AppContext) -> tuple[int, str, bytes]:
+    """key가 없으면 지금처럼 목록(배열). 있으면 {key, gaps}이고, Claude 실버가 아닌 정답지의 gaps는 비어 있다."""
+    if not query.get("key"):
+        return _json(200, _gaps(ctx))
+    _, key, err = _query_key(query, ctx)
+    if err:
+        return err
+    return _json(200, {"key": key, "gaps": _gaps(ctx) if key["id"] == GAPS_KEY else []})
 
 
 def _prompt(query: dict[str, list[str]]) -> tuple[int, str, bytes]:
@@ -406,10 +472,12 @@ def _post(path: str, body: bytes | None, ctx: AppContext) -> tuple[int, str, byt
     extra_env = ctx.servers.job_env() if ctx.servers else None   # 이 앱이 만든 Pod의 주소·키. 작업 환경에만 넣는다
     try:
         if path == "/api/jobs/try":
+            want = data.get("key") or None               # 정답지(시험의 점수 전→후). 없으면 try_section의 기본
+            gold_dir = os.path.relpath(_pick_key(ctx, want)[0], jobs.backend_dir) if want is not None else None
             job = jobs.start_try(model=data.get("model"), doc=data.get("doc"), sections=data.get("sections"),
                                  all_=bool(data.get("all")), pages_dir=_job_pages_dir(data, ctx),
                                  system_text=data.get("system_text"), base_run=data.get("base_run") or None,
-                                 dry_run=bool(data.get("dry_run")), extra_env=extra_env)
+                                 dry_run=bool(data.get("dry_run")), extra_env=extra_env, gold_dir=gold_dir)
             return _json(200, {"id": job.id})
         if path == "/api/jobs/run":
             args = {**{k: data.get(k) for k in ("model", "docs", "run_name", "repeat")},
@@ -444,25 +512,34 @@ def route(method: str, path: str, query: dict[str, list[str]], body: bytes | Non
     if path == "/api/runs":
         if query.get("count") == ["1"]:
             return _json(200, {"count": len(br.list_runs(ctx.runs_dir))})
+        gold_dir, key, err = _query_key(query, ctx)
+        if err:
+            return err
         with _LOCK:
-            return _json(200, _run_list(ctx))
+            return _json(200, _run_list(ctx, gold_dir, key))
     if path.startswith("/api/run/"):
         run = _run_paths(ctx).get(path[len("/api/run/"):])
         if run is None:
             return _json(404, {"error": f"없는 실행: {path[len('/api/run/'):]}"})
+        gold_dir, key, err = _query_key(query, ctx)
+        if err:
+            return err
         with _LOCK:
-            return _json(200, _run_with_text(run, ctx))
+            return _json(200, _run_with_text(run, ctx, gold_dir, key))
     if path in ("/api/diff", "/api/prompt_diff"):
         err, pair = _pair(query, ctx)
         if err:
             return err
         if path == "/api/prompt_diff":
             return _prompt_diff(query, pair, ctx)
+        gold_dir, key, err = _query_key(query, ctx)
+        if err:
+            return err
         with _LOCK:
-            a, b = [br.summarize_run(p, ctx.gold_dir, cache_dir=ctx.cache_dir) for p in pair]
+            a, b = [br.summarize_run(p, gold_dir, cache_dir=_cache_dir(ctx, gold_dir)) for p in pair]
         diff = bd.diff_runs(a, b)
         return _json(200, {**diff, "headline": bt.diff_headline(diff, bt.run_label(a)["title"], bt.run_label(b)["title"]),
-                           "ui_text": bt.diff_ui_text(diff)})
+                           "ui_text": bt.diff_ui_text(diff), "key": key})
     if path == "/api/doc":
         return _doc(query, ctx)
     if path.startswith("/pages/"):
@@ -473,6 +550,8 @@ def route(method: str, path: str, query: dict[str, list[str]], body: bytes | Non
         return _job_get(path, query, ctx)
     if path == "/api/sets":
         return _sets(ctx)
+    if path == "/api/keys":
+        return _keys(ctx)
     if path == "/api/options":
         return _options(ctx, advanced=(query.get("advanced") or ["0"])[0] == "1")
     if path == "/api/servers":
@@ -490,7 +569,7 @@ def route(method: str, path: str, query: dict[str, list[str]], body: bytes | Non
     if path == "/api/start":
         return _json(200, bt.START_TEXT)
     if path == "/api/silver_gaps":
-        return _json(200, _gaps(ctx))
+        return _silver_gaps(query, ctx)
     return _json(404, {"error": f"없는 주소: {path}"})
 
 
@@ -552,7 +631,8 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--port", type=int, default=8765)
     ap.add_argument("--host", default=HOST, help=f"{HOST}만 받는다. 쪽 글자·안내문이 화면에 보이기 때문이다 (D-47)")
     ap.add_argument("--runs-dir", type=Path, default=RUNS)
-    ap.add_argument("--gold-dir", type=Path, default=SILVER / "claude", help="정답 자리 폴더 (기본: Claude 실버)")
+    ap.add_argument("--gold-dir", type=Path, default=SILVER / "claude",
+                    help="기본 정답지 폴더 (기본: Claude 실버). 화면에서는 data/silver·data/gold 아래 정답지를 고른다")
     ap.add_argument("--pages-dir", type=Path, default=PAGES / "prev" / "version9",
                     help="쪽 글자·그림 폴더 (기본: C의 version9, data/pages/prev/version9)")
     ap.add_argument("--no-browser", action="store_true", help="브라우저를 자동으로 열지 않는다")
@@ -565,7 +645,7 @@ def main(argv: list[str] | None = None) -> int:
     jobs = manager if a.runs_dir.resolve() == RUNS.resolve() else None
     servers = bs.ServerActions(os.environ, manager, RUNS / "manual" / "server_log.md")   # 키는 .env(load_dotenv로 읽힘)에서만
     ctx = AppContext(runs_dir=a.runs_dir, gold_dir=a.gold_dir, pages_dir=a.pages_dir, jobs=jobs,
-                     pages_root=PAGES, model_status=servers.model_status, servers=servers)
+                     pages_root=PAGES, model_status=servers.model_status, servers=servers, data_root=DATA)
     server = ThreadingHTTPServer((HOST, a.port), make_handler(ctx))
     url = f"http://{HOST}:{server.server_port}/"
     print(f"작업 화면: {url}  (실행 폴더 {a.runs_dir}, 정답 {a.gold_dir})")

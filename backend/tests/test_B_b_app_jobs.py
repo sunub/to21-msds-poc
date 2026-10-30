@@ -743,3 +743,30 @@ def test_route_jobs_take_set_id(bj, app, where40, monkeypatch):
     p = shlex.split(sp.calls[-1]["argv"][2])
     assert opt(p, "--pages-dir") == "../data/pages" and opt(p, "--docs") == RAW
     assert len(sp.calls) == 2
+
+
+def test_route_try_passes_chosen_key(bj, app, where):
+    for key_id, d in (("silver/claude", X01), ("gold/a3", X02)):
+        (where / "data" / key_id).mkdir(parents=True)
+        (where / "data" / key_id / f"{d}.json").write_text(json.dumps(make_doc(d), ensure_ascii=False), encoding="utf-8")
+    (where / "data" / "silver" / "gpt").mkdir()
+    sp = FakeSpawner()
+    ctx = ctx_of(app, where, manager(bj, where, sp), data_root=where / "data")
+    body = {"model": TAG, "doc": X01, "sections": [11], "pages_dir": "../data/pages/version9"}
+    assert call(app, ctx, "POST", "/api/jobs/try", body)[0] == 200
+    assert "--gold-dir" not in sp.calls[-1]["argv"]                     # key가 없으면 명령 줄은 지금과 같다
+    assert call(app, ctx, "POST", "/api/jobs/try", {**body, "key": "gold/a3"})[0] == 200
+    assert opt(sp.calls[-1]["argv"], "--gold-dir") == "../data/gold/a3"
+    for bad in ("없는/정답지", "../gold/a3", "silver/gpt", 3):
+        code, data = call(app, ctx, "POST", "/api/jobs/try", {**body, "key": bad})
+        assert code == 400 and data["error"], bad
+    assert len(sp.calls) == 2
+
+
+def test_start_try_gold_dir_argv(bj, where):
+    sp = FakeSpawner()
+    m = manager(bj, where, sp)
+    try_job(m, gold_dir="../data/gold/a3")
+    assert opt(sp.calls[0]["argv"], "--gold-dir") == "../data/gold/a3"
+    try_job(m)
+    assert "--gold-dir" not in sp.calls[1]["argv"]

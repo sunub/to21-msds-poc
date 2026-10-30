@@ -624,6 +624,31 @@ def set_label(set_id: str) -> str:
     return "data/pages 바로 아래 (신규 문서)" if set_id == "." else set_id
 
 
+# 정답지(b_app_sets.list_keys)를 고를 수 없는 이유와 정답지를 고를 때의 오류. 키는 b_app_sets와 b_app이 쓴다.
+KEY_TEXT: dict[str, str] = {
+    "key_empty": "파일이 없는 빈 폴더입니다.",
+    "key_no_doc_files": "문서별 정답 파일(<문서 번호>.json, 예 T21-S003.json)이 없습니다.",
+    "key_not_to21": "TO21 답 모양(msds 목록이 든 JSON)의 정답 파일이 없습니다.",
+    "key_eval_only": "평가용 문서의 정답만 있어 고를 수 없습니다 (D-43).",
+    # format으로 채운다
+    "unknown_key": "없는 정답지입니다: {id}. 정답지 목록에서 고르세요.",
+    "unusable_key": "고를 수 없는 정답지입니다: {reason}",
+}
+
+
+def key_label(key_id: str) -> str:
+    """정답지 id의 표시 이름. 예: gold/a3 → "A 정답(골드) a3". 모르는 모양은 id 그대로."""
+    if key_id == "silver/claude":
+        return "Claude 정답 초안(실버)"
+    kind, _, name = key_id.partition("/")
+    if name and "/" not in name:
+        if kind == "silver":
+            return f"정답 초안(실버) {name}"
+        if kind == "gold":
+            return f"A 정답(골드) {name}"
+    return key_id
+
+
 def friendly_error(where: str, raw: str, env_names: dict[str, str] | None = None) -> dict:
     """오류를 안내로 바꾼다. 원문은 호출자가 비밀값을 가린 뒤 넘긴다."""
     if "Could not resolve hostname ssh" in raw or "RNGD_SSH starts with ssh" in raw:
