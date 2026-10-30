@@ -318,6 +318,17 @@ def test_route_doc(app, view_env):
     assert data["doc_id"] == X01 and data["values"] and data["line_index"]
 
 
+def test_route_doc_adds_legend_and_text_without_changing_values(app, view_env):
+    ctx = make_ctx(app, view_env, view_env / "pages9")
+    expected = app.bdoc.doc_view(view_env / "runs" / "r1", X01, ctx.pages_dir, ctx.gold_dir)
+    code, _, body = app.route("GET", "/api/doc", {"run": ["r1"], "doc": [X01]}, None, ctx)
+    data = json.loads(body)
+    assert code == 200
+    assert data["legend"] == app.bt.doc_legend()
+    assert data["ui_text"] == app.bt.doc_ui_text(expected)
+    assert {k: v for k, v in data.items() if k not in {"legend", "ui_text"}} == json.loads(json.dumps(expected))
+
+
 def test_route_doc_errors(app, view_env):
     ctx = make_ctx(app, view_env, view_env / "pages9")
 

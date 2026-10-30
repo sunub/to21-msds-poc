@@ -269,6 +269,17 @@ def test_route_diff(app, ctx, br, env):
     assert call(app, ctx, "/api/diff", a="a")[0] == 400
 
 
+def test_route_diff_adds_headline_with_run_titles_without_changing_diff(app, ctx, br, env):
+    a, b = two(br, env)
+    expected = app.bd.diff_runs(a, b)
+    code, data = call(app, ctx, "/api/diff", a="a", b="b")
+    assert code == 200
+    assert data["headline"] == app.bt.diff_headline(
+        expected, app.bt.run_label(a)["title"], app.bt.run_label(b)["title"])
+    assert data["ui_text"] == app.bt.diff_ui_text(expected)
+    assert {k: v for k, v in data.items() if k not in {"headline", "ui_text"}} == expected
+
+
 def test_route_prompt_diff(app, ctx, br, env, bd, monkeypatch):
     two(br, env, info_a={"git_commit": "abc1234", "rows_sections": [11]},
         info_b={"git_commit": "def5678", "rows_sections": []})

@@ -182,7 +182,8 @@ def _doc(query: dict[str, list[str]], ctx: AppContext) -> tuple[int, str, bytes]
     if not bdoc.allowed_doc(doc_id) or not (run / "outputs" / f"{doc_id}.json").is_file():
         return missing
     try:
-        return _json(200, bdoc.doc_view(run, doc_id, ctx.pages_dir, ctx.gold_dir))
+        view = bdoc.doc_view(run, doc_id, ctx.pages_dir, ctx.gold_dir)
+        return _json(200, {**view, "legend": bt.doc_legend(), "ui_text": bt.doc_ui_text(view)})
     except PermissionError:
         return missing
     except FileNotFoundError:
@@ -351,7 +352,9 @@ def route(method: str, path: str, query: dict[str, list[str]], body: bytes | Non
             return _prompt_diff(query, pair, ctx)
         with _LOCK:
             a, b = [br.summarize_run(p, ctx.gold_dir, cache_dir=ctx.cache_dir) for p in pair]
-        return _json(200, bd.diff_runs(a, b))
+        diff = bd.diff_runs(a, b)
+        return _json(200, {**diff, "headline": bt.diff_headline(diff, bt.run_label(a)["title"], bt.run_label(b)["title"]),
+                           "ui_text": bt.diff_ui_text(diff)})
     if path == "/api/doc":
         return _doc(query, ctx)
     if path.startswith("/pages/"):

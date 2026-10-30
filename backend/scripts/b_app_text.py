@@ -282,6 +282,70 @@ def _number(value) -> bool:
     return isinstance(value, (int, float)) and not isinstance(value, bool) and isfinite(value)
 
 
+def diff_headline(diff: dict, label_a: str, label_b: str) -> dict:
+    """B − A 점수 차를 요약한다. 변화 크기가 같으면 내려간 항목을 먼저 고른다."""
+    changed = [c["what"] for c in diff.get("conditions", []) if c.get("changed")]
+    if diff.get("prompt_changed_sections"):
+        changed.append("안내문 글")
+    same = not changed
+    items = [i for i in diff.get("items", []) if _number(i.get("delta"))]
+    if not items:
+        return {"headline": "비교할 항목이 없습니다.", "biggest": None, "same_conditions": same}
+    item = max(items, key=lambda i: (abs(i["delta"]), i["delta"] < 0))
+    biggest = {"name": item["name"], "delta": item["delta"]}
+    delta = (diff.get("weighted") or {}).get("delta")
+    labels = f"B({label_b})와 A({label_a})"
+    if not _number(delta):
+        headline = f"{labels}의 종합 점수를 비교할 수 없습니다."
+    elif delta == 0:
+        headline = f"{labels}의 종합 점수가 같습니다."
+    else:
+        direction = "내려갔습니다" if delta < 0 else "올랐습니다"
+        headline = f"B({label_b})가 A({label_a})보다 {abs(delta):.1f}점 {direction}."
+    if item["delta"]:
+        sign = "−" if item["delta"] < 0 else "+"
+        headline += f" 가장 큰 변화 항목은 {item['name']}({sign}{abs(item['delta']):.1f}점)입니다."
+    headline += (" 조건(모델·안내문·입력 판·동시 호출·코드 커밋)은 모두 같습니다." if same
+                 else f" 조건이 다릅니다: {', '.join(changed)}.")
+    return {"headline": headline, "biggest": biggest, "same_conditions": same}
+
+
+def diff_ui_text(diff: dict) -> dict:
+    """표시 범위와 원인 후보의 안내. 원인 판정은 b_app_diff에 그대로 둔다."""
+    hidden = sum(not _number(i.get("delta")) or i["delta"] >= 0 for i in diff.get("items", []))
+    return {"hidden": f"내려가지 않았거나 점수가 없는 항목 {hidden}개 숨김",
+            "empty": "내려간 항목이 없습니다. 모두 보기에서 전체 항목을 볼 수 있습니다.",
+            "candidate": "후보입니다. 확정은 ③ 원문 대조에서 눈으로 합니다."}
+
+
+def doc_legend() -> list[dict]:
+    """app.css의 기존 원문 대조 색을 그대로 쓴다."""
+    return [{"key": key, "label": label, "color": color} for key, label, color in [
+        ("same", "실버와 같음", "#8c959f"),
+        ("diff", "실버와 다르거나 실버에 없음", "#bc4c00"),
+        ("silver_only", "실버에만 있음(결과가 빠뜨림)", "#cf222e"),
+        ("picked", "고른 값·줄", "#fff8c5"),
+    ]]
+
+
+def doc_ui_text(view: dict) -> dict:
+    """원문 대조 사용법과 항별 값 수를 설명한다. 빠뜨린 칸은 결과 수와 따로 센다."""
+    counts = {}
+    for only, values in [(False, view.get("values", [])), (True, view.get("silver_only", []))]:
+        for value in values:
+            key = str(value["section"]) if value.get("section") is not None else "?"
+            count = counts.setdefault(key, [0, 0, 0])
+            if only:
+                count[2] += 1
+            else:
+                count[0] += 1
+                count[1] += not value.get("silver", {}).get("same", False)
+    return {"howto": "오른쪽에서 값을 누르면 왼쪽 원문 줄이 노랗게 켜집니다. "
+                     "줄을 누르면 그 줄을 근거로 쓴 값이 켜집니다.",
+            "sections": {key: f"값 {total}개 중 실버와 다른 것 {different}개, 결과가 빠뜨린 것 {missing}개"
+                         for key, (total, different, missing) in counts.items()}}
+
+
 def _item_section(item: dict, criteria: dict) -> int | None:
     """항목 이름 또는 ITEM_HELP에서 온 설명에 적힌 항만 쓴다. 추측하지 않는다."""
     match = re.match(r"^(1[0-6]|[1-9])항", item["name"])
