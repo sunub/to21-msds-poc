@@ -175,6 +175,18 @@ def test_api_criteria(app, ctx):
     assert code == 200 and len(data["items"]) == 23 and data["pass_score"] == 90.0
 
 
+def test_api_glossary_is_shared_text_without_runs_or_servers(app, ctx, monkeypatch):
+    def forbidden(*args, **kwargs):
+        raise AssertionError("용어를 읽을 때 실행 파일이나 서버를 조회하면 안 된다")
+
+    monkeypatch.setattr(app.br, "load_all", forbidden)
+    ctx.model_status = forbidden
+    code, data = get_json(app, ctx, "/api/glossary")
+    assert code == 200
+    assert data == {"items": app.bt.glossary_entries()}
+    assert len(data["items"]) >= 28
+
+
 def test_unknown_path_is_404_json(app, ctx):
     code, data = get_json(app, ctx, "/api/없는주소")
     assert code == 404 and "error" in data
