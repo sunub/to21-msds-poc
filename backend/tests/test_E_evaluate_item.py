@@ -119,3 +119,60 @@ def test_include_min_은_규칙표_우선이고_cut_off와_비교():
     assert include_min_for("HH_RESP_SENS") == 0.1
     chk = check_include_min()
     assert isinstance(chk["not_in_cut_off"], list) and isinstance(chk["differs"], dict)
+
+
+# ── rule_eval의 (함량, M) 쌍 처리 ──
+from msds.compliance.mixture.rule_eval import evaluate_rules  # noqa: E402
+
+SUMX = [{"id": "X", "category": "1", "when": 'sumx("1") >= 25'}]
+SUM = [{"id": "S", "category": "1", "when": 'sum("1") >= 25'}]
+
+
+def test_쌍과_숫자_입력이_각자_올바름():
+    assert evaluate_rules(SUMX, {"1": [3]}, m=10) == "1"  # 숫자: 기존대로 m을 곱함 (30)
+    assert evaluate_rules(SUMX, {"1": [3]}, m=1) == "분류안됨"
+    assert evaluate_rules(SUMX, {"1": [(3, 10)]}) == "1"  # 쌍: 함량×M (30)
+    assert evaluate_rules(SUMX, {"1": [(3, 10), 2]}, m=1) == "1"  # 섞여도 됨: 30 + 2
+
+
+def test_sum은_M의_영향이_없고_sumx는_받음():
+    comps = {"1": [(3, 10), (2, 1)]}
+    assert evaluate_rules(SUM, comps) == "분류안됨"  # 함량 합 5
+    assert evaluate_rules([{"id": "S", "category": "1", "when": 'sum("1") == 5'}], comps) == "1"
+    assert evaluate_rules(SUMX, comps) == "1"  # 30 + 2 = 32
+    assert evaluate_rules([{"id": "M", "category": "1", "when": 'max("1") == 3'}], comps) == "1"
+
+
+def test_other는_쌍이어도_함량만_씀():
+    r = [{"id": "O", "category": "1", "when": 'other("A","1") == 3'}]
+    assert evaluate_rules(r, {}, other={"A": {"1": [(3, 10)]}}) == "1"
+
+
+def test_한계농도_미만은_쌍째로_빠짐():
+    r = [{"id": "X", "category": "1", "when": 'sumx("1") >= 1'}]
+    assert evaluate_rules(r, {"1": [(0.5, 100)]}, include_min=1.0) == "분류안됨"  # 0.5×100=50이어도 함량 0.5 < 1
+    assert evaluate_rules(r, {"1": [(0.5, 100), (1.5, 1)]}, include_min=1.0) == "1"
+
+
+def test_수생_급성_M이_다른_성분_둘():
+    comps = [comp("A", 2, 2, ("ENV_AQ_ACUTE", "1"), m=10), comp("B", 5, 5, ("ENV_AQ_ACUTE", "1"), m=1)]
+    r = evaluate_item("ENV_AQ_ACUTE", comps, {}, mode="low")
+    assert r["category"] == "1" and r["inputs"]["comps"] == {"1": [(2, 10), (5, 1)]} and r["inputs"]["m"] == 1
+    # 같은 구분의 sum()은 가중되지 않음: 함량 합 7 < 25
+    assert evaluate_rules(SUM, r["inputs"]["comps"]) == "분류안됨"
+    assert not any("가중" in a for a in r["assumptions"])
+
+
+def test_수생_만성_M이_다른_성분_둘():
+    comps = [comp("A", 0.5, 0.5, ("ENV_AQ_CHRONIC", "1"), m=100), comp("B", 2, 2, ("ENV_AQ_CHRONIC", "1"), m=1)]
+    r = evaluate_item("ENV_AQ_CHRONIC", comps, {}, mode="low")
+    assert r["inputs"]["comps"] == {"1": [(0.5, 100), (2, 1)]}  # 한계농도 걸러내기는 evaluate_rules 안에서
+    # A(0.5%)는 한계농도 1% 미만이라 M=100이어도 빠지고, B만 남아 sumx=2 → AQC-3: 100×2 ≥ 25
+    assert r["category"] == "3"
+    assert evaluate_rules([{"id": "T", "category": "1", "when": 'sumx("1") >= 50'}], r["inputs"]["comps"],
+                          include_min=1.0) == "분류안됨"
+
+
+def test_M이_없으면_기본값_사용을_남김():
+    r = evaluate_item("ENV_AQ_ACUTE", [comp("A", 3, 3, ("ENV_AQ_ACUTE", "1"))], {}, mode="low")
+    assert any("m_factor_default(1)" in a and "A" in a for a in r["assumptions"])
