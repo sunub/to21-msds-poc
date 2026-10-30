@@ -13,6 +13,102 @@ def text(monkeypatch):
     return importlib.import_module("b_app_text")
 
 
+@pytest.fixture
+def diff_info():
+    return {
+        "weighted": {"a": 73.2, "b": 72.7, "delta": -.5},
+        "items": [{"name": "11항 급성독성", "delta": -12.4},
+                  {"name": "8항 노출기준", "delta": 4.2}],
+        "conditions": [{"what": name, "changed": False} for name in
+                       ["모델", "안내문 버전", "입력 판", "동시 호출", "코드 커밋"]],
+        "prompt_changed_sections": [],
+    }
+
+
+@pytest.mark.parametrize("delta, phrase", [(-.5, "0.5점 내려갔습니다"),
+                                          (.5, "0.5점 올랐습니다"), (0, "같습니다")])
+def test_diff_headline_direction_and_labels(text, diff_info, delta, phrase):
+    diff_info["weighted"]["delta"] = delta
+    before = copy.deepcopy(diff_info)
+    result = text.diff_headline(diff_info, "이전 실행", "새 실행")
+    assert phrase in result["headline"]
+    assert "이전 실행" in result["headline"] and "새 실행" in result["headline"]
+    assert "모두 같습니다." in result["headline"]
+    assert result["biggest"] == {"name": "11항 급성독성", "delta": -12.4}
+    assert result["same_conditions"] is True
+    assert diff_info == before
+
+
+def test_diff_headline_changed_conditions_and_prompt_content(text, diff_info):
+    diff_info["conditions"][0]["changed"] = True
+    diff_info["conditions"][2]["changed"] = True
+    diff_info["prompt_changed_sections"] = [11]
+    result = text.diff_headline(diff_info, "A", "B")
+    assert result["same_conditions"] is False
+    assert result["headline"].endswith("조건이 다릅니다: 모델, 입력 판, 안내문 글.")
+
+
+def test_diff_headline_commit_only_is_not_same(text, diff_info):
+    diff_info["conditions"][-1]["changed"] = True
+    result = text.diff_headline(diff_info, "A", "B")
+    assert result["same_conditions"] is False
+    assert result["headline"].endswith("조건이 다릅니다: 코드 커밋.")
+
+
+def test_diff_headline_biggest_absolute_change_prefers_drop_on_tie(text, diff_info):
+    diff_info["items"] = [{"name": "오름", "delta": 20}, {"name": "내림", "delta": -20},
+                          {"name": "작은 내림", "delta": -3}, {"name": "미채점", "delta": None}]
+    assert text.diff_headline(diff_info, "A", "B")["biggest"] == {"name": "내림", "delta": -20}
+    diff_info["items"][0]["delta"] = 21
+    assert text.diff_headline(diff_info, "A", "B")["biggest"] == {"name": "오름", "delta": 21}
+
+
+@pytest.mark.parametrize("items", [[], [{"name": "미채점", "delta": None}]])
+def test_diff_headline_no_comparable_items(text, diff_info, items):
+    diff_info["items"] = items
+    assert text.diff_headline(diff_info, "A", "B") == {
+        "headline": "비교할 항목이 없습니다.", "biggest": None, "same_conditions": True}
+
+
+def test_diff_headline_unscored_total_does_not_claim_equal(text, diff_info):
+    diff_info["weighted"]["delta"] = None
+    headline = text.diff_headline(diff_info, "A", "B")["headline"]
+    assert "종합 점수를 비교할 수 없습니다" in headline
+
+
+def test_diff_ui_text_counts_hidden_items_including_unscored(text, diff_info):
+    diff_info["items"].append({"name": "미채점", "delta": None})
+    result = text.diff_ui_text(diff_info)
+    assert result["hidden"] == "내려가지 않았거나 점수가 없는 항목 2개 숨김"
+    assert result["candidate"] == "후보입니다. 확정은 ③ 원문 대조에서 눈으로 합니다."
+
+
+def test_doc_legend_matches_existing_css_colors_and_returns_fresh_values(text):
+    expected = [("same", "실버와 같음", "#8c959f"),
+                ("diff", "실버와 다르거나 실버에 없음", "#bc4c00"),
+                ("silver_only", "실버에만 있음(결과가 빠뜨림)", "#cf222e"),
+                ("picked", "고른 값·줄", "#fff8c5")]
+    legend = text.doc_legend()
+    assert [(v["key"], v["label"], v["color"]) for v in legend] == expected
+    css = (SCRIPTS / "b_app_static" / "app.css").read_text()
+    assert all(color in css for _, _, color in expected)
+    legend[0]["color"] = "changed"
+    assert text.doc_legend()[0]["color"] == "#8c959f"
+
+
+def test_doc_ui_text_summaries_count_values_and_missing_cells_separately(text):
+    view = {"values": [{"section": 3, "silver": {"same": True}},
+                       {"section": 3, "silver": {"same": False}}],
+            "silver_only": [{"section": 3}, {"section": None}]}
+    before = copy.deepcopy(view)
+    result = text.doc_ui_text(view)
+    assert result["sections"] == {
+        "3": "값 2개 중 실버와 다른 것 1개, 결과가 빠뜨린 것 1개",
+        "?": "값 0개 중 실버와 다른 것 0개, 결과가 빠뜨린 것 1개"}
+    assert "오른쪽에서 값을 누르면" in result["howto"]
+    assert view == before
+
+
 def test_order_models_stable_with_labels_and_without_mutating_input(text):
     models = [
         {"tag": "off1", "label": "꺼진 모델 1", "connected": False, "extra": [1]},

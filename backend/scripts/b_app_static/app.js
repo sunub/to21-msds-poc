@@ -4,7 +4,8 @@
 
 const S = {list: [], criteria: null, glossary: [], gaps: [], limit: 300, name: null, run: null, open: null, pick: loadPick(),
   cards: loadCards(), itemsAll: false,
-  diff: {a: null, b: null, key: null, data: null, error: null, why: new Set(), vals: new Set(), open: new Set(), prompts: {}},
+  diff: {a: null, b: null, key: null, data: null, error: null, itemsAll: false,
+    why: new Set(), vals: new Set(), open: new Set(), prompts: {}},
   doc: {run: null, doc: null, key: null, data: null, error: null, page: null, pick: null,
     selLines: new Set(), selPaths: new Set(), open: new Set()},
   jobs: {opts: null, error: null, list: [], running: [], pollError: null, timer: null, watch: null, result: null, tried: null,
@@ -204,6 +205,8 @@ function setupTabs() {
     buttons.forEach(b => b.classList.toggle("on", b.dataset.tab === id));
     document.querySelectorAll("section.tab").forEach(t => t.classList.toggle("on", t.id === "tab-" + id));
     history.replaceState(null, "", "#" + id);
+    // 처음 원문 탭을 열 때의 점수판 실행을 쓴다. 점수판에서 넘긴 선택은 유지한다.
+    if (id === "doc" && (!S.doc.run || !S.doc.doc)) initDoc().catch(fail);
     if (id === "servers" && S.srv.started) pollServers().catch(fail);   // 서버 탭을 열면 바로 다시 본다
   };
   advanced.addEventListener("change", () => setAdvanced(advanced.checked));
@@ -243,7 +246,8 @@ async function loadAll() {
   const keep = runsShown().some(r => r.name === S.name);
   await loadRun(keep ? S.name : data.current);
   await initDiff();
-  await initDoc();
+  if (S.doc.run || document.getElementById("tab-doc").classList.contains("on")) await initDoc();
+  else renderDoc();
   if (S.jobs.opts) renderJobs();                     // 새 실행 목록으로 기준 실행·비교표 고르기를 다시 그린다
   const broken = S.list.filter(r => r.error).length;
   status(broken ? `읽지 못한 실행 ${broken}개 (쓰는 중일 수 있습니다)` : "");
@@ -712,7 +716,11 @@ function renderDiffTop() {
       h("td", {class: c.what === "모델" ? null : "mono"}, show(c, c.b, "b"))))));
   const nos = d.prompt_changed_sections;
   const docs = d.docs, odd = docs.only_a.length || docs.only_b.length;
-  card("diff-top-card", "고른 두 실행", hint, pick,
+  const delta = d.weighted.delta;
+  const direction = num(delta) && delta < 0 ? "diff-down" : num(delta) && delta > 0 ? "diff-up" : "diff-same";
+  card("diff-top-card", "고른 두 실행", null,
+    h("p", {class: `status-headline diff-headline ${direction}`, role: "status"}, d.headline.headline),
+    h("p", {class: "hint"}, hint), pick,
     h("p", {class: "hint"}, "노란 줄은 두 실행에서 다른 조건입니다. ", term("안내문"), "과 ", term("동시 호출"), " 수도 비교합니다."), cond,
     h("p", null, "안내문 글이 다른 항(실행 기록의 해시 기준): ", h("b", null, nos.length ? nos.map(n => `${n}항`).join(", ") : "없음")),
     changeLine(term("가중 종합"), d.weighted, "항목 점수에 무게를 곱해 평균 낸 점수(weighted)"),
@@ -760,31 +768,41 @@ function promptView(no) {
 
 function renderDiffItems() {
   const D = S.diff, d = D.data;
-  const hint = [term("항목"), "마다 A 점수, B 점수, 차이(B − A)입니다. 막대는 가운데가 0이고 빨강은 내려간 것, 초록은 오른 것입니다(±50점이면 끝까지). 2점 넘게 내려간 항목에는 '왜?' 단추가 있고, 그 값을 만드는 항의 ", term("안내문"), "이 바뀌었으면 '안내문 차이 보기' 단추가 있습니다."];
+  const hint = [term("항목"), "마다 A 점수, B 점수, 차이(B − A)입니다. 막대는 가운데가 0이고 빨강은 내려간 것, 초록은 오른 것입니다(±50점이면 끝까지). 2점 이상 내려간 항목에는 '왜 내려갔나?' 단추가 있고, 그 값을 만드는 항의 ", term("안내문"), "이 바뀌었으면 '안내문 차이 보기' 단추가 있습니다."];
   if (!d) return card("diff-items-card", "항목 23개 점수 차", hint, h("p", {class: "hint"}, "두 실행을 고르면 나옵니다."));
   const causes = Object.fromEntries(d.causes.map(c => [c.item, c.reasons]));
   const changed = new Set(d.prompt_changed_sections);
   const help = n => (S.criteria.items.find(c => c.name === n) || {}).help || "";
-  const rows = d.items.map(i => {
+  const visible = D.itemsAll ? d.items : d.items.filter(i => num(i.delta) && i.delta < 0);
+  const rows = visible.map(i => {
     const why = causes[i.name], nos = (i.sections || []).filter(n => changed.has(n));
     const row = h("tr", null,
       h("td", {"data-tip": `${i.name}\n${help(i.name)}\n값을 만드는 항: ${(i.sections || []).join("·")}항`}, i.name, h("small", null, ` ${i.level}`)),
       h("td", {class: "num"}, fmt1(i.a)), h("td", {class: "num"}, fmt1(i.b)),
       h("td", null, deltaBar(i.delta), " ", h("span", {class: trend(i.delta)}, signed(i.delta))),
       h("td", null,
-        why ? h("button", {type: "button", onclick: () => { D.why.has(i.name) ? D.why.delete(i.name) : D.why.add(i.name); renderDiffItems(); }},
-          D.why.has(i.name) ? "왜? 접기" : "왜?") : null,
+        why ? h("button", {type: "button", "aria-expanded": String(D.why.has(i.name)),
+          onclick: () => { D.why.has(i.name) ? D.why.delete(i.name) : D.why.add(i.name); renderDiffItems(); }},
+          D.why.has(i.name) ? "왜 내려갔나? 접기" : "왜 내려갔나?") : null,
         nos.map(n => h("button", {type: "button", onclick: () => togglePrompt(i.name, n)},
           `${D.open.has(`${i.name}|${n}`) ? "접기" : "안내문 차이 보기"} (${n}항)`))));
     const more = [];
     if (why && D.why.has(i.name)) {
-      more.push(h("tr", {class: "sub"}, h("td", {colspan: 5}, why.length
+      more.push(h("tr", {class: "sub"}, h("td", {colspan: 5}, h("p", {class: "hint"}, d.ui_text.candidate), why.length
         ? h("ul", {class: "why"}, why.map(t => h("li", null, t))) : h("p", {class: "hint"}, "수치로 뒷받침되는 원인 후보를 찾지 못했습니다."))));
     }
     nos.filter(n => D.open.has(`${i.name}|${n}`)).forEach(n => more.push(h("tr", {class: "sub"}, h("td", {colspan: 5}, promptView(n)))));
     return [row, more];
   });
-  card("diff-items-card", "항목 23개 점수 차", hint, h("div", {class: "scroll"}, h("table", {class: "list ditems"},
+  card("diff-items-card", "항목 23개 점수 차", hint,
+    h("div", {class: "item-filter", role: "group", "aria-label": "비교 항목 표시 범위"},
+      h("button", {type: "button", "aria-pressed": String(!D.itemsAll),
+        onclick: () => { D.itemsAll = false; renderDiffItems(); }}, "내려간 항목만 보기(기본)"),
+      h("button", {type: "button", "aria-pressed": String(D.itemsAll),
+        onclick: () => { D.itemsAll = true; renderDiffItems(); }}, "모두 보기"),
+      !D.itemsAll ? h("span", {class: "hint", role: "status"}, d.ui_text.hidden) : null),
+    !visible.length && !D.itemsAll ? h("p", {class: "hint"}, d.ui_text.empty) : null,
+    h("div", {class: "scroll"}, h("table", {class: "list ditems"},
     h("thead", null, h("tr", null, h("th", null, "항목"), h("th", null, "A"), h("th", null, "B"), h("th", null, "차이 (B − A)"), h("th", null, ""))),
     h("tbody", null, rows))));
 }
@@ -941,13 +959,16 @@ function renderDocTop() {
 
 function renderDocMain() {
   const D = S.doc, d = D.data;
-  const hint = "값을 누르면 근거 줄과 쪽 그림의 그 자리가 노랗게 켜집니다. 줄을 누르면 그 줄을 근거로 쓴 값이 켜집니다. 근거 줄은 결과 파일의 원문 조각(evidence)을 같은 쪽 줄과 맞춰 찾습니다. 그림 위 자리는 쪽 좌표 파일(pNNN.json)의 칸 글자와 줄 글자를 맞춰 찾고, 못 맞춘 줄은 글자만 켭니다.";
+  const hint = "근거 줄은 결과 파일의 원문 조각(evidence)을 같은 쪽 줄과 맞춰 찾습니다. 그림 위 자리는 쪽 좌표 파일(pNNN.json)의 칸 글자와 줄 글자를 맞춰 찾고, 못 맞춘 줄은 글자만 켭니다.";
   if (!d) return card("doc-main-card", ["원문 · 결과 · ", term("실버")], hint, h("p", {class: "hint"}, "실행과 문서를 고르면 나옵니다."));
-  const legend = h("p", {class: "legend"},
-    h("span", {class: "sw lg-same"}, "회색 = 실버와 같음"), h("span", {class: "sw lg-diff"}, "주황 = 실버와 다르거나 실버에 없음"),
-    h("span", {class: "sw lg-only"}, "빨강 테두리 = 실버에만 있음(결과가 빠뜨림)"), h("span", {class: "sw lg-hl"}, "노랑 = 고른 값·줄"),
-    h("span", {class: "sw"}, "줄 왼쪽 띠 = 항 구간"));
-  card("doc-main-card", ["원문 · 결과 · ", term("실버")], hint, legend, h("p", {class: "selnote", id: "doc-sel"}),
+  const legend = h("div", {class: "legend doc-legend", "aria-label": "원문 대조 색 범례"},
+    d.legend.map(entry => h("span", {class: "legend-entry"},
+      h("span", {class: "chip", style: `background:${entry.color}`, "aria-hidden": "true"}), entry.label)));
+  card("doc-main-card", ["원문 · 결과 · ", term("실버")], null,
+    h("p", {class: "doc-howto"}, h("strong", null, "쓰는 법: "), d.ui_text.howto), legend,
+    h("details", {class: "hint"}, h("summary", null, "근거 줄과 그림 표시 기준 보기"),
+      h("p", null, "값을 누르면 쪽 그림의 근거 자리도 노랗게 켜집니다. ", hint), h("p", null, "줄 왼쪽 띠 = 항 구간")),
+    h("p", {class: "selnote", id: "doc-sel"}),
     h("div", {class: "dgrid"}, h("div", {class: "dleft", id: "doc-left"}), h("div", {class: "dright", id: "doc-right"})));
   renderDocLeft();
   renderDocRight();
@@ -995,11 +1016,10 @@ function renderDocRight() {
   if (!el || !D.data) return;
   if (!D.groups.length) return el.replaceChildren(h("p", {class: "hint"}, "결과 값이 없습니다."));
   el.replaceChildren(...D.groups.map(([sec, tables]) => {
-    const k = `s${sec}`, all = [...tables.values()].flatMap(rows => [...rows.values()].flat());
-    const only = all.filter(x => x.only).length, diff = all.filter(x => !x.only && !x.v.silver.same).length;
+    const k = `s${sec}`;
     return h("details", {class: "dsec", open: D.open.has(k), ontoggle: e => setOpen(k, e.target.open)},
       h("summary", null, sec === "?" ? "항을 모르는 값" : `${sec}항 ${SECTION_NAME[sec] || ""}`,
-        h("small", null, ` 값 ${all.length - only} · 다름 ${diff} · 실버에만 ${only}`)),
+        h("small", {class: "section-summary"}, S.doc.data.ui_text.sections[sec])),
       [...tables.entries()].map(([t, rows]) => tableBlock(sec, t, rows)));
   }));
 }

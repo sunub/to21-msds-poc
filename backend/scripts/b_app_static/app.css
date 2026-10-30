@@ -181,6 +181,14 @@ pre.diff .dhunk, pre.diff .dfile { color: var(--muted); }
 .vrow:hover { background: #f0f6fc; }
 
 /* 원문 대조 */
+.diff-headline { border-top: 4px solid var(--muted); padding-top: 12px; }
+.diff-headline.diff-down { border-top-color: var(--limit); }
+.diff-headline.diff-up { border-top-color: var(--ok); }
+.doc-howto { margin: 4px 0 12px; }
+.doc-legend { display: flex; flex-wrap: wrap; gap: 8px 16px; margin: 8px 0; }
+.legend-entry { display: inline-flex; align-items: center; gap: 6px; }
+.chip { display: inline-block; flex: none; width: 12px; height: 12px; border: 1px solid var(--line); border-radius: 4px; }
+.section-summary { display: block; font-weight: 400; overflow-wrap: anywhere; }
 .secbtn { padding: 0 7px; margin: 0 1px; font-size: 12px; }
 .secbtn:disabled { opacity: .4; cursor: default; }
 .selnote { min-height: 1.5em; margin: 2px 0 8px; font-size: 13px; }
