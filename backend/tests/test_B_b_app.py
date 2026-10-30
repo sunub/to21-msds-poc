@@ -195,3 +195,35 @@ def test_main_binds_127_only(app, monkeypatch, env):
     assert app.main(["--runs-dir", str(env / "runs")]) == 0
     assert seen == {"address": ("127.0.0.1", 8765), "closed": True}
     assert opened == ["http://127.0.0.1:8765/"]
+
+
+# ── 도움말 (step 8) ────────────────────────────────────
+
+GUIDE_SECTIONS = ("이 도구는 무엇을 하나", "점수는 어떻게 읽나", "탭마다 무엇을 보나", "처음 한 번 준비",
+                  "시험 하나 돌리기", "안내문을 바꿔 보기", "자주 보는 실패 네 가지", "하지 말 것", "용어 풀이")
+ENV_NAMES = ("RUNPOD_VLLM_BASE_URL", "RUNPOD_VLLM_API_KEY", "RNGD_BASE_URL", "RNGD_API_KEY", "RUNPOD_API_KEY", "RNGD_SSH")
+
+
+def test_guide_route_has_all_sections(app, ctx):
+    code, ctype, body = get(app, ctx, "/static/guide.html")
+    text = body.decode("utf-8")
+    assert code == 200 and ctype.startswith("text/html")
+    for title in GUIDE_SECTIONS:
+        assert f"<h2>{title}</h2>" in text, title
+
+
+def test_guide_has_no_outside_address_or_secret_values(app):
+    for path in (app.STATIC / "guide.html", app.STATIC.parent / "README_b_app.md"):
+        text = path.read_text(encoding="utf-8")
+        assert not re.search(r"https?://", text) or path.suffix == ".md", path
+        assert not re.search(r"(API_KEY|_SSH|_URL)=\S+", text), path
+    text = (app.STATIC / "guide.html").read_text(encoding="utf-8")
+    for name in ENV_NAMES:
+        assert name in text, name
+    assert not re.search(r"https?://", text)
+
+
+def test_index_has_help_tab_and_links(app):
+    text = (app.STATIC / "index.html").read_text(encoding="utf-8")
+    assert "도움말" in text
+    assert text.count("자세히 → 도움말") == 5

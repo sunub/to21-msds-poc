@@ -92,6 +92,14 @@ function setupTabs() {
     if (id === "servers" && S.srv.started) pollServers().catch(fail);   // 서버 탭을 열면 바로 다시 본다
   };
   buttons.forEach(b => b.addEventListener("click", () => show(b.dataset.tab)));
+  // "자세히 → 도움말 N장" 링크: 도움말 탭을 열고 그 장으로 간다
+  document.querySelectorAll("a[data-help]").forEach(a => a.addEventListener("click", e => {
+    e.preventDefault();
+    document.getElementById("help-frame").src = "/static/guide.html#" + a.dataset.help;
+    show("help");
+  }));
+  const frame = document.getElementById("help-frame");
+  if (!frame.getAttribute("src")) frame.src = frame.dataset.src;
   const first = location.hash.slice(1);
   show(document.getElementById("tab-" + first) ? first : "score");
 }
@@ -1117,7 +1125,7 @@ function scoreView(sc, weighted, base, skipped) {
     base ? h("p", {class: "hint"}, "기준 실행: ", h("span", {class: "mono"}, fromRuns(base))) : null,
     sc.changed.length
       ? h("table", {class: "list cond"}, h("thead", null, h("tr", null, h("th", null, "바뀐 항목"), h("th", null, "전"), h("th", null, "후"))),
-        h("tbody", null, sc.changed.map(c => h("tr", null, h("td", null, c.name), h("td", {class: "num"}, pct(c.before)),
+        h("tbody", null, sc.changed.map(c => h("tr", null, h("td", {"data-tip": `${c.name}\n${((S.criteria.items || []).find(i => i.name === c.name) || {}).help || ""}`}, c.name), h("td", {class: "num"}, pct(c.before)),
           h("td", {class: "num " + (trend((c.after ?? 0) - (c.before ?? 0)) || "")}, pct(c.after))))))
       : h("p", null, "바뀐 항목 없음"),
     (sc.warnings || []).map(w => h("p", {class: "warn"}, "주의: " + w))];
