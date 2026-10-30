@@ -240,7 +240,8 @@ class JobManager:
 
     def start_try(self, *, model: str, doc: str, sections: list[int] | None, all_: bool, pages_dir: str,
                   system_text: str | None, base_run: str | None, dry_run: bool = False,
-                  extra_env: dict[str, str] | None = None) -> Job:
+                  extra_env: dict[str, str] | None = None, gold_dir: str | None = None) -> Job:
+        """gold_dir는 앱이 정답지 목록에서 찾은 폴더(backend 기준). 있으면 --gold-dir로 넘긴다(시험의 점수 전→후)."""
         self._model(model)
         self._check_docs([doc], pages_dir, "try")
         if all_:
@@ -265,6 +266,8 @@ class JobManager:
             argv.append("--dry-run")
         if base_run:
             argv += ["--base-run", base_run]
+        if gold_dir:
+            argv += ["--gold-dir", gold_dir]
         tmp = None
         if system_text is not None:                      # 저장소 밖 임시 파일. 끝나면 지운다 (D-47)
             fd, tmp = tempfile.mkstemp(prefix="b_app_system_", suffix=".txt", dir=tempfile.gettempdir())

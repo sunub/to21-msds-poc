@@ -10,6 +10,7 @@ import re
 import pytest
 
 from test_B_b_app_runs import env, make_run  # noqa: F401  env는 픽스처
+from test_B_b_app_sets import answer_keys  # noqa: F401  가짜 data/silver·gold 픽스처
 from test_B_compare_models import SCRIPTS, X01, X02, make_doc
 
 STATIC_FILES = ("index.html", "app.js", "app.css")
@@ -143,7 +144,7 @@ def test_run_labels_are_added_without_changing_score_or_cache(app, ctx, env, mon
         assert result["model_label"] == "Qwen3.6 35B (RunPod)"
     # Steps 4/9 add presentation fields; every original scoring field remains identical.
     assert {k: v for k, v in detail.items()
-            if k not in ("label", "model_label", "status_text", "card_summaries", "connection_notes")} == before
+            if k not in ("label", "model_label", "status_text", "card_summaries", "connection_notes", "key")} == before
     assert summary == before
 
 
@@ -322,6 +323,152 @@ def test_real_silver_gaps_name_real_items(app):
     for g in gaps:
         assert {"item", "note", "since", "source"} <= set(g)
         assert any(n.startswith(g["item"]) for n in names), g["item"]           # 채점 항목 이름 앞부분
+
+
+# ── 정답지 ─────────────────────────────────────────────
+
+KEYED_RUN = "20261030_sections_m1_dev10_r1"
+
+
+@pytest.fixture
+def kctx(app, env, answer_keys):
+    """정답지 목록이 있는 ctx. 실행 하나가 X01(그대로)·X02(독성 표 비움)를 냈다."""
+    make_run(env / "runs", KEYED_RUN, {X01: make_doc(X01), X02: make_doc(X02, toxicity=True)})
+    return app.AppContext(runs_dir=env / "runs", gold_dir=answer_keys / "silver" / "claude", pages_dir=env / "pages",
+                          static_dir=app.STATIC, cache_dir=env / "cache", gaps_file=env / "silver_gaps.yaml",
+                          data_root=answer_keys)
+
+
+def get_q(app, ctx, path, **query):
+    code, ctype, body = app.route("GET", path, {k: [v] for k, v in query.items()}, None, ctx)
+    assert ctype.startswith("application/json")
+    return code, json.loads(body)
+
+
+def test_api_keys(app, kctx):
+    code, data = get_json(app, kctx, "/api/keys")
+    assert code == 200
+    assert data["default"] == "silver/claude"
+    assert [k["id"] for k in data["keys"]] == ["gold/a3", "gold/bad", "gold/evalonly", "gold/layout",
+                                               "silver/claude", "silver/gpt"]
+
+
+def test_api_keys_without_data_root(app, ctx):
+    assert ctx.data_root is None                       # 넘기지 않으면 실제 data/를 읽지 않는다
+    assert get_json(app, ctx, "/api/keys") == (200, {"keys": [], "default": "gold"})
+
+
+def test_runs_scored_with_chosen_key(app, kctx, env, answer_keys):
+    from msds.evaluate.score import score_set
+    outputs = {d: json.loads((env / "runs" / KEYED_RUN / "outputs" / f"{d}.json").read_text(encoding="utf-8"))
+               for d in (X01, X02)}
+    seen = {}
+    for key_id, doc in (("silver/claude", X01), ("gold/a3", X02)):
+        gold = json.loads((answer_keys / key_id / f"{doc}.json").read_text(encoding="utf-8"))
+        expected = score_set([(doc, gold, outputs[doc])])["weighted"]
+        code, data = get_q(app, kctx, "/api/runs", key=key_id)
+        assert code == 200
+        assert data["key"] == {"id": key_id, "label": app.bt.key_label(key_id)}
+        assert data["runs"][0]["weighted"] == expected and data["runs"][0]["docs"] == [doc]
+        seen[key_id] = expected
+    assert seen["silver/claude"] != seen["gold/a3"]
+    assert get_q(app, kctx, "/api/runs")[1]["key"]["id"] == "silver/claude"   # 쿼리가 없으면 켤 때 받은 정답지
+
+
+def test_cache_is_split_by_key(app, kctx, env, monkeypatch):
+    calls = []
+    real = app.br._summarize
+    monkeypatch.setattr(app.br, "_summarize", lambda run, gold_dir: calls.append(gold_dir.name) or real(run, gold_dir))
+    weights = [get_q(app, kctx, "/api/runs", key=k)[1]["runs"][0]["weighted"]
+               for k in ("gold/a3", "silver/claude", "gold/a3")]
+    assert calls == ["a3", "claude"]                   # 두 번째 gold/a3는 캐시 파일을 읽는다
+    assert weights[0] == weights[2] != weights[1]
+    folders = sorted(p for p in (env / "cache").iterdir())
+    assert len(folders) == 2
+    assert all((f / f"{KEYED_RUN}.json").is_file() for f in folders)
+
+
+def test_history_is_kept_per_key(app, kctx):
+    get_q(app, kctx, "/api/runs", key="gold/a3")
+    get_q(app, kctx, "/api/runs", key="silver/claude")
+    assert len(kctx.run_history) == 2
+    weights = {k: v[0]["weighted"] for k, v in kctx.run_history.items()}
+    assert len(set(weights.values())) == 2
+
+
+@pytest.mark.parametrize("path", ["/api/runs", f"/api/run/{KEYED_RUN}", "/api/diff", "/api/silver_gaps"])
+def test_bad_key_is_refused(app, kctx, path):
+    query = {"a": KEYED_RUN, "b": KEYED_RUN} if path == "/api/diff" else {}
+    for bad in ("없음", "../silver/claude", "silver"):
+        code, data = get_q(app, kctx, path, key=bad, **query)
+        assert code == 404 and data["error"], (path, bad)
+    code, data = get_q(app, kctx, path, key="silver/gpt", **query)
+    assert code == 400 and app.bt.KEY_TEXT["key_empty"] in data["error"]
+
+
+def test_run_diff_doc_answer_with_key(app, kctx, answer_keys, monkeypatch):
+    code, data = get_q(app, kctx, f"/api/run/{KEYED_RUN}", key="gold/a3")
+    assert code == 200 and data["key"]["id"] == "gold/a3" and data["docs"] == [X02]
+    code, data = get_q(app, kctx, "/api/diff", a=KEYED_RUN, b=KEYED_RUN, key="gold/a3")
+    assert code == 200 and data["key"]["id"] == "gold/a3"
+    seen = []
+    monkeypatch.setattr(app.bdoc, "doc_view", lambda run, doc, pages, gold: seen.append(gold) or {"values": []})
+    code, data = get_q(app, kctx, "/api/doc", run=KEYED_RUN, doc=X02, key="gold/a3")
+    assert code == 200 and data["key"] == {"id": "gold/a3", "label": app.bt.key_label("gold/a3")}
+    assert seen == [answer_keys / "gold" / "a3"]
+    code, data = get_q(app, kctx, "/api/doc", run=KEYED_RUN, doc=X02)
+    assert code == 200 and data["key"]["id"] == "silver/claude" and seen[-1] == kctx.gold_dir
+
+
+def test_silver_gaps_with_key(app, kctx, env):
+    (env / "silver_gaps.yaml").write_text('- item: "11항 급성독성"\n  note: "가짜 메모"\n', encoding="utf-8")
+    gaps = [{"item": "11항 급성독성", "note": "가짜 메모"}]
+    assert get_json(app, kctx, "/api/silver_gaps") == (200, gaps)                # 쿼리가 없으면 지금처럼 배열
+    code, data = get_q(app, kctx, "/api/silver_gaps", key="silver/claude")
+    assert code == 200 and data == {"key": {"id": "silver/claude", "label": "Claude 정답 초안(실버)"}, "gaps": gaps}
+    code, data = get_q(app, kctx, "/api/silver_gaps", key="gold/a3")
+    assert code == 200 and data["gaps"] == [] and data["key"]["id"] == "gold/a3"
+
+
+def test_runs_key_without_data_root_is_gold_dir_name(app, ctx, env):
+    three_runs(env)
+    code, data = get_json(app, ctx, "/api/runs")
+    assert code == 200 and data["key"] == {"id": "gold", "label": "gold"}
+    assert data["gold_dir"] == str(env / "gold")                                  # 기존 키는 그대로
+    assert get_q(app, ctx, "/api/runs", key="gold")[1]["key"]["id"] == "gold"     # 켤 때 받은 폴더의 id는 다시 받는다
+    assert get_q(app, ctx, "/api/runs", key="silver/claude")[0] == 404
+
+
+def test_custom_startup_key_round_trips(app, kctx, env):
+    kctx.gold_dir = env / "gold"                       # 목록 밖 폴더를 --gold-dir로 받은 경우
+    code, data = get_json(app, kctx, "/api/keys")
+    assert data["default"] == "gold"
+    code, data = get_q(app, kctx, "/api/runs", key="gold")
+    assert code == 200 and data["key"]["id"] == "gold" and data["runs"][0]["docs"] == [X01, X02]
+
+
+def test_main_passes_data_root(app, monkeypatch, env):
+    seen = {}
+
+    class FakeServer:
+        server_port = 8765
+
+        def __init__(self, address, handler):
+            pass
+
+        def serve_forever(self):
+            raise KeyboardInterrupt
+
+        def server_close(self):
+            pass
+
+    real = app.make_handler
+    monkeypatch.setattr(app, "ThreadingHTTPServer", FakeServer)
+    monkeypatch.setattr(app.webbrowser, "open", lambda url: None)
+    monkeypatch.setattr(app, "make_handler", lambda c: seen.setdefault("ctx", c) and real(c))
+    assert app.main(["--runs-dir", str(env / "runs"), "--no-browser"]) == 0
+    assert seen["ctx"].data_root == app.DATA
+    assert seen["ctx"].gold_dir == app.SILVER / "claude"
 
 
 # ── 서버 시작 ──────────────────────────────────────────

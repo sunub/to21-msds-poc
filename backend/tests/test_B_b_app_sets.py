@@ -1,6 +1,6 @@
 """scripts/b_app_sets.py 시험 (작업 화면의 문서 묶음 찾기, ADR-028).
 
-쪽 글자 폴더 배치는 tmp_path에 직접 만든 짧은 가짜 글로만 만든다. 실제 data/pages/, data/silver/, runs/는 읽지 않는다 (D-43·D-47).
+쪽 글자 폴더 배치는 tmp_path에 직접 만든 짧은 가짜 글로만 만든다. 정답지는 test_B_compare_models의 가짜 MSDS(make_doc)다. 실제 data/pages/, data/silver/, runs/는 읽지 않는다 (D-43·D-47).
 manifest는 test_B_b_app_runs의 env 픽스처로 가짜 ROWS(X01·X02 개발, X09 평가)를 끼운다.
 """
 import importlib
@@ -9,7 +9,7 @@ import json
 import pytest
 
 from test_B_b_app_runs import env  # noqa: F401  env는 픽스처
-from test_B_compare_models import ROWS, SCRIPTS, X01, X02, X09, write_json
+from test_B_compare_models import ROWS, SCRIPTS, X01, X02, X09, make_doc, write_json
 
 SET_IDS = [".", "prev", "prev/evalonly", "prev/v2", "prev/v9", "version13_신규40"]
 NUMBERED = "L001 가짜 제품 이름\nL002 가짜 공급자\n"
@@ -358,3 +358,117 @@ def test_main_default_pages_dir(app, monkeypatch, env):
     assert app.main(["--runs-dir", str(env / "runs"), "--no-browser"]) == 0
     assert seen["ctx"].pages_dir == app.PAGES / "prev" / "version9"
     assert seen["ctx"].pages_root == app.PAGES
+
+
+# ── 정답지 ─────────────────────────────────────────────
+
+KEY_IDS = ["gold/a3", "gold/bad", "gold/evalonly", "gold/layout", "silver/claude", "silver/gpt"]
+
+
+@pytest.fixture
+def answer_keys(env):
+    """가짜 data/ 아래 정답지 배치. 실제 data/silver/gpt처럼 빈 폴더에도 .gitkeep이 있다."""
+    data = env / "data"
+    claude = data / "silver" / "claude"
+    write_json(claude / f"{X01}.json", make_doc(X01))
+    write_json(claude / f"{X01}.review.json", {"doc_id": X01, "notes": ["가짜 검토 메모"]})
+    write_json(claude / f"{X09}.json", make_doc(X09))                     # 평가용 정답. 열지 않고 이름만 센다
+    (data / "silver" / "gpt").mkdir(parents=True)
+    (data / "silver" / "gpt" / ".gitkeep").write_text("", encoding="utf-8")
+    write_json(data / "gold" / "layout" / "table_goldset_data.json", {"tables": []})   # 표 배치 정답(TO21 답 아님)
+    write_json(data / "gold" / "bad" / f"{X01}.json", {"rows": []})
+    write_json(data / "gold" / "a3" / f"{X02}.json", make_doc(X02))
+    write_json(data / "gold" / "evalonly" / f"{X09}.json", make_doc(X09))
+    return data
+
+
+def test_list_keys_ids_and_reasons(bsets, bt, answer_keys):
+    keys = bsets.list_keys(answer_keys)
+    assert [k["id"] for k in keys] == KEY_IDS
+    reasons = [None, "key_not_to21", "key_eval_only", "key_no_doc_files", None, "key_empty"]
+    for k, reason in zip(keys, reasons):
+        assert k["reason"] == (bt.KEY_TEXT[reason] if reason else None), k["id"]
+        assert k["usable"] is (reason is None), k["id"]
+        assert k["label"] == bt.key_label(k["id"])
+        assert k["kind"] == k["id"].split("/")[0]
+        assert k["path"] == f"data/{k['id']}"
+
+
+def test_list_keys_counts_without_review_files(bsets, answer_keys):
+    keys = {k["id"]: k for k in bsets.list_keys(answer_keys)}
+    claude = keys["silver/claude"]
+    assert claude["docs"] == [X01]                                         # .review.json과 평가용은 빠진다
+    assert claude["counts"] == {"docs": 1, "eval_locked": 1, "outside": 0}
+    assert keys["gold/a3"]["docs"] == [X02]
+    assert keys["gold/evalonly"]["docs"] == [] and keys["gold/evalonly"]["counts"]["eval_locked"] == 1
+
+
+def test_list_keys_counts_outside_docs(bsets, answer_keys):
+    write_json(answer_keys / "gold" / "a3" / "RAW-90.json", make_doc("RAW-90"))   # manifest 밖 문서
+    a3 = {k["id"]: k for k in bsets.list_keys(answer_keys)}["gold/a3"]
+    assert a3["docs"] == ["RAW-90", X02]
+    assert a3["counts"] == {"docs": 2, "eval_locked": 0, "outside": 1}
+
+
+def test_list_keys_does_not_open_eval_answers(bsets, bt, answer_keys):
+    locked = [answer_keys / "silver" / "claude" / f"{X09}.json", answer_keys / "gold" / "evalonly" / f"{X09}.json"]
+    for f in locked:
+        f.chmod(0o000)
+    try:
+        keys = {k["id"]: k for k in bsets.list_keys(answer_keys)}
+    finally:
+        for f in locked:
+            f.chmod(0o644)
+    assert keys["gold/evalonly"]["reason"] == bt.KEY_TEXT["key_eval_only"]
+    assert keys["silver/claude"]["counts"]["eval_locked"] == 1
+
+
+def test_list_keys_missing_folders(bsets, env):
+    assert bsets.list_keys(env / "없는_data") == []
+    (env / "data" / "silver").mkdir(parents=True)
+    assert bsets.list_keys(env / "data") == []
+
+
+def test_find_key_only_listed_ids(bsets, answer_keys):
+    keys = bsets.list_keys(answer_keys)
+    assert bsets.find_key(keys, "silver/claude")["id"] == "silver/claude"
+    for bad in ("../silver/claude", "silver/claude/..", "/tmp", "없는/정답지", None, 3):
+        assert bsets.find_key(keys, bad) is None, bad
+
+
+def test_key_for_dir(bsets, answer_keys, env):
+    keys = bsets.list_keys(answer_keys)
+    assert bsets.key_for_dir(keys, answer_keys / "gold" / "a3")["id"] == "gold/a3"
+    assert bsets.key_for_dir(keys, answer_keys / "silver" / "gpt" / ".." / "claude")["id"] == "silver/claude"
+    other = bsets.key_for_dir(keys, env / "gold")
+    assert other["id"] == "gold" and other["label"] == "gold"
+    assert other["kind"] == "custom" and other["usable"] is True
+    assert bsets.key_for_dir([], answer_keys / "silver" / "claude")["kind"] == "custom"
+
+
+def test_default_key(bsets, answer_keys, env):
+    keys = bsets.list_keys(answer_keys)
+    assert bsets.DEFAULT_KEY == "silver/claude"
+    assert bsets.default_key(keys, answer_keys / "silver" / "claude") == "silver/claude"
+    assert bsets.default_key(keys, answer_keys / "gold" / "a3") == "gold/a3"             # --gold-dir가 정한다
+    assert bsets.default_key(keys, answer_keys / "silver" / "gpt") == "silver/claude"     # 고를 수 없으면 기본
+    assert bsets.default_key(keys, env / "gold") == "gold"                                # 목록 밖 폴더는 그 폴더
+    no_claude = [k for k in keys if k["id"] != "silver/claude"]
+    assert bsets.default_key(no_claude, answer_keys / "silver" / "gpt") == "gold/a3"      # 첫 번째 쓸 수 있는 정답지
+    assert bsets.default_key([], env / "gold") == "gold"
+
+
+def test_key_text(bt):
+    for key in ("key_empty", "key_no_doc_files", "key_not_to21", "key_eval_only", "unknown_key", "unusable_key"):
+        assert bt.KEY_TEXT[key].strip() and "합격" not in bt.KEY_TEXT[key], key
+    assert "D-43" in bt.KEY_TEXT["key_eval_only"]
+    assert "x/y" in bt.KEY_TEXT["unknown_key"].format(id="x/y")
+    assert "빈 폴더" in bt.KEY_TEXT["unusable_key"].format(reason=bt.KEY_TEXT["key_empty"])
+
+
+@pytest.mark.parametrize("key_id,label", [
+    ("silver/claude", "Claude 정답 초안(실버)"), ("silver/gpt", "정답 초안(실버) gpt"),
+    ("gold/a3", "A 정답(골드) a3"), ("gold", "gold"), ("기타/x", "기타/x")])
+def test_key_label(bt, key_id, label):
+    assert bt.key_label(key_id) == label
+    assert "합격" not in bt.key_label(key_id)

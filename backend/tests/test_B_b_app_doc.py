@@ -326,7 +326,7 @@ def test_route_doc_adds_legend_and_text_without_changing_values(app, view_env):
     assert code == 200
     assert data["legend"] == app.bt.doc_legend()
     assert data["ui_text"] == app.bt.doc_ui_text(expected)
-    assert {k: v for k, v in data.items() if k not in {"legend", "ui_text", "set", "image_base", "image_query"}} \
+    assert {k: v for k, v in data.items() if k not in {"legend", "ui_text", "set", "image_base", "image_query", "key"}} \
         == json.loads(json.dumps(expected))
 
 
@@ -380,7 +380,7 @@ STARTUP_PAGE = ["L001 켤 때 받은 가상 판", "L002 가상 글"]
 RAW_PAGE = ["L001 가상 신규 문서", "L002 제품명 : 가상 도료 B"]
 V9_PNG = b"\x89PNG\r\n\x1a\nfake-v9"
 RAW_PNG = b"\x89PNG\r\n\x1a\nfake-raw"
-ADDED = {"legend", "ui_text", "set", "image_base", "image_query"}
+ADDED = {"legend", "ui_text", "set", "image_base", "image_query", "key"}
 
 
 @pytest.fixture

@@ -277,7 +277,7 @@ def test_route_diff_adds_headline_with_run_titles_without_changing_diff(app, ctx
     assert data["headline"] == app.bt.diff_headline(
         expected, app.bt.run_label(a)["title"], app.bt.run_label(b)["title"])
     assert data["ui_text"] == app.bt.diff_ui_text(expected)
-    assert {k: v for k, v in data.items() if k not in {"headline", "ui_text"}} == expected
+    assert {k: v for k, v in data.items() if k not in {"headline", "ui_text", "key"}} == expected
 
 
 def test_route_prompt_diff(app, ctx, br, env, bd, monkeypatch):

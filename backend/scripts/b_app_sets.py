@@ -1,9 +1,13 @@
-"""작업 화면의 문서 묶음: data/pages 아래의 판을 찾고 고를 수 있는지 판정한다 (역할 B, 개발 전용, ADR-028).
+"""작업 화면의 문서 묶음과 정답지: data/pages 아래의 판, data/silver·data/gold 아래의 정답 폴더를 찾고
+고를 수 있는지 판정한다 (역할 B, 개발 전용, ADR-028).
 
 묶음은 문서 폴더(pNNN.txt가 바로 안에 있는 폴더)를 바로 아래에 가진 폴더다. 예: data/pages/prev/version9.
 - 후보는 pages_root 자신과 그 아래 두 단계 폴더다. 문서 폴더와 그 안(tables/ 등)은 후보가 아니다.
 - 평가용 문서는 폴더 안의 어떤 파일도 열지 않는다. 문서 번호와 잠긴 이유만 둔다 (D-43).
 - 요청에서 받은 묶음 id로 경로를 만들지 않는다. find_set으로 목록에 있는 id인지 먼저 본다.
+정답지는 data/silver/<이름>, data/gold/<이름> 폴더 하나하나다. 예: silver/claude.
+- 문서별 <문서>.json만 정답 파일로 본다(<문서>.review.json 등은 뺀다). 평가용 문서의 정답 파일은 이름만 센다 (D-43).
+- 요청에서 받은 정답지 id도 find_key로 목록에 있는지 먼저 본다.
 - 화면에 보일 글은 b_app_text에 있다.
 """
 import json
@@ -17,6 +21,9 @@ from msds.extract.inputs import _LINE_NO, _PAGE_FILE
 
 DOC_ID = re.compile(r"^[A-Z][A-Z0-9]*-[A-Z0-9]+$")   # T21-S003, RAW-01. 요청에서 받은 문서 번호는 이것으로 먼저 거른다(경로 탈출 막기)
 DEFAULT_SET = "prev/version9"
+KEY_FILE = re.compile(r"^([A-Z][A-Z0-9]*-[A-Z0-9]+)\.json$")   # <문서>.json만. <문서>.review.json·다른 이름은 뺀다
+DEFAULT_KEY = "silver/claude"
+_KEY_KINDS = ("silver", "gold")
 _GROUPS = {"개발": "dev", "평가": "eval"}            # manifest의 그 밖 용도(기타)는 other
 _COUNT_KEYS = {"dev": "dev", "eval": "eval_locked", "other": "other", "outside": "outside", "unknown": "unknown"}
 _LOCKS = {"eval": "eval_locked", "unknown": "unknown_doc"}
@@ -187,3 +194,74 @@ def default_set(sets: list[dict], startup_dir: Path | None, pages_root: Path) ->
     if DEFAULT_SET in usable:
         return DEFAULT_SET
     return usable[0] if usable else None
+
+
+# ── 정답지 ─────────────────────────────────────────────
+
+def _is_to21_answer(path: Path) -> bool:
+    """TO21 답 모양(dict이고 "msds"가 list)인가. 평가용이 아닌 파일만 넘긴다."""
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return False
+    return isinstance(data, dict) and isinstance(data.get("msds"), list)
+
+
+def _key_entry(folder: Path, kind: str, data_root: Path, purposes: dict[str, str]) -> dict:
+    files = [p for p in folder.iterdir() if not p.name.startswith(".")]     # .gitkeep만 있으면 빈 폴더다
+    names = sorted(m.group(1) for p in files if p.is_file() and (m := KEY_FILE.match(p.name)))
+    locked = [d for d in names if purposes.get(d) == "평가"]
+    docs = [d for d in names if d not in locked and _is_to21_answer(folder / f"{d}.json")]   # 평가용 파일은 열지 않는다 (D-43)
+    reason = (None if docs else "key_empty" if not files else "key_no_doc_files" if not names
+              else "key_eval_only" if len(locked) == len(names) else "key_not_to21")
+    key_id = f"{kind}/{folder.name}"
+    return {"id": key_id, "label": bt.key_label(key_id), "kind": kind,
+            "path": folder.relative_to(data_root.parent).as_posix(), "usable": reason is None,
+            "reason": bt.KEY_TEXT[reason] if reason else None, "docs": docs,
+            "counts": {"docs": len(docs), "eval_locked": len(locked), "outside": sum(d not in purposes for d in docs)}}
+
+
+def list_keys(data_root: Path, rows: list[dict] | None = None) -> list[dict]:
+    """data_root/silver/*, data_root/gold/* 폴더 하나하나의 정답지 목록(id 순). 쓸 수 있으려면 TO21 답 모양의
+    평가용이 아닌 <문서>.json이 하나 이상 있어야 한다. 아니면 reason에 이유 하나를 둔다."""
+    data_root = Path(data_root)
+    bases = [data_root / kind for kind in _KEY_KINDS if (data_root / kind).is_dir()]
+    if not bases:
+        return []
+    purposes = {r["doc_id"]: r.get("purpose") for r in (manifest.load() if rows is None else rows)}
+    keys = [_key_entry(f, base.name, data_root, purposes) for base in bases for f in _subdirs(base)]
+    return sorted(keys, key=lambda k: k["id"])
+
+
+def find_key(keys: list[dict], key_id) -> dict | None:
+    """목록에 있는 id의 정답지. "../x", 절대 경로, 없는 id는 None."""
+    return next((k for k in keys if k["id"] == key_id), None)
+
+
+def key_dir(data_root: Path, key_id: str) -> Path:
+    """정답지 폴더. key_id는 find_key로 확인한 목록의 id만 넘긴다."""
+    return Path(data_root) / key_id
+
+
+def key_for_dir(keys: list[dict], gold_dir: Path) -> dict:
+    """gold_dir(켤 때 받은 --gold-dir 등)에 해당하는 정답지. resolve한 경로의 끝이 목록의 path(data 폴더의 부모 기준)와
+    같으면 그 정답지다. 목록 밖 폴더는 폴더 이름을 id로 한 kind "custom" 정답지(고를 수 있음)로 돌려준다."""
+    here = Path(gold_dir).resolve()
+    for k in keys:
+        parts = Path(k["path"]).parts
+        if here.parts[-len(parts):] == parts:
+            return k
+    return {"id": here.name, "label": here.name, "kind": "custom", "path": here.as_posix(), "usable": True,
+            "reason": None}
+
+
+def default_key(keys: list[dict], startup_gold_dir: Path) -> str:
+    """켤 때 받은 폴더(목록에 있고 쓸 수 있거나, 목록 밖이면 그 폴더) → DEFAULT_KEY → 첫 번째 쓸 수 있는 정답지 순.
+    쓸 수 있는 정답지가 없으면 켤 때 받은 폴더의 id."""
+    found = key_for_dir(keys, startup_gold_dir)
+    if found["usable"]:
+        return found["id"]
+    usable = [k["id"] for k in keys if k["usable"]]
+    if DEFAULT_KEY in usable:
+        return DEFAULT_KEY
+    return usable[0] if usable else found["id"]
