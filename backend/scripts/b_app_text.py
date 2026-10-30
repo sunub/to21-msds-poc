@@ -599,6 +599,22 @@ def model_label(tag: str | None) -> str:
     return MODEL_LABELS.get(tag, tag or "")
 
 
+# 문서 묶음(b_app_sets)에서 문서나 묶음을 고를 수 없는 이유. 키는 b_app_sets가 쓴다.
+SET_TEXT: dict[str, str] = {
+    "eval_locked": "평가용 문서라 열지 않습니다 (D-43).",
+    "unknown_doc": "문서 목록(manifest)과 meta.json 어디에도 없어 용도를 알 수 없습니다.",
+    "empty": "문서 폴더가 없는 빈 폴더입니다.",
+    "eval_only": "평가용 문서만 있어 고를 수 없습니다 (D-43).",
+    "no_line_numbers": "줄 번호(L001)가 없는 판이라 새 실행 입력으로 고를 수 없습니다. 지난 실행을 볼 때만 씁니다.",
+    "nothing_open": "열 수 있는 문서가 없습니다.",
+}
+
+
+def set_label(set_id: str) -> str:
+    """묶음 id의 표시 이름. data/pages 바로 아래만 따로 부른다."""
+    return "data/pages 바로 아래 (신규 문서)" if set_id == "." else set_id
+
+
 def friendly_error(where: str, raw: str, env_names: dict[str, str] | None = None) -> dict:
     """오류를 안내로 바꾼다. 원문은 호출자가 비밀값을 가린 뒤 넘긴다."""
     if "Could not resolve hostname ssh" in raw or "RNGD_SSH starts with ssh" in raw:
