@@ -340,6 +340,8 @@ def route(method: str, path: str, query: dict[str, list[str]], body: bytes | Non
         return _prompt(query)
     if path == "/api/criteria":
         return _json(200, br.criteria())
+    if path == "/api/glossary":
+        return _json(200, {"items": bt.glossary_entries()})
     if path == "/api/silver_gaps":
         return _json(200, _gaps(ctx))
     return _json(404, {"error": f"없는 주소: {path}"})

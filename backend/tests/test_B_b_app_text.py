@@ -13,6 +13,47 @@ def text(monkeypatch):
     return importlib.import_module("b_app_text")
 
 
+def test_glossary_has_required_terms_and_safe_examples(text):
+    required = {
+        "실버", "골드", "가중 종합", "필수 통과", "필수", "중요", "일반", "항", "항목",
+        "안내문", "안내문 버전", "입력 판", "쪽 글자", "줄 번호", "기준 실행", "dry-run",
+        "시험", "본 실행", "비교표", "빠뜨림", "지어냄", "틀림", "값 없는 행", "호출 격자",
+        "재추출", "출력 한도", "공백폭주", "반복", "모델 태그", "RunPod", "RNGD", "Pod",
+        "회차", "extras", "실버 빈 곳", "동시 호출", "행 형식", "흔들림",
+    }
+    assert len(text.GLOSSARY) >= 28
+    assert required <= text.GLOSSARY.keys()
+    entries = text.glossary_entries()
+    assert [e["term"] for e in entries] == sorted(text.GLOSSARY)
+    for entry in entries:
+        assert set(entry) == {"term", "short", "example", "also"}
+        assert entry["short"].strip() and entry["example"].strip()
+        assert "\n" not in entry["example"]
+        assert "T21-025" not in entry["short"] + entry["example"]
+        assert isinstance(entry["also"], list)
+
+
+def test_explain_resolves_terms_and_every_alias(text):
+    assert text.explain("실버")
+    assert text.explain("없는말") is None
+    seen = set(text.GLOSSARY)
+    for term, entry in text.GLOSSARY.items():
+        assert text.explain(term) == entry["short"]
+        for alias in entry["also"]:
+            assert alias and alias not in seen
+            seen.add(alias)
+            assert text.explain(alias) == entry["short"]
+
+
+def test_glossary_entries_do_not_expose_mutable_dictionary(text):
+    before = copy.deepcopy(text.GLOSSARY)
+    entries = text.glossary_entries()
+    entries[0]["short"] = "바뀐 설명"
+    entries[0]["also"].append("새 별칭")
+    assert text.GLOSSARY == before
+    assert text.glossary_entries()[0]["short"] != "바뀐 설명"
+
+
 @pytest.mark.parametrize("tag, expected", [
     ("qwen36_35b_runpod", "Qwen3.6 35B (RunPod)"),
     ("qwen3_30b_a3b_rngd", "Qwen3 30B (RNGD)"),

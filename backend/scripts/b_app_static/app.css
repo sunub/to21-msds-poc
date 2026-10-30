@@ -130,7 +130,8 @@ table.grid td { width: 52px; height: 24px; white-space: nowrap; }
 .legend .sw[class*="c-"] { padding: 0 6px; border-radius: 4px; color: var(--ink); }
 
 /* 말풍선 */
-.tip { position: fixed; z-index: 20; max-width: 460px; padding: 6px 9px; border-radius: 6px; pointer-events: none;
+.term { text-decoration: underline dotted; text-underline-offset: 3px; cursor: help; }
+.tip { position: fixed; z-index: 20; max-width: min(460px, calc(100vw - 16px)); padding: 6px 9px; border-radius: 6px; pointer-events: none;
   background: #24292f; color: #fff; font-size: 12px; white-space: pre-line; }
 
 /* 두 실행 비교 */

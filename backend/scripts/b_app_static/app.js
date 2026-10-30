@@ -2,7 +2,7 @@
 // B 작업 화면 (역할 B, 개발 전용, ADR-025). 이 화면의 서버(/api/...)만 부른다. 외부 주소는 부르지 않는다.
 // 글은 모두 글자 노드로 넣는다(결과 값에 어떤 글자가 들어 있어도 화면 코드가 되지 않게).
 
-const S = {list: [], criteria: null, gaps: [], limit: 300, name: null, run: null, open: null, pick: loadPick(),
+const S = {list: [], criteria: null, glossary: [], gaps: [], limit: 300, name: null, run: null, open: null, pick: loadPick(),
   diff: {a: null, b: null, key: null, data: null, error: null, why: new Set(), vals: new Set(), open: new Set(), prompts: {}},
   doc: {run: null, doc: null, key: null, data: null, error: null, page: null, pick: null,
     selLines: new Set(), selPaths: new Set(), open: new Set()},
@@ -37,6 +37,13 @@ function fill(n, attrs, kids) {
 }
 const h = (tag, attrs, ...kids) => fill(document.createElement(tag), attrs, kids);
 const s = (tag, attrs, ...kids) => fill(document.createElementNS(SVGNS, tag), attrs, kids);
+
+function term(word, shown = null) {
+  const entry = S.glossary.find(e => e.term === word || e.also.includes(word));
+  return entry ? h("abbr", {class: "term", tabindex: "0", "data-term": entry.term,
+    "data-tip": `${entry.short} 예: ${entry.example}`, "aria-describedby": "tip"}, shown || word)
+    : h("span", null, shown || word);
+}
 
 const num = v => typeof v === "number" && isFinite(v);
 const fmt1 = v => num(v) ? v.toFixed(1) : "—";
@@ -82,28 +89,63 @@ function fail(e) {
 }
 
 function card(id, title, hint, ...kids) {
-  document.getElementById(id).replaceChildren(h("h2", null, title), hint ? h("p", {class: "hint"}, hint) : "", ...kids.flat().filter(k => k));
+  const el = document.getElementById(id);
+  el.replaceChildren(h("h2", null, title), hint ? h("p", {class: "hint"}, hint) : "", ...kids.flat().filter(k => k));
+  // 같은 카드에서는 별칭도 같은 용어로 세어 첫 자리만 밑줄 친다.
+  const seen = new Set();
+  el.querySelectorAll(".term").forEach(t => {
+    if (seen.has(t.dataset.term)) t.replaceWith(h("span", null, t.textContent));
+    else seen.add(t.dataset.term);
+  });
 }
 
 function loadPick() {
   try { return JSON.parse(localStorage.getItem("b_app_pick")) || []; } catch (e) { return []; }
 }
 
-// 마우스를 올리면 data-tip 글을 띄운다. SVG 도형에도 똑같이 쓴다
+// data-tip을 마우스와 키보드 포커스에서 같은 말풍선으로 보여 준다.
 function setupTip() {
   const tip = document.getElementById("tip");
+  tip.setAttribute("role", "tooltip");
+  let hovered = null, focused = null, dismissed = null;
+  const target = el => el && el.closest ? el.closest("[data-tip]") : null;
+  const show = (t, point = null) => {
+    if (!t || !t.isConnected || t === dismissed) { tip.hidden = true; return; }
+    tip.textContent = t.getAttribute("data-tip");
+    tip.hidden = false;
+    const rect = t.getBoundingClientRect();
+    const x = point ? point.clientX + 14 : rect.left;
+    const y = point ? point.clientY + 18 : rect.bottom + 8;
+    const above = point ? point.clientY : rect.top;
+    tip.style.left = Math.max(8, Math.min(x, window.innerWidth - tip.offsetWidth - 8)) + "px";
+    tip.style.top = Math.max(8, y + tip.offsetHeight < window.innerHeight ? y : above - tip.offsetHeight - 10) + "px";
+  };
   document.addEventListener("mouseover", e => {
-    const t = e.target.closest ? e.target.closest("[data-tip]") : null;
-    tip.hidden = !t;
-    if (t) tip.textContent = t.getAttribute("data-tip");
+    const t = target(e.target);
+    if (t !== hovered) dismissed = null;
+    hovered = t;
+    show(focused || hovered, focused ? null : e);
   });
-  document.addEventListener("mousemove", e => {
-    if (tip.hidden) return;
-    const x = Math.min(e.clientX + 14, window.innerWidth - tip.offsetWidth - 8);
-    const below = e.clientY + 18 + tip.offsetHeight < window.innerHeight;
-    tip.style.left = x + "px";
-    tip.style.top = (below ? e.clientY + 18 : e.clientY - tip.offsetHeight - 10) + "px";
+  document.addEventListener("mousemove", e => { if (!focused) show(hovered, e); });
+  document.addEventListener("mouseout", e => {
+    hovered = target(e.relatedTarget);
+    show(focused || hovered);
   });
+  document.addEventListener("focusin", e => {
+    focused = target(e.target);
+    dismissed = null;
+    show(focused || hovered);
+  });
+  document.addEventListener("focusout", e => {
+    focused = target(e.relatedTarget);
+    show(focused || hovered);
+  });
+  document.addEventListener("keydown", e => {
+    if (e.key === "Escape") { dismissed = focused || hovered; tip.hidden = true; }
+  });
+  window.addEventListener("blur", () => { focused = hovered = null; tip.hidden = true; });
+  window.addEventListener("resize", () => show(focused || hovered));
+  document.addEventListener("scroll", () => show(focused || hovered), true);
 }
 
 function setupTabs() {
@@ -230,23 +272,23 @@ function renderNow(r) {
   const must = r.must_passed || 0;
   const na = r.weighted_na_excluded, diff = num(na) && num(r.weighted) ? na - r.weighted : null;
   card("now-card", "지금 점수",
-    "가장 최근 개발용 10건 본 실행(이름에 dev10)을 먼저 보여 줍니다. 위 상자에서 다른 실행을 고를 수 있습니다.",
+    ["가장 최근 개발용 10건 ", term("본 실행"), "(이름에 dev10)을 먼저 보여 줍니다. 위 상자에서 다른 실행을 고를 수 있습니다. 점수는 정답 초안(", term("실버"), ") 기준의 ", term("가중 종합"), "입니다."],
     top, rawRun(r.name),
     connLine(true),
     h("div", {class: "bigrow"},
-      h("div", {class: "big", "data-tip": "가중 종합 점수(weighted). 항목 점수에 무게를 곱해 평균 낸 값"}, fmt1(r.weighted),
+      h("div", {class: "big"}, fmt1(r.weighted),
         h("small", null, "점")),
-      h("div", {class: "sub"}, `필수 통과 ${r.must_passed ?? "—"}/${mustTotal}`,
+      h("div", {class: "sub"}, term("필수 통과"), ` ${r.must_passed ?? "—"}/${mustTotal}`,
         h("br"), r.passed ? h("b", {class: "okt"}, "합격 기준 넘음") : h("b", {class: "badt"}, "아직 합격 기준 아래"))),
     goalBar("점수", r.weighted || 0, pass, 100, `${fmt1(r.weighted)} / 목표 ${pass}`),
     goalBar("필수 통과", must, mustTotal, mustTotal, `${must} / ${mustTotal}`),
     h("p", {class: "na", "data-tip": "정답과 결과 양쪽에서 자료없음·해당없음·비해당·미기재 행을 빼고 같은 채점기로 다시 잰 점수.\n차이가 크면 값 없는 행 표기 때문에 깎인 점수가 많다는 뜻입니다."},
-      `값 없는 행을 뺀 점수: ${fmt1(na)}점`, diff === null ? "" : ` (차이 ${diff >= 0 ? "+" : ""}${diff.toFixed(1)})`),
+      term("값 없는 행"), `을 뺀 점수: ${fmt1(na)}점`, diff === null ? "" : ` (차이 ${diff >= 0 ? "+" : ""}${diff.toFixed(1)})`),
     progressLine(r),
     h("dl", {class: "meta"},
       h("dt", null, "모델"), h("dd", null, modelName(r), r.model ? h("div", {class: "raw"}, r.model) : null),
-      h("dt", null, "안내문 버전"), h("dd", null, r.prompt_version || "—"),
-      h("dt", null, "입력 판"), h("dd", {"data-tip": r.pages_dir || ""}, lastPart(r.pages_dir)),
+      h("dt", null, term("안내문 버전")), h("dd", null, r.prompt_version || "—"),
+      h("dt", null, term("입력 판")), h("dd", {"data-tip": r.pages_dir || ""}, lastPart(r.pages_dir)),
       h("dt", null, "실행 이름"), h("dd", null, r.label ? r.label.title : r.name),
       h("dt", null, "시작 시각"), h("dd", null, when(r.started_at)),
       h("dt", null, "채점한 문서"), h("dd", null, `${(r.docs || []).length}건`,
@@ -258,15 +300,15 @@ function renderNow(r) {
 
 function renderRule() {
   const c = S.criteria, n = lv => c.items.filter(i => i.level === lv).length;
-  card("rule-card", "합격 기준", null,
+  card("rule-card", "합격 기준", ["등급은 ", term("필수"), "·", term("중요"), "·", term("일반"), "입니다."],
     h("p", {class: "rule"}, c.rule),
     h("ul", null,
       h("li", null, `필수 항목 ${n("필수")}개가 하나도 빠짐없이 각자의 목표를 넘어야 합니다. 목표는 아래 막대의 세로선입니다.`),
-      h("li", null, `그리고 가중 종합 점수(weighted)가 ${c.pass_score}점 이상이어야 합니다.`),
+      h("li", null, "그리고 ", term("가중 종합"), ` 점수(weighted)가 ${c.pass_score}점 이상이어야 합니다.`),
       h("li", null, `가중 종합은 항목 점수에 무게(가중치)를 곱해 평균 낸 값입니다. 무게는 필수 ×${c.weights["필수"]}, 중요 ×${c.weights["중요"]}, 일반 ×${c.weights["일반"]}입니다.`),
-      h("li", null, `항목 수는 필수 ${n("필수")}개, 중요 ${n("중요")}개, 일반 ${n("일반")}개입니다.`)),
+      h("li", null, term("항목"), " 수는 ", term("필수"), ` ${n("필수")}개, `, term("중요"), ` ${n("중요")}개, `, term("일반"), ` ${n("일반")}개입니다.`)),
     h("p", {class: "warn"},
-      "주의: 지금 정답 자리에는 실버(Claude가 만든 정답 초안)가 들어 있습니다. 실버에도 틀린 곳이 있어서 이 점수는 실행끼리 순위를 비교하는 데만 씁니다. 합격 판정에는 쓰지 않습니다."));
+      "주의: 지금 정답 자리에는 Claude가 만든 정답 초안(", term("실버"), ")이 들어 있습니다. 실버에도 틀린 곳이 있어서 이 점수는 실행끼리 순위를 비교하는 데만 씁니다. 합격 판정에는 쓰지 않습니다."));
 }
 
 // ── 4. 항목 23개 신호등 ────────────────────────────────
@@ -320,10 +362,10 @@ function renderItems(r) {
   card("items-card", "항목 23개 신호등",
     "항목마다 점수 막대와 목표선(세로선)을 보여 줍니다. 초록은 통과, 빨강은 미달입니다. 이름에 마우스를 올리면 무엇을 재는지 나오고, 줄을 누르면 틀린 값 목록이 펴집니다.",
     h("p", {class: "legend"},
-      h("span", {class: "k-빠뜨림"}, "빠뜨림"), " = 정답에는 있는데 결과에 없음 · ",
-      h("span", {class: "k-지어냄"}, "지어냄"), " = 결과에는 있는데 정답에 없음 · ",
-      h("span", {class: "k-틀림"}, "틀림"), " = 둘 다 있지만 값이 다름 · ",
-      h("span", {class: "gapdot"}, "●"), " = 실버 빈 곳(정답 초안이 틀렸을 수 있음)"),
+      h("span", {class: "k-빠뜨림"}, term("빠뜨림")), " = 정답에는 있는데 결과에 없음 · ",
+      h("span", {class: "k-지어냄"}, term("지어냄")), " = 결과에는 있는데 정답에 없음 · ",
+      h("span", {class: "k-틀림"}, term("틀림")), " = 둘 다 있지만 값이 다름 · ",
+      h("span", {class: "gapdot"}, "●"), " = ", term("실버 빈 곳"), "(정답 초안이 틀렸을 수 있음)"),
     LEVELS.map(lv => h("div", {class: "group"},
       h("h3", null, `${lv} 항목 (무게 ×${S.criteria.weights[lv]})`),
       items.filter(i => i.level === lv).map(i => itemRow(i, na[i.name], r)))));
@@ -349,7 +391,7 @@ function savePick(list) {
 
 function renderHistory() {
   const runs = runsShown().filter(r => r.kind === "run" && num(r.weighted));
-  const hint = "점 하나가 본 실행 하나입니다. 왼쪽이 먼저 돌린 실행입니다. 수동 시험(runs/manual)은 문서 수가 달라 뺐습니다. 점을 두 개 차례로 누르면 탭 ②(두 실행 비교)에 넘길 두 실행으로 고릅니다.";
+  const hint = ["점 하나가 ", term("본 실행"), " 하나입니다. 왼쪽이 먼저 돌린 실행입니다. ", term("시험", "수동 시험"), "(runs/manual)은 문서 수가 달라 뺐습니다. 점을 두 개 차례로 누르면 탭 ②(두 실행 비교)에 넘길 두 실행으로 고릅니다."];
   if (!runs.length) return card("history-card", "실행 역사", hint, h("p", null, "점수를 낸 본 실행이 없습니다."));
   const W = 900, H = 240, L = 44, R = 16, T = 14, B = 34, pass = S.criteria.pass_score;
   const lo = Math.max(0, Math.floor((Math.min(...runs.map(r => r.weighted)) - 5) / 10) * 10), hi = 100;
@@ -399,7 +441,7 @@ function renderHistory() {
 
 function renderDocs(r) {
   const docs = Object.keys((r && r.per_doc) || {});
-  const hint = `문서마다 가중 종합 점수와 걸린 시간(초)입니다. 목표는 PDF 하나를 ${S.limit}초(5분) 안에 끝내는 것입니다. 빨간 시간 막대는 ${S.limit}초를 넘은 문서입니다.`;
+  const hint = ["문서마다 ", term("가중 종합"), ` 점수와 걸린 시간(초)입니다. 목표는 PDF 하나를 ${S.limit}초(5분) 안에 끝내는 것입니다. 빨간 시간 막대는 ${S.limit}초를 넘은 문서입니다.`];
   if (!docs.length) return card("docs-card", "문서별 점수와 시간", hint, progressLine(r), h("p", null, "채점한 문서가 없습니다."));
   const W = 900, rowH = 26, top = 26, L = 100, sw = 330, tx = 520, tw = 320;
   const maxSec = Math.max(S.limit * 1.1, ...docs.map(d => r.per_doc[d].seconds || 0));
@@ -453,17 +495,17 @@ function renderGrid(r) {
     }
     Object.keys(byM).map(Number).sort((a, b) => a - b).forEach(mi => rows.push([doc, mi, byM[mi]]));
   }
-  const hint = "줄은 문서, 칸은 법정 항목 1~16항입니다. 칸 하나가 모델 호출 하나입니다. 마우스를 올리면 시간과 시도 수가 나옵니다.";
-  if (!rows.length) return card("grid-card", "호출 격자", hint, h("p", null, "호출 기록(checks)이 없습니다."));
+  const hint = ["줄은 문서, 칸은 법정 ", term("항"), " 1~16항입니다. 칸 하나가 모델 호출 하나입니다. 마우스를 올리면 시간과 시도 수가 나옵니다."];
+  if (!rows.length) return card("grid-card", term("호출 격자"), hint, h("p", null, "호출 기록(checks)이 없습니다."));
   const nos = Array.from({length: 16}, (_, i) => i + 1);
   const legend = h("p", {class: "legend"},
-    h("span", {class: "sw c-ok"}, "성공"), h("span", {class: "sw c-re"}, "재 = 재추출 뒤 성공"),
-    h("span", {class: "sw c-limit"}, "출력 한도에 걸림 (공백폭주·반복·긴출력)"), h("span", {class: "sw c-fail"}, "✕ = 실패"));
+    h("span", {class: "sw c-ok"}, "성공"), h("span", {class: "sw c-re"}, "재 = ", term("재추출"), " 뒤 성공"),
+    h("span", {class: "sw c-limit"}, term("출력 한도"), "에 걸림 (", term("공백폭주"), "·", term("반복"), "·긴출력)"), h("span", {class: "sw c-fail"}, "✕ = 실패"));
   const table = h("table", {class: "grid"},
     h("thead", null, h("tr", null, h("th", null, "문서"), nos.map(n => h("th", null, `${n}항`)))),
     h("tbody", null, rows.map(([doc, mi, cells]) => h("tr", null,
       h("th", {class: "mono"}, mi ? `${doc} (${mi + 1})` : doc), nos.map(n => gridCell(doc, mi, n, cells[n]))))));
-  card("grid-card", "호출 격자", hint, legend, h("div", {class: "scroll"}, table));
+  card("grid-card", term("호출 격자"), hint, legend, h("div", {class: "scroll"}, table));
 }
 
 // ── 8. 표 행 수 ────────────────────────────────────────
@@ -471,7 +513,7 @@ function renderGrid(r) {
 function renderRows(r) {
   const rows = (r && r.rows) || {};
   const keys = Object.keys(ROW_LABEL).filter(k => rows[k]);
-  const hint = "표마다 결과 행 수(파랑)와 정답 행 수(회색)입니다. 결과가 짧으면 행을 빠뜨린 것이고, extras가 길면 자리가 없는 칸에 값을 많이 보낸 것입니다.";
+  const hint = ["표마다 결과 행 수(파랑)와 정답 행 수(회색)입니다. 결과가 짧으면 행을 빠뜨린 것이고, ", term("extras", "남는 값(extras)"), "가 길면 자리가 없는 칸에 값을 많이 보낸 것입니다."];
   if (!keys.length) return card("rows-card", "표 행 수", hint, h("p", null, "채점한 문서가 없습니다."));
   const W = 900, rowH = 34, L = 230, bw = 520;
   const max = Math.max(1, ...keys.map(k => Math.max(rows[k].pred, rows[k].gold)));
@@ -558,15 +600,15 @@ function renderDiffTop() {
   const cond = h("table", {class: "list cond"},
     h("thead", null, h("tr", null, h("th", null, "조건"), h("th", null, "A"), h("th", null, "B"))),
     h("tbody", null, d.conditions.map(c => h("tr", {class: c.changed ? "chg" : null},
-      h("td", null, c.what), h("td", {class: c.what === "모델" ? null : "mono"}, show(c, c.a, "a")),
+      h("td", null, term(c.what)), h("td", {class: c.what === "모델" ? null : "mono"}, show(c, c.a, "a")),
       h("td", {class: c.what === "모델" ? null : "mono"}, show(c, c.b, "b"))))));
   const nos = d.prompt_changed_sections;
   const docs = d.docs, odd = docs.only_a.length || docs.only_b.length;
   card("diff-top-card", "고른 두 실행", hint, pick,
-    h("p", {class: "hint"}, "노란 줄은 두 실행에서 다른 조건입니다."), cond,
+    h("p", {class: "hint"}, "노란 줄은 두 실행에서 다른 조건입니다. ", term("안내문"), "과 ", term("동시 호출"), " 수도 비교합니다."), cond,
     h("p", null, "안내문 글이 다른 항(실행 기록의 해시 기준): ", h("b", null, nos.length ? nos.map(n => `${n}항`).join(", ") : "없음")),
-    changeLine("가중 종합", d.weighted, "항목 점수에 무게를 곱해 평균 낸 점수(weighted)"),
-    changeLine("값 없는 행을 뺀 점수", d.weighted_na_excluded,
+    changeLine(term("가중 종합"), d.weighted, "항목 점수에 무게를 곱해 평균 낸 점수(weighted)"),
+    changeLine([term("값 없는 행"), "을 뺀 점수"], d.weighted_na_excluded,
       "정답과 결과 양쪽에서 자료없음·해당없음·비해당·미기재 행을 빼고 같은 채점기로 다시 잰 점수"),
     odd ? h("p", {class: "warn"}, `주의: 두 실행이 채점한 문서가 다릅니다. A에만 ${docs.only_a.length}건, B에만 ${docs.only_b.length}건입니다. 항목 점수는 서로 다른 문서 묶음의 평균이라 차이를 그대로 믿기 어렵습니다. 바뀐 값과 원인은 둘 다 채점한 ${docs.common.length}건만 봅니다.`) : null);
 }
@@ -610,7 +652,7 @@ function promptView(no) {
 
 function renderDiffItems() {
   const D = S.diff, d = D.data;
-  const hint = "항목마다 A 점수, B 점수, 차이(B − A)입니다. 막대는 가운데가 0이고 빨강은 내려간 것, 초록은 오른 것입니다(±50점이면 끝까지). 2점 넘게 내려간 항목에는 '왜?' 단추가 있고, 그 값을 만드는 항의 안내문이 바뀌었으면 '안내문 차이 보기' 단추가 있습니다.";
+  const hint = [term("항목"), "마다 A 점수, B 점수, 차이(B − A)입니다. 막대는 가운데가 0이고 빨강은 내려간 것, 초록은 오른 것입니다(±50점이면 끝까지). 2점 넘게 내려간 항목에는 '왜?' 단추가 있고, 그 값을 만드는 항의 ", term("안내문"), "이 바뀌었으면 '안내문 차이 보기' 단추가 있습니다."];
   if (!d) return card("diff-items-card", "항목 23개 점수 차", hint, h("p", {class: "hint"}, "두 실행을 고르면 나옵니다."));
   const causes = Object.fromEntries(d.causes.map(c => [c.item, c.reasons]));
   const changed = new Set(d.prompt_changed_sections);
@@ -651,7 +693,7 @@ function valueTable(title, list) {
 
 function renderDiffValues() {
   const D = S.diff, d = D.data;
-  const hint = "채점기가 남긴 틀린 값(필수 항목만)을 두 실행 사이에서 견줍니다. 두 실행 모두 채점한 문서만 봅니다. '새로 맞춘 것'은 A에서 틀렸는데 B에서 사라진 값, '새로 틀린 것'은 B에서 새로 생긴 틀린 값입니다. 줄을 누르면 펴집니다.";
+  const hint = ["채점기가 남긴 틀린 값(", term("필수"), " 항목만)을 두 실행 사이에서 견줍니다. 두 실행 모두 채점한 문서만 봅니다. '새로 맞춘 것'은 A에서 틀렸는데 B에서 사라진 값, '새로 틀린 것'은 B에서 새로 생긴 틀린 값입니다. 줄을 누르면 펴집니다."];
   if (!d) return card("diff-values-card", "바뀐 값", hint, h("p", {class: "hint"}, "두 실행을 고르면 나옵니다."));
   const names = Object.keys(d.changed_values);
   if (!names.length) return card("diff-values-card", "바뀐 값", hint, h("p", null, "두 실행의 틀린 값 목록이 같습니다."));
@@ -762,7 +804,7 @@ function renderDoc() {
 
 function renderDocTop() {
   const D = S.doc, d = D.data;
-  const hint = "실행과 문서를 고르면 아래에 쪽 그림·쪽 글자(왼쪽), 결과 값과 실버 값(오른쪽)이 나옵니다. 개발용 문서만 고를 수 있습니다.";
+  const hint = ["실행과 문서를 고르면 아래에 쪽 그림·", term("쪽 글자"), "(왼쪽), 결과 값과 정답 초안(", term("실버"), ") 값(오른쪽)이 나옵니다. ", term("줄 번호"), "로 근거를 찾습니다. 개발용 문서만 고를 수 있습니다."];
   const docs = docsOf(D.run);
   const runSel = h("select", {onchange: e => { D.run = e.target.value; D.doc = docsOf(D.run)[0] || null; loadDoc(); }},
     runsShown().slice().reverse().map(x => runOption(x, D.run)));
@@ -792,12 +834,12 @@ function renderDocTop() {
 function renderDocMain() {
   const D = S.doc, d = D.data;
   const hint = "값을 누르면 근거 줄과 쪽 그림의 그 자리가 노랗게 켜집니다. 줄을 누르면 그 줄을 근거로 쓴 값이 켜집니다. 근거 줄은 결과 파일의 원문 조각(evidence)을 같은 쪽 줄과 맞춰 찾습니다. 그림 위 자리는 쪽 좌표 파일(pNNN.json)의 칸 글자와 줄 글자를 맞춰 찾고, 못 맞춘 줄은 글자만 켭니다.";
-  if (!d) return card("doc-main-card", "원문 · 결과 · 실버", hint, h("p", {class: "hint"}, "실행과 문서를 고르면 나옵니다."));
+  if (!d) return card("doc-main-card", ["원문 · 결과 · ", term("실버")], hint, h("p", {class: "hint"}, "실행과 문서를 고르면 나옵니다."));
   const legend = h("p", {class: "legend"},
     h("span", {class: "sw lg-same"}, "회색 = 실버와 같음"), h("span", {class: "sw lg-diff"}, "주황 = 실버와 다르거나 실버에 없음"),
     h("span", {class: "sw lg-only"}, "빨강 테두리 = 실버에만 있음(결과가 빠뜨림)"), h("span", {class: "sw lg-hl"}, "노랑 = 고른 값·줄"),
     h("span", {class: "sw"}, "줄 왼쪽 띠 = 항 구간"));
-  card("doc-main-card", "원문 · 결과 · 실버", hint, legend, h("p", {class: "selnote", id: "doc-sel"}),
+  card("doc-main-card", ["원문 · 결과 · ", term("실버")], hint, legend, h("p", {class: "selnote", id: "doc-sel"}),
     h("div", {class: "dgrid"}, h("div", {class: "dleft", id: "doc-left"}), h("div", {class: "dright", id: "doc-right"})));
   renderDocLeft();
   renderDocRight();
@@ -1054,7 +1096,7 @@ const loadingCard = (id, title, hint) => card(id, title, hint, h("p", {class: S.
 
 function renderJobTry() {
   const J = S.jobs, o = J.opts, T = J.t;
-  const hint = "항 하나·여러 개·문서 전체를 모델에 다시 보내 봅니다. 결과는 기준 실행의 다른 항 답에 끼워 채점합니다. 기록은 runs/manual/에 남습니다.";
+  const hint = [term("시험"), "은 항 하나·여러 개·문서 전체를 모델에 다시 보내 봅니다. 결과는 ", term("기준 실행"), "의 다른 항 답에 끼워 채점합니다. 기록은 runs/manual/에 남습니다."];
   if (!o) return loadingCard("jobs-try-card", "시험하기", hint);
   const one = !T.all && T.secs.size === 1, no = one ? [...T.secs][0] : null;
   if (!one) T.edit = false;
@@ -1074,11 +1116,11 @@ function renderJobTry() {
     field("모델", modelSelect(T, T.dry, renderJobTry)),
     field("문서", h("select", {onchange: e => { T.doc = e.target.value; renderJobTry(); }},
       o.docs.map(d => h("option", {value: d.doc_id, selected: d.doc_id === T.doc}, d.doc_id)))),
-    field("쪽 폴더", pagesSelect(T, renderJobTry)),
+    field(term("입력 판", "쪽 폴더(입력 판)"), pagesSelect(T, renderJobTry)),
     field("범위", radio("tscope", !T.all, "항 고르기", () => { T.all = false; }),
       radio("tscope", T.all, "문서 전체(16개 항)", () => { T.all = true; })),
     h("div", {class: "boxes"}, boxes),
-    field("안내문", radio("tprompt", !T.edit, "코드가 만든 것", () => { T.edit = false; }),
+    field(term("안내문"), radio("tprompt", !T.edit, "코드가 만든 것", () => { T.edit = false; }),
       radio("tprompt", T.edit, "고쳐 쓰기", () => { T.edit = true; },
         {disabled: !one, "data-tip": one ? null : "항을 하나만 고르면 쓸 수 있습니다"})),
     editor,
@@ -1087,7 +1129,7 @@ function renderJobTry() {
       bases.map(r => runOption(r, T.base)))),
     rawRun(T.base),
     h("label", {class: "chk", "data-tip": "서버를 부르지 않고 ① 보낸 입력과 ② 안내문만 봅니다. 연결 안 된 모델도 고를 수 있습니다"},
-      h("input", {type: "checkbox", checked: T.dry, onchange: e => { T.dry = e.target.checked; renderJobTry(); }}), "dry-run (서버 없이 입력·안내문만)"),
+      h("input", {type: "checkbox", checked: T.dry, onchange: e => { T.dry = e.target.checked; renderJobTry(); }}), term("dry-run", "서버 없이 입력·안내문만(dry-run)")),
     h("div", {class: "pickrow"},
       h("button", {type: "button", class: "primary", onclick: () => startTry().catch(e => { J.msg.try = {text: e.message}; renderJobTry(); })},
         T.dry ? "입력·안내문 보기" : "돌리기"), connNote()),
@@ -1217,14 +1259,14 @@ function watchTry(id) {
 
 function renderJobRun() {
   const J = S.jobs, o = J.opts, R = J.r;
-  const hint = "개발용 문서를 run_sections.py로 n회 돌립니다. 실행 이름 끝에 _r1, _r2…가 붙습니다. Mac이 잠들어 멈추지 않게 caffeinate로 감쌉니다.";
-  if (!o) return loadingCard("jobs-run-card", "본 실행", hint);
+  const hint = ["개발용 문서를 run_sections.py로 n회 돌립니다. ", term("회차"), "마다 실행 이름 끝에 _r1, _r2…가 붙습니다. Mac이 잠들어 멈추지 않게 caffeinate로 감쌉니다."];
+  if (!o) return loadingCard("jobs-run-card", term("본 실행"), hint);
   const refill = () => { if (!R.edited) R.name = suggestName(); renderJobRun(); };
   const boxes = o.docs.map(d => h("label", {class: "chk"}, h("input", {type: "checkbox", checked: R.docs.has(d.doc_id),
     onchange: e => { e.target.checked ? R.docs.add(d.doc_id) : R.docs.delete(d.doc_id); refill(); }}), d.doc_id));
-  card("jobs-run-card", "본 실행", hint,
+  card("jobs-run-card", term("본 실행"), hint,
     field("모델", modelSelect(R, false, refill)),
-    field("쪽 폴더", pagesSelect(R, refill)),
+    field(term("입력 판", "쪽 폴더(입력 판)"), pagesSelect(R, refill)),
     field("문서", `${R.docs.size}/${o.docs.length}건`,
       h("button", {type: "button", onclick: () => { R.docs = new Set(o.docs.map(d => d.doc_id)); refill(); }}, "모두"),
       h("button", {type: "button", onclick: () => { R.docs.clear(); refill(); }}, "없음")),
@@ -1263,7 +1305,7 @@ async function startRun() {
 
 function renderJobCompare() {
   const J = S.jobs, C = J.c;
-  const hint = "실행 여러 개를 정답 자리(실버)와 채점해 비교표 compare.md를 만듭니다. 고른 순서대로 들어갑니다. 라벨을 비우면 실행 이름이 쓰입니다.";
+  const hint = ["실행 여러 개를 정답 초안(", term("실버"), ")과 채점해 비교표 compare.md를 만듭니다. 고른 순서대로 들어갑니다. 라벨을 비우면 실행 이름이 쓰입니다."];
   const rows = runsShown().slice().reverse().map(r => {
     const on = C.picked.includes(r.name);
     return h("div", {class: "cmprow"},
@@ -1275,7 +1317,7 @@ function renderJobCompare() {
         h("input", {type: "text", class: "jlabel", placeholder: "라벨", value: C.labels[r.name] || "",
           oninput: e => { C.labels[r.name] = e.target.value; }})) : null);
   });
-  card("jobs-compare-card", "비교표", hint,
+  card("jobs-compare-card", term("비교표"), hint,
     h("div", {class: "cmplist"}, rows.length ? rows : h("p", {class: "hint"}, "실행 목록을 불러오는 중이거나 실행이 없습니다.")),
     h("p", {class: "hint"}, `고른 실행 ${C.picked.length}개. 목록은 점수판의 '다시 읽기'를 누르면 새로 읽습니다.`),
     field("제목", h("input", {type: "text", class: "jname", value: C.title, placeholder: "예: rows_s7_v9_vs_s6",
@@ -1468,7 +1510,7 @@ function renderSrvModels() {
   const d = S.srv.data;
   if (!d) return card("srv-models-card", "모델별 연결", null, h("p", {class: "hint"}, "불러오는 중…"));
   const yes = (v, ok, no) => v === true ? h("span", {class: "okt"}, ok) : v === false ? h("span", {class: "badt"}, no) : h("span", {class: "hint"}, "—");
-  card("srv-models-card", "모델별 연결", "configs/models.yaml의 항목별 추출 태그만 봅니다(실버용 태그는 보지 않습니다). 주소와 키는 .env에서 읽습니다. 앱이 Pod를 만들었으면 RunPod 태그는 그 Pod를 봅니다.",
+  card("srv-models-card", "모델별 연결", ["configs/models.yaml의 항목별 추출 ", term("모델 태그"), "만 봅니다(실버용 태그는 보지 않습니다). 주소와 키는 .env에서 읽습니다. 앱이 ", term("Pod"), "를 만들었으면 ", term("RunPod"), " 태그는 그 Pod를 봅니다."],
     h("table", {class: "list"},
       h("thead", null, h("tr", null, ["태그", "기대 모델", "서버", "주소 설정", "응답", "서버가 말한 모델", "일치"].map(x => h("th", null, x)))),
       h("tbody", null, d.models.flatMap(m => [h("tr", null,
@@ -1482,8 +1524,8 @@ function renderSrvModels() {
 
 function renderSrvRunpod() {
   const d = S.srv.data;
-  const hint = "RunPod 계정의 Pod 목록입니다. 켜져 있는 동안 시간당 요금이 붙습니다. 이 도구가 만든 Pod는 이름이 to21-b-로 시작합니다.";
-  if (!d) return card("srv-runpod-card", "RunPod", hint, h("p", {class: "hint"}, "불러오는 중…"));
+  const hint = ["RunPod 계정의 ", term("Pod"), " 목록입니다. 켜져 있는 동안 시간당 요금이 붙습니다. 이 도구가 만든 Pod는 이름이 to21-b-로 시작합니다."];
+  if (!d) return card("srv-runpod-card", term("RunPod"), hint, h("p", {class: "hint"}, "불러오는 중…"));
   const money = v => num(v) ? "$" + v.toFixed(2) : "—";
   const rows = d.pods.map(p => h("tr", {class: p.ours ? null : "notours"},
     h("td", {class: "mono"}, p.id),
@@ -1493,7 +1535,7 @@ function renderSrvRunpod() {
     h("td", {class: "num"}, money(p.cost_per_hr)), h("td", {class: "num"}, num(p.minutes) ? Math.round(p.minutes) + "분" : "—"),
     h("td", {class: "num"}, money(p.est_cost)),
     h("td", null, srvBtn("지우기", "pod_delete", {pod_id: p.id}, "danger"))));
-  card("srv-runpod-card", "RunPod", hint,
+  card("srv-runpod-card", term("RunPod"), hint,
     d.friendly ? friendlyError(d.friendly) : d.runpod_error ? loadFailure(d.runpod_error) : null,
     h("table", {class: "list"},
       h("thead", null, h("tr", null, ["Pod", "이름", "상태", "시간당", "켜진 시간", "추정 비용", ""].map(x => h("th", null, x)))),
@@ -1505,9 +1547,9 @@ function renderSrvRunpod() {
 function renderSrvRngd() {
   const d = S.srv.data;
   const hint = "사내 RNGD 장비(카드 4장)의 furiosa-llm 서버입니다. 카드가 4장뿐이라 모델을 번갈아 띄웁니다. 아래 글은 furiosa-smi ps 출력이고 --api-key 값은 ***로 가립니다.";
-  if (!d) return card("srv-rngd-card", "RNGD", hint, h("p", {class: "hint"}, "불러오는 중…"));
+  if (!d) return card("srv-rngd-card", term("RNGD"), hint, h("p", {class: "hint"}, "불러오는 중…"));
   const g = d.rngd || {};
-  card("srv-rngd-card", "RNGD", hint,
+  card("srv-rngd-card", term("RNGD"), hint,
     g.ok ? null : friendlyError(g.friendly) || loadFailure(g.error || "알 수 없음"),
     g.ok ? h("div", null, h("b", null, "떠 있는 모델"),
       g.models.length ? h("ul", null, g.models.map(m => h("li", null, h("span", {class: "mono"}, `${m.model} (pid ${m.pid}) `),
@@ -1518,7 +1560,7 @@ function renderSrvRngd() {
 
 function renderSrvLog() {
   const d = S.srv.data, rows = (d && d.log_tail) || [];
-  card("srv-log-card", "서버 기록", `Pod 만들기·지우기와 RNGD 올리기·내리기를 ${SRV_LOG}에 한 줄씩 남깁니다. 키는 남기지 않습니다. 마지막 10줄입니다.`,
+  card("srv-log-card", "서버 기록", [term("Pod"), " 만들기·지우기와 ", term("RNGD"), ` 올리기·내리기를 ${SRV_LOG}에 한 줄씩 남깁니다. 키는 남기지 않습니다. 마지막 10줄입니다.`],
     rows.length ? h("pre", {class: "log"}, rows.join("\n")) : h("p", {class: "hint"}, "아직 기록이 없습니다."),
     h("p", {class: "warn"}, "이 줄을 docs/plan/RunPod_사용기록.md에 옮기세요. 앱은 docs/ 아래에 쓰지 않습니다(하네스가 지키는 폴더)."));
 }
@@ -1609,9 +1651,15 @@ async function pollServers() {
 
 // ── 시작 ───────────────────────────────────────────────
 
-setupTabs();
-setupTip();
-loadAll().catch(fail);
-initJobs().catch(e => { S.jobs.error = e.message; renderJobs(); });
-renderServers();
-pollServers().catch(fail);
+async function start() {
+  setupTabs();
+  setupTip();
+  let glossaryError = null;
+  try { S.glossary = (await api("/api/glossary")).items; }
+  catch (e) { glossaryError = e; } // 설명을 못 받아도 기존 화면은 평문으로 쓸 수 있다.
+  loadAll().then(() => { if (glossaryError) fail(glossaryError); }).catch(fail);
+  initJobs().catch(e => { S.jobs.error = e.message; renderJobs(); });
+  renderServers();
+  pollServers().catch(fail);
+}
+start();

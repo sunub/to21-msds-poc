@@ -218,19 +218,34 @@ nav.toc a { margin-right: 10px; }
 
 <section id="s9">
 <h2>용어 풀이</h2>
-<table>
-<tr><th>용어</th><th>뜻</th></tr>
-<tr><td>정답 초안(실버)</td><td>Claude가 먼저 뽑은 정답 후보입니다. 틀릴 수 있습니다.</td></tr>
-<tr><td>정답(골드)</td><td>사람이 확인한 진짜 정답입니다. 개발용 문서로 작게 만드는 중입니다.</td></tr>
-<tr><td>가중 종합</td><td>항목 점수에 무게(필수 3, 중요 2, 일반 1)를 곱해 낸 평균입니다.</td></tr>
-<tr><td>필수 통과</td><td>필수 항목 17개 가운데 목표를 넘긴 개수입니다. 17/17이 합격입니다.</td></tr>
-<tr><td>행 형식</td><td>표 항목을 JSON이 아니라 "한 줄 한 행"의 고정 열 글로 받는 방식입니다. 코드가 JSON으로 바꿉니다.</td></tr>
-<tr><td>안내문 버전(s2~s7)</td><td>안내문 내용을 고칠 때마다 올리는 번호입니다. 지금은 s7입니다. 번호가 다르면 다른 조건의 실행입니다.</td></tr>
-<tr><td>입력 판(version9)</td><td>전처리 담당(C)이 만든 쪽 글자 묶음의 판입니다. 줄 앞에 <code>L001</code> 줄 번호가 붙고 표 칸은 <code>|</code>로 묶여 있습니다.</td></tr>
-<tr><td>흔들림</td><td>같은 조건으로 두 번 돌려도 점수가 조금 다른 현상입니다. 동시 호출을 함께 처리할 때 생깁니다.</td></tr>
-<tr><td>재추출</td><td>검사에 걸린 항을 문제 설명을 붙여 한 번 더 보내는 것입니다. 둘째가 나을 때만 채택합니다.</td></tr>
-<tr><td>한도 걸림</td><td>모델 답이 출력 길이 한도에서 잘린 일입니다. 긴출력·공백폭주·반복으로 나눕니다.</td></tr>
+<p id="glossary-status" role="status">용어를 불러오는 중…</p>
+<table id="glossary-table">
+<thead><tr><th scope="col">용어</th><th scope="col">뜻</th><th scope="col">예</th></tr></thead>
+<tbody></tbody>
 </table>
+<script>
+(async () => {
+  const status = document.getElementById("glossary-status");
+  try {
+    const response = await fetch("/api/glossary", {cache: "no-store"});
+    if (!response.ok) throw new Error("glossary");
+    const {items} = await response.json();
+    const rows = items.map(item => {
+      const row = document.createElement("tr");
+      for (const key of ["term", "short", "example"]) {
+        const cell = document.createElement("td");
+        cell.textContent = item[key];
+        row.append(cell);
+      }
+      return row;
+    });
+    document.querySelector("#glossary-table tbody").replaceChildren(...rows);
+    status.textContent = "화면 말풍선과 같은 용어 사전입니다.";
+  } catch (e) {
+    status.textContent = "용어를 불러오지 못했습니다. 작업 화면 서버가 켜져 있는지 보고 도움말을 다시 여세요.";
+  }
+})();
+</script>
 <h3>채점 항목 23개</h3>
 <p>항목 이름에 마우스를 올리면 같은 설명이 화면에 뜹니다(① 점수판, ② 두 실행 비교).</p>
 <table>
