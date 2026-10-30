@@ -31,6 +31,8 @@
 - `pod.py`: RunPod REST 도구(list·get·create·delete). 명령줄로도 쓴다.
 - `try_section.py`: 항 하나·여러 개·문서 전체를 모델에 보내 단계별로 보여 준다.
 - `b_app_static/`: `index.html`, `app.js`, `app.css`, `guide.html`(외부 주소 없음).
+- `b_app_static/DESIGN.md`: 색·글자·간격과 공통 화면 요소의 디자인 기준입니다.
+- `b_app_static/CRITIQUE.md`: 발견한 문제와 고친 내용, 검증 결과와 남은 한계를 기록합니다.
 
 ## 시험
 ```

@@ -66,6 +66,18 @@ def test_static(app, ctx):
     assert code == 200 and ctype.startswith("text/css")
 
 
+@pytest.mark.parametrize("path", ["/", "/static/index.html"])
+def test_static_initial_ui_text_survives_api_failure_and_escapes_html(app, ctx, monkeypatch, path):
+    copy = {"load_error": {"message": "자료를 불러오지 못했습니다.", "fix": "다시 여세요."},
+            "probe": "</script><script>가짜 글</script>"}
+    monkeypatch.setattr(app.bt, "POLISH_TEXT", copy, raising=False)
+    page = get(app, ctx, path)[2].decode()
+    payload = re.search(r'<script id="ui-text" type="application/json">(.*?)</script>', page, re.S)
+    assert payload is not None
+    assert json.loads(payload.group(1)) == copy
+    assert "</script><script>가짜 글" not in page
+
+
 def test_static_rejects_parent_paths(app, ctx):
     assert get(app, ctx, "/static/../b_app.py")[0] == 400
     assert get(app, ctx, "/static/%2e%2e/b_app.py")[0] == 400

@@ -9,7 +9,7 @@
 <body>
 <header class="top">
   <h1>B 작업 화면</h1>
-  <nav class="tabs">
+  <nav class="tabs" aria-label="작업 화면 탭">
     <button type="button" data-tab="start">시작</button>
     <button type="button" data-tab="score">① 점수판</button>
     <button type="button" data-tab="diff">② 두 실행 비교</button>
@@ -97,8 +97,9 @@
   </section>
 </main>
 
-<dialog id="srv-dialog" class="srvdlg"></dialog>
+<dialog id="srv-dialog" class="srvdlg" aria-labelledby="srv-dialog-title"></dialog>
 <div id="tip" class="tip" hidden></div>
+<script id="ui-text" type="application/json">__B_APP_UI_TEXT__</script>
 <script src="/static/app.js"></script>
 </body>
 </html>

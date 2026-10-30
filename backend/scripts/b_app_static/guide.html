@@ -5,16 +5,19 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>B 작업 화면 도움말</title>
 <style>
-body { font: 15px/1.7 -apple-system, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif; color: #1f2933; max-width: 860px; margin: 0 auto; padding: 16px 20px 80px; }
-h1 { font-size: 22px; } h2 { font-size: 18px; margin-top: 36px; border-bottom: 2px solid #d0d7de; padding-bottom: 4px; }
+* { box-sizing: border-box; }
+body { font: 15px/1.7 -apple-system, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif; color: #1f2328; max-width: 860px; margin: 0 auto; padding: 16px 20px 80px; overflow-wrap: anywhere; }
+:focus-visible { outline: 2px solid #0969da; outline-offset: 2px; }
+a { color: #0969da; }
+h1 { font-size: 24px; } h2 { font-size: 18px; margin-top: 36px; border-bottom: 1px solid #d1d9e0; padding-bottom: 4px; }
 h3 { font-size: 15px; margin-top: 20px; }
-code, pre { font-family: ui-monospace, Menlo, monospace; font-size: 13px; background: #f3f5f7; border-radius: 4px; }
-code { padding: 1px 4px; } pre { padding: 8px 12px; overflow-x: auto; }
-.ex { margin: 4px 0 12px; padding: 4px 10px; background: #eef6ff; border-left: 4px solid #4a90d9; }
-.warn { padding: 6px 12px; background: #fff4e5; border-left: 4px solid #e08a00; }
+code, pre { font-family: ui-monospace, Menlo, monospace; font-size: 13px; background: #f6f8fa; border-radius: 4px; }
+code { padding: 1px 4px; } pre { padding: 8px 12px; white-space: pre-wrap; overflow-wrap: anywhere; }
+.ex { margin: 4px 0 12px; padding: 4px 10px; background: #f6f8fa; border: 1px solid #d1d9e0; border-radius: 6px; }
+.warn { padding: 6px 12px; background: #fff8c5; border: 1px solid #eac54f; border-radius: 6px; }
 table { border-collapse: collapse; width: 100%; font-size: 13px; margin: 8px 0; }
-th, td { border: 1px solid #d0d7de; padding: 4px 8px; text-align: left; vertical-align: top; }
-th { background: #f3f5f7; }
+th, td { border: 1px solid #d1d9e0; padding: 4px 8px; text-align: left; vertical-align: top; overflow-wrap: anywhere; }
+th { background: #f6f8fa; }
 nav.toc a { margin-right: 10px; }
 </style>
 </head>
@@ -32,15 +35,15 @@ nav.toc a { margin-right: 10px; }
 <p>MSDS는 법으로 정해진 16개 항목으로 되어 있습니다. 도구는 이 16개를 각각 따로 모델에 보냅니다.</p>
 <p>받은 답을 모아 정해진 틀의 결과 파일(JSON)을 만듭니다. 그 결과를 정답 초안(실버)과 비교해 점수를 냅니다.</p>
 <svg viewBox="0 0 820 90" width="100%" role="img" aria-label="PDF에서 점수까지의 흐름">
-  <defs><marker id="ar" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#4a5568"/></marker></defs>
-  <g font-size="13" text-anchor="middle" fill="#1f2933">
-    <rect x="4" y="22" width="110" height="46" rx="6" fill="#eef6ff" stroke="#4a90d9"/><text x="59" y="50">PDF</text>
-    <rect x="170" y="22" width="120" height="46" rx="6" fill="#eef6ff" stroke="#4a90d9"/><text x="230" y="50">쪽 글자</text>
-    <rect x="346" y="22" width="140" height="46" rx="6" fill="#fff4e5" stroke="#e08a00"/><text x="416" y="43">항 16개</text><text x="416" y="60">모델 호출</text>
-    <rect x="542" y="22" width="110" height="46" rx="6" fill="#eef6ff" stroke="#4a90d9"/><text x="597" y="50">JSON</text>
-    <rect x="708" y="22" width="106" height="46" rx="6" fill="#e8f7ec" stroke="#2f9e5a"/><text x="761" y="50">채점</text>
+  <defs><marker id="ar" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#59636e"/></marker></defs>
+  <g font-size="13" text-anchor="middle" fill="#1f2328">
+    <rect x="4" y="22" width="110" height="46" rx="6" fill="#f0f6fc" stroke="#0969da"/><text x="59" y="50">PDF</text>
+    <rect x="170" y="22" width="120" height="46" rx="6" fill="#f0f6fc" stroke="#0969da"/><text x="230" y="50">쪽 글자</text>
+    <rect x="346" y="22" width="140" height="46" rx="6" fill="#fff8c5" stroke="#eac54f"/><text x="416" y="43">항 16개</text><text x="416" y="60">모델 호출</text>
+    <rect x="542" y="22" width="110" height="46" rx="6" fill="#f0f6fc" stroke="#0969da"/><text x="597" y="50">JSON</text>
+    <rect x="708" y="22" width="106" height="46" rx="6" fill="#dafbe1" stroke="#1a7f37"/><text x="761" y="50">채점</text>
   </g>
-  <g stroke="#4a5568" stroke-width="1.5" marker-end="url(#ar)">
+  <g stroke="#59636e" stroke-width="1.5" marker-end="url(#ar)">
     <line x1="114" y1="45" x2="166" y2="45"/><line x1="290" y1="45" x2="342" y2="45"/>
     <line x1="486" y1="45" x2="538" y2="45"/><line x1="652" y1="45" x2="704" y2="45"/>
   </g>
