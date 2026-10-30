@@ -13,6 +13,7 @@ from __future__ import annotations
 import importlib
 import importlib.util
 import re
+from functools import lru_cache
 from collections import Counter, defaultdict
 
 from msds.common.merge import DICTIONARY_VERSION, SCHEMA_VERSION, now_kst
@@ -126,13 +127,40 @@ def _has_value(text: str | None) -> bool:
     return bool(t) and t not in _NO_VALUE | {"비해당"}
 
 
+_KREACH_NEGATIVE_EXTRA = ("규제되지않음", "비위험물", "미규정", "unlisted")  # A의 답 10/30, A-1
+
+
+def _norm(text: str | None) -> str:
+    return re.sub(r"\s+", "", text or "").lower()
+
+
+@lru_cache(maxsize=1)
+def _kreach_negatives() -> frozenset[str]:
+    """부정 표현: TO21 사전 status.해당없음(실행 때 읽음, 못 읽으면 없음) + A의 추가 표기."""
+    try:
+        from msds.extract.section_prompts import _dictionary
+        words = _dictionary()["status"]["해당없음"]
+    except Exception:
+        words = []
+    return frozenset({_norm(w) for w in words} | set(_KREACH_NEGATIVE_EXTRA))
+
+
 def fill_kreach_applicable(regulations: list[dict]) -> None:
-    """화평법(KREACH) 행에 값(value_raw 또는 threshold)이 있는데 해당 여부(applicable)가 비면 '해당'으로 채운다.
-    값 없는 행과 다른 법령 행은 그대로 둔다 (사용자 결정 10/29, A-1 답의 참고: TO21 정답이 '해당')."""
+    """화평법(KREACH) 행의 해당 여부(applicable)가 비었을 때 값(value_raw 또는 threshold)으로 채운다.
+    값이 부정 표현이면 '비해당', '문의' 안내문이면 비워 두고, 그 밖에 값이 있으면 '해당'이다.
+    값 없는 행과 다른 법령 행은 그대로 둔다 (사용자 결정 10/29, A-1 답 10/30)."""
     for r in regulations:
-        if (r.get("law") == "KREACH" and r.get("applicable") is None
-                and (_has_value(r.get("value_raw")) or _has_value((r.get("threshold") or {}).get("raw")))):
-            r["applicable"] = "해당"
+        if r.get("law") != "KREACH" or r.get("applicable") is not None:
+            continue
+        for text in (r.get("value_raw"), (r.get("threshold") or {}).get("raw")):
+            t = _norm(text)
+            if t in _kreach_negatives():
+                r["applicable"] = "비해당"
+            elif _has_value(text) and "문의" not in t:
+                r["applicable"] = "해당"
+            else:
+                continue
+            break
 
 
 # ── 표기 규칙 자리 (ADR-004) ───────────────────────────
