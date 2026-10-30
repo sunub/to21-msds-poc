@@ -9,6 +9,7 @@ import psycopg
 import pytest
 from psycopg.rows import dict_row
 
+from msds.compliance.htodb import parsers
 from msds.compliance.htodb.config import pg_kwargs
 from msds.compliance.htodb.mapping import code_sites
 
@@ -126,6 +127,61 @@ def test_chemical_parts_equal_sql(client, db, chem, part):
     if code_col:
         assert set(d["codes"]) == {r[code_col] for r in expected}
     assert client.get(f"/chemicals/{chem['chem_id']}/no-such-part").status_code == 404
+
+
+@pytest.mark.parametrize("part", ["toxicity", "physical-properties"])
+def test_parsed_keeps_raw_rows(client, chem, part):
+    raw = data(client.get(f"/chemicals/{chem['chem_id']}/{part}"))
+    d = data(client.get(f"/chemicals/{chem['chem_id']}/{part}", params={"parsed": "true"}))
+    assert "parsed" not in raw and d["rows"] == raw["rows"] and d["codes"] == raw["codes"]   # 원본은 그대로
+    assert len(d["parsed"]) == len(d["rows"])
+    assert all(x is None or set(x) == {"rule", "result"} for x in d["parsed"])
+    assert client.get(f"/chemicals/{chem['chem_id']}/regulations", params={"parsed": "true"}).status_code == 422
+
+
+PARSE_RULES = {  # 규칙 → (엔드포인트, 테이블, 규칙을 고르는 컬럼, 그 컬럼 값들)
+    "acute": ("toxicity", "tb_eng_chem_toxicity_test_info", "div_code", sorted(parsers.ACUTE_DIVS)),
+    "aquatic_acute": ("toxicity", "tb_eng_chem_toxicity_test_info", "div_code", sorted(parsers.AQUATIC_ACUTE_DIVS)),
+    "aquatic_chronic_noec": ("toxicity", "tb_eng_chem_toxicity_test_info", "div_code", sorted(parsers.AQUATIC_CHRONIC_DIVS)),
+    "rapid_degradability": ("toxicity", "tb_eng_chem_toxicity_test_info", "div_code", [parsers.RAPID_DIV]),
+    **{name: ("physical-properties", "tb_eng_chem_phy_property_map", "property_id", [pid])
+       for pid, name in parsers.PHYS_IDS.items()},
+}
+
+
+def _expected_parsed(part, rows, chem_row):
+    if part == "toxicity":
+        mw = parsers.to_float(chem_row["molecular_weight"])
+        return [parsers.parse_toxicity_row(r, mw) for r in rows]
+    return [parsers.parse_property_row(r) for r in rows]
+
+
+@pytest.mark.parametrize("rule", PARSE_RULES)
+def test_parsed_matches_parsers_per_rule(client, db, rule):
+    """규칙마다 그 규칙이 값을 뽑아내는 행을 가진 물질을 골라, API의 parsed가 행마다 parsers 결과와 같은지 본다."""
+    part, table, col, keys = PARSE_RULES[rule]
+    cands = sql(db, f"SELECT DISTINCT chem_id FROM {T}.{table} WHERE {col} = ANY(%s) ORDER BY chem_id LIMIT 50", (keys,))
+    for c in cands:
+        d = data(client.get(f"/chemicals/{c['chem_id']}/{part}", params={"parsed": "true"}))
+        hit = [x for x in d["parsed"] if x and x["rule"] == rule and x["result"] is not None]
+        if hit:
+            break
+    else:
+        pytest.skip(f"{rule}: 값이 뽑히는 행을 가진 물질이 없음")
+    chem_row = sql(db, f"SELECT * FROM {T}.tb_eng_chem_master_info WHERE chem_id = %s", (c["chem_id"],))[0]
+    assert d["parsed"] == _expected_parsed(part, d["rows"], chem_row)                    # 행 순서까지 맞물림
+    assert same_rows(d["rows"], sql(db, f"SELECT * FROM {T}.{table} WHERE chem_id = %s", (c["chem_id"],)))
+
+
+def test_parsed_uses_molecular_weight(client, db):
+    """흡입(증기) ppm 값은 물질의 분자량으로 mg/L 환산된다(parse_acute)."""
+    row = one(db, f"""SELECT t.chem_id FROM {T}.tb_eng_chem_toxicity_test_info t
+        JOIN {T}.tb_eng_chem_master_info c USING (chem_id)
+        WHERE t.div_code IN ('GHS0204', 'GHS0205') AND coalesce(t.primary_value, '') = ''
+          AND t.primary_value_text ~ '(LC50|ATE)\\s*[=<>]?\\s*[0-9.,]+\\s*ppm'
+          AND c.molecular_weight ~ '^[0-9]+(\\.[0-9]+)?$' ORDER BY t.chem_id LIMIT 1""")
+    d = data(client.get(f"/chemicals/{row['chem_id']}/toxicity", params={"parsed": "true"}))
+    assert any(x and x["rule"] == "acute" and x["result"] and "ppm→mg/L" in x["result"]["basis"] for x in d["parsed"])
 
 
 def test_regulations_equal_sql(client, db, chem):
