@@ -144,7 +144,8 @@ def test_run_labels_are_added_without_changing_score_or_cache(app, ctx, env, mon
         assert result["model_label"] == "Qwen3.6 35B (RunPod)"
     # Steps 4/9 add presentation fields; every original scoring field remains identical.
     assert {k: v for k, v in detail.items()
-            if k not in ("label", "model_label", "status_text", "card_summaries", "connection_notes", "key")} == before
+            if k not in ("label", "model_label", "status_text", "card_summaries", "connection_notes", "key",
+                         "run_kind_label", "targets")} == before
     assert summary == before
 
 
@@ -208,6 +209,55 @@ def test_current_falls_back_to_latest_scored_run(app):
     assert app.pick_current(runs) == "manual/c"
     assert app.pick_current(runs[:1] + [{"name": "x_dev10", "kind": "run", "weighted": 40.0}]) == "x_dev10"
     assert app.pick_current([]) is None
+
+
+def test_current_skips_silver_and_prefers_comparable(app):
+    dev = {"name": "20261029_m_s6_v9_r1", "kind": "run", "weighted": 72.7, "run_kind": "dev10", "comparable": True}
+    probe = {"name": "20261030_m_s7_v9_dev10_probe", "kind": "run", "weighted": 80.0, "run_kind": "probe",
+             "comparable": False}
+    silver = {"name": "20261031_silver_claude_p3_dev10", "kind": "run", "weighted": 93.4, "run_kind": "silver",
+              "comparable": False}
+    assert app.pick_current([dev, probe, silver]) == dev["name"]          # 가장 최근·최고 점수인 실버를 고르지 않는다
+    assert app.pick_current([probe, silver]) == probe["name"]             # comparable이 없으면 옛 규칙(이름에 dev10)
+    assert app.pick_current([silver]) == silver["name"]                   # 실행이 있으면 None을 돌려주지 않는다
+    unscored = {"name": "20261031_m_running", "kind": "run", "weighted": None, "run_kind": "probe", "comparable": False}
+    assert app.pick_current([silver, unscored]) == unscored["name"]
+
+
+def silver_and_dev(env):
+    runs = env / "runs"
+    make_run(runs, "20261029_sections_m1_v9_r1", {X01: make_doc(X01, toxicity=True), X02: make_doc(X02)},
+             info={"started_at": "2026-10-29T09:00:00+09:00"})
+    make_run(runs, "20261031_silver_claude_p3_dev", {X01: make_doc(X01), X02: make_doc(X02)},
+             info={"mode": "silver", "model_tag": "claude", "started_at": "2026-10-31T09:00:00+09:00"})
+    return "20261029_sections_m1_v9_r1", "20261031_silver_claude_p3_dev"
+
+
+def test_api_runs_skips_silver_and_adds_kind_labels_and_targets(app, ctx, env):
+    dev, silver = silver_and_dev(env)
+    code, data = get_json(app, ctx, "/api/runs")
+    assert code == 200 and data["current"] == dev
+    by = {r["name"]: r for r in data["runs"]}
+    assert by[silver]["weighted"] > by[dev]["weighted"]
+    assert (by[dev]["run_kind"], by[dev]["comparable"], by[dev]["run_kind_label"]) == ("dev10", True, "개발 10건 본 실행")
+    assert (by[silver]["run_kind"], by[silver]["run_kind_label"]) == ("silver", "실버 만들기")
+    for r in data["runs"]:
+        assert r["targets"] == app.bt.score_targets(r, data["criteria"])
+    assert by[dev]["targets"]["weighted"]["line"] == 90 and by[dev]["targets"]["must"]["total"] == 17
+
+
+def test_api_run_and_diff_targets(app, ctx, env):
+    dev, silver = silver_and_dev(env)
+    code, detail = get_json(app, ctx, "/api/run/" + dev)
+    assert code == 200
+    assert detail["targets"] == detail["status_text"]["targets"] == app.bt.score_targets(detail, app.br.criteria())
+    assert detail["card_summaries"]["history"].startswith("실행 1개,")   # 실버 실행은 역사에서 뺀다
+    assert "합격" not in detail["status_text"]["headline"]
+    code, _, body = app.route("GET", "/api/diff", {"a": [dev], "b": [silver]}, None, ctx)
+    diff = json.loads(body)
+    assert code == 200
+    assert diff["targets"]["a"] == detail["targets"]
+    assert diff["targets"]["b"]["weighted"]["met"] is True and diff["targets"]["b"]["must"]["met_count"] == 17
 
 
 def test_api_run(app, ctx, env):
@@ -378,7 +428,8 @@ def test_runs_scored_with_chosen_key(app, kctx, env, answer_keys):
 def test_cache_is_split_by_key(app, kctx, env, monkeypatch):
     calls = []
     real = app.br._summarize
-    monkeypatch.setattr(app.br, "_summarize", lambda run, gold_dir: calls.append(gold_dir.name) or real(run, gold_dir))
+    monkeypatch.setattr(app.br, "_summarize",
+                        lambda run, gold_dir, *a: calls.append(gold_dir.name) or real(run, gold_dir, *a))
     weights = [get_q(app, kctx, "/api/runs", key=k)[1]["runs"][0]["weighted"]
                for k in ("gold/a3", "silver/claude", "gold/a3")]
     assert calls == ["a3", "claude"]                   # 두 번째 gold/a3는 캐시 파일을 읽는다

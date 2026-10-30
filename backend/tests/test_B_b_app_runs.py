@@ -311,3 +311,141 @@ def test_criteria(br):
     helps = {i["name"]: i["help"] for i in c["items"]}
     assert helps["15항 국내 규제(성분·항목·해당여부)"] != helps["15항 국내 규제 기준농도"]   # 가장 긴 앞부분으로 찾는다
     assert helps["구성성분(CAS 기준 매칭)"] != helps["구성성분 필드(성분명·KE)"]
+
+
+# ── 실행 종류 (run_kind, comparable) ───────────────────
+
+RAW = "RAW-90"
+
+
+def outside_pages(env, *docs):
+    """가짜 data/pages. 문서마다 줄 번호 있는 쪽 하나와 meta.json(doc_id가 폴더 이름과 같음)."""
+    root = env / "data" / "pages"
+    for d in docs:
+        (root / d).mkdir(parents=True)
+        (root / d / "p001.txt").write_text("L001 가짜 제품 이름\n", encoding="utf-8")
+        write_json(root / d / "meta.json", {"doc_id": d})
+    return root
+
+
+@pytest.mark.parametrize("summary, outputs, outside, kind", [
+    ({"kind": "models", "name": "x"}, set(), set(), "models"),
+    ({"kind": "run", "name": "x", "mode": "silver"}, {X01, X02}, set(), "silver"),
+    ({"kind": "run", "name": "20261027_silver_claude_p3_dev"}, {X01, X02}, set(), "silver"),
+    ({"kind": "run", "name": "x", "excluded": [X09]}, set(), set(), "eval"),
+    ({"kind": "run", "name": "x", "excluded": []}, {RAW, "RAW-91"}, {RAW, "RAW-91"}, "outside"),
+    ({"kind": "manual", "name": "manual/x"}, {X01, X02}, set(), "single"),
+    ({"kind": "run", "name": "x"}, {X01}, set(), "single"),
+    ({"kind": "run", "name": "20261029_m_s6_v9_probe2"}, {X01, X02}, set(), "probe"),
+    ({"kind": "run", "name": "20261028_m_cw_diag"}, {X01, X02}, set(), "probe"),
+    ({"kind": "run", "name": "20261029_m_s6_v9_r1"}, {X01, X02}, set(), "dev10"),
+    ({"kind": "run", "name": "x_noprobe"}, {X01, RAW}, {RAW}, "probe"),          # 개발용 전부가 아님 → 그 밖
+])
+def test_run_kind_rules(br, summary, outputs, outside, kind):
+    assert br.run_kind(summary, outputs, {X01, X02}, outside=outside) == kind
+
+
+def test_run_kind_silver_run(br, env):
+    make_run(env / "runs", "r_silver", {X01: make_doc(X01), X02: make_doc(X02)},
+             info={"mode": "silver", "model_tag": "claude"})
+    s = summarize(br, env, "r_silver")
+    assert s["mode"] == "silver" and s["weighted"] is not None
+    assert (s["run_kind"], s["comparable"]) == ("silver", False)
+
+
+def test_run_kind_dev10_is_comparable(br, env):
+    make_run(env / "runs", "r_all", {X01: make_doc(X01), X02: make_doc(X02)}, timing=[(X01, 10.5), (X02, 20)])
+    s = summarize(br, env, "r_all")
+    assert s["mode"] is None
+    assert (s["run_kind"], s["comparable"]) == ("dev10", True)
+    assert s["seconds_by_doc"] == {X01: 10.5, X02: 20}
+
+
+def test_run_kind_single_probe_and_manual(br, env):
+    both = {X01: make_doc(X01), X02: make_doc(X02)}
+    make_run(env / "runs", "r_one", {X01: make_doc(X01)})
+    make_run(env / "runs", "20261029_m_s6_v9_probe", both)
+    make_run(env / "runs" / "manual", "20261030_1200_T21-X01_s11", both)
+    assert summarize(br, env, "r_one")["run_kind"] == "single"
+    assert summarize(br, env, "20261029_m_s6_v9_probe")["run_kind"] == "probe"
+    manual = summarize(br, env, "manual/20261030_1200_T21-X01_s11")
+    assert (manual["kind"], manual["run_kind"], manual["comparable"]) == ("manual", "single", False)
+
+
+def test_run_kind_eval_only(br, env):
+    make_run(env / "runs", "r_eval", {X09: make_doc(X09)}, timing=[(X09, 5)])
+    s = summarize(br, env, "r_eval")
+    assert s["excluded"] == [X09] and s["weighted"] is None
+    assert (s["run_kind"], s["comparable"]) == ("eval", False)
+    assert s["seconds_by_doc"] == {}
+
+
+def test_models_folder_has_run_kind(br, env):
+    folder = env / "runs" / "20261029_models_비교"
+    folder.mkdir()
+    (folder / "compare.md").write_text("# 비교\n", encoding="utf-8")
+    s = br.summarize_run(folder, env / "gold", cache_dir=None)
+    assert (s["kind"], s["run_kind"], s["comparable"]) == ("models", "models", False)
+
+
+def test_outside_docs_become_targets_with_pages_root(br, env):
+    root = outside_pages(env, RAW)
+    make_run(env / "runs", "r_raw", {RAW: make_doc(RAW)}, info={"pages_dir": "data/pages"}, timing=[(RAW, 42.0)],
+             checks={RAW: {"sections": [{"msds_index": 0, "section": 1, "ok": True}]}})
+    s = summarize(br, env, "r_raw", pages_root=root)
+    assert s["excluded"] == [] and s["docs"] == [] and s["no_gold"] == [RAW]
+    assert (s["run_kind"], s["comparable"]) == ("outside", False)
+    assert s["seconds_by_doc"] == {RAW: 42.0}
+    assert s["progress"]["total"] == 1 and RAW in s["grid"]
+    old = summarize(br, env, "r_raw")                                   # pages_root가 없으면 지금처럼 뺀다
+    assert old["excluded"] == [RAW] and old["no_gold"] == [] and old["seconds_by_doc"] == {}
+
+
+def test_outside_doc_needs_meta_in_the_run_set(br, env):
+    root = outside_pages(env, RAW)
+    make_run(env / "runs", "r_other_set", {RAW: make_doc(RAW)}, info={"pages_dir": "data/pages/prev/version9"})
+    assert summarize(br, env, "r_other_set", pages_root=root)["excluded"] == [RAW]   # 실행이 쓴 묶음에 없음
+    (root / RAW / "meta.json").unlink()                                 # meta.json 없음 → 용도를 모름
+    make_run(env / "runs", "r_raw", {RAW: make_doc(RAW)}, info={"pages_dir": "data/pages"})
+    assert summarize(br, env, "r_raw", pages_root=root)["excluded"] == [RAW]
+
+
+def test_eval_doc_stays_excluded_with_pages_root(br, env):
+    root = outside_pages(env, RAW, X09)                                 # 평가용 문서에 meta.json이 있어도
+    make_run(env / "runs", "r_eval", {X09: make_doc(X09), RAW: make_doc(RAW)}, info={"pages_dir": "data/pages"},
+             timing=[(X09, 5), (RAW, 6)], checks={X09: {"sections": [{"msds_index": 0, "section": 1, "ok": True}]}})
+    s = summarize(br, env, "r_eval", pages_root=root)
+    assert s["excluded"] == [X09] and s["no_gold"] == [RAW]
+    assert X09 not in s["seconds_by_doc"] and X09 not in s["grid"]
+    assert X09 not in json.dumps(s, ensure_ascii=False).replace(json.dumps(s["excluded"]), "")
+
+
+def test_cache_key_has_pages_root(br, env):
+    root = outside_pages(env, RAW)
+    make_run(env / "runs", "r_raw", {RAW: make_doc(RAW)}, info={"pages_dir": "data/pages"})
+    cache = env / "cache"
+    assert summarize(br, env, "r_raw", cache_dir=cache, pages_root=root)["no_gold"] == [RAW]
+    assert summarize(br, env, "r_raw", cache_dir=cache)["excluded"] == [RAW]
+    assert summarize(br, env, "r_raw", cache_dir=cache, pages_root=root)["no_gold"] == [RAW]
+
+
+def test_load_all_passes_pages_root(br, env):
+    root = outside_pages(env, RAW)
+    make_run(env / "runs", "r_raw", {RAW: make_doc(RAW)}, info={"pages_dir": "data/pages"})
+    res = br.load_all(env / "runs", env / "gold", cache_dir=None, pages_root=root)
+    assert res["runs"][0]["run_kind"] == "outside"
+    assert br.load_all(env / "runs", env / "gold", cache_dir=None)["runs"][0]["excluded"] == [RAW]
+
+
+def test_version_1_cache_is_recomputed(br, env):
+    assert br.VERSION == 2
+    make_run(env / "runs", "r1", {X01: make_doc(X01)})
+    cache = env / "cache"
+    fresh = summarize(br, env, "r1", cache_dir=cache)
+    path = cache / "r1.json"
+    key = json.loads(path.read_text(encoding="utf-8"))["key"]
+    old_key = [key[0], key[1], 1, str(env / "gold")]                   # 버전 1의 키 모양
+    path.write_text(json.dumps({"key": old_key, "result": {"name": "r1", "kind": "run", "weighted": -1}}),
+                    encoding="utf-8")
+    again = summarize(br, env, "r1", cache_dir=cache)
+    assert again == fresh and again["run_kind"] == "single"

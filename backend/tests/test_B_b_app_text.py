@@ -1,6 +1,7 @@
 """표시 이름 규칙 시험. 실제 실행의 이름만 쓰며 문서 내용이나 서버는 읽지 않는다."""
 import copy
 import importlib
+from pathlib import Path
 
 import pytest
 
@@ -127,6 +128,22 @@ def test_diff_headline_no_comparable_items(text, diff_info, items):
         "headline": "비교할 항목이 없습니다.", "biggest": None, "same_conditions": True}
 
 
+FLUTTER = "조건이 모두 같아 이 차이는 실행마다 생기는 흔들림일 가능성이 큽니다."
+
+
+def test_diff_headline_adds_flutter_only_when_same_conditions(text, diff_info):
+    diff_info["same_conditions"] = True
+    result = text.diff_headline(diff_info, "A", "B")
+    assert result["headline"].endswith("조건(모델·안내문·입력 판·동시 호출·코드 커밋)은 모두 같습니다. " + FLUTTER)
+    assert set(result) == {"headline", "biggest", "same_conditions"} and result["same_conditions"] is True
+    diff_info["same_conditions"] = False                                  # 조건은 같아도 채점 문서가 다르다
+    assert FLUTTER not in text.diff_headline(diff_info, "A", "B")["headline"]
+    diff_info["same_conditions"] = True
+    diff_info["conditions"][0]["changed"] = True
+    result = text.diff_headline(diff_info, "A", "B")
+    assert FLUTTER not in result["headline"] and result["headline"].endswith("조건이 다릅니다: 모델.")
+
+
 def test_diff_headline_unscored_total_does_not_claim_equal(text, diff_info):
     diff_info["weighted"]["delta"] = None
     headline = text.diff_headline(diff_info, "A", "B")["headline"]
@@ -230,7 +247,7 @@ def test_status_ranks_weighted_gaps_and_cause_ties_without_mutation(text, score_
     before = copy.deepcopy(score_info)
     result = text.score_status(score_info, {"pass_score": 90})
     assert result["verdict"] == "fail"
-    for phrase in ("72.7점", "90점", "17/17", "17.3점", "필수 12개"):
+    for phrase in ("72.7점", "90점", "17.3점", "필수 17개 중 목표 달성 5개"):
         assert phrase in result["headline"]
     drops = result["top_drops"]
     assert [d["name"] for d in drops] == ["8항 노출기준", "11항 기타 독성", "9항 기타 물성"]
@@ -267,16 +284,16 @@ def test_status_pass_none_and_weighted_pass_with_required_failure(text):
     c = {"pass_score": 90, "items": [{"level": "필수"}, {"level": "필수"}]}
     good = text.score_status({"weighted": 90, "must_passed": 2, "items": []}, c)
     assert good["verdict"] == "pass"
-    assert "2/2" in good["headline"]
+    assert "필수 2개 모두 목표를 넘었습니다" in good["headline"]
     assert good["top_drops"] == []
-    assert good["next_action"] == "합격 기준을 넘었습니다. ② 두 실행 비교로 흔들림을 확인하세요."
+    assert good["next_action"] == "두 목표를 모두 넘었습니다. ② 두 실행 비교로 흔들림을 확인하세요."
     missing = text.score_status({"weighted": None}, c)
     assert missing["verdict"] == "none"
     assert missing["headline"] == "점수가 없는 실행입니다."
     assert missing["top_drops"] == [] and "합격" not in missing["next_action"]
     failed = text.score_status({"weighted": 93, "must_passed": 1}, c)
-    assert failed["verdict"] == "fail" and "필수 1개" in failed["headline"]
-    assert "-3" not in failed["headline"] and "합격 기준을 넘었습니다" not in failed["next_action"]
+    assert failed["verdict"] == "fail" and "필수 2개 중 목표 달성 1개" in failed["headline"]
+    assert "-3" not in failed["headline"] and "두 목표를 모두 넘었습니다" not in failed["next_action"]
 
 
 def test_status_limits_three_ignores_unscored_and_preserves_zero(text, score_info):
@@ -299,6 +316,63 @@ def test_summary_history_uses_scored_main_runs_and_label(text):
             {"kind": "manual", "name": "manual/c", "weighted": 100}]
     assert text.card_summary("history", {"runs": runs}) == "실행 2개, 최고 81.2점(가짜 실행)"
     assert text.card_summary("history", {"runs": runs[:1]}) == "실행 1개, 최고 0.0점(a)"
+
+
+def test_summary_history_skips_silver_runs_and_prefers_comparable(text):
+    runs = [{"kind": "run", "name": "silver", "weighted": 93.4, "run_kind": "silver", "comparable": False},
+            {"kind": "run", "name": "probe", "weighted": 80.0, "run_kind": "probe", "comparable": False},
+            {"kind": "run", "name": "dev", "weighted": 72.7, "run_kind": "dev10", "comparable": True,
+             "label": {"title": "가짜 본 실행"}}]
+    assert text.card_summary("history", {"runs": runs}) == "실행 2개, 최고 72.7점(가짜 본 실행)"
+    assert text.card_summary("history", {"runs": runs[:2]}) == "실행 1개, 최고 80.0점(probe)"
+    assert text.card_summary("history", {"runs": runs[:1]}) == "자료 없음"
+
+
+def test_run_kind_labels(text):
+    assert text.RUN_KIND_LABELS == {
+        "dev10": "개발 10건 본 실행", "single": "한 문서 시험", "probe": "일부 문서 탐색", "silver": "실버 만들기",
+        "eval": "평가 실행(점수 없음)", "outside": "신규 문서 실행(점수 없음)", "models": "비교표"}
+    for kind, label in text.RUN_KIND_LABELS.items():
+        assert text.run_kind_label(kind) == label
+    assert text.run_kind_label(None) == ""
+
+
+TWO_MUST = {"pass_score": 90, "items": [{"level": "필수"}, {"level": "필수"}]}
+
+
+def test_status_shows_two_targets(text):
+    result = text.score_status({"weighted": 72.66, "must_passed": 1, "items": []}, TWO_MUST)
+    assert result["headline"] == ("72.7점입니다. 가중 종합 목표선 90점까지 17.3점 남았습니다. "
+                                  "필수 2개 중 목표 달성 1개입니다.")
+    assert result["targets"] == {"weighted": {"line": 90, "value": 72.66, "met": False},
+                                 "must": {"total": 2, "met_count": 1, "met": False}}
+    assert result["verdict"] == "fail"
+    mixed = text.score_status({"weighted": 93, "must_passed": 1, "items": []}, TWO_MUST)
+    assert mixed["headline"] == "93.0점입니다. 가중 종합이 목표선 90점을 넘었습니다. 필수 2개 중 목표 달성 1개입니다."
+    assert mixed["targets"]["weighted"]["met"] is True and mixed["targets"]["must"]["met"] is False
+
+
+def test_status_both_targets_met(text):
+    result = text.score_status({"weighted": 90, "must_passed": 2, "items": []}, TWO_MUST)
+    assert result["headline"] == "90.0점입니다. 가중 종합이 목표선 90점을 넘었습니다. 필수 2개 모두 목표를 넘었습니다."
+    assert result["targets"] == {"weighted": {"line": 90, "value": 90, "met": True},
+                                 "must": {"total": 2, "met_count": 2, "met": True}}
+    assert result["next_action"] == "두 목표를 모두 넘었습니다. ② 두 실행 비교로 흔들림을 확인하세요."
+    assert result["verdict"] == "pass"
+
+
+def test_score_targets(text):
+    assert text.score_targets({"weighted": None}, TWO_MUST) is None
+    assert text.score_targets({}, TWO_MUST) is None
+    info = {"weighted": 50.0, "must_passed": 3, "must_total": 17}         # 실행의 must_total이 먼저다
+    assert text.score_targets(info, TWO_MUST)["must"] == {"total": 17, "met_count": 3, "met": False}
+    assert text.score_status(info, TWO_MUST)["targets"] == text.score_targets(info, TWO_MUST)
+    assert text.score_status({"weighted": None}, TWO_MUST)["targets"] is None
+
+
+def test_text_module_has_no_pass_word(text):
+    assert "합격" not in Path(text.__file__).read_text(encoding="utf-8")
+    assert "합격" not in text.START_TEXT["no_drops"] + text.GLOSSARY["필수"]["short"]
 
 
 def test_summary_docs_handles_zero_and_missing_time_independently(text):

@@ -55,7 +55,7 @@ START_TEXT: dict = {
          "button": "고급 켜고 서버 보기", "tab": "servers"},
     ],
     "empty_runs": "runs/에 실행이 없습니다. 터미널에서 run_sections.py를 돌리거나 ④ 작업 탭을 보세요.",
-    "no_drops": "합격 기준을 넘었습니다. ② 두 실행 비교에서 이전 실행과 비교해 보세요.",
+    "no_drops": "두 목표를 모두 넘었습니다. ② 두 실행 비교에서 이전 실행과 비교해 보세요.",
     "no_line": "이 값은 원문 줄을 못 찾았습니다. 다른 값을 눌러 보세요.",
     "heading": "지금 할 일",
     "later_title": "다음에 할 수 있는 것",
@@ -146,7 +146,7 @@ GLOSSARY: dict[str, dict] = {
         "also": ["must_passed"],
     },
     "필수": {
-        "short": "합격하려면 빠짐없이 목표를 충족해야 하는 등급입니다.",
+        "short": "가중 종합과 별개로 빠짐없이 목표를 넘어야 하는 등급입니다.",
         "example": "신호어는 필수 등급이며 점수 무게는 3입니다.",
         "also": ["필수 등급"],
     },
@@ -369,6 +369,8 @@ def diff_headline(diff: dict, label_a: str, label_b: str) -> dict:
         headline += f" 가장 큰 변화 항목은 {item['name']}({sign}{abs(item['delta']):.1f}점)입니다."
     headline += (" 조건(모델·안내문·입력 판·동시 호출·코드 커밋)은 모두 같습니다." if same
                  else f" 조건이 다릅니다: {', '.join(changed)}.")
+    if same and diff.get("same_conditions", True):     # b_app_diff는 채점 문서까지 같을 때만 참으로 준다
+        headline += " 조건이 모두 같아 이 차이는 실행마다 생기는 흔들림일 가능성이 큽니다."
     return {"headline": headline, "biggest": biggest, "same_conditions": same}
 
 
@@ -489,26 +491,35 @@ def _item_section(item: dict, criteria: dict) -> int | None:
     return int(match[1]) if match else None
 
 
-def score_status(info: dict, criteria: dict, *, connected: bool | None = None) -> dict:
-    """채점 값은 그대로 두고 100점 단위의 요약과 확인 순서를 만든다."""
+def score_targets(info: dict, criteria: dict) -> dict | None:
+    """두 목표: 가중 종합 목표선(criteria의 pass_score)과 필수 항목 중 목표 달성 수. 점수 없는 실행은 None.
+    필수 수는 실행의 must_total, 없으면 criteria의 필수 항목 수다. 채점 값은 바꾸지 않는다."""
     weighted = info.get("weighted")
     if not _number(weighted):
+        return None
+    line = criteria["pass_score"]
+    total = info.get("must_total")
+    if total is None:
+        total = sum(i.get("level") == "필수" for i in criteria.get("items", []))
+    met_count = info.get("must_passed") or 0
+    return {"weighted": {"line": line, "value": weighted, "met": weighted >= line},
+            "must": {"total": total, "met_count": met_count, "met": met_count >= total}}
+
+
+def score_status(info: dict, criteria: dict, *, connected: bool | None = None) -> dict:
+    """채점 값은 그대로 두고 100점 단위의 요약과 확인 순서를 만든다. 목표는 두 개(score_targets)로 보인다."""
+    targets = score_targets(info, criteria)
+    if targets is None:
         return {"headline": "점수가 없는 실행입니다.", "verdict": "none", "top_drops": [],
-                "next_action": "실행에 채점할 결과와 정답 초안(실버)이 있는지 확인하세요."}
-    target = criteria["pass_score"]
-    must_total = info.get("must_total")
-    if must_total is None:
-        must_total = sum(i.get("level") == "필수" for i in criteria.get("items", []))
-    must_passed = info.get("must_passed") or 0
-    missing = max(0, must_total - must_passed)
-    passed = weighted >= target and missing == 0
-    headline = f"{weighted:.1f}점입니다. 합격 기준은 가중 종합 {target:g}점과 필수 {must_total}/{must_total}입니다."
-    if passed:
-        headline += " 합격 기준을 넘었습니다."
-    else:
-        if weighted < target:
-            headline += f" 점수는 {target - weighted:.1f}점 부족합니다."
-        headline += f" 필수 {missing}개가 목표 아래입니다."
+                "next_action": "실행에 채점할 결과와 정답 초안(실버)이 있는지 확인하세요.", "targets": None}
+    weighted, line = targets["weighted"]["value"], targets["weighted"]["line"]
+    must = targets["must"]
+    passed = targets["weighted"]["met"] and must["met"]
+    headline = f"{weighted:.1f}점입니다."
+    headline += (f" 가중 종합이 목표선 {line:g}점을 넘었습니다." if targets["weighted"]["met"]
+                 else f" 가중 종합 목표선 {line:g}점까지 {line - weighted:.1f}점 남았습니다.")
+    headline += (f" 필수 {must['total']}개 모두 목표를 넘었습니다." if must["met"]
+                 else f" 필수 {must['total']}개 중 목표 달성 {must['met_count']}개입니다.")
 
     drops = []
     for item in info.get("items", []):
@@ -529,20 +540,22 @@ def score_status(info: dict, criteria: dict, *, connected: bool | None = None) -
                        if connected is True and top["section"] is not None else
                        f"③ 원문 대조에서 {top['name']}의 틀린 값이 원문 어디서 왔는지 확인하세요.")
     elif passed:
-        next_action = "합격 기준을 넘었습니다. ② 두 실행 비교로 흔들림을 확인하세요."
+        next_action = "두 목표를 모두 넘었습니다. ② 두 실행 비교로 흔들림을 확인하세요."
     else:
         next_action = "항목 신호등에서 모두 보기를 눌러 점수와 목표를 확인하세요."
     return {"headline": headline, "verdict": "pass" if passed else "fail", "top_drops": drops,
-            "next_action": next_action}
+            "next_action": next_action, "targets": targets}
 
 
 def card_summary(kind: str, info: dict) -> str:
     """접힌 카드의 요약. 격자는 화면과 같이 실패 > 한도 > 재추출 > 성공으로 한 번씩 센다."""
     if kind == "history":
+        # 실버를 만든 실행은 그 실버로 채점하면 점수가 부풀므로 뺀다. 최고 점수는 비교 가능한 실행이 있으면 그중에서 고른다
         runs = [r for r in info.get("runs", [])
-                if r.get("kind", "run") == "run" and not r.get("error") and _number(r.get("weighted"))]
+                if r.get("kind", "run") == "run" and r.get("run_kind") != "silver" and not r.get("error")
+                and _number(r.get("weighted"))]
         if runs:
-            best = max(runs, key=lambda r: r["weighted"])
+            best = max([r for r in runs if r.get("comparable")] or runs, key=lambda r: r["weighted"])
             title = (best.get("label") or {}).get("title") or best.get("name", "")
             return f"실행 {len(runs)}개, 최고 {best['weighted']:.1f}점({title})"
     elif kind == "docs":
@@ -592,6 +605,17 @@ _CONDITIONS = {
     "wsonly": "공백 줄임만", "diag": "진단", "none": "안내문 없음",
     "ex": "예시 포함", "w1": "동시 1개", "p3": "안내문 p3",
 }
+
+
+RUN_KIND_LABELS: dict[str, str] = {
+    "dev10": "개발 10건 본 실행", "single": "한 문서 시험", "probe": "일부 문서 탐색", "silver": "실버 만들기",
+    "eval": "평가 실행(점수 없음)", "outside": "신규 문서 실행(점수 없음)", "models": "비교표",
+}
+
+
+def run_kind_label(kind: str | None) -> str:
+    """b_app_runs.run_kind 값의 사람 말. 모르는 값은 그대로, 없으면 빈 글."""
+    return RUN_KIND_LABELS.get(kind, kind or "")
 
 
 def model_label(tag: str | None) -> str:

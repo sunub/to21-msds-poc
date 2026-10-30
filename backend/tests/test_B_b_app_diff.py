@@ -104,6 +104,20 @@ def test_same_conditions_end_with_flutter(bd, br, env):
     assert not any("안내문" in r for r in reasons)
 
 
+@pytest.mark.parametrize("change, same", [
+    (None, True),
+    ("prompt_hash", False),                                         # 안내문 해시 하나가 다르다
+    ("docs", False),                                                # 조건은 같고 채점 문서가 다르다
+])
+def test_same_conditions_flag(bd, br, env, change, same):
+    info_b = {"prompt_hashes": {**HASHES, 3: "다른해시"}} if change == "prompt_hash" else None
+    b_docs = {X01: make_doc(X01)} if change == "docs" else None
+    a, b = two(br, env, info_b=info_b, b_docs=b_docs)
+    d = bd.diff_runs(a, b)
+    assert d["same_conditions"] is same
+    assert all(not c["changed"] for c in d["conditions"])
+
+
 def test_other_condition_changes(bd, br, env):
     a, b = two(br, env, info_b={"model_tag": "m2", "pages_dir": "data/pages/version13", "concurrency": 1})
     d = bd.diff_runs(a, b)
@@ -277,7 +291,10 @@ def test_route_diff_adds_headline_with_run_titles_without_changing_diff(app, ctx
     assert data["headline"] == app.bt.diff_headline(
         expected, app.bt.run_label(a)["title"], app.bt.run_label(b)["title"])
     assert data["ui_text"] == app.bt.diff_ui_text(expected)
-    assert {k: v for k, v in data.items() if k not in {"headline", "ui_text", "key"}} == expected
+    assert {k: v for k, v in data.items() if k not in {"headline", "ui_text", "key", "targets"}} == expected
+    criteria = app.br.criteria()
+    assert data["targets"] == {"a": app.bt.score_targets(a, criteria), "b": app.bt.score_targets(b, criteria)}
+    assert data["targets"]["b"]["weighted"]["value"] == pytest.approx(b["weighted"])
 
 
 def test_route_prompt_diff(app, ctx, br, env, bd, monkeypatch):
