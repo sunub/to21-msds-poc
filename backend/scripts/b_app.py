@@ -5,7 +5,9 @@
 탭 ① 점수판은 b_app_runs의 요약을, 탭 ② 두 실행 비교는 b_app_diff의 결과를, 탭 ③ 원문 대조는 b_app_doc의 결과를 보여 준다.
 쪽 그림(/pages/<문서>/pNNN.png)은 요청 때 pages_dir에서 읽어 보낸다. 평가용 문서는 보내지 않는다 (D-43).
 탭 ④ 작업은 b_app_jobs의 JobManager로 시험·본 실행·비교표를 띄운다. POST는 같은 화면에서 보낸 JSON만 받는다(다른 웹페이지의
-폼 보내기 막기). 안내문 글(/api/prompt)은 요청 때 만들어 보여 주기만 한다 (D-47). 탭 ⑤와 도움말은 다음 step에서 채운다.
+폼 보내기 막기). 안내문 글(/api/prompt)은 요청 때 만들어 보여 주기만 한다 (D-47).
+탭 ⑤ 서버는 b_app_servers.ServerActions를 부른다. 바꾸는 동작은 propose(요약·확인 토큰) → execute(토큰) 두 단계이고,
+이 앱이 만든 Pod의 주소·키는 작업을 띄울 때 그 작업의 환경에만 넣는다(파일에 쓰지 않는다). 도움말은 다음 step에서 채운다.
 """
 import argparse
 import json
@@ -27,6 +29,7 @@ import b_app_diff as bd
 import b_app_doc as bdoc
 import b_app_jobs as bj
 import b_app_runs as br
+import b_app_servers as bs
 from msds.common import manifest
 from msds.common.paths import BACKEND, CONFIGS, PAGES, ROOT, RUNS, SILVER
 from msds.extract.client import load_model_config
@@ -57,7 +60,8 @@ class AppContext:
     repo_root: Path = ROOT                           # 안내문 차이에서 커밋을 꺼낼 저장소
     jobs: bj.JobManager | None = None                # 탭 ④ 작업. 없으면 작업 주소는 503
     pages_root: Path = PAGES                         # 쪽 폴더 후보(version*)를 찾는 곳
-    model_status: Callable[[], list[dict]] | None = None   # 모델 서버 연결 상태 (b_app_servers.all_model_status). 없으면 확인하지 않는다
+    model_status: Callable[[], list[dict]] | None = None   # 모델 서버 연결 상태 (ServerActions.model_status). 없으면 확인하지 않는다
+    servers: bs.ServerActions | None = None          # 탭 ⑤ 서버. 없으면 서버 주소는 503
 
 
 def _json(code: int, obj) -> tuple[int, str, bytes]:
@@ -221,29 +225,54 @@ def _job_get(path: str, query: dict[str, list[str]], ctx: AppContext) -> tuple[i
     return _json(200, res) if res is not None else (204, "application/json; charset=utf-8", b"")
 
 
-def _post(path: str, body: bytes | None, ctx: AppContext) -> tuple[int, str, bytes]:
-    if ctx.jobs is None:
-        return _json(503, {"error": "작업 탭이 꺼져 있습니다(--runs-dir를 기본 runs/가 아닌 곳으로 주면 꺼집니다)"})
+def _body(body: bytes | None) -> dict | None:
     try:
         data = json.loads(body or b"{}")
     except ValueError:
-        data = None
-    if not isinstance(data, dict):
+        return None
+    return data if isinstance(data, dict) else None
+
+
+def _server_post(path: str, body: bytes | None, ctx: AppContext) -> tuple[int, str, bytes]:
+    """탭 ⑤의 두 단계. 결과 dict의 code(없으면 200)를 상태 코드로 쓴다. 토큰이 틀리면 400, 지났으면 410, 실행 중이면 409."""
+    if ctx.servers is None:
+        return _json(503, {"error": "서버 탭이 꺼져 있습니다"})
+    data = _body(body)
+    if data is None:
+        return _json(400, {"error": "본문은 JSON 객체여야 합니다"})
+    if path == "/api/servers/propose":
+        res = ctx.servers.propose(data.get("action"), data.get("params"))
+    elif path == "/api/servers/execute":
+        res = ctx.servers.execute(data.get("token"))
+    else:
+        return _json(404, {"error": f"없는 주소: POST {path}"})
+    res = dict(res)
+    return _json(res.pop("code", 200), res)
+
+
+def _post(path: str, body: bytes | None, ctx: AppContext) -> tuple[int, str, bytes]:
+    if path.startswith("/api/servers/"):
+        return _server_post(path, body, ctx)
+    if ctx.jobs is None:
+        return _json(503, {"error": "작업 탭이 꺼져 있습니다(--runs-dir를 기본 runs/가 아닌 곳으로 주면 꺼집니다)"})
+    data = _body(body)
+    if data is None:
         return _json(400, {"error": "본문은 JSON 객체여야 합니다"})
     jobs = ctx.jobs
+    extra_env = ctx.servers.job_env() if ctx.servers else None   # 이 앱이 만든 Pod의 주소·키. 작업 환경에만 넣는다
     try:
         if path == "/api/jobs/try":
             job = jobs.start_try(model=data.get("model"), doc=data.get("doc"), sections=data.get("sections"),
                                  all_=bool(data.get("all")), pages_dir=data.get("pages_dir"),
                                  system_text=data.get("system_text"), base_run=data.get("base_run") or None,
-                                 dry_run=bool(data.get("dry_run")))
+                                 dry_run=bool(data.get("dry_run")), extra_env=extra_env)
             return _json(200, {"id": job.id})
         if path == "/api/jobs/run":
             args = {k: data.get(k) for k in ("model", "docs", "pages_dir", "run_name", "repeat")}
             summary = jobs.run_summary(**args)
             if data.get("confirm") is not True:         # 오래 돌고 서버 비용이 드는 작업이라 요약을 보고 한 번 더 누른다
                 return _json(409, {"summary": summary, "needs_confirm": True})
-            return _json(200, {"id": jobs.start_run(**args)[0].id, "summary": summary})
+            return _json(200, {"id": jobs.start_run(**args, extra_env=extra_env)[0].id, "summary": summary})
         if path == "/api/jobs/compare":
             job = jobs.start_compare(title=data.get("title"), runs=data.get("runs"), labels=data.get("labels"))
             return _json(200, {"id": job.id})
@@ -297,6 +326,10 @@ def route(method: str, path: str, query: dict[str, list[str]], body: bytes | Non
         return _job_get(path, query, ctx)
     if path == "/api/options":
         return _options(ctx)
+    if path == "/api/servers":
+        if ctx.servers is None:
+            return _json(503, {"error": "서버 탭이 꺼져 있습니다"})
+        return _json(200, ctx.servers.status())
     if path == "/api/prompt":
         return _prompt(query)
     if path == "/api/criteria":
@@ -370,13 +403,13 @@ def main(argv: list[str] | None = None) -> int:
     a = ap.parse_args(argv)
     if a.host != HOST:
         raise SystemExit(f"--host는 {HOST}만 받습니다 (받은 값: {a.host}). 쪽 글자·안내문이 화면에 보입니다 (D-47).")
-    import b_app_servers as bs                    # 모델 서버 상태(/v1/models). 키는 .env(load_dotenv로 읽힘)에서만
-    models_cfg = yaml.safe_load((CONFIGS / "models.yaml").read_text(encoding="utf-8"))
-    # 명령줄 도구는 늘 runs/에 쓴다. 다른 폴더를 보는 동안에는 진행·이름 검사가 어긋나므로 작업 탭을 끈다
-    jobs = bj.JobManager(RUNS / "manual" / "jobs", Path(sys.executable), BACKEND) \
-        if a.runs_dir.resolve() == RUNS.resolve() else None
+    # 명령줄 도구는 늘 runs/에 쓴다. 다른 폴더를 보는 동안에는 진행·이름 검사가 어긋나므로 작업 탭을 끈다.
+    # 서버 탭은 어느 폴더를 보든 켠다. 실행 중 잠금은 같은 JobManager의 running()으로 본다(ps로 다른 터미널의 실행도 본다)
+    manager = bj.JobManager(RUNS / "manual" / "jobs", Path(sys.executable), BACKEND)
+    jobs = manager if a.runs_dir.resolve() == RUNS.resolve() else None
+    servers = bs.ServerActions(os.environ, manager, RUNS / "manual" / "server_log.md")   # 키는 .env(load_dotenv로 읽힘)에서만
     ctx = AppContext(runs_dir=a.runs_dir, gold_dir=a.gold_dir, pages_dir=a.pages_dir, jobs=jobs,
-                     model_status=lambda: bs.all_model_status(models_cfg, os.environ))
+                     model_status=servers.model_status, servers=servers)
     server = ThreadingHTTPServer((HOST, a.port), make_handler(ctx))
     url = f"http://{HOST}:{server.server_port}/"
     print(f"작업 화면: {url}  (실행 폴더 {a.runs_dir}, 정답 {a.gold_dir})")

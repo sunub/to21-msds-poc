@@ -218,3 +218,19 @@ tr.outside td { background: var(--soft); color: var(--muted); }
 .st-done { color: var(--ok); }
 .st-failed { color: var(--no); font-weight: 600; }
 .st-stopped, .st-unknown { color: var(--muted); }
+
+/* 서버 */
+.connline { margin: 2px 0 8px; font-size: 13px; color: var(--muted); }
+.connline.connwarn { color: var(--no); font-weight: 600; background: #ffebe9; border-radius: 6px; padding: 2px 8px; }
+.connbig { font-size: 16px; font-weight: 600; margin: 4px 0 8px; }
+#tab-servers button:disabled { opacity: .45; cursor: not-allowed; }
+.srvbtns { display: flex; gap: 8px; flex-wrap: wrap; margin: 8px 0; }
+.srvres { margin: 6px 0; padding: 6px 10px; border-radius: 6px; border: 1px solid var(--line); }
+.srvres.ok { background: #dafbe1; border-color: #aceebb; }
+.srvres.bad { background: #ffebe9; border-color: #ffcecb; }
+tr.notours td { color: var(--muted); background: var(--soft); }
+dialog.srvdlg { max-width: 560px; border: 1px solid var(--line); border-radius: 8px; padding: 16px 20px; }
+dialog.srvdlg::backdrop { background: rgba(31, 35, 40, .35); }
+dialog.srvdlg h2 { font-size: 16px; margin: 0 0 8px; }
+button.confirm { background: var(--no); border-color: var(--no); color: #fff; }
+button.confirm:hover { background: #a40e26; }
