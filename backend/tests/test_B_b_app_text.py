@@ -95,3 +95,64 @@ def test_partial_metadata_and_unknown_tokens(text, info, title):
 ])
 def test_condition_tokens(text, token, expected):
     assert text.run_label({"name": f"20261030_sections_gpt_{token}"})["title"] == f"10/30 GPT · {expected}"
+
+
+@pytest.mark.parametrize("where, raw, message, fix", [
+    ("rngd", "Could not resolve hostname ssh: failure",
+     "`.env`의 RNGD_SSH 값이 `ssh`로 시작합니다.",
+     "`ssh`를 빼고 `-i <키> -p <포트> <사용자>@<호스트>`처럼 인자만 적으세요. 앱은 이제 `ssh`를 빼고 읽습니다."),
+    ("rngd", "RNGD_SSH starts with ssh",
+     "`.env`의 RNGD_SSH 값이 `ssh`로 시작합니다.",
+     "`ssh`를 빼고 `-i <키> -p <포트> <사용자>@<호스트>`처럼 인자만 적으세요. 앱은 이제 `ssh`를 빼고 읽습니다."),
+    ("rngd", "RNGD_SSH 없음", "RNGD 접속 정보(RNGD_SSH)가 `.env`에 없습니다.",
+     "`.env.example`의 RNGD_SSH 줄을 복사해 값을 채우세요."),
+    ("runpod", "RunPod 연결 오류: SSLCertVerificationError",
+     "RunPod 주소의 인증서를 확인하지 못했습니다. 파이썬 3.11에 인증서 묶음이 없을 때 생깁니다.",
+     "터미널에서 `/Applications/Python 3.11/Install Certificates.command`를 한 번 실행한 뒤 앱을 다시 켜세요."),
+    ("runpod", "CERTIFICATE_VERIFY_FAILED",
+     "RunPod 주소의 인증서를 확인하지 못했습니다. 파이썬 3.11에 인증서 묶음이 없을 때 생깁니다.",
+     "터미널에서 `/Applications/Python 3.11/Install Certificates.command`를 한 번 실행한 뒤 앱을 다시 켜세요."),
+    ("runpod", "HTTP 401", "RunPod 관리 키(RUNPOD_API_KEY)가 거절됐습니다.",
+     "RunPod 설정 화면에서 키를 다시 만들어 `.env`에 넣으세요."),
+    ("runpod", "Unauthorized", "RunPod 관리 키(RUNPOD_API_KEY)가 거절됐습니다.",
+     "RunPod 설정 화면에서 키를 다시 만들어 `.env`에 넣으세요."),
+    ("model", "request timed out", "서버가 응답하지 않습니다.",
+     "SSH 터널이 열려 있는지, 서버가 켜져 있는지 확인하세요."),
+    ("rngd", "Connection refused", "서버가 응답하지 않습니다.",
+     "SSH 터널이 열려 있는지, 서버가 켜져 있는지 확인하세요."),
+    ("model", "새 오류 <unknown>", "서버를 보지 못했습니다.",
+     "아래 원문을 보고 .env와 터널을 확인하세요."),
+    ("env", "", "서버를 보지 못했습니다.", "아래 원문을 보고 .env와 터널을 확인하세요."),
+])
+def test_friendly_error_rules(text, where, raw, message, fix):
+    assert text.friendly_error(where, raw) == {"message": message, "fix": fix, "raw": raw}
+
+
+@pytest.mark.parametrize("variable", ["VLLM_BASE_URL", "RNGD_BASE_URL", "RUNPOD_VLLM_BASE_URL"])
+def test_friendly_env_uses_config_variable_name(text, variable):
+    names = {"api_key": "VLLM_API_KEY", "base_url": variable}
+    before = dict(names)
+    result = text.friendly_error("env", "주소 설정 없음", names)
+    assert result["message"] == f"`.env`에 {variable}가 없습니다."
+    assert f"서버 주소를 `.env`의 {variable}에 적으세요." in result["fix"]
+    assert "SSH 터널을 거친 내 컴퓨터 쪽 주소" in result["fix"]
+    assert result["raw"] == "주소 설정 없음" and names == before
+
+
+@pytest.mark.parametrize("raw, expected", [
+    ("Could not resolve hostname ssh CERTIFICATE_VERIFY_FAILED 401", "RNGD_SSH 값"),
+    ("CERTIFICATE_VERIFY_FAILED 401", "인증서를 확인하지 못했습니다"),
+    ("Unauthorized timed out", "관리 키"),
+    ("timed out", "VLLM_BASE_URL"),
+])
+def test_friendly_error_first_matching_rule_wins(text, raw, expected):
+    assert expected in text.friendly_error("env", raw, {"base_url": "VLLM_BASE_URL"})["message"]
+
+
+def test_friendly_server_ui_copy(text):
+    copy = text.server_ui_text()
+    assert copy["guide"]["advanced_off"] == "고급을 켜고 서버 탭에서 모델을 올리세요"
+    assert copy["guide"]["advanced_on"] == "서버 탭에서 모델을 올리세요"
+    assert copy["action_failure"]["message"] == "서버 변경을 끝내지 못했습니다."
+    assert copy["action_failure"]["fix"]
+    assert copy["busy"] and copy["unavailable"]

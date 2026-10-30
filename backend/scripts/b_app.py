@@ -193,7 +193,7 @@ def _options(ctx: AppContext) -> tuple[int, str, bytes]:
     names = {tag: {v["value"]: {purpose: bj.free_run_name(runs_dir, bj.suggest_run_name(
         tag, SECTION_PROMPT_VERSION, v["value"], purpose)) for purpose in ("dev10", "probe")} for v in pages}
         for tag in cfg}
-    return _json(200, {"models": models, "status_checked": status is not None,
+    return _json(200, {"models": models, "status_checked": status is not None, "ui_text": bt.server_ui_text(),
                        "docs": [{"doc_id": r["doc_id"], "pages": r.get("pages")} for r in manifest.select("개발")],
                        "pages_dirs": pages, "default_pages_dir": default, "prompt_version": SECTION_PROMPT_VERSION,
                        "run_names": names})

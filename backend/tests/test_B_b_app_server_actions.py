@@ -233,6 +233,48 @@ def test_status_without_keys(srv, tmp_path):
     assert not [r for r in cloud.requests if "runpod.io" in r["url"]]
 
 
+@pytest.mark.parametrize("runpod_ok,rngd_ok", [(True, True), (True, False), (False, True), (False, False)])
+@pytest.mark.parametrize("kind", [None, "run", "try", "compare"])
+def test_status_can_by_management_connection_and_job(srv, tmp_path, runpod_ok, rngd_ok, kind):
+    cloud = FakeCloud()  # 모델이 아직 없어도 관리 서버가 보이면 만들기·올리기는 가능하다.
+    def opener(req, timeout=None):
+        if not runpod_ok:
+            raise urllib.error.URLError(ConnectionRefusedError())
+        return cloud(req, timeout)
+    runner = FakeRngd() if rngd_ok else lambda *a: (255, "", "Connection refused")
+    jobs = FakeJobs([{**LOCK_RUN, "kind": kind}] if kind else [])
+    result = make(srv, tmp_path, cloud=opener, rngd=runner, jobs=jobs).status()
+    locked = kind in ("run", "try")
+    assert result["can"] == {"pod_create": runpod_ok and not locked, "pod_delete": runpod_ok and not locked,
+                             "rngd_up": rngd_ok and not locked, "rngd_down": rngd_ok and not locked}
+    assert set(result["why"]) == set(result["can"])
+    for action, allowed in result["can"].items():
+        assert bool(result["why"][action]) is not allowed
+    no_secret(result)
+
+
+def test_status_can_without_credentials(srv, tmp_path):
+    result = make(srv, tmp_path, env={}).status()
+    assert not any(result["can"].values())
+    assert all(result["why"].values())
+    assert result["friendly"]["raw"] == result["runpod_error"]
+    assert "RNGD_SSH" in result["rngd"]["friendly"]["message"]
+    assert result["ui_text"]["guide"]["advanced_off"].startswith("고급을 켜고")
+
+
+def test_status_friendly_runpod_certificate_and_rngd_masking(srv, tmp_path):
+    import ssl
+    def opener(*args, **kwargs):
+        raise urllib.error.URLError(ssl.SSLCertVerificationError(FAKE_KEY))
+    result = make(srv, tmp_path, cloud=opener,
+                  rngd=lambda *a: (255, "", f"Connection refused {RNGD_KEY}")).status()
+    assert "인증서를 확인하지 못했습니다" in result["friendly"]["message"]
+    assert result["friendly"]["raw"] == result["runpod_error"]
+    assert result["rngd"]["friendly"]["message"] == "서버가 응답하지 않습니다."
+    assert result["rngd"]["friendly"]["raw"] == result["rngd"]["error"]
+    no_secret(result)
+
+
 def test_status_shows_log_tail(srv, tmp_path):
     sa = make(srv, tmp_path)
     for i in range(12):
