@@ -3,7 +3,8 @@
 // 글은 모두 글자 노드로 넣는다(결과 값에 어떤 글자가 들어 있어도 화면 코드가 되지 않게).
 
 const S = {list: [], criteria: null, glossary: [], gaps: [], limit: 300, name: null, run: null, open: null, pick: loadPick(),
-  cards: loadCards(), itemsAll: false,
+  cards: loadCards(), itemsAll: false, journey: loadJourney(), journeyTarget: null,
+  startText: null, startError: null, runsLoaded: false, scoreReady: false,
   diff: {a: null, b: null, key: null, data: null, error: null, itemsAll: false,
     why: new Set(), vals: new Set(), open: new Set(), prompts: {}},
   doc: {run: null, doc: null, key: null, data: null, error: null, page: null, pick: null,
@@ -186,6 +187,142 @@ function setupTip() {
   document.addEventListener("scroll", () => show(focused || hovered), true);
 }
 
+// 안내 저장에는 값·문서·실행 이름을 넣지 않는다. 현재 선택은 메모리에서만 연결한다.
+function newJourney() {
+  return {version: 1, last_step: 0, dismissed: false, completed: false, first_success_at: null};
+}
+
+function loadJourney() {
+  try {
+    const j = JSON.parse(localStorage.getItem("b_app.journey"));
+    if (j?.version === 1 && Number.isInteger(j.last_step) && j.last_step >= 0 && j.last_step <= 3 &&
+        typeof j.dismissed === "boolean" && typeof j.completed === "boolean" &&
+        (j.first_success_at === null || (typeof j.first_success_at === "string" && Number.isFinite(Date.parse(j.first_success_at)))) &&
+        (j.completed ? j.last_step === 3 && j.first_success_at !== null : j.last_step < 3 && j.first_success_at === null)) {
+      return {version: 1, last_step: j.last_step, dismissed: j.dismissed,
+        completed: j.completed, first_success_at: j.first_success_at};
+    }
+  } catch (e) { /* 저장이 막혀도 안내와 제품 기능은 쓸 수 있다. */ }
+  return newJourney();
+}
+
+function saveJourney() {
+  try { localStorage.setItem("b_app.journey", JSON.stringify(S.journey)); } catch (e) { /* 메모리 상태 유지 */ }
+}
+
+function advanceJourney(step) {
+  if (step > S.journey.last_step) { S.journey.last_step = step; saveJourney(); }
+  renderStart();
+}
+
+function initialTab(hash) {
+  const id = String(hash || "").replace(/^#/, "");
+  if (["start", "score", "diff", "doc", "jobs", "servers", "help"].includes(id)) return id;
+  return S.journey.dismissed || S.journey.completed ? "score" : "start";
+}
+
+function visitTab(id) {
+  const tab = document.querySelector(`.tabs button[data-tab="${id}"]`);
+  tab?.click();
+  tab?.focus();
+}
+
+function resetJourney() {
+  S.journey = newJourney();
+  S.journeyTarget = null;
+  saveJourney();
+  renderStart();
+  visitTab("start");
+}
+
+function dismissJourney() {
+  S.journey.dismissed = true;
+  saveJourney();
+  visitTab("score");
+}
+
+function recordScoreView() {
+  if (S.scoreReady && S.run?.name === S.name && S.run?.status_text &&
+      document.getElementById("tab-score").classList.contains("on")) advanceJourney(1);
+}
+
+function journeyPassed() {
+  return S.scoreReady && S.run?.name === S.name && S.run?.status_text?.verdict === "pass" &&
+    !S.run.status_text.top_drops.length;
+}
+
+function journeyTargetReady() {
+  const t = S.journeyTarget, D = S.doc;
+  return t && D.data && t.run === D.run && t.doc === D.doc;
+}
+
+async function journeyStep(no) {
+  if (no === 1) {
+    if (S.runsLoaded && !runsShown().length) { renderStart(); return; }
+    visitTab("score");
+    const latest = runsShown().slice().reverse().find(r => num(r.weighted));
+    if (latest) await loadRun(latest.name);
+    else if (!S.runsLoaded) await loadAll();
+    recordScoreView();
+  } else if (journeyPassed()) visitTab("diff");
+  else if (no === 3 && journeyTargetReady()) {
+    visitTab("doc");
+    focusJourneyValue();
+  } else {
+    visitTab("score");
+    document.getElementById("status-card").querySelector("button")?.focus();
+  }
+}
+
+function focusJourneyValue() {
+  if (!journeyTargetReady()) return;
+  const D = S.doc, v = D.data.values?.find(v => v.section === S.journeyTarget.section && !v.silver.same);
+  if (!v) return;
+  D.open.add(`s${v.section}`);
+  D.open.add(`s${v.section}|${v.table}`);
+  renderDocRight();
+  document.querySelector(`#doc-right .pv[data-path="${CSS.escape(v.path)}"] button`)?.focus();
+}
+
+async function loadStart() {
+  try { S.startText = await api("/api/start"); S.startError = null; }
+  catch (e) { S.startError = e.message; }
+  renderStart();
+}
+
+function renderStart() {
+  const el = document.getElementById("start-content"), t = S.startText;
+  if (!el) return;
+  if (!t) { if (S.startError) el.replaceChildren(loadFailure(S.startError)); return; }
+  const passed = journeyPassed(), j = S.journey;
+  // 복원한 이력과 지금 조작 가능한 선택을 구분한다. 문서 선택은 저장하지 않는다.
+  const current = j.completed ? 0 : !S.scoreReady || j.last_step === 0 ? 1 : journeyTargetReady() ? 3 : 2;
+  const note = !S.runsLoaded ? t.loading : !runsShown().length ? t.empty_runs :
+    !S.run?.status_text ? t.unscored : passed ? t.no_drops :
+      !S.run.status_text.top_drops.length ? t.no_candidates : j.last_step >= 2 && !journeyTargetReady() ? t.resume : "";
+  el.replaceChildren(h("div", {class: "journey-intro"}, t.intro.map(line => h("p", null, line))),
+    h("p", {class: "hint"}, t.offline),
+    h("h2", {class: "journey-heading"}, t.heading),
+    note ? h("p", {class: "hint", role: "status"}, note) : null,
+    j.completed ? h("p", {class: "okt", role: "status"}, t.success) : null,
+    h("ol", {class: "journey-steps"}, t.steps.map(step => {
+      const done = j.last_step >= step.no, active = current === step.no;
+      return h("li", {class: "journey-step" + (active ? " current" : ""), "aria-current": active ? "step" : null},
+        h("h3", null, `${step.no}. ${step.title}`,
+          h("span", {class: "journey-state"}, done ? t.done : passed && step.no > 1 ? t.skipped : active ? t.current : "")),
+        h("p", null, step.why), h("button", {type: "button", onclick: () => journeyStep(step.no).catch(fail)},
+          passed && step.no > 1 ? t.compare_button : step.button));
+    })),
+    h("details", {class: "journey-later"}, h("summary", null, t.later_title),
+      t.later.map(item => h("div", null, h("h3", null, item.title), h("p", null, item.line),
+        h("button", {type: "button", onclick: () => visitTab(item.tab)}, item.button)))),
+    h("div", {class: "journey-actions"},
+      h("button", {type: "button", onclick: dismissJourney}, t.dismiss),
+      h("button", {type: "button", onclick: resetJourney}, t.replay)));
+  const replay = document.getElementById("journey-replay");
+  if (replay) { replay.textContent = t.replay; replay.hidden = false; }
+}
+
 function setupTabs() {
   const buttons = document.querySelectorAll(".tabs button");
   const advanced = document.getElementById("advanced");
@@ -207,10 +344,14 @@ function setupTabs() {
     history.replaceState(null, "", "#" + id);
     // 처음 원문 탭을 열 때의 점수판 실행을 쓴다. 점수판에서 넘긴 선택은 유지한다.
     if (id === "doc" && (!S.doc.run || !S.doc.doc)) initDoc().catch(fail);
+    if (id === "score") recordScoreView();
+    if (id === "start") renderStart();
     if (id === "servers" && S.srv.started) pollServers().catch(fail);   // 서버 탭을 열면 바로 다시 본다
   };
   advanced.addEventListener("change", () => setAdvanced(advanced.checked));
   buttons.forEach(b => b.addEventListener("click", () => show(b.dataset.tab)));
+  document.getElementById("journey-replay").addEventListener("click", resetJourney);
+  document.querySelector(".start-link").addEventListener("click", e => { e.preventDefault(); visitTab("start"); });
   // "자세히 → 도움말 N장" 링크: 도움말 탭을 열고 그 장으로 간다
   document.querySelectorAll("a[data-help]").forEach(a => a.addEventListener("click", e => {
     e.preventDefault();
@@ -219,9 +360,9 @@ function setupTabs() {
   }));
   const frame = document.getElementById("help-frame");
   if (!frame.getAttribute("src")) frame.src = frame.dataset.src;
-  const first = location.hash.slice(1);
+  const first = initialTab(location.hash);
   setAdvanced(first === "servers" || saved);
-  show(document.getElementById("tab-" + first) ? first : "score");
+  show(first);
   window.addEventListener("hashchange", () => {
     const id = location.hash.slice(1);
     if (document.getElementById("tab-" + id)) show(id);
@@ -241,6 +382,7 @@ async function loadAll() {
   const data = await api("/api/runs");
   S.gaps = await api("/api/silver_gaps");
   S.list = data.runs;
+  S.runsLoaded = true;
   S.criteria = data.criteria;
   S.limit = data.doc_time_limit;
   const keep = runsShown().some(r => r.name === S.name);
@@ -259,6 +401,7 @@ async function loadAll() {
 
 async function loadRun(name) {
   S.name = name;
+  S.scoreReady = false;
   S.open = null;
   renderScoreLoading("실행 결과를 불러오는 중…");
   try {
@@ -266,6 +409,9 @@ async function loadRun(name) {
     if (S.name !== name) return;
     S.run = run;
     renderScore();
+    S.scoreReady = !!run;
+    recordScoreView();
+    renderStart();
   } catch (e) {
     if (S.name === name) scoreLoadFailure(e);
     throw e;
@@ -284,6 +430,7 @@ function renderScore() {
 }
 
 function renderScoreLoading(text) {
+  S.scoreReady = false;
   const el = document.getElementById("status-card");
   el.classList.remove("status-pass");
   el.setAttribute("aria-busy", "true");
@@ -293,6 +440,7 @@ function renderScoreLoading(text) {
 function scoreLoadFailure(e) {
   document.getElementById("status-card").setAttribute("aria-busy", "false");
   card("status-card", "지금 상태", null, loadFailure(e.message));
+  renderStart();
 }
 
 function renderStatus(r) {
@@ -316,6 +464,7 @@ async function openScoreSource(run, drop) {
   const issueDoc = (run.details || []).find(d => d.item === drop.name && docs.includes(d.doc_id))?.doc_id;
   D.doc = issueDoc || (D.run === run.name && docs.includes(D.doc) ? D.doc : docs[0] || null);
   D.run = run.name;
+  S.journeyTarget = null;
   const key = `${D.run}|${D.doc}`;
   const tab = document.querySelector('.tabs button[data-tab="doc"]');
   tab.click();
@@ -323,9 +472,12 @@ async function openScoreSource(run, drop) {
   await loadDoc();
   if (`${D.run}|${D.doc}` !== key || !D.data || !drop.section) return;
   D.open.add(`s${drop.section}`);
+  S.journeyTarget = {run: D.run, doc: D.doc, section: drop.section};
+  advanceJourney(2);
   renderDocRight();
   const span = D.data.sections[drop.section];
   if (span && D.line[span.start]) goSection(drop.section);
+  focusJourneyValue();
 }
 
 function progressLine(r) {
@@ -1049,9 +1201,9 @@ function valueRow({v, only}) {
   if (only) return h("tr", null, field, h("td", {class: "hint"}, "—"), h("td", {class: "sv only", "data-tip": tipOf(v.value)}, v.text));
   const sv = v.silver;
   return h("tr", null, field,
-    h("td", {class: "pv" + (D.selPaths.has(v.path) ? " hl" : ""), "data-path": v.path, "data-tip": tipOf(v.value),
-      onclick: () => pickValue(v.path)},
-      v.text, h("small", {class: "lref mono"}, v.lines.length ? v.lines.join(" ") : "근거 줄 못 찾음")),
+    h("td", {class: "pv" + (D.selPaths.has(v.path) ? " hl" : ""), "data-path": v.path, "data-tip": tipOf(v.value)},
+      h("button", {type: "button", class: "value-pick", onclick: () => pickValue(v.path)},
+        v.text, h("small", {class: "lref mono"}, v.lines.length ? v.lines.join(" ") : "근거 줄 못 찾음"))),
     h("td", {class: "sv " + (sv.same ? "same" : "diff"), "data-tip": sv.value === null ? "실버에 이 값이 없습니다" : tipOf(sv.value)},
       sv.value === null ? "—" : sv.text));
 }
@@ -1110,6 +1262,16 @@ function pickValue(path) {
   markValues();
   noteSel();
   if (first) scrollInto(document.getElementById("doc-lines"), lineEl(first.id));
+  const highlighted = first && lineEl(first.id)?.classList.contains("hl") &&
+    document.getElementById("tab-doc").classList.contains("on");
+  if (!highlighted && S.startText) document.getElementById("doc-sel")?.append(h("p", {role: "status"}, S.startText.no_line));
+  if (highlighted && journeyTargetReady() && v.section === S.journeyTarget.section &&
+      v.silver?.same === false && !S.journey.completed) {
+    S.journey.completed = true;
+    S.journey.first_success_at = new Date().toISOString();
+    advanceJourney(3);
+    if (S.startText) document.getElementById("doc-sel")?.append(h("p", {class: "okt", role: "status"}, S.startText.success));
+  }
 }
 
 function pickLine(id) {
@@ -1820,6 +1982,7 @@ async function pollServers() {
 async function start() {
   setupTabs();
   setupTip();
+  loadStart();
   let glossaryError = null;
   try { S.glossary = (await api("/api/glossary")).items; }
   catch (e) { glossaryError = e; } // 설명을 못 받아도 기존 화면은 평문으로 쓸 수 있다.

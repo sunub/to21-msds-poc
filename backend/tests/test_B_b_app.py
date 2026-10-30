@@ -80,6 +80,22 @@ def test_static_files_call_no_outside_address(app, name):
 
 # ── API ────────────────────────────────────────────────
 
+def test_api_start_without_runs_or_model_server(app, ctx, monkeypatch):
+    def forbidden(*args, **kwargs):
+        pytest.fail("시작 안내는 실행 파일이나 서버를 읽지 않습니다")
+    monkeypatch.setattr(app.br, "load_all", forbidden)
+    code, data = get_json(app, ctx, "/api/start")
+    assert code == 200
+    assert data == app.bt.START_TEXT
+
+
+def test_static_start_entry_and_replay(app, ctx):
+    text = get(app, ctx, "/")[2].decode()
+    assert text.index('data-tab="start"') < text.index('data-tab="score"')
+    assert 'id="tab-start"' in text and 'id="journey-replay"' in text
+    assert 'href="#start"' in text
+
+
 def test_api_runs(app, ctx, env):
     three_runs(env)
     code, data = get_json(app, ctx, "/api/runs")
