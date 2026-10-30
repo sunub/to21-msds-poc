@@ -182,3 +182,39 @@ td.sv.diff, .lg-diff { color: #bc4c00; }
 td.sv.only, .lg-only { outline: 2px solid var(--no); outline-offset: -2px; }
 .lg-only, .lg-hl { padding: 0 4px; }
 .lg-hl { background: #fff8c5; }
+
+/* 작업 */
+.jcols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+@media (max-width: 1100px) { .jcols { grid-template-columns: 1fr; } }
+.jcols .card { margin-bottom: 12px; }
+.jfield { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; margin: 4px 0; }
+.jlab { width: 64px; flex: none; color: var(--muted); }
+.jfield select { max-width: 100%; min-width: 0; flex: 1 1 200px; }
+.chk { display: inline-flex; align-items: center; gap: 2px; margin-right: 8px; white-space: nowrap; }
+.boxes { display: flex; flex-wrap: wrap; margin: 0 0 6px 70px; font-size: 13px; }
+.jedit { margin: 4px 0 6px; }
+textarea.jtext { width: 100%; margin-top: 4px; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 12px; }
+input.jnum { width: 56px; }
+input.jname { flex: 1 1 200px; min-width: 0; }
+input.jlabel { width: 96px; }
+button.primary { background: var(--now); border-color: var(--now); color: #fff; }
+button.primary:hover { background: #0550ae; }
+button.danger { color: var(--no); }
+.cmplist { max-height: 260px; overflow: auto; border: 1px solid var(--line); border-radius: 6px; padding: 2px 6px; font-size: 12px; }
+.cmprow { display: flex; align-items: center; justify-content: space-between; gap: 6px; }
+.cmprow .chk { overflow: hidden; text-overflow: ellipsis; }
+details.stage { border-bottom: 1px solid var(--line); }
+details.stage > summary { padding: 4px 2px; font-weight: 600; cursor: pointer; }
+.stagebody { margin: 0 0 8px 16px; }
+.secres { border-bottom: 1px dashed var(--line); padding: 2px 0; }
+pre.log { max-height: 360px; overflow: auto; margin: 4px 0; padding: 6px; border: 1px solid var(--line); border-radius: 6px;
+  background: var(--soft); font-size: 12px; white-space: pre-wrap; word-break: break-all; }
+table.jobs td { font-size: 13px; }
+table.jobs tr.chg td { background: #fff8c5; }
+table.jobs button { margin: 1px 4px 1px 0; font-size: 12px; padding: 1px 8px; }
+tr.outside td { background: var(--soft); color: var(--muted); }
+.logbox { margin-top: 8px; }
+.st-running { color: var(--re); font-weight: 600; }
+.st-done { color: var(--ok); }
+.st-failed { color: var(--no); font-weight: 600; }
+.st-stopped, .st-unknown { color: var(--muted); }

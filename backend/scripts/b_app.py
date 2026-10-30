@@ -3,14 +3,19 @@
 내 컴퓨터(127.0.0.1)에서만 연다. 다른 주소에는 묶지 않는다. 쪽 글자·그림·안내문은 화면에만 보이고 파일로 남기지 않는다 (D-47).
 표준 http.server만 쓴다. 요청 처리는 순수 함수 route()가 하고 핸들러는 그것을 부르기만 한다(시험은 route를 직접 부른다).
 탭 ① 점수판은 b_app_runs의 요약을, 탭 ② 두 실행 비교는 b_app_diff의 결과를, 탭 ③ 원문 대조는 b_app_doc의 결과를 보여 준다.
-쪽 그림(/pages/<문서>/pNNN.png)은 요청 때 pages_dir에서 읽어 보낸다. 평가용 문서는 보내지 않는다 (D-43). 탭 ④·⑤와 도움말은 다음 step에서 채운다.
+쪽 그림(/pages/<문서>/pNNN.png)은 요청 때 pages_dir에서 읽어 보낸다. 평가용 문서는 보내지 않는다 (D-43).
+탭 ④ 작업은 b_app_jobs의 JobManager로 시험·본 실행·비교표를 띄운다. POST는 같은 화면에서 보낸 JSON만 받는다(다른 웹페이지의
+폼 보내기 막기). 안내문 글(/api/prompt)은 요청 때 만들어 보여 주기만 한다 (D-47). 탭 ⑤와 도움말은 다음 step에서 채운다.
 """
 import argparse
 import json
+import os
 import re
+import sys
 import threading
 import webbrowser
 from dataclasses import dataclass
+from typing import Callable
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from urllib.parse import parse_qs, unquote, urlsplit
@@ -20,8 +25,12 @@ import yaml
 import _common  # noqa: F401  src 경로 등록
 import b_app_diff as bd
 import b_app_doc as bdoc
+import b_app_jobs as bj
 import b_app_runs as br
-from msds.common.paths import CONFIGS, PAGES, ROOT, RUNS, SILVER
+from msds.common import manifest
+from msds.common.paths import BACKEND, CONFIGS, PAGES, ROOT, RUNS, SILVER
+from msds.extract.client import load_model_config
+from msds.extract.section_prompts import SECTION_PROMPT_VERSION, build_system, prompt_hash
 from msds.extract.section_runner import DOC_TIME_LIMIT
 
 HOST = "127.0.0.1"
@@ -33,6 +42,8 @@ _TYPES = {".html": "text/html; charset=utf-8", ".js": "text/javascript; charset=
 _LOCK = threading.Lock()                             # 요약 캐시 파일을 두 요청이 함께 쓰지 않게 한다
 _DOC_ID = re.compile(r"^T21-[A-Z0-9]+$")              # 쪽 그림·원문 대조 주소에서 받는 문서 번호 (경로 탈출 막기)
 _PAGE_PNG = re.compile(r"^p\d{3}\.png$")
+_JOB_PATH = re.compile(r"^/api/jobs/([\w-]+)/(log|result|stop)$")
+MAX_BODY = 2 * 1024 * 1024                           # POST 본문 한도 (바꾼 안내문 글이 가장 길다)
 
 
 @dataclass
@@ -44,6 +55,9 @@ class AppContext:
     cache_dir: Path | None = br.CACHE_DIR
     gaps_file: Path = GAPS_FILE
     repo_root: Path = ROOT                           # 안내문 차이에서 커밋을 꺼낼 저장소
+    jobs: bj.JobManager | None = None                # 탭 ④ 작업. 없으면 작업 주소는 503
+    pages_root: Path = PAGES                         # 쪽 폴더 후보(version*)를 찾는 곳
+    model_status: Callable[[], list[dict]] | None = None   # 모델 서버 연결 상태 (b_app_servers.all_model_status). 없으면 확인하지 않는다
 
 
 def _json(code: int, obj) -> tuple[int, str, bytes]:
@@ -139,10 +153,114 @@ def _doc(query: dict[str, list[str]], ctx: AppContext) -> tuple[int, str, bytes]
         return _json(404, {"error": f"쪽 글자가 없습니다: {ctx.pages_dir.name}/{doc_id}"})
 
 
+def _why_offline(s: dict | None) -> str | None:
+    if s is None:
+        return "서버 탭이 연결을 보지 않는 태그(실버용 등)"
+    if s.get("reachable") and s.get("match"):
+        return None
+    if s.get("error"):
+        return s["error"]
+    if s.get("reachable"):
+        return f"다른 모델이 떠 있음: {s.get('model_served')}"
+    return "주소가 .env에 없음"
+
+
+def _options(ctx: AppContext) -> tuple[int, str, bytes]:
+    """탭 ④의 고를 거리: 모델 태그(연결 여부), 개발용 문서, 쪽 폴더 후보, 추천 실행 이름."""
+    cfg = yaml.safe_load((CONFIGS / "models.yaml").read_text(encoding="utf-8"))["models"]
+    status = ctx.model_status() if ctx.model_status else None
+    by_tag = {s["tag"]: s for s in status or []}
+    models = [{"tag": tag, "model": c["model"], "connected": None if status is None else _why_offline(by_tag.get(tag)) is None,
+               "error": None if status is None else _why_offline(by_tag.get(tag)),
+               "rows_sections": c.get("rows_sections") or [], "image_input": bool(c.get("image_input"))}
+              for tag, c in cfg.items()]
+    backend = ctx.jobs.backend_dir if ctx.jobs else BACKEND
+    runs_dir = ctx.jobs.runs_dir if ctx.jobs else RUNS
+    found = sorted((p for p in Path(ctx.pages_root).glob("version*") if p.is_dir()), key=lambda p: p.name)
+    pages = [{"name": p.name, "value": os.path.relpath(p, backend)} for p in found]
+    default = next((v["value"] for p, v in zip(found, pages) if p.resolve() == Path(ctx.pages_dir).resolve()),
+                   next((v["value"] for v in pages if v["name"] == "version9"), pages[0]["value"] if pages else None))
+    names = {tag: {v["value"]: {purpose: bj.free_run_name(runs_dir, bj.suggest_run_name(
+        tag, SECTION_PROMPT_VERSION, v["value"], purpose)) for purpose in ("dev10", "probe")} for v in pages}
+        for tag in cfg}
+    return _json(200, {"models": models, "status_checked": status is not None,
+                       "docs": [{"doc_id": r["doc_id"], "pages": r.get("pages")} for r in manifest.select("개발")],
+                       "pages_dirs": pages, "default_pages_dir": default, "prompt_version": SECTION_PROMPT_VERSION,
+                       "run_names": names})
+
+
+def _prompt(query: dict[str, list[str]]) -> tuple[int, str, bytes]:
+    """그 모델 태그가 no항에 보내는 안내문 글. 화면의 글상자에 채울 때만 쓴다. 파일로 남기지 않는다 (D-47)."""
+    tag, no = [(query.get(k) or [""])[0] for k in ("model", "no")]
+    if not (no.isascii() and no.isdigit() and 1 <= int(no) <= 16):
+        return _json(400, {"error": f"no는 1~16 항 번호여야 합니다 (받은 값: {no})"})
+    try:
+        cfg = load_model_config(tag)
+    except KeyError:
+        return _json(400, {"error": f"configs/models.yaml에 없는 모델 태그: {tag}"})
+    rows = int(no) in (cfg.get("rows_sections") or [])
+    return _json(200, {"no": int(no), "rows": rows, "text": build_system(int(no), rows),
+                       "hash": prompt_hash(int(no), rows)})
+
+
+def _job_get(path: str, query: dict[str, list[str]], ctx: AppContext) -> tuple[int, str, bytes]:
+    if path == "/api/jobs":
+        return _json(200, {"jobs": ctx.jobs.list(), "running": ctx.jobs.running()})
+    m = _JOB_PATH.match(path)
+    if not m or m[2] == "stop":
+        return _json(404, {"error": f"없는 주소: {path}"})
+    lines = (query.get("lines") or ["200"])[0]
+    if not (lines.isascii() and lines.isdigit()):
+        return _json(400, {"error": f"lines는 숫자여야 합니다 (받은 값: {lines})"})
+    try:
+        if m[2] == "log":
+            return _json(200, {"id": m[1], "text": ctx.jobs.tail(m[1], min(int(lines), 5000))})
+        res = ctx.jobs.result(m[1])
+    except KeyError:
+        return _json(404, {"error": f"없는 작업: {m[1]}"})
+    return _json(200, res) if res is not None else (204, "application/json; charset=utf-8", b"")
+
+
+def _post(path: str, body: bytes | None, ctx: AppContext) -> tuple[int, str, bytes]:
+    if ctx.jobs is None:
+        return _json(503, {"error": "작업 탭이 꺼져 있습니다(--runs-dir를 기본 runs/가 아닌 곳으로 주면 꺼집니다)"})
+    try:
+        data = json.loads(body or b"{}")
+    except ValueError:
+        data = None
+    if not isinstance(data, dict):
+        return _json(400, {"error": "본문은 JSON 객체여야 합니다"})
+    jobs = ctx.jobs
+    try:
+        if path == "/api/jobs/try":
+            job = jobs.start_try(model=data.get("model"), doc=data.get("doc"), sections=data.get("sections"),
+                                 all_=bool(data.get("all")), pages_dir=data.get("pages_dir"),
+                                 system_text=data.get("system_text"), base_run=data.get("base_run") or None,
+                                 dry_run=bool(data.get("dry_run")))
+            return _json(200, {"id": job.id})
+        if path == "/api/jobs/run":
+            args = {k: data.get(k) for k in ("model", "docs", "pages_dir", "run_name", "repeat")}
+            summary = jobs.run_summary(**args)
+            if data.get("confirm") is not True:         # 오래 돌고 서버 비용이 드는 작업이라 요약을 보고 한 번 더 누른다
+                return _json(409, {"summary": summary, "needs_confirm": True})
+            return _json(200, {"id": jobs.start_run(**args)[0].id, "summary": summary})
+        if path == "/api/jobs/compare":
+            job = jobs.start_compare(title=data.get("title"), runs=data.get("runs"), labels=data.get("labels"))
+            return _json(200, {"id": job.id})
+    except (ValueError, TypeError) as e:
+        return _json(400, {"error": str(e)})
+    m = _JOB_PATH.match(path)
+    if m and m[2] == "stop":
+        return _json(200, {"stopped": jobs.stop(m[1])})
+    return _json(404, {"error": f"없는 주소: POST {path}"})
+
+
 def route(method: str, path: str, query: dict[str, list[str]], body: bytes | None,
           ctx: AppContext) -> tuple[int, str, bytes]:
     """(상태 코드, Content-Type, 본문). path는 아직 % 풀기 전의 경로다."""
     path = unquote(path)
+    if method == "POST":
+        return _post(path, body, ctx)
     if method != "GET":
         return _json(404, {"error": f"없는 주소: {method} {path}"})
     if path == "/":
@@ -173,6 +291,14 @@ def route(method: str, path: str, query: dict[str, list[str]], body: bytes | Non
         return _doc(query, ctx)
     if path.startswith("/pages/"):
         return _page_png(path[len("/pages/"):], ctx)
+    if path == "/api/jobs" or path.startswith("/api/jobs/"):
+        if ctx.jobs is None:
+            return _json(503, {"error": "작업 탭이 꺼져 있습니다(--runs-dir를 기본 runs/가 아닌 곳으로 주면 꺼집니다)"})
+        return _job_get(path, query, ctx)
+    if path == "/api/options":
+        return _options(ctx)
+    if path == "/api/prompt":
+        return _prompt(query)
     if path == "/api/criteria":
         return _json(200, br.criteria())
     if path == "/api/silver_gaps":
@@ -185,20 +311,42 @@ def allowed_host(host: str | None, port: int) -> bool:
     return host in (f"{HOST}:{port}", f"localhost:{port}")
 
 
+def allowed_post(content_type: str | None, origin: str | None, port: int) -> bool:
+    """POST는 이 화면이 보낸 JSON만 받는다. 다른 웹페이지의 폼은 JSON 형식을 붙일 수 없고, 보내더라도 Origin이 다르다."""
+    if not content_type or content_type.split(";")[0].strip().lower() != "application/json":
+        return False
+    return origin is None or origin in (f"http://{HOST}:{port}", f"http://localhost:{port}")
+
+
 def make_handler(ctx: AppContext):
     class Handler(BaseHTTPRequestHandler):
         def log_message(self, *a):        # 요청마다 찍히는 줄은 끈다
             pass
 
         def do_GET(self):
-            if not allowed_host(self.headers.get("Host"), self.server.server_port):
+            self._handle("GET")
+
+        def do_POST(self):
+            self._handle("POST")
+
+        def _handle(self, method: str):
+            port = self.server.server_port
+            if not allowed_host(self.headers.get("Host"), port):
                 return self._send(403, "text/plain; charset=utf-8", b"forbidden")
+            body = None
+            if method == "POST":
+                if not allowed_post(self.headers.get("Content-Type"), self.headers.get("Origin"), port):
+                    return self._send(403, "text/plain; charset=utf-8", b"forbidden")
+                n = int(self.headers.get("Content-Length") or 0)
+                if n > MAX_BODY:
+                    return self._send(*_json(413, {"error": "본문이 너무 깁니다"}))
+                body = self.rfile.read(n)
             u = urlsplit(self.path)
             try:
-                code, ctype, body = route("GET", u.path, parse_qs(u.query), None, ctx)
+                code, ctype, out = route(method, u.path, parse_qs(u.query), body, ctx)
             except Exception as e:        # 쓰는 중인 결과 파일 등. 화면에 원인을 보인다
-                code, ctype, body = _json(500, {"error": f"{type(e).__name__}: {e}"})
-            self._send(code, ctype, body)
+                code, ctype, out = _json(500, {"error": f"{type(e).__name__}: {e}"})
+            self._send(code, ctype, out)
 
         def _send(self, code: int, ctype: str, body: bytes):
             self.send_response(code)
@@ -222,7 +370,13 @@ def main(argv: list[str] | None = None) -> int:
     a = ap.parse_args(argv)
     if a.host != HOST:
         raise SystemExit(f"--host는 {HOST}만 받습니다 (받은 값: {a.host}). 쪽 글자·안내문이 화면에 보입니다 (D-47).")
-    ctx = AppContext(runs_dir=a.runs_dir, gold_dir=a.gold_dir, pages_dir=a.pages_dir)
+    import b_app_servers as bs                    # 모델 서버 상태(/v1/models). 키는 .env(load_dotenv로 읽힘)에서만
+    models_cfg = yaml.safe_load((CONFIGS / "models.yaml").read_text(encoding="utf-8"))
+    # 명령줄 도구는 늘 runs/에 쓴다. 다른 폴더를 보는 동안에는 진행·이름 검사가 어긋나므로 작업 탭을 끈다
+    jobs = bj.JobManager(RUNS / "manual" / "jobs", Path(sys.executable), BACKEND) \
+        if a.runs_dir.resolve() == RUNS.resolve() else None
+    ctx = AppContext(runs_dir=a.runs_dir, gold_dir=a.gold_dir, pages_dir=a.pages_dir, jobs=jobs,
+                     model_status=lambda: bs.all_model_status(models_cfg, os.environ))
     server = ThreadingHTTPServer((HOST, a.port), make_handler(ctx))
     url = f"http://{HOST}:{server.server_port}/"
     print(f"작업 화면: {url}  (실행 폴더 {a.runs_dir}, 정답 {a.gold_dir})")
@@ -235,6 +389,8 @@ def main(argv: list[str] | None = None) -> int:
         pass
     finally:
         server.server_close()
+        if jobs:
+            jobs.list()                           # 끝난 작업의 상태를 남기고 임시 안내문 파일을 지운다
     return 0
 
 
