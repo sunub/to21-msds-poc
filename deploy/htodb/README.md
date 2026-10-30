@@ -30,8 +30,12 @@ cd backend
 
 ```bash
 cd backend
-.venv/bin/python -m pytest -q tests/test_D_htodb_mapping.py tests/test_D_htodb_api.py   # DB가 없으면 API 시험은 건너뜀
+.venv/bin/python -m pytest -q tests/test_D_htodb_mapping.py tests/test_D_htodb_api.py
 ```
+
+- DB에 못 붙으면 API 시험은 건너뛰지 않고, 이 문서를 가리키는 안내와 함께 실패한다(전체 시험을 돌릴 때도 같다).
+- 지식DB 없이 다른 시험만 돌릴 때는 일부러 끈다: `HTODB_SKIP=1 .venv/bin/python -m pytest -q`. 결과에 건너뛴 이유가 `HTODB_SKIP=1`로 남는다.
+- DB는 붙는데 시험할 행이 없으면 적재가 덜 된 것으로 보고 실패한다. `setup.sh`로 다시 적재한다.
 
 | 경로 | 돌려주는 것 |
 |---|---|
