@@ -14,6 +14,8 @@
 정답지(/api/keys)는 b_app_sets가 data/silver·data/gold 아래에서 찾는다. 점수가 든 응답(/api/runs, /api/run, /api/diff,
 /api/doc)은 ?key=로 고른 정답지로 채점하고 무엇과 비교했는지(key)를 붙인다. ?key=가 없으면 켤 때 받은 --gold-dir다.
 요약 캐시와 실행 역사는 정답지별로 나눠 둔다(정답지를 오가도 서로 덮어쓰지 않는다).
+실행마다 종류(run_kind, 사람 말 run_kind_label)와 비교 가능 여부(comparable)를 붙이고, 점수가 든 응답에는 두 목표(targets:
+가중 종합 목표선, 필수 중 목표 달성 수)를 둔다. 처음 보여 줄 실행과 실행 역사의 최고 점수는 실버를 만든 실행을 뺀다.
 """
 import argparse
 import hashlib
@@ -82,7 +84,8 @@ def _json(code: int, obj) -> tuple[int, str, bytes]:
 
 def _labeled_run(info: dict) -> dict:
     """채점·캐시는 그대로 두고 응답에만 표시 글을 붙인다."""
-    return {**info, "label": bt.run_label(info), "model_label": bt.model_label(info.get("model_tag"))}
+    return {**info, "label": bt.run_label(info), "model_label": bt.model_label(info.get("model_tag")),
+            "run_kind_label": bt.run_kind_label(info.get("run_kind"))}
 
 
 def _remember_connections(ctx: AppContext, models: list[dict]) -> None:
@@ -130,14 +133,15 @@ def _cache_dir(ctx: AppContext, gold_dir: Path) -> Path | None:
 
 
 def _run_list(ctx: AppContext, gold_dir: Path, key: dict) -> dict:
-    data = br.load_all(ctx.runs_dir, gold_dir, cache_dir=_cache_dir(ctx, gold_dir))
-    runs = [_labeled_run({k: v for k, v in r.items() if k not in _HEAVY}) for r in data["runs"]]
+    data = br.load_all(ctx.runs_dir, gold_dir, cache_dir=_cache_dir(ctx, gold_dir), pages_root=ctx.pages_root)
+    runs = [{**_labeled_run({k: v for k, v in r.items() if k not in _HEAVY}),
+             "targets": bt.score_targets(r, data["criteria"])} for r in data["runs"]]
     ctx.run_history = {**(ctx.run_history or {}), str(gold_dir): runs}
     return {**data, "runs": runs, "current": pick_current(runs), "doc_time_limit": DOC_TIME_LIMIT, "key": key}
 
 
 def _run_with_text(run: Path, ctx: AppContext, gold_dir: Path, key: dict) -> dict:
-    info = _labeled_run(br.summarize_run(run, gold_dir, cache_dir=_cache_dir(ctx, gold_dir)))
+    info = _labeled_run(br.summarize_run(run, gold_dir, cache_dir=_cache_dir(ctx, gold_dir), pages_root=ctx.pages_root))
     runs = (ctx.run_history or {}).get(str(gold_dir))
     if runs is None:
         runs = _run_list(ctx, gold_dir, key)["runs"]
@@ -146,7 +150,8 @@ def _run_with_text(run: Path, ctx: AppContext, gold_dir: Path, key: dict) -> dic
     history = [info if r["name"] == info["name"] else r for r in runs]
     summaries = {kind: bt.card_summary(kind, info) for kind in ("docs", "grid", "rows")}
     summaries["history"] = bt.card_summary("history", {"runs": history})
-    return {**info, "status_text": bt.score_status(info, br.criteria(), connected=connected),
+    status = bt.score_status(info, br.criteria(), connected=connected)
+    return {**info, "status_text": status, "targets": status["targets"],
             "card_summaries": summaries, "connection_notes": bt.connection_notes(info.get("model")), "key": key}
 
 
@@ -165,11 +170,14 @@ def _static(rel: str, ctx: AppContext) -> tuple[int, str, bytes]:
 
 
 def pick_current(runs: list[dict]) -> str | None:
-    """점수판이 처음 보여 줄 실행. 점수가 있는 실행 중 가장 최근 dev10 본 실행, 없으면 가장 최근 실행.
-    runs는 load_all 순서(시작 시각 순)다."""
-    scored = [r for r in runs if r.get("kind") != "models" and r.get("weighted") is not None]
-    main_runs = [r for r in scored if r["kind"] == "run" and "dev10" in r["name"]]
-    found = main_runs or scored
+    """점수판이 처음 보여 줄 실행. runs는 load_all 순서(시작 시각 순)다. 실버를 만든 실행(run_kind silver)은 뺀다.
+    비교 가능한(comparable) 실행 중 가장 최근 → 점수가 있는 실행 중 이름에 dev10이 든 가장 최근 → 점수가 있는 가장 최근
+    → 가장 최근 실행 순이다. 실행이 하나라도 있으면 None을 돌려주지 않는다(실버뿐이면 실버, 비교표뿐이면 비교표)."""
+    pool = [r for r in runs if r.get("kind") != "models" and r.get("run_kind") != "silver"]
+    scored = [r for r in pool if r.get("weighted") is not None]
+    found = ([r for r in pool if r.get("comparable")]
+             or [r for r in scored if r["kind"] == "run" and "dev10" in r["name"]]
+             or scored or pool or [r for r in runs if r.get("kind") != "models"] or runs)
     return found[-1]["name"] if found else None
 
 
@@ -536,10 +544,13 @@ def route(method: str, path: str, query: dict[str, list[str]], body: bytes | Non
         if err:
             return err
         with _LOCK:
-            a, b = [br.summarize_run(p, gold_dir, cache_dir=_cache_dir(ctx, gold_dir)) for p in pair]
+            a, b = [br.summarize_run(p, gold_dir, cache_dir=_cache_dir(ctx, gold_dir), pages_root=ctx.pages_root)
+                    for p in pair]
         diff = bd.diff_runs(a, b)
+        criteria = br.criteria()
         return _json(200, {**diff, "headline": bt.diff_headline(diff, bt.run_label(a)["title"], bt.run_label(b)["title"]),
-                           "ui_text": bt.diff_ui_text(diff), "key": key})
+                           "ui_text": bt.diff_ui_text(diff), "key": key,
+                           "targets": {"a": bt.score_targets(a, criteria), "b": bt.score_targets(b, criteria)}})
     if path == "/api/doc":
         return _doc(query, ctx)
     if path.startswith("/pages/"):
