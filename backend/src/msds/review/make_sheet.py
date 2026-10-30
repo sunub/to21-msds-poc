@@ -40,7 +40,6 @@ from .sheet_spec import (COLUMNS, EXCLUDED_TOP, INFO_FIELDS, MATCH_ORDER, RESULT
                          SHEET_INFO, SHEET_MAIN)
 
 EMPTY = (None, [], {})
-SRC_ORDER = {"불일치": 0, "대조불가": 1, "": 2, "일치": 2}
 MODELS = {"gpt": "GPT", "claude": "Claude"}
 HUMAN_FILL = PatternFill("solid", fgColor="FFF2CC")     # 사람이 쓰는 열 머리글
 WIDTHS = {"경로": 30, "칸 이름": 45, "GPT 값": 30, "Claude 값": 30, "GPT 원문 조각": 45,
@@ -102,18 +101,62 @@ def lookup(index: dict, path: str) -> list[dict]:
 
 
 @lru_cache(maxsize=1)
+def _spec_rows() -> list[tuple]:
+    """TO21 명세서 1_항목정의의 msds[] 칸 줄."""
+    wb = openpyxl.load_workbook(paths.to21_file("spec"), read_only=True, data_only=True)
+    rows = [r for r in wb["1_항목정의"].iter_rows(min_row=5, values_only=True)
+            if len(r) > 4 and r[3] and str(r[3]).startswith("msds[].")]
+    wb.close()
+    return rows
+
+
+@lru_cache(maxsize=1)
 def _spec_names() -> dict[str, str]:
     """TO21 명세서 1_항목정의: 'components[].content' → '3항 성분 · 함유량'."""
-    wb = openpyxl.load_workbook(paths.to21_file("spec"), read_only=True, data_only=True)
     out = {}
-    for r in wb["1_항목정의"].iter_rows(min_row=5, values_only=True):
-        if len(r) > 4 and r[3] and str(r[3]).startswith("msds[]."):
-            sec, big = re.match(r"\d+항", str(r[1] or "")), str(r[1] or "")
-            head = f"{sec.group(0)} {r[2]}" if sec else (r[2] if "(" in big else big)   # 서술형(4·5·…항) → 서술
-            name = f"{head} · {r[4]}"
-            out[str(r[3])[7:]] = out[str(r[3])[7:].removesuffix("[]")] = name   # 글자 목록은 [] 없이도
-    wb.close()
+    for r in _spec_rows():
+        sec, big = re.match(r"\d+항", str(r[1] or "")), str(r[1] or "")
+        head = f"{sec.group(0)} {r[2]}" if sec else (r[2] if "(" in big else big)   # 서술형(4·5·…항) → 서술
+        name = f"{head} · {r[4]}"
+        out[str(r[3])[7:]] = out[str(r[3])[7:].removesuffix("[]")] = name   # 글자 목록은 [] 없이도
     return out
+
+
+# 검수 범위 (기업 합의, 2026-10-29 사용자 전달, 같은 날 14항 추가): 1·2·3·8·9·11·12·14·15항과 머리글 관리정보(0).
+# 나머지 항은 검수표에 넣지 않고 골드에서도 비운다(build_gold). 이 순서가 검수표·검수 화면의 항 순서다
+REVIEW_SECTIONS = (0, 1, 2, 3, 8, 9, 11, 12, 14, 15)
+SECTION_TITLES = {0: "MSDS 관리정보", 1: "1항 화학제품과 회사에 관한 정보", 2: "2항 유해성·위험성",
+                  3: "3항 구성성분의 명칭 및 함유량", 8: "8항 노출방지 및 개인보호구", 9: "9항 물리화학적 특성",
+                  11: "11항 독성에 관한 정보", 12: "12항 환경에 미치는 영향", 14: "14항 운송에 필요한 정보", 15: "15항 법적 규제현황"}   # 고용노동부 고시 MSDS 항목명
+
+
+@lru_cache(maxsize=1)
+def _spec_sections() -> dict[str, int]:
+    """명세서 'MSDS 항목' 열로 최상위 칸 → 항 번호. 'MSDS 관리정보'는 0, 서술형·미정의 항목은 없음(줄마다 다름)."""
+    out = {}
+    for r in _spec_rows():
+        m = re.match(r"(\d+)항", str(r[1] or ""))
+        if m or str(r[1] or "") == "MSDS 관리정보":
+            out.setdefault(re.split(r"[.\[]", str(r[3])[7:], maxsplit=1)[0], int(m.group(1)) if m else 0)
+    return out
+
+
+def section_of(kp: str) -> int | None:
+    """칸의 항 번호 (머리글 관리정보 0). 서술형은 항목 코드(S8_…), 미정의 항목은 적힌 항 번호(extras[k=12|…])로 정한다."""
+    kp = re.sub(r"^msds\[\d+\]\.", "", kp)
+    m = re.match(r"narratives\[k=S(\d+)_", kp) or re.match(r"extras\[k=(\d+)\|", kp)
+    return int(m.group(1)) if m else _spec_sections().get(re.split(r"[.\[]", kp, maxsplit=1)[0])
+
+
+def in_scope(kp: str) -> bool:
+    return section_of(kp) in REVIEW_SECTIONS
+
+
+def scope_key(kp: str) -> tuple[int, int]:
+    """검수표·검수 화면의 정렬 앞부분: (REVIEW_SECTIONS 안 순서, 항 안 종류 0 정해진 칸 → 1 서술 → 2 미정의 항목)."""
+    sec, top = section_of(kp), re.split(r"[.\[]", re.sub(r"^msds\[\d+\]\.", "", kp), maxsplit=1)[0]
+    return (REVIEW_SECTIONS.index(sec) if sec in REVIEW_SECTIONS else len(REVIEW_SECTIONS),
+            {"narratives": 1, "extras": 2}.get(top, 0))
 
 
 def label_of(kp: str) -> str:
@@ -124,6 +167,9 @@ def label_of(kp: str) -> str:
         cut = re.sub(r"(\.[^.\[]*|\[\])$", "", cut)
         name = names.get(cut)
     name = f"{name} ({g})" if name and cut != g else (name or g)
+    sec = section_of(kp)
+    if sec and not re.match(r"\d+항", name):              # 서술형·미정의 항목도 항 번호를 앞에 (검수 화면이 항으로 묶는다)
+        name = f"{sec}항 {name}"
     keys = [k for ks in re.findall(r"\[k=([^\]]*)\]", kp) for k in ks.split("|") if k]
     return f"{name} ({' / '.join(keys)})" if keys else name
 
@@ -162,13 +208,16 @@ def build_rows(gpt_doc: dict, claude_doc: dict,
     counts = {m: len(d.get("msds") or []) for m, d in docs.items()}
     G, C = flat["gpt"], flat["claude"]
 
-    rows = []
-    for path in list(G) + [p for p in C if p not in G]:     # 합집합
+    rows, keys = [], {}
+    for n, path in enumerate(list(G) + [p for p in C if p not in G]):     # 합집합 (실버에 적힌 순서 = 문서 순서)
         i, kp, gv = G.get(path, (None, None, None))
         i2, kp2, cv = C.get(path, (None, None, None))
         if gv in EMPTY and cv in EMPTY:                     # 둘 다 비었으면 줄을 만들지 않는다
             continue
         kp, i = kp or kp2, i if i is not None else i2
+        if not in_scope(kp):                                # 검수 범위 밖 항 (REVIEW_SECTIONS)
+            continue
+        keys[path] = (i, *scope_key(kp), n)
         if path in G and path in C:
             match_state = "일치" if same(gv, cv) else "불일치"
         else:
@@ -196,8 +245,9 @@ def build_rows(gpt_doc: dict, claude_doc: dict,
             row["메모"] = f"MSDS 건수 다름 (GPT {counts['gpt']}, Claude {counts['claude']}): 앞에서부터 맞춤"
         rows.append(row)
 
-    rows.sort(key=lambda r: (r["우선순위"], MATCH_ORDER[r["일치"]], SRC_ORDER[r["원문 대조"]],
-                             0 if "오류" in r["검증기"] else 1, r["경로"]))
+    # 항 순서(REVIEW_SECTIONS) → 문서 순서. D-36의 '우선순위 → 문제 있는 줄 먼저' 대신 (사용자 결정 2026-10-29).
+    # 우선순위·일치·원문 대조·검증기 열은 그대로 있어 엑셀 필터로 문제 줄만 볼 수 있다
+    rows.sort(key=lambda r: keys[r["경로"]])
     return rows
 
 
