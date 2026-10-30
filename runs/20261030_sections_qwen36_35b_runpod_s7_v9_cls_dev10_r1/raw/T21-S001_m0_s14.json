@@ -1,0 +1,95 @@
+{
+ "doc_id": "T21-S001",
+ "msds_index": 0,
+ "section": 14,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "transport": [
+   {
+    "mode": "공통",
+    "basis_raw": null,
+    "regulated": true,
+    "un_no": "1066",
+    "shipping_name": "NITROGEN,COMPRESSED",
+    "hazard_class": "2.2",
+    "sub_risk": null,
+    "packing_group": "해당없음",
+    "marine_pollutant": "비해당",
+    "ems_fire": "F-C",
+    "ems_spill": "S-V",
+    "line": "p12:L2"
+   }
+  ],
+  "narratives": [
+   {
+    "item_code": "S14_SPECIAL",
+    "title_raw": "6)사용자가 운송 또는 운송 수단에 관련해 알 필요가 있거나 필요한 특별한 안전 대책 :",
+    "start": "p12:L7",
+    "end": "p12:L9"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S14_SPECIAL",
+    "title_raw": "가.화재시 비상조치의 종류 : F-C",
+    "reason": "코드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [
+     {
+      "value": "화재시 비상조치의 종류 : F-C",
+      "line": "p12:L8"
+     }
+    ],
+    "suggested_code": null,
+    "line": "p12:L8"
+   },
+   {
+    "after_item": "S14_SPECIAL",
+    "title_raw": "나.유출시 비상조치의 종류 : S-V",
+    "reason": "코드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [
+     {
+      "value": "유출시 비상조치의 종류 : S-V",
+      "line": "p12:L9"
+     }
+    ],
+    "suggested_code": null,
+    "line": "p12:L9"
+   }
+  ]
+ },
+ "raw_text": "### transport\nmode | basis_raw | regulated | un_no | shipping_name | hazard_class | sub_risk | packing_group | marine_pollutant | ems_fire | ems_spill | line\n공통 |  | true | 1066 | NITROGEN,COMPRESSED | 2.2 |  | 해당없음 | 해당없음 | F-C | S-V | p12:L2\n\n### narratives\nitem_code | title_raw | start | end\nS14_SPECIAL | 6)사용자가 운송 또는 운송 수단에 관련해 알 필요가 있거나 필요한 특별한 안전 대책 : | p12:L7 | p12:L9\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\nS14_SPECIAL | 가.화재시 비상조치의 종류 : F-C | 코드없음 |  |  |  | 화재시 비상조치의 종류 : F-C |  | p12:L8\nS14_SPECIAL | 나.유출시 비상조치의 종류 : S-V | 코드없음 |  |  |  | 유출시 비상조치의 종류 : S-V |  | p12:L9",
+ "mode": "rows",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 3286,
+  "completion_tokens": 262,
+  "total_tokens": 3548
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "rows",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 3286,
+    "completion_tokens": 262,
+    "total_tokens": 3548
+   },
+   "seconds": 5.711,
+   "chars": 653,
+   "whitespace": 147,
+   "head": "### transport\nmode | basis_raw | regulated | un_no | shipping_name | hazard_class | sub_risk | packing_group | marine_pollutant | ems_fire | ems_spill | line\n공통 |  | true | 1066 | NITROGEN,COMPRESSED | 2.2 |  | 해당없음 | 해당없음 | F-C | S-V | p12:L2\n\n### narratives\nitem_code | title_raw | start | end\nS14_SPECIAL | 6)사용자가 운송 또는 운송 수단에 관련해 알 필요가 있거나 필요한 특별한 안전 대책 : | p12:L7 | p12:L9\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\nS14_SPECIAL | ",
+   "tail": "가.화재시 비상조치의 종류 : F-C | 코드없음 |  |  |  | 화재시 비상조치의 종류 : F-C |  | p12:L8\nS14_SPECIAL | 나.유출시 비상조치의 종류 : S-V | 코드없음 |  |  |  | 유출시 비상조치의 종류 : S-V |  | p12:L9"
+  }
+ ],
+ "seconds": 5.714,
+ "check_problems": []
+}

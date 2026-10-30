@@ -1,0 +1,424 @@
+{
+ "sections": [
+  {
+   "msds_index": 0,
+   "section": 1,
+   "ok": true,
+   "mode": "json_schema",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 1,
+   "seconds": 16.304,
+   "usage": {
+    "prompt_tokens": 3584,
+    "completion_tokens": 993,
+    "total_tokens": 4577
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 2,
+   "ok": true,
+   "mode": "json_schema",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 1,
+   "seconds": 14.4,
+   "usage": {
+    "prompt_tokens": 5384,
+    "completion_tokens": 821,
+    "total_tokens": 6205
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 3,
+   "ok": true,
+   "mode": "rows",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 1,
+   "seconds": 3.853,
+   "usage": {
+    "prompt_tokens": 3732,
+    "completion_tokens": 159,
+    "total_tokens": 3891
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 4,
+   "ok": true,
+   "mode": "json_schema",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 1,
+   "seconds": 6.907,
+   "usage": {
+    "prompt_tokens": 2192,
+    "completion_tokens": 409,
+    "total_tokens": 2601
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 5,
+   "ok": true,
+   "mode": "json_schema",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": true,
+   "attempts": 2,
+   "seconds": 16.175,
+   "usage": {
+    "prompt_tokens": 4581,
+    "completion_tokens": 911,
+    "total_tokens": 5492
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 6,
+   "ok": true,
+   "mode": "json_schema",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": true,
+   "attempts": 2,
+   "seconds": 21.238,
+   "usage": {
+    "prompt_tokens": 4447,
+    "completion_tokens": 1431,
+    "total_tokens": 5878
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 7,
+   "ok": true,
+   "mode": "json_schema",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 1,
+   "seconds": 13.314,
+   "usage": {
+    "prompt_tokens": 2054,
+    "completion_tokens": 782,
+    "total_tokens": 2836
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 8,
+   "ok": true,
+   "mode": "rows",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 1,
+   "seconds": 6.011,
+   "usage": {
+    "prompt_tokens": 3494,
+    "completion_tokens": 304,
+    "total_tokens": 3798
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 9,
+   "ok": true,
+   "mode": "rows",
+   "errors": [
+    "physchem p3:L30 UEL+LEL |  |  | - / − |  |  |  | p3:L30: .prop_code: 'UEL+LEL' is not valid under any of the given schemas",
+    "physchem p3:L33 VAPOR_DENSITY |  |  | 0.97 | reference=a…: 열 7개, 기대 8개",
+    "physchem p3:L34 RELATIVE_DENSITY |  |  | 0.808 | referen…: 열 7개, 기대 8개"
+   ],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 2,
+   "seconds": 19.222,
+   "usage": {
+    "prompt_tokens": 8483,
+    "completion_tokens": 1208,
+    "total_tokens": 9691
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 10,
+   "ok": true,
+   "mode": "json_schema",
+   "errors": [],
+   "check_problems": [
+    "extras[1].line: 원문에 없는 줄 번호 p3:L41-L42",
+    "extras[2].line: 원문에 없는 줄 번호 p3:L43-L44"
+   ],
+   "reextracted": true,
+   "attempts": 2,
+   "seconds": 19.795,
+   "usage": {
+    "prompt_tokens": 4379,
+    "completion_tokens": 1279,
+    "total_tokens": 5658
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 11,
+   "ok": true,
+   "mode": "rows",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": true,
+   "attempts": 2,
+   "seconds": 27.096,
+   "usage": {
+    "prompt_tokens": 9594,
+    "completion_tokens": 2439,
+    "total_tokens": 12033
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 12,
+   "ok": true,
+   "mode": "rows",
+   "errors": [
+    "ecotox p4:L32 |  | ECO_CRUST |  |  |  |  |  |  |  |  |…: 열 14개, 기대 13개",
+    "ecotox p4:L33 |  | ECO_ALGAE |  |  |  |  |  |  |  |  |…: 열 14개, 기대 13개",
+    "ecotox p4:L36 |  | ECO_PERSIST | 분해성 |  |  |  |  |  | …: 열 14개, 기대 13개",
+    "ecotox p4:L38 |  | ECO_BIOACC |  |  |  |  |  |  |  |  …: 열 14개, 기대 13개",
+    "ecotox p4:L39 |  | ECO_PERSIST | 생분해성 |  |  |  |  |  |…: 열 14개, 기대 13개",
+    "ecotox p4:L40 |  | ECO_SOIL |  |  |  |  |  |  |  |  | …: 열 14개, 기대 13개"
+   ],
+   "check_problems": [],
+   "reextracted": true,
+   "attempts": 2,
+   "seconds": 20.46,
+   "usage": {
+    "prompt_tokens": 7478,
+    "completion_tokens": 1396,
+    "total_tokens": 8874
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 13,
+   "ok": true,
+   "mode": "json_schema",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": true,
+   "attempts": 2,
+   "seconds": 13.338,
+   "usage": {
+    "prompt_tokens": 4035,
+    "completion_tokens": 765,
+    "total_tokens": 4800
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 14,
+   "ok": true,
+   "mode": "rows",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": true,
+   "attempts": 2,
+   "seconds": 14.53,
+   "usage": {
+    "prompt_tokens": 6406,
+    "completion_tokens": 832,
+    "total_tokens": 7238
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 15,
+   "ok": true,
+   "mode": "rows",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 1,
+   "seconds": 22.595,
+   "usage": {
+    "prompt_tokens": 6390,
+    "completion_tokens": 1707,
+    "total_tokens": 8097
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 16,
+   "ok": true,
+   "mode": "json_schema",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": true,
+   "attempts": 2,
+   "seconds": 16.778,
+   "usage": {
+    "prompt_tokens": 6530,
+    "completion_tokens": 966,
+    "total_tokens": 7496
+   }
+  }
+ ],
+ "schema_errors": [],
+ "to21_validator": [
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[8]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[9]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[10]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[11]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[12]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[13]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  }
+ ],
+ "expand_problems": [
+  {
+   "msds_index": 0,
+   "section": 5,
+   "kind": "extras_in_narrative",
+   "detail": "1행"
+  },
+  {
+   "msds_index": 0,
+   "section": 6,
+   "kind": "extras_in_narrative",
+   "detail": "3행"
+  },
+  {
+   "msds_index": 0,
+   "section": 7,
+   "kind": "extras_in_narrative",
+   "detail": "3행"
+  },
+  {
+   "msds_index": 0,
+   "section": 10,
+   "kind": "extras_in_narrative",
+   "detail": "2행"
+  },
+  {
+   "msds_index": 0,
+   "section": 12,
+   "kind": "extras_in_narrative",
+   "detail": "9행"
+  },
+  {
+   "msds_index": 0,
+   "section": 13,
+   "kind": "extras_in_narrative",
+   "detail": "2행"
+  },
+  {
+   "msds_index": 0,
+   "section": 15,
+   "kind": "extras_in_narrative",
+   "detail": "5행"
+  },
+  {
+   "msds_index": 0,
+   "section": 10,
+   "kind": "bad_line",
+   "detail": "extras[10]: p3:L41-L42"
+  },
+  {
+   "msds_index": 0,
+   "section": 10,
+   "kind": "bad_line",
+   "detail": "extras[11]: p3:L43-L44"
+  }
+ ],
+ "warnings": [
+  "항목 분할 파일 없음: 임시 분할 (찾은 항 16/16, MSDS 1건)"
+ ],
+ "sections_method": "provisional",
+ "pictogram_check": [
+  {
+   "msds_index": 0,
+   "model": [
+    "GHS04"
+   ],
+   "inferred": [],
+   "missing": [],
+   "extra": [
+    "GHS04"
+   ],
+   "ok": true,
+   "unmapped_h": [
+    "H281"
+   ]
+  }
+ ],
+ "needs_review": [
+  {
+   "msds_index": 0,
+   "section": 5
+  },
+  {
+   "msds_index": 0,
+   "section": 6
+  },
+  {
+   "msds_index": 0,
+   "section": 7
+  },
+  {
+   "msds_index": 0,
+   "section": 9
+  },
+  {
+   "msds_index": 0,
+   "section": 10
+  },
+  {
+   "msds_index": 0,
+   "section": 12
+  },
+  {
+   "msds_index": 0,
+   "section": 13
+  },
+  {
+   "msds_index": 0,
+   "section": 15
+  }
+ ]
+}
