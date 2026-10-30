@@ -8,6 +8,7 @@
 폼 보내기 막기). 안내문 글(/api/prompt)은 요청 때 만들어 보여 주기만 한다 (D-47).
 탭 ⑤ 서버는 b_app_servers.ServerActions를 부른다. 바꾸는 동작은 propose(요약·확인 토큰) → execute(토큰) 두 단계이고,
 이 앱이 만든 Pod의 주소·키는 작업을 띄울 때 그 작업의 환경에만 넣는다(파일에 쓰지 않는다). 도움말은 다음 step에서 채운다.
+문서 묶음(/api/sets)은 b_app_sets가 data/pages 아래에서 찾는다. 평가용 문서는 파일을 열지 않고 잠긴 이유만 준다 (D-43).
 """
 import argparse
 import json
@@ -30,6 +31,7 @@ import b_app_doc as bdoc
 import b_app_jobs as bj
 import b_app_runs as br
 import b_app_servers as bs
+import b_app_sets as bsets
 import b_app_text as bt
 from msds.common import manifest
 from msds.common.paths import BACKEND, CONFIGS, PAGES, ROOT, RUNS, SILVER
@@ -60,7 +62,7 @@ class AppContext:
     gaps_file: Path = GAPS_FILE
     repo_root: Path = ROOT                           # 안내문 차이에서 커밋을 꺼낼 저장소
     jobs: bj.JobManager | None = None                # 탭 ④ 작업. 없으면 작업 주소는 503
-    pages_root: Path = PAGES                         # 쪽 폴더 후보(version*)를 찾는 곳
+    pages_root: Path | None = None                   # 문서 묶음을 찾는 곳(main은 data/pages). None이면 묶음 없이 pages_dir 하나만 쓴다
     model_status: Callable[[], list[dict]] | None = None   # 모델 서버 연결 상태 (ServerActions.model_status). 없으면 확인하지 않는다
     servers: bs.ServerActions | None = None          # 탭 ⑤ 서버. 없으면 서버 주소는 503
     last_model_connections: dict[str, bool] | None = None  # 마지막 조회 결과만. 점수 요청은 서버를 부르지 않는다
@@ -220,7 +222,10 @@ def _options(ctx: AppContext, *, advanced: bool = False) -> tuple[int, str, byte
               for tag, c in cfg.items()]
     backend = ctx.jobs.backend_dir if ctx.jobs else BACKEND
     runs_dir = ctx.jobs.runs_dir if ctx.jobs else RUNS
-    found = sorted((p for p in Path(ctx.pages_root).glob("version*") if p.is_dir()), key=lambda p: p.name)
+    if ctx.pages_root is None:
+        found = [Path(ctx.pages_dir)] if Path(ctx.pages_dir).is_dir() else []
+    else:
+        found = sorted((p for p in Path(ctx.pages_root).glob("version*") if p.is_dir()), key=lambda p: p.name)
     pages = [{"name": p.name, "value": os.path.relpath(p, backend)} for p in found]
     default = next((v["value"] for p, v in zip(found, pages) if p.resolve() == Path(ctx.pages_dir).resolve()),
                    next((v["value"] for v in pages if v["name"] == "version9"), pages[0]["value"] if pages else None))
@@ -233,6 +238,15 @@ def _options(ctx: AppContext, *, advanced: bool = False) -> tuple[int, str, byte
                        "docs": [{"doc_id": r["doc_id"], "pages": r.get("pages")} for r in manifest.select("개발")],
                        "pages_dirs": pages, "default_pages_dir": default, "prompt_version": SECTION_PROMPT_VERSION,
                        "run_names": names})
+
+
+def _sets(ctx: AppContext) -> tuple[int, str, bytes]:
+    """data/pages 아래의 문서 묶음과 기본 묶음. pages_root가 없으면 빈 목록이다."""
+    if ctx.pages_root is None:
+        return _json(200, {"sets": [], "default": None})
+    root = Path(ctx.pages_root)
+    sets = bsets.list_sets(root)
+    return _json(200, {"sets": sets, "default": bsets.default_set(sets, ctx.pages_dir, root)})
 
 
 def _prompt(query: dict[str, list[str]]) -> tuple[int, str, bytes]:
@@ -368,6 +382,8 @@ def route(method: str, path: str, query: dict[str, list[str]], body: bytes | Non
         if ctx.jobs is None:
             return _json(503, {"error": "작업 탭이 꺼져 있습니다(--runs-dir를 기본 runs/가 아닌 곳으로 주면 꺼집니다)"})
         return _job_get(path, query, ctx)
+    if path == "/api/sets":
+        return _sets(ctx)
     if path == "/api/options":
         return _options(ctx, advanced=(query.get("advanced") or ["0"])[0] == "1")
     if path == "/api/servers":
@@ -448,7 +464,8 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--host", default=HOST, help=f"{HOST}만 받는다. 쪽 글자·안내문이 화면에 보이기 때문이다 (D-47)")
     ap.add_argument("--runs-dir", type=Path, default=RUNS)
     ap.add_argument("--gold-dir", type=Path, default=SILVER / "claude", help="정답 자리 폴더 (기본: Claude 실버)")
-    ap.add_argument("--pages-dir", type=Path, default=PAGES / "version9", help="쪽 글자·그림 폴더")
+    ap.add_argument("--pages-dir", type=Path, default=PAGES / "prev" / "version9",
+                    help="쪽 글자·그림 폴더 (기본: C의 version9, data/pages/prev/version9)")
     ap.add_argument("--no-browser", action="store_true", help="브라우저를 자동으로 열지 않는다")
     a = ap.parse_args(argv)
     if a.host != HOST:
@@ -459,7 +476,7 @@ def main(argv: list[str] | None = None) -> int:
     jobs = manager if a.runs_dir.resolve() == RUNS.resolve() else None
     servers = bs.ServerActions(os.environ, manager, RUNS / "manual" / "server_log.md")   # 키는 .env(load_dotenv로 읽힘)에서만
     ctx = AppContext(runs_dir=a.runs_dir, gold_dir=a.gold_dir, pages_dir=a.pages_dir, jobs=jobs,
-                     model_status=servers.model_status, servers=servers)
+                     pages_root=PAGES, model_status=servers.model_status, servers=servers)
     server = ThreadingHTTPServer((HOST, a.port), make_handler(ctx))
     url = f"http://{HOST}:{server.server_port}/"
     print(f"작업 화면: {url}  (실행 폴더 {a.runs_dir}, 정답 {a.gold_dir})")
