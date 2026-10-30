@@ -2,10 +2,12 @@
 
 내 컴퓨터(127.0.0.1)에서만 연다. 다른 주소에는 묶지 않는다. 쪽 글자·그림·안내문은 화면에만 보이고 파일로 남기지 않는다 (D-47).
 표준 http.server만 쓴다. 요청 처리는 순수 함수 route()가 하고 핸들러는 그것을 부르기만 한다(시험은 route를 직접 부른다).
-탭 ① 점수판은 b_app_runs의 요약을, 탭 ② 두 실행 비교는 b_app_diff의 결과를 보여 준다. 탭 ③~⑤와 도움말은 다음 step에서 채운다.
+탭 ① 점수판은 b_app_runs의 요약을, 탭 ② 두 실행 비교는 b_app_diff의 결과를, 탭 ③ 원문 대조는 b_app_doc의 결과를 보여 준다.
+쪽 그림(/pages/<문서>/pNNN.png)은 요청 때 pages_dir에서 읽어 보낸다. 평가용 문서는 보내지 않는다 (D-43). 탭 ④·⑤와 도움말은 다음 step에서 채운다.
 """
 import argparse
 import json
+import re
 import threading
 import webbrowser
 from dataclasses import dataclass
@@ -17,6 +19,7 @@ import yaml
 
 import _common  # noqa: F401  src 경로 등록
 import b_app_diff as bd
+import b_app_doc as bdoc
 import b_app_runs as br
 from msds.common.paths import CONFIGS, PAGES, ROOT, RUNS, SILVER
 from msds.extract.section_runner import DOC_TIME_LIMIT
@@ -28,6 +31,8 @@ _HEAVY = ("details", "per_doc", "grid")              # /api/runs 목록에서 �
 _TYPES = {".html": "text/html; charset=utf-8", ".js": "text/javascript; charset=utf-8",
           ".css": "text/css; charset=utf-8"}
 _LOCK = threading.Lock()                             # 요약 캐시 파일을 두 요청이 함께 쓰지 않게 한다
+_DOC_ID = re.compile(r"^T21-[A-Z0-9]+$")              # 쪽 그림·원문 대조 주소에서 받는 문서 번호 (경로 탈출 막기)
+_PAGE_PNG = re.compile(r"^p\d{3}\.png$")
 
 
 @dataclass
@@ -105,6 +110,35 @@ def _prompt_diff(query: dict[str, list[str]], pair: list[Path], ctx: AppContext)
     return _json(200, {**res, "rows": rows, "recorded": {"a": recorded[0], "b": recorded[1]}})
 
 
+def _page_png(rest: str, ctx: AppContext) -> tuple[int, str, bytes]:
+    """/pages/<문서>/pNNN.png. 정규식 밖의 주소는 400, 평가용·manifest 밖 문서와 없는 쪽은 404."""
+    parts = rest.split("/")
+    if len(parts) != 2 or not _DOC_ID.fullmatch(parts[0]) or not _PAGE_PNG.fullmatch(parts[1]):
+        return _json(400, {"error": "잘못된 쪽 그림 주소"})
+    f = ctx.pages_dir / parts[0] / parts[1]
+    if not bdoc.allowed_doc(parts[0]) or not f.is_file():
+        return _json(404, {"error": "없는 쪽 그림"})
+    return 200, "image/png", f.read_bytes()
+
+
+def _doc(query: dict[str, list[str]], ctx: AppContext) -> tuple[int, str, bytes]:
+    name, doc_id = [(query.get(k) or [""])[0] for k in ("run", "doc")]
+    if not name or not _DOC_ID.fullmatch(doc_id):
+        return _json(400, {"error": "run에 실행 이름, doc에 문서 번호(T21-…)를 주세요"})
+    run = _run_paths(ctx).get(name)
+    if run is None:
+        return _json(404, {"error": f"없는 실행: {name}"})
+    missing = _json(404, {"error": f"이 실행에 없는 문서: {doc_id}"})     # 평가용도 같은 말로 돌려준다(이유를 말하지 않는다)
+    if not bdoc.allowed_doc(doc_id) or not (run / "outputs" / f"{doc_id}.json").is_file():
+        return missing
+    try:
+        return _json(200, bdoc.doc_view(run, doc_id, ctx.pages_dir, ctx.gold_dir))
+    except PermissionError:
+        return missing
+    except FileNotFoundError:
+        return _json(404, {"error": f"쪽 글자가 없습니다: {ctx.pages_dir.name}/{doc_id}"})
+
+
 def route(method: str, path: str, query: dict[str, list[str]], body: bytes | None,
           ctx: AppContext) -> tuple[int, str, bytes]:
     """(상태 코드, Content-Type, 본문). path는 아직 % 풀기 전의 경로다."""
@@ -135,6 +169,10 @@ def route(method: str, path: str, query: dict[str, list[str]], body: bytes | Non
         with _LOCK:
             a, b = [br.summarize_run(p, ctx.gold_dir, cache_dir=ctx.cache_dir) for p in pair]
         return _json(200, bd.diff_runs(a, b))
+    if path == "/api/doc":
+        return _doc(query, ctx)
+    if path.startswith("/pages/"):
+        return _page_png(path[len("/pages/"):], ctx)
     if path == "/api/criteria":
         return _json(200, br.criteria())
     if path == "/api/silver_gaps":
