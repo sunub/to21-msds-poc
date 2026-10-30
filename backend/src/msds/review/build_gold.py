@@ -27,6 +27,7 @@ from msds.common.align import generic, keyed_flatten, unflatten_keyed
 from msds.common.jsonpath import from_cell
 from msds.common.schema import load_schema, msds_item_schema, validate_to21
 
+from .make_sheet import in_scope
 from .sheet_spec import COLUMNS, DEFAULT_MODEL, EXCLUDED_TOP, RESULT_OPTIONS, SHEET_INFO, SHEET_MAIN
 
 TAGS = {"gpt": "GPT", "claude": "Claude"}
@@ -292,18 +293,17 @@ def build_gold(rows: list[dict], base_doc: dict, default_model: str = DEFAULT_MO
     base_items = base_doc.get("msds") or []
     msds, unreviewed = [], []
     for i in range(max([len(base_items) - 1, *dec]) + 1):
+        # 검수 범위 밖 항(make_sheet.REVIEW_SECTIONS)은 검수하지 않으므로 실버 값을 옮기지 않고 비운다 (2026-10-29 기업 합의)
         base = [(p, v) for p, v in keyed_flatten(base_items[i])
-                if re.split(r"[.\[]", p, maxsplit=1)[0] not in EXCLUDED_TOP] if i < len(base_items) else []
-        d = dec.get(i, {})
+                if re.split(r"[.\[]", p, maxsplit=1)[0] not in EXCLUDED_TOP and in_scope(p)] if i < len(base_items) else []
+        d = {p: k for p, k in dec.get(i, {}).items() if in_scope(p)}
         pairs = _assemble(base, d)
         if not pairs:            # 기본값 실버에 없고 채택한 칸도 없는 MSDS 건은 만들지 않는다
             continue
         kept = dict(pairs)        # 미검수 칸: 골드에 실제로 들어간 칸만 (삭제된 항목 안의 칸은 뺀다)
         unreviewed += [f"msds[{len(msds)}].{p}" for p, k in sorted(d.items(), key=lambda t: _order_key(t[0]))
                        if k[4] == RANK_DEFAULT and k[0] == "set" and p in kept]
-        item = unflatten_keyed(pairs)
-        if i >= len(base_items):
-            item = _complete(item, msds_item_schema())
+        item = _complete(unflatten_keyed(pairs), msds_item_schema())   # 비운 항·새 MSDS 건의 빠진 칸을 빈 값으로
         item["evidence"] = _evidence(pairs, d)
         item["validation"] = []
         msds.append(item)
@@ -315,14 +315,20 @@ def build_gold(rows: list[dict], base_doc: dict, default_model: str = DEFAULT_MO
     return gold, unreviewed
 
 
+def default_model(doc_id: str) -> str:
+    """골드의 기본값 모델: DEFAULT_MODEL, 그 실버가 없으면 다른 모델(팀 합의로 Claude 실버만 있는 경우). 검수 화면도 같은 판단에 쓴다."""
+    model = DEFAULT_MODEL
+    if not paths.silver_path(model, doc_id).exists():   # 팀 합의로 Claude 실버만 있는 경우
+        model = next(m for m in TAGS if m != model)
+    return model
+
+
 def build_gold_file(doc_id: str) -> Path:
     """data/review/<문서>.xlsx → data/gold/<문서>.json (+ <문서>.unreviewed.json)."""
     rows, _ = read_sheet(paths.review_sheet_path(doc_id))
-    model = DEFAULT_MODEL
-    if not paths.silver_path(model, doc_id).exists():   # 팀 합의로 Claude 실버만 있는 경우
-        other = next(m for m in TAGS if m != model)
-        print(f"[경고] 기본값 모델({model}) 실버가 없어 {other} 실버를 기본값으로 씀")
-        model = other
+    model = default_model(doc_id)
+    if model != DEFAULT_MODEL:
+        print(f"[경고] 기본값 모델({DEFAULT_MODEL}) 실버가 없어 {model} 실버를 기본값으로 씀")
     base = json.loads(paths.silver_path(model, doc_id).read_text(encoding="utf-8"))
     gold, unreviewed = build_gold(rows, base, model)
 
