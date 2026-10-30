@@ -1,0 +1,92 @@
+{
+ "doc_id": "T21-M001",
+ "msds_index": 0,
+ "section": 6,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S6_PERSONAL",
+    "title_raw": "가. 인체를 보호하기 위해 필요한 조치사항 및 보호구",
+    "start": "p4:L11",
+    "end": "p4:L24"
+   },
+   {
+    "item_code": "S6_ENV",
+    "title_raw": "나. 환경을 보호하기 위해 필요한 조치사항",
+    "start": "p4:L25",
+    "end": "p4:L27"
+   },
+   {
+    "item_code": "S6_CLEANUP",
+    "title_raw": "다. 정화 또는 제거 방법",
+    "start": "p4:L28",
+    "end": "p4:L29"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S9_END",
+    "title_raw": "6. 누출사고시 대처방법",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "key": "가",
+      "value": "인체를 보호하기 위해 필요한 조치사항 및 보호구",
+      "refs": [
+       "S6_PERSONAL"
+      ],
+      "line": "p4:L11"
+     },
+     {
+      "key": "나",
+      "value": "환경을 보호하기 위해 필요한 조치사항",
+      "refs": [
+       "S6_ENV"
+      ],
+      "line": "p4:L25"
+     },
+     {
+      "key": "다",
+      "value": "정화 또는 제거 방법",
+      "refs": [
+       "S6_CLEANUP"
+      ],
+      "line": "p4:L28"
+     }
+    ],
+    "suggested_code": "SECTION_TITLE",
+    "line": "p4:L10"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S6_PERSONAL\",\n      \"title_raw\": \"가. 인체를 보호하기 위해 필요한 조치사항 및 보호구\",\n      \"start\": \"p4:L11\",\n      \"end\": \"p4:L24\"\n    },\n    {\n      \"item_code\": \"S6_ENV\",\n      \"title_raw\": \"나. 환경을 보호하기 위해 필요한 조치사항\",\n      \"start\": \"p4:L25\",\n      \"end\": \"p4:L27\"\n    },\n    {\n      \"item_code\": \"S6_CLEANUP\",\n      \"title_raw\": \"다. 정화 또는 제거 방법\",\n      \"start\": \"p4:L28\",\n      \"end\": \"p4:L29\"\n    }\n  ]\n  ,\n  \"extras\": [\n    {\n      \"after_item\": \"S9_END\",\n      \"title_raw\": \"6. 누출사고시 대처방법\",\n      \"reason\": \"코드없음\"\n    ,\n      \"statements\": [\n        {\n          \"key\": \"가\",\n          \"value\": \"인체를 보호하기 위해 필요한 조치사항 및 보호구\"\n        ,\n          \"refs\": [\n            \"S6_PERSONAL\"\n          ]\n        ,\n          \"line\": \"p4:L11\"\n        },\n        {\n          \"key\": \"나\",\n          \"value\": \"환경을 보호하기 위해 필요한 조치사항\"\n        ,\n          \"refs\": [\n            \"S6_ENV\"\n          ]\n        ,\n          \"line\": \"p4:L25\"\n        },\n        {\n          \"key\": \"다\",\n          \"value\": \"정화 또는 제거 방법\"\n        ,\n          \"refs\": [\n            \"S6_CLEANUP\"\n          ]\n        ,\n          \"line\": \"p4:L28\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"SECTION_TITLE\"\n    ,\n      \"line\": \"p4:L10\"\n    }\n  ]\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 2298,
+  "completion_tokens": 480,
+  "total_tokens": 2778
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 2298,
+    "completion_tokens": 480,
+    "total_tokens": 2778
+   },
+   "seconds": 8.905,
+   "chars": 1229,
+   "whitespace": 579,
+   "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S6_PERSONAL\",\n      \"title_raw\": \"가. 인체를 보호하기 위해 필요한 조치사항 및 보호구\",\n      \"start\": \"p4:L11\",\n      \"end\": \"p4:L24\"\n    },\n    {\n      \"item_code\": \"S6_ENV\",\n      \"title_raw\": \"나. 환경을 보호하기 위해 필요한 조치사항\",\n      \"start\": \"p4:L25\",\n      \"end\": \"p4:L27\"\n    },\n    {\n      \"item_code\": \"S6_CLEANUP\",\n      \"title_raw\": \"다. 정화 또는 제거 방법\",\n      \"start\": \"p4:L28\",\n      \"end\": \"p4:L29\"\n    }\n  ]\n  ,\n  \"extras\": [\n    {\n      \"after_item\": \"S9_END\",\n      \"title",
+   "tail": "  ,\n          \"line\": \"p4:L11\"\n        },\n        {\n          \"key\": \"나\",\n          \"value\": \"환경을 보호하기 위해 필요한 조치사항\"\n        ,\n          \"refs\": [\n            \"S6_ENV\"\n          ]\n        ,\n          \"line\": \"p4:L25\"\n        },\n        {\n          \"key\": \"다\",\n          \"value\": \"정화 또는 제거 방법\"\n        ,\n          \"refs\": [\n            \"S6_CLEANUP\"\n          ]\n        ,\n          \"line\": \"p4:L28\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"SECTION_TITLE\"\n    ,\n      \"line\": \"p4:L10\"\n    }\n  ]\n}"
+  }
+ ],
+ "seconds": 8.907,
+ "check_problems": []
+}

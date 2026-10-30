@@ -1,0 +1,720 @@
+{
+ "sections": [
+  {
+   "msds_index": 0,
+   "section": 1,
+   "ok": true,
+   "mode": "json_schema",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 1,
+   "seconds": 11.059,
+   "usage": {
+    "prompt_tokens": 3380,
+    "completion_tokens": 678,
+    "total_tokens": 4058
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 2,
+   "ok": true,
+   "mode": "json_schema",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 1,
+   "seconds": 17.248,
+   "usage": {
+    "prompt_tokens": 6492,
+    "completion_tokens": 1262,
+    "total_tokens": 7754
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 3,
+   "ok": true,
+   "mode": "rows",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 1,
+   "seconds": 4.782,
+   "usage": {
+    "prompt_tokens": 3700,
+    "completion_tokens": 250,
+    "total_tokens": 3950
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 4,
+   "ok": true,
+   "mode": "json_schema",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 1,
+   "seconds": 7.047,
+   "usage": {
+    "prompt_tokens": 2308,
+    "completion_tokens": 406,
+    "total_tokens": 2714
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 5,
+   "ok": true,
+   "mode": "json_schema",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": true,
+   "attempts": 2,
+   "seconds": 36.58,
+   "usage": {
+    "prompt_tokens": 5812,
+    "completion_tokens": 3773,
+    "total_tokens": 9585
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 6,
+   "ok": true,
+   "mode": "json_schema",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 1,
+   "seconds": 11.013,
+   "usage": {
+    "prompt_tokens": 2184,
+    "completion_tokens": 677,
+    "total_tokens": 2861
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 7,
+   "ok": true,
+   "mode": "json_schema",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 1,
+   "seconds": 9.503,
+   "usage": {
+    "prompt_tokens": 2084,
+    "completion_tokens": 590,
+    "total_tokens": 2674
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 8,
+   "ok": true,
+   "mode": "rows",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 1,
+   "seconds": 10.986,
+   "usage": {
+    "prompt_tokens": 3572,
+    "completion_tokens": 675,
+    "total_tokens": 4247
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 9,
+   "ok": true,
+   "mode": "rows",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": true,
+   "attempts": 2,
+   "seconds": 23.504,
+   "usage": {
+    "prompt_tokens": 8876,
+    "completion_tokens": 2006,
+    "total_tokens": 10882
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 10,
+   "ok": true,
+   "mode": "json_schema",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 1,
+   "seconds": 11.423,
+   "usage": {
+    "prompt_tokens": 2733,
+    "completion_tokens": 737,
+    "total_tokens": 3470
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 11,
+   "ok": true,
+   "mode": "rows",
+   "errors": [
+    "toxicity p8:L28 Methane | 74-82-8 | TX_STOT_RE | NOAEC |…: .descriptor: 'NOAEC' is not valid under any of the given schemas",
+    "cmr p8:L14 |  | 발암성 |  |  | 분류되지않음 | PRODUCT : 분류되지…: .status: '분류되지않음' is not valid under any of the given schemas",
+    "cmr p8:L16 |  | 생식세포변이원성 |  |  |  | 분류되지않음 | PRODUC…: 열 9개, 기대 8개",
+    "cmr p8:L17 |  | 생식세포변이원성 |  |  |  |  | Methane : 음성…: 열 9개, 기대 8개",
+    "cmr p8:L20 |  | 생식독성 |  |  |  | 분류되지않음 | PRODUCT : …: 열 9개, 기대 8개",
+    "cmr p8:L21 |  | 생식독성 |  |  |  |  | Hydrogen : 미숙아의 …: 열 9개, 기대 8개",
+    "cmr p8:L22 |  | 생식독성 |  |  |  |  | Methane : 생식능력에 …: 열 9개, 기대 8개",
+    "cmr p8:L23 |  | 특정표적장기 독성(1회) |  |  |  | 분류되지않음 | P…: 열 9개, 기대 8개",
+    "cmr p8:L26 |  | 특정표적장기 독성(반복) |  |  |  | 분류되지않음 | P…: 열 9개, 기대 8개",
+    "cmr p8:L30 |  | 흡인 유해성 |  |  |  | 분류되지않음 | PRODUCT …: 열 9개, 기대 8개"
+   ],
+   "check_problems": [],
+   "reextracted": true,
+   "attempts": 2,
+   "seconds": 48.167,
+   "usage": {
+    "prompt_tokens": 11503,
+    "completion_tokens": 6059,
+    "total_tokens": 17562
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 12,
+   "ok": true,
+   "mode": "rows",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 1,
+   "seconds": 16.598,
+   "usage": {
+    "prompt_tokens": 3989,
+    "completion_tokens": 1182,
+    "total_tokens": 5171
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 13,
+   "ok": true,
+   "mode": "json_schema",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 1,
+   "seconds": 5.111,
+   "usage": {
+    "prompt_tokens": 1932,
+    "completion_tokens": 273,
+    "total_tokens": 2205
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 14,
+   "ok": true,
+   "mode": "rows",
+   "errors": [
+    "transport p10:L5 육상(ADR·국내) |  | true | 1049 | HYDROGEN, …: .mode: '육상(ADR·국내)' is not valid under any of the given schemas",
+    "transport p10:L7 해상(IMDG) |  | true | 1049 | HYDROGEN, CO…: .mode: '해상(IMDG)' is not valid under any of the given schemas",
+    "transport p10:L9 항공(IATA) |  | true | 1049 | HYDROGEN, CO…: .mode: '항공(IATA)' is not valid under any of the given schemas"
+   ],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 2,
+   "seconds": 17.465,
+   "usage": {
+    "prompt_tokens": 6521,
+    "completion_tokens": 1281,
+    "total_tokens": 7802
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 15,
+   "ok": true,
+   "mode": "rows",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 1,
+   "seconds": 4.145,
+   "usage": {
+    "prompt_tokens": 6000,
+    "completion_tokens": 181,
+    "total_tokens": 6181
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 16,
+   "ok": true,
+   "mode": "json_schema",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 1,
+   "seconds": 7.48,
+   "usage": {
+    "prompt_tokens": 2465,
+    "completion_tokens": 441,
+    "total_tokens": 2906
+   }
+  }
+ ],
+ "schema_errors": [],
+ "to21_validator": [
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[6]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[15]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[16]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[17]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[18]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[19]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[20]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[21]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[22]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[23]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[24]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[25]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[26]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[27]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[28]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[29]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[30]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[31]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[32]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[33]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[34]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[35]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[36]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[37]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[38]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[39]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[40]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[41]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[42]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[43]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[44]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[45]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[46]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[47]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[63]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[64]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[65]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[66]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[67]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[68]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[69]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[72]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[75]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  }
+ ],
+ "expand_problems": [
+  {
+   "msds_index": 0,
+   "section": 11,
+   "kind": "unlinked_component",
+   "detail": "cmr[1]: None / 특정표적장기 독성(1회)"
+  },
+  {
+   "msds_index": 0,
+   "section": 11,
+   "kind": "unlinked_component",
+   "detail": "cmr[2]: None / 특정표적장기 독성(반복)"
+  },
+  {
+   "msds_index": 0,
+   "section": 11,
+   "kind": "unlinked_component",
+   "detail": "cmr[3]: None / 특정표적장기 독성(반복)"
+  },
+  {
+   "msds_index": 0,
+   "section": 2,
+   "kind": "extras_in_narrative",
+   "detail": "1행"
+  },
+  {
+   "msds_index": 0,
+   "section": 5,
+   "kind": "extras_in_narrative",
+   "detail": "18행"
+  },
+  {
+   "msds_index": 0,
+   "section": 7,
+   "kind": "extras_in_narrative",
+   "detail": "1행"
+  },
+  {
+   "msds_index": 0,
+   "section": 10,
+   "kind": "extras_in_narrative",
+   "detail": "1행"
+  },
+  {
+   "msds_index": 0,
+   "section": 11,
+   "kind": "unlinked_component",
+   "detail": "extras[48]: PRODUCT / None"
+  },
+  {
+   "msds_index": 0,
+   "section": 11,
+   "kind": "unlinked_component",
+   "detail": "extras[49]: PRODUCT / None"
+  },
+  {
+   "msds_index": 0,
+   "section": 11,
+   "kind": "unlinked_component",
+   "detail": "extras[50]: PRODUCT / None"
+  },
+  {
+   "msds_index": 0,
+   "section": 11,
+   "kind": "unlinked_component",
+   "detail": "extras[51]: PRODUCT / None"
+  },
+  {
+   "msds_index": 0,
+   "section": 11,
+   "kind": "unlinked_component",
+   "detail": "extras[52]: PRODUCT / None"
+  },
+  {
+   "msds_index": 0,
+   "section": 11,
+   "kind": "unlinked_component",
+   "detail": "extras[53]: PRODUCT / None"
+  },
+  {
+   "msds_index": 0,
+   "section": 11,
+   "kind": "unlinked_component",
+   "detail": "extras[54]: PRODUCT / None"
+  },
+  {
+   "msds_index": 0,
+   "section": 11,
+   "kind": "unlinked_component",
+   "detail": "extras[55]: PRODUCT / None"
+  },
+  {
+   "msds_index": 0,
+   "section": 11,
+   "kind": "unlinked_component",
+   "detail": "extras[56]: PRODUCT / None"
+  },
+  {
+   "msds_index": 0,
+   "section": 11,
+   "kind": "unlinked_component",
+   "detail": "extras[57]: PRODUCT / None"
+  },
+  {
+   "msds_index": 0,
+   "section": 11,
+   "kind": "unlinked_component",
+   "detail": "extras[58]: PRODUCT / None"
+  },
+  {
+   "msds_index": 0,
+   "section": 11,
+   "kind": "unlinked_component",
+   "detail": "extras[59]: PRODUCT / None"
+  },
+  {
+   "msds_index": 0,
+   "section": 11,
+   "kind": "unlinked_component",
+   "detail": "extras[60]: PRODUCT / None"
+  },
+  {
+   "msds_index": 0,
+   "section": 11,
+   "kind": "unlinked_component",
+   "detail": "extras[61]: PRODUCT / None"
+  },
+  {
+   "msds_index": 0,
+   "section": 11,
+   "kind": "unlinked_component",
+   "detail": "extras[62]: PRODUCT / None"
+  }
+ ],
+ "warnings": [
+  "항목 분할 파일 없음: 임시 분할 (찾은 항 16/16, MSDS 1건)"
+ ],
+ "sections_method": "provisional",
+ "pictogram_check": [
+  {
+   "msds_index": 0,
+   "model": [
+    "GHS02",
+    "GHS04"
+   ],
+   "inferred": [],
+   "missing": [],
+   "extra": [
+    "GHS02",
+    "GHS04"
+   ],
+   "ok": true,
+   "unmapped_h": [
+    "H220",
+    "H280"
+   ]
+  }
+ ],
+ "needs_review": [
+  {
+   "msds_index": 0,
+   "section": 2
+  },
+  {
+   "msds_index": 0,
+   "section": 5
+  },
+  {
+   "msds_index": 0,
+   "section": 7
+  },
+  {
+   "msds_index": 0,
+   "section": 10
+  },
+  {
+   "msds_index": 0,
+   "section": 11
+  },
+  {
+   "msds_index": 0,
+   "section": 14
+  }
+ ]
+}

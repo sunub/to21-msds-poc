@@ -1,3 +1,28 @@
+[project]
+name = "to21-msds-backend"
+version = "0.1.0"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+  "PyMuPDF",
+  "docling>=2.144.0",
+  "onnxruntime-gpu>=1.31.1",
+  "paddleocr==3.2.0",
+  "paddlepaddle-gpu==3.2.0",
+]
+
+[dependency-groups]
+dev = [
+  "pytest",
+]
+
+[tool.uv.sources]
+paddlepaddle-gpu = { index = "paddle-cu118" }
+
+[[tool.uv.index]]
+name = "paddle-cu118"
+url = "https://www.paddlepaddle.org.cn/packages/stable/cu118/"
+explicit = true
+
 # 패키지 설치용이 아니라 pytest 가 src/msds 를 찾게 하는 최소 설정이다.
 # scripts/ 에서 msds 를 import 하는 방식은 골격이 올라온 뒤 정한다.
 [tool.pytest.ini_options]

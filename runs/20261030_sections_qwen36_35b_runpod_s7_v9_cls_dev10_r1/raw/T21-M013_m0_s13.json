@@ -1,0 +1,157 @@
+{
+ "doc_id": "T21-M013",
+ "msds_index": 0,
+ "section": 13,
+ "reextracted": true,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S13_METHOD",
+    "title_raw": "가.폐기방법",
+    "start": "p8:L39",
+    "end": "p8:L41"
+   },
+   {
+    "item_code": "S13_CAUTION",
+    "title_raw": "나.폐기시주의사항",
+    "start": "p8:L42",
+    "end": "p8:L43"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S13_METHOD",
+    "title_raw": "지정폐기물의분류번호",
+    "reason": "필드없음",
+    "statements": [
+     {
+      "value": "사용자생산자폐기물처리업체가협의하여폐기물코드를부여해야함",
+      "line": "p8:L44"
+     }
+    ],
+    "line": "p8:L44"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S13_METHOD\",\n      \"title_raw\": \"가.폐기방법\",\n      \"start\": \"p8:L39\",\n      \"end\": \"p8:L41\"\n    },\n    {\n      \"item_code\": \"S13_CAUTION\",\n      \"title_raw\": \"나.폐기시주의사항\",\n      \"start\": \"p8:L42\",\n      \"end\": \"p8:L43\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S13_METHOD\",\n      \"title_raw\": \"지정폐기물의분류번호\",\n      \"reason\": \"필드없음\",\n      \"statements\": [\n        {\n          \"value\": \"사용자생산자폐기물처리업체가협의하여폐기물코드를부여해야함\",\n          \"line\": \"p8:L44\"\n        }\n      ],\n      \"line\": \"p8:L44\"\n    }\n  ]\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 2331,
+  "completion_tokens": 249,
+  "total_tokens": 2580
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 2331,
+    "completion_tokens": 249,
+    "total_tokens": 2580
+   },
+   "seconds": 4.854,
+   "chars": 547,
+   "whitespace": 198,
+   "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S13_METHOD\",\n      \"title_raw\": \"가.폐기방법\",\n      \"start\": \"p8:L39\",\n      \"end\": \"p8:L41\"\n    },\n    {\n      \"item_code\": \"S13_CAUTION\",\n      \"title_raw\": \"나.폐기시주의사항\",\n      \"start\": \"p8:L42\",\n      \"end\": \"p8:L43\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S13_METHOD\",\n      \"title_raw\": \"지정폐기물의분류번호\",\n      \"reason\": \"필드없음\",\n      \"statements\": [\n        {\n          \"value\": \"사용자생산자폐기물처리업체가협의하여폐기물코드를부여해야함\",\n          \"line\": \"p8:L44\"\n      ",
+   "tail": "  }\n      ],\n      \"line\": \"p8:L44\"\n    }\n  ]\n}"
+  }
+ ],
+ "seconds": 4.856,
+ "check_problems": [],
+ "first_attempt": {
+  "ok": true,
+  "parsed": {
+   "narratives": [
+    {
+     "item_code": "S13_METHOD",
+     "title_raw": "가.폐기방법",
+     "start": "L39",
+     "end": "L41"
+    },
+    {
+     "item_code": "S13_CAUTION",
+     "title_raw": "나.폐기시주의사항",
+     "start": "L42",
+     "end": "L44"
+    }
+   ],
+   "extras": [
+    {
+     "after_item": "S13_METHOD",
+     "title_raw": "폐기시주의사항",
+     "reason": "코드없음",
+     "statements": [
+      {
+       "value": "수거하여재생하거나밀봉용기에담아서허가된폐기물처리장에서폐기할것이물질이하수구수로로유입되지않게할",
+       "line": "L39"
+      },
+      {
+       "value": "것화학물질이나사용한용기로연못수로또는도랑을오염시키지말것폐기물관련법령에따라내용물용기를",
+       "line": "L40"
+      },
+      {
+       "value": "폐기하시오.",
+       "line": "L41"
+      }
+     ],
+     "line": "L38"
+    },
+    {
+     "after_item": "S13_CAUTION",
+     "title_raw": "지정폐기물의분류번호",
+     "reason": "코드없음",
+     "statements": [
+      {
+       "value": "사용자생산자폐기물처리업체가협의하여폐기물코드를부여해야함",
+       "line": "L44"
+      }
+     ],
+     "line": "L44"
+    }
+   ]
+  },
+  "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S13_METHOD\",\n      \"title_raw\": \"가.폐기방법\",\n      \"start\": \"L39\",\n      \"end\": \"L41\"\n    },\n    {\n      \"item_code\": \"S13_CAUTION\",\n      \"title_raw\": \"나.폐기시주의사항\",\n      \"start\": \"L42\",\n      \"end\": \"L44\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S13_METHOD\",\n      \"title_raw\": \"폐기시주의사항\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"수거하여재생하거나밀봉용기에담아서허가된폐기물처리장에서폐기할것이물질이하수구수로로유입되지않게할\"\n        ,\n          \"line\": \"L39\"\n        },\n        {\n          \"value\": \"것화학물질이나사용한용기로연못수로또는도랑을오염시키지말것폐기물관련법령에따라내용물용기를\"\n        ,\n          \"line\": \"L40\"\n        },\n        {\n          \"value\": \"폐기하시오.\"\n        ,\n          \"line\": \"L41\"\n        }\n      ]\n    ,\n      \"line\": \"L38\"\n    },\n    {\n      \"after_item\": \"S13_CAUTION\",\n      \"title_raw\": \"지정폐기물의분류번호\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"사용자생산자폐기물처리업체가협의하여폐기물코드를부여해야함\"\n        ,\n          \"line\": \"L44\"\n        }\n      ]\n    ,\n      \"line\": \"L44\"\n    }\n  ]\n}",
+  "mode": "json_schema",
+  "finish_reason": "stop",
+  "usage": {
+   "prompt_tokens": 2148,
+   "completion_tokens": 458,
+   "total_tokens": 2606
+  },
+  "attempts": 1,
+  "errors": [],
+  "requests": [
+   {
+    "mode": "json_schema",
+    "finish_reason": "stop",
+    "usage": {
+     "prompt_tokens": 2148,
+     "completion_tokens": 458,
+     "total_tokens": 2606
+    },
+    "seconds": 8.966,
+    "chars": 1031,
+    "whitespace": 427,
+    "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S13_METHOD\",\n      \"title_raw\": \"가.폐기방법\",\n      \"start\": \"L39\",\n      \"end\": \"L41\"\n    },\n    {\n      \"item_code\": \"S13_CAUTION\",\n      \"title_raw\": \"나.폐기시주의사항\",\n      \"start\": \"L42\",\n      \"end\": \"L44\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S13_METHOD\",\n      \"title_raw\": \"폐기시주의사항\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"수거하여재생하거나밀봉용기에담아서허가된폐기물처리장에서폐기할것이물질이하수구수로로유입되지않게할\"\n        ,\n          \"line\": \"",
+    "tail": "     \"value\": \"것화학물질이나사용한용기로연못수로또는도랑을오염시키지말것폐기물관련법령에따라내용물용기를\"\n        ,\n          \"line\": \"L40\"\n        },\n        {\n          \"value\": \"폐기하시오.\"\n        ,\n          \"line\": \"L41\"\n        }\n      ]\n    ,\n      \"line\": \"L38\"\n    },\n    {\n      \"after_item\": \"S13_CAUTION\",\n      \"title_raw\": \"지정폐기물의분류번호\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"사용자생산자폐기물처리업체가협의하여폐기물코드를부여해야함\"\n        ,\n          \"line\": \"L44\"\n        }\n      ]\n    ,\n      \"line\": \"L44\"\n    }\n  ]\n}"
+   }
+  ],
+  "seconds": 8.968,
+  "check_problems": [
+   "narratives[0].start: 원문에 없는 줄 번호 L39",
+   "narratives[0].end: 원문에 없는 줄 번호 L41",
+   "narratives[1].start: 원문에 없는 줄 번호 L42",
+   "narratives[1].end: 원문에 없는 줄 번호 L44",
+   "extras[0].statements[0].line: 원문에 없는 줄 번호 L39",
+   "extras[0].statements[1].line: 원문에 없는 줄 번호 L40",
+   "extras[0].statements[2].line: 원문에 없는 줄 번호 L41",
+   "extras[0].line: 원문에 없는 줄 번호 L38",
+   "extras[1].statements[0].line: 원문에 없는 줄 번호 L44",
+   "extras[1].line: 원문에 없는 줄 번호 L44"
+  ]
+ }
+}
