@@ -212,10 +212,21 @@ def table_md(grid: list[list[str]]) -> str:
 
 
 # MSDS 1~16항 제목에 들어가는 낱말 (문서마다 표현이 조금씩 다르다: '응급조치요령'/'응급처치요령', '안정성'/'안전성')
-SECTION_WORDS = {1: ("화학제품",), 2: ("유해", "위험"), 3: ("구성성분",), 4: ("응급",), 5: ("화재", "폭발"),
-                 6: ("누출",), 7: ("취급", "저장"), 8: ("노출", "보호구"), 9: ("물리", "특성"), 10: ("반응",),
-                 11: ("독성",), 12: ("환경",), 13: ("폐기",), 14: ("운송",), 15: ("법",), 16: ("참고",)}
-_SECTION_NO = re.compile(r"^(\d{1,2})(?:\s*[.:]\s*|\s+)(?=[가-힣])")   # '3. 제목', '3.제목', '3 제목', '3: 제목'(045). '2차'는 아니다
+SECTION_WORDS = {
+    1: ("화학제품", "identification"),
+    # 2013년 이전 구양식은 2항이 구성성분, 3항이 유해·위험성이다. 번호는 원문대로 보존한다.
+    2: ("유해", "위험", "hazard", "구성성분", "구성 성분", "composition", "ingredient"),
+    3: ("구성성분", "구성 성분", "composition", "ingredient", "유해", "위험", "hazard"),
+    4: ("응급", "first-aid", "first aid"),
+    5: ("화재", "폭발", "fire"), 6: ("누출", "accidental", "release"),
+    7: ("취급", "저장", "handling", "storage"), 8: ("노출", "보호구", "exposure", "protection"),
+    9: ("물리", "특성", "physical", "chemical properties"), 10: ("반응", "stability", "reactivity"),
+    11: ("독성", "toxicological"), 12: ("환경", "ecological"), 13: ("폐기", "disposal"),
+    14: ("운송", "transport"), 15: ("법", "regulatory"),
+    16: ("참고", "기타정보", "기타 정보", "other information"),
+}
+_SECTION_NO = re.compile(r"^(\d{1,2})(?:(?:\s*[.:]\s*)+|\s+)(?=[가-힣A-Za-z])", re.I)
+# '3. 제목', '3.제목', '3 제목', '3: 제목'(045), OCR의 '13. . 제목', 영문 제목. '2차'는 아니다
 
 
 def section_headings(items: list[dict], after: int = 0) -> list[tuple[float, int, str]]:
@@ -234,7 +245,8 @@ def section_headings(items: list[dict], after: int = 0) -> list[tuple[float, int
         if not m:
             continue
         n = int(m[1])
-        if (after < n <= 16 or n == 1) and any(w in text.replace(" ", "") for w in SECTION_WORDS[n]):
+        compact = text.replace(" ", "").casefold()
+        if (after < n <= 16 or n == 1) and any(w.replace(" ", "").casefold() in compact for w in SECTION_WORDS[n]):
             out.append((min(i["box"][1] for i in row), n, text))
             after = n
     return out
