@@ -32,6 +32,7 @@ from msds.extract.client import load_model_config
 _NAME = re.compile(r"^\w[\w.-]*$")                   # 실행 이름·비교표 제목·라벨 (경로 탈출·셸 글자 막기)
 _RUN = re.compile(r"^(manual/)?\w[\w.-]*$")          # 기존 실행 폴더 이름 (runs/manual/<이름> 포함)
 _SCRIPTS = {"run_sections.py": "run", "try_section.py": "try"}   # ps에서 찾는 스크립트
+_PAGE_FILE = re.compile(r"^p\d+\.txt$")              # 쪽 글자 파일 (msds.extract.inputs와 같은 규칙)
 MAX_REPEAT = 10
 STOP_WAIT = 5.0                                      # terminate 뒤 kill까지 기다리는 초
 TMP_GRACE = 60                                       # 지난 앱이 띄운 작업의 임시 파일을 지워도 되는 시간(초). try_section은 시작하자마자 읽는다
@@ -178,9 +179,15 @@ class JobManager:
             raise ValueError(f"개발용 문서만 넣을 수 있습니다: {', '.join(others)}")
         return list(dict.fromkeys(doc_ids))
 
-    def _pages(self, pages_dir) -> str:
+    def _pages(self, pages_dir, doc_ids: list[str]) -> str:
+        """쪽 폴더와 그 안의 문서별 pNNN.txt를 띄우기 전에 본다. 예: version13_신규40(RAW-01~)에는 개발용 문서가 없다."""
         if not isinstance(pages_dir, str) or not pages_dir or not (self.backend_dir / pages_dir).is_dir():
             raise ValueError(f"쪽 글자 폴더가 없습니다: {pages_dir}")
+        missing = [d for d in doc_ids if not any(_PAGE_FILE.match(p.name)
+                                                 for p in (self.backend_dir / pages_dir / d).glob("p*.txt"))]
+        if missing:
+            raise ValueError(f"{Path(pages_dir).name}에 쪽 글자(pNNN.txt)가 없는 문서: {', '.join(missing)}. "
+                             "다른 쪽 폴더를 고르세요")
         return pages_dir
 
     @staticmethod
@@ -219,7 +226,7 @@ class JobManager:
                   extra_env: dict[str, str] | None = None) -> Job:
         self._model(model)
         self._dev_docs([doc])
-        pages_dir = self._pages(pages_dir)
+        pages_dir = self._pages(pages_dir, [doc])
         if all_:
             secs = None
         else:
@@ -255,7 +262,7 @@ class JobManager:
     def _check_run(self, model, docs, pages_dir, run_name, repeat) -> tuple[dict, list[str], list[str], str]:
         cfg = self._model(model)
         doc_ids = self._dev_docs(docs) if docs else [r["doc_id"] for r in manifest.select("개발")]
-        pages_dir = self._pages(pages_dir)
+        pages_dir = self._pages(pages_dir, doc_ids)
         self._name(run_name, "실행 이름")
         if not isinstance(repeat, int) or isinstance(repeat, bool) or not 1 <= repeat <= MAX_REPEAT:
             raise ValueError(f"반복 수는 1~{MAX_REPEAT}입니다: {repeat}")
