@@ -10,6 +10,7 @@
 탭 ⑤ 서버는 b_app_servers.ServerActions를 부른다. 바꾸는 동작은 propose(요약·확인 토큰) → execute(토큰) 두 단계이고,
 이 앱이 만든 Pod의 주소·키는 작업을 띄울 때 그 작업의 환경에만 넣는다(파일에 쓰지 않는다). 도움말은 다음 step에서 채운다.
 문서 묶음(/api/sets)은 b_app_sets가 data/pages 아래에서 찾는다. 평가용 문서는 파일을 열지 않고 잠긴 이유만 준다 (D-43).
+작업 POST는 본문의 set(묶음 id)을 목록에서 찾아 그 폴더를 쓴다. /api/options는 묶음별 문서의 작업 가능 여부와 이유를 준다.
 """
 import argparse
 import json
@@ -269,8 +270,17 @@ def _why_offline(s: dict | None) -> str | None:
     return "주소가 .env에 없음"
 
 
+def _runnable_sets(sets: list[dict]) -> list[dict]:
+    """묶음 목록의 문서마다 작업에 넣을 수 있는지(runnable)와 이유(run_reason)를 더한다. 원래 목록은 바꾸지 않는다."""
+    def doc(d: dict) -> dict:
+        reasons = {kind: bsets.job_check(d, kind) for kind in ("try", "run")}
+        return {**d, "runnable": {k: r is None for k, r in reasons.items()}, "run_reason": reasons}
+    return [{**s, "docs": [doc(d) for d in s["docs"]]} for s in sets]
+
+
 def _options(ctx: AppContext, *, advanced: bool = False) -> tuple[int, str, bytes]:
-    """탭 ④의 고를 거리: 모델 태그(연결 여부), 개발용 문서, 쪽 폴더 후보, 추천 실행 이름."""
+    """탭 ④의 고를 거리: 모델 태그(연결 여부), 개발용 문서, 쪽 폴더 후보(쓸 수 있는 문서 묶음), 묶음별 문서의 작업 가능 여부,
+    추천 실행 이름."""
     cfg = yaml.safe_load((CONFIGS / "models.yaml").read_text(encoding="utf-8"))["models"]
     status = ctx.model_status() if ctx.model_status else None
     if status is not None:
@@ -284,11 +294,16 @@ def _options(ctx: AppContext, *, advanced: bool = False) -> tuple[int, str, byte
     runs_dir = ctx.jobs.runs_dir if ctx.jobs else RUNS
     if ctx.pages_root is None:
         found = [Path(ctx.pages_dir)] if Path(ctx.pages_dir).is_dir() else []
+        pages = [{"name": p.name, "value": os.path.relpath(p, backend), "id": None} for p in found]
+        sets, default_id = [], None
+        default = pages[0]["value"] if pages else None
     else:
-        found = sorted((p for p in Path(ctx.pages_root).glob("version*") if p.is_dir()), key=lambda p: p.name)
-    pages = [{"name": p.name, "value": os.path.relpath(p, backend)} for p in found]
-    default = next((v["value"] for p, v in zip(found, pages) if p.resolve() == Path(ctx.pages_dir).resolve()),
-                   next((v["value"] for v in pages if v["name"] == "version9"), pages[0]["value"] if pages else None))
+        root = Path(ctx.pages_root)
+        sets = bsets.list_sets(root)
+        pages = [{"name": s["label"], "value": os.path.relpath(bsets.set_dir(root, s["id"]), backend), "id": s["id"]}
+                 for s in sets if s["usable"]]
+        default_id = bsets.default_set(sets, Path(ctx.pages_dir), root)
+        default = next((p["value"] for p in pages if p["id"] == default_id), None)
     names = {tag: {v["value"]: {purpose: bj.free_run_name(runs_dir, bj.suggest_run_name(
         tag, SECTION_PROMPT_VERSION, v["value"], purpose)) for purpose in ("dev10", "probe")} for v in pages}
         for tag in cfg}
@@ -297,7 +312,8 @@ def _options(ctx: AppContext, *, advanced: bool = False) -> tuple[int, str, byte
                        "try_stage_help": bt.TRY_STAGE_HELP, "job_ui_text": bt.JOB_UI_TEXT,
                        "docs": [{"doc_id": r["doc_id"], "pages": r.get("pages")} for r in manifest.select("개발")],
                        "pages_dirs": pages, "default_pages_dir": default, "prompt_version": SECTION_PROMPT_VERSION,
-                       "run_names": names})
+                       "run_names": names, "sets": _runnable_sets(sets), "default_set": default_id,
+                       "outside_run_support": bsets.outside_run_support()})
 
 
 def _sets(ctx: AppContext) -> tuple[int, str, bytes]:
@@ -366,6 +382,18 @@ def _server_post(path: str, body: bytes | None, ctx: AppContext) -> tuple[int, s
     return _json(res.pop("code", 200), res)
 
 
+def _job_pages_dir(data: dict, ctx: AppContext):
+    """작업 본문의 쪽 폴더. set(묶음 id)이 있으면 목록(find_set)에서 찾은 그 묶음 폴더(backend 기준), 없으면 pages_dir 그대로.
+    목록에 없는 id는 ValueError(400). 요청의 글로 경로를 직접 만들지 않는다."""
+    want = data.get("set")
+    if want is None:
+        return data.get("pages_dir")
+    s = bsets.find_set(_set_list(ctx), want)
+    if s is None:
+        raise ValueError(f"없는 문서 묶음: {want}")
+    return os.path.relpath(bsets.set_dir(Path(ctx.pages_root), s["id"]), ctx.jobs.backend_dir)
+
+
 def _post(path: str, body: bytes | None, ctx: AppContext) -> tuple[int, str, bytes]:
     if path.startswith("/api/servers/"):
         return _server_post(path, body, ctx)
@@ -379,12 +407,13 @@ def _post(path: str, body: bytes | None, ctx: AppContext) -> tuple[int, str, byt
     try:
         if path == "/api/jobs/try":
             job = jobs.start_try(model=data.get("model"), doc=data.get("doc"), sections=data.get("sections"),
-                                 all_=bool(data.get("all")), pages_dir=data.get("pages_dir"),
+                                 all_=bool(data.get("all")), pages_dir=_job_pages_dir(data, ctx),
                                  system_text=data.get("system_text"), base_run=data.get("base_run") or None,
                                  dry_run=bool(data.get("dry_run")), extra_env=extra_env)
             return _json(200, {"id": job.id})
         if path == "/api/jobs/run":
-            args = {k: data.get(k) for k in ("model", "docs", "pages_dir", "run_name", "repeat")}
+            args = {**{k: data.get(k) for k in ("model", "docs", "run_name", "repeat")},
+                    "pages_dir": _job_pages_dir(data, ctx)}
             summary = jobs.run_summary(**args)
             if data.get("confirm") is not True:         # 오래 돌고 서버 비용이 드는 작업이라 요약을 보고 한 번 더 누른다
                 return _json(409, {"summary": summary, "needs_confirm": True})

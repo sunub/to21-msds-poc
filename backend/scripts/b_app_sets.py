@@ -153,6 +153,29 @@ def set_dir(pages_root: Path, set_id: str) -> Path:
     return pages_root / set_id
 
 
+def outside_run_support() -> bool:
+    """실행기가 manifest 밖 문서를 meta.json으로 받는가. phase format40이 section_runner에 doc_meta_from_pages를 더하면 True.
+    부를 때마다 본다(모듈 맨 위에서 읽지 않는다). 다른 가지(b/format40)가 합쳐지면 앱을 고치지 않고 돌릴 수 있게 한다."""
+    from msds.extract import section_runner
+    return hasattr(section_runner, "doc_meta_from_pages")
+
+
+def job_check(doc: dict, kind: str) -> str | None:
+    """작업에 넣을 수 없으면 이유 글, 넣을 수 있으면 None. doc은 doc_entry 결과, kind는 "try"(항목 시험) | "run"(본 실행).
+    manifest 밖 문서는 문서 번호가 아니라 실행기 능력(outside_run_support)으로 정한다."""
+    if doc["locked"]:
+        return doc["reason"]
+    if not doc["line_numbers"]:
+        return bt.SET_TEXT["no_line_numbers_doc"]
+    if doc["group"] == "dev":
+        return None
+    if doc["group"] == "outside":
+        if kind == "try":
+            return bt.SET_TEXT["outside_try"]
+        return None if outside_run_support() else bt.SET_TEXT["outside_wait"]
+    return bt.SET_TEXT["dev_only"]
+
+
 def default_set(sets: list[dict], startup_dir: Path | None, pages_root: Path) -> str | None:
     """켤 때 받은 폴더(--pages-dir) → DEFAULT_SET → 첫 번째 쓸 수 있는 묶음 순. 쓸 수 있는 묶음이 없으면 None."""
     usable = [s["id"] for s in sets if s["usable"]]

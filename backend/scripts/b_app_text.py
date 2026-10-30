@@ -610,6 +610,12 @@ SET_TEXT: dict[str, str] = {
     # 원문 대조가 실행이 쓴 입력 폴더를 따라갈 때의 안내 (format으로 채운다)
     "run_moved": "이 실행은 {recorded}로 돌았고 그 폴더가 prev/로 옮겨져 {id}를 읽습니다.",
     "run_missing": "이 실행이 쓴 입력 폴더({recorded})를 찾지 못해 {name}을 보여 줍니다. 줄 번호가 다를 수 있습니다.",
+    # 작업(시험·본 실행)에 넣을 수 없는 문서의 이유 (b_app_sets.job_check)
+    "no_line_numbers_doc": "이 문서의 쪽 글자에 줄 번호(L001)가 없어 작업에 넣을 수 없습니다. 줄 번호가 있는 묶음을 고르세요.",
+    "outside_try": "문서 목록(manifest) 밖 문서라 항목 시험을 할 수 없습니다. 항목 시험(try_section)은 아직 manifest 문서만 받습니다.",
+    "outside_wait": "문서 목록(manifest) 밖 문서라 지금 실행기로는 돌릴 수 없습니다. "
+                    "실행기 고침(phase format40)이 합쳐지면, 즉 format40 이후 돌릴 수 있습니다.",
+    "dev_only": "개발용 문서만 넣을 수 있습니다",
 }
 
 

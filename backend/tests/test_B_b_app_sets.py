@@ -241,6 +241,55 @@ def test_resolve_run_set_without_sets(bsets):
     assert bsets.resolve_run_set("data/pages/prev/v9", X01, []) == (None, "none")
 
 
+# ── 작업 검사 ──────────────────────────────────────────
+
+def outside_support(monkeypatch, on: bool):
+    """실행기가 manifest 밖 문서를 받는 경우(phase format40 합친 뒤)와 아닌 경우를 만든다."""
+    from msds.extract import section_runner
+    if on:
+        monkeypatch.setattr(section_runner, "doc_meta_from_pages", lambda *a, **k: None, raising=False)
+    else:
+        monkeypatch.delattr(section_runner, "doc_meta_from_pages", raising=False)
+
+
+def test_outside_run_support_follows_runner(bsets, monkeypatch):
+    outside_support(monkeypatch, True)
+    assert bsets.outside_run_support() is True
+    outside_support(monkeypatch, False)
+    assert bsets.outside_run_support() is False                # 부를 때마다 다시 본다
+
+
+@pytest.mark.parametrize("on", [True, False])
+def test_job_check(bsets, bt, pages, monkeypatch, on):
+    outside_support(monkeypatch, on)
+    sets = by_id(bsets.list_sets(pages))
+    top, v9, v2 = docs_of(sets["."]), docs_of(sets["prev/v9"]), docs_of(sets["prev/v2"])
+    for kind in ("try", "run"):
+        assert bsets.job_check(v9[X01], kind) is None
+        assert bsets.job_check(top["RAW-91"], kind) == bt.SET_TEXT["unknown_doc"]
+        reason = bsets.job_check(v9[X09], kind)
+        assert "평가" in reason and "D-43" in reason
+        assert bsets.job_check(v2[X01], kind) == bt.SET_TEXT["no_line_numbers_doc"]
+    assert bsets.job_check(top["RAW-90"], "try") == bt.SET_TEXT["outside_try"]      # 한 항 시험은 manifest 문서만
+    assert bsets.job_check(top["RAW-90"], "run") == (None if on else bt.SET_TEXT["outside_wait"])
+
+
+def test_job_check_other_purpose(bsets, bt, env):
+    rows = ROWS + [{"doc_id": "T21-X05", "purpose": "기타"}]
+    page(env / "p" / "T21-X05")
+    other = bsets.doc_entry(env / "p" / "T21-X05", rows)
+    for kind in ("try", "run"):
+        assert bsets.job_check(other, kind) == "개발용 문서만 넣을 수 있습니다"
+
+
+def test_job_text(bt):
+    for key in ("no_line_numbers_doc", "outside_try", "outside_wait"):
+        assert bt.SET_TEXT[key].strip(), key
+    assert "L001" in bt.SET_TEXT["no_line_numbers_doc"]
+    assert "format40" in bt.SET_TEXT["outside_wait"] and "manifest" in bt.SET_TEXT["outside_wait"]
+    assert "manifest" in bt.SET_TEXT["outside_try"]
+
+
 # ── 글 ─────────────────────────────────────────────────
 
 def test_set_text(bt):
