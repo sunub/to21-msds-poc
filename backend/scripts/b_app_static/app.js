@@ -160,13 +160,26 @@ function goalBar(label, value, goal, max, text) {
 }
 
 function runLabel(r) {
-  const tag = r.kind === "manual" ? "[수동] " : "";
-  return `${tag}${r.name} — ${num(r.weighted) ? r.weighted.toFixed(1) + "점" : "점수 없음"}`;
+  const title = r.label ? r.label.title : r.name;
+  return `${title} — ${num(r.weighted) ? r.weighted.toFixed(1) + "점" : "점수 없음"}`;
+}
+
+function runOption(r, selected) {
+  return h("option", {value: r.name, selected: r.name === selected, title: r.name}, runLabel(r));
+}
+
+function rawRun(name) {
+  return name ? h("p", {class: "raw"}, name) : null;
+}
+
+function modelName(r) {
+  return h("span", {title: r.model || null}, r.model_label || r.model_tag || "—",
+    r.model_tag ? h("small", {class: "raw"}, ` (${r.model_tag})`) : null);
 }
 
 function renderNow(r) {
   const sel = h("select", {onchange: e => loadRun(e.target.value).catch(fail)},
-    runsShown().slice().reverse().map(x => h("option", {value: x.name, selected: x.name === S.name}, runLabel(x))));
+    runsShown().slice().reverse().map(x => runOption(x, S.name)));
   const top = h("div", {class: "pickrow"}, h("label", null, "실행 ", sel),
     h("button", {type: "button", onclick: () => loadAll().catch(fail)}, "다시 읽기"));
   if (!r) return card("now-card", "지금 점수", null, top, connLine(true), h("p", null, "점수를 낸 실행이 아직 없습니다."));
@@ -176,7 +189,7 @@ function renderNow(r) {
   const na = r.weighted_na_excluded, diff = num(na) && num(r.weighted) ? na - r.weighted : null;
   card("now-card", "지금 점수",
     "가장 최근 개발용 10건 본 실행(이름에 dev10)을 먼저 보여 줍니다. 위 상자에서 다른 실행을 고를 수 있습니다.",
-    top,
+    top, rawRun(r.name),
     connLine(true),
     h("div", {class: "bigrow"},
       h("div", {class: "big", "data-tip": "가중 종합 점수(weighted). 항목 점수에 무게를 곱해 평균 낸 값"}, fmt1(r.weighted),
@@ -189,10 +202,10 @@ function renderNow(r) {
       `값 없는 행을 뺀 점수: ${fmt1(na)}점`, diff === null ? "" : ` (차이 ${diff >= 0 ? "+" : ""}${diff.toFixed(1)})`),
     progressLine(r),
     h("dl", {class: "meta"},
-      h("dt", null, "모델"), h("dd", null, r.model || "—", r.model_tag ? h("small", null, ` (태그 ${r.model_tag})`) : null),
+      h("dt", null, "모델"), h("dd", null, modelName(r), r.model ? h("div", {class: "raw"}, r.model) : null),
       h("dt", null, "안내문 버전"), h("dd", null, r.prompt_version || "—"),
       h("dt", null, "입력 판"), h("dd", {"data-tip": r.pages_dir || ""}, lastPart(r.pages_dir)),
-      h("dt", null, "실행 이름"), h("dd", {class: "mono"}, r.name),
+      h("dt", null, "실행 이름"), h("dd", null, r.label ? r.label.title : r.name),
       h("dt", null, "시작 시각"), h("dd", null, when(r.started_at)),
       h("dt", null, "채점한 문서"), h("dd", null, `${(r.docs || []).length}건`,
         r.excluded && r.excluded.length ? h("small", null, ` (평가용·목록 밖 ${r.excluded.length}건은 뺌)`) : null,
@@ -320,16 +333,20 @@ function renderHistory() {
   });
   runs.forEach((r, i) => {
     const picked = S.pick.indexOf(r.name);
-    const tip = `${r.name}\n모델: ${r.model_tag || "—"}\n안내문 버전: ${r.prompt_version || "—"}\n입력 판: ${lastPart(r.pages_dir)}\n가중 종합: ${fmt1(r.weighted)}점 · 필수 ${r.must_passed}/${r.must_total}`;
+    const tip = `${runLabel(r)}\n${r.name}\n모델: ${r.model_label || r.model_tag || "—"}\n안내문 버전: ${r.prompt_version || "—"}\n입력 판: ${lastPart(r.pages_dir)}\n가중 종합: ${fmt1(r.weighted)}점 · 필수 ${r.must_passed}/${r.must_total}`;
     const toggle = () => savePick(picked >= 0 ? S.pick.filter(n => n !== r.name) : [...S.pick, r.name].slice(-2));
     g.append(s("circle", {cx: x(i), cy: y(r.weighted), r: r.name === S.name ? 8 : 5.5, fill: color(r.model_tag),
       class: "pt" + (picked >= 0 ? " picked" : ""), "data-tip": tip, onclick: toggle}));
     if (picked >= 0) g.append(s("text", {x: x(i), y: y(r.weighted) - 12, class: "picknum", "text-anchor": "middle"}, picked ? "②" : "①"));
   });
-  const legend = h("p", {class: "legend"}, tags.map(t => h("span", {class: "sw"}, h("i", {style: `background:${color(t)}`}), t)),
+  const legend = h("p", {class: "legend"}, tags.map(t => h("span", {class: "sw"}, h("i", {style: `background:${color(t)}`}),
+    modelName(runs.find(r => (r.model_tag || "?") === t)))),
     h("span", {class: "sw"}, "큰 점 = 지금 점수 카드의 실행"));
   const picks = S.pick.length
-    ? h("p", {class: "picks"}, "고른 실행: ", S.pick.map((n, k) => h("span", {class: "mono"}, `${k ? "②" : "①"} ${n} `)),
+    ? h("div", {class: "picks"}, "고른 실행: ", S.pick.map((n, k) => {
+      const r = S.list.find(x => x.name === n);
+      return h("div", null, `${k ? "②" : "①"} ${r ? runLabel(r) : n}`, rawRun(n));
+    }),
       h("button", {type: "button", onclick: () => savePick([])}, "고른 것 지우기"),
       S.pick.length === 2 ? " → 탭 ②에서 ①을 A(전), ②를 B(후)로 비교합니다." : " → 하나 더 고르세요.")
     : h("p", {class: "picks"}, "아직 고른 실행이 없습니다.");
@@ -472,7 +489,7 @@ function diffSelect(which) {
   const D = S.diff;
   return h("select", {onchange: e => { D[which] = e.target.value || null; loadDiff(); }},
     h("option", {value: "", selected: !D[which]}, "— 실행을 고르세요 —"),
-    runsShown().slice().reverse().map(x => h("option", {value: x.name, selected: x.name === D[which]}, runLabel(x))));
+    runsShown().slice().reverse().map(x => runOption(x, D[which])));
 }
 
 function changeLine(label, w, tip) {
@@ -484,18 +501,23 @@ function renderDiffTop() {
   const D = S.diff, d = D.data;
   const hint = "A에는 먼저 돌린 실행, B에는 나중 실행을 고르면 차이가 'B − A'로 나옵니다. 탭 ①의 실행 역사에서 점 두 개를 고르면 여기에 채워집니다.";
   const pick = h("div", {class: "pickcol"},
-    h("label", null, "A (전) ", diffSelect("a")), h("label", null, "B (후) ", diffSelect("b")),
+    h("div", null, h("label", null, "A (전) ", diffSelect("a")), rawRun(D.a)),
+    h("div", null, h("label", null, "B (후) ", diffSelect("b")), rawRun(D.b)),
     h("button", {type: "button", onclick: () => { [D.a, D.b] = [D.b, D.a]; loadDiff(); }}, "A ↔ B 바꾸기"));
   if (D.error) return card("diff-top-card", "고른 두 실행", hint, pick, h("p", {class: "badt"}, "비교하지 못했습니다: " + D.error));
   if (!d) {
     return card("diff-top-card", "고른 두 실행", hint, pick,
       h("p", {class: "hint"}, D.a && D.b ? "비교하는 중… (처음에는 두 실행을 채점하느라 몇 초 걸립니다)" : "A와 B를 둘 다 고르세요."));
   }
-  const show = (c, v) => v === null || v === undefined ? "—" : c.what === "입력 판" ? lastPart(v) : String(v);
+  const show = (c, v, which) => {
+    if (c.what === "모델") return modelName(S.list.find(r => r.name === D[which]) || {model_tag: v});
+    return v === null || v === undefined ? "—" : c.what === "입력 판" ? lastPart(v) : String(v);
+  };
   const cond = h("table", {class: "list cond"},
     h("thead", null, h("tr", null, h("th", null, "조건"), h("th", null, "A"), h("th", null, "B"))),
     h("tbody", null, d.conditions.map(c => h("tr", {class: c.changed ? "chg" : null},
-      h("td", null, c.what), h("td", {class: "mono"}, show(c, c.a)), h("td", {class: "mono"}, show(c, c.b))))));
+      h("td", null, c.what), h("td", {class: c.what === "모델" ? null : "mono"}, show(c, c.a, "a")),
+      h("td", {class: c.what === "모델" ? null : "mono"}, show(c, c.b, "b"))))));
   const nos = d.prompt_changed_sections;
   const docs = d.docs, odd = docs.only_a.length || docs.only_b.length;
   card("diff-top-card", "고른 두 실행", hint, pick,
@@ -701,11 +723,12 @@ function renderDocTop() {
   const hint = "실행과 문서를 고르면 아래에 쪽 그림·쪽 글자(왼쪽), 결과 값과 실버 값(오른쪽)이 나옵니다. 개발용 문서만 고를 수 있습니다.";
   const docs = docsOf(D.run);
   const runSel = h("select", {onchange: e => { D.run = e.target.value; D.doc = docsOf(D.run)[0] || null; loadDoc(); }},
-    runsShown().slice().reverse().map(x => h("option", {value: x.name, selected: x.name === D.run}, runLabel(x))));
+    runsShown().slice().reverse().map(x => runOption(x, D.run)));
   const docSel = h("select", {onchange: e => { D.doc = e.target.value; loadDoc(); }},
     docs.length ? docs.map(x => h("option", {value: x, selected: x === D.doc}, x))
       : h("option", {value: ""}, "— 이 실행에는 결과가 있는 개발용 문서가 없습니다 —"));
-  const pick = h("div", {class: "pickcol"}, h("label", null, "실행 ", runSel), h("label", null, "문서 ", docSel));
+  const pick = h("div", {class: "pickcol"},
+    h("div", null, h("label", null, "실행 ", runSel), rawRun(D.run)), h("label", null, "문서 ", docSel));
   if (D.error) return card("doc-top-card", "실행과 문서", hint, pick, h("p", {class: "badt"}, "불러오지 못했습니다: " + D.error));
   if (!d) return card("doc-top-card", "실행과 문서", hint, pick, h("p", {class: "hint"}, D.doc ? "불러오는 중…" : "문서를 고르세요."));
   const pageSel = h("select", {id: "doc-page", onchange: e => showPage(+e.target.value)},
@@ -959,8 +982,8 @@ function renderJobs() {
 function modelSelect(f, anyModel, after) {
   const o = S.jobs.opts, off = m => o.status_checked && !m.connected;
   return h("select", {onchange: e => { f.model = e.target.value; after(); }},
-    o.models.map(m => h("option", {value: m.tag, selected: m.tag === f.model, disabled: off(m) && !anyModel},
-      m.tag + (off(m) ? " — 연결 안 됨" : ""))));
+    o.models.map(m => h("option", {value: m.tag, title: m.tag, selected: m.tag === f.model, disabled: off(m) && !anyModel},
+      `${m.label || m.tag} — ${!o.status_checked ? "연결 확인 안 함" : off(m) ? "연결 안 됨" : "연결됨"}`)));
 }
 
 function pagesSelect(f, after) {
@@ -970,7 +993,7 @@ function pagesSelect(f, after) {
 
 function connNote() {
   const o = S.jobs.opts;
-  const tip = o.models.map(m => `${m.tag}: ${m.connected ? "연결됨" : m.connected === false ? "연결 안 됨 (" + m.error + ")" : "확인 안 함"}`).join("\n");
+  const tip = o.models.map(m => `${m.label || m.tag} (${m.tag}): ${m.connected ? "연결됨" : m.connected === false ? "연결 안 됨 (" + m.error + ")" : "확인 안 함"}`).join("\n");
   return h("span", {class: "hint", "data-tip": tip},
     o.status_checked ? `연결된 모델 ${o.models.filter(m => m.connected).length}개 ` : "모델 서버 연결은 확인하지 않았습니다 ",
     h("button", {type: "button", onclick: () => loadOptions().then(renderJobs).catch(fail)}, "연결 다시 보기"));
@@ -1016,9 +1039,10 @@ function renderJobTry() {
       radio("tprompt", T.edit, "고쳐 쓰기", () => { T.edit = true; },
         {disabled: !one, "data-tip": one ? null : "항을 하나만 고르면 쓸 수 있습니다"})),
     editor,
-    field("기준 실행", h("select", {onchange: e => { T.base = e.target.value; }, "data-tip": "새 항 답을 끼워 넣을 실행. 그 실행의 점수가 '전', 끼운 뒤 점수가 '후'입니다"},
+    field("기준 실행", h("select", {onchange: e => { T.base = e.target.value; renderJobTry(); }, "data-tip": "새 항 답을 끼워 넣을 실행. 그 실행의 점수가 '전', 끼운 뒤 점수가 '후'입니다"},
       h("option", {value: "", selected: !T.base}, "자동 (같은 모델의 가장 최근 dev10 실행)"),
-      bases.map(r => h("option", {value: r.name, selected: r.name === T.base}, runLabel(r))))),
+      bases.map(r => runOption(r, T.base)))),
+    rawRun(T.base),
     h("label", {class: "chk", "data-tip": "서버를 부르지 않고 ① 보낸 입력과 ② 안내문만 봅니다. 연결 안 된 모델도 고를 수 있습니다"},
       h("input", {type: "checkbox", checked: T.dry, onchange: e => { T.dry = e.target.checked; renderJobTry(); }}), "dry-run (서버 없이 입력·안내문만)"),
     h("div", {class: "pickrow"},
@@ -1200,10 +1224,10 @@ function renderJobCompare() {
   const rows = runsShown().slice().reverse().map(r => {
     const on = C.picked.includes(r.name);
     return h("div", {class: "cmprow"},
-      h("label", {class: "chk", "data-tip": runLabel(r)}, h("input", {type: "checkbox", checked: on, onchange: e => {
+      h("label", {class: "chk", title: r.name}, h("input", {type: "checkbox", checked: on, onchange: e => {
         if (e.target.checked) C.picked.push(r.name); else C.picked.splice(C.picked.indexOf(r.name), 1);
         renderJobCompare();
-      }}), h("span", {class: "mono"}, r.name)),
+      }}), h("span", null, runLabel(r), h("span", {class: "raw"}, r.name))),
       on ? h("span", null, h("small", null, `${C.picked.indexOf(r.name) + 1}번 `),
         h("input", {type: "text", class: "jlabel", placeholder: "라벨", value: C.labels[r.name] || "",
           oninput: e => { C.labels[r.name] = e.target.value; }})) : null);

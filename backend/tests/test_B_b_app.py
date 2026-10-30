@@ -97,6 +97,52 @@ def test_api_runs_current_is_latest_dev10(app, ctx, env):
     assert get_json(app, ctx, "/api/runs")[1]["current"] == "20261029_sections_m1_dev10_r1"
 
 
+def test_run_labels_are_added_without_changing_score_or_cache(app, ctx, env, monkeypatch):
+    name = "20261030_sections_qwen36_35b_runpod_s7_v9_cls_dev10_r2"
+    run = make_run(env / "runs", name, {X01: make_doc(X01)},
+                   info={"model_tag": "qwen36_35b_runpod", "prompt_version": "s7"})
+    summary = app.br.summarize_run(run, ctx.gold_dir, cache_dir=None)
+    before = json.loads(json.dumps(summary))
+    monkeypatch.setattr(app.br, "summarize_run", lambda *a, **kw: summary)
+    listing = get_json(app, ctx, "/api/runs")[1]["runs"][0]
+    detail = get_json(app, ctx, "/api/run/" + name)[1]
+    for result in (listing, detail):
+        assert result["label"] == {
+            "title": "10/30 Qwen3.6 35B (RunPod) · 안내문 s7 · 입력 version9 · 분류 검사 · 개발 10건 · 2회차",
+            "subtitle": name,
+            "parts": ["10/30 Qwen3.6 35B (RunPod)", "안내문 s7", "입력 version9", "분류 검사", "개발 10건", "2회차"],
+        }
+        assert result["model_label"] == "Qwen3.6 35B (RunPod)"
+    assert {k: v for k, v in detail.items() if k not in ("label", "model_label")} == before
+    assert summary == before
+
+
+def test_all_run_kinds_get_labels(app, ctx, env):
+    three_runs(env)
+    folder = env / "runs" / "20261030_models_custom"
+    folder.mkdir()
+    (folder / "compare.md").write_text("비교", encoding="utf-8")
+    for r in get_json(app, ctx, "/api/runs")[1]["runs"]:
+        assert r["label"]["subtitle"] == r["name"]
+        assert "model_label" in r
+        assert get_json(app, ctx, "/api/run/" + r["name"])[1]["label"] == r["label"]
+        if r["kind"] == "manual":
+            assert r["label"]["title"].startswith("[수동] 10/30")
+
+
+def test_options_model_labels_keep_tags_and_connection_state(app, ctx):
+    ctx.model_status = lambda: [{"tag": "qwen36_35b_runpod", "reachable": True, "match": True}]
+    ctx.pages_root = ctx.pages_dir
+    code, data = get_json(app, ctx, "/api/options")
+    assert code == 200
+    models = {m["tag"]: m for m in data["models"]}
+    assert models["qwen36_35b_runpod"]["label"] == "Qwen3.6 35B (RunPod)"
+    assert models["qwen36_35b_runpod"]["connected"] is True
+    assert models["gpt_oss_20b_rngd"]["label"] == "gpt-oss 20B (RNGD)"
+    assert models["gpt_oss_20b_rngd"]["connected"] is False
+    assert all(m["label"] and m["model"] for m in models.values())
+
+
 def test_current_falls_back_to_latest_scored_run(app):
     runs = [{"name": "a_probe", "kind": "run", "weighted": 50.0},
             {"name": "b_dev10", "kind": "run", "weighted": None},          # 아직 결과가 없는 dev10
