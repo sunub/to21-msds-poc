@@ -65,10 +65,12 @@ def bj(monkeypatch):
 
 @pytest.fixture
 def where(env):
-    """가짜 저장소: backend/, data/pages/version9, version13, runs/."""
+    """가짜 저장소: backend/, data/pages/version9, version13 (개발용 X01·X02의 p001.txt), runs/."""
     (env / "backend").mkdir()
     for v in ("version9", "version13"):
-        (env / "data" / "pages" / v).mkdir(parents=True)
+        for d in (X01, X02):
+            (env / "data" / "pages" / v / d).mkdir(parents=True)
+            (env / "data" / "pages" / v / d / "p001.txt").write_text("L001 가상 글\n", encoding="utf-8")
     return env
 
 
@@ -175,6 +177,23 @@ def test_start_run_refuses_eval_docs(bj, where):
     m = manager(bj, where, sp)
     with pytest.raises(ValueError, match="평가"):
         run_job(m, docs=[X01, X09])
+    assert sp.calls == []
+
+
+def test_start_refuses_doc_without_pages_in_folder(bj, where):
+    """쪽 폴더에 그 문서의 pNNN.txt가 없으면 띄우지 않는다. 예: 신규 40건 폴더(RAW-01~)에는 개발용 문서가 없다 (10/30)."""
+    new40 = where / "data" / "pages" / "version13_신규40" / "RAW-01"
+    new40.mkdir(parents=True)
+    (new40 / "p001.txt").write_text("L001 가상 글\n", encoding="utf-8")
+    (where / "data" / "pages" / "version13" / X02 / "p001.txt").unlink()
+    sp = FakeSpawner()
+    m = manager(bj, where, sp)
+    with pytest.raises(ValueError, match=f"version13_신규40.*{X01}"):
+        try_job(m, pages_dir="../data/pages/version13_신규40")
+    with pytest.raises(ValueError, match=f"version13.*{X02}"):
+        run_job(m, pages_dir="../data/pages/version13")
+    with pytest.raises(ValueError, match=X02):
+        m.run_summary(model=TAG, docs=None, pages_dir="../data/pages/version13", run_name="요약", repeat=1)
     assert sp.calls == []
 
 
