@@ -9,6 +9,55 @@ from math import isfinite
 from pathlib import PurePosixPath
 
 
+FIELD_HELP: dict[str, str] = {
+    "model": "문서에서 값을 뽑을 모델입니다. 연결된 모델부터 보여 줍니다.",
+    "doc": "시험할 개발용 문서입니다. 평가용 문서는 고를 수 없습니다.",
+    "pages": "전처리한 쪽 글자가 있는 폴더입니다. 현재 실행 입력은 version9입니다.",
+    "scope": "시험할 항을 고릅니다. 문서 전체는 16개 항을 보냅니다.",
+    "prompt": "모델에게 줄 지시문입니다. 항을 하나만 고르면 고쳐 쓸 수 있습니다.",
+    "base_run": "시험한 항의 답을 끼워 넣을 기준 실행입니다. 자동이면 같은 모델의 가장 최근 개발 10건 실행을 씁니다.",
+    "dry_run": "서버를 부르지 않고 입력과 안내문 정보를 확인합니다.",
+    "repeat": "같은 조건으로 실행할 횟수입니다. 1~10회로 정합니다.",
+    "run_name": "결과를 모아 둘 폴더 이름입니다. 회차마다 _r1, _r2가 붙습니다.",
+    "compare_label": "비교표에서 실행을 부를 이름입니다. 비우면 실행 이름을 씁니다.",
+}
+
+# 도움말 5장의 여섯 단계와 같은 설명이다.
+TRY_STAGE_HELP: dict[str, str] = {
+    "① 보낸 입력": "모델에게 준 줄 글자. 줄 번호(p2:L23 모양)가 앞에 붙어 있습니다.",
+    "② 안내문": "모델에게 준 지시문. 화면에만 보이고 파일로 저장하지 않습니다.",
+    "③ 모델 원문 답": "모델이 쓴 글 그대로입니다.",
+    "④ 읽은 결과": "원문 답을 중간 형식으로 바꾼 것. 행 형식에서 버린 줄 수도 나옵니다.",
+    "⑤ 펼친 TO21 칸": "중간 형식을 최종 JSON 칸으로 펼친 것입니다.",
+    "⑥ 점수 전 → 후": "기준 실행의 해당 항 답을 새 답으로 바꿔 끼워 다시 채점한 점수입니다.",
+}
+
+JOB_UI_TEXT = {
+    "send": "모델에 보내기",
+    "preview": "입력·안내문 보기",
+    "run_unavailable": "연결된 모델을 고르면 본 실행을 시작할 수 있습니다.",
+    "more_summary": "본 실행과 비교표 만들기는 여기서 펼칩니다.",
+}
+
+
+def order_models(models: list[dict]) -> list[dict]:
+    """같은 연결 상태의 순서는 유지하고, 원래 모델 정보에 선택지 글만 더한다."""
+    rank = {True: 0, None: 1, False: 2}
+    labels = {True: "연결됨", None: "연결 모름", False: "연결 안 됨"}
+    return [{**m, "option_label": f"{m['label']} — {labels[m.get('connected')]}"}
+            for m in sorted(models, key=lambda m: rank[m.get("connected")])]
+
+
+def try_hint(models: list[dict], advanced: bool) -> dict:
+    """연결을 확인한 모델이 없으면 서버 없는 시험만 안내한다."""
+    count = sum(m.get("connected") is True for m in models)
+    guide = "" if advanced else "고급을 켜고 "
+    note = (f"연결된 모델 {count}개. 모델을 고르고 돌리기를 누르세요." if count else
+            "연결된 모델이 없어 서버 없이 입력·안내문만 봅니다(dry-run). "
+            f"모델을 쓰려면 {guide}서버 탭에서 먼저 올리세요.")
+    return {"dry_run_forced": not count, "note": note}
+
+
 # 용어만 맡는다. 채점 항목 23개의 설명은 b_app_runs.ITEM_HELP에 둔다.
 # 예의 근거: guide.html 9장, b_app_runs.criteria/limit_kind, models.yaml,
 # section_prompts.SECTION_PROMPT_VERSION, try_section의 옵션, app.js의 표시·조작.
