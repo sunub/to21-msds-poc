@@ -30,6 +30,7 @@ import b_app_doc as bdoc
 import b_app_jobs as bj
 import b_app_runs as br
 import b_app_servers as bs
+import b_app_text as bt
 from msds.common import manifest
 from msds.common.paths import BACKEND, CONFIGS, PAGES, ROOT, RUNS, SILVER
 from msds.extract.client import load_model_config
@@ -66,6 +67,11 @@ class AppContext:
 
 def _json(code: int, obj) -> tuple[int, str, bytes]:
     return code, "application/json; charset=utf-8", json.dumps(obj, ensure_ascii=False, default=str).encode()
+
+
+def _labeled_run(info: dict) -> dict:
+    """채점·캐시는 그대로 두고 응답에만 표시 글을 붙인다."""
+    return {**info, "label": bt.run_label(info), "model_label": bt.model_label(info.get("model_tag"))}
 
 
 def _static(rel: str, ctx: AppContext) -> tuple[int, str, bytes]:
@@ -174,7 +180,7 @@ def _options(ctx: AppContext) -> tuple[int, str, bytes]:
     cfg = yaml.safe_load((CONFIGS / "models.yaml").read_text(encoding="utf-8"))["models"]
     status = ctx.model_status() if ctx.model_status else None
     by_tag = {s["tag"]: s for s in status or []}
-    models = [{"tag": tag, "model": c["model"], "connected": None if status is None else _why_offline(by_tag.get(tag)) is None,
+    models = [{"tag": tag, "label": bt.model_label(tag), "model": c["model"], "connected": None if status is None else _why_offline(by_tag.get(tag)) is None,
                "error": None if status is None else _why_offline(by_tag.get(tag)),
                "rows_sections": c.get("rows_sections") or [], "image_input": bool(c.get("image_input"))}
               for tag, c in cfg.items()]
@@ -299,14 +305,14 @@ def route(method: str, path: str, query: dict[str, list[str]], body: bytes | Non
     if path == "/api/runs":
         with _LOCK:
             data = br.load_all(ctx.runs_dir, ctx.gold_dir, cache_dir=ctx.cache_dir)
-        runs = [{k: v for k, v in r.items() if k not in _HEAVY} for r in data["runs"]]
+        runs = [_labeled_run({k: v for k, v in r.items() if k not in _HEAVY}) for r in data["runs"]]
         return _json(200, {**data, "runs": runs, "current": pick_current(runs), "doc_time_limit": DOC_TIME_LIMIT})
     if path.startswith("/api/run/"):
         run = _run_paths(ctx).get(path[len("/api/run/"):])
         if run is None:
             return _json(404, {"error": f"없는 실행: {path[len('/api/run/'):]}"})
         with _LOCK:
-            return _json(200, br.summarize_run(run, ctx.gold_dir, cache_dir=ctx.cache_dir))
+            return _json(200, _labeled_run(br.summarize_run(run, ctx.gold_dir, cache_dir=ctx.cache_dir)))
     if path in ("/api/diff", "/api/prompt_diff"):
         err, pair = _pair(query, ctx)
         if err:

@@ -9,6 +9,8 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", "Noto Sans KR", sans-serif;
 }
 .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 12px; }
+.raw { color:#6b7280; font-size:12px; font-family: ui-monospace, Menlo, monospace; overflow-wrap: anywhere; }
+p.raw { margin: 2px 0 8px; }
 small { color: var(--muted); }
 button { font: inherit; padding: 3px 10px; border: 1px solid var(--line); border-radius: 6px; background: var(--soft); cursor: pointer; }
 button:hover { background: #eaeef2; }
@@ -46,6 +48,7 @@ main { padding: 12px 20px 40px; max-width: 1240px; }
 /* 지금 점수 */
 .pickrow { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-bottom: 8px; }
 .pickrow select { width: 520px; }
+.pickrow > label, .pickcol > div { min-width: 0; max-width: 100%; }
 .bigrow { display: flex; align-items: flex-end; gap: 20px; margin: 4px 0 8px; }
 .big { font-size: 52px; font-weight: 700; line-height: 1; }
 .big small { font-size: 18px; margin-left: 4px; }
@@ -202,7 +205,9 @@ button.primary:hover { background: #0550ae; }
 button.danger { color: var(--no); }
 .cmplist { max-height: 260px; overflow: auto; border: 1px solid var(--line); border-radius: 6px; padding: 2px 6px; font-size: 12px; }
 .cmprow { display: flex; align-items: center; justify-content: space-between; gap: 6px; }
-.cmprow .chk { overflow: hidden; text-overflow: ellipsis; }
+.cmprow .chk { min-width: 0; white-space: normal; overflow-wrap: anywhere; }
+.cmprow .chk > input { flex-shrink: 0; }
+.cmprow .raw { display: block; }
 details.stage { border-bottom: 1px solid var(--line); }
 details.stage > summary { padding: 4px 2px; font-weight: 600; cursor: pointer; }
 .stagebody { margin: 0 0 8px 16px; }

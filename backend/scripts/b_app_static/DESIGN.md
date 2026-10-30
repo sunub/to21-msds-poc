@@ -5,6 +5,7 @@ description: 기존 화면 안에서 위계와 읽기 흐름을 다듬는 작업
 colors:
   ink: "#1f2328"
   muted: "#59636e"
+  raw: "#6b7280"
   line: "#d1d9e0"
   soft: "#f6f8fa"
   ok: "#1a7f37"
@@ -63,6 +64,9 @@ typography:
     fontSize: "13px"
   mono:
     fontFamily: "ui-monospace, SFMono-Regular, Menlo, Consolas, monospace"
+    fontSize: "12px"
+  raw:
+    fontFamily: "ui-monospace, Menlo, monospace"
     fontSize: "12px"
   tooltip:
     fontSize: "12px"
@@ -194,7 +198,8 @@ CSS 변수는 앞의 `--`만 뺐다. 나머지 이름은 이 문서의 위치 �
 | 표 숫자 | 같은 폭 숫자(tabular-nums) | app.css:92, 134 |
 | 원문 구간 번호 | 11px·600 | app.css:166 |
 
-`.raw`는 현재 없다. 원래 표기는 `.mono`로 그린다.
+Step 1에서 `.raw`를 추가했다. 원래 폴더 이름·모델 태그는 지정된 회색 `#6b7280`과 고정폭 12px로 그린다.
+긴 이름은 줄바꿈하며, 실행 선택지의 `title`에도 원래 이름을 둔다.
 도움말 본문은 15px/1.7이며 제목은 22px·18px·15px이다(`guide.html:8–11`).
 새 글꼴이나 자동 확대 글자 크기는 추가하지 않는다.
 
