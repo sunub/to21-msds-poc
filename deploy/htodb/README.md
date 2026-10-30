@@ -1,6 +1,6 @@
 # TO21 지식DB(HTODB) 로컬 적재와 조회 API
 
-TO21이 준 HTODB(SQL Server mdf, 16개 테이블)를 로컬 PostgreSQL에 **값을 바꾸지 않고** 옮기고, 명세서 v0.6의 13_TO21DB매핑 시트(추출 코드 ↔ HTODB 코드)를 셀 값 그대로 함께 넣는다. 조회 API는 원본 값을 그대로 돌려줄 뿐 해석·판정은 하지 않는다.
+TO21이 준 HTODB(SQL Server mdf, 16개 테이블)를 로컬 PostgreSQL에 **값을 바꾸지 않고** 옮기고, 명세서 v0.6의 13_TO21DB매핑 시트(추출 코드 ↔ HTODB 코드)를 셀 값 그대로 함께 넣는다. 조회 API는 기본적으로 원본 값을 그대로 돌려주며, 독성·물성 조회에서 `parsed=true`를 주면 원본 행 옆에 판정 입력용 파싱 결과를 별도로 붙인다.
 
 - 데이터·zip·mdf는 저장소에 올리지 않는다(D-47). 각자 받은 파일로 적재한다.
 - 바꾸는 것은 테이블·컬럼 이름 소문자화뿐. PK·NOT NULL·길이·소수 자릿수는 원본과 같다.
@@ -41,7 +41,7 @@ cd backend
 |---|---|
 | `GET /health` | knowledge_version(원본 zip 해시), map_version(명세서 xlsx 해시) |
 | `GET /chemicals?cas=` / `?ke=` / `?un=` | 물질 원본 행. 키 비교는 13_TO21DB매핑 A묶음 규칙(CAS는 R02 표기 맞춤). DB 값은 그대로 |
-| `GET /chemicals/{chem_id}` 와 `/classifications` `/toxicity` `/physical-properties` `/regulations` `/exposure-limits` | 그 물질의 원본 행 + 행이 쓰는 코드의 기준정보 사전(`codes`). 분류는 두 출처 모두 |
+| `GET /chemicals/{chem_id}` 와 `/classifications` `/toxicity` `/physical-properties` `/regulations` `/exposure-limits` | 그 물질의 원본 행 + 행이 쓰는 코드의 기준정보 사전(`codes`). 분류는 두 출처 모두. `/toxicity`와 `/physical-properties`는 `parsed=true`일 때 원본 순서와 같은 파싱 결과 목록(`parsed`)을 추가 |
 | `GET /codes/ghs-class/{code}` `/codes/h/{code}` `/codes/div/{code}` `/codes/property/{code}` `/codes/regulate-item/{code}` | 코드 기준정보 |
 | `GET /mapping/hazard?class_code=&category=&route_form=&effect=`, `/mapping/{pictogram,signal-word,property,endpoint,regulation}/{code}` | 추출 코드 → HTODB 코드(근거 시트 행 번호·셀 원문 포함) |
 | `POST /lookup` (추출 JSON) | JSON 안 코드마다 번역 결과 + HTODB 원본. 성분 CAS로 한 물질이 찾아지면 그 물질 세부정보도 붙임. 형식이 틀리면 422와 틀린 경로 |
