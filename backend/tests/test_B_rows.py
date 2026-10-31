@@ -135,6 +135,28 @@ def test_parse_qm_rules(text, expected):
     assert rw.parse_qm(text) == {"raw": text, **expected}
 
 
+@pytest.mark.parametrize("text, expected", [    # 범위 둘째 숫자 앞의 부등호 (ADR-029)
+    ("40-<50 %", {"lower_op": ">=", "lower": 40, "upper_op": "<", "upper": 50, "unit": "%"}),
+    ("1 - < 5%", {"lower_op": ">=", "lower": 1, "upper_op": "<", "upper": 5, "unit": "%"}),
+    ("10~<20 %", {"lower_op": ">=", "lower": 10, "upper_op": "<", "upper": 20, "unit": "%"}),
+    ("10 ~ <= 20 %", {"lower_op": ">=", "lower": 10, "upper_op": "<=", "upper": 20, "unit": "%"}),
+    ("0.1-≤1 %", {"lower_op": ">=", "lower": 0.1, "upper_op": "<=", "upper": 1, "unit": "%"}),
+    ("25 – < 30", {"lower_op": ">=", "lower": 25, "upper_op": "<", "upper": 30}),
+])
+def test_parse_qm_range_lt(text, expected):
+    assert rw.parse_qm(text) == {"raw": text, **expected}
+
+
+@pytest.mark.parametrize("text, expected", [    # 지금 꼴은 그대로
+    ("10~20 %", {"lower_op": ">=", "lower": 10, "upper_op": "<=", "upper": 20, "unit": "%"}),
+    ("-5 ℃", {"value": -5, "unit": "C"}),
+    ("< 5 %", {"upper_op": "<", "upper": 5, "unit": "%"}),
+    ("1 - 5 %", {"lower_op": ">=", "lower": 1, "upper_op": "<=", "upper": 5, "unit": "%"}),
+])
+def test_parse_qm_range_lt_keeps_existing_forms(text, expected):
+    assert rw.parse_qm(text) == {"raw": text, **expected}
+
+
 def test_parse_qm_blank_and_types():
     assert rw.parse_qm("   ") is None
     assert rw.parse_qm(" 658 mg/L ")["raw"] == "658 mg/L"

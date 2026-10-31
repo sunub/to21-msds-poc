@@ -37,7 +37,8 @@ _NO_VALUE = ("자료없음", "해당없음", "미기재")       # 값 없는 행
 # ── 숫자 묶음 ──────────────────────────────────────────
 
 _NUM = r"[-+]?\d[\d,]*(?:\.\d+)?(?:[eE][-+]?\d+)?"
-_QM = re.compile(rf"^(?P<op>>=|=>|≥|<=|=<|≤|>|<)?\s*(?P<a>{_NUM})(?:\s*[~～∼\-–]\s*(?P<b>{_NUM}))?\s*(?P<rest>.*)$")
+_QM = re.compile(rf"^(?P<op>>=|=>|≥|<=|=<|≤|>|<)?\s*(?P<a>{_NUM})"
+                 rf"(?:\s*[~～∼\-–]\s*(?P<bop><=|=<|≤|<)?\s*(?P<b>{_NUM}))?\s*(?P<rest>.*)$")
 _APPROX = re.compile(r"^(?:약|approx\.?|ca\.|≈)\s*", re.I)
 _WORD_OP = re.compile(r"이상|초과|이하|미만")
 _OPS = {">=": ">=", "=>": ">=", "≥": ">=", "이상": ">=", ">": ">", "초과": ">",
@@ -65,6 +66,7 @@ def _unit(rest: str) -> str | None:
 def parse_qm(text: str) -> dict | None:
     """숫자 묶음 한 칸을 QM dict로. 모양: [부호]숫자[~숫자][ 단위] 또는 상태어. 값이 있는 칸만 담는다.
     부등호 글자(이상·초과·이하·미만·≥·≤)는 R04대로, '~' 범위의 양 끝은 포함(>=, <=)으로 본다.
+    범위 둘째 숫자 앞에 '<'·'<='·'≤'가 붙으면('40-<50 %') 위 끝은 그 부등호다.
     숫자로 시작하지 않으면(해당없음 등) raw만 둔다. status는 fill_q가 정한다."""
     raw = (text or "").strip()
     if not raw:
@@ -83,8 +85,8 @@ def parse_qm(text: str) -> dict | None:
         op = op or _OPS[w.group(0)]
         rest = rest[:w.start()] + rest[w.end():]
     a = _number(m["a"])
-    if m["b"]:
-        q.update(lower_op=">=", lower=a, upper_op="<=", upper=_number(m["b"]))
+    if m["b"]:     # 둘째 숫자 앞의 부등호('40-<50 %')가 위 끝을 정한다 (ADR-029)
+        q.update(lower_op=">=", lower=a, upper_op=_OPS.get(m["bop"] or "", "<="), upper=_number(m["b"]))
     elif op in (">", ">="):
         q.update(lower_op=op, lower=a)
     elif op in ("<", "<="):

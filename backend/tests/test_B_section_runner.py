@@ -805,10 +805,13 @@ def with_pictograms(codes: list[str]) -> dict:
 
 
 @pytest.fixture
-def fake_map(tmp_path, monkeypatch):
+def fake_map(env, tmp_path, monkeypatch):
     path = tmp_path / "hazard_label_map.csv"
     path.write_text(FAKE_MAP, encoding="utf-8")
     monkeypatch.setattr(pc, "HAZARD_MAP", path)
+    # 가짜 문서 글에도 H900이 있어야 원문 대조 규칙이 H코드를 비우지 않는다 (source_rules, ADR-029)
+    with (env / "pages" / DOC / "p001.txt").open("a", encoding="utf-8") as f:
+        f.write("L13 H900 가짜 유해 문구\n")
 
 
 def test_pictograms_match_map(env, fake_map):

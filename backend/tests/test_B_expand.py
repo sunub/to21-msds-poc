@@ -702,6 +702,23 @@ def test_apply_conventions_present(monkeypatch):
     assert [m["meta"]["source_note"] for m in doc["msds"]] == ["표기 규칙 적용"] * 2
 
 
+def test_to_to21_applies_source_rules_before_conventions(monkeypatch):
+    """펼친 뒤 원문 대조 규칙(source_rules)을 부르고, 그 다음에 A의 함수를 부른다 (ADR-029).
+    가짜 줄에 H코드 꼴이 없으므로 모델이 쓴 H코드는 비고 문장은 남는다."""
+    name = "msds.common.conventions"
+    mod = importlib.util.module_from_spec(importlib.util.spec_from_loader(name, loader=None))
+    seen = []
+    mod.apply = lambda m: seen.append([s["code"] for s in m["hazard"]["h_statements"]]) or m
+    monkeypatch.setitem(sys.modules, name, mod)
+    r = responses()
+    r[2]["hazard"]["h_statements"] = [{"code": "H319", "text": "눈에 심한 자극을 일으킴", "line": "p1:L20"}]
+    assert validate(r[2], ss.response_schema(2)) == []
+    doc, _ = ex.to_to21(DOC_META, [r], LINES, "e")
+    h = doc["msds"][0]["hazard"]["h_statements"]
+    assert [(s["code"], s["text"]) for s in h] == [(None, "눈에 심한 자극을 일으킴")]
+    assert seen == [[None]]
+
+
 def test_module_without_apply_is_ignored(monkeypatch):
     name = "msds.common.conventions"
     mod = importlib.util.module_from_spec(importlib.util.spec_from_loader(name, loader=None))
