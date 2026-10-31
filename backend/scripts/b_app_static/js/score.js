@@ -165,7 +165,7 @@ function scoreConditions(run) {
     [T("score.conditions.raw_name"), h("code", {class: "raw"}, run.name)],
     [T("common.model"), h("span", null, run.model_label || run.model_tag || scoreMissing(),
       h("span", {class: "raw"}, [run.model_tag, run.model].filter(Boolean).join(" / ")))],
-    [T("score.conditions.prompt"), run.prompt_version || scoreMissing()],
+    [term("prompt_version", T("score.conditions.prompt")), run.prompt_version || scoreMissing()],
     [T("score.conditions.pages"), h("span", {class: "raw"}, run.pages_dir || scoreMissing())],
     [T("score.history.started"), when(run.started_at)],
     [T("score.conditions.kind"), UI.jobs.kinds[run.run_kind] || run.run_kind || scoreMissing()],
@@ -216,14 +216,15 @@ function scoreRenderSummary() {
   const main = h("div", {class: "score-overview"},
     h("div", {class: "score-block", "data-guide": "s01-score"},
       h("p", null, run.model_label || run.model_tag || scoreMissing()),
-      h("div", {class: "score-number"}, fmt1(run.weighted), h("span", null, T("score.summary.denominator"))),
+      h("div", {class: "score-number"}, term("weighted", fmt1(run.weighted)), h("span", null, T("score.summary.denominator"))),
       scoreBasis(run),
       targets ? h("div", null, scoreBar(targets.weighted.value, targets.weighted.line),
         h("p", null, T("score.summary.target_line", {line: targets.weighted.line})),
-        h("p", {class: "score-essential"}, T("score.summary.must_progress", {total: targets.must.total, met: targets.must.met_count})),
+        h("p", {class: "score-essential"}, term("must_count", T("score.summary.must_progress", {total: targets.must.total, met: targets.must.met_count}))),
         scoreBar(targets.must.met_count, targets.must.total, targets.must.total)) : scoreNote(scoreMissing())),
     h("div", {class: "score-loss-block", "data-guide": "s01-top-problem"},
-      top ? [h("h2", null, T("score.summary.top_problem", {item: scoreItemName(top.name)})),
+      top ? [h("h2", null, term(top.section === 8 ? "exposure" : "item", T("score.summary.top_problem", {item: scoreItemName(top.name)}))),
+        top.section === 8 ? h("p", {class: "small"}, term("concentration_unit")) : null,
         scoreNote([top.section ? T("score.calls.section", {section: top.section}) : null, top.name].filter(Boolean).join(" · ")),
         h("p", {class: "small"}, T("score.summary.loss_meaning", {total_loss: fmt1(loss?.loss_total),
           score: fmt1(run.weighted), item_loss: num(top.loss) ? top.loss.toFixed(2) : scoreMissing()})),
@@ -397,7 +398,7 @@ function scoreRenderRows() {
   scoreSection("score-rows", T("score.rows.title"), T("score.rows.hint"), run?.card_summaries?.rows,
     scoreBasis(run), scoreNote(T("score.rows.meaning")), scoreTable([
       T("score.rows.kind"), T("score.rows.prediction"), T("context.answer.label"), T("score.rows.ratio")],
-    Object.entries(run?.rows || {}).map(([key, row]) => [UI.score.tables[key] || key, row.pred ?? scoreMissing(), row.gold ?? scoreMissing(),
+    Object.entries(run?.rows || {}).map(([key, row]) => [key === "extras" ? term("extras", UI.score.tables[key]) : UI.score.tables[key] || key, row.pred ?? scoreMissing(), row.gold ?? scoreMissing(),
       num(row.pred) && num(row.gold) && row.gold > 0 ? `${Math.round(row.pred / row.gold * 100)}%` : T("score.rows.not_applicable")])));
 }
 function scoreRenderRule() {

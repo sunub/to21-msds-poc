@@ -213,7 +213,7 @@ function sourceRenderTop() {
     h("span", {class: "source-chip", "aria-hidden": "true", style: `background:${entry.color}`}), entry.label))) : null;
   coreReplace(el, h("p", null, T("source.title")),
     h("p", {class: "technical"}, D.run || T("source.raw.title"), D.doc ? ` / ${D.doc}` : ""),
-    basis, controls, sourceButton("source-reload", T("source.reload"), sourceReload), state,
+    basis, D.section === 8 ? h("p", null, term("exposure"), " — ", term("concentration_unit", T("source.unit_first_use"))) : null, controls, sourceButton("source-reload", T("source.reload"), sourceReload), state,
     d ? h("p", null, d.ui_text?.howto || T("source.doc.howto")) : null, legend,
     d?.warnings?.map(warning => h("p", {class: "source-warning page-text"}, warning)),
     d && D.run && !d.has_gold ? h("p", null, T("source.empty.answer")) : null);

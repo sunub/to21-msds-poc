@@ -114,7 +114,8 @@ function shellRenderContext() {
       h("button", {id: "context-change-set", class: "text-button", type: "button", onclick: shellOpenContext}, T("context.change_documents")),
       h("p", {class: "raw"}, currentSet?.id || "")),
     h("div", {class: "context-field"}, h("span", {class: "context-label"}, T("context.answer.label")),
-      h("strong", null, currentKey?.label || missing),
+      h("strong", null, ["gold", "silver"].includes(currentKey?.kind)
+        ? term(currentKey.kind, currentKey.label) : currentKey?.label || missing),
       h("button", {id: "context-change-key", class: "text-button", type: "button", onclick: shellOpenContext}, T("context.change_answer")),
       h("p", null, T("context.answer_trust"))),
     h("div", {id: "context-model", class: "context-field", role: "status", "aria-live": "polite"}),

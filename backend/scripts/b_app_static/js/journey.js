@@ -176,6 +176,7 @@ function journeySkip() {
     j.progress.active = null; journeyDetach("skip");});
   S.journeyUI.notice = "journey.skipped.title"; journeyRender(); emit("onboarding_track_skipped", {track});
 }
+on("help_replay", () => {journeyReplay().catch(fail);});
 function journeyReplay() {
   journeyChange(j => {j.progress = journeyDefault().progress; journeyDetach("replay");});
   const u = S.journeyUI; u.target = null; u.blocked = null; u.notice = null; u.phase = 1;

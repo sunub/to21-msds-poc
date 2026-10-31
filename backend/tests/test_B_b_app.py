@@ -143,11 +143,11 @@ def test_run_labels_are_added_without_changing_score_or_cache(app, ctx, env, mon
     detail = get_json(app, ctx, "/api/run/" + name)[1]
     for result in (listing, detail):
         assert result["label"] == {
-            "title": "10/30 Qwen3.6 35B (RunPod) · 안내문 s7 · 입력 version9 · 분류 검사 · 개발 10건 · 2회차",
+            "title": "10/30 Qwen3.6 35B · 빌린 서버 · AI에게 시킨 일 s7 · 원문 자료 version9 · 분류 검사 · 개발 10건 · 2회차",
             "subtitle": name,
-            "parts": ["10/30 Qwen3.6 35B (RunPod)", "안내문 s7", "입력 version9", "분류 검사", "개발 10건", "2회차"],
+            "parts": ["10/30 Qwen3.6 35B", "빌린 서버", "AI에게 시킨 일 s7", "원문 자료 version9", "분류 검사", "개발 10건", "2회차"],
         }
-        assert result["model_label"] == "Qwen3.6 35B (RunPod)"
+        assert result["model_label"] == "Qwen3.6 35B · 빌린 서버"
     # Steps 4/9 add presentation fields; every original scoring field remains identical.
     assert {k: v for k, v in detail.items()
             if k not in ("label", "model_label", "status_text", "card_summaries", "connection_notes", "key",
@@ -206,7 +206,7 @@ def test_all_run_kinds_get_labels(app, ctx, env):
         assert "model_label" in r
         assert get_json(app, ctx, "/api/run/" + r["name"])[1]["label"] == r["label"]
         if r["kind"] == "manual":
-            assert r["label"]["title"].startswith("[수동] 10/30")
+            assert r["label"]["title"].startswith("앱에서 시작 · 10/30")
 
 
 def test_options_model_labels_keep_tags_and_connection_state(app, ctx):
@@ -215,9 +215,9 @@ def test_options_model_labels_keep_tags_and_connection_state(app, ctx):
     code, data = get_json(app, ctx, "/api/options")
     assert code == 200
     models = {m["tag"]: m for m in data["models"]}
-    assert models["qwen36_35b_runpod"]["label"] == "Qwen3.6 35B (RunPod)"
+    assert models["qwen36_35b_runpod"]["label"] == "Qwen3.6 35B · 빌린 서버"
     assert models["qwen36_35b_runpod"]["connected"] is True
-    assert models["gpt_oss_20b_rngd"]["label"] == "gpt-oss 20B (RNGD)"
+    assert models["gpt_oss_20b_rngd"]["label"] == "gpt-oss 20B · 회사 서버"
     assert models["gpt_oss_20b_rngd"]["connected"] is False
     assert all(m["label"] and m["model"] for m in models.values())
 
@@ -260,8 +260,8 @@ def test_api_runs_skips_silver_and_adds_kind_labels_and_targets(app, ctx, env):
     assert code == 200 and data["current"] == dev
     by = {r["name"]: r for r in data["runs"]}
     assert by[silver]["weighted"] > by[dev]["weighted"]
-    assert (by[dev]["run_kind"], by[dev]["comparable"], by[dev]["run_kind_label"]) == ("dev10", True, "개발 10건 본 실행")
-    assert (by[silver]["run_kind"], by[silver]["run_kind_label"]) == ("silver", "실버 만들기")
+    assert (by[dev]["run_kind"], by[dev]["comparable"], by[dev]["run_kind_label"]) == ("dev10", True, "개발용 10건 시험")
+    assert (by[silver]["run_kind"], by[silver]["run_kind_label"]) == ("silver", "AI 정답 초안 만들기")
     for r in data["runs"]:
         assert r["targets"] == app.bt.score_targets(r, data["criteria"])
     assert by[dev]["targets"]["weighted"]["line"] == 90 and by[dev]["targets"]["must"]["total"] == 17
@@ -562,7 +562,7 @@ def test_silver_gaps_with_key(app, kctx, env):
     gaps = [{"item": "11항 급성독성", "note": "가짜 메모"}]
     assert get_json(app, kctx, "/api/silver_gaps") == (200, gaps)                # 쿼리가 없으면 지금처럼 배열
     code, data = get_q(app, kctx, "/api/silver_gaps", key="silver/claude")
-    assert code == 200 and data == {"key": {"id": "silver/claude", "label": "Claude 정답 초안(실버)",
+    assert code == 200 and data == {"key": {"id": "silver/claude", "label": "AI 정답 초안 · Claude",
                                             "fingerprint": fingerprints(app, kctx)["silver/claude"]}, "gaps": gaps}
     code, data = get_q(app, kctx, "/api/silver_gaps", key="gold/a3")
     assert code == 200 and data["gaps"] == [] and data["key"]["id"] == "gold/a3"
@@ -710,8 +710,7 @@ def test_main_gives_servers_env_file_without_network(app, monkeypatch, env, tmp_
 
 # ── 도움말 (step 8) ────────────────────────────────────
 
-GUIDE_SECTIONS = ("이 도구는 무엇을 하나", "점수는 어떻게 읽나", "탭마다 무엇을 보나", "처음 한 번 준비",
-                  "시험 하나 돌리기", "안내문을 바꿔 보기", "자주 보는 실패 네 가지", "하지 말 것", "용어 풀이")
+GUIDE_SECTIONS = ('앱은 어떤 일을 하나요?', '점수와 문제 건수는 어떻게 읽나요?', '문제 값을 원문에서 어떻게 확인하나요?', '실제 시험 전에 무엇을 준비하나요?', '한 부분을 어떻게 다시 시험하나요?', 'AI에게 시킬 일은 어떻게 고치나요?', '어느 서버를 고르고 언제 끄나요?', '오류가 나면 어디서 다시 시작하나요?', '어떤 문서와 정보를 보호하나요?')
 ENV_NAMES = ("RUNPOD_VLLM_BASE_URL", "RUNPOD_VLLM_API_KEY", "RNGD_BASE_URL", "RNGD_API_KEY", "RUNPOD_API_KEY", "RNGD_SSH")
 
 
@@ -762,7 +761,7 @@ def test_missing_run_has_message_and_fix(app, ctx, env):
 def test_unknown_or_unusable_key_has_message_and_fix(app, kctx):
     code, data = get_q(app, kctx, "/api/runs", key="없음")
     assert code == 404 and has_problem_text(data) and "정답지" in data["fix"]
-    assert data["error"] == app.bt.KEY_TEXT["unknown_key"].format(id="없음")
+    assert data["error"] == "없는 정답지입니다: 없음. 정답지 목록에서 고르세요."
     code, data = get_q(app, kctx, "/api/runs", key="silver/gpt")
     assert code == 400 and has_problem_text(data) and app.bt.KEY_TEXT["key_empty"] in data["message"]
 
@@ -780,7 +779,7 @@ def test_bad_query_has_message_and_fix(app, ctx, env):
                                               "b": "20261029_sections_m1_dev10_r1", "no": "x"})):
         code, data = get_q(app, ctx, path, **query)
         assert code == 400 and has_problem_text(data), path
-        assert data["fix"] == "입력을 고친 뒤 다시 보내세요."
+        assert data["fix"] == "할 일: 입력을 고친 뒤 다시 보내세요."
 
 
 # ── README·.env.example (app-redo-api step 8) ───────────────

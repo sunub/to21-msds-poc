@@ -13,6 +13,7 @@ from datetime import datetime
 
 import pytest
 
+from test_B_b_app_text import approved_copy
 from test_B_b_app_runs import env  # noqa: F401  env는 픽스처
 from test_B_compare_models import ROWS, SCRIPTS, X01, X02, X09, make_doc, write_json
 
@@ -111,7 +112,7 @@ def test_version_set_locks_eval_doc(bsets, pages):
     assert docs[X01]["group"] == "dev" and docs[X01]["line_numbers"] is True and docs[X01]["locked"] is False
     x09 = docs[X09]
     assert x09["group"] == "eval" and x09["locked"] is True and x09["line_numbers"] is None and x09["pages"] == 1
-    assert "평가" in x09["reason"] and "D-43" in x09["reason"]
+    assert x09["reason"] == approved_copy("context.set_reason.eval_locked")
 
 
 def test_unusable_sets_say_why(bsets, bt, pages):
@@ -303,7 +304,7 @@ def test_job_check(bsets, bt, pages, monkeypatch, on):
         assert bsets.job_check(v9[X01], kind) is None
         assert bsets.job_check(top["RAW-91"], kind) == bt.SET_TEXT["unknown_doc"]
         reason = bsets.job_check(v9[X09], kind)
-        assert "평가" in reason and "D-43" in reason
+        assert reason == approved_copy("context.set_reason.eval_locked")
         assert bsets.job_check(v2[X01], kind) == bt.SET_TEXT["no_line_numbers_doc"]
     assert bsets.job_check(top["RAW-90"], "try") == bt.SET_TEXT["outside_try"]      # 한 항 시험은 manifest 문서만
     assert bsets.job_check(top["RAW-90"], "run") == (None if on else bt.SET_TEXT["outside_wait"])
@@ -314,15 +315,14 @@ def test_job_check_other_purpose(bsets, bt, env):
     page(env / "p" / "T21-X05")
     other = bsets.doc_entry(env / "p" / "T21-X05", rows)
     for kind in ("try", "run"):
-        assert bsets.job_check(other, kind) == "개발용 문서만 넣을 수 있습니다"
+        assert bsets.job_check(other, kind) == approved_copy("context.set_reason.dev_only")
 
 
 def test_job_text(bt):
     for key in ("no_line_numbers_doc", "outside_try", "outside_wait"):
         assert bt.SET_TEXT[key].strip(), key
-    assert "L001" in bt.SET_TEXT["no_line_numbers_doc"]
-    assert "format40" in bt.SET_TEXT["outside_wait"] and "manifest" in bt.SET_TEXT["outside_wait"]
-    assert "manifest" in bt.SET_TEXT["outside_try"]
+    for key in ("no_line_numbers_doc", "outside_wait", "outside_try"):
+        assert bt.SET_TEXT[key] == approved_copy(f"context.set_reason.{key}")
 
 
 # ── 글 ─────────────────────────────────────────────────
@@ -332,8 +332,8 @@ def test_set_text(bt):
     assert keys <= set(bt.SET_TEXT)
     for key, text in bt.SET_TEXT.items():
         assert text.strip() and "합격" not in text, key
-    assert "평가" in bt.SET_TEXT["eval_locked"] and "D-43" in bt.SET_TEXT["eval_locked"]
-    assert "L001" in bt.SET_TEXT["no_line_numbers"]
+    assert bt.SET_TEXT["eval_locked"] == approved_copy("context.set_reason.eval_locked")
+    assert bt.SET_TEXT["no_line_numbers"] == approved_copy("context.set_reason.no_line_numbers")
     assert "data/pages" in bt.set_label(".")
     assert bt.set_label("prev/version9") == "prev/version9"
     moved = bt.SET_TEXT["run_moved"].format(recorded="data/pages/version9", id="prev/version9")
@@ -566,14 +566,14 @@ def test_default_key(bsets, answer_keys, env):
 def test_key_text(bt):
     for key in ("key_empty", "key_no_doc_files", "key_not_to21", "key_eval_only", "unknown_key", "unusable_key"):
         assert bt.KEY_TEXT[key].strip() and "합격" not in bt.KEY_TEXT[key], key
-    assert "D-43" in bt.KEY_TEXT["key_eval_only"]
+    assert bt.KEY_TEXT["key_eval_only"] == approved_copy("context.key_reason.key_eval_only")
     assert "x/y" in bt.KEY_TEXT["unknown_key"].format(id="x/y")
-    assert "빈 폴더" in bt.KEY_TEXT["unusable_key"].format(reason=bt.KEY_TEXT["key_empty"])
+    assert bt.KEY_TEXT["key_empty"] in bt.KEY_TEXT["unusable_key"].format(reason=bt.KEY_TEXT["key_empty"])
 
 
 @pytest.mark.parametrize("key_id,label", [
-    ("silver/claude", "Claude 정답 초안(실버)"), ("silver/gpt", "정답 초안(실버) gpt"),
-    ("gold/a3", "A 정답(골드) a3"), ("gold", "gold"), ("기타/x", "기타/x")])
+    ("silver/claude", "AI 정답 초안 · Claude"), ("silver/gpt", "AI 정답 초안 · gpt"),
+    ("gold/a3", "사람이 확인한 정답 · a3"), ("gold", "gold"), ("기타/x", "기타/x")])
 def test_key_label(bt, key_id, label):
     assert bt.key_label(key_id) == label
     assert "합격" not in bt.key_label(key_id)

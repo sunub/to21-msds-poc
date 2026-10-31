@@ -63,9 +63,12 @@ const pct = value => num(value) ? `${(value * 100).toFixed(1)}%` : "—";
 const when = value => value ? String(value).replace("T", " ").slice(0, 19) : "—";
 
 function term(word, shown = null) {
-  const entry = S.glossary.find(item => item.term === word || item.also?.includes(word));
+  const copy = UI.glossary?.[word];
+  // 첫 화면에서도 설명을 읽을 수 있다. 도움말 API와 같은 승인 문구를 HTML이 공급한다.
+  const entry = S.glossary.find(item => item.term === word || item.also?.includes(word))
+    || (copy ? {term: copy.term, short: copy.meaning} : null);
   return entry ? h("abbr", {class: "term", "data-term": entry.term,
-    "data-tip": [entry.short, entry.example].filter(Boolean).join("\n")}, shown ?? word)
+    "data-tip": [entry.short, entry.example].filter(Boolean).join("\n")}, shown ?? (copy ? copy.term : word))
     : h("span", null, shown ?? word);
 }
 function on(event, handler) {

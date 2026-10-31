@@ -237,7 +237,8 @@ def test_order_models_stable_with_labels_and_without_mutating_input(text):
     before = copy.deepcopy(models)
     result = text.order_models(models)
     assert [m["tag"] for m in result] == ["on1", "on2", "unknown1", "unknown2", "off1", "off2"]
-    suffix = {True: "연결됨", None: "연결 모름", False: "연결 안 됨"}
+    suffix = {state: approved_copy(f"context.model.state_{key}")
+              for state, key in ((True, "ready"), (None, "unknown"), (False, "off"))}
     for m in result:
         assert m["option_label"] == f"{m['label']} — {suffix[m['connected']]}"
         assert {k: v for k, v in m.items() if k != "option_label"} == next(x for x in models if x["tag"] == m["tag"])
@@ -298,7 +299,7 @@ def test_status_ranks_weighted_gaps_and_cause_ties_without_mutation(text, score_
     assert drops[0]["score"] == pytest.approx(40.3)
     assert drops[0]["target"] == 95
     assert drops[0]["gap"] == pytest.approx(54.7)
-    assert drops[0]["sentence"] == "8항 노출기준 40.3점(목표 95). 주원인은 빠뜨림 47개입니다."
+    assert drops[0]["sentence"] == "8항 노출기준은 40.3점입니다. 목표는 95점입니다. 가장 많은 문제 유형은 빠뜨림 47건입니다."
     assert drops[0]["section"] == 8
     assert score_info == before
 
@@ -372,8 +373,8 @@ def test_summary_history_skips_silver_runs_and_prefers_comparable(text):
 
 def test_run_kind_labels(text):
     assert text.RUN_KIND_LABELS == {
-        "dev10": "개발 10건 본 실행", "single": "한 문서 시험", "probe": "일부 문서 탐색", "silver": "실버 만들기",
-        "eval": "평가 실행(점수 없음)", "outside": "신규 문서 실행(점수 없음)", "models": "비교표"}
+        "dev10": "개발용 10건 시험", "single": "문서 한 건 시험", "probe": "일부 문서 시험", "silver": "AI 정답 초안 만들기",
+        "eval": "평가용 기록 · 열람 제한", "outside": "새 문서 시험 · 점수 없음", "models": "비교표"}
     for kind, label in text.RUN_KIND_LABELS.items():
         assert text.run_kind_label(kind) == label
     assert text.run_kind_label(None) == ""
@@ -414,7 +415,7 @@ def test_score_targets(text):
 
 def test_text_module_has_no_pass_word(text):
     assert "합격" not in Path(text.__file__).read_text(encoding="utf-8")
-    assert "합격" not in text.START_TEXT["start"]["no_problem"] + text.GLOSSARY["필수"]["short"]
+    assert "합격" not in text.START_TEXT["start"]["no_problem"] + text.explain("필수")
 
 
 # ── 총점 손실 순서 (사용자 결정 10/31) ─────────────────
@@ -553,7 +554,7 @@ def test_summary_grid_matches_cell_priority_including_multi_msds(text):
     info = {"grid": {"T21-X01": {"1": {"ok": True}, "2": {"ok": True, "reextracted": True}},
                      "T21-X02": {"m0:1": {"ok": True, "reextracted": True, "limit_kind": "긴출력"},
                                  "m1:1": {"ok": False, "reextracted": True, "limit_kind": "공백폭주"}}}}
-    assert text.card_summary("grid", info) == "AI 요청 4개의 상태입니다. 성공 1개, 재추출 1개, 한도 걸림 1개, 실패 1개"
+    assert text.card_summary("grid", info) == "AI 요청 4개의 상태입니다. 성공 1개, 다시 뽑아 성공 1개, 길이 제한 뒤 성공 1개, 실패 1개"
 
 
 def test_summary_rows_includes_all_nine_and_largest_absolute_shortfall(text):
@@ -574,11 +575,13 @@ def test_summary_empty(text, kind):
 
 def test_glossary_has_required_terms_and_safe_examples(text):
     required = {
-        "실버", "골드", "가중 종합", "필수 통과", "필수", "중요", "일반", "항", "항목",
-        "안내문", "안내문 버전", "입력 판", "쪽 글자", "줄 번호", "기준 실행", "dry-run",
-        "시험", "본 실행", "비교표", "빠뜨림", "지어냄", "틀림", "값 없는 행", "호출 격자",
-        "재추출", "출력 한도", "공백폭주", "반복", "모델 태그", "RunPod", "RNGD", "Pod",
-        "회차", "extras", "실버 빈 곳", "동시 호출", "행 형식", "흔들림",
+        approved_copy(f"glossary.{key}.term") for key in (
+            "silver", "gold", "weighted", "must_count", "must", "important", "ordinary", "section", "item",
+            "prompt", "prompt_version", "input", "page_text", "line", "base_run", "practice", "try", "batch",
+            "comparison", "missing", "invented", "wrong", "empty_row", "calls", "reextract", "output_limit",
+            "whitespace", "repetition", "model_tag", "runpod", "rngd", "pod", "repeat", "extras", "key_gap",
+            "concurrency", "rows", "variation", "exposure", "concentration_unit",
+        )
     }
     assert len(text.GLOSSARY) >= 28
     assert required <= text.GLOSSARY.keys()
@@ -614,13 +617,13 @@ def test_glossary_entries_do_not_expose_mutable_dictionary(text):
 
 
 @pytest.mark.parametrize("tag, expected", [
-    ("qwen36_35b_runpod", "Qwen3.6 35B (RunPod)"),
-    ("qwen3_30b_a3b_rngd", "Qwen3 30B (RNGD)"),
-    ("gpt_oss_20b_rngd", "gpt-oss 20B (RNGD)"),
-    ("nuextract2_8b_runpod", "NuExtract 2.0 8B (RunPod)"),
-    ("qwen3vl4b_rngd", "Qwen3-VL 4B (RNGD)"),
+    ("qwen36_35b_runpod", "Qwen3.6 35B · 빌린 서버"),
+    ("qwen3_30b_a3b_rngd", "Qwen3 30B · 회사 서버"),
+    ("gpt_oss_20b_rngd", "gpt-oss 20B · 회사 서버"),
+    ("nuextract2_8b_runpod", "NuExtract 2.0 8B · 빌린 서버"),
+    ("qwen3vl4b_rngd", "Qwen3-VL 4B · 회사 서버"),
     ("qwen38", "Qwen3.8 27B (vLLM)"),
-    ("claude", "Claude (실버 초안)"),
+    ("claude", "Claude · AI 정답 초안"),
     ("gpt", "GPT"),
     ("future_model", "future_model"),
     (None, ""),
@@ -632,19 +635,19 @@ def test_model_labels(text, tag, expected):
 
 @pytest.mark.parametrize("name, title", [
     ("20261030_sections_qwen36_35b_runpod_s7_v9_cls_dev10_r2",
-     "10/30 Qwen3.6 35B (RunPod) · 안내문 s7 · 입력 version9 · 분류 검사 · 개발 10건 · 2회차"),
+     "10/30 Qwen3.6 35B · 빌린 서버 · AI에게 시킨 일 s7 · 원문 자료 version9 · 분류 검사 · 개발 10건 · 2회차"),
     ("20261027_silver_claude_p3_dev",
-     "10/27 실버 초안(Claude) · 안내문 p3 · 개발 10건"),
+     "10/27 Claude · AI 정답 초안 · AI에게 시킬 일 p3 · 개발 10건"),
     ("20261029_sections_qwen3_30b_a3b_rngd_s4_cw_optonly_probe",
-     "10/29 Qwen3 30B (RNGD) · 안내문 s4 · 입력 chars_wrap · 선택 항목만 · 탐색"),
+     "10/29 Qwen3 30B · 회사 서버 · AI에게 시킨 일 s4 · 원문 자료 chars_wrap · 선택 항목만 · 일부 시험"),
     ("20261028_sections_qwen3_30b_a3b_rngd_s2_cw_s003_w1_r2",
-     "10/28 Qwen3 30B (RNGD) · 안내문 s2 · 입력 chars_wrap · 문서 T21-S003 한 건 · 동시 1개 · 2회차"),
+     "10/28 Qwen3 30B · 회사 서버 · AI에게 시킨 일 s2 · 원문 자료 chars_wrap · 문서 T21-S003 한 건 · 동시 1개 · 2회차"),
     ("20261028_sections_gpt_oss_20b_rngd_s2_cw_s003_w1_r2",
-     "10/28 gpt-oss 20B (RNGD) · 안내문 s2 · 입력 chars_wrap · 문서 T21-S003 한 건 · 동시 1개 · 2회차"),
+     "10/28 gpt-oss 20B · 회사 서버 · AI에게 시킨 일 s2 · 원문 자료 chars_wrap · 문서 T21-S003 한 건 · 동시 1개 · 2회차"),
     ("20261028_sections_nuextract2_8b_runpod_cw_s016_ex",
-     "10/28 NuExtract 2.0 8B (RunPod) · 입력 chars_wrap · 문서 T21-S016 한 건 · 예시 포함"),
+     "10/28 NuExtract 2.0 8B · 빌린 서버 · 원문 자료 chars_wrap · 문서 T21-S016 한 건 · 예시 포함"),
     ("20261027_silver_claude_p3_eval039",
-     "10/27 실버 초안(Claude) · 안내문 p3 · 평가 T21-039 한 건"),
+     "10/27 Claude · AI 정답 초안 · AI에게 시킬 일 p3 · 평가용 문서 한 건 · 열람 제한"),
 ])
 def test_real_run_names(text, name, title):
     assert text.run_label({"name": name}) == {
@@ -659,7 +662,7 @@ def test_metadata_wins_without_repeating_name_tokens(text):
             "docs": ["T21-X01"]}
     before = copy.deepcopy(info)
     result = text.run_label(info)
-    assert result["title"] == "10/30 Qwen3.6 35B (RunPod) · 안내문 s7 · 입력 version9 · 탐색"
+    assert result["title"] == "10/30 Qwen3.6 35B · 빌린 서버 · AI에게 시킨 일 s7 · 원문 자료 version9 · 일부 시험"
     assert info == before
     assert text.run_label(info) == result
 
@@ -668,17 +671,17 @@ def test_metadata_wins_without_repeating_name_tokens(text):
     ({}, ""),
     ({"name": "custom_unknown", "started_at": "2026-02-03T12:00:00+09:00"}, "2/3 · custom · unknown"),
     ({"name": "custom", "started_at": "invalid"}, "custom"),
-    ({"name": "20260230_sections_gpt_probe", "started_at": "2026-03-01"}, "3/1 GPT · 탐색"),
+    ({"name": "20260230_sections_gpt_probe", "started_at": "2026-03-01"}, "3/1 GPT · 일부 시험"),
     ({"name": "20261030_sections_future_model_s8_v13_new", "model_tag": "future_model"},
-     "10/30 future_model · 안내문 s8 · 입력 version13 · new"),
+     "10/30 future_model · AI에게 시킨 일 s8 · 원문 자료 version13 · new"),
     ({"name": "20261030_sections_claude_p3_dev", "prompt_version": "p3"},
-     "10/30 Claude (실버 초안) · 안내문 p3 · 개발 10건"),
+     "10/30 Claude · AI 정답 초안 · AI에게 시킨 일 p3 · 개발 10건"),
     ({"name": "manual/20261030_qwen38_s7_v9_probe", "kind": "manual"},
-     "[수동] 10/30 Qwen3.8 27B (vLLM) · 안내문 s7 · 입력 version9 · 탐색"),
+     "앱에서 시작 · 10/30 Qwen3.8 27B (vLLM) · AI에게 시킨 일 s7 · 원문 자료 version9 · 일부 시험"),
     ({"name": "20260102_sections_gpt_s7_chars_wrap_dev10"},
-     "1/2 GPT · 안내문 s7 · 입력 chars_wrap · 개발 10건"),
+     "1/2 GPT · AI에게 시킨 일 s7 · 원문 자료 chars_wrap · 개발 10건"),
     ({"name": "20261028_sections_qwen3_30b_a3b_rngd_s2_version2_diag2"},
-     "10/28 Qwen3 30B (RNGD) · 안내문 s2 · 입력 version2 · 진단 2"),
+     "10/28 Qwen3 30B · 회사 서버 · AI에게 시킨 일 s2 · 원문 자료 version2 · 문제 확인 2"),
 ])
 def test_partial_metadata_and_unknown_tokens(text, info, title):
     result = text.run_label(info)
@@ -688,10 +691,10 @@ def test_partial_metadata_and_unknown_tokens(text, info, title):
 
 
 @pytest.mark.parametrize("token, expected", [
-    ("eval", "평가 10건"), ("probe3", "탐색 3회"), ("diag", "진단"),
-    ("none", "안내문 없음"), ("wsonly", "공백 줄임만"),
+    ("eval", "평가 10건"), ("probe3", "일부 문서 시험 3회"), ("diag", "문제 확인"),
+    ("none", "AI에게 시킬 일 없음"), ("wsonly", "빈칸 줄이기만"),
     ("m013", "문서 T21-M013 한 건"), ("S003", "문서 T21-S003 한 건"),
-    ("s12", "안내문 s12"), ("v2", "입력 version2"), ("unknown", "unknown"),
+    ("s12", "AI에게 시킨 일 s12"), ("v2", "원문 자료 version2"), ("unknown", "unknown"),
 ])
 def test_condition_tokens(text, token, expected):
     assert text.run_label({"name": f"20261030_sections_gpt_{token}"})["title"] == f"10/30 GPT · {expected}"
@@ -851,15 +854,16 @@ def fake_traceback(last: str, *, before: str = "") -> str:
 ])
 def test_job_error_missing_pages(text, last):
     err = text.job_error(fake_traceback(last))
-    assert err["message"] == "쪽 글자 폴더나 파일이 없습니다."
-    assert "문서 묶음" in err["fix"] and "prev/version9" in err["fix"]
+    assert err["message"] == approved_copy("errors.job.pages.message")
+    assert err["fix"] == approved_copy("errors.job.pages.fix")
     assert err["raw"] == last and err["warnings"] == []
 
 
 def test_job_error_outside_doc(text):
     err = text.job_error(fake_traceback("KeyError: 'manifest에 없는 문서 번호: RAW-90'"))
-    assert "manifest" in err["message"] and "돌릴 수 없습니다" in err["message"]
-    assert "format40" in err["fix"] and err["fix"] in text.SET_TEXT["outside_wait"]
+    assert err["message"] == approved_copy("errors.job.outside.message")
+    assert err["fix"] == approved_copy("errors.job.outside.fix")
+    assert err["fix"] in text.SET_TEXT["outside_wait"]
 
 
 @pytest.mark.parametrize("last, part", [
@@ -877,15 +881,15 @@ def test_job_error_branches(text, last, part):
     err = text.job_error(fake_traceback(last))
     assert part in err["message"] and err["raw"] == last
     if "키를" in part:
-        assert "RUNPOD_VLLM_API_KEY" in err["fix"] and "RNGD_API_KEY" in err["fix"]
+        assert err["fix"] == approved_copy("errors.job.key.fix")
     if "연결" in part:
-        assert "진단" in err["fix"]
+        assert err["fix"] == approved_copy("errors.job.connect.fix")
 
 
 def test_job_error_first_rule_wins_and_401_needs_a_number_of_its_own(text):
     # 쪽 글자 갈래가 연결 갈래보다 먼저다. 문서 번호 안의 401은 키 오류가 아니다
     path_err = text.job_error("FileNotFoundError: ../data/pages/가짜판/T21-401 timed out\n")
-    assert path_err["message"] == "쪽 글자 폴더나 파일이 없습니다."
+    assert path_err["message"] == approved_copy("errors.job.pages.message")
     assert "키" not in text.job_error("ValueError: 가짜 문서 T21-401 오류\n")["message"]
 
 
@@ -950,13 +954,13 @@ def test_problem_keeps_old_error_texts(text):
     # 지금 화면과 기존 시험이 쓰는 error 글은 그대로다
     assert text.problem("unknown_set", id="x")["error"] == "없는 문서 묶음: x"
     assert text.problem("missing_run", name="a, b")["error"] == "없는 실행: a, b"
-    assert text.problem("unknown_key", id="x")["error"] == text.KEY_TEXT["unknown_key"].format(id="x")
-    assert text.problem("unusable_key", reason="r")["error"] == text.KEY_TEXT["unusable_key"].format(reason="r")
+    assert text.problem("unknown_key", id="x")["error"] == "없는 정답지입니다: x. 정답지 목록에서 고르세요."
+    assert text.problem("unusable_key", reason="r")["error"] == "고를 수 없는 정답지입니다: r"
     assert text.problem("missing_pages", where="v/T21-X01")["error"] == "쪽 글자가 없습니다: v/T21-X01"
     assert text.problem("doc_not_in_run", doc="T21-X01")["error"] == "이 실행에 없는 문서: T21-X01"
     assert text.problem("doc_not_in_set", doc="T21-X01")["error"] == "이 묶음에 없는 문서: T21-X01"
     bad = text.problem("bad_query", detail="가짜 {중괄호} 글")
-    assert bad["error"] == bad["message"] == "가짜 {중괄호} 글" and bad["fix"] == "입력을 고친 뒤 다시 보내세요."
+    assert bad["error"] == bad["message"] == "가짜 {중괄호} 글" and bad["fix"] == approved_copy("errors.request.bad_query.fix")
 
 
 def test_problem_for_hidden_docs_does_not_say_why(text):
@@ -1045,3 +1049,75 @@ def test_diff_same_conditions_copy_is_cautious_and_uses_api_flag(text, diff_info
     assert phrase not in result["headline"]
     assert text.UI_TEXT["compare"]["different"]["title"] in result["headline"]
     assert result["same_conditions"] is False
+
+
+def test_glossary_definitions_are_exact_approved_copy(text):
+    import html
+    for key, entry in text.UI_TEXT["glossary"].items():
+        assert entry["term"] == html.unescape(approved_copy(f"glossary.{key}.term"))
+        meaning = html.unescape(approved_copy(f"glossary.{key}.meaning"))
+        actual = text.GLOSSARY[entry["term"]]
+        assert actual["short"] + " " + actual["example"] == meaning
+        assert text.explain(key) == actual["short"]
+
+
+def test_copy_exceptions_do_not_keep_already_approved_text(text):
+    import html
+    import re
+    rows = (Path(__file__).parents[1] / 'scripts/b_app_static/design/COPY.md').read_text().splitlines()
+    approved = {html.unescape(row.split('|')[1]).replace('<br>', '\n') for row in rows
+                if re.match(r'^[a-z][a-z0-9_.]+\|', row)}
+    leaves = dict(_ui_leaves(text.UI_TEXT))
+    for key, reason in text.COPY_EXCEPTIONS.items():
+        assert reason.strip()
+        assert leaves[key] not in approved, key
+
+
+def test_run_label_human_words_follow_approved_copy(text):
+    info = {"name": "manual/20261031_sections_fake_s8_v9_probe2_r2", "kind": "manual", "model_tag": "fake"}
+    label = text.run_label(info)
+    assert approved_copy("common.run.prompt").format(version="s8") in label["title"]
+    assert approved_copy("common.run.input").format(version="version9") in label["title"]
+    assert approved_copy("common.run.probe").format(round="2") in label["title"]
+    assert label["title"].startswith(approved_copy("common.run.manual").split("{title}")[0])
+    assert label["subtitle"] == info["name"]
+
+
+def test_remaining_server_generated_labels_follow_copy(text, score_info):
+    for tag in text.MODEL_LABELS:
+        assert text.model_label(tag) == approved_copy(f"context.models.{tag}")
+    for kind in text.RUN_KIND_LABELS:
+        assert text.run_kind_label(kind) == approved_copy(f"jobs.kinds.{kind}")
+    result = text.score_status(score_info, {"pass_score": 90})
+    for row in result["top_drops"]:
+        item = next(i for i in score_info["items"] if i["name"] == row["name"])
+        assert row["sentence"] == approved_copy("score.summary.drop").format(
+            item=row["name"], score=f'{row["score"]:.1f}', goal=f'{row["target"]:g}',
+            cause=row["cause"], count=item.get(row["cause"]) or 0)
+
+
+def test_api_explanations_use_same_approved_copy_as_screens(text):
+    for group, prefix in [(text.SET_TEXT, 'context.set_reason'), (text.KEY_TEXT, 'context.key_reason')]:
+        for key, value in group.items():
+            assert value == approved_copy(f'{prefix}.{key}')
+    for kind, values in text.PROBLEM_TEXT.items():
+        for key in ('message', 'fix'):
+            if kind == 'bad_query' and key == 'message':
+                continue  # API가 준 상세 글은 바꾸지 않는다.
+            assert values[key] == approved_copy(f'errors.request.{kind}.{key}')
+    for group, values in text.JOURNEY_TEXT.items():
+        for key, value in values.items():
+            if group == 'errors':
+                for field in ('message', 'fix'):
+                    if key == 'bad_body' and field == 'message':
+                        continue
+                    assert value[field] == approved_copy(f'journey.record.errors.{key}.{field}')
+            else:
+                assert value == approved_copy(f'journey.record.{group}.{key}')
+
+
+def test_job_error_messages_share_screen_copy(text):
+    for kind, entry in text.JOB_ERROR_TEXT.items():
+        for field in ("message", "fix"):
+            key = "other" if kind == "no_line" and field == "message" else kind
+            assert entry[field] == approved_copy(f"errors.job.{key}.{field}")
