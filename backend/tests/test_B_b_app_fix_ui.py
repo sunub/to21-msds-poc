@@ -4,6 +4,140 @@ import pytest
 from test_B_b_app_dom import run_js
 
 
+def test_times_use_korean_format_everywhere():
+    """영어 기본 로캘이 한국어 화면의 시각과 정답 수정일에 새어 나오면 실패한다."""
+    from test_B_b_app_guide_ui import PRACTICE_SETUP
+    from test_B_b_app_shell_ui import FIXTURES
+    from test_B_b_app_score_ui import FIXTURE as SCORE_FIXTURE
+    clock = r"""
+const nativeLocale=Date.prototype.toLocaleString;
+const locales=[];
+Date.prototype.toLocaleString=function(locale,opts){
+ locales.push(locale);return nativeLocale.call(this,locale || 'en-US',opts);
+};
+const at='2026-11-01T00:35:00',shown='2026. 11. 1. 오전 12:35';
+assert.equal(when(at),shown);
+assert.equal(when(null),'—');assert.equal(when('not-a-date'),'—');
+"""
+    run_js(PRACTICE_SETUP + clock + r"""
+await enter('G10');S.shell.serverAt=at;guideRender();shellRenderContext();
+assert.ok(el('guide-content').textContent.includes(T('guide.ai.checked',{time:shown})));
+assert.ok(el('context-model').textContent.includes(shown));
+S.guide.session.source=at;await guideShow('G12');
+assert.ok(el('guide-session-records').textContent.includes(shown));
+S.journey.outcomes.t1.real={first_at:at,last_at:at,count:2};await guideShow('G15');
+assert.ok(el('guide-records').textContent.includes(T('journey.history.first_count',{time:shown,count:2})));
+assert.ok(locales.every(locale=>locale==='ko-KR'));
+""")
+    run_js(SCORE_FIXTURE + clock + r"""
+run.started_at=at;previous.started_at='2026-12-25T00:35:00';await go('s01');
+const historyPanel=el('score-history');
+assert.ok(historyPanel.textContent.includes(shown));
+const dates=[...historyPanel.querySelectorAll('text')].filter(n=>n.getAttribute('y')==='252').map(n=>n.textContent);
+assert.ok(dates.includes('11. 1.'));assert.ok(dates.includes('12. 25.'));
+assert.ok(locales.every(locale=>locale==='ko-KR'));
+""")
+    run_js(FIXTURES + clock + r"""
+keys.keys[0].updated_at=at;await start();shellOpenContext();
+assert.ok(document.getElementById('context-candidates').textContent.includes(shown));
+assert.ok(document.getElementById('context-key-note').textContent.includes(shown));
+assert.ok(!document.getElementById('context-picker').textContent.includes(at));
+assert.ok(locales.every(locale=>locale==='ko-KR'));
+""")
+
+
+def test_retest_default_model_is_the_run_model_or_a_watched_one():
+    """목록 첫 정답 모델이나 연결된 다른 모델이 실행 모델을 밀어내면 실패한다."""
+    from test_B_b_app_jobs_ui import SETUP
+    from test_B_b_app_guide_ui import PRACTICE_SETUP
+    cases = r"""
+const cases=[
+ {run:'second',models:[{tag:'gpt',watched:false,connected:true},{tag:'first',watched:true,connected:true},
+   {tag:'second',watched:true,connected:false}],want:'second'},
+ {run:'removed',models:[{tag:'gpt',watched:false,connected:true},{tag:'claude',watched:false},
+   {tag:'first',watched:true,connected:false},{tag:'second',watched:true,connected:true}],want:'first'},
+ {run:'removed',models:[{tag:'gpt',watched:null},{tag:'claude',watched:null},
+   {tag:'first',watched:null,connected:false},{tag:'second',watched:null,connected:true}],want:'first'},
+ {run:'removed',models:[{tag:'gpt'},{tag:'first'},{tag:'second'}],want:'first'},
+ {run:'removed',models:[{tag:'unwatched',watched:false},{tag:'first',watched:null},
+   {tag:'second',watched:true}],want:'second'},
+ {run:'removed',models:[{tag:'gpt',watched:false},{tag:'claude',watched:false}],want:null},
+ {run:'removed',models:[],want:null}
+];
+"""
+    run_js(SETUP + cases + r"""
+const original=api;
+for(const c of cases){
+ options={...makeOptions(false),models:c.models};
+ api=async(p,o)=>p.startsWith('/api/runs')?{runs:[{name:'base',model_tag:c.run,docs:['T21-X01'],run_kind:'dev10'}]}:original(p,o);
+ S.jobs.opts=null;S.jobs.runsKey=null;S.jobs.t.model=null;
+ await go('s03',{doc:'T21-X01',section:8,base_run:'base'});
+ assert.equal(S.jobs.t.model,c.want,JSON.stringify(c));assert.equal(el('jobs-model').value,c.want || '');
+ await jobsLoadOptions();assert.equal(S.jobs.t.model,c.want);
+}
+options={...makeOptions(false),models:[{tag:'gpt',watched:false},{tag:'first',watched:true,connected:true},{tag:'second',watched:true}]};
+api=async(p,o)=>p.startsWith('/api/runs')?{runs:[{name:'base',model_tag:'second',docs:['T21-X01']}]}:original(p,o);
+S.jobs.opts=null;S.jobs.runsKey=null;await go('s03',{base_run:'base'});
+change(el('jobs-model'),'gpt');await jobsLoadOptions();assert.equal(S.jobs.t.model,'gpt');
+await go('s03');assert.equal(S.jobs.t.model,'gpt','returning must preserve manual choice');
+await go('s03',{base_run:'base'});assert.equal(S.jobs.t.model,'second');
+S.jobs.runs.push({name:'another-base',model_tag:'first',docs:['T21-X01']});jobsRenderTry();
+change(el('jobs-base'),'another-base');assert.equal(S.jobs.t.model,'first');
+assert.equal(posted.length,0);
+""")
+    run_js(PRACTICE_SETUP + cases + r"""
+const original=api;
+for(const c of cases){
+ runData.model_tag=c.run;
+ api=async(p,o)=>p==='/api/options'?{...options,models:c.models}:original(p,o);
+ S.jobs.opts=null;S.jobs.t.model=null;
+ await readyTarget('G08');
+ assert.equal(S.guide.trial.model,c.want,JSON.stringify(c));
+ assert.equal(S.guide.trial.dry,true);
+ S.guide.target=null;await guideShow('G08');
+ assert.equal(S.guide.trial.model,c.want,'skipping source practice keeps the selected run model');
+}
+assert.equal(posted.length,0);
+""")
+
+
+def test_draft_models_are_named_as_answer_drafts():
+    """정답 초안 모델도 고를 수 있지만 시험 모델 뒤에서 용도가 드러나야 한다."""
+    from test_B_b_app_jobs_ui import SETUP
+    run_js(SETUP + r"""
+assert.equal(UI.context.models.gpt,UI.context.models.claude.replace('Claude','GPT'));
+options.models=[{tag:'gpt',watched:false},{tag:'first',watched:true},
+ {tag:'claude',watched:false},{tag:'second',watched:true}];
+await go('s03');
+for(const kind of ['try','run']){
+ const select=jobsModelSelect(kind==='try'?S.jobs.t:S.jobs.r,kind),opts=select.querySelectorAll('option');
+ assert.deepEqual([...opts].map(o=>o.value),['first','second','gpt','claude']);
+ for(const tag of ['gpt','claude']){
+  const opt=opts.find(o=>o.value===tag);assert.equal(opt.textContent,UI.context.models[tag]);
+  if(kind==='try')assert.equal(opt.disabled,false);
+ }
+}
+assert.deepEqual(options.models.map(m=>m.tag),['gpt','first','claude','second'],'API order must not be mutated');
+change(el('jobs-model'),'claude');assert.equal(S.jobs.t.model,'claude');
+assert.ok(el('jobs-try').textContent.includes(UI.context.models.claude));
+""")
+
+
+def test_example_panels_have_no_section_facts():
+    """왼쪽 예시에 문서 항 번호 설명이 다시 나오면 실패한다."""
+    from test_B_b_app_guide_ui import PRACTICE_SETUP
+    run_js(PRACTICE_SETUP + r"""
+await enter('G02');
+for(const screen of guideOrder){
+ S.guide.screen=screen;guideRender();const copy=el('guide-example').textContent;
+ assert.ok(!copy.includes(T('guide.choices.example_part')),screen);
+ assert.doesNotMatch(copy,/\d+\s*(번\s*부분|항|개\s*주제)/,screen);
+}
+S.guide.screen='G03';guideRender();
+assert.ok(guideNode().querySelector('.guide-column').textContent.includes(T('guide.screens.G03.part')));
+""")
+
+
 def test_s06_recommended_server_and_two_way_comparison_first():
     from test_B_b_app_servers_ui import FIXTURE
     run_js(FIXTURE + FIX_VISIBLE + r"""
@@ -112,7 +246,7 @@ def test_p01_compares_current_and_candidate_and_keeps_apply_visible():
       assert.ok(document.getElementById('context-key').querySelector('[value="gold/empty"]').textContent.includes('No answer files'));
       assert.equal(document.getElementById('context-key').querySelector('[value="silver/fake"]').textContent,'Draft answers');
       assert.ok(candidates.textContent.includes('No document folders'));assert.ok(candidates.textContent.includes('No line ids'));
-      assert.ok(candidates.textContent.includes('No answer files'));assert.ok(d.textContent.includes(keys.keys[0].updated_at));
+      assert.ok(candidates.textContent.includes('No answer files'));assert.ok(d.textContent.includes(when(keys.keys[0].updated_at)));
       const set=document.getElementById('context-set'),key=document.getElementById('context-key');
       set.value='.';set.dispatchEvent({type:'change'});key.value='gold/fake';key.dispatchEvent({type:'change'});
       const updated=document.getElementById('context-comparison');
@@ -199,7 +333,7 @@ def test_s03_ai_off_makes_model_setup_primary_and_practice_secondary():
     from test_B_b_app_jobs_ui import SETUP
     run_js(SETUP + r"""
       options=makeOptions(false);options.models=[{tag:'gpt',connected:false}];
-      await go('s03',{doc:'T21-X01',section:8});await Promise.resolve();
+      await go('s03',{doc:'T21-X01',section:8,model:'gpt'});await Promise.resolve();
       const page=el('screen-s03'),prepare=el('jobs-connection').querySelector('button');
       assert.ok(prepare.classList.contains('primary'));
       assert.ok(!el('jobs-send').classList.contains('primary'));
@@ -1012,15 +1146,15 @@ def test_new_terms_have_plain_explanations_waiting_for_approval():
         'help.facts.setup_open': '명령 입력 창', 'help.facts.protect_keys': '실행 기록',
     }
     assert len(meanings) == 30
-    table = (STATIC / 'design/BUILD.md').read_text().split('### ⑤ 승인 대기 문구\n', 1)[1].split('\n### ', 1)[0]
+    table = (STATIC / 'design/BUILD.md').read_text().split('### ⑤ 승인 대기 문구 (⑤ 수락 11/1 승인)\n', 1)[1].split('\n### ', 1)[0]
     errors = []
     for key, meaning in meanings.items():
-        if (meaning not in words[key] or module.COPY_EXCEPTIONS.get(key) != 'S5 결정 2: ⑤ 수락에서 승인 대기'
+        if (meaning not in words[key] or module.COPY_EXCEPTIONS.get(key) != 'S5 결정 2: ⑤ 수락 11/1 승인'
                 or f'| `{key}` |' not in table):
             errors.append(key)
     # 이전 step의 새 문장과 이번 표시 이름까지 빠짐없이 승인 표에 올린다.
     for key, reason in module.COPY_EXCEPTIONS.items():
-        if reason == 'S5 결정 2: ⑤ 수락에서 승인 대기':
+        if reason == 'S5 결정 2: ⑤ 수락 11/1 승인':
             assert f'| `{key}` |' in table, key
             assert words[key].replace('\n', '<br>').replace('|', '&#124;') in table, key
     assert not errors

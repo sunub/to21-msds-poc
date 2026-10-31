@@ -226,7 +226,7 @@ function shellContextCandidates(items, answers = false) {
       h("strong", null, item.label), h("span", {class: "raw"}, ` (${item.id})`),
       h("p", null, item.reason || T("context.picker.usable")),
       !answers && item.counts ? shellContextCounts(item) : null,
-      answers ? h("p", null, T("context.picker.modified", {time: item.updated_at || T("context.unavailable")})) : null,
+      answers ? h("p", null, T("context.picker.modified", {time: item.updated_at ? when(item.updated_at) : T("context.unavailable")})) : null,
       answers && item.fingerprint ? h("details", null, h("summary", null, T("common.record")),
         h("p", null, T("context.picker.fingerprint")), h("code", {class: "technical"}, item.fingerprint)) : null)));
 }
@@ -282,7 +282,7 @@ function shellContextComparison() {
     ["common.selection", "common.current", "common.candidate"].map(label => h("th", {scope: "col"}, T(label))))),
     h("tbody", null, rows.map(([label, current, candidate]) => h("tr", null, h("th", {scope: "row"}, label), h("td", null, current), h("td", null, candidate)))));
   document.getElementById("context-set-note").textContent = set?.reason || T(set?.usable ? "context.picker.usable" : "context.unavailable");
-  document.getElementById("context-key-note").textContent = [key?.reason, T("context.picker.modified", {time: key?.updated_at || T("context.unavailable")})].filter(Boolean).join(" ");
+  document.getElementById("context-key-note").textContent = [key?.reason, T("context.picker.modified", {time: key?.updated_at ? when(key.updated_at) : T("context.unavailable")})].filter(Boolean).join(" ");
   coreReplace(document.getElementById("context-doc-keys"), h("table", null,
     h("thead", null, h("tr", null, ["common.document", "common.answer", "source.fields.source"].map(label => h("th", {scope: "col"}, T(label))))),
     h("tbody", null, docs(set).map(doc => h("tr", null, h("th", {scope: "row", class: "technical"}, doc.doc_id),

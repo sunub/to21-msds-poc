@@ -51,6 +51,12 @@ function jobsDocs() { return jobsSet()?.usable === false ? [] : jobsSet()?.docs 
 function jobsAllowed(doc, kind) { return doc?.runnable?.[kind] === true; }
 function jobsModel(tag) { return S.jobs.opts?.models?.find(model => model.tag === tag); }
 function jobsModelLabel(tag) { return UI.context.models?.[tag] || serversLabel(jobsModel(tag) || serversModel(tag) || {tag}); }
+function jobsDraftModel(model) { return model.watched === false || ["gpt", "claude"].includes(model.tag); }
+function jobsDefaultModel(previous) {
+  const models = S.jobs.opts?.models || [];
+  return (models.find(model => model.tag === previous) || models.find(model => model.watched === true)
+    || models.find(model => model.watched == null && !jobsDraftModel(model)))?.tag || null;
+}
 function jobsModelDifference(tag, previous) {
   return previous && tag !== previous ? jobsNote(T("jobs.focus.model_difference", {model: jobsModelLabel(previous)})) : null;
 }
@@ -70,8 +76,10 @@ function jobsSuggestName() {
   return J.opts?.run_names?.[J.r.model]?.[page]?.[all ? "dev10" : "probe"] || "";
 }
 function jobsReconcile() {
-  const J = S.jobs, models = J.opts?.models || [], pick = models.find(m => m.connected === true) || models[0];
-  for (const form of [J.t, J.r]) if (!jobsModel(form.model) || (!jobsReady(form.model) && pick?.connected === true)) form.model = pick?.tag || null;
+  const J = S.jobs, models = J.opts?.models || [];
+  if (!jobsModel(J.t.model)) J.t.model = jobsDefaultModel(J.runs.find(run => run.name === J.t.base)?.model_tag);
+  const pick = models.find(m => !jobsDraftModel(m) && m.connected === true) || jobsModel(jobsDefaultModel());
+  if (!jobsModel(J.r.model) || (!jobsReady(J.r.model) && pick?.connected === true)) J.r.model = pick?.tag || null;
   const docs = jobsDocs();
   if (!J.defaultsApplied && !J.t.doc) J.t.doc = docs.find(d => jobsAllowed(d, "try"))?.doc_id || null;
   if (jobsSet()) J.defaultsApplied = true;
@@ -121,6 +129,9 @@ async function jobsEnsure(args = {}) {
   J.initialized = true;
   if (!J.opts || args.journeyPrepare || args.journeyCheck) await jobsLoadOptions();
   if (J.runsKey !== S.ctx.key || J.runsKey === null) await jobsLoadRuns();
+  if (!jobsModel(incoming.model) && (incoming.base_run || incoming.run || !jobsModel(J.t.model))) {
+    J.t.model = jobsDefaultModel(J.runs.find(run => run.name === J.t.base)?.model_tag);
+  }
   if (Array.isArray(args.runs)) {
     J.c.picked = [...new Set(args.runs)].filter(name => J.runs.some(run => run.name === name && jobsCompareAllowed(run)));
     for (const name of J.c.picked) {
@@ -143,7 +154,9 @@ function jobsModelSelect(form, kind) {
     form.model = e.target.value;
     if (kind === "try") { jobsRemember(); jobsRenderTry(); jobsRenderConnection(); }
     else { if (!form.edited) form.name = jobsSuggestName(); jobsRenderRun(); }
-  }}, (S.jobs.opts?.models || []).map(m => h("option", {value: m.tag, disabled: kind === "run" && m.connected !== true}, m.option_label || jobsModelLabel(m.tag))));
+  }}, [...(S.jobs.opts?.models || [])].sort((a, b) => Number(jobsDraftModel(a)) - Number(jobsDraftModel(b)))
+    .map(m => h("option", {value: m.tag, disabled: kind === "run" && m.connected !== true},
+      jobsDraftModel(m) ? jobsModelLabel(m.tag) : m.option_label || jobsModelLabel(m.tag))));
   select.value = form.model || "";
   return select;
 }
@@ -171,7 +184,10 @@ function jobsRenderTry() {
   const select = h("select", {onchange: e => { t.doc = e.target.value; jobsRemember(); jobsRenderTry(); }},
     h("option", {value: ""}, T("jobs.form.no_doc")), docs.map(d => h("option", {value: d.doc_id, disabled: !jobsAllowed(d, "try")},
       d.doc_id, d.run_reason?.try ? ` — ${d.run_reason.try}` : ""))); select.value = t.doc || "";
-  const base = h("select", {onchange: e => { t.base = e.target.value; jobsRemember(); jobsRenderTry(); }},
+  const base = h("select", {onchange: e => {
+    t.base = e.target.value; t.model = jobsDefaultModel(J.runs.find(run => run.name === t.base)?.model_tag);
+    jobsRemember(); jobsRenderTry(); jobsRenderConnection();
+  }},
     h("option", {value: ""}, T("jobs.form.base_auto")),
     J.runs.filter(r => !["eval", "silver", "models"].includes(r.run_kind) && [...(r.docs || []), ...(r.no_gold || [])].includes(t.doc))
       .map(r => h("option", {value: r.name}, jobsRunLabel(r))));

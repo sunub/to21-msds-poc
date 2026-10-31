@@ -248,7 +248,7 @@ function guideExample(kind) {
     h("div", {class: "app-name", "aria-hidden": "true"}, E("brand")),
     h("div", {class: "guide-demo-center", "aria-hidden": "true"}, h("figure", null, h("figcaption", null, h("span", {class: "guide-example-badge"}, E("badge"))), content,
       kind === "defaults" && S.guide.screen === "G13" ? h("p", {class: "guide-demo-caption"}, E("set_definition")) : null,
-      S.guide.screen === "G02" ? h("p", {class: "guide-demo-caption"}, T("guide.choices.example_part"), h("br"), T("guide.choices.example_unit")) : null)));
+      S.guide.screen === "G02" ? h("p", {class: "guide-demo-caption"}, T("guide.choices.example_unit")) : null)));
 }
 function guideRender() {
   if (!S.guide.open) return;
@@ -454,7 +454,8 @@ async function guidePrepareTrial() {
     const docs = jobsDocs().filter(d => jobsAllowed(d, "try") && d.group !== "eval" && !d.locked && !sourceLock(d.doc_id));
     const doc = docs.find(d => d.doc_id === g.target?.doc) || docs[0];
     const section = g.target?.doc === doc?.doc_id ? g.target.section : 1;
-    const model = g.model || S.jobs.t.model;
+    const model = g.screen === "G08" ? jobsDefaultModel(g.target?.doc === doc?.doc_id ? g.target.model : g.readiness?.run?.model_tag)
+      : g.model || S.jobs.t.model;
     g.trial = {active: true, state: doc && model && S.ctx.key ? "waiting" : "unavailable", doc: doc?.doc_id, section, model,
       base: g.target?.doc === doc?.doc_id ? g.target.run : null, dry: g.screen === "G08", epoch};
     // 새로고침은 저장된 작업을 읽기만 한다. 전송은 항상 단추에서 시작한다.
