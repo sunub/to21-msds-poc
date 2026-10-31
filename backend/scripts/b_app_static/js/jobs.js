@@ -30,10 +30,12 @@ function jobsDetails(id, title, ...kids) {
   return d;
 }
 function jobsField(id, label, help, control) {
-  control.setAttribute("id", id); control.setAttribute("aria-describedby", `${id}-help`);
+  control.setAttribute("id", id);
+  if (help) control.setAttribute("aria-describedby", `${id}-help`);
   return h("div", {class: "job-field"}, h("label", {for: id}, label), control,
     help ? h("small", {id: `${id}-help`, class: "muted"}, help) : null);
 }
+function jobsRunLabel(run) { return run.label?.title || (typeof run.label === "string" ? run.label : run.name); }
 function jobsSet() { return S.jobs.opts?.sets?.find(set => set.id === S.ctx.set); }
 function jobsDocs() { return jobsSet()?.usable === false ? [] : jobsSet()?.docs || []; }
 function jobsAllowed(doc, kind) { return doc?.runnable?.[kind] === true; }
@@ -145,8 +147,8 @@ function jobsRenderTry() {
   const base = h("select", {onchange: e => { t.base = e.target.value; jobsRemember(); }},
     h("option", {value: ""}, T("jobs.form.base_auto")),
     J.runs.filter(r => !["eval", "silver", "models"].includes(r.run_kind) && [...(r.docs || []), ...(r.no_gold || [])].includes(t.doc))
-      .map(r => h("option", {value: r.name}, r.label || r.name)));
-  if (t.base && !base.querySelectorAll("option").some(option => option.value === t.base)) base.append(h("option", {value: t.base}, t.base));
+      .map(r => h("option", {value: r.name}, jobsRunLabel(r))));
+  if (t.base && ![...base.querySelectorAll("option")].some(option => option.value === t.base)) base.append(h("option", {value: t.base}, t.base));
   base.value = t.base;
   const textarea = h("textarea", {rows: 5, class: "job-prompt technical", spellcheck: "false", disabled: !one,
     oninput: e => { t.text = e.target.value; t.edit = true; const check = document.getElementById("jobs-edit"); if (check) check.checked = true; }});
@@ -466,7 +468,7 @@ function jobsRenderCompare() {
       return h("div", {class: "job-compare-row"}, h("label", null,
         h("input", {id: `jobs-compare-pick-${run.name}`, type: "checkbox", checked: picked, disabled: !allowed, onchange: e => {
           c.picked = e.target.checked ? [...new Set([...c.picked, run.name])] : c.picked.filter(name => name !== run.name); jobsRenderCompare();
-        }}), run.label || run.name, h("small", {class: "technical"}, run.name)),
+        }}), jobsRunLabel(run), h("small", {class: "technical"}, run.name)),
         jobsDetails(`jobs-compare-conditions-${run.name}`, T("jobs.selected.context"),
           jobsNote(run.set?.label || run.set?.id || T("jobs.record.unknown")),
           jobsNote(T("jobs.result.key", {label: run.key?.label || T("jobs.result.key_unknown")})),

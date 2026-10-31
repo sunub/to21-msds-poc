@@ -122,44 +122,44 @@ P01과 P02는 원래 화면으로 돌아오는 확인 영역입니다.
 승인 구조의 I01~I81을 현재 코드와 대조했습니다.
 추가 행은 값 상세와 도움말의 직접 이동 단위를 보충합니다.
 `새 자리`는 해당 구현 step이 실제 함수 이름 또는 DOM id로 채웁니다.
-지금은 모두 빈칸으로 둡니다.
+step 9에서 94칸을 모두 확인했습니다. 첫 코드 표기는 자동 시험이 존재를 확인하는 대표 함수 또는 DOM id입니다.
 
 | 번호 | 옛 정보 | 옛 자리 | 새 화면·구역 | 맡는 step | 새 자리 |
 |---|---|---|---|---|---|
 | I01 | 앱 이름, 탭, 시작 안내, 전체 상태 문장 | `index.html #status, setupTabs` | 공통 app-header·main-nav·global-context | 1 | `#app-heading`, `#main-nav`, `#global-context`, `#status`; `shellRenderHeader/go` |
 | I02 | 화면 목적과 도움말 장 연결 | `index.html .tab 설명, guide.html 장 링크` | 공통 화면 설명 → S07 help-topics | 1, 8 | `#help-context-s01`~`s10`(S07 제외) → `helpOpen(topic, screen)`. 원래 화면과 선택은 `helpReturn`으로 복원 |
-| I03 | 용어 말풍선, 접힘 상태, 키보드 포커스 | `term, setupTip, card, loadCards` | 공통 core 도우미 | 1 | `core.js`: `term/setupTip/card/loadCards/coreRead/coreWrite`; 말풍선·접기 새 시험 통과 |
-| I04 | 앱 목적, 서버 없이 결과 확인, 점수→문제→원문 3단계 | `renderStart, journeyStep` | S08 journey-choice, S01 journey-band | 7 | `journeyRenderChoice/journeyRenderBand/journeyRenderStrip`: 두 갈래·실제 화면 행동·준비/실패/건너뛰기 |
+| I03 | 용어 말풍선, 접힘 상태, 키보드 포커스 | `term, setupTip, card, loadCards` | 공통 core 도우미 | 1 | `term`: `core.js`: `term/setupTip/card/loadCards/coreRead/coreWrite`; 말풍선·접기 새 시험 통과 |
+| I04 | 앱 목적, 서버 없이 결과 확인, 점수→문제→원문 3단계 | `renderStart, journeyStep` | S08 journey-choice, S01 journey-band | 7 | `journeyRenderChoice`: `journeyRenderChoice/journeyRenderBand/journeyRenderStrip`: 두 갈래·실제 화면 행동·준비/실패/건너뛰기 |
 | I05 | 단계 완료, 첫 성공 시각, 실패 후 위치 | `advanceJourney, journeyPassed, focusJourneyValue` | S08 journey-records | 7 | `journeyRenderRecords`, `journeyRecord/journeyComplete`: 실제 성공·연습·시각/횟수·이어하기. `journeyReplay/journeyDismiss`는 성공 이력 보존 |
 | I06 | 다음에 할 일: 비교·시험·서버 | `renderStart, journeyStep` | S01 score-summary, S08 journey-choice | 2, 7 | `scoreConditions`의 다음 행동·`#score-retest`, `scoreRenderHistory`의 비교 이동. 서버 연결은 공통 맥락 줄. S08의 `journeyConnection`은 `serversRenderCompact` 재사용 |
-| I07 | 안내 닫기, 처음부터 다시 보기 | `resetJourney, dismissJourney` | S08 journey-records | 7 | `journeyRenderRecords`, `journeyRecord/journeyComplete`: 실제 성공·연습·시각/횟수·이어하기. `journeyReplay/journeyDismiss`는 성공 이력 보존 |
-| I08 | 실행 목록·읽기 실패 수·다시 읽기·채점 로딩 | `loadAll, loadRun, renderScoreLoading, scoreLoadFailure` | S01 score-summary | 2 | `scoreLoad/scoreRenderSummary/scoreSelect`: 개수 먼저 로딩, 부분 실패, 재조회 |
-| I09 | 현재 점수·부족 점수·필수 달성 수·상위 문제 3개·다음 행동 | `renderStatus, openScoreSource` | S01 score-summary·score-problems | 2 | `scoreRenderSummary/scoreCounts/scoreOpenSource`, `scoreRenderProblems`: API 손실 순위, 부족 점수는 실행 조건의 API 요약 |
-| I10 | 총점·목표선·필수 막대·전체 판정 | `renderNow, goalBar` | S01 score-summary | 2 | `scoreRenderSummary/scoreBar`: `targets.weighted`, `targets.must` 그대로 표시 |
+| I07 | 안내 닫기, 처음부터 다시 보기 | `resetJourney, dismissJourney` | S08 journey-records | 7 | `journeyReplay`: `journeyRenderRecords`, `journeyRecord/journeyComplete`: 실제 성공·연습·시각/횟수·이어하기. `journeyReplay/journeyDismiss`는 성공 이력 보존 |
+| I08 | 실행 목록·읽기 실패 수·다시 읽기·채점 로딩 | `loadAll, loadRun, renderScoreLoading, scoreLoadFailure` | S01 score-summary | 2 | `scoreLoad`: `scoreLoad/scoreRenderSummary/scoreSelect`: 개수 먼저 로딩, 부분 실패, 재조회 |
+| I09 | 현재 점수·부족 점수·필수 달성 수·상위 문제 3개·다음 행동 | `renderStatus, openScoreSource` | S01 score-summary·score-problems | 2 | `scoreRenderSummary`: `scoreRenderSummary/scoreCounts/scoreOpenSource`, `scoreRenderProblems`: API 손실 순위, 부족 점수는 실행 조건의 API 요약 |
+| I10 | 총점·목표선·필수 막대·전체 판정 | `renderNow, goalBar` | S01 score-summary | 2 | `scoreRenderSummary`: `scoreRenderSummary/scoreBar`: `targets.weighted`, `targets.must` 그대로 표시 |
 | I11 | 실행 이름·원래 폴더명·모델 태그와 전체 이름·지시문 버전·입력 폴더·시각 | `runLabel, rawRun, modelName, renderNow` | S01 score-summary 실행 조건 | 2 | `scoreConditions`: 표시 이름·원래 이름·모델 태그/전체 이름·프롬프트·입력·시작 시각 |
 | I12 | 완료 문서 수·진행 중·채점 수·제외 수·정답 없는 수 | `progressLine, renderNow` | S01 score-summary 채점 범위 | 2 | `scoreConditions`: progress, docs/no_gold/excluded 범위 |
 | I13 | 값 없는 행을 뺀 점수·원점수와의 차이·계산 뜻 | `renderNow` | S01 score-rule | 2 | `#score-rule`, `scoreRenderRule`: 양쪽 빈 행 제외 보조 점수·차이·계산 뜻 |
-| I14 | 모델 연결 안내와 저장 결과의 오프라인 조회 | `connLine, renderConnNow` | 공통 global-context, S01 score-summary | 1, 2 | `#global-context #context-model`, `shellRenderModels/shellPollServers`; `scoreConditions`에 실행 당시 모델 별도 표시 |
-| I15 | 23개 항목의 등급 수·무게·목표·측정 방법·정답 초안 한계 | `renderRule` | S01 score-rule, S07 help-topics | 2, 8 | `scoreRenderRule`: 등급 수·무게·목표·방법·정답 한계. S07은 step 8 |
+| I14 | 모델 연결 안내와 저장 결과의 오프라인 조회 | `connLine, renderConnNow` | 공통 global-context, S01 score-summary | 1, 2 | `shellRenderModels`: `#global-context #context-model`, `shellRenderModels/shellPollServers`; `scoreConditions`에 실행 당시 모델 별도 표시 |
+| I15 | 23개 항목의 등급 수·무게·목표·측정 방법·정답 초안 한계 | `renderRule` | S01 score-rule, S07 help-topics | 2, 8 | `scoreRenderRule`: 등급 수·무게·목표·방법·정답 한계. S07의 helpRenderMethods와 helpRenderTopics에 설명 보존 |
 | I16 | 항목별 점수·목표선·달성 여부·미달만/모두·숨긴 수 | `renderItems, itemRow, scoreBar` | S01 score-problems | 2 | `scoreRenderProblems`: 서버 손실 순서, 전체/미달 필터, 숨긴 수, button/aria-expanded |
 | I17 | 빠뜨림·지어냄·틀림의 뜻과 건수 | `renderItems, itemRow` | S01 score-problems | 2 | `scoreCounts`, `score-problems`의 문제 종류 펼침: counts null은 기록 없음 |
-| I18 | 오류 상세 문서·종류·내용·현재 표시 제한 안내 | `detailList` | S01 score-problems → S02 source-values | 2, 3 | `scoreProblemDetail`: 문서·종류·내용, 300건씩 더 보기, `scoreOpenSource`. 실제 원문 표시 step 3 |
-| I19 | 정답 초안의 빈 곳·출처·발견 시점 | `itemRow, /api/silver_gaps` | S01 score-gaps | 2 | `scoreGap/scoreRenderGaps`: 선택 key의 gaps, 출처·발견일·조회 실패 |
+| I18 | 오류 상세 문서·종류·내용·현재 표시 제한 안내 | `detailList` | S01 score-problems → S02 source-values | 2, 3 | `scoreProblemDetail`: 문서·종류·내용, 300건씩 더 보기, `scoreOpenSource`. sourceRenderSelection에 실제 원문 표시 |
+| I19 | 정답 초안의 빈 곳·출처·발견 시점 | `itemRow, /api/silver_gaps` | S01 score-gaps | 2 | `scoreGap`: `scoreGap/scoreRenderGaps`: 선택 key의 gaps, 출처·발견일·조회 실패 |
 | I20 | 항목별 값 없는 행 제외 점수 | `itemRow` | S01 score-problems | 2 | `scoreProblemDetail`: items_na_excluded 값 그대로 |
-| I21 | 실행 이력 그래프·날짜·모델 범례·현재 실행·목표선·최고 점수 | `renderHistory` | S01 score-history | 2 | `scoreRenderHistory/scoreHistoryRuns`: SVG·키보드 점·같은 선택 표, 시작일·모델·현재·목표선, 최고는 서버 요약 |
-| I22 | 두 점 선택 순서·선택 해제·A/B로 보내기 | `savePick, renderHistory` | S01 score-history → S04 compare-summary | 2, 4 | `scoreSavePick/scoreHistoryPick` → `go(s04,{a,b})` → `compareEnsure`: 선택한 순서 그대로 A/B 복원 |
+| I21 | 실행 이력 그래프·날짜·모델 범례·현재 실행·목표선·최고 점수 | `renderHistory` | S01 score-history | 2 | `scoreRenderHistory`: `scoreRenderHistory/scoreHistoryRuns`: SVG·키보드 점·같은 선택 표, 시작일·모델·현재·목표선, 최고는 서버 요약 |
+| I22 | 두 점 선택 순서·선택 해제·A/B로 보내기 | `savePick, renderHistory` | S01 score-history → S04 compare-summary | 2, 4 | `scoreSavePick`: `scoreSavePick/scoreHistoryPick` → `go(s04,{a,b})` → `compareEnsure`: 선택한 순서 그대로 A/B 복원 |
 | I23 | 문서별 점수·필수 미달 항목·시간·300초 목표·시간 기록 없음 | `renderDocs` | S01 score-docs | 2 | `scoreRenderDocs`: 문서별 점수·필수 미달·초·시간 목표·기록 없음 |
 | I24 | 문서×16항 호출 격자·한 문서의 여러 MSDS | `renderGrid` | S01 score-grid | 2 | `scoreRenderGrid`: 문서별/MSDS 순번별 16칸, 8칸씩 두 줄 |
 | I25 | 성공·재추출·출력 한도·실패·기록 없음·시도 수·시간·방식·한도 원인 | `gridCell, renderGrid` | S01 score-grid | 2 | `scoreCall`: 상태 글·시도·시간·방식·한도 원인 펼침 |
 | I26 | 표별 결과/정답 행 수·비율·남는 값(extras) | `renderRows` | S01 score-rows | 2 | `scoreRenderRows`: 표별 결과/정답 행 수·비율·extras |
-| I27 | A/B 선택·실행 원래 이름·순서 교환·비교 중/실패 | `diffSelect, loadDiff, renderDiffTop` | S04 compare-summary | 4 | `compareEnsure/compareLoad/compareSelect`, compare-summary: run_kind 묶음·run_label·원래 이름·순서 교환·로딩·실패·재시도 |
-| I28 | 모델·지시문 버전·입력·동시 호출 수·코드 커밋·변경 조건 | `renderDiffTop` | S04 compare-conditions | 4 | `compareConditionsLead/compareRenderConditions`: 결론 위 조건 차이와 같은 조건 흔들림, 상세의 모델·버전·입력·동시 수·코드·현재 정답지 |
-| I29 | 총점 전후·차이·값 없는 행 제외 점수 전후 | `renderDiffTop, changeLine` | S04 compare-summary | 4 | `compareRenderSummary/compareRenderConditions`: API weighted·weighted_na_excluded·delta와 양쪽 targets, 같은 조건은 중립 class |
-| I30 | 공통 문서 수·A에만/B에만 있는 수·다른 평균의 주의 | `renderDiffTop` | S04 compare-conditions | 4 | `compareConditionsLead/compareRenderConditions`: 공통·A 전용·B 전용 문서 수/목록, 서로 다른 평균 주의 |
+| I27 | A/B 선택·실행 원래 이름·순서 교환·비교 중/실패 | `diffSelect, loadDiff, renderDiffTop` | S04 compare-summary | 4 | `compareEnsure`: `compareEnsure/compareLoad/compareSelect`, compare-summary: run_kind 묶음·run_label·원래 이름·순서 교환·로딩·실패·재시도 |
+| I28 | 모델·지시문 버전·입력·동시 호출 수·코드 커밋·변경 조건 | `renderDiffTop` | S04 compare-conditions | 4 | `compareConditionsLead`: `compareConditionsLead/compareRenderConditions`: 결론 위 조건 차이와 같은 조건 흔들림, 상세의 모델·버전·입력·동시 수·코드·현재 정답지 |
+| I29 | 총점 전후·차이·값 없는 행 제외 점수 전후 | `renderDiffTop, changeLine` | S04 compare-summary | 4 | `compareRenderSummary`: `compareRenderSummary/compareRenderConditions`: API weighted·weighted_na_excluded·delta와 양쪽 targets, 같은 조건은 중립 class |
+| I30 | 공통 문서 수·A에만/B에만 있는 수·다른 평균의 주의 | `renderDiffTop` | S04 compare-conditions | 4 | `compareConditionsLead`: `compareConditionsLead/compareRenderConditions`: 공통·A 전용·B 전용 문서 수/목록, 서로 다른 평균 주의 |
 | I31 | 23개 점수 차·등급·관련 항·하락만/모두·숨긴 수 | `renderDiffItems` | S04 compare-items | 4 | `compareRenderItems`: API 점수·등급·관련 항·정렬·내려간 것/모두·숨긴 수, 입력 배열 불변 |
 | I32 | 2점 이상 하락의 원인 후보·후보 없음 | `renderDiffItems` | S04 compare-items | 4 | `compareRenderItems`: API causes의 후보 순서·근거·후보 없음, 추정 안내를 근거보다 먼저 표시 |
-| I33 | 지시문 변경 항·전후 줄 수·행/JSON 형식·차이 줄·재구성 해시 불일치 | `togglePrompt, promptView` | S04 compare-prompts | 4 | `compareRenderPrompts/compareFetchPrompt/comparePromptBody`: 16개 항 lazy 요청·실행쌍 캐시·A/B 줄 수/형식·글 차이·해시 불일치·오류 복구 |
-| I34 | 새로 맞춘 값·새로 틀린 값·문서·종류·내용·표시 수 | `renderDiffValues, valueTable` | S04 compare-values → S02 source-values | 4 | `compareRenderValues/compareValueList/compareOpenSource`: 두 목록·수·300개씩 더 보기·단추/초점 유지 → S02. 정확한 path 없는 현재 API는 항 단위 연결과 안내 |
+| I33 | 지시문 변경 항·전후 줄 수·행/JSON 형식·차이 줄·재구성 해시 불일치 | `togglePrompt, promptView` | S04 compare-prompts | 4 | `compareRenderPrompts`: `compareRenderPrompts/compareFetchPrompt/comparePromptBody`: 16개 항 lazy 요청·실행쌍 캐시·A/B 줄 수/형식·글 차이·해시 불일치·오류 복구 |
+| I34 | 새로 맞춘 값·새로 틀린 값·문서·종류·내용·표시 수 | `renderDiffValues, valueTable` | S04 compare-values → S02 source-values | 4 | `compareRenderValues`: `compareRenderValues/compareValueList/compareOpenSource`: 두 목록·수·300개씩 더 보기·단추/초점 유지 → S02. 정확한 path 없는 현재 API는 항 단위 연결과 안내 |
 | I35 | A/B/정답 표 행 수·가까워짐/멀어짐/차이 유지 | `renderDiffRows` | S04 compare-rows | 4 | `compareRenderRows`: API의 모든 A/B/정답 행 수, 가까움/멀어짐/유지 글. 같은 조건은 중립 표시 |
 | I36 | 실행·문서 선택·정답 없는 개발 문서 | `initDoc, docsOf, renderDocTop` | S02 source-top | 3 | `sourceRenderTop`, `sourceEnsure`, `sourceRunDocs`: 실행·문서 선택과 원문 전용 경로 |
 | I37 | 자료 불러오기 실패·할 일·예외 원문 | `renderDocTop, loadFailure` | S02 source-top | 3 | `sourceRenderTop`, `sourceReload`: 자료 없음·잠김·실패·로딩·재시도 |
@@ -169,25 +169,25 @@ P01과 P02는 원래 화면으로 돌아오는 확인 영역입니다.
 | I41 | 결과의 항→표→행→칸 구조·기술 경로·칸 수·항 모름 | `renderDocRight, tableBlock, rowHead` | S02 source-values | 3 | `sourceStructure`, `sourceTable`: 항→표→행→칸, 알 수 없는 항과 extras 포함 |
 | I42 | 결과 값·정답 값·정답에만 있는 행/칸·근거 줄 참조·비교 상태 | `valueRow, pickSilverOnly` | S02 source-values | 3 | `sourceValueButton`, `sourcePick`: 결과·정답·정답 전용 값 대조 |
 | I43 | 선택한 값/줄·연결 값 수·근거 없음·좌표 없는 줄·스크롤 위치 | `noteSel, pickValue, pickLine, scrollInto` | S02 source-selection | 3 | `sourceRenderSelection`, `sourcePickLine`, `sourceScrollLine`, `sourceRemember`: 선택·근거 없음·좌표 없음·쪽과 읽던 위치 |
-| I44 | 모델 선택·연결·다시 조회·기술 태그 | `modelSelect, connNote, loadOptions` | 공통 global-context, S03 jobs-connection, S06 servers-models | 1, 5, 6 | S03 jobs-connection: serversRenderCompact + 기존 확인 동작 재사용. 모델 없음에도 같은 화면에서 터널/모델 준비. |
-| I45 | 문서·입력 폴더·한 항/여러 항/전체 16항·기준 실행 자동/수동 | `renderJobTry` | S03 jobs-try | 6 | S03 jobsRenderTry: 공통 set, runnable.try, 기준 실행과 1~16항 범위. |
-| I46 | 지시문 기본/고쳐 쓰기·불러오기·다른 모델/항에서 온 글·한 항 제한 | `renderJobTry, loadPrompt` | S03 jobs-try | 6 | S03 jobsLoadPrompt: 한 항만 조회/편집, 늦은 응답과 다른 출처 표시. |
-| I47 | 지시문 임시 보관·새로고침 유실·전송 뒤 임시 파일 삭제·해시만 기록 | `renderJobTry, startTry` | S03 jobs-try, S07 help-topics | 6, 8 | S03 지시문 위와 jobs-prompt-origin 펼침. 메모리만 보관. |
-| I48 | 모델 미호출 연습(dry-run)·실제 보내기·연결 없음 안내 | `renderJobTry, startTry` | S03 jobs-try | 6 | S03 jobsStartTry: 연습/실제 구분, set/key 전송. |
-| I49 | 결과 선택·작업 번호·완료 대기·결과 JSON 없음·저장 경로 | `renderJobResult, loadResult, watchTry` | S03 jobs-result, S05 jobs-detail | 6 | S03 jobsWatch/jobsLoadResult: 세 모양·204·조회 오류 구분. |
-| I50 | ① 입력: 문서·모델·폴더·분할법·MSDS 수·첫 자료만·항·형식·줄 머리·구간·쪽·이미지·경고 | `tryStages ①` | S03 jobs-result 입력 | 6 | S03 jobs-stage-<id>-0: 입력과 분할·줄·이미지·경고. |
-| I51 | ② 지시문: 항별 해시·수정 여부·전문 비기록 | `tryStages ②` | S03 jobs-result 지시문 기록 | 6 | S03 jobs-stage-<id>-1: 항별 해시·수정 여부, 전문 비기록. |
-| I52 | ③ 모델 원문 답·방식·종료 이유·시간·응답 없음 | `tryStages ③` | S03 jobs-result 원래 답 | 6 | S03 jobs-stage-<id>-2: 원래 답·방식·종료 이유·시간. |
-| I53 | ④ 읽은 결과: 성공·버린 줄·재추출·시도·입출력 토큰·오류·줄 검사·읽은 JSON | `tryStages ④` | S03 jobs-result 해석한 값 | 6 | S03 jobs-stage-<id>-3: 읽은 값·오류·줄 검사·토큰·재추출. |
-| I54 | ⑤ 최종 칸의 표 행 수·객체 칸 수·해당 항 서술/남는 값 | `tryStages ⑤` | S03 jobs-result 최종 형식 | 6 | S03 jobs-stage-<id>-4: 항별 최종 칸 수. |
-| I55 | ⑥ 총점 전후·기준 실행·바뀐 항목·점수 생략 사유·경고 | `scoreView, tryStages ⑥` | S03 jobs-result 점수 전후 | 6 | S03 jobsScore: target.key.label, 점수 전후·바뀐 기준·생략·경고. |
-| I56 | 문서 전체의 성공/실패 항·재추출·시간·원문 답 폴더 연결 | `tryStages 문서 전체 갈래` | S03 jobs-result 전체 결과 | 6 | S03 문서 전체 분기: run 수치, summary 원문, 저장 raw 경로와 S02 연결. |
-| I57 | 연습에는 ③~⑥이 없음 | `tryStages 연습 갈래` | S03 jobs-result 연습 결과 | 6 | S03 연습 분기: 입력/지시문 2단계, 실제 성공으로 세지 않음. |
-| I58 | 본 실행 모델·입력·문서 모두/없음·선택 수·반복·이름·추천 이름·회차 접미사 | `renderJobRun, suggestName` | S09 jobs-run | 6 | S09 jobsRenderRun: runnable.run·전체/비우기·1~10회·이름 제안. |
-| I59 | 개발 전체/탐색 이름 규칙·자동 기준 실행·잠자기 방지·서버가 요구하는 확인·시작 상태 | `renderJobRun, startRun` | S09 jobs-run, P02 action-confirm | 6 | S09 jobsStartRun + P02 action-confirm: 409 요약과 조건 사본을 확인, 중복 실행 방지. |
-| I60 | 비교표 선택 순서·실행별 이름·선택 수·목록 갱신·제목·기본 라벨·출력 경로 | `renderJobCompare, startCompare` | S10 jobs-compare, S05 jobs-detail | 6 | S10 jobsRenderCompare/jobsStartCompare: 순서·이름표·제목, 기본 정답지 제한. S05 결과 경로. |
-| I61 | 작업 종류·내용·시작·상태·회차 진행·외부 프로세스·중단 가능 여부 | `renderJobList, progressText` | S05 jobs-list | 6 | S05 jobsRenderList: target 기준 조건·상태·진행·외부 작업·stoppable. |
-| I62 | 작업 결과·로그·닫기·종료 코드·스크롤 유지·갱신·중단 경고 | `openLog, refreshLog, stopJob` | S05 jobs-detail, P02 action-confirm | 6 | S05 jobsOpenLog/jobsRefreshLog + P02: 로그 스크롤·원문 코드·키보드 확인/취소·중단. |
+| I44 | 모델 선택·연결·다시 조회·기술 태그 | `modelSelect, connNote, loadOptions` | 공통 global-context, S03 jobs-connection, S06 servers-models | 1, 5, 6 | `serversRenderCompact`: S03 jobs-connection: serversRenderCompact + 기존 확인 동작 재사용. 모델 없음에도 같은 화면에서 터널/모델 준비. |
+| I45 | 문서·입력 폴더·한 항/여러 항/전체 16항·기준 실행 자동/수동 | `renderJobTry` | S03 jobs-try | 6 | `jobsRenderTry`: S03 jobsRenderTry: 공통 set, runnable.try, 기준 실행과 1~16항 범위. |
+| I46 | 지시문 기본/고쳐 쓰기·불러오기·다른 모델/항에서 온 글·한 항 제한 | `renderJobTry, loadPrompt` | S03 jobs-try | 6 | `jobsLoadPrompt`: S03 jobsLoadPrompt: 한 항만 조회/편집, 늦은 응답과 다른 출처 표시. |
+| I47 | 지시문 임시 보관·새로고침 유실·전송 뒤 임시 파일 삭제·해시만 기록 | `renderJobTry, startTry` | S03 jobs-try, S07 help-topics | 6, 8 | `jobsRenderTry`: S03 지시문 위와 jobs-prompt-origin 펼침. 메모리만 보관. |
+| I48 | 모델 미호출 연습(dry-run)·실제 보내기·연결 없음 안내 | `renderJobTry, startTry` | S03 jobs-try | 6 | `jobsStartTry`: S03 jobsStartTry: 연습/실제 구분, set/key 전송. |
+| I49 | 결과 선택·작업 번호·완료 대기·결과 JSON 없음·저장 경로 | `renderJobResult, loadResult, watchTry` | S03 jobs-result, S05 jobs-detail | 6 | `jobsWatch`: S03 jobsWatch/jobsLoadResult: 세 모양·204·조회 오류 구분. |
+| I50 | ① 입력: 문서·모델·폴더·분할법·MSDS 수·첫 자료만·항·형식·줄 머리·구간·쪽·이미지·경고 | `tryStages ①` | S03 jobs-result 입력 | 6 | `jobsRenderResult`: S03 jobs-stage-<id>-0: 입력과 분할·줄·이미지·경고. |
+| I51 | ② 지시문: 항별 해시·수정 여부·전문 비기록 | `tryStages ②` | S03 jobs-result 지시문 기록 | 6 | `jobsRenderResult`: S03 jobs-stage-<id>-1: 항별 해시·수정 여부, 전문 비기록. |
+| I52 | ③ 모델 원문 답·방식·종료 이유·시간·응답 없음 | `tryStages ③` | S03 jobs-result 원래 답 | 6 | `jobsRenderResult`: S03 jobs-stage-<id>-2: 원래 답·방식·종료 이유·시간. |
+| I53 | ④ 읽은 결과: 성공·버린 줄·재추출·시도·입출력 토큰·오류·줄 검사·읽은 JSON | `tryStages ④` | S03 jobs-result 해석한 값 | 6 | `jobsRenderResult`: S03 jobs-stage-<id>-3: 읽은 값·오류·줄 검사·토큰·재추출. |
+| I54 | ⑤ 최종 칸의 표 행 수·객체 칸 수·해당 항 서술/남는 값 | `tryStages ⑤` | S03 jobs-result 최종 형식 | 6 | `jobsRenderResult`: S03 jobs-stage-<id>-4: 항별 최종 칸 수. |
+| I55 | ⑥ 총점 전후·기준 실행·바뀐 항목·점수 생략 사유·경고 | `scoreView, tryStages ⑥` | S03 jobs-result 점수 전후 | 6 | `jobsScore`: S03 jobsScore: target.key.label, 점수 전후·바뀐 기준·생략·경고. |
+| I56 | 문서 전체의 성공/실패 항·재추출·시간·원문 답 폴더 연결 | `tryStages 문서 전체 갈래` | S03 jobs-result 전체 결과 | 6 | `jobsRenderResult`: S03 문서 전체 분기: run 수치, summary 원문, 저장 raw 경로와 S02 연결. |
+| I57 | 연습에는 ③~⑥이 없음 | `tryStages 연습 갈래` | S03 jobs-result 연습 결과 | 6 | `jobsRenderResult`: S03 연습 분기: 입력/지시문 2단계, 실제 성공으로 세지 않음. |
+| I58 | 본 실행 모델·입력·문서 모두/없음·선택 수·반복·이름·추천 이름·회차 접미사 | `renderJobRun, suggestName` | S09 jobs-run | 6 | `jobsRenderRun`: S09 jobsRenderRun: runnable.run·전체/비우기·1~10회·이름 제안. |
+| I59 | 개발 전체/탐색 이름 규칙·자동 기준 실행·잠자기 방지·서버가 요구하는 확인·시작 상태 | `renderJobRun, startRun` | S09 jobs-run, P02 action-confirm | 6 | `jobsStartRun`: S09 jobsStartRun + P02 action-confirm: 409 요약과 조건 사본을 확인, 중복 실행 방지. |
+| I60 | 비교표 선택 순서·실행별 이름·선택 수·목록 갱신·제목·기본 라벨·출력 경로 | `renderJobCompare, startCompare` | S10 jobs-compare, S05 jobs-detail | 6 | `jobsRenderCompare`: S10 jobsRenderCompare/jobsStartCompare: 순서·이름표·제목, 기본 정답지 제한. S05 결과 경로. |
+| I61 | 작업 종류·내용·시작·상태·회차 진행·외부 프로세스·중단 가능 여부 | `renderJobList, progressText` | S05 jobs-list | 6 | `jobsRenderList`: S05 jobsRenderList: target 기준 조건·상태·진행·외부 작업·stoppable. |
+| I62 | 작업 결과·로그·닫기·종료 코드·스크롤 유지·갱신·중단 경고 | `openLog, refreshLog, stopJob` | S05 jobs-detail, P02 action-confirm | 6 | `jobsOpenLog`: S05 jobsOpenLog/jobsRefreshLog + P02: 로그 스크롤·원문 코드·키보드 확인/취소·중단. |
 | I63 | 현재 연결 모델·태그·조회 시각·재조회·서버 작업 진행과 마지막 결과 | `renderSrvTop, pollServers` | 공통 global-context, S06 servers-summary | 1, 5 | `serversRenderSummary`, `shellPollServers`·`shellScheduleServers` 한 타이머. S06 10초, 다른 화면 60초. |
 | I64 | 세션 Pod 번호·준비 여부·자동 삭제 감시·작업에 전달되는 연결 | `renderSrvTop, srvDetail` | S06 servers-summary·servers-runpod | 5 | `serversRenderRunpod`: session 번호·adopted·others·실제 모델 일치·설정 변수 이름. 주소·키 값은 미표시. |
 | I65 | 태그·기대 모델·서버 종류·주소 설정 여부·응답 여부·응답 모델·일치·오류 | `renderSrvModels` | S06 servers-models | 5 | `serversRenderModels`: 기대·응답 모델·태그·서버·주소 설정 유무·일치 여부·friendly 원문 펼침. |
@@ -196,30 +196,30 @@ P01과 P02는 원래 화면으로 돌아오는 확인 영역입니다.
 | I68 | Pod 생성·삭제·계정 오류·네트워크 볼륨 수와 비용 | `renderSrvRunpod` | S06 servers-runpod, P02 action-confirm | 5 | `serversRenderRunpod`·`serversPropose`·P02: 생성·삭제·계정 오류·볼륨 수·잔여 비용 경고. |
 | I69 | RNGD 카드 수·실행 모델·프로세스·사용 카드·올릴 모델 선택·올리기/내리기 | `renderSrvRngd` | S06 servers-rngd | 5 | `serversRenderRngd`: 선택 모델·카드 수·프로세스·올리기/내리기. 장비 출력은 펼침. |
 | I70 | 가린 장비 명령 출력·진단 오류·15~25분 대기·프로세스와 준비 완료의 차이 | `renderSrvRngd, srvDetail` | S06 servers-rngd | 5 | `serversDiagnosis`: 진단 네 가지·진단 불가·loading_since 경과·15~25분. 준비는 기대 모델 응답으로 판정. |
-| I71 | 서버 기록 마지막 10줄·기록 경로·수동 사용기록 이관 안내 | `renderSrvLog` | S06 servers-log, S07 help-topics | 5, 8 | `serversRenderLog`: 최근 10줄·실제 server_log.md·기록이 있을 때만 수동 이관 안내. S07 연결은 step 8. |
+| I71 | 서버 기록 마지막 10줄·기록 경로·수동 사용기록 이관 안내 | `renderSrvLog` | S06 servers-log, S07 help-topics | 5, 8 | `serversRenderLog`: 최근 10줄·실제 server_log.md·기록이 있을 때만 수동 이관 안내. helpRenderTopics의 servers 장에 연결. |
 | I72 | 변경 요약·주의·확인 만료·한 번 사용·취소·실패·삭제 후 남은 Pod·모델 내린 PID | `openSrvDialog, closeSrvDialog, srvExecute` | P02 action-confirm, S06 servers-summary | 5 | `serversOpenDialog`·`serversExecute`·`serversResult`: 요약·경고·포커스·Escape·만료·일회용·실패 상세·남은 Pod/PID. |
-| I73 | 도움말 전체 9장·장 링크·안내 재시작 | `index.html #help-frame, guide.html #s1~#s9` | S07 help-topics, S08 journey-choice | 7, 8 | `js/help.js` → S07 `#help-topics`의 9개 details, `/static/guide.html#<장>`; `#help-replay` → S08(성공 기록 유지) |
-| I74 | 도구 역할·PDF→쪽 글자→16항→결과→채점·실행 이름 해설 | `guide.html #s1` | S07 help-topics flow | 8 | `#help-flow`, `guide.html#flow`; 실행 이름·처리 순서·새 안내 기록 설명 |
-| I75 | 점수 해석·가중치·필수 목표·정답 초안 한계·원인 후보 기준 | `guide.html #s2, #s3` | S07 help-topics score | 8 | `#help-score`, `#help-methods`, `guide.html#score`; 23개 방법·목표·무게·원인 후보·정답 초안 한계 |
-| I76 | 설정 변수 6개의 이름과 뜻·예제 파일·로컬 앱 시작 명령 | `guide.html #s4` | S07 help-topics setup | 8 | `#help-setup`, `guide.html#setup`; 변수 6개·앱 명령·RunPod 프록시와 RNGD SSH 구분 |
-| I77 | 시험 순서·6단계 뜻·터미널 실행과 7개 옵션 | `guide.html #s5` | S07 help-topics retest | 8 | `#help-retest`, `guide.html#retest`; 여섯 단계 표·CLI 명령·옵션 7개 |
-| I78 | 지시문 출처 3곳·수정 반영 파일·버전 증가·해시·임시성·반복 시험 | `guide.html #s6` | S07 help-topics prompt | 8 | `#help-prompt`, `guide.html#prompt`; 출처 3곳·수정 파일·버전·임시성·반복 확인 |
-| I79 | 출력 한도 원인 3종·열 수 불일치·300초 초과·연결 오류 | `guide.html #s7` | S07 help-topics recovery | 8 | `#help-recovery`, `guide.html#recovery`; 출력 한도 3유형·열 수·300초·연결 복구 |
-| I80 | 평가 보호·비밀값 보호·문서 보호·Pod 비용·전처리 시험 제외 명령 | `guide.html #s8` | S07 help-topics protection | 8 | `#help-protection`, `guide.html#protection`; 평가·키·자료·docs 보호·C 전처리 시험 제외 명령; 비용은 servers 장 |
-| I81 | 용어 뜻·예, 용어 로딩 실패, 채점 항목 23개의 이름·등급·설명 | `guide.html #s9, /api/glossary` | S07 help-glossary | 8 | `#help-glossary`의 40개 용어·별칭 검색·조회 복구, `#help-methods`의 23개 채점 방법 |
+| I73 | 도움말 전체 9장·장 링크·안내 재시작 | `index.html #help-frame, guide.html #s1~#s9` | S07 help-topics, S08 journey-choice | 7, 8 | `helpRenderTopics`: `js/help.js` → S07 `#help-topics`의 9개 details, `/static/guide.html#<장>`; `#help-replay` → S08(성공 기록 유지) |
+| I74 | 도구 역할·PDF→쪽 글자→16항→결과→채점·실행 이름 해설 | `guide.html #s1` | S07 help-topics flow | 8 | `helpRenderTopics`: `#help-flow`, `guide.html#flow`; 실행 이름·처리 순서·새 안내 기록 설명 |
+| I75 | 점수 해석·가중치·필수 목표·정답 초안 한계·원인 후보 기준 | `guide.html #s2, #s3` | S07 help-topics score | 8 | `helpRenderMethods`: `#help-score`, `#help-methods`, `guide.html#score`; 23개 방법·목표·무게·원인 후보·정답 초안 한계 |
+| I76 | 설정 변수 6개의 이름과 뜻·예제 파일·로컬 앱 시작 명령 | `guide.html #s4` | S07 help-topics setup | 8 | `helpRenderTopics`: `#help-setup`, `guide.html#setup`; 변수 6개·앱 명령·RunPod 프록시와 RNGD SSH 구분 |
+| I77 | 시험 순서·6단계 뜻·터미널 실행과 7개 옵션 | `guide.html #s5` | S07 help-topics retest | 8 | `helpRenderTopics`: `#help-retest`, `guide.html#retest`; 여섯 단계 표·CLI 명령·옵션 7개 |
+| I78 | 지시문 출처 3곳·수정 반영 파일·버전 증가·해시·임시성·반복 시험 | `guide.html #s6` | S07 help-topics prompt | 8 | `helpRenderTopics`: `#help-prompt`, `guide.html#prompt`; 출처 3곳·수정 파일·버전·임시성·반복 확인 |
+| I79 | 출력 한도 원인 3종·열 수 불일치·300초 초과·연결 오류 | `guide.html #s7` | S07 help-topics recovery | 8 | `helpRenderTopics`: `#help-recovery`, `guide.html#recovery`; 출력 한도 3유형·열 수·300초·연결 복구 |
+| I80 | 평가 보호·비밀값 보호·문서 보호·Pod 비용·전처리 시험 제외 명령 | `guide.html #s8` | S07 help-topics protection | 8 | `helpRenderTopics`: `#help-protection`, `guide.html#protection`; 평가·키·자료·docs 보호·C 전처리 시험 제외 명령; 비용은 servers 장 |
+| I81 | 용어 뜻·예, 용어 로딩 실패, 채점 항목 23개의 이름·등급·설명 | `guide.html #s9, /api/glossary` | S07 help-glossary | 8 | `helpRenderGlossary`: `#help-glossary`의 40개 용어·별칭 검색·조회 복구, `#help-methods`의 23개 채점 방법 |
 | I82 | 값 말풍선의 쉬운 칸 이름과 알려지지 않은 값과 0·false 보존 | `valueRow, tipOf` | S02 source-values | 3 | `sourceTip`, `sourceValueButton`: API의 한국어 말풍선·키보드 접근 |
 | I83 | 결과·정답·정답에만 있는 값의 원래 JSON과 안전한 글자 표시 | `noteSel, pickValue, pickSilverOnly` | S02 source-selection | 3 | `sourceRenderSelection`의 `details.source-raw`: 세 종류 JSON을 글자 노드로 보존 |
-| I84 | 조회 실패의 사실·할 일·접힌 원문과 불러오는 중 표시 | `loadFailure, friendlyError, rawError` | 공통 오류 → 각 화면 상태 구역 | 1, 9 | |
+| I84 | 조회 실패의 사실·할 일·접힌 원문과 불러오는 중 표시 | `loadFailure, friendlyError, rawError` | 공통 오류 → 각 화면 상태 구역 | 1, 9 | `friendlyError`: 굵은 사실·할 일·기본으로 닫힌 원문. rawError/loadFailure와 go의 상태 글. 10화면 API 실패·불러오는 중·표시 완료 시험. |
 | I85 | 원문 범례의 네 상태와 색·글과 선택 구간 요약 | `renderDocMain, renderDocRight` | S02 source-top·source-values | 3 | `sourceRenderTop`의 API 범례와 `sourceStructure`의 API 항 요약 |
-| I86 | 도움말 1장: 이 도구는 무엇을 하나 | `guide.html #s1` | S07 help-topics: help.guide.flow | 8 | `#help-flow`, `guide.html#flow` |
-| I87 | 도움말 2장: 점수는 어떻게 읽나 | `guide.html #s2` | S07 help-topics: help.guide.score | 8 | `#help-score`, `guide.html#score` |
-| I88 | 도움말 3장: 탭마다 무엇을 보나 | `guide.html #s3` | S07 help-topics: flow·source·retest·servers와 S08 링크 | 8 | flow의 처리·안내, score/source/retest/servers 장, 각 화면 아래 문맥 연결 |
-| I89 | 도움말 4장: 처음 한 번 준비 | `guide.html #s4` | S07 help-topics: help.guide.setup | 8 | `#help-setup`, `guide.html#setup` |
-| I90 | 도움말 5장: 시험 하나 돌리기 | `guide.html #s5` | S07 help-topics: help.guide.retest | 8 | `#help-retest`, `guide.html#retest` |
-| I91 | 도움말 6장: 안내문을 바꿔 보기 | `guide.html #s6` | S07 help-topics: help.guide.prompt | 8 | `#help-prompt`, `guide.html#prompt` |
-| I92 | 도움말 7장: 자주 보는 실패 네 가지 | `guide.html #s7` | S07 help-topics: help.guide.recovery | 8 | `#help-recovery`, `guide.html#recovery` |
-| I93 | 도움말 8장: 하지 말 것 | `guide.html #s8` | S07 help-topics: help.guide.protection | 8 | `#help-protection`, `guide.html#protection` |
-| I94 | 도움말 9장: 용어 풀이와 채점 항목 23개 | `guide.html #s9, /api/glossary` | S07 help-glossary와 help-topics score | 8 | S07 `#help-glossary`·`#help-methods`, guide 용어 목록·score 장의 23개 방법 표 |
+| I86 | 도움말 1장: 이 도구는 무엇을 하나 | `guide.html #s1` | S07 help-topics: help.guide.flow | 8 | `helpRenderTopics`: `#help-flow`, `guide.html#flow` |
+| I87 | 도움말 2장: 점수는 어떻게 읽나 | `guide.html #s2` | S07 help-topics: help.guide.score | 8 | `helpRenderTopics`: `#help-score`, `guide.html#score` |
+| I88 | 도움말 3장: 탭마다 무엇을 보나 | `guide.html #s3` | S07 help-topics: flow·source·retest·servers와 S08 링크 | 8 | `helpRenderTopics`: flow의 처리·안내, score/source/retest/servers 장, 각 화면 아래 문맥 연결 |
+| I89 | 도움말 4장: 처음 한 번 준비 | `guide.html #s4` | S07 help-topics: help.guide.setup | 8 | `helpRenderTopics`: `#help-setup`, `guide.html#setup` |
+| I90 | 도움말 5장: 시험 하나 돌리기 | `guide.html #s5` | S07 help-topics: help.guide.retest | 8 | `helpRenderTopics`: `#help-retest`, `guide.html#retest` |
+| I91 | 도움말 6장: 안내문을 바꿔 보기 | `guide.html #s6` | S07 help-topics: help.guide.prompt | 8 | `helpRenderTopics`: `#help-prompt`, `guide.html#prompt` |
+| I92 | 도움말 7장: 자주 보는 실패 네 가지 | `guide.html #s7` | S07 help-topics: help.guide.recovery | 8 | `helpRenderTopics`: `#help-recovery`, `guide.html#recovery` |
+| I93 | 도움말 8장: 하지 말 것 | `guide.html #s8` | S07 help-topics: help.guide.protection | 8 | `helpRenderTopics`: `#help-protection`, `guide.html#protection` |
+| I94 | 도움말 9장: 용어 풀이와 채점 항목 23개 | `guide.html #s9, /api/glossary` | S07 help-glossary와 help-topics score | 8 | `helpRenderGlossary`: S07 `#help-glossary`·`#help-methods`, guide 용어 목록·score 장의 23개 방법 표 |
 
 ## 옛 시험 옮기기
 
@@ -431,7 +431,7 @@ step 5: `UI_TEXT.servers`와 `errors.connection/env`를 COPY에서 이관했습�
 점으로 나눈 COPY 키를 같은 중첩 경로로 옮깁니다.
 JS는 `T("nav.recent")` 같은 경로 조회만 합니다.
 실제로 없는 키는 `⟦키⟧`로 드러나게 합니다.
-`POLISH_TEXT`는 옛 키와 새 `UI_TEXT`를 함께 담습니다.
+`POLISH_TEXT`는 `UI_TEXT`와 같은 객체입니다. step 9에서 옛 화면 전용 글 묶음을 제거했습니다.
 서버의 첫 HTML 주입 이름은 그대로 유지합니다.
 
 | COPY.md 절 | UI_TEXT 최상위 키 또는 이관 규칙 | 맡는 step |
@@ -510,6 +510,8 @@ step 4의 글 출처입니다.
 - `run_label`, 모델·실행 이름, `score_status`의 항목 문장, `card_summary`의 호출 상태를 승인 글로 맞췄습니다. `friendly_error/server_ui_text/diff_headline`은 이미 승인 글을 사용합니다. SET_TEXT·KEY_TEXT·JOB_ERROR_TEXT·JOURNEY_TEXT·PROBLEM_TEXT 설명도 같은 글을 사용합니다. `error` 식별 글과 함수 인자·반환 키·계산은 그대로입니다.
 - `b_app_text.py` 밖에서 만드는 Python 문장은 변경하지 않았습니다. 위 API 확인 목록의 `_why_offline`, 서버 확인/만료, 작업 검증/label, 원문 warnings, 비교 what/원인 후보는 후속 백엔드 검토 대상입니다.
 
+step 9 글 예외: `common.screen_shown`은 화면 이동이 끝났다는 상태 알림입니다. 조회나 모델 실행 성공을 뜻하지 않습니다. 승인된 화면 이름을 끼워 넣으며 새 기능을 설명하지 않습니다.
+
 ## 설계와 다른 점
 
 | 번호 | 확인한 차이 또는 빈 곳 | 적용할 계획 | 담당 step |
@@ -548,82 +550,118 @@ step 2의 API 확인 보충입니다.
 
 ## 브라우저로 볼 것
 
-#### 도움말과 용어 · step 8 (모두 미실행)
+step 9에서 step 1~8의 미실행 목록을 아래 100줄로 합쳤습니다. 모든 줄은 미실행입니다.
+각 줄을 가로 1280px·1440px·1680px에서 각각 확인합니다(총 300회). 휴대폰은 범위 밖입니다.
+Claude의 후속 브라우저 확인용입니다. 이 step에서는 서버·포트·브라우저를 열지 않았습니다.
+가짜 API 자료와 개발용 문서만 씁니다. 평가용 내용과 비밀값은 넣지 않습니다.
+처음 방문은 v2 기록 없음, 다시 방문은 성공·연습·중단 기록 있음으로 준비합니다.
+서버 꺼짐은 모델 프로세스 없음, 연결 없음은 터널 닫힘 또는 모델 접속 단절입니다. 앱 자체는 후속 확인 환경에서 열려 있어야 합니다.
+오류는 해당 조회 API의 실패를 주입합니다. 실제 장비를 내리거나 과금 동작을 할 필요가 없습니다.
+갈래 2의 성공 UI는 가짜 작업 응답으로 확인합니다. 실제 모델 한 항 시험과 터널 및 키 재읽기와 Pod 이어받기 및 청구액은 하네스 밖의 별도 실장비 확인입니다.
+실제 브라우저·보조기기·서버 증거를 각각 기록합니다. DOM 대역 통과를 화면 확인으로 적지 않습니다.
 
-- 1280·1440·1680px에서 S07과 독립 guide의 본문 72ch 폭·제목 간격·9장 표가 읽기 편한지 확인합니다. 설정 이름·긴 명령만 줄바꿈해야 합니다.
-- 각 화면의 도움 연결이 해당 절을 펼치는지 확인합니다. 뒤로 돌아와 실행·문서·항·값 선택과 읽던 위치가 유지되는지 봅니다.
-- 키보드 Tab으로 용어 설명을 열고 Escape로 닫습니다. 화면의 오른쪽과 아래쪽 끝에서도 말풍선이 잘리지 않는지 봅니다. 가짜 DOM의 위치 검사는 실제 배치 증거가 아닙니다.
-- 용어 조회 실패와 채점 기준 조회 실패를 따로 만듭니다. 다른 설명은 계속 읽고 실패한 목록만 다시 읽을 수 있어야 합니다.
-- S01과 S02에서 허용 농도와 mg/m³ 첫 설명을 읽습니다. ‘안내 다시 보기’ 후 성공 기록이 남는지도 확인합니다.
-
-
-#### 두 갈래 첫 사용 안내 · step 7 (모두 미실행)
-
-- 서버 없이 갈래 1을 시작해 가장 큰 문제의 값을 고르고 실제 원문 줄까지 엽니다. 추정 줄만 열거나 이동 단추만 눌러서는 성공이 없어야 합니다.
-- 갈래 2에서 입력 확인 연습 한 번과 실제 시험 한 번을 합니다. 연습 횟수와 실제 성공을 따로 확인합니다. 실제 응답의 선택 항 `ok=false`는 복구 안내만 나와야 합니다.
-- 첫 방문·`#s03` 직접 진입·새로고침 뒤 멈춘 갈래·보낸 시험 복원을 확인합니다. 자동으로 시험을 다시 보내면 안 됩니다.
-- 다시 보기와 안내 닫기를 합니다. 성공 시각·연습 횟수·다른 화면의 선택과 카드 접힘이 남아야 합니다.
-- 저장 거부와 읽기 실패 때 한 번만 알리고 안내를 계속할 수 있는지 확인합니다. 창을 다시 열 때 메모리 기록이 사라지면 안 됩니다.
-- 1280·1440·1680px에서 안내 띠·기록 표·짧은 연결 구역의 넘침을 확인합니다. 키보드 초점과 ‘안내 대상’ 글을 확인합니다. 줄바꿈·VoiceOver·실제 브라우저 배치는 자동 시험으로 판정하지 않았습니다.
-
-
-step 5의 미확인 목록입니다. 실제 브라우저·서버·SSH를 이 step에서 실행하지 않았습니다.
-
-- P02의 최초 초점·Tab 순환·Shift+Tab·Escape·취소 후 원래 단추 복귀를 확인합니다.
-- 1280·1440·1680px에서 긴 모델 이름과 Pod 비용 표가 가로로 넘치지 않는지 확인합니다.
-- RNGD 네 진단과 진단 불가에서 사실·할 일·경과시간이 서로 구분되는지 확인합니다.
-- 연결 화면에서 10초, 다른 화면에서 60초에 한 번 조회하는 동안 선택·펼침·초점이 유지되는지 확인합니다.
-- 실제 터널 열기와 닫기·키 재읽기·기존 Pod 이어받기는 하네스 밖에서 사람이 확인합니다.
-- 실제 모델 준비 시간·실제 청구액·물리 장비 상태는 이 step에서 확인하지 않았습니다.
-
-
-#### 두 결과 비교 · step 4
-
-- 1280·1440·1680px에서 조건 안내가 결론보다 먼저 보이는지 확인합니다.
-- 같은 조건 결론·점수 차·표 행 거리에는 초록/빨강 강조가 없어야 합니다. 조건이 다른 경우에는 방향 글과 색이 함께 보여야 합니다.
-- 긴 실행 이름·원문 값·지시문 차이 줄이 1280px에서 페이지 너비를 넘지 않는지 확인합니다. `.raw/.technical`은 줄바꿈하고 페이지 넘침을 숨기지 않습니다.
-- 키보드로 필터와 바뀐 값 펼침을 조작해 초점이 남는지 확인합니다. 새로 맞춘 값과 새로 틀린 값 모두 열 수 있어야 합니다.
-- 지시문을 펼칠 때만 조회하는지, 실패의 원문은 접혀 있는지, 순서 교환 뒤 늦은 지시문이 끼어들지 않는지 확인합니다.
-- 현재 API에 값 경로가 없을 때 해당 문서·항으로 이동하고 사용자가 값을 고를 수 있는지 확인합니다.
-
-
-#### 원문 보기 · step 3
-
-- 1280·1440·1680px에서 문제 목록과 두 값 열이 좁지 않은지 확인합니다.
-- 실제 쪽 그림 위의 상자가 글자 위치와 맞는지 확인합니다.
-- 값 선택 뒤 켜진 줄까지 스크롤하고 돌아왔을 때 읽던 위치가 유지되는지 확인합니다.
-- 긴 원문과 경로가 `.big-value`, `.page-text`, `.technical` 안에서 줄바꿈하는지 확인합니다.
-- 실제 근거는 노랑, 추정 근거는 점선·‘추정’ 글·다른 바탕으로 구분되는지 확인합니다.
-- 키보드 값 선택과 그림 실패 시 줄 글자 유지도 확인합니다.
-
-
-#### 시험과 실행 · step 6
-
-- 1280·1440·1680px에서 긴 모델 답·로그·실행 이름이 화면 폭을 넘지 않는지 봅니다.
-- 연결 없음 → S03 짧은 연결 영역 → P02 확인 → 준비 → 시험까지 누르는 횟수를 셉니다. 모델 준비 대기시간은 클릭 수와 나눕니다.
-- S06의 ‘시험으로 돌아가기’가 문서·항·지시문을 유지하는지 봅니다.
-- 여섯 단계 펼침과 로그 읽던 위치를 확인합니다. 키보드로 확인 창의 취소·초점 복귀도 봅니다.
-- 사람이 실제 모델로 한 항 시험을 한 번 실행합니다. 연습 완료와 실제 성공이 따로 기록되는지 봅니다. 이 step에서는 실제 모델을 부르지 않았습니다.
-
-각 구현 step이 가로 1280·1440·1680px에서 사람이 확인할 항목을 여기에 추가합니다.
-
-step 1의 브라우저 확인 목록입니다. 이번에는 실측하지 않았습니다.
-
-- 1280·1440·1680px에서 머리와 왼쪽 메뉴와 세 칸 맥락 줄의 정렬을 확인합니다. 페이지 가로 스크롤이 없어야 합니다.
-- 긴 묶음 이름·정답 이름·모델 이름과 날짜를 넣어 겹침과 잘림을 확인합니다.
-- 한국어 단어가 중간에서 끊기지 않는지 확인합니다. 긴 경로·태그만 허용 class에서 줄바꿈해야 합니다.
-- 메뉴·카드·선택창을 키보드로 이동해 포커스 테두리와 선택창 취소 후 복귀를 확인합니다.
-- 묶음·정답지 선택의 적용과 취소를 확인합니다. 쓸 수 없는 후보의 이유와 현재 수정 시각은 보여야 합니다. 내용 지문은 접힌 상세에 있어야 합니다.
-- 말풍선 포커스·Escape·포인터 이동과 스크롤 중 맥락 줄 유지를 실제 브라우저에서 확인합니다.
-
-
-step 2의 브라우저 확인 목록입니다. 이번에는 실측하지 않았습니다.
-
-- 1280·1440·1680px에서 요약·큰 원문 단추가 첫 화면 높이에 들어오는지 확인합니다.
-- 손실의 소수 둘째 자리와 ‘점’ 단위, 0건과 기록 없음, 정답지와 문서 수가 읽히는지 확인합니다.
-- 항목표·실행 선택의 긴 이름과 호출 격자 8칸 두 줄이 페이지 너비를 넘지 않는지 확인합니다. 큰 표는 내부에서만 넘칩니다.
-- 이력 점과 동등한 표 선택을 키보드로 사용합니다. 두 점 순서·선택 취소·저장소 거부·비교 이동을 확인합니다.
-- 정답지 변경 중 이전 점수가 사라지는지 확인합니다. 원문과 다시 시험으로 실행·문서·항·채점 기준이 이어지는지는 step 3·6 구현 뒤 실제 화면에서 확인합니다.
+| 번호 | 화면 | 상태 또는 과제 | 가로 너비(px) | 통과할 때 보이는 것 |
+|---|---|---|---|---|
+| B001 | S01 | 처음 방문 | 1280 / 1440 / 1680 | 현재 점수와 가장 큰 문제가 먼저 보이고 첫 사용 안내 띠가 보인다. |
+| B002 | S01 | 다시 방문 | 1280 / 1440 / 1680 | 현재 점수와 저장된 펼침 상태가 보이며 첫 방문 성공 기록을 덮지 않는다. |
+| B003 | S01 | 실행 없음 | 1280 / 1440 / 1680 | 고른 묶음의 결과 없음이 보이고 0점이나 다른 묶음의 점수가 대신 나오지 않는다. |
+| B004 | S01 | 서버 꺼짐 | 1280 / 1440 / 1680 | 모델 꺼짐 안내와 함께 저장된 점수와 문제를 읽을 수 있다. |
+| B005 | S01 | 연결 없음 | 1280 / 1440 / 1680 | 연결 없음 안내와 함께 저장된 결과의 원문 이동 단추를 쓸 수 있다. |
+| B006 | S01 | 정답지 바꿈 | 1280 / 1440 / 1680 | 이전 점수를 숨긴 뒤 새 정답지 이름과 재계산된 점수로 바뀐다. |
+| B007 | S01 | 잠긴 문서 | 1280 / 1440 / 1680 | 공통 선택창에서 평가 문서의 잠긴 이유가 보이고 원문을 열 수 없다. |
+| B008 | S01 | 오류 | 1280 / 1440 / 1680 | 조회 실패의 굵은 사실과 할 일과 접힌 원문이 보이고 다시 읽기가 가능하다. |
+| B009 | S02 | 처음 방문 | 1280 / 1440 / 1680 | 실행과 문서를 고르는 영역 아래에 문제 목록과 원문 대조가 보인다. |
+| B010 | S02 | 다시 방문 | 1280 / 1440 / 1680 | 직접 고른 문서와 항과 값 및 읽던 쪽이 유지된다. |
+| B011 | S02 | 실행 없음 | 1280 / 1440 / 1680 | 실행 없이 쓸 수 있는 개발 문서는 원문만 보이며 정답과 결과가 없음을 알린다. |
+| B012 | S02 | 서버 꺼짐 | 1280 / 1440 / 1680 | 모델이 꺼져도 저장된 값과 원문 줄 및 쪽 그림을 볼 수 있다. |
+| B013 | S02 | 연결 없음 | 1280 / 1440 / 1680 | 모델 연결이 없어도 원문과 값 선택이 작동하고 시험 연결 안내를 볼 수 있다. |
+| B014 | S02 | 정답지 바꿈 | 1280 / 1440 / 1680 | 새 정답지로 값 대조를 다시 읽고 실행 당시 원문 묶음은 유지한다. |
+| B015 | S02 | 잠긴 문서 | 1280 / 1440 / 1680 | 잠긴 문서는 이유만 보이고 값과 줄 및 그림을 요청하지 않는다. |
+| B016 | S02 | 오류 | 1280 / 1440 / 1680 | 조회 오류는 사실과 할 일과 접힌 원문으로 보이고 그림만 실패하면 줄 글자가 남는다. |
+| B017 | S03 | 처음 방문 | 1280 / 1440 / 1680 | 문서와 항 및 모델을 고르는 순서와 선택한 문제 값이 보인다. |
+| B018 | S03 | 다시 방문 | 1280 / 1440 / 1680 | 문서와 항 및 임시 지시문이 남고 단순 재방문으로 작업을 보내지 않는다. |
+| B019 | S03 | 실행 없음 | 1280 / 1440 / 1680 | 기준 실행이 없어도 시험 준비와 연습을 열 수 있으며 점수 생략 이유를 알린다. |
+| B020 | S03 | 서버 꺼짐 | 1280 / 1440 / 1680 | 실제 전송 제한과 제자리 모델 연결 및 연습 선택이 보인다. |
+| B021 | S03 | 연결 없음 | 1280 / 1440 / 1680 | 연결 복구 동작과 연습이 구분되며 전송 단추만으로 실제 성공을 기록하지 않는다. |
+| B022 | S03 | 정답지 바꿈 | 1280 / 1440 / 1680 | 새 시험의 정답지 이름이 바뀌고 이미 끝난 작업의 정답지는 작업 기록대로 보인다. |
+| B023 | S03 | 잠긴 문서 | 1280 / 1440 / 1680 | 시험할 수 없는 문서의 이유가 보이고 선택 및 전송이 막힌다. |
+| B024 | S03 | 오류 | 1280 / 1440 / 1680 | 옵션 조회 실패의 사실과 할 일과 접힌 원문이 보이고 오래된 양식을 보내지 않는다. |
+| B025 | S04 | 처음 방문 | 1280 / 1440 / 1680 | A와 B 선택 및 조건 차이가 비교 결론보다 먼저 보인다. |
+| B026 | S04 | 다시 방문 | 1280 / 1440 / 1680 | A와 B 순서와 필터 및 펼친 값 선택이 유지된다. |
+| B027 | S04 | 실행 없음 | 1280 / 1440 / 1680 | 비교할 실행이 부족하다는 안내가 보이고 가짜 차이나 점수가 나오지 않는다. |
+| B028 | S04 | 서버 꺼짐 | 1280 / 1440 / 1680 | 모델이 꺼져도 저장된 두 실행과 값 차이를 비교할 수 있다. |
+| B029 | S04 | 연결 없음 | 1280 / 1440 / 1680 | 연결 없음은 공통 영역에서 알리고 저장된 비교 내용을 계속 읽을 수 있다. |
+| B030 | S04 | 정답지 바꿈 | 1280 / 1440 / 1680 | 양쪽 점수를 같은 새 정답지로 다시 읽고 이전 비교 점수를 숨긴다. |
+| B031 | S04 | 잠긴 문서 | 1280 / 1440 / 1680 | 평가 문서의 원문 이동이 차단되고 공통 선택창에 잠긴 이유가 보인다. |
+| B032 | S04 | 오류 | 1280 / 1440 / 1680 | 비교 조회 오류의 사실과 할 일과 접힌 원문을 읽고 다시 비교할 수 있다. |
+| B033 | S05 | 처음 방문 | 1280 / 1440 / 1680 | 진행 중 작업과 끝난 작업을 상태 글 및 대상 조건으로 구분할 수 있다. |
+| B034 | S05 | 다시 방문 | 1280 / 1440 / 1680 | 선택한 로그와 읽던 위치가 갱신 뒤에도 유지된다. |
+| B035 | S05 | 실행 없음 | 1280 / 1440 / 1680 | 작업 기록 없음이 보이고 빈 표나 결과 성공을 대신 표시하지 않는다. |
+| B036 | S05 | 서버 꺼짐 | 1280 / 1440 / 1680 | 모델이 꺼져도 저장된 작업 대상과 결과 및 로그를 읽을 수 있다. |
+| B037 | S05 | 연결 없음 | 1280 / 1440 / 1680 | 연결 없음과 작업의 실패 및 완료 상태가 서로 다른 글로 보인다. |
+| B038 | S05 | 정답지 바꿈 | 1280 / 1440 / 1680 | 공통 정답지는 바뀌지만 과거 작업의 target 정답지와 지문은 바뀌지 않는다. |
+| B039 | S05 | 잠긴 문서 | 1280 / 1440 / 1680 | 평가 문서를 열거나 재시험하는 경로가 없고 공통 잠금 이유가 보인다. |
+| B040 | S05 | 오류 | 1280 / 1440 / 1680 | 목록 및 로그 조회 오류에 사실과 할 일과 접힌 원문이 보인다. |
+| B041 | S06 | 처음 방문 | 1280 / 1440 / 1680 | 현재 연결 상태와 서버별 비용 및 가능한 동작이 바로 보인다. |
+| B042 | S06 | 다시 방문 | 1280 / 1440 / 1680 | 이어받은 Pod와 마지막 조회 상태가 보이고 방문만으로 서버를 만들지 않는다. |
+| B043 | S06 | 실행 없음 | 1280 / 1440 / 1680 | 실행 기록 없이도 서버 상태를 읽고 조작 가능 여부를 확인할 수 있다. |
+| B044 | S06 | 서버 꺼짐 | 1280 / 1440 / 1680 | 모델 없음과 준비 동작이 보이며 프로세스 존재를 준비 완료로 표시하지 않는다. |
+| B045 | S06 | 연결 없음 | 1280 / 1440 / 1680 | 터널 닫힘과 모델 없음이 서로 다른 사실 및 할 일로 보인다. |
+| B046 | S06 | 정답지 바꿈 | 1280 / 1440 / 1680 | 공통 정답지 이름만 바뀌고 서버 및 비용 상태를 임의로 바꾸지 않는다. |
+| B047 | S06 | 잠긴 문서 | 1280 / 1440 / 1680 | 공통 문서 선택의 잠금이 유지되고 서버 준비가 문서 잠금을 풀지 않는다. |
+| B048 | S06 | 오류 | 1280 / 1440 / 1680 | 조회 실패의 사실과 할 일과 접힌 원문이 보이며 오래된 조작 단추를 쓸 수 없다. |
+| B049 | S07 | 처음 방문 | 1280 / 1440 / 1680 | 도움말 아홉 장과 용어 검색 및 원래 화면으로 돌아가는 동작이 보인다. |
+| B050 | S07 | 다시 방문 | 1280 / 1440 / 1680 | 읽던 장과 검색어를 유지하고 돌아가면 이전 화면의 선택이 남는다. |
+| B051 | S07 | 실행 없음 | 1280 / 1440 / 1680 | 실행 기록 없이도 처리 순서와 채점 기준 및 용어를 읽을 수 있다. |
+| B052 | S07 | 서버 꺼짐 | 1280 / 1440 / 1680 | 모델 없이도 도움말과 준비 방법을 읽을 수 있다. |
+| B053 | S07 | 연결 없음 | 1280 / 1440 / 1680 | 연결 복구 설명과 화면 복귀를 사용할 수 있고 실제 연결 성공을 표시하지 않는다. |
+| B054 | S07 | 정답지 바꿈 | 1280 / 1440 / 1680 | 공통 정답지 이름이 바뀌어도 일반 채점 설명을 특정 실행 점수처럼 보이지 않는다. |
+| B055 | S07 | 잠긴 문서 | 1280 / 1440 / 1680 | 평가 문서 보호 설명과 선택창의 잠금 이유를 읽을 수 있다. |
+| B056 | S07 | 오류 | 1280 / 1440 / 1680 | 용어와 기준 조회가 각각 복구되고 실패하지 않은 도움말은 계속 읽을 수 있다. |
+| B057 | S08 | 처음 방문 | 1280 / 1440 / 1680 | 점수 읽기와 한 항 시험의 두 갈래 및 서로 다른 성공 조건을 읽을 수 있다. |
+| B058 | S08 | 다시 방문 | 1280 / 1440 / 1680 | 성공과 연습 기록 및 중단한 위치가 남고 이어하기를 선택할 수 있다. |
+| B059 | S08 | 실행 없음 | 1280 / 1440 / 1680 | 점수 갈래의 건너뛰기와 시험 연습 안내가 보이며 성공을 만들어 내지 않는다. |
+| B060 | S08 | 서버 꺼짐 | 1280 / 1440 / 1680 | 서버 없는 점수 갈래와 시험의 연결 또는 연습 선택이 구분된다. |
+| B061 | S08 | 연결 없음 | 1280 / 1440 / 1680 | 복구 동작을 안내하면서 선택한 갈래와 진행 위치를 유지한다. |
+| B062 | S08 | 정답지 바꿈 | 1280 / 1440 / 1680 | 선택한 정답지로 다음 행동을 안내하고 이전 성공 이력을 지우지 않는다. |
+| B063 | S08 | 잠긴 문서 | 1280 / 1440 / 1680 | 잠긴 문서는 안내 대상으로 잡히지 않고 다른 개발 문서를 고를 수 있다. |
+| B064 | S08 | 오류 | 1280 / 1440 / 1680 | 기록 조회 실패의 사실과 할 일과 접힌 원문이 보이며 실패를 첫 방문으로 처리하지 않는다. |
+| B065 | S09 | 처음 방문 | 1280 / 1440 / 1680 | 문서 묶음과 모델 및 반복 수와 실행 이름을 검토할 수 있다. |
+| B066 | S09 | 다시 방문 | 1280 / 1440 / 1680 | 고른 문서와 반복 수 및 입력한 이름이 유지되고 자동으로 실행하지 않는다. |
+| B067 | S09 | 실행 없음 | 1280 / 1440 / 1680 | 과거 실행이 없어도 사용 가능한 문서를 골라 실행 준비를 할 수 있다. |
+| B068 | S09 | 서버 꺼짐 | 1280 / 1440 / 1680 | 서버 준비 안내가 보이고 준비되지 않은 모델로 본 실행을 보내지 않는다. |
+| B069 | S09 | 연결 없음 | 1280 / 1440 / 1680 | 연결 복구 뒤 돌아오면 문서 선택과 실행 이름이 남는다. |
+| B070 | S09 | 정답지 바꿈 | 1280 / 1440 / 1680 | 공통 정답지 변경이 표시되고 실행 조건과 비교표 기준을 혼동시키지 않는다. |
+| B071 | S09 | 잠긴 문서 | 1280 / 1440 / 1680 | 문서마다 runnable.run과 사유를 반영하며 전체 선택도 잠긴 문서를 고르지 않는다. |
+| B072 | S09 | 오류 | 1280 / 1440 / 1680 | 옵션 오류의 사실과 할 일과 접힌 원문이 보이고 오래된 선택을 실행하지 않는다. |
+| B073 | S10 | 처음 방문 | 1280 / 1440 / 1680 | 비교할 실행의 이름과 조건 및 선택 순서와 제목 칸이 보인다. |
+| B074 | S10 | 다시 방문 | 1280 / 1440 / 1680 | 선택한 실행 순서와 제목이 남고 방문만으로 비교표를 만들지 않는다. |
+| B075 | S10 | 실행 없음 | 1280 / 1440 / 1680 | 선택 가능한 실행 없음이 보이고 비교표 생성이 제한된다. |
+| B076 | S10 | 서버 꺼짐 | 1280 / 1440 / 1680 | 모델이 꺼져도 저장된 실행을 비교표 대상으로 고를 수 있다. |
+| B077 | S10 | 연결 없음 | 1280 / 1440 / 1680 | 연결 없음과 무관하게 저장된 실행 선택과 조건 검토를 할 수 있다. |
+| B078 | S10 | 정답지 바꿈 | 1280 / 1440 / 1680 | 공통 선택과 실제 비교표의 기본 정답지 제한을 별도 글로 보여 준다. |
+| B079 | S10 | 잠긴 문서 | 1280 / 1440 / 1680 | 평가 실행을 선택할 수 없고 잠금 이유를 읽을 수 있다. |
+| B080 | S10 | 오류 | 1280 / 1440 / 1680 | 실행 목록 오류의 사실과 할 일과 접힌 원문이 보이며 다시 읽을 수 있다. |
+| B081 | P01 | 적용·취소·키보드 | 1280 / 1440 / 1680 | Tab과 Shift+Tab 및 Escape를 써도 초점이 보이고 취소는 원래 단추로 돌아가며 적용만 맥락을 바꾼다. |
+| B082 | P02 | 확인·취소·만료 | 1280 / 1440 / 1680 | 확인 요약과 주의 및 한 번 사용 규칙이 보이고 취소 및 만료 뒤 중복 동작을 보내지 않는다. |
+| B083 | 공통 | 한국어·긴 이름·스크롤 | 1280 / 1440 / 1680 | 머리와 메뉴 및 고정 맥락 줄이 겹치지 않고 한국어 단어를 보존하며 페이지와 표에 가로 스크롤이 없다. |
+| B084 | 공통 | 말풍선·포커스·화면 끝 | 1280 / 1440 / 1680 | Tab으로 설명을 열고 Escape로 닫을 수 있으며 포인터를 설명으로 옮겨도 유지되고 화면 밖으로 잘리지 않는다. |
+| B085 | 공통 | 불러오는 중·표시 완료·보조기기 | 1280 / 1440 / 1680 | 열 화면에서 대기와 화면 표시 완료 글이 상태 영역으로 전달되며 표시 완료를 모델 실행 성공으로 읽지 않는다. |
+| B086 | S01 | 숫자·호출 격자·이력 | 1280 / 1440 / 1680 | 손실의 점 단위와 0건 및 기록 없음을 구분하고 8칸 두 줄 격자 및 이력의 동등한 표 선택을 쓸 수 있다. |
+| B087 | S01→S04 | 이력 두 점·저장 거부 | 1280 / 1440 / 1680 | 두 점을 고른 순서로 A와 B에 보내고 선택 취소 및 저장 거부 뒤에도 초점과 현재 선택이 남는다. |
+| B088 | S02 | 그림 좌표·실제와 추정 근거 | 1280 / 1440 / 1680 | 실제 쪽 그림의 상자가 글자와 맞고 추정 줄은 점선과 추정 글로 구분되며 실제 근거 선택만 안내 성공으로 센다. |
+| B089 | S02 | 도움말 삽입 뒤 격자 순서 | 1280 / 1440 / 1680 | 제목과 도움말 및 실행 선택이 전체 폭을 차지하고 그 아래에 문제 목록과 값 및 원문이 겹치지 않게 놓인다. |
+| B090 | S04 | 같은 조건·필터·지시문 | 1280 / 1440 / 1680 | 같은 조건 차이는 중립으로 보이고 양쪽 값 목록 및 지시문을 펼칠 때만 읽으며 교환 뒤 늦은 응답이 끼지 않는다. |
+| B091 | S03→S06→S03 | 연결 준비·복귀 | 1280 / 1440 / 1680 | 제자리 연결과 확인을 거쳐 시험으로 돌아오면 문서와 항 및 지시문이 남고 클릭 수와 준비 대기시간을 따로 기록할 수 있다. |
+| B092 | S03·S05 | 결과 세 모양·204·실패 | 1280 / 1440 / 1680 | 연습 두 단계와 항 시험 여섯 단계 및 전체 문서 결과를 구분하고 결과 없음과 실패 및 저장 경로를 읽을 수 있다. |
+| B093 | S06 | 소유권·비용·주기 조회 | 1280 / 1440 / 1680 | 남의 Pod에는 삭제 단추가 없고 비용 미상과 0달러를 구분하며 10초 및 60초 조회 뒤 초점과 펼침이 유지된다. |
+| B094 | S07·guide | 아홉 장·40개 용어·23개 기준 | 1280 / 1440 / 1680 | 독립 도움말과 화면 도움말이 같은 아홉 장을 보이고 72ch 본문 및 긴 명령과 두 조회의 독립 복구를 읽을 수 있다. |
+| B095 | S08→S01→S02 | 갈래 1 끝까지 | 1280 / 1440 / 1680 | 문제의 실제 근거 줄까지 직접 열어 성공 시각이 남고 이동 단추나 추정 줄만 열면 성공으로 세지 않는다. |
+| B096 | S08→S03 | 갈래 2 끝까지 | 1280 / 1440 / 1680 | 연습과 실제 결과를 차례로 열면 별도 기록이 남고 dry_run=false 및 선택 항 ok=true인 결과 요약 표시만 실제 성공으로 센다. |
+| B097 | S08·S03 | 새로고침·저장 실패·두 탭 | 1280 / 1440 / 1680 | 중단 위치와 보낸 작업이 복원되고 자동 재전송이 없으며 다시 보기와 닫기 및 두 탭 저장이 기존 성공을 줄이지 않는다. |
+| B098 | 처음 보는 사용자 과제 1 | 지금 점수와 가장 큰 문제 말하기 | 1280 / 1440 / 1680 | 프로젝트 설명 없이 앱만 읽은 사용자가 현재 정답지와 점수 및 손실이 가장 큰 문제와 원문 위치를 말한다. |
+| B099 | 처음 보는 사용자 과제 2 | 한 항목 시험 | 1280 / 1440 / 1680 | 프로젝트 설명 없이 문서와 항을 골라 결과를 열고 연습인지 실제 성공인지 구분한다. |
+| B100 | 처음 보는 사용자 과제 3 | 묶음 또는 정답지 바꾸기 | 1280 / 1440 / 1680 | 프로젝트 설명 없이 선택창에서 적용하고 바뀐 기준과 점수 또는 결과 없음 및 잠긴 이유를 말한다. |
 
 ### step 0
 
@@ -984,3 +1022,151 @@ Questions skipped: non-interactive. 승인된 설계를 그대로 구현합니�
 - 최종 AC: 파일·script 순서·설정 이름·잘못된 터널 설명 금지·외부 주소 금지·step 기록·Node 확인 모두 통과했습니다. 도움말/DOM **27 passed**, 문구/앱 **265 passed**입니다. JS 10개 문법 검사와 git diff --check도 통과했습니다.
 - 전체 AC: **2110 passed, 30 skipped, 7 warnings, 1 failed**(53.25초). 유일한 실패는 `tests/test_A_input.py::test_every_changing_route_answers_with_update`의 `socket.bind` → `PermissionError: [Errno 1] Operation not permitted`입니다. `_common.txt` 7절의 명시 예외에 따라 completed로 기록합니다. A 시험을 고치거나 제외하지 않았습니다. 실행기가 샌드박스 밖에서 다시 검증합니다. 경고 7개는 기존 SWIG DeprecationWarning입니다.
 - 보호 검증: 시작 시 기록한 122개 파일의 해시가 모두 같습니다. 기존 Python 함수의 이름·인자도 모두 같습니다. index.json은 step 8의 status·summary만 바꿉니다. 커밋하지 않았습니다.
+
+
+### step 9
+
+⚠️ DEGRADED: no browser in sandbox
+
+Questions skipped: non-interactive. 승인된 화면의 정적 정리만 수행합니다.
+
+- 시험 먼저: 새 audit UI와 DOM 시험을 실행했습니다. **32 failed, 20 passed**입니다. 기록은 `/tmp/to21-step9-red.log`입니다.
+- 실패: 화면 안전 표시·기본 펼침 상태 16사례, 안내 기록 API 오류 원문 1사례, 화면 이동의 불러오기/표시 알림 10사례, native details 동기화, 브라우저 NodeList 형태, 색 토큰, 보존표 대표 위치, 옛 코드 제거입니다.
+- 옛 polish의 마지막 오류 시험을 새 화면 10개의 실제 실패 요청 시험으로 옮긴 뒤 파일을 삭제했습니다. DOM 대역의 옛 실행 도우미도 제거했습니다.
+- 기존 시험 변경: 정적 검사 대상에서 삭제 예정 app.js를 뺐습니다. text의 옛/새 글 합침 검사는 요구된 `POLISH_TEXT is UI_TEXT` 계약으로 바꿨습니다. 글의 비어 있음·COPY 대조·공개 API 검사와 정적 경로 보안 검사는 유지합니다.
+
+#### 점검과 마감 결과
+
+정적 구현의 일관성은 통과입니다. 화면 10개와 전용 구역 36개를 유지했습니다.
+새 화면이나 카드나 서버 기능은 추가하지 않았습니다.
+정보 보존표 94행의 대표 함수·DOM id를 확인한 뒤 app.js를 삭제했습니다.
+옛 app.js의 시작 안내·점수·원문·비교·시험·실행·연결·도움말 경로를 표와 마지막으로 대조했습니다.
+남은 I84는 공통 오류와 상태 알림으로 채웠습니다.
+함수 존재 검사는 내용 보존 검토를 보조합니다. 자동 검사만으로 의미가 같다고 판정하지 않았습니다.
+
+새로 확인한 제품 코드 문제는 P1 1개, P2 7개, P3 1개입니다. 아래 9개를 모두 고쳤습니다.
+정적 검사에서 확인된 새 미해결 문제는 0개입니다. 브라우저의 실제 배치와 읽기·조작 품질은 아직 판정하지 않았습니다.
+
+| 중요도 | 위치·문제 | 영향과 처리 | 검증 |
+|---|---|---|---|
+| P1 | jobsRenderTry의 NodeList.some | 브라우저의 요소 목록에는 some이 없어 기준 실행이 있으면 화면이 실패함; 배열로 변환 | Array 메서드가 없는 목록 대역으로 S03 진입·선택 유지 |
+| P2 | jobsRenderTry/jobsRenderCompare 실행 이름 | label 객체가 `[object Object]`로 보임; title·문자열·원래 이름 순으로 읽음 | 구조화된 실행 이름을 S03·S10에서 확인 |
+| P2 | helpRenderGlossary 선택적 자식 | 원래 replaceChildren은 null을 글자로 표시함; 없는 자식을 거르는 coreReplace 사용 | S07 자료 있음·없음 안전 표시 |
+| P2 | journeyNotice 오류 원문 누락 | API 실패의 자세한 원인을 볼 수 없음; raw에 실제 오류 메시지 보존 | S08 실패 원문은 글자로 표시하고 기본 접힘 |
+| P2 | 공통 details 펼침 상태 | summary의 aria-expanded가 없거나 programmatic open 뒤 낡음; native toggle에 맞춰 갱신 | 열 화면 summary 상태와 열기·닫기 시험 |
+| P2 | jobsField 도움말 참조 | 설명 없는 칸의 aria-describedby가 없는 요소를 가리킴; 도움말이 있을 때만 연결 | 열 화면 ARIA 참조 대상 존재 확인 |
+| P2 | go의 초기 로딩·완료 알림 | 첫 방문의 빈 구역과 화면 이동 상태 누락; role=status의 대기와 화면 표시 알림 | 열 화면의 지연 응답 중 글과 완료 글 확인 |
+| P2 | S02 도움말 삽입 뒤 격자 행 | 자동 배치와 기존 고정 행이 충돌할 수 있음; 제목·도움말·선택을 전체 폭의 앞 세 행에 배치 | 실패를 먼저 확인한 CSS 순서·비중첩 시험; 실배치는 B009·B089 |
+| P3 | dialog::backdrop 색 값 | root 밖의 색 중복; 같은 값을 --backdrop 토큰으로 옮김 | root 밖 실제 색 값 없음; 모양 변경 없음 |
+
+추가 CSS 시험은 구현 전 **1 failed, 48 deselected**였습니다(`test_source_help_and_controls_precede_the_two_column_content`).
+고친 뒤 audit+DOM은 **53 passed**입니다.
+DOM 대역에는 details.open 변경 시 toggle 사건을 보내는 브라우저 동작을 보충했습니다.
+기존 UI 시험을 지우거나 기대 행동을 낮추지 않았습니다.
+
+#### audit의 다섯 축
+
+점수는 소스와 DOM 대역으로 한정한 잠정 점수입니다. WCAG 적합성이나 실화면 수락 판정이 아닙니다.
+휴대폰·다크 모드는 승인 범위 밖이므로 만들지 않았습니다.
+
+| 축 | 잠정 점수(0~4) | 확인한 것 | 남긴 확인 |
+|---|---|---|---|
+| 접근성 | 2 | 네이티브 단추·이름표·유효 ARIA·상태 글·초점 테두리·색 옆 상태 글 | 실제 Tab 순서·보조기기 읽기·화면 끝 말풍선 |
+| 성능 | 3 | 외부 요청·새 의존성·움직임 없음; 지시문 지연 조회·중복 polling 방지; 옛 120729바이트 제거 | 실제 렌더링 시간과 큰 문서 조작 지연 |
+| 시각 토큰 | 3 | 실제 CSS 색은 root에만 있음; 간격과 테두리·글자 토큰 재사용 | 브라우저의 렌더된 색과 글꼴 및 줄높이 |
+| 데스크톱 배치 | 2 | 1240px 초과 고정 width/min-width 없음; keep-all·허용 데이터 줄바꿈·S02 행 순서 | 1280·1440·1680px의 페이지와 표 넘침 |
+| 구현 일관성 | 3 | 승인 10화면 유지·94정보 연결·한 API 계약·새 정적 지적 해소 | 처음 보는 사용자의 세 과제와 두 갈래 안내 |
+| 합계 | 13/20 | 정적 근거만 있는 잠정값 | 브라우저 확인 전 최종 품질 점수로 사용하지 않음 |
+
+색 토큰으로 계산한 대비는 본문/종이 13.24:1, 보조글/종이 6.26:1, 보조글/옅은 바탕 5.42:1입니다.
+강조/종이 7.52:1, 오류/오류 바탕 6.33:1, 주의/종이 5.03:1, 주의/선택 바탕 4.53:1입니다.
+이 값은 sRGB 토큰 계산입니다. 합성된 실제 픽셀이나 모든 중첩 상태를 측정한 결과는 아닙니다.
+
+polish 점검에서는 간격·안쪽 여백·표준 조작 요소의 테두리를 기존 토큰과 대조했습니다.
+크기만 다른 새 단추 스타일은 만들지 않았습니다. 화면별 단추·선택·펼침 의미를 유지했습니다.
+표와 긴 원문은 숨겨 잘라내지 않았습니다. 실제 넘침 판정은 B083을 포함한 브라우저 목록에 남겼습니다.
+요약 뒤 세부 펼침과 한 동작 단추의 승인 문구를 유지했습니다. 새 상태 글 한 줄만 COPY_EXCEPTIONS와 글 출처에 적었습니다.
+
+#### detector와 범위 밖 항목
+
+impeccable context는 시작할 때 한 번 성공했습니다. audit·polish·harden을 읽고 UI 편집 직전에 craft-floor를 읽었습니다.
+impeccable detect는 편집 뒤 한 번 실행했습니다. 종료 코드 2이며 지적은 17개입니다.
+
+| 남긴 항목 | 수 | 근거·처리 |
+|---|---|---|
+| 기존 wireframes.html | 15 | 색 14개·모서리 1개; 승인 구조 설명용 기존 파일이며 제품이 싣지 않음; 이번 변경과 무관해 그대로 둠 |
+| guide.html 도구 오탐 | 2 | `/static/app.css`를 `b_app_static/static/app.css`로 잘못 해석하여 기본 검정과 16px만 읽음; 실제 링크는 공통 CSS이며 본문 16px·h1 28px·h2 20px 및 ink 토큰을 사용 |
+| API 빈칸 | 2 | 개별 응답 key.updated_at 부재와 비교표 key 미전달은 기존 D09·D10; 정직한 표시를 유지하며 백엔드 변경 금지 |
+| 실제 브라우저 확인 | 100줄 | B001~B100 모두 미실행; 각 줄 3너비이므로 확인 조합은 300회 |
+| 실장비 확인 | 별도 | 모델 실제 시험·SSH 터널·키 재읽기·Pod 이어받기·실제 준비시간과 청구액은 미실행 |
+
+새 제품 코드에 대한 detector 지적은 없습니다. 스타일 경로를 못 읽은 검사 결과를 렌더링 통과로 부르지 않습니다.
+API 빈칸은 이번 정적 AC를 막지 않습니다. 같은 스텝의 범위를 벗어난 기존 파일은 고치지 않았습니다.
+새로 확인된 정적 미해결 제품 문제는 없으므로 추가 기능 고침은 권하지 않습니다.
+후속 브라우저 audit로 B001~B100을 확인하고, 확인된 문제만 마지막 polish로 다룹니다.
+
+상수 제거 전 backend의 사용처를 검색했습니다. 제거한 Python 상수는 `_LEGACY_POLISH_TEXT` 하나뿐입니다.
+이 상수는 자기 선언과 POLISH_TEXT 합침 외에는 사용되지 않았습니다. 이제 `POLISH_TEXT = UI_TEXT`입니다.
+START_TEXT·FIELD_HELP·TRY_STAGE_HELP·JOB_UI_TEXT·GLOSSARY와 API 함수는 남겼습니다.
+외부 참조가 없는 `_GLOSSARY_ALIASES`, `_ROW_LABELS`, `_CONDITIONS`, 오류 정규식과 LOADING_LATE_MIN도 내부 사용처가 있어 남겼습니다.
+이 phase 전부터 있던 죽은 코드는 제거하지 않았습니다. 이번 대조에서 추가 삭제를 정당화할 상수는 확인하지 못했습니다.
+
+#### CRITIQUE 24개 처리 추적
+
+아래의 ‘처리’는 코드·계약 및 자동 시험의 상태입니다. 실제 화면의 해결 판정은 브라우저 목록에 남습니다.
+
+| 문제 | 처리한 step | 처리 또는 범위 밖 이유 |
+|---|---|---|
+| 01 공통 맥락 없음 | 1 | 모든 화면의 문서 묶음·정답지·모델 상태와 P01 선택 |
+| 02 서버가 고급 뒤에 숨음 | 1·5·6 | S06 메뉴 노출과 S03 제자리 연결 |
+| 03 실행 목적·긴 이름 혼재 | 2·4·6·9 | run_kind 묶음·사람 말 표시 이름·원래 이름; label 객체 표시 수정 |
+| 04 작업 순서 불명확 | 1·6 | 일곱 메뉴와 시험·여러 문서·작업 기록의 승인 분리 |
+| 05 옛 입력 경로 | API 단계·3 | 실행 원문 경로 이동 정보와 현재 시험 묶음을 구분 |
+| 06 기본 입력이 비거나 부적합 | API 단계·1·6 | 사용 가능한 묶음과 문서별 runnable·reason 사용 |
+| 07 안내에 실제 시험 성공 없음 | 6·7 | 두 갈래와 결과 ok·dry_run을 확인한 성공 기록 |
+| 08 다시 보기로 성공 지움 | 7 | journey v2의 outcomes 보존; 다시 보기와 닫기는 진행만 변경 |
+| 09 같은 조건 차이를 개선·악화로 단정 | 4 | 조건을 먼저 보이고 같은 조건 차이는 중립·흔들림으로 표시 |
+| 10 점수 카드 중복 | 2 | 총점과 목표 및 최대 손실을 요약하고 세부를 펼침 |
+| 11 좁은 열과 큰 빈 공간 | 1·3·6·9 | 승인 데스크톱 격자·허용 데이터 줄바꿈·S02 행 충돌 수정; 실배치 미확인 |
+| 12 합격처럼 보이는 점수 | 2·8 | 목표선·필수 달성 수와 정답지·초안 한계로 표시 |
+| 13 미기록을 0건으로 표시 | 2 | counts null과 숫자 0을 다른 글로 보존 |
+| 14 이해하기 어려운 용어 | 1~8 | 승인 COPY와 UI_TEXT·첫 등장 설명·40개 용어 |
+| 15 긴 도움말의 진입점 부족 | 8 | 화면별 장 직접 연결·아홉 장·원래 선택으로 복귀 |
+| 16 오류의 원인·복구 없음 | 1·6·9 | 굵은 사실·할 일·접힌 원문을 열 화면 실패 시험으로 확인 |
+| 17 연결 실패 원인 혼동 | API 단계·5 | no_model·tunnel_closed·loading·ok 진단과 경과시간 |
+| 18 재시작 뒤 기존 Pod 재사용 실패 | API 단계·5 | session.adopted와 설정 재읽기; 실제 재시작·접속은 미확인 |
+| 19 남의 Pod 삭제 위험 | API 단계·5 | owned/deletable와 API 거부를 유지; 삭제 단추 미생성 |
+| 20 비용을 모르는데 무료처럼 표시 | API 단계·5 | cost_est·uptime_s를 표시하고 없음은 알 수 없음 |
+| 21 모델 준비 대기 불명확 | API 단계·5 | loading_since 경과·늦은 준비 안내; 기대 모델 응답으로 준비 판정 |
+| 22 빈 자료와 잠김 혼동 | API 단계·1·3·6 | usable·runnable·reason으로 빈 상태와 잠금 분리 |
+| 23 한국어 단어 중간 끊김 | 1·9 | 본문 keep-all·허용 데이터 class만 anywhere·break-all 금지 검사 |
+| 24 좁은 휴대폰 화면 | 범위 밖 | 사용자 결정에 따라 데스크톱 1280~1680px만 다룸 |
+
+#### 시험 이관과 경계
+
+앱 회귀 첫 실행은 **1 failed, 993 passed**였습니다. 남아 있던 `test_app_js_calls_doc_api`가 삭제된 파일을 읽는 실패였습니다.
+그 시험은 삭제하지 않았습니다. `test_source_calls_doc_api_and_uses_the_returned_page_route`로 옮겼습니다.
+옛 파일의 `/api/doc`·`/pages/` 문자열 검사를 새 화면의 요청·문서 인자·API가 준 실제 그림 주소 검사로 강화했습니다.
+다시 실행한 앱 시험은 **994 passed, 1194 deselected, 7 warnings**입니다.
+옛 polish 파일의 마지막 동작과 DOM 대역은 같은 step의 audit 시험으로 대체했습니다.
+`test_B_b_app.py`의 STATIC_FILES는 삭제된 파일만 제외했고 정적 경로 보안·HTML 주입·외부 주소 금지는 유지했습니다.
+`test_B_b_app_text.py`는 요구된 UI_TEXT 별칭 계약으로 바꿨으며 API 문구 계산이나 기존 반환 키는 바꾸지 않았습니다.
+
+아키텍처 체크: index.html + 일반 JS 10개 + app.css + guide.html 구조입니다. 새 패키지와 빌드 도구는 없습니다.
+ADR-028의 전역 선택·정보 보존·두 갈래·서버 노출을 유지합니다. 승인 파일은 수정하지 않았습니다.
+UI_GUIDE의 색+글·금지 효과·초점·한국어·데스크톱 범위를 정적 시험으로 확인했습니다.
+테스트는 가짜 자료와 가짜 API만 사용합니다. C의 전처리 시험은 제외했습니다.
+실제 문서·TO21 자료·.env·모델 서버·SSH를 사용하지 않았습니다. 런타임·다른 역할 코드·백엔드 API는 변경하지 않았습니다.
+커밋하지 않습니다. 완료 기록 뒤 실행기가 다시 검증합니다.
+
+#### 최종 검증
+
+- AC의 파일 삭제·옛 이름 제거·금지 CSS·외부 주소 금지·기록 절·Node 존재 명령을 직접 실행했고 종료 코드 0입니다.
+- audit/DOM은 **53 passed**입니다. 앱 전체는 **994 passed, 1194 deselected, 7 warnings**(28.29초)입니다.
+- 전체 시험은 **2157 passed, 30 skipped, 7 warnings, 1 failed**(56.85초)입니다.
+- 유일한 실패는 `tests/test_A_input.py::test_every_changing_route_answers_with_update`의 `socket.bind` → `PermissionError: [Errno 1] Operation not permitted`입니다. `_common.txt` 7절의 명시 예외에 따라 completed로 기록합니다. A 시험은 수정하거나 빼지 않았습니다. 실행기가 샌드박스 밖에서 다시 검증합니다.
+- 경고 7개는 기존 SWIG 타입의 `__module__` 관련 DeprecationWarning입니다.
+- JS 10개 문법 검사와 `git diff --check`를 통과했습니다. 기존 Python 함수 35개의 이름·인자는 같습니다.
+- 시작 때 기록한 보호 파일 120개의 SHA-256이 같습니다. docs·CLAUDE·하네스·승인 설계는 바꾸지 않았습니다. index.json은 step 9의 status·summary만 바꿉니다.
+- 최종 남은 수: 새 정적 제품 지적 0, 기존 wireframes 지적 15, detector 오탐 2, 기존 API 빈칸 2, 미실행 브라우저 확인 100줄입니다.
+- 브라우저·실제 모델·장비 확인과 커밋은 수행하지 않았습니다.

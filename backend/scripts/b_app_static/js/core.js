@@ -50,6 +50,11 @@ function fill(el, attrs, kids) {
     if (!el.getAttribute("tabindex") && !["button", "summary"].includes(el.tagName.toLowerCase())) el.setAttribute("tabindex", "0");
     el.setAttribute("aria-describedby", "tip");
   }
+  if (el.tagName.toLowerCase() === "details") {
+    const sync = () => el.querySelector("summary")?.setAttribute("aria-expanded", String(el.open));
+    el.addEventListener("toggle", sync);
+    sync();
+  }
   return el;
 }
 const h = (tag, attrs, ...kids) => fill(document.createElement(tag), attrs, kids);
