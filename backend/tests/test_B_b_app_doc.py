@@ -666,9 +666,20 @@ def test_route_page_eval_doc_404(app, env, one_page):
     assert app.route("GET", "/pages/T21-X77/p001.png", {}, None, make_ctx(app, env, one_page))[0] == 404
 
 
-def test_app_js_calls_doc_api(app):
-    js = (app.STATIC / "app.js").read_text(encoding="utf-8")
-    assert "/api/doc" in js and "/pages/" in js
+def test_source_calls_doc_api_and_uses_the_returned_page_route():
+    # 옛 파일의 문자열 검사를 새 화면의 실제 요청·이미지 주소 검사로 이관한다.
+    from test_B_b_app_dom import run_js
+    from test_B_b_app_source_ui import fixture
+
+    run_js(fixture() + r"""
+view.image_base='/pages/T21-X01/';
+await go('s02',{run:'current',doc:'T21-X01',section:8});
+const request=calls.find(path=>path.startsWith('/api/doc?'));
+assert.ok(request);
+assert.equal(new URLSearchParams(request.split('?')[1]).get('doc'),'T21-X01');
+assert.equal(el('source-page').querySelector('img').getAttribute('src'),
+ '/pages/T21-X01/p002.png?set=prev%2Ffake');
+""")
 
 
 # ── 묶음을 따르는 원문 대조 (ADR-028) ─────────────────

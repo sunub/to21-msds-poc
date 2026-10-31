@@ -7,71 +7,11 @@ from pathlib import Path
 import pytest
 
 
-OLD_APP_JS = Path(__file__).resolve().parents[1] / "scripts" / "b_app_static" / "app.js"
-OLD_DOM = r"""
-const assert = require('node:assert/strict');
-const vm = require('node:vm');
-class Element {
-  constructor(tag) { this.tagName = tag; this.attrs = {}; this.children = []; this.events = {}; this.hidden = false; }
-  append(...kids) { this.children.push(...kids); }
-  replaceChildren(...kids) { this.children = []; this.append(...kids); }
-  setAttribute(k, v) { this.attrs[k] = String(v); if (k === 'hidden') this.hidden = true; }
-  getAttribute(k) { return this.attrs[k] ?? null; }
-  get dataset() { return Object.fromEntries(Object.entries(this.attrs).filter(([k]) => k.startsWith('data-')).map(([k,v]) => [k.slice(5),v])); }
-  get textContent() { return this.children.map(x => x instanceof Element ? x.textContent : String(x)).join(''); }
-  set textContent(s) { this.children = [s]; }
-  set innerHTML(s) { this.children = [new Element('svg')]; }
-  get firstChild() { return this.children[0]; }
-  get classList() {
-    const self = this;
-    return { contains(c) { return (self.attrs.class || '').split(' ').includes(c); },
-      toggle(c, on) { const a = new Set((self.attrs.class || '').split(' ').filter(Boolean));
-        if (on === undefined) on = !a.has(c); on ? a.add(c) : a.delete(c); self.attrs.class = [...a].join(' '); },
-      add(c) { this.toggle(c, true); }, remove(c) { this.toggle(c, false); } };
-  }
-  querySelectorAll(selector) {
-    const all = this.children.filter(x => x instanceof Element).flatMap(x => [x, ...x.querySelectorAll('*')]);
-    if (selector === '*') return all;
-    if (selector.startsWith('.')) return all.filter(x => x.classList.contains(selector.slice(1)));
-    if (selector.startsWith('#')) return all.filter(x => x.attrs.id === selector.slice(1));
-    return all.filter(x => x.tagName === selector);
-  }
-  querySelector(s) { return this.querySelectorAll(s)[0] || null; }
-  addEventListener(k, fn) { this.events[k] = fn; }
-  click() { return this.events.click?.({target:this}); }
-  focus() { document.activeElement = this; }
-}
-const elements = new Map();
-const store = new Map();
-const localStorage = { getItem: k => store.get(k) ?? null, setItem: (k,v) => store.set(k,v) };
-const document = {
-  createElement: tag => new Element(tag), createElementNS: (_,tag) => new Element(tag),
-  getElementById: id => { if (!elements.has(id)) elements.set(id, new Element('div')); return elements.get(id); },
-  querySelector: s => s.includes('data-tab="doc"') ? docTab : null,
-};
-const docTab = new Element('button');
-const context = vm.createContext({Node: Element, document, localStorage, console, assert, location: {}, history: {},
-  CSS: {escape: s => s}, setTimeout, clearTimeout});
-"""
-
-
-def run_old_js(body):
-    node = shutil.which("node")
-    if not node:
-        pytest.skip("DOM 대역 검사에는 설치된 Node가 필요합니다")
-    source = OLD_APP_JS.read_text(encoding="utf-8").removesuffix("start();\n")
-    program = OLD_DOM + "\nvm.runInContext(" + json.dumps(source) + ", context);\n"
-    program += "vm.runInContext(" + json.dumps("(async () => {" + body + "})()") + ", context).catch(e => { console.error(e); process.exitCode = 1; });"
-    result = subprocess.run([node, "-e", program], capture_output=True, text=True, timeout=20)
-    assert result.returncode == 0, result.stdout + result.stderr
-
-
-# 새 틀은 옛 DOM과 독립적이다. 실제 HTML의 자리와 스크립트 순서를 읽는다.
 import re
 import runpy
 from html.parser import HTMLParser
 
-STATIC = OLD_APP_JS.parent
+STATIC = Path(__file__).resolve().parents[1] / "scripts" / "b_app_static"
 INDEX = STATIC / 'index.html'
 SCRIPT_PATHS = re.findall(r'<script\s+src="/static/(js/[^" ]+\.js)"', INDEX.read_text())
 SCRIPTS = [STATIC / p for p in SCRIPT_PATHS if p != 'js/boot.js']
@@ -113,6 +53,9 @@ class Element {
   replaceChildren(...kids) { for(const k of this.children) if(k instanceof Element) k.parentElement=null; this.children=[]; this.append(...kids); }
   setAttribute(k,v) { this.attrs[k]=String(v ?? ''); if(['hidden','disabled','checked','open'].includes(k)) this[k]=true; if(k==='value') this.value=String(v); }
   removeAttribute(k) { delete this.attrs[k]; if(['hidden','disabled','checked','open'].includes(k)) this[k]=false; }
+  set open(value){const next=!!value,changed=this._open!==next;this._open=next;
+    if(changed&&this.tagName==='details')Promise.resolve().then(()=>this.dispatchEvent({type:'toggle'}));}
+  get open(){return this._open||false;}
   getAttribute(k) { return this.attrs[k] ?? null; }
   get id(){return this.attrs.id || '';}
   get dataset(){return Object.fromEntries(Object.entries(this.attrs).filter(([k])=>k.startsWith('data-')).map(([k,v])=>[k.slice(5).replace(/-([a-z])/g,(_,c)=>c.toUpperCase()),v]));}

@@ -26,7 +26,7 @@ function journeyNotice(error, op) {
   const u = S.journeyUI;
   if (!u.storageNotice) {
     u.storageNotice = {message: T("journey.save_failed.title"),
-      fix: error.status === 400 ? (error.body?.message || error.body?.error || error.message) : T("journey.save_failed.todo")};
+      fix: error.status === 400 ? (error.body?.message || error.body?.error || error.message) : T("journey.save_failed.todo"), raw: error.message};
     emit("journey_storage_unavailable", {op});
   }
 }

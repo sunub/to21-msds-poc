@@ -11,26 +11,6 @@ from pathlib import PurePosixPath
 from msds.evaluate.score import WEIGHTS    # src 경로는 b_app이 먼저 부르는 _common이 등록한다
 
 
-# 첫 HTML에 넣는다. 이후 API를 못 받아도 오류의 사실과 복구 방법은 읽을 수 있다.
-_LEGACY_POLISH_TEXT: dict = {
-    "load_error": {"message": "자료를 불러오지 못했습니다.",
-                   "fix": "앱을 켠 터미널의 오류를 보고 화면을 다시 여세요."},
-    "request_error": {"message": "요청을 완료하지 못했습니다.",
-                      "fix": "원문 보기의 안내에 따라 입력과 연결 상태를 확인한 뒤 다시 시도하세요."},
-    "cell_labels": {"c-none": "기록 없음", "c-ok": "성공", "c-re": "재추출 성공",
-                    "c-limit": "한도 후 성공", "c-fail": "실패"},
-    "silver_labels": {"same": "실버와 같음", "diff": "실버와 다름",
-                      "only": "실버에만 있음", "missing": "실버에 없음"},
-    "row_change": {"up": "정답에 가까워짐", "down": "정답에서 멀어짐", "same": "차이 유지"},
-    "changed": "조건 다름",
-    "no_pages": "쪽 자료가 없습니다. 다른 문서를 고르거나 입력 폴더를 확인하세요.",
-    "no_lines": "이 쪽에는 줄 글자가 없습니다.",
-    "no_models": "등록된 모델이 없습니다.",
-    "time_over": "목표 초과",
-    "loading": "불러오는 중…",
-}
-
-
 # 승인 COPY.md의 공통 화면 글. 계산과 기존 문구 함수는 유지한다.
 UI_TEXT: dict = {'nav': {'app_name': '화학 안전문서 AI 결과 검토',
          'purpose': 'AI가 안전 문서에서 뽑은 값을 정답과 비교합니다.',
@@ -2917,7 +2897,10 @@ for _approved_help_key in ('source.empty.pages',
 UI_TEXT["help"]["facts"]["counts"] = "문제 건수는 그 기준에서 찾은 문제 값의 수입니다. 건수만으로 손실 점수를 계산하지 않습니다."
 COPY_EXCEPTIONS["help.facts.counts"] = "실행 수치가 없는 일반 도움말이므로 counts 자리표시 대신 건수의 뜻을 설명합니다."
 
-POLISH_TEXT = {**_LEGACY_POLISH_TEXT, **UI_TEXT}
+UI_TEXT["common"]["screen_shown"] = "{screen} 화면을 표시했습니다."
+COPY_EXCEPTIONS["common.screen_shown"] = "화면 이동 완료를 알립니다. 자료 조회나 모델 실행 성공을 뜻하지 않습니다."
+
+POLISH_TEXT = UI_TEXT
 
 
 START_TEXT: dict = UI_TEXT["journey"]

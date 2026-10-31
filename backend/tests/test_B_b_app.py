@@ -17,7 +17,7 @@ from test_B_b_app_doc import write_lines
 from test_B_compare_models import SCRIPTS, X01, X02, make_doc
 from test_B_expand import LINES
 
-STATIC_FILES = ("index.html", "app.js", "app.css", *["js/" + p.name for p in sorted((SCRIPTS / "b_app_static/js").glob("*.js"))])
+STATIC_FILES = ("index.html", "app.css", *["js/" + p.name for p in sorted((SCRIPTS / "b_app_static/js").glob("*.js"))])
 TABS = ("점수판", "두 실행 비교", "원문 대조", "작업", "서버")
 
 

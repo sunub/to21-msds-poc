@@ -978,10 +978,9 @@ def _ui_leaves(value, prefix=''):
             yield path, item
 
 
-def test_ui_text_contains_shell_keys_and_legacy_keys_without_collision(text):
+def test_ui_text_contains_shell_keys_and_is_the_injected_contract(text):
     assert {'nav', 'context', 'common', 'errors'} <= text.UI_TEXT.keys()
-    assert not (text.UI_TEXT.keys() & text._LEGACY_POLISH_TEXT.keys())
-    assert text.POLISH_TEXT == {**text._LEGACY_POLISH_TEXT, **text.UI_TEXT}
+    assert text.POLISH_TEXT is text.UI_TEXT
     assert all(isinstance(v, str) and v.strip() for _, v in _ui_leaves(text.UI_TEXT))
     for key in ['app_name', 'recent', 'source', 'retest', 'compare', 'jobs', 'servers', 'help', 'open_guide']:
         assert text.UI_TEXT['nav'][key]

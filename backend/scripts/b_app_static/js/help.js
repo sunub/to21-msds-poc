@@ -649,7 +649,7 @@ function helpRenderGlossary() {
   const items = S.glossary.filter(item => [item.term, item.short, ...item.also].some(value => value.toLocaleLowerCase().includes(query)));
   const input = h("input", {id: "help-search", type: "text", oninput: event => {S.help.search = event.target.value; helpRenderGlossary();}});
   input.value = S.help.search;
-  el.replaceChildren(h("h2", null, T("help.terms.title")), h("label", {for: "help-search"}, T("help.navigation.search")), input,
+  coreReplace(el, h("h2", null, T("help.terms.title")), h("label", {for: "help-search"}, T("help.navigation.search")), input,
     h("dl", {class: "help-terms"}, items.map(item => [h("dt", {"data-glossary-term": item.term}, term(item.term)),
       h("dd", null, h("p", null, item.short), h("p", {class: "muted"}, item.example))])),
     !items.length ? h("p", {role: "status"}, T("help.navigation.empty")) : null);

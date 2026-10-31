@@ -28,6 +28,7 @@ function shellInitialRoute(hash) {
 async function go(id, args = {}) {
   id = shellInitialRoute(id.startsWith("#") ? id : `#${id}`);
   S.focus = {...S.focus, ...args}; S.shell.route = id;
+  status(T("errors.loading.fact"));
   if (S.shell.timer !== null) shellScheduleServers();
   const navigation = ++S.shell.navigation;
   history.replaceState(null, "", `#${id}`);
@@ -52,14 +53,20 @@ async function go(id, args = {}) {
     if (!view) continue;
     const el = document.getElementById(viewId);
     try {
-      if (view.load) await view.load(args);
+      if (view.load) {
+        if (!el.textContent.trim()) el.replaceChildren(h("p", {role: "status"}, T("errors.loading.fact")));
+        await view.load(args);
+      }
       if (navigation !== S.shell.navigation) return;
       if (view.render) view.render(el, args);
     } catch (error) {
       if (navigation === S.shell.navigation) el.replaceChildren(loadFailure(error.message));
     }
   }
-  if (navigation === S.shell.navigation) emit("screen_shown", {screen: id, args});
+  if (navigation === S.shell.navigation) {
+    status(T("common.screen_shown", {screen: T(SHELL_SCREENS[id].title)}));
+    emit("screen_shown", {screen: id, args});
+  }
 }
 function ctxUrl(path) {
   const [base, query = ""] = path.split("?");

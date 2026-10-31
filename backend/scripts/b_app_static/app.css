@@ -8,6 +8,7 @@
   --failure: #a52f35; --failure-bg: #fff3f2;
   --scale-track: #e4eae4; --selection: #d8e8dd; --scrollbar: #94a49b;
   --warning-text: #bc4c00;
+  --backdrop: rgb(35 51 47 / 25%);
   --font-body: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
   --font-code: ui-monospace, SFMono-Regular, Menlo, monospace;
   --body-size: 16px; --body-weight: 400; --body-line-height: 1.5;
@@ -143,7 +144,7 @@ li { margin: var(--space-field) 0; }
 .tip { position: fixed; z-index: 100; max-width: min(440px, calc(100vw - 32px)); padding: var(--space-compact); border: var(--border-selected); border-radius: var(--radius-control); background: var(--paper); color: var(--ink); font-size: var(--label-size); white-space: pre-line; }
 .term { text-decoration: underline dotted; text-underline-offset: 4px; cursor: help; }
 dialog { width: min(1000px, calc(100vw - 64px)); max-height: calc(100vh - 64px); padding: var(--space-section); border: var(--border-standard); border-radius: var(--radius-panel); background: var(--paper); color: var(--ink); }
-dialog::backdrop { background: rgb(35 51 47 / 25%); }
+dialog::backdrop { background: var(--backdrop); }
 .two-col { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--space-section); }
 .two-col > * { min-width: 0; }
 .dialog-actions { display: flex; gap: var(--space-group); flex-wrap: wrap; margin-top: var(--space-section); }
@@ -216,12 +217,14 @@ dialog::backdrop { background: rgb(35 51 47 / 25%); }
 
 /* S02: 문제 목록 옆에서 근거와 값을 비교한다. 긴 원문은 지정 데이터 class에서만 줄바꿈한다. */
 #screen-s02 { display: grid; grid-template-columns: 290px minmax(0, 1fr); gap: var(--space-section); align-items: start; }
-#screen-s02 > h1, #source-top { grid-column: 1 / -1; }
-#screen-s02 > h1 { margin-bottom: 0; }
-#source-values { grid-column: 1; grid-row: 3 / span 2; }
+#screen-s02 > h1, #help-context-s02, #source-top { grid-column: 1 / -1; }
+#screen-s02 > h1 { margin-bottom: 0; grid-row: 1; }
+#help-context-s02 { grid-row: 2; }
+#source-top { grid-row: 3; }
+#source-values { grid-column: 1; grid-row: 4 / span 2; }
 #source-selection, #source-page { grid-column: 2; min-width: 0; }
-#source-selection { grid-row: 3; }
-#source-page { grid-row: 4; }
+#source-selection { grid-row: 4; }
+#source-page { grid-row: 5; }
 .source-controls { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: var(--space-group); }
 .source-basis, .source-state { padding: var(--space-group); background: var(--paper); border: var(--border-standard); }
 .source-basis { margin-bottom: var(--space-small); font-size: var(--label-size); }
