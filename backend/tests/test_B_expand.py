@@ -1,0 +1,722 @@
+"""extract/expand.py 시험. 줄과 응답은 직접 만든 가짜 MSDS다 (D-43). 모델 서버를 부르지 않는다."""
+import importlib.util
+import sys
+
+import pytest
+
+from msds.checks.validator import run_to21_validator
+from msds.common.merge import DICTIONARY_VERSION, SCHEMA_VERSION
+from msds.common.schema import load_schema, msds_item_schema, validate, validate_to21
+from msds.extract import expand as ex
+from msds.extract import rows as rw
+from msds.extract import section_specs as ss
+from msds.extract.inputs import Line, line_index
+from msds.extract.section_prompts import _unwrap
+from msds.extract.section_runner import check_section
+
+FORBIDDEN = {"line", "lines", "comp_name", "comp_cas", "start", "end"}
+DOC_META = {"doc_id": "T21-X01", "source_file": "가상 세정액 A.pdf", "pages": "7",
+            "text_layer": "정상", "language": "ko"}
+
+
+def L(lid, text):
+    page, no = lid[1:].split(":L")
+    return Line(lid, int(page), int(no), text)
+
+
+LINES = [
+    L("p1:L2", "개정번호 : 3"),
+    L("p1:L5", "제품명 : 가상 세정액 A"),
+    L("p1:L8", "제조자 : 가상화학"),
+    L("p1:L9", "긴급전화 : 000-0000-0000"),
+    L("p1:L19", "유해성·위험성 분류 : 해당"),
+    L("p1:L20", "심한 눈 자극성 : 구분 2"),
+    L("p2:L3", "혼합물"),
+    L("p2:L5", "가상물질 갑 | 1234-56-6 | 10 ~ 20"),
+    L("p2:L6", "가상물질 을 | 2345-67-7 | 0.5"),
+    L("p3:L1", "가. 눈에 들어갔을 때"),
+    L("p3:L2", "- 즉시 다량의 물로 15분 이상 씻어내시오."),
+    L("p3:L3", "• 콘택트렌즈 : 착용하고 있으면 제거하시오."),
+    L("p3:L4", "② 의사의 진료를 받으시오."),
+    L("p4:L1", "용기를 단단히 밀폐하시오."),
+    L("p4:L2", "1) 환기가 잘 되는 곳에서 취급하시오."),
+    L("p4:L3", "가상물질 갑 | TWA 1 ppm"),
+    L("p5:L1", "인화점 60 ℃ (밀폐식)"),
+    L("p5:L5", "가상 추가 물성 1.20"),
+    L("p5:L8", "가상물질 을 | 경구 LD50 > 2000 mg/kg (랫드)"),
+    L("p5:L10", "IARC 3군"),
+    L("p6:L5", "UN 번호 : 해당없음"),
+    L("p6:L10", "작업환경측정대상물질 : 해당"),
+    L("p7:L3", "최종 개정일자 : 2024-05-01"),
+]
+
+
+def narr(no, start, end, title):
+    return {"item_code": ss.load_specs()[no].narrative_codes[0], "title_raw": title, "start": start, "end": end}
+
+
+def responses():
+    """1~16항 가짜 응답. 성분 2개, 8·11·15항 행은 CAS·이름(공백 차이)·빈 값으로 성분을 가리킨다."""
+    return {
+        1: {"meta": {"revision_no": 3, "last_revision_date": None,
+                     "lines": {"revision_no": "p1:L2", "last_revision_date": None}},
+            "product": {"name": "가상 세정액 A", "uses": ["세척제"], "lines": {"name": "p1:L5"}},
+            "companies": [{"role": "제조자", "name": "가상화학",
+                           "contacts": [{"type": "긴급", "value": "000-0000-0000", "line": "p1:L9"}],
+                           "line": "p1:L8"}],
+            "extras": []},
+        2: {"hazard": {"classified": True, "signal_word": "경고",
+                       "classes": [{"group": "건강", "class_code": "HH_EYE_DMG", "category": "2", "line": "p1:L20"}],
+                       "other_hazards": [{"value": "가상 기타 유해성", "line": "p1:L20"}],
+                       "lines": {"classified": "p1:L19"}},
+            "narratives": [], "extras": []},
+        3: {"composition": {"type": "혼합물", "lines": {"type": "p2:L3"}},
+            "components": [
+                {"name": "가상물질 갑", "cas_no": "1234-56-6",
+                 "content": {"raw": "10 ~ 20", "lower_op": ">=", "lower": 10, "upper_op": "<=", "upper": 20,
+                             "unit": "%"}, "line": "p2:L5"},
+                {"name": "가상물질 을", "cas_no": "2345-67-7",
+                 "content": {"raw": "0.5", "value": 0.5, "unit": "%"}, "line": "p2:L6"}],
+            "extras": []},
+        4: {"narratives": [narr(4, "p3:L1", "p3:L4", "가. 눈에 들어갔을 때")], "extras": []},
+        5: {"narratives": [], "extras": []},
+        6: {"narratives": [], "extras": []},
+        7: {"narratives": [narr(7, "p4:L1", "p4:L2", "취급요령")], "extras": []},
+        8: {"exposure_limits": [{"comp_name": None, "comp_cas": "1234-56-6", "standard": "국내",
+                                 "limit_type": "TWA", "q": {"raw": "1 ppm", "value": 1, "unit": "ppm"},
+                                 "line": "p4:L3"}],
+            "narratives": [], "extras": []},
+        9: {"physchem": [{"prop_code": "FLASH_POINT", "q": {"raw": "60 ℃", "value": 60, "unit": "℃"},
+                          "cond": {"method": "밀폐식"}, "line": "p5:L1"}],
+            "extras": [{"title_raw": "가상 추가 물성", "reason": "필드없음",
+                        "q": {"raw": "1.20", "value": 1.2}, "line": "p5:L5"}]},
+        10: {"narratives": [], "extras": []},
+        11: {"toxicity": [{"comp_name": "가상물질을", "comp_cas": None, "endpoint": "TX_ORAL",
+                           "descriptor": "LD50", "species": "랫드",
+                           "q": {"raw": "> 2000 mg/kg", "lower_op": ">", "lower": 2000, "unit": "mg/kg"},
+                           "statements": [{"value": "가상 독성 설명", "line": "p5:L8"}],
+                           "line": "p5:L8"}],
+             "cmr": [{"comp_name": None, "comp_cas": None, "hazard": "발암성", "agency": "IARC", "class": "3",
+                      "line": "p5:L10"}],
+             "narratives": [], "extras": []},
+        12: {"ecotox": [], "narratives": [], "extras": []},
+        13: {"narratives": [], "extras": []},
+        14: {"transport": [{"mode": "공통", "regulated": False, "line": "p6:L5"}], "narratives": [], "extras": []},
+        15: {"regulations": [{"comp_name": "가상물질 갑", "comp_cas": None, "law": "OSH",
+                              "item_code": "OSH_MEASURE", "applicable": "해당", "line": "p6:L10"}],
+             "dangerous_goods": [], "waste": [], "intl_class": [], "narratives": [], "extras": []},
+        16: {"narratives": [],
+             "meta_revision": {"revision_no": 5, "last_revision_date": "2024-05-01",
+                               "lines": {"revision_no": "p7:L3", "last_revision_date": "p7:L3"}},
+             "extras": []},
+    }
+
+
+def keys_in(node):
+    if isinstance(node, dict):
+        for k, v in node.items():
+            yield k
+            yield from keys_in(v)
+    elif isinstance(node, list):
+        for v in node:
+            yield from keys_in(v)
+
+
+def omit_empty(response: dict, schema: dict) -> dict:
+    """필수 칸을 줄인 서버 스키마로 받은 응답 모양 (ADR-017). 객체마다 그 객체의 required에 없는 칸 중
+    값이 None이거나 []인 칸을 지운 새 사본. required에 있는 칸은 None이어도 남긴다(서버 문법이 늘 쓰게 한다)."""
+    def walk(value, node):
+        node = _unwrap(schema, node)
+        if isinstance(value, list):
+            return [walk(v, node) for v in value]
+        if isinstance(value, dict):
+            props, required = node.get("properties", {}), set(node.get("required", []))
+            return {k: walk(v, props.get(k, {})) for k, v in value.items()
+                    if k in required or not (v is None or v == [])}
+        return value
+
+    return walk(response, schema)
+
+
+def omitted_responses():
+    return {no: omit_empty(r, ss.response_schema(no)) for no, r in responses().items()}
+
+
+@pytest.fixture
+def no_conventions(monkeypatch):
+    """A의 표기 규칙 모듈이 없는 상태. sys.modules에 None을 두면 find_spec이 None을 돌려준다."""
+    monkeypatch.setitem(sys.modules, "msds.common.conventions", None)
+
+
+def expand_one(sections):
+    return ex.expand_msds(sections, line_index(LINES), 0, "텍스트층")
+
+
+# ── 문서 전체 ──────────────────────────────────────────
+
+@pytest.mark.parametrize("no", range(1, 17))
+def test_fake_responses_follow_section_schema(no):
+    """시험 입력이 실제 중간 형식(step 2 response_schema)에 맞아야 시험이 의미가 있다."""
+    assert validate(responses()[no], ss.response_schema(no)) == []
+
+
+def test_full_example_is_valid_to21(no_conventions):
+    doc, problems = ex.to_to21(DOC_META, [responses()], LINES, "가상엔진 v1")
+    assert validate_to21(doc) == []
+    assert problems == []
+    assert [e for e in run_to21_validator(doc) if e["rule"] == "V11"] == []
+    assert not FORBIDDEN & set(keys_in(doc))
+
+    d = doc["doc"]
+    assert d["doc_id"] == "T21-X01" and d["source_file"] == "가상 세정액 A.pdf"
+    assert d["page_count"] == 7 and d["text_layer"] == "정상" and d["language"] == "ko"
+    assert d["msds_count"] == 1
+    assert d["schema_version"] == SCHEMA_VERSION and d["dictionary_version"] == DICTIONARY_VERSION
+    assert d["extraction"]["engine"] == "가상엔진 v1" and d["extraction"]["extracted_at"].endswith("+09:00")
+
+
+def test_full_example_fields(no_conventions):
+    m, _ = expand_one(responses())
+    assert list(m) == list(msds_item_schema()["properties"])
+    assert m["validation"] == []
+
+    assert [c["seq"] for c in m["components"]] == [1, 2]
+    assert all(type(c["seq"]) is int for c in m["components"])
+    assert m["components"][0]["content"]["status"] == "값있음"
+    assert m["exposure_limits"][0]["comp_ref"] == "1"     # CAS 일치
+    assert m["toxicity"][0]["comp_ref"] == "2"            # 이름 일치 (공백 차이)
+    assert m["cmr"][0]["comp_ref"] == "MIX"               # 둘 다 비어 있음
+    assert m["regulations"][0]["comp_ref"] == "1"
+    assert m["regulations"][0]["seq"] == 1
+    assert m["physchem"][0]["comp_ref"] == "MIX"
+    assert m["physchem"][0]["cond"]["method"] == "밀폐식" and m["physchem"][0]["cond"]["temp"] is None
+
+    assert m["hazard"]["classes"][0]["seq"] == 1
+    assert m["hazard"]["pictograms"] == []
+    assert m["hazard"]["nfpa"] == {"health": None, "fire": None, "reactivity": None, "special": None}
+    oh = m["hazard"]["other_hazards"][0]
+    assert oh["seq"] == 1 and oh["text"] == "심한 눈 자극성 : 구분 2" and oh["value"] == "가상 기타 유해성"
+    assert m["toxicity"][0]["statements"][0]["text"] == "가상물질 을 | 경구 LD50 > 2000 mg/kg (랫드)"
+    assert m["companies"][0]["seq"] == 1 and m["companies"][0]["contacts"][0]["value"] == "000-0000-0000"
+
+    # 개정 정보는 16항 값이 1항 값보다 우선한다 (meta_from_16 시험 참고)
+    assert m["meta"]["revision_no"] == 5
+    assert m["meta"]["last_revision_date"] == "2024-05-01"
+    assert m["meta"]["page_start"] is None and m["meta"]["msds_no"] is None
+
+    ext = m["extras"][0]
+    assert (ext["seq"], ext["section_no"], ext["page"], ext["comp_ref"]) == (1, 9, 5, "MIX")
+    assert ext["q"]["dp"] == 2 and ext["statements"] == []
+
+
+def test_narratives(no_conventions):
+    m, _ = expand_one(responses())
+    eye, handling = m["narratives"]
+    assert eye["item_code"] == ss.load_specs()[4].narrative_codes[0]
+    assert eye["status"] == "값있음"
+    # 첫 줄이 소제목(title_raw)과 같아 빠진다
+    assert [s["text"] for s in eye["statements"]] == [
+        "- 즉시 다량의 물로 15분 이상 씻어내시오.",
+        "• 콘택트렌즈 : 착용하고 있으면 제거하시오.",
+        "② 의사의 진료를 받으시오."]
+    assert [s["seq"] for s in eye["statements"]] == [1, 2, 3]
+    # 첫 줄이 소제목과 다르면 남는다
+    assert [s["value"] for s in handling["statements"]] == ["용기를 단단히 밀폐하시오.",
+                                                            "환기가 잘 되는 곳에서 취급하시오."]
+
+
+def test_split_statements_bullet_pipe():
+    """version9는 불릿 기호를 표 칸처럼 ' | '로 묶어 준다. 표 행은 건드리지 않는다."""
+    lines = [L("p1:L1", "- | 즉시 의료조치를 취하시오."),
+             L("p1:L2", "· | 고용노동부고시 : 해당없음"),
+             L("p1:L3", "| 환기가 잘 되는 곳에서 취급하시오."),
+             L("p1:L4", "가상물질 | 가상 이름 | 1234-56-6 | 20 ~ 30")]
+    st = ex.split_statements(lines)
+    assert [s["value"] for s in st] == ["즉시 의료조치를 취하시오.", "해당없음",
+                                        "환기가 잘 되는 곳에서 취급하시오.",
+                                        "가상물질 | 가상 이름 | 1234-56-6 | 20 ~ 30"]
+    assert [s["key"] for s in st] == [None, "고용노동부고시", None, None]
+    assert [s["text"] for s in st] == [l.text for l in lines]
+
+
+def test_evidence(no_conventions):
+    m, _ = expand_one(responses())
+    ev = {e["field"]: e for e in m["evidence"]}
+    assert ev["components[1]"] == {"field": "components[1]", "page": 2, "bbox": None,
+                                   "source_text": "가상물질 을 | 2345-67-7 | 0.5", "confidence": None,
+                                   "method": "텍스트층", "needs_review": None}
+    assert ev["meta.revision_no"]["page"] == 7                     # 16항 값이 우선이므로 16항 줄
+    assert ev["meta.last_revision_date"]["page"] == 7              # 16항에서 채운 칸
+    assert ev["product.name"]["source_text"] == "제품명 : 가상 세정액 A"
+    assert ev["hazard.classified"]["page"] == 1
+    assert ev["hazard.classes[0]"]["source_text"] == "심한 눈 자극성 : 구분 2"
+    assert ev["companies[0].contacts[0]"]["source_text"] == "긴급전화 : 000-0000-0000"
+    assert ev["narratives[0]"]["page"] == 3
+    assert ev["narratives[0]"]["source_text"].startswith("가. 눈에 들어갔을 때")
+    assert ev["extras[0]"]["page"] == 5
+    assert all(e["needs_review"] is None for e in m["evidence"])
+    # V14: 필수 묶음 근거가 있다
+    assert {"components", "hazard", "meta", "product"} <= {f.split("[")[0].split(".")[0] for f in ev}
+
+
+def test_evidence_source_text_is_capped(no_conventions):
+    """TO21 evidence.source_text는 200자 이내다 (옛 merge.py와 같다)."""
+    lines = LINES + [L("p6:L20", "가" * 250)]
+    r = responses()
+    r[14]["transport"][0]["line"] = "p6:L20"
+    m, _ = ex.expand_msds(r, line_index(lines), 0, "텍스트층")
+    e = next(e for e in m["evidence"] if e["field"] == "transport[0]")
+    assert e["source_text"] == "가" * 200
+
+
+def test_narrative_evidence_stays_on_start_page(no_conventions):
+    """원문 대조(source_match)는 한 쪽 안에서 찾으므로, 서술 근거는 시작 쪽의 줄만 담는다."""
+    r = responses()
+    r[4]["narratives"][0].update(start="p3:L3", end="p4:L1")
+    m, problems = expand_one(r)
+    assert problems == []
+    e = next(e for e in m["evidence"] if e["field"] == "narratives[0]")
+    assert e["page"] == 3
+    assert e["source_text"] == "• 콘택트렌즈 : 착용하고 있으면 제거하시오.\n② 의사의 진료를 받으시오."
+    assert m["narratives"][0]["statements"][-1]["text"] == "용기를 단단히 밀폐하시오."
+
+
+def test_evidence_method_follows_text_layer(no_conventions):
+    doc, _ = ex.to_to21({**DOC_META, "text_layer": "없음"}, [responses()], LINES, "e")
+    assert {e["method"] for e in doc["msds"][0]["evidence"]} == {"OCR"}
+
+
+def test_pictograms_from_section_2_response(no_conventions):
+    """2항 응답의 그림문자(쪽 이미지에서 읽은 코드)가 hazard.pictograms로 펼쳐진다. 판독 방식은 받지 않아 null이다."""
+    r = responses()
+    r[2]["hazard"]["pictograms"] = [{"code": "GHS02"}, {"code": "GHS07"}]
+    r[2]["hazard"]["lines"]["pictograms"] = "p1:L19"
+    assert validate(r[2], ss.response_schema(2)) == []
+    doc, problems = ex.to_to21(DOC_META, [r], LINES, "e")
+    assert validate_to21(doc) == [] and problems == []
+    hz = doc["msds"][0]["hazard"]
+    assert hz["pictograms"] == [{"code": "GHS02", "detection": None}, {"code": "GHS07", "detection": None}]
+    ev = {e["field"]: e for e in doc["msds"][0]["evidence"]}
+    assert ev["hazard.pictograms"]["source_text"] == "유해성·위험성 분류 : 해당"
+    assert not FORBIDDEN & set(keys_in(doc))
+
+
+def test_empty_msds_is_valid(no_conventions):
+    doc, problems = ex.to_to21(DOC_META, [{}], LINES, "e")
+    assert validate_to21(doc) == []
+    assert [(p["msds_index"], p["section"], p["kind"]) for p in problems] == \
+           [(0, n, "missing_section") for n in range(1, 17)]
+    m = doc["msds"][0]
+    assert list(m) == list(msds_item_schema()["properties"])
+    assert all(v is None for v in m["meta"].values())
+    assert m["product"]["synonyms"] == [] and m["product"]["name"] is None
+    assert m["components"] == [] and m["evidence"] == []
+
+
+def test_none_sections_count_as_missing(no_conventions):
+    _, problems = expand_one({n: None for n in range(1, 17)})
+    assert len(problems) == 16 and {p["kind"] for p in problems} == {"missing_section"}
+
+
+def test_two_msds(no_conventions):
+    doc, problems = ex.to_to21(DOC_META, [responses(), {3: responses()[3]}], LINES, "e")
+    assert doc["doc"]["msds_count"] == 2 and len(doc["msds"]) == 2
+    assert {p["msds_index"] for p in problems} == {1}
+    assert len(problems) == 15
+
+
+def test_meta_from_16_overrides_section_1_dates():
+    r = responses()
+    r[1]["meta"].update({"first_issue_date": "2023-01-01", "lines": {"first_issue_date": "p1:L2"}})
+    r[16]["meta_revision"].update({"first_issue_date": "2010-06-21",
+                                   "lines": {**r[16]["meta_revision"]["lines"], "first_issue_date": "p7:L3"}})
+    m, _ = expand_one(r)
+    assert m["meta"]["first_issue_date"] == "2010-06-21"
+    hits = [e for e in m["evidence"] if e["field"] == "meta.first_issue_date"]
+    assert len(hits) == 1 and hits[0]["page"] == 7
+
+
+def test_meta_from_16_keeps_section_1_when_16_has_none():
+    r = responses()
+    r[1]["meta"].update({"first_issue_date": "2023-01-01", "lines": {"first_issue_date": "p1:L2"}})
+    m, _ = expand_one(r)
+    assert m["meta"]["first_issue_date"] == "2023-01-01"
+    hits = [e for e in m["evidence"] if e["field"] == "meta.first_issue_date"]
+    assert len(hits) == 1 and hits[0]["page"] == 1
+
+
+def test_meta_from_16_keeps_section_1_for_other_fields():
+    r = responses()
+    r[1]["meta"].update({"msds_no": "A-1", "lines": {"msds_no": "p1:L2"}})
+    r[16]["meta_revision"].update({"msds_no": "B-2"})
+    m, _ = expand_one(r)
+    assert m["meta"]["msds_no"] == "A-1"
+
+
+# ── 값 없는 칸을 뺀 응답 (ADR-017) ─────────────────────
+
+def test_omit_empty_drops_optional_empty_fields():
+    """도우미가 실제로 칸을 지우는지: 선택 칸의 None은 사라지고, 필수 칸과 값 있는 칸은 남는다."""
+    r = responses()
+    out = omitted_responses()
+    tox, cmr = out[11]["toxicity"][0], out[11]["cmr"][0]
+    assert "comp_cas" not in tox and tox["comp_name"] == "가상물질을" and tox["line"] == "p5:L8"
+    assert "comp_name" not in cmr and "comp_cas" not in cmr and cmr["agency"] == "IARC"
+    assert out[11]["narratives"] == [] and out[11]["extras"] == []          # 응답 최상위 칸은 모두 필수
+    assert "last_revision_date" not in out[1]["meta"]
+    assert out[1]["meta"]["lines"] == {"revision_no": "p1:L2"}
+    assert out[3] == r[3]                                                   # 빈 칸이 없으면 그대로
+    assert r == responses()                                                 # 입력은 바꾸지 않는다
+
+
+@pytest.mark.parametrize("no", range(1, 17))
+def test_omit_empty_follows_section_schema(no):
+    assert validate(omit_empty(responses()[no], ss.response_schema(no)), ss.response_schema(no)) == []
+
+
+def test_omit_empty_expands_to_same_document(no_conventions, monkeypatch):
+    monkeypatch.setattr(ex, "now_kst", lambda: "2026-10-29T00:00:00+09:00")
+    full = ex.to_to21(DOC_META, [responses()], LINES, "가상엔진 v1")
+    omitted = ex.to_to21(DOC_META, [omitted_responses()], LINES, "가상엔진 v1")
+    assert omitted == full
+    assert validate_to21(omitted[0]) == []
+
+
+def as_cell(v) -> str:
+    """중간 형식 값 하나를 행 글 한 칸으로. 숫자 묶음은 raw, 서술 문장은 value를 '; '로 잇는다."""
+    if v is None:
+        return ""
+    if isinstance(v, dict):
+        return v["raw"]
+    if isinstance(v, list):
+        return "; ".join(x["value"] if isinstance(x, dict) else x for x in v)
+    return str(v).lower() if isinstance(v, bool) else str(v)
+
+
+def rows_text(no: int, response: dict) -> str:
+    """JSON 응답과 같은 내용의 행 글 (ADR-019)."""
+    out = []
+    for name, cols in rw.row_tables(no).items():
+        out += [f"### {name}", " | ".join(cols), *(" | ".join(as_cell(r.get(c)) for c in cols)
+                                                  for r in response.get(name, []))]
+    return "\n".join(out)
+
+
+def test_rows_same_document_as_json(no_conventions, monkeypatch):
+    """행 글을 parse_rows로 바꾼 11항은 같은 내용의 JSON 응답과 같은 TO21 문서로 펼쳐진다."""
+    monkeypatch.setattr(ex, "now_kst", lambda: "2026-10-29T00:00:00+09:00")
+    text = rows_text(11, responses()[11])
+    assert "가상 독성 설명" in text and "> 2000 mg/kg" in text
+    parsed, errors = rw.parse_rows(text, 11)
+    assert errors == []
+    assert validate(parsed, ss.response_schema(11)) == []
+    assert parsed != responses()[11]                       # 빈 칸이 None으로 들어 있어 dict는 다르다
+    by_json = ex.to_to21(DOC_META, [responses()], LINES, "가상엔진 v1")
+    by_rows = ex.to_to21(DOC_META, [{**responses(), 11: parsed}], LINES, "가상엔진 v1")
+    assert by_rows == by_json
+    assert by_rows[0]["msds"][0]["toxicity"][0]["q"]["lower"] == 2000
+
+
+def test_transport_rows_same_document_as_json(no_conventions, monkeypatch):
+    """14항 운송 2행 글도 같은 내용의 JSON 응답과 같은 TO21 문서가 되고 un_no가 들어간다."""
+    monkeypatch.setattr(ex, "now_kst", lambda: "2026-10-29T00:00:00+09:00")
+    text = "\n".join([
+        "### transport", " | ".join(rw.row_tables(14)["transport"]),
+        "해상 |  | true | 9999 | 가상 액체 | 8 |  | II | 비해당 | F-A | S-B | p6:L5",
+        "공통 |  | false |  |  |  |  | 해당없음 | 자료없음 |  |  | p6:L10"])
+    parsed, errors = rw.parse_rows(text, 14)
+    assert errors == []
+    as_json = {"transport": [
+        {"mode": "해상", "regulated": True, "un_no": "9999", "shipping_name": "가상 액체", "hazard_class": "8",
+         "packing_group": "II", "marine_pollutant": "비해당", "ems_fire": "F-A", "ems_spill": "S-B",
+         "line": "p6:L5"},
+        {"mode": "공통", "regulated": False, "packing_group": "해당없음", "marine_pollutant": "자료없음",
+         "line": "p6:L10"}], "narratives": [], "extras": []}
+    r_json, r_rows = responses(), responses()
+    r_json[14], r_rows[14] = as_json, parsed
+    by_json = ex.to_to21(DOC_META, [r_json], LINES, "가상엔진 v1")
+    by_rows = ex.to_to21(DOC_META, [r_rows], LINES, "가상엔진 v1")
+    assert by_rows == by_json
+    assert by_rows[0]["msds"][0]["transport"][0]["un_no"] == "9999"
+
+
+def kreach(**kw) -> dict:
+    return {"law": "KREACH", "item_code": "KREACH_REG", "line": "p6:L10", **kw}
+
+
+def regulations_of(rows: list[dict]) -> list[dict]:
+    r = responses()
+    r[15]["regulations"] = rows
+    doc, _ = ex.to_to21(DOC_META, [r], LINES, "가상엔진 v1")
+    assert validate_to21(doc) == []
+    return doc["msds"][0]["regulations"]
+
+
+def test_applicable_kreach_with_value_becomes_haedang(no_conventions):
+    """화평법 행에 값(value_raw 또는 threshold)이 있고 해당 여부가 비면 '해당' (사용자 결정 10/29, A-1 참고)."""
+    regs = regulations_of([kreach(value_raw="가상-0001"),
+                           kreach(threshold={"raw": "1 %", "value": 1, "unit": "%"}),
+                           kreach(value_raw="CMR", applicable=None)])
+    assert [x["applicable"] for x in regs] == ["해당", "해당", "해당"]
+
+
+def test_applicable_no_value_or_other_law_unchanged(no_conventions):
+    """값 없는 행, 이미 채워진 행, 다른 법령 행은 그대로다.
+    '비해당'·'해당 없음' 값은 A의 답(10/30, A-1 예외 ①)으로 이제 '비해당'이 된다(예전 기대치 None)."""
+    regs = regulations_of([kreach(),
+                           kreach(value_raw="자료없음"),
+                           kreach(value_raw="비해당"),
+                           kreach(threshold={"raw": "해당 없음"}),
+                           kreach(value_raw="가상-0002", applicable="비해당"),
+                           {"law": "OSH", "item_code": "OSH_MEASURE", "value_raw": "가상", "line": "p6:L10"}])
+    assert [x["applicable"] for x in regs] == [None, None, "비해당", "비해당", "비해당", None]
+
+
+def test_kreach_negative_values_become_bihaedang(no_conventions):
+    regs = regulations_of([kreach(value_raw="해당없음"),
+                           kreach(value_raw="규제되지 않음"),
+                           kreach(value_raw="Not applicable"),
+                           kreach(value_raw="비위험물"),
+                           kreach(value_raw="Unlisted"),
+                           kreach(threshold={"raw": "해당 없음"})])
+    assert [x["applicable"] for x in regs] == ["비해당"] * 6
+
+
+def test_kreach_guidance_and_no_value_not_filled(no_conventions):
+    regs = regulations_of([kreach(value_raw="공급자에게 문의할 것"),
+                           kreach(value_raw="자료없음"),
+                           kreach(value_raw="가상-0001")])
+    assert [x["applicable"] for x in regs] == [None, None, "해당"]
+
+
+def test_omit_empty_check_section_no_problems():
+    ids = {l.id for l in LINES}
+    assert {no: check_section(r, ids) for no, r in omitted_responses().items()} == {no: [] for no in range(1, 17)}
+
+
+# ── 문제 목록 ──────────────────────────────────────────
+
+def test_bad_line_keeps_value():
+    r = responses()
+    r[14]["transport"][0]["line"] = "p9:L99"
+    m, problems = expand_one(r)
+    assert problems == [{"msds_index": 0, "section": 14, "kind": "bad_line", "detail": "transport[0]: p9:L99"}]
+    assert m["transport"][0]["mode"] == "공통"
+    e = next(e for e in m["evidence"] if e["field"] == "transport[0]")
+    assert (e["page"], e["source_text"], e["needs_review"]) == (None, None, True)
+
+
+def test_bad_line_in_narrative():
+    r = responses()
+    r[7]["narratives"][0]["end"] = "p4:L99"
+    m, problems = expand_one(r)
+    assert [(p["section"], p["kind"]) for p in problems] == [(7, "bad_line")]
+    assert m["narratives"][1]["statements"] == [] and m["narratives"][1]["status"] is None
+    e = next(e for e in m["evidence"] if e["field"] == "narratives[1]")
+    assert e["needs_review"] is True
+
+
+def test_bad_range():
+    r = responses()
+    r[4]["narratives"][0].update(start="p3:L4", end="p3:L1")
+    m, problems = expand_one(r)
+    assert [(p["section"], p["kind"]) for p in problems] == [(4, "bad_range")]
+    assert m["narratives"][0]["statements"] == [] and m["narratives"][0]["status"] is None
+
+
+# ── 서술 구간 안의 extras (ADR-022) ────────────────────
+
+NARR_LINES = [L(f"p3:L{i}", f"가상 독성 문장 {i}") for i in range(1, 13)]
+EXTRA_IN = {"title_raw": "가. 소제목", "reason": "코드없음", "line": "p3:L4"}
+EXTRA_OUT = {"title_raw": "비고", "reason": "필드없음", "line": "p3:L9"}
+
+
+def expand_narr(extras_11=(), extras_12=(), start="p3:L2", end="p3:L6"):
+    """11항 서술 구간 하나(start~end)와 11·12항 extras만 있는 가짜 MSDS를 펼친다. 다른 항은 빈 응답이다."""
+    sections = {no: {} for no in range(1, 17)}
+    sections[11] = {"narratives": [narr(11, start, end, "가. 독성 정보")], "extras": list(extras_11)}
+    sections[12] = {"extras": list(extras_12)}
+    return ex.expand_msds(sections, line_index(NARR_LINES), 0, "텍스트층")
+
+
+def kinds(problems, kind="extras_in_narrative"):
+    return [p for p in problems if p["kind"] == kind]
+
+
+def test_extras_in_narrative_dropped(no_conventions):
+    m, problems = expand_narr(extras_11=[EXTRA_IN, EXTRA_OUT])
+    assert [(e["seq"], e["section_no"], e["title_raw"]) for e in m["extras"]] == [(1, 11, "비고")]
+    assert kinds(problems) == [{"msds_index": 0, "section": 11, "kind": "extras_in_narrative", "detail": "1행"}]
+    # 뺀 행은 근거도 남지 않고, 남은 행의 근거가 extras[0]이다
+    extras_ev = [e for e in m["evidence"] if e["field"].startswith("extras")]
+    assert [(e["field"], e["source_text"]) for e in extras_ev] == [("extras[0]", "가상 독성 문장 9")]
+    # 서술 문장은 그대로다
+    assert [s["text"] for s in m["narratives"][0]["statements"]] == [f"가상 독성 문장 {i}" for i in range(2, 7)]
+
+
+def test_extras_in_narrative_bounds_inclusive(no_conventions):
+    """구간 양 끝 줄은 거르고, 바로 바깥 줄은 남긴다."""
+    rows = [{**EXTRA_IN, "title_raw": lid, "line": lid} for lid in ("p3:L1", "p3:L2", "p3:L6", "p3:L7")]
+    m, problems = expand_narr(extras_11=rows)
+    assert [e["title_raw"] for e in m["extras"]] == ["p3:L1", "p3:L7"]
+    assert [p["detail"] for p in kinds(problems)] == ["2행"]
+
+
+def test_extras_in_narrative_other_section_kept(no_conventions):
+    """12항 extras가 11항 서술 구간 안의 줄을 가리켜도 남긴다."""
+    m, problems = expand_narr(extras_12=[EXTRA_IN])
+    assert [(e["section_no"], e["title_raw"]) for e in m["extras"]] == [(12, "가. 소제목")]
+    assert kinds(problems) == []
+
+
+@pytest.mark.parametrize("start, end, kind", [("p3:L6", "p3:L2", "bad_range"), ("p3:L2", "p3:L99", "bad_line")])
+def test_extras_in_narrative_ignores_bad_span(no_conventions, start, end, kind):
+    """구간이 잘못된 서술 행은 거르기에 쓰지 않는다."""
+    m, problems = expand_narr(extras_11=[EXTRA_IN], start=start, end=end)
+    assert [e["title_raw"] for e in m["extras"]] == ["가. 소제목"]
+    assert [p["kind"] for p in problems] == [kind]
+
+
+def test_extras_in_narrative_unknown_line_kept(no_conventions):
+    """원문에 없는 줄을 가리키는 extras는 지금처럼 남기고 bad_line으로 센다."""
+    m, problems = expand_narr(extras_11=[{**EXTRA_IN, "line": "p9:L99"}])
+    assert [e["title_raw"] for e in m["extras"]] == ["가. 소제목"]
+    assert [(p["kind"], p["detail"]) for p in problems] == [("bad_line", "extras[0]: p9:L99")]
+
+
+def test_empty_string_in_format_field_becomes_null(no_conventions):
+    """형식(pattern)이 정해진 칸의 빈 글자는 값 없음(null)으로 펼친다. 형식이 없는 칸의 빈 글자는 그대로 둔다."""
+    r = responses()
+    r[3]["components"][0].update(ec_no="", ke_no="", other_id="")
+    doc, _ = ex.to_to21(DOC_META, [r], LINES, "가상엔진 v1")
+    comp = doc["msds"][0]["components"][0]
+    assert comp["ec_no"] is None and comp["ke_no"] is None
+    assert comp["other_id"] == ""
+    assert validate_to21(doc) == []
+
+
+def test_unlinked_component():
+    r = responses()
+    r[8]["exposure_limits"][0].update(comp_name="없는 물질", comp_cas="9999-99-9")
+    m, problems = expand_one(r)
+    assert m["exposure_limits"][0]["comp_ref"] == "MIX"
+    assert [(p["section"], p["kind"]) for p in problems] == [(8, "unlinked_component")]
+
+
+# ── 숫자 묶음 ──────────────────────────────────────────
+
+def test_fill_q_no_value():
+    q = ex.fill_q({"raw": "자료없음"})
+    assert q["status"] == "자료없음" and q["dp"] is None and q["note"] is None
+    assert set(q) == set(load_schema()["$defs"]["Q"]["properties"])
+    assert ex.fill_q({"raw": "해당 없음"})["status"] == "해당없음"
+    assert ex.fill_q({"raw": "미기재"})["status"] == "미기재"
+
+
+def test_fill_q_range():
+    q = ex.fill_q({"raw": "93 ~ 98", "lower_op": ">=", "lower": 93, "upper_op": "<=", "upper": 98, "unit": "%"})
+    assert q["status"] == "값있음" and q["dp"] == 0
+    assert (q["lower"], q["upper"], q["value"]) == (93, 98, None)
+
+
+def test_fill_q_decimal():
+    assert ex.fill_q({"raw": "0.5", "value": 0.5})["dp"] == 1
+    assert ex.fill_q({"raw": "2.0 g/cm3", "value": 2, "unit": "g/cm3"})["dp"] == 1
+    assert ex.fill_q({"raw": "1,000 mg/kg", "value": 1000})["dp"] == 0
+    assert ex.fill_q({"raw": "-10.25 ℃", "value": -10.25})["dp"] == 2
+
+
+def test_fill_q_unknown():
+    assert ex.fill_q(None) is None
+    q = ex.fill_q({"raw": "무색"})
+    assert q["status"] is None and q["dp"] is None
+    assert ex.fill_q({"raw": "1.5E-3", "value": 0.0015})["dp"] is None
+
+
+# ── 서술 문장 ──────────────────────────────────────────
+
+def test_split_statements():
+    lines = [L("p1:L1", "- 즉시 물로 씻으시오."), L("p1:L2", "   "), L("p1:L3", "① 소화제 : 물분무, 포말"),
+             L("p1:L4", "가. 의사의 진료를 받으시오."), L("p1:L5", "1) 환기하시오."),
+             L("p1:L6", "작업 시간 09:00 이후 환기"), L("p1:L7", "·  보호장갑을 착용하시오.")]
+    st = ex.split_statements(lines)
+    assert [s["seq"] for s in st] == [1, 2, 3, 4, 5, 6]
+    assert [s["text"] for s in st] == [l.text for l in lines if l.text.strip()]
+    assert [(s["key"], s["value"]) for s in st] == [
+        (None, "즉시 물로 씻으시오."), ("소화제", "물분무, 포말"), (None, "의사의 진료를 받으시오."),
+        (None, "환기하시오."), (None, "작업 시간 09:00 이후 환기"), (None, "보호장갑을 착용하시오.")]
+    assert all(s["refs"] == [] and s["cond"] is None and s["std_code"] is None and s["match_score"] is None
+               for s in st)
+
+
+def test_split_statements_keeps_minus_sign():
+    st = ex.split_statements([L("p1:L1", "-20 ℃ 이하에서 보관하시오."), L("p1:L2", "- 20분 이상 씻으시오.")])
+    assert [s["value"] for s in st] == ["-20 ℃ 이하에서 보관하시오.", "20분 이상 씻으시오."]
+
+
+def test_split_statements_long_key_is_not_split():
+    text = "이 문장은 콜론 앞이 서른 글자를 넘는 아주 긴 설명 문장입니다 그래서 : 나누지 않는다"
+    st = ex.split_statements([L("p1:L1", text)])
+    assert (st[0]["key"], st[0]["value"]) == (None, text)
+
+
+# ── 성분 연결 ──────────────────────────────────────────
+
+COMPS = [{"seq": 1, "name": "가상물질 갑", "cas_no": "1234-56-6"},
+         {"seq": 2, "name": "가상물질 을", "cas_no": "2345-67-7"}]
+
+
+def test_link_components():
+    rows = [{"comp_name": None, "comp_cas": "2345-67-7", "line": "p1:L1"},
+            {"comp_name": "가상 물질갑", "comp_cas": None},
+            {"comp_name": "가상물질 을", "comp_cas": "0000-00-0"},
+            {"comp_name": None, "comp_cas": None},
+            {"comp_name": "없는 물질", "comp_cas": "9999-99-9"}]
+    out = ex.link_components(rows, COMPS)
+    assert [r["comp_ref"] for r in out] == ["2", "1", "2", "MIX", "MIX"]
+    assert out[0]["line"] == "p1:L1"
+    assert not {"comp_name", "comp_cas"} & set(keys_in(out))
+    assert rows[0]["comp_cas"] == "2345-67-7"      # 입력은 바꾸지 않는다
+
+
+# ── 표기 규칙 자리 ─────────────────────────────────────
+
+def test_apply_conventions_absent(no_conventions):
+    item = {"meta": {"source_note": None}}
+    assert ex.apply_conventions(item) is item
+
+
+def test_apply_conventions_present(monkeypatch):
+    name = "msds.common.conventions"
+    mod = importlib.util.module_from_spec(importlib.util.spec_from_loader(name, loader=None))
+    calls = []
+
+    def apply(m):
+        calls.append(m)
+        return {**m, "meta": {**m["meta"], "source_note": "표기 규칙 적용"}}
+
+    mod.apply = apply
+    monkeypatch.setitem(sys.modules, name, mod)
+    doc, _ = ex.to_to21(DOC_META, [responses(), {}], LINES, "e")
+    assert len(calls) == 2
+    assert [m["meta"]["source_note"] for m in doc["msds"]] == ["표기 규칙 적용"] * 2
+
+
+def test_module_without_apply_is_ignored(monkeypatch):
+    name = "msds.common.conventions"
+    mod = importlib.util.module_from_spec(importlib.util.spec_from_loader(name, loader=None))
+    monkeypatch.setitem(sys.modules, name, mod)
+    item = {"meta": {}}
+    assert ex.apply_conventions(item) is item
+
+
+def test_rows_physchem_no_value_expands_to_q_status(no_conventions, monkeypatch):
+    """행 형식 9항의 text_value 자료없음은 q.status 자료없음이 되고 text_value는 null이다."""
+    monkeypatch.setattr(ex, "now_kst", lambda: "2026-10-29T00:00:00+09:00")
+    text = "\n".join(["### physchem", " | ".join(rw.row_tables(9)["physchem"]),
+                      "ODOR_THRESHOLD |  |  |  | 자료없음 |  |  | p3:L2"])
+    parsed, errors = rw.parse_rows(text, 9)
+    assert errors == []
+    doc = ex.to_to21(DOC_META, [{**responses(), 9: parsed}], LINES, "가상엔진 v1")
+    row = next(r for r in doc[0]["msds"][0]["physchem"] if r["prop_code"] == "ODOR_THRESHOLD")
+    assert row["q"]["status"] == "자료없음" and row["text_value"] is None
