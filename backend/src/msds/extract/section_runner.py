@@ -38,7 +38,7 @@ from msds.common.paths import DATA, PAGES, ROOT, RUNS
 from msds.common.schema import validate, validate_to21
 from msds.extract.client import ChatClient, load_model_config
 from msds.extract.expand import to_to21
-from msds.extract.inputs import SECTION_NOS, DocumentInput, load_document, section_lines
+from msds.extract.inputs import _PAGE_FILE, SECTION_NOS, DocumentInput, load_document, section_lines
 from msds.extract.pictogram_check import check_msds, load_hazard_map
 from msds.extract.rows import parse_rows
 from msds.extract.section_prompts import (_COMPONENT_SECTIONS, SECTION_PROMPT_VERSION, build_system, build_user,
@@ -51,6 +51,7 @@ _FEEDBACK_MAX = 20            # 다시 보낼 때 적는 문제 수
 IMAGE_SECTION = 2             # 쪽 이미지를 붙이는 항 (그림문자, ADR-019)
 IMAGE_PAGES = 2               # 붙이는 쪽 이미지 수 상한
 COMPONENT_SECTION = 3         # 성분 목록을 주는 항. 받는 항은 _COMPONENT_SECTIONS (ADR-030)
+OUTSIDE_MANIFEST_WARNING = "manifest에 없는 문서: 쪽 글자 폴더의 meta.json을 씀"
 
 
 @dataclass
@@ -205,14 +206,36 @@ def _write_json(path: Path, obj) -> None:
     path.write_text(json.dumps(obj, ensure_ascii=False, indent=1), encoding="utf-8")
 
 
+def doc_meta_from_pages(doc_id: str, pages_dir) -> dict | None:
+    """manifest에 없는 문서의 문서 정보를 <pages_dir>/<doc_id>/meta.json에서 manifest 행과 같은 키로 만든다 (format40).
+    쪽수(page_count)가 없으면 pNNN.txt 수를 쓴다. manifest 밖 문서는 평가용이 아닌 것으로 본다(purpose 기타).
+    meta.json이 없으면 None."""
+    doc_dir = Path(pages_dir) / doc_id
+    path = doc_dir / "meta.json"
+    if not path.is_file():
+        return None
+    meta = json.loads(path.read_text(encoding="utf-8"))
+    pages = meta.get("page_count") or sum(1 for p in doc_dir.iterdir() if _PAGE_FILE.match(p.name))
+    return {"doc_id": doc_id, "source_file": meta.get("source_file"), "pages": pages,
+            "text_layer": meta.get("text_layer"), "language": None, "purpose": "기타"}
+
+
 def run_document(doc_id: str, model_tag: str, run_name: str, client=None, *,
                  max_workers: int | None = None, pages_dir=PAGES, sections_dir=DATA / "sections",
                  codes_dir=DATA / "codes", runs_dir=RUNS) -> dict:
-    """요약 dict를 돌려준다: doc_id, seconds, sections_ok, sections_failed, reextracted, schema_errors, warnings."""
+    """요약 dict를 돌려준다: doc_id, seconds, sections_ok, sections_failed, reextracted, schema_errors, warnings.
+    manifest에 없는 문서는 쪽 글자 폴더의 meta.json으로 문서 정보를 만들고 경고를 남긴다. 그것도 없으면 KeyError."""
     t_start = time.perf_counter()
     cfg = load_model_config(model_tag)
     client = client or ChatClient(cfg)
-    row = manifest.get(doc_id)
+    meta_warnings: list[str] = []
+    try:
+        row = manifest.get(doc_id)
+    except KeyError:
+        row = doc_meta_from_pages(doc_id, pages_dir)
+        if row is None:
+            raise
+        meta_warnings.append(OUTSIDE_MANIFEST_WARNING)
     run = Path(runs_dir) / run_name
     timing: list[dict] = []
 
@@ -305,7 +328,7 @@ def run_document(doc_id: str, model_tag: str, run_name: str, client=None, *,
     stage("checks", time.perf_counter() - t)
 
     total = time.perf_counter() - t_start
-    warnings = list(doc.warnings) + image_warnings
+    warnings = meta_warnings + list(doc.warnings) + image_warnings
     if total > DOC_TIME_LIMIT:
         warnings.append(f"5분 초과: {total:.0f}초")
     stage("total", total, usage=_sum_usage(*(r.usage for r in results)))
