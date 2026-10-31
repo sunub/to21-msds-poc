@@ -42,7 +42,7 @@ def test_value_tip_lines_translate_and_keep_unknown_nonempty_values(text):
     before = copy.deepcopy(value)
     lines = text.value_tip_lines(value, text.VALUE_FIELD_LABELS)
     assert lines == ["순서: 1", "값: 직접 만든 값", "원문 글: 가짜 원문", "근거 줄: p5:L25, p5:L26",
-                     "맞춤 점수: 0", "unknown: false", "nested: 값: 두 줄"]
+                     "맞춤 점수: 0", "unknown: 아니요", "nested: 값: 두 줄"]
     assert value == before
     assert text.value_tip_lines({"value": "", "refs": [], "cond": None}, text.VALUE_FIELD_LABELS) == []
     assert text.value_tip_lines([{"value": "가짜"}, "둘"], text.VALUE_FIELD_LABELS) == ["값: 가짜, 둘"]
@@ -159,10 +159,10 @@ def test_diff_ui_text_counts_hidden_items_including_unscored(text, diff_info):
 
 
 def test_doc_legend_matches_existing_css_colors_and_returns_fresh_values(text):
-    expected = [("same", "실버와 같음", "#53645e"),
-                ("diff", "실버와 다르거나 실버에 없음", "#bc4c00"),
-                ("silver_only", "실버에만 있음(결과가 빠뜨림)", "#a52f35"),
-                ("picked", "고른 값·줄", "#fff3c6")]
+    expected = [("same", text.UI_TEXT["source"]["legend"]["same"], "#53645e"),
+                ("diff", text.UI_TEXT["source"]["legend"]["different"], "#bc4c00"),
+                ("silver_only", text.UI_TEXT["source"]["legend"]["missing"], "#a52f35"),
+                ("picked", text.UI_TEXT["source"]["legend"]["selected"], "#fff3c6")]
     legend = text.doc_legend()
     assert [(v["key"], v["label"], v["color"]) for v in legend] == expected
     css = (SCRIPTS / "b_app_static" / "app.css").read_text()
@@ -178,9 +178,9 @@ def test_doc_ui_text_summaries_count_values_and_missing_cells_separately(text):
     before = copy.deepcopy(view)
     result = text.doc_ui_text(view)
     assert result["sections"] == {
-        "3": "값 2개 중 실버와 다른 것 1개, 결과가 빠뜨린 것 1개",
-        "?": "값 0개 중 실버와 다른 것 0개, 결과가 빠뜨린 것 1개"}
-    assert "오른쪽에서 값을 누르면" in result["howto"]
+        "3": text.UI_TEXT["source"]["doc"]["counts"].format(total=2, different=1, missing=1),
+        "?": text.UI_TEXT["source"]["doc"]["counts"].format(total=0, different=0, missing=1)}
+    assert result["howto"] == text.UI_TEXT["source"]["doc"]["howto"]
     assert view == before
 
 
@@ -188,8 +188,8 @@ def test_doc_ui_text_silver_line_guess_and_missing(text):
     """정답 초안 값의 줄은 글자 맞춤 추정이라고 밝히고, 못 찾으면 그 항의 구간을 연다고 알린다."""
     result = text.doc_ui_text({"values": [], "silver_only": []})
     guess, missing = result["silver_line_guess"], result["silver_line_missing"]
-    assert "(추정)" in guess and "정답 초안" in guess
-    assert "찾지 못했습니다" in missing and "구간" in missing
+    assert guess == text.UI_TEXT["source"]["doc"]["guess"]
+    assert missing == text.UI_TEXT["source"]["doc"]["no_guess"]
     assert "합격" not in guess + missing
 
 
