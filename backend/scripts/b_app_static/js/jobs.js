@@ -70,7 +70,7 @@ async function jobsLoadOptions() {
   if (J.loadingOptions) return J.loadingOptions;
   J.loadingOptions = (async () => {
     const before = JSON.stringify(J.opts), hadError = !!J.optionsError;
-    try { J.opts = await api("/api/options"); J.optionsError = null; J.optionsRecovered = hadError; jobsReconcile(); }
+    try { J.opts = await api("/api/options"); J.optionsError = null; J.optionsRecovered = hadError; jobsReconcile(); emit("trial_options_checked", {}); }
     catch (error) { J.optionsError = error; J.optionsRecovered = false; }
     return hadError !== !!J.optionsError || before !== JSON.stringify(J.opts);
   })();
@@ -86,6 +86,13 @@ async function jobsLoadRuns() {
 }
 async function jobsEnsure(args = {}) {
   const J = S.jobs, incoming = Object.keys(args).length ? args : !J.initialized ? S.focus : {};
+  if (args.journeyPrepare) {
+    J.defaultsApplied = true; J.t.doc = args.doc || null;
+    J.t.secs = new Set(args.section ? [Number(args.section)] : []); J.t.all = false;
+    J.t.edit = false; J.t.text = ""; J.t.textFor = null;
+    J.expanded["jobs-scope"] = true;
+  }
+  if (Object.hasOwn(args, "practice")) J.t.dry = args.practice;
   if ((args.doc || args.section) && !Object.hasOwn(args, "path")) {
     S.focus = {...S.focus, path: null, kind: null, expected: null, actual: null, line: null, lines: [], source_set: null};
   }
@@ -96,10 +103,11 @@ async function jobsEnsure(args = {}) {
   if (incoming.base_run || incoming.run) J.t.base = incoming.base_run || incoming.run;
   if (incoming.model) J.t.model = incoming.model;
   J.initialized = true;
-  if (!J.opts) await jobsLoadOptions();
+  if (!J.opts || args.journeyPrepare || args.journeyCheck) await jobsLoadOptions();
   if (J.runsKey !== S.ctx.key || J.runsKey === null) await jobsLoadRuns();
   if (!J.timer) await jobsPoll();
   jobsRemember();
+  if (args.resumePending && J.list.some(job => job.id === args.job && job.kind === "try")) J.observed.add(args.job);
   if (args.job) await jobsWatch(args.job, false);
 }
 function jobsFormStatus() {
@@ -151,7 +159,7 @@ function jobsRenderTry() {
     h("ul", {class: "muted"}, docs.filter(d => !jobsAllowed(d, "try")).map(d => h("li", null, d.doc_id, " — ", d.run_reason?.try || T("jobs.no_runnable.todo")))),
     jobsNote(T("jobs.fields.pages")), jobsNote(jobsSet()?.label || S.ctx.set || T("common.none")),
     h("fieldset", null, h("legend", null, T("jobs.scope.label")),
-      h("label", null, h("input", {type: "checkbox", checked: t.all, onchange: e => { t.all = e.target.checked; jobsRenderTry(); }}), T("jobs.form.all")),
+      h("label", null, h("input", {type: "checkbox", checked: t.all, onchange: e => { t.all = e.target.checked; jobsRemember(); jobsRenderTry(); }}), T("jobs.form.all")),
       h("div", {class: "job-sections"}, Array.from({length: 16}, (_, i) => i + 1).map(n => h("label", null,
         h("input", {type: "checkbox", checked: t.secs.has(n), disabled: t.all, onchange: e => {
           e.target.checked ? t.secs.add(n) : t.secs.delete(n); jobsRemember(); jobsRenderTry();
@@ -182,6 +190,12 @@ function jobsRenderTry() {
       jobsButton("jobs-open-guide", "jobs.trial.start_guide", () => go("s08", {branch: "try"})),
       jobsButton("jobs-open-batch", "jobs.trial.open_batch", () => go("s09"))));
   if (active) document.getElementById(active)?.focus({preventScroll: true});
+  document.getElementById("jobs-doc").setAttribute("data-guide", "s03-target");
+  document.getElementById("jobs-model").setAttribute("data-guide", "s03-model");
+  document.getElementById("jobs-send").setAttribute("data-guide", "s03-send");
+  document.getElementById("jobs-dry").setAttribute("data-guide", "s03-practice");
+  emit("trial_form_shown", {valid: !J.optionsError && allowed && one, connected: ready,
+    signature: JSON.stringify([t.doc, [...t.secs], t.all, t.model, S.ctx.set, S.ctx.key])});
 }
 function jobsRenderConnection() {
   const el = document.getElementById("jobs-connection");
@@ -225,10 +239,14 @@ async function jobsStartTry() {
   if (problem) { J.message.try = jobsNote(T(`jobs.form.${problem}`), {role: "alert"}); jobsRenderTry(); return; }
   const body = {model: t.model, doc: t.doc, sections: t.all ? null : [...t.secs].sort((a,b) => a-b), all: t.all,
     set: S.ctx.set, key: S.ctx.key, system_text: one && t.edit ? t.text : null, base_run: t.base || null, dry_run: t.dry};
+  const attempt = "try_" + Date.now().toString(36) + "_" + Math.random().toString(36).slice(2, 10);
+  emit("attempt_started", {attempt, single: one, mode: t.dry ? "practice" : "real"});
   J.busy = "try"; J.message.try = null; jobsRemember(); jobsRenderTry();
   try {
     const data = await post("/api/jobs/try", body);
     if (!data?.id) throw new Error(T("jobs.send_unknown.fact"));
+    J.observed.add(data.id);
+    emit("attempt_accepted", {attempt, job: data.id});
     J.watch = data.id; J.result = null; J.resultLoaded = false; J.resultRequest++;
     J.message.try = jobsNote(T("jobs.form.sent"), {role: "status"}); await jobsPoll();
   } catch (error) { J.message.try = jobsRequestError(error); }
@@ -310,12 +328,13 @@ function jobsEmitResult(job, result) {
       J.emitted.has(job.id) || J.terminal.has(job.id) || job.status !== "done" || job.returncode !== 0 ||
       !jobsResultMatches(job, result) || job.target?.all || job.target?.kind !== "try") return;
   const practice = jobsPractice(job);
-  if (!practice && !result.results) return;
+  if (job.target.sections?.length !== 1 || (!practice && (job.dry_run !== false || job.target.dry_run !== false || !result.results))) return;
   J.emitted.add(job.id);
   emit("try_result_viewed", {job: job.id, mode: practice ? "practice" : "real",
     section_ok: practice ? null : job.target.sections.every(no => result.results[String(no)]?.ok === true)});
 }
 function jobsRenderResult() {
+  document.getElementById("jobs-result").setAttribute("data-guide", "s03-result-summary");
   const J = S.jobs, el = document.getElementById("jobs-result"), job = J.list.find(j => j.id === J.watch);
   if (!J.watch) { coreReplace(el, jobsNote(T("jobs.form.waiting"), {class: "muted"})); return; }
   const head = [h("h2", null, T("jobs.completion.title")), jobsNote(J.watch, {class: "technical"}), job ? jobsStatus(job) : null,
@@ -566,7 +585,7 @@ async function jobsStop(job) {
   if (J.busy || !job.stoppable || J.confirm?.id !== job.id) return;
   jobsCloseConfirm(); J.busy = "stop"; jobsRenderDetail();
   try { const data = await post(`/api/jobs/${encodeURIComponent(job.id)}/stop`, {});
-    if (data.stopped) J.terminal.add(job.id);
+    if (data.stopped) {J.terminal.add(job.id); emit("attempt_cancelled", {job: job.id});}
     J.message.stop = jobsNote(T(data.stopped ? "jobs.record.stopped" : "jobs.record.not_stopped"), {role: "status"});
     J.confirm = null; await jobsPoll();
   } catch (error) { J.message.stop = jobsRequestError(error); }
@@ -581,6 +600,7 @@ async function jobsPoll() {
     try {
       const data = await api("/api/jobs"); J.recovered = !!J.pollError; J.pollError = null;
       J.list = data.jobs || []; J.running = data.running || [];
+      emit("trial_jobs_changed", {jobs: J.list});
       for (const job of J.list) {
         if (job.kind === "try" && job.status === "running") J.observed.add(job.id);
         if (["failed", "stopped"].includes(job.status)) J.terminal.add(job.id);

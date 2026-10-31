@@ -59,6 +59,7 @@ async function go(id, args = {}) {
       if (navigation === S.shell.navigation) el.replaceChildren(loadFailure(error.message));
     }
   }
+  if (navigation === S.shell.navigation) emit("screen_shown", {screen: id, args});
 }
 function ctxUrl(path) {
   const [base, query = ""] = path.split("?");
@@ -208,6 +209,7 @@ async function start() {
   if (S.shell.started) return S.shell.ready;
   S.shell.started = true;
   shellRenderHeader(); shellRenderContext(); setupTip();
+  emit("shell_started", {});
   window.addEventListener("hashchange", () => go(shellInitialRoute(location.hash)).catch(fail));
   document.getElementById("context-picker").addEventListener("cancel", event => { event.preventDefault(); shellCloseContext(); });
   const route = go(shellInitialRoute(location.hash));

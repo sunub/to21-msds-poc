@@ -78,22 +78,22 @@ def test_value_tip_lines_translate_and_keep_unknown_nonempty_values(text):
 
 def test_start_text_contract(text):
     start = text.START_TEXT
-    assert len(start["intro"]) == 3 and all(start["intro"])
-    assert [s["no"] for s in start["steps"]] == [1, 2, 3]
-    assert len(start["later"]) == 3
-    tabs = {"score", "doc", "diff", "jobs", "servers"}
-    for step in start["steps"]:
-        assert all(step[k] for k in ("title", "why", "button", "tab"))
-        assert step["tab"] in tabs
-    for later in start["later"]:
-        assert all(later[k] for k in ("title", "line", "button", "tab"))
-        assert later["tab"] in tabs
-        if later["tab"] == "servers":
-            assert "고급" not in later["title"] + later["button"]
-    for key in ("empty_runs", "no_drops", "no_line"):
-        assert isinstance(start[key], str) and start[key]
-    assert "runs/" in start["empty_runs"] and "run_sections.py" in start["empty_runs"]
-    assert "②" in start["no_drops"] and "다른 값" in start["no_line"]
+    assert start is text.UI_TEXT["journey"]
+    assert set(start["tracks"]) == {"t1", "t2"}
+    assert len(start["tracks"]["t1"]["steps"]) == 3
+    assert len(start["tracks"]["t2"]["steps"]) == 4
+    def nonempty(node):
+        if isinstance(node, dict):
+            assert node
+            for value in node.values():
+                nonempty(value)
+        elif isinstance(node, list):
+            assert node
+            for value in node:
+                nonempty(value)
+        elif isinstance(node, str):
+            assert node.strip()
+    nonempty(start)
 
 
 @pytest.fixture
@@ -414,7 +414,7 @@ def test_score_targets(text):
 
 def test_text_module_has_no_pass_word(text):
     assert "합격" not in Path(text.__file__).read_text(encoding="utf-8")
-    assert "합격" not in text.START_TEXT["no_drops"] + text.GLOSSARY["필수"]["short"]
+    assert "합격" not in text.START_TEXT["start"]["no_problem"] + text.GLOSSARY["필수"]["short"]
 
 
 # ── 총점 손실 순서 (사용자 결정 10/31) ─────────────────

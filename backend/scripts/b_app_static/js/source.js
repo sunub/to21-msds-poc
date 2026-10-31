@@ -1,5 +1,8 @@
 "use strict";
 
+// 같은 문제를 다시 연 안내에서도 실제 값 선택으로 근거 사건을 낼 수 있다.
+on("problem_opened", () => {S.source.emitted.clear();});
+
 // 원문과 선택 값은 메모리에만 둔다. 다른 화면에는 S.focus로 넘긴다.
 S.source = {run: null, doc: null, raw: false, override: null, list: [], initialized: false,
   data: null, error: null, locked: null, loading: false, request: 0, pending: null, cacheKey: null,
@@ -229,6 +232,7 @@ function sourceProblems() {
       && (D.section == null || v.section === +D.section));
 }
 function sourceRenderProblems() {
+  document.getElementById("source-values").setAttribute("data-guide", "s02-diff-values");
   const D = S.source, el = document.getElementById("source-values");
   if (!D.data) { el.replaceChildren(); return; }
   const entries = sourceProblems(), filtered = entries.filter(entry => D.filter === "all" || entry.kind === D.filter);
@@ -454,6 +458,7 @@ function sourceDrawBoxes(img, svg) {
     class: D.selection?.side === "silver_only" ? "source-box source-estimated" : "source-box"})));
 }
 function sourceRenderPage() {
+  document.getElementById("source-page").setAttribute("data-guide", "s02-lines");
   const D = S.source, d = D.data, el = document.getElementById("source-page");
   if (!d) { el.replaceChildren(); return; }
   const page = D.page, hasPage = d.pages.includes(page), span = d.sections[D.section];

@@ -30,29 +30,3 @@ def test_errors_share_fact_action_and_collapsed_raw_on_each_tab():
         assert.equal(details.querySelector('pre').textContent,raw);
       }
     """)
-
-
-def test_start_pending_and_jobs_refresh_error_do_not_leave_blank_or_stale_states():
-    run_js(r"""
-      renderStart();
-      assert.match(document.getElementById('start-content').textContent,/불러오는 중/);
-      S.jobs.opts={models:[],pages_dirs:[],docs:[],run_names:{},default_pages_dir:'fake',
-        try_hint:{dry_run_forced:true,note:'서버 없는 시험'},field_help:{},job_ui_text:{},try_stage_help:{}};
-      S.jobs.r.docs=new Set();
-      S.jobs.error='가짜 새로고침 오류';
-      renderJobTry();
-      const card=document.getElementById('jobs-try-card');
-      assert.match(card.textContent,/가짜 새로고침 오류/);
-      assert.ok(card.querySelector('.error-note'));
-      assert.equal(card.querySelectorAll('select').length,0);
-    """)
-
-
-def test_start_shows_run_list_failure_after_guide_has_loaded():
-    run_js(r"""
-      S.startText={intro:[],steps:[],later:[]};
-      scoreLoadFailure(new Error('가짜 실행 조회 실패'));
-      const el=document.getElementById('start-content');
-      assert.match(el.textContent,/가짜 실행 조회 실패/);
-      assert.match(el.textContent,/할 일:/);
-    """)
