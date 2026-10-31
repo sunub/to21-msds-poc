@@ -10,6 +10,8 @@ from collections import defaultdict
 
 import pytest
 
+from msds.common import paths
+from msds.common.jsonpath import get, set_
 from test_B_b_app_runs import env, make_run  # noqa: F401  env는 픽스처
 from test_B_compare_models import SCRIPTS, X01, X02, X09, make_doc, write_json
 from test_B_expand import LINES
@@ -192,6 +194,209 @@ def test_flatten_values_same_text_lines_follow_row_order(bd):
     assert find(values, "msds[0].toxicity[0].endpoint")["lines"] == ["p5:L2"]
     assert find(values, "msds[0].toxicity[0].statements[0]")["lines"] == ["p5:L2"]     # 같은 행의 근거는 같은 줄
     assert find(values, "msds[0].toxicity[1].endpoint")["lines"] == ["p5:L4"]
+
+
+# ── value_items: 값 → 그 값이 들어가는 채점 항목 (app-redo-api2 step 1) ──
+
+def _has_scorer() -> bool:
+    try:
+        return paths.to21_file("scorer").exists()
+    except FileNotFoundError:
+        return False
+
+
+needs_scorer = pytest.mark.skipif(not _has_scorer(), reason="TO21 제공 파일이 없습니다 (to21/README.md 참고)")
+
+
+def _q(raw, value=None, unit=None, **kw):
+    return {"raw": raw, "approx": None, "value": value, "lower_op": None, "lower": None, "upper_op": None,
+            "upper": None, "unit": unit, "dp": 0, "status": "값있음", "note": None, **kw}
+
+
+def scored_doc() -> dict:
+    """채점 항목마다 비교할 값이 있도록 test_B_expand의 가짜 MSDS를 넓힌다. 값은 모두 직접 만든 가짜다 (D-43).
+    성분 3(가상물질 병)은 다른 표 행이 가리키지 않아, CAS를 바꿔도 3항 밖 항목이 흔들리지 않는다."""
+    doc = make_doc(X01)
+    m = doc["msds"][0]
+    m["meta"]["msds_no"] = "AA0000-000000"
+    m["companies"][0]["site"] = "가상 공장"
+    m["hazard"]["pictograms"] = [{"code": "GHS07", "detection": None}]
+    m["hazard"]["h_statements"] = [{"seq": 1, "code": "H319", "system": None, "mark": None, "text": "가상 H 문구"}]
+    m["hazard"]["p_statements"] = [{"seq": 1, "code": "P264", "type": None, "text": "가상 P 문구"}]
+    m["components"][0]["ke_no"] = "KE-00000"
+    m["components"].append({**copy.deepcopy(m["components"][1]), "seq": 3, "name": "가상물질 병",
+                            "cas_no": "3456-78-8", "content": _q("1 ~ 5", lower_op=">=", lower=1, upper_op="<=",
+                                                                  upper=5, unit="%")})
+    row = {"comp_ref": "MIX", "q": None, "text_value": None, "cond": None, "seq": None, "data_source": None}
+    m["physchem"] += [{**row, "prop_code": "PH", "q": _q("7", 7)},
+                      {**row, "prop_code": "APPEARANCE_COLOR", "text_value": "무색"}]
+    m["toxicity"].append({**copy.deepcopy(m["toxicity"][0]), "endpoint": "TX_SKIN", "descriptor": "결과기술",
+                          "q": None, "status": "자료없음"})
+    m["ecotox"] = [{"comp_ref": "2", "endpoint": "ECO_FISH", "descriptor": "LC50", "q": _q("10 mg/L", 10, "mg/L"),
+                    "species": "가상 어류", "duration_value": None, "duration_unit": None, "guideline": None,
+                    "data_source": None, "statements": [], "status": None}]
+    reg = m["regulations"][0]
+    m["regulations"] += [{**reg, "seq": 2, "law": "KREACH", "item_code": "KREACH_EXIST",
+                          "threshold": _q("1 % 이상", lower_op=">=", lower=1, unit="%")},
+                         {**reg, "seq": 3, "law": "INTL", "item_code": "INTL_EU"}]
+    m["transport"][0].update({"regulated": True, "un_no": "1993", "hazard_class": "3", "packing_group": "III"})
+    return doc
+
+
+def perturb(doc: dict, path: str, change) -> dict:
+    """msds 첫 건의 칸 하나만 바꾼 사본. 바꿀 값과 원래 값이 둘 다 객체면 합친다(숫자 묶음·문장의 일부만 바꾼다)."""
+    out = copy.deepcopy(doc)
+    m = out["msds"][0]
+    old = get(m, path)
+    set_(m, path, {**old, **change} if isinstance(old, dict) and isinstance(change, dict) else change)
+    return out
+
+
+# (칸 경로, 바꿀 값). 바꾼 뒤 점수가 떨어진 항목 집합이 그 칸의 items와 같아야 한다.
+PERTURB = [
+    ("meta.last_revision_date", "2020-01-01"),                    # 관리정보
+    ("product.name", "가상 다른 제품"),                              # 제품명
+    ("companies[0].site", "가상 다른 공장"),                         # 회사명(사업장)
+    ("companies[0].contacts[0].value", "111-1111-1111"),          # 긴급연락처
+    ("hazard.signal_word", "위험"),
+    ("hazard.pictograms[0].code", "GHS05"),
+    ("hazard.h_statements[0].code", "H318"),
+    ("hazard.p_statements[0].code", "P280"),
+    ("hazard.classes[0].category", "1"),                          # 유해성 분류
+    ("components[2].cas_no", "9999-99-9"),                        # 성분 키: 성분·성분 필드·함유량이 함께 흔들린다
+    ("components[0].name", "가상물질 정"),                           # CAS가 있으면 이름은 성분 필드에만
+    ("components[0].ke_no", "KE-99999"),
+    ("components[1].content", {"value": 0.7, "raw": "0.7"}),      # 함유량
+    ("exposure_limits[0].q", {"value": 2, "raw": "2 ppm"}),       # 8항
+    ("physchem[0].q", {"value": 61, "raw": "61 ℃"}),               # 인화점(9항 필수)
+    ("physchem[1].q", {"value": 8, "raw": "8"}),                  # pH(9항 필수)
+    ("physchem[2].text_value", "노란색"),                            # 색(9항 기타)
+    ("toxicity[0].q", {"lower": 300, "raw": "> 300 mg/kg"}),      # 급성 경구 독성
+    ("toxicity[1].status", "미기재"),                                # 기타 독성
+    ("cmr[0].class", "1"),                                        # CMR
+    ("ecotox[0].q", {"value": 20, "raw": "20 mg/L"}),             # 12항
+    ("regulations[0].applicable", "비해당"),                         # 국내 법 해당 여부
+    ("regulations[1].threshold", {"lower": 5, "raw": "5 % 이상"}),  # 국내 법 기준농도
+    ("regulations[2].applicable", "비해당"),                         # 해외 규제
+    ("transport[0].un_no", "1263"),                               # 14항
+    ("narratives[0].statements[0]", {"value": "가상 다른 문장"}),     # 서술형
+    ("narratives[1].item_code", "S7_STORAGE"),                    # 서술형 항목 코드(짝 키)
+    # 채점에 들어가지 않는 칸: 바꿔도 떨어지는 항목이 없고 items도 빈 목록이다
+    ("product.uses", ["가상 다른 용도"]),
+    ("hazard.classes[0].group", "물리"),
+    ("toxicity[0].species", "마우스"),
+    ("physchem[0].cond", {"method": "개방식"}),
+    ("narratives[0].title_raw", "가상 다른 제목"),
+    ("extras[0].q", {"value": 9.9, "raw": "9.90"}),
+]
+
+
+@needs_scorer
+@pytest.mark.parametrize("path,change", PERTURB, ids=[p for p, _ in PERTURB])
+def test_value_items_match_score_drops(bd, path, change):
+    """값 하나만 바꾸고 실제 TO21 채점기를 돌리면, 점수가 떨어진 항목이 정확히 그 값의 items다."""
+    from msds.evaluate.score import score_pair
+    gold = scored_doc()
+    base = {i["name"]: i["score"] for i in score_pair(gold, gold)["items"]}
+    assert all(s == 1.0 for s in base.values())
+    pred = perturb(gold, path, change)
+    assert get(pred["msds"][0], path) != get(gold["msds"][0], path)
+    dropped = {i["name"] for i in score_pair(gold, pred)["items"] if i["score"] < base[i["name"]]}
+    assert set(bd.value_items(path, gold["msds"][0])) == dropped
+    assert bd.value_items(f"msds[0].{path}", gold["msds"][0]) == bd.value_items(path, gold["msds"][0])
+
+
+@needs_scorer
+def test_item_rules_follow_criteria(bd, monkeypatch):
+    """ITEM_RULES의 이름과 순서가 채점 기준(criteria) 23개와 같다. 채점기 판이 바뀌어 이름이 달라지면 여기서 잡힌다."""
+    monkeypatch.syspath_prepend(str(SCRIPTS))
+    runs = importlib.import_module("b_app_runs")
+    names = [i["name"] for i in runs.criteria()["items"]]
+    assert list(bd.ITEM_RULES) == names
+    assert bd.ITEM_RULES[names[0]] == []                                   # MSDS 건수는 값 칸이 아니다
+    items = bd.value_items("components[2].cas_no", scored_doc()["msds"][0])
+    assert items == [n for n in names if n in items] and len(items) == 3   # criteria 순서
+
+
+def test_value_items_selects_rows_like_scorer(bd):
+    """행을 고르는 규칙: 필수 물성·급성 독성·국내 법은 코드로 나뉘고, 기준농도는 값이 있을 때만, 운송은 첫 행만,
+    긴급연락처는 첫 긴급 연락처만, 성분 이름은 CAS가 없을 때만 성분 짝 키다."""
+    m = scored_doc()["msds"][0]
+    m["transport"].append({**m["transport"][0], "mode": "해상"})
+    m["companies"][0]["contacts"] = [{"type": "대표", "value": "222-2222-2222", "hours": None},
+                                     {"type": "긴급", "value": "000-0000-0000", "hours": None},
+                                     {"type": "긴급", "value": "333-3333-3333", "hours": None}]
+    m["components"][1]["cas_no"] = None
+
+    def one(path):
+        items = bd.value_items(path, m)
+        return items[0] if len(items) == 1 else items
+
+    assert one("physchem[1].prop_code").startswith("9항 필수")
+    assert one("physchem[2].prop_code").startswith("9항 기타")
+    assert one("toxicity[0].endpoint").startswith("11항 급성")
+    assert one("toxicity[1].endpoint").startswith("11항 기타")
+    assert one("regulations[0].applicable").startswith("15항 국내 규제(")
+    assert one("regulations[0].law").startswith("15항 국내 규제(")       # 기준농도가 없는 행
+    assert len(bd.value_items("regulations[1].law", m)) == 2               # 국내 + 기준농도
+    assert one("regulations[1].threshold") == "15항 국내 규제 기준농도"
+    assert one("regulations[2].comp_ref").startswith("15항 해외")
+    assert one("transport[0].un_no").startswith("14항")
+    assert bd.value_items("transport[1].un_no", m) == []
+    assert bd.value_items("companies[0].contacts[0].value", m) == []      # 긴급이 아니다
+    assert one("companies[0].contacts[1].value").startswith("제품명")
+    assert bd.value_items("companies[0].contacts[2].value", m) == []      # 둘째 긴급 연락처는 비교하지 않는다
+    assert one("companies[0].contacts[0].type").startswith("제품명")       # 긴급인지 고르는 칸
+    assert len(bd.value_items("components[1].name", m)) == 3              # CAS가 없으면 이름이 성분 짝 키
+    assert len(bd.value_items("components[0].name", m)) == 1
+    assert bd.value_items("hazard.other_hazards[0]", m) == []
+    assert bd.value_items("없는표[0].x", m) == []
+
+
+def test_flatten_values_items_follow_item_section(bd, monkeypatch):
+    """items가 있는 값의 항이 그 항목의 항(b_app_text.item_section)과 같다. 항이 없는 항목은 서술형뿐이고 서술 값에만 붙는다."""
+    monkeypatch.syspath_prepend(str(SCRIPTS))
+    bt = importlib.import_module("b_app_text")
+    values = bd.flatten_values(scored_doc(), as_dicts(LINES))
+    assert values and all(isinstance(v["items"], list) for v in values)
+    seen = set()
+    for v in values:
+        for name in v["items"]:
+            seen.add(name)
+            sec = bt.item_section({"name": name}, {"items": []})
+            if sec is None:
+                assert name.startswith("서술형") and v["table"] == "narratives", (v["path"], name)
+            else:
+                assert sec == v["section"], (v["path"], name)
+    assert len(seen) == len(bd.ITEM_RULES) - 1                            # MSDS 건수만 값이 없다
+    assert find(values, "msds[0].toxicity[0].q")["items"] == ["11항 급성독성(경구·경피·흡입)"]
+    assert find(values, "msds[0].extras[0].q")["items"] == []
+
+
+def test_flatten_values_items_keep_other_keys(bd, monkeypatch):
+    """items를 더해도 기존 키와 값, 근거 줄은 그대로다."""
+    old_keys = {"path", "key", "section", "table", "row", "field", "value", "text", "lines"}
+    doc = scored_doc()
+    values = bd.flatten_values(doc, as_dicts(LINES))
+    assert all(set(v) == old_keys | {"items"} for v in values)
+    monkeypatch.setattr(bd, "value_items", lambda path, m: ["가짜"])
+    other = bd.flatten_values(doc, as_dicts(LINES))
+    assert [{k: v[k] for k in old_keys} for v in values] == [{k: v[k] for k in old_keys} for v in other]
+    assert all(v["items"] == ["가짜"] for v in other)                      # items는 value_items에서만 온다
+
+
+def test_doc_view_items_keep_lines_and_line_index(bd, view_env, monkeypatch):
+    dv = bd.doc_view(view_env / "runs" / "r1", X01, view_env / "pages9", view_env / "gold")
+    assert dv["values"] and all("items" in v for v in dv["values"])
+    assert dv["silver_only"] and all(isinstance(g["items"], list) for g in dv["silver_only"])
+    tox = [g for g in dv["silver_only"] if g["path"] == "msds[0].toxicity[0].q"]
+    assert tox and tox[0]["items"] == ["11항 급성독성(경구·경피·흡입)"]   # 결과가 빠뜨린 값도 항목으로 고를 수 있다
+    monkeypatch.setattr(bd, "value_items", lambda path, m: [])
+    before = bd.doc_view(view_env / "runs" / "r1", X01, view_env / "pages9", view_env / "gold")
+    strip = lambda vs: [{k: x for k, x in v.items() if k != "items"} for v in vs]  # noqa: E731
+    assert strip(dv["values"]) == strip(before["values"])
+    assert strip(dv["silver_only"]) == strip(before["silver_only"])
+    assert dv["line_index"] == before["line_index"]
 
 
 def test_section_map_matches_item_sections(bd, monkeypatch):
