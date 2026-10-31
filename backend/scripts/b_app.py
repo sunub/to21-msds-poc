@@ -12,6 +12,8 @@
 설정 다시 읽기(POST /api/servers/reload_env)는 .env를 다시 읽어 이 프로세스의 환경을 바꾸고 이름·줄 번호만 돌려준다(확인 토큰 없음).
 문서 묶음(/api/sets)은 b_app_sets가 data/pages 아래에서 찾는다. 평가용 문서는 파일을 열지 않고 잠긴 이유만 준다 (D-43).
 작업 POST는 본문의 set(묶음 id)을 목록에서 찾아 그 폴더를 쓴다. /api/options는 묶음별 문서의 작업 가능 여부와 이유를 준다.
+작업 목록(/api/jobs)의 작업마다 띄울 때의 조건(target)이 있다. 시험의 정답지(target.key)는 본문의 key, 없으면 try_section의
+기본(silver/claude, given 거짓)이다. 켤 때 받은 --gold-dir가 아니다.
 정답지(/api/keys)는 b_app_sets가 data/silver·data/gold 아래에서 찾는다. 점수가 든 응답(/api/runs, /api/run, /api/diff,
 /api/doc)은 ?key=로 고른 정답지로 채점하고 무엇과 비교했는지(key)를 붙인다. ?key=가 없으면 켤 때 받은 --gold-dir다.
 요약 캐시와 실행 역사는 정답지별로 나눠 둔다(정답지를 오가도 서로 덮어쓰지 않는다). 응답의 key에는 지금 폴더 내용의 지문
@@ -506,6 +508,18 @@ def _job_pages_dir(data: dict, ctx: AppContext):
     return os.path.relpath(bsets.set_dir(Path(ctx.pages_root), s["id"]), ctx.jobs.backend_dir)
 
 
+def _try_key(ctx: AppContext, want) -> tuple[str | None, dict]:
+    """시험의 점수 전→후에 쓸 정답지: (--gold-dir로 넘길 폴더(backend 기준) 또는 None, 작업 target의 key).
+    고르면 _pick_key 결과에 given True. 안 고르면 try_section의 기본(data/silver/claude = DEFAULT_KEY)이고 given False다.
+    켤 때 받은 --gold-dir(_pick_key(None))는 쓰지 않는다. try_section이 실제로 쓰는 정답지와 같아야 해서다."""
+    if want is None:
+        k = bsets.find_key(_key_list(ctx), bsets.DEFAULT_KEY)
+        return None, {"id": bsets.DEFAULT_KEY, "label": bt.key_label(bsets.DEFAULT_KEY),
+                      "fingerprint": k["fingerprint"] if k else None, "given": False}
+    folder, key = _pick_key(ctx, want)
+    return os.path.relpath(folder, ctx.jobs.backend_dir), {**key, "given": True}
+
+
 def _post(path: str, body: bytes | None, ctx: AppContext) -> tuple[int, str, bytes]:
     if path.startswith("/api/servers/"):
         return _server_post(path, body, ctx)
@@ -518,12 +532,11 @@ def _post(path: str, body: bytes | None, ctx: AppContext) -> tuple[int, str, byt
     extra_env = ctx.servers.job_env() if ctx.servers else None   # 이 앱이 만든 Pod의 주소·키. 작업 환경에만 넣는다
     try:
         if path == "/api/jobs/try":
-            want = data.get("key") or None               # 정답지(시험의 점수 전→후). 없으면 try_section의 기본
-            gold_dir = os.path.relpath(_pick_key(ctx, want)[0], jobs.backend_dir) if want is not None else None
+            gold_dir, key = _try_key(ctx, data.get("key") or None)   # 정답지(시험의 점수 전→후). 없으면 try_section의 기본
             job = jobs.start_try(model=data.get("model"), doc=data.get("doc"), sections=data.get("sections"),
                                  all_=bool(data.get("all")), pages_dir=_job_pages_dir(data, ctx),
                                  system_text=data.get("system_text"), base_run=data.get("base_run") or None,
-                                 dry_run=bool(data.get("dry_run")), extra_env=extra_env, gold_dir=gold_dir)
+                                 dry_run=bool(data.get("dry_run")), extra_env=extra_env, gold_dir=gold_dir, key=key)
             return _json(200, {"id": job.id})
         if path == "/api/jobs/run":
             args = {**{k: data.get(k) for k in ("model", "docs", "run_name", "repeat")},

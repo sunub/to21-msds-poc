@@ -845,7 +845,7 @@ def test_view_keeps_old_keys(bj, where):
     m = manager(bj, where, FakeSpawner())
     view = job_of(m, try_job(m).id)
     assert {"id", "kind", "label", "started", "pid", "returncode", "status", "stoppable", "command", "log",
-            "runs", "progress", "output", "error", "warnings", "dry_run"} == set(view)
+            "runs", "progress", "output", "error", "warnings", "dry_run", "target"} == set(view)
 
 
 def test_route_post_value_error_has_message_and_fix(bj, app, where):
@@ -869,3 +869,190 @@ def test_route_post_unknown_set_and_key_have_message_and_fix(bj, app, where40, m
     assert code == 400 and data["error"] == "없는 문서 묶음: 없는_묶음" and "묶음" in data["fix"]
     code, data = call(app, ctx, "POST", "/api/jobs/try", {**body, "set": "version9", "key": "없는/정답지"})
     assert code == 400 and "정답지" in data["error"] and "정답지" in data["fix"]
+
+
+# ── 작업 대상 target (app-redo-api2 step 4) ──────────────
+# 화면이 명령 글을 뒤지지 않고 "무엇을 어떤 조건으로 돌렸는지"를 읽는다. 키·바꾼 안내문 글은 넣지 않는다.
+
+BASE = "20261030_sections_x_dev10_r1"
+FAKE_POD_KEY = "fake-key-target-7781"
+
+
+def keyed(where):
+    """가짜 정답지 data/silver/claude(X01)·data/gold/a3(X02)."""
+    for key_id, d in (("silver/claude", X01), ("gold/a3", X02)):
+        (where / "data" / key_id).mkdir(parents=True, exist_ok=True)
+        (where / "data" / key_id / f"{d}.json").write_text(json.dumps(make_doc(d), ensure_ascii=False),
+                                                           encoding="utf-8")
+    return where / "data"
+
+
+def key_info(app, data_root, key_id, given):
+    k = app.bsets.find_key(app.bsets.list_keys(data_root), key_id)
+    return {"id": key_id, "label": app.bt.key_label(key_id), "fingerprint": k["fingerprint"], "given": given}
+
+
+def try_target(**kw):
+    out = {"kind": "try", "doc": X01, "sections": [11], "all": False, "model": TAG, "set": "version9",
+           "pages_dir": "../data/pages/version9", "key": None, "base_run": None, "dry_run": False,
+           "custom_prompt": False}
+    return {**out, **kw}
+
+
+def test_try_target_records_conditions(bj, app, where):
+    data = keyed(where)
+    make_run(where / "runs", BASE, {X01: make_doc(X01)})
+    m = manager(bj, where, FakeSpawner())
+    ctx = ctx_of(app, where, m, data_root=data)
+    body = {"model": TAG, "doc": X01, "sections": [15, 8, 8], "set": "version9", "key": "gold/a3", "base_run": BASE}
+    job_id = call(app, ctx, "POST", "/api/jobs/try", body)[1]["id"]
+    expected = try_target(sections=[8, 15], key=key_info(app, data, "gold/a3", True), base_run=BASE)
+    assert job_of(m, job_id)["target"] == expected
+    code, listed = call(app, ctx, "GET", "/api/jobs")
+    assert code == 200 and next(j for j in listed["jobs"] if j["id"] == job_id)["target"] == expected
+    job_id = call(app, ctx, "POST", "/api/jobs/try", {"model": TAG, "doc": X01, "all": True,
+                                                      "pages_dir": "../data/pages/version9", "dry_run": True})[1]["id"]
+    assert job_of(m, job_id)["target"] == try_target(sections=None, all=True, dry_run=True,
+                                                     key=key_info(app, data, "silver/claude", False))
+    assert job_of(m, job_id)["dry_run"] is True                           # 옛 키는 그대로
+
+
+def test_try_target_custom_prompt_flag_without_text(bj, app, where):
+    data = keyed(where)
+    m = manager(bj, where, FakeSpawner())
+    ctx = ctx_of(app, where, m, data_root=data)
+    job_id = call(app, ctx, "POST", "/api/jobs/try", {"model": TAG, "doc": X01, "sections": [11], "set": "version9",
+                                                      "system_text": SECRET_PROMPT})[1]["id"]
+    target = job_of(m, job_id)["target"]
+    assert target == try_target(custom_prompt=True, key=key_info(app, data, "silver/claude", False))
+    assert "ZQX-778" not in json.dumps(call(app, ctx, "GET", "/api/jobs")[1], ensure_ascii=False)
+    for f in (where / "runs" / "manual" / "jobs").glob("*.json"):
+        assert "ZQX-778" not in f.read_text(encoding="utf-8")
+
+
+def test_try_target_default_key_is_try_section_default(bj, app, where):
+    data = keyed(where)
+    sp = FakeSpawner()
+    m = manager(bj, where, sp)
+    ctx = ctx_of(app, where, m, data_root=data)
+    ctx.gold_dir = data / "gold" / "a3"                                  # 앱은 다른 정답지로 켜졌다
+    assert app._pick_key(ctx, None)[1]["id"] == "gold/a3"
+    body = {"model": TAG, "doc": X01, "sections": [11], "set": "version9"}
+    job_id = call(app, ctx, "POST", "/api/jobs/try", body)[1]["id"]
+    assert job_of(m, job_id)["target"]["key"] == key_info(app, data, "silver/claude", False)
+    assert "--gold-dir" not in sp.calls[-1]["argv"]                      # try_section은 data/silver/claude를 쓴다
+    ctx.data_root = None                                                 # 정답지 목록이 없어도 id는 try_section의 기본
+    job_id = call(app, ctx, "POST", "/api/jobs/try", body)[1]["id"]
+    assert job_of(m, job_id)["target"]["key"] == {"id": "silver/claude", "label": app.bt.key_label("silver/claude"),
+                                                  "fingerprint": None, "given": False}
+
+
+def test_try_target_without_key_from_direct_call(bj, where):
+    m = manager(bj, where, FakeSpawner())
+    assert job_of(m, try_job(m).id)["target"] == try_target()
+
+
+def test_run_and_compare_targets(bj, where):
+    m = manager(bj, where, FakeSpawner())
+    job = run_job(m, docs=None, run_name="대상실행", repeat=2)[0]
+    assert job_of(m, job.id)["target"] == {"kind": "run", "model": TAG, "docs": [X01, X02], "set": "version9",
+                                           "run_names": ["대상실행_r1", "대상실행_r2"], "repeat": 2}
+    job = run_job(m, docs=[X02, X01, X02], pages_dir="../data/pages/version13", run_name="대상실행13", repeat=1)[0]
+    assert job_of(m, job.id)["target"] == {"kind": "run", "model": TAG, "docs": [X02, X01], "set": "version13",
+                                           "run_names": ["대상실행13_r1"], "repeat": 1}
+    for n in ("실행a", "실행b"):
+        make_run(where / "runs", n, {X01: make_doc(X01)})
+    job = m.start_compare(title="대상비교", runs=["실행a", "실행b"], labels=["앞", None])
+    assert job_of(m, job.id)["target"] == {"kind": "models", "runs": ["실행a", "실행b"], "title": "대상비교"}
+
+
+def test_target_survives_restart_and_old_state_is_none(bj, where):
+    m1 = manager(bj, where, FakeSpawner())
+    job = try_job(m1, sections=[3])
+    jobs_dir = where / "runs" / "manual" / "jobs"
+    state = json.loads((jobs_dir / f"{job.id}.json").read_text(encoding="utf-8"))
+    assert state["target"] == try_target(sections=[3])
+    old = {k: v for k, v in state.items() if k != "target"}               # target 키가 없는 옛 상태 파일
+    old_id = "20261029_090000_try_abcdef"
+    (jobs_dir / f"{old_id}.json").write_text(json.dumps({**old, "id": old_id, "started": 1.0}, ensure_ascii=False),
+                                             encoding="utf-8")
+    got = {j["id"]: j for j in manager(bj, where).list()}                 # 앱을 다시 켠 것
+    assert set(got) == {job.id, old_id}
+    assert got[job.id]["target"] == try_target(sections=[3])
+    assert got[old_id]["target"] is None and got[old_id]["status"] == "done" and got[old_id]["label"] == job.label
+
+
+class EnvSpawner(FakeSpawner):
+    """작업 환경(extra_env)을 받는 가짜. 받은 환경은 메모리에만 둔다."""
+
+    def __init__(self, **kw):
+        super().__init__(**kw)
+        self.envs = []
+
+    def __call__(self, argv, log_path, cwd, extra_env=None):
+        self.envs.append(extra_env)
+        return super().__call__(argv, log_path, cwd)
+
+
+class FakeServers:
+    def job_env(self):
+        return {"RUNPOD_VLLM_BASE_URL": "http://가상-pod/v1", "RUNPOD_VLLM_API_KEY": FAKE_POD_KEY}
+
+
+def test_target_and_state_have_no_secret_values(bj, app, where):
+    data = keyed(where)
+    sp = EnvSpawner()
+    m = manager(bj, where, sp)
+    ctx = ctx_of(app, where, m, data_root=data, servers=FakeServers())
+    assert call(app, ctx, "POST", "/api/jobs/try", {"model": TAG, "doc": X01, "sections": [8], "set": "version9",
+                                                    "key": "gold/a3"})[0] == 200
+    assert call(app, ctx, "POST", "/api/jobs/run", {**RUN_BODY, "confirm": True})[0] == 200
+    assert [e["RUNPOD_VLLM_API_KEY"] for e in sp.envs] == [FAKE_POD_KEY] * 2   # 키는 작업 환경에만 갔다
+    listed = json.dumps(call(app, ctx, "GET", "/api/jobs")[1], ensure_ascii=False)
+    assert all(j["target"] for j in json.loads(listed)["jobs"])
+    assert FAKE_POD_KEY not in listed and "Bearer fake-key" not in listed
+    for f in (where / "runs").rglob("*"):
+        if f.is_file():
+            assert FAKE_POD_KEY not in f.read_text(encoding="utf-8", errors="replace"), f
+
+
+# ── 시험 결과 모양 (/api/jobs/<id>/result 계약) ─────────────
+# try_section.py --json의 세 모양. 파이썬 dict의 정수 키(항 번호)는 JSON에서 글자가 된다.
+
+PLAN = {"doc_id": X01, "model_tag": TAG, "pages_dir": "../data/pages/version9",
+        "sections": {8: {"prompt_hash": "가상해시8", "rows": True}}}
+SHAPES = {
+    "dry_run": {"plan": PLAN},
+    "sections": {"plan": PLAN, "results": {8: {"ok": True, "errors": [], "raw_text": "가상 답"}},
+                 "fields": {8: {"exposure_limits": []}}, "base_run": None, "score": None,
+                 "score_skipped": "기준 실행 없음: 가상", "saved": "runs/manual/가상_시험"},
+    "all": {"plan": PLAN, "run": {"sections_ok": 16, "sections_failed": 0, "reextracted": 0},
+            "summary": {"weighted": 70.0}, "score": None, "base_run": None, "saved": "runs/manual/가상_전체"},
+}
+
+
+@pytest.mark.parametrize("shape", list(SHAPES))
+def test_route_result_shapes(bj, app, where, shape):
+    printed = json.dumps(SHAPES[shape], ensure_ascii=False, indent=1)   # try_section의 --json 출력과 같은 방식
+    ctx = ctx_of(app, where, manager(bj, where, FakeSpawner(text="가상 진행 줄\n" + printed + "\n")))
+    job_id = call(app, ctx, "POST", "/api/jobs/try", {"model": TAG, "doc": X01, "sections": [8],
+                                                     "pages_dir": "../data/pages/version9"})[1]["id"]
+    code, data = call(app, ctx, "GET", f"/api/jobs/{job_id}/result")
+    assert code == 200 and data == json.loads(printed)
+    assert set(data) == {"dry_run": {"plan"}, "sections": {"plan", "results", "fields", "base_run", "score",
+                                                           "score_skipped", "saved"},
+                         "all": {"plan", "run", "summary", "score", "base_run", "saved"}}[shape]
+    assert list(data["plan"]["sections"]) == ["8"]
+    if shape == "sections":
+        assert data["results"]["8"]["ok"] is True                         # 갈래 2 성공 판정에 쓰는 칸
+    else:
+        assert "results" not in data
+
+
+def test_route_result_none_is_204(bj, app, where):
+    for text in ("", "JSON 없음\n", "Traceback (most recent call last):\n  가상 오류\n"):
+        ctx = ctx_of(app, where, manager(bj, where, FakeSpawner(text=text, code=1)))
+        job_id = call(app, ctx, "POST", "/api/jobs/try", {"model": TAG, "doc": X01, "sections": [8],
+                                                         "pages_dir": "../data/pages/version9"})[1]["id"]
+        code, _, body = app.route("GET", f"/api/jobs/{job_id}/result", {}, None, ctx)
+        assert code == 204 and body == b""
