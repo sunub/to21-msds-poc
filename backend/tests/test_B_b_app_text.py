@@ -1142,6 +1142,9 @@ def test_api_explanations_use_same_approved_copy_as_screens(text):
                     if key == 'bad_body' and field == 'message':
                         continue
                     assert value[field] == approved_copy(f'journey.record.errors.{key}.{field}')
+            elif f'journey.record.{group}.{key}' in text.COPY_EXCEPTIONS:
+                # 승인 문구 밖의 새 검사 문장(progress.guide, 10/31)은 이유와 함께 예외 목록에 있다. 화면 글과 같은지만 본다
+                assert value == text.UI_TEXT['journey']['record'][group][key]
             else:
                 assert value == approved_copy(f'journey.record.{group}.{key}')
 

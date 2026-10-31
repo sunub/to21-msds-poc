@@ -8,6 +8,8 @@
 - merge는 성공 기록(outcomes)을 줄이지 않는다. 들어온 값이 null이어도, count가 작아도, first_at이 늦어도 저장된 값이 남는다.
   count는 '적어도 이만큼'이라는 뜻이다. 두 탭이 같은 저장 값 1을 읽고 각자 2로 올려 보내면 3이 아니라 2로 남는다.
 - progress·pending은 들어온 값으로 바꾼다(마지막 PUT이 이긴다). migrated_from은 한 번 1이면 1로 남는다.
+- progress.guide는 처음 사용 안내(Wispr 구조, 승인 10/31)의 진행이다. 선택 칸이라 없으면 시작 전이다. 화면 이름(G01~G15),
+  고른 일(GUIDE_CHOICES), 건너뛴 직접 해 보기(GUIDE_PRACTICES)처럼 정해진 이름만 받는다.
 """
 import copy
 import json
@@ -25,6 +27,9 @@ KEYS = ("version", "progress", "outcomes", "pending", "migrated_from")
 STATES = ("not_started", "in_progress", "skipped", "completed")
 MODES = ("real", "practice")
 TOP_STEP = {"t1": 3, "t2": 4}                          # 갈래마다 마지막 단계. 0은 시작 전
+GUIDE_CHOICES = ("score", "source", "retest", "ai")             # G02에서 고르는 일
+GUIDE_PRACTICES = ("p1", "p2", "p3")                            # 직접 해 보기 세 개
+_GUIDE_SCREEN = re.compile(r"G(0[1-9]|1[0-5])", re.ASCII)
 OUTCOME_KINDS = {"t1": ("real",), "t2": ("real", "practice")}
 _OUTCOME_KEYS = {"t1": ("first_at", "last_at", "count"), "t2": ("first_at", "last_at", "count", "last_job")}
 _TIME = re.compile(r"\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d\.\d{3}Z", re.ASCII)
@@ -76,8 +81,27 @@ def _int(v, low: int, high: int | None) -> bool:
     return type(v) is int and v >= low and (high is None or v <= high)   # 참거짓(bool)은 정수로 치지 않는다
 
 
+def _names(v, allowed: tuple, where: str, expect: str) -> None:
+    if not (isinstance(v, list) and len(set(v)) == len(v) and all(isinstance(x, str) and x in allowed for x in v)):
+        raise _bad(where, expect)
+
+
+def _check_guide(g) -> None:
+    _fields(g, ("state", "screen", "choices", "skipped", "updated_at"), "progress.guide")
+    if not (isinstance(g["state"], str) and g["state"] in STATES):
+        raise _bad("progress.guide.state", "state")
+    if not (g["screen"] is None or (isinstance(g["screen"], str) and _GUIDE_SCREEN.fullmatch(g["screen"]))):
+        raise _bad("progress.guide.screen", "screen")
+    _names(g["choices"], GUIDE_CHOICES, "progress.guide.choices", "choices")
+    _names(g["skipped"], GUIDE_PRACTICES, "progress.guide.skipped", "practices")
+    _time(g["updated_at"], "progress.guide.updated_at", nullable=True)
+
+
 def _check_progress(p) -> None:
-    _fields(p, ("active", "dismissed_at", *TOP_STEP), "progress")
+    _fields(p, ("active", "dismissed_at", *TOP_STEP, *(("guide",) if isinstance(p, dict) and "guide" in p else ())),
+            "progress")
+    if "guide" in p:
+        _check_guide(p["guide"])
     if not (p["active"] is None or (isinstance(p["active"], str) and p["active"] in TOP_STEP)):
         raise _bad("progress.active", "active")
     _time(p["dismissed_at"], "progress.dismissed_at", nullable=True)
