@@ -1,7 +1,9 @@
 # B 작업 화면 (개발 전용)
 
 모델이 뽑은 값의 점수를 보고 원문과 맞춰 보는 화면입니다.
-항 하나만 다시 시험할 수도 있습니다. 설계 결정은 ADR-025·027에 있습니다.
+항 하나만 다시 시험할 수도 있습니다. 설계 결정은 ADR-025·028에 있습니다.
+이번 판(phase `app-redo-api`)은 백엔드만 바꿨고 화면은 그대로입니다. 새 화면은 phase `app-redo`가 만듭니다.
+문서 묶음·정답지 고르기, 터널 단추, 설정 다시 읽기는 지금 화면에 단추가 없고 API로만 먼저 열려 있습니다.
 자세한 사용법은 "도움말" 탭(`b_app_static/guide.html`)에 있습니다.
 
 ## 처음 쓰기
@@ -20,13 +22,50 @@
 (cd backend && .venv/bin/python scripts/b_app.py)   # 127.0.0.1 에서만 열린다
 ```
 
+기본 입력 묶음은 `data/pages/prev/version9`, 기본 정답지는 `data/silver/claude`입니다.
+`--pages-dir`와 `--gold-dir`는 켤 때의 기본값만 정합니다. 켠 뒤에는 화면이나 API에서 바꿉니다.
+
+## 문서 묶음과 정답지
+묶음은 `data/pages/` 바로 아래(신규 40건, manifest 밖)와 `data/pages/prev/<판>`입니다.
+줄 번호(`L001`)가 없는 판은 고를 수 없고, 지난 실행을 볼 때만 씁니다.
+평가용 10건은 어디서도 열지 않습니다(D-43).
+신규 40건 작업은 실행기에 `doc_meta_from_pages`(phase `format40`)가 있을 때만 돕니다.
+정답지는 `data/silver/<이름>`, `data/gold/<이름>` 폴더의 `<문서>.json`(TO21 답)입니다.
+점수 응답의 `key`가 어떤 정답지와 비교했는지 알려 줍니다.
+
+## 모델 연결
+`.env`의 `RUNPOD_VLLM_API_KEY`가 있어야 Pod를 만들 수 있습니다.
+앱을 다시 켜도 이름이 `to21-b-`로 시작하는 Pod를 이어 씁니다.
+앱이 만들지 않은 Pod는 지우지 못합니다.
+`.env`를 고친 뒤에는 "설정 다시 읽기"(`POST /api/servers/reload_env`)로 반영합니다.
+RNGD 터널은 `RNGD_BASE_URL`의 포트를 RNGD 서버의 8000번에 잇습니다. `RNGD_SSH`가 필요합니다.
+서버 상태의 진단은 네 가지입니다.
+- 정상: 터널이 열렸고 모델이 답합니다.
+- 모델 없음: 서버는 있으나 올라온 모델이 없습니다.
+- 터널 닫힘: 내 컴퓨터의 터널 포트가 닫혀 있습니다.
+- 올리는 중: 모델을 올리는 중이라 아직 답하지 않습니다.
+
+## API (이번에 더한 것)
+기존 응답 키는 지우거나 이름을 바꾸지 않았습니다.
+
+| 길 | 요지 |
+|---|---|
+| `GET /api/sets` | 문서 묶음 목록, 쓸 수 있는지와 이유 |
+| `GET /api/keys` | 정답지 목록, 쓸 수 있는지와 이유 |
+| `key`·`set` 쿼리 | 점수·비교·원문 대조·작업이 정답지와 묶음을 받음 |
+| `GET /api/doc` | 실행 없이 쪽 글자만 보기, `/pages/…`는 `?set=`도 받음 |
+| `POST /api/servers/reload_env` | `.env`를 다시 읽음, 키 값은 돌려주지 않음 |
+| `tunnel_open`·`tunnel_close` | 서버 동작에 더한 RNGD 터널 열기·닫기 |
+| 응답의 새 키 | `run_kind`·`comparable`·`same_conditions`·`targets`, 작업의 `error` |
+
 ## 파일
 - `b_app.py`: 화면 요청을 받는 서버(표준 `http.server`)입니다. 탭의 데이터와 화면 파일을 줍니다.
 - `b_app_text.py`: 표시 이름과 오류 안내를 만듭니다. 용어와 시작 안내 글도 한곳에 모읍니다.
-- `b_app_runs.py`: `runs/` 읽기·채점(F의 `score_set`)·호출 격자·한도 분류·값 없는 행 뺀 점수·합격 기준.
+- `b_app_runs.py`: `runs/` 읽기·채점(F의 `score_set`)·호출 격자·한도 분류·값 없는 행 뺀 점수·목표선 기준.
 - `b_app_diff.py`: 두 실행 비교, 하락 원인 문장, 안내문 버전 차이.
 - `b_app_doc.py`: 쪽 글자 줄·그림 좌표, 결과 값↔줄↔실버 맞추기.
 - `b_app_jobs.py`: 시험·본 실행·비교표를 하위 프로세스로 시작·중단하고 로그를 읽는다.
+- `b_app_sets.py`: 문서 묶음과 정답지를 찾고 쓸 수 있는지 판정합니다. 평가용 문서는 열지 않습니다.
 - `b_app_servers.py`: 모델 서버 상태, RunPod Pod·RNGD 모델 올리기·내리기(확인 토큰 2단계).
 - `pod.py`: RunPod REST 도구(list·get·create·delete). 명령줄로도 쓴다.
 - `try_section.py`: 항 하나·여러 개·문서 전체를 모델에 보내 단계별로 보여 준다.

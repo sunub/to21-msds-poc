@@ -667,3 +667,41 @@ def test_bad_query_has_message_and_fix(app, ctx, env):
         code, data = get_q(app, ctx, path, **query)
         assert code == 400 and has_problem_text(data), path
         assert data["fix"] == "입력을 고친 뒤 다시 보내세요."
+
+
+# ── README·.env.example (app-redo-api step 8) ───────────────
+
+def _readme(app) -> str:
+    return (app.STATIC.parent / "README_b_app.md").read_text(encoding="utf-8")
+
+
+def _env_example(app) -> str:
+    return (app.STATIC.parents[2] / ".env.example").read_text(encoding="utf-8")
+
+
+def test_readme_covers_new_backend(app):
+    text = _readme(app)
+    for word in ("/api/sets", "/api/keys", "reload_env", "RUNPOD_VLLM_API_KEY", "prev/version9", "app-redo",
+                 "b_app_sets.py", "tunnel_open", "tunnel_close", "ADR-025·028"):
+        assert word in text, word
+    assert "합격" not in text
+
+
+def test_env_example_model_server_lines(app):
+    lines = _env_example(app).splitlines()
+    for name in ("RUNPOD_VLLM_API_KEY", "RUNPOD_VLLM_BASE_URL", "RNGD_BASE_URL", "RUNPOD_API_KEY", "RNGD_SSH"):
+        assert f"{name}=" in lines, name
+    i = lines.index("RUNPOD_VLLM_API_KEY=")
+    above = []
+    for line in reversed(lines[:i]):
+        if not line.startswith("#"):
+            break
+        above.append(line)
+    assert any("이어 쓴다" in line for line in above)
+    assert "proxy.runpod.net" in _env_example(app)
+
+
+def test_readme_and_env_example_have_no_secret_shapes(app):
+    for text in (_readme(app), _env_example(app)):
+        assert not re.search(r"(sk-|rpa_|hf_)\w{8,}", text)
+        assert not re.search(r"[a-z0-9]{14}-8000", text)
