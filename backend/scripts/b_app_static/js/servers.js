@@ -123,6 +123,8 @@ function serversRenderSummary(el) {
     : T("servers.choice.recommendation");
   const reload = S.servers.reload;
   coreReplace(el, h("h2", null, title), h("p", null, T("context.model.saved_readable")),
+    S.guide?.returnScreen ? h("div", {class: "server-notice"}, h("p", null, T("guide.ai.return_note")),
+      serversButton("servers-guide-return", "guide.ai.return", () => emit("guide_return", {}))) : null,
     S.focus.doc && S.focus.section ? h("p", null, T("servers.company.return_target", {doc: serversText(S.focus.doc), section: S.focus.section})) : null,
     ready ? h("button", {id: "servers-return", type: "button", class: "primary", onclick: serversReturn}, T("servers.ready.return_trial")) : null,
     S.shell.serverAt ? h("p", {class: "muted"}, T("servers.ready.checked_at", {time: when(S.shell.serverAt)})) : null,

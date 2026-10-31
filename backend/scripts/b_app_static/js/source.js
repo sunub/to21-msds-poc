@@ -104,15 +104,18 @@ async function sourceEnsure(args = {}) {
     else { sourceResetSelection(); D.gone = true; sourceGoSection(D.section); }
   } else if (incoming.pick) {
     const entries = sourceProblems();
-    const kinds = incoming.pick === "mismatch" ? ["wrong", "made", "missing"] : [incoming.pick];
-    const found = kinds.map(kind => entries.find(entry => entry.kind === kind && !entry.only && sourceHasEvidence(entry.v))
-      || entries.find(entry => entry.kind === kind)).find(Boolean);
+    const found = sourceChooseProblem(entries, incoming.pick);
     if (found) sourcePick(found.v, found.only ? "silver_only" : "result", false);
     else { sourceResetSelection(); sourceGoSection(D.section); }
   } else if (incoming.section != null) sourceGoSection(D.section);
 }
 function sourceHasEvidence(v, data = S.source.data) {
   return (v.lines || []).some(id => data?.lines.some(line => line.id === id && data.pages.includes(line.page)));
+}
+function sourceChooseProblem(entries, pick = "mismatch", data = S.source.data) {
+  const kinds = pick === "mismatch" ? ["wrong", "made", "missing"] : [pick];
+  return kinds.map(kind => entries.find(entry => entry.kind === kind && !entry.only && sourceHasEvidence(entry.v, data))
+    || entries.find(entry => entry.kind === kind)).find(Boolean);
 }
 function sourceProblemDocs() {
   const D = S.source, top = S.score?.run?.name === D.run ? S.score.run.status_text?.top_problem : null;
@@ -265,8 +268,7 @@ function sourceKind(v, only = false, data = S.source.data) {
   if (!data?.has_gold) return "uncompared";
   return v.silver?.same === true ? "same" : v.silver?.value == null ? "made" : "wrong";
 }
-function sourceProblems(d = S.source.data) {
-  const D = S.source;
+function sourceProblems(d = S.source.data, D = S.source) {
   if (!d || !D.run || !d.has_gold) return [];
   return [...d.values.map(v => ({v, only: false, kind: sourceKind(v, false, d)})),
     ...d.silver_only.map(v => ({v, only: true, kind: "missing"}))]
@@ -436,17 +438,18 @@ function sourceMark() {
   });
   if (D.draw) D.draw();
 }
-function sourceEvidence(v) {
-  const D = S.source;
+function sourceEvidence(v, D = S.source, root = document.getElementById("source-page"),
+    visible = S.shell.route === "s02" && !document.getElementById("screen-s02").hidden && !S.guide?.open) {
+  if (!visible || !root?.isConnected || !D.data?.values.includes(v)) return false;
   const line = (v.lines || []).find(id => D.selectedLines.has(id) && D.line[id]?.page === D.page &&
-    [...document.querySelectorAll("#source-page [data-line]")].some(el => el.dataset.line === id && el.isConnected && el.getAttribute("aria-pressed") === "true"));
-  const shown = document.getElementById("screen-s02");
-  if (!line || shown.hidden || S.shell.route !== "s02") return;
+    [...root.querySelectorAll("[data-line]")].some(el => el.dataset.line === id && el.isConnected && el.getAttribute("aria-pressed") === "true"));
+  if (!line) return false;
   const eventKey = JSON.stringify([D.run, D.doc, D.data.set?.id, S.ctx.key, v.path]);
   if (D.emitted.has(eventKey)) return;
   D.emitted.add(eventKey);
   emit("evidence_line_shown", {run: D.run, doc: D.doc, section: v.section, path: v.path,
     line, mismatch: v.silver?.same === false, item: (v.items || []).includes(D.item) ? D.item : null});
+  return true;
 }
 function sourceRemember() {
   const D = S.source, v = sourceSelected(), only = D.selection?.side === "silver_only";

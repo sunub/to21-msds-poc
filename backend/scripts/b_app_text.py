@@ -4167,3 +4167,111 @@ COPY_EXCEPTIONS.update({f"guide.example.records.{key}": "처음 사용 안내 �
 
 UI_TEXT["guide"]["example"]["answer_name"] = "AI 정답 초안"
 COPY_EXCEPTIONS["guide.example.answer_name"] = "처음 사용 안내 시안 승인 10/31 (design/onboard/mockup.html)"
+
+UI_TEXT["guide"]["screens"].update({
+    "G05": {"title": "준비 상태를 확인해요", "next": "다음"},
+    "G07": {"title": "가장 큰 문제의 원문 줄을 열어 보세요", "next": "원문 줄 열기"},
+    "G08": {"title": "AI에게 보낼 내용을 확인해 보세요", "next": "AI 없이 보내 보기"},
+    "G10": {"title": "실제 시험에는 AI가 필요해요", "next": "AI 켜기 화면으로"},
+    "G11": {"title": "실제로 한 부분 시험해 보세요", "next": "시험 보내기"},
+    "G12": {"title": "첫 결과를 얻었어요", "next": "다음"},
+})
+UI_TEXT["guide"].update({
+    "next": "다음", "practice_skip": "건너뛰기", "before": "누르기 전에 알아 둘 것",
+    "target": "{doc} · {section}번 부분",
+    "ready": {
+        "lead": "저장된 결과와 정답이 있으면 시작할 수 있어요. AI는 실제 시험에만 필요해요.",
+        "results": "저장된 결과", "key": "비교할 정답", "ai": "AI 상태",
+        "states": {"checking": "확인 중", "present": "있음", "absent": "없음", "unknown": "확인 안 됨"},
+        "ai_optional": "지금은 AI가 꺼져 있어도 괜찮아요. AI는 직접 해 보기 3(실제 AI 시험)에만 필요해요.",
+        "empty": "저장된 결과가 없어요", "empty_lead": "원문을 여는 직접 해 보기는 건너뛰어요. AI에게 보낼 내용을 확인하는 연습은 할 수 있어요.",
+        "continue_practice": "연습으로 이어가기", "failed": "준비 상태를 확인하지 못했어요",
+        "request_failed": "조회 요청이 실패했어요.", "retry_todo": "할 일: 다시 확인해요. 결과가 없는지는 아직 알 수 없어요.",
+        "retry": "다시 확인", "open_ai": "AI 켜기 화면으로 가기", "choose_key": "비교할 정답 고르기",
+    },
+    "source": {
+        "lead": "총점이 가장 많이 깎인 기준의 틀린 값을 확인해요.",
+        "uses": "저장된 결과 사용 · AI를 부르지 않아요", "record": "성공하면 남는 기록: 원문 확인 성공",
+        "ai_value": "AI가 뽑은 값", "key_value": "정답 초안", "open": "원문 줄 열기",
+        "waiting": "원문 줄은 아직 열지 않았어요. 아래 단추를 누르면 이 자리에 열려요.",
+        "success": "근거 줄을 찾았어요", "estimated": "이 값은 AI가 댄 줄이 없어요", "another": "다른 값으로",
+        "estimated_only": "원문 줄(추정)만 있어요.", "no_actual": "AI가 댄 실제 근거 줄은 없어요.",
+        "not_recorded": "원문 확인 성공은 기록하지 않았어요.",
+        "line": "{page}쪽 {line_no}번째 줄 · 선택됨", "actual": "AI가 댄 실제 근거 줄이에요.",
+        "key_caution": "정답 초안도 틀릴 수 있어요.", "empty": "확인할 틀린 값을 찾지 못했어요. 이 직접 해 보기는 건너뛸 수 있어요.",
+        "request_failed": "원문을 불러오지 못했어요.", "retry_todo": "할 일: 같은 값을 다시 확인해요.",
+    },
+    "practice": {
+        "lead": "같은 문제 부분으로 연습해요. AI를 켜지 않아도 할 수 있어요.",
+        "uses": "연습 · AI를 부르지 않아요", "record": "성공하면 남는 기록: 연습 1회",
+        "send": "AI 없이 보내 보기", "done": "보낼 내용을 확인했어요",
+        "waiting": "보낼 내용을 준비해요. 지시문과 문서 요약이 이 자리에 보여요.",
+        "prompt": "AI에게 시킬 일", "input": "보낼 문서 요약", "cancel": "연습 취소하기",
+        "no_real": "실제 AI 시험은 아직 하지 않았어요.",
+    },
+    "ai": {
+        "lead": "한 부분을 실제로 시험하려면 AI가 답할 수 있어야 해요.",
+        "off": "지금은 AI가 꺼져 있어요.", "still_off": "아직 AI가 준비되지 않았어요.",
+        "tunnel_open": "회사 서버로 가는 통로는 열려 있어요. AI 켜기 화면에서 모델을 준비해요.",
+        "checked": "마지막 확인: {time}", "return_not_success": "돌아온 것만으로 준비 완료가 되지는 않아요.",
+        "without": "AI 없이 끝내기", "skip_note": "실제 AI 시험을 건너뛰고 기본값으로 가요. 연습 기록은 남아요.",
+        "cost_action": "이 단추는 화면만 옮겨요. 돈이 드는 일은 그 화면의 확인 창에서 금액을 보고 직접 정해요.",
+        "cost": "회사 서버는 임대료가 없어요. 빌린 서버는 시간당 요금이 들어요.",
+        "return": "안내로 돌아가기", "return_note": "모델 상태를 다시 확인한 뒤 안내를 이어가요.",
+    },
+    "trial": {
+        "uses": "실제 AI 시험 · AI를 불러요", "record": "성공하면 남는 기록: 실제 시험 성공",
+        "send": "시험 보내기", "retry": "다시 시험", "running": "한 부분을 시험하고 있어요",
+        "busy": "시험 중이에요", "waiting": "실제 시험을 보낼 준비가 됐어요. 시험 결과는 이 카드 안에 보여요.",
+        "waiting_answer": "AI의 답을 기다리고 있어요.", "elapsed": "{seconds}초 지났어요.",
+        "stages": {"input": "보낼 내용 준비", "answer": "AI 응답 받기", "parse": "답을 값으로 읽기", "summary": "결과 요약 보기"},
+        "complete": "완료", "progress": "진행 중", "wait": "대기",
+        "not_yet": "실제 시험 성공은 아직 기록하지 않았어요.", "cannot_stop": "처리 중인 시험은 여기서 멈출 수 없어요.",
+        "done": "한 부분의 실제 시험이 끝났어요", "proof": "결과 판정 근거 보기",
+        "proof_text": "보낸 문서와 {section}번 부분이 일치해요. 작업은 정상 종료했어요. 결과 요청은 {status}이에요. 선택 부분을 읽는 데 성공했어요.",
+        "failed": "AI가 답했지만 읽지 못했어요", "failed_fact": "답을 결과 값으로 읽지 못했어요.",
+        "failed_todo": "할 일: 같은 부분을 다시 시험해요.", "not_recorded": "실제 시험 성공은 기록하지 않았어요.",
+    },
+    "records": {
+        "not_yet": "실제 시험은 아직이에요", "lead": "이번에 확인한 결과를 따로 남겼어요.",
+        "source_only": "원문 근거 확인은 마쳤어요. AI를 준비한 뒤 실제 시험을 할 수 있어요.",
+        "practice_only": "아직 실제 시험 성공 기록은 없어요.",
+        "source": "원문 근거 확인", "practice": "AI 없이 연습", "trial": "한 부분 실제 시험",
+        "none": "아직이에요", "count": "{count}회", "separate": "연습은 실제 시험 성공과 따로 남겨요.",
+    },
+    "recovery": {
+        "timeout": "확인 시간이 지났어요. 작업 기록에서 진행 상태를 확인할 수 있어요.",
+        "fact": "시험 결과를 아직 확인하지 못했어요.", "todo": "할 일: 결과를 다시 확인해요. 전송은 자동으로 반복하지 않아요.",
+        "no_target": "시험할 문서와 모델을 확인하지 못했어요.", "target_todo": "할 일: 문서 묶음을 확인한 뒤 다시 확인해요.",
+        "cancelled": "이 시도의 결과 확인을 취소했어요. 늦게 도착한 답은 성공으로 세지 않아요.",
+    },
+})
+# 신규 문구도 같은 예외 표에 두며 BUILD의 승인 대기 표에서 구분한다.
+for _guide_group in ("ready", "source", "practice", "ai", "trial", "records", "recovery"):
+    for _guide_key, _guide_value in UI_TEXT["guide"][_guide_group].items():
+        for _guide_leaf in ([_guide_key] if isinstance(_guide_value, str) else [f"{_guide_key}.{k}" for k in _guide_value]):
+            COPY_EXCEPTIONS[f"guide.{_guide_group}.{_guide_leaf}"] = "처음 사용 안내 시안 승인 10/31 (design/onboard/mockup.html)"
+for _guide_key in ("next", "practice_skip", "before", "target"):
+    COPY_EXCEPTIONS[f"guide.{_guide_key}"] = "처음 사용 안내 시안 승인 10/31 (design/onboard/mockup.html)"
+for _guide_screen in ("G05", "G07", "G08", "G10", "G11", "G12"):
+    for _guide_key in UI_TEXT["guide"]["screens"][_guide_screen]:
+        COPY_EXCEPTIONS[f"guide.screens.{_guide_screen}.{_guide_key}"] = "처음 사용 안내 시안 승인 10/31 (design/onboard/mockup.html)"
+for _guide_key in (
+    "practice_skip", "target", "ready.states.present", "ready.states.absent", "ready.states.unknown",
+    "source.key_value", "practice.prompt", "ai.return", "trial.retry", "trial.complete", "trial.progress",
+):
+    COPY_EXCEPTIONS.pop(f"guide.{_guide_key}", None)
+
+UI_TEXT["guide"]["example"].update({
+    "practice_title": "보낼 내용을 먼저 읽어요", "document": "문서", "part": "부분",
+    "instruction_title": "AI에게 시킬 일", "instruction": "{component}의 허용 농도를 원문에 적힌 단위와 함께 뽑아요.",
+    "practice_offline": "이 연습에서는 AI를 부르지 않아요.",
+    "ai_title": "AI 켜기와 비용", "tunnel": "회사 서버로 가는 통로", "open": "열림",
+    "model": "AI 모델 A", "off": "꺼짐", "model_time": "모델 준비 시간", "model_duration": "15~25분",
+    "guide_return": "안내로 돌아가기",
+})
+UI_TEXT["guide"]["practice"]["prompt_open"] = "지시문 원문 보기"
+for _guide_key in ("practice_title", "instruction", "practice_offline", "tunnel", "model", "model_time"):
+    COPY_EXCEPTIONS[f"guide.example.{_guide_key}"] = "처음 사용 안내 시안 승인 10/31 (design/onboard/mockup.html)"
+COPY_EXCEPTIONS["guide.practice.prompt_open"] = "처음 사용 안내 시안 승인 10/31 (design/onboard/mockup.html)"
+UI_TEXT["guide"]["skipped"] = "건너뜀"
