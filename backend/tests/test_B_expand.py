@@ -42,6 +42,8 @@ LINES = [
     L("p4:L2", "1) 환기가 잘 되는 곳에서 취급하시오."),
     L("p4:L3", "가상물질 갑 | TWA 1 ppm"),
     L("p5:L1", "인화점 60 ℃ (밀폐식)"),
+    L("p5:L2", " ο 색상 : 무색"),
+    L("p5:L3", "점도  7.5 mPa·s"),
     L("p5:L5", "가상 추가 물성 1.20"),
     L("p5:L8", "가상물질 을 | 경구 LD50 > 2000 mg/kg (랫드)"),
     L("p5:L10", "IARC 3군"),
@@ -450,6 +452,38 @@ def regulations_of(rows: list[dict]) -> list[dict]:
     doc, _ = ex.to_to21(DOC_META, [r], LINES, "가상엔진 v1")
     assert validate_to21(doc) == []
     return doc["msds"][0]["regulations"]
+
+
+@pytest.mark.parametrize("text, code", [
+    ("성상  기체  ECHA", "APPEARANCE_STATE"),                 # 칸을 공백으로 나눈 표
+    (" ο 색상 : 무색", "APPEARANCE_COLOR"),
+    ("가. 외관 (물리적 상태, 색 등) 액체", "APPEARANCE_STATE"),
+    ("증기밀도  0.07", "VAPOR_DENSITY"),                       # '밀도'(RELATIVE_DENSITY)보다 긴 이름이 먼저
+    ("인화 또는 폭발 범위의 상한/하한  4.0~76%", None),         # 묶음 표기(UEL+LEL)는 코드 하나가 아니다
+    ("가상 추가 물성 1.20", None),
+])
+def test_physchem_code_from_dictionary(text, code):
+    assert ex.physchem_code(text) == code
+
+
+def test_physchem_code_exact_for_titles():
+    assert ex.physchem_code("러. 점도", exact=True) == "VISCOSITY"
+    assert ex.physchem_code("증기압 온도", exact=True) is None
+
+
+def test_physchem_rows_relinked_by_dictionary(no_conventions):
+    """동의어 사전(R25)에 있는 물성 이름은 부가 행이 아니라 물성 행이고, 코드가 빈 물성 행은 원문 줄의 이름으로 코드를 채운다."""
+    r = responses()
+    r[9]["physchem"].append({"prop_code": None, "text_value": "무색", "line": "p5:L2"})
+    r[9]["extras"] += [{"title_raw": "점도", "reason": "코드없음", "q": {"raw": "7.5 mPa·s", "value": 7.5, "unit": "mPa·s"},
+                        "statements": [], "line": "p5:L3"},
+                       {"title_raw": "증기압 온도", "reason": "필드없음", "q": {"raw": "21", "value": 21},   # 제목은 이름 전체로 비교
+                        "statements": [], "line": "p5:L5"},
+                       {"title_raw": "용해도", "reason": "코드없음", "q": None, "statements": [], "line": "p5:L5"}]
+    m, _ = expand_one(r)
+    assert [(p["prop_code"], p["text_value"], (p["q"] or {}).get("value")) for p in m["physchem"]] == [
+        ("FLASH_POINT", None, 60), ("APPEARANCE_COLOR", "무색", None), ("VISCOSITY", None, 7.5)]
+    assert [e["title_raw"] for e in m["extras"]] == ["가상 추가 물성", "증기압 온도"]
 
 
 def test_regulation_law_from_item_code(no_conventions):
