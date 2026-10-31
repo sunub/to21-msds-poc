@@ -1,0 +1,108 @@
+{
+ "doc_id": "T21-S014",
+ "msds_index": 0,
+ "section": 5,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S5_MEDIA",
+    "title_raw": "가. 적절한(부적절한) 소화제",
+    "start": "p2:L22",
+    "end": "p2:L23"
+   },
+   {
+    "item_code": "S5_SPECIFIC",
+    "title_raw": "나. 화학물질로부터 생기는 특정 유해성",
+    "start": "p2:L24",
+    "end": "p2:L37"
+   },
+   {
+    "item_code": "S5_FIREFIGHT",
+    "title_raw": "다. 화재진압시 착용할 보호구 및 예방조치",
+    "start": "p2:L38",
+    "end": "p2:L51"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S5_MEDIA",
+    "title_raw": "나. 화학물질로부터 생기는 특정",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "key": "유해성",
+      "value": "극인화성 가스",
+      "refs": [
+       "p2:L24"
+      ],
+      "line": "p2:L24"
+     }
+    ],
+    "line": "p2:L24"
+   },
+   {
+    "after_item": "S5_SPECIFIC",
+    "title_raw": "다. 화재진압시 착용할 보호구 및",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "key": "예방조치",
+      "value": "누출성 가스 화재 시 누출을 안전하게 막을 수 없다면 불을 끄려하지 마시오",
+      "refs": [
+       "p2:L38"
+      ],
+      "line": "p2:L38"
+     }
+    ],
+    "line": "p2:L38"
+   },
+   {
+    "after_item": "S5_FIREFIGHT",
+    "title_raw": "탱크 화재시 대규모 화재의 경우 무인 소화장비를 이용하고 불가능하다면 물러나 타",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "key": "게 놔두시오",
+      "value": "",
+      "refs": [
+       "p2:L50"
+      ],
+      "line": "p2:L50"
+     }
+    ],
+    "line": "p2:L50"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S5_MEDIA\",\n      \"title_raw\": \"가. 적절한(부적절한) 소화제\",\n      \"start\": \"p2:L22\",\n      \"end\": \"p2:L23\"\n    },\n    {\n      \"item_code\": \"S5_SPECIFIC\",\n      \"title_raw\": \"나. 화학물질로부터 생기는 특정 유해성\",\n      \"start\": \"p2:L24\",\n      \"end\": \"p2:L37\"\n    },\n    {\n      \"item_code\": \"S5_FIREFIGHT\",\n      \"title_raw\": \"다. 화재진압시 착용할 보호구 및 예방조치\",\n      \"start\": \"p2:L38\",\n      \"end\": \"p2:L51\"\n    }\n  ]\n,\n  \"extras\": [\n    {\n      \"after_item\": \"S5_MEDIA\",\n      \"title_raw\": \"나. 화학물질로부터 생기는 특정\",\n      \"reason\": \"코드없음\"\n    ,\n      \"statements\": [\n        {\n          \"key\": \"유해성\",\n          \"value\": \"극인화성 가스\"\n        ,\n          \"refs\": [\n            \"p2:L24\"\n          ]\n        ,\n          \"line\": \"p2:L24\"\n        }\n      ]\n    ,\n      \"line\": \"p2:L24\"\n    }\n  ,\n    {\n      \"after_item\": \"S5_SPECIFIC\",\n      \"title_raw\": \"다. 화재진압시 착용할 보호구 및\",\n      \"reason\": \"코드없음\"\n    ,\n      \"statements\": [\n        {\n          \"key\": \"예방조치\",\n          \"value\": \"누출성 가스 화재 시 누출을 안전하게 막을 수 없다면 불을 끄려하지 마시오\"\n        ,\n          \"refs\": [\n            \"p2:L38\"\n          ]\n        ,\n          \"line\": \"p2:L38\"\n        }\n      ]\n    ,\n      \"line\": \"p2:L38\"\n    }\n  ,\n    {\n      \"after_item\": \"S5_FIREFIGHT\",\n      \"title_raw\": \"탱크 화재시 대규모 화재의 경우 무인 소화장비를 이용하고 불가능하다면 물러나 타\",\n      \"reason\": \"코드없음\"\n    ,\n      \"statements\": [\n        {\n          \"key\": \"게 놔두시오\",\n          \"value\": \"\"\n        ,\n          \"refs\": [\n            \"p2:L50\"\n          ]\n        ,\n          \"line\": \"p2:L50\"\n        }\n      ]\n    ,\n      \"line\": \"p2:L50\"\n    }\n  ]\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 2687,
+  "completion_tokens": 655,
+  "total_tokens": 3342
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 2687,
+    "completion_tokens": 655,
+    "total_tokens": 3342
+   },
+   "seconds": 11.991,
+   "chars": 1562,
+   "whitespace": 714,
+   "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S5_MEDIA\",\n      \"title_raw\": \"가. 적절한(부적절한) 소화제\",\n      \"start\": \"p2:L22\",\n      \"end\": \"p2:L23\"\n    },\n    {\n      \"item_code\": \"S5_SPECIFIC\",\n      \"title_raw\": \"나. 화학물질로부터 생기는 특정 유해성\",\n      \"start\": \"p2:L24\",\n      \"end\": \"p2:L37\"\n    },\n    {\n      \"item_code\": \"S5_FIREFIGHT\",\n      \"title_raw\": \"다. 화재진압시 착용할 보호구 및 예방조치\",\n      \"start\": \"p2:L38\",\n      \"end\": \"p2:L51\"\n    }\n  ]\n,\n  \"extras\": [\n    {\n      \"after_item\": \"S5_MEDIA\",\n      \"title_r",
+   "tail": "        \"p2:L38\"\n          ]\n        ,\n          \"line\": \"p2:L38\"\n        }\n      ]\n    ,\n      \"line\": \"p2:L38\"\n    }\n  ,\n    {\n      \"after_item\": \"S5_FIREFIGHT\",\n      \"title_raw\": \"탱크 화재시 대규모 화재의 경우 무인 소화장비를 이용하고 불가능하다면 물러나 타\",\n      \"reason\": \"코드없음\"\n    ,\n      \"statements\": [\n        {\n          \"key\": \"게 놔두시오\",\n          \"value\": \"\"\n        ,\n          \"refs\": [\n            \"p2:L50\"\n          ]\n        ,\n          \"line\": \"p2:L50\"\n        }\n      ]\n    ,\n      \"line\": \"p2:L50\"\n    }\n  ]\n}"
+  }
+ ],
+ "seconds": 11.992,
+ "check_problems": [],
+ "components_given": null
+}

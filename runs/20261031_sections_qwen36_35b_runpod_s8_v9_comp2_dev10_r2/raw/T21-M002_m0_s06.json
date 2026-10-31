@@ -1,0 +1,93 @@
+{
+ "doc_id": "T21-M002",
+ "msds_index": 0,
+ "section": 6,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S6_PERSONAL",
+    "title_raw": "가. 인체를 보호하기 위해 필요한 조치사항 및 보호구",
+    "start": "p4:L1",
+    "end": "p4:L11"
+   },
+   {
+    "item_code": "S6_ENV",
+    "title_raw": "나. 환경을 보호하기 위해 필요한 조치사항",
+    "start": "p4:L13",
+    "end": "p4:L13"
+   },
+   {
+    "item_code": "S6_CLEANUP",
+    "title_raw": "다. 정화 또는 제거 방법",
+    "start": "p4:L15",
+    "end": "p4:L16"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S6_PERSONAL",
+    "title_raw": "나. 환경을 보호하기 위해 필요한 조치사항",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "key": "내용",
+      "value": "증기가 하수구, 환기장치, 밀폐공간을 통해 확산되지 않도록 하시오.",
+      "line": "p4:L13"
+     }
+    ],
+    "suggested_code": "S6_ENV",
+    "line": "p4:L12"
+   },
+   {
+    "after_item": "S6_ENV",
+    "title_raw": "다. 정화 또는 제거 방법",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "key": "내용",
+      "value": "가스가 완전히 기화되어 제거될 때까지 기다리시오. 단, 주변에 가연성 물질 등 점화원이 있는 경우에는 모든 점화원을 제거하시오.",
+      "line": "p4:L15"
+     },
+     {
+      "key": "내용",
+      "value": "p4:L16",
+      "line": "p4:L16"
+     }
+    ],
+    "suggested_code": "S6_CLEANUP",
+    "line": "p4:L14"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S6_PERSONAL\",\n      \"title_raw\": \"가. 인체를 보호하기 위해 필요한 조치사항 및 보호구\",\n      \"start\": \"p4:L1\",\n      \"end\": \"p4:L11\"\n    },\n    {\n      \"item_code\": \"S6_ENV\",\n      \"title_raw\": \"나. 환경을 보호하기 위해 필요한 조치사항\",\n      \"start\": \"p4:L13\",\n      \"end\": \"p4:L13\"\n    },\n    {\n      \"item_code\": \"S6_CLEANUP\",\n      \"title_raw\": \"다. 정화 또는 제거 방법\",\n      \"start\": \"p4:L15\",\n      \"end\": \"p4:L16\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S6_PERSONAL\",\n      \"title_raw\": \"나. 환경을 보호하기 위해 필요한 조치사항\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"key\": \"내용\",\n          \"value\": \"증기가 하수구, 환기장치, 밀폐공간을 통해 확산되지 않도록 하시오.\"\n        ,\n          \"line\": \"p4:L13\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S6_ENV\"\n    ,\n      \"line\": \"p4:L12\"\n    },\n    {\n      \"after_item\": \"S6_ENV\",\n      \"title_raw\": \"다. 정화 또는 제거 방법\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"key\": \"내용\",\n          \"value\": \"가스가 완전히 기화되어 제거될 때까지 기다리시오. 단, 주변에 가연성 물질 등 점화원이 있는 경우에는 모든 점화원을 제거하시오.\"\n        ,\n          \"line\": \"p4:L15\"\n        },\n        {\n          \"key\": \"내용\",\n          \"value\": \"p4:L16\"\n        ,\n          \"line\": \"p4:L16\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S6_CLEANUP\"\n    ,\n      \"line\": \"p4:L14\"\n    }\n  ]\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 2173,
+  "completion_tokens": 534,
+  "total_tokens": 2707
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 2173,
+    "completion_tokens": 534,
+    "total_tokens": 2707
+   },
+   "seconds": 8.711,
+   "chars": 1295,
+   "whitespace": 528,
+   "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S6_PERSONAL\",\n      \"title_raw\": \"가. 인체를 보호하기 위해 필요한 조치사항 및 보호구\",\n      \"start\": \"p4:L1\",\n      \"end\": \"p4:L11\"\n    },\n    {\n      \"item_code\": \"S6_ENV\",\n      \"title_raw\": \"나. 환경을 보호하기 위해 필요한 조치사항\",\n      \"start\": \"p4:L13\",\n      \"end\": \"p4:L13\"\n    },\n    {\n      \"item_code\": \"S6_CLEANUP\",\n      \"title_raw\": \"다. 정화 또는 제거 방법\",\n      \"start\": \"p4:L15\",\n      \"end\": \"p4:L16\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S6_PERSONAL\",\n      \"titl",
+   "tail": "\n    },\n    {\n      \"after_item\": \"S6_ENV\",\n      \"title_raw\": \"다. 정화 또는 제거 방법\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"key\": \"내용\",\n          \"value\": \"가스가 완전히 기화되어 제거될 때까지 기다리시오. 단, 주변에 가연성 물질 등 점화원이 있는 경우에는 모든 점화원을 제거하시오.\"\n        ,\n          \"line\": \"p4:L15\"\n        },\n        {\n          \"key\": \"내용\",\n          \"value\": \"p4:L16\"\n        ,\n          \"line\": \"p4:L16\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S6_CLEANUP\"\n    ,\n      \"line\": \"p4:L14\"\n    }\n  ]\n}"
+  }
+ ],
+ "seconds": 8.711,
+ "check_problems": [],
+ "components_given": null
+}

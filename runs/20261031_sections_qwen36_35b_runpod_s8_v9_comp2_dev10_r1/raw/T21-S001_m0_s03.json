@@ -1,0 +1,181 @@
+{
+ "doc_id": "T21-S001",
+ "msds_index": 0,
+ "section": 3,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "composition": {
+   "type": "혼합물",
+   "no_hazardous_component": false,
+   "lines": {
+    "type": "p3:L1",
+    "no_hazardous_component": "p3:L1"
+   }
+  },
+  "components": [
+   {
+    "name": "질소가스",
+    "name_en": "NITROGEN",
+    "synonyms": [],
+    "cas_no": "7727-37-9",
+    "ke_no": null,
+    "ec_no": null,
+    "other_id": null,
+    "other_id_type": null,
+    "parent_seq": null,
+    "read_across_cas": null,
+    "content": {
+     "raw": "100%",
+     "value": 100,
+     "unit": "%"
+    },
+    "content_note": null,
+    "content_basis": null,
+    "trade_secret": null,
+    "approval_no": null,
+    "approval_expiry": null,
+    "line": "p3:L4"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "3_END",
+    "title_raw": "3. 구성성분의 명칭 및 함유량",
+    "reason": "코드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [],
+    "suggested_code": null,
+    "line": "p3:L1"
+   },
+   {
+    "after_item": "3_END",
+    "title_raw": "NITROGEN",
+    "reason": "필드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [],
+    "suggested_code": null,
+    "line": "p3:L5"
+   },
+   {
+    "after_item": "3_END",
+    "title_raw": "Total",
+    "reason": "필드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": {
+     "raw": "100%",
+     "value": 100,
+     "unit": "%"
+    },
+    "statements": [],
+    "suggested_code": null,
+    "line": "p3:L6"
+   }
+  ]
+ },
+ "raw_text": "### composition\ntype | no_hazardous_component | line\n혼합물 | false | p3:L1\n\n### components\nname | name_en | synonyms | cas_no | ke_no | ec_no | other_id | other_id_type | parent_seq | read_across_cas | content | content_note | content_basis | trade_secret | approval_no | approval_expiry | line\n질소가스 | NITROGEN |  | 7727-37-9 |  |  |  |  |  |  | 100% |  |  |  |  |  | p3:L4\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\n3_END | 3. 구성성분의 명칭 및 함유량 | 코드없음 |  |  |  |  |  | p3:L1\n3_END | 화학물질명 | 필드없음 |  |  |  | 관용명 | 분자식 | CAS번호 | 함유량(%) |  | p3:L2\n3_END | NITROGEN | 필드없음 |  |  |  |  |  | p3:L5\n3_END | Total | 필드없음 |  |  | 100% |  |  | p3:L6",
+ "mode": "rows",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 4036,
+  "completion_tokens": 292,
+  "total_tokens": 4328
+ },
+ "attempts": 1,
+ "errors": [
+  "extras p3:L2 3_END | 화학물질명 | 필드없음 |  |  |  | 관용명 | 분자…: 열 12개, 기대 9개"
+ ],
+ "requests": [
+  {
+   "mode": "rows",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 4036,
+    "completion_tokens": 292,
+    "total_tokens": 4328
+   },
+   "seconds": 5.125,
+   "chars": 700,
+   "whitespace": 178,
+   "head": "### composition\ntype | no_hazardous_component | line\n혼합물 | false | p3:L1\n\n### components\nname | name_en | synonyms | cas_no | ke_no | ec_no | other_id | other_id_type | parent_seq | read_across_cas | content | content_note | content_basis | trade_secret | approval_no | approval_expiry | line\n질소가스 | NITROGEN |  | 7727-37-9 |  |  |  |  |  |  | 100% |  |  |  |  |  | p3:L4\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\n3_END | 3. 구성성분의 명칭 ",
+   "tail": "및 함유량 | 코드없음 |  |  |  |  |  | p3:L1\n3_END | 화학물질명 | 필드없음 |  |  |  | 관용명 | 분자식 | CAS번호 | 함유량(%) |  | p3:L2\n3_END | NITROGEN | 필드없음 |  |  |  |  |  | p3:L5\n3_END | Total | 필드없음 |  |  | 100% |  |  | p3:L6"
+  }
+ ],
+ "seconds": 5.126,
+ "check_problems": [],
+ "reextract_attempt": {
+  "ok": true,
+  "parsed": {
+   "composition": {
+    "type": "혼합물",
+    "no_hazardous_component": false,
+    "lines": {
+     "type": "p3:L1",
+     "no_hazardous_component": "p3:L1"
+    }
+   },
+   "components": [
+    {
+     "name": "질소가스",
+     "name_en": "NITROGEN",
+     "synonyms": [],
+     "cas_no": "7727-37-9",
+     "ke_no": null,
+     "ec_no": null,
+     "other_id": null,
+     "other_id_type": null,
+     "parent_seq": null,
+     "read_across_cas": null,
+     "content": {
+      "raw": "100%",
+      "value": 100,
+      "unit": "%"
+     },
+     "content_note": null,
+     "content_basis": null,
+     "trade_secret": null,
+     "approval_no": null,
+     "approval_expiry": null,
+     "line": "p3:L4"
+    }
+   ],
+   "extras": []
+  },
+  "raw_text": "### composition\ntype | no_hazardous_component | line\n혼합물 | false | p3:L1\n\n### components\nname | name_en | synonyms | cas_no | ke_no | ec_no | other_id | other_id_type | parent_seq | read_across_cas | content | content_note | content_basis | trade_secret | approval_no | approval_expiry | line\n질소가스 | NITROGEN |  | 7727-37-9 |  |  |  |  |  |  | 100% |  |  |  |  |  | p3:L4\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\n3_END | 화학물질명 | 필드없음 |  |  |  | 관용명 | 분자식 | CAS번호 | 함유량(%): 열 12개, 기대 9개 | p3:L2",
+  "mode": "rows",
+  "finish_reason": "stop",
+  "usage": {
+   "prompt_tokens": 4087,
+   "completion_tokens": 209,
+   "total_tokens": 4296
+  },
+  "attempts": 1,
+  "errors": [
+   "extras p3:L2 3_END | 화학물질명 | 필드없음 |  |  |  | 관용명 | 분자…: 열 11개, 기대 9개"
+  ],
+  "requests": [
+   {
+    "mode": "rows",
+    "finish_reason": "stop",
+    "usage": {
+     "prompt_tokens": 4087,
+     "completion_tokens": 209,
+     "total_tokens": 4296
+    },
+    "seconds": 3.316,
+    "chars": 560,
+    "whitespace": 125,
+    "head": "### composition\ntype | no_hazardous_component | line\n혼합물 | false | p3:L1\n\n### components\nname | name_en | synonyms | cas_no | ke_no | ec_no | other_id | other_id_type | parent_seq | read_across_cas | content | content_note | content_basis | trade_secret | approval_no | approval_expiry | line\n질소가스 | NITROGEN |  | 7727-37-9 |  |  |  |  |  |  | 100% |  |  |  |  |  | p3:L4\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\n3_END | 화학물질명 | 필드없음",
+    "tail": " |  |  |  | 관용명 | 분자식 | CAS번호 | 함유량(%): 열 12개, 기대 9개 | p3:L2"
+   }
+  ],
+  "seconds": 3.317,
+  "check_problems": []
+ },
+ "components_given": null
+}

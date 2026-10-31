@@ -1,0 +1,135 @@
+{
+ "doc_id": "T21-S013",
+ "msds_index": 0,
+ "section": 13,
+ "reextracted": true,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S13_METHOD",
+    "title_raw": "가. 폐기방법",
+    "start": "p9:L27",
+    "end": "p9:L28"
+   },
+   {
+    "item_code": "S13_CAUTION",
+    "title_raw": "나. 폐기시 주의사항",
+    "start": "p9:L29",
+    "end": "p9:L30"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S13_METHOD",
+    "title_raw": "나. 폐기시 주의사항",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "value": "- | 하천, 호수, 토양, 배수구 등에 직접 유출을 피할 것.",
+      "line": "p9:L30"
+     }
+    ],
+    "line": "p9:L29"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S13_METHOD\",\n      \"title_raw\": \"가. 폐기방법\",\n      \"start\": \"p9:L27\",\n      \"end\": \"p9:L28\"\n    },\n    {\n      \"item_code\": \"S13_CAUTION\",\n      \"title_raw\": \"나. 폐기시 주의사항\",\n      \"start\": \"p9:L29\",\n      \"end\": \"p9:L30\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S13_METHOD\",\n      \"title_raw\": \"나. 폐기시 주의사항\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"- | 하천, 호수, 토양, 배수구 등에 직접 유출을 피할 것.\",\n          \"line\": \"p9:L30\"\n        }\n      ],\n      \"line\": \"p9:L29\"\n    }\n  ]\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 2039,
+  "completion_tokens": 247,
+  "total_tokens": 2286
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 2039,
+    "completion_tokens": 247,
+    "total_tokens": 2286
+   },
+   "seconds": 4.433,
+   "chars": 557,
+   "whitespace": 213,
+   "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S13_METHOD\",\n      \"title_raw\": \"가. 폐기방법\",\n      \"start\": \"p9:L27\",\n      \"end\": \"p9:L28\"\n    },\n    {\n      \"item_code\": \"S13_CAUTION\",\n      \"title_raw\": \"나. 폐기시 주의사항\",\n      \"start\": \"p9:L29\",\n      \"end\": \"p9:L30\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S13_METHOD\",\n      \"title_raw\": \"나. 폐기시 주의사항\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"- | 하천, 호수, 토양, 배수구 등에 직접 유출을 피할 것.\",\n          \"line\": \"p9:L",
+   "tail": "30\"\n        }\n      ],\n      \"line\": \"p9:L29\"\n    }\n  ]\n}"
+  }
+ ],
+ "seconds": 4.434,
+ "check_problems": [],
+ "first_attempt": {
+  "ok": true,
+  "parsed": {
+   "narratives": [
+    {
+     "item_code": "S13_METHOD",
+     "title_raw": "가. 폐기방법",
+     "start": "L28",
+     "end": "L28"
+    },
+    {
+     "item_code": "S13_CAUTION",
+     "title_raw": "나. 폐기시 주의사항",
+     "start": "L30",
+     "end": "L30"
+    }
+   ],
+   "extras": [
+    {
+     "after_item": "S13_METHOD",
+     "title_raw": "나. 폐기시 주의사항",
+     "reason": "코드없음",
+     "statements": [
+      {
+       "value": "하천, 호수, 토양, 배수구 등에 직접 유출을 피할 것.",
+       "line": "L30"
+      }
+     ],
+     "suggested_code": "S13_CAUTION",
+     "line": "L29"
+    }
+   ]
+  },
+  "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S13_METHOD\",\n      \"title_raw\": \"가. 폐기방법\",\n      \"start\": \"L28\",\n      \"end\": \"L28\"\n    },\n    {\n      \"item_code\": \"S13_CAUTION\",\n      \"title_raw\": \"나. 폐기시 주의사항\",\n      \"start\": \"L30\",\n      \"end\": \"L30\"\n    }\n  ]\n  ,\n  \"extras\": [\n    {\n      \"after_item\": \"S13_METHOD\",\n      \"title_raw\": \"나. 폐기시 주의사항\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"하천, 호수, 토양, 배수구 등에 직접 유출을 피할 것.\"\n        ,\n          \"line\": \"L30\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S13_CAUTION\"\n    ,\n      \"line\": \"L29\"\n    }\n  ]\n}",
+  "mode": "json_schema",
+  "finish_reason": "stop",
+  "usage": {
+   "prompt_tokens": 1932,
+   "completion_tokens": 260,
+   "total_tokens": 2192
+  },
+  "attempts": 1,
+  "errors": [],
+  "requests": [
+   {
+    "mode": "json_schema",
+    "finish_reason": "stop",
+    "usage": {
+     "prompt_tokens": 1932,
+     "completion_tokens": 260,
+     "total_tokens": 2192
+    },
+    "seconds": 5.519,
+    "chars": 596,
+    "whitespace": 241,
+    "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S13_METHOD\",\n      \"title_raw\": \"가. 폐기방법\",\n      \"start\": \"L28\",\n      \"end\": \"L28\"\n    },\n    {\n      \"item_code\": \"S13_CAUTION\",\n      \"title_raw\": \"나. 폐기시 주의사항\",\n      \"start\": \"L30\",\n      \"end\": \"L30\"\n    }\n  ]\n  ,\n  \"extras\": [\n    {\n      \"after_item\": \"S13_METHOD\",\n      \"title_raw\": \"나. 폐기시 주의사항\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"하천, 호수, 토양, 배수구 등에 직접 유출을 피할 것.\"\n        ,\n          \"line\": \"L30\"\n   ",
+    "tail": "     }\n      ]\n    ,\n      \"suggested_code\": \"S13_CAUTION\"\n    ,\n      \"line\": \"L29\"\n    }\n  ]\n}"
+   }
+  ],
+  "seconds": 5.521,
+  "check_problems": [
+   "narratives[0].start: 원문에 없는 줄 번호 L28",
+   "narratives[0].end: 원문에 없는 줄 번호 L28",
+   "narratives[1].start: 원문에 없는 줄 번호 L30",
+   "narratives[1].end: 원문에 없는 줄 번호 L30",
+   "extras[0].statements[0].line: 원문에 없는 줄 번호 L30",
+   "extras[0].line: 원문에 없는 줄 번호 L29"
+  ]
+ },
+ "components_given": null
+}

@@ -1,0 +1,80 @@
+{
+ "doc_id": "T21-M001",
+ "msds_index": 0,
+ "section": 7,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S7_HANDLING",
+    "title_raw": "가. 안전취급요령",
+    "start": "p4:L31",
+    "end": "p4:L37"
+   },
+   {
+    "item_code": "S7_STORAGE",
+    "title_raw": "나. 안전한 저장방법",
+    "start": "p4:L38",
+    "end": "p5:L1"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S7_HANDLING",
+    "title_raw": "나. 안전한 저장방법",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "key": "밀폐",
+      "value": "보관하시오.",
+      "line": "p4:L39"
+     },
+     {
+      "key": "용기",
+      "value": "열에 노출되었을 경우 압력이 올라갈 수 있으므로 열에 폭로되지 않도록 하시오.",
+      "line": "p5:L1"
+     }
+    ],
+    "suggested_code": "S7_STORAGE",
+    "line": "p4:L38"
+   },
+   {
+    "after_item": "S7_STORAGE",
+    "title_raw": "7. 취급 및 저장방법",
+    "reason": "코드없음",
+    "statements": [],
+    "line": "p4:L30"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S7_HANDLING\",\n      \"title_raw\": \"가. 안전취급요령\",\n      \"start\": \"p4:L31\",\n      \"end\": \"p4:L37\"\n    },\n    {\n      \"item_code\": \"S7_STORAGE\",\n      \"title_raw\": \"나. 안전한 저장방법\",\n      \"start\": \"p4:L38\",\n      \"end\": \"p5:L1\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S7_HANDLING\",\n      \"title_raw\": \"나. 안전한 저장방법\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"key\": \"밀폐\",\n          \"value\": \"보관하시오.\"\n        ,\n          \"line\": \"p4:L39\"\n        },\n        {\n          \"key\": \"용기\",\n          \"value\": \"열에 노출되었을 경우 압력이 올라갈 수 있으므로 열에 폭로되지 않도록 하시오.\"\n        ,\n          \"line\": \"p5:L1\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S7_STORAGE\"\n    ,\n      \"line\": \"p4:L38\"\n    },\n    {\n      \"after_item\": \"S7_STORAGE\",\n      \"title_raw\": \"7. 취급 및 저장방법\",\n      \"reason\": \"코드없음\",\n      \"statements\": [],\n      \"line\": \"p4:L30\"\n    }\n  ]\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 2102,
+  "completion_tokens": 370,
+  "total_tokens": 2472
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 2102,
+    "completion_tokens": 370,
+    "total_tokens": 2472
+   },
+   "seconds": 6.702,
+   "chars": 908,
+   "whitespace": 368,
+   "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S7_HANDLING\",\n      \"title_raw\": \"가. 안전취급요령\",\n      \"start\": \"p4:L31\",\n      \"end\": \"p4:L37\"\n    },\n    {\n      \"item_code\": \"S7_STORAGE\",\n      \"title_raw\": \"나. 안전한 저장방법\",\n      \"start\": \"p4:L38\",\n      \"end\": \"p5:L1\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S7_HANDLING\",\n      \"title_raw\": \"나. 안전한 저장방법\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"key\": \"밀폐\",\n          \"value\": \"보관하시오.\"\n        ,\n          \"line\": ",
+   "tail": "\"p4:L39\"\n        },\n        {\n          \"key\": \"용기\",\n          \"value\": \"열에 노출되었을 경우 압력이 올라갈 수 있으므로 열에 폭로되지 않도록 하시오.\"\n        ,\n          \"line\": \"p5:L1\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S7_STORAGE\"\n    ,\n      \"line\": \"p4:L38\"\n    },\n    {\n      \"after_item\": \"S7_STORAGE\",\n      \"title_raw\": \"7. 취급 및 저장방법\",\n      \"reason\": \"코드없음\",\n      \"statements\": [],\n      \"line\": \"p4:L30\"\n    }\n  ]\n}"
+  }
+ ],
+ "seconds": 6.702,
+ "check_problems": [],
+ "components_given": null
+}
