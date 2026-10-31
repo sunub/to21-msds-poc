@@ -5,7 +5,7 @@
   comp_name, comp_cas, start, end)은 남지 않는다.
 - 형식(pattern)이 정해진 칸의 빈 글자("")는 null로 둔다. 중간 형식에는 형식 조건이 없어 모델이 ""를 쓴다.
 - seq, Q의 status·dp·note, comp_ref, 서술 문장, extras의 쪽·항 번호, 근거(evidence)는 코드가 채운다.
-- 원문 줄로 확인되는 값(H·P 코드, 개정 횟수, 메타 값 없음, 전화번호)은 A의 함수 전에
+- 원문 줄로 확인되는 값(H·P 코드, 개정 횟수, 메타 값 없음, 전화번호, 비어 있는 유해성 분류)은 A의 함수 전에
   source_rules.apply_source_rules가 고친다 (ADR-029).
 - 값 없는 행의 표기는 A의 규칙 함수(msds.common.conventions.apply)에 맡긴다.
 - 15항 화평법 행은 값이 있는데 해당 여부가 비면 '해당'으로 채운다 (사용자 결정 10/29).
@@ -356,7 +356,7 @@ def to_to21(doc_meta: dict, parts: list[dict[int, dict]], lines: list[Line],
     msds, problems = [], []
     for i, sections in enumerate(parts):
         item, p = expand_msds(sections, lines_by_id, i, method)
-        apply_source_rules(item, lines)      # 원문 줄로 확인되는 값 고치기 (ADR-029)
+        apply_source_rules(item, lines, len(parts) == 1)      # 원문 줄로 확인되는 값 고치기 (ADR-029)
         msds.append(apply_conventions(item))
         problems += p
     doc = {
