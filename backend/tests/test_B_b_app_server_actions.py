@@ -172,10 +172,10 @@ class Clock:
         return self.t
 
 
-def make(srv, tmp_path, *, cloud=None, rngd=None, jobs=None, env=None, clock=None, watch=None):
+def make(srv, tmp_path, *, cloud=None, rngd=None, jobs=None, env=None, clock=None, watch=None, env_file=None):
     return srv.ServerActions(dict(ENV) if env is None else env, jobs or FakeJobs(), tmp_path / "manual" / "server_log.md",
                              opener=cloud or FakeCloud(), runner=rngd or FakeRngd(), watchdog_spawner=watch or FakeWatch(),
-                             clock=clock or Clock(), sleep=lambda s: None, models_cfg=MODELS_CFG)
+                             clock=clock or Clock(), sleep=lambda s: None, models_cfg=MODELS_CFG, env_file=env_file)
 
 
 def no_secret(*objs, extra=()):
@@ -343,13 +343,15 @@ def test_execute_checks_lock_again(srv, tmp_path):
     assert res["code"] == 409 and res["running"] == [LOCK_RUN] and cloud.sent("DELETE") == []
 
 
-def test_pod_delete_not_ours_warns_but_allows(srv, tmp_path):
+def test_pod_delete_not_ours_refused(srv, tmp_path):
     cloud = FakeCloud(pods=[pod_of("zzz999", "other", 30)])
     sa = make(srv, tmp_path, cloud=cloud)
     res = sa.propose("pod_delete", {"pod_id": "zzz999"})
-    assert "이 도구가 만든 것이 아닙니다" in res["summary"] and res["warning"]
-    assert sa.execute(res["token"])["ok"] is True                          # 막지는 않는다
-    assert sa.status()["pods"] == []
+    assert res["code"] == 403 and "token" not in res                      # 사용자 결정 10/30 (ADR-028): 남의 Pod는 지우지 못한다
+    assert "만들지 않은 Pod" in res["error"] and "할 일:" in res["error"]
+    assert cloud.sent("DELETE") == [] and log_rows(tmp_path) == []
+    p = sa.status()["pods"][0]
+    assert (p["id"], p["ours"], p["owned"], p["deletable"]) == ("zzz999", False, False, False)
 
 
 def test_status_marks_not_ours(srv, tmp_path):
@@ -382,7 +384,7 @@ def test_execute_pod_create_sends_key_only_to_pod(srv, pod, tmp_path):
     sa, cloud, watch, prop, res, key = create(srv, pod, tmp_path)
     assert "$2.49" in prop["summary"] and "4시간" in prop["summary"] and "RTX PRO 6000" in prop["summary"]
     body = cloud.sent("POST")[0]["body"]
-    assert len(key) >= 32 and key not in SECRETS
+    assert key == ENV["RUNPOD_VLLM_API_KEY"]                               # Pod 키는 .env 값이다 (앱을 다시 켜도 같은 키)
     assert body["name"].startswith("to21-b-")
     cmd = body["dockerStartCmd"][0]
     for part in (f"vllm serve {MODEL}", "--max-model-len 40960", "--max-num-seqs 64", "--gpu-memory-utilization 0.85",
@@ -591,3 +593,249 @@ def test_options_use_session_status(srv, pod, app, bj, where, tmp_path):
     ctx = ctx_of(app, where, manager(bj, where), servers=sa, model_status=sa.model_status)
     models = {m["tag"]: m for m in call(app, ctx, "GET", "/api/options")[1]["models"]}
     assert models[TAG]["connected"] is True
+
+
+# ── Pod 키는 .env, 다시 켜도 이어 쓰기, 켜진 시간·비용, 남의 Pod, 설정 다시 읽기 (step 5) ──
+
+NEW_VLLM_KEY = "FAKEKEY-new-vllm-SHOULD-NEVER-APPEAR-8c7d"
+POD_ENV_KEY = "FAKEKEY-pod-env-SHOULD-NEVER-APPEAR-3d2c"
+
+
+def env_text(values: dict) -> str:
+    return "".join(f"{k}={v}\n" for k, v in values.items())
+
+
+def pod_gets(cloud) -> int:
+    from pod import API
+    return sum(r["method"] == "GET" and r["url"] == API + "/pods" for r in cloud.requests)
+
+
+def test_pod_create_key_comes_from_env_and_never_leaks(srv, pod, tmp_path):
+    sa, cloud, watch, prop, res, key = create(srv, pod, tmp_path)
+    assert key == ENV["RUNPOD_VLLM_API_KEY"]
+    st = sa.status()
+    assert st["session"]["pod_id"] == "newpod1" and st["session"]["adopted"] is False
+    assert ENV["RUNPOD_VLLM_API_KEY"] not in json.dumps(sa._session, default=str)   # 세션에 키를 두지 않는다
+    no_secret(prop, res, st, log_text(tmp_path), watch.calls)
+
+
+@pytest.mark.parametrize("value", [None, ""])
+def test_propose_pod_create_without_vllm_key_is_400(srv, tmp_path, value):
+    env = {k: v for k, v in ENV.items() if k != "RUNPOD_VLLM_API_KEY"}
+    if value is not None:
+        env["RUNPOD_VLLM_API_KEY"] = value
+    cloud = FakeCloud()
+    res = make(srv, tmp_path, cloud=cloud, env=env).propose("pod_create", {})
+    assert res["code"] == 400 and "token" not in res
+    assert "RUNPOD_VLLM_API_KEY" in res["error"] and "할 일:" in res["error"] and "설정 다시 읽기" in res["error"]
+    assert cloud.sent("POST") == []
+    no_secret(res)
+
+
+def test_execute_pod_create_rechecks_vllm_key(srv, tmp_path):
+    env, cloud = dict(ENV), FakeCloud()
+    sa = make(srv, tmp_path, cloud=cloud, env=env)
+    token = sa.propose("pod_create", {})["token"]
+    del env["RUNPOD_VLLM_API_KEY"]                                          # 요약을 본 뒤 설정에서 키가 빠짐
+    res = sa.execute(token)
+    assert res["code"] == 400 and res["ok"] is False and cloud.sent("POST") == [] and log_rows(tmp_path) == []
+
+
+def test_restart_adopts_running_owned_pod(srv, pod, tmp_path):
+    cloud = FakeCloud(pods=[pod_of("zzz999", "other", 10), pod_of("abc123", "to21-b-qwen36", 40)])
+    sa = make(srv, tmp_path, cloud=cloud)                                   # 앱을 새로 켠 것과 같다(세션 없음)
+    assert sa.job_env() == {"RUNPOD_VLLM_BASE_URL": pod.pod_url("abc123"),
+                            "RUNPOD_VLLM_API_KEY": ENV["RUNPOD_VLLM_API_KEY"]}
+    st = sa.status()
+    assert st["session"]["pod_id"] == "abc123" and st["session"]["adopted"] is True
+    assert st["session"]["others"] == []
+    views = {p["id"]: p for p in st["pods"]}
+    assert views["abc123"]["session"] is True and views["zzz999"]["session"] is False
+    asked = [r for r in cloud.requests if r["url"] == pod.pod_url("abc123") + "/models"]
+    assert asked and all(r["auth"] == f"Bearer {ENV['RUNPOD_VLLM_API_KEY']}" for r in asked)
+    no_secret(st)
+
+
+def test_restart_adopts_most_recent_owned_pod(srv, pod, tmp_path):
+    stopped = {**pod_of("stop33", "to21-b-qwen36", 1), "desiredStatus": "EXITED"}
+    cloud = FakeCloud(pods=[pod_of("old111", "to21-b-qwen36", 120), pod_of("new222", "to21-b-qwen36", 15),
+                            pod_of("zzz999", "other", 5), stopped])
+    sa = make(srv, tmp_path, cloud=cloud)
+    assert sa.job_env()["RUNPOD_VLLM_BASE_URL"] == pod.pod_url("new222")
+    session = sa.status()["session"]
+    assert session["pod_id"] == "new222" and session["adopted"] is True and session["others"] == ["old111"]
+
+
+def test_adoption_list_is_throttled(srv, pod, tmp_path):
+    cloud, clock = FakeCloud(pods=[pod_of("zzz999", "other", 10)]), Clock()
+    sa = make(srv, tmp_path, cloud=cloud, clock=clock)
+    assert sa.job_env() == {} and pod_gets(cloud) == 1
+    clock.t += 29
+    assert sa.job_env() == {} and sa.job_env() == {} and pod_gets(cloud) == 1   # 30초 안에는 목록을 다시 묻지 않는다
+    cloud.pods.append(pod_of("abc123", "to21-b-qwen36", 0))
+    clock.t += 2
+    assert sa.job_env()["RUNPOD_VLLM_BASE_URL"] == pod.pod_url("abc123") and pod_gets(cloud) == 2
+    sa.job_env()
+    assert pod_gets(cloud) == 2                                             # 세션이 생기면 더 묻지 않는다
+
+
+def test_adoption_needs_runpod_key_and_survives_errors(srv, tmp_path):
+    cloud = FakeCloud(pods=[pod_of("abc123", "to21-b-qwen36", 10)])
+    sa = make(srv, tmp_path, cloud=cloud, env={k: v for k, v in ENV.items() if k != "RUNPOD_API_KEY"})
+    assert sa.job_env() == {} and pod_gets(cloud) == 0
+
+    def broken(req, timeout=None):
+        raise urllib.error.HTTPError(req.full_url, 500, "x", {}, None)
+    sa = make(srv, tmp_path, cloud=broken)
+    assert sa.job_env() == {} and sa.status()["session"] is None
+
+
+def test_job_env_follows_env_key(srv, pod, tmp_path):
+    env = dict(ENV)
+    sa, cloud, watch, prop, res, key = create(srv, pod, tmp_path, env=env)
+    env["RUNPOD_VLLM_API_KEY"] = NEW_VLLM_KEY                               # 설정 다시 읽기 뒤와 같다
+    assert sa.job_env()["RUNPOD_VLLM_API_KEY"] == NEW_VLLM_KEY
+    del env["RUNPOD_VLLM_API_KEY"]
+    assert sa.job_env() == {}
+
+
+def test_status_uptime_and_cost_from_rest_fields(srv, tmp_path):
+    iso = {**pod_of("abc123", "to21-b-qwen36", 0), "lastStatusChange": None, "costPerHr": "2.49",
+           "lastStartedAt": (NOW - timedelta(minutes=60)).strftime("%Y-%m-%dT%H:%M:%S.000Z")}
+    js = {**pod_of("def456", "to21-b-qwen36", 0), "costPerHr": 2.49,
+          "lastStatusChange": "Rented by User: Fri Oct 30 2026 07:00:00 GMT-0400 (Eastern Daylight Time)"}
+    views = {p["id"]: p for p in make(srv, tmp_path, cloud=FakeCloud(pods=[iso, js])).status()["pods"]}
+    for pid in ("abc123", "def456"):
+        assert (views[pid]["uptime_s"], views[pid]["cost_est"], views[pid]["minutes"]) == (3600, 2.49, 60), pid
+
+
+def test_status_uptime_from_server_log_when_rest_has_no_time(srv, tmp_path):
+    log = tmp_path / "manual" / "server_log.md"
+    log.parent.mkdir(parents=True)
+    local = (NOW - timedelta(minutes=120)).astimezone().strftime("%Y-%m-%d %H:%M:%S")   # 기록은 로컬 시각이다
+    older = (NOW - timedelta(minutes=500)).astimezone().strftime("%Y-%m-%d %H:%M:%S")
+    log.write_text("| 시각 | 동작 | 대상 | 비고 |\n|---|---|---|---|\n"
+                   f"| {older} | pod_delete | abc123 (to21-b-qwen36) | 가상 |\n"
+                   f"| {local} | pod_create | abc123 (to21-b-qwen36) | 가상 |\n"
+                   f"| {local} | pod_create | zzz999 (other) | 가상 |\n", encoding="utf-8")
+    ours = {**pod_of("abc123", "to21-b-qwen36", 0), "lastStatusChange": None}
+    other = {**pod_of("zzz999", "other", 0), "lastStatusChange": None}
+    views = {p["id"]: p for p in make(srv, tmp_path, cloud=FakeCloud(pods=[ours, other])).status()["pods"]}
+    assert views["abc123"]["uptime_s"] == 7200 and views["abc123"]["cost_est"] == 4.98
+    assert views["abc123"]["minutes"] == 120 and views["abc123"]["est_cost"] == 4.98
+    assert views["zzz999"]["uptime_s"] is None and views["zzz999"]["cost_est"] is None   # 남의 Pod는 기록으로 채우지 않는다
+
+
+def test_status_hides_pod_env_from_rest(srv, tmp_path):
+    cloud = FakeCloud(pods=[{**pod_of("abc123", "to21-b-qwen36", 10), "env": {"VLLM_API_KEY": POD_ENV_KEY}},
+                            {**pod_of("zzz999", "other", 5), "env": {"VLLM_API_KEY": POD_ENV_KEY}}])
+    sa = make(srv, tmp_path, cloud=cloud)
+    st = sa.status()
+    assert len(st["pods"]) == 2 and all("env" not in p for p in st["pods"])
+    no_secret(st, sa.propose("pod_delete", {"pod_id": "abc123"}), extra=(POD_ENV_KEY,))
+
+
+def test_pod_view_deletable_only_owned_and_unlocked(srv, tmp_path):
+    pods = [pod_of("zzz999", "other", 30), pod_of("abc123", "to21-b-qwen36", 5)]
+    views = {p["id"]: p for p in make(srv, tmp_path, cloud=FakeCloud(pods=pods)).status()["pods"]}
+    assert (views["abc123"]["owned"], views["abc123"]["deletable"]) == (True, True)
+    assert (views["zzz999"]["owned"], views["zzz999"]["deletable"]) == (False, False)
+    locked = make(srv, tmp_path, cloud=FakeCloud(pods=pods), jobs=FakeJobs([LOCK_RUN])).status()["pods"]
+    assert not any(p["deletable"] for p in locked) and [p["owned"] for p in locked] == [False, True]
+
+
+def test_execute_pod_delete_rechecks_owner(srv, tmp_path):
+    cloud = FakeCloud(pods=[pod_of("abc123", "to21-b-qwen36", 30)])
+    sa = make(srv, tmp_path, cloud=cloud)
+    token = sa.propose("pod_delete", {"pod_id": "abc123"})["token"]
+    cloud.pods = [pod_of("abc123", "someone-else", 30)]                    # 확인을 누르기 전에 목록이 바뀜
+    res = sa.execute(token)
+    assert res["code"] == 403 and res["ok"] is False and "할 일:" in res["error"]
+    assert cloud.sent("DELETE") == [] and log_rows(tmp_path) == []
+    token = sa.propose("pod_delete", {"pod_id": "abc123"})
+    assert token["code"] == 403
+
+
+def test_execute_pod_delete_refuses_pod_gone_from_list(srv, tmp_path):
+    cloud = FakeCloud(pods=[pod_of("abc123", "to21-b-qwen36", 30)])
+    sa = make(srv, tmp_path, cloud=cloud)
+    token = sa.propose("pod_delete", {"pod_id": "abc123"})["token"]
+    cloud.pods = []                                                         # 주인을 확인할 수 없으면 지우지 않는다
+    res = sa.execute(token)
+    assert res["code"] == 404 and cloud.sent("DELETE") == []
+
+
+def test_model_401_is_model_key_not_runpod_key(srv, tmp_path):
+    def opener(req, timeout=None):
+        raise urllib.error.HTTPError(req.full_url, 401, "Unauthorized", {}, None)
+    st = srv.model_status("qwen36_35b_runpod", MODELS_CFG["models"]["qwen36_35b_runpod"], ENV, opener=opener)
+    assert st["error"] == "HTTP 401"
+    assert "모델 서버가 키를 거절했습니다" in st["friendly"]["message"] and "RUNPOD_API_KEY" not in st["friendly"]["message"]
+    no_secret(st)
+
+
+def test_reload_env_applies_file_and_returns_names_only(srv, tmp_path):
+    f = tmp_path / ".env"
+    first = {"RUNPOD_API_KEY": FAKE_KEY, "RUNPOD_VLLM_API_KEY": OLD_VLLM_KEY, "RNGD_API_KEY": RNGD_KEY,
+             "RNGD_SSH": "-p 2222 fakeuser@fakehost"}
+    f.write_text(env_text(first), encoding="utf-8")
+    env = {**first, "PATH": "/가상/bin"}                                     # 셸에서 온 이름은 .env에서 빠져도 지우지 않는다
+    sa = make(srv, tmp_path, env=env, env_file=f)
+    second = (f"RUNPOD_API_KEY={FAKE_KEY}\nRUNPOD_VLLM_API_KEY=\"{NEW_VLLM_KEY}\"\n"
+              "RNGD_SSH=-p 2222 fakeuser@fakehost\n=값만\n")
+    f.write_text(second, encoding="utf-8")
+    res = sa.reload_env()
+    assert res["ok"] is True
+    assert env["RUNPOD_VLLM_API_KEY"] == NEW_VLLM_KEY and "RNGD_API_KEY" not in env and env["PATH"] == "/가상/bin"
+    assert res["changed"] == ["RUNPOD_VLLM_API_KEY"] and res["removed"] == ["RNGD_API_KEY"]
+    assert sorted(res["names"]) == ["RNGD_SSH", "RUNPOD_API_KEY", "RUNPOD_VLLM_API_KEY"]
+    assert [p["line"] for p in res["problems"]] == [4] and res["problems"][0]["message"] and res["problems"][0]["fix"]
+    assert f.read_text(encoding="utf-8") == second                          # 앱은 .env를 읽기만 한다
+    no_secret(res, extra=(NEW_VLLM_KEY, "fakeuser@fakehost", "값만"))
+    again = sa.reload_env()                                                 # 같은 파일을 다시 읽으면 바뀐 것이 없다
+    assert again["changed"] == [] and again["removed"] == []
+
+
+def test_reload_env_feeds_jobs_and_status(srv, pod, tmp_path):
+    f = tmp_path / ".env"
+    f.write_text(env_text(ENV), encoding="utf-8")
+    env = dict(ENV)
+    sa, cloud, watch, prop, res, key = create(srv, pod, tmp_path, env=env, env_file=f)
+    assert sa.status()["env_problems"] == []
+    f.write_text(env_text({**ENV, "RUNPOD_VLLM_API_KEY": NEW_VLLM_KEY}) + "=값만\n", encoding="utf-8")
+    sa.reload_env()
+    assert sa.job_env()["RUNPOD_VLLM_API_KEY"] == NEW_VLLM_KEY
+    st = sa.status()
+    assert [p["line"] for p in st["env_problems"]] == [len(ENV) + 1]
+    no_secret(st, extra=(NEW_VLLM_KEY, "값만"))
+
+
+def test_reload_env_without_file(srv, tmp_path):
+    sa = make(srv, tmp_path)
+    res = sa.reload_env()
+    assert res["ok"] is False and res["error"]
+    assert sa.status()["env_problems"] == []
+    missing = make(srv, tmp_path, env=dict(ENV), env_file=tmp_path / "없음.env")
+    res = missing.reload_env()                                              # 파일이 없으면 이름이 없다(셸 값은 그대로)
+    assert res["ok"] is True and res["names"] == [] and res["removed"] == []
+
+
+def test_read_env_file_gives_values_and_bad_lines(srv, tmp_path):
+    f = tmp_path / ".env"
+    f.write_text("# 설명\nA=1\n=값만\nB=\"두 낱말\"\nC\n", encoding="utf-8")
+    assert srv.read_env_file(f) == ({"A": "1", "B": "두 낱말"}, [3])
+    assert srv.read_env_file(tmp_path / "없음") == ({}, [])
+
+
+def test_route_reload_env(srv, app, bj, where, tmp_path):
+    f = tmp_path / ".env"
+    f.write_text(env_text({**ENV, "RUNPOD_VLLM_API_KEY": NEW_VLLM_KEY}), encoding="utf-8")
+    env = dict(ENV)
+    ctx = ctx_of(app, where, manager(bj, where), servers=make(srv, tmp_path, env=env, env_file=f))
+    code, data = call(app, ctx, "POST", "/api/servers/reload_env")
+    assert code == 200 and data["ok"] is True and data["changed"] == ["RUNPOD_VLLM_API_KEY"]
+    assert env["RUNPOD_VLLM_API_KEY"] == NEW_VLLM_KEY
+    assert call(app, ctx, "POST", "/api/servers/reload_env", {})[0] == 200
+    no_secret(data, extra=(NEW_VLLM_KEY,))
+    off = ctx_of(app, where, manager(bj, where))
+    assert call(app, off, "POST", "/api/servers/reload_env")[0] == 503

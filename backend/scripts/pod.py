@@ -5,6 +5,7 @@ python scripts/pod.py list | volumes | get <id> | delete <id> | create --start-c
 import argparse
 import json
 import os
+import re
 import urllib.error
 import urllib.request
 from datetime import datetime, timezone
@@ -18,7 +19,10 @@ load_dotenv()
 
 API = "https://rest.runpod.io/v1"
 USER_AGENT = "to21-b-pod/1.0"   # 없으면 403이 난다 (10/28 확인)
-POD_FIELDS = ("id", "name", "desiredStatus", "costPerHr", "imageName", "gpuCount", "lastStatusChange")
+POD_FIELDS = ("id", "name", "desiredStatus", "costPerHr", "imageName", "gpuCount", "lastStatusChange", "lastStartedAt")
+# lastStatusChange의 JS 날짜 글. 예: "Rented by User: Fri Jul 12 2024 15:14:40 GMT-0400 (Eastern Daylight Time)"
+_JS_DATE = re.compile(r"\b[A-Z][a-z]{2} ([A-Z][a-z]{2}) (\d{1,2}) (\d{4}) (\d{2}):(\d{2}):(\d{2}) GMT([+-]\d{4})")
+_MONTHS = ("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
 
 
 def api_key(env: Mapping[str, str] | None = None) -> str:
@@ -75,9 +79,18 @@ def pod_url(pod_id) -> str:
 
 
 def _parse_time(s) -> datetime | None:
+    """ISO(끝의 Z 포함), "2024-07-12 19:14:40 +0000 UTC", JS 날짜 글(앞말 있어도 됨)을 받는다. 못 읽으면 None."""
     if not s:
         return None
     s = str(s).strip()
+    m = _JS_DATE.search(s)
+    if m and m[1] in _MONTHS:                         # 달 이름은 영어 고정이라 strptime(%b, 로캘을 탄다)을 쓰지 않는다
+        mon, day, year, hh, mm, ss, tz = m.groups()
+        try:
+            return datetime(int(year), _MONTHS.index(mon) + 1, int(day), int(hh), int(mm), int(ss),
+                            tzinfo=datetime.strptime(tz, "%z").tzinfo)
+        except ValueError:
+            return None
     if s.endswith(" UTC"):
         s = s[:-4]
     for fmt in ("%Y-%m-%d %H:%M:%S.%f %z", "%Y-%m-%d %H:%M:%S %z"):
@@ -92,14 +105,26 @@ def _parse_time(s) -> datetime | None:
     return t if t.tzinfo else t.replace(tzinfo=timezone.utc)
 
 
+def _cost(v) -> float | None:
+    """costPerHr는 숫자나 글자("0.74")로 온다."""
+    try:
+        return float(v) if v is not None else None
+    except (TypeError, ValueError):
+        return None
+
+
 def brief(pod: dict, *, now: datetime | None = None) -> dict:
+    """Pod 요약. 켜진 시각은 lastStartedAt을 먼저, 못 읽으면 lastStatusChange. uptime_s(초)·cost_est(=est_cost)는 시각을 못 읽으면 None."""
     now = now or datetime.now(timezone.utc)
-    cost = pod.get("costPerHr")
-    started = _parse_time(pod.get("lastStatusChange"))
+    cost = _cost(pod.get("costPerHr"))
+    raw = next((pod.get(k) for k in ("lastStartedAt", "lastStatusChange") if _parse_time(pod.get(k))), None)
+    started = _parse_time(raw)
+    uptime = max(0, int((now - started).total_seconds())) if started else None
     minutes = round((now - started).total_seconds() / 60, 1) if started else None
     est = round(cost * minutes / 60, 2) if cost is not None and minutes is not None else None
     return {"id": pod.get("id"), "name": pod.get("name"), "status": pod.get("desiredStatus"), "cost_per_hr": cost,
-            "started": pod.get("lastStatusChange"), "minutes": minutes, "est_cost": est}
+            "started": raw if started else pod.get("lastStatusChange"), "minutes": minutes, "est_cost": est,
+            "uptime_s": uptime, "cost_est": est}
 
 
 def main(argv=None) -> None:

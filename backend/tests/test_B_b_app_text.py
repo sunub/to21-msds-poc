@@ -585,6 +585,34 @@ def test_friendly_error_first_matching_rule_wins(text, raw, expected):
     assert expected in text.friendly_error("env", raw, {"base_url": "VLLM_BASE_URL"})["message"]
 
 
+@pytest.mark.parametrize("raw", ["HTTP 401", "HTTP 401: URLError"])
+def test_friendly_model_401_is_model_server_key(text, raw):
+    result = text.friendly_error("model", raw)
+    assert result["message"] == "모델 서버가 키를 거절했습니다."
+    assert "RUNPOD_VLLM_API_KEY" in result["fix"] and "RNGD_API_KEY" in result["fix"] and "Pod를 다시 만드세요" in result["fix"]
+    assert "관리 키" not in result["message"] and result["raw"] == raw
+
+
+def test_friendly_runpod_401_unchanged(text):
+    raw = "RunPod HTTP 401: 가상 거절"
+    assert text.friendly_error("runpod", raw) == {"message": "RunPod 관리 키(RUNPOD_API_KEY)가 거절됐습니다.",
+                                                  "fix": "RunPod 설정 화면에서 키를 다시 만들어 `.env`에 넣으세요.",
+                                                  "raw": raw}
+
+
+def test_env_problem_has_line_and_no_value(text):
+    item = text.env_problem(4)
+    assert item["line"] == 4 and "4번째 줄" in item["message"] and "설정 다시 읽기" in item["fix"]
+    assert set(item) == {"line", "message", "fix"}
+
+
+def test_server_refusal_texts(text):
+    assert "RUNPOD_VLLM_API_KEY" in text.SERVER_TEXT["pod_key_missing"]
+    assert "할 일:" in text.SERVER_TEXT["pod_key_missing"] and "설정 다시 읽기" in text.SERVER_TEXT["pod_key_missing"]
+    assert "만들지 않은 Pod" in text.SERVER_TEXT["pod_not_ours"] and "할 일:" in text.SERVER_TEXT["pod_not_ours"]
+    assert text.SERVER_TEXT["env_file_unknown"]
+
+
 def test_friendly_server_ui_copy(text):
     copy = text.server_ui_text()
     assert copy["guide"]["advanced_off"] == "고급을 켜고 서버 탭에서 모델을 올리세요"
