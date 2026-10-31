@@ -365,6 +365,383 @@ UI_TEXT: dict = {'nav': {'app_name': '화학 안전문서 AI 결과 검토',
  'compare': {'table': {'open': '비교표 만들기'}},
  'jobs': {'trial': {'open_batch': '여러 문서 시험하기'}}}
 
+# S01 승인 글. COPY의 가짜 예시는 데이터로 사용하지 않는다.
+UI_TEXT["score"] = {'criteria': {'hint': '23가지 기준의 점수와 목표를 확인하세요.',
+              'expand': '점수가 깎인 곳 모두 보기 · 23가지 기준',
+              'title': '점수를 매기는 기준 23개',
+              'below_count': '목표 아래인 항목은 {count}개입니다.',
+              'filter_below': '목표 아래 {count}개 먼저 보기',
+              'show_all': '모든 항목 23개 보기 · 숨긴 항목 없음',
+              'loss': '깎인 점수',
+              'method': '측정 방법',
+              'met': '목표 이상',
+              'method_msds': '자료를 몇 건으로 나눴는지 비교',
+              'below': '목표 아래',
+              'method_management': '번호와 날짜와 개정 횟수 비교',
+              'method_product': '이름과 긴급 전화 비교',
+              'method_signal': '위험·경고 같은 말 비교',
+              'method_pictogram': '선택한 위험 그림 종류 비교',
+              'method_hazard': '위험 문구 번호의 목록 비교',
+              'method_precaution': '예방 문구 번호의 목록 비교',
+              'method_classification': '위험 종류와 단계의 짝 비교',
+              'method_components': '성분 식별 번호로 목록 비교',
+              'method_component_fields': '성분별 이름과 국내 번호 비교',
+              'method_content': '부등호와 수치와 단위 비교',
+              'method_exposure': '성분과 기준 종류와 수치 비교',
+              'method_physchem_required': '끓는점 등 주요 성질 비교',
+              'method_physchem_other': '색과 냄새 등 나머지 성질 비교',
+              'method_acute': '먹음·피부·흡입 독성 비교',
+              'method_toxicity_other': '자극과 과민 반응 비교',
+              'method_cmr': '세 종류 독성의 분류 비교',
+              'method_ecology': '생물 독성과 분해성 비교',
+              'method_domestic': '규제 항목과 해당 여부 비교',
+              'method_regulation_concentration': '규제가 적용되는 농도 비교',
+              'method_foreign': '해외 규제 항목과 해당 여부 비교',
+              'method_transport': '운송 번호와 위험 등급 비교',
+              'method_narrative': '응급조치 등 문장의 글자 유사도 비교',
+              'msds': '문서 안 안전자료 수',
+              'msds_original': '(MSDS 건수)',
+              'management': '작성일과 개정 정보',
+              'management_original': '(관리정보)',
+              'product': '제품과 회사 정보',
+              'product_original': '(제품명)',
+              'signal': '위험을 알리는 말',
+              'signal_original': '(신호어)',
+              'pictogram': '위험 표시 그림',
+              'pictogram_original': '(그림문자)',
+              'hazard': '위험 문구 번호',
+              'hazard_original': '(H 코드)',
+              'precaution': '예방 문구 번호',
+              'precaution_original': '(P 코드)',
+              'classification': '위험의 종류와 정도',
+              'classification_original': '(유해성 분류)',
+              'components': '들어 있는 성분 목록',
+              'components_original': '(구성성분(CAS))',
+              'component_fields': '성분 이름과 번호',
+              'component_fields_original': '(구성성분 필드)',
+              'content': '성분이 들어 있는 양',
+              'content_original': '(함유량)',
+              'exposure': '작업장 공기 중 허용 농도',
+              'exposure_original': '(8번 부분 · 노출기준)',
+              'physchem_required': '주요 물리·화학 성질',
+              'physchem_required_original': '(9번 부분 필수 물성)',
+              'physchem_other': '그 밖의 물리·화학 성질',
+              'physchem_other_original': '(9번 부분 기타 물성)',
+              'acute': '짧은 노출의 독성',
+              'acute_original': '(11번 부분 급성독성)',
+              'toxicity_other': '그 밖의 독성',
+              'toxicity_other_original': '(11번 부분 기타 독성)',
+              'cmr': '암·유전·생식 관련 독성',
+              'cmr_original': '(11번 부분 CMR)',
+              'ecology': '환경에 미치는 영향',
+              'ecology_original': '(12번 부분 생태)',
+              'domestic': '국내 규제 해당 여부',
+              'domestic_original': '(15번 부분 국내 규제)',
+              'regulation_concentration': '국내 규제의 기준 농도',
+              'regulation_concentration_original': '(15번 부분 국내 규제 기준농도)',
+              'foreign': '해외 규제 해당 여부',
+              'foreign_original': '(15번 부분 해외)',
+              'transport': '운송에 필요한 정보',
+              'transport_original': '(14번 부분 운송)',
+              'narrative': '문장으로 쓰인 설명',
+              'narrative_original': '(서술형)',
+              'hidden': '목표 아래가 아닌 항목 {count}개를 숨겼습니다.',
+              'score': '점수 {score}점 · 목표 {target}점',
+              'weight': '{level} · 무게 {weight}'},
+ 'history': {'hint': '최근 결과와 지난 최고점을 구분해서 보세요.',
+             'expand': '실행 이력 · {count}개 결과 중 최고 {best}점',
+             'caption': '완료 시각 순 점수 · 목표 점수 {line}점',
+             'a11y': '{date} {first_score}점, {middle_day}일 {middle_score}점과 최고 {best}점, {latest_day}일 최근 '
+                     '{latest_score}점. 모두 목표 점수 {line}점 아래입니다.',
+             'model_date': '{month}/{day} · {model}',
+             'best_point': '{score} · 최고',
+             'latest_point': '{score} · 최근',
+             'title': '지난 결과',
+             'latest_meaning': '현재 화면은 최고 점수가 아니라 가장 늦게 끝난 결과를 보여 줍니다.',
+             'finished': '끝난 시각',
+             'score': '점수 / {maximum}',
+             'current': '현재 · 가장 최근',
+             'best': '지난 최고점',
+             'previous': '이전 결과',
+             'comparable': '네 결과는 같은 문서 {count}건과 같은 정답 초안으로 비교했습니다.',
+             'target': '목표 점수은 모두 {line}점입니다.',
+             'exclude_answer': '정답을 만들기 위한 실행은 최고점과 추세에서 제외합니다.',
+             'answer_records': '정답 생성 기록도 아래 목록에서 따로 열 수 있습니다.',
+             'select_record': '조회할 기록',
+             'run_option': '문서 처리 · {time} · {score}점',
+             'answer_option': '정답 생성 · {time} · 비교 대상 아님',
+             'select_a': '먼저 비교할 결과 A',
+             'option': '{time} · {score}점',
+             'select_b': '나중에 비교할 결과 B',
+             'selection_order': '표의 선택 순서가 A와 B의 순서입니다.',
+             'compare': '선택한 두 결과 비교하기',
+             'clear': '선택 해제하기',
+             'point': '{run} · {score}점 · {model} · {time}',
+             'selected': '{order} 선택됨',
+             'plotted': '점수 기록 {count}개를 표시합니다.',
+             'current_record': '지금 보는 결과',
+             'started': '시작 시각'},
+ 'documents': {'hint': '문서별 점수와 AI 요청 기록을 확인하세요.',
+               'expand': '문서와 호출 · 개발용 {count}건 완료',
+               'title': '문서별 점수와 AI 요청 기록',
+               'completed': '개발용 {count}건을 완료했습니다.',
+               'time_target': '처리 시간의 목표는 문서 한 건당 {seconds}초입니다.',
+               'must_below': '목표 아래 필수 항목',
+               'duration': '처리 시간',
+               'time_state': '시간 상태',
+               'recorded': '기록 있음',
+               'within_time': '{minutes}분 목표 이내',
+               'time_unknown': '시간 비교 불가'},
+ 'rows': {'hint': '표에 담긴 행 수를 정답과 비교하세요.',
+          'expand': '표 행 수 · {count}종을 정답과 비교',
+          'title': '표에 담긴 행 수',
+          'meaning': '같은 종류의 값이 몇 줄씩 들어 있는지 비교합니다.',
+          'kind': '표 종류',
+          'prediction': 'AI 결과',
+          'answer': '정답 초안',
+          'ratio': '정답 대비 비율',
+          'physchem': '물리·화학 성질',
+          'cmr': '암·유전·생식 독성',
+          'intl_class': '국제 위험 분류',
+          'not_applicable': '해당 없음',
+          'components': '성분',
+          'exposure': '노출기준',
+          'toxicity': '독성',
+          'ecology': '생태',
+          'regulations': '규제'},
+ 'summary': {'headline_below': '목표 점수 {line}점보다 {gap}점 낮습니다.',
+             'headline_met': '목표 점수 {line}점에 도달했습니다.',
+             'value': '전체 점수는 {score}점입니다.',
+             'must_some': '23개 점수 기준 중 꼭 맞아야 하는 {total}개가 필수 기준입니다. {met}개가 각자의 목표를 채웠습니다.',
+             'must_all': '필수 기준 {total}개가 모두 각자의 목표에 닿았습니다.',
+             'unscored': '이 결과는 점수를 계산하지 않았습니다.',
+             'unscored_todo': '할 일: 비교할 AI 결과와 정답이 있는지 확인하세요.',
+             'drop': '{item}은 {score}점입니다. 목표는 {goal}점입니다. 가장 많은 문제 유형은 {cause} {count}건입니다.',
+             'next_trial': '할 일: {section}번 부분을 다시 시험하세요.',
+             'next_source': '할 일: {item}의 문제 값을 원문과 맞춰 보세요.',
+             'next_compare': '두 목표에 모두 도달했습니다. 할 일: 두 결과를 비교해 반복할 때의 차이를 보세요.',
+             'next_items': '할 일: 모든 기준의 점수와 목표를 확인하세요.',
+             'counts_meaning': '{counts}건은 이 기준에서 찾은 문제 값 수입니다. 값 하나가 몇 점인지는 따로 계산하지 않습니다.',
+             'loss_meaning': '100점에서 {total_loss}점이 깎여 {score}점입니다. 그중 {item_loss}점이 이 기준에서 깎였습니다. 23개 기준 중 '
+                             '가장 많습니다.',
+             'history': '저장된 결과 {count}개 중 최고점은 {score}점입니다. 해당 결과는 {run}입니다.',
+             'docs': '문서 {count}건입니다. {score_detail} {time_detail}',
+             'lowest': '가장 낮은 점수는 {doc}의 {score}점입니다.',
+             'slowest': '가장 오래 걸린 문서는 {doc}입니다. {seconds}초 걸렸습니다.',
+             'no_scores': '문서별 점수 기록이 없습니다.',
+             'no_times': '문서별 시간 기록이 없습니다.',
+             'grid': 'AI 요청 {count}개의 상태입니다.',
+             'grid_count': '{state} {count}개',
+             'rows': '표 {count}개 중 정답보다 행이 적은 표는 {short}개입니다.',
+             'rows_shortest': '행이 가장 부족한 표는 {table}입니다. AI 결과는 {pred}행입니다. 정답은 {answer}행입니다.',
+             'headline_model': '{model}의 최근 점수는 목표보다 낮습니다.',
+             'scope': '{model} · 개발용 문서 {count}건의 점수',
+             'denominator': '/ 100점',
+             'gap_short': '목표 {line}점보다 {gap}점 낮음',
+             'target': '목표 점수 {line}점',
+             'below_best': '지난 최고점 {best}점보다 {gap}점 낮습니다.',
+             'finished': '{time}에 끝난 가장 최근 결과입니다.',
+             'top_problem_exposure': '가장 큰 문제는 공기 속 물질의 허용량(허용 농도)입니다.',
+             'exposure_section': '8번 부분 · 작업장 공기 기준(노출기준)',
+             'back': '최근 결과로 돌아가기',
+             'must_progress': '필수 {total}개 중 목표 달성 {met}개',
+             'target_line': '목표선 {line}점',
+             'top_problem': '가장 큰 문제는 {item}입니다.',
+             'open_source': '문제의 원문 보기',
+             'unlinked': '연결할 문서나 부분을 확인하지 못했습니다. 항목별 문제 기록을 확인하세요.'},
+ 'tables': {'components': '성분 (3번 부분)',
+            'exposure_limits': '노출기준 (8번 부분)',
+            'physchem': '물리·화학 성질 (9번 부분)',
+            'toxicity': '독성 (11번 부분)',
+            'cmr': '발암성 등 CMR (11번 부분)',
+            'ecotox': '생태 독성 (12번 부분)',
+            'regulations': '규제 (15번 부분)',
+            'intl_class': '국제 분류 (15번 부분)',
+            'extras': '표 밖에 남은 값'},
+ 'flow': {'a11y': '현재 작업의 흐름', 'result': '1 결과 보기', 'cause': '2 원인 찾기', 'retest': '3 다시 시험'},
+ 'problem': {'counts': {'missing': '정답에 있는 값을 못 뽑음 {count}건',
+                        'made': '정답에 없는 값을 만듦 {count}건',
+                        'wrong': '정답과 다른 값을 뽑음 {count}건'},
+             'open_wrong': '틀린 값 {count}건의 원문 보기',
+             'evidence_hint': 'AI가 적은 원문 줄이 있어 바로 확인할 수 있는 틀린 값부터 봅니다. 못 뽑은 {count}건의 추정 줄은 목록에서 봅니다.',
+             'scope': '문제 종류와 기록 범위',
+             'missing_meaning': '못 뽑음: 정답에는 있고 AI 결과에는 없는 값',
+             'made_meaning': '만듦: 정답에는 없고 AI 결과에는 있는 값',
+             'wrong_meaning': '틀림: 같은 칸의 값이 정답과 다름',
+             'answer_warning': '정답 자체의 오류 가능성은 원문과 함께 검토합니다.',
+             'section_count': '{section}번 부분 문제는 총 {count}건입니다.',
+             'linked_count': '연결된 근거의 대표 {count}건을 먼저 보여 줍니다.',
+             'other_counts': '나머지 {count}건은 못 뽑음 {missing}건과 없는 값을 만듦 {made}건입니다.',
+             'unrecorded': '문제 상세를 수집하지 않은 항목은 ‘기록 없음’입니다.',
+             'checked_empty': '확인해서 문제가 없던 항목은 ‘0건’입니다.',
+             'answer_gap': '현재 정답 초안에서 확인할 빈 곳: 예시 {component}의 출처 칸 {count}개.',
+             'found_at': '발견 시각: {time}.',
+             'nonempty_score': '해당 항목의 빈 행 제외 보조 점수는 {score}%입니다.',
+             'open_remaining': '나머지 문제 {count}건 모두 보기',
+             'kind': '문제 종류',
+             'record': '기록된 내용',
+             'missing': '못 뽑음',
+             'missing_value': '{component}의 기준 값이 결과에 없음',
+             'made': '없는 값을 만듦',
+             'made_value': '원문에 없는 {concentration} mg/m³를 채움',
+             'open_linked': '연결된 문제 값 보기',
+             'shown': '문제 {total}건 중 {shown}건을 표시합니다.',
+             'show_more': '문제 기록 더 보기',
+             'empty': '이 항목에 남긴 문제 상세가 없습니다.',
+             'cause': '가장 많은 문제 유형: {cause}'},
+ 'calculation': {'title': '점수 계산 방법',
+                 'weighted': '중요도를 반영한 전체 점수(가중 종합)입니다.',
+                 'must': '꼭 맞춰야 함(필수)',
+                 'weight_total': '무게 합은 61입니다.',
+                 'formula': '손실 = 무게 × (1 − 기준 점수) ÷ 61 × 100',
+                 'exposure_example': '허용 농도: 3 × (1 − 0.40) ÷ 61 × 100 = 약 2.95점.',
+                 'total_loss': '총손실은 반올림 전 합으로 계산한 {loss}점입니다.',
+                 'rounded_sum': '각 행을 따로 반올림한 합은 {loss}점입니다.',
+                 'counts_not_points': '문제 값 {missing}/{made}/{wrong}건을 점수로 환산하지 않습니다.',
+                 'weight': '{level} 기준 {count}개 · 무게 {weight}',
+                 'loss_formula': '손실 = 무게 × (1 − 기준 점수) ÷ 점수가 있는 항목의 무게 합 × 100',
+                 'weight_basis': '점수가 있는 항목의 무게 합: {weight}'},
+ 'calls': {'title': '문서 안 첫 번째 안전자료 · 16개 부분의 AI 요청',
+           'section': '{section}번 부분',
+           'multiple_msds': '한 파일에 안전자료가 여럿이면 자료 순번으로 나눠 표시합니다.',
+           'example_scope': '이 예시는 첫 번째 안전자료의 기록입니다.',
+           'legend': '요청 상태의 뜻',
+           'parsed': 'AI의 답을 값으로 읽음',
+           'reextract': '다시 뽑음',
+           'reextract_meaning': '첫 답의 문제를 알려 다시 요청',
+           'output_limit': '출력 한도',
+           'output_limit_meaning': '답변 길이 제한에 도달',
+           'failed': '요청을 완료하지 못함',
+           'unknown': '성공 여부를 확인할 기록이 없음',
+           'expand_section': '{section}번 부분 요청 자세히',
+           'attempts': '시도 {count}회 · {seconds}초 · 표 형식으로 요청했습니다.',
+           'not_limited': '출력 길이 제한에 걸리지 않았습니다.',
+           'failure_count': '실패한 요청은 {count}개입니다.',
+           'slow_threshold': '시간이 {seconds}초를 넘으면 느린 처리로 표시합니다.',
+           'no_time_inference': '시간 기록이 없으면 초과라고 추정하지 않습니다.',
+           'scope': '{doc} · {number}번째 안전자료',
+           'attempt_info': '시도 {count}회 · {seconds}초',
+           'mode': '요청 방식: {mode}',
+           'limit_reason': '출력 한도 원인: {reason}'},
+ 'conditions': {'expand': '처리 조건과 보조 점수 보기',
+                'value': '저장된 값',
+                'run_name': '실행 이름',
+                'raw_name': '원래 이름',
+                'prompt': 'AI에게 시킨 일(지시문)',
+                'prompt_version': '{version}번째 버전 ·',
+                'pages': '원문 글자 묶음',
+                'previous': '이전 개발 자료 ·',
+                'score_scope': '점수를 매긴 범위',
+                'score_counts': '{total}건 중 {scored}건. 정답 없음 {missing}건. 제외 {excluded}건.',
+                'kind': '실행 분류',
+                'comparable': '문서 여러 건 처리. 비교 가능.',
+                'nonempty_score': '값 없는 행을 뺀 보조 점수는 {score}점입니다.',
+                'nonempty_gain': '원래 점수보다 {gap}점 높습니다.',
+                'keep_components': '성분 목록은 다른 표에서 참조하므로 제외하지 않습니다.',
+                'exclude_answer': '정답을 만드는 실행은 최고점과 추세에서 제외합니다.',
+                'progress': '문서 {total}건 중 {done}건 완료',
+                'running': '처리 중',
+                'nonempty_difference': '원래 점수와의 차이: {gap}점',
+                'nonempty_meaning': '정답과 결과 양쪽에서 자료없음·해당없음·비해당·미기재 행을 빼고 같은 채점기로 다시 잰 보조 점수입니다.'},
+ 'first': {'hint': '처음이라면 결과 읽기부터 시작하세요.', 'open_guide': '처음 사용 안내 열기'},
+ 'missing_only': {'fact': '이 변형에는 못 뽑은 값만 있습니다.',
+                  'open_first': '못 뽑은 첫 값의 원문 보기',
+                  'estimated': '못 뽑은 값은 내용이 맞는 줄을 추정으로 찾아 보여 줍니다.',
+                  'section_count': '{section}번 부분 문제는 못 뽑은 값 {count}건입니다.',
+                  'first': '첫 누락 값의 추정 줄을 먼저 보여 줍니다.',
+                  'all_available': '못 뽑은 {count}건은 모두 목록에서 열 수 있습니다.',
+                  'open_all': '못 뽑은 문제 {count}건 모두 보기'},
+ 'empty': {'title': '이 문서 묶음으로 만든 결과가 없습니다.',
+           'state': '결과 없음',
+           'fact': '현재 선택한 개발 자료에는 저장된 실행이 없습니다.',
+           'prepare': '시험 준비하기',
+           'filters': '결과 필터 확인하기',
+           'set': '입력 묶음은 이전 개발 자료 {version}판입니다.',
+           'no_mixing': '다른 묶음의 점수는 여기에 섞지 않습니다.',
+           'change_set': '문서 묶음 바꾸기'},
+ 'partial': {'title': '실행 기록 {total}개 중 {failed}개를 읽지 못했습니다.',
+             'state': '일부 읽기 실패',
+             'todo': '읽은 결과만 표시했습니다. 할 일: 기록을 다시 읽으세요.',
+             'reload': '다시 읽기'},
+ 'key_failed': {'title': '새 정답지로 점수를 읽지 못했습니다.',
+                'state': '점수 확인 실패',
+                'todo': '이전 점수는 숨겼습니다. 할 일: 선택한 사람 확인 정답을 다시 읽으세요.',
+                'reload': '정답지 다시 확인하기'},
+ 'no_problem': {'title': '총점에서 깎인 점수가 없습니다.',
+                'state': '열어 볼 문제 없음',
+                'journey': '문제의 근거를 확인하는 갈래 1은 여기서 끝낼 수 없습니다.',
+                'open_items': '항목별 점수 보기',
+                'no_fallback': '가장 큰 문제는 없음으로 표시합니다. 다른 값을 대신 열지 않습니다.'},
+ 'waiting': {'company': 'AI를 켜는 동안 저장된 결과를 읽을 수 있습니다.',
+             'back_company': '준비 중인 모델 상태로 돌아가기',
+             'target': '시험 대상: {doc} · {section}번 부분.',
+             'rented': '빌린 서버가 준비되는 동안 저장된 결과를 읽습니다.',
+             'back_rented': '서버 상태와 비용으로 돌아가기',
+             'cost': '시간당 약 ${cost_per_hour}의 요금이 나갑니다(예시).'},
+ 'basis': {'label': '{key} 기준 · 채점 문서 {count}건', 'fallback': '정답 초안(실버) 기준'},
+ 'loading': {'scoring': '실행 {count}개를 채점 중입니다. 처음에는 수십 초 걸릴 수 있습니다.'},
+ 'load_failed': {'fact': '실행 결과를 읽지 못했습니다.', 'todo': '할 일: 기록을 다시 읽으세요. 계속 실패하면 앱을 켠 터미널의 오류를 확인하세요.'},
+ 'selection': {'not_comparable': '전체 실행 비교 대상 아님', 'unknown': '분류 확인 안 됨', 'other_set': '다른 문서 묶음'},
+ 'gaps': {'title': '정답지에서 확인할 빈 곳',
+          'none': '이 정답지에 기록된 빈 곳이 없습니다.',
+          'source': '출처: {source}',
+          'count': '기록 {count}건'},
+ 'item_names': {'MSDS 건수': '문서 안 안전자료 수',
+                '관리정보': '작성일과 개정 정보',
+                '제품명': '제품과 회사 정보',
+                '신호어': '위험을 알리는 말',
+                '그림문자': '위험 표시 그림',
+                'H 코드': '위험 문구 번호',
+                'P 코드': '예방 문구 번호',
+                '유해성 분류': '위험의 종류와 정도',
+                '구성성분(CAS)': '들어 있는 성분 목록',
+                '구성성분 필드': '성분 이름과 번호',
+                '함유량': '성분이 들어 있는 양',
+                '8항 노출기준': '작업장 공기 중 허용 농도',
+                '9항 필수 물성': '주요 물리·화학 성질',
+                '9항 기타 물성': '그 밖의 물리·화학 성질',
+                '11항 급성독성': '짧은 노출의 독성',
+                '11항 기타 독성': '그 밖의 독성',
+                '11항 CMR': '암·유전·생식 관련 독성',
+                '12항 생태': '환경에 미치는 영향',
+                '15항 국내 규제': '국내 규제 해당 여부',
+                '15항 국내 규제 기준농도': '국내 규제의 기준 농도',
+                '15항 해외': '해외 규제 해당 여부',
+                '14항 운송': '운송에 필요한 정보',
+                '서술형': '문장으로 쓰인 설명'},
+ 'item_methods': {'MSDS 건수': '자료를 몇 건으로 나눴는지 비교',
+                  '관리정보': '번호와 날짜와 개정 횟수 비교',
+                  '제품명': '이름과 긴급 전화 비교',
+                  '신호어': '위험·경고 같은 말 비교',
+                  '그림문자': '선택한 위험 그림 종류 비교',
+                  'H 코드': '위험 문구 번호의 목록 비교',
+                  'P 코드': '예방 문구 번호의 목록 비교',
+                  '유해성 분류': '위험 종류와 단계의 짝 비교',
+                  '구성성분(CAS)': '성분 식별 번호로 목록 비교',
+                  '구성성분 필드': '성분별 이름과 국내 번호 비교',
+                  '함유량': '부등호와 수치와 단위 비교',
+                  '8항 노출기준': '성분과 기준 종류와 수치 비교',
+                  '9항 필수 물성': '끓는점 등 주요 성질 비교',
+                  '9항 기타 물성': '색과 냄새 등 나머지 성질 비교',
+                  '11항 급성독성': '먹음·피부·흡입 독성 비교',
+                  '11항 기타 독성': '자극과 과민 반응 비교',
+                  '11항 CMR': '세 종류 독성의 분류 비교',
+                  '12항 생태': '생물 독성과 분해성 비교',
+                  '15항 국내 규제': '규제 항목과 해당 여부 비교',
+                  '15항 국내 규제 기준농도': '규제가 적용되는 농도 비교',
+                  '15항 해외': '해외 규제 항목과 해당 여부 비교',
+                  '14항 운송': '운송 번호와 위험 등급 비교',
+                  '서술형': '응급조치 등 문장의 글자 유사도 비교'},
+ 'cause_keys': {'missing': '빠뜨림', 'wrong': '틀림', 'made': '지어냄'},
+ 'cause_names': {'missing': '못 뽑음', 'wrong': '틀림', 'made': '없는 값을 만듦'}}
+UI_TEXT["jobs"]["kinds"] = {'dev10': '개발용 10건 시험',
+ 'single': '문서 한 건 시험',
+ 'probe': '일부 문서 시험',
+ 'silver': 'AI 정답 초안 만들기',
+ 'eval': '평가용 기록 · 열람 제한',
+ 'outside': '새 문서 시험 · 점수 없음',
+ 'models': '비교표'}
+
 COPY_EXCEPTIONS: dict[str, str] = {'common.expand': '공용 카드의 접힘 조작 이름이 COPY 공통 표에 없어 옛 동작 이름을 유지합니다.',
  'common.collapse': '공용 카드의 펼침 조작 이름이 COPY 공통 표에 없어 옛 동작 이름을 유지합니다.',
  'common.raw_error': '공통 오류 상세의 기존 이름을 유지합니다.',
@@ -372,6 +749,59 @@ COPY_EXCEPTIONS: dict[str, str] = {'common.expand': '공용 카드의 접힘 조
  'context.model.connected_count': '공통 연결 상태의 필수 모델 수와 이름에 대응하는 COPY 자리표시가 없습니다.',
  'context.model.checked_at': 'STRUCTURE가 요구한 최근 확인 시각의 공통 문구가 없습니다.',
  'context.unavailable': 'API가 값이나 시각을 주지 않을 때 알 수 없음을 표시합니다.'}
+
+COPY_EXCEPTIONS.update({'score.basis.label': '승인 구조의 동적 표시 또는 API 누락 상태에 대응하는 일반 문구가 COPY에 없어 보충했습니다.',
+ 'score.basis.fallback': '승인 구조의 동적 표시 또는 API 누락 상태에 대응하는 일반 문구가 COPY에 없어 보충했습니다.',
+ 'score.loading.scoring': '승인 구조의 동적 표시 또는 API 누락 상태에 대응하는 일반 문구가 COPY에 없어 보충했습니다.',
+ 'score.load_failed.fact': '승인 구조의 동적 표시 또는 API 누락 상태에 대응하는 일반 문구가 COPY에 없어 보충했습니다.',
+ 'score.load_failed.todo': '승인 구조의 동적 표시 또는 API 누락 상태에 대응하는 일반 문구가 COPY에 없어 보충했습니다.',
+ 'score.summary.must_progress': '승인 구조의 동적 표시 또는 API 누락 상태에 대응하는 일반 문구가 COPY에 없어 보충했습니다.',
+ 'score.summary.target_line': '승인 구조의 동적 표시 또는 API 누락 상태에 대응하는 일반 문구가 COPY에 없어 보충했습니다.',
+ 'score.summary.top_problem': '승인 구조의 동적 표시 또는 API 누락 상태에 대응하는 일반 문구가 COPY에 없어 보충했습니다.',
+ 'score.summary.open_source': '승인 구조의 동적 표시 또는 API 누락 상태에 대응하는 일반 문구가 COPY에 없어 보충했습니다.',
+ 'score.summary.unlinked': '승인 구조의 동적 표시 또는 API 누락 상태에 대응하는 일반 문구가 COPY에 없어 보충했습니다.',
+ 'score.criteria.hidden': '승인 구조의 동적 표시 또는 API 누락 상태에 대응하는 일반 문구가 COPY에 없어 보충했습니다.',
+ 'score.criteria.score': '승인 구조의 동적 표시 또는 API 누락 상태에 대응하는 일반 문구가 COPY에 없어 보충했습니다.',
+ 'score.criteria.weight': '승인 구조의 동적 표시 또는 API 누락 상태에 대응하는 일반 문구가 COPY에 없어 보충했습니다.',
+ 'score.problem.shown': '승인 구조의 동적 표시 또는 API 누락 상태에 대응하는 일반 문구가 COPY에 없어 보충했습니다.',
+ 'score.problem.show_more': '승인 구조의 동적 표시 또는 API 누락 상태에 대응하는 일반 문구가 COPY에 없어 보충했습니다.',
+ 'score.problem.empty': '승인 구조의 동적 표시 또는 API 누락 상태에 대응하는 일반 문구가 COPY에 없어 보충했습니다.',
+ 'score.problem.cause': '승인 구조의 동적 표시 또는 API 누락 상태에 대응하는 일반 문구가 COPY에 없어 보충했습니다.',
+ 'score.selection.not_comparable': '승인 구조의 동적 표시 또는 API 누락 상태에 대응하는 일반 문구가 COPY에 없어 보충했습니다.',
+ 'score.selection.unknown': '승인 구조의 동적 표시 또는 API 누락 상태에 대응하는 일반 문구가 COPY에 없어 보충했습니다.',
+ 'score.selection.other_set': '승인 구조의 동적 표시 또는 API 누락 상태에 대응하는 일반 문구가 COPY에 없어 보충했습니다.',
+ 'score.history.point': '승인 구조의 동적 표시 또는 API 누락 상태에 대응하는 일반 문구가 COPY에 없어 보충했습니다.',
+ 'score.history.selected': '승인 구조의 동적 표시 또는 API 누락 상태에 대응하는 일반 문구가 COPY에 없어 보충했습니다.',
+ 'score.history.plotted': '승인 구조의 동적 표시 또는 API 누락 상태에 대응하는 일반 문구가 COPY에 없어 보충했습니다.',
+ 'score.history.current_record': '승인 구조의 동적 표시 또는 API 누락 상태에 대응하는 일반 문구가 COPY에 없어 보충했습니다.',
+ 'score.history.started': '승인 구조의 동적 표시 또는 API 누락 상태에 대응하는 일반 문구가 COPY에 없어 보충했습니다.',
+ 'score.conditions.progress': '승인 구조의 동적 표시 또는 API 누락 상태에 대응하는 일반 문구가 COPY에 없어 보충했습니다.',
+ 'score.conditions.running': '승인 구조의 동적 표시 또는 API 누락 상태에 대응하는 일반 문구가 COPY에 없어 보충했습니다.',
+ 'score.conditions.nonempty_difference': '승인 구조의 동적 표시 또는 API 누락 상태에 대응하는 일반 문구가 COPY에 없어 보충했습니다.',
+ 'score.conditions.nonempty_meaning': '승인 구조의 동적 표시 또는 API 누락 상태에 대응하는 일반 문구가 COPY에 없어 보충했습니다.',
+ 'score.calls.scope': '승인 구조의 동적 표시 또는 API 누락 상태에 대응하는 일반 문구가 COPY에 없어 보충했습니다.',
+ 'score.calls.attempt_info': '승인 구조의 동적 표시 또는 API 누락 상태에 대응하는 일반 문구가 COPY에 없어 보충했습니다.',
+ 'score.calls.mode': '승인 구조의 동적 표시 또는 API 누락 상태에 대응하는 일반 문구가 COPY에 없어 보충했습니다.',
+ 'score.calls.limit_reason': '승인 구조의 동적 표시 또는 API 누락 상태에 대응하는 일반 문구가 COPY에 없어 보충했습니다.',
+ 'score.calculation.weight': '승인 구조의 동적 표시 또는 API 누락 상태에 대응하는 일반 문구가 COPY에 없어 보충했습니다.',
+ 'score.calculation.loss_formula': '승인 구조의 동적 표시 또는 API 누락 상태에 대응하는 일반 문구가 COPY에 없어 보충했습니다.',
+ 'score.calculation.weight_basis': '승인 구조의 동적 표시 또는 API 누락 상태에 대응하는 일반 문구가 COPY에 없어 보충했습니다.',
+ 'score.gaps.title': '승인 구조의 동적 표시 또는 API 누락 상태에 대응하는 일반 문구가 COPY에 없어 보충했습니다.',
+ 'score.gaps.none': '승인 구조의 동적 표시 또는 API 누락 상태에 대응하는 일반 문구가 COPY에 없어 보충했습니다.',
+ 'score.gaps.source': '승인 구조의 동적 표시 또는 API 누락 상태에 대응하는 일반 문구가 COPY에 없어 보충했습니다.',
+ 'score.gaps.count': '승인 구조의 동적 표시 또는 API 누락 상태에 대응하는 일반 문구가 COPY에 없어 보충했습니다.'})
+
+UI_TEXT["score"]["documents"]["seconds"] = "{seconds}초"
+COPY_EXCEPTIONS["score.documents.seconds"] = "문서별 처리 시간의 동적 단위를 표시합니다."
+
+UI_TEXT["score"]["actions"] = {"retest": "이 부분 다시 시험하기"}
+UI_TEXT["score"]["problem"]["evidence_unrecorded"] = "AI가 적은 원문 줄이 있는 틀린 값부터 봅니다. 문제 수는 기록이 없습니다."
+UI_TEXT["score"]["value_points"] = "{score}점"
+COPY_EXCEPTIONS["score.problem.evidence_unrecorded"] = "문제 건수가 없을 때 0이나 추정 건수를 만들지 않는 안내입니다."
+COPY_EXCEPTIONS["score.value_points"] = "동적 손실 점수에 단위를 붙입니다."
+
+UI_TEXT["score"]["history"]["scope"] = "모든 문서 묶음의 저장된 실행 이력입니다. 문서 수와 정답 기준을 함께 확인하세요."
+COPY_EXCEPTIONS["score.history.scope"] = "API의 이력 요약은 전체 묶음 기준이므로 현재 묶음의 점수와 범위를 구분합니다."
 
 POLISH_TEXT = {**_LEGACY_POLISH_TEXT, **UI_TEXT}
 
@@ -875,6 +1305,12 @@ def score_losses(info: dict, criteria: dict, per_doc: dict | None = None) -> dic
                "loss": WEIGHTS[i["level"]] * (1 - i["score"]) / total * 100,
                "below_target": i["score"] < i["target"], "section": item_section(i, criteria)}
               for i in items]
+    for row, item in zip(losses, items):
+        kinds = ("빠뜨림", "틀림", "지어냄")
+        counts = {kind: item.get(kind, 0) for kind in kinds} if any(kind in item for kind in kinds) else None
+        row["counts"] = counts
+        row["cause"] = (max(kinds, key=lambda kind: counts[kind] or 0)
+                        if counts and any(counts.values()) else None)
     # 같은 손실도 소수 끝자리가 다를 수 있어(3×0.1과 1×0.3) 줄 세울 때만 반올림한다. 같으면 기준 항목 순서다
     order = {c.get("name"): k for k, c in enumerate(criteria.get("items", []))}
     losses.sort(key=lambda r: (-round(r["loss"], 9), order.get(r["name"], len(order))))
@@ -908,16 +1344,17 @@ def score_status(info: dict, criteria: dict, *, connected: bool | None = None,
     targets = score_targets(info, criteria)
     losses = score_losses(info, criteria, per_doc)
     if targets is None:
-        return {"headline": "점수가 없는 실행입니다.", "verdict": "none", "top_drops": [],
-                "next_action": "실행에 채점할 결과와 정답 초안(실버)이 있는지 확인하세요.", "targets": None, **losses}
+        return {"headline": UI_TEXT["score"]["summary"]["unscored"], "verdict": "none", "top_drops": [],
+                "next_action": UI_TEXT["score"]["summary"]["unscored_todo"], "targets": None, **losses}
     weighted, line = targets["weighted"]["value"], targets["weighted"]["line"]
     must = targets["must"]
     passed = targets["weighted"]["met"] and must["met"]
-    headline = f"{weighted:.1f}점입니다."
-    headline += (f" 가중 종합이 목표선 {line:g}점을 넘었습니다." if targets["weighted"]["met"]
-                 else f" 가중 종합 목표선 {line:g}점까지 {line - weighted:.1f}점 남았습니다.")
-    headline += (f" 필수 {must['total']}개 모두 목표를 넘었습니다." if must["met"]
-                 else f" 필수 {must['total']}개 중 목표 달성 {must['met_count']}개입니다.")
+    copy = UI_TEXT["score"]["summary"]
+    headline = copy["value"].format(score=f"{weighted:.1f}") + " "
+    headline += copy["headline_met" if targets["weighted"]["met"] else "headline_below"].format(
+        line=f"{line:g}", gap=f"{line - weighted:.1f}") + " "
+    headline += copy["must_all" if must["met"] else "must_some"].format(
+        total=must["total"], met=must["met_count"])
 
     drops = []
     for item in info.get("items", []):
@@ -932,15 +1369,15 @@ def score_status(info: dict, criteria: dict, *, connected: bool | None = None,
                       "sentence": f"{item['name']} {score:.1f}점(목표 {goal:g}). 주원인은 {cause} {item.get(cause) or 0}개입니다."})
     drops.sort(key=lambda d: d["gap"] * d["weight"], reverse=True)
     drops = drops[:3]
-    if drops:
-        top = drops[0]
-        next_action = (f"④ 작업 탭에서 {top['section']}항만 다시 시험해 보세요."
+    if losses["top_problem"]:
+        top = losses["top_problem"]
+        next_action = (copy["next_trial"].format(section=top["section"])
                        if connected is True and top["section"] is not None else
-                       f"③ 원문 대조에서 {top['name']}의 틀린 값이 원문 어디서 왔는지 확인하세요.")
+                       copy["next_source"].format(item=top["name"]))
     elif passed:
-        next_action = "두 목표를 모두 넘었습니다. ② 두 실행 비교로 흔들림을 확인하세요."
+        next_action = copy["next_compare"]
     else:
-        next_action = "항목 신호등에서 모두 보기를 눌러 점수와 목표를 확인하세요."
+        next_action = copy["next_items"]
     return {"headline": headline, "verdict": "pass" if passed else "fail", "top_drops": drops,
             "next_action": next_action, "targets": targets, **losses}
 
@@ -955,7 +1392,7 @@ def card_summary(kind: str, info: dict) -> str:
         if runs:
             best = max([r for r in runs if r.get("comparable")] or runs, key=lambda r: r["weighted"])
             title = (best.get("label") or {}).get("title") or best.get("name", "")
-            return f"실행 {len(runs)}개, 최고 {best['weighted']:.1f}점({title})"
+            return UI_TEXT["score"]["summary"]["history"].format(count=len(runs), score=f"{best['weighted']:.1f}", run=title)
     elif kind == "docs":
         docs = info.get("per_doc") or {}
         scored = [(d, p["weighted"]) for d, p in docs.items() if _number(p.get("weighted"))]
@@ -963,9 +1400,10 @@ def card_summary(kind: str, info: dict) -> str:
         if docs and (scored or timed):
             low = min(scored, key=lambda x: x[1]) if scored else None
             slow = max(timed, key=lambda x: x[1]) if timed else None
-            score_text = f"가장 낮은 {low[0]} {low[1]:.1f}점" if low else "점수 자료 없음"
-            time_text = f"가장 오래 걸린 {slow[0]} {slow[1]:.0f}초" if slow else "시간 자료 없음"
-            return f"문서 {len(docs)}건, {score_text}, {time_text}"
+            copy = UI_TEXT["score"]["summary"]
+            score_text = copy["lowest"].format(doc=low[0], score=f"{low[1]:.1f}") if low else copy["no_scores"]
+            time_text = copy["slowest"].format(doc=slow[0], seconds=f"{slow[1]:.0f}") if slow else copy["no_times"]
+            return copy["docs"].format(count=len(docs), score_detail=score_text, time_detail=time_text)
     elif kind == "grid":
         cells = [c for cells in (info.get("grid") or {}).values() for c in cells.values() if c]
         if cells:
@@ -973,16 +1411,19 @@ def card_summary(kind: str, info: dict) -> str:
             for c in cells:
                 key = "실패" if not c.get("ok") else "한도 걸림" if c.get("limit_kind") else "재추출" if c.get("reextracted") else "성공"
                 counts[key] += 1
-            return f"호출 {len(cells)}개 중 " + ", ".join(f"{k} {v}" for k, v in counts.items())
+            copy = UI_TEXT["score"]["summary"]
+            return copy["grid"].format(count=len(cells)) + " " + ", ".join(
+                copy["grid_count"].format(state=k, count=v) for k, v in counts.items())
     elif kind == "rows":
         rows = {k: v for k, v in (info.get("rows") or {}).items()
                 if k in _ROW_LABELS and all(_number(v.get(f)) for f in ("pred", "gold"))}
         if rows and (info.get("docs") or any(v["pred"] or v["gold"] for v in rows.values())):
             short = [(k, v) for k, v in rows.items() if v["pred"] < v["gold"]]
-            result = f"표 {len(rows)}개 중 정답보다 적은 표 {len(short)}개"
+            copy = UI_TEXT["score"]["summary"]
+            result = copy["rows"].format(count=len(rows), short=len(short))
             if short:
                 key, row = max(short, key=lambda kv: kv[1]["gold"] - kv[1]["pred"])
-                result += f"(가장 모자란 {_ROW_LABELS[key]} {row['pred']}/{row['gold']})"
+                result += " " + copy["rows_shortest"].format(table=UI_TEXT["score"]["tables"][key], pred=row["pred"], answer=row["gold"])
             return result
     return "자료 없음"
 

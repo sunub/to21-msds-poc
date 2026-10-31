@@ -272,7 +272,7 @@ def test_api_run_and_diff_targets(app, ctx, env):
     code, detail = get_json(app, ctx, "/api/run/" + dev)
     assert code == 200
     assert detail["targets"] == detail["status_text"]["targets"] == app.bt.score_targets(detail, app.br.criteria())
-    assert detail["card_summaries"]["history"].startswith("실행 1개,")   # 실버 실행은 역사에서 뺀다
+    assert detail["card_summaries"]["history"].startswith("저장된 결과 1개 중 최고점은")   # 실버 실행은 역사에서 뺀다
     assert "합격" not in detail["status_text"]["headline"]
     code, _, body = app.route("GET", "/api/diff", {"a": [dev], "b": [silver]}, None, ctx)
     diff = json.loads(body)
@@ -331,7 +331,7 @@ def test_run_status_and_summaries_do_not_change_cached_scores(app, ctx, env, mon
     assert code == 200
     assert result["status_text"] == app.bt.score_status(before, app.br.criteria(), connected=None)
     assert set(result["card_summaries"]) == {"history", "docs", "grid", "rows"}
-    assert result["card_summaries"]["history"].startswith("실행 2개,")
+    assert result["card_summaries"]["history"].startswith("저장된 결과 2개 중 최고점은")
     for kind in ("docs", "grid", "rows"):
         assert result["card_summaries"][kind] == app.bt.card_summary(kind, before)
     assert all(result[k] == v for k, v in before.items())
