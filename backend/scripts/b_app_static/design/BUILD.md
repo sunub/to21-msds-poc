@@ -129,10 +129,10 @@ P01과 P02는 원래 화면으로 돌아오는 확인 영역입니다.
 | I01 | 앱 이름, 탭, 시작 안내, 전체 상태 문장 | `index.html #status, setupTabs` | 공통 app-header·main-nav·global-context | 1 | `#app-heading`, `#main-nav`, `#global-context`, `#status`; `shellRenderHeader/go` |
 | I02 | 화면 목적과 도움말 장 연결 | `index.html .tab 설명, guide.html 장 링크` | 공통 화면 설명 → S07 help-topics | 1, 8 | `#title-s01`~`#title-s10`, `#main-nav`의 S07 단추. 화면별 설명·장 연결은 step 8 |
 | I03 | 용어 말풍선, 접힘 상태, 키보드 포커스 | `term, setupTip, card, loadCards` | 공통 core 도우미 | 1 | `core.js`: `term/setupTip/card/loadCards/coreRead/coreWrite`; 말풍선·접기 새 시험 통과 |
-| I04 | 앱 목적, 서버 없이 결과 확인, 점수→문제→원문 3단계 | `renderStart, journeyStep` | S08 journey-choice, S01 journey-band | 7 | |
-| I05 | 단계 완료, 첫 성공 시각, 실패 후 위치 | `advanceJourney, journeyPassed, focusJourneyValue` | S08 journey-records | 7 | |
-| I06 | 다음에 할 일: 비교·시험·서버 | `renderStart, journeyStep` | S01 score-summary, S08 journey-choice | 2, 7 | `scoreConditions`의 다음 행동·`#score-retest`, `scoreRenderHistory`의 비교 이동. 서버 연결은 공통 맥락 줄. S08은 step 7 |
-| I07 | 안내 닫기, 처음부터 다시 보기 | `resetJourney, dismissJourney` | S08 journey-records | 7 | |
+| I04 | 앱 목적, 서버 없이 결과 확인, 점수→문제→원문 3단계 | `renderStart, journeyStep` | S08 journey-choice, S01 journey-band | 7 | `journeyRenderChoice/journeyRenderBand/journeyRenderStrip`: 두 갈래·실제 화면 행동·준비/실패/건너뛰기 |
+| I05 | 단계 완료, 첫 성공 시각, 실패 후 위치 | `advanceJourney, journeyPassed, focusJourneyValue` | S08 journey-records | 7 | `journeyRenderRecords`, `journeyRecord/journeyComplete`: 실제 성공·연습·시각/횟수·이어하기. `journeyReplay/journeyDismiss`는 성공 이력 보존 |
+| I06 | 다음에 할 일: 비교·시험·서버 | `renderStart, journeyStep` | S01 score-summary, S08 journey-choice | 2, 7 | `scoreConditions`의 다음 행동·`#score-retest`, `scoreRenderHistory`의 비교 이동. 서버 연결은 공통 맥락 줄. S08의 `journeyConnection`은 `serversRenderCompact` 재사용 |
+| I07 | 안내 닫기, 처음부터 다시 보기 | `resetJourney, dismissJourney` | S08 journey-records | 7 | `journeyRenderRecords`, `journeyRecord/journeyComplete`: 실제 성공·연습·시각/횟수·이어하기. `journeyReplay/journeyDismiss`는 성공 이력 보존 |
 | I08 | 실행 목록·읽기 실패 수·다시 읽기·채점 로딩 | `loadAll, loadRun, renderScoreLoading, scoreLoadFailure` | S01 score-summary | 2 | `scoreLoad/scoreRenderSummary/scoreSelect`: 개수 먼저 로딩, 부분 실패, 재조회 |
 | I09 | 현재 점수·부족 점수·필수 달성 수·상위 문제 3개·다음 행동 | `renderStatus, openScoreSource` | S01 score-summary·score-problems | 2 | `scoreRenderSummary/scoreCounts/scoreOpenSource`, `scoreRenderProblems`: API 손실 순위, 부족 점수는 실행 조건의 API 요약 |
 | I10 | 총점·목표선·필수 막대·전체 판정 | `renderNow, goalBar` | S01 score-summary | 2 | `scoreRenderSummary/scoreBar`: `targets.weighted`, `targets.must` 그대로 표시 |
@@ -243,12 +243,12 @@ P01과 P02는 원래 화면으로 돌아오는 확인 영역입니다.
 | `test_B_b_app_jobs_ui.py::test_jobs_try_offline_recovery_and_explicit_preview_choice` | 연결 없이 연습 가능. 실제 실행은 준비 전 제한. 사용자가 택한 연습은 복구 후 유지. 모델 없으면 전송 불가 | `test_B_b_app_jobs_ui.py` | 6; 파일 교체 |
 | `test_B_b_app_jobs_ui.py::test_jobs_poll_refreshes_options_keeps_edits_and_more_state` | 옵션 갱신은 지시문 편집과 선택과 이름과 접힘을 유지. 같은 옵션이면 입력 DOM 유지 | `test_B_b_app_jobs_ui.py` | 6; 파일 교체 |
 | `test_B_b_app_jobs_ui.py::test_jobs_four_steps_field_help_and_six_result_descriptions` | 시험 준비 순서와 필드별 도움말과 결과 여섯 단계 설명 보존 | `test_B_b_app_jobs_ui.py` | 6; 파일 교체 |
-| `test_B_b_app_start_ui.py::test_start_optional_children_never_render_null` | 선택적 자식이 없어도 null·undefined·false 글자가 노출되지 않음 | `test_B_b_app_journey_ui.py` | 7; 파일 삭제 |
-| `test_B_b_app_start_ui.py::test_start_state_restore_reset_and_storage_denied` | 해시 우선과 저장 실패 복구 보존. 첫 화면은 S01 띠로 변경. 재시작은 v2 성공 기록 보존으로 교체 | `test_B_b_app_journey_ui.py` | 7; 파일 삭제 |
-| `test_B_b_app_start_ui.py::test_start_score_requires_loaded_visible_current_run` | 현재 실행의 점수가 실제 보이는 상태에서만 안내 단계 진전 | `test_B_b_app_journey_ui.py` | 7; 파일 삭제 |
-| `test_B_b_app_start_ui.py::test_start_tabs_hash_advanced_status_link_and_help_replay` | 해시 이동과 상태 링크와 도움말 재시작 유지. 서버 숨김은 승인에 따라 제거 | `test_B_b_app_journey_ui.py` | 7; 파일 삭제 |
-| `test_B_b_app_start_ui.py::test_start_navigation_buttons_never_complete_and_no_drops_offer_diff` | 이동 단추 클릭만으로 완료하지 않음. 실행 없음과 문제 없음에도 정직한 다음 행동 | `test_B_b_app_journey_ui.py` | 7; 파일 삭제 |
-| `test_B_b_app_start_ui.py::test_start_success_needs_mismatched_value_in_selected_section_and_rendered_line` | 고른 항의 다른 값과 실제 표시된 근거 줄이 함께 선택되어야 성공. 중복 열기는 최초 시각 보존 | `test_B_b_app_journey_ui.py` | 7; 파일 삭제 |
+| `test_B_b_app_start_ui.py::test_start_optional_children_never_render_null` | 선택적 자식이 없어도 null·undefined·false 글자가 노출되지 않음 | `test_B_b_app_journey_ui.py` | 7 이관 완료; 옛 파일 삭제 |
+| `test_B_b_app_start_ui.py::test_start_state_restore_reset_and_storage_denied` | 해시 우선과 저장 실패 복구 보존. 첫 화면은 S01 띠로 변경. 재시작은 v2 성공 기록 보존으로 교체 | `test_B_b_app_journey_ui.py` | 7 이관 완료; 옛 파일 삭제 |
+| `test_B_b_app_start_ui.py::test_start_score_requires_loaded_visible_current_run` | 현재 실행의 점수가 실제 보이는 상태에서만 안내 단계 진전 | `test_B_b_app_journey_ui.py` | 7 이관 완료; 옛 파일 삭제 |
+| `test_B_b_app_start_ui.py::test_start_tabs_hash_advanced_status_link_and_help_replay` | 해시 이동과 상태 링크와 도움말 재시작 유지. 서버 숨김은 승인에 따라 제거 | `test_B_b_app_journey_ui.py` | 7 이관 완료; 옛 파일 삭제 |
+| `test_B_b_app_start_ui.py::test_start_navigation_buttons_never_complete_and_no_drops_offer_diff` | 이동 단추 클릭만으로 완료하지 않음. 실행 없음과 문제 없음에도 정직한 다음 행동 | `test_B_b_app_journey_ui.py` | 7 이관 완료; 옛 파일 삭제 |
+| `test_B_b_app_start_ui.py::test_start_success_needs_mismatched_value_in_selected_section_and_rendered_line` | 고른 항의 다른 값과 실제 표시된 근거 줄이 함께 선택되어야 성공. 중복 열기는 최초 시각 보존 | `test_B_b_app_journey_ui.py` | 7 이관 완료; 옛 파일 삭제 |
 | `test_B_b_app_polish_ui.py::test_server_log_copy_instruction_only_appears_with_lines` | 서버 기록이 있을 때만 수동 이관 안내. 없으면 빈 상태 | `test_B_b_app_servers_ui.py` | 5 |
 | `test_B_b_app_polish_ui.py::test_item_toggle_is_button_and_preserves_focus_and_expansion` | 항목 펼침은 button과 aria-expanded. 펼침 후 초점과 상세 보존 | `test_B_b_app_score_ui.py` | 2 |
 | `test_B_b_app_polish_ui.py::test_changed_values_toggle_is_button_and_keeps_both_lists` | 바뀐 값 펼침은 button. 초점 유지. 고친 값과 새로 틀린 값 두 목록 보존 | `test_B_b_app_compare_ui.py` | 4 |
@@ -257,8 +257,8 @@ P01과 P02는 원래 화면으로 돌아오는 확인 영역입니다.
 | `test_B_b_app_polish_ui.py::test_grid_states_and_silver_status_have_visible_text` | 호출 실패·재추출·기록 없음과 정답 비교 상태에 글 표시 | `test_B_b_app_score_ui.py`<br>`test_B_b_app_source_ui.py` | 2 격자 이관, 3 나머지 이관 후 삭제 |
 | `test_B_b_app_polish_ui.py::test_errors_share_fact_action_and_collapsed_raw_on_each_tab` | 모든 화면 오류에 사실·할 일·접힌 원문. 원문 글자 그대로 안전하게 표시 | `test_B_b_app_audit_ui.py` | 9; 파일 삭제 |
 | `test_B_b_app_polish_ui.py::test_tooltip_targets_get_keyboard_access_without_nested_tab_stops` | 독립 말풍선은 키보드로 접근. 단추 안에 중복 tab 정지점 금지 | `test_B_b_app_shell_ui.py` | 1 |
-| `test_B_b_app_polish_ui.py::test_start_pending_and_jobs_refresh_error_do_not_leave_blank_or_stale_states` | 안내 로딩을 빈 화면으로 두지 않음. 옵션 갱신 오류가 나면 오래된 양식을 그대로 내보내지 않음 | `test_B_b_app_journey_ui.py`<br>`test_B_b_app_jobs_ui.py` | 6 jobs 부분 이관, 7 삭제 |
-| `test_B_b_app_polish_ui.py::test_start_shows_run_list_failure_after_guide_has_loaded` | 안내가 먼저 로드돼도 실행 목록 조회 실패를 사실·할 일로 표시 | `test_B_b_app_journey_ui.py` | 7 |
+| `test_B_b_app_polish_ui.py::test_start_pending_and_jobs_refresh_error_do_not_leave_blank_or_stale_states` | 안내 로딩을 빈 화면으로 두지 않음. 옵션 갱신 오류가 나면 오래된 양식을 그대로 내보내지 않음 | `test_B_b_app_journey_ui.py`<br>`test_B_b_app_jobs_ui.py` | 6 jobs 부분 이관 확인, 7 시작 부분 이관·삭제 완료 |
+| `test_B_b_app_polish_ui.py::test_start_shows_run_list_failure_after_guide_has_loaded` | 안내가 먼저 로드돼도 실행 목록 조회 실패를 사실·할 일로 표시 | `test_B_b_app_journey_ui.py` | 7 이관 완료 |
 | `test_B_b_app_polish_ui.py::test_tooltip_keyboard_escape_and_pointer_transfer` | 말풍선은 포커스와 포인터로 열림. Escape로 닫힘. 포인터가 말풍선으로 옮겨가도 유지 | `test_B_b_app_shell_ui.py` | 1 |
 | `test_B_b_app_polish_ui.py::test_options_poll_reports_failure_and_same_data_recovery_as_state_changes` | 옵션 실패와 같은 데이터로 복구도 상태 변화로 처리. 오류 해제 후 정상 갱신 | `test_B_b_app_jobs_ui.py` | 6 |
 | `test_B_b_app.py::test_index` | 탭 이름 확인을 새 화면 뼈대 id 확인으로 교체. 메뉴 글은 JS 화면 시험에서 확인 | `test_B_b_app.py` | 1 |
@@ -534,6 +534,16 @@ step 2의 API 확인 보충입니다.
 - counts·cause만 손실 행에 추가했습니다. 기존 손실 수식·값·순위와 top_drops는 유지합니다. next_action은 같은 가장 큰 문제를 가리키게 했습니다.
 
 ## 브라우저로 볼 것
+
+#### 두 갈래 첫 사용 안내 · step 7 (모두 미실행)
+
+- 서버 없이 갈래 1을 시작해 가장 큰 문제의 값을 고르고 실제 원문 줄까지 엽니다. 추정 줄만 열거나 이동 단추만 눌러서는 성공이 없어야 합니다.
+- 갈래 2에서 입력 확인 연습 한 번과 실제 시험 한 번을 합니다. 연습 횟수와 실제 성공을 따로 확인합니다. 실제 응답의 선택 항 `ok=false`는 복구 안내만 나와야 합니다.
+- 첫 방문·`#s03` 직접 진입·새로고침 뒤 멈춘 갈래·보낸 시험 복원을 확인합니다. 자동으로 시험을 다시 보내면 안 됩니다.
+- 다시 보기와 안내 닫기를 합니다. 성공 시각·연습 횟수·다른 화면의 선택과 카드 접힘이 남아야 합니다.
+- 저장 거부와 읽기 실패 때 한 번만 알리고 안내를 계속할 수 있는지 확인합니다. 창을 다시 열 때 메모리 기록이 사라지면 안 됩니다.
+- 1280·1440·1680px에서 안내 띠·기록 표·짧은 연결 구역의 넘침을 확인합니다. 키보드 초점과 ‘안내 대상’ 글을 확인합니다. 줄바꿈·VoiceOver·실제 브라우저 배치는 자동 시험으로 판정하지 않았습니다.
+
 
 step 5의 미확인 목록입니다. 실제 브라우저·서버·SSH를 이 step에서 실행하지 않았습니다.
 
@@ -910,3 +920,23 @@ Questions skipped: non-interactive. 승인된 설계를 그대로 구현합니�
 - 마지막 대상 점검 RED→GREEN: 명시한 재시험 대상에 이전 문제 값이 섞이는 경우, 문서 미선택을 전체 잠금으로 잘못 설명하는 경우, 비교표 후보의 기록 조건·채점 범위 누락을 새 3시험으로 확인하고 고쳤습니다.
 - 전체 AC 최종: **2052 passed, 30 skipped, 7 warnings, 1 failed**(45.28초). 유일한 실패는 `tests/test_A_input.py::test_every_changing_route_answers_with_update`의 `socket.bind` → `PermissionError: [Errno 1] Operation not permitted`입니다. `_common.txt` 7절의 명시 예외에 따라 completed로 기록합니다. A 시험은 변경하거나 제외하지 않았습니다. 실행기가 샌드박스 밖에서 다시 검증합니다.
 - 보호 검증: 시작 시 기록한 120개 파일 중 허용된 BUILD.md를 제외한 119개가 동일합니다. 최종 단계 상태는 index.json의 step 6만 바꿉니다. docs·CLAUDE·백엔드 API·실행기·승인 설계는 변경하지 않았습니다. git diff --check 통과. 커밋 없음.
+
+### step 7
+
+⚠️ DEGRADED: no browser in sandbox. 미실행: 브라우저 확인.
+
+- 시험 먼저: `test_B_b_app_journey_ui.py` 21사례와 `test_start_text_contract`가 실패했습니다(22 failed). `journeyDefault` 미정의와 `UI_TEXT.journey` 부재가 원인입니다.
+- 옛 시작 시험 파일과 polish 시작 시험 2개를 이관합니다. 작업 새로고침 오류는 step 6의 `test_poll_failures_and_same_data_recovery_are_visible_without_losing_input`가 이미 검사합니다.
+- Questions skipped: non-interactive. 승인 설계의 onboard 흐름을 적용합니다.
+
+- 산출물: `js/journey.js`, S08 두 갈래 선택/기록, S01 첫 방문·이어하기·지난 시험 띠, 본문 안내 막대. `journeyEnsure/Load/Save/Change`, `journeyStart/Next`, `journeyRecord/Complete`, `journeyReplay/Dismiss/Skip`를 추가했습니다.
+- 저장: `/api/journey` v2 전체를 PUT합니다. 요청은 직렬 처리하며 대기 중 변경은 최신 하나로 합칩니다. 늦은 GET을 버립니다. 저장 실패 상태는 다음 GET으로 지우지 않습니다. 성공 이력은 서버 응답과 합칩니다. `visibilitychange`는 재조회만 하고 작업을 재전송하지 않습니다. 옛 v1은 유효성 검사 뒤 한 번만 읽어 옮기며 키를 지우지 않습니다.
+- 성공: 갈래 1은 가장 큰 문제에서 넘어온 같은 실행·문서·항·채점 기준의 `evidence_line_shown(mismatch=true)`만 받습니다. 자동 선택·추정 줄은 성공이 아닙니다. 새로 안내한 같은 값은 실제로 다시 선택하면 재확인할 수 있습니다. 갈래 2는 `try_result_viewed(mode=real, section_ok=true)`만 받습니다. 연습·실패·여러 항·취소·실제 호출 여부 불명은 실제 성공에서 제외합니다. 같은 작업은 중복 집계하지 않습니다.
+- 연결 변경: `shell.js`는 시작/화면 표시 사건을, `score.js`는 문제 열기 사건을 더했습니다. `source.js`는 안내 대상 표식과 새 확인 시도의 사건 중복 범위를 추가했습니다. `jobs.js`는 준비·요청·작업 조회 사건과 안내용 대상 준비 인자를 추가했습니다. 기존 채점과 서버 작업 계산은 바꾸지 않았습니다. `serversRenderCompact`만 공유 구역 합성에 직접 사용합니다.
+- API 확인: PUT 응답의 실제 모양은 `{journey, problems}`입니다. `pending.job`의 완료 작업은 목록에서 확인한 뒤 결과 보기로만 복원합니다. 처음부터 완료돼 있던 일반 작업은 기존 시험대로 성공 사건을 내지 않습니다. `START_TEXT is UI_TEXT["journey"]`이며 `/api/start`는 서버 호출 없이 같은 값을 줍니다.
+- 글 출처: `UI_TEXT.journey`는 COPY.md의 journey 표를 그대로 옮겼습니다. 두 갈래 단계 배열은 글만 담는 공용 규칙을 위해 번호 키의 dict로 표현합니다. COPY에 없는 동적 안내 띠·단계 표시·실패 복구·건너뛰기 글은 STRUCTURE의 조건을 바탕으로 `COPY_EXCEPTIONS`에 기록했습니다. 승인 설계 파일은 수정하지 않았습니다.
+- 기존 시험 변경 이유: `test_start_text_contract`는 두 갈래 안내로 교체했습니다. `test_text_module_has_no_pass_word`의 참조 위치만 새 `start.no_problem`으로 바꿨으며 금지어 단언은 유지했습니다. 옛 `test_B_b_app_start_ui.py`와 polish 시작 시험 2개는 새 DOM 시험으로 이관하고 삭제했습니다. jobs 오류 복구 검사는 기존 step 6 시험을 그대로 유지했습니다.
+- 추가 실패 확인 후 수정: 연결 시험에서 새로고침 뒤 완료 작업을 못 세는 문제를 확인했습니다. 보관한 작업만 결과 관찰 대상으로 복원했습니다. 저장 실패 후 GET이 성공 기록을 지우는 문제, JSON 키 순서에 따라 첫 방문 판정이 달라지는 문제, 실패한 작업을 대기 중으로 보이는 문제도 먼저 실패 시험으로 재현하고 고쳤습니다.
+- 자동 검증: 정적 AC 통과. journey API 42 passed, journey/shell/DOM 54 passed, start/journey 문구·라우트 15 passed. 전체 `pytest -q --ignore=tests/test_preprocess.py`: **2081 passed, 30 skipped, 7 warnings, exit 0**. 포트 권한 실패 없음. 경고는 기존 SWIG 형식의 DeprecationWarning입니다. 마지막 기록 표 제목 수정 후 UI 54개를 다시 확인했습니다.
+- impeccable detect: 1회 실행했습니다. 기존 `design/wireframes.html`·`guide.html`의 색/글자 크기 권고가 나왔습니다. `/static/app.css`를 로컬 파일로 해석하지 못해 색 검사는 불완전합니다. 새 CSS는 승인된 토큰만 사용하며 DOM 정적 규칙 검사도 통과했습니다.
+- 경계 확인: 보호 파일 129개 해시 불변. 새 안내 저장 자료에는 원문·문서·실행·항·값·모델·경로·키를 넣지 않습니다. 백엔드 API와 원문·평가 자료를 변경하지 않았습니다. 실모델·브라우저 검증 없음. 커밋 없음.

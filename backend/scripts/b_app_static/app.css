@@ -29,6 +29,23 @@
 }
 * { box-sizing: border-box; }
 [hidden] { display: none !important; }
+/* 첫 사용 안내는 본문 안에 둔다. 메뉴와 실제 작업을 가리지 않는다. */
+#journey-band, .journey-strip {
+  border: var(--border-standard); background: var(--context);
+  padding: var(--space-section); margin-bottom: var(--space-section);
+}
+.journey-choices { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-section); }
+.journey-choice { min-width: 0; border-top: var(--border-standard); padding-top: var(--space-group); }
+.journey-choice p, .journey-strip p { max-width: 72ch; }
+.journey-choice button, #journey-records button, #journey-band button { margin: var(--space-small) var(--space-small) var(--space-small) 0; }
+.journey-steps { padding-left: var(--space-section); }
+.journey-steps li { padding: var(--space-tight) 0; }
+.journey-steps [aria-current="step"] { font-weight: 700; }
+.journey-actions { display: flex; flex-wrap: wrap; gap: var(--space-small); margin-top: var(--space-group); }
+.journey-connection { margin: var(--space-group) 0; }
+.journey-target { border: var(--border-selected); }
+.journey-target-label { display: block; font-size: var(--label-size); margin-top: var(--space-tight); }
+#journey-records { margin-top: var(--space-page); }
 html { scroll-behavior: auto; scrollbar-color: var(--scrollbar) var(--ground); }
 body {
   margin: 0 auto; max-width: 1680px; min-height: 100vh;

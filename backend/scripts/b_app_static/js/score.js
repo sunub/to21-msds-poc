@@ -135,6 +135,7 @@ function scoreOpenSource(row, pick = "mismatch", doc = row.docs?.[0]?.doc_id) {
   if (!doc || !row.section || !S.score.run) return;
   const args = {run: S.score.run.name, doc, section: row.section, item: row.name, pick};
   S.focus = {...S.focus, ...args};
+  emit("problem_opened", args);
   return go("s02", args).catch(fail);
 }
 function scoreSelect() {
