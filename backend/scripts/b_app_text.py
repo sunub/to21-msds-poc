@@ -684,6 +684,10 @@ def friendly_error(where: str, raw: str, env_names: dict[str, str] | None = None
     elif "SSLCertVerificationError" in raw or "CERTIFICATE_VERIFY_FAILED" in raw:
         message = "RunPod 주소의 인증서를 확인하지 못했습니다. 파이썬 3.11에 인증서 묶음이 없을 때 생깁니다."
         fix = "터미널에서 `/Applications/Python 3.11/Install Certificates.command`를 한 번 실행한 뒤 앱을 다시 켜세요."
+    elif where == "model" and "401" in raw:          # 모델 서버(/v1/models)가 거절한 것이다. RunPod 관리 키와 다르다
+        message = "모델 서버가 키를 거절했습니다."
+        fix = ("`.env`의 RUNPOD_VLLM_API_KEY(또는 RNGD_API_KEY)가 서버를 띄울 때 값과 같은지 보세요. "
+               "Pod를 만든 뒤 키를 바꿨다면 Pod를 다시 만드세요.")
     elif "401" in raw or "Unauthorized" in raw:
         message = "RunPod 관리 키(RUNPOD_API_KEY)가 거절됐습니다."
         fix = "RunPod 설정 화면에서 키를 다시 만들어 `.env`에 넣으세요."
@@ -701,6 +705,22 @@ def friendly_error(where: str, raw: str, env_names: dict[str, str] | None = None
         message = "서버를 보지 못했습니다."
         fix = "아래 원문을 보고 .env와 터널을 확인하세요."
     return {"message": message, "fix": fix, "raw": raw}
+
+
+def env_problem(line: int) -> dict:
+    """`.env`에서 읽지 못한 줄 하나의 안내. 줄의 글은 값이 섞여 있어 담지 않는다."""
+    return {"line": line, "message": f"`.env` {line}번째 줄을 읽지 못했습니다.",
+            "fix": "따옴표와 = 앞뒤 공백을 확인하고 '설정 다시 읽기'를 누르세요. 값은 화면에 나오지 않습니다."}
+
+
+# 서버 탭(b_app_servers)이 거절하거나 할 수 없을 때의 글. 사실 한 문장 + "할 일:" (format으로 채운다)
+SERVER_TEXT: dict[str, str] = {
+    "pod_key_missing": "Pod 키(RUNPOD_VLLM_API_KEY)가 .env에 없습니다. "
+                       "할 일: .env에 RUNPOD_VLLM_API_KEY=<긴 임의 글자>를 넣고 '설정 다시 읽기'를 누르세요.",
+    "pod_not_ours": "이 앱이 만들지 않은 Pod라 지울 수 없습니다(이름이 {prefix}로 시작하지 않음). "
+                    "할 일: RunPod 화면에서 Pod 주인에게 확인하세요.",
+    "env_file_unknown": "설정 파일(.env) 위치를 몰라 다시 읽을 수 없습니다. 할 일: 앱을 다시 켜세요.",
+}
 
 
 def server_controls(*, running: bool, runpod_ok: bool, rngd_ok: bool) -> dict:

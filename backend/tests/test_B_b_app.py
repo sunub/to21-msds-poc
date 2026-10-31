@@ -498,8 +498,9 @@ def test_custom_startup_key_round_trips(app, kctx, env):
     assert code == 200 and data["key"]["id"] == "gold" and data["runs"][0]["docs"] == [X01, X02]
 
 
-def test_main_passes_data_root(app, monkeypatch, env):
+def test_main_passes_data_root(app, monkeypatch, env, tmp_path):
     seen = {}
+    monkeypatch.setattr(app.bs, "ENV_FILE", tmp_path / ".env")          # 실제 .env를 열지 않는다
 
     class FakeServer:
         server_port = 8765
@@ -541,8 +542,9 @@ def test_main_rejects_other_hosts(app, monkeypatch):
             app.main(["--host", host, "--no-browser"])
 
 
-def test_main_binds_127_only(app, monkeypatch, env):
+def test_main_binds_127_only(app, monkeypatch, env, tmp_path):
     seen, opened = {}, []
+    monkeypatch.setattr(app.bs, "ENV_FILE", tmp_path / ".env")          # 실제 .env를 열지 않는다
 
     class FakeServer:
         server_port = 8765
@@ -561,6 +563,36 @@ def test_main_binds_127_only(app, monkeypatch, env):
     assert app.main(["--runs-dir", str(env / "runs")]) == 0
     assert seen == {"address": ("127.0.0.1", 8765), "closed": True}
     assert opened == ["http://127.0.0.1:8765/"]
+
+
+def test_main_gives_servers_env_file_without_network(app, monkeypatch, env, tmp_path):
+    f = tmp_path / ".env"
+    f.write_text("RUNPOD_API_KEY=FAKEKEY-main-SHOULD-NEVER-APPEAR-0a1b\n", encoding="utf-8")
+    monkeypatch.setattr(app.bs, "ENV_FILE", f)
+    seen = {}
+
+    def no_network(*a, **k):
+        raise AssertionError("켤 때 네트워크를 부르면 안 된다(Pod 이어 쓰기는 첫 요청 때)")
+
+    class FakeServer:
+        server_port = 8765
+
+        def __init__(self, address, handler):
+            pass
+
+        def serve_forever(self):
+            raise KeyboardInterrupt
+
+        def server_close(self):
+            pass
+
+    real = app.make_handler
+    monkeypatch.setattr(app.bs.urllib.request, "urlopen", no_network)
+    monkeypatch.setattr(app, "ThreadingHTTPServer", FakeServer)
+    monkeypatch.setattr(app.webbrowser, "open", lambda url: None)
+    monkeypatch.setattr(app, "make_handler", lambda c: seen.setdefault("ctx", c) and real(c))
+    assert app.main(["--runs-dir", str(env / "runs"), "--no-browser"]) == 0
+    assert seen["ctx"].servers.env_file == f and seen["ctx"].servers.env is app.os.environ
 
 
 # ── 도움말 (step 8) ────────────────────────────────────

@@ -89,7 +89,8 @@ def test_list_pods_keeps_only_summary_fields(pod):
     op = FakeOpener([{"id": "a", "name": "n", "desiredStatus": "RUNNING", "costPerHr": 1.5, "env": {"VLLM_API_KEY": VLLM_KEY},
                       "imageName": "i", "gpuCount": 1, "lastStatusChange": "t"}])
     out = pod.list_pods(opener=op)
-    assert set(out[0]) == {"id", "name", "desiredStatus", "costPerHr", "imageName", "gpuCount", "lastStatusChange"}
+    assert set(out[0]) == {"id", "name", "desiredStatus", "costPerHr", "imageName", "gpuCount", "lastStatusChange",
+                           "lastStartedAt"}
     no_key(out)
 
 
@@ -107,6 +108,41 @@ def test_brief_est_cost(pod):
     b = pod.brief({"id": "a", "name": "n", "desiredStatus": "RUNNING", "costPerHr": 1.5, "lastStatusChange": started}, now=now)
     assert b["minutes"] == 90 and b["status"] == "RUNNING" and b["cost_per_hr"] == 1.5
     assert b["est_cost"] == round(1.5 * b["minutes"] / 60, 2) == 2.25
+
+
+# RunPod REST의 Pod 시각은 lastStartedAt(ISO)과 lastStatusChange(JS 날짜 글)로 온다. 실제 API로 다시 확인하지 못해 두 모양을 모두 받는다
+STARTED_NOW = datetime(2024, 7, 12, 20, 14, 40, 144000, tzinfo=timezone.utc)
+
+
+def test_parse_time_iso_and_js_date(pod):
+    assert pod._parse_time("2024-07-12T19:14:40.144Z") == datetime(2024, 7, 12, 19, 14, 40, 144000, tzinfo=timezone.utc)
+    js = pod._parse_time("Rented by User: Fri Jul 12 2024 15:14:40 GMT-0400 (Eastern Daylight Time)")
+    assert js == datetime(2024, 7, 12, 19, 14, 40, tzinfo=timezone.utc)
+    assert pod._parse_time("Fri Jul 12 2024 15:14:40 GMT+0900") == datetime(2024, 7, 12, 6, 14, 40, tzinfo=timezone.utc)
+    for bad in (None, "", "t", "Rented by User: 모름"):
+        assert pod._parse_time(bad) is None
+
+
+def test_brief_prefers_last_started_at(pod):
+    b = pod.brief({"id": "a", "costPerHr": 0.74, "lastStartedAt": "2024-07-12T19:14:40.144Z",
+                   "lastStatusChange": "Rented by User: Fri Jul 12 2024 10:00:00 GMT-0400 (Eastern Daylight Time)"},
+                  now=STARTED_NOW)
+    assert (b["uptime_s"], b["minutes"], b["est_cost"], b["cost_est"]) == (3600, 60, 0.74, 0.74)
+    assert b["started"] == "2024-07-12T19:14:40.144Z"
+
+
+def test_brief_js_date_and_cost_text(pod):
+    b = pod.brief({"id": "a", "costPerHr": "2.49",
+                   "lastStatusChange": "Rented by User: Fri Jul 12 2024 15:14:40 GMT-0400 (Eastern Daylight Time)"},
+                  now=STARTED_NOW)
+    assert b["cost_per_hr"] == 2.49 and b["uptime_s"] == 3600 and b["cost_est"] == b["est_cost"] == 2.49
+
+
+def test_brief_unknown_cost_or_time(pod):
+    b = pod.brief({"id": "a", "costPerHr": "모름", "lastStartedAt": "2024-07-12T19:14:40.144Z"}, now=STARTED_NOW)
+    assert b["cost_per_hr"] is None and b["uptime_s"] == 3600 and b["cost_est"] is None and b["est_cost"] is None
+    b = pod.brief({"id": "a", "costPerHr": 2.49, "lastStartedAt": "엉망", "lastStatusChange": None}, now=STARTED_NOW)
+    assert b["uptime_s"] is None and b["minutes"] is None and b["cost_est"] is None
 
 
 def test_main_list_stdout_has_no_key(pod, capsys, monkeypatch):

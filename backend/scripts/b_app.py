@@ -9,6 +9,7 @@
 폼 보내기 막기). 안내문 글(/api/prompt)은 요청 때 만들어 보여 주기만 한다 (D-47).
 탭 ⑤ 서버는 b_app_servers.ServerActions를 부른다. 바꾸는 동작은 propose(요약·확인 토큰) → execute(토큰) 두 단계이고,
 이 앱이 만든 Pod의 주소·키는 작업을 띄울 때 그 작업의 환경에만 넣는다(파일에 쓰지 않는다). 도움말은 다음 step에서 채운다.
+설정 다시 읽기(POST /api/servers/reload_env)는 .env를 다시 읽어 이 프로세스의 환경을 바꾸고 이름·줄 번호만 돌려준다(확인 토큰 없음).
 문서 묶음(/api/sets)은 b_app_sets가 data/pages 아래에서 찾는다. 평가용 문서는 파일을 열지 않고 잠긴 이유만 준다 (D-43).
 작업 POST는 본문의 set(묶음 id)을 목록에서 찾아 그 폴더를 쓴다. /api/options는 묶음별 문서의 작업 가능 여부와 이유를 준다.
 정답지(/api/keys)는 b_app_sets가 data/silver·data/gold 아래에서 찾는다. 점수가 든 응답(/api/runs, /api/run, /api/diff,
@@ -440,7 +441,7 @@ def _body(body: bytes | None) -> dict | None:
 
 
 def _server_post(path: str, body: bytes | None, ctx: AppContext) -> tuple[int, str, bytes]:
-    """탭 ⑤의 두 단계. 결과 dict의 code(없으면 200)를 상태 코드로 쓴다. 토큰이 틀리면 400, 지났으면 410, 실행 중이면 409."""
+    """탭 ⑤의 두 단계와 설정 다시 읽기. 결과 dict의 code(없으면 200)를 상태 코드로 쓴다. 토큰이 틀리면 400, 지났으면 410, 실행 중이면 409."""
     if ctx.servers is None:
         return _json(503, {"error": "서버 탭이 꺼져 있습니다"})
     data = _body(body)
@@ -450,6 +451,8 @@ def _server_post(path: str, body: bytes | None, ctx: AppContext) -> tuple[int, s
         res = ctx.servers.propose(data.get("action"), data.get("params"))
     elif path == "/api/servers/execute":
         res = ctx.servers.execute(data.get("token"))
+    elif path == "/api/servers/reload_env":          # 돈·서버를 바꾸지 않아 확인 토큰을 받지 않는다
+        res = ctx.servers.reload_env()
     else:
         return _json(404, {"error": f"없는 주소: POST {path}"})
     res = dict(res)
@@ -654,7 +657,8 @@ def main(argv: list[str] | None = None) -> int:
     # 서버 탭은 어느 폴더를 보든 켠다. 실행 중 잠금은 같은 JobManager의 running()으로 본다(ps로 다른 터미널의 실행도 본다)
     manager = bj.JobManager(RUNS / "manual" / "jobs", Path(sys.executable), BACKEND)
     jobs = manager if a.runs_dir.resolve() == RUNS.resolve() else None
-    servers = bs.ServerActions(os.environ, manager, RUNS / "manual" / "server_log.md")   # 키는 .env(load_dotenv로 읽힘)에서만
+    # 키는 .env에서만: 켤 때 load_dotenv, 그 뒤 '설정 다시 읽기'. 켤 때 네트워크는 부르지 않는다(Pod 이어 쓰기는 첫 요청 때)
+    servers = bs.ServerActions(os.environ, manager, RUNS / "manual" / "server_log.md", env_file=bs.ENV_FILE)
     ctx = AppContext(runs_dir=a.runs_dir, gold_dir=a.gold_dir, pages_dir=a.pages_dir, jobs=jobs,
                      pages_root=PAGES, model_status=servers.model_status, servers=servers, data_root=DATA)
     server = ThreadingHTTPServer((HOST, a.port), make_handler(ctx))

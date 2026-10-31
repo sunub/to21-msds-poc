@@ -331,8 +331,9 @@ def test_route_sets_without_root(app, env):
     assert code == 200 and json.loads(body) == {"sets": [], "default": None}
 
 
-def test_main_default_pages_dir(app, monkeypatch, env):
+def test_main_default_pages_dir(app, monkeypatch, env, tmp_path):
     seen = {}
+    monkeypatch.setattr(app.bs, "ENV_FILE", tmp_path / ".env")          # 실제 .env를 열지 않는다
 
     class FakeServer:
         server_port = 8765

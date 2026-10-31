@@ -3,7 +3,10 @@
 낮은 층(model_status, rngd_*, append_server_log)과 그 위의 상태 기계 ServerActions가 있다.
 ServerActions의 변경 동작(Pod 만들기·지우기, RNGD 올리기·내리기)은 두 단계다: propose가 요약과 1회용 확인 토큰을 주고,
 execute가 그 토큰으로 실행한다. run_sections.py·try_section.py가 돌고 있으면 두 단계 모두 409로 막는다.
-키는 반환값·예외·기록 어디에도 쓰지 않는다. Pod에 넣는 vLLM 키는 앱 메모리에만 둔다. 시험은 opener·runner·watchdog_spawner·clock을 가짜로 끼운다.
+키는 반환값·예외·기록 어디에도 쓰지 않는다. Pod에 넣는 vLLM 키는 .env의 RUNPOD_VLLM_API_KEY이고 세션에 두지 않는다(부를 때마다 읽는다).
+앱을 다시 켜면 첫 요청 때 이 앱이 만든 켜진 Pod(이름이 OURS로 시작)를 찾아 이어 쓴다. 앱이 만들지 않은 Pod는 지우지 않는다(403).
+.env는 reload_env로 앱을 끄지 않고 다시 읽는다(읽기만 하고 쓰지 않는다. 돌려주는 것은 이름과 줄 번호뿐이다).
+시험은 opener·runner·watchdog_spawner·clock과 tmp_path의 가짜 .env를 끼운다.
 """
 import json
 import re
@@ -15,16 +18,18 @@ import time
 import urllib.request
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Iterable, Mapping
+from typing import Iterable, Mapping, MutableMapping
 
 import yaml
+from dotenv.parser import parse_stream
 
 import _common  # noqa: F401  src 경로 등록
 import b_app_jobs as bj
 import b_app_text as bt
 import pod
-from msds.common.paths import CONFIGS
+from msds.common.paths import CONFIGS, ROOT
 
+ENV_FILE = ROOT / ".env"
 SERVER_ENV_PREFIXES = ("RNGD_", "RUNPOD_", "VLLM_")
 REMOTE_DIR = "/root/to21-bc"
 _SAFE_MODEL = re.compile(r"^[\w./:-]+$")
@@ -169,6 +174,35 @@ def append_server_log(log_path: Path, action: str, *, _secrets: Iterable[str] = 
     return row.rstrip("\n")
 
 
+def read_env_file(path: Path) -> tuple[dict[str, str], list[int]]:
+    """.env를 python-dotenv의 파서로 읽는다: (이름→값, 읽지 못한 줄 번호). 줄의 글은 돌려주지 않는다. 파일이 없으면 ({}, []).
+
+    ${이름} 끼워 넣기는 풀지 않는다(load_dotenv와 다름. 10/31 .env에는 없다)."""
+    path = Path(path)
+    if not path.is_file():
+        return {}, []
+    values, problems = {}, []
+    with open(path, encoding="utf-8") as f:
+        for b in parse_stream(f):
+            if b.error:
+                problems.append(b.original.line)
+            elif b.key is not None and b.value is not None:   # "이름"만 있고 =가 없는 줄은 load_dotenv처럼 건너뛴다
+                values[b.key] = b.value
+    return values, problems
+
+
+def apply_env_file(path: Path, environ: MutableMapping[str, str], previous: set[str]) -> dict:
+    """파일 값으로 environ을 덮어쓰고, previous(지난번 파일의 이름)에 있었는데 파일에서 빠진 이름은 지운다. 값은 담지 않는다."""
+    values, problems = read_env_file(path)
+    changed = sorted(k for k, v in values.items() if environ.get(k) != v)
+    removed = sorted(k for k in set(previous) - set(values) if k in environ)
+    for k in changed:
+        environ[k] = values[k]
+    for k in removed:
+        del environ[k]
+    return {"names": sorted(values), "changed": changed, "removed": removed, "problems": problems}
+
+
 # ── 탭 ⑤의 상태 기계: 요약과 확인 토큰 → 실행 ─────────────────
 
 ACTIONS = ("pod_create", "pod_delete", "rngd_up", "rngd_down")
@@ -177,6 +211,8 @@ POD_NAME = "to21-b-qwen36"
 POD_TAG = "qwen36_35b_runpod"                        # Pod가 띄우는 모델의 태그. 모델 이름·주소 변수는 models.yaml에서 읽는다
 POD_GPU = "RTX PRO 6000 1장"                          # pod.create_pod의 기본 GPU
 POD_COST_HINT = 2.49                                 # 시간당 달러. 10/29 보안 클라우드 기록 (RunPod_사용기록)
+POD_KEY_ENV = "RUNPOD_VLLM_API_KEY"                  # Pod의 vLLM 키. Pod 환경(VLLM_API_KEY)과 작업·연결 확인에 같은 .env 값을 쓴다
+ADOPT_EVERY = 30                                     # 이 앱이 전에 만든 Pod를 찾는 목록 요청 간격(초)
 # 10/29 인계 문서의 시작 줄 + 2항 쪽 이미지 2장 (ADR-019). 키는 Pod 안의 환경 변수로만 받는다
 POD_SERVE = ('vllm serve {model} --trust-remote-code --host 0.0.0.0 --port 8000 --api-key "$VLLM_API_KEY" '
              "--max-model-len 40960 --max-num-seqs 64 --gpu-memory-utilization 0.85 "
@@ -212,6 +248,11 @@ def _running_text(r: dict) -> str:
     return f"{kind} {what} — 돌고 있음"
 
 
+def _owned(p: dict) -> bool:
+    """이 앱이 만든 Pod인가 (이름 태그 OURS)."""
+    return str(p.get("name") or "").startswith(OURS)
+
+
 def _minutes_cost(b: dict, prefix: str) -> str:
     mins = f"{prefix} {b['minutes']:.0f}분" if b.get("minutes") is not None else "켜진 시간 모름"
     cost = f"추정 ${b['est_cost']:.2f}" if b.get("est_cost") is not None else "추정 비용 모름"
@@ -219,32 +260,40 @@ def _minutes_cost(b: dict, prefix: str) -> str:
 
 
 class ServerActions:
-    """탭 ⑤의 서버 동작. 확인 토큰, 이 앱이 만든 Pod 세션(vLLM 키 포함), 감시 프로세스는 이 객체의 메모리에만 있다.
+    """탭 ⑤의 서버 동작. 확인 토큰, 이 앱이 쓰는 Pod 세션(키는 두지 않음), 감시 프로세스는 이 객체의 메모리에만 있다.
 
-    propose·execute는 dict를 돌려준다. 실패하면 "code"(400·404·409·410·502)와 "error"가 있고, 앱 라우트가 code를 상태 코드로 쓴다.
+    propose·execute는 dict를 돌려준다. 실패하면 "code"(400·403·404·409·410·502)와 "error"가 있고, 앱 라우트가 code를 상태 코드로 쓴다.
+    env는 앱에서 os.environ이다. reload_env가 같은 객체를 바꿔야 이후 연결 확인과 작업(자식 프로세스)이 새 값을 쓴다.
     """
 
-    def __init__(self, env: Mapping[str, str], jobs: "bj.JobManager", log_path: Path, *, opener=None, runner=None,
-                 watchdog_spawner=None, clock=None, sleep=None, models_cfg: dict | None = None):
+    def __init__(self, env: MutableMapping[str, str], jobs: "bj.JobManager", log_path: Path, *, opener=None, runner=None,
+                 watchdog_spawner=None, clock=None, sleep=None, models_cfg: dict | None = None,
+                 env_file: Path | None = None):
         self.env, self.jobs, self.log_path = env, jobs, Path(log_path)
         self._opener, self._runner = opener, runner
         self._watchdog_spawner = watchdog_spawner or _spawn_watchdog
         self._clock, self._sleep = clock or time.time, sleep or time.sleep
         self.models_cfg = models_cfg or yaml.safe_load((CONFIGS / "models.yaml").read_text(encoding="utf-8"))
         self._tokens: dict[str, dict] = {}
-        self._session: dict | None = None            # 이 앱이 만든 Pod {"pod_id", "key", "created"}. 앱을 끄면 잊는다
+        self.env_file = Path(env_file) if env_file else None
+        self._env_names = set(read_env_file(self.env_file)[0]) if self.env_file else set()   # 다시 읽을 때 빠진 이름을 지우려고
+        # 이 앱이 쓰는 Pod {"pod_id", "created", "adopted"(다시 켠 뒤 찾은 것인가), "others"(찾은 나머지)}. 키는 두지 않는다
+        self._session: dict | None = None
+        self._adopt_checked: float | None = None     # 마지막으로 Pod 목록에서 이어 쓸 Pod를 찾은 시각
         self._watchdogs: dict[str, dict] = {}        # Pod 번호 → {"proc", "deadline"}
         self._lock = threading.Lock()
 
     # ── 읽기 ───────────────────────────────────────────
 
     def job_env(self) -> dict[str, str]:
-        """작업(run_sections·try_section)과 연결 확인에 쓸 Pod 주소·키. 이 앱이 만든 Pod가 없으면 빈 dict."""
-        s = self._session
-        if not s:
+        """작업(run_sections·try_section)과 연결 확인에 쓸 Pod 주소·키. 이 앱의 Pod가 없거나 .env에 Pod 키가 없으면 빈 dict.
+        키는 부를 때마다 env에서 읽는다(설정 다시 읽기를 따라간다)."""
+        self._ensure_session()
+        s, key = self._session, self.env.get(POD_KEY_ENV)
+        if not s or not key:
             return {}
         cfg = self.models_cfg["models"][POD_TAG]
-        return {cfg["base_url_env"]: pod.pod_url(s["pod_id"]), cfg["api_key_env"]: s["key"]}
+        return {cfg["base_url_env"]: pod.pod_url(s["pod_id"]), cfg["api_key_env"]: key}
 
     def model_status(self) -> list[dict]:
         """all_model_status에 서버 종류(where)를 붙인다. 이 앱이 만든 Pod가 있으면 .env의 RunPod 주소 대신 그 Pod를 본다."""
@@ -256,10 +305,11 @@ class ServerActions:
         return out
 
     def status(self) -> dict:
+        self._ensure_session()
         running = self._running()
         models = self.model_status()
         out = {"models": models, "pods": [], "volumes": None, "rngd": rngd_ps(self.env, runner=self._runner),
-               "ui_text": bt.server_ui_text(),
+               "ui_text": bt.server_ui_text(), "env_problems": self._env_problems(),
                "running_jobs": running, "locked": bool(running),
                "lock_reason": "; ".join(map(_running_text, running)) or None,
                "session": None, "rngd_choices": self._rngd_choices(), "log_tail": self._log_tail(10)}
@@ -269,13 +319,14 @@ class ServerActions:
             pod_env = cfg[POD_TAG]["base_url_env"]
             ready = any(m["reachable"] for m in models if cfg[m["tag"]].get("base_url_env") == pod_env)
             out["session"] = {"pod_id": self._session["pod_id"], "url": pod.pod_url(self._session["pod_id"]),
-                              "tag": POD_TAG, "ready": ready}
+                              "tag": POD_TAG, "ready": ready, "adopted": self._session["adopted"],
+                              "others": list(self._session.get("others") or [])}
         if not self.env.get("RUNPOD_API_KEY"):
             out["runpod_error"] = "RUNPOD_API_KEY 없음"
         else:
             try:
                 now = self._now()
-                out["pods"] = [self._pod_view(pod.brief(p, now=now), ready) for p in self._pods()]
+                out["pods"] = [self._pod_view(self._brief(p, now), ready, locked=bool(running)) for p in self._pods()]
                 out["volumes"] = len(pod.list_volumes(opener=self._opener, env=self.env))
             except RuntimeError as e:                # RunPod 연결·HTTP 오류. 다른 칸은 그대로 보인다
                 out["runpod_error"] = self._mask(str(e))
@@ -332,15 +383,28 @@ class ServerActions:
 
     # ── 요약 ───────────────────────────────────────────
 
+    def reload_env(self) -> dict:
+        """.env를 다시 읽어 env를 바꾼다. 확인 토큰은 받지 않는다(돈·서버를 바꾸지 않는다). 응답에는 이름과 줄 번호만 있다."""
+        if self.env_file is None:
+            return {"ok": False, "error": bt.SERVER_TEXT["env_file_unknown"]}
+        with self._lock:
+            r = apply_env_file(self.env_file, self.env, self._env_names)
+            self._env_names = set(r["names"])
+            self._adopt_checked = None               # 관리 키가 바뀌었을 수 있어 다음 요청에서 Pod를 다시 찾는다
+        return {"ok": True, "names": r["names"], "changed": r["changed"], "removed": r["removed"],
+                "problems": [bt.env_problem(n) for n in r["problems"]]}
+
     def _plan_pod_create(self, params: dict) -> dict:
         self._need_runpod()
+        if not self.env.get(POD_KEY_ENV):
+            raise _Refuse(400, bt.SERVER_TEXT["pod_key_missing"])
         model = self.models_cfg["models"][POD_TAG]["model"]
         warn = []
         live = [p for p in self._pods() if p.get("desiredStatus") == "RUNNING"]
         if live:
             warn.append(f"이미 켜진 Pod {len(live)}개가 있습니다({', '.join(str(p.get('id')) for p in live)}). 새 Pod는 따로 과금됩니다")
         if self._session:
-            warn.append(f"이 앱이 쓰던 Pod {self._session['pod_id']} 대신 새 Pod를 씁니다. 옛 Pod의 vLLM 키는 잊습니다")
+            warn.append(f"이 앱이 쓰던 Pod {self._session['pod_id']} 대신 새 Pod를 씁니다")
         summary = (f"{POD_GPU}, vLLM 0.32.0, {model} (이미지 2장, 최대 길이 40960). 시간당 약 ${POD_COST_HINT:.2f}. "
                    f"{WATCHDOG_SECONDS // 3600}시간 뒤 자동 삭제 감시를 함께 띄웁니다. 모델을 받아 뜨기까지 몇 분 걸립니다(10/29 기록 약 6분)")
         return {"params": {}, "summary": summary, "warning": " / ".join(warn) or None}
@@ -353,12 +417,11 @@ class ServerActions:
         found = next((p for p in self._pods() if p.get("id") == pid), None)
         if found is None:
             raise _Refuse(404, f"없는 Pod입니다: {pid} (이미 지워졌을 수 있습니다)")
-        b = pod.brief(found, now=self._now())
+        if not _owned(found):                        # 계정이 공용일 수 있다. 남의 Pod는 지우지 않는다 (ADR-028)
+            raise _Refuse(403, bt.SERVER_TEXT["pod_not_ours"].format(prefix=OURS))
+        b = self._brief(found, self._now())
         summary = f"Pod {pid} ({b['name']}, {_minutes_cost(b, '켜진 지')})를 지웁니다. 과금이 멈춥니다. {RELOAD_TEXT}"
         warn = []
-        if not str(b["name"] or "").startswith(OURS):   # 계정이 공용일 수 있다. 막지는 않는다
-            summary += f". 이 Pod는 이 도구가 만든 것이 아닙니다(이름이 {OURS}로 시작하지 않음)"
-            warn.append("다른 사람이 쓰는 Pod일 수 있습니다. 이름과 켜진 시간을 확인하세요")
         if self._session and self._session["pod_id"] == pid:
             warn.append("이 앱이 지금 쓰는 Pod입니다. 지우면 RunPod 모델 연결이 끊깁니다")
         return {"params": {"pod_id": pid}, "summary": summary, "warning": " / ".join(warn) or None}
@@ -393,10 +456,12 @@ class ServerActions:
 
     def _do_pod_create(self, params: dict) -> dict:
         self._need_runpod()
+        key = self.env.get(POD_KEY_ENV)              # Pod 환경 변수로만 보낸다. 앱을 다시 켜도 같은 .env 값으로 이어 쓴다
+        if not key:                                  # 요약을 본 뒤 설정 다시 읽기로 빠졌을 수 있다
+            raise _Refuse(400, bt.SERVER_TEXT["pod_key_missing"])
         model = self.models_cfg["models"][POD_TAG]["model"]
-        key = secrets.token_urlsafe(32)              # Pod 환경 변수로만 보내고 이 객체의 메모리에만 둔다
         pod_id = pod.create_pod(POD_SERVE.format(model=model), key, name=POD_NAME, opener=self._opener, env=self.env)
-        self._session = {"pod_id": pod_id, "key": key, "created": self._clock()}
+        self._session = {"pod_id": pod_id, "created": self._clock(), "adopted": False}
         watchdog = self._start_watchdog(pod_id)
         note = (f"{model}, {POD_GPU}, 시간당 약 ${POD_COST_HINT:.2f}, "
                 + (f"{WATCHDOG_SECONDS // 3600}시간 뒤 자동 삭제 감시" if watchdog else "자동 삭제 감시를 띄우지 못함 — 직접 지울 것"))
@@ -409,14 +474,18 @@ class ServerActions:
         self._need_runpod()
         pid = params["pod_id"]
         before = next((p for p in self._pods() if p.get("id") == pid), None)
-        b = pod.brief(before, now=self._now()) if before else {"name": None, "minutes": None, "est_cost": None}
+        if before is None:                           # 주인을 확인할 수 없으면 지우지 않는다
+            raise _Refuse(404, f"없는 Pod입니다: {pid} (이미 지워졌을 수 있습니다)")
+        if not _owned(before):                       # 요약을 본 뒤 목록이 바뀌었을 수 있어 지우기 직전에 다시 본다
+            raise _Refuse(403, bt.SERVER_TEXT["pod_not_ours"].format(prefix=OURS))
+        b = self._brief(before, self._now())
         pod.delete_pod(pid, opener=self._opener, env=self.env)
         self._sleep(DELETE_WAIT)
         left = self._pods()
         gone = all(p.get("id") != pid for p in left)
         if gone:
             if self._session and self._session["pod_id"] == pid:
-                self._session = None                 # vLLM 키도 함께 잊는다
+                self._session = None
             w = self._watchdogs.pop(pid, None)
             if w:
                 w["proc"].terminate()
@@ -469,6 +538,50 @@ class ServerActions:
     def _pods(self) -> list[dict]:
         return pod.list_pods(opener=self._opener, env=self.env)
 
+    def _ensure_session(self) -> None:
+        """세션이 없으면 이 앱이 전에 만든 켜진 Pod를 이어 쓴다(앱을 다시 켠 뒤 첫 요청 때). 가장 최근에 켜진 것을 고르고
+        나머지는 others에 둔다. 목록 요청은 ADOPT_EVERY초에 한 번까지이고, RunPod 오류면 세션 없이 넘어간다."""
+        if self._session or not self.env.get("RUNPOD_API_KEY"):
+            return
+        now = self._clock()
+        if self._adopt_checked is not None and now - self._adopt_checked < ADOPT_EVERY:
+            return
+        self._adopt_checked = now
+        try:
+            pods = self._pods()
+        except RuntimeError:
+            return
+        t = self._now()
+        ours = sorted((self._brief(p, t) for p in pods if _owned(p) and p.get("desiredStatus") == "RUNNING"),
+                      key=lambda b: float("inf") if b["uptime_s"] is None else b["uptime_s"])
+        if ours:
+            self._session = {"pod_id": ours[0]["id"], "created": None, "adopted": True,
+                             "others": [b["id"] for b in ours[1:]]}
+
+    def _brief(self, p: dict, now: datetime) -> dict:
+        """pod.brief. 시각을 못 얻은 이 앱의 Pod는 server_log.md의 pod_create 줄 시각으로 켜진 시간·추정 비용을 채운다."""
+        b = pod.brief(p, now=now)
+        if b["uptime_s"] is None and _owned(p):
+            started = self._logged_create(b["id"])
+            if started:
+                b = pod.brief({**p, "lastStartedAt": started.isoformat()}, now=now)
+        return b
+
+    def _logged_create(self, pod_id) -> datetime | None:
+        """server_log.md에서 그 Pod의 마지막 pod_create 줄 시각. 기록은 로컬 시각이다."""
+        found = None
+        for row in self._log_rows():
+            cells = [c.strip() for c in row.strip().strip("|").split("|")]
+            if len(cells) >= 3 and cells[1] == "pod_create" and cells[2].split(" ")[0] == pod_id:
+                found = cells[0]
+        try:
+            return datetime.strptime(found, "%Y-%m-%d %H:%M:%S").astimezone() if found else None
+        except ValueError:
+            return None
+
+    def _env_problems(self) -> list[dict]:
+        return [bt.env_problem(n) for n in read_env_file(self.env_file)[1]] if self.env_file else []
+
     def _rngd_models(self) -> list[str]:
         ps = rngd_ps(self.env, runner=self._runner)
         if not ps["ok"]:
@@ -489,27 +602,29 @@ class ServerActions:
         self._watchdogs[pod_id] = {"proc": proc, "deadline": self._clock() + WATCHDOG_SECONDS}
         return True
 
-    def _pod_view(self, b: dict, ready: bool | None) -> dict:
+    def _pod_view(self, b: dict, ready: bool | None, *, locked: bool) -> dict:
         mine = self._session and self._session["pod_id"] == b["id"]
         w = self._watchdogs.get(b["id"])
-        return {**b, "ours": str(b.get("name") or "").startswith(OURS), "session": bool(mine),
+        owned = _owned(b)
+        return {**b, "ours": owned, "owned": owned, "deletable": owned and not locked, "session": bool(mine),
                 "state": ("준비됨" if ready else "준비 중") if mine else None,
                 "auto_delete_min": max(0, round((w["deadline"] - self._clock()) / 60)) if w else None}
 
     def _log_tail(self, n: int) -> list[str]:
+        return self._log_rows()[-n:]
+
+    def _log_rows(self) -> list[str]:
         if not self.log_path.exists():
             return []
-        rows = [l for l in self.log_path.read_text(encoding="utf-8").splitlines()
+        return [l for l in self.log_path.read_text(encoding="utf-8").splitlines()
                 if l.startswith("| ") and not l.startswith("| 시각 |")]
-        return rows[-n:]
 
     def _now(self) -> datetime:
         return datetime.fromtimestamp(self._clock(), tz=timezone.utc)
 
     def _secrets(self) -> list[str]:
-        vals = [v for k, v in self.env.items()
+        return [v for k, v in self.env.items()                  # .env의 RUNPOD_VLLM_API_KEY(Pod 키)도 여기서 가린다
                 if k.startswith(_SECRET_PREFIXES) and _SECRET_FIELD.search(k) and v and len(v) >= 8]
-        return vals + ([self._session["key"]] if self._session else [])
 
     def _mask(self, text: str) -> str:
         return mask_keys(text, self._secrets())
