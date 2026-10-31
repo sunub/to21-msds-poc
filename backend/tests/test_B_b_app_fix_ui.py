@@ -4,6 +4,193 @@ import pytest
 from test_B_b_app_dom import run_js
 
 
+def test_s06_recommended_server_and_two_way_comparison_first():
+    from test_B_b_app_servers_ui import FIXTURE
+    run_js(FIXTURE + FIX_VISIBLE + r"""
+      data.session=null;data.models[1].reachable=false;data.models[1].match=false;
+      await setup();const page=view(),company=document.getElementById('servers-rngd');
+      const visible=visibleText(page),comparison=document.getElementById('servers-comparison');
+      assert.ok(comparison,'both choices must be compared before opening the alternative');
+      const order=page.querySelectorAll('*');assert.ok(order.indexOf(action('rngd_up')) < order.indexOf(comparison));
+      assert.equal(action('rngd_up').classList.contains('primary'),true);
+      assert.equal(company.closest('details'),null);
+      const rows=comparison.querySelectorAll('tbody tr');assert.equal(rows.length,2);
+      for(const key of ['servers.compare.company.wait','servers.compare.rented.wait','servers.empty.new_cost'])
+        assert.ok(visibleText(comparison).includes(T(key)));
+      assert.ok(visibleText(comparison).includes('$2.50'));
+      const alternate=document.getElementById('servers-runpod').querySelector('details');
+      assert.ok(alternate);assert.equal(alternate.open,false);
+      assert.equal(alternate.querySelector('summary').textContent,T('servers.company.alternative'));
+      assert.ok(!visible.includes(T('servers.rented.confirm_create')));
+      const diagnostics=document.getElementById('servers-models').querySelector('details');
+      assert.ok(diagnostics);assert.equal(diagnostics.open,false);
+      assert.ok(!visible.includes(T('servers.connection.expected')));
+      alternate.open=true;await shellPollServers();
+      assert.equal(document.getElementById('servers-runpod').querySelector('details').open,true);
+      data.rngd.tunnel.open=false;data.can.tunnel_open=true;data.rngd.diagnosis='tunnel_closed';await shellPollServers();
+      assert.ok(action('tunnel_open').classList.contains('primary'));
+      assert.ok(!action('rngd_up').classList.contains('primary'));
+      data.pods=[];await shellPollServers();
+      assert.ok(visibleText(document.getElementById('servers-comparison')).includes(T('servers.rented.unknown')));
+      assert.ok(!visibleText(document.getElementById('servers-comparison')).includes('$0'));
+      assert.equal(calls.filter(c=>c[0]==='post').length,0);
+    """)
+
+
+@pytest.mark.parametrize('cost', ['3.17', '0.83'])
+def test_p02_create_button_shows_hourly_cost(cost):
+    from test_B_b_app_servers_ui import FIXTURE
+    import json
+    # The backend's present contract puts the quoted rate in summary, not in a numeric key.
+    summary = f"Fake GPU. 시간당 약 ${cost}. 준비 시간 미확인."
+    run_js(FIXTURE + f"const quoted={json.dumps(summary)},cost={json.dumps(cost)};" + r"""
+      await setup();const original=post;let quote=quoted;
+      post=async(path,body)=>path.endsWith('/propose')?{token:'priced-once',action:body.action,summary:quote,expires_in:600}:original(path,body);
+      await action('pod_create').click();let confirm=document.getElementById('servers-confirm');
+      assert.equal(confirm.textContent,T('servers.confirm.create.action',{cost_per_hour:cost}));
+      assert.ok(confirm.textContent.includes('$'+cost));assert.equal(confirm.disabled,false);
+      assert.equal(calls.filter(c=>c[1].endsWith('/execute')).length,0);
+      await confirm.click();assert.equal(calls.filter(c=>c[1].endsWith('/execute')).length,1);
+      for(const missing of ['No quote available',quoted+' '+quoted,'Total $99.00']) {
+        quote=missing;await action('pod_create').click();confirm=document.getElementById('servers-confirm');
+        assert.equal(confirm.disabled,true);assert.ok(document.getElementById('servers-confirm-blocked').textContent);
+        await serversExecute(S.servers.proposal);
+        assert.equal(calls.filter(c=>c[1].endsWith('/execute')).length,1);
+        document.getElementById('servers-cancel').click();
+      }
+    """)
+
+
+def test_s08_recommended_track_is_primary():
+    from test_B_b_app_journey_ui import SETUP
+    run_js(SETUP + FIX_VISIBLE + r"""
+      await go('s08');await flush();
+      const read=el('journey-start-t1'),trial=el('journey-start-t2');
+      assert.ok(read.classList.contains('primary'));assert.ok(!trial.classList.contains('primary'));
+      assert.equal(el('screen-s08').querySelectorAll('button.primary').length,1);
+      assert.ok(read.closest('.journey-choice').textContent.includes(T('journey.choice.read_ready')));
+      assert.ok(trial.closest('.journey-choice').textContent.includes(T('context.model.readiness_unknown')));
+      assert.ok(trial.closest('.journey-choice').textContent.includes(T('journey.choice.trial_requires_model')));
+      assert.equal(trial.closest('.journey-choice').querySelector('.journey-connection').querySelectorAll('button').length,0);
+      assert.ok(trial.classList.contains('text-button'));assert.ok(el('journey-practice').classList.contains('text-button'));
+      const records=el('journey-records').querySelector('details');assert.ok(records);assert.equal(records.open,false);
+      assert.ok(!visibleText(el('journey-records')).includes(T('journey.history.real_success')));
+      assert.ok(records.querySelector('table'));
+      runData=null;await journeyLoadRuns();journeyRenderChoice();
+      assert.equal(el('journey-start-t1').disabled,true);
+      assert.ok(visibleText(el('journey-choice')).includes(T('journey.start.empty')));
+      let destination;go=async(id,args)=>{destination=[id,args];};
+      await el('journey-start-t2').click();assert.equal(destination[0],'s03');
+      assert.equal(S.journey.outcomes.t2.real,null);
+    """)
+
+
+def test_s09_runnable_docs_first_and_locked_docs_grouped():
+    from test_B_b_app_jobs_ui import SETUP
+    run_js(SETUP + FIX_VISIBLE + r"""
+      options=makeOptions(false);
+      options.sets[0].docs.unshift(...['T21-X90','T21-X91'].map(doc_id=>({doc_id,group:'eval',locked:true,
+        runnable:{try:false,run:false},run_reason:{try:'EVAL LOCK',run:'EVAL LOCK'}})));
+      await go('s09');const form=el('jobs-run'),checks=form.querySelectorAll('input[type="checkbox"]');
+      assert.equal(checks[0].id,'jobs-run-doc-RAW-FAKE');assert.equal(checks[0].disabled,false);
+      assert.equal(el('jobs-run-doc-T21-X02').disabled,false);
+      const locked=el('jobs-run-locked');assert.ok(locked);
+      assert.ok(locked.textContent.includes('T21-X90'));assert.ok(locked.textContent.includes('T21-X91'));
+      assert.equal(locked.textContent.split('EVAL LOCK').length-1,1);
+      assert.ok(locked.textContent.includes(T('jobs.batch.eval_locked',{count:2})));
+      assert.equal(form.textContent.split('EVAL LOCK').length-1,1);
+      assert.ok(form.textContent.indexOf(T('jobs.form.count',{count:2,repeats:1}))<form.textContent.indexOf('EVAL LOCK'));
+      assert.ok(form.textContent.includes('RUN LOCK'));assert.ok(!form.textContent.includes('NOT RUN REASON'));
+      await el('jobs-select-all').click();assert.deepEqual([...S.jobs.r.docs],['RAW-FAKE','T21-X02']);
+      const prepare=form.querySelectorAll('button').find(b=>b.textContent===T('context.prepare_model'));
+      assert.ok(prepare);let dest;const normalGo=go;go=async(id,args)=>{dest=[id,args];};await prepare.click();
+      assert.equal(dest[0],'s06');assert.equal(dest[1].returnScreen,'s09');assert.equal(dest[1].model,'first');go=normalGo;
+      options=JSON.parse(JSON.stringify(options));options.models[0].connected=true;await jobsPoll();await el('jobs-run-start').click();
+      assert.deepEqual(posted[0].body.docs,['RAW-FAKE','T21-X02']);
+      assert.equal(posted[0].body.set,'pack');
+    """)
+
+
+def test_p01_compares_current_and_candidate_and_keeps_apply_visible():
+    from test_B_b_app_shell_ui import FIXTURES
+    from test_B_b_app_dom import STATIC
+    import re
+    run_js(FIXTURES + FIX_VISIBLE + r"""
+      sets.sets[0].counts={dev:1,eval_locked:0,outside:0};keys.keys[0].kind='silver';keys.keys[1].kind='gold';
+      sets.sets[1].docs=[{doc_id:'RAW-X01',locked:false},{doc_id:'RAW-X02',locked:false}];
+      sets.sets[1].counts={dev:0,eval_locked:0,outside:2};keys.keys[1].docs=['RAW-X01'];
+      sets.sets.push({id:'unnumbered',label:'No line numbers',usable:false,reason:'No line ids'},
+        {id:'empty',label:'Empty folder',usable:false,reason:'No document folders'});
+      await start();shellOpenContext();const d=document.getElementById('context-picker');
+      const compare=document.getElementById('context-comparison');assert.ok(compare);
+      assert.ok(compare.textContent.includes(T('common.current')));assert.ok(compare.textContent.includes(T('common.candidate')));
+      const candidates=document.getElementById('context-candidates');assert.ok(candidates);assert.equal(candidates.open,false);
+      const apply=document.getElementById('context-apply'),body=document.getElementById('context-picker-body');
+      assert.ok(body);assert.equal(body.contains(apply),false);assert.equal(apply.closest('dialog'),d);
+      assert.ok(visibleText(d).includes(T('context.picker.effect_key')));
+      for(const [id,values] of [['context-set',['locked','unnumbered','empty']],['context-key',['gold/empty']]])
+        for(const value of values) {const opt=document.getElementById(id).querySelector('[value="'+value+'"]');assert.equal(opt.disabled,true);}
+      assert.ok(document.getElementById('context-set').querySelector('[value="unnumbered"]').textContent.includes('No line ids'));
+      assert.ok(document.getElementById('context-key').querySelector('[value="gold/empty"]').textContent.includes('No answer files'));
+      assert.equal(document.getElementById('context-key').querySelector('[value="silver/fake"]').textContent,'Draft answers');
+      assert.ok(candidates.textContent.includes('No document folders'));assert.ok(candidates.textContent.includes('No line ids'));
+      assert.ok(candidates.textContent.includes('No answer files'));assert.ok(d.textContent.includes(keys.keys[0].updated_at));
+      const set=document.getElementById('context-set'),key=document.getElementById('context-key');
+      set.value='.';set.dispatchEvent({type:'change'});key.value='gold/fake';key.dispatchEvent({type:'change'});
+      const updated=document.getElementById('context-comparison');
+      assert.ok(updated.textContent.includes('Development nine'));assert.ok(updated.textContent.includes('New documents'));
+      assert.ok(updated.textContent.includes('1/2'));assert.ok(updated.textContent.includes('1/1'));
+      assert.ok(d.textContent.includes('RAW-X02'));assert.ok(d.textContent.includes(T('common.none')));
+      assert.equal(S.ctx.set,'prev/v9');assert.equal(S.ctx.key,'silver/fake');
+      document.getElementById('context-cancel').click();assert.equal(S.ctx.set,'prev/v9');
+    """)
+    css = (STATIC / 'app.css').read_text()
+    assert re.search(r'#context-picker\[open\]\s*\{[^}]*display:\s*flex', css)
+    assert re.search(r'#context-picker-body\s*\{[^}]*overflow-y:\s*auto', css)
+    assert re.search(r'#context-picker-body\s*\{[^}]*min-height:\s*0', css)
+    assert re.search(r'#context-picker\s+\.dialog-actions\s*\{[^}]*flex-shrink:\s*0', css)
+
+
+def test_sticky_header_does_not_cover_focused_controls():
+    from test_B_b_app_shell_ui import FIXTURES
+    from test_B_b_app_dom import STATIC
+    import re
+    run_js(FIXTURES + r"""
+      let height=248;document.getElementById('global-context').getBoundingClientRect=()=>({height});
+      await start();
+      assert.ok(parseFloat(document.body.style.getPropertyValue?.('--sticky-offset'))>=248);
+      height=322;shellRenderModels();
+      assert.ok(parseFloat(document.body.style.getPropertyValue?.('--sticky-offset'))>=322);
+      height=184;window.dispatchEvent({type:'resize'});
+      assert.ok(parseFloat(document.body.style.getPropertyValue?.('--sticky-offset'))>=184);
+    """)
+    css = (STATIC / 'app.css').read_text()
+    assert re.search(r'(?:button|:focus)[^{]*\{[^}]*scroll-margin-top:\s*var\(--sticky-offset', css)
+    assert re.search(r'dialog[^{}]*\{[^}]*scroll-margin-top:\s*0', css)
+
+
+def test_s06_action_failure_and_recovery_remain_visible_before_details():
+    from test_B_b_app_servers_ui import FIXTURE
+    run_js(FIXTURE + FIX_VISIBLE + r"""
+      await setup();post=async()=>{throw new Error('Request failed');};await action('tunnel_close').click();
+      assert.ok(visibleText(document.getElementById('servers-summary')).includes(T('servers.status.failure.fact')));
+      api=async()=>{throw new Error('Status failed');};await shellPollServers();
+      const summary=document.getElementById('servers-summary');
+      assert.ok(visibleText(summary).includes(T('servers.failed.retry')));
+      assert.ok(visibleText(summary).includes(T('servers.status.failure.todo')));
+    """)
+
+
+def test_s09_selection_summary_updates_repeats_without_replacing_input():
+    from test_B_b_app_jobs_ui import SETUP
+    run_js(SETUP + r"""
+      await go('s09');const repeat=el('jobs-repeat');repeat.focus();input(repeat,'3');
+      assert.ok(textOf('jobs-run').includes(T('jobs.form.count',{count:2,repeats:3})));
+      assert.ok(!textOf('jobs-run').includes(T('jobs.form.count',{count:2,repeats:1})));
+      assert.equal(el('jobs-repeat'),repeat);assert.equal(document.activeElement,repeat);
+    """)
+
+
 def test_s03_instruction_box_is_prefilled_with_current_instruction():
     from test_B_b_app_jobs_ui import SETUP
     run_js(SETUP + r"""

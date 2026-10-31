@@ -1398,7 +1398,7 @@ UI_TEXT["servers"] = {'confirm': {'load': {'title': '회사 서버에서 {model}
                         'target': '{model}. 기존 서버가 있으면 비용이 추가됩니다.',
                         'cost': '켜진 동안 시간당 약 ${cost_per_hour}가 듭니다(예시). 준비 완료 시각은 모릅니다. 사용 뒤 삭제하세요. 앱이 만든 '
                                 '서버는 생성 후 4시간에 자동 삭제됩니다. 앱이 켜져 있어야 예약을 확인합니다.',
-                        'action': '요금을 확인하고 서버 만들기'},
+                        'action': '시간당 약 ${cost_per_hour} 서버 만들기'},
              'delete': {'title': '서버 {server}을 삭제할까요?',
                         'target': '{pod_id}. 이 앱이 만든 서버입니다. 진행 작업은 없습니다.',
                         'cost': '가동 {hours}시간. 추정 비용 ${cost}. 별도 저장공간 비용은 남을 수 있습니다.',
@@ -2931,6 +2931,17 @@ UI_TEXT["compare"]["values"]["open_changed"] = "바뀐 값의 원문 보기"
 UI_TEXT["compare"]["empty"] = {"next": "비교할 결과를 준비하거나 문서 묶음을 바꾸세요."}
 UI_TEXT["compare"]["builder"].update({"move_up": "앞으로 옮기기", "move_down": "뒤로 옮기기"})
 for _copy_key in ("compare.values.open_changed", "compare.empty.next", "compare.builder.move_up", "compare.builder.move_down"):
+    COPY_EXCEPTIONS[_copy_key] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+
+# S5 step 3: 계약에서 확인한 요금과 문서별 정답 범위를 표시한다.
+COPY_EXCEPTIONS.pop("servers.confirm.create.action", None)
+UI_TEXT["servers"]["confirm"]["create"]["cost_unknown"] = "시간당 요금을 확인하지 못했습니다. 할 일: 취소한 뒤 새 서버 요금을 다시 확인하세요."
+UI_TEXT["context"]["picker"].update({
+    "outside_count": "목록 밖 문서 {count}건",
+    "coverage_label": "정답이 있는 문서",
+    "coverage": "{found}/{total}건에 정답이 있습니다.",
+})
+for _copy_key in ("servers.confirm.create.cost_unknown", "context.picker.outside_count", "context.picker.coverage_label", "context.picker.coverage"):
     COPY_EXCEPTIONS[_copy_key] = "S5 결정 2: ⑤ 수락에서 승인 대기"
 
 POLISH_TEXT = UI_TEXT

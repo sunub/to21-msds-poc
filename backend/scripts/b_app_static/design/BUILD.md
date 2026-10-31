@@ -87,7 +87,7 @@ P01과 P02는 원래 화면으로 돌아오는 확인 영역입니다.
 | `s03` | 다시 시험 (`nav.retest`) | `jobs-try`<br>`jobs-result`<br>`jobs-connection` | `js/jobs.js`<br>`js/servers.js`는 연결 구역 제공 | 6, 연결 구역 5 |
 | `s04` | 두 결과 비교 (`nav.compare`) | `compare-summary`<br>`compare-conditions`<br>`compare-items`<br>`compare-values`<br>`compare-rows`<br>`compare-prompts` | `js/compare.js` | 4 |
 | `s05` | 작업 기록 (`nav.jobs`) | `jobs-list`<br>`jobs-detail` | `js/jobs.js` | 6 |
-| `s06` | AI 켜기와 비용 (`nav.servers`) | `servers-summary`<br>`servers-models`<br>`servers-runpod`<br>`servers-rngd`<br>`servers-log` | `js/servers.js` | 5 |
+| `s06` | AI 켜기와 비용 (`nav.servers`) | `servers-summary`<br>`servers-rngd`<br>`servers-runpod`<br>`servers-models`<br>`servers-log` | `js/servers.js` | 5 |
 | `s07` | 도움말 (`nav.help`) | `help-topics`<br>`help-glossary` | `js/help.js` | 8 |
 | `s08` | 처음 사용 안내 (`nav.open_guide`) | `journey-choice`<br>`journey-records` | `js/journey.js` | 7 |
 | `s09` | 여러 문서 시험하기 (`jobs.trial.open_batch`) | `jobs-run` | `js/jobs.js` | 6 |
@@ -1264,6 +1264,12 @@ Questions skipped: non-interactive. 승인 구조와 모양은 유지한다.
 | `compare.builder.move_up` | 앞으로 옮기기 | S10 선택 순서 | 셋 이상 선택할 때의 순서 변경. S5 결정 2: ⑤ 수락에서 승인 대기 |
 | `compare.builder.move_down` | 뒤로 옮기기 | S10 선택 순서 | 셋 이상 선택할 때의 순서 변경. S5 결정 2: ⑤ 수락에서 승인 대기 |
 
+
+| `servers.confirm.create.cost_unknown` | 시간당 요금을 확인하지 못했습니다. 할 일: 취소한 뒤 새 서버 요금을 다시 확인하세요. | P02 | 확인 응답에 요금이 없거나 여러 개면 생성 금지. S5 결정 2: ⑤ 수락에서 승인 대기 |
+| `context.picker.outside_count` | 목록 밖 문서 {count}건 | P01 | API의 outside 건수를 개발 문서 수와 구분. S5 결정 2: ⑤ 수락에서 승인 대기 |
+| `context.picker.coverage_label` | 정답이 있는 문서 | P01 | 실제 채점 완료 범위와 선택 후보의 정답 보유 범위를 구분. S5 결정 2: ⑤ 수락에서 승인 대기 |
+| `context.picker.coverage` | {found}/{total}건에 정답이 있습니다. | P01 | 선택 가능한 문서 중 후보 정답지가 가진 문서 수. S5 결정 2: ⑤ 수락에서 승인 대기 |
+
 ### fix step 1
 
 ⚠️ DEGRADED: no browser in sandbox
@@ -1401,3 +1407,71 @@ Questions skipped: non-interactive. impeccable layout·distill 지침을 읽었�
 - S05의 짧은 목록·한 번만 나오는 상세·선택 유지. S10의 A/B 순서 전달·선택 표·제목·만들기·접힌 후보·키보드 순서 조작.
 
 제공된 사진으로 기존 문제를 확인했지만 수정한 화면은 브라우저에서 보지 않았다. DOM 시험으로 화면 높이·가림·가로 넘침을 확인했다고 주장하지 않는다.
+
+### fix step 3
+
+⚠️ DEGRADED: no browser in sandbox
+
+Questions skipped: non-interactive. impeccable layout·onboard·craft-floor를 읽었다. 제공된 실제 사진 8장과 승인 사진 4장, S09·P01 시안 HTML을 확인했다. 추천 행동→선택 비교→접힌 상세 순서로 복원한다. 문서 선택창은 비교·영향과 적용 행동을 먼저 보여 주고 본문만 스크롤한다. 첫 사용 성공 조건과 비용 확인 단계는 유지한다.
+
+시험 선행: 지정한 여섯 이름(요금 두 경우로 총 7개)을 먼저 작성했다. `/tmp/to21-step3-red.log`: **7 failed, 45 deselected** (0.69초). 추천 서버 비교 누락, 요금 없는 마지막 단추, 추천 갈래 강조 없음, 잠긴 문서 우선 노출, 현재/후보 비교 없음, 고정 머리 높이를 반영하는 공통 여백 없음으로 각각 실패했다.
+
+| 고친 번호 | 시험 이름 | 확인 방법 |
+|---|---|---|
+| P1-14 | `test_s06_recommended_server_and_two_way_comparison_first` | 회사 서버의 진단·다음 행동→두 방식 비용/준비 비교→다른 방법→모델 진단 상세. 터널 닫힘이면 연결 열기, 열린 무모델 상태이면 모델 켜기를 주 행동으로 표시. 기존 서버 요금은 API 값만 사용. |
+| P1-15 | `test_s08_recommended_track_is_primary` | 추천 갈래만 primary. 준비·시작을 같은 갈래에 배치. 기록 표는 기본 접힘. 결과 없음 이유와 비활성 시작, 실제/연습 성공 분리 유지. |
+| P1-16 | `test_s09_runnable_docs_first_and_locked_docs_grouped`, `test_s09_selection_summary_updates_repeats_without_replacing_input` | runnable.run 참인 문서·선택 수 우선. 불가 문서는 한 펼침에 모아 run_reason.run별 한 번 설명. 평가 문서 잠금 요약과 개별 번호 보존. AI 준비로 S06 이동/복귀 대상 유지. 반복 수 변경 시 요약만 갱신. |
+| P1-19 | `test_p01_compares_current_and_candidate_and_keeps_apply_visible` | 현재/후보의 묶음·정답·보유 범위·출처를 비교. 적용 전 S.ctx 불변. disabled 선택지 옆 이유. 수정 시각은 선택기 밖. 전체 후보·문서별 정답은 접힘. |
+| P1-23 | `test_p02_create_button_shows_hourly_cost` | 가짜 확인 응답 3.17/0.83으로 마지막 단추 요금 확인. 요금 없음·중복·총액만 있음이면 disabled와 직접 execute 방어. 단일 확인 토큰 전송은 유지. |
+| N-dialog | `test_p01_compares_current_and_candidate_and_keeps_apply_visible` | context-picker[open]은 높이 제한 flex. body만 min-height:0/overflow-y:auto. 적용/취소는 body 밖 flex-shrink:0. 900px 실제 화면 검증은 미실행. |
+| N-header | `test_sticky_header_does_not_cover_focused_controls` | 실제 sticky 요소인 global-context 높이+16px를 공통 scroll-margin-top에 반영. 조회·창 크기·ResizeObserver 변화에 갱신. 확인창 안은 0으로 분리. 가짜 높이 248/322/184px로 갱신 검증. |
+
+#### 추가 회귀·기존 시험 변경
+
+- 서버 조작 실패와 재조회가 접힌 상세 안에 숨는 문제를 추가 시험으로 먼저 실패시켰다. `/tmp/to21-step3-extra-red.log`: 1 failed. 오류·복구·현재 작업 상태는 요약에 남기고 설정 설명만 접었다.
+- P01 사용 불가 선택지의 바로 옆 이유와 S09 반복 수 요약 갱신을 추가로 실패시켰다. `/tmp/to21-step3-details-red.log`: 2 failed. 선택지에는 불가 이유만 붙이고 긴 수정 시각은 밖에 둔다. 반복 입력의 노드와 초점은 유지한다.
+- 새 S06 순서 시험은 ‘추가 임대료’가 추천 문장에도 있는 것을 피하도록 DOM 순서로 검사했다. S09 상태 갱신 대역은 HTTP 응답처럼 객체를 새로 돌려준다. 요구 기대를 바꾸지 않았다.
+- 기존 `test_B_b_app_servers_ui.py`의 공통 propose 대역과 `test_slow_double_submit_and_failed_create_are_not_retried_automatically`의 지연 응답에 가짜 시간당 요금 1.73을 추가했다. 비용이 있는 확인 응답으로 만료·중복 전송·실패 후 자동 재시도 금지를 계속 시험하기 위함이다. 기대값·시험 이름·시험 개수는 유지한다.
+- DOM 대역의 style에 표준 setProperty/getPropertyValue를 더했다. 공통 높이 CSS 변수의 실제 설정·읽기 계약을 시험하며 배치 엔진을 흉내 내지는 않는다. 기존 기대값 변경과 삭제는 없다.
+- 새 이름 8개, 요금 두 경우로 새 경우 9개다. fix 파일 전체 **54 passed** (9.06초). 좁힌 회귀는 반복 수 추가 전 **170 passed** (21.95초)다.
+
+#### API·정보·문구·설계 경계
+
+- 서버 API 키·요청 본문·응답 키는 변경하지 않았다. `serversCreateCost`는 현재 `_plan_pod_create`의 summary에서 ‘시간당 약 $숫자.’가 정확히 한 번인 경우만 읽는다. API 자체가 제공하는 예상 요금이며 최종 청구 확정값으로 바꾸지 않는다. 다른 요금·시안 숫자·기존 Pod 비용을 새 서버의 확인 금액으로 대신 쓰지 않는다.
+- 확인 문장을 읽지 못하면 실행을 막는다. 서버의 문장 형식이 바뀌면 요금 읽기도 확인해야 한다. 이 계약 제약은 백엔드 수정 없이 보수적으로 처리했다.
+- 기존 서버 목록의 비용은 비교 표에도 요약한다. 모르면 ‘알 수 없음’이며 무료나 시안 금액으로 대신하지 않는다. 기존 서버의 소유·삭제 가능 여부, 자동 삭제 확인과 저장공간 비용은 다른 방법 안에 모두 남는다.
+- `deletable`·`owned` 검사, 실행 중 변경 잠금, 터널 열기 예외, 확인 토큰의 유효시간·한 번 사용을 유지했다.
+- P01의 정답 보유 수는 목록의 docs 교집합이다. 점수를 다시 계산하지 않으며 실제 채점 완료 건수라고 표시하지 않는다. 문서 목록·정답 목록이 없으면 확인 안 됨이다. 잠긴 문서 내용이나 쪽 그림 요청은 만들지 않는다.
+- S09는 문서 번호로 실행 가능 여부를 추측하지 않는다. API의 runnable/run_reason을 그대로 쓰며 원래 POST에도 허용 문서만 들어간다. 실제/연습 첫 성공 판정과 저장 형태는 바꾸지 않았다.
+- 새 글 4개를 UI_TEXT·COPY_EXCEPTIONS·⑤ 승인 대기 표에 등록했다. 생성 단추 글은 승인된 COPY 그대로 복원해 예외 목록에서 제거했다. COPY·STRUCTURE·DESIGN·PRODUCT·사진은 수정하지 않았다.
+- impeccable layout 점검 0건. 전체 detect는 종료 코드 2이며 기존 wireframes.html/guide.html 지적만 있다. /static/app.css를 로컬 파일로 찾지 못해 색·변수 검사는 불완전하다. 결과는 `/tmp/to21-step3-detect.json`이다.
+
+#### 브라우저로 볼 것
+
+- 1280·1440·1680px의 S06 추천 행동/두 줄 비교/빌린 서버 접힘/실제 연결 상태 전환. 긴 모델 이름·서버 이름과 비용 표의 가로 넘침.
+- S08 추천 갈래와 보조 갈래의 강조 차이. 결과 없음·기록 저장 실패·실제/연습 이력을 펼친 상태.
+- S09 실행 가능 문서→선택 수→잠금 설명→반복/이름→시작 순서. 서버 준비 후 문서 선택과 반복/이름 복귀.
+- P01의 900px 높이에서 본문만 스크롤하고 적용/취소가 보이는지. 긴 후보 목록·불가 이유·문서별 정답 범위·Escape·초점 복귀.
+- 공통 맥락 줄이 오류나 긴 글로 커진 뒤에도 키보드 초점/scrollIntoView 대상이 가려지지 않는지. P02 금액과 마지막 생성 단추, 만료·변경 잠금.
+
+제공된 기존 사진을 확인했으나 변경한 화면은 브라우저에서 보지 않았다. DOM·정적 CSS 시험은 실제 900px 배치·가림·시각 품질 검증을 대신하지 않는다.
+
+#### 전체 검증 중 확인한 사항
+
+- 첫 AC의 지정 시험은 7 passed. 앱 회귀에서 `test_registered_views_match_build_and_html` 하나가 실패했다(1051 passed). 화면 등록 순서와 BUILD의 배치 표가 달랐다. 비교 표를 기존 servers-rngd 안에 두어 등록 구역은 34개를 유지하고, BUILD의 S06 순서를 실제 배치로 갱신했다. 해당 시험과 S06 새 시험 2개가 통과했다. 기존 시험의 기대값은 변경하지 않았다.
+- Python 함수·클래스의 AST는 시작 커밋과 같다. 제품 Python 변경은 문구뿐이다. `git diff --check` 통과.
+- 작업 시작 때 보호 파일 807개를 해시로 기록했다. 허용된 BUILD 외에 `design_work/app-redo/onboard-wispr/NOTES.md`, `design_work/app-redo/onboard-wispr/mockup.html`의 작업 중 외부 변경을 감지했다. 이 작업은 그 두 파일에 쓰지 않았고 변경을 보존했다. 별도 안내 설계는 이 step에 적용하지 않았다.
+- 마지막 시안 대조에서 S08 갈래 2에 준비 설명이 없고 연결 조작·시작 조작이 겹치는 것을 확인했다. 지정 S08 시험에 준비 설명과 보조 링크 모양을 더해 실패를 확인했다(`/tmp/to21-step3-guide-red.log`). 선택 화면은 모델 준비 설명·현재 모델·상태만 보이며 시험 준비/연습을 보조 링크로 표시한다. 연결 조작과 진단 상세는 기존 S03·S06에 남긴다. 새 문구와 기존 시험 기대값 변경은 없다.
+
+
+#### 최종 완료 기준 검증
+
+- step의 AC 명령을 그대로 `/tmp/to21-step3-ac.sh`로 실행했다. 최종 로그는 `/tmp/to21-step3-ac.log`다. BUILD 제목·고친 번호 7개·Node 확인이 통과했다.
+- 지정 여섯 이름의 일곱 경우: **7 passed** (0.87초). 앱 관련 시험: **1052 passed, 1194 deselected, 7 warnings** (43.55초).
+- 전체 시험: **1 failed, 2215 passed, 30 skipped, 7 warnings** (74.71초). 유일한 실패는 `tests/test_A_input.py::test_every_changing_route_answers_with_update`의 `socket.bind`에서 발생한 `PermissionError: [Errno 1] Operation not permitted`다. AC 스크립트 종료 코드는 1이다.
+- `phases/app-redo/_common.txt` 7절의 명시적 포트 권한 예외에 따라 completed로 기록한다. A 시험을 수정하거나 제외하지 않았다. 실행기가 샌드박스 밖에서 다시 검증한다. 경고 7개는 기존 SWIG 타입의 `__module__` 관련 DeprecationWarning이다.
+- 마지막 S08 보완은 추가 실패 확인 뒤 관련 시험 37개가 통과했고, 위 최종 AC에 포함했다. 기존 시험의 기대값 변경·삭제는 없다. 서버 응답 대역 2곳의 요금과 DOM 대역의 표준 style API만 보완했다.
+- Node 문법 검사·`git diff --check` 통과. 서버 API와 실행 요청 형태·확인 단계·삭제 가능 검사·평가 문서 잠금을 유지한다. Python 함수·클래스는 변경하지 않았다.
+- 최종 보호 파일 대조에서 외부 변경 파일이 하나 더 확인됐다: `design_work/app-redo/onboard-wispr/SPEC.md`. 앞서 확인한 NOTES.md·mockup.html과 함께 총 3개이며, 이 작업에서는 쓰지 않고 보존했다. 그 외 보호 파일 변경은 허용된 BUILD와 자기 step 상태뿐이다.
+- `phases/app-redo-fix/index.json`의 step 3 status·summary만 갱신한다. 커밋하지 않았다. 새 글 4개는 ⑤ 승인 대기다.
+- ⚠️ DEGRADED: no browser in sandbox. 실제 900px 선택창 배치와 고정 머리의 가림은 위 브라우저 확인 목록에 남겼다.

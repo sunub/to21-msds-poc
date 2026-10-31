@@ -6,7 +6,7 @@ const SHELL_SCREENS = {
   s03: {title: "nav.retest", views: ["jobs-try", "jobs-result", "jobs-connection"]},
   s04: {title: "nav.compare", views: ["compare-summary", "compare-conditions", "compare-items", "compare-values", "compare-rows", "compare-prompts"]},
   s05: {title: "nav.jobs", views: ["jobs-list", "jobs-detail"]},
-  s06: {title: "nav.servers", views: ["servers-summary", "servers-models", "servers-runpod", "servers-rngd", "servers-log"]},
+  s06: {title: "nav.servers", views: ["servers-summary", "servers-rngd", "servers-runpod", "servers-models", "servers-log"]},
   s07: {title: "nav.help", views: ["help-topics", "help-glossary"]},
   s08: {title: "nav.open_guide", views: ["journey-choice", "journey-records"]},
   s09: {title: "jobs.trial.open_batch", parent: "s03", views: ["jobs-run"]},
@@ -190,6 +190,11 @@ function shellRenderModels() {
     h("p", null, T("context.model.saved_readable")),
     S.shell.serverAt ? h("p", {class: "muted"}, T("context.model.checked_at", {time: when(S.shell.serverAt)})) : null,
     error && !unavailable ? rawError(error.message) : null);
+  shellMeasureHeader();
+}
+function shellMeasureHeader() {
+  const context = document.getElementById("global-context");
+  if (context) document.body.style.setProperty("--sticky-offset", `${Math.ceil(context.getBoundingClientRect().height || context.offsetHeight) + 16}px`);
 }
 async function shellPollServers() {
   if (S.shell.polling) return S.shell.polling;
@@ -212,17 +217,51 @@ function shellScheduleServers() {
 }
 function shellContextChoice(id, label, items, selected, answers = false) {
   const select = h("select", {id, disabled: !items.some(item => item.usable)},
-    items.map(item => h("option", {value: item.id, disabled: !item.usable},
-      item.label, item.reason ? ` — ${item.reason}` : "",
-      answers ? ` — ${T("context.picker.modified", {time: item.updated_at || T("context.unavailable")})}` : "")));
+    items.map(item => h("option", {value: item.id, disabled: !item.usable}, item.label,
+      !item.usable && item.reason ? ` — ${item.reason}` : "")));
   select.value = selected || "";
-  return h("div", null, h("label", {for: id}, label), select,
-    h("ul", {class: "context-candidates"}, items.map(item => h("li", null,
+  return h("div", null, h("label", {for: id}, label), select, h("p", {id: `${id}-note`, class: "muted"}));
+}
+function shellContextCandidates(items, answers = false) {
+  return h("ul", {class: "context-candidates"}, items.map(item => h("li", null,
       h("strong", null, item.label), h("span", {class: "raw"}, ` (${item.id})`),
       h("p", null, item.reason || T("context.picker.usable")),
+      !answers && item.counts ? shellContextCounts(item) : null,
       answers ? h("p", null, T("context.picker.modified", {time: item.updated_at || T("context.unavailable")})) : null,
       answers && item.fingerprint ? h("details", null, h("summary", null, T("common.record")),
-        h("p", null, T("context.picker.fingerprint")), h("code", {class: "technical"}, item.fingerprint)) : null))));
+        h("p", null, T("context.picker.fingerprint")), h("code", {class: "technical"}, item.fingerprint)) : null)));
+}
+function shellContextCounts(set) {
+  return h("ul", null, [
+    num(set?.counts?.dev) ? h("li", null, T("context.picker.dev_count", {count: set.counts.dev})) : null,
+    num(set?.counts?.outside) ? h("li", null, T("context.picker.outside_count", {count: set.counts.outside})) : null,
+    num(set?.counts?.eval_locked) ? h("li", null, T("jobs.batch.eval_locked", {count: set.counts.eval_locked})) : null]);
+}
+function shellContextComparison() {
+  const set = S.shell.sets.find(item => item.id === document.getElementById("context-set").value);
+  const key = S.shell.keys.find(item => item.id === document.getElementById("context-key").value);
+  const currentSet = S.shell.sets.find(item => item.id === S.ctx.set), currentKey = S.shell.keys.find(item => item.id === S.ctx.key);
+  const choice = item => h("div", null, item?.label || T("context.unavailable"), h("span", {class: "raw"}, item?.id || ""));
+  const docs = value => value?.docs?.filter(doc => !doc.locked) || [];
+  const coverage = (pack, answer) => Array.isArray(pack?.docs) && Array.isArray(answer?.docs)
+    ? T("context.picker.coverage", {found: docs(pack).filter(doc => answer.docs.includes(doc.doc_id)).length, total: docs(pack).length})
+    : T("context.unavailable");
+  const origin = answer => T(answer?.kind === "silver" ? "context.picker.draft_origin" : answer?.kind === "gold" ? "context.picker.gold_origin" : "context.unavailable");
+  const rows = [
+    [T("context.documents.label"), h("div", null, choice(currentSet), shellContextCounts(currentSet)), h("div", null, choice(set), shellContextCounts(set))],
+    [T("common.answer"), choice(currentKey), choice(key)],
+    [T("context.picker.coverage_label"), coverage(currentSet, currentKey), coverage(set, key)],
+    [T("source.fields.source"), origin(currentKey), origin(key)]];
+  coreReplace(document.getElementById("context-comparison"), h("thead", null, h("tr", null,
+    ["common.selection", "common.current", "common.candidate"].map(label => h("th", {scope: "col"}, T(label))))),
+    h("tbody", null, rows.map(([label, current, candidate]) => h("tr", null, h("th", {scope: "row"}, label), h("td", null, current), h("td", null, candidate)))));
+  document.getElementById("context-set-note").textContent = set?.reason || T(set?.usable ? "context.picker.usable" : "context.unavailable");
+  document.getElementById("context-key-note").textContent = [key?.reason, T("context.picker.modified", {time: key?.updated_at || T("context.unavailable")})].filter(Boolean).join(" ");
+  coreReplace(document.getElementById("context-doc-keys"), h("table", null,
+    h("thead", null, h("tr", null, ["common.document", "common.answer", "source.fields.source"].map(label => h("th", {scope: "col"}, T(label))))),
+    h("tbody", null, docs(set).map(doc => h("tr", null, h("th", {scope: "row", class: "technical"}, doc.doc_id),
+      h("td", null, T(!Array.isArray(key?.docs) ? "context.unavailable" : key.docs.includes(doc.doc_id) ? "common.present" : "common.none")),
+      h("td", null, key?.docs?.includes(doc.doc_id) ? origin(key) : T("common.none")))))));
 }
 function shellCloseContext() {
   document.getElementById("context-picker").close();
@@ -233,16 +272,21 @@ function shellOpenContext() {
   S.shell.pickerFocus = document.activeElement;
   const apply = h("button", {id: "context-apply", type: "button", class: "primary", onclick: shellApplyContext}, T("context.picker.apply"));
   dialog.replaceChildren(h("h2", {id: "context-picker-title"}, T("context.picker.title")),
+    h("div", {id: "context-picker-body"}, h("table", {id: "context-comparison"}),
     h("div", {class: "two-col"},
       shellContextChoice("context-set", T("context.documents.label"), S.shell.sets, S.ctx.set),
       shellContextChoice("context-key", T("context.answer.label"), S.shell.keys, S.ctx.key, true)),
     h("h3", null, T("context.picker.effects")),
     h("ul", null, ["effect_set", "effect_key", "no_model_call", "running_context"].map(key => h("li", null, T(`context.picker.${key}`)))),
+    h("details", {id: "context-candidates"}, h("summary", null, T("context.picker.alternatives")),
+      h("div", {class: "two-col"}, shellContextCandidates(S.shell.sets), shellContextCandidates(S.shell.keys, true))),
+    h("details", {id: "context-doc-details"}, h("summary", null, T("context.picker.doc_keys")), h("div", {id: "context-doc-keys"}))),
     h("div", {class: "dialog-actions"}, apply,
       h("button", {id: "context-cancel", type: "button", onclick: shellCloseContext}, T("context.picker.cancel"))));
   const validate = () => {
     apply.disabled = !S.shell.sets.some(item => item.usable && item.id === document.getElementById("context-set").value)
       || !S.shell.keys.some(item => item.usable && item.id === document.getElementById("context-key").value);
+    shellContextComparison();
   };
   document.getElementById("context-set").addEventListener("change", validate);
   document.getElementById("context-key").addEventListener("change", validate);
@@ -263,6 +307,11 @@ async function start() {
   if (S.shell.started) return S.shell.ready;
   S.shell.started = true;
   shellRenderHeader(); shellRenderContext(); setupTip();
+  window.addEventListener("resize", shellMeasureHeader);
+  if (typeof ResizeObserver !== "undefined") {
+    S.shell.headerObserver = new ResizeObserver(shellMeasureHeader);
+    S.shell.headerObserver.observe(document.getElementById("global-context"));
+  }
   emit("shell_started", {});
   window.addEventListener("hashchange", () => go(shellInitialRoute(location.hash)).catch(fail));
   document.getElementById("context-picker").addEventListener("cancel", event => { event.preventDefault(); shellCloseContext(); });

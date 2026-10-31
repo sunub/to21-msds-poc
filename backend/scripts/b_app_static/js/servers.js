@@ -58,6 +58,13 @@ function serversElapsed(since) {
 function serversMoney(value, hourly = false) {
   return num(value) && value >= 0 ? hourly ? T("servers.rented.hourly", {cost: value.toFixed(2)}) : `$${value.toFixed(2)}` : T("servers.rented.unknown");
 }
+function serversCreateCost(proposal) {
+  // 현재 API는 요금을 summary의 한 문장으로만 준다. 한 개의 완전한 요금만 읽는다.
+  const prefix = UI.servers.confirm.create.action.split("{cost_per_hour}")[0];
+  const escaped = prefix.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const matches = [...String(proposal?.summary || "").matchAll(new RegExp(`${escaped}([0-9]+(?:\\.[0-9]+)?)\\.(?=\\s|$)`, "g"))];
+  return matches.length === 1 && Number.isFinite(Number(matches[0][1])) ? matches[0][1] : null;
+}
 function serversReason(action, confirming = false) {
   const data = serversData();
   if (!data) return T("servers.status.unavailable");
@@ -117,7 +124,7 @@ function serversRenderSummary(el) {
   const reload = S.servers.reload;
   coreReplace(el, h("h2", null, title), h("p", null, T("context.model.saved_readable")),
     S.focus.doc && S.focus.section ? h("p", null, T("servers.company.return_target", {doc: serversText(S.focus.doc), section: S.focus.section})) : null,
-    ready ? serversButton("servers-return", "servers.ready.return_trial", serversReturn) : null,
+    ready ? h("button", {id: "servers-return", type: "button", class: "primary", onclick: serversReturn}, T("servers.ready.return_trial")) : null,
     S.shell.serverAt ? h("p", {class: "muted"}, T("servers.ready.checked_at", {time: when(S.shell.serverAt)})) : null,
     h("div", {class: "server-actions"},
       serversButton("servers-refresh", "servers.failed.retry", shellPollServers, !!S.shell.polling),
@@ -126,6 +133,7 @@ function serversRenderSummary(el) {
     S.shell.serverError ? serversProblem(S.shell.serverError) : null, serversLockNote(),
     S.servers.error ? serversProblem(S.servers.error.error, S.servers.error.action) : null,
     S.servers.result ? serversResult(S.servers.result) : null,
+    h("details", {id: "servers-settings"}, h("summary", null, T("servers.connection.details")),
     reload ? h("div", {class: "server-notice", role: "status"}, h("p", null, T("servers.reload.done")),
       ["names", "changed", "removed"].map(key => h("p", null, T(`servers.reload.${key}`), ": ",
         (reload[key] || []).filter(name => /^[A-Z][A-Z0-9_]*$/.test(name)).join(", ") || T("common.none"))),
@@ -133,11 +141,12 @@ function serversRenderSummary(el) {
     (data?.env_problems || []).map(serversFriendly),
     h("details", {id: "servers-env-details"}, h("summary", null, T("servers.env.names")),
       h("p", {class: "technical"}, "RUNPOD_API_KEY, RUNPOD_VLLM_API_KEY, RUNPOD_VLLM_BASE_URL, RNGD_BASE_URL, RNGD_API_KEY, RNGD_SSH"),
-      h("p", null, T("servers.env.hidden_values"))));
+      h("p", null, T("servers.env.hidden_values")))));
 }
 function serversRenderModels(el) {
   const data = serversData();
-  coreReplace(el, h("h2", null, T("servers.models.title")), h("p", null, T("servers.connection.ready_condition")),
+  coreReplace(el, h("details", {id: "servers-model-details"}, h("summary", null, T("servers.connection.title")),
+    h("h2", null, T("servers.models.title")), h("p", null, T("servers.connection.ready_condition")),
     !data ? h("p", null, T(S.shell.serverError ? "servers.failed.title" : "servers.checking.title")) :
       !data.models?.length ? h("p", null, T("servers.models.empty")) : serversTable([
         "servers.connection.expected", "servers.models.where", "servers.models.state", "servers.connection.responding", "servers.connection.address"],
@@ -147,11 +156,26 @@ function serversRenderModels(el) {
         h("td", null, serversBadge(model), model.reachable === true && model.match === false ? h("p", null, T("servers.mismatch.title")) : null,
           serversModelNote(model)),
         h("td", {class: "technical"}, serversText(model.model_served) || T(model.reachable === false ? "servers.models.no_reply" : "servers.connection.unknown")),
-        h("td", null, T(model.url_set ? "servers.connection.configured" : "servers.models.not_configured"))))));
+        h("td", null, T(model.url_set ? "servers.connection.configured" : "servers.models.not_configured")))))));
+}
+function serversRenderComparison(el) {
+  const pods = serversData()?.pods || [];
+  coreReplace(el, serversTable(["common.method", "servers.compare.cost", "servers.compare.wait", "servers.compare.limits"], [
+    h("tr", null, h("th", {scope: "row"}, T("servers.choice.company")), h("td", null, T("common.none")),
+      h("td", null, T("servers.compare.company.wait")), h("td", null, T("servers.compare.company.limit"))),
+    h("tr", null, h("th", {scope: "row"}, T("servers.choice.rented")),
+      h("td", null, h("p", null, T("servers.empty.new_cost")),
+        pods.length ? h("ul", null, pods.map(pod => h("li", null,
+          h("span", {class: "technical"}, serversText(pod.name || pod.id)), ": ", serversMoney(pod.cost_per_hr, true)))) : T("servers.rented.unknown")),
+      h("td", null, T("servers.compare.rented.wait")), h("td", null, T("servers.compare.rented.cleanup"), h("p", null, T("servers.rented.scheduler"))))]),
+    h("p", {class: "muted"}, T("servers.compare.company.cost_meaning")));
 }
 function serversRenderRunpod(el) {
   const data = serversData(), session = data?.session;
-  coreReplace(el, h("h2", null, term("runpod", T("servers.rented.title_list"))),
+  const active = (data?.models || []).some(model => model.where === "RunPod" && serversReady(model));
+  coreReplace(el, h("details", {id: "servers-rented-details", open: active || null},
+    h("summary", null, T(active ? "servers.rented.title_list" : "servers.company.alternative")),
+    h("h2", null, term("runpod", T("servers.rented.title_list"))),
     h("p", null, T("servers.empty.new_cost")),
     session ? h("div", {class: "server-notice"},
       h("p", null, T(session.adopted ? "servers.session.adopted" : "servers.session.active", {pod_id: serversText(session.pod_id)})),
@@ -174,7 +198,7 @@ function serversRenderRunpod(el) {
     h("p", null, num(data?.volumes) ? T("servers.rented.volumes", {count: data.volumes}) : T("servers.rented.volume_unknown")),
     h("p", null, T("servers.rented.storage_cost")),
     h("p", null, T("servers.rented.scheduler")),
-    serversAction("pod_create", {}, T("servers.rented.confirm_create")));
+    serversAction("pod_create", {}, T("servers.rented.confirm_create"))));
 }
 function serversDiagnosis() {
   const data = serversData(), rngd = data?.rngd || {}, key = rngd.diagnosis;
@@ -201,15 +225,21 @@ function serversRenderRngd(el) {
   }}, choices.map(item => h("option", {value: item.tag}, T("servers.connection.choice", {model: serversText(item.label || item.model), cards: item.cards}))));
   select.value = S.servers.choice || "";
   const elapsed = serversElapsed(tunnel.since);
-  coreReplace(el, h("h2", null, term("rngd", T("servers.choice.company"))), h("p", null, T("servers.compare.company.cost_meaning")),
-    serversDiagnosis(), h("div", {class: "server-tunnel"},
+  const comparison = h("div", {id: "servers-comparison"}); serversRenderComparison(comparison);
+  const ready = S.focus.model ? serversReady(serversModel(S.focus.model)) : (data?.models || []).some(serversReady);
+  const choose = h("div", {class: "server-choice"}, h("label", {for: "servers-choice"}, T("servers.connection.choose")), select,
+    choice ? serversAction("rngd_up", {tag: choice.tag}, T("servers.company.confirm_load", {model: serversText(choice.label || choice.model)}), "", !ready && tunnel.open === true && rngd.diagnosis === "no_model") : null);
+  coreReplace(el, h("div", {class: "server-primary"}, h("h2", null, term("rngd", T("servers.choice.company"))),
+    serversDiagnosis(), !tunnel.open ? serversAction("tunnel_open", {}, T("servers.busy.open_tunnel"), "", !ready) : null,
+    tunnel.open && rngd.diagnosis === "no_model" ? choose : null), comparison,
+    h("details", {id: "servers-company-details"}, h("summary", null, T("servers.connection.details")),
+    h("div", {class: "server-tunnel"},
       h("p", null, tunnel.port == null ? T("servers.connection.tunnel_unknown") : T(tunnel.open
         ? tunnel.owned ? "servers.connection.tunnel_owned" : "servers.connection.tunnel_external" : "servers.connection.tunnel_closed", {port: tunnel.port})),
       tunnel.open ? h("p", null, elapsed === null ? T("servers.connection.tunnel_time_unknown") : T("servers.time.since", {elapsed: serversDuration(elapsed)})) : null,
       tunnel.pid != null ? h("p", {class: "raw"}, T("servers.connection.process", {pid: tunnel.pid})) : null,
-      serversAction(tunnel.open ? "tunnel_close" : "tunnel_open", {}, T(tunnel.open ? "servers.connection.confirm_close" : "servers.busy.open_tunnel"))),
-    h("div", {class: "server-choice"}, h("label", {for: "servers-choice"}, T("servers.connection.choose")), select,
-      choice ? serversAction("rngd_up", {tag: choice.tag}, T("servers.company.confirm_load", {model: serversText(choice.label || choice.model)}), "", true) : null),
+      tunnel.open ? serversAction("tunnel_close", {}, T("servers.connection.confirm_close")) : null),
+    !tunnel.open || rngd.diagnosis !== "no_model" ? choose : null,
     (rngd.models || []).map(model => h("div", {class: "server-process"},
       h("p", {class: "technical"}, serversText(model.model)), h("p", {class: "raw"}, T("servers.connection.process", {pid: model.pid ?? T("servers.rented.unknown")})),
       serversAction("rngd_down", {model: model.model}, T("servers.ready.confirm_unload"), String(model.pid ?? model.model)))),
@@ -217,7 +247,7 @@ function serversRenderRngd(el) {
       h("p", null, T("servers.connection.devices", {count: 4})),
       rngd.ok && !rngd.models?.length ? h("p", null, T("servers.connection.none")) : null,
       rngd.text ? h("pre", {class: "technical"}, serversText(rngd.text)) : null,
-      h("p", null, T("servers.logs.redaction")), h("p", null, T("servers.connection.ssh_meaning")), h("p", null, T("servers.connection.tunnel_meaning"))));
+      h("p", null, T("servers.logs.redaction")), h("p", null, T("servers.connection.ssh_meaning")), h("p", null, T("servers.connection.tunnel_meaning")))));
 }
 function serversRenderLog(el) {
   const rows = serversData()?.log_tail || [];
@@ -244,6 +274,7 @@ function serversConfirmReason(proposal) {
   if (proposal.invalid) return proposal.invalid;
   const reason = serversReason(proposal.action, true);
   if (reason) return reason;
+  if (proposal.action === "pod_create" && serversCreateCost(proposal) === null) return T("servers.confirm.create.cost_unknown");
   if (proposal.action === "pod_delete" && !serversData()?.pods?.some(pod => pod.id === proposal.params.pod_id && pod.owned && pod.deletable)) return T("servers.rented.no_delete");
   return "";
 }
@@ -287,7 +318,8 @@ function serversOpenDialog() {
   const proposal = S.servers.proposal, dialog = document.getElementById("action-confirm");
   const prefix = `servers.confirm.${SERVERS_CONFIRM[proposal.action]}`;
   const model = serversData()?.rngd_choices?.find(item => item.tag === proposal.params.tag);
-  const values = {server: serversText(proposal.params.pod_id), model: serversText(model?.label || proposal.params.model || T("context.model.default_name"))};
+  const values = {server: serversText(proposal.params.pod_id), model: serversText(model?.label || proposal.params.model || T("context.model.default_name")),
+    cost_per_hour: serversCreateCost(proposal)};
   dialog.setAttribute("aria-labelledby", "servers-confirm-title");
   dialog.setAttribute("aria-describedby", "servers-confirm-summary");
   coreReplace(dialog, h("h2", {id: "servers-confirm-title"}, T(`${prefix}.title`, values)),
@@ -299,7 +331,8 @@ function serversOpenDialog() {
     h("p", {id: "servers-confirm-blocked", role: "status"}),
     h("div", {class: "dialog-actions"}, serversButton("servers-cancel", "servers.confirm.cancel", serversCloseDialog),
       h("button", {id: "servers-confirm", class: "primary", type: "button", disabled: proposal.expiresAt === null,
-        onclick: () => serversExecute(proposal)}, T(`${prefix}.action`, values))));
+        onclick: () => serversExecute(proposal)}, proposal.action === "pod_create" && values.cost_per_hour === null
+          ? T("servers.rented.confirm_create") : T(`${prefix}.action`, values))));
   if (!S.servers.dialogReady) {
     S.servers.dialogReady = true;
     dialog.addEventListener("cancel", event => { if (S.servers.proposal) { event.preventDefault(); serversCloseDialog(); } });

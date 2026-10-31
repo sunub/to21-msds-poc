@@ -48,7 +48,8 @@ const assert = require('node:assert/strict');
 const vm = require('node:vm');
 class Element {
   constructor(tag) { this.tagName=tag; this.attrs={}; this.children=[]; this.events={};
-    this.hidden=false; this.style={}; this.value=''; this.checked=false; this.disabled=false; this.open=false; }
+    this.hidden=false; this.style={setProperty(k,v){this[k]=String(v);},getPropertyValue(k){return this[k]||'';}};
+    this.value=''; this.checked=false; this.disabled=false; this.open=false; }
   insert(index,kids) { for (const value of kids) {
     const k=value instanceof Element?value:String(value);
     if(k instanceof Element) { if(k.parentElement===this&&this.children.indexOf(k)<index)index--; k.remove(); k.parentElement=this; }

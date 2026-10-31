@@ -246,8 +246,8 @@ function journeyOpenPending() {
   if (!id) return go("s05");
   return journeyGo("s03", "s03-result-summary", {job: id, resumePending: true});
 }
-function journeyButton(id, key, action, disabled = false) {
-  return h("button", {id, type: "button", disabled, onclick: () => Promise.resolve(action()).catch(fail)}, T(key));
+function journeyButton(id, key, action, disabled = false, primary = false) {
+  return h("button", {id, type: "button", disabled, class: primary ? "primary" : null, onclick: () => Promise.resolve(action()).catch(fail)}, T(key));
 }
 function journeyParagraph(key, values) {return h("p", null, T(key, values));}
 function journeyRenderBand() {
@@ -284,37 +284,47 @@ function journeyRenderBand() {
 function journeyRenderRecords() {
   const j = S.journey;
   const cell = o => o ? T("journey.history.first_count", {time: new Date(o.first_at).toLocaleString(), count: o.count}) : T("journey.history.none");
-  coreReplace(document.getElementById("journey-records"), h("h2", null, T("journey.history.title")),
+  const old = document.getElementById("journey-history-details");
+  coreReplace(document.getElementById("journey-records"), h("details", {id: "journey-history-details", open: old?.open || null},
+    h("summary", null, T("journey.history.title")),
     h("table", null, h("thead", null, h("tr", null, ["journey.track", "journey.history.real_success", "journey.practice", "common.action"].map(k => h("th", {scope: "col"}, T(k))))),
       h("tbody", null, ["t1", "t2"].map(track => h("tr", null,
         h("th", {scope: "row"}, T(track === "t1" ? "journey.history.read_track" : "journey.history.trial_track")),
         h("td", null, cell(j.outcomes[track].real)), h("td", null, track === "t2" ? cell(j.outcomes.t2.practice) : T("common.none")),
         h("td", null, journeyButton(`journey-record-${track}`, j.outcomes[track].real ? "journey.replay.start" : j.progress[track].state === "in_progress" ? "journey.resume.action" : track === "t1" ? "journey.choice.start_read" : "journey.choice.start_trial", () => journeyStart(track))))))),
     journeyParagraph("journey.history.replay_progress"), journeyParagraph("journey.history.keep_outcomes"), journeyParagraph("journey.replay.keep_job"),
-    journeyButton("journey-replay", "journey.start.replay", journeyReplay), journeyButton("journey-dismiss", "journey.start.dismiss", journeyDismiss));
+    journeyButton("journey-replay", "journey.start.replay", journeyReplay)), journeyButton("journey-dismiss", "journey.start.dismiss", journeyDismiss));
 }
 function journeyConnection(place) {
   const u = S.journeyUI; u.connections ||= {};
   const el = u.connections[place] ||= h("div", {class: "journey-connection"});
-  serversRenderCompact(el, {model: S.jobs.t.model}); return el;
+  if (place === "choice") {
+    const model = serversModel(S.jobs.t.model);
+    coreReplace(el, journeyParagraph("journey.choice.trial_requires_model"),
+      h("p", null, T("servers.connection.selected"), ": ", serversLabel(model || {tag: S.jobs.t.model})), serversBadge(model));
+  } else serversRenderCompact(el, {model: S.jobs.t.model});
+  return el;
 }
 function journeyRenderChoice() {
   const u = S.journeyUI, key = S.shell.keys.find(k => k.id === S.ctx.key), ready = u.run && num(u.run.weighted) && key?.usable;
   const note = u.runsError ? loadFailure(u.runsError) : journeyParagraph(u.runsLoading || !u.runsLoaded ? "journey.start.loading"
     : !u.run ? "journey.start.empty" : !num(u.run.weighted) ? "journey.start.unscored" : "journey.choice.read_ready");
   const connection = journeyConnection("choice");
+  const trial = journeyButton("journey-start-t2", "journey.choice.start_trial", () => journeyStart("t2"));
+  const practice = journeyButton("journey-practice", "jobs.actions.preview", () => journeyStart("t2", true));
+  trial.classList.add("text-button"); practice.classList.add("text-button");
   coreReplace(document.getElementById("journey-choice"), h("h2", null, T("journey.choice.title")),
     h("div", {class: "journey-choices"},
       h("div", {class: "journey-choice"}, h("h3", null, T("journey.choice.read_title")), journeyParagraph("journey.choice.read_action"),
         journeyParagraph("journey.choice.read_success"), journeyParagraph("journey.steps.count", {count: Object.keys(UI.journey.tracks.t1.steps).length}), note,
         key?.usable === false ? friendlyError({message: T("journey.read.key_unusable"), fix: key.reason || T("journey.read.key_todo")}) : null,
-        journeyButton("journey-start-t1", "journey.choice.start_read", () => journeyStart("t1"), !ready || u.runsLoading),
-        journeyButton("journey-runs-retry", "score.partial.reload", journeyLoadRuns)),
+        journeyButton("journey-start-t1", "journey.choice.start_read", () => journeyStart("t1"), !ready || u.runsLoading, true),
+        !ready || u.runsError ? journeyButton("journey-runs-retry", "score.partial.reload", journeyLoadRuns) : null),
       h("div", {class: "journey-choice"}, h("h3", null, T("journey.choice.trial_title")), journeyParagraph("journey.choice.trial_action"),
         journeyParagraph("journey.choice.trial_success"), journeyParagraph("journey.steps.count", {count: Object.keys(UI.journey.tracks.t2.steps).length}), connection,
-        journeyButton("journey-start-t2", "journey.choice.start_trial", () => journeyStart("t2")),
-        journeyParagraph("journey.choice.practice"), journeyParagraph("journey.history.keep_outcomes"),
-        journeyButton("journey-practice", "jobs.actions.preview", () => journeyStart("t2", true)))),
+        trial,
+        journeyParagraph("journey.choice.practice"),
+        practice)),
     journeyButton("journey-skip-all", "journey.choice.skip", () => {journeyDismiss(); return go("s01");}));
 }
 function journeyRenderStrip() {
