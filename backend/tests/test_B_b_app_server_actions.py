@@ -1,12 +1,14 @@
 """scripts/b_app_servers.py의 ServerActions 시험 (작업 화면 탭 ⑤ 서버, ADR-025).
 
 네트워크·ssh·subprocess를 부르지 않는다. RunPod REST와 모델 서버 /v1/models는 가짜 opener, RNGD ssh는 가짜 runner,
-4시간 감시 프로세스는 가짜 watchdog_spawner, 시각은 가짜 clock으로 바꾼다.
+4시간 감시 프로세스는 가짜 watchdog_spawner, 시각은 가짜 clock으로 바꾼다. RNGD 터널은 가짜 connector(열린 포트 집합),
+가짜 tunnel_spawner, 가짜 ps 글, 가짜 killer로 바꾼다(진짜 127.0.0.1 연결과 ps를 부르면 사용자 컴퓨터의 터널에 따라 결과가 달라진다).
 키(RunPod 키, RNGD 키, 앱이 만든 vLLM 키)는 어떤 응답·로그에도 나오면 안 된다 (CLAUDE.md CRITICAL).
 """
 import importlib
 import json
 import re
+import signal
 import urllib.error
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
@@ -111,15 +113,17 @@ class FakeCloud:
 class FakeRngd:
     """ssh runner. 떠 있는 모델을 기억하고 furiosa-smi ps·pgrep·kill·serve 명령에 답한다."""
 
-    def __init__(self, up=()):
+    def __init__(self, up=(), elapsed=None):
         self.up = {m: 700 + i for i, m in enumerate(up)}
+        self.elapsed = dict(elapsed or {})       # 모델 → 지난 초. 주면 ps 줄을 pid etimes comm args 모양으로 쓴다
         self.calls = []
 
     def __call__(self, args, timeout):
         self.calls.append(list(args))
         cmd = args[-1]
         if cmd.startswith("furiosa-smi ps"):
-            rows = [f"  {pid} furiosa-llm /usr/bin/python3 /usr/local/bin/furiosa-llm serve {m} --devices npu:0 "
+            rows = [f"  {pid} " + (f"{self.elapsed[m]} " if m in self.elapsed else "")
+                    + f"furiosa-llm /usr/bin/python3 /usr/local/bin/furiosa-llm serve {m} --devices npu:0 "
                     f"--api-key {RNGD_REMOTE_KEY} --port 8000" for m, pid in self.up.items()]
             return 0, "+ 가상 furiosa-smi 표 +\n" + "\n".join(rows) + "\n", ""
         if cmd.startswith("pgrep"):
@@ -172,10 +176,83 @@ class Clock:
         return self.t
 
 
-def make(srv, tmp_path, *, cloud=None, rngd=None, jobs=None, env=None, clock=None, watch=None, env_file=None):
+class FakeSock:
+    def close(self):
+        pass
+
+
+class FakePorts:
+    """가짜 connector(socket.create_connection 자리). open에 든 127.0.0.1 포트만 연결된다."""
+
+    def __init__(self, open_=()):
+        self.open = set(open_)
+        self.calls = []
+
+    def __call__(self, address, timeout=None):
+        self.calls.append(address)
+        if address[0] == "127.0.0.1" and address[1] in self.open:
+            return FakeSock()
+        raise ConnectionRefusedError()
+
+
+class FakeTunnelProc:
+    def __init__(self, pid, ports, port, code=None):
+        self.pid, self.ports, self.port, self.code = pid, ports, port, code
+        self.terminated = False
+
+    def poll(self):
+        return self.code
+
+    def terminate(self):
+        self.terminated = True
+        self.ports.open.discard(self.port)
+        self.code = -15
+
+
+class FakeTunnelSpawner:
+    """받은 argv를 적고 가짜 ssh 프로세스를 돌려준다. 기본은 -L의 포트를 연다. code를 주면 바로 끝나고, opens=False면 열지 않고 산다."""
+
+    def __init__(self, ports, *, code=None, opens=True):
+        self.ports, self.code, self.opens = ports, code, opens
+        self.calls, self.procs = [], []
+
+    def __call__(self, argv):
+        self.calls.append(list(argv))
+        port = int(argv[argv.index("-L") + 1].split(":")[0])
+        if self.code is None and self.opens:
+            self.ports.open.add(port)
+        self.procs.append(FakeTunnelProc(5000 + len(self.procs), self.ports, port, self.code))
+        return self.procs[-1]
+
+
+class FakePs:
+    def __init__(self, text=""):
+        self.text = text
+
+    def __call__(self):
+        return self.text
+
+
+class FakeKiller:
+    """기록만 한다. ports와 port를 주면 그 포트를 닫는다(ssh가 끝난 것과 같다)."""
+
+    def __init__(self, ports=None, port=None):
+        self.ports, self.port, self.calls = ports, port, []
+
+    def __call__(self, pid, sig):
+        self.calls.append((pid, sig))
+        if self.ports is not None:
+            self.ports.open.discard(self.port)
+
+
+def make(srv, tmp_path, *, cloud=None, rngd=None, jobs=None, env=None, clock=None, watch=None, env_file=None,
+         ports=None, tunnel=None, ps=None, killer=None, sleep=None):
+    ports = ports if ports is not None else FakePorts()                  # 기본은 모든 포트가 닫힘, ps 글은 비어 있음
     return srv.ServerActions(dict(ENV) if env is None else env, jobs or FakeJobs(), tmp_path / "manual" / "server_log.md",
                              opener=cloud or FakeCloud(), runner=rngd or FakeRngd(), watchdog_spawner=watch or FakeWatch(),
-                             clock=clock or Clock(), sleep=lambda s: None, models_cfg=MODELS_CFG, env_file=env_file)
+                             clock=clock or Clock(), sleep=sleep or (lambda s: None), models_cfg=MODELS_CFG,
+                             env_file=env_file, tunnel_spawner=tunnel or FakeTunnelSpawner(ports), connector=ports,
+                             ps=ps or FakePs(), killer=killer or FakeKiller())
 
 
 def no_secret(*objs, extra=()):
@@ -208,7 +285,7 @@ def test_status_fields(srv, tmp_path):
     p = st["pods"][0]
     assert (p["id"], p["minutes"], p["est_cost"], p["ours"]) == ("abc123", 83, 3.44, True)
     assert st["volumes"] == 0
-    assert st["rngd"]["ok"] and st["rngd"]["models"] == [{"pid": 700, "model": GPTOSS}]
+    assert st["rngd"]["ok"] and st["rngd"]["models"] == [{"pid": 700, "model": GPTOSS, "elapsed_s": None}]
     assert [c["tag"] for c in st["rngd_choices"]] == ["qwen3_30b_a3b_rngd", "gpt_oss_20b_rngd"]
     assert st["rngd_choices"][0]["cards"] == 4 and st["rngd_choices"][1]["cards"] == 1
     no_secret(st)
@@ -246,7 +323,8 @@ def test_status_can_by_management_connection_and_job(srv, tmp_path, runpod_ok, r
     result = make(srv, tmp_path, cloud=opener, rngd=runner, jobs=jobs).status()
     locked = kind in ("run", "try")
     assert result["can"] == {"pod_create": runpod_ok and not locked, "pod_delete": runpod_ok and not locked,
-                             "rngd_up": rngd_ok and not locked, "rngd_down": rngd_ok and not locked}
+                             "rngd_up": rngd_ok and not locked, "rngd_down": rngd_ok and not locked,
+                             "tunnel_open": True, "tunnel_close": False}   # 터널이 닫혀 있다(가짜 포트). 열기는 실행 중에도 된다
     assert set(result["why"]) == set(result["can"])
     for action, allowed in result["can"].items():
         assert bool(result["why"][action]) is not allowed
@@ -839,3 +917,261 @@ def test_route_reload_env(srv, app, bj, where, tmp_path):
     no_secret(data, extra=(NEW_VLLM_KEY,))
     off = ctx_of(app, where, manager(bj, where))
     assert call(app, off, "POST", "/api/servers/reload_env")[0] == 503
+
+
+# ── RNGD 터널 열기·닫기와 진단 (step 6) ─────────────────────
+
+TUNNEL_PS = ("  4321  4321 ssh -N -o BatchMode=yes -o ExitOnForwardFailure=yes -o ServerAliveInterval=30 "
+             "-L 18000:127.0.0.1:8000 -i /가상/.ssh/fake -p 22 user@host\n")
+CLOSED = {"port": 18000, "open": False, "owned": False, "pid": None, "since": None}
+
+
+def local_iso(ts: float) -> str:
+    return datetime.fromtimestamp(ts).astimezone().isoformat(timespec="seconds")
+
+
+def no_ssh_args(*objs):
+    """명령 줄 인자(키 파일 경로·접속 대상)는 응답·기록에 나오지 않는다. 포트 번호만 보인다."""
+    text = json.dumps(objs, ensure_ascii=False, default=str)
+    for part in (".ssh/fake", "user@host", " -i ", "BatchMode", "ExitOnForwardFailure"):
+        assert part not in text, part
+
+
+def open_tunnel(srv, tmp_path, **kw):
+    ports = kw.pop("ports", FakePorts())
+    spawner = kw.pop("tunnel", FakeTunnelSpawner(ports))
+    sa = make(srv, tmp_path, ports=ports, tunnel=spawner, **kw)
+    prop = sa.propose("tunnel_open", {})
+    return sa, ports, spawner, prop, sa.execute(prop["token"])
+
+
+def test_tunnel_status_closed_without_tunnel(srv, tmp_path):
+    assert make(srv, tmp_path).tunnel_status() == CLOSED
+    no_port = make(srv, tmp_path, env={**ENV, "RNGD_BASE_URL": "http://10.0.0.5:8000/v1"}).tunnel_status()
+    assert no_port == {**CLOSED, "port": None}
+
+
+def test_tunnel_open_spawns_ssh_and_is_owned(srv, tmp_path):
+    sa, ports, spawner, prop, res = open_tunnel(srv, tmp_path)
+    assert "18000번" in prop["summary"] and "8000번" in prop["summary"] and "SSH 터널" in prop["summary"]
+    assert res["ok"] is True and "code" not in res and 18000 in ports.open
+    assert spawner.calls == [srv.tunnel_args(ENV)]
+    st = sa.tunnel_status()
+    assert st == {"port": 18000, "open": True, "owned": True, "pid": spawner.procs[0].pid, "since": local_iso(NOW.timestamp())}
+    rows = log_rows(tmp_path)
+    assert len(rows) == 1 and "tunnel_open" in rows[0] and "127.0.0.1:18000" in rows[0]
+    assert res["log_line"] == rows[0]
+    no_ssh_args(prop, res, st, log_text(tmp_path))
+    no_secret(prop, res, st, log_text(tmp_path))
+
+
+def test_tunnel_open_refusals(srv, tmp_path):
+    spawner = FakeTunnelSpawner(FakePorts({18000}))
+    already = make(srv, tmp_path, ports=spawner.ports, tunnel=spawner).propose("tunnel_open", {})
+    assert already["code"] == 409 and "token" not in already and "18000" in already["error"]
+    no_ssh = make(srv, tmp_path, env={k: v for k, v in ENV.items() if k != "RNGD_SSH"}).propose("tunnel_open", {})
+    assert no_ssh["code"] == 400 and "RNGD_SSH" in no_ssh["error"]
+    remote = make(srv, tmp_path, env={**ENV, "RNGD_BASE_URL": "http://10.0.0.5:8000/v1"}).propose("tunnel_open", {})
+    assert remote["code"] == 400 and "RNGD_BASE_URL" in remote["error"] and "할 일:" in remote["error"]
+    assert spawner.calls == [] and log_rows(tmp_path) == []
+    no_secret(already, no_ssh, remote)
+
+
+def test_tunnel_open_rechecks_port_before_spawning(srv, tmp_path):
+    ports = FakePorts()
+    spawner = FakeTunnelSpawner(ports)
+    sa = make(srv, tmp_path, ports=ports, tunnel=spawner)
+    token = sa.propose("tunnel_open", {})["token"]
+    ports.open.add(18000)                                                   # 확인을 누르기 전에 다른 터미널이 열었다
+    res = sa.execute(token)
+    assert res["code"] == 409 and spawner.calls == [] and log_rows(tmp_path) == []
+
+
+def test_tunnel_open_ssh_exits_early(srv, tmp_path):
+    ports = FakePorts()
+    sa, ports, spawner, prop, res = open_tunnel(srv, tmp_path, ports=ports, tunnel=FakeTunnelSpawner(ports, code=255))
+    assert res["ok"] is False and "255" in res["error"] and "할 일:" in res["error"]
+    assert 18000 not in ports.open and sa.tunnel_status() == CLOSED
+    rows = log_rows(tmp_path)
+    assert len(rows) == 1 and "tunnel_open" in rows[0] and "127.0.0.1:18000" in rows[0]
+    no_ssh_args(res, log_text(tmp_path))
+    no_secret(res, log_text(tmp_path))
+
+
+def test_tunnel_open_gives_up_after_ten_seconds(srv, tmp_path):
+    ports, waits = FakePorts(), []
+    spawner = FakeTunnelSpawner(ports, opens=False)
+    sa, ports, spawner, prop, res = open_tunnel(srv, tmp_path, ports=ports, tunnel=spawner, sleep=waits.append)
+    assert res["ok"] is False and res["error"]
+    assert spawner.procs[0].terminated is True                              # 남은 ssh를 끝낸다
+    assert waits and set(waits) == {0.5} and sum(waits) <= 10
+    assert sa.tunnel_status() == CLOSED
+
+
+def test_tunnel_open_allowed_while_running(srv, tmp_path):
+    sa, ports, spawner, prop, res = open_tunnel(srv, tmp_path, jobs=FakeJobs([LOCK_RUN]))
+    assert "code" not in prop and prop["token"]                              # 여는 것은 돌고 있는 실행을 해치지 않는다
+    assert res["ok"] is True and 18000 in ports.open
+    st = sa.status()
+    assert st["locked"] is True and st["can"]["tunnel_open"] is False and st["can"]["tunnel_close"] is False
+    assert st["why"]["tunnel_open"] and "실행" in st["why"]["tunnel_close"]   # 이미 열림 / 실행 중이라 닫지 못함
+    assert make(srv, tmp_path, jobs=FakeJobs([LOCK_RUN])).status()["can"]["tunnel_open"] is True
+
+
+def test_tunnel_close_app_tunnel(srv, tmp_path):
+    sa, ports, spawner, prop, res = open_tunnel(srv, tmp_path)
+    assert sa.status()["can"]["tunnel_close"] is True
+    prop = sa.propose("tunnel_close", {})
+    assert prop["token"] and "18000번" in prop["summary"]
+    assert spawner.procs[0].terminated is False                             # 요약만 하고 아직 닫지 않는다
+    res = sa.execute(prop["token"])
+    assert res["ok"] is True and spawner.procs[0].terminated is True and 18000 not in ports.open
+    assert sa.tunnel_status() == CLOSED
+    rows = log_rows(tmp_path)
+    assert len(rows) == 2 and "tunnel_close" in rows[1] and "127.0.0.1:18000" in rows[1]
+    no_ssh_args(prop, res, log_text(tmp_path))
+    no_secret(prop, res, log_text(tmp_path))
+
+
+def test_tunnel_close_adopts_ps_tunnel_after_restart(srv, tmp_path):
+    ports = FakePorts({18000})
+    killer = FakeKiller(ports, 18000)
+    sa = make(srv, tmp_path, ports=ports, ps=FakePs("  9  9 bash\n" + TUNNEL_PS), killer=killer)   # 앱을 새로 켠 것과 같다
+    assert sa.tunnel_status() == {"port": 18000, "open": True, "owned": True, "pid": 4321, "since": None}
+    res = sa.execute(sa.propose("tunnel_close", {})["token"])
+    assert killer.calls == [(4321, signal.SIGTERM)]
+    assert res["ok"] is True and 18000 not in ports.open
+    no_ssh_args(res, log_text(tmp_path))
+
+
+@pytest.mark.parametrize("ps_text", [
+    "",
+    "  9  9 bash\n",
+    TUNNEL_PS.replace("-L 18000:", "-L 19000:"),                           # 다른 포트
+    TUNNEL_PS.replace(" -N ", " "),                                        # -N 없는 ssh(사람이 연 접속)
+    TUNNEL_PS.replace(" ssh -N", " python3 -N"),                           # ssh가 아니다
+])
+def test_tunnel_close_refuses_tunnel_not_ours(srv, tmp_path, ps_text):
+    killer = FakeKiller()
+    sa = make(srv, tmp_path, ports=FakePorts({18000}), ps=FakePs(ps_text), killer=killer)
+    assert sa.tunnel_status()["owned"] is False
+    res = sa.propose("tunnel_close", {})
+    assert res["code"] == 403 and "앱이 연 터널이 아닙니다" in res["error"] and "할 일:" in res["error"]
+    assert sa.status()["can"]["tunnel_close"] is False
+    assert killer.calls == [] and log_rows(tmp_path) == []
+
+
+def test_tunnel_close_rechecks_ps_before_kill(srv, tmp_path):
+    ps, killer = FakePs(TUNNEL_PS), FakeKiller()
+    sa = make(srv, tmp_path, ports=FakePorts({18000}), ps=ps, killer=killer)
+    token = sa.propose("tunnel_close", {})["token"]
+    ps.text = ""                                                            # 확인을 누르기 전에 그 ssh가 사라지고 다른 것이 포트를 씀
+    res = sa.execute(token)
+    assert res["code"] == 403 and killer.calls == [] and log_rows(tmp_path) == []
+
+
+def test_tunnel_close_closed_is_404(srv, tmp_path):
+    res = make(srv, tmp_path, ps=FakePs(TUNNEL_PS)).propose("tunnel_close", {})
+    assert res["code"] == 404 and "token" not in res
+
+
+def test_tunnel_close_locked_is_409(srv, tmp_path):
+    jobs, killer = FakeJobs([LOCK_RUN]), FakeKiller()
+    sa = make(srv, tmp_path, ports=FakePorts({18000}), ps=FakePs(TUNNEL_PS), killer=killer, jobs=jobs)
+    res = sa.propose("tunnel_close", {})
+    assert res["code"] == 409 and res["running"] == [LOCK_RUN]
+    jobs.now = []
+    token = sa.propose("tunnel_close", {})["token"]
+    jobs.now = [LOCK_RUN]                                                   # 확인을 누르기 전에 본 실행이 시작됨
+    assert sa.execute(token)["code"] == 409 and killer.calls == []
+
+
+def rngd_failing(args, timeout):
+    return 255, "", "ssh: connect to host 가상 port 22: Connection refused"
+
+
+@pytest.mark.parametrize("case, up, ports, served, rngd_ok, diagnosis", [
+    ("모델 없음+터널 열림", [], {18000}, {}, True, "no_model"),
+    ("모델 없음+터널 닫힘", [], set(), {}, True, "no_model"),
+    ("모델 있음+터널 닫힘", [QWEN30], set(), {}, True, "tunnel_closed"),
+    ("터널 열림+기대 모델 응답", [QWEN30], {18000}, {RNGD_URL: [QWEN30]}, True, "ok"),
+    ("터널 열림+모델 프로세스+연결 오류", [QWEN30], {18000}, {}, True, "loading"),
+    ("ssh 실패+터널 열림+응답 없음", [], {18000}, {}, False, None),
+])
+def test_rngd_diagnosis(srv, tmp_path, case, up, ports, served, rngd_ok, diagnosis):
+    rngd = FakeRngd(up=up, elapsed={QWEN30: 600}) if rngd_ok else rngd_failing
+    st = make(srv, tmp_path, rngd=rngd, ports=FakePorts(ports), cloud=FakeCloud(served=served)).status()
+    r = st["rngd"]
+    assert r["diagnosis"] == diagnosis, case
+    assert r["tunnel"] == {**CLOSED, "open": bool(ports)}
+    if diagnosis == "loading":
+        assert r["loading_since"] == local_iso(NOW.timestamp() - 600)
+        assert "10분 지남" in r["diagnosis_text"]["message"]
+    elif diagnosis == "tunnel_closed":
+        assert r["loading_since"] == local_iso(NOW.timestamp() - 600)    # 프로세스가 있으면 뜨기 시작한 시각을 준다
+    else:
+        assert r["loading_since"] is None
+    if diagnosis is None:
+        assert r["diagnosis_text"] is None
+    else:
+        assert set(r["diagnosis_text"]) == {"message", "fix"} and r["diagnosis_text"]["message"]
+    no_secret(st)
+
+
+def test_loading_since_uses_longest_running_process(srv, tmp_path):
+    rngd = FakeRngd(up=[QWEN30, GPTOSS], elapsed={QWEN30: 300, GPTOSS: 1800})
+    r = make(srv, tmp_path, rngd=rngd, ports=FakePorts({18000})).status()["rngd"]
+    assert r["diagnosis"] == "loading" and r["loading_since"] == local_iso(NOW.timestamp() - 1800)
+    assert "서버 기록" in r["diagnosis_text"]["fix"]                          # 25분이 넘었다
+
+
+def test_loading_since_unknown_without_etimes(srv, tmp_path):
+    r = make(srv, tmp_path, rngd=FakeRngd(up=[QWEN30]), ports=FakePorts({18000})).status()["rngd"]
+    assert r["diagnosis"] == "loading" and r["loading_since"] is None
+    assert r["models"] == [{"pid": 700, "model": QWEN30, "elapsed_s": None}]
+
+
+def test_no_model_texts_do_not_blame_tunnel(srv, tmp_path):
+    st = make(srv, tmp_path, rngd=FakeRngd(), ports=FakePorts()).status()
+    assert st["rngd"]["diagnosis"] == "no_model"
+    rngd_tags = [m for m in st["models"] if m["where"] == "RNGD"]
+    assert len(rngd_tags) == 2
+    for m in rngd_tags:
+        assert "터널" not in m["friendly"]["message"] and "터널" not in m["friendly"]["fix"]
+        assert m["friendly"]["message"] == st["rngd"]["diagnosis_text"]["message"]
+        assert m["friendly"]["raw"]                                          # 원래 오류 종류는 남긴다
+    runpod = next(m for m in st["models"] if m["where"] == "RunPod")
+    assert runpod["friendly"]["message"] == "서버가 응답하지 않습니다."            # RunPod 칸은 그대로
+    no_secret(st)
+
+
+def test_rngd_http_answer_is_not_loading(srv, tmp_path):
+    cloud = FakeCloud()
+
+    def opener(req, timeout=None):                                          # 서버가 떠서 키를 거절한다
+        if req.full_url.startswith(RNGD_URL):
+            raise urllib.error.HTTPError(req.full_url, 401, "Unauthorized", {}, None)
+        return cloud(req, timeout)
+    st = make(srv, tmp_path, rngd=FakeRngd(up=[QWEN30], elapsed={QWEN30: 60}), ports=FakePorts({18000}),
+              cloud=opener).status()
+    assert st["rngd"]["diagnosis"] is None
+    qwen = next(m for m in st["models"] if m["tag"] == "qwen3_30b_a3b_rngd")
+    assert qwen["friendly"]["message"] == "모델 서버가 키를 거절했습니다."
+
+
+def test_route_tunnel_open_close(srv, app, bj, where, tmp_path):
+    ports = FakePorts()
+    sa = make(srv, tmp_path, ports=ports, tunnel=FakeTunnelSpawner(ports))
+    ctx = ctx_of(app, where, manager(bj, where), servers=sa)
+    code, prop = call(app, ctx, "POST", "/api/servers/propose", {"action": "tunnel_open"})
+    assert code == 200 and prop["token"]
+    code, res = call(app, ctx, "POST", "/api/servers/execute", {"token": prop["token"]})
+    assert code == 200 and res["ok"] is True
+    code, data = call(app, ctx, "GET", "/api/servers")
+    assert code == 200 and data["rngd"]["tunnel"]["open"] is True and data["rngd"]["tunnel"]["owned"] is True
+    assert call(app, ctx, "POST", "/api/servers/propose", {"action": "tunnel_open"})[0] == 409
+    code, prop = call(app, ctx, "POST", "/api/servers/propose", {"action": "tunnel_close"})
+    assert code == 200 and call(app, ctx, "POST", "/api/servers/execute", {"token": prop["token"]})[0] == 200
+    assert 18000 not in ports.open
+    no_ssh_args(data)
+    no_secret(data, prop, res)

@@ -1,17 +1,23 @@
 """작업 화면 탭 ⑤ 서버: 모델 서버 상태, RNGD ssh 작업, RunPod Pod, 사용 기록 (개발 전용, ADR-025).
 
-낮은 층(model_status, rngd_*, append_server_log)과 그 위의 상태 기계 ServerActions가 있다.
-ServerActions의 변경 동작(Pod 만들기·지우기, RNGD 올리기·내리기)은 두 단계다: propose가 요약과 1회용 확인 토큰을 주고,
-execute가 그 토큰으로 실행한다. run_sections.py·try_section.py가 돌고 있으면 두 단계 모두 409로 막는다.
+낮은 층(model_status, rngd_*, tunnel_*, port_open, append_server_log)과 그 위의 상태 기계 ServerActions가 있다.
+ServerActions의 변경 동작(Pod 만들기·지우기, RNGD 올리기·내리기, RNGD 터널 열기·닫기)은 두 단계다: propose가 요약과
+1회용 확인 토큰을 주고, execute가 그 토큰으로 실행한다. run_sections.py·try_section.py가 돌고 있으면 두 단계 모두 409로 막는다.
+터널 열기만은 막지 않는다(돌고 있는 실행을 해치지 않는다).
+RNGD 터널은 내 컴퓨터 포트(RNGD_BASE_URL의 포트) → RNGD 8000번이다. 앱이 연 ssh는 새 세션이라 앱을 꺼도 살고,
+앱을 다시 켜면 ps 줄(ssh -N -L <포트>:127.0.0.1:…)로 이어 받는다. 명령 줄 인자(키 파일 경로)는 응답·기록에 쓰지 않는다.
 키는 반환값·예외·기록 어디에도 쓰지 않는다. Pod에 넣는 vLLM 키는 .env의 RUNPOD_VLLM_API_KEY이고 세션에 두지 않는다(부를 때마다 읽는다).
 앱을 다시 켜면 첫 요청 때 이 앱이 만든 켜진 Pod(이름이 OURS로 시작)를 찾아 이어 쓴다. 앱이 만들지 않은 Pod는 지우지 않는다(403).
 .env는 reload_env로 앱을 끄지 않고 다시 읽는다(읽기만 하고 쓰지 않는다. 돌려주는 것은 이름과 줄 번호뿐이다).
-시험은 opener·runner·watchdog_spawner·clock과 tmp_path의 가짜 .env를 끼운다.
+시험은 opener·runner·watchdog_spawner·clock·tunnel_spawner·connector·ps·killer와 tmp_path의 가짜 .env를 끼운다.
 """
 import json
+import os
 import re
 import secrets
 import shlex
+import signal
+import socket
 import subprocess
 import threading
 import time
@@ -19,6 +25,7 @@ import urllib.request
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Iterable, Mapping, MutableMapping
+from urllib.parse import urlsplit
 
 import yaml
 from dotenv.parser import parse_stream
@@ -84,14 +91,60 @@ def all_model_status(models_cfg: dict, env, *, opener=None) -> list[dict]:
             if str(c.get("base_url_env", "")).startswith(SERVER_ENV_PREFIXES)]
 
 
+def _ssh_target(env) -> list[str]:
+    """RNGD_SSH의 접속 인자. 앞의 "ssh"는 뗀다. 없으면 []."""
+    args = shlex.split(env.get("RNGD_SSH") or "")
+    return args[1:] if args and args[0] == "ssh" else args
+
+
 def rngd_ssh_args(env) -> list[str] | None:
-    raw = env.get("RNGD_SSH")
-    if not raw:
-        return None
-    args = shlex.split(raw)
-    if args and args[0] == "ssh":
-        args = args[1:]
+    args = _ssh_target(env)
     return ["ssh", "-n", "-o", "BatchMode=yes", *args] if args else None
+
+
+RNGD_REMOTE_PORT = 8000                              # rngd_up의 --port 8000과 같다
+RNGD_URL_ENV = "RNGD_BASE_URL"                       # models.yaml의 RNGD 태그 base_url_env
+
+
+def tunnel_port(env) -> int | None:
+    """RNGD_BASE_URL이 내 컴퓨터 주소(127.0.0.1·localhost)이고 포트가 있으면 그 포트. 아니면 None."""
+    try:
+        u = urlsplit(env.get(RNGD_URL_ENV) or "")
+        return u.port if u.hostname in ("127.0.0.1", "localhost") else None
+    except ValueError:                               # 포트가 숫자가 아니다
+        return None
+
+
+def tunnel_args(env) -> list[str] | None:
+    """내 컴퓨터 포트 → RNGD 8000번 터널의 ssh 명령. RNGD_SSH나 포트가 없으면 None. 키 값은 넣지 않는다."""
+    port, target = tunnel_port(env), _ssh_target(env)
+    if port is None or not target:
+        return None
+    return ["ssh", "-N", "-o", "BatchMode=yes", "-o", "ExitOnForwardFailure=yes", "-o", "ServerAliveInterval=30",
+            "-L", f"{port}:127.0.0.1:{RNGD_REMOTE_PORT}", *target]
+
+
+def port_open(port: int, *, connector=None, timeout: float = 0.5) -> bool:
+    """127.0.0.1:port에 TCP 연결이 되는가. 거부·권한·시간 초과(OSError)는 모두 False."""
+    try:
+        conn = (connector or socket.create_connection)(("127.0.0.1", port), timeout=timeout)
+    except OSError:
+        return False
+    conn.close()
+    return True
+
+
+def tunnel_ps_pids(ps_text: str, port: int) -> list[int]:
+    """ps 글(pid pgid command, b_app_jobs._ps_text 모양)에서 ssh -N -L <port>:127.0.0.1:… 줄의 pid."""
+    pids = []
+    for line in ps_text.splitlines():
+        m = re.match(r"\s*(\d+)\s+\d+\s+(.*)", line)
+        tokens = m[2].split() if m else []
+        if not tokens or os.path.basename(tokens[0]) != "ssh" or "-N" not in tokens:
+            continue
+        if any(a == "-L" and b.startswith(f"{port}:127.0.0.1:") for a, b in zip(tokens, tokens[1:])):
+            pids.append(int(m[1]))
+    return pids
 
 
 def _run(args, timeout):
@@ -114,12 +167,13 @@ def _remote(env, command, runner, timeout=30):
 
 
 def rngd_ps(env, *, runner=None) -> dict:
-    ok, out, err = _remote(env, "furiosa-smi ps; ps -eo pid,comm,args | grep -i [f]uriosa-llm", runner)
+    """models: [{"pid", "model", "elapsed_s"}]. elapsed_s는 프로세스가 뜬 뒤 지난 초(ps etimes). 옛 모양(pid comm args)이면 None."""
+    ok, out, err = _remote(env, "furiosa-smi ps; ps -eo pid,etimes,comm,args | grep -i [f]uriosa-llm", runner)
     if err == "RNGD_SSH 없음" or (not ok and not out):
         return {"ok": False, "text": "", "models": [], "error": err}
     text = mask_keys(out, [])
-    models = [{"pid": int(m.group(1)), "model": m.group(2)}
-              for m in re.finditer(r"^\s*(\d+)\s+\S+\s+.*furiosa-llm serve (\S+)", text, re.M)]
+    models = [{"pid": int(m.group(1)), "model": m.group(3), "elapsed_s": int(m.group(2)) if m.group(2) else None}
+              for m in re.finditer(r"^\s*(\d+)\s+(?:(\d+)\s+)?\S+\s+.*furiosa-llm serve (\S+)", text, re.M)]
     # grep이 아무것도 못 찾으면 종료 코드 1이라도 smi 출력은 쓴다
     return {"ok": True, "text": text, "models": models, "error": None}
 
@@ -205,7 +259,8 @@ def apply_env_file(path: Path, environ: MutableMapping[str, str], previous: set[
 
 # ── 탭 ⑤의 상태 기계: 요약과 확인 토큰 → 실행 ─────────────────
 
-ACTIONS = ("pod_create", "pod_delete", "rngd_up", "rngd_down")
+ACTIONS = ("pod_create", "pod_delete", "rngd_up", "rngd_down", "tunnel_open", "tunnel_close")
+UNLOCKED_ACTIONS = ("tunnel_open",)                  # 실행이 돌고 있어도 되는 동작 (여는 것은 실행을 해치지 않는다)
 OURS = "to21-b-"                                     # 이 도구가 만든 Pod 이름의 앞부분
 POD_NAME = "to21-b-qwen36"
 POD_TAG = "qwen36_35b_runpod"                        # Pod가 띄우는 모델의 태그. 모델 이름·주소 변수는 models.yaml에서 읽는다
@@ -224,6 +279,7 @@ RELOAD_TEXT = "다시 띄우면 15~25분 걸립니다"
 RNGD_UP = {"qwen3_30b_a3b_rngd": ("Qwen3-30B", "npu:0,npu:1,npu:2,npu:3"),   # 태그 → (단추 이름, 카드). 카드는 4장뿐이다
            "gpt_oss_20b_rngd": ("gpt-oss", "npu:0")}
 LOCKING_KINDS = ("run", "try")                       # 모델 서버를 쓰는 작업. 비교표는 서버를 쓰지 않아 막지 않는다
+TUNNEL_WAIT, TUNNEL_STEP = 10, 0.5                   # 터널 포트가 열리기·닫히기를 기다리는 최대 초와 간격
 _POD_ID = re.compile(r"^[a-z0-9]{6,40}$")
 _SECRET_PREFIXES = ("RNGD_", "RUNPOD_", "VLLM_", "LLM_", "ANTHROPIC_")
 _WHERE = (("RUNPOD_", "RunPod"), ("RNGD_", "RNGD"), ("VLLM_", "vLLM"))
@@ -240,6 +296,34 @@ def _spawn_watchdog(argv: list[str], cwd: Path) -> bj._Group:
     proc = subprocess.Popen(argv, cwd=cwd, stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL,
                             stderr=subprocess.DEVNULL, start_new_session=True)
     return bj._Group(proc)
+
+
+def _spawn_tunnel(argv: list[str]) -> subprocess.Popen:
+    """ssh 터널. 앱을 꺼도 살아 있게 새 세션으로 띄우고 입출력은 버린다(다시 켜면 ps 줄로 이어 받는다)."""
+    return subprocess.Popen(argv, stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
+                            start_new_session=True)
+
+
+def _local_iso(ts: float) -> str:
+    """로컬 시각 ISO 글 (터널을 연 시각, 모델을 올리기 시작한 시각)."""
+    return datetime.fromtimestamp(ts).astimezone().isoformat(timespec="seconds")
+
+
+def diagnose_rngd(ps: dict, tunnel: dict, models: list[dict]) -> str | None:
+    """RNGD 상태 진단. 위에서부터: 떠 있는 모델 없음 → 터널 닫힘 → 기대 모델 응답 → 모델 프로세스만 있음(올리는 중) → 모름(None).
+    ps는 rngd_ps, tunnel은 tunnel_status, models는 where가 붙은 model_status 결과다. 주소가 있는 RNGD 태그만 본다.
+    서버가 HTTP로 답했으면(예: 401) 올리는 중이 아니라 다른 원인이라 None이다(기존 오류 글이 원인을 말한다)."""
+    if ps["ok"] and not ps["models"]:
+        return "no_model"
+    if tunnel["port"] is not None and not tunnel["open"]:
+        return "tunnel_closed"
+    rngd = [m for m in models if m.get("where") == "RNGD" and m.get("url_set")]
+    if any(m["reachable"] and m["match"] for m in rngd):
+        return "ok"
+    answered = any(m["reachable"] or str(m.get("error") or "").startswith("HTTP ") for m in rngd)
+    if ps["ok"] and rngd and not answered:
+        return "loading"
+    return None
 
 
 def _running_text(r: dict) -> str:
@@ -268,10 +352,13 @@ class ServerActions:
 
     def __init__(self, env: MutableMapping[str, str], jobs: "bj.JobManager", log_path: Path, *, opener=None, runner=None,
                  watchdog_spawner=None, clock=None, sleep=None, models_cfg: dict | None = None,
-                 env_file: Path | None = None):
+                 env_file: Path | None = None, tunnel_spawner=None, connector=None, ps=None, killer=None):
         self.env, self.jobs, self.log_path = env, jobs, Path(log_path)
         self._opener, self._runner = opener, runner
         self._watchdog_spawner = watchdog_spawner or _spawn_watchdog
+        self._tunnel_spawner, self._connector = tunnel_spawner or _spawn_tunnel, connector or socket.create_connection
+        self._ps, self._killer = ps or bj._ps_text, killer or os.kill
+        self._tunnel: dict | None = None             # 이 앱이 연 터널 {"proc", "port", "started"(clock 값)}
         self._clock, self._sleep = clock or time.time, sleep or time.sleep
         self.models_cfg = models_cfg or yaml.safe_load((CONFIGS / "models.yaml").read_text(encoding="utf-8"))
         self._tokens: dict[str, dict] = {}
@@ -302,6 +389,23 @@ class ServerActions:
         for s in out:
             name = str(cfg[s["tag"]].get("base_url_env", ""))
             s["where"] = next((w for p, w in _WHERE if name.startswith(p)), name)
+        return out
+
+    def tunnel_status(self) -> dict:
+        """RNGD 터널: 포트, 열림, 이 앱의 것인가(앱이 띄운 ssh가 살아 있거나 ps에 ssh -N -L <포트>:127.0.0.1: 줄이 있음),
+        pid, since(앱이 연 터널이 열려 있을 때만 연 시각, 로컬 ISO). 명령 줄 인자는 담지 않는다."""
+        port = tunnel_port(self.env)
+        out = {"port": port, "open": False, "owned": False, "pid": None, "since": None}
+        if port is None:
+            return out
+        out["open"] = port_open(port, connector=self._connector)
+        mine = self._app_tunnel(port)
+        if mine:
+            out.update(owned=True, pid=mine["proc"].pid, since=_local_iso(mine["started"]) if out["open"] else None)
+        else:
+            pids = tunnel_ps_pids(self._ps(), port)
+            if pids:
+                out.update(owned=True, pid=pids[0])
         return out
 
     def status(self) -> dict:
@@ -335,8 +439,10 @@ class ServerActions:
         if not out["rngd"]["ok"]:
             out["rngd"]["error"] = self._mask(out["rngd"]["error"] or "")
             out["rngd"]["friendly"] = bt.friendly_error("rngd", out["rngd"]["error"])
+        tunnel = self.tunnel_status()
+        self._diagnose(out["rngd"], tunnel, models)
         controls = bt.server_controls(running=bool(running), runpod_ok=not bool(out.get("runpod_error")),
-                                      rngd_ok=out["rngd"]["ok"])
+                                      rngd_ok=out["rngd"]["ok"], tunnel=tunnel, ssh_set=bool(_ssh_target(self.env)))
         out["can"], out["why"] = controls["can"], controls["why"]
         return out
 
@@ -349,7 +455,7 @@ class ServerActions:
         if not isinstance(params, dict):
             return {"code": 400, "error": "params는 JSON 객체여야 합니다"}
         running = self._running()
-        if running:
+        if running and action not in UNLOCKED_ACTIONS:
             return self._locked(running)
         try:
             plan = getattr(self, "_plan_" + action)(params)
@@ -372,7 +478,7 @@ class ServerActions:
         if self._clock() - item["created"] > TOKEN_TTL:
             return {"code": 410, "error": f"확인 토큰의 유효 시간({TOKEN_TTL // 60}분)이 지났습니다. 단추를 다시 눌러 요약부터 받으세요"}
         running = self._running()                    # 요약을 본 뒤에 실행이 시작됐을 수 있다
-        if running:
+        if running and item["action"] not in UNLOCKED_ACTIONS:
             return self._locked(running)
         try:
             return getattr(self, "_do_" + item["action"])(item["params"])
@@ -452,6 +558,19 @@ class ServerActions:
                    "다시 올리면 15~25분 걸립니다")
         return {"params": {"model": model}, "summary": summary, "warning": None}
 
+    def _plan_tunnel_open(self, params: dict) -> dict:
+        port = self._closed_tunnel_port()
+        return {"params": {}, "summary": f"내 컴퓨터 {port}번을 RNGD {RNGD_REMOTE_PORT}번에 잇는 통로(SSH 터널)를 엽니다",
+                "warning": None}
+
+    def _plan_tunnel_close(self, params: dict) -> dict:
+        st = self._owned_tunnel()
+        summary = (f"내 컴퓨터 {st['port']}번과 RNGD를 잇는 통로(SSH 터널)를 닫습니다. "
+                   "RNGD 모델 연결이 끊깁니다. 다시 열면 몇 초 걸립니다")
+        warn = (None if self._app_tunnel(st["port"])
+                else f"앱을 다시 켜기 전에 열었거나 다른 터미널에서 연 터널입니다(pid {st['pid']})")
+        return {"params": {}, "summary": summary, "warning": warn}
+
     # ── 실행 ───────────────────────────────────────────
 
     def _do_pod_create(self, params: dict) -> dict:
@@ -517,6 +636,56 @@ class ServerActions:
         line = append_server_log(self.log_path, "rngd_down", target=model, note=note, _secrets=self._secrets())
         return {"ok": r["ok"], "result": r, "log_line": line}
 
+    def _do_tunnel_open(self, params: dict) -> dict:
+        port = self._closed_tunnel_port()            # 요약을 본 뒤 다른 터미널이 열었을 수 있다
+        started, code, opened, error = self._clock(), None, False, None
+        try:
+            proc = self._tunnel_spawner(tunnel_args(self.env))
+        except OSError:
+            proc, error = None, bt.SERVER_TEXT["tunnel_spawn_failed"]
+        if proc is not None:
+            for _ in range(int(TUNNEL_WAIT / TUNNEL_STEP)):
+                opened = port_open(port, connector=self._connector)
+                code = None if opened else proc.poll()
+                if opened or code is not None:
+                    break
+                self._sleep(TUNNEL_STEP)
+            else:
+                opened = port_open(port, connector=self._connector)
+            if opened:
+                self._tunnel = {"proc": proc, "port": port, "started": started}
+            elif code is not None:
+                error = bt.SERVER_TEXT["tunnel_exited"].format(code=code)
+            else:                                    # 시간 안에 열리지 않았다. 남은 ssh를 끝낸다
+                proc.terminate()
+                error = bt.SERVER_TEXT["tunnel_timeout"].format(seconds=TUNNEL_WAIT)
+        note = "열림" if opened else "실패" + (f": 종료 코드 {code}" if code is not None else "")
+        line = append_server_log(self.log_path, "tunnel_open", target=f"127.0.0.1:{port}", note=note,
+                                 _secrets=self._secrets())
+        out = {"ok": opened, "result": {"port": port, "open": opened, "exit_code": code}, "log_line": line}
+        return out if opened else {**out, "error": error}
+
+    def _do_tunnel_close(self, params: dict) -> dict:
+        st = self._owned_tunnel()                    # 죽이기 직전에 포트와 ps 줄을 다시 본다
+        port, pid, mine = st["port"], st["pid"], self._app_tunnel(st["port"])
+        if mine:
+            mine["proc"].terminate()
+        else:
+            try:
+                self._killer(pid, signal.SIGTERM)
+            except ProcessLookupError:               # 그 사이 끝났다
+                pass
+            except OSError:                          # 다른 사용자의 프로세스
+                raise _Refuse(403, bt.SERVER_TEXT["tunnel_not_ours"].format(port=port)) from None
+        closed = self._wait_port(port, want_open=False)
+        if mine and (closed or mine["proc"].poll() is not None):
+            self._tunnel = None
+        note = ("앱이 연 터널" if mine else f"이어 받은 터널 pid {pid}") + ("" if closed else " — 포트가 아직 열려 있음")
+        line = append_server_log(self.log_path, "tunnel_close", target=f"127.0.0.1:{port}", note=note,
+                                 _secrets=self._secrets())
+        out = {"ok": closed, "result": {"port": port, "pid": pid, "closed": closed}, "log_line": line}
+        return out if closed else {**out, "error": bt.SERVER_TEXT["tunnel_still_open"].format(port=port)}
+
     # ── 도구 ───────────────────────────────────────────
 
     def _running(self) -> list[dict]:
@@ -534,6 +703,56 @@ class ServerActions:
     def _need_rngd(self) -> None:
         if not self.env.get("RNGD_SSH"):
             raise _Refuse(400, "RNGD_SSH 없음 (.env에 ssh 접속 인자를 넣고 앱을 다시 켜세요)")
+
+    def _app_tunnel(self, port: int) -> dict | None:
+        """이 앱이 띄운 ssh가 살아 있고 그 포트의 것이면 그 기록. 끝났으면 잊는다."""
+        t = self._tunnel
+        if t and t["proc"].poll() is not None:
+            self._tunnel = t = None
+        return t if t and t["port"] == port else None
+
+    def _closed_tunnel_port(self) -> int:
+        """터널을 열 수 있으면 그 포트. RNGD_SSH 없음·내 컴퓨터 주소 아님은 400, 이미 열림은 409."""
+        self._need_rngd()
+        port = tunnel_port(self.env)
+        if port is None:
+            raise _Refuse(400, bt.SERVER_TEXT["tunnel_no_port"])
+        if tunnel_args(self.env) is None:            # RNGD_SSH가 "ssh" 한 낱말뿐이다
+            raise _Refuse(400, "RNGD_SSH에 접속 인자가 없습니다 (.env에 -i <키> -p <포트> <사용자>@<호스트>를 넣으세요)")
+        if port_open(port, connector=self._connector):
+            raise _Refuse(409, bt.SERVER_TEXT["tunnel_already_open"].format(port=port))
+        return port
+
+    def _owned_tunnel(self) -> dict:
+        """닫을 수 있는 터널의 tunnel_status. 포트 없음 400, 닫힘 404, 이 앱의 것이 아님 403."""
+        st = self.tunnel_status()
+        if st["port"] is None:
+            raise _Refuse(400, bt.SERVER_TEXT["tunnel_no_port"])
+        if not st["open"]:
+            raise _Refuse(404, bt.SERVER_TEXT["tunnel_closed"].format(port=st["port"]))
+        if not st["owned"]:
+            raise _Refuse(403, bt.SERVER_TEXT["tunnel_not_ours"].format(port=st["port"]))
+        return st
+
+    def _wait_port(self, port: int, *, want_open: bool) -> bool:
+        for _ in range(int(TUNNEL_WAIT / TUNNEL_STEP)):
+            if port_open(port, connector=self._connector) == want_open:
+                return True
+            self._sleep(TUNNEL_STEP)
+        return port_open(port, connector=self._connector) == want_open
+
+    def _diagnose(self, rngd: dict, tunnel: dict, models: list[dict]) -> None:
+        """status()["rngd"]에 tunnel·diagnosis·loading_since·diagnosis_text를 넣고, 진단이 원인을 말하면
+        주소가 있는 RNGD 태그의 friendly를 진단 글로 바꾼다(모델이 없을 때 터널을 탓하지 않게). 원래 오류 종류(raw)는 남긴다."""
+        diagnosis = diagnose_rngd(rngd, tunnel, models)
+        secs = [m["elapsed_s"] for m in rngd["models"] if m.get("elapsed_s") is not None]
+        since = _local_iso(self._clock() - max(secs)) if secs and diagnosis != "ok" else None
+        text = bt.rngd_diagnosis(diagnosis, since, datetime.fromtimestamp(self._clock()).astimezone())
+        rngd.update(tunnel=tunnel, diagnosis=diagnosis, loading_since=since, diagnosis_text=text)
+        if text and diagnosis != "ok":
+            for m in models:
+                if m.get("where") == "RNGD" and m.get("url_set") and m.get("friendly"):
+                    m["friendly"] = {**text, "raw": m["friendly"]["raw"]}
 
     def _pods(self) -> list[dict]:
         return pod.list_pods(opener=self._opener, env=self.env)

@@ -1,6 +1,7 @@
 """표시 이름 규칙 시험. 실제 실행의 이름만 쓰며 문서 내용이나 서버는 읽지 않는다."""
 import copy
 import importlib
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 import pytest
@@ -553,9 +554,9 @@ def test_condition_tokens(text, token, expected):
     ("runpod", "Unauthorized", "RunPod 관리 키(RUNPOD_API_KEY)가 거절됐습니다.",
      "RunPod 설정 화면에서 키를 다시 만들어 `.env`에 넣으세요."),
     ("model", "request timed out", "서버가 응답하지 않습니다.",
-     "SSH 터널이 열려 있는지, 서버가 켜져 있는지 확인하세요."),
+     "서버 상태 칸의 진단을 보세요. 터널이 닫혔거나 모델이 아직 뜨는 중일 수 있습니다."),
     ("rngd", "Connection refused", "서버가 응답하지 않습니다.",
-     "SSH 터널이 열려 있는지, 서버가 켜져 있는지 확인하세요."),
+     "서버 상태 칸의 진단을 보세요. 터널이 닫혔거나 모델이 아직 뜨는 중일 수 있습니다."),
     ("model", "새 오류 <unknown>", "서버를 보지 못했습니다.",
      "아래 원문을 보고 .env와 터널을 확인하세요."),
     ("env", "", "서버를 보지 못했습니다.", "아래 원문을 보고 .env와 터널을 확인하세요."),
@@ -611,6 +612,75 @@ def test_server_refusal_texts(text):
     assert "할 일:" in text.SERVER_TEXT["pod_key_missing"] and "설정 다시 읽기" in text.SERVER_TEXT["pod_key_missing"]
     assert "만들지 않은 Pod" in text.SERVER_TEXT["pod_not_ours"] and "할 일:" in text.SERVER_TEXT["pod_not_ours"]
     assert text.SERVER_TEXT["env_file_unknown"]
+
+
+def test_timed_out_does_not_assume_tunnel(text):
+    fix = text.friendly_error("model", "URLError: TimeoutError")["fix"]
+    assert "진단" in fix and "SSH 터널이 열려 있는지" not in fix          # 모델이 안 떠 있어도 터널을 탓하던 문장 (step 6)
+
+
+NOW_LOCAL = datetime(2026, 10, 30, 21, 0, tzinfo=timezone(timedelta(hours=9)))
+
+
+def ago(minutes: float) -> str:
+    return (NOW_LOCAL - timedelta(minutes=minutes)).isoformat(timespec="seconds")
+
+
+def test_rngd_diagnosis_texts(text):
+    ok = text.rngd_diagnosis("ok", None, NOW_LOCAL)
+    assert ok["message"] == "RNGD 모델이 응답합니다." and set(ok) == {"message", "fix"}
+    no_model = text.rngd_diagnosis("no_model", None, NOW_LOCAL)
+    assert no_model["message"] == "RNGD에 떠 있는 모델이 없습니다."
+    assert no_model["fix"] == "모델 올리기를 누르세요. 15~25분 걸립니다."
+    assert "터널" not in no_model["message"] + no_model["fix"]
+    closed = text.rngd_diagnosis("tunnel_closed", None, NOW_LOCAL)
+    assert closed == {"message": "내 컴퓨터와 RNGD를 잇는 통로(SSH 터널)가 닫혀 있습니다.", "fix": "터널 열기를 누르세요."}
+    assert text.rngd_diagnosis(None, None, NOW_LOCAL) is None
+    assert text.rngd_diagnosis("모르는 값", None, NOW_LOCAL) is None
+
+
+@pytest.mark.parametrize("since, minutes, late", [(ago(7.5), 7, False), (ago(25), 25, False), (ago(26), 26, True)])
+def test_rngd_diagnosis_loading_minutes(text, since, minutes, late):
+    item = text.rngd_diagnosis("loading", since, NOW_LOCAL)
+    assert item["message"] == f"모델을 올리는 중입니다({minutes}분 지남)."
+    assert item["fix"].startswith("보통 15~25분 걸립니다. 기다린 뒤 다시 보세요.")
+    assert ("서버 기록을 확인하세요" in item["fix"]) is late
+
+
+def test_rngd_diagnosis_loading_other_timezone_and_unknown(text):
+    utc = (NOW_LOCAL - timedelta(minutes=3)).astimezone(timezone.utc).isoformat()
+    assert "3분 지남" in text.rngd_diagnosis("loading", utc, NOW_LOCAL)["message"]
+    for since in (None, "", "시각 아님"):
+        item = text.rngd_diagnosis("loading", since, NOW_LOCAL)
+        assert item["message"] == "모델을 올리는 중입니다." and "서버 기록" not in item["fix"]
+
+
+def test_tunnel_refusal_texts(text):
+    for key in ("tunnel_no_port", "tunnel_already_open", "tunnel_closed", "tunnel_not_ours", "tunnel_exited",
+                "tunnel_timeout", "tunnel_spawn_failed", "tunnel_still_open"):
+        assert "할 일:" in text.SERVER_TEXT[key], key
+    assert "앱이 연 터널이 아닙니다" in text.SERVER_TEXT["tunnel_not_ours"]
+    assert "연 터미널에서 닫으세요" in text.SERVER_TEXT["tunnel_not_ours"]
+
+
+def test_server_controls_tunnel(text):
+    def can(**kw):
+        base = {"running": False, "runpod_ok": True, "rngd_ok": True, "ssh_set": True,
+                "tunnel": {"port": 18000, "open": False, "owned": False, "pid": None, "since": None}}
+        c = text.server_controls(**{**base, **kw})
+        return c["can"]["tunnel_open"], c["can"]["tunnel_close"], c["why"]
+    assert can()[:2] == (True, False)
+    assert can(running=True)[:2] == (True, False)                         # 여는 것은 실행 중에도 된다
+    opened = {"port": 18000, "open": True, "owned": True, "pid": 1, "since": None}
+    assert can(tunnel=opened)[:2] == (False, True)
+    o, c, why = can(tunnel=opened, running=True)
+    assert (o, c) == (False, False) and "실행" in why["tunnel_close"]
+    o, c, why = can(tunnel={**opened, "owned": False})
+    assert (o, c) == (False, False) and "앱이 연 터널이 아닙니다" in why["tunnel_close"]
+    o, c, why = can(ssh_set=False)
+    assert o is False and "RNGD_SSH" in why["tunnel_open"]
+    o, c, why = can(tunnel={**opened, "port": None, "open": False, "owned": False})
+    assert o is False and "RNGD_BASE_URL" in why["tunnel_open"]
 
 
 def test_friendly_server_ui_copy(text):
