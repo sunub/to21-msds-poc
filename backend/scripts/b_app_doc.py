@@ -18,7 +18,7 @@
 import json
 import re
 import unicodedata
-from collections import defaultdict, deque
+from collections import Counter, defaultdict, deque
 from pathlib import Path
 
 import yaml
@@ -342,6 +342,39 @@ def align_silver(pred_values: list[dict], gold_json: dict) -> dict[str, dict]:
     """결과 값의 path마다 실버의 같은 자리 값 {"value", "same"}. 실버에 없으면 {"value": None, "same": False}."""
     match, _ = _match(pred_values, flatten_values(gold_json))
     return {v["path"]: _silver(v, match.get(v["path"])) for v in pred_values}
+
+
+def field_counts(pred_json: dict, gold_json: dict) -> Counter:
+    """칸 단위 문제 수. (채점 항목, 항, 종류) → 개수. 원문 대조 화면의 분류와 같다 (사용자 결정 10/31):
+    결과 값의 정답 짝이 다르면 wrong, 짝이 없으면 made, 정답에만 있는 칸은 missing. 같은 칸은 세지 않는다.
+    점수 프로그램은 같은 값을 행 단위로 missing 1 + made 1로 셀 수 있어 수가 다르다."""
+    values, gold_values = flatten_values(pred_json), flatten_values(gold_json)
+    match, _ = _match(values, gold_values)
+    out = Counter()
+    for v in values:
+        g = match.get(v["path"])
+        if g and _norm(g["value"]) == _norm(v["value"]):
+            continue
+        for item in v["items"]:
+            out[(item, v["section"], "wrong" if g else "made")] += 1
+    matched = {g["path"] for g in match.values()}
+    for g in gold_values:
+        if g["path"] not in matched:
+            for item in g["items"]:
+                out[(item, g["section"], "missing")] += 1
+    return out
+
+
+def run_field_counts(run: Path, gold_dir: Path, doc_ids) -> dict[str, Counter]:
+    """실행의 문서마다 field_counts. 결과 파일이나 정답 파일이 없는 문서는 셀 수 없어 뺀다.
+    쪽 글자와 그림은 읽지 않으므로 평가용 문서도 내용을 꺼내지 않고 수만 센다."""
+    out = {}
+    for doc_id in doc_ids:
+        pred_path, gold_path = run / "outputs" / f"{doc_id}.json", Path(gold_dir) / f"{doc_id}.json"
+        if pred_path.is_file() and gold_path.is_file():
+            out[doc_id] = field_counts(json.loads(pred_path.read_text(encoding="utf-8")),
+                                       json.loads(gold_path.read_text(encoding="utf-8")))
+    return out
 
 
 def allowed_doc(doc_id: str, doc_dir: Path | None = None) -> bool:

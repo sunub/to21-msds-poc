@@ -311,6 +311,23 @@ def test_api_run_status_has_loss_ranking(app, ctx, env):
     assert "top_drops" in status
 
 
+def test_api_run_status_counts_are_field_level_like_source_view(app, ctx, env):
+    """S01 문제 건수는 S02(원문 대조)와 같은 칸 단위로 센다 (사용자 결정 10/31)."""
+    from collections import Counter
+    name = "20261029_sections_m1_dev10_loss"
+    make_run(env / "runs", name, {X01: make_doc(X01, toxicity=True), X02: make_doc(X02)})   # X01만 11항 독성을 비운다
+    code, data = get_json(app, ctx, "/api/run/" + name)
+    top = data["status_text"]["top_problem"]
+    field = app.bdoc.run_field_counts(env / "runs" / name, ctx.gold_dir, data["docs"])
+    missing = sum(n for (item, section, kind), n in sum(field.values(), Counter()).items()
+                  if (item, section, kind) == (top["name"], top["section"], "missing"))
+    assert code == 200 and top["counts_basis"] == "field"
+    assert top["counts"]["빠뜨림"] == missing > 0
+    assert [d["doc_id"] for d in top["docs"]] == [X01, X02]
+    assert top["docs"][0]["counts"]["빠뜨림"] == missing
+    assert top["docs"][1]["counts"] == {"빠뜨림": 0, "틀림": 0, "지어냄": 0}
+
+
 def test_api_run_unknown(app, ctx, env):
     three_runs(env)
     for path in ("/api/run/없는실행", "/api/run/../gold", "/api/run/"):
@@ -329,7 +346,10 @@ def test_run_status_and_summaries_do_not_change_cached_scores(app, ctx, env, mon
     ctx.model_status = lambda: pytest.fail("점수 요청은 모델 서버를 부르면 안 됩니다")
     code, result = get_json(app, ctx, "/api/run/" + name)
     assert code == 200
-    assert result["status_text"] == app.bt.score_status(before, app.br.criteria(), connected=None)
+    # 문제 건수는 칸 단위로 센다(사용자 결정 10/31). 같은 수를 넘겨 다시 만들어도 같아야 한다
+    field = app.bdoc.run_field_counts(env / "runs" / name, ctx.gold_dir, before.get("docs") or [])
+    assert result["status_text"] == app.bt.score_status(before, app.br.criteria(), connected=None,
+                                                        per_doc=before.get("per_doc"), field_counts=field)
     assert set(result["card_summaries"]) == {"history", "docs", "grid", "rows"}
     assert result["card_summaries"]["history"].startswith("저장된 결과 2개 중 최고점은")
     for kind in ("docs", "grid", "rows"):

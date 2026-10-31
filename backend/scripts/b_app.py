@@ -191,7 +191,9 @@ def _run_with_text(run: Path, ctx: AppContext, gold_dir: Path, key: dict) -> dic
     history = [info if r["name"] == info["name"] else r for r in runs]
     summaries = {kind: bt.card_summary(kind, info) for kind in ("docs", "grid", "rows")}
     summaries["history"] = bt.card_summary("history", {"runs": history})
-    status = bt.score_status(info, br.criteria(), connected=connected, per_doc=info.get("per_doc"))
+    # 문제 건수는 원문 대조 화면과 같은 칸 단위로 센다 (사용자 결정 10/31)
+    field = bdoc.run_field_counts(run, gold_dir, info.get("docs") or [])
+    status = bt.score_status(info, br.criteria(), connected=connected, per_doc=info.get("per_doc"), field_counts=field)
     return {**info, "status_text": status, "targets": status["targets"],
             "card_summaries": summaries, "connection_notes": bt.connection_notes(info.get("model")), "key": key,
             "set": _run_set(info, _set_list(ctx))}

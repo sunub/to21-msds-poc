@@ -1022,6 +1022,37 @@ def test_problem_loss_counts_preserves_missing_zero_and_input(text, counts, caus
     assert '기록 없음' in text.UI_TEXT['score']['problem']['unrecorded']
 
 
+def test_losses_use_field_counts_when_given_and_keep_scorer_counts(text):
+    """S01 문제 건수는 S02와 같은 칸 단위 수다 (사용자 결정 10/31). 점수 프로그램의 행 단위 수는 scorer_counts에 둔다.
+    S02처럼 항목 이름과 항(section)으로 거른다. 항을 모르는 항목은 모든 항의 칸을 센다."""
+    from collections import Counter
+    info = loss_info(('8항 노출기준', '필수', .6, .95), ('가짜 일반', '일반', .9, .8))
+    info['items'][0].update({'빠뜨림': 47, '틀림': 0, '지어냄': 27})
+    per_doc = {'T21-X01': {'items': {'8항 노출기준': .5, '가짜 일반': .9}},
+               'T21-X02': {'items': {'8항 노출기준': .7, '가짜 일반': .9}},
+               'T21-X03': {'items': {'8항 노출기준': .6, '가짜 일반': .9}}}
+    field = {'T21-X01': Counter({('8항 노출기준', 8, 'wrong'): 5, ('8항 노출기준', 8, 'made'): 8,
+                                 ('8항 노출기준', 8, 'missing'): 10, ('8항 노출기준', 3, 'missing'): 4,
+                                 ('가짜 일반', None, 'made'): 2, ('가짜 일반', 5, 'made'): 1}),
+             'T21-X02': Counter({('8항 노출기준', 8, 'missing'): 1})}            # T21-X03은 셀 수 없었다(정답 없음)
+    before = copy.deepcopy(info)
+    result = text.score_losses(info, LOSS_CRITERIA, per_doc, field_counts=field)
+    row, other = result['losses']
+    assert (row['name'], row['section']) == ('8항 노출기준', 8)
+    assert row['counts'] == {'빠뜨림': 11, '틀림': 5, '지어냄': 8}             # 3항의 칸 4개는 세지 않는다
+    assert row['scorer_counts'] == {'빠뜨림': 47, '틀림': 0, '지어냄': 27}
+    assert row['counts_basis'] == 'field' and row['cause'] == '빠뜨림'
+    assert other['counts'] == {'빠뜨림': 0, '틀림': 0, '지어냄': 3} and other['scorer_counts'] is None
+    docs = {d['doc_id']: d for d in result['top_problem']['docs']}
+    assert docs['T21-X01']['counts'] == {'빠뜨림': 10, '틀림': 5, '지어냄': 8}
+    assert docs['T21-X02']['counts'] == {'빠뜨림': 1, '틀림': 0, '지어냄': 0}
+    assert docs['T21-X03']['counts'] is None
+    assert result['top_problem']['counts'] == row['counts']
+    assert info == before
+    status = text.score_status(info, LOSS_CRITERIA, per_doc=per_doc, field_counts=field)
+    assert {k: status[k] for k in ('losses', 'top_problem', 'loss_basis')} == result
+
+
 def test_problem_loss_counts_partial_and_ties(text):
     info = loss_info(('8항 노출기준', '필수', .6, .95))
     info['items'][0].update({'틀림': 4, '지어냄': 4})

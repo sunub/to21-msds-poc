@@ -6,7 +6,7 @@
 import copy
 import importlib
 import json
-from collections import defaultdict
+from collections import Counter, defaultdict
 
 import pytest
 
@@ -499,6 +499,52 @@ def test_doc_view_without_gold(bd, view_env):
     dv = bd.doc_view(view_env / "runs" / "r1", X01, view_env / "pages9", view_env / "gold")
     assert dv["has_gold"] is False and dv["silver_only"] == []
     assert all(v["silver"]["value"] is None and v["silver"]["same"] is False for v in dv["values"])
+
+
+# ── field_counts: S01 문제 건수를 S02와 같은 칸 단위로 센다 (사용자 결정 10/31) ──
+
+def _source_view_counts(dv):
+    """원문 대조 화면(js/source.js의 sourceKind·sourceProblems)이 doc_view를 나누는 방식 그대로 센다."""
+    out = Counter()
+    for v in dv["values"]:
+        if v["silver"]["same"]:
+            continue
+        kind = "made" if v["silver"]["value"] is None else "wrong"
+        for item in v["items"]:
+            out[(item, v["section"], kind)] += 1
+    for g in dv["silver_only"]:
+        for item in g["items"]:
+            out[(item, g["section"], "missing")] += 1
+    return out
+
+
+def test_field_counts_match_source_view_classes(bd, view_env):
+    pred = make_doc(X01, toxicity=True)                                    # 독성 행을 빠뜨렸다 → 못 뽑음
+    m = pred["msds"][0]
+    m["hazard"]["signal_word"] = "위험"                                     # 정답 짝이 다르다 → 틀림
+    m["cmr"].append({**copy.deepcopy(m["cmr"][0]), "agency": "가상기관"})    # 정답에 없는 행 → 만듦
+    make_run(view_env / "runs", "r3", {X01: pred})
+    gold = json.loads((view_env / "gold" / f"{X01}.json").read_text(encoding="utf-8"))
+    got = bd.field_counts(pred, gold)
+    dv = bd.doc_view(view_env / "runs" / "r3", X01, view_env / "pages9", view_env / "gold")
+    assert got == _source_view_counts(dv)
+    assert {kind for (_, _, kind) in got} == {"wrong", "made", "missing"}
+    signal = find(bd.flatten_values(pred), "msds[0].hazard.signal_word")
+    assert signal["items"]
+    for item in signal["items"]:
+        assert got[(item, signal["section"], "wrong")] == 1
+    assert bd.field_counts(gold, gold) == Counter()                        # 같은 문서는 문제 값이 없다
+
+
+def test_run_field_counts_reads_outputs_and_skips_docs_without_output_or_gold(bd, view_env):
+    run = view_env / "runs" / "r1"
+    out = bd.run_field_counts(run, view_env / "gold", [X01, X09, "T21-X99"])
+    pred = json.loads((run / "outputs" / f"{X01}.json").read_text(encoding="utf-8"))
+    gold = json.loads((view_env / "gold" / f"{X01}.json").read_text(encoding="utf-8"))
+    assert out[X01] == bd.field_counts(pred, gold)
+    assert "T21-X99" not in out                                            # 결과 파일이 없다
+    (view_env / "gold" / f"{X01}.json").unlink()
+    assert X01 not in bd.run_field_counts(run, view_env / "gold", [X01])   # 정답이 없으면 셀 수 없다
 
 
 def test_doc_view_refuses_eval_doc(bd, view_env):
