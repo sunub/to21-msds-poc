@@ -453,9 +453,7 @@ on("servers_changed", journeyRender);
 document.addEventListener("visibilitychange", () => {if (document.visibilityState === "visible") journeyLoad();});
 shellDefineView("journey-choice", {load: async args => {
   await journeyEnsure();
-  if (!S.shell.contextLoaded && S.shell.started) {
-    Promise.resolve().then(async () => {await S.shell.ready; await journeyLoadRuns();}); return;
-  }
+  if (!S.shell.contextLoaded) await (S.shell.contextReady || shellLoadContext());
   await journeyLoadRuns();
 }, render: journeyRenderChoice});
 shellDefineView("journey-records", {render: journeyRenderRecords});

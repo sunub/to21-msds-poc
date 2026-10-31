@@ -34,12 +34,12 @@ const job=(status='running',overrides={})=>({id:'j1',kind:'try',label:'Untrusted
 const result=ok=>({plan,results:{'8':{section:8,ok,raw_text:'<script>fake answer</script>',parsed:{x:1},errors:ok?[]:['parse error'],
  check_problems:[],dropped_rows:0,attempts:1,usage:{prompt_tokens:8,completion_tokens:4}}},fields:{'8':{exposure_limits:2}},
  score:{before:{weighted:50},after:{weighted:55},changed:[{name:'fake item',before:.5,after:.55}],warnings:[]},base_run:'base',saved:'runs/manual/fake'});
-api=async path=>{requests.push(path);
+api=async(path,opts={})=>{requests.push(path);
  if(path.startsWith('/api/options')){if(optionsError)throw new Error('options unavailable');return options;}
  if(path==='/api/jobs'){if(jobsError)throw new Error('jobs unavailable');return {jobs:listed,running};}
  if(path.startsWith('/api/runs'))return {runs:[{name:'base',label:'Base',model_tag:'first',docs:['T21-X01'],run_kind:'dev10',set:{id:'pack'}},
  {name:'other',label:'Other',model_tag:'first',docs:['T21-X01'],run_kind:'probe',set:{id:'pack'}}]};
- if(path.includes('/result'))return response;
+ if(path.includes('/result'))return opts.withStatus?{status:response===null?204:200,data:response}:response;
  if(path.includes('/log'))return {text:'fake log\n'.repeat(100)};
  if(path.startsWith('/api/prompt'))return {text:'fake prompt',no:8,hash:'fakehash'};
  throw new Error(path);
@@ -309,9 +309,9 @@ listed=[job('running',{target:{...target,all:true,sections:null}})];await go('s0
 const events=[];on('try_result_viewed',e=>events.push(e));
 response={plan,run:{sections_ok:16,sections_failed:0},summary:{weighted:60},score:result(true).score};listed=[job('done',{target:{...target,all:true,sections:null}})];
 await jobsPoll();assert.equal(events.length,0);assert.ok(!textOf('jobs-result').includes(T('jobs.result.partial_score',{before:'50.0',after:'55.0'})));
-let resolve;const previous=api;api=path=>path.includes('/j1/result')?new Promise(r=>resolve=r):previous(path);
+let resolve;const previous=api;api=(path,opts)=>path.includes('/j1/result')?new Promise(r=>resolve=r):previous(path,opts);
 const late=jobsLoadResult('j1');listed=[...listed,job('done',{id:'j2'})];await jobsPoll();response=result(false);await jobsWatch('j2');
-resolve(result(true));await late;assert.equal(S.jobs.watch,'j2');assert.equal(S.jobs.result.results['8'].ok,false);
+resolve({status:200,data:result(true)});await late;assert.equal(S.jobs.watch,'j2');assert.equal(S.jobs.result.results['8'].ok,false);
 """)
 
 

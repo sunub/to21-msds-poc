@@ -85,13 +85,17 @@ function emit(event, payload) {
   for (const handler of coreListeners.get(event) || []) handler(payload);
 }
 async function api(path, options = {}) {
-  const response = await fetch(path, {cache: "no-store", ...options});
-  const body = response.status === 204 ? null : await response.json().catch(() => ({}));
+  const {withStatus = false, ...request} = options;
+  const response = await fetch(path, {cache: "no-store", ...request});
+  const body = response.status === 204 ? null : await response.json().catch(error => {
+    if (withStatus && response.ok) throw error;
+    return {};
+  });
   if (!response.ok) {
     const error = new Error(body?.error || `${response.status} ${path}`);
     error.status = response.status; error.body = body; throw error;
   }
-  return body;
+  return withStatus ? {status: response.status, data: body} : body;
 }
 async function post(path, body) {
   return api(path, {method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify(body)});
@@ -127,7 +131,7 @@ function card(id, title, hint, ...kids) {
   const first = kids[0];
   const options = first && !(first instanceof Node) && typeof first === "object" && "collapsed" in first ? kids.shift() : null;
   const content = [hint ? h("p", {class: "muted"}, hint) : null, ...kids];
-  if (!options) { el.replaceChildren(h("h2", null, title), ...content.filter(item => item != null)); return el; }
+  if (!options) { coreReplace(el, h("h2", null, title), content); return el; }
   const body = h("div", {id: `${id}-body`, class: "card-body"}, content);
   const toggle = h("summary", {class: "card-toggle", "aria-controls": `${id}-body`});
   const details = h("details", {class: "card"}, toggle, body);

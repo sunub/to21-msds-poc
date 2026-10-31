@@ -58,17 +58,7 @@ function sourceResetSelection() {
 async function sourceEnsure(args = {}) {
   const D = S.source, navigation = S.shell.navigation;
   if (!S.shell.contextLoaded) {
-    if (S.shell.started) {
-      // start의 ready는 현재 route도 기다린다. route를 먼저 돌려줘 순환 대기를 피한다.
-      D.pending = Promise.resolve().then(async () => {
-        await S.shell.ready;
-        if (navigation === S.shell.navigation && S.shell.route === "s02") {
-          await sourceEnsure(args); sourceRenderAll();
-        }
-      });
-      return;
-    }
-    await shellLoadContext();
+    await (S.shell.contextReady || shellLoadContext());
   }
   if (navigation !== S.shell.navigation) return;
   if (S.score?.list?.length || D.usingScoreList) { D.list = S.score.list; D.usingScoreList = true; }
@@ -202,7 +192,8 @@ function sourceRenderTop() {
     h("p", null, T("source.selection.source_set"), ": ", h("strong", null, d.set?.label || T("context.unavailable"))),
     h("p", null, UI.source.origin[d.set?.source] || T("context.unavailable"), d.set?.note ? ` — ${d.set.note}` : ""),
     h("p", null, T("source.selection.next_set"), ": ", S.shell.sets.find(set => set.id === S.ctx.set)?.label || T("context.unavailable")),
-    h("p", null, T("source.labels.answer"), ": ", d.key?.label || T("score.basis.fallback"))) : null;
+    h("p", null, T("source.labels.answer"), ": ", shellKeyLabel(d.key)),
+    shellKeyMismatch(d.key) ? h("p", {class: "answer-mismatch"}, shellKeyMismatch(d.key)) : null) : null;
   let state = null;
   if (D.loading) state = h("p", {role: "status"}, T("source.loading"));
   else if (D.locked) state = h("div", {class: "source-state", role: "status"},
@@ -369,6 +360,8 @@ function sourceRemember() {
     path: v?.path ?? null, kind: v ? sourceKind(v, only) : null,
     expected: v ? (only ? v.value : v.silver?.value) ?? null : null,
     actual: v && !only ? v.value ?? null : null, page: D.page,
+    expected_text: v ? (only ? v.text : v.silver?.text) ?? null : null,
+    actual_text: v && !only ? v.text ?? null : null,
     line: [...D.selectedLines].find(id => D.line[id]?.page === D.page) || null,
     lines: [...D.selectedLines], estimated: !!only, source_set: D.data?.set?.id || null,
     key: S.ctx.key, pick: null, scroll: {...D.scroll}};

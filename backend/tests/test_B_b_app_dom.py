@@ -49,7 +49,13 @@ const vm = require('node:vm');
 class Element {
   constructor(tag) { this.tagName=tag; this.attrs={}; this.children=[]; this.events={};
     this.hidden=false; this.style={}; this.value=''; this.checked=false; this.disabled=false; this.open=false; }
-  append(...kids) { for (const k of kids.flat(Infinity)) { this.children.push(k); if(k instanceof Element) k.parentElement=this; } }
+  insert(index,kids) { for (const value of kids) {
+    const k=value instanceof Element?value:String(value);
+    if(k instanceof Element) { if(k.parentElement===this&&this.children.indexOf(k)<index)index--; k.remove(); k.parentElement=this; }
+    this.children.splice(index++,0,k);
+  } }
+  append(...kids) { this.insert(this.children.length,kids); }
+  prepend(...kids) { this.insert(0,kids); }
   replaceChildren(...kids) { for(const k of this.children) if(k instanceof Element) k.parentElement=null; this.children=[]; this.append(...kids); }
   setAttribute(k,v) { this.attrs[k]=String(v ?? ''); if(['hidden','disabled','checked','open'].includes(k)) this[k]=true; if(k==='value') this.value=String(v); }
   removeAttribute(k) { delete this.attrs[k]; if(['hidden','disabled','checked','open'].includes(k)) this[k]=false; }
@@ -81,7 +87,9 @@ class Element {
   closest(sel){return sel.split(',').some(s=>this.matches(s.trim()))?this:this.parentElement?.closest(sel)||null;}
   contains(el){return el===this||this.querySelectorAll('*').includes(el);}
   remove(){if(this.parentElement){this.parentElement.children=this.parentElement.children.filter(x=>x!==this);this.parentElement=null;}}
-  replaceWith(el){const p=this.parentElement;if(p){p.children=p.children.map(x=>x===this?el:x);el.parentElement=p;this.parentElement=null;}}
+  before(...kids){const p=this.parentElement;if(p)p.insert(p.children.indexOf(this),kids);}
+  after(...kids){const p=this.parentElement;if(p)p.insert(p.children.indexOf(this)+1,kids);}
+  replaceWith(...kids){const p=this.parentElement;if(p){const index=p.children.indexOf(this);this.remove();p.insert(index,kids);}}
   get isConnected(){return this===document||!!this.parentElement?.isConnected;}
   addEventListener(k,fn){(this.events[k]||=[]).push(fn);}
   dispatchEvent(e){e.target ||= this;e.preventDefault ||= ()=>{e.defaultPrevented=true;};let result;
@@ -109,7 +117,7 @@ const timeout=(fn,ms=0)=>{const id=++timerId;timers.set(id,{fn,at:now+ms});retur
 const interval=(fn,ms)=>{const id=timeout(fn,ms);timers.get(id).repeat=ms;return id;};
 const win=new Element('window');win.innerWidth=1440;win.innerHeight=900;
 const context=vm.createContext({Node:Element,document,localStorage,store,location,history,window:win,console,assert,
-  URLSearchParams,CSS:{escape:s=>s},setTimeout:timeout,clearTimeout:id=>timers.delete(id),setInterval:interval,clearInterval:id=>timers.delete(id),clockTick,timers,
+  URLSearchParams,AbortController,CSS:{escape:s=>s},setTimeout:timeout,clearTimeout:id=>timers.delete(id),setInterval:interval,clearInterval:id=>timers.delete(id),clockTick,timers,
   fetch:async()=>{throw new Error('Unexpected network call');}});
 function hydrate(node,parent){if(typeof node==='string'){parent.append(node);return;}const el=new Element(node.tag);
   for(const [k,v] of Object.entries(node.attrs))el.setAttribute(k,v);parent.append(el);for(const c of node.kids)hydrate(c,el);}
@@ -127,9 +135,10 @@ def run_js(body, *, text=None):
     program += 'document.getElementById("ui-text").textContent=' + json.dumps(json.dumps(ui_text() if text is None else text)) + ';\n'
     for path in SCRIPTS:
         program += 'vm.runInContext(' + json.dumps(path.read_text()) + ',context,{filename:' + json.dumps(path.name) + '});\n'
-    program += 'vm.runInContext(' + json.dumps('(async()=>{' + body + '})()') + ',context).catch(e=>{console.error(e);process.exitCode=1;});'
+    program += 'vm.runInContext(' + json.dumps('(async()=>{' + body + '})()') + ',context).then(()=>console.log("DOM_TEST_DONE"),e=>{console.error(e);process.exitCode=1;});'
     result = subprocess.run([node, '-'], input=program, capture_output=True, text=True, timeout=20)
     assert result.returncode == 0, result.stdout + result.stderr
+    assert 'DOM_TEST_DONE' in result.stdout, 'DOM test did not finish its awaited assertions'
 
 
 def test_scripts_exist_and_boot_is_last():

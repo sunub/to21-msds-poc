@@ -659,7 +659,7 @@ UI_TEXT["score"] = {'criteria': {'hint': '23가지 기준의 점수와 목표를
              'rented': '빌린 서버가 준비되는 동안 저장된 결과를 읽습니다.',
              'back_rented': '서버 상태와 비용으로 돌아가기',
              'cost': '시간당 약 ${cost_per_hour}의 요금이 나갑니다(예시).'},
- 'basis': {'label': '{key} 기준 · 채점 문서 {count}건', 'fallback': '정답 초안(실버) 기준'},
+ 'basis': {'label': '{key} 기준 · 채점 문서 {count}건', 'fallback': '확인 안 됨'},
  'loading': {'scoring': '실행 {count}개를 채점 중입니다. 처음에는 수십 초 걸릴 수 있습니다.'},
  'load_failed': {'fact': '실행 결과를 읽지 못했습니다.', 'todo': '할 일: 기록을 다시 읽으세요. 계속 실패하면 앱을 켠 터미널의 오류를 확인하세요.'},
  'selection': {'not_comparable': '전체 실행 비교 대상 아님', 'unknown': '분류 확인 안 됨', 'other_set': '다른 문서 묶음'},
@@ -732,7 +732,6 @@ COPY_EXCEPTIONS: dict[str, str] = {'common.expand': '공용 카드의 접힘 조
  'context.unavailable': 'API가 값이나 시각을 주지 않을 때 알 수 없음을 표시합니다.'}
 
 COPY_EXCEPTIONS.update({'score.basis.label': '승인 구조의 동적 표시 또는 API 누락 상태에 대응하는 일반 문구가 COPY에 없어 보충했습니다.',
- 'score.basis.fallback': '승인 구조의 동적 표시 또는 API 누락 상태에 대응하는 일반 문구가 COPY에 없어 보충했습니다.',
  'score.loading.scoring': '승인 구조의 동적 표시 또는 API 누락 상태에 대응하는 일반 문구가 COPY에 없어 보충했습니다.',
  'score.load_failed.fact': '승인 구조의 동적 표시 또는 API 누락 상태에 대응하는 일반 문구가 COPY에 없어 보충했습니다.',
  'score.load_failed.todo': '승인 구조의 동적 표시 또는 API 누락 상태에 대응하는 일반 문구가 COPY에 없어 보충했습니다.',
@@ -2900,6 +2899,8 @@ COPY_EXCEPTIONS["help.facts.counts"] = "실행 수치가 없는 일반 도움말
 
 UI_TEXT["common"]["screen_shown"] = "{screen} 화면을 표시했습니다."
 COPY_EXCEPTIONS["common.screen_shown"] = "화면 이동 완료를 알립니다. 자료 조회나 모델 실행 성공을 뜻하지 않습니다."
+UI_TEXT["context"]["answer_mismatch"] = "이 결과의 정답지는 현재 선택과 다릅니다. 결과: {result_key}. 현재 선택: {selected_key}."
+COPY_EXCEPTIONS["context.answer_mismatch"] = "S5 결정 2: ⑤ 수락에서 승인 대기"
 
 POLISH_TEXT = UI_TEXT
 

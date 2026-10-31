@@ -26,11 +26,13 @@ function serversModel(model) {
 function serversReady(model) { return model?.reachable === true && model?.match === true; }
 function serversLabel(model) { return serversText(model?.label || model?.model_label || model?.model_expected || model?.tag || T("context.model.default_name")); }
 function serversState(model) {
-  return serversReady(model) ? "connected" : model?.reachable === false || model?.match === false ? "off" : "unknown";
+  if (S.shell.serverError) return S.shell.serverError.status === 503 ? "readiness_unknown" : "query_failed";
+  return serversReady(model) ? "connected" : shellModelState(model, serversData());
 }
 function serversBadge(model) {
   const state = serversState(model);
-  return h("strong", {class: `server-state ${state === "connected" ? "server-ready" : "muted"}`}, T(`servers.models.${state}`));
+  return h("strong", {class: `server-state ${state === "connected" ? "server-ready" : "muted"}`},
+    T(state === "connected" ? "servers.models.connected" : `context.model.${state}`));
 }
 function serversModelNote(model) {
   if (!model?.friendly) return null;
@@ -105,8 +107,12 @@ function serversRenderSummary(el) {
   const data = serversData(), model = serversModel(S.focus.model);
   const connected = (data?.models || []).filter(serversReady);
   const ready = S.focus.model ? serversReady(model) : connected.length > 0;
+  const states = S.focus.model ? [shellModelState(model, data)] : shellModelStates(data);
   const title = S.shell.serverError ? T("servers.failed.title") : !data ? T("servers.checking.title")
-    : ready ? T("servers.ready.title", {model: serversLabel(model || connected[0])}) : T("servers.choice.recommendation");
+    : ready ? T("servers.ready.title", {model: serversLabel(model || connected[0])})
+    : states.includes("query_failed") ? T("servers.failed.title")
+    : states.filter(state => state !== "state_off").length ? states.filter(state => state !== "state_off").map(state => T(`context.model.${state}`)).join(" · ")
+    : T("servers.choice.recommendation");
   const reload = S.servers.reload;
   coreReplace(el, h("h2", null, title), h("p", null, T("context.model.saved_readable")),
     S.focus.doc && S.focus.section ? h("p", null, T("servers.company.return_target", {doc: serversText(S.focus.doc), section: S.focus.section})) : null,

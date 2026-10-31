@@ -605,7 +605,7 @@ function helpRenderTopics() {
   const el = document.getElementById("help-topics");
   const prior = new Map([...el.querySelectorAll("details[data-help-topic]")].map(d => [d.dataset.helpTopic, d.open]));
   el.classList.add("help-reading");
-  el.replaceChildren(h("p", null, T("help.title")),
+  coreReplace(el, h("p", null, T("help.title")),
     h("div", {class: "help-actions"},
       h("button", {id: "help-return", type: "button", onclick: helpReturn}, T("help.navigation.return")),
       h("button", {id: "help-replay", type: "button", onclick: () => emit("help_replay", {})}, T("help.replay_read"))),
