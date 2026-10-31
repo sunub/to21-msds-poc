@@ -354,3 +354,19 @@ dialog::backdrop { background: rgb(35 51 47 / 25%); }
 .job-compare-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--space-group); padding-block: var(--space-compact); border-bottom: var(--border-standard); }
 .job-compare-row .technical { display: block; }
 #jobs-try fieldset, #jobs-run fieldset { border: var(--border-standard); padding: var(--space-group); min-width: 0; }
+
+/* 도움말은 읽는 화면이다. 긴 경로만 줄바꿈하고 본문은 72ch 안에 둔다. */
+.help-context { color: var(--muted); font-size: var(--label-size); margin-bottom: var(--space-section); max-width: 72ch; }
+.help-context a { display: inline-block; }
+.help-reading { max-width: 72ch; min-width: 0; }
+.help-reading > details, .help-reading > section { margin-top: var(--space-section); }
+.help-body { padding-bottom: var(--space-section); }
+.help-body p, .help-reading dd { margin-bottom: var(--space-compact); }
+.help-actions { display: flex; flex-wrap: wrap; gap: var(--space-small); margin-bottom: var(--space-section); }
+#help-glossary { margin-top: var(--space-page); }
+.help-terms dt { font-weight: 700; margin-top: var(--space-section); }
+.help-terms dd { margin-left: 0; margin-top: var(--space-small); }
+.help-toc { display: grid; gap: var(--space-small); margin: var(--space-section) 0 var(--space-page); }
+.guide-page { display: block; max-width: 72ch; padding: var(--space-page) var(--space-section); background: var(--paper); }
+.guide-page section { border-top: var(--border-standard); padding-top: var(--space-section); }
+.guide-page h2 { margin-bottom: var(--space-group); }

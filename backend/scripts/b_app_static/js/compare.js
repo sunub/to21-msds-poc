@@ -120,7 +120,7 @@ function compareConditionsLead(d) {
   const changed = (d.conditions || []).filter(c => c.changed);
   const docs = d.docs || {}, odd = (docs.only_a?.length || 0) + (docs.only_b?.length || 0);
   return h("div", {class: "compare-condition-lead"},
-    d.same_conditions === true ? [compareNote(T("compare.conditions.same")), compareNote(T("compare.conditions.variation"))]
+    d.same_conditions === true ? [compareNote(T("compare.conditions.same")), compareNote(term("variation", T("compare.conditions.variation")))]
       : d.same_conditions !== false ? compareNote(T("compare.conditions.unknown")) : null,
     changed.length ? h("ul", null, changed.map(c => h("li", {class: "compare-condition-change"},
       T("compare.conditions.changed", {condition: compareConditionLabel(c)}),
@@ -172,7 +172,7 @@ function compareRenderSummary() {
       compareNote(d.headline?.headline || T("compare.headline.none"), {class: `compare-headline ${compareClass(w.delta)}`, role: "status"}),
       compareTable([T("compare.detail.basis"), T("compare.result_a"), T("compare.result_b")], [
         [T("score.conditions.run_name"), h("span", {class: "raw"}, compareLabel(D.list.find(r => r.name === D.a))), h("span", {class: "raw"}, compareLabel(D.list.find(r => r.name === D.b)))],
-        [T("compare.total_score"), T("compare.score_value", {score: fmt1(w.a)}), T("compare.score_value", {score: fmt1(w.b)})],
+        [term("weighted", T("compare.total_score")), T("compare.score_value", {score: fmt1(w.a)}), T("compare.score_value", {score: fmt1(w.b)})],
         [T("compare.target"), compareTarget("a"), compareTarget("b")],
         [T("compare.common_docs"), T("compare.dev_count", {count: d.docs?.common?.length || 0}), T("compare.dev_count", {count: d.docs?.common?.length || 0})]
       ]), compareDelta(w.delta), compareNote(T("compare.recalculated")), selection,
@@ -322,7 +322,7 @@ async function compareFetchPrompt(no, body, force = false) {
 function compareRenderPrompts() {
   const D = S.compare, el = document.getElementById("compare-prompts");
   if (!D.data) { el.replaceChildren(); return; }
-  card("compare-prompts", T("compare.prompt.title"), T("compare.prompt.note"), {collapsed: true, summary: T("compare.prompt.full_text")},
+  card("compare-prompts", term("prompt_version", T("compare.prompt.title")), T("compare.prompt.note"), {collapsed: true, summary: T("compare.prompt.full_text")},
     Array.from({length: 16}, (_, index) => {
       const no = index + 1, key = comparePromptKey(no), id = `compare-prompt-${no}`, open = D.promptOpen.has(key);
       const body = h("div", {id: `${id}-body`, hidden: !open});

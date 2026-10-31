@@ -144,7 +144,7 @@ function serversRenderModels(el) {
 }
 function serversRenderRunpod(el) {
   const data = serversData(), session = data?.session;
-  coreReplace(el, h("h2", null, T("servers.rented.title_list")),
+  coreReplace(el, h("h2", null, term("runpod", T("servers.rented.title_list"))),
     h("p", null, T("servers.empty.new_cost")),
     session ? h("div", {class: "server-notice"},
       h("p", null, T(session.adopted ? "servers.session.adopted" : "servers.session.active", {pod_id: serversText(session.pod_id)})),
@@ -194,7 +194,7 @@ function serversRenderRngd(el) {
   }}, choices.map(item => h("option", {value: item.tag}, T("servers.connection.choice", {model: serversText(item.label || item.model), cards: item.cards}))));
   select.value = S.servers.choice || "";
   const elapsed = serversElapsed(tunnel.since);
-  coreReplace(el, h("h2", null, T("servers.choice.company")), h("p", null, T("servers.compare.company.cost_meaning")),
+  coreReplace(el, h("h2", null, term("rngd", T("servers.choice.company"))), h("p", null, T("servers.compare.company.cost_meaning")),
     serversDiagnosis(), h("div", {class: "server-tunnel"},
       h("p", null, tunnel.port == null ? T("servers.connection.tunnel_unknown") : T(tunnel.open
         ? tunnel.owned ? "servers.connection.tunnel_owned" : "servers.connection.tunnel_external" : "servers.connection.tunnel_closed", {port: tunnel.port})),

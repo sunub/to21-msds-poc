@@ -13,6 +13,7 @@ from pathlib import Path
 import pytest
 
 from msds.common.paths import ROOT
+from test_B_b_app_text import approved_copy
 from test_B_b_app_runs import env, make_run  # noqa: F401  env는 픽스처
 from test_B_compare_models import SCRIPTS, X01, X02, X09, make_doc
 
@@ -317,9 +318,9 @@ def test_run_outside_doc_waits_for_runner(bj, where40, monkeypatch):
     outside_support(monkeypatch, False)
     sp = FakeSpawner()
     m = manager(bj, where40, sp)
-    with pytest.raises(ValueError, match="format40"):
+    with pytest.raises(ValueError, match="현재 실행기는 이 문서를 시험할 수 없습니다"):
         run_job(m, docs=[RAW], pages_dir="../data/pages")
-    with pytest.raises(ValueError, match=f"{RAW}.*format40"):
+    with pytest.raises(ValueError, match=f"{RAW}.*현재 실행기는 이 문서를 시험할 수 없습니다"):
         m.run_summary(model=TAG, docs=[RAW], pages_dir="../data/pages", run_name="신규", repeat=1)
     assert sp.calls == []
 
@@ -660,12 +661,12 @@ def test_route_options_help_sorting_and_dry_run(bj, app, where, advanced):
     assert data["try_stage_help"] == app.bt.TRY_STAGE_HELP
     assert data["try_hint"] == app.bt.try_hint(data["models"], advanced == "1")
     assert data["try_hint"]["dry_run_forced"] is True
-    assert all(m["option_label"].endswith("연결 모름") for m in data["models"])
+    assert all(m["option_label"].endswith(approved_copy("context.model.state_unknown")) for m in data["models"])
     ctx.model_status = lambda: [{"tag": TAG, "reachable": True, "match": True}]
     data = call(app, ctx, "GET", "/api/options", query=query)[1]
     assert data["models"][0]["tag"] == TAG
-    assert data["models"][0]["option_label"].endswith("연결됨")
-    assert all(m["option_label"].endswith("연결 안 됨") for m in data["models"][1:])
+    assert data["models"][0]["option_label"].endswith(approved_copy("context.model.state_ready"))
+    assert all(m["option_label"].endswith(approved_copy("context.model.state_off")) for m in data["models"][1:])
     assert data["try_hint"]["dry_run_forced"] is False
     assert [d["doc_id"] for d in data["docs"]] == [X01, X02]
 
@@ -787,7 +788,7 @@ def test_failed_job_has_error_text(bj, where):
     m = manager(bj, where, FakeSpawner(text=DOTENV_LINE + PAGES_TRACE, code=1))
     view = job_of(m, try_job(m).id)
     assert view["status"] == "failed"
-    assert view["error"]["message"] == "쪽 글자 폴더나 파일이 없습니다."
+    assert view["error"]["message"] == approved_copy("errors.job.pages.message")
     assert view["error"]["raw"].startswith("FileNotFoundError: T21-X01")
     assert [w["line"] for w in view["warnings"]] == [5]
 
@@ -812,7 +813,7 @@ def test_dotenv_warning_at_top_of_long_log_is_kept(bj, where):
     m = manager(bj, where, FakeSpawner(text=DOTENV_LINE + "가짜 진행 줄\n" * 500 + PAGES_TRACE, code=1))
     view = job_of(m, try_job(m).id)
     assert [w["line"] for w in view["warnings"]] == [5]
-    assert view["error"]["message"] == "쪽 글자 폴더나 파일이 없습니다."
+    assert view["error"]["message"] == approved_copy("errors.job.pages.message")
 
 
 def test_job_error_text_masks_keys(bj, app, where):
@@ -853,7 +854,7 @@ def test_route_post_value_error_has_message_and_fix(bj, app, where):
     code, data = call(app, ctx, "POST", "/api/jobs/try", {"model": TAG, "doc": X01, "sections": [99],
                                                          "pages_dir": "../data/pages/version9"})
     assert code == 400 and data["error"] == data["message"] and "1~16" in data["message"]
-    assert data["fix"] == "입력을 고친 뒤 다시 보내세요."
+    assert data["fix"] == approved_copy("errors.request.bad_query.fix")
     code, data = call(app, ctx, "POST", "/api/jobs/try", {"model": TAG, "doc": X09, "sections": [11],
                                                          "pages_dir": "../data/pages/version9"})
     assert code == 400 and "평가" in data["error"] and data["message"] and data["fix"]

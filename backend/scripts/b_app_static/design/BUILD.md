@@ -127,7 +127,7 @@ P01과 P02는 원래 화면으로 돌아오는 확인 영역입니다.
 | 번호 | 옛 정보 | 옛 자리 | 새 화면·구역 | 맡는 step | 새 자리 |
 |---|---|---|---|---|---|
 | I01 | 앱 이름, 탭, 시작 안내, 전체 상태 문장 | `index.html #status, setupTabs` | 공통 app-header·main-nav·global-context | 1 | `#app-heading`, `#main-nav`, `#global-context`, `#status`; `shellRenderHeader/go` |
-| I02 | 화면 목적과 도움말 장 연결 | `index.html .tab 설명, guide.html 장 링크` | 공통 화면 설명 → S07 help-topics | 1, 8 | `#title-s01`~`#title-s10`, `#main-nav`의 S07 단추. 화면별 설명·장 연결은 step 8 |
+| I02 | 화면 목적과 도움말 장 연결 | `index.html .tab 설명, guide.html 장 링크` | 공통 화면 설명 → S07 help-topics | 1, 8 | `#help-context-s01`~`s10`(S07 제외) → `helpOpen(topic, screen)`. 원래 화면과 선택은 `helpReturn`으로 복원 |
 | I03 | 용어 말풍선, 접힘 상태, 키보드 포커스 | `term, setupTip, card, loadCards` | 공통 core 도우미 | 1 | `core.js`: `term/setupTip/card/loadCards/coreRead/coreWrite`; 말풍선·접기 새 시험 통과 |
 | I04 | 앱 목적, 서버 없이 결과 확인, 점수→문제→원문 3단계 | `renderStart, journeyStep` | S08 journey-choice, S01 journey-band | 7 | `journeyRenderChoice/journeyRenderBand/journeyRenderStrip`: 두 갈래·실제 화면 행동·준비/실패/건너뛰기 |
 | I05 | 단계 완료, 첫 성공 시각, 실패 후 위치 | `advanceJourney, journeyPassed, focusJourneyValue` | S08 journey-records | 7 | `journeyRenderRecords`, `journeyRecord/journeyComplete`: 실제 성공·연습·시각/횟수·이어하기. `journeyReplay/journeyDismiss`는 성공 이력 보존 |
@@ -198,28 +198,28 @@ P01과 P02는 원래 화면으로 돌아오는 확인 영역입니다.
 | I70 | 가린 장비 명령 출력·진단 오류·15~25분 대기·프로세스와 준비 완료의 차이 | `renderSrvRngd, srvDetail` | S06 servers-rngd | 5 | `serversDiagnosis`: 진단 네 가지·진단 불가·loading_since 경과·15~25분. 준비는 기대 모델 응답으로 판정. |
 | I71 | 서버 기록 마지막 10줄·기록 경로·수동 사용기록 이관 안내 | `renderSrvLog` | S06 servers-log, S07 help-topics | 5, 8 | `serversRenderLog`: 최근 10줄·실제 server_log.md·기록이 있을 때만 수동 이관 안내. S07 연결은 step 8. |
 | I72 | 변경 요약·주의·확인 만료·한 번 사용·취소·실패·삭제 후 남은 Pod·모델 내린 PID | `openSrvDialog, closeSrvDialog, srvExecute` | P02 action-confirm, S06 servers-summary | 5 | `serversOpenDialog`·`serversExecute`·`serversResult`: 요약·경고·포커스·Escape·만료·일회용·실패 상세·남은 Pod/PID. |
-| I73 | 도움말 전체 9장·장 링크·안내 재시작 | `index.html #help-frame, guide.html #s1~#s9` | S07 help-topics, S08 journey-choice | 7, 8 | |
-| I74 | 도구 역할·PDF→쪽 글자→16항→결과→채점·실행 이름 해설 | `guide.html #s1` | S07 help-topics flow | 8 | |
-| I75 | 점수 해석·가중치·필수 목표·정답 초안 한계·원인 후보 기준 | `guide.html #s2, #s3` | S07 help-topics score | 8 | |
-| I76 | 설정 변수 6개의 이름과 뜻·예제 파일·로컬 앱 시작 명령 | `guide.html #s4` | S07 help-topics setup | 8 | |
-| I77 | 시험 순서·6단계 뜻·터미널 실행과 7개 옵션 | `guide.html #s5` | S07 help-topics retest | 8 | |
-| I78 | 지시문 출처 3곳·수정 반영 파일·버전 증가·해시·임시성·반복 시험 | `guide.html #s6` | S07 help-topics prompt | 8 | |
-| I79 | 출력 한도 원인 3종·열 수 불일치·300초 초과·연결 오류 | `guide.html #s7` | S07 help-topics recovery | 8 | |
-| I80 | 평가 보호·비밀값 보호·문서 보호·Pod 비용·전처리 시험 제외 명령 | `guide.html #s8` | S07 help-topics protection | 8 | |
-| I81 | 용어 뜻·예, 용어 로딩 실패, 채점 항목 23개의 이름·등급·설명 | `guide.html #s9, /api/glossary` | S07 help-glossary | 8 | |
+| I73 | 도움말 전체 9장·장 링크·안내 재시작 | `index.html #help-frame, guide.html #s1~#s9` | S07 help-topics, S08 journey-choice | 7, 8 | `js/help.js` → S07 `#help-topics`의 9개 details, `/static/guide.html#<장>`; `#help-replay` → S08(성공 기록 유지) |
+| I74 | 도구 역할·PDF→쪽 글자→16항→결과→채점·실행 이름 해설 | `guide.html #s1` | S07 help-topics flow | 8 | `#help-flow`, `guide.html#flow`; 실행 이름·처리 순서·새 안내 기록 설명 |
+| I75 | 점수 해석·가중치·필수 목표·정답 초안 한계·원인 후보 기준 | `guide.html #s2, #s3` | S07 help-topics score | 8 | `#help-score`, `#help-methods`, `guide.html#score`; 23개 방법·목표·무게·원인 후보·정답 초안 한계 |
+| I76 | 설정 변수 6개의 이름과 뜻·예제 파일·로컬 앱 시작 명령 | `guide.html #s4` | S07 help-topics setup | 8 | `#help-setup`, `guide.html#setup`; 변수 6개·앱 명령·RunPod 프록시와 RNGD SSH 구분 |
+| I77 | 시험 순서·6단계 뜻·터미널 실행과 7개 옵션 | `guide.html #s5` | S07 help-topics retest | 8 | `#help-retest`, `guide.html#retest`; 여섯 단계 표·CLI 명령·옵션 7개 |
+| I78 | 지시문 출처 3곳·수정 반영 파일·버전 증가·해시·임시성·반복 시험 | `guide.html #s6` | S07 help-topics prompt | 8 | `#help-prompt`, `guide.html#prompt`; 출처 3곳·수정 파일·버전·임시성·반복 확인 |
+| I79 | 출력 한도 원인 3종·열 수 불일치·300초 초과·연결 오류 | `guide.html #s7` | S07 help-topics recovery | 8 | `#help-recovery`, `guide.html#recovery`; 출력 한도 3유형·열 수·300초·연결 복구 |
+| I80 | 평가 보호·비밀값 보호·문서 보호·Pod 비용·전처리 시험 제외 명령 | `guide.html #s8` | S07 help-topics protection | 8 | `#help-protection`, `guide.html#protection`; 평가·키·자료·docs 보호·C 전처리 시험 제외 명령; 비용은 servers 장 |
+| I81 | 용어 뜻·예, 용어 로딩 실패, 채점 항목 23개의 이름·등급·설명 | `guide.html #s9, /api/glossary` | S07 help-glossary | 8 | `#help-glossary`의 40개 용어·별칭 검색·조회 복구, `#help-methods`의 23개 채점 방법 |
 | I82 | 값 말풍선의 쉬운 칸 이름과 알려지지 않은 값과 0·false 보존 | `valueRow, tipOf` | S02 source-values | 3 | `sourceTip`, `sourceValueButton`: API의 한국어 말풍선·키보드 접근 |
 | I83 | 결과·정답·정답에만 있는 값의 원래 JSON과 안전한 글자 표시 | `noteSel, pickValue, pickSilverOnly` | S02 source-selection | 3 | `sourceRenderSelection`의 `details.source-raw`: 세 종류 JSON을 글자 노드로 보존 |
 | I84 | 조회 실패의 사실·할 일·접힌 원문과 불러오는 중 표시 | `loadFailure, friendlyError, rawError` | 공통 오류 → 각 화면 상태 구역 | 1, 9 | |
 | I85 | 원문 범례의 네 상태와 색·글과 선택 구간 요약 | `renderDocMain, renderDocRight` | S02 source-top·source-values | 3 | `sourceRenderTop`의 API 범례와 `sourceStructure`의 API 항 요약 |
-| I86 | 도움말 1장: 이 도구는 무엇을 하나 | `guide.html #s1` | S07 help-topics: help.guide.flow | 8 | |
-| I87 | 도움말 2장: 점수는 어떻게 읽나 | `guide.html #s2` | S07 help-topics: help.guide.score | 8 | |
-| I88 | 도움말 3장: 탭마다 무엇을 보나 | `guide.html #s3` | S07 help-topics: flow·source·retest·servers와 S08 링크 | 8 | |
-| I89 | 도움말 4장: 처음 한 번 준비 | `guide.html #s4` | S07 help-topics: help.guide.setup | 8 | |
-| I90 | 도움말 5장: 시험 하나 돌리기 | `guide.html #s5` | S07 help-topics: help.guide.retest | 8 | |
-| I91 | 도움말 6장: 안내문을 바꿔 보기 | `guide.html #s6` | S07 help-topics: help.guide.prompt | 8 | |
-| I92 | 도움말 7장: 자주 보는 실패 네 가지 | `guide.html #s7` | S07 help-topics: help.guide.recovery | 8 | |
-| I93 | 도움말 8장: 하지 말 것 | `guide.html #s8` | S07 help-topics: help.guide.protection | 8 | |
-| I94 | 도움말 9장: 용어 풀이와 채점 항목 23개 | `guide.html #s9, /api/glossary` | S07 help-glossary와 help-topics score | 8 | |
+| I86 | 도움말 1장: 이 도구는 무엇을 하나 | `guide.html #s1` | S07 help-topics: help.guide.flow | 8 | `#help-flow`, `guide.html#flow` |
+| I87 | 도움말 2장: 점수는 어떻게 읽나 | `guide.html #s2` | S07 help-topics: help.guide.score | 8 | `#help-score`, `guide.html#score` |
+| I88 | 도움말 3장: 탭마다 무엇을 보나 | `guide.html #s3` | S07 help-topics: flow·source·retest·servers와 S08 링크 | 8 | flow의 처리·안내, score/source/retest/servers 장, 각 화면 아래 문맥 연결 |
+| I89 | 도움말 4장: 처음 한 번 준비 | `guide.html #s4` | S07 help-topics: help.guide.setup | 8 | `#help-setup`, `guide.html#setup` |
+| I90 | 도움말 5장: 시험 하나 돌리기 | `guide.html #s5` | S07 help-topics: help.guide.retest | 8 | `#help-retest`, `guide.html#retest` |
+| I91 | 도움말 6장: 안내문을 바꿔 보기 | `guide.html #s6` | S07 help-topics: help.guide.prompt | 8 | `#help-prompt`, `guide.html#prompt` |
+| I92 | 도움말 7장: 자주 보는 실패 네 가지 | `guide.html #s7` | S07 help-topics: help.guide.recovery | 8 | `#help-recovery`, `guide.html#recovery` |
+| I93 | 도움말 8장: 하지 말 것 | `guide.html #s8` | S07 help-topics: help.guide.protection | 8 | `#help-protection`, `guide.html#protection` |
+| I94 | 도움말 9장: 용어 풀이와 채점 항목 23개 | `guide.html #s9, /api/glossary` | S07 help-glossary와 help-topics score | 8 | S07 `#help-glossary`·`#help-methods`, guide 용어 목록·score 장의 23개 방법 표 |
 
 ## 옛 시험 옮기기
 
@@ -497,6 +497,19 @@ step 4의 글 출처입니다.
 - 비교 조건과 목록의 동적 단위, 정렬/필터/재시도 단추, 선택 불가 사유, API 미기록 상태, 행 수 거리, 지시문 요청 상태는 COPY에 일반형이 없어 `COPY_EXCEPTIONS`에 이유를 기록했습니다.
 - 승인 COPY와 DESIGN 파일은 수정하지 않았습니다. 원인 후보는 서버가 준 글과 순서를 그대로 보존합니다.
 
+### step 8 글 출처와 예외 재검토
+
+- `UI_TEXT.help`와 `UI_TEXT.glossary`는 COPY의 동일 키에서 옮겼습니다. `guide.html`은 같은 글의 정적 사본입니다. 실행 시 COPY 파일을 읽지 않습니다.
+- `GLOSSARY`는 승인된 40개 용어의 뜻을 한 문장과 예 한 줄로 나눕니다. 옛 이름·별칭과 의미 키도 `also`로 찾아집니다. 항목의 `{term, short, example, also}`와 `/api/glossary` 계약은 같습니다.
+- `help.facts.run_*`, `scores/targets/two_targets/empty_rows/auxiliary/draft_gap/old_draft/ranking/cause_*`는 옛 guide 1~3장의 사실입니다. 과거 실버 통계는 현재 정답지 상태와 구분했습니다.
+- `help.facts.setup_*`, `rngd_tunnel`, `trial_*`, `cli_*`, `prompt_*`, `limit*`, `columns/slow/connection`, `protect_*`는 옛 guide 4~8장의 설정·명령·여섯 단계·수정 위치·실패 규칙·금지 사항입니다. RunPod 주소 설명만 승인된 프록시 설명으로 바로잡았습니다.
+- `source_*`, `journey*`, `storage/cards`, `server_*`, `jobs`는 STRUCTURE의 새 화면·기록·서버 계약에 맞춘 설명입니다. 이전 ‘고급 스위치’와 ‘안내 기록 초기화’ 설명은 새 동작으로 대체했습니다. `counts`는 실행 수치 없는 도움말에 자리표시를 남기지 않는 설명입니다.
+- `help.navigation.*`는 STRUCTURE S07의 원래 화면 복귀·장 직접 이동·용어 검색과 두 조회의 독립 복구에 필요한 조작 글입니다. 용어와 기준 목록은 각각 `/api/glossary`, `/api/criteria`에서 읽습니다.
+- `COPY_EXCEPTIONS`는 키별로 다시 검토했습니다. 이미 COPY 안에 동일한 문장이 있는 **52개**를 예외에서 뺐습니다. 남은 **420개**는 공통 4·맥락 3·점수 44·원문 61·비교 68·서버 68·작업 77·안내 23·도움말 72개입니다. 각 사유는 코드에 남습니다.
+- 같은 키가 COPY와 다른 예외는 8개입니다. 서버 5개는 실서버의 예시 표시 제거·실제 기록 경로·요금 확인 계약입니다. 도움말 3개는 주소 예시 금지 2개와 실제 용어 수 40개입니다. 그 외 예외는 동적 수치·미기록 상태·추가 조작·이전 사실 보존으로 승인 표에 동일 키가 없습니다.
+- `run_label`, 모델·실행 이름, `score_status`의 항목 문장, `card_summary`의 호출 상태를 승인 글로 맞췄습니다. `friendly_error/server_ui_text/diff_headline`은 이미 승인 글을 사용합니다. SET_TEXT·KEY_TEXT·JOB_ERROR_TEXT·JOURNEY_TEXT·PROBLEM_TEXT 설명도 같은 글을 사용합니다. `error` 식별 글과 함수 인자·반환 키·계산은 그대로입니다.
+- `b_app_text.py` 밖에서 만드는 Python 문장은 변경하지 않았습니다. 위 API 확인 목록의 `_why_offline`, 서버 확인/만료, 작업 검증/label, 원문 warnings, 비교 what/원인 후보는 후속 백엔드 검토 대상입니다.
+
 ## 설계와 다른 점
 
 | 번호 | 확인한 차이 또는 빈 곳 | 적용할 계획 | 담당 step |
@@ -511,7 +524,7 @@ step 4의 글 출처입니다.
 | D08 | mockup의 화면 목록과 172장면 이동과 가짜 숫자와 디자인 바닥글은 제품 기능이 아님 | 검토용 요소 제외. 실제 데이터와 상태로 같은 승인 구성을 그림 | 1~8 |
 | D09 | API 표는 모든 key에 updated_at이 있다고 읽힐 수 있음. 실제 개별 응답에는 없음 | API 확인의 빈칸 1에 따름. 현재 폴더 시각과 과거 작업 기준을 구분 | 1, 6 |
 | D10 | S10 설계는 전역 정답지를 계속 보여 줌. 생성 API는 key를 전달하지 않음 | API 확인의 빈칸 2에 따름. 비교표 파일의 실제 기본 정답지를 표시 | 6 |
-| D11 | COPY 설명은 용어 40개. `help.terms.title`은 38개 | term 키 40개를 모두 보존. step 8이 수량 문구를 고쳐야 하면 COPY_EXCEPTIONS에 근거를 남김 | 8 |
+| D11 | COPY 설명은 용어 40개. `help.terms.title`은 38개 | term 키 40개 보존. 제목을 40개로 표시하고 COPY_EXCEPTIONS에 근거 기록 | 8 |
 | D12 | 승인 기록은 문구 1,812개. 현재 표에는 키 1,798개 | 현재 키 표를 이관 기준으로 삼음. 없는 키를 수량에 맞춰 만들지 않음 | 1, 8 |
 | D13 | STRUCTURE에는 구역의 실제 DOM id와 일반 스크립트 등록 방식이 없음 | 위 36개 전용 구역과 공통 4개 구역으로 고정. 표·단추·선택 상자·details를 사용 | 1~8 |
 | D14 | 옛 CSS와 일부 옛 시험은 휴대폰 폭과 고급 뒤 서버와 브라우저 안내 저장을 전제 | 데스크톱 1280~1680px만 구현. 서버 메뉴 노출. journey API 사용. 행동 시험은 새 의미로 이관 | 1, 5, 7 |
@@ -534,6 +547,15 @@ step 2의 API 확인 보충입니다.
 - counts·cause만 손실 행에 추가했습니다. 기존 손실 수식·값·순위와 top_drops는 유지합니다. next_action은 같은 가장 큰 문제를 가리키게 했습니다.
 
 ## 브라우저로 볼 것
+
+#### 도움말과 용어 · step 8 (모두 미실행)
+
+- 1280·1440·1680px에서 S07과 독립 guide의 본문 72ch 폭·제목 간격·9장 표가 읽기 편한지 확인합니다. 설정 이름·긴 명령만 줄바꿈해야 합니다.
+- 각 화면의 도움 연결이 해당 절을 펼치는지 확인합니다. 뒤로 돌아와 실행·문서·항·값 선택과 읽던 위치가 유지되는지 봅니다.
+- 키보드 Tab으로 용어 설명을 열고 Escape로 닫습니다. 화면의 오른쪽과 아래쪽 끝에서도 말풍선이 잘리지 않는지 봅니다. 가짜 DOM의 위치 검사는 실제 배치 증거가 아닙니다.
+- 용어 조회 실패와 채점 기준 조회 실패를 따로 만듭니다. 다른 설명은 계속 읽고 실패한 목록만 다시 읽을 수 있어야 합니다.
+- S01과 S02에서 허용 농도와 mg/m³ 첫 설명을 읽습니다. ‘안내 다시 보기’ 후 성공 기록이 남는지도 확인합니다.
+
 
 #### 두 갈래 첫 사용 안내 · step 7 (모두 미실행)
 
@@ -940,3 +962,25 @@ Questions skipped: non-interactive. 승인된 설계를 그대로 구현합니�
 - 자동 검증: 정적 AC 통과. journey API 42 passed, journey/shell/DOM 54 passed, start/journey 문구·라우트 15 passed. 전체 `pytest -q --ignore=tests/test_preprocess.py`: **2081 passed, 30 skipped, 7 warnings, exit 0**. 포트 권한 실패 없음. 경고는 기존 SWIG 형식의 DeprecationWarning입니다. 마지막 기록 표 제목 수정 후 UI 54개를 다시 확인했습니다.
 - impeccable detect: 1회 실행했습니다. 기존 `design/wireframes.html`·`guide.html`의 색/글자 크기 권고가 나왔습니다. `/static/app.css`를 로컬 파일로 해석하지 못해 색 검사는 불완전합니다. 새 CSS는 승인된 토큰만 사용하며 DOM 정적 규칙 검사도 통과했습니다.
 - 경계 확인: 보호 파일 129개 해시 불변. 새 안내 저장 자료에는 원문·문서·실행·항·값·모델·경로·키를 넣지 않습니다. 백엔드 API와 원문·평가 자료를 변경하지 않았습니다. 실모델·브라우저 검증 없음. 커밋 없음.
+
+### step 8
+
+⚠️ DEGRADED: no browser in sandbox. 미실행: 브라우저 확인.
+
+- Questions skipped: non-interactive. 승인된 COPY·STRUCTURE를 구현합니다. `impeccable clarify`와 Read 모드의 읽기 폭·제목 간격을 적용합니다.
+- 시험 먼저: 새 `test_B_b_app_help_ui.py`와 COPY 용어·예외 정리·실행 이름 시험을 실행했습니다. `22 failed, 256 passed, 7 warnings`를 확인했습니다.
+- 실패한 계약: 새 9장 제목·직접 장 연결, RunPod 프록시 설명, 명령·단계·용어 보존, S07 열기·화면별 도움 연결·대상 유지 복귀, 용어 조회 실패 복구, 포커스 말풍선·첫 등장, README 새 구성, GLOSSARY 40개·COPY 문장, 이미 승인된 예외 제거, 실행 이름 COPY 문장, 기존 guide 제목 시험입니다.
+- 기대값 변경: `GUIDE_SECTIONS`와 용어 필수 목록만 승인된 제목과 40개 용어로 바꿨습니다. 기존 형태·별칭·예제 보호·주소 및 비밀값 금지 검사는 유지했습니다.
+
+- 구현: `js/help.js`의 `HELP_CHAPTERS`, `HELP_CONTEXT`, `S.help`, `helpEnsure/Load`, `helpRenderTopics/Glossary/Methods`, `helpOpen/Return`로 S07 두 구역을 등록했습니다. boot 직전에 읽습니다. 각 화면 제목 아래 해당 장으로 이동하는 연결이 있습니다. 원래 선택을 보관하고 돌아옵니다.
+- 용어: API를 열기 전에도 `core.term()`이 HTML의 승인 글로 설명합니다. 점수·원문·비교·시험·서버·공통 정답지에 첫 등장 말풍선을 더했습니다. 알려지지 않은 정답지 종류를 실버로 추정하지 않습니다. 8항 첫 등장에는 허용 농도와 단위를 설명합니다.
+- 도움말: 승인 순서의 9장을 적용했습니다. 변수 6개·앱 명령·시험 명령·여섯 단계·일곱 CLI 옵션·지시문 출처·실패 규칙·하지 말 것을 보존했습니다. RunPod 설정 문단에는 ‘터널’이 없습니다. 외부 주소·설정 값은 넣지 않았습니다. 본문은 app.css 토큰과 keep-all, 읽기 폭 72ch를 사용합니다.
+- 추가 RED→GREEN: 도움말의 미치환 자리표시, 늦게 연 화면으로 돌아가지 못하는 문제, S01 단위 설명 누락, 종류 미상 정답지를 실버로 설명하는 문제를 먼저 실패 시험으로 확인하고 고쳤습니다. 승인 문구로 바꾼 서버 설명과 모델 상태 이름도 실패 시험을 먼저 확인했습니다.
+- 기존 시험 변경 이유: `test_B_b_app_text.py`는 COPY의 40개 용어·실행 이름·모델/작업 상태·오류 문구로 기대 글을 교체했습니다. `test_B_b_app.py`는 9장 제목·실행/정답지 표시 이름·복구 글을 맞췄습니다. `test_B_b_app_sets.py`와 `test_B_b_app_jobs.py`는 평가 잠금·입력 오류·작업 오류의 사람이 읽는 문장만 COPY로 바꿨습니다. 이유의 내부 코드명(D-43, L001, format40)을 강제하던 단언도 같은 승인 문장으로 교체했습니다. 잠금 여부·작업 거부·오류 식별자·반환 모양·정렬·입력 불변 검사는 유지했습니다. README 계약 시험은 수정하지 않았습니다. 삭제한 시험은 없습니다.
+- README: 새 화면 10개와 js 파일 나누기, UI_TEXT/COPY 출처, 설계 정본 위치를 62줄로 정리했습니다. 기존 API·설정 이름·기본 폴더 안내도 남겼습니다.
+- impeccable detect: 1회 실행했습니다(exit 2). 기존 wireframes의 지적 15개와 guide의 2개가 나왔습니다. 도구가 `/static/app.css`를 로컬 파일로 읽지 못해 guide의 글자 크기를 모두 16px·검정으로 판단했습니다. 실제 CSS 선언은 본문 16·h1 28·h2 20·h3 16px와 `--ink` 토큰입니다. 승인된 스타일 링크를 바꾸지 않고 도구 한계로 남깁니다. 새 JS/CSS 지적은 없습니다. 실제 렌더링 확인은 하지 않았습니다.
+- 아키텍처: API 경로·응답 모양과 채점 계산은 그대로입니다. Python 구현 수정은 b_app_text.py뿐입니다. 새 패키지와 외부 주소를 넣지 않았습니다. 평가 자료·실제 키·실모델·SSH를 사용하지 않았습니다. TO21 자료와 프롬프트 파일을 새로 만들지 않았습니다.
+
+- 최종 AC: 파일·script 순서·설정 이름·잘못된 터널 설명 금지·외부 주소 금지·step 기록·Node 확인 모두 통과했습니다. 도움말/DOM **27 passed**, 문구/앱 **265 passed**입니다. JS 10개 문법 검사와 git diff --check도 통과했습니다.
+- 전체 AC: **2110 passed, 30 skipped, 7 warnings, 1 failed**(53.25초). 유일한 실패는 `tests/test_A_input.py::test_every_changing_route_answers_with_update`의 `socket.bind` → `PermissionError: [Errno 1] Operation not permitted`입니다. `_common.txt` 7절의 명시 예외에 따라 completed로 기록합니다. A 시험을 고치거나 제외하지 않았습니다. 실행기가 샌드박스 밖에서 다시 검증합니다. 경고 7개는 기존 SWIG DeprecationWarning입니다.
+- 보호 검증: 시작 시 기록한 122개 파일의 해시가 모두 같습니다. 기존 Python 함수의 이름·인자도 모두 같습니다. index.json은 step 8의 status·summary만 바꿉니다. 커밋하지 않았습니다.

@@ -164,11 +164,11 @@ function jobsRenderTry() {
         h("input", {type: "checkbox", checked: t.secs.has(n), disabled: t.all, onchange: e => {
           e.target.checked ? t.secs.add(n) : t.secs.delete(n); jobsRemember(); jobsRenderTry();
         }}), T("jobs.form.section", {section: n}))))), jobsNote(T("jobs.fields.scope")),
-    jobsField("jobs-base", T("jobs.scope.base_run"), T("jobs.fields.base_run"), base));
+    jobsField("jobs-base", term("base_run", T("jobs.scope.base_run")), T("jobs.fields.base_run"), base));
   if (!t.doc) { scope.open = true; J.expanded["jobs-scope"] = true; }
   coreReplace(el, jobsFormStatus(), jobsNote(t.doc ? `${t.doc} · ${t.all ? T("jobs.form.all") : [...t.secs].map(section => T("jobs.form.section", {section})).join(", ")}`
     : T(docs.some(d => jobsAllowed(d, "try")) ? "jobs.form.no_doc" : "jobs.no_runnable.fact"), {class: "fixed-target"}),
-    jobsRenderFocus(), jobsField("jobs-prompt", T("jobs.form.prompt"), T("jobs.prompt.hint"), textarea),
+    jobsRenderFocus(), jobsField("jobs-prompt", term("prompt", T("jobs.form.prompt")), T("jobs.prompt.hint"), textarea),
     jobsNote(T("jobs.prompt.retest_hint")),
     h("div", {class: "job-actions"}, h("label", null, h("input", {id: "jobs-edit", type: "checkbox", checked: t.edit && one, disabled: !one,
       onchange: e => { t.edit = e.target.checked; jobsRenderTry(); }}), T("jobs.prompt.edit")),
@@ -185,7 +185,7 @@ function jobsRenderTry() {
       !!J.busy || !!J.optionsError || !allowed || !t.model || (!t.all && !t.secs.size) || (!t.dry && !ready), true)),
     h("label", null, h("input", {id: "jobs-dry", type: "checkbox", checked: t.dry, disabled: !(J.opts.models || []).some(m => m.connected === true),
       onchange: e => { t.dry = e.target.checked; jobsRenderTry(); }}), T("jobs.actions.preview")),
-    jobsNote(T("jobs.trial.practice_meaning"), {class: "muted"}), J.message.try || null, scope,
+    jobsNote(term("practice", T("jobs.trial.practice_meaning")), {class: "muted"}), J.message.try || null, scope,
     jobsDetails("jobs-next", T("jobs.trial.next_options"),
       jobsButton("jobs-open-guide", "jobs.trial.start_guide", () => go("s08", {branch: "try"})),
       jobsButton("jobs-open-batch", "jobs.trial.open_batch", () => go("s09"))));
