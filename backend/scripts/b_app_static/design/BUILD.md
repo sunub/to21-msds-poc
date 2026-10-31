@@ -133,16 +133,16 @@ step 9에서 94칸을 모두 확인했습니다. 첫 코드 표기는 자동 시
 | I05 | 단계 완료, 첫 성공 시각, 실패 후 위치 | `advanceJourney, journeyPassed, focusJourneyValue` | S08 journey-records | 7 | `journeyRenderRecords`, `journeyRecord/journeyComplete`: 실제 성공·연습·시각/횟수·이어하기. `journeyReplay/journeyDismiss`는 성공 이력 보존 |
 | I06 | 다음에 할 일: 비교·시험·서버 | `renderStart, journeyStep` | S01 score-summary, S08 journey-choice | 2, 7 | `scoreConditions`의 다음 행동·`#score-retest`, `scoreRenderHistory`의 비교 이동. 서버 연결은 공통 맥락 줄. S08의 `journeyConnection`은 `serversRenderCompact` 재사용 |
 | I07 | 안내 닫기, 처음부터 다시 보기 | `resetJourney, dismissJourney` | S08 journey-records | 7 | `journeyReplay`: `journeyRenderRecords`, `journeyRecord/journeyComplete`: 실제 성공·연습·시각/횟수·이어하기. `journeyReplay/journeyDismiss`는 성공 이력 보존 |
-| I08 | 실행 목록·읽기 실패 수·다시 읽기·채점 로딩 | `loadAll, loadRun, renderScoreLoading, scoreLoadFailure` | S01 score-summary | 2 | `scoreLoad`: `scoreLoad/scoreRenderSummary/scoreSelect`: 개수 먼저 로딩, 부분 실패, 재조회 |
-| I09 | 현재 점수·부족 점수·필수 달성 수·상위 문제 3개·다음 행동 | `renderStatus, openScoreSource` | S01 score-summary·score-problems | 2 | `scoreRenderSummary`: `scoreRenderSummary/scoreCounts/scoreOpenSource`, `scoreRenderProblems`: API 손실 순위, 부족 점수는 실행 조건의 API 요약 |
-| I10 | 총점·목표선·필수 막대·전체 판정 | `renderNow, goalBar` | S01 score-summary | 2 | `scoreRenderSummary`: `scoreRenderSummary/scoreBar`: `targets.weighted`, `targets.must` 그대로 표시 |
+| I08 | 실행 목록·읽기 실패 수·다시 읽기·채점 로딩 | `loadAll, loadRun, renderScoreLoading, scoreLoadFailure` | S01 score-summary | 2 | `scoreLoad`: scoreSelect. 로딩·부분 실패·재조회 보존. 기록 선택은 요약 아래 접힌 영역에 두며 결과 없음에는 선택기·다시 읽기를 숨김 (fix step 1). |
+| I09 | 현재 점수·부족 점수·필수 달성 수·상위 문제 3개·다음 행동 | `renderStatus, openScoreSource` | S01 score-summary·score-problems | 2 | `scoreRenderSummary`: scoreCounts/scoreProblemDoc. API 칸 단위 수·손실 순서·목표 차이 표시. 틀림 문서부터 원문으로 연결 (fix step 1). |
+| I10 | 총점·목표선·필수 막대·전체 판정 | `renderNow, goalBar` | S01 score-summary | 2 | `scoreRenderSummary`: scoreBar. 목표선 막대 하나와 targets.must의 필수 기준 설명 문장. 추가 필수 막대의 수치는 문장에 보존 (fix step 1). |
 | I11 | 실행 이름·원래 폴더명·모델 태그와 전체 이름·지시문 버전·입력 폴더·시각 | `runLabel, rawRun, modelName, renderNow` | S01 score-summary 실행 조건 | 2 | `scoreConditions`: 표시 이름·원래 이름·모델 태그/전체 이름·프롬프트·입력·시작 시각 |
 | I12 | 완료 문서 수·진행 중·채점 수·제외 수·정답 없는 수 | `progressLine, renderNow` | S01 score-summary 채점 범위 | 2 | `scoreConditions`: progress, docs/no_gold/excluded 범위 |
 | I13 | 값 없는 행을 뺀 점수·원점수와의 차이·계산 뜻 | `renderNow` | S01 score-rule | 2 | `#score-rule`, `scoreRenderRule`: 양쪽 빈 행 제외 보조 점수·차이·계산 뜻 |
 | I14 | 모델 연결 안내와 저장 결과의 오프라인 조회 | `connLine, renderConnNow` | 공통 global-context, S01 score-summary | 1, 2 | `shellRenderModels`: `#global-context #context-model`, `shellRenderModels/shellPollServers`; `scoreConditions`에 실행 당시 모델 별도 표시 |
 | I15 | 23개 항목의 등급 수·무게·목표·측정 방법·정답 초안 한계 | `renderRule` | S01 score-rule, S07 help-topics | 2, 8 | `scoreRenderRule`: 등급 수·무게·목표·방법·정답 한계. S07의 helpRenderMethods와 helpRenderTopics에 설명 보존 |
 | I16 | 항목별 점수·목표선·달성 여부·미달만/모두·숨긴 수 | `renderItems, itemRow, scoreBar` | S01 score-problems | 2 | `scoreRenderProblems`: 서버 손실 순서, 전체/미달 필터, 숨긴 수, button/aria-expanded |
-| I17 | 빠뜨림·지어냄·틀림의 뜻과 건수 | `renderItems, itemRow` | S01 score-problems | 2 | `scoreCounts`, `score-problems`의 문제 종류 펼침: counts null은 기록 없음 |
+| I17 | 빠뜨림·지어냄·틀림의 뜻과 건수 | `renderItems, itemRow` | S01 score-problems | 2 | `scoreCounts`: scoreRenderRule. S01 문제 수는 API counts. scorer_counts는 점수 계산 방법의 행 단위 표에만 보존. null은 기록 없음 (fix step 1). |
 | I18 | 오류 상세 문서·종류·내용·현재 표시 제한 안내 | `detailList` | S01 score-problems → S02 source-values | 2, 3 | `scoreProblemDetail`: 문서·종류·내용, 300건씩 더 보기, `scoreOpenSource`. sourceRenderSelection에 실제 원문 표시 |
 | I19 | 정답 초안의 빈 곳·출처·발견 시점 | `itemRow, /api/silver_gaps` | S01 score-gaps | 2 | `scoreGap`: `scoreGap/scoreRenderGaps`: 선택 key의 gaps, 출처·발견일·조회 실패 |
 | I20 | 항목별 값 없는 행 제외 점수 | `itemRow` | S01 score-problems | 2 | `scoreProblemDetail`: items_na_excluded 값 그대로 |
@@ -161,14 +161,14 @@ step 9에서 94칸을 모두 확인했습니다. 첫 코드 표기는 자동 시
 | I33 | 지시문 변경 항·전후 줄 수·행/JSON 형식·차이 줄·재구성 해시 불일치 | `togglePrompt, promptView` | S04 compare-prompts | 4 | `compareRenderPrompts`: `compareRenderPrompts/compareFetchPrompt/comparePromptBody`: 16개 항 lazy 요청·실행쌍 캐시·A/B 줄 수/형식·글 차이·해시 불일치·오류 복구 |
 | I34 | 새로 맞춘 값·새로 틀린 값·문서·종류·내용·표시 수 | `renderDiffValues, valueTable` | S04 compare-values → S02 source-values | 4 | `compareRenderValues`: `compareRenderValues/compareValueList/compareOpenSource`: 두 목록·수·300개씩 더 보기·단추/초점 유지 → S02. 정확한 path 없는 현재 API는 항 단위 연결과 안내 |
 | I35 | A/B/정답 표 행 수·가까워짐/멀어짐/차이 유지 | `renderDiffRows` | S04 compare-rows | 4 | `compareRenderRows`: API의 모든 A/B/정답 행 수, 가까움/멀어짐/유지 글. 같은 조건은 중립 표시 |
-| I36 | 실행·문서 선택·정답 없는 개발 문서 | `initDoc, docsOf, renderDocTop` | S02 source-top | 3 | `sourceRenderTop`, `sourceEnsure`, `sourceRunDocs`: 실행·문서 선택과 원문 전용 경로 |
+| I36 | 실행·문서 선택·정답 없는 개발 문서 | `initDoc, docsOf, renderDocTop` | S02 source-top | 3 | `sourceRenderTop`: sourceRunDocs. 직접 진입에서 문서·부분 선택을 먼저 펼침. 이미 고른 대상의 실행·입력·정답 상세는 접힘 (fix step 1). |
 | I37 | 자료 불러오기 실패·할 일·예외 원문 | `renderDocTop, loadFailure` | S02 source-top | 3 | `sourceRenderTop`, `sourceReload`: 자료 없음·잠김·실패·로딩·재시도 |
 | I38 | 쪽 선택·16항 이름·구간 시작/끝·제목 못 찾음 | `renderDocTop, goSection` | S02 source-top·source-page | 3 | `sourceGoSection`, `sourcePage`, `sourceRenderPage`: 16항 이름·구간·쪽 선택 |
-| I39 | 결과 값 수·같음/다름/정답에만 수·정답 없음·문서 경고 | `renderDocTop` | S02 source-top·source-values | 3 | `sourceRenderTop`, `sourceRenderSelection`: 비교 수·정답 없음·경고 |
+| I39 | 결과 값 수·같음/다름/정답에만 수·정답 없음·문서 경고 | `renderDocTop` | S02 source-top·source-values | 3 | `sourceRenderProblems`: sourceRenderSelection. API 기준별 칸 단위 건수와 문서별 문제 목록. 전체 값·대조 수·경고는 선택기 및 source-details 펼침에 보존 (fix step 1). |
 | I40 | 쪽 그림·원문 줄·근거 상자·항 구간 띠·줄별 연결 값 수 | `renderDocLeft, drawBoxes` | S02 source-page | 3 | `sourceRenderPage`, `sourceDrawBoxes`, `sourceMark`: 그림·줄 단추·근거 상자·항 표시·연결 수 |
-| I41 | 결과의 항→표→행→칸 구조·기술 경로·칸 수·항 모름 | `renderDocRight, tableBlock, rowHead` | S02 source-values | 3 | `sourceStructure`, `sourceTable`: 항→표→행→칸, 알 수 없는 항과 extras 포함 |
-| I42 | 결과 값·정답 값·정답에만 있는 행/칸·근거 줄 참조·비교 상태 | `valueRow, pickSilverOnly` | S02 source-values | 3 | `sourceValueButton`, `sourcePick`: 결과·정답·정답 전용 값 대조 |
-| I43 | 선택한 값/줄·연결 값 수·근거 없음·좌표 없는 줄·스크롤 위치 | `noteSel, pickValue, pickLine, scrollInto` | S02 source-selection | 3 | `sourceRenderSelection`, `sourcePickLine`, `sourceScrollLine`, `sourceRemember`: 선택·근거 없음·좌표 없음·쪽과 읽던 위치 |
+| I41 | 결과의 항→표→행→칸 구조·기술 경로·칸 수·항 모름 | `renderDocRight, tableBlock, rowHead` | S02 source-values | 3 | `sourceStructure`: sourceTable. 원문 뒤 source-details에서 전체 항→표→행→칸과 원래 칸 이름·경로를 확인. 값/항/줄 선택으로 자동 펼치지 않음 (fix step 1). |
+| I42 | 결과 값·정답 값·정답에만 있는 행/칸·근거 줄 참조·비교 상태 | `valueRow, pickSilverOnly` | S02 source-values | 3 | `sourcePickProblem`: sourceValueButton. 문서별 문제 값은 쉬운 이름으로 표시. 다른 문서 선택도 같은 기준 유지. 세 종류 원값은 상세에 보존 (fix step 1). |
+| I43 | 선택한 값/줄·연결 값 수·근거 없음·좌표 없는 줄·스크롤 위치 | `noteSel, pickValue, pickLine, scrollInto` | S02 source-selection | 3 | `sourceRenderSelection`: sourceHasEvidence/sourcePick. 실제 근거와 추정 분리. 근거 없음은 원문 읽기 우선. 목록 스크롤·가시 초점·최신 정답 선택 유지 (fix step 1). |
 | I44 | 모델 선택·연결·다시 조회·기술 태그 | `modelSelect, connNote, loadOptions` | 공통 global-context, S03 jobs-connection, S06 servers-models | 1, 5, 6 | `serversRenderCompact`: S03 jobs-connection: serversRenderCompact + 기존 확인 동작 재사용. 모델 없음에도 같은 화면에서 터널/모델 준비. |
 | I45 | 문서·입력 폴더·한 항/여러 항/전체 16항·기준 실행 자동/수동 | `renderJobTry` | S03 jobs-try | 6 | `jobsRenderTry`: S03 jobsRenderTry: 공통 set, runnable.try, 기준 실행과 1~16항 범위. |
 | I46 | 지시문 기본/고쳐 쓰기·불러오기·다른 모델/항에서 온 글·한 항 제한 | `renderJobTry, loadPrompt` | S03 jobs-try | 6 | `jobsLoadPrompt`: S03 jobsLoadPrompt: 한 항만 조회/편집, 늦은 응답과 다른 출처 표시. |
@@ -549,6 +549,8 @@ step 2의 API 확인 보충입니다.
 - counts·cause만 손실 행에 추가했습니다. 기존 손실 수식·값·순위와 top_drops는 유지합니다. next_action은 같은 가장 큰 문제를 가리키게 했습니다.
 
 ## 브라우저로 볼 것
+
+- fix step 1 미실행: 1280·1440·1680px에서 S01~S03 결론/경로, 결과 없음 주 행동, 문서별 문제 목록의 스크롤·키보드 초점, 원문→전체 구조 순서, 실제/추정/근거 없음, 첫 안내 두 갈래 단추를 브라우저로 확인한다.
 
 - fix step 0 미실행: 도움말 9장과 점수 기준 펼침, 모델 조회 실패·켜는 중·다른 모델의 공통 줄/S06 상태, 모델 응답 없이 S01·S02·갈래 1 읽기, 정답지 미확인/선택 불일치, 202·204 후 결과 재조회, S02→S03 숫자 묶음의 원문 글 표시를 실제 브라우저에서 확인한다.
 
@@ -1244,3 +1246,81 @@ Questions skipped: non-interactive. 승인 구조와 모양은 유지한다.
 | 키 | 글 | 쓰는 곳 | 바꾼 까닭 |
 |---|---|---|---|
 | `context.answer_mismatch` | 이 결과의 정답지는 현재 선택과 다릅니다. 결과: {result_key}. 현재 선택: {selected_key}. | S01 점수 기준·S02 정답지 표시 | F04: 결과의 정답지와 전역 선택을 구분. 같은 뜻의 승인된 일반형 문구가 없어 추가. S5 결정 2: ⑤ 수락에서 승인 대기 |
+
+| `score.problem.open_made` | 만든 값 {count}건의 원문 보기 | S01 | S5 결정 2: ⑤ 수락에서 승인 대기. 건수·선택 상태를 사실대로 표시. |
+| `score.problem.open_missing` | 못 뽑은 값 {count}건의 원문 보기 | S01 | S5 결정 2: ⑤ 수락에서 승인 대기. 건수·선택 상태를 사실대로 표시. |
+| `score.problem.made_hint` | 정답에 없는 값을 먼저 봅니다. AI가 적은 근거가 있으면 원문과 함께 확인합니다. | S01 | S5 결정 2: ⑤ 수락에서 승인 대기. 건수·선택 상태를 사실대로 표시. |
+| `score.problem.missing_hint` | 못 뽑은 값부터 봅니다. 원문 줄은 추정 위치이며, 찾지 못한 값은 해당 부분을 직접 읽습니다. | S01 | S5 결정 2: ⑤ 수락에서 승인 대기. 건수·선택 상태를 사실대로 표시. |
+| `score.problem.wrong_hint` | 틀린 값부터 봅니다. 연결된 원문 줄이 없으면 해당 부분을 직접 읽습니다. | S01 | S5 결정 2: ⑤ 수락에서 승인 대기. 건수·선택 상태를 사실대로 표시. |
+| `score.problem.evidence_unrecorded` | 문제 수는 기록 없음입니다. 문제 값을 열어 원문과 맞춰 보세요. | S01 | S5 결정 2: ⑤ 수락에서 승인 대기. 건수·선택 상태를 사실대로 표시. |
+| `score.calculation.scorer_counts` | 점수 계산에 쓴 행 단위 문제 수 | S01 | S5 결정 2: ⑤ 수락에서 승인 대기. 건수·선택 상태를 사실대로 표시. |
+| `score.calculation.scorer_counts_hint` | 앞 화면은 칸 단위로 셉니다. 아래는 점수 계산 프로그램이 행 단위로 센 수입니다. | S01 | S5 결정 2: ⑤ 수락에서 승인 대기. 건수·선택 상태를 사실대로 표시. |
+| `source.labels.choose_scope` | 문서와 부분을 먼저 고르세요. | S02 | S5 결정 2: ⑤ 수락에서 승인 대기. 건수·선택 상태를 사실대로 표시. |
+| `source.field_names.limit_type` | 기준 종류 | S02 | S5 결정 2: ⑤ 수락에서 승인 대기. 건수·선택 상태를 사실대로 표시. |
+| `source.filter.all_values` | 전체 보기 | S02 | S5 결정 2: ⑤ 수락에서 승인 대기. 건수·선택 상태를 사실대로 표시. |
+
+### fix step 1
+
+⚠️ DEGRADED: no browser in sandbox
+
+Questions skipped: non-interactive. 승인된 결론·경로·원문 비교 배치를 복원한다.
+
+시험 선행: 지정된 11개 시험을 구현 전에 작성해 모두 실패함을 확인했다. 로그: `/tmp/to21-fix-step1-red.log` (11 failed, 13 deselected, 21.85초). 실패는 건수 상세 누락, 대상 문서 선택, 종류별 문구, 결론·경로, 목표 설명, 빈 선택기, 직접 진입, 여러 문서 목록, 칸 이름, 근거 없음, 두 갈래 단추의 현재 동작에서 발생했다.
+
+| 고친 번호 | 시험 이름 | 확인 방법 |
+|---|---|---|
+| F07 | `test_s01_counts_are_field_level_and_scorer_counts_only_in_detail`, `test_s01_main_button_opens_doc_with_wrong_value_first`, `test_s01_button_and_hint_follow_the_kind_that_exists` | API counts를 그대로 표시. scorer_counts는 #score-rule에만 표시. 손실 순서의 docs에서 틀림→만듦→첫 문서. 0과 null 및 종류별 단추/안내 구분. |
+| P1-01 | `test_s01_conclusion_first_and_path_on_s01_to_s03` | shellConclusion으로 경로 다음에 상태 결론. S01/S02 오류와 S03 준비 실패는 경로 제거. 메뉴 이름은 메뉴에 보존. |
+| P1-02 | `test_s01_target_gap_sentence_and_must_explained` | targets의 목표선·값으로 차이를 표시. 필수 기준 수는 승인 문장으로 표시하고 추가 막대 제거. |
+| P1-03 | `test_s01_no_results_hides_run_selector_and_offers_next_step` | 결과 없음 제목·시험 준비 주 행동·묶음 변경 보조 행동. 빈 선택기와 다시 읽기 없음. |
+| P1-04 | `test_s02_direct_entry_starts_from_document_and_section_choice` | 가짜 값 854개로 직접 진입 시 주 목록 숨김. 문서/부분 선택 뒤 표시. 선택값→원문→전체 구조의 DOM/격자 순서. 상세 자동 펼침 없음. |
+| P1-05 | `test_s02_problem_list_spans_documents_of_the_same_criterion` | 두 문서별 API 대역과 같은 경로를 사용해 목록 묶음·문서 전환·기준 유지·단일 선택 검증. |
+| P1-06 | `test_s02_problem_list_uses_plain_field_names` | 상세 표의 value_field_labels와 UI 이름 대응을 함께 사용. 주 목록은 문서 번호 한 번·쉬운 칸 이름. 원래 경로/이름은 상세 표. |
+| P1-07 | `test_s02_no_evidence_line_offers_reading_the_section` | 실제 쪽에 연결된 줄이 없으면 기록된 근거 설명을 숨김. 원문 읽기 주 행동. 추정 및 직접 읽기만으로 성공 없음. |
+| P1-25 | `test_s01_main_button_opens_doc_with_wrong_value_first` | 종류 순서와 서버 순서를 지키며 같은 종류에서 실제 줄이 있는 값 우선. 없으면 근거 없음 상태. |
+| N-band | `test_first_visit_band_links_both_tracks` | 첫 안내의 두 설명 옆 승인된 갈래 시작 단추. 실제 journeyStart 호출과 진행 저장 확인. |
+
+#### 추가 회귀와 시험 선행
+
+- 추가 6개 시험도 실패를 먼저 확인했다: API 건수 무변경, 문서 클릭·최초 진입의 늦은 응답, 목록 스크롤·초점, 새 정답지의 늦은 집계 반영, 직접 부분 변경 시 이전 값 초기화.
+- sourceEnsure와 sourcePickProblem은 요청·선택 세대·정답지로 오래된 후속 동작을 버린다. 문제 목록 스크롤은 sourceRenderProblems가 보존한다. 열린 상세 표에서 같은 값을 눌러도 연결된 단추로 초점을 복원한다.
+- 최초 854개 시험은 옛 자동 펼침 경로에서 20초 제한에 걸렸다. 구현 뒤 같은 입력으로 통과한다. DOM 텍스트 시험만으로 실제 화면 높이를 확인했다고 주장하지 않는다.
+- 첫 화면/접힌 영역 검사 도우미는 DOM 대역의 문자열 자식과 카드 toggle을 반영하도록 보완했다. 보완한 F07 시험을 HEAD의 원래 score.js에 실행해 실패를 다시 확인했다. 실제 작업 파일을 되돌리지 않았다.
+- 새 시험 파일 전체: 29 passed (5.34초). step 0의 기존 13개 경우도 포함한다.
+
+#### 기존 시험 변경과 이유
+
+- `test_B_b_app_source_ui.py::test_source_legend_section_summaries_and_visible_comparison_states`: 8항 상세가 자동으로 열린다는 기대를 닫힘으로 변경. P1-04가 자동 펼침을 금지하므로 승인 요구에 맞췄다. 범례·표시 상태·전체 정보 확인은 유지한다.
+- `test_source_item_problem_filters_counts_and_wrong_first`: 가짜 실행 응답에 F07의 counts와 docs 계약을 추가했다. 종류별 건수 기대는 그대로다. ‘전체 N건’ 기대만 ‘전체 보기’로 바꿨다. API에 합계 필드가 없으므로 화면에서 합계를 다시 세지 않는다.
+- 기존 시험 삭제 없음. 다른 기존 시험의 기대값은 바꾸지 않았다.
+
+#### 정보·계산·설계 경계
+
+- S01의 점수·문제 건수·손실은 API 값이다. 목표와의 차이는 targets.weighted의 line/value 차이를 문장으로 표시하며 채점식을 실행하지 않는다.
+- S02 기준별 필터도 top_problem.counts를 그대로 쓴다. API 건수가 없는 경우는 기록 없음이다. 전체 합계는 새로 세지 않고 ‘전체 보기’로 표기한다. 문서 전체 상세의 기존 값 수·대조 통계는 기존 자리에서 새 상세 펼침으로 옮겼다.
+- 문서 목록을 만들기 위한 값 필터링은 집계와 분리했다. 목록은 실제 값만 표시하며 제공된 건수를 덮어쓰지 않는다. 근거 선택은 같은 기준·같은 종류에서 실제 쪽에 존재하는 줄을 먼저 고른다.
+- 실제 값과 줄이 함께 보인 직접 선택만 evidence_line_shown을 보낸다. 자동 선택·추정 줄·근거 없이 부분 읽기는 성공으로 세지 않는다.
+- S02에 `source-details` 표시 영역을 추가했지만 등록 화면·API·기능은 추가하지 않았다. 기존 전체 구조와 문서 대조를 원문 뒤 접힌 곳에 보존한다.
+- 백엔드 계산 함수와 응답 계약은 읽기만 했다. Python 제품 변경은 UI_TEXT/COPY_EXCEPTIONS 문구만이다. 평가 문서·모델 서버·네트워크·새 패키지는 사용하지 않았다.
+- 새 문구 11개를 아래 ⑤ 승인 대기 표에 등록한다. q의 쉬운 이름은 승인된 ‘값’을 재사용한다. COPY.md·DESIGN.md·PRODUCT.md는 수정하지 않았다.
+
+- impeccable detect를 한 번 실행했다(종료 코드 2). 결과와 경고는 `/tmp/to21-fix-step1-detect.json`, `.err`에 있다. 실브라우저 배치·색·초점은 미확인이다.
+
+- 디자인 자동 점검 지적 17건은 수정하지 않은 wireframes.html 15건·guide.html 2건이다. 변경 파일의 지적은 0건이다. /static/app.css를 파일 경로로 읽지 못한다는 경고 때문에 색·변수 검사는 불완전하다.
+- 첫 전체 AC에서 앱 2건·전체 3건 실패를 확인했다. 새 자리 대표 함수 표기를 바로잡고 S02 첫 사용 용어 말풍선을 복원했다. 나머지 전체 실패는 공통 규칙의 A_input 포트 권한 제한이다. 기대값을 바꾸거나 시험을 제외하지 않았다.
+- 직접 문서 부분 변경에서 이전 값이 남는 경우도 실패 시험으로 확인했다. sourceChooseSection이 이전 선택과 채점 기준을 비우며, 근거 없음의 ‘이 부분 읽기’는 선택을 유지한다.
+
+- 보호 파일 699개 중 `design_work/app-redo/approvals.txt` 한 파일의 작업 중 변경을 감지했다(수정 시각 10/31 20:57:53). 이 작업의 도구 호출과 시험은 이 파일에 쓰지 않았다. 별도 첫 사용 안내 설계 기록의 추가는 되돌리지 않고 보존했다. 나머지 보호 파일 698개는 시작 시점과 같은 해시다. 승인 기록의 새 설계는 이번 step에 적용하지 않는다.
+
+#### 최종 완료 기준 검증
+
+- 저장소 최상위에서 `/tmp/to21-fix-step1-ac.sh`로 지정 AC 전체를 직접 실행했다. BUILD 제목·번호 10개·Node 확인은 통과했다.
+- 지정 11개 시험: **11 passed** (3.34초).
+- 앱 관련 회귀: **1028 passed, 1194 deselected, 7 warnings** (36.63초).
+- 전체 지정 시험: **1 failed, 2191 passed, 30 skipped, 7 warnings** (66.89초). 셸 종료 코드는 1이다.
+- 유일한 실패는 `tests/test_A_input.py::test_every_changing_route_answers_with_update`의 `HTTPServer` → `socket.bind`에서 발생한 `PermissionError: [Errno 1] Operation not permitted`다. `phases/app-redo/_common.txt` 7절의 명시적 예외에 따라 step 1을 completed로 기록한다. 실행기가 샌드박스 밖에서 다시 검증한다.
+- 경고 7개는 기존 SWIG 타입의 `__module__` 관련 DeprecationWarning이다. C 전처리 시험만 지정대로 제외했다. A 시험은 수정하거나 제외하지 않았다.
+- 추가 회귀 6개와 step 0 경우를 포함한 fix 시험은 총 30개다. 이번 step의 새 경우 17개는 구현 전 실패를 확인했다.
+- Python 함수·클래스를 시작 커밋과 AST로 비교해 동일함을 확인했다. 제품 Python 변경은 UI 문구와 승인 대기 이유뿐이다.
+- `git diff --check` 통과. 추적 파일 변경은 허용된 화면·문구·BUILD와 B 시험 11개 파일이다. 외부 변경으로 감지한 approvals.txt는 보존했다. 다른 step의 상태는 바꾸지 않았다.
+- 실브라우저·실모델·물리 기기 검증은 미실행이다. 기계 시험으로 시각 검증을 대신했다고 주장하지 않는다. 커밋하지 않았다.

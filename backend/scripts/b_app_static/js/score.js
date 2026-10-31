@@ -124,7 +124,12 @@ function scoreCounts(row, links = false) {
         onclick: () => scoreOpenSource(row, picks[kind])}, text) : text);
   }));
 }
-function scoreOpenSource(row, pick = "mismatch", doc = row.docs?.[0]?.doc_id) {
+function scoreProblemDoc(row, pick = "mismatch") {
+  const kinds = pick === "mismatch" ? ["wrong", "made"] : [pick === "missing" ? "missing" : "made"];
+  return kinds.map(kind => row.docs?.find(doc => doc.counts?.[UI.score.cause_keys[kind]] > 0)?.doc_id)
+    .find(Boolean) || row.docs?.[0]?.doc_id;
+}
+function scoreOpenSource(row, pick = "mismatch", doc = scoreProblemDoc(row, pick)) {
   if (!doc || !row.section || !S.score.run) return;
   const args = {run: S.score.run.name, doc, section: row.section, item: row.name, pick};
   S.focus = {...S.focus, ...args};
@@ -179,10 +184,12 @@ function scoreRenderSummary() {
   const el = document.getElementById("score-summary"), state = S.score, run = state.run;
   el.setAttribute("aria-busy", String(state.loading || !state.context));
   if (state.loading || !state.context) {
+    shellConclusion("s01", T("errors.loading.fact"), false);
     el.replaceChildren(h("p", {role: "status"}, num(state.count) ? T("score.loading.scoring", {count: state.count}) : T("errors.loading.fact")));
     return;
   }
   if (state.error) {
+    shellConclusion("s01", T("score.load_failed.fact"), false);
     el.replaceChildren(friendlyError({message: T("score.load_failed.fact"), fix: T("score.load_failed.todo"), raw: state.error}),
       scoreButton("score-reload", "score.partial.reload", () => scoreLoad(true)));
     return;
@@ -192,29 +199,42 @@ function scoreRenderSummary() {
     h("p", null, T("score.partial.title", {total: state.list.length, failed: broken.length})),
     scoreNote(T("score.partial.todo")), scoreDetails(T("common.raw_error"),
       broken.map(row => h("p", {class: "technical"}, row.name, ": ", row.error)))) : null;
-  const picker = scoreSelect();
   if (!run) {
-    coreReplace(el, warning, picker, h("div", {class: "score-empty"},
-      h("h2", null, T("score.empty.title")), h("p", null, T("score.empty.state")), scoreNote(T("score.empty.no_mixing")),
-      scoreButton("score-prepare", "score.empty.prepare", () => go("s03").catch(fail)),
+    shellConclusion("s01", T("score.empty.title"), false);
+    coreReplace(el, warning, h("div", {class: "score-empty"},
+      h("h2", null, T("score.empty.state")), scoreNote(T("score.empty.no_mixing")),
+      scoreButton("score-prepare", "score.empty.prepare", () => go("s03").catch(fail), {class: "primary"}),
       scoreButton("score-change-set", "score.empty.change_set", shellOpenContext)));
     return;
   }
   if (!num(run.weighted)) {
-    coreReplace(el, warning, picker, h("h2", null, T("score.summary.unscored")),
+    shellConclusion("s01", T("score.summary.unscored"));
+    coreReplace(el, warning, scoreSelect(),
       scoreNote(T("score.summary.unscored_todo")), scoreBasis(run), scoreConditions(run)); return;
   }
   const targets = run.targets, top = run.status_text?.top_problem, loss = run.status_text?.loss_basis;
   const missingCount = top?.counts?.[UI.score.cause_keys.missing];
+  const kind = ["wrong", "made", "missing"].find(k => top?.counts?.[UI.score.cause_keys[k]] > 0);
+  const count = kind ? top.counts[UI.score.cause_keys[kind]] : null;
+  const hint = !kind ? T("score.problem.evidence_unrecorded") : kind === "wrong"
+    ? num(missingCount) ? T("score.problem.evidence_hint", {count: missingCount}) : T("score.problem.wrong_hint")
+    : T(`score.problem.${kind}_hint`);
+  shellConclusion("s01", !top ? T("score.no_problem.title") : targets?.weighted
+    ? targets.weighted.met ? T("score.summary.headline_met", {line: targets.weighted.line})
+      : T("score.summary.headline_model", {model: run.model_label || run.model_tag || scoreMissing()})
+    : T("score.summary.value", {score: fmt1(run.weighted)}));
   const main = h("div", {class: "score-overview"},
     h("div", {class: "score-block", "data-guide": "s01-score"},
-      h("p", null, run.model_label || run.model_tag || scoreMissing()),
+      h("p", null, T("score.summary.scope", {model: run.model_label || run.model_tag || scoreMissing(), count: run.docs?.length ?? scoreMissing()})),
       h("div", {class: "score-number"}, term("weighted", fmt1(run.weighted)), h("span", null, T("score.summary.denominator"))),
       scoreBasis(run),
-      targets ? h("div", null, scoreBar(targets.weighted.value, targets.weighted.line),
+      targets ? h("div", null,
+        h("p", {class: "score-target-gap"}, T(targets.weighted.met ? "score.summary.headline_met" : "score.summary.headline_below",
+          {line: targets.weighted.line, gap: fmt1(targets.weighted.line - targets.weighted.value)})),
+        scoreBar(targets.weighted.value, targets.weighted.line),
         h("p", null, T("score.summary.target_line", {line: targets.weighted.line})),
-        h("p", {class: "score-essential"}, term("must_count", T("score.summary.must_progress", {total: targets.must.total, met: targets.must.met_count}))),
-        scoreBar(targets.must.met_count, targets.must.total, targets.must.total)) : scoreNote(scoreMissing())),
+        h("p", {class: "score-essential"}, T(targets.must.met ? "score.summary.must_all" : "score.summary.must_some",
+          {total: targets.must.total, met: targets.must.met_count}))) : scoreNote(scoreMissing())),
     h("div", {class: "score-loss-block", "data-guide": "s01-top-problem"},
       top ? [h("h2", null, term(top.section === 8 ? "exposure" : "item", T("score.summary.top_problem", {item: scoreItemName(top.name)}))),
         top.section === 8 ? h("p", {class: "small"}, term("concentration_unit")) : null,
@@ -222,20 +242,18 @@ function scoreRenderSummary() {
         h("p", {class: "small"}, T("score.summary.loss_meaning", {total_loss: fmt1(loss?.loss_total),
           score: fmt1(run.weighted), item_loss: num(top.loss) ? top.loss.toFixed(2) : scoreMissing()})),
         scoreCounts(top, true)] : [h("h2", null, T("score.no_problem.title")), scoreNote(T("score.no_problem.no_fallback"))]));
-  coreReplace(el, warning, picker,
-    h("ol", {class: "score-flow", "aria-label": T("score.flow.a11y")},
-      ["result", "cause", "retest"].map((step, i) => h("li", {"aria-current": i === 0 ? "step" : null}, T(`score.flow.${step}`)))),
-    main,
+  coreReplace(el, warning, main,
     top ? h("div", {class: "score-next", "data-guide": "s01-open-source"},
-      scoreButton("score-open-source", "score.summary.open_source", () => scoreOpenSource(top), {
-        class: "primary", disabled: !top.docs?.[0]?.doc_id || !top.section}),
-      scoreNote(num(missingCount) ? T("score.problem.evidence_hint", {count: missingCount}) : T("score.problem.evidence_unrecorded")),
+      h("button", {id: "score-open-source", type: "button", onclick: () => scoreOpenSource(top),
+        class: "primary", disabled: !top.docs?.[0]?.doc_id || !top.section},
+        kind ? T(`score.problem.open_${kind}`, {count}) : T("score.summary.open_source")),
+      scoreNote(hint),
       !top.docs?.[0]?.doc_id || !top.section ? scoreNote(T("score.summary.unlinked")) : null)
       : scoreButton("score-open-items", "score.no_problem.open_items", () => {
         if (S.cards["score-problems"] !== false) document.querySelector("#score-problems .card-toggle")?.click();
         document.querySelector("#score-problems .card-toggle")?.focus();
       }),
-    scoreConditions(run));
+    scoreDetails(T("score.history.select_record"), scoreSelect()), scoreConditions(run));
   if (S.shell.route === "s01") emit("score_summary_shown", {run: run.name, key: run.key?.id, weighted: run.weighted});
 }
 function scoreProblemDetail(row, run) {
@@ -405,6 +423,11 @@ function scoreRenderRule() {
     scoreNote(T("score.calculation.loss_formula")),
     scoreNote(T("score.calculation.weight_basis", {weight: run?.status_text?.loss_basis?.weight_total ?? scoreMissing()})),
     scoreNote(T("score.calculation.total_loss", {loss: fmt1(run?.status_text?.loss_basis?.loss_total)})),
+    h("h3", null, T("score.calculation.scorer_counts")),
+    scoreNote(T("score.calculation.scorer_counts_hint")),
+    scoreTable([T("common.record"), ...["missing", "made", "wrong"].map(kind => T(`source.kinds.${kind}`))],
+      (run?.status_text?.losses || []).map(row => [scoreItemName(row.name),
+        ...["missing", "made", "wrong"].map(kind => row.scorer_counts?.[UI.score.cause_keys[kind]] ?? T("common.legacy.cell_labels.c_none"))])),
     Object.entries(criteria?.weights || {}).map(([level, weight]) => scoreNote(T("score.calculation.weight", {
       level, weight, count: criteria.items?.filter(i => i.level === level).length || 0}))),
     scoreTable([T("common.record"), T("score.criteria.method"), T("score.criteria.loss")],

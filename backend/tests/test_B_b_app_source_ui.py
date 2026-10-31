@@ -104,7 +104,8 @@ chips.forEach((c,i)=>assert.ok(c.getAttribute('style').includes(view.legend[i].c
 view.legend.forEach(x=>assert.ok(screen().includes(x.label)));
 assert.ok(screen().includes(view.ui_text.sections['8']));assert.ok(screen().includes(view.ui_text.howto));
 for(const key of ['same','different','missing'])assert.ok(screen().includes(T('source.legend.'+key)));
-assert.ok(document.querySelector('[data-source-section="8"]').open);
+// P1-04: 항 선택은 원문만 이동하고 상세는 사용자가 펼친다.
+assert.equal(document.querySelector('[data-source-section="8"]').open,false);
 """)
 
 
@@ -147,9 +148,12 @@ await go('s02');pick(1).click();assert.equal(events.length,0);
 
 def test_source_item_problem_filters_counts_and_wrong_first():
     run_js(fixture() + r"""
+// F07: 칸 단위 집계는 실행 API가 제공하며 화면은 다시 세지 않는다.
+S.score.run={...runs[1],status_text:{top_problem:{name:'Fake criterion',counts_basis:'field',
+ counts:{'빠뜨림':1,'틀림':2,'지어냄':1},docs:[{doc_id:'T21-X01'}]}}};
 await go('s02',{run:'current',doc:'T21-X01',section:8,item:'Fake criterion',pick:'mismatch'});
 assert.equal(S.source.selection.path,view.values[1].path);
-assert.equal(el('source-filter-all').textContent,T('source.filter.all',{count:4}));
+assert.equal(el('source-filter-all').textContent,T('source.filter.all_values'));
 for(const [kind,count] of [['wrong',2],['made',1],['missing',1]]){
  assert.equal(el('source-filter-'+kind).textContent,T('source.filter.'+kind,{count}));
  el('source-filter-'+kind).click();
