@@ -171,7 +171,7 @@ def _run_with_text(run: Path, ctx: AppContext, gold_dir: Path, key: dict) -> dic
     history = [info if r["name"] == info["name"] else r for r in runs]
     summaries = {kind: bt.card_summary(kind, info) for kind in ("docs", "grid", "rows")}
     summaries["history"] = bt.card_summary("history", {"runs": history})
-    status = bt.score_status(info, br.criteria(), connected=connected)
+    status = bt.score_status(info, br.criteria(), connected=connected, per_doc=info.get("per_doc"))
     return {**info, "status_text": status, "targets": status["targets"],
             "card_summaries": summaries, "connection_notes": bt.connection_notes(info.get("model")), "key": key}
 

@@ -376,6 +376,128 @@ def test_text_module_has_no_pass_word(text):
     assert "합격" not in text.START_TEXT["no_drops"] + text.GLOSSARY["필수"]["short"]
 
 
+# ── 총점 손실 순서 (사용자 결정 10/31) ─────────────────
+
+LOSS_CRITERIA = {"pass_score": 90, "items": [
+    {"name": "가짜 필수", "level": "필수"}, {"name": "가짜 필수2", "level": "필수"},
+    {"name": "가짜 중요", "level": "중요"}, {"name": "가짜 일반", "level": "일반"}]}
+
+
+def loss_info(*items):
+    """(이름, 중요도, 점수, 목표) → 채점기와 같은 식으로 가중 종합을 낸 가짜 실행."""
+    from msds.evaluate.score import _weighted
+    rows = [{"name": n, "level": lv, "score": s, "target": t, "pass": s >= t} for n, lv, s, t in items]
+    return {"weighted": _weighted(rows), "must_passed": 0, "items": rows}
+
+
+def test_losses_follow_scorer_formula_and_sum_to_weighted_gap(text):
+    from msds.evaluate.score import WEIGHTS, _weighted
+    info = loss_info(("가짜 필수", "필수", .5, .95), ("가짜 중요", "중요", 1.0, .9), ("가짜 일반", "일반", .8, .8))
+    before = copy.deepcopy(info)
+    result = text.score_losses(info, LOSS_CRITERIA)
+    total = WEIGHTS["필수"] + WEIGHTS["중요"] + WEIGHTS["일반"]
+    by = {r["name"]: r for r in result["losses"]}
+    for item in info["items"]:
+        expected = WEIGHTS[item["level"]] * (1 - item["score"]) / total * 100
+        assert by[item["name"]]["loss"] == pytest.approx(expected)
+    assert sum(r["loss"] for r in result["losses"]) == pytest.approx(100 - _weighted(info["items"]))
+    assert result["loss_basis"] == {"weight_total": total, "loss_total": pytest.approx(100 - info["weighted"])}
+    first = result["losses"][0]
+    assert [r["name"] for r in result["losses"]] == ["가짜 필수", "가짜 일반", "가짜 중요"]
+    assert [r["rank"] for r in result["losses"]] == [1, 2, 3]
+    assert (first["level"], first["weight"], first["section"], first["below_target"]) == ("필수", 3, None, True)
+    assert first["score"] == pytest.approx(50) and first["target"] == pytest.approx(95)
+    assert by["가짜 일반"]["below_target"] is False                      # 목표와 같으면 아래가 아니다
+    assert info == before
+
+
+def test_loss_counts_items_above_target_and_keeps_top_drops(text):
+    info = loss_info(("가짜 필수", "필수", .96, .95), ("가짜 일반", "일반", .9, .95))
+    status = text.score_status(info, LOSS_CRITERIA)
+    first, second = status["losses"]
+    assert (first["name"], first["below_target"]) == ("가짜 필수", False)  # 3×0.04 > 1×0.1
+    assert (second["name"], second["below_target"]) == ("가짜 일반", True)
+    assert status["top_problem"]["name"] == "가짜 필수"
+    assert [d["name"] for d in status["top_drops"]] == ["가짜 일반"]      # 옛 키는 목표 아래 항목만 그대로 센다
+
+
+def test_loss_ties_follow_criteria_order_and_no_loss_has_no_top_problem(text):
+    # 3×(1−0.9)와 1×(1−0.7)은 같은 손실이지만 소수 계산은 끝자리가 다르다
+    info = loss_info(("가짜 일반", "일반", .7, .8), ("가짜 필수2", "필수", .9, .95), ("가짜 필수", "필수", .9, .95))
+    names = [r["name"] for r in text.score_losses(info, LOSS_CRITERIA)["losses"]]
+    assert names == ["가짜 필수", "가짜 필수2", "가짜 일반"]
+    perfect = loss_info(("가짜 일반", "일반", 1.0, .8), ("가짜 필수", "필수", 1.0, .95))
+    result = text.score_losses(perfect, LOSS_CRITERIA)
+    assert result["top_problem"] is None
+    assert [r["name"] for r in result["losses"]] == ["가짜 필수", "가짜 일반"]
+    assert all(r["loss"] == 0 for r in result["losses"])
+    assert result["loss_basis"] == {"weight_total": 4, "loss_total": 0}
+
+
+def test_top_problem_docs_split_the_item_loss(text):
+    info = loss_info(("가짜 필수", "필수", .4, .95), ("가짜 일반", "일반", .9, .8))
+    per_doc = {"T21-X01": {"items": {"가짜 필수": .6, "가짜 일반": .8}},
+               "T21-X02": {"items": {"가짜 필수": .2, "가짜 일반": 1.0}}}
+    top = text.score_losses(info, LOSS_CRITERIA, per_doc)["top_problem"]
+    assert top["name"] == "가짜 필수" and top["rank"] == 1
+    assert [d["doc_id"] for d in top["docs"]] == ["T21-X02", "T21-X01"]
+    assert [d["score"] for d in top["docs"]] == [pytest.approx(20), pytest.approx(60)]
+    assert top["docs"][0]["loss"] == pytest.approx(3 * .8 / (2 * 4) * 100)
+    assert sum(d["loss"] for d in top["docs"]) == pytest.approx(top["loss"])
+    assert text.score_losses(info, LOSS_CRITERIA)["top_problem"]["docs"] == []
+
+
+def test_losses_without_score_or_unscored_items(text, score_info):
+    assert text.score_losses({"weighted": None}, LOSS_CRITERIA) == {
+        "losses": [], "top_problem": None, "loss_basis": None}
+    score_info["items"].append({**score_info["items"][0], "name": "미채점", "score": None})
+    result = text.score_losses(score_info, {"pass_score": 90})
+    # 2×(1−0.1) = 1.8이 3×(1−0.403) = 1.791보다 크다. 목표 차 순서(top_drops)와 다르다
+    assert [r["name"] for r in result["losses"]] == ["11항 기타 독성", "8항 노출기준", "9항 기타 물성", "14항 운송"]
+    assert result["loss_basis"]["weight_total"] == 3 + 2 + 1 + 3
+
+
+def test_status_adds_loss_keys_and_passes_per_doc(text, score_info):
+    per_doc = {"T21-X01": {"items": {"11항 기타 독성": .1}}}
+    status = text.score_status(score_info, {"pass_score": 90}, per_doc=per_doc)
+    losses = text.score_losses(score_info, {"pass_score": 90}, per_doc)
+    assert {k: status[k] for k in ("losses", "top_problem", "loss_basis")} == losses
+    top = status["top_problem"]
+    assert top["section"] == 11 and top["docs"] == [{"doc_id": "T21-X01", "score": pytest.approx(10),
+                                                     "loss": pytest.approx(top["loss"])}]
+    assert status["top_drops"][0]["name"] == "8항 노출기준"
+    none = text.score_status({"weighted": None}, {"pass_score": 90})
+    assert (none["losses"], none["top_problem"], none["loss_basis"]) == ([], None, None)
+
+
+def test_item_section_names_table_and_help(text):
+    c = {"items": [{"name": "관리정보(가짜 네 칸)"}, {"name": "제품명·가짜"}, {"name": "MSDS 건수(가짜)"},
+                   {"name": "8항 가짜 기준", "help": "3항 성분과 맞춘 가짜 값"}, {"name": "가짜 검사", "help": "12항의 가짜 값"}]}
+    sections = [text.item_section(i, c) for i in c["items"]]
+    assert sections == [16, 1, None, 8, 12]
+    assert text.ITEM_SECTION["관리정보"] == 16 and text.ITEM_SECTION["MSDS 건수"] is None
+    assert text.item_section({"name": "서술형 가짜"}, {}) is None
+    for prefix in ("H 코드", "P 코드", "그림문자", "신호어", "유해성 분류"):
+        assert text.item_section({"name": prefix + "(가짜)"}, {}) == 2
+    for prefix in ("구성성분", "구성성분 필드", "함유량"):
+        assert text.item_section({"name": prefix + "(가짜)"}, {}) == 3
+
+
+def test_item_section_matches_doc_section_map(text, monkeypatch):
+    """채점 항목 → 최상위 키(채점기 TOP_TO_ITEMS) → 항(b_app_doc.SECTION_OF)과 같은 규칙이다."""
+    from msds.evaluate.score import TOP_TO_ITEMS
+    monkeypatch.syspath_prepend(str(SCRIPTS))
+    doc = importlib.import_module("b_app_doc")
+    diff = importlib.import_module("b_app_diff")
+    for top, prefixes in TOP_TO_ITEMS.items():
+        for prefix in prefixes:
+            section = text.item_section({"name": prefix + "(가짜)"}, {})
+            if top in doc.SECTION_OF:
+                assert section == doc.SECTION_OF[top], (top, prefix)
+            if section is not None:
+                assert section in diff.sections_of(prefix), prefix
+
+
 def test_summary_docs_handles_zero_and_missing_time_independently(text):
     info = {"per_doc": {"T21-X01": {"weighted": 0, "seconds": 15},
                         "T21-X02": {"weighted": 80, "seconds": 84}}}

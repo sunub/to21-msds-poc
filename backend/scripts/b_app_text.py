@@ -8,6 +8,8 @@ from datetime import datetime
 from math import isfinite
 from pathlib import PurePosixPath
 
+from msds.evaluate.score import WEIGHTS    # src 경로는 b_app이 먼저 부르는 _common이 등록한다
+
 
 # 첫 HTML에 넣는다. 이후 API를 못 받아도 오류의 사실과 복구 방법은 읽을 수 있다.
 POLISH_TEXT: dict = {
@@ -332,7 +334,6 @@ def explain(term: str) -> str | None:
     return None
 
 
-_SCORE_WEIGHTS = {"필수": 3, "중요": 2, "일반": 1}
 _ROW_LABELS = {
     "components": "성분 (3항)", "exposure_limits": "노출기준 (8항)", "physchem": "물리·화학 성질 (9항)",
     "toxicity": "독성 (11항)", "cmr": "발암성 등 CMR (11항)", "ecotox": "생태 독성 (12항)",
@@ -482,13 +483,59 @@ def doc_ui_text(view: dict) -> dict:
                          for key, (total, different, missing) in counts.items()}}
 
 
-def _item_section(item: dict, criteria: dict) -> int | None:
-    """항목 이름 또는 ITEM_HELP에서 온 설명에 적힌 항만 쓴다. 추측하지 않는다."""
+# 이름에 "N항"이 없는 채점 항목(이름 앞부분) → 그 값을 만드는 항. b_app_doc.SECTION_OF와 같은 규칙이다.
+# 관리정보는 개정 정보가 16항 값을 우선하므로 16항이다 (ADR-020). None은 한 항으로 갈 수 없는 항목이다.
+ITEM_SECTION: dict[str, int | None] = {
+    "MSDS 건수": None, "관리정보": 16, "제품명": 1,
+    "신호어": 2, "그림문자": 2, "H 코드": 2, "P 코드": 2, "유해성 분류": 2,
+    "구성성분": 3, "함유량": 3, "서술형": None,
+}
+
+
+def item_section(item: dict, criteria: dict) -> int | None:
+    """이름의 "N항", ITEM_SECTION, ITEM_HELP에서 온 설명에 적힌 항 순서로 찾는다. 추측하지 않는다."""
     match = re.match(r"^(1[0-6]|[1-9])항", item["name"])
-    if not match:
-        help_text = next((i.get("help", "") for i in criteria.get("items", []) if i.get("name") == item["name"]), "")
-        match = re.search(r"(?<!\d)(1[0-6]|[1-9])항", help_text)
+    if match:
+        return int(match[1])
+    prefix = max((k for k in ITEM_SECTION if item["name"].startswith(k)), key=len, default=None)
+    if prefix is not None:
+        return ITEM_SECTION[prefix]
+    help_text = next((i.get("help", "") for i in criteria.get("items", []) if i.get("name") == item["name"]), "")
+    match = re.search(r"(?<!\d)(1[0-6]|[1-9])항", help_text)
     return int(match[1]) if match else None
+
+
+def _doc_losses(row: dict, per_doc: dict | None, weight_total: float) -> list[dict]:
+    """항목 손실을 문서별로 나눈다. 항목 점수가 문서 평균이라 문서 손실의 합이 항목 손실과 같다."""
+    scores = [(d, p["items"][row["name"]]) for d, p in (per_doc or {}).items()
+              if _number((p.get("items") or {}).get(row["name"]))]
+    docs = [{"doc_id": d, "score": s * 100, "loss": row["weight"] * (1 - s) / (len(scores) * weight_total) * 100}
+            for d, s in scores]
+    return sorted(docs, key=lambda d: -round(d["loss"], 9))
+
+
+def score_losses(info: dict, criteria: dict, per_doc: dict | None = None) -> dict:
+    """항목마다 가중 종합을 깎은 점수. 손실 = 무게×(1−점수)/무게 합×100이고 목표를 넘은 항목도 센다.
+    모든 손실의 합은 100 − 가중 종합이다 (사용자 결정 10/31). 점수 없는 항목은 가중 종합에도 없으므로 뺀다."""
+    weighted = info.get("weighted")
+    if not _number(weighted):
+        return {"losses": [], "top_problem": None, "loss_basis": None}
+    items = [i for i in info.get("items", []) if _number(i.get("score"))]
+    total = sum(WEIGHTS[i["level"]] for i in items)
+    losses = [{"name": i["name"], "level": i["level"], "weight": WEIGHTS[i["level"]],
+               "score": i["score"] * 100, "target": i["target"] * 100,
+               "loss": WEIGHTS[i["level"]] * (1 - i["score"]) / total * 100,
+               "below_target": i["score"] < i["target"], "section": item_section(i, criteria)}
+              for i in items]
+    # 같은 손실도 소수 끝자리가 다를 수 있어(3×0.1과 1×0.3) 줄 세울 때만 반올림한다. 같으면 기준 항목 순서다
+    order = {c.get("name"): k for k, c in enumerate(criteria.get("items", []))}
+    losses.sort(key=lambda r: (-round(r["loss"], 9), order.get(r["name"], len(order))))
+    for rank, row in enumerate(losses, 1):
+        row["rank"] = rank
+    top = None
+    if losses and round(losses[0]["loss"], 9) > 0:
+        top = {**losses[0], "docs": _doc_losses(losses[0], per_doc, total)}
+    return {"losses": losses, "top_problem": top, "loss_basis": {"weight_total": total, "loss_total": 100 - weighted}}
 
 
 def score_targets(info: dict, criteria: dict) -> dict | None:
@@ -506,12 +553,15 @@ def score_targets(info: dict, criteria: dict) -> dict | None:
             "must": {"total": total, "met_count": met_count, "met": met_count >= total}}
 
 
-def score_status(info: dict, criteria: dict, *, connected: bool | None = None) -> dict:
-    """채점 값은 그대로 두고 100점 단위의 요약과 확인 순서를 만든다. 목표는 두 개(score_targets)로 보인다."""
+def score_status(info: dict, criteria: dict, *, connected: bool | None = None,
+                 per_doc: dict | None = None) -> dict:
+    """채점 값은 그대로 두고 100점 단위의 요약과 확인 순서를 만든다. 목표는 두 개(score_targets)로 보인다.
+    top_drops는 목표 아래 항목의 목표 차 순서이고, 총점 손실 순서는 score_losses의 세 키다."""
     targets = score_targets(info, criteria)
+    losses = score_losses(info, criteria, per_doc)
     if targets is None:
         return {"headline": "점수가 없는 실행입니다.", "verdict": "none", "top_drops": [],
-                "next_action": "실행에 채점할 결과와 정답 초안(실버)이 있는지 확인하세요.", "targets": None}
+                "next_action": "실행에 채점할 결과와 정답 초안(실버)이 있는지 확인하세요.", "targets": None, **losses}
     weighted, line = targets["weighted"]["value"], targets["weighted"]["line"]
     must = targets["must"]
     passed = targets["weighted"]["met"] and must["met"]
@@ -529,8 +579,8 @@ def score_status(info: dict, criteria: dict, *, connected: bool | None = None) -
         cause = max(("빠뜨림", "틀림", "지어냄"), key=lambda k: item.get(k) or 0)
         score, goal = item["score"] * 100, item["target"] * 100
         drops.append({"name": item["name"], "score": score, "target": goal,
-                      "gap": round(goal - score, 10), "weight": _SCORE_WEIGHTS[item["level"]], "cause": cause,
-                      "section": _item_section(item, criteria),
+                      "gap": round(goal - score, 10), "weight": WEIGHTS[item["level"]], "cause": cause,
+                      "section": item_section(item, criteria),
                       "sentence": f"{item['name']} {score:.1f}점(목표 {goal:g}). 주원인은 {cause} {item.get(cause) or 0}개입니다."})
     drops.sort(key=lambda d: d["gap"] * d["weight"], reverse=True)
     drops = drops[:3]
@@ -544,7 +594,7 @@ def score_status(info: dict, criteria: dict, *, connected: bool | None = None) -
     else:
         next_action = "항목 신호등에서 모두 보기를 눌러 점수와 목표를 확인하세요."
     return {"headline": headline, "verdict": "pass" if passed else "fail", "top_drops": drops,
-            "next_action": next_action, "targets": targets}
+            "next_action": next_action, "targets": targets, **losses}
 
 
 def card_summary(kind: str, info: dict) -> str:

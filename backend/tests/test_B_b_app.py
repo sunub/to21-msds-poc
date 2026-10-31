@@ -270,6 +270,26 @@ def test_api_run(app, ctx, env):
     assert code == 200 and data["kind"] == "manual"
 
 
+def test_api_run_status_has_loss_ranking(app, ctx, env):
+    name = "20261029_sections_m1_dev10_loss"
+    make_run(env / "runs", name, {X01: make_doc(X01, toxicity=True), X02: make_doc(X02)})   # X01만 11항 독성을 비운다
+    code, data = get_json(app, ctx, "/api/run/" + name)
+    status = data["status_text"]
+    assert code == 200 and data["weighted"] < 100
+    assert len(status["losses"]) == len(data["items"]) == 23
+    assert [r["rank"] for r in status["losses"]] == list(range(1, 24))
+    assert sum(r["loss"] for r in status["losses"]) == pytest.approx(100 - data["weighted"])
+    assert status["loss_basis"] == {"weight_total": sum(app.br.WEIGHTS[i["level"]] for i in data["items"]),
+                                    "loss_total": pytest.approx(100 - data["weighted"])}
+    top = status["top_problem"]
+    assert top["name"] == status["losses"][0]["name"] and top["loss"] > 0
+    assert top["name"].startswith("11항") and top["section"] == 11
+    assert [d["doc_id"] for d in top["docs"]] == [X01, X02]                 # 손실은 X01에서만 난다
+    assert top["docs"][1]["loss"] == 0
+    assert sum(d["loss"] for d in top["docs"]) == pytest.approx(top["loss"])
+    assert "top_drops" in status
+
+
 def test_api_run_unknown(app, ctx, env):
     three_runs(env)
     for path in ("/api/run/없는실행", "/api/run/../gold", "/api/run/"):
@@ -310,9 +330,9 @@ def test_run_status_uses_cached_server_model_state(app, ctx, env, monkeypatch, r
     get_json(app, ctx, "/api/servers")
     seen = []
     real = app.bt.score_status
-    def capture(info, criteria, *, connected=None):
+    def capture(info, criteria, *, connected=None, **kw):     # kw: 문서별 손실에 쓰는 per_doc
         seen.append(connected)
-        return real(info, criteria, connected=connected)
+        return real(info, criteria, connected=connected, **kw)
     monkeypatch.setattr(app.bt, "score_status", capture)
     for _ in range(2):
         get_json(app, ctx, "/api/run/20261029_sections_m1_dev10_r1")
