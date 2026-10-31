@@ -6,15 +6,12 @@
 버린 줄의 오류도 재추출 피드백에 넣는다 (ADR-019).
 모델 설정의 image_input이 참이면 2항 호출에 2항이 있는 쪽 이미지를 붙인다. 펼친 뒤 H코드로 추론한 그림문자와
 모델이 읽은 그림문자를 대조해 checks에 남긴다. 대조 결과로 재추출하지 않고 다르면 사람 검토로 표시한다 (ADR-019).
-3항을 먼저 보내고, 그 결과의 성분 목록(이름·CAS)을 8·11·12·15항 입력에 붙인다. 이 넷만 3항을 기다리고 나머지 항은
-바로 보낸다. 3항이 실패했거나 성분이 없으면 목록 없이 보낸다 (ADR-030).
 
 runs/<실행 이름>/ 에 남는 것
   outputs/<문서>.json            TO21 v0.6 문서
   checks/<문서>.json             항별 결과(받은 방식 mode 포함), 스키마·TO21 검증기 결과, 펼치기 문제, 경고, 항목 분할 방식,
                                  그림문자 대조(pictogram_check), 사람 검토할 항
-  raw/<문서>_m<i>_s<NN>.json     항별 모델 응답과 사용량, 요청별 기록 requests (재추출했으면 다른 시도도),
-                                 그 항에 준 3항 성분 목록 components_given (없으면 null)
+  raw/<문서>_m<i>_s<NN>.json     항별 모델 응답과 사용량, 요청별 기록 requests (재추출했으면 다른 시도도)
   timing.jsonl                   단계별 시간: inputs, call, reextract, expand, checks, total
   run_info.yaml                  모델, 프롬프트 버전·해시, 스키마 버전, 시각, git 커밋 (save_run_info)
 시스템 안내문과 중간 형식 스키마는 명세서 내용이라 저장하지 않는다 (D-47).
@@ -41,8 +38,7 @@ from msds.extract.expand import to_to21
 from msds.extract.inputs import _PAGE_FILE, SECTION_NOS, DocumentInput, load_document, section_lines
 from msds.extract.pictogram_check import check_msds, load_hazard_map
 from msds.extract.rows import parse_rows
-from msds.extract.section_prompts import (_COMPONENT_SECTIONS, SECTION_PROMPT_VERSION, build_system, build_user,
-                                          prompt_hash)
+from msds.extract.section_prompts import SECTION_PROMPT_VERSION, build_system, build_user, prompt_hash
 from msds.extract.section_specs import response_schema
 
 DOC_TIME_LIMIT = 300          # 초. 넘으면 경고만 남기고 멈추지 않는다
@@ -50,7 +46,6 @@ _LINE_KEYS = ("line", "start", "end")
 _FEEDBACK_MAX = 20            # 다시 보낼 때 적는 문제 수
 IMAGE_SECTION = 2             # 쪽 이미지를 붙이는 항 (그림문자, ADR-019)
 IMAGE_PAGES = 2               # 붙이는 쪽 이미지 수 상한
-COMPONENT_SECTION = 3         # 성분 목록을 주는 항. 받는 항은 _COMPONENT_SECTIONS (ADR-030)
 OUTSIDE_MANIFEST_WARNING = "manifest에 없는 문서: 쪽 글자 폴더의 meta.json을 씀"
 
 
@@ -163,33 +158,18 @@ def section_images(doc: DocumentInput, msds_index: int, pages_dir: Path) -> tupl
     return found, warnings
 
 
-def component_list(res: SectionResult) -> list[tuple[str, str | None]] | None:
-    """3항 결과의 성분 [(이름, CAS 또는 None), ...]. 이름이 빈 행은 뺀다.
-    3항이 실패했거나 이름 있는 성분이 둘보다 적으면 None (목록 없이 보낸다, ADR-030).
-    성분이 하나뿐인 제품에 목록을 주면 모델이 행을 제품 전체(MIX)로 써서 15항이 내려갔다 (10/31 s8 실행, S014)."""
-    if not res.ok or not isinstance(res.parsed, dict):
-        return None
-    out = []
-    for c in res.parsed.get("components") or []:
-        name = (c.get("name") or "").strip() if isinstance(c, dict) else ""
-        if name:
-            out.append((name, (c.get("cas_no") or "").strip() or None))
-    return out if len(out) >= 2 else None
-
-
 def _run_section(client, doc: DocumentInput, msds_index: int, no: int, system: str, schema: dict,
                  allowed: set[str], rows: bool = False, images: list[Path] = (),
-                 rows_max_tokens: int | None = None,
-                 components: list[tuple[str, str | None]] | None = None) -> tuple[SectionResult, dict, dict | None]:
-    """반환: (항 결과, 첫 시도, 재추출 시도 또는 None). images와 components(3항 성분 목록)는 첫 시도와 재추출 모두에 붙인다."""
+                 rows_max_tokens: int | None = None) -> tuple[SectionResult, dict, dict | None]:
+    """반환: (항 결과, 첫 시도, 재추출 시도 또는 None). images는 첫 시도와 재추출 모두에 붙인다."""
     lines = section_lines(doc, msds_index, no)
-    first = _attempt(client, no, system, build_user(no, lines, images=images, components=components), schema,
-                     allowed, rows, rows_max_tokens)
+    first = _attempt(client, no, system, build_user(no, lines, images=images), schema, allowed, rows,
+                     rows_max_tokens)
     second = None
     if not first["ok"] or _problems(first):
         feedback = "\n".join(f"- {x}" for x in _problems(first)[:_FEEDBACK_MAX])
-        second = _attempt(client, no, system, build_user(no, lines, feedback, images, components), schema, allowed,
-                          rows, rows_max_tokens)
+        second = _attempt(client, no, system, build_user(no, lines, feedback, images), schema, allowed, rows,
+                          rows_max_tokens)
     better = (second is not None and second["ok"]
               and (not first["ok"] or len(_problems(second)) < len(_problems(first))))
     chosen = second if better else first
@@ -252,39 +232,23 @@ def run_document(doc_id: str, model_tag: str, run_name: str, client=None, *,
     stage("inputs", time.perf_counter() - t)
 
     # 2~3. 항목별 동시 호출과 1회 재추출. 안내문은 워크북을 읽으므로 스레드에 넘기기 전에 만든다.
-    # 건마다 3항을 먼저, 이어 8·11·12·15항이 아닌 항을 바로 보낸다. 8·11·12·15항은 메인 스레드가 그 건의
-    # 3항 결과를 기다린 뒤 성분 목록과 함께 보낸다. 풀 안의 작업은 다른 작업을 기다리지 않는다 (ADR-030).
     rows = set(cfg.get("rows_sections") or [])
     prompts = {no: (build_system(no, no in rows), response_schema(no)) for no in SECTION_NOS}
     image_warnings: list[str] = []
-    images: dict[int, list[Path]] = {}
-    given: dict[tuple[int, int], list[tuple[str, str | None]] | None] = {}
     futures = {}
     with ThreadPoolExecutor(max_workers=workers(cfg, max_workers)) as pool:
-        def submit(msds_index: int, no: int, components=None) -> None:
-            # 줄 번호 검사는 그 항에 보낸 줄(문서 머리 + 항 구간, fallback 항은 건의 쪽 전체) 기준 (ADR-020)
-            allowed = {l.id for l in section_lines(doc, msds_index, no)}
-            given[(msds_index, no)] = components
-            futures[(msds_index, no)] = pool.submit(_run_section, client, doc, msds_index, no,
-                                                    *prompts[no], allowed, no in rows,
-                                                    images[msds_index] if no == IMAGE_SECTION else [],
-                                                    cfg.get("rows_max_tokens"), components)
-
         for part in doc.msds:
-            images[part.index] = []
+            images: list[Path] = []
             if cfg.get("image_input"):
-                images[part.index], missing = section_images(doc, part.index, pages_dir)
+                images, missing = section_images(doc, part.index, pages_dir)
                 image_warnings += missing
-        for part in doc.msds:
-            submit(part.index, COMPONENT_SECTION)
-        for part in doc.msds:
             for no in SECTION_NOS:
-                if no != COMPONENT_SECTION and no not in _COMPONENT_SECTIONS:
-                    submit(part.index, no)
-        for part in doc.msds:
-            components = component_list(futures[(part.index, COMPONENT_SECTION)].result()[0])
-            for no in _COMPONENT_SECTIONS:
-                submit(part.index, no, components)
+                # 줄 번호 검사는 그 항에 보낸 줄(문서 머리 + 항 구간, fallback 항은 건의 쪽 전체) 기준 (ADR-020)
+                allowed = {l.id for l in section_lines(doc, part.index, no)}
+                futures[(part.index, no)] = pool.submit(_run_section, client, doc, part.index, no,
+                                                        *prompts[no], allowed, no in rows,
+                                                        images if no == IMAGE_SECTION else [],
+                                                        cfg.get("rows_max_tokens"))
     outcomes = [futures[k].result() for k in sorted(futures)]
 
     results: list[SectionResult] = []
@@ -301,8 +265,6 @@ def run_document(doc_id: str, model_tag: str, run_name: str, client=None, *,
             raw["first_attempt"] = first
         elif second:
             raw["reextract_attempt"] = second
-        comps = given.get((res.msds_index, res.section_no))
-        raw["components_given"] = [list(c) for c in comps] if comps else None
         _write_json(run / "raw" / f"{doc_id}_m{res.msds_index}_s{res.section_no:02d}.json", raw)
         section_checks.append({"msds_index": res.msds_index, "section": res.section_no, "ok": res.ok,
                                "mode": chosen["mode"], "errors": res.errors, "check_problems": chosen["check_problems"],

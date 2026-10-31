@@ -15,8 +15,6 @@ parse_rows가 지금의 중간 형식 dict(section_specs.response_schema)로 바
   (rows-tune ADR-020, ADR-029).
 - 표별 기본값 (ADR-022, ADR-029): 함유량 단위 %, 9항 값 없음·단위만 쓴 text_value를 q로, CMR 등급 칸의 값 없음을 상태로,
   11항 비급성 행의 빈 지표는 결과기술.
-- 열이 많은 표(_KEYED_TABLES)는 값이 있는 칸만 '열 이름=값'으로 받는다(`endpoint=TX_ORAL | q=5 mg/kg | line=p6:L4`).
-  파서는 어떤 표든 두 꼴을 모두 읽는다. 열 이름 꼴 행은 열 순서대로 칸 목록을 만들어 위치 꼴과 같은 _build를 거친다 (ADR-030).
 예시 행은 직접 만든 가짜 값이다 (D-43).
 """
 from __future__ import annotations
@@ -37,9 +35,6 @@ _EXCERPT = 40         # 오류에 적는 줄 앞부분 글자 수
 _CHOICES_MAX = 12     # 선택지가 이보다 많고 칸 설명이 코드표를 가리키면 목록 대신 [코드표]를 가리킨다
 _CODE_TABLE_REF = re.compile(r"\bC\d\b")             # 칸 설명의 코드표 표시. 예: '[필수] 특성 코드 — C4'
 _CHOICE_LINE = re.compile(r"^- `[^`]+`: [^|]*$")     # 안내문의 선택지 줄. 모델이 따라 써도 행으로 읽지 않는다
-_COLUMNS_LINE = re.compile(r"^열\s*:[^|]*$")          # 안내문의 열 목록 줄('열: comp_name, …'). 모델이 따라 써도 행이 아니다
-_KEYED_TABLES = ("exposure_limits", "toxicity", "ecotox", "regulations")   # 값 있는 칸만 '열 이름=값'으로 받는 표 (ADR-030)
-_KEYED_CELL = re.compile(r"^([A-Za-z_][A-Za-z0-9_]*)\s*=\s*(.*)$")         # 열 이름 꼴 칸. 첫 '='에서 나눈다
 _NO_VALUE = ("자료없음", "해당없음", "미기재")       # 값 없는 행의 상태 (expand._NO_VALUE와 같다)
 _CHOICE_ALIAS = {"해당없음": "비해당", "값있음": "해당"}   # 선택지에 없으면 바꿔 볼 값 (_choice)
 _PAREN_TAIL = re.compile(r"\([^()]*\)$")             # 선택지 값 끝의 괄호 설명. 예: '육상(ADR·국내)'
@@ -236,19 +231,17 @@ def row_tables(no: int) -> dict[str, list[str]]:
 
 # ── 안내문 ─────────────────────────────────────────────
 
-_GUIDE = """JSON을 쓰지 않는다. 아래 표마다 `### 표 이름` 줄을 쓰고, 그 아래에 한 줄에 한 행씩 쓴다. 열 이름 줄이 있는 표는 행 앞에 열 이름 줄을 그대로 한 번 쓴다.
-- 칸은 ` | `로 나눈다. 열 이름 줄이 있는 표는 열의 순서와 수가 열 이름 줄과 같고, 값이 없는 칸은 비워 두되 ` | `는 남긴다.
-- 열 목록이 `열:`로 주어진 표는 값이 있는 칸만 `열 이름=값`으로 쓰고 ` | `로 잇는다. 빈 칸은 쓰지 않는다. 줄 열(`line`)은 늘 쓴다.
+_GUIDE = """JSON을 쓰지 않는다. 아래 표마다 `### 표 이름` 줄을 쓰고, 그 아래에 열 이름 줄을 그대로 한 번 쓴 뒤 한 줄에 한 행씩 쓴다.
+- 칸은 ` | `로 나눈다. 열의 순서와 수는 열 이름 줄과 같다. 값이 없는 칸은 비워 두되 ` | `는 남긴다.
 - 값 안에 `|`가 있으면 `/`로 바꿔 쓴다.
 - 줄 열(`line`, 서술 항목은 `start`·`end`)에는 입력 줄 앞의 줄 번호를 보이는 그대로 쓴다. 예: `p2:L23`
 - 원문에 값 없이 `자료없음`·`해당없음`·`미기재`로 적힌 행도 빠뜨리지 말고 쓴다. 그 글자는 숫자 묶음 열이 있으면 거기에 쓰고, 상태 열(`status`)이 있으면 상태 열에도 원문의 것을 쓴다. 그 글자가 선택지에 있는 열이 아니면 다른 열(출처·비고 등)에는 쓰지 않는다.
 - 숫자 묶음 열({qm})에는 부등호·숫자·단위를 한 칸에 원문 표기대로 쓴다. 나누기는 코드가 한다. 단위를 다른 열로 옮기지 않는다. 단위가 표 머리글에만 있으면 값 뒤에 붙인다. 예: `20 ~ 30 %`, `> 2000 mg/kg`, `약 1.2 g/cm3`, `-210 ℃`
-- 선택지 열에는 목록의 값만 쓴다. 목록은 표마다 열 이름 줄(또는 `열:` 줄) 아래에 열마다 한 줄씩 있다(응답에는 쓰지 않는다). `[코드표]의 코드만`인 열은 [코드표]에 있는 코드만 쓴다. 맞는 값이 없으면 비워 둔다.
+- 선택지 열에는 목록의 값만 쓴다. 목록은 표마다 열 이름 줄 아래에 열마다 한 줄씩 있다(응답에는 쓰지 않는다). `[코드표]의 코드만`인 열은 [코드표]에 있는 코드만 쓴다. 맞는 값이 없으면 비워 둔다.
 - 쓸 행이 없는 표는 `### 표 이름` 줄만 쓴다.
 - 아래 예시 행의 값은 형식만 보이는 가짜다. 원문에 있는 값만 쓴다."""
 
-# 표마다 예시 행 두세 줄 (가짜 값, D-43). 쓰지 않은 열은 빈 칸이다(열 이름 꼴 표는 그 칸을 쓰지 않는다).
-# narratives의 item_code는 그 항의 코드로 채운다.
+# 표마다 예시 행 두 줄 (가짜 값, D-43). 쓰지 않은 열은 빈 칸이다. narratives의 item_code는 그 항의 코드로 채운다.
 _EXAMPLES: dict[str, list[dict]] = {
     "composition": [{"type": "혼합물", "no_hazardous_component": "false", "line": "p2:L3"}],
     "components": [
@@ -268,9 +261,7 @@ _EXAMPLES: dict[str, list[dict]] = {
          "q": "> 5 mg/L", "species": "랫드", "duration_value": "4", "duration_unit": "hr", "physical_form": "증기",
          "status": "값있음", "line": "p6:L3"},
         {"comp_name": "가상물질 갑", "comp_cas": "1234-56-6", "endpoint": "TX_SKIN", "q": "자료없음",
-         "status": "자료없음", "line": "p6:L4"},
-        {"comp_name": "가상물질 갑", "comp_cas": "1234-56-6", "endpoint": "TX_SKIN", "descriptor": "결과기술",
-         "statements": "피부에 자극을 일으킴", "status": "값있음", "line": "p6:L6"}],
+         "status": "자료없음", "line": "p6:L4"}],
     "cmr": [
         {"comp_name": "가상물질 갑", "comp_cas": "1234-56-6", "hazard": "발암성", "agency": "IARC",
          "class": "Group 3", "status": "값있음", "line": "p6:L10"},
@@ -281,16 +272,12 @@ _EXAMPLES: dict[str, list[dict]] = {
          "q": "100 mg/L", "species": "가상 어류", "duration_value": "96", "duration_unit": "hr", "status": "값있음",
          "line": "p7:L3"},
         {"comp_name": "가상물질 갑", "comp_cas": "1234-56-6", "endpoint": "ECO_BIOACC", "descriptor": "BCF",
-         "q": "자료없음", "status": "자료없음", "line": "p7:L8"},
-        {"comp_name": "가상물질 갑", "comp_cas": "1234-56-6", "endpoint": "ECO_PERSIST", "descriptor": "결과기술",
-         "statements": "쉽게 분해되지 않음", "status": "값있음", "line": "p7:L6"}],
+         "q": "자료없음", "status": "자료없음", "line": "p7:L8"}],
     "regulations": [
         {"law": "OSH", "item_code": "OSH_MEASURE", "item_raw": "작업환경측정대상물질", "comp_name": "가상물질 갑",
          "comp_cas": "1234-56-6", "applicable": "해당", "line": "p9:L3"},
         {"law": "KREACH", "item_code": "KREACH_EXIST", "item_raw": "기존화학물질", "comp_name": "가상물질 갑",
-         "comp_cas": "1234-56-6", "applicable": "비해당", "line": "p9:L5"},
-        {"law": "OSH", "item_code": "OSH_MANAGED", "item_raw": "관리대상유해물질", "comp_name": "가상물질 갑",
-         "comp_cas": "1234-56-6", "applicable": "해당", "threshold": "1 % 이상", "line": "p9:L4"}],
+         "comp_cas": "1234-56-6", "applicable": "비해당", "line": "p9:L5"}],
     "dangerous_goods": [
         {"class": "제4류", "item": "제2석유류", "water_soluble": "비수용성", "grade": "III",
          "designated_qty": "1,000 L", "line": "p9:L8"},
@@ -337,16 +324,8 @@ def _choice_lines(t: _Table) -> list[str]:
     return out
 
 
-def _example_lines(t: _Table) -> list[str]:
-    """예시 행 줄. 열 이름 꼴 표는 값이 있는 칸만 '열=값'으로 열 순서대로, 그 밖의 표는 모든 열을 위치대로 쓴다."""
-    if t.name in _KEYED_TABLES:
-        return [" | ".join(f"{c}={r[c]}" for c in t.columns if r.get(c)) for r in _examples(t)]
-    return [" | ".join(r.get(c, "") for c in t.columns) for r in _examples(t)]
-
-
 def rows_guide(no: int) -> str:
-    """안내문 끝에 붙일 [응답 형식]: 쓰는 규칙과, 표마다 '### 표 이름' 줄 + 열 이름 줄 + 선택지 줄 + 예시 행(가짜 값).
-    열 이름 꼴 표(_KEYED_TABLES)는 열 이름 줄 대신 '열: a, b, …' 한 줄이고 예시 행도 '열=값' 꼴이다 (ADR-030)."""
+    """안내문 끝에 붙일 [응답 형식]: 쓰는 규칙과, 표마다 '### 표 이름' 줄 + 열 이름 줄 + 선택지 줄 + 예시 행(가짜 값)."""
     tables = _tables(no)
 
     def cols(*kinds: str) -> str:
@@ -373,8 +352,8 @@ def rows_guide(no: int) -> str:
         out.append("- 서술 항목 코드(`narratives`의 `item_code`)에 속하는 소제목과 그 아래 문장은 `extras`에 쓰지 않는다. "
                    "그 항목의 `start`~`end`에 들어간다. `extras`에는 어느 표·열·코드에도 맞지 않는 제목이 붙은 값만 쓴다.")
     for t in tables:
-        head = "열: " + ", ".join(t.columns) if t.name in _KEYED_TABLES else " | ".join(t.columns)
-        out += ["", f"### {t.name}", head, *_choice_lines(t), *_example_lines(t)]
+        out += ["", f"### {t.name}", " | ".join(t.columns), *_choice_lines(t),
+                *(" | ".join(r.get(c, "") for c in t.columns) for r in _examples(t))]
     return "\n".join(out)
 
 
@@ -511,26 +490,8 @@ def _realign(t: _Table, cells: list[str]) -> dict | None:
     return kept[0][2] if len({p for p, _, _ in kept}) == 1 else None
 
 
-def _keyed(cells: list[str]) -> list[tuple[str, str]] | None:
-    """빈 칸이 아닌 칸이 모두 '열 이름=값' 꼴이면 (열 이름, 값) 목록. 아니면 None (ADR-030).
-    첫 '='에서 나눈다: 'cond=temp=25; temp_unit=C' → ('cond', 'temp=25; temp_unit=C').
-    위치 꼴 행은 줄 번호 칸('p6:L4')이 이 꼴이 아니라 여기에 걸리지 않는다."""
-    pairs = [_KEYED_CELL.match(c) for c in cells if c]
-    return [(m[1], m[2]) for m in pairs] if pairs and all(pairs) else None
-
-
 def _row(t: _Table, cells: list[str]) -> tuple[dict | None, str | None]:
-    """행 한 줄 → (행 dict, None) 또는 (None, 문제). 열 수가 하나 어긋나도 _realign이 살리면 문제 없이 돌려준다.
-    열 이름 꼴 행은 쓰지 않은 열을 빈 칸으로 채워 _build에 넘긴다. 모르는 열이나 같은 열이 두 번이면 버린다 (ADR-030)."""
-    if (pairs := _keyed(cells)) is not None:
-        values: dict[str, str] = {}
-        for name, value in pairs:
-            if name not in t.columns:
-                return None, f"모르는 열 '{name}'"
-            if name in values:
-                return None, f"열 '{name}'가 두 번"
-            values[name] = value
-        return _build(t, [values.get(c, "") for c in t.columns])
+    """행 한 줄 → (행 dict, None) 또는 (None, 문제). 열 수가 하나 어긋나도 _realign이 살리면 문제 없이 돌려준다."""
     if len(cells) == len(t.columns):
         return _build(t, cells)
     row = _realign(t, cells)
@@ -541,10 +502,9 @@ def parse_rows(text: str, no: int) -> tuple[dict, list[str]]:
     """모델 응답 글을 {표 이름: [행 dict, ...], ..., "extras": [...]}로. 둘째 값은 줄 단위 오류 목록.
     - '### 표 이름' 머리글로 표를 나눈다. 머리글이 하나라도 있으면 응답 스키마의 모든 표를 담는다
       (쓰지 않은 표는 [], 객체 칸은 {"lines": {}}). 머리글이 하나도 없으면 오류 하나와 빈 dict.
-    - 열 이름 줄, 안내문의 열 목록 줄('열: a, b'), 선택지 줄('- `열`: 값 / 값'), 빈 줄, 코드 울타리(```),
-      마크다운 구분 줄(---|---)은 건너뛴다. 첫 머리글 앞의 글은 버린다.
-    - 행은 '|'로 쪼개고 앞뒤 공백을 뗀다. 칸이 모두 '열 이름=값'이면 열 이름 꼴로, 아니면 위치로 읽는다(어떤 표든).
-      열 수가 다르거나, 모르는 열·같은 열 두 번이거나, 줄 열이 'p2:L23' 모양이 아니거나, 형이 안 맞거나,
+    - 열 이름 줄, 안내문의 선택지 줄('- `열`: 값 / 값'), 빈 줄, 코드 울타리(```), 마크다운 구분 줄(---|---)은
+      건너뛴다. 첫 머리글 앞의 글은 버린다.
+    - 행은 '|'로 쪼개고 앞뒤 공백을 뗀다. 열 수가 다르거나, 줄 열이 'p2:L23' 모양이 아니거나, 형이 안 맞거나,
       그 행 스키마 검증에 실패한 줄은 버리고 오류 "<표> p?:L? <줄 앞부분>: <문제>"를 남긴다.
       열 수가 하나 어긋난 줄은 _realign이 살리면 오류 없이 쓴다.
     - 빈 칸은 None(목록 칸은 []). 숫자 묶음은 parse_qm, 숫자 칸은 숫자, enum 칸은 _choice로 맞춘 글자.
@@ -566,7 +526,7 @@ def parse_rows(text: str, no: int) -> tuple[dict, list[str]]:
         if current is None:
             continue
         cells = _cells(s)
-        if cells == list(current.columns) or _CHOICE_LINE.match(s) or _COLUMNS_LINE.match(s):
+        if cells == list(current.columns) or _CHOICE_LINE.match(s):
             continue
         row, problem = _row(current, cells)
         if problem is None and current.is_object and out[current.name] != {"lines": {}}:

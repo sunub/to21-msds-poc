@@ -9,8 +9,6 @@
 - 행 형식 항(build_system(no, rows=True))은 공통 지시를 _COMMON_ROWS로 바꾸고 끝에 [응답 형식](rows_guide)을
   붙인다. 이 항의 안내·필드 정의·규칙·코드표·동의어는 JSON 안내문과 같은 것을 쓴다 (ADR-019).
 - 2항은 쪽 이미지를 받는 태그면 사용자 메시지 끝에 쪽 이미지를 붙인다(build_user의 images). 모델이 그림문자를 읽는다 (ADR-019).
-- 8·11·12·15항(_COMPONENT_SECTIONS)은 3항 결과의 성분 목록을 사용자 메시지에 붙인다(build_user의 components).
-  성분은 문서마다 달라 안내문에는 목록을 읽는 규칙만 둔다 (ADR-030).
 """
 from __future__ import annotations
 
@@ -28,7 +26,7 @@ from msds.extract.prompt_builder import _BASE_RULES, _code_table, _field_rows, _
 from msds.extract.rows import rows_guide
 from msds.extract.section_specs import SectionSpec, load_specs, response_schema
 
-SECTION_PROMPT_VERSION = "s8"   # 안내문 내용을 고치면 올린다. 실행 기록에 남는다. s3은 10/28에 되돌린 extras 규칙판이 썼다. s5: 행 형식 안내, 2항 그림문자(C2 코드표·이미지 안내) 추가. 14항도 행 형식(s5 실행 전이라 버전 유지). 그 밖의 JSON 안내문은 s4와 같다. s6: 행 형식 안내에 표마다 선택지 줄, 비해당·단위·값 없는 행·extras 규칙 추가 (rows-tune. s5로 돌린 실행 기록이 이미 있어 올림). s7: 16항 관리정보 칸 대응(rows-tune3). s8: 8·11·12·15항 넓은 표 열 이름 꼴, 11·12항 결과기술 행, 15항 기준농도 예시, 3항 성분 목록 (score-fix2, ADR-030)
+SECTION_PROMPT_VERSION = "s7"   # 안내문 내용을 고치면 올린다. 실행 기록에 남는다. s3은 10/28에 되돌린 extras 규칙판이 썼다. s5: 행 형식 안내, 2항 그림문자(C2 코드표·이미지 안내) 추가. 14항도 행 형식(s5 실행 전이라 버전 유지). 그 밖의 JSON 안내문은 s4와 같다. s6: 행 형식 안내에 표마다 선택지 줄, 비해당·단위·값 없는 행·extras 규칙 추가 (rows-tune. s5로 돌린 실행 기록이 이미 있어 올림). s7: 16항 관리정보 칸 대응(rows-tune3)
 IMAGE_MAX_SIDE = 1200           # 2항에 붙이는 쪽 이미지의 긴 변 픽셀 (ADR-019)
 _IMAGE_NOTE = "[2항이 있는 쪽 이미지. 그림문자(마름모 안 그림)를 보고 pictograms에 GHS 코드를 적는다]"
 
@@ -63,14 +61,11 @@ GUIDES = {
     9: """- 물리화학적 특성(physchem)은 특성마다 한 행이다. 숫자 값은 q, 글자 값은 text_value에 두고, 괄호 속 측정 조건은 cond로 나눈다.
 - 특성 이름의 표기가 달라도 [동의어]로 prop_code를 정한다(R25). 점도와 동점도는 R26.""",
     11: """- 독성(toxicity)은 성분 × 독성 항목(endpoint) × 지표(LD50·LC50 등) × 시험 동물마다 한 행이다.
-- 발암성·생식세포변이원성·생식독성의 기관별 분류(cmr)는 기관마다 한 행이다.
-- 숫자 없이 문장으로 적힌 결과(피부 부식성·눈 손상·과민성·특정표적장기·흡인 유해성 등)도 항목마다 한 행으로 쓴다. `descriptor`는 `결과기술`, 문장은 `statements`, `status`는 `값있음`이다.""",
-    12: """- 생태독성(ecotox)은 성분 × 항목(endpoint) × 지표 × 생물종마다 한 행이다.
-- 숫자 없이 문장으로 적힌 결과(잔류성·분해성, 생물 농축성, 토양 이동성 등)도 항목마다 한 행으로 쓴다. `descriptor`는 `결과기술`, 문장은 `statements`, `status`는 `값있음`이다.""",
+- 발암성·생식세포변이원성·생식독성의 기관별 분류(cmr)는 기관마다 한 행이다.""",
+    12: """- 생태독성(ecotox)은 성분 × 항목(endpoint) × 지표 × 생물종마다 한 행이다.""",
     14: """- 운송(transport)은 운송 방식(mode)마다 한 행이다. UN번호는 R09.""",
     15: """- 국내 규제(regulations)는 성분 × 법령(law) × 규제 항목(item_code)마다 한 행이다. 해당·비해당·자료없음도 원문에 적힌 대로 행으로 쓴다.
 - 규제 항목 이름의 표기가 달라도 [동의어]로 item_code를 정한다(R25).
-- 기준농도(`threshold`)는 원문 글 그대로 한 칸에 쓴다. 예: `1 % 이상`. 칸 이름(`lower_op` 등)을 쓰지 않는다.
 - 위험물안전관리법은 dangerous_goods, 폐기물관리법의 지정폐기물 여부는 waste, 해외 분류는 intl_class에 둔다.""",
     16: """- 최초 작성일·개정 횟수·최종 개정일이 있으면 `meta_revision`에 적는다. 날짜는 R01.
 - 원문의 `최초작성일`·`작성일자`·`작성일`·`최초 작성일자`는 `meta_revision.first_issue_date`에 적는다.
@@ -80,12 +75,6 @@ GUIDES = {
 }
 _COMP_GUIDE = ("- 성분이 따로 적힌 행은 `comp_name`·`comp_cas`에 원문의 성분 이름과 CAS 번호를 적는다. "
                "제품 전체 값이면 둘 다 쓰지 않는다.")
-# 3항 성분 목록을 받는 항 (ADR-030). 목록은 사용자 메시지에(build_user의 components), 읽는 규칙은 이 항의 안내에 둔다.
-_COMPONENT_SECTIONS = (8, 11, 12, 15)
-_COMPONENT_HEAD = "[3항 성분 목록]"
-_COMPONENT_LIST_GUIDE = ("- 입력 끝에 [3항 성분 목록]이 있으면, 성분 이름(`comp_name`)과 CAS(`comp_cas`)에는 목록에서 같은 물질의 "
-                         "이름과 CAS를 그대로 쓴다. 원문 이름이 달라도(영문명·관용명·동의어) 같은 물질이면 목록의 것을 쓴다. "
-                         "목록에 없는 물질이면 원문 그대로 쓰고, 혼합물 전체에 대한 값이면 둘 다 비운다.")
 _NARRATIVE_GUIDE = ("- 서술 항목(narratives)은 항목 코드마다 한 행이다. `item_code`, 원문 제목(`title_raw`), "
                     "내용이 시작·끝나는 줄 번호(`start`, `end`)만 적는다. 문장을 다시 쓰지 않는다.")
 
@@ -141,8 +130,6 @@ def _guide(spec: SectionSpec, schema: dict) -> str:
     parts = [GUIDES[spec.no]] if spec.no in GUIDES else []
     if any('"comp_name"' in json.dumps(schema["properties"][t]) for t in spec.targets):
         parts.append(_COMP_GUIDE)
-    if spec.no in _COMPONENT_SECTIONS:
-        parts.append(_COMPONENT_LIST_GUIDE)
     if spec.narrative_codes:
         parts.append(_NARRATIVE_GUIDE)
     return "\n".join(parts)
@@ -196,12 +183,9 @@ def build_system(no: int, rows: bool = False) -> str:
 
 
 def build_user(no: int, lines: list[Line], retry_feedback: str | None = None,
-               images: list[Path] = (), components: list[tuple[str, str | None]] | None = None) -> list[dict]:
-    """글 part 하나. images가 있으면 그 뒤에 안내 글 하나와 쪽 이미지(긴 변 IMAGE_MAX_SIDE 이하)를 차례로 붙인다.
-    components([(이름, CAS 또는 None), ...])가 있으면 원문 뒤, 다시 확인할 점 앞에 [3항 성분 목록]으로 붙인다 (ADR-030)."""
+               images: list[Path] = ()) -> list[dict]:
+    """글 part 하나. images가 있으면 그 뒤에 안내 글 하나와 쪽 이미지(긴 변 IMAGE_MAX_SIDE 이하)를 차례로 붙인다."""
     text = f"[{no}항 원문]\n" + render_lines(lines)
-    if components:
-        text += "\n\n" + "\n".join([_COMPONENT_HEAD, *(f"- {name} / {cas or 'CAS 없음'}" for name, cas in components)])
     if retry_feedback:
         text += "\n\n[다시 확인할 점]\n" + retry_feedback
     parts = [{"type": "text", "text": text}]

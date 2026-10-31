@@ -11,7 +11,7 @@ import pytest
 from msds.common.paths import to21_file
 from msds.extract import section_prompts as sp
 from msds.extract.inputs import Line
-from msds.extract.rows import _KEYED_TABLES, ROWS_SECTIONS_DEFAULT, row_tables
+from msds.extract.rows import ROWS_SECTIONS_DEFAULT, row_tables
 from msds.extract.section_specs import load_specs
 
 NOS = range(1, 17)
@@ -176,41 +176,6 @@ def test_build_user_no_images_text_only():
     assert len(sp.build_user(2, lines)) == 1
 
 
-COMPS = [("가상물질 갑", "1234-56-6"), ("가상물질 을", None)]
-
-
-def test_component_list_appended_to_user():
-    """3항 성분 목록은 원문 뒤, 다시 확인할 점 앞에 붙는다. CAS가 없으면 'CAS 없음' (ADR-030)."""
-    lines = [Line("p5:L2", 5, 2, "가상물질 갑 | TWA 1 ppm")]
-    listed = "[3항 성분 목록]\n- 가상물질 갑 / 1234-56-6\n- 가상물질 을 / CAS 없음"
-    assert sp.build_user(8, lines, components=COMPS) == [
-        {"type": "text", "text": "[8항 원문]\np5:L2 가상물질 갑 | TWA 1 ppm\n\n" + listed}]
-    out = sp.build_user(8, lines, "가짜 피드백", components=COMPS)
-    assert out == [{"type": "text", "text": "[8항 원문]\np5:L2 가상물질 갑 | TWA 1 ppm\n\n" + listed
-                                            + "\n\n[다시 확인할 점]\n가짜 피드백"}]
-
-
-def test_component_list_absent_keeps_user_text():
-    lines = [Line("p5:L2", 5, 2, "가상물질 갑 | TWA 1 ppm")]
-    assert sp.build_user(8, lines, components=None) == sp.build_user(8, lines)
-    assert sp.build_user(8, lines, components=[]) == sp.build_user(8, lines)
-    assert sp.build_user(8, lines, "가짜 피드백", components=[]) == sp.build_user(8, lines, "가짜 피드백")
-    assert "[3항 성분 목록]" not in sp.build_user(8, lines)[0]["text"]
-
-
-def test_component_list_rule_only_in_comp_sections(systems, rows_systems):
-    """8·11·12·15항 안내에만 [3항 성분 목록] 규칙이 있다. JSON·행 형식 안내문 모두 같다."""
-    assert sp._COMPONENT_SECTIONS == (8, 11, 12, 15)
-    for no in sp._COMPONENT_SECTIONS:
-        for text in (systems[no], rows_systems[no]):
-            guide = _part(text, "이 항의 안내")
-            assert "[3항 성분 목록]" in guide and "`comp_name`" in guide and "`comp_cas`" in guide, no
-            assert "같은 물질이면 목록의 것을 쓴다" in guide, no
-    for no in set(NOS) - set(sp._COMPONENT_SECTIONS):
-        assert "[3항 성분 목록]" not in systems[no], no
-    assert "[3항 성분 목록]" not in rows_systems[9]
-
-
 @pytest.mark.parametrize("no", NOS)
 def test_prompt_hash_stable(systems, no):
     h = sp.prompt_hash(no)
@@ -229,7 +194,7 @@ def test_value_and_range_are_exclusive(systems, no):
 
 
 def test_version():
-    assert sp.SECTION_PROMPT_VERSION == "s8"
+    assert sp.SECTION_PROMPT_VERSION == "s7"
 
 
 @pytest.mark.parametrize("no", NOS)
@@ -261,34 +226,17 @@ def rows_systems():
 
 
 def test_rows_version_s6():
-    assert sp.SECTION_PROMPT_VERSION == "s8"
+    assert sp.SECTION_PROMPT_VERSION == "s7"
 
 
 @pytest.mark.parametrize("no", ROWS_SECTIONS_DEFAULT)
 def test_rows_system_has_table_headers_and_columns(rows_systems, no):
-    """표마다 열 이름 줄이 있다. 열 이름 꼴 표(s8)는 '열: …' 줄이다."""
     text = rows_systems[no]
     assert f'{no}항 "{load_specs()[no].title}"' in text
     assert "p2:L23" in text
     fmt = _part(text, "[응답 형식]")
     for name, cols in row_tables(no).items():
-        head = "열: " + ", ".join(cols) if name in _KEYED_TABLES else " | ".join(cols)
-        assert f"### {name}\n{head}\n" in fmt
-
-
-@pytest.mark.parametrize("no", (11, 12))
-def test_s8_result_text_rows_guide(systems, rows_systems, no):
-    """11·12항 안내에 숫자 없이 문장으로 적힌 결과를 결과기술 행으로 쓰는 규칙이 있다 (s8)."""
-    for text in (systems[no], rows_systems[no]):
-        guide = _part(text, "이 항의 안내")
-        assert "`결과기술`" in guide and "`statements`" in guide and "`값있음`" in guide
-
-
-def test_s8_threshold_guide(systems, rows_systems):
-    """15항 안내에 기준농도를 원문 글 그대로 한 칸에 쓰는 규칙과 예시가 있다 (s8)."""
-    guide = _part(rows_systems[15], "이 항의 안내")
-    assert "`threshold`" in guide and "`1 % 이상`" in guide and "`lower_op`" in guide
-    assert "`threshold`" not in _part(rows_systems[11], "이 항의 안내")
+        assert f"### {name}\n" + " | ".join(cols) + "\n" in fmt
 
 
 def test_rows_system_has_enum_lines(rows_systems):
