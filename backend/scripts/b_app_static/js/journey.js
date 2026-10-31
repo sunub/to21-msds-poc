@@ -353,7 +353,8 @@ on("score_summary_shown", e => {
   u.fromProblem = false; journeyConfirm("t1", 1); journeyRender();
 });
 on("problem_opened", e => {
-  if (e.item !== S.score.run?.status_text?.top_problem?.name) return;
+  const run = e.origin === "guide" ? S.guide?.source : null;
+  if (e.item !== (run ? run.item : S.score.run?.status_text?.top_problem?.name)) return;
   S.journeyUI.target = {...e}; S.journeyUI.fromProblem = true;
   S.journeyUI.readAttempt = (S.journeyUI.readAttempt || 0) + 1;
 });
@@ -391,7 +392,7 @@ on("trial_form_shown", e => {
   journeyRender();
 });
 on("attempt_started", e => {
-  if (S.journey.progress.active !== "t2" || !e.single) return;
+  if (!e.single || (S.journey.progress.active !== "t2" && !(S.guide?.open && ["G08", "G11"].includes(S.guide.screen)))) return;
   S.journeyUI.blocked = null;
   journeyChange(j => {j.pending = {attempt: e.attempt, job: null, mode: e.mode, started_at: journeyTime()};});
 });

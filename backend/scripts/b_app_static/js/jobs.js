@@ -247,6 +247,9 @@ function jobsPromptKey() {
   const t = S.jobs.t;
   return JSON.stringify([S.ctx.set, t.doc, t.model, [...t.secs], t.all]);
 }
+function jobsReadPrompt(model, section) {
+  return api(`/api/prompt?${new URLSearchParams({model, no: section})}`);
+}
 async function jobsLoadPrompt({automatic = false} = {}) {
   const J = S.jobs, t = J.t;
   const key = jobsPromptKey();
@@ -254,7 +257,7 @@ async function jobsLoadPrompt({automatic = false} = {}) {
   const request = ++J.promptRequest, origin = `${t.model}|${[...t.secs][0]}`, draft = t.text, revision = t.revision || 0;
   J.promptAttempt = key; J.promptBusy = true; J.promptError = null; jobsRenderTry();
   try {
-    const data = await api(`/api/prompt?${new URLSearchParams({model: t.model, no: [...t.secs][0]})}`);
+    const data = await jobsReadPrompt(t.model, [...t.secs][0]);
     if (request !== J.promptRequest || key !== jobsPromptKey() || draft !== t.text || revision !== (t.revision || 0) || (automatic && (t.edit || t.dirty))) return;
     t.text = data.text || ""; t.textFor = origin; t.dirty = false;
   } catch (error) { if (request === J.promptRequest && key === jobsPromptKey()) J.promptError = error; }
@@ -264,6 +267,23 @@ function jobsRequestError(error) {
   return error.body?.message ? friendlyError({...error.body, raw: error.body.error})
     : friendlyError({message: T("jobs.send_unknown.fact"), fix: T("jobs.send_unknown.todo"), raw: error.message});
 }
+function jobsTryBody(t, context = S.ctx) {
+  const one = !t.all && t.secs.size === 1;
+  return {model: t.model, doc: t.doc, sections: t.all ? null : [...t.secs].sort((a,b) => a-b), all: t.all,
+    set: context.set, key: context.key, system_text: one && t.edit ? t.text : null, base_run: t.base || null, dry_run: t.dry};
+}
+async function jobsSubmitTry(body, {accept = () => true} = {}) {
+  const attempt = "try_" + Date.now().toString(36) + "_" + Math.random().toString(36).slice(2, 10);
+  emit("attempt_started", {attempt, single: !body.all && body.sections?.length === 1, mode: body.dry_run ? "practice" : "real"});
+  const data = await post("/api/jobs/try", body);
+  if (!accept()) return null;
+  if (!data?.id) throw new Error(T("jobs.send_unknown.fact"));
+  S.jobs.observed.add(data.id); emit("attempt_accepted", {attempt, job: data.id});
+  return data;
+}
+function jobsReadResult(id, options = {}) {
+  return api(`/api/jobs/${encodeURIComponent(id)}/result`, {...options, withStatus: true});
+}
 async function jobsStartTry() {
   const J = S.jobs, t = J.t;
   if (J.busy || J.optionsError || !jobsAllowed(jobsDocs().find(d => d.doc_id === t.doc), "try") || !t.model || (!t.dry && !jobsReady(t.model))) return;
@@ -272,16 +292,10 @@ async function jobsStartTry() {
     : one && t.edit && !t.text.trim() ? "prompt_empty"
     : one && t.edit && t.textFor && t.textFor !== `${t.model}|${[...t.secs][0]}` ? "prompt_foreign" : null;
   if (problem) { J.message.try = jobsNote(T(`jobs.form.${problem}`), {role: "alert"}); jobsRenderTry(); return; }
-  const body = {model: t.model, doc: t.doc, sections: t.all ? null : [...t.secs].sort((a,b) => a-b), all: t.all,
-    set: S.ctx.set, key: S.ctx.key, system_text: one && t.edit ? t.text : null, base_run: t.base || null, dry_run: t.dry};
-  const attempt = "try_" + Date.now().toString(36) + "_" + Math.random().toString(36).slice(2, 10);
-  emit("attempt_started", {attempt, single: one, mode: t.dry ? "practice" : "real"});
+  const body = jobsTryBody(t);
   J.busy = "try"; J.message.try = null; jobsRemember(); jobsRenderTry();
   try {
-    const data = await post("/api/jobs/try", body);
-    if (!data?.id) throw new Error(T("jobs.send_unknown.fact"));
-    J.observed.add(data.id);
-    emit("attempt_accepted", {attempt, job: data.id});
+    const data = await jobsSubmitTry(body);
     J.watch = data.id; J.result = null; J.resultStatus = null; J.resultLoaded = false; J.resultError = null; J.resultRequest++;
     J.message.try = jobsNote(T("jobs.form.sent"), {role: "status"});
     jobsRenderResult();
@@ -367,16 +381,30 @@ function jobsResultMatches(job, result) {
   const expected = (t.sections || []).map(String).sort(), planned = Object.keys(p.sections || {}).sort();
   return expected.length > 0 && JSON.stringify(expected) === JSON.stringify(planned);
 }
-function jobsEmitResult(job, result) {
-  const J = S.jobs;
-  if (J.resultStatus !== 200 || S.shell.route !== "s03" || document.getElementById("screen-s03").hidden || !J.observed.has(job.id) ||
+function jobsResultEvent(job, result, responseStatus, J = S.jobs) {
+  if (!job || responseStatus !== 200 || !J.observed.has(job.id) ||
       J.emitted.has(job.id) || J.terminal.has(job.id) || job.status !== "done" || job.returncode !== 0 ||
-      !jobsResultMatches(job, result) || job.target?.all || job.target?.kind !== "try") return;
+      !jobsResultMatches(job, result) || job.target?.all || job.target?.kind !== "try") return null;
   const practice = jobsPractice(job);
-  if (job.target.sections?.length !== 1 || (!practice && (job.dry_run !== false || job.target.dry_run !== false || !result.results))) return;
-  J.emitted.add(job.id);
-  emit("try_result_viewed", {job: job.id, mode: practice ? "practice" : "real",
-    section_ok: practice ? null : job.target.sections.every(no => result.results[String(no)]?.ok === true)});
+  if (job.target.sections?.length !== 1 || (!practice && (job.dry_run !== false || job.target.dry_run !== false || !result.results))) return null;
+  return {job: job.id, mode: practice ? "practice" : "real",
+    section_ok: practice ? null : job.target.sections.every(no => result.results[String(no)]?.ok === true)};
+}
+function jobsEmitResult(job, result) {
+  if (S.shell.route !== "s03" || document.getElementById("screen-s03").hidden || S.guide?.open) return;
+  const event = jobsResultEvent(job, result, S.jobs.resultStatus);
+  if (!event) return;
+  S.jobs.emitted.add(job.id); emit("try_result_viewed", event);
+}
+function jobsResultSummary(r, job) {
+  if (r.run) return jobsNote(T("jobs.whole_done.kind"));
+  if (r.results) {
+    const rows = Object.values(r.results), ok = rows.length > 0 && rows.every(v => v.ok === true);
+    return h("div", {role: "status"}, jobsNote(T(ok ? "jobs.result.plain_done" : "jobs.parse_failed.fact")),
+      !ok ? jobsNote(T("jobs.parse_failed.todo", {stage: 4})) : null, jobsScore(r, job));
+  }
+  return h("div", {role: "status"}, jobsNote(T(jobsPractice(job) ? "jobs.practice_done.title" : "jobs.result.practice_unconfirmed")),
+    jobsNote(T("jobs.practice_done.no_success")), jobsNote(T("jobs.practice_done.omitted_stages", {first_stage: 3, last_stage: 6})));
 }
 function jobsRenderResult() {
   document.getElementById("jobs-result").setAttribute("data-guide", "s03-result-summary");
@@ -408,18 +436,15 @@ function jobsRenderResult() {
     jobsStage(1, jobsNote(T("jobs.detail.no_full_text")), h("ul", null, secs.map(([no, v]) => h("li", null,
       T("jobs.result.section", {section: no}), " — ", h("code", {class: "technical"}, v.prompt_hash || T("common.none")),
       v.system_override ? jobsNote(T("jobs.detail.prompt_edited", {section: no})) : null))))];
-  let summary;
+  const summary = jobsResultSummary(r, job);
   if (r.run) {
-    summary = jobsNote(T("jobs.whole_done.kind"));
     const stats = T("jobs.result.whole_stats", {ok: r.run.sections_ok, failed: r.run.sections_failed, retries: r.run.reextracted, seconds: fmt1(r.run.seconds)});
     parts.push(jobsStage(2, jobsNote(stats), jobsNote(T("jobs.whole_done.raw_path")), jobsNote(r.saved ? `${r.saved}/raw/` : T("common.none"), {class: "technical"})),
       jobsStage(3, jobsPre(r.summary || {})), jobsStage(4, jobsNote(T("jobs.whole_done.no_journey_success")),
         r.saved ? jobsButton("jobs-whole-source", "jobs.done.open_source", () => go("s02", {run: r.saved.replace(/^.*?runs\//, ""), doc: p.doc_id, section: 1})) : null),
       jobsStage(5, jobsScore(r, job)));
   } else if (r.results) {
-    const rows = Object.entries(r.results), ok = rows.length > 0 && rows.every(([, v]) => v.ok === true);
-    summary = h("div", {role: "status"}, jobsNote(T(ok ? "jobs.result.plain_done" : "jobs.parse_failed.fact")),
-      !ok ? jobsNote(T("jobs.parse_failed.todo", {stage: 4})) : null, jobsScore(r, job));
+    const rows = Object.entries(r.results);
     parts.push(jobsStage(2, rows.map(([no, v]) => h("div", null, h("h3", null, T("jobs.result.section", {section: no})),
       jobsNote(T("jobs.result.raw_meta", {mode: coreCodeLabel("mode", v.mode), reason: coreCodeLabel("finish", v.finish_reason), seconds: fmt1(v.seconds)})),
       coreCodeRecord(v.mode, v.finish_reason), jobsPre(v.raw_text || T("jobs.result.no_answer"))))),
@@ -431,9 +456,6 @@ function jobsRenderResult() {
         h("ul", null, Object.entries(fields || {}).map(([name, count]) => h("li", null,
           T("jobs.result.fields_count", {name: UI.source?.rows?.[name] || name, count: jobsValue(count)})))))))),
       jobsStage(5, jobsScore(r, job)));
-  } else {
-    summary = h("div", {role: "status"}, jobsNote(T(jobsPractice(job) ? "jobs.practice_done.title" : "jobs.result.practice_unconfirmed")),
-      jobsNote(T("jobs.practice_done.no_success")), jobsNote(T("jobs.practice_done.omitted_stages", {first_stage: 3, last_stage: 6})));
   }
   coreReplace(el, head, mismatch ? friendlyError({message: T("jobs.target_mismatch.fact"), fix: T("jobs.target_mismatch.todo")}) : null,
     summary, parts, r.saved ? jobsNote(`${T("jobs.completion.path")} ${r.saved}`, {class: "technical"}) : null,
@@ -445,7 +467,7 @@ async function jobsLoadResult(id) {
   const J = S.jobs, request = ++J.resultRequest;
   J.result = null; J.resultStatus = null; J.resultError = null;
   try {
-    const response = await api(`/api/jobs/${encodeURIComponent(id)}/result`, {withStatus: true});
+    const response = await jobsReadResult(id);
     if (J.watch !== id || request !== J.resultRequest) return;
     J.resultStatus = response.status;
     J.result = response.status === 200 ? response.data : null; J.resultLoaded = true; J.resultError = null;

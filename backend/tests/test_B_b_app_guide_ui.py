@@ -13,6 +13,281 @@ const key=(key,shiftKey=false)=>document.dispatchEvent({type:'keydown',key,shift
 """
 
 
+PRACTICE_SETUP = GUIDE_SETUP + r"""
+const requests=[], posted=[], events=[];
+let ready=false, runFailure=false, keyFailure=false, docFailure=false, resultFailure=false;
+let resultStatus=200, listed=[], reply=null;
+const pack={id:'fake-set',usable:true,docs:[
+ {doc_id:'T21-X01',group:'dev',runnable:{try:true}},
+ {doc_id:'T21-X02',group:'dev',runnable:{try:true}},
+ {doc_id:'T21-X99',group:'eval',locked:true,runnable:{try:false}}]};
+S.shell.sets=[pack];options.sets=[pack];
+runData.docs=['T21-X01','T21-X02'];
+runData.status_text.top_problem.docs=[
+ {doc_id:'T21-X01',loss:3,counts:{[UI.score.cause_keys.wrong]:0}},
+ {doc_id:'T21-X99',loss:2.5,counts:{[UI.score.cause_keys.wrong]:2}},
+ {doc_id:'T21-X02',loss:2,counts:{[UI.score.cause_keys.wrong]:1}}];
+const value={path:'fake.value',section:8,field:'q',table:'exposure_limits',items:['Fake criterion'],
+ value:8,text:'8 fake-units',lines:['p2:L3'],silver:{same:false,value:5,text:'5 fake-units'}};
+const view={doc_id:'T21-X02',has_gold:true,pages:[2],sections:{},set:{id:'fake-set'},
+ lines:[{id:'p2:L3',page:2,no:3,text:'<em>Invented source 5</em>'}],values:[value],
+ silver_only:[{...value,path:'missing.value',lines:['p2:L3']}],silver_lines:{basis:'text_match'}};
+const plan={doc_id:'T21-X02',model_tag:'fake-model',pages_dir:'fake-pages',sections_method:'title',msds_count:1,
+ sections:{'8':{section:8,lines:1,preamble_lines:0,first:'p2:L3',last:'p2:L3',pages:[2],images:[],method:'title',prompt_hash:'fake-hash'}}};
+const trialJob=(dry=false,status='done',id='g1')=>({id,kind:'try',status,returncode:status==='done'?0:null,dry_run:dry,
+ target:{kind:'try',doc:'T21-X02',model:'fake-model',sections:[8],all:false,set:'fake-set',dry_run:dry,
+ key:{id:'silver/fake',label:'Fake answers'},base_run:'fake-run'}});
+const trialResult=ok=>({plan,results:{'8':{ok,parsed:{fake:5}}},fields:{},score:null});
+const baseApi=api;
+api=async(p,o={})=>{
+ requests.push(p);
+ if(p.startsWith('/api/runs')&&runFailure)throw new Error('runs unreadable');
+ if(p==='/api/keys'&&keyFailure)throw new Error('keys unreadable');
+ if(p==='/api/keys')return {keys:[{id:'silver/fake',label:'Fake answers',usable:true,docs:['T21-X01','T21-X02']}],default:'silver/fake'};
+ if(p==='/api/servers')return {models:[{tag:'fake-model',where:'RNGD',reachable:ready,match:ready}],rngd:{ok:true,diagnosis:ready?'ok':'no_model'}};
+ if(p==='/api/options')return {...options,models:[{tag:'fake-model',connected:ready}]};
+ if(p.startsWith('/api/prompt?'))return {text:'Invented section extraction instruction',hash:'fake-hash'};
+ if(p.startsWith('/api/doc?')){assert.notEqual(new URLSearchParams(p.split('?')[1]).get('doc'),'T21-X99');if(docFailure)throw new Error('document unreadable');return clone(view);}
+ if(p==='/api/jobs')return {jobs:listed,running:[]};
+ if(p.endsWith('/result')){if(resultFailure)throw new Error('result unreadable');return {status:resultStatus,data:reply};}
+ return baseApi(p,o);
+};
+post=async(p,b)=>{posted.push({path:p,body:clone(b)});return {id:'g1'};};
+on('evidence_line_shown',e=>events.push({type:'evidence',...e}));
+on('try_result_viewed',e=>events.push({type:'result',...e}));
+async function enter(screen){await journeyEnsure();await guideOpen();await guideShow(screen);await flush();}
+async function readyTarget(screen){await enter('G05');await guideShow('G07');await guideShow(screen);await flush();}
+"""
+
+
+def test_g05_reads_live_readiness_and_never_guesses():
+    run_js(PRACTICE_SETUP + r"""
+await enter('G05');
+for(const p of ['/api/runs','/api/keys','/api/servers'])assert.ok(requests.some(r=>r.startsWith(p)));
+assert.equal(el('guide-ready-results').dataset.state,'present');
+assert.equal(el('guide-ready-key').dataset.state,'present');
+assert.equal(el('guide-ready-ai').dataset.state,'absent');assert.equal(el('guide-next').disabled,false);
+assert.ok(guideNode().textContent.includes(T('guide.ready.ai_optional')));
+runData=null;await guideCheckReadiness();assert.equal(guideNode().dataset.variant,'G05-empty');
+await el('guide-next').click();await el('guide-next').click();await flush();assert.equal(guideScreen(),'G08');
+await guideShow('G05');runFailure=true;keyFailure=true;await guideCheckReadiness();
+assert.equal(guideNode().dataset.variant,'G05-failed');assert.equal(el('guide-ready-results').dataset.state,'unknown');
+assert.equal(el('guide-ready-key').dataset.state,'unknown');assert.equal(el('guide-next').textContent,T('guide.ready.retry'));
+let release;const prior=api;api=(p,o)=>p==='/api/keys'?new Promise(r=>release=r):prior(p,o);
+const checking=guideCheckReadiness();assert.equal(el('guide-ready-key').dataset.state,'checking');
+release({keys:[]});await checking;assert.equal(el('guide-ready-key').dataset.state,'absent');
+assert.equal(S.journey.outcomes.t1.real,null);
+""")
+
+
+def test_g07_success_only_with_real_ai_line():
+    run_js(PRACTICE_SETUP + r"""
+await readyTarget('G07');assert.ok(el('guide-practice').textContent.includes('T21-X02'));
+assert.ok(el('guide-practice').textContent.includes(value.text));
+assert.equal(S.journey.outcomes.t1.real,null);assert.equal(events.length,0);
+await el('guide-next').click();await flush();
+assert.equal(guideNode().dataset.variant,'G07-success');
+assert.ok(el('guide-source-lines').textContent.includes(view.lines[0].text));
+assert.equal(el('guide-source-lines').querySelector('em'),null);
+assert.equal(events.filter(e=>e.type==='evidence'&&e.mismatch).length,1);
+assert.equal(S.journey.outcomes.t1.real.count,1);guideRender();assert.equal(S.journey.outcomes.t1.real.count,1);
+assert.ok(!requests.some(p=>p.includes('T21-X99')));
+for(const p of puts)assert.ok(!JSON.stringify(p).includes('fake.value'));
+""")
+
+
+def test_g07_estimated_only_offers_another_value():
+    run_js(PRACTICE_SETUP + r"""
+value.lines=[];await readyTarget('G07');await el('guide-next').click();await flush();
+assert.equal(guideNode().dataset.variant,'G07-estimated');
+assert.equal(el('guide-next').textContent,T('guide.source.another'));assert.equal(S.journey.outcomes.t1.real,null);
+assert.ok(el('guide-practice').textContent.includes(T('guide.source.not_recorded')));
+assert.equal(events.length,0);docFailure=true;await guideShow('G07');
+assert.ok(el('guide-practice').querySelector('[role="alert"]'));assert.ok(el('guide-practice').textContent.includes(T('guide.source.retry_todo')));
+docFailure=false;value.lines=['p2:L3'];await el('guide-next').click();assert.equal(S.journey.outcomes.t1.real,null);
+await el('guide-next').click();assert.equal(S.journey.outcomes.t1.real.count,1);
+""")
+
+
+def test_g08_practice_records_practice_only():
+    run_js(PRACTICE_SETUP + r"""
+await readyTarget('G08');listed=[trialJob(true)];reply={plan};
+await el('guide-next').click();await flush();assert.equal(posted[0].body.dry_run,true);
+assert.equal(posted[0].body.doc,'T21-X02');assert.deepEqual(posted[0].body.sections,[8]);
+assert.equal(guideNode().dataset.variant,'G08-done');assert.ok(el('guide-practice').textContent.includes('fake-hash'));
+assert.ok(el('guide-practice').textContent.includes('Invented section extraction instruction'));
+assert.equal(S.journey.outcomes.t2.practice.count,1);assert.equal(S.journey.outcomes.t2.real,null);
+await guideShow('G08');let release;post=(p,b)=>new Promise(r=>release=r);
+const send=el('guide-next').click();await flush();assert.ok(el('guide-cancel-practice'));
+await el('guide-cancel-practice').click();release({id:'late'});await send;await flush();
+assert.equal(S.journey.outcomes.t2.practice.count,1);assert.equal(S.journey.outcomes.t2.real,null);
+assert.ok(!requests.some(p=>p.includes('/late/result')));
+""")
+
+
+def test_g10_round_trip_rechecks_ai_and_returns():
+    run_js(PRACTICE_SETUP + r"""
+await readyTarget('G09');await el('guide-next').click();await flush();assert.equal(guideScreen(),'G10');
+const before=requests.filter(p=>p==='/api/servers').length;
+await el('guide-next').click();await flush();assert.equal(S.shell.route,'s06');assert.equal(guideNode().hidden,true);
+assert.equal(saved.progress.guide.screen,'G10');assert.ok(el('servers-guide-return'));
+await el('servers-guide-return').click();await flush();assert.equal(guideScreen(),'G10');
+assert.equal(guideNode().dataset.variant,'G10-returned');assert.ok(requests.filter(p=>p==='/api/servers').length>before);
+assert.ok(guideNode().textContent.includes(T('guide.ai.checked',{time:when(S.shell.serverAt)})));
+assert.equal(S.journey.outcomes.t2.real,null);ready=true;await el('guide-ai-recheck').click();await flush();
+assert.equal(guideScreen(),'G11');assert.equal(posted.length,0);
+await guideClose();await go('s06');assert.equal(el('servers-guide-return'),null);
+""")
+
+
+def test_guide_never_presses_costly_actions():
+    run_js(PRACTICE_SETUP + r"""
+await enter('G05');await el('guide-ai-open').click();await el('servers-guide-return').click();
+await guideShow('G10');await el('guide-next').click();await el('servers-guide-return').click();
+await guideShow('G08');listed=[trialJob(true)];reply={plan};await el('guide-next').click();
+ready=true;await guideShow('G11');listed=[trialJob(false,'done','g2')];reply=trialResult(true);
+post=async(p,b)=>{posted.push({path:p,body:b});return {id:'g2'};};await el('guide-next').click();
+assert.ok(posted.length>=2);assert.ok(posted.every(p=>p.path==='/api/jobs/try'));
+""")
+
+
+def test_g11_real_success_rules():
+    run_js(PRACTICE_SETUP + r"""
+ready=true;await readyTarget('G11');listed=[trialJob(false,'running')];reply=trialResult(true);
+await el('guide-next').click();await flush();assert.equal(posted[0].body.dry_run,false);
+assert.equal(guideNode().dataset.variant,'G11-running');assert.equal(S.journey.outcomes.t2.real,null);
+assert.ok(el('guide-practice').textContent.includes(T('guide.trial.not_yet')));
+listed=[trialJob()];await guidePollTrial();await flush();
+assert.equal(guideNode().dataset.variant,'G11-result');assert.ok(el('guide-result-summary'));
+assert.equal(S.journey.outcomes.t2.real.count,1);assert.equal(events.filter(e=>e.type==='result'&&e.section_ok).length,1);
+guideRender();await guidePollTrial();assert.equal(S.journey.outcomes.t2.real.count,1);
+""")
+    for variant in ['returncode', 'dry_unknown', 'wrong_doc', 'whole', 'wrong_section']:
+        run_js(PRACTICE_SETUP + f"const variant='{variant}';" + r"""
+ready=true;await readyTarget('G11');const j=trialJob();listed=[j];reply=trialResult(true);
+if(variant==='returncode')j.returncode=1;
+if(variant==='dry_unknown'){delete j.dry_run;delete j.target.dry_run;}
+if(variant==='wrong_doc')reply.plan={...plan,doc_id:'T21-X03'};
+if(variant==='whole'){j.target.all=true;reply={plan,run:{sections_ok:16}};}
+if(variant==='wrong_section')reply.results={'9':{ok:true}};
+await el('guide-next').click();await flush();assert.equal(S.journey.outcomes.t2.real,null);
+assert.notEqual(guideNode().dataset.variant,'G11-result');
+""")
+
+
+def test_g11_failed_and_late_responses():
+    run_js(PRACTICE_SETUP + r"""
+ready=true;await readyTarget('G11');listed=[trialJob()];reply=trialResult(false);
+await el('guide-next').click();assert.equal(guideNode().dataset.variant,'G11-failed');
+assert.ok(el('guide-practice').textContent.includes(T('guide.trial.record')));
+assert.ok(el('guide-practice').textContent.includes(T('guide.trial.not_recorded')));
+assert.equal(el('guide-next').textContent,T('guide.trial.retry'));assert.equal(S.journey.outcomes.t2.real,null);
+for(const code of [202,204]){resultStatus=code;await guideShow('G11');await el('guide-next').click();
+ assert.equal(S.journey.outcomes.t2.real,null);assert.ok(el('guide-result-retry'));
+ assert.ok(!el('guide-practice').textContent.includes(T('guide.trial.done')));}
+resultStatus=200;resultFailure=true;await el('guide-result-retry').click();assert.ok(el('guide-practice').querySelector('[role="alert"]'));
+resultFailure=false;reply=trialResult(true);let release;const previous=api;
+api=(p,o)=>p.endsWith('/result')?new Promise(r=>release=r):previous(p,o);
+const pending=el('guide-result-retry').click();await flush();emit('attempt_cancelled',{job:'g1'});
+release({status:200,data:reply});await pending;assert.equal(S.journey.outcomes.t2.real,null);
+api=previous;listed=[trialJob(false,'running','g2')];post=async()=>({id:'g2'});
+await guideShow('G11');await el('guide-next').click();assert.equal(el('guide-stop'),null);
+clockTick(601000);await flush();assert.notEqual(guideNode().dataset.variant,'G11-running');
+assert.ok(el('guide-result-retry'));assert.equal(S.journey.outcomes.t2.real,null);
+""")
+
+
+def test_g12_shows_records_without_false_celebration():
+    run_js(PRACTICE_SETUP + r"""
+saved.outcomes.t2.real={count:4,first_at:'2026-01-01',last_at:'2026-01-01',last_job:'old'};
+await readyTarget('G08');listed=[trialJob(true)];reply={plan};await el('guide-next').click();
+await guideShow('G12');assert.equal(guideNode().dataset.variant,'G12-no-success');
+assert.equal(el('guide-title').textContent,T('guide.records.not_yet'));
+assert.ok(el('guide-session-records').textContent.includes(T('guide.records.count',{count:1})));
+assert.ok(!el('guide-session-records').textContent.includes('2026-01-01'));
+await guideShow('G07');await el('guide-next').click();await guideShow('G12');
+assert.equal(guideNode().dataset.variant,'G12-source-only');
+ready=true;await guideShow('G11');listed=[trialJob(false,'done','g2')];reply=trialResult(true);post=async()=>({id:'g2'});
+await el('guide-next').click();await guideShow('G12');assert.equal(guideNode().dataset.variant,'G12');
+assert.equal(S.journey.outcomes.t2.real.count,5);
+""")
+
+
+def test_guide_practice_states_have_copy_and_one_primary_action():
+    run_js(PRACTICE_SETUP + r"""
+await enter('G05');
+for(const screen of ['G05','G07','G08','G10','G11','G12']){
+ ready=screen==='G11';await guideShow(screen);await flush();
+ assert.doesNotMatch(guideNode().textContent,/null|undefined|⟦/);
+ assert.equal(guideNode().querySelectorAll('button.primary').length,1);
+ if(['G07','G08','G11'].includes(screen))assert.ok(el('guide-practice').textContent.startsWith(T('guide.before')));
+}
+""")
+
+
+def test_guide_hidden_or_closed_result_waits_for_visible_summary():
+    run_js(PRACTICE_SETUP + r"""
+ready=true;await readyTarget('G11');listed=[trialJob(false,'running')];reply=trialResult(true);
+await el('guide-next').click();key('Escape');listed=[trialJob()];await guidePollTrial();
+assert.equal(el('guide-confirm').hidden,false);assert.equal(S.journey.outcomes.t2.real,null);
+await el('guide-continue').click();assert.equal(S.journey.outcomes.t2.real.count,1);
+""")
+    run_js(PRACTICE_SETUP + r"""
+ready=true;await readyTarget('G11');listed=[trialJob(false,'running')];reply=trialResult(true);
+await el('guide-next').click();let release;const prior=api;
+api=(p,o)=>p.endsWith('/result')?new Promise(r=>release=r):prior(p,o);
+listed=[trialJob()];const polling=guidePollTrial();await flush();await guideClose();
+release({status:200,data:reply});await polling;assert.equal(S.journey.outcomes.t2.real,null);
+assert.equal(S.journey.pending.job,'g1');
+api=prior;await guideOpen({resume:true});await flush();assert.equal(posted.length,1);
+assert.equal(S.journey.outcomes.t2.real.count,1);
+""")
+
+
+def test_guide_readiness_preserves_close_dialog_during_late_get():
+    run_js(PRACTICE_SETUP + r"""
+await journeyEnsure();await guideOpen();let release;const prior=api;
+api=(p,o)=>p==='/api/keys'?new Promise(r=>release=r):prior(p,o);
+const loading=guideShow('G05');key('Escape');release({keys:[]});await loading;
+assert.equal(el('guide-confirm').hidden,false);assert.ok(el('guide-confirm').contains(document.activeElement));
+await el('guide-continue').click();assert.equal(S.journey.outcomes.t1.real,null);
+""")
+
+
+def test_guide_skips_mark_progress_without_success_and_requests_time_out():
+    run_js(PRACTICE_SETUP + r"""
+await readyTarget('G07');await el('guide-skip-practice').click();await el('guide-skip-practice').click();
+await guideShow('G12');assert.ok(saved.progress.guide.skipped.includes('p1'));assert.ok(saved.progress.guide.skipped.includes('p2'));
+assert.equal(el('guide-progress').querySelectorAll('[data-skipped]').length,2);
+assert.ok(el('guide-progress').textContent.includes(T('guide.skipped')));assert.equal(S.journey.outcomes.t1.real,null);
+const prior=api;api=(p,o)=>p.startsWith('/api/runs')?new Promise(()=>{}):prior(p,o);
+const checking=guideShow('G05');clockTick(16000);await checking;assert.equal(guideNode().dataset.variant,'G05-failed');
+assert.equal(el('guide-next').disabled,false);
+""")
+
+
+def test_guide_job_failure_never_claims_an_ai_answer_and_stale_doc_is_ignored():
+    run_js(PRACTICE_SETUP + r"""
+ready=true;await readyTarget('G11');listed=[trialJob(false,'failed')];await el('guide-next').click();
+assert.ok(!el('guide-title').textContent.includes(T('guide.trial.failed')));
+assert.ok(el('guide-practice').textContent.includes(T('guide.trial.not_recorded')));assert.equal(S.journey.outcomes.t2.real,null);
+let release;const prior=api;api=(p,o)=>p.startsWith('/api/doc?')?new Promise(r=>release=r):prior(p,o);
+const reading=guideShow('G07');await flush();await guideShow('G12');release(clone(view));await reading;
+assert.equal(guideScreen(),'G12');assert.equal(S.journey.outcomes.t1.real,null);
+""")
+
+
+def test_guide_ai_probe_failure_is_unknown_instead_of_off():
+    run_js(PRACTICE_SETUP + r"""
+const prior=api;api=(p,o)=>p==='/api/servers'?Promise.resolve({models:[{tag:'fake-model',reachable:false,error:'probe failed'}]}):prior(p,o);
+await enter('G05');assert.equal(el('guide-ready-ai').dataset.state,'unknown');
+assert.equal(el('guide-next').disabled,false);await guideShow('G10');
+assert.ok(el('guide-content').textContent.includes(T('guide.ready.states.unknown')));
+assert.ok(!el('guide-content').textContent.includes(T('guide.ai.off')));
+assert.equal(posted.length,0);
+""")
+
+
 def test_guide_examples_match_approved_scene_text():
     """정지 예시의 내용은 API가 아니라 승인된 장면 자체와 대조한다."""
     import json
@@ -37,7 +312,7 @@ def test_guide_examples_match_approved_scene_text():
         return ''.join(text(child) for child in node['kids'])
 
     expected = {}
-    for screen in ['G01', 'G03', 'G04', 'G06', 'G09', 'G13', 'G15']:
+    for screen in ['G01', 'G03', 'G04', 'G05', 'G06', 'G07', 'G08', 'G09', 'G10', 'G11', 'G12', 'G13', 'G15']:
         scene = find(page.root, lambda node: node['attrs'].get('id') == screen)
         demo = find(scene, lambda node: node['tag'] == 'aside')
         expected[screen] = re.sub(r'\s+', '', text(demo))
@@ -45,10 +320,10 @@ def test_guide_examples_match_approved_scene_text():
 await journeyEnsure();await guideOpen();
 const differences=[];
 for(const [screen,expected] of Object.entries(approved)){
+ S.guide.screen=screen;guideRender();
  assert.equal(guideScreen(),screen);
  const actual=el('guide-example').textContent.replace(/\s+/g,'');
  if(actual!==expected)differences.push({screen,actual,expected});
- await el('guide-next').click();await flush();
 }
 assert.deepEqual(differences,[]);
 """)
@@ -111,11 +386,11 @@ el('guide-back').click();assert.equal(guideScreen(),'G03');
 assert.equal(saved.progress.guide.screen,'G04');const before=puts.length;
 guideRender();await journeyLoad();assert.equal(puts.length,before);
 await guideOpen({resume:true});assert.equal(guideScreen(),'G04');assert.equal(puts.length,before);
-failWrite=true;await el('guide-next').click();await flush();assert.equal(guideScreen(),'G06');
+failWrite=true;await el('guide-next').click();await flush();assert.equal(guideScreen(),'G05');
 assert.ok(el('guide-notices').textContent.includes(T('journey.save_failed.title')));
 assert.ok(el('guide-next'));assert.equal(S.journeyUI.unsaved,true);
-await journeyLoad();assert.equal(S.journey.progress.guide.screen,'G06');
-failWrite=false;await el('guide-next').click();await flush();assert.equal(saved.progress.guide.screen,'G09');
+await journeyLoad();assert.equal(S.journey.progress.guide.screen,'G05');
+failWrite=false;await el('guide-next').click();await flush();assert.equal(saved.progress.guide.screen,'G06');
 for(const forbidden of ['T21-X01','fake-run','Fake criterion','p2:L3'])assert.ok(!JSON.stringify(puts).includes(forbidden));
 """)
     run_js(GUIDE_SETUP + r"""
@@ -130,6 +405,7 @@ def test_chapter_row_and_progress_text():
 await start();await flush();
 const order=['G01','G03','G04','G06','G09','G13','G15'];
 for(const screen of order){
+ await guideShow(screen,{save:false});
  assert.equal(guideScreen(),screen);
  const progress=el('guide-progress'),chapters=el('guide-chapters');
  if(['G03','G09'].includes(screen)){
@@ -141,8 +417,8 @@ for(const screen of order){
  }else{assert.equal(progress,null);assert.equal(chapters,null);}
  assert.equal(guideNode().querySelectorAll('button.primary').length,1);
  assert.doesNotMatch(guideNode().textContent,/null|undefined|⟦/);
- await el('guide-next').click();await flush();
 }
+await el('guide-next').click();await flush();
 assert.equal(guideNode().hidden,true);assert.equal(saved.progress.guide.state,'completed');
 assert.equal(S.journey.outcomes.t1.real,null);assert.equal(S.journey.outcomes.t2.real,null);
 """)

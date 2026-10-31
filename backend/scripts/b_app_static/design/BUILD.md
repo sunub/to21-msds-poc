@@ -1647,3 +1647,87 @@ Questions skipped: non-interactive. impeccable clarify·polish·audit·craft-flo
 - `git diff --check`와 JS 11개 문법 검사를 통과했다. b_app_text.py의 Python 함수 본문은 HEAD와 같으며 문구 상수만 바꿨다. DESIGN.md는 display 한 줄만 추가했다.
 - 시작 시 해시로 기록한 파일 476개에서 허용되지 않은 변경은 없다. 백엔드 계약·승인 시안·docs·CLAUDE.md·하네스 실행기·다른 step은 변경하지 않았다.
 - `phases/app-onboard/index.json`의 step 0만 completed와 summary로 갱신한다. 커밋하지 않는다. ⚠️ DEGRADED: no browser in sandbox. 실제 브라우저 관찰과 실습/선택 화면의 후속 step은 이번 완료 범위에 포함하지 않는다.
+
+### onboard step 1
+
+⚠️ DEGRADED: no browser in sandbox
+
+- Questions skipped: non-interactive. 승인된 SPEC·mockup·NOTES fix 1·2와 기존 BUILD를 읽었다. impeccable context·onboard·harden·craft-floor를 적용했다. 새 패키지나 서버를 만들지 않았다.
+- 구현 전에 지정 시험 9개를 작성해 **9 failed**를 확인했다. 모두 `guideShow`와 실제 실습 기능이 없어서 실패했다. 원본 로그: `/tmp/to21-onboard1-red.log`. 시험 실행은 끝났지만 출력 정리 명령의 zsh 예약 변수 사용 오류가 있었으며, 남은 로그에서 시험 결과를 직접 확인했다.
+- 실패 시험: `test_g05_reads_live_readiness_and_never_guesses`, `test_g07_success_only_with_real_ai_line`, `test_g07_estimated_only_offers_another_value`, `test_g08_practice_records_practice_only`, `test_g10_round_trip_rechecks_ai_and_returns`, `test_guide_never_presses_costly_actions`, `test_g11_real_success_rules`, `test_g11_failed_and_late_responses`, `test_g12_shows_records_without_false_celebration`.
+- 추가 실패 확인: 지시문 미리보기와 승인 예시 2개(`/tmp/to21-onboard1-copy-red.log`), 건너뜀 표시와 작업 실패 문구 2개(`/tmp/to21-onboard1-edge-red.log`), 조회 도중 닫기 확인창 보존도 실패를 확인한 뒤 고쳤다.
+
+| SPEC 화면·규칙 | 시험 이름 (`test_B_b_app_guide_ui.py`) | 확인 방법 |
+|---|---|---|
+| G05·empty·failed | `test_g05_reads_live_readiness_and_never_guesses` | 실행·정답·서버 API 조회. 확인 중/있음/없음/확인 안 됨 분리. 결과 없으면 p1 생략. AI 없음은 다음을 막지 않음 |
+| 모델별 조회 실패 | `test_guide_ai_probe_failure_is_unknown_instead_of_off` | API 전체가 성공이어도 모델별 조회 오류는 확인 안 됨. shellModelStates가 실제 꺼짐을 확인한 경우에만 없음 |
+| G07 실제 근거 | `test_g07_success_only_with_real_ai_line` | API 손실 순서 안에서 틀린 값이 있는 개발 문서 우선. 안내 안에 실제 줄을 연 뒤에만 공용 evidence 사건 발생 |
+| G07 추정·조회 실패 | `test_g07_estimated_only_offers_another_value` | 추정 줄은 성공 0회. 다른 값과 재조회. 사실·할 일·다시 시도 표시 |
+| G08·done | `test_g08_practice_records_practice_only` | dry_run=true. 실제 요청 계획과 지시문 읽기. practice만 증가. 취소 후 늦은 POST 응답 버림 |
+| G10·returned·S06 왕복 | `test_g10_round_trip_rechecks_ai_and_returns` | 진행 저장 후 S06. 돌아올 자리 있을 때만 복귀 버튼. 서버와 옵션 재조회 후만 G11. 마지막 확인 시각 표시 |
+| 비용 행동 금지 | `test_guide_never_presses_costly_actions` | 안내 단추의 POST는 /api/jobs/try뿐. 서버 생성·삭제·모델 변경·터널 API 0회 |
+| G11·running·result | `test_g11_real_success_rules` | 정상 종료·dry_run=false·HTTP 200·보낸 대상 일치·선택 항 ok=true·요약 표시를 모두 검사. 문서 전체 결과는 제외 |
+| G11·failed·복구 | `test_g11_failed_and_late_responses` | ok=false, 202, 204, 읽기 실패, 취소 후 늦은 응답. 조회 15초/화면 대기 600초 뒤 복구. 실제 작업 중단 API 없음 |
+| G12·source-only·no-success | `test_g12_shows_records_without_false_celebration` | 이번 열린 안내에서 관찰한 원문·연습·실제 시험을 따로 표시. 과거 실제 성공을 이번 성공으로 축하하지 않음 |
+| 숨겨진 결과·새로고침 | `test_guide_hidden_or_closed_result_waits_for_visible_summary` | Esc 확인창 아래에서는 기록 안 함. 닫은 뒤 늦은 결과 무시. pending 작업 다시 읽기는 POST 없이 재개 |
+| 늦은 준비·원문 응답 | `test_guide_readiness_preserves_close_dialog_during_late_get`, `test_guide_job_failure_never_claims_an_ai_answer_and_stale_doc_is_ignored` | 닫기 확인창과 초점 유지. 화면을 떠난 뒤 문서 응답 무시. 작업 실패를 AI 응답 성공처럼 말하지 않음 |
+| 건너뜀·시간 제한 | `test_guide_skips_mark_progress_without_success_and_requests_time_out` | p1/p2 생략을 진행 막대에 글로 표시. 준비 조회 무응답도 다시 확인 가능 |
+| 글·공통 틀 | `test_guide_practice_states_have_copy_and_one_primary_action`, `test_guide_examples_match_approved_scene_text` | 모든 실습 카드에 행동 전 안내/남는 기록. 주 버튼 하나. 13개 화면의 예시 문구를 승인 HTML과 대조 |
+
+#### 공유 함수와 상태
+
+- `scoreProblemDocs`를 `scoreProblemDoc`과 안내가 공유한다. API 순서를 보존한 채 틀림→지어냄 문서가 앞선다. 안내는 `sourceLock`과 실행의 문서 범위로 평가 문서를 제외한다.
+- `sourceChooseProblem`·`sourceProblems`·`sourceHasEvidence`·`sourceEvidence`를 원문 화면과 안내가 공유한다. 후자는 실제 표시 영역을 인자로 받는다. 줄 번호를 재계산하지 않는다. 원문 글은 글자 노드로 표시한다.
+- `jobsTryBody`·`jobsSubmitTry`·`jobsReadResult`·`jobsReadPrompt`·`jobsResultEvent`·`jobsResultSummary`를 시험 화면과 안내가 공유한다. 성공 판정을 안내에 복제하지 않았다. 기존 시험 화면의 입력 검사와 결과 세 모양은 유지한다.
+- `journeyRecord`·`journeyMergeOutcomes`·직렬 PUT은 기존 것을 쓴다. 새 안내의 단일 항 시험도 기존 pending 사건에 연결했다. 대기 작업을 복원할 때는 GET만 하고 자동으로 보내지 않는다.
+- 모델 준비 판정도 `shellModelStates`·`serversReady`·`jobsReady`를 공유한다. 최종 소스 검토에서 모델별 조회 실패를 없음으로 표시하는 경우를 찾아 새 시험의 실패(`/tmp/to21-onboard1-readiness-red.log`)를 확인한 뒤 고쳤다.
+- `guideShow`·`guideCheckReadiness`·`guideCheckAI`·`guideLoadValue`·`guideStartTrial`·`guidePollTrial`이 안내 상태를 맡는다. 요청 순번과 현재 화면으로 늦은 응답을 거른다. 취소는 결과 연결만 끊으며 서버 작업을 멈추지 않는다.
+- `progress.guide`에는 기존 다섯 칸만 저장한다. 문서·실행·값·지시문은 메모리에만 있다. 준비 상태는 매번 조회한다. 이번 화면에서 관찰한 기록은 G12, 서버의 누적 성공 기록은 G15/S07에 표시한다. 새 페이지를 열면 G12의 이번 화면 기록은 새로 시작하고 누적 기록은 보존된다.
+- G02와 G14 구현은 step 2 범위다. 현재 G05에서 정답이 없으면 기존 공통 정답 선택 창을 연다. 새로운 대체 화면은 만들지 않았다.
+
+#### 기존 시험 변경 이유
+
+| 시험 | 변경 이유 |
+|---|---|
+| `test_guide_examples_match_approved_scene_text` | 실습이 생겨 다음 버튼만으로 모든 화면을 지나갈 수 없다. 각 예시 화면을 직접 그려 문구 대조를 유지하고 범위를 7→13화면으로 넓혔다 |
+| `test_chapter_row_and_progress_text` | 실습의 완료 조건과 독립적으로 기존 7개 화면의 장 표시를 직접 검사한다. 마지막 G15 완료·성공 없음 검사는 유지했다 |
+| `test_guide_progress_saves_last_confirmed_screen_only` | G04 다음이 G06에서 G05로 바뀌었다. 저장 실패·복구·뒤로 보기·개인 자료 미저장 검사는 그대로다 |
+
+#### ⑤ 승인 대기 문구
+
+시안에 없는 복구 상황은 같은 말투로 썼다. `COPY_EXCEPTIONS`에는 공통 규칙이 정한 시안 참조 이유를 사용한다. 아래 문장은 추가 문구이며 시안 원문으로 주장하지 않는다.
+
+| 키 | 글 | 쓰는 곳 | 바꾼 까닭 |
+|---|---|---|---|
+| guide.ready.choose_key | 비교할 정답 고르기 | G05 | G14 구현 전 기존 선택 창 연결 |
+| guide.source.empty | 확인할 틀린 값을 찾지 못했어요. 이 직접 해 보기는 건너뛸 수 있어요. | G07 | 문제 값 없음 복구 |
+| guide.source.request_failed | 원문을 불러오지 못했어요. | G07 | 조회 실패 사실 |
+| guide.source.retry_todo | 할 일: 같은 값을 다시 확인해요. | G07 | 원문 조회 재시도 |
+| guide.practice.cancel | 연습 취소하기 | G08 | 늦은 응답 폐기 동작 |
+| guide.practice.prompt_open | 지시문 원문 보기 | G08 | 긴 실제 지시문을 접어서 표시 |
+| guide.records.practice_only | 아직 실제 시험 성공 기록은 없어요. | G12 | 연습도 안 한 상태에 거짓 연습 완료를 쓰지 않음 |
+| guide.recovery.timeout | 확인 시간이 지났어요. 작업 기록에서 진행 상태를 확인할 수 있어요. | 조회·시험 | 무한 대기 방지 |
+| guide.recovery.fact | 시험 결과를 아직 확인하지 못했어요. | G11 | 요청 미완료를 AI 응답 실패로 단정하지 않음 |
+| guide.recovery.todo | 할 일: 결과를 다시 확인해요. 전송은 자동으로 반복하지 않아요. | G11 | 재조회와 재전송 구분 |
+| guide.recovery.no_target | 시험할 문서와 모델을 확인하지 못했어요. | G08/G11 | 실행할 대상 없음 |
+| guide.recovery.target_todo | 할 일: 문서 묶음을 확인한 뒤 다시 확인해요. | G08/G11 | 실행할 대상 복구 |
+| guide.recovery.cancelled | 이 시도의 결과 확인을 취소했어요. 늦게 도착한 답은 성공으로 세지 않아요. | G08/G11 | 취소 범위 설명 |
+
+#### 브라우저로 볼 것
+
+- 1280·1440·1680px × 900px에서 G05/G07/G08/G10/G11/G12의 줄바꿈과 본문 스크롤을 확인한다. 하단 주 버튼에 본문이 가려지지 않아야 한다.
+- 실제 자료로 G07 근거 줄과 추정 줄의 구분을 확인한다. 예시는 왼쪽에만 있고 실제 자료가 성공을 만든다는 점을 확인한다.
+- G08 지시문 펼침, G11 대기·오류·복구, Esc 확인창에서의 초점 격리, S06 왕복과 AI 재확인을 확인한다.
+- 실제 모델 연결과 실제 AI 시험은 이번 가짜 API 시험의 증거에 포함하지 않는다. 서버 만들기나 과금 동작도 실행하지 않았다.
+
+#### 최종 검증과 아키텍처 확인
+
+- 지정 AC를 저장소 최상위에서 `bash /tmp/to21-onboard1-ac.sh`로 직접 실행했다. 최종 로그 `/tmp/to21-onboard1-ac-final.log`, 종료 코드 **0**.
+- 지정 시험 **9 passed** (2.26초). 앱 시험 **1096 passed, 1194 deselected** (45.85초). 전체 시험 **2260 passed, 30 skipped** (76.28초). 기존 SWIG 타입 관련 경고 7건은 실패가 아니다. 모든 전체 시험에서 `tests/test_preprocess.py`를 제외했다.
+- 첫 전체 AC도 9/1095/2259 통과했다. 이후 모델별 조회 오류 판정의 결함이 발견되어 시험을 하나 더 추가하고 최종 AC 전체를 다시 돌렸다.
+- impeccable detect는 한 번 실행했다(`/tmp/to21-onboard1-detect.json`, 종료 코드 **2**). 지적 **46건**: 기존 승인 mockup 26, wireframes 15, guide.html 2, CSS advisory 3. CSS 중 1건은 step 0의 확인창이고 새 2건은 SPEC/NOTES가 승인한 실습 카드·AI 시트의 **12px** 모서리다. DESIGN의 허용 수정 범위를 넘겨 토큰을 추가하거나 승인값을 바꾸지 않았다.
+- 검사기가 `/static/app.css`를 로컬 파일로 찾지 못해 색·변수 검사는 불완전하다. 자동 검사를 실제 브라우저 관찰로 보고하지 않는다.
+- `git diff --check`와 일반 스크립트 문법·전역 이름·외부 주소·움직임 금지 검사를 통과했다. b_app_text.py의 기존 Python 함수 본문은 HEAD와 같다. 변경은 문구 상수뿐이다.
+- 시작 때 기록한 보호 파일 400개는 상태 갱신 전 모두 동일했다. 완료 시 index.json은 step 1의 status·summary만 바꾼다. docs·CLAUDE.md·실행기·승인 설계·다른 역할 소스·다른 step 상태는 유지한다.
+- 성공은 공용 실제 근거 사건/시험 결과 판정으로만 기록한다. 평가 문서는 sourceLock·API runnable·개발 실행 범위로 제한한다. 비용 동작은 S06과 기존 확인창에서만 가능하다. 모델·프롬프트 예시나 원문·키를 새 파일에 저장하지 않았다.
+- 커밋하지 않는다. ⚠️ DEGRADED: no browser in sandbox. 실제 화면 품질과 실제 모델 호출은 후속 브라우저 확인 대상이다.

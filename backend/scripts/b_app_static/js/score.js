@@ -124,11 +124,13 @@ function scoreCounts(row, links = false) {
         onclick: () => scoreOpenSource(row, picks[kind])}, text) : text);
   }));
 }
-function scoreProblemDoc(row, pick = "mismatch") {
+function scoreProblemDocs(row, pick = "mismatch") {
   const kinds = pick === "mismatch" ? ["wrong", "made"] : [pick === "missing" ? "missing" : "made"];
-  return kinds.map(kind => row.docs?.find(doc => doc.counts?.[UI.score.cause_keys[kind]] > 0)?.doc_id)
-    .find(Boolean) || row.docs?.[0]?.doc_id;
+  // API의 손실 순서를 유지하며 실제로 문제 값이 있는 문서를 먼저 고른다.
+  return [...new Set([...kinds.flatMap(kind => (row.docs || []).filter(doc => doc.counts?.[UI.score.cause_keys[kind]] > 0)),
+    ...(row.docs || [])].map(doc => doc.doc_id).filter(Boolean))];
 }
+function scoreProblemDoc(row, pick = "mismatch") { return scoreProblemDocs(row, pick)[0]; }
 function scoreOpenSource(row, pick = "mismatch", doc = scoreProblemDoc(row, pick)) {
   if (!doc || !row.section || !S.score.run) return;
   const args = {run: S.score.run.name, doc, section: row.section, item: row.name, pick};
