@@ -625,3 +625,45 @@ def test_index_has_help_tab_and_links(app):
     text = (app.STATIC / "index.html").read_text(encoding="utf-8")
     assert "도움말" in text
     assert text.count("자세히 → 도움말") == 5
+
+
+# ── 오류 본문의 사실·할 일 (step 7) ───────────────────────
+
+def has_problem_text(data: dict) -> bool:
+    return all(isinstance(data.get(k), str) and data[k].strip() for k in ("error", "message", "fix"))
+
+
+def test_missing_run_has_message_and_fix(app, ctx, env):
+    three_runs(env)
+    code, data = get_json(app, ctx, "/api/run/없는실행")
+    assert code == 404 and has_problem_text(data) and data["error"] == "없는 실행: 없는실행"
+    code, data = get_q(app, ctx, "/api/diff", a="없는실행", b="20261029_sections_m1_dev10_r1")
+    assert code == 404 and has_problem_text(data)
+    code, data = get_q(app, ctx, "/api/diff", a="20261029_sections_m1_dev10_r1")
+    assert code == 400 and has_problem_text(data)
+    code, data = get_q(app, ctx, "/api/doc", run="없는실행", doc=X01)
+    assert code == 404 and has_problem_text(data)
+
+
+def test_unknown_or_unusable_key_has_message_and_fix(app, kctx):
+    code, data = get_q(app, kctx, "/api/runs", key="없음")
+    assert code == 404 and has_problem_text(data) and "정답지" in data["fix"]
+    assert data["error"] == app.bt.KEY_TEXT["unknown_key"].format(id="없음")
+    code, data = get_q(app, kctx, "/api/runs", key="silver/gpt")
+    assert code == 400 and has_problem_text(data) and app.bt.KEY_TEXT["key_empty"] in data["message"]
+
+
+def test_unknown_set_has_message_and_fix(app, ctx):
+    code, data = get_q(app, ctx, "/api/doc", set="없음", doc=X01)
+    assert code == 404 and has_problem_text(data) and data["error"] == "없는 문서 묶음: 없음"
+
+
+def test_bad_query_has_message_and_fix(app, ctx, env):
+    three_runs(env)
+    for path, query in (("/api/doc", {"doc": "../x"}), ("/api/prompt", {"model": "qwen36_35b_runpod", "no": "0"}),
+                        ("/api/prompt", {"model": "없는태그", "no": "3"}),
+                        ("/api/prompt_diff", {"a": "20261029_sections_m1_dev10_r1",
+                                              "b": "20261029_sections_m1_dev10_r1", "no": "x"})):
+        code, data = get_q(app, ctx, path, **query)
+        assert code == 400 and has_problem_text(data), path
+        assert data["fix"] == "입력을 고친 뒤 다시 보내세요."

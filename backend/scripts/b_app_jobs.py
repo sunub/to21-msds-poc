@@ -27,6 +27,7 @@ from datetime import datetime
 from pathlib import Path
 
 import b_app_sets as bsets
+import b_app_text as bt
 from _common import today
 from msds.common import manifest
 from msds.common.paths import RUNS
@@ -39,6 +40,7 @@ _PAGE_FILE = re.compile(r"^p\d+\.txt$")              # 쪽 글자 파일 (msds.e
 MAX_REPEAT = 10
 STOP_WAIT = 5.0                                      # terminate 뒤 kill까지 기다리는 초
 TMP_GRACE = 60                                       # 지난 앱이 띄운 작업의 임시 파일을 지워도 되는 시간(초). try_section은 시작하자마자 읽는다
+LOG_HEAD = 20                                        # 실패 글에 넘기는 로그 앞머리 줄 수. python-dotenv 경고는 파이썬이 뜰 때 찍혀 맨 앞에 있다
 
 
 @dataclass
@@ -393,7 +395,24 @@ class JobManager:
             return "running" if job.id in self._procs else "unknown"     # unknown: 지난 앱이 띄워 결과를 모른다
         return "done" if job.returncode == 0 else "failed"
 
+    def _log_problems(self, job: Job) -> dict | None:
+        """작업 로그를 키를 가린 뒤 b_app_text.job_error로 읽는다. 끝 JOB_LOG_LINES줄(tail과 같은 방식)과 그 앞의
+        앞머리 LOG_HEAD줄만 넘긴다(목록 응답을 가볍게). 로그가 없으면 None."""
+        if not job.log.exists():
+            return None
+        import b_app_servers as bs                       # b_app_servers가 맨 위에서 이 모듈을 import하므로 늦게 부른다
+        lines = job.log.read_text(encoding="utf-8", errors="replace").splitlines(keepends=True)
+        head = lines[:max(0, min(LOG_HEAD, len(lines) - bt.JOB_LOG_LINES))]
+        # 패턴(Bearer·--api-key 등)에 더해, 앱 환경의 키 값(서버 탭 _secrets와 같은 규칙)도 가린다
+        secrets = [v for k, v in os.environ.items()
+                   if k.startswith(bs._SECRET_PREFIXES) and bs._SECRET_FIELD.search(k) and v and len(v) >= 8]
+        return bt.job_error(bs.mask_keys("".join(head + lines[-bt.JOB_LOG_LINES:]), secrets))
+
     def _view(self, job: Job) -> dict:
+        """error: 실패한 작업의 '무슨 일 + 할 일'(아니면 None). warnings: 로그의 .env 경고(상태와 상관없이).
+        dry_run: --dry-run으로 띄운 연습 실행인지. 화면이 명령 글을 뒤지지 않게 한다."""
+        problems = self._log_problems(job)
+        status = self._status(job)
         out = None
         if job.kind == "compare" and (self.runs_dir / job.runs[0] / "compare.md").is_file():
             out = os.path.relpath(self.runs_dir / job.runs[0] / "compare.md", self.runs_dir.parent)
@@ -402,9 +421,11 @@ class JobManager:
             progress = [{"name": n, "done": _total_lines(self.runs_dir / n / "timing.jsonl"), "total": job.total}
                         for n in job.runs]
         return {"id": job.id, "kind": job.kind, "label": job.label, "started": job.started, "pid": job.pid,
-                "returncode": job.returncode, "status": self._status(job), "stoppable": job.id in self._procs,
+                "returncode": job.returncode, "status": status, "stoppable": job.id in self._procs,
                 "command": shlex.join(job.argv), "log": os.path.relpath(job.log, self.runs_dir.parent),
-                "runs": job.runs, "progress": progress, "output": out}
+                "runs": job.runs, "progress": progress, "output": out,
+                "error": problems if status == "failed" else None,
+                "warnings": problems["warnings"] if problems else [], "dry_run": "--dry-run" in job.argv}
 
     def list(self) -> list[dict]:
         with self._lock:

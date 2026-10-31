@@ -345,12 +345,35 @@ def test_route_doc_errors(app, view_env):
     assert call({"run": ["r1"], "doc": ["../T21-X01"]})[0] == 400
 
 
+
+def test_route_doc_errors_have_message_and_fix_without_lock_reason(app, view_env):
+    ctx = make_ctx(app, view_env, view_env / "pages9")
+    for q in ({"run": ["r1"], "doc": [X09]}, {"doc": [X09]}, {"run": ["r1"], "doc": [X02]}):
+        code, _, body = app.route("GET", "/api/doc", q, None, ctx)
+        data = json.loads(body)
+        assert code == 404 and all(data[k].strip() for k in ("error", "message", "fix")), q
+        assert "평가" not in data["error"] + data["message"] + data["fix"], q    # 잠긴 이유는 말하지 않는다
+    (view_env / "pages_empty" / X01).mkdir(parents=True)                       # 문서 폴더는 있는데 쪽 글자가 없다
+    code, _, body = app.route("GET", "/api/doc", {"doc": [X01]}, None, make_ctx(app, view_env, view_env / "pages_empty"))
+    data = json.loads(body)
+    assert code == 404 and data["error"] == f"쪽 글자가 없습니다: pages_empty/{X01}" and data["message"] and data["fix"]
+
 def test_route_page_png(app, env, one_page):
     ctx = make_ctx(app, env, one_page)
     code, ctype, body = app.route("GET", "/pages/T21-X01/p001.png", {}, None, ctx)
     assert (code, ctype, body) == (200, "image/png", PNG)
     assert app.route("GET", "/pages/T21-X01/p002.png", {}, None, ctx)[0] == 404       # 없는 쪽
 
+
+
+def test_route_page_errors_have_message_and_fix(app, env, one_page):
+    write_page(one_page / X09, 1, PAGE_TXT, ENTRIES)
+    ctx = make_ctx(app, env, one_page)
+    for path, want in (("/pages/T21-X09/p001.png", 404), ("/pages/T21-X01/p009.png", 404), ("/pages/x/p1.png", 400)):
+        code, _, body = app.route("GET", path, {}, None, ctx)
+        data = json.loads(body)
+        assert code == want and all(data[k].strip() for k in ("error", "message", "fix")), path
+        assert "평가" not in data["error"] + data["message"] + data["fix"], path
 
 @pytest.mark.parametrize("path", ["/pages/../x.png", "/pages/T21-X01/evil.txt", "/pages/%2e%2e/T21-X01/p001.png",
                                   "/pages/T21-X01/p1.png", "/pages/t21-x01/p001.png", "/pages/T21-X01/../p001.png",

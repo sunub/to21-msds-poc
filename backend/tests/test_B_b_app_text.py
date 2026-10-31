@@ -690,3 +690,132 @@ def test_friendly_server_ui_copy(text):
     assert copy["action_failure"]["message"] == "서버 변경을 끝내지 못했습니다."
     assert copy["action_failure"]["fix"]
     assert copy["busy"] and copy["unavailable"]
+
+
+# ── 작업 실패 글과 라우트 오류 글 (step 7) ─────────────────
+# 가짜 로그만 쓴다. 실제 작업 로그(runs/manual/jobs)의 글은 옮기지 않는다.
+
+def fake_traceback(last: str, *, before: str = "") -> str:
+    return (before + "Traceback (most recent call last):\n"
+            '  File "scripts/try_section.py", line 9, in <module>\n'
+            "    raise SomeError(\"가짜\")\n" + last + "\n")
+
+
+@pytest.mark.parametrize("last", [
+    "FileNotFoundError: T21-X01: 쪽 글자 파일(pNNN.txt)이 없습니다: ../data/pages/가짜판/T21-X01",
+    "FileNotFoundError: [Errno 2] No such file or directory: '../data/pages/가짜판/T21-X01/p001.txt'",
+])
+def test_job_error_missing_pages(text, last):
+    err = text.job_error(fake_traceback(last))
+    assert err["message"] == "쪽 글자 폴더나 파일이 없습니다."
+    assert "문서 묶음" in err["fix"] and "prev/version9" in err["fix"]
+    assert err["raw"] == last and err["warnings"] == []
+
+
+def test_job_error_outside_doc(text):
+    err = text.job_error(fake_traceback("KeyError: 'manifest에 없는 문서 번호: RAW-90'"))
+    assert "manifest" in err["message"] and "돌릴 수 없습니다" in err["message"]
+    assert "format40" in err["fix"] and err["fix"] in text.SET_TEXT["outside_wait"]
+
+
+@pytest.mark.parametrize("last, part", [
+    ("openai.APIConnectionError: Connection error.", "연결하지 못했습니다"),
+    ("ConnectionRefusedError: [Errno 61] Connection refused", "연결하지 못했습니다"),
+    ("httpx.ConnectTimeout: timed out", "연결하지 못했습니다"),
+    ("httpx.ReadTimeout: 가짜 읽기 시간 초과", "연결하지 못했습니다"),
+    ("openai.AuthenticationError: Error code: 401 - {'error': '가짜'}", "키를 거절했습니다"),
+    ("httpx.HTTPStatusError: Client error '401 Unauthorized' for url 'http://127.0.0.1:9/v1'", "키를 거절했습니다"),
+    ("ValueError: 평가용 문서가 들어 있습니다(T21-X09).", "평가용"),
+    ("ValueError: 가짜 다른 오류", "오류로 끝났습니다"),
+    ("SystemExit: 가짜 끝", "오류로 끝났습니다"),
+])
+def test_job_error_branches(text, last, part):
+    err = text.job_error(fake_traceback(last))
+    assert part in err["message"] and err["raw"] == last
+    if "키를" in part:
+        assert "RUNPOD_VLLM_API_KEY" in err["fix"] and "RNGD_API_KEY" in err["fix"]
+    if "연결" in part:
+        assert "진단" in err["fix"]
+
+
+def test_job_error_first_rule_wins_and_401_needs_a_number_of_its_own(text):
+    # 쪽 글자 갈래가 연결 갈래보다 먼저다. 문서 번호 안의 401은 키 오류가 아니다
+    path_err = text.job_error("FileNotFoundError: ../data/pages/가짜판/T21-401 timed out\n")
+    assert path_err["message"] == "쪽 글자 폴더나 파일이 없습니다."
+    assert "키" not in text.job_error("ValueError: 가짜 문서 T21-401 오류\n")["message"]
+
+
+def test_job_error_takes_last_exception_line_not_source_lines(text):
+    log = ("KeyError: 'manifest에 없는 문서 번호: RAW-90'\n"            # 앞 실행의 오류
+           + fake_traceback("ValueError: 가짜 마지막 오류")
+           + "    raise FileNotFoundError(f\"쪽 글자 파일(pNNN.txt)이 없습니다\")\n")   # 들여 쓴 소스 줄은 예외 줄이 아니다
+    err = text.job_error(log)
+    assert err["raw"] == "ValueError: 가짜 마지막 오류" and err["message"] == "작업이 오류로 끝났습니다."
+
+
+def test_job_error_reads_only_last_200_lines_for_the_exception(text):
+    log = "ValueError: 오래된 가짜 오류\n" + "가짜 진행 줄\n" * 200
+    assert text.job_error(log) is None
+
+
+def test_job_error_dotenv_warnings(text):
+    log = ("python-dotenv could not parse statement starting at line 7\n"
+           "Python-dotenv could not parse statement starting at line 7\n"
+           "python-dotenv could not parse statement starting at line 12\n"
+           + fake_traceback("ValueError: 가짜"))
+    err = text.job_error(log)
+    assert err["warnings"] == [text.env_problem(7), text.env_problem(12)]
+    only = text.job_error("python-dotenv could not parse statement starting at line 3\n가짜 진행 줄\n")
+    assert only["raw"] is None and only["warnings"] == [text.env_problem(3)]
+    assert only["message"] and only["fix"]
+
+
+@pytest.mark.parametrize("log", ["", "가짜 진행 줄\n끝\n", "Traceback (most recent call last):\n"])
+def test_job_error_none_without_exception_or_warning(text, log):
+    assert text.job_error(log) is None
+
+
+def test_job_error_texts_are_filled_and_have_no_pass_word(text):
+    logs = ["FileNotFoundError: ../data/pages/x", "KeyError: 'manifest에 없는 문서 번호: RAW-90'",
+            "openai.APIConnectionError: x", "openai.AuthenticationError: 401", "ValueError: 평가용",
+            "ValueError: x", "python-dotenv could not parse statement starting at line 1"]
+    for log in logs:
+        err = text.job_error(log + "\n")
+        assert err["message"].strip() and err["fix"].strip(), log
+        assert "합격" not in err["message"] + err["fix"]
+        assert set(err) == {"message", "fix", "raw", "warnings"}
+
+
+PROBLEM_FACTS = {"unknown_set": {"id": "가짜묶음"}, "unusable_set": {"reason": "가짜 이유."},
+                 "unknown_key": {"id": "gold/가짜"}, "unusable_key": {"reason": "가짜 이유."},
+                 "missing_pages": {"where": "가짜판/T21-X01"}, "missing_run": {"name": "가짜실행"},
+                 "doc_not_in_run": {"doc": "T21-X01"}, "doc_not_in_set": {"doc": "T21-X01"},
+                 "bad_query": {"detail": "no는 1~16 항 번호여야 합니다 (받은 값: 0)"}}
+
+
+@pytest.mark.parametrize("kind", sorted(PROBLEM_FACTS))
+def test_problem_kinds(text, kind):
+    p = text.problem(kind, **PROBLEM_FACTS[kind])
+    assert set(p) == {"error", "message", "fix"}
+    assert all(isinstance(v, str) and v.strip() for v in p.values())
+    assert "합격" not in "".join(p.values())
+    assert set(text.PROBLEM_TEXT) == set(PROBLEM_FACTS)
+
+
+def test_problem_keeps_old_error_texts(text):
+    # 지금 화면과 기존 시험이 쓰는 error 글은 그대로다
+    assert text.problem("unknown_set", id="x")["error"] == "없는 문서 묶음: x"
+    assert text.problem("missing_run", name="a, b")["error"] == "없는 실행: a, b"
+    assert text.problem("unknown_key", id="x")["error"] == text.KEY_TEXT["unknown_key"].format(id="x")
+    assert text.problem("unusable_key", reason="r")["error"] == text.KEY_TEXT["unusable_key"].format(reason="r")
+    assert text.problem("missing_pages", where="v/T21-X01")["error"] == "쪽 글자가 없습니다: v/T21-X01"
+    assert text.problem("doc_not_in_run", doc="T21-X01")["error"] == "이 실행에 없는 문서: T21-X01"
+    assert text.problem("doc_not_in_set", doc="T21-X01")["error"] == "이 묶음에 없는 문서: T21-X01"
+    bad = text.problem("bad_query", detail="가짜 {중괄호} 글")
+    assert bad["error"] == bad["message"] == "가짜 {중괄호} 글" and bad["fix"] == "입력을 고친 뒤 다시 보내세요."
+
+
+def test_problem_for_hidden_docs_does_not_say_why(text):
+    for kind in ("doc_not_in_run", "doc_not_in_set", "missing_pages"):
+        p = text.problem(kind, **PROBLEM_FACTS[kind])
+        assert "평가" not in "".join(p.values()) and "잠" not in "".join(p.values())

@@ -17,6 +17,8 @@
 요약 캐시와 실행 역사는 정답지별로 나눠 둔다(정답지를 오가도 서로 덮어쓰지 않는다).
 실행마다 종류(run_kind, 사람 말 run_kind_label)와 비교 가능 여부(comparable)를 붙이고, 점수가 든 응답에는 두 목표(targets:
 가중 종합 목표선, 필수 중 목표 달성 수)를 둔다. 처음 보여 줄 실행과 실행 역사의 최고 점수는 실버를 만든 실행을 뺀다.
+없는 실행·묶음·정답지, 쪽 글자 없음, 잘못된 쿼리, 작업 POST의 ValueError 같은 400·404 본문에는 기존 error에 더해
+사실 한 문장(message)과 할 일 한 문장(fix)을 둔다. 글은 b_app_text.problem이 만든다. 잠긴 문서의 404는 이유를 말하지 않는다.
 """
 import argparse
 import hashlib
@@ -83,6 +85,24 @@ def _json(code: int, obj) -> tuple[int, str, bytes]:
     return code, "application/json; charset=utf-8", json.dumps(obj, ensure_ascii=False, default=str).encode()
 
 
+def _fail(code: int, kind: str, **facts) -> tuple[int, str, bytes]:
+    """오류 응답 {error, message, fix}. 글은 b_app_text.problem에 있다."""
+    return _json(code, bt.problem(kind, **facts))
+
+
+class Problem(ValueError):
+    """오류 본문(bt.problem)을 실은 ValueError. 글(str)은 본문의 error와 같다."""
+
+    def __init__(self, kind: str, **facts):
+        self.body = bt.problem(kind, **facts)
+        super().__init__(self.body["error"])
+
+
+def _problem_body(e: Exception) -> dict:
+    """예외의 오류 본문. Problem이 아니면 예외 글을 사실로 두고 '입력을 고친 뒤 다시 보내세요'를 붙인다."""
+    return e.body if isinstance(e, Problem) else bt.problem("bad_query", detail=str(e))
+
+
 def _labeled_run(info: dict) -> dict:
     """채점·캐시는 그대로 두고 응답에만 표시 글을 붙인다."""
     return {**info, "label": bt.run_label(info), "model_label": bt.model_label(info.get("model_tag")),
@@ -93,7 +113,7 @@ def _remember_connections(ctx: AppContext, models: list[dict]) -> None:
     ctx.last_model_connections = {m["tag"]: bool(m.get("reachable") and m.get("match")) for m in models}
 
 
-class UnknownKey(ValueError):
+class UnknownKey(Problem):
     """목록에 없는 정답지 id. GET은 404, 작업 POST는 400(다른 ValueError와 같이)."""
 
 
@@ -110,9 +130,9 @@ def _pick_key(ctx: AppContext, want) -> tuple[Path, dict]:
         return Path(ctx.gold_dir), {"id": startup["id"], "label": startup["label"]}
     k = bsets.find_key(keys, want)
     if k is None:
-        raise UnknownKey(bt.KEY_TEXT["unknown_key"].format(id=want))
+        raise UnknownKey("unknown_key", id=want)
     if not k["usable"]:
-        raise ValueError(bt.KEY_TEXT["unusable_key"].format(reason=k["reason"]))
+        raise Problem("unusable_key", reason=k["reason"])
     return bsets.key_dir(Path(ctx.data_root), k["id"]), {"id": k["id"], "label": k["label"]}
 
 
@@ -121,9 +141,9 @@ def _query_key(query: dict[str, list[str]], ctx: AppContext):
     try:
         return (*_pick_key(ctx, (query.get("key") or [None])[0]), None)
     except UnknownKey as e:
-        return None, None, _json(404, {"error": str(e)})
+        return None, None, _json(404, e.body)
     except ValueError as e:
-        return None, None, _json(400, {"error": str(e)})
+        return None, None, _json(400, _problem_body(e))
 
 
 def _cache_dir(ctx: AppContext, gold_dir: Path) -> Path | None:
@@ -196,18 +216,18 @@ def _pair(query: dict[str, list[str]], ctx: AppContext):
     """쿼리 a, b의 실행 폴더 두 개. 잘못되면 (오류 응답, None)."""
     names = [(query.get(k) or [""])[0] for k in ("a", "b")]
     if not all(names):
-        return _json(400, {"error": "a와 b에 실행 이름을 둘 다 주세요"}), None
+        return _fail(400, "bad_query", detail="a와 b에 실행 이름을 둘 다 주세요"), None
     runs = _run_paths(ctx)
     missing = [n for n in names if n not in runs]
     if missing:
-        return _json(404, {"error": f"없는 실행: {', '.join(missing)}"}), None
+        return _fail(404, "missing_run", name=", ".join(missing)), None
     return None, [runs[n] for n in names]
 
 
 def _prompt_diff(query: dict[str, list[str]], pair: list[Path], ctx: AppContext):
     no = (query.get("no") or [""])[0]
     if not (no.isascii() and no.isdigit() and 1 <= int(no) <= 16):
-        return _json(400, {"error": f"no는 1~16 항 번호여야 합니다 (받은 값: {no})"})
+        return _fail(400, "bad_query", detail=f"no는 1~16 항 번호여야 합니다 (받은 값: {no})")
     no = int(no)
     infos = [yaml.safe_load((p / "run_info.yaml").read_text(encoding="utf-8")) or {} for p in pair]
     missing = [p.name for p, i in zip(pair, infos) if not i.get("git_commit")]
@@ -232,8 +252,9 @@ def _page_png(rest: str, query: dict[str, list[str]], ctx: AppContext) -> tuple[
     """/pages/<문서>/pNNN.png[?set=<묶음>]. 정규식 밖의 주소는 400, 없는 묶음·잠긴 문서·없는 쪽은 404."""
     parts = rest.split("/")
     if len(parts) != 2 or not bsets.DOC_ID.fullmatch(parts[0]) or not _PAGE_PNG.fullmatch(parts[1]):
-        return _json(400, {"error": "잘못된 쪽 그림 주소"})
-    not_found = _json(404, {"error": "없는 쪽 그림"})
+        return _fail(400, "bad_query", detail="잘못된 쪽 그림 주소")
+    # 없는 묶음·잠긴 문서·없는 쪽을 같은 본문으로 답한다(잠긴 이유를 말하지 않는다)
+    not_found = _json(404, {**bt.problem("missing_pages", where=f"{parts[0]}/{parts[1]}"), "error": "없는 쪽 그림"})
     want = (query.get("set") or [None])[0]
     if want is None:
         folder = Path(ctx.pages_dir)
@@ -259,7 +280,7 @@ def _doc_folder(doc_id: str, run: Path | None, want: str | None, ctx: AppContext
     if want is not None:
         s = bsets.find_set(sets, want)
         if s is None:
-            return None, _json(404, {"error": f"없는 문서 묶음: {want}"})
+            return None, _fail(404, "unknown_set", id=want)
         return picked(want, "param") if bsets.has_doc(s, doc_id) else (None, missing)
     recorded = None
     if run is not None:
@@ -288,14 +309,14 @@ def _doc(query: dict[str, list[str]], ctx: AppContext) -> tuple[int, str, bytes]
     """원문 대조. doc은 필수, run·set은 고를 수 있다. run이 없으면 결과 값 없이 쪽 글자만 보인다(신규 RAW-xx 보기)."""
     name, doc_id = [(query.get(k) or [""])[0] for k in ("run", "doc")]
     if not bsets.DOC_ID.fullmatch(doc_id):
-        return _json(400, {"error": "doc에 문서 번호(T21-…, RAW-…)를 주세요"})
+        return _fail(400, "bad_query", detail="doc에 문서 번호(T21-…, RAW-…)를 주세요")
     run = None
     if name:
         run = _run_paths(ctx).get(name)
         if run is None:
-            return _json(404, {"error": f"없는 실행: {name}"})
+            return _fail(404, "missing_run", name=name)
     # 평가용·용도를 모르는 문서도 같은 말로 돌려준다(이유를 말하지 않는다). 잠긴 이유는 /api/sets 목록이 보인다
-    missing = _json(404, {"error": f"이 실행에 없는 문서: {doc_id}" if run else f"이 묶음에 없는 문서: {doc_id}"})
+    missing = _fail(404, "doc_not_in_run" if run else "doc_not_in_set", doc=doc_id)
     if run is not None and not (run / "outputs" / f"{doc_id}.json").is_file():
         return missing
     gold_dir, key, err = _query_key(query, ctx)
@@ -311,7 +332,7 @@ def _doc(query: dict[str, list[str]], ctx: AppContext) -> tuple[int, str, bytes]
     except PermissionError:
         return missing
     except FileNotFoundError:
-        return _json(404, {"error": f"쪽 글자가 없습니다: {folder.name}/{doc_id}"})
+        return _fail(404, "missing_pages", where=f"{folder.name}/{doc_id}")
     return _json(200, {**view, "legend": bt.doc_legend(), "ui_text": bt.doc_ui_text(view), "set": info,
                        "image_base": f"/pages/{doc_id}/",
                        "image_query": f"?set={quote(info['id'], safe='')}" if info["id"] else "", "key": key})
@@ -404,11 +425,11 @@ def _prompt(query: dict[str, list[str]]) -> tuple[int, str, bytes]:
     """그 모델 태그가 no항에 보내는 안내문 글. 화면의 글상자에 채울 때만 쓴다. 파일로 남기지 않는다 (D-47)."""
     tag, no = [(query.get(k) or [""])[0] for k in ("model", "no")]
     if not (no.isascii() and no.isdigit() and 1 <= int(no) <= 16):
-        return _json(400, {"error": f"no는 1~16 항 번호여야 합니다 (받은 값: {no})"})
+        return _fail(400, "bad_query", detail=f"no는 1~16 항 번호여야 합니다 (받은 값: {no})")
     try:
         cfg = load_model_config(tag)
     except KeyError:
-        return _json(400, {"error": f"configs/models.yaml에 없는 모델 태그: {tag}"})
+        return _fail(400, "bad_query", detail=f"configs/models.yaml에 없는 모델 태그: {tag}")
     rows = int(no) in (cfg.get("rows_sections") or [])
     return _json(200, {"no": int(no), "rows": rows, "text": build_system(int(no), rows),
                        "hash": prompt_hash(int(no), rows)})
@@ -422,7 +443,7 @@ def _job_get(path: str, query: dict[str, list[str]], ctx: AppContext) -> tuple[i
         return _json(404, {"error": f"없는 주소: {path}"})
     lines = (query.get("lines") or ["200"])[0]
     if not (lines.isascii() and lines.isdigit()):
-        return _json(400, {"error": f"lines는 숫자여야 합니다 (받은 값: {lines})"})
+        return _fail(400, "bad_query", detail=f"lines는 숫자여야 합니다 (받은 값: {lines})")
     try:
         if m[2] == "log":
             return _json(200, {"id": m[1], "text": ctx.jobs.tail(m[1], min(int(lines), 5000))})
@@ -446,7 +467,7 @@ def _server_post(path: str, body: bytes | None, ctx: AppContext) -> tuple[int, s
         return _json(503, {"error": "서버 탭이 꺼져 있습니다"})
     data = _body(body)
     if data is None:
-        return _json(400, {"error": "본문은 JSON 객체여야 합니다"})
+        return _fail(400, "bad_query", detail="본문은 JSON 객체여야 합니다")
     if path == "/api/servers/propose":
         res = ctx.servers.propose(data.get("action"), data.get("params"))
     elif path == "/api/servers/execute":
@@ -467,7 +488,7 @@ def _job_pages_dir(data: dict, ctx: AppContext):
         return data.get("pages_dir")
     s = bsets.find_set(_set_list(ctx), want)
     if s is None:
-        raise ValueError(f"없는 문서 묶음: {want}")
+        raise Problem("unknown_set", id=want)
     return os.path.relpath(bsets.set_dir(Path(ctx.pages_root), s["id"]), ctx.jobs.backend_dir)
 
 
@@ -478,7 +499,7 @@ def _post(path: str, body: bytes | None, ctx: AppContext) -> tuple[int, str, byt
         return _json(503, {"error": "작업 탭이 꺼져 있습니다(--runs-dir를 기본 runs/가 아닌 곳으로 주면 꺼집니다)"})
     data = _body(body)
     if data is None:
-        return _json(400, {"error": "본문은 JSON 객체여야 합니다"})
+        return _fail(400, "bad_query", detail="본문은 JSON 객체여야 합니다")
     jobs = ctx.jobs
     extra_env = ctx.servers.job_env() if ctx.servers else None   # 이 앱이 만든 Pod의 주소·키. 작업 환경에만 넣는다
     try:
@@ -501,7 +522,7 @@ def _post(path: str, body: bytes | None, ctx: AppContext) -> tuple[int, str, byt
             job = jobs.start_compare(title=data.get("title"), runs=data.get("runs"), labels=data.get("labels"))
             return _json(200, {"id": job.id})
     except (ValueError, TypeError) as e:
-        return _json(400, {"error": str(e)})
+        return _json(400, _problem_body(e))
     m = _JOB_PATH.match(path)
     if m and m[2] == "stop":
         return _json(200, {"stopped": jobs.stop(m[1])})
@@ -531,7 +552,7 @@ def route(method: str, path: str, query: dict[str, list[str]], body: bytes | Non
     if path.startswith("/api/run/"):
         run = _run_paths(ctx).get(path[len("/api/run/"):])
         if run is None:
-            return _json(404, {"error": f"없는 실행: {path[len('/api/run/'):]}"})
+            return _fail(404, "missing_run", name=path[len("/api/run/"):])
         gold_dir, key, err = _query_key(query, ctx)
         if err:
             return err

@@ -770,3 +770,102 @@ def test_start_try_gold_dir_argv(bj, where):
     assert opt(sp.calls[0]["argv"], "--gold-dir") == "../data/gold/a3"
     try_job(m)
     assert "--gold-dir" not in sp.calls[1]["argv"]
+
+
+# ── 작업 실패 글 (step 7) ─────────────────────────────────
+# 가짜 트레이스백만 쓴다. 실제 작업 로그(runs/manual/jobs)의 글은 옮기지 않는다.
+
+FAKE_KEY = "FAKEKEY-job-SHOULD-NEVER-APPEAR"
+DOTENV_LINE = "python-dotenv could not parse statement starting at line 5\n"
+PAGES_TRACE = ("Traceback (most recent call last):\n"
+               '  File "scripts/try_section.py", line 9, in <module>\n'
+               '    raise FileNotFoundError(f"{doc_id}: 쪽 글자 파일(pNNN.txt)이 없습니다: {doc_dir}")\n'
+               "FileNotFoundError: T21-X01: 쪽 글자 파일(pNNN.txt)이 없습니다: ../data/pages/가짜판/T21-X01\n")
+
+
+def test_failed_job_has_error_text(bj, where):
+    m = manager(bj, where, FakeSpawner(text=DOTENV_LINE + PAGES_TRACE, code=1))
+    view = job_of(m, try_job(m).id)
+    assert view["status"] == "failed"
+    assert view["error"]["message"] == "쪽 글자 폴더나 파일이 없습니다."
+    assert view["error"]["raw"].startswith("FileNotFoundError: T21-X01")
+    assert [w["line"] for w in view["warnings"]] == [5]
+
+
+def test_done_job_has_no_error_but_keeps_warnings(bj, where):
+    m = manager(bj, where, FakeSpawner(text="가짜 진행 줄\n"))
+    view = job_of(m, try_job(m).id)
+    assert view["status"] == "done" and view["error"] is None and view["warnings"] == []
+    m = manager(bj, where, FakeSpawner(text=DOTENV_LINE + "가짜 진행 줄\n"))
+    view = job_of(m, try_job(m).id)
+    assert view["error"] is None and view["warnings"] and view["warnings"][0]["line"] == 5
+
+
+def test_failed_job_without_exception_line_has_no_error(bj, where):
+    m = manager(bj, where, FakeSpawner(text="가짜 진행 줄\n", code=2))
+    view = job_of(m, try_job(m).id)
+    assert view["status"] == "failed" and view["error"] is None and view["warnings"] == []
+
+
+def test_dotenv_warning_at_top_of_long_log_is_kept(bj, where):
+    # dotenv 경고는 파이썬이 뜰 때 찍혀 로그 맨 앞에 있다. 로그가 200줄을 넘어도 놓치지 않는다
+    m = manager(bj, where, FakeSpawner(text=DOTENV_LINE + "가짜 진행 줄\n" * 500 + PAGES_TRACE, code=1))
+    view = job_of(m, try_job(m).id)
+    assert [w["line"] for w in view["warnings"]] == [5]
+    assert view["error"]["message"] == "쪽 글자 폴더나 파일이 없습니다."
+
+
+def test_job_error_text_masks_keys(bj, app, where):
+    log = (f"요청 머리: Authorization: Bearer {FAKE_KEY}\n"
+           f"httpx.HTTPStatusError: 401 Unauthorized (Authorization: Bearer {FAKE_KEY})\n")
+    m = manager(bj, where, FakeSpawner(text=log, code=1))
+    job = try_job(m)
+    view = job_of(m, job.id)
+    assert view["error"]["message"] == "모델 서버가 키를 거절했습니다."
+    assert FAKE_KEY not in json.dumps(m.list(), ensure_ascii=False)
+    code, data = call(app, ctx_of(app, where, m), "GET", "/api/jobs")
+    assert code == 200 and FAKE_KEY not in json.dumps(data, ensure_ascii=False)
+
+
+def test_job_error_text_masks_env_secret_values(bj, where, monkeypatch):
+    monkeypatch.setenv("RUNPOD_VLLM_API_KEY", "가짜-pod-키-값-12345")
+    m = manager(bj, where, FakeSpawner(text="ValueError: 가짜 키 가짜-pod-키-값-12345 거절\n", code=1))
+    view = job_of(m, try_job(m).id)
+    assert "가짜-pod-키-값-12345" not in json.dumps(view, ensure_ascii=False) and "***" in view["error"]["raw"]
+
+
+def test_view_dry_run_flag(bj, where):
+    m = manager(bj, where, FakeSpawner())
+    practice, real = try_job(m, dry_run=True), try_job(m)
+    assert job_of(m, practice.id)["dry_run"] is True
+    assert job_of(m, real.id)["dry_run"] is False
+
+
+def test_view_keeps_old_keys(bj, where):
+    m = manager(bj, where, FakeSpawner())
+    view = job_of(m, try_job(m).id)
+    assert {"id", "kind", "label", "started", "pid", "returncode", "status", "stoppable", "command", "log",
+            "runs", "progress", "output", "error", "warnings", "dry_run"} == set(view)
+
+
+def test_route_post_value_error_has_message_and_fix(bj, app, where):
+    ctx = ctx_of(app, where, manager(bj, where))
+    code, data = call(app, ctx, "POST", "/api/jobs/try", {"model": TAG, "doc": X01, "sections": [99],
+                                                         "pages_dir": "../data/pages/version9"})
+    assert code == 400 and data["error"] == data["message"] and "1~16" in data["message"]
+    assert data["fix"] == "입력을 고친 뒤 다시 보내세요."
+    code, data = call(app, ctx, "POST", "/api/jobs/try", {"model": TAG, "doc": X09, "sections": [11],
+                                                         "pages_dir": "../data/pages/version9"})
+    assert code == 400 and "평가" in data["error"] and data["message"] and data["fix"]
+    code, data = call(app, ctx, "POST", "/api/jobs/try", [1, 2])
+    assert code == 400 and data["error"] and data["message"] and data["fix"]
+
+
+def test_route_post_unknown_set_and_key_have_message_and_fix(bj, app, where40, monkeypatch):
+    outside_support(monkeypatch, True)
+    ctx = ctx_of(app, where40, manager(bj, where40), data_root=where40 / "data")
+    body = {"model": TAG, "doc": X01, "sections": [11]}
+    code, data = call(app, ctx, "POST", "/api/jobs/try", {**body, "set": "없는_묶음"})
+    assert code == 400 and data["error"] == "없는 문서 묶음: 없는_묶음" and "묶음" in data["fix"]
+    code, data = call(app, ctx, "POST", "/api/jobs/try", {**body, "set": "version9", "key": "없는/정답지"})
+    assert code == 400 and "정답지" in data["error"] and "정답지" in data["fix"]
