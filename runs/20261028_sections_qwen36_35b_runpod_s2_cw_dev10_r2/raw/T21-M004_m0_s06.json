@@ -1,0 +1,173 @@
+{
+ "doc_id": "T21-M004",
+ "msds_index": 0,
+ "section": 6,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S6_PERSONAL",
+    "title_raw": "가. 인체를 보호하기 위해 필요한 조치사항 및 보호구",
+    "start": "p5:L3",
+    "end": "p5:L19"
+   },
+   {
+    "item_code": "S6_ENV",
+    "title_raw": "나. 환경을 보호하기 위해 필요한 조치사항",
+    "start": "p5:L20",
+    "end": "p5:L21"
+   },
+   {
+    "item_code": "S6_CLEANUP",
+    "title_raw": "다. 정화 또는 제거 방법",
+    "start": "p5:L22",
+    "end": "p5:L25"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S5_END",
+    "title_raw": "6. 누출사고시 대처방법",
+    "reason": "코드없음",
+    "comp_name": "MIXED C4'S",
+    "comp_cas": "106-99-0",
+    "q": {
+     "raw": "18~23.5",
+     "value": 18,
+     "approx": false,
+     "lower_op": ">=",
+     "lower": 18,
+     "upper_op": "<=",
+     "upper": 23.5,
+     "unit": "%"
+    },
+    "statements": [
+     {
+      "key": "산소 농도",
+      "value": "18~23.5%",
+      "refs": [
+       "p5:L17"
+      ],
+      "cond": {
+       "raw": "적정한 공기(산소 농도 18~23.5%)가 확보될 때까지",
+       "value": 18,
+       "approx": false,
+       "lower_op": ">=",
+       "lower": 18,
+       "upper_op": "<=",
+       "upper": 23.5,
+       "unit": "%"
+      },
+      "line": "p5:L17"
+     },
+     {
+      "key": "조치",
+      "value": "공기호흡기 또는 송기마스크 등 적절한 보호구가 없는 상태에서 해당 공간으로 진입하지 마시오.",
+      "refs": [
+       "p5:L17"
+      ],
+      "cond": {
+       "raw": "적정한 공기(산소 농도 18~23.5%)가 확보될 때까지",
+       "value": 18,
+       "approx": false,
+       "lower_op": ">=",
+       "lower": 18,
+       "upper_op": "<=",
+       "upper": 23.5,
+       "unit": "%"
+      },
+      "line": "p5:L17"
+     }
+    ],
+    "suggested_code": "S6_PERSONAL",
+    "line": "p5:L17"
+   },
+   {
+    "after_item": "S6_CLEANUP",
+    "title_raw": "7. 취급 및 저장방법",
+    "reason": "코드없음",
+    "comp_name": "MIXED C4'S",
+    "comp_cas": "106-99-0",
+    "q": {
+     "raw": "18~23.5",
+     "value": 18,
+     "approx": false,
+     "lower_op": ">=",
+     "lower": 18,
+     "upper_op": "<=",
+     "upper": 23.5,
+     "unit": "%"
+    },
+    "statements": [
+     {
+      "key": "산소 농도",
+      "value": "18~23.5%",
+      "refs": [
+       "p5:L17"
+      ],
+      "cond": {
+       "raw": "적정한 공기(산소 농도 18~23.5%)가 확보될 때까지",
+       "value": 18,
+       "approx": false,
+       "lower_op": ">=",
+       "lower": 18,
+       "upper_op": "<=",
+       "upper": 23.5,
+       "unit": "%"
+      },
+      "line": "p5:L17"
+     },
+     {
+      "key": "조치",
+      "value": "공기호흡기 또는 송기마스크 등 적절한 보호구가 없는 상태에서 해당 공간으로 진입하지 마시오.",
+      "refs": [
+       "p5:L17"
+      ],
+      "cond": {
+       "raw": "적정한 공기(산소 농도 18~23.5%)가 확보될 때까지",
+       "value": 18,
+       "approx": false,
+       "lower_op": ">=",
+       "lower": 18,
+       "upper_op": "<=",
+       "upper": 23.5,
+       "unit": "%"
+      },
+      "line": "p5:L17"
+     }
+    ],
+    "suggested_code": "S6_PERSONAL",
+    "line": "p5:L17"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S6_PERSONAL\",\n      \"title_raw\": \"가. 인체를 보호하기 위해 필요한 조치사항 및 보호구\",\n      \"start\": \"p5:L3\",\n      \"end\": \"p5:L19\"\n    },\n    {\n      \"item_code\": \"S6_ENV\",\n      \"title_raw\": \"나. 환경을 보호하기 위해 필요한 조치사항\",\n      \"start\": \"p5:L20\",\n      \"end\": \"p5:L21\"\n    },\n    {\n      \"item_code\": \"S6_CLEANUP\",\n      \"title_raw\": \"다. 정화 또는 제거 방법\",\n      \"start\": \"p5:L22\",\n      \"end\": \"p5:L25\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S5_END\",\n      \"title_raw\": \"6. 누출사고시 대처방법\",\n      \"reason\": \"코드없음\",\n      \"comp_name\": \"MIXED C4'S\"\n    ,\n      \"comp_cas\": \"106-99-0\",\n      \"q\": {\n        \"raw\": \"18~23.5\",\n        \"value\": 18,\n        \"approx\": false,\n        \"lower_op\": \">=\",\n        \"lower\": 18,\n        \"upper_op\": \"<=\",\n        \"upper\": 23.5,\n        \"unit\": \"%\"\n      },\n      \"statements\": [\n        {\n          \"key\": \"산소 농도\",\n          \"value\": \"18~23.5%\"\n        ,\n          \"refs\": [\n            \"p5:L17\"\n          ]\n        ,\n          \"cond\": {\n            \"raw\": \"적정한 공기(산소 농도 18~23.5%)가 확보될 때까지\",\n            \"value\": 18,\n            \"approx\": false,\n            \"lower_op\": \">=\",\n            \"lower\": 18,\n            \"upper_op\": \"<=\",\n            \"upper\": 23.5,\n            \"unit\": \"%\"\n          }\n        ,\n          \"line\": \"p5:L17\"\n        },\n        {\n          \"key\": \"조치\",\n          \"value\": \"공기호흡기 또는 송기마스크 등 적절한 보호구가 없는 상태에서 해당 공간으로 진입하지 마시오.\"\n        ,\n          \"refs\": [\n            \"p5:L17\"\n          ]\n        ,\n          \"cond\": {\n            \"raw\": \"적정한 공기(산소 농도 18~23.5%)가 확보될 때까지\",\n            \"value\": 18,\n            \"approx\": false,\n            \"lower_op\": \">=\",\n            \"lower\": 18,\n            \"upper_op\": \"<=\",\n            \"upper\": 23.5,\n            \"unit\": \"%\"\n          }\n        ,\n          \"line\": \"p5:L17\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S6_PERSONAL\"\n    ,\n      \"line\": \"p5:L17\"\n    },\n    {\n      \"after_item\": \"S6_CLEANUP\",\n      \"title_raw\": \"7. 취급 및 저장방법\",\n      \"reason\": \"코드없음\",\n      \"comp_name\": \"MIXED C4'S\"\n    ,\n      \"comp_cas\": \"106-99-0\",\n      \"q\": {\n        \"raw\": \"18~23.5\",\n        \"value\": 18,\n        \"approx\": false,\n        \"lower_op\": \">=\",\n        \"lower\": 18,\n        \"upper_op\": \"<=\",\n        \"upper\": 23.5,\n        \"unit\": \"%\"\n      },\n      \"statements\": [\n        {\n          \"key\": \"산소 농도\",\n          \"value\": \"18~23.5%\"\n        ,\n          \"refs\": [\n            \"p5:L17\"\n          ]\n        ,\n          \"cond\": {\n            \"raw\": \"적정한 공기(산소 농도 18~23.5%)가 확보될 때까지\",\n            \"value\": 18,\n            \"approx\": false,\n            \"lower_op\": \">=\",\n            \"lower\": 18,\n            \"upper_op\": \"<=\",\n            \"upper\": 23.5,\n            \"unit\": \"%\"\n          }\n        ,\n          \"line\": \"p5:L17\"\n        },\n        {\n          \"key\": \"조치\",\n          \"value\": \"공기호흡기 또는 송기마스크 등 적절한 보호구가 없는 상태에서 해당 공간으로 진입하지 마시오.\"\n        ,\n          \"refs\": [\n            \"p5:L17\"\n          ]\n        ,\n          \"cond\": {\n            \"raw\": \"적정한 공기(산소 농도 18~23.5%)가 확보될 때까지\",\n            \"value\": 18,\n            \"approx\": false,\n            \"lower_op\": \">=\",\n            \"lower\": 18,\n            \"upper_op\": \"<=\",\n            \"upper\": 23.5,\n            \"unit\": \"%\"\n          }\n        ,\n          \"line\": \"p5:L17\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S6_PERSONAL\"\n    ,\n      \"line\": \"p5:L17\"\n    }\n  ]\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 15324,
+  "completion_tokens": 1291,
+  "total_tokens": 16615
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 15324,
+    "completion_tokens": 1291,
+    "total_tokens": 16615
+   },
+   "seconds": 25.569,
+   "chars": 3353,
+   "whitespace": 1598,
+   "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S6_PERSONAL\",\n      \"title_raw\": \"가. 인체를 보호하기 위해 필요한 조치사항 및 보호구\",\n      \"start\": \"p5:L3\",\n      \"end\": \"p5:L19\"\n    },\n    {\n      \"item_code\": \"S6_ENV\",\n      \"title_raw\": \"나. 환경을 보호하기 위해 필요한 조치사항\",\n      \"start\": \"p5:L20\",\n      \"end\": \"p5:L21\"\n    },\n    {\n      \"item_code\": \"S6_CLEANUP\",\n      \"title_raw\": \"다. 정화 또는 제거 방법\",\n      \"start\": \"p5:L22\",\n      \"end\": \"p5:L25\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S5_END\",\n      \"title_raw",
+   "tail": " 진입하지 마시오.\"\n        ,\n          \"refs\": [\n            \"p5:L17\"\n          ]\n        ,\n          \"cond\": {\n            \"raw\": \"적정한 공기(산소 농도 18~23.5%)가 확보될 때까지\",\n            \"value\": 18,\n            \"approx\": false,\n            \"lower_op\": \">=\",\n            \"lower\": 18,\n            \"upper_op\": \"<=\",\n            \"upper\": 23.5,\n            \"unit\": \"%\"\n          }\n        ,\n          \"line\": \"p5:L17\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S6_PERSONAL\"\n    ,\n      \"line\": \"p5:L17\"\n    }\n  ]\n}"
+  }
+ ],
+ "seconds": 25.572,
+ "check_problems": []
+}

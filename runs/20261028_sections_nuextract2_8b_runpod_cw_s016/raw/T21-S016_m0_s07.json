@@ -1,0 +1,94 @@
+{
+ "doc_id": "T21-S016",
+ "msds_index": 0,
+ "section": 7,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S7_STORAGE",
+    "title_raw": null,
+    "start": "3/9",
+    "end": "4/9"
+   }
+  ],
+  "extras": []
+ },
+ "raw_text": "{\"narratives\": [{\"item_code\": \"S7_STORAGE\", \"title_raw\": null, \"start\": \"3/9\", \"end\": \"4/9\"}], \"extras\": []}",
+ "mode": "nuextract_template",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 9880,
+  "completion_tokens": 43,
+  "total_tokens": 9923
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "nuextract_template",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 9880,
+    "completion_tokens": 43,
+    "total_tokens": 9923
+   },
+   "seconds": 9.131,
+   "chars": 108,
+   "whitespace": 10,
+   "head": "{\"narratives\": [{\"item_code\": \"S7_STORAGE\", \"title_raw\": null, \"start\": \"3/9\", \"end\": \"4/9\"}], \"extras\": []}",
+   "tail": ""
+  }
+ ],
+ "seconds": 9.132,
+ "check_problems": [
+  "narratives[0].start: 원문에 없는 줄 번호 3/9",
+  "narratives[0].end: 원문에 없는 줄 번호 4/9"
+ ],
+ "reextract_attempt": {
+  "ok": true,
+  "parsed": {
+   "narratives": [
+    {
+     "item_code": "S7_STORAGE",
+     "title_raw": null,
+     "start": "3/9",
+     "end": "4/9"
+    }
+   ],
+   "extras": []
+  },
+  "raw_text": "{\"narratives\": [{\"item_code\": \"S7_STORAGE\", \"title_raw\": null, \"start\": \"3/9\", \"end\": \"4/9\"}], \"extras\": []}",
+  "mode": "nuextract_template",
+  "finish_reason": "stop",
+  "usage": {
+   "prompt_tokens": 9928,
+   "completion_tokens": 43,
+   "total_tokens": 9971
+  },
+  "attempts": 1,
+  "errors": [],
+  "requests": [
+   {
+    "mode": "nuextract_template",
+    "finish_reason": "stop",
+    "usage": {
+     "prompt_tokens": 9928,
+     "completion_tokens": 43,
+     "total_tokens": 9971
+    },
+    "seconds": 1.113,
+    "chars": 108,
+    "whitespace": 10,
+    "head": "{\"narratives\": [{\"item_code\": \"S7_STORAGE\", \"title_raw\": null, \"start\": \"3/9\", \"end\": \"4/9\"}], \"extras\": []}",
+    "tail": ""
+   }
+  ],
+  "seconds": 1.113,
+  "check_problems": [
+   "narratives[0].start: 원문에 없는 줄 번호 3/9",
+   "narratives[0].end: 원문에 없는 줄 번호 4/9"
+  ]
+ }
+}

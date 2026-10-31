@@ -1,0 +1,113 @@
+{
+ "doc_id": "T21-S003",
+ "msds_index": 0,
+ "section": 3,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "composition": {
+   "type": "단일물질",
+   "no_hazardous_component": false,
+   "lines": {
+    "type": "p1:L38",
+    "no_hazardous_component": "p1:L38"
+   }
+  },
+  "components": [
+   {
+    "name": "질소",
+    "name_en": "NITROGEN",
+    "synonyms": [
+     "질소(Nitrogen)"
+    ],
+    "cas_no": "7727-37-9",
+    "ke_no": "KE-25994",
+    "ec_no": "231-783-9",
+    "content": {
+     "raw": "100%",
+     "value": 100,
+     "unit": "%"
+    },
+    "line": "p1:L39"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S3_END",
+    "title_raw": "이명(관용명)",
+    "reason": "필드없음",
+    "statements": [
+     {
+      "key": "이명(관용명)",
+      "value": "질소(Nitrogen)",
+      "line": "p1:L40"
+     }
+    ],
+    "line": "p1:L40"
+   },
+   {
+    "after_item": "S3_END",
+    "title_raw": "CAS 번호",
+    "reason": "필드없음",
+    "q": {
+     "raw": "7727-37-9",
+     "value": 77273739
+    },
+    "statements": [
+     {
+      "key": "CAS 번호",
+      "value": "7727-37-9",
+      "line": "p2:L1"
+     }
+    ],
+    "line": "p2:L1"
+   },
+   {
+    "after_item": "S3_END",
+    "title_raw": "함유량(%)",
+    "reason": "필드없음",
+    "q": {
+     "raw": "100%",
+     "value": 100,
+     "unit": "%"
+    },
+    "statements": [
+     {
+      "key": "함유량(%)",
+      "value": "100%",
+      "line": "p2:L2"
+     }
+    ],
+    "line": "p2:L2"
+   }
+  ]
+ },
+ "raw_text": "{\"composition\":{\"type\":\"단일물질\",\"no_hazardous_component\":false,\"lines\":{\"type\":\"p1:L38\",\"no_hazardous_component\":\"p1:L38\"}},\"components\":[{\"name\":\"질소\",\"name_en\":\"NITROGEN\",\"synonyms\":[\"질소(Nitrogen)\"],\"cas_no\":\"7727-37-9\",\"ke_no\":\"KE-25994\",\"ec_no\":\"231-783-9\",\"content\":{\"raw\":\"100%\",\"value\":100,\"unit\":\"%\"},\"line\":\"p1:L39\"}],\"extras\":[{\"after_item\":\"S3_END\",\"title_raw\":\"이명(관용명)\",\"reason\":\"필드없음\",\"statements\":[{\"key\":\"이명(관용명)\",\"value\":\"질소(Nitrogen)\",\"line\":\"p1:L40\"}],\"line\":\"p1:L40\"},{\"after_item\":\"S3_END\",\"title_raw\":\"CAS 번호\",\"reason\":\"필드없음\",\"q\":{\"raw\":\"7727-37-9\",\"value\":77273739},\"statements\":[{\"key\":\"CAS 번호\",\"value\":\"7727-37-9\",\"line\":\"p2:L1\"}],\"line\":\"p2:L1\"},{\"after_item\":\"S3_END\",\"title_raw\":\"함유량(%)\",\"reason\":\"필드없음\",\"q\":{\"raw\":\"100%\",\"value\":100,\"unit\":\"%\"},\"statements\":[{\"key\":\"함유량(%)\",\"value\":\"100%\",\"line\":\"p2:L2\"}],\"line\":\"p2:L2\"}]}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 7570,
+  "completion_tokens": 354,
+  "total_tokens": 7924
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 7570,
+    "completion_tokens": 354,
+    "total_tokens": 7924
+   },
+   "seconds": 9.822,
+   "chars": 849,
+   "whitespace": 2,
+   "head": "{\"composition\":{\"type\":\"단일물질\",\"no_hazardous_component\":false,\"lines\":{\"type\":\"p1:L38\",\"no_hazardous_component\":\"p1:L38\"}},\"components\":[{\"name\":\"질소\",\"name_en\":\"NITROGEN\",\"synonyms\":[\"질소(Nitrogen)\"],\"cas_no\":\"7727-37-9\",\"ke_no\":\"KE-25994\",\"ec_no\":\"231-783-9\",\"content\":{\"raw\":\"100%\",\"value\":100,\"unit\":\"%\"},\"line\":\"p1:L39\"}],\"extras\":[{\"after_item\":\"S3_END\",\"title_raw\":\"이명(관용명)\",\"reason\":\"필드없음\",\"statements\":[{\"key\":\"이명(관용명)\",\"value\":\"질소(Nitrogen)\",\"line\":\"p1:L40\"}],\"line\":\"p1:L40\"},{\"after_item\":\"S",
+   "tail": "3_END\",\"title_raw\":\"CAS 번호\",\"reason\":\"필드없음\",\"q\":{\"raw\":\"7727-37-9\",\"value\":77273739},\"statements\":[{\"key\":\"CAS 번호\",\"value\":\"7727-37-9\",\"line\":\"p2:L1\"}],\"line\":\"p2:L1\"},{\"after_item\":\"S3_END\",\"title_raw\":\"함유량(%)\",\"reason\":\"필드없음\",\"q\":{\"raw\":\"100%\",\"value\":100,\"unit\":\"%\"},\"statements\":[{\"key\":\"함유량(%)\",\"value\":\"100%\",\"line\":\"p2:L2\"}],\"line\":\"p2:L2\"}]}"
+  }
+ ],
+ "seconds": 9.825,
+ "check_problems": []
+}

@@ -1,0 +1,81 @@
+{
+ "doc_id": "T21-M013",
+ "msds_index": 0,
+ "section": 13,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S13_METHOD",
+    "title_raw": "가. 폐기방법",
+    "start": "p8:L38",
+    "end": "p8:L39"
+   },
+   {
+    "item_code": "S13_CAUTION",
+    "title_raw": "나. 폐기시 주의사항",
+    "start": "p8:L40",
+    "end": "p8:L42"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S13_CAUTION",
+    "title_raw": "지정폐기물의 분류번호",
+    "reason": "필드없음",
+    "comp_name": "지정폐기물의 분류번호",
+    "comp_cas": "",
+    "q": {
+     "raw": "사용자, 생산자, 폐기물 처리업체가 협의하여 폐기물 코드를 부여해야 함.",
+     "value": null,
+     "approx": null,
+     "lower_op": null,
+     "lower": null,
+     "upper_op": null,
+     "upper": null,
+     "unit": null
+    },
+    "statements": [
+     {
+      "key": "사용자, 생산자, 폐기물 처리업체가 협의하여 폐기물 코드를 부여해야 함.",
+      "value": "사용자, 생산자, 폐기물 처리업체가 협의하여 폐기물 코드를 부여해야 함.",
+      "refs": [],
+      "cond": null,
+      "line": "p8:L42"
+     }
+    ],
+    "suggested_code": "WASTE_CODE",
+    "line": "p8:L42"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S13_METHOD\",\n      \"title_raw\": \"가. 폐기방법\",\n      \"start\": \"p8:L38\",\n      \"end\": \"p8:L39\"\n    },\n    {\n      \"item_code\": \"S13_CAUTION\",\n      \"title_raw\": \"나. 폐기시 주의사항\",\n      \"start\": \"p8:L40\",\n      \"end\": \"p8:L42\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S13_CAUTION\",\n      \"title_raw\": \"지정폐기물의 분류번호\",\n      \"reason\": \"필드없음\",\n      \"comp_name\": \"지정폐기물의 분류번호\",\n      \"comp_cas\": \"\",\n      \"q\": {\n        \"raw\": \"사용자, 생산자, 폐기물 처리업체가 협의하여 폐기물 코드를 부여해야 함.\"\n      ,\n      \"value\": null,\n      \"approx\": null,\n      \"lower_op\": null,\n      \"lower\": null,\n      \"upper_op\": null,\n      \"upper\": null,\n      \"unit\": null\n    },\n    \"statements\": [\n      {\n        \"key\": \"사용자, 생산자, 폐기물 처리업체가 협의하여 폐기물 코드를 부여해야 함.\",\n        \"value\": \"사용자, 생산자, 폐기물 처리업체가 협의하여 폐기물 코드를 부여해야 함.\"\n      ,\n      \"refs\": []\n    ,\n    \"cond\": null\n  ,\n  \"line\": \"p8:L42\"\n}\n  ]\n  ,\n  \"suggested_code\": \"WASTE_CODE\"\n  ,\n  \"line\": \"p8:L42\"\n}\n  ]\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 16302,
+  "completion_tokens": 411,
+  "total_tokens": 16713
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 16302,
+    "completion_tokens": 411,
+    "total_tokens": 16713
+   },
+   "seconds": 21.665,
+   "chars": 973,
+   "whitespace": 344,
+   "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S13_METHOD\",\n      \"title_raw\": \"가. 폐기방법\",\n      \"start\": \"p8:L38\",\n      \"end\": \"p8:L39\"\n    },\n    {\n      \"item_code\": \"S13_CAUTION\",\n      \"title_raw\": \"나. 폐기시 주의사항\",\n      \"start\": \"p8:L40\",\n      \"end\": \"p8:L42\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S13_CAUTION\",\n      \"title_raw\": \"지정폐기물의 분류번호\",\n      \"reason\": \"필드없음\",\n      \"comp_name\": \"지정폐기물의 분류번호\",\n      \"comp_cas\": \"\",\n      \"q\": {\n        \"raw\": \"사용자, 생산자, 폐기물 처리업체가 협의하여 폐기",
+   "tail": "물 코드를 부여해야 함.\"\n      ,\n      \"value\": null,\n      \"approx\": null,\n      \"lower_op\": null,\n      \"lower\": null,\n      \"upper_op\": null,\n      \"upper\": null,\n      \"unit\": null\n    },\n    \"statements\": [\n      {\n        \"key\": \"사용자, 생산자, 폐기물 처리업체가 협의하여 폐기물 코드를 부여해야 함.\",\n        \"value\": \"사용자, 생산자, 폐기물 처리업체가 협의하여 폐기물 코드를 부여해야 함.\"\n      ,\n      \"refs\": []\n    ,\n    \"cond\": null\n  ,\n  \"line\": \"p8:L42\"\n}\n  ]\n  ,\n  \"suggested_code\": \"WASTE_CODE\"\n  ,\n  \"line\": \"p8:L42\"\n}\n  ]\n}"
+  }
+ ],
+ "seconds": 21.666,
+ "check_problems": []
+}

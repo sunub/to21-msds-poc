@@ -1,0 +1,203 @@
+{
+ "doc_id": "T21-S003",
+ "msds_index": 0,
+ "section": 5,
+ "reextracted": true,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S5_MEDIA",
+    "title_raw": "가.적절한(부적절한)소화제",
+    "start": "p2:L15",
+    "end": "p2:L17"
+   },
+   {
+    "item_code": "S5_SPECIFIC",
+    "title_raw": "나.화학물질로부터 생기는 특정 유해성",
+    "start": "p2:L19",
+    "end": "p2:L22"
+   },
+   {
+    "item_code": "S5_FIREFIGHT",
+    "title_raw": "다.화재진압시 착용할 보호구 및 예방조치",
+    "start": "p2:L23",
+    "end": "p2:L28"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S5_MEDIA",
+    "title_raw": "대형 화재시",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "value": "일반적인 소화약제 및 미세 물분무를 사용하시오",
+      "line": "p2:L18"
+     }
+    ],
+    "line": "p2:L18"
+   },
+   {
+    "after_item": "S5_SPECIFIC",
+    "title_raw": "열분해 생성물",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "value": "질소산화물",
+      "line": "p2:L20"
+     }
+    ],
+    "line": "p2:L20"
+   },
+   {
+    "after_item": "S5_FIREFIGHT",
+    "title_raw": "탱크,철도 차량 또는 탱크 트럭의 경우:대피반경:0.8km(1/2마일)",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "value": "대피반경:0.8km(1/2마일)",
+      "line": "p2:L28"
+     }
+    ],
+    "line": "p2:L28"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S5_MEDIA\",\n      \"title_raw\": \"가.적절한(부적절한)소화제\",\n      \"start\": \"p2:L15\",\n      \"end\": \"p2:L17\"\n    },\n    {\n      \"item_code\": \"S5_SPECIFIC\",\n      \"title_raw\": \"나.화학물질로부터 생기는 특정 유해성\",\n      \"start\": \"p2:L19\",\n      \"end\": \"p2:L22\"\n    },\n    {\n      \"item_code\": \"S5_FIREFIGHT\",\n      \"title_raw\": \"다.화재진압시 착용할 보호구 및 예방조치\",\n      \"start\": \"p2:L23\",\n      \"end\": \"p2:L28\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S5_MEDIA\",\n      \"title_raw\": \"대형 화재시\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"일반적인 소화약제 및 미세 물분무를 사용하시오\",\n          \"line\": \"p2:L18\"\n        }\n      ],\n      \"line\": \"p2:L18\"\n    },\n    {\n      \"after_item\": \"S5_SPECIFIC\",\n      \"title_raw\": \"열분해 생성물\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"질소산화물\",\n          \"line\": \"p2:L20\"\n        }\n      ],\n      \"line\": \"p2:L20\"\n    },\n    {\n      \"after_item\": \"S5_FIREFIGHT\",\n      \"title_raw\": \"탱크,철도 차량 또는 탱크 트럭의 경우:대피반경:0.8km(1/2마일)\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"대피반경:0.8km(1/2마일)\",\n          \"line\": \"p2:L28\"\n        }\n      ],\n      \"line\": \"p2:L28\"\n    }\n  ]\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 2414,
+  "completion_tokens": 531,
+  "total_tokens": 2945
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 2414,
+    "completion_tokens": 531,
+    "total_tokens": 2945
+   },
+   "seconds": 8.196,
+   "chars": 1201,
+   "whitespace": 457,
+   "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S5_MEDIA\",\n      \"title_raw\": \"가.적절한(부적절한)소화제\",\n      \"start\": \"p2:L15\",\n      \"end\": \"p2:L17\"\n    },\n    {\n      \"item_code\": \"S5_SPECIFIC\",\n      \"title_raw\": \"나.화학물질로부터 생기는 특정 유해성\",\n      \"start\": \"p2:L19\",\n      \"end\": \"p2:L22\"\n    },\n    {\n      \"item_code\": \"S5_FIREFIGHT\",\n      \"title_raw\": \"다.화재진압시 착용할 보호구 및 예방조치\",\n      \"start\": \"p2:L23\",\n      \"end\": \"p2:L28\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S5_MEDIA\",\n      \"title_raw\": ",
+   "tail": " \"after_item\": \"S5_SPECIFIC\",\n      \"title_raw\": \"열분해 생성물\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"질소산화물\",\n          \"line\": \"p2:L20\"\n        }\n      ],\n      \"line\": \"p2:L20\"\n    },\n    {\n      \"after_item\": \"S5_FIREFIGHT\",\n      \"title_raw\": \"탱크,철도 차량 또는 탱크 트럭의 경우:대피반경:0.8km(1/2마일)\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"대피반경:0.8km(1/2마일)\",\n          \"line\": \"p2:L28\"\n        }\n      ],\n      \"line\": \"p2:L28\"\n    }\n  ]\n}"
+  }
+ ],
+ "seconds": 8.196,
+ "check_problems": [],
+ "first_attempt": {
+  "ok": true,
+  "parsed": {
+   "narratives": [
+    {
+     "item_code": "S5_MEDIA",
+     "title_raw": "가.적절한(부적절한)소화제",
+     "start": "L15",
+     "end": "L17"
+    },
+    {
+     "item_code": "S5_SPECIFIC",
+     "title_raw": "나.화학물질로부터 생기는 특정 유해성",
+     "start": "L19",
+     "end": "L22"
+    },
+    {
+     "item_code": "S5_FIREFIGHT",
+     "title_raw": "다.화재진압시 착용할 보호구 및 예방조치",
+     "start": "L23",
+     "end": "L28"
+    }
+   ],
+   "extras": [
+    {
+     "after_item": "S5_MEDIA",
+     "title_raw": "대형 화재시",
+     "reason": "코드없음",
+     "statements": [
+      {
+       "value": "일반적인 소화약제 및 미세 물분무를 사용하시오",
+       "line": "L18"
+      }
+     ],
+     "suggested_code": "S5_FIREFIGHT",
+     "line": "L18"
+    },
+    {
+     "after_item": "S5_SPECIFIC",
+     "title_raw": "열분해 생성물",
+     "reason": "코드없음",
+     "statements": [
+      {
+       "key": "열분해 생성물",
+       "value": "질소산화물",
+       "line": "L20"
+      }
+     ],
+     "suggested_code": "S5_SPECIFIC",
+     "line": "L20"
+    },
+    {
+     "after_item": "S5_FIREFIGHT",
+     "title_raw": "탱크,철도 차량 또는 탱크 트럭의 경우:대피반경:0.8km(1/2마일)",
+     "reason": "코드없음",
+     "statements": [
+      {
+       "value": "대피반경:0.8km(1/2마일)",
+       "line": "L28"
+      }
+     ],
+     "suggested_code": "S5_FIREFIGHT",
+     "line": "L28"
+    }
+   ]
+  },
+  "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S5_MEDIA\",\n      \"title_raw\": \"가.적절한(부적절한)소화제\",\n      \"start\":  \"L15\",\n      \"end\": \"L17\"\n    },\n    {\n      \"item_code\": \"S5_SPECIFIC\",\n      \"title_raw\": \"나.화학물질로부터 생기는 특정 유해성\",\n      \"start\": \"L19\",\n      \"end\": \"L22\"\n    },\n    {\n      \"item_code\": \"S5_FIREFIGHT\",\n      \"title_raw\": \"다.화재진압시 착용할 보호구 및 예방조치\",\n      \"start\": \"L23\",\n      \"end\": \"L28\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S5_MEDIA\",\n      \"title_raw\": \"대형 화재시\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"일반적인 소화약제 및 미세 물분무를 사용하시오\"\n        , \"line\": \"L18\"\n        }\n      ]\n    , \"suggested_code\": \"S5_FIREFIGHT\"\n    , \"line\": \"L18\"\n    },\n    {\n      \"after_item\": \"S5_SPECIFIC\",\n      \"title_raw\": \"열분해 생성물\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"key\": \"열분해 생성물\"\n        , \"value\": \"질소산화물\"\n        , \"line\": \"L20\"\n        }\n      ]\n    , \"suggested_code\": \"S5_SPECIFIC\"\n    , \"line\": \"L20\"\n    },\n    {\n      \"after_item\": \"S5_FIREFIGHT\",\n      \"title_raw\": \"탱크,철도 차량 또는 탱크 트럭의 경우:대피반경:0.8km(1/2마일)\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"대피반경:0.8km(1/2마일)\"\n        , \"line\": \"L28\"\n        }\n      ]\n    , \"suggested_code\": \"S5_FIREFIGHT\"\n    , \"line\": \"L28\"\n    }\n  ]\n}",
+  "mode": "json_schema",
+  "finish_reason": "stop",
+  "usage": {
+   "prompt_tokens": 2203,
+   "completion_tokens": 573,
+   "total_tokens": 2776
+  },
+  "attempts": 1,
+  "errors": [],
+  "requests": [
+   {
+    "mode": "json_schema",
+    "finish_reason": "stop",
+    "usage": {
+     "prompt_tokens": 2203,
+     "completion_tokens": 573,
+     "total_tokens": 2776
+    },
+    "seconds": 10.154,
+    "chars": 1303,
+    "whitespace": 485,
+    "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S5_MEDIA\",\n      \"title_raw\": \"가.적절한(부적절한)소화제\",\n      \"start\":  \"L15\",\n      \"end\": \"L17\"\n    },\n    {\n      \"item_code\": \"S5_SPECIFIC\",\n      \"title_raw\": \"나.화학물질로부터 생기는 특정 유해성\",\n      \"start\": \"L19\",\n      \"end\": \"L22\"\n    },\n    {\n      \"item_code\": \"S5_FIREFIGHT\",\n      \"title_raw\": \"다.화재진압시 착용할 보호구 및 예방조치\",\n      \"start\": \"L23\",\n      \"end\": \"L28\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S5_MEDIA\",\n      \"title_raw\": \"대형 화재시\",\n      \"",
+    "tail": "  \"statements\": [\n        {\n          \"key\": \"열분해 생성물\"\n        , \"value\": \"질소산화물\"\n        , \"line\": \"L20\"\n        }\n      ]\n    , \"suggested_code\": \"S5_SPECIFIC\"\n    , \"line\": \"L20\"\n    },\n    {\n      \"after_item\": \"S5_FIREFIGHT\",\n      \"title_raw\": \"탱크,철도 차량 또는 탱크 트럭의 경우:대피반경:0.8km(1/2마일)\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"대피반경:0.8km(1/2마일)\"\n        , \"line\": \"L28\"\n        }\n      ]\n    , \"suggested_code\": \"S5_FIREFIGHT\"\n    , \"line\": \"L28\"\n    }\n  ]\n}"
+   }
+  ],
+  "seconds": 10.155,
+  "check_problems": [
+   "narratives[0].start: 원문에 없는 줄 번호 L15",
+   "narratives[0].end: 원문에 없는 줄 번호 L17",
+   "narratives[1].start: 원문에 없는 줄 번호 L19",
+   "narratives[1].end: 원문에 없는 줄 번호 L22",
+   "narratives[2].start: 원문에 없는 줄 번호 L23",
+   "narratives[2].end: 원문에 없는 줄 번호 L28",
+   "extras[0].statements[0].line: 원문에 없는 줄 번호 L18",
+   "extras[0].line: 원문에 없는 줄 번호 L18",
+   "extras[1].statements[0].line: 원문에 없는 줄 번호 L20",
+   "extras[1].line: 원문에 없는 줄 번호 L20",
+   "extras[2].statements[0].line: 원문에 없는 줄 번호 L28",
+   "extras[2].line: 원문에 없는 줄 번호 L28"
+  ]
+ }
+}

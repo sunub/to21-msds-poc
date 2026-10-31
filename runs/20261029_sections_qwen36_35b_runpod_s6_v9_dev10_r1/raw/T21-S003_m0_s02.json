@@ -1,0 +1,132 @@
+{
+ "doc_id": "T21-S003",
+ "msds_index": 0,
+ "section": 2,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "hazard": {
+   "classified": true,
+   "classes": [
+    {
+     "group": "물리적",
+     "class_code": "PH_PRESS_GAS",
+     "category": "냉동액화가스",
+     "raw": "고압가스:냉동액화가스",
+     "line": "p1:L22"
+    }
+   ],
+   "signal_word": "경고",
+   "pictograms": [
+    {
+     "code": "GHS04"
+    }
+   ],
+   "h_statements": [
+    {
+     "code": "H281",
+     "text": "냉동가스:극저온 냉화상 또는 손상을 줄 수 있음",
+     "line": "p1:L27"
+    }
+   ],
+   "p_statements": [
+    {
+     "code": "P282",
+     "type": "예방",
+     "text": "방한장갑 안면보호구 보안경을 착용하시오",
+     "line": "p1:L29"
+    },
+    {
+     "code": "P336",
+     "type": "대응",
+     "text": "미지근한 물로 언 부분을 녹이시오,손상된 부위를 문지르지 마시오",
+     "line": "p1:L30"
+    },
+    {
+     "code": "P315",
+     "type": "대응",
+     "text": "즉시 의학적인 조치 조언을 구하시오",
+     "line": "p1:L31"
+    },
+    {
+     "code": "P403",
+     "type": "저장",
+     "text": "환기가 잘 되는 곳에 보관하시오",
+     "line": "p1:L32"
+    }
+   ],
+   "nfpa": {
+    "health": 3,
+    "fire": 0,
+    "reactivity": 0,
+    "special": "냉동액화가스"
+   },
+   "lines": {
+    "signal_word": "p1:L26",
+    "pictograms": "p1:L24",
+    "nfpa": "p1:L34"
+   }
+  },
+  "narratives": [
+   {
+    "item_code": "S2_LABEL_NOTE",
+    "title_raw": "나.예방조치문구를 포함한 경고표지 항목",
+    "start": "p1:L23",
+    "end": "p1:L33"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S2_LABEL_NOTE",
+    "title_raw": "다.유해·위험성 분류기준에 포함되지 않는 기타 유해·위험성(NFPA)",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "key": "보건",
+      "value": "3",
+      "line": "p1:L35"
+     },
+     {
+      "key": "화재",
+      "value": "0",
+      "line": "p1:L36"
+     },
+     {
+      "key": "반응성",
+      "value": "0",
+      "line": "p1:L37"
+     }
+    ],
+    "line": "p1:L34"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"hazard\": {\n    \"classified\": true,\n    \"classes\": [\n      {\n        \"group\": \"물리적\",\n        \"class_code\": \"PH_PRESS_GAS\",\n        \"category\": \"냉동액화가스\",\n        \"raw\": \"고압가스:냉동액화가스\",\n        \"line\": \"p1:L22\"\n      }\n    ],\n    \"signal_word\": \"경고\",\n    \"pictograms\": [\n      {\n        \"code\": \"GHS04\"\n      }\n    ],\n    \"h_statements\": [\n      {\n        \"code\": \"H281\",\n        \"text\": \"냉동가스:극저온 냉화상 또는 손상을 줄 수 있음\",\n        \"line\": \"p1:L27\"\n      }\n    ],\n    \"p_statements\": [\n      {\n        \"code\": \"P282\",\n        \"type\": \"예방\",\n        \"text\": \"방한장갑 안면보호구 보안경을 착용하시오\",\n        \"line\": \"p1:L29\"\n      },\n      {\n        \"code\": \"P336\",\n        \"type\": \"대응\",\n        \"text\": \"미지근한 물로 언 부분을 녹이시오,손상된 부위를 문지르지 마시오\",\n        \"line\": \"p1:L30\"\n      },\n      {\n        \"code\": \"P315\",\n        \"type\": \"대응\",\n        \"text\": \"즉시 의학적인 조치 조언을 구하시오\",\n        \"line\": \"p1:L31\"\n      },\n      {\n        \"code\": \"P403\",\n        \"type\": \"저장\",\n        \"text\": \"환기가 잘 되는 곳에 보관하시오\",\n        \"line\": \"p1:L32\"\n      }\n    ],\n    \"nfpa\": {\n      \"health\": 3,\n      \"fire\": 0,\n      \"reactivity\": 0,\n      \"special\": \"냉동액화가스\"\n    },\n    \"lines\": {\n      \"signal_word\": \"p1:L26\",\n      \"pictograms\": \"p1:L24\",\n      \"nfpa\": \"p1:L34\"\n    }\n  },\n  \"narratives\": [\n    {\n      \"item_code\": \"S2_LABEL_NOTE\",\n      \"title_raw\": \"나.예방조치문구를 포함한 경고표지 항목\",\n      \"start\":  \t\"p1:L23\",\n      \"end\": \"p1:L33\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S2_LABEL_NOTE\",\n      \"title_raw\": \"다.유해·위험성 분류기준에 포함되지 않는 기타 유해·위험성(NFPA)\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"key\": \"보건\",\n          \"value\": \"3\"\n       \t\t,\n          \"line\": \"p1:L35\"\n        },\n        {\n          \"key\": \"화재\",\n          \"value\": \"0\"\n       \t\t,\n          \"line\": \"p1:L36\"\n        },\n        {\n          \"key\": \"반응성\",\n          \"value\": \"0\"\n       \t\t,\n          \"line\": \"p1:L37\"\n        }\n      ]\n   \t\t,\n      \"line\": \"p1:L34\"\n    }\n  ]\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 5384,
+  "completion_tokens": 830,
+  "total_tokens": 6214
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 5384,
+    "completion_tokens": 830,
+    "total_tokens": 6214
+   },
+   "seconds": 14.412,
+   "chars": 1919,
+   "whitespace": 835,
+   "head": "{\n  \"hazard\": {\n    \"classified\": true,\n    \"classes\": [\n      {\n        \"group\": \"물리적\",\n        \"class_code\": \"PH_PRESS_GAS\",\n        \"category\": \"냉동액화가스\",\n        \"raw\": \"고압가스:냉동액화가스\",\n        \"line\": \"p1:L22\"\n      }\n    ],\n    \"signal_word\": \"경고\",\n    \"pictograms\": [\n      {\n        \"code\": \"GHS04\"\n      }\n    ],\n    \"h_statements\": [\n      {\n        \"code\": \"H281\",\n        \"text\": \"냉동가스:극저온 냉화상 또는 손상을 줄 수 있음\",\n        \"line\": \"p1:L27\"\n      }\n    ],\n    \"p_statements\": [\n      {\n        \"co",
+   "tail": "fter_item\": \"S2_LABEL_NOTE\",\n      \"title_raw\": \"다.유해·위험성 분류기준에 포함되지 않는 기타 유해·위험성(NFPA)\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"key\": \"보건\",\n          \"value\": \"3\"\n       \t\t,\n          \"line\": \"p1:L35\"\n        },\n        {\n          \"key\": \"화재\",\n          \"value\": \"0\"\n       \t\t,\n          \"line\": \"p1:L36\"\n        },\n        {\n          \"key\": \"반응성\",\n          \"value\": \"0\"\n       \t\t,\n          \"line\": \"p1:L37\"\n        }\n      ]\n   \t\t,\n      \"line\": \"p1:L34\"\n    }\n  ]\n}"
+  }
+ ],
+ "seconds": 14.414,
+ "check_problems": []
+}

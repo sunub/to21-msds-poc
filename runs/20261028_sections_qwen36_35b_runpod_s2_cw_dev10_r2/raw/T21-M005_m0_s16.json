@@ -1,0 +1,93 @@
+{
+ "doc_id": "T21-M005",
+ "msds_index": 0,
+ "section": 16,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S16_SOURCE",
+    "title_raw": "가. 자료의 출처",
+    "start": "p12:L26",
+    "end": "p12:L36"
+   },
+   {
+    "item_code": "S16_OTHER",
+    "title_raw": "라. 기타",
+    "start": "p13:L3",
+    "end": "p13:L6"
+   }
+  ],
+  "meta_revision": {
+   "first_issue_date": "2021-12-08",
+   "revision_no": 1,
+   "revision_label": "1",
+   "last_revision_date": "2023-09-08",
+   "lines": {
+    "first_issue_date": "p12:L36",
+    "revision_no": "p12:L38",
+    "revision_label": "p12:L38",
+    "last_revision_date": "p13:L1"
+   }
+  },
+  "extras": [
+   {
+    "after_item": "S16_SOURCE",
+    "title_raw": "다. 개정 횟수 및 최종 개정일자",
+    "reason": "필드없음",
+    "comp_name": "S16_SOURCE",
+    "comp_cas": "S16_SOURCE",
+    "q": {
+     "raw": "1",
+     "value": 1,
+     "approx": false,
+     "lower_op": null,
+     "lower": null,
+     "upper_op": null,
+     "upper": null,
+     "unit": null
+    },
+    "statements": [
+     {
+      "key": "최종 개정이력",
+      "value": "'변경내역 없음'",
+      "refs": [],
+      "cond": null,
+      "line": "p13:L2"
+     }
+    ],
+    "suggested_code": "REVISION_HISTORY",
+    "line": "p12:L37"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S16_SOURCE\",\n      \"title_raw\": \"가. 자료의 출처\",\n      \"start\": \"p12:L26\",\n      \"end\": \"p12:L36\"\n    },\n    {\n      \"item_code\": \"S16_OTHER\",\n      \"title_raw\": \"라. 기타\",\n      \"start\": \"p13:L3\",\n      \"end\": \"p13:L6\"\n    }\n  ],\n  \"meta_revision\": {\n    \"first_issue_date\": \"2021-12-08\",\n    \"revision_no\": 1,\n    \"revision_label\": \"1\",\n    \"last_revision_date\": \"2023-09-08\"\n  ,\n  \"lines\": {\n    \"first_issue_date\": \"p12:L36\",\n    \"revision_no\": \"p12:L38\",\n    \"revision_label\": \"p12:L38\",\n    \"last_revision_date\": \"p13:L1\"\n  }\n}\n  ,\n  \"extras\": [\n    {\n      \"after_item\": \"S16_SOURCE\",\n      \"title_raw\": \"다. 개정 횟수 및 최종 개정일자\",\n      \"reason\": \"필드없음\",\n      \"comp_name\": \"S16_SOURCE\",\n      \"comp_cas\": \"S16_SOURCE\",\n      \"q\": {\n        \"raw\": \"1\",\n        \"value\": 1\n      ,\n      \"approx\": false,\n      \"lower_op\": null,\n      \"lower\": null,\n      \"upper_op\": null,\n      \"upper\": null,\n      \"unit\": null\n    },\n    \"statements\": [\n      {\n        \"key\": \"최종 개정이력\",\n        \"value\": \"'변경내역 없음'\"\n      ,\n      \"refs\": []\n    ,\n    \"cond\": null\n  ,\n  \"line\": \"p13:L2\"\n  }\n  ]\n  ,\n  \"suggested_code\": \"REVISION_HISTORY\"\n  ,\n  \"line\": \"p12:L37\"\n  }\n  ]\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 11848,
+  "completion_tokens": 523,
+  "total_tokens": 12371
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 11848,
+    "completion_tokens": 523,
+    "total_tokens": 12371
+   },
+   "seconds": 14.036,
+   "chars": 1199,
+   "whitespace": 397,
+   "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S16_SOURCE\",\n      \"title_raw\": \"가. 자료의 출처\",\n      \"start\": \"p12:L26\",\n      \"end\": \"p12:L36\"\n    },\n    {\n      \"item_code\": \"S16_OTHER\",\n      \"title_raw\": \"라. 기타\",\n      \"start\": \"p13:L3\",\n      \"end\": \"p13:L6\"\n    }\n  ],\n  \"meta_revision\": {\n    \"first_issue_date\": \"2021-12-08\",\n    \"revision_no\": 1,\n    \"revision_label\": \"1\",\n    \"last_revision_date\": \"2023-09-08\"\n  ,\n  \"lines\": {\n    \"first_issue_date\": \"p12:L36\",\n    \"revision_no\": \"p12:L38\",\n",
+   "tail": "    \"comp_name\": \"S16_SOURCE\",\n      \"comp_cas\": \"S16_SOURCE\",\n      \"q\": {\n        \"raw\": \"1\",\n        \"value\": 1\n      ,\n      \"approx\": false,\n      \"lower_op\": null,\n      \"lower\": null,\n      \"upper_op\": null,\n      \"upper\": null,\n      \"unit\": null\n    },\n    \"statements\": [\n      {\n        \"key\": \"최종 개정이력\",\n        \"value\": \"'변경내역 없음'\"\n      ,\n      \"refs\": []\n    ,\n    \"cond\": null\n  ,\n  \"line\": \"p13:L2\"\n  }\n  ]\n  ,\n  \"suggested_code\": \"REVISION_HISTORY\"\n  ,\n  \"line\": \"p12:L37\"\n  }\n  ]\n}"
+  }
+ ],
+ "seconds": 14.038,
+ "check_problems": []
+}

@@ -1,0 +1,70 @@
+{
+ "doc_id": "T21-M004",
+ "msds_index": 0,
+ "section": 7,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S7_HANDLING",
+    "title_raw": "가. 안전취급요령",
+    "start": "p5:L27",
+    "end": "p5:L30"
+   },
+   {
+    "item_code": "S7_STORAGE",
+    "title_raw": "나. 안전한 저장방법(피해야 할 조건을 포함함)",
+    "start": "p5:L31",
+    "end": "p5:L34"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S6_LEAKAGE",
+    "title_raw": "7. 취급 및 저장방법",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "key": "항목번호",
+      "value": "7",
+      "refs": [
+       "S7_HANDLING",
+       "S7_STORAGE"
+      ],
+      "line": "p5:L26"
+     }
+    ],
+    "line": "p5:L26"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S7_HANDLING\",\n      \"title_raw\": \"가. 안전취급요령\",\n      \"start\": \"p5:L27\",\n      \"end\": \"p5:L30\"\n    },\n    {\n      \"item_code\": \"S7_STORAGE\",\n      \"title_raw\": \"나. 안전한 저장방법(피해야 할 조건을 포함함)\",\n      \"start\": \"p5:L31\",\n      \"end\": \"p5:L34\"\n    }\n  ]\n,\n  \"extras\": [\n    {\n      \"after_item\": \"S6_LEAKAGE\",\n      \"title_raw\": \"7. 취급 및 저장방법\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"key\": \"항목번호\",\n          \"value\": \"7\"\n        ,\n          \"refs\": [\n            \"S7_HANDLING\",\n            \"S7_STORAGE\"\n          ]\n        ,\n          \"line\": \"p5:L26\"\n        }\n      ]\n    ,\n      \"line\": \"p5:L26\"\n    }\n  ]\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 15350,
+  "completion_tokens": 279,
+  "total_tokens": 15629
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 15350,
+    "completion_tokens": 279,
+    "total_tokens": 15629
+   },
+   "seconds": 12.107,
+   "chars": 675,
+   "whitespace": 292,
+   "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S7_HANDLING\",\n      \"title_raw\": \"가. 안전취급요령\",\n      \"start\": \"p5:L27\",\n      \"end\": \"p5:L30\"\n    },\n    {\n      \"item_code\": \"S7_STORAGE\",\n      \"title_raw\": \"나. 안전한 저장방법(피해야 할 조건을 포함함)\",\n      \"start\": \"p5:L31\",\n      \"end\": \"p5:L34\"\n    }\n  ]\n,\n  \"extras\": [\n    {\n      \"after_item\": \"S6_LEAKAGE\",\n      \"title_raw\": \"7. 취급 및 저장방법\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"key\": \"항목번호\",\n          \"value\": \"7\"\n        ,\n    ",
+   "tail": "      \"refs\": [\n            \"S7_HANDLING\",\n            \"S7_STORAGE\"\n          ]\n        ,\n          \"line\": \"p5:L26\"\n        }\n      ]\n    ,\n      \"line\": \"p5:L26\"\n    }\n  ]\n}"
+  }
+ ],
+ "seconds": 12.109,
+ "check_problems": []
+}

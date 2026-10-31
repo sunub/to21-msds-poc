@@ -8,7 +8,9 @@
 결과: data/silver/<model>/<문서>.json, <문서>.review.json, runs/<날짜>_silver_<model>/
 """
 import argparse
+import importlib.util
 import json
+from pathlib import Path
 
 from _common import today
 from msds.common import manifest
@@ -24,6 +26,25 @@ def done_with_current_prompt(model_tag: str, doc_id: str) -> bool:
         return False
     engine = (json.loads(p.read_text(encoding="utf-8")).get("doc") or {}).get("extraction", {}).get("engine", "")
     return f"prompt {PROMPT_VERSION})" in engine
+
+
+def apply_conventions_to_silver(path: Path) -> int:
+    """저장된 실버의 msds 항목마다 A의 표기 규칙(conventions.apply)을 적용해 다시 쓴다. 바뀐 항목 수를 돌려준다.
+
+    runner.py(옛 5묶음 경로)는 바꾸지 않으므로 저장 뒤에 적용한다 (ADR-022).
+    """
+    from msds.common import conventions
+    data = json.loads(path.read_text(encoding="utf-8"))
+    changed = 0
+    for i, item in enumerate(data.get("msds") or []):
+        new = conventions.apply(item)
+        if new != item:
+            data["msds"][i] = new
+            changed += 1
+    if changed:
+        path.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
+    return changed
+
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
@@ -44,13 +65,19 @@ if __name__ == "__main__":
         ap.error("평가용 문서가 들어 있습니다. 프롬프트를 고정했다면 --allow-eval을 붙이세요 (D-43)")
     run_name = a.run_name or f"{today()}_silver_{a.model}"
     save_run_config(run_dir(run_name), a.model, "silver")
+    has_conventions = importlib.util.find_spec("msds.common.conventions") is not None
+    if not has_conventions:
+        print("표기 규칙 함수 없음")
     for r in targets:
         if a.skip_done and not a.bundles and done_with_current_prompt(a.model, r["doc_id"]):
             print(f"[건너뜀] {r['doc_id']}: 프롬프트 {PROMPT_VERSION}로 이미 뽑음")
             continue
         try:
             res = extract_document(r["doc_id"], a.model, "silver", run_name, a.bundles)
-            print(json.dumps(res, ensure_ascii=False))
+            line = json.dumps(res, ensure_ascii=False)
+            if has_conventions:
+                line += f" 표기 규칙 적용: {apply_conventions_to_silver(silver_path(a.model, r['doc_id']))}건 바뀜"
+            print(line)
         except Exception as e:   # 한 문서가 실패해도 나머지는 계속
             print(f"[실패] {r['doc_id']}: {e}")
     print(f"기록: runs/{run_name}/log.jsonl")

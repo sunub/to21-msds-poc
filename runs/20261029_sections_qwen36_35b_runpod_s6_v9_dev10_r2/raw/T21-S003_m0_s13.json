@@ -1,0 +1,127 @@
+{
+ "doc_id": "T21-S003",
+ "msds_index": 0,
+ "section": 13,
+ "reextracted": true,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S13_METHOD",
+    "title_raw": "가.폐기방법",
+    "start": "p4:L43",
+    "end": "p4:L43"
+   },
+   {
+    "item_code": "S13_CAUTION",
+    "title_raw": "나.폐기시 주의사항",
+    "start": "p4:L44",
+    "end": "p4:L44"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S13_CAUTION",
+    "title_raw": "13.폐기시 주의사항",
+    "reason": "코드없음",
+    "line": "p4:L42"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S13_METHOD\",\n      \"title_raw\": \"가.폐기방법\",\n      \"start\": \"p4:L43\",\n      \"end\": \"p4:L43\"\n    },\n    {\n      \"item_code\": \"S13_CAUTION\",\n      \"title_raw\": \"나.폐기시 주의사항\",\n      \"start\": \"p4:L44\",\n      \"end\": \"p4:L44\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S13_CAUTION\",\n      \"title_raw\": \"13.폐기시 주의사항\",\n      \"reason\": \"코드없음\",\n      \"line\": \"p4:L42\"\n    }\n  ]\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 2053,
+  "completion_tokens": 194,
+  "total_tokens": 2247
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 2053,
+    "completion_tokens": 194,
+    "total_tokens": 2247
+   },
+   "seconds": 3.803,
+   "chars": 420,
+   "whitespace": 143,
+   "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S13_METHOD\",\n      \"title_raw\": \"가.폐기방법\",\n      \"start\": \"p4:L43\",\n      \"end\": \"p4:L43\"\n    },\n    {\n      \"item_code\": \"S13_CAUTION\",\n      \"title_raw\": \"나.폐기시 주의사항\",\n      \"start\": \"p4:L44\",\n      \"end\": \"p4:L44\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S13_CAUTION\",\n      \"title_raw\": \"13.폐기시 주의사항\",\n      \"reason\": \"코드없음\",\n      \"line\": \"p4:L42\"\n    }\n  ]\n}",
+   "tail": ""
+  }
+ ],
+ "seconds": 3.805,
+ "check_problems": [],
+ "first_attempt": {
+  "ok": true,
+  "parsed": {
+   "narratives": [
+    {
+     "item_code": "S13_METHOD",
+     "title_raw": "가.폐기방법",
+     "start": "L43",
+     "end": "L43"
+    },
+    {
+     "item_code": "S13_CAUTION",
+     "title_raw": "나.폐기시 주의사항",
+     "start": "L44",
+     "end": "L44"
+    }
+   ],
+   "extras": [
+    {
+     "after_item": "S13_CAUTION",
+     "title_raw": "13.폐기시 주의사항",
+     "reason": "코드없음",
+     "statements": [
+      {
+       "value": "13.폐기시 주의사항",
+       "line": "L42"
+      }
+     ],
+     "line": "L42"
+    }
+   ]
+  },
+  "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S13_METHOD\",\n      \"title_raw\": \"가.폐기방법\",\n      \"start\": \"L43\",\n      \"end\": \"L43\"\n    },\n    {\n      \"item_code\": \"S13_CAUTION\",\n      \"title_raw\": \"나.폐기시 주의사항\",\n      \"start\": \"L44\",\n      \"end\": \"L44\"\n    }\n  ]\n  ,\n  \"extras\": [\n    {\n      \"after_item\": \"S13_CAUTION\",\n      \"title_raw\": \"13.폐기시 주의사항\",\n      \"reason\": \"코드없음\"\n    ,\n      \"statements\": [\n        {\n          \"value\": \"13.폐기시 주의사항\"\n        ,\n          \"line\": \"L42\"\n        }\n      ]\n    ,\n      \"line\": \"L42\"\n    }\n  ]\n}",
+  "mode": "json_schema",
+  "finish_reason": "stop",
+  "usage": {
+   "prompt_tokens": 1946,
+   "completion_tokens": 236,
+   "total_tokens": 2182
+  },
+  "attempts": 1,
+  "errors": [],
+  "requests": [
+   {
+    "mode": "json_schema",
+    "finish_reason": "stop",
+    "usage": {
+     "prompt_tokens": 1946,
+     "completion_tokens": 236,
+     "total_tokens": 2182
+    },
+    "seconds": 5.604,
+    "chars": 536,
+    "whitespace": 223,
+    "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S13_METHOD\",\n      \"title_raw\": \"가.폐기방법\",\n      \"start\": \"L43\",\n      \"end\": \"L43\"\n    },\n    {\n      \"item_code\": \"S13_CAUTION\",\n      \"title_raw\": \"나.폐기시 주의사항\",\n      \"start\": \"L44\",\n      \"end\": \"L44\"\n    }\n  ]\n  ,\n  \"extras\": [\n    {\n      \"after_item\": \"S13_CAUTION\",\n      \"title_raw\": \"13.폐기시 주의사항\",\n      \"reason\": \"코드없음\"\n    ,\n      \"statements\": [\n        {\n          \"value\": \"13.폐기시 주의사항\"\n        ,\n          \"line\": \"L42\"\n        }\n      ]\n ",
+    "tail": "   ,\n      \"line\": \"L42\"\n    }\n  ]\n}"
+   }
+  ],
+  "seconds": 5.605,
+  "check_problems": [
+   "narratives[0].start: 원문에 없는 줄 번호 L43",
+   "narratives[0].end: 원문에 없는 줄 번호 L43",
+   "narratives[1].start: 원문에 없는 줄 번호 L44",
+   "narratives[1].end: 원문에 없는 줄 번호 L44",
+   "extras[0].statements[0].line: 원문에 없는 줄 번호 L42",
+   "extras[0].line: 원문에 없는 줄 번호 L42"
+  ]
+ }
+}

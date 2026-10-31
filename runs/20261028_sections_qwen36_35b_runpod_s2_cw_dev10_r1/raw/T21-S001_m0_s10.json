@@ -1,0 +1,84 @@
+{
+ "doc_id": "T21-S001",
+ "msds_index": 0,
+ "section": 10,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S10_STABILITY",
+    "title_raw": "1)화학적 안정성",
+    "start": "p8:L2",
+    "end": "p8:L3"
+   },
+   {
+    "item_code": "S10_CONDITIONS",
+    "title_raw": "3)피해야 할 조건",
+    "start": "p8:L6",
+    "end": "p8:L8"
+   },
+   {
+    "item_code": "S10_INCOMPAT",
+    "title_raw": "4)피해야 할 물질",
+    "start": "p8:L9",
+    "end": "p8:L10"
+   },
+   {
+    "item_code": "S10_DECOMP",
+    "title_raw": "5)분해시 생성되는 유해물질",
+    "start": "p8:L11",
+    "end": "p8:L12"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S10_END",
+    "title_raw": "2)유해 반응의 가능성",
+    "reason": "코드없음",
+    "comp_name": "유해 반응의 가능성",
+    "comp_cas": "상온 상압에서 위험한 중합반응의 발생은 보고되지 않았음.",
+    "q": null,
+    "statements": [
+     {
+      "key": "상온 상압에서 위험한 중합반응의 발생은 보고되지 않았음.",
+      "value": null,
+      "refs": null,
+      "cond": null,
+      "line": "p8:L5"
+     }
+    ],
+    "suggested_code": "S10_REACTION",
+    "line": "p8:L4"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S10_STABILITY\",\n      \"title_raw\": \"1)화학적 안정성\",\n      \"start\": \"p8:L2\",\n      \"end\": \"p8:L3\"\n    },\n    {\n      \"item_code\": \"S10_CONDITIONS\",\n      \"title_raw\": \"3)피해야 할 조건\",\n      \"start\": \"p8:L6\",\n      \"end\": \"p8:L8\"\n    },\n    {\n      \"item_code\": \"S10_INCOMPAT\",\n      \"title_raw\": \"4)피해야 할 물질\",\n      \"start\": \"p8:L9\",\n      \"end\": \"p8:L10\"\n    },\n    {\n      \"item_code\": \"S10_DECOMP\",\n      \"title_raw\": \"5)분해시 생성되는 유해물질\",\n      \"start\": \"p8:L11\",\n      \"end\": \"p8:L12\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S10_END\",\n      \"title_raw\": \"2)유해 반응의 가능성\",\n      \"reason\": \"코드없음\",\n      \"comp_name\": \"유해 반응의 가능성\",\n      \"comp_cas\": \"상온 상압에서 위험한 중합반응의 발생은 보고되지 않았음.\",\n      \"q\": null,\n      \"statements\": [\n        {\n          \"key\": \"상온 상압에서 위험한 중합반응의 발생은 보고되지 않았음.\"\n        ,\n          \"value\": null\n        ,\n          \"refs\": null\n        ,\n          \"cond\": null\n        ,\n          \"line\": \"p8:L5\"\n        }\n      ],\n      \"suggested_code\": \"S10_REACTION\"\n    ,\n      \"line\": \"p8:L4\"\n    }\n  ]\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 7720,
+  "completion_tokens": 460,
+  "total_tokens": 8180
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 7720,
+    "completion_tokens": 460,
+    "total_tokens": 8180
+   },
+   "seconds": 11.542,
+   "chars": 1065,
+   "whitespace": 414,
+   "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S10_STABILITY\",\n      \"title_raw\": \"1)화학적 안정성\",\n      \"start\": \"p8:L2\",\n      \"end\": \"p8:L3\"\n    },\n    {\n      \"item_code\": \"S10_CONDITIONS\",\n      \"title_raw\": \"3)피해야 할 조건\",\n      \"start\": \"p8:L6\",\n      \"end\": \"p8:L8\"\n    },\n    {\n      \"item_code\": \"S10_INCOMPAT\",\n      \"title_raw\": \"4)피해야 할 물질\",\n      \"start\": \"p8:L9\",\n      \"end\": \"p8:L10\"\n    },\n    {\n      \"item_code\": \"S10_DECOMP\",\n      \"title_raw\": \"5)분해시 생성되는 유해물질\",\n      \"start\": \"p8:L11",
+   "tail": "ter_item\": \"S10_END\",\n      \"title_raw\": \"2)유해 반응의 가능성\",\n      \"reason\": \"코드없음\",\n      \"comp_name\": \"유해 반응의 가능성\",\n      \"comp_cas\": \"상온 상압에서 위험한 중합반응의 발생은 보고되지 않았음.\",\n      \"q\": null,\n      \"statements\": [\n        {\n          \"key\": \"상온 상압에서 위험한 중합반응의 발생은 보고되지 않았음.\"\n        ,\n          \"value\": null\n        ,\n          \"refs\": null\n        ,\n          \"cond\": null\n        ,\n          \"line\": \"p8:L5\"\n        }\n      ],\n      \"suggested_code\": \"S10_REACTION\"\n    ,\n      \"line\": \"p8:L4\"\n    }\n  ]\n}"
+  }
+ ],
+ "seconds": 11.544,
+ "check_problems": []
+}

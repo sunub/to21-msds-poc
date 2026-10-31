@@ -1,0 +1,88 @@
+{
+ "doc_id": "T21-S003",
+ "msds_index": 0,
+ "section": 5,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S5_MEDIA",
+    "title_raw": "적절한(부적절한) 소화제",
+    "start": "p1:L1",
+    "end": "p1:L31"
+   },
+   {
+    "item_code": "S5_SPECIFIC",
+    "title_raw": "화학물질로부터 생기는 특정 유해성",
+    "start": "p1:L32",
+    "end": "p1:L70"
+   },
+   {
+    "item_code": "S5_FIREFIGHT",
+    "title_raw": "화재 진압 시 보호구 및 예방조치",
+    "start": "p1:L71",
+    "end": "p1:L82"
+   }
+  ],
+  "extras": []
+ },
+ "raw_text": "{\"narratives\": [{\"item_code\": \"S5_MEDIA\", \"title_raw\": \"적절한(부적절한) 소화제\", \"start\": \"p1:L1\", \"end\": \"p1:L31\"}, {\"item_code\": \"S5_SPECIFIC\", \"title_raw\": \"화학물질로부터 생기는 특정 유해성\", \"start\": \"p1:L32\", \"end\": \"p1:L70\"}, {\"item_code\": \"S5_FIREFIGHT\", \"title_raw\": \"화재 진압 시 보호구 및 예방조치\", \"start\": \"p1:L71\", \"end\": \"p1:L82\"}], \"extras\": []}",
+ "mode": "json_schema_compact",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 15567,
+  "completion_tokens": 156,
+  "total_tokens": 15723
+ },
+ "attempts": 2,
+ "errors": [],
+ "seconds": 141.723,
+ "check_problems": [
+  "narratives[2].end: 원문에 없는 줄 번호 p1:L82"
+ ],
+ "reextract_attempt": {
+  "ok": true,
+  "parsed": {
+   "narratives": [
+    {
+     "item_code": "S5_MEDIA",
+     "title_raw": "적절한(부적절한) 소화제",
+     "start": "p1:L1",
+     "end": "p1:L82"
+    },
+    {
+     "item_code": "S5_SPECIFIC",
+     "title_raw": "화학물질로부터 생기는 특정 유해성",
+     "start": "p1:L83",
+     "end": "p1:L100"
+    },
+    {
+     "item_code": "S5_FIREFIGHT",
+     "title_raw": "화재 진압 시 보호구 및 예방조치",
+     "start": "p1:L101",
+     "end": "p1:L120"
+    }
+   ],
+   "extras": []
+  },
+  "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S5_MEDIA\",\n      \"title_raw\": \"적절한(부적절한) 소화제\",\n      \"start\": \"p1:L1\",\n      \"end\": \"p1:L82\"\n    },\n    {\n      \"item_code\": \"S5_SPECIFIC\",\n      \"title_raw\": \"화학물질로부터 생기는 특정 유해성\",\n      \"start\": \"p1:L83\",\n      \"end\": \"p1:L100\"\n    },\n    {\n      \"item_code\": \"S5_FIREFIGHT\",\n      \"title_raw\": \"화재 진압 시 보호구 및 예방조치\",\n      \"start\": \"p1:L101\",\n      \"end\": \"p1:L120\"\n    }\n  ],\n  \"extras\": []\n}",
+  "mode": "json_schema",
+  "finish_reason": "stop",
+  "usage": {
+   "prompt_tokens": 15596,
+   "completion_tokens": 187,
+   "total_tokens": 15783
+  },
+  "attempts": 1,
+  "errors": [],
+  "seconds": 1.571,
+  "check_problems": [
+   "narratives[0].end: 원문에 없는 줄 번호 p1:L82",
+   "narratives[1].start: 원문에 없는 줄 번호 p1:L83",
+   "narratives[1].end: 원문에 없는 줄 번호 p1:L100",
+   "narratives[2].start: 원문에 없는 줄 번호 p1:L101",
+   "narratives[2].end: 원문에 없는 줄 번호 p1:L120"
+  ]
+ }
+}

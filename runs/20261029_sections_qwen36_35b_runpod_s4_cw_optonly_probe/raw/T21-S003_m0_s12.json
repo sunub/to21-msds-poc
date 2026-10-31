@@ -1,0 +1,148 @@
+{
+ "doc_id": "T21-S003",
+ "msds_index": 0,
+ "section": 12,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "ecotox": [
+   {
+    "endpoint": "ECO_FISH",
+    "descriptor": "결과기술",
+    "status": "자료없음",
+    "line": "p4:L31"
+   },
+   {
+    "endpoint": "ECO_CRUST",
+    "descriptor": "결과기술",
+    "status": "자료없음",
+    "line": "p4:L32"
+   },
+   {
+    "endpoint": "ECO_ALGAE",
+    "descriptor": "결과기술",
+    "status": "자료없음",
+    "line": "p4:L33"
+   },
+   {
+    "endpoint": "ECO_PERSIST",
+    "descriptor": "logKow",
+    "q": {
+     "raw": "0.67",
+     "value": 0.67
+    },
+    "line": "p4:L35"
+   },
+   {
+    "endpoint": "ECO_PERSIST",
+    "descriptor": "결과기술",
+    "status": "자료없음",
+    "line": "p4:L36"
+   },
+   {
+    "endpoint": "ECO_BIOACC",
+    "descriptor": "결과기술",
+    "status": "자료없음",
+    "line": "p4:L38"
+   },
+   {
+    "endpoint": "ECO_BIOACC",
+    "descriptor": "결과기술",
+    "status": "자료없음",
+    "line": "p4:L39"
+   },
+   {
+    "endpoint": "ECO_SOIL",
+    "descriptor": "결과기술",
+    "status": "자료없음",
+    "line": "p4:L40"
+   }
+  ],
+  "narratives": [
+   {
+    "item_code": "S12_OTHER",
+    "title_raw": "마.기타 유해 영향",
+    "start": "p4:L41",
+    "end": "p4:L41"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "ecotox[3].q",
+    "title_raw": "나.잔류성 및 분해성",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "key": "잔류성",
+      "value": "log Kow 0.67",
+      "refs": [
+       "p4:L35"
+      ],
+      "line": "p4:L35"
+     },
+     {
+      "key": "분해성",
+      "value": "자료없음",
+      "refs": [
+       "p4:L36"
+      ],
+      "line": "p4:L36"
+     }
+    ],
+    "line": "p4:L34"
+   },
+   {
+    "after_item": "ecotox[4].q",
+    "title_raw": "다.생물농축성",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "key": "농축성",
+      "value": "자료없음",
+      "refs": [
+       "p4:L38"
+      ],
+      "line": "p4:L38"
+     },
+     {
+      "key": "생분해성",
+      "value": "자료없음",
+      "refs": [
+       "p4:L39"
+      ],
+      "line": "p4:L39"
+     }
+    ],
+    "line": "p4:L37"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"ecotox\": [\n    {\n      \"endpoint\": \"ECO_FISH\",\n      \"descriptor\": \"결과기술\",\n      \"status\": \"자료없음\",\n      \"line\": \"p4:L31\"\n    },\n    {\n      \"endpoint\": \"ECO_CRUST\",\n      \"descriptor\": \"결과기술\",\n      \"status\": \"자료없음\",\n      \"line\": \"p4:L32\"\n    },\n    {\n      \"endpoint\": \"ECO_ALGAE\",\n      \"descriptor\": \"결과기술\",\n      \"status\": \"자료없음\",\n      \"line\": \"p4:L33\"\n    },\n    {\n      \"endpoint\": \"ECO_PERSIST\",\n      \"descriptor\": \"logKow\",\n      \"q\": {\n        \"raw\": \"0.67\",\n        \"value\": 0.67\n      },\n      \"line\": \"p4:L35\"\n    },\n    {\n      \"endpoint\": \"ECO_PERSIST\",\n      \"descriptor\": \"결과기술\",\n      \"status\": \"자료없음\",\n      \"line\": \"p4:L36\"\n    },\n    {\n      \"endpoint\": \"ECO_BIOACC\",\n      \"descriptor\": \"결과기술\",\n      \"status\": \"자료없음\",\n      \"line\": \"p4:L38\"\n    },\n    {\n      \"endpoint\": \"ECO_BIOACC\",\n      \"descriptor\": \"결과기술\",\n      \"status\": \"자료없음\",\n      \"line\": \"p4:L39\"\n    },\n    {\n      \"endpoint\": \"ECO_SOIL\",\n      \"descriptor\": \"결과기술\",\n      \"status\": \"자료없음\",\n      \"line\": \"p4:L40\"\n    }\n  ],\n  \"narratives\": [\n    {\n      \"item_code\": \"S12_OTHER\",\n      \"title_raw\": \"마.기타 유해 영향\",\n      \"start\": \"p4:L41\",\n      \"end\": \"p4:L41\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"ecotox[3].q\",\n      \"title_raw\": \"나.잔류성 및 분해성\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"key\": \"잔류성\",\n          \"value\": \"log Kow 0.67\"\n        ,\n        \"refs\": [\n          \"p4:L35\"\n        ]\n        ,\n        \"line\": \"p4:L35\"\n        },\n        {\n          \"key\": \"분해성\",\n          \"value\": \"자료없음\"\n        ,\n        \"refs\": [\n          \"p4:L36\"\n        ]\n        ,\n        \"line\": \"p4:L36\"\n        }\n      ]\n    ,\n    \"line\": \"p4:L34\"\n    },\n    {\n      \"after_item\": \"ecotox[4].q\",\n      \"title_raw\": \"다.생물농축성\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"key\": \"농축성\",\n          \"value\": \"자료없음\"\n        ,\n        \"refs\": [\n          \"p4:L38\"\n        ]\n        ,\n        \"line\": \"p4:L38\"\n        },\n        {\n          \"key\": \"생분해성\",\n          \"value\": \"자료없음\"\n        ,\n        \"refs\": [\n          \"p4:L39\"\n        ]\n        ,\n        \"line\": \"p4:L39\"\n        }\n      ]\n    ,\n    \"line\": \"p4:L37\"\n    }\n  ]\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 7370,
+  "completion_tokens": 892,
+  "total_tokens": 8262
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 7370,
+    "completion_tokens": 892,
+    "total_tokens": 8262
+   },
+   "seconds": 16.858,
+   "chars": 2167,
+   "whitespace": 953,
+   "head": "{\n  \"ecotox\": [\n    {\n      \"endpoint\": \"ECO_FISH\",\n      \"descriptor\": \"결과기술\",\n      \"status\": \"자료없음\",\n      \"line\": \"p4:L31\"\n    },\n    {\n      \"endpoint\": \"ECO_CRUST\",\n      \"descriptor\": \"결과기술\",\n      \"status\": \"자료없음\",\n      \"line\": \"p4:L32\"\n    },\n    {\n      \"endpoint\": \"ECO_ALGAE\",\n      \"descriptor\": \"결과기술\",\n      \"status\": \"자료없음\",\n      \"line\": \"p4:L33\"\n    },\n    {\n      \"endpoint\": \"ECO_PERSIST\",\n      \"descriptor\": \"logKow\",\n      \"q\": {\n        \"raw\": \"0.67\",\n        \"value\": 0.67\n ",
+   "tail": "34\"\n    },\n    {\n      \"after_item\": \"ecotox[4].q\",\n      \"title_raw\": \"다.생물농축성\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"key\": \"농축성\",\n          \"value\": \"자료없음\"\n        ,\n        \"refs\": [\n          \"p4:L38\"\n        ]\n        ,\n        \"line\": \"p4:L38\"\n        },\n        {\n          \"key\": \"생분해성\",\n          \"value\": \"자료없음\"\n        ,\n        \"refs\": [\n          \"p4:L39\"\n        ]\n        ,\n        \"line\": \"p4:L39\"\n        }\n      ]\n    ,\n    \"line\": \"p4:L37\"\n    }\n  ]\n}"
+  }
+ ],
+ "seconds": 16.86,
+ "check_problems": []
+}

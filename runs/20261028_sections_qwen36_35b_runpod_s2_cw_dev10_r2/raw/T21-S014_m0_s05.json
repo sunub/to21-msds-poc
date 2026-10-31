@@ -1,0 +1,126 @@
+{
+ "doc_id": "T21-S014",
+ "msds_index": 0,
+ "section": 5,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S5_MEDIA",
+    "title_raw": "가. 적절한(부적절한) 소화제",
+    "start": "L21",
+    "end": "L22"
+   },
+   {
+    "item_code": "S5_SPECIFIC",
+    "title_raw": "나. 화학물질로부터 생기는 특정 유해성",
+    "start": "L23",
+    "end": "L36"
+   },
+   {
+    "item_code": "S5_FIREFIGHT",
+    "title_raw": "다. 화재진압시 착용할 보호구 및 예방조치",
+    "start": "L37",
+    "end": "L50"
+   }
+  ],
+  "extras": []
+ },
+ "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S5_MEDIA\",\n      \"title_raw\": \"가. 적절한(부적절한) 소화제\",\n      \"start\": \"L21\",\n      \"end\": \"L22\"\n    },\n    {\n      \"item_code\": \"S5_SPECIFIC\",\n      \"title_raw\": \"나. 화학물질로부터 생기는 특정 유해성\",\n      \"start\": \"L23\",\n      \"end\": \"L36\"\n    },\n    {\n      \"item_code\": \"S5_FIREFIGHT\",\n      \"title_raw\": \"다. 화재진압시 착용할 보호구 및 예방조치\",\n      \"start\": \"L37\",\n      \"end\": \"L50\"\n    }\n  ],\n  \"extras\": []\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 8076,
+  "completion_tokens": 195,
+  "total_tokens": 8271
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 8076,
+    "completion_tokens": 195,
+    "total_tokens": 8271
+   },
+   "seconds": 7.276,
+   "chars": 431,
+   "whitespace": 149,
+   "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S5_MEDIA\",\n      \"title_raw\": \"가. 적절한(부적절한) 소화제\",\n      \"start\": \"L21\",\n      \"end\": \"L22\"\n    },\n    {\n      \"item_code\": \"S5_SPECIFIC\",\n      \"title_raw\": \"나. 화학물질로부터 생기는 특정 유해성\",\n      \"start\": \"L23\",\n      \"end\": \"L36\"\n    },\n    {\n      \"item_code\": \"S5_FIREFIGHT\",\n      \"title_raw\": \"다. 화재진압시 착용할 보호구 및 예방조치\",\n      \"start\": \"L37\",\n      \"end\": \"L50\"\n    }\n  ],\n  \"extras\": []\n}",
+   "tail": ""
+  }
+ ],
+ "seconds": 7.277,
+ "check_problems": [
+  "narratives[0].start: 원문에 없는 줄 번호 L21",
+  "narratives[0].end: 원문에 없는 줄 번호 L22",
+  "narratives[1].start: 원문에 없는 줄 번호 L23",
+  "narratives[1].end: 원문에 없는 줄 번호 L36",
+  "narratives[2].start: 원문에 없는 줄 번호 L37",
+  "narratives[2].end: 원문에 없는 줄 번호 L50"
+ ],
+ "reextract_attempt": {
+  "ok": true,
+  "parsed": {
+   "narratives": [
+    {
+     "item_code": "S5_MEDIA",
+     "title_raw": "가. 적절한(부적절한) 소화제",
+     "start": "L21",
+     "end": "L22"
+    },
+    {
+     "item_code": "S5_SPECIFIC",
+     "title_raw": "나. 화학물질로부터 생기는 특정 유해성",
+     "start": "L23",
+     "end": "L36"
+    },
+    {
+     "item_code": "S5_FIREFIGHT",
+     "title_raw": "다. 화재진압시 착용할 보호구 및 예방조치",
+     "start": "L37",
+     "end": "L50"
+    }
+   ],
+   "extras": []
+  },
+  "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S5_MEDIA\",\n      \"title_raw\": \"가. 적절한(부적절한) 소화제\",\n      \"start\": \"L21\",\n      \"end\": \"L22\"\n    },\n    {\n      \"item_code\": \"S5_SPECIFIC\",\n      \"title_raw\": \"나. 화학물질로부터 생기는 특정 유해성\",\n      \"start\": \"L23\",\n      \"end\": \"L36\"\n    },\n    {\n      \"item_code\": \"S5_FIREFIGHT\",\n      \"title_raw\": \"다. 화재진압시 착용할 보호구 및 예방조치\",\n      \"start\": \"L37\",\n      \"end\": \"L50\"\n    }\n  ]\n  ,\n  \"extras\": []\n}",
+  "mode": "json_schema",
+  "finish_reason": "stop",
+  "usage": {
+   "prompt_tokens": 8179,
+   "completion_tokens": 198,
+   "total_tokens": 8377
+  },
+  "attempts": 1,
+  "errors": [],
+  "requests": [
+   {
+    "mode": "json_schema",
+    "finish_reason": "stop",
+    "usage": {
+     "prompt_tokens": 8179,
+     "completion_tokens": 198,
+     "total_tokens": 8377
+    },
+    "seconds": 4.115,
+    "chars": 434,
+    "whitespace": 152,
+    "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S5_MEDIA\",\n      \"title_raw\": \"가. 적절한(부적절한) 소화제\",\n      \"start\": \"L21\",\n      \"end\": \"L22\"\n    },\n    {\n      \"item_code\": \"S5_SPECIFIC\",\n      \"title_raw\": \"나. 화학물질로부터 생기는 특정 유해성\",\n      \"start\": \"L23\",\n      \"end\": \"L36\"\n    },\n    {\n      \"item_code\": \"S5_FIREFIGHT\",\n      \"title_raw\": \"다. 화재진압시 착용할 보호구 및 예방조치\",\n      \"start\": \"L37\",\n      \"end\": \"L50\"\n    }\n  ]\n  ,\n  \"extras\": []\n}",
+    "tail": ""
+   }
+  ],
+  "seconds": 4.116,
+  "check_problems": [
+   "narratives[0].start: 원문에 없는 줄 번호 L21",
+   "narratives[0].end: 원문에 없는 줄 번호 L22",
+   "narratives[1].start: 원문에 없는 줄 번호 L23",
+   "narratives[1].end: 원문에 없는 줄 번호 L36",
+   "narratives[2].start: 원문에 없는 줄 번호 L37",
+   "narratives[2].end: 원문에 없는 줄 번호 L50"
+  ]
+ }
+}

@@ -1,0 +1,79 @@
+{
+ "doc_id": "T21-S013",
+ "msds_index": 0,
+ "section": 13,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S13_METHOD",
+    "title_raw": "가. 폐기방법",
+    "start": "p9:L27",
+    "end": "p9:L28"
+   },
+   {
+    "item_code": "S13_CAUTION",
+    "title_raw": "나. 폐기시 주의사항",
+    "start": "p9:L29",
+    "end": "p9:L30"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S13_METHOD",
+    "title_raw": "가. 폐기방법",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "value": "빈용기와 폐기 대상 제품은 국가 규정에 따른 폐기물 보관장에 수집되어 적법하게 처리되어야 합니다.",
+      "line": "p9:L28"
+     }
+    ],
+    "suggested_code": "S13_METHOD_CONTENT",
+    "line": "p9:L28"
+   },
+   {
+    "after_item": "S13_CAUTION",
+    "title_raw": "나. 폐기시 주의사항",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "value": "하천, 호수, 토양, 배수구 등에 직접 유출을 피할 것.",
+      "line": "p9:L30"
+     }
+    ],
+    "suggested_code": "S13_CAUTION_CONTENT",
+    "line": "p9:L30"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S13_METHOD\",\n      \"title_raw\": \"가. 폐기방법\",\n      \"start\": \"p9:L27\",\n      \"end\": \"p9:L28\"\n    },\n    {\n      \"item_code\": \"S13_CAUTION\",\n      \"title_raw\": \"나. 폐기시 주의사항\",\n      \"start\": \"p9:L29\",\n      \"end\": \"p9:L30\"\n    }\n  ]\n  ,\n  \"extras\": [\n    {\n      \"after_item\": \"S13_METHOD\",\n      \"title_raw\": \"가. 폐기방법\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"빈용기와 폐기 대상 제품은 국가 규정에 따른 폐기물 보관장에 수집되어 적법하게 처리되어야 합니다.\"\n        ,\n          \"line\": \"p9:L28\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S13_METHOD_CONTENT\"\n    ,\n      \"line\": \"p9:L28\"\n    },\n    {\n      \"after_item\": \"S13_CAUTION\",\n      \"title_raw\": \"나. 폐기시 주의사항\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"하천, 호수, 토양, 배수구 등에 직접 유출을 피할 것.\"\n        ,\n          \"line\": \"p9:L30\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S13_CAUTION_CONTENT\"\n    ,\n      \"line\": \"p9:L30\"\n    }\n  ]\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 1932,
+  "completion_tokens": 408,
+  "total_tokens": 2340
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 1932,
+    "completion_tokens": 408,
+    "total_tokens": 2340
+   },
+   "seconds": 7.773,
+   "chars": 967,
+   "whitespace": 380,
+   "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S13_METHOD\",\n      \"title_raw\": \"가. 폐기방법\",\n      \"start\": \"p9:L27\",\n      \"end\": \"p9:L28\"\n    },\n    {\n      \"item_code\": \"S13_CAUTION\",\n      \"title_raw\": \"나. 폐기시 주의사항\",\n      \"start\": \"p9:L29\",\n      \"end\": \"p9:L30\"\n    }\n  ]\n  ,\n  \"extras\": [\n    {\n      \"after_item\": \"S13_METHOD\",\n      \"title_raw\": \"가. 폐기방법\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"빈용기와 폐기 대상 제품은 국가 규정에 따른 폐기물 보관장에 수집되어 적법하게 처리되어야 합니다.\"\n      ",
+   "tail": "  ,\n          \"line\": \"p9:L28\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S13_METHOD_CONTENT\"\n    ,\n      \"line\": \"p9:L28\"\n    },\n    {\n      \"after_item\": \"S13_CAUTION\",\n      \"title_raw\": \"나. 폐기시 주의사항\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"하천, 호수, 토양, 배수구 등에 직접 유출을 피할 것.\"\n        ,\n          \"line\": \"p9:L30\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S13_CAUTION_CONTENT\"\n    ,\n      \"line\": \"p9:L30\"\n    }\n  ]\n}"
+  }
+ ],
+ "seconds": 7.775,
+ "check_problems": []
+}

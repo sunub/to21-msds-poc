@@ -1,0 +1,238 @@
+{
+ "doc_id": "T21-S016",
+ "msds_index": 0,
+ "section": 8,
+ "reextracted": true,
+ "ok": true,
+ "parsed": {
+  "exposure_limits": [
+   {
+    "comp_name": "벤젠",
+    "comp_cas": "71-43-2",
+    "standard": "ACGIH",
+    "limit_type": "TWA",
+    "q": {
+     "raw": "0.5 ppm",
+     "value": 0.5,
+     "approx": false,
+     "lower_op": ">=",
+     "lower": null,
+     "upper_op": "<=",
+     "upper": null,
+     "unit": "ppm"
+    },
+    "form": "액체",
+    "kr_basis": "노출기준",
+    "bio_medium": null,
+    "bio_timing": null,
+    "bio_determinant": null,
+    "notations": [],
+    "line": "[Benzene] : TWA : 0.5 ppm, STEL : 2.5 ppm"
+   },
+   {
+    "comp_name": "벤젠",
+    "comp_cas": "71-43-2",
+    "standard": "ACGIH",
+    "limit_type": "STEL",
+    "q": {
+     "raw": "2.5 ppm",
+     "value": 2.5,
+     "approx": false,
+     "lower_op": ">=",
+     "lower": null,
+     "upper_op": "<=",
+     "upper": null,
+     "unit": "ppm"
+    },
+    "form": "액체",
+    "kr_basis": "노출기준",
+    "bio_medium": null,
+    "bio_timing": null,
+    "bio_determinant": null,
+    "notations": [],
+    "line": "[Benzene] : TWA : 0.5 ppm, STEL : 2.5 ppm"
+   }
+  ],
+  "narratives": [
+   {
+    "item_code": "S8_EYE",
+    "title_raw": "눈에 들어갔을 때",
+    "start": "p3:L5",
+    "end": "p3:L24"
+   }
+  ],
+  "extras": []
+ },
+ "raw_text": "{\"exposure_limits\": [{\"comp_name\": \"벤젠\", \"comp_cas\": \"71-43-2\", \"standard\": \"ACGIH\", \"limit_type\": \"TWA\", \"q\": {\"raw\": \"0.5 ppm\", \"value\": 0.5, \"approx\": \"false\", \"lower_op\": \">=\", \"lower\": null, \"upper_op\": \"<=\", \"upper\": null, \"unit\": \"ppm\"}, \"form\": \"액체\", \"kr_basis\": \"노출기준\", \"bio_medium\": null, \"bio_timing\": null, \"bio_determinant\": null, \"notations\": [], \"line\": \"[Benzene] : TWA : 0.5 ppm, STEL : 2.5 ppm\"}, {\"comp_name\": \"벤젠\", \"comp_cas\": \"71-43-2\", \"standard\": \"ACGIH\", \"limit_type\": \"STEL\", \"q\": {\"raw\": \"2.5 ppm\", \"value\": 2.5, \"approx\": \"false\", \"lower_op\": \">=\", \"lower\": null, \"upper_op\": \"<=\", \"upper\": null, \"unit\": \"ppm\"}, \"form\": \"액체\", \"kr_basis\": \"노출기준\", \"bio_medium\": null, \"bio_timing\": null, \"bio_determinant\": null, \"notations\": [], \"line\": \"[Benzene] : TWA : 0.5 ppm, STEL : 2.5 ppm\"}], \"narratives\": [{\"item_code\": \"S8_EYE\", \"title_raw\": \"눈에 들어갔을 때\", \"start\": \"p3:L5\", \"end\": \"p3:L24\"}], \"extras\": []}",
+ "mode": "nuextract_template",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 10288,
+  "completion_tokens": 381,
+  "total_tokens": 10669
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "nuextract_template",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 10288,
+    "completion_tokens": 381,
+    "total_tokens": 10669
+   },
+   "seconds": 5.914,
+   "chars": 926,
+   "whitespace": 111,
+   "head": "{\"exposure_limits\": [{\"comp_name\": \"벤젠\", \"comp_cas\": \"71-43-2\", \"standard\": \"ACGIH\", \"limit_type\": \"TWA\", \"q\": {\"raw\": \"0.5 ppm\", \"value\": 0.5, \"approx\": \"false\", \"lower_op\": \">=\", \"lower\": null, \"upper_op\": \"<=\", \"upper\": null, \"unit\": \"ppm\"}, \"form\": \"액체\", \"kr_basis\": \"노출기준\", \"bio_medium\": null, \"bio_timing\": null, \"bio_determinant\": null, \"notations\": [], \"line\": \"[Benzene] : TWA : 0.5 ppm, STEL : 2.5 ppm\"}, {\"comp_name\": \"벤젠\", \"comp_cas\": \"71-43-2\", \"standard\": \"ACGIH\", \"limit_type\": \"STEL\",",
+   "tail": " \"q\": {\"raw\": \"2.5 ppm\", \"value\": 2.5, \"approx\": \"false\", \"lower_op\": \">=\", \"lower\": null, \"upper_op\": \"<=\", \"upper\": null, \"unit\": \"ppm\"}, \"form\": \"액체\", \"kr_basis\": \"노출기준\", \"bio_medium\": null, \"bio_timing\": null, \"bio_determinant\": null, \"notations\": [], \"line\": \"[Benzene] : TWA : 0.5 ppm, STEL : 2.5 ppm\"}], \"narratives\": [{\"item_code\": \"S8_EYE\", \"title_raw\": \"눈에 들어갔을 때\", \"start\": \"p3:L5\", \"end\": \"p3:L24\"}], \"extras\": []}"
+  }
+ ],
+ "seconds": 5.915,
+ "check_problems": [
+  "exposure_limits[0].line: 원문에 없는 줄 번호 [Benzene] : TWA : 0.5 ppm, STEL : 2.5 ppm",
+  "exposure_limits[1].line: 원문에 없는 줄 번호 [Benzene] : TWA : 0.5 ppm, STEL : 2.5 ppm"
+ ],
+ "first_attempt": {
+  "ok": true,
+  "parsed": {
+   "exposure_limits": [
+    {
+     "comp_name": "벤젠",
+     "comp_cas": "71-43-2",
+     "standard": "국내",
+     "limit_type": "TWA",
+     "q": {
+      "raw": "0.5 ppm",
+      "value": 0.5,
+      "approx": false,
+      "lower_op": ">=",
+      "lower": null,
+      "upper_op": "<=",
+      "upper": null,
+      "unit": "ppm"
+     },
+     "form": "액체",
+     "kr_basis": "노출기준",
+     "bio_medium": null,
+     "bio_timing": null,
+     "bio_determinant": null,
+     "notations": [],
+     "line": "[Benzene] : TWA : 0.5 ppm, STEL : 2.5 ppm"
+    },
+    {
+     "comp_name": "벤젠",
+     "comp_cas": "71-43-2",
+     "standard": "ACGIH",
+     "limit_type": "TWA",
+     "q": {
+      "raw": "0.5 ppm",
+      "value": 0.5,
+      "approx": false,
+      "lower_op": ">=",
+      "lower": null,
+      "upper_op": "<=",
+      "upper": null,
+      "unit": "ppm"
+     },
+     "form": "액체",
+     "kr_basis": "노출기준",
+     "bio_medium": null,
+     "bio_timing": null,
+     "bio_determinant": null,
+     "notations": [],
+     "line": "[Benzene] : TWA, 0.5 ppm (1.6 mg/m3)"
+    },
+    {
+     "comp_name": "벤젠",
+     "comp_cas": "71-43-2",
+     "standard": "ACGIH",
+     "limit_type": "STEL",
+     "q": {
+      "raw": "2.5 ppm",
+      "value": 2.5,
+      "approx": false,
+      "lower_op": ">=",
+      "lower": null,
+      "upper_op": "<=",
+      "upper": null,
+      "unit": "ppm"
+     },
+     "form": "액체",
+     "kr_basis": "노출기준",
+     "bio_medium": null,
+     "bio_timing": null,
+     "bio_determinant": null,
+     "notations": [],
+     "line": "[Benzene] : STEL, 2.5 ppm (8 mg/m3)"
+    }
+   ],
+   "narratives": [
+    {
+     "item_code": "S8_EYE",
+     "title_raw": "눈에 들어갔을 때",
+     "start": "p3:L5",
+     "end": "p3:L24"
+    },
+    {
+     "item_code": "S8_HAND",
+     "title_raw": "피부에 접촉했을 때",
+     "start": "p3:L11",
+     "end": "p3:L16"
+    },
+    {
+     "item_code": "S8_BODY",
+     "title_raw": "흡입했을 때",
+     "start": "p3:L19",
+     "end": "p3:L23"
+    },
+    {
+     "item_code": "S8_RESP",
+     "title_raw": "먹었을 때",
+     "start": "p3:L24",
+     "end": "p3:L28"
+    },
+    {
+     "item_code": "S8_HAND",
+     "title_raw": "피부에 접촉했을 때",
+     "start": "p3:L11",
+     "end": "p3:L16"
+    }
+   ],
+   "extras": []
+  },
+  "raw_text": "{\"exposure_limits\": [{\"comp_name\": \"벤젠\", \"comp_cas\": \"71-43-2\", \"standard\": \"국내\", \"limit_type\": \"TWA\", \"q\": {\"raw\": \"0.5 ppm\", \"value\": 0.5, \"approx\": \"false\", \"lower_op\": \">=\", \"lower\": null, \"upper_op\": \"<=\", \"upper\": null, \"unit\": \"ppm\"}, \"form\": \"액체\", \"kr_basis\": \"노출기준\", \"bio_medium\": null, \"bio_timing\": null, \"bio_determinant\": null, \"notations\": [], \"line\": \"[Benzene] : TWA : 0.5 ppm, STEL : 2.5 ppm\"}, {\"comp_name\": \"벤젠\", \"comp_cas\": \"71-43-2\", \"standard\": \"ACGIH\", \"limit_type\": \"TWA\", \"q\": {\"raw\": \"0.5 ppm\", \"value\": 0.5, \"approx\": \"false\", \"lower_op\": \">=\", \"lower\": null, \"upper_op\": \"<=\", \"upper\": null, \"unit\": \"ppm\"}, \"form\": \"액체\", \"kr_basis\": \"노출기준\", \"bio_medium\": null, \"bio_timing\": null, \"bio_determinant\": null, \"notations\": [], \"line\": \"[Benzene] : TWA, 0.5 ppm (1.6 mg/m3)\"}, {\"comp_name\": \"벤젠\", \"comp_cas\": \"71-43-2\", \"standard\": \"ACGIH\", \"limit_type\": \"STEL\", \"q\": {\"raw\": \"2.5 ppm\", \"value\": 2.5, \"approx\": \"false\", \"lower_op\": \">=\", \"lower\": null, \"upper_op\": \"<=\", \"upper\": null, \"unit\": \"ppm\"}, \"form\": \"액체\", \"kr_basis\": \"노출기준\", \"bio_medium\": null, \"bio_timing\": null, \"bio_determinant\": null, \"notations\": [], \"line\": \"[Benzene] : STEL, 2.5 ppm (8 mg/m3)\"}], \"narratives\": [{\"item_code\": \"S8_EYE\", \"title_raw\": \"눈에 들어갔을 때\", \"start\": \"p3:L5\", \"end\": \"p3:L24\"}, {\"item_code\": \"S8_HAND\", \"title_raw\": \"피부에 접촉했을 때\", \"start\": \"p3:L11\", \"end\": \"p3:L16\"}, {\"item_code\": \"S8_BODY\", \"title_raw\": \"흡입했을 때\", \"start\": \"p3:L19\", \"end\": \"p3:L23\"}, {\"item_code\": \"S8_RESP\", \"title_raw\": \"먹었을 때\", \"start\": \"p3:L24\", \"end\": \"p3:L28\"}, {\"item_code\": \"S8_HAND\", \"title_raw\": \"피부에 접촉했을 때\", \"start\": \"p3:L11\", \"end\": \"p3:L16\"}], \"extras\": []}",
+  "mode": "nuextract_template",
+  "finish_reason": "stop",
+  "usage": {
+   "prompt_tokens": 10165,
+   "completion_tokens": 702,
+   "total_tokens": 10867
+  },
+  "attempts": 1,
+  "errors": [],
+  "requests": [
+   {
+    "mode": "nuextract_template",
+    "finish_reason": "stop",
+    "usage": {
+     "prompt_tokens": 10165,
+     "completion_tokens": 702,
+     "total_tokens": 10867
+    },
+    "seconds": 18.644,
+    "chars": 1653,
+    "whitespace": 192,
+    "head": "{\"exposure_limits\": [{\"comp_name\": \"벤젠\", \"comp_cas\": \"71-43-2\", \"standard\": \"국내\", \"limit_type\": \"TWA\", \"q\": {\"raw\": \"0.5 ppm\", \"value\": 0.5, \"approx\": \"false\", \"lower_op\": \">=\", \"lower\": null, \"upper_op\": \"<=\", \"upper\": null, \"unit\": \"ppm\"}, \"form\": \"액체\", \"kr_basis\": \"노출기준\", \"bio_medium\": null, \"bio_timing\": null, \"bio_determinant\": null, \"notations\": [], \"line\": \"[Benzene] : TWA : 0.5 ppm, STEL : 2.5 ppm\"}, {\"comp_name\": \"벤젠\", \"comp_cas\": \"71-43-2\", \"standard\": \"ACGIH\", \"limit_type\": \"TWA\", \"q\"",
+    "tail": "enzene] : STEL, 2.5 ppm (8 mg/m3)\"}], \"narratives\": [{\"item_code\": \"S8_EYE\", \"title_raw\": \"눈에 들어갔을 때\", \"start\": \"p3:L5\", \"end\": \"p3:L24\"}, {\"item_code\": \"S8_HAND\", \"title_raw\": \"피부에 접촉했을 때\", \"start\": \"p3:L11\", \"end\": \"p3:L16\"}, {\"item_code\": \"S8_BODY\", \"title_raw\": \"흡입했을 때\", \"start\": \"p3:L19\", \"end\": \"p3:L23\"}, {\"item_code\": \"S8_RESP\", \"title_raw\": \"먹었을 때\", \"start\": \"p3:L24\", \"end\": \"p3:L28\"}, {\"item_code\": \"S8_HAND\", \"title_raw\": \"피부에 접촉했을 때\", \"start\": \"p3:L11\", \"end\": \"p3:L16\"}], \"extras\": []}"
+   }
+  ],
+  "seconds": 18.645,
+  "check_problems": [
+   "exposure_limits[0].line: 원문에 없는 줄 번호 [Benzene] : TWA : 0.5 ppm, STEL : 2.5 ppm",
+   "exposure_limits[1].line: 원문에 없는 줄 번호 [Benzene] : TWA, 0.5 ppm (1.6 mg/m3)",
+   "exposure_limits[2].line: 원문에 없는 줄 번호 [Benzene] : STEL, 2.5 ppm (8 mg/m3)"
+  ]
+ }
+}

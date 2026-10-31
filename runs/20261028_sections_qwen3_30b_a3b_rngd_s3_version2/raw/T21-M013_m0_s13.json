@@ -1,0 +1,148 @@
+{
+ "doc_id": "T21-M013",
+ "msds_index": 0,
+ "section": 13,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S13_METHOD",
+    "title_raw": "가폐기방법",
+    "start": "p8:L127",
+    "end": "p8:L132"
+   },
+   {
+    "item_code": "S13_CAUTION",
+    "title_raw": "나폐기시주의사항오염된용기및",
+    "start": "p8:L138",
+    "end": "p8:L147"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S13_METHOD",
+    "title_raw": "나폐기시주의사항오염된용기및",
+    "reason": "필드없음",
+    "comp_name": "빈용기",
+    "comp_cas": "",
+    "q": {
+     "raw": "제품잔여물이있을수있으므로용기를비운후에도제품표지의경고사항을따를것빈용기는재활용또는",
+     "value": 0,
+     "approx": true,
+     "lower_op": ">=",
+     "lower": 0,
+     "upper_op": "<=",
+     "upper": 0,
+     "unit": ""
+    },
+    "statements": [
+     {
+      "key": "경고사항",
+      "value": "제품표지의경고사항을따를것",
+      "refs": [
+       "1"
+      ],
+      "cond": {
+       "raw": "빈용기",
+       "value": 0,
+       "approx": true,
+       "lower_op": ">=",
+       "lower": 0,
+       "upper_op": "<=",
+       "upper": 0,
+       "unit": ""
+      },
+      "line": "p8:L141"
+     },
+     {
+      "key": "재활용",
+      "value": "재활용",
+      "refs": [
+       "1"
+      ],
+      "cond": {
+       "raw": "빈용기",
+       "value": 0,
+       "approx": true,
+       "lower_op": ">=",
+       "lower": 0,
+       "upper_op": "<=",
+       "upper": 0,
+       "unit": ""
+      },
+      "line": "p8:L141"
+     },
+     {
+      "key": "포장의폐기방법",
+      "value": "포장의폐기방법을포함함",
+      "refs": [
+       "1"
+      ],
+      "cond": {
+       "raw": "빈용기",
+       "value": 0,
+       "approx": true,
+       "lower_op": ">=",
+       "lower": 0,
+       "upper_op": "<=",
+       "upper": 0,
+       "unit": ""
+      },
+      "line": "p8:L144"
+     },
+     {
+      "key": "폐기장",
+      "value": "허가된폐기물처리장",
+      "refs": [
+       "1"
+      ],
+      "cond": {
+       "raw": "빈용기",
+       "value": 0,
+       "approx": true,
+       "lower_op": ">=",
+       "lower": 0,
+       "upper_op": "<=",
+       "upper": 0,
+       "unit": ""
+      },
+      "line": "p8:L146"
+     },
+     {
+      "key": "분류번호",
+      "value": "사용자생산자폐기물처리업체가협의하여폐기물코드를부여해야함",
+      "refs": [
+       "1"
+      ],
+      "cond": {
+       "raw": "빈용기",
+       "value": 0,
+       "approx": true,
+       "lower_op": ">=",
+       "lower": 0,
+       "upper_op": "<=",
+       "upper": 0,
+       "unit": ""
+      },
+      "line": "p8:L149"
+     }
+    ],
+    "suggested_code": "S13_CAUTION",
+    "line": "p8:L126"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S13_METHOD\",\n      \"title_raw\": \"가폐기방법\",\n      \"start\": \"p8:L127\",\n      \"end\": \"p8:L132\"\n    },\n    {\n      \"item_code\": \"S13_CAUTION\",\n      \"title_raw\": \"나폐기시주의사항오염된용기및\",\n      \"start\": \"p8:L138\",\n      \"end\": \"p8:L147\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S13_METHOD\",\n      \"title_raw\": \"나폐기시주의사항오염된용기및\",\n      \"reason\": \"필드없음\",\n      \"comp_name\": \"빈용기\",\n      \"comp_cas\": \"\",\n      \"q\": {\n        \"raw\": \"제품잔여물이있을수있으므로용기를비운후에도제품표지의경고사항을따를것빈용기는재활용또는\",\n        \"value\": 0,\n        \"approx\": true\n      ,\n      \"lower_op\": \">=\",\n      \"lower\": 0,\n      \"upper_op\": \"<=\",\n      \"upper\": 0,\n      \"unit\": \"\"\n    },\n    \"statements\": [\n      {\n        \"key\": \"경고사항\",\n        \"value\": \"제품표지의경고사항을따를것\"\n      ,\n      \"refs\": [\n        \"1\"\n      ],\n      \"cond\": {\n        \"raw\": \"빈용기\",\n        \"value\": 0,\n        \"approx\": true,\n        \"lower_op\": \">=\",\n        \"lower\": 0,\n        \"upper_op\": \"<=\",\n        \"upper\": 0,\n        \"unit\": \"\"\n      }\n    ,\n      \"line\": \"p8:L141\"\n    },\n    {\n      \"key\": \"재활용\",\n      \"value\": \"재활용\"\n    ,\n      \"refs\": [\n        \"1\"\n      ],\n      \"cond\": {\n        \"raw\": \"빈용기\",\n        \"value\": 0,\n        \"approx\": true,\n        \"lower_op\": \">=\",\n        \"lower\": 0,\n        \"upper_op\": \"<=\",\n        \"upper\": 0,\n        \"unit\": \"\"\n      }\n    ,\n      \"line\": \"p8:L141\"\n    },\n    {\n      \"key\": \"포장의폐기방법\",\n      \"value\": \"포장의폐기방법을포함함\"\n    ,\n      \"refs\": [\n        \"1\"\n      ],\n      \"cond\": {\n        \"raw\": \"빈용기\",\n        \"value\": 0,\n        \"approx\": true,\n        \"lower_op\": \">=\",\n        \"lower\": 0,\n        \"upper_op\": \"<=\",\n        \"upper\": 0,\n        \"unit\": \"\"\n      }\n    ,\n      \"line\": \"p8:L144\"\n    },\n    {\n      \"key\": \"폐기장\",\n      \"value\": \"허가된폐기물처리장\"\n    ,\n      \"refs\": [\n        \"1\"\n      ],\n      \"cond\": {\n        \"raw\": \"빈용기\",\n        \"value\": 0,\n        \"approx\": true,\n        \"lower_op\": \">=\",\n        \"lower\": 0,\n        \"upper_op\": \"<=\",\n        \"upper\": 0,\n        \"unit\": \"\"\n      }\n    ,\n      \"line\": \"p8:L146\"\n    },\n    {\n      \"key\": \"분류번호\",\n      \"value\": \"사용자생산자폐기물처리업체가협의하여폐기물코드를부여해야함\"\n    ,\n      \"refs\": [\n        \"1\"\n      ],\n      \"cond\": {\n        \"raw\": \"빈용기\",\n        \"value\": 0,\n        \"approx\": true,\n        \"lower_op\": \">=\",\n        \"lower\": 0,\n        \"upper_op\": \"<=\",\n        \"upper\": 0,\n        \"unit\": \"\"\n      }\n    ,\n      \"line\": \"p8:L149\"\n    }\n  ]\n  ,\n  \"suggested_code\": \"S13_CAUTION\"\n  ,\n  \"line\": \"p8:L126\"\n} ] }",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 24648,
+  "completion_tokens": 944,
+  "total_tokens": 25592
+ },
+ "attempts": 1,
+ "errors": [],
+ "seconds": 48.272,
+ "check_problems": []
+}

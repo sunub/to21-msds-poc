@@ -1,0 +1,104 @@
+{
+ "doc_id": "T21-S014",
+ "msds_index": 0,
+ "section": 3,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "composition": {
+   "type": "단일물질",
+   "no_hazardous_component": false,
+   "lines": {
+    "type": "p2:L2",
+    "no_hazardous_component": "p2:L2"
+   }
+  },
+  "components": [
+   {
+    "name": "수소",
+    "name_en": "HYDROGEN GAS",
+    "synonyms": [],
+    "cas_no": "1333-74-0",
+    "ke_no": null,
+    "ec_no": null,
+    "other_id": null,
+    "other_id_type": null,
+    "parent_seq": null,
+    "read_across_cas": null,
+    "content": {
+     "raw": "99.999 %",
+     "value": 99.999,
+     "unit": "%"
+    },
+    "content_note": null,
+    "content_basis": null,
+    "trade_secret": false,
+    "approval_no": null,
+    "approval_expiry": null,
+    "line": "p2:L2"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": null,
+    "title_raw": "이명(관용명)",
+    "reason": "필드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [
+     {
+      "value": "HYDROGEN GAS",
+      "line": "p2:L3"
+     }
+    ],
+    "suggested_code": null,
+    "line": "p2:L3"
+   },
+   {
+    "after_item": null,
+    "title_raw": "CAS 번호",
+    "reason": "필드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [
+     {
+      "value": "1333-74-0",
+      "line": "p2:L4"
+     }
+    ],
+    "suggested_code": null,
+    "line": "p2:L4"
+   }
+  ]
+ },
+ "raw_text": "### composition\ntype | no_hazardous_component | line\n단일물질 | false | p2:L2\n\n### components\nname | name_en | synonyms | cas_no | ke_no | ec_no | other_id | other_id_type | parent_seq | read_across_cas | content | content_note | content_basis | trade_secret | approval_no | approval_expiry | line\n수소 | HYDROGEN GAS |  | 1333-74-0 |  |  |  |  |  |  | 99.999 % |  |  | false |  |  | p2:L2\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\n | 이명(관용명) | 필드없음 |  |  |  | HYDROGEN GAS |  | p2:L3\n | CAS 번호 | 필드없음 |  |  |  | 1333-74-0 |  | p2:L4",
+ "mode": "rows",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 3782,
+  "completion_tokens": 229,
+  "total_tokens": 4011
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "rows",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 3782,
+    "completion_tokens": 229,
+    "total_tokens": 4011
+   },
+   "seconds": 5.456,
+   "chars": 593,
+   "whitespace": 138,
+   "head": "### composition\ntype | no_hazardous_component | line\n단일물질 | false | p2:L2\n\n### components\nname | name_en | synonyms | cas_no | ke_no | ec_no | other_id | other_id_type | parent_seq | read_across_cas | content | content_note | content_basis | trade_secret | approval_no | approval_expiry | line\n수소 | HYDROGEN GAS |  | 1333-74-0 |  |  |  |  |  |  | 99.999 % |  |  | false |  |  | p2:L2\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\n | 이명(관용",
+   "tail": "명) | 필드없음 |  |  |  | HYDROGEN GAS |  | p2:L3\n | CAS 번호 | 필드없음 |  |  |  | 1333-74-0 |  | p2:L4"
+  }
+ ],
+ "seconds": 5.458,
+ "check_problems": []
+}

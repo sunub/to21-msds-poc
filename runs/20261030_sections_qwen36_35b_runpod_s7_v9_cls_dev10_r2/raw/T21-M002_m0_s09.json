@@ -1,0 +1,632 @@
+{
+ "doc_id": "T21-M002",
+ "msds_index": 0,
+ "section": 9,
+ "reextracted": true,
+ "ok": true,
+ "parsed": {
+  "physchem": [
+   {
+    "prop_code": "ODOR",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "text_value": "양파 썩는 냄새",
+    "cond": null,
+    "data_source": null,
+    "line": "p6:L4"
+   },
+   {
+    "prop_code": "MELT_FREEZE",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": {
+     "raw": "-182.6 ℃ (-296.7 ℉)",
+     "value": -182.6,
+     "unit": "C"
+    },
+    "text_value": null,
+    "cond": null,
+    "data_source": null,
+    "line": "p6:L7"
+   },
+   {
+    "prop_code": "BOILING",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": {
+     "raw": "-161.67~-160.44 ℃",
+     "lower_op": ">=",
+     "lower": -161.67,
+     "upper_op": "<=",
+     "upper": -160.44,
+     "unit": "C"
+    },
+    "text_value": null,
+    "cond": null,
+    "data_source": null,
+    "line": "p6:L8"
+   },
+   {
+    "prop_code": "FLASH_POINT",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": {
+     "raw": "-188 ℃ (-306 ℉)",
+     "value": -188,
+     "unit": "C"
+    },
+    "text_value": null,
+    "cond": null,
+    "data_source": null,
+    "line": "p6:L9"
+   },
+   {
+    "prop_code": "FLAMMABILITY",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "text_value": "극인화성",
+    "cond": null,
+    "data_source": null,
+    "line": "p6:L11"
+   },
+   {
+    "prop_code": "VAPOR_PRESSURE",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": {
+     "raw": "8.7 ㎪",
+     "value": 8.7,
+     "unit": "kPa"
+    },
+    "text_value": null,
+    "cond": {
+     "temp": -185,
+     "temp_unit": "C"
+    },
+    "data_source": "IUCLID",
+    "line": "p6:L13"
+   },
+   {
+    "prop_code": "SOLUBILITY",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": {
+     "raw": "0.024 g/100㎖",
+     "value": 0.024,
+     "unit": "g/100mL"
+    },
+    "text_value": null,
+    "cond": {
+     "temp": 20,
+     "temp_unit": "C"
+    },
+    "data_source": "Corporate Solution From Thomson Micromedex",
+    "line": "p6:L15"
+   },
+   {
+    "prop_code": "VAPOR_DENSITY",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": {
+     "raw": "0.8",
+     "value": 0.8
+    },
+    "text_value": null,
+    "cond": null,
+    "data_source": null,
+    "line": "p6:L17"
+   },
+   {
+    "prop_code": "RELATIVE_DENSITY",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": {
+     "raw": "0.7731~0.7784 kg/m3",
+     "lower_op": ">=",
+     "lower": 0.7731,
+     "upper_op": "<=",
+     "upper": 0.7784,
+     "unit": "kg/m3"
+    },
+    "text_value": null,
+    "cond": {
+     "temp": 0,
+     "temp_unit": "C",
+     "pressure": 101.325,
+     "pressure_unit": "kPa"
+    },
+    "data_source": null,
+    "line": "p6:L18"
+   },
+   {
+    "prop_code": "AUTOIGNITION",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": {
+     "raw": "540 ℃ (1,004 ℉)",
+     "value": 540,
+     "unit": "C"
+    },
+    "text_value": null,
+    "cond": null,
+    "data_source": null,
+    "line": "p6:L20"
+   },
+   {
+    "prop_code": "VISCOSITY",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": {
+     "raw": "9.952x10-6~1.002X10-5 Pa-s",
+     "value": 9.952,
+     "unit": "x10-6~1.002X10-5 Pa-s"
+    },
+    "text_value": null,
+    "cond": null,
+    "data_source": null,
+    "line": "p6:L22"
+   },
+   {
+    "prop_code": "MOL_WEIGHT",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": {
+     "raw": "17.12~18.19",
+     "lower_op": ">=",
+     "lower": 17.12,
+     "upper_op": "<=",
+     "upper": 18.19
+    },
+    "text_value": null,
+    "cond": null,
+    "data_source": null,
+    "line": "p6:L23"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S9_END",
+    "title_raw": "가. 외관",
+    "reason": "코드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [
+     {
+      "value": "성상 : 기체",
+      "line": "p6:L2"
+     },
+     {
+      "value": "색상 : 무색",
+      "line": "p6:L2"
+     }
+    ],
+    "suggested_code": "APPEARANCE_STATE, APPEARANCE_COLOR",
+    "line": "p6:L2"
+   },
+   {
+    "after_item": "ODOR",
+    "title_raw": "나. 냄새",
+    "reason": "코드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [
+     {
+      "value": "양파 썩는 냄새",
+      "line": "p6:L4"
+     }
+    ],
+    "suggested_code": "ODOR",
+    "line": "p6:L4"
+   },
+   {
+    "after_item": "ODOR_THRESHOLD",
+    "title_raw": "다. 냄새역치",
+    "reason": "필드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [
+     {
+      "value": "자료없음",
+      "line": "p6:L5"
+     }
+    ],
+    "suggested_code": "ODOR_THRESHOLD",
+    "line": "p6:L5"
+   },
+   {
+    "after_item": "PH",
+    "title_raw": "라. pH",
+    "reason": "필드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [
+     {
+      "value": "자료없음",
+      "line": "p6:L6"
+     }
+    ],
+    "suggested_code": "PH",
+    "line": "p6:L6"
+   },
+   {
+    "after_item": "EVAP_RATE",
+    "title_raw": "아. 증발속도",
+    "reason": "필드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [
+     {
+      "value": "자료없음",
+      "line": "p6:L10"
+     }
+    ],
+    "suggested_code": "EVAP_RATE",
+    "line": "p6:L10"
+   },
+   {
+    "after_item": "UEL+LEL",
+    "title_raw": "차. 인화 또는 폭발 범위의 상한/하한",
+    "reason": "코드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [
+     {
+      "value": "15 % / 5 %",
+      "line": "p6:L12"
+     }
+    ],
+    "suggested_code": "UEL+LEL",
+    "line": "p6:L12"
+   },
+   {
+    "after_item": "DECOMPOSITION",
+    "title_raw": "더. 분해온도",
+    "reason": "필드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [
+     {
+      "value": "자료없음",
+      "line": "p6:L21"
+     }
+    ],
+    "suggested_code": "DECOMPOSITION",
+    "line": "p6:L21"
+   }
+  ]
+ },
+ "raw_text": "### physchem\nprop_code | comp_name | comp_cas | q | text_value | cond | data_source | line\nODOR |  |  |  | 양파 썩는 냄새 |  |  | p6:L4\nMELT_FREEZE |  |  | -182.6 ℃ (-296.7 ℉) |  |  |  | p6:L7\nBOILING |  |  | -161.67~-160.44 ℃ |  |  |  | p6:L8\nFLASH_POINT |  |  | -188 ℃ (-306 ℉) |  |  |  | p6:L9\nFLAMMABILITY |  |  |  | 극인화성 |  |  | p6:L11\nVAPOR_PRESSURE |  |  | 8.7 ㎪ |  | temp=-185; temp_unit=C | IUCLID | p6:L13\nSOLUBILITY |  |  | 0.024 g/100㎖ |  | temp=20; temp_unit=C | Corporate Solution From Thomson Micromedex | p6:L15\nVAPOR_DENSITY |  |  | 0.8 |  |  |  | p6:L17\nRELATIVE_DENSITY |  |  | 0.7731~0.7784 kg/m3 |  | temp=0; temp_unit=C; pressure=101.325; pressure_unit=kPa |  | p6:L18\nAUTOIGNITION |  |  | 540 ℃ (1,004 ℉) |  |  |  | p6:L20\nVISCOSITY |  |  | 9.952x10-6~1.002X10-5 Pa-s |  |  |  | p6:L22\nMOL_WEIGHT |  |  | 17.12~18.19 |  |  |  | p6:L23\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\nS9_END | 가. 외관 | 코드없음 |  |  |  | 성상 : 기체; 색상 : 무색 | APPEARANCE_STATE, APPEARANCE_COLOR | p6:L2\nODOR | 나. 냄새 | 코드없음 |  |  |  | 양파 썩는 냄새 | ODOR | p6:L4\nODOR_THRESHOLD | 다. 냄새역치 | 필드없음 |  |  |  | 자료없음 | ODOR_THRESHOLD | p6:L5\nPH | 라. pH | 필드없음 |  |  |  | 자료없음 | PH | p6:L6\nEVAP_RATE | 아. 증발속도 | 필드없음 |  |  |  | 자료없음 | EVAP_RATE | p6:L10\nUEL+LEL | 차. 인화 또는 폭발 범위의 상한/하한 | 코드없음 |  |  |  | 15 % / 5 % | UEL+LEL | p6:L12\nDECOMPOSITION | 더. 분해온도 | 필드없음 |  |  |  | 자료없음 | DECOMPOSITION | p6:L21",
+ "mode": "rows",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 4398,
+  "completion_tokens": 764,
+  "total_tokens": 5162
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "rows",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 4398,
+    "completion_tokens": 764,
+    "total_tokens": 5162
+   },
+   "seconds": 9.597,
+   "chars": 1445,
+   "whitespace": 383,
+   "head": "### physchem\nprop_code | comp_name | comp_cas | q | text_value | cond | data_source | line\nODOR |  |  |  | 양파 썩는 냄새 |  |  | p6:L4\nMELT_FREEZE |  |  | -182.6 ℃ (-296.7 ℉) |  |  |  | p6:L7\nBOILING |  |  | -161.67~-160.44 ℃ |  |  |  | p6:L8\nFLASH_POINT |  |  | -188 ℃ (-306 ℉) |  |  |  | p6:L9\nFLAMMABILITY |  |  |  | 극인화성 |  |  | p6:L11\nVAPOR_PRESSURE |  |  | 8.7 ㎪ |  | temp=-185; temp_unit=C | IUCLID | p6:L13\nSOLUBILITY |  |  | 0.024 g/100㎖ |  | temp=20; temp_unit=C | Corporate Solution From Thomso",
+   "tail": "ed_code | line\nS9_END | 가. 외관 | 코드없음 |  |  |  | 성상 : 기체; 색상 : 무색 | APPEARANCE_STATE, APPEARANCE_COLOR | p6:L2\nODOR | 나. 냄새 | 코드없음 |  |  |  | 양파 썩는 냄새 | ODOR | p6:L4\nODOR_THRESHOLD | 다. 냄새역치 | 필드없음 |  |  |  | 자료없음 | ODOR_THRESHOLD | p6:L5\nPH | 라. pH | 필드없음 |  |  |  | 자료없음 | PH | p6:L6\nEVAP_RATE | 아. 증발속도 | 필드없음 |  |  |  | 자료없음 | EVAP_RATE | p6:L10\nUEL+LEL | 차. 인화 또는 폭발 범위의 상한/하한 | 코드없음 |  |  |  | 15 % / 5 % | UEL+LEL | p6:L12\nDECOMPOSITION | 더. 분해온도 | 필드없음 |  |  |  | 자료없음 | DECOMPOSITION | p6:L21"
+  }
+ ],
+ "seconds": 9.603,
+ "check_problems": [],
+ "first_attempt": {
+  "ok": true,
+  "parsed": {
+   "physchem": [
+    {
+     "prop_code": "ODOR",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": null,
+     "text_value": "양파 썩는 냄새",
+     "cond": null,
+     "data_source": null,
+     "line": "p6:L4"
+    },
+    {
+     "prop_code": "PH",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": {
+      "raw": "자료없음"
+     },
+     "text_value": null,
+     "cond": null,
+     "data_source": null,
+     "line": "p6:L6"
+    },
+    {
+     "prop_code": "MELT_FREEZE",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": {
+      "raw": "-182.6 ℃ (-296.7 ℉)",
+      "value": -182.6,
+      "unit": "C"
+     },
+     "text_value": null,
+     "cond": null,
+     "data_source": null,
+     "line": "p6:L7"
+    },
+    {
+     "prop_code": "BOILING",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": {
+      "raw": "-161.67~-160.44 ℃",
+      "lower_op": ">=",
+      "lower": -161.67,
+      "upper_op": "<=",
+      "upper": -160.44,
+      "unit": "C"
+     },
+     "text_value": null,
+     "cond": null,
+     "data_source": null,
+     "line": "p6:L8"
+    },
+    {
+     "prop_code": "FLASH_POINT",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": {
+      "raw": "-188 ℃ (-306 ℉)",
+      "value": -188,
+      "unit": "C"
+     },
+     "text_value": null,
+     "cond": null,
+     "data_source": null,
+     "line": "p6:L9"
+    },
+    {
+     "prop_code": "FLAMMABILITY",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": null,
+     "text_value": "극인화성",
+     "cond": null,
+     "data_source": null,
+     "line": "p6:L11"
+    },
+    {
+     "prop_code": "VAPOR_DENSITY",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": {
+      "raw": "0.8",
+      "value": 0.8
+     },
+     "text_value": null,
+     "cond": null,
+     "data_source": null,
+     "line": "p6:L17"
+    },
+    {
+     "prop_code": "RELATIVE_DENSITY",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": {
+      "raw": "0.7731~0.7784 kg/m3",
+      "lower_op": ">=",
+      "lower": 0.7731,
+      "upper_op": "<=",
+      "upper": 0.7784,
+      "unit": "kg/m3"
+     },
+     "text_value": null,
+     "cond": {
+      "temp": 0,
+      "temp_unit": "C",
+      "pressure": 101.325,
+      "pressure_unit": "kPa"
+     },
+     "data_source": null,
+     "line": "p6:L18"
+    },
+    {
+     "prop_code": "AUTOIGNITION",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": {
+      "raw": "540 ℃ (1,004 ℉)",
+      "value": 540,
+      "unit": "C"
+     },
+     "text_value": null,
+     "cond": null,
+     "data_source": null,
+     "line": "p6:L20"
+    },
+    {
+     "prop_code": "VISCOSITY",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": {
+      "raw": "9.952x10-6~1.002X10-5 Pa-s",
+      "value": 9.952,
+      "unit": "x10-6~1.002X10-5 Pa-s"
+     },
+     "text_value": null,
+     "cond": null,
+     "data_source": null,
+     "line": "p6:L22"
+    },
+    {
+     "prop_code": "MOL_WEIGHT",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": {
+      "raw": "17.12~18.19",
+      "lower_op": ">=",
+      "lower": 17.12,
+      "upper_op": "<=",
+      "upper": 18.19
+     },
+     "text_value": null,
+     "cond": null,
+     "data_source": null,
+     "line": "p6:L23"
+    }
+   ],
+   "extras": [
+    {
+     "after_item": "9항_END",
+     "title_raw": "가. 외관",
+     "reason": "필드없음",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": null,
+     "statements": [
+      {
+       "value": "성상 : 기체",
+       "line": "p6:L1"
+      },
+      {
+       "value": "색상 : 무색",
+       "line": "p6:L1"
+      }
+     ],
+     "suggested_code": "APPEARANCE_STATE, APPEARANCE_COLOR",
+     "line": "p6:L1"
+    },
+    {
+     "after_item": "p6:L4",
+     "title_raw": "나. 냄새역치",
+     "reason": "코드없음",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": null,
+     "statements": [
+      {
+       "value": "자료없음",
+       "line": "p6:L5"
+      }
+     ],
+     "suggested_code": "ODOR_THRESHOLD",
+     "line": "p6:L5"
+    },
+    {
+     "after_item": "p6:L9",
+     "title_raw": "아. 증발속도",
+     "reason": "코드없음",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": null,
+     "statements": [
+      {
+       "value": "자료없음",
+       "line": "p6:L10"
+      }
+     ],
+     "suggested_code": "EVAP_RATE",
+     "line": "p6:L10"
+    },
+    {
+     "after_item": "p6:L12",
+     "title_raw": "차. 인화 또는 폭발 범위의 상한/하한",
+     "reason": "코드없음",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": null,
+     "statements": [
+      {
+       "value": "15 % / 5 %",
+       "line": "p6:L12"
+      }
+     ],
+     "suggested_code": "UEL, LEL",
+     "line": "p6:L12"
+    },
+    {
+     "after_item": "p6:L18",
+     "title_raw": "거. n-옥탄올/물분배계수",
+     "reason": "코드없음",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": null,
+     "statements": [
+      {
+       "value": "log Kow ≤ 2.8",
+       "line": "p6:L19"
+      }
+     ],
+     "suggested_code": "LOG_KOW",
+     "line": "p6:L19"
+    },
+    {
+     "after_item": "p6:L21",
+     "title_raw": "더. 분해온도",
+     "reason": "코드없음",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": null,
+     "statements": [
+      {
+       "value": "자료없음",
+       "line": "p6:L21"
+      }
+     ],
+     "suggested_code": "DECOMPOSITION",
+     "line": "p6:L21"
+    }
+   ]
+  },
+  "raw_text": "### physchem\nprop_code | comp_name | comp_cas | q | text_value | cond | data_source | line\nODOR |  |  |  | 양파 썩는 냄새 |  |  | p6:L4\nPH |  |  |  | 자료없음 |  |  | p6:L6\nMELT_FREEZE |  |  | -182.6 ℃ (-296.7 ℉) |  |  |  | p6:L7\nBOILING |  |  | -161.67~-160.44 ℃ |  |  |  | p6:L8\nFLASH_POINT |  |  | -188 ℃ (-306 ℉) |  |  |  | p6:L9\nFLAMMABILITY |  |  |  | 극인화성 |  |  | p6:L11\nUEL+LEL |  |  | 15 % / 5 % |  |  |  | p6:L12\nVAPOR_PRESSURE |  |  | 8.7 ㎪ |  | temp=-185; temp_unit=C; pressure=87~1013.25; pressure_unit=hPa | IUCLID | p6:L13\nSOLUBILITY |  |  | 0.024 g/100㎖ |  | temp=20; temp_unit=C; pressure=0.024~0.061; pressure_unit=g/L | Corporate Solution From Thomson Micromedex | p6:L15\nVAPOR_DENSITY |  |  | 0.8 |  |  |  | p6:L17\nRELATIVE_DENSITY |  |  | 0.7731~0.7784 kg/m3 |  | temp=0; temp_unit=C; pressure=101.325; pressure_unit=kPa |  | p6:L18\nAUTOIGNITION |  |  | 540 ℃ (1,004 ℉) |  |  |  | p6:L20\nVISCOSITY |  |  | 9.952x10-6~1.002X10-5 Pa-s |  |  |  | p6:L22\nMOL_WEIGHT |  |  | 17.12~18.19 |  |  |  | p6:L23\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\n9항_END | 가. 외관 | 필드없음 |  |  |  | 성상 : 기체; 색상 : 무색 | APPEARANCE_STATE, APPEARANCE_COLOR | p6:L1\np6:L4 | 나. 냄새역치 | 코드없음 |  |  |  | 자료없음 | ODOR_THRESHOLD | p6:L5\np6:L9 | 아. 증발속도 | 코드없음 |  |  |  | 자료없음 | EVAP_RATE | p6:L10\np6:L12 | 차. 인화 또는 폭발 범위의 상한/하한 | 코드없음 |  |  |  | 15 % / 5 % | UEL, LEL | p6:L12\np6:L18 | 거. n-옥탄올/물분배계수 | 코드없음 |  |  |  | log Kow ≤ 2.8 | LOG_KOW | p6:L19\np6:L21 | 더. 분해온도 | 코드없음 |  |  |  | 자료없음 | DECOMPOSITION | p6:L21",
+  "mode": "rows",
+  "finish_reason": "stop",
+  "usage": {
+   "prompt_tokens": 4226,
+   "completion_tokens": 843,
+   "total_tokens": 5069
+  },
+  "attempts": 1,
+  "errors": [
+   "physchem p6:L12 UEL+LEL |  |  | 15 % / 5 % |  |  |  | p6…: .prop_code: 'UEL+LEL' is not valid under any of the given schemas",
+   "physchem p6:L13 VAPOR_PRESSURE |  |  | 8.7 ㎪ |  | temp=-…: cond 열: 숫자가 아님 '87~1013.25'",
+   "physchem p6:L15 SOLUBILITY |  |  | 0.024 g/100㎖ |  | tem…: cond 열: 숫자가 아님 '0.024~0.061'"
+  ],
+  "requests": [
+   {
+    "mode": "rows",
+    "finish_reason": "stop",
+    "usage": {
+     "prompt_tokens": 4226,
+     "completion_tokens": 843,
+     "total_tokens": 5069
+    },
+    "seconds": 13.397,
+    "chars": 1557,
+    "whitespace": 405,
+    "head": "### physchem\nprop_code | comp_name | comp_cas | q | text_value | cond | data_source | line\nODOR |  |  |  | 양파 썩는 냄새 |  |  | p6:L4\nPH |  |  |  | 자료없음 |  |  | p6:L6\nMELT_FREEZE |  |  | -182.6 ℃ (-296.7 ℉) |  |  |  | p6:L7\nBOILING |  |  | -161.67~-160.44 ℃ |  |  |  | p6:L8\nFLASH_POINT |  |  | -188 ℃ (-306 ℉) |  |  |  | p6:L9\nFLAMMABILITY |  |  |  | 극인화성 |  |  | p6:L11\nUEL+LEL |  |  | 15 % / 5 % |  |  |  | p6:L12\nVAPOR_PRESSURE |  |  | 8.7 ㎪ |  | temp=-185; temp_unit=C; pressure=87~1013.25; pressure",
+    "tail": "comp_name | comp_cas | q | statements | suggested_code | line\n9항_END | 가. 외관 | 필드없음 |  |  |  | 성상 : 기체; 색상 : 무색 | APPEARANCE_STATE, APPEARANCE_COLOR | p6:L1\np6:L4 | 나. 냄새역치 | 코드없음 |  |  |  | 자료없음 | ODOR_THRESHOLD | p6:L5\np6:L9 | 아. 증발속도 | 코드없음 |  |  |  | 자료없음 | EVAP_RATE | p6:L10\np6:L12 | 차. 인화 또는 폭발 범위의 상한/하한 | 코드없음 |  |  |  | 15 % / 5 % | UEL, LEL | p6:L12\np6:L18 | 거. n-옥탄올/물분배계수 | 코드없음 |  |  |  | log Kow ≤ 2.8 | LOG_KOW | p6:L19\np6:L21 | 더. 분해온도 | 코드없음 |  |  |  | 자료없음 | DECOMPOSITION | p6:L21"
+   }
+  ],
+  "seconds": 13.415,
+  "check_problems": []
+ }
+}
