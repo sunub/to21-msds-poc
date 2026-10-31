@@ -9,8 +9,12 @@ parse_rows가 지금의 중간 형식 dict(section_specs.response_schema)로 바
 - 목록 칸은 '; '로 나누고, 서술 문장(statements)은 그 행의 줄을 근거로 단다. 조건(cond)은 '칸=값; 칸=값'이다.
 - 행마다 그 행의 스키마로 검증한다. 틀린 줄은 버리고 줄 단위 오류로 돌려준다. 실행기가 재추출 피드백에 넣는다.
 - 열 수가 하나 어긋난 행은 빈 칸 하나가 빠졌거나 더 들어간 것으로 보고, 값 칸의 열이 하나로 정해질 때만 살린다 (ADR-021).
-- 선택지(enum) 열은 표마다 열 이름 줄 아래에 스키마의 값 목록을 적는다. 파서는 공백을 지운 값과
-  '해당없음' → '비해당'만 맞추고, 그 밖의 값은 검증 오류로 버린다 (rows-tune, ADR-020).
+  여러 해석이 남으면 선택지 열을 가장 많이 채운 해석으로 정한다 (ADR-029).
+- 선택지(enum) 열은 표마다 열 이름 줄 아래에 스키마의 값 목록을 적는다. 파서는 공백을 지운 값,
+  '해당없음' → '비해당', '값있음' → '해당', 끝의 괄호 설명 떼기만 맞추고, 그 밖의 값은 검증 오류로 버린다
+  (rows-tune ADR-020, ADR-029).
+- 표별 기본값 (ADR-022, ADR-029): 함유량 단위 %, 9항 값 없음·단위만 쓴 text_value를 q로, CMR 등급 칸의 값 없음을 상태로,
+  11항 비급성 행의 빈 지표는 결과기술.
 예시 행은 직접 만든 가짜 값이다 (D-43).
 """
 from __future__ import annotations
@@ -32,6 +36,9 @@ _CHOICES_MAX = 12     # 선택지가 이보다 많고 칸 설명이 코드표를
 _CODE_TABLE_REF = re.compile(r"\bC\d\b")             # 칸 설명의 코드표 표시. 예: '[필수] 특성 코드 — C4'
 _CHOICE_LINE = re.compile(r"^- `[^`]+`: [^|]*$")     # 안내문의 선택지 줄. 모델이 따라 써도 행으로 읽지 않는다
 _NO_VALUE = ("자료없음", "해당없음", "미기재")       # 값 없는 행의 상태 (expand._NO_VALUE와 같다)
+_CHOICE_ALIAS = {"해당없음": "비해당", "값있음": "해당"}   # 선택지에 없으면 바꿔 볼 값 (_choice)
+_PAREN_TAIL = re.compile(r"\([^()]*\)$")             # 선택지 값 끝의 괄호 설명. 예: '육상(ADR·국내)'
+_ACUTE = ("TX_ORAL", "TX_DERMAL", "TX_INHAL")        # 11항 급성독성 항목
 
 
 # ── 숫자 묶음 ──────────────────────────────────────────
@@ -47,6 +54,11 @@ _DEGREE = re.compile(r"[°˚]\s*([CFK])")
 _UNIT_SYMBOLS = (("℃", "C"), ("℉", "F"), ("㎎", "mg"), ("㎏", "kg"), ("㎍", "ug"), ("㎛", "um"), ("㎖", "mL"),
                  ("ℓ", "L"), ("㎥", "m3"), ("㎤", "cm3"), ("㎡", "m2"), ("㎝", "cm"), ("㎜", "mm"), ("㎪", "kPa"),
                  ("㎩", "Pa"), ("μ", "u"), ("µ", "u"), ("³", "3"), ("²", "2"))   # R08
+# 압력 단위의 대소문자. 'mPa'(점도 mPa·s)는 MPa와 다르므로 첫 글자가 M일 때만 MPa로 본다 (ADR-029)
+_PRESSURE_CASE = re.compile(r"(?<![A-Za-z])(?:(?P<kPa>kpa)|(?P<hPa>hpa)|(?P<mmHg>mmhg)|(?P<MPa>(?-i:M)pa))(?![A-Za-z])",
+                            re.I)
+# 9항 text_value에 단위만 쓴 글 (ADR-029)
+_UNIT_ONLY = re.compile(r"[°˚]\s*[CFK]|℃|℉|K|kPa|Pa|hPa|MPa|mmHg|atm|bar", re.I)
 
 
 def _number(token: str) -> int | float:
@@ -55,11 +67,23 @@ def _number(token: str) -> int | float:
     return int(t) if re.fullmatch(r"[-+]?\d+", t) else float(t)
 
 
+def _has_number(q: dict | None) -> bool:
+    """숫자 묶음에 숫자(value·lower·upper)가 있는가."""
+    return bool(q) and any(q.get(k) is not None for k in ("value", "lower", "upper"))
+
+
+def _compact(text: str | None) -> str:
+    """공백을 모두 지운 글. 없으면 ''."""
+    return re.sub(r"\s+", "", text or "")
+
+
 def _unit(rest: str) -> str | None:
-    """숫자 뒤 글에서 단위. 괄호부터는 조건이라 뺀다. 기호는 R08대로 바꾼다."""
+    """숫자 뒤 글에서 단위. 괄호부터는 조건이라 뺀다. 기호는 R08대로 바꾼다.
+    압력 단위의 대소문자를 바로잡는다: 'Kpa' → 'kPa', 'hpa' → 'hPa', 'Mpa' → 'MPa', 'mmhg' → 'mmHg'."""
     unit = _DEGREE.sub(r"\1", rest.split("(")[0].strip())
     for a, b in _UNIT_SYMBOLS:
         unit = unit.replace(a, b)
+    unit = _PRESSURE_CASE.sub(lambda m: m.lastgroup, unit)
     return unit or None
 
 
@@ -309,13 +333,18 @@ def _where(table: str, s: str) -> str:
 
 
 def _choice(text: str, values: list[str]) -> str:
-    """선택지 열 값: 공백을 지운 값이 선택지에 있으면 그 값. '해당없음'은 선택지에 없고 '비해당'이 있으면 '비해당'.
-    그 밖은 그대로 돌려줘 행 검증이 잡는다. 예: '해당 없음' → 14항 용기등급 '해당없음', 15항 해당 여부 '비해당'"""
+    """선택지 열 값: 공백을 지운 값이 선택지에 있으면 그 값. '해당없음'은 선택지에 없고 '비해당'이 있으면 '비해당',
+    '값있음'은 선택지에 없고 '해당'이 있으면 '해당'. 글 끝의 괄호 설명을 떼면 맞는 값도 같은 규칙으로 맞춘다 (ADR-029).
+    그 밖은 그대로 돌려줘 행 검증이 잡는다. 예: '해당 없음' → 14항 용기등급 '해당없음', 15항 해당 여부 '비해당',
+    15항 해당 여부 '값있음' → '해당', 14항 운송 방식 '육상(ADR·국내)' → '육상'"""
     compact = {re.sub(r"\s+", "", v): v for v in values}
     key = re.sub(r"\s+", "", text)
-    if key == "해당없음" and key not in compact and "비해당" in compact:
-        return compact["비해당"]
-    return compact.get(key, text)
+    for k in dict.fromkeys((key, _PAREN_TAIL.sub("", key))):
+        if k in compact:
+            return compact[k]
+        if (alias := _CHOICE_ALIAS.get(k)) in compact:
+            return compact[alias]
+    return text
 
 
 def _value(text: str, kind: str, node: dict, defs: dict, line: str | None):
@@ -365,14 +394,23 @@ def _build(t: _Table, cells: list[str]) -> tuple[dict | None, str | None]:
             row[c] = _value(values[c], t.kinds[c], t.schema["properties"].get(c, {}), t.schema["$defs"], line)
         except ValueError as e:
             return None, f"{c} 열: {e}"
+    if t.name == "cmr" and row["status"] is None and (c := _compact(row["class"])) in (*_NO_VALUE, "비해당"):
+        statuses = _choices(t.schema["properties"]["status"], t.schema["$defs"])   # 등급 칸의 값 없음은 상태 칸으로
+        row["status"], row["class"] = (c if c in statuses else "해당없음"), None
     qm = next((c for c in t.columns if t.kinds[c] == "qm"), None)   # 값 열. 11항 converted(환산값)는 둘째라 채우지 않는다
     if qm and row[qm] is None and row.get("status") in _NO_VALUE:  # JSON 경로처럼 값 없는 행의 raw에 상태 글자
         row[qm] = {"raw": row["status"]}
     if t.name == "components" and (q := row.get("content")):    # 함유량은 늘 백분율 (R19). 표 머리글에만 %가 있다
-        if any(q.get(k) is not None for k in ("value", "lower", "upper")) and not q.get("unit"):
+        if _has_number(q) and not q.get("unit"):
             q["unit"] = "%"
-    if t.name == "physchem" and row.get("q") is None and row.get("text_value") in _NO_VALUE:
-        row["q"], row["text_value"] = {"raw": row["text_value"]}, None   # 9항은 상태 열이 없어 값 없음을 q.raw로 옮긴다
+    if t.name == "toxicity" and row["endpoint"] not in _ACUTE and row["descriptor"] is None and not _has_number(row["q"]):
+        row["descriptor"] = "결과기술"                              # 11항 비급성 행의 문장·값 없음 결과
+    if t.name == "physchem":
+        text = row["text_value"]
+        if row["q"] is None and _compact(text) in _NO_VALUE:
+            row["q"], row["text_value"] = {"raw": _compact(text)}, None   # 9항은 상태 열이 없어 값 없음을 q.raw로 옮긴다
+        elif text and _UNIT_ONLY.fullmatch(text) and _has_number(row["q"]) and not row["q"].get("unit"):
+            row["q"]["unit"], row["text_value"] = _unit(text), None       # 단위만 text_value에 쓴 행
     if t.is_object:
         del row["line"]
         row["lines"] = {k: line for k, v in row.items() if v is not None}
@@ -386,7 +424,10 @@ def _realign(t: _Table, cells: list[str]) -> dict | None:
     - 하나 적으면 모든 자리에 빈 칸을 하나 끼워 보고, 하나 많으면 빈 칸을 하나씩 빼 본다. 검증을 통과한 해석만 남긴다.
     - 값 두 칸 사이에 끼운 해석은 빈 칸 옆·줄 끝에 끼운 해석보다 선택지 열을 덜 채우면 뺀다.
       예: '값있음 | p8:L8' 사이에 끼우면 값있음이 status 대신 statements로 간다.
-    - 남은 해석에서 값이 있는 칸의 열 배치가 모두 같을 때만 그 행을 쓴다. 다르면 어느 열인지 모호하다."""
+    - 남은 해석에서 값이 있는 칸의 열 배치가 모두 같을 때만 그 행을 쓴다.
+    - 배치가 둘 이상 남으면 그중 선택지 열을 가장 많이 채운 해석만 남긴다. 그래도 배치가 둘 이상이면 모호해 버린다 (ADR-029).
+      예: 15열 규제 표의 `OSH | OSH_PROHIBIT | 금지대상 유해물질 |  |  | 해당없음 |  | … | p10:L23`(14칸)은
+      해당없음이 applicable(선택지)에 가는 해석이 threshold에 가는 해석보다 선택지 열을 하나 더 채워 살린다."""
     n = len(t.columns)
     if len(cells) == n + 1:
         tries = [(cells[:k] + cells[k + 1:], True) for k, c in enumerate(cells) if not c]
@@ -403,8 +444,11 @@ def _realign(t: _Table, cells: list[str]) -> dict | None:
             readings.append((tuple(i for i, c in enumerate(x) if c), sum(row[c] is not None for c in choice_cols),
                              by_blank, row))
     best = max((f for _, f, b, _ in readings if b), default=0)
-    kept = [(p, row) for p, f, b, row in readings if b or f >= best]
-    return kept[0][1] if len({p for p, _ in kept}) == 1 else None
+    kept = [(p, f, row) for p, f, b, row in readings if b or f >= best]
+    if len({p for p, _, _ in kept}) > 1:
+        most = max(f for _, f, _ in kept)
+        kept = [k for k in kept if k[1] == most]
+    return kept[0][2] if len({p for p, _, _ in kept}) == 1 else None
 
 
 def _row(t: _Table, cells: list[str]) -> tuple[dict | None, str | None]:
