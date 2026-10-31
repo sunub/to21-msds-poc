@@ -4,6 +4,7 @@
 모르는 조건은 그대로 남겨 표시 이름에서 실행 조건을 잃지 않는다.
 """
 import re
+from collections import Counter
 from datetime import datetime
 from math import isfinite
 from pathlib import PurePosixPath
@@ -3154,18 +3155,34 @@ def item_section(item: dict, criteria: dict) -> int | None:
     return int(match[1]) if match else None
 
 
-def _doc_losses(row: dict, per_doc: dict | None, weight_total: float) -> list[dict]:
+_FIELD_KINDS = {"빠뜨림": "missing", "틀림": "wrong", "지어냄": "made"}
+
+
+def _field_count(row: dict, counter) -> dict:
+    """한 항목의 칸 단위 문제 수. 원문 대조 화면처럼 항목 이름과 항으로 거른다. 항을 모르면 모든 항의 칸을 센다."""
+    return {kind: sum(n for (item, section, k), n in counter.items()
+                      if item == row["name"] and k == key and (row["section"] is None or section == row["section"]))
+            for kind, key in _FIELD_KINDS.items()}
+
+
+def _doc_losses(row: dict, per_doc: dict | None, weight_total: float,
+                field_counts: dict | None = None) -> list[dict]:
     """항목 손실을 문서별로 나눈다. 항목 점수가 문서 평균이라 문서 손실의 합이 항목 손실과 같다."""
     scores = [(d, p["items"][row["name"]]) for d, p in (per_doc or {}).items()
               if _number((p.get("items") or {}).get(row["name"]))]
     docs = [{"doc_id": d, "score": s * 100, "loss": row["weight"] * (1 - s) / (len(scores) * weight_total) * 100}
             for d, s in scores]
+    if field_counts:
+        for d in docs:
+            d["counts"] = _field_count(row, field_counts[d["doc_id"]]) if d["doc_id"] in field_counts else None
     return sorted(docs, key=lambda d: -round(d["loss"], 9))
 
 
-def score_losses(info: dict, criteria: dict, per_doc: dict | None = None) -> dict:
+def score_losses(info: dict, criteria: dict, per_doc: dict | None = None, field_counts: dict | None = None) -> dict:
     """항목마다 가중 종합을 깎은 점수. 손실 = 무게×(1−점수)/무게 합×100이고 목표를 넘은 항목도 센다.
-    모든 손실의 합은 100 − 가중 종합이다 (사용자 결정 10/31). 점수 없는 항목은 가중 종합에도 없으므로 뺀다."""
+    모든 손실의 합은 100 − 가중 종합이다 (사용자 결정 10/31). 점수 없는 항목은 가중 종합에도 없으므로 뺀다.
+    field_counts(문서 → b_app_doc.field_counts)를 주면 문제 건수는 원문 대조 화면과 같은 칸 단위로 세고,
+    점수 프로그램의 행 단위 수는 scorer_counts에 둔다 (사용자 결정 10/31)."""
     weighted = info.get("weighted")
     if not _number(weighted):
         return {"losses": [], "top_problem": None, "loss_basis": None}
@@ -3179,6 +3196,9 @@ def score_losses(info: dict, criteria: dict, per_doc: dict | None = None) -> dic
     for row, item in zip(losses, items):
         kinds = ("빠뜨림", "틀림", "지어냄")
         counts = {kind: item.get(kind, 0) for kind in kinds} if any(kind in item for kind in kinds) else None
+        if field_counts:
+            row["scorer_counts"], row["counts_basis"] = counts, "field"
+            counts = _field_count(row, sum(field_counts.values(), Counter()))
         row["counts"] = counts
         row["cause"] = (max(kinds, key=lambda kind: counts[kind] or 0)
                         if counts and any(counts.values()) else None)
@@ -3189,7 +3209,7 @@ def score_losses(info: dict, criteria: dict, per_doc: dict | None = None) -> dic
         row["rank"] = rank
     top = None
     if losses and round(losses[0]["loss"], 9) > 0:
-        top = {**losses[0], "docs": _doc_losses(losses[0], per_doc, total)}
+        top = {**losses[0], "docs": _doc_losses(losses[0], per_doc, total, field_counts)}
     return {"losses": losses, "top_problem": top, "loss_basis": {"weight_total": total, "loss_total": 100 - weighted}}
 
 
@@ -3209,11 +3229,11 @@ def score_targets(info: dict, criteria: dict) -> dict | None:
 
 
 def score_status(info: dict, criteria: dict, *, connected: bool | None = None,
-                 per_doc: dict | None = None) -> dict:
+                 per_doc: dict | None = None, field_counts: dict | None = None) -> dict:
     """채점 값은 그대로 두고 100점 단위의 요약과 확인 순서를 만든다. 목표는 두 개(score_targets)로 보인다.
     top_drops는 목표 아래 항목의 목표 차 순서이고, 총점 손실 순서는 score_losses의 세 키다."""
     targets = score_targets(info, criteria)
-    losses = score_losses(info, criteria, per_doc)
+    losses = score_losses(info, criteria, per_doc, field_counts)
     if targets is None:
         return {"headline": UI_TEXT["score"]["summary"]["unscored"], "verdict": "none", "top_drops": [],
                 "next_action": UI_TEXT["score"]["summary"]["unscored_todo"], "targets": None, **losses}
