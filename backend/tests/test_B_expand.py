@@ -603,6 +603,16 @@ def test_unlinked_component():
     assert [(p["section"], p["kind"]) for p in problems] == [(8, "unlinked_component")]
 
 
+def test_single_component_unnamed_rows_point_to_it(no_conventions):
+    """성분이 하나면 성분 표기 없는 11·12·15항 행은 그 성분이다 (명세서 1_항목정의 예시 '1'). 물성·부가행은 제품 값이라 MIX."""
+    r = responses()
+    r[3]["components"] = r[3]["components"][:1]
+    m, _ = expand_one(r)
+    assert m["cmr"][0]["comp_ref"] == "1"
+    assert m["physchem"][0]["comp_ref"] == "MIX"
+    assert m["extras"][0]["comp_ref"] == "MIX"
+
+
 # ── 숫자 묶음 ──────────────────────────────────────────
 
 def test_fill_q_no_value():
