@@ -21,7 +21,7 @@ const calls=[];
 api=async path=>{calls.push(['get',path]);if(path==='/api/servers')return data;
  if(path==='/api/sets')return {sets:[]};if(path==='/api/keys')return {keys:[]};throw new Error(path);};
 post=async(path,body)=>{calls.push(['post',path,body]);
- if(path.endsWith('/propose'))return {token:'single-use-token',action:body.action,summary:'Action summary',warning:'Action warning',expires_in:600};
+ if(path.endsWith('/propose'))return {token:'single-use-token',action:body.action,summary:body.action==='pod_create'?'Action summary. 시간당 약 $1.73. Pending.':'Action summary',warning:'Action warning',expires_in:600};
  if(path.endsWith('/execute'))return {ok:true,result:{pod_id:'owned1',gone:true,remaining:[],started:true,killed:[71]},log_line:'Action recorded'};
  if(path.endsWith('/reload_env'))return {ok:true,names:['RUNPOD_VLLM_API_KEY'],changed:['RUNPOD_VLLM_API_KEY'],removed:[],problems:[]};
  throw new Error(path);};
@@ -226,7 +226,7 @@ def test_slow_double_submit_and_failed_create_are_not_retried_automatically():
       await setup();let release,count=0;post=async()=>{count++;return new Promise(resolve=>{release=resolve;});};
       const first=action('pod_create').click();await action('pod_create').click();assert.equal(count,1);
       assert.ok(view().textContent.includes(T('servers.status.busy')));
-      release({token:'once',action:'pod_create',summary:'Review cost',expires_in:600});await first;
+      release({token:'once',action:'pod_create',summary:'Review cost. 시간당 약 $1.73. Pending.',expires_in:600});await first;
       post=async()=>{count++;throw new Error('Request lost');};await document.getElementById('servers-confirm').click();
       assert.equal(count,2);assert.ok(view().textContent.includes(T('servers.create_unknown.title')));
       assert.equal(document.getElementById('action-confirm').open,false);

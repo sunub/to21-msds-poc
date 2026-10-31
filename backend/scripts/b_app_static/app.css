@@ -27,6 +27,7 @@
   --border-standard: 1px solid var(--line); --border-selected: 1px solid var(--ink);
   --border-evidence: 1px solid var(--selected-line); --border-input: 1px solid var(--input-line);
   --border-failure: 1px solid var(--failure); --border-focus: 3px solid var(--accent);
+  --sticky-offset: 240px;
 }
 * { box-sizing: border-box; }
 [hidden] { display: none !important; }
@@ -57,6 +58,8 @@ body {
 }
 ::selection { background: var(--selection); color: var(--ink); }
 :focus-visible { outline: var(--border-focus); outline-offset: 4px; }
+button, a, input, select, textarea, summary, [tabindex] { scroll-margin-top: var(--sticky-offset); }
+dialog button, dialog input, dialog select, dialog textarea, dialog summary, dialog [tabindex] { scroll-margin-top: 0; }
 a { color: var(--accent); text-underline-offset: 4px; }
 a:hover { text-decoration-thickness: 2px; }
 p { margin: 0 0 var(--space-small); text-wrap: pretty; }
@@ -148,6 +151,11 @@ dialog::backdrop { background: var(--backdrop); }
 .two-col { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--space-section); }
 .two-col > * { min-width: 0; }
 .dialog-actions { display: flex; gap: var(--space-group); flex-wrap: wrap; margin-top: var(--space-section); }
+#context-picker[open] { display: flex; flex-direction: column; overflow: hidden; }
+#context-picker-body { overflow-y: auto; min-height: 0; padding: var(--space-small); }
+#context-picker .dialog-actions { flex-shrink: 0; border-top: var(--border-standard); padding-top: var(--space-group); }
+#context-picker-title { flex-shrink: 0; }
+#context-comparison .raw { display: block; }
 .context-candidates { list-style: none; padding: 0; font-size: var(--label-size); }
 .context-candidates > li { padding: var(--space-compact) 0; border-bottom: var(--border-standard); }
 .context-candidates details { border-top: 0; }
@@ -312,7 +320,7 @@ dialog::backdrop { background: var(--backdrop); }
 #compare-total-change, #compare-criterion-change { margin-block: var(--space-section); }
 .compare-next { margin-block: var(--space-section); }
 
-/* S06: 조작은 항상 보이고 기록과 장비 원문만 펼친다. */
+/* S06: 추천 행동, 비용 비교, 다른 방법, 장비 상세 순서. */
 #screen-s06 > div { margin-bottom: var(--space-page); min-width: 0; }
 #servers-summary { padding-bottom: var(--space-section); border-bottom: var(--border-standard); }
 #servers-summary > p, #servers-rngd > p, #servers-runpod > p { max-width: 72ch; }
@@ -325,6 +333,10 @@ dialog::backdrop { background: var(--backdrop); }
 .server-action p { margin-top: var(--space-small); font-size: var(--label-size); }
 .server-tunnel { border-block: var(--border-standard); padding: var(--space-group) 0; margin: var(--space-group) 0; }
 .server-choice { max-width: 620px; margin: var(--space-section) 0; }
+.server-primary { max-width: 900px; border: var(--border-standard); border-radius: var(--radius-panel); background: var(--paper); padding: var(--space-section); }
+.server-primary > h2 { margin-top: 0; }
+#servers-comparison .server-table th { width: 25%; }
+#servers-comparison { margin-top: var(--space-section); }
 .server-process { padding: var(--space-compact) 0; border-top: var(--border-standard); }
 .server-process > p { min-width: 0; }
 .server-table td, .server-table th { padding: var(--space-small); }

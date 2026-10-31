@@ -463,24 +463,40 @@ function jobsRenderRun() {
   if (!J.opts) { coreReplace(el, jobsFormStatus() || jobsNote(T("common.legacy.loading"))); return; }
   const refill = () => { if (!r.edited) r.name = jobsSuggestName(); jobsRenderRun(); };
   const docs = jobsDocs(), ready = jobsReady(r.model);
+  const allowed = docs.filter(d => jobsAllowed(d, "run"));
+  const locked = docs.filter(d => !jobsAllowed(d, "run"));
+  const evaluation = locked.filter(d => d.group === "eval");
+  const reasons = new Map();
+  for (const doc of locked) {
+    const reason = doc.run_reason?.run || T("context.unavailable");
+    if (!reasons.has(reason)) reasons.set(reason, []);
+    reasons.get(reason).push(doc);
+  }
+  const checkbox = d => h("label", null,
+    h("input", {id: `jobs-run-doc-${d.doc_id}`, type: "checkbox", checked: r.docs?.has(d.doc_id), disabled: !jobsAllowed(d, "run"),
+      onchange: e => { e.target.checked ? r.docs.add(d.doc_id) : r.docs.delete(d.doc_id); refill(); }}), d.doc_id);
   coreReplace(el, h("h2", null, T("jobs.batch.title")), jobsFormStatus(),
     jobsField("jobs-run-model", T("jobs.form.model"), T("jobs.fields.model"), jobsModelSelect(r, "run")),
     jobsNote(jobsSet()?.label || S.ctx.set || T("common.none")),
     h("fieldset", null, h("legend", null, T("jobs.batch.select_docs")),
       h("div", {class: "job-actions"}, jobsButton("jobs-select-all", "jobs.form.select_all", () => { r.docs = new Set(docs.filter(d => jobsAllowed(d, "run")).map(d => d.doc_id)); refill(); }),
         jobsButton("jobs-select-none", "jobs.form.select_none", () => { r.docs.clear(); refill(); })),
-      h("div", {class: "job-docs"}, docs.map(d => h("label", null,
-        h("input", {id: `jobs-run-doc-${d.doc_id}`, type: "checkbox", checked: r.docs?.has(d.doc_id), disabled: !jobsAllowed(d, "run"),
-          onchange: e => { e.target.checked ? r.docs.add(d.doc_id) : r.docs.delete(d.doc_id); refill(); }}), d.doc_id,
-        d.run_reason?.run ? h("small", {class: "muted"}, ` — ${d.run_reason.run}`) : null)))),
+      h("div", {class: "job-docs"}, allowed.map(d => h("div", null, checkbox(d), d.run_reason?.run ? jobsNote(d.run_reason.run) : null))),
+      jobsNote(T("jobs.form.count", {count: r.docs?.size || 0, repeats: r.repeat}), {id: "jobs-run-count", role: "status"})),
+    locked.length ? jobsDetails("jobs-run-locked", evaluation.length ? T("jobs.batch.eval_locked", {count: evaluation.length}) : T("jobs.batch.runnable"),
+      [...reasons].map(([reason, group]) => h("div", null, jobsNote(reason), h("div", {class: "job-docs"}, group.map(checkbox))))) : null,
     h("div", {class: "job-form-grid"}, jobsField("jobs-repeat", T("jobs.batch.repeats"), T("jobs.fields.repeat"),
-      h("input", {type: "number", min: 1, max: 10, value: r.repeat, oninput: e => { r.repeat = Number(e.target.value); }})),
+      h("input", {type: "number", min: 1, max: 10, value: r.repeat, oninput: e => {
+        r.repeat = Number(e.target.value);
+        document.getElementById("jobs-run-count").textContent = T("jobs.form.count", {count: r.docs?.size || 0, repeats: r.repeat});
+      }})),
       jobsField("jobs-run-name", T("jobs.form.run_name"), T("jobs.fields.run_name"), h("input", {type: "text", class: "technical", value: r.name,
         oninput: e => { r.name = e.target.value; r.edited = true; }}))),
     jobsButton("jobs-suggest", "jobs.form.suggest", () => { r.edited = false; refill(); }),
-    jobsNote(T("jobs.form.count", {count: r.docs?.size || 0, repeats: r.repeat})),
-    jobsButton("jobs-run-start", "jobs.batch.start", jobsStartRun, !ready || !!J.busy || !r.docs?.size, true),
-    !ready ? jobsNote(T("jobs.actions.run_unavailable")) : null, J.message.run || null,
+    !ready ? h("div", {class: "job-actions"}, jobsNote(T("jobs.actions.run_unavailable")),
+      jobsButton("jobs-run-prepare", "context.prepare_model", () => go("s06", {model: r.model, returnScreen: "s09"}), false, true)) : null,
+    jobsButton("jobs-run-start", "jobs.batch.start", jobsStartRun, !ready || !!J.busy || !r.docs?.size, ready),
+    J.message.run || null,
     J.confirm?.kind === "run" ? jobsNote(J.confirm.summary, {class: "technical"}) : null,
     jobsDetails("jobs-run-conditions", T("jobs.batch.details"), ["kind", "repeat_range", "keep_awake", "confirm", "outside_policy"].map(k => jobsNote(T(`jobs.batch.${k}`)))),
     jobsButton("jobs-run-records", "jobs.running.open_jobs", () => go("s05")));
