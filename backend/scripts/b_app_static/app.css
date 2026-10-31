@@ -273,13 +273,13 @@ dialog::backdrop { background: var(--backdrop); }
 @media (max-width: 1320px) { #screen-s02 { grid-template-columns: 270px minmax(0, 1fr); gap: var(--space-section-small); } }
 @media (min-width: 1550px) { #screen-s02 { grid-template-columns: 320px minmax(0, 1fr); } }
 
-/* S04: 조건을 먼저 읽고, 서버가 계산한 차이를 펼쳐 본다. */
+/* S04: 짧은 결론 다음에 조건과 서로 다른 범위의 차이를 읽는다. */
 #screen-s04 > div { min-width: 0; }
 #compare-summary { margin-bottom: var(--space-section); }
 .compare-condition-lead { background: var(--context); padding: var(--space-group); margin-bottom: var(--space-group); font-size: var(--label-size); }
 .compare-condition-lead ul { margin: var(--space-small) 0; }
 .compare-condition-change .raw, .compare-direction, .compare-items-table .raw { display: block; }
-.compare-headline { font-size: var(--title-size); font-weight: var(--title-weight); line-height: var(--title-line-height); max-width: 72ch; margin-bottom: var(--space-group); }
+.compare-headline { max-width: 72ch; }
 .compare-neutral { color: var(--muted); }
 .compare-up { color: var(--accent); }
 .compare-down { color: var(--failure); }
@@ -309,6 +309,8 @@ dialog::backdrop { background: var(--backdrop); }
 .compare-diff-remove { background: var(--ground); }
 .compare-hash-warning { border: var(--border-standard); padding: var(--space-group); background: var(--selected); }
 #compare-summary > button { margin-right: var(--space-group); margin-top: var(--space-group); }
+#compare-total-change, #compare-criterion-change { margin-block: var(--space-section); }
+.compare-next { margin-block: var(--space-section); }
 
 /* S06: 조작은 항상 보이고 기록과 장비 원문만 펼친다. */
 #screen-s06 > div { margin-bottom: var(--space-page); min-width: 0; }
@@ -338,6 +340,8 @@ dialog::backdrop { background: var(--backdrop); }
 /* S03/S05/S09/S10: 시험 대상, 입력, 결과 단계와 작업 기록. */
 #jobs-try, #jobs-result, #jobs-run, #jobs-compare, #jobs-list, #jobs-detail { min-width: 0; }
 #jobs-result, #jobs-connection, #jobs-detail { margin-top: var(--space-section); }
+#jobs-connection { margin-bottom: var(--space-group); }
+#jobs-prompt-status:empty { display: none; }
 .job-form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-group); }
 .job-field { display: grid; gap: var(--space-field); min-width: 0; margin-block: var(--space-small); }
 .job-field select, .job-field input, .job-field textarea { width: 100%; min-width: 0; }
@@ -361,6 +365,11 @@ dialog::backdrop { background: var(--backdrop); }
 .job-log { max-width: 100%; max-height: 28rem; overflow: auto; white-space: pre-wrap; padding: var(--space-compact); background: var(--ground); border: var(--border-standard); }
 .job-compare-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--space-group); padding-block: var(--space-compact); border-bottom: var(--border-standard); }
 .job-compare-row .technical { display: block; }
+#jobs-compare-order th:first-child { width: 16%; }
+#jobs-compare-order .raw { display: block; font-weight: var(--body-weight); }
+#jobs-compare-candidates { margin-top: var(--space-section); }
+#jobs-list [data-job-status] { display: block; }
+.job-error-summary { font-size: var(--label-size); }
 #jobs-try fieldset, #jobs-run fieldset { border: var(--border-standard); padding: var(--space-group); min-width: 0; }
 
 /* 도움말은 읽는 화면이다. 긴 경로만 줄바꿈하고 본문은 72ch 안에 둔다. */

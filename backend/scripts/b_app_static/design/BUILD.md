@@ -1259,6 +1259,11 @@ Questions skipped: non-interactive. 승인 구조와 모양은 유지한다.
 | `source.field_names.limit_type` | 기준 종류 | S02 | S5 결정 2: ⑤ 수락에서 승인 대기. 건수·선택 상태를 사실대로 표시. |
 | `source.filter.all_values` | 전체 보기 | S02 | S5 결정 2: ⑤ 수락에서 승인 대기. 건수·선택 상태를 사실대로 표시. |
 
+| `compare.values.open_changed` | 바뀐 값의 원문 보기 | S04 요약 아래 | P1-11의 지정 행동. COPY 표에 키가 없어 등록. S5 결정 2: ⑤ 수락에서 승인 대기 |
+| `compare.empty.next` | 비교할 결과를 준비하거나 문서 묶음을 바꾸세요. | S04 결과 없음 | P1-12의 기존 행동으로 연결. S5 결정 2: ⑤ 수락에서 승인 대기 |
+| `compare.builder.move_up` | 앞으로 옮기기 | S10 선택 순서 | 셋 이상 선택할 때의 순서 변경. S5 결정 2: ⑤ 수락에서 승인 대기 |
+| `compare.builder.move_down` | 뒤로 옮기기 | S10 선택 순서 | 셋 이상 선택할 때의 순서 변경. S5 결정 2: ⑤ 수락에서 승인 대기 |
+
 ### fix step 1
 
 ⚠️ DEGRADED: no browser in sandbox
@@ -1324,3 +1329,75 @@ Questions skipped: non-interactive. 승인된 결론·경로·원문 비교 배�
 - Python 함수·클래스를 시작 커밋과 AST로 비교해 동일함을 확인했다. 제품 Python 변경은 UI 문구와 승인 대기 이유뿐이다.
 - `git diff --check` 통과. 추적 파일 변경은 허용된 화면·문구·BUILD와 B 시험 11개 파일이다. 외부 변경으로 감지한 approvals.txt는 보존했다. 다른 step의 상태는 바꾸지 않았다.
 - 실브라우저·실모델·물리 기기 검증은 미실행이다. 기계 시험으로 시각 검증을 대신했다고 주장하지 않는다. 커밋하지 않았다.
+
+
+### fix step 2
+
+⚠️ DEGRADED: no browser in sandbox
+
+Questions skipped: non-interactive. impeccable layout·distill 지침을 읽었다. 승인 시안과 제공된 실제 사진 9장을 확인했다. 새 화면·새 API·서버 동작을 추가하지 않는다. 핵심 경로는 설명 수정→모델 준비/시험→결과, 비교 결론→원문, 선택 순서→표 만들기다. 상세는 관련 펼침과 선택 작업 아래에 보존한다.
+
+시험 선행: 지정한 10개 이름(보내기 실제/연습을 나눈 11개 경우)을 먼저 작성해 전부 실패함을 확인했다. `/tmp/to21-step2-red.log`: 11 failed, 30 deselected (2.01초). 지시문 자동 읽기·주 행동·연습 상태·초점·비교 요약·원문 행동·빈 상태·짧은 기록·선택 전달·순서 표가 없는 기존 동작에서 실패했다. 새 시험의 비동기 대기 도우미와 서로 다른 JS 실행 환경의 배열 비교는 구현 확인 중 보완했다. 요구 기대는 바꾸지 않았다.
+
+| 고친 번호 | 시험 이름 | 확인 방법 |
+|---|---|---|
+| P1-08 | `test_s03_instruction_box_is_prefilled_with_current_instruction` | 문서·부분·모델 확정 후 현재 설명을 자동 조회. 입력란 옆 상태/오류와 aria-describedby. 편집 세대·대상·요청 번호로 늦은 응답 무시. 명시적 다시 읽기 복구. |
+| P1-09 | `test_s03_ai_off_makes_model_setup_primary_and_practice_secondary` | 연결 영역을 설명 아래·시험 단추 앞으로 이동. AI 준비만 주 행동, 연습은 보조. 연습 선택 글 중복 제거. serversLabel이 공통 모델 표시 이름을 사용. |
+| P1-10 | `test_s04_summary_separates_whole_score_and_one_criterion` | 제목은 승인된 짧은 결론. 전체 delta와 headline.biggest의 delta를 서로 다른 제목 아래 표시. 실행 이름은 비교 표. 서버의 수치를 다시 계산하지 않음. |
+| P1-11 | `test_s04_offers_source_of_changed_value` | 요약 아래 바뀐 값 원문 주 행동. 새로 틀린 값은 B, 새로 맞춘 값은 A로 이동. 정확한 경로가 없으면 해당 부분만 열고 한계 표시. 연결 불가/변화 없음의 이유. |
+| P1-12 | `test_s04_no_runs_shows_reason_without_pickers` | 결과 없음의 설명과 시험 준비·묶음 변경. 빈 A/B 선택·순서 변경·재조회는 숨김. 방문으로 작업 전송 없음. |
+| P1-13 | `test_s05_list_is_short_and_details_show_once` | 목록은 짧은 대상·종류·시각·상태·오류 요약. 상세 오류·경고·진행·원래 이름·기록은 선택 작업 아래. 로그 단추는 행마다 하나. 상세 닫아도 선택 유지. |
+| P1-17 | `test_s10_receives_two_runs_from_s04_in_order` | 고른 A/B·표시 이름 전달. 유효한 실행만 중복 없이 순서 유지. 다른 비교로 재진입 시 교체. 자동 전송 없음. |
+| P1-18 | `test_s10_selected_order_table_comes_first` | 선택 순서 표→순서 조작→표 제목→만들기. 추가 후보·잠긴 이유는 아래 펼침. 둘은 교환, 셋 이상은 앞뒤 이동. 전송 배열도 같은 순서. |
+| P2-01 | `test_s05_list_is_short_and_details_show_once` | 종류와 상태를 다른 표 칸에 배치. |
+| N-practice | `test_practice_result_says_practice_done_not_done` | S03·S05의 dry_run 작업은 승인 문구 ‘연습 완료’. 실제 완료와 상태 글 분리. 기존 실제 성공 판정은 유지. |
+| N-scroll | `test_s03_after_send_moves_focus_to_result`, `test_s03_accepted_request_focuses_result_before_slow_poll` | 실제/연습 접수 직후 결과 구역으로 초점·scrollIntoView. 상태 조회를 기다리지 않음. 고정 기준 줄의 실제 높이만큼 스크롤 여백. 실패·반복 조회에는 이동 없음. |
+
+#### 추가 회귀
+
+- 다른 모델만 준비된 상태에서 고른 모델은 꺼져 있는 경우와, 작업 접수 뒤 상태 조회가 느린 경우를 먼저 실패시켰다. `/tmp/to21-step2-extra-red.log`: 2 failed, 1 passed. 각각 연습 제공과 즉시 초점 이동으로 고쳤다.
+- 자동 설명 조회의 이전 대상 응답 무시·다른 화면/여러 항/문서 미선택의 자동 조회 없음은 추가 시험으로 확인했다.
+- 다른 작업의 결과를 보고 있던 중 새 작업 상세를 열면 두 행이 선택되는 문제를 추가로 실패시켰다. `/tmp/to21-step2-selection-red.log`: 1 failed. 상세→선택→시험 결과 순으로 선택 하나만 표시하도록 고쳤다.
+- 수정한 설명의 사용 체크를 꺼도 글은 남기는 경우를 추가로 실패시켰다. `/tmp/to21-step2-draft-red.log`: 1 failed. 수정 여부(dirty)와 사용 여부(edit)를 나눠 자동 조회가 덮어쓰지 않도록 했다. 명시적 기본 설명 읽기는 가능하다.
+- 기존 결과 성공 조건(HTTP 200, 대상 일치, dry_run 거짓, results[String(항)].ok 참, S03 결과 요약 표시)은 변경하지 않았다. 입력 확인 연습은 연습에만 기록한다.
+
+#### 기존 시험 변경과 이유
+
+| 파일·시험 | 변경 | 이유 |
+|---|---|---|
+| `test_B_b_app_jobs_ui.py::test_failure_and_success_warnings_have_actionable_text` (2경우) | 행의 기록 열기를 누른 뒤 선택 상세에서 오류·경고·원문을 확인. 목록의 로그 단추 수는 1개로 확인. | P1-13이 상세 오류를 목록 아래 한 곳에 두도록 지정. 문구 기대는 유지. |
+| `test_B_b_app_compare_ui.py::test_same_conditions_are_before_headline_and_all_deltas_are_neutral` | 이름을 `test_short_headline_precedes_conditions_and_all_deltas_are_neutral`로 바꿈. 승인된 짧은 제목이 조건 앞에 옴. | P1-10이 긴 API 합성 문단을 제목으로 쓰는 기존 기대를 대체. 중립색·조건·목표·정답 표시 검사는 유지. |
+| `test_B_b_app_compare_ui.py::test_different_document_sets_and_prompt_hash_changes_are_visible_above_conclusion` | 이름을 `test_different_document_sets_lead_conclusion_and_prompt_changes_remain_visible`로 바꿈. 문서 구성 차이가 첫 제목. | P1-10의 결론 우선. 문서·조건·지시문 차이 정보 검사는 유지. |
+| `test_B_b_app_compare_ui.py::test_key_changes_reload_and_late_old_response_cannot_replace_new_result` | 늦은 응답 무시와 내부 headline 기대를 유지. 화면은 새 정답지 이름으로 갱신 여부 확인. | 제목에서 API의 긴 합성 문구를 제거했으므로 정답지 변경을 실제 표시 정보로 검증. |
+| `test_B_b_app_compare_ui.py::test_missing_metadata_targets_and_empty_runs_remain_unknown_not_zero` | 빈 결과에서 ‘두 결과 고르기’ 대신 승인된 비교 불가 문장 확인. | P1-12가 결과 없는 선택기를 금지. 미확인 값을 0으로 쓰지 않는 검사는 유지. |
+| `test_B_b_app_compare_ui.py::test_first_hash_visit_waits_for_context_before_requesting_comparison` | 첫 제목의 기대만 승인된 짧은 결론으로 변경. | P1-10. 최초 진입·정답지 준비·요청 인자 검사는 유지. |
+| `test_B_b_app_audit_ui.py::SETUP` | 자동으로 읽는 /api/prompt의 가짜 응답 추가. | P1-08에서 진입 시 새 조회가 생김. NodeList 계약·구조화 표시 이름 기대는 바꾸지 않음. |
+
+#### API·아키텍처 확인
+
+- `/api/jobs/try`, `/api/jobs/run`, `/api/jobs/compare`의 본문과 응답 키는 그대로다. S04→S10의 labels는 브라우저 내부 이동 인자다.
+- `/api/prompt`는 기존 model·no 인자로 현재 설명을 읽는다. 문서별 프롬프트 API를 만들지 않았다. 전문은 메모리에만 두며 로그·저장소에 기록하지 않는다.
+- 실제 changed_values API에는 값 경로가 없을 수 있다. 관련 문서·부분을 열고 ‘정확한 값 위치가 기록되지 않았습니다’ 안내를 붙인다. 같은 값을 찾았다고 주장하지 않는다.
+- 돈이 드는 서버 동작과 본 실행의 확인·작업 중단 확인을 유지한다. 서버·모델·네트워크는 시험에서 부르지 않는다. C 전처리 시험은 지정대로 제외한다.
+- 새 글 4개는 UI_TEXT와 COPY_EXCEPTIONS 및 위 ⑤ 승인 대기 문구 표에 기록했다. COPY·STRUCTURE·DESIGN·시안은 변경하지 않았다.
+
+#### 검증 결과
+
+- step 파일의 AC 명령을 그대로 `/tmp/to21-step2-ac.sh`에 옮겨 bash로 실행했다. 전체 로그: `/tmp/to21-step2-ac.log`.
+- BUILD 제목·고친 번호 11개 행·Node 존재 확인 통과. 지정 10개 이름의 11개 경우: **11 passed**(1.07초).
+- 앱 관련 시험: **1043 passed, 1194 deselected, 7 warnings**(40.43초). 새 회귀는 15개 경우이며, 14개 경우는 실패를 먼저 재현했다. 선택 행 추가 조건도 실패 후 통과했다.
+- 전체 지정 시험: **1 failed, 2206 passed, 30 skipped, 7 warnings**(72.50초). AC 스크립트 종료 코드는 1이다. A/C 시험의 기대값을 바꾸지 않았다.
+- 유일한 실패는 `tests/test_A_input.py::test_every_changing_route_answers_with_update`의 `HTTPServer` → `socket.bind`에서 발생한 `PermissionError: [Errno 1] Operation not permitted`다. `phases/app-redo/_common.txt` 7절의 명시적 예외에 따라 completed로 기록한다. 실행기가 샌드박스 밖에서 AC를 다시 검증한다.
+- 경고 7개는 기존 SWIG 타입의 `__module__` 관련 DeprecationWarning이다.
+- impeccable layout 범위 점검: 지적 0건. 전체 detect: 종료 코드 2, 기존 wireframes.html 15건·guide.html 2건. 변경 파일 지적 0건. `/static/app.css`를 로컬 경로로 읽지 못해 색·변수 검사는 불완전하다. `/tmp/to21-step2-detect.json`에 결과를 남겼다.
+- 세 JS 파일의 Node 문법 검사와 `git diff --check` 통과. 보호 파일 709개 중 허용된 BUILD.md·자기 step 상태 외 변경 없음. Python 런타임·백엔드 API·모델 설정·데이터·옛 실행 경로는 변경하지 않았다.
+- 커밋하지 않았다. `phases/app-redo-fix/index.json`의 step 2 상태·summary만 수정한다.
+
+#### 브라우저로 볼 것
+
+- 1280·1440·1680px에서 지시문 자동 채움·조회 중·조회 실패·편집 유지. 모델 준비 행동과 연습 행동의 위계. 선택 모델의 공통 표시 이름.
+- 실제/연습 접수 뒤 결과 구역이 고정 기준 줄 아래 보이는지. 상태 조회가 느릴 때도 이동하는지. 키보드 초점과 연습 완료 글.
+- S04의 짧은 결론과 서로 다른 두 점수 범위. 원문 행동 및 경로 없음 안내. 결과 없음의 다음 행동.
+- S05의 짧은 목록·한 번만 나오는 상세·선택 유지. S10의 A/B 순서 전달·선택 표·제목·만들기·접힌 후보·키보드 순서 조작.
+
+제공된 사진으로 기존 문제를 확인했지만 수정한 화면은 브라우저에서 보지 않았다. DOM 시험으로 화면 높이·가림·가로 넘침을 확인했다고 주장하지 않는다.

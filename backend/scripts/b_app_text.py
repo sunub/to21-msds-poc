@@ -2926,6 +2926,13 @@ for _copy_key in (
 ):
     COPY_EXCEPTIONS[_copy_key] = "S5 결정 2: ⑤ 수락에서 승인 대기"
 
+# S5 step 2: 승인 장면의 행동과 여러 결과 순서 조작에 필요한 글.
+UI_TEXT["compare"]["values"]["open_changed"] = "바뀐 값의 원문 보기"
+UI_TEXT["compare"]["empty"] = {"next": "비교할 결과를 준비하거나 문서 묶음을 바꾸세요."}
+UI_TEXT["compare"]["builder"].update({"move_up": "앞으로 옮기기", "move_down": "뒤로 옮기기"})
+for _copy_key in ("compare.values.open_changed", "compare.empty.next", "compare.builder.move_up", "compare.builder.move_down"):
+    COPY_EXCEPTIONS[_copy_key] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+
 POLISH_TEXT = UI_TEXT
 
 

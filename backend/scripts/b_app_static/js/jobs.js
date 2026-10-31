@@ -2,13 +2,14 @@
 
 // 폼과 지시문은 메모리에만 둔다. 시작 당시 조건은 서버의 target을 읽는다.
 S.jobs = {opts: null, optionsError: null, optionsRecovered: false, pollError: null, recovered: false,
-  t: {doc: null, model: null, secs: new Set([1]), all: false, base: "", dry: false, edit: false, text: "", textFor: null},
+  t: {doc: null, model: null, secs: new Set([1]), all: false, base: "", dry: false, edit: false, dirty: false, text: "", textFor: null},
   r: {model: null, docs: null, repeat: 1, name: "", edited: false}, c: {picked: [], labels: {}, title: ""},
   list: [], running: [], runs: [], runsError: null, runsKey: null, timer: null, polling: null, loadingOptions: null,
   watch: null, result: null, resultStatus: null, resultLoaded: false, resultError: null, resultRequest: 0,
   observed: new Set(), emitted: new Set(), terminal: new Set(), log: null, expanded: {},
   busy: null, message: {}, confirm: null, initialized: false, defaultsApplied: false,
-  dialogReady: false, confirmTrigger: null, promptRequest: 0, promptBusy: false};
+  dialogReady: false, confirmTrigger: null, promptRequest: 0, promptBusy: false,
+  promptAttempt: null, promptError: null, promptPending: null, selected: null};
 const jobsStages = [["input", "input"], ["prompt", "prompt"], ["raw_answer", "raw_answer"],
   ["parsed", "parsed"], ["converted", "to21"], ["score", "score"]];
 function jobsButton(id, key, action, disabled = false, primary = false) {
@@ -100,7 +101,7 @@ async function jobsEnsure(args = {}) {
   if (args.journeyPrepare) {
     J.defaultsApplied = true; J.t.doc = args.doc || null;
     J.t.secs = new Set(args.section ? [Number(args.section)] : []); J.t.all = false;
-    J.t.edit = false; J.t.text = ""; J.t.textFor = null;
+    J.t.edit = false; J.t.dirty = false; J.t.text = ""; J.t.textFor = null; J.promptAttempt = null;
     J.expanded["jobs-scope"] = true;
   }
   if (Object.hasOwn(args, "practice")) J.t.dry = args.practice;
@@ -116,6 +117,13 @@ async function jobsEnsure(args = {}) {
   J.initialized = true;
   if (!J.opts || args.journeyPrepare || args.journeyCheck) await jobsLoadOptions();
   if (J.runsKey !== S.ctx.key || J.runsKey === null) await jobsLoadRuns();
+  if (Array.isArray(args.runs)) {
+    J.c.picked = [...new Set(args.runs)].filter(name => J.runs.some(run => run.name === name && jobsCompareAllowed(run)));
+    for (const name of J.c.picked) {
+      const label = args.labels?.[args.runs.indexOf(name)];
+      J.c.labels[name] = typeof label === "string" ? label : jobsRunLabel(J.runs.find(run => run.name === name));
+    }
+  }
   if (!J.timer) await jobsPoll();
   jobsRemember();
   if (args.resumePending && J.list.some(job => job.id === args.job && job.kind === "try")) J.observed.add(args.job);
@@ -162,9 +170,11 @@ function jobsRenderTry() {
   if (t.base && ![...base.querySelectorAll("option")].some(option => option.value === t.base)) base.append(h("option", {value: t.base}, t.base));
   base.value = t.base;
   const textarea = h("textarea", {rows: 5, class: "job-prompt technical", spellcheck: "false", disabled: !one,
-    oninput: e => { t.text = e.target.value; t.edit = true; const check = document.getElementById("jobs-edit"); if (check) check.checked = true; }});
+    oninput: e => { t.text = e.target.value; t.edit = true; t.dirty = true; t.revision = (t.revision || 0) + 1;
+      const check = document.getElementById("jobs-edit"); if (check) check.checked = true; }});
   textarea.value = t.text;
   const ready = jobsReady(t.model), busy = J.busy === "try";
+  if (!ready) t.dry = true;
   const controls = h("div", {class: "job-form-grid"},
     jobsField("jobs-model", T("jobs.form.model"), T("jobs.fields.model"), jobsModelSelect(t, "try")),
     jobsField("jobs-doc", T("jobs.form.doc"), T("jobs.fields.doc"), select));
@@ -182,22 +192,24 @@ function jobsRenderTry() {
   coreReplace(el, jobsFormStatus(), jobsNote(t.doc ? `${t.doc} · ${t.all ? T("jobs.form.all") : [...t.secs].map(section => T("jobs.form.section", {section})).join(", ")}`
     : T(docs.some(d => jobsAllowed(d, "try")) ? "jobs.form.no_doc" : "jobs.no_runnable.fact"), {class: "fixed-target"}),
     jobsRenderFocus(), jobsField("jobs-prompt", term("prompt", T("jobs.form.prompt")), T("jobs.prompt.hint"), textarea),
+    h("div", {id: "jobs-prompt-status", role: J.promptError ? "alert" : "status"},
+      J.promptBusy ? jobsNote(T("jobs.form.prompt_loading")) : J.promptError ? loadFailure(J.promptError.message) : null),
     jobsNote(T("jobs.prompt.retest_hint")),
     h("div", {class: "job-actions"}, h("label", null, h("input", {id: "jobs-edit", type: "checkbox", checked: t.edit && one, disabled: !one,
       onchange: e => { t.edit = e.target.checked; jobsRenderTry(); }}), T("jobs.prompt.edit")),
       jobsButton("jobs-load-prompt", "jobs.form.load_prompt", jobsLoadPrompt, !one || !t.model || J.promptBusy)),
     !one ? jobsNote(T("jobs.multiple.no_edit")) : null,
     t.textFor && t.textFor !== `${t.model}|${[...t.secs][0]}` ? jobsNote(T("jobs.prompt.review_foreign"), {class: "warning"}) : null,
-    J.promptBusy ? jobsNote(T("jobs.form.prompt_loading"), {role: "status"}) : null,
     jobsDetails("jobs-prompt-origin", T("jobs.prompt.details"), ["origin", "memory_only", "delete_temp", "hash_only"].map(key => jobsNote(T(`jobs.prompt.${key}`)))),
     S.focus.source_set && S.focus.source_set !== S.ctx.set ? h("div", {class: "job-notice"}, jobsNote(T("jobs.set_mismatch.title")),
       jobsNote(T("jobs.form.source_set", {set: S.focus.source_set})), jobsNote(T("jobs.form.next_set", {set: S.ctx.set}))) : null,
     jobsNote(J.opts.try_hint?.note || T("jobs.try_hint.off"), {role: "status"}),
+    document.getElementById("jobs-connection"),
     jobsButton("jobs-options-reload", "jobs.form.reload", jobsPoll, !!J.loadingOptions),
     h("div", {class: "job-actions"}, jobsButton("jobs-send", busy ? "jobs.form.sending" : t.dry ? "jobs.actions.preview" : "jobs.actions.send", jobsStartTry,
-      !!J.busy || !!J.optionsError || !allowed || !t.model || (!t.all && !t.secs.size) || (!t.dry && !ready), true)),
-    h("label", null, h("input", {id: "jobs-dry", type: "checkbox", checked: t.dry, disabled: !(J.opts.models || []).some(m => m.connected === true),
-      onchange: e => { t.dry = e.target.checked; jobsRenderTry(); }}), T("jobs.actions.preview")),
+      !!J.busy || !!J.optionsError || !allowed || !t.model || (!t.all && !t.secs.size) || (!t.dry && !ready), ready)),
+    h("label", {hidden: !ready}, h("input", {id: "jobs-dry", type: "checkbox", checked: t.dry, disabled: !(J.opts.models || []).some(m => m.connected === true),
+      onchange: e => { t.dry = e.target.checked; jobsRenderTry(); }}), T("jobs.fields.dry_run")),
     jobsNote(term("practice", T("jobs.trial.practice_meaning")), {class: "muted"}), J.message.try || null, scope,
     jobsDetails("jobs-next", T("jobs.trial.next_options"),
       jobsButton("jobs-open-guide", "jobs.trial.start_guide", () => go("s08", {branch: "try"})),
@@ -207,15 +219,20 @@ function jobsRenderTry() {
   document.getElementById("jobs-model").setAttribute("data-guide", "s03-model");
   document.getElementById("jobs-send").setAttribute("data-guide", "s03-send");
   document.getElementById("jobs-dry").setAttribute("data-guide", "s03-practice");
+  textarea.setAttribute("aria-describedby", "jobs-prompt-help jobs-prompt-status");
+  jobsRenderConnection();
   emit("trial_form_shown", {valid: !J.optionsError && allowed && one, connected: ready,
     signature: JSON.stringify([t.doc, [...t.secs], t.all, t.model, S.ctx.set, S.ctx.key])});
+  if (S.shell.route === "s03" && allowed && one && t.model && !t.edit && !t.dirty && J.promptAttempt !== jobsPromptKey()) {
+    J.promptPending = jobsLoadPrompt({automatic: true});
+  }
 }
 function jobsRenderConnection() {
   const el = document.getElementById("jobs-connection");
   const ready = jobsReady(S.jobs.t.model);
   el.hidden = ready;
   if (ready) return;
-  serversRenderCompact(el, {model: S.jobs.t.model});
+  serversRenderCompact(el, {model: S.jobs.t.model, primary: true});
   const data = serversData(), model = serversModel(S.jobs.t.model);
   const choice = data?.rngd_choices?.find(item => item.tag === S.jobs.t.model);
   if (choice) {
@@ -226,17 +243,22 @@ function jobsRenderConnection() {
     el.append(jobsNote(T("servers.empty.new_cost")), serversAction("pod_create", {}, T("servers.rented.confirm_create"), "jobs"));
   }
 }
-async function jobsLoadPrompt() {
+function jobsPromptKey() {
+  const t = S.jobs.t;
+  return JSON.stringify([S.ctx.set, t.doc, t.model, [...t.secs], t.all]);
+}
+async function jobsLoadPrompt({automatic = false} = {}) {
   const J = S.jobs, t = J.t;
-  if (!jobsSingle() || !t.model || J.promptBusy) return;
-  const request = ++J.promptRequest, origin = `${t.model}|${[...t.secs][0]}`, draft = t.text;
-  J.promptBusy = true; J.message.try = null; jobsRenderTry();
+  const key = jobsPromptKey();
+  if (!jobsSingle() || !t.model || (J.promptBusy && J.promptAttempt === key) || (automatic && (t.edit || t.dirty))) return;
+  const request = ++J.promptRequest, origin = `${t.model}|${[...t.secs][0]}`, draft = t.text, revision = t.revision || 0;
+  J.promptAttempt = key; J.promptBusy = true; J.promptError = null; jobsRenderTry();
   try {
     const data = await api(`/api/prompt?${new URLSearchParams({model: t.model, no: [...t.secs][0]})}`);
-    if (request !== J.promptRequest || !jobsSingle() || origin !== `${t.model}|${[...t.secs][0]}` || draft !== t.text) return;
-    t.text = data.text || ""; t.textFor = origin;
-  } catch (error) { J.message.try = loadFailure(error.message); }
-  finally { J.promptBusy = false; jobsRenderTry(); }
+    if (request !== J.promptRequest || key !== jobsPromptKey() || draft !== t.text || revision !== (t.revision || 0) || (automatic && (t.edit || t.dirty))) return;
+    t.text = data.text || ""; t.textFor = origin; t.dirty = false;
+  } catch (error) { if (request === J.promptRequest && key === jobsPromptKey()) J.promptError = error; }
+  finally { if (request === J.promptRequest) { J.promptBusy = false; jobsRenderTry(); } }
 }
 function jobsRequestError(error) {
   return error.body?.message ? friendlyError({...error.body, raw: error.body.error})
@@ -261,9 +283,18 @@ async function jobsStartTry() {
     J.observed.add(data.id);
     emit("attempt_accepted", {attempt, job: data.id});
     J.watch = data.id; J.result = null; J.resultStatus = null; J.resultLoaded = false; J.resultError = null; J.resultRequest++;
-    J.message.try = jobsNote(T("jobs.form.sent"), {role: "status"}); await jobsPoll();
+    J.message.try = jobsNote(T("jobs.form.sent"), {role: "status"});
+    jobsRenderResult();
+    if (S.shell.route === "s03") {
+      const result = document.getElementById("jobs-result"), context = document.getElementById("global-context");
+      result.style.scrollMarginTop = `${context?.offsetHeight || 0}px`;
+      result.setAttribute("tabindex", "-1"); result.focus({preventScroll: true}); result.scrollIntoView?.({block: "start"});
+    }
+    await jobsPoll();
   } catch (error) { J.message.try = jobsRequestError(error); }
-  finally { J.busy = null; jobsRenderTry(); jobsRenderResult(); }
+  finally {
+    J.busy = null; jobsRenderTry(); jobsRenderResult();
+  }
 }
 
 function jobsTarget(job) {
@@ -289,21 +320,22 @@ function jobsWarnings(warnings) {
     jobsNote(typeof w === "string" ? w : w.message || w.fact || T("common.none")),
     typeof w === "object" && (w.fix || w.todo) ? jobsNote(w.fix || w.todo) : null));
 }
-function jobsFailure(job) {
+function jobsFailure(job, openLog = true) {
   if (job.status !== "failed") return null;
   const error = job.error;
   return h("div", {class: "error-note", role: "alert"},
     jobsNote(h("strong", null, (typeof error === "string" ? error : error?.message || error?.fact) || T("errors.job.other.message"))),
     error?.fix ? jobsNote(error.fix) : null, jobsNote(T("errors.job.no_line.fix")),
-    jobsButton(`jobs-error-log-${job.id}`, "jobs.result_missing.open_log", () => jobsOpenLog(job.id)),
+    openLog ? jobsButton(`jobs-error-log-${job.id}`, "jobs.result_missing.open_log", () => jobsOpenLog(job.id)) : null,
     jobsDetails(`jobs-error-raw-${job.id}`, T("common.raw_error"),
       jobsNote(num(job.returncode) ? T("jobs.legacy.exit_code", {count: job.returncode}) : T("jobs.record.exit_missing")),
       jobsPre(error?.raw || "")));
 }
 function jobsStatus(job) {
   const known = Object.hasOwn(UI.jobs.status, job.status) ? job.status : "unknown";
-  return h("span", {class: known === "failed" ? "error" : known === "done" ? "positive" : "muted",
-    "data-tip": known === "unknown" ? T("jobs.record.unknown_tip") : null}, T(`jobs.status.${known}`));
+  return h("span", {class: known === "failed" ? "error" : known === "done" && !jobsPractice(job) ? "positive" : "muted",
+    "data-job-status": job.status, "data-tip": known === "unknown" ? T("jobs.record.unknown_tip") : null},
+    T(known === "done" && jobsPractice(job) ? "jobs.practice_done.state" : `jobs.status.${known}`));
 }
 function jobsStage(index, ...body) {
   const [title, help] = jobsStages[index];
@@ -419,6 +451,7 @@ async function jobsLoadResult(id) {
 }
 async function jobsWatch(id, navigate = true) {
   const J = S.jobs;
+  J.selected = id;
   if (J.watch !== id) { J.watch = id; J.result = null; J.resultStatus = null; J.resultLoaded = false; J.resultError = null; J.resultRequest++; }
   if (navigate && S.shell.route !== "s03") await go("s03");
   if (J.list.find(j => j.id === id)?.status !== "running") await jobsLoadResult(id);
@@ -474,34 +507,58 @@ async function jobsStartRun(confirmed = false) {
   } finally { J.busy = null; jobsRenderRun(); if (J.confirm?.kind === "run") jobsOpenConfirm("jobs-run-start"); }
 }
 function jobsCompareAllowed(run) { return !run.error && !["eval", "silver", "models"].includes(run.run_kind) && run.kind !== "models"; }
+function jobsCompareConditions(run) {
+  return jobsDetails(`jobs-compare-conditions-${run.name}`, T("jobs.selected.context"),
+    jobsNote(run.set?.label || run.set?.id || T("jobs.record.unknown")),
+    jobsNote(T("jobs.result.key", {label: run.key?.label || T("jobs.result.key_unknown")})),
+    jobsNote(run.model_label || run.model_tag || T("common.none"), {class: "technical"}),
+    jobsNote(`${T("score.conditions.prompt")}: ${run.prompt_version || T("jobs.record.unknown")}`, {class: "technical"}),
+    jobsNote(UI.jobs.kinds[run.run_kind] || T("jobs.record.unknown")),
+    jobsNote(T("score.conditions.score_counts", {total: (run.docs || []).length + (run.no_gold || []).length + (run.excluded || []).length,
+      scored: (run.docs || []).length, missing: (run.no_gold || []).length, excluded: (run.excluded || []).length})));
+}
+function jobsCompareMove(name, offset) {
+  const picked = S.jobs.c.picked, from = picked.indexOf(name), to = from + offset;
+  if (from < 0 || to < 0 || to >= picked.length) return;
+  [picked[from], picked[to]] = [picked[to], picked[from]];
+  jobsRenderCompare(); document.getElementById(`jobs-compare-${offset < 0 ? "up" : "down"}-${name}`)?.focus({preventScroll: true});
+}
 function jobsRenderCompare() {
   const J = S.jobs, c = J.c, el = document.getElementById("jobs-compare");
-  coreReplace(el, h("h2", null, T("compare.table.title")), jobsNote(T("compare.table.column_order")), jobsNote(T("jobs.compare.key_default")),
-    J.runsError ? loadFailure(J.runsError.message) : null,
+  // 목록에서 사라졌거나 잠긴 결과를 조용히 전송하지 않는다.
+  c.picked = c.picked.filter(name => J.runs.some(run => run.name === name && jobsCompareAllowed(run)));
+  const picked = c.picked.map(name => J.runs.find(run => run.name === name));
+  const candidates = jobsDetails("jobs-compare-candidates", T("compare.builder.selection_output"),
     jobsButton("jobs-reload-runs", "compare.table.reload", async () => { await jobsLoadRuns(); jobsRenderCompare(); }),
-    jobsNote(T("jobs.fields.compare_label")),
-    h("div", {class: "job-compare-rows"}, J.runs.length ? J.runs.map(run => {
-      const picked = c.picked.includes(run.name), allowed = jobsCompareAllowed(run);
+    J.runs.length ? h("div", {class: "job-compare-rows"}, J.runs.map(run => {
+      const selected = c.picked.includes(run.name), allowed = jobsCompareAllowed(run);
       return h("div", {class: "job-compare-row"}, h("label", null,
-        h("input", {id: `jobs-compare-pick-${run.name}`, type: "checkbox", checked: picked, disabled: !allowed, onchange: e => {
+        h("input", {id: `jobs-compare-pick-${run.name}`, type: "checkbox", checked: selected, disabled: !allowed, onchange: e => {
           c.picked = e.target.checked ? [...new Set([...c.picked, run.name])] : c.picked.filter(name => name !== run.name); jobsRenderCompare();
         }}), jobsRunLabel(run), h("small", {class: "technical"}, run.name)),
-        jobsDetails(`jobs-compare-conditions-${run.name}`, T("jobs.selected.context"),
-          jobsNote(run.set?.label || run.set?.id || T("jobs.record.unknown")),
-          jobsNote(T("jobs.result.key", {label: run.key?.label || T("jobs.result.key_unknown")})),
-          jobsNote(run.model_label || run.model_tag || T("common.none"), {class: "technical"}),
-          jobsNote(`${T("score.conditions.prompt")}: ${run.prompt_version || T("jobs.record.unknown")}`, {class: "technical"}),
-          jobsNote(UI.jobs.kinds[run.run_kind] || T("jobs.record.unknown")),
-          jobsNote(T("score.conditions.score_counts", {total: (run.docs || []).length + (run.no_gold || []).length + (run.excluded || []).length,
-            scored: (run.docs || []).length, missing: (run.no_gold || []).length, excluded: (run.excluded || []).length}))),
-        !allowed ? jobsNote(T("jobs.compare.unavailable")) : null,
-        picked ? jobsField(`jobs-compare-label-${run.name}`, `${c.picked.indexOf(run.name) + 1}. ${T("jobs.compare.label")}`, T("compare.table.default_name"),
-          h("input", {type: "text", value: c.labels[run.name] || "", oninput: e => { c.labels[run.name] = e.target.value; }})) : null);
-    }) : jobsNote(T("jobs.compare.empty"))),
+        !selected ? jobsCompareConditions(run) : null,
+        !allowed ? jobsNote(T("jobs.compare.unavailable")) : null);
+    })) : jobsNote(T("jobs.compare.empty")));
+  coreReplace(el, h("h2", null, T("compare.builder.title")), jobsNote(T("compare.table.column_order")),
+    J.runsError ? loadFailure(J.runsError.message) : null,
+    h("table", {id: "jobs-compare-order", class: "job-table"}, h("thead", null, h("tr", null,
+      ["compare.swapped.order", "score.conditions.run_name", "compare.builder.display_name", "compare.builder.conditions"].map(key => h("th", {scope: "col"}, T(key))))),
+      h("tbody", null, picked.map((run, index) => h("tr", {"data-run": run.name},
+        h("td", null, String(index + 1), picked.length > 2 ? h("div", {class: "job-actions"},
+          jobsButton(`jobs-compare-up-${run.name}`, "compare.builder.move_up", () => jobsCompareMove(run.name, -1), index === 0),
+          jobsButton(`jobs-compare-down-${run.name}`, "compare.builder.move_down", () => jobsCompareMove(run.name, 1), index === picked.length - 1)) : null),
+        h("th", {scope: "row"}, jobsRunLabel(run), h("small", {class: "raw"}, run.name)),
+        h("td", null, jobsField(`jobs-compare-label-${run.name}`, `${index + 1}. ${T("compare.builder.display_name")}`, T("compare.table.default_name"),
+          h("input", {type: "text", value: c.labels[run.name] || "", oninput: e => { c.labels[run.name] = e.target.value; }}))),
+        h("td", null, jobsCompareConditions(run)))))),
+    !picked.length ? jobsNote(T("compare.builder.selected_count", {count: 0})) : null,
+    h("div", {class: "job-actions"}, jobsButton("jobs-compare-swap", "compare.builder.swap", () => {
+      [c.picked[0], c.picked[1]] = [c.picked[1], c.picked[0]]; jobsRenderCompare(); document.getElementById("jobs-compare-swap").focus({preventScroll: true});
+    }, c.picked.length !== 2)),
     jobsField("jobs-compare-title", T("compare.table.caption"), null, h("input", {type: "text", value: c.title, oninput: e => { c.title = e.target.value; }})),
-    jobsNote(T("jobs.compare.count", {count: c.picked.length})),
+    jobsNote(T("jobs.compare.key_default")), jobsNote(T("jobs.compare.count", {count: c.picked.length})),
     jobsButton("jobs-compare-start", "compare.table.create_ordered", jobsStartCompare, !!J.busy || !c.picked.length, true), J.message.compare || null,
-    jobsButton("jobs-compare-records", "compare.table.open_job", () => go("s05")));
+    candidates, jobsButton("jobs-compare-records", "compare.table.open_job", () => go("s05")));
 }
 async function jobsStartCompare() {
   const J = S.jobs, c = J.c;
@@ -519,19 +576,28 @@ function jobsProgress(job) {
   return h("div", null, (job.progress || []).map(p => jobsNote(T("jobs.record.round", p), {class: "technical"})),
     job.output ? jobsNote(job.output, {class: "technical"}) : null);
 }
+function jobsTargetSummary(job) {
+  const t = job.target;
+  if (!t) return T("jobs.record.unknown");
+  if (t.kind === "try") return `${t.doc || T("common.none")} · ${t.all ? T("jobs.form.all") : (t.sections || []).map(section => T("jobs.form.section", {section})).join(", ")}`;
+  if (t.kind === "run") return (t.docs || []).join(", ");
+  return t.title || T("jobs.list.selected_runs", {count: (t.runs || []).length});
+}
 function jobsRenderList() {
   const J = S.jobs, el = document.getElementById("jobs-list");
   coreReplace(el, h("h2", null, T("jobs.list.title")),
     J.pollError ? loadFailure(J.pollError.message) : J.recovered ? jobsNote(T("jobs.record.recovered"), {role: "status"}) : null,
     jobsButton("jobs-reload", "jobs.record.reload", jobsPoll),
     h("table", {class: "job-table"}, h("thead", null, h("tr", null, ["kind", "name", "started", "progress"].map(key => h("th", {scope: "col"}, T(`jobs.record.${key}`))))),
-      h("tbody", null, J.list.map(job => h("tr", {class: job.id === J.watch || job.id === J.log?.id ? "job-selected" : null},
-        h("td", null, T(Object.hasOwn(UI.jobs.kind, job.kind) ? `jobs.kind.${job.kind}` : "jobs.status.unknown"), jobsStatus(job)),
-        h("td", null, jobsTarget(job), jobsNote(job.label || "", {class: "raw"}), jobsFailure(job), jobsWarnings(job.warnings)),
+      h("tbody", null, J.list.map(job => h("tr", {class: job.id === (J.log?.id || J.selected || J.watch) ? "job-selected" : null},
+        h("td", null, T(Object.hasOwn(UI.jobs.kind, job.kind) ? `jobs.kind.${job.kind}` : "jobs.status.unknown")),
+        h("td", null, jobsNote(jobsTargetSummary(job)), job.status === "failed" ? jobsNote(
+          (typeof job.error === "string" ? job.error : job.error?.message || job.error?.fact) || T("errors.job.other.message"), {class: "job-error-summary"}) : null),
         h("td", null, when(job.started ? new Date(job.started * 1000).toISOString() : null)),
-        h("td", null, jobsProgress(job), jobsButton(`jobs-log-${job.id}`, "jobs.result_missing.open_log", () => jobsOpenLog(job.id)),
+        h("td", null, jobsStatus(job), h("div", {class: "job-actions"},
+          jobsButton(`jobs-log-${job.id}`, "jobs.result_missing.open_log", () => jobsOpenLog(job.id)),
           job.kind === "try" ? jobsButton(`jobs-watch-${job.id}`, "jobs.list.open_trial", () => jobsWatch(job.id)) : null,
-          job.stoppable ? jobsButton(`jobs-stop-${job.id}`, "jobs.record.stop", () => { J.confirm = {kind: "stop", id: job.id}; jobsOpenConfirm(`jobs-stop-${job.id}`); }) : null))),
+          job.stoppable ? jobsButton(`jobs-stop-${job.id}`, "jobs.record.stop", () => { J.confirm = {kind: "stop", id: job.id}; jobsOpenConfirm(`jobs-stop-${job.id}`); }) : null)))),
         J.running.filter(item => !item.mine).map(item => h("tr", {"data-external": true},
           h("td", null, T("jobs.list.external")), h("td", null, jobsNote(item.run_name || item.doc || T("jobs.list.target_unknown"), {class: "technical"}),
             jobsNote(item.model || "", {class: "technical"})), h("td", null, T("jobs.external.running")),
@@ -541,8 +607,10 @@ function jobsRenderList() {
 function jobsRenderDetail() {
   const J = S.jobs, el = document.getElementById("jobs-detail"), log = J.log;
   const job = J.list.find(j => j.id === log?.id);
-  coreReplace(el, log ? h("div", null, h("h2", null, T("jobs.selected.title")), job ? jobsTarget(job) : null,
-    jobsButton("jobs-close-log", "jobs.record.close_log", () => { J.log = null; jobsRenderDetail(); }),
+  coreReplace(el, log ? h("div", null, h("h2", null, T("jobs.selected.title")), job ? jobsTarget(job) : null, job ? jobsStatus(job) : null,
+    job ? jobsFailure(job, false) : null, jobsWarnings(job?.warnings), job ? jobsProgress(job) : null,
+    job ? jobsNote(job.label || "", {class: "raw"}) : null,
+    jobsButton("jobs-close-log", "jobs.record.close_log", () => { J.log = null; jobsRenderDetail(); jobsRenderList(); }),
     log.error ? loadFailure(log.error.message) : null,
     h("pre", {id: "jobs-log", class: "job-log technical", tabindex: "0", onscroll: e => {
       log.scroll = e.target.scrollTop; log.bottom = e.target.scrollTop + e.target.clientHeight >= e.target.scrollHeight - 4;
@@ -559,9 +627,9 @@ async function jobsRefreshLog() {
   } catch (error) { if (S.jobs.log === log) log.error = error; }
 }
 async function jobsOpenLog(id) {
-  S.jobs.log = {id, text: "", scroll: 0, bottom: true};
+  S.jobs.selected = id; S.jobs.log = {id, text: "", scroll: 0, bottom: true};
   if (S.shell.route !== "s05") await go("s05");
-  await jobsRefreshLog(); jobsRenderDetail();
+  await jobsRefreshLog(); jobsRenderList(); jobsRenderDetail();
 }
 function jobsOpenConfirm(trigger) {
   const J = S.jobs, c = J.confirm, dialog = document.getElementById("action-confirm");

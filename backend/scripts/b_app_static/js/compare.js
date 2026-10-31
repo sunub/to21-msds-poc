@@ -13,7 +13,7 @@ for (const [id, render] of Object.entries(COMPARE_VIEWS)) {
 on("context_changed", () => { if (S.compare.initialized) compareLoad(true); });
 
 function compareText(value) { return value == null || value === "" ? T("compare.unknown") : String(value); }
-function compareLabel(run) { return run?.label?.title || run?.name || T("compare.unknown"); }
+function compareLabel(run) { return run?.label?.title || (typeof run?.label === "string" ? run.label : run?.name) || T("compare.unknown"); }
 function compareNote(text, attrs = {}) { return h("p", attrs, text); }
 function compareButton(id, key, action, attrs = {}, values = {}) {
   return h("button", {id, type: "button", onclick: action, ...attrs}, T(key, values));
@@ -161,25 +161,58 @@ function compareTarget(side) {
 }
 function compareRenderSummary() {
   const D = S.compare, d = D.data;
+  const w = d?.weighted || {}, biggest = d?.headline?.biggest;
+  const headline = !d ? D.loading ? T("compare.loading") : D.error ? T("compare.load_failed.fact") : T("compare.headline.none")
+    : d.same_conditions === true ? T("compare.same.title")
+    : (d.docs?.only_a?.length || d.docs?.only_b?.length) ? T("compare.different.title")
+    : !num(w.delta) ? T("compare.headline.unscored", {a: "A", b: "B"})
+    : w.delta < 0 ? T("compare.headline.decreased", {gap: Math.abs(w.delta).toFixed(1)})
+    : w.delta > 0 ? T("compare.swapped.title", {gap: w.delta.toFixed(1)}) : T("compare.headline.equal", {a: "A", b: "B"});
+  shellConclusion("s04", headline, false);
+  document.getElementById("title-s04").setAttribute("class", d ? `compare-headline ${compareClass(w.delta)}` : "");
+  const host = document.getElementById("compare-summary");
+  if (!d && !D.loading && !D.error && !D.list.some(compareAllowed)) {
+    coreReplace(host, compareNote(T("compare.empty.next")),
+      compareButton("compare-prepare", "score.empty.prepare", () => go("s03"), {class: "primary"}),
+      compareButton("compare-change-set", "score.empty.change_set", () => shellOpenContext("set")));
+    return;
+  }
   const selection = compareDetails(T("compare.selection.expand"), h("div", {class: "two-col"}, compareSelect("a"), compareSelect("b")),
     compareButton("compare-swap", "compare.selection.swap", () => { [D.a, D.b] = [D.b, D.a]; return compareLoad(true); }),
     D.list.some(run => run.error) ? compareNote(T("compare.selection.partial", {count: D.list.filter(run => run.error).length})) : null);
   if (!d) selection.open = true;
   const retry = compareButton("compare-retry", "compare.reload", () => compareLoad(true));
-  const w = d?.weighted || {};
-  coreReplace(document.getElementById("compare-summary"),
+  coreReplace(host,
     d ? [compareConditionsLead(d),
-      compareNote(d.headline?.headline || T("compare.headline.none"), {class: `compare-headline ${compareClass(w.delta)}`, role: "status"}),
+      h("div", {id: "compare-total-change"}, h("h2", null, T("compare.total_score")), compareDelta(w.delta)),
+      biggest && num(biggest.delta) ? h("div", {id: "compare-criterion-change"},
+        h("h3", null, compareItemName(biggest.name)), compareDelta(biggest.delta)) : null,
       compareTable([T("compare.detail.basis"), T("compare.result_a"), T("compare.result_b")], [
-        [T("score.conditions.run_name"), h("span", {class: "raw"}, compareLabel(D.list.find(r => r.name === D.a))), h("span", {class: "raw"}, compareLabel(D.list.find(r => r.name === D.b)))],
+        [T("score.conditions.run_name"), ...["a", "b"].map(side => h("div", null,
+          compareNote(compareLabel(D.list.find(r => r.name === D[side]))), h("small", {class: "raw"}, D[side])))],
         [term("weighted", T("compare.total_score")), T("compare.score_value", {score: fmt1(w.a)}), T("compare.score_value", {score: fmt1(w.b)})],
         [T("compare.target"), compareTarget("a"), compareTarget("b")],
         [T("compare.common_docs"), T("compare.dev_count", {count: d.docs?.common?.length || 0}), T("compare.dev_count", {count: d.docs?.common?.length || 0})]
-      ]), compareDelta(w.delta), compareNote(T("compare.recalculated")), selection,
-      compareButton("compare-build-table", "compare.table.open", () => go("s10", {a: D.a, b: D.b, runs: [D.a, D.b]}).catch(fail))]
+      ]), compareNote(T("compare.recalculated")), compareSourceAction(), selection,
+      compareButton("compare-build-table", "compare.table.open", () => go("s10", {a: D.a, b: D.b, runs: [D.a, D.b],
+        labels: [D.a, D.b].map(name => compareLabel(D.list.find(run => run.name === name)))}).catch(fail))]
       : [selection, D.loading ? compareNote(T("compare.loading"), {role: "status"})
         : D.error ? friendlyError({message: T("compare.load_failed.fact"), fix: T("compare.load_failed.todo"), raw: D.error.message})
         : compareNote(T("compare.selection.choose_two"))], retry);
+}
+function compareSourceAction() {
+  const d = S.compare.data, changes = Object.entries(d?.changed_values || {});
+  for (const kind of ["broken", "fixed"]) {
+    for (const [item, values] of changes) {
+      const section = (d.items || []).find(entry => entry.name === item)?.sections?.[0];
+      const value = (values[kind] || []).find(entry => entry.doc_id && (entry.section || section));
+      if (value) return h("div", {class: "compare-next"},
+        compareButton("compare-open-source", "compare.values.open_changed", () => compareOpenSource(value, item, kind === "fixed" ? "a" : "b"), {class: "primary"}),
+        !value.path ? compareNote(T("compare.values.path_missing"), {class: "muted"}) : null);
+    }
+  }
+  const hasValues = changes.some(([, values]) => values.broken?.length || values.fixed?.length);
+  return compareNote(T(hasValues ? "compare.values.unlinked" : "compare.values.same"), {class: "muted"});
 }
 function compareRenderConditions() {
   const d = S.compare.data, el = document.getElementById("compare-conditions");
