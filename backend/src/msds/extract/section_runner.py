@@ -165,7 +165,8 @@ def section_images(doc: DocumentInput, msds_index: int, pages_dir: Path) -> tupl
 
 def component_list(res: SectionResult) -> list[tuple[str, str | None]] | None:
     """3항 결과의 성분 [(이름, CAS 또는 None), ...]. 이름이 빈 행은 뺀다.
-    3항이 실패했거나 이름 있는 성분이 없으면 None (목록 없이 보낸다, ADR-030)."""
+    3항이 실패했거나 이름 있는 성분이 둘보다 적으면 None (목록 없이 보낸다, ADR-030).
+    성분이 하나뿐인 제품에 목록을 주면 모델이 행을 제품 전체(MIX)로 써서 15항이 내려갔다 (10/31 s8 실행, S014)."""
     if not res.ok or not isinstance(res.parsed, dict):
         return None
     out = []
@@ -173,7 +174,7 @@ def component_list(res: SectionResult) -> list[tuple[str, str | None]] | None:
         name = (c.get("name") or "").strip() if isinstance(c, dict) else ""
         if name:
             out.append((name, (c.get("cas_no") or "").strip() or None))
-    return out or None
+    return out if len(out) >= 2 else None
 
 
 def _run_section(client, doc: DocumentInput, msds_index: int, no: int, system: str, schema: dict,

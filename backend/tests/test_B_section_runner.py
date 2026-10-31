@@ -750,7 +750,8 @@ def test_component_list_sent_after_section_3(env):
 
 def test_component_list_on_reextract(env, rows_cfg):
     """재추출(두 번째 시도) 글에도 목록이 있다. 목록은 다시 확인할 점 앞이다. 행 형식 항도 같다."""
-    client = FakeClient(plan={11: [rows11(tox_line="p9:L99")], 8: [TimeoutError("가짜 시간 초과")]})
+    client = FakeClient(plan={3: [two_components()], 11: [rows11(tox_line="p9:L99")],
+                              8: [TimeoutError("가짜 시간 초과")]})
     run(env, client)
     for no in (8, 11):
         calls = client.calls_for(no)
@@ -787,6 +788,16 @@ def test_component_list_absent_without_section_3_components(env, case):
     assert raw["components_given"] is None
 
 
+def test_component_list_absent_for_single_component(env):
+    """이름 있는 성분이 하나뿐이면 목록을 주지 않는다. 단일 물질 제품의 행을 모델이 MIX로 쓰지 않게 한다 (ADR-030)."""
+    client = FakeClient()                                  # 기본 3항 응답은 성분 하나
+    run(env, client)
+    assert all(LIST_HEAD not in c["user"] for c in client.calls)
+    for no in COMP_SECTIONS:
+        raw = read_json(env / "runs" / RUN / "raw" / f"{DOC}_m0_s{no:02d}.json")
+        assert raw["components_given"] is None, no
+
+
 def test_component_list_raw_components_given(env):
     run(env, FakeClient(plan={3: [two_components()]}))
     for no in range(1, 17):
@@ -817,6 +828,7 @@ def test_component_list_per_msds(env):
         {"msds": [{"pages": [1, 2], "sections": spans()}, {"pages": [3, 4], "sections": second}]}), encoding="utf-8")
     r3_second = copy.deepcopy(responses()[3])
     r3_second["components"][0].update(name="가상물질 병", cas_no="3456-78-8", line="p3:L9")
+    r3_second["components"].append({"name": "가상물질 정", "line": "p3:L9"})
     r3_second["composition"]["lines"]["type"] = "p3:L8"
 
     class Client(FakeClient):
@@ -828,7 +840,7 @@ def test_component_list_per_msds(env):
                 return CallResult(copy.deepcopy(r3_second), "{}", "json_schema", "stop", {}, 0.01, "fake-model", 1, [])
             return super().call(system, user_parts, schema, schema_name, require_all)
 
-    client = Client()
+    client = Client(plan={3: [two_components()]})          # 첫 건의 3항은 기본 응답 대신 성분 둘
     run(env, client)
     for no in COMP_SECTIONS:
         calls = client.calls_for(no)
@@ -836,11 +848,11 @@ def test_component_list_per_msds(env):
         m1 = [c for c in calls if "p4:L" in c["user"]]
         m0 = [c for c in calls if "p2:L" in c["user"]]
         assert len(m0) == len(m1) == 1, no
-        assert m0[0]["user"].endswith(f"{LIST_HEAD}\n- 가상물질 갑 / 1234-56-6"), no
-        assert m1[0]["user"].endswith(f"{LIST_HEAD}\n- 가상물질 병 / 3456-78-8"), no
+        assert m0[0]["user"].endswith(f"{LIST_HEAD}\n- 가상물질 갑 / 1234-56-6\n- 가상물질 을 / CAS 없음"), no
+        assert m1[0]["user"].endswith(f"{LIST_HEAD}\n- 가상물질 병 / 3456-78-8\n- 가상물질 정 / CAS 없음"), no
     raw = {i: read_json(env / "runs" / RUN / "raw" / f"{DOC}_m{i}_s11.json") for i in (0, 1)}
-    assert raw[0]["components_given"] == [["가상물질 갑", "1234-56-6"]]
-    assert raw[1]["components_given"] == [["가상물질 병", "3456-78-8"]]
+    assert raw[0]["components_given"] == [["가상물질 갑", "1234-56-6"], ["가상물질 을", None]]
+    assert raw[1]["components_given"] == [["가상물질 병", "3456-78-8"], ["가상물질 정", None]]
 
 
 # ── 2항 쪽 이미지 (ADR-019) ───────────────────────────
