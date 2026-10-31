@@ -1,0 +1,73 @@
+{
+ "doc_id": "T21-S001",
+ "msds_index": 0,
+ "section": 6,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S6_PERSONAL",
+    "title_raw": "1)인체를 보호하기 위해 필요한 조치 사항 및 보호구",
+    "start": "p5:L2",
+    "end": "p5:L5"
+   },
+   {
+    "item_code": "S6_ENV",
+    "title_raw": "2)환경을 보호하기 위해 필요한 조치사항",
+    "start": "p5:L6",
+    "end": "p5:L7"
+   },
+   {
+    "item_code": "S6_CLEANUP",
+    "title_raw": "3)정화 또는 제거 방법",
+    "start": "p5:L8",
+    "end": "p5:L10"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S9_END",
+    "title_raw": "6. 누출 사고 시 대처방법",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "value": "6. 누출 사고 시 대처방법",
+      "line": "p5:L1"
+     }
+    ],
+    "suggested_code": "SECTION_TITLE",
+    "line": "p5:L1"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S6_PERSONAL\",\n      \"title_raw\": \"1)인체를 보호하기 위해 필요한 조치 사항 및 보호구\",\n      \"start\": \"p5:L2\",\n      \"end\": \"p5:L5\"\n    },\n    {\n      \"item_code\": \"S6_ENV\",\n      \"title_raw\": \"2)환경을 보호하기 위해 필요한 조치사항\",\n      \"start\": \"p5:L6\",\n      \"end\": \"p5:L7\"\n    },\n    {\n      \"item_code\": \"S6_CLEANUP\",\n      \"title_raw\": \"3)정화 또는 제거 방법\",\n      \"start\": \"p5:L8\",\n      \"end\": \"p5:L10\"\n    }\n  ]\n,\n  \"extras\": [\n    {\n      \"after_item\": \"S9_END\",\n      \"title_raw\": \"6. 누출 사고 시 대처방법\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"6. 누출 사고 시 대처방법\"\n        ,\n          \"line\": \"p5:L1\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"SECTION_TITLE\"\n    ,\n      \"line\": \"p5:L1\"\n    }\n  ]\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 2289,
+  "completion_tokens": 315,
+  "total_tokens": 2604
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 2289,
+    "completion_tokens": 315,
+    "total_tokens": 2604
+   },
+   "seconds": 5.959,
+   "chars": 749,
+   "whitespace": 290,
+   "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S6_PERSONAL\",\n      \"title_raw\": \"1)인체를 보호하기 위해 필요한 조치 사항 및 보호구\",\n      \"start\": \"p5:L2\",\n      \"end\": \"p5:L5\"\n    },\n    {\n      \"item_code\": \"S6_ENV\",\n      \"title_raw\": \"2)환경을 보호하기 위해 필요한 조치사항\",\n      \"start\": \"p5:L6\",\n      \"end\": \"p5:L7\"\n    },\n    {\n      \"item_code\": \"S6_CLEANUP\",\n      \"title_raw\": \"3)정화 또는 제거 방법\",\n      \"start\": \"p5:L8\",\n      \"end\": \"p5:L10\"\n    }\n  ]\n,\n  \"extras\": [\n    {\n      \"after_item\": \"S9_END\",\n      \"title_raw\": \"6",
+   "tail": ". 누출 사고 시 대처방법\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"6. 누출 사고 시 대처방법\"\n        ,\n          \"line\": \"p5:L1\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"SECTION_TITLE\"\n    ,\n      \"line\": \"p5:L1\"\n    }\n  ]\n}"
+  }
+ ],
+ "seconds": 5.96,
+ "check_problems": [],
+ "components_given": null
+}
