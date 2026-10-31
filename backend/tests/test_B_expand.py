@@ -756,6 +756,15 @@ def test_link_components():
     assert rows[0]["comp_cas"] == "2345-67-7"      # 입력은 바꾸지 않는다
 
 
+def test_link_components_drops_trailing_qualifier():
+    """'NATURAL GAS, LIQUIFIED'처럼 쉼표·괄호 뒤 수식어가 붙은 이름은 수식어를 떼고 다시 비교한다.
+    공백으로 이어진 이름은 다른 물질일 수 있어 떼지 않는다."""
+    rows = [{"comp_name": "가상물질 갑, 액화", "comp_cas": None},
+            {"comp_name": "가상물질 을 (98%)", "comp_cas": None},
+            {"comp_name": "가상물질 갑 염", "comp_cas": None}]
+    assert [r["comp_ref"] for r in ex.link_components(rows, COMPS)] == ["1", "2", "MIX"]
+
+
 # ── 표기 규칙 자리 ─────────────────────────────────────
 
 def test_apply_conventions_absent(no_conventions):

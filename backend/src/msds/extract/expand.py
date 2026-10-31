@@ -188,7 +188,9 @@ def link_components(rows: list[dict], components: list[dict]) -> list[dict]:
                 by_name.setdefault(_norm(n), c)
     out = []
     for r in rows:
-        c = by_cas.get(_norm(r.get("comp_cas"))) or by_name.get(_norm(r.get("comp_name")))
+        name = r.get("comp_name") or ""
+        c = (by_cas.get(_norm(r.get("comp_cas"))) or by_name.get(_norm(name))
+             or by_name.get(_norm(re.split(r"[,(（]", name)[0])))    # 'NATURAL GAS, LIQUIFIED'의 수식어를 뗀 이름
         out.append({**{k: v for k, v in r.items() if k not in _COMP_KEYS},
                     "comp_ref": str(c["seq"]) if c else "MIX"})
     return out
