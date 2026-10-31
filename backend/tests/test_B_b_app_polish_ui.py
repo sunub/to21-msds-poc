@@ -2,7 +2,7 @@
 import json
 import runpy
 
-from test_B_b_app_score_ui import APP_JS, run_js as _run_js
+from test_B_b_app_dom import OLD_APP_JS as APP_JS, run_old_js as _run_js
 
 
 def run_js(body):
@@ -134,15 +134,6 @@ def test_errors_share_fact_action_and_collapsed_raw_on_each_tab():
     """)
 
 
-def test_tooltip_targets_get_keyboard_access_without_nested_tab_stops():
-    run_js(r"""
-      const standalone=h('span',{'data-tip':'가짜 설명'},'용어');
-      assert.equal(standalone.getAttribute('tabindex'),'0');
-      assert.equal(standalone.getAttribute('aria-describedby'),'tip');
-      const nested=h('button',{type:'button'},h('span',{'data-tip':'단추 설명'},'항목'));
-      assert.notEqual(nested.querySelector('span').getAttribute('tabindex'),'0');
-      assert.equal(nested.getAttribute('data-tip'),'단추 설명');
-    """)
 
 
 def test_start_pending_and_jobs_refresh_error_do_not_leave_blank_or_stale_states():
@@ -171,35 +162,6 @@ def test_start_shows_run_list_failure_after_guide_has_loaded():
     """)
 
 
-def test_tooltip_keyboard_escape_and_pointer_transfer():
-    run_js(r"""
-      const handlers={}, winHandlers={};
-      document.addEventListener=(k,fn)=>{handlers[k]=fn;};
-      globalThis.window={innerWidth:1280,innerHeight:900,addEventListener:(k,fn)=>{winHandlers[k]=fn;}};
-      const target=h('span',{'data-tip':'가짜 설명'},'용어');
-      target.isConnected=true;
-      target.closest=()=>target;
-      target.getBoundingClientRect=()=>({left:20,right:80,top:20,bottom:40});
-      const tip=document.getElementById('tip');
-      tip.style={};tip.offsetWidth=200;tip.offsetHeight=50;
-      tip.contains=x=>x===tip;
-      setupTip();
-      handlers.focusin({target});
-      assert.equal(tip.hidden,false);
-      assert.equal(tip.textContent,'가짜 설명');
-      handlers.keydown({key:'Escape'}); assert.equal(tip.hidden,true);
-      handlers.focusout({relatedTarget:null});
-      handlers.mouseover({target,clientX:30,clientY:30});
-      handlers.mouseout({relatedTarget:null});
-      // 설명으로 옮기는 짧은 틈에는 닫히지 않아야 한다.
-      assert.equal(tip.hidden,false);
-      handlers.mouseover({target:tip});
-      await new Promise(resolve=>setTimeout(resolve,200));
-      assert.equal(tip.hidden,false);
-      handlers.mouseout({relatedTarget:null});
-      await new Promise(resolve=>setTimeout(resolve,200));
-      assert.equal(tip.hidden,true);
-    """)
 
 
 def test_options_poll_reports_failure_and_same_data_recovery_as_state_changes():

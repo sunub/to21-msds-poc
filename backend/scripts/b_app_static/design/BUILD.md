@@ -126,9 +126,9 @@ P01과 P02는 원래 화면으로 돌아오는 확인 영역입니다.
 
 | 번호 | 옛 정보 | 옛 자리 | 새 화면·구역 | 맡는 step | 새 자리 |
 |---|---|---|---|---|---|
-| I01 | 앱 이름, 탭, 시작 안내, 전체 상태 문장 | `index.html #status, setupTabs` | 공통 app-header·main-nav·global-context | 1 | |
-| I02 | 화면 목적과 도움말 장 연결 | `index.html .tab 설명, guide.html 장 링크` | 공통 화면 설명 → S07 help-topics | 1, 8 | |
-| I03 | 용어 말풍선, 접힘 상태, 키보드 포커스 | `term, setupTip, card, loadCards` | 공통 core 도우미 | 1 | |
+| I01 | 앱 이름, 탭, 시작 안내, 전체 상태 문장 | `index.html #status, setupTabs` | 공통 app-header·main-nav·global-context | 1 | `#app-heading`, `#main-nav`, `#global-context`, `#status`; `shellRenderHeader/go` |
+| I02 | 화면 목적과 도움말 장 연결 | `index.html .tab 설명, guide.html 장 링크` | 공통 화면 설명 → S07 help-topics | 1, 8 | `#title-s01`~`#title-s10`, `#main-nav`의 S07 단추. 화면별 설명·장 연결은 step 8 |
+| I03 | 용어 말풍선, 접힘 상태, 키보드 포커스 | `term, setupTip, card, loadCards` | 공통 core 도우미 | 1 | `core.js`: `term/setupTip/card/loadCards/coreRead/coreWrite`; 말풍선·접기 새 시험 통과 |
 | I04 | 앱 목적, 서버 없이 결과 확인, 점수→문제→원문 3단계 | `renderStart, journeyStep` | S08 journey-choice, S01 journey-band | 7 | |
 | I05 | 단계 완료, 첫 성공 시각, 실패 후 위치 | `advanceJourney, journeyPassed, focusJourneyValue` | S08 journey-records | 7 | |
 | I06 | 다음에 할 일: 비교·시험·서버 | `renderStart, journeyStep` | S01 score-summary, S08 journey-choice | 2, 7 | |
@@ -139,7 +139,7 @@ P01과 P02는 원래 화면으로 돌아오는 확인 영역입니다.
 | I11 | 실행 이름·원래 폴더명·모델 태그와 전체 이름·지시문 버전·입력 폴더·시각 | `runLabel, rawRun, modelName, renderNow` | S01 score-summary 실행 조건 | 2 | |
 | I12 | 완료 문서 수·진행 중·채점 수·제외 수·정답 없는 수 | `progressLine, renderNow` | S01 score-summary 채점 범위 | 2 | |
 | I13 | 값 없는 행을 뺀 점수·원점수와의 차이·계산 뜻 | `renderNow` | S01 score-rule | 2 | |
-| I14 | 모델 연결 안내와 저장 결과의 오프라인 조회 | `connLine, renderConnNow` | 공통 global-context, S01 score-summary | 1, 2 | |
+| I14 | 모델 연결 안내와 저장 결과의 오프라인 조회 | `connLine, renderConnNow` | 공통 global-context, S01 score-summary | 1, 2 | `#global-context #context-model`, `shellRenderModels/shellPollServers`; 저장 결과 안내와 현재 연결 분리. S01 세부는 step 2 |
 | I15 | 23개 항목의 등급 수·무게·목표·측정 방법·정답 초안 한계 | `renderRule` | S01 score-rule, S07 help-topics | 2, 8 | |
 | I16 | 항목별 점수·목표선·달성 여부·미달만/모두·숨긴 수 | `renderItems, itemRow, scoreBar` | S01 score-problems | 2 | |
 | I17 | 빠뜨림·지어냄·틀림의 뜻과 건수 | `renderItems, itemRow` | S01 score-problems | 2 | |
@@ -423,7 +423,14 @@ JS는 `T("nav.recent")` 같은 경로 조회만 합니다.
 실행 이름과 원문과 수치와 모델 응답과 지시문 본문은 API 데이터입니다.
 시안의 숫자와 이름을 기본 데이터로 옮기지 않습니다.
 
-`COPY_EXCEPTIONS` 목록: 비어 있음.
+`COPY_EXCEPTIONS` 목록(step 1):
+
+- `common.expand`, `common.collapse`: 공용 카드 펼침·접기의 기존 조작 이름 유지.
+- `common.raw_error`: 공통 오류의 기존 ‘원문 보기’ 이름 유지.
+- `common.todo`: API 복구 문장에 ‘할 일’을 한 번만 붙이는 자리표시.
+- `context.model.connected_count`: 공통 연결 모델 수와 이름의 자리표시가 COPY에 없음.
+- `context.model.checked_at`: STRUCTURE의 마지막 확인 시각에 대응하는 공통 문구가 없음.
+- `context.unavailable`: 없는 값·시각을 0이나 빈 글 대신 ‘확인 못 함’으로 표시.
 
 새 문구가 꼭 필요한 step은 키와 이유를 이 목록에 추가합니다.
 승인 COPY 자체는 수정하지 않습니다.
@@ -437,7 +444,7 @@ JS는 `T("nav.recent")` 같은 경로 조회만 합니다.
 | D03 | 관문 ④의 고른 문제 값 표시가 STRUCTURE와 mockup에 없음 | `S.focus`로 받은 값만 S03 지시문 위에 표시. `jobs.focus.*` 사용 | 6 |
 | D04 | STRUCTURE의 화면 이름과 COPY의 최종 이름이 다름 | 화면 위치와 흐름은 STRUCTURE. 화면 글은 COPY | 1~8 |
 | D05 | DESIGN은 목표 미달을 중립색으로 규정. UI_GUIDE는 미달·내려감·실버 전용 값을 빨강으로 규정 | `_common.txt`의 우선순위상 UI_GUIDE를 적용. 빨강과 상태 글을 함께 표시. 실제 오류와 미달은 문구로 구분 | 1~4 |
-| D06 | DESIGN의 색 토큰에 UI_GUIDE의 주의 주황이 없음 | 토큰 공백으로 남김. 해당 구현 step은 상위 색 의미를 지키는 범례를 정하고 사용한 값을 기록. 승인 파일은 수정하지 않음 | 1, 3, 9 |
+| D06 | DESIGN의 색 토큰에 UI_GUIDE의 주의 주황이 없음 | step 1에서 기존 주의 주황 `#bc4c00`을 `--warning-text`로 유지. 나머지 범례는 muted `#53645e`, failure `#a52f35`, selected `#fff3c6` 적용. 승인 파일은 수정하지 않음 | 1, 3, 9 |
 | D07 | mockup은 코드와 pre에 직접 anywhere를 적용. `.raw`는 mockup에 없음 | 이 계획의 데이터 class로 적용 범위를 제한. `.raw`는 상위 UI_GUIDE 근거로 유지 | 1 |
 | D08 | mockup의 화면 목록과 172장면 이동과 가짜 숫자와 디자인 바닥글은 제품 기능이 아님 | 검토용 요소 제외. 실제 데이터와 상태로 같은 승인 구성을 그림 | 1~8 |
 | D09 | API 표는 모든 key에 updated_at이 있다고 읽힐 수 있음. 실제 개별 응답에는 없음 | API 확인의 빈칸 1에 따름. 현재 폴더 시각과 과거 작업 기준을 구분 | 1, 6 |
@@ -448,6 +455,7 @@ JS는 `T("nav.recent")` 같은 경로 조회만 합니다.
 | D14 | 옛 CSS와 일부 옛 시험은 휴대폰 폭과 고급 뒤 서버와 브라우저 안내 저장을 전제 | 데스크톱 1280~1680px만 구현. 서버 메뉴 노출. journey API 사용. 행동 시험은 새 의미로 이관 | 1, 5, 7 |
 | D15 | step 2 구현 문장은 큰 표 안의 가로 넘침을 허용. STRUCTURE와 DESIGN은 표도 줄바꿈하며 넘치지 않도록 규정 | 승인 레이아웃대로 열 너비와 줄바꿈을 조절. 호출은 8칸씩 두 줄. 숨김으로 내용을 잘라내지 않음 | 2, 9 |
 | D16 | STRUCTURE의 모듈 간 사건은 저장하지 않는 속성만 제시. `_common.txt`는 메모리 사건에 문서·항·값 경로 허용 | 메모리에서 성공 판정에 사용. journey 저장은 허용된 v2 필드만 사용 | 3, 6, 7 |
+| D17 | step 1은 10개 화면 모두 메뉴 단추를 요구하고 승인 왼쪽 메뉴는 일곱 장소 | 일곱 주 메뉴를 유지. S08은 머리 단추. S09·S10은 각각 S03·S04를 고를 때 보이는 하위 단추. 현재 화면 제목과 상위 메뉴 표시를 함께 유지 | 1 |
 
 시안 캡처는 1280px와 1440px만 있습니다.
 1680px는 향후 실제 브라우저 확인 범위에 포함합니다.
@@ -457,6 +465,16 @@ API의 null과 오류 상태는 단순한 상태 상자와 재시도 단추로 �
 ## 브라우저로 볼 것
 
 각 구현 step이 가로 1280·1440·1680px에서 사람이 확인할 항목을 여기에 추가합니다.
+
+step 1의 브라우저 확인 목록입니다. 이번에는 실측하지 않았습니다.
+
+- 1280·1440·1680px에서 머리와 왼쪽 메뉴와 세 칸 맥락 줄의 정렬을 확인합니다. 페이지 가로 스크롤이 없어야 합니다.
+- 긴 묶음 이름·정답 이름·모델 이름과 날짜를 넣어 겹침과 잘림을 확인합니다.
+- 한국어 단어가 중간에서 끊기지 않는지 확인합니다. 긴 경로·태그만 허용 class에서 줄바꿈해야 합니다.
+- 메뉴·카드·선택창을 키보드로 이동해 포커스 테두리와 선택창 취소 후 복귀를 확인합니다.
+- 묶음·정답지 선택의 적용과 취소를 확인합니다. 쓸 수 없는 후보의 이유와 현재 수정 시각은 보여야 합니다. 내용 지문은 접힌 상세에 있어야 합니다.
+- 말풍선 포커스·Escape·포인터 이동과 스크롤 중 맥락 줄 유지를 실제 브라우저에서 확인합니다.
+
 
 ### step 0
 
@@ -491,3 +509,70 @@ Questions skipped: non-interactive.
 - UI_GUIDE의 외부 주소 금지와 키보드 조작과 데스크톱 너비 기준을 계획에 반영했습니다. 시각 규칙 충돌은 D05~D07에 기록했습니다.
 - BUILD에는 평가용 문서 내용과 쪽 글자와 TO21 자료와 비밀값을 넣지 않았습니다. 원문 데이터와 `.env`를 계획 작성에 사용하지 않았습니다.
 - 화면 코드와 시험과 승인 설계와 docs와 실행기는 수정하지 않았습니다. 커밋하지 않았습니다.
+
+### step 1
+
+⚠️ DEGRADED: no browser in sandbox
+
+Questions skipped: non-interactive.
+
+구현 전에 새 시험을 실행했습니다. 24 failed / 235 passed입니다.
+실패를 직접 본 시험은 다음과 같습니다.
+
+- `tests/test_B_b_app_dom.py::test_scripts_exist_and_boot_is_last`
+- `tests/test_B_b_app_dom.py::test_static_rules_no_modules_korean_strings_external_addresses_or_motion`
+- `tests/test_B_b_app_dom.py::test_all_scripts_load_without_boot`
+- `tests/test_B_b_app_shell_ui.py::test_initial_route_is_pure_and_defaults_to_recent`
+- `tests/test_B_b_app_shell_ui.py::test_navigation_menu_focus_registration_and_hash_changes`
+- `tests/test_B_b_app_shell_ui.py::test_context_picker_applies_once_keeps_cancel_and_shows_reasons_dates_and_fingerprint`
+- `tests/test_B_b_app_shell_ui.py::test_context_restores_only_usable_values_and_survives_storage_errors`
+- `tests/test_B_b_app_shell_ui.py::test_context_empty_lists_and_request_failure_keep_navigation_and_honest_state`
+- `tests/test_B_b_app_shell_ui.py::test_context_url_adds_key_only_to_contract_paths_preserving_other_arguments`
+- `tests/test_B_b_app_shell_ui.py::test_api_and_post_preserve_error_status_and_gaps_response_shapes`
+- `tests/test_B_b_app_shell_ui.py::test_model_connection_names_count_neutral_absence_and_error_recovery`
+- `tests/test_B_b_app_shell_ui.py::test_start_draws_navigation_before_pending_requests_and_polls_without_duplicates`
+- `tests/test_B_b_app_shell_ui.py::test_text_interpolation_missing_key_zero_false_and_shell_has_no_missing_copy`
+- `tests/test_B_b_app_shell_ui.py::test_card_preserves_content_state_focus_and_works_without_storage`
+- `tests/test_B_b_app_shell_ui.py::test_error_is_fact_action_and_closed_raw_detail_and_code_is_safe`
+- `tests/test_B_b_app_shell_ui.py::test_tooltip_targets_get_keyboard_access_without_nested_tab_stops`
+- `tests/test_B_b_app_shell_ui.py::test_tooltip_keyboard_escape_and_pointer_transfer`
+- `tests/test_B_b_app_text.py::test_doc_legend_matches_existing_css_colors_and_returns_fresh_values`
+- `tests/test_B_b_app_text.py::test_ui_text_contains_shell_keys_and_legacy_keys_without_collision`
+- `tests/test_B_b_app_text.py::test_ui_text_matches_copy_md`
+- `tests/test_B_b_app.py::test_index`
+- `tests/test_B_b_app.py::test_static`
+- `tests/test_B_b_app.py::test_static_start_entry_and_replay`
+- `tests/test_B_b_app.py::test_index_has_help_tab_and_links`
+
+산출물과 다음 step 연결 계약입니다.
+
+- `index.html`은 일반 스크립트 core → shell → boot만 싣습니다. 옛 `app.js`는 보존했습니다.
+- `core.js`는 `S.ctx`, `S.focus`, `S.cards`, `h/s/fill/T/api/post/on/emit/card/term`을 제공합니다. `coreReplace`는 없는 자식을 글자 `null`로 그리지 않습니다.
+- `shell.js`는 `go`, `shellDefineView(viewId, {load, render})`, `shellInitialRoute`, `ctxUrl`, `start`를 제공합니다. `load(args)` 뒤 `render(element, args)`를 부릅니다. 늦게 끝난 이전 이동은 그리지 않습니다.
+- 화면 10개와 전용 구역 36개의 id는 계획표와 같습니다. 첫 방문·빈 해시·모르는 해시는 S01로 갑니다. 안내 기록은 아직 읽지 않습니다(step 7).
+- `S.ctx`는 `{version:1,set:<id|null>,key:<id|null>}`입니다. P01 적용 후 `context_changed`에 같은 모양의 사본을 한 번 전달합니다. 변경 없는 적용과 취소는 사건을 보내지 않습니다.
+- `/api/sets`·`/api/keys`의 목록과 기본값을 사용합니다. 사용 불가 후보는 disabled와 이유로 표시합니다. 수정 시각은 현재 `/api/keys` 값입니다. 지문은 접힌 상세에만 둡니다.
+- `ctxUrl`은 지정된 다섯 점수·원문 API에만 `key`를 붙입니다. `set`은 자동 추가하지 않습니다. 정답지 유무에 따른 `/api/silver_gaps`의 두 응답 모양을 유지합니다.
+- 모델 상태는 15초마다 조회합니다. 중복 조회는 합칩니다. 없음·확인 중·503은 중립색입니다. 일반 조회 실패만 오류색입니다.
+- `UI_TEXT`는 COPY의 nav/context/common/errors와 두 하위 화면 제목을 담습니다. 옛 `POLISH_TEXT`를 `_LEGACY_POLISH_TEXT`로 옮긴 뒤 합쳤습니다. 글 예외 7개는 위 목록과 코드에 이유를 남겼습니다.
+- 점수·원문·비교·시험·서버 관리·안내 내용은 이 step에서 구현하지 않았습니다.
+
+기존 시험을 바꾼 이유와 보존 범위입니다.
+
+- `test_B_b_app_dom.py`에 옛 DOM 문자열과 실행 도우미를 이름만 바꿔 그대로 옮겼습니다. 별도 대조에서 문자열과 함수 본문이 일치했습니다.
+- 옛 score/start/jobs/diff_doc 시험의 검증 함수 본문은 그대로입니다. import만 새 옛 틀로 바꿨습니다. polish는 import 변경과 명시된 말풍선 시험 두 개 삭제만 했습니다. 삭제한 두 동작은 새 shell 시험에서 확인합니다.
+- `test_B_b_app.py`의 index/static/start/help 시험은 옛 탭 화면이 이번 step에서 교체되므로 새 뼈대와 스크립트 기준으로 바꿨습니다. 초기 HTML 문구 주입·HTML 이스케이프 시험은 그대로 통과했습니다.
+- `doc_legend`와 해당 시험의 기대 색 세 개는 새 DESIGN 토큰에 맞췄습니다. 주의 주황은 UI_GUIDE에 따라 그대로입니다. 다른 Python 함수 본문은 변경하지 않았습니다.
+
+검증 결과입니다.
+
+- 실패 확인 후 구현했습니다. 처음 24 failed / 235 passed에서 공통 뼈대와 글·정적 경로의 누락을 확인했습니다.
+- 지정 정적 AC 명령과 Node 확인은 종료 코드 0입니다.
+- 새 DOM·shell 시험: 18 passed. 서버 정적 경로·문구 시험: 244 passed.
+- 옛 화면 회귀까지 합친 집중 시험: 292 passed / 7 warnings.
+- 전체 지정 명령: 1930 passed / 30 skipped / 7 warnings, 34.43초. `tests/test_preprocess.py`를 제외했습니다. 경고는 기존 SWIG 타입의 `__module__` 사용 중단 경고입니다.
+- impeccable context를 한 번 실행했습니다. detect를 한 번 실행했습니다. 총 22개 지적은 기존 `design/wireframes.html` 15개와 `guide.html` 7개입니다. 변경한 index/app.css/js의 지적은 0개입니다. 기존 지적 파일은 수정하지 않았습니다.
+- 보호 대상 127개 지문을 대조했습니다. 허용된 BUILD.md 외 변경은 없습니다. 상태 기록 뒤에는 자기 step의 상태·summary만 바뀌는지 다시 확인합니다.
+- 아키텍처 점검: b_app.py와 옛 app.js 불변. 일반 스크립트 순서·API 인자 계약 준수. 새 파일에 외부 주소·한글 JS 문자열·동작 효과 없음. 새 의존성 없음. `.env`와 문서 원문을 읽지 않았습니다. 시험은 가짜 응답을 사용했습니다.
+- 실제 서버 연결과 브라우저 배치·한국어 줄바꿈·가로 스크롤은 확인하지 않았습니다. `_common.txt` 7절의 서버·브라우저 실행 금지를 따릅니다. 기계 시험을 시각 확인으로 간주하지 않습니다.
+- 커밋하지 않았습니다. `phases/app-redo/index.json`의 step 1만 완료로 기록합니다.

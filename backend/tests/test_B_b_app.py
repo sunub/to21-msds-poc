@@ -17,7 +17,7 @@ from test_B_b_app_doc import write_lines
 from test_B_compare_models import SCRIPTS, X01, X02, make_doc
 from test_B_expand import LINES
 
-STATIC_FILES = ("index.html", "app.js", "app.css")
+STATIC_FILES = ("index.html", "app.js", "app.css", *["js/" + p.name for p in sorted((SCRIPTS / "b_app_static/js").glob("*.js"))])
 TABS = ("점수판", "두 실행 비교", "원문 대조", "작업", "서버")
 
 
@@ -60,13 +60,15 @@ def test_index(app, ctx):
     text = body.decode("utf-8")
     assert code == 200 and ctype.startswith("text/html")
     assert "<title>" in text
-    for tab in TABS:
-        assert tab in text, tab
+    for element in ["app-header", "main-nav", "global-context", "ui-text"]:
+        assert f'id="{element}"' in text
+    for no in range(1, 11):
+        assert f'<section id="screen-s{no:02}" hidden' in text
 
 
 def test_static(app, ctx):
-    code, ctype, body = get(app, ctx, "/static/app.js")
-    assert code == 200 and "javascript" in ctype and b"/api/runs" in body
+    code, ctype, body = get(app, ctx, "/static/js/core.js")
+    assert code == 200 and "javascript" in ctype and b"function api" in body
     code, ctype, _ = get(app, ctx, "/static/app.css")
     assert code == 200 and ctype.startswith("text/css")
 
@@ -108,9 +110,9 @@ def test_api_start_without_runs_or_model_server(app, ctx, monkeypatch):
 
 def test_static_start_entry_and_replay(app, ctx):
     text = get(app, ctx, "/")[2].decode()
-    assert text.index('data-tab="start"') < text.index('data-tab="score"')
-    assert 'id="tab-start"' in text and 'id="journey-replay"' in text
-    assert 'href="#start"' in text
+    assert 'id="screen-s08"' in text
+    assert 'id="journey-band"' in text
+    assert 'id="journey-choice"' in text and 'id="journey-records"' in text
 
 
 def test_api_runs(app, ctx, env):
@@ -734,8 +736,9 @@ def test_guide_has_no_outside_address_or_secret_values(app):
 
 def test_index_has_help_tab_and_links(app):
     text = (app.STATIC / "index.html").read_text(encoding="utf-8")
-    assert "도움말" in text
-    assert text.count("자세히 → 도움말") == 5
+    assert 'id="main-nav"' in text and 'id="screen-s07"' in text
+    shell = (app.STATIC / "js/shell.js").read_text(encoding="utf-8")
+    assert '"s07"' in shell and '"nav.help"' in shell
 
 
 # ── 오류 본문의 사실·할 일 (step 7) ───────────────────────

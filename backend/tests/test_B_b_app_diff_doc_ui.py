@@ -1,5 +1,5 @@
 """비교·원문 대조의 선택 흐름을 DOM 대역으로 확인한다. 네트워크는 쓰지 않는다."""
-from test_B_b_app_score_ui import run_js
+from test_B_b_app_dom import run_old_js as run_js
 
 
 def test_doc_value_tooltips_and_raw_json_for_both_sides_and_silver_only():
