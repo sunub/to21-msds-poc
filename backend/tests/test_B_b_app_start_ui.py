@@ -1,5 +1,5 @@
 """시작 안내 사건·저장 계약의 DOM 대역 시험. 실제 브라우저 검증과 구분한다."""
-from test_B_b_app_score_ui import run_js
+from test_B_b_app_dom import run_old_js as run_js
 import json
 
 import pytest

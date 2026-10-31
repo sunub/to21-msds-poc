@@ -159,16 +159,16 @@ def test_diff_ui_text_counts_hidden_items_including_unscored(text, diff_info):
 
 
 def test_doc_legend_matches_existing_css_colors_and_returns_fresh_values(text):
-    expected = [("same", "실버와 같음", "#8c959f"),
+    expected = [("same", "실버와 같음", "#53645e"),
                 ("diff", "실버와 다르거나 실버에 없음", "#bc4c00"),
-                ("silver_only", "실버에만 있음(결과가 빠뜨림)", "#cf222e"),
-                ("picked", "고른 값·줄", "#fff8c5")]
+                ("silver_only", "실버에만 있음(결과가 빠뜨림)", "#a52f35"),
+                ("picked", "고른 값·줄", "#fff3c6")]
     legend = text.doc_legend()
     assert [(v["key"], v["label"], v["color"]) for v in legend] == expected
     css = (SCRIPTS / "b_app_static" / "app.css").read_text()
     assert all(color in css for _, _, color in expected)
     legend[0]["color"] = "changed"
-    assert text.doc_legend()[0]["color"] == "#8c959f"
+    assert text.doc_legend()[0]["color"] == "#53645e"
 
 
 def test_doc_ui_text_summaries_count_values_and_missing_cells_separately(text):
@@ -950,3 +950,42 @@ def test_problem_for_hidden_docs_does_not_say_why(text):
     for kind in ("doc_not_in_run", "doc_not_in_set", "missing_pages"):
         p = text.problem(kind, **PROBLEM_FACTS[kind])
         assert "평가" not in "".join(p.values()) and "잠" not in "".join(p.values())
+
+
+def _ui_leaves(value, prefix=''):
+    for key, item in value.items():
+        path = f'{prefix}.{key}' if prefix else key
+        if isinstance(item, dict):
+            yield from _ui_leaves(item, path)
+        else:
+            yield path, item
+
+
+def test_ui_text_contains_shell_keys_and_legacy_keys_without_collision(text):
+    assert {'nav', 'context', 'common', 'errors'} <= text.UI_TEXT.keys()
+    assert not (text.UI_TEXT.keys() & text._LEGACY_POLISH_TEXT.keys())
+    assert text.POLISH_TEXT == {**text._LEGACY_POLISH_TEXT, **text.UI_TEXT}
+    assert all(isinstance(v, str) and v.strip() for _, v in _ui_leaves(text.UI_TEXT))
+    for key in ['app_name', 'recent', 'source', 'retest', 'compare', 'jobs', 'servers', 'help', 'open_guide']:
+        assert text.UI_TEXT['nav'][key]
+
+
+def test_ui_text_matches_copy_md(text):
+    import html
+    import re
+    from pathlib import Path
+    copy = (Path(__file__).parents[1] / 'scripts/b_app_static/design/COPY.md').read_text()
+    def normalize(s):
+        return re.sub(r'\s+', ' ', html.unescape(s).replace('**', '').replace('`', '')).strip()
+    copy = normalize(copy)
+    leaves = dict(_ui_leaves(text.UI_TEXT))
+    for key, value in leaves.items():
+        if key in text.COPY_EXCEPTIONS:
+            assert text.COPY_EXCEPTIONS[key].strip(), key
+            continue
+        for part in re.split(r'\{[^{}]+\}', value):
+            part = normalize(part)
+            if len(part) >= 2:
+                assert part in copy, (key, part)
+    assert set(text.COPY_EXCEPTIONS) <= leaves.keys()
+    assert all(isinstance(v, str) and v.strip() for v in text.COPY_EXCEPTIONS.values())

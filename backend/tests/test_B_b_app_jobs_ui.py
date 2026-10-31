@@ -1,5 +1,5 @@
 """작업 탭의 상태 전환을 DOM 대역으로 검사한다. 서버와 네트워크는 부르지 않는다."""
-from test_B_b_app_score_ui import run_js
+from test_B_b_app_dom import run_old_js as run_js
 
 
 SETUP = r"""
