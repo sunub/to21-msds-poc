@@ -4276,6 +4276,13 @@ for _guide_key in ("practice_title", "instruction", "practice_offline", "tunnel"
 COPY_EXCEPTIONS["guide.practice.prompt_open"] = "처음 사용 안내 시안 승인 10/31 (design/onboard/mockup.html)"
 UI_TEXT["guide"]["skipped"] = "건너뜀"
 
+# 처음 사용 안내 실제 확인 고침: 승인된 용어 풀이를 실제 기준 카드에 재사용한다.
+for _guide_key, _glossary_key in (("exposure_meaning", "exposure"), ("criterion_meaning", "item")):
+    UI_TEXT["guide"]["source"][_guide_key] = UI_TEXT["glossary"][_glossary_key]["meaning"].partition(" 예: ")[0]
+    COPY_EXCEPTIONS[f"guide.source.{_guide_key}"] = "COPY.md 용어 풀이 재사용 (onboard fix step 0)"
+UI_TEXT["jobs"]["focus"]["model_difference"] = "저장된 결과는 {model}로 만들었습니다. 다시 시험에 쓸 모델은 따로 고릅니다."
+COPY_EXCEPTIONS["jobs.focus.model_difference"] = "onboard fix step 0: ⑤ 승인 대기"
+
 # 처음 사용 안내 step 2: 승인 선택 화면. 자료 이름과 점수는 API에서 읽는다.
 UI_TEXT["guide"]["screens"].update({
     "G02": {"title": "무엇을 먼저 해 보고 싶으세요?", "next": "다음"},

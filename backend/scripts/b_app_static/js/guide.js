@@ -19,6 +19,10 @@ const GUIDE_REQUEST_MS = 15000, GUIDE_TRIAL_MS = 600000;
 
 function guideDefault() {return {state: "not_started", screen: null, choices: [], skipped: [], updated_at: null};}
 function guideProgress() {return S.journey.progress.guide || guideDefault();}
+function guideDismissed() {
+  const p = guideProgress(), closed = S.journey.progress.dismissed_at;
+  return p.state === "in_progress" && !!closed && (!p.updated_at || p.updated_at <= closed);
+}
 function guideSupported(screen) {
   if (!screen) return "G01";
   return guideOrder.includes(screen) ? screen : guideOrder.find(id => id > (screen || "G01")) || "G15";
@@ -86,10 +90,12 @@ async function guideOpen({resume = false, replay = false} = {}) {
   if (replay) {S.guide.target = null; S.guide.readiness = null; S.guide.returnScreen = null; S.guide.defaultsReturn = null;}
   if (replay) {
     // 성공·대기 작업·옛 갈래 진행을 건드리지 않는다. 직렬 PUT은 journey가 맡는다.
-    journeyChange(j => {j.progress.guide = {...guideDefault(), state: "in_progress", screen: "G01", updated_at: journeyTime()};});
+    journeyChange(j => {j.progress.dismissed_at = null;
+      j.progress.guide = {...guideDefault(), state: "in_progress", screen: "G01", updated_at: journeyTime()};});
     emit("onboarding_replayed", {had_real: !!(S.journey.outcomes.t1.real || S.journey.outcomes.t2.real),
       had_practice: !!S.journey.outcomes.t2.practice});
   }
+  if (resume && S.journey.progress.dismissed_at) journeyChange(j => {j.progress.dismissed_at = null;});
   return guideShow(S.guide.screen, {save: false});
 }
 function guideNext() {
@@ -244,9 +250,6 @@ function guideExample(kind) {
   }
   return h("aside", {id: "guide-example", class: "guide-example", "aria-label": E("label")}, h("div", {class: "app-name"}, E("brand")),
     h("div", {class: "guide-demo-center"}, h("figure", null, h("figcaption", null, h("span", {class: "guide-example-badge"}, E("badge"))), content,
-      S.guide.screen === "G15" ? h("div", {class: "guide-demo-record"}, h("h2", null, E("records.title")),
-        h("ul", null, ["source", "practice", "trial"].map(k => h("li", null,
-          h("strong", null, E(`records.${k}_label`)), h("span", null, E(`records.${k}`)))))) : null,
       kind === "defaults" && S.guide.screen === "G13" ? h("p", {class: "guide-demo-caption"}, E("set_definition")) : null,
       S.guide.screen === "G02" ? h("p", {class: "guide-demo-caption"}, T("guide.choices.example_part"), h("br"), T("guide.choices.example_unit")) : null)));
 }
@@ -291,21 +294,23 @@ function guideRefreshRecords() {
   for (const id of ["guide-records", "help-guide-records"]) {
     const target = document.getElementById(id); if (target) journeyRenderRecords(target, id);
   }
-  const resume = document.getElementById("guide-resume"), progress = guideProgress();
-  resume.hidden = !u.known || progress.state !== "in_progress";
+  const resume = document.getElementById("guide-resume");
+  resume.hidden = !u.known || S.guide.open || !guideDismissed();
   if (!resume.hidden && !resume.querySelector("button")) coreReplace(resume, h("p", null, T("guide.resume")),
     guideButton("guide-resume-button", "guide.resume_action", () => guideOpen({resume: true})));
 }
 function guideSync() {
   guideRefreshRecords();
   if (!S.guide.bootEligible || S.guide.bootChecked || (!S.journeyUI.known && !S.journeyUI.storageNotice)) return;
+  if (S.journeyUI.known && !S.shell.contextLoaded) return;
   S.guide.bootChecked = true;
   if (!S.journeyUI.known || S.journeyUI.problems || S.shell.navigation > 1 || S.shell.route !== "s01") return;
-  const p = guideProgress(), closed = S.journey.progress.dismissed_at;
-  if (p.state === "in_progress" && (!closed || p.updated_at > closed)) guideOpen({resume: true}).catch(fail);
-  else if (p.state === "not_started" && journeyPristine()) guideOpen().catch(fail);
+  const p = guideProgress();
+  if (p.state === "in_progress" && !guideDismissed()) guideOpen({resume: true}).catch(fail);
+  else if (!S.guide.bootHash && p.state === "not_started" && journeyPristine()) guideOpen().catch(fail);
 }
-on("shell_started", ({hash}) => {S.guide.bootEligible = !hash;});
+// 안내 뒤의 기본 화면 주소는 새로고침에도 남는다. 다른 화면을 지정한 주소는 우선한다.
+on("shell_started", ({hash}) => {S.guide.bootHash = hash; S.guide.bootEligible = !hash || hash === "#s01";});
 on("journey_changed", guideSync);
 on("screen_shown", guideSync);
 on("guide_open", () => {guideOpen({replay: true}).catch(fail);});
@@ -419,7 +424,7 @@ async function guideLoadValue() {
       if (!entry) continue;
       Object.assign(state, scope, {data, entry, state: "waiting", line: Object.fromEntries(data.lines.map(line => [line.id, line])),
         selectedLines: new Set(), page: null});
-      g.target = {...scope}; guideRender(); return;
+      g.target = {...scope, model: run.model_tag}; guideRender(); return;
     }
     if (guideCurrent(epoch)) {state.state = "empty"; guidePracticeResult(state, "p1", "real", "failed"); guideRender();}
   } catch (error) {if (guideCurrent(epoch)) {state.state = "error"; state.error = error; guidePracticeResult(state, "p1", "real", "failed"); guideRender();}}
@@ -698,7 +703,9 @@ function guideSourceContent() {
   const state = S.guide.source, v = state?.entry?.v;
   return h("div", null, h("p", {class: "guide-lead"}, T("guide.source.lead")),
     h("div", {id: "guide-practice", class: "guide-practice"}, guideBefore("source"),
-      v ? [h("h2", null, sourceFieldName(v, state.data)), h("p", {class: "raw"}, T("guide.target", {doc: state.doc, section: state.section})),
+      v ? [h("h2", null, scoreItemName(state.item)),
+        h("p", null, T(state.section === 8 ? "guide.source.exposure_meaning" : "guide.source.criterion_meaning")),
+        h("p", {class: "raw"}, T("guide.target", {doc: state.doc, section: state.section})),
         h("p", null, T(state.entry.only ? "source.kinds.missing" : "source.kinds.wrong")),
         h("div", {class: "guide-value-pair"}, h("div", null, h("span", null, T("guide.source.ai_value")),
           h("div", {class: "guide-value raw-value"}, state.entry.only ? T("common.none") : jobsFocusValue(v.value, v.text))),
@@ -732,7 +739,9 @@ function guideTrialContent() {
   return h("div", null, dry ? h("p", {class: "guide-lead"}, T("guide.practice.lead")) : null,
     h("div", {id: "guide-practice", class: "guide-practice"}, guideBefore(kind),
       t?.doc ? h("p", {class: "raw"}, T("guide.target", {doc: t.doc, section: t.section})) : null,
-      t?.model ? h("p", null, serversLabel(jobsModel(t.model))) : null,
+      t?.model ? [h("p", null, T("servers.connection.selected"), ": ", jobsModelLabel(t.model)),
+        jobsModelDifference(t.model, S.guide.target?.run === t.base ? S.guide.target.model
+          : S.jobs.runs.find(run => run.name === t.base)?.model_tag)] : null,
       !t ? h("p", {role: "status"}, T("guide.ready.states.checking")) : null,
       t?.state === "waiting" ? h("p", {class: "guide-inplace"}, T(`guide.${kind}.waiting`)) : null,
       t?.state === "unavailable" ? guideError("guide.recovery.no_target", "guide.recovery.target_todo", t.error) : null,

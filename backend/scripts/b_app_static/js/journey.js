@@ -249,7 +249,7 @@ function journeyButton(id, key, action, disabled = false, primary = false) {
 function journeyParagraph(key, values) {return h("p", null, T(key, values));}
 function journeyRenderRecords(el, id) {
   const j = S.journey;
-  const cell = o => o ? T("journey.history.first_count", {time: new Date(o.first_at).toLocaleString(), count: o.count}) : T("journey.history.none");
+  const cell = o => o ? T("journey.history.first_count", {time: when(o.first_at), count: o.count}) : T("journey.history.none");
   const old = el.querySelector("details"), focused = document.activeElement;
   const details = h("details", {id: `${id}-details`, open: old?.open || null},
     h("summary", null, T("journey.history.title")),

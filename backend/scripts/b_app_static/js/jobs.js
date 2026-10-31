@@ -50,6 +50,10 @@ function jobsSet() { return S.jobs.opts?.sets?.find(set => set.id === S.ctx.set)
 function jobsDocs() { return jobsSet()?.usable === false ? [] : jobsSet()?.docs || []; }
 function jobsAllowed(doc, kind) { return doc?.runnable?.[kind] === true; }
 function jobsModel(tag) { return S.jobs.opts?.models?.find(model => model.tag === tag); }
+function jobsModelLabel(tag) { return UI.context.models?.[tag] || serversLabel(jobsModel(tag) || serversModel(tag) || {tag}); }
+function jobsModelDifference(tag, previous) {
+  return previous && tag !== previous ? jobsNote(T("jobs.focus.model_difference", {model: jobsModelLabel(previous)})) : null;
+}
 function jobsReady(tag) { return !S.jobs.optionsError && jobsModel(tag)?.connected === true; }
 function jobsSingle() { return !S.jobs.t.all && S.jobs.t.secs.size === 1; }
 function jobsPractice(job) { return job?.dry_run === true || job?.target?.dry_run === true; }
@@ -139,7 +143,7 @@ function jobsModelSelect(form, kind) {
     form.model = e.target.value;
     if (kind === "try") { jobsRemember(); jobsRenderTry(); jobsRenderConnection(); }
     else { if (!form.edited) form.name = jobsSuggestName(); jobsRenderRun(); }
-  }}, (S.jobs.opts?.models || []).map(m => h("option", {value: m.tag, disabled: kind === "run" && m.connected !== true}, m.option_label || m.label || m.tag)));
+  }}, (S.jobs.opts?.models || []).map(m => h("option", {value: m.tag, disabled: kind === "run" && m.connected !== true}, m.option_label || jobsModelLabel(m.tag))));
   select.value = form.model || "";
   return select;
 }
@@ -147,9 +151,13 @@ function jobsRenderFocus() {
   const f = S.focus, valid = f.doc === S.jobs.t.doc && S.jobs.t.secs.has(Number(f.section)) && f.path;
   const key = valid ? {wrong: "pair", missing: "missing", made: "made"}[f.kind] : null;
   const parsed = String(f.line || "").match(/^p(\d+):L(\d+)$/);
+  const parts = String(f.path || "").replace(/\[\d+\]/g, "").split(".");
+  const field = parts.slice().reverse().find(part => UI.source.field_names[part]) || parts.at(-1);
+  const table = parts.find(part => UI.source.table_names[part]);
   return h("div", {id: "jobs-focus", class: "job-focus"}, h("h3", null, T("jobs.focus.title")),
+    key ? jobsNote([UI.source.table_names[table], sourceFieldName({field, table}, null)].filter(Boolean).join(" · ")) : null,
     jobsNote(T(`jobs.focus.${key || "none"}`, {key_value: jobsFocusValue(f.expected, f.expected_text), ai_value: jobsFocusValue(f.actual, f.actual_text)})),
-    key ? jobsNote(f.path, {class: "technical"}) : null,
+    key ? coreCodeRecord(f.path) : null,
     key && f.line ? jobsNote(f.line_text && parsed ? T(`jobs.focus.${f.estimated ? "line_estimated" : "line"}`,
       {page: parsed[1], line_no: parsed[2], line_text: f.line_text}) : T(`jobs.form.${f.estimated ? "focus_estimated" : "focus_line"}`, {line: f.line})) : null);
 }
@@ -163,7 +171,7 @@ function jobsRenderTry() {
   const select = h("select", {onchange: e => { t.doc = e.target.value; jobsRemember(); jobsRenderTry(); }},
     h("option", {value: ""}, T("jobs.form.no_doc")), docs.map(d => h("option", {value: d.doc_id, disabled: !jobsAllowed(d, "try")},
       d.doc_id, d.run_reason?.try ? ` — ${d.run_reason.try}` : ""))); select.value = t.doc || "";
-  const base = h("select", {onchange: e => { t.base = e.target.value; jobsRemember(); }},
+  const base = h("select", {onchange: e => { t.base = e.target.value; jobsRemember(); jobsRenderTry(); }},
     h("option", {value: ""}, T("jobs.form.base_auto")),
     J.runs.filter(r => !["eval", "silver", "models"].includes(r.run_kind) && [...(r.docs || []), ...(r.no_gold || [])].includes(t.doc))
       .map(r => h("option", {value: r.name}, jobsRunLabel(r))));
@@ -191,6 +199,8 @@ function jobsRenderTry() {
   if (!t.doc) { scope.open = true; J.expanded["jobs-scope"] = true; }
   coreReplace(el, jobsFormStatus(), jobsNote(t.doc ? `${t.doc} · ${t.all ? T("jobs.form.all") : [...t.secs].map(section => T("jobs.form.section", {section})).join(", ")}`
     : T(docs.some(d => jobsAllowed(d, "try")) ? "jobs.form.no_doc" : "jobs.no_runnable.fact"), {class: "fixed-target"}),
+    t.model ? [jobsNote(T("servers.connection.selected") + ": " + jobsModelLabel(t.model)),
+      jobsModelDifference(t.model, J.runs.find(run => run.name === t.base)?.model_tag)] : null,
     jobsRenderFocus(), jobsField("jobs-prompt", term("prompt", T("jobs.form.prompt")), T("jobs.prompt.hint"), textarea),
     h("div", {id: "jobs-prompt-status", role: J.promptError ? "alert" : "status"},
       J.promptBusy ? jobsNote(T("jobs.form.prompt_loading")) : J.promptError ? loadFailure(J.promptError.message) : null),

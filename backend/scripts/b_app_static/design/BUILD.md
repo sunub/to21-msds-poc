@@ -1631,6 +1631,51 @@ Questions skipped: non-interactive. impeccable clarify·polish·audit·craft-flo
 
 ## 처음 사용 안내 (Wispr 구조)
 
+### onboard fix step 0
+
+⚠️ DEGRADED: no browser in sandbox
+
+- Questions skipped: non-interactive. 승인 설계와 S6 보고서·지정 사진을 읽었다. impeccable harden·clarify·craft-floor를 읽고 이 step의 결함만 고친다.
+- 구현 전에 지정 이름의 시험 4개를 추가했다. 새로고침은 G05·G07·G08·G11 네 경우로 실행했다. **7 failed**를 확인했다(2026-10-31, `/tmp/to21-onboard-fix0-red.log`).
+- 실패 원인: G15의 고정 예시 기록 노출, 새로고침 주소 `#s01` 때문에 안내 복원 차단, G07 제목이 기준 대신 칸 이름, S03의 원래 경로 노출이다. 가짜 문서·API·DOM만 사용했다.
+
+| 고친 것 | 시험 이름 (`test_B_b_app_guide_ui.py`) | 확인 방법 |
+|---|---|---|
+| G15 실제 기록과 같은 로컬 시각 | `test_g15_shows_only_real_records` | 빈 outcomes, 실제 기록, 안내 세션 값이 섞이지 않는지 검사 |
+| 새로고침과 명시적 닫기 구분 | `test_reload_mid_guide_reopens_last_confirmed_screen` | `#s01` 복원, pending 작업 읽기, POST 0건, 닫기·이어하기·다른 화면 주소 |
+| G07 기준 이름과 뜻 | `test_g07_card_names_the_criterion` | API의 두 기준을 바꿔 읽고 승인 이름과 용어 설명 확인 |
+| S03·G08 모델과 고른 값 | `test_try_model_and_value_are_plain` | 공통 모델 이름·이전 결과와 다른 이유·쉬운 칸 이름·접힌 원래 경로 |
+
+#### ⑤ 승인 대기 문구
+
+| 키 | 글 | 쓰는 곳 | 바꾼 까닭 |
+|---|---|---|---|
+| `jobs.focus.model_difference` | 저장된 결과는 {model}로 만들었습니다. 다시 시험에 쓸 모델은 따로 고릅니다. | S03·G08·G11 | 시험 모델과 기존 결과 모델의 역할을 구분한다. 새 글 1개. |
+
+- `guide.source.exposure_meaning`과 `guide.source.criterion_meaning`은 COPY 용어 풀이의 첫 문장을 재사용했다. 새 글이 아니다.
+- 기존 시험 3개를 요구 변경에 맞춰 수정했다. `test_guide_examples_match_approved_scene_text`는 G15의 제거 대상인 예시 기록 블록만 시안 비교에서 제외한다. 다른 예시 숫자는 모두 원래 비교를 유지한다. `test_guide_g15_example_records_stay_separate_from_actual_records`는 예시 기록이 없어야 한다고 검증한다. `test_returning_visit_lands_on_s01_with_resume_line`는 이어하기에서 닫음 표시를 지우는 PUT 1회와 화면 유지 여부를 확인한다. 시험 삭제는 없다.
+
+#### 구현과 검증
+
+- G15의 왼쪽 예시 기록을 제거했다. 오른쪽 기록은 `outcomes`만 읽는다. `when()`이 기존 기록 표의 로컬 시각 표시(`toLocaleString`)를 공유해 G10·G12·G15의 시각 형식을 맞춘다. 저장 시각은 기존 UTC 문자열 그대로다.
+- `guideDismissed()`는 기존 `progress.guide.updated_at`과 `progress.dismissed_at`만 비교한다. `#s01`에서 진행 중 안내를 복원한다. 다른 화면 주소는 우선한다. 이어하기는 닫음 표시만 지운다. 준비 상태와 저장된 작업은 다시 읽고 자동 전송하지 않는다.
+- 문서 묶음 조회가 늦는 새로고침도 실패 시험으로 재현했다(`test_reload_waits_for_context_before_loading_last_screen`). 조회가 끝난 뒤 G07 입력을 읽도록 했다. 기준 실행을 바꿨을 때 모델 설명이 갱신되지 않는 경우와 모델 선택 목록에 짧은 설정 이름이 노출되는 경우도 실패 후 고쳤다. 로그: `/tmp/to21-onboard-fix0-edge-red.log`, `/tmp/to21-onboard-fix0-select-red.log`.
+- G07은 `top_problem.name`을 승인 이름 표로 바꾼다. 허용 농도 설명은 단위 설명보다 먼저 기준의 뜻을 밝힌다. S03은 쉬운 표·칸 이름을 쓰고 원래 경로를 `coreCodeRecord()`의 접힌 상세에 보존한다.
+- S03·G08은 공통 모델 표시 이름을 쓴다. 이전 결과와 다른 모델이면 위 새 문구로 두 역할을 설명한다. S03은 모델이 연결돼도 이름과 설명을 보인다. 기본 모델 선택 규칙은 바꾸지 않았다.
+- 아키텍처 확인: 실제 성공 판정과 `/api/journey` 계약은 그대로다. 서버·키·런타임·다른 역할 코드는 수정하지 않았다. 기존 `b_app_text.py` 함수의 AST가 HEAD와 같다. 모델 호출·평가용 내용 사용·커밋은 없다.
+- 정적 확인: `git diff --check`와 수정 JS 4개의 `node --check` 통과. 보호 파일 360개 중 상태 변경 대상 index를 제외한 359개가 시작 해시와 같다.
+- impeccable detector 1회 실행: 종료 2, advisory 19·warning 27. 지적 46개는 모두 변경하지 않은 app.css·시안·wireframes·guide.html에 있다. 변경 파일 지적 0개. `/static/app.css`의 로컬 경로 해석 실패로 색·변수 검사는 불완전하다. 로그: `/tmp/to21-onboard-fix0-detect.json`.
+- 최종 지정 AC: **7 passed**(1.49초). 앱 AC: **1114 passed, 1194 deselected**(52.09초). 각각 `/tmp/to21-onboard-fix0-target-final.log`, `/tmp/to21-onboard-fix0-app-final.log`에 남겼다.
+- 전체 AC: **2277 passed, 30 skipped, 1 failed, 7 warnings**(82.67초). 유일한 실패는 `tests/test_A_input.py::test_every_changing_route_answers_with_update`의 `socket.bind`에서 발생한 `PermissionError: [Errno 1] Operation not permitted`다. 로그: `/tmp/to21-onboard-fix0-full-final.log`. 경고 7개는 SWIG 타입의 `__module__` 관련 DeprecationWarning이다.
+- AC 종료 코드: 지정 시험 0, 앱 시험 0, 전체 시험 1. `phases/app-redo/_common.txt` 7절의 포트 차단 예외와 정확히 일치하므로 step 0을 `completed`로 기록한다. A 시험은 수정하거나 제외하지 않았다. 실행기가 샌드박스 밖에서 전체 AC를 다시 확인한다.
+
+#### 브라우저로 볼 것
+
+- G07·G08·G11 도중 새로고침 후 마지막 확정 화면으로 돌아오는지 본다. 자동 보내기가 없는지 확인한다.
+- 안내를 닫은 뒤 S01 이어하기를 누른다. 다시 새로고침해 안내가 유지되는지 본다.
+- G15의 빈 기록·연습만 있는 기록·실제 성공 기록을 본다. 예시 시각이 없고 기록의 시각이 같은 형식인지 확인한다.
+- G07 기준 설명과 S03·G08 모델 설명을 1280·1440·1680px에서 본다. 내부 경로가 상세 펼침에만 보이는지 확인한다.
+
 ### onboard step 0
 
 ⚠️ DEGRADED: no browser in sandbox
