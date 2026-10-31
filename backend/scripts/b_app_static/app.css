@@ -141,3 +141,58 @@ dialog::backdrop { background: rgb(35 51 47 / 25%); }
 }
 @media (min-width: 1550px) { .work { padding-inline: var(--space-wide-page-x); } }
 @media print { .context { position: static; } .sidebar { display: none; } body { display: block; } }
+
+/* S01: 승인 시안의 점수 열과 손실 열. 상세는 기본 접힘. */
+.score-picker { display: flex; align-items: end; gap: var(--space-group); margin-bottom: var(--space-group); }
+.score-picker > div { flex: 1; min-width: 0; }
+.score-picker select { margin-bottom: 0; }
+.score-flow { display: flex; gap: var(--space-section); list-style: none; padding: 0; color: var(--muted); font-size: var(--label-size); }
+.score-flow [aria-current] { color: var(--ink); font-weight: var(--subsection-weight); }
+.score-overview { display: grid; grid-template-columns: 400px minmax(0, 1fr); background: var(--paper); border: var(--border-standard); border-radius: var(--radius-panel); }
+.score-overview > div { min-width: 0; padding: var(--space-section); }
+.score-block { border-right: var(--border-standard); }
+.score-number { font-size: var(--score-size); font-weight: var(--score-weight); line-height: var(--score-line-height); font-variant-numeric: tabular-nums; margin: var(--space-small) 0; }
+.score-number > span { font-size: var(--score-unit-size); font-weight: var(--score-unit-weight); padding-left: var(--space-small); }
+.score-essential { border-top: var(--border-standard); padding-top: var(--space-group); margin-top: var(--space-group); }
+.score-next { margin: var(--space-section) 0; }
+.score-next > p { margin-top: var(--space-small); max-width: 75ch; }
+.score-counts { list-style: none; padding: 0; margin: var(--space-small) 0; font-size: var(--label-size); }
+.score-counts, .score-count { display: block; }
+.score-counts .text-button { min-height: 28px; }
+.score-bar { display: block; width: 100%; max-width: 400px; height: 18px; margin: var(--space-small) 0; }
+.score-track { fill: var(--scale-track); }
+.score-fill, .score-history-dot { fill: var(--accent); background: var(--accent); }
+.score-target { stroke: var(--ink); stroke-width: 2; }
+.score-grid-line { stroke: var(--line); stroke-width: 1; }
+.score-axis { fill: var(--muted); font-size: var(--label-size); font-family: var(--font-body); }
+.score-below, .score-call.c_fail { color: var(--failure); }
+.score-met { color: var(--accent); }
+.score-empty, .score-partial { padding: var(--space-section); border: var(--border-standard); background: var(--paper); margin-bottom: var(--space-group); }
+.score-empty button + button { margin-left: var(--space-group); }
+.score-detail-body { padding-bottom: var(--space-group); }
+.score-table-wrap { max-width: 100%; min-width: 0; overflow-x: auto; }
+.score-table-wrap td > .raw, .score-table-wrap td .score-basis, .score-item-name .raw { display: block; margin-top: var(--space-tight); }
+.score-table-wrap table { min-width: 0; }
+.score-table-wrap td, .score-table-wrap th { min-width: 0; }
+.score-filters, .score-actions { display: flex; gap: var(--space-group); flex-wrap: wrap; margin: var(--space-group) 0; }
+.score-item { border-bottom: var(--border-standard); }
+.score-item-toggle { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr) minmax(0, .5fr) minmax(0, .5fr) minmax(0, 1.3fr); gap: var(--space-compact); width: 100%; text-align: left; color: var(--ink); border: 0; border-radius: 0; padding: var(--space-compact) 0; font-size: var(--label-size); font-weight: var(--body-weight); }
+.score-item-toggle > * { min-width: 0; }
+.score-item-toggle[aria-expanded=true] { background: var(--soft); }
+.score-item-name { font-weight: var(--subsection-weight); }
+.score-problem-detail { padding: var(--space-group); background: var(--paper); }
+.score-history-chart { display: block; width: 100%; height: auto; }
+.score-history-point { display: inline-flex; width: 44px; height: 44px; min-height: 44px; padding: 0; border: 0; background: transparent; }
+.score-history-dot { display: block; width: var(--space-compact); height: var(--space-compact); border-radius: 50%; }
+.score-history-point[aria-pressed=true] .score-history-dot { border: var(--border-selected); width: var(--space-section-small); height: var(--space-section-small); }
+.score-history-choice[aria-pressed=true] { background: var(--soft); border: var(--border-selected); }
+.score-calls { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: var(--space-tight); margin-bottom: var(--space-section); }
+.score-call { border: var(--border-standard); min-width: 0; background: var(--paper); font-size: var(--label-size); }
+.score-call summary { padding: var(--space-small) var(--space-tight); text-align: center; }
+.score-call summary span { display: block; }
+.score-call > div { padding: var(--space-small); }
+.score-gap { border-bottom: var(--border-standard); padding: var(--space-group) 0; }
+@media (max-width: 1320px) {
+  .score-overview { grid-template-columns: 380px minmax(0, 1fr); }
+  .score-overview > div { padding: var(--space-section-small); }
+}

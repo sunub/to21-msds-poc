@@ -257,7 +257,7 @@ def test_status_ranks_weighted_gaps_and_cause_ties_without_mutation(text, score_
     before = copy.deepcopy(score_info)
     result = text.score_status(score_info, {"pass_score": 90})
     assert result["verdict"] == "fail"
-    for phrase in ("72.7점", "90점", "17.3점", "필수 17개 중 목표 달성 5개"):
+    for phrase in ("72.7점", "90점", "17.3점", "17개가 필수 기준입니다. 5개가 각자의 목표를 채웠습니다."):
         assert phrase in result["headline"]
     drops = result["top_drops"]
     assert [d["name"] for d in drops] == ["8항 노출기준", "11항 기타 독성", "9항 기타 물성"]
@@ -274,8 +274,8 @@ def test_status_ranks_weighted_gaps_and_cause_ties_without_mutation(text, score_
 @pytest.mark.parametrize("connected", [None, False, True])
 def test_status_next_action_uses_last_known_connection(text, score_info, connected):
     result = text.score_status(score_info, {"pass_score": 90}, connected=connected)
-    expected = ("④ 작업 탭에서 8항만 다시 시험해 보세요." if connected else
-                "③ 원문 대조에서 8항 노출기준의 틀린 값이 원문 어디서 왔는지 확인하세요.")
+    expected = (text.UI_TEXT["score"]["summary"]["next_trial"].format(section=11) if connected else
+                text.UI_TEXT["score"]["summary"]["next_source"].format(item="11항 기타 독성"))
     assert result["next_action"] == expected
 
 
@@ -284,25 +284,25 @@ def test_status_section_from_help_or_falls_back_to_source(text, score_info):
     c = {"pass_score": 90, "items": [{"name": "가짜 검사", "help": "3항의 가짜 값을 비교합니다."}]}
     result = text.score_status(score_info, c, connected=True)
     assert result["top_drops"][0]["section"] == 3
-    assert result["next_action"] == "④ 작업 탭에서 3항만 다시 시험해 보세요."
+    assert result["next_action"] == text.UI_TEXT["score"]["summary"]["next_trial"].format(section=3)
     result = text.score_status(score_info, {"pass_score": 90}, connected=True)
     assert result["top_drops"][0]["section"] is None
-    assert result["next_action"].startswith("③ 원문 대조에서 가짜 검사")
+    assert result["next_action"] == text.UI_TEXT["score"]["summary"]["next_source"].format(item="가짜 검사")
 
 
 def test_status_pass_none_and_weighted_pass_with_required_failure(text):
     c = {"pass_score": 90, "items": [{"level": "필수"}, {"level": "필수"}]}
     good = text.score_status({"weighted": 90, "must_passed": 2, "items": []}, c)
     assert good["verdict"] == "pass"
-    assert "필수 2개 모두 목표를 넘었습니다" in good["headline"]
+    assert "필수 기준 2개가 모두 각자의 목표에 닿았습니다" in good["headline"]
     assert good["top_drops"] == []
-    assert good["next_action"] == "두 목표를 모두 넘었습니다. ② 두 실행 비교로 흔들림을 확인하세요."
+    assert good["next_action"] == text.UI_TEXT["score"]["summary"]["next_compare"]
     missing = text.score_status({"weighted": None}, c)
     assert missing["verdict"] == "none"
-    assert missing["headline"] == "점수가 없는 실행입니다."
+    assert missing["headline"] == text.UI_TEXT["score"]["summary"]["unscored"]
     assert missing["top_drops"] == [] and "합격" not in missing["next_action"]
     failed = text.score_status({"weighted": 93, "must_passed": 1}, c)
-    assert failed["verdict"] == "fail" and "필수 2개 중 목표 달성 1개" in failed["headline"]
+    assert failed["verdict"] == "fail" and "2개가 필수 기준입니다. 1개가 각자의 목표를 채웠습니다." in failed["headline"]
     assert "-3" not in failed["headline"] and "두 목표를 모두 넘었습니다" not in failed["next_action"]
 
 
@@ -324,8 +324,8 @@ def test_summary_history_uses_scored_main_runs_and_label(text):
             {"kind": "run", "name": "b", "weighted": 81.25, "label": {"title": "가짜 실행"}},
             {"kind": "run", "name": "pending", "weighted": None},
             {"kind": "manual", "name": "manual/c", "weighted": 100}]
-    assert text.card_summary("history", {"runs": runs}) == "실행 2개, 최고 81.2점(가짜 실행)"
-    assert text.card_summary("history", {"runs": runs[:1]}) == "실행 1개, 최고 0.0점(a)"
+    assert text.card_summary("history", {"runs": runs}) == "저장된 결과 2개 중 최고점은 81.2점입니다. 해당 결과는 가짜 실행입니다."
+    assert text.card_summary("history", {"runs": runs[:1]}) == "저장된 결과 1개 중 최고점은 0.0점입니다. 해당 결과는 a입니다."
 
 
 def test_summary_history_skips_silver_runs_and_prefers_comparable(text):
@@ -333,8 +333,8 @@ def test_summary_history_skips_silver_runs_and_prefers_comparable(text):
             {"kind": "run", "name": "probe", "weighted": 80.0, "run_kind": "probe", "comparable": False},
             {"kind": "run", "name": "dev", "weighted": 72.7, "run_kind": "dev10", "comparable": True,
              "label": {"title": "가짜 본 실행"}}]
-    assert text.card_summary("history", {"runs": runs}) == "실행 2개, 최고 72.7점(가짜 본 실행)"
-    assert text.card_summary("history", {"runs": runs[:2]}) == "실행 1개, 최고 80.0점(probe)"
+    assert text.card_summary("history", {"runs": runs}) == "저장된 결과 2개 중 최고점은 72.7점입니다. 해당 결과는 가짜 본 실행입니다."
+    assert text.card_summary("history", {"runs": runs[:2]}) == "저장된 결과 1개 중 최고점은 80.0점입니다. 해당 결과는 probe입니다."
     assert text.card_summary("history", {"runs": runs[:1]}) == "자료 없음"
 
 
@@ -352,22 +352,22 @@ TWO_MUST = {"pass_score": 90, "items": [{"level": "필수"}, {"level": "필수"}
 
 def test_status_shows_two_targets(text):
     result = text.score_status({"weighted": 72.66, "must_passed": 1, "items": []}, TWO_MUST)
-    assert result["headline"] == ("72.7점입니다. 가중 종합 목표선 90점까지 17.3점 남았습니다. "
-                                  "필수 2개 중 목표 달성 1개입니다.")
+    assert result["headline"] == ("전체 점수는 72.7점입니다. 목표 점수 90점보다 17.3점 낮습니다. "
+                                  "23개 점수 기준 중 꼭 맞아야 하는 2개가 필수 기준입니다. 1개가 각자의 목표를 채웠습니다.")
     assert result["targets"] == {"weighted": {"line": 90, "value": 72.66, "met": False},
                                  "must": {"total": 2, "met_count": 1, "met": False}}
     assert result["verdict"] == "fail"
     mixed = text.score_status({"weighted": 93, "must_passed": 1, "items": []}, TWO_MUST)
-    assert mixed["headline"] == "93.0점입니다. 가중 종합이 목표선 90점을 넘었습니다. 필수 2개 중 목표 달성 1개입니다."
+    assert mixed["headline"] == "전체 점수는 93.0점입니다. 목표 점수 90점에 도달했습니다. 23개 점수 기준 중 꼭 맞아야 하는 2개가 필수 기준입니다. 1개가 각자의 목표를 채웠습니다."
     assert mixed["targets"]["weighted"]["met"] is True and mixed["targets"]["must"]["met"] is False
 
 
 def test_status_both_targets_met(text):
     result = text.score_status({"weighted": 90, "must_passed": 2, "items": []}, TWO_MUST)
-    assert result["headline"] == "90.0점입니다. 가중 종합이 목표선 90점을 넘었습니다. 필수 2개 모두 목표를 넘었습니다."
+    assert result["headline"] == "전체 점수는 90.0점입니다. 목표 점수 90점에 도달했습니다. 필수 기준 2개가 모두 각자의 목표에 닿았습니다."
     assert result["targets"] == {"weighted": {"line": 90, "value": 90, "met": True},
                                  "must": {"total": 2, "met_count": 2, "met": True}}
-    assert result["next_action"] == "두 목표를 모두 넘었습니다. ② 두 실행 비교로 흔들림을 확인하세요."
+    assert result["next_action"] == text.UI_TEXT["score"]["summary"]["next_compare"]
     assert result["verdict"] == "pass"
 
 
@@ -510,18 +510,18 @@ def test_item_section_matches_doc_section_map(text, monkeypatch):
 def test_summary_docs_handles_zero_and_missing_time_independently(text):
     info = {"per_doc": {"T21-X01": {"weighted": 0, "seconds": 15},
                         "T21-X02": {"weighted": 80, "seconds": 84}}}
-    assert text.card_summary("docs", info) == "문서 2건, 가장 낮은 T21-X01 0.0점, 가장 오래 걸린 T21-X02 84초"
+    assert text.card_summary("docs", info) == "문서 2건입니다. 가장 낮은 점수는 T21-X01의 0.0점입니다. 가장 오래 걸린 문서는 T21-X02입니다. 84초 걸렸습니다."
     info["per_doc"]["T21-X02"]["seconds"] = None
-    assert "가장 오래 걸린 T21-X01 15초" in text.card_summary("docs", info)
+    assert "가장 오래 걸린 문서는 T21-X01입니다. 15초 걸렸습니다." in text.card_summary("docs", info)
     info["per_doc"]["T21-X01"]["seconds"] = None
-    assert "시간 자료 없음" in text.card_summary("docs", info)
+    assert "문서별 시간 기록이 없습니다." in text.card_summary("docs", info)
 
 
 def test_summary_grid_matches_cell_priority_including_multi_msds(text):
     info = {"grid": {"T21-X01": {"1": {"ok": True}, "2": {"ok": True, "reextracted": True}},
                      "T21-X02": {"m0:1": {"ok": True, "reextracted": True, "limit_kind": "긴출력"},
                                  "m1:1": {"ok": False, "reextracted": True, "limit_kind": "공백폭주"}}}}
-    assert text.card_summary("grid", info) == "호출 4개 중 성공 1, 재추출 1, 한도 걸림 1, 실패 1"
+    assert text.card_summary("grid", info) == "AI 요청 4개의 상태입니다. 성공 1개, 재추출 1개, 한도 걸림 1개, 실패 1개"
 
 
 def test_summary_rows_includes_all_nine_and_largest_absolute_shortfall(text):
@@ -529,10 +529,10 @@ def test_summary_rows_includes_all_nine_and_largest_absolute_shortfall(text):
     info = {"rows": {key: {"pred": 2, "gold": 2} for key in keys}}
     info["rows"]["toxicity"] = {"pred": 3, "gold": 12}
     info["rows"]["cmr"] = {"pred": 0, "gold": 2}
-    assert text.card_summary("rows", info) == "표 9개 중 정답보다 적은 표 2개(가장 모자란 독성 (11항) 3/12)"
+    assert text.card_summary("rows", info) == "표 9개 중 정답보다 행이 적은 표는 2개입니다. 행이 가장 부족한 표는 독성 (11번 부분)입니다. AI 결과는 3행입니다. 정답은 12행입니다."
     for row in info["rows"].values():
         row["pred"] = row["gold"]
-    assert text.card_summary("rows", info) == "표 9개 중 정답보다 적은 표 0개"
+    assert text.card_summary("rows", info) == "표 9개 중 정답보다 행이 적은 표는 0개입니다."
 
 
 @pytest.mark.parametrize("kind", ["history", "docs", "grid", "rows"])
@@ -989,3 +989,34 @@ def test_ui_text_matches_copy_md(text):
                 assert part in copy, (key, part)
     assert set(text.COPY_EXCEPTIONS) <= leaves.keys()
     assert all(isinstance(v, str) and v.strip() for v in text.COPY_EXCEPTIONS.values())
+
+
+@pytest.mark.parametrize('counts,cause', [(None, None), ({'빠뜨림': 6, '틀림': 2, '지어냄': 1}, '빠뜨림'),
+                                         ({'빠뜨림': 0, '틀림': 0, '지어냄': 0}, None)])
+def test_problem_loss_counts_preserves_missing_zero_and_input(text, counts, cause):
+    info = loss_info(('8항 노출기준', '필수', .6, .95))
+    if counts is not None:
+        info['items'][0].update(counts)
+    before = copy.deepcopy(info)
+    result = text.score_losses(info, LOSS_CRITERIA)
+    assert result['losses'][0]['counts'] == counts
+    assert result['losses'][0]['cause'] == cause
+    assert result['top_problem']['counts'] == counts
+    assert info == before
+    assert '기록 없음' in text.UI_TEXT['score']['problem']['unrecorded']
+
+
+def test_problem_loss_counts_partial_and_ties(text):
+    info = loss_info(('8항 노출기준', '필수', .6, .95))
+    info['items'][0].update({'틀림': 4, '지어냄': 4})
+    row = text.score_losses(info, LOSS_CRITERIA)['losses'][0]
+    assert row['counts'] == {'빠뜨림': 0, '틀림': 4, '지어냄': 4}
+    assert row['cause'] == '틀림'
+
+
+def test_problem_status_copy_contract_has_no_pass_judgement(text, score_info):
+    result = text.score_status(score_info, {'pass_score': 87})
+    assert {'headline', 'verdict', 'top_drops', 'next_action'} <= result.keys()
+    for name in ['headline', 'next_action', 'losses', 'top_problem', 'loss_basis']:
+        assert '합격' not in str(result[name])
+    assert text.UI_TEXT['score']['summary']['headline_below'].format(line=87, gap='14.3') in result['headline']

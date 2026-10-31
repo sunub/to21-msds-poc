@@ -131,27 +131,27 @@ P01과 P02는 원래 화면으로 돌아오는 확인 영역입니다.
 | I03 | 용어 말풍선, 접힘 상태, 키보드 포커스 | `term, setupTip, card, loadCards` | 공통 core 도우미 | 1 | `core.js`: `term/setupTip/card/loadCards/coreRead/coreWrite`; 말풍선·접기 새 시험 통과 |
 | I04 | 앱 목적, 서버 없이 결과 확인, 점수→문제→원문 3단계 | `renderStart, journeyStep` | S08 journey-choice, S01 journey-band | 7 | |
 | I05 | 단계 완료, 첫 성공 시각, 실패 후 위치 | `advanceJourney, journeyPassed, focusJourneyValue` | S08 journey-records | 7 | |
-| I06 | 다음에 할 일: 비교·시험·서버 | `renderStart, journeyStep` | S01 score-summary, S08 journey-choice | 2, 7 | |
+| I06 | 다음에 할 일: 비교·시험·서버 | `renderStart, journeyStep` | S01 score-summary, S08 journey-choice | 2, 7 | `scoreConditions`의 다음 행동·`#score-retest`, `scoreRenderHistory`의 비교 이동. 서버 연결은 공통 맥락 줄. S08은 step 7 |
 | I07 | 안내 닫기, 처음부터 다시 보기 | `resetJourney, dismissJourney` | S08 journey-records | 7 | |
-| I08 | 실행 목록·읽기 실패 수·다시 읽기·채점 로딩 | `loadAll, loadRun, renderScoreLoading, scoreLoadFailure` | S01 score-summary | 2 | |
-| I09 | 현재 점수·부족 점수·필수 달성 수·상위 문제 3개·다음 행동 | `renderStatus, openScoreSource` | S01 score-summary·score-problems | 2 | |
-| I10 | 총점·목표선·필수 막대·전체 판정 | `renderNow, goalBar` | S01 score-summary | 2 | |
-| I11 | 실행 이름·원래 폴더명·모델 태그와 전체 이름·지시문 버전·입력 폴더·시각 | `runLabel, rawRun, modelName, renderNow` | S01 score-summary 실행 조건 | 2 | |
-| I12 | 완료 문서 수·진행 중·채점 수·제외 수·정답 없는 수 | `progressLine, renderNow` | S01 score-summary 채점 범위 | 2 | |
-| I13 | 값 없는 행을 뺀 점수·원점수와의 차이·계산 뜻 | `renderNow` | S01 score-rule | 2 | |
-| I14 | 모델 연결 안내와 저장 결과의 오프라인 조회 | `connLine, renderConnNow` | 공통 global-context, S01 score-summary | 1, 2 | `#global-context #context-model`, `shellRenderModels/shellPollServers`; 저장 결과 안내와 현재 연결 분리. S01 세부는 step 2 |
-| I15 | 23개 항목의 등급 수·무게·목표·측정 방법·정답 초안 한계 | `renderRule` | S01 score-rule, S07 help-topics | 2, 8 | |
-| I16 | 항목별 점수·목표선·달성 여부·미달만/모두·숨긴 수 | `renderItems, itemRow, scoreBar` | S01 score-problems | 2 | |
-| I17 | 빠뜨림·지어냄·틀림의 뜻과 건수 | `renderItems, itemRow` | S01 score-problems | 2 | |
-| I18 | 오류 상세 문서·종류·내용·현재 표시 제한 안내 | `detailList` | S01 score-problems → S02 source-values | 2, 3 | |
-| I19 | 정답 초안의 빈 곳·출처·발견 시점 | `itemRow, /api/silver_gaps` | S01 score-gaps | 2 | |
-| I20 | 항목별 값 없는 행 제외 점수 | `itemRow` | S01 score-problems | 2 | |
-| I21 | 실행 이력 그래프·날짜·모델 범례·현재 실행·목표선·최고 점수 | `renderHistory` | S01 score-history | 2 | |
-| I22 | 두 점 선택 순서·선택 해제·A/B로 보내기 | `savePick, renderHistory` | S01 score-history → S04 compare-summary | 2, 4 | |
-| I23 | 문서별 점수·필수 미달 항목·시간·300초 목표·시간 기록 없음 | `renderDocs` | S01 score-docs | 2 | |
-| I24 | 문서×16항 호출 격자·한 문서의 여러 MSDS | `renderGrid` | S01 score-grid | 2 | |
-| I25 | 성공·재추출·출력 한도·실패·기록 없음·시도 수·시간·방식·한도 원인 | `gridCell, renderGrid` | S01 score-grid | 2 | |
-| I26 | 표별 결과/정답 행 수·비율·남는 값(extras) | `renderRows` | S01 score-rows | 2 | |
+| I08 | 실행 목록·읽기 실패 수·다시 읽기·채점 로딩 | `loadAll, loadRun, renderScoreLoading, scoreLoadFailure` | S01 score-summary | 2 | `scoreLoad/scoreRenderSummary/scoreSelect`: 개수 먼저 로딩, 부분 실패, 재조회 |
+| I09 | 현재 점수·부족 점수·필수 달성 수·상위 문제 3개·다음 행동 | `renderStatus, openScoreSource` | S01 score-summary·score-problems | 2 | `scoreRenderSummary/scoreCounts/scoreOpenSource`, `scoreRenderProblems`: API 손실 순위, 부족 점수는 실행 조건의 API 요약 |
+| I10 | 총점·목표선·필수 막대·전체 판정 | `renderNow, goalBar` | S01 score-summary | 2 | `scoreRenderSummary/scoreBar`: `targets.weighted`, `targets.must` 그대로 표시 |
+| I11 | 실행 이름·원래 폴더명·모델 태그와 전체 이름·지시문 버전·입력 폴더·시각 | `runLabel, rawRun, modelName, renderNow` | S01 score-summary 실행 조건 | 2 | `scoreConditions`: 표시 이름·원래 이름·모델 태그/전체 이름·프롬프트·입력·시작 시각 |
+| I12 | 완료 문서 수·진행 중·채점 수·제외 수·정답 없는 수 | `progressLine, renderNow` | S01 score-summary 채점 범위 | 2 | `scoreConditions`: progress, docs/no_gold/excluded 범위 |
+| I13 | 값 없는 행을 뺀 점수·원점수와의 차이·계산 뜻 | `renderNow` | S01 score-rule | 2 | `#score-rule`, `scoreRenderRule`: 양쪽 빈 행 제외 보조 점수·차이·계산 뜻 |
+| I14 | 모델 연결 안내와 저장 결과의 오프라인 조회 | `connLine, renderConnNow` | 공통 global-context, S01 score-summary | 1, 2 | `#global-context #context-model`, `shellRenderModels/shellPollServers`; `scoreConditions`에 실행 당시 모델 별도 표시 |
+| I15 | 23개 항목의 등급 수·무게·목표·측정 방법·정답 초안 한계 | `renderRule` | S01 score-rule, S07 help-topics | 2, 8 | `scoreRenderRule`: 등급 수·무게·목표·방법·정답 한계. S07은 step 8 |
+| I16 | 항목별 점수·목표선·달성 여부·미달만/모두·숨긴 수 | `renderItems, itemRow, scoreBar` | S01 score-problems | 2 | `scoreRenderProblems`: 서버 손실 순서, 전체/미달 필터, 숨긴 수, button/aria-expanded |
+| I17 | 빠뜨림·지어냄·틀림의 뜻과 건수 | `renderItems, itemRow` | S01 score-problems | 2 | `scoreCounts`, `score-problems`의 문제 종류 펼침: counts null은 기록 없음 |
+| I18 | 오류 상세 문서·종류·내용·현재 표시 제한 안내 | `detailList` | S01 score-problems → S02 source-values | 2, 3 | `scoreProblemDetail`: 문서·종류·내용, 300건씩 더 보기, `scoreOpenSource`. 실제 원문 표시 step 3 |
+| I19 | 정답 초안의 빈 곳·출처·발견 시점 | `itemRow, /api/silver_gaps` | S01 score-gaps | 2 | `scoreGap/scoreRenderGaps`: 선택 key의 gaps, 출처·발견일·조회 실패 |
+| I20 | 항목별 값 없는 행 제외 점수 | `itemRow` | S01 score-problems | 2 | `scoreProblemDetail`: items_na_excluded 값 그대로 |
+| I21 | 실행 이력 그래프·날짜·모델 범례·현재 실행·목표선·최고 점수 | `renderHistory` | S01 score-history | 2 | `scoreRenderHistory/scoreHistoryRuns`: SVG·키보드 점·같은 선택 표, 시작일·모델·현재·목표선, 최고는 서버 요약 |
+| I22 | 두 점 선택 순서·선택 해제·A/B로 보내기 | `savePick, renderHistory` | S01 score-history → S04 compare-summary | 2, 4 | `scoreSavePick/scoreHistoryPick`, `#score-compare-picks`: b_app.pick 보존·실패 허용, go(s04,{a,b}). 비교 step 4 |
+| I23 | 문서별 점수·필수 미달 항목·시간·300초 목표·시간 기록 없음 | `renderDocs` | S01 score-docs | 2 | `scoreRenderDocs`: 문서별 점수·필수 미달·초·시간 목표·기록 없음 |
+| I24 | 문서×16항 호출 격자·한 문서의 여러 MSDS | `renderGrid` | S01 score-grid | 2 | `scoreRenderGrid`: 문서별/MSDS 순번별 16칸, 8칸씩 두 줄 |
+| I25 | 성공·재추출·출력 한도·실패·기록 없음·시도 수·시간·방식·한도 원인 | `gridCell, renderGrid` | S01 score-grid | 2 | `scoreCall`: 상태 글·시도·시간·방식·한도 원인 펼침 |
+| I26 | 표별 결과/정답 행 수·비율·남는 값(extras) | `renderRows` | S01 score-rows | 2 | `scoreRenderRows`: 표별 결과/정답 행 수·비율·extras |
 | I27 | A/B 선택·실행 원래 이름·순서 교환·비교 중/실패 | `diffSelect, loadDiff, renderDiffTop` | S04 compare-summary | 4 | |
 | I28 | 모델·지시문 버전·입력·동시 호출 수·코드 커밋·변경 조건 | `renderDiffTop` | S04 compare-conditions | 4 | |
 | I29 | 총점 전후·차이·값 없는 행 제외 점수 전후 | `renderDiffTop, changeLine` | S04 compare-summary | 4 | |
@@ -435,6 +435,16 @@ JS는 `T("nav.recent")` 같은 경로 조회만 합니다.
 새 문구가 꼭 필요한 step은 키와 이유를 이 목록에 추가합니다.
 승인 COPY 자체는 수정하지 않습니다.
 
+step 2의 글 출처입니다.
+
+- COPY의 `score.*`와 `jobs.kinds.*`를 `UI_TEXT`에 옮겼습니다. 채점 항목의 쉬운 이름·측정 방법도 같은 표를 씁니다.
+- COPY_EXCEPTIONS의 `score.basis.*`, `loading.scoring`, `load_failed.*`는 동적 기준·로딩·조회 실패를 보충합니다.
+- `score.summary.must_progress/target_line/top_problem/open_source/unlinked`는 사용자 결정의 짧은 목표·일반 문제 제목·연결 불가를 표시합니다.
+- `score.criteria.hidden/score/weight`, `problem.shown/show_more/empty/cause/evidence_unrecorded`, `selection.*`는 실제 API 범위와 기록 없음 상태에 대응합니다.
+- `score.history.point/selected/plotted/current_record/started/scope`, `conditions.progress/running/nonempty_difference/nonempty_meaning`는 이력·진행·보조 점수 범위를 보충합니다.
+- `score.calls.scope/attempt_info/mode/limit_reason`, `calculation.weight/loss_formula/weight_basis`, `gaps.*`, `documents.seconds`, `value_points`는 실제 수치에 단위와 뜻을 붙입니다. 공식 점수와 손실은 새로 계산하지 않습니다.
+- 예외 이유는 코드의 COPY_EXCEPTIONS에 키별로 기록했습니다. 승인 COPY는 수정하지 않았습니다.
+
 ## 설계와 다른 점
 
 | 번호 | 확인한 차이 또는 빈 곳 | 적용할 계획 | 담당 step |
@@ -462,6 +472,15 @@ JS는 `T("nav.recent")` 같은 경로 조회만 합니다.
 API의 null과 오류 상태는 단순한 상태 상자와 재시도 단추로 채웁니다.
 새 메뉴와 새 계산 방식은 추가하지 않습니다.
 
+step 2의 API 확인 보충입니다.
+
+- `/api/runs`에는 별도 `history[]`나 `best` 객체가 없습니다. `run_kind`로 정답 생성 실행을 제외한 API 기록을 그립니다. 최고점은 `/api/run`의 `card_summaries.history` 문장만 사용합니다. 화면에서 최고점을 다시 뽑지 않습니다.
+- 이력 요약은 모든 묶음 기준입니다. 현재 점수는 선택한 묶음만, 펼친 이력은 전체 묶음이라고 글로 구분합니다. 이력 표에 각 실행의 묶음·정답지·채점 수를 붙입니다.
+- 완료 시각 필드는 없습니다. 있는 `started_at`을 ‘시작 시각’으로 표시합니다. COPY의 ‘완료 시각’이라고 바꿔 부르지 않습니다.
+- API의 current가 선택 묶음과 다르면 API 시각 순 목록의 같은 묶음 마지막 실행을 씁니다. 묶음이 없거나 id가 미확정이면 결과 없음입니다.
+- key.label이 없는 응답은 ‘정답 초안(실버) 기준’으로 표시합니다. targets가 없으면 목표는 확인 못 함입니다. 90·17을 대입하지 않습니다.
+- counts·cause만 손실 행에 추가했습니다. 기존 손실 수식·값·순위와 top_drops는 유지합니다. next_action은 같은 가장 큰 문제를 가리키게 했습니다.
+
 ## 브라우저로 볼 것
 
 각 구현 step이 가로 1280·1440·1680px에서 사람이 확인할 항목을 여기에 추가합니다.
@@ -475,6 +494,14 @@ step 1의 브라우저 확인 목록입니다. 이번에는 실측하지 않았�
 - 묶음·정답지 선택의 적용과 취소를 확인합니다. 쓸 수 없는 후보의 이유와 현재 수정 시각은 보여야 합니다. 내용 지문은 접힌 상세에 있어야 합니다.
 - 말풍선 포커스·Escape·포인터 이동과 스크롤 중 맥락 줄 유지를 실제 브라우저에서 확인합니다.
 
+
+step 2의 브라우저 확인 목록입니다. 이번에는 실측하지 않았습니다.
+
+- 1280·1440·1680px에서 요약·큰 원문 단추가 첫 화면 높이에 들어오는지 확인합니다.
+- 손실의 소수 둘째 자리와 ‘점’ 단위, 0건과 기록 없음, 정답지와 문서 수가 읽히는지 확인합니다.
+- 항목표·실행 선택의 긴 이름과 호출 격자 8칸 두 줄이 페이지 너비를 넘지 않는지 확인합니다. 큰 표는 내부에서만 넘칩니다.
+- 이력 점과 동등한 표 선택을 키보드로 사용합니다. 두 점 순서·선택 취소·저장소 거부·비교 이동을 확인합니다.
+- 정답지 변경 중 이전 점수가 사라지는지 확인합니다. 원문과 다시 시험으로 실행·문서·항·채점 기준이 이어지는지는 step 3·6 구현 뒤 실제 화면에서 확인합니다.
 
 ### step 0
 
@@ -576,3 +603,68 @@ Questions skipped: non-interactive.
 - 아키텍처 점검: b_app.py와 옛 app.js 불변. 일반 스크립트 순서·API 인자 계약 준수. 새 파일에 외부 주소·한글 JS 문자열·동작 효과 없음. 새 의존성 없음. `.env`와 문서 원문을 읽지 않았습니다. 시험은 가짜 응답을 사용했습니다.
 - 실제 서버 연결과 브라우저 배치·한국어 줄바꿈·가로 스크롤은 확인하지 않았습니다. `_common.txt` 7절의 서버·브라우저 실행 금지를 따릅니다. 기계 시험을 시각 확인으로 간주하지 않습니다.
 - 커밋하지 않았습니다. `phases/app-redo/index.json`의 step 1만 완료로 기록합니다.
+
+### step 2
+
+⚠️ DEGRADED: no browser in sandbox
+
+Questions skipped: non-interactive. 승인된 구조·시안을 그대로 구현합니다.
+
+- 시험 먼저: `/tmp/step2-red.txt`에서 16 failed, 16 passed를 확인했습니다.
+- 실패: 새 score UI 11개(요약·이동·빈 상태·목록·실행 선택·이력·세부·로딩·경합·대체 글·초기 맥락), `test_problem_loss_counts_preserves_missing_zero_and_input` 3사례, `test_problem_loss_counts_partial_and_ties`, `test_problem_status_copy_contract_has_no_pass_judgement`.
+- 실패 이유: score.js 미구현, counts·cause 없음, COPY 요약 미이관.
+- 옛 polish의 항목 펼침·이력 저장 두 시험은 같은 행동을 새 DOM 시험으로 이관한 뒤 삭제했습니다.
+
+구현과 기존 시험 이관 기록입니다.
+
+- `js/score.js`는 S01 8개 구역을 등록합니다. `S.score`가 이 화면 상태를 맡습니다. `scoreLoad`는 선택 key로 재채점 요청을 읽고 늦은 응답을 무시합니다.
+- `scoreOpenSource`는 `go("s02",{run,doc,section,item,pick:"mismatch"})`를 부릅니다. doc은 top_problem.docs[0]이며 S.focus에도 남깁니다. 같은 대상 재시험은 실행 조건의 `score-retest`에서 S03으로 연결합니다.
+- 저장 상태 `b_app.pick`은 두 실행의 비교 순서입니다. 카드 접힘은 기존 core의 b_app.cards를 씁니다.
+- `test_B_b_app_score_ui.py`는 새 run_js로 교체했습니다. 기존 polish 2개를 이관·삭제했고 격자/실버 시험은 그대로 남겼습니다.
+- `test_B_b_app_text.py`의 기존 status/summary 기대 문장은 COPY의 목표선·필수 달성·한 문장 한 사실로 바꿨습니다. 이유: 사용자 결정 ‘합격’ 금지와 새 화면 이름. 수치·손실·top_drops 검증은 그대로입니다.
+- `test_status_next_action_uses_last_known_connection`은 새 손실 순위의 문제를 가리키도록 바꿨습니다. 기존 fixture에서 가장 큰 손실은 11항이며 옛 top_drops의 8항과 다릅니다. 옛 top_drops 순위 단언은 유지했습니다.
+- `test_B_b_app.py`의 `test_api_run_and_diff_targets`, `test_run_status_and_summaries_do_not_change_cached_scores`는 역사 문구 접두어만 COPY로 바꿨습니다. 서버 요약 수·캐시 불변 단언은 유지했습니다.
+- 추가 실패 확인: 원래 항목명에 붙는 괄호 설명, 미확정 묶음, 건수 미기록 문구와 점수 기준, 실행 조건의 다음 행동 4개를 RED→GREEN으로 보완했습니다. 저장된 이력 선택의 새로고침 보존도 확인했습니다.
+- impeccable context·craft/distill 참고와 craft-floor를 읽었습니다. detect는 한 번 실행했고 기존 지적 22개(wireframes 15, guide 7)뿐입니다. 변경한 index/app.css/js 지적은 0개입니다. 정적 경로 `/static/app.css`를 검사기가 상대 경로로 풀어 못 읽는 경고가 있어 색 검사 범위는 불완전합니다. 직접 CSS 토큰과 정적 규칙 시험을 확인했습니다.
+- 브라우저·앱 서버·모델 서버는 실행하지 않았습니다. 전체 AC 안의 A 시험이 포트를 열려다 샌드박스에서 거부되었습니다. A 시험을 고치거나 제외하지 않았습니다.
+
+최종 AC와 아키텍처 확인입니다.
+
+- `/tmp/step2-ac.sh`에 지정 AC를 그대로 넣어 저장소 최상위에서 bash로 실행했습니다. 최종 종료 코드는 1입니다. 기록은 `/tmp/step2-ac.log`입니다.
+- 정적 파일·스크립트·counts·옛 시험 이관·BUILD 절·Node 확인은 모두 통과했습니다.
+- score UI + DOM: 20 passed. loss/status/top_problem: 23 passed. b_app + b_app_runs: 117 passed.
+- 전체 지정 시험: **1 failed, 1944 passed, 30 skipped, 7 warnings** (36.78초). 경고는 기존 SWIG 타입의 __module__ 사용 중단 경고입니다.
+- 실패는 `tests/test_A_input.py::test_every_changing_route_answers_with_update` 한 개입니다. A 시험의 425행 `HTTPServer(("127.0.0.1", 0), ...)`가 `socket.bind`에서 `PermissionError: [Errno 1] Operation not permitted`로 중단됩니다. 이 샌드박스의 포트 열기 제한입니다. A 파일과 시험 기대값은 변경하지 않았습니다.
+- 전체 AC를 통과하지 못했으므로 step 2 상태는 **error**입니다. 브라우저와 로컬 포트가 허용된 실행 환경에서 전체 AC 재확인이 필요합니다. 현재 환경에서 예외를 숨기거나 시험을 제외하지 않습니다.
+- 10/31 Claude가 샌드박스 밖에서 전체 시험을 다시 돌렸습니다: 1945 passed, 30 skipped. A 시험도 통과했습니다. 그래서 step 2를 completed로 바꾸고 실행기 AC 재검증에 맡겼습니다.
+- 원래 추적/보호 파일 3,722개의 지문과 비교했습니다. 허용된 기존 파일 8개만 달랐고 score.js 하나를 새로 만들었습니다. 정보 보존표의 이 step 빈칸은 0개입니다. 상태 기록은 step 2만 변경합니다.
+- `b_app.py`, `b_app_runs.py`, 추출·공용·다른 역할 코드, 옛 app.js, 승인 설계, docs, CLAUDE.md, step 파일은 불변입니다. score_losses의 기존 수식·정렬·값, top_drops의 값·순서와 모든 기존 API 키를 보존했습니다.
+- 일반 script 순서, 가짜 API 시험, 온전한 실패 원문 표시, 한글 문자열의 UI_TEXT 집중, 패키지·외부 주소·움직임 효과 금지를 확인했습니다. `git diff --check`가 통과했습니다.
+- 이력과 목표 막대는 받은 점수를 좌표로만 바꿉니다. 계산은 보조 점수 차이와 표 행 비율 등 기존 표시값뿐입니다. 목표값 90·17이나 손실 순위를 화면에 박지 않았습니다.
+- 브라우저 확인을 수행하지 않았으므로 첫 화면 높이·가로 넘침·줄바꿈·실제 원문/재시험 흐름은 확정하지 않습니다. 커밋하지 않았습니다.
+
+#### Step 2 재시도 검증
+
+⚠️ DEGRADED: no browser in sandbox
+
+- 이전 시도의 미커밋 변경을 읽고 그대로 이어서 검증했습니다. 이번 재시도에는 기능 코드와 시험을 추가로 바꾸지 않았습니다. 위의 실패 시험 기록은 이전 구현 시도의 기록입니다.
+- 정적 AC와 `git diff --check`는 종료 코드 0입니다. 지정한 시험 세 묶음은 각각 20 passed, 23 passed, 117 passed입니다.
+- 전체 지정 시험은 **1 failed, 1944 passed, 30 skipped, 7 warnings**입니다(36.82초, 종료 코드 1). 실행 기록은 `/tmp/to21-step2-full-ac.log`입니다.
+- 실패는 동일한 `tests/test_A_input.py::test_every_changing_route_answers_with_update`입니다. 425행의 로컬 HTTP 서버가 `socket.bind`에서 `PermissionError: [Errno 1] Operation not permitted`로 중단됩니다. A 시험은 수정하거나 제외하지 않았습니다. 현재 권한과 B 역할의 변경 범위 안에서는 이 제한을 해소할 수 없습니다.
+- 기존 손실 함수의 구문 트리를 대조했습니다. `counts`·`cause` 추가 부분을 제외하면 기존 수식·정렬·반환 구조가 같습니다. 정보 보존표의 Step 2 담당 20줄에 새 위치가 모두 있습니다.
+- impeccable context와 detect를 각각 한 번 실행했습니다. 지적 22개는 기존 `wireframes.html` 15개와 `guide.html` 7개입니다. 변경한 화면 파일의 새 지적은 없습니다. `/static/app.css` 경로 해석 경고로 색·사용자 정의 속성 검사는 불완전합니다.
+- 재시도 시작 때 기록한 보호 파일 128개의 지문이 같습니다. 이번 변경은 이 재시도 기록과 `phases/app-redo/index.json`의 Step 2 상태·오류뿐입니다.
+- Step 2는 **error**로 기록합니다. 로컬 포트가 허용된 환경에서 전체 AC를 다시 실행해야 합니다. 브라우저 확인 항목은 위 ‘브라우저로 볼 것’에 유지합니다. 커밋하지 않았습니다.
+
+#### Step 2 이번 세션 재검증 (2026-10-31)
+
+⚠️ DEGRADED: no browser in sandbox
+
+- 이전 미커밋 구현과 시험을 보존했습니다. 이번에는 기능 코드와 시험을 추가로 변경하지 않았습니다. 테스트 선작성·실패 확인은 위의 이전 구현 기록에 해당합니다.
+- 지정 AC를 각각 직접 실행했습니다. 정적 AC는 종료 코드 0입니다. 화면·DOM 시험은 20 passed, 손실·상태 시험은 23 passed, API·실행 요약 시험은 117 passed입니다.
+- 전체 지정 시험은 **1 failed, 1944 passed, 30 skipped, 7 warnings**입니다(36.60초, 종료 코드 1). `tests/test_preprocess.py`만 지정대로 제외했습니다. 경고 7개는 기존 SWIG 타입의 `__module__` 사용 중단 경고입니다.
+- 실패는 `tests/test_A_input.py::test_every_changing_route_answers_with_update`입니다. 425행의 `HTTPServer(("127.0.0.1", 0), ...)`가 `socket.bind`에서 `PermissionError: [Errno 1] Operation not permitted`로 중단됩니다. A 시험을 수정하거나 추가로 제외하지 않았습니다.
+- `score_losses`를 HEAD의 구문 트리와 대조했습니다. `counts`·`cause`를 넣는 반복문을 제외하면 기존 수식·정렬·반환 구조가 같습니다. 화면은 API의 손실 순서·목표값을 사용합니다.
+- impeccable context와 detect를 각각 한 번 실행했습니다. 지적 22개는 기존 `design/wireframes.html` 15개와 `guide.html` 7개입니다. 변경한 화면 파일의 지적은 0개입니다. `/static/app.css` 해석 경고로 색·사용자 정의 속성 검사는 불완전합니다.
+- 기록 작성 전 파일 3,902개의 지문이 시작 때와 같았습니다. 이번 변경은 BUILD의 이 기록과 index의 Step 2 상태·오류뿐입니다. 다른 step과 보호 파일은 변경하지 않습니다.
+- 전체 AC 실패에 따라 Step 2를 **error**로 기록합니다. 로컬 포트가 허용된 환경에서 전체 AC를 재실행해야 합니다. 실제 화면 검증은 위 ‘브라우저로 볼 것’ 목록에 남깁니다. 커밋하지 않았습니다.

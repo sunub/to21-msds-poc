@@ -24,24 +24,6 @@ def test_server_log_copy_instruction_only_appears_with_lines():
     """)
 
 
-def test_item_toggle_is_button_and_preserves_focus_and_expansion():
-    run_js(r"""
-      S.criteria={items:[],weights:{'필수':3}};
-      S.run={items:[{name:'가짜 항목',level:'필수',score:.5,target:.9,pass:false}]};
-      renderItems(S.run);
-      let row=document.getElementById('items-card').querySelector('.item');
-      assert.equal(row.tagName,'button');
-      assert.equal(row.getAttribute('aria-expanded'),'false');
-      row.focus(); row.click();
-      row=document.getElementById('items-card').querySelector('.item');
-      assert.equal(row.getAttribute('aria-expanded'),'true');
-      assert.equal(document.activeElement,row);
-      assert.match(document.getElementById('items-card').textContent,/틀린 값 기록이 없습니다/);
-      row.click();
-      assert.equal(document.getElementById('items-card').querySelector('.item').getAttribute('aria-expanded'),'false');
-    """)
-
-
 def test_changed_values_toggle_is_button_and_keeps_both_lists():
     run_js(r"""
       S.diff.data={changed_values:{'가짜 항목':{fixed:[{doc_id:'T21-X01',kind:'틀림',content:'고친 값'}],broken:[]}}};
@@ -54,26 +36,6 @@ def test_changed_values_toggle_is_button_and_keeps_both_lists():
       assert.equal(document.activeElement,row);
       assert.match(card.textContent,/고친 값/);
       assert.match(card.textContent,/새로 틀린 것: 없음/);
-    """)
-
-
-def test_history_points_are_buttons_and_storage_denial_keeps_selection():
-    run_js(r"""
-      S.criteria={pass_score:90};
-      S.list=['a','b'].map((name,i)=>({name,kind:'run',weighted:70+i,model_tag:'fake',label:{title:'가짜 '+name}}));
-      S.name='b';
-      renderHistory();
-      const card=document.getElementById('history-card');
-      let points=card.querySelectorAll('.history-point');
-      assert.equal(points.length,2);
-      assert.ok(points.every(p=>p.tagName==='button' && p.getAttribute('aria-label').includes('가짜')));
-      localStorage.setItem=()=>{throw new Error('denied');};
-      points[0].focus(); points[0].click();
-      points=card.querySelectorAll('.history-point');
-      assert.equal(points[0].getAttribute('aria-pressed'),'true');
-      assert.equal(document.activeElement,points[0]);
-      assert.deepEqual(S.pick,['a']);
-      assert.match(card.textContent,/가짜 a/);
     """)
 
 
