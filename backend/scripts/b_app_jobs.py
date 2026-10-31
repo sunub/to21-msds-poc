@@ -6,6 +6,7 @@
   manifest 밖 문서(RAW-xx)는 실행기 능력(outside_run_support)이 있을 때만 본 실행에 넣는다 (ADR-028).
 - 바꾼 안내문 글은 저장소 밖 임시 파일(tempfile)에만 쓰고, 작업이 끝나면 지운다. 로그·상태 파일에는 경로만 남는다 (D-47).
 - 작업마다 jobs_dir(runs/manual/jobs)에 로그 <id>.log와 상태 <id>.json을 남긴다. 앱을 다시 켜도 지난 작업이 보인다.
+- 상태에는 띄울 때의 조건(target: 문서·항·모델·묶음·정답지 등)을 구조 그대로 둔다. 키와 바꾼 안내문 글은 넣지 않는다.
 - 작업은 새 세션(프로세스 묶음)으로 띄운다. 앱을 꺼도 작업은 계속 돌고, 멈추기는 묶음 전체(bash와 그 아래 python)에 보낸다.
 - 시험은 spawner·ps·sleep을 가짜로 끼운다. 진짜 프로세스를 띄우지 않는다.
 """
@@ -57,6 +58,7 @@ class Job:
     total: int | None = None                         # 본 실행: 실행 하나의 문서 수
     stopped: bool = False
     tmp: str | None = None                           # 바꾼 안내문 임시 파일 경로 (글은 남기지 않는다)
+    target: dict | None = None                       # 무엇을 어떤 조건으로 돌렸는지(구조). 키·안내문 글은 없다. 옛 상태 파일은 None
 
 
 class _Group:
@@ -181,8 +183,8 @@ class JobManager:
                              "다른 쪽 폴더를 고르세요")
         return pages_dir
 
-    def _check_docs(self, doc_ids, pages_dir, kind: str) -> list[str]:
-        """작업에 넣을 문서 (순서 유지, 중복 제거). kind는 "try" | "run". 걸리면 ValueError.
+    def _check_docs(self, doc_ids, pages_dir, kind: str) -> tuple[list[str], str]:
+        """(작업에 넣을 문서(순서 유지, 중복 제거), 쪽 폴더의 묶음 id). kind는 "try" | "run". 걸리면 ValueError.
         순서: 형·문서 번호 → 평가용(폴더를 보기 전에, D-43) → 쪽 폴더(_pages) → 쓸 수 있는 묶음 → 문서별 job_check."""
         if not isinstance(doc_ids, list) or not all(isinstance(d, str) for d in doc_ids):
             raise ValueError(f"문서 번호 목록을 확인하세요: {doc_ids}")
@@ -207,7 +209,7 @@ class JobManager:
             reason = bsets.job_check(entries[d], kind)   # _pages를 지났으니 문서 폴더가 묶음 안에 있다
             if reason:
                 raise ValueError(f"{d}: {reason}")
-        return doc_ids
+        return doc_ids, found["id"]
 
     @staticmethod
     def _name(value, what: str) -> str:
@@ -242,10 +244,12 @@ class JobManager:
 
     def start_try(self, *, model: str, doc: str, sections: list[int] | None, all_: bool, pages_dir: str,
                   system_text: str | None, base_run: str | None, dry_run: bool = False,
-                  extra_env: dict[str, str] | None = None, gold_dir: str | None = None) -> Job:
-        """gold_dir는 앱이 정답지 목록에서 찾은 폴더(backend 기준). 있으면 --gold-dir로 넘긴다(시험의 점수 전→후)."""
+                  extra_env: dict[str, str] | None = None, gold_dir: str | None = None,
+                  key: dict | None = None) -> Job:
+        """gold_dir는 앱이 정답지 목록에서 찾은 폴더(backend 기준). 있으면 --gold-dir로 넘긴다(시험의 점수 전→후).
+        key는 앱이 정한 그 정답지 {"id", "label", "fingerprint", "given"}. target에만 남는다(없으면 None)."""
         self._model(model)
-        self._check_docs([doc], pages_dir, "try")
+        _, set_id = self._check_docs([doc], pages_dir, "try")
         if all_:
             secs = None
         else:
@@ -278,11 +282,17 @@ class JobManager:
             argv += ["--system-file", tmp]
         scope = "문서 전체" if all_ else "·".join(map(str, secs)) + "항"
         label = " · ".join([f"{doc} {scope}", model] + (["바꾼 안내문"] if tmp else []) + (["dry-run"] if dry_run else []))
-        return self._start("try", argv, label, extra_env=extra_env, tmp=tmp)
+        target = {"kind": "try", "doc": doc, "sections": secs, "all": bool(all_), "model": model,
+                  "set": set_id, "pages_dir": pages_dir,
+                  "key": {k: key.get(k) for k in ("id", "label", "fingerprint", "given")} if key else None,
+                  "base_run": base_run or None, "dry_run": bool(dry_run),
+                  "custom_prompt": system_text is not None}           # 바꾼 안내문은 있었다는 사실만 (D-47)
+        return self._start("try", argv, label, extra_env=extra_env, tmp=tmp, target=target)
 
-    def _check_run(self, model, docs, pages_dir, run_name, repeat) -> tuple[dict, list[str], list[str], str]:
+    def _check_run(self, model, docs, pages_dir, run_name, repeat) -> tuple[dict, list[str], list[str], str, str]:
         cfg = self._model(model)
-        doc_ids = self._check_docs(docs if docs else [r["doc_id"] for r in manifest.select("개발")], pages_dir, "run")
+        doc_ids, set_id = self._check_docs(docs if docs else [r["doc_id"] for r in manifest.select("개발")],
+                                           pages_dir, "run")
         self._name(run_name, "실행 이름")
         if not isinstance(repeat, int) or isinstance(repeat, bool) or not 1 <= repeat <= MAX_REPEAT:
             raise ValueError(f"반복 수는 1~{MAX_REPEAT}입니다: {repeat}")
@@ -290,11 +300,11 @@ class JobManager:
         taken = [n for n in names if (self.runs_dir / n).exists()]
         if taken:
             raise ValueError(f"이미 있는 실행 이름입니다: {', '.join(taken)}. 다른 이름을 쓰세요")
-        return cfg, doc_ids, names, pages_dir
+        return cfg, doc_ids, names, pages_dir, set_id
 
     def run_summary(self, *, model: str, docs: list[str] | None, pages_dir: str, run_name: str, repeat: int) -> str:
         """본 실행을 시작하기 전에 보여 줄 요약. 검사에 걸리면 ValueError."""
-        cfg, doc_ids, names, pages_dir = self._check_run(model, docs, pages_dir, run_name, repeat)
+        cfg, doc_ids, names, pages_dir, _ = self._check_run(model, docs, pages_dir, run_name, repeat)
         text = (f"{len(doc_ids)}건 × {repeat}회, 모델 {model} ({cfg['model']}), 쪽 폴더 {pages_dir}, "
                 f"실행 이름 {', '.join(names)}")
         busy = self.running()
@@ -306,14 +316,15 @@ class JobManager:
                   extra_env: dict[str, str] | None = None) -> list[Job]:
         """repeat번의 run_sections.py를 차례로 돌리는 셸 한 줄을 작업 하나로 띄운다. Mac이 잠들면 실행이 멈추므로(10/28)
         darwin에 caffeinate가 있으면 그것으로 감싼다."""
-        _, doc_ids, names, pages_dir = self._check_run(model, docs, pages_dir, run_name, repeat)
+        _, doc_ids, names, pages_dir, set_id = self._check_run(model, docs, pages_dir, run_name, repeat)
         cmds = [[str(self.python), "scripts/run_sections.py", "--model", model, "--docs", *doc_ids,
                  "--run-name", n, "--pages-dir", pages_dir] for n in names]
         argv = ["bash", "-c", "; ".join(shlex.join(c) for c in cmds)]
         if self._platform == "darwin" and self._which("caffeinate"):
             argv = ["caffeinate", "-dimsu", *argv]
         label = f"{run_name} · {len(doc_ids)}건 × {repeat}회 · {model}"
-        return [self._start("run", argv, label, extra_env=extra_env, runs=names, total=len(doc_ids))]
+        target = {"kind": "run", "model": model, "docs": doc_ids, "set": set_id, "run_names": names, "repeat": repeat}
+        return [self._start("run", argv, label, extra_env=extra_env, runs=names, total=len(doc_ids), target=target)]
 
     def start_compare(self, *, title: str, runs: list[str], labels: list[str | None] | None) -> Job:
         """labels의 빈 칸은 라벨 없이(실행 이름 그대로) 넘긴다."""
@@ -333,7 +344,8 @@ class JobManager:
             raise ValueError(f"이미 있는 비교표입니다: runs/{out}. 다른 제목을 쓰세요")
         specs = [f"{lb}={r}" if lb else r for lb, r in zip(labels, runs)]
         argv = [str(self.python), "scripts/compare_models.py", "--title", title, "--runs", *specs]
-        return self._start("compare", argv, f"{title} · 실행 {len(runs)}개", runs=[out])
+        return self._start("compare", argv, f"{title} · 실행 {len(runs)}개", runs=[out],
+                           target={"kind": "models", "runs": list(runs), "title": title})
 
     # ── 상태 ───────────────────────────────────────────
 
@@ -410,7 +422,8 @@ class JobManager:
 
     def _view(self, job: Job) -> dict:
         """error: 실패한 작업의 '무슨 일 + 할 일'(아니면 None). warnings: 로그의 .env 경고(상태와 상관없이).
-        dry_run: --dry-run으로 띄운 연습 실행인지. 화면이 명령 글을 뒤지지 않게 한다."""
+        dry_run: --dry-run으로 띄운 연습 실행인지. 화면이 명령 글을 뒤지지 않게 한다.
+        target: 띄울 때의 조건(Job.target). 옛 작업은 None(화면은 '기록 당시 기준 미확인')."""
         problems = self._log_problems(job)
         status = self._status(job)
         out = None
@@ -425,7 +438,8 @@ class JobManager:
                 "command": shlex.join(job.argv), "log": os.path.relpath(job.log, self.runs_dir.parent),
                 "runs": job.runs, "progress": progress, "output": out,
                 "error": problems if status == "failed" else None,
-                "warnings": problems["warnings"] if problems else [], "dry_run": "--dry-run" in job.argv}
+                "warnings": problems["warnings"] if problems else [], "dry_run": "--dry-run" in job.argv,
+                "target": job.target}
 
     def list(self) -> list[dict]:
         with self._lock:

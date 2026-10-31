@@ -581,6 +581,32 @@ def test_custom_startup_key_round_trips(app, kctx, env):
     assert code == 200 and data["key"]["id"] == "gold" and data["runs"][0]["docs"] == [X01, X02]
 
 
+def test_job_post_set_and_key_are_kept_in_target(app, env, answer_keys):
+    from test_B_b_app_jobs import TAG, FakeSpawner
+    for d in (X01, X02):
+        page(answer_keys / "pages" / "prev" / "version9" / d)
+    (env / "backend").mkdir()
+    sp = FakeSpawner()
+    m = app.bj.JobManager(env / "runs" / "manual" / "jobs", env / "가상" / "python", env / "backend", spawner=sp,
+                          runs_dir=env / "runs", ps=lambda: "", sleep=lambda s: None)
+    ctx = app.AppContext(runs_dir=env / "runs", gold_dir=answer_keys / "silver" / "claude", pages_dir=env / "pages",
+                         static_dir=app.STATIC, cache_dir=None, gaps_file=env / "silver_gaps.yaml", jobs=m,
+                         pages_root=answer_keys / "pages", data_root=answer_keys)
+    fp = {k["id"]: k["fingerprint"] for k in get_json(app, ctx, "/api/keys")[1]["keys"]}
+    body = {"model": TAG, "doc": X01, "sections": [8], "set": "prev/version9", "key": "gold/a3"}
+    assert app.route("POST", "/api/jobs/try", {}, json.dumps(body).encode(), ctx)[0] == 200
+    run = {"model": TAG, "docs": [X01], "set": "prev/version9", "run_name": "묶음실행", "repeat": 1, "confirm": True}
+    assert app.route("POST", "/api/jobs/run", {}, json.dumps(run, ensure_ascii=False).encode(), ctx)[0] == 200
+    code, data = get_json(app, ctx, "/api/jobs")
+    targets = {j["kind"]: j["target"] for j in data["jobs"]}
+    assert code == 200 and set(targets) == {"try", "run"}
+    assert targets["try"]["set"] == "prev/version9" and targets["try"]["pages_dir"] == "../data/pages/prev/version9"
+    assert targets["try"]["key"] == {"id": "gold/a3", "label": app.bt.key_label("gold/a3"), "fingerprint": fp["gold/a3"],
+                                     "given": True}
+    assert targets["run"]["set"] == "prev/version9" and targets["run"]["docs"] == [X01]
+    assert targets["run"]["run_names"] == ["묶음실행_r1"]
+
+
 def test_main_passes_data_root(app, monkeypatch, env, tmp_path):
     seen = {}
     monkeypatch.setattr(app.bs, "ENV_FILE", tmp_path / ".env")          # 실제 .env를 열지 않는다
