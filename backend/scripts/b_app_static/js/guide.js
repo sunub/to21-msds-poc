@@ -196,60 +196,57 @@ function guideChapterRow(meta) {
     h("p", {id: "guide-progress-text", class: "guide-progress-text"}, T("guide.progress",
       {chapter: T(`guide.chapters.${meta.chapter}`), n: meta.n, m: meta.m, k: meta.chapter})));
 }
-function guideExampleText(key, values = {}) {return T(`guide.example.${key}`, {...UI.guide.example.values, ...values});}
-function guideExampleRow(label, value) {return h("div", {class: "guide-mini-row"}, h("span", null, guideExampleText(label)), h("strong", null, guideExampleText(value)));}
+function guideExampleText(key) {return T(`guide.example.${key}`);}
+function guideExampleBlank() {return h("span", {class: "guide-placeholder", "aria-hidden": "true"});}
+function guideExampleRow(label, value) {return h("div", {class: "guide-mini-row"}, h("span", null, guideExampleText(label)),
+  value ? h("strong", null, guideExampleText(value)) : guideExampleBlank());}
 function guideExampleScore() {
   return h("div", {class: "guide-mini-content"}, h("h2", null, guideExampleText("score_title")),
-    h("div", {class: "guide-mini-score"}, guideExampleText("score"), h("span", null, guideExampleText("score_unit"))),
-    h("p", null, guideExampleText("gap")),
-    h("div", {class: "guide-scale", "aria-hidden": "true"}, h("span", {style: `width:${UI.guide.example.values.score}%`}),
-      h("i", {style: `left:${UI.guide.example.values.target}%`})),
-    h("p", {class: "guide-scale-label"}, guideExampleText("target")),
-    S.guide.screen === "G01" ? h("p", null, guideExampleText("essential_definition")) : null,
-    h("p", null, guideExampleText("essential")));
+    h("div", {class: "guide-mini-score"}, guideExampleBlank()), guideExampleBlank(),
+    h("div", {class: "guide-scale", "aria-hidden": "true"}), guideExampleBlank());
 }
 function guideExamplePair(result = false) {
   return h("div", {class: "guide-value-pair"}, [false, true].map(answer => h("div", null,
     h("span", null, guideExampleText(result ? (answer ? "new_value" : "old_value") : (answer ? "answer_label" : "ai_value"))),
-    h("div", {class: "guide-value"}, guideExampleText(answer ? "answer" : "prediction"),
-      h("span", {class: "guide-unit"}, guideExampleText("unit"))))));
+    h("div", {class: "guide-value"}, guideExampleBlank()))));
 }
 function guideExample(kind) {
   const E = guideExampleText;
   let content;
   if (kind === "steps") content = h("div", {class: "guide-mini-steps"},
     h("div", null, h("h2", null, E("step1")), h("div", null, h("strong", null, E("biggest")),
-      h("p", {class: "guide-value"}, E("score"), h("span", {class: "guide-unit"}, E("points"))), h("p", null, E("view_limit")))),
-    h("div", null, h("h2", null, E("step2")), h("div", null, h("strong", null, E("doc")),
-      h("div", {class: "guide-mini-source"}, E("line"), h("p", null, E("short_source"))))),
-    h("div", null, h("h2", null, E("step3")), h("div", null, h("strong", null, E("section")),
-      h("p", {class: "guide-value"}, E("answer"), h("span", {class: "guide-unit"}, E("unit"))), h("p", null, E("new_answer")))));
+      h("p", {class: "guide-value"}, guideExampleBlank()), h("p", null, E("view_limit")))),
+    h("div", null, h("h2", null, E("step2")), h("div", null, guideExampleBlank(),
+      h("div", {class: "guide-mini-source"}, E("line"), guideExampleBlank()))),
+    h("div", null, h("h2", null, E("step3")), h("div", null, guideExampleBlank(),
+      h("p", {class: "guide-value"}, guideExampleBlank()), h("p", null, E("new_answer")))));
   else {
     let body;
-    if (kind === "score") body = [guideExampleScore(), h("div", {class: "guide-mini-sub"}, h("strong", null, E("problem")),
+    if (kind === "score") body = [guideExampleScore(), h("div", {class: "guide-mini-sub"}, h("strong", null, E("biggest")),
       h("p", null, E(S.guide.screen === "G01" ? "limit_definition" : "limit_short")),
-      S.guide.screen === "G01" ? h("p", null, E("exposure")) : null, h("p", null, E("loss")))];
+      S.guide.screen === "G01" ? h("p", null, E("exposure")) : null, guideExampleBlank())];
     if (kind === "ready") body = h("div", {class: "guide-mini-content"}, h("h2", null, E("ready_title")),
-      guideExampleRow("saved", "present"), guideExampleRow("key", "present"), guideExampleRow("ai", "absent"), h("p", {class: "guide-after"}, E("offline")));
+      guideExampleRow("saved"), guideExampleRow("key"), guideExampleRow("ai"), h("p", {class: "guide-after"}, E("offline")));
     if (kind === "source" || kind === "result") body = h("div", {class: "guide-mini-content"}, h("h2", null, E(kind === "source" ? "source_title" : "result_title")),
-      h("p", null, E(kind === "source" ? "source_target" : "result_target")), guideExamplePair(kind === "result"),
-      h("div", {class: "guide-mini-source"}, h("strong", null, E("line")), h("p", null, E("source"))),
+      guideExampleBlank(), guideExamplePair(kind === "result"),
+      h("div", {class: "guide-mini-source"}, h("strong", null, E("line")), guideExampleBlank()),
       h("p", {class: "guide-after"}, E(kind === "source" ? "read_line" : "result_note")));
     if (kind === "defaults") body = h("div", {class: "guide-mini-content"}, h("h2", null, E("defaults_title")),
-      guideExampleRow("set", "set_name"), guideExampleRow("key", "answer_name"),
-      h("div", {class: "guide-mini-score"}, E("score"), h("span", null, E("score_unit"))), h("p", null, E("trust")));
+      guideExampleRow("set"), guideExampleRow("key", "answer_name"),
+      h("div", {class: "guide-mini-score"}, guideExampleBlank()), h("p", null, E("trust")));
     if (kind === "practice") body = h("div", {class: "guide-mini-content"}, h("h2", null, E("practice_title")),
-      guideExampleRow("document", "doc"), guideExampleRow("part", "section"), h("div", {class: "guide-mini-source"},
-        h("strong", null, E("instruction_title")), h("p", null, E("instruction"))), h("p", {class: "guide-after"}, E("practice_offline")));
+      guideExampleRow("document"), guideExampleRow("part"), h("div", {class: "guide-mini-source"},
+        h("strong", null, E("instruction_title")), guideExampleBlank()), h("p", {class: "guide-after"}, E("practice_offline")));
     if (kind === "ai") body = h("div", {class: "guide-mini-content"}, h("h2", null, E("ai_title")),
-      guideExampleRow("tunnel", "open"), guideExampleRow("model", "off"), guideExampleRow("model_time", "model_duration"),
+      guideExampleRow("tunnel"), guideExampleRow("model"), guideExampleRow("model_time", "model_duration"),
       h("p", {class: "guide-after"}, E("guide_return")));
     content = h("div", {class: "guide-mini-screen"}, h("div", {class: "guide-mini-head"}, E("brand")),
       h("div", {class: "guide-mini-context"}, E(S.guide.screen === "G01" ? "context_first" : "context"),
         S.guide.screen === "G01" ? h("p", null, E("draft_definition")) : null), body);
   }
-  return h("aside", {id: "guide-example", class: "guide-example", "aria-label": E("label")}, h("div", {class: "app-name"}, E("brand")),
-    h("div", {class: "guide-demo-center"}, h("figure", null, h("figcaption", null, h("span", {class: "guide-example-badge"}, E("badge"))), content,
+  return h("aside", {id: "guide-example", class: "guide-example", role: "img", "aria-label": E("label")},
+    h("div", {class: "app-name", "aria-hidden": "true"}, E("brand")),
+    h("div", {class: "guide-demo-center", "aria-hidden": "true"}, h("figure", null, h("figcaption", null, h("span", {class: "guide-example-badge"}, E("badge"))), content,
       kind === "defaults" && S.guide.screen === "G13" ? h("p", {class: "guide-demo-caption"}, E("set_definition")) : null,
       S.guide.screen === "G02" ? h("p", {class: "guide-demo-caption"}, T("guide.choices.example_part"), h("br"), T("guide.choices.example_unit")) : null)));
 }
