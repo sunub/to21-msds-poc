@@ -649,6 +649,18 @@ def test_route_options_without_status(bj, app, where):
     ctx = ctx_of(app, where, manager(bj, where))
     data = call(app, ctx, "GET", "/api/options")[1]
     assert data["status_checked"] is False and all(m["connected"] is None for m in data["models"])
+    assert all(m["watched"] is None for m in data["models"])             # 조회 전에는 모른다
+
+
+def test_route_options_marks_tags_the_server_tab_watches(bj, app, where):
+    """다시 시험의 기본 모델을 고를 때 쓴다. 서버 탭이 연결을 보는 태그(회사·빌린 서버)는 연결이 끊겨도 watched다.
+    정답 초안용 태그(gpt, claude)는 서버 탭이 보지 않아 watched가 거짓이다 (11/1)."""
+    status = [{"tag": TAG, "reachable": True, "match": True, "error": None},
+              {"tag": "qwen3_30b_a3b_rngd", "reachable": False, "match": None, "error": "URLError"}]
+    ctx = ctx_of(app, where, manager(bj, where), model_status=lambda: status)
+    models = {m["tag"]: m for m in call(app, ctx, "GET", "/api/options")[1]["models"]}
+    assert models[TAG]["watched"] is True and models["qwen3_30b_a3b_rngd"]["watched"] is True
+    assert models["claude"]["watched"] is False and models["gpt"]["watched"] is False
 
 
 @pytest.mark.parametrize("advanced", [None, "0", "1"])
