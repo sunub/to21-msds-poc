@@ -89,10 +89,28 @@ def _side(comps, side, route, form, include_min, unknown_limit):
             "sigma": sigma}, use, [p / sigma if p is not None and sigma else None for p in part]
 
 
+_NEEDS_CONTENT = ("value", "conversion", "unknown", "interval")
+_EPS_ATE = 1e-9  # "<X" 구간의 하한 0 대신 쓰는 아주 작은 ATE (가장 엄격한 구분까지 가능)
+
+
+def _corners(comps):
+    """interval 성분을 가장 약한 쪽(hi, 없으면 Σ에서 제외)과 가장 엄격한 쪽(lo)으로 풀어 낸 성분 목록 둘."""
+    mild, strict = [], []
+    for c in comps:
+        a = c["ate"]
+        if a["kind"] != "interval":
+            mild.append(c), strict.append(c)
+            continue
+        hi = {"kind": "value", "value": a["hi"]} if a["hi"] is not None else {"kind": "inequality"}
+        mild.append({**c, "ate": {**a, **hi}})
+        strict.append({**c, "ate": {**a, "kind": "value", "value": a["lo"] or _EPS_ATE}})
+    return mild, strict
+
+
 def _insufficient(comps):
     """함량 없는 성분 때문에 이 경로를 계산할 수 없다. 그 성분을 빼고 계산하지 않는다."""
     side = {"ate_mix": None, "category": None, "formula": None, "unknown_pct": None, "ref_cat5": False, "sigma": None}
-    blocked = lambda c: _no_content(c) and c["ate"]["kind"] in ("value", "conversion", "unknown")
+    blocked = lambda c: _no_content(c) and c["ate"]["kind"] in _NEEDS_CONTENT
     use = {s: "함량없음" for s in ("low", "high")}
     return {"low": dict(side), "high": dict(side), "status": "근거부족", "reason": "함량 없음",
             "terms": [{"name": c["name"], "content": c.get("content"), "ate": c["ate"].get("value"),
@@ -110,11 +128,12 @@ def mix_acute(comps, route, form=None, *, include_min=None, unknown_limit=None):
     include_min = param("acute_include_min") if include_min is None else include_min
     unknown_limit = param("acute_unknown_limit") if unknown_limit is None else unknown_limit
     r, f = _ROUTE[route], _FORM.get(form)
-    if any(_no_content(c) and c["ate"]["kind"] in ("value", "conversion", "unknown") for c in comps):
+    if any(_no_content(c) and c["ate"]["kind"] in _NEEDS_CONTENT for c in comps):
         return _insufficient(comps)
     out, uses, shares = {}, {}, {}
-    for side in ("low", "high"):
-        out[side], uses[side], shares[side] = _side(comps, side, r, f, include_min, unknown_limit)
+    mild, strict = _corners(comps)  # 구간이 없으면 둘 다 comps 그대로라 기존 계산과 같다
+    for side, cs in (("low", mild), ("high", strict)):
+        out[side], uses[side], shares[side] = _side(cs, side, r, f, include_min, unknown_limit)
     lack = any(out[s]["ate_mix"] is None and out[s]["unknown_pct"] > 0 for s in out)
     same = out["low"]["category"] == out["high"]["category"]
     out["status"] = "근거부족" if lack else "확정" if same else "경계"
