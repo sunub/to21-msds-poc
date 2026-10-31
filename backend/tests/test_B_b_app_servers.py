@@ -184,7 +184,7 @@ def test_model_status_friendly_connection_failure(srv, wrapped, error):
         exc = URLError(exc)
     result = srv.model_status("t", CFG, ENV, opener=opener_of(error=exc))
     assert result["error"] == type(exc).__name__
-    assert result["friendly"]["message"] == "서버가 응답하지 않습니다."
+    assert result["friendly"]["message"] == "모델 서버가 응답하지 않습니다."
     no_key(result)
 
 
