@@ -357,3 +357,167 @@ def test_classes_to_to21_single_vs_many_msds():
     assert [c["class_code"] for c in one["msds"][0]["hazard"]["classes"]] == ["PH_FLAM_LIQ", "HH_CARCINOGEN",
                                                                              "ENV_AQ_CHRONIC"]
     assert all(m["hazard"]["classes"] == [] for m in two["msds"])
+
+
+# ── 15항 기준농도 ───────────────────────────────────────
+
+from msds.extract.rows import parse_qm                         # noqa: E402
+from msds.extract.source_rules import fill_thresholds          # noqa: E402
+
+THRESHOLD_LINES = [                                            # 가짜 15항. 줄이 바뀌어 '(1%' / '이상)'으로 끊긴다
+    "15. 법적 규제현황",
+    "가. 산업안전보건법에 의한 규제",
+    "- 가상물질 : 관리대상 유해물질(0.1% 이상), 작업환경 측정물질(1%",
+    "이상), 노출기준 설정물질",
+    "- 해당됨 (1% 이상 함유한 가상물질)",
+    "나. 화학물질관리법에 의한 규제",
+    "- 가상물질 : 가상물질(가-123) : 함유율(0.1 wt% 이상), 취급량(10 ton/yr)",
+    "● 가상 대상 물질",
+    "- 가상물질 : 유독물질 (이를 0.1%이상 함유한 혼합물질)",
+    "- 가상물질 : 측정대상물질(및 이를 1",
+    "wt% 이상 함유한 제제)",
+    "다. 위험물안전관리법에 의한 규제",
+]
+
+
+def reg(item_raw, line, threshold=None, **extra):
+    return {"law": "OSH", "item_code": "OSH_MEASURE", "item_raw": item_raw, "comp_ref": "1",
+            "applicable": "해당", "threshold": threshold, "line": line, **extra}
+
+
+def th(rows):
+    return [(t.get("lower_op"), t.get("lower"), t.get("value"), t.get("unit"), t.get("raw")) if t else None
+            for t in (r["threshold"] for r in rows)]
+
+
+def by_id():
+    return ex.line_index(doc(*THRESHOLD_LINES))
+
+
+def test_threshold_fill_after_item_raw_and_line_break():
+    rows = [reg("관리대상 유해물질", "p1:L3"), reg("작업환경 측정물질", "p1:L3"), reg("노출기준 설정물질", "p1:L3")]
+    out = fill_thresholds(rows, by_id())
+    assert th(out) == [(">=", 0.1, None, "%", "0.1% 이상"), (">=", 1, None, "%", "1% 이상"), None]
+
+
+def test_threshold_fill_item_raw_ignores_spaces():
+    out = fill_thresholds([reg("관리대상유해물질", "p1:L3"), reg("작업 환경측정물질", "p1:L3")], by_id())
+    assert th(out) == [(">=", 0.1, None, "%", "0.1% 이상"), (">=", 1, None, "%", "1% 이상")]
+
+
+def test_threshold_fill_only_one_in_line():
+    out = fill_thresholds([reg("작업환경측정대상물질", "p1:L5"), reg("배출량조사 대상물질", "p1:L7"),
+                           reg(None, "p1:L9")], by_id())
+    assert th(out) == [(">=", 1, None, "%", "1% 이상"), (">=", 0.1, None, "wt%", "0.1 wt% 이상"),
+                       (">=", 0.1, None, "%", "0.1%이상")]
+
+
+def test_threshold_fill_only_one_across_line_break():
+    out = fill_thresholds([reg("측정대상물질", "p1:L10")], by_id())        # '(및 이를 1' / 'wt% 이상 함유한 제제)'
+    assert th(out) == [(">=", 1, None, "wt%", "1 wt% 이상")]
+
+
+def test_threshold_fill_value_matches_parse_qm():
+    out = fill_thresholds([reg("가상 항목", "p1:L7")], by_id())
+    assert out[0]["threshold"] == {**parse_qm("0.1 wt% 이상"), "raw": "0.1 wt% 이상"}
+
+
+def test_threshold_fill_when_raw_only():
+    out = fill_thresholds([reg("가상 항목", "p1:L5", {"raw": "해당"})], by_id())
+    assert th(out) == [(">=", 1, None, "%", "1% 이상")]
+
+
+def test_threshold_two_or_more_and_item_raw_not_matched_unchanged():
+    rows = [reg("작업환경측정 대상물질", "p1:L3"), reg("허용기준 설정물질", "p1:L3", {"raw": "해당"})]
+    out = fill_thresholds(rows, by_id())
+    assert out == rows
+
+
+def test_threshold_correct_unit_from_line():
+    out = fill_thresholds([reg("배출량조사 대상물질", "p1:L7", parse_qm("0.1 %"))], by_id())
+    assert th(out) == [(">=", 0.1, None, "wt%", "0.1 wt% 이상")]
+    assert not {"value", "upper", "upper_op"} & set(out[0]["threshold"])
+
+
+def test_threshold_correct_op_from_line():
+    out = fill_thresholds([reg("유독물질", "p1:L9", parse_qm("0.1")), reg("가상 항목", "p1:L5", parse_qm("< 1 %"))],
+                          by_id())
+    assert th(out) == [(">=", 0.1, None, "%", "0.1%이상"), (">=", 1, None, "%", "1% 이상")]
+    assert not {"value", "upper", "upper_op"} & set(out[1]["threshold"])
+
+
+def test_threshold_correct_prefers_fragment_after_item_raw():
+    out = fill_thresholds([reg("작업환경 측정물질", "p1:L3", parse_qm("1 wt%"))], by_id())
+    assert th(out) == [(">=", 1, None, "%", "1% 이상")]
+
+
+def test_threshold_number_not_in_line_unchanged():
+    rows = [reg("유독물질", "p1:L9", parse_qm("10 %")), reg("가상 항목", "p1:L5", parse_qm("1 ~ 5 %"))]
+    assert fill_thresholds(rows, by_id()) == rows
+
+
+def test_threshold_no_line_or_unknown_line_unchanged():
+    rows = [reg("관리대상 유해물질", None), reg("관리대상 유해물질", "p9:L99"), reg("관리대상 유해물질", "")]
+    assert fill_thresholds(rows, by_id()) == rows
+
+
+def test_threshold_last_line_has_no_next_line():
+    lines = ex.line_index(doc("가. 산업안전보건법에 의한 규제", "- 해당됨 (0.1% 이상 함유한 가상물질)"))
+    assert th(fill_thresholds([reg("가상 항목", "p1:L2")], lines)) == [(">=", 0.1, None, "%", "0.1% 이상")]
+
+
+def test_threshold_next_line_new_item_not_joined():
+    """다음 줄이 글머리(-, ●, 가. 등)로 시작하면 다른 행의 줄이라 잇지 않는다."""
+    lines = ex.line_index(doc("- 가상물질 갑 : 해당없음",
+                              "- 가상물질 을 : 관리대상 유해물질(1% 이상)",
+                              "- 가상물질 병 : 관리대상 유해물질",
+                              "● 관리대상 유해물질(0.1% 이상)",
+                              "- 가상물질 정 : 가상 항목",
+                              "나. 가상 항목(0.1% 이상)"))
+    rows = [reg("관리대상 유해물질", "p1:L1"), reg("관리대상 유해물질", "p1:L3"),
+            reg("관리대상 유해물질", "p1:L1", parse_qm("1 %")), reg("가상 항목", "p1:L5")]
+    assert fill_thresholds(rows, lines) == rows
+    assert th(fill_thresholds([reg("관리대상 유해물질", "p1:L2")], lines)) == [(">=", 1, None, "%", "1% 이상")]
+
+
+def test_threshold_next_line_continuation_joined():
+    """글머리 없이 이어진 다음 줄은 같은 항목이다. 그 줄의 item_raw도 찾는다."""
+    lines = ex.line_index(doc("- 가상물질 : 관리대상 유해물질, 작업환경 측정물질(1%",
+                              "이상), 특별관리물질(0.1% 이상), 허용기준 설정물질",
+                              "- 가상물질 : 측정대상물질(및 이를",
+                              "0.1% 이상 함유한 제제)"))
+    out = fill_thresholds([reg("작업환경 측정물질", "p1:L1"), reg("특별관리물질", "p1:L1"),
+                           reg("관리대상 유해물질", "p1:L1"), reg("측정대상물질", "p1:L3")], lines)
+    assert th(out) == [(">=", 1, None, "%", "1% 이상"), (">=", 0.1, None, "%", "0.1% 이상"), None,
+                       (">=", 0.1, None, "%", "0.1% 이상")]
+
+
+def test_threshold_input_rows_not_changed():
+    rows = [reg("관리대상 유해물질", "p1:L3"), reg("배출량조사 대상물질", "p1:L7", parse_qm("0.1 %"))]
+    before = copy.deepcopy(rows)
+    out = fill_thresholds(rows, by_id())
+    assert rows == before and out is not rows
+    assert out[0] is not rows[0] and out[0]["threshold"] is not None
+
+
+def test_threshold_number_boundaries():
+    lines = ex.line_index(doc("- 가상물질 : 가상 항목(10.1% 이상)", "- 가상물질 : 가상 항목(21% 이상)"))
+    out = fill_thresholds([reg("가상 항목", "p1:L1", parse_qm("1 %")), reg("가상 항목", "p1:L1")], lines)
+    assert th(out)[0] == (None, None, 1, "%", "1 %")                   # 10.1의 끝 '1'을 1로 읽지 않는다
+    assert th(out)[1] == (">=", 10.1, None, "%", "10.1% 이상")
+
+
+def test_threshold_expand_msds_fills_regulations():
+    """펼치기가 15항 행을 _shape 전에 고쳐 TO21 Q(status·dp)가 된다."""
+    lines = doc(*THRESHOLD_LINES)
+    s15 = {"regulations": [
+        {"law": "OSH", "item_code": "OSH_MANAGED", "item_raw": "관리대상 유해물질", "applicable": "해당",
+         "line": "p1:L3"},
+        {"law": "OSH", "item_code": "OSH_MEASURE", "item_raw": "가상 항목", "applicable": "해당",
+         "threshold": {"raw": "lower_op:>=,lower:1,unit:%", "lower_op": ">=", "lower": 1, "unit": "%"},
+         "line": "p1:L5"}]}
+    item, _ = ex.expand_msds({15: s15}, ex.line_index(lines), 0, "텍스트층")
+    t0, t1 = (r["threshold"] for r in item["regulations"])
+    assert (t0["lower_op"], t0["lower"], t0["unit"], t0["status"], t0["dp"]) == (">=", 0.1, "%", "값있음", 1)
+    assert (t1["lower_op"], t1["lower"], t1["unit"], t1["status"]) == (">=", 1, "%", "값있음")
+    assert [e["field"] for e in item["evidence"]] == ["regulations[0]", "regulations[1]"]

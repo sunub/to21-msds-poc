@@ -166,6 +166,55 @@ def test_parse_qm_blank_and_types():
     assert isinstance(rw.parse_qm("2.0")["value"], float)     # 소수 자릿수(dp)는 fill_q가 raw로 정한다
 
 
+@pytest.mark.parametrize("text, expected", [    # 칸 이름 쌍 'lower_op:>=,lower:1,unit:%' (ADR-029)
+    ("lower_op:>=,lower:1,unit:%", {"lower_op": ">=", "lower": 1, "unit": "%"}),
+    ("value:2.3; unit:kPa", {"value": 2.3, "unit": "kPa"}),
+    ("lower_op: 이상, lower: 0.1, unit: wt%", {"lower_op": ">=", "lower": 0.1, "unit": "wt%"}),
+    ("upper_op:미만;upper:5;unit:%", {"upper_op": "<", "upper": 5, "unit": "%"}),
+    ("value:1,000,unit:mg/㎥", {"value": 1000, "unit": "mg/m3"}),          # 숫자의 쉼표는 나누지 않는다
+    ("value:2,unit:Kpa,approx:true", {"value": 2, "unit": "kPa", "approx": True}),
+    ("value:3,lower_op:>=,lower:1,upper_op:<=,upper:5,unit:%",              # 범위가 있으면 value는 버린다
+     {"lower_op": ">=", "lower": 1, "upper_op": "<=", "upper": 5, "unit": "%"}),
+    ("value:7,upper_op:<,upper:9", {"upper_op": "<", "upper": 9}),
+])
+def test_parse_qm_qm_pairs(text, expected):
+    assert rw.parse_qm(text) == {"raw": text, **expected}
+
+
+@pytest.mark.parametrize("text", [
+    "foo:1,unit:%",                 # 모르는 이름
+    "lower:abc,unit:%",             # 숫자가 아님
+    "lower_op:<,lower:1",           # 하한 칸에 상한 부등호
+    "upper_op:이상,upper:1",        # 상한 칸에 하한 부등호
+    "approx:maybe,value:1",         # 참/거짓이 아님
+    "lower_op:>=, 1",               # 쌍이 아닌 조각
+    "TWA:30ppm",
+])
+def test_parse_qm_qm_pairs_unknown_or_bad_keep_raw_only(text):
+    assert rw.parse_qm(text) == {"raw": text}
+
+
+@pytest.mark.parametrize("text, expected", [    # 쌍이 아닌 지금 꼴은 그대로
+    ("1 % 이상", {"lower_op": ">=", "lower": 1, "unit": "%"}),
+    ("0.1 wt% 이상", {"lower_op": ">=", "lower": 0.1, "unit": "wt%"}),
+    ("20 ~ 30 %", {"lower_op": ">=", "lower": 20, "upper_op": "<=", "upper": 30, "unit": "%"}),
+])
+def test_parse_qm_qm_pairs_keeps_other_forms(text, expected):
+    assert rw.parse_qm(text) == {"raw": text, **expected}
+
+
+def test_parse_rows_qm_pairs_threshold():
+    text = table(15, "regulations",
+                 row(15, "regulations", law="OSH", item_code="OSH_MEASURE", item_raw="작업환경측정물질", **COMP,
+                     applicable="해당", threshold="lower_op:>=,lower:1,unit:%", line="p9:L3"))
+    parsed, errors = rw.parse_rows(text, 15)
+    assert errors == []
+    th = parsed["regulations"][0]["threshold"]
+    assert th == {"raw": "lower_op:>=,lower:1,unit:%", "lower_op": ">=", "lower": 1, "unit": "%"}
+    assert th["lower"] == 1
+    assert validate(parsed, response_schema(15)) == []
+
+
 # ── parse_rows ─────────────────────────────────────────
 
 def test_parse_rows_toxicity_and_cmr():

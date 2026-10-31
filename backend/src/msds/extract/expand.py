@@ -6,7 +6,8 @@
 - 형식(pattern)이 정해진 칸의 빈 글자("")는 null로 둔다. 중간 형식에는 형식 조건이 없어 모델이 ""를 쓴다.
 - seq, Q의 status·dp·note, comp_ref, 서술 문장, extras의 쪽·항 번호, 근거(evidence)는 코드가 채운다.
 - 원문 줄로 확인되는 값(H·P 코드, 개정 횟수, 메타 값 없음, 전화번호, 비어 있는 유해성 분류)은 A의 함수 전에
-  source_rules.apply_source_rules가 고친다 (ADR-029).
+  source_rules.apply_source_rules가 고친다. 15항 기준농도는 펼치기 전에 근거 줄로 source_rules.fill_thresholds가
+  채우거나 바로잡는다 (ADR-029).
 - 값 없는 행의 표기는 A의 규칙 함수(msds.common.conventions.apply)에 맡긴다.
 - 15항 화평법 행은 값이 있는데 해당 여부가 비면 '해당'으로 채운다 (사용자 결정 10/29).
 """
@@ -22,7 +23,7 @@ from msds.common.merge import DICTIONARY_VERSION, SCHEMA_VERSION, now_kst
 from msds.common.schema import load_schema, msds_item_schema
 from msds.extract.inputs import SECTION_NOS, Line, line_index
 from msds.extract.section_specs import META_REVISION_FIELDS
-from msds.extract.source_rules import apply_source_rules
+from msds.extract.source_rules import apply_source_rules, fill_thresholds
 
 _NO_VALUE = {"자료없음", "해당없음", "미기재"}
 _NUM = re.compile(r"\d[\d,]*(?:\.\d+)?")
@@ -326,6 +327,8 @@ def expand_msds(sections: dict[int, dict | None], lines_by_id: dict[str, Line],
             for i, ((no, r), linked) in enumerate(zip(pairs, src)):
                 if linked["comp_ref"] == "MIX" and (_norm(r.get("comp_name")) or _norm(r.get("comp_cas"))):
                     problem(no, "unlinked_component", f"{key}[{i}]: {r.get('comp_name')} / {r.get('comp_cas')}")
+        if key == "regulations":
+            src = fill_thresholds(src, lines_by_id)      # 근거 줄의 'N% 이상'으로 기준농도 (ADR-029)
         item[key] = components if key == "components" else _shape(node, src, lines_by_id)
         if key == "regulations":
             fill_kreach_applicable(item[key])

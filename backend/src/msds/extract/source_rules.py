@@ -10,6 +10,8 @@ expand.to_to21이 MSDS마다 expand_msds 뒤, A의 apply_conventions 앞에 부�
 - 전화번호: 연락처가 원문에 그대로 없고, 숫자가 같은 원문 조각이 있으면 그 조각으로 바꾼다.
 - 유해성 분류: MSDS 한 건인 문서에서 모델이 hazard.classes를 비웠으면 2항 분류 줄('- 인화성 액체 : 구분2')을
   명세서 5-1 코드표(없으면 13 매핑 시트의 '이름 : 구분 N' 글)로 읽어 채운다. 모델이 쓴 분류는 건드리지 않는다.
+- 15항 기준농도: 규제 행의 근거 줄에 적힌 'N% 이상'·'N wt% 이상'으로 threshold를 채우거나 바로잡는다(fill_thresholds).
+  expand_msds가 펼치기 전(행에 line이 있을 때) 부른다. 법령 표의 값은 쓰지 않는다. 원문에 적힌 값만 쓴다.
 """
 from __future__ import annotations
 
@@ -17,6 +19,7 @@ import re
 from functools import lru_cache
 
 from msds.extract.inputs import Line
+from msds.extract.rows import _has_number, parse_qm
 from msds.extract.section_prompts import _workbook
 
 _NO_VALUE = ("자료없음", "해당없음", "미기재")      # 값 없는 칸 (expand._NO_VALUE와 같다)
@@ -37,6 +40,10 @@ _CLASS_ITEM = re.compile(r"(?P<name>(?:[^:：,|()]|\([^()]*\))+?)\s*[:：]\s*구
 _CLASS_BULLET = re.compile(r"^(?:\s|[-–•○●◦■□▪*ο]|[가-하][.)]|\(?\d{1,2}[.)])+")   # ο: ○를 그리스 글자로 읽은 것
 _CLASS_ALIASES = {"만성수생환경유해성": "ENV_AQ_CHRONIC", "급성수생환경유해성": "ENV_AQ_ACUTE"}  # 5-1은 '수생환경 유해성(만성)'
 _SOURCE_MAX = 200             # TO21 evidence.source_text: 200자 이내
+# 15항 기준농도 조각: 'N% 이상'·'N wt% 이상'. 앞이 숫자·점이면 다른 수의 끝이라 보지 않는다('10.1%'의 '1%')
+_THRESHOLD = re.compile(r"(?<![\d.])(?P<n>\d+(?:\.\d+)?)\s*(?P<unit>wt\s*%|%)\s*이상")
+# 새 항목을 여는 줄 머리: 글머리 기호, 원 숫자, '1.'·'1)'·'가.'·'(가)'. 이런 다음 줄은 다른 행의 줄이라 잇지 않는다
+_NEW_ITEM = re.compile(r"^(?:[-–•·○●◦■□▪*ο]|[①-⑳]|\(?\d{1,2}[.)](?!\d)|\(?[가나다라마바사아자차카타파하][.)])")
 
 
 def _clear_codes(item: dict, text: str) -> list[str]:
@@ -161,6 +168,54 @@ def _classes(item: dict, lines: list[Line]) -> list[str]:
                           "source_text": line.text[:_SOURCE_MAX], "confidence": None, "method": "규칙",
                           "needs_review": True} for i, line in enumerate(found)]
     return [f"hazard.classes {len(rows)}행을 원문 분류 줄로 채움 ({found[0].id}~{found[-1].id})"]
+
+
+def _after_item(item_raw: str | None, text: str) -> re.Match | None:
+    """item_raw(공백 무시) 바로 뒤 괄호 '(N% 이상)'의 조각. 예: '관리대상 유해물질(0.1% 이상)' → '0.1% 이상'."""
+    chars = [re.escape(c) for c in re.sub(r"\s+", "", item_raw or "")]
+    if not chars:
+        return None
+    for m in re.finditer(r"\s*".join(chars) + r"\s*\(\s*", text):
+        if (f := _THRESHOLD.match(text, m.end())) and re.match(r"\s*\)", text[f.end():]):
+            return f
+    return None
+
+
+def _threshold_qm(f: re.Match) -> dict:
+    """조각 → QM. 값은 parse_qm('<N> <단위> 이상'), raw는 원문 조각."""
+    unit = re.sub(r"\s+", "", f["unit"])
+    return {**parse_qm(f"{f['n']} {unit} 이상"), "raw": f.group(0)}
+
+
+def fill_thresholds(rows: list[dict], lines_by_id: dict[str, Line]) -> list[dict]:
+    """15항 규제 행(아직 line이 있는 중간 형식 행)의 threshold를 근거 줄로 채우거나 바로잡은 새 목록.
+    근거 글은 행 line의 줄과 바로 다음 줄('(1%' / '이상)'처럼 끊긴 경우)을 공백 하나로 이은 글이다.
+    다음 줄이 글머리('- ', '●', '가.' 등)로 시작하면 다른 성분·항목의 줄이라 잇지 않는다.
+    - 채우기: threshold에 숫자가 없으면 ① item_raw 바로 뒤의 '(N% 이상)', 없으면 ② 근거 글에 하나뿐인 'N% 이상'.
+    - 바로잡기: threshold의 숫자가 하나이고 근거 글에 같은 숫자의 'N% 이상'이 있으면(① 조각 먼저) 그 조각으로 바꾼다.
+      부등호는 >=, 단위는 원문 그대로(% 또는 wt%)가 된다. 범위(숫자 둘)와 근거 글에 없는 숫자는 그대로 둔다.
+    - 근거 줄이 없거나 원문에 없는 줄 번호인 행은 그대로 둔다. 넘겨받은 행은 바꾸지 않는다."""
+    ids = list(lines_by_id)
+    pos = {lid: i for i, lid in enumerate(ids)}
+    out = []
+    for r in rows:
+        at = pos.get(r.get("line"))
+        if at is None:
+            out.append(r)
+            continue
+        own, *rest = (lines_by_id[lid].text.strip() for lid in ids[at:at + 2])
+        text = " ".join([own, *(t for t in rest if not _NEW_ITEM.match(t))])
+        found = list(_THRESHOLD.finditer(text))
+        item = _after_item(r.get("item_raw"), text)
+        q = r.get("threshold")
+        if not _has_number(q):
+            f = item or (found[0] if len(found) == 1 else None)
+        else:
+            nums = [q[k] for k in ("value", "lower", "upper") if q.get(k) is not None]
+            same = [x for x in (item, *found) if x and len(nums) == 1 and float(x["n"]) == nums[0]]
+            f = same[0] if same else None
+        out.append({**r, "threshold": _threshold_qm(f)} if f else r)
+    return out
 
 
 def apply_source_rules(item: dict, lines: list[Line], single_msds: bool = True) -> list[str]:
