@@ -292,6 +292,10 @@ const HELP_CHAPTERS = {
           "help.cli.help_command"
         ],
         [
+          "p",
+          "help.facts.cli_model"
+        ],
+        [
           "pre",
           "help.facts.cli_command"
         ],

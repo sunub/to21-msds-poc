@@ -14,7 +14,7 @@ colors:
   # 행동과 초점
   accent: "#245e50"
   accent-hover: "#194a3e"
-  input-line: "#8c9e93"
+  input-line: "#74877b"
   # 선택한 원문 근거
   selected: "#fff3c6"
   selected-line: "#887029"
@@ -83,7 +83,7 @@ borders:
   standard: "1px solid #cbd4ce"
   selected: "1px solid #23332f"
   evidence: "1px solid #887029"
-  input: "1px solid #8c9e93"
+  input: "1px solid #74877b"
   failure: "1px solid #a52f35"
   focus: "3px solid #245e50"
 components:

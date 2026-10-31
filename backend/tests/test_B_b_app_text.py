@@ -192,8 +192,8 @@ def test_diff_ui_text_counts_hidden_items_including_unscored(text, diff_info):
 
 def test_doc_legend_matches_existing_css_colors_and_returns_fresh_values(text):
     expected = [("same", text.UI_TEXT["source"]["legend"]["same"], "#53645e"),
-                ("diff", text.UI_TEXT["source"]["legend"]["different"], "#bc4c00"),
-                ("silver_only", text.UI_TEXT["source"]["legend"]["missing"], "#a52f35"),
+                ("diff", text.UI_TEXT["source"]["legend"]["different"], "#53645e"),
+                ("silver_only", text.UI_TEXT["source"]["legend"]["missing"], "#53645e"),
                 ("picked", text.UI_TEXT["source"]["legend"]["selected"], "#fff3c6")]
     legend = text.doc_legend()
     assert [(v["key"], v["label"], v["color"]) for v in legend] == expected

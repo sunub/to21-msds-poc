@@ -968,3 +968,221 @@ def test_s02_choosing_another_section_clears_the_previous_value():
       assert.equal(S.source.selection,null);assert.equal(S.source.selectedLines.size,0);
       assert.ok(!el('source-selection').textContent.includes('8 fake-unit'));
     """)
+
+
+def _fix_copy():
+    import importlib
+    import sys
+    from test_B_b_app_dom import STATIC
+    from test_B_b_app_text import _ui_leaves
+    if str(STATIC.parent) not in sys.path:
+        sys.path.insert(0, str(STATIC.parent))
+    module = importlib.import_module('b_app_text')
+    return module, dict(_ui_leaves(module.UI_TEXT))
+
+
+def test_added_copy_uses_approved_names():
+    # C001–C053: 고칠 낱말과 승인된 이름 조각만 검사한다. 문장 전체는 복제하지 않는다.
+    _, words = _fix_copy()
+    groups = [
+        ('채점', '점수', '''score.basis.label score.loading.scoring source.labels.criterion
+          compare.items.name help.navigation.methods_failed help.navigation.methods_todo
+          help.navigation.methods_reload help.navigation.loading compare.selection.reasons.outside
+          compare.selection.reasons.unknown score.conditions.nonempty_meaning'''),
+        ('목표선', '목표 점수', 'score.summary.target_line compare.target_line'),
+        ('필수 {total}', '필수 기준', 'score.summary.must_progress'),
+        ('무게', '비중', '''score.criteria.weight score.calculation.weight score.calculation.loss_formula
+          score.calculation.weight_basis help.facts.scores'''),
+        ('지시문', 'AI에게 시', '''compare.prompt.open compare.prompt.loading compare.prompt.failed
+          compare.prompt.retry compare.prompt.same compare.prompt.note help.facts.run_name
+          help.facts.ranking help.facts.cause_conditions help.facts.prompt_private'''),
+        ('표 행 형식', '한 줄에 한 행', 'compare.prompt.rows'),
+        ('항목 형식', '정해진 결과 형식', 'compare.prompt.json jobs.result.format_json'),
+        ('연결 안 됨', 'AI 꺼짐', 'servers.models.off'),
+        ('', 'AI 설정의 짧은 이름', 'servers.models.tag'),
+        ('가중 종합', '중요도를 반영한 전체 점수', 'jobs.result.weighted'),
+        ('채점', '점수를 매기는 기준', 'jobs.result.changed jobs.result.unchanged'),
+        ('한 항', '한 부분', 'journey.band.trial journey.read.no_section'),
+        ('첫 사용 안내', '처음 사용 안내', 'journey.band.open journey.band.resume'),
+        ('재추출', 'AI에게 다시 뽑도록 요청', 'help.facts.cause_calls'),
+        ('흔들림:', '같은 조건에서 생기는 결과 차이', 'help.facts.cause_variation'),
+        ('입력 확인 연습', 'AI 없이 보낼 내용 확인', 'help.facts.journey_try help.facts.trial_practice'),
+        ('본 실행', '여러 문서 시험', 'servers.session.active'),
+        ('', '위험 문구 번호', 'source.table_names.hazard.h_statements'),
+        ('', '예방 문구 번호', 'source.table_names.hazard.p_statements'),
+        ('조성', '성분', 'source.table_names.composition'),
+        ('CMR', '암·유전·생식 관련 독성', 'source.table_names.cmr'),
+        ('생태 독성', '환경에 미치는 영향', 'source.table_names.ecotox'),
+        ('물리화학적 특성', '물리·화학 성질', 'source.section_names.9'),
+        ('목표선', '목표 시간', 'help.facts.slow'),
+    ]
+    keys = [key for _, _, group in groups for key in group.split()]
+    assert len(keys) == len(set(keys)) == 53
+    errors = []
+    for old, approved, group in groups:
+        for key in group.split():
+            value = words[key]
+            if (old and old in value) or approved not in value:
+                errors.append((key, old, approved, value))
+    assert not errors
+
+
+def test_new_terms_have_plain_explanations_waiting_for_approval():
+    from test_B_b_app_dom import STATIC
+    module, words = _fix_copy()
+    # C054–C083. 단순히 예외로 등록하는 것만으로 통과하지 않는다.
+    meanings = {
+        'common.raw_error': '오류 기록', 'score.load_failed.todo': '명령 입력 창',
+        'compare.load_failed.todo': '명령 입력 창', 'score.calls.mode': '답을 받는 방식',
+        'jobs.result.raw_meta': '답을 받는 방식', 'score.calls.limit_reason': '답변 길이 제한',
+        'servers.rented.state': '서버 상태', 'servers.connection.tunnel_closed': '통로 번호',
+        'servers.connection.tunnel_external': '통로 번호', 'servers.connection.tunnel_unknown': '통로 번호',
+        'servers.connection.process': '실행 중인 프로그램', 'servers.connection.none': '모델 실행 프로그램',
+        'servers.result.started': '모델 실행 프로그램', 'servers.result.stopped': '프로그램 번호',
+        'servers.result.process_remaining': '프로그램 번호', 'jobs.record.pid': '실행 중인 프로그램',
+        'jobs.record.unknown_tip': '실행 기록', 'jobs.record.close_log': '실행 기록',
+        'jobs.record.log_empty': '실행 기록', 'jobs.record.exit_missing': '작업이 끝난 이유',
+        'jobs.result.input_meta': '부분을 나눈 방법', 'jobs.result.input_rows': '공통 줄',
+        'help.facts.cards': '상세 영역', 'help.facts.setup_copy': '코드 변경 기록 저장소',
+        'help.facts.cli_command': 'AI설정이름', 'help.facts.prompt_spec': '결과 형식을 정한 문서',
+        'help.facts.prompt_version': 'AI에게 시킬 일의 버전 번호', 'help.facts.limit': '길이 한도',
+        'help.facts.setup_open': '명령 입력 창', 'help.facts.protect_keys': '실행 기록',
+    }
+    assert len(meanings) == 30
+    table = (STATIC / 'design/BUILD.md').read_text().split('### ⑤ 승인 대기 문구\n', 1)[1].split('\n### ', 1)[0]
+    errors = []
+    for key, meaning in meanings.items():
+        if (meaning not in words[key] or module.COPY_EXCEPTIONS.get(key) != 'S5 결정 2: ⑤ 수락에서 승인 대기'
+                or f'| `{key}` |' not in table):
+            errors.append(key)
+    # 이전 step의 새 문장과 이번 표시 이름까지 빠짐없이 승인 표에 올린다.
+    for key, reason in module.COPY_EXCEPTIONS.items():
+        if reason == 'S5 결정 2: ⑤ 수락에서 승인 대기':
+            assert f'| `{key}` |' in table, key
+            assert words[key].replace('\n', '<br>').replace('|', '&#124;') in table, key
+    assert not errors
+
+
+def _fix_css_rules():
+    import re
+    from test_B_b_app_dom import STATIC
+    css = re.sub(r'/\*.*?\*/', '', (STATIC / 'app.css').read_text(), flags=re.S)
+    return css, re.findall(r'([^{}]+)\{([^{}]*)\}', css)
+
+
+def test_only_approved_colors_carry_meaning():
+    import re
+    from test_B_b_app_dom import STATIC
+    css, rules = _fix_css_rules()
+    design = (STATIC / 'DESIGN.md').read_text()
+    palette = set(re.findall(r'#[0-9a-fA-F]{6}\b', design))
+    assert set(re.findall(r'#[0-9a-fA-F]{6}\b', css)) <= palette
+    for name in ('.score-below', '.compare-down', '.source-missing .source-cell-state'):
+        colors = [re.search(r'color:\s*([^;]+)', body).group(1).strip()
+                  for selectors, body in rules if name in selectors.split(',') or name in [s.strip() for s in selectors.split(',')]
+                  if re.search(r'color:\s*([^;]+)', body)]
+        assert colors and colors[-1] in {'var(--muted)', 'var(--ink)'}, (name, colors)
+    for selectors, body in rules:
+        if 'var(--failure)' in body and selectors.strip() != ':root':
+            assert all('error' in s or 'fail' in s for s in selectors.split(',')), selectors
+    module, _ = _fix_copy()
+    assert all(entry['color'] in palette for entry in module.doc_legend())
+    # 오류와 값 차이의 색을 혼동하지 않는다. 상태 글은 그대로 보인다.
+    run_js(r"""
+      const low=scoreCall(8,{ok:false,mode:'json_schema'});
+      assert.ok(low.classList.contains('c_fail'));assert.ok(low.textContent.includes(T('common.legacy.cell_labels.c_fail')));
+    """)
+
+
+def test_input_border_contrast_at_least_3_to_1():
+    import re
+    from test_B_b_app_dom import STATIC
+    css, _ = _fix_css_rules()
+    tokens = dict(re.findall(r'--([\w-]+):\s*(#[0-9a-fA-F]{6})', css))
+    def luminance(value):
+        rgb = [int(value[i:i+2], 16) / 255 for i in (1, 3, 5)]
+        linear = [c / 12.92 if c <= .04045 else ((c + .055) / 1.055) ** 2.4 for c in rgb]
+        return sum(c * w for c, w in zip(linear, (.2126, .7152, .0722)))
+    def contrast(a, b):
+        light, dark = sorted([luminance(a), luminance(b)], reverse=True)
+        return (light + .05) / (dark + .05)
+    color = tokens['input-line']
+    assert contrast(color, '#ffffff') >= 3
+    assert contrast(color, tokens['ground']) >= 3
+    design = (STATIC / 'DESIGN.md').read_text()
+    assert re.search(r'^  input-line: "' + color + '"$', design, re.M)
+    assert re.search(r'^  input: "1px solid ' + color + '"$', design, re.M)
+
+
+def test_focus_ring_only_on_controls():
+    import re
+    css, rules = _fix_css_rules()
+    focus = [selector.strip() for selector, body in rules if ':focus-visible' in selector and 'outline:' in body]
+    assert focus
+    assert not re.search(r'outline:\s*(none|0)([^.0-9]|$)', css)
+    # 한정된 조작 요소 목록. tabindex=-1 제목까지 잡는 범용 선택자는 허용하지 않는다.
+    allowed = {'button', 'a[href]', 'input', 'select', 'textarea', 'summary', '[tabindex="0"]'}
+    seen = set()
+    for selector in focus:
+        # 쉼표별 :focus-visible 또는 :is(요소 목록):focus-visible 두 표기를 받는다.
+        match = re.fullmatch(r':is\((.*)\):focus-visible', selector)
+        parts = match.group(1).split(',') if match else selector.replace(':focus-visible', '').split(',')
+        seen.update(part.strip() for part in parts)
+    assert seen <= allowed
+    assert {'button', 'a[href]', 'input', 'select', 'textarea', 'summary', '[tabindex="0"]'} <= seen
+
+
+def test_machine_values_use_plain_labels_and_keep_original_details():
+    from test_B_b_app_jobs_ui import SETUP
+    run_js(SETUP + FIX_VISIBLE + r"""
+      const modes=['json_schema','json_schema_compact','json_object','none','rows','nuextract_template'];
+      for(const mode of modes){
+        const cell=scoreCall(8,{ok:true,mode,limit_kind:'공백폭주',seconds:1,attempts:1});
+        cell.open=true;const shown=visibleText(cell);
+        assert.ok(shown.includes(T('common.codes.mode.'+mode)));
+        assert.ok(shown.includes(T('common.codes.limit.whitespace')));
+        assert.ok(!shown.includes(mode));assert.ok(!shown.includes('공백폭주'));
+        const raw=cell.querySelector('.code-record');assert.ok(raw);assert.equal(raw.open,false);
+        assert.ok(raw.textContent.includes(mode));assert.ok(raw.textContent.includes('공백폭주'));
+      }
+      await go('s03',{doc:'T21-X01',section:8});await el('jobs-send').click();
+      response={plan:{doc_id:'T21-X01',model_tag:'first',msds_count:1,sections_method:'provisional',sections:{'8':{
+        method:'fallback',lines:2,preamble_lines:1,first:'p1:L1',last:'p1:L2',pages:[1],images:[],rows:false}}},
+        results:{'8':{ok:true,mode:'json_schema',finish_reason:'length',seconds:1,raw_text:'fake',parsed:{}}}};
+      listed=[job('done')];await jobsPoll();const inputStage=el('jobs-stage-j1-0'),answer=el('jobs-stage-j1-2');
+      for(const section of [inputStage,answer])section.open=true;
+      assert.ok(visibleText(inputStage).includes(T('common.codes.split.provisional')));
+      assert.ok(visibleText(inputStage).includes(T('common.codes.split.fallback')));
+      assert.ok(visibleText(answer).includes(T('common.codes.finish.length')));
+      assert.ok(!visibleText(answer).includes('json_schema'));
+      assert.ok(answer.querySelector('.code-record').textContent.includes('json_schema'));
+      assert.ok(answer.querySelector('.code-record').textContent.includes('length'));
+      assert.equal(coreCodeLabel('mode','future_mode'),T('common.codes.unknown'));
+      assert.equal(coreCodeLabel('mode',null),T('common.none'));
+    """)
+
+
+def test_server_state_has_plain_label_and_raw_state_in_detail():
+    from test_B_b_app_servers_ui import FIXTURE
+    run_js(FIXTURE + FIX_VISIBLE + r"""
+      await setup();
+      for(const state of ['RUNNING','EXITED','FUTURE_STATE']){
+        data.pods[0].state=state;await shellPollServers();
+        const table=document.getElementById('servers-runpod');table.querySelector('details').open=true;
+        const label=state==='FUTURE_STATE'?T('common.codes.unknown'):T('common.codes.pod.'+state);
+        assert.ok(visibleText(table).includes(label));assert.ok(!visibleText(table).includes(state));
+        const raw=table.querySelector('.code-record');assert.ok(raw);assert.equal(raw.open,false);
+        assert.ok(raw.textContent.includes(state));
+      }
+    """)
+
+
+def test_value_details_and_error_records_have_distinct_names():
+    from test_B_b_app_source_ui import fixture
+    run_js(fixture() + r"""
+      await go('s02',{run:'current',doc:'T21-X01',section:8});pick(1).click();
+      const details=document.querySelector('.source-raw');assert.ok(details);
+      assert.equal(details.querySelector('summary').textContent,T('source.labels.raw_value'));
+      assert.notEqual(T('source.labels.raw_value'),T('common.raw_error'));
+      assert.equal(rawError('fake').querySelector('summary').textContent,T('common.raw_error'));
+    """)

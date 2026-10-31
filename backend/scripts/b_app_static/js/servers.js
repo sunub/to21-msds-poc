@@ -188,7 +188,8 @@ function serversRenderRunpod(el) {
       data.pods.map(pod => h("tr", {"data-pod": pod.id},
         h("td", null, h("strong", {class: "technical"}, serversText(pod.name) || T("servers.rented.unknown")), h("p", {class: "raw"}, serversText(pod.id))),
         h("td", null, pod.owned ? T("servers.rented.owned") : T("servers.rented.delete_forbidden"),
-          h("p", null, T("servers.rented.state", {state: serversText(pod.state || pod.status) || T("servers.rented.unknown")})),
+          h("p", null, T("servers.rented.state", {state: coreCodeLabel("pod", pod.state || pod.status)})),
+          coreCodeRecord(pod.state || pod.status),
           h("p", {class: "muted"}, num(pod.auto_delete_min) ? T("servers.time.auto_delete", {minutes: pod.auto_delete_min}) : T("servers.time.no_schedule"))),
         h("td", null, serversDuration(pod.uptime_s)), h("td", null, serversMoney(pod.cost_per_hr, true)), h("td", null, serversMoney(pod.cost_est)),
         h("td", null, pod.owned && pod.deletable ? serversAction("pod_delete", {pod_id: pod.id}, T("servers.rented.confirm_delete"), pod.id)

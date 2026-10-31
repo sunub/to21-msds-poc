@@ -89,7 +89,7 @@ for(const [n,side,v] of [[1,'result',view.values[1].value],[1,'silver',view.valu
  const b=pick(n,side);assert.equal(b.tagName,'button');
  assert.ok(b.getAttribute('data-tip').includes(T('source.fields.value')+':'));
  b.click();const raw=el('source-selection').querySelector('details.source-raw');
- assert.equal(raw.open,false);assert.equal(raw.querySelector('summary').textContent,T('common.raw_error'));
+ assert.equal(raw.open,false);assert.equal(raw.querySelector('summary').textContent,T('source.labels.raw_value'));
  assert.deepEqual(JSON.parse(raw.querySelector('pre').textContent),v);
  assert.equal(el('screen-s02').querySelector('em'),null);
 }
