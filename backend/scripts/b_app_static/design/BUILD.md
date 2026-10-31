@@ -161,14 +161,14 @@ P01과 P02는 원래 화면으로 돌아오는 확인 영역입니다.
 | I33 | 지시문 변경 항·전후 줄 수·행/JSON 형식·차이 줄·재구성 해시 불일치 | `togglePrompt, promptView` | S04 compare-prompts | 4 | |
 | I34 | 새로 맞춘 값·새로 틀린 값·문서·종류·내용·표시 수 | `renderDiffValues, valueTable` | S04 compare-values → S02 source-values | 4 | |
 | I35 | A/B/정답 표 행 수·가까워짐/멀어짐/차이 유지 | `renderDiffRows` | S04 compare-rows | 4 | |
-| I36 | 실행·문서 선택·정답 없는 개발 문서 | `initDoc, docsOf, renderDocTop` | S02 source-top | 3 | |
-| I37 | 자료 불러오기 실패·할 일·예외 원문 | `renderDocTop, loadFailure` | S02 source-top | 3 | |
-| I38 | 쪽 선택·16항 이름·구간 시작/끝·제목 못 찾음 | `renderDocTop, goSection` | S02 source-top·source-page | 3 | |
-| I39 | 결과 값 수·같음/다름/정답에만 수·정답 없음·문서 경고 | `renderDocTop` | S02 source-top·source-values | 3 | |
-| I40 | 쪽 그림·원문 줄·근거 상자·항 구간 띠·줄별 연결 값 수 | `renderDocLeft, drawBoxes` | S02 source-page | 3 | |
-| I41 | 결과의 항→표→행→칸 구조·기술 경로·칸 수·항 모름 | `renderDocRight, tableBlock, rowHead` | S02 source-values | 3 | |
-| I42 | 결과 값·정답 값·정답에만 있는 행/칸·근거 줄 참조·비교 상태 | `valueRow, pickSilverOnly` | S02 source-values | 3 | |
-| I43 | 선택한 값/줄·연결 값 수·근거 없음·좌표 없는 줄·스크롤 위치 | `noteSel, pickValue, pickLine, scrollInto` | S02 source-selection | 3 | |
+| I36 | 실행·문서 선택·정답 없는 개발 문서 | `initDoc, docsOf, renderDocTop` | S02 source-top | 3 | `sourceRenderTop`, `sourceEnsure`, `sourceRunDocs`: 실행·문서 선택과 원문 전용 경로 |
+| I37 | 자료 불러오기 실패·할 일·예외 원문 | `renderDocTop, loadFailure` | S02 source-top | 3 | `sourceRenderTop`, `sourceReload`: 자료 없음·잠김·실패·로딩·재시도 |
+| I38 | 쪽 선택·16항 이름·구간 시작/끝·제목 못 찾음 | `renderDocTop, goSection` | S02 source-top·source-page | 3 | `sourceGoSection`, `sourcePage`, `sourceRenderPage`: 16항 이름·구간·쪽 선택 |
+| I39 | 결과 값 수·같음/다름/정답에만 수·정답 없음·문서 경고 | `renderDocTop` | S02 source-top·source-values | 3 | `sourceRenderTop`, `sourceRenderSelection`: 비교 수·정답 없음·경고 |
+| I40 | 쪽 그림·원문 줄·근거 상자·항 구간 띠·줄별 연결 값 수 | `renderDocLeft, drawBoxes` | S02 source-page | 3 | `sourceRenderPage`, `sourceDrawBoxes`, `sourceMark`: 그림·줄 단추·근거 상자·항 표시·연결 수 |
+| I41 | 결과의 항→표→행→칸 구조·기술 경로·칸 수·항 모름 | `renderDocRight, tableBlock, rowHead` | S02 source-values | 3 | `sourceStructure`, `sourceTable`: 항→표→행→칸, 알 수 없는 항과 extras 포함 |
+| I42 | 결과 값·정답 값·정답에만 있는 행/칸·근거 줄 참조·비교 상태 | `valueRow, pickSilverOnly` | S02 source-values | 3 | `sourceValueButton`, `sourcePick`: 결과·정답·정답 전용 값 대조 |
+| I43 | 선택한 값/줄·연결 값 수·근거 없음·좌표 없는 줄·스크롤 위치 | `noteSel, pickValue, pickLine, scrollInto` | S02 source-selection | 3 | `sourceRenderSelection`, `sourcePickLine`, `sourceScrollLine`, `sourceRemember`: 선택·근거 없음·좌표 없음·쪽과 읽던 위치 |
 | I44 | 모델 선택·연결·다시 조회·기술 태그 | `modelSelect, connNote, loadOptions` | 공통 global-context, S03 jobs-connection, S06 servers-models | 1, 5, 6 | |
 | I45 | 문서·입력 폴더·한 항/여러 항/전체 16항·기준 실행 자동/수동 | `renderJobTry` | S03 jobs-try | 6 | |
 | I46 | 지시문 기본/고쳐 쓰기·불러오기·다른 모델/항에서 온 글·한 항 제한 | `renderJobTry, loadPrompt` | S03 jobs-try | 6 | |
@@ -207,10 +207,10 @@ P01과 P02는 원래 화면으로 돌아오는 확인 영역입니다.
 | I79 | 출력 한도 원인 3종·열 수 불일치·300초 초과·연결 오류 | `guide.html #s7` | S07 help-topics recovery | 8 | |
 | I80 | 평가 보호·비밀값 보호·문서 보호·Pod 비용·전처리 시험 제외 명령 | `guide.html #s8` | S07 help-topics protection | 8 | |
 | I81 | 용어 뜻·예, 용어 로딩 실패, 채점 항목 23개의 이름·등급·설명 | `guide.html #s9, /api/glossary` | S07 help-glossary | 8 | |
-| I82 | 값 말풍선의 쉬운 칸 이름과 알려지지 않은 값과 0·false 보존 | `valueRow, tipOf` | S02 source-values | 3 | |
-| I83 | 결과·정답·정답에만 있는 값의 원래 JSON과 안전한 글자 표시 | `noteSel, pickValue, pickSilverOnly` | S02 source-selection | 3 | |
+| I82 | 값 말풍선의 쉬운 칸 이름과 알려지지 않은 값과 0·false 보존 | `valueRow, tipOf` | S02 source-values | 3 | `sourceTip`, `sourceValueButton`: API의 한국어 말풍선·키보드 접근 |
+| I83 | 결과·정답·정답에만 있는 값의 원래 JSON과 안전한 글자 표시 | `noteSel, pickValue, pickSilverOnly` | S02 source-selection | 3 | `sourceRenderSelection`의 `details.source-raw`: 세 종류 JSON을 글자 노드로 보존 |
 | I84 | 조회 실패의 사실·할 일·접힌 원문과 불러오는 중 표시 | `loadFailure, friendlyError, rawError` | 공통 오류 → 각 화면 상태 구역 | 1, 9 | |
-| I85 | 원문 범례의 네 상태와 색·글과 선택 구간 요약 | `renderDocMain, renderDocRight` | S02 source-top·source-values | 3 | |
+| I85 | 원문 범례의 네 상태와 색·글과 선택 구간 요약 | `renderDocMain, renderDocRight` | S02 source-top·source-values | 3 | `sourceRenderTop`의 API 범례와 `sourceStructure`의 API 항 요약 |
 | I86 | 도움말 1장: 이 도구는 무엇을 하나 | `guide.html #s1` | S07 help-topics: help.guide.flow | 8 | |
 | I87 | 도움말 2장: 점수는 어떻게 읽나 | `guide.html #s2` | S07 help-topics: help.guide.score | 8 | |
 | I88 | 도움말 3장: 탭마다 무엇을 보나 | `guide.html #s3` | S07 help-topics: flow·source·retest·servers와 S08 링크 | 8 | |
@@ -379,6 +379,16 @@ COPY의 제목과 복구 설명을 감싸서 표시합니다.
 원래 응답은 상세에서 보존합니다.
 응답 문장만 보고 새로운 성공 상태를 추측하지 않습니다.
 
+
+### step 3 API 재확인
+
+- `/api/doc`의 기본 요청에는 `key`만 공통 맥락에서 더합니다. `set`은 원문 영역의 묶음 선택이나 명시적인 원문 전용 전환 때만 보냅니다.
+- `set.source`의 `run/moved/param/startup/default`와 `label/note`를 화면 글로 보입니다. 그림 주소는 `image_base + pNNN.png + image_query`입니다.
+- `values[].items`와 `silver_only[].items`로 현재 문서의 문제 목록을 좁힙니다. 같은 값은 빼고 `silver.value == null`이면 만듦, 나머지 차이는 틀림, `silver_only`는 못 뽑음입니다. 문서별 값 수이며 점수 화면의 여러 문서 합계와 같다고 하지 않습니다.
+- `silver_only[].lines`는 항상 추정 글과 점선·별도 바탕 토큰으로 보입니다. `silver_lines`는 전체 정답의 후보 줄 찾기 범위로 표시합니다.
+- 빈칸: `/api/sets` 어느 판에도 없는 문서는 평가용인지 확정할 정보가 없습니다. 알려진 잠금은 이유를 보이고 요청하지 않습니다. 실행의 `docs/no_gold`와 묶음의 열람 가능 목록에도 없는 문서는 요청하지 않고 자료 없음으로 표시합니다. 404만 보고 평가용이라고 추정하지 않습니다.
+- 단계 7 계약: `evidence_line_shown`의 `item`은 선택 값의 `items`에 실제로 있는 요청 항목만 보냅니다. 다른 기준의 값을 누르면 null입니다. 보이는 S02의 실제 쪽 줄 강조를 확인한 뒤 값마다 한 번 보냅니다. 자동 기본 선택과 추정 줄은 성공 사건을 보내지 않습니다.
+
 ## 글 출처
 
 고정 글은 `b_app_text.py`의 `UI_TEXT`에 모읍니다.
@@ -482,6 +492,16 @@ step 2의 API 확인 보충입니다.
 - counts·cause만 손실 행에 추가했습니다. 기존 손실 수식·값·순위와 top_drops는 유지합니다. next_action은 같은 가장 큰 문제를 가리키게 했습니다.
 
 ## 브라우저로 볼 것
+
+#### 원문 보기 · step 3
+
+- 1280·1440·1680px에서 문제 목록과 두 값 열이 좁지 않은지 확인합니다.
+- 실제 쪽 그림 위의 상자가 글자 위치와 맞는지 확인합니다.
+- 값 선택 뒤 켜진 줄까지 스크롤하고 돌아왔을 때 읽던 위치가 유지되는지 확인합니다.
+- 긴 원문과 경로가 `.big-value`, `.page-text`, `.technical` 안에서 줄바꿈하는지 확인합니다.
+- 실제 근거는 노랑, 추정 근거는 점선·‘추정’ 글·다른 바탕으로 구분되는지 확인합니다.
+- 키보드 값 선택과 그림 실패 시 줄 글자 유지도 확인합니다.
+
 
 각 구현 step이 가로 1280·1440·1680px에서 사람이 확인할 항목을 여기에 추가합니다.
 
@@ -668,3 +688,45 @@ Questions skipped: non-interactive. 승인된 구조·시안을 그대로 구현
 - impeccable context와 detect를 각각 한 번 실행했습니다. 지적 22개는 기존 `design/wireframes.html` 15개와 `guide.html` 7개입니다. 변경한 화면 파일의 지적은 0개입니다. `/static/app.css` 해석 경고로 색·사용자 정의 속성 검사는 불완전합니다.
 - 기록 작성 전 파일 3,902개의 지문이 시작 때와 같았습니다. 이번 변경은 BUILD의 이 기록과 index의 Step 2 상태·오류뿐입니다. 다른 step과 보호 파일은 변경하지 않습니다.
 - 전체 AC 실패에 따라 Step 2를 **error**로 기록합니다. 로컬 포트가 허용된 환경에서 전체 AC를 재실행해야 합니다. 실제 화면 검증은 위 ‘브라우저로 볼 것’ 목록에 남깁니다. 커밋하지 않았습니다.
+
+
+### step 3
+
+⚠️ DEGRADED: no browser in sandbox
+
+Questions skipped: non-interactive.
+
+시험을 먼저 작성하고 실행했습니다. `test_B_b_app_source_ui.py` 18개가 모두 실패했습니다.
+`source.js`와 원문 구역 등록이 없어 `S.source`와 `sourceLoad`와 값 단추가 없는 실패였습니다.
+실패 시험은 처음 열기·직접 선택 유지, key/set·그림 주소, 세 값의 말풍선·JSON,
+범례·항 요약, 줄 단추·그림 없음, 근거 사건·없는 쪽, 문제 필터·선택 순서(2개),
+추정 줄, 잠김·404, 로딩·재시도, 늦은 응답·정답 변경, 재시험 전달,
+원문 전용, 정답 없음·없는 경로, 점수 단추 실제 연결입니다.
+
+옛 원문 시험 3개와 polish 시험 2개를 같은 동작의 새 시험으로 이관했습니다.
+격자의 다섯 상태 글은 step 2의 `test_score_details_preserve_documents_grid_rows_rules_and_selected_answer_gaps`가 이미 검증합니다.
+
+
+산출물과 후속 연결입니다.
+
+- `js/source.js`: `S.source`, `sourceEnsure`, `sourceLoad`, `sourcePick`, `sourcePickLine`, `sourceGoSection`, `sourceDrawBoxes`와 네 구역을 구현했습니다.
+- `sourceRemember`는 `S.focus`에 `run/doc/section/item/path/kind/expected/actual/page/line/lines/estimated/source_set/key/scroll`을 남깁니다. 자료는 메모리에만 있습니다. `sourceRetest`가 `go("s03", {...S.focus})`로 넘깁니다.
+- `scoreOpenSource`의 기존 인자를 그대로 받아 실제 S02 이동까지 시험했습니다. `score.js`는 수정하지 않았습니다.
+- `UI_TEXT.source`에는 COPY의 source 문장과 옛 항·표 이름을 넣었습니다. COPY에 없는 일반 문서용 조작·상태·이름은 `COPY_EXCEPTIONS`에 이유를 등록했습니다.
+- `doc_legend/doc_ui_text/value_tip_lines`의 반환 키는 유지했습니다. 문구와 참·거짓 표시를 COPY에 맞추면서 `test_B_b_app_text.py`의 기대 문장도 같은 규칙으로 바꿨습니다.
+- 처음 RED 뒤 초기 주소 복원·응답 역전·삭제된 실행·목록 밖 문서·그림 좌표·값 유지 시험을 추가했습니다. 실패를 본 뒤 수정했습니다.
+- 전체 회귀 첫 실행은 1966 passed / 30 skipped / 1 failed였습니다. 초기 실행 목록 조회의 처리되지 않은 예외를 발견했습니다. 재시도 회귀 시험부터 추가하고 오류 처리를 고쳤습니다.
+- impeccable `detect --json backend/scripts/b_app_static` 1회 실행은 종료 코드 0입니다. 출력에서 기존 `design/wireframes.html`과 `guide.html`의 색·모서리 권고를 확인했습니다. 수집 출력이 제한되어 전체 지적 건수는 확정하지 않았습니다. 새 화면의 토큰·JS 글·외부 주소·움직임 금지는 DOM 정적 시험으로 검사합니다.
+- 승인 구조의 문제 목록/선택 값 대조/전체 원문 구역을 사용합니다. 시안의 문서 10건·9개 문제 같은 예시 수치는 코드에 넣지 않았습니다. 브라우저 배치 확인은 하지 않았습니다.
+- 아키텍처 점검: 원문·그림을 파일로 저장하지 않습니다. 평가용 내용과 비밀값을 읽지 않았습니다. 결과 값·JSON·오류 원문은 `h`의 글자 노드로만 그립니다. 백엔드 API, 공용·다른 역할 코드, 옛 app.js, 승인 설계 정본은 바꾸지 않았습니다. 커밋하지 않습니다.
+
+
+최종 완료 기준 검증 결과입니다.
+
+- 파일·스크립트 등록·옛 시험 제거·기록 절·Node 확인: 모두 종료 코드 0.
+- 원문·점수·DOM 시험: 47 passed.
+- 문구·원문 응답 시험: 258 passed, 7 warnings.
+- 전체 회귀(`--ignore=tests/test_preprocess.py`): 1968 passed, 30 skipped, 7 warnings, 38.40초.
+- 경고는 기존 SWIG 타입의 DeprecationWarning입니다. 이번 전체 실행에는 포트 권한 실패가 없었습니다.
+- 새 원문 시험 27개는 모두 직접 만든 자료와 API 대역으로 실행했습니다.
+- `git diff --check`로 공백 오류를 확인합니다. 단계 3만 completed로 기록합니다.

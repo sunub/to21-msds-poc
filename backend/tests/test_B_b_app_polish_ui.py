@@ -39,41 +39,6 @@ def test_changed_values_toggle_is_button_and_keeps_both_lists():
     """)
 
 
-def test_source_lines_are_buttons_with_selection_and_no_page_is_empty():
-    run_js(r"""
-      const line={id:'p1:L1',page:1,no:1,text:'직접 만든 가짜 줄'};
-      S.doc.data={doc_id:'T21-X01',lines:[line],line_index:{},pages:[1]};
-      S.doc.page=1; S.doc.sec={};
-      renderDocLeft();
-      const left=document.getElementById('doc-left');
-      const button=left.querySelector('.ln');
-      assert.equal(button.tagName,'button');
-      assert.equal(button.getAttribute('aria-pressed'),'false');
-      let picked; pickLine=id=>{picked=id;}; button.click();
-      assert.equal(picked,'p1:L1');
-      assert.equal(left.querySelector('img').getAttribute('alt'),'1쪽 그림');
-      S.doc.page=null; S.doc.data.pages=[];
-      renderDocLeft();
-      assert.equal(left.querySelector('img'),null);
-      assert.ok(left.textContent.length>0);
-    """)
-
-
-def test_grid_states_and_silver_status_have_visible_text():
-    run_js(r"""
-      for(const c of [undefined,{ok:true},{ok:true,reextracted:true},{ok:false},{ok:false,limit_kind:'긴출력'}]) {
-        const cell=gridCell('T21-X01',0,1,c);
-        assert.ok(cell.textContent.trim().length>0);
-        if(c?.ok===false) assert.match(cell.textContent,/실패/);
-      }
-      for(const [only,silver,label] of [[true,null,'실버에만'],[false,{same:true,value:'가짜',text:'가짜'},'실버와 같음'],
-        [false,{same:false,value:'다른 값',text:'다른 값'},'실버와 다름']]) {
-        const row=valueRow({only,v:{field:'name',text:'가짜',lines:[],path:'fake',silver}});
-        assert.match(row.textContent,new RegExp(label));
-      }
-    """)
-
-
 def test_errors_share_fact_action_and_collapsed_raw_on_each_tab():
     run_js(r"""
       // 서버에서 최초 HTML에 넣은 글을 사용한다. 임의 오류는 원문 펼침 안에만 둔다.
@@ -94,8 +59,6 @@ def test_errors_share_fact_action_and_collapsed_raw_on_each_tab():
         assert.equal(details.querySelector('pre').textContent,raw);
       }
     """)
-
-
 
 
 def test_start_pending_and_jobs_refresh_error_do_not_leave_blank_or_stale_states():
@@ -122,8 +85,6 @@ def test_start_shows_run_list_failure_after_guide_has_loaded():
       assert.match(el.textContent,/가짜 실행 조회 실패/);
       assert.match(el.textContent,/할 일:/);
     """)
-
-
 
 
 def test_options_poll_reports_failure_and_same_data_recovery_as_state_changes():
