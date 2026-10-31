@@ -13,19 +13,23 @@
 """
 from __future__ import annotations
 
+import functools
 import importlib
 import importlib.util
+import json
 import re
 from functools import lru_cache
 from collections import Counter, defaultdict
 
 from msds.common.merge import DICTIONARY_VERSION, SCHEMA_VERSION, now_kst
+from msds.common.paths import to21_file
 from msds.common.schema import load_schema, msds_item_schema
 from msds.extract.inputs import SECTION_NOS, Line, line_index
 from msds.extract.section_specs import META_REVISION_FIELDS
 from msds.extract.source_rules import apply_source_rules, fill_thresholds
 
 _NO_VALUE = {"자료없음", "해당없음", "미기재"}
+_NOTE = re.compile(r"^(?P<base>[^()（）]+?)\s*[(（](?P<note>[^()（）]+)[)）]$")   # 상태어(괄호 설명), Q.note
 _NUM = re.compile(r"\d[\d,]*(?:\.\d+)?")
 _BULLET = re.compile(r"^\s*(?:[-–](?!\d)|[•·○●◦■□▪*]|[①-⑳]|\(?\d{1,2}\)|\d{1,2}\.(?!\d)"
                      r"|\(?[가나다라마바사아자차카타파하][.)])\s*")
@@ -58,17 +62,55 @@ def _dp(raw: str | None, num) -> int | None:
     return None
 
 
+def _word_key(text: str) -> str:
+    return re.sub(r"[\W_]+", "", text).lower()     # 동의어 사전: 비교는 공백·구두점 제거 후
+
+
+@functools.cache
+def _status_words() -> dict[str, str]:
+    """상태어 표기 → Q 상태. C7 값과 동의어 사전 status의 표기다. Q 상태가 아닌 '해당'(15항 해당 여부)은 뺀다."""
+    enum = next(b for b in _defs()["Q"]["properties"]["status"]["anyOf"] if b.get("type") == "string")["enum"]
+    words = {_word_key(s): s for s in enum if s != "값있음"}
+    for status, variants in json.loads(to21_file("dictionary").read_text(encoding="utf-8"))["status"].items():
+        if status in enum:
+            words.update({_word_key(v): status for v in variants})
+    return words
+
+
+def status_word(text: str | None) -> tuple[str | None, str | None]:
+    """값 대신 적힌 상태어면 (상태, 괄호 설명). '해당없음(불연성)' → ('해당없음', '불연성'), '-' → 미기재 (R15)."""
+    text = (text or "").strip()
+    if text in ("-", "–"):
+        return "미기재", None
+    if status := _status_words().get(_word_key(text)):
+        return status, None
+    if (m := _NOTE.match(text)) and (status := _status_words().get(_word_key(m["base"]))):
+        return status, m["note"].strip()
+    return None, None
+
+
 def fill_q(qm: dict | None) -> dict | None:
     """QM(모델이 쓴 숫자 묶음)에 status·dp·note를 더해 TO21 Q로 만든다."""
     if qm is None:
         return None
     q = {k: qm.get(k) for k in _defs()["Q"]["properties"]}
-    raw = re.sub(r"\s+", "", q["raw"] or "")
     num = next((q[k] for k in ("value", "lower", "upper") if q[k] is not None), None)
-    q["status"] = raw if raw in _NO_VALUE else ("값있음" if num is not None else None)
+    q["status"], q["note"] = status_word(q["raw"]) if num is None else ("값있음", None)
     q["dp"] = _dp(q["raw"], num)
-    q["note"] = None
     return q
+
+
+def status_to_q(row: dict) -> dict:
+    """값 대신 상태어만 적힌 text_value는 q의 상태로 옮긴다 (TO21 예제 25 FLAMMABILITY, 2_공통구조 Q.status).
+    값이 모두 빈 행의 출처(data_source)에 적힌 상태어도 칸이 밀린 것이라 옮긴다. 상태어는 출처가 아니다."""
+    if row.get("q") is not None:
+        return row
+    for k in ("text_value", "data_source"):
+        if status_word(row.get(k))[0]:
+            return {**row, "q": {"raw": row[k]}, k: None}
+        if row.get(k):
+            return row
+    return row
 
 
 # ── 서술 문장 ──────────────────────────────────────────
@@ -166,6 +208,16 @@ def fill_kreach_applicable(regulations: list[dict]) -> None:
             else:
                 continue
             break
+
+
+def fill_law(regulations: list[dict]) -> None:
+    """법령(law)이 비면 항목 코드에서 채운다. 항목 코드는 법령 코드로 시작한다 (명세서 5-6, OSH_MEASURE → OSH)."""
+    law = _resolve(msds_item_schema()["properties"]["regulations"]["items"])["properties"]["law"]
+    laws = next(b for b in law["anyOf"] if b.get("type") == "string")["enum"]
+    for r in regulations:
+        code = r.get("item_code") or ""
+        if r.get("law") is None:
+            r["law"] = next((x for x in laws if code == x or code.startswith(x + "_")), None)
 
 
 # ── 표기 규칙 자리 (ADR-004) ───────────────────────────
@@ -330,10 +382,13 @@ def expand_msds(sections: dict[int, dict | None], lines_by_id: dict[str, Line],
                     problem(no, "unlinked_component", f"{key}[{i}]: {r.get('comp_name')} / {r.get('comp_cas')}")
             if key in _SINGLE_COMP_KEYS and len(components) == 1:
                 src = [{**r, "comp_ref": str(components[0]["seq"])} if r["comp_ref"] == "MIX" else r for r in src]
+        if {"q", "text_value"} <= _resolve(node["items"]).get("properties", {}).keys():
+            src = [status_to_q(r) for r in src]
         if key == "regulations":
             src = fill_thresholds(src, lines_by_id)      # 근거 줄의 'N% 이상'으로 기준농도 (ADR-029)
         item[key] = components if key == "components" else _shape(node, src, lines_by_id)
         if key == "regulations":
+            fill_law(item[key])
             fill_kreach_applicable(item[key])
         for i, (no, r) in enumerate(pairs):
             walk(no, r, f"{key}[{i}]")
