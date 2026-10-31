@@ -1,292 +1,296 @@
 ---
-# 다듬기(refinement): PRODUCT.md의 결정대로 밝은 바탕·카드·시스템 글꼴을 유지한다.
-name: B 작업 화면
-description: 기존 화면 안에서 위계와 읽기 흐름을 다듬는 작업 도구
+name: 화학 안전문서 AI 결과 검토
+description: 결론을 먼저 읽고 원문과 다음 시험으로 이어가는 작업 화면
 colors:
-  ink: "#1f2328"
-  muted: "#59636e"
-  raw: "#6b7280"
-  line: "#d1d9e0"
-  soft: "#f6f8fa"
-  ok: "#1a7f37"
-  "no": "#cf222e"
-  now: "#0969da"
-  re: "#bf8700"
-  running-text: "#9a6700"
-  warning-text: "#bc4c00"
-  limit: "#e16f24"
-  gap: "#d4a72c"
-  gold: "#afb8c1"
-  white: "#fff"
-  hover-neutral: "#eaeef2"
-  selection-bg: "#fff8c5"
-  selection-edge: "#eac54f"
-  time: "#57606a"
-  hover-row: "#f0f6fc"
-  pass-bg: "#dafbe1"
-  fail-bg: "#ffebe9"
-  omission-current: "#cf222e"
-  history-purple: "#8250df"
-  history-pink: "#bf3989"
-  cell-ok: "#aceebb"
-  cell-retry: "#f5e0a3"
-  cell-limit: "#ffc49b"
-  cell-fail: "#ff8182"
-  tooltip-bg: "#24292f"
-  diff-delete-text: "#82071e"
-  diff-add-text: "#116329"
-  evidence-fill: "rgba(255, 212, 0, .28)"
-  section-band-even: "#b6e3ff"
-  section-band-odd: "#d8b9ff"
-  silver-same: "#8c959f"
-  silver-different: "#bc4c00"
-  primary-hover: "#0550ae"
-  result-fail-border: "#ffcecb"
-  dialog-backdrop: "rgba(31, 35, 40, .35)"
-  confirm-hover: "#a40e26"
-  help-frame-border: "#d0d7de"
+  # 본문과 보조 글
+  ink: "#23332f"
+  muted: "#53645e"
+  # 바탕과 구분선
+  paper: "#ffffff"
+  ground: "#f4f6f3"
+  line: "#cbd4ce"
+  soft: "#eaf0eb"
+  context: "#edf2ed"
+  # 행동과 초점
+  accent: "#245e50"
+  accent-hover: "#194a3e"
+  input-line: "#8c9e93"
+  # 선택한 원문 근거
+  selected: "#fff3c6"
+  selected-line: "#887029"
+  # 확인된 실패 전용
+  failure: "#a52f35"
+  failure-bg: "#fff3f2"
+  # 브라우저와 점수 막대
+  scale-track: "#e4eae4"
+  selection: "#d8e8dd"
+  scrollbar: "#94a49b"
 typography:
   body:
-    fontFamily: '-apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", "Noto Sans KR", sans-serif'
+    fontFamily: '-apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif'
+    fontSize: "16px"
+    fontWeight: 400
+    lineHeight: 1.5
+  label:
     fontSize: "14px"
     lineHeight: 1.5
-  page-title:
-    fontSize: "17px"
-  help-title:
-    fontSize: "24px"
-  card-title:
-    fontSize: "16px"
-  card-subtitle:
-    fontSize: "14px"
-  score:
-    fontSize: "52px"
-    fontWeight: 700
-    lineHeight: 1
-  score-unit:
+  app-name:
     fontSize: "18px"
-  sub:
-    fontSize: "15px"
-  hint:
+    fontWeight: 750
+  headline:
+    fontSize: "28px"
+    fontWeight: 700
+    lineHeight: 1.35
+    letterSpacing: "-0.02em"
+  title:
+    fontSize: "20px"
+    fontWeight: 700
+    lineHeight: 1.35
+  subsection:
+    fontSize: "16px"
+    fontWeight: 700
+    lineHeight: 1.35
+  score:
+    fontSize: "48px"
+    fontWeight: 750
+    lineHeight: 1.15
+  score-unit:
+    fontSize: "20px"
+    fontWeight: 500
+  value:
+    fontSize: "28px"
+    fontWeight: 750
+  code:
+    fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace"
     fontSize: "13px"
-  mono:
-    fontFamily: "ui-monospace, SFMono-Regular, Menlo, Consolas, monospace"
-    fontSize: "12px"
-  raw:
-    fontFamily: "ui-monospace, Menlo, monospace"
-    fontSize: "12px"
-  tooltip:
-    fontSize: "12px"
-  line-section:
-    fontSize: "11px"
-    fontWeight: 600
 rounded:
-  legend: "4px"
-  control: "6px"
-  card: "8px"
-  badge: "10px"
-  swatch: "50%"
+  control: "4px"
+  panel: "6px"
 spacing:
-  micro: "2px"
   tight: "4px"
   field: "6px"
   small: "8px"
-  control-x: "10px"
-  grid: "12px"
-  card-x: "16px"
-  page-x: "20px"
-  detail-indent: "24px"
-  page-bottom: "40px"
+  control-y: "10px"
+  compact: "12px"
+  group: "16px"
+  section-small: "20px"
+  section: "24px"
+  page-x: "28px"
+  page: "32px"
+  wide-page-x: "40px"
+# 사용자 지정 경계선 토큰. 표준 스키마의 명시적 확장.
+borders:
+  standard: "1px solid #cbd4ce"
+  selected: "1px solid #23332f"
+  evidence: "1px solid #887029"
+  input: "1px solid #8c9e93"
+  failure: "1px solid #a52f35"
+  focus: "3px solid #245e50"
 components:
-  button:
-    backgroundColor: "{colors.soft}"
-    rounded: "{rounded.control}"
-    padding: "3px 10px"
-  button-hover:
-    backgroundColor: "{colors.hover-neutral}"
   button-primary:
-    backgroundColor: "{colors.now}"
-    textColor: "{colors.white}"
-  button-primary-hover:
-    backgroundColor: "{colors.primary-hover}"
-  button-confirm:
-    backgroundColor: "{colors.no}"
-    textColor: "{colors.white}"
-  button-confirm-hover:
-    backgroundColor: "{colors.confirm-hover}"
-  card:
-    backgroundColor: "{colors.white}"
-    rounded: "{rounded.card}"
-    padding: "12px 16px"
-  tooltip:
-    backgroundColor: "{colors.tooltip-bg}"
-    textColor: "{colors.white}"
-    typography: "{typography.tooltip}"
+    backgroundColor: "{colors.accent}"
+    textColor: "{colors.paper}"
     rounded: "{rounded.control}"
-    padding: "6px 9px"
-  badge:
-    rounded: "{rounded.badge}"
-    padding: "1px 6px"
-  dialog:
-    rounded: "{rounded.card}"
+    padding: "10px 16px"
+  button-primary-hover:
+    backgroundColor: "{colors.accent-hover}"
+  context-bar:
+    backgroundColor: "{colors.context}"
+    typography: "{typography.label}"
+    padding: "12px 24px"
+  panel:
+    backgroundColor: "{colors.paper}"
+    rounded: "{rounded.panel}"
+    padding: "24px"
+  evidence:
+    backgroundColor: "{colors.selected}"
+    padding: "12px"
+  guide-band:
+    backgroundColor: "{colors.soft}"
     padding: "16px 20px"
+  state-failure:
+    backgroundColor: "{colors.failure-bg}"
+    rounded: "{rounded.panel}"
+    padding: "24px"
 ---
 
-다듬기(refinement)다. PRODUCT.md의 결정대로 밝은 바탕과 카드 구성을 유지한다. 컴퓨터에 있는 글꼴을 그대로 쓴다.
+# 결론을 먼저 읽고 근거로 이어지는 화면을 유지합니다.
 
 ## Overview
 
-이 문서는 2026-10-30 Step 0의 기준을 Step 8까지 갱신한 디자인 정본이다.
-작업을 끝내는 도구 화면(Operate)으로 평가한다.
-제품의 기준 문장은 “도구처럼 보여야 한다”다(PRODUCT.md:40).
-새로운 브랜드 비유나 색 체계는 정하지 않는다.
+승인된 방향은 ‘결론 먼저, 단계 따라가기’입니다.
+시각 기준은 plain-3 fix 2와 이번 mockup.html입니다.
+새 화면도 같은 밝은 바탕과 짙은 초록 행동색을 사용합니다.
+정답과 원문을 읽는 작업이 장식보다 먼저 보입니다.
+이 문서는 기존 제품의 DESIGN.md를 교체할 정본입니다.
 
-확인 근거는 `app.css`, `index.html`, `app.js`, `guide.html`이다.
-서버의 경로는 `../b_app.py`에서 확인했다.
-위의 기계가 읽는 설정(frontmatter)은 현재 CSS 값을 옮긴 것이다.
-CSS 변수는 앞의 `--`만 뺐다. 나머지 이름은 이 문서의 위치 설명용 이름이다.
-화면 코드에 이 이름의 변수를 새로 만들었다는 뜻은 아니다.
-
-시작 탭과 고급 스위치가 있다. 네 점수판 상세 카드와 작업의 더 하기는 접힌다.
-용어와 기존 설명 말풍선은 키보드로도 열린다. 접기·안내·선택 저장 실패는 현재 화면 조작을 막지 않는다.
-로컬 미리보기 서버가 권한 오류로 시작되지 않아 실제 배치와 글꼴 계산값은 확인하지 못했다.
+실제 앱의 화면 순서는 STRUCTURE.md를 따릅니다.
+이번 시안의 첫 장면인 화면 목록은 검토용입니다.
+실제 앱의 재방문 시작점은 S01 최근 결과입니다.
+모든 숫자 예시는 mockup에만 사용합니다.
+각 장면 맨 아래에 ‘디자인 확인용 화면입니다. 숫자는 모두 예시입니다.’를 한 번 둡니다.
+실제 앱에는 이 문구가 없습니다.
 
 ## Colors
 
-흰 바탕 위에 회색 구분선을 두고 상태에 따라 색을 붙인다.
-색 값은 위 설정을 정본으로 삼는다.
+행동색은 짙은 초록입니다.
+주 행동과 링크와 키보드 초점에 씁니다.
+면과 보조 글은 중립색입니다.
+색만으로 현재 위치나 상태를 전하지 않습니다.
 
-| 현재 역할 | 설정 이름 | 코드 근거 |
+| 역할 | 토큰 | 함께 보일 글 |
 |---|---|---|
-| 본문·보조 글·선·옅은 면 | ink / muted / line / soft | app.css:3 |
-| 통과·실패·선택한 탭 | ok / no / now | app.css:4, 23, 53–54 |
-| 재시도·출력 한도·실버 빈 곳·기준 막대 | re / limit / gap / gold | app.css:4, 40, 69, 99 |
-| 가리킨 단추·행 | hover-neutral / hover-row | app.css:14, 90 |
-| 통과·미달 배지 | pass-bg / fail-bg | app.css:94–95 |
-| 호출 격자 상태 | cell-ok / cell-retry / cell-limit / cell-fail | app.css:114–117 |
-| 선택한 원문 줄·칸 | selection-bg / selection-edge | app.css:165 |
-| 원문 그림의 강조 상자 | evidence-fill / limit | app.css:158 |
-| 실버와 같음·다름·실버에만 있음 | silver-same / silver-different / no | app.css:180–182 |
-| 안내문 삭제·추가 | fail-bg + diff-delete-text / pass-bg + diff-add-text | app.css:142–143 |
-| 말풍선·대화상자 뒤의 면 | tooltip-bg / dialog-backdrop | app.css:123, 233 |
+| 본문과 보조 정보 | ink / muted | 값의 단위와 조건 |
+| 화면과 패널 | ground / paper | 제목과 본문 |
+| 전역 기준과 선택 목록 | context / soft | 선택됨 / 보고 있음 |
+| 행동 | accent / accent-hover | 행동을 나타내는 동사 |
+| 선택한 근거 줄 | selected / selected-line | 쪽과 줄 위치 |
+| 확인된 실패 | failure / failure-bg | 실패 사실과 복구 행동 |
 
-예: 현재 `.item.fail .badge`는 `#ffebe9` 바탕과 `#cf222e` 글자를 쓴다(app.css:95).
-
-빠뜨림 표시는 빨강 `omission-current`다. 지어냄은 진한 주황 `warning-text`다.
-원문 구간 띠에도 보라 계열 `section-band-odd`가 있다(app.css:164).
-이 값은 새 브랜드 색을 제안하는 것이 아니다.
-작은 상태 글은 대비를 위해 `running-text`와 `warning-text`를 쓴다. 옅은 색은 막대·칩·구간 띠에 남긴다.
-
-실행 역사 그래프는 `app.js:16`의 여섯 색을 쓴다.
-이는 CSS 상태 변수와 별개인 범주 구분이다.
-추가 색은 `#bf3989`와 `#9a6700`이다. 나머지는 위 설정에 있다.
-
-도움말의 별도 스타일도 같은 본문·면·선·주의·성공 색을 쓴다.
-설명 그림의 모양과 글은 유지하고 기존 앱 팔레트에 맞췄다.
-실버와 같은 값의 `#8c959f`는 범례 칩에만 쓴다. 값 글자는 `muted`다.
+빨강은 확인된 실패에만 씁니다.
+목표 미달 자체는 빨강으로 강조하지 않습니다.
+‘연결 안 됨’과 ‘평가 문서 잠김’은 중립색입니다.
+삭제 확인도 초록 행동색을 유지합니다.
+예: E06 모델 없음은 중립 상태 상자를 사용합니다.
 
 ## Typography
 
-본문은 시스템 글꼴과 한국어 대체 글꼴을 쓰는 14px 글자다(app.css:8–9).
-`Noto Sans KR`는 로컬 대체 후보이며 외부에서 내려받는 선언은 없다.
-단추와 선택 상자는 본문 글꼴을 상속한다(app.css:13, 15).
-제목의 굵기는 별도 CSS 값이 없으므로 브라우저 기본값에 맡긴다.
-확인하지 않은 굵기를 설정에 넣지 않았다.
+글꼴은 컴퓨터의 기본 글꼴만 사용합니다.
+외부 글꼴을 불러오지 않습니다.
+수치에는 같은 폭 숫자(tabular-nums)를 적용합니다.
+원래 경로와 코드에만 고정폭 글꼴을 씁니다.
 
-| 용도 | 현재 값 | 코드 근거 |
-|---|---|---|
-| 페이지 제목 / 카드 제목 / 카드 소제목 | 17px / 16px / 14px | app.css:20, 37–38 |
-| 큰 점수 / 단위 / 부가 점수 | 52px·700·줄 높이 1 / 18px / 15px | app.css:50–52 |
-| 설명·상태·범례 | 13px | app.css:24, 39, 43 |
-| 원래 표기·코드 | 고정폭 12px | app.css:11 |
-| 표 숫자 | 같은 폭 숫자(tabular-nums) | app.css:92, 134 |
-| 원문 구간 번호 | 11px·600 | app.css:166 |
-
-Step 1에서 `.raw`를 추가했다. 원래 폴더 이름·모델 태그는 지정된 회색 `#6b7280`과 고정폭 12px로 그린다.
-긴 이름은 줄바꿈하며, 실행 선택지의 `title`에도 원래 이름을 둔다.
-도움말 본문은 15px/1.7이며 제목은 24px·18px·15px이다.
-새 글꼴이나 자동 확대 글자 크기는 추가하지 않는다.
+본문은 body 토큰을 사용합니다.
+보조 문장과 표와 전역 기준에는 label 토큰을 사용합니다.
+점수는 score 토큰을 사용합니다.
+문제 값에는 value 토큰을 사용합니다.
+제목은 한 문장으로 결론을 말합니다.
+어절 안에서 한국어를 자르지 않습니다(`word-break: keep-all`).
+긴 경로와 기술 이름은 필요한 위치에서 줄바꿈합니다(`overflow-wrap: anywhere`).
+일반 설명은 약 65~75자 폭을 목표로 합니다.
 
 ## Layout
 
-본문 최대 폭은 1240px이다. 여백은 위 12px, 좌우 20px, 아래 40px다(app.css:27).
-본문을 가운데로 옮기는 자동 좌우 여백은 없다.
-머리줄은 위에 고정되며 8px 20px 여백과 16px 간격을 쓴다(app.css:18–19).
+지원 폭은 1280~1680px입니다.
+기준 폭은 1440px입니다.
+휴대폰용 구성을 따로 만들지 않습니다.
+화면은 머리글과 전역 기준과 작업 공간 순서입니다.
+왼쪽 메뉴는 장소 이동을 담당합니다.
+본문의 1·2·3은 링크 없는 현재 작업 경로입니다.
+두 번째 탭이나 별도 진행 막대를 만들지 않습니다.
 
-| 구성 | 현재 값·동작 | 코드 근거 |
-|---|---|---|
-| 탭 | 4px 간격, 줄 바꿈, 선택한 단추는 파랑 | app.css:21–23 |
-| 점수판 첫 줄·서버 카드 | 1.1fr : 1fr, 간격 12px, 960px 이하 한 열 | app.css:34–35 |
-| 작업 카드 | 2fr : 1fr, 간격 12px, 1100px 이하 한 열 | `.jcols` |
-| 실행 선택 상자 | 선호 폭 520px / 440px, 부모 폭 100% 이내 | `.pickrow`, `.pickcol` |
-| 항목 신호등 | 이름·막대·종류·보조 점수는 가변 열, 수치·배지만 고정, 720px 이하 여러 줄 | `.item` |
-| 역사 그래프 | 폭 100%, 최소 폭 없음, 원래 900 좌표 유지 | `.chart` |
-| 원문 대조 | 최소 폭 0의 5fr : 6fr, 간격 12px, 960px 이하 한 열 | `.dgrid` |
-| 쪽 그림·줄·값 패널 | 최대 높이 58vh / 32vh / calc(90vh - 40px) | app.css:154, 159, 170 |
-| 도움말 틀 | 폭 100%, 높이 calc(100vh - 170px), 최소 480px | app.css:238 |
+| 영역 | 기본 | 1320px 이하 | 1550px 이상 |
+|---|---|---|---|
+| 왼쪽 메뉴 | 176px | 160px | 동일 |
+| 본문 좌우 여백 | 28px | 24px | 40px |
+| 점수 열 | 400px | 380px | 동일 |
+| 문제 값 목록 | 290px | 270px | 320px |
+| 열 사이 | 24px | 원문 영역 20px | 24px |
 
-예: 960px 이하에서는 `.cols`가 `1fr` 한 열로 바뀐다(app.css:35의 조건).
-이는 코드 규칙이며 브라우저에서 재측정한 결과는 아니다.
+가변 열은 최소 폭을 0으로 둡니다.
+표는 부모 폭 안에서 줄바꿈합니다.
+호출 기록의 16개 부분은 여덟 칸씩 두 줄로 배치합니다.
+가로 넘침을 숨기는 방식으로 내용 손실을 덮지 않습니다.
+장면 바깥 글과 카드가 같은 시작선에 놓이게 합니다.
+전체 폭의 펼침 행은 중간에서 끊지 않습니다.
 
-점수판은 지금 상태·합격 기준 뒤에 여섯 카드가 이어진다.
-역사·문서·호출 격자·행 수는 요약 뒤에 접고 저장한다. 값은 접힌 본문에도 남는다.
-`.scroll`은 내부 가로 스크롤을 허용한다(app.css:44).
-1280–1680px에서 가로 스크롤이 없는지는 아직 실측하지 않았다.
-본문 최대 폭은 유지했다. 격자 자식의 최소 폭은 0이며 긴 이름과 표 칸은 줄바꿈한다.
+전역 기준은 스크롤 중에도 남습니다.
+높이를 고정하지 않습니다.
+왼쪽 메뉴에는 별도 고정 위치를 쓰지 않습니다.
+긴 전역 설명과 메뉴가 겹치지 않게 합니다.
+장면 내용은 충분한 최소 높이를 갖습니다.
+예시 안내는 그 아래의 마지막 줄입니다.
 
 ## Elevation & Depth
 
-카드는 그림자 없이 1px 선으로 나눈다(app.css:36).
-높이 순서는 고정 머리줄 5, 말풍선 20이다(app.css:18, 122).
-서버 확인창은 브라우저 대화상자(`<dialog>`)를 쓴다(index.html:88).
-뒤 화면에는 `dialog-backdrop`의 반투명 면을 둔다(app.css:233).
-그림자 효과와 움직임 선언은 현재 `app.css`에 없다.
+면과 1px 경계선으로 구분합니다.
+그림자와 빛나는 효과는 쓰지 않습니다.
+전역 기준만 스크롤 위에 남습니다.
+시안의 확인창은 별도 주소의 평평한 확인 영역입니다.
+실제 앱의 확인창은 초점을 안에 유지합니다.
+취소하면 원래 단추로 초점을 돌립니다.
+실제 앱에서 Escape로 취소할 수 있어야 합니다.
+이 동작은 스크립트 없는 시안의 검증 범위에 포함되지 않습니다.
 
 ## Shapes
 
-단추와 패널 모서리는 6px다. 카드와 확인창은 8px다.
-배지는 10px, 작은 범례 표시는 4px, 원형 색 표시는 50%다.
-탭은 위쪽 모서리만 6px이며 아래쪽 선이 없다(app.css:22).
-현재의 차이를 유지한다. 모든 요소를 큰 둥근 카드로 통일하지 않는다.
+조작 요소는 control 모서리를 사용합니다.
+점수와 원문 비교와 상태 상자는 panel 모서리를 사용합니다.
+일반 표와 펼침은 둥근 카드로 감싸지 않습니다.
+선택 상태는 테두리와 글을 함께 바꿉니다.
+경계선은 frontmatter의 borders를 따릅니다.
+이 항목은 요청에 따른 DESIGN.md 스키마 확장입니다.
+
+초점 테두리는 초점이 있는 조작 요소에만 그립니다.
+장면과 본문 컨테이너에는 초점 테두리를 그리지 않습니다.
+전역 `outline: none`은 사용하지 않습니다.
+선택한 값의 경계는 border로 그립니다.
+초점 표시와 선택 상태를 같은 것으로 만들지 않습니다.
 
 ## Components
 
-| 구성 요소 | 현재 규칙 | 상태와 제한 |
+| 구성 요소 | 배치와 내용 | 동작과 상태 |
 |---|---|---|
-| 카드 | `.card`: 1px 선, 12px 16px 안쪽 여백, 아래 12px 간격 | `card()`의 접힌 카드는 제목·요약·토글을 머리에 둔다. 좁으면 머리줄이 줄바꿈한다. |
-| 단추 | 기본 회색, 주 동작 파랑, 확인 동작 빨강 | 최소 높이 32px. 비활성은 회색 글·면·선으로 공통 표시한다. |
-| 선택 상자 | 기본 `<select>`, 본문 글꼴, 최소 높이 32px, 최대 폭 100% | 연결 상태·조회 실패에 따라 시험과 본 실행을 잠근다. |
-| 일반 표 | `.list`: 폭 100%, 아래 1px 선, 칸 여백 4px 6px | 모든 칸의 긴 글을 줄바꿈한다. 값 표는 고정 표 배치로 부모 폭을 지킨다. |
-| 호출 격자 | `.grid`: 폭 100%, 첫 열 100px, 나머지는 같은 폭, 12px 글자 | 성공·실패·재추출·한도·기록 없음이 글로 보인다. |
-| 항목 행 | `.item`: 가변 열, 통과·미달 배지, 4px 모서리 | 실제 단추이며 펼침 상태를 알린다. 다시 그려도 키보드 초점을 유지한다. |
-| 말풍선 | `.tip`: 고정 위치, 최대 460px, 6px 9px 여백, 12px 글자 | 포커스·마우스로 열고 Escape로 닫는다. 설명 위로 이동하는 150ms 동안 닫지 않는다. |
-| 원문 대조 | 쪽 그림 위 상자와 선택 줄의 노랑 바탕 | 근거 값 선택과 줄 선택을 연결한다. 접힘은 `details.dsec`·`details.dtab`을 쓴다(app.css:171–176). |
-| 로그·안내문 차이 | 12px, 줄 바꿈, 1px 선, 6px 모서리 | 최대 높이 360px / 520px 후 내부 스크롤이다(app.css:139–140, 210–211). |
-| 서버 확인창 | 최대 560px, 여백 16px 20px, 8px 모서리 | 요약 확인 후 실행한다. 실행 중 잠금도 있다(app.js:1359–1368, 1445–1475). |
+| 전역 기준(context bar) | 문서 묶음 / 정답지 / 모델 상태의 세 칸 | 오류에도 유지합니다. 현재 선택과 실행 당시 조건을 구분합니다. |
+| 왼쪽 메뉴 | STRUCTURE의 일곱 장소 | 한 곳에만 ‘보고 있음’을 붙입니다. S09는 다시 시험에 속합니다. S10은 두 결과 비교에 속합니다. |
+| 단계 경로(step breadcrumb) | 결과 보기 / 원인 찾기 / 다시 시험 | 읽기 전용입니다. 실패 상태는 경로를 빼고 실패부터 읽게 합니다. |
+| 점수 카드 | 모델과 문서 수 다음에 82.4 / 100점 | 90점 목표선과 차이를 붙입니다. 12/17의 뜻은 보통 크기 한 문장으로 씁니다. |
+| 문제 카드 | 쉬운 문제 이름 다음에 문서 부분 | 세 종류 건수를 따로 링크합니다. 총손실과 해당 손실은 한 문장으로 연결합니다. |
+| 값 목록과 필터 | 전체 9건과 못 뽑음 / 만듦 / 틀림 | 선택 값에 ‘선택됨’을 붙입니다. 필터 안에서도 값마다 원문을 엽니다. |
+| 원문 대조 | 원문 줄과 AI 값의 두 열 | 실제 줄과 ‘원문 줄(추정)’을 구분합니다. 줄이 없으면 대신 고르지 않습니다. |
+| 접힌 영역 | 내용 이름과 수와 요약을 제목에 둠 | 기본 details/summary를 씁니다. 23가지 기준을 모두 열 수 있어야 합니다. |
+| 확인 영역(confirm sheet) | 대상 / 변경 / 비용 / 대기 / 보호 조건 / 유효시간 | 주 행동 하나와 취소를 둡니다. 만료와 상태 변경은 재확인으로 돌립니다. |
+| 상태 상자(state block) | 확인한 사실과 할 일 | 빈 상태를 0점으로 바꾸지 않습니다. 조회 실패와 없음은 구분합니다. |
+| 안내 띠(guide band) | 짧은 안내와 실제 기능 연결 | 메뉴를 막지 않습니다. 건너뛰기와 닫기를 제공합니다. 기존 경로를 함께 씁니다. |
+| 설명 입력란 | 고정된 문서와 부분 바로 아래 | 새로고침 유실을 옆에 알립니다. 한 부분 시험에서만 수정합니다. |
 
-예: 원문 줄 단추를 누르면 같은 줄을 근거로 쓴 결과 값이 선택된다(DOM 시험).
+정답을 보여 주는 곳에는 신뢰 범위를 함께 씁니다.
+정답 초안은 AI가 먼저 만든 답이라고 설명합니다.
+사람이 확인한 정답은 일부 개발 문서에만 있다고 설명합니다.
+사람 확인 전 점수는 참고값이라고 설명합니다.
 
-포커스는 파란색 2px 테두리다. 진한 선택 탭·주 동작·확인 단추에서는 흰색이다.
-단추·펼침·말풍선 대상은 안쪽에 그려 스크롤 경계에서 잘리지 않게 한다.
-브라우저 기본 포커스의 실제 모습과 대비는 이번에 확인하지 못했다.
-상태줄은 `role=status`·`aria-live=polite`이고 오류는 `role=alert`다.
-`localStorage`에는 그래프 선택·카드 접힘·고급·첫 사용 안내를 최소 상태로 저장한다.
-역사 그래프 점도 SVG 안의 실제 HTML 단추다. 24px 조작 영역과 기존 점 크기를 구분한다.
-오류는 사실 한 문장·할 일 한 문장·접힌 원문이다. 공통 글은 `b_app_text.POLISH_TEXT`에서 최초 HTML에 주입한다.
-쪽 그림의 대체 글은 쪽 번호를 포함한다. 실버 비교 상태와 선택 상태는 글·접근성 속성을 함께 쓴다.
+주 행동은 화면마다 하나입니다.
+세부 행동은 관련 펼침 안에 둡니다.
+추천 서버는 먼저 보여 줍니다.
+대안 서버의 조작은 ‘다른 방법’ 안에 둡니다.
+선택에 필요한 두 줄 비교는 접지 않습니다.
+비용은 실제 요금이라는 말과 단위를 함께 보입니다.
+
+가장 큰 문제에서 값을 여는 순서는 **틀림 → 만듦 → 못 뽑음**입니다.
+같은 종류 안에서는 서버가 준 문서 순서와 값 순서를 유지합니다.
+반드시 해당 채점 기준이 `items`에 있는 값을 고릅니다.
+다른 기준의 값을 대신 열지 않습니다.
+없으면 연결하지 못한 이유를 보여 줍니다.
+예: 기본 첫 단추는 틀린 성분 A의 원문 5와 AI 값 8을 엽니다.
+못 뽑음만 있으면 첫 누락 값을 엽니다.
+그 줄에는 ‘원문 줄(추정)’을 붙입니다.
+
+S02의 ‘이 부분 다시 시험’은 문서와 부분과 기준 실행을 S03에 채웁니다.
+설명 입력란도 바로 노출합니다.
+모델이 준비돼 있으면 ‘실제 시험 시작’으로 보냅니다.
+추가 확인은 최대 한 번입니다.
+이 시안은 일반 시험에 추가 확인을 두지 않습니다.
+서버 변경의 비용 확인은 유지합니다.
+모델이 없으면 연결 단계로 갑니다.
+준비되면 ‘시험으로 돌아가기’를 보여 줍니다.
+자동으로 화면을 옮기지 않습니다.
+
+첫 사용 성공은 PRODUCT.md의 증거 조건을 따릅니다.
+연습과 실제 성공을 합치지 않습니다.
+근거 없는 상태에서 안내 완료를 만들지 않습니다.
+다시 보기는 성공 이력을 지우지 않습니다.
 
 ## Do's and Don'ts
 
-다음 원칙은 PRODUCT.md와 사용자 UI_GUIDE에서 정한 개선 방향이다.
-위의 현행 구현과 같다고 간주하지 않는다.
-
-- **Do:** 지금의 최대 폭과 시스템 글꼴을 유지한다.
-- **Do:** 카드마다 결론을 먼저 보여 주고 상세 표를 접는다. 정보는 보존한다.
-- **Do:** 쉬운 실행 이름 옆에 원래 표기를 남긴다.
-- **Do:** 색 옆에 상태 글을 둔다. 용어 설명은 포커스로도 열리게 한다.
-- **Do:** 오류는 확인한 사실과 할 일을 나눈다. 예외 원문은 펼침에 둔다.
-- **Don't:** 새 브랜드 색이나 외부 글꼴을 도입하지 않는다.
-- **Don't:** 흐림 효과, 그라데이션 글자, 빛나는 그림자, 장식 이모지, 움직임 효과를 넣지 않는다.
-- **Don't:** 현재 남아 있는 보라 계열을 새 브랜드 기준으로 삼지 않는다.
-- **Don't:** 디자인 문서에 원문 내용이나 비밀값을 옮기지 않는다.
-
-질문 단계는 이 step의 비대화형 지시에 따라 생략했다. 별도 디자인 보조 파일은 만들지 않았다.
+- **Do:** 결론과 다음 행동을 첫 화면에 둡니다.
+- **Do:** 상태 글과 테두리를 함께 사용합니다.
+- **Do:** 오류에도 전역 기준과 현재 대상을 남깁니다.
+- **Do:** 원문 근거와 추정 위치를 구분합니다.
+- **Do:** 0건과 기록 없음을 구분합니다.
+- **Do:** 데이터 계약에 없는 정보는 NOTES에 남깁니다.
+- **Don't:** 90점 목표선을 ‘합격’이라고 부르지 않습니다.
+- **Don't:** 모델 없음과 터널 닫힘과 조회 실패를 합치지 않습니다.
+- **Don't:** 두 번째 탐색 체계나 진행 표시를 만들지 않습니다.
+- **Don't:** 애니메이션과 그라데이션과 글로우와 이모지를 넣지 않습니다.
+- **Don't:** 평가용 문서 내용과 비밀값을 사용하지 않습니다.
+- **Don't:** 기계 검사 통과를 실제 화면 검증이나 이해도 8/10의 증거로 쓰지 않습니다.
