@@ -84,8 +84,8 @@ def diff_info():
     }
 
 
-@pytest.mark.parametrize("delta, phrase", [(-.5, "0.5점 내려갔습니다"),
-                                          (.5, "0.5점 올랐습니다"), (0, "같습니다")])
+@pytest.mark.parametrize("delta, phrase", [(-.5, "0.5점 낮습니다"),
+                                          (.5, "0.5점 높습니다"), (0, "같습니다")])
 def test_diff_headline_direction_and_labels(text, diff_info, delta, phrase):
     diff_info["weighted"]["delta"] = delta
     before = copy.deepcopy(diff_info)
@@ -104,14 +104,14 @@ def test_diff_headline_changed_conditions_and_prompt_content(text, diff_info):
     diff_info["prompt_changed_sections"] = [11]
     result = text.diff_headline(diff_info, "A", "B")
     assert result["same_conditions"] is False
-    assert result["headline"].endswith("조건이 다릅니다: 모델, 입력 판, 안내문 글.")
+    assert all(text.UI_TEXT["compare"]["conditions"]["changed"].format(condition=c) in result["headline"] for c in ["모델", "입력 판", text.UI_TEXT["compare"]["conditions"]["prompt_text"]])
 
 
 def test_diff_headline_commit_only_is_not_same(text, diff_info):
     diff_info["conditions"][-1]["changed"] = True
     result = text.diff_headline(diff_info, "A", "B")
     assert result["same_conditions"] is False
-    assert result["headline"].endswith("조건이 다릅니다: 코드 커밋.")
+    assert text.UI_TEXT["compare"]["conditions"]["changed"].format(condition="코드 커밋") in result["headline"]
 
 
 def test_diff_headline_biggest_absolute_change_prefers_drop_on_tie(text, diff_info):
@@ -126,36 +126,38 @@ def test_diff_headline_biggest_absolute_change_prefers_drop_on_tie(text, diff_in
 def test_diff_headline_no_comparable_items(text, diff_info, items):
     diff_info["items"] = items
     assert text.diff_headline(diff_info, "A", "B") == {
-        "headline": "비교할 항목이 없습니다.", "biggest": None, "same_conditions": True}
+        "headline": text.UI_TEXT["compare"]["headline"]["none"], "biggest": None, "same_conditions": True}
 
 
-FLUTTER = "조건이 모두 같아 이 차이는 실행마다 생기는 흔들림일 가능성이 큽니다."
+FLUTTER = "같은 조건을 반복할 때 생긴 차이일 수 있습니다."
 
 
 def test_diff_headline_adds_flutter_only_when_same_conditions(text, diff_info):
     diff_info["same_conditions"] = True
     result = text.diff_headline(diff_info, "A", "B")
-    assert result["headline"].endswith("조건(모델·안내문·입력 판·동시 호출·코드 커밋)은 모두 같습니다. " + FLUTTER)
+    assert result["headline"].endswith(text.UI_TEXT["compare"]["conditions"]["same"] + " " + FLUTTER)
     assert set(result) == {"headline", "biggest", "same_conditions"} and result["same_conditions"] is True
     diff_info["same_conditions"] = False                                  # 조건은 같아도 채점 문서가 다르다
     assert FLUTTER not in text.diff_headline(diff_info, "A", "B")["headline"]
+    assert text.diff_headline(diff_info, "A", "B")["same_conditions"] is False
     diff_info["same_conditions"] = True
     diff_info["conditions"][0]["changed"] = True
     result = text.diff_headline(diff_info, "A", "B")
-    assert FLUTTER not in result["headline"] and result["headline"].endswith("조건이 다릅니다: 모델.")
+    assert FLUTTER not in result["headline"] and text.UI_TEXT["compare"]["conditions"]["changed"].format(condition="모델") in result["headline"]
 
 
 def test_diff_headline_unscored_total_does_not_claim_equal(text, diff_info):
     diff_info["weighted"]["delta"] = None
     headline = text.diff_headline(diff_info, "A", "B")["headline"]
-    assert "종합 점수를 비교할 수 없습니다" in headline
+    assert text.UI_TEXT["compare"]["headline"]["unscored"].format(a="A", b="B") in headline
 
 
 def test_diff_ui_text_counts_hidden_items_including_unscored(text, diff_info):
     diff_info["items"].append({"name": "미채점", "delta": None})
     result = text.diff_ui_text(diff_info)
-    assert result["hidden"] == "내려가지 않았거나 점수가 없는 항목 2개 숨김"
-    assert result["candidate"] == "후보입니다. 확정은 ③ 원문 대조에서 눈으로 합니다."
+    assert result["hidden"] == text.UI_TEXT["compare"]["items"]["hidden"].format(count=2)
+    assert result["candidate"] == text.UI_TEXT["compare"]["items"]["candidate"]
+    assert result["empty"] == text.UI_TEXT["compare"]["items"]["empty"]
 
 
 def test_doc_legend_matches_existing_css_colors_and_returns_fresh_values(text):
@@ -1020,3 +1022,15 @@ def test_problem_status_copy_contract_has_no_pass_judgement(text, score_info):
     for name in ['headline', 'next_action', 'losses', 'top_problem', 'loss_basis']:
         assert '합격' not in str(result[name])
     assert text.UI_TEXT['score']['summary']['headline_below'].format(line=87, gap='14.3') in result['headline']
+
+
+def test_diff_same_conditions_copy_is_cautious_and_uses_api_flag(text, diff_info):
+    diff_info["same_conditions"] = True
+    phrase = text.UI_TEXT["compare"]["conditions"]["variation"]
+    assert phrase in text.diff_headline(diff_info, "A", "B")["headline"]
+    diff_info["same_conditions"] = False
+    diff_info["docs"] = {"common": ["T21-X01"], "only_a": ["T21-X02"], "only_b": []}
+    result = text.diff_headline(diff_info, "A", "B")
+    assert phrase not in result["headline"]
+    assert text.UI_TEXT["compare"]["different"]["title"] in result["headline"]
+    assert result["same_conditions"] is False

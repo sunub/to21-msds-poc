@@ -24,21 +24,6 @@ def test_server_log_copy_instruction_only_appears_with_lines():
     """)
 
 
-def test_changed_values_toggle_is_button_and_keeps_both_lists():
-    run_js(r"""
-      S.diff.data={changed_values:{'가짜 항목':{fixed:[{doc_id:'T21-X01',kind:'틀림',content:'고친 값'}],broken:[]}}};
-      renderDiffValues();
-      const card=document.getElementById('diff-values-card');
-      let row=card.querySelector('.vrow');
-      assert.equal(row.tagName,'button'); row.focus(); row.click();
-      row=card.querySelector('.vrow');
-      assert.equal(row.getAttribute('aria-expanded'),'true');
-      assert.equal(document.activeElement,row);
-      assert.match(card.textContent,/고친 값/);
-      assert.match(card.textContent,/새로 틀린 것: 없음/);
-    """)
-
-
 def test_errors_share_fact_action_and_collapsed_raw_on_each_tab():
     run_js(r"""
       // 서버에서 최초 HTML에 넣은 글을 사용한다. 임의 오류는 원문 펼침 안에만 둔다.

@@ -147,20 +147,20 @@ P01과 P02는 원래 화면으로 돌아오는 확인 영역입니다.
 | I19 | 정답 초안의 빈 곳·출처·발견 시점 | `itemRow, /api/silver_gaps` | S01 score-gaps | 2 | `scoreGap/scoreRenderGaps`: 선택 key의 gaps, 출처·발견일·조회 실패 |
 | I20 | 항목별 값 없는 행 제외 점수 | `itemRow` | S01 score-problems | 2 | `scoreProblemDetail`: items_na_excluded 값 그대로 |
 | I21 | 실행 이력 그래프·날짜·모델 범례·현재 실행·목표선·최고 점수 | `renderHistory` | S01 score-history | 2 | `scoreRenderHistory/scoreHistoryRuns`: SVG·키보드 점·같은 선택 표, 시작일·모델·현재·목표선, 최고는 서버 요약 |
-| I22 | 두 점 선택 순서·선택 해제·A/B로 보내기 | `savePick, renderHistory` | S01 score-history → S04 compare-summary | 2, 4 | `scoreSavePick/scoreHistoryPick`, `#score-compare-picks`: b_app.pick 보존·실패 허용, go(s04,{a,b}). 비교 step 4 |
+| I22 | 두 점 선택 순서·선택 해제·A/B로 보내기 | `savePick, renderHistory` | S01 score-history → S04 compare-summary | 2, 4 | `scoreSavePick/scoreHistoryPick` → `go(s04,{a,b})` → `compareEnsure`: 선택한 순서 그대로 A/B 복원 |
 | I23 | 문서별 점수·필수 미달 항목·시간·300초 목표·시간 기록 없음 | `renderDocs` | S01 score-docs | 2 | `scoreRenderDocs`: 문서별 점수·필수 미달·초·시간 목표·기록 없음 |
 | I24 | 문서×16항 호출 격자·한 문서의 여러 MSDS | `renderGrid` | S01 score-grid | 2 | `scoreRenderGrid`: 문서별/MSDS 순번별 16칸, 8칸씩 두 줄 |
 | I25 | 성공·재추출·출력 한도·실패·기록 없음·시도 수·시간·방식·한도 원인 | `gridCell, renderGrid` | S01 score-grid | 2 | `scoreCall`: 상태 글·시도·시간·방식·한도 원인 펼침 |
 | I26 | 표별 결과/정답 행 수·비율·남는 값(extras) | `renderRows` | S01 score-rows | 2 | `scoreRenderRows`: 표별 결과/정답 행 수·비율·extras |
-| I27 | A/B 선택·실행 원래 이름·순서 교환·비교 중/실패 | `diffSelect, loadDiff, renderDiffTop` | S04 compare-summary | 4 | |
-| I28 | 모델·지시문 버전·입력·동시 호출 수·코드 커밋·변경 조건 | `renderDiffTop` | S04 compare-conditions | 4 | |
-| I29 | 총점 전후·차이·값 없는 행 제외 점수 전후 | `renderDiffTop, changeLine` | S04 compare-summary | 4 | |
-| I30 | 공통 문서 수·A에만/B에만 있는 수·다른 평균의 주의 | `renderDiffTop` | S04 compare-conditions | 4 | |
-| I31 | 23개 점수 차·등급·관련 항·하락만/모두·숨긴 수 | `renderDiffItems` | S04 compare-items | 4 | |
-| I32 | 2점 이상 하락의 원인 후보·후보 없음 | `renderDiffItems` | S04 compare-items | 4 | |
-| I33 | 지시문 변경 항·전후 줄 수·행/JSON 형식·차이 줄·재구성 해시 불일치 | `togglePrompt, promptView` | S04 compare-prompts | 4 | |
-| I34 | 새로 맞춘 값·새로 틀린 값·문서·종류·내용·표시 수 | `renderDiffValues, valueTable` | S04 compare-values → S02 source-values | 4 | |
-| I35 | A/B/정답 표 행 수·가까워짐/멀어짐/차이 유지 | `renderDiffRows` | S04 compare-rows | 4 | |
+| I27 | A/B 선택·실행 원래 이름·순서 교환·비교 중/실패 | `diffSelect, loadDiff, renderDiffTop` | S04 compare-summary | 4 | `compareEnsure/compareLoad/compareSelect`, compare-summary: run_kind 묶음·run_label·원래 이름·순서 교환·로딩·실패·재시도 |
+| I28 | 모델·지시문 버전·입력·동시 호출 수·코드 커밋·변경 조건 | `renderDiffTop` | S04 compare-conditions | 4 | `compareConditionsLead/compareRenderConditions`: 결론 위 조건 차이와 같은 조건 흔들림, 상세의 모델·버전·입력·동시 수·코드·현재 정답지 |
+| I29 | 총점 전후·차이·값 없는 행 제외 점수 전후 | `renderDiffTop, changeLine` | S04 compare-summary | 4 | `compareRenderSummary/compareRenderConditions`: API weighted·weighted_na_excluded·delta와 양쪽 targets, 같은 조건은 중립 class |
+| I30 | 공통 문서 수·A에만/B에만 있는 수·다른 평균의 주의 | `renderDiffTop` | S04 compare-conditions | 4 | `compareConditionsLead/compareRenderConditions`: 공통·A 전용·B 전용 문서 수/목록, 서로 다른 평균 주의 |
+| I31 | 23개 점수 차·등급·관련 항·하락만/모두·숨긴 수 | `renderDiffItems` | S04 compare-items | 4 | `compareRenderItems`: API 점수·등급·관련 항·정렬·내려간 것/모두·숨긴 수, 입력 배열 불변 |
+| I32 | 2점 이상 하락의 원인 후보·후보 없음 | `renderDiffItems` | S04 compare-items | 4 | `compareRenderItems`: API causes의 후보 순서·근거·후보 없음, 추정 안내를 근거보다 먼저 표시 |
+| I33 | 지시문 변경 항·전후 줄 수·행/JSON 형식·차이 줄·재구성 해시 불일치 | `togglePrompt, promptView` | S04 compare-prompts | 4 | `compareRenderPrompts/compareFetchPrompt/comparePromptBody`: 16개 항 lazy 요청·실행쌍 캐시·A/B 줄 수/형식·글 차이·해시 불일치·오류 복구 |
+| I34 | 새로 맞춘 값·새로 틀린 값·문서·종류·내용·표시 수 | `renderDiffValues, valueTable` | S04 compare-values → S02 source-values | 4 | `compareRenderValues/compareValueList/compareOpenSource`: 두 목록·수·300개씩 더 보기·단추/초점 유지 → S02. 정확한 path 없는 현재 API는 항 단위 연결과 안내 |
+| I35 | A/B/정답 표 행 수·가까워짐/멀어짐/차이 유지 | `renderDiffRows` | S04 compare-rows | 4 | `compareRenderRows`: API의 모든 A/B/정답 행 수, 가까움/멀어짐/유지 글. 같은 조건은 중립 표시 |
 | I36 | 실행·문서 선택·정답 없는 개발 문서 | `initDoc, docsOf, renderDocTop` | S02 source-top | 3 | `sourceRenderTop`, `sourceEnsure`, `sourceRunDocs`: 실행·문서 선택과 원문 전용 경로 |
 | I37 | 자료 불러오기 실패·할 일·예외 원문 | `renderDocTop, loadFailure` | S02 source-top | 3 | `sourceRenderTop`, `sourceReload`: 자료 없음·잠김·실패·로딩·재시도 |
 | I38 | 쪽 선택·16항 이름·구간 시작/끝·제목 못 찾음 | `renderDocTop, goSection` | S02 source-top·source-page | 3 | `sourceGoSection`, `sourcePage`, `sourceRenderPage`: 16항 이름·구간·쪽 선택 |
@@ -389,6 +389,16 @@ COPY의 제목과 복구 설명을 감싸서 표시합니다.
 - 빈칸: `/api/sets` 어느 판에도 없는 문서는 평가용인지 확정할 정보가 없습니다. 알려진 잠금은 이유를 보이고 요청하지 않습니다. 실행의 `docs/no_gold`와 묶음의 열람 가능 목록에도 없는 문서는 요청하지 않고 자료 없음으로 표시합니다. 404만 보고 평가용이라고 추정하지 않습니다.
 - 단계 7 계약: `evidence_line_shown`의 `item`은 선택 값의 `items`에 실제로 있는 요청 항목만 보냅니다. 다른 기준의 값을 누르면 null입니다. 보이는 S02의 실제 쪽 줄 강조를 확인한 뒤 값마다 한 번 보냅니다. 자동 기본 선택과 추정 줄은 성공 사건을 보내지 않습니다.
 
+### step 4 API 재확인
+
+- `same_conditions`는 최상위 bool을 사용합니다. `headline` 객체의 반환 키도 유지하며 채점 문서가 다르면 내부 `same_conditions`도 false로 맞췄습니다. 조건이 비어 있으면 별도의 미기록 안내를 보입니다.
+- `conditions[{what,a,b,changed}]`와 `prompt_changed_sections`, `docs{common,only_a,only_b}`를 결론 위에 표시합니다. 현재 선택 정답지 `key.label`을 두 실행의 재채점 기준으로 붙입니다. 과거 정답지 재현을 주장하지 않습니다.
+- `comparable`에는 이유 필드가 없습니다. 값이 false인 이유는 `run_kind`의 의미로 설명합니다. 단건·일부·신규 문서는 이유와 함께 선택 가능하며 정답 생성·평가·비교표·읽기 실패 기록은 비활성입니다.
+- STRUCTURE에 별도 기본 짝이 없으므로 현재 실행을 B로, 앞선 같은 `run_kind`와 같은 `set.id` 실행을 A로 고릅니다. 이력에서 `{a,b}`를 받으면 그 순서가 우선입니다.
+- `/api/diff`의 `changed_values`는 `{doc_id,kind,content}`만 있습니다. 정확한 `path`가 없다는 안내를 보이고 고친 값은 A, 새로 틀린 값은 B의 문서·관련 항으로 갑니다. optional path가 주어지면 그대로 전달합니다. 글 내용에서 위치를 지어내지 않습니다.
+- `/api/prompt_diff`에는 key 인자가 필요하지 않습니다. 실행쌍과 no만 전송하며 펼치기 전에는 요청하지 않습니다. 실행·정답 목록과 diff는 `ctxUrl`로 선택 key를 전달합니다.
+- 표 행 수에는 거리 상태가 없습니다. 옛 표시처럼 받은 행 수와 정답 행 수의 절대 거리만 비교해 가까워짐·멀어짐을 표시합니다. 점수 차·바뀐 값·원인 후보는 API 값을 그대로 사용합니다.
+
 ## 글 출처
 
 고정 글은 `b_app_text.py`의 `UI_TEXT`에 모읍니다.
@@ -455,6 +465,12 @@ step 2의 글 출처입니다.
 - `score.calls.scope/attempt_info/mode/limit_reason`, `calculation.weight/loss_formula/weight_basis`, `gaps.*`, `documents.seconds`, `value_points`는 실제 수치에 단위와 뜻을 붙입니다. 공식 점수와 손실은 새로 계산하지 않습니다.
 - 예외 이유는 코드의 COPY_EXCEPTIONS에 키별로 기록했습니다. 승인 COPY는 수정하지 않았습니다.
 
+step 4의 글 출처입니다.
+
+- `compare.*`의 승인 문장을 `UI_TEXT.compare`에 옮겼습니다. `diff_headline/diff_ui_text`의 인자·반환 키는 그대로 두고 COPY 문장으로 바꿨습니다.
+- 비교 조건과 목록의 동적 단위, 정렬/필터/재시도 단추, 선택 불가 사유, API 미기록 상태, 행 수 거리, 지시문 요청 상태는 COPY에 일반형이 없어 `COPY_EXCEPTIONS`에 이유를 기록했습니다.
+- 승인 COPY와 DESIGN 파일은 수정하지 않았습니다. 원인 후보는 서버가 준 글과 순서를 그대로 보존합니다.
+
 ## 설계와 다른 점
 
 | 번호 | 확인한 차이 또는 빈 곳 | 적용할 계획 | 담당 step |
@@ -492,6 +508,16 @@ step 2의 API 확인 보충입니다.
 - counts·cause만 손실 행에 추가했습니다. 기존 손실 수식·값·순위와 top_drops는 유지합니다. next_action은 같은 가장 큰 문제를 가리키게 했습니다.
 
 ## 브라우저로 볼 것
+
+#### 두 결과 비교 · step 4
+
+- 1280·1440·1680px에서 조건 안내가 결론보다 먼저 보이는지 확인합니다.
+- 같은 조건 결론·점수 차·표 행 거리에는 초록/빨강 강조가 없어야 합니다. 조건이 다른 경우에는 방향 글과 색이 함께 보여야 합니다.
+- 긴 실행 이름·원문 값·지시문 차이 줄이 1280px에서 페이지 너비를 넘지 않는지 확인합니다. `.raw/.technical`은 줄바꿈하고 페이지 넘침을 숨기지 않습니다.
+- 키보드로 필터와 바뀐 값 펼침을 조작해 초점이 남는지 확인합니다. 새로 맞춘 값과 새로 틀린 값 모두 열 수 있어야 합니다.
+- 지시문을 펼칠 때만 조회하는지, 실패의 원문은 접혀 있는지, 순서 교환 뒤 늦은 지시문이 끼어들지 않는지 확인합니다.
+- 현재 API에 값 경로가 없을 때 해당 문서·항으로 이동하고 사용자가 값을 고를 수 있는지 확인합니다.
+
 
 #### 원문 보기 · step 3
 
@@ -730,3 +756,68 @@ Questions skipped: non-interactive.
 - 경고는 기존 SWIG 타입의 DeprecationWarning입니다. 이번 전체 실행에는 포트 권한 실패가 없었습니다.
 - 새 원문 시험 27개는 모두 직접 만든 자료와 API 대역으로 실행했습니다.
 - `git diff --check`로 공백 오류를 확인합니다. 단계 3만 completed로 기록합니다.
+
+
+### step 4
+
+⚠️ DEGRADED: no browser in sandbox
+
+Questions skipped: non-interactive. 승인된 설계를 그대로 구현합니다.
+
+시험 먼저: `/tmp/to21-step4-red.log`에서 **24 failed, 2 passed, 159 deselected**를 확인했습니다.
+새 compare.js와 UI_TEXT.compare가 없어 실패했습니다. 기존 문장 시험은 COPY의 새 문장을 기대하도록 먼저 이관했습니다.
+옛 비교 화면 시험 2개와 polish의 값 펼침 시험 1개는 새 DOM 시험으로 옮긴 뒤 삭제했습니다.
+
+실패한 시험입니다.
+
+- `tests/test_B_b_app_compare_ui.py::test_same_conditions_are_before_headline_and_all_deltas_are_neutral`
+- `tests/test_B_b_app_compare_ui.py::test_changed_conditions_have_separate_lines_and_direction_with_text`
+- `tests/test_B_b_app_compare_ui.py::test_filter_sort_keeps_all_rows_hidden_count_and_candidate_reasons`
+- `tests/test_B_b_app_compare_ui.py::test_empty_filter_can_restore_unscored_and_positive_items`
+- `tests/test_B_b_app_compare_ui.py::test_changed_values_toggle_is_button_keeps_focus_and_both_lists`
+- `tests/test_B_b_app_compare_ui.py::test_value_source_link_uses_exact_path_when_present_and_honest_section_fallback`
+- `tests/test_B_b_app_compare_ui.py::test_grouped_selection_reasons_and_default_pair_skip_other_kinds`
+- `tests/test_B_b_app_compare_ui.py::test_key_changes_reload_and_late_old_response_cannot_replace_new_result`
+- `tests/test_B_b_app_compare_ui.py::test_prompt_is_lazy_cached_per_pair_and_failure_has_fact_action_raw_retry`
+- `tests/test_B_b_app_compare_ui.py::test_error_keeps_selection_hides_stale_scores_and_recovers`
+- `tests/test_B_b_app_compare_ui.py::test_different_document_sets_and_prompt_hash_changes_are_visible_above_conclusion`
+- `tests/test_B_b_app_compare_ui.py::test_missing_metadata_targets_and_empty_runs_remain_unknown_not_zero`
+- `tests/test_B_b_app_compare_ui.py::test_rows_keep_all_counts_and_direction_is_neutral_for_repeat`
+- `tests/test_B_b_app_compare_ui.py::test_score_history_navigation_and_compare_table_link_preserve_order`
+- `tests/test_B_b_app_text.py::test_diff_headline_direction_and_labels[-0.5-0.5\uc810 \ub0ae\uc2b5\ub2c8\ub2e4]`
+- `tests/test_B_b_app_text.py::test_diff_headline_direction_and_labels[0.5-0.5\uc810 \ub192\uc2b5\ub2c8\ub2e4]`
+- `tests/test_B_b_app_text.py::test_diff_headline_changed_conditions_and_prompt_content`
+- `tests/test_B_b_app_text.py::test_diff_headline_commit_only_is_not_same`
+- `tests/test_B_b_app_text.py::test_diff_headline_no_comparable_items[items0]`
+- `tests/test_B_b_app_text.py::test_diff_headline_no_comparable_items[items1]`
+- `tests/test_B_b_app_text.py::test_diff_headline_adds_flutter_only_when_same_conditions`
+- `tests/test_B_b_app_text.py::test_diff_headline_unscored_total_does_not_claim_equal`
+- `tests/test_B_b_app_text.py::test_diff_ui_text_counts_hidden_items_including_unscored`
+- `tests/test_B_b_app_text.py::test_diff_same_conditions_copy_is_cautious_and_uses_api_flag`
+
+구현과 검증 기록입니다.
+
+- `js/compare.js`가 S04의 여섯 구역을 `shellDefineView`로 등록합니다. `S.compare`가 선택·요청·펼침 상태를 보관합니다. `compareEnsure/compareLoad`는 초기 맥락 완료를 기다리고 늦은 응답을 무시합니다.
+- `compareRenderSummary`는 조건 → 서버 결론 → 양쪽 목표 → 선택/순서 순입니다. 항목·조건·값·행·지시문 상세는 기본 접힘입니다. `compareRenderItems`는 필터와 정렬 후에도 API 배열을 바꾸지 않습니다.
+- `compareRenderValues`는 단추 자체를 교체하지 않아 펼친 뒤 초점이 남습니다. `compareFetchPrompt`는 펼친 항만 요청하고 실행쌍별로 메모리에 보관합니다. 정답지를 바꾸면 비교 결과를 다시 요청합니다.
+- 옛 `test_B_b_app_diff_doc_ui.py`의 두 시험과 polish의 값 펼침 시험을 새 `run_js` 시험으로 이관해 삭제했습니다. 나머지 기존 시험은 유지했습니다.
+- `test_B_b_app_text.py`의 비교 문장 기대값은 COPY의 ‘높습니다/낮습니다’, 신중한 흔들림 표현, 항목/조건/후보 안내에 맞춰 바꿨습니다. 가장 큰 차이 선정·동점 처리·입력 불변·반환 키 검증은 유지했습니다. 문서 구성이 다를 때 same_conditions가 false임도 확인합니다.
+- 첫 구현 집중 시험에서 빠진 글 키 `score.documents.document`를 발견하고 기존 `common.document`로 수정했습니다. 집중 시험 213개가 통과했습니다.
+- 추가 검증: 초기 #s04 진입, 늦은 지시문 응답, 실제 S02 모듈로 key/path 전달, 305개 값의 전체 접근, API delta의 무변경 표시를 확인했습니다. S02 시험의 가짜 실행 목록에 docs가 빠진 것을 바로잡았습니다. 제품 원문 코드는 수정하지 않았습니다.
+- 양쪽 목표 상태 글의 빠짐은 새 시험 실패를 확인한 뒤 API `targets.*.weighted.met`로 표시했습니다. 목표를 화면에서 재계산하지 않습니다.
+- impeccable context와 detect를 각 1회 실행했습니다. detect의 22개 권고는 기존 wireframes.html 15개와 guide.html 7개입니다. 새 화면 지적은 0개입니다. `/static/app.css`를 상대 경로로 해석하지 못한 경고로 색·사용자 정의 속성 검사에는 한계가 있습니다.
+- 첫 전체 회귀: 1980 passed, 30 skipped, 7 warnings, 1 failed(39.73초). 실패는 `tests/test_A_input.py::test_every_changing_route_answers_with_update`의 socket.bind PermissionError뿐입니다. `_common.txt` 7절은 이 환경 실패 하나만 있으면 completed를 허용하고 실행기가 밖에서 재검증하도록 정합니다. A 시험을 고치거나 제외하지 않았습니다.
+- 브라우저·앱 서버·모델 서버를 실행하지 않았습니다. 실제 시각 배치·한국어 줄바꿈·가로 넘침은 미확인입니다. 이 목록은 위 ‘브라우저로 볼 것’에 남깁니다.
+
+최종 완료 기준과 변경 경계입니다.
+
+- 지정 AC를 `/tmp/to21-step4-ac.sh`로 그대로 실행했습니다. 기록은 `/tmp/to21-step4-ac.log`입니다.
+- 정적 파일·스크립트·같은 조건·옛 시험 이관·BUILD 절·Node 확인: 모두 통과.
+- 비교 UI + DOM: **24 passed**. 비교 화면 시험은 20개입니다.
+- 문구 + 비교 API/계산: **195 passed, 7 warnings**.
+- 전체 지정 시험: **1986 passed, 30 skipped, 7 warnings, 1 failed**, 39.65초. 전체 명령의 종료 코드는 1입니다.
+- 유일한 실패는 기존 A 시험 `test_every_changing_route_answers_with_update`의 `socket.bind` → `PermissionError: [Errno 1] Operation not permitted`입니다. `_common.txt` 7절의 명시된 예외에 따라 step 4를 completed로 기록합니다. 실행기가 샌드박스 밖에서 전체 AC를 다시 검증합니다. 경고 7개는 기존 SWIG 타입의 DeprecationWarning입니다.
+- 시작 때 기록한 3,911개 파일 지문과 비교했습니다. 허용된 기존 파일만 변경되었습니다. 비교 정보 보존표 I27~I35의 새 위치 9개가 모두 채워졌습니다. `git diff --check`가 통과했습니다.
+- 아키텍처 점검: `b_app.py/b_app_diff.py`, 앞선 core/shell/score/source, 옛 app.js, 공용·다른 역할 코드, docs·CLAUDE·하네스·승인 설계 정본은 불변입니다. 새 패키지·외부 주소·이미지·애니메이션은 없습니다. 평가용 내용과 비밀값을 사용하지 않았습니다.
+- API 응답 키와 점수/바뀐 값 계산은 유지합니다. targets 목표값은 서버 값을 사용합니다. 조건이 같거나 미확인이면 점수 방향은 중립입니다. 바뀐 값·원인·오류·지시문 글은 글자 노드로만 그립니다.
+- 자기 step의 status와 summary만 기록합니다. 커밋하지 않았습니다.
