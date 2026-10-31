@@ -26,7 +26,7 @@ from msds.extract.prompt_builder import _BASE_RULES, _code_table, _field_rows, _
 from msds.extract.rows import rows_guide
 from msds.extract.section_specs import SectionSpec, load_specs, response_schema
 
-SECTION_PROMPT_VERSION = "s7"   # 안내문 내용을 고치면 올린다. 실행 기록에 남는다. s3은 10/28에 되돌린 extras 규칙판이 썼다. s5: 행 형식 안내, 2항 그림문자(C2 코드표·이미지 안내) 추가. 14항도 행 형식(s5 실행 전이라 버전 유지). 그 밖의 JSON 안내문은 s4와 같다. s6: 행 형식 안내에 표마다 선택지 줄, 비해당·단위·값 없는 행·extras 규칙 추가 (rows-tune. s5로 돌린 실행 기록이 이미 있어 올림). s7: 16항 관리정보 칸 대응(rows-tune3)
+SECTION_PROMPT_VERSION = "s8"   # 안내문 내용을 고치면 올린다. 실행 기록에 남는다. s3은 10/28에 되돌린 extras 규칙판이 썼다. s5: 행 형식 안내, 2항 그림문자(C2 코드표·이미지 안내) 추가. 14항도 행 형식(s5 실행 전이라 버전 유지). 그 밖의 JSON 안내문은 s4와 같다. s6: 행 형식 안내에 표마다 선택지 줄, 비해당·단위·값 없는 행·extras 규칙 추가 (rows-tune. s5로 돌린 실행 기록이 이미 있어 올림). s7: 16항 관리정보 칸 대응(rows-tune3). s8: 8·11·12·15항 넓은 표 열 이름 꼴, 11·12항 결과기술 행, 15항 기준농도 예시 (score-fix2, ADR-030)
 IMAGE_MAX_SIDE = 1200           # 2항에 붙이는 쪽 이미지의 긴 변 픽셀 (ADR-019)
 _IMAGE_NOTE = "[2항이 있는 쪽 이미지. 그림문자(마름모 안 그림)를 보고 pictograms에 GHS 코드를 적는다]"
 
@@ -61,11 +61,14 @@ GUIDES = {
     9: """- 물리화학적 특성(physchem)은 특성마다 한 행이다. 숫자 값은 q, 글자 값은 text_value에 두고, 괄호 속 측정 조건은 cond로 나눈다.
 - 특성 이름의 표기가 달라도 [동의어]로 prop_code를 정한다(R25). 점도와 동점도는 R26.""",
     11: """- 독성(toxicity)은 성분 × 독성 항목(endpoint) × 지표(LD50·LC50 등) × 시험 동물마다 한 행이다.
-- 발암성·생식세포변이원성·생식독성의 기관별 분류(cmr)는 기관마다 한 행이다.""",
-    12: """- 생태독성(ecotox)은 성분 × 항목(endpoint) × 지표 × 생물종마다 한 행이다.""",
+- 발암성·생식세포변이원성·생식독성의 기관별 분류(cmr)는 기관마다 한 행이다.
+- 숫자 없이 문장으로 적힌 결과(피부 부식성·눈 손상·과민성·특정표적장기·흡인 유해성 등)도 항목마다 한 행으로 쓴다. `descriptor`는 `결과기술`, 문장은 `statements`, `status`는 `값있음`이다.""",
+    12: """- 생태독성(ecotox)은 성분 × 항목(endpoint) × 지표 × 생물종마다 한 행이다.
+- 숫자 없이 문장으로 적힌 결과(잔류성·분해성, 생물 농축성, 토양 이동성 등)도 항목마다 한 행으로 쓴다. `descriptor`는 `결과기술`, 문장은 `statements`, `status`는 `값있음`이다.""",
     14: """- 운송(transport)은 운송 방식(mode)마다 한 행이다. UN번호는 R09.""",
     15: """- 국내 규제(regulations)는 성분 × 법령(law) × 규제 항목(item_code)마다 한 행이다. 해당·비해당·자료없음도 원문에 적힌 대로 행으로 쓴다.
 - 규제 항목 이름의 표기가 달라도 [동의어]로 item_code를 정한다(R25).
+- 기준농도(`threshold`)는 원문 글 그대로 한 칸에 쓴다. 예: `1 % 이상`. 칸 이름(`lower_op` 등)을 쓰지 않는다.
 - 위험물안전관리법은 dangerous_goods, 폐기물관리법의 지정폐기물 여부는 waste, 해외 분류는 intl_class에 둔다.""",
     16: """- 최초 작성일·개정 횟수·최종 개정일이 있으면 `meta_revision`에 적는다. 날짜는 R01.
 - 원문의 `최초작성일`·`작성일자`·`작성일`·`최초 작성일자`는 `meta_revision.first_issue_date`에 적는다.

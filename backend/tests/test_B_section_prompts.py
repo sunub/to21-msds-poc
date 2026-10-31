@@ -11,7 +11,7 @@ import pytest
 from msds.common.paths import to21_file
 from msds.extract import section_prompts as sp
 from msds.extract.inputs import Line
-from msds.extract.rows import ROWS_SECTIONS_DEFAULT, row_tables
+from msds.extract.rows import _KEYED_TABLES, ROWS_SECTIONS_DEFAULT, row_tables
 from msds.extract.section_specs import load_specs
 
 NOS = range(1, 17)
@@ -194,7 +194,7 @@ def test_value_and_range_are_exclusive(systems, no):
 
 
 def test_version():
-    assert sp.SECTION_PROMPT_VERSION == "s7"
+    assert sp.SECTION_PROMPT_VERSION == "s8"
 
 
 @pytest.mark.parametrize("no", NOS)
@@ -226,17 +226,34 @@ def rows_systems():
 
 
 def test_rows_version_s6():
-    assert sp.SECTION_PROMPT_VERSION == "s7"
+    assert sp.SECTION_PROMPT_VERSION == "s8"
 
 
 @pytest.mark.parametrize("no", ROWS_SECTIONS_DEFAULT)
 def test_rows_system_has_table_headers_and_columns(rows_systems, no):
+    """표마다 열 이름 줄이 있다. 열 이름 꼴 표(s8)는 '열: …' 줄이다."""
     text = rows_systems[no]
     assert f'{no}항 "{load_specs()[no].title}"' in text
     assert "p2:L23" in text
     fmt = _part(text, "[응답 형식]")
     for name, cols in row_tables(no).items():
-        assert f"### {name}\n" + " | ".join(cols) + "\n" in fmt
+        head = "열: " + ", ".join(cols) if name in _KEYED_TABLES else " | ".join(cols)
+        assert f"### {name}\n{head}\n" in fmt
+
+
+@pytest.mark.parametrize("no", (11, 12))
+def test_s8_result_text_rows_guide(systems, rows_systems, no):
+    """11·12항 안내에 숫자 없이 문장으로 적힌 결과를 결과기술 행으로 쓰는 규칙이 있다 (s8)."""
+    for text in (systems[no], rows_systems[no]):
+        guide = _part(text, "이 항의 안내")
+        assert "`결과기술`" in guide and "`statements`" in guide and "`값있음`" in guide
+
+
+def test_s8_threshold_guide(systems, rows_systems):
+    """15항 안내에 기준농도를 원문 글 그대로 한 칸에 쓰는 규칙과 예시가 있다 (s8)."""
+    guide = _part(rows_systems[15], "이 항의 안내")
+    assert "`threshold`" in guide and "`1 % 이상`" in guide and "`lower_op`" in guide
+    assert "`threshold`" not in _part(rows_systems[11], "이 항의 안내")
 
 
 def test_rows_system_has_enum_lines(rows_systems):

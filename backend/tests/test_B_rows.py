@@ -404,15 +404,183 @@ def test_parse_rows_cond_pairs():
 
 @pytest.mark.parametrize("no", rw.ROWS_SECTIONS_DEFAULT)
 def test_rows_guide_tables_and_examples_parse(no):
-    """표마다 머리글과 열 이름 줄이 있고, 예시 행은 그 항 스키마 검증을 통과한다."""
+    """표마다 머리글과 열 이름 줄(열 이름 꼴 표는 '열:' 줄)이 있고, 예시 행은 그 항 스키마 검증을 통과한다."""
     guide = rw.rows_guide(no)
     for name, cols in rw.row_tables(no).items():
-        assert f"### {name}\n{' | '.join(cols)}\n" in guide
+        head = f"열: {', '.join(cols)}" if name in rw._KEYED_TABLES else " | ".join(cols)
+        assert f"### {name}\n{head}\n" in guide
     parsed, errors = rw.parse_rows(guide, no)
     assert errors == []
     assert validate(parsed, response_schema(no)) == []
     for name in response_schema(no)["properties"]:
         assert parsed[name], f"{no}항 {name} 예시 없음"
+
+
+@pytest.mark.parametrize("no, name", [(11, "toxicity"), (12, "ecotox")])
+def test_rows_guide_result_text_example_parses(no, name):
+    """11·12항 예시에 숫자 없이 문장으로 적힌 결과 행(결과기술)이 있고 파서를 통과한다 (s8)."""
+    parsed, errors = rw.parse_rows(rw.rows_guide(no), no)
+    assert errors == []
+    [r] = [r for r in parsed[name] if r["descriptor"] == "결과기술" and r["status"] == "값있음"]
+    assert len(r["statements"]) == 1 and r["q"] is None
+
+
+def test_rows_guide_threshold_example_parses():
+    """15항 예시에 기준농도를 원문 글 그대로 쓴 행이 있고 숫자 묶음으로 읽힌다 (s8)."""
+    parsed, errors = rw.parse_rows(rw.rows_guide(15), 15)
+    assert errors == []
+    [th] = [r["threshold"] for r in parsed["regulations"] if r["threshold"]]
+    assert th["raw"] == "1 % 이상" and th["lower"] == 1 and th["lower_op"] == ">=" and th["unit"] == "%"
+
+
+# ── 열 이름 꼴 행 (score-fix2 step 0, ADR-030) ─────────
+
+def keyed(**values) -> str:
+    """열 이름 → 값으로 열 이름 꼴 행 한 줄. 넘긴 순서대로 쓴다."""
+    return " | ".join(f"{k}={v}" for k, v in values.items())
+
+
+TOX = {**COMP, "endpoint": "TX_INHAL", "descriptor": "LC50", "q": "> 5 mg/L", "species": "랫드", "duration_value": "4",
+       "duration_unit": "hr", "physical_form": "증기", "statements": "가상 설명 하나; 가상 설명 둘", "status": "값있음",
+       "line": "p6:L3"}
+
+
+def test_keyed_tables():
+    assert rw._KEYED_TABLES == ("exposure_limits", "toxicity", "ecotox", "regulations")
+
+
+def test_keyed_toxicity_row_same_as_positional():
+    parsed, errors = rw.parse_rows(table(11, "toxicity", keyed(**TOX)), 11)
+    assert errors == []
+    positional, _ = rw.parse_rows(table(11, "toxicity", row(11, "toxicity", **TOX)), 11)
+    assert parsed == positional
+    r = parsed["toxicity"][0]
+    assert r["q"] == {"raw": "> 5 mg/L", "lower_op": ">", "lower": 5, "unit": "mg/L"}
+    assert r["duration_value"] == 4 and r["sex"] is None and len(r["statements"]) == 2
+    assert validate(parsed, response_schema(11)) == []
+
+
+def test_keyed_any_order_and_spaces():
+    """열 순서가 달라도, '=' 둘레나 칸 사이에 공백이 있어도, 빈 칸이 끼어도 같다."""
+    text = table(11, "toxicity", "line = p6:L3 |  | " + keyed(**{k: v for k, v in reversed(TOX.items()) if k != "line"}))
+    parsed, errors = rw.parse_rows(text, 11)
+    assert errors == []
+    assert parsed == rw.parse_rows(table(11, "toxicity", row(11, "toxicity", **TOX)), 11)[0]
+
+
+def test_keyed_markdown_style_and_defaults():
+    """앞뒤에 |를 붙인 줄도 읽고, 표별 기본값(값 없는 행의 q 채우기)은 위치 꼴과 같다."""
+    parsed, errors = rw.parse_rows(table(11, "toxicity", f"| {keyed(**COMP, endpoint='TX_EYE', status='자료없음', line='p6:L5')} |"),
+                                   11)
+    assert errors == []
+    r = parsed["toxicity"][0]
+    assert r["q"] == {"raw": "자료없음"} and r["descriptor"] == "결과기술" and r["line"] == "p6:L5"
+
+
+def test_keyed_value_with_equals_kept():
+    """첫 '='에서만 나눈다. 값 안의 '='(9항 조건 칸)는 그대로 둔다."""
+    text = table(9, "physchem", keyed(prop_code="VAPOR_PRESSURE", q="2.3 kPa", cond="temp=25; temp_unit=C",
+                                      line="p5:L4"))
+    parsed, errors = rw.parse_rows(text, 9)
+    assert errors == []
+    assert parsed["physchem"][0]["cond"] == {"temp": 25, "temp_unit": "C"}
+    text = table(15, "regulations", keyed(law="OSH", item_code="OSH_MEASURE", applicable="해당",
+                                          remark="가상 비고 a=b", line="p9:L3"))
+    parsed, errors = rw.parse_rows(text, 15)
+    assert errors == [] and parsed["regulations"][0]["remark"] == "가상 비고 a=b"
+
+
+@pytest.mark.parametrize("bad, problem", [
+    (keyed(**COMP, endpoint="TX_ORAL", dose="5", line="p6:L4"), "모르는 열 'dose'"),
+    (keyed(endpoint="TX_ORAL", q="5 mg/kg", line="p6:L4") + " | q=6 mg/kg", "열 'q'가 두 번"),
+])
+def test_keyed_unknown_or_twice_drops_only_that_row(bad, problem):
+    text = table(11, "toxicity", keyed(**TOX), bad, keyed(**{**TOX, "line": "p6:L5"}))
+    parsed, errors = rw.parse_rows(text, 11)
+    assert [r["line"] for r in parsed["toxicity"]] == ["p6:L3", "p6:L5"]
+    assert len(errors) == 1
+    assert errors[0].startswith("toxicity p6:L4 ") and errors[0].endswith(f": {problem}")
+
+
+def test_keyed_missing_line_is_error():
+    parsed, errors = rw.parse_rows(table(11, "toxicity", keyed(**COMP, endpoint="TX_ORAL")), 11)
+    assert parsed["toxicity"] == [] and len(errors) == 1 and "line 열이 비었음" in errors[0]
+
+
+def test_keyed_bad_value_uses_same_checks():
+    """형·선택지 검증과 오류 문구는 위치 꼴과 같다."""
+    parsed, errors = rw.parse_rows(table(11, "toxicity", keyed(**COMP, endpoint="TX_ORL", line="p6:L4")), 11)
+    positional = rw.parse_rows(table(11, "toxicity", row(11, "toxicity", **COMP, endpoint="TX_ORL", line="p6:L4")), 11)
+    assert parsed["toxicity"] == [] and len(errors) == 1 and "endpoint" in errors[0]
+    assert errors[0].split(": ", 1)[1] == positional[1][0].split(": ", 1)[1]
+
+
+def test_keyed_columns_line_skipped():
+    """모델이 안내문의 '열:' 줄을 따라 써도 행으로 읽지 않는다."""
+    cols = rw.row_tables(11)["toxicity"]
+    text = "\n".join(["### toxicity", f"열: {', '.join(cols)}", keyed(**TOX)])
+    parsed, errors = rw.parse_rows(text, 11)
+    assert errors == [] and len(parsed["toxicity"]) == 1
+
+
+def test_keyed_and_positional_mixed_in_any_table():
+    """어떤 표든 두 꼴을 모두 받는다. 3항 성분표(위치 꼴 안내)에 열 이름 꼴 행이 와도 읽는다."""
+    text = table(11, "toxicity", keyed(**TOX), row(11, "toxicity", **{**TOX, "line": "p6:L5"}))
+    parsed, errors = rw.parse_rows(text, 11)
+    assert errors == [] and [r["line"] for r in parsed["toxicity"]] == ["p6:L3", "p6:L5"]
+    comp = dict(name="가상물질 갑", cas_no="1234-56-6", content="10 ~ 20", line="p2:L5")
+    parsed, errors = rw.parse_rows(table(3, "components", keyed(**comp)), 3)
+    assert errors == []
+    assert parsed == rw.parse_rows(table(3, "components", row(3, "components", **comp)), 3)[0]
+    assert parsed["components"][0]["content"]["unit"] == "%"
+
+
+def test_keyed_positional_with_equals_in_cell_stays_positional():
+    """칸 하나에 '='가 있어도 줄 번호 칸 등 다른 칸이 열 이름 꼴이 아니면 지금처럼 위치로 읽는다."""
+    text = table(9, "physchem", row(9, "physchem", prop_code="VAPOR_PRESSURE", q="2.3 kPa", cond="temp=20; temp_unit=C",
+                                    line="p5:L4"))
+    parsed, errors = rw.parse_rows(text, 9)
+    assert errors == [] and parsed["physchem"][0]["cond"] == {"temp": 20, "temp_unit": "C"}
+
+
+def _section(guide: str, name: str) -> list[str]:
+    """안내문에서 '### name' 다음 줄부터 빈 줄 전까지."""
+    lines = guide.splitlines()
+    i = lines.index(f"### {name}") + 1
+    return lines[i:lines.index("", i) if "" in lines[i:] else len(lines)]
+
+
+def test_keyed_rows_guide_toxicity():
+    block = _section(rw.rows_guide(11), "toxicity")
+    assert block[0] == "열: " + ", ".join(rw.row_tables(11)["toxicity"])
+    examples = [ln for ln in block if " | " in ln]
+    assert examples and all(ln.startswith("comp_name=가상물질 갑 | comp_cas=1234-56-6 | endpoint=") for ln in examples)
+    assert all(re.search(r"(^| \| )line=p\d+:L\d+$", ln) for ln in examples)
+    assert not any(re.search(r"=\s*(\||$)", ln) for ln in examples)           # 빈 칸은 쓰지 않는다
+    assert " | ".join(rw.row_tables(11)["toxicity"]) not in rw.rows_guide(11)  # 위치 꼴 열 이름 줄이 없다
+    assert " | ".join(rw.row_tables(11)["cmr"]) in rw.rows_guide(11)           # cmr은 지금 꼴
+
+
+@pytest.mark.parametrize("no, name", [(8, "exposure_limits"), (12, "ecotox"), (15, "regulations")])
+def test_keyed_rows_guide_other_keyed_tables(no, name):
+    block = _section(rw.rows_guide(no), name)
+    assert block[0].startswith("열: ")
+    assert all("=" in c for ln in block if " | " in ln for c in ln.split(" | "))
+
+
+@pytest.mark.parametrize("no, name", [(3, "components"), (3, "composition"), (14, "transport"), (9, "physchem"),
+                                      (15, "dangerous_goods"), (11, "cmr")])
+def test_keyed_rows_guide_positional_tables_unchanged(no, name):
+    block = _section(rw.rows_guide(no), name)
+    assert block[0] == " | ".join(rw.row_tables(no)[name])
+    assert not any(ln.startswith("열:") for ln in block)
+
+
+def test_keyed_rows_guide_rule():
+    g = rw.rows_guide(11)
+    rule = next(ln for ln in g.splitlines() if "`열 이름=값`" in ln)
+    assert "`열:`" in rule and "빈 칸은 쓰지 않는다" in rule and "`line`" in rule
+    assert any("열 이름 줄이 있는 표" in ln and "순서와 수" in ln for ln in g.splitlines())
 
 
 def test_rows_guide_rules():
