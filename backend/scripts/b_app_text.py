@@ -698,9 +698,9 @@ def friendly_error(where: str, raw: str, env_names: dict[str, str] | None = None
                "(SSH 터널을 거친 내 컴퓨터 쪽 주소)")
     elif any(token in raw for token in ("timed out", "Connection refused", "TimeoutError",
                                         "ConnectionRefusedError", "TimeoutExpired")):
-        # 기존 연결 검사는 비밀값 보호를 위해 예외의 종류만 남긴다.
+        # 기존 연결 검사는 비밀값 보호를 위해 예외의 종류만 남긴다. 원인(터널·모델)은 서버 상태의 진단이 가린다.
         message = "서버가 응답하지 않습니다."
-        fix = "SSH 터널이 열려 있는지, 서버가 켜져 있는지 확인하세요."
+        fix = "서버 상태 칸의 진단을 보세요. 터널이 닫혔거나 모델이 아직 뜨는 중일 수 있습니다."
     else:
         message = "서버를 보지 못했습니다."
         fix = "아래 원문을 보고 .env와 터널을 확인하세요."
@@ -720,11 +720,27 @@ SERVER_TEXT: dict[str, str] = {
     "pod_not_ours": "이 앱이 만들지 않은 Pod라 지울 수 없습니다(이름이 {prefix}로 시작하지 않음). "
                     "할 일: RunPod 화면에서 Pod 주인에게 확인하세요.",
     "env_file_unknown": "설정 파일(.env) 위치를 몰라 다시 읽을 수 없습니다. 할 일: 앱을 다시 켜세요.",
+    # RNGD 터널 (b_app_servers의 tunnel_open·tunnel_close)
+    "tunnel_no_port": "RNGD 주소(RNGD_BASE_URL)가 내 컴퓨터 주소(http://127.0.0.1:<포트>/v1)가 아니라 터널을 열 수 없습니다. "
+                      "할 일: .env의 RNGD_BASE_URL을 http://127.0.0.1:18000/v1처럼 적고 '설정 다시 읽기'를 누르세요.",
+    "tunnel_already_open": "내 컴퓨터 {port}번이 이미 열려 있습니다. "
+                           "할 일: 다시 열 필요가 없습니다. 서버 상태의 진단을 보세요.",
+    "tunnel_closed": "터널이 닫혀 있습니다(내 컴퓨터 {port}번). 할 일: 닫을 것이 없습니다. 서버 상태를 다시 보세요.",
+    "tunnel_not_ours": "앱이 연 터널이 아닙니다(내 컴퓨터 {port}번). 할 일: 연 터미널에서 닫으세요.",
+    "tunnel_exited": "SSH 터널이 열리기 전에 ssh가 끝났습니다(종료 코드 {code}). "
+                     "할 일: .env의 RNGD_SSH와 키 파일을 확인하고, 터미널에서 같은 ssh 접속이 되는지 보세요.",
+    "tunnel_timeout": "SSH 터널이 {seconds}초 안에 열리지 않아 멈췄습니다. 할 일: 터미널에서 RNGD에 ssh로 접속되는지 보세요.",
+    "tunnel_spawn_failed": "ssh 프로그램을 띄우지 못했습니다. 할 일: 터미널에서 ssh 명령이 있는지 확인하세요.",
+    "tunnel_still_open": "터널을 닫으라고 보냈지만 내 컴퓨터 {port}번이 아직 열려 있습니다. "
+                         "할 일: 잠시 뒤 서버 상태를 다시 보세요.",
 }
 
 
-def server_controls(*, running: bool, runpod_ok: bool, rngd_ok: bool) -> dict:
-    """모델 연결과 별개로 관리 서버를 볼 수 있어야 변경 단추를 연다."""
+def server_controls(*, running: bool, runpod_ok: bool, rngd_ok: bool, tunnel: dict | None = None,
+                    ssh_set: bool = False) -> dict:
+    """모델 연결과 별개로 관리 서버를 볼 수 있어야 변경 단추를 연다.
+    터널 열기는 실행 중에도 된다(돌고 있는 실행을 해치지 않는다). tunnel은 b_app_servers.tunnel_status 값이다."""
+    busy = "실행이나 시험이 돌고 있어 서버를 바꿀 수 없습니다."
     reasons = {}
     for action, ready, offline in (
         ("pod_create", runpod_ok, "RunPod를 보지 못해 Pod를 만들 수 없습니다."),
@@ -732,9 +748,42 @@ def server_controls(*, running: bool, runpod_ok: bool, rngd_ok: bool) -> dict:
         ("rngd_up", rngd_ok, "RNGD를 보지 못해 모델을 올릴 수 없습니다."),
         ("rngd_down", rngd_ok, "RNGD를 보지 못해 모델을 내릴 수 없습니다."),
     ):
-        reasons[action] = ("실행이나 시험이 돌고 있어 서버를 바꿀 수 없습니다." if running
-                           else offline if not ready else "")
+        reasons[action] = busy if running else offline if not ready else ""
+    t = tunnel or {}
+    reasons["tunnel_open"] = ("RNGD 접속 정보(RNGD_SSH)가 없어 터널을 열 수 없습니다." if not ssh_set
+                              else "RNGD 주소(RNGD_BASE_URL)가 내 컴퓨터 주소가 아니라 터널을 열 수 없습니다."
+                              if t.get("port") is None
+                              else "터널이 이미 열려 있습니다." if t.get("open") else "")
+    reasons["tunnel_close"] = (busy if running else "터널이 닫혀 있습니다." if not t.get("open")
+                               else "앱이 연 터널이 아닙니다. 연 터미널에서 닫으세요." if not t.get("owned") else "")
     return {"can": {action: not reason for action, reason in reasons.items()}, "why": reasons}
+
+
+LOADING_LATE_MIN = 25                                # 모델 올리기는 보통 15~25분 (RNGD 기록)
+
+
+def rngd_diagnosis(diagnosis: str | None, loading_since: str | None, now: datetime) -> dict | None:
+    """b_app_servers가 낸 RNGD 진단(ok·no_model·tunnel_closed·loading)의 글. 모르는 값이면 None.
+    loading_since는 ISO 시각 글이고, now와 시간대가 달라도 된다. 읽지 못하면 지난 시간을 쓰지 않는다."""
+    if diagnosis == "ok":
+        return {"message": "RNGD 모델이 응답합니다.", "fix": "시험이나 본 실행에서 RNGD 모델을 고를 수 있습니다."}
+    if diagnosis == "no_model":                      # 모델이 없을 때는 터널을 탓하지 않는다
+        return {"message": "RNGD에 떠 있는 모델이 없습니다.", "fix": "모델 올리기를 누르세요. 15~25분 걸립니다."}
+    if diagnosis == "tunnel_closed":
+        return {"message": "내 컴퓨터와 RNGD를 잇는 통로(SSH 터널)가 닫혀 있습니다.", "fix": "터널 열기를 누르세요."}
+    if diagnosis != "loading":
+        return None
+    seconds = None
+    try:
+        seconds = max(0.0, (now - datetime.fromisoformat(loading_since)).total_seconds())
+    except (TypeError, ValueError):                  # 없음, 시각 아님, 시간대 있음·없음 섞임
+        pass
+    message = (f"모델을 올리는 중입니다({int(seconds // 60)}분 지남)." if seconds is not None
+               else "모델을 올리는 중입니다.")
+    fix = "보통 15~25분 걸립니다. 기다린 뒤 다시 보세요."
+    if seconds is not None and seconds > LOADING_LATE_MIN * 60:
+        fix += f" {LOADING_LATE_MIN}분이 넘었으니 서버 기록을 확인하세요(RNGD의 /root/to21-bc/<태그>.log)."
+    return {"message": message, "fix": fix}
 
 
 def server_ui_text() -> dict:
