@@ -4,6 +4,252 @@ import pytest
 from test_B_b_app_dom import run_js
 
 
+def test_s03_instruction_box_is_prefilled_with_current_instruction():
+    from test_B_b_app_jobs_ui import SETUP
+    run_js(SETUP + r"""
+      const normal=api;let release,failPrompt=false;
+      api=(path,opts)=>path.startsWith('/api/prompt')?new Promise((resolve,reject)=>{
+        release=()=>failPrompt?reject(new Error('Fake prompt failure')):resolve({text:'current instruction'});
+      }):normal(path,opts);
+      await go('s03',{doc:'T21-X01',section:8});
+      assert.ok(release,'instruction should load on entry');
+      assert.ok(el('jobs-prompt-status').textContent.includes(T('jobs.form.prompt_loading')));
+      assert.ok(el('jobs-prompt').getAttribute('aria-describedby').includes('jobs-prompt-status'));
+      release();await S.jobs.promptPending;assert.equal(el('jobs-prompt').value,'current instruction');
+      assert.equal(S.jobs.t.edit,false);assert.equal(posted.length,0);
+      S.jobs.t.secs=new Set([9]);jobsRenderTry();await Promise.resolve();
+      input(el('jobs-prompt'),'my edit');release();await S.jobs.promptPending;
+      assert.equal(el('jobs-prompt').value,'my edit');
+      await go('s03',{doc:'RAW-FAKE',section:8});await Promise.resolve();
+      assert.equal(el('jobs-prompt').value,'my edit');
+      S.jobs.t.edit=false;failPrompt=true;const retry=jobsLoadPrompt();release();await retry;
+      assert.ok(el('jobs-prompt-status').textContent.includes('Fake prompt failure'));
+      failPrompt=false;const recovered=el('jobs-load-prompt').click();release();await recovered;
+      assert.equal(el('jobs-prompt').value,'current instruction');
+      assert.ok(!el('jobs-prompt-status').textContent.includes('Fake prompt failure'));
+    """)
+
+
+def test_s03_ai_off_makes_model_setup_primary_and_practice_secondary():
+    from test_B_b_app_jobs_ui import SETUP
+    run_js(SETUP + r"""
+      options=makeOptions(false);options.models=[{tag:'gpt',connected:false}];
+      await go('s03',{doc:'T21-X01',section:8});await Promise.resolve();
+      const page=el('screen-s03'),prepare=el('jobs-connection').querySelector('button');
+      assert.ok(prepare.classList.contains('primary'));
+      assert.ok(!el('jobs-send').classList.contains('primary'));
+      assert.equal(page.querySelectorAll('button.primary').length,1);
+      assert.ok(page.textContent.indexOf(T('context.prepare_model'))<page.textContent.indexOf(T('jobs.actions.preview')));
+      assert.equal(page.textContent.split(T('jobs.actions.preview')).length-1,1);
+      assert.ok(el('jobs-connection').textContent.includes(UI.context.models.gpt));
+      let dest;go=async(id,args)=>{dest=[id,args];};await prepare.click();
+      assert.equal(dest[0],'s06');assert.equal(dest[1].returnScreen,'s03');
+      assert.equal(posted.length,0);
+    """)
+
+
+def test_s03_offline_selected_model_still_offers_practice_with_other_model_ready():
+    from test_B_b_app_jobs_ui import SETUP
+    run_js(SETUP + r"""
+      await go('s03',{doc:'T21-X01',section:8});
+      change(el('jobs-model'),'second');
+      assert.equal(el('jobs-send').textContent,T('jobs.actions.preview'));
+      assert.equal(el('jobs-send').disabled,false);
+      await el('jobs-send').click();assert.equal(posted[0].body.dry_run,true);
+      assert.equal(posted[0].body.model,'second');
+    """)
+
+
+def test_s03_accepted_request_focuses_result_before_slow_poll():
+    from test_B_b_app_jobs_ui import SETUP
+    run_js(SETUP + r"""
+      await go('s03',{doc:'T21-X01',section:8});const normal=api;
+      let release;api=(path,opts)=>path==='/api/options'?new Promise(resolve=>release=()=>resolve(options)):normal(path,opts);
+      const region=el('jobs-result');let scrolls=0;region.scrollIntoView=()=>scrolls++;
+      const sending=el('jobs-send').click();await Promise.resolve();await Promise.resolve();
+      assert.equal(scrolls,1);assert.equal(document.activeElement,region);
+      release();await sending;assert.equal(scrolls,1);
+    """)
+
+
+def test_s03_automatic_instruction_ignores_stale_targets_and_does_not_run_elsewhere():
+    from test_B_b_app_jobs_ui import SETUP
+    run_js(SETUP + r"""
+      const normal=api,waiting=[];
+      api=(path,opts)=>path.startsWith('/api/prompt')?new Promise(resolve=>waiting.push({path,resolve})):normal(path,opts);
+      await go('s05');assert.equal(waiting.length,0);
+      await go('s03',{doc:'T21-X01',section:8});const first=S.jobs.promptPending;
+      change(el('jobs-model'),'second');const second=S.jobs.promptPending;
+      assert.equal(waiting.length,2);waiting[1].resolve({text:'new model instruction'});await second;
+      waiting[0].resolve({text:'old model instruction'});await first;
+      assert.equal(el('jobs-prompt').value,'new model instruction');assert.equal(S.jobs.promptBusy,false);
+      S.jobs.t.all=true;jobsRenderTry();assert.equal(waiting.length,2);
+      S.jobs.t.all=false;S.jobs.t.doc=null;jobsRenderTry();assert.equal(waiting.length,2);
+      assert.equal(posted.length,0);
+    """)
+
+
+def test_s03_disabling_custom_instruction_does_not_erase_the_draft():
+    from test_B_b_app_jobs_ui import SETUP
+    run_js(SETUP + r"""
+      await go('s03',{doc:'T21-X01',section:8});await S.jobs.promptPending;
+      input(el('jobs-prompt'),'keep disabled draft');change(el('jobs-edit'),false);
+      const count=requests.filter(p=>p.startsWith('/api/prompt')).length;
+      await go('s03',{doc:'RAW-FAKE',section:9});await S.jobs.promptPending;
+      assert.equal(el('jobs-prompt').value,'keep disabled draft');
+      assert.equal(requests.filter(p=>p.startsWith('/api/prompt')).length,count);
+      await el('jobs-load-prompt').click();assert.equal(el('jobs-prompt').value,'fake prompt');
+    """)
+
+
+def test_practice_result_says_practice_done_not_done():
+    from test_B_b_app_jobs_ui import SETUP
+    run_js(SETUP + r"""
+      listed=[job('done',{dry_run:true,target:{...target,dry_run:true}})];response={plan};
+      await go('s03');await jobsWatch('j1');
+      for(const id of ['jobs-result','jobs-list']) {
+        const states=el(id).querySelectorAll('[data-job-status]');assert.equal(states.length,1);
+        assert.equal(states[0].textContent,T('jobs.practice_done.state'));
+        assert.notEqual(states[0].textContent,T('jobs.status.done'));
+      }
+      listed=[job('done')];response=result(true);await jobsPoll();await jobsLoadResult('j1');
+      assert.equal(el('jobs-result').querySelector('[data-job-status]').textContent,T('jobs.status.done'));
+      assert.equal(S.journey.outcomes.t2.real,null);
+    """)
+
+
+@pytest.mark.parametrize('practice', [False, True])
+def test_s03_after_send_moves_focus_to_result(practice):
+    from test_B_b_app_jobs_ui import SETUP
+    run_js(SETUP + f"const practice={str(practice).lower()};" + r"""
+      options=makeOptions(!practice);await go('s03',{doc:'T21-X01',section:8});
+      const region=el('jobs-result');let scrolls=0;region.scrollIntoView=()=>scrolls++;
+      listed=[job('running',{dry_run:practice,target:{...target,dry_run:practice}})];
+      el('jobs-send').focus();await el('jobs-send').click();
+      assert.equal(document.activeElement,region);assert.equal(scrolls,1);
+      assert.equal(region.getAttribute('tabindex'),'-1');
+      await jobsPoll();assert.equal(scrolls,1);
+      post=async()=>{throw new Error('rejected');};await el('jobs-send').click();assert.equal(scrolls,1);
+    """)
+
+
+def test_s04_summary_separates_whole_score_and_one_criterion():
+    from test_B_b_app_compare_ui import SETUP
+    run_js(SETUP + r"""
+      await show();const d=S.compare.data;
+      d.headline={headline:'LONG A LONG B combined scopes',biggest:{name:d.items[0].name,delta:-11.6}};
+      d.weighted.delta=-0.3;compareRenderAll();
+      assert.equal(document.getElementById('title-s04').textContent,T('compare.same.title'));
+      const total=document.getElementById('compare-total-change'),criterion=document.getElementById('compare-criterion-change');
+      assert.ok(total.textContent.includes(T('compare.total_score')));assert.ok(total.textContent.includes('−0.3'));
+      assert.ok(!total.textContent.includes('11.6'));
+      assert.ok(criterion.textContent.includes(d.items[0].name));assert.ok(criterion.textContent.includes('−11.6'));
+      assert.ok(!criterion.textContent.includes('−0.3'));
+      assert.ok(!screen().textContent.includes(d.headline.headline));
+      assert.ok(document.getElementById('compare-summary').querySelector('table').textContent.includes(runs[0].label.title));
+      assert.equal(document.getElementById('compare-summary').textContent.split(T('compare.conditions.same')).length-1,1);
+    """)
+
+
+def test_s04_offers_source_of_changed_value():
+    from test_B_b_app_compare_ui import SETUP
+    run_js(SETUP + r"""
+      await show();const item=S.compare.data.items[0].name;
+      S.compare.data.changed_values[item].broken[0].path='msds[0].toxicity[0].q';compareRenderSummary();
+      let dest;go=async(id,args)=>{dest=[id,args];};
+      let button=document.getElementById('compare-open-source');assert.ok(button.classList.contains('primary'));
+      assert.equal(button.textContent,T('compare.values.open_changed'));
+      await button.click();assert.equal(dest[0],'s02');assert.equal(dest[1].run,'b');
+      assert.equal(dest[1].doc,'T21-X01');assert.equal(dest[1].section,11);assert.equal(dest[1].item,item);
+      assert.equal(dest[1].path,'msds[0].toxicity[0].q');
+      for(const id of ['compare-build-table','compare-retry'])assert.ok(!document.getElementById(id).classList.contains('primary'));
+      S.compare.data.changed_values[item].broken=[];compareRenderSummary();await document.getElementById('compare-open-source').click();
+      assert.equal(dest[1].run,'a');assert.equal(dest[1].path,null);
+      assert.ok(document.getElementById('compare-summary').textContent.includes(T('compare.values.path_missing')));
+      S.compare.data.changed_values={};compareRenderSummary();
+      assert.equal(document.getElementById('compare-open-source'),null);
+      assert.ok(document.getElementById('compare-summary').textContent.includes(T('compare.values.same')));
+      S.compare.data.changed_values[item]={broken:[{content:'unlinked'}]};compareRenderSummary();
+      assert.ok(document.getElementById('compare-summary').textContent.includes(T('compare.values.unlinked')));
+    """)
+
+
+def test_s04_no_runs_shows_reason_without_pickers():
+    from test_B_b_app_compare_ui import SETUP
+    run_js(SETUP + r"""
+      api=async()=>({runs:[]});await show();
+      assert.equal(document.getElementById('title-s04').textContent,T('compare.headline.none'));
+      for(const id of ['compare-a','compare-b','compare-swap','compare-retry'])assert.equal(document.getElementById(id),null);
+      const next=document.getElementById('compare-summary').querySelector('button');assert.ok(next);
+      let dest;go=async(id,args)=>{dest=[id,args];};await next.click();assert.equal(dest[0],'s03');
+      assert.equal(calls.filter(p=>p.startsWith('/api/diff')).length,0);
+    """)
+
+
+def test_s05_list_is_short_and_details_show_once():
+    from test_B_b_app_jobs_ui import SETUP
+    run_js(SETUP + r"""
+      const error={message:'Short failure',fix:'Detailed recovery',raw:'Unique raw error'};
+      listed=[job('failed',{returncode:1,error,warnings:[{message:'Unique settings warning',fix:'Settings recovery'}]}),
+        job('failed',{id:'j2',error})];await go('s05');
+      const list=el('jobs-list');assert.equal(list.querySelectorAll('.error-note,details').length,0);
+      assert.ok(list.textContent.includes('Short failure'));assert.ok(!list.textContent.includes('Detailed recovery'));
+      assert.ok(!list.textContent.includes('Unique settings warning'));
+      const row=list.querySelector('tbody').querySelector('tr'),state=row.querySelector('[data-job-status]');
+      assert.notEqual(state.closest('td'),row.querySelector('td'));
+      assert.equal(row.querySelectorAll('button').filter(b=>b.textContent===T('jobs.result_missing.open_log')).length,1);
+      await el('jobs-log-j1').click();
+      const detail=el('jobs-detail');for(const text of ['Unique settings warning','Unique raw error','Detailed recovery'])
+        assert.equal(detail.textContent.split(text).length-1,1);
+      assert.equal(detail.querySelectorAll('pre').filter(p=>p.textContent.includes('fake log')).length,1);
+      S.jobs.watch='j1';await el('jobs-log-j2').click();
+      assert.equal(el('jobs-list').querySelectorAll('.job-selected').length,1);
+      assert.ok(el('jobs-list').querySelector('.job-selected').contains(el('jobs-log-j2')));
+      await el('jobs-close-log').click();assert.equal(el('jobs-detail').textContent,'');
+      assert.ok(el('jobs-list').querySelector('.job-selected'));
+    """)
+
+
+def test_s10_receives_two_runs_from_s04_in_order():
+    from test_B_b_app_jobs_ui import SETUP
+    run_js(SETUP + r"""
+      S.compare.a='other';S.compare.b='base';S.compare.list=[
+        {name:'base',label:{title:'Base label'},run_kind:'dev10'},
+        {name:'other',label:{title:'Other label'},run_kind:'probe'}];
+      S.compare.data={weighted:{a:80,b:79,delta:-1},items:[],docs:{common:[]}};compareRenderSummary();
+      await el('compare-build-table').click();
+      assert.deepEqual(S.jobs.c.picked,['other','base']);
+      assert.equal(el('jobs-compare-label-other').value,'Other label');
+      assert.equal(el('jobs-compare-label-base').value,'Base label');
+      assert.equal(posted.length,0);await go('s10',{runs:['base','unknown','base','other']});
+      assert.deepEqual(S.jobs.c.picked,['base','other']);
+      S.jobs.runs.push({name:'locked',run_kind:'eval'});await go('s10',{runs:['locked','other']});
+      assert.deepEqual(S.jobs.c.picked,['other']);assert.equal(posted.length,0);
+    """)
+
+
+def test_s10_selected_order_table_comes_first():
+    from test_B_b_app_jobs_ui import SETUP
+    run_js(SETUP + r"""
+      await go('s10',{runs:['other','base']});
+      const root=el('jobs-compare'),table=el('jobs-compare-order'),candidates=el('jobs-compare-candidates');
+      assert.ok(table);assert.equal(root.querySelector('table'),table);assert.equal(candidates.open,false);
+      const order=()=>[...el('jobs-compare-order').querySelectorAll('[data-run]')].map(r=>r.dataset.run);
+      assert.deepEqual(order(),['other','base']);
+      assert.ok(root.textContent.indexOf(T('compare.table.caption'))<root.textContent.indexOf(candidates.textContent));
+      assert.ok(root.textContent.indexOf(T('compare.table.create_ordered'))<root.textContent.indexOf(candidates.textContent));
+      await el('jobs-compare-swap').click();assert.deepEqual(order(),['base','other']);
+      input(el('jobs-compare-title'),'fake comparison');await el('jobs-compare-start').click();
+      assert.deepEqual(posted[0].body.runs,['base','other']);
+      S.jobs.runs.push({name:'third',label:'Third',run_kind:'probe'},{name:'locked',run_kind:'silver'});
+      jobsRenderCompare();change(el('jobs-compare-pick-third'),true);
+      assert.deepEqual(order(),['base','other','third']);await el('jobs-compare-up-third').click();
+      assert.deepEqual(order(),['base','third','other']);
+      assert.equal(el('jobs-compare-pick-locked').disabled,true);
+      assert.ok(el('jobs-compare-candidates').textContent.includes(T('jobs.compare.unavailable')));
+    """)
+
+
 def test_dom_stringifies_non_node_arguments_like_browser():
     run_js(r"""
       for (const method of ['append','prepend','replaceChildren','before','after','replaceWith']) {

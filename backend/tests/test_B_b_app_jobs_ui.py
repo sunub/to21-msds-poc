@@ -137,11 +137,12 @@ def test_failure_and_success_warnings_have_actionable_text(status):
     run_js(SETUP + f"const state='{status}';" + r"""
 listed=[job(state,{returncode:1,error:state==='failed'?{message:'Known error',fix:'Known action',raw:'raw exception'}:null,
  warnings:[{message:'Settings warning',fix:'Fix settings'}]})];await go('s05');
-const node=el('jobs-list');assert.ok(node.textContent.includes('Settings warning'));
+assert.ok(!el('jobs-list').textContent.includes('Settings warning'));
+await el('jobs-log-j1').click();const node=el('jobs-detail');assert.ok(node.textContent.includes('Settings warning'));
 if(state==='failed'){
  assert.ok(node.querySelectorAll('strong').some(n=>n.textContent==='Known error'));
  assert.ok(node.textContent.includes(T('errors.job.no_line.fix')));
- assert.ok(node.querySelectorAll('button').some(n=>n.textContent===T('jobs.result_missing.open_log')));
+ assert.equal(el('jobs-list').querySelectorAll('button').filter(n=>n.textContent===T('jobs.result_missing.open_log')).length,1);
  const raw=node.querySelectorAll('details').find(n=>n.textContent.includes(T('jobs.legacy.exit_code',{count:1})));
  assert.ok(raw);assert.equal(raw.open,false);
 }noGarbage(node);

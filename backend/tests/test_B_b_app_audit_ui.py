@@ -43,6 +43,7 @@ api=async(path,opts)=>{
  if(base==='/api/keys')return {keys:[{...key,usable:true}],default:key.id};
  if(base==='/api/servers')return servers;
  if(base==='/api/options')return empty?{models:[],sets:[],pages_dirs:[]}:options;
+ if(base==='/api/prompt')return {text:'Fake instruction',no:8,hash:'fakehash'};
  if(base==='/api/jobs')return {jobs:empty?[]:[job],running:[]};
  if(base.endsWith('/log'))return {text:'Fake log'};
  if(base.endsWith('/result'))return {plan:{doc_id:'T21-X01',model_tag:'fake-model',sections:{'8':{lines:1,pages:[1],images:[]}}}};

@@ -39,11 +39,11 @@ const clickText=(el,text)=>{const b=el.querySelectorAll('button').find(b=>b.text
 """
 
 
-def test_same_conditions_are_before_headline_and_all_deltas_are_neutral():
+def test_short_headline_precedes_conditions_and_all_deltas_are_neutral():
     run_js(SETUP + r"""
       await show();const el=screen(),head=el.querySelector('.compare-headline');
-      assert.equal(head.textContent,diff().headline.headline);
-      assert.ok(el.textContent.indexOf(T('compare.conditions.same'))<el.textContent.indexOf(head.textContent));
+      assert.equal(head.textContent,T('compare.same.title'));
+      assert.ok(el.textContent.indexOf(head.textContent)<el.textContent.indexOf(T('compare.conditions.same')));
       assert.ok(el.textContent.includes(T('compare.conditions.variation')));
       assert.equal(el.querySelectorAll('.compare-up,.compare-down,.diff-up,.diff-down').length,0);
       assert.ok(head.classList.contains('compare-neutral'));
@@ -152,12 +152,13 @@ def test_key_changes_reload_and_late_old_response_cannot_replace_new_result():
       await show();assert.ok(calls.some(p=>p.startsWith('/api/diff?')&&new URLSearchParams(p.split('?')[1]).get('key')==='silver/fake'));
       let oldResolve;api=async path=>{calls.push(path);if(path.startsWith('/api/runs'))return {runs,current:'b'};
         if(path.includes('silver%2Ffake')) return new Promise(r=>{oldResolve=r;});
-        const d=diff();d.headline.headline='새 정답으로 읽은 비교';return d;};
+        const d=diff();d.headline.headline='새 정답으로 읽은 비교';d.key.label='New fake key';return d;};
       const old=compareLoad(true);await Promise.resolve();await Promise.resolve();
       S.ctx.key='gold/fake';emit('context_changed',{...S.ctx});await S.compare.pending;
       assert.ok(calls.some(p=>p.startsWith('/api/diff?')&&p.includes('gold%2Ffake')));
       oldResolve(diff());await old;assert.equal(S.compare.data.headline.headline,'새 정답으로 읽은 비교');
-      assert.ok(screen().textContent.includes('새 정답으로 읽은 비교'));
+      assert.ok(screen().textContent.includes('New fake key'));
+      assert.equal(document.getElementById('compare-summary').querySelector('.compare-basis').textContent,T('compare.basis',{key:'New fake key'}));
     """)
 
 
@@ -194,12 +195,12 @@ def test_error_keeps_selection_hides_stale_scores_and_recovers():
     """)
 
 
-def test_different_document_sets_and_prompt_hash_changes_are_visible_above_conclusion():
+def test_different_document_sets_lead_conclusion_and_prompt_changes_remain_visible():
     run_js(SETUP + r"""
       await show();S.compare.data.same_conditions=false;S.compare.data.docs.only_a=['T21-X02'];
       S.compare.data.prompt_changed_sections=[11];compareRenderAll();
       const el=screen(),headline=el.querySelector('.compare-headline').textContent;
-      assert.ok(el.textContent.indexOf(T('compare.different.title'))<el.textContent.indexOf(headline));
+      assert.equal(headline,T('compare.different.title'));
       assert.ok(el.textContent.includes('T21-X01'));assert.ok(el.textContent.includes('T21-X02'));
       assert.ok(el.textContent.includes(T('compare.different.no_inference')));
       assert.ok(el.textContent.includes(T('compare.conditions.prompt_text')));
@@ -214,7 +215,7 @@ def test_missing_metadata_targets_and_empty_runs_remain_unknown_not_zero():
       compareRenderAll();assert.doesNotMatch(screen().textContent,/null|undefined|⟦|90|17/);
       assert.ok(screen().textContent.includes(T('compare.conditions.unknown')));
       api=async()=>({runs:[],current:null});await compareLoad(true);
-      assert.equal(S.compare.data,null);assert.ok(screen().textContent.includes(T('compare.selection.choose_two')));
+      assert.equal(S.compare.data,null);assert.ok(screen().textContent.includes(T('compare.headline.none')));
     """)
 
 
@@ -249,7 +250,7 @@ def test_first_hash_visit_waits_for_context_before_requesting_comparison():
       assert.equal(S.shell.route,'s04');assert.ok(S.compare.data);
       assert.equal(S.compare.a,'a');assert.equal(S.compare.b,'b');
       assert.ok(calls.filter(p=>p.startsWith('/api/diff?')).every(p=>p.includes('silver%2Ffake')));
-      assert.equal(screen().querySelector('.compare-headline').textContent,diff().headline.headline);
+      assert.equal(screen().querySelector('.compare-headline').textContent,T('compare.same.title'));
     """)
 
 

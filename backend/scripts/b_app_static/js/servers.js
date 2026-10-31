@@ -24,7 +24,8 @@ function serversModel(model) {
   return (serversData()?.models || []).find(item => item.tag === tag || item.model_expected === tag) || null;
 }
 function serversReady(model) { return model?.reachable === true && model?.match === true; }
-function serversLabel(model) { return serversText(model?.label || model?.model_label || model?.model_expected || model?.tag || T("context.model.default_name")); }
+function serversLabel(model) { return serversText(model?.label || model?.model_label || UI.context.models?.[model?.tag]
+  || model?.model_expected || model?.tag || T("context.model.default_name")); }
 function serversState(model) {
   if (S.shell.serverError) return S.shell.serverError.status === 503 ? "readiness_unknown" : "query_failed";
   return serversReady(model) ? "connected" : shellModelState(model, serversData());
@@ -255,13 +256,14 @@ function serversUpdateConfirm() {
   const note = document.getElementById("servers-confirm-blocked");
   if (note) note.textContent = reason;
 }
-function serversRenderCompact(el, {model} = {}) {
-  S.servers.compacts.set(el, {model});
+function serversRenderCompact(el, {model, primary = false} = {}) {
+  S.servers.compacts.set(el, {model, primary});
   const item = serversModel(model), state = serversState(item);
   coreReplace(el, h("h3", null, T("servers.connection.selected")), h("p", {class: "technical"}, serversLabel(item || {tag: model})),
     serversBadge(item), item?.reachable && item?.match === false ? h("p", null, T("servers.mismatch.title")) : null,
     S.shell.serverError ? serversProblem(S.shell.serverError) : serversModelNote(item),
-    h("button", {type: "button", onclick: () => go("s06", {model: item?.tag || model, returnScreen: S.shell.route === "s09" ? "s09" : "s03"})},
+    h("button", {type: "button", class: primary ? "primary" : null,
+      onclick: () => go("s06", {model: item?.tag || model, returnScreen: S.shell.route === "s09" ? "s09" : "s03"})},
       T(state === "connected" ? "servers.connection.details" : "context.prepare_model")));
 }
 function serversCatch(error, action) {
