@@ -4,8 +4,10 @@ route()를 직접 부른다. 서버 소켓을 열지 않고 네트워크를 부�
 실행 폴더·정답 폴더·manifest는 test_B_b_app_runs의 가짜 픽스처(tmp_path)를 쓴다. 저장소의 runs/, data/는 읽지 않는다 (D-43).
 """
 import importlib
+import io
 import json
 import re
+from types import SimpleNamespace
 
 import pytest
 
@@ -814,3 +816,160 @@ def test_readme_and_env_example_have_no_secret_shapes(app):
     for text in (_readme(app), _env_example(app)):
         assert not re.search(r"(sk-|rpa_|hf_)\w{8,}", text)
         assert not re.search(r"[a-z0-9]{14}-8000", text)
+
+
+# ── 첫 사용 기록 /api/journey (app-redo-api2 step 5) ─────
+
+JT0 = "2026-10-31T00:58:00.000Z"
+JT1 = "2026-10-31T01:02:00.000Z"
+
+
+@pytest.fixture
+def jctx(app, env):
+    return app.AppContext(runs_dir=env / "runs", gold_dir=env / "gold", pages_dir=env / "pages",
+                          static_dir=app.STATIC, cache_dir=None, gaps_file=env / "silver_gaps.yaml",
+                          journey_file=env / "runs" / "manual" / "journey.json")
+
+
+def journey_body(journey, **extra) -> bytes:
+    return json.dumps({"journey": journey, **extra}, ensure_ascii=False).encode()
+
+
+def put_journey(app, ctx, body: bytes):
+    code, ctype, out = app.route("PUT", "/api/journey", {}, body, ctx)
+    assert ctype.startswith("application/json")
+    return code, json.loads(out)
+
+
+def with_t1_success(app) -> dict:
+    j = app.bjn.default()
+    j["outcomes"]["t1"]["real"] = {"first_at": JT0, "last_at": JT0, "count": 1}
+    return j
+
+
+def test_journey_get_default_without_file(app, jctx):
+    code, data = get_json(app, jctx, "/api/journey")
+    assert code == 200 and data["journey"]["version"] == 2
+    assert data == {"journey": app.bjn.default(), "problems": []}
+    assert not jctx.journey_file.exists()
+
+
+def test_journey_get_reports_broken_part(app, jctx):
+    stored = with_t1_success(app)
+    stored["progress"]["active"] = "t9"
+    jctx.journey_file.parent.mkdir(parents=True)
+    jctx.journey_file.write_text(json.dumps(stored), encoding="utf-8")
+    code, data = get_json(app, jctx, "/api/journey")
+    assert code == 200 and [p["part"] for p in data["problems"]] == ["progress"]
+    assert data["journey"]["outcomes"] == stored["outcomes"]
+
+
+def test_journey_put_returns_merged(app, jctx):
+    first = with_t1_success(app)
+    code, data = put_journey(app, jctx, journey_body(first))
+    assert code == 200 and data == {"journey": first, "problems": []}
+    second = app.bjn.default()
+    second["progress"]["t1"] = {"state": "completed", "step": 3, "updated_at": JT1}
+    code, data = put_journey(app, jctx, journey_body(second))
+    assert code == 200 and data["problems"] == []
+    assert data["journey"]["progress"] == second["progress"]
+    assert data["journey"]["outcomes"] == first["outcomes"]       # 비워 보내도 성공 기록은 남는다
+    assert get_json(app, jctx, "/api/journey")[1]["journey"] == data["journey"]
+
+
+def test_journey_put_rejects_big_or_bad_body_and_keeps_file(app, jctx):
+    assert put_journey(app, jctx, journey_body(with_t1_success(app)))[0] == 200
+    before = jctx.journey_file.read_bytes()
+    unknown = app.bjn.default()
+    unknown["doc_id"] = X01
+    bodies = {
+        "17KB": journey_body(app.bjn.default()) + b" " * (17 * 1024),   # 모양은 맞지만 16KB를 넘는다
+        "모르는 키": journey_body(unknown),
+        "본문의 다른 키": journey_body(app.bjn.default(), extra=1),
+        "journey 없음": b"{}",
+        "JSON 아님": b"{journey",
+        "배열": b"[]",
+    }
+    for name, body in bodies.items():
+        code, data = put_journey(app, jctx, body)
+        assert code == 400 and has_problem_text(data), name
+        assert jctx.journey_file.read_bytes() == before, name
+    assert "16KB" in put_journey(app, jctx, bodies["17KB"])[1]["message"]
+
+
+def test_journey_without_file_place_is_503(app, ctx):
+    assert ctx.journey_file is None
+    code, data = get_json(app, ctx, "/api/journey")
+    assert code == 503 and has_problem_text(data)
+    code, data = put_journey(app, ctx, journey_body(app.bjn.default()))
+    assert code == 503 and has_problem_text(data)
+
+
+def test_journey_save_failure_is_500_with_text(app, jctx, monkeypatch):
+    def broken(path, journey):
+        raise OSError("가짜 쓰기 실패")
+    monkeypatch.setattr(app.bjn, "save", broken)
+    code, data = put_journey(app, jctx, journey_body(app.bjn.default()))
+    assert code == 500 and has_problem_text(data)
+    assert data["message"] == app.bt.JOURNEY_TEXT["errors"]["save_failed"]["message"] == "기록을 저장하지 못했습니다."
+
+
+def test_put_only_for_journey(app, jctx):
+    code, ctype, _ = app.route("PUT", "/api/runs", {}, b"{}", jctx)
+    assert code == 404
+    code, ctype, _ = app.route("DELETE", "/api/journey", {}, None, jctx)
+    assert code == 404
+
+
+def call_handler(app, ctx, method: str, body: bytes, headers: dict) -> int:
+    """소켓 없이 처리기의 do_PUT·do_POST를 부른다. 보낸 상태 코드를 돌려준다."""
+    handler = app.make_handler(ctx)
+    h = handler.__new__(handler)
+    h.server = SimpleNamespace(server_port=8765)
+    h.headers = {"Host": "127.0.0.1:8765", "Content-Length": str(len(body)), **headers}
+    h.path, h.rfile, sent = "/api/journey", io.BytesIO(body), []
+    h._send = lambda code, ctype, out: sent.append(code)
+    getattr(h, f"do_{method}")()
+    return sent[0]
+
+
+def test_journey_put_handler_checks_like_post(app, jctx, monkeypatch):
+    seen = []
+    real = app.allowed_post
+    monkeypatch.setattr(app, "allowed_post", lambda *a: seen.append(a) or real(*a))
+    body = journey_body(app.bjn.default())
+    json_type = {"Content-Type": "application/json"}
+    assert call_handler(app, jctx, "PUT", body, {"Content-Type": "text/plain"}) == 403
+    assert call_handler(app, jctx, "PUT", body, {**json_type, "Origin": "http://evil.example"}) == 403
+    assert call_handler(app, jctx, "PUT", body, {**json_type, "Host": "evil.example:8765"}) == 403
+    assert not jctx.journey_file.exists()
+    assert call_handler(app, jctx, "PUT", body, {**json_type, "Origin": "http://127.0.0.1:8765"}) == 200
+    assert jctx.journey_file.exists()
+    assert seen[0] == ("text/plain", None, 8765) and len(seen) == 3   # Host가 다르면 본문 검사 전에 막는다
+
+
+def test_main_sets_journey_file_without_creating_it(app, monkeypatch, env, tmp_path):
+    runs = tmp_path / "repo_runs"                                       # 저장소의 runs/ 대신
+    monkeypatch.setattr(app, "RUNS", runs)
+    monkeypatch.setattr(app.bs, "ENV_FILE", tmp_path / ".env")          # 실제 .env를 열지 않는다
+    seen = {}
+
+    class FakeServer:
+        server_port = 8765
+
+        def __init__(self, address, handler):
+            pass
+
+        def serve_forever(self):
+            raise KeyboardInterrupt
+
+        def server_close(self):
+            pass
+
+    real = app.make_handler
+    monkeypatch.setattr(app, "ThreadingHTTPServer", FakeServer)
+    monkeypatch.setattr(app.webbrowser, "open", lambda url: None)
+    monkeypatch.setattr(app, "make_handler", lambda c: seen.setdefault("ctx", c) and real(c))
+    assert app.main(["--runs-dir", str(env / "runs"), "--no-browser"]) == 0
+    assert seen["ctx"].journey_file == runs / "manual" / "journey.json"
+    assert not seen["ctx"].journey_file.exists()

@@ -23,6 +23,8 @@ set은 요약 캐시에 넣지 않는다(폴더 배치가 바뀌어도 캐시 �
 가중 종합 목표선, 필수 중 목표 달성 수)를 둔다. 처음 보여 줄 실행과 실행 역사의 최고 점수는 실버를 만든 실행을 뺀다.
 없는 실행·묶음·정답지, 쪽 글자 없음, 잘못된 쿼리, 작업 POST의 ValueError 같은 400·404 본문에는 기존 error에 더해
 사실 한 문장(message)과 할 일 한 문장(fix)을 둔다. 글은 b_app_text.problem이 만든다. 잠긴 문서의 404는 이유를 말하지 않는다.
+첫 사용 기록(GET·PUT /api/journey)은 b_app_journey가 runs/manual/journey.json에 둔다. PUT은 잠금 하나 안에서 읽기 → 검사 →
+합치기 → 쓰기를 하고, POST와 같은 검사(같은 Host, JSON 형식, 같은 출처)를 거친다. 앱을 켤 때 파일을 만들지 않는다.
 """
 import argparse
 import hashlib
@@ -44,6 +46,7 @@ import _common  # noqa: F401  src 경로 등록
 import b_app_diff as bd
 import b_app_doc as bdoc
 import b_app_jobs as bj
+import b_app_journey as bjn
 import b_app_runs as br
 import b_app_servers as bs
 import b_app_sets as bsets
@@ -62,6 +65,7 @@ _HEAVY = ("details", "per_doc", "grid")              # /api/runs 목록에서 �
 _TYPES = {".html": "text/html; charset=utf-8", ".js": "text/javascript; charset=utf-8",
           ".css": "text/css; charset=utf-8"}
 _LOCK = threading.Lock()                             # 요약 캐시 파일을 두 요청이 함께 쓰지 않게 한다
+_JOURNEY_LOCK = threading.Lock()                     # 첫 사용 기록의 읽기·합치기·쓰기를 한 요청씩
 _PAGE_PNG = re.compile(r"^p\d{3}\.png$")
 _JOB_PATH = re.compile(r"^/api/jobs/([\w-]+)/(log|result|stop)$")
 MAX_BODY = 2 * 1024 * 1024                           # POST 본문 한도 (바꾼 안내문 글이 가장 길다)
@@ -83,6 +87,7 @@ class AppContext:
     last_model_connections: dict[str, bool] | None = None  # 마지막 조회 결과만. 점수 요청은 서버를 부르지 않는다
     run_history: dict[str, list[dict]] | None = None  # /api/runs가 읽은 가벼운 목록. 정답지 폴더(글자)별, 새로 읽을 때 갱신
     data_root: Path | None = None                    # 정답지(data/silver·gold)를 찾는 곳(main은 data/). None이면 gold_dir 하나만 쓴다
+    journey_file: Path | None = None                 # 첫 사용 기록(main은 runs/manual/journey.json). None이면 /api/journey는 503
 
 
 def _json(code: int, obj) -> tuple[int, str, bytes]:
@@ -556,12 +561,53 @@ def _post(path: str, body: bytes | None, ctx: AppContext) -> tuple[int, str, byt
     return _json(404, {"error": f"없는 주소: POST {path}"})
 
 
+def _journey_get(ctx: AppContext) -> tuple[int, str, bytes]:
+    """{"journey", "problems"}. 파일이 없으면 기본값이고 파일을 만들지 않는다."""
+    if ctx.journey_file is None:
+        return _json(503, bt.journey_problem("unavailable"))
+    try:
+        with _JOURNEY_LOCK:
+            journey, problems = bjn.load(Path(ctx.journey_file))
+    except OSError:
+        return _json(500, bt.journey_problem("read_failed"))
+    return _json(200, {"journey": journey, "problems": problems})
+
+
+def _journey_put(body: bytes | None, ctx: AppContext) -> tuple[int, str, bytes]:
+    """본문 {"journey": v2}. 성공 기록은 줄이지 않고 합친다(b_app_journey.merge). 거부하면 400이고 파일은 그대로다."""
+    if ctx.journey_file is None:
+        return _json(503, bt.journey_problem("unavailable"))
+    if len(body or b"") > bjn.MAX_BODY:
+        return _json(400, bt.journey_problem("too_big"))
+    data = _body(body)
+    if data is None or set(data) != {"journey"}:
+        return _json(400, bt.journey_problem("bad_body", detail=bt.JOURNEY_TEXT["invalid"]["body"]))
+    path = Path(ctx.journey_file)
+    with _JOURNEY_LOCK:
+        try:
+            stored, _ = bjn.load(path)
+        except OSError:
+            return _json(500, bt.journey_problem("read_failed"))
+        try:
+            incoming = bjn.validate(data["journey"])
+        except ValueError as e:
+            return _json(400, bt.journey_problem("bad_body", detail=str(e)))
+        merged = bjn.merge(stored, incoming)
+        try:
+            bjn.save(path, merged)
+        except OSError:
+            return _json(500, bt.journey_problem("save_failed"))
+    return _json(200, {"journey": merged, "problems": []})
+
+
 def route(method: str, path: str, query: dict[str, list[str]], body: bytes | None,
           ctx: AppContext) -> tuple[int, str, bytes]:
     """(상태 코드, Content-Type, 본문). path는 아직 % 풀기 전의 경로다."""
     path = unquote(path)
     if method == "POST":
         return _post(path, body, ctx)
+    if method == "PUT" and path == "/api/journey":
+        return _journey_put(body, ctx)
     if method != "GET":
         return _json(404, {"error": f"없는 주소: {method} {path}"})
     if path == "/":
@@ -632,6 +678,8 @@ def route(method: str, path: str, query: dict[str, list[str]], body: bytes | Non
         return _json(200, bt.START_TEXT)
     if path == "/api/silver_gaps":
         return _silver_gaps(query, ctx)
+    if path == "/api/journey":
+        return _journey_get(ctx)
     return _json(404, {"error": f"없는 주소: {path}"})
 
 
@@ -641,7 +689,7 @@ def allowed_host(host: str | None, port: int) -> bool:
 
 
 def allowed_post(content_type: str | None, origin: str | None, port: int) -> bool:
-    """POST는 이 화면이 보낸 JSON만 받는다. 다른 웹페이지의 폼은 JSON 형식을 붙일 수 없고, 보내더라도 Origin이 다르다."""
+    """POST·PUT은 이 화면이 보낸 JSON만 받는다. 다른 웹페이지의 폼은 JSON 형식을 붙일 수 없고, 보내더라도 Origin이 다르다."""
     if not content_type or content_type.split(";")[0].strip().lower() != "application/json":
         return False
     return origin is None or origin in (f"http://{HOST}:{port}", f"http://localhost:{port}")
@@ -658,12 +706,15 @@ def make_handler(ctx: AppContext):
         def do_POST(self):
             self._handle("POST")
 
+        def do_PUT(self):
+            self._handle("PUT")
+
         def _handle(self, method: str):
             port = self.server.server_port
             if not allowed_host(self.headers.get("Host"), port):
                 return self._send(403, "text/plain; charset=utf-8", b"forbidden")
             body = None
-            if method == "POST":
+            if method in ("POST", "PUT"):
                 if not allowed_post(self.headers.get("Content-Type"), self.headers.get("Origin"), port):
                     return self._send(403, "text/plain; charset=utf-8", b"forbidden")
                 n = int(self.headers.get("Content-Length") or 0)
@@ -707,8 +758,10 @@ def main(argv: list[str] | None = None) -> int:
     jobs = manager if a.runs_dir.resolve() == RUNS.resolve() else None
     # 키는 .env에서만: 켤 때 load_dotenv, 그 뒤 '설정 다시 읽기'. 켤 때 네트워크는 부르지 않는다(Pod 이어 쓰기는 첫 요청 때)
     servers = bs.ServerActions(os.environ, manager, RUNS / "manual" / "server_log.md", env_file=bs.ENV_FILE)
+    # 첫 사용 기록은 --runs-dir와 상관없이 저장소의 runs/manual에 둔다. 켤 때 파일을 만들지 않는다(첫 PUT 때 만든다)
     ctx = AppContext(runs_dir=a.runs_dir, gold_dir=a.gold_dir, pages_dir=a.pages_dir, jobs=jobs,
-                     pages_root=PAGES, model_status=servers.model_status, servers=servers, data_root=DATA)
+                     pages_root=PAGES, model_status=servers.model_status, servers=servers, data_root=DATA,
+                     journey_file=RUNS / "manual" / "journey.json")
     server = ThreadingHTTPServer((HOST, a.port), make_handler(ctx))
     url = f"http://{HOST}:{server.server_port}/"
     print(f"작업 화면: {url}  (실행 폴더 {a.runs_dir}, 정답 {a.gold_dir})")
