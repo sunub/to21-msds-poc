@@ -760,7 +760,8 @@ function guideTrialContent() {
         guideButton("guide-result-retry", "jobs.result.retry", guidePollTrial)] : null,
       done ? h("div", {id: "guide-result-summary", class: "guide-inplace", role: "status"},
         h("strong", null, T(`guide.${kind}.done`)), jobsResultSummary(t.result, t.job),
-        dry ? guidePlan(t.result.plan, t.prompt) : h("details", null, h("summary", null, T("guide.trial.proof")),
+        dry ? h("details", {id: "guide-plan-details"}, h("summary", null, T("guide.practice.sent_details")),
+          guidePlan(t.result.plan, t.prompt)) : h("details", null, h("summary", null, T("guide.trial.proof")),
           h("p", null, T("guide.trial.proof_text", {section: t.section, status: t.response.status})),
           jobsPre(t.result.results?.[String(t.section)]?.parsed))) : null));
 }
@@ -806,7 +807,14 @@ async function guideLoadDefaults() {
     const [sets, keys] = await guideRequest(Promise.all([api("/api/sets"), api("/api/keys")]));
     if (!guideCurrent(epoch, "G14") || g.defaults !== state) return;
     S.shell.sets = sets.sets || []; S.shell.keys = keys.keys || [];
-    state.choices = S.shell.sets.flatMap(set => S.shell.keys.map(key => ({set, key, usable: !!(set.usable && key.usable)})));
+    state.choices = S.shell.sets.flatMap(set => S.shell.keys.map(key => {
+      const known = Array.isArray(set.docs) && Array.isArray(key.docs);
+      const covered = known && set.docs.some(doc => !doc.locked && doc.group !== "eval" && key.docs.includes(doc.doc_id));
+      const reasons = [!set.usable ? set.reason || T("context.unavailable") : null,
+        !key.usable ? key.reason || T("context.unavailable") : null,
+        set.usable && key.usable && !covered ? T(known ? "guide.defaults.no_answers" : "context.unavailable") : null].filter(Boolean);
+      return {set, key, usable: !!(set.usable && key.usable && covered), reason: reasons.join(" · ")};
+    }));
     state.choices.sort((a, b) => Number(b.set.id === S.ctx.set && b.key.id === S.ctx.key) - Number(a.set.id === S.ctx.set && a.key.id === S.ctx.key));
   } catch (error) {if (guideCurrent(epoch, "G14")) state.error = error;}
   finally {if (guideCurrent(epoch, "G14")) {state.loading = false; guideRender();}}
@@ -821,15 +829,15 @@ async function guidePreviewDefaults(choice) {
   guideRender(); document.getElementById(`guide-default-${state.choices.indexOf(choice)}`)?.focus({preventScroll: true});
   const url = path => `${path}?${new URLSearchParams({key: choice.key.id})}`;
   try {
-    const list = await guideRequest(api(url("/api/runs")));
+    const list = await guideRequest(shellContextResults(choice.set.id, choice.key.id));
     if (!valid()) return;
-    const pool = (list.runs || []).filter(run => !run.error && run.set?.id === choice.set.id && !["silver", "eval"].includes(run.run_kind));
-    const run = pool.find(run => run.name === list.current) || pool.at(-1);
+    const run = list.current;
+    state.preview.count = list.runs.length;
     const result = run ? await guideRequest(api(url(scoreRunPath(run.name)))) : null;
     if (!valid()) return;
     if (result && (result.set?.id !== choice.set.id || result.key?.id !== choice.key.id)) throw new Error(T("guide.defaults.mismatch"));
-    state.preview = {run: result};
-  } catch (error) {if (valid()) state.preview = {error};}
+    state.preview = {run: result, count: list.runs.length};
+  } catch (error) {if (valid()) state.preview = {count: state.preview.count, error};}
   finally {if (valid()) guideUpdatePractice();}
 }
 async function guideApplyDefaults() {
@@ -846,7 +854,8 @@ async function guideApplyDefaults() {
 function guideDefaultsPreview() {
   const preview = S.guide.defaults?.preview;
   return h("div", {class: "guide-choice-preview", role: "status", "aria-live": "polite"},
-    preview?.loading ? T("guide.ready.states.checking") : preview?.error
+    !preview?.error || num(preview?.count) ? h("div", {class: "context-result-effect"}, shellContextResultNotice(preview)) : null,
+    preview?.loading ? null : preview?.error
       ? guideError("guide.defaults.failed", "guide.defaults.failed_todo", preview.error)
       : !preview?.run || !num(preview.run.weighted)
         ? h("div", null, h("strong", null, T("guide.defaults.empty")), h("p", null, T("guide.defaults.empty_note")))
@@ -856,22 +865,36 @@ function guideDefaultsPreview() {
 }
 function guideDefaultsContent() {
   const state = S.guide.defaults;
+  const current = state?.choices.find(choice => choice.set.id === S.ctx.set && choice.key.id === S.ctx.key);
+  const alternatives = state?.choices.filter(choice => choice !== current) || [];
+  const unavailable = alternatives.filter(choice => !choice.usable);
+  const renderChoice = (choice, compact = false) => {
+    const selected = choice === state.selected, isCurrent = choice === current;
+    return h(compact ? "li" : "div", {class: compact ? "guide-unavailable-choice" : "guide-choice-card", "data-selected": String(selected)},
+      h("label", null, h("input", {id: `guide-default-${state.choices.indexOf(choice)}`, type: "radio", name: "guide-default", checked: selected,
+        "data-set": choice.set.id, "data-key": choice.key.id, disabled: !choice.usable,
+        onchange: () => guidePreviewDefaults(choice)}),
+        h("span", null, h("strong", null, isCurrent ? T("guide.defaults.current") : choice.key.label || choice.key.id),
+          isCurrent ? h("span", {class: "guide-choice-note"}, `${choice.set.label || choice.set.id} · ${choice.key.label || choice.key.id}`) : null,
+          !choice.usable ? h("span", {class: "guide-choice-note"}, choice.reason) : null,
+          selected ? h("span", {class: "guide-choice-selected"}, T("guide.choices.selected")) : null)),
+      selected ? guideDefaultsPreview() : null);
+  };
+  const groups = (choices, compact = false) => [...new Set(choices.map(choice => choice.set.id))].map(id => {
+    const group = choices.filter(choice => choice.set.id === id), set = group[0].set;
+    return h("div", {class: "guide-default-group", role: "group", "aria-label": set.label || set.id}, h("h3", null, set.label || set.id),
+      compact ? h("ul", null, group.map(choice => renderChoice(choice, true))) : group.map(choice => renderChoice(choice)));
+  });
   return h("div", null, h("p", {class: "guide-lead"}, T("guide.defaults.lead")),
     h("p", null, T("guide.defaults.definition")),
     state?.loading ? h("p", {role: "status"}, T("guide.ready.states.checking")) : null,
     state?.error ? h("div", null, guideError("guide.defaults.load_failed", "guide.defaults.load_todo", state.error),
       guideButton("guide-defaults-retry", "guide.ready.retry", () => guideShow("G14"))) : null,
     state && !state.loading && !state.error ? h("fieldset", {class: "guide-choice-list"},
-      h("legend", null, T("guide.defaults.legend")), state.choices.length ? state.choices.map((choice, i) => {
-        const selected = choice === state.selected, current = choice.set.id === S.ctx.set && choice.key.id === S.ctx.key;
-        return h("div", {class: "guide-choice-card", "data-selected": String(selected)},
-          h("label", null, h("input", {id: `guide-default-${i}`, type: "radio", name: "guide-default", checked: selected,
-            "data-set": choice.set.id, "data-key": choice.key.id, disabled: !choice.usable,
-            onchange: () => guidePreviewDefaults(choice)}),
-            h("span", null, h("strong", null, current ? T("guide.defaults.current") : choice.set.label || choice.set.id),
-              h("span", {class: "guide-choice-note"}, `${choice.set.label || choice.set.id} · ${choice.key.label || choice.key.id}`),
-              !choice.usable ? h("span", {class: "guide-choice-note"}, choice.set.reason || choice.key.reason || T("context.unavailable")) : null,
-              selected ? h("span", {class: "guide-choice-selected"}, T("guide.choices.selected")) : null)),
-          selected ? guideDefaultsPreview() : null);
-      }) : h("p", null, T("context.unavailable"))) : null);
+      h("legend", null, T("guide.defaults.legend")),
+      current ? renderChoice(current) : null, groups(alternatives.filter(choice => choice.usable)),
+      unavailable.length ? h("details", {id: "guide-unavailable", open: !!state.unavailableOpen,
+        ontoggle: event => {state.unavailableOpen = event.target.open;}},
+        h("summary", null, T("guide.defaults.unavailable", {count: unavailable.length})), groups(unavailable, true)) : null,
+      !state.choices.length ? h("p", null, T("context.unavailable")) : null) : null);
 }

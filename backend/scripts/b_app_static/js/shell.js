@@ -236,6 +236,33 @@ function shellContextCounts(set) {
     num(set?.counts?.outside) ? h("li", null, T("context.picker.outside_count", {count: set.counts.outside})) : null,
     num(set?.counts?.eval_locked) ? h("li", null, T("jobs.batch.eval_locked", {count: set.counts.eval_locked})) : null]);
 }
+async function shellContextResults(set, key) {
+  const list = await api(`/api/runs?${new URLSearchParams({key})}`);
+  if (list.key?.id && list.key.id !== key) throw new Error(T("guide.defaults.mismatch"));
+  const runs = (list.runs || []).filter(run => !run.error && run.set?.id === set
+    && !["silver", "eval", "models"].includes(run.run_kind)
+    && (!run.key?.id || run.key.id === key));
+  return {runs, current: runs.find(run => run.name === list.current) || runs.at(-1)};
+}
+function shellContextResultNotice(state) {
+  if (num(state?.count)) return T(state.count ? "context.picker.results_found" : "context.picker.results_empty", {count: state.count});
+  if (state?.error) return friendlyError({message: T("context.picker.results_failed"),
+    fix: T("context.picker.results_failed_todo"), raw: state.error.message});
+  return T("guide.ready.states.checking");
+}
+async function shellPreviewContext() {
+  const node = document.getElementById("context-result-effect"), dialog = document.getElementById("context-picker");
+  const set = document.getElementById("context-set").value, key = document.getElementById("context-key").value;
+  const state = S.shell.pickerPreview = {};
+  if (!S.shell.sets.some(item => item.usable && item.id === set)
+    || !S.shell.keys.some(item => item.usable && item.id === key)) {
+    coreReplace(node, T("context.unavailable")); return;
+  }
+  coreReplace(node, shellContextResultNotice(state));
+  try {state.count = (await shellContextResults(set, key)).runs.length;}
+  catch (error) {state.error = error;}
+  if (S.shell.pickerPreview === state && dialog.open) coreReplace(node, shellContextResultNotice(state));
+}
 function shellContextComparison() {
   const set = S.shell.sets.find(item => item.id === document.getElementById("context-set").value);
   const key = S.shell.keys.find(item => item.id === document.getElementById("context-key").value);
@@ -263,6 +290,7 @@ function shellContextComparison() {
       h("td", null, key?.docs?.includes(doc.doc_id) ? origin(key) : T("common.none")))))));
 }
 function shellCloseContext() {
+  S.shell.pickerPreview = null;
   document.getElementById("context-picker").close();
   S.shell.pickerFocus?.focus();
 }
@@ -275,6 +303,7 @@ function shellOpenContext() {
     h("div", {class: "two-col"},
       shellContextChoice("context-set", T("context.documents.label"), S.shell.sets, S.ctx.set),
       shellContextChoice("context-key", T("context.answer.label"), S.shell.keys, S.ctx.key, true)),
+    h("div", {id: "context-result-effect", role: "status", "aria-live": "polite"}),
     h("h3", null, T("context.picker.effects")),
     h("ul", null, ["effect_set", "effect_key", "no_model_call", "running_context"].map(key => h("li", null, T(`context.picker.${key}`)))),
     h("details", {id: "context-candidates"}, h("summary", null, T("context.picker.alternatives")),
@@ -286,6 +315,7 @@ function shellOpenContext() {
     apply.disabled = !S.shell.sets.some(item => item.usable && item.id === document.getElementById("context-set").value)
       || !S.shell.keys.some(item => item.usable && item.id === document.getElementById("context-key").value);
     shellContextComparison();
+    return shellPreviewContext();
   };
   document.getElementById("context-set").addEventListener("change", validate);
   document.getElementById("context-key").addEventListener("change", validate);
