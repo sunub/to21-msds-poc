@@ -669,6 +669,33 @@
           ]
         },
         {
+          "item_code": "S14_SPECIAL",
+          "title_raw": "바. 사용자가 운송 또는 운송수단에 관련해 알 필요가 있거나 필요한 특별한 안전 대책 :",
+          "status": "값있음",
+          "statements": [
+            {
+              "seq": 1,
+              "key": "화재시 비상조치의 종류",
+              "value": "F-D",
+              "refs": null,
+              "cond": null,
+              "std_code": null,
+              "match_score": null,
+              "text": "○ 화재시 비상조치의 종류 : F-D"
+            },
+            {
+              "seq": 2,
+              "key": "유출시 비상조치의 종류",
+              "value": "S-U",
+              "refs": null,
+              "cond": null,
+              "std_code": null,
+              "match_score": null,
+              "text": "○ 유출시 비상조치의 종류 : S-U"
+            }
+          ]
+        },
+        {
           "item_code": "S15_WASTE",
           "title_raw": "라. 폐기물관리법",
           "status": "값있음",
@@ -12150,6 +12177,33 @@
           "needs_review": false
         },
         {
+          "field": "narratives[6]",
+          "page": 13,
+          "bbox": null,
+          "source_text": "○ 화재시 비상조치의 종류 : F-D | ○ 유출시 비상조치의 종류 : S-U",
+          "confidence": null,
+          "method": "수기",
+          "needs_review": false
+        },
+        {
+          "field": "narratives[6].statements[0]",
+          "page": 13,
+          "bbox": null,
+          "source_text": "○ 화재시 비상조치의 종류 : F-D | ○ 유출시 비상조치의 종류 : S-U",
+          "confidence": null,
+          "method": "수기",
+          "needs_review": false
+        },
+        {
+          "field": "narratives[6].statements[1]",
+          "page": 13,
+          "bbox": null,
+          "source_text": "○ 화재시 비상조치의 종류 : F-D | ○ 유출시 비상조치의 종류 : S-U",
+          "confidence": null,
+          "method": "수기",
+          "needs_review": false
+        },
+        {
           "field": "extras[0]",
           "page": 8,
           "bbox": null,
@@ -12168,7 +12222,7 @@
           "needs_review": false
         },
         {
-          "field": "narratives[6]",
+          "field": "narratives[7]",
           "page": 14,
           "bbox": null,
           "source_text": "라. 폐기물관리법 PRODUCT : 해당없음. 단, 용기에 보관중인 경우 지정폐기물(폐유독물질)임.",
@@ -12177,7 +12231,7 @@
           "needs_review": false
         },
         {
-          "field": "narratives[6].statements[0]",
+          "field": "narratives[7].statements[0]",
           "page": 14,
           "bbox": null,
           "source_text": "라. 폐기물관리법 PRODUCT : 해당없음. 단, 용기에 보관중인 경우 지정폐기물(폐유독물질)임.",
