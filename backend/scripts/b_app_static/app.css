@@ -309,3 +309,31 @@ dialog::backdrop { background: rgb(35 51 47 / 25%); }
 #servers-models .server-table th:nth-child(3) { width: 30%; }
 #action-confirm .technical { font-family: var(--font-body); font-size: var(--body-size); }
 #jobs-connection { min-width: 0; }
+
+/* S03/S05/S09/S10: 시험 대상, 입력, 결과 단계와 작업 기록. */
+#jobs-try, #jobs-result, #jobs-run, #jobs-compare, #jobs-list, #jobs-detail { min-width: 0; }
+#jobs-result, #jobs-connection, #jobs-detail { margin-top: var(--space-section); }
+.job-form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-group); }
+.job-field { display: grid; gap: var(--space-field); min-width: 0; margin-block: var(--space-small); }
+.job-field select, .job-field input, .job-field textarea { width: 100%; min-width: 0; }
+.job-field label { font-weight: var(--subsection-weight); }
+.job-prompt { resize: vertical; min-height: 9rem; }
+.job-focus, .job-notice { padding: var(--space-group); background: var(--context); border: var(--border-standard); margin-block: var(--space-group); }
+.job-focus { background: var(--selected); border: var(--border-evidence); }
+.job-actions { display: flex; gap: var(--space-small); align-items: center; flex-wrap: wrap; margin-block: var(--space-group); }
+.job-sections, .job-docs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--space-small); }
+.job-docs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.job-details { padding: var(--space-group); min-width: 0; }
+.job-stage-help { display: block; color: var(--muted); font-weight: var(--body-weight); margin-top: var(--space-tight); }
+.job-warning { color: var(--warning-text); padding-block: var(--space-small); }
+.job-table { width: 100%; table-layout: fixed; border-collapse: collapse; }
+.job-table th, .job-table td { padding: var(--space-control-y); text-align: left; vertical-align: top; border-bottom: var(--border-standard); }
+#jobs-list .job-table th:nth-child(1) { width: 12%; }
+#jobs-list .job-table th:nth-child(2) { width: 46%; }
+#jobs-list .job-table th:nth-child(3) { width: 17%; }
+#jobs-list .job-table td button { margin-block: var(--space-tight); }
+.job-selected { background: var(--selected); }
+.job-log { max-width: 100%; max-height: 28rem; overflow: auto; white-space: pre-wrap; padding: var(--space-compact); background: var(--ground); border: var(--border-standard); }
+.job-compare-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--space-group); padding-block: var(--space-compact); border-bottom: var(--border-standard); }
+.job-compare-row .technical { display: block; }
+#jobs-try fieldset, #jobs-run fieldset { border: var(--border-standard); padding: var(--space-group); min-width: 0; }

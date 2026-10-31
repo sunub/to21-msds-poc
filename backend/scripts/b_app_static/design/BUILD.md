@@ -169,25 +169,25 @@ P01과 P02는 원래 화면으로 돌아오는 확인 영역입니다.
 | I41 | 결과의 항→표→행→칸 구조·기술 경로·칸 수·항 모름 | `renderDocRight, tableBlock, rowHead` | S02 source-values | 3 | `sourceStructure`, `sourceTable`: 항→표→행→칸, 알 수 없는 항과 extras 포함 |
 | I42 | 결과 값·정답 값·정답에만 있는 행/칸·근거 줄 참조·비교 상태 | `valueRow, pickSilverOnly` | S02 source-values | 3 | `sourceValueButton`, `sourcePick`: 결과·정답·정답 전용 값 대조 |
 | I43 | 선택한 값/줄·연결 값 수·근거 없음·좌표 없는 줄·스크롤 위치 | `noteSel, pickValue, pickLine, scrollInto` | S02 source-selection | 3 | `sourceRenderSelection`, `sourcePickLine`, `sourceScrollLine`, `sourceRemember`: 선택·근거 없음·좌표 없음·쪽과 읽던 위치 |
-| I44 | 모델 선택·연결·다시 조회·기술 태그 | `modelSelect, connNote, loadOptions` | 공통 global-context, S03 jobs-connection, S06 servers-models | 1, 5, 6 | `serversRenderModels`·`serversRenderCompact(el,{model})`, `S.shell.servers` 공유. S03 합성은 step 6. |
-| I45 | 문서·입력 폴더·한 항/여러 항/전체 16항·기준 실행 자동/수동 | `renderJobTry` | S03 jobs-try | 6 | |
-| I46 | 지시문 기본/고쳐 쓰기·불러오기·다른 모델/항에서 온 글·한 항 제한 | `renderJobTry, loadPrompt` | S03 jobs-try | 6 | |
-| I47 | 지시문 임시 보관·새로고침 유실·전송 뒤 임시 파일 삭제·해시만 기록 | `renderJobTry, startTry` | S03 jobs-try, S07 help-topics | 6, 8 | |
-| I48 | 모델 미호출 연습(dry-run)·실제 보내기·연결 없음 안내 | `renderJobTry, startTry` | S03 jobs-try | 6 | |
-| I49 | 결과 선택·작업 번호·완료 대기·결과 JSON 없음·저장 경로 | `renderJobResult, loadResult, watchTry` | S03 jobs-result, S05 jobs-detail | 6 | |
-| I50 | ① 입력: 문서·모델·폴더·분할법·MSDS 수·첫 자료만·항·형식·줄 머리·구간·쪽·이미지·경고 | `tryStages ①` | S03 jobs-result 입력 | 6 | |
-| I51 | ② 지시문: 항별 해시·수정 여부·전문 비기록 | `tryStages ②` | S03 jobs-result 지시문 기록 | 6 | |
-| I52 | ③ 모델 원문 답·방식·종료 이유·시간·응답 없음 | `tryStages ③` | S03 jobs-result 원래 답 | 6 | |
-| I53 | ④ 읽은 결과: 성공·버린 줄·재추출·시도·입출력 토큰·오류·줄 검사·읽은 JSON | `tryStages ④` | S03 jobs-result 해석한 값 | 6 | |
-| I54 | ⑤ 최종 칸의 표 행 수·객체 칸 수·해당 항 서술/남는 값 | `tryStages ⑤` | S03 jobs-result 최종 형식 | 6 | |
-| I55 | ⑥ 총점 전후·기준 실행·바뀐 항목·점수 생략 사유·경고 | `scoreView, tryStages ⑥` | S03 jobs-result 점수 전후 | 6 | |
-| I56 | 문서 전체의 성공/실패 항·재추출·시간·원문 답 폴더 연결 | `tryStages 문서 전체 갈래` | S03 jobs-result 전체 결과 | 6 | |
-| I57 | 연습에는 ③~⑥이 없음 | `tryStages 연습 갈래` | S03 jobs-result 연습 결과 | 6 | |
-| I58 | 본 실행 모델·입력·문서 모두/없음·선택 수·반복·이름·추천 이름·회차 접미사 | `renderJobRun, suggestName` | S09 jobs-run | 6 | |
-| I59 | 개발 전체/탐색 이름 규칙·자동 기준 실행·잠자기 방지·서버가 요구하는 확인·시작 상태 | `renderJobRun, startRun` | S09 jobs-run, P02 action-confirm | 6 | |
-| I60 | 비교표 선택 순서·실행별 이름·선택 수·목록 갱신·제목·기본 라벨·출력 경로 | `renderJobCompare, startCompare` | S10 jobs-compare, S05 jobs-detail | 6 | |
-| I61 | 작업 종류·내용·시작·상태·회차 진행·외부 프로세스·중단 가능 여부 | `renderJobList, progressText` | S05 jobs-list | 6 | |
-| I62 | 작업 결과·로그·닫기·종료 코드·스크롤 유지·갱신·중단 경고 | `openLog, refreshLog, stopJob` | S05 jobs-detail, P02 action-confirm | 6 | |
+| I44 | 모델 선택·연결·다시 조회·기술 태그 | `modelSelect, connNote, loadOptions` | 공통 global-context, S03 jobs-connection, S06 servers-models | 1, 5, 6 | S03 jobs-connection: serversRenderCompact + 기존 확인 동작 재사용. 모델 없음에도 같은 화면에서 터널/모델 준비. |
+| I45 | 문서·입력 폴더·한 항/여러 항/전체 16항·기준 실행 자동/수동 | `renderJobTry` | S03 jobs-try | 6 | S03 jobsRenderTry: 공통 set, runnable.try, 기준 실행과 1~16항 범위. |
+| I46 | 지시문 기본/고쳐 쓰기·불러오기·다른 모델/항에서 온 글·한 항 제한 | `renderJobTry, loadPrompt` | S03 jobs-try | 6 | S03 jobsLoadPrompt: 한 항만 조회/편집, 늦은 응답과 다른 출처 표시. |
+| I47 | 지시문 임시 보관·새로고침 유실·전송 뒤 임시 파일 삭제·해시만 기록 | `renderJobTry, startTry` | S03 jobs-try, S07 help-topics | 6, 8 | S03 지시문 위와 jobs-prompt-origin 펼침. 메모리만 보관. |
+| I48 | 모델 미호출 연습(dry-run)·실제 보내기·연결 없음 안내 | `renderJobTry, startTry` | S03 jobs-try | 6 | S03 jobsStartTry: 연습/실제 구분, set/key 전송. |
+| I49 | 결과 선택·작업 번호·완료 대기·결과 JSON 없음·저장 경로 | `renderJobResult, loadResult, watchTry` | S03 jobs-result, S05 jobs-detail | 6 | S03 jobsWatch/jobsLoadResult: 세 모양·204·조회 오류 구분. |
+| I50 | ① 입력: 문서·모델·폴더·분할법·MSDS 수·첫 자료만·항·형식·줄 머리·구간·쪽·이미지·경고 | `tryStages ①` | S03 jobs-result 입력 | 6 | S03 jobs-stage-<id>-0: 입력과 분할·줄·이미지·경고. |
+| I51 | ② 지시문: 항별 해시·수정 여부·전문 비기록 | `tryStages ②` | S03 jobs-result 지시문 기록 | 6 | S03 jobs-stage-<id>-1: 항별 해시·수정 여부, 전문 비기록. |
+| I52 | ③ 모델 원문 답·방식·종료 이유·시간·응답 없음 | `tryStages ③` | S03 jobs-result 원래 답 | 6 | S03 jobs-stage-<id>-2: 원래 답·방식·종료 이유·시간. |
+| I53 | ④ 읽은 결과: 성공·버린 줄·재추출·시도·입출력 토큰·오류·줄 검사·읽은 JSON | `tryStages ④` | S03 jobs-result 해석한 값 | 6 | S03 jobs-stage-<id>-3: 읽은 값·오류·줄 검사·토큰·재추출. |
+| I54 | ⑤ 최종 칸의 표 행 수·객체 칸 수·해당 항 서술/남는 값 | `tryStages ⑤` | S03 jobs-result 최종 형식 | 6 | S03 jobs-stage-<id>-4: 항별 최종 칸 수. |
+| I55 | ⑥ 총점 전후·기준 실행·바뀐 항목·점수 생략 사유·경고 | `scoreView, tryStages ⑥` | S03 jobs-result 점수 전후 | 6 | S03 jobsScore: target.key.label, 점수 전후·바뀐 기준·생략·경고. |
+| I56 | 문서 전체의 성공/실패 항·재추출·시간·원문 답 폴더 연결 | `tryStages 문서 전체 갈래` | S03 jobs-result 전체 결과 | 6 | S03 문서 전체 분기: run 수치, summary 원문, 저장 raw 경로와 S02 연결. |
+| I57 | 연습에는 ③~⑥이 없음 | `tryStages 연습 갈래` | S03 jobs-result 연습 결과 | 6 | S03 연습 분기: 입력/지시문 2단계, 실제 성공으로 세지 않음. |
+| I58 | 본 실행 모델·입력·문서 모두/없음·선택 수·반복·이름·추천 이름·회차 접미사 | `renderJobRun, suggestName` | S09 jobs-run | 6 | S09 jobsRenderRun: runnable.run·전체/비우기·1~10회·이름 제안. |
+| I59 | 개발 전체/탐색 이름 규칙·자동 기준 실행·잠자기 방지·서버가 요구하는 확인·시작 상태 | `renderJobRun, startRun` | S09 jobs-run, P02 action-confirm | 6 | S09 jobsStartRun + P02 action-confirm: 409 요약과 조건 사본을 확인, 중복 실행 방지. |
+| I60 | 비교표 선택 순서·실행별 이름·선택 수·목록 갱신·제목·기본 라벨·출력 경로 | `renderJobCompare, startCompare` | S10 jobs-compare, S05 jobs-detail | 6 | S10 jobsRenderCompare/jobsStartCompare: 순서·이름표·제목, 기본 정답지 제한. S05 결과 경로. |
+| I61 | 작업 종류·내용·시작·상태·회차 진행·외부 프로세스·중단 가능 여부 | `renderJobList, progressText` | S05 jobs-list | 6 | S05 jobsRenderList: target 기준 조건·상태·진행·외부 작업·stoppable. |
+| I62 | 작업 결과·로그·닫기·종료 코드·스크롤 유지·갱신·중단 경고 | `openLog, refreshLog, stopJob` | S05 jobs-detail, P02 action-confirm | 6 | S05 jobsOpenLog/jobsRefreshLog + P02: 로그 스크롤·원문 코드·키보드 확인/취소·중단. |
 | I63 | 현재 연결 모델·태그·조회 시각·재조회·서버 작업 진행과 마지막 결과 | `renderSrvTop, pollServers` | 공통 global-context, S06 servers-summary | 1, 5 | `serversRenderSummary`, `shellPollServers`·`shellScheduleServers` 한 타이머. S06 10초, 다른 화면 60초. |
 | I64 | 세션 Pod 번호·준비 여부·자동 삭제 감시·작업에 전달되는 연결 | `renderSrvTop, srvDetail` | S06 servers-summary·servers-runpod | 5 | `serversRenderRunpod`: session 번호·adopted·others·실제 모델 일치·설정 변수 이름. 주소·키 값은 미표시. |
 | I65 | 태그·기대 모델·서버 종류·주소 설정 여부·응답 여부·응답 모델·일치·오류 | `renderSrvModels` | S06 servers-models | 5 | `serversRenderModels`: 기대·응답 모델·태그·서버·주소 설정 유무·일치 여부·friendly 원문 펼침. |
@@ -412,6 +412,13 @@ COPY의 제목과 복구 설명을 감싸서 표시합니다.
 - `/api/prompt_diff`에는 key 인자가 필요하지 않습니다. 실행쌍과 no만 전송하며 펼치기 전에는 요청하지 않습니다. 실행·정답 목록과 diff는 `ctxUrl`로 선택 key를 전달합니다.
 - 표 행 수에는 거리 상태가 없습니다. 옛 표시처럼 받은 행 수와 정답 행 수의 절대 거리만 비교해 가까워짐·멀어짐을 표시합니다. 점수 차·바뀐 값·원인 후보는 API 값을 그대로 사용합니다.
 
+#### Step 6 작업 API 재확인
+
+- `jobsStartTry`는 공통 `set`·`key`를 요청 본문에 보냅니다. `jobsStartRun`은 `set`을 보내고 409 요약의 조건 사본을 P02에서 확인합니다.
+- `jobsDocs`는 공통 set의 문서만 읽습니다. 두 양식은 각각 `runnable.try/run`과 `run_reason.try/run`을 사용합니다.
+- `jobsRenderResult`는 실제 작업의 `target.key.label`을 점수 옆에 붙입니다. 결과 없음 204는 빈 성공 결과로 취급하지 않습니다.
+- 비교표 API의 key 미지원은 그대로입니다. S10에는 기본 `silver/claude` 기준임을 표시합니다. 서버 파일과 실행기 인자는 변경하지 않았습니다.
+
 ## 글 출처
 
 step 5: `UI_TEXT.servers`와 `errors.connection/env`를 COPY에서 이관했습니다.
@@ -557,6 +564,14 @@ step 5의 미확인 목록입니다. 실제 브라우저·서버·SSH를 이 ste
 - 실제 근거는 노랑, 추정 근거는 점선·‘추정’ 글·다른 바탕으로 구분되는지 확인합니다.
 - 키보드 값 선택과 그림 실패 시 줄 글자 유지도 확인합니다.
 
+
+#### 시험과 실행 · step 6
+
+- 1280·1440·1680px에서 긴 모델 답·로그·실행 이름이 화면 폭을 넘지 않는지 봅니다.
+- 연결 없음 → S03 짧은 연결 영역 → P02 확인 → 준비 → 시험까지 누르는 횟수를 셉니다. 모델 준비 대기시간은 클릭 수와 나눕니다.
+- S06의 ‘시험으로 돌아가기’가 문서·항·지시문을 유지하는지 봅니다.
+- 여섯 단계 펼침과 로그 읽던 위치를 확인합니다. 키보드로 확인 창의 취소·초점 복귀도 봅니다.
+- 사람이 실제 모델로 한 항 시험을 한 번 실행합니다. 연습 완료와 실제 성공이 따로 기록되는지 봅니다. 이 step에서는 실제 모델을 부르지 않았습니다.
 
 각 구현 step이 가로 1280·1440·1680px에서 사람이 확인할 항목을 여기에 추가합니다.
 
@@ -872,3 +887,26 @@ Questions skipped: non-interactive. 승인된 설계를 그대로 구현합니�
 - 아키텍처 확인: S06·P02는 기존 API와 토큰 두 단계를 유지합니다. 백엔드 실행 로직·모델 설정·추출·채점·공용 폴더를 고치지 않았습니다. 새 패키지·외부 주소·글꼴·움직임 효과를 넣지 않았습니다. 평가 문서 내용·실제 설정·키·서버 주소를 읽거나 새 코드/시험/로그에 복사하지 않았습니다. 앱·모델·SSH는 실행하지 않았습니다.
 - 보호 파일 해시: 변경 0개. 승인 설계와 `docs/`·CLAUDE·하네스 실행기·step 파일·옛 app.js·서버 백엔드 파일은 그대로입니다. 다른 step 상태도 그대로입니다. 커밋하지 않았습니다.
 - 전체 AC 최종 실행: `2018 passed, 30 skipped, 7 warnings`, 실패 1개. `tests/test_A_input.py::test_every_changing_route_answers_with_update`가 `socket.bind`에서 `PermissionError: [Errno 1] Operation not permitted`로 실패했습니다. `_common.txt` 7절이 명시한 유일한 예외이므로 completed로 기록합니다. A 시험은 수정하거나 제외하지 않았습니다. 실행기가 샌드박스 밖에서 재검증합니다. 브라우저 확인은 미완료입니다.
+
+### step 6 — test-and-runs
+
+⚠️ DEGRADED: no browser in sandbox
+
+- Questions skipped: non-interactive. 승인된 구조와 문구를 구현합니다. `_common.txt` 7절에 따라 서버·브라우저·포트는 열지 않습니다.
+- RED: 새 `test_B_b_app_jobs_ui.py` 26사례와 `test_field_help_and_try_stage_help_are_complete`가 실패했습니다(27 failed / 172 passed). S03/S05/S09/S10의 미구현과 FIELD_HELP·TRY_STAGE_HELP·JOB_UI_TEXT의 옛 문구가 원인입니다. 실패 목록은 문서별 실행 허용·맥락 전달·연결 복구·옵션 실패/회복·문제 값 4종·여섯 단계·작업 오류/경고·성공 사건·세 결과 모양/204·target·확인·비교표·로그/중단입니다.
+
+- 구현: `js/jobs.js`의 `S.jobs`, `jobsEnsure`, `jobsPoll`, `jobsRenderTry/Run/Compare/List/Result`, `jobsWatch`, `jobsLoadPrompt`로 S03/S05/S09/S10을 등록했습니다. index에서 boot 직전에 싣습니다.
+- 정보 보존: I44~I62의 새 자리를 채웠습니다. 목록 밖 가짜 RAW도 API가 허용하면 선택됩니다. 화면은 문서 이름·purpose로 잠금을 추론하지 않습니다.
+- API 재확인: `/api/options`의 현재 set에 속한 docs만 사용합니다. 시험은 `runnable.try/run_reason.try`, 본 실행은 `runnable.run/run_reason.run`입니다. 시작에는 set을 보내고 시험에는 key도 보냅니다. 별도 입력 기본 경로를 만들지 않습니다.
+- API 재확인: `/api/jobs`의 target만 조건 설명에 씁니다. label은 이름표로만 표시하고 command는 접힌 원문입니다. error의 사실과 COPY의 할 일·로그를 함께 보입니다. warnings는 성공에도 보입니다.
+- API 재확인: `/api/jobs/<id>/result`의 plan-only·results(글자 키)·run/summary·204를 구분합니다. 전후 점수는 target.key.label 기준입니다. 비교표 POST는 key를 받지 않아 기본 silver/claude를 사용한다고 표시합니다(기존 빈칸 유지).
+- 사건: `try_result_viewed`는 돌아가던 작업을 관측한 뒤 S03 요약이 보일 때 한 번만 보냅니다. mode는 작업의 dry_run으로 결정합니다. section_ok는 target.sections 전부의 results[String(no)].ok입니다. 처음부터 끝난 작업·실패·중단·대상 불일치·문서 전체에는 성공 사건을 보내지 않습니다. 이어보기 저장은 step 7 몫입니다.
+- HARDEN RED→GREEN: 추가 6사례가 실패한 뒤 늦은 지시문/새 편집 보존, 바뀐 묶음의 무효 문서 선택 유지, 참/거짓 표시와 접힘 저장 실패, P02 키보드/초점, 제자리 터널 준비, 전체 결과/늦은 결과를 고쳤습니다. 사용한 확인으로 재전송되는 문제도 별도 RED 뒤 막았습니다. 점수 화면 재시험 연결은 변경 없이 기존 go의 doc/section/base_run 계약으로 통과했습니다.
+- 이관: jobs UI의 옛 3시험을 새 DOM 37사례로 교체했습니다. polish의 옵션 실패·동일 자료 회복 시험 1개는 새 jobs 시험에 옮긴 뒤 삭제했습니다. text 시험은 공개 키를 유지한 FIELD_HELP·TRY_STAGE_HELP·JOB_UI_TEXT의 승인 COPY 문장에 맞춰 변경했습니다.
+- 글 출처: jobs 표와 errors.job 표는 COPY 그대로 옮겼습니다. 상태 이름·동적 표 머리·입력 값 검증·조회 회복·기본 정답지 제한 등 COPY에 일반형이 없는 글은 COPY_EXCEPTIONS의 jobs.form/record/result/compare/status/kind에 이유를 남겼습니다. 시안의 예시 문서·8항 이름·시간·점수·요금은 실제 정보처럼 쓰지 않습니다.
+- 설계 보완: step 3의 S.focus에는 줄 번호만 있고 줄 글자가 없는 경우가 있습니다. 이때는 ‘원문 줄’과 번호만 보이며 추정이면 추정을 붙입니다. 원문 글을 지어내거나 추가로 요청하지 않습니다. P02는 기존 action-confirm을 함께 사용합니다. S03 짧은 영역은 step 5의 상태·확인 도구를 재사용하고 S06으로 이동하지 않아도 터널/모델 준비를 시작할 수 있습니다.
+- impeccable detect: 새 구현 파일 지적 0개. 기존 wireframes 15개·guide 7개 지적은 수정 범위 밖입니다. /static/app.css를 로컬 경로로 읽지 못해 색·변수 검사는 불완전하다는 도구 경고가 있습니다. 실제 브라우저 검증 증거로 쓰지 않습니다.
+- 집중 AC: 화면·서버·DOM 71 passed, 문구·작업 API·앱 334 passed(기존 SWIG 경고 7개). 정적 AC와 Node 문법 검사도 통과했습니다.
+- 마지막 대상 점검 RED→GREEN: 명시한 재시험 대상에 이전 문제 값이 섞이는 경우, 문서 미선택을 전체 잠금으로 잘못 설명하는 경우, 비교표 후보의 기록 조건·채점 범위 누락을 새 3시험으로 확인하고 고쳤습니다.
+- 전체 AC 최종: **2052 passed, 30 skipped, 7 warnings, 1 failed**(45.28초). 유일한 실패는 `tests/test_A_input.py::test_every_changing_route_answers_with_update`의 `socket.bind` → `PermissionError: [Errno 1] Operation not permitted`입니다. `_common.txt` 7절의 명시 예외에 따라 completed로 기록합니다. A 시험은 변경하거나 제외하지 않았습니다. 실행기가 샌드박스 밖에서 다시 검증합니다.
+- 보호 검증: 시작 시 기록한 120개 파일 중 허용된 BUILD.md를 제외한 119개가 동일합니다. 최종 단계 상태는 index.json의 step 6만 바꿉니다. docs·CLAUDE·백엔드 API·실행기·승인 설계는 변경하지 않았습니다. git diff --check 통과. 커밋 없음.

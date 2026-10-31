@@ -259,10 +259,13 @@ def test_field_help_and_try_stage_help_are_complete(text):
                                     "dry_run", "repeat", "run_name", "compare_label"}
     assert all(isinstance(v, str) and v.strip() for v in text.FIELD_HELP.values())
     assert len(text.TRY_STAGE_HELP) == 6
-    assert text.TRY_STAGE_HELP["① 보낸 입력"].startswith("모델에게 준 줄 글자")
-    assert text.TRY_STAGE_HELP["② 안내문"].startswith("모델에게 준 지시문")
-    assert "중간 형식" in text.TRY_STAGE_HELP["④ 읽은 결과"]
-    assert all(text.TRY_STAGE_HELP.values())
+    for key, value in text.FIELD_HELP.items():
+        assert value == approved_copy("jobs.fields." + key)
+    stage_keys = ["input", "prompt", "raw_answer", "parsed", "to21", "score"]
+    assert list(text.TRY_STAGE_HELP.values()) == [approved_copy("jobs.stages." + key) for key in stage_keys]
+    for key, value in text.JOB_UI_TEXT.items():
+        assert value == approved_copy("jobs.actions." + key)
+
 
 
 @pytest.fixture
