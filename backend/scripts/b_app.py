@@ -14,7 +14,9 @@
 작업 POST는 본문의 set(묶음 id)을 목록에서 찾아 그 폴더를 쓴다. /api/options는 묶음별 문서의 작업 가능 여부와 이유를 준다.
 정답지(/api/keys)는 b_app_sets가 data/silver·data/gold 아래에서 찾는다. 점수가 든 응답(/api/runs, /api/run, /api/diff,
 /api/doc)은 ?key=로 고른 정답지로 채점하고 무엇과 비교했는지(key)를 붙인다. ?key=가 없으면 켤 때 받은 --gold-dir다.
-요약 캐시와 실행 역사는 정답지별로 나눠 둔다(정답지를 오가도 서로 덮어쓰지 않는다).
+요약 캐시와 실행 역사는 정답지별로 나눠 둔다(정답지를 오가도 서로 덮어쓰지 않는다). 응답의 key에는 지금 폴더 내용의 지문
+(fingerprint)을 붙인다. 실행 항목(/api/runs, /api/run)에는 그 실행이 쓴 문서 묶음(set, b_app_sets.run_set)을 붙인다.
+set은 요약 캐시에 넣지 않는다(폴더 배치가 바뀌어도 캐시 키는 그대로라 낡은 값이 남는다).
 실행마다 종류(run_kind, 사람 말 run_kind_label)와 비교 가능 여부(comparable)를 붙이고, 점수가 든 응답에는 두 목표(targets:
 가중 종합 목표선, 필수 중 목표 달성 수)를 둔다. 처음 보여 줄 실행과 실행 역사의 최고 점수는 실버를 만든 실행을 뺀다.
 없는 실행·묶음·정답지, 쪽 글자 없음, 잘못된 쿼리, 작업 POST의 ValueError 같은 400·404 본문에는 기존 error에 더해
@@ -122,18 +124,21 @@ def _key_list(ctx: AppContext) -> list[dict]:
 
 
 def _pick_key(ctx: AppContext, want) -> tuple[Path, dict]:
-    """(정답지 폴더, {"id", "label"}). want가 None이면 켤 때 받은 gold_dir. 목록 밖의 gold_dir는 그 id로도 다시 받는다.
-    없는 id는 UnknownKey, 고를 수 없는 정답지는 ValueError. 요청의 글로 경로를 만들지 않는다(목록의 id만 경로로 바꾼다)."""
+    """(정답지 폴더, {"id", "label", "fingerprint"}). want가 None이면 켤 때 받은 gold_dir. 목록 밖의 gold_dir는 그 id로도
+    다시 받고 지문은 None이다. 없는 id는 UnknownKey, 고를 수 없는 정답지는 ValueError.
+    요청의 글로 경로를 만들지 않는다(목록의 id만 경로로 바꾼다)."""
     keys = _key_list(ctx)
     startup = bsets.key_for_dir(keys, Path(ctx.gold_dir))
     if want is None or (startup["kind"] == "custom" and want == startup["id"]):
-        return Path(ctx.gold_dir), {"id": startup["id"], "label": startup["label"]}
+        return Path(ctx.gold_dir), {"id": startup["id"], "label": startup["label"],
+                                    "fingerprint": startup.get("fingerprint")}
     k = bsets.find_key(keys, want)
     if k is None:
         raise UnknownKey("unknown_key", id=want)
     if not k["usable"]:
         raise Problem("unusable_key", reason=k["reason"])
-    return bsets.key_dir(Path(ctx.data_root), k["id"]), {"id": k["id"], "label": k["label"]}
+    return bsets.key_dir(Path(ctx.data_root), k["id"]), {"id": k["id"], "label": k["label"],
+                                                         "fingerprint": k["fingerprint"]}
 
 
 def _query_key(query: dict[str, list[str]], ctx: AppContext):
@@ -153,10 +158,18 @@ def _cache_dir(ctx: AppContext, gold_dir: Path) -> Path | None:
     return Path(ctx.cache_dir) / hashlib.sha1(str(Path(gold_dir).resolve()).encode()).hexdigest()[:12]
 
 
+def _run_set(r: dict, sets: list[dict]) -> dict | None:
+    """실행이 쓴 문서 묶음. 비교표(kind models)와 읽지 못한 실행은 None."""
+    if r.get("kind") == "models" or "error" in r:
+        return None
+    return bsets.run_set(r.get("pages_dir"), [*(r.get("docs") or []), *(r.get("no_gold") or [])], sets)
+
+
 def _run_list(ctx: AppContext, gold_dir: Path, key: dict) -> dict:
     data = br.load_all(ctx.runs_dir, gold_dir, cache_dir=_cache_dir(ctx, gold_dir), pages_root=ctx.pages_root)
+    sets = _set_list(ctx)                            # 묶음 목록은 한 번만 읽는다
     runs = [{**_labeled_run({k: v for k, v in r.items() if k not in _HEAVY}),
-             "targets": bt.score_targets(r, data["criteria"])} for r in data["runs"]]
+             "targets": bt.score_targets(r, data["criteria"]), "set": _run_set(r, sets)} for r in data["runs"]]
     ctx.run_history = {**(ctx.run_history or {}), str(gold_dir): runs}
     return {**data, "runs": runs, "current": pick_current(runs), "doc_time_limit": DOC_TIME_LIMIT, "key": key}
 
@@ -173,7 +186,8 @@ def _run_with_text(run: Path, ctx: AppContext, gold_dir: Path, key: dict) -> dic
     summaries["history"] = bt.card_summary("history", {"runs": history})
     status = bt.score_status(info, br.criteria(), connected=connected, per_doc=info.get("per_doc"))
     return {**info, "status_text": status, "targets": status["targets"],
-            "card_summaries": summaries, "connection_notes": bt.connection_notes(info.get("model")), "key": key}
+            "card_summaries": summaries, "connection_notes": bt.connection_notes(info.get("model")), "key": key,
+            "set": _run_set(info, _set_list(ctx))}
 
 
 def _static(rel: str, ctx: AppContext) -> tuple[int, str, bytes]:
