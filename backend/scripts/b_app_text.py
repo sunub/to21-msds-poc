@@ -623,6 +623,10 @@ def model_label(tag: str | None) -> str:
     return MODEL_LABELS.get(tag, tag or "")
 
 
+# manifest 밖 문서를 지금 실행기로 돌릴 수 없다는 사실과 할 일. SET_TEXT["outside_wait"]와 작업 실패 글(job_error)이 같이 쓴다
+_OUTSIDE_FACT = "문서 목록(manifest) 밖 문서라 지금 실행기로는 돌릴 수 없습니다."
+_OUTSIDE_FIX = "실행기 고침(phase format40)이 합쳐지면, 즉 format40 이후 돌릴 수 있습니다."
+
 # 문서 묶음(b_app_sets)에서 문서나 묶음을 고를 수 없는 이유. 키는 b_app_sets가 쓴다.
 SET_TEXT: dict[str, str] = {
     "eval_locked": "평가용 문서라 열지 않습니다 (D-43).",
@@ -637,8 +641,7 @@ SET_TEXT: dict[str, str] = {
     # 작업(시험·본 실행)에 넣을 수 없는 문서의 이유 (b_app_sets.job_check)
     "no_line_numbers_doc": "이 문서의 쪽 글자에 줄 번호(L001)가 없어 작업에 넣을 수 없습니다. 줄 번호가 있는 묶음을 고르세요.",
     "outside_try": "문서 목록(manifest) 밖 문서라 항목 시험을 할 수 없습니다. 항목 시험(try_section)은 아직 manifest 문서만 받습니다.",
-    "outside_wait": "문서 목록(manifest) 밖 문서라 지금 실행기로는 돌릴 수 없습니다. "
-                    "실행기 고침(phase format40)이 합쳐지면, 즉 format40 이후 돌릴 수 있습니다.",
+    "outside_wait": f"{_OUTSIDE_FACT} {_OUTSIDE_FIX}",
     "dev_only": "개발용 문서만 넣을 수 있습니다",
 }
 
@@ -711,6 +714,81 @@ def env_problem(line: int) -> dict:
     """`.env`에서 읽지 못한 줄 하나의 안내. 줄의 글은 값이 섞여 있어 담지 않는다."""
     return {"line": line, "message": f"`.env` {line}번째 줄을 읽지 못했습니다.",
             "fix": "따옴표와 = 앞뒤 공백을 확인하고 '설정 다시 읽기'를 누르세요. 값은 화면에 나오지 않습니다."}
+
+
+# 작업(시험·본 실행·비교표)이 실패했을 때의 글. job_error가 로그의 마지막 예외 줄로 고른다
+JOB_ERROR_TEXT: dict[str, dict[str, str]] = {
+    "pages": {"message": "쪽 글자 폴더나 파일이 없습니다.",
+              "fix": "작업의 문서 묶음을 다시 고르세요. 기본 묶음은 prev/version9입니다."},
+    "outside": {"message": _OUTSIDE_FACT, "fix": _OUTSIDE_FIX},
+    "connect": {"message": "모델 서버에 연결하지 못했습니다.", "fix": "서버 상태의 진단(터널·Pod 준비)을 보세요."},
+    "key": {"message": "모델 서버가 키를 거절했습니다.",
+            "fix": "`.env`의 RUNPOD_VLLM_API_KEY(또는 RNGD_API_KEY)가 서버를 띄울 때 값과 같은지 보세요."},
+    "eval": {"message": "평가용 문서는 작업에 넣을 수 없습니다 (D-43).", "fix": "개발용 문서를 고르세요."},
+    "other": {"message": "작업이 오류로 끝났습니다.", "fix": "아래 마지막 오류 줄을 보세요."},
+    "no_line": {"message": "작업이 오류로 끝났습니다.", "fix": "작업 로그를 열어 마지막 줄을 보세요."},
+}
+JOB_LOG_LINES = 200                                  # 예외 줄을 찾는 로그 끝 줄 수 (작업 로그 보기의 기본과 같다)
+# 파이썬 예외 줄: 줄 맨 앞의 (모듈.)이름Error 등 + ": 글". 트레이스백의 들여 쓴 소스 줄(raise …)은 맞지 않는다
+_EXCEPTION_LINE = re.compile(r"(?:[A-Za-z_]\w*\.)*[A-Za-z_]\w*(?:Error|Exception|Exit|Timeout|Interrupt|Expired)(?::.*)?")
+_DOTENV_WARNING = re.compile(r"python-dotenv could not parse statement starting at line (\d+)", re.I)
+_CONNECT_TOKENS = ("Connection refused", "APIConnectionError", "ConnectError", "ConnectTimeout", "ReadTimeout",
+                   "timed out")
+
+
+def job_error(log_text: str) -> dict | None:
+    """작업 로그 끝(최대 JOB_LOG_LINES줄)의 마지막 예외 줄을 사람 말로 바꾼다. 키는 부르는 쪽이 먼저 가린다.
+    {"message", "fix", "raw": 그 줄, "warnings": `.env`에서 읽지 못한 줄마다 env_problem}. 예외 줄도 경고도 없으면 None.
+    경고는 넘겨받은 글 전체에서 찾는다(파이썬이 뜰 때 찍혀 로그 맨 앞에 있다)."""
+    lines = log_text.splitlines()
+    numbers = dict.fromkeys(int(m[1]) for m in map(_DOTENV_WARNING.search, lines) if m)
+    warnings = [env_problem(n) for n in numbers]
+    raw = next((line.rstrip() for line in reversed(lines[-JOB_LOG_LINES:])
+                if _EXCEPTION_LINE.fullmatch(line.rstrip())), None)
+    if raw is None:
+        return {**JOB_ERROR_TEXT["no_line"], "raw": None, "warnings": warnings} if warnings else None
+    name = raw.split(":", 1)[0].rsplit(".", 1)[-1]
+    if name == "FileNotFoundError" and re.search(r"pNNN|p\d+\.txt|쪽 글자|pages", raw):
+        kind = "pages"
+    elif name == "KeyError" and "manifest에 없는" in raw:
+        kind = "outside"
+    elif any(token in raw for token in _CONNECT_TOKENS):
+        kind = "connect"
+    elif re.search(r"(?<![\w-])401(?!\d)", raw) or "AuthenticationError" in raw:   # 문서 번호 T21-401은 아니다
+        kind = "key"
+    elif "평가용" in raw:
+        kind = "eval"
+    else:
+        kind = "other"
+    return {**JOB_ERROR_TEXT[kind], "raw": raw, "warnings": warnings}
+
+
+# 화면 API(b_app)의 400·404 오류 본문. error는 지금까지 쓰던 짧은 글 그대로, message는 사실 한 문장, fix는 할 일 한 문장.
+# 잠긴 문서(평가용·용도 모름)도 doc_not_in_run·doc_not_in_set·missing_pages로 답하므로 이 글들은 잠긴 이유를 말하지 않는다
+PROBLEM_TEXT: dict[str, dict[str, str]] = {
+    "unknown_set": {"error": "없는 문서 묶음: {id}", "message": "없는 문서 묶음입니다: {id}.",
+                    "fix": "문서 묶음 목록에서 다시 고르세요."},
+    "unusable_set": {"error": "고를 수 없는 묶음입니다: {reason}", "message": "고를 수 없는 묶음입니다: {reason}",
+                     "fix": "문서 묶음 목록에서 다른 묶음을 고르세요."},
+    "unknown_key": {"error": KEY_TEXT["unknown_key"], "message": "없는 정답지입니다: {id}.",
+                    "fix": "정답지 목록에서 다시 고르세요."},
+    "unusable_key": {"error": KEY_TEXT["unusable_key"], "message": "고를 수 없는 정답지입니다: {reason}",
+                     "fix": "정답지 목록에서 다른 정답지를 고르세요."},
+    "missing_pages": {"error": "쪽 글자가 없습니다: {where}", "message": "{where}의 쪽 자료가 없습니다.",
+                      "fix": "이 문서가 있는 문서 묶음을 다시 고르세요."},
+    "missing_run": {"error": "없는 실행: {name}", "message": "없는 실행입니다: {name}.",
+                    "fix": "실행 목록에서 다시 고르세요."},
+    "doc_not_in_run": {"error": "이 실행에 없는 문서: {doc}", "message": "이 실행에서 열 수 없는 문서입니다: {doc}.",
+                       "fix": "이 실행의 문서 목록에서 다시 고르세요."},
+    "doc_not_in_set": {"error": "이 묶음에 없는 문서: {doc}", "message": "이 묶음에서 열 수 없는 문서입니다: {doc}.",
+                       "fix": "이 묶음의 문서 목록에서 다시 고르세요."},
+    "bad_query": {"error": "{detail}", "message": "{detail}", "fix": "입력을 고친 뒤 다시 보내세요."},
+}
+
+
+def problem(kind: str, **facts) -> dict:
+    """라우트 오류 본문 {"error", "message", "fix"}. facts는 PROBLEM_TEXT의 칸(id, reason, where, name, doc, detail)을 채운다."""
+    return {part: template.format(**facts) for part, template in PROBLEM_TEXT[kind].items()}
 
 
 # 서버 탭(b_app_servers)이 거절하거나 할 수 없을 때의 글. 사실 한 문장 + "할 일:" (format으로 채운다)
