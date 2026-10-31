@@ -6,6 +6,7 @@ MSDS 기재와의 비교(판정 4종·심각도)는 하지 않는다.
 from .acute_classify import classify_acute
 from .class_inputs import _SOURCE_NAME
 from .evaluate_item import evaluate_item, include_min_for
+from .physical import classify_physical
 from .rule_eval import evaluate_rules_trace
 from .rules_loader import load_mixture_rules, lookup_class
 
@@ -114,9 +115,10 @@ def _acute_components(components) -> list[dict]:
 
 
 def classify_mixture_all(components, mixture_props, *, state=None, rules=None, source_order=None,
-                         ate_intervals=False) -> list[dict]:
+                         ate_intervals=False, physical=None) -> list[dict]:
     """규칙표의 모든 항목을 순서대로 처리한다. transport·compare는 {"class_code", "skipped"}로 남긴다.
 
+    physical(physical.physical_inputs(msds_item))를 주면 transport·compare 항목을 판정한다(기본은 건너뜀).
     ate_intervals=True 이면 급성독성의 부등호(>·<)·범위를 구간으로 계산한다(기본은 기존 규칙 D-12)."""
     rules = rules or load_mixture_rules()
     out, acute_done = [], False
@@ -126,6 +128,8 @@ def classify_mixture_all(components, mixture_props, *, state=None, rules=None, s
                 out += classify_acute(_acute_components(components), state, knowledge_version=rules["meta"]["version"],
                                   intervals=ate_intervals)
                 acute_done = True
+        elif physical is not None and item["method"] in ("transport", "compare"):
+            out.append(classify_physical(name, item, components, mixture_props, physical, state=state, rules=rules))
         else:
             out.append(classify_item(name, components, mixture_props, rules=rules, source_order=source_order))
     return out
