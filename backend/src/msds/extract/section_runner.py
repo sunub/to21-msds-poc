@@ -44,6 +44,10 @@ from msds.extract.section_specs import response_schema
 DOC_TIME_LIMIT = 300          # 초. 넘으면 경고만 남기고 멈추지 않는다
 _LINE_KEYS = ("line", "start", "end")
 _FEEDBACK_MAX = 20            # 다시 보낼 때 적는 문제 수
+# 명세서 1_항목정의에서 type이 code인 행 칸. 한 행만 빈 것은 '급성 독성 자료 없음'처럼 묶어 적은 행일 수 있어
+# 표 전체가 빈 경우만 본다. 규제 법령은 항목 코드에서 채운다(expand.fill_law).
+# CMR 기관은 '발암성 : 자료없음'처럼 기관 없는 행이 있어, 모두 자료없음인 문서는 표 전체가 빌 수 있으므로 보지 않는다.
+_CODE_COLUMNS = {"physchem": "prop_code", "toxicity": "endpoint", "ecotox": "endpoint", "regulations": "item_code"}
 IMAGE_SECTION = 2             # 쪽 이미지를 붙이는 항 (그림문자, ADR-019)
 IMAGE_PAGES = 2               # 붙이는 쪽 이미지 수 상한
 OUTSIDE_MANIFEST_WARNING = "manifest에 없는 문서: 쪽 글자 폴더의 meta.json을 씀"
@@ -63,8 +67,9 @@ class SectionResult:
 
 
 def check_section(parsed: dict | None, allowed_ids: set[str], no: int | None = None) -> list[str]:
-    """응답 안의 모든 line, lines 값, start, end가 allowed_ids 안에 있는지. 문제 문장 목록.
-    2항(no=2)은 H코드가 있는데 유해성 분류(hazard.classes)가 비면 문제로 잡는다. classified가 거짓이면 잡지 않는다 (ADR-024)."""
+    """응답 안의 모든 line, lines 값, start, end가 allowed_ids 안에 있는지, 코드표 칸이 통째로 비지 않았는지.
+    문제 문장 목록. 2항(no=2)은 H코드가 있는데 유해성 분류(hazard.classes)가 비면 문제로 잡는다.
+    classified가 거짓이면 잡지 않는다 (ADR-024)."""
     problems: list[str] = []
     hazard = parsed.get("hazard") if no == 2 and isinstance(parsed, dict) else None
     if isinstance(hazard, dict) and hazard.get("classified") is not False:
@@ -72,6 +77,11 @@ def check_section(parsed: dict | None, allowed_ids: set[str], no: int | None = N
         if isinstance(h, list) and h and not hazard.get("classes"):
             problems.append(f"hazard.classes가 비었음: 원문의 유해성 분류 행(예: 인화성 액체 구분 2)을 "
                             f"hazard.classes에 한 행씩 쓴다 (H코드 {len(h)}개가 있음)")
+    for table, column in _CODE_COLUMNS.items():
+        rows = (parsed or {}).get(table) or []
+        if len(rows) >= 2 and all(r.get(column) is None for r in rows):
+            problems.append(f"{table}: 모든 행의 {column}가 비었음. "
+                            "[코드표]에 맞는 코드를 쓰고, 맞는 코드가 없는 값은 extras에 쓴다")
 
     def check(path: str, value) -> None:
         if value is not None and not (isinstance(value, str) and value in allowed_ids):

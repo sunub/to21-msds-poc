@@ -232,6 +232,17 @@ def test_check_section_finds_unknown_line_ids():
     ]
 
 
+def test_check_section_finds_table_without_codes():
+    """표의 모든 행(2행 이상)에 코드표 칸(명세서 1_항목정의 type code)이 비면 재추출한다.
+    '급성 독성 자료 없음'처럼 코드 없이 묶어 적는 행은 있어 한 행만 빈 것은 문제로 보지 않는다."""
+    row = {"prop_code": None, "line": "p1:L3"}
+    parsed = {"physchem": [row, row], "toxicity": [{"endpoint": None, "line": "p1:L3"}],
+              "ecotox": [{"endpoint": None, "line": "p1:L3"}, {"endpoint": "ECO_FISH", "line": "p1:L3"}]}
+    assert sr.check_section(parsed, {"p1:L3"}) == [
+        "physchem: 모든 행의 prop_code가 비었음. [코드표]에 맞는 코드를 쓰고, 맞는 코드가 없는 값은 extras에 쓴다",
+    ]
+
+
 def test_check_section_ok_and_none():
     assert sr.check_section(responses()[2], {"p1:L6", "p1:L7"}) == []
     assert sr.check_section(None, set()) == []

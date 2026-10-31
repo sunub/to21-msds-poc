@@ -452,6 +452,14 @@ def regulations_of(rows: list[dict]) -> list[dict]:
     return doc["msds"][0]["regulations"]
 
 
+def test_regulation_law_from_item_code(no_conventions):
+    """규제 항목 코드는 법령 하나에 속하므로(명세서 5-6) 비어 있는 법령은 항목 코드에서 채운다."""
+    regs = regulations_of([
+        {"comp_name": None, "comp_cas": None, "law": None, "item_code": c, "applicable": "해당", "line": "p6:L10"}
+        for c in ("INTL_US", "OSH_MEASURE", "KR_ETC", None)])
+    assert [r["law"] for r in regs] == ["INTL", "OSH", "KR_ETC", None]
+
+
 def test_applicable_kreach_with_value_becomes_haedang(no_conventions):
     """화평법 행에 값(value_raw 또는 threshold)이 있고 해당 여부가 비면 '해당' (사용자 결정 10/29, A-1 참고)."""
     regs = regulations_of([kreach(value_raw="가상-0001"),
@@ -641,6 +649,31 @@ def test_fill_q_unknown():
     q = ex.fill_q({"raw": "무색"})
     assert q["status"] is None and q["dp"] is None
     assert ex.fill_q({"raw": "1.5E-3", "value": 0.0015})["dp"] is None
+
+
+@pytest.mark.parametrize("raw, status, note", [
+    ("해당없음(불연성)", "해당없음", "불연성"),          # TO21 예제 25 FLASH_POINT
+    ("No data available", "자료없음", None),            # 동의어 사전 status
+    ("N/A", "해당없음", None),
+    ("-", "미기재", None),                              # R15
+    ("판독불가", "판독불가", None),                      # C7
+])
+def test_fill_q_status_word(raw, status, note):
+    q = ex.fill_q({"raw": raw})
+    assert (q["raw"], q["status"], q["note"], q["value"]) == (raw, status, note, None)
+
+
+def test_status_text_value_moves_to_q(no_conventions):
+    """값 대신 상태어만 적힌 행은 text_value가 아니라 q의 상태다 (TO21 예제 25 FLAMMABILITY, 2_공통구조 Q.status)."""
+    r = responses()
+    r[9]["physchem"] += [{"prop_code": "FLAMMABILITY", "text_value": "해당없음", "line": "p5:L1"},
+                         {"prop_code": "APPEARANCE_COLOR", "text_value": "무색", "line": "p5:L1"},
+                         {"prop_code": "PH", "data_source": "자료없음", "line": "p5:L1"}]   # 칸이 밀려 출처에 적힘
+    m, _ = expand_one(r)
+    flam, color, ph = m["physchem"][1:]
+    assert flam["text_value"] is None and (flam["q"]["raw"], flam["q"]["status"]) == ("해당없음", "해당없음")
+    assert color["text_value"] == "무색" and color["q"] is None
+    assert ph["data_source"] is None and ph["q"]["status"] == "자료없음"
 
 
 # ── 서술 문장 ──────────────────────────────────────────
