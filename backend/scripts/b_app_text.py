@@ -2310,7 +2310,10 @@ UI_TEXT["journey"] = {'record': {'errors': {'unavailable': {'message': '첫 사�
                        'mode': '실제 시험(real) 또는 연습(practice)',
                        'id': '영문과 숫자 및 _와 -만 사용한 64자 이하 이름',
                        'id_or_null': '영문과 숫자 및 _와 -만 사용한 64자 이하 이름 또는 비어 있음(null)',
-                       'migrated_from': '1 또는 비어 있음(null)'},
+                       'migrated_from': '1 또는 비어 있음(null)',
+                       'screen': '안내 화면 이름 G01부터 G15까지 중 하나 또는 비어 있음(null)',
+                       'choices': '처음 해 볼 일 score, source, retest, ai 중 겹치지 않는 목록',
+                       'practices': '직접 해 보기 p1, p2, p3 중 겹치지 않는 목록'},
             'parts': {'file_json': '안내 기록 파일을 읽을 수 있는 형식이 아닙니다.',
                       'file_version': '안내 기록 파일의 형식 번호가 2가 아닙니다.',
                       'progress': '안내 진행 기록을 읽지 못했습니다.',
@@ -3185,6 +3188,9 @@ UI_TEXT['common']['code_aliases']['limit']['반복'] = 'repetition'
 COPY_EXCEPTIONS['common.code_aliases.limit.반복'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
 UI_TEXT['common']['code_aliases']['limit']['긴출력'] = 'long'
 COPY_EXCEPTIONS['common.code_aliases.limit.긴출력'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+COPY_EXCEPTIONS['journey.record.expect.screen'] = "처음 사용 안내 Wispr 구조 승인 10/31: progress.guide 검사 문장"
+COPY_EXCEPTIONS['journey.record.expect.choices'] = "처음 사용 안내 Wispr 구조 승인 10/31: progress.guide 검사 문장"
+COPY_EXCEPTIONS['journey.record.expect.practices'] = "처음 사용 안내 Wispr 구조 승인 10/31: progress.guide 검사 문장"
 
 POLISH_TEXT = UI_TEXT
 
