@@ -218,3 +218,142 @@ def test_phone_not_found_unchanged(value, text):
     before = copy.deepcopy(m)
     assert apply_source_rules(m, doc(text)) == []
     assert m == before
+
+
+# ── 유해성 분류 (hazard.classes) ───────────────────────
+
+CLASS_LINES = ("2. 유해성·위험성 정보",
+               "가. 유해성·위험성 분류",
+               "- 인화성 액체 : 구분2",
+               "- 발암성 : 구분 1A",
+               "- 만성 수생환경 유해성 : 구분2",
+               "나. 예방조치 문구를 포함한 경고 표지 항목",
+               "○ 그림문자")
+
+
+def classes(m):
+    return [(c["group"], c["class_code"], c["category"]) for c in m["hazard"]["classes"]]
+
+
+def class_evidence(m):
+    return [e for e in m["evidence"] if e["field"].startswith("hazard.classes")]
+
+
+def test_classes_from_section_lines():
+    lines = doc(*CLASS_LINES)
+    m = item_with()
+    changes = apply_source_rules(m, lines)
+    assert classes(m) == [("물리적", "PH_FLAM_LIQ", "2"), ("건강", "HH_CARCINOGEN", "1A"),
+                          ("환경", "ENV_AQ_CHRONIC", "2")]
+    rows = m["hazard"]["classes"]
+    assert [c["seq"] for c in rows] == [1, 2, 3]
+    assert [c["raw"] for c in rows] == ["인화성 액체 : 구분2", "발암성 : 구분 1A", "만성 수생환경 유해성 : 구분2"]
+    assert all(c["route_form"] is None and c["effect"] is None and c["target_organs"] == [] for c in rows)
+    ev = class_evidence(m)
+    assert [e["field"] for e in ev] == ["hazard.classes[0]", "hazard.classes[1]", "hazard.classes[2]"]
+    assert [e["source_text"] for e in ev] == list(CLASS_LINES[2:5])
+    assert all(e["page"] == 1 and e["needs_review"] is True for e in ev)
+    assert len(changes) == 1
+
+
+def test_classes_rows_pass_item_schema():
+    from msds.common.schema import msds_item_schema
+    from jsonschema import Draft202012Validator
+
+    m = item_with()
+    apply_source_rules(m, doc(*CLASS_LINES))
+    errors = list(Draft202012Validator(msds_item_schema()).iter_errors(m))
+    assert errors == []
+
+
+def test_classes_outside_section_not_read():
+    lines = doc(*CLASS_LINES, "15. 법적 규제현황", "- 가상물질 : 구분 1A", "- 생식세포 변이원성 : 구분 1B")
+    m = item_with()
+    apply_source_rules(m, lines)
+    assert classes(m) == [("물리적", "PH_FLAM_LIQ", "2"), ("건강", "HH_CARCINOGEN", "1A"),
+                          ("환경", "ENV_AQ_CHRONIC", "2")]
+
+
+def test_classes_no_heading_reads_nothing():
+    m = item_with()
+    assert apply_source_rules(m, doc("15. 법적 규제현황", "- 발암성 : 구분 1A")) == []
+    assert m["hazard"]["classes"] == []
+
+
+def test_classes_kept_when_model_wrote_some():
+    m = item_with()
+    m["hazard"]["classes"] = [{"seq": 1, "group": "건강", "class_code": "HH_EYE_DMG", "category": "2",
+                               "route_form": None, "effect": None, "target_organs": [], "raw": "눈 자극 : 구분2"}]
+    before = copy.deepcopy(m)
+    assert apply_source_rules(m, doc(*CLASS_LINES)) == []
+    assert m == before
+
+
+def test_classes_not_filled_when_many_msds():
+    m = item_with()
+    before = copy.deepcopy(m)
+    assert apply_source_rules(m, doc(*CLASS_LINES), single_msds=False) == []
+    assert m == before
+
+
+def test_classes_on_heading_line():
+    lines = doc("가. 유해성·위험성 분류 | 인화성 가스 : 구분1", "나. 예방조치문구를 포함한 경고표지 항목")
+    m = item_with()
+    apply_source_rules(m, lines)
+    assert classes(m) == [("물리적", "PH_FLAM_GAS", "1")]       # 5-1 이름은 괄호 설명이 붙어 13 시트로 찾는다
+    assert m["hazard"]["classes"][0]["raw"] == "인화성 가스 : 구분1"
+    assert [e["field"] for e in class_evidence(m)] == ["hazard.classes[0]"]
+
+
+@pytest.mark.parametrize("heading", ["가. 유해·위험성 분류", "가. 유해위험성분류", "가. 유해성ㆍ위험성 분류",
+                                     "1) 유해성위험성 분류"])
+def test_classes_heading_forms(heading):
+    m = item_with()
+    apply_source_rules(m, doc(heading, "- 피부 과민성 : 구분 1", "○ 신호어 : 경고"))
+    assert classes(m) == [("건강", "HH_SKIN_SENS", "1")]
+
+
+@pytest.mark.parametrize("bullet", ["ο ", "○ ", "• ", "1) ", "가) ", ""])
+def test_classes_bullets_removed_from_name(bullet):
+    m = item_with()
+    apply_source_rules(m, doc("가. 유해성·위험성 분류", f"{bullet}흡인 유해성 : 구분 1", "나. 그림문자"))
+    assert classes(m) == [("건강", "HH_ASPIRATION", "1")]
+    assert m["hazard"]["classes"][0]["raw"] == "흡인 유해성 : 구분 1"
+
+
+def test_classes_several_on_one_line_and_pipe_bullet():
+    lines = doc("가. 유해성·위험성 분류",
+                "- | 인화성 액체 : 구분3, 급성 독성(경구) : 구분 4 | 심한 눈 손상성/눈 자극성 : 구분2A",
+                "- 특정표적장기 독성(1회 노출) : 구분3(호흡기계 자극)",
+                "- 피부 부식성 또는 자극성 물질 : 구분 1B",       # 13 시트의 '이름 : 구분 N' 글
+                "나. 그림문자")
+    m = item_with()
+    apply_source_rules(m, lines)
+    assert classes(m) == [("물리적", "PH_FLAM_LIQ", "3"), ("건강", "HH_ACUTE_ORAL", "4"),
+                          ("건강", "HH_EYE_DMG", "2A"), ("건강", "HH_STOT_SE", "3"),
+                          ("건강", "HH_SKIN_CORR", "1B")]
+    assert [e["source_text"] for e in class_evidence(m)] == [lines[1].text] * 3 + [lines[2].text, lines[3].text]
+
+
+def test_classes_unknown_names_dropped():
+    lines = doc("가. 유해성·위험성 분류", "- 가상 유해성 : 구분1", "- 급성 수생환경 유해성 : 구분 1", "○ 그림문자")
+    m = item_with()
+    apply_source_rules(m, lines)
+    assert classes(m) == [("환경", "ENV_AQ_ACUTE", "1")]
+    assert m["hazard"]["classes"][0]["seq"] == 1
+
+
+def test_classes_none_found_reports_nothing():
+    m = item_with()
+    assert apply_source_rules(m, doc("가. 유해성·위험성 분류", "- 분류되지 않음", "○ 그림문자")) == []
+    assert m["hazard"]["classes"] == [] and class_evidence(m) == []
+
+
+def test_classes_to_to21_single_vs_many_msds():
+    lines = doc(*CLASS_LINES)
+    meta = {"doc_id": "T21-X001", "source_file": "x.pdf", "pages": "1", "text_layer": "정상", "language": "ko"}
+    one, _ = ex.to_to21(meta, [{}], lines, "가짜")
+    two, _ = ex.to_to21(meta, [{}, {}], lines, "가짜")
+    assert [c["class_code"] for c in one["msds"][0]["hazard"]["classes"]] == ["PH_FLAM_LIQ", "HH_CARCINOGEN",
+                                                                             "ENV_AQ_CHRONIC"]
+    assert all(m["hazard"]["classes"] == [] for m in two["msds"])
