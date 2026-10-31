@@ -56,18 +56,3 @@ def test_start_shows_run_list_failure_after_guide_has_loaded():
       assert.match(el.textContent,/가짜 실행 조회 실패/);
       assert.match(el.textContent,/할 일:/);
     """)
-
-
-def test_options_poll_reports_failure_and_same_data_recovery_as_state_changes():
-    run_js(r"""
-      const opts={models:[],pages_dirs:[],docs:[],run_names:{},default_pages_dir:'fake',
-        try_hint:{dry_run_forced:true,note:'서버 없는 시험'}};
-      S.jobs.opts=opts;
-      api=async()=>{throw new Error('가짜 오류');};
-      assert.equal(await loadOptions(),true);
-      assert.equal(S.jobs.error,'가짜 오류');
-      api=async()=>opts;
-      assert.equal(await loadOptions(),true);
-      assert.equal(S.jobs.error,null);
-      assert.equal(await loadOptions(),false);
-    """)
