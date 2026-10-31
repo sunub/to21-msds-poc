@@ -391,6 +391,8 @@ def _options(ctx: AppContext, *, advanced: bool = False) -> tuple[int, str, byte
     by_tag = {s["tag"]: s for s in status or []}
     models = [{"tag": tag, "label": bt.model_label(tag), "model": c["model"], "connected": None if status is None else _why_offline(by_tag.get(tag)) is None,
                "error": None if status is None else _why_offline(by_tag.get(tag)),
+               # 서버 탭이 연결을 보는 태그인지. 정답 초안용(gpt, claude)은 거짓이라 다시 시험의 기본 모델로 고르지 않는다
+               "watched": None if status is None else tag in by_tag,
                "rows_sections": c.get("rows_sections") or [], "image_input": bool(c.get("image_input"))}
               for tag, c in cfg.items()]
     backend = ctx.jobs.backend_dir if ctx.jobs else BACKEND
