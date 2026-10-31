@@ -171,7 +171,8 @@ dialog::backdrop { background: var(--backdrop); }
 .score-block { border-right: var(--border-standard); }
 .score-number { font-size: var(--score-size); font-weight: var(--score-weight); line-height: var(--score-line-height); font-variant-numeric: tabular-nums; margin: var(--space-small) 0; }
 .score-number > span { font-size: var(--score-unit-size); font-weight: var(--score-unit-weight); padding-left: var(--space-small); }
-.score-essential { border-top: var(--border-standard); padding-top: var(--space-group); margin-top: var(--space-group); }
+.score-essential { border-top: var(--border-standard); padding-top: var(--space-group); margin-top: var(--space-group); font-size: var(--body-size); }
+.score-target-gap { font-weight: var(--subsection-weight); }
 .score-next { margin: var(--space-section) 0; }
 .score-next > p { margin-top: var(--space-small); max-width: 75ch; }
 .score-counts { list-style: none; padding: 0; margin: var(--space-small) 0; font-size: var(--label-size); }
@@ -217,14 +218,18 @@ dialog::backdrop { background: var(--backdrop); }
 
 /* S02: 문제 목록 옆에서 근거와 값을 비교한다. 긴 원문은 지정 데이터 class에서만 줄바꿈한다. */
 #screen-s02 { display: grid; grid-template-columns: 290px minmax(0, 1fr); gap: var(--space-section); align-items: start; }
-#screen-s02 > h1, #help-context-s02, #source-top { grid-column: 1 / -1; }
-#screen-s02 > h1 { margin-bottom: 0; grid-row: 1; }
-#help-context-s02 { grid-row: 2; }
-#source-top { grid-row: 3; }
-#source-values { grid-column: 1; grid-row: 4 / span 2; }
+#screen-s02 > .score-flow, #screen-s02 > h1, #help-context-s02, #source-top, #source-details { grid-column: 1 / -1; }
+#screen-s02 > .score-flow { grid-row: 1; margin: 0; }
+#screen-s02 > h1 { margin-bottom: 0; grid-row: 2; }
+#help-context-s02 { grid-row: 3; }
+#source-top { grid-row: 4; }
+#source-values { grid-column: 1; grid-row: 5 / span 2; }
 #source-selection, #source-page { grid-column: 2; min-width: 0; }
-#source-selection { grid-row: 4; }
-#source-page { grid-row: 5; }
+#source-selection { grid-row: 5; }
+#source-page { grid-row: 6; }
+#source-details { grid-row: 7; min-width: 0; }
+#source-problem-list { max-height: 640px; overflow-y: auto; }
+.source-document { font-size: var(--label-size); margin: var(--space-group) 0 var(--space-small); }
 .source-controls { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: var(--space-group); }
 .source-basis, .source-state { padding: var(--space-group); background: var(--paper); border: var(--border-standard); }
 .source-basis { margin-bottom: var(--space-small); font-size: var(--label-size); }

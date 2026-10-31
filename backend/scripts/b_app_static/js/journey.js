@@ -270,7 +270,12 @@ function journeyRenderBand() {
       journeyButton("journey-resume", "journey.resume.action", () => journeyStart(track))];
   } else if (u.known && journeyPristine()) {
     reason = "first_visit";
-    content = [h("h2", null, T("journey.band.title")), journeyParagraph("journey.band.read"), journeyParagraph("journey.band.trial"),
+    content = [h("h2", null, T("journey.band.title")),
+      h("div", {class: "journey-choices"},
+        h("div", null, journeyParagraph("journey.band.read"),
+          journeyButton("journey-band-t1", "journey.choice.start_read", () => journeyStart("t1"))),
+        h("div", null, journeyParagraph("journey.band.trial"),
+          journeyButton("journey-band-t2", "journey.choice.start_trial", () => journeyStart("t2")))),
       journeyButton("journey-open", "journey.band.open", () => go("s08", {entry: "band"})), journeyParagraph("journey.band.closed")];
   }
   el.hidden = !reason; coreReplace(el, content, reason ? journeyButton("journey-band-dismiss", "journey.start.dismiss", journeyDismiss) : null);

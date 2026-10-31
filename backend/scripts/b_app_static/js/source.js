@@ -8,15 +8,19 @@ S.source = {run: null, doc: null, raw: false, override: null, list: [], initiali
   data: null, error: null, locked: null, loading: false, request: 0, pending: null, cacheKey: null,
   section: null, item: null, page: null, selection: null, line: {}, values: {}, sections: {},
   selectedLines: new Set(), selectedPaths: new Set(), open: new Set(), emitted: new Set(),
-  filter: "all", gone: false, draw: null, scroll: {}};
+  filter: "all", gone: false, draw: null, scroll: {}, problemData: new Map(), problemKey: null,
+  problemErrors: new Map(), problemRequest: 0, choice: 0, problemScroll: 0, problemScope: null};
 const SOURCE_VIEWS = {"source-top": sourceRenderTop, "source-values": sourceRenderProblems,
   "source-page": sourceRenderPage, "source-selection": sourceRenderSelection};
 for (const [id, render] of Object.entries(SOURCE_VIEWS)) {
   shellDefineView(id, {render, ...(id === "source-top" ? {load: sourceEnsure} : {})});
 }
-on("context_changed", () => {
+on("context_changed", async () => {
   // 전역 묶음 변경은 실행 당시 원문 묶음을 덮어쓰지 않는다. 정답지는 항상 다시 읽는다.
-  if (S.source.initialized) sourceLoad(true);
+  if (S.source.initialized) {
+    await Promise.all([sourceLoad(true), S.score.pending]);
+    sourceRenderProblems();
+  }
 });
 
 function sourceRunDocs(run = S.source.run) {
@@ -87,8 +91,12 @@ async function sourceEnsure(args = {}) {
     D.section = incoming.section ?? null; D.item = incoming.item ?? null;
   }
   D.initialized = true;
-  await sourceLoad(false);
-  if (navigation !== S.shell.navigation || !D.data) return;
+  const loading = sourceLoad(false), request = D.request, choice = D.choice, key = S.ctx.key;
+  const valid = () => navigation === S.shell.navigation && request === D.request && choice === D.choice && key === S.ctx.key && D.data;
+  await loading;
+  if (!valid()) return;
+  await sourceLoadProblems();
+  if (!valid()) return;
   if (Object.hasOwn(incoming, "path") && incoming.path) {
     const only = incoming.kind === "missing" || incoming.estimated === true;
     const v = only ? D.data.silver_only.find(x => x.path === incoming.path) : D.values[incoming.path];
@@ -97,10 +105,43 @@ async function sourceEnsure(args = {}) {
   } else if (incoming.pick) {
     const entries = sourceProblems();
     const kinds = incoming.pick === "mismatch" ? ["wrong", "made", "missing"] : [incoming.pick];
-    const found = kinds.map(kind => entries.find(entry => entry.kind === kind)).find(Boolean);
+    const found = kinds.map(kind => entries.find(entry => entry.kind === kind && !entry.only && sourceHasEvidence(entry.v))
+      || entries.find(entry => entry.kind === kind)).find(Boolean);
     if (found) sourcePick(found.v, found.only ? "silver_only" : "result", false);
     else { sourceResetSelection(); sourceGoSection(D.section); }
   } else if (incoming.section != null) sourceGoSection(D.section);
+}
+function sourceHasEvidence(v, data = S.source.data) {
+  return (v.lines || []).some(id => data?.lines.some(line => line.id === id && data.pages.includes(line.page)));
+}
+function sourceProblemDocs() {
+  const D = S.source, top = S.score?.run?.name === D.run ? S.score.run.status_text?.top_problem : null;
+  if (D.item && top?.name === D.item) D.problemScope = {run: D.run, item: D.item, docs: top.docs?.map(doc => doc.doc_id) || []};
+  const docs = D.item && D.problemScope?.run === D.run && D.problemScope.item === D.item ? D.problemScope.docs : [D.doc];
+  return [...new Set(docs)].filter(doc => doc && sourceRunDocs().includes(doc) && !sourceLock(doc));
+}
+function sourceDocUrl(doc) {
+  const params = new URLSearchParams({doc});
+  if (S.source.run) params.set("run", S.source.run);
+  if (S.source.override) params.set("set", S.source.override);
+  return ctxUrl(`/api/doc?${params}`);
+}
+async function sourceLoadProblems(force = false) {
+  const D = S.source, docs = sourceProblemDocs();
+  const key = JSON.stringify([D.run, D.override, S.ctx.key, D.item, D.section, docs]);
+  if (!force && D.problemKey === key) { sourceRenderProblems(); return; }
+  D.problemKey = key; D.problemData.clear(); D.problemErrors.clear();
+  const request = ++D.problemRequest;
+  if (!D.data || !D.run || !D.item) { sourceRenderProblems(); return; }
+  if (docs.includes(D.doc)) D.problemData.set(D.doc, D.data);
+  const others = docs.filter(doc => doc !== D.doc);
+  const results = await Promise.allSettled(others.map(sourceDocUrl).map(path => api(path)));
+  if (request !== D.problemRequest || key !== D.problemKey) return;
+  results.forEach((result, i) => {
+    if (result.status === "fulfilled") D.problemData.set(others[i], result.value);
+    else D.problemErrors.set(others[i], result.reason);
+  });
+  sourceRenderProblems();
 }
 function sourceLoad(force = false) {
   const D = S.source, cacheKey = JSON.stringify([D.run, D.doc, D.override, S.ctx.key]);
@@ -108,6 +149,8 @@ function sourceLoad(force = false) {
   const priorDoc = D.data?.doc_id, priorRun = D.loadedRun, priorSelection = D.selection, priorPage = D.page;
   const keep = priorDoc === D.doc && priorRun === D.run;
   const request = ++D.request, key = S.ctx.key;
+  // 정답·묶음 변경이나 새 문서 요청 뒤에는 앞 요청의 목록을 덮어쓰지 않는다.
+  ++D.problemRequest; D.problemKey = null; D.problemData.clear(); D.problemErrors.clear();
   D.cacheKey = cacheKey; D.data = null; D.error = null; D.locked = sourceLock(D.doc); D.draw = null;
   if (!keep) sourceResetSelection();
   D.absent = !!D.doc && !sourceDocs().includes(D.doc);
@@ -115,11 +158,8 @@ function sourceLoad(force = false) {
   sourceRenderAll();
   const work = (async () => {
     if (!D.doc || D.locked || D.absent) return;
-    const params = new URLSearchParams({doc: D.doc});
-    if (D.run) params.set("run", D.run);
-    if (D.override) params.set("set", D.override);
     try {
-      const data = await api(ctxUrl(`/api/doc?${params}`));
+      const data = await api(sourceDocUrl(D.doc));
       if (request !== D.request || key !== S.ctx.key) return;
       sourcePrepare(data); D.loadedRun = D.run;
       if (keep) {
@@ -134,6 +174,7 @@ function sourceLoad(force = false) {
     finally {
       if (request === D.request) { D.loading = false; sourceRenderAll(); }
     }
+    if (request === D.request && D.data) await sourceLoadProblems();
   })();
   D.pending = work; return work;
 }
@@ -179,6 +220,10 @@ function sourceRenderTop() {
       ], D.run, value => sourceChangeTarget("run", value)),
       sourceSelect("source-doc-select", T("source.labels.doc"), sourceDocs().map(id => ({id, label: id})), D.doc,
         value => sourceChangeTarget("doc", value)),
+      sourceSelect("source-section-choice", T("source.labels.section"), [
+        {id: "", label: T("source.labels.choose_scope")},
+        ...Array.from({length: 16}, (_, i) => ({id: String(i + 1), label: sourceLabel(i + 1)}))
+      ], String(D.section ?? ""), value => sourceChooseSection(value ? +value : null)),
       sourceSelect("source-set-select", T("source.selection.source_set"), [
         {id: "", label: T("source.labels.return_set")},
         ...S.shell.sets.map(set => ({id: set.id, label: set.label, disabled: !set.usable}))
@@ -202,22 +247,28 @@ function sourceRenderTop() {
   else if (D.error) state = friendlyError({message: T("source.load_failed.fact"), fix: T("source.load_failed.todo"), raw: D.error.message});
   const legend = d ? h("div", {class: "source-legend"}, (d.legend || []).map(entry => h("span", {class: "source-legend-entry"},
     h("span", {class: "source-chip", "aria-hidden": "true", style: `background:${entry.color}`}), entry.label))) : null;
-  coreReplace(el, h("p", null, T("source.title")),
-    h("p", {class: "technical"}, D.run || T("source.raw.title"), D.doc ? ` / ${D.doc}` : ""),
-    basis, D.section === 8 ? h("p", null, term("exposure"), " — ", term("concentration_unit", T("source.unit_first_use"))) : null, controls, sourceButton("source-reload", T("source.reload"), sourceReload), state,
+  const failed = !!D.error || !!D.locked || D.absent;
+  shellConclusion("s02", T(D.loading ? "source.loading" : D.locked ? "source.locked.title" : D.error?.status === 404 || D.absent
+    ? "source.empty.document" : D.error ? "source.load_failed.fact" : "source.title"), !failed && !D.loading);
+  controls.open = !D.section || D.open.has("controls");
+  controls.addEventListener("toggle", () => { if (controls.isConnected) sourceOpen("controls", controls.open); });
+  coreReplace(controls, controls.querySelector("summary"), ...Array.from(controls.children).slice(1),
+    h("p", {class: "technical"}, D.run || T("source.raw.title"), D.doc ? ` / ${D.doc}` : ""), basis,
+    sourceButton("source-reload", T("source.reload"), sourceReload),
     d ? h("p", null, d.ui_text?.howto || T("source.doc.howto")) : null, legend,
     d?.warnings?.map(warning => h("p", {class: "source-warning page-text"}, warning)),
     d && D.run && !d.has_gold ? h("p", null, T("source.empty.answer")) : null);
+  coreReplace(el, state, !D.section ? h("p", null, T("source.labels.choose_scope")) : null, controls);
 }
-function sourceKind(v, only = false) {
+function sourceKind(v, only = false, data = S.source.data) {
   if (only) return "missing";
-  if (!S.source.data?.has_gold) return "uncompared";
+  if (!data?.has_gold) return "uncompared";
   return v.silver?.same === true ? "same" : v.silver?.value == null ? "made" : "wrong";
 }
-function sourceProblems() {
-  const D = S.source, d = D.data;
+function sourceProblems(d = S.source.data) {
+  const D = S.source;
   if (!d || !D.run || !d.has_gold) return [];
-  return [...d.values.map(v => ({v, only: false, kind: sourceKind(v)})),
+  return [...d.values.map(v => ({v, only: false, kind: sourceKind(v, false, d)})),
     ...d.silver_only.map(v => ({v, only: true, kind: "missing"}))]
     .filter(({v, kind}) => kind !== "same" && (!D.item || (v.items || []).includes(D.item))
       && (D.section == null || v.section === +D.section));
@@ -225,20 +276,54 @@ function sourceProblems() {
 function sourceRenderProblems() {
   document.getElementById("source-values").setAttribute("data-guide", "s02-diff-values");
   const D = S.source, el = document.getElementById("source-values");
-  if (!D.data) { el.replaceChildren(); return; }
-  const entries = sourceProblems(), filtered = entries.filter(entry => D.filter === "all" || entry.kind === D.filter);
-  coreReplace(el, h("h2", null, T("source.labels.problem_scope", {count: entries.length})),
+  const previous = document.getElementById("source-problem-list");
+  if (previous) D.problemScroll = previous.scrollTop || 0;
+  if (!D.data || (!D.section && !D.item)) { el.replaceChildren(); return; }
+  const docs = sourceProblemDocs();
+  const groups = docs.map(doc => ({doc, data: doc === D.doc ? D.data : D.problemData.get(doc)}));
+  const entries = groups.flatMap(({doc, data}) => data ? sourceProblems(data).map(entry => ({...entry, doc, data})) : []);
+  const top = S.score?.run?.name === D.run ? S.score.run.status_text?.top_problem : null;
+  const counts = top?.name === D.item ? top.counts : null;
+  coreReplace(el, h("h2", null, T("source.problem_count", {count: docs.length})),
     D.item ? h("p", {class: "issue-meta"}, T("source.labels.criterion", {item: D.item})) : null,
+    D.section === 8 ? h("p", {class: "muted"}, term("exposure"), " — ", term("concentration_unit", T("source.unit_first_use"))) : null,
     h("div", {class: "source-filters"}, ["all", "missing", "made", "wrong"].map(kind =>
-      sourceButton(`source-filter-${kind}`, T(`source.filter.${kind}`, {count: kind === "all" ? entries.length : entries.filter(x => x.kind === kind).length}),
+      sourceButton(`source-filter-${kind}`, kind === "all" ? T("source.filter.all_values")
+        : num(counts?.[UI.score.cause_keys[kind]]) ? T(`source.filter.${kind}`, {count: counts[UI.score.cause_keys[kind]]})
+        : `${T(`source.kinds.${kind}`)} · ${T("common.legacy.cell_labels.c_none")}`,
         () => { D.filter = kind; sourceRenderProblems(); document.getElementById(`source-filter-${kind}`).focus(); }, {"aria-pressed": String(D.filter === kind)}))),
-    h("div", {id: "source-problem-list"}, filtered.map(({v, only, kind}) =>
-      sourceButton(null, [h("span", {class: "issue-meta"}, D.doc, " / ", v.field || UI.source.table_names[v.table] || v.table),
+    h("div", {id: "source-problem-list"}, groups.map(({doc, data}) => {
+      const filtered = entries.filter(entry => entry.doc === doc && (D.filter === "all" || entry.kind === D.filter));
+      if (!filtered.length && !D.problemErrors.has(doc)) return null;
+      return h("section", {"data-problem-doc": doc}, h("h3", {class: "source-document"}, doc),
+        D.problemErrors.has(doc) ? friendlyError({message: T("source.load_failed.fact"), fix: T("source.load_failed.todo"), raw: D.problemErrors.get(doc).message}) : null,
+        filtered.map(({v, only, kind}) => {
+          const selected = D.doc === doc && D.selection?.path === v.path && (D.selection.side === "silver_only") === only;
+          return sourceButton(null, [h("span", {class: "issue-meta"}, sourceFieldName(v, data)),
         h("strong", {class: "big-value"}, T(`source.kinds.${kind}`), " · ", v.text || T("common.none")),
-        h("span", {class: "source-selected-label"}, D.selection?.path === v.path && (D.selection.side === "silver_only") === only ? T("source.labels.selected") : "")],
-        () => sourcePick(v, only ? "silver_only" : "result"),
-        {class: "source-problem", "data-problem-path": v.path, "aria-pressed": String(D.selection?.path === v.path && (D.selection.side === "silver_only") === only)}))),
-    !filtered.length ? h("p", null, T("source.empty.problems")) : null);
+        h("span", {class: "source-selected-label"}, selected ? T("source.labels.selected") : "")],
+        () => sourcePickProblem(doc, v, only),
+        {class: "source-problem", "data-problem-path": v.path, "aria-pressed": String(selected)});
+        }));
+    })),
+    !entries.some(entry => D.filter === "all" || entry.kind === D.filter) ? h("p", null, T("source.empty.problems")) : null);
+  document.getElementById("source-problem-list").scrollTop = D.problemScroll;
+}
+function sourceFieldName(v, data = S.source.data) {
+  return data?.ui_text?.value_field_labels?.[v.field] || UI.source.field_names[v.field]
+    || UI.source.fields[v.field] || UI.source.table_names[v.table] || T("source.labels.field");
+}
+async function sourcePickProblem(doc, v, only) {
+  const D = S.source, filter = D.filter, key = S.ctx.key, choice = ++D.choice;
+  if (doc !== D.doc) {
+    D.doc = doc;
+    const loading = sourceLoad(), request = D.request;
+    await loading;
+    if (D.doc !== doc || !D.data || request !== D.request || key !== S.ctx.key || choice !== D.choice) return;
+    D.filter = filter;
+  }
+  const current = only ? D.data.silver_only.find(value => value.path === v.path) : D.values[v.path];
+  if (current) sourcePick(current, only ? "silver_only" : "result");
 }
 function sourceTip(v, side) {
   return S.source.data.ui_text?.value_tips?.[side]?.[v.path]?.join("\n") || null;
@@ -277,13 +362,13 @@ function sourceStructure() {
   return detail;
 }
 function sourceTable(section, table, rows) {
-  const D = S.source, labels = D.data.ui_text?.value_field_labels || {};
+  const D = S.source;
   const body = [...rows].flatMap(([row, entries]) => {
     const heading = row.length > 1 ? h("tr", null, h("th", {colspan: 3, scope: "rowgroup"},
       T(row[0] === "s" ? "source.labels.only_row" : "source.labels.row", {row: +row.slice(1) + 1}))) : null;
     return [heading, ...entries.map(({v, only}) => h("tr", null,
-      h("th", {scope: "row", class: "technical"}, labels[v.field] || v.field || T("source.labels.whole_row"),
-        h("small", {class: "raw"}, v.path)),
+      h("th", {scope: "row", class: "technical"}, sourceFieldName(v),
+        h("small", {class: "raw"}, v.field || "", " · ", v.path)),
       h("td", null, only ? T("common.none") : sourceValueButton(v, "result")),
       h("td", null, sourceValueButton(v, only ? "silver_only" : "silver"))))];
   });
@@ -304,7 +389,6 @@ function sourceSelectValue(v, side) {
   D.selectedLines = new Set((v.lines || []).filter(id => D.line[id]));
   const first = (v.lines || []).map(id => D.line[id]).find(line => line && D.data.pages.includes(line.page));
   if (first) D.page = first.page;
-  for (const key of ["structure", `s${v.section ?? "?"}`, `s${v.section ?? "?"}|${v.table}`]) D.open.add(key);
   D.gone = false;
 }
 function sourceSelected() {
@@ -314,12 +398,22 @@ function sourceSelected() {
 }
 function sourcePick(v, side = "result", user = true) {
   const D = S.source, oldPage = D.page;
+  if (user) ++D.choice;
   sourceSelectValue(v, side);
   if (oldPage !== D.page) sourceRenderPage();
-  sourceRenderSelection(); sourceRenderProblems(); sourceMark(); sourceRemember();
+  sourceRenderTop(); sourceRenderSelection(); sourceRenderProblems(); sourceMark(); sourceRemember();
   sourceScrollLine([...D.selectedLines].find(id => D.line[id].page === D.page));
   if (user) {
-    sourceValueElement(v.path, side)?.focus({preventScroll: true});
+    const problem = [...document.querySelectorAll("[data-problem-path]")].find(button =>
+      button.dataset.problemPath === v.path && button.closest("[data-problem-doc]")?.dataset.problemDoc === D.doc &&
+      button.getAttribute("aria-pressed") === "true");
+    // 목록 선택 뒤 숨겨진 상세 표의 단추로 초점을 보내지 않는다.
+    const button = problem || sourceValueElement(v.path, side);
+    let visible = true;
+    for (let parent = button?.parentElement; parent; parent = parent.parentElement) {
+      if (parent.hidden || (parent.tagName?.toLowerCase() === "details" && !parent.open)) visible = false;
+    }
+    if (visible) button?.focus({preventScroll: true});
     if (side !== "silver_only") sourceEvidence(v);
   }
 }
@@ -369,15 +463,16 @@ function sourceRemember() {
 function sourceRetest() { sourceRemember(); return go("s03", {...S.focus}).catch(fail); }
 function sourceRenderSelection() {
   const D = S.source, d = D.data, el = document.getElementById("source-selection");
+  document.getElementById("source-details")?.remove();
   if (!d) { el.replaceChildren(); return; }
   const v = sourceSelected(), only = D.selection?.side === "silver_only";
-  const lines = v ? (v.lines || []).map(id => D.line[id]).filter(Boolean) : [];
+  const lines = v ? (v.lines || []).map(id => D.line[id]).filter(line => line && d.pages.includes(line.page)) : [];
   const content = v ? h("div", {class: "source-comparison"},
     h("div", {"data-guide": "s02-evidence"}, h("h2", null, T(only ? "source.missing.evidence_title" : "source.evidence.title")),
       lines.length ? lines.map(line => h("div", {class: `selected-line source-evidence${only ? " source-estimated" : ""}`},
         h("p", null, T(only ? "source.missing.location" : "source.evidence.location", {page: line.page, line_no: line.no})), h("p", null, line.text)))
         : h("p", null, T(only ? "source.doc.no_guess" : "source.unlinked.title")),
-      h("p", null, T(only ? "source.doc.guess" : "source.evidence.recorded")),
+      lines.length ? h("p", null, T(only ? "source.doc.guess" : "source.evidence.recorded")) : null,
       !lines.length ? h("p", null, T("source.unlinked.no_fallback")) : null,
       lines.some(line => !line.bbox) ? h("p", null, T("source.page.no_coordinates")) : null),
     h("div", null, h("h2", null, T("source.labels.result")),
@@ -392,16 +487,22 @@ function sourceRenderSelection() {
     D.gone ? h("p", {role: "status"}, T("source.value_gone.title"), " ", T("source.value_gone.returned", {section: D.section})) : null,
     content, raw,
     D.selection?.line ? h("p", null, D.selection.line, " — ", T("source.labels.line_values", {count: D.selectedPaths.size})) : null,
-    sourceButton("source-retest", T("source.retest.open"), sourceRetest, {class: "primary", disabled: !D.doc || !D.section}),
-    D.section ? h("p", null, T("source.retest.target", {doc: D.doc, section: D.section})) : null,
-    sourceStructure(),
+    v && !lines.length ? sourceButton("source-read-section", T("source.unlinked.read_section"), () => {
+      sourceGoSection(D.section);
+      document.getElementById("source-page").scrollIntoView?.({block: "start"});
+      document.getElementById("source-page-select")?.focus({preventScroll: true});
+    }, {class: "primary", disabled: !D.section}) : null,
+    v && !lines.length && D.section ? h("p", null, T("source.unlinked.todo", {section: D.section})) : null,
+    sourceButton("source-retest", T("source.retest.open"), sourceRetest, {class: v && !lines.length ? null : "primary", disabled: !D.doc || !D.section}),
+    D.section ? h("p", null, T("source.retest.target", {doc: D.doc, section: D.section})) : null);
+  document.getElementById("source-page").after(h("div", {id: "source-details"}, sourceStructure(),
     sourceDetails(T("source.structure.doc_comparison"), h("p", null, T("source.doc.counts", {
       total: d.values.length, different: d.has_gold ? d.values.filter(v => !v.silver?.same).length : T("context.unavailable"), missing: d.silver_only.length})),
       h("p", null, T("source.labels.matched_count", {count: d.has_gold ? d.values.filter(v => v.silver?.same).length : T("context.unavailable")}))),
     coverage ? sourceDetails(T("source.estimation.expand"),
       h("p", null, T("source.estimation.coverage", {total: coverage.total, matched: coverage.found})),
       coverage.basis === "text_match" ? h("p", null, T("source.estimation.method")) : null,
-      h("p", null, T("source.estimation.count_meaning")), h("p", null, T("source.estimation.verify"))) : null);
+      h("p", null, T("source.estimation.count_meaning")), h("p", null, T("source.estimation.verify"))) : null));
   sourceMark();
 }
 function sourceScrollLine(id) {
@@ -416,11 +517,16 @@ function sourceScrollLine(id) {
 function sourceGoSection(section) {
   const D = S.source; D.section = section == null ? null : +section;
   const span = D.data?.sections?.[section];
-  D.open.add("structure"); D.open.add(`s${section}`);
   const first = D.line[span?.start];
   if (first && D.data.pages.includes(first.page)) D.page = first.page;
-  sourceRenderPage(); sourceRenderSelection(); sourceRenderProblems();
+  sourceRenderTop(); sourceRenderPage(); sourceRenderSelection(); sourceRenderProblems();
   if (first) sourceScrollLine(first.id);
+}
+function sourceChooseSection(section) {
+  const D = S.source, page = D.page;
+  ++D.choice;
+  sourceResetSelection(); D.page = page; D.item = null;
+  sourceGoSection(section); sourceRemember();
 }
 function sourcePage(page) {
   const D = S.source;
@@ -432,10 +538,6 @@ function sourcePickLine(id) {
   if (!D.line[id]) return;
   D.selection = {line: id}; D.selectedLines = new Set([id]); D.selectedPaths = new Set(paths);
   D.section = D.sections[id] ?? D.section;
-  for (const path of paths) {
-    const v = D.values[path];
-    for (const key of ["structure", `s${v.section ?? "?"}`, `s${v.section ?? "?"}|${v.table}`]) D.open.add(key);
-  }
   sourceRenderSelection(); sourceRenderProblems(); sourceMark();
   sourceRemember();
   for (const path of paths) sourceEvidence(D.values[path]);
@@ -476,7 +578,7 @@ function sourceRenderPage() {
   coreReplace(el, h("h2", null, T("source.page.expand")),
     h("div", {class: "source-controls"},
       sourceSelect("source-page-select", T("source.labels.page"), d.pages.map(p => ({id: String(p), label: T("source.labels.page_name", {page: p})})), String(page ?? ""), value => sourcePage(+value)),
-      sourceSelect("source-section-select", T("source.labels.section"), Array.from({length: 16}, (_, i) => ({id: String(i + 1), label: sourceLabel(i + 1)})), String(D.section ?? ""), value => sourceGoSection(+value))),
+      sourceSelect("source-section-select", T("source.labels.section"), Array.from({length: 16}, (_, i) => ({id: String(i + 1), label: sourceLabel(i + 1)})), String(D.section ?? ""), value => sourceChooseSection(+value))),
     D.section ? h("p", {class: "technical"}, span ? T("source.labels.range", {start: span.start, end: span.end}) : T("source.section_unknown.title", {section: D.section})) : null,
     hasPage ? h("div", {class: "source-page-grid"}, wrap, list) : h("p", {class: "source-state"}, T("source.empty.pages")));
   sourceMark();

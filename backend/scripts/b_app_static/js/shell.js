@@ -26,6 +26,16 @@ function shellInitialRoute(hash) {
   const id = String(hash || "").replace(/^#/, "");
   return Object.hasOwn(SHELL_SCREENS, id) ? id : "s01";
 }
+function shellConclusion(id, text, normal = true) {
+  const title = document.getElementById(`title-${id}`);
+  title.textContent = text;
+  const existing = document.getElementById(`flow-${id}`);
+  if (!normal) { existing?.remove(); return; }
+  if (existing) return;
+  const current = ["s01", "s02", "s03"].indexOf(id);
+  title.before(h("ol", {id: `flow-${id}`, class: "score-flow", "aria-label": T("score.flow.a11y")},
+    ["result", "cause", "retest"].map((step, i) => h("li", {"aria-current": i === current ? "step" : null}, T(`score.flow.${step}`)))));
+}
 async function go(id, args = {}) {
   id = shellInitialRoute(id.startsWith("#") ? id : `#${id}`);
   S.focus = {...S.focus, ...args}; S.shell.route = id;

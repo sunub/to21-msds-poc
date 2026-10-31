@@ -2902,6 +2902,30 @@ COPY_EXCEPTIONS["common.screen_shown"] = "화면 이동 완료를 알립니다. 
 UI_TEXT["context"]["answer_mismatch"] = "이 결과의 정답지는 현재 선택과 다릅니다. 결과: {result_key}. 현재 선택: {selected_key}."
 COPY_EXCEPTIONS["context.answer_mismatch"] = "S5 결정 2: ⑤ 수락에서 승인 대기"
 
+# S5 step 1: 승인 글에 없는 상태별 안내. ⑤ 수락에서 함께 검토한다.
+UI_TEXT["score"]["problem"].update({
+    "open_made": "만든 값 {count}건의 원문 보기",
+    "open_missing": "못 뽑은 값 {count}건의 원문 보기",
+    "made_hint": "정답에 없는 값을 먼저 봅니다. AI가 적은 근거가 있으면 원문과 함께 확인합니다.",
+    "missing_hint": "못 뽑은 값부터 봅니다. 원문 줄은 추정 위치이며, 찾지 못한 값은 해당 부분을 직접 읽습니다.",
+    "wrong_hint": "틀린 값부터 봅니다. 연결된 원문 줄이 없으면 해당 부분을 직접 읽습니다.",
+    "evidence_unrecorded": "문제 수는 기록 없음입니다. 문제 값을 열어 원문과 맞춰 보세요.",
+})
+UI_TEXT["score"]["calculation"].update({
+    "scorer_counts": "점수 계산에 쓴 행 단위 문제 수",
+    "scorer_counts_hint": "앞 화면은 칸 단위로 셉니다. 아래는 점수 계산 프로그램이 행 단위로 센 수입니다.",
+})
+UI_TEXT["source"]["labels"]["choose_scope"] = "문서와 부분을 먼저 고르세요."
+UI_TEXT["source"]["filter"]["all_values"] = "전체 보기"
+UI_TEXT["source"]["field_names"] = {"q": UI_TEXT["source"]["fields"]["value"], "limit_type": "기준 종류"}
+for _copy_key in (
+    "score.problem.open_made", "score.problem.open_missing", "score.problem.made_hint",
+    "score.problem.missing_hint", "score.problem.wrong_hint", "score.problem.evidence_unrecorded",
+    "score.calculation.scorer_counts", "score.calculation.scorer_counts_hint",
+    "source.labels.choose_scope", "source.field_names.limit_type", "source.filter.all_values",
+):
+    COPY_EXCEPTIONS[_copy_key] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+
 POLISH_TEXT = UI_TEXT
 
 
