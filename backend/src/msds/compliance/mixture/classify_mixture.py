@@ -113,14 +113,18 @@ def _acute_components(components) -> list[dict]:
     return out
 
 
-def classify_mixture_all(components, mixture_props, *, state=None, rules=None, source_order=None) -> list[dict]:
-    """규칙표의 모든 항목을 순서대로 처리한다. transport·compare는 {"class_code", "skipped"}로 남긴다."""
+def classify_mixture_all(components, mixture_props, *, state=None, rules=None, source_order=None,
+                         ate_intervals=False) -> list[dict]:
+    """규칙표의 모든 항목을 순서대로 처리한다. transport·compare는 {"class_code", "skipped"}로 남긴다.
+
+    ate_intervals=True 이면 급성독성의 부등호(>·<)·범위를 구간으로 계산한다(기본은 기존 규칙 D-12)."""
     rules = rules or load_mixture_rules()
     out, acute_done = [], False
     for name, item in rules["classes"].items():
         if item["method"] == "ate":
             if not acute_done:  # 급성독성 3개 항목은 classify_acute 한 번으로 경로별 결과가 나온다
-                out += classify_acute(_acute_components(components), state, knowledge_version=rules["meta"]["version"])
+                out += classify_acute(_acute_components(components), state, knowledge_version=rules["meta"]["version"],
+                                  intervals=ate_intervals)
                 acute_done = True
         else:
             out.append(classify_item(name, components, mixture_props, rules=rules, source_order=source_order))

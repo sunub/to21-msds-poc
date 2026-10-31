@@ -1,4 +1,6 @@
 """성분 하나의 ATE를 수집 순서대로 고른다 (설계서 v0.4 21장, D-04·D-05·D-12·D-22)."""
+import math
+
 from .acute import _FORM, _ROUTE, _rows, category_to_ate
 from .params import has_param, param_list
 from .units import to_target
@@ -22,17 +24,54 @@ def _match(row, route, form):
     return route != "inhal" or _FORM_EN.get(row.get("form")) == form
 
 
-def _lowest(rows, route, form, comp):
+def _lowest(rows, route, form, comp, *, skip_ranges=False):
     """(최저값, 환산 설명). 단위·시간은 to_target으로 맞추고, 맞출 수 없는 행은 뺀다."""
     best = None
     for r in rows:
         if not (_match(r, route, form) and r.get("op") in _EXACT and r.get("value") is not None):
+            continue
+        if skip_ranges and r.get("op_hi"):  # intervals 모드에서 범위는 점값이 아니라 구간(_interval)으로 다룬다
             continue
         t = to_target(r["value"], r.get("unit"), route, form, mw=comp.get("mw"),
                       density=comp.get("density"), hours=r.get("hours"))
         if t and (best is None or t["value"] < best[0]):
             best = (t["value"], t["note"])
     return best
+
+
+def _interval(rows, route, form, comp):
+    """부등호(>·<)·범위 행들의 ATE 구간 (lo, hi, 설명). lo=None은 0 쪽 열림, hi=None은 위로 열림. 쓸 행이 없으면 None.
+
+    행마다 [lo, hi]를 만들고(">" 는 lo 바로 위, "<" 는 hi 바로 아래), 여러 행이면 가장 낮은(엄격한) 구간을 쓴다.
+    단위·시간은 to_target 으로 맞추고 맞출 수 없는 행은 뺀다.
+    """
+    def conv(v, r):
+        t = to_target(v, r.get("unit"), route, form, mw=comp.get("mw"), density=comp.get("density"), hours=r.get("hours"))
+        return t and t["value"]
+
+    spans = []
+    for r in rows:
+        if not _match(r, route, form) or r.get("value") is None:
+            continue
+        op, op_hi = r.get("op"), r.get("op_hi")
+        if op not in _BOUND and not op_hi:
+            continue
+        v = conv(r["value"], r)
+        v_hi = conv(r["value_hi"], r) if op_hi else None
+        if v is None or (op_hi and v_hi is None):
+            continue
+        if op == "<":
+            lo, hi = None, math.nextafter(v, -math.inf)
+        else:  # ">" , ">=" (범위의 하한 쪽)
+            lo, hi = (math.nextafter(v, math.inf) if op == ">" else v), None
+        if op_hi:
+            hi = math.nextafter(v_hi, -math.inf) if op_hi == "<" else v_hi
+        spans.append((lo, hi))
+    if not spans:
+        return None
+    los = [s[0] for s in spans]
+    his = [s[1] for s in spans if s[1] is not None]
+    return (None if None in los else min(los)), (min(his) if his else None)
 
 
 def _from_class(comp, route, form, order):
@@ -55,8 +94,12 @@ def _from_class(comp, route, form, order):
     return None
 
 
-def get_ate(comp: dict, route: str, form: str | None = None, *, source_order=None) -> dict:
-    """반환: {"kind", "value", "src", "step", "ref_cat5"} — mix_acute 입력의 ate 칸과 같은 모양."""
+def get_ate(comp: dict, route: str, form: str | None = None, *, source_order=None, intervals=False) -> dict:
+    """반환: {"kind", "value", "src", "step", "ref_cat5"} — mix_acute 입력의 ate 칸과 같은 모양.
+
+    intervals=True 이면 부등호(>·<)·범위 행을 구간으로 다뤄 kind "interval"({"lo","hi"} 추가)을 돌려준다.
+    기본(False)은 기존 규칙(D-12): >·< 는 inequality, 범위는 최소값 점값.
+    """
     def out(kind, value, src, step, ref=False, note=""):
         return {"kind": kind, "value": value, "src": src + (f" · {note}" if note else ""), "step": step,
                 "ref_cat5": ref, "note": note}
@@ -69,8 +112,12 @@ def get_ate(comp: dict, route: str, form: str | None = None, *, source_order=Non
         return out("value", hit[0], "TO21 독성DB", 1, note=hit[1])
     if hit := _from_class(comp, route, form, source_order):
         return hit
-    if hit := _lowest(msds, route, form, comp):
+    if hit := _lowest(msds, route, form, comp, skip_ranges=intervals):
         return out("value", hit[0], "MSDS 11항", 3, note=hit[1])
+    if intervals and (iv := _interval(db + msds, route, form, comp)):
+        lo, hi = iv
+        return {**out("interval", lo, "MSDS 부등호·범위 구간", 4,
+                      note=f"구간 {'0' if lo is None else f'{lo:g}'} ~ {'∞' if hi is None else f'{hi:g}'}"), "lo": lo, "hi": hi}
     if any(_match(r, route, form) and r.get("op") in _BOUND for r in db + msds):
         return out("inequality", None, "부등호 값(> 또는 <)", 4)
     return out("unknown", None, "자료 없음", 6)

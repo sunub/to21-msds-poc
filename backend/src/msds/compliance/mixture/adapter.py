@@ -46,6 +46,9 @@ def to_acute_components(inputs: GhsInputs) -> list[dict]:
             if one is None:
                 continue
             row = {"route": route, "op": one[0], "value": one[1], "unit": t["q"].get("unit")}
+            q = t["q"]
+            if q.get("value") is None and (one[0], one[1]) == (q.get("lower_op"), q.get("lower"))                     and q.get("upper_op") and q.get("upper") is not None:  # "500~1000": 상한도 남긴다
+                row["op_hi"], row["value_hi"] = q["upper_op"], q["upper"]
             if route == "흡입":  # acute.py 의 ATE 표가 흡입은 form(가스·증기·분진·미스트)별이다
                 row["form"] = t.get("physical_form")
             if t.get("duration_value") is not None and t.get("duration_unit") in _HOURS:

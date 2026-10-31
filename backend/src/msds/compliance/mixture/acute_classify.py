@@ -40,6 +40,8 @@ def _input(c, ate, term):
         flags.insert(0, "함량 없음")
     flags += [f for f in c.get("content_flags") or [] if f not in flags]
     row["flags"] = flags
+    if ate["kind"] == "interval":
+        row["ate_range"] = {"lo": ate["lo"], "hi": ate["hi"]}
     if use == "함량없음":
         return row | {"excluded": "함량 없음"}
     if use == "계산":
@@ -51,8 +53,8 @@ def _input(c, ate, term):
     return row | {"excluded": reason}
 
 
-def _one(comps, state_note, route, form, class_code, knowledge_version):
-    ates = [get_ate(c, route, form) for c in comps]
+def _one(comps, state_note, route, form, class_code, knowledge_version, intervals=False):
+    ates = [get_ate(c, route, form, intervals=intervals) for c in comps]
     mix = mix_acute([{"name": c["name"], "cas": c.get("cas"), "content": c["content"], "ate": a}
                      for c, a in zip(comps, ates)], route, form)
     low, high = mix["low"], mix["high"]
@@ -74,14 +76,16 @@ def _one(comps, state_note, route, form, class_code, knowledge_version):
                  "ate_mix_low": low["ate_mix"], "ate_mix_high": high["ate_mix"],
                  "ref_cat5": {"low": low["ref_cat5"], "high": high["ref_cat5"]}},
         "thresholds": [] if lacking else _thresholds(route, form, [low, high]),
-        "assumptions": [state_note] if route == "inhal" else [],
+        "assumptions": ([state_note] if route == "inhal" else []) + [
+            f"{c['name']}: ATE를 점값이 아닌 구간({a['note']})으로 계산 — low는 구간 상한·함량 하한, high는 구간 하한·함량 상한"
+            for c, a in zip(comps, ates) if a["kind"] == "interval"],
         "knowledge_version": knowledge_version,
     }
 
 
-def classify_acute(comps, state=None, *, knowledge_version=None) -> list[dict]:
+def classify_acute(comps, state=None, *, knowledge_version=None, intervals=False) -> list[dict]:
     comps = [{**c, "content": c.get("content") or {"low": None, "high": None}} for c in comps]
     forms = inhal_forms(state)
     note = "흡입 형태: 제품 성상으로 선택(D-06)" if forms else "제품 성상 미상 — 흡입 형태 전체 계산"
     routes = _ROUTES + [_INHAL[f] for f in (forms or _INHAL)]
-    return [_one(comps, note, *r, knowledge_version) for r in routes]
+    return [_one(comps, note, *r, knowledge_version, intervals) for r in routes]
