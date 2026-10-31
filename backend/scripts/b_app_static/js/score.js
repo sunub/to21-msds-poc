@@ -381,11 +381,12 @@ function scoreCall(no, cell) {
   const state = !cell ? "c_none" : !cell.ok ? "c_fail" : cell.limit_kind ? "c_limit" : cell.reextracted ? "c_re" : "c_ok";
   return h("details", {class: `score-call ${state}`}, h("summary", null,
     h("span", null, T("score.calls.section", {section: no})), h("span", null, T(`common.legacy.cell_labels.${state}`))),
-    h("div", {class: "technical"}, cell ? [
+    h("div", null, cell ? [
       scoreNote(T("score.calls.attempt_info", {count: cell.attempts ?? scoreMissing(), seconds: fmt1(cell.seconds)})),
-      scoreNote(T("score.calls.mode", {mode: cell.mode || scoreMissing()})),
+      scoreNote(T("score.calls.mode", {mode: coreCodeLabel("mode", cell.mode)})),
       cell.reextracted ? scoreNote(T("score.calls.reextract_meaning")) : null,
-      cell.limit_kind ? scoreNote(T("score.calls.limit_reason", {reason: cell.limit_kind})) : scoreNote(T("score.calls.not_limited"))
+      cell.limit_kind ? scoreNote(T("score.calls.limit_reason", {reason: coreCodeLabel("limit", cell.limit_kind)})) : scoreNote(T("score.calls.not_limited")),
+      coreCodeRecord(cell.mode, cell.limit_kind)
     ] : scoreNote(T("score.calls.unknown"))));
 }
 function scoreRenderGrid() {

@@ -480,7 +480,7 @@ function sourceRenderSelection() {
       h("p", null, T(`source.comparison.${sourceKind(v, only)}`)),
       h("p", null, T("source.labels.answer"), ": ", h("span", {class: "big-value"}, (only ? v.text : v.silver?.text) ?? T("common.none"))),
       h("p", null, T("source.value.draft_warning")))) : h("p", null, T("source.labels.choose"));
-  const raw = v ? h("details", {class: "source-raw"}, h("summary", null, T("common.raw_error")),
+  const raw = v ? h("details", {class: "source-raw"}, h("summary", null, T("source.labels.raw_value")),
     h("p", {class: "technical"}, v.path), h("pre", {class: "technical"}, JSON.stringify(D.selection.side === "silver" ? v.silver?.value : v.value, null, 2) ?? T("common.none"))) : null;
   const coverage = d.silver_lines;
   coreReplace(el,

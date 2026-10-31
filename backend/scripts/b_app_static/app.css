@@ -1,13 +1,12 @@
-/* 승인 DESIGN.md 토큰. 주의 주황은 상위 UI_GUIDE의 범례를 유지한다. */
+/* 승인 DESIGN.md 토큰. S5 결정: 목표 미달과 값 차이는 중립색과 글로 구분한다. */
 :root {
   color-scheme: light;
   --ink: #23332f; --muted: #53645e;
   --paper: #ffffff; --ground: #f4f6f3; --line: #cbd4ce; --soft: #eaf0eb; --context: #edf2ed;
-  --accent: #245e50; --accent-hover: #194a3e; --input-line: #8c9e93;
+  --accent: #245e50; --accent-hover: #194a3e; --input-line: #74877b;
   --selected: #fff3c6; --selected-line: #887029;
   --failure: #a52f35; --failure-bg: #fff3f2;
   --scale-track: #e4eae4; --selection: #d8e8dd; --scrollbar: #94a49b;
-  --warning-text: #bc4c00;
   --backdrop: rgb(35 51 47 / 25%);
   --font-body: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
   --font-code: ui-monospace, SFMono-Regular, Menlo, monospace;
@@ -57,7 +56,7 @@ body {
   word-break: keep-all;
 }
 ::selection { background: var(--selection); color: var(--ink); }
-:focus-visible { outline: var(--border-focus); outline-offset: 4px; }
+:is(button, a[href], input, select, textarea, summary, [tabindex="0"]):focus-visible { outline: var(--border-focus); outline-offset: 4px; }
 button, a, input, select, textarea, summary, [tabindex] { scroll-margin-top: var(--sticky-offset); }
 dialog button, dialog input, dialog select, dialog textarea, dialog summary, dialog [tabindex] { scroll-margin-top: 0; }
 a { color: var(--accent); text-underline-offset: 4px; }
@@ -192,7 +191,8 @@ dialog::backdrop { background: var(--backdrop); }
 .score-target { stroke: var(--ink); stroke-width: 2; }
 .score-grid-line { stroke: var(--line); stroke-width: 1; }
 .score-axis { fill: var(--muted); font-size: var(--label-size); font-family: var(--font-body); }
-.score-below, .score-call.c_fail { color: var(--failure); }
+.score-below { color: var(--muted); }
+.score-call.c_fail { color: var(--failure); }
 .score-met { color: var(--accent); }
 .score-empty, .score-partial { padding: var(--space-section); border: var(--border-standard); background: var(--paper); margin-bottom: var(--space-group); }
 .score-empty button + button { margin-left: var(--space-group); }
@@ -262,8 +262,8 @@ dialog::backdrop { background: var(--backdrop); }
 .source-value { display: block; width: 100%; border: 1px solid transparent; border-radius: 0; padding: var(--space-small); text-align: left; font-weight: var(--body-weight); color: var(--ink); }
 .source-cell-state, .source-section-summary { display: block; font-size: var(--label-size); font-weight: var(--body-weight); }
 .source-same .source-cell-state { color: var(--muted); }
-.source-wrong .source-cell-state, .source-made .source-cell-state { color: var(--warning-text); }
-.source-missing .source-cell-state { color: var(--failure); }
+.source-wrong .source-cell-state, .source-made .source-cell-state { color: var(--muted); }
+.source-missing .source-cell-state { color: var(--muted); }
 .source-highlight { background: var(--selected); border: var(--border-evidence); }
 .source-page-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--space-group); }
 .source-page-wrap { position: relative; align-self: start; min-width: 0; }
@@ -277,7 +277,7 @@ dialog::backdrop { background: var(--backdrop); }
 .source-band, .source-line-state { font-size: var(--label-size); font-weight: var(--subsection-weight); }
 .source-line.source-highlight { background: var(--selected); border: var(--border-evidence); }
 .source-line.source-estimated { background: var(--soft); }
-.source-warning { color: var(--warning-text); }
+.source-warning { color: var(--muted); }
 @media (max-width: 1320px) { #screen-s02 { grid-template-columns: 270px minmax(0, 1fr); gap: var(--space-section-small); } }
 @media (min-width: 1550px) { #screen-s02 { grid-template-columns: 320px minmax(0, 1fr); } }
 
@@ -290,7 +290,7 @@ dialog::backdrop { background: var(--backdrop); }
 .compare-headline { max-width: 72ch; }
 .compare-neutral { color: var(--muted); }
 .compare-up { color: var(--accent); }
-.compare-down { color: var(--failure); }
+.compare-down { color: var(--muted); }
 .compare-direction, .compare-basis { font-size: var(--label-size); }
 .compare-filters { display: flex; align-items: end; flex-wrap: wrap; gap: var(--space-group); margin: var(--space-group) 0; }
 .compare-filters select { margin-bottom: 0; }
@@ -366,7 +366,7 @@ dialog::backdrop { background: var(--backdrop); }
 .job-docs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .job-details { padding: var(--space-group); min-width: 0; }
 .job-stage-help { display: block; color: var(--muted); font-weight: var(--body-weight); margin-top: var(--space-tight); }
-.job-warning { color: var(--warning-text); padding-block: var(--space-small); }
+.job-warning { color: var(--muted); padding-block: var(--space-small); }
 .job-table { width: 100%; table-layout: fixed; border-collapse: collapse; }
 .job-table th, .job-table td { padding: var(--space-control-y); text-align: left; vertical-align: top; border-bottom: var(--border-standard); }
 #jobs-list .job-table th:nth-child(1) { width: 12%; }

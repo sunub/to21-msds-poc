@@ -398,11 +398,13 @@ function jobsRenderResult() {
   }
   const p = r.plan || {}, secs = Object.entries(p.sections || {}), mismatch = job?.target && !jobsResultMatches(job, r);
   const parts = [jobsStage(0,
-    jobsNote(T("jobs.result.input_meta", {pages: p.pages_dir, method: p.sections_method, count: p.msds_count})),
+    jobsNote(T("jobs.result.input_meta", {pages: p.pages_dir, method: coreCodeLabel("split", p.sections_method), count: p.msds_count})),
+    coreCodeRecord(p.sections_method),
     jobsNote([p.doc_id, p.model_tag, p.model].filter(Boolean).join(" · "), {class: "technical"}),
     h("ul", null, secs.map(([no, v]) => h("li", {class: "technical"}, T("jobs.result.input_rows", {section: no,
       format: T(v.rows ? "jobs.result.format_rows" : "jobs.result.format_json"), count: v.lines, preamble: v.preamble_lines,
-      first: v.first, last: v.last, pages: (v.pages || []).join(", "), images: (v.images || []).join(", ") || T("common.none"), method: v.method})))), jobsWarnings(p.warnings)),
+      first: v.first, last: v.last, pages: (v.pages || []).join(", "), images: (v.images || []).join(", ") || T("common.none"), method: coreCodeLabel("split", v.method)}),
+      coreCodeRecord(v.method)))), jobsWarnings(p.warnings)),
     jobsStage(1, jobsNote(T("jobs.detail.no_full_text")), h("ul", null, secs.map(([no, v]) => h("li", null,
       T("jobs.result.section", {section: no}), " — ", h("code", {class: "technical"}, v.prompt_hash || T("common.none")),
       v.system_override ? jobsNote(T("jobs.detail.prompt_edited", {section: no})) : null))))];
@@ -419,7 +421,8 @@ function jobsRenderResult() {
     summary = h("div", {role: "status"}, jobsNote(T(ok ? "jobs.result.plain_done" : "jobs.parse_failed.fact")),
       !ok ? jobsNote(T("jobs.parse_failed.todo", {stage: 4})) : null, jobsScore(r, job));
     parts.push(jobsStage(2, rows.map(([no, v]) => h("div", null, h("h3", null, T("jobs.result.section", {section: no})),
-      jobsNote(T("jobs.result.raw_meta", {mode: v.mode, reason: v.finish_reason, seconds: fmt1(v.seconds)})), jobsPre(v.raw_text || T("jobs.result.no_answer"))))),
+      jobsNote(T("jobs.result.raw_meta", {mode: coreCodeLabel("mode", v.mode), reason: coreCodeLabel("finish", v.finish_reason), seconds: fmt1(v.seconds)})),
+      coreCodeRecord(v.mode, v.finish_reason), jobsPre(v.raw_text || T("jobs.result.no_answer"))))),
       jobsStage(3, rows.map(([no, v]) => h("div", null, h("h3", null, T("jobs.result.section", {section: no})),
         jobsNote(T(v.ok ? "jobs.result.ok" : "jobs.result.bad")), jobsNote(T("jobs.result.parse_meta", {discarded: v.dropped_rows, retries: v.reextracted ? 1 : 0, attempts: v.attempts})),
         jobsNote(T("jobs.detail.tokens", {input_tokens: v.usage?.prompt_tokens, output_tokens: v.usage?.completion_tokens})),

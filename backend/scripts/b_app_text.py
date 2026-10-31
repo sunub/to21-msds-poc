@@ -2944,6 +2944,248 @@ UI_TEXT["context"]["picker"].update({
 for _copy_key in ("servers.confirm.create.cost_unknown", "context.picker.outside_count", "context.picker.coverage_label", "context.picker.coverage"):
     COPY_EXCEPTIONS[_copy_key] = "S5 결정 2: ⑤ 수락에서 승인 대기"
 
+# S5 문구 마감: 승인된 이름 복원과 ⑤ 수락에 올릴 짧은 설명.
+UI_TEXT['score']['basis']['label'] = '{key} 기준 · 점수를 계산한 문서 {count}건'
+COPY_EXCEPTIONS['score.basis.label'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['score']['loading']['scoring'] = '실행 {count}개의 점수를 계산 중입니다. 처음에는 수십 초 걸릴 수 있습니다.'
+COPY_EXCEPTIONS['score.loading.scoring'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['source']['labels']['criterion'] = '점수를 매기는 기준: {item}'
+COPY_EXCEPTIONS['source.labels.criterion'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['compare']['items']['name'] = '점수를 매기는 기준'
+COPY_EXCEPTIONS['compare.items.name'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['help']['navigation']['methods_failed'] = '점수를 매기는 기준을 읽지 못했습니다.'
+COPY_EXCEPTIONS['help.navigation.methods_failed'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['help']['navigation']['methods_todo'] = '할 일: 점수를 매기는 기준만 다시 읽으세요. 도움말과 용어는 계속 읽을 수 있습니다.'
+COPY_EXCEPTIONS['help.navigation.methods_todo'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['help']['navigation']['methods_reload'] = '점수를 매기는 기준 다시 읽기'
+COPY_EXCEPTIONS['help.navigation.methods_reload'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['help']['navigation']['loading'] = '용어와 점수를 매기는 기준을 읽고 있습니다.'
+COPY_EXCEPTIONS['help.navigation.loading'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['compare']['selection']['reasons']['outside'] = '새 문서 시험에는 점수를 매길 정답이 없습니다.'
+COPY_EXCEPTIONS['compare.selection.reasons.outside'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['compare']['selection']['reasons']['unknown'] = '전체 실행 비교 대상이 아닙니다. 실행 종류와 점수를 계산한 범위를 확인하세요.'
+COPY_EXCEPTIONS['compare.selection.reasons.unknown'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['score']['conditions']['nonempty_meaning'] = '정답과 결과 양쪽에서 자료없음·해당없음·비해당·미기재 행을 뺍니다. 같은 점수 계산 방법으로 다시 잰 보조 점수입니다.'
+COPY_EXCEPTIONS['score.conditions.nonempty_meaning'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['score']['summary']['target_line'] = '목표 점수 {line}점'
+COPY_EXCEPTIONS.pop('score.summary.target_line', None)
+UI_TEXT['compare']['target_line'] = '목표 점수 {line}점'
+COPY_EXCEPTIONS.pop('compare.target_line', None)
+UI_TEXT['score']['summary']['must_progress'] = '각각 목표를 채워야 하는 필수 기준 {total}개 중 {met}개가 목표에 닿았습니다.'
+COPY_EXCEPTIONS['score.summary.must_progress'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['score']['criteria']['weight'] = '{level} · 점수에 반영하는 비중 {weight}'
+COPY_EXCEPTIONS['score.criteria.weight'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['score']['calculation']['weight'] = '{level} 기준 {count}개 · 점수에 반영하는 비중 {weight}'
+COPY_EXCEPTIONS['score.calculation.weight'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['score']['calculation']['loss_formula'] = '잃은 점수 = 비중 × (1 − 기준 점수) ÷ 점수가 있는 항목의 비중 합 × 100'
+COPY_EXCEPTIONS['score.calculation.loss_formula'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['score']['calculation']['weight_basis'] = '점수가 있는 항목의 비중 합: {weight}'
+COPY_EXCEPTIONS['score.calculation.weight_basis'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['help']['facts']['scores'] = '점수에 반영하는 비중은 필수 기준 17개가 각각 3입니다. 중요 기준 4개는 각각 2입니다. 일반 기준 2개는 각각 1입니다.'
+COPY_EXCEPTIONS['help.facts.scores'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['compare']['prompt']['open'] = '{section}번 부분에서 AI에게 시킨 일의 차이 보기'
+COPY_EXCEPTIONS['compare.prompt.open'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['compare']['prompt']['loading'] = '{section}번 부분에서 AI에게 시킨 일을 다시 만드는 중입니다. 몇 초 걸릴 수 있습니다.'
+COPY_EXCEPTIONS['compare.prompt.loading'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['compare']['prompt']['failed'] = 'AI에게 시킨 일의 차이를 읽지 못했습니다.'
+COPY_EXCEPTIONS['compare.prompt.failed'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['compare']['prompt']['retry'] = 'AI에게 시킨 일의 차이 다시 불러오기'
+COPY_EXCEPTIONS['compare.prompt.retry'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['compare']['prompt']['same'] = '두 결과에서 AI에게 시킨 일이 같습니다.'
+COPY_EXCEPTIONS['compare.prompt.same'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['compare']['prompt']['note'] = '부분을 펼칠 때만 당시 AI에게 시킨 일을 다시 읽습니다.'
+COPY_EXCEPTIONS['compare.prompt.note'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['help']['facts']['run_name'] = '실행 폴더 이름은 날짜와 AI 설정과 AI에게 시킬 일의 버전과 입력 자료와 반복한 차례를 이어 쓴 기록입니다.'
+COPY_EXCEPTIONS['help.facts.run_name'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['help']['facts']['ranking'] = '정답 초안 기준 점수는 모델과 AI에게 시킬 일을 비교하는 참고값입니다. 원문에서 맞는 값을 확인하세요.'
+COPY_EXCEPTIONS['help.facts.ranking'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['help']['facts']['cause_conditions'] = '조건: 모델과 AI에게 시킬 일과 입력 자료와 한꺼번에 보내는 요청 수가 달라졌는지 봅니다.'
+COPY_EXCEPTIONS['help.facts.cause_conditions'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['help']['facts']['prompt_private'] = 'AI에게 시킬 일에는 회사 명세서가 들어 있습니다. 전문을 공유 파일이나 실행 기록에 남기지 않습니다.'
+COPY_EXCEPTIONS['help.facts.prompt_private'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['compare']['prompt']['rows'] = '한 줄에 한 행씩 받는 답(행 형식)'
+COPY_EXCEPTIONS.pop('compare.prompt.rows', None)
+UI_TEXT['compare']['prompt']['json'] = '정해진 결과 형식(JSON)'
+COPY_EXCEPTIONS['compare.prompt.json'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['jobs']['result']['format_json'] = '정해진 결과 형식(JSON)'
+COPY_EXCEPTIONS['jobs.result.format_json'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['servers']['models']['off'] = 'AI 꺼짐'
+COPY_EXCEPTIONS.pop('servers.models.off', None)
+UI_TEXT['servers']['models']['tag'] = 'AI 설정의 짧은 이름(모델 태그)'
+COPY_EXCEPTIONS.pop('servers.models.tag', None)
+UI_TEXT['jobs']['result']['weighted'] = '중요도를 반영한 전체 점수 {score}점'
+COPY_EXCEPTIONS['jobs.result.weighted'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['jobs']['result']['changed'] = '점수를 매기는 기준별 변화'
+COPY_EXCEPTIONS['jobs.result.changed'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['jobs']['result']['unchanged'] = '점수를 매기는 기준 중 값이 바뀐 것은 없습니다.'
+COPY_EXCEPTIONS['jobs.result.unchanged'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['journey']['band']['trial'] = '다른 하나는 모델에 문서 한 부분을 보내 시험합니다.'
+COPY_EXCEPTIONS['journey.band.trial'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['journey']['read']['no_section'] = '이 문제는 한 부분에 묶이지 않습니다. 할 일: 기준별 문제를 보거나 갈래를 건너뛰세요.'
+COPY_EXCEPTIONS['journey.read.no_section'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['journey']['band']['open'] = '처음 사용 안내 열기'
+COPY_EXCEPTIONS.pop('journey.band.open', None)
+UI_TEXT['journey']['band']['resume'] = '처음 사용 안내 갈래 {track}가 {total}단계 중 {step}단계에서 멈춰 있습니다.'
+COPY_EXCEPTIONS['journey.band.resume'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['help']['facts']['cause_calls'] = '요청: 두 번째 결과에서만 실패나 길이 제한이 생겼는지 봅니다. AI에게 다시 뽑도록 요청했는지도 봅니다.'
+COPY_EXCEPTIONS['help.facts.cause_calls'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['help']['facts']['cause_variation'] = '같은 조건에서 생기는 결과 차이: 조건이 같아도 반복 실행마다 결과가 달라질 수 있습니다. 원인은 원문에서 확인합니다.'
+COPY_EXCEPTIONS['help.facts.cause_variation'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['help']['facts']['journey_try'] = '실제 시험의 답을 읽는 데 성공한 결과 요약을 열면 실제 성공을 기록합니다. AI 없이 보낼 내용 확인은 따로 기록합니다.'
+COPY_EXCEPTIONS['help.facts.journey_try'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['help']['facts']['trial_practice'] = 'AI 없이 보낼 내용 확인은 AI를 부르지 않는 연습입니다. 보낼 원문과 AI에게 시킬 일만 확인합니다.'
+COPY_EXCEPTIONS['help.facts.trial_practice'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['servers']['session']['active'] = '한 부분 시험과 여러 문서 시험은 서버 {pod_id}을 사용합니다.'
+COPY_EXCEPTIONS['servers.session.active'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['source']['table_names']['hazard.h_statements'] = '위험 문구 번호(H 코드)'
+COPY_EXCEPTIONS['source.table_names.hazard.h_statements'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['source']['table_names']['hazard.p_statements'] = '예방 문구 번호(P 코드)'
+COPY_EXCEPTIONS['source.table_names.hazard.p_statements'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['source']['table_names']['composition'] = '들어 있는 성분 목록과 양'
+COPY_EXCEPTIONS['source.table_names.composition'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['source']['table_names']['cmr'] = '암·유전·생식 관련 독성'
+COPY_EXCEPTIONS.pop('source.table_names.cmr', None)
+UI_TEXT['source']['table_names']['ecotox'] = '환경에 미치는 영향'
+COPY_EXCEPTIONS.pop('source.table_names.ecotox', None)
+UI_TEXT['source']['section_names']['9'] = '물리·화학 성질'
+COPY_EXCEPTIONS.pop('source.section_names.9', None)
+UI_TEXT['help']['facts']['slow'] = '최근 결과의 문서별 시간에서 300초 목표 시간을 봅니다. 다시 요청하면 느려질 수 있습니다. 가장 오래 걸린 부분의 기록을 확인하세요.'
+COPY_EXCEPTIONS['help.facts.slow'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['common']['raw_error'] = '오류 기록 펼치기'
+COPY_EXCEPTIONS['common.raw_error'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['score']['load_failed']['todo'] = '할 일: 기록을 다시 읽으세요. 계속 실패하면 앱을 실행한 명령 입력 창(터미널)의 오류를 확인하세요.'
+COPY_EXCEPTIONS['score.load_failed.todo'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['compare']['load_failed']['todo'] = '할 일: 비교 결과를 다시 불러오세요. 계속 실패하면 앱을 실행한 명령 입력 창(터미널)의 오류를 확인하세요.'
+COPY_EXCEPTIONS['compare.load_failed.todo'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['score']['calls']['mode'] = '답을 받는 방식: {mode}'
+COPY_EXCEPTIONS['score.calls.mode'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['jobs']['result']['raw_meta'] = '답을 받는 방식: {mode}. 끝난 이유: {reason}. 걸린 시간: {seconds}초.'
+COPY_EXCEPTIONS['jobs.result.raw_meta'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['score']['calls']['limit_reason'] = '답변 길이 제한에 걸린 원인: {reason}'
+COPY_EXCEPTIONS['score.calls.limit_reason'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['servers']['rented']['state'] = '서버 상태: {state}'
+COPY_EXCEPTIONS['servers.rented.state'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['servers']['connection']['tunnel_closed'] = '연결 통로가 닫혀 있습니다. 서버 연결에 쓰는 통로 번호(포트)는 {port}입니다.'
+COPY_EXCEPTIONS['servers.connection.tunnel_closed'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['servers']['connection']['tunnel_external'] = '연결 통로가 열려 있습니다. 서버 연결에 쓰는 통로 번호(포트)는 {port}입니다. 이 앱이 연 연결이 아닙니다.'
+COPY_EXCEPTIONS['servers.connection.tunnel_external'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['servers']['connection']['tunnel_unknown'] = '서버 연결에 쓰는 통로 번호(포트)를 확인하지 못했습니다.'
+COPY_EXCEPTIONS['servers.connection.tunnel_unknown'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['servers']['connection']['process'] = '실행 중인 프로그램의 식별 번호: {pid}'
+COPY_EXCEPTIONS['servers.connection.process'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['servers']['connection']['none'] = '현재 확인된 모델 실행 프로그램이 없습니다.'
+COPY_EXCEPTIONS['servers.connection.none'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['servers']['result']['started'] = '모델 실행 프로그램을 시작했습니다. 응답까지 보통 15~25분 걸립니다.'
+COPY_EXCEPTIONS['servers.result.started'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['servers']['result']['stopped'] = '멈춘 모델 프로그램 번호: {pids}'
+COPY_EXCEPTIONS['servers.result.stopped'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['servers']['result']['process_remaining'] = '아직 실행 중인 모델 프로그램 번호: {pids}'
+COPY_EXCEPTIONS['servers.result.process_remaining'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['jobs']['record']['pid'] = '실행 중인 프로그램의 식별 번호: {pid}'
+COPY_EXCEPTIONS['jobs.record.pid'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['jobs']['record']['unknown_tip'] = '이전 앱에서 시작한 작업이라 끝난 상태를 모릅니다. 작업이 남긴 실행 기록(로그)이나 결과 폴더를 보세요.'
+COPY_EXCEPTIONS['jobs.record.unknown_tip'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['jobs']['record']['close_log'] = '작업 실행 기록 닫기'
+COPY_EXCEPTIONS['jobs.record.close_log'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['jobs']['record']['log_empty'] = '아직 작업이 남긴 실행 기록(로그)이 없습니다.'
+COPY_EXCEPTIONS['jobs.record.log_empty'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['jobs']['record']['exit_missing'] = '작업이 끝난 이유를 나타내는 번호(종료 코드)가 기록되지 않았습니다.'
+COPY_EXCEPTIONS['jobs.record.exit_missing'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['jobs']['result']['input_meta'] = '원문 글자를 모은 폴더: {pages}. 부분을 나눈 방법: {method}. 안전자료 {count}개 중 첫 번째 자료를 사용합니다.'
+COPY_EXCEPTIONS['jobs.result.input_meta'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['jobs']['result']['input_rows'] = '{section}번 부분 · {format} · {count}줄(앞에 덧붙인 공통 줄 {preamble}줄) · {first} ~ {last} · 쪽 {pages} · 이미지 {images} · 부분을 나눈 방법: {method}'
+COPY_EXCEPTIONS['jobs.result.input_rows'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['help']['facts']['cards'] = '상세 영역을 펼치거나 접은 상태는 브라우저에 보관합니다. 보관할 수 없어도 화면은 사용할 수 있습니다.'
+COPY_EXCEPTIONS['help.facts.cards'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['help']['facts']['setup_copy'] = '프로젝트 최상위의 설정 예제 파일(.env.example)을 복사해 실제 설정 파일(.env)을 만듭니다. 실제 설정 파일은 코드 변경 기록 저장소(Git)에 올리지 않습니다.'
+COPY_EXCEPTIONS['help.facts.setup_copy'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['help']['facts']['cli_command'] = '(cd backend && .venv/bin/python scripts/try_section.py --model <AI설정이름> --doc <문서번호> --section 11 --dry-run)'
+COPY_EXCEPTIONS['help.facts.cli_command'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['help']['facts']['prompt_spec'] = 'AI에게 시킬 일의 기본 설명은 결과 형식을 정한 문서(TO21 v0.6 명세서)의 칸 정의와 규칙에서 만듭니다.'
+COPY_EXCEPTIONS['help.facts.prompt_spec'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['help']['facts']['prompt_version'] = 'AI에게 시킬 일의 버전 번호(SECTION_PROMPT_VERSION)를 올린 뒤 여러 개발 문서로 반복 시험합니다. 한 번의 점수만으로 개선을 확정하지 않습니다.'
+COPY_EXCEPTIONS['help.facts.prompt_version'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['help']['facts']['limit'] = '답이 길거나 빈칸 또는 같은 글을 계속 쓰면 길이 한도에 걸립니다. 요청 기록에서 끝난 이유가 길이 한도를 뜻하는 값(length)인지 확인하세요.'
+COPY_EXCEPTIONS['help.facts.limit'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['help']['facts']['setup_open'] = '프로젝트 최상위에서 앱을 켭니다. 내 컴퓨터 127.0.0.1에서만 열립니다. 앱을 실행한 명령 입력 창(터미널)에 표시된 주소를 브라우저에 입력하세요.'
+COPY_EXCEPTIONS['help.facts.setup_open'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['help']['facts']['protect_keys'] = '설정 파일 밖의 파일과 실행 기록(로그)에 접속 키를 적지 않습니다. 시험과 채팅에도 적지 않습니다. 저장소와 실행 기록은 팀이 함께 봅니다.'
+COPY_EXCEPTIONS['help.facts.protect_keys'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['source']['labels']['raw_value'] = '원래 값과 위치 보기'
+COPY_EXCEPTIONS['source.labels.raw_value'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['common']['code_record'] = '원래 기록 값 보기'
+COPY_EXCEPTIONS['common.code_record'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['common'].setdefault('codes', {})
+UI_TEXT['common']['codes']['unknown'] = '설명되지 않은 기록 값입니다. 원래 기록 값을 확인하세요.'
+COPY_EXCEPTIONS['common.codes.unknown'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['common']['codes'].setdefault('mode', {})
+UI_TEXT['common']['codes']['mode']['json_schema'] = '정해진 칸과 값 형식으로 받기'
+COPY_EXCEPTIONS['common.codes.mode.json_schema'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['common']['codes']['mode']['json_schema_compact'] = '정해진 칸과 값 형식으로 빈칸 없이 받기'
+COPY_EXCEPTIONS['common.codes.mode.json_schema_compact'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['common']['codes']['mode']['json_object'] = '이름과 값을 짝지은 결과로 받기'
+COPY_EXCEPTIONS['common.codes.mode.json_object'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['common']['codes']['mode']['none'] = '응답 형식을 강제하지 않고 받기'
+COPY_EXCEPTIONS['common.codes.mode.none'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['common']['codes']['mode']['rows'] = '한 줄에 한 행씩 받기'
+COPY_EXCEPTIONS['common.codes.mode.rows'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['common']['codes']['mode']['nuextract_template'] = '추출 전용 틀에 맞춰 받기'
+COPY_EXCEPTIONS['common.codes.mode.nuextract_template'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['common']['codes'].setdefault('finish', {})
+UI_TEXT['common']['codes']['finish']['stop'] = '답변을 끝내고 멈춤'
+COPY_EXCEPTIONS['common.codes.finish.stop'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['common']['codes']['finish']['length'] = '답변 길이 한도에 도달함'
+COPY_EXCEPTIONS['common.codes.finish.length'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['common']['codes']['finish']['content_filter'] = '서버의 내용 제한으로 중단됨'
+COPY_EXCEPTIONS['common.codes.finish.content_filter'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['common']['codes']['finish']['tool_calls'] = '도구 호출 요청으로 끝남'
+COPY_EXCEPTIONS['common.codes.finish.tool_calls'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['common']['codes'].setdefault('limit', {})
+UI_TEXT['common']['codes']['limit']['whitespace'] = '빈칸만 계속 답함'
+COPY_EXCEPTIONS['common.codes.limit.whitespace'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['common']['codes']['limit']['repetition'] = '같은 답을 계속 되풀이함'
+COPY_EXCEPTIONS['common.codes.limit.repetition'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['common']['codes']['limit']['long'] = '답이 길어 한도에 도달함'
+COPY_EXCEPTIONS['common.codes.limit.long'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['common']['codes'].setdefault('pod', {})
+UI_TEXT['common']['codes']['pod']['RUNNING'] = '서버 실행 중'
+COPY_EXCEPTIONS['common.codes.pod.RUNNING'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['common']['codes']['pod']['EXITED'] = '서버 실행 끝남'
+COPY_EXCEPTIONS['common.codes.pod.EXITED'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['common']['codes']['pod']['STOPPED'] = '서버 멈춤'
+COPY_EXCEPTIONS['common.codes.pod.STOPPED'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['common']['codes']['pod']['CREATED'] = '서버 생성됨'
+COPY_EXCEPTIONS['common.codes.pod.CREATED'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['common']['codes']['pod']['PENDING'] = '서버 실행 대기 중'
+COPY_EXCEPTIONS['common.codes.pod.PENDING'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['common']['codes'].setdefault('split', {})
+UI_TEXT['common']['codes']['split']['file'] = '저장된 부분 구간을 사용함'
+COPY_EXCEPTIONS['common.codes.split.file'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['common']['codes']['split']['provisional'] = '문서 제목으로 임시 구간을 나눔'
+COPY_EXCEPTIONS['common.codes.split.provisional'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['common']['codes']['split']['fallback'] = '부분 구간을 찾지 못해 문서 전체를 사용함'
+COPY_EXCEPTIONS['common.codes.split.fallback'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['common']['codes']['split']['title'] = '제목을 기준으로 구간을 나눔'
+COPY_EXCEPTIONS['common.codes.split.title'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['common']['codes']['split']['synonym'] = '같은 뜻의 제목을 기준으로 구간을 나눔'
+COPY_EXCEPTIONS['common.codes.split.synonym'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['common']['codes']['split']['failed'] = '부분 구간 나누기에 실패함'
+COPY_EXCEPTIONS['common.codes.split.failed'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['help']['facts']['cli_model'] = '아래 명령의 <AI설정이름>에는 AI 설정의 짧은 이름(모델 태그)을 넣으세요.'
+COPY_EXCEPTIONS['help.facts.cli_model'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['servers']['connection']['tunnel_owned'] = '이 앱이 연 연결 통로입니다. 서버 연결에 쓰는 통로 번호(포트)는 {port}입니다.'
+COPY_EXCEPTIONS['servers.connection.tunnel_owned'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['jobs']['legacy']['exit_code'] = '작업이 끝난 이유를 나타내는 번호(종료 코드): {count}'
+COPY_EXCEPTIONS['jobs.legacy.exit_code'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['common'].setdefault('code_aliases', {})
+UI_TEXT['common']['code_aliases'].setdefault('limit', {})
+UI_TEXT['common']['code_aliases']['limit']['공백폭주'] = 'whitespace'
+COPY_EXCEPTIONS['common.code_aliases.limit.공백폭주'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['common']['code_aliases']['limit']['반복'] = 'repetition'
+COPY_EXCEPTIONS['common.code_aliases.limit.반복'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+UI_TEXT['common']['code_aliases']['limit']['긴출력'] = 'long'
+COPY_EXCEPTIONS['common.code_aliases.limit.긴출력'] = "S5 결정 2: ⑤ 수락에서 승인 대기"
+
 POLISH_TEXT = UI_TEXT
 
 
@@ -3141,8 +3383,8 @@ def doc_legend() -> list[dict]:
     """승인 토큰과 UI_GUIDE의 주황 의미를 원문 범례에 쓴다."""
     return [{"key": key, "label": label, "color": color} for key, label, color in [
         ("same", UI_TEXT["source"]["legend"]["same"], "#53645e"),
-        ("diff", UI_TEXT["source"]["legend"]["different"], "#bc4c00"),
-        ("silver_only", UI_TEXT["source"]["legend"]["missing"], "#a52f35"),
+        ("diff", UI_TEXT["source"]["legend"]["different"], "#53645e"),
+        ("silver_only", UI_TEXT["source"]["legend"]["missing"], "#53645e"),
         ("picked", UI_TEXT["source"]["legend"]["selected"], "#fff3c6"),
     ]]
 

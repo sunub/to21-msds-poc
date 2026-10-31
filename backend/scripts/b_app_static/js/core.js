@@ -30,6 +30,16 @@ function T(key, values = {}) {
   if (typeof value !== "string") return `⟦${key}⟧`;
   return value.replace(/\{([^{}]+)\}/g, (_, name) => String(values[name] ?? "—"));
 }
+function coreCodeLabel(kind, value) {
+  if (value == null || value === "") return T("common.none");
+  const key = UI.common.code_aliases?.[kind]?.[value] || String(value);
+  const labels = UI.common.codes?.[kind];
+  return labels && Object.hasOwn(labels, key) ? labels[key] : T("common.codes.unknown");
+}
+function coreCodeRecord(...values) {
+  return h("details", {class: "code-record"}, h("summary", null, T("common.code_record")),
+    h("code", {class: "raw"}, values.filter(value => value != null && value !== "").join(" · ") || T("common.none")));
+}
 function fill(el, attrs, kids) {
   for (const [key, value] of Object.entries(attrs || {})) {
     if (value === null || value === undefined || value === false) continue;
