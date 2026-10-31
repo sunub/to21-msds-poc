@@ -349,7 +349,7 @@ function scoreRenderHistory() {
   runs.forEach((r, i) => {
     chart.append(s("foreignObject", {x: x(i) - 22, y: y(r.weighted) - 22, width: 44, height: 44}, scoreHistoryPick(r, true)));
     if (i === 0 || i === runs.length - 1 || (runs.length < 12)) chart.append(s("text", {
-      x: x(i), y: 252, "text-anchor": "middle", class: "score-axis"}, when(r.started_at).slice(5, 10)));
+      x: x(i), y: 252, "text-anchor": "middle", class: "score-axis"}, when(r.started_at).split(" ").slice(1, 3).join(" ")));
   });
   const records = runs.map(r => [scoreHistoryPick(r), h("span", null, scoreLabel(r), scoreNote(r.set?.label),
     r.name === S.score.name ? scoreNote(T("score.history.current_record")) : null),

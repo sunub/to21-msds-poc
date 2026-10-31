@@ -550,6 +550,10 @@ step 2의 API 확인 보충입니다.
 
 ## 브라우저로 볼 것
 
+- POL-01: 브라우저 언어가 영어여도 안내 기록·마지막 확인·정답 수정일이 한국어 시각으로 보이는지 확인한다.
+- POL-02: S03·G08은 실행 모델을 기본으로 고르는지 확인한다. 목록에 없으면 연결 관찰 대상(watched) 첫 모델을 고르고 정답 초안 모델은 직접 고를 수 있어야 한다.
+- POL-03: G01~G15 왼쪽 예시에 문서 항 번호 설명이 없는지 확인한다. 오른쪽 G03 용어 풀이는 남아 있어야 한다.
+
 S5 재확인 목록이다. 아래 **45줄 모두 미실행**이다. 예전 B001~B100 대신 이번 phase가 바꾼 상태와 번호로 정리했다.
 Claude가 가로 1280px·1440px·1680px에서 확인한다. 각 행의 마지막 문장이 통과 조건이다.
 정상·결과 없음·오류·P01·도움말·말풍선은 `design_work/app-redo/s5/shots/`의 같은 상태 사진과 비교한다.
@@ -1249,7 +1253,7 @@ Questions skipped: non-interactive. 승인 구조와 모양은 유지한다.
 - `git diff --check` 통과. 추적 파일 변경 범위는 허용된 화면 JS·문구·BUILD·B 시험뿐이다. 새 파일은 `test_B_b_app_fix_ui.py` 하나다. docs·CLAUDE.md·실행기·승인 설계·CSS·백엔드 API는 수정하지 않았다.
 - 브라우저·앱 서버·모델 서버 검증은 미실행이다. step 1~4는 pending을 유지한다. 커밋하지 않았다.
 
-### ⑤ 승인 대기 문구
+### ⑤ 승인 대기 문구 (⑤ 수락 11/1 승인)
 
 아래는 이 phase에서 새로 쓰거나 문장으로 다듬은 현재 글이다. 이름 복원은 승인된 이름을 재사용한다. 원래 기록 값은 상세에 남긴다.
 
@@ -1645,6 +1649,59 @@ Questions skipped: non-interactive. impeccable clarify·polish·audit·craft-flo
 
 ## 처음 사용 안내 (Wispr 구조)
 
+### polish step 0
+
+⚠️ DEGRADED: no browser in sandbox
+
+- Questions skipped: non-interactive. 11/1 사용자 승인 범위의 시각·기본 모델·예시 문장만 고친다.
+- 구현 전 지정 시험 4개를 실행해 **4 failed**를 확인했다(`/tmp/to21-polish-red.log`, 종료 1). 영어 시각, 실행 모델 대신 GPT 선택, GPT 용도 이름 누락, G02 예시의 항 번호 문장이 각각 실패 원인이다.
+
+| 고친 것 | 시험 이름 (`test_B_b_app_fix_ui.py`) | 확인 방법 |
+|---|---|---|
+| 한국어 시각 통일 | `test_times_use_korean_format_everywhere` | 기본 로캘을 영어로 둬도 실제 표시 결과가 한국어이며, 안내·연결 시각·정답 수정일이 같은 표시를 사용 |
+| 다시 시험 기본 모델 | `test_retest_default_model_is_the_run_model_or_a_watched_one` | S03·G08에서 실행 모델 우선, 없으면 watched 참 우선, 조회 전에는 알려진 정답 모델 제외; 직접 선택은 갱신 뒤 유지 |
+| 정답 초안 모델 이름과 순서 | `test_draft_models_are_named_as_answer_drafts` | GPT·Claude 용도 표시, 시험 모델 뒤 배치, 직접 선택 가능, API 목록 순서 무변경 |
+| 예시의 항 번호 문장 제거 | `test_example_panels_have_no_section_facts` | G01~G15 예시에 항 번호 설명 없음, 오른쪽 G03 용어 풀이 보존 |
+
+#### 구현과 승인 기록
+
+- `when()`은 `ko-KR`와 연·월·일·시·분을 명시한다. 브라우저의 시간대는 유지한다. 영어 기본 로캘의 가짜 브라우저에서 `2026-11-01T00:35:00` → `2026. 11. 1. 오전 12:35`를 확인했다. P01의 정답 수정일도 같은 함수를 쓴다. 그래프 축은 그 결과에서 월·일을 유지하며 기존 위치 기반 자르기를 제거했다.
+- `jobsDefaultModel()`은 목록에 있는 실행 모델 → `watched === true`의 첫 모델 → 조회 전(`null`/미제공)인 비정답 모델 순으로 고른다. 후보가 없으면 선택하지 않는다. S03 진입·기준 실행 변경과 G08에 함께 적용한다. G07을 건너뛰어도 G05에서 고른 실행의 모델을 쓴다. 서버 연결 상태는 기존 API 값으로만 판단한다.
+- 모델 선택 목록은 정답 초안용을 뒤에 두며 원래 API 배열은 바꾸지 않는다. GPT·Claude는 그대로 직접 고를 수 있다. 직접 고른 시험 모델은 옵션 재조회나 화면 복귀로 바꾸지 않는다.
+- `context.models.gpt`만 `GPT · AI 정답 초안`으로 바꿨다. 예외 이유는 `⑤ 수락 11/1 뒤 작은 문제: 정답 초안용 모델 이름`이다. 기존 S5 예외의 키·글은 유지하고 이유만 `S5 결정 2: ⑤ 수락 11/1 승인`으로 바꿨다. 승인 대기 표 제목 다섯 곳에 수락 표기를 붙였다.
+- G02 왼쪽의 `guide.choices.example_part` 표시를 제거했다. 단위 설명과 오른쪽 G03 용어 풀이는 유지했다. 새 화면·색·배치·성공 판정은 만들지 않았다.
+- 추가 경로 시험도 실패부터 확인했다. 기준 실행 선택 변경 1 failed(`/tmp/to21-polish-model-edge-red.log`), G07 생략 뒤 G08 1 failed(`/tmp/to21-polish-guide-edge-red.log`), 한국어 그래프 월·일 보존 1 failed(`/tmp/to21-polish-date-axis-red.log`) 뒤 모두 통과했다.
+
+#### 기존 시험 변경 이유
+
+| 시험 | 바꾼 것과 이유 |
+|---|---|
+| `test_example_panels_show_no_sample_data` | 사용자 결정 ①을 끝까지 적용하여 항 번호 설명을 숫자 허용 목록에서 제거했다. 실제 기록·상태별 값 유출 검사는 유지했다 |
+| `test_guide_examples_match_approved_scene_text` | 사용자 지시로 제거한 항 번호 문장 한 개만 승인 시안과의 대조에서 제외했다. 나머지 문구 전체 대조는 유지했다 |
+| `test_g15_shows_only_real_records`, `test_example_panels_show_no_sample_data`, `test_s08_and_band_are_removed_and_records_moved` | 기본 로캘 기대를 공통 한국어 시각으로 바꿨다. 실제 기록·횟수·예시 분리 검사는 유지했다 |
+| `test_p01_compares_current_and_candidate_and_keeps_apply_visible`, `test_context_picker_applies_once_keeps_cancel_and_shows_reasons_dates_and_fingerprint` | 정답 수정일의 ISO 원문 기대를 한국어 시각으로 바꿨다. 날짜와 지문 표시·선택 동작 검사는 유지했다 |
+| `test_s03_ai_off_makes_model_setup_primary_and_practice_secondary` | GPT 자동 선택 가정을 제거하고 명시적 선택을 입력으로 줬다. 모델 준비와 연습 행동 검사는 유지했다 |
+| `test_new_terms_have_plain_explanations_waiting_for_approval` | 승인된 제목과 이유를 기대하도록 바꿨다. 설명 30개와 표 등록 검사 범위는 유지했다 |
+| `test_model_labels`, `test_partial_metadata_and_unknown_tokens`, `test_condition_tokens`, `test_remaining_server_generated_labels_follow_copy` | 사용자 지정 GPT 표시 이름만 갱신했다. COPY 대조의 GPT 예외는 정확한 새 이름과 이유를 함께 검사한다. 다른 이름·실행 정보 검사는 유지했다 |
+
+- 시험 삭제는 없다. 첫 앱 회귀의 **15 failed, 1108 passed**는 승인 전 이름·승인 대기 제목을 지키던 검사였다(`/tmp/to21-polish-app.log`). 필요한 기대만 위 이유로 갱신한 뒤 관련 네 파일은 **344 passed**다(`/tmp/to21-polish-changed.log`).
+
+#### 정적 확인과 한계
+
+- impeccable context·polish·craft-floor를 읽고 승인 범위만 적용했다. detector는 한 번 실행했다(종료 2, `/tmp/to21-polish-detect.json`). 지적 46개(advisory 19, warning 27)는 수정하지 않은 CSS 3·승인 시안 26·wireframes 15·guide.html 2개다. 변경 파일의 새 지적은 없다.
+- detector의 `/static/app.css` 경로 해석 실패로 색·변수 검사는 불완전하다. 실제 화면 품질의 증거로 쓰지 않는다. 브라우저·앱 서버·모델 서버를 실행하지 않았다. 브라우저 확인 세 가지는 위 POL-01~03에 남겼다.
+- `b_app_text.py` 기존 함수의 구문 구조(AST)는 HEAD와 같다. 보호 파일 418개가 시작 해시와 같다. 승인 설계·백엔드 API·다른 역할 코드·docs·하네스·step 파일을 바꾸지 않았다. 평가 자료·비밀값·새 패키지를 추가하지 않았다.
+
+#### 최종 완료 기준 검증
+
+- 지정 정적 AC 전부 통과했다. BUILD 절, 승인 이유 갱신, 외부 주소 금지, 보호 설계와 `b_app.py`의 HEAD 대비 무변경, Node 존재를 저장소 최상위에서 직접 검사했다. 변경 JS 5개의 `node --check`와 `git diff --check`도 통과했다.
+- 지정 시험 **4 passed**(1.17초, 종료 0): `/tmp/to21-polish-target-final.log`.
+- 앱 시험 **1123 passed, 1194 deselected, 7 warnings**(54.15초, 종료 0): `/tmp/to21-polish-app-final.log`.
+- 전체 시험 **2286 passed, 30 skipped, 1 failed, 7 warnings**(84.79초, 종료 1): `/tmp/to21-polish-full-final.log`. 앱·전체 실행 모두 위험한 `tests/test_preprocess.py`를 제외했다.
+- 유일한 실패는 `tests/test_A_input.py::test_every_changing_route_answers_with_update`다. `socket.bind`에서 `PermissionError: [Errno 1] Operation not permitted`가 발생했다. `phases/app-redo/_common.txt` 7절의 명시적 샌드박스 예외와 일치하므로 step 0을 `completed`로 기록한다. A 시험은 수정하거나 제외하지 않았다. 실행기가 샌드박스 밖에서 다시 검증한다.
+- 경고 7건은 기존 SWIG 타입의 `__module__` 관련 DeprecationWarning이다. 점수 계산과 모델 상태 판정은 변경하지 않았다. 실제 모델 실행·브라우저 배치·줄바꿈은 미확인이다.
+- `phases/app-polish/index.json`의 step 0 `status`·`summary`만 갱신한다. 커밋하지 않는다. ⚠️ DEGRADED: no browser in sandbox.
+
 ### onboard example step 0
 
 ⚠️ DEGRADED: no browser in sandbox
@@ -1715,7 +1772,7 @@ Questions skipped: non-interactive. impeccable clarify·polish·audit·craft-flo
 | P01·G14 적용 영향 | `test_p01_says_what_applying_changes` | 후보 key로 `/api/runs` 조회 후 set·key별 건수. 다른 묶음·다른 정답·평가·정답 생성·읽기 실패 실행 제외. 결과 없음·조회 실패 구분, 후보 변경/창 재열기 후 늦은 응답 폐기, 공통 맥락 무변경, 점수는 API 값 38.2 그대로 |
 | 900px 본문과 주 버튼 | `test_guide_body_fits_at_900px` | 1280·1440·1680px에 적용되는 CSS 검사. 본문만 스크롤, footer는 별도 행, 본문 끝 padding·scroll-padding 48px ≥ 주 버튼 48px. G08 완료 요약 보존과 입력 상세 접힘 |
 
-#### ⑤ 승인 대기 문구
+#### ⑤ 승인 대기 문구 (⑤ 수락 11/1 승인)
 
 | 키 | 글 | 쓰는 곳 | 바꾼 까닭 |
 |---|---|---|---|
@@ -1759,7 +1816,7 @@ Questions skipped: non-interactive. impeccable clarify·polish·audit·craft-flo
 | G07 기준 이름과 뜻 | `test_g07_card_names_the_criterion` | API의 두 기준을 바꿔 읽고 승인 이름과 용어 설명 확인 |
 | S03·G08 모델과 고른 값 | `test_try_model_and_value_are_plain` | 공통 모델 이름·이전 결과와 다른 이유·쉬운 칸 이름·접힌 원래 경로 |
 
-#### ⑤ 승인 대기 문구
+#### ⑤ 승인 대기 문구 (⑤ 수락 11/1 승인)
 
 | 키 | 글 | 쓰는 곳 | 바꾼 까닭 |
 |---|---|---|---|
@@ -1908,7 +1965,7 @@ Questions skipped: non-interactive. impeccable clarify·polish·audit·craft-flo
 | `test_chapter_row_and_progress_text` | 실습의 완료 조건과 독립적으로 기존 7개 화면의 장 표시를 직접 검사한다. 마지막 G15 완료·성공 없음 검사는 유지했다 |
 | `test_guide_progress_saves_last_confirmed_screen_only` | G04 다음이 G06에서 G05로 바뀌었다. 저장 실패·복구·뒤로 보기·개인 자료 미저장 검사는 그대로다 |
 
-#### ⑤ 승인 대기 문구
+#### ⑤ 승인 대기 문구 (⑤ 수락 11/1 승인)
 
 시안에 없는 복구 상황은 같은 말투로 썼다. `COPY_EXCEPTIONS`에는 공통 규칙이 정한 시안 참조 이유를 사용한다. 아래 문장은 추가 문구이며 시안 원문으로 주장하지 않는다.
 
@@ -1975,7 +2032,7 @@ Questions skipped: non-interactive. impeccable clarify·polish·audit·craft-flo
 - `test_guide_examples_match_approved_scene_text`: 기존 13개 화면은 그대로 검사하고 G02·G14를 더했다. 삭제한 시험은 없다.
 - 첫 관련 회귀는 290 passed·4 failed였다. 위 흐름 삽입 3건과 이미 COPY에 있는 ‘선택됨’ 예외 중복 1건이었다. 중복 예외는 구현에서 제거했고 문구 시험의 기대는 바꾸지 않았다.
 
-#### ⑤ 승인 대기 문구
+#### ⑤ 승인 대기 문구 (⑤ 수락 11/1 승인)
 
 이번 step의 새 문구는 **5개**다. 이전 step의 승인 대기 문구는 그대로 남는다.
 

@@ -60,7 +60,7 @@ def test_context_picker_applies_once_keeps_cancel_and_shows_reasons_dates_and_fi
       assert.equal(set.querySelector('[value="locked"]').disabled,true);
       assert.equal(key.querySelector('[value="gold/empty"]').disabled,true);
       assert.ok(dialog.textContent.includes(sets.sets[2].reason));assert.ok(dialog.textContent.includes(keys.keys[2].reason));
-      assert.ok(dialog.textContent.includes(keys.keys[0].updated_at));
+      assert.ok(dialog.textContent.includes(when(keys.keys[0].updated_at)));
       const details=dialog.querySelectorAll('details').find(el=>el.textContent.includes(keys.keys[0].fingerprint));
       assert.ok(details);assert.equal(details.open,false);
       set.value='.';key.value='gold/fake';key.dispatchEvent({type:'change'});

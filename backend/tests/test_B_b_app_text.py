@@ -624,7 +624,7 @@ def test_glossary_entries_do_not_expose_mutable_dictionary(text):
     ("qwen3vl4b_rngd", "Qwen3-VL 4B · 회사 서버"),
     ("qwen38", "Qwen3.8 27B (vLLM)"),
     ("claude", "Claude · AI 정답 초안"),
-    ("gpt", "GPT"),
+    ("gpt", "GPT · AI 정답 초안"),
     ("future_model", "future_model"),
     (None, ""),
     ("", ""),
@@ -671,7 +671,7 @@ def test_metadata_wins_without_repeating_name_tokens(text):
     ({}, ""),
     ({"name": "custom_unknown", "started_at": "2026-02-03T12:00:00+09:00"}, "2/3 · custom · unknown"),
     ({"name": "custom", "started_at": "invalid"}, "custom"),
-    ({"name": "20260230_sections_gpt_probe", "started_at": "2026-03-01"}, "3/1 GPT · 일부 시험"),
+    ({"name": "20260230_sections_gpt_probe", "started_at": "2026-03-01"}, "3/1 GPT · AI 정답 초안 · 일부 시험"),
     ({"name": "20261030_sections_future_model_s8_v13_new", "model_tag": "future_model"},
      "10/30 future_model · AI에게 시킨 일 s8 · 원문 자료 version13 · new"),
     ({"name": "20261030_sections_claude_p3_dev", "prompt_version": "p3"},
@@ -679,7 +679,7 @@ def test_metadata_wins_without_repeating_name_tokens(text):
     ({"name": "manual/20261030_qwen38_s7_v9_probe", "kind": "manual"},
      "앱에서 시작 · 10/30 Qwen3.8 27B (vLLM) · AI에게 시킨 일 s7 · 원문 자료 version9 · 일부 시험"),
     ({"name": "20260102_sections_gpt_s7_chars_wrap_dev10"},
-     "1/2 GPT · AI에게 시킨 일 s7 · 원문 자료 chars_wrap · 개발 10건"),
+     "1/2 GPT · AI 정답 초안 · AI에게 시킨 일 s7 · 원문 자료 chars_wrap · 개발 10건"),
     ({"name": "20261028_sections_qwen3_30b_a3b_rngd_s2_version2_diag2"},
      "10/28 Qwen3 30B · 회사 서버 · AI에게 시킨 일 s2 · 원문 자료 version2 · 문제 확인 2"),
 ])
@@ -697,7 +697,7 @@ def test_partial_metadata_and_unknown_tokens(text, info, title):
     ("s12", "AI에게 시킨 일 s12"), ("v2", "원문 자료 version2"), ("unknown", "unknown"),
 ])
 def test_condition_tokens(text, token, expected):
-    assert text.run_label({"name": f"20261030_sections_gpt_{token}"})["title"] == f"10/30 GPT · {expected}"
+    assert text.run_label({"name": f"20261030_sections_gpt_{token}"})["title"] == f"10/30 GPT · AI 정답 초안 · {expected}"
 
 
 @pytest.mark.parametrize("where,raw,kind", [
@@ -1115,7 +1115,11 @@ def test_run_label_human_words_follow_approved_copy(text):
 
 def test_remaining_server_generated_labels_follow_copy(text, score_info):
     for tag in text.MODEL_LABELS:
-        assert text.model_label(tag) == approved_copy(f"context.models.{tag}")
+        # 11/1 polish: GPT 용도 이름만 사용자 지정 예외이며 나머지 COPY 대조는 유지한다.
+        expected = "GPT · AI 정답 초안" if tag == "gpt" else approved_copy(f"context.models.{tag}")
+        assert text.model_label(tag) == expected
+        if tag == "gpt":
+            assert text.COPY_EXCEPTIONS["context.models.gpt"] == "⑤ 수락 11/1 뒤 작은 문제: 정답 초안용 모델 이름"
     for kind in text.RUN_KIND_LABELS:
         assert text.run_kind_label(kind) == approved_copy(f"jobs.kinds.{kind}")
     result = text.score_status(score_info, {"pass_score": 90})

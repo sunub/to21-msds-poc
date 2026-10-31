@@ -165,7 +165,7 @@ const at='2024-03-02T23:05:06.000Z';
 await journeyChange(j=>{j.outcomes.t1.real={first_at:at,last_at:at,count:2};
  j.outcomes.t2.practice={first_at:at,last_at:at,count:7,last_job:'practice-7'};});
 guideRender();el('guide-records').querySelector('details').open=true;
-const local=new Date(at).toLocaleString();
+const local=when(at);
 for(const count of [2,7])assert.ok(el('guide-records').textContent.includes(T('journey.history.first_count',{time:local,count})));
 assert.ok(el('guide-records').textContent.includes(T('journey.history.none')));
 assert.ok(!el('guide-example').textContent.includes(local));
@@ -774,7 +774,6 @@ const allowedNumbers = [
  ['guide.example.step1', 'First navigation step'],
  ['guide.example.step2', 'Second navigation step'],
  ['guide.example.step3', 'Third navigation step'],
- ['guide.choices.example_part', 'The fixed MSDS topic structure, also explained in G03'],
  ['guide.choices.example_unit', 'Definition of a unit, not a measured value'],
  ['guide.example.model_duration', 'Model preparation estimate, also shown in the AI guidance']
 ];
@@ -815,7 +814,7 @@ for(const screen of guideOrder){
 const at='2024-03-02T23:05:06.000Z';
 S.journey.outcomes.t2.practice={first_at:at,last_at:at,count:37,last_job:'fake-job'};
 S.guide.screen='G15';guideRender();check('G15');
-assert.ok(el('guide-records').textContent.includes(T('journey.history.first_count',{time:new Date(at).toLocaleString(),count:37})));
+assert.ok(el('guide-records').textContent.includes(T('journey.history.first_count',{time:when(at),count:37})));
 // The score unit is still needed by the actual preview, not by the illustration.
 const choice={set:pack,key:{id:'silver/fake',label:'Fake answers'},usable:true};
 S.guide.defaults={choices:[choice],selected:choice,preview:{count:1,run:{weighted:38.2,key:choice.key}}};
@@ -861,6 +860,7 @@ def test_guide_examples_match_approved_scene_text():
         'T21-X01 · 성분 A · 8번 부분', 'T21-X01 · 8번 부분 · AI 모델 A',
         '성분 A의 노출 기준: 5 mg/m³.', '개발용 문서 10건',
         '성분 A의 허용 농도를 원문에 적힌 단위와 함께 뽑아요.',
+        '부분은 문서를 나눈 16개 주제 중 하나예요. 8번 부분은 작업장 공기의 기준(노출기준)을 다뤄요.',
         '있음', '없음', '열림', '꺼짐',
     }
     labels_without_data = {
@@ -1046,8 +1046,8 @@ await start();await flush();assert.equal(el('screen-s08'),null);assert.equal(el(
 assert.equal(document.querySelector('[data-screen="s08"]'),null);assert.equal(SHELL_SCREENS.s08,undefined);
 await el('guide-resume-button').click();
 const record=el('guide-records');assert.ok(record.textContent.includes(T('journey.history.real_success')));
-assert.ok(record.textContent.includes(T('journey.history.first_count',{time:new Date(saved.outcomes.t1.real.first_at).toLocaleString(),count:2})));
-assert.ok(record.textContent.includes(T('journey.history.first_count',{time:new Date(saved.outcomes.t2.practice.first_at).toLocaleString(),count:3})));
+assert.ok(record.textContent.includes(T('journey.history.first_count',{time:when(saved.outcomes.t1.real.first_at),count:2})));
+assert.ok(record.textContent.includes(T('journey.history.first_count',{time:when(saved.outcomes.t2.practice.first_at),count:3})));
 assert.ok(record.textContent.includes(T('journey.history.none')));
 await el('guide-next').click();await go('s07');
 assert.ok(el('help-guide-records').textContent.includes(T('journey.history.real_success')));

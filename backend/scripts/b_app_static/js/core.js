@@ -75,7 +75,9 @@ function coreReplace(el, ...kids) {
 const num = value => typeof value === "number" && Number.isFinite(value);
 const fmt1 = value => num(value) ? value.toFixed(1) : "—";
 const pct = value => num(value) ? `${(value * 100).toFixed(1)}%` : "—";
-const when = value => value && Number.isFinite(Date.parse(value)) ? new Date(value).toLocaleString() : "—";
+const when = value => value && Number.isFinite(Date.parse(value)) ? new Date(value).toLocaleString("ko-KR", {
+  year: "numeric", month: "numeric", day: "numeric", hour: "numeric", minute: "2-digit"
+}) : "—";
 
 function term(word, shown = null) {
   const copy = UI.glossary?.[word];
