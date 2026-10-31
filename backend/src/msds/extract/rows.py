@@ -59,6 +59,11 @@ _PRESSURE_CASE = re.compile(r"(?<![A-Za-z])(?:(?P<kPa>kpa)|(?P<hPa>hpa)|(?P<mmHg
                             re.I)
 # 9항 text_value에 단위만 쓴 글 (ADR-029)
 _UNIT_ONLY = re.compile(r"[°˚]\s*[CFK]|℃|℉|K|kPa|Pa|hPa|MPa|mmHg|atm|bar", re.I)
+# 칸 이름 쌍 'lower_op:>=,lower:1,unit:%' (ADR-029). 쉼표·세미콜론 뒤에 '이름:'이 올 때만 나눈다('1,000'은 그대로)
+_PAIR_HEAD = re.compile(r"^[A-Za-z_]+\s*:")
+_PAIR_SPLIT = re.compile(r"\s*[,;]\s*(?=[A-Za-z_]+\s*:)")
+_QM_FIELDS = ("value", "lower_op", "lower", "upper_op", "upper", "unit", "approx")
+_PAIR_OPS = {"lower_op": (">", ">="), "upper_op": ("<", "<=")}
 
 
 def _number(token: str) -> int | float:
@@ -87,14 +92,48 @@ def _unit(rest: str) -> str | None:
     return unit or None
 
 
+def _pairs_qm(raw: str) -> dict | None:
+    """칸 이름 쌍 글('lower_op:>=,lower:1,unit:%')을 QM dict로. 모르는 이름이나 안 맞는 값이 있으면 None.
+    숫자 칸은 _number, 부등호 칸은 _OPS(그 칸에 맞는 쪽만), unit은 _unit, approx는 true/false.
+    값이 빈 쌍은 쓰지 않은 칸으로 본다. value와 lower·upper가 같이 오면 value를 버린다."""
+    q: dict = {"raw": raw}
+    for part in _PAIR_SPLIT.split(raw):
+        name, sep, val = (x.strip() for x in part.partition(":"))
+        if not sep or name not in _QM_FIELDS:
+            return None
+        if not val:
+            continue
+        if name in ("value", "lower", "upper"):
+            if not re.fullmatch(_NUM, val):
+                return None
+            q[name] = _number(val)
+        elif name in _PAIR_OPS:
+            if (op := _OPS.get(val)) not in _PAIR_OPS[name]:
+                return None
+            q[name] = op
+        elif name == "unit":
+            if unit := _unit(val):
+                q[name] = unit
+        elif val.lower() in ("true", "false"):
+            q[name] = val.lower() == "true"
+        else:
+            return None
+    if "value" in q and ("lower" in q or "upper" in q):
+        del q["value"]
+    return q
+
+
 def parse_qm(text: str) -> dict | None:
     """숫자 묶음 한 칸을 QM dict로. 모양: [부호]숫자[~숫자][ 단위] 또는 상태어. 값이 있는 칸만 담는다.
     부등호 글자(이상·초과·이하·미만·≥·≤)는 R04대로, '~' 범위의 양 끝은 포함(>=, <=)으로 본다.
     범위 둘째 숫자 앞에 '<'·'<='·'≤'가 붙으면('40-<50 %') 위 끝은 그 부등호다.
+    칸 이름 쌍('lower_op:>=,lower:1,unit:%')은 _pairs_qm으로 읽는다. 못 읽으면 raw만 둔다 (ADR-029).
     숫자로 시작하지 않으면(해당없음 등) raw만 둔다. status는 fill_q가 정한다."""
     raw = (text or "").strip()
     if not raw:
         return None
+    if _PAIR_HEAD.match(raw):
+        return _pairs_qm(raw) or {"raw": raw}
     body, approx = raw, False
     if m := _APPROX.match(body):
         body, approx = body[m.end():], True
