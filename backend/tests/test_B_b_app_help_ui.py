@@ -11,7 +11,7 @@ from test_B_b_app_dom import STATIC, _Page, run_js
 
 TOPICS = ('flow', 'score', 'source', 'setup', 'retest', 'prompt', 'servers', 'recovery', 'protection')
 CONTEXT = {'s01': 'score', 's02': 'source', 's03': 'retest', 's04': 'score',
-           's05': 'recovery', 's06': 'servers', 's08': 'flow', 's09': 'retest', 's10': 'score'}
+           's05': 'recovery', 's06': 'servers', 's09': 'retest', 's10': 'score'}
 ENV_NAMES = ('RUNPOD_VLLM_BASE_URL', 'RUNPOD_VLLM_API_KEY', 'RNGD_BASE_URL',
              'RNGD_API_KEY', 'RUNPOD_API_KEY', 'RNGD_SSH')
 
@@ -229,9 +229,10 @@ def test_help_replay_is_an_explicit_action_and_preserves_success():
     # 기록 API도 해당 시험의 가짜 구현으로 처리한다.
     run_js(SETUP + r'''
       S.help.loaded=true;
-      S.journey.outcomes.t1.real={count:2,first_at:'2026-01-01T00:00:00Z',last_at:'2026-01-02T00:00:00Z'};
+      saved.outcomes.t1.real={count:2,first_at:'2026-01-01T00:00:00Z',last_at:'2026-01-02T00:00:00Z'};
+      await journeyEnsure();
       const before=JSON.stringify(S.journey.outcomes);
       await go('s07'); document.getElementById('help-replay').click();
-      await Promise.resolve(); await Promise.resolve();
-      assert.equal(S.shell.route,'s08'); assert.equal(JSON.stringify(S.journey.outcomes),before);
+      await flush();
+      assert.equal(document.getElementById('guide-overlay').hidden,false);assert.equal(document.getElementById('guide-overlay').getAttribute('data-screen'),'G01'); assert.equal(JSON.stringify(S.journey.outcomes),before);
     ''')

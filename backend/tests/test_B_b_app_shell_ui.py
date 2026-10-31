@@ -19,8 +19,8 @@ api=async path=>{calls.push(path);if(path==='/api/sets')return sets;if(path==='/
 def test_initial_route_is_pure_and_defaults_to_recent():
     run_js(r"""
       localStorage.getItem=()=>{throw new Error('must not read storage');};
-      for(const hash of ['', '#unknown', null, '#start'])assert.equal(shellInitialRoute(hash),'s01');
-      for(let n=1;n<=10;n++){const id='s'+String(n).padStart(2,'0');assert.equal(shellInitialRoute('#'+id),id);}
+      for(const hash of ['', '#unknown', null, '#start', '#s08'])assert.equal(shellInitialRoute(hash),'s01');
+      for(let n=1;n<=10;n++){if(n===8)continue;const id='s'+String(n).padStart(2,'0');assert.equal(shellInitialRoute('#'+id),id);}
     """)
 
 
@@ -29,6 +29,7 @@ def test_navigation_menu_focus_registration_and_hash_changes():
       location.hash='#s02';await start();
       const shared=document.getElementById('global-context');
       for(let n=1;n<=10;n++){
+        if(n===8)continue;
         const id='s'+String(n).padStart(2,'0');
         const button=document.querySelector('[data-screen="'+id+'"]');
         assert.equal(button.tagName,'button');

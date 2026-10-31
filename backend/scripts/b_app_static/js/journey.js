@@ -178,10 +178,7 @@ function journeySkip() {
 }
 on("help_replay", () => {journeyReplay().catch(fail);});
 function journeyReplay() {
-  journeyChange(j => {j.progress = journeyDefault().progress; journeyDetach("replay");});
-  const u = S.journeyUI; u.target = null; u.blocked = null; u.notice = null; u.phase = 1;
-  emit("onboarding_replayed", {had_real: !!(S.journey.outcomes.t1.real || S.journey.outcomes.t2.real), had_practice: !!S.journey.outcomes.t2.practice});
-  return go("s08", {entry: "help_replay"});
+  emit("guide_open", {}); return Promise.resolve();
 }
 function journeyMarkTarget() {
   document.querySelectorAll(".journey-target").forEach(el => el.classList.remove("journey-target"));
@@ -250,50 +247,20 @@ function journeyButton(id, key, action, disabled = false, primary = false) {
   return h("button", {id, type: "button", disabled, class: primary ? "primary" : null, onclick: () => Promise.resolve(action()).catch(fail)}, T(key));
 }
 function journeyParagraph(key, values) {return h("p", null, T(key, values));}
-function journeyRenderBand() {
-  const u = S.journeyUI, j = S.journey, el = document.getElementById("journey-band");
-  if (!el) return;
-  let reason = null, content = [];
-  if (u.known && j.pending?.job) {
-    reason = "pending_result";
-    const state = u.pendingJob?.status;
-    content = [state === "failed" && u.pendingJob.error ? friendlyError(u.pendingJob.error)
-      : journeyParagraph(state === "done" ? "journey.pending.title" : state === "running" ? "journey.band.running"
-        : state === "stopped" ? "jobs.stopped.fact" : "journey.pending.unknown"),
-      u.pendingError ? loadFailure(u.pendingError) : null,
-      journeyButton("journey-open-pending", u.pendingJob?.status === "done" ? "journey.pending.open_result" : "nav.open_jobs",
-        () => u.pendingJob?.status === "done" ? journeyOpenPending() : go("s05"))];
-  } else if (u.known && j.progress.active && j.progress[j.progress.active].state === "in_progress") {
-    const track = j.progress.active, total = track === "t1" ? 3 : 4;
-    reason = "resume";
-    content = [journeyParagraph("journey.band.resume", {track: track.slice(1), total, step: Math.min(j.progress[track].step + 1, total)}),
-      journeyButton("journey-resume", "journey.resume.action", () => journeyStart(track))];
-  } else if (u.known && journeyPristine()) {
-    reason = "first_visit";
-    content = [h("h2", null, T("journey.band.title")),
-      h("div", {class: "journey-choices"},
-        h("div", null, journeyParagraph("journey.band.read"),
-          journeyButton("journey-band-t1", "journey.choice.start_read", () => journeyStart("t1"))),
-        h("div", null, journeyParagraph("journey.band.trial"),
-          journeyButton("journey-band-t2", "journey.choice.start_trial", () => journeyStart("t2")))),
-      journeyButton("journey-open", "journey.band.open", () => go("s08", {entry: "band"})), journeyParagraph("journey.band.closed")];
-  }
-  el.hidden = !reason; coreReplace(el, content, reason ? journeyButton("journey-band-dismiss", "journey.start.dismiss", journeyDismiss) : null);
-  if (reason && reason !== u.bandReason && S.shell.route === "s01") {u.bandReason = reason; emit("onboarding_band_shown", {reason});}
-}
-function journeyRenderRecords() {
+function journeyRenderRecords(el, id) {
   const j = S.journey;
   const cell = o => o ? T("journey.history.first_count", {time: new Date(o.first_at).toLocaleString(), count: o.count}) : T("journey.history.none");
-  const old = document.getElementById("journey-history-details");
-  coreReplace(document.getElementById("journey-records"), h("details", {id: "journey-history-details", open: old?.open || null},
+  const old = el.querySelector("details"), focused = document.activeElement;
+  const details = h("details", {id: `${id}-details`, open: old?.open || null},
     h("summary", null, T("journey.history.title")),
-    h("table", null, h("thead", null, h("tr", null, ["journey.track", "journey.history.real_success", "journey.practice", "common.action"].map(k => h("th", {scope: "col"}, T(k))))),
+    h("table", null, h("thead", null, h("tr", null,
+      ["journey.track", "journey.history.real_success", "journey.practice"].map(k => h("th", {scope: "col"}, T(k))))),
       h("tbody", null, ["t1", "t2"].map(track => h("tr", null,
         h("th", {scope: "row"}, T(track === "t1" ? "journey.history.read_track" : "journey.history.trial_track")),
-        h("td", null, cell(j.outcomes[track].real)), h("td", null, track === "t2" ? cell(j.outcomes.t2.practice) : T("common.none")),
-        h("td", null, journeyButton(`journey-record-${track}`, j.outcomes[track].real ? "journey.replay.start" : j.progress[track].state === "in_progress" ? "journey.resume.action" : track === "t1" ? "journey.choice.start_read" : "journey.choice.start_trial", () => journeyStart(track))))))),
-    journeyParagraph("journey.history.replay_progress"), journeyParagraph("journey.history.keep_outcomes"), journeyParagraph("journey.replay.keep_job"),
-    journeyButton("journey-replay", "journey.start.replay", journeyReplay)), journeyButton("journey-dismiss", "journey.start.dismiss", journeyDismiss));
+        h("td", null, cell(j.outcomes[track].real)), h("td", null, track === "t2" ? cell(j.outcomes.t2.practice) : T("common.none")))))),
+    journeyParagraph("journey.history.replay_progress"), journeyParagraph("journey.history.keep_outcomes"), journeyParagraph("journey.replay.keep_job"));
+  el.replaceChildren(details);
+  if (focused === old?.querySelector("summary")) details.querySelector("summary").focus({preventScroll: true});
 }
 function journeyConnection(place) {
   const u = S.journeyUI; u.connections ||= {};
@@ -304,28 +271,6 @@ function journeyConnection(place) {
       h("p", null, T("servers.connection.selected"), ": ", serversLabel(model || {tag: S.jobs.t.model})), serversBadge(model));
   } else serversRenderCompact(el, {model: S.jobs.t.model});
   return el;
-}
-function journeyRenderChoice() {
-  const u = S.journeyUI, key = S.shell.keys.find(k => k.id === S.ctx.key), ready = u.run && num(u.run.weighted) && key?.usable;
-  const note = u.runsError ? loadFailure(u.runsError) : journeyParagraph(u.runsLoading || !u.runsLoaded ? "journey.start.loading"
-    : !u.run ? "journey.start.empty" : !num(u.run.weighted) ? "journey.start.unscored" : "journey.choice.read_ready");
-  const connection = journeyConnection("choice");
-  const trial = journeyButton("journey-start-t2", "journey.choice.start_trial", () => journeyStart("t2"));
-  const practice = journeyButton("journey-practice", "jobs.actions.preview", () => journeyStart("t2", true));
-  trial.classList.add("text-button"); practice.classList.add("text-button");
-  coreReplace(document.getElementById("journey-choice"), h("h2", null, T("journey.choice.title")),
-    h("div", {class: "journey-choices"},
-      h("div", {class: "journey-choice"}, h("h3", null, T("journey.choice.read_title")), journeyParagraph("journey.choice.read_action"),
-        journeyParagraph("journey.choice.read_success"), journeyParagraph("journey.steps.count", {count: Object.keys(UI.journey.tracks.t1.steps).length}), note,
-        key?.usable === false ? friendlyError({message: T("journey.read.key_unusable"), fix: key.reason || T("journey.read.key_todo")}) : null,
-        journeyButton("journey-start-t1", "journey.choice.start_read", () => journeyStart("t1"), !ready || u.runsLoading, true),
-        !ready || u.runsError ? journeyButton("journey-runs-retry", "score.partial.reload", journeyLoadRuns) : null),
-      h("div", {class: "journey-choice"}, h("h3", null, T("journey.choice.trial_title")), journeyParagraph("journey.choice.trial_action"),
-        journeyParagraph("journey.choice.trial_success"), journeyParagraph("journey.steps.count", {count: Object.keys(UI.journey.tracks.t2.steps).length}), connection,
-        trial,
-        journeyParagraph("journey.choice.practice"),
-        practice)),
-    journeyButton("journey-skip-all", "journey.choice.skip", () => {journeyDismiss(); return go("s01");}));
 }
 function journeyRenderStrip() {
   const j = S.journey, u = S.journeyUI, track = j.progress.active, el = document.getElementById("journey-strip");
@@ -365,24 +310,31 @@ function journeyRenderStrip() {
   children.push(journeyParagraph(track === "t1" ? "journey.choice.read_success" : "journey.choice.trial_success"),
     journeyParagraph(track === "t1" ? "journey.steps.skip_read" : "journey.steps.skip_trial"),
     h("div", {class: "journey-actions"}, journeyButton("journey-skip", "journey.skip", journeySkip),
-      journeyButton("journey-close-strip", "journey.start.dismiss", journeyDismiss), journeyButton("journey-back", "journey.target_missing.back", () => go("s08"))));
+      journeyButton("journey-close-strip", "journey.start.dismiss", journeyDismiss), journeyButton("journey-back", "journey.target_missing.back", () => emit("guide_open", {}))));
   coreReplace(el, children);
 }
 function journeyRender() {
   const active = document.activeElement?.id;
-  journeyRenderBand(); journeyRenderChoice(); journeyRenderRecords(); journeyRenderStrip();
+  journeyRenderStrip();
   const u = S.journeyUI;
   coreReplace(document.getElementById("journey-notices"),
     u.storageNotice ? h("div", {"data-notice": "storage"}, friendlyError(u.storageNotice), journeyParagraph("journey.save_failed.continue")) : null,
     u.problems ? h("div", {"data-notice": "problems", role: "status"}, journeyParagraph("journey.partial_record.title"),
       u.problems.map(text => h("p", null, text)), journeyParagraph("journey.partial_record.todo")) : null);
+  if (u.known && S.journey.pending?.job) {
+    const job = u.pendingJob;
+    document.getElementById("journey-notices").append(h("div", {id: "journey-pending"},
+      job?.status === "failed" && job.error ? friendlyError(job.error) : journeyParagraph(job?.status === "done" ? "journey.pending.title" : job?.status === "running" ? "journey.band.running" : "journey.pending.unknown"),
+      u.pendingError ? loadFailure(u.pendingError) : null,
+      journeyButton("journey-open-pending", job?.status === "done" ? "journey.pending.open_result" : "nav.open_jobs",
+        () => job?.status === "done" ? journeyOpenPending() : go("s05"))));
+  }
   if (active && document.activeElement?.isConnected === false) document.getElementById(active)?.focus({preventScroll: true});
-  journeyMarkTarget();
+  journeyMarkTarget(); emit("journey_changed", {});
 }
 on("shell_started", () => {journeyEnsure();});
 on("screen_shown", ({screen, args}) => {
   const u = S.journeyUI;
-  if (screen === "s08") emit("onboarding_opened", {entry: args.entry || "top_link"});
   if (screen === "s02" && u.target && S.source.run === u.target.run && S.source.doc === u.target.doc &&
       S.source.section === u.target.section && S.source.item === u.target.item && S.source.data?.lines?.length) {
     journeyConfirm("t1", 2); if (S.journey.progress.active === "t1") u.phase = 3;
@@ -462,13 +414,7 @@ on("attempt_cancelled", e => {if (S.journey.pending?.job === e.job) journeyChang
 on("context_changed", () => {
   const u = S.journeyUI; u.target = null; u.fromProblem = false; u.runsSeq++; u.runsLoaded = false; u.run = null;
   if (S.journey.progress.active) journeyChange(j => {const t = j.progress.active; j.progress[t].step = 0; j.progress[t].state = "in_progress"; journeyDetach("context_changed");});
-  u.phase = 1; if (S.shell.route === "s08") journeyLoadRuns(); journeyRender();
+  u.phase = 1; journeyRender();
 });
 on("servers_changed", journeyRender);
 document.addEventListener("visibilitychange", () => {if (document.visibilityState === "visible") journeyLoad();});
-shellDefineView("journey-choice", {load: async args => {
-  await journeyEnsure();
-  if (!S.shell.contextLoaded) await (S.shell.contextReady || shellLoadContext());
-  await journeyLoadRuns();
-}, render: journeyRenderChoice});
-shellDefineView("journey-records", {render: journeyRenderRecords});

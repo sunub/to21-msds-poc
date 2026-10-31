@@ -17,7 +17,7 @@
   <div id="journey-notices" aria-live="polite"></div>
   <div id="journey-strip" class="journey-strip" hidden aria-live="polite"></div>
   <section id="screen-s01" hidden aria-labelledby="title-s01">
-    <div id="journey-band" hidden></div>
+    <div id="guide-resume" class="guide-resume" hidden></div>
     <h1 id="title-s01" tabindex="-1"></h1>
     <p id="help-context-s01" class="help-context"></p>
     <div id="score-summary"></div>
@@ -72,13 +72,8 @@
   <section id="screen-s07" hidden aria-labelledby="title-s07">
     <h1 id="title-s07" tabindex="-1"></h1>
     <div id="help-topics"></div>
+    <div id="help-guide-records"></div>
     <div id="help-glossary"></div>
-  </section>
-  <section id="screen-s08" hidden aria-labelledby="title-s08">
-    <h1 id="title-s08" tabindex="-1"></h1>
-    <p id="help-context-s08" class="help-context"></p>
-    <div id="journey-choice"></div>
-    <div id="journey-records"></div>
   </section>
   <section id="screen-s09" hidden aria-labelledby="title-s09">
     <h1 id="title-s09" tabindex="-1"></h1>
@@ -91,6 +86,7 @@
     <div id="jobs-compare"></div>
   </section>
 </main>
+<div id="guide-overlay" role="dialog" aria-modal="true" aria-labelledby="guide-title" hidden></div>
 <div id="tip" class="tip" role="tooltip" hidden></div>
 <dialog id="context-picker" aria-labelledby="context-picker-title"></dialog>
 <dialog id="action-confirm"></dialog>
@@ -104,6 +100,7 @@
 <script src="/static/js/servers.js"></script>
 <script src="/static/js/jobs.js"></script>
 <script src="/static/js/journey.js"></script>
+<script src="/static/js/guide.js"></script>
 <script src="/static/js/help.js"></script>
 <script src="/static/js/boot.js"></script>
 </body>

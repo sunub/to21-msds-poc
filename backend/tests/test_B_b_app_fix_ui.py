@@ -61,28 +61,6 @@ def test_p02_create_button_shows_hourly_cost(cost):
     """)
 
 
-def test_s08_recommended_track_is_primary():
-    from test_B_b_app_journey_ui import SETUP
-    run_js(SETUP + FIX_VISIBLE + r"""
-      await go('s08');await flush();
-      const read=el('journey-start-t1'),trial=el('journey-start-t2');
-      assert.ok(read.classList.contains('primary'));assert.ok(!trial.classList.contains('primary'));
-      assert.equal(el('screen-s08').querySelectorAll('button.primary').length,1);
-      assert.ok(read.closest('.journey-choice').textContent.includes(T('journey.choice.read_ready')));
-      assert.ok(trial.closest('.journey-choice').textContent.includes(T('context.model.readiness_unknown')));
-      assert.ok(trial.closest('.journey-choice').textContent.includes(T('journey.choice.trial_requires_model')));
-      assert.equal(trial.closest('.journey-choice').querySelector('.journey-connection').querySelectorAll('button').length,0);
-      assert.ok(trial.classList.contains('text-button'));assert.ok(el('journey-practice').classList.contains('text-button'));
-      const records=el('journey-records').querySelector('details');assert.ok(records);assert.equal(records.open,false);
-      assert.ok(!visibleText(el('journey-records')).includes(T('journey.history.real_success')));
-      assert.ok(records.querySelector('table'));
-      runData=null;await journeyLoadRuns();journeyRenderChoice();
-      assert.equal(el('journey-start-t1').disabled,true);
-      assert.ok(visibleText(el('journey-choice')).includes(T('journey.start.empty')));
-      let destination;go=async(id,args)=>{destination=[id,args];};
-      await el('journey-start-t2').click();assert.equal(destination[0],'s03');
-      assert.equal(S.journey.outcomes.t2.real,null);
-    """)
 
 
 def test_s09_runnable_docs_first_and_locked_docs_grouped():
@@ -508,7 +486,7 @@ def test_model_lookup_failure_is_not_ai_off():
     """)
 
 
-@pytest.mark.parametrize('route', ['s01', 's02', 's08'])
+@pytest.mark.parametrize('route', ['s01', 's02'])
 def test_saved_results_do_not_wait_for_model_status(route):
     from test_B_b_app_score_ui import FIXTURE
     run_js(FIXTURE + f"location.hash='#{route}';" + r"""
@@ -535,7 +513,6 @@ def test_saved_results_do_not_wait_for_model_status(route):
         assert.ok(calls.some(p=>p.startsWith('/api/run/fake-current')));
         assert.ok(el('score-summary').textContent.includes('82.4'));
       } else if(location.hash==='#s02')assert.ok(calls.some(p=>p.startsWith('/api/doc')));
-      else {assert.ok(calls.some(p=>p.startsWith('/api/run/fake-current')));assert.equal(S.journeyUI.run.weighted,82.4);}
       assert.ok(el('context-model').textContent.includes(T('context.model.query_pending')));
       clockTick(60000); await flush();
       assert.ok(el('context-model').textContent.includes(T('context.model.query_failed')));
@@ -857,20 +834,6 @@ def test_s02_no_evidence_line_offers_reading_the_section():
     """)
 
 
-def test_first_visit_band_links_both_tracks():
-    from test_B_b_app_journey_ui import SETUP
-    for track, text_key in [('t1', 'start_read'), ('t2', 'start_trial')]:
-        run_js(SETUP + f"const desiredTrack='{track}',labelKey='{text_key}';" + r"""
-          await journeyEnsure();journeyRenderBand();
-          const band=el('journey-band');
-          for(const key of ['start_read','start_trial'])assert.ok(band.textContent.includes(T('journey.choice.'+key)));
-          const button=Array.from(band.querySelectorAll('button')).find(b=>b.textContent===T('journey.choice.'+labelKey));
-          assert.ok(button);await button.click();await flush();
-          assert.equal(S.journey.progress.active,desiredTrack);
-          assert.equal(S.shell.route,desiredTrack==='t1'?'s01':'s03');
-          assert.equal(S.journey.outcomes.t1.real,null);assert.equal(S.journey.outcomes.t2.real,null);
-          assert.ok(puts.length);
-        """)
 
 
 def test_s02_criterion_counts_use_run_api_without_recounting_loaded_values():

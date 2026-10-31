@@ -37,6 +37,7 @@ typography:
   app-name:
     fontSize: "18px"
     fontWeight: 750
+  display: {fontSize: "40px", lineHeight: 1.25} # 처음 사용 안내 장 도입, 승인 시안 10/31
   headline:
     fontSize: "28px"
     fontWeight: 700

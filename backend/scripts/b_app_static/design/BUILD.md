@@ -8,7 +8,7 @@
 
 ## 파일 나누기
 
-빌드 없는 일반 스크립트(`<script>`) 10개로 나눕니다.
+빌드 없는 일반 스크립트(`<script>`) 11개로 나눕니다.
 가져오기·내보내기 방식의 ES 모듈(`import`·`export`, `type="module"`)은 쓰지 않습니다.
 `_common.txt` 3절의 결정을 따릅니다.
 
@@ -24,7 +24,8 @@
 | 5 | `js/compare.js` | 두 결과 비교, 바뀐 값, 지시문 차이 | 4 |
 | 6 | `js/servers.js` | 모델 연결, 서버 상태, 확인 절차, 짧은 연결 구역 | 5 |
 | 7 | `js/jobs.js` | 다시 시험, 여러 문서 실행, 비교표, 작업 기록 | 6 |
-| 8 | `js/journey.js` | 두 갈래 안내, 진행과 성공 기록 | 7 |
+| 8 | `js/journey.js` | 기록 조회·직렬 저장·성공 판정·옛 진행 복구 | 7, onboard 0 |
+| 8.5 | `js/guide.js` | 전체 화면 안내, 들어오는 길, 마지막 확정 화면, 키보드 초점 | onboard 0 |
 | 9 | `js/help.js` | 도움말과 용어, 문맥 도움 연결 | 8 |
 | 10 | `js/boot.js` | `start();` 한 줄 | 1 |
 
@@ -78,7 +79,7 @@ step 5가 명시한 공유 구역 `serversRenderCompact(el, {model})`는 구역 
 승인된 정보 구역을 새 기능 없이 나눈 것입니다.
 S01~S10은 화면입니다.
 P01과 P02는 원래 화면으로 돌아오는 확인 영역입니다.
-표에는 전용 구역 36개가 있습니다.
+표에는 앱의 등록 구역 32개와 확인 창 2개가 있습니다. 안내 층과 도움말 기록은 아래 onboard step 0에 별도로 적습니다.
 
 | 화면 id | 화면 이름(COPY.md) | 그 화면에 들어가는 구역(view) id | 그 구역을 그리는 파일 | 맡는 step |
 |---|---|---|---|---|
@@ -89,7 +90,6 @@ P01과 P02는 원래 화면으로 돌아오는 확인 영역입니다.
 | `s05` | 작업 기록 (`nav.jobs`) | `jobs-list`<br>`jobs-detail` | `js/jobs.js` | 6 |
 | `s06` | AI 켜기와 비용 (`nav.servers`) | `servers-summary`<br>`servers-rngd`<br>`servers-runpod`<br>`servers-models`<br>`servers-log` | `js/servers.js` | 5 |
 | `s07` | 도움말 (`nav.help`) | `help-topics`<br>`help-glossary` | `js/help.js` | 8 |
-| `s08` | 처음 사용 안내 (`nav.open_guide`) | `journey-choice`<br>`journey-records` | `js/journey.js` | 7 |
 | `s09` | 여러 문서 시험하기 (`jobs.trial.open_batch`) | `jobs-run` | `js/jobs.js` | 6 |
 | `s10` | 비교표 만들기 (`compare.table.open`) | `jobs-compare` | `js/jobs.js` | 6 |
 | `p01` | 문서와 정답을 함께 검토한 뒤 적용하세요. (`context.picker.title`) | `context-picker` | `js/shell.js` | 1 |
@@ -129,10 +129,10 @@ step 9에서 94칸을 모두 확인했습니다. 첫 코드 표기는 자동 시
 | I01 | 앱 이름, 탭, 시작 안내, 전체 상태 문장 | `index.html #status, setupTabs` | 공통 app-header·main-nav·global-context | 1 | `#app-heading`, `#main-nav`, `#global-context`, `#status`; `shellRenderHeader/go` |
 | I02 | 화면 목적과 도움말 장 연결 | `index.html .tab 설명, guide.html 장 링크` | 공통 화면 설명 → S07 help-topics | 1, 8 | `#help-context-s01`~`s10`(S07 제외) → `helpOpen(topic, screen)`. 원래 화면과 선택은 `helpReturn`으로 복원 |
 | I03 | 용어 말풍선, 접힘 상태, 키보드 포커스 | `term, setupTip, card, loadCards` | 공통 core 도우미 | 1 | `term`: `core.js`: `term/setupTip/card/loadCards/coreRead/coreWrite`; 말풍선·접기 새 시험 통과 |
-| I04 | 앱 목적, 서버 없이 결과 확인, 점수→문제→원문 3단계 | `renderStart, journeyStep` | S08 journey-choice, S01 journey-band | 7 | `journeyRenderChoice`: `journeyRenderChoice/journeyRenderBand/journeyRenderStrip`: 두 갈래·실제 화면 행동·준비/실패/건너뛰기 |
-| I05 | 단계 완료, 첫 성공 시각, 실패 후 위치 | `advanceJourney, journeyPassed, focusJourneyValue` | S08 journey-records | 7 | `journeyRenderRecords`, `journeyRecord/journeyComplete`: 실제 성공·연습·시각/횟수·이어하기. `journeyReplay/journeyDismiss`는 성공 이력 보존 |
-| I06 | 다음에 할 일: 비교·시험·서버 | `renderStart, journeyStep` | S01 score-summary, S08 journey-choice | 2, 7 | `scoreConditions`의 다음 행동·`#score-retest`, `scoreRenderHistory`의 비교 이동. 서버 연결은 공통 맥락 줄. S08의 `journeyConnection`은 `serversRenderCompact` 재사용 |
-| I07 | 안내 닫기, 처음부터 다시 보기 | `resetJourney, dismissJourney` | S08 journey-records | 7 | `journeyReplay`: `journeyRenderRecords`, `journeyRecord/journeyComplete`: 실제 성공·연습·시각/횟수·이어하기. `journeyReplay/journeyDismiss`는 성공 이력 보존 |
+| I04 | 앱 목적, 서버 없이 결과 확인, 점수→문제→원문 3단계 | `renderStart, journeyStep` | G01·G03·G04·G06·G09 | onboard 0 | `guideRender`: 승인된 설명과 예시, 실습은 다음 step에 연결 |
+| I05 | 단계 완료, 첫 성공 시각, 실패 후 위치 | `advanceJourney, journeyPassed, focusJourneyValue` | G15 guide-records, S07 help-guide-records, S01 guide-resume | onboard 0 | `journeyRenderRecords`: 실제 성공과 연습의 첫 시각·횟수 보존. guideOpen은 마지막 확정 화면으로 이어하기 |
+| I06 | 다음에 할 일: 비교·시험·서버 | `renderStart, journeyStep` | S01 score-summary, G03·G09, 공통 맥락 줄 | onboard 0 | `scoreConditions`: 기존 비교·시험 이동 보존. 새 안내는 guideRender, 실제 준비/시험은 step 1에서 연결 |
+| I07 | 안내 닫기, 처음부터 다시 보기 | `resetJourney, dismissJourney` | 안내 전체 화면·ESC, 머리 guide-open, S07 help-replay | onboard 0 | `guideClose`: 닫기/건너뛰기/완료. guideOpen(replay)은 progress.guide만 초기화하며 성공과 대기 기록 보존 |
 | I08 | 실행 목록·읽기 실패 수·다시 읽기·채점 로딩 | `loadAll, loadRun, renderScoreLoading, scoreLoadFailure` | S01 score-summary | 2 | `scoreLoad`: scoreSelect. 로딩·부분 실패·재조회 보존. 기록 선택은 요약 아래 접힌 영역에 두며 결과 없음에는 선택기·다시 읽기를 숨김 (fix step 1). |
 | I09 | 현재 점수·부족 점수·필수 달성 수·상위 문제 3개·다음 행동 | `renderStatus, openScoreSource` | S01 score-summary·score-problems | 2 | `scoreRenderSummary`: scoreCounts/scoreProblemDoc. API 칸 단위 수·손실 순서·목표 차이 표시. 틀림 문서부터 원문으로 연결 (fix step 1). |
 | I10 | 총점·목표선·필수 막대·전체 판정 | `renderNow, goalBar` | S01 score-summary | 2 | `scoreRenderSummary`: scoreBar. 목표선 막대 하나와 targets.must의 필수 기준 설명 문장. 추가 필수 막대의 수치는 문장에 보존 (fix step 1). |
@@ -1571,3 +1571,79 @@ Questions skipped: non-interactive. impeccable clarify·polish·audit·craft-flo
 - `git diff --check`와 JS 10개 문법 검사를 통과했다. DESIGN의 diff는 input-line·input 두 색 값뿐이다. COPY·STRUCTURE·mockup·PRODUCT·CRITIQUE의 HEAD 대비 diff는 없다. Python 함수는 doc_legend의 범례 색 2개만 달라졌으며 이름·인자·계산 로직은 같다.
 - 시작 시 보호 파일 901개를 해시로 기록했다. 허용된 BUILD·DESIGN·자기 step 상태 외에 `design_work/app-redo/approvals.txt`, `design_work/app-redo/onboard-wispr/mockup.html`, `design_work/app-redo/onboard-wispr/NOTES.md`의 외부 변경을 감지했다. 이 작업은 해당 파일에 쓰지 않았으며 변경을 보존했다. 다른 step의 상태는 그대로다.
 - `phases/app-redo-fix/index.json`의 step 4 status·summary만 갱신했다. 커밋하지 않았다. ⚠️ DEGRADED: no browser in sandbox. 실제 화면·기기 확인과 ⑤ 문구 수락은 완료로 주장하지 않는다.
+
+## 처음 사용 안내 (Wispr 구조)
+
+### onboard step 0
+
+⚠️ DEGRADED: no browser in sandbox
+
+- 승인된 SPEC·mockup·NOTES와 G01·G02·G03·G04·G06·G09·G13·G15·ESC·S01 사진을 읽었다. 사진은 fix 2보다 앞선 자료여서 문구와 간격은 최신 mockup/NOTES를 우선한다.
+- Questions skipped: non-interactive. 승인된 50:50 예시/진행 열과 고정 주 버튼을 구현한다.
+- 구현 전 새 시험 9개를 실행해 9 failed를 확인했다. 안내 요소와 guide 함수가 없으며 S08이 남아 실패한다. 로그: `/tmp/to21-onboard0-red.log`.
+- 실패 시험: `test_first_visit_opens_guide_full_screen`, `test_hash_route_and_unknown_journey_do_not_open_guide`, `test_returning_visit_lands_on_s01_with_resume_line`, `test_guide_progress_saves_last_confirmed_screen_only`, `test_chapter_row_and_progress_text`, `test_close_skip_and_escape`, `test_replay_keeps_outcomes`, `test_s08_and_band_are_removed_and_records_moved`, `test_guide_puts_serialize_and_merge_other_tab_outcomes`.
+- 이번 순서: G01 → G03 → G04 → G06 → G09 → G13 → G15. G02·G05·G07·G08·G10·G11·G12·G14는 순서표에서 제외한다. 정지된 가짜 실습 화면은 만들지 않는다.
+- 장별 진행 표시는 승인 시안의 원래 장 위치를 유지한다(G03: 3/3, G09: 4/7). 실습과 선택의 실제 효과는 step 1·2가 맡는다.
+
+| SPEC 화면·규칙 | 시험 이름 (`test_B_b_app_guide_ui.py`) | 확인 방법 |
+|---|---|---|
+| G01 | `test_first_visit_opens_guide_full_screen` | 기본 GET 뒤에만 전체 화면. 제목 초점, 뒤 앱 inert, 예시 배지, 자동 PUT 없음 |
+| G03 | `test_chapter_row_and_progress_text` | 시작 3/3, 다섯 장 이름과 현재 장, 승인된 용어 세 줄 |
+| G04 | `test_chapter_row_and_progress_text` | 준비 도입, 진행 표시 없음, 주 버튼 하나 |
+| G06 | `test_chapter_row_and_progress_text` | 직접 해 보기 도입, 진행 표시 없음 |
+| G09 | `test_chapter_row_and_progress_text` | 직접 해 보기 4/7, 예시는 성공 기록 없음 |
+| G13 | `test_chapter_row_and_progress_text` | 기본값 도입, G14가 없는 이번 순서에서는 G15로 이동 |
+| G15 | `test_s08_and_band_are_removed_and_records_moved`, `test_guide_g15_example_records_stay_separate_from_actual_records` | 왼쪽 고정 예시, 오른쪽 실제 기록 펼침. 안내 완료와 실제 성공 분리 |
+| ESC | `test_close_skip_and_escape` | 닫기 확인, 취소 후 이전 초점, 확인 층과 안내 안의 Tab 순환 |
+| 들어오는 길 | `test_hash_route_and_unknown_journey_do_not_open_guide`, `test_returning_visit_lands_on_s01_with_resume_line`, `test_guide_entry_and_one_primary_action_do_not_wait_for_model_status` | 해시·응답 전·실패·늦은 GET에서 자동 진입 없음. 중간 닫기는 S01 이어하기 |
+| 진행 저장 | `test_guide_progress_saves_last_confirmed_screen_only`, `test_guide_puts_serialize_and_merge_other_tab_outcomes` | 다음으로 확정한 화면만 저장. 뒤로·그리기·조회는 PUT하지 않음. 저장 실패 복구·두 탭의 성공 병합 |
+| 다시 보기 | `test_replay_keeps_outcomes` | 머리/도움말에서 G01. progress.guide만 초기화, 실제 성공·연습·대기 작업 보존 |
+| S08 제거 | `test_s08_and_band_are_removed_and_records_moved` | S08 경로·메뉴·구역과 journey-band 없음. G15/S07에서 같은 기록 함수 호출 |
+| 예시 문구 | `test_guide_examples_match_approved_scene_text` | 7개 화면의 왼쪽 예시를 최신 승인 HTML에서 읽은 전체 문구와 공백 제외 대조 |
+
+#### 파일과 계약
+
+- `js/guide.js`: `guideOpen({resume, replay})`, `guideNext`, `guideBack`, `guideClose`, `guideRender`, `guideOrder`, `guideScreens`. 모든 맨 위 이름은 guide 접두어다. 순서는 journey 다음/help 앞이다.
+- `journeyChange`·`journeySave`·`journeyMergeOutcomes`·`journeyRecord`를 재사용한다. 저장 전송 코드와 성공 판정 코드를 guide에 복제하지 않았다. 화면 갱신은 `journey_changed` 사건으로 연결한다.
+- 저장 칸은 `state, screen, choices, skipped, updated_at`뿐이다. 서버의 선택 칸 계약을 유지했다. 문서 번호·실행·값·지시문·준비 상태는 안내 진행에 저장하지 않는다.
+- 기존 `dismissed_at`은 닫은 시각이다. guide가 in_progress이고 닫은 시각이 마지막 확정 시각보다 늦으면 S01의 이어하기로 시작한다. 닫지 않은 새로고침은 마지막 확정 화면을 복원한다. 뒤로 보기와 다시 그리기는 저장하지 않는다. 보내기를 자동 실행하지 않는다.
+- 저장된 화면이 이번 순서에 없으면 다음 지원 화면으로 이동한다. screen이 null이면 G01이다. API 칸 부족 없음. 백엔드 `b_app_journey.py`와 그 시험은 변경하지 않았다.
+- `journeyRenderRecords(el, id)`는 G15와 S07이 공유한다. G15의 왼쪽 기록은 승인된 고정 예시이고, 실제 성공·연습 기록은 오른쪽 접힌 표에 둔다. 오른쪽에만 실제 API 값을 쓴다는 이번 step의 지시를 따른 배치다.
+- 옛 t1/t2 진행 복구용 journey-strip과 성공 사건 판정은 보존했다. 새 안내 진입은 옛 갈래 시작을 부르지 않는다. 판정 대기 작업 알림은 journey-notices에 남겼다.
+- UI_TEXT.guide.example에 고정 예시의 값과 글을 모았다. 동적 문장은 자리표시로 만들었다. 신규 문구는 승인 시안에서만 가져와 추가 승인 대기 문구가 없다. COPY에 이미 있는 문장은 중복 예외 등록하지 않았다.
+- DESIGN.md에는 display 한 줄(40px, 1.25)만 추가했다. app.css도 같은 토큰을 쓴다. 기존 색·글꼴·움직임 금지는 유지했다.
+
+#### 옛 시험 옮기기와 기존 기대 변경
+
+| 옛 시험/검사 | 새 자리와 변경 이유 |
+|---|---|
+| test_B_b_app_journey_ui.py의 동작 시험 전체 | `test_B_b_app_guide_ui.py`로 이동. 옛 파일에는 다른 시험도 사용하는 SETUP만 남김. 첫 방문·읽기/쓰기 실패·늦은 GET·직렬 PUT·v1 이관·성공/연습·취소·중복 작업·실제 S02/S03 흐름을 유지 |
+| `test_boot_reads_once_no_band_before_reply_and_hash_wins`, `test_returning_records_do_not_show_first_visit`, `test_default_record_key_order_does_not_change_first_visit` | 같은 이름으로 이동. journey-band 기대를 guide-overlay 진입 조건으로 변경. 해시 진입 뒤 S01로 이동해도 안내가 뒤늦게 열리지 않음 |
+| `test_resume_and_pending_are_separate_from_first_visit`, `test_unknown_pending_is_cleared_and_failed_lookup_keeps_retryable_job`, `test_pending_failure_is_not_shown_as_waiting` | 같은 이름으로 이동. 이어하기는 guide-resume, 대기/실패 작업은 journey-notices로 이동 |
+| `test_storage_failures_are_not_first_visit_and_notify_once_but_work_continues` | 같은 이름으로 이동. 안내 띠 대신 전체 화면 미자동열림을 검사. 오류 알림 한 번·복구 검사는 유지 |
+| `test_replay_only_resets_progress_detaches_job_and_preserves_outcomes_other_storage` | `test_replay_only_resets_guide_and_preserves_pending_outcomes_other_storage`. 이번 계약이 progress.guide만 초기화하므로 옛 갈래와 pending도 보존하도록 기대 변경 |
+| `test_run_list_loading_failure_and_no_null_optional_children`, `test_no_runs_cannot_start_read_and_trial_has_compact_connection` | 전자는 같은 이름으로 이동해 조회 상태·오류·빈 DOM 글을 검사. 후자는 `test_no_runs_cannot_start_read_and_guide_never_claims_success`로 이동. 삭제된 S08 단추 대신 결과 없을 때 실제 성공을 만들지 않는 계약을 유지 |
+| fix의 `test_s08_recommended_track_is_primary` | `test_chapter_row_and_progress_text`, `test_guide_entry_and_one_primary_action_do_not_wait_for_model_status`, `test_s08_and_band_are_removed_and_records_moved`로 이동. 주 버튼 하나와 접힌 기록 유지. 2갈래 선택 화면은 승인 결정으로 제거 |
+| fix의 `test_first_visit_band_links_both_tracks` | `test_legacy_track_actions_keep_real_and_practice_contract_without_s08`와 `test_replay_keeps_outcomes`로 이동. 옛 갈래 기능의 성공 계약은 보존하며 새 들어오는 길을 검사 |
+| test_B_b_app.py·shell_ui·audit_ui의 화면 목록 | S08을 제외하고 안내 층 존재/제거를 검사. 등록 구역 34→32. 안내의 안전한 내용·단추·오류·초점은 새 guide 시험에서 검사 |
+| fix의 saved_results_do_not_wait_for_model_status S08 인자 | 새 `test_guide_entry_and_one_primary_action_do_not_wait_for_model_status`로 이동. S01/S02 인자는 그대로 유지 |
+| help_ui의 S08 문맥 도움 인자·다시 보기 | S08 인자 제거. 다시 보기 대상은 G01. 서버 저장값에 가짜 성공 기록을 두고 journeyEnsure/flush로 실제 비동기 조회 완료를 기다림. 성공 2회 보존 검사는 유지 |
+
+- 추가 실패 확인: null 화면 복원·G15 예시/실제 기록 분리 2개 실패 후 수정했다(`/tmp/to21-onboard0-migrate-red.log`). 최신 HTML 문구 대조는 G09의 예시 근거 줄 누락과 G13의 AI 정답 초안 표기 차이를 잡았고 수정했다(`/tmp/to21-onboard0-copy-red.log`). 승인 시안/사진은 수정하지 않았다.
+
+#### 디자인 자동 점검과 후속 브라우저 확인
+
+- impeccable context 성공. detect를 한 번 실행했다(`/tmp/to21-onboard0-detect.json`, 종료 2). 총 44건: 기존 승인 mockup 26, wireframes 15, guide.html 2, 변경 CSS의 advisory 1건이다.
+- 새 advisory는 확인 상자의 12px 모서리가 기존 DESIGN 토큰에 없다는 내용이다. SPEC/NOTES가 이 값을 승인했으며 DESIGN은 display 한 줄만 바꿀 수 있어 승인된 12px을 유지한다. 실제 오류를 숨기거나 승인 설계를 고치지 않았다.
+- `/static/app.css`를 로컬 경로로 찾지 못한다는 검사기 경고가 있다. 색/변수 검사 결과는 불완전하다. 실제 렌더링 통과로 주장하지 않는다.
+- 후속 확인: 1280·1440·1680px × 900px에서 본문/예시 넘침과 한국어 줄바꿈, 고정 주 버튼, 실제 Tab/inert/Esc/취소 초점 복귀, G15의 예시/실제 기록 구분을 브라우저로 확인한다. 모두 이번 샌드박스에서는 미실행이다.
+
+#### 최종 완료 기준 검증
+
+- 지정 AC 전체를 저장소 최상위에서 `bash /tmp/to21-onboard0-ac.sh`로 직접 실행했다. 최종 로그는 `/tmp/to21-onboard0-ac-final.log`이며 종료 코드는 0이다. 파일·스크립트 순서·S08/안내 띠 제거·BUILD 제목·display·외부 주소 없음·움직임 없음·Node 확인을 모두 통과했다.
+- 지정 시험: **8 passed** (1.94초).
+- 앱 관련 시험: **1081 passed, 1194 deselected, 7 warnings** (42.05초).
+- 전체 시험: **2245 passed, 30 skipped, 7 warnings** (72.26초). `tests/test_preprocess.py`는 지시대로 제외했다. 경고는 기존 SWIG 타입의 `__module__` 관련 DeprecationWarning이다.
+- `git diff --check`와 JS 11개 문법 검사를 통과했다. b_app_text.py의 Python 함수 본문은 HEAD와 같으며 문구 상수만 바꿨다. DESIGN.md는 display 한 줄만 추가했다.
+- 시작 시 해시로 기록한 파일 476개에서 허용되지 않은 변경은 없다. 백엔드 계약·승인 시안·docs·CLAUDE.md·하네스 실행기·다른 step은 변경하지 않았다.
+- `phases/app-onboard/index.json`의 step 0만 completed와 summary로 갱신한다. 커밋하지 않는다. ⚠️ DEGRADED: no browser in sandbox. 실제 브라우저 관찰과 실습/선택 화면의 후속 step은 이번 완료 범위에 포함하지 않는다.

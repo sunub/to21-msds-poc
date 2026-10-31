@@ -9,7 +9,7 @@ from test_B_b_app_dom import STATIC, run_js
 from test_B_b_app_score_ui import FIXTURE as SCORE_FIXTURE
 
 
-SCREENS = tuple(f"s{n:02}" for n in range(1, 11))
+SCREENS = tuple(f"s{n:02}" for n in range(1, 11) if n != 8)
 BUILD = STATIC / "design/BUILD.md"
 SETUP = SCORE_FIXTURE + r"""
 const scoreApi=api;
@@ -73,7 +73,7 @@ def screen_views():
 def test_registered_views_match_build_and_html():
     expected = screen_views()
     assert set(expected) == set(SCREENS)
-    assert sum(map(len, expected.values())) == 34  # P01/P02 포함 전용 구역은 36개다.
+    assert sum(map(len, expected.values())) == 32  # S08의 두 구역은 안내 층과 도움말로 옮겼다.
     run_js("const expected=" + json.dumps(expected) + r""";
 for(const [id,views] of Object.entries(expected)){
  assert.deepEqual([...SHELL_SCREENS[id].views],views);
@@ -109,7 +109,7 @@ for(const node of root.querySelectorAll('*')){
 
 
 ERROR_PATHS = dict(zip(SCREENS, ["/api/runs", "/api/doc", "/api/options", "/api/diff", "/api/jobs",
-                               "/api/servers", "/api/glossary", "/api/journey", "/api/options", "/api/runs"]))
+                               "/api/servers", "/api/glossary", "/api/options", "/api/runs"]))
 
 
 @pytest.mark.parametrize("screen", SCREENS)
