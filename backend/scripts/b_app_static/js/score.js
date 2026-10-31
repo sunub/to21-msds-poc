@@ -19,15 +19,7 @@ on("context_changed", () => { scoreLoad(true); });
 function scoreContext() { return JSON.stringify([S.ctx.set, S.ctx.key]); }
 async function scoreEnsure() {
   if (!S.shell.contextLoaded) {
-    // start()는 맥락과 첫 화면을 동시에 연다. 공통 맥락 복원이 끝난 뒤 점수를 요청한다.
-    if (S.shell.started) {
-      if (!S.score.initial) S.score.initial = Promise.resolve().then(async () => {
-        await S.shell.ready; return scoreLoad(true);
-      });
-      S.score.pending = S.score.initial;
-      return;
-    }
-    await shellLoadContext();
+    await (S.shell.contextReady || shellLoadContext());
   }
   return scoreLoad();
 }
@@ -90,11 +82,12 @@ function scoreItemName(name) { return UI.score.item_names[scoreItemKey(name)] ||
 function scoreLabel(run) { return run.label?.title || run.name; }
 function scoreMissing() { return T("context.unavailable"); }
 function scoreBasis(run = S.score.run, count = run?.docs?.length) {
-  return h("p", {class: "score-basis muted"}, scoreBasisText(run, count));
+  return h("p", {class: "score-basis muted"}, scoreBasisText(run, count),
+    shellKeyMismatch(run?.key) ? h("span", {class: "answer-mismatch"}, " ", shellKeyMismatch(run.key)) : null);
 }
 function scoreBasisText(run = S.score.run, count = run?.docs?.length) {
   return T("score.basis.label", {
-    key: run?.key?.label || T("score.basis.fallback"), count: count ?? scoreMissing()
+    key: shellKeyLabel(run?.key), count: count ?? scoreMissing()
   });
 }
 function scoreButton(id, key, action, attrs = {}) {

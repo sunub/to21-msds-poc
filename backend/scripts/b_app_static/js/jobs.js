@@ -5,7 +5,7 @@ S.jobs = {opts: null, optionsError: null, optionsRecovered: false, pollError: nu
   t: {doc: null, model: null, secs: new Set([1]), all: false, base: "", dry: false, edit: false, text: "", textFor: null},
   r: {model: null, docs: null, repeat: 1, name: "", edited: false}, c: {picked: [], labels: {}, title: ""},
   list: [], running: [], runs: [], runsError: null, runsKey: null, timer: null, polling: null, loadingOptions: null,
-  watch: null, result: null, resultLoaded: false, resultError: null, resultRequest: 0,
+  watch: null, result: null, resultStatus: null, resultLoaded: false, resultError: null, resultRequest: 0,
   observed: new Set(), emitted: new Set(), terminal: new Set(), log: null, expanded: {},
   busy: null, message: {}, confirm: null, initialized: false, defaultsApplied: false,
   dialogReady: false, confirmTrigger: null, promptRequest: 0, promptBusy: false};
@@ -19,6 +19,15 @@ function jobsValue(value) {
   if (value == null) return T("common.none");
   if (typeof value === "boolean") return T(value ? "source.value.true" : "source.value.false");
   return typeof value === "object" ? JSON.stringify(value, null, 1) : String(value);
+}
+function jobsFocusValue(value, text) {
+  if (value == null) return T("common.none");
+  if (typeof value?.raw === "string" && value.raw.trim()) return value.raw;
+  if (typeof text === "string" && text.trim()) return text;
+  if (Array.isArray(value)) return value.map(item => jobsFocusValue(item)).join(", ");
+  if (typeof value === "object") return value.value != null
+    ? [jobsFocusValue(value.value), value.unit].filter(part => part != null && part !== "").join(" ") : T("context.unavailable");
+  return jobsValue(value);
 }
 function jobsPre(value) { return h("pre", {class: "job-log technical"}, value == null ? T("common.none") : jobsValue(value)); }
 function jobsDetails(id, title, ...kids) {
@@ -47,7 +56,7 @@ function jobsRemember() {
   const t = S.jobs.t;
   const changed = S.focus.doc !== t.doc || Number(S.focus.section) !== [...t.secs][0];
   S.focus = {...S.focus, doc: t.doc, section: [...t.secs][0] || null, model: t.model, base_run: t.base || null,
-    ...(changed ? {path: null, kind: null, expected: null, actual: null, line: null, lines: []} : {})};
+    ...(changed ? {path: null, kind: null, expected: null, actual: null, expected_text: null, actual_text: null, line: null, lines: []} : {})};
 }
 function jobsSuggestName() {
   const J = S.jobs, page = J.opts?.pages_dirs?.find(item => item.id === S.ctx.set)?.value;
@@ -96,7 +105,7 @@ async function jobsEnsure(args = {}) {
   }
   if (Object.hasOwn(args, "practice")) J.t.dry = args.practice;
   if ((args.doc || args.section) && !Object.hasOwn(args, "path")) {
-    S.focus = {...S.focus, path: null, kind: null, expected: null, actual: null, line: null, lines: [], source_set: null};
+    S.focus = {...S.focus, path: null, kind: null, expected: null, actual: null, expected_text: null, actual_text: null, line: null, lines: [], source_set: null};
   }
   if (incoming.doc) J.t.doc = incoming.doc;
   if (Number.isInteger(Number(incoming.section)) && Number(incoming.section) >= 1 && Number(incoming.section) <= 16) {
@@ -131,7 +140,7 @@ function jobsRenderFocus() {
   const key = valid ? {wrong: "pair", missing: "missing", made: "made"}[f.kind] : null;
   const parsed = String(f.line || "").match(/^p(\d+):L(\d+)$/);
   return h("div", {id: "jobs-focus", class: "job-focus"}, h("h3", null, T("jobs.focus.title")),
-    jobsNote(T(`jobs.focus.${key || "none"}`, {key_value: jobsValue(f.expected), ai_value: jobsValue(f.actual)})),
+    jobsNote(T(`jobs.focus.${key || "none"}`, {key_value: jobsFocusValue(f.expected, f.expected_text), ai_value: jobsFocusValue(f.actual, f.actual_text)})),
     key ? jobsNote(f.path, {class: "technical"}) : null,
     key && f.line ? jobsNote(f.line_text && parsed ? T(`jobs.focus.${f.estimated ? "line_estimated" : "line"}`,
       {page: parsed[1], line_no: parsed[2], line_text: f.line_text}) : T(`jobs.form.${f.estimated ? "focus_estimated" : "focus_line"}`, {line: f.line})) : null);
@@ -249,7 +258,7 @@ async function jobsStartTry() {
     if (!data?.id) throw new Error(T("jobs.send_unknown.fact"));
     J.observed.add(data.id);
     emit("attempt_accepted", {attempt, job: data.id});
-    J.watch = data.id; J.result = null; J.resultLoaded = false; J.resultRequest++;
+    J.watch = data.id; J.result = null; J.resultStatus = null; J.resultLoaded = false; J.resultError = null; J.resultRequest++;
     J.message.try = jobsNote(T("jobs.form.sent"), {role: "status"}); await jobsPoll();
   } catch (error) { J.message.try = jobsRequestError(error); }
   finally { J.busy = null; jobsRenderTry(); jobsRenderResult(); }
@@ -326,7 +335,7 @@ function jobsResultMatches(job, result) {
 }
 function jobsEmitResult(job, result) {
   const J = S.jobs;
-  if (S.shell.route !== "s03" || document.getElementById("screen-s03").hidden || !J.observed.has(job.id) ||
+  if (J.resultStatus !== 200 || S.shell.route !== "s03" || document.getElementById("screen-s03").hidden || !J.observed.has(job.id) ||
       J.emitted.has(job.id) || J.terminal.has(job.id) || job.status !== "done" || job.returncode !== 0 ||
       !jobsResultMatches(job, result) || job.target?.all || job.target?.kind !== "try") return;
   const practice = jobsPractice(job);
@@ -345,6 +354,10 @@ function jobsRenderResult() {
   if (J.resultError) { coreReplace(el, head, loadFailure(J.resultError.message), jobsButton("jobs-result-retry", "jobs.result.retry", () => jobsLoadResult(J.watch))); return; }
   if (!J.resultLoaded) { coreReplace(el, head, jobsNote(T("jobs.result.pending"), {role: "status"})); return; }
   const r = J.result;
+  if (J.resultStatus !== 200 && J.resultStatus !== 204) {
+    coreReplace(el, head, jobsNote(T("jobs.result.pending"), {role: "status"}),
+      jobsButton("jobs-result-retry", "jobs.result.retry", () => jobsLoadResult(J.watch))); return;
+  }
   if (!r) {
     coreReplace(el, head, jobsNote(h("strong", null, T("jobs.result_missing.fact"))), jobsNote(T("jobs.result_missing.todo", {status_code: 204})),
       jobsButton("jobs-result-log", "jobs.result_missing.open_log", () => jobsOpenLog(J.watch)), jobsButton("jobs-result-retry", "jobs.result.retry", () => jobsLoadResult(J.watch))); return;
@@ -393,16 +406,18 @@ function jobsRenderResult() {
 }
 async function jobsLoadResult(id) {
   const J = S.jobs, request = ++J.resultRequest;
+  J.result = null; J.resultStatus = null; J.resultError = null;
   try {
-    const data = await api(`/api/jobs/${encodeURIComponent(id)}/result`);
+    const response = await api(`/api/jobs/${encodeURIComponent(id)}/result`, {withStatus: true});
     if (J.watch !== id || request !== J.resultRequest) return;
-    J.result = data; J.resultLoaded = true; J.resultError = null;
+    J.resultStatus = response.status;
+    J.result = response.status === 200 ? response.data : null; J.resultLoaded = true; J.resultError = null;
   } catch (error) { if (J.watch === id && request === J.resultRequest) J.resultError = error; }
   if (J.watch === id && request === J.resultRequest) jobsRenderResult();
 }
 async function jobsWatch(id, navigate = true) {
   const J = S.jobs;
-  if (J.watch !== id) { J.watch = id; J.result = null; J.resultLoaded = false; J.resultError = null; J.resultRequest++; }
+  if (J.watch !== id) { J.watch = id; J.result = null; J.resultStatus = null; J.resultLoaded = false; J.resultError = null; J.resultRequest++; }
   if (navigate && S.shell.route !== "s03") await go("s03");
   if (J.list.find(j => j.id === id)?.status !== "running") await jobsLoadResult(id);
   jobsRenderResult();

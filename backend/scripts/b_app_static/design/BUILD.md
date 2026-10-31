@@ -550,6 +550,8 @@ step 2의 API 확인 보충입니다.
 
 ## 브라우저로 볼 것
 
+- fix step 0 미실행: 도움말 9장과 점수 기준 펼침, 모델 조회 실패·켜는 중·다른 모델의 공통 줄/S06 상태, 모델 응답 없이 S01·S02·갈래 1 읽기, 정답지 미확인/선택 불일치, 202·204 후 결과 재조회, S02→S03 숫자 묶음의 원문 글 표시를 실제 브라우저에서 확인한다.
+
 step 9에서 step 1~8의 미실행 목록을 아래 100줄로 합쳤습니다. 모든 줄은 미실행입니다.
 각 줄을 가로 1280px·1440px·1680px에서 각각 확인합니다(총 300회). 휴대폰은 범위 밖입니다.
 Claude의 후속 브라우저 확인용입니다. 이 step에서는 서버·포트·브라우저를 열지 않았습니다.
@@ -1170,3 +1172,75 @@ UI_GUIDE의 색+글·금지 효과·초점·한국어·데스크톱 범위를 �
 - 시작 때 기록한 보호 파일 120개의 SHA-256이 같습니다. docs·CLAUDE·하네스·승인 설계는 바꾸지 않았습니다. index.json은 step 9의 status·summary만 바꿉니다.
 - 최종 남은 수: 새 정적 제품 지적 0, 기존 wireframes 지적 15, detector 오탐 2, 기존 API 빈칸 2, 미실행 브라우저 확인 100줄입니다.
 - 브라우저·실제 모델·장비 확인과 커밋은 수행하지 않았습니다.
+
+
+## S5 고침
+
+### fix step 0
+
+⚠️ DEGRADED: no browser in sandbox
+
+Questions skipped: non-interactive. 승인 구조와 모양은 유지한다.
+
+| 고친 번호 | 시험 이름 | 확인 방법 |
+|---|---|---|
+| F01 | `test_dom_stringifies_non_node_arguments_like_browser`, `test_help_renders_nine_chapters_as_elements` | DOM 대역을 고친 뒤 도움말 0/9개 실패를 재현. coreReplace로 배열을 펼쳐 장 9개와 점수 기준 영역이 실제 요소로 붙음을 확인. |
+| F02 | `test_model_lookup_failure_is_not_ai_off` | 개별 조회 실패를 꺼짐으로 표시하는 실패를 재현. shellModelState를 공통 줄과 S06에서 재사용해 실패·미확인·다른 모델·켜는 중·통로 닫힘·확인된 꺼짐을 구분. |
+| F03 | `test_saved_results_do_not_wait_for_model_status` | 모델 미응답 중 S01·S02 조회 막힘과 종료 조건 부재를 재현. contextReady로 선택 준비를 분리해 S01·S02·갈래 1을 그림. 모델 요청은 60초에 중단하고 늦은 응답을 무시함. 채점 중 실행 수와 처음에는 수십 초 안내 확인. |
+| F04 | `test_missing_key_name_shows_unknown_not_draft` | 이름 누락 시 목록 이름 대신 실버를 표시하는 실패를 재현. shellKeyLabel로 응답 id에 맞는 목록 이름을 찾고, 없으면 확인 안 됨. shellKeyMismatch로 전역 선택과 차이를 표시. |
+| F05 | `test_try_success_requires_http_200` | 202·206 성공 오기록과 JSON 읽기 실패 시 복구 단추 없음 재현. api의 선택 인자 withStatus로 상태와 본문을 보존. resultStatus가 정확히 200일 때만 성공 사건을 내보냄. 202·204·206·읽기 실패는 성공 없음과 재조회 복구 확인. |
+| F06 | `test_retest_focus_shows_plain_values_not_json` | S02에서 고른 숫자 묶음이 S03에서 JSON으로 보이는 실패를 재현. sourceRemember가 기존 표시 글을 메모리에 전달하고 jobsFocusValue는 raw 또는 표시 글을 사용. 정답과 AI 값 모두 확인. |
+
+시험 선행: DOM 계약 시험은 대역 수정 전에 실패했다. 대역 수정 뒤 나머지 여섯 이름의 시험에서 실패를 확인했다(세부 경우 10 실패, 3 통과).
+
+
+#### 배열 전달 전수 확인
+
+`js/` 전체의 append·prepend·replaceChildren·before·after·replaceWith 호출을 읽었다. 배열이 직접 도달할 수 있던 곳은 **2곳**이다. `h`·`fill`·`coreReplace` 내부와 이미 전개한 호출은 그대로 둔다.
+
+| 위치 | 원인 | 고침 |
+|---|---|---|
+| `help.js:helpRenderTopics` | 장 목록 배열을 replaceChildren의 인자로 전달 | `coreReplace`로 장 목록 전개 |
+| `core.js:card`의 접기 옵션 없는 갈래 | content의 최상위만 전개해 그 안의 자식 배열은 문자열로 변환됨 | 기존 `coreReplace`로 자식 배열 전개 |
+
+#### 기존 시험 변경과 이유
+
+| 파일·시험 | 변경 | 이유 |
+|---|---|---|
+| `test_B_b_app_dom.py`의 Element | 여섯 DOM 메서드는 배열·객체도 String 값으로 삽입. AbortController를 실행 환경에 제공 | 실제 브라우저의 배열 문자열 변환과 요청 중단 계약을 검증하기 위함 |
+| `test_B_b_app_dom.py:run_js` | 비동기 본문이 끝난 표식을 확인 | Node가 미완료 Promise를 남긴 채 종료 코드 0으로 끝내는 것을 시험 성공으로 세지 않음 |
+| `test_B_b_app_jobs_ui.py:SETUP` | 선택 인자 withStatus 요청에 HTTP 상태와 본문을 반환 | 결과 응답 상태를 보존하는 새 요청 계약. 기존 api 호출은 본문만 반환. 기대값은 유지 |
+| `test_result_race_does_not_overwrite_selected_job_and_whole_has_no_event` | 지연 응답 대역도 withStatus를 전달하고 상태 200을 포함 | 늦은 응답과 대상 교체 검증을 유지하며 실제 응답 계약에 맞춤. 기대값은 유지 |
+| `test_model_connection_names_count_neutral_absence_and_error_recovery` | 빈 모델 목록의 기대를 꺼짐에서 준비 여부 미확인으로 변경 | 빈 목록만으로 모델이 꺼졌음을 확인하지 못함. F02와 승인 context 문구에 맞춘 변경 |
+| `test_start_draws_navigation_before_pending_requests_and_polls_without_duplicates` | 시작 완료 뒤 별도 모델 조회 완료를 기다린 다음 타이머 비교 | F03에서 시작 준비와 모델 조회를 분리함. 중복 조회·타이머 수 검증의 기대값은 유지 |
+
+기존 시험 삭제 없음. `test_B_b_app_journey_ui.py`와 `test_B_b_app_help_ui.py`의 기대값 변경 없음.
+
+#### API·문구·경계 확인
+
+- 백엔드 응답 키와 인자는 변경하지 않았다. 기존 `api(path, options)`의 반환값은 본문이다. `withStatus: true`일 때만 `{status, data}`를 반환하며 이 옵션은 fetch로 보내지 않는다.
+- `session.ready=false`는 응답이 없다는 뜻이다. 이것만으로 빌린 서버가 켜지는 중이라고 추정하지 않는다. RNGD의 명시적 `diagnosis=loading`은 승인된 ‘켜는 중 · 회사 서버’로 표시한다.
+- `score.basis.fallback`은 승인된 `jobs.external.unknown`의 ‘확인 안 됨’을 재사용한다. 기존 BUILD의 ‘이름 누락이면 실버’ 기록은 이 고침으로 대체한다. 해당 문장은 새 문구가 아니므로 COPY_EXCEPTIONS에서 제거한다.
+- 신규 문장 1개는 아래 승인 대기 표에 등록했다. COPY.md는 수정하지 않았다.
+- 원문 표시 글은 S.focus 메모리에만 남긴다. journey 저장 필드는 바꾸지 않았다.
+- 화면 순서·배치·CSS·색은 변경하지 않았다. 상태는 기존 색과 글을 함께 사용한다. 채점 계산과 API 응답 키도 그대로다.
+- 시험은 직접 만든 문서와 가짜 API·fetch·시계만 사용한다. 모델 서버·SSH·외부 네트워크를 호출하지 않는다. 평가 문서 내용과 비밀값은 쓰지 않았다. 전체 AC는 C 전처리 시험을 지정대로 제외한다.
+- impeccable context와 harden·craft-floor를 읽었다. detect는 한 번 실행했다(종료 코드 2). 지적 17건은 수정하지 않은 wireframes.html 15건과 guide.html 2건이며 변경 파일은 0건이다. `/static/app.css`를 로컬 경로로 읽지 못한다는 경고가 있어 색 검사는 불완전하다. 다른 step의 모양 작업은 수행하지 않았다.
+
+#### 최종 완료 기준 검증
+
+- 지정 AC를 `/tmp/to21-fix-step0-ac.sh`에 그대로 적어 저장소 최상위에서 bash로 실행했다. 로그는 `/tmp/to21-fix-step0-ac.log`다.
+- 파일·BUILD 제목·F01~F06 행·Node 존재 확인은 통과했다. 새로 지정한 시험 7개 이름의 세부 경우 **13 passed**(1.54초).
+- 앱 관련 회귀: **1011 passed, 1194 deselected, 7 warnings**(30.67초).
+- 전체 지정 시험: **1 failed, 2174 passed, 30 skipped, 7 warnings**(61.46초). AC 스크립트 종료 코드는 1이다.
+- 유일한 실패: `tests/test_A_input.py::test_every_changing_route_answers_with_update`. `HTTPServer`의 `socket.bind`에서 `PermissionError: [Errno 1] Operation not permitted`가 발생했다. A 시험을 수정하거나 제외하지 않았다.
+- `phases/app-redo/_common.txt` 7절이 이 단일 포트 제한 실패를 명시적으로 허용하므로 step 0을 completed로 기록한다. 실행기가 샌드박스 밖에서 다시 검증한다.
+- 경고 7개는 기존 SWIG 타입의 `__module__` 관련 DeprecationWarning이다.
+- `git diff --check` 통과. 추적 파일 변경 범위는 허용된 화면 JS·문구·BUILD·B 시험뿐이다. 새 파일은 `test_B_b_app_fix_ui.py` 하나다. docs·CLAUDE.md·실행기·승인 설계·CSS·백엔드 API는 수정하지 않았다.
+- 브라우저·앱 서버·모델 서버 검증은 미실행이다. step 1~4는 pending을 유지한다. 커밋하지 않았다.
+
+### ⑤ 승인 대기 문구
+
+| 키 | 글 | 쓰는 곳 | 바꾼 까닭 |
+|---|---|---|---|
+| `context.answer_mismatch` | 이 결과의 정답지는 현재 선택과 다릅니다. 결과: {result_key}. 현재 선택: {selected_key}. | S01 점수 기준·S02 정답지 표시 | F04: 결과의 정답지와 전역 선택을 구분. 같은 뜻의 승인된 일반형 문구가 없어 추가. S5 결정 2: ⑤ 수락에서 승인 대기 |

@@ -15,7 +15,8 @@ const SHELL_SCREENS = {
 const shellViews = new Map();
 S.shell = {route: null, sets: [], keys: [], contextErrors: [], contextLoaded: false,
   servers: null, serverError: null, serverAt: null, polling: null, timer: null,
-  started: false, ready: null, contextRequest: 0, navigation: 0, pickerFocus: null};
+  started: false, ready: null, contextReady: null, contextRequest: 0, navigation: 0, pickerFocus: null};
+const SHELL_SERVER_TIMEOUT_MS = 60000;
 
 function shellDefineView(viewId, handlers) {
   if (!Object.values(SHELL_SCREENS).some(screen => screen.views.includes(viewId))) throw new Error(`Unknown view: ${viewId}`);
@@ -97,6 +98,14 @@ function shellChosen(items, saved, fallback) {
   return items.find(item => item.id === saved && item.usable)?.id
     ?? items.find(item => item.id === fallback && item.usable)?.id ?? null;
 }
+function shellKeyLabel(key) {
+  return key?.label || S.shell.keys.find(item => key?.id && item.id === key.id)?.label || T("score.basis.fallback");
+}
+function shellKeyMismatch(key) {
+  return key?.id && S.ctx.key && key.id !== S.ctx.key ? T("context.answer_mismatch", {
+    result_key: shellKeyLabel(key), selected_key: shellKeyLabel({id: S.ctx.key})
+  }) : null;
+}
 async function shellLoadContext() {
   const request = ++S.shell.contextRequest;
   const results = await Promise.allSettled([api("/api/sets"), api("/api/keys")]);
@@ -129,6 +138,25 @@ function shellRenderContext() {
     S.shell.contextErrors.length ? h("div", {class: "context-errors"}, S.shell.contextErrors.map(loadFailure)) : null);
   shellRenderModels();
 }
+function shellModelState(model, data = S.shell.servers) {
+  if (!model) return "readiness_unknown";
+  if (model.reachable === true && model.match === true) return "state_ready";
+  if (model.reachable === true && model.match === false) return "wrong_reply";
+  if (model.where === "RNGD" && model.url_set !== false) {
+    const diagnosis = data?.rngd?.diagnosis;
+    if (diagnosis === "no_model" && data.rngd.ok === true) return "state_off";
+    if (diagnosis === "loading") return "company_loading";
+    if (diagnosis === "tunnel_closed") return "tunnel_closed";
+  }
+  if (model.error) return "query_failed";
+  // 모델 목록 API가 빈 목록으로 응답한 경우만 꺼짐으로 확인한다.
+  if (model.reachable === true && !model.model_served) return "state_off";
+  return "readiness_unknown";
+}
+function shellModelStates(data = S.shell.servers) {
+  const states = [...new Set((data?.models || []).map(model => shellModelState(model, data)))];
+  return states.length ? states : ["readiness_unknown"];
+}
 function shellRenderModels() {
   const el = document.getElementById("context-model");
   if (!el) return;
@@ -136,15 +164,19 @@ function shellRenderModels() {
   const models = (S.shell.servers?.models || []).filter(model => model.reachable && model.match);
   const label = model => model.label || model.model_label || model.model_expected || model.tag || T("context.model.default_name");
   const unavailable = error?.status === 503;
+  const states = shellModelStates();
+  const off = !error && !!S.shell.servers && states.every(state => state === "state_off");
+  const details = states.filter(state => state !== "state_ready" && (off || state !== "state_off"));
+  const summary = [models.length ? T("context.model.connected_count", {count: models.length, names: models.map(label).join(", ")}) : null,
+    ...details.map(state => T(`context.model.${state}`))].filter(Boolean).join(" · ");
   const state = error ? T(unavailable ? "context.model.readiness_unknown" : "context.model.query_failed")
     : !S.shell.servers ? T("context.model.query_pending")
-    : models.length ? T("context.model.connected_count", {count: models.length, names: models.map(label).join(", ")})
-    : T("context.model.state_off");
+    : summary;
   el.classList.toggle("error", !!error && !unavailable);
   coreReplace(el, h("span", {class: "context-label"}, T("context.model.current_label", {model: T("context.model.default_name")})),
     h("strong", null, state),
     h("button", {class: "text-button", type: "button", onclick: () => go("s06").catch(fail)}, T("context.prepare_model")),
-    !error && S.shell.servers && !models.length ? h("p", null, T("context.model.off_normal")) : null,
+    off ? h("p", null, T("context.model.off_normal")) : null,
     h("p", null, T("context.model.saved_readable")),
     S.shell.serverAt ? h("p", {class: "muted"}, T("context.model.checked_at", {time: when(S.shell.serverAt)})) : null,
     error && !unavailable ? rawError(error.message) : null);
@@ -152,9 +184,13 @@ function shellRenderModels() {
 async function shellPollServers() {
   if (S.shell.polling) return S.shell.polling;
   S.shell.polling = (async () => {
-    try { S.shell.servers = await api("/api/servers"); S.shell.serverError = null; }
+    const controller = new AbortController(); let timer;
+    const timeout = new Promise((_, reject) => {
+      timer = setTimeout(() => { reject(new Error(T("servers.failed.no_reply"))); controller.abort(); }, SHELL_SERVER_TIMEOUT_MS);
+    });
+    try { S.shell.servers = await Promise.race([api("/api/servers", {signal: controller.signal}), timeout]); S.shell.serverError = null; }
     catch (error) { S.shell.servers = null; S.shell.serverError = error; }
-    finally { S.shell.serverAt = new Date().toISOString(); shellRenderModels(); }
+    finally { clearTimeout(timer); S.shell.serverAt = new Date().toISOString(); shellRenderModels(); }
   })();
   try { await S.shell.polling; } finally { S.shell.polling = null; emit("servers_changed", {data: S.shell.servers, error: S.shell.serverError}); }
 }
@@ -220,9 +256,9 @@ async function start() {
   emit("shell_started", {});
   window.addEventListener("hashchange", () => go(shellInitialRoute(location.hash)).catch(fail));
   document.getElementById("context-picker").addEventListener("cancel", event => { event.preventDefault(); shellCloseContext(); });
+  S.shell.contextReady = shellLoadContext();
   const route = go(shellInitialRoute(location.hash));
-  S.shell.ready = Promise.all([route, shellLoadContext(), shellPollServers()]).then(() => {
-    shellScheduleServers();
-  }).catch(fail);
+  shellPollServers().then(shellScheduleServers).catch(fail);
+  S.shell.ready = Promise.all([route, S.shell.contextReady]).catch(fail);
   return S.shell.ready;
 }

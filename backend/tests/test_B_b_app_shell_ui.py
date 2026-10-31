@@ -136,7 +136,7 @@ def test_api_and_post_preserve_error_status_and_gaps_response_shapes():
 def test_model_connection_names_count_neutral_absence_and_error_recovery():
     run_js(FIXTURES + r"""
       await start();const el=document.getElementById('context-model');
-      assert.ok(el.textContent.includes(T('context.model.state_off')));assert.equal(el.classList.contains('error'),false);
+      assert.ok(el.textContent.includes(T('context.model.readiness_unknown')));assert.equal(el.classList.contains('error'),false);
       api=async()=>({models:[{label:'Fake model A',model_expected:'fake-a',reachable:true,match:true},{model_expected:'fake-b',reachable:true,match:true},{model_expected:'wrong',reachable:true,match:false}]});
       await shellPollServers();assert.ok(el.textContent.includes('Fake model A'));assert.ok(el.textContent.includes('fake-b'));
       assert.ok(el.textContent.includes('2'));assert.equal(el.textContent.includes('wrong'),false);
@@ -154,7 +154,7 @@ def test_start_draws_navigation_before_pending_requests_and_polls_without_duplic
       const normal=api;api=async path=>path==='/api/servers'?wait:normal(path);
       const pending=start();assert.equal(document.getElementById('screen-s01').hidden,false);
       assert.ok(document.getElementById('context-model').textContent.includes(T('context.model.query_pending')));
-      await go('s07');release({models:[]});await pending;
+      await go('s07');release({models:[]});await pending;await shellPollServers();
       assert.equal(location.hash,'#s07');const count=timers.size;await start();assert.equal(timers.size,count);
     """)
 
