@@ -844,6 +844,59 @@ def problem(kind: str, **facts) -> dict:
     return {part: template.format(**facts) for part, template in PROBLEM_TEXT[kind].items()}
 
 
+# 첫 사용 기록(b_app_journey, GET·PUT /api/journey)의 글. format으로 채운다
+JOURNEY_TEXT: dict = {
+    # 길의 오류 본문 {error, message, fix}. detail은 기록 검사(invalid)의 문장이다
+    "errors": {
+        "unavailable": {"error": "첫 사용 기록이 꺼져 있습니다", "message": "첫 사용 기록 파일의 자리가 정해지지 않았습니다.",
+                        "fix": "작업 화면을 python scripts/b_app.py로 다시 켜세요."},
+        "read_failed": {"error": "기록 파일을 열지 못했습니다", "message": "기록 파일을 열지 못했습니다.",
+                        "fix": "runs/manual/journey.json을 읽을 수 있는지 확인하세요."},
+        "save_failed": {"error": "기록을 저장하지 못했습니다", "message": "기록을 저장하지 못했습니다.",
+                        "fix": "runs/manual 폴더에 쓸 수 있는지 확인하세요."},
+        "too_big": {"error": "본문이 16KB를 넘습니다", "message": "보낸 기록이 16KB를 넘습니다.",
+                    "fix": "진행 단계, 성공 횟수, 시각, 작업 번호만 담아 보내세요."},
+        "bad_body": {"error": "{detail}", "message": "{detail}", "fix": "화면을 새로 고친 뒤 다시 하세요."},
+    },
+    # 기록 검사(validate)가 거부하는 이유. where는 칸 이름(예 progress.t1.step)
+    "invalid": {
+        "body": "본문은 journey 칸 하나만 든 JSON 객체여야 합니다.",
+        "unknown_key": "받지 않는 칸입니다: {where}.",
+        "missing_key": "빠진 칸이 있습니다: {where}.",
+        "version": "기록 형식 번호(version)가 2가 아닙니다.",
+        "bad_value": "{where} 값이 맞지 않습니다. 받는 값: {expect}.",
+    },
+    "expect": {
+        "object": "객체",
+        "object_or_null": "객체 또는 null",
+        "time": "브라우저 시각(예 2026-10-31T00:58:00.000Z)",
+        "time_or_null": "브라우저 시각(예 2026-10-31T00:58:00.000Z) 또는 null",
+        "count": "1 이상의 정수",
+        "step": "0~{top} 사이의 정수",
+        "state": "not_started, in_progress, skipped, completed 중 하나",
+        "active": "t1, t2, null 중 하나",
+        "mode": "real 또는 practice",
+        "id": "영문·숫자·_·- 64자 이하",
+        "id_or_null": "영문·숫자·_·- 64자 이하 또는 null",
+        "migrated_from": "1 또는 null",
+    },
+    # 기록 파일의 일부를 읽지 못해 처음 상태로 돌렸을 때(load의 problems). 화면은 이 문장을 그대로 보인다
+    "parts": {
+        "file_json": "기록 파일을 JSON으로 읽지 못했습니다.",
+        "file_version": "기록 파일의 형식 번호(version)가 2가 아닙니다.",
+        "progress": "안내 진행 단계(progress)의 모양이 맞지 않습니다.",
+        "outcomes": "성공·연습 기록(outcomes)의 모양이 맞지 않습니다.",
+        "pending": "판정 전 시도(pending)의 모양이 맞지 않습니다.",
+        "migrated_from": "옛 기록 옮김 표시(migrated_from)의 모양이 맞지 않습니다.",
+    },
+}
+
+
+def journey_problem(kind: str, **facts) -> dict:
+    """/api/journey 오류 본문 {"error", "message", "fix"}."""
+    return {part: template.format(**facts) for part, template in JOURNEY_TEXT["errors"][kind].items()}
+
+
 # 서버 탭(b_app_servers)이 거절하거나 할 수 없을 때의 글. 사실 한 문장 + "할 일:" (format으로 채운다)
 SERVER_TEXT: dict[str, str] = {
     "pod_key_missing": "Pod 키(RUNPOD_VLLM_API_KEY)가 .env에 없습니다. "
