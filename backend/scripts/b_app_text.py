@@ -4275,3 +4275,42 @@ for _guide_key in ("practice_title", "instruction", "practice_offline", "tunnel"
     COPY_EXCEPTIONS[f"guide.example.{_guide_key}"] = "처음 사용 안내 시안 승인 10/31 (design/onboard/mockup.html)"
 COPY_EXCEPTIONS["guide.practice.prompt_open"] = "처음 사용 안내 시안 승인 10/31 (design/onboard/mockup.html)"
 UI_TEXT["guide"]["skipped"] = "건너뜀"
+
+# 처음 사용 안내 step 2: 승인 선택 화면. 자료 이름과 점수는 API에서 읽는다.
+UI_TEXT["guide"]["screens"].update({
+    "G02": {"title": "무엇을 먼저 해 보고 싶으세요?", "next": "다음"},
+    "G14": {"title": "앞으로 볼 정답과 문서 묶음을 골라요", "next": "이걸로 정하기"},
+})
+UI_TEXT["guide"]["choices"] = {
+    "lead": "여러 개를 고를 수 있어요.", "skip": "고르지 않은 '직접 해 보기'는 건너뛰어요.",
+    "legend": "해 보고 싶은 내용을 골라요.", "disabled": "하나 이상 고르면 켜져요", "selected": "선택됨",
+    "score": {"title": "점수와 문제 읽기", "note": "가장 큰 문제부터 살펴봐요."},
+    "source": {"title": "원문에서 근거 확인", "note": "AI 값이 나온 줄을 열어 봐요."},
+    "retest": {"title": "한 부분 다시 시험", "note": "보낼 내용을 읽고 실제 시험으로 이어가요."},
+    "ai": {"title": "AI 켜기와 비용 알기", "note": "필요할 때 AI를 준비해요."},
+    "example_part": "부분은 문서를 나눈 16개 주제 중 하나예요. 8번 부분은 작업장 공기의 기준(노출기준)을 다뤄요.",
+    "example_unit": "mg/m³는 공기 1세제곱미터에 든 물질의 양(밀리그램)이에요.",
+}
+UI_TEXT["guide"]["defaults"] = {
+    "lead": "고른 기준으로 최근 결과를 보여 줘요. 고르지 않으면 지금 값을 유지해요.",
+    "definition": "문서 묶음은 함께 비교할 문서들이에요. 정답 초안은 AI가 먼저 만든 비교용 답이에요.",
+    "legend": "하나를 고르면 점수 미리보기가 펼쳐져요.", "disabled": "하나를 고르면 켜져요",
+    "current": "지금 쓰는 문서와 정답", "preview": "이걸로 보면 점수가 이렇게 보여요.",
+    "empty": "저장된 결과가 없어요.", "empty_note": "이 묶음으로 시험한 뒤 점수를 볼 수 있어요.",
+    "keep": "지금 값 그대로",
+    "failed": "점수 미리보기를 불러오지 못했어요.",
+    "failed_todo": "할 일: 미리보기 없이 이 기준으로 정하거나 지금 값을 유지해요.",
+    "mismatch": "조회한 점수의 기준이 고른 기준과 달라요.",
+    "load_failed": "고를 문서 묶음과 정답을 불러오지 못했어요.",
+    "load_todo": "할 일: 다시 확인하거나 지금 값을 유지해요.",
+}
+for _guide_group in ("choices", "defaults"):
+    for _guide_leaf, _guide_value in UI_TEXT["guide"][_guide_group].items():
+        for _guide_path in ([f"{_guide_leaf}.{key}" for key in _guide_value] if isinstance(_guide_value, dict) else [_guide_leaf]):
+            COPY_EXCEPTIONS[f"guide.{_guide_group}.{_guide_path}"] = "처음 사용 안내 시안 승인 10/31 (design/onboard/mockup.html)"
+for _guide_screen in ("G02", "G14"):
+    for _guide_key in UI_TEXT["guide"]["screens"][_guide_screen]:
+        COPY_EXCEPTIONS[f"guide.screens.{_guide_screen}.{_guide_key}"] = "처음 사용 안내 시안 승인 10/31 (design/onboard/mockup.html)"
+for _guide_key in ("failed", "failed_todo", "mismatch", "load_failed", "load_todo"):
+    COPY_EXCEPTIONS[f"guide.defaults.{_guide_key}"] = "처음 사용 안내 step 2: ⑤ 승인 대기"
+COPY_EXCEPTIONS.pop("guide.choices.selected", None)  # COPY.md의 기존 승인 글

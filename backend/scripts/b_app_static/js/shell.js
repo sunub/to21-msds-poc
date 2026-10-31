@@ -291,16 +291,19 @@ function shellOpenContext() {
   document.getElementById("context-key").addEventListener("change", validate);
   validate(); dialog.showModal(); document.getElementById("context-set").focus();
 }
-function shellApplyContext() {
-  const set = document.getElementById("context-set").value;
-  const key = document.getElementById("context-key").value;
+function shellApplyContext(choice) {
+  const fromGuide = typeof choice?.set === "string" && typeof choice?.key === "string";
+  const set = fromGuide ? choice.set : document.getElementById("context-set").value;
+  const key = fromGuide ? choice.key : document.getElementById("context-key").value;
   if (!S.shell.sets.some(item => item.usable && item.id === set) || !S.shell.keys.some(item => item.usable && item.id === key)) return;
   const changed = set !== S.ctx.set || key !== S.ctx.key;
   S.ctx = {version: 1, set, key}; coreWrite("b_app.context", S.ctx);
   const returnId = S.shell.pickerFocus?.id;
-  shellCloseContext(); shellRenderContext();
-  if (returnId) document.getElementById(returnId)?.focus();
+  if (!fromGuide) shellCloseContext();
+  shellRenderContext();
+  if (!fromGuide && returnId) document.getElementById(returnId)?.focus();
   if (changed) emit("context_changed", {...S.ctx});
+  return true;
 }
 async function start() {
   if (S.shell.started) return S.shell.ready;
