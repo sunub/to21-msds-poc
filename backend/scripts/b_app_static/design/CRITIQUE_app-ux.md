@@ -186,7 +186,7 @@ Operate 모드의 조밀한 글자 크기만으로 제목 확대를 결정하지
 검출기의 표준 오류에는 다음 경고가 있었다.
 
 ```text
-impeccable detect: could not read linked stylesheet /static/app.css (resolved to /Users/steve.joo/Projects/to21-msds-poc/backend/scripts/b_app_static/static/app.css); color and custom-property rules will be incomplete
+impeccable detect: could not read linked stylesheet /static/app.css (resolved to backend/scripts/b_app_static/static/app.css); color and custom-property rules will be incomplete
 ```
 
 앱의 `/static/app.css` 경로를 파일 경로로 잘못 해석한 것이다.
