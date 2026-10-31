@@ -32,6 +32,7 @@ _BULLET = re.compile(r"^\s*(?:[-–](?!\d)|[•·○●◦■□▪*]|[①-⑳]|
 _PIPE_LEAD = re.compile(r"^\|\s*")    # version9: 불릿 기호가 표 칸처럼 ' | '로 묶여 온다
 _COLON = re.compile(r"[:：]")
 _COMP_KEYS = ("comp_name", "comp_cas")
+_SINGLE_COMP_KEYS = {"toxicity", "cmr", "ecotox", "regulations", "intl_class"}   # 성분이 하나면 성분 표기 없는 행도 그 성분 (명세서 1_항목정의 예시 '1')
 _SOURCE_MAX = 200    # TO21 evidence.source_text: 200자 이내
 
 
@@ -327,6 +328,8 @@ def expand_msds(sections: dict[int, dict | None], lines_by_id: dict[str, Line],
             for i, ((no, r), linked) in enumerate(zip(pairs, src)):
                 if linked["comp_ref"] == "MIX" and (_norm(r.get("comp_name")) or _norm(r.get("comp_cas"))):
                     problem(no, "unlinked_component", f"{key}[{i}]: {r.get('comp_name')} / {r.get('comp_cas')}")
+            if key in _SINGLE_COMP_KEYS and len(components) == 1:
+                src = [{**r, "comp_ref": str(components[0]["seq"])} if r["comp_ref"] == "MIX" else r for r in src]
         if key == "regulations":
             src = fill_thresholds(src, lines_by_id)      # 근거 줄의 'N% 이상'으로 기준농도 (ADR-029)
         item[key] = components if key == "components" else _shape(node, src, lines_by_id)
