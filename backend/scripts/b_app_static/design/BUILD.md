@@ -604,6 +604,20 @@ Claude가 가로 1280px·1440px·1680px에서 확인한다. 각 행의 마지막
 | N-dialog | P01 | 높이 900px | 본문만 스크롤하며 적용과 취소는 계속 보이고 Escape 뒤 원래 단추로 초점이 돌아온다. |
 | N-header | 공통 | 긴 모델명·오류로 머리 높이 증가 | 키보드로 이동한 단추와 결과 제목이 고정 머리 아래에 가려지지 않는다. |
 
+### 처음 사용 안내 고침 확인 — app-onboard-fix
+
+아래 **7개는 모두 미실행**이다. 1280·1440·1680px 폭, 900px 높이에서 가짜 자료나 개발용 문서로 확인한다.
+
+| 번호 | 화면 | 무엇이 보이면 통과인가 |
+|---|---|---|
+| OBF-01 | G07·G08·G11 | 안내 중 새로고침하면 마지막 확정 화면과 기존 작업이 돌아오며 보내기가 자동 실행되지 않는다. |
+| OBF-02 | S01 이어하기 | 닫은 안내를 이어서 연 뒤 새로고침해도 안내가 열린 상태로 돌아온다. |
+| OBF-03 | G15 기록 | 빈 기록·연습만 있는 기록·실제 성공 기록 각각에서 실제 기록만 보이고 예시 시각 없이 같은 로컬 시각 형식을 쓴다. |
+| OBF-04 | G07·S03·G08 | 기준 이름과 뜻, 선택 모델과 이전 결과 모델의 차이를 읽을 수 있고 원래 값 경로는 펼침 안에만 보인다. |
+| OBF-05 | G14 후보 | 현재 조합과 사용 가능한 카드가 먼저 보이며 묶음 이름은 그룹마다 한 번만 나오고 사용 불가 펼침을 열면 모든 조합의 이유가 보인다. |
+| OBF-06 | P01·G14 미리보기 | 후보를 바꾸면 적용 전 저장 결과 수 또는 결과 없음 경고가 보이며 조회 실패나 늦은 응답이 새 후보의 결과로 표시되지 않는다. |
+| OBF-07 | G08 완료·G14 긴 목록 | 주 버튼이 계속 보이고 본문을 끝까지 스크롤하면 마지막 내용과 펼침의 초점 테두리가 버튼 위 여백에 온전히 보인다. |
+
 ### 처음 사용 안내 전체 확인 — onboard step 2
 
 아래 **48줄은 모두 미실행**이다. 가로 1280·1440·1680px, 높이 900px에서 각 줄을 확인한다.
@@ -1630,6 +1644,50 @@ Questions skipped: non-interactive. impeccable clarify·polish·audit·craft-flo
 - `phases/app-redo-fix/index.json`의 step 4 status·summary만 갱신했다. 커밋하지 않았다. ⚠️ DEGRADED: no browser in sandbox. 실제 화면·기기 확인과 ⑤ 문구 수락은 완료로 주장하지 않는다.
 
 ## 처음 사용 안내 (Wispr 구조)
+
+### onboard fix step 1
+
+⚠️ DEGRADED: no browser in sandbox
+
+- Questions skipped: non-interactive. impeccable layout·distill·craft-floor와 승인 설계, S6 보고서·신규 사용자 보고서·G08/G14/P01 사진을 읽었다.
+- 구현 전 지정 시험 세 개를 추가해 **3 failed**를 확인했다(`/tmp/to21-fix1-red.log`). G14의 사용 불가 펼침 없음, P01의 적용 결과 알림 없음, 본문 끝 여백 0px < 주 버튼 48px이 원인이다.
+- 구조: 현재 조합 → 문서 묶음별 사용 가능 카드 → 사용 불가 조합과 이유의 펼침 → 적용. G08 결과 요약은 보이고 보낸 내용은 상세로 접는다. 본문과 주 버튼은 별도 행으로 유지한다.
+- 수정 전 layout 범위 검사 지적 0건(`/tmp/to21-fix1-layout-before.json`). `/static/app.css`의 로컬 링크 해석 실패로 색·변수 검사는 불완전하다.
+
+| 고친 것 | 시험 이름 (`test_B_b_app_guide_ui.py`) | 확인 방법 |
+|---|---|---|
+| G14 사용 가능한 조합 우선 | `test_g14_lists_usable_combinations_first` | 가짜 조합 12개 중 현재 포함 3개만 카드, 나머지 9개는 닫힌 펼침. 잠긴 문서만 정답 있는 조합 제외, 양쪽 사용 불가 이유 보존, 묶음 이름 그룹화, 펼침 상태 유지 |
+| P01·G14 적용 영향 | `test_p01_says_what_applying_changes` | 후보 key로 `/api/runs` 조회 후 set·key별 건수. 다른 묶음·다른 정답·평가·정답 생성·읽기 실패 실행 제외. 결과 없음·조회 실패 구분, 후보 변경/창 재열기 후 늦은 응답 폐기, 공통 맥락 무변경, 점수는 API 값 38.2 그대로 |
+| 900px 본문과 주 버튼 | `test_guide_body_fits_at_900px` | 1280·1440·1680px에 적용되는 CSS 검사. 본문만 스크롤, footer는 별도 행, 본문 끝 padding·scroll-padding 48px ≥ 주 버튼 48px. G08 완료 요약 보존과 입력 상세 접힘 |
+
+#### ⑤ 승인 대기 문구
+
+| 키 | 글 | 쓰는 곳 | 바꾼 까닭 |
+|---|---|---|---|
+| `guide.defaults.unavailable` | 쓸 수 없는 조합 {count}개 | G14 펼침 | 비활성 조합 수를 알려 정보가 남아 있음을 표시 |
+| `guide.defaults.no_answers` | 이 문서 묶음에 맞는 정답 파일이 없어요. | G14 후보 이유 | 폴더 자체는 사용 가능하지만 해당 문서의 정답이 없는 경우 설명 |
+| `guide.practice.sent_details` | 보낸 내용 자세히 보기 | G08 완료 | 결과 요약 아래에 입력과 지시문 상세를 접어 보존 |
+| `context.picker.results_found` | 적용하면 이 문서 묶음의 저장 결과 {count}개를 고른 정답으로 볼 수 있어요. | P01·G14 | 후보 적용 후 읽을 저장 결과 수 안내 |
+| `context.picker.results_empty` | 적용하면 최근 결과가 '결과 없음'으로 바뀌어요. | P01·G14 | 적용 전 점수가 없어지는 결과를 명시 |
+| `context.picker.results_failed` | 적용한 뒤 볼 저장 결과를 확인하지 못했어요. | P01 | 조회 실패를 결과 0개와 구분 |
+| `context.picker.results_failed_todo` | 할 일: 후보를 다시 고르거나 미리보기 없이 적용해요. | P01 | 조회 실패 뒤 가능한 행동 안내 |
+
+- 새 글 **7개**를 UI_TEXT·COPY_EXCEPTIONS에 등록했다. 승인 COPY·STRUCTURE·onboard 시안·PRODUCT·DESIGN은 바꾸지 않았다.
+- 기존 시험 `test_g14_preview_and_apply_context`의 가짜 정답지에 `docs` 목록만 보완했다. 이번 요구는 해당 문서의 정답 파일 존재를 검사하므로 실제 `/api/keys` 계약의 문서 목록이 필요하다. 기대값·시험 이름·시험 수는 바꾸지 않았고 삭제도 없다.
+- `shellContextResults`가 P01·G14의 후보 실행 조회와 범위 판정을 공유한다. 실제 `/api/runs`는 최상위 `key`와 실행별 `set`을 준다. 개별 실행에 key가 있으면 그것도 확인한다. 정답을 바꾸면 서버가 다시 채점한 결과를 조회하며 화면에서는 점수를 계산하지 않는다.
+- G08의 입력·지시문·해시는 없애지 않고 닫힌 상세로 옮겼다. 성공 판정, 저장 계약, 보내기 규칙은 바꾸지 않았다. 배치는 정적 검사이며 실제 픽셀 맞춤은 위 OBF-07에서 확인한다.
+- impeccable detect 종료 **2**, 지적 **46개**(advisory 19·warning 27), 새 지적 **0개**. 이전 step과 같은 승인 mockup 26·wireframes 15·guide.html 2·기존 CSS 12px 모서리 3건이다(`/tmp/to21-fix1-detect.json`). 변경한 배치 규칙의 지적은 없다. 링크 해석 문제 때문에 색·변수 검사 한계는 남는다.
+
+#### 최종 검증과 아키텍처 확인
+
+- 지정 AC를 직접 실행했다. BUILD 절·외부 주소 금지·움직임/초점 테두리 제거 금지·승인 설계 무변경·Node 설치 검사 모두 종료 **0**. `git diff --check`와 수정 JS 두 파일의 `node --check`도 통과했다.
+- 지정 시험 **3 passed**(0.46초, 종료 0): `/tmp/to21-fix1-target-final.log`. 앱 시험 **1117 passed, 1194 deselected, 7 warnings**(53.71초, 종료 0): `/tmp/to21-fix1-app-final.log`.
+- 전체 시험 **2280 passed, 30 skipped, 1 failed, 7 warnings**(83.07초, 종료 1): `/tmp/to21-fix1-full-final.log`. 모든 앱/전체 실행에서 `tests/test_preprocess.py`를 제외했다.
+- 유일한 실패는 `tests/test_A_input.py::test_every_changing_route_answers_with_update`이며 `socket.bind`에서 `PermissionError: [Errno 1] Operation not permitted`다. `phases/app-redo/_common.txt` 7절의 명시적 예외에 따라 completed로 기록한다. A 시험을 수정하거나 제외하지 않았다. 실행기가 샌드박스 밖에서 전체 AC를 다시 확인한다. 경고 7개는 기존 SWIG 타입 관련 DeprecationWarning이다.
+- 보호 파일 **350개**의 내용 해시가 상태 갱신 전 시작값과 같다. 상태 갱신 후에도 허용한 app-onboard-fix/index.json 이외에는 같다. step 0과 다른 step의 상태는 유지했다.
+- `b_app_text.py`는 기존 구문 전체가 HEAD와 같고 새 문구 선언만 추가했다. 서버 API·채점 계산·실제 성공 판정·원문 데이터·다른 역할 코드는 변경하지 않았다. 승인 설계 파일은 그대로이며 UI_GUIDE 금지 검사도 통과했다.
+- 변경 파일은 guide.js·shell.js·app.css·b_app_text.py·guide 시험·BUILD.md와 phase index의 step 1 status/summary뿐이다. 커밋하지 않았다.
+- 브라우저 확인 7항목은 BUILD의 OBF-01~07에 남겼다. ⚠️ DEGRADED: no browser in sandbox. 실제 화면 배치와 실제 모델 호출은 검증하지 않았다.
 
 ### onboard fix step 0
 

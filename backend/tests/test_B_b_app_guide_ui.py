@@ -5,6 +5,154 @@ from test_B_b_app_dom import run_js, STATIC
 from test_B_b_app_journey_ui import SETUP
 
 
+def test_g14_lists_usable_combinations_first():
+    run_js(PRACTICE_SETUP + r"""
+pack.label='Current pages';
+const extra={id:'other-set',label:'Other pages',usable:true,docs:[{doc_id:'T21-X03',locked:false}]};
+const unusable={id:'bad-set',label:'Unnumbered pages',usable:false,reason:'No line numbers',docs:extra.docs};
+const answers=[
+ {id:'silver/fake',label:'Draft',usable:true,docs:['T21-X01','T21-X03']},
+ {id:'gold/other',label:'Reviewed',usable:true,docs:['T21-X03']},
+ {id:'gold/locked-only',label:'Locked only',usable:true,docs:['T21-X99']},
+ {id:'gold/empty',label:'Empty',usable:false,reason:'No answer files',docs:[]}];
+const normal=api;
+api=async(p,o)=>p==='/api/sets'?{sets:[unusable,extra,pack]}:p==='/api/keys'?{keys:answers}:normal(p,o);
+await enter('G14');
+const content=el('guide-content'),fold=content.querySelector('details');
+assert.ok(fold);assert.equal(fold.open,false);
+assert.equal(content.querySelectorAll('details').length,1);
+assert.equal(fold.querySelector('summary').textContent,T('guide.defaults.unavailable',{count:9}));
+const cards=content.querySelectorAll('.guide-choice-card');
+assert.equal(cards.length,3);assert.ok(cards[0].textContent.includes(T('guide.defaults.current')));
+assert.ok(cards.every(card=>!fold.contains(card)&&!card.querySelector('input').disabled));
+assert.deepEqual(clone(cards.map(card=>[card.querySelector('input').dataset.set,card.querySelector('input').dataset.key])),
+ [['fake-set','silver/fake'],['other-set','silver/fake'],['other-set','gold/other']]);
+// The set name is a shared group label, not repeated in each answer card.
+assert.ok(cards.slice(1).every(card=>!card.textContent.includes('Other pages')));
+const group=cards[1].parentElement;
+assert.equal(group.textContent.split('Other pages').length-1,1);
+assert.equal(fold.querySelectorAll('input').length,9);
+assert.ok(fold.querySelectorAll('input').every(input=>input.disabled));
+for(const reason of ['No line numbers','No answer files',T('guide.defaults.no_answers')])assert.ok(fold.textContent.includes(reason));
+fold.open=true;await flush();
+await cards[1].querySelector('input').dispatchEvent({type:'change'});
+assert.equal(el('guide-content').querySelector('details').open,true);
+assert.equal(posted.length,0);
+""")
+
+
+def test_p01_says_what_applying_changes():
+    run_js(PRACTICE_SETUP + r"""
+const extra={id:'other-set',label:'Other pages',usable:true,docs:[{doc_id:'T21-X02'}]};
+const answers=[{id:'silver/fake',label:'Draft',usable:true,docs:['T21-X02']},
+ {id:'gold/other',label:'Reviewed',usable:true,docs:['T21-X02']}];
+const normal=api;let broken=false,mismatch=false,release,delay=false;const calls=[];
+api=async(p,o)=>{
+ if(p==='/api/sets')return {sets:[pack,extra]};if(p==='/api/keys')return {keys:answers};
+ if(p.startsWith('/api/runs')){
+  calls.push(p);const key=new URLSearchParams(p.split('?')[1]).get('key');
+  if(delay)await new Promise(resolve=>release=resolve);
+  if(broken)throw Error('offline');
+  return {key:{id:mismatch?'wrong':key},current:'selected',runs:key==='gold/other'?[
+   {name:'selected',set:{id:'other-set'},run_kind:'sections',weighted:38.2},
+   {name:'second',set:{id:'other-set'},run_kind:'sections',weighted:94.6},
+   {name:'other-pages',set:{id:'fake-set'},run_kind:'sections'},
+   {name:'answer-maker',set:{id:'other-set'},run_kind:'silver'},
+   {name:'locked',set:{id:'other-set'},run_kind:'eval'},
+   {name:'broken',set:{id:'other-set'},error:'unreadable'},
+   {name:'wrong-key',set:{id:'other-set'},key:{id:'wrong'}}]:[]};
+ }
+ if(p.startsWith('/api/run/'))return {name:'selected',weighted:38.2,set:{id:'other-set'},key:{id:'gold/other'}};
+ return normal(p,o);
+};
+await enter('G14');const original=clone(S.ctx);await guideClose();
+shellOpenContext();await flush();
+const pick=async(set,key)=>{el('context-set').value=set;el('context-key').value=key;await el('context-key').dispatchEvent({type:'change'});await flush();};
+await pick('other-set','silver/fake');
+assert.equal(el('context-result-effect').textContent,T('context.picker.results_empty'));
+assert.equal(el('context-result-effect').getAttribute('aria-live'),'polite');
+await pick('other-set','gold/other');
+assert.equal(el('context-result-effect').textContent,T('context.picker.results_found',{count:2}));
+el('context-set').value='fake-set';await el('context-set').dispatchEvent({type:'change'});await flush();
+assert.equal(el('context-result-effect').textContent,T('context.picker.results_found',{count:1}));
+assert.ok(calls.some(p=>new URLSearchParams(p.split('?')[1]).get('key')==='gold/other'));
+assert.deepEqual(S.ctx,original);assert.equal(posted.length,0);
+// A stale candidate cannot overwrite the new one or a newly opened dialog.
+delay=true;const late=pick('other-set','gold/other');await flush();delay=false;
+await pick('other-set','silver/fake');release();await late;
+assert.equal(el('context-result-effect').textContent,T('context.picker.results_empty'));
+delay=true;const closed=pick('other-set','gold/other');await flush();delay=false;
+shellCloseContext();shellOpenContext();await flush();release();await closed;
+assert.equal(el('context-result-effect').textContent,T('context.picker.results_empty'));
+broken=true;await pick('other-set','gold/other');
+assert.ok(el('context-result-effect').textContent.includes(T('context.picker.results_failed')));
+assert.ok(!el('context-result-effect').textContent.includes(T('context.picker.results_empty')));
+assert.equal(el('context-apply').disabled,false);
+broken=false;mismatch=true;await pick('other-set','gold/other');
+assert.ok(el('context-result-effect').textContent.includes(T('context.picker.results_failed')));
+mismatch=false;shellCloseContext();await guideOpen();await guideShow('G14');
+const guidePick=async key=>{const n=guideNode().querySelectorAll('input').find(n=>n.dataset.set==='other-set'&&n.dataset.key===key);await n.dispatchEvent({type:'change'});};
+await guidePick('gold/other');
+assert.ok(guideNode().querySelector('.guide-choice-preview').textContent.includes(T('context.picker.results_found',{count:2})));
+assert.ok(guideNode().querySelector('.guide-choice-preview').textContent.includes('38.2'));
+await guidePick('silver/fake');
+assert.ok(guideNode().querySelector('.guide-choice-preview').textContent.includes(T('context.picker.results_empty')));
+assert.deepEqual(S.ctx,original);assert.equal(posted.length,0);
+""")
+
+
+def test_guide_body_fits_at_900px():
+    import re
+    from test_B_b_app_audit_ui import css_rules
+
+    rules = css_rules()
+    for width in (1280, 1440, 1680):
+        def declarations(selector):
+            result = {}
+            for selectors, body, parents in rules:
+                if selector not in [s.strip() for s in selectors.split(',')]:
+                    continue
+                active = True
+                for parent in parents:
+                    for bound, axis, value in re.findall(r'(min|max)-(width|height):\s*(\d+)px', parent):
+                        size = width if axis == 'width' else 900
+                        active &= size >= int(value) if bound == 'min' else size <= int(value)
+                if active:
+                    result.update(re.findall(r'([\w-]+)\s*:\s*([^;]+)', body))
+            return result
+
+        inner = declarations('.guide-inner')
+        body = declarations('.guide-step-body')
+        action = declarations('.guide-action')
+        button = declarations('.guide-action > .primary')
+        variables = {**declarations(':root'), **inner}
+
+        def pixels(value):
+            while 'var(' in value:
+                value = re.sub(r'var\((--[\w-]+)\)', lambda m: variables[m[1]], value)
+            return float(value.removesuffix('px'))
+
+        assert inner['grid-template-rows'].replace(' ', '') == 'autominmax(0,1fr)auto'
+        assert body['min-height'] == '0'
+        assert body['overflow'] == 'auto'
+        assert action.get('position', 'static') not in ('absolute', 'fixed')
+        assert pixels(body.get('padding-bottom', '0px')) >= pixels(button['min-height'])
+        assert pixels(body.get('scroll-padding-bottom', '0px')) >= pixels(button['min-height'])
+
+    run_js(PRACTICE_SETUP + r"""
+await readyTarget('G08');listed=[trialJob(true)];reply={plan};
+await el('guide-next').click();await guidePollTrial();
+assert.equal(guideNode().getAttribute('data-variant'),'G08-done');
+const body=guideNode().querySelector('.guide-step-body'),footer=guideNode().querySelector('.guide-action');
+assert.equal(body.parentElement,footer.parentElement);assert.equal(body.contains(footer),false);
+assert.ok(body.contains(el('guide-result-summary')));assert.ok(footer.contains(el('guide-next')));
+const details=el('guide-plan-details');assert.ok(details);assert.equal(details.open,false);
+assert.ok(details.textContent.includes(plan.sections['8'].prompt_hash));
+assert.ok(el('guide-result-summary').textContent.includes(T('guide.practice.done')));
+details.open=true;assert.ok(body.contains(details));assert.equal(posted.length,1);
+""")
+
+
 def test_g15_shows_only_real_records():
     run_js(GUIDE_SETUP + r"""
 await journeyEnsure();await guideOpen();await guideShow('G15');
@@ -181,8 +329,9 @@ assert.equal(posted.length,0);
 def test_g14_preview_and_apply_context():
     run_js(PRACTICE_SETUP + r"""
 const extra={id:'other-set',label:'Other documents',usable:true,docs:[{doc_id:'T21-X03',group:'dev'}]};
-const answers=[{id:'silver/fake',label:'Draft',usable:true,kind:'silver'},
- {id:'gold/other',label:'Reviewed',usable:true,kind:'gold'}, {id:'gold/locked',label:'Locked',usable:false,reason:'Unavailable'}];
+const answers=[{id:'silver/fake',label:'Draft',usable:true,kind:'silver',docs:['T21-X01','T21-X02','T21-X03']},
+ {id:'gold/other',label:'Reviewed',usable:true,kind:'gold',docs:['T21-X01','T21-X02','T21-X03']},
+ {id:'gold/locked',label:'Locked',usable:false,reason:'Unavailable',docs:[]}];
 const normal=api;let failPreview=false, delayPreview=false, release;const previewCalls=[];
 api=async(p,o)=>{
  if(p==='/api/sets')return {sets:[pack,extra],default:pack.id};

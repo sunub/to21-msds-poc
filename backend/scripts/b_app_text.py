@@ -4321,3 +4321,20 @@ for _guide_screen in ("G02", "G14"):
 for _guide_key in ("failed", "failed_todo", "mismatch", "load_failed", "load_todo"):
     COPY_EXCEPTIONS[f"guide.defaults.{_guide_key}"] = "처음 사용 안내 step 2: ⑤ 승인 대기"
 COPY_EXCEPTIONS.pop("guide.choices.selected", None)  # COPY.md의 기존 승인 글
+
+# S6 고침: 후보 선택의 결과와 접힌 정보의 이름. ⑤ 승인 대기.
+UI_TEXT["guide"]["defaults"].update({
+    "unavailable": "쓸 수 없는 조합 {count}개",
+    "no_answers": "이 문서 묶음에 맞는 정답 파일이 없어요.",
+})
+UI_TEXT["guide"]["practice"]["sent_details"] = "보낸 내용 자세히 보기"
+UI_TEXT["context"]["picker"].update({
+    "results_found": "적용하면 이 문서 묶음의 저장 결과 {count}개를 고른 정답으로 볼 수 있어요.",
+    "results_empty": "적용하면 최근 결과가 '결과 없음'으로 바뀌어요.",
+    "results_failed": "적용한 뒤 볼 저장 결과를 확인하지 못했어요.",
+    "results_failed_todo": "할 일: 후보를 다시 고르거나 미리보기 없이 적용해요.",
+})
+for _fix_key in ("guide.defaults.unavailable", "guide.defaults.no_answers", "guide.practice.sent_details",
+                 "context.picker.results_found", "context.picker.results_empty",
+                 "context.picker.results_failed", "context.picker.results_failed_todo"):
+    COPY_EXCEPTIONS[_fix_key] = "onboard fix step 1: ⑤ 승인 대기"
