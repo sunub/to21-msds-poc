@@ -31,8 +31,8 @@ from msds.extract.source_rules import apply_source_rules, fill_thresholds
 _NO_VALUE = {"자료없음", "해당없음", "미기재"}
 _NOTE = re.compile(r"^(?P<base>[^()（）]+?)\s*[(（](?P<note>[^()（）]+)[)）]$")   # 상태어(괄호 설명), Q.note
 _NUM = re.compile(r"\d[\d,]*(?:\.\d+)?")
-_BULLET = re.compile(r"^\s*(?:[-–](?!\d)|[•·○●◦■□▪*]|[①-⑳]|\(?\d{1,2}\)|\d{1,2}\.(?!\d)"
-                     r"|\(?[가나다라마바사아자차카타파하][.)])\s*")
+_BULLET = re.compile(r"^\s*(?:[-–](?!\d)|[•·○●◦■□▪*ο]|[①-⑳]|\(?\d{1,2}\)|\d{1,2}\.(?!\d)"
+                     r"|\(?[가나다라마바사아자차카타파하거너더러머][.)])\s*")   # 9항은 하 다음 거·너·더·러·머
 _PIPE_LEAD = re.compile(r"^\|\s*")    # version9: 불릿 기호가 표 칸처럼 ' | '로 묶여 온다
 _COLON = re.compile(r"[:：]")
 _COMP_KEYS = ("comp_name", "comp_cas")
@@ -67,11 +67,16 @@ def _word_key(text: str) -> str:
 
 
 @functools.cache
+def _dictionary() -> dict:
+    return json.loads(to21_file("dictionary").read_text(encoding="utf-8"))
+
+
+@functools.cache
 def _status_words() -> dict[str, str]:
     """상태어 표기 → Q 상태. C7 값과 동의어 사전 status의 표기다. Q 상태가 아닌 '해당'(15항 해당 여부)은 뺀다."""
     enum = next(b for b in _defs()["Q"]["properties"]["status"]["anyOf"] if b.get("type") == "string")["enum"]
     words = {_word_key(s): s for s in enum if s != "값있음"}
-    for status, variants in json.loads(to21_file("dictionary").read_text(encoding="utf-8"))["status"].items():
+    for status, variants in _dictionary()["status"].items():
         if status in enum:
             words.update({_word_key(v): status for v in variants})
     return words
@@ -111,6 +116,28 @@ def status_to_q(row: dict) -> dict:
         if row.get(k):
             return row
     return row
+
+
+@functools.cache
+def _physchem_names() -> list[tuple[str, str | None]]:
+    """물성 이름 표기(동의어 사전 physchem, R25) → 코드, 긴 이름부터. 스키마에 없는 묶음 표기(UEL+LEL)는 None."""
+    node = _resolve(msds_item_schema()["properties"]["physchem"]["items"])["properties"]["prop_code"]
+    codes = set(next(b for b in node["anyOf"] if b.get("type") == "string")["enum"])
+    names = {_word_key(n): (c if c in codes else None) for c, ns in _dictionary()["physchem"].items() for n in ns}
+    return sorted(names.items(), key=lambda x: -len(x[0]))
+
+
+def physchem_code(text: str | None, exact: bool = False) -> str | None:
+    """물성 이름을 사전에서 찾아 코드로 바꾼다. 원문 줄은 이름 뒤에 값이 이어지고 칸을 공백으로만 나눈 표도 있어
+    앞머리로 비교하고(TO21 커버리지 점검과 같은 방식), 이름만 있는 제목은 exact로 통째로 비교한다."""
+    key = _word_key(_strip_bullet(text or ""))
+    return next((c for n, c in _physchem_names() if n and (key == n if exact else key.startswith(n))), None)
+
+
+def _extra_to_physchem(row: dict, code: str) -> dict:
+    values = [s["value"] for s in row.get("statements") or [] if s.get("value")]
+    return {"prop_code": code, "comp_name": row.get("comp_name"), "comp_cas": row.get("comp_cas"), "q": row.get("q"),
+            "text_value": None if row.get("q") else ("; ".join(values) or None), "line": row.get("line")}
 
 
 # ── 서술 문장 ──────────────────────────────────────────
@@ -332,6 +359,23 @@ def expand_msds(sections: dict[int, dict | None], lines_by_id: dict[str, Line],
                 rows[key] += [(no, r) for r in val]
             elif isinstance(val, dict):
                 objects[key] = (no, val)
+
+    # 1-1. 동의어 사전(R25)에 있는 물성 이름은 물성 행이다. 코드가 빈 물성 행은 원문 줄의 이름으로 채우고,
+    #      9항 부가 행 가운데 제목이 물성 이름인 것은 그 코드의 물성 행이 없으면 물성 행으로 옮긴다.
+    phys = [(no, r if r.get("prop_code") else {**r, "prop_code": physchem_code(getattr(lines_by_id.get(r.get("line")),
+                                                                                        "text", None))})
+            for no, r in rows["physchem"]]
+    have, extras = {r["prop_code"] for _, r in phys}, []
+    for no, r in rows["extras"]:
+        code = physchem_code(r.get("title_raw"), exact=True) if no == 9 else None
+        if code and code not in have and (r.get("q") is not None or r.get("statements")):
+            have.add(code)
+            phys.append((no, _extra_to_physchem(r, code)))
+        else:
+            extras.append((no, r))
+    if len(extras) < len(rows["extras"]):      # 옮긴 행은 원문 순서 자리에 둔다
+        phys.sort(key=lambda p: pos.get(p[1].get("line"), len(pos)))
+    rows["physchem"], rows["extras"] = phys, extras
 
     # 서술 구간(양 끝 포함 줄 위치)을 항마다 모은다. extras 거르기에 쓰므로 펼치기 전에 끝낸다 (ADR-022).
     # narrative()가 문장을 만드는 구간과 같다: 두 끝이 원문에 있고 start <= end.
