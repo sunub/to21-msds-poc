@@ -11,7 +11,9 @@ import pytest
 
 from test_B_b_app_runs import env, make_run  # noqa: F401  env는 픽스처
 from test_B_b_app_sets import answer_keys  # noqa: F401  가짜 data/silver·gold 픽스처
+from test_B_b_app_doc import write_lines
 from test_B_compare_models import SCRIPTS, X01, X02, make_doc
+from test_B_expand import LINES
 
 STATIC_FILES = ("index.html", "app.js", "app.css")
 TABS = ("점수판", "두 실행 비교", "원문 대조", "작업", "서버")
@@ -173,6 +175,21 @@ def test_doc_tooltips_preserve_raw_values_and_translate_all_sides(app, ctx, env,
     for side in ("result", "silver", "silver_only"):
         assert result["ui_text"]["value_tips"][side]["fake"] == ["순서: 1", "값: 직접 만든 값", "unknown: 0"]
     assert view == before
+
+
+def test_doc_silver_lines_with_and_without_gold(app, ctx, env):
+    """실버 값의 추정 줄 수(silver_lines)는 글이 같은 줄 찾기(text_match)로 낸다. 실버가 없는 문서는 None."""
+    for d in (X01, X02):
+        write_lines(env / "pages", d, LINES)
+    make_run(env / "runs", "fake-run", {X01: make_doc(X01, toxicity=True), X02: make_doc(X02)})
+    code, data = get_q(app, ctx, "/api/doc", run="fake-run", doc=X01)
+    assert code == 200 and data["has_gold"] is True
+    sl = data["silver_lines"]
+    assert sl["basis"] == "text_match" and 0 < sl["found"] < sl["total"]
+    assert [g["lines"] for g in data["silver_only"] if g["table"] == "toxicity"][0] == ["p5:L8"]
+    (env / "gold" / f"{X02}.json").unlink()
+    code, data = get_q(app, ctx, "/api/doc", run="fake-run", doc=X02)
+    assert code == 200 and data["has_gold"] is False and data["silver_lines"] is None
 
 
 def test_all_run_kinds_get_labels(app, ctx, env):

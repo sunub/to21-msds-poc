@@ -184,6 +184,15 @@ def test_doc_ui_text_summaries_count_values_and_missing_cells_separately(text):
     assert view == before
 
 
+def test_doc_ui_text_silver_line_guess_and_missing(text):
+    """정답 초안 값의 줄은 글자 맞춤 추정이라고 밝히고, 못 찾으면 그 항의 구간을 연다고 알린다."""
+    result = text.doc_ui_text({"values": [], "silver_only": []})
+    guess, missing = result["silver_line_guess"], result["silver_line_missing"]
+    assert "(추정)" in guess and "정답 초안" in guess
+    assert "찾지 못했습니다" in missing and "구간" in missing
+    assert "합격" not in guess + missing
+
+
 def test_order_models_stable_with_labels_and_without_mutating_input(text):
     models = [
         {"tag": "off1", "label": "꺼진 모델 1", "connected": False, "extra": [1]},

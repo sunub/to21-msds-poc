@@ -479,6 +479,9 @@ def doc_ui_text(view: dict) -> dict:
     return {"value_field_labels": VALUE_FIELD_LABELS, "value_tips": tips,
             "howto": "오른쪽에서 값을 누르면 왼쪽 원문 줄이 노랗게 켜집니다. "
                      "줄을 누르면 그 줄을 근거로 쓴 값이 켜집니다.",
+            # 정답 초안 값의 줄은 근거 글과 글자가 같은 줄을 찾은 추정이다(view의 silver_lines.basis "text_match")
+            "silver_line_guess": "정답 초안의 근거 글과 글자가 같은 줄입니다(추정).",
+            "silver_line_missing": "정답 초안의 근거 글을 이 묶음에서 찾지 못했습니다. 그 항의 구간을 엽니다.",
             "sections": {key: f"값 {total}개 중 실버와 다른 것 {different}개, 결과가 빠뜨린 것 {missing}개"
                          for key, (total, different, missing) in counts.items()}}
 
