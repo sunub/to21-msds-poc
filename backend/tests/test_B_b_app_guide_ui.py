@@ -5,6 +5,151 @@ from test_B_b_app_dom import run_js, STATIC
 from test_B_b_app_journey_ui import SETUP
 
 
+def test_g15_shows_only_real_records():
+    run_js(GUIDE_SETUP + r"""
+await journeyEnsure();await guideOpen();await guideShow('G15');
+const example=UI.guide.example.records;
+for(const key of ['source','practice','trial'])assert.ok(!guideNode().textContent.includes(example[key]));
+assert.ok(el('guide-records').textContent.includes(T('journey.history.none')));
+// In-memory practice state and the mockup must never manufacture a saved outcome.
+S.guide.session={source:'2024-03-02T20:01:00.000Z',practice:42,trial:'2024-03-02T20:03:00.000Z'};
+guideRender();assert.ok(!guideNode().textContent.includes(T('guide.records.count',{count:42})));
+const at='2024-03-02T23:05:06.000Z';
+await journeyChange(j=>{j.outcomes.t1.real={first_at:at,last_at:at,count:2};
+ j.outcomes.t2.practice={first_at:at,last_at:at,count:7,last_job:'practice-7'};});
+guideRender();el('guide-records').querySelector('details').open=true;
+const local=new Date(at).toLocaleString();
+for(const count of [2,7])assert.ok(el('guide-records').textContent.includes(T('journey.history.first_count',{time:local,count})));
+assert.ok(el('guide-records').textContent.includes(T('journey.history.none')));
+for(const key of ['source','practice','trial'])assert.ok(!guideNode().textContent.includes(example[key]));
+// The guide uses the same local clock in its readiness, session and history views.
+S.guide.session.source=at;await guideShow('G12');
+assert.ok(el('guide-session-records').textContent.includes(local));
+await guideShow('G10');S.shell.serverAt=at;guideRender();
+assert.ok(el('guide-content').textContent.includes(T('guide.ai.checked',{time:local})));
+""")
+
+
+@pytest.mark.parametrize('screen', ['G05', 'G07', 'G08', 'G11'])
+def test_reload_mid_guide_reopens_last_confirmed_screen(screen):
+    run_js(PRACTICE_SETUP + f"const screen={screen!r};" + r"""
+saved.progress.guide=guideSaved(screen);ready=true;
+if(['G08','G11'].includes(screen)){
+ const dry=screen==='G08';listed=[trialJob(dry,'running')];
+ saved.pending={attempt:'saved-attempt',job:'g1',mode:dry?'practice':'real',started_at:'2026-10-31T01:00:00.000Z'};
+}
+// go() leaves #s01 in the address bar, including while the guide is open.
+location.hash='#s01';await start();await flush();
+assert.equal(guideNode().hidden,false);assert.equal(guideScreen(),screen);
+assert.equal(el('guide-resume').hidden,true);assert.equal(posted.length,0);
+if(screen==='G05')assert.ok(requests.includes('/api/servers'));
+if(['G08','G11'].includes(screen))assert.equal(S.guide.trial.id,'g1');
+await el('guide-close').click();await flush();
+assert.ok(saved.progress.dismissed_at);assert.equal(guideNode().hidden,true);
+assert.equal(el('guide-resume').hidden,false);
+// Replay a fresh page boot with the persisted close decision.
+S.guide.bootChecked=false;S.shell.navigation=1;emit('shell_started',{hash:'#s01'});guideSync();await flush();
+assert.equal(guideNode().hidden,true);assert.equal(el('guide-resume').hidden,false);
+await el('guide-resume-button').click();await flush();
+assert.equal(guideNode().hidden,false);assert.equal(guideScreen(),screen);
+assert.equal(saved.progress.dismissed_at,null);assert.equal(el('guide-resume').hidden,true);
+S.guide.open=false;guideBackground(false);guideNode().hidden=true;
+S.guide.bootChecked=false;S.shell.navigation=1;guideSync();await flush();
+assert.equal(guideNode().hidden,false);assert.equal(guideScreen(),screen);assert.equal(posted.length,0);
+// An explicit different screen continues to take priority over guide resumption.
+S.guide.open=false;guideBackground(false);guideNode().hidden=true;
+S.guide.bootChecked=false;emit('shell_started',{hash:'#s03'});guideSync();await flush();
+assert.equal(guideNode().hidden,true);assert.equal(posted.length,0);
+""")
+
+
+def test_g07_card_names_the_criterion():
+    run_js(PRACTICE_SETUP + r"""
+const criteria=Object.keys(UI.score.item_names);
+const exposure=criteria.find(name=>name.startsWith('8'));
+const different=criteria.find(name=>name.startsWith('14'));
+for(const criterion of [exposure,different]){
+ runData.status_text.top_problem.name=criterion;value.items=[criterion];
+ await readyTarget('G07');
+ assert.equal(el('guide-practice').querySelector('h2').textContent,UI.score.item_names[criterion]);
+ if(criterion===exposure){
+  const definition=UI.glossary.exposure.meaning.split(' 예: ')[0];
+  const copy=el('guide-content').textContent;
+  assert.ok(copy.includes(definition));
+  assert.ok(copy.indexOf(definition)<copy.indexOf(T('guide.source.ai_value')));
+ }
+ await el('guide-next').click();
+ assert.equal(el('guide-practice').querySelector('h2').textContent,UI.score.item_names[criterion]);
+}
+assert.equal(posted.length,0);
+""")
+
+
+def test_reload_waits_for_context_before_loading_last_screen():
+    run_js(PRACTICE_SETUP + r"""
+saved.progress.guide=guideSaved('G07');location.hash='#s01';
+S.ctx={version:1,set:null,key:null};S.shell.contextLoaded=false;
+const normal=api;let release;
+api=(p,o)=>p==='/api/sets'?new Promise(resolve=>release=()=>resolve({sets:[pack],default:pack.id})):normal(p,o);
+const boot=start();await flush();
+assert.equal(guideNode().hidden,true);
+release();await boot;await flush();
+assert.equal(guideScreen(),'G07');assert.equal(S.guide.source.state,'waiting');
+assert.ok(requests.some(p=>p.startsWith('/api/doc?')&&p.includes('key=silver%2Ffake')));
+assert.equal(posted.length,0);
+""")
+
+
+def test_try_model_and_value_are_plain():
+    from test_B_b_app_jobs_ui import SETUP as JOBS_SETUP
+    run_js(JOBS_SETUP + r"""
+const visibleText=node=>{
+ if(typeof node==='string')return node;
+ if(node.hidden)return '';
+ if(node.tagName==='details'&&!node.open)return visibleText(node.querySelector('summary'));
+ return node.children.map(visibleText).join('');
+};
+const tags=Object.keys(UI.context.models), chosen=tags[0], previous=tags[1];
+options.models=[{tag:chosen,connected:false}];
+const normal=api;api=(p,o)=>p.startsWith('/api/runs')?Promise.resolve({runs:[{name:'base',model_tag:previous,docs:['T21-X01']}]}):normal(p,o);
+for(const field of ['q','comp_ref']){
+ await go('s03',{doc:'T21-X01',section:8,base_run:'base',path:`msds[0].exposure_limits[2].${field}`,
+  kind:'wrong',expected:5,actual:8,line:'p2:L3'});
+ const focus=el('jobs-focus');
+ assert.doesNotMatch(visibleText(focus),/msds\[0\]\.|comp_ref|\bq\b/);
+ assert.ok(visibleText(focus).includes(UI.source.field_names[field] || UI.source.fields[field]));
+ const details=focus.querySelector('details');assert.ok(details);assert.equal(details.open,false);
+ details.open=true;assert.ok(visibleText(focus).includes(S.focus.path));
+ assert.ok(visibleText(el('jobs-try')).includes(UI.context.models[chosen]));
+ assert.equal(el('jobs-model').querySelector('option').textContent,UI.context.models[chosen]);
+ assert.ok(visibleText(el('jobs-try')).includes(T('jobs.focus.model_difference',{model:UI.context.models[previous]})));
+ assert.doesNotMatch(visibleText(el('jobs-try')),/⟦|undefined/);
+}
+S.jobs.runs[0].model_tag=chosen;jobsRenderTry();
+assert.ok(!el('jobs-try').textContent.includes(T('jobs.focus.model_difference',{model:UI.context.models[chosen]})));
+S.jobs.runs.push({name:'other-base',model_tag:previous,docs:['T21-X01']});jobsRenderTry();
+el('jobs-base').value='other-base';await el('jobs-base').dispatchEvent({type:'change'});
+assert.ok(visibleText(el('jobs-try')).includes(T('jobs.focus.model_difference',{model:UI.context.models[previous]})));
+options.models[0].connected=true;await jobsLoadOptions();jobsRenderTry();
+assert.ok(visibleText(el('jobs-try')).includes(UI.context.models[chosen]));
+assert.ok(visibleText(el('jobs-try')).includes(T('jobs.focus.model_difference',{model:UI.context.models[previous]})));
+assert.equal(posted.length,0);
+""")
+    run_js(PRACTICE_SETUP + r"""
+const tags=Object.keys(UI.context.models),chosen=tags[0],previous=tags[1];
+runData.model_tag=previous;
+const normal=api;api=(p,o)=>p==='/api/options'?Promise.resolve({...options,models:[{tag:chosen,connected:false}]}):normal(p,o);
+await readyTarget('G08');
+assert.ok(el('guide-practice').textContent.includes(UI.context.models[chosen]));
+assert.ok(el('guide-practice').textContent.includes(T('jobs.focus.model_difference',{model:UI.context.models[previous]})));
+assert.doesNotMatch(el('guide-practice').textContent,/⟦|undefined/);
+S.guide.trial.state='success';S.guide.trial.result={plan};S.guide.trial.job={dry_run:true};guideRender();
+assert.ok(el('guide-practice').textContent.includes(UI.context.models[chosen]));
+assert.ok(el('guide-practice').textContent.includes(T('jobs.focus.model_difference',{model:UI.context.models[previous]})));
+assert.equal(posted.length,0);
+""")
+
+
 def test_g02_choice_skips_unchosen_practice():
     run_js(PRACTICE_SETUP + r"""
 await enter('G01');await el('guide-next').click();assert.equal(guideScreen(),'G02');
@@ -487,7 +632,8 @@ def test_guide_examples_match_approved_scene_text():
     def text(node):
         if isinstance(node, str):
             return node
-        if 'snapshot-variant' in node['attrs'].get('class', '').split():
+        # Step 0 removes only G15's fabricated records from the approved example.
+        if {'snapshot-variant', 'demo-record'} & set(node['attrs'].get('class', '').split()):
             return ''
         return ''.join(text(child) for child in node['kids'])
 
@@ -547,7 +693,8 @@ def test_returning_visit_lands_on_s01_with_resume_line():
 saved.progress.guide=guideSaved();saved.progress.dismissed_at='2026-10-31T02:00:00.000Z';
 await start();await flush();assert.equal(S.shell.route,'s01');assert.equal(guideNode().hidden,true);
 assert.ok(el('guide-resume').textContent.includes(T('guide.resume')));
-await el('guide-resume-button').click();assert.equal(guideScreen(),'G09');assert.equal(puts.length,0);
+await el('guide-resume-button').click();await flush();assert.equal(guideScreen(),'G09');assert.equal(puts.length,1);
+assert.equal(saved.progress.dismissed_at,null);assert.equal(saved.progress.guide.screen,'G09');
 """)
     for state in ['completed', 'skipped']:
         run_js(GUIDE_SETUP + f"saved.progress.guide=guideSaved('G15','{state}');" + r"""
@@ -711,8 +858,8 @@ assert.ok(puts.length);assert.equal(el('screen-s08'),null);
 def test_guide_g15_example_records_stay_separate_from_actual_records():
     run_js(GUIDE_SETUP + r"""
 await journeyEnsure();S.journey.progress.guide=guideSaved('G15');await guideOpen({resume:true});
-const demo=el('guide-example');assert.ok(demo.textContent.includes(T('guide.example.records.title')));
-assert.ok(demo.textContent.includes(T('guide.example.records.practice')));
+const demo=el('guide-example');assert.ok(!demo.textContent.includes(T('guide.example.records.title')));
+for(const key of ['source','practice','trial'])assert.ok(!demo.textContent.includes(T('guide.example.records.'+key)));
 const records=el('guide-records');assert.ok(records.textContent.includes(T('journey.history.none')));
 assert.equal(S.journey.outcomes.t1.real,null);assert.equal(S.journey.outcomes.t2.practice,null);
 """)
