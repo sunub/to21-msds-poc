@@ -1645,6 +1645,61 @@ Questions skipped: non-interactive. impeccable clarify·polish·audit·craft-flo
 
 ## 처음 사용 안내 (Wispr 구조)
 
+### onboard example step 0
+
+⚠️ DEGRADED: no browser in sandbox
+
+- Questions skipped: non-interactive. 11/01 사용자 결정에 따라 왼쪽 예시의 수치·자료·기록만 제거한다. 오른쪽 실제 값과 성공 판정은 보존한다.
+- 구현 전 `test_example_panels_show_no_sample_data`와 변경한 `test_guide_examples_match_approved_scene_text`를 실행해 **2 failed**를 확인했다. G01에 예시 점수와 건수가 남아 있고, 승인 글에서 예시 자료를 제외한 기대와 달랐다. 로그: `/tmp/to21-onboard-example-red.log`.
+
+| 고친 것 | 시험 이름 | 확인 방법 |
+|---|---|---|
+| G01~G15와 상태별 왼쪽 예시 | `test_example_panels_show_no_sample_data` | 실제 그리기 함수를 실행해 수치·문서 식별자·값·단위·기록·자료 자리표시 없음, API 자료가 바뀌어도 예시 글 동일 |
+| 빈 막대와 읽기 이름 | 같은 시험 | 장식은 빈 글과 `aria-hidden`, 수치 스타일 없음. 예시 전체는 `role=img`, 이름은 `예시 화면`, 자식 글 읽기 제외 |
+| 승인 글 보존 | `test_guide_examples_match_approved_scene_text` | 승인 HTML에서 제외한 예시 값/종속 문장과 남긴 이름표를 명시한 뒤 전체 문자열 대조. 나머지 문구·순서 유지 |
+| 실제 기록과 점수 보존 | 새 시험, `test_g15_shows_only_real_records`, `test_guide_g15_example_records_stay_separate_from_actual_records`, 기존 G14 미리보기 시험 | 가짜 API의 오른쪽 실제 값·37회 기록은 남고 왼쪽으로 유입되지 않음 |
+| 사용하지 않는 글 제거 | 새 시험 | 렌더링 때 실제 사용한 example 키 수집, 남은 모든 키 사용 확인, COPY_EXCEPTIONS에 삭제한 키 없음 |
+
+#### 구현과 삭제한 키
+
+- 화면 **15개**, 예시 모양 8종(점수·단계·준비·원문·결과·기본값·연습·AI)에 적용했다. 상태별로 같은 예시 함수만 사용한다.
+- `guideExampleBlank()`가 텍스트 없는 회색 막대를 만든다. 폭은 칸 전체 또는 기존 간격 토큰으로 정한다. 점수 비율·목표 표시선·자료로 정한 길이는 없고 움직임도 없다.
+- `UI_TEXT.guide.example`의 말단 키 **47개**를 지웠다(94 → 47). `values`의 17개와 `records`의 7개, 아래 전용 키 23개다.
+- 전용 삭제 키: `absent`, `answer`, `doc`, `essential`, `essential_definition`, `gap`, `instruction`, `loss`, `off`, `open`, `points`, `prediction`, `present`, `problem`, `result_target`, `score`, `section`, `set_name`, `short_source`, `source`, `source_target`, `target`, `unit`.
+- 삭제 키의 COPY_EXCEPTIONS도 지웠다. `context_first`와 `model`은 자료를 뺀 뒤 기존 COPY 승인 글과 같아져 예외 등록만 더 지웠다. 첫 앱 회귀의 `test_copy_exceptions_do_not_keep_already_approved_text` 실패를 구현에서 고쳤고 시험은 유지했다.
+- `label`은 요청한 `예시 화면`, `line`은 `원문 줄`, `model`은 `AI 모델`로 남긴다. `context` 두 문구에서 문서 건수만 뺀다. 별도 안내 문장은 새로 만들지 않았다.
+- `score_unit`은 G14 오른쪽 실제 점수에 쓰므로 유지한다. 예시에서는 부르지 않는다. 일반 설명과 승인된 이름표는 그대로 둔다.
+- 숫자 허용 목록과 이유를 시험에 명시했다: 단계 이름 1~3, MSDS 주제 수/부분 설명, 단위 정의, 모델 준비 시간. 측정값·점수·기록을 뜻하는 숫자는 허용하지 않는다.
+
+#### 기존 시험 변경 이유
+
+- `test_guide_examples_match_approved_scene_text`: 11/01 사용자 결정으로 삭제한 예시 값과 종속 문장만 비교에서 뺐다. 문서·쪽/줄·모델의 자료 부분은 이름표로 치환한다. 그 밖의 승인 글 전체 대조는 유지한다.
+- `test_g15_shows_only_real_records`, `test_guide_g15_example_records_stay_separate_from_actual_records`: 삭제된 `example.records`를 읽지 않고 묶음 부재와 왼쪽 기록 부재를 검사한다. 오른쪽 실제 시각·횟수·성공 없음 검사는 유지한다. 삭제한 시험은 없다.
+
+#### 정적 확인과 한계
+
+- impeccable context를 한 번 실행하고 PRODUCT·DESIGN과 승인 SPEC·시안·S6 보고서·지정 사진 4장을 읽었다. 새 브라우저/서버/포트는 열지 않았다.
+- `detect`는 1회 실행했다(종료 2, `/tmp/to21-onboard-example-detect.json`). 기존 46건(advisory 19, warning 27)이며 새 지적은 없다. CSS 3건은 수정하지 않은 승인 12px 모서리다.
+- 검사기가 `/static/app.css`를 로컬 파일로 찾지 못해 색·변수 검사는 불완전하다. 실제 화면/읽기 프로그램 검증으로 주장하지 않는다.
+- 아키텍처: `guide.js`에서 예시 그리기 밖의 코드는 HEAD와 같다. `b_app_text.py`의 함수 정의는 구문 구조(AST)가 HEAD와 같다. 오른쪽 값·성공 판정·API·다른 역할 코드는 바꾸지 않았다.
+
+#### 브라우저로 볼 것
+
+- 예시 칸에 숫자·기록이 없다.
+- 위 숫자 허용 목록의 단계 이름과 앱 설명만 남는지 본다. G01~G15 및 성공·실패·대기 상태를 1280·1440·1680px × 900px에서 확인한다.
+- 막대가 점수 비율로 보이지 않는지 확인한다. 화면 읽기 프로그램이 왼쪽을 `예시 화면` 한 이름으로 읽는지 확인한다.
+- G07 오른쪽 원문 값과 G14 실제 점수, G15 실제 기록이 유지되는지 확인한다.
+
+#### 최종 완료 기준 검증
+
+- 정적 AC 전부 통과: BUILD 제목, 삭제 키 참조 없음, 외부 주소·움직임 없음, 승인 설계 변경 없음, Node 존재. `node --check`와 `git diff --check`도 통과했다.
+- 지정 시험 **2 passed**(0.64초). 문구 예외 고침 뒤 같은 두 시험과 실패했던 문구 시험을 함께 다시 돌려 **3 passed**(1.12초)를 확인했다. 안내 파일 전체는 **87 passed**(14.67초)다.
+- 최종 앱 AC: **1118 passed, 1194 deselected, 7 warnings**(53.48초, 종료 0). 로그: `/tmp/to21-onboard-example-app-final.log`.
+- 최종 전체 AC: **2281 passed, 30 skipped, 1 failed, 7 warnings**(83.47초, 종료 1). 로그: `/tmp/to21-onboard-example-full-final.log`.
+- 유일한 실패는 `tests/test_A_input.py::test_every_changing_route_answers_with_update`의 `socket.bind`에서 발생한 `PermissionError: [Errno 1] Operation not permitted`다. `phases/app-redo/_common.txt` 7절이 명시한 샌드박스 포트 차단 예외에 해당하므로 완료로 기록한다. 해당 시험은 수정하거나 제외하지 않았다. 실행기가 샌드박스 밖에서 다시 검증한다.
+- 경고 7건은 기존 SWIG 타입의 `__module__` 관련 DeprecationWarning이다. C의 위험한 전처리 시험은 모든 전체/앱 실행에서 제외했다. 모델 서버·네트워크 호출은 추가하지 않았다.
+- 상태 갱신 전 보호 파일 343개가 시작 해시와 같다. 자기 phase의 step 0에만 `completed`와 summary를 기록한다. 커밋하지 않는다.
+
 ### onboard fix step 1
 
 ⚠️ DEGRADED: no browser in sandbox

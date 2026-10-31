@@ -156,8 +156,7 @@ details.open=true;assert.ok(body.contains(details));assert.equal(posted.length,1
 def test_g15_shows_only_real_records():
     run_js(GUIDE_SETUP + r"""
 await journeyEnsure();await guideOpen();await guideShow('G15');
-const example=UI.guide.example.records;
-for(const key of ['source','practice','trial'])assert.ok(!guideNode().textContent.includes(example[key]));
+assert.equal(UI.guide.example.records,undefined);
 assert.ok(el('guide-records').textContent.includes(T('journey.history.none')));
 // In-memory practice state and the mockup must never manufacture a saved outcome.
 S.guide.session={source:'2024-03-02T20:01:00.000Z',practice:42,trial:'2024-03-02T20:03:00.000Z'};
@@ -169,7 +168,8 @@ guideRender();el('guide-records').querySelector('details').open=true;
 const local=new Date(at).toLocaleString();
 for(const count of [2,7])assert.ok(el('guide-records').textContent.includes(T('journey.history.first_count',{time:local,count})));
 assert.ok(el('guide-records').textContent.includes(T('journey.history.none')));
-for(const key of ['source','practice','trial'])assert.ok(!guideNode().textContent.includes(example[key]));
+assert.ok(!el('guide-example').textContent.includes(local));
+assert.ok(!el('guide-example').textContent.includes(T('guide.records.title')));
 // The guide uses the same local clock in its readiness, session and history views.
 S.guide.session.source=at;await guideShow('G12');
 assert.ok(el('guide-session-records').textContent.includes(local));
@@ -762,6 +762,79 @@ assert.equal(posted.length,0);
 """)
 
 
+def test_example_panels_show_no_sample_data():
+    """예시 수치 재등장, API 값 유입, 값에 비례한 막대, 읽기 중복을 잡는다."""
+    run_js(PRACTICE_SETUP + r"""
+await journeyEnsure();await guideOpen();
+const textLookup=T,used=new Set();
+T=(key,...args)=>{if(key.startsWith('guide.example.'))used.add(key.slice('guide.example.'.length));return textLookup(key,...args);};
+// Only navigation order and explanatory product facts may contain numbers.
+// These describe the app/units, never a document value or a completed action.
+const allowedNumbers = [
+ ['guide.example.step1', 'First navigation step'],
+ ['guide.example.step2', 'Second navigation step'],
+ ['guide.example.step3', 'Third navigation step'],
+ ['guide.choices.example_part', 'The fixed MSDS topic structure, also explained in G03'],
+ ['guide.choices.example_unit', 'Definition of a unit, not a measured value'],
+ ['guide.example.model_duration', 'Model preparation estimate, also shown in the AI guidance']
+];
+const states = [null,'checking','ready','loading','waiting','opening','estimated','sending','running',
+ 'shown','success','error','empty','failed','cancelled','unavailable','recovery'];
+const baseline = new Map();
+const check = (screen) => {
+ const example=el('guide-example'),copy=example.textContent;
+ let withoutAllowed=copy;
+ for(const [key,reason] of allowedNumbers){assert.ok(reason);withoutAllowed=withoutAllowed.split(T(key)).join('');}
+ assert.ok(!/[\d０-９⁰¹²³⁴⁵⁶⁷⁸⁹]/u.test(withoutAllowed),screen+': '+withoutAllowed);
+ assert.ok(!/T21-|RAW-|p\d+:L\d+|\{\w+\}|⟦|fake-units|Invented source|성분 A|AI 모델 A/.test(copy),screen+': '+copy);
+ assert.ok(!copy.includes(T('guide.records.title')));
+ assert.equal(example.getAttribute('role'),'img');
+ assert.equal(example.getAttribute('aria-label'),T('guide.example.label'));
+ for(const child of example.children)assert.equal(child.getAttribute('aria-hidden'),'true');
+ const blanks=example.querySelectorAll('.guide-placeholder');assert.ok(blanks.length,screen);
+ for(const blank of blanks){
+  assert.equal(blank.textContent,'');assert.equal(blank.getAttribute('aria-hidden'),'true');
+  assert.equal(blank.getAttribute('style'),null);assert.equal(blank.getAttribute('aria-valuenow'),null);
+ }
+ assert.equal(example.querySelectorAll('button,input,select,a,textarea,[tabindex]').length,0);
+ if(baseline.has(screen))assert.equal(copy,baseline.get(screen));else baseline.set(screen,copy);
+};
+for(const screen of guideOrder){
+ for(const state of states){
+  S.guide.screen=screen;
+  S.guide.readiness={results:state==='failed'?'unknown':state==='unavailable'?'absent':'present',key:'present',ai:'absent'};
+  S.guide.source={state,entry:{v:value},item:'Fake criterion',doc:view.doc_id,section:8,
+    page:2,selectedLines:new Set(['p2:L3']),line:{'p2:L3':view.lines[0]}};
+  S.guide.trial={state,dry:screen==='G08',plan,result:trialResult(true),id:'fake-job',recorded:true,
+    job:trialJob(screen==='G08'),section:8,started:Date.now(),response:{status:200}};
+  S.guide.returned=state==='ready';S.guide.session={source:null,practice:0,trial:null};
+  guideRender();check(screen);
+ }
+}
+// Actual records remain on the right, even when their dates/counts change.
+const at='2024-03-02T23:05:06.000Z';
+S.journey.outcomes.t2.practice={first_at:at,last_at:at,count:37,last_job:'fake-job'};
+S.guide.screen='G15';guideRender();check('G15');
+assert.ok(el('guide-records').textContent.includes(T('journey.history.first_count',{time:new Date(at).toLocaleString(),count:37})));
+// The score unit is still needed by the actual preview, not by the illustration.
+const choice={set:pack,key:{id:'silver/fake',label:'Fake answers'},usable:true};
+S.guide.defaults={choices:[choice],selected:choice,preview:{count:1,run:{weighted:38.2,key:choice.key}}};
+S.guide.screen='G14';guideRender();check('G14');
+assert.ok(el('guide-content').textContent.includes('38.2'));
+assert.ok(el('guide-content').textContent.includes(T('guide.example.score_unit')));
+assert.deepEqual(Object.keys(UI.guide.example).filter(key=>!used.has(key)),[]);
+T=textLookup;
+assert.equal(UI.guide.example.values,undefined);assert.equal(UI.guide.example.records,undefined);
+""")
+    import runpy
+
+    copy = runpy.run_path(str(STATIC.parent / 'b_app_text.py'))
+    example = copy['UI_TEXT']['guide']['example']
+    for key in copy['COPY_EXCEPTIONS']:
+        if key.startswith('guide.example.'):
+            assert key.removeprefix('guide.example.') in example
+
+
 def test_guide_examples_match_approved_scene_text():
     """정지 예시의 내용은 API가 아니라 승인된 장면 자체와 대조한다."""
     import json
@@ -778,9 +851,29 @@ def test_guide_examples_match_approved_scene_text():
             return node
         return next((found for child in node['kids'] if (found := find(child, predicate))), None)
 
+    # 11/01 결정: 예시 값과 그 값에 종속된 문장만 뺀다.
+    # 나머지 승인 문구는 여전히 원본 HTML과 전체 문자열로 대조한다.
+    removed_data = {
+        '82.4', '/ 100점', '점', '목표 90점보다 7.6점 낮아요.', '목표선 90점',
+        '필수 기준은 점수를 매기는 23개 기준 가운데 꼭 맞아야 하는 17개예요.',
+        '필수 17개 중 12개가 목표를 채웠어요.', '이 기준에서 총점 2.95점이 깎였어요.',
+        'T21-X01', '8번 부분', '성분 A: 5 mg/m³', '8', '5', 'mg/m³',
+        'T21-X01 · 성분 A · 8번 부분', 'T21-X01 · 8번 부분 · AI 모델 A',
+        '성분 A의 노출 기준: 5 mg/m³.', '개발용 문서 10건',
+        '성분 A의 허용 농도를 원문에 적힌 단위와 함께 뽑아요.',
+        '있음', '없음', '열림', '꺼짐',
+    }
+    labels_without_data = {
+        '개발용 문서 10건 · AI 정답 초안': 'AI 정답 초안',
+        '개발용 문서 10건 · AI 정답 초안 · 사람 확인 전': 'AI 정답 초안 · 사람 확인 전',
+        '가장 큰 문제는 허용 농도예요.': '가장 큰 문제',
+        '5쪽 12번째 줄': '원문 줄', 'AI 모델 A': 'AI 모델',
+    }
+
     def text(node):
         if isinstance(node, str):
-            return node
+            value = node.strip()
+            return '' if value in removed_data else labels_without_data.get(value, node)
         # Step 0 removes only G15's fabricated records from the approved example.
         if {'snapshot-variant', 'demo-record'} & set(node['attrs'].get('class', '').split()):
             return ''
@@ -1007,8 +1100,8 @@ assert.ok(puts.length);assert.equal(el('screen-s08'),null);
 def test_guide_g15_example_records_stay_separate_from_actual_records():
     run_js(GUIDE_SETUP + r"""
 await journeyEnsure();S.journey.progress.guide=guideSaved('G15');await guideOpen({resume:true});
-const demo=el('guide-example');assert.ok(!demo.textContent.includes(T('guide.example.records.title')));
-for(const key of ['source','practice','trial'])assert.ok(!demo.textContent.includes(T('guide.example.records.'+key)));
+const demo=el('guide-example');assert.equal(UI.guide.example.records,undefined);
+assert.ok(!demo.textContent.includes(T('guide.records.title')));
 const records=el('guide-records');assert.ok(records.textContent.includes(T('journey.history.none')));
 assert.equal(S.journey.outcomes.t1.real,null);assert.equal(S.journey.outcomes.t2.practice,null);
 """)
