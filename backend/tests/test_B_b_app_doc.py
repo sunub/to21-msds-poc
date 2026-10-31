@@ -508,6 +508,77 @@ def test_doc_view_refuses_eval_doc(bd, view_env):
         bd.doc_view(view_env / "runs" / "r1", "T21-X77", view_env / "pages9", view_env / "gold")
 
 
+# ── 실버 값의 추정 줄 (app-redo-api2 step 2) ──────────────
+
+def doc_view_r1(bd, env, gold_dir=None):
+    return bd.doc_view(env / "runs" / "r1", X01, env / "pages9", gold_dir or env / "gold")
+
+
+def gold_doc(env) -> dict:
+    return json.loads((env / "gold" / f"{X01}.json").read_text(encoding="utf-8"))
+
+
+def under(values, *rows) -> list[dict]:
+    return [v for v in values if any(v["path"].startswith(f"msds[0].{r}") for r in rows)]
+
+
+def test_doc_view_silver_only_gets_text_matched_lines(bd, view_env):
+    """결과가 빠뜨린 독성 행: 실버 근거 글이 가짜 쪽 줄 p5:L8의 글과 같으므로 그 줄이 추정 줄로 붙는다."""
+    ev = next(e for e in gold_doc(view_env)["msds"][0]["evidence"] if e["field"] == "toxicity[0]")
+    line = next(l for l in LINES if l.id == "p5:L8")
+    assert (ev["page"], ev["source_text"]) == (line.page, line.text)
+    dv = doc_view_r1(bd, view_env)
+    missed = [g for g in dv["silver_only"] if g["table"] == "toxicity"]
+    assert missed and all(g["lines"] == ["p5:L8"] for g in missed)
+    sl = dv["silver_lines"]
+    assert sl["basis"] == "text_match"
+    assert sl["total"] == len(bd.flatten_values(gold_doc(view_env)))      # 실버 값 전체(결과와 짝지은 값 포함)
+    assert len([g for g in dv["silver_only"] if g["lines"]]) <= sl["found"] < sl["total"]   # 근거 없는 칸(신호어 등)도 있다
+    assert all(set(v["silver"]) == {"value", "same", "text"} for v in dv["values"])          # 짝지은 실버 값의 키는 그대로
+
+
+def test_doc_view_silver_lines_not_found(bd, view_env):
+    """근거 글이 다른 쪽에 있거나(독성) 어디에도 없으면(CMR) 줄을 붙이지 않고, found가 그 값 수만큼 준다."""
+    before = doc_view_r1(bd, view_env)
+    gold = gold_doc(view_env)
+    for e in gold["msds"][0]["evidence"]:
+        if e["field"].startswith("toxicity[0]"):
+            e["page"] = 1                                                   # 같은 글이 1쪽에는 없다
+        if e["field"] == "cmr[0]":
+            e["source_text"] = "어디에도 없는 가상 글"
+    write_json(view_env / "gold2" / f"{X01}.json", gold)
+    after = doc_view_r1(bd, view_env, view_env / "gold2")
+    moved = under(bd.flatten_values(gold_doc(view_env), as_dicts(LINES)), "toxicity[0]", "cmr[0]")
+    assert moved and all(v["lines"] for v in moved)                         # 고치기 전에는 줄을 찾았다
+    assert all(g["lines"] == [] for g in after["silver_only"] if g["table"] == "toxicity")
+    assert after["silver_lines"]["total"] == before["silver_lines"]["total"]
+    assert before["silver_lines"]["found"] - after["silver_lines"]["found"] == len(moved)
+
+
+def test_doc_view_silver_lines_keep_result_lines_and_line_index(bd, view_env, tmp_path):
+    """실버 줄은 line_index에 넣지 않는다. 실버가 있든 없든 결과 값의 줄과 line_index는 같다."""
+    dv = doc_view_r1(bd, view_env)
+    alone = doc_view_r1(bd, view_env, tmp_path / "빈 정답지")
+    assert alone["has_gold"] is False
+    assert dv["line_index"] == alone["line_index"]
+    assert [(v["path"], v["lines"]) for v in dv["values"]] == [(v["path"], v["lines"]) for v in alone["values"]]
+    assert "p5:L8" not in dv["line_index"]                                  # 빠뜨린 독성 행의 추정 줄은 값을 켜지 않는다
+
+
+def test_doc_view_silver_without_evidence(bd, view_env):
+    gold = gold_doc(view_env)
+    del gold["msds"][0]["evidence"]
+    write_json(view_env / "gold2" / f"{X01}.json", gold)
+    dv = doc_view_r1(bd, view_env, view_env / "gold2")
+    assert dv["silver_only"] and all(g["lines"] == [] for g in dv["silver_only"])
+    assert dv["silver_lines"] == {"basis": "text_match", "found": 0, "total": len(bd.flatten_values(gold))}
+
+
+def test_doc_view_and_pages_view_without_gold_have_no_silver_lines(bd, view_env, tmp_path):
+    assert doc_view_r1(bd, view_env, tmp_path / "빈 정답지")["silver_lines"] is None
+    assert bd.pages_view(X01, view_env / "pages9")["silver_lines"] is None
+
+
 # ── 라우트 ─────────────────────────────────────────────
 
 def make_ctx(app, env, pages):

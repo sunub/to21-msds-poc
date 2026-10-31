@@ -7,6 +7,8 @@
 그래서 같은 쪽에서 글이 같은 줄을 찾아 되돌린다. 같은 글의 줄이 여럿이면(예: 독성 표의 '- | 자료없음') 그 값의 항 구간 안
 줄만 남기고, 그 글을 근거로 쓴 행이 나온 순서대로 k번째 행에 k번째 줄을 준다(행은 대개 원문 순서로 나온다).
 실행이 다른 쪽 글자 폴더로 돌았으면 글이 달라 줄을 못 찾을 수 있다(warnings에 적는다).
+실버 값의 줄도 같은 방식으로 찾는다. 정답지에는 줄 번호가 없어 추정이므로 silver_lines.basis에 "text_match"를 밝힌다.
+추정 줄은 silver_only[].lines에만 두고 line_index(줄 → 그 줄을 쓴 결과 값)에는 넣지 않는다.
 실버 대응: 먼저 common.align의 키 경로(성분은 CAS, 독성은 성분·지표·종 …)로 행을 맞춘다. 번호가 어긋나도 같은 행끼리 견준다.
 키 칸 하나만 달라도(예: 성분 MIX 대 CAS) 키 경로가 어긋나므로, 남은 행끼리는 같은 칸이 절반 이상(2칸 이상)인 행을 짝짓는다.
 값의 채점 항목(items): 그 값이 TO21 채점기의 어느 항목 비교에 들어가는 칸인지다(ITEM_RULES). "이 값 때문에 깎였다"가
@@ -355,7 +357,7 @@ def pages_view(doc_id: str, pages_dir: Path) -> dict:
     lines = page_lines(doc_id, pages_dir)
     return {"doc_id": doc_id, "pages": sorted({l["page"] for l in lines}), "lines": lines,
             "sections": section_spans(doc_id, pages_dir), "values": [], "silver_only": [], "line_index": {},
-            "has_gold": False, "warnings": []}
+            "has_gold": False, "silver_lines": None, "warnings": []}
 
 
 def doc_view(run: Path, doc_id: str, pages_dir: Path, gold_dir: Path) -> dict:
@@ -367,7 +369,9 @@ def doc_view(run: Path, doc_id: str, pages_dir: Path, gold_dir: Path) -> dict:
     values = flatten_values(doc, lines, spans)
     gold_path = gold_dir / f"{doc_id}.json"
     gold = json.loads(gold_path.read_text(encoding="utf-8")) if gold_path.exists() else None
-    gold_values = flatten_values(gold) if gold else []
+    gold_values = flatten_values(gold, lines, spans) if gold else []
+    silver_lines = {"basis": "text_match", "found": sum(1 for g in gold_values if g["lines"]),
+                    "total": len(gold_values)} if gold is not None else None
     match, pairs = _match(values, gold_values)
     for v in values:
         g = match.get(v["path"])
@@ -391,4 +395,4 @@ def doc_view(run: Path, doc_id: str, pages_dir: Path, gold_dir: Path) -> dict:
         warnings.append(f"이 문서에는 MSDS가 {count}건 있습니다. 첫 건만 보입니다.")
     return {"doc_id": doc_id, "pages": sorted({l["page"] for l in lines}), "lines": lines,
             "sections": spans, "values": values, "silver_only": silver_only, "line_index": line_index,
-            "has_gold": gold is not None, "warnings": warnings}
+            "has_gold": gold is not None, "silver_lines": silver_lines, "warnings": warnings}
