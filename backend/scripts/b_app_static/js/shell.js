@@ -8,7 +8,6 @@ const SHELL_SCREENS = {
   s05: {title: "nav.jobs", views: ["jobs-list", "jobs-detail"]},
   s06: {title: "nav.servers", views: ["servers-summary", "servers-rngd", "servers-runpod", "servers-models", "servers-log"]},
   s07: {title: "nav.help", views: ["help-topics", "help-glossary"]},
-  s08: {title: "nav.open_guide", views: ["journey-choice", "journey-records"]},
   s09: {title: "jobs.trial.open_batch", parent: "s03", views: ["jobs-run"]},
   s10: {title: "compare.table.open", parent: "s04", views: ["jobs-compare"]}
 };
@@ -96,7 +95,7 @@ function shellRenderHeader() {
     h("div", null, h("div", {class: "app-name"}, T("nav.app_name")),
       h("p", {class: "app-purpose"}, T("nav.purpose")),
       h("p", {class: "definition"}, T("common.document_definition"))),
-    h("div", {class: "head-side"}, shellNavButton("s08"), shellNavButton("s05", "nav.open_jobs")));
+    h("div", {class: "head-side"}, h("button", {id: "guide-open", type: "button", onclick: () => emit("guide_open", {})}, T("nav.open_guide")), shellNavButton("s05", "nav.open_jobs")));
   const nav = document.getElementById("main-nav"); nav.setAttribute("aria-label", T("nav.a11y"));
   const entries = ["s01", "s02", "s03", "s04", "s05", "s06", "s07"].map(id =>
     h("div", null, shellNavButton(id, SHELL_SCREENS[id].title, true),
@@ -312,7 +311,7 @@ async function start() {
     S.shell.headerObserver = new ResizeObserver(shellMeasureHeader);
     S.shell.headerObserver.observe(document.getElementById("global-context"));
   }
-  emit("shell_started", {});
+  emit("shell_started", {hash: location.hash});
   window.addEventListener("hashchange", () => go(shellInitialRoute(location.hash)).catch(fail));
   document.getElementById("context-picker").addEventListener("cancel", event => { event.preventDefault(); shellCloseContext(); });
   S.shell.contextReady = shellLoadContext();

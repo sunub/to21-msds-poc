@@ -541,7 +541,7 @@ const HELP_CHAPTERS = {
   ]
 };
 const HELP_CONTEXT = {s01: "score", s02: "source", s03: "retest", s04: "score",
-  s05: "recovery", s06: "servers", s08: "flow", s09: "retest", s10: "score"};
+  s05: "recovery", s06: "servers", s09: "retest", s10: "score"};
 S.help = {topic: null, returnTo: null, lastScreen: null, pending: null, loaded: false,
   loading: false, glossaryError: null, criteriaError: null, criteria: null, search: ""};
 
@@ -623,7 +623,7 @@ function helpRenderTopics() {
       detail.open = topic === S.help.topic || prior.get(topic) === true;
       return detail;
     }));
-  helpRenderMethods();
+  helpRenderMethods(); emit("journey_changed", {});
 }
 function helpRenderMethods() {
   const el = document.getElementById("help-methods"); if (!el) return;

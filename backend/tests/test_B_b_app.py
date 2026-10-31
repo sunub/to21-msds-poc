@@ -62,7 +62,7 @@ def test_index(app, ctx):
     assert "<title>" in text
     for element in ["app-header", "main-nav", "global-context", "ui-text"]:
         assert f'id="{element}"' in text
-    for no in range(1, 11):
+    for no in [1, 2, 3, 4, 5, 6, 7, 9, 10]:
         assert f'<section id="screen-s{no:02}" hidden' in text
 
 
@@ -110,9 +110,9 @@ def test_api_start_without_runs_or_model_server(app, ctx, monkeypatch):
 
 def test_static_start_entry_and_replay(app, ctx):
     text = get(app, ctx, "/")[2].decode()
-    assert 'id="screen-s08"' in text
-    assert 'id="journey-band"' in text
-    assert 'id="journey-choice"' in text and 'id="journey-records"' in text
+    assert 'id="screen-s08"' not in text
+    assert 'id="journey-band"' not in text
+    assert 'id="guide-overlay"' in text and 'id="help-guide-records"' in text
 
 
 def test_api_runs(app, ctx, env):
