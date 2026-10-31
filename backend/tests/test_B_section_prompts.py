@@ -176,6 +176,41 @@ def test_build_user_no_images_text_only():
     assert len(sp.build_user(2, lines)) == 1
 
 
+COMPS = [("가상물질 갑", "1234-56-6"), ("가상물질 을", None)]
+
+
+def test_component_list_appended_to_user():
+    """3항 성분 목록은 원문 뒤, 다시 확인할 점 앞에 붙는다. CAS가 없으면 'CAS 없음' (ADR-030)."""
+    lines = [Line("p5:L2", 5, 2, "가상물질 갑 | TWA 1 ppm")]
+    listed = "[3항 성분 목록]\n- 가상물질 갑 / 1234-56-6\n- 가상물질 을 / CAS 없음"
+    assert sp.build_user(8, lines, components=COMPS) == [
+        {"type": "text", "text": "[8항 원문]\np5:L2 가상물질 갑 | TWA 1 ppm\n\n" + listed}]
+    out = sp.build_user(8, lines, "가짜 피드백", components=COMPS)
+    assert out == [{"type": "text", "text": "[8항 원문]\np5:L2 가상물질 갑 | TWA 1 ppm\n\n" + listed
+                                            + "\n\n[다시 확인할 점]\n가짜 피드백"}]
+
+
+def test_component_list_absent_keeps_user_text():
+    lines = [Line("p5:L2", 5, 2, "가상물질 갑 | TWA 1 ppm")]
+    assert sp.build_user(8, lines, components=None) == sp.build_user(8, lines)
+    assert sp.build_user(8, lines, components=[]) == sp.build_user(8, lines)
+    assert sp.build_user(8, lines, "가짜 피드백", components=[]) == sp.build_user(8, lines, "가짜 피드백")
+    assert "[3항 성분 목록]" not in sp.build_user(8, lines)[0]["text"]
+
+
+def test_component_list_rule_only_in_comp_sections(systems, rows_systems):
+    """8·11·12·15항 안내에만 [3항 성분 목록] 규칙이 있다. JSON·행 형식 안내문 모두 같다."""
+    assert sp._COMPONENT_SECTIONS == (8, 11, 12, 15)
+    for no in sp._COMPONENT_SECTIONS:
+        for text in (systems[no], rows_systems[no]):
+            guide = _part(text, "이 항의 안내")
+            assert "[3항 성분 목록]" in guide and "`comp_name`" in guide and "`comp_cas`" in guide, no
+            assert "같은 물질이면 목록의 것을 쓴다" in guide, no
+    for no in set(NOS) - set(sp._COMPONENT_SECTIONS):
+        assert "[3항 성분 목록]" not in systems[no], no
+    assert "[3항 성분 목록]" not in rows_systems[9]
+
+
 @pytest.mark.parametrize("no", NOS)
 def test_prompt_hash_stable(systems, no):
     h = sp.prompt_hash(no)
