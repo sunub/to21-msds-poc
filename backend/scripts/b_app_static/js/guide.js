@@ -1,8 +1,9 @@
 "use strict";
 
-// 선택 화면 G02·G14는 다음 step에서 잇는다. 장 위치는 승인 시안의 번호다.
-const guideOrder = ["G01", "G03", "G04", "G05", "G06", "G07", "G08", "G09", "G10", "G11", "G12", "G13", "G15"];
+// 장 위치는 승인 시안의 번호다. 선택한 실습만 이동 순서에 남긴다.
+const guideOrder = ["G01", "G02", "G03", "G04", "G05", "G06", "G07", "G08", "G09", "G10", "G11", "G12", "G13", "G14", "G15"];
 const guideScreens = {
+  G02: {chapter: 1, n: 2, m: 3, example: "steps"}, G14: {chapter: 4, n: 2, m: 2, example: "defaults"},
   G01: {intro: true, example: "score"}, G03: {chapter: 1, n: 3, m: 3, example: "steps"},
   G04: {intro: true, example: "ready"}, G06: {intro: true, example: "source"},
   G09: {chapter: 3, n: 4, m: 7, example: "result"},
@@ -24,7 +25,33 @@ function guideSupported(screen) {
 }
 function guideButton(id, key, action, primary = false) {
   return h("button", {id, type: "button", class: primary ? "primary" : "text-button",
-    onclick: () => Promise.resolve(action()).catch(fail)}, T(key));
+    onclick: () => {
+      emit("onboarding_action", {screen: S.guide.screen, action: id.replace(/^guide-/, "")});
+      return Promise.resolve(action()).catch(fail);
+    }}, T(key));
+}
+function guideUnchosen(choices = guideProgress().choices) {
+  // 옛 진행 기록에는 선택 화면이 없었다. 그 기록의 빈 선택은 기존 순서를 잇는다.
+  if (!choices.length) return [];
+  return [!choices.some(c => ["score", "source"].includes(c)) && "p1",
+    !choices.includes("retest") && "p2", !choices.some(c => ["retest", "ai"].includes(c)) && "p3"].filter(Boolean);
+}
+function guideRoute() {
+  const excluded = guideUnchosen();
+  return guideOrder.filter(screen => !excluded.includes({G07: "p1", G08: "p2", G09: "p2", G10: "p3", G11: "p3"}[screen]));
+}
+function guideAdjacent(direction = 1) {
+  const at = guideOrder.indexOf(S.guide.screen), route = guideRoute();
+  return (direction > 0 ? guideOrder.slice(at + 1) : guideOrder.slice(0, at).reverse()).find(screen => route.includes(screen));
+}
+function guideSetChoice(choice, checked) {
+  const prior = guideProgress(), previousExcluded = guideUnchosen(prior.choices);
+  const choices = ["score", "source", "retest", "ai"].filter(c => c === choice ? checked : prior.choices.includes(c));
+  journeyChange(j => {j.progress.guide = {...prior, state: "in_progress", screen: "G02", choices,
+    skipped: [...new Set([...prior.skipped.filter(p => !previousExcluded.includes(p)), ...guideUnchosen(choices)])],
+    updated_at: journeyTime()};});
+  emit("onboarding_action", {screen: "G02", action: `choose_${choice}`});
+  guideRender(); document.getElementById(`guide-choice-${choice}`)?.focus({preventScroll: true});
 }
 function guideVisible(el) {
   if (!el?.isConnected) return false;
@@ -56,7 +83,7 @@ async function guideOpen({resume = false, replay = false} = {}) {
   S.guide.screen = resume ? guideSupported(guideProgress().screen) : "G01";
   S.guide.bootChecked = true;
   if (!S.guide.session || replay) S.guide.session = {source: null, practice: 0, trial: null};
-  if (replay) {S.guide.target = null; S.guide.readiness = null; S.guide.returnScreen = null;}
+  if (replay) {S.guide.target = null; S.guide.readiness = null; S.guide.returnScreen = null; S.guide.defaultsReturn = null;}
   if (replay) {
     // 성공·대기 작업·옛 갈래 진행을 건드리지 않는다. 직렬 PUT은 journey가 맡는다.
     journeyChange(j => {j.progress.guide = {...guideDefault(), state: "in_progress", screen: "G01", updated_at: journeyTime()};});
@@ -67,8 +94,9 @@ async function guideOpen({resume = false, replay = false} = {}) {
 }
 function guideNext() {
   const from = S.guide.screen;
-  emit("onboarding_action", {screen: from, action: "next"});
+  if (guideNextDisabled()) return;
   if (from === "G15") return guideClose("completed");
+  if (from === "G14") return guideApplyDefaults();
   if (from === "G05") {
     const r = S.guide.readiness;
     if (!r || [r.results, r.key].includes("checking")) return;
@@ -82,16 +110,14 @@ function guideNext() {
   }
   if (from === "G10") return guideHandoff();
   if (from === "G06" && S.guide.readiness?.results === "absent") return guideSkipPractice("p1", "G08");
-  return guideShow(guideOrder[guideOrder.indexOf(from) + 1]);
+  return guideShow(guideAdjacent());
 }
 function guideBack() {
-  const index = guideOrder.indexOf(S.guide.screen);
-  if (index <= 0) return;
-  guideShow(guideOrder[index - 1], {save: false}).catch(fail);
-  emit("onboarding_action", {screen: S.guide.screen, action: "back"});
+  const screen = guideAdjacent(-1);
+  if (screen) return guideShow(screen, {save: false});
 }
 async function guideClose(state = "in_progress") {
-  guideLeave(); S.guide.returnScreen = null;
+  guideLeave(); S.guide.returnScreen = null; S.guide.defaultsReturn = null;
   S.guide.open = false; S.guide.bootChecked = true;
   document.getElementById("guide-overlay").hidden = true; guideBackground(false);
   journeyChange(j => {
@@ -100,7 +126,7 @@ async function guideClose(state = "in_progress") {
       updated_at: prior.updated_at || journeyTime()};
     j.progress.dismissed_at = journeyTime();
   });
-  emit(state === "completed" ? "onboarding_completed" : "onboarding_action", {screen: S.guide.screen, action: state});
+  if (state === "completed") emit("onboarding_completed", {});
   await go("s01");
   if (!S.guide.open) (guideVisible(S.guide.returnFocus) ? S.guide.returnFocus : document.getElementById("guide-open"))?.focus();
 }
@@ -156,8 +182,8 @@ function guideChapterRow(meta) {
     h("div", {id: "guide-progress", class: "guide-progress", role: "img", "aria-label": T("guide.progress_label",
       {chapter: T(`guide.chapters.${meta.chapter}`), n: meta.n, m: meta.m})},
       Array.from({length: meta.m}, (_, i) => {
-        const part = meta.chapter === 3 ? [null, "p1", "p2", null, "p3", "p3", null][i] : null;
-        const skipped = part && guideProgress().skipped.includes(part);
+        const part = meta.chapter === 3 ? [null, "p1", "p2", "p2", "p3", "p3", null][i] : null;
+        const skipped = part && (guideUnchosen().includes(part) || (i !== 3 && guideProgress().skipped.includes(part)));
         return h("span", {class: `${i < meta.n ? "filled" : ""}${skipped ? " guide-skipped" : ""}`, "data-skipped": skipped ? part : null},
           skipped ? T("guide.skipped") : null);
       })),
@@ -221,7 +247,8 @@ function guideExample(kind) {
       S.guide.screen === "G15" ? h("div", {class: "guide-demo-record"}, h("h2", null, E("records.title")),
         h("ul", null, ["source", "practice", "trial"].map(k => h("li", null,
           h("strong", null, E(`records.${k}_label`)), h("span", null, E(`records.${k}`)))))) : null,
-      kind === "defaults" ? h("p", {class: "guide-demo-caption"}, E("set_definition")) : null)));
+      kind === "defaults" && S.guide.screen === "G13" ? h("p", {class: "guide-demo-caption"}, E("set_definition")) : null,
+      S.guide.screen === "G02" ? h("p", {class: "guide-demo-caption"}, T("guide.choices.example_part"), h("br"), T("guide.choices.example_unit")) : null)));
 }
 function guideRender() {
   if (!S.guide.open) return;
@@ -245,9 +272,11 @@ function guideRender() {
           h("p", {class: "muted"}, T("guide.screens.G09.no_success"))] : null,
         guidePracticeContent(), screen === "G15" ? h("div", {id: "guide-records"}) : null),
       h("footer", {class: "guide-action"}, screen === "G01" ? guideButton("guide-skip", "guide.skip", () => guideClose("skipped")) : null,
+        screen === "G14" ? guideButton("guide-keep-context", "guide.defaults.keep", () => guideShow("G15")) : null,
         screen === "G10" ? [guideButton("guide-without-ai", "guide.ai.without", () => guideSkipPractice("p3", "G13")),
           h("p", {class: "muted"}, T("guide.ai.skip_note"))] : null,
         guideButton("guide-next", guideNextKey(), guideNext, true),
+        ["G02", "G14"].includes(screen) && guideNextDisabled() ? h("p", {class: "guide-disabled-note"}, T(screen === "G02" ? "guide.choices.disabled" : "guide.defaults.disabled")) : null,
         screen === "G10" ? [h("p", {class: "guide-after"}, T("guide.ai.cost_action")), h("p", {class: "muted"}, T("guide.ai.cost"))] : null)))),
     h("div", {id: "guide-confirm", class: "guide-confirm", hidden: true}));
   document.getElementById("guide-next").disabled = guideNextDisabled();
@@ -296,17 +325,21 @@ function guideLeave() {
 async function guideShow(screen, {save = true} = {}) {
   guideLeave(); const g = S.guide, epoch = g.epoch;
   g.screen = guideSupported(screen); g.trial = null; g.aiChecking = false;
-  if (g.screen === "G07") g.source = {state: "loading", skipped: new Set(), emitted: new Set()};
+  if (g.screen !== "G14") g.defaultsReturn = null;
+  if (g.screen === "G07") g.source = {state: "loading", started: Date.now(), skipped: new Set(), emitted: new Set()};
+  if (g.screen === "G14") g.defaults = {loading: true, choices: [], selected: null};
   guideRender();
   if (save) journeyChange(j => {j.progress.guide = {...guideProgress(), state: "in_progress", screen: g.screen, updated_at: journeyTime()};});
   emit("onboarding_step_viewed", {screen: g.screen});
   if (g.screen === "G05") await guideCheckReadiness();
+  if (guideCurrent(epoch, "G14")) await guideLoadDefaults();
   if (guideCurrent(epoch, "G07")) await guideLoadValue();
   if (guideCurrent(epoch) && ["G08", "G10", "G11"].includes(g.screen)) {
     if (g.screen !== "G08") {
       await guideCheckAI();
       if (!guideCurrent(epoch)) return;
-      g.screen = guideAIReady() ? "G11" : "G10";
+      const resolved = guideAIReady() ? "G11" : "G10";
+      if (g.screen !== resolved) {g.screen = resolved; emit("onboarding_step_viewed", {screen: resolved});}
       if (save) journeyChange(j => {j.progress.guide = {...guideProgress(), screen: g.screen, updated_at: journeyTime()};});
     }
     if (guideCurrent(epoch) && ["G08", "G11"].includes(g.screen)) await guidePrepareTrial();
@@ -388,8 +421,8 @@ async function guideLoadValue() {
         selectedLines: new Set(), page: null});
       g.target = {...scope}; guideRender(); return;
     }
-    if (guideCurrent(epoch)) {state.state = "empty"; guideRender();}
-  } catch (error) {if (guideCurrent(epoch)) {state.state = "error"; state.error = error; guideRender();}}
+    if (guideCurrent(epoch)) {state.state = "empty"; guidePracticeResult(state, "p1", "real", "failed"); guideRender();}
+  } catch (error) {if (guideCurrent(epoch)) {state.state = "error"; state.error = error; guidePracticeResult(state, "p1", "real", "failed"); guideRender();}}
 }
 async function guideOpenEvidence() {
   const g = S.guide, state = g.source;
@@ -401,14 +434,14 @@ async function guideOpenEvidence() {
   }
   const entry = state.entry;
   if (!entry || entry.only || !sourceHasEvidence(entry.v, state.data) || entry.kind !== "wrong" || entry.v.silver?.same !== false) {
-    state.state = "estimated"; guideRender(); return;
+    state.state = "estimated"; guidePracticeResult(state, "p1", "real", "failed"); guideRender(); return;
   }
   state.selectedLines = new Set(entry.v.lines.filter(id => state.line[id]));
   state.page = entry.v.lines.map(id => state.line[id]).find(line => line && state.data.pages.includes(line.page))?.page;
   state.state = "shown"; guideRender();
   emit("problem_opened", {...g.target, origin: "guide"});
   if (sourceEvidence(entry.v, state, document.getElementById("guide-source-lines"), guideVisible(document.getElementById("guide-source-lines")))) {
-    state.state = "success"; g.session.source = journeyTime(); guideRender();
+    state.state = "success"; g.session.source = journeyTime(); guidePracticeResult(state, "p1", "real", "success"); guideRender();
   }
 }
 async function guidePrepareTrial() {
@@ -445,6 +478,7 @@ function guideTrialDeadline(t) {
     if (!guideTrialCurrent(t)) return;
     t.request = (t.request || 0) + 1; t.polling = null; clearTimeout(t.timer);
     t.expired = true; t.state = "recovery"; t.error = new Error(T("guide.recovery.timeout")); guideUpdatePractice();
+    guidePracticeResult(t, t.dry ? "p2" : "p3", t.dry ? "practice" : "real", "timeout");
   }, GUIDE_TRIAL_MS);
 }
 async function guideStartTrial() {
@@ -457,6 +491,7 @@ async function guideStartTrial() {
   if (!jobsAllowed(doc, "try") || doc.group === "eval" || doc.locked || sourceLock(t.doc)) return;
   t.state = "sending"; t.started = Date.now(); t.error = null; t.epoch = g.epoch;
   t.id = null; t.failureKind = null; t.expired = false; t.response = null; t.result = null; t.event = null;
+  t.reported = null;
   guideTrialDeadline(t); guideRender();
   const body = jobsTryBody({doc: t.doc, model: t.model, secs: new Set([t.section]), all: false, edit: false, base: t.base, dry: t.dry});
   try {
@@ -464,7 +499,8 @@ async function guideStartTrial() {
     if (!data || !guideTrialCurrent(t)) return;
     t.id = data.id; t.state = "running"; guideUpdatePractice(); await guidePollTrial();
   } catch (error) {
-    if (guideTrialCurrent(t)) {t.state = "recovery"; t.error = error; clearTimeout(t.deadline); guideUpdatePractice();}
+    if (guideTrialCurrent(t)) {t.state = "recovery"; t.error = error; clearTimeout(t.deadline);
+      guidePracticeResult(t, t.dry ? "p2" : "p3", t.dry ? "practice" : "real", "unconfirmed"); guideUpdatePractice();}
   }
 }
 async function guidePollTrial() {
@@ -503,6 +539,8 @@ async function guidePollTrial() {
     finally {
       if (valid()) {
         guideUpdatePractice(); guideRecordTrial();
+        if (["failed", "recovery"].includes(t.state)) guidePracticeResult(t, t.dry ? "p2" : "p3",
+          t.dry ? "practice" : "real", t.state === "failed" ? "failed" : t.expired ? "timeout" : "unconfirmed");
         if (t.state === "running") t.timer = setTimeout(() => {if (t.state === "running") guidePollTrial().catch(fail);}, 2000);
         else clearTimeout(t.deadline);
       }
@@ -516,19 +554,28 @@ function guideRecordTrial() {
   if (!guideTrialCurrent(t) || t.state !== "shown" || !t.event || !guideVisible(summary)) return;
   t.state = "success"; S.jobs.emitted.add(t.id);
   if (t.dry) g.session.practice++; else g.session.trial = journeyTime();
-  emit("try_result_viewed", t.event); guideUpdatePractice();
+  emit("try_result_viewed", t.event); guidePracticeResult(t, t.dry ? "p2" : "p3", t.dry ? "practice" : "real", "success"); guideUpdatePractice();
+}
+function guidePracticeResult(attempt, scenario, source, outcome) {
+  if (attempt?.reported === outcome) return;
+  if (attempt) attempt.reported = outcome;
+  const elapsed = Date.now() - (attempt?.started ?? Date.now());
+  emit("practice_result", {scenario, source, outcome, latency_ms: Number.isFinite(elapsed) ? Math.max(0, Math.round(elapsed)) : 0});
 }
 function guideCancelPractice() {
   const t = S.guide.trial; if (!t?.dry) return;
   t.active = false; clearTimeout(t.timer); clearTimeout(t.deadline); t.state = "cancelled";
+  guidePracticeResult(t, "p2", "practice", "cancelled");
   if (t.id) {S.jobs.terminal.add(t.id); emit("attempt_cancelled", {job: t.id});}
   else if (S.journey.pending?.mode === "practice") journeyChange(j => {j.pending = null;});
   guideRender();
 }
 function guideSkipPractice(part, next) {
   part ||= {G07: "p1", G08: "p2", G11: "p3"}[S.guide.screen];
-  next ||= {G07: "G08", G08: "G09", G11: "G12"}[S.guide.screen];
+  next ||= guideAdjacent();
+  if (!guideRoute().includes(next)) next = guideOrder.slice(guideOrder.indexOf(next) + 1).find(screen => guideRoute().includes(screen));
   journeyChange(j => {j.progress.guide = {...guideProgress(), skipped: [...new Set([...guideProgress().skipped, part])]};});
+  guidePracticeResult(null, part, "skipped", "skipped");
   return guideShow(next);
 }
 async function guideHandoff() {
@@ -545,8 +592,8 @@ async function guideReturn() {
   if (S.guide.screen !== screen && screen === "G05") await guideShow(screen, {save: false});
 }
 async function guideChooseKey() {
-  // G14는 다음 step에서 구현한다. 기존 공통 선택 창으로 같은 설정을 고른다.
-  await guideClose(); shellOpenContext();
+  S.guide.defaultsReturn = "G05";
+  return guideShow("G14");
 }
 on("guide_return", () => {guideReturn().catch(fail);});
 on("attempt_cancelled", ({job}) => {
@@ -556,7 +603,7 @@ on("attempt_cancelled", ({job}) => {
 });
 on("context_changed", () => {
   S.guide.target = null; S.guide.readiness = null;
-  if (S.guide.open) guideShow("G05").catch(fail);
+  if (S.guide.open && !S.guide.applyingDefaults) guideShow("G05").catch(fail);
 });
 
 function guideVariant() {
@@ -603,6 +650,8 @@ function guideNextKey() {
 }
 function guideNextDisabled() {
   const g = S.guide;
+  if (g.screen === "G02") return !guideProgress().choices.length;
+  if (g.screen === "G14") return !g.defaults?.selected?.usable;
   if (g.screen === "G05") return !g.readiness || [g.readiness.results, g.readiness.key].includes("checking");
   if (g.screen === "G07") return !g.source || g.source.state === "loading";
   if (["G08", "G11"].includes(g.screen)) return !g.trial || ["running", "sending"].includes(g.trial.state) || g.aiChecking;
@@ -628,7 +677,7 @@ function guidePracticeContent() {
   const screen = S.guide.screen;
   return h("div", {id: "guide-content"}, screen === "G05" ? guideReadinessContent() : screen === "G07" ? guideSourceContent()
     : ["G08", "G11"].includes(screen) ? guideTrialContent() : screen === "G10" ? guideAIContent()
-    : screen === "G12" ? guideRecordsContent() : null);
+    : screen === "G12" ? guideRecordsContent() : screen === "G02" ? guideChoicesContent() : screen === "G14" ? guideDefaultsContent() : null);
 }
 function guideReadinessContent() {
   const r = S.guide.readiness || {}, failed = [r.results, r.key].includes("unknown");
@@ -726,4 +775,94 @@ function guideRecordsContent() {
   return h("div", null, h("p", {class: "guide-lead"}, T(record.trial ? "guide.records.lead" : record.source ? "guide.records.source_only" : "guide.records.practice_only")),
     h("div", {id: "guide-session-records", class: "guide-ready-list"}, rows),
     h("p", {class: "guide-after"}, T("guide.records.separate")));
+}
+
+function guideChoicesContent() {
+  return h("div", null, h("p", {class: "guide-lead"}, T("guide.choices.lead")),
+    h("p", null, T("guide.choices.skip")),
+    h("fieldset", {class: "guide-choice-list"}, h("legend", null, T("guide.choices.legend")),
+      ["score", "source", "retest", "ai"].map(choice => {
+        const checked = guideProgress().choices.includes(choice);
+        return h("label", {class: "guide-choice-card", "data-selected": String(checked)},
+          h("input", {id: `guide-choice-${choice}`, type: "checkbox", checked,
+            onchange: event => guideSetChoice(choice, event.target.checked)}),
+          h("span", null, h("strong", null, T(`guide.choices.${choice}.title`)),
+            h("span", {class: "guide-choice-note"}, T(`guide.choices.${choice}.note`)),
+            checked ? h("span", {class: "guide-choice-selected"}, T("guide.choices.selected")) : null));
+      })));
+}
+async function guideLoadDefaults() {
+  const g = S.guide, epoch = g.epoch, state = g.defaults;
+  try {
+    const [sets, keys] = await guideRequest(Promise.all([api("/api/sets"), api("/api/keys")]));
+    if (!guideCurrent(epoch, "G14") || g.defaults !== state) return;
+    S.shell.sets = sets.sets || []; S.shell.keys = keys.keys || [];
+    state.choices = S.shell.sets.flatMap(set => S.shell.keys.map(key => ({set, key, usable: !!(set.usable && key.usable)})));
+    state.choices.sort((a, b) => Number(b.set.id === S.ctx.set && b.key.id === S.ctx.key) - Number(a.set.id === S.ctx.set && a.key.id === S.ctx.key));
+  } catch (error) {if (guideCurrent(epoch, "G14")) state.error = error;}
+  finally {if (guideCurrent(epoch, "G14")) {state.loading = false; guideRender();}}
+}
+async function guidePreviewDefaults(choice) {
+  if (!choice.usable) return;
+  const g = S.guide, epoch = g.epoch, state = g.defaults;
+  const request = state.request = (state.request || 0) + 1;
+  const valid = () => guideCurrent(epoch, "G14") && g.defaults === state && state.request === request;
+  state.selected = choice; state.preview = {loading: true};
+  emit("onboarding_action", {screen: "G14", action: "choose_defaults"});
+  guideRender(); document.getElementById(`guide-default-${state.choices.indexOf(choice)}`)?.focus({preventScroll: true});
+  const url = path => `${path}?${new URLSearchParams({key: choice.key.id})}`;
+  try {
+    const list = await guideRequest(api(url("/api/runs")));
+    if (!valid()) return;
+    const pool = (list.runs || []).filter(run => !run.error && run.set?.id === choice.set.id && !["silver", "eval"].includes(run.run_kind));
+    const run = pool.find(run => run.name === list.current) || pool.at(-1);
+    const result = run ? await guideRequest(api(url(scoreRunPath(run.name)))) : null;
+    if (!valid()) return;
+    if (result && (result.set?.id !== choice.set.id || result.key?.id !== choice.key.id)) throw new Error(T("guide.defaults.mismatch"));
+    state.preview = {run: result};
+  } catch (error) {if (valid()) state.preview = {error};}
+  finally {if (valid()) guideUpdatePractice();}
+}
+async function guideApplyDefaults() {
+  const g = S.guide, choice = g.defaults?.selected;
+  if (!choice?.usable) return;
+  const next = g.defaultsReturn || "G15";
+  g.applyingDefaults = true;
+  try {
+    if (!shellApplyContext({set: choice.set.id, key: choice.key.id})) return;
+    g.defaultsReturn = null;
+  } finally {g.applyingDefaults = false;}
+  return guideShow(next);
+}
+function guideDefaultsPreview() {
+  const preview = S.guide.defaults?.preview;
+  return h("div", {class: "guide-choice-preview", role: "status", "aria-live": "polite"},
+    preview?.loading ? T("guide.ready.states.checking") : preview?.error
+      ? guideError("guide.defaults.failed", "guide.defaults.failed_todo", preview.error)
+      : !preview?.run || !num(preview.run.weighted)
+        ? h("div", null, h("strong", null, T("guide.defaults.empty")), h("p", null, T("guide.defaults.empty_note")))
+        : h("div", null, h("p", null, T("guide.defaults.preview")), h("div", {class: "guide-value"},
+          preview.run.weighted.toFixed(1), h("span", {class: "guide-unit"}, T("guide.example.score_unit"))),
+          h("p", null, shellKeyLabel(preview.run.key)), h("p", null, T("guide.example.trust"))));
+}
+function guideDefaultsContent() {
+  const state = S.guide.defaults;
+  return h("div", null, h("p", {class: "guide-lead"}, T("guide.defaults.lead")),
+    h("p", null, T("guide.defaults.definition")),
+    state?.loading ? h("p", {role: "status"}, T("guide.ready.states.checking")) : null,
+    state?.error ? h("div", null, guideError("guide.defaults.load_failed", "guide.defaults.load_todo", state.error),
+      guideButton("guide-defaults-retry", "guide.ready.retry", () => guideShow("G14"))) : null,
+    state && !state.loading && !state.error ? h("fieldset", {class: "guide-choice-list"},
+      h("legend", null, T("guide.defaults.legend")), state.choices.length ? state.choices.map((choice, i) => {
+        const selected = choice === state.selected, current = choice.set.id === S.ctx.set && choice.key.id === S.ctx.key;
+        return h("div", {class: "guide-choice-card", "data-selected": String(selected)},
+          h("label", null, h("input", {id: `guide-default-${i}`, type: "radio", name: "guide-default", checked: selected,
+            "data-set": choice.set.id, "data-key": choice.key.id, disabled: !choice.usable,
+            onchange: () => guidePreviewDefaults(choice)}),
+            h("span", null, h("strong", null, current ? T("guide.defaults.current") : choice.set.label || choice.set.id),
+              h("span", {class: "guide-choice-note"}, `${choice.set.label || choice.set.id} · ${choice.key.label || choice.key.id}`),
+              !choice.usable ? h("span", {class: "guide-choice-note"}, choice.set.reason || choice.key.reason || T("context.unavailable")) : null,
+              selected ? h("span", {class: "guide-choice-selected"}, T("guide.choices.selected")) : null)),
+          selected ? guideDefaultsPreview() : null);
+      }) : h("p", null, T("context.unavailable"))) : null);
 }
