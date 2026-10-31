@@ -10,7 +10,7 @@ import re
 import pytest
 
 from test_B_b_app_runs import env, make_run  # noqa: F401  env는 픽스처
-from test_B_b_app_sets import answer_keys  # noqa: F401  가짜 data/silver·gold 픽스처
+from test_B_b_app_sets import answer_keys, page  # noqa: F401  가짜 data/silver·gold 픽스처
 from test_B_b_app_doc import write_lines
 from test_B_compare_models import SCRIPTS, X01, X02, make_doc
 from test_B_expand import LINES
@@ -147,7 +147,7 @@ def test_run_labels_are_added_without_changing_score_or_cache(app, ctx, env, mon
     # Steps 4/9 add presentation fields; every original scoring field remains identical.
     assert {k: v for k, v in detail.items()
             if k not in ("label", "model_label", "status_text", "card_summaries", "connection_notes", "key",
-                         "run_kind_label", "targets")} == before
+                         "run_kind_label", "targets", "set")} == before
     assert summary == before
 
 
@@ -440,6 +440,50 @@ def test_api_keys(app, kctx):
                                                "silver/claude", "silver/gpt"]
 
 
+def fingerprints(app, ctx):
+    return {k["id"]: k["fingerprint"] for k in get_json(app, ctx, "/api/keys")[1]["keys"]}
+
+
+def test_runs_have_input_set_outside_cache(app, kctx, env, answer_keys):
+    for d in (X01, X02):
+        page(answer_keys / "pages" / "prev" / "version9" / d)            # 기록 data/pages/version9가 prev/로 옮겨졌다
+    kctx.pages_root = answer_keys / "pages"
+    (env / "runs" / "20261030_models_x").mkdir()
+    (env / "runs" / "20261030_models_x" / "compare.md").write_text("# 가짜 비교표", encoding="utf-8")
+    broken = make_run(env / "runs", "20261030_sections_m1_broken", {X01: make_doc(X01)})
+    (broken / "outputs" / f"{X01}.json").write_text("{깨진", encoding="utf-8")
+    expected = {"id": "prev/version9", "label": app.bt.set_label("prev/version9"), "source": "moved", "usable": True,
+                "missing_docs": []}
+    code, data = get_json(app, kctx, "/api/runs")
+    runs = {r["name"]: r for r in data["runs"]}
+    assert code == 200 and runs[KEYED_RUN]["set"] == expected
+    assert runs[KEYED_RUN]["pages_dir"] == "data/pages/version9"          # 기록된 글은 그대로
+    assert runs["20261030_models_x"]["set"] is None
+    assert runs["20261030_sections_m1_broken"]["error"] and runs["20261030_sections_m1_broken"]["set"] is None
+    code, run = get_json(app, kctx, f"/api/run/{KEYED_RUN}")
+    assert code == 200 and run["set"] == expected
+    cached = [json.loads(f.read_text(encoding="utf-8"))["result"] for f in (env / "cache").rglob("*.json")]
+    assert cached and all("set" not in r for r in cached)                  # 폴더 배치가 바뀌면 낡으므로 캐시에 넣지 않는다
+
+
+def test_runs_set_without_pages_root(app, kctx):
+    assert kctx.pages_root is None                                         # 넘기지 않으면 실제 data/pages를 읽지 않는다
+    run = get_json(app, kctx, "/api/runs")[1]["runs"][0]
+    assert run["set"] == {"id": None, "label": None, "source": "none", "usable": False, "missing_docs": [X01, X02]}
+
+
+def test_key_fingerprint_matches_keys_list(app, kctx):
+    fps = fingerprints(app, kctx)
+    for key_id in ("silver/claude", "gold/a3"):
+        code, data = get_q(app, kctx, "/api/runs", key=key_id)
+        assert code == 200 and data["key"]["fingerprint"] == fps[key_id] is not None
+        for path, query in ((f"/api/run/{KEYED_RUN}", {}), ("/api/diff", {"a": KEYED_RUN, "b": KEYED_RUN}),
+                            ("/api/silver_gaps", {})):
+            assert get_q(app, kctx, path, key=key_id, **query)[1]["key"]["fingerprint"] == fps[key_id], path
+    assert get_json(app, kctx, "/api/runs")[1]["key"]["fingerprint"] == fps["silver/claude"]   # 켤 때 받은 정답지
+    assert fps["silver/claude"] != fps["gold/a3"]
+
+
 def test_api_keys_without_data_root(app, ctx):
     assert ctx.data_root is None                       # 넘기지 않으면 실제 data/를 읽지 않는다
     assert get_json(app, ctx, "/api/keys") == (200, {"keys": [], "default": "gold"})
@@ -449,13 +493,13 @@ def test_runs_scored_with_chosen_key(app, kctx, env, answer_keys):
     from msds.evaluate.score import score_set
     outputs = {d: json.loads((env / "runs" / KEYED_RUN / "outputs" / f"{d}.json").read_text(encoding="utf-8"))
                for d in (X01, X02)}
-    seen = {}
+    seen, fps = {}, fingerprints(app, kctx)
     for key_id, doc in (("silver/claude", X01), ("gold/a3", X02)):
         gold = json.loads((answer_keys / key_id / f"{doc}.json").read_text(encoding="utf-8"))
         expected = score_set([(doc, gold, outputs[doc])])["weighted"]
         code, data = get_q(app, kctx, "/api/runs", key=key_id)
         assert code == 200
-        assert data["key"] == {"id": key_id, "label": app.bt.key_label(key_id)}
+        assert data["key"] == {"id": key_id, "label": app.bt.key_label(key_id), "fingerprint": fps[key_id]}
         assert data["runs"][0]["weighted"] == expected and data["runs"][0]["docs"] == [doc]
         seen[key_id] = expected
     assert seen["silver/claude"] != seen["gold/a3"]
@@ -502,7 +546,8 @@ def test_run_diff_doc_answer_with_key(app, kctx, answer_keys, monkeypatch):
     seen = []
     monkeypatch.setattr(app.bdoc, "doc_view", lambda run, doc, pages, gold: seen.append(gold) or {"values": []})
     code, data = get_q(app, kctx, "/api/doc", run=KEYED_RUN, doc=X02, key="gold/a3")
-    assert code == 200 and data["key"] == {"id": "gold/a3", "label": app.bt.key_label("gold/a3")}
+    assert code == 200 and data["key"] == {"id": "gold/a3", "label": app.bt.key_label("gold/a3"),
+                                           "fingerprint": fingerprints(app, kctx)["gold/a3"]}
     assert seen == [answer_keys / "gold" / "a3"]
     code, data = get_q(app, kctx, "/api/doc", run=KEYED_RUN, doc=X02)
     assert code == 200 and data["key"]["id"] == "silver/claude" and seen[-1] == kctx.gold_dir
@@ -513,7 +558,8 @@ def test_silver_gaps_with_key(app, kctx, env):
     gaps = [{"item": "11항 급성독성", "note": "가짜 메모"}]
     assert get_json(app, kctx, "/api/silver_gaps") == (200, gaps)                # 쿼리가 없으면 지금처럼 배열
     code, data = get_q(app, kctx, "/api/silver_gaps", key="silver/claude")
-    assert code == 200 and data == {"key": {"id": "silver/claude", "label": "Claude 정답 초안(실버)"}, "gaps": gaps}
+    assert code == 200 and data == {"key": {"id": "silver/claude", "label": "Claude 정답 초안(실버)",
+                                            "fingerprint": fingerprints(app, kctx)["silver/claude"]}, "gaps": gaps}
     code, data = get_q(app, kctx, "/api/silver_gaps", key="gold/a3")
     assert code == 200 and data["gaps"] == [] and data["key"]["id"] == "gold/a3"
 
@@ -521,7 +567,7 @@ def test_silver_gaps_with_key(app, kctx, env):
 def test_runs_key_without_data_root_is_gold_dir_name(app, ctx, env):
     three_runs(env)
     code, data = get_json(app, ctx, "/api/runs")
-    assert code == 200 and data["key"] == {"id": "gold", "label": "gold"}
+    assert code == 200 and data["key"] == {"id": "gold", "label": "gold", "fingerprint": None}   # 목록 밖 폴더는 지문 없음
     assert data["gold_dir"] == str(env / "gold")                                  # 기존 키는 그대로
     assert get_q(app, ctx, "/api/runs", key="gold")[1]["key"]["id"] == "gold"     # 켤 때 받은 폴더의 id는 다시 받는다
     assert get_q(app, ctx, "/api/runs", key="silver/claude")[0] == 404

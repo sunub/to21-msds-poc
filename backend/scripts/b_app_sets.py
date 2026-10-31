@@ -8,10 +8,14 @@
 정답지는 data/silver/<이름>, data/gold/<이름> 폴더 하나하나다. 예: silver/claude.
 - 문서별 <문서>.json만 정답 파일로 본다(<문서>.review.json 등은 뺀다). 평가용 문서의 정답 파일은 이름만 센다 (D-43).
 - 요청에서 받은 정답지 id도 find_key로 목록에 있는지 먼저 본다.
+- 정답지마다 지금 폴더 내용의 지문(fingerprint)과 가장 늦은 수정 시각(updated_at)을 둔다. 과거 점수의 정답지를 재현하는 값이 아니다.
+- 실행마다 그 실행이 쓴 묶음(run_set)을 run_info.yaml의 pages_dir와 문서 번호로 푼다.
 - 화면에 보일 글은 b_app_text에 있다.
 """
+import hashlib
 import json
 import re
+from datetime import datetime
 from pathlib import Path
 
 import _common  # noqa: F401  src 경로 등록
@@ -155,6 +159,21 @@ def resolve_run_set(recorded: str | None, doc_id: str, sets: list[dict]) -> tupl
     return None, "none"
 
 
+def run_set(recorded: str | None, doc_ids: list[str], sets: list[dict]) -> dict:
+    """실행이 쓴 묶음 {"id", "label", "source", "usable", "missing_docs"}. doc_ids는 실행의 docs + no_gold다.
+    문서마다 resolve_run_set으로 풀어, 찾은 문서가 모두 한 묶음이면 그 묶음(source "run" 또는 "moved"),
+    둘 이상으로 갈리면 id None·source "mixed", 기록이 없거나 하나도 못 찾으면 id None·source "none"이다.
+    missing_docs는 쪽 글자를 찾지 못한 문서다(묶음이 정해지면 그 묶음에 없는 문서)."""
+    found = {d: resolve_run_set(recorded, d, sets) for d in doc_ids}
+    picked = {r for r in found.values() if r[0] is not None}
+    missing = sorted(d for d, (set_id, _) in found.items() if set_id is None)
+    if len(picked) == 1:
+        (set_id, source), = picked
+        s = find_set(sets, set_id)
+        return {"id": set_id, "label": s["label"], "source": source, "usable": s["usable"], "missing_docs": missing}
+    return {"id": None, "label": None, "source": "mixed" if picked else "none", "usable": False, "missing_docs": missing}
+
+
 def set_dir(pages_root: Path, set_id: str) -> Path:
     """묶음 폴더. set_id는 find_set으로 확인한 목록의 id만 넘긴다."""
     return pages_root / set_id
@@ -198,27 +217,43 @@ def default_set(sets: list[dict], startup_dir: Path | None, pages_root: Path) ->
 
 # ── 정답지 ─────────────────────────────────────────────
 
-def _is_to21_answer(path: Path) -> bool:
-    """TO21 답 모양(dict이고 "msds"가 list)인가. 평가용이 아닌 파일만 넘긴다."""
+def _read_to21_answer(path: Path) -> bytes | None:
+    """TO21 답 모양(dict이고 "msds"가 list)이면 파일 바이트, 아니면 None. 평가용이 아닌 파일만 넘긴다."""
     try:
-        data = json.loads(path.read_text(encoding="utf-8"))
+        raw = path.read_bytes()
+        data = json.loads(raw.decode("utf-8"))
     except (OSError, ValueError):
-        return False
-    return isinstance(data, dict) and isinstance(data.get("msds"), list)
+        return None
+    return raw if isinstance(data, dict) and isinstance(data.get("msds"), list) else None
+
+
+def _fingerprint(answers: dict[str, bytes]) -> str | None:
+    """문서 순서로 (문서 번호, 길이, 파일 바이트)를 이어 sha256 한 값의 앞 16자. 이름을 넣어 파일 이름만 바뀌어도 달라진다."""
+    if not answers:
+        return None
+    h = hashlib.sha256()
+    for doc_id, raw in answers.items():
+        h.update(f"{doc_id}\n{len(raw)}\n".encode() + raw)
+    return h.hexdigest()[:16]
 
 
 def _key_entry(folder: Path, kind: str, data_root: Path, purposes: dict[str, str]) -> dict:
     files = [p for p in folder.iterdir() if not p.name.startswith(".")]     # .gitkeep만 있으면 빈 폴더다
     names = sorted(m.group(1) for p in files if p.is_file() and (m := KEY_FILE.match(p.name)))
     locked = [d for d in names if purposes.get(d) == "평가"]
-    docs = [d for d in names if d not in locked and _is_to21_answer(folder / f"{d}.json")]   # 평가용 파일은 열지 않는다 (D-43)
+    answers = {d: raw for d in names if d not in locked                       # 평가용 파일은 열지 않는다 (D-43)
+               and (raw := _read_to21_answer(folder / f"{d}.json")) is not None}
+    docs = list(answers)
+    times = [(folder / f"{d}.json").stat().st_mtime for d in docs]
     reason = (None if docs else "key_empty" if not files else "key_no_doc_files" if not names
               else "key_eval_only" if len(locked) == len(names) else "key_not_to21")
     key_id = f"{kind}/{folder.name}"
     return {"id": key_id, "label": bt.key_label(key_id), "kind": kind,
             "path": folder.relative_to(data_root.parent).as_posix(), "usable": reason is None,
             "reason": bt.KEY_TEXT[reason] if reason else None, "docs": docs,
-            "counts": {"docs": len(docs), "eval_locked": len(locked), "outside": sum(d not in purposes for d in docs)}}
+            "counts": {"docs": len(docs), "eval_locked": len(locked), "outside": sum(d not in purposes for d in docs)},
+            "fingerprint": _fingerprint(answers),
+            "updated_at": datetime.fromtimestamp(max(times)).astimezone().isoformat(timespec="seconds") if times else None}
 
 
 def list_keys(data_root: Path, rows: list[dict] | None = None) -> list[dict]:

@@ -3,8 +3,13 @@
 쪽 글자 폴더 배치는 tmp_path에 직접 만든 짧은 가짜 글로만 만든다. 정답지는 test_B_compare_models의 가짜 MSDS(make_doc)다. 실제 data/pages/, data/silver/, runs/는 읽지 않는다 (D-43·D-47).
 manifest는 test_B_b_app_runs의 env 픽스처로 가짜 ROWS(X01·X02 개발, X09 평가)를 끼운다.
 """
+import builtins
 import importlib
+import io
 import json
+import os
+import shutil
+from datetime import datetime
 
 import pytest
 
@@ -241,6 +246,36 @@ def test_resolve_run_set_without_sets(bsets):
     assert bsets.resolve_run_set("data/pages/prev/v9", X01, []) == (None, "none")
 
 
+@pytest.fixture
+def moved_pages(env):
+    """10/30 배치 변경 뒤의 가짜 data/pages: 옛 version9가 prev/version9로 옮겨졌다."""
+    root = env / "moved_pages"
+    for d in (X01, X02):
+        page(root / "prev" / "version9" / d)
+    return root
+
+
+def test_run_set_moved_and_run(bsets, bt, moved_pages):
+    sets = bsets.list_sets(moved_pages)
+    moved = bsets.run_set("data/pages/version9", [X01, X02], sets)
+    assert moved == {"id": "prev/version9", "label": bt.set_label("prev/version9"), "source": "moved",
+                     "usable": True, "missing_docs": []}
+    assert bsets.run_set("data/pages/prev/version9", [X01, X02], sets)["source"] == "run"
+
+
+def test_run_set_none_mixed_and_missing(bsets, pages):
+    sets = bsets.list_sets(pages)
+    for recorded in (None, "", "data/pages/없는판"):
+        assert bsets.run_set(recorded, [X01], sets) == {"id": None, "label": None, "source": "none", "usable": False,
+                                                        "missing_docs": [X01]}, recorded
+    assert bsets.run_set("data/pages/prev/v9", [], sets)["source"] == "none"          # 문서가 없는 실행
+    mixed = bsets.run_set("data/pages", [X01, "RAW-90"], sets)                         # X01은 prev로 옮겨졌고 RAW-90은 그대로
+    assert mixed["id"] is None and mixed["source"] == "mixed" and mixed["missing_docs"] == []
+    part = bsets.run_set("data/pages/v2", [X02, X01], sets)                            # prev/v2에는 X01만 있다
+    assert part == {"id": "prev/v2", "label": "prev/v2", "source": "moved", "usable": False, "missing_docs": [X02]}
+    assert bsets.run_set("data/pages/prev/v9", [X01], [])["source"] == "none"         # 묶음 목록이 없다
+
+
 # ── 작업 검사 ──────────────────────────────────────────
 
 def outside_support(monkeypatch, on: bool):
@@ -422,6 +457,75 @@ def test_list_keys_does_not_open_eval_answers(bsets, bt, answer_keys):
             f.chmod(0o644)
     assert keys["gold/evalonly"]["reason"] == bt.KEY_TEXT["key_eval_only"]
     assert keys["silver/claude"]["counts"]["eval_locked"] == 1
+
+
+def copy_key(data, src_id, dst_id, docs):
+    """정답지 폴더의 문서 파일을 바이트 그대로 다른 정답지 폴더로 옮겨 적는다."""
+    dst = data / dst_id
+    dst.mkdir(parents=True)
+    for d in docs:
+        shutil.copyfile(data / src_id / f"{d}.json", dst / f"{d}.json")
+
+
+def keys_by_id(bsets, data):
+    return {k["id"]: k for k in bsets.list_keys(data, ROWS)}
+
+
+def test_key_fingerprint_follows_content(bsets, answer_keys):
+    copy_key(answer_keys, "silver/claude", "gold/same", [X01])       # 같은 X01 바이트. .review.json·평가용은 지문 밖
+    keys = keys_by_id(bsets, answer_keys)
+    fp = keys["silver/claude"]["fingerprint"]
+    assert isinstance(fp, str) and len(fp) == 16 and int(fp, 16) >= 0
+    assert keys["gold/same"]["fingerprint"] == fp
+    assert keys["gold/a3"]["fingerprint"] not in (None, fp)
+    f = answer_keys / "gold" / "same" / f"{X01}.json"
+    f.write_bytes(f.read_bytes().replace(b"}", b" }", 1))              # 한 글자 바꾸기
+    assert keys_by_id(bsets, answer_keys)["gold/same"]["fingerprint"] != fp
+
+
+def test_key_fingerprint_includes_doc_names(bsets, answer_keys):
+    src = answer_keys / "silver" / "claude" / f"{X01}.json"
+    (answer_keys / "gold" / "renamed").mkdir()
+    shutil.copyfile(src, answer_keys / "gold" / "renamed" / f"{X02}.json")          # 같은 바이트, 다른 문서
+    keys = keys_by_id(bsets, answer_keys)
+    assert keys["gold/renamed"]["fingerprint"] != keys["silver/claude"]["fingerprint"]
+
+
+def test_key_updated_at_follows_mtime_only(bsets, answer_keys):
+    copy_key(answer_keys, "gold/a3", "gold/two", [X02])
+    shutil.copyfile(answer_keys / "silver" / "claude" / f"{X01}.json", answer_keys / "gold" / "two" / f"{X01}.json")
+    files = [answer_keys / "gold" / "two" / f"{d}.json" for d in (X01, X02)]
+    for f, t in zip(files, (1_790_000_000, 1_790_000_500)):
+        os.utime(f, (t, t))
+    before = keys_by_id(bsets, answer_keys)["gold/two"]
+    assert before["updated_at"] == datetime.fromtimestamp(1_790_000_500).astimezone().isoformat(timespec="seconds")
+    os.utime(files[0], (1_790_009_000, 1_790_009_000))                 # 내용은 그대로 두고 수정 시각만 바꾼다
+    after = keys_by_id(bsets, answer_keys)["gold/two"]
+    assert after["fingerprint"] == before["fingerprint"]
+    assert after["updated_at"] == datetime.fromtimestamp(1_790_009_000).astimezone().isoformat(timespec="seconds")
+    keys = keys_by_id(bsets, answer_keys)
+    for key_id in ("silver/gpt", "gold/evalonly", "gold/layout", "gold/bad"):        # 정답 파일이 없으면 둘 다 None
+        assert keys[key_id]["fingerprint"] is None and keys[key_id]["updated_at"] is None, key_id
+
+
+def test_key_fingerprint_does_not_open_eval_answers(bsets, answer_keys, monkeypatch):
+    eval_file = answer_keys / "silver" / "claude" / f"{X09}.json"
+    before = keys_by_id(bsets, answer_keys)["silver/claude"]
+    eval_file.write_text(json.dumps({**make_doc(X09), "가짜": "바뀐 평가용 정답"}, ensure_ascii=False), encoding="utf-8")
+    opened = []
+    real = io.open
+
+    def spy(file, *a, **k):
+        opened.append(os.fspath(file) if isinstance(file, (str, os.PathLike)) else file)
+        return real(file, *a, **k)
+
+    with monkeypatch.context() as m:
+        m.setattr(io, "open", spy)
+        m.setattr(builtins, "open", spy)
+        after = keys_by_id(bsets, answer_keys)["silver/claude"]
+    assert after["fingerprint"] == before["fingerprint"]
+    assert str(eval_file) not in opened
+    assert opened.count(str(answer_keys / "silver" / "claude" / f"{X01}.json")) == 1    # 모양 검사와 지문이 한 번 읽은 바이트를 쓴다
 
 
 def test_list_keys_missing_folders(bsets, env):
