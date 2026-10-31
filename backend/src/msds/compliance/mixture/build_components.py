@@ -139,9 +139,12 @@ def build_components(msds_item, class_lookup) -> dict:
             class_rows = []
             gaps.append({"field": f"components[{who}].class_rows", "reason": "CAS 없음 — 분류코드 조회 불가"})
         else:
-            class_rows = list(class_lookup(cas) or [])
-            if not class_rows:
-                gaps.append({"field": f"components[{who}].class_rows", "reason": f"CAS {cas} 분류코드 조회 결과 없음"})
+            found = class_lookup(cas)
+            class_rows = list(found or [])
+            if not class_rows:  # class_lookup_db 의 결과는 .reason 에 빈 이유(미등록·접속 불가)를 싣는다
+                why = getattr(found, "reason", None)
+                gaps.append({"field": f"components[{who}].class_rows",
+                             "reason": f"CAS {cas} 분류코드 조회 결과 없음" + (f" — {why}" if why else "")})
         only_one = len(raw) == 1
         mw = _per_component(msds_item, c.get("seq"), only_one, "MOL_WEIGHT")
         dens = _per_component(msds_item, c.get("seq"), only_one, "RELATIVE_DENSITY")
