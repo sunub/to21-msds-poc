@@ -1408,6 +1408,418 @@ COPY_EXCEPTIONS.update({'compare.selection.choose_two': '비교의 동적 조작
  'compare.basis': '비교의 동적 조작·단위·API 누락 상태와 기존 정보 보존을 위한 일반 문구를 보충합니다.',
  'compare.unknown': '비교의 동적 조작·단위·API 누락 상태와 기존 정보 보존을 위한 일반 문구를 보충합니다.'})
 
+
+# app-redo step 5: 승인된 모델 연결 문구. 설계 파일은 실행 시 읽지 않습니다.
+UI_TEXT["servers"] = {'confirm': {'load': {'title': '회사 서버에서 {model}를 켤까요?',
+                      'target': '{model}. 계산 부품 {count}장. 한 번에 모델 하나.',
+                      'cost': '추가 임대료 없음. 준비 15~25분.',
+                      'action': '확인하고 모델 켜기'},
+             'create': {'title': '요금을 내고 새 서버를 만들까요?',
+                        'target': '{model}. 기존 서버가 있으면 비용이 추가됩니다.',
+                        'cost': '켜진 동안 시간당 약 ${cost_per_hour}가 듭니다(예시). 준비 완료 시각은 모릅니다. 사용 뒤 삭제하세요. 앱이 만든 '
+                                '서버는 생성 후 4시간에 자동 삭제됩니다. 앱이 켜져 있어야 예약을 확인합니다.',
+                        'action': '요금을 확인하고 서버 만들기'},
+             'delete': {'title': '서버 {server}을 삭제할까요?',
+                        'target': '{pod_id}. 이 앱이 만든 서버입니다. 진행 작업은 없습니다.',
+                        'cost': '가동 {hours}시간. 추정 비용 ${cost}. 별도 저장공간 비용은 남을 수 있습니다.',
+                        'action': '서버 {server} 삭제하기'},
+             'unload': {'title': '회사 서버의 모델을 끌까요?',
+                        'target': '{model}. 진행 중인 작업은 없습니다.',
+                        'effect': '모델을 끈 뒤 새 모델을 켤 수 있습니다.',
+                        'action': '확인하고 모델 끄기',
+                        'model_title': '{model}를 끌까요?',
+                        'no_jobs': '진행 중인 작업은 없습니다.',
+                        'no_trial': '모델을 끄면 새 시험을 보낼 수 없습니다.'},
+             'tunnel_open': {'title': '회사 서버로 가는 연결 통로를 열까요?',
+                             'effect': '이 컴퓨터에서 회사 모델에 요청을 전달하는 길을 엽니다.',
+                             'allowed': '모델을 새로 올리는 작업은 아닙니다. 진행 중에도 열 수 있습니다.',
+                             'action': '확인하고 연결 열기',
+                             'no_load': '모델을 켜는 작업은 아닙니다.'},
+             'tunnel_close': {'title': '회사 서버로 가는 연결 통로를 닫을까요?',
+                              'state': '진행 작업은 없습니다. 현재 켜진 모델은 없습니다.',
+                              'effect': '닫으면 이 컴퓨터에서 시험을 보낼 수 없습니다.',
+                              'action': '확인하고 연결 닫기'},
+             'batch': {'title': '여러 문서 시험에 쓸 서버를 확인하세요.',
+                       'target': '개발용 {count}건. 반복 {repeats}회. {model}.',
+                       'cost': '빌린 서버를 쓰면 시간당 약 ${cost_per_hour}입니다(예시).',
+                       'action': '확인하고 시험 시작하기'},
+             'summary': '실행할 내용',
+             'once': '이 확인 화면에서는 한 번만 실행할 수 있습니다.',
+             'expires': '{time}까지 한 번만 실행할 수 있습니다. 시간이 지나면 확인 화면을 다시 여세요.',
+             'cancel': '취소하고 돌아가기',
+             'conditions': '실행할 수 있는 조건 보기',
+             'recheck': '실행 직전에 상태와 권한을 다시 확인합니다.',
+             'changed_state': '상태가 바뀌면 이전 확인으로 실행하지 않습니다.',
+             'open_expired': '실행 시간이 지난 경우 보기',
+             'open_busy': '진행 작업 때문에 잠긴 경우 보기',
+             'expired': {'not_executed': '아직 실행하지 않았습니다.',
+                         'reload': '상태 다시 읽기',
+                         'fact': '확인 유효시간이 지났습니다. 아직 실행하지 않았습니다.',
+                         'todo': '할 일: 상태를 다시 읽고 실행 요약을 다시 여세요.'},
+             'expires_once': '{time}까지 한 번만 실행할 수 있습니다(예시). 시간이 지나면 확인 화면을 다시 여세요.',
+             'warning': '주의할 내용',
+             'no_expiry': '확인 유효시간을 알 수 없어 실행할 수 없습니다.'},
+ 'diagnosis': {'ready': {'fact': '회사 서버의 AI 모델이 응답했습니다.', 'todo': '다시 시험에서 이 모델을 고르세요.'},
+               'no_model': {'fact': '회사 서버에 켜진 AI 모델이 없습니다.', 'todo': '할 일: 모델을 켜세요. 준비에는 보통 15~25분 걸립니다.'},
+               'tunnel_closed': {'fact': '회사 서버로 가는 연결 통로(SSH 터널)가 닫혀 있습니다.', 'todo': '할 일: 연결 통로를 여세요.'},
+               'loading': {'elapsed': 'AI 모델을 켜고 있습니다. {minutes}분 지났습니다.',
+                           'unknown': 'AI 모델을 켜고 있습니다. 시작 시각은 확인하지 못했습니다.',
+                           'todo': '보통 15~25분 걸립니다. 기다리는 동안 저장된 결과를 읽을 수 있습니다.',
+                           'late': '{minutes}분을 넘겼습니다. 할 일: 서버 기록을 확인하세요.',
+                           'log': '회사 서버 기록 위치: /root/to21-bc/{tag}.log'}},
+ 'controls': {'busy': '시험 중에는 서버를 바꿀 수 없습니다. 할 일: 작업이 끝난 뒤 다시 확인하세요.',
+              'create': '빌린 서버 목록을 확인하지 못해 새 서버를 만들 수 없습니다. 할 일: 서버 상태를 다시 확인하세요.',
+              'delete': '빌린 서버 목록을 확인하지 못해 삭제할 수 없습니다. 할 일: 서버 상태를 다시 확인하세요.',
+              'up': '회사 서버 상태를 확인하지 못해 AI를 켤 수 없습니다. 할 일: 서버 상태를 다시 확인하세요.',
+              'down': '회사 서버 상태를 확인하지 못해 AI를 끌 수 없습니다. 할 일: 서버 상태를 다시 확인하세요.',
+              'no_ssh': '회사 서버 접속 설정(RNGD_SSH)이 없습니다. 할 일: 설정 파일에서 준비하세요.',
+              'no_port': '회사 모델 주소가 내 컴퓨터 쪽 주소가 아닙니다. 할 일: RNGD_BASE_URL 설정을 확인하세요.',
+              'open': '연결 통로가 이미 열려 있습니다.',
+              'closed': '연결 통로가 이미 닫혀 있습니다.',
+              'not_owned': '이 앱이 연 연결이 아닙니다. 할 일: 연결을 연 터미널에서 닫으세요.'},
+ 'status': {'guide': 'AI 켜기와 비용에서 모델을 준비하세요.',
+            'busy': '서버를 바꾸고 있습니다. 끝날 때까지 기다리세요.',
+            'unavailable': '서버 상태를 확인하지 못해 변경을 막았습니다. 할 일: 상태를 다시 확인하세요.',
+            'failure': {'fact': '서버 변경을 마치지 못했습니다.', 'todo': '할 일: 오류 기록에서 연결 상태와 진행 중인 작업을 확인하세요.'}},
+ 'messages': {'pod_key_missing': '빌린 모델의 접속 키가 설정되지 않았습니다. 할 일: 설정 파일의 RUNPOD_VLLM_API_KEY를 채운 뒤 설정 다시 읽기를 '
+                                 '누르세요.',
+              'pod_not_ours': '이 앱이 만든 서버가 아니라 삭제할 수 없습니다. 할 일: 서버 주인에게 확인하세요.',
+              'env_file_unknown': '설정 파일의 위치를 찾지 못했습니다. 할 일: 앱을 다시 켜세요.',
+              'tunnel_no_port': '회사 모델 주소가 내 컴퓨터 쪽 주소가 아닙니다. 할 일: RNGD_BASE_URL을 확인한 뒤 설정을 다시 읽으세요.',
+              'tunnel_already_open': '내 컴퓨터의 {port}번 연결이 이미 열려 있습니다. 할 일: 모델이 응답하는지 확인하세요.',
+              'tunnel_closed': '내 컴퓨터의 {port}번 연결이 닫혀 있습니다. 할 일: 서버 상태를 다시 확인하세요.',
+              'tunnel_not_ours': '내 컴퓨터의 {port}번 연결은 이 앱이 열지 않았습니다. 할 일: 연결을 연 터미널에서 닫으세요.',
+              'tunnel_exited': '보안 연결 프로그램이 통로를 열기 전에 끝났습니다. 종료 코드는 {code}입니다. 할 일: RNGD_SSH 설정과 키 파일을 '
+                               '확인하세요.',
+              'tunnel_timeout': '연결 통로가 {seconds}초 안에 열리지 않았습니다. 할 일: 터미널에서 회사 서버에 접속되는지 확인하세요.',
+              'tunnel_spawn_failed': '보안 연결 프로그램을 시작하지 못했습니다. 할 일: 터미널에서 ssh 명령을 쓸 수 있는지 확인하세요.',
+              'tunnel_still_open': '닫기를 요청한 {port}번 연결이 아직 열려 있습니다. 할 일: 잠시 뒤 서버 상태를 다시 확인하세요.'},
+ 'choice': {'recommendation': '추가 임대료 없는 회사 서버를 권합니다.',
+            'company': '추천 · 회사 서버(RNGD)',
+            'rented': '다른 방법 · 빌린 서버(RunPod)'},
+ 'compare': {'cost': '추가 임대료',
+             'wait': '준비 시간',
+             'limits': '사용 제한과 정리',
+             'company': {'wait': '15~25분',
+                         'limit': '한 번에 모델 하나',
+                         'cost_meaning': '추가 임대료가 없다는 뜻입니다. 회사 장비의 운영비까지 없다는 뜻은 아닙니다.'},
+             'rented': {'cost': '시간당 약 ${cost_per_hour} (예시)',
+                        'wait': '준비 시간은 매번 다릅니다. 준비 중에는 기다린 시간을 보여 줍니다.',
+                        'cleanup': '사용 뒤 삭제하세요. 앱이 만든 서버는 생성 후 4시간에 자동 삭제됩니다.'}},
+ 'company': {'connected': '회사 서버로 가는 연결 통로는 열려 있습니다.',
+             'off': '이 서버의 AI는 꺼져 있습니다. 켜는 데 보통 15~25분 걸립니다.',
+             'confirm_load': '{model} 켜기 확인하기',
+             'read_while_waiting': '기다리는 동안 저장된 결과를 읽을 수 있습니다.',
+             'return_target': '돌아갈 대상: {doc} · {section}번 부분.',
+             'alternative': '다른 방법',
+             'rented_fallback': '회사 서버를 쓸 수 없으면 빌린 서버를 확인하세요.',
+             'open_rented': '기존 임대 서버와 비용 보기'},
+ 'connection': {'title': '컴퓨터 연결과 모델 응답 확인',
+                'item': '확인 항목',
+                'selected': '선택한 모델',
+                'last_check': '마지막 확인',
+                'received_at': '{time} · 이 컴퓨터가 응답을 받은 시각',
+                'expected': '기대한 모델',
+                'responding': '응답한 모델',
+                'unknown': '아직 확인되지 않음',
+                'address': '주소 설정',
+                'configured': '설정됨. 실제 주소와 키는 표시하지 않음',
+                'ready_condition': '기대한 모델의 응답이 와야 준비 완료입니다.',
+                'details': '장비 상세와 설정 이름',
+                'ssh_meaning': '다른 컴퓨터에 암호화된 명령을 보내는 방법이 보안 접속(SSH)입니다.',
+                'tunnel_meaning': 'AI 요청을 전달하는 연결 통로가 SSH 터널입니다.',
+                'devices': '계산 부품은 {count}장입니다. 한 번에 모델 하나를 올립니다.',
+                'tunnel_owned': '통로: 열림. 포트 {port}. 이 앱이 열었습니다.',
+                'no_process': '모델 프로세스는 없습니다. 사용 중인 계산 부품은 {count}장입니다.',
+                'reload': '설정 다시 읽기',
+                'confirm_close': '연결 닫기 확인하기',
+                'tunnel_closed': '통로: 닫힘. 포트 {port}.',
+                'tunnel_external': '통로: 열림. 포트 {port}. 이 앱이 연 연결이 아닙니다.',
+                'tunnel_unknown': '연결 통로의 포트 설정을 확인하지 못했습니다.',
+                'tunnel_time_unknown': '연결 통로를 연 시각은 확인하지 못했습니다.',
+                'process': '프로세스 번호: {pid}',
+                'processes': '실행 중인 모델과 장비 출력',
+                'choose': '회사 서버에서 켤 모델 고르기',
+                'choice': '{model} · 계산 부품 {cards}장',
+                'none': '현재 확인된 모델 프로세스가 없습니다.',
+                'loading_locked': '모델을 준비하고 있어 중복으로 켜지 않습니다.',
+                'replace_locked': '다른 모델을 켜려면 지금 켜진 모델을 먼저 끄세요.'},
+ 'logs': {'summary': '서버 기록 · 최근 {limit}줄 중 기록 {count}줄',
+          'path': 'runs/manual/server_log.md',
+          'redaction': '명령 출력의 비밀값은 가립니다.',
+          'manual_record': '운영용 수동 기록에도 사용 내역을 옮겨 둡니다.',
+          'empty': '아직 서버 기록이 없습니다.',
+          'manual_copy': '새 기록은 docs/plan/RunPod_사용기록.md에 손으로 옮기세요.'},
+ 'ready': {'title': '{model}가 준비됐습니다.',
+           'expected': '기대한 모델이 응답했습니다.',
+           'company_cost': '회사 서버를 사용합니다. 추가 임대료는 없습니다.',
+           'return_trial': '시험으로 돌아가기',
+           'target_preserved': '{doc}의 {section}번 부분을 그대로 보관했습니다.',
+           'prompt_preserved': '편집 중 설명도 같은 화면 메모리에 남습니다.',
+           'check': '응답 확인',
+           'checked_at': '마지막 확인: {time}.',
+           'expected_model': '기대한 모델: {model}.',
+           'responding_model': '응답한 모델: {model}.',
+           'confirm_unload': '모델 끄기 확인하기'},
+ 'rented': {'title': '기존 빌린 서버를 이어 쓰고 있습니다.',
+            'responded': '{model}가 응답했습니다.',
+            'adopted': '앱이 만든 예시 서버 {server}을 자동으로 이어받았습니다.',
+            'cost': '실제 요금이 나갑니다: 시간당 약 ${cost_per_hour} (예시).',
+            'estimated_cost': '가동 {hours}시간의 추정 비용은 ${cost}입니다.',
+            'deletion_hours': '생성 후 4시간에 자동 삭제합니다. 지금은 {hours}시간 남았습니다.',
+            'scheduler': '앱이 켜져 있어야 예약된 삭제를 확인합니다.',
+            'list_storage': '서버 목록과 저장공간 비용',
+            'ownership': '소유와 상태',
+            'uptime': '가동 시간',
+            'hourly_rate': '시간당 요금',
+            'total_cost': '추정 비용',
+            'owned_running': '앱이 만듦. 실행 중.',
+            'confirm_delete': '삭제 확인하기',
+            'external_stopped': '앱이 만든 서버 아님. 정지됨.',
+            'unknown': '알 수 없음',
+            'delete_forbidden': '삭제 권한 없음',
+            'estimate_warning': '추정 비용은 최종 청구액과 다를 수 있습니다.',
+            'unknown_cost': '확인하지 못한 비용을 무료로 표시하지 않습니다.',
+            'volumes': '별도 저장공간(네트워크 볼륨)은 {count}개입니다.',
+            'storage_cost': '저장공간은 서버 삭제 뒤에도 비용이 남을 수 있습니다.',
+            'use_company': '회사 서버 사용하기',
+            'confirm_create': '새 서버 요금 확인하기',
+            'adoption_details': '모델과 인계 확인',
+            'expected_reply': '기대한 모델과 응답한 모델은 {model}입니다.',
+            'adopted_id': '자동 인계된 번호는 {pod_id}입니다.',
+            'other_id': '다른 서버 번호는 {pod_id}입니다.',
+            'no_manual_adoption': '임의 서버를 고르는 인계 단추는 제공하지 않습니다.',
+            'title_list': '빌린 서버와 비용(RunPod)',
+            'identity': '서버 이름과 번호',
+            'owned': '이 앱이 만든 서버',
+            'state': '상태: {state}',
+            'no_delete': '지금은 삭제할 수 없습니다. 할 일: 서버 상태와 진행 작업을 확인하세요.',
+            'volume_unknown': '별도 저장공간의 수를 확인하지 못했습니다.',
+            'hourly': '${cost}/시간'},
+ 'creating': {'title': '새 빌린 서버에서 {model}를 켜고 있습니다.',
+              'elapsed': '{minutes}분 경과',
+              'last_check': '완료될 시각은 아직 모릅니다. 마지막 확인은 {time}입니다.',
+              'read_results': '기다리는 동안 최근 결과 보기',
+              'estimated_cost': '가동 {minutes}분의 추정 비용은 약 ${cost}입니다.',
+              'deletion_remaining': '생성 후 4시간에 자동 삭제합니다. {hours}시간 {minutes}분 남았습니다.',
+              'cost_running': '준비 중인 시간에도 요금이 나갑니다.',
+              'target': '보관한 시험: {doc} · {section}번 부분.',
+              'details': '서버와 준비 상태',
+              'server_id': '새로 만든 번호: {pod_id}.',
+              'no_reply': '앱이 만든 서버입니다. 아직 모델 응답이 없습니다.',
+              'open_ready': '준비 완료 상태 보기',
+              'open_company': '회사 서버 확인하기'},
+ 'deleting': {'title': '예시 서버 {server}의 삭제를 확인하고 있습니다.',
+              'requested': '삭제 요청을 보냈습니다.',
+              'cost': '삭제 완료가 확인되기 전에는 요금이 계속 나갈 수 있습니다.',
+              'refresh': '삭제 결과 확인하기',
+              'uptime': '마지막 확인 가동 시간: {hours}시간.',
+              'estimated_cost': '마지막 확인 추정 비용: ${cost}.',
+              'no_resend': '같은 삭제 요청을 다시 보내지 않습니다.'},
+ 'deleted': {'title': '예시 서버 {server}을 삭제했습니다.',
+             'external_remaining': '남은 서버는 앱이 만들지 않은 예시 서버 {server}입니다.',
+             'no_permission': '이 서버에는 삭제 권한이 없습니다.',
+             'estimated_cost': '마지막 추정 비용은 ${cost}입니다. 최종 청구액은 아닙니다.',
+             'storage_cost': '별도 저장공간이 남으면 그 비용은 계속 나갈 수 있습니다.',
+             'prepare': '다시 시험할 모델 준비하기'},
+ 'empty': {'title': '이어 쓸 빌린 서버가 없습니다.',
+           'count': '서버 목록 {count}개',
+           'new_cost': '새 서버를 만들면 시간당 실제 요금이 발생합니다.',
+           'recommendation': '추천 방법',
+           'open_company': '회사 서버 먼저 확인하기'},
+ 'failed': {'title': '모델 상태를 확인하지 못했습니다.',
+            'stale': '마지막 상태를 현재 상태로 쓰지 않습니다.',
+            'todo': '서버 변경은 잠시 막았습니다. 할 일: 상태를 다시 확인하세요.',
+            'retry': '다시 확인하기',
+            'target': '대상은 {doc}의 {section}번 부분으로 유지합니다.',
+            'error': '조회 오류',
+            'no_reply': '서버 상태 요청에 응답이 없었습니다.',
+            'no_inference': '준비됨이나 모델 없음으로 추정하지 않습니다.'},
+ 'checking': {'title': '모델의 응답을 확인하고 있습니다.',
+              'wait': '확인이 끝날 때까지 기다리세요.',
+              'state': '상태 확인 중',
+              'results': '확인 결과 상태 보기',
+              'open_ready': '준비된 모델 보기',
+              'open_failed': '조회 실패 보기'},
+ 'busy': {'title': '시험 중에는 모델을 바꿀 수 없습니다.',
+          'running': '{doc} 시험이 진행 중입니다.',
+          'restricted': '모델 끄기와 교체와 연결 닫기를 제한했습니다.',
+          'open_job': '진행 작업 보기',
+          'allow_tunnel': '닫힌 연결 통로를 여는 행동은 허용합니다.',
+          'open_tunnel': '연결 열기 확인하기'},
+ 'mismatch': {'title': '서버에 다른 AI 모델이 켜져 있습니다.',
+              'limit': '회사 서버는 한 번에 모델 하나만 사용합니다.',
+              'unload': '기존 모델 끄기 확인하기'},
+ 'env': {'title': '설정 파일의 {line_no}번째 줄을 읽지 못했습니다.',
+         'state': '설정 확인 필요',
+         'todo': '할 일: 설정 파일(.env)의 해당 줄을 고친 뒤 설정을 다시 읽으세요.',
+         'names': '필요한 설정 이름',
+         'company_name': 'RNGD_BASE_URL',
+         'company_meaning': ': 회사 모델의 응답 주소.',
+         'rented_name': 'RUNPOD_VLLM_API_KEY',
+         'rented_meaning': ': 빌린 모델의 접속 키.',
+         'hidden_values': '설정 값은 이 화면에 표시하지 않습니다.'},
+ 'account_failed': {'title': '빌린 서버 목록을 읽지 못했습니다.',
+                    'state': '계정 확인 실패',
+                    'todo': '할 일: 설정 파일의 관리 키와 계정 권한을 확인하세요.',
+                    'cost_unknown': '가동 시간과 비용은 알 수 없습니다.'},
+ 'create_unknown': {'title': '새 서버 생성 결과를 확인하지 못했습니다.',
+                    'state': '생성 여부 확인 필요',
+                    'todo': '할 일: 다시 만들기 전에 서버 목록부터 확인하세요.',
+                    'reload': '서버 목록 다시 확인하기'},
+ 'unloaded': {'title': '회사 서버의 {model}를 내렸습니다.',
+              'process': '종료한 프로세스 번호: {pid} (예시).',
+              'tunnel': '연결 통로는 열려 있습니다.',
+              'select_model': '새 모델 고르기'},
+ 'models': {'title': '모델별 연결 상태',
+            'connected': '연결됨',
+            'off': '연결 안 됨',
+            'unknown': '확인 못 함',
+            'empty': '등록된 모델이 없습니다.',
+            'tag': '모델 태그',
+            'where': '서버 종류',
+            'response': '응답 상태',
+            'not_configured': '설정 없음',
+            'match': '기대한 모델과 일치',
+            'no_reply': '응답 없음',
+            'state': '연결 상태'},
+ 'session': {'adopted': '앱을 다시 켠 뒤 기존 서버 {pod_id}을 이어 쓰고 있습니다.',
+             'active': '시험과 본 실행은 서버 {pod_id}을 사용합니다.',
+             'preparing': '모델 응답을 기다리고 있습니다. 준비 중에도 요금이 나갑니다.',
+             'settings': '접속 키는 설정 파일의 RUNPOD_VLLM_API_KEY를 사용합니다.'},
+ 'time': {'hours_minutes': '{hours}시간 {minutes}분',
+          'minutes': '{minutes}분',
+          'since': '통로를 연 뒤 {elapsed} 지났습니다.',
+          'auto_delete': '자동 삭제까지 {minutes}분',
+          'no_schedule': '자동 삭제 예약은 확인하지 못했습니다.'},
+ 'reload': {'done': '설정을 다시 읽었습니다.', 'names': '채워진 설정 이름', 'changed': '바뀐 설정 이름', 'removed': '지운 설정 이름'},
+ 'disabled': {'fact': '서버 관리 기능이 꺼져 있습니다.', 'todo': '할 일: 서버 관리 기능을 켠 앱으로 다시 실행하세요. 저장된 결과는 계속 볼 수 있습니다.'},
+ 'result': {'done': '요청한 서버 변경을 마쳤습니다.',
+            'created': '서버 {pod_id}을 만들었습니다. 모델의 응답을 확인한 뒤 시험하세요.',
+            'watchdog': '4시간 뒤 자동 삭제 감시를 시작했습니다.',
+            'no_watchdog': '자동 삭제 감시를 시작하지 못했습니다. 사용 뒤 직접 삭제하세요.',
+            'deleted': '서버 {pod_id}이 목록에서 사라진 것을 확인했습니다. 남은 서버 {count}개.',
+            'remaining': '남은 서버 번호: {ids}',
+            'deleting': '삭제 요청 뒤에도 서버 {pod_id}이 목록에 남아 있습니다. 잠시 뒤 다시 확인하세요.',
+            'started': '모델 프로세스를 시작했습니다. 응답까지 보통 15~25분 걸립니다.',
+            'stopped': '멈춘 프로세스: {pids}',
+            'process_remaining': '아직 남은 프로세스: {pids}',
+            'tunnel_open': '연결 통로를 열었습니다. 모델의 응답을 확인하세요.',
+            'tunnel_close': '연결 통로를 닫았습니다.',
+            'log': '서버 기록: {line}'},
+ 'redacted': '[설정 값 숨김]'}
+UI_TEXT.setdefault("errors", {})["connection"] = {'ssh_prefix': {'fact': 'RNGD_SSH 설정에 ssh 명령어까지 들어 있습니다.', 'todo': '할 일: 앞의 ssh를 빼고 접속 옵션만 적으세요.'},
+ 'ssh_missing': {'fact': '회사 서버 접속 설정(RNGD_SSH)이 없습니다.',
+                 'todo': '할 일: .env.example의 RNGD_SSH 항목을 설정 파일에 채우세요.'},
+ 'certificate': {'fact': '빌린 서버 주소의 인증서를 확인하지 못했습니다.',
+                 'todo': '할 일: Python 3.11을 쓴다면 인증서 설치 파일을 실행한 뒤 앱을 다시 켜세요.'},
+ 'model_key': {'fact': '모델 서버가 접속 키를 거절했습니다.', 'todo': '할 일: 설정 파일의 모델 접속 키와 서버를 켤 때 쓴 키를 맞추세요.'},
+ 'account_key': {'fact': '빌린 서버 관리 키가 거절됐습니다.', 'todo': '할 일: RunPod에서 관리 키를 다시 만든 뒤 설정 파일에 넣으세요.'},
+ 'no_response': {'fact': '모델 서버가 응답하지 않습니다.', 'todo': '할 일: AI 켜기와 비용에서 연결 통로와 모델 준비 상태를 확인하세요.'},
+ 'other': {'fact': '서버 상태를 읽지 못했습니다.', 'todo': '할 일: 오류 기록을 열어 설정과 연결 상태를 확인하세요.'},
+ 'model_key_changed': '서버를 만든 뒤 접속 키를 바꿨다면 서버를 다시 만들어야 합니다. 비용을 확인한 뒤 진행하세요.'}
+UI_TEXT.setdefault("errors", {})["env"] = {'line': '설정 파일(.env)의 {line}번째 줄을 읽지 못했습니다.',
+ 'line_todo': '할 일: 해당 줄의 따옴표와 = 표시를 고친 뒤 설정 다시 읽기를 누르세요.',
+ 'missing': '설정 파일(.env)에 {variable} 설정이 없습니다.',
+ 'runpod_url': '할 일: RUNPOD_VLLM_BASE_URL에 빌린 서버의 중계 주소를 넣으세요.',
+ 'company_url': '할 일: RNGD_BASE_URL에 보안 연결을 거친 내 컴퓨터 쪽 주소를 넣으세요.',
+ 'unknown_url': '할 일: 모델 설정에서 {variable}에 필요한 주소 형식을 확인하세요.'}
+COPY_EXCEPTIONS.update({'servers.models.title': '동적 서버 상태와 실데이터 단위 또는 확인 절차에 필요한 문구를 보충합니다. 시안의 예시 표시와 실제 계약 차이는 BUILD에 기록합니다.',
+ 'servers.models.connected': '동적 서버 상태와 실데이터 단위 또는 확인 절차에 필요한 문구를 보충합니다. 시안의 예시 표시와 실제 계약 차이는 BUILD에 기록합니다.',
+ 'servers.models.off': '동적 서버 상태와 실데이터 단위 또는 확인 절차에 필요한 문구를 보충합니다. 시안의 예시 표시와 실제 계약 차이는 BUILD에 기록합니다.',
+ 'servers.models.unknown': '동적 서버 상태와 실데이터 단위 또는 확인 절차에 필요한 문구를 보충합니다. 시안의 예시 표시와 실제 계약 차이는 BUILD에 기록합니다.',
+ 'servers.models.empty': '동적 서버 상태와 실데이터 단위 또는 확인 절차에 필요한 문구를 보충합니다. 시안의 예시 표시와 실제 계약 차이는 BUILD에 기록합니다.',
+ 'servers.models.tag': '동적 서버 상태와 실데이터 단위 또는 확인 절차에 필요한 문구를 보충합니다. 시안의 예시 표시와 실제 계약 차이는 BUILD에 기록합니다.',
+ 'servers.models.where': '동적 서버 상태와 실데이터 단위 또는 확인 절차에 필요한 문구를 보충합니다. 시안의 예시 표시와 실제 계약 차이는 BUILD에 기록합니다.',
+ 'servers.models.response': '동적 서버 상태와 실데이터 단위 또는 확인 절차에 필요한 문구를 보충합니다. 시안의 예시 표시와 실제 계약 차이는 BUILD에 기록합니다.',
+ 'servers.models.not_configured': '동적 서버 상태와 실데이터 단위 또는 확인 절차에 필요한 문구를 보충합니다. 시안의 예시 표시와 실제 계약 차이는 BUILD에 '
+                                  '기록합니다.',
+ 'servers.models.match': '동적 서버 상태와 실데이터 단위 또는 확인 절차에 필요한 문구를 보충합니다. 시안의 예시 표시와 실제 계약 차이는 BUILD에 기록합니다.',
+ 'servers.models.no_reply': '동적 서버 상태와 실데이터 단위 또는 확인 절차에 필요한 문구를 보충합니다. 시안의 예시 표시와 실제 계약 차이는 BUILD에 기록합니다.',
+ 'servers.models.state': '동적 서버 상태와 실데이터 단위 또는 확인 절차에 필요한 문구를 보충합니다. 시안의 예시 표시와 실제 계약 차이는 BUILD에 기록합니다.',
+ 'servers.session.adopted': '동적 서버 상태와 실데이터 단위 또는 확인 절차에 필요한 문구를 보충합니다. 시안의 예시 표시와 실제 계약 차이는 BUILD에 기록합니다.',
+ 'servers.session.active': '동적 서버 상태와 실데이터 단위 또는 확인 절차에 필요한 문구를 보충합니다. 시안의 예시 표시와 실제 계약 차이는 BUILD에 기록합니다.',
+ 'servers.session.preparing': '동적 서버 상태와 실데이터 단위 또는 확인 절차에 필요한 문구를 보충합니다. 시안의 예시 표시와 실제 계약 차이는 BUILD에 기록합니다.',
+ 'servers.session.settings': '동적 서버 상태와 실데이터 단위 또는 확인 절차에 필요한 문구를 보충합니다. 시안의 예시 표시와 실제 계약 차이는 BUILD에 기록합니다.',
+ 'servers.time.hours_minutes': '동적 서버 상태와 실데이터 단위 또는 확인 절차에 필요한 문구를 보충합니다. 시안의 예시 표시와 실제 계약 차이는 BUILD에 '
+                               '기록합니다.',
+ 'servers.time.minutes': '동적 서버 상태와 실데이터 단위 또는 확인 절차에 필요한 문구를 보충합니다. 시안의 예시 표시와 실제 계약 차이는 BUILD에 기록합니다.',
+ 'servers.time.since': '동적 서버 상태와 실데이터 단위 또는 확인 절차에 필요한 문구를 보충합니다. 시안의 예시 표시와 실제 계약 차이는 BUILD에 기록합니다.',
+ 'servers.time.auto_delete': '동적 서버 상태와 실데이터 단위 또는 확인 절차에 필요한 문구를 보충합니다. 시안의 예시 표시와 실제 계약 차이는 BUILD에 기록합니다.',
+ 'servers.time.no_schedule': '동적 서버 상태와 실데이터 단위 또는 확인 절차에 필요한 문구를 보충합니다. 시안의 예시 표시와 실제 계약 차이는 BUILD에 기록합니다.',
+ 'servers.rented.title_list': '동적 서버 상태와 실데이터 단위 또는 확인 절차에 필요한 문구를 보충합니다. 시안의 예시 표시와 실제 계약 차이는 BUILD에 기록합니다.',
+ 'servers.rented.identity': '동적 서버 상태와 실데이터 단위 또는 확인 절차에 필요한 문구를 보충합니다. 시안의 예시 표시와 실제 계약 차이는 BUILD에 기록합니다.',
+ 'servers.rented.owned': '동적 서버 상태와 실데이터 단위 또는 확인 절차에 필요한 문구를 보충합니다. 시안의 예시 표시와 실제 계약 차이는 BUILD에 기록합니다.',
+ 'servers.rented.state': '동적 서버 상태와 실데이터 단위 또는 확인 절차에 필요한 문구를 보충합니다. 시안의 예시 표시와 실제 계약 차이는 BUILD에 기록합니다.',
+ 'servers.rented.no_delete': '동적 서버 상태와 실데이터 단위 또는 확인 절차에 필요한 문구를 보충합니다. 시안의 예시 표시와 실제 계약 차이는 BUILD에 기록합니다.',
+ 'servers.rented.volume_unknown': '동적 서버 상태와 실데이터 단위 또는 확인 절차에 필요한 문구를 보충합니다. 시안의 예시 표시와 실제 계약 차이는 BUILD에 '
+                                  '기록합니다.',
+ 'servers.rented.hourly': '동적 서버 상태와 실데이터 단위 또는 확인 절차에 필요한 문구를 보충합니다. 시안의 예시 표시와 실제 계약 차이는 BUILD에 기록합니다.',
+ 'servers.connection.tunnel_closed': '동적 서버 상태와 실데이터 단위 또는 확인 절차에 필요한 문구를 보충합니다. 시안의 예시 표시와 실제 계약 차이는 BUILD에 '
+                                     '기록합니다.',
+ 'servers.connection.tunnel_external': '동적 서버 상태와 실데이터 단위 또는 확인 절차에 필요한 문구를 보충합니다. 시안의 예시 표시와 실제 계약 차이는 '
+                                       'BUILD에 기록합니다.',
+ 'servers.connection.tunnel_unknown': '동적 서버 상태와 실데이터 단위 또는 확인 절차에 필요한 문구를 보충합니다. 시안의 예시 표시와 실제 계약 차이는 '
+                                      'BUILD에 기록합니다.',
+ 'servers.connection.tunnel_time_unknown': '동적 서버 상태와 실데이터 단위 또는 확인 절차에 필요한 문구를 보충합니다. 시안의 예시 표시와 실제 계약 차이는 '
+                                           'BUILD에 기록합니다.',
+ 'servers.connection.process': '동적 서버 상태와 실데이터 단위 또는 확인 절차에 필요한 문구를 보충합니다. 시안의 예시 표시와 실제 계약 차이는 BUILD에 '
+                               '기록합니다.',
+ 'servers.connection.processes': '동적 서버 상태와 실데이터 단위 또는 확인 절차에 필요한 문구를 보충합니다. 시안의 예시 표시와 실제 계약 차이는 BUILD에 '
+                                 '기록합니다.',
+ 'servers.connection.choose': '동적 서버 상태와 실데이터 단위 또는 확인 절차에 필요한 문구를 보충합니다. 시안의 예시 표시와 실제 계약 차이는 BUILD에 기록합니다.',
+ 'servers.connection.choice': '동적 서버 상태와 실데이터 단위 또는 확인 절차에 필요한 문구를 보충합니다. 시안의 예시 표시와 실제 계약 차이는 BUILD에 기록합니다.',
+ 'servers.connection.none': '동적 서버 상태와 실데이터 단위 또는 확인 절차에 필요한 문구를 보충합니다. 시안의 예시 표시와 실제 계약 차이는 BUILD에 기록합니다.',
+ 'servers.connection.loading_locked': '동적 서버 상태와 실데이터 단위 또는 확인 절차에 필요한 문구를 보충합니다. 시안의 예시 표시와 실제 계약 차이는 '
+                                      'BUILD에 기록합니다.',
+ 'servers.connection.replace_locked': '동적 서버 상태와 실데이터 단위 또는 확인 절차에 필요한 문구를 보충합니다. 시안의 예시 표시와 실제 계약 차이는 '
+                                      'BUILD에 기록합니다.',
+ 'servers.reload.done': '동적 서버 상태와 실데이터 단위 또는 확인 절차에 필요한 문구를 보충합니다. 시안의 예시 표시와 실제 계약 차이는 BUILD에 기록합니다.',
+ 'servers.reload.names': '동적 서버 상태와 실데이터 단위 또는 확인 절차에 필요한 문구를 보충합니다. 시안의 예시 표시와 실제 계약 차이는 BUILD에 기록합니다.',
+ 'servers.reload.changed': '동적 서버 상태와 실데이터 단위 또는 확인 절차에 필요한 문구를 보충합니다. 시안의 예시 표시와 실제 계약 차이는 BUILD에 기록합니다.',
+ 'servers.reload.removed': '동적 서버 상태와 실데이터 단위 또는 확인 절차에 필요한 문구를 보충합니다. 시안의 예시 표시와 실제 계약 차이는 BUILD에 기록합니다.',
+ 'servers.disabled.fact': '동적 서버 상태와 실데이터 단위 또는 확인 절차에 필요한 문구를 보충합니다. 시안의 예시 표시와 실제 계약 차이는 BUILD에 기록합니다.',
+ 'servers.disabled.todo': '동적 서버 상태와 실데이터 단위 또는 확인 절차에 필요한 문구를 보충합니다. 시안의 예시 표시와 실제 계약 차이는 BUILD에 기록합니다.',
+ 'servers.logs.empty': '동적 서버 상태와 실데이터 단위 또는 확인 절차에 필요한 문구를 보충합니다. 시안의 예시 표시와 실제 계약 차이는 BUILD에 기록합니다.',
+ 'servers.logs.path': '동적 서버 상태와 실데이터 단위 또는 확인 절차에 필요한 문구를 보충합니다. 시안의 예시 표시와 실제 계약 차이는 BUILD에 기록합니다.',
+ 'servers.logs.manual_copy': '동적 서버 상태와 실데이터 단위 또는 확인 절차에 필요한 문구를 보충합니다. 시안의 예시 표시와 실제 계약 차이는 BUILD에 기록합니다.',
+ 'servers.confirm.delete.title': '동적 서버 상태와 실데이터 단위 또는 확인 절차에 필요한 문구를 보충합니다. 시안의 예시 표시와 실제 계약 차이는 BUILD에 '
+                                 '기록합니다.',
+ 'servers.confirm.delete.action': '동적 서버 상태와 실데이터 단위 또는 확인 절차에 필요한 문구를 보충합니다. 시안의 예시 표시와 실제 계약 차이는 BUILD에 '
+                                  '기록합니다.',
+ 'servers.confirm.create.action': '동적 서버 상태와 실데이터 단위 또는 확인 절차에 필요한 문구를 보충합니다. 시안의 예시 표시와 실제 계약 차이는 BUILD에 '
+                                  '기록합니다.',
+ 'servers.confirm.expires': '동적 서버 상태와 실데이터 단위 또는 확인 절차에 필요한 문구를 보충합니다. 시안의 예시 표시와 실제 계약 차이는 BUILD에 기록합니다.',
+ 'servers.confirm.expired.fact': '동적 서버 상태와 실데이터 단위 또는 확인 절차에 필요한 문구를 보충합니다. 시안의 예시 표시와 실제 계약 차이는 BUILD에 '
+                                 '기록합니다.',
+ 'servers.confirm.expired.todo': '동적 서버 상태와 실데이터 단위 또는 확인 절차에 필요한 문구를 보충합니다. 시안의 예시 표시와 실제 계약 차이는 BUILD에 '
+                                 '기록합니다.',
+ 'servers.confirm.warning': '동적 서버 상태와 실데이터 단위 또는 확인 절차에 필요한 문구를 보충합니다. 시안의 예시 표시와 실제 계약 차이는 BUILD에 기록합니다.',
+ 'servers.confirm.no_expiry': '동적 서버 상태와 실데이터 단위 또는 확인 절차에 필요한 문구를 보충합니다. 시안의 예시 표시와 실제 계약 차이는 BUILD에 기록합니다.',
+ 'servers.result.done': '동적 서버 상태와 실데이터 단위 또는 확인 절차에 필요한 문구를 보충합니다. 시안의 예시 표시와 실제 계약 차이는 BUILD에 기록합니다.',
+ 'servers.result.created': '동적 서버 상태와 실데이터 단위 또는 확인 절차에 필요한 문구를 보충합니다. 시안의 예시 표시와 실제 계약 차이는 BUILD에 기록합니다.',
+ 'servers.result.watchdog': '동적 서버 상태와 실데이터 단위 또는 확인 절차에 필요한 문구를 보충합니다. 시안의 예시 표시와 실제 계약 차이는 BUILD에 기록합니다.',
+ 'servers.result.no_watchdog': '동적 서버 상태와 실데이터 단위 또는 확인 절차에 필요한 문구를 보충합니다. 시안의 예시 표시와 실제 계약 차이는 BUILD에 '
+                               '기록합니다.',
+ 'servers.result.deleted': '동적 서버 상태와 실데이터 단위 또는 확인 절차에 필요한 문구를 보충합니다. 시안의 예시 표시와 실제 계약 차이는 BUILD에 기록합니다.',
+ 'servers.result.remaining': '동적 서버 상태와 실데이터 단위 또는 확인 절차에 필요한 문구를 보충합니다. 시안의 예시 표시와 실제 계약 차이는 BUILD에 기록합니다.',
+ 'servers.result.deleting': '동적 서버 상태와 실데이터 단위 또는 확인 절차에 필요한 문구를 보충합니다. 시안의 예시 표시와 실제 계약 차이는 BUILD에 기록합니다.',
+ 'servers.result.started': '동적 서버 상태와 실데이터 단위 또는 확인 절차에 필요한 문구를 보충합니다. 시안의 예시 표시와 실제 계약 차이는 BUILD에 기록합니다.',
+ 'servers.result.stopped': '동적 서버 상태와 실데이터 단위 또는 확인 절차에 필요한 문구를 보충합니다. 시안의 예시 표시와 실제 계약 차이는 BUILD에 기록합니다.',
+ 'servers.result.process_remaining': '동적 서버 상태와 실데이터 단위 또는 확인 절차에 필요한 문구를 보충합니다. 시안의 예시 표시와 실제 계약 차이는 BUILD에 '
+                                     '기록합니다.',
+ 'servers.result.tunnel_open': '동적 서버 상태와 실데이터 단위 또는 확인 절차에 필요한 문구를 보충합니다. 시안의 예시 표시와 실제 계약 차이는 BUILD에 '
+                               '기록합니다.',
+ 'servers.result.tunnel_close': '동적 서버 상태와 실데이터 단위 또는 확인 절차에 필요한 문구를 보충합니다. 시안의 예시 표시와 실제 계약 차이는 BUILD에 '
+                                '기록합니다.',
+ 'servers.result.log': '동적 서버 상태와 실데이터 단위 또는 확인 절차에 필요한 문구를 보충합니다. 시안의 예시 표시와 실제 계약 차이는 BUILD에 기록합니다.',
+ 'servers.redacted': '동적 서버 상태와 실데이터 단위 또는 확인 절차에 필요한 문구를 보충합니다. 시안의 예시 표시와 실제 계약 차이는 BUILD에 기록합니다.'})
+
+UI_TEXT["jobs"]["try_hint"] = {
+    "ready": "응답한 모델이 {count}개 있습니다. 모델을 고른 뒤 실제 시험을 시작하세요.",
+    "off": "응답한 모델이 없습니다. AI 없이 보낼 내용만 확인할 수 있습니다. 실제 시험을 하려면 AI 켜기와 비용에서 모델을 준비하세요.",
+}
+
 POLISH_TEXT = {**_LEGACY_POLISH_TEXT, **UI_TEXT}
 
 
@@ -1433,8 +1845,8 @@ START_TEXT: dict = {
          "button": "두 실행 비교하기", "tab": "diff"},
         {"title": "항 하나 시험", "line": "고칠 항 하나만 모델에 다시 보냅니다.",
          "button": "시험 준비하기", "tab": "jobs"},
-        {"title": "서버 올리기(고급)", "line": "모델을 새로 부를 때 준비합니다.",
-         "button": "고급 켜고 서버 보기", "tab": "servers"},
+        {"title": UI_TEXT["nav"]["servers"], "line": "모델을 새로 부를 때 준비합니다.",
+         "button": UI_TEXT["context"]["prepare_model"], "tab": "servers"},
     ],
     "empty_runs": "runs/에 실행이 없습니다. 터미널에서 run_sections.py를 돌리거나 ④ 작업 탭을 보세요.",
     "no_drops": "두 목표를 모두 넘었습니다. ② 두 실행 비교에서 이전 실행과 비교해 보세요.",
@@ -1495,10 +1907,7 @@ def order_models(models: list[dict]) -> list[dict]:
 def try_hint(models: list[dict], advanced: bool) -> dict:
     """연결을 확인한 모델이 없으면 서버 없는 시험만 안내한다."""
     count = sum(m.get("connected") is True for m in models)
-    guide = "" if advanced else "고급을 켜고 "
-    note = (f"연결된 모델 {count}개. 모델을 고르고 돌리기를 누르세요." if count else
-            "연결된 모델이 없어 서버 없이 입력·안내문만 봅니다(dry-run). "
-            f"모델을 쓰려면 {guide}서버 탭에서 먼저 올리세요.")
+    note = UI_TEXT["jobs"]["try_hint"]["ready" if count else "off"].format(count=count)
     return {"dry_run_forced": not count, "note": note}
 
 
@@ -1762,28 +2171,17 @@ def diff_ui_text(diff: dict) -> dict:
 def connection_note(run_model: str | None, connected: list[str] | None, advanced_hint: str,
                     *, checked: bool = True) -> dict:
     """점수 조회와 재시험의 연결 요구를 구분한다. None은 조회 실패다."""
-    model = f"이 실행의 모델({run_model})" if run_model else "모델 서버"
-    if not checked:
-        fact, level = f"{model} 연결을 확인하는 중입니다.", "hint"
-    elif connected is None:
-        fact, level = f"{model} 연결을 확인하지 못했습니다.", "error"
-    elif (run_model in connected if run_model else bool(connected)):
-        fact, level = f"{model}은 지금 연결돼 있습니다.", "ok"
-    else:
-        fact, level = f"{model}은 지금 연결돼 있지 않습니다.", "hint"
-    reading = "점수·비교·원문 대조는 서버 없이 볼 수 있습니다."
-    action = "다시 시험하려면 ④ 작업에서 연결을 확인하세요."
-    if level != "ok":
-        action += " " + advanced_hint
-    return {"text": f"{fact} {reading} {action}", "level": level}
+    words = UI_TEXT["context"]["model"]
+    model = run_model or words["default_name"]
+    state, level = ("checking", "hint") if not checked else ("failed", "error") if connected is None else (
+        ("ready", "ok") if (run_model in connected if run_model else bool(connected)) else ("off", "hint"))
+    return {"text": " ".join([words[state].format(model=model), words["reading"], words["action"]]), "level": level}
 
 
 def connection_notes(run_model: str | None) -> dict:
-    """화면의 최신 연결 상태와 고급 스위치로 고를 문장을 미리 만든다."""
-    hints = {"advanced_on": "연결이 없으면 서버 탭에서 모델을 올리세요.",
-             "advanced_off": "연결이 없으면 고급을 켜고 서버 탭에서 모델을 올리세요."}
-    return {state: {mode: connection_note(run_model, connected, hint, checked=state != "loading")
-                    for mode, hint in hints.items()}
+    """옛 응답 키는 유지하지만 두 상태 모두 바로 보이는 모델 관리로 안내한다."""
+    return {state: {mode: connection_note(run_model, connected, "", checked=state != "loading")
+                    for mode in ("advanced_on", "advanced_off")}
             for state, connected in (("ok", [run_model] if run_model else ["모델"]),
                                      ("hint", []), ("error", None), ("loading", []))}
 
@@ -2117,42 +2515,38 @@ def key_label(key_id: str) -> str:
 
 def friendly_error(where: str, raw: str, env_names: dict[str, str] | None = None) -> dict:
     """오류를 안내로 바꾼다. 원문은 호출자가 비밀값을 가린 뒤 넘긴다."""
+    words = UI_TEXT["errors"]["connection"]
     if "Could not resolve hostname ssh" in raw or "RNGD_SSH starts with ssh" in raw:
-        message = "`.env`의 RNGD_SSH 값이 `ssh`로 시작합니다."
-        fix = "`ssh`를 빼고 `-i <키> -p <포트> <사용자>@<호스트>`처럼 인자만 적으세요. 앱은 이제 `ssh`를 빼고 읽습니다."
+        kind = "ssh_prefix"
     elif raw == "RNGD_SSH 없음":
-        message = "RNGD 접속 정보(RNGD_SSH)가 `.env`에 없습니다."
-        fix = "`.env.example`의 RNGD_SSH 줄을 복사해 값을 채우세요."
+        kind = "ssh_missing"
     elif "SSLCertVerificationError" in raw or "CERTIFICATE_VERIFY_FAILED" in raw:
-        message = "RunPod 주소의 인증서를 확인하지 못했습니다. 파이썬 3.11에 인증서 묶음이 없을 때 생깁니다."
-        fix = "터미널에서 `/Applications/Python 3.11/Install Certificates.command`를 한 번 실행한 뒤 앱을 다시 켜세요."
-    elif where == "model" and "401" in raw:          # 모델 서버(/v1/models)가 거절한 것이다. RunPod 관리 키와 다르다
-        message = "모델 서버가 키를 거절했습니다."
-        fix = ("`.env`의 RUNPOD_VLLM_API_KEY(또는 RNGD_API_KEY)가 서버를 띄울 때 값과 같은지 보세요. "
-               "Pod를 만든 뒤 키를 바꿨다면 Pod를 다시 만드세요.")
+        kind = "certificate"
+    elif where == "model" and "401" in raw:
+        kind = "model_key"
     elif "401" in raw or "Unauthorized" in raw:
-        message = "RunPod 관리 키(RUNPOD_API_KEY)가 거절됐습니다."
-        fix = "RunPod 설정 화면에서 키를 다시 만들어 `.env`에 넣으세요."
+        kind = "account_key"
     elif where == "env" and env_names:
         variable = env_names.get("base_url") or next(iter(env_names.values()))
-        message = f"`.env`에 {variable}가 없습니다."
-        fix = (f"서버 주소를 `.env`의 {variable}에 적으세요. 예: http://127.0.0.1:8000/v1 "
-               "(SSH 터널을 거친 내 컴퓨터 쪽 주소)")
+        env = UI_TEXT["errors"]["env"]
+        fix_key = {"RNGD_BASE_URL": "company_url", "RUNPOD_VLLM_BASE_URL": "runpod_url"}.get(variable, "unknown_url")
+        return {"message": env["missing"].format(variable=variable),
+                "fix": env[fix_key].format(variable=variable), "raw": raw}
     elif any(token in raw for token in ("timed out", "Connection refused", "TimeoutError",
                                         "ConnectionRefusedError", "TimeoutExpired")):
-        # 기존 연결 검사는 비밀값 보호를 위해 예외의 종류만 남긴다. 원인(터널·모델)은 서버 상태의 진단이 가린다.
-        message = "서버가 응답하지 않습니다."
-        fix = "서버 상태 칸의 진단을 보세요. 터널이 닫혔거나 모델이 아직 뜨는 중일 수 있습니다."
+        kind = "no_response"
     else:
-        message = "서버를 보지 못했습니다."
-        fix = "아래 원문을 보고 .env와 터널을 확인하세요."
-    return {"message": message, "fix": fix, "raw": raw}
+        kind = "other"
+    fix = words[kind]["todo"]
+    if kind == "model_key":
+        fix += " " + words["model_key_changed"]
+    return {"message": words[kind]["fact"], "fix": fix, "raw": raw}
 
 
 def env_problem(line: int) -> dict:
-    """`.env`에서 읽지 못한 줄 하나의 안내. 줄의 글은 값이 섞여 있어 담지 않는다."""
-    return {"line": line, "message": f"`.env` {line}번째 줄을 읽지 못했습니다.",
-            "fix": "따옴표와 = 앞뒤 공백을 확인하고 '설정 다시 읽기'를 누르세요. 값은 화면에 나오지 않습니다."}
+    """오류 줄 번호만 알린다. 설정 값이나 원문 줄은 담지 않는다."""
+    words = UI_TEXT["errors"]["env"]
+    return {"line": line, "message": words["line"].format(line=line), "fix": words["line_todo"]}
 
 
 # 작업(시험·본 실행·비교표)이 실패했을 때의 글. job_error가 로그의 마지막 예외 줄로 고른다
@@ -2284,48 +2678,22 @@ def journey_problem(kind: str, **facts) -> dict:
 
 
 # 서버 탭(b_app_servers)이 거절하거나 할 수 없을 때의 글. 사실 한 문장 + "할 일:" (format으로 채운다)
-SERVER_TEXT: dict[str, str] = {
-    "pod_key_missing": "Pod 키(RUNPOD_VLLM_API_KEY)가 .env에 없습니다. "
-                       "할 일: .env에 RUNPOD_VLLM_API_KEY=<긴 임의 글자>를 넣고 '설정 다시 읽기'를 누르세요.",
-    "pod_not_ours": "이 앱이 만들지 않은 Pod라 지울 수 없습니다(이름이 {prefix}로 시작하지 않음). "
-                    "할 일: RunPod 화면에서 Pod 주인에게 확인하세요.",
-    "env_file_unknown": "설정 파일(.env) 위치를 몰라 다시 읽을 수 없습니다. 할 일: 앱을 다시 켜세요.",
-    # RNGD 터널 (b_app_servers의 tunnel_open·tunnel_close)
-    "tunnel_no_port": "RNGD 주소(RNGD_BASE_URL)가 내 컴퓨터 주소(http://127.0.0.1:<포트>/v1)가 아니라 터널을 열 수 없습니다. "
-                      "할 일: .env의 RNGD_BASE_URL을 http://127.0.0.1:18000/v1처럼 적고 '설정 다시 읽기'를 누르세요.",
-    "tunnel_already_open": "내 컴퓨터 {port}번이 이미 열려 있습니다. "
-                           "할 일: 다시 열 필요가 없습니다. 서버 상태의 진단을 보세요.",
-    "tunnel_closed": "터널이 닫혀 있습니다(내 컴퓨터 {port}번). 할 일: 닫을 것이 없습니다. 서버 상태를 다시 보세요.",
-    "tunnel_not_ours": "앱이 연 터널이 아닙니다(내 컴퓨터 {port}번). 할 일: 연 터미널에서 닫으세요.",
-    "tunnel_exited": "SSH 터널이 열리기 전에 ssh가 끝났습니다(종료 코드 {code}). "
-                     "할 일: .env의 RNGD_SSH와 키 파일을 확인하고, 터미널에서 같은 ssh 접속이 되는지 보세요.",
-    "tunnel_timeout": "SSH 터널이 {seconds}초 안에 열리지 않아 멈췄습니다. 할 일: 터미널에서 RNGD에 ssh로 접속되는지 보세요.",
-    "tunnel_spawn_failed": "ssh 프로그램을 띄우지 못했습니다. 할 일: 터미널에서 ssh 명령이 있는지 확인하세요.",
-    "tunnel_still_open": "터널을 닫으라고 보냈지만 내 컴퓨터 {port}번이 아직 열려 있습니다. "
-                         "할 일: 잠시 뒤 서버 상태를 다시 보세요.",
-}
-
+SERVER_TEXT: dict[str, str] = dict(UI_TEXT["servers"]["messages"])
 
 def server_controls(*, running: bool, runpod_ok: bool, rngd_ok: bool, tunnel: dict | None = None,
                     ssh_set: bool = False) -> dict:
     """모델 연결과 별개로 관리 서버를 볼 수 있어야 변경 단추를 연다.
     터널 열기는 실행 중에도 된다(돌고 있는 실행을 해치지 않는다). tunnel은 b_app_servers.tunnel_status 값이다."""
-    busy = "실행이나 시험이 돌고 있어 서버를 바꿀 수 없습니다."
+    copy = UI_TEXT["servers"]["controls"]
     reasons = {}
-    for action, ready, offline in (
-        ("pod_create", runpod_ok, "RunPod를 보지 못해 Pod를 만들 수 없습니다."),
-        ("pod_delete", runpod_ok, "RunPod를 보지 못해 Pod를 지울 수 없습니다."),
-        ("rngd_up", rngd_ok, "RNGD를 보지 못해 모델을 올릴 수 없습니다."),
-        ("rngd_down", rngd_ok, "RNGD를 보지 못해 모델을 내릴 수 없습니다."),
-    ):
-        reasons[action] = busy if running else offline if not ready else ""
+    for action, ready, key in (("pod_create", runpod_ok, "create"), ("pod_delete", runpod_ok, "delete"),
+                               ("rngd_up", rngd_ok, "up"), ("rngd_down", rngd_ok, "down")):
+        reasons[action] = copy["busy"] if running else copy[key] if not ready else ""
     t = tunnel or {}
-    reasons["tunnel_open"] = ("RNGD 접속 정보(RNGD_SSH)가 없어 터널을 열 수 없습니다." if not ssh_set
-                              else "RNGD 주소(RNGD_BASE_URL)가 내 컴퓨터 주소가 아니라 터널을 열 수 없습니다."
-                              if t.get("port") is None
-                              else "터널이 이미 열려 있습니다." if t.get("open") else "")
-    reasons["tunnel_close"] = (busy if running else "터널이 닫혀 있습니다." if not t.get("open")
-                               else "앱이 연 터널이 아닙니다. 연 터미널에서 닫으세요." if not t.get("owned") else "")
+    reasons["tunnel_open"] = (copy["no_ssh"] if not ssh_set else copy["no_port"] if t.get("port") is None
+                              else copy["open"] if t.get("open") else "")
+    reasons["tunnel_close"] = (copy["busy"] if running else copy["closed"] if not t.get("open")
+                               else copy["not_owned"] if not t.get("owned") else "")
     return {"can": {action: not reason for action, reason in reasons.items()}, "why": reasons}
 
 
@@ -2335,37 +2703,31 @@ LOADING_LATE_MIN = 25                                # 모델 올리기는 보�
 def rngd_diagnosis(diagnosis: str | None, loading_since: str | None, now: datetime) -> dict | None:
     """b_app_servers가 낸 RNGD 진단(ok·no_model·tunnel_closed·loading)의 글. 모르는 값이면 None.
     loading_since는 ISO 시각 글이고, now와 시간대가 달라도 된다. 읽지 못하면 지난 시간을 쓰지 않는다."""
-    if diagnosis == "ok":
-        return {"message": "RNGD 모델이 응답합니다.", "fix": "시험이나 본 실행에서 RNGD 모델을 고를 수 있습니다."}
-    if diagnosis == "no_model":                      # 모델이 없을 때는 터널을 탓하지 않는다
-        return {"message": "RNGD에 떠 있는 모델이 없습니다.", "fix": "모델 올리기를 누르세요. 15~25분 걸립니다."}
-    if diagnosis == "tunnel_closed":
-        return {"message": "내 컴퓨터와 RNGD를 잇는 통로(SSH 터널)가 닫혀 있습니다.", "fix": "터널 열기를 누르세요."}
+    words = UI_TEXT["servers"]["diagnosis"]
+    if diagnosis in ("ok", "no_model", "tunnel_closed"):
+        copy = words["ready" if diagnosis == "ok" else diagnosis]
+        return {"message": copy["fact"], "fix": copy["todo"]}
     if diagnosis != "loading":
         return None
     seconds = None
     try:
         seconds = max(0.0, (now - datetime.fromisoformat(loading_since)).total_seconds())
-    except (TypeError, ValueError):                  # 없음, 시각 아님, 시간대 있음·없음 섞임
+    except (TypeError, ValueError):
         pass
-    message = (f"모델을 올리는 중입니다({int(seconds // 60)}분 지남)." if seconds is not None
-               else "모델을 올리는 중입니다.")
-    fix = "보통 15~25분 걸립니다. 기다린 뒤 다시 보세요."
+    copy = words["loading"]
+    message = copy["elapsed"].format(minutes=int(seconds // 60)) if seconds is not None else copy["unknown"]
+    fix = copy["todo"]
     if seconds is not None and seconds > LOADING_LATE_MIN * 60:
-        fix += f" {LOADING_LATE_MIN}분이 넘었으니 서버 기록을 확인하세요(RNGD의 /root/to21-bc/<태그>.log)."
+        fix += " " + copy["late"].format(minutes=LOADING_LATE_MIN)
     return {"message": message, "fix": fix}
 
 
 def server_ui_text() -> dict:
-    """브라우저 상태에 따라 고를 안내문. 화면에서는 받은 글만 표시한다."""
-    return {
-        "guide": {"advanced_on": "서버 탭에서 모델을 올리세요",
-                  "advanced_off": "고급을 켜고 서버 탭에서 모델을 올리세요"},
-        "busy": "서버 변경이 진행 중입니다. 끝날 때까지 기다리세요.",
-        "unavailable": "서버 상태를 확인하지 못해 동작을 잠갔습니다. 지금 다시 보기를 누르세요.",
-        "action_failure": {"message": "서버 변경을 끝내지 못했습니다.",
-                           "fix": "아래 원문을 보고 서버 연결과 실행 상태를 확인하세요."},
-    }
+    """옛 키를 보존하며 승인 문구로 안내한다."""
+    copy = UI_TEXT["servers"]["status"]
+    return {"guide": {"advanced_on": copy["guide"], "advanced_off": copy["guide"]},
+            "busy": copy["busy"], "unavailable": copy["unavailable"],
+            "action_failure": {"message": copy["failure"]["fact"], "fix": copy["failure"]["todo"]}}
 
 
 def _date(name: str, started_at) -> str:

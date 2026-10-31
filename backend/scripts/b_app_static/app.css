@@ -284,3 +284,28 @@ dialog::backdrop { background: rgb(35 51 47 / 25%); }
 .compare-diff-remove { background: var(--ground); }
 .compare-hash-warning { border: var(--border-standard); padding: var(--space-group); background: var(--selected); }
 #compare-summary > button { margin-right: var(--space-group); margin-top: var(--space-group); }
+
+/* S06: 조작은 항상 보이고 기록과 장비 원문만 펼친다. */
+#screen-s06 > div { margin-bottom: var(--space-page); min-width: 0; }
+#servers-summary { padding-bottom: var(--space-section); border-bottom: var(--border-standard); }
+#servers-summary > p, #servers-rngd > p, #servers-runpod > p { max-width: 72ch; }
+.server-actions, .server-process { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--space-group); }
+.server-actions { margin: var(--space-group) 0; }
+.server-notice { background: var(--soft); border: var(--border-standard); padding: var(--space-group); margin: var(--space-group) 0; }
+.server-state { display: block; }
+.server-ready { color: var(--accent); }
+.server-action { min-width: 0; }
+.server-action p { margin-top: var(--space-small); font-size: var(--label-size); }
+.server-tunnel { border-block: var(--border-standard); padding: var(--space-group) 0; margin: var(--space-group) 0; }
+.server-choice { max-width: 620px; margin: var(--space-section) 0; }
+.server-process { padding: var(--space-compact) 0; border-top: var(--border-standard); }
+.server-process > p { min-width: 0; }
+.server-table td, .server-table th { padding: var(--space-small); }
+.server-table .error-note { padding: var(--space-small); }
+#servers-runpod .server-table th:first-child { width: 20%; }
+#servers-runpod .server-table th:nth-child(2) { width: 22%; }
+#servers-runpod .server-table th:last-child { width: 22%; }
+#servers-models .server-table th:nth-child(2) { width: 10%; }
+#servers-models .server-table th:nth-child(3) { width: 30%; }
+#action-confirm .technical { font-family: var(--font-body); font-size: var(--body-size); }
+#jobs-connection { min-width: 0; }

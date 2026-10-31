@@ -337,7 +337,7 @@ def test_status_can_without_credentials(srv, tmp_path):
     assert all(result["why"].values())
     assert result["friendly"]["raw"] == result["runpod_error"]
     assert "RNGD_SSH" in result["rngd"]["friendly"]["message"]
-    assert result["ui_text"]["guide"]["advanced_off"].startswith("고급을 켜고")
+    assert result["ui_text"]["guide"]["advanced_off"]== "AI 켜기와 비용에서 모델을 준비하세요."
 
 
 def test_status_friendly_runpod_certificate_and_rngd_masking(srv, tmp_path):
@@ -348,7 +348,7 @@ def test_status_friendly_runpod_certificate_and_rngd_masking(srv, tmp_path):
                   rngd=lambda *a: (255, "", f"Connection refused {RNGD_KEY}")).status()
     assert "인증서를 확인하지 못했습니다" in result["friendly"]["message"]
     assert result["friendly"]["raw"] == result["runpod_error"]
-    assert result["rngd"]["friendly"]["message"] == "서버가 응답하지 않습니다."
+    assert result["rngd"]["friendly"]["message"] == "모델 서버가 응답하지 않습니다."
     assert result["rngd"]["friendly"]["raw"] == result["rngd"]["error"]
     no_secret(result)
 
@@ -426,7 +426,7 @@ def test_pod_delete_not_ours_refused(srv, tmp_path):
     sa = make(srv, tmp_path, cloud=cloud)
     res = sa.propose("pod_delete", {"pod_id": "zzz999"})
     assert res["code"] == 403 and "token" not in res                      # 사용자 결정 10/30 (ADR-028): 남의 Pod는 지우지 못한다
-    assert "만들지 않은 Pod" in res["error"] and "할 일:" in res["error"]
+    assert "이 앱이 만든 서버가 아니라" in res["error"] and "할 일:" in res["error"]
     assert cloud.sent("DELETE") == [] and log_rows(tmp_path) == []
     p = sa.status()["pods"][0]
     assert (p["id"], p["ours"], p["owned"], p["deletable"]) == ("zzz999", False, False, False)
@@ -848,7 +848,7 @@ def test_model_401_is_model_key_not_runpod_key(srv, tmp_path):
         raise urllib.error.HTTPError(req.full_url, 401, "Unauthorized", {}, None)
     st = srv.model_status("qwen36_35b_runpod", MODELS_CFG["models"]["qwen36_35b_runpod"], ENV, opener=opener)
     assert st["error"] == "HTTP 401"
-    assert "모델 서버가 키를 거절했습니다" in st["friendly"]["message"] and "RUNPOD_API_KEY" not in st["friendly"]["message"]
+    assert "모델 서버가 접속 키를 거절했습니다" in st["friendly"]["message"] and "RUNPOD_API_KEY" not in st["friendly"]["message"]
     no_secret(st)
 
 
@@ -1014,7 +1014,7 @@ def test_tunnel_open_allowed_while_running(srv, tmp_path):
     assert res["ok"] is True and 18000 in ports.open
     st = sa.status()
     assert st["locked"] is True and st["can"]["tunnel_open"] is False and st["can"]["tunnel_close"] is False
-    assert st["why"]["tunnel_open"] and "실행" in st["why"]["tunnel_close"]   # 이미 열림 / 실행 중이라 닫지 못함
+    assert st["why"]["tunnel_open"] and "시험 중" in st["why"]["tunnel_close"]   # 이미 열림 / 실행 중이라 닫지 못함
     assert make(srv, tmp_path, jobs=FakeJobs([LOCK_RUN])).status()["can"]["tunnel_open"] is True
 
 
@@ -1056,7 +1056,7 @@ def test_tunnel_close_refuses_tunnel_not_ours(srv, tmp_path, ps_text):
     sa = make(srv, tmp_path, ports=FakePorts({18000}), ps=FakePs(ps_text), killer=killer)
     assert sa.tunnel_status()["owned"] is False
     res = sa.propose("tunnel_close", {})
-    assert res["code"] == 403 and "앱이 연 터널이 아닙니다" in res["error"] and "할 일:" in res["error"]
+    assert res["code"] == 403 and "이 앱이 열지 않았습니다" in res["error"] and "할 일:" in res["error"]
     assert sa.status()["can"]["tunnel_close"] is False
     assert killer.calls == [] and log_rows(tmp_path) == []
 
@@ -1106,7 +1106,7 @@ def test_rngd_diagnosis(srv, tmp_path, case, up, ports, served, rngd_ok, diagnos
     assert r["tunnel"] == {**CLOSED, "open": bool(ports)}
     if diagnosis == "loading":
         assert r["loading_since"] == local_iso(NOW.timestamp() - 600)
-        assert "10분 지남" in r["diagnosis_text"]["message"]
+        assert "10분 지났습니다" in r["diagnosis_text"]["message"]
     elif diagnosis == "tunnel_closed":
         assert r["loading_since"] == local_iso(NOW.timestamp() - 600)    # 프로세스가 있으면 뜨기 시작한 시각을 준다
     else:
@@ -1141,7 +1141,7 @@ def test_no_model_texts_do_not_blame_tunnel(srv, tmp_path):
         assert m["friendly"]["message"] == st["rngd"]["diagnosis_text"]["message"]
         assert m["friendly"]["raw"]                                          # 원래 오류 종류는 남긴다
     runpod = next(m for m in st["models"] if m["where"] == "RunPod")
-    assert runpod["friendly"]["message"] == "서버가 응답하지 않습니다."            # RunPod 칸은 그대로
+    assert runpod["friendly"]["message"] == "모델 서버가 응답하지 않습니다."            # RunPod 칸은 그대로
     no_secret(st)
 
 
@@ -1156,7 +1156,7 @@ def test_rngd_http_answer_is_not_loading(srv, tmp_path):
               cloud=opener).status()
     assert st["rngd"]["diagnosis"] is None
     qwen = next(m for m in st["models"] if m["tag"] == "qwen3_30b_a3b_rngd")
-    assert qwen["friendly"]["message"] == "모델 서버가 키를 거절했습니다."
+    assert qwen["friendly"]["message"] == "모델 서버가 접속 키를 거절했습니다."
 
 
 def test_route_tunnel_open_close(srv, app, bj, where, tmp_path):

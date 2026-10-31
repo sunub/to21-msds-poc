@@ -144,7 +144,7 @@ def test_model_connection_names_count_neutral_absence_and_error_recovery():
       assert.ok(el.textContent.includes(T('context.model.readiness_unknown')));assert.equal(el.classList.contains('error'),false);
       api=async()=>{throw new Error('read failed');};await shellPollServers();assert.equal(el.classList.contains('error'),true);
       api=async()=>({models:[]});await shellPollServers();assert.equal(el.classList.contains('error'),false);
-      assert.ok([...timers.values()].some(t=>t.repeat===15000));
+      assert.equal(timers.size,1);assert.ok([...timers.values()].some(t=>t.at===60000));
     """)
 
 

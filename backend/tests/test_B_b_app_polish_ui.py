@@ -10,20 +10,6 @@ def run_js(body):
     _run_js("if (typeof UI !== 'undefined') Object.assign(UI, " + json.dumps(copy) + ");" + body)
 
 
-def test_server_log_copy_instruction_only_appears_with_lines():
-    run_js(r"""
-      S.srv.data={log_tail:[]};
-      renderSrvLog();
-      const card=document.getElementById('srv-log-card');
-      assert.match(card.textContent,/아직 기록이 없습니다/);
-      assert.doesNotMatch(card.textContent,/옮기세요/);
-      S.srv.data.log_tail=['가짜 기록 한 줄'];
-      renderSrvLog();
-      assert.match(card.textContent,/가짜 기록 한 줄/);
-      assert.match(card.textContent,/새 줄이 생기면.*옮기세요/);
-    """)
-
-
 def test_errors_share_fact_action_and_collapsed_raw_on_each_tab():
     run_js(r"""
       // 서버에서 최초 HTML에 넣은 글을 사용한다. 임의 오류는 원문 펼침 안에만 둔다.

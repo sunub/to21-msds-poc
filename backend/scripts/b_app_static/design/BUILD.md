@@ -169,7 +169,7 @@ P01과 P02는 원래 화면으로 돌아오는 확인 영역입니다.
 | I41 | 결과의 항→표→행→칸 구조·기술 경로·칸 수·항 모름 | `renderDocRight, tableBlock, rowHead` | S02 source-values | 3 | `sourceStructure`, `sourceTable`: 항→표→행→칸, 알 수 없는 항과 extras 포함 |
 | I42 | 결과 값·정답 값·정답에만 있는 행/칸·근거 줄 참조·비교 상태 | `valueRow, pickSilverOnly` | S02 source-values | 3 | `sourceValueButton`, `sourcePick`: 결과·정답·정답 전용 값 대조 |
 | I43 | 선택한 값/줄·연결 값 수·근거 없음·좌표 없는 줄·스크롤 위치 | `noteSel, pickValue, pickLine, scrollInto` | S02 source-selection | 3 | `sourceRenderSelection`, `sourcePickLine`, `sourceScrollLine`, `sourceRemember`: 선택·근거 없음·좌표 없음·쪽과 읽던 위치 |
-| I44 | 모델 선택·연결·다시 조회·기술 태그 | `modelSelect, connNote, loadOptions` | 공통 global-context, S03 jobs-connection, S06 servers-models | 1, 5, 6 | |
+| I44 | 모델 선택·연결·다시 조회·기술 태그 | `modelSelect, connNote, loadOptions` | 공통 global-context, S03 jobs-connection, S06 servers-models | 1, 5, 6 | `serversRenderModels`·`serversRenderCompact(el,{model})`, `S.shell.servers` 공유. S03 합성은 step 6. |
 | I45 | 문서·입력 폴더·한 항/여러 항/전체 16항·기준 실행 자동/수동 | `renderJobTry` | S03 jobs-try | 6 | |
 | I46 | 지시문 기본/고쳐 쓰기·불러오기·다른 모델/항에서 온 글·한 항 제한 | `renderJobTry, loadPrompt` | S03 jobs-try | 6 | |
 | I47 | 지시문 임시 보관·새로고침 유실·전송 뒤 임시 파일 삭제·해시만 기록 | `renderJobTry, startTry` | S03 jobs-try, S07 help-topics | 6, 8 | |
@@ -188,16 +188,16 @@ P01과 P02는 원래 화면으로 돌아오는 확인 영역입니다.
 | I60 | 비교표 선택 순서·실행별 이름·선택 수·목록 갱신·제목·기본 라벨·출력 경로 | `renderJobCompare, startCompare` | S10 jobs-compare, S05 jobs-detail | 6 | |
 | I61 | 작업 종류·내용·시작·상태·회차 진행·외부 프로세스·중단 가능 여부 | `renderJobList, progressText` | S05 jobs-list | 6 | |
 | I62 | 작업 결과·로그·닫기·종료 코드·스크롤 유지·갱신·중단 경고 | `openLog, refreshLog, stopJob` | S05 jobs-detail, P02 action-confirm | 6 | |
-| I63 | 현재 연결 모델·태그·조회 시각·재조회·서버 작업 진행과 마지막 결과 | `renderSrvTop, pollServers` | 공통 global-context, S06 servers-summary | 1, 5 | |
-| I64 | 세션 Pod 번호·준비 여부·자동 삭제 감시·작업에 전달되는 연결 | `renderSrvTop, srvDetail` | S06 servers-summary·servers-runpod | 5 | |
-| I65 | 태그·기대 모델·서버 종류·주소 설정 여부·응답 여부·응답 모델·일치·오류 | `renderSrvModels` | S06 servers-models | 5 | |
-| I66 | 서버 변경 잠금·잠긴 이유·최신 조회 실패의 조작 금지 | `srvBtn, lockNote` | S06 servers-summary | 5 | |
-| I67 | Pod ID·이름·앱 소유 여부·상태·자동 삭제까지·시간당 요금·가동시간·추정 비용 | `renderSrvRunpod` | S06 servers-runpod | 5 | |
-| I68 | Pod 생성·삭제·계정 오류·네트워크 볼륨 수와 비용 | `renderSrvRunpod` | S06 servers-runpod, P02 action-confirm | 5 | |
-| I69 | RNGD 카드 수·실행 모델·프로세스·사용 카드·올릴 모델 선택·올리기/내리기 | `renderSrvRngd` | S06 servers-rngd | 5 | |
-| I70 | 가린 장비 명령 출력·진단 오류·15~25분 대기·프로세스와 준비 완료의 차이 | `renderSrvRngd, srvDetail` | S06 servers-rngd | 5 | |
-| I71 | 서버 기록 마지막 10줄·기록 경로·수동 사용기록 이관 안내 | `renderSrvLog` | S06 servers-log, S07 help-topics | 5, 8 | |
-| I72 | 변경 요약·주의·확인 만료·한 번 사용·취소·실패·삭제 후 남은 Pod·모델 내린 PID | `openSrvDialog, closeSrvDialog, srvExecute` | P02 action-confirm, S06 servers-summary | 5 | |
+| I63 | 현재 연결 모델·태그·조회 시각·재조회·서버 작업 진행과 마지막 결과 | `renderSrvTop, pollServers` | 공통 global-context, S06 servers-summary | 1, 5 | `serversRenderSummary`, `shellPollServers`·`shellScheduleServers` 한 타이머. S06 10초, 다른 화면 60초. |
+| I64 | 세션 Pod 번호·준비 여부·자동 삭제 감시·작업에 전달되는 연결 | `renderSrvTop, srvDetail` | S06 servers-summary·servers-runpod | 5 | `serversRenderRunpod`: session 번호·adopted·others·실제 모델 일치·설정 변수 이름. 주소·키 값은 미표시. |
+| I65 | 태그·기대 모델·서버 종류·주소 설정 여부·응답 여부·응답 모델·일치·오류 | `renderSrvModels` | S06 servers-models | 5 | `serversRenderModels`: 기대·응답 모델·태그·서버·주소 설정 유무·일치 여부·friendly 원문 펼침. |
+| I66 | 서버 변경 잠금·잠긴 이유·최신 조회 실패의 조작 금지 | `srvBtn, lockNote` | S06 servers-summary | 5 | `serversReason`·`serversLockNote`: can/why·409 작업·최신 조회 실패. 터널 열기만 실행 중 허용. |
+| I67 | Pod ID·이름·앱 소유 여부·상태·자동 삭제까지·시간당 요금·가동시간·추정 비용 | `renderSrvRunpod` | S06 servers-runpod | 5 | `serversRenderRunpod`: owned/deletable별 삭제 단추 미생성, uptime_s 시간·분, cost_est 달러, 비용 없음은 알 수 없음. |
+| I68 | Pod 생성·삭제·계정 오류·네트워크 볼륨 수와 비용 | `renderSrvRunpod` | S06 servers-runpod, P02 action-confirm | 5 | `serversRenderRunpod`·`serversPropose`·P02: 생성·삭제·계정 오류·볼륨 수·잔여 비용 경고. |
+| I69 | RNGD 카드 수·실행 모델·프로세스·사용 카드·올릴 모델 선택·올리기/내리기 | `renderSrvRngd` | S06 servers-rngd | 5 | `serversRenderRngd`: 선택 모델·카드 수·프로세스·올리기/내리기. 장비 출력은 펼침. |
+| I70 | 가린 장비 명령 출력·진단 오류·15~25분 대기·프로세스와 준비 완료의 차이 | `renderSrvRngd, srvDetail` | S06 servers-rngd | 5 | `serversDiagnosis`: 진단 네 가지·진단 불가·loading_since 경과·15~25분. 준비는 기대 모델 응답으로 판정. |
+| I71 | 서버 기록 마지막 10줄·기록 경로·수동 사용기록 이관 안내 | `renderSrvLog` | S06 servers-log, S07 help-topics | 5, 8 | `serversRenderLog`: 최근 10줄·실제 server_log.md·기록이 있을 때만 수동 이관 안내. S07 연결은 step 8. |
+| I72 | 변경 요약·주의·확인 만료·한 번 사용·취소·실패·삭제 후 남은 Pod·모델 내린 PID | `openSrvDialog, closeSrvDialog, srvExecute` | P02 action-confirm, S06 servers-summary | 5 | `serversOpenDialog`·`serversExecute`·`serversResult`: 요약·경고·포커스·Escape·만료·일회용·실패 상세·남은 Pod/PID. |
 | I73 | 도움말 전체 9장·장 링크·안내 재시작 | `index.html #help-frame, guide.html #s1~#s9` | S07 help-topics, S08 journey-choice | 7, 8 | |
 | I74 | 도구 역할·PDF→쪽 글자→16항→결과→채점·실행 이름 해설 | `guide.html #s1` | S07 help-topics flow | 8 | |
 | I75 | 점수 해석·가중치·필수 목표·정답 초안 한계·원인 후보 기준 | `guide.html #s2, #s3` | S07 help-topics score | 8 | |
@@ -278,6 +278,19 @@ COPY 문장으로 바꾼 기대값은 해당 step의 summary에 이유를 적습
 정적 경로 보호와 HTML 문자 이스케이프와 외부 주소 금지 시험은 계속 유지합니다.
 
 ## API 확인
+
+step 5에서 서버 계약을 다시 확인했습니다. 백엔드 파일은 수정하지 않았습니다.
+
+| 계약 | 코드 확인 | 화면 처리 |
+|---|---|---|
+| 공통 조회 | `ServerManager.status`, `/api/servers` | `S.shell.servers` 하나를 S06·맥락 줄·짧은 연결 구역이 공유. 조회 중 요청은 합침. 기존 15초 주기는 이 step 요구대로 S06 10초/다른 화면 60초 한 타이머로 변경 |
+| 시간·비용 | `_brief`, `_pod_view` | `uptime_s` 초를 시간·분으로 표시. `cost_est` 달러, `cost_per_hr` 달러/시간. null은 알 수 없음. `auto_delete_min`이 있을 때만 남은 분 표시 |
+| 제안·실행 | `propose`, `execute`, `_server_post` | `post`는 `{status,data}` 포장이 아닌 본문을 반환. HTTP 오류는 `error.status/body`. 토큰 600초·일회용. 터널도 승인 구조에 따라 P02 확인 |
+| 실행 중 잠금 | `_locked`, `server_controls` | 409의 `running`과 상태의 `running_jobs`를 구분. 여는 통로만 예외. 열린 확인 창에도 새 잠금·조회 실패를 반영 |
+| 설정 다시 읽기 | `reload_env` | names/changed/removed는 변수 이름만. problems는 줄 번호·사실·할 일. 앞선 상태 조회가 진행 중이면 끝난 뒤 새 상태를 다시 조회 |
+| 실행 결과 실패 | `_do_pod_delete`, `_do_rngd_up/down` | HTTP 200이어도 `ok:false`일 수 있음. `result`·`log_line`을 보존해 남은 자원과 실패를 표시 |
+| 서버 기록 | `_log_tail(10)` | 실제 경로는 `runs/manual/server_log.md`. COPY의 server-events.log 시안 경로는 사용하지 않음 |
+
 
 코드 위치의 기준은 `backend/scripts/`입니다.
 통신 규약(API)은 현재 코드의 실제 반환값을 기준으로 확인했습니다.
@@ -401,6 +414,12 @@ COPY의 제목과 복구 설명을 감싸서 표시합니다.
 
 ## 글 출처
 
+step 5: `UI_TEXT.servers`와 `errors.connection/env`를 COPY에서 이관했습니다.
+서버 문장 함수는 기존 키·인자를 유지합니다. 고급 스위치 안내는 바로 보이는 ‘AI 켜기와 비용’으로 바꿨습니다.
+`COPY_EXCEPTIONS`에는 동적 모델 상태·시간과 달러 단위·설정 이름 결과·실제 서버 번호·삭제 권한 이유·503·실행 결과·실제 기록 경로를 적었습니다.
+시안의 ‘예시 서버’·‘(예시)’는 실제 확인 창에서 제거했습니다. 임대료는 제안 API의 실제 요약으로 확인하며 시안 금액을 박지 않았습니다.
+
+
 고정 글은 `b_app_text.py`의 `UI_TEXT`에 모읍니다.
 점으로 나눈 COPY 키를 같은 중첩 경로로 옮깁니다.
 JS는 `T("nav.recent")` 같은 경로 조회만 합니다.
@@ -508,6 +527,16 @@ step 2의 API 확인 보충입니다.
 - counts·cause만 손실 행에 추가했습니다. 기존 손실 수식·값·순위와 top_drops는 유지합니다. next_action은 같은 가장 큰 문제를 가리키게 했습니다.
 
 ## 브라우저로 볼 것
+
+step 5의 미확인 목록입니다. 실제 브라우저·서버·SSH를 이 step에서 실행하지 않았습니다.
+
+- P02의 최초 초점·Tab 순환·Shift+Tab·Escape·취소 후 원래 단추 복귀를 확인합니다.
+- 1280·1440·1680px에서 긴 모델 이름과 Pod 비용 표가 가로로 넘치지 않는지 확인합니다.
+- RNGD 네 진단과 진단 불가에서 사실·할 일·경과시간이 서로 구분되는지 확인합니다.
+- 연결 화면에서 10초, 다른 화면에서 60초에 한 번 조회하는 동안 선택·펼침·초점이 유지되는지 확인합니다.
+- 실제 터널 열기와 닫기·키 재읽기·기존 Pod 이어받기는 하네스 밖에서 사람이 확인합니다.
+- 실제 모델 준비 시간·실제 청구액·물리 장비 상태는 이 step에서 확인하지 않았습니다.
+
 
 #### 두 결과 비교 · step 4
 
@@ -821,3 +850,25 @@ Questions skipped: non-interactive. 승인된 설계를 그대로 구현합니�
 - 아키텍처 점검: `b_app.py/b_app_diff.py`, 앞선 core/shell/score/source, 옛 app.js, 공용·다른 역할 코드, docs·CLAUDE·하네스·승인 설계 정본은 불변입니다. 새 패키지·외부 주소·이미지·애니메이션은 없습니다. 평가용 내용과 비밀값을 사용하지 않았습니다.
 - API 응답 키와 점수/바뀐 값 계산은 유지합니다. targets 목표값은 서버 값을 사용합니다. 조건이 같거나 미확인이면 점수 방향은 중립입니다. 바뀐 값·원인·오류·지시문 글은 글자 노드로만 그립니다.
 - 자기 step의 status와 summary만 기록합니다. 커밋하지 않았습니다.
+
+### step 5 — model-connection
+
+⚠️ DEGRADED: no browser in sandbox
+
+- Questions skipped: non-interactive. 승인된 구조와 시안을 코드로 옮깁니다. impeccable context 1회 실행 후 craft·harden·clarify 지침을 읽었습니다.
+- RED: 새 `test_B_b_app_servers_ui.py` 20개가 실패했습니다. 구현 전 S06에 동작 단추·문장이 없고 `serversRenderCompact`가 없는 것이 원인입니다. 소유·비용·진단·확인·설정 다시 읽기·409·503·기록·공유 조회를 검사합니다.
+- RED: `test_server_copy_uses_approved_diagnoses_controls_and_visible_management`, `test_server_friendly_errors_and_env_problem_follow_copy_without_address_examples` 2개가 옛 진단·주소 예시 문장 때문에 실패했습니다.
+- 터널도 P02 확인을 거칩니다. STRUCTURE ‘흐름 5’·PRODUCT의 연결 통로 변경 확인과 COPY의 tunnel_open/close 확인 문구가 이를 요구합니다. 직접 실행은 확인이 없는 설계에만 적용되는 조건부 요구이므로 적용하지 않습니다.
+
+- 구현: `js/servers.js`의 S06 5구역과 P02, `serversRenderCompact(el,{model})`. `S.servers`는 조작 상태만 갖고 `S.shell.servers`가 자료를 소유합니다. `servers_changed` 사건으로 맥락·S06·합성 구역을 갱신합니다. 선택 모델은 `S.focus.model`, 돌아갈 화면은 `S.focus.returnScreen`(s03/s09), 문서·항·편집 상태는 지우지 않습니다.
+- 접근성·보호: 남의 Pod와 deletable:false의 삭제 단추를 만들지 않습니다. 실제 button·label·표·dialog를 씁니다. 포커스 순환·Escape·복귀·한 번 실행·만료·늦은 잠금·실패 조회를 시험했습니다. 표시 문자열은 글자 노드이며 주소·설정 할당·SSH 인자를 가리고 응답 전체를 덤프하지 않습니다.
+- HARDEN RED→GREEN: 추가 7시험 중 4개가 실패했습니다(조회 간격, 확인 창 갱신, 삭제 실패 상세 보존, 장비 펼침 유지). 고친 뒤 27개가 통과했습니다. 정상 미준비 상태의 중립색과 설정 재읽기 뒤 오래된 조회 합침 문제도 실패 시험으로 확인하고 고쳤습니다.
+- 시험 이관: `test_B_b_app_polish_ui.py::test_server_log_copy_instruction_only_appears_with_lines`는 새 파일의 `test_server_log_instruction_only_with_lines`로 행동을 옮긴 뒤 삭제했습니다.
+- 기존 시험 수정 이유: 서버 관리를 고급 뒤에 숨기지 않는 사용자 결정과 COPY 문장에 맞춰 `test_B_b_app_text.py`의 연결·오류·진단·잠금·시작 안내·try_hint 기대 문장을 바꿨습니다. `test_B_b_app_servers.py`·`test_B_b_app_server_actions.py`도 동일 문장을 검증하는 단언만 바꿨습니다. 소유권·HTTP 코드·토큰·호출·키 보호 단언은 유지했습니다. shell 시험은 15초 반복 타이머 단언을 이 step의 한 타이머로 바꿨습니다.
+- 집중 AC: 화면·공통 뼈대·DOM 48 passed, 문구·서버·서버 동작 314 passed, 합계 362 passed / 7 warnings. 새 화면 시험은 30개입니다. 파일 존재·스크립트 등록·필수 함수와 필드·옛 시험 이관·BUILD 제목·node 확인도 통과했습니다.
+
+- 연결 진입의 요청 모델 보존도 RED→GREEN으로 확인했습니다. `serversEnsure(args)`는 전달된 모델을 선택합니다. 사라진 모델을 고른 경우 다른 연결 모델을 근거로 준비됐다고 표시하지 않습니다.
+- impeccable detect 1회: 종료 코드 0, 기존 `design/wireframes.html` 15개와 `guide.html` 7개 권고, 합계 22개입니다. 새 변경 파일 지적 0개입니다. `/static/app.css`를 상대 경로로 풀지 못해 색·사용자 정의 속성 검사는 불완전합니다. CSS 토큰·금지 규칙은 DOM 정적 시험으로 별도 확인했습니다.
+- 아키텍처 확인: S06·P02는 기존 API와 토큰 두 단계를 유지합니다. 백엔드 실행 로직·모델 설정·추출·채점·공용 폴더를 고치지 않았습니다. 새 패키지·외부 주소·글꼴·움직임 효과를 넣지 않았습니다. 평가 문서 내용·실제 설정·키·서버 주소를 읽거나 새 코드/시험/로그에 복사하지 않았습니다. 앱·모델·SSH는 실행하지 않았습니다.
+- 보호 파일 해시: 변경 0개. 승인 설계와 `docs/`·CLAUDE·하네스 실행기·step 파일·옛 app.js·서버 백엔드 파일은 그대로입니다. 다른 step 상태도 그대로입니다. 커밋하지 않았습니다.
+- 전체 AC 최종 실행: `2018 passed, 30 skipped, 7 warnings`, 실패 1개. `tests/test_A_input.py::test_every_changing_route_answers_with_update`가 `socket.bind`에서 `PermissionError: [Errno 1] Operation not permitted`로 실패했습니다. `_common.txt` 7절이 명시한 유일한 예외이므로 completed로 기록합니다. A 시험은 수정하거나 제외하지 않았습니다. 실행기가 샌드박스 밖에서 재검증합니다. 브라우저 확인은 미완료입니다.

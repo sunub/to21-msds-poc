@@ -9,20 +9,47 @@ import pytest
 from test_B_compare_models import SCRIPTS
 
 
-@pytest.mark.parametrize("connected, level, fact", [
-    (["가짜 모델"], "ok", "연결돼 있습니다"),
-    (["다른 모델"], "hint", "연결돼 있지 않습니다"),
-    (None, "error", "확인하지 못했습니다"),
+def approved_copy(key):
+    source = (Path(__file__).parents[1] / 'scripts/b_app_static/design/COPY.md').read_text()
+    return next(line.split('|')[1] for line in source.splitlines() if line.startswith(key + '|'))
+
+
+def test_server_copy_uses_approved_diagnoses_controls_and_visible_management(text):
+    for diagnosis, name in [('ok', 'ready'), ('no_model', 'no_model'), ('tunnel_closed', 'tunnel_closed')]:
+        result = text.rngd_diagnosis(diagnosis, None, NOW_LOCAL)
+        assert result == {'message': approved_copy(f'servers.diagnosis.{name}.fact'),
+                          'fix': approved_copy(f'servers.diagnosis.{name}.todo')}
+    result = text.server_controls(running=True, runpod_ok=True, rngd_ok=True)
+    assert result['why']['pod_create'] == approved_copy('servers.controls.busy')
+    for value in text.server_ui_text()['guide'].values():
+        assert value == approved_copy('servers.status.guide')
+    for state in text.connection_notes('가짜 모델').values():
+        for note in state.values():
+            assert approved_copy('context.model.action') in note['text']
+            assert '고급' not in note['text'] and '④' not in note['text']
+
+
+def test_server_friendly_errors_and_env_problem_follow_copy_without_address_examples(text):
+    result = text.friendly_error('env', 'No setting', {'base_url': 'RNGD_BASE_URL'})
+    assert result['message'] == approved_copy('errors.env.missing').format(variable='RNGD_BASE_URL')
+    assert result['fix'] == approved_copy('errors.env.company_url')
+    result = text.env_problem(17)
+    assert result['message'] == approved_copy('errors.env.line').format(line=17)
+    assert result['fix'] == approved_copy('errors.env.line_todo')
+    for value in text.SERVER_TEXT.values():
+        assert 'http' not in value and 'API_KEY=' not in value
+
+
+@pytest.mark.parametrize("connected, level, state", [
+    (["가짜 모델"], "ok", "ready"), (["다른 모델"], "hint", "off"), (None, "error", "failed"),
 ])
-def test_connection_note_facts_and_offline_reading(text, connected, level, fact):
+def test_connection_note_facts_and_offline_reading(text, connected, level, state):
     note = text.connection_note("가짜 모델", connected, "고급을 켜고 서버 탭에서 모델을 올리세요.")
     assert note["level"] == level
-    assert "가짜 모델" in note["text"] and fact in note["text"]
-    assert "서버 없이" in note["text"]
-    assert "점수" in note["text"] and "비교" in note["text"] and "원문 대조" in note["text"]
-    assert "④ 작업" in note["text"]
-    if level != "ok":
-        assert "고급을 켜고 서버 탭" in note["text"]
+    assert approved_copy(f"context.model.{state}").format(model="가짜 모델") in note["text"]
+    assert approved_copy("context.model.reading") in note["text"]
+    assert approved_copy("context.model.action") in note["text"]
+    assert "고급" not in note["text"] and "④ 작업" not in note["text"]
 
 
 def test_connection_notes_cover_loading_and_both_advanced_states(text):
@@ -30,8 +57,9 @@ def test_connection_notes_cover_loading_and_both_advanced_states(text):
     for state in ("ok", "hint", "error", "loading"):
         assert set(notes[state]) == {"advanced_on", "advanced_off"}
         assert all("가짜 모델" in note["text"] for note in notes[state].values())
+        assert notes[state]["advanced_on"] == notes[state]["advanced_off"]
     assert notes["loading"]["advanced_off"]["level"] == "hint"
-    assert "확인하는 중" in notes["loading"]["advanced_off"]["text"]
+    assert approved_copy("context.model.checking").format(model="가짜 모델") in notes["loading"]["advanced_off"]["text"]
     assert "None" not in text.connection_note(None, [], "서버 탭에서 올리세요.")["text"]
 
 
@@ -60,6 +88,8 @@ def test_start_text_contract(text):
     for later in start["later"]:
         assert all(later[k] for k in ("title", "line", "button", "tab"))
         assert later["tab"] in tabs
+        if later["tab"] == "servers":
+            assert "고급" not in later["title"] + later["button"]
     for key in ("empty_runs", "no_drops", "no_line"):
         assert isinstance(start[key], str) and start[key]
     assert "runs/" in start["empty_runs"] and "run_sections.py" in start["empty_runs"]
@@ -220,10 +250,7 @@ def test_order_models_stable_with_labels_and_without_mutating_input(text):
 def test_try_hint_connection_count_and_advanced(text, advanced, connections):
     models = [{"connected": c} for c in connections]
     count = connections.count(True)
-    guide = "" if advanced else "고급을 켜고 "
-    expected = (f"연결된 모델 {count}개. 모델을 고르고 돌리기를 누르세요." if count else
-                "연결된 모델이 없어 서버 없이 입력·안내문만 봅니다(dry-run). "
-                f"모델을 쓰려면 {guide}서버 탭에서 먼저 올리세요.")
+    expected = approved_copy("jobs.try_hint.ready" if count else "jobs.try_hint.off").format(count=count)
     assert text.try_hint(models, advanced) == {"dry_run_forced": not count, "note": expected}
 
 
@@ -667,53 +694,37 @@ def test_condition_tokens(text, token, expected):
     assert text.run_label({"name": f"20261030_sections_gpt_{token}"})["title"] == f"10/30 GPT · {expected}"
 
 
-@pytest.mark.parametrize("where, raw, message, fix", [
-    ("rngd", "Could not resolve hostname ssh: failure",
-     "`.env`의 RNGD_SSH 값이 `ssh`로 시작합니다.",
-     "`ssh`를 빼고 `-i <키> -p <포트> <사용자>@<호스트>`처럼 인자만 적으세요. 앱은 이제 `ssh`를 빼고 읽습니다."),
-    ("rngd", "RNGD_SSH starts with ssh",
-     "`.env`의 RNGD_SSH 값이 `ssh`로 시작합니다.",
-     "`ssh`를 빼고 `-i <키> -p <포트> <사용자>@<호스트>`처럼 인자만 적으세요. 앱은 이제 `ssh`를 빼고 읽습니다."),
-    ("rngd", "RNGD_SSH 없음", "RNGD 접속 정보(RNGD_SSH)가 `.env`에 없습니다.",
-     "`.env.example`의 RNGD_SSH 줄을 복사해 값을 채우세요."),
-    ("runpod", "RunPod 연결 오류: SSLCertVerificationError",
-     "RunPod 주소의 인증서를 확인하지 못했습니다. 파이썬 3.11에 인증서 묶음이 없을 때 생깁니다.",
-     "터미널에서 `/Applications/Python 3.11/Install Certificates.command`를 한 번 실행한 뒤 앱을 다시 켜세요."),
-    ("runpod", "CERTIFICATE_VERIFY_FAILED",
-     "RunPod 주소의 인증서를 확인하지 못했습니다. 파이썬 3.11에 인증서 묶음이 없을 때 생깁니다.",
-     "터미널에서 `/Applications/Python 3.11/Install Certificates.command`를 한 번 실행한 뒤 앱을 다시 켜세요."),
-    ("runpod", "HTTP 401", "RunPod 관리 키(RUNPOD_API_KEY)가 거절됐습니다.",
-     "RunPod 설정 화면에서 키를 다시 만들어 `.env`에 넣으세요."),
-    ("runpod", "Unauthorized", "RunPod 관리 키(RUNPOD_API_KEY)가 거절됐습니다.",
-     "RunPod 설정 화면에서 키를 다시 만들어 `.env`에 넣으세요."),
-    ("model", "request timed out", "서버가 응답하지 않습니다.",
-     "서버 상태 칸의 진단을 보세요. 터널이 닫혔거나 모델이 아직 뜨는 중일 수 있습니다."),
-    ("rngd", "Connection refused", "서버가 응답하지 않습니다.",
-     "서버 상태 칸의 진단을 보세요. 터널이 닫혔거나 모델이 아직 뜨는 중일 수 있습니다."),
-    ("model", "새 오류 <unknown>", "서버를 보지 못했습니다.",
-     "아래 원문을 보고 .env와 터널을 확인하세요."),
-    ("env", "", "서버를 보지 못했습니다.", "아래 원문을 보고 .env와 터널을 확인하세요."),
+@pytest.mark.parametrize("where,raw,kind", [
+    ("rngd", "Could not resolve hostname ssh: failure", "ssh_prefix"),
+    ("rngd", "RNGD_SSH starts with ssh", "ssh_prefix"),
+    ("rngd", "RNGD_SSH 없음", "ssh_missing"),
+    ("runpod", "RunPod 연결 오류: SSLCertVerificationError", "certificate"),
+    ("runpod", "CERTIFICATE_VERIFY_FAILED", "certificate"),
+    ("runpod", "HTTP 401", "account_key"), ("runpod", "Unauthorized", "account_key"),
+    ("model", "request timed out", "no_response"), ("rngd", "Connection refused", "no_response"),
+    ("model", "새 오류 <unknown>", "other"), ("env", "", "other"),
 ])
-def test_friendly_error_rules(text, where, raw, message, fix):
-    assert text.friendly_error(where, raw) == {"message": message, "fix": fix, "raw": raw}
+def test_friendly_error_rules(text, where, raw, kind):
+    assert text.friendly_error(where, raw) == {"message": approved_copy(f"errors.connection.{kind}.fact"),
+        "fix": approved_copy(f"errors.connection.{kind}.todo"), "raw": raw}
 
 
-@pytest.mark.parametrize("variable", ["VLLM_BASE_URL", "RNGD_BASE_URL", "RUNPOD_VLLM_BASE_URL"])
-def test_friendly_env_uses_config_variable_name(text, variable):
+@pytest.mark.parametrize("variable,key", [("VLLM_BASE_URL", "unknown_url"), ("RNGD_BASE_URL", "company_url"),
+                                           ("RUNPOD_VLLM_BASE_URL", "runpod_url")])
+def test_friendly_env_uses_config_variable_name(text, variable, key):
     names = {"api_key": "VLLM_API_KEY", "base_url": variable}
     before = dict(names)
     result = text.friendly_error("env", "주소 설정 없음", names)
-    assert result["message"] == f"`.env`에 {variable}가 없습니다."
-    assert f"서버 주소를 `.env`의 {variable}에 적으세요." in result["fix"]
-    assert "SSH 터널을 거친 내 컴퓨터 쪽 주소" in result["fix"]
+    assert result["message"] == approved_copy("errors.env.missing").format(variable=variable)
+    assert result["fix"] == approved_copy(f"errors.env.{key}").format(variable=variable)
+    assert "http" not in result["fix"]
     assert result["raw"] == "주소 설정 없음" and names == before
 
 
-@pytest.mark.parametrize("raw, expected", [
-    ("Could not resolve hostname ssh CERTIFICATE_VERIFY_FAILED 401", "RNGD_SSH 값"),
+@pytest.mark.parametrize("raw,expected", [
+    ("Could not resolve hostname ssh CERTIFICATE_VERIFY_FAILED 401", "RNGD_SSH 설정"),
     ("CERTIFICATE_VERIFY_FAILED 401", "인증서를 확인하지 못했습니다"),
-    ("Unauthorized timed out", "관리 키"),
-    ("timed out", "VLLM_BASE_URL"),
+    ("Unauthorized timed out", "관리 키"), ("timed out", "VLLM_BASE_URL"),
 ])
 def test_friendly_error_first_matching_rule_wins(text, raw, expected):
     assert expected in text.friendly_error("env", raw, {"base_url": "VLLM_BASE_URL"})["message"]
@@ -722,16 +733,15 @@ def test_friendly_error_first_matching_rule_wins(text, raw, expected):
 @pytest.mark.parametrize("raw", ["HTTP 401", "HTTP 401: URLError"])
 def test_friendly_model_401_is_model_server_key(text, raw):
     result = text.friendly_error("model", raw)
-    assert result["message"] == "모델 서버가 키를 거절했습니다."
-    assert "RUNPOD_VLLM_API_KEY" in result["fix"] and "RNGD_API_KEY" in result["fix"] and "Pod를 다시 만드세요" in result["fix"]
+    assert result["message"] == approved_copy("errors.connection.model_key.fact")
+    assert result["fix"] == " ".join([approved_copy("errors.connection.model_key.todo"), approved_copy("errors.connection.model_key_changed")])
     assert "관리 키" not in result["message"] and result["raw"] == raw
 
 
 def test_friendly_runpod_401_unchanged(text):
     raw = "RunPod HTTP 401: 가상 거절"
-    assert text.friendly_error("runpod", raw) == {"message": "RunPod 관리 키(RUNPOD_API_KEY)가 거절됐습니다.",
-                                                  "fix": "RunPod 설정 화면에서 키를 다시 만들어 `.env`에 넣으세요.",
-                                                  "raw": raw}
+    assert text.friendly_error("runpod", raw) == {"message": approved_copy("errors.connection.account_key.fact"),
+        "fix": approved_copy("errors.connection.account_key.todo"), "raw": raw}
 
 
 def test_env_problem_has_line_and_no_value(text):
@@ -743,13 +753,13 @@ def test_env_problem_has_line_and_no_value(text):
 def test_server_refusal_texts(text):
     assert "RUNPOD_VLLM_API_KEY" in text.SERVER_TEXT["pod_key_missing"]
     assert "할 일:" in text.SERVER_TEXT["pod_key_missing"] and "설정 다시 읽기" in text.SERVER_TEXT["pod_key_missing"]
-    assert "만들지 않은 Pod" in text.SERVER_TEXT["pod_not_ours"] and "할 일:" in text.SERVER_TEXT["pod_not_ours"]
+    assert text.SERVER_TEXT["pod_not_ours"] == approved_copy("servers.messages.pod_not_ours")
     assert text.SERVER_TEXT["env_file_unknown"]
 
 
 def test_timed_out_does_not_assume_tunnel(text):
     fix = text.friendly_error("model", "URLError: TimeoutError")["fix"]
-    assert "진단" in fix and "SSH 터널이 열려 있는지" not in fix          # 모델이 안 떠 있어도 터널을 탓하던 문장 (step 6)
+    assert fix == approved_copy("errors.connection.no_response.todo") and "SSH 터널이 열려 있는지" not in fix          # 모델이 안 떠 있어도 터널을 탓하던 문장 (step 6)
 
 
 NOW_LOCAL = datetime(2026, 10, 30, 21, 0, tzinfo=timezone(timedelta(hours=9)))
@@ -760,14 +770,12 @@ def ago(minutes: float) -> str:
 
 
 def test_rngd_diagnosis_texts(text):
-    ok = text.rngd_diagnosis("ok", None, NOW_LOCAL)
-    assert ok["message"] == "RNGD 모델이 응답합니다." and set(ok) == {"message", "fix"}
+    for diagnosis, name in [("ok", "ready"), ("no_model", "no_model"), ("tunnel_closed", "tunnel_closed")]:
+        item = text.rngd_diagnosis(diagnosis, None, NOW_LOCAL)
+        assert item == {"message": approved_copy(f"servers.diagnosis.{name}.fact"),
+                        "fix": approved_copy(f"servers.diagnosis.{name}.todo")}
     no_model = text.rngd_diagnosis("no_model", None, NOW_LOCAL)
-    assert no_model["message"] == "RNGD에 떠 있는 모델이 없습니다."
-    assert no_model["fix"] == "모델 올리기를 누르세요. 15~25분 걸립니다."
     assert "터널" not in no_model["message"] + no_model["fix"]
-    closed = text.rngd_diagnosis("tunnel_closed", None, NOW_LOCAL)
-    assert closed == {"message": "내 컴퓨터와 RNGD를 잇는 통로(SSH 터널)가 닫혀 있습니다.", "fix": "터널 열기를 누르세요."}
     assert text.rngd_diagnosis(None, None, NOW_LOCAL) is None
     assert text.rngd_diagnosis("모르는 값", None, NOW_LOCAL) is None
 
@@ -775,24 +783,24 @@ def test_rngd_diagnosis_texts(text):
 @pytest.mark.parametrize("since, minutes, late", [(ago(7.5), 7, False), (ago(25), 25, False), (ago(26), 26, True)])
 def test_rngd_diagnosis_loading_minutes(text, since, minutes, late):
     item = text.rngd_diagnosis("loading", since, NOW_LOCAL)
-    assert item["message"] == f"모델을 올리는 중입니다({minutes}분 지남)."
-    assert item["fix"].startswith("보통 15~25분 걸립니다. 기다린 뒤 다시 보세요.")
+    assert item["message"] == approved_copy("servers.diagnosis.loading.elapsed").format(minutes=minutes)
+    assert item["fix"].startswith(approved_copy("servers.diagnosis.loading.todo"))
     assert ("서버 기록을 확인하세요" in item["fix"]) is late
 
 
 def test_rngd_diagnosis_loading_other_timezone_and_unknown(text):
     utc = (NOW_LOCAL - timedelta(minutes=3)).astimezone(timezone.utc).isoformat()
-    assert "3분 지남" in text.rngd_diagnosis("loading", utc, NOW_LOCAL)["message"]
+    assert text.rngd_diagnosis("loading", utc, NOW_LOCAL)["message"] == approved_copy("servers.diagnosis.loading.elapsed").format(minutes=3)
     for since in (None, "", "시각 아님"):
         item = text.rngd_diagnosis("loading", since, NOW_LOCAL)
-        assert item["message"] == "모델을 올리는 중입니다." and "서버 기록" not in item["fix"]
+        assert item["message"] == approved_copy("servers.diagnosis.loading.unknown") and "서버 기록" not in item["fix"]
 
 
 def test_tunnel_refusal_texts(text):
     for key in ("tunnel_no_port", "tunnel_already_open", "tunnel_closed", "tunnel_not_ours", "tunnel_exited",
                 "tunnel_timeout", "tunnel_spawn_failed", "tunnel_still_open"):
         assert "할 일:" in text.SERVER_TEXT[key], key
-    assert "앱이 연 터널이 아닙니다" in text.SERVER_TEXT["tunnel_not_ours"]
+    assert text.SERVER_TEXT["tunnel_not_ours"] == approved_copy("servers.messages.tunnel_not_ours")
     assert "연 터미널에서 닫으세요" in text.SERVER_TEXT["tunnel_not_ours"]
 
 
@@ -807,9 +815,9 @@ def test_server_controls_tunnel(text):
     opened = {"port": 18000, "open": True, "owned": True, "pid": 1, "since": None}
     assert can(tunnel=opened)[:2] == (False, True)
     o, c, why = can(tunnel=opened, running=True)
-    assert (o, c) == (False, False) and "실행" in why["tunnel_close"]
+    assert (o, c) == (False, False) and why["tunnel_close"] == approved_copy("servers.controls.busy")
     o, c, why = can(tunnel={**opened, "owned": False})
-    assert (o, c) == (False, False) and "앱이 연 터널이 아닙니다" in why["tunnel_close"]
+    assert (o, c) == (False, False) and why["tunnel_close"] == approved_copy("servers.controls.not_owned")
     o, c, why = can(ssh_set=False)
     assert o is False and "RNGD_SSH" in why["tunnel_open"]
     o, c, why = can(tunnel={**opened, "port": None, "open": False, "owned": False})
@@ -818,9 +826,9 @@ def test_server_controls_tunnel(text):
 
 def test_friendly_server_ui_copy(text):
     copy = text.server_ui_text()
-    assert copy["guide"]["advanced_off"] == "고급을 켜고 서버 탭에서 모델을 올리세요"
-    assert copy["guide"]["advanced_on"] == "서버 탭에서 모델을 올리세요"
-    assert copy["action_failure"]["message"] == "서버 변경을 끝내지 못했습니다."
+    assert copy["guide"]["advanced_off"] == approved_copy("servers.status.guide")
+    assert copy["guide"]["advanced_on"] == approved_copy("servers.status.guide")
+    assert copy["action_failure"]["message"] == approved_copy("servers.status.failure.fact")
     assert copy["action_failure"]["fix"]
     assert copy["busy"] and copy["unavailable"]
 

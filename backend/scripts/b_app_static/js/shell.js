@@ -28,6 +28,7 @@ function shellInitialRoute(hash) {
 async function go(id, args = {}) {
   id = shellInitialRoute(id.startsWith("#") ? id : `#${id}`);
   S.focus = {...S.focus, ...args}; S.shell.route = id;
+  if (S.shell.timer !== null) shellScheduleServers();
   const navigation = ++S.shell.navigation;
   history.replaceState(null, "", `#${id}`);
   for (const [screenId, screen] of Object.entries(SHELL_SCREENS)) {
@@ -146,7 +147,13 @@ async function shellPollServers() {
     catch (error) { S.shell.servers = null; S.shell.serverError = error; }
     finally { S.shell.serverAt = new Date().toISOString(); shellRenderModels(); }
   })();
-  try { await S.shell.polling; } finally { S.shell.polling = null; }
+  try { await S.shell.polling; } finally { S.shell.polling = null; emit("servers_changed", {data: S.shell.servers, error: S.shell.serverError}); }
+}
+function shellScheduleServers() {
+  clearTimeout(S.shell.timer);
+  S.shell.timer = setTimeout(async () => {
+    try { await shellPollServers(); } finally { shellScheduleServers(); }
+  }, S.shell.route === "s06" ? 10000 : 60000);
 }
 function shellContextChoice(id, label, items, selected, answers = false) {
   const select = h("select", {id, disabled: !items.some(item => item.usable)},
@@ -205,7 +212,7 @@ async function start() {
   document.getElementById("context-picker").addEventListener("cancel", event => { event.preventDefault(); shellCloseContext(); });
   const route = go(shellInitialRoute(location.hash));
   S.shell.ready = Promise.all([route, shellLoadContext(), shellPollServers()]).then(() => {
-    S.shell.timer = setInterval(() => shellPollServers(), 15000);
+    shellScheduleServers();
   }).catch(fail);
   return S.shell.ready;
 }
