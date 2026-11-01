@@ -1271,3 +1271,16 @@ def test_dg_row_from_dangerous_goods(no_conventions, cls, want):
     r[15]["dangerous_goods"] = [{"class": cls, "item": "제2석유류" if cls == "제4류" else None, "line": "p6:L11"}]
     m, _ = expand_one(r)
     assert [(x["law"], x["item_code"], x["applicable"], x["comp_ref"]) for x in m["regulations"] if x["law"] == "DG"] == want
+
+
+def test_standard_status_rows():
+    """8항 범위의 '기준 이름 : 상태어' 줄을 가리키는 노출기준 행이 없으면 MIX 행을 더한다. 종류는 TWA, 생물학적은 BEI
+    (골드 값 없는 노출기준 40행 모두. 모델은 M002 'ο 국내규정 : 자료없음' 등 6줄을 extras 한 덩어리로 묶었다).
+    이미 행이 가리키는 줄과 값이 상태어가 아닌 줄은 두지 않는다."""
+    lines = {l.id: l for l in [L("p5:L1", "가. 화학물질의 노출기준, 생물학적 노출기준 등"), L("p5:L2", "ο 국내규정 : 자료없음"),
+                               L("p5:L3", "ο 생물학적 노출기준 : 해당없음"), L("p5:L4", "ο ACGIH 규정 : TWA 1 ppm"),
+                               L("p5:L5", "- OSHA 규정 자료없음"), L("p5:L6", "나. 적절한 공학적 관리")]}
+    have = [{"comp_name": None, "standard": "ACGIH", "line": "p5:L4"}, {"comp_name": None, "standard": "OSHA", "line": "p5:L5"}]
+    new = ex.standard_status_rows(have, ["p5:L1", "p5:L6"], lines)
+    assert [(r["standard"], r["limit_type"], r["q"]["raw"], r["line"]) for r in new] == [
+        ("국내", "TWA", "자료없음", "p5:L2"), ("생물학적", "BEI", "해당없음", "p5:L3")]
