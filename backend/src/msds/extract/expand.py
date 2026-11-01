@@ -576,6 +576,10 @@ def expand_msds(sections: dict[int, dict | None], lines_by_id: dict[str, Line],
             fix_cmr_class(item[key])
         if key == "toxicity":
             clear_descriptor_without_value(item[key])
+        if key == "exposure_limits":
+            for r in item[key]:
+                if r.get("standard") == "생물학적":      # 생물학적 노출기준은 늘 BEI다 (골드·실버 33행)
+                    r["limit_type"] = "BEI"
         for i, (no, r) in enumerate(pairs):
             walk(no, r, f"{key}[{i}]")
 
