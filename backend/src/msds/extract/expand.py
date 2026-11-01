@@ -562,6 +562,27 @@ def extras_to_rows(extras: list[tuple[int, dict]], lines_by_id: dict[str, Line]
     return moved, left
 
 
+_STANDARD_LINE = re.compile(r"^(?P<s>국내|ACGIH|생물학적|OSHA|NIOSH|EU)\s*(?:규정|노출\s*기준)?\s*[:：|]?\s*(?P<v>.+)$")
+
+
+def standard_status_rows(rows: list[dict], span: list[str], lines_by_id: dict[str, Line]) -> list[dict]:
+    """8항 범위(span 줄들의 처음~끝)의 '기준 이름 : 상태어' 줄을 가리키는 노출기준 행이 없으면 더할 MIX 행들.
+    종류는 TWA, 생물학적은 BEI (골드 값 없는 노출기준 40행 모두). 모델은 M002 'ο 국내규정 : 자료없음' 등 6줄을
+    extras 한 덩어리로 묶었다."""
+    ids = list(lines_by_id)
+    at = sorted(ids.index(x) for x in span if x in lines_by_id)
+    if not at:
+        return []
+    cited = {r.get("line") for r in rows}
+    new = []
+    for lid in ids[at[0]:at[-1] + 1]:
+        m = _STANDARD_LINE.match(_strip_bullet(lines_by_id[lid].text))
+        if m and lid not in cited and (status := status_word(m["v"].strip())[0]):
+            new.append({"comp_name": None, "comp_cas": None, "standard": m["s"],
+                        "limit_type": "BEI" if m["s"] == "생물학적" else "TWA", "q": {"raw": status}, "line": lid})
+    return new
+
+
 def collapse_unnamed(rows: list[dict], components: list[dict], lines_by_id: dict[str, Line]) -> list[dict]:
     """근거 줄·부모 줄에 성분 이름·CAS가 없는데 성분만 다르고 나머지가 같은 행이 둘 이상이면 MIX 한 행으로 모은다.
     골드는 성분 없는 줄의 독성·CMR·생태 행을 모두 MIX 한 행으로 적는다 (M002 'ο 발암성 : 자료없음'을 모델이 성분마다 복제).
@@ -787,7 +808,11 @@ def expand_msds(sections: dict[int, dict | None], lines_by_id: dict[str, Line],
     # 1-2. 폭발 범위 상한/하한 한 줄은 UEL·LEL 두 행으로, 값이 빈 행은 근거 줄의 상태어로 (모델 표기가 실행마다 달랐다)
     phys = [(no, fill_blank_from_line(r, lines_by_id)) for no, r in split_flammability(phys, lines_by_id)]
     rows["physchem"], rows["extras"] = phys, extras
-    # 1-3. 11·12항 extras 중 항목명으로 시작하는 서술 줄은 독성·생태 행으로. 모델이 같은 줄에 같은 항목 행을 냈으면 두지 않는다
+    # 1-3. 8항 '기준 이름 : 상태어' 줄을 가리키는 노출기준 행이 없으면 더한다 (모델이 extras로 묶었다)
+    span8 = [x for no, r in [*rows["exposure_limits"], *rows["extras"], *rows["narratives"]] if no == 8
+             for v in (r.get("line"), r.get("start"), r.get("end")) if v for x in re.findall(r"p\d+:L\d+", v)]
+    rows["exposure_limits"] += [(8, r) for r in standard_status_rows([r for _, r in rows["exposure_limits"]], span8, lines_by_id)]
+    # 1-4. 11·12항 extras 중 항목명으로 시작하는 서술 줄은 독성·생태 행으로. 모델이 같은 줄에 같은 항목 행을 냈으면 두지 않는다
     moved, rows["extras"] = extras_to_rows(rows["extras"], lines_by_id)
     for key, new in moved.items():
         have = {(r.get("line"), r.get("endpoint")) for _, r in rows[key]}
