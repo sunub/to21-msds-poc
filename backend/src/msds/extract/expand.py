@@ -600,6 +600,66 @@ def fix_eco_descriptor(row: dict, lines_by_id: dict[str, Line]) -> dict:
     return row
 
 
+_STANDARD_HEAD = re.compile(r"^\s*(국내|ACGIH|생물학적|OSHA|NIOSH|EU)")
+
+
+def _span_ids(span: list[str], lines_by_id: dict[str, Line]) -> list[str]:
+    ids = list(lines_by_id)
+    at = sorted(ids.index(x) for x in span if x in lines_by_id)
+    return ids[at[0]:at[-1] + 1] if at else []
+
+
+def table_status_rows(rows: list[dict], span: list[str], lines_by_id: dict[str, Line]) -> list[dict]:
+    """8항 표(머리글 '구성성분 | 국내규정 | ACGIH규정 | 생물학적 노출기준')의 성분 줄 칸이 상태어면, 그 성분 × 기준 행이 없을 때
+    더할 행들. 종류는 TWA, 생물학적은 BEI (골드 M004 18행. 모델은 자료없음 칸을 뺐다). 값 칸은 모델에 맡긴다.
+    쪽이 바뀌어 머리글이 반복돼도 같은 표로 본다."""
+    have = {(r.get("line"), r.get("standard")) for r in rows} | {(_norm(r.get("comp_name")), r.get("standard")) for r in rows}
+    header, new = None, []
+    for lid in _span_ids(span, lines_by_id):
+        cells = [c.strip() for c in lines_by_id[lid].text.split("|")]
+        if len(cells) >= 3 and all(_STANDARD_HEAD.match(c) for c in cells[1:]):
+            header = [_STANDARD_HEAD.match(c)[1] for c in cells[1:]]
+            continue
+        if not header or len(cells) != len(header) + 1 or not cells[0] or _STANDARD_HEAD.match(cells[0]):
+            continue
+        for std, cell in zip(header, cells[1:]):
+            status = status_word(cell)[0]
+            if status and (lid, std) not in have and (_norm(cells[0]), std) not in have:
+                new.append({"comp_name": cells[0], "comp_cas": None, "standard": std,
+                            "limit_type": "BEI" if std == "생물학적" else "TWA", "q": {"raw": cell}, "line": lid})
+    return new
+
+
+def heading_status_rows(table: str, rows: list[dict], span: list[str], lines_by_id: dict[str, Line],
+                        components: list[dict]) -> list[dict]:
+    """11·12항 '- 성분 : 상태어' 줄이 항목 소제목(● 어류 등) 아래 있고 그 행이 없으면 더할 서술 행들. 위로 올라가며 성분 줄과
+    항목 소제목이 아닌 줄(쪽 머리글·쪽 번호)을 건너뛰고 처음 만나는 항목 소제목의 코드를 쓴다 (골드 M004 '● 조류' 아래
+    '- 트랜스 2 부텐 : 자료없음'. 모델은 이런 줄 일부를 뺐다). 값이 상태어가 아닌 줄은 모델에 맡긴다."""
+    keys = {_norm(x): c for c in components for x in (c.get("name"), c.get("name_en"), c.get("cas_no"), *(c.get("synonyms") or []))
+            if _norm(x)}
+    ids = _span_ids(span, lines_by_id)
+    have = {(r.get("line"), r.get("endpoint")) for r in rows}
+    new = []
+    for i, lid in enumerate(ids):
+        text = _strip_bullet(lines_by_id[lid].text)
+        name, _, value = text.partition(":")
+        if not value or not _any_component(name, keys) or not (status := status_word(value.strip())[0]):
+            continue
+        code = None
+        for up in reversed(ids[max(0, i - 15):i]):
+            up_text = lines_by_id[up].text
+            if (got := _heading(table, up_text)) is not None:
+                code = got[0]
+                break
+            if not _any_component(up_text, keys) and re.match(r"^\s*(?:[가-하]\s*[.)]|\d+\s*[.)])", up_text):
+                break                        # 다른 큰 제목(가. 나. …)을 넘지 않는다
+        if code and (lid, code) not in have:
+            have.add((lid, code))
+            new.append({"comp_name": name.strip(), "comp_cas": None, "endpoint": code, "descriptor": None,
+                        "q": {"raw": status}, "status": status, "statements": [], "line": lid})
+    return new
+
+
 def collapse_unnamed(rows: list[dict], components: list[dict], lines_by_id: dict[str, Line]) -> list[dict]:
     """근거 줄·부모 줄에 성분 이름·CAS가 없는데 성분만 다르고 나머지가 같은 행이 둘 이상이면 MIX 한 행으로 모은다.
     골드는 성분 없는 줄의 독성·CMR·생태 행을 모두 MIX 한 행으로 적는다 (M002 'ο 발암성 : 자료없음'을 모델이 성분마다 복제).
@@ -842,6 +902,7 @@ def expand_msds(sections: dict[int, dict | None], lines_by_id: dict[str, Line],
     span8 = [x for no, r in [*rows["exposure_limits"], *rows["extras"], *rows["narratives"]] if no == 8
              for v in (r.get("line"), r.get("start"), r.get("end")) if v for x in re.findall(r"p\d+:L\d+", v)]
     rows["exposure_limits"] += [(8, r) for r in standard_status_rows([r for _, r in rows["exposure_limits"]], span8, lines_by_id)]
+    rows["exposure_limits"] += [(8, r) for r in table_status_rows([r for _, r in rows["exposure_limits"]], span8, lines_by_id)]
     # 1-4. 11·12항 extras 중 항목명으로 시작하는 서술 줄은 독성·생태 행으로. 모델이 같은 줄에 같은 항목 행을 냈으면 두지 않는다
     moved, rows["extras"] = extras_to_rows(rows["extras"], lines_by_id)
     for key, new in moved.items():
@@ -863,6 +924,12 @@ def expand_msds(sections: dict[int, dict | None], lines_by_id: dict[str, Line],
     rows["components"] = [(no, r) for no, r in rows["components"]
                           if r.get("cas_no") or (r.get("name") and not _TOTAL.match(r["name"]))]
     components = _shape(props["components"], [r for _, r in rows["components"]], lines_by_id)
+    # 12항 소제목 아래 '- 성분 : 상태어' 줄에 행이 없으면 더한다 (모델이 뺀 값 없는 행, 골드 M004).
+    # 11항에도 쓰면 급성은 오르고 기타 독성은 내려 종합이 같아(실행 10개 재채점) 12항만 쓴다
+    for no, key in ((12, "ecotox"),):
+        span = [x for t_ in rows.values() for n_, r in t_ if n_ == no
+                for v in (r.get("line"), r.get("start"), r.get("end")) if isinstance(v, str) for x in re.findall(r"p\d+:L\d+", v)]
+        rows[key] += [(no, r) for r in heading_status_rows(key, [r for _, r in rows[key]], span, lines_by_id, components)]
     item: dict = {}
     for key, node in props.items():
         if key in ("evidence", "validation"):
