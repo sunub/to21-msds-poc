@@ -542,7 +542,7 @@ def test_threshold_expand_msds_fills_regulations():
          "threshold": {"raw": "lower_op:>=,lower:1,unit:%", "lower_op": ">=", "lower": 1, "unit": "%"},
          "line": "p1:L5"}]}
     item, _ = ex.expand_msds({15: s15}, ex.line_index(lines), 0, "텍스트층")
-    t0, t1 = (r["threshold"] for r in item["regulations"])
+    t0, t1 = (r["threshold"] for r in item["regulations"][:2])      # 셋째는 R18 화평법 미기재 행
     assert (t0["lower_op"], t0["lower"], t0["unit"], t0["status"], t0["dp"]) == (">=", 0.1, "%", "값있음", 1)
     assert (t1["lower_op"], t1["lower"], t1["unit"], t1["status"]) == (">=", 1, "%", "값있음")
     assert [e["field"] for e in item["evidence"]] == ["regulations[0]", "regulations[1]"]

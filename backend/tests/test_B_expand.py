@@ -56,6 +56,8 @@ LINES = [
     L("p5:L18", "pH | 7.0 | 자료없음"),
     L("p6:L5", "UN 번호 : 해당없음"),
     L("p6:L10", "작업환경측정대상물질 : 해당"),
+    L("p6:L11", "2)화학물질관리법에 의한 규제 : 해당 없음"),
+    L("p6:L12", "나.유해화학물질관리법에 의한 규제 자료없음"),
     L("p7:L3", "최종 개정일자 : 2024-05-01"),
 ]
 
@@ -498,7 +500,7 @@ def test_regulation_law_from_item_code(no_conventions):
     regs = regulations_of([
         {"comp_name": None, "comp_cas": None, "law": None, "item_code": c, "applicable": "해당", "line": "p6:L10"}
         for c in ("INTL_US", "OSH_MEASURE", "KR_ETC", None)])
-    assert [r["law"] for r in regs] == ["INTL", "OSH", "KR_ETC", None]
+    assert [r["law"] for r in regs] == ["INTL", "OSH", "KR_ETC", None, "KREACH"]     # 끝은 R18 화평법 미기재 행
 
 
 def test_applicable_kreach_with_value_becomes_haedang(no_conventions):
@@ -669,12 +671,13 @@ def test_single_component_exposure_and_product_laws(no_conventions):
     r[3]["components"] = r[3]["components"][:1]
     r[8]["exposure_limits"][0]["comp_cas"] = None
     r[15]["regulations"] += [
-        {"comp_name": None, "comp_cas": None, "law": law, "item_code": code, "applicable": "비해당", "line": "p6:L10"}
-        for law, code in (("OSH", "OSH_PSM"), ("DG", "DG_HAZMAT"), (None, "WASTE_DESIG"))]   # 법령이 비면 항목 코드로
+        {"comp_name": None, "comp_cas": None, "law": law, "item_code": code, "applicable": "비해당", "line": line}
+        for law, code, line in (("OSH", "OSH_PSM", "p2:L5"), ("DG", "DG_HAZMAT", "p6:L10"),
+                                (None, "WASTE_DESIG", "p6:L10"))]   # 법령이 비면 항목 코드로. 근거 범위(p2~p6)에 성분이 나온다
     m, _ = expand_one(r)
     assert m["exposure_limits"][0]["comp_ref"] == "1"
     assert [(x["item_code"], x["comp_ref"]) for x in m["regulations"]] == [
-        ("OSH_MEASURE", "1"), ("OSH_PSM", "1"), ("DG_HAZMAT", "MIX"), ("WASTE_DESIG", "MIX")]
+        ("OSH_MEASURE", "1"), ("OSH_PSM", "1"), ("DG_HAZMAT", "MIX"), ("WASTE_DESIG", "MIX"), (None, "MIX")]   # 끝은 R18 행
 
 
 # ── 숫자 묶음 ──────────────────────────────────────────
@@ -1023,3 +1026,53 @@ def test_empty_component_row_is_dropped(no_conventions):
     r[8]["exposure_limits"][0]["comp_cas"] = None
     m, _ = expand_one(r)
     assert len(m["components"]) == 1 and m["exposure_limits"][0]["comp_ref"] == "1"
+
+
+def test_single_component_regulations_mix_when_section_never_names_it(no_conventions):
+    """성분이 하나여도 15항 원문(규제 행 근거 줄의 범위)에 그 성분 이름·CAS가 한 번도 없으면 15항 행은 제품 값(MIX)이다
+    (골드 S001·S003: 법령 단위 '화학물질관리법에 의한 규제 : 해당 없음'). 성분이 나오면 성분 번호다 (골드 S014·S016)."""
+    r = responses()
+    r[3]["components"] = r[3]["components"][:1]
+    r[15]["regulations"] = [{"comp_name": None, "comp_cas": None, "law": "OSH", "item_code": "OSH_MEASURE",
+                             "applicable": "해당", "line": "p6:L10"}]
+    m, _ = expand_one(r)
+    assert m["regulations"][0]["comp_ref"] == "MIX"                 # p6:L10 '작업환경측정대상물질 : 해당'
+    r[15]["regulations"][0]["line"] = "p2:L5"                        # '가상물질 갑 | 1234-56-6 | 10 ~ 20'
+    m, _ = expand_one(r)
+    assert m["regulations"][0]["comp_ref"] == "1"
+
+
+
+def reg_rows(r15, single=True):
+    r = responses()
+    if single:
+        r[3]["components"] = r[3]["components"][:1]
+    r[15]["regulations"] = r15
+    m, _ = expand_one(r)
+    return [(x["law"], x["item_code"], x["applicable"], x["comp_ref"]) for x in m["regulations"]]
+
+
+def test_kreach_unrecorded_row_added_when_absent(no_conventions):
+    """화평법 행이 하나도 없으면 'KREACH / 코드 없음 / 미기재 / MIX' 행을 하나 더한다 (R18, 골드 6건 모두).
+    화평법 행이 있으면 더하지 않는다."""
+    row = {"comp_name": "가상물질 갑", "comp_cas": None, "law": "OSH", "item_code": "OSH_MEASURE", "applicable": "해당", "line": "p6:L10"}
+    assert reg_rows([row], single=False) == [("OSH", "OSH_MEASURE", "해당", "1"), ("KREACH", None, "미기재", "MIX")]
+    kreach = {**row, "law": "KREACH", "item_code": "KREACH_REG"}
+    assert [x[0] for x in reg_rows([row, kreach], single=False)] == ["OSH", "KREACH"]
+
+
+def test_single_component_regulations_mix_even_if_model_names_component(no_conventions):
+    """15항 원문에 성분이 나오지 않으면 모델이 성분 칸에 적었어도 MIX다. 원문에 근거가 없는 성분 지정이다 (골드 S003)."""
+    row = {"comp_name": "가상물질 갑", "comp_cas": "1234-56-6", "law": "CCA", "item_code": "CCA_TOXIC", "applicable": "비해당",
+           "line": "p6:L11"}
+    assert reg_rows([row])[0][3] == "MIX"
+
+
+@pytest.mark.parametrize("line", ["p6:L11", "p6:L12"])
+def test_law_level_line_has_no_item_code(no_conventions, line):
+    """근거 줄이 '○○법에 의한 규제 : 해당 없음'처럼 법령 단위면 산안법·화관법·화평법 행의 항목 코드를 비운다 (골드 S001·S003).
+    위험물·폐기물은 코드를 둔다."""
+    rows = [{"comp_name": None, "comp_cas": None, "law": "CCA", "item_code": "CCA_PRTR", "applicable": "비해당", "line": line},
+            {"comp_name": None, "comp_cas": None, "law": "DG", "item_code": "DG_HAZMAT", "applicable": "비해당", "line": line}]
+    out = reg_rows(rows)
+    assert (out[0][1], out[1][1]) == (None, "DG_HAZMAT")

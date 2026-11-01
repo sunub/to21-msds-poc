@@ -328,6 +328,32 @@ def split_second_unit(row: dict) -> list[dict]:
     return [{**row, "q": p} for p in parts]
 
 
+_LAW_LEVEL = re.compile(r"법(?:률)?\s*에\s*(?:의한|따른)\s*규제\s*[:：]?\s*(?P<v>.*)$")
+
+
+def _law_level_item(row: dict, lines_by_id: dict[str, Line]) -> dict:
+    """근거 줄이 '○○법에 의한 규제 : 해당 없음'처럼 법령 단위 줄이면 산안법·화관법·화평법 행의 항목 코드를 비운다.
+    법령 하나에 대한 문장이라 특정 항목이 아니다 (골드 S001·S003). 위험물·폐기물은 골드도 코드를 둔다."""
+    law = _law_of(row)
+    m = _LAW_LEVEL.search(getattr(lines_by_id.get(row.get("line")), "text", "") or "")
+    v = (m["v"] if m else "").strip()
+    if law in ("OSH", "CCA", "KREACH") and m and (not v or status_word(v)[0] or _word_key(v) in ("해당", "비해당", "해당됨")):
+        return {**row, "law": law, "item_code": None}
+    return row
+
+
+def _section_names_component(rows: list[dict], component: dict, lines_by_id: dict[str, Line]) -> bool:
+    """행들의 근거 줄이 걸친 범위(처음~끝 줄)에 성분 이름·영문명·CAS·이명이 한 번이라도 나오는가.
+    15항이 법령 단위로만 적혀 성분이 나오지 않으면 그 값은 제품 전체 값이다 (R10, 골드 S001·S003 MIX / S014·S016 성분)."""
+    ids = list(lines_by_id)
+    at = sorted({ids.index(r["line"]) for r in rows if r.get("line") in lines_by_id})
+    if not at:
+        return True
+    text = _norm(" ".join(lines_by_id[i].text for i in ids[at[0]:at[-1] + 1]))
+    names = [component.get("name"), component.get("name_en"), component.get("cas_no"), *(component.get("synonyms") or [])]
+    return any(_norm(n) and _norm(n) in text for n in names)
+
+
 def drop_repeated(pairs: list[tuple[int, dict]]) -> list[tuple[int, dict]]:
     """원문 줄까지 같은 행은 모델이 반복한 것이라 처음 것만 남긴다. 줄이 없거나 다르면 남긴다."""
     seen, out = set(), []
@@ -584,11 +610,17 @@ def expand_msds(sections: dict[int, dict | None], lines_by_id: dict[str, Line],
                 if linked["comp_ref"] == "MIX" and (_norm(r.get("comp_name")) or _norm(r.get("comp_cas"))):
                     problem(no, "unlinked_component", f"{key}[{i}]: {r.get('comp_name')} / {r.get('comp_cas')}")
             if key in _SINGLE_COMP_KEYS and len(components) == 1:
-                src = [{**r, "comp_ref": str(components[0]["seq"])}
-                       if r["comp_ref"] == "MIX" and _law_of(r) not in _PRODUCT_LAWS else r for r in src]
+                if key == "regulations" and not _section_names_component(src, components[0], lines_by_id):
+                    src = [{**r, "comp_ref": "MIX"} for r in src]   # 15항에 성분이 안 나오면 제품 값 (R10, 골드 S001·S003)
+                else:
+                    src = [{**r, "comp_ref": str(components[0]["seq"])}
+                           if r["comp_ref"] == "MIX" and _law_of(r) not in _PRODUCT_LAWS else r for r in src]
         if {"q", "text_value"} <= _resolve(node["items"]).get("properties", {}).keys():
             src = [status_to_q(r) for r in src]
         if key == "regulations":
+            src = [_law_level_item(r, lines_by_id) for r in src]
+            if src and not any(_law_of(r) == "KREACH" for r in src):   # R18: 화평법 항목이 없는 문서는 미기재 한 행 (골드 6건)
+                src.append({"law": "KREACH", "item_code": None, "applicable": "미기재", "comp_ref": "MIX"})
             src = fill_thresholds(src, lines_by_id)      # 근거 줄의 'N% 이상'으로 기준농도 (ADR-029)
         item[key] = components if key == "components" else _shape(node, src, lines_by_id)
         if key == "regulations":
