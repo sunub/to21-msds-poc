@@ -655,6 +655,21 @@ def test_single_component_unnamed_rows_point_to_it(no_conventions):
     assert m["extras"][0]["comp_ref"] == "MIX"
 
 
+def test_single_component_exposure_and_product_laws(no_conventions):
+    """성분이 하나면 성분 표기 없는 8항 노출기준도 그 성분이다 (R10, 1_항목정의 예시 '1').
+    15항의 위험물·폐기물 행은 제품 단위라 MIX로 둔다 (1_항목정의 예시, TO21 정합성 설계서 v0.4 29·40장)."""
+    r = responses()
+    r[3]["components"] = r[3]["components"][:1]
+    r[8]["exposure_limits"][0]["comp_cas"] = None
+    r[15]["regulations"] += [
+        {"comp_name": None, "comp_cas": None, "law": law, "item_code": code, "applicable": "비해당", "line": "p6:L10"}
+        for law, code in (("OSH", "OSH_PSM"), ("DG", "DG_HAZMAT"), (None, "WASTE_DESIG"))]   # 법령이 비면 항목 코드로
+    m, _ = expand_one(r)
+    assert m["exposure_limits"][0]["comp_ref"] == "1"
+    assert [(x["item_code"], x["comp_ref"]) for x in m["regulations"]] == [
+        ("OSH_MEASURE", "1"), ("OSH_PSM", "1"), ("DG_HAZMAT", "MIX"), ("WASTE_DESIG", "MIX")]
+
+
 # ── 숫자 묶음 ──────────────────────────────────────────
 
 def test_fill_q_no_value():

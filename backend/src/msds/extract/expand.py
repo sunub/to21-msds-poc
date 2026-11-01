@@ -36,7 +36,10 @@ _BULLET = re.compile(r"^\s*(?:[-–](?!\d)|[•·○●◦■□▪*ο]|[①-⑳
 _PIPE_LEAD = re.compile(r"^\|\s*")    # version9: 불릿 기호가 표 칸처럼 ' | '로 묶여 온다
 _COLON = re.compile(r"[:：]")
 _COMP_KEYS = ("comp_name", "comp_cas")
-_SINGLE_COMP_KEYS = {"toxicity", "cmr", "ecotox", "regulations", "intl_class"}   # 성분이 하나면 성분 표기 없는 행도 그 성분 (명세서 1_항목정의 예시 '1')
+_SINGLE_COMP_KEYS = {"exposure_limits", "toxicity", "cmr", "ecotox", "regulations", "intl_class"}   # 성분이 하나면 성분 표기 없는 행도 그 성분 (R10, 명세서 1_항목정의 예시 '1')
+# 15항에서 제품 단위로 판정하는 법령. 성분이 하나여도 MIX로 둔다 (1_항목정의 dangerous_goods·waste 예시 'MIX',
+# TO21 정합성 설계서 v0.4 29·40장: 15항은 성분 × 규제 항목으로 판정하고 위험물만 '제품'으로 판정)
+_PRODUCT_LAWS = {"DG", "WASTE"}
 _SOURCE_MAX = 200    # TO21 evidence.source_text: 200자 이내
 
 
@@ -239,14 +242,20 @@ def fill_kreach_applicable(regulations: list[dict]) -> None:
             break
 
 
-def fill_law(regulations: list[dict]) -> None:
-    """법령(law)이 비면 항목 코드에서 채운다. 항목 코드는 법령 코드로 시작한다 (명세서 5-6, OSH_MEASURE → OSH)."""
+def _law_of(row: dict) -> str | None:
+    """행의 법령. 비면 항목 코드에서 정한다. 항목 코드는 법령 코드로 시작한다 (명세서 5-6, OSH_MEASURE → OSH)."""
+    if row.get("law") is not None:
+        return row["law"]
     law = _resolve(msds_item_schema()["properties"]["regulations"]["items"])["properties"]["law"]
     laws = next(b for b in law["anyOf"] if b.get("type") == "string")["enum"]
+    code = row.get("item_code") or ""
+    return next((x for x in laws if code == x or code.startswith(x + "_")), None)
+
+
+def fill_law(regulations: list[dict]) -> None:
+    """법령(law)이 비면 항목 코드에서 채운다."""
     for r in regulations:
-        code = r.get("item_code") or ""
-        if r.get("law") is None:
-            r["law"] = next((x for x in laws if code == x or code.startswith(x + "_")), None)
+        r["law"] = _law_of(r)
 
 
 # ── 표기 규칙 자리 (ADR-004) ───────────────────────────
@@ -427,7 +436,8 @@ def expand_msds(sections: dict[int, dict | None], lines_by_id: dict[str, Line],
                 if linked["comp_ref"] == "MIX" and (_norm(r.get("comp_name")) or _norm(r.get("comp_cas"))):
                     problem(no, "unlinked_component", f"{key}[{i}]: {r.get('comp_name')} / {r.get('comp_cas')}")
             if key in _SINGLE_COMP_KEYS and len(components) == 1:
-                src = [{**r, "comp_ref": str(components[0]["seq"])} if r["comp_ref"] == "MIX" else r for r in src]
+                src = [{**r, "comp_ref": str(components[0]["seq"])}
+                       if r["comp_ref"] == "MIX" and _law_of(r) not in _PRODUCT_LAWS else r for r in src]
         if {"q", "text_value"} <= _resolve(node["items"]).get("properties", {}).keys():
             src = [status_to_q(r) for r in src]
         if key == "regulations":
