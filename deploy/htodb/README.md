@@ -9,7 +9,7 @@ TO21이 준 HTODB(SQL Server mdf, 16개 테이블)를 로컬 PostgreSQL에 **값
 
 ## 처음 한 번: 적재
 
-준비: Docker(compose), `backend/.venv`(`cd backend && python3.11 -m venv .venv && .venv/bin/pip install -r requirements-dev.txt`), `to21/v0.6/`의 명세서 xlsx, TO21에서 받은 HTODB.zip.
+준비: Docker(compose), `backend/.venv`(`cd backend && uv sync`), `to21/v0.6/`의 명세서 xlsx, TO21에서 받은 HTODB.zip.
 Windows는 WSL2 안에서 실행한다. Apple Silicon Mac은 Docker Desktop의 Rosetta 사용을 켠다(SQL Server 이미지가 amd64 전용).
 
 ```bash
