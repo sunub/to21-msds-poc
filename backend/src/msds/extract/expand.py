@@ -254,6 +254,8 @@ def _any_component(text: str | None, by_key: dict[str, dict]) -> bool:
 
 def link_components(rows: list[dict], components: list[dict], lines_by_id: dict[str, Line] | None = None) -> list[dict]:
     """comp_name·comp_cas를 3항 성분의 seq(글자)인 comp_ref로 바꾼 새 행 목록. CAS 먼저, 다음 이름.
+    이름과 CAS가 서로 다른 성분을 가리키면 근거 줄·부모 줄에 적힌 쪽을, 둘 다 안 적혔으면 이름을 따른다
+    (모델이 '1,3 부타디엔 | 106-97-8'처럼 맞는 이름에 다른 성분의 CAS를 붙였다. M004).
     둘 다 비었으면 근거 줄(lines_by_id)에 성분 이름·CAS가 하나만 보일 때 그 성분이다 ('- 이소부텐 : 자료없음' 목록).
     근거 줄에 성분이 없으면 부모 줄을 가까운 것부터 보고, 성분이 보이는 첫 부모에서 하나면 그 성분이다
     ('- 1,3 부타디엔 : 구분 1A' 아래 '· IARC : 2A'). 그래도 모르거나 어느 성분에도 안 맞으면 "MIX"."""
@@ -267,8 +269,13 @@ def link_components(rows: list[dict], components: list[dict], lines_by_id: dict[
     out = []
     for r in rows:
         name = r.get("comp_name") or ""
-        c = (by_cas.get(_norm(r.get("comp_cas"))) or by_name.get(_norm(name))
-             or by_name.get(_norm(re.split(r"[,(（]", name)[0])))    # 'NATURAL GAS, LIQUIFIED'의 수식어를 뗀 이름
+        by_n = by_name.get(_norm(name)) or by_name.get(_norm(re.split(r"[,(（]", name)[0]))   # 'NATURAL GAS, LIQUIFIED'의 수식어를 뗀 이름
+        c = by_cas.get(_norm(r.get("comp_cas"))) or by_n
+        if by_n is not None and c is not by_n:
+            line = (lines_by_id or {}).get(r.get("line"))
+            text = _norm(" ".join(x.text for x in ([line, *parents.get(line.id, [])] if line else [])))
+            if not (_norm(c.get("cas_no")) in text and _norm(name) not in text):
+                c = by_n
         if c is None and lines_by_id and not _norm(name) and not _norm(r.get("comp_cas")):
             line = lines_by_id.get(r.get("line"))
             for up in ([line, *parents.get(line.id, [])] if line else []):
