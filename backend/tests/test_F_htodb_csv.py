@@ -102,9 +102,10 @@ def test_25번_황산_샘플DB_연결():
     used = next(i for i in mist["inputs"] if i.get("name") == "황산")
     assert used["step"] == 1 and used["source"].startswith("TO21 독성DB")
     oral = acute[("HH_ACUTE_ORAL", None)]
-    assert oral["result"]["low"] == oral["result"]["high"] == "분류안됨"  # ATEmix > 2,000 (설계서 24장 예제 1과 같은 구분)
-    # 숫자는 설계서 24장(2,183.7)과 조금 다르다: 독성DB에 물 LD50 90,000(=)이 있어 Σ에 들어간다. 작업 기록 #3 참고
-    assert round(oral["calc"]["ate_mix_high"], 2) == 2179.97
+    assert oral["result"]["low"] == oral["result"]["high"] == "분류안됨"  # ATEmix > 2,000
+    # 물은 무독성 성분(params non_toxic_cas)이라 독성DB의 LD50 90,000 이 있어도 Σ에서 빠진다 → 설계서 24장 예제 1과 같은 값
+    assert round(oral["calc"]["ate_mix_high"], 1) == 2183.7 and round(oral["calc"]["ate_mix_low"], 1) == 2301.1
+    assert mist["calc"]["unknown_pct"] == 0  # 물이 '이용 불가 성분'으로 세어지지 않음
     out = aggregate_verdicts(results, item["hazard"]["classes"])
     inhal = [v for v in out["verdicts"] if v["class_code"] == "HH_ACUTE_INHAL"]
     assert len(inhal) == 1 and inhal[0]["type"] == "형태·세부 표기"

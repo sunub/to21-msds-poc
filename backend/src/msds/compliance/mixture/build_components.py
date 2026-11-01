@@ -6,6 +6,7 @@ tox_lookup(cas) → 급성독성 수치 행(선택, class_lookup_db.make_db_tox_
 from types import SimpleNamespace
 
 from .adapter import to_acute_components
+from .params import param_list
 from .ranges import content_range
 
 _VALID = {"값있음", None}  # 추출 q.status 중 값을 쓸 수 있는 것
@@ -121,7 +122,8 @@ def build_components(msds_item, class_lookup, tox_lookup=None) -> dict:
         "함량 단위: % 계열만 사용, 단위 없음은 %로 간주(content_flags에 표시)",
         "독성값(11항)은 comp_ref가 성분 seq와 같은 행만 성분에 붙이고 MIX 행은 쓰지 않음(혼합물 ATE 직접 기재값은 계산에 안 씀)",
         "MSDS 11항 독성 행은 msds 키에 담음(ATE 수집 3단계)",
-        "non_toxic은 추출 JSON에 근거가 없어 모든 성분 False",
+        "non_toxic: rules/params.csv non_toxic_cas 목록(물)에 있는 CAS만 True(설계서 21장 5단계, 24장 예제). "
+        "나머지 성분은 추출 JSON에 근거가 없어 False",
         "mixture_props: 값이 없으면 키를 넣지 않음",
         "PH: comp_ref=MIX이고 농도 조건(cond.conc_value)이 없는 단일 수치만 제품 pH로 봄(D-19)",
         "VISCOSITY_40: 단위 mm²/s·cSt 이고 측정온도 40℃, 단일 수치인 행만 사용. 1 cSt = 1 mm²/s (D-23)",
@@ -133,6 +135,7 @@ def build_components(msds_item, class_lookup, tox_lookup=None) -> dict:
     else:
         assumptions.append("TO21 독성DB 급성독성 수치는 db 키에 담음(ATE 수집 1단계, D-21 파싱). "
                            "흡입 값은 DB 숫자를 노출시간 환산 없이 그대로 씀(설계서 미결 4)")
+    non_toxic_cas = set(param_list("non_toxic_cas"))
     ranges = content_range(raw)
     acute = {a["seq"]: a for a in _acute_inputs(msds_item, raw)}
     components = []
@@ -184,7 +187,7 @@ def build_components(msds_item, class_lookup, tox_lookup=None) -> dict:
                 gaps.append({"field": f"components[{who}].msds", "reason": "흡입 독성 행에 노출시간 없음 — 4시간 환산 안 됨"})
         components.append({
             "cas": cas, "name": c.get("name"), "low": rng["low"], "high": rng["high"],
-            "class_rows": class_rows, "flags": [], "m": None, "non_toxic": False,
+            "class_rows": class_rows, "flags": [], "m": None, "non_toxic": cas in non_toxic_cas,
             "db": db, "msds": tox, "mw": mw, "density": dens, "content_flags": rng["flags"],
         })
     gaps.append({"field": "components[*].flags",
