@@ -10,8 +10,8 @@ OCR 결과는 원문 대조(D-14)와 2주차 검사(D-38, D-40)에서 깨진 쪽
 - p001.ocr.cells.json  줄을 '왼쪽 항목명 | 오른쪽 값' 칸으로 묶은 것 (group_cells)
 
 OCR 이미지는 쪽 이미지(150dpi, 모델 입력)와 따로 300dpi로 그린다. 작은 숫자·기호를 읽기 위해서다.
-PaddleOCR은 requirements.txt에 없다(폐쇄망 반입 여부 미정). 별도 환경에 설치해 쓴다:
-  pip install paddlepaddle paddleocr
+PaddleOCR은 런타임 의존성에 없다(폐쇄망 반입 여부 미정). pyproject.toml의 ocr 그룹으로 GPU 서버에 설치한다:
+  cd backend && uv sync --group ocr
 S003 시험(2026-10-26, paddleocr 3.7.0): 원문 조각 44개 중 42개 일치. 틀린 2개는 ℃ 오인식
 (℃→C, ℃→°c). 기록: runs/20261026_s003_ocr_source_match/
 """
