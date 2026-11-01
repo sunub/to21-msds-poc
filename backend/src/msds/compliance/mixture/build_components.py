@@ -1,6 +1,7 @@
-"""추출 JSON msds[i] 한 건에서 classify_mixture_all 입력(components, mixture_props)을 만든다. DB는 쓰지 않는다.
+"""추출 JSON msds[i] 한 건에서 classify_mixture_all 입력(components, mixture_props)을 만든다.
 
-성분의 분류코드 조회는 인자로 받은 class_lookup(cas)로 대신한다. 없는 값은 만들어내지 않고 gaps에 이유를 남긴다.
+지식DB는 직접 열지 않고 인자로 받은 조회 함수를 쓴다: class_lookup(cas) → 분류코드 행,
+tox_lookup(cas) → 급성독성 수치 행(선택, class_lookup_db.make_db_tox_lookup). 없는 값은 만들어내지 않고 gaps에 이유를 남긴다.
 """
 from types import SimpleNamespace
 
@@ -113,13 +114,13 @@ def _acute_inputs(msds_item, comps):
     return to_acute_components(shim)
 
 
-def build_components(msds_item, class_lookup) -> dict:
+def build_components(msds_item, class_lookup, tox_lookup=None) -> dict:
     raw = msds_item.get("components") or []
     gaps, assumptions = [], [
         "함량: ranges.content_range 표 그대로(범위는 하한~상한, 단일값은 low=high, 상한만 있는 표기는 만들지 않음)",
         "함량 단위: % 계열만 사용, 단위 없음은 %로 간주(content_flags에 표시)",
         "독성값(11항)은 comp_ref가 성분 seq와 같은 행만 성분에 붙이고 MIX 행은 쓰지 않음(혼합물 ATE 직접 기재값은 계산에 안 씀)",
-        "독성 행은 TO21 독성DB가 아니므로 msds 키에 담고 db는 비워 둠",
+        "MSDS 11항 독성 행은 msds 키에 담음(ATE 수집 3단계)",
         "non_toxic은 추출 JSON에 근거가 없어 모든 성분 False",
         "mixture_props: 값이 없으면 키를 넣지 않음",
         "PH: comp_ref=MIX이고 농도 조건(cond.conc_value)이 없는 단일 수치만 제품 pH로 봄(D-19)",
@@ -127,6 +128,11 @@ def build_components(msds_item, class_lookup) -> dict:
         "STATE: 9항 성상 텍스트를 액체·고체·가스 중 하나로 맞춤(기체→가스)",
         "분자량·상대밀도: 성분 번호가 맞는 행, 성분이 하나뿐이면 MIX 행도 사용. 상대밀도(물=1)는 g/mL 로 간주",
     ]
+    if tox_lookup is None:
+        assumptions.append("tox_lookup 없음: TO21 독성DB 값(ATE 수집 1단계)을 쓰지 않고 db는 비워 둠")
+    else:
+        assumptions.append("TO21 독성DB 급성독성 수치는 db 키에 담음(ATE 수집 1단계, D-21 파싱). "
+                           "흡입 값은 DB 숫자를 노출시간 환산 없이 그대로 씀(설계서 미결 4)")
     ranges = content_range(raw)
     acute = {a["seq"]: a for a in _acute_inputs(msds_item, raw)}
     components = []
@@ -145,6 +151,14 @@ def build_components(msds_item, class_lookup) -> dict:
                 why = getattr(found, "reason", None)
                 gaps.append({"field": f"components[{who}].class_rows",
                              "reason": f"CAS {cas} 분류코드 조회 결과 없음" + (f" — {why}" if why else "")})
+        db = []
+        if tox_lookup is not None and cas:
+            found_tox = tox_lookup(cas)
+            db = list(found_tox or [])
+            if not db:
+                why = getattr(found_tox, "reason", None)
+                gaps.append({"field": f"components[{who}].db",
+                             "reason": f"CAS {cas} 독성DB 급성독성 수치 없음" + (f" — {why}" if why else "")})
         only_one = len(raw) == 1
         mw = _per_component(msds_item, c.get("seq"), only_one, "MOL_WEIGHT")
         dens = _per_component(msds_item, c.get("seq"), only_one, "RELATIVE_DENSITY")
@@ -171,7 +185,7 @@ def build_components(msds_item, class_lookup) -> dict:
         components.append({
             "cas": cas, "name": c.get("name"), "low": rng["low"], "high": rng["high"],
             "class_rows": class_rows, "flags": [], "m": None, "non_toxic": False,
-            "db": [], "msds": tox, "mw": mw, "density": dens, "content_flags": rng["flags"],
+            "db": db, "msds": tox, "mw": mw, "density": dens, "content_flags": rng["flags"],
         })
     gaps.append({"field": "components[*].flags",
                  "reason": f"근거 없음 — {', '.join(_FLAG_NAMES)} 표시를 만들 근거가 추출 JSON에 없음(스키마에 해당 필드 없음)"})
