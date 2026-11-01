@@ -301,13 +301,20 @@ def fix_cmr_class(rows: list[dict]) -> None:
 
 
 def clear_descriptor_without_value(rows: list[dict]) -> None:
-    """값(숫자)이 없는 독성 행의 지표를 정한다. 상태가 값 없음(자료없음 등)이면 비워 A의 규칙이 '결과기술'(혼합물 급성은
-    'ATE')로 채우게 하고, 설명만 있는 행(값있음)은 '결과기술'로 둔다. 골드·실버의 숫자 없는 독성 행은 모두 그렇게 적혀
-    있다. 모델이 '- 이소부텐 : 자료없음'에 LD50을 적은 일이 있었다(11/01 실행)."""
+    """값(숫자)이 없는 독성 행의 지표는 상태와 관계없이 '결과기술'이다. 혼합물 급성의 값 없는 행도 같다
+    (개발 골드 10건의 숫자 없는 독성 261행 모두. A 규칙이 채우는 'ATE'는 예제 1건에서 온 기본값이라 먼저 채운다).
+    모델이 '- 이소부텐 : 자료없음'에 LD50을 적은 일이 있었다(11/01 실행).
+    설명만 있는 행(값있음)의 q는 비운다 (골드 135행 모두). q에만 글이 있으면 statements로 옮겨 잃지 않는다."""
     for r in rows:
         q = r.get("q") or {}
         if all(q.get(k) is None for k in ("value", "lower", "upper")):
-            r["descriptor"] = None if r.get("status") in _NO_VALUE else "결과기술"
+            r["descriptor"] = "결과기술"
+            if r.get("status") not in _NO_VALUE and r.get("q") is not None and not q.get("status"):
+                raw = (q.get("raw") or "").strip()
+                if raw and not r.get("statements"):
+                    r["statements"] = [{"seq": 1, "key": None, "value": raw, "refs": None, "cond": None, "std_code": None,
+                                        "match_score": None, "text": raw}]
+                r["q"] = None
 
 
 _SECOND_UNIT = re.compile(r"^\s*(?P<a>-?\d[\d.,]*\s*[^\s\d()（）][^()（）]*?)\s*[(（]\s*"
