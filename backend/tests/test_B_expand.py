@@ -964,3 +964,12 @@ def test_flammability_pair_unit(raw, unit):
     """단위는 마지막 숫자 뒤 표기다. 공백 뒤 괄호 설명은 떼고, 붙은 괄호(%(V))는 둔다 (골드 M001·M005·S016·M004)."""
     uel, lel = ex._flammability_pair(raw)
     assert uel["unit"] == unit == lel["unit"] and uel["value"] > lel["value"]
+
+
+def test_biological_exposure_limit_is_bei(no_conventions):
+    """8항 생물학적 노출기준은 기준 종류가 늘 BEI다 (골드·실버 33행 모두). 모델이 '기타'로 쓴 일이 있었다."""
+    r = responses()
+    r[8]["exposure_limits"] = [{"comp_name": None, "comp_cas": "1234-56-6", "standard": "생물학적", "limit_type": "기타",
+                                "q": {"raw": "25 ㎍/g", "value": 25, "unit": "ug/g"}, "line": "p4:L3"}]
+    m, _ = expand_one(r)
+    assert m["exposure_limits"][0]["limit_type"] == "BEI"
