@@ -1301,3 +1301,42 @@ def test_fix_eco_descriptor():
     lc50 = {"endpoint": "ECO_FISH", "descriptor": "LC50", "q": {"raw": "10 mg/L", "value": 10, "unit": "mg/L"}, "status": "값있음",
             "line": "p12:L2"}
     assert [ex.fix_eco_descriptor(r, lines)["descriptor"] for r in (no_value, kow, lc50)] == [None, "logKow", "LC50"]
+
+
+# ── 표·소제목 아래의 '성분 : 상태어' 칸 → 행 (모델이 뺀 값 없는 행, 골드 M004) ─────
+
+T_LINES = [L("p5:L37", "구성성분 | 국내규정 | ACGIH규정 | 생물학적 노출기준"),
+           L("p5:L38", "가상물질 갑 | TWA : 2ppm | TWA 2 ppm | 자료없음"),
+           L("p5:L39", "5"),
+           L("p6:L2", "구성성분 | 국내규정 | ACGIH규정 | 생물학적 노출기준"),
+           L("p6:L3", "가상물질 을 | 자료없음 | TWA 250 ppm | 해당없음"),
+           L("p11:L31", "● 어류"),
+           L("p11:L32", "- 가상물질 갑 : LC50 45 mg/L"),
+           L("p11:L33", "- 가상물질 을 : 자료없음"),
+           L("p11:L34", "11"),
+           L("p12:L1", "[ 가상 머리글 ]"),
+           L("p12:L2", "● 조류"),
+           L("p12:L3", "- 가상물질 갑 : 자료없음")]
+
+
+def test_table_status_rows():
+    """8항 표(머리글 '구성성분 | 국내규정 | ACGIH규정 | 생물학적 노출기준')의 성분 줄 칸이 상태어면, 그 성분 × 기준 행이 없을 때
+    더한다. 종류는 TWA, 생물학적은 BEI (골드 M004 18행). 값 칸과 이미 있는 행은 두지 않는다. 쪽이 바뀌어 머리글이 반복돼도 같다."""
+    lines = {l.id: l for l in T_LINES}
+    have = [{"comp_name": "가상물질 을", "standard": "국내", "line": "p6:L3"}]
+    new = ex.table_status_rows(have, ["p5:L37", "p6:L3"], lines)
+    assert [(r["comp_name"], r["standard"], r["limit_type"], r["q"]["raw"], r["line"]) for r in new] == [
+        ("가상물질 갑", "생물학적", "BEI", "자료없음", "p5:L38"), ("가상물질 을", "생물학적", "BEI", "해당없음", "p6:L3")]
+
+
+def test_heading_status_rows():
+    """11·12항 '- 성분 : 상태어' 줄이 항목 소제목(● 어류 등) 아래 있고 그 행이 없으면 더한다. 위로 올라가며 성분 줄·쪽 머리글을
+    건너뛴다 (골드 M004 '● 조류' 아래 '- 트랜스 2 부텐 : 자료없음'). 값 줄과 이미 있는 행은 두지 않는다."""
+    lines = {l.id: l for l in T_LINES}
+    comps = [{"seq": 1, "name": "가상물질 갑", "cas_no": "1234-56-6"}, {"seq": 2, "name": "가상물질 을", "cas_no": "2345-67-7"}]
+    have = [{"comp_name": "가상물질 갑", "endpoint": "ECO_FISH", "line": "p11:L32"}]
+    new = ex.heading_status_rows("ecotox", have, ["p11:L31", "p12:L3"], lines, comps)
+    assert [(r["comp_name"], r["endpoint"], r["status"], r["line"]) for r in new] == [
+        ("가상물질 을", "ECO_FISH", "자료없음", "p11:L33"), ("가상물질 갑", "ECO_ALGAE", "자료없음", "p12:L3")]
+    have.append({"comp_name": "가상물질 을", "endpoint": "ECO_FISH", "line": "p11:L33"})
+    assert len(ex.heading_status_rows("ecotox", have, ["p11:L31", "p12:L3"], lines, comps)) == 1
