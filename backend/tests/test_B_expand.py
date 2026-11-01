@@ -883,3 +883,16 @@ def test_link_components_from_parent_line():
     lines = {f"p9:L{i}": L(f"p9:L{i}", t) for i, t in enumerate(texts, 1)}
     rows = [{"comp_name": None, "comp_cas": None, "line": f"p9:L{i}"} for i in (3, 5, 1)]
     assert [r["comp_ref"] for r in ex.link_components(rows, COMPS, lines)] == ["2", "MIX", "MIX"]
+
+
+def test_toxicity_descriptor_cleared_without_value(no_conventions):
+    """숫자가 없는 독성 행: 상태가 값 없음이면 지표를 비워 A의 규칙('결과기술'·'ATE')에 맡기고, 설명만 있는 행은
+    '결과기술'로 둔다. 골드는 숫자 없는 행을 모두 그렇게 적는다. 숫자가 있는 행의 지표는 그대로 둔다."""
+    r = responses()
+    r[11]["toxicity"] += [
+        {"comp_name": "가상물질 을", "comp_cas": None, "endpoint": "TX_DERMAL", "descriptor": "LD50", "status": "자료없음",
+         "species": None, "q": {"raw": "자료없음"}, "statements": [], "line": "p5:L8"},
+        {"comp_name": "가상물질 을", "comp_cas": None, "endpoint": "TX_SKIN", "descriptor": "Draize", "status": "값있음",
+         "species": None, "q": None, "statements": [{"value": "비자극성", "line": "p5:L8"}], "line": "p5:L8"}]
+    m, _ = expand_one(r)
+    assert [x["descriptor"] for x in m["toxicity"]] == ["LD50", None, "결과기술"]

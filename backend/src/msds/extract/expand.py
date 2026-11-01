@@ -241,6 +241,16 @@ def fix_cmr_class(rows: list[dict]) -> None:
             r["class"] = c or None
 
 
+def clear_descriptor_without_value(rows: list[dict]) -> None:
+    """값(숫자)이 없는 독성 행의 지표를 정한다. 상태가 값 없음(자료없음 등)이면 비워 A의 규칙이 '결과기술'(혼합물 급성은
+    'ATE')로 채우게 하고, 설명만 있는 행(값있음)은 '결과기술'로 둔다. 골드·실버의 숫자 없는 독성 행은 모두 그렇게 적혀
+    있다. 모델이 '- 이소부텐 : 자료없음'에 LD50을 적은 일이 있었다(11/01 실행)."""
+    for r in rows:
+        q = r.get("q") or {}
+        if all(q.get(k) is None for k in ("value", "lower", "upper")):
+            r["descriptor"] = None if r.get("status") in _NO_VALUE else "결과기술"
+
+
 def drop_repeated(pairs: list[tuple[int, dict]]) -> list[tuple[int, dict]]:
     """원문 줄까지 같은 행은 모델이 반복한 것이라 처음 것만 남긴다. 줄이 없거나 다르면 남긴다."""
     seen, out = set(), []
@@ -502,6 +512,8 @@ def expand_msds(sections: dict[int, dict | None], lines_by_id: dict[str, Line],
             fill_kreach_applicable(item[key])
         if key == "cmr":
             fix_cmr_class(item[key])
+        if key == "toxicity":
+            clear_descriptor_without_value(item[key])
         for i, (no, r) in enumerate(pairs):
             walk(no, r, f"{key}[{i}]")
 

@@ -187,6 +187,31 @@ def test_meta_no_value_strings_become_none():
     assert len(changes) == 3
 
 
+# ── 메타 값의 원문 확인 ─────────────────────────────────
+
+@pytest.mark.parametrize("value, kept", [
+    ("AA01234-0000000056", True),          # 원문에 있다 (공백·하이픈 차이는 무시)
+    ("AA00000-0000000000", False),         # 명세서 예시 꼴이지만 원문에 없다
+    ("YNCC", False),                       # 원문 글자지만 제출번호 꼴(^AA\d{5}-\d{10}$)이 아니다
+])
+def test_msds_no_must_match_form_and_source(value, kept):
+    m = item_with(msds_no=value)
+    apply_source_rules(m, doc("[ YNCC MSDS ]", "MSDS 번호 : AA01234 - 0000000056"))
+    assert m["meta"]["msds_no"] == (value if kept else None)
+
+
+@pytest.mark.parametrize("value, kept", [
+    ("2019-03-08", True), ("2010-06-21", True), ("2017-12-21", True), ("2023-02-18", True),
+    ("2024-01-01", False),
+])
+def test_dates_must_appear_in_source(value, kept):
+    """날짜는 원문에 연·월·일이 그 순서(또는 일·월·연 순서)로 적혀 있어야 남는다. 없는 날짜는 모델이 만든 것이다."""
+    m = item_with(last_revision_date=value)
+    apply_source_rules(m, doc("최종 개정일자 : 2019. 3. 8", "작성일자 2010년 06월 21일", "Revision date: 21/12/2017",
+                              "개정일 20230218"))
+    assert m["meta"]["last_revision_date"] == (value if kept else None)
+
+
 # ── 전화번호 ───────────────────────────────────────────
 
 def phones(m):
