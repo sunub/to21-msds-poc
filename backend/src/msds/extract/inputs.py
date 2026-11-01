@@ -165,6 +165,81 @@ def section_lines(doc: DocumentInput, msds_index: int, section_no: int, with_pre
     return [doc.lines[i] for i in sorted(keep)]
 
 
+_EDGE = 2      # 쪽 위·아래에서 머리글·바닥글을 찾는 줄 수
+_PAGE_NO = re.compile(r"^\s*(?:-\s*)?\d{1,3}\s*(?:/\s*\d{1,3})?\s*(?:-\s*)?$|^\s*(?:page|쪽)\s*\d+(?:\s*(?:of|/)\s*\d+)?\s*$",
+                      re.IGNORECASE)
+_TITLE = re.compile(r"^\s*(\d{1,2})\s*[.)]\s*\S")
+
+
+def page_noise(lines: list[Line]) -> set[str]:
+    """쪽 머리글·바닥글·쪽 번호 줄의 id. 쪽 위·아래 _EDGE줄 가운데 같은 자리(위·아래에서 몇 번째)에 같은 글(숫자는
+    무시)이 절반 이상 쪽(3쪽 이상 문서)에 되풀이되거나, 쪽 번호 모양인 줄이다. 쪽을 넘는 목록의 데이터 줄은 같은 글이라도
+    자리가 쪽마다 달라 잡히지 않는다."""
+    by_page: dict[int, list[Line]] = {}
+    for l in lines:
+        by_page.setdefault(l.page, []).append(l)
+    if len(by_page) < 3:
+        return set()
+    edges = [(("top", i), l) for ls in by_page.values() for i, l in enumerate(ls[:_EDGE])]
+    edges += [(("bottom", i), l) for ls in by_page.values() for i, l in enumerate(reversed(ls[-_EDGE:]))]
+    key = lambda at, l: (at, re.sub(r"[\d\s]+", "", l.text))
+    pages_of: dict[tuple, set[int]] = {}
+    for at, l in edges:
+        if key(at, l)[1]:
+            pages_of.setdefault(key(at, l), set()).add(l.page)
+    repeated = {k for k, p in pages_of.items() if len(p) >= max(3, (len(by_page) + 1) // 2)}
+    return {l.id for at, l in edges if key(at, l) in repeated or _PAGE_NO.match(l.text)}
+
+
+def model_lines(doc: DocumentInput, msds_index: int, section_no: int) -> list[Line]:
+    """모델에 보내는 줄: section_lines에서 항 구간의 쪽 머리글·바닥글·쪽 번호와 그 항 제목 줄('7. 취급 및 저장방법')을
+    뺀다. 항 번호는 이미 알고, 제목 줄은 모델이 extras로 옮기다 반복에 빠지는 시작점이었다(10/31 v17 실행 10건 중 8건).
+    문서 머리는 그대로 둔다. ':'가 있는 제목 줄은 값이 붙어 있을 수 있어 남긴다. 줄 번호는 바꾸지 않는다."""
+    span = section_lines(doc, msds_index, section_no, with_preamble=False)
+    drop = page_noise(doc.lines) & {l.id for l in span}
+    drop |= {l.id for l in span[:2]
+             if (m := _TITLE.match(l.text)) and int(m[1]) == section_no and not re.search(r"[:：]", l.text)}
+    return [l for l in section_lines(doc, msds_index, section_no) if l.id not in drop]
+
+
+_MARK = re.compile(r"^(\s*)([●○ο■□◆◇▶▷※]|[-–]|[·•ㆍ∙]|[가-하]\s*[.)]|\(?\d{1,2}\)|[①-⑳]|\d{1,2}\.(?!\d))\s*")
+
+
+def line_parents(lines: list[Line]) -> dict[str, list[Line]]:
+    """글머리 기호가 있는 줄마다 부모 줄 목록(가까운 것부터). 기호(들여쓰기 포함)마다 처음 나온 깊이를 기억한다.
+    처음 보는 기호는 앞 줄의 자식이고('○ 발암성' > '- 성분' > '· IARC'), 다시 나온 기호는 그 깊이로 돌아가 형제가 된다
+    ('● 법령 A' 아래 '- 성분' 목록 뒤의 '● 법령 B'). 맨 위 깊이로 돌아가면(다음 항 제목 등) 기억을 지운다.
+    기호가 없는 줄은 넣지 않는다."""
+    out: dict[str, list[Line]] = {}
+    stack: list[tuple[int, Line]] = []
+    depth: dict[tuple[int, str], int] = {}
+    for l in lines:
+        m = _MARK.match(l.text)
+        if not m:
+            continue
+        indent = len(m[1].expandtabs(4))
+        key = (indent, _mark_kind(m[2]))
+        if key in depth:
+            del stack[depth[key]:]
+        while stack and stack[-1][0] > indent:
+            stack.pop()
+        if not stack:
+            depth.clear()
+        depth[key] = len(stack)
+        out[l.id] = [s[1] for s in reversed(stack)]
+        stack.append((indent, l))
+    return out
+
+
+def _mark_kind(mark: str) -> str:
+    """같은 종류 기호를 한 이름으로: '가.'·'나.' → '가.', '1)'·'(2)' → '1)', '3.' → '1.', '①' → '①'."""
+    m = re.sub(r"\s", "", mark)
+    for pat, kind in ((r"[가-하][.)]", "가."), (r"\(?\d{1,2}\)", "1)"), (r"\d{1,2}\.", "1."), (r"[①-⑳]", "①")):
+        if re.fullmatch(pat, m):
+            return kind
+    return m[:1]
+
+
 def render_lines(lines: list[Line]) -> str:
     return "\n".join(f"{l.id} {l.text}" for l in lines)
 

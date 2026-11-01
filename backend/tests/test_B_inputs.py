@@ -220,3 +220,73 @@ def test_preamble_second_msds_with_sections_file(tmp_path):
     assert doc.msds[0].preamble == ("p1:L1", "p1:L1")
     assert doc.msds[1].preamble == ("p3:L1", "p3:L2")     # 2건째는 그 건의 첫 쪽 첫 줄부터
     assert [l.id for l in inputs.section_lines(doc, 1, 7)] == ["p3:L1", "p3:L2", "p3:L3", "p3:L4", "p3:L5"]
+
+
+# ── 모델에 보내는 줄: 쪽 머리글·바닥글·쪽 번호와 항 제목 줄을 뺀다 ──────────
+
+def test_page_noise_finds_repeated_edges_and_page_numbers():
+    """쪽 위·아래 두 줄 가운데 같은 자리에 같은 글(숫자는 무시)이 절반 이상 쪽에 되풀이되는 줄과 쪽 번호 모양 줄만
+    잡는다. 쪽을 넘는 목록의 데이터 줄은 같은 글이라도 쪽마다 자리가 달라 잡지 않는다."""
+    L = inputs.Line
+    lines = []
+    words = iter("가나다라마바사아자차카타파하거너더러머버")
+    for p in range(1, 5):
+        body = [f"본문 {next(words)}" for _ in range(p - 1)] + ["- 가상물질 갑 : 자료없음"]
+        body += [f"본문 {next(words)}" for _ in range(4 - p)]
+        texts = ["[ 가상 MSDS ] [시험액]", *body, f"- {p} / 4 -"]
+        lines += [L(f"p{p}:L{n}", p, n, t) for n, t in enumerate(texts, 1)]
+    noise = inputs.page_noise(lines)
+    assert noise == {f"p{p}:L{n}" for p in range(1, 5) for n in (1, 6)}
+
+
+def test_page_noise_needs_three_pages():
+    L = inputs.Line
+    lines = [L(f"p{p}:L1", p, 1, "머리글") for p in (1, 2)]
+    assert inputs.page_noise(lines) == set()
+
+
+def test_model_lines_drop_noise_and_section_title(tmp_path):
+    """모델에 보내는 줄에서 항 구간의 머리글·쪽 번호와 그 항 제목 줄을 뺀다. 문서 머리(앞머리)는 그대로 둔다.
+    제목 줄에 ':'가 있으면 값이 붙은 줄일 수 있어 남긴다."""
+    head = "[ 가상 MSDS ]"
+    pages = write_pages(tmp_path / "pages", {
+        1: f"{head}\n제품명 : 시험액\n1. 화학제품과 회사에 관한 정보\n가. 제품명 : 시험액\n1",
+        2: f"{head}\n2. 유해성·위험성 : 해당\n가. 분류 : 해당\n2",
+        3: f"{head}\n3. 구성성분의 명칭 및 함유량\n가상물질 갑 | 1234-56-6\n3",
+    })
+    secs = write_sections(tmp_path / "sections", {"msds": [{"pages": [1, 3], "sections": {
+        "1": {"start": "p1:L3", "end": "p1:L5", "method": "title"},
+        "2": {"start": "p2:L2", "end": "p2:L4", "method": "title"},
+        "3": {"start": "p3:L2", "end": "p3:L4", "method": "title"}}}]})
+    doc = inputs.load_document(DOC, pages, secs, tmp_path / "codes")
+    assert [l.id for l in inputs.model_lines(doc, 0, 1)] == ["p1:L1", "p1:L2", "p1:L4"]
+    assert [l.id for l in inputs.model_lines(doc, 0, 2)] == ["p1:L1", "p1:L2", "p2:L2", "p2:L3"]
+    assert [l.id for l in inputs.model_lines(doc, 0, 3)] == ["p1:L1", "p1:L2", "p3:L3"]
+
+
+# ── 줄의 부모 줄 ────────────────────────────────────────
+
+def test_line_parents_by_marker_and_indent():
+    """글머리 기호 종류와 들여쓰기로 부모 줄을 찾는다. 같은 기호·같은 들여쓰기는 형제다."""
+    L = inputs.Line
+    texts = ["○ 발암성 PRODUCT : 구분 1A", "- 가상물질 갑 : 구분 1A", "· IARC : 2A", "· NTP : K",
+             "- 가상물질 을 : 해당없음", "○ 생식독성 : 자료없음", "    - 경피 :", "      • 가상물질 갑 : 자료없음"]
+    lines = [L(f"p1:L{i}", 1, i, t) for i, t in enumerate(texts, 1)]
+    par = inputs.line_parents(lines)
+    ids = lambda lid: [x.id for x in par.get(lid, [])]
+    assert ids("p1:L3") == ["p1:L2", "p1:L1"] and ids("p1:L4") == ["p1:L2", "p1:L1"]
+    assert ids("p1:L5") == ["p1:L1"] and ids("p1:L6") == []
+    assert ids("p1:L8") == ["p1:L7", "p1:L6"]
+
+
+def test_line_parents_heading_after_child_list():
+    """'● 법령' 아래 '- 성분' 목록이 끝나고 다음 '● 법령'이 오면, 그 줄은 앞 목록 마지막 성분의 자식이 아니라 형제다.
+    기호마다 처음 나온 깊이를 기억해 다시 나오면 그 깊이로 돌아간다."""
+    L = inputs.Line
+    texts = ["가. 국내 규제", "● 법령 A", "- 가상물질 갑 : 해당", "- 가상물질 을 : 해당없음", "● 법령 B", "- 가상물질 갑 : 해당",
+             "나. 국외 규제", "- 가상물질 을 : 해당"]
+    lines = [L(f"p1:L{i}", 1, i, t) for i, t in enumerate(texts, 1)]
+    par = inputs.line_parents(lines)
+    ids = lambda lid: [x.id for x in par.get(lid, [])]
+    assert ids("p1:L5") == ["p1:L1"] and ids("p1:L6") == ["p1:L5", "p1:L1"]
+    assert ids("p1:L8") == ["p1:L7"]
