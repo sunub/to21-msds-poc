@@ -7,7 +7,7 @@
 CSV는 TO21 자료라 저장소에 올리지 않는다(D-47). 기본 위치는 to21/v0.4/to21_sample/ 이며
 .gitignore 의 to21/v*/* 규칙으로 git 이 무시한다.
 
-쓰는 법: make_db_class_lookup(CsvRepo()), make_db_tox_lookup(CsvRepo())
+쓰는 법: make_db_class_lookup(CsvRepo()), make_db_tox_lookup(CsvRepo()), RegulationProvider(CsvRepo())
 """
 import csv
 from pathlib import Path
@@ -17,6 +17,8 @@ DEFAULT_DIR = Path(__file__).resolve().parents[5] / "to21" / "v0.4" / "to21_samp
 _MASTER = "TB_ENG_CHEM_MASTER_INFO"
 _CLASS = "TB_GHS_CHEM_CLASS_MAP"
 _TOX = "TB_ENG_CHEM_TOXICITY_TEST_INFO"
+_REG_MAP = "TB_ENG_REGULA_CHEM_MAP"
+_REG_STD = "TB_ENG_REG_NOTICE_STD"
 
 
 def _int(v):
@@ -32,6 +34,9 @@ class CsvRepo:
     def __init__(self, folder=DEFAULT_DIR):
         self.folder = Path(folder)
         self._cache: dict[str, list[dict]] = {}
+
+    def version(self) -> str:
+        return "to21_sample(HTODB 발췌 CSV)"
 
     def available(self) -> bool:
         return all((self.folder / f"{t}.csv").exists() for t in (_MASTER, _CLASS, _TOX))
@@ -58,3 +63,11 @@ class CsvRepo:
         rows = sorted((r for r in self._rows(_TOX) if r.get("chem_id") == chem_id),
                       key=lambda r: (r.get("experiment_div", ""), r["div_code"], _int(r.get("toxic_seq"))))
         return {"rows": rows}
+
+    def regulations(self, chem_id: str) -> dict:
+        """repo.regulations 와 같은 키 중 판정에 쓰는 두 가지: rows(물질↔세부규제), notice_std(함량 기준)."""
+        rows = sorted((r for r in self._rows(_REG_MAP) if r.get("chem_id") == chem_id),
+                      key=lambda r: (r["regulate_id"], r["regulate_item_id"]))
+        std = sorted((r for r in self._rows(_REG_STD) if r.get("chem_id") == chem_id),
+                     key=lambda r: (r["regulate_item_id"], _int(r.get("notice_seq")), _int(r.get("std_seq"))))
+        return {"rows": rows, "notice_std": std}

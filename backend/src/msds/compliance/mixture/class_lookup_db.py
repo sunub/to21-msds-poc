@@ -41,6 +41,12 @@ class _DbRepo:
     def toxicity(self, chem_id):
         return self._run("toxicity", chem_id)
 
+    def regulations(self, chem_id):
+        return self._run("regulations", chem_id)
+
+    def version(self):
+        return self._run("versions")["knowledge_version"]
+
 
 def _convert(db_rows) -> list[dict]:
     """tb_ghs_chem_class_map 행 → {"result_code","source",…}. hcode_seq 때문에 같은 (코드, 출처)가 여러 번 나오므로 한 번만 담는다."""
