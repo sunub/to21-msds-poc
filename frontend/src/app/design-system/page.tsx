@@ -6,6 +6,7 @@ import {
   AiChip,
   Button,
   Card,
+  Dialog,
   Field,
   Input,
   PillTabs,
@@ -108,6 +109,7 @@ export default function DesignSystemPage() {
     formState: { errors },
   } = useForm<SampleForm>({ defaultValues: { reviewer: "", memo: "" } });
   const [saved, setSaved] = useState<string | null>(null);
+  const [dialogOpen, setDialogOpen] = useState(false);
 
   return (
     <>
@@ -252,6 +254,27 @@ export default function DesignSystemPage() {
               {saved && <span role="status" className="text-sm text-grn">{saved}</span>}
             </div>
           </form>
+        </Section>
+
+        <Section title="대화상자" note="막지 않고 고르게 할 때 씁니다. 그림자 없이 얇은 선과 어두운 뒷배경으로 띄웁니다.">
+          <div>
+            <Button onClick={() => setDialogOpen(true)}>저장하기</Button>
+          </div>
+          <Dialog
+            open={dialogOpen}
+            onClose={() => setDialogOpen(false)}
+            title="처리하지 않은 판정이 남아 있습니다"
+            actions={
+              <>
+                <Button onClick={() => setDialogOpen(false)}>미검토로 두고 저장하기</Button>
+                <Button variant="primary" onClick={() => setDialogOpen(false)}>
+                  판정 처리하러 가기
+                </Button>
+              </>
+            }
+          >
+            급성 독성(흡입) 불일치 1건이 남아 있습니다.
+          </Dialog>
         </Section>
 
         <Section title="진행과 불러오기">
