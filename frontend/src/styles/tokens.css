@@ -1,0 +1,46 @@
+/*
+ * MSDS 검수 디자인 시스템 v2 — 토큰 원본.
+ * 값의 출처: docs/design/review-screen-mockup.html 의 :root.
+ * 도구(Tailwind)와 무관한 CSS 변수만 둔다. 색을 바꿀 때는 이 파일만 고친다.
+ */
+:root {
+  /* 기본 팔레트 (파랑 계열) */
+  --ink: #0b1f33;
+  --mut: #5a6b7d;
+  --sub: #334155;
+  --line: #dde6f0;
+  --line2: #eaf0f7;
+  --field-line: #c7d6e6;
+  --outline: #9fb0c3;
+  --bg: #f5f9fd;
+  --tint: #f0f6fd;
+  --sel: #eaf3ff;
+  --surface: #ffffff;
+
+  --blue: #2563eb;
+  --blue2: #1d4ed8;
+  --blue-soft: #e3effc;
+  --blue-line: #9dbff0;
+
+  /* 상태 */
+  --red: #b42318;
+  --amb: #d97706;
+  --amb-text: #92400e;
+  --warn: #b45309;
+  --grn: #15803d;
+  --gry: #64748b;
+  --stale: #6d5bd0;
+
+  /* 글꼴: 폐쇄망이므로 웹폰트를 내려받지 않고 설치된 글꼴만 쓴다 */
+  --font-sans: "Noto Sans KR", "Pretendard", "Malgun Gothic", system-ui, sans-serif;
+  --font-mono: "Noto Sans Mono", "D2Coding", ui-monospace, monospace;
+
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 8px;
+  --radius-full: 999px;
+
+  --target-min: 36px;
+  --page-w: 1360px;
+}
