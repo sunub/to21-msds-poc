@@ -461,6 +461,20 @@ def add_missing_items(rows: list[dict], lines_by_id: dict[str, Line]) -> list[di
     return new
 
 
+def dg_row_from_table(rows: list[dict], dangerous_goods: list[dict]) -> list[dict]:
+    """규제 행이 있는데 위험물(DG) 행이 없고 위험물 표가 있으면 더할 DG_HAZMAT 행. 류(제N류)가 있으면 해당,
+    상태어(해당없음·자료없음)면 그 상태로 정한다. 개발 골드는 15항이 있는 문서마다 DG_HAZMAT 행이 하나다
+    (모델은 M013 '제4류 인화성액체 제2석유류'를 위험물 표에만 넣었다)."""
+    if not rows or any(_law_of(r) == "DG" for r in rows):
+        return []
+    for d in dangerous_goods:
+        cls = (d.get("class") or "").strip()
+        applicable = "해당" if re.match(r"제\s*\d+\s*류", cls) else _REG_APPLICABLE.get(_word_key(cls))
+        if applicable:
+            return [{"law": "DG", "item_code": "DG_HAZMAT", "applicable": applicable, "comp_ref": "MIX", "line": d.get("line")}]
+    return []
+
+
 _LAW_LEVEL = re.compile(r"법(?:률)?\s*에\s*(?:의한|따른)\s*규제\s*[:：]?\s*(?P<v>.*)$")
 
 
@@ -853,6 +867,7 @@ def expand_msds(sections: dict[int, dict | None], lines_by_id: dict[str, Line],
         if key == "regulations":
             recode_regulations(src, lines_by_id, components)
             src = src + add_missing_items(src, lines_by_id)      # 모델 행 순서는 그대로 두고 뒤에 더한다
+            src = src + dg_row_from_table(src, [r for _, r in rows.get("dangerous_goods", [])])
             src = [_law_level_item(r, lines_by_id) for r in src]
             if src and not any(_law_of(r) == "KREACH" for r in src):   # R18: 화평법 항목이 없는 문서는 미기재 한 행 (골드 6건)
                 src.append({"law": "KREACH", "item_code": None, "applicable": "미기재", "comp_ref": "MIX"})

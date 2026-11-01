@@ -1259,3 +1259,15 @@ def test_add_missing_items_heading_and_status():
         ("OSH", "OSH_MEASURE", "비해당", "MIX", "p10:L9")]
     rows.append({"law": "OSH", "item_code": "OSH_MEASURE", "applicable": "해당", "comp_ref": "1", "line": "p10:L9"})
     assert ex.add_missing_items(rows, lines) == []
+
+
+@pytest.mark.parametrize("cls, want", [("제4류", [("DG", "DG_HAZMAT", "해당", "MIX")]),
+                                       ("해당없음", [("DG", "DG_HAZMAT", "비해당", "MIX")]),
+                                       (None, [])])
+def test_dg_row_from_dangerous_goods(no_conventions, cls, want):
+    """규제 행이 있는데 위험물(DG) 행이 없고 위험물 표가 있으면 그 표로 DG_HAZMAT 행을 더한다. 류(제N류)가 있으면 해당,
+    상태어면 그 상태 (개발 골드: 15항이 있는 문서마다 DG_HAZMAT 행이 하나. 모델은 M013 '제4류 …'를 위험물 표에만 넣었다)."""
+    r = responses()
+    r[15]["dangerous_goods"] = [{"class": cls, "item": "제2석유류" if cls == "제4류" else None, "line": "p6:L11"}]
+    m, _ = expand_one(r)
+    assert [(x["law"], x["item_code"], x["applicable"], x["comp_ref"]) for x in m["regulations"] if x["law"] == "DG"] == want
