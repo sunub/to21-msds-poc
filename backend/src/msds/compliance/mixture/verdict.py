@@ -9,23 +9,26 @@ from .rules_loader import load_mixture_rules
 
 # ── 상수 (설계서 7장·18장, 규칙표 v0.3 severity.yaml) ─────────────────────
 MATCH, MISMATCH, BORDER, LACK = "일치", "불일치", "경계", "근거부족"
-# 틀림의 네 경우(안쪽 구분). rule_id 와 이유 문장은 네 경우를 나눠 쓰고, 결과의 type 은 설계서 2항 이름 두 가지로 낸다.
-UNDER, OVER, MISSING, EXTRA = "under", "over", "missing", "extra"
-# 설계서 18장: MSDS 미기재 또는 낮은 구분 → 과소분류, MSDS가 더 높은 구분·추가 기재 → 과대분류
-TYPE_NAME = {UNDER: "과소분류", MISSING: "과소분류", OVER: "과대분류", EXTRA: "과대분류"}
-SEVERITY = {UNDER: "높음", MISSING: "높음", OVER: "낮음", EXTRA: "낮음"}
-RULE_IDS = {"match": "VRD-1", "type": {UNDER: "VRD-2", OVER: "VRD-3", MISSING: "VRD-4", EXTRA: "VRD-5"},
+# 틀림의 다섯 경우(안쪽 구분). rule_id 와 이유 문장은 경우마다 나눠 쓰고, 결과의 type 은 설계서 2항 이름으로 낸다.
+UNDER, OVER, MISSING, EXTRA, FORM = "under", "over", "missing", "extra", "form"
+# 설계서 18장: MSDS 미기재 또는 낮은 구분 → 과소분류, MSDS가 더 높은 구분·추가 기재 → 과대분류,
+#             흡입 형태(가스·증기·미스트)만 다름 → 형태·세부 표기 (severity.yaml SV-03)
+TYPE_NAME = {UNDER: "과소분류", MISSING: "과소분류", OVER: "과대분류", EXTRA: "과대분류", FORM: "형태·세부 표기"}
+SEVERITY = {UNDER: "높음", MISSING: "높음", OVER: "낮음", EXTRA: "낮음", FORM: "중간"}
+RULE_IDS = {"match": "VRD-1", "type": {UNDER: "VRD-2", OVER: "VRD-3", MISSING: "VRD-4", EXTRA: "VRD-5", FORM: "VRD-8"},
             "border": "VRD-6", "lack": "VRD-7"}
 NOT_COMPARED = ("해당 없음", "대조")  # 비교 대상에서 빼는 우리 결과 status
 NO_CLASS = "분류안됨"
 _INF = float("inf")
 _ACUTE_ROUTE = {"HH_ACUTE_ORAL": "경구", "HH_ACUTE_DERMAL": "경피", "HH_ACUTE_INHAL": "흡입"}
 BASE_ASSUMPTIONS = [
-    "rule_id(VRD-1~7)는 설계서에 정의가 없어 우리 쪽 번호를 씀(상수는 verdict.py 상단)",
+    "rule_id(VRD-1~8)는 설계서에 정의가 없어 우리 쪽 번호를 씀(상수는 verdict.py 상단)",
     "구분 순서는 규칙표 rules 의 나열 순서(위험한 구분부터), 급성독성은 acute_tox_ate.csv 구분 순서. 분류안됨은 가장 약함",
     "세부구분 차이(1 ↔ 1B)는 일치로 봄(single.py 팀 결정과 같음)",
     "MSDS 미기재는 분류안됨과 같은 뜻으로 봄",
 ]
+FORM_ASSUMPTION = ("형태만 다른 두 줄(우리가 확정한 형태 ↔ MSDS가 적은 형태)을 한 줄로 묶음(설계서 18·24장). 구분이 같으면 "
+                   "형태·세부 표기(중간), 구분도 다르면 구분 방향으로 과소·과대를 정하고 형태 차이는 이유에 적음(이 경우는 설계서에 없어 가정)")
 
 
 def _order(class_code, form, rules, override):
@@ -52,7 +55,7 @@ def _key(c):
 
 def _row(class_code, form, verdict, rule_id, *, type_=None, msds=None, low=None, high=None, reason="", extra_asm=()):
     return {"class_code": class_code, "form": form, "verdict": verdict, "type": TYPE_NAME.get(type_), "severity": SEVERITY.get(type_),
-            "msds_value": msds, "our_value": {"low": low, "high": high}, "reason": reason, "rule_id": rule_id,
+            "msds_value": msds, "msds_form": form, "our_value": {"low": low, "high": high}, "reason": reason, "rule_id": rule_id,
             "assumptions": BASE_ASSUMPTIONS + list(extra_asm)}
 
 
@@ -98,6 +101,43 @@ def _compare_one(cc, form, r, msds, order):
     return _mismatch(cc, form, OVER, m, low, high, "MSDS가 우리 결과보다 강하게 기재")
 
 
+def _merge_form_pairs(verdicts, rules, override):
+    """같은 항목에서 흡입 형태만 다른 두 줄을 한 줄로 묶는다 (설계서 18·24장, severity.yaml SV-03).
+
+    짝 조건
+      우리 쪽 줄: 형태 B에서 구분을 확정했는데 MSDS에는 B가 없음(미기재 → 과소분류 줄)
+      MSDS 쪽 줄: 같은 항목을 다른 형태 A로 적었는데, 우리 A 결과가 근거부족이거나 분류안됨(과대분류 줄)
+    우리 결과가 범위(하한 ≠ 상한)이거나 위험 순서를 모르면 묶지 않고 두 줄을 그대로 둔다.
+    """
+    out = list(verdicts)
+    for ours in [v for v in verdicts if v["rule_id"] == RULE_IDS["type"][MISSING]]:
+        cc, form_b = ours["class_code"], ours["form"]
+        low, high = ours["our_value"]["low"], ours["our_value"]["high"]
+        if low != high:
+            continue
+        cands = [v for v in out if v["class_code"] == cc and v["form"] != form_b and v["msds_value"]
+                 and (v["verdict"] == LACK or v["rule_id"] == RULE_IDS["type"][EXTRA])]
+        if not cands:
+            continue
+        same = [v for v in cands if any(_same(x, low) for x in v["msds_value"])]
+        theirs = (same or cands)[0]
+        cats, form_a = theirs["msds_value"], theirs["form"]
+        said = f"MSDS는 {form_a or '형태 미기재'} {', '.join(cats)}, 우리는 {form_b} {low}"
+        if same:
+            row = _mismatch(cc, form_b, FORM, cats, low, high, f"구분은 같고 형태만 다름: {said}")
+        else:
+            order = _order(cc, form_b, rules, override)
+            ranks = [_rank(x, order) for x in cats] + [_rank(low, order)]
+            if None in ranks:
+                continue
+            type_ = UNDER if min(ranks[:-1]) > ranks[-1] else OVER
+            row = _mismatch(cc, form_b, type_, cats, low, high, f"구분과 형태가 모두 다름: {said}")
+        row["msds_form"] = form_a
+        row["assumptions"] = row["assumptions"] + [FORM_ASSUMPTION]
+        out = [v for v in out if v is not ours and v is not theirs] + [row]
+    return out
+
+
 def aggregate_verdicts(results, msds_classes, *, rules=None, order=None) -> dict:
     """results: classify_mixture_all 결과, msds_classes: 추출 JSON hazard.classes[]. order: {class_code: [구분…위험한 순]} 덮어쓰기.
 
@@ -127,4 +167,5 @@ def aggregate_verdicts(results, msds_classes, *, rules=None, order=None) -> dict
         if (cc, form) not in seen:
             verdicts.append(_lack(cc, form, sorted(m), None, None, "우리 결과에 같은 항목이 없음"))
     keyf = lambda x: (x["class_code"], x["form"] or "")
+    verdicts = _merge_form_pairs(sorted(verdicts, key=keyf), rules, order)  # 정렬 뒤 묶어야 같은 입력에 같은 짝이 나온다
     return {"verdicts": sorted(verdicts, key=keyf), "excluded": sorted(excluded, key=keyf)}
