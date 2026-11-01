@@ -18,6 +18,7 @@ from msds.common import manifest
 from msds.common.paths import ROOT
 from msds.extract import expand as ex
 from msds.extract import rows as rw
+from msds.extract import section_runner as sr
 from msds.extract import section_specs as ss
 from msds.extract.client import ChatClient, load_model_config
 from msds.extract.inputs import load_document
@@ -393,7 +394,7 @@ def test_saved_run_reads_with_summarize_run(ts, env, monkeypatch):
     assert run.parent == env / "runs" / "manual" and run.name.endswith(f"_{DOC}_s11")
 
     info = yaml.safe_load((run / "run_info.yaml").read_text(encoding="utf-8"))
-    run_info_keys = ["model_tag", "model", "prompt_version", "rows_sections", "rows_max_tokens", "image_input",
+    run_info_keys = ["model_tag", "model", "prompt_version", "rows_sections", "skipped_sections", "rows_max_tokens", "image_input",
                      "prompt_hashes", "schema_version", "pages_dir", "concurrency", "started_at", "git_commit"]
     assert list(info) == run_info_keys
     assert info["model_tag"] == TAG
@@ -462,7 +463,7 @@ def test_main_all_runs_document(ts, env, monkeypatch, capsys):
     assert ts.main(["--model", TAG, "--doc", DOC, "--all", "--pages-dir", str(env / "pages"),
                     "--gold-dir", str(env / "gold"), "--out-dir", str(env / "runs" / "manual"), "--json"]) == 0
     assert len(factory.made) == 1
-    assert sorted({section_of(kw) for kw in factory.calls}) == list(range(1, 17))
+    assert sorted({section_of(kw) for kw in factory.calls}) == list(sr.CALLED_SECTIONS)
     out = json.loads(capsys.readouterr().out)
     run = Path(out["saved"])
     assert run.parent == env / "runs" / "manual" and run.name.endswith(f"_{DOC}_all")

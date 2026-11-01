@@ -44,6 +44,10 @@ from msds.extract.section_specs import response_schema
 DOC_TIME_LIMIT = 300          # 초. 넘으면 경고만 남기고 멈추지 않는다
 _LINE_KEYS = ("line", "start", "end")
 _FEEDBACK_MAX = 20            # 다시 보낼 때 적는 문제 수
+# 추출 목표 밖의 항. 골드 검수 범위(make_sheet.REVIEW_SECTIONS) 밖이고 추출에서 빼기로 합의했다(11/01). 모델을 부르지 않고
+# 펼치기에는 빈 응답으로 넘긴다. 16항은 검수 범위 밖이지만 관리정보(개정일·개정 횟수)를 읽으려고 부른다.
+SKIPPED_SECTIONS = (4, 5, 6, 7, 10, 13)
+CALLED_SECTIONS = tuple(no for no in SECTION_NOS if no not in SKIPPED_SECTIONS)
 # 명세서 1_항목정의에서 type이 code인 행 칸. 한 행만 빈 것은 '급성 독성 자료 없음'처럼 묶어 적은 행일 수 있어
 # 표 전체가 빈 경우만 본다. 규제 법령은 항목 코드에서 채운다(expand.fill_law).
 # CMR 기관은 '발암성 : 자료없음'처럼 기관 없는 행이 있어, 모두 자료없음인 문서는 표 전체가 빌 수 있으므로 보지 않는다.
@@ -243,7 +247,7 @@ def run_document(doc_id: str, model_tag: str, run_name: str, client=None, *,
 
     # 2~3. 항목별 동시 호출과 1회 재추출. 안내문은 워크북을 읽으므로 스레드에 넘기기 전에 만든다.
     rows = set(cfg.get("rows_sections") or [])
-    prompts = {no: (build_system(no, no in rows), response_schema(no)) for no in SECTION_NOS}
+    prompts = {no: (build_system(no, no in rows), response_schema(no)) for no in CALLED_SECTIONS}
     image_warnings: list[str] = []
     futures = {}
     with ThreadPoolExecutor(max_workers=workers(cfg, max_workers)) as pool:
@@ -252,7 +256,7 @@ def run_document(doc_id: str, model_tag: str, run_name: str, client=None, *,
             if cfg.get("image_input"):
                 images, missing = section_images(doc, part.index, pages_dir)
                 image_warnings += missing
-            for no in SECTION_NOS:
+            for no in CALLED_SECTIONS:
                 # 줄 번호 검사는 그 항에 보낸 줄(문서 머리 + 항 구간, fallback 항은 건의 쪽 전체) 기준 (ADR-020)
                 allowed = {l.id for l in section_lines(doc, part.index, no)}
                 futures[(part.index, no)] = pool.submit(_run_section, client, doc, part.index, no,
@@ -281,9 +285,9 @@ def run_document(doc_id: str, model_tag: str, run_name: str, client=None, *,
                                "reextracted": res.reextracted, "attempts": res.attempts,
                                "seconds": res.seconds, "usage": res.usage})
 
-    # 4. 펼치기. 실패한 항은 None으로 넘겨 펼치기가 missing_section으로 남긴다.
+    # 4. 펼치기. 실패한 항은 None으로 넘겨 펼치기가 missing_section으로 남긴다. 부르지 않은 항은 빈 응답이다.
     t = time.perf_counter()
-    parts: list[dict[int, dict | None]] = [{} for _ in doc.msds]
+    parts: list[dict[int, dict | None]] = [{no: {} for no in SKIPPED_SECTIONS} for _ in doc.msds]
     for res in results:
         parts[res.msds_index][res.section_no] = res.parsed if res.ok else None
     out, expand_problems = to_to21(row, parts, doc.lines, f"{model_tag}:{cfg['model']}")
@@ -359,9 +363,10 @@ def save_run_info(run: Path, model_tag: str, pages_dir=PAGES, max_workers: int |
         "model": cfg["model"],
         "prompt_version": SECTION_PROMPT_VERSION,
         "rows_sections": sorted(rows),
+        "skipped_sections": list(SKIPPED_SECTIONS),          # 부르지 않는 항 (추출 목표 밖)
         "rows_max_tokens": cfg.get("rows_max_tokens"),      # 행 형식 호출의 출력 한도. 없으면 max_tokens (ADR-021)
         "image_input": bool(cfg.get("image_input")),
-        "prompt_hashes": {no: prompt_hash(no, no in rows) for no in SECTION_NOS},   # 실제로 보내는 안내문의 해시
+        "prompt_hashes": {no: prompt_hash(no, no in rows) for no in CALLED_SECTIONS},   # 실제로 보내는 안내문의 해시
         "schema_version": SCHEMA_VERSION,
         "pages_dir": os.path.relpath(pages_dir, ROOT),
         "concurrency": workers(cfg, max_workers),
