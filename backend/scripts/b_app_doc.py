@@ -7,21 +7,27 @@
 그래서 같은 쪽에서 글이 같은 줄을 찾아 되돌린다. 같은 글의 줄이 여럿이면(예: 독성 표의 '- | 자료없음') 그 값의 항 구간 안
 줄만 남기고, 그 글을 근거로 쓴 행이 나온 순서대로 k번째 행에 k번째 줄을 준다(행은 대개 원문 순서로 나온다).
 실행이 다른 쪽 글자 폴더로 돌았으면 글이 달라 줄을 못 찾을 수 있다(warnings에 적는다).
+실버 값의 줄도 같은 방식으로 찾는다. 정답지에는 줄 번호가 없어 추정이므로 silver_lines.basis에 "text_match"를 밝힌다.
+추정 줄은 silver_only[].lines에만 두고 line_index(줄 → 그 줄을 쓴 결과 값)에는 넣지 않는다.
 실버 대응: 먼저 common.align의 키 경로(성분은 CAS, 독성은 성분·지표·종 …)로 행을 맞춘다. 번호가 어긋나도 같은 행끼리 견준다.
 키 칸 하나만 달라도(예: 성분 MIX 대 CAS) 키 경로가 어긋나므로, 남은 행끼리는 같은 칸이 절반 이상(2칸 이상)인 행을 짝짓는다.
+값의 채점 항목(items): 그 값이 TO21 채점기의 어느 항목 비교에 들어가는 칸인지다(ITEM_RULES). "이 값 때문에 깎였다"가
+아니다. 채점은 행 단위로 견주므로(예: 독성 행은 성분·항목·지표·상태·값을 한 묶음으로) 같은 항목의 다른 칸이 틀려도 깎인다.
+채점기 판이 바뀌면 test_B_b_app_doc의 섭동 시험(값 하나를 바꾸고 떨어진 항목과 items를 견줌)이 어긋남을 잡는다.
 """
 import json
 import re
 import unicodedata
-from collections import defaultdict, deque
+from collections import Counter, defaultdict, deque
 from pathlib import Path
 
 import yaml
 
 import _common  # noqa: F401  src 경로 등록
+import b_app_sets as bsets
 from msds.common import manifest
 from msds.common.align import item_path_map, keyed_flatten, to_keyed
-from msds.common.jsonpath import flatten, is_cond, is_q, is_stmt, to_cell
+from msds.common.jsonpath import flatten, get, is_cond, is_q, is_stmt, to_cell
 from msds.extract.expand import _SOURCE_MAX
 from msds.extract.inputs import load_document, read_page_lines
 
@@ -36,6 +42,67 @@ _SUB_ROW = re.compile(r"^(\w+)\.(\w+)\[(\d+)\]\.?(.*)$")    # hazard.classes[0].
 SECTION_OF = {"product": 1, "companies": 1, "hazard": 2, "composition": 3, "components": 3, "exposure_limits": 8,
               "physchem": 9, "toxicity": 11, "cmr": 11, "ecotox": 12, "transport": 14, "regulations": 15,
               "dangerous_goods": 15, "waste": 15, "intl_class": 15, "meta": 16}
+
+# TO21 채점기 v0.6이 표 행을 나누는 코드: 필수 물성 9종, 급성 독성 3종, 국내 법 5종. 나머지 행은 기타·해외 항목이다.
+_MUST_PC = {"APPEARANCE_STATE", "PH", "BOILING", "FLASH_POINT", "UEL", "LEL", "VAPOR_PRESSURE", "RELATIVE_DENSITY",
+            "AUTOIGNITION"}
+_ACUTE = {"TX_ORAL", "TX_DERMAL", "TX_INHAL"}
+_DOM = {"OSH", "KREACH", "CCA", "DG", "WASTE"}
+
+
+def _first_urgent(row: dict, field: str, i) -> bool:
+    """회사마다 첫 긴급 연락처의 값만 견준다."""
+    k = next((n for n, c in enumerate(row.get("contacts") or []) if c.get("type") == "긴급"), None)
+    return field == f"contacts[{k}].value"
+
+
+def _no_cas(row: dict, field: str, i) -> bool:
+    """성분 짝 키는 CAS이고, CAS가 없을 때만 이름이다."""
+    return not row.get("cas_no")
+
+
+def _rows_where(key: str, codes: set, inside: bool):
+    return lambda row, field, i: (row.get(key) in codes) == inside
+
+
+# 채점 항목(criteria 순서) → 그 항목이 비교하는 칸 규칙 [(표, 칸 이름들, 행 조건)]. 표와 칸은 _place의 표와 칸에서
+# 행 번호([n])를 뗀 이름이다. 행 조건은 (행, 칸, 행 번호)를 받는다. 행을 고르거나 짝짓는 칸(회사 구분, 물성 코드, 법령,
+# 성분 CAS 등)도 그 항목에 넣는다. 성분 CAS는 다른 표 행의 comp_ref가 가리키는 키이기도 하지만, 그 표 항목에는
+# 그 행의 comp_ref 칸만 넣는다(항이 다른 값을 고르지 않도록).
+ITEM_RULES: dict[str, list[tuple]] = {
+    "MSDS 건수(다중 MSDS 분리)": [],
+    "관리정보(제출번호·작성일·개정일·개정횟수)": [
+        ("meta", {"msds_no", "first_issue_date", "last_revision_date", "revision_no"}, None)],
+    "제품명·회사명·긴급연락처": [("product", {"name"}, None),
+                          ("companies", {"role", "name", "site", "contacts.type"}, None),
+                          ("companies", {"contacts.value"}, _first_urgent)],
+    "신호어": [("hazard", {"signal_word"}, None)],
+    "그림문자": [("hazard.pictograms", {"code"}, None)],
+    "H 코드": [("hazard.h_statements", {"code"}, None)],
+    "P 코드": [("hazard.p_statements", {"code"}, None)],
+    "유해성 분류(코드+구분)": [("hazard.classes", {"class_code", "category"}, None)],
+    "구성성분(CAS 기준 매칭)": [("components", {"cas_no"}, None), ("components", {"name"}, _no_cas)],
+    "구성성분 필드(성분명·KE)": [("components", {"cas_no", "name", "ke_no"}, None)],
+    "함유량(부등호·값·단위 6요소)": [("components", {"cas_no", "content"}, None), ("components", {"name"}, _no_cas)],
+    "8항 노출기준(성분·출처·종류·값)": [("exposure_limits", {"comp_ref", "standard", "limit_type", "q"}, None)],
+    "9항 필수 물성(특성·값)": [("physchem", {"comp_ref", "prop_code", "text_value", "q"},
+                           _rows_where("prop_code", _MUST_PC, True))],
+    "11항 급성독성(경구·경피·흡입)": [("toxicity", {"comp_ref", "endpoint", "descriptor", "status", "q"},
+                                _rows_where("endpoint", _ACUTE, True))],
+    "15항 국내 규제(성분·항목·해당여부)": [("regulations", {"law", "comp_ref", "item_code", "applicable"},
+                                   _rows_where("law", _DOM, True))],
+    "15항 국내 규제 기준농도": [("regulations", {"law", "comp_ref", "item_code", "threshold"},
+                         lambda row, field, i: row.get("law") in _DOM and bool(row.get("threshold")))],
+    "14항 운송(UN번호·등급·용기등급)": [("transport", {"un_no", "hazard_class", "packing_group"},
+                                lambda row, field, i: i == 0)],
+    "9항 기타 물성": [("physchem", {"comp_ref", "prop_code", "text_value", "q"}, _rows_where("prop_code", _MUST_PC, False))],
+    "11항 기타 독성": [("toxicity", {"comp_ref", "endpoint", "descriptor", "status", "q"},
+                    _rows_where("endpoint", _ACUTE, False))],
+    "11항 CMR(성분·유해성·기관·등급)": [("cmr", {"comp_ref", "hazard", "agency", "class", "status"}, None)],
+    "12항 생태(성분·항목·지표·값)": [("ecotox", {"comp_ref", "endpoint", "descriptor", "status", "q"}, None)],
+    "15항 해외·기타 규제": [("regulations", {"law", "comp_ref", "item_code", "applicable"}, _rows_where("law", _DOM, False))],
+    "서술형 문장(항목별 문자 유사도 평균)": [("narratives", {"item_code", "statements"}, None)],
+}
 
 
 def _key(text: str) -> str:
@@ -139,6 +206,18 @@ def _row_root(field: str) -> str:
     return f"{m.group(1)}.{m.group(2)}[{m.group(3)}]" if m else field
 
 
+def value_items(path: str, m: dict) -> list[str]:
+    """값 하나가 들어가는 채점 항목 이름(criteria 순서). path는 msds 건 안 경로(앞의 msds[n].은 떼고 본다),
+    m은 그 값이 든 msds 건이다. 행 조건은 m에서 꺼낸 그 행으로 판단한다."""
+    table, i, field = _place(re.sub(r"^msds\[\d+\]\.", "", path))
+    row = get(m, table if i is None else f"{table}[{i}]")
+    row = row if isinstance(row, dict) else {}
+    name = re.sub(r"\[\d+\]", "", field)
+    return [item for item, rules in ITEM_RULES.items()
+            if any(t == table and any(name == f or name.startswith(f + ".") for f in fields)
+                   and (cond is None or cond(row, field, i)) for t, fields, cond in rules)]
+
+
 def _evidence_lines(m: dict, lines: list[dict], spans: dict) -> dict[str, list[str]]:
     """evidence.field → 줄 번호들. 같은 쪽에서 글이 원문 조각의 첫 줄과 같은 줄을 찾는다."""
     if not lines:
@@ -179,7 +258,8 @@ def _lines_for(path: str, ev: dict[str, list[str]]) -> list[str]:
 def flatten_values(doc_json: dict, lines: list[dict] | None = None, spans: dict | None = None) -> list[dict]:
     """TO21 JSON 첫 건을 값(칸) 단위로 펼친다. 칸은 common.jsonpath 정의(숫자 묶음·문장·조건·글자 목록은 한 칸)다.
     빈 칸·순번(seq)·evidence·validation은 뺀다. lines(page_lines)를 주면 근거 줄 번호를 붙이고, spans(section_spans)를
-    주면 같은 글의 줄이 여럿일 때 그 값의 항 구간 안 줄로 좁힌다. key는 실버와 맞출 키 경로다."""
+    주면 같은 글의 줄이 여럿일 때 그 값의 항 구간 안 줄로 좁힌다. key는 실버와 맞출 키 경로다.
+    items는 그 값이 들어가는 채점 항목이다(value_items)."""
     items = doc_json.get("msds") or []
     if not items:
         return []
@@ -195,7 +275,7 @@ def flatten_values(doc_json: dict, lines: list[dict] | None = None, spans: dict 
             continue
         out.append({"path": f"msds[0].{path}", "key": to_keyed(path, keyed), "section": _section(path, m),
                     "table": table, "row": row, "field": field, "value": value, "text": _text(value),
-                    "lines": _lines_for(path, ev)})
+                    "lines": _lines_for(path, ev), "items": value_items(path, m)})
     return out
 
 
@@ -264,17 +344,57 @@ def align_silver(pred_values: list[dict], gold_json: dict) -> dict[str, dict]:
     return {v["path"]: _silver(v, match.get(v["path"])) for v in pred_values}
 
 
-def _purpose(doc_id: str) -> str | None:
-    return next((r["purpose"] for r in manifest.load() if r["doc_id"] == doc_id), None)
+def field_counts(pred_json: dict, gold_json: dict) -> Counter:
+    """칸 단위 문제 수. (채점 항목, 항, 종류) → 개수. 원문 대조 화면의 분류와 같다 (사용자 결정 10/31):
+    결과 값의 정답 짝이 다르면 wrong, 짝이 없으면 made, 정답에만 있는 칸은 missing. 같은 칸은 세지 않는다.
+    점수 프로그램은 같은 값을 행 단위로 missing 1 + made 1로 셀 수 있어 수가 다르다."""
+    values, gold_values = flatten_values(pred_json), flatten_values(gold_json)
+    match, _ = _match(values, gold_values)
+    out = Counter()
+    for v in values:
+        g = match.get(v["path"])
+        if g and _norm(g["value"]) == _norm(v["value"]):
+            continue
+        for item in v["items"]:
+            out[(item, v["section"], "wrong" if g else "made")] += 1
+    matched = {g["path"] for g in match.values()}
+    for g in gold_values:
+        if g["path"] not in matched:
+            for item in g["items"]:
+                out[(item, g["section"], "missing")] += 1
+    return out
 
 
-def allowed_doc(doc_id: str) -> bool:
-    """평가용과 manifest에 없는 문서(용도를 확인할 수 없음)는 보여 주지 않는다 (D-43, b_app_runs와 같은 기준)."""
-    return _purpose(doc_id) not in (None, "평가")
+def run_field_counts(run: Path, gold_dir: Path, doc_ids) -> dict[str, Counter]:
+    """실행의 문서마다 field_counts. 결과 파일이나 정답 파일이 없는 문서는 셀 수 없어 뺀다.
+    쪽 글자와 그림은 읽지 않으므로 평가용 문서도 내용을 꺼내지 않고 수만 센다."""
+    out = {}
+    for doc_id in doc_ids:
+        pred_path, gold_path = run / "outputs" / f"{doc_id}.json", Path(gold_dir) / f"{doc_id}.json"
+        if pred_path.is_file() and gold_path.is_file():
+            out[doc_id] = field_counts(json.loads(pred_path.read_text(encoding="utf-8")),
+                                       json.loads(gold_path.read_text(encoding="utf-8")))
+    return out
+
+
+def allowed_doc(doc_id: str, doc_dir: Path | None = None) -> bool:
+    """평가용과 용도를 확인할 수 없는 문서는 보여 주지 않는다 (D-43). manifest 밖 문서(신규 RAW-xx)는 doc_dir의
+    meta.json에 같은 doc_id가 있을 때만 연다. 기준은 문서 묶음 목록(b_app_sets.doc_lock)과 같다."""
+    return bsets.doc_lock(doc_id, doc_dir, manifest.load()) is None
+
+
+def pages_view(doc_id: str, pages_dir: Path) -> dict:
+    """실행 없이 쪽 글자만. doc_view와 같은 키에 결과·실버 값은 비운다. pNNN.json이 없는 판은 칸 좌표 없이 글자만 준다."""
+    if not allowed_doc(doc_id, pages_dir / doc_id):
+        raise PermissionError(f"보여 줄 수 없는 문서: {doc_id}")
+    lines = page_lines(doc_id, pages_dir)
+    return {"doc_id": doc_id, "pages": sorted({l["page"] for l in lines}), "lines": lines,
+            "sections": section_spans(doc_id, pages_dir), "values": [], "silver_only": [], "line_index": {},
+            "has_gold": False, "silver_lines": None, "warnings": []}
 
 
 def doc_view(run: Path, doc_id: str, pages_dir: Path, gold_dir: Path) -> dict:
-    if not allowed_doc(doc_id):
+    if not allowed_doc(doc_id, pages_dir / doc_id):
         raise PermissionError(f"보여 줄 수 없는 문서: {doc_id}")
     doc = json.loads((run / "outputs" / f"{doc_id}.json").read_text(encoding="utf-8"))
     lines = page_lines(doc_id, pages_dir)
@@ -282,7 +402,9 @@ def doc_view(run: Path, doc_id: str, pages_dir: Path, gold_dir: Path) -> dict:
     values = flatten_values(doc, lines, spans)
     gold_path = gold_dir / f"{doc_id}.json"
     gold = json.loads(gold_path.read_text(encoding="utf-8")) if gold_path.exists() else None
-    gold_values = flatten_values(gold) if gold else []
+    gold_values = flatten_values(gold, lines, spans) if gold else []
+    silver_lines = {"basis": "text_match", "found": sum(1 for g in gold_values if g["lines"]),
+                    "total": len(gold_values)} if gold is not None else None
     match, pairs = _match(values, gold_values)
     for v in values:
         g = match.get(v["path"])
@@ -306,4 +428,4 @@ def doc_view(run: Path, doc_id: str, pages_dir: Path, gold_dir: Path) -> dict:
         warnings.append(f"이 문서에는 MSDS가 {count}건 있습니다. 첫 건만 보입니다.")
     return {"doc_id": doc_id, "pages": sorted({l["page"] for l in lines}), "lines": lines,
             "sections": spans, "values": values, "silver_only": silver_only, "line_index": line_index,
-            "has_gold": gold is not None, "warnings": warnings}
+            "has_gold": gold is not None, "silver_lines": silver_lines, "warnings": warnings}

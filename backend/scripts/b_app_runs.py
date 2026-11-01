@@ -3,6 +3,8 @@
 - 점수는 F의 msds.evaluate.score(score_set, score_pair)만 쓴다. "값 없는 행 제외" 점수는 채점 전에 정답·결과 양쪽에서
   값 없는 행(자료없음·해당없음·비해당·미기재)을 거른 뒤 같은 score_set을 부른 것이다.
 - 평가용 문서는 실행 폴더에 있어도 채점·목록에서 빼고 excluded에 문서 번호만 남긴다 (D-43).
+- manifest 밖 문서는 pages_root가 주어지고 실행이 쓴 묶음에서 그 문서가 outside(meta.json 있음)일 때만 대상(정답 없음)이다.
+- 실행마다 종류(run_kind)와 비교 가능 여부(comparable)를 붙인다. 기존 kind(run/manual/models)는 그대로 둔다.
 - 캐시는 저장소 밖(임시 폴더)에 쓴다. runs/는 git에 올라가고, 하네스는 깨끗한 작업 트리를 바란다.
 - 비밀값은 읽지 않는다. run_info.yaml에 있는 것만 쓴다.
 """
@@ -17,12 +19,13 @@ from pathlib import Path
 import yaml
 
 import _common  # noqa: F401  src 경로 등록
+import b_app_sets as bsets
 from compare_models import ROW_KEYS, load_run, row_counts
 from msds.common import manifest
 from msds.evaluate.score import LEVEL_ORDER, PASS_SCORE, WEIGHTS, score_pair, score_set
 
 NO_VALUE = ("자료없음", "해당없음", "비해당", "미기재")
-VERSION = 1   # 계산 규칙이 바뀌면 올린다. 캐시 키에 들어간다
+VERSION = 2   # 계산 규칙이 바뀌면 올린다. 캐시 키에 들어간다
 CACHE_DIR = Path(tempfile.gettempdir()) / "to21_b_app_cache"   # 기본 캐시 폴더. cache_dir=None이면 캐시를 쓰지 않는다
 RUNNING_HOURS = 6
 
@@ -171,6 +174,42 @@ def list_runs(runs_dir: Path) -> list[Path]:
     return out
 
 
+def run_kind(summary: dict, outputs: set[str], dev_docs: set[str], *, outside: set[str] = frozenset()) -> str:
+    """실행의 종류. outputs = 평가용이 아닌 결과 문서, dev_docs = manifest 개발용 문서,
+    outside = manifest 밖인데 대상이 된 문서(pages_root 규칙). 위에서부터 처음 맞는 것."""
+    name = summary.get("name") or ""
+    if summary.get("kind") == "models":
+        return "models"
+    if summary.get("mode") == "silver" or "_silver_" in name:
+        return "silver"
+    if not outputs and summary.get("excluded"):
+        return "eval"
+    if outputs and outputs <= set(outside):
+        return "outside"
+    if summary.get("kind") == "manual" or len(outputs) == 1:
+        return "single"
+    if any(t.startswith(("probe", "diag")) for t in name.split("_")):
+        return "probe"
+    if dev_docs and dev_docs <= outputs:
+        return "dev10"
+    return "probe"
+
+
+def _outside_targets(docs: set[str], recorded: str | None, pages_root: Path | None, rows: list[dict]) -> set[str]:
+    """manifest 밖 문서 중 실행이 쓴 묶음(run_info의 pages_dir)에서 outside(meta.json 있음)인 것.
+    pages_root가 없거나 그런 문서가 없으면 묶음을 찾지 않는다."""
+    if pages_root is None or not docs:
+        return set()
+    sets = bsets.list_sets(Path(pages_root), rows)
+    out = set()
+    for d in docs:
+        set_id, _ = bsets.resolve_run_set(recorded, d, sets)
+        s = bsets.find_set(sets, set_id) if set_id else None
+        if s and any(e["doc_id"] == d and e["group"] == "outside" for e in s["docs"]):
+            out.add(d)
+    return out
+
+
 def _recent(started_at) -> bool:
     try:
         t = datetime.fromisoformat(str(started_at))
@@ -179,13 +218,15 @@ def _recent(started_at) -> bool:
     return datetime.now().astimezone() - t.astimezone() < timedelta(hours=RUNNING_HOURS)
 
 
-def _summarize(run: Path, gold_dir: Path) -> dict:
+def _summarize(run: Path, gold_dir: Path, pages_root: Path | None = None) -> dict:
     r = load_run(run)
     info = yaml.safe_load((run / "run_info.yaml").read_text(encoding="utf-8")) or {}
-    purposes = {row["doc_id"]: row["purpose"] for row in manifest.load()}
+    rows = manifest.load()
+    purposes = {row["doc_id"]: row["purpose"] for row in rows}
     seen = set(r["outputs"]) | set(r["seconds"]) | set(r["checks"])
-    # 평가용과 manifest에 없는 문서(용도를 확인할 수 없음)는 문서 번호만 남긴다 (D-43)
-    excluded = sorted(d for d in seen if purposes.get(d) in (None, "평가"))
+    outside = _outside_targets({d for d in seen if d not in purposes}, info.get("pages_dir"), pages_root, rows)
+    # 평가용과 용도를 확인할 수 없는 manifest 밖 문서는 문서 번호만 남긴다 (D-43)
+    excluded = sorted(d for d in seen if purposes.get(d) == "평가" or (purposes.get(d) is None and d not in outside))
     targets = seen - set(excluded)
     outputs = {d: doc for d, doc in r["outputs"].items() if d in targets}
     docs = [d for d in sorted(outputs) if (gold_dir / f"{d}.json").exists()]
@@ -195,7 +236,7 @@ def _summarize(run: Path, gold_dir: Path) -> dict:
     out = {"name": _name(run), "kind": _kind(run), "model_tag": info.get("model_tag"), "model": info.get("model"),
            "prompt_version": info.get("prompt_version"), "prompt_hashes": info.get("prompt_hashes"),
            "pages_dir": info.get("pages_dir"), "concurrency": info.get("concurrency"),
-           "git_commit": info.get("git_commit"), "started_at": info.get("started_at"),
+           "git_commit": info.get("git_commit"), "started_at": info.get("started_at"), "mode": info.get("mode"),
            "docs": docs, "excluded": excluded, "no_gold": sorted(set(outputs) - set(docs)),
            "weighted": None, "must_passed": None, "must_total": None, "passed": None,
            "items": [], "items_na_excluded": [], "weighted_na_excluded": None, "details": [], "per_doc": {}}
@@ -218,6 +259,11 @@ def _summarize(run: Path, gold_dir: Path) -> dict:
     done = sum(1 for d in targets if d in r["seconds"])
     out["progress"] = {"done": done, "total": len(targets),
                        "running": done < len(targets) and _recent(info.get("started_at"))}
+    out["seconds_by_doc"] = {d: r["seconds"][d] for d in sorted(targets) if d in r["seconds"]}
+    dev_docs = {d for d, p in purposes.items() if p == "개발"}
+    non_eval = {d for d in r["outputs"] if purposes.get(d) != "평가"}
+    out["run_kind"] = run_kind(out, non_eval, dev_docs, outside=outside)
+    out["comparable"] = out["run_kind"] == "dev10" and out["weighted"] is not None
     # 캐시(JSON)에서 읽은 결과와 같은 모양으로 맞춘다 (예: prompt_hashes의 키 1 → "1", 날짜 → 글자)
     return json.loads(json.dumps(out, ensure_ascii=False, default=str))
 
@@ -227,14 +273,15 @@ def _max_mtime(folder: Path) -> int | None:
     return max(times, default=None)
 
 
-def summarize_run(run: Path, gold_dir: Path, *, cache_dir: Path | None = CACHE_DIR) -> dict:
+def summarize_run(run: Path, gold_dir: Path, *, cache_dir: Path | None = CACHE_DIR,
+                  pages_root: Path | None = None) -> dict:
     """실행 하나의 요약. 비교표 폴더(kind="models")는 채점하지 않는다.
-    cache_dir가 있으면 <cache_dir>/<실행 이름>.json에 저장하고, outputs·정답 폴더의 최대 수정 시각과 VERSION이
-    같으면 그것을 읽는다."""
+    cache_dir가 있으면 <cache_dir>/<실행 이름>.json에 저장하고, outputs·정답 폴더의 최대 수정 시각, VERSION,
+    정답 폴더, pages_root가 같으면 그것을 읽는다. pages_root는 manifest 밖 문서를 대상으로 넣을 때만 쓴다(None이면 뺀다)."""
     run, gold_dir = Path(run), Path(gold_dir)
     if _kind(run) == "models":
-        return {"name": _name(run), "kind": "models", "started_at": None}
-    key = [_max_mtime(run / "outputs"), _max_mtime(gold_dir), VERSION, str(gold_dir)]
+        return {"name": _name(run), "kind": "models", "started_at": None, "run_kind": "models", "comparable": False}
+    key = [_max_mtime(run / "outputs"), _max_mtime(gold_dir), VERSION, str(gold_dir), str(pages_root)]
     cache = Path(cache_dir) / f"{_name(run)}.json" if cache_dir else None
     if cache and cache.exists():
         try:
@@ -243,7 +290,7 @@ def summarize_run(run: Path, gold_dir: Path, *, cache_dir: Path | None = CACHE_D
                 return saved["result"]
         except (OSError, ValueError):
             pass                                    # 쓰다 만 캐시는 다시 계산한다
-    result = _summarize(run, gold_dir)
+    result = _summarize(run, gold_dir, pages_root)
     if cache:
         cache.parent.mkdir(parents=True, exist_ok=True)
         tmp = cache.with_name(cache.name + ".tmp")
@@ -259,11 +306,12 @@ def _order(summary: dict) -> tuple:
     return (summary.get("started_at") or (f"{m[1]}-{m[2]}-{m[3]}" if m else name), name)
 
 
-def load_all(runs_dir: Path, gold_dir: Path, *, cache_dir: Path | None = CACHE_DIR) -> dict:
+def load_all(runs_dir: Path, gold_dir: Path, *, cache_dir: Path | None = CACHE_DIR,
+             pages_root: Path | None = None) -> dict:
     runs = []
     for run in list_runs(runs_dir):
         try:
-            runs.append(summarize_run(run, gold_dir, cache_dir=cache_dir))
+            runs.append(summarize_run(run, gold_dir, cache_dir=cache_dir, pages_root=pages_root))
         except Exception as e:                      # 쓰는 중인 파일 등. 실행 하나 때문에 화면 전체가 멈추지 않게 한다
             runs.append({"name": _name(run), "kind": _kind(run), "started_at": None,
                          "error": f"{type(e).__name__}: {e}"})

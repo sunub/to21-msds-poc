@@ -2,8 +2,11 @@
 
 명령줄 도구(try_section.py, run_sections.py, compare_models.py)를 고치지 않고 그대로 부른다. backend/에서 돈다.
 - 평가용 문서는 어떤 작업에도 넣지 않는다. --allow-eval을 넘기지 않는다 (D-43).
+- 쪽 폴더는 data/pages 아래의 쓸 수 있는 문서 묶음(b_app_sets)이어야 하고, 문서마다 b_app_sets.job_check를 지난다.
+  manifest 밖 문서(RAW-xx)는 실행기 능력(outside_run_support)이 있을 때만 본 실행에 넣는다 (ADR-028).
 - 바꾼 안내문 글은 저장소 밖 임시 파일(tempfile)에만 쓰고, 작업이 끝나면 지운다. 로그·상태 파일에는 경로만 남는다 (D-47).
 - 작업마다 jobs_dir(runs/manual/jobs)에 로그 <id>.log와 상태 <id>.json을 남긴다. 앱을 다시 켜도 지난 작업이 보인다.
+- 상태에는 띄울 때의 조건(target: 문서·항·모델·묶음·정답지 등)을 구조 그대로 둔다. 키와 바꾼 안내문 글은 넣지 않는다.
 - 작업은 새 세션(프로세스 묶음)으로 띄운다. 앱을 꺼도 작업은 계속 돌고, 멈추기는 묶음 전체(bash와 그 아래 python)에 보낸다.
 - 시험은 spawner·ps·sleep을 가짜로 끼운다. 진짜 프로세스를 띄우지 않는다.
 """
@@ -24,6 +27,8 @@ from dataclasses import asdict, dataclass, field
 from datetime import datetime
 from pathlib import Path
 
+import b_app_sets as bsets
+import b_app_text as bt
 from _common import today
 from msds.common import manifest
 from msds.common.paths import RUNS
@@ -32,9 +37,11 @@ from msds.extract.client import load_model_config
 _NAME = re.compile(r"^\w[\w.-]*$")                   # 실행 이름·비교표 제목·라벨 (경로 탈출·셸 글자 막기)
 _RUN = re.compile(r"^(manual/)?\w[\w.-]*$")          # 기존 실행 폴더 이름 (runs/manual/<이름> 포함)
 _SCRIPTS = {"run_sections.py": "run", "try_section.py": "try"}   # ps에서 찾는 스크립트
+_PAGE_FILE = re.compile(r"^p\d+\.txt$")              # 쪽 글자 파일 (msds.extract.inputs와 같은 규칙)
 MAX_REPEAT = 10
 STOP_WAIT = 5.0                                      # terminate 뒤 kill까지 기다리는 초
 TMP_GRACE = 60                                       # 지난 앱이 띄운 작업의 임시 파일을 지워도 되는 시간(초). try_section은 시작하자마자 읽는다
+LOG_HEAD = 20                                        # 실패 글에 넘기는 로그 앞머리 줄 수. python-dotenv 경고는 파이썬이 뜰 때 찍혀 맨 앞에 있다
 
 
 @dataclass
@@ -51,6 +58,7 @@ class Job:
     total: int | None = None                         # 본 실행: 실행 하나의 문서 수
     stopped: bool = False
     tmp: str | None = None                           # 바꾼 안내문 임시 파일 경로 (글은 남기지 않는다)
+    target: dict | None = None                       # 무엇을 어떤 조건으로 돌렸는지(구조). 키·안내문 글은 없다. 옛 상태 파일은 None
 
 
 class _Group:
@@ -143,9 +151,12 @@ def free_run_name(runs_dir: Path, name: str) -> str:
 
 class JobManager:
     def __init__(self, jobs_dir: Path, python: Path, backend_dir: Path, *, spawner=None, runs_dir: Path = RUNS,
-                 platform: str = sys.platform, which=shutil.which, ps=None, sleep=time.sleep):
+                 platform: str = sys.platform, which=shutil.which, ps=None, sleep=time.sleep,
+                 pages_root: Path | None = None):
         self.jobs_dir, self.python, self.backend_dir = Path(jobs_dir), Path(python), Path(backend_dir)
         self.runs_dir = Path(runs_dir)
+        # 문서 묶음을 찾는 곳. 쪽 폴더는 이 아래의 묶음이어야 한다
+        self.pages_root = Path(pages_root) if pages_root is not None else self.backend_dir.parent / "data" / "pages"
         self._spawner, self._platform, self._which = spawner or _spawn, platform, which
         self._ps, self._sleep = ps or _ps_text, sleep
         self._jobs: dict[str, Job] = {}                  # 이 앱이 띄운 작업
@@ -161,27 +172,44 @@ class JobManager:
         except (KeyError, TypeError):
             raise ValueError(f"configs/models.yaml에 없는 모델 태그: {tag}") from None
 
-    @staticmethod
-    def _dev_docs(doc_ids) -> list[str]:
-        """개발용 문서만 (순서 유지). 평가용이 있으면 ValueError (D-43)."""
-        if not isinstance(doc_ids, list) or not all(isinstance(d, str) for d in doc_ids):
-            raise ValueError(f"문서 번호 목록을 확인하세요: {doc_ids}")
-        try:
-            rows = manifest.select(None, doc_ids)
-        except KeyError as e:
-            raise ValueError(f"문서 번호를 확인하세요: {e}") from None
-        evals = [r["doc_id"] for r in rows if r["purpose"] == "평가"]
-        if evals:
-            raise ValueError(f"평가용 문서는 작업에 넣을 수 없습니다: {', '.join(evals)} (D-43)")
-        others = [r["doc_id"] for r in rows if r["purpose"] != "개발"]
-        if others:
-            raise ValueError(f"개발용 문서만 넣을 수 있습니다: {', '.join(others)}")
-        return list(dict.fromkeys(doc_ids))
-
-    def _pages(self, pages_dir) -> str:
+    def _pages(self, pages_dir, doc_ids: list[str]) -> str:
+        """쪽 폴더와 그 안의 문서별 pNNN.txt를 띄우기 전에 본다. 예: version13_신규40(RAW-01~)에는 개발용 문서가 없다."""
         if not isinstance(pages_dir, str) or not pages_dir or not (self.backend_dir / pages_dir).is_dir():
             raise ValueError(f"쪽 글자 폴더가 없습니다: {pages_dir}")
+        missing = [d for d in doc_ids if not any(_PAGE_FILE.match(p.name)
+                                                 for p in (self.backend_dir / pages_dir / d).glob("p*.txt"))]
+        if missing:
+            raise ValueError(f"{Path(pages_dir).name}에 쪽 글자(pNNN.txt)가 없는 문서: {', '.join(missing)}. "
+                             "다른 쪽 폴더를 고르세요")
         return pages_dir
+
+    def _check_docs(self, doc_ids, pages_dir, kind: str) -> tuple[list[str], str]:
+        """(작업에 넣을 문서(순서 유지, 중복 제거), 쪽 폴더의 묶음 id). kind는 "try" | "run". 걸리면 ValueError.
+        순서: 형·문서 번호 → 평가용(폴더를 보기 전에, D-43) → 쪽 폴더(_pages) → 쓸 수 있는 묶음 → 문서별 job_check."""
+        if not isinstance(doc_ids, list) or not all(isinstance(d, str) for d in doc_ids):
+            raise ValueError(f"문서 번호 목록을 확인하세요: {doc_ids}")
+        bad = [d for d in doc_ids if not bsets.DOC_ID.fullmatch(d)]
+        if bad:
+            raise ValueError(f"문서 번호를 확인하세요: {', '.join(bad)}")
+        rows = manifest.load()
+        evals = [r["doc_id"] for r in rows if r["doc_id"] in doc_ids and r["purpose"] == "평가"]
+        if evals:
+            raise ValueError(f"평가용 문서는 작업에 넣을 수 없습니다: {', '.join(evals)} (D-43)")
+        doc_ids = list(dict.fromkeys(doc_ids))
+        self._pages(pages_dir, doc_ids)
+        here = (self.backend_dir / pages_dir).resolve()
+        found = next((s for s in bsets.list_sets(self.pages_root, rows)
+                      if bsets.set_dir(self.pages_root, s["id"]).resolve() == here), None)
+        if found is None:
+            raise ValueError(f"고를 수 없는 묶음입니다: {pages_dir}는 data/pages 아래의 문서 묶음이 아닙니다")
+        if not found["usable"]:
+            raise ValueError(f"고를 수 없는 묶음입니다: {found['reason']}")
+        entries = {d["doc_id"]: d for d in found["docs"]}
+        for d in doc_ids:
+            reason = bsets.job_check(entries[d], kind)   # _pages를 지났으니 문서 폴더가 묶음 안에 있다
+            if reason:
+                raise ValueError(f"{d}: {reason}")
+        return doc_ids, found["id"]
 
     @staticmethod
     def _name(value, what: str) -> str:
@@ -216,10 +244,12 @@ class JobManager:
 
     def start_try(self, *, model: str, doc: str, sections: list[int] | None, all_: bool, pages_dir: str,
                   system_text: str | None, base_run: str | None, dry_run: bool = False,
-                  extra_env: dict[str, str] | None = None) -> Job:
+                  extra_env: dict[str, str] | None = None, gold_dir: str | None = None,
+                  key: dict | None = None) -> Job:
+        """gold_dir는 앱이 정답지 목록에서 찾은 폴더(backend 기준). 있으면 --gold-dir로 넘긴다(시험의 점수 전→후).
+        key는 앱이 정한 그 정답지 {"id", "label", "fingerprint", "given"}. target에만 남는다(없으면 None)."""
         self._model(model)
-        self._dev_docs([doc])
-        pages_dir = self._pages(pages_dir)
+        _, set_id = self._check_docs([doc], pages_dir, "try")
         if all_:
             secs = None
         else:
@@ -242,6 +272,8 @@ class JobManager:
             argv.append("--dry-run")
         if base_run:
             argv += ["--base-run", base_run]
+        if gold_dir:
+            argv += ["--gold-dir", gold_dir]
         tmp = None
         if system_text is not None:                      # 저장소 밖 임시 파일. 끝나면 지운다 (D-47)
             fd, tmp = tempfile.mkstemp(prefix="b_app_system_", suffix=".txt", dir=tempfile.gettempdir())
@@ -250,12 +282,17 @@ class JobManager:
             argv += ["--system-file", tmp]
         scope = "문서 전체" if all_ else "·".join(map(str, secs)) + "항"
         label = " · ".join([f"{doc} {scope}", model] + (["바꾼 안내문"] if tmp else []) + (["dry-run"] if dry_run else []))
-        return self._start("try", argv, label, extra_env=extra_env, tmp=tmp)
+        target = {"kind": "try", "doc": doc, "sections": secs, "all": bool(all_), "model": model,
+                  "set": set_id, "pages_dir": pages_dir,
+                  "key": {k: key.get(k) for k in ("id", "label", "fingerprint", "given")} if key else None,
+                  "base_run": base_run or None, "dry_run": bool(dry_run),
+                  "custom_prompt": system_text is not None}           # 바꾼 안내문은 있었다는 사실만 (D-47)
+        return self._start("try", argv, label, extra_env=extra_env, tmp=tmp, target=target)
 
-    def _check_run(self, model, docs, pages_dir, run_name, repeat) -> tuple[dict, list[str], list[str], str]:
+    def _check_run(self, model, docs, pages_dir, run_name, repeat) -> tuple[dict, list[str], list[str], str, str]:
         cfg = self._model(model)
-        doc_ids = self._dev_docs(docs) if docs else [r["doc_id"] for r in manifest.select("개발")]
-        pages_dir = self._pages(pages_dir)
+        doc_ids, set_id = self._check_docs(docs if docs else [r["doc_id"] for r in manifest.select("개발")],
+                                           pages_dir, "run")
         self._name(run_name, "실행 이름")
         if not isinstance(repeat, int) or isinstance(repeat, bool) or not 1 <= repeat <= MAX_REPEAT:
             raise ValueError(f"반복 수는 1~{MAX_REPEAT}입니다: {repeat}")
@@ -263,11 +300,11 @@ class JobManager:
         taken = [n for n in names if (self.runs_dir / n).exists()]
         if taken:
             raise ValueError(f"이미 있는 실행 이름입니다: {', '.join(taken)}. 다른 이름을 쓰세요")
-        return cfg, doc_ids, names, pages_dir
+        return cfg, doc_ids, names, pages_dir, set_id
 
     def run_summary(self, *, model: str, docs: list[str] | None, pages_dir: str, run_name: str, repeat: int) -> str:
         """본 실행을 시작하기 전에 보여 줄 요약. 검사에 걸리면 ValueError."""
-        cfg, doc_ids, names, pages_dir = self._check_run(model, docs, pages_dir, run_name, repeat)
+        cfg, doc_ids, names, pages_dir, _ = self._check_run(model, docs, pages_dir, run_name, repeat)
         text = (f"{len(doc_ids)}건 × {repeat}회, 모델 {model} ({cfg['model']}), 쪽 폴더 {pages_dir}, "
                 f"실행 이름 {', '.join(names)}")
         busy = self.running()
@@ -279,14 +316,15 @@ class JobManager:
                   extra_env: dict[str, str] | None = None) -> list[Job]:
         """repeat번의 run_sections.py를 차례로 돌리는 셸 한 줄을 작업 하나로 띄운다. Mac이 잠들면 실행이 멈추므로(10/28)
         darwin에 caffeinate가 있으면 그것으로 감싼다."""
-        _, doc_ids, names, pages_dir = self._check_run(model, docs, pages_dir, run_name, repeat)
+        _, doc_ids, names, pages_dir, set_id = self._check_run(model, docs, pages_dir, run_name, repeat)
         cmds = [[str(self.python), "scripts/run_sections.py", "--model", model, "--docs", *doc_ids,
                  "--run-name", n, "--pages-dir", pages_dir] for n in names]
         argv = ["bash", "-c", "; ".join(shlex.join(c) for c in cmds)]
         if self._platform == "darwin" and self._which("caffeinate"):
             argv = ["caffeinate", "-dimsu", *argv]
         label = f"{run_name} · {len(doc_ids)}건 × {repeat}회 · {model}"
-        return [self._start("run", argv, label, extra_env=extra_env, runs=names, total=len(doc_ids))]
+        target = {"kind": "run", "model": model, "docs": doc_ids, "set": set_id, "run_names": names, "repeat": repeat}
+        return [self._start("run", argv, label, extra_env=extra_env, runs=names, total=len(doc_ids), target=target)]
 
     def start_compare(self, *, title: str, runs: list[str], labels: list[str | None] | None) -> Job:
         """labels의 빈 칸은 라벨 없이(실행 이름 그대로) 넘긴다."""
@@ -306,7 +344,8 @@ class JobManager:
             raise ValueError(f"이미 있는 비교표입니다: runs/{out}. 다른 제목을 쓰세요")
         specs = [f"{lb}={r}" if lb else r for lb, r in zip(labels, runs)]
         argv = [str(self.python), "scripts/compare_models.py", "--title", title, "--runs", *specs]
-        return self._start("compare", argv, f"{title} · 실행 {len(runs)}개", runs=[out])
+        return self._start("compare", argv, f"{title} · 실행 {len(runs)}개", runs=[out],
+                           target={"kind": "models", "runs": list(runs), "title": title})
 
     # ── 상태 ───────────────────────────────────────────
 
@@ -368,7 +407,25 @@ class JobManager:
             return "running" if job.id in self._procs else "unknown"     # unknown: 지난 앱이 띄워 결과를 모른다
         return "done" if job.returncode == 0 else "failed"
 
+    def _log_problems(self, job: Job) -> dict | None:
+        """작업 로그를 키를 가린 뒤 b_app_text.job_error로 읽는다. 끝 JOB_LOG_LINES줄(tail과 같은 방식)과 그 앞의
+        앞머리 LOG_HEAD줄만 넘긴다(목록 응답을 가볍게). 로그가 없으면 None."""
+        if not job.log.exists():
+            return None
+        import b_app_servers as bs                       # b_app_servers가 맨 위에서 이 모듈을 import하므로 늦게 부른다
+        lines = job.log.read_text(encoding="utf-8", errors="replace").splitlines(keepends=True)
+        head = lines[:max(0, min(LOG_HEAD, len(lines) - bt.JOB_LOG_LINES))]
+        # 패턴(Bearer·--api-key 등)에 더해, 앱 환경의 키 값(서버 탭 _secrets와 같은 규칙)도 가린다
+        secrets = [v for k, v in os.environ.items()
+                   if k.startswith(bs._SECRET_PREFIXES) and bs._SECRET_FIELD.search(k) and v and len(v) >= 8]
+        return bt.job_error(bs.mask_keys("".join(head + lines[-bt.JOB_LOG_LINES:]), secrets))
+
     def _view(self, job: Job) -> dict:
+        """error: 실패한 작업의 '무슨 일 + 할 일'(아니면 None). warnings: 로그의 .env 경고(상태와 상관없이).
+        dry_run: --dry-run으로 띄운 연습 실행인지. 화면이 명령 글을 뒤지지 않게 한다.
+        target: 띄울 때의 조건(Job.target). 옛 작업은 None(화면은 '기록 당시 기준 미확인')."""
+        problems = self._log_problems(job)
+        status = self._status(job)
         out = None
         if job.kind == "compare" and (self.runs_dir / job.runs[0] / "compare.md").is_file():
             out = os.path.relpath(self.runs_dir / job.runs[0] / "compare.md", self.runs_dir.parent)
@@ -377,9 +434,12 @@ class JobManager:
             progress = [{"name": n, "done": _total_lines(self.runs_dir / n / "timing.jsonl"), "total": job.total}
                         for n in job.runs]
         return {"id": job.id, "kind": job.kind, "label": job.label, "started": job.started, "pid": job.pid,
-                "returncode": job.returncode, "status": self._status(job), "stoppable": job.id in self._procs,
+                "returncode": job.returncode, "status": status, "stoppable": job.id in self._procs,
                 "command": shlex.join(job.argv), "log": os.path.relpath(job.log, self.runs_dir.parent),
-                "runs": job.runs, "progress": progress, "output": out}
+                "runs": job.runs, "progress": progress, "output": out,
+                "error": problems if status == "failed" else None,
+                "warnings": problems["warnings"] if problems else [], "dry_run": "--dry-run" in job.argv,
+                "target": job.target}
 
     def list(self) -> list[dict]:
         with self._lock:

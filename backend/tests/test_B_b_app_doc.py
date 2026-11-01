@@ -6,10 +6,12 @@
 import copy
 import importlib
 import json
-from collections import defaultdict
+from collections import Counter, defaultdict
 
 import pytest
 
+from msds.common import paths
+from msds.common.jsonpath import get, set_
 from test_B_b_app_runs import env, make_run  # noqa: F401  env는 픽스처
 from test_B_compare_models import SCRIPTS, X01, X02, X09, make_doc, write_json
 from test_B_expand import LINES
@@ -194,6 +196,209 @@ def test_flatten_values_same_text_lines_follow_row_order(bd):
     assert find(values, "msds[0].toxicity[1].endpoint")["lines"] == ["p5:L4"]
 
 
+# ── value_items: 값 → 그 값이 들어가는 채점 항목 (app-redo-api2 step 1) ──
+
+def _has_scorer() -> bool:
+    try:
+        return paths.to21_file("scorer").exists()
+    except FileNotFoundError:
+        return False
+
+
+needs_scorer = pytest.mark.skipif(not _has_scorer(), reason="TO21 제공 파일이 없습니다 (to21/README.md 참고)")
+
+
+def _q(raw, value=None, unit=None, **kw):
+    return {"raw": raw, "approx": None, "value": value, "lower_op": None, "lower": None, "upper_op": None,
+            "upper": None, "unit": unit, "dp": 0, "status": "값있음", "note": None, **kw}
+
+
+def scored_doc() -> dict:
+    """채점 항목마다 비교할 값이 있도록 test_B_expand의 가짜 MSDS를 넓힌다. 값은 모두 직접 만든 가짜다 (D-43).
+    성분 3(가상물질 병)은 다른 표 행이 가리키지 않아, CAS를 바꿔도 3항 밖 항목이 흔들리지 않는다."""
+    doc = make_doc(X01)
+    m = doc["msds"][0]
+    m["meta"]["msds_no"] = "AA0000-000000"
+    m["companies"][0]["site"] = "가상 공장"
+    m["hazard"]["pictograms"] = [{"code": "GHS07", "detection": None}]
+    m["hazard"]["h_statements"] = [{"seq": 1, "code": "H319", "system": None, "mark": None, "text": "가상 H 문구"}]
+    m["hazard"]["p_statements"] = [{"seq": 1, "code": "P264", "type": None, "text": "가상 P 문구"}]
+    m["components"][0]["ke_no"] = "KE-00000"
+    m["components"].append({**copy.deepcopy(m["components"][1]), "seq": 3, "name": "가상물질 병",
+                            "cas_no": "3456-78-8", "content": _q("1 ~ 5", lower_op=">=", lower=1, upper_op="<=",
+                                                                  upper=5, unit="%")})
+    row = {"comp_ref": "MIX", "q": None, "text_value": None, "cond": None, "seq": None, "data_source": None}
+    m["physchem"] += [{**row, "prop_code": "PH", "q": _q("7", 7)},
+                      {**row, "prop_code": "APPEARANCE_COLOR", "text_value": "무색"}]
+    m["toxicity"].append({**copy.deepcopy(m["toxicity"][0]), "endpoint": "TX_SKIN", "descriptor": "결과기술",
+                          "q": None, "status": "자료없음"})
+    m["ecotox"] = [{"comp_ref": "2", "endpoint": "ECO_FISH", "descriptor": "LC50", "q": _q("10 mg/L", 10, "mg/L"),
+                    "species": "가상 어류", "duration_value": None, "duration_unit": None, "guideline": None,
+                    "data_source": None, "statements": [], "status": None}]
+    reg = m["regulations"][0]
+    m["regulations"] += [{**reg, "seq": 2, "law": "KREACH", "item_code": "KREACH_EXIST",
+                          "threshold": _q("1 % 이상", lower_op=">=", lower=1, unit="%")},
+                         {**reg, "seq": 3, "law": "INTL", "item_code": "INTL_EU"}]
+    m["transport"][0].update({"regulated": True, "un_no": "1993", "hazard_class": "3", "packing_group": "III"})
+    return doc
+
+
+def perturb(doc: dict, path: str, change) -> dict:
+    """msds 첫 건의 칸 하나만 바꾼 사본. 바꿀 값과 원래 값이 둘 다 객체면 합친다(숫자 묶음·문장의 일부만 바꾼다)."""
+    out = copy.deepcopy(doc)
+    m = out["msds"][0]
+    old = get(m, path)
+    set_(m, path, {**old, **change} if isinstance(old, dict) and isinstance(change, dict) else change)
+    return out
+
+
+# (칸 경로, 바꿀 값). 바꾼 뒤 점수가 떨어진 항목 집합이 그 칸의 items와 같아야 한다.
+PERTURB = [
+    ("meta.last_revision_date", "2020-01-01"),                    # 관리정보
+    ("product.name", "가상 다른 제품"),                              # 제품명
+    ("companies[0].site", "가상 다른 공장"),                         # 회사명(사업장)
+    ("companies[0].contacts[0].value", "111-1111-1111"),          # 긴급연락처
+    ("hazard.signal_word", "위험"),
+    ("hazard.pictograms[0].code", "GHS05"),
+    ("hazard.h_statements[0].code", "H318"),
+    ("hazard.p_statements[0].code", "P280"),
+    ("hazard.classes[0].category", "1"),                          # 유해성 분류
+    ("components[2].cas_no", "9999-99-9"),                        # 성분 키: 성분·성분 필드·함유량이 함께 흔들린다
+    ("components[0].name", "가상물질 정"),                           # CAS가 있으면 이름은 성분 필드에만
+    ("components[0].ke_no", "KE-99999"),
+    ("components[1].content", {"value": 0.7, "raw": "0.7"}),      # 함유량
+    ("exposure_limits[0].q", {"value": 2, "raw": "2 ppm"}),       # 8항
+    ("physchem[0].q", {"value": 61, "raw": "61 ℃"}),               # 인화점(9항 필수)
+    ("physchem[1].q", {"value": 8, "raw": "8"}),                  # pH(9항 필수)
+    ("physchem[2].text_value", "노란색"),                            # 색(9항 기타)
+    ("toxicity[0].q", {"lower": 300, "raw": "> 300 mg/kg"}),      # 급성 경구 독성
+    ("toxicity[1].status", "미기재"),                                # 기타 독성
+    ("cmr[0].class", "1"),                                        # CMR
+    ("ecotox[0].q", {"value": 20, "raw": "20 mg/L"}),             # 12항
+    ("regulations[0].applicable", "비해당"),                         # 국내 법 해당 여부
+    ("regulations[1].threshold", {"lower": 5, "raw": "5 % 이상"}),  # 국내 법 기준농도
+    ("regulations[2].applicable", "비해당"),                         # 해외 규제
+    ("transport[0].un_no", "1263"),                               # 14항
+    ("narratives[0].statements[0]", {"value": "가상 다른 문장"}),     # 서술형
+    ("narratives[1].item_code", "S7_STORAGE"),                    # 서술형 항목 코드(짝 키)
+    # 채점에 들어가지 않는 칸: 바꿔도 떨어지는 항목이 없고 items도 빈 목록이다
+    ("product.uses", ["가상 다른 용도"]),
+    ("hazard.classes[0].group", "물리"),
+    ("toxicity[0].species", "마우스"),
+    ("physchem[0].cond", {"method": "개방식"}),
+    ("narratives[0].title_raw", "가상 다른 제목"),
+    ("extras[0].q", {"value": 9.9, "raw": "9.90"}),
+]
+
+
+@needs_scorer
+@pytest.mark.parametrize("path,change", PERTURB, ids=[p for p, _ in PERTURB])
+def test_value_items_match_score_drops(bd, path, change):
+    """값 하나만 바꾸고 실제 TO21 채점기를 돌리면, 점수가 떨어진 항목이 정확히 그 값의 items다."""
+    from msds.evaluate.score import score_pair
+    gold = scored_doc()
+    base = {i["name"]: i["score"] for i in score_pair(gold, gold)["items"]}
+    assert all(s == 1.0 for s in base.values())
+    pred = perturb(gold, path, change)
+    assert get(pred["msds"][0], path) != get(gold["msds"][0], path)
+    dropped = {i["name"] for i in score_pair(gold, pred)["items"] if i["score"] < base[i["name"]]}
+    assert set(bd.value_items(path, gold["msds"][0])) == dropped
+    assert bd.value_items(f"msds[0].{path}", gold["msds"][0]) == bd.value_items(path, gold["msds"][0])
+
+
+@needs_scorer
+def test_item_rules_follow_criteria(bd, monkeypatch):
+    """ITEM_RULES의 이름과 순서가 채점 기준(criteria) 23개와 같다. 채점기 판이 바뀌어 이름이 달라지면 여기서 잡힌다."""
+    monkeypatch.syspath_prepend(str(SCRIPTS))
+    runs = importlib.import_module("b_app_runs")
+    names = [i["name"] for i in runs.criteria()["items"]]
+    assert list(bd.ITEM_RULES) == names
+    assert bd.ITEM_RULES[names[0]] == []                                   # MSDS 건수는 값 칸이 아니다
+    items = bd.value_items("components[2].cas_no", scored_doc()["msds"][0])
+    assert items == [n for n in names if n in items] and len(items) == 3   # criteria 순서
+
+
+def test_value_items_selects_rows_like_scorer(bd):
+    """행을 고르는 규칙: 필수 물성·급성 독성·국내 법은 코드로 나뉘고, 기준농도는 값이 있을 때만, 운송은 첫 행만,
+    긴급연락처는 첫 긴급 연락처만, 성분 이름은 CAS가 없을 때만 성분 짝 키다."""
+    m = scored_doc()["msds"][0]
+    m["transport"].append({**m["transport"][0], "mode": "해상"})
+    m["companies"][0]["contacts"] = [{"type": "대표", "value": "222-2222-2222", "hours": None},
+                                     {"type": "긴급", "value": "000-0000-0000", "hours": None},
+                                     {"type": "긴급", "value": "333-3333-3333", "hours": None}]
+    m["components"][1]["cas_no"] = None
+
+    def one(path):
+        items = bd.value_items(path, m)
+        return items[0] if len(items) == 1 else items
+
+    assert one("physchem[1].prop_code").startswith("9항 필수")
+    assert one("physchem[2].prop_code").startswith("9항 기타")
+    assert one("toxicity[0].endpoint").startswith("11항 급성")
+    assert one("toxicity[1].endpoint").startswith("11항 기타")
+    assert one("regulations[0].applicable").startswith("15항 국내 규제(")
+    assert one("regulations[0].law").startswith("15항 국내 규제(")       # 기준농도가 없는 행
+    assert len(bd.value_items("regulations[1].law", m)) == 2               # 국내 + 기준농도
+    assert one("regulations[1].threshold") == "15항 국내 규제 기준농도"
+    assert one("regulations[2].comp_ref").startswith("15항 해외")
+    assert one("transport[0].un_no").startswith("14항")
+    assert bd.value_items("transport[1].un_no", m) == []
+    assert bd.value_items("companies[0].contacts[0].value", m) == []      # 긴급이 아니다
+    assert one("companies[0].contacts[1].value").startswith("제품명")
+    assert bd.value_items("companies[0].contacts[2].value", m) == []      # 둘째 긴급 연락처는 비교하지 않는다
+    assert one("companies[0].contacts[0].type").startswith("제품명")       # 긴급인지 고르는 칸
+    assert len(bd.value_items("components[1].name", m)) == 3              # CAS가 없으면 이름이 성분 짝 키
+    assert len(bd.value_items("components[0].name", m)) == 1
+    assert bd.value_items("hazard.other_hazards[0]", m) == []
+    assert bd.value_items("없는표[0].x", m) == []
+
+
+def test_flatten_values_items_follow_item_section(bd, monkeypatch):
+    """items가 있는 값의 항이 그 항목의 항(b_app_text.item_section)과 같다. 항이 없는 항목은 서술형뿐이고 서술 값에만 붙는다."""
+    monkeypatch.syspath_prepend(str(SCRIPTS))
+    bt = importlib.import_module("b_app_text")
+    values = bd.flatten_values(scored_doc(), as_dicts(LINES))
+    assert values and all(isinstance(v["items"], list) for v in values)
+    seen = set()
+    for v in values:
+        for name in v["items"]:
+            seen.add(name)
+            sec = bt.item_section({"name": name}, {"items": []})
+            if sec is None:
+                assert name.startswith("서술형") and v["table"] == "narratives", (v["path"], name)
+            else:
+                assert sec == v["section"], (v["path"], name)
+    assert len(seen) == len(bd.ITEM_RULES) - 1                            # MSDS 건수만 값이 없다
+    assert find(values, "msds[0].toxicity[0].q")["items"] == ["11항 급성독성(경구·경피·흡입)"]
+    assert find(values, "msds[0].extras[0].q")["items"] == []
+
+
+def test_flatten_values_items_keep_other_keys(bd, monkeypatch):
+    """items를 더해도 기존 키와 값, 근거 줄은 그대로다."""
+    old_keys = {"path", "key", "section", "table", "row", "field", "value", "text", "lines"}
+    doc = scored_doc()
+    values = bd.flatten_values(doc, as_dicts(LINES))
+    assert all(set(v) == old_keys | {"items"} for v in values)
+    monkeypatch.setattr(bd, "value_items", lambda path, m: ["가짜"])
+    other = bd.flatten_values(doc, as_dicts(LINES))
+    assert [{k: v[k] for k in old_keys} for v in values] == [{k: v[k] for k in old_keys} for v in other]
+    assert all(v["items"] == ["가짜"] for v in other)                      # items는 value_items에서만 온다
+
+
+def test_doc_view_items_keep_lines_and_line_index(bd, view_env, monkeypatch):
+    dv = bd.doc_view(view_env / "runs" / "r1", X01, view_env / "pages9", view_env / "gold")
+    assert dv["values"] and all("items" in v for v in dv["values"])
+    assert dv["silver_only"] and all(isinstance(g["items"], list) for g in dv["silver_only"])
+    tox = [g for g in dv["silver_only"] if g["path"] == "msds[0].toxicity[0].q"]
+    assert tox and tox[0]["items"] == ["11항 급성독성(경구·경피·흡입)"]   # 결과가 빠뜨린 값도 항목으로 고를 수 있다
+    monkeypatch.setattr(bd, "value_items", lambda path, m: [])
+    before = bd.doc_view(view_env / "runs" / "r1", X01, view_env / "pages9", view_env / "gold")
+    strip = lambda vs: [{k: x for k, x in v.items() if k != "items"} for v in vs]  # noqa: E731
+    assert strip(dv["values"]) == strip(before["values"])
+    assert strip(dv["silver_only"]) == strip(before["silver_only"])
+    assert dv["line_index"] == before["line_index"]
+
+
 def test_section_map_matches_item_sections(bd, monkeypatch):
     monkeypatch.syspath_prepend(str(SCRIPTS))
     diff = importlib.import_module("b_app_diff")
@@ -296,11 +501,128 @@ def test_doc_view_without_gold(bd, view_env):
     assert all(v["silver"]["value"] is None and v["silver"]["same"] is False for v in dv["values"])
 
 
+# ── field_counts: S01 문제 건수를 S02와 같은 칸 단위로 센다 (사용자 결정 10/31) ──
+
+def _source_view_counts(dv):
+    """원문 대조 화면(js/source.js의 sourceKind·sourceProblems)이 doc_view를 나누는 방식 그대로 센다."""
+    out = Counter()
+    for v in dv["values"]:
+        if v["silver"]["same"]:
+            continue
+        kind = "made" if v["silver"]["value"] is None else "wrong"
+        for item in v["items"]:
+            out[(item, v["section"], kind)] += 1
+    for g in dv["silver_only"]:
+        for item in g["items"]:
+            out[(item, g["section"], "missing")] += 1
+    return out
+
+
+def test_field_counts_match_source_view_classes(bd, view_env):
+    pred = make_doc(X01, toxicity=True)                                    # 독성 행을 빠뜨렸다 → 못 뽑음
+    m = pred["msds"][0]
+    m["hazard"]["signal_word"] = "위험"                                     # 정답 짝이 다르다 → 틀림
+    m["cmr"].append({**copy.deepcopy(m["cmr"][0]), "agency": "가상기관"})    # 정답에 없는 행 → 만듦
+    make_run(view_env / "runs", "r3", {X01: pred})
+    gold = json.loads((view_env / "gold" / f"{X01}.json").read_text(encoding="utf-8"))
+    got = bd.field_counts(pred, gold)
+    dv = bd.doc_view(view_env / "runs" / "r3", X01, view_env / "pages9", view_env / "gold")
+    assert got == _source_view_counts(dv)
+    assert {kind for (_, _, kind) in got} == {"wrong", "made", "missing"}
+    signal = find(bd.flatten_values(pred), "msds[0].hazard.signal_word")
+    assert signal["items"]
+    for item in signal["items"]:
+        assert got[(item, signal["section"], "wrong")] == 1
+    assert bd.field_counts(gold, gold) == Counter()                        # 같은 문서는 문제 값이 없다
+
+
+def test_run_field_counts_reads_outputs_and_skips_docs_without_output_or_gold(bd, view_env):
+    run = view_env / "runs" / "r1"
+    out = bd.run_field_counts(run, view_env / "gold", [X01, X09, "T21-X99"])
+    pred = json.loads((run / "outputs" / f"{X01}.json").read_text(encoding="utf-8"))
+    gold = json.loads((view_env / "gold" / f"{X01}.json").read_text(encoding="utf-8"))
+    assert out[X01] == bd.field_counts(pred, gold)
+    assert "T21-X99" not in out                                            # 결과 파일이 없다
+    (view_env / "gold" / f"{X01}.json").unlink()
+    assert X01 not in bd.run_field_counts(run, view_env / "gold", [X01])   # 정답이 없으면 셀 수 없다
+
+
 def test_doc_view_refuses_eval_doc(bd, view_env):
     with pytest.raises(PermissionError):
         bd.doc_view(view_env / "runs" / "r1", X09, view_env / "pages9", view_env / "gold")
     with pytest.raises(PermissionError):                                   # manifest에 없는 문서도 용도를 알 수 없어 막는다
         bd.doc_view(view_env / "runs" / "r1", "T21-X77", view_env / "pages9", view_env / "gold")
+
+
+# ── 실버 값의 추정 줄 (app-redo-api2 step 2) ──────────────
+
+def doc_view_r1(bd, env, gold_dir=None):
+    return bd.doc_view(env / "runs" / "r1", X01, env / "pages9", gold_dir or env / "gold")
+
+
+def gold_doc(env) -> dict:
+    return json.loads((env / "gold" / f"{X01}.json").read_text(encoding="utf-8"))
+
+
+def under(values, *rows) -> list[dict]:
+    return [v for v in values if any(v["path"].startswith(f"msds[0].{r}") for r in rows)]
+
+
+def test_doc_view_silver_only_gets_text_matched_lines(bd, view_env):
+    """결과가 빠뜨린 독성 행: 실버 근거 글이 가짜 쪽 줄 p5:L8의 글과 같으므로 그 줄이 추정 줄로 붙는다."""
+    ev = next(e for e in gold_doc(view_env)["msds"][0]["evidence"] if e["field"] == "toxicity[0]")
+    line = next(l for l in LINES if l.id == "p5:L8")
+    assert (ev["page"], ev["source_text"]) == (line.page, line.text)
+    dv = doc_view_r1(bd, view_env)
+    missed = [g for g in dv["silver_only"] if g["table"] == "toxicity"]
+    assert missed and all(g["lines"] == ["p5:L8"] for g in missed)
+    sl = dv["silver_lines"]
+    assert sl["basis"] == "text_match"
+    assert sl["total"] == len(bd.flatten_values(gold_doc(view_env)))      # 실버 값 전체(결과와 짝지은 값 포함)
+    assert len([g for g in dv["silver_only"] if g["lines"]]) <= sl["found"] < sl["total"]   # 근거 없는 칸(신호어 등)도 있다
+    assert all(set(v["silver"]) == {"value", "same", "text"} for v in dv["values"])          # 짝지은 실버 값의 키는 그대로
+
+
+def test_doc_view_silver_lines_not_found(bd, view_env):
+    """근거 글이 다른 쪽에 있거나(독성) 어디에도 없으면(CMR) 줄을 붙이지 않고, found가 그 값 수만큼 준다."""
+    before = doc_view_r1(bd, view_env)
+    gold = gold_doc(view_env)
+    for e in gold["msds"][0]["evidence"]:
+        if e["field"].startswith("toxicity[0]"):
+            e["page"] = 1                                                   # 같은 글이 1쪽에는 없다
+        if e["field"] == "cmr[0]":
+            e["source_text"] = "어디에도 없는 가상 글"
+    write_json(view_env / "gold2" / f"{X01}.json", gold)
+    after = doc_view_r1(bd, view_env, view_env / "gold2")
+    moved = under(bd.flatten_values(gold_doc(view_env), as_dicts(LINES)), "toxicity[0]", "cmr[0]")
+    assert moved and all(v["lines"] for v in moved)                         # 고치기 전에는 줄을 찾았다
+    assert all(g["lines"] == [] for g in after["silver_only"] if g["table"] == "toxicity")
+    assert after["silver_lines"]["total"] == before["silver_lines"]["total"]
+    assert before["silver_lines"]["found"] - after["silver_lines"]["found"] == len(moved)
+
+
+def test_doc_view_silver_lines_keep_result_lines_and_line_index(bd, view_env, tmp_path):
+    """실버 줄은 line_index에 넣지 않는다. 실버가 있든 없든 결과 값의 줄과 line_index는 같다."""
+    dv = doc_view_r1(bd, view_env)
+    alone = doc_view_r1(bd, view_env, tmp_path / "빈 정답지")
+    assert alone["has_gold"] is False
+    assert dv["line_index"] == alone["line_index"]
+    assert [(v["path"], v["lines"]) for v in dv["values"]] == [(v["path"], v["lines"]) for v in alone["values"]]
+    assert "p5:L8" not in dv["line_index"]                                  # 빠뜨린 독성 행의 추정 줄은 값을 켜지 않는다
+
+
+def test_doc_view_silver_without_evidence(bd, view_env):
+    gold = gold_doc(view_env)
+    del gold["msds"][0]["evidence"]
+    write_json(view_env / "gold2" / f"{X01}.json", gold)
+    dv = doc_view_r1(bd, view_env, view_env / "gold2")
+    assert dv["silver_only"] and all(g["lines"] == [] for g in dv["silver_only"])
+    assert dv["silver_lines"] == {"basis": "text_match", "found": 0, "total": len(bd.flatten_values(gold))}
+
+
+def test_doc_view_and_pages_view_without_gold_have_no_silver_lines(bd, view_env, tmp_path):
+    assert doc_view_r1(bd, view_env, tmp_path / "빈 정답지")["silver_lines"] is None
+    assert bd.pages_view(X01, view_env / "pages9")["silver_lines"] is None
 
 
 # ── 라우트 ─────────────────────────────────────────────
@@ -318,6 +640,18 @@ def test_route_doc(app, view_env):
     assert data["doc_id"] == X01 and data["values"] and data["line_index"]
 
 
+def test_route_doc_adds_legend_and_text_without_changing_values(app, view_env):
+    ctx = make_ctx(app, view_env, view_env / "pages9")
+    expected = app.bdoc.doc_view(view_env / "runs" / "r1", X01, ctx.pages_dir, ctx.gold_dir)
+    code, _, body = app.route("GET", "/api/doc", {"run": ["r1"], "doc": [X01]}, None, ctx)
+    data = json.loads(body)
+    assert code == 200
+    assert data["legend"] == app.bt.doc_legend()
+    assert data["ui_text"] == app.bt.doc_ui_text(expected)
+    assert {k: v for k, v in data.items() if k not in {"legend", "ui_text", "set", "image_base", "image_query", "key"}} \
+        == json.loads(json.dumps(expected))
+
+
 def test_route_doc_errors(app, view_env):
     ctx = make_ctx(app, view_env, view_env / "pages9")
 
@@ -333,12 +667,35 @@ def test_route_doc_errors(app, view_env):
     assert call({"run": ["r1"], "doc": ["../T21-X01"]})[0] == 400
 
 
+
+def test_route_doc_errors_have_message_and_fix_without_lock_reason(app, view_env):
+    ctx = make_ctx(app, view_env, view_env / "pages9")
+    for q in ({"run": ["r1"], "doc": [X09]}, {"doc": [X09]}, {"run": ["r1"], "doc": [X02]}):
+        code, _, body = app.route("GET", "/api/doc", q, None, ctx)
+        data = json.loads(body)
+        assert code == 404 and all(data[k].strip() for k in ("error", "message", "fix")), q
+        assert "평가" not in data["error"] + data["message"] + data["fix"], q    # 잠긴 이유는 말하지 않는다
+    (view_env / "pages_empty" / X01).mkdir(parents=True)                       # 문서 폴더는 있는데 쪽 글자가 없다
+    code, _, body = app.route("GET", "/api/doc", {"doc": [X01]}, None, make_ctx(app, view_env, view_env / "pages_empty"))
+    data = json.loads(body)
+    assert code == 404 and data["error"] == f"쪽 글자가 없습니다: pages_empty/{X01}" and data["message"] and data["fix"]
+
 def test_route_page_png(app, env, one_page):
     ctx = make_ctx(app, env, one_page)
     code, ctype, body = app.route("GET", "/pages/T21-X01/p001.png", {}, None, ctx)
     assert (code, ctype, body) == (200, "image/png", PNG)
     assert app.route("GET", "/pages/T21-X01/p002.png", {}, None, ctx)[0] == 404       # 없는 쪽
 
+
+
+def test_route_page_errors_have_message_and_fix(app, env, one_page):
+    write_page(one_page / X09, 1, PAGE_TXT, ENTRIES)
+    ctx = make_ctx(app, env, one_page)
+    for path, want in (("/pages/T21-X09/p001.png", 404), ("/pages/T21-X01/p009.png", 404), ("/pages/x/p1.png", 400)):
+        code, _, body = app.route("GET", path, {}, None, ctx)
+        data = json.loads(body)
+        assert code == want and all(data[k].strip() for k in ("error", "message", "fix")), path
+        assert "평가" not in data["error"] + data["message"] + data["fix"], path
 
 @pytest.mark.parametrize("path", ["/pages/../x.png", "/pages/T21-X01/evil.txt", "/pages/%2e%2e/T21-X01/p001.png",
                                   "/pages/T21-X01/p1.png", "/pages/t21-x01/p001.png", "/pages/T21-X01/../p001.png",
@@ -355,6 +712,202 @@ def test_route_page_eval_doc_404(app, env, one_page):
     assert app.route("GET", "/pages/T21-X77/p001.png", {}, None, make_ctx(app, env, one_page))[0] == 404
 
 
-def test_app_js_calls_doc_api(app):
-    js = (app.STATIC / "app.js").read_text(encoding="utf-8")
-    assert "/api/doc" in js and "/pages/" in js
+def test_source_calls_doc_api_and_uses_the_returned_page_route():
+    # 옛 파일의 문자열 검사를 새 화면의 실제 요청·이미지 주소 검사로 이관한다.
+    from test_B_b_app_dom import run_js
+    from test_B_b_app_source_ui import fixture
+
+    run_js(fixture() + r"""
+view.image_base='/pages/T21-X01/';
+await go('s02',{run:'current',doc:'T21-X01',section:8});
+const request=calls.find(path=>path.startsWith('/api/doc?'));
+assert.ok(request);
+assert.equal(new URLSearchParams(request.split('?')[1]).get('doc'),'T21-X01');
+assert.equal(el('source-page').querySelector('img').getAttribute('src'),
+ '/pages/T21-X01/p002.png?set=prev%2Ffake');
+""")
+
+
+# ── 묶음을 따르는 원문 대조 (ADR-028) ─────────────────
+
+V9_PAGE = ["L001 가상 판 9 첫 줄", "L002 제품명 : 가상 세정액 A", "L003 가상물질 갑 | 1234-56-6"]
+V13_PAGE = ["L001 가상 판 13 첫 줄", "L002 가상 다른 판"]
+STARTUP_PAGE = ["L001 켤 때 받은 가상 판", "L002 가상 글"]
+RAW_PAGE = ["L001 가상 신규 문서", "L002 제품명 : 가상 도료 B"]
+V9_PNG = b"\x89PNG\r\n\x1a\nfake-v9"
+RAW_PNG = b"\x89PNG\r\n\x1a\nfake-raw"
+ADDED = {"legend", "ui_text", "set", "image_base", "image_query", "key"}
+
+
+@pytest.fixture
+def sets_env(env):
+    """가짜 data/pages: prev/v9(X01·X02·X09), prev/v13(X01), 바로 아래 RAW-90(meta.json 있음)·RAW-91(없음).
+    앱을 켤 때 받은 폴더(startup/)에는 X01만 다른 글로 있다. 실행 r1은 옛 경로 data/pages/v9로 돌았다고 적혀 있다."""
+    root = env / "data" / "pages"
+    for d in (X01, X02, X09):
+        write_page(root / "prev" / "v9" / d, 1, V9_PAGE, ENTRIES, png=V9_PNG)
+    write_page(root / "prev" / "v13" / X01, 1, V13_PAGE, [])
+    write_page(root / "RAW-90", 1, RAW_PAGE, png=RAW_PNG)                 # pNNN.json이 없는 판
+    write_json(root / "RAW-90" / "meta.json", {"doc_id": "RAW-90", "source_file": "가상.pdf"})
+    write_page(root / "RAW-91", 1, RAW_PAGE)                               # meta.json 없음 → 용도를 모름
+    write_page(env / "startup" / X01, 1, STARTUP_PAGE, [])
+    make_run(env / "runs", "r1", {X01: make_doc(X01), X09: make_doc(X09)}, info={"pages_dir": "data/pages/v9"})
+    return env
+
+
+def sets_ctx(app, env, **kw):
+    return app.AppContext(runs_dir=env / "runs", gold_dir=env / "gold", pages_dir=env / "startup",
+                          static_dir=app.STATIC, cache_dir=None, gaps_file=env / "silver_gaps.yaml",
+                          pages_root=kw.pop("pages_root", env / "data" / "pages"), **kw)
+
+
+def get_doc(app, ctx, **q):
+    code, _, body = app.route("GET", "/api/doc", {k: [v] for k, v in q.items()}, None, ctx)
+    return code, json.loads(body)
+
+
+def texts(data):
+    return [l["text"] for l in data["lines"]]
+
+
+def plain(page):
+    return [t.split(" ", 1)[1] for t in page]
+
+
+def test_allowed_doc_with_folder(bd, sets_env):
+    root = sets_env / "data" / "pages"
+    assert bd.allowed_doc(X01) is True and bd.allowed_doc(X09) is False
+    assert bd.allowed_doc("RAW-90") is False                              # 인자 하나: manifest 밖은 막는다(옛 동작)
+    assert bd.allowed_doc("RAW-90", root / "RAW-90") is True              # meta.json의 doc_id가 폴더 이름과 같다
+    assert bd.allowed_doc("RAW-91", root / "RAW-91") is False
+    assert bd.allowed_doc(X09, root / "prev" / "v9" / X09) is False
+
+
+def test_pages_view(bd, sets_env):
+    root = sets_env / "data" / "pages"
+    pv = bd.pages_view("RAW-90", root)
+    assert texts(pv) == plain(RAW_PAGE) and all(l["bbox"] is None for l in pv["lines"])   # 칸 좌표 없이 글자만
+    assert pv["doc_id"] == "RAW-90" and pv["pages"] == [1] and pv["sections"] == {}
+    assert (pv["values"], pv["silver_only"], pv["line_index"], pv["has_gold"], pv["warnings"]) == ([], [], {}, False, [])
+    dv = bd.doc_view(sets_env / "runs" / "r1", X01, root / "prev" / "v9", sets_env / "gold")
+    assert set(pv) == set(dv)
+    assert bd.pages_view(X01, root / "prev" / "v9")["lines"][2]["bbox"] == [10, 98, 400, 122]
+    for doc_id, folder in (("RAW-91", root), (X09, root / "prev" / "v9")):
+        with pytest.raises(PermissionError):
+            bd.pages_view(doc_id, folder)
+
+
+def test_doc_view_locks_by_folder(bd, sets_env):
+    root = sets_env / "data" / "pages"
+    make_run(sets_env / "runs", "r_raw", {"RAW-90": make_doc("RAW-90"), "RAW-91": make_doc("RAW-91")})
+    dv = bd.doc_view(sets_env / "runs" / "r_raw", "RAW-90", root, sets_env / "gold")
+    assert texts(dv) == plain(RAW_PAGE)
+    with pytest.raises(PermissionError):
+        bd.doc_view(sets_env / "runs" / "r_raw", "RAW-91", root, sets_env / "gold")
+
+
+def test_route_doc_follows_moved_run_folder(app, sets_env):
+    root = sets_env / "data" / "pages"
+    code, data = get_doc(app, sets_ctx(app, sets_env), run="r1", doc=X01)
+    assert code == 200
+    assert texts(data) == plain(V9_PAGE)                                   # 켤 때 받은 폴더(startup/)가 아니다
+    assert data["set"]["id"] == "prev/v9" and data["set"]["source"] == "moved"
+    assert data["set"]["label"] == app.bt.set_label("prev/v9")
+    assert data["set"]["note"] == app.bt.SET_TEXT["run_moved"].format(recorded="data/pages/v9", id="prev/v9")
+    assert data["set"]["note"] not in data["warnings"]
+    assert data["image_base"] == f"/pages/{X01}/" and data["image_query"] == "?set=prev%2Fv9"
+    expected = app.bdoc.doc_view(sets_env / "runs" / "r1", X01, root / "prev" / "v9", sets_env / "gold")
+    assert {k: v for k, v in data.items() if k not in ADDED} == json.loads(json.dumps(expected))
+
+
+def test_route_doc_run_folder_as_recorded(app, sets_env):
+    make_run(sets_env / "runs", "r_new", {X01: make_doc(X01)}, info={"pages_dir": "data/pages/prev/v13"})
+    code, data = get_doc(app, sets_ctx(app, sets_env), run="r_new", doc=X01)
+    assert code == 200 and texts(data) == plain(V13_PAGE)
+    assert data["set"] == {"id": "prev/v13", "label": "prev/v13", "source": "run", "note": None}
+
+
+def test_route_doc_set_param_comes_first(app, sets_env):
+    ctx = sets_ctx(app, sets_env)
+    code, data = get_doc(app, ctx, run="r1", doc=X01, set="prev/v13")
+    assert code == 200 and texts(data) == plain(V13_PAGE)
+    assert data["set"] == {"id": "prev/v13", "label": "prev/v13", "source": "param", "note": None}
+    assert data["image_query"] == "?set=prev%2Fv13"
+    code, data = get_doc(app, ctx, run="r1", doc=X01, set="없는_묶음")
+    assert code == 404
+    assert get_doc(app, ctx, run="r1", doc=X01, set="../x")[0] == 404
+    assert get_doc(app, ctx, run="r1", doc=X01, set=".")[0] == 404        # 그 묶음에 문서가 없다
+    code, data = get_doc(app, ctx, run="r1", doc=X09, set="prev/v9")
+    assert code == 404 and "평가" not in data["error"]
+
+
+def test_route_doc_run_folder_not_found_falls_back(app, sets_env, monkeypatch):
+    ctx = sets_ctx(app, sets_env)
+    make_run(sets_env / "runs", "r_lost", {X01: make_doc(X01), X02: make_doc(X02)},
+             info={"pages_dir": "data/pages/없는판"})
+    code, data = get_doc(app, ctx, run="r_lost", doc=X01)
+    assert code == 200 and texts(data) == plain(STARTUP_PAGE)              # 3. 켤 때 받은 폴더
+    assert data["set"]["id"] is None and data["set"]["source"] == "startup"
+    assert data["set"]["note"] == app.bt.SET_TEXT["run_missing"].format(recorded="data/pages/없는판", name="startup")
+    assert data["image_query"] == ""
+    monkeypatch.setattr(app.bsets, "DEFAULT_SET", "prev/v9")
+    code, data = get_doc(app, ctx, run="r_lost", doc=X02)                  # 4. 켤 때 받은 폴더에 없으면 기본 묶음
+    assert code == 200 and texts(data) == plain(V9_PAGE)
+    assert data["set"]["id"] == "prev/v9" and data["set"]["source"] == "default"
+    assert data["set"]["note"] == app.bt.SET_TEXT["run_missing"].format(recorded="data/pages/없는판", name="prev/v9")
+    make_run(sets_env / "runs", "r_none", {X01: make_doc(X01)}, info={"pages_dir": None})
+    code, data = get_doc(app, ctx, run="r_none", doc=X01)
+    assert code == 200 and "기록 없음" in data["set"]["note"]
+
+
+def test_route_doc_without_run(app, sets_env, monkeypatch):
+    ctx = sets_ctx(app, sets_env)
+    code, data = get_doc(app, ctx, doc="RAW-90", set=".")
+    assert code == 200 and texts(data) == plain(RAW_PAGE)
+    assert data["values"] == [] and data["lines"] and data["has_gold"] is False
+    assert data["set"] == {"id": ".", "label": app.bt.set_label("."), "source": "param", "note": None}
+    assert data["image_base"] == "/pages/RAW-90/" and data["image_query"] == "?set=."
+    assert {k: v for k, v in data.items() if k not in ADDED} == app.bdoc.pages_view("RAW-90", sets_env / "data" / "pages")
+    assert get_doc(app, ctx, doc="RAW-91", set=".")[0] == 404
+    code, data = get_doc(app, ctx, doc=X09, set="prev/v9")
+    assert code == 404 and "평가" not in data["error"]
+    code, data = get_doc(app, ctx, doc=X09)
+    assert code == 404 and "평가" not in data["error"]
+    code, data = get_doc(app, ctx, doc=X01)                                # 묶음 없이: 켤 때 받은 폴더
+    assert code == 200 and texts(data) == plain(STARTUP_PAGE)
+    assert data["set"] == {"id": None, "label": "startup", "source": "startup", "note": None}
+    monkeypatch.setattr(app.bsets, "DEFAULT_SET", "prev/v9")
+    code, data = get_doc(app, ctx, doc=X02)
+    assert code == 200 and data["set"]["source"] == "default" and data["set"]["note"] is None
+    assert get_doc(app, ctx, doc="RAW-01", run="없는실행")[0] == 404
+    assert get_doc(app, ctx, doc="raw-90", set=".")[0] == 400
+    assert get_doc(app, ctx, doc="..", set=".")[0] == 400
+
+
+def test_route_doc_without_root_is_old_behavior(app, sets_env):
+    ctx = make_ctx(app, sets_env, sets_env / "startup")
+    assert ctx.pages_root is None
+    code, data = get_doc(app, ctx, run="r1", doc=X01)
+    assert code == 200 and texts(data) == plain(STARTUP_PAGE)
+    assert data["set"]["source"] == "startup" and data["set"]["id"] is None
+    assert get_doc(app, ctx, run="r1", doc=X01, set="prev/v9")[0] == 404  # 묶음 목록이 없다
+
+
+def test_route_page_png_with_set(app, sets_env):
+    ctx = sets_ctx(app, sets_env)
+
+    def png(path, **q):
+        return app.route("GET", path, {k: [v] for k, v in q.items()}, None, ctx)
+
+    assert png("/pages/RAW-90/p001.png", set=".") == (200, "image/png", RAW_PNG)
+    assert png(f"/pages/{X01}/p001.png", set="prev/v9") == (200, "image/png", V9_PNG)
+    assert png(f"/pages/{X01}/p001.png") == (200, "image/png", PNG)        # 쿼리가 없으면 켤 때 받은 폴더
+    for path, q in ((f"/pages/{X09}/p001.png", "prev/v9"), (f"/pages/{X01}/p001.png", "../x"),
+                    ("/pages/RAW-91/p001.png", "."), (f"/pages/{X01}/p001.png", "."),
+                    (f"/pages/{X01}/p002.png", "prev/v9"), (f"/pages/{X01}/p001.png", "없는_묶음")):
+        code, _, body = png(path, set=q)
+        assert code == 404 and body not in (PNG, V9_PNG, RAW_PNG), (path, q)
+    assert png("/pages/RAW-90/p001.png")[0] == 404                         # 켤 때 받은 폴더에 없다
+    assert png("/pages/raw-90/p001.png", set=".")[0] == 400
+    no_root = make_ctx(app, sets_env, sets_env / "startup")
+    assert app.route("GET", f"/pages/{X01}/p001.png", {"set": ["prev/v9"]}, None, no_root)[0] == 404

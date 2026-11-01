@@ -3,90 +3,105 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>B 작업 화면 — TO21 MSDS 항목별 추출</title>
+<meta name="color-scheme" content="light">
+<title>화학 안전문서 AI 결과 검토</title>
 <link rel="stylesheet" href="/static/app.css">
 </head>
 <body>
-<header class="top">
-  <h1>B 작업 화면</h1>
-  <nav class="tabs">
-    <button type="button" data-tab="score">① 점수판</button>
-    <button type="button" data-tab="diff">② 두 실행 비교</button>
-    <button type="button" data-tab="doc">③ 원문 대조</button>
-    <button type="button" data-tab="jobs">④ 작업</button>
-    <button type="button" data-tab="servers">⑤ 서버</button>
-    <button type="button" data-tab="help">도움말</button>
-  </nav>
-  <span id="status" class="status"></span>
+<header id="app-header">
+  <div id="app-heading" class="app-head"></div>
+  <div id="global-context" class="context"></div>
+  <nav id="main-nav" class="sidebar"></nav>
 </header>
-
-<main>
-  <section id="tab-score" class="tab">
-    <p class="what">이 화면은 실행 하나의 점수가 합격 기준까지 얼마나 남았는지 보여 줍니다.<br>
-      어느 항목이 왜 깎였는지, 문서마다 걸린 시간과 모델 호출 상태도 함께 봅니다. <a href="#help" data-help="s2">자세히 → 도움말 2장</a></p>
-    <div class="cols">
-      <div class="card" id="now-card"></div>
-      <div class="card" id="rule-card"></div>
-    </div>
-    <div class="card" id="items-card"></div>
-    <div class="card" id="history-card"></div>
-    <div class="card" id="docs-card"></div>
-    <div class="card" id="grid-card"></div>
-    <div class="card" id="rows-card"></div>
+<main id="work" class="work">
+  <div id="journey-notices" aria-live="polite"></div>
+  <div id="journey-strip" class="journey-strip" hidden aria-live="polite"></div>
+  <section id="screen-s01" hidden aria-labelledby="title-s01">
+    <div id="guide-resume" class="guide-resume" hidden></div>
+    <h1 id="title-s01" tabindex="-1"></h1>
+    <p id="help-context-s01" class="help-context"></p>
+    <div id="score-summary"></div>
+    <div id="score-problems"></div>
+    <div id="score-history"></div>
+    <div id="score-docs"></div>
+    <div id="score-grid"></div>
+    <div id="score-rows"></div>
+    <div id="score-rule"></div>
+    <div id="score-gaps"></div>
   </section>
-
-  <section id="tab-diff" class="tab">
-    <p class="what">이 화면은 두 실행을 나란히 놓고 점수 차와 바뀐 값을 보여 줍니다.<br>
-      점수가 왜 떨어졌는지 항목별로 나눠 봅니다. <a href="#help" data-help="s3">자세히 → 도움말 3장</a></p>
-    <div class="card" id="diff-top-card"></div>
-    <div class="card" id="diff-items-card"></div>
-    <div class="card" id="diff-values-card"></div>
-    <div class="card" id="diff-rows-card"></div>
+  <section id="screen-s02" hidden aria-labelledby="title-s02">
+    <h1 id="title-s02" tabindex="-1"></h1>
+    <p id="help-context-s02" class="help-context"></p>
+    <div id="source-top"></div>
+    <div id="source-values"></div>
+    <div id="source-selection"></div>
+    <div id="source-page"></div>
   </section>
-
-  <section id="tab-doc" class="tab">
-    <p class="what">이 화면은 쪽 그림과 줄 글자를 결과 값, 정답 초안(실버)과 나란히 보여 줍니다.<br>
-      값이 원문 어디에서 왔는지 확인합니다. <a href="#help" data-help="s3">자세히 → 도움말 3장</a></p>
-    <p class="warn">정답은 실버(Claude 초안)다. 실버가 틀릴 수도 있다.</p>
-    <div class="card" id="doc-top-card"></div>
-    <div class="card" id="doc-main-card"></div>
+  <section id="screen-s03" hidden aria-labelledby="title-s03">
+    <h1 id="title-s03" tabindex="-1"></h1>
+    <p id="help-context-s03" class="help-context"></p>
+    <div id="jobs-try"></div>
+    <div id="jobs-result"></div>
+    <div id="jobs-connection"></div>
   </section>
-
-  <section id="tab-jobs" class="tab">
-    <p class="what">이 화면은 항 하나나 문서 하나를 모델에 다시 보내 시험하는 곳입니다.<br>
-      본 실행 시작과 비교표 만들기도 여기서 합니다. <a href="#help" data-help="s5">자세히 → 도움말 5장</a></p>
-    <div class="jcols">
-      <div class="card" id="jobs-try-card"></div>
-      <div class="card" id="jobs-run-card"></div>
-      <div class="card" id="jobs-compare-card"></div>
-    </div>
-    <div class="card" id="jobs-result-card"></div>
-    <div class="card" id="jobs-list-card"></div>
+  <section id="screen-s04" hidden aria-labelledby="title-s04">
+    <h1 id="title-s04" tabindex="-1"></h1>
+    <p id="help-context-s04" class="help-context"></p>
+    <div id="compare-summary"></div>
+    <div id="compare-conditions"></div>
+    <div id="compare-items"></div>
+    <div id="compare-values"></div>
+    <div id="compare-rows"></div>
+    <div id="compare-prompts"></div>
   </section>
-
-  <section id="tab-servers" class="tab">
-    <p class="what">이 화면은 지금 연결된 모델 서버를 보여 줍니다.<br>
-      RunPod Pod 만들기·지우기와 RNGD 모델 올리기·내리기를 합니다. <a href="#help" data-help="s3">자세히 → 도움말 3장</a></p>
-    <p class="hint">바꾸는 단추는 모두 두 단계입니다. 누르면 요약 창이 뜨고, 거기서 '확인'을 눌러야 실행합니다.
-      실행(run_sections.py)이나 시험(try_section.py)이 돌고 있으면 단추가 잠깁니다.</p>
-    <div class="card" id="srv-top-card"></div>
-    <div class="card" id="srv-models-card"></div>
-    <div class="cols">
-      <div class="card" id="srv-runpod-card"></div>
-      <div class="card" id="srv-rngd-card"></div>
-    </div>
-    <div class="card" id="srv-log-card"></div>
+  <section id="screen-s05" hidden aria-labelledby="title-s05">
+    <h1 id="title-s05" tabindex="-1"></h1>
+    <p id="help-context-s05" class="help-context"></p>
+    <div id="jobs-list"></div>
+    <div id="jobs-detail"></div>
   </section>
-
-  <section id="tab-help" class="tab">
-    <p class="what">이 화면은 작업 화면의 용어와 읽는 법을 설명합니다.<br>
-      처음 보는 말이 나오면 여기서 찾습니다.</p>
-    <iframe id="help-frame" class="helpframe" title="도움말" data-src="/static/guide.html"></iframe>
+  <section id="screen-s06" hidden aria-labelledby="title-s06">
+    <h1 id="title-s06" tabindex="-1"></h1>
+    <p id="help-context-s06" class="help-context"></p>
+    <div id="servers-summary"></div>
+    <div id="servers-rngd"></div>
+    <div id="servers-runpod"></div>
+    <div id="servers-models"></div>
+    <div id="servers-log"></div>
+  </section>
+  <section id="screen-s07" hidden aria-labelledby="title-s07">
+    <h1 id="title-s07" tabindex="-1"></h1>
+    <div id="help-topics"></div>
+    <div id="help-guide-records"></div>
+    <div id="help-glossary"></div>
+  </section>
+  <section id="screen-s09" hidden aria-labelledby="title-s09">
+    <h1 id="title-s09" tabindex="-1"></h1>
+    <p id="help-context-s09" class="help-context"></p>
+    <div id="jobs-run"></div>
+  </section>
+  <section id="screen-s10" hidden aria-labelledby="title-s10">
+    <h1 id="title-s10" tabindex="-1"></h1>
+    <p id="help-context-s10" class="help-context"></p>
+    <div id="jobs-compare"></div>
   </section>
 </main>
-
-<dialog id="srv-dialog" class="srvdlg"></dialog>
-<div id="tip" class="tip" hidden></div>
-<script src="/static/app.js"></script>
+<div id="guide-overlay" role="dialog" aria-modal="true" aria-labelledby="guide-title" hidden></div>
+<div id="tip" class="tip" role="tooltip" hidden></div>
+<dialog id="context-picker" aria-labelledby="context-picker-title"></dialog>
+<dialog id="action-confirm"></dialog>
+<div id="status" role="status" aria-live="polite"></div>
+<script id="ui-text" type="application/json">__B_APP_UI_TEXT__</script>
+<script src="/static/js/core.js"></script>
+<script src="/static/js/shell.js"></script>
+<script src="/static/js/score.js"></script>
+<script src="/static/js/source.js"></script>
+<script src="/static/js/compare.js"></script>
+<script src="/static/js/servers.js"></script>
+<script src="/static/js/jobs.js"></script>
+<script src="/static/js/journey.js"></script>
+<script src="/static/js/guide.js"></script>
+<script src="/static/js/help.js"></script>
+<script src="/static/js/boot.js"></script>
 </body>
 </html>

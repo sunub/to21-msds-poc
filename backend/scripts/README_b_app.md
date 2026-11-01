@@ -1,31 +1,62 @@
 # B 작업 화면 (개발 전용)
 
-모델 실행의 점수·비교·원문 대조·시험·서버 관리를 한 화면에서 하는 작은 웹 앱이다.
-ADR-025 참고. 쓰는 법은 앱의 "도움말" 탭(`b_app_static/guide.html`)에 있다.
+AI가 뽑은 값을 원문과 맞춰 보고 같은 문서 부분을 다시 시험하는 도구입니다.
+phase `app-redo`의 새 화면이 들어왔습니다. 설계 결정은 ADR-025·028입니다.
+화면 구성의 정본은 `b_app_static/design/STRUCTURE.md`입니다.
 
 ## 켜기
 ```
-(cd backend && .venv/bin/python scripts/b_app.py)   # 127.0.0.1 에서만 열린다
+(cd backend && .venv/bin/python scripts/b_app.py)
 ```
+내 컴퓨터 127.0.0.1에서만 엽니다. 터미널에 표시된 주소로 접속합니다.
+기본 묶음은 `data/pages/prev/version9`, 기본 정답지는 `data/silver/claude`입니다.
+`--pages-dir`와 `--gold-dir`는 시작 기본값입니다. 이후 화면에서 바꿀 수 있습니다.
 
-## 파일
-- `b_app.py`: 서버(표준 `http.server`)와 라우트. 탭 5개의 API와 정적 파일을 준다.
-- `b_app_runs.py`: `runs/` 읽기·채점(F의 `score_set`)·호출 격자·한도 분류·값 없는 행 뺀 점수·합격 기준.
-- `b_app_diff.py`: 두 실행 비교, 하락 원인 문장, 안내문 버전 차이.
-- `b_app_doc.py`: 쪽 글자 줄·그림 좌표, 결과 값↔줄↔실버 맞추기.
-- `b_app_jobs.py`: 시험·본 실행·비교표를 하위 프로세스로 시작·중단하고 로그를 읽는다.
-- `b_app_servers.py`: 모델 서버 상태, RunPod Pod·RNGD 모델 올리기·내리기(확인 토큰 2단계).
-- `pod.py`: RunPod REST 도구(list·get·create·delete). 명령줄로도 쓴다.
-- `try_section.py`: 항 하나·여러 개·문서 전체를 모델에 보내 단계별로 보여 준다.
-- `b_app_static/`: `index.html`, `app.js`, `app.css`, `guide.html`(외부 주소 없음).
+## 화면 구성
+| 화면 | 하는 일 |
+|---|---|
+| S01 최근 결과 | 점수와 가장 큰 문제를 읽습니다. 첫 진입 화면입니다. |
+| S02 원문 대조 | 선택한 값과 실제 근거 줄을 함께 봅니다. 추정 줄은 따로 표시합니다. |
+| S03 다시 시험 | 문서의 일부나 전체를 다시 보냅니다. 입력 확인 연습은 AI를 부르지 않습니다. |
+| S04 두 결과 비교 | 조건과 점수와 달라진 값을 비교합니다. |
+| S05 작업 기록 | 진행과 오류를 보고 허용된 작업을 멈춥니다. |
+| S06 AI 켜기와 비용 | 모델 연결과 빌린 서버 비용을 관리합니다. |
+| S07 도움말 | 막힌 작업의 장으로 바로 갑니다. 용어 40개와 채점 기준 23개를 풉니다. |
+| S08 처음 사용 | 결과 읽기와 한 부분 실제 시험의 두 갈래를 안내합니다. |
+| S09 여러 문서 시험 | 문서와 반복 수를 골라 실행합니다. |
+| S10 비교표 | 여러 결과를 선택한 순서로 모읍니다. |
 
-## 시험
+주소의 화면 표시(`#s03` 등)가 있으면 그 화면을 먼저 엽니다.
+문서 묶음과 정답지와 모델 연결 상태는 모든 화면에 보입니다.
+저장 결과는 모델 없이 읽습니다. 도움말에서 돌아와도 선택 대상이 유지됩니다.
+안내 기록은 `runs/manual/journey.json`에 저장합니다. 다시 보기는 성공 기록을 지우지 않습니다.
+
+## 자료와 연결
+- `GET /api/sets`에서 문서 묶음과 사용 불가 이유를 읽습니다. 줄 번호 없는 판은 새 실행에서 고를 수 없습니다.
+- `GET /api/keys`에서 정답지를 읽습니다. 정답지를 바꾸면 저장 결과를 다시 채점합니다.
+- 신규 문서의 실행 가능 여부는 서버의 `runnable`과 이유를 따릅니다. 평가용 문서는 열거나 시험하지 않습니다.
+- `RUNPOD_VLLM_BASE_URL`은 빌린 서버의 중계 주소입니다. `RUNPOD_VLLM_API_KEY`는 모델 접속 키입니다.
+- 앱을 다시 켜도 앱이 만든 Pod를 이어 씁니다. 다른 사람이 만든 Pod는 삭제하지 못합니다.
+- `.env`를 고친 뒤 설정 다시 읽기(`POST /api/servers/reload_env`)로 반영합니다.
+- 회사 연결 통로는 `RNGD_SSH`로 준비합니다. `tunnel_open`과 `tunnel_close`로 열고 닫습니다.
+- 서버 변경은 대상과 비용을 확인한 뒤 실행합니다. 모델 없음과 통로 닫힘과 준비 중을 구분합니다.
+
+## 파일과 글
+- `b_app.py`: 요청을 받아 데이터와 화면 파일을 줍니다.
+- `b_app_text.py`: 고정 글 `UI_TEXT`와 용어 및 자료별 설명을 만듭니다. 승인 글은 `design/COPY.md`에서 옵니다.
+- `b_app_runs.py`·`b_app_diff.py`·`b_app_doc.py`: 점수와 비교와 원문을 읽습니다.
+- `b_app_jobs.py`·`b_app_servers.py`: 작업과 모델 서버를 관리합니다.
+- `b_app_sets.py`·`b_app_journey.py`: 자료 목록과 첫 사용 기록을 관리합니다.
+- `b_app_static/js/`: core → shell → score → source → compare → servers → jobs → journey → help → boot 순서입니다.
+- `b_app_static/index.html`·`app.css`·`guide.html`: 화면 틀과 공통 모양과 아홉 장 도움말입니다.
+- `b_app_static/design/`: 승인된 구조와 문구와 시안 및 구현 기록(BUILD.md)을 둡니다.
+- `b_app_static/DESIGN.md`·`PRODUCT.md`: 색과 글자 및 제품 사실의 기준입니다.
+
+## 검사와 보호
 ```
 (cd backend && .venv/bin/python -m pytest -q --ignore=tests/test_preprocess.py)
 ```
-시험은 모델 서버·네트워크를 부르지 않는다. `test_preprocess.py`는 실제 `data/pages/`를 덮어쓰므로 뺀다.
-
-## 보안 규칙
-- 서버는 127.0.0.1에만 묶고 다른 Host·Origin 요청은 거부한다.
-- 키(`.env`의 RUNPOD_API_KEY, 모델 서버 키 등)는 화면·로그·기록에 쓰지 않는다. 변수 이름만 문서에 적는다.
-- 쪽 그림·쪽 글자·안내문은 요청 때 읽어 보여 줄 뿐 파일로 저장하지 않는다(D-47). 평가용 문서는 받지 않는다(D-43).
+시험은 모델 서버를 부르지 않습니다. 전처리 시험은 실제 원문을 덮어쓰므로 제외합니다.
+접속 키는 `.env`에만 둡니다. 화면이나 로그나 채팅에 적지 않습니다.
+원문과 쪽 그림과 지시문을 공유 파일로 저장하지 않습니다.
+다른 접속 대상(Host)이나 출처(Origin)의 요청은 거부합니다.
