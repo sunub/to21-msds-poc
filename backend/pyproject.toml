@@ -1,19 +1,51 @@
+# 백엔드 의존성의 단일 원본. requirements*.txt 는 두지 않는다.
+#
+#   개발 환경         cd backend && uv sync                 (런타임 + dev)
+#   OCR 실험(C, GPU)  cd backend && uv sync --group ocr     (Linux GPU 서버에서만)
+#   폐쇄망 반입 목록  cd backend && uv export --no-dev --no-hashes --no-emit-project -o <묶음 폴더>/requirements.txt
+#
+# 버전은 uv.lock 이 고정한다. 런타임은 폐쇄망 반입 대상이라 여기서도 == 로 고정한다 (2026-10-26 확인한 버전).
+# vLLM 은 넣지 않는다. 역할 B 가 GPU 서버에서만 설치한다.
+
 [project]
 name = "to21-msds-backend"
 version = "0.1.0"
-requires-python = ">=3.12,<3.13"
+requires-python = ">=3.11,<3.13"
+# 런타임: 폐쇄망에 반입하는 패키지만
 dependencies = [
-  "PyMuPDF",
-  "docling>=2.144.0",
-  "onnxruntime-gpu>=1.31.1",
-  "paddleocr==3.2.0",
-  "paddlepaddle-gpu==3.2.0",
+  "pymupdf==2.0",            # 전처리: 쪽 이미지, 텍스트층 (preprocess)
+  "openai==3.37.0",          # 모델 호출: OpenAI 호환 Chat Completions (extract/client)
+  "jsonschema==4.26.0",      # TO21 스키마 검증 (common/schema)
+  "PyYAML>=6.0.2,<7",        # 설정 읽기 (configs/*.yaml). OCR 그룹의 paddlex가 6.0.2를 고정해 범위로 둔다(실제 버전은 uv.lock)
+  "openpyxl==3.1.5",         # 명세서 읽기 (extract/prompt_builder), 검수표
+  "python-dotenv==1.2.4",    # .env 읽기 (extract/client)
+  "fastapi==0.162.0",        # 추출 API (api/extract_app), 지식DB 조회 API (api/htodb_app)
+  "uvicorn==0.54.0",         # API 실행
+  "psycopg[binary]==3.3.6",  # 지식DB(PostgreSQL) 접속 (compliance/htodb)
+  "psycopg-pool==3.3.3",     # 조회 API 연결 풀
 ]
 
 [dependency-groups]
+# 개발 전용: 폐쇄망에 반입하지 않는다
 dev = [
-  "pytest",
+  "pytest==9.1.1",
+  "httpx==0.28.1",           # API 시험 (fastapi TestClient)
+  "requests==2.34.2",        # scripts/check_router.py 크레딧 조회
+  "pymssql==2.4.6",          # scripts/load_htodb.py: TO21 HTODB(SQL Server mdf) 읽기, 적재 때만
 ]
+# OCR 실험 (역할 C, ocr_batch_version*.py). GPU 휠은 Linux 에만 있다. 폐쇄망 반입 여부는 미정
+ocr = [
+  "docling>=2.144.0",
+  "paddleocr==3.2.0",
+  "onnxruntime-gpu>=1.31.1; sys_platform == 'linux'",
+  "paddlepaddle-gpu==3.2.0; sys_platform == 'linux'",
+]
+
+[tool.uv]
+package = false              # 설치하는 패키지가 아니다. src/ 는 pythonpath 로 찾는다
+default-groups = ["dev"]
+# 잠금 대상: 개발용 macOS, 서버·폐쇄망 Linux
+environments = ["sys_platform == 'darwin'", "sys_platform == 'linux'"]
 
 [tool.uv.sources]
 paddlepaddle-gpu = { index = "paddle-cu118" }
@@ -24,7 +56,6 @@ url = "https://www.paddlepaddle.org.cn/packages/stable/cu118/"
 explicit = true
 
 # 패키지 설치용이 아니라 pytest 가 src/msds 를 찾게 하는 최소 설정이다.
-# scripts/ 에서 msds 를 import 하는 방식은 골격이 올라온 뒤 정한다.
 [tool.pytest.ini_options]
 pythonpath = ["src"]
 testpaths = ["tests"]
