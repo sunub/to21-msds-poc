@@ -469,30 +469,40 @@ def _realign(t: _Table, cells: list[str]) -> dict | None:
       예: '값있음 | p8:L8' 사이에 끼우면 값있음이 status 대신 statements로 간다. 모델이 빠뜨리는 것은 빈 칸 줄의
       빈 칸이다 (11/01 v17 실행 8개에서 같을 때도 남겨 독성 426행·규제 167행이 모호하다고 버려졌다).
     - 남은 해석에서 값이 있는 칸의 열 배치가 모두 같을 때만 그 행을 쓴다.
-    - 배치가 둘 이상 남으면 그중 선택지 열을 가장 많이 채운 해석만 남긴다. 그래도 배치가 둘 이상이면 모호해 버린다 (ADR-029).
+    - 배치가 둘 이상 남으면 그중 선택지 열을 가장 많이 채운 해석만 남긴다. 하나 적은 행은 그래도 배치가 둘 이상이면
+      가장 긴 빈 칸 줄에 끼운 해석을 쓴다(같으면 뒤쪽 줄). 모델은 긴 빈 칸 줄에서 개수를 놓친다 (개발 골드 10건과 같은
+      줄을 맞춰 보면 규제 46/46, 독성 37/41이 이 해석과 가장 잘 맞는다). 그 밖에 배치가 둘 이상이면 모호해 버린다 (ADR-029).
       예: 15열 규제 표의 `OSH | OSH_PROHIBIT | 금지대상 유해물질 |  |  | 해당없음 |  | … | p10:L23`(14칸)은
       해당없음이 applicable(선택지)에 가는 해석이 threshold에 가는 해석보다 선택지 열을 하나 더 채워 살린다."""
     n = len(t.columns)
     if len(cells) == n + 1:
-        tries = [(cells[:k] + cells[k + 1:], True) for k, c in enumerate(cells) if not c]
+        tries = [(cells[:k] + cells[k + 1:], True, 0) for k, c in enumerate(cells) if not c]
     elif len(cells) == n - 1:
         blank = [False, *(not c for c in cells), False]     # 줄 끝에 끼우면 안쪽 이웃 칸만 본다 (값을 밀어내는 해석이다)
-        tries = [(cells[:k] + [""] + cells[k:], blank[k] or blank[k + 1]) for k in range(n)]
+        run = [0] * (n + 1)                                   # run[i]: 칸 i-1이 든 빈 칸 줄의 길이 (blank와 같은 자리)
+        for i in range(1, n):
+            run[i] = run[i - 1] + 1 if blank[i] else 0
+        for i in range(n - 1, 0, -1):
+            if blank[i] and blank[i + 1]:
+                run[i] = run[i + 1]
+        tries = [(cells[:k] + [""] + cells[k:], blank[k] or blank[k + 1], max(run[k], run[k + 1])) for k in range(n)]
     else:
         return None
     choice_cols = [c for c in t.columns if _choices(t.schema["properties"].get(c, {}), t.schema["$defs"])]
-    readings = []                                           # (값 칸의 열 배치, 채운 선택지 열 수, 빈 칸 옆인가, 행)
-    for x, by_blank in tries:
+    readings = []                                           # (값 칸의 열 배치, 채운 선택지 열 수, 빈 칸 옆인가, 빈 칸 줄 길이, 행)
+    for k, (x, by_blank, length) in enumerate(tries):
         row, problem = _build(t, x)
         if problem is None:
             readings.append((tuple(i for i, c in enumerate(x) if c), sum(row[c] is not None for c in choice_cols),
-                             by_blank, row))
-    best = max((f for _, f, b, _ in readings if b), default=0)
-    kept = [(p, f, row) for p, f, b, row in readings if b or f > best]
-    if len({p for p, _, _ in kept}) > 1:
-        most = max(f for _, f, _ in kept)
+                             by_blank, (length, k), row))
+    best = max((f for _, f, b, _, _ in readings if b), default=0)
+    kept = [(p, f, ln, row) for p, f, b, ln, row in readings if b or f > best]
+    if len({p for p, _, _, _ in kept}) > 1:
+        most = max(f for _, f, _, _ in kept)
         kept = [k for k in kept if k[1] == most]
-    return kept[0][2] if len({p for p, _, _ in kept}) == 1 else None
+    if len({p for p, _, _, _ in kept}) > 1 and len(cells) == n - 1 and any(ln[0] for _, _, ln, _ in kept):
+        return max(kept, key=lambda k: k[2])[3]      # 빈 칸 줄에 끼운 해석이 있을 때만
+    return kept[0][3] if len({p for p, _, _, _ in kept}) == 1 else None
 
 
 def _row(t: _Table, cells: list[str]) -> tuple[dict | None, str | None]:

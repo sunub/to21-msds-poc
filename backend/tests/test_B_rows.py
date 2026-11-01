@@ -660,11 +660,14 @@ def test_parse_rows_align_blank_side_beats_between_values_tie(short, expected):
     assert {k: r[k] for k in expected} == expected
 
 
-def test_parse_rows_align_two_blank_runs_still_dropped():
-    """빈 칸 줄이 값 양쪽에 있어 GLP가 guideline인지 data_source인지 모르는 행은 여전히 버린다 (ADR-029)."""
+def test_parse_rows_align_two_blank_runs_longest_wins():
+    """빈 칸 줄이 값 양쪽에 있어 GLP가 guideline인지 data_source인지 모르는 행: 긴 빈 칸 줄(7칸)에 끼워 data_source로 살린다.
+    알려진 한계: 골드 M002는 이 모양의 GLP를 guideline에 둔다. 두 열 모두 채점 열이 아니고, 행을 살리는 쪽을 택했다."""
     short = ["가상물질 갑", "", "TX_ORAL", "LD50", "1,750 mg/kg", "랫드"] + [""] * 7 + ["GLP", "", "", "값있음", "p7:L15"]
     parsed, errors = rw.parse_rows(table(11, "toxicity", " | ".join(short)), 11)
-    assert parsed["toxicity"] == [] and len(errors) == 1
+    assert errors == []
+    [r] = parsed["toxicity"]
+    assert (r["data_source"], r["guideline"], r["status"], r["q"]["value"]) == ("GLP", None, "값있음", 1750)
 
 
 def test_parse_rows_align_object_table():
@@ -744,15 +747,18 @@ def test_score_fix_realign_extra_blank_keeps_reading_with_more_choices():
     assert errors == [] and parsed["regulations"][0]["applicable"] == "비해당"
 
 
-def test_score_fix_realign_tie_still_dropped():
-    """값이 자유 글 열 두 곳(country·value_raw) 중 어디인지 모르는 행: 두 해석이 선택지 열을 똑같이 채워 버린다."""
+def test_score_fix_realign_tie_goes_to_longest_blank_run():
+    """값이 자유 글 열 두 곳(country·value_raw) 중 어디인지 모르는 행: 두 해석이 선택지 열을 똑같이 채우면
+    가장 긴 빈 칸 줄에 빈 칸을 끼운다. 모델은 긴 빈 칸 줄에서 개수를 놓친다
+    (개발 골드 10건과 같은 줄을 맞춰 보면 규제 46/46, 독성 37/41이 이 해석과 가장 잘 맞는다)."""
     full = cells(15, "regulations", law="OSH", item_code="OSH_PROHIBIT", applicable="해당", value_raw="가상 값",
                  line="p10:L24")
     short = full[:8] + full[9:]                       # qty_alt의 빈 칸 하나를 뺀다
     assert short[11] == "가상 값" and not any(short[6:11]) and not short[12]
     parsed, errors = rw.parse_rows(table(15, "regulations", " | ".join(short)), 15)
-    assert parsed["regulations"] == []
-    assert len(errors) == 1 and errors[0].endswith(": 열 14개, 기대 15개")
+    assert errors == []
+    [r] = parsed["regulations"]
+    assert r["value_raw"] == "가상 값" and r["country"] is None
 
 
 def test_score_fix_realign_unique_reading_unchanged():
