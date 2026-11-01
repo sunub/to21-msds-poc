@@ -1,0 +1,685 @@
+{
+ "sections": [
+  {
+   "msds_index": 0,
+   "section": 1,
+   "ok": true,
+   "mode": "json_schema",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": true,
+   "attempts": 2,
+   "seconds": 21.557,
+   "usage": {
+    "prompt_tokens": 6963,
+    "completion_tokens": 1366,
+    "total_tokens": 8329
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 2,
+   "ok": true,
+   "mode": "json_schema",
+   "errors": [],
+   "check_problems": [
+    "hazard.classes가 비었음: 원문의 유해성 분류 행(예: 인화성 액체 구분 2)을 hazard.classes에 한 행씩 쓴다 (H코드 5개가 있음)"
+   ],
+   "reextracted": false,
+   "attempts": 2,
+   "seconds": 53.988,
+   "usage": {
+    "prompt_tokens": 14217,
+    "completion_tokens": 4477,
+    "total_tokens": 18694
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 3,
+   "ok": true,
+   "mode": "rows",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 1,
+   "seconds": 8.612,
+   "usage": {
+    "prompt_tokens": 4029,
+    "completion_tokens": 496,
+    "total_tokens": 4525
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 4,
+   "ok": true,
+   "mode": "json_schema",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": true,
+   "attempts": 2,
+   "seconds": 42.431,
+   "usage": {
+    "prompt_tokens": 5660,
+    "completion_tokens": 3361,
+    "total_tokens": 9021
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 5,
+   "ok": true,
+   "mode": "json_schema",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 1,
+   "seconds": 19.714,
+   "usage": {
+    "prompt_tokens": 2833,
+    "completion_tokens": 1288,
+    "total_tokens": 4121
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 6,
+   "ok": true,
+   "mode": "json_schema",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 1,
+   "seconds": 21.981,
+   "usage": {
+    "prompt_tokens": 2379,
+    "completion_tokens": 1429,
+    "total_tokens": 3808
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 7,
+   "ok": true,
+   "mode": "json_schema",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 1,
+   "seconds": 4.556,
+   "usage": {
+    "prompt_tokens": 2053,
+    "completion_tokens": 222,
+    "total_tokens": 2275
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 8,
+   "ok": true,
+   "mode": "rows",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": true,
+   "attempts": 2,
+   "seconds": 22.606,
+   "usage": {
+    "prompt_tokens": 8930,
+    "completion_tokens": 1670,
+    "total_tokens": 10600
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 9,
+   "ok": true,
+   "mode": "rows",
+   "errors": [
+    "physchem p6:L34 UEL+LEL |  |  | 1.4 ~ 11.7 |  |  |  | p6…: .prop_code: 'UEL+LEL' is not valid under any of the given schemas"
+   ],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 2,
+   "seconds": 24.565,
+   "usage": {
+    "prompt_tokens": 8580,
+    "completion_tokens": 1602,
+    "total_tokens": 10182
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 10,
+   "ok": true,
+   "mode": "json_schema",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": true,
+   "attempts": 2,
+   "seconds": 12.216,
+   "usage": {
+    "prompt_tokens": 4815,
+    "completion_tokens": 664,
+    "total_tokens": 5479
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 11,
+   "ok": true,
+   "mode": "rows",
+   "errors": [
+    "toxicity p8:L14 comp_name= | comp_cas= | endpoint=TX_DER…: .endpoint: 'TX_DERM' is not valid under any of the given schemas",
+    "toxicity p8:L15 comp_name=1,3 부타디엔 | comp_cas=106-99-0 |…: .endpoint: 'TX_DERM' is not valid under any of the given schemas",
+    "toxicity p8:L16 comp_name=이소부텐 | comp_cas=115-11-7 | end…: .endpoint: 'TX_DERM' is not valid under any of the given schemas",
+    "toxicity p8:L17 comp_name=부텐 1 | comp_cas=106-98-9 | end…: .endpoint: 'TX_DERM' is not valid under any of the given schemas",
+    "toxicity p8:L18 comp_name=부탄 | comp_cas=106-97-8 | endpo…: .endpoint: 'TX_DERM' is not valid under any of the given schemas",
+    "toxicity p8:L19 comp_name=시스 2 부텐 | comp_cas=590-18-1 | …: .endpoint: 'TX_DERM' is not valid under any of the given schemas",
+    "toxicity p8:L20 comp_name=트랜스 2 부텐 | comp_cas=624-64-6 |…: .endpoint: 'TX_DERM' is not valid under any of the given schemas"
+   ],
+   "check_problems": [],
+   "reextracted": true,
+   "attempts": 2,
+   "seconds": 135.639,
+   "usage": {
+    "prompt_tokens": 16888,
+    "completion_tokens": 16284,
+    "total_tokens": 33172
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 12,
+   "ok": true,
+   "mode": "rows",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 1,
+   "seconds": 48.944,
+   "usage": {
+    "prompt_tokens": 5387,
+    "completion_tokens": 4521,
+    "total_tokens": 9908
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 13,
+   "ok": true,
+   "mode": "json_schema",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 1,
+   "seconds": 10.083,
+   "usage": {
+    "prompt_tokens": 2137,
+    "completion_tokens": 570,
+    "total_tokens": 2707
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 14,
+   "ok": true,
+   "mode": "rows",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 1,
+   "seconds": 6.528,
+   "usage": {
+    "prompt_tokens": 3191,
+    "completion_tokens": 373,
+    "total_tokens": 3564
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 15,
+   "ok": true,
+   "mode": "rows",
+   "errors": [
+    "regulations p16:L6 law=INTL_US | item_code=INTL_US | item_r…: .law: 'INTL_US' is not valid under any of the given schemas",
+    "regulations p16:L13 law=INTL_US | item_code=INTL_US | item_r…: .law: 'INTL_US' is not valid under any of the given schemas",
+    "regulations p16:L20 law=INTL_US | item_code=INTL_US | item_r…: .law: 'INTL_US' is not valid under any of the given schemas",
+    "regulations p16:L27 law=INTL_US | item_code=INTL_US | item_r…: .law: 'INTL_US' is not valid under any of the given schemas",
+    "intl_class p16:L7 부탄 | 106-97-8 | INTL_US | Designation, R…: .system: 'INTL_US' is not valid under any of the given schemas",
+    "intl_class p16:L8 부텐 1 | 106-98-9 | INTL_US | Designation,…: .system: 'INTL_US' is not valid under any of the given schemas",
+    "intl_class p16:L9 1,3 부타디엔 | 106-99-0 | INTL_US | Designat…: .system: 'INTL_US' is not valid under any of the given schemas",
+    "intl_class p16:L10 이소부텐 | 115-11-7 | INTL_US | Designation,…: .system: 'INTL_US' is not valid under any of the given schemas",
+    "intl_class p16:L11 시스 2 부텐 | 590-18-1 | INTL_US | Designati…: .system: 'INTL_US' is not valid under any of the given schemas",
+    "intl_class p16:L12 트랜스 2 부텐 | 624-64-6 | INTL_US | Designat…: .system: 'INTL_US' is not valid under any of the given schemas",
+    "intl_class p16:L14 부탄 | 106-97-8 | INTL_US | Emergency Plan…: .system: 'INTL_US' is not valid under any of the given schemas",
+    "intl_class p16:L15 부텐 1 | 106-98-9 | INTL_US | Emergency Pl…: .system: 'INTL_US' is not valid under any of the given schemas",
+    "intl_class p16:L16 1,3 부타디엔 | 106-99-0 | INTL_US | Emergenc…: .system: 'INTL_US' is not valid under any of the given schemas",
+    "intl_class p16:L17 이소부텐 | 115-11-7 | INTL_US | Emergency Pl…: .system: 'INTL_US' is not valid under any of the given schemas",
+    "intl_class p16:L18 시스 2 부텐 | 590-18-1 | INTL_US | Emergency…: .system: 'INTL_US' is not valid under any of the given schemas",
+    "intl_class p16:L19 트랜스 2 부텐 | 624-64-6 | INTL_US | Emergenc…: .system: 'INTL_US' is not valid under any of the given schemas",
+    "intl_class p16:L21 부탄 | 106-97-8 | INTL_US | Toxic Chemical…: .system: 'INTL_US' is not valid under any of the given schemas",
+    "intl_class p16:L22 부텐 1 | 106-98-9 | INTL_US | Toxic Chemic…: .system: 'INTL_US' is not valid under any of the given schemas",
+    "intl_class p16:L23 1,3 부타디엔 | 106-99-0 | INTL_US | Toxic Ch…: .system: 'INTL_US' is not valid under any of the given schemas",
+    "intl_class p16:L24 이소부텐 | 115-11-7 | INTL_US | Toxic Chemic…: .system: 'INTL_US' is not valid under any of the given schemas",
+    "intl_class p16:L25 시스 2 부텐 | 590-18-1 | INTL_US | Toxic Che…: .system: 'INTL_US' is not valid under any of the given schemas",
+    "intl_class p16:L26 트랜스 2 부텐 | 624-64-6 | INTL_US | Toxic Ch…: .system: 'INTL_US' is not valid under any of the given schemas",
+    "intl_class p16:L28 부탄 | 106-97-8 | INTL_US | Process Safety…: .system: 'INTL_US' is not valid under any of the given schemas",
+    "intl_class p16:L29 부텐 1 | 106-98-9 | INTL_US | Process Safe…: .system: 'INTL_US' is not valid under any of the given schemas",
+    "intl_class p16:L30 1,3 부타디엔 | 106-99-0 | INTL_US | Process …: .system: 'INTL_US' is not valid under any of the given schemas",
+    "intl_class p16:L31 이소부텐 | 115-11-7 | INTL_US | Process Safe…: .system: 'INTL_US' is not valid under any of the given schemas",
+    "intl_class p16:L32 시스 2 부텐 | 590-18-1 | INTL_US | Process S…: .system: 'INTL_US' is not valid under any of the given schemas",
+    "intl_class p16:L33 트랜스 2 부텐 | 624-64-6 | INTL_US | Process …: .system: 'INTL_US' is not valid under any of the given schemas"
+   ],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 2,
+   "seconds": 161.774,
+   "usage": {
+    "prompt_tokens": 17616,
+    "completion_tokens": 21117,
+    "total_tokens": 38733
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 16,
+   "ok": true,
+   "mode": "json_schema",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 1,
+   "seconds": 17.806,
+   "usage": {
+    "prompt_tokens": 3623,
+    "completion_tokens": 1090,
+    "total_tokens": 4713
+   }
+  }
+ ],
+ "schema_errors": [],
+ "to21_validator": [
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[0]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[1]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[2]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[3]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[4]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[5]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[6]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[7]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[8]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[9]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[10]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[11]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[12]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[18]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[20]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[21]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[22]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[23]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[24]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[25]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[26]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[27]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[28]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[29]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[30]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[31]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[32]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[33]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[34]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[35]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[36]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[37]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[38]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[39]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[40]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[41]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[42]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[43]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[44]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[45]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[46]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[47]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[48]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[49]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[50]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  }
+ ],
+ "expand_problems": [
+  {
+   "msds_index": 0,
+   "section": 2,
+   "kind": "extras_in_narrative",
+   "detail": "6행"
+  },
+  {
+   "msds_index": 0,
+   "section": 4,
+   "kind": "extras_in_narrative",
+   "detail": "5행"
+  },
+  {
+   "msds_index": 0,
+   "section": 5,
+   "kind": "extras_in_narrative",
+   "detail": "4행"
+  },
+  {
+   "msds_index": 0,
+   "section": 6,
+   "kind": "extras_in_narrative",
+   "detail": "3행"
+  },
+  {
+   "msds_index": 0,
+   "section": 12,
+   "kind": "extras_in_narrative",
+   "detail": "1행"
+  },
+  {
+   "msds_index": 0,
+   "section": 13,
+   "kind": "extras_in_narrative",
+   "detail": "1행"
+  },
+  {
+   "msds_index": 0,
+   "section": 15,
+   "kind": "extras_in_narrative",
+   "detail": "19행"
+  }
+ ],
+ "warnings": [
+  "항목 분할 파일 없음: 임시 분할 (찾은 항 16/16, MSDS 1건)"
+ ],
+ "sections_method": "provisional",
+ "pictogram_check": [
+  {
+   "msds_index": 0,
+   "model": [
+    "GHS02",
+    "GHS04",
+    "GHS07",
+    "GHS08"
+   ],
+   "inferred": [
+    "GHS07",
+    "GHS08"
+   ],
+   "missing": [],
+   "extra": [
+    "GHS02",
+    "GHS04"
+   ],
+   "ok": true,
+   "unmapped_h": [
+    "H220",
+    "H280"
+   ]
+  }
+ ],
+ "needs_review": [
+  {
+   "msds_index": 0,
+   "section": 2
+  },
+  {
+   "msds_index": 0,
+   "section": 4
+  },
+  {
+   "msds_index": 0,
+   "section": 5
+  },
+  {
+   "msds_index": 0,
+   "section": 6
+  },
+  {
+   "msds_index": 0,
+   "section": 9
+  },
+  {
+   "msds_index": 0,
+   "section": 11
+  },
+  {
+   "msds_index": 0,
+   "section": 12
+  },
+  {
+   "msds_index": 0,
+   "section": 13
+  },
+  {
+   "msds_index": 0,
+   "section": 15
+  }
+ ]
+}

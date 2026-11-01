@@ -1,4 +1,6 @@
 """extract/rows.py 시험. 행 글은 직접 만든 가짜 MSDS 값이다 (D-43). 모델 서버를 부르지 않는다."""
+import re
+
 import pytest
 
 from msds.common.schema import validate
@@ -135,11 +137,82 @@ def test_parse_qm_rules(text, expected):
     assert rw.parse_qm(text) == {"raw": text, **expected}
 
 
+@pytest.mark.parametrize("text, expected", [    # 범위 둘째 숫자 앞의 부등호 (ADR-029)
+    ("40-<50 %", {"lower_op": ">=", "lower": 40, "upper_op": "<", "upper": 50, "unit": "%"}),
+    ("1 - < 5%", {"lower_op": ">=", "lower": 1, "upper_op": "<", "upper": 5, "unit": "%"}),
+    ("10~<20 %", {"lower_op": ">=", "lower": 10, "upper_op": "<", "upper": 20, "unit": "%"}),
+    ("10 ~ <= 20 %", {"lower_op": ">=", "lower": 10, "upper_op": "<=", "upper": 20, "unit": "%"}),
+    ("0.1-≤1 %", {"lower_op": ">=", "lower": 0.1, "upper_op": "<=", "upper": 1, "unit": "%"}),
+    ("25 – < 30", {"lower_op": ">=", "lower": 25, "upper_op": "<", "upper": 30}),
+])
+def test_parse_qm_range_lt(text, expected):
+    assert rw.parse_qm(text) == {"raw": text, **expected}
+
+
+@pytest.mark.parametrize("text, expected", [    # 지금 꼴은 그대로
+    ("10~20 %", {"lower_op": ">=", "lower": 10, "upper_op": "<=", "upper": 20, "unit": "%"}),
+    ("-5 ℃", {"value": -5, "unit": "C"}),
+    ("< 5 %", {"upper_op": "<", "upper": 5, "unit": "%"}),
+    ("1 - 5 %", {"lower_op": ">=", "lower": 1, "upper_op": "<=", "upper": 5, "unit": "%"}),
+])
+def test_parse_qm_range_lt_keeps_existing_forms(text, expected):
+    assert rw.parse_qm(text) == {"raw": text, **expected}
+
+
 def test_parse_qm_blank_and_types():
     assert rw.parse_qm("   ") is None
     assert rw.parse_qm(" 658 mg/L ")["raw"] == "658 mg/L"
     assert isinstance(rw.parse_qm("658 mg/L")["value"], int)
     assert isinstance(rw.parse_qm("2.0")["value"], float)     # 소수 자릿수(dp)는 fill_q가 raw로 정한다
+
+
+@pytest.mark.parametrize("text, expected", [    # 칸 이름 쌍 'lower_op:>=,lower:1,unit:%' (ADR-029)
+    ("lower_op:>=,lower:1,unit:%", {"lower_op": ">=", "lower": 1, "unit": "%"}),
+    ("value:2.3; unit:kPa", {"value": 2.3, "unit": "kPa"}),
+    ("lower_op: 이상, lower: 0.1, unit: wt%", {"lower_op": ">=", "lower": 0.1, "unit": "wt%"}),
+    ("upper_op:미만;upper:5;unit:%", {"upper_op": "<", "upper": 5, "unit": "%"}),
+    ("value:1,000,unit:mg/㎥", {"value": 1000, "unit": "mg/m3"}),          # 숫자의 쉼표는 나누지 않는다
+    ("value:2,unit:Kpa,approx:true", {"value": 2, "unit": "kPa", "approx": True}),
+    ("value:3,lower_op:>=,lower:1,upper_op:<=,upper:5,unit:%",              # 범위가 있으면 value는 버린다
+     {"lower_op": ">=", "lower": 1, "upper_op": "<=", "upper": 5, "unit": "%"}),
+    ("value:7,upper_op:<,upper:9", {"upper_op": "<", "upper": 9}),
+])
+def test_parse_qm_qm_pairs(text, expected):
+    assert rw.parse_qm(text) == {"raw": text, **expected}
+
+
+@pytest.mark.parametrize("text", [
+    "foo:1,unit:%",                 # 모르는 이름
+    "lower:abc,unit:%",             # 숫자가 아님
+    "lower_op:<,lower:1",           # 하한 칸에 상한 부등호
+    "upper_op:이상,upper:1",        # 상한 칸에 하한 부등호
+    "approx:maybe,value:1",         # 참/거짓이 아님
+    "lower_op:>=, 1",               # 쌍이 아닌 조각
+    "TWA:30ppm",
+])
+def test_parse_qm_qm_pairs_unknown_or_bad_keep_raw_only(text):
+    assert rw.parse_qm(text) == {"raw": text}
+
+
+@pytest.mark.parametrize("text, expected", [    # 쌍이 아닌 지금 꼴은 그대로
+    ("1 % 이상", {"lower_op": ">=", "lower": 1, "unit": "%"}),
+    ("0.1 wt% 이상", {"lower_op": ">=", "lower": 0.1, "unit": "wt%"}),
+    ("20 ~ 30 %", {"lower_op": ">=", "lower": 20, "upper_op": "<=", "upper": 30, "unit": "%"}),
+])
+def test_parse_qm_qm_pairs_keeps_other_forms(text, expected):
+    assert rw.parse_qm(text) == {"raw": text, **expected}
+
+
+def test_parse_rows_qm_pairs_threshold():
+    text = table(15, "regulations",
+                 row(15, "regulations", law="OSH", item_code="OSH_MEASURE", item_raw="작업환경측정물질", **COMP,
+                     applicable="해당", threshold="lower_op:>=,lower:1,unit:%", line="p9:L3"))
+    parsed, errors = rw.parse_rows(text, 15)
+    assert errors == []
+    th = parsed["regulations"][0]["threshold"]
+    assert th == {"raw": "lower_op:>=,lower:1,unit:%", "lower_op": ">=", "lower": 1, "unit": "%"}
+    assert th["lower"] == 1
+    assert validate(parsed, response_schema(15)) == []
 
 
 # ── parse_rows ─────────────────────────────────────────
@@ -442,8 +515,8 @@ def test_parse_rows_enum_spaces_removed_when_in_choices():
 
 def test_parse_rows_enum_out_of_choices_is_error():
     text = table(15, "regulations",
-                 row(15, "regulations", law="OSH", item_code="OSH_MEASURE", **COMP, applicable="값있음",
-                     line="p9:L3"))
+                 row(15, "regulations", law="OSH", item_code="OSH_MEASURE", **COMP, applicable="가상값",
+                     line="p9:L3"))     # '값있음'은 이제 '해당'으로 맞춘다 (ADR-029)
     parsed, errors = rw.parse_rows(text, 15)
     assert parsed["regulations"] == []
     assert len(errors) == 1 and "p9:L3" in errors[0] and "applicable" in errors[0]
@@ -503,14 +576,17 @@ def test_parse_rows_align_missing_blank_in_gap():
     assert parsed["toxicity"] == rw.parse_rows(tox_rows(full), 11)[0]["toxicity"]
 
 
-def test_parse_rows_align_value_in_middle_is_error():
-    """빈 칸 줄 사이에 값(증기)이 있으면 빠진 빈 칸이 그 앞인지 뒤인지에 따라 physical_form과 exposure_type으로 갈려 버린다."""
+def test_parse_rows_align_value_in_middle_goes_to_choice_column():
+    """빈 칸 줄 사이에 값(증기)이 있으면 빠진 빈 칸이 그 앞인지 뒤인지에 따라 physical_form과 exposure_type으로 갈린다.
+    physical_form은 선택지 열이라 그 해석이 선택지 열을 하나 더 채워 그쪽으로 살린다 (ADR-029. 전에는 모호해 버렸다)."""
     full = cells(11, "toxicity", **ALIGN, physical_form="증기")
     short = full[:10] + full[11:]
     assert short[9] == "증기" and not any(short[6:9]) and not any(short[10:16])
     parsed, errors = rw.parse_rows(tox_rows(short), 11)
-    assert parsed["toxicity"] == []
-    assert len(errors) == 1 and errors[0].endswith(": 열 18개, 기대 19개")
+    assert errors == []
+    [r] = parsed["toxicity"]
+    assert r["physical_form"] == "증기" and r["exposure_type"] is None
+    assert parsed["toxicity"] == rw.parse_rows(tox_rows(full), 11)[0]["toxicity"]
 
 
 def test_parse_rows_align_extra_blank_in_gap():
@@ -546,8 +622,9 @@ def test_parse_rows_align_no_blank_to_remove_is_error():
 
 
 def test_parse_rows_align_choice_between_values_is_error():
-    """값 두 칸 사이의 빈 칸(class)을 빠뜨린 행: 빈 칸 줄 옆에 끼우면 해당없음이 class(자유 글)로,
-    값 사이에 끼우면 status(선택지)로 간다. 값 사이 해석이 선택지 열을 더 채우므로 모호하다고 보고 버린다."""
+    """값 두 칸 사이의 빈 칸(class)을 빠뜨린 행: 빈 칸 줄 옆에 끼우면 해당없음이 class로,
+    값 사이에 끼우면 status(선택지)로 간다. class의 값 없음 글자는 status로 옮기므로(ADR-029) 두 해석이
+    선택지 열을 똑같이 채우고, 열 배치가 달라 모호하다고 보고 버린다."""
     full = cells(11, "cmr", **COMP, hazard="발암성", agency="KR_OSH", status="해당없음", line="p5:L10")
     short = full[:4] + full[5:]
     parsed, errors = rw.parse_rows(table(11, "cmr", " | ".join(short)), 11)
@@ -605,3 +682,180 @@ def test_physchem_no_value_keeps_real_text_and_existing_q():
     assert r["text_value"] == "무색" and r["q"] is None
     r = _physchem(prop_code="ODOR_THRESHOLD", q="0.5 ppm", text_value="자료없음", line="p5:L6")
     assert r["q"]["value"] == 0.5 and r["text_value"] == "자료없음"
+
+
+# ── 점수 고침: 행 파서 다섯 가지 (score-fix step 2, ADR-029) ───
+
+REG14 = ["OSH", "OSH_PROHIBIT", "금지대상 유해물질", "", "", "해당없음", "", "", "", "", "", "", "", "p10:L23"]
+
+
+def test_score_fix_realign_keeps_reading_with_more_choices():
+    """15열 규제 표에 빈 칸 하나를 빠뜨린 14칸 행: 해당없음이 applicable(선택지)에 가는 해석이
+    threshold(숫자 묶음)에 가는 해석보다 선택지 열을 하나 더 채우므로 그 행을 살린다."""
+    assert len(REG14) == len(rw.row_tables(15)["regulations"]) - 1
+    parsed, errors = rw.parse_rows(table(15, "regulations", " | ".join(REG14)), 15)
+    assert errors == []
+    [r] = parsed["regulations"]
+    assert (r["law"], r["item_code"], r["item_raw"]) == ("OSH", "OSH_PROHIBIT", "금지대상 유해물질")
+    assert r["applicable"] == "비해당" and r["threshold"] is None and r["line"] == "p10:L23"
+    assert validate(parsed, response_schema(15)) == []
+
+
+def test_score_fix_realign_extra_blank_keeps_reading_with_more_choices():
+    """빈 칸 하나를 더 쓴 16칸 행도 같은 규칙으로 살린다."""
+    cells16 = REG14[:6] + [""] * 9 + REG14[-1:]
+    assert len(cells16) == len(rw.row_tables(15)["regulations"]) + 1
+    parsed, errors = rw.parse_rows(table(15, "regulations", " | ".join(cells16)), 15)
+    assert errors == [] and parsed["regulations"][0]["applicable"] == "비해당"
+
+
+def test_score_fix_realign_tie_still_dropped():
+    """값이 자유 글 열 두 곳(country·value_raw) 중 어디인지 모르는 행: 두 해석이 선택지 열을 똑같이 채워 버린다."""
+    full = cells(15, "regulations", law="OSH", item_code="OSH_PROHIBIT", applicable="해당", value_raw="가상 값",
+                 line="p10:L24")
+    short = full[:8] + full[9:]                       # qty_alt의 빈 칸 하나를 뺀다
+    assert short[11] == "가상 값" and not any(short[6:11]) and not short[12]
+    parsed, errors = rw.parse_rows(table(15, "regulations", " | ".join(short)), 15)
+    assert parsed["regulations"] == []
+    assert len(errors) == 1 and errors[0].endswith(": 열 14개, 기대 15개")
+
+
+def test_score_fix_realign_unique_reading_unchanged():
+    """지금 규칙으로 하나가 남는 행(값 칸 뒤 빈 칸 줄 안에서 빠진 칸)은 결과가 같다."""
+    full = cells(15, "regulations", law="OSH", item_code="OSH_PROHIBIT", item_raw="가상 항목", **COMP,
+                 applicable="해당", line="p10:L25")
+    parsed, errors = rw.parse_rows(table(15, "regulations", " | ".join(full[:8] + full[9:])), 15)
+    assert errors == []
+    assert parsed["regulations"] == rw.parse_rows(table(15, "regulations", " | ".join(full)), 15)[0]["regulations"]
+
+
+@pytest.mark.parametrize("no, name, col, text, expected", [
+    (15, "regulations", "applicable", "값있음", "해당"),
+    (15, "regulations", "applicable", "값 있음", "해당"),
+    (14, "transport", "mode", "육상(ADR·국내)", "육상"),
+    (14, "transport", "mode", "해상 (IMDG)", "해상"),
+    (14, "transport", "marine_pollutant", "해당없음(국내)", "비해당"),
+])
+def test_score_fix_choice_matches(no, name, col, text, expected):
+    values = _enum(no, name, col)
+    assert "값있음" not in values
+    assert rw._choice(text, values) == expected
+
+
+@pytest.mark.parametrize("no, name, col, text", [
+    (11, "toxicity", "status", "값있음"),             # 값있음이 선택지에 있으면 그대로
+    (15, "regulations", "applicable", "해당"),
+    (14, "transport", "packing_group", "해당 없음"),   # 지금 규칙: 공백만 지운다
+])
+def test_score_fix_choice_existing_rules_unchanged(no, name, col, text):
+    values = _enum(no, name, col)
+    assert rw._choice(text, values) == re.sub(r"\s+", "", text)
+
+
+@pytest.mark.parametrize("no, name, col, text", [
+    (14, "transport", "packing_group", "값있음"),      # 선택지에 해당이 없는 열
+    (14, "transport", "mode", "도로(ADR)"),             # 괄호를 떼도 선택지에 없음
+    (15, "regulations", "applicable", "가상값"),
+])
+def test_score_fix_choice_out_of_choices_kept_as_is(no, name, col, text):
+    assert rw._choice(text, _enum(no, name, col)) == text
+
+
+def test_score_fix_choice_rows():
+    text = "\n".join([
+        table(15, "regulations", row(15, "regulations", law="OSH", item_code="OSH_MEASURE", **COMP,
+                                     applicable="값있음", line="p9:L3")),
+        table(14, "transport", row(14, "transport", mode="육상(ADR·국내)", regulated="true", un_no="9999",
+                                   line="p10:L3"))])
+    parsed15, errors15 = rw.parse_rows(text.split("### transport")[0], 15)
+    parsed14, errors14 = rw.parse_rows("### transport" + text.split("### transport")[1], 14)
+    assert errors15 == [] and parsed15["regulations"][0]["applicable"] == "해당"
+    assert errors14 == [] and parsed14["transport"][0]["mode"] == "육상"
+
+
+def _cmr(**values) -> dict:
+    parsed, errors = rw.parse_rows(table(11, "cmr", row(11, "cmr", **COMP, hazard="발암성", agency="KR_OSH",
+                                                         line="p5:L10", **values)), 11)
+    assert errors == []
+    return parsed["cmr"][0]
+
+
+@pytest.mark.parametrize("cls, status", [("해당없음", "해당없음"), ("해당 없음", "해당없음"), ("자료없음", "자료없음"),
+                                         ("미기재", "미기재"), ("비해당", "해당없음")])
+def test_score_fix_cmr_no_value_class_to_status(cls, status):
+    r = _cmr(**{"class": cls})
+    assert r["class"] is None and r["status"] == status
+
+
+def test_score_fix_cmr_class_kept():
+    r = _cmr(**{"class": "Group 3"}, status="값있음")
+    assert (r["class"], r["status"]) == ("Group 3", "값있음")
+    r = _cmr(**{"class": "해당없음"}, status="자료없음")      # 상태가 있으면 그대로
+    assert (r["class"], r["status"]) == ("해당없음", "자료없음")
+    r = _cmr(**{"class": "1A"})
+    assert (r["class"], r["status"]) == ("1A", None)
+
+
+def _tox(**values) -> dict:
+    parsed, errors = rw.parse_rows(table(11, "toxicity", row(11, "toxicity", **COMP, line="p5:L3", **values)), 11)
+    assert errors == []
+    return parsed["toxicity"][0]
+
+
+@pytest.mark.parametrize("values", [
+    {"endpoint": "TX_SKIN", "q": "자극성 없음", "status": "값있음"},
+    {"endpoint": "TX_CARC", "status": "자료없음"},                    # q는 상태로 채운 {"raw": 자료없음}
+    {"endpoint": "TX_STOT_RE", "statements": "가상 설명", "status": "값있음"},
+])
+def test_score_fix_tox_non_acute_descriptor(values):
+    assert _tox(**values)["descriptor"] == "결과기술"
+
+
+@pytest.mark.parametrize("values, expected", [
+    ({"endpoint": "TX_ORAL", "status": "자료없음"}, None),                     # 급성 행
+    ({"endpoint": "TX_INHAL", "q": "자료없음"}, None),
+    ({"endpoint": "TX_DERMAL"}, None),
+    ({"endpoint": "TX_SKIN", "q": "500 mg", "status": "값있음"}, None),         # q에 숫자
+    ({"endpoint": "TX_STOT_RE", "q": "> 100 mg/kg", "status": "값있음"}, None),
+    ({"endpoint": "TX_REPRO", "descriptor": "NOAEL", "status": "값있음"}, "NOAEL"),   # 지표가 있으면 그대로
+])
+def test_score_fix_tox_descriptor_kept(values, expected):
+    assert _tox(**values)["descriptor"] == expected
+
+
+@pytest.mark.parametrize("text, raw", [("해당 없음", "해당없음"), ("자료 없음", "자료없음"), (" 미기재", "미기재")])
+def test_score_fix_physchem_no_value_ignores_spaces(text, raw):
+    r = _physchem(prop_code="ODOR_THRESHOLD", text_value=text, line="p5:L6")
+    assert r["q"] == {"raw": raw} and r["text_value"] is None
+
+
+@pytest.mark.parametrize("text, unit", [("°C", "C"), ("℃", "C"), ("° F", "F"), ("℉", "F"), ("K", "K"), ("kPa", "kPa"),
+                                        ("Kpa", "kPa"), ("KPA", "kPa"), ("hpa", "hPa"), ("Pa", "Pa"), ("Mpa", "MPa"),
+                                        ("mmhg", "mmHg"), ("atm", "atm"), ("bar", "bar")])
+def test_score_fix_physchem_unit_only_text_moves_to_q(text, unit):
+    r = _physchem(prop_code="BOILING", q="100", text_value=text, line="p5:L7")
+    assert r["q"]["value"] == 100 and r["q"]["unit"] == unit and r["text_value"] is None
+
+
+@pytest.mark.parametrize("values", [
+    {"q": "100 ℃", "text_value": "°F"},          # q에 단위가 이미 있음
+    {"text_value": "°C"},                          # q가 없음
+    {"q": "자료없음", "text_value": "°C"},          # q에 숫자가 없음
+    {"q": "100", "text_value": "무색"},             # 단위가 아닌 글
+    {"q": "100", "text_value": "°C 이상"},
+])
+def test_score_fix_physchem_unit_only_kept(values):
+    r = _physchem(prop_code="BOILING", line="p5:L7", **values)
+    assert r["text_value"] == values["text_value"]
+
+
+@pytest.mark.parametrize("text, unit", [("2.3 Kpa", "kPa"), ("2.3 KPa", "kPa"), ("2.3 kpa", "kPa"), ("1013 hpa", "hPa"),
+                                        ("0.1 Mpa", "MPa"), ("760 mmhg", "mmHg"), ("2.3 kPa (20 ℃)", "kPa")])
+def test_score_fix_unit_pressure_case(text, unit):
+    assert rw.parse_qm(text)["unit"] == unit
+
+
+@pytest.mark.parametrize("text, unit", [("5 mPa·s", "mPa·s"), ("1.2 g/cm3", "g/cm3"), ("760 mmHg", "mmHg"),
+                                        ("50 mg/kg", "mg/kg"), ("101.3 kPa", "kPa")])
+def test_score_fix_unit_other_units_unchanged(text, unit):
+    assert rw.parse_qm(text)["unit"] == unit

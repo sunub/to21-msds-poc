@@ -1,0 +1,157 @@
+{
+ "doc_id": "T21-S003",
+ "msds_index": 0,
+ "section": 4,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S4_EYE",
+    "title_raw": "가.눈에 들어갔을 때",
+    "start": "p2:L4",
+    "end": "p2:L4"
+   },
+   {
+    "item_code": "S4_SKIN",
+    "title_raw": "나.피부에 접촉했을 때",
+    "start": "p2:L5",
+    "end": "p2:L6"
+   },
+   {
+    "item_code": "S4_INHAL",
+    "title_raw": "다.흡입했을 때",
+    "start": "p2:L7",
+    "end": "p2:L11"
+   },
+   {
+    "item_code": "S4_INGEST",
+    "title_raw": "라.먹었을 때",
+    "start": "p2:L12",
+    "end": "p2:L12"
+   },
+   {
+    "item_code": "S4_DOCTOR",
+    "title_raw": "마.기타 의사의 주의사항",
+    "start": "p2:L13",
+    "end": "p2:L13"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S4_EYE",
+    "title_raw": "가.눈에 들어갔을 때",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "value": "눈에 화학물질이 들어간 경우 즉시 의사의 진찰과 치료를 받으시오.",
+      "line": "p2:L4"
+     }
+    ],
+    "suggested_code": "S4_EYE",
+    "line": "p2:L4"
+   },
+   {
+    "after_item": "S4_SKIN",
+    "title_raw": "나.피부에 접촉했을 때",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "value": "화학물질의 피부 접촉 즉시 의사의 진찰과 치료를 받으시오.",
+      "line": "p2:L5"
+     },
+     {
+      "value": "해당물질에 접촉 시 동상을 입을 가능성이 있으니 치료에 주의하시오.",
+      "line": "p2:L6"
+     }
+    ],
+    "suggested_code": "S4_SKIN",
+    "line": "p2:L5"
+   },
+   {
+    "after_item": "S4_INHAL",
+    "title_raw": "다.흡입했을 때",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "value": "호흡이 없으면 인공호흡을 실시하시오.",
+      "line": "p2:L7"
+     },
+     {
+      "value": "화학물질을 흡입한 경우 의사의 진찰과 치료를 받으시오.",
+      "line": "p2:L8"
+     },
+     {
+      "value": "노출로 인항 영향이 나타나면 환자를 비오염지역으로 옮기시오.",
+      "line": "p2:L9"
+     },
+     {
+      "value": "화학물질을 흡입한 경우 즉시 의사의 진찰과 치료를 받으시오.",
+      "line": "p2:L10"
+     },
+     {
+      "value": "호흡이 곤란하면 의사등의 지시에 따라 산소를 공급하시오.",
+      "line": "p2:L11"
+     }
+    ],
+    "suggested_code": "S4_INHAL",
+    "line": "p2:L7"
+   },
+   {
+    "after_item": "S4_INGEST",
+    "title_raw": "라.먹었을 때",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "value": "많은 양의 화학물질을 섭취한 경우 의사의 진찰을 받으시오.",
+      "line": "p2:L12"
+     }
+    ],
+    "suggested_code": "S4_INGEST",
+    "line": "p2:L12"
+   },
+   {
+    "after_item": "S4_DOCTOR",
+    "title_raw": "마.기타 의사의 주의사항",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "value": "화학물질을 흡입한 경우 산소 공급을 고려하시오.",
+      "line": "p2:L13"
+     }
+    ],
+    "suggested_code": "S4_DOCTOR",
+    "line": "p2:L13"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S4_EYE\",\n      \"title_raw\": \"가.눈에 들어갔을 때\",\n      \"start\": \"p2:L4\",\n      \"end\": \"p2:L4\"\n    },\n    {\n      \"item_code\": \"S4_SKIN\",\n      \"title_raw\": \"나.피부에 접촉했을 때\",\n      \"start\": \"p2:L5\",\n      \"end\": \"p2:L6\"\n    },\n    {\n      \"item_code\": \"S4_INHAL\",\n      \"title_raw\": \"다.흡입했을 때\",\n      \"start\": \"p2:L7\",\n      \"end\": \"p2:L11\"\n    },\n    {\n      \"item_code\": \"S4_INGEST\",\n      \"title_raw\": \"라.먹었을 때\",\n      \"start\": \"p2:L12\",\n      \"end\": \"p2:L12\"\n    },\n    {\n      \"item_code\": \"S4_DOCTOR\",\n      \"title_raw\": \"마.기타 의사의 주의사항\",\n      \"start\": \"p2:L13\",\n      \"end\": \"p2:L13\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S4_EYE\",\n      \"title_raw\": \"가.눈에 들어갔을 때\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"눈에 화학물질이 들어간 경우 즉시 의사의 진찰과 치료를 받으시오.\"\n        ,\n          \"line\": \"p2:L4\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S4_EYE\"\n    ,\n      \"line\": \"p2:L4\"\n    },\n    {\n      \"after_item\": \"S4_SKIN\",\n      \"title_raw\": \"나.피부에 접촉했을 때\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"화학물질의 피부 접촉 즉시 의사의 진찰과 치료를 받으시오.\"\n        ,\n          \"line\": \"p2:L5\"\n        },\n        {\n          \"value\": \"해당물질에 접촉 시 동상을 입을 가능성이 있으니 치료에 주의하시오.\"\n        ,\n          \"line\": \"p2:L6\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S4_SKIN\"\n    ,\n      \"line\": \"p2:L5\"\n    },\n    {\n      \"after_item\": \"S4_INHAL\",\n      \"title_raw\": \"다.흡입했을 때\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"호흡이 없으면 인공호흡을 실시하시오.\"\n        ,\n          \"line\": \"p2:L7\"\n        },\n        {\n          \"value\": \"화학물질을 흡입한 경우 의사의 진찰과 치료를 받으시오.\"\n        ,\n          \"line\": \"p2:L8\"\n        },\n        {\n          \"value\": \"노출로 인항 영향이 나타나면 환자를 비오염지역으로 옮기시오.\"\n        ,\n          \"line\": \"p2:L9\"\n        },\n        {\n          \"value\": \"화학물질을 흡입한 경우 즉시 의사의 진찰과 치료를 받으시오.\"\n        ,\n          \"line\": \"p2:L10\"\n        },\n        {\n          \"value\": \"호흡이 곤란하면 의사등의 지시에 따라 산소를 공급하시오.\"\n        ,\n          \"line\": \"p2:L11\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S4_INHAL\"\n    ,\n      \"line\": \"p2:L7\"\n    },\n    {\n      \"after_item\": \"S4_INGEST\",\n      \"title_raw\": \"라.먹었을 때\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"많은 양의 화학물질을 섭취한 경우 의사의 진찰을 받으시오.\"\n        ,\n          \"line\": \"p2:L12\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S4_INGEST\"\n    ,\n      \"line\": \"p2:L12\"\n    },\n    {\n      \"after_item\": \"S4_DOCTOR\",\n      \"title_raw\": \"마.기타 의사의 주의사항\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"화학물질을 흡입한 경우 산소 공급을 고려하시오.\"\n        ,\n          \"line\": \"p2:L13\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S4_DOCTOR\"\n    ,\n      \"line\": \"p2:L13\"\n    }\n  ]\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 2192,
+  "completion_tokens": 1144,
+  "total_tokens": 3336
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 2192,
+    "completion_tokens": 1144,
+    "total_tokens": 3336
+   },
+   "seconds": 18.952,
+   "chars": 2762,
+   "whitespace": 1189,
+   "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S4_EYE\",\n      \"title_raw\": \"가.눈에 들어갔을 때\",\n      \"start\": \"p2:L4\",\n      \"end\": \"p2:L4\"\n    },\n    {\n      \"item_code\": \"S4_SKIN\",\n      \"title_raw\": \"나.피부에 접촉했을 때\",\n      \"start\": \"p2:L5\",\n      \"end\": \"p2:L6\"\n    },\n    {\n      \"item_code\": \"S4_INHAL\",\n      \"title_raw\": \"다.흡입했을 때\",\n      \"start\": \"p2:L7\",\n      \"end\": \"p2:L11\"\n    },\n    {\n      \"item_code\": \"S4_INGEST\",\n      \"title_raw\": \"라.먹었을 때\",\n      \"start\": \"p2:L12\",\n      \"end\": \"p2:L12\"\n",
+   "tail": "       \"value\": \"많은 양의 화학물질을 섭취한 경우 의사의 진찰을 받으시오.\"\n        ,\n          \"line\": \"p2:L12\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S4_INGEST\"\n    ,\n      \"line\": \"p2:L12\"\n    },\n    {\n      \"after_item\": \"S4_DOCTOR\",\n      \"title_raw\": \"마.기타 의사의 주의사항\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"화학물질을 흡입한 경우 산소 공급을 고려하시오.\"\n        ,\n          \"line\": \"p2:L13\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S4_DOCTOR\"\n    ,\n      \"line\": \"p2:L13\"\n    }\n  ]\n}"
+  }
+ ],
+ "seconds": 18.953,
+ "check_problems": [],
+ "components_given": null
+}

@@ -1,0 +1,584 @@
+{
+ "doc_id": "T21-M013",
+ "msds_index": 0,
+ "section": 4,
+ "reextracted": true,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S4_EYE",
+    "title_raw": "가.눈에들어갔을때",
+    "start": "p3:L13",
+    "end": "p3:L14"
+   },
+   {
+    "item_code": "S4_SKIN",
+    "title_raw": "나.피부에접촉했을때",
+    "start": "p3:L15",
+    "end": "p3:L16"
+   },
+   {
+    "item_code": "S4_INHAL",
+    "title_raw": "다.흡입했을때",
+    "start": "p3:L17",
+    "end": "p3:L18"
+   },
+   {
+    "item_code": "S4_INGEST",
+    "title_raw": "라.먹었을때",
+    "start": "p3:L19",
+    "end": "p3:L20"
+   },
+   {
+    "item_code": "S4_DOCTOR",
+    "title_raw": "마.기타의사의주의사항",
+    "start": "p3:L21",
+    "end": "p3:L24"
+   },
+   {
+    "item_code": "S4_SYMPTOM",
+    "title_raw": "가장중요한증상영향급성및지연된",
+    "start": "p3:L25",
+    "end": "p3:L28"
+   },
+   {
+    "item_code": "S4_DOCTOR",
+    "title_raw": "일반적인조치사항",
+    "start": "p3:L29",
+    "end": "p3:L31"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S4_END",
+    "title_raw": "4. | 응급조치요령",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "value": "4. 응급조치요령",
+      "line": "p3:L12"
+     }
+    ],
+    "line": "p3:L12"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S4_EYE\",\n      \"title_raw\": \"가.눈에들어갔을때\",\n      \"start\": \"p3:L13\",\n      \"end\": \"p3:L14\"\n    },\n    {\n      \"item_code\": \"S4_SKIN\",\n      \"title_raw\": \"나.피부에접촉했을때\",\n      \"start\": \"p3:L15\",\n      \"end\": \"p3:L16\"\n    },\n    {\n      \"item_code\": \"S4_INHAL\",\n      \"title_raw\": \"다.흡입했을때\",\n      \"start\": \"p3:L17\",\n      \"end\": \"p3:L18\"\n    },\n    {\n      \"item_code\": \"S4_INGEST\",\n      \"title_raw\": \"라.먹었을때\",\n      \"start\": \"p3:L19\",\n      \"end\": \"p3:L20\"\n    },\n    {\n      \"item_code\": \"S4_DOCTOR\",\n      \"title_raw\": \"마.기타의사의주의사항\",\n      \"start\": \"p3:L21\",\n      \"end\": \"p3:L24\"\n    },\n    {\n      \"item_code\": \"S4_SYMPTOM\",\n      \"title_raw\": \"가장중요한증상영향급성및지연된\",\n      \"start\": \"p3:L25\",\n      \"end\": \"p3:L28\"\n    },\n    {\n      \"item_code\": \"S4_DOCTOR\",\n      \"title_raw\": \"일반적인조치사항\",\n      \"start\": \"p3:L29\",\n      \"end\": \"p3:L31\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S4_END\",\n      \"title_raw\": \"4. | 응급조치요령\",\n      \"reason\": \"코드없음\"\n    ,\n      \"statements\": [\n        {\n          \"value\": \"4. 응급조치요령\"\n        ,\n          \"line\": \"p3:L12\"\n        }\n      ]\n    ,\n      \"line\": \"p3:L12\"\n    }\n  ]\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 3055,
+  "completion_tokens": 537,
+  "total_tokens": 3592
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 3055,
+    "completion_tokens": 537,
+    "total_tokens": 3592
+   },
+   "seconds": 5.904,
+   "chars": 1161,
+   "whitespace": 430,
+   "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S4_EYE\",\n      \"title_raw\": \"가.눈에들어갔을때\",\n      \"start\": \"p3:L13\",\n      \"end\": \"p3:L14\"\n    },\n    {\n      \"item_code\": \"S4_SKIN\",\n      \"title_raw\": \"나.피부에접촉했을때\",\n      \"start\": \"p3:L15\",\n      \"end\": \"p3:L16\"\n    },\n    {\n      \"item_code\": \"S4_INHAL\",\n      \"title_raw\": \"다.흡입했을때\",\n      \"start\": \"p3:L17\",\n      \"end\": \"p3:L18\"\n    },\n    {\n      \"item_code\": \"S4_INGEST\",\n      \"title_raw\": \"라.먹었을때\",\n      \"start\": \"p3:L19\",\n      \"end\": \"p3:L20\"\n ",
+   "tail": "SYMPTOM\",\n      \"title_raw\": \"가장중요한증상영향급성및지연된\",\n      \"start\": \"p3:L25\",\n      \"end\": \"p3:L28\"\n    },\n    {\n      \"item_code\": \"S4_DOCTOR\",\n      \"title_raw\": \"일반적인조치사항\",\n      \"start\": \"p3:L29\",\n      \"end\": \"p3:L31\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S4_END\",\n      \"title_raw\": \"4. | 응급조치요령\",\n      \"reason\": \"코드없음\"\n    ,\n      \"statements\": [\n        {\n          \"value\": \"4. 응급조치요령\"\n        ,\n          \"line\": \"p3:L12\"\n        }\n      ]\n    ,\n      \"line\": \"p3:L12\"\n    }\n  ]\n}"
+  }
+ ],
+ "seconds": 5.906,
+ "check_problems": [],
+ "first_attempt": {
+  "ok": true,
+  "parsed": {
+   "narratives": [
+    {
+     "item_code": "S4_EYE",
+     "title_raw": "가.눈에들어갔을때",
+     "start": "L13",
+     "end": "L14"
+    },
+    {
+     "item_code": "S4_SKIN",
+     "title_raw": "나.피부에접촉했을때",
+     "start": "L15",
+     "end": "L16"
+    },
+    {
+     "item_code": "S4_INHAL",
+     "title_raw": "다.흡입했을때",
+     "start": "L17",
+     "end": "L18"
+    },
+    {
+     "item_code": "S4_INGEST",
+     "title_raw": "라.먹었을때",
+     "start": "L19",
+     "end": "L20"
+    },
+    {
+     "item_code": "S4_DOCTOR",
+     "title_raw": "마.기타의사의주의사항",
+     "start": "L21",
+     "end": "L24"
+    },
+    {
+     "item_code": "S4_SYMPTOM",
+     "title_raw": "가장중요한증상영향",
+     "start": "L25",
+     "end": "L28"
+    },
+    {
+     "item_code": "S4_DOCTOR",
+     "title_raw": "일반적인조치사항",
+     "start": "L29",
+     "end": "L31"
+    }
+   ],
+   "extras": [
+    {
+     "after_item": "S4_EYE",
+     "title_raw": "가.눈에들어갔을때",
+     "reason": "코드없음",
+     "statements": [
+      {
+       "key": "조치",
+       "value": "즉시눈을다량의물로15분이상씻으시오",
+       "refs": [
+        "L13"
+       ],
+       "line": "p3:L13"
+      },
+      {
+       "key": "조치",
+       "value": "가능하면콘택트렌즈를제거하시오",
+       "refs": [
+        "L13"
+       ],
+       "line": "p3:L13"
+      },
+      {
+       "key": "조치",
+       "value": "계속해서씻어낼것",
+       "refs": [
+        "L13"
+       ],
+       "line": "p3:L13"
+      },
+      {
+       "key": "조치",
+       "value": "즉시의사또는의료기관의진찰을받으시오",
+       "refs": [
+        "L13",
+        "L14"
+       ],
+       "line": "p3:L13"
+      }
+     ],
+     "line": "p3:L13"
+    },
+    {
+     "after_item": "S4_SKIN",
+     "title_raw": "나.피부에접촉했을때",
+     "reason": "코드없음",
+     "statements": [
+      {
+       "key": "조치",
+       "value": "오염된작업복을즉시벗고비누와물로피부를씻을것",
+       "refs": [
+        "L15"
+       ],
+       "line": "p3:L15"
+      },
+      {
+       "key": "조치",
+       "value": "즉시의사또는의료기관의진찰을받으시오",
+       "refs": [
+        "L15"
+       ],
+       "line": "p3:L15"
+      },
+      {
+       "key": "주의",
+       "value": "화학물질로인한화상은반드시의사의치료를받아야함",
+       "refs": [
+        "L15",
+        "L16"
+       ],
+       "line": "p3:L15"
+      },
+      {
+       "key": "조치",
+       "value": "다시사용전오염된의류를세척하시오",
+       "refs": [
+        "L16"
+       ],
+       "line": "p3:L16"
+      }
+     ],
+     "line": "p3:L15"
+    },
+    {
+     "after_item": "S4_INHAL",
+     "title_raw": "다.흡입했을때",
+     "reason": "코드없음",
+     "statements": [
+      {
+       "key": "조치",
+       "value": "신선한공기가있는곳으로옮기고호흡하기쉬운자세로안정을취하시오",
+       "refs": [
+        "L17"
+       ],
+       "line": "p3:L17"
+      },
+      {
+       "key": "조치",
+       "value": "필요한경우산소를공급하거나인공호흡을실시할것",
+       "refs": [
+        "L17",
+        "L18"
+       ],
+       "line": "p3:L17"
+      },
+      {
+       "key": "조치",
+       "value": "불편함을느끼면의료기관의사의진찰을받으시오",
+       "refs": [
+        "L18"
+       ],
+       "line": "p3:L18"
+      }
+     ],
+     "line": "p3:L17"
+    },
+    {
+     "after_item": "S4_INGEST",
+     "title_raw": "라.먹었을때",
+     "reason": "코드없음",
+     "statements": [
+      {
+       "key": "조치",
+       "value": "즉시의사또는의료기관의진찰을받으시오",
+       "refs": [
+        "L19"
+       ],
+       "line": "p3:L19"
+      },
+      {
+       "key": "조치",
+       "value": "입을씻어내시오",
+       "refs": [
+        "L19"
+       ],
+       "line": "p3:L19"
+      },
+      {
+       "key": "주의",
+       "value": "토하게하지말것",
+       "refs": [
+        "L19"
+       ],
+       "line": "p3:L19"
+      },
+      {
+       "key": "조치",
+       "value": "환자가토하는경우구토물이폐로들어가지않도록머리를낮출것",
+       "refs": [
+        "L19",
+        "L20"
+       ],
+       "line": "p3:L19"
+      }
+     ],
+     "line": "p3:L19"
+    },
+    {
+     "after_item": "S4_DOCTOR",
+     "title_raw": "마.기타의사의주의사항",
+     "reason": "코드없음",
+     "statements": [
+      {
+       "key": "조치",
+       "value": "일반지원조치를제공하고증상에따라처치할것",
+       "refs": [
+        "L21"
+       ],
+       "line": "p3:L21"
+      },
+      {
+       "key": "조치",
+       "value": "화상즉시물로씻어내면서부상부위에붙은천을제외하고옷을벗길것",
+       "refs": [
+        "L21",
+        "L22"
+       ],
+       "line": "p3:L21"
+      },
+      {
+       "key": "조치",
+       "value": "구급차를부르고병원으로운송중에도세척을계속할것",
+       "refs": [
+        "L22"
+       ],
+       "line": "p3:L22"
+      },
+      {
+       "key": "조치",
+       "value": "화학적화상즉시물로씻을것",
+       "refs": [
+        "L22"
+       ],
+       "line": "p3:L22"
+      },
+      {
+       "key": "조치",
+       "value": "씻으면서손상된부위에부착되지않은의복을제거할것",
+       "refs": [
+        "L22",
+        "L23"
+       ],
+       "line": "p3:L22"
+      },
+      {
+       "key": "조치",
+       "value": "구급차를부를것",
+       "refs": [
+        "L23"
+       ],
+       "line": "p3:L23"
+      },
+      {
+       "key": "조치",
+       "value": "병원으로이송하는도중세척을계속할것",
+       "refs": [
+        "L23"
+       ],
+       "line": "p3:L23"
+      },
+      {
+       "key": "조치",
+       "value": "피해자를따뜻하게유지하시오",
+       "refs": [
+        "L23",
+        "L24"
+       ],
+       "line": "p3:L23"
+      },
+      {
+       "key": "조치",
+       "value": "부상자를지속적으로관찰하시오",
+       "refs": [
+        "L24"
+       ],
+       "line": "p3:L24"
+      },
+      {
+       "key": "주의",
+       "value": "증상은지연되어서나타날수있음",
+       "refs": [
+        "L24"
+       ],
+       "line": "p3:L24"
+      }
+     ],
+     "line": "p3:L21"
+    },
+    {
+     "after_item": "S4_SYMPTOM",
+     "title_raw": "가장중요한증상영향",
+     "reason": "코드없음",
+     "statements": [
+      {
+       "key": "영향",
+       "value": "급성및지연된",
+       "refs": [
+        "L25"
+       ],
+       "line": "p3:L25"
+      },
+      {
+       "key": "영향",
+       "value": "흡인할경우폐부종과폐렴을일으킬수있음",
+       "refs": [
+        "L25"
+       ],
+       "line": "p3:L25"
+      },
+      {
+       "key": "영향",
+       "value": "졸음또는현기증을일으킬수있음",
+       "refs": [
+        "L25"
+       ],
+       "line": "p3:L25"
+      },
+      {
+       "key": "영향",
+       "value": "두통구역구토설사타는듯한통증및심한부식성피부손상",
+       "refs": [
+        "L25",
+        "L26"
+       ],
+       "line": "p3:L25"
+      },
+      {
+       "key": "영향",
+       "value": "눈에심한손상을일으킴",
+       "refs": [
+        "L26"
+       ],
+       "line": "p3:L26"
+      },
+      {
+       "key": "증상",
+       "value": "통렬감눈물충혈팽윤및시야흐림이나타날수있음",
+       "refs": [
+        "L26"
+       ],
+       "line": "p3:L26"
+      },
+      {
+       "key": "영향",
+       "value": "실명을포함한영구적눈손상이일어날수있음",
+       "refs": [
+        "L27"
+       ],
+       "line": "p3:L27"
+      },
+      {
+       "key": "영향",
+       "value": "호흡기자극을일으킬수있음",
+       "refs": [
+        "L27"
+       ],
+       "line": "p3:L27"
+      },
+      {
+       "key": "영향",
+       "value": "장기간노출되면만성영향을일으킬수있음",
+       "refs": [
+        "L27",
+        "L28"
+       ],
+       "line": "p3:L27"
+      }
+     ],
+     "line": "p3:L25"
+    },
+    {
+     "after_item": "S4_DOCTOR",
+     "title_raw": "일반적인조치사항",
+     "reason": "코드없음",
+     "statements": [
+      {
+       "key": "조치",
+       "value": "오염된모든의류를즉시벗으시오",
+       "refs": [
+        "L29"
+       ],
+       "line": "p3:L29"
+      },
+      {
+       "key": "조치",
+       "value": "노출되거나노출이우려되면의학적인조치조언을받으시오",
+       "refs": [
+        "L29"
+       ],
+       "line": "p3:L29"
+      },
+      {
+       "key": "조치",
+       "value": "불편함을느끼면의사의진찰을받으시오",
+       "refs": [
+        "L29",
+        "L30"
+       ],
+       "line": "p3:L29"
+      },
+      {
+       "key": "조치",
+       "value": "가능하면라벨의표시사항을보여주시오",
+       "refs": [
+        "L30"
+       ],
+       "line": "p3:L30"
+      },
+      {
+       "key": "조치",
+       "value": "의사에게사용된물질에대해알리고예방조치를취할수있도록할것",
+       "refs": [
+        "L30"
+       ],
+       "line": "p3:L30"
+      },
+      {
+       "key": "조치",
+       "value": "본물질안전보건자료를담당의사에게보일것",
+       "refs": [
+        "L31"
+       ],
+       "line": "p3:L31"
+      },
+      {
+       "key": "조치",
+       "value": "다시사용전오염된의류를세척하시오",
+       "refs": [
+        "L31"
+       ],
+       "line": "p3:L31"
+      }
+     ],
+     "line": "p3:L29"
+    }
+   ]
+  },
+  "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S4_EYE\",\n      \"title_raw\": \"가.눈에들어갔을때\",\n      \"start\": \"L13\",\n      \"end\": \"L14\"\n    },\n    {\n      \"item_code\": \"S4_SKIN\",\n      \"title_raw\": \"나.피부에접촉했을때\",\n      \"start\": \"L15\",\n      \"end\": \"L16\"\n    },\n    {\n      \"item_code\": \"S4_INHAL\",\n      \"title_raw\": \"다.흡입했을때\",\n      \"start\": \"L17\",\n      \"end\": \"L18\"\n    },\n    {\n      \"item_code\": \"S4_INGEST\",\n      \"title_raw\": \"라.먹었을때\",\n      \"start\": \"L19\",\n      \"end\": \"L20\"\n    },\n    {\n      \"item_code\": \"S4_DOCTOR\",\n      \"title_raw\": \"마.기타의사의주의사항\",\n      \"start\": \"L21\",\n      \"end\": \"L24\"\n    },\n    {\n      \"item_code\": \"S4_SYMPTOM\",\n      \"title_raw\": \"가장중요한증상영향\",\n      \"start\": \"L25\",\n      \"end\": \"L28\"\n    },\n    {\n      \"item_code\": \"S4_DOCTOR\",\n      \"title_raw\": \"일반적인조치사항\",\n      \"start\": \"L29\",\n      \"end\": \"L31\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S4_EYE\",\n      \"title_raw\": \"가.눈에들어갔을때\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"key\": \"조치\",\n          \"value\": \"즉시눈을다량의물로15분이상씻으시오\"\n        ,\n        \"refs\": [\n          \"L13\"\n        ]\n      ,\n      \"line\": \"p3:L13\"\n    },\n    {\n      \"key\": \"조치\",\n      \"value\": \"가능하면콘택트렌즈를제거하시오\"\n    ,\n      \"refs\": [\n        \"L13\"\n      ]\n    ,\n      \"line\": \"p3:L13\"\n    },\n    {\n      \"key\": \"조치\",\n      \"value\": \"계속해서씻어낼것\"\n    ,\n      \"refs\": [\n        \"L13\"\n      ]\n    ,\n      \"line\": \"p3:L13\"\n    },\n    {\n      \"key\": \"조치\",\n      \"value\": \"즉시의사또는의료기관의진찰을받으시오\"\n    ,\n      \"refs\": [\n        \"L13\",\n        \"L14\"\n      ]\n    ,\n      \"line\": \"p3:L13\"\n    }\n  ]\n    ,\n    \"line\": \"p3:L13\"\n  },\n  {\n    \"after_item\": \"S4_SKIN\",\n    \"title_raw\": \"나.피부에접촉했을때\",\n    \"reason\": \"코드없음\",\n    \"statements\": [\n      {\n        \"key\": \"조치\",\n        \"value\": \"오염된작업복을즉시벗고비누와물로피부를씻을것\"\n      ,\n      \"refs\": [\n        \"L15\"\n      ]\n    ,\n      \"line\": \"p3:L15\"\n    },\n    {\n      \"key\": \"조치\",\n      \"value\": \"즉시의사또는의료기관의진찰을받으시오\"\n    ,\n      \"refs\": [\n        \"L15\"\n      ]\n    ,\n      \"line\": \"p3:L15\"\n    },\n    {\n      \"key\": \"주의\",\n      \"value\": \"화학물질로인한화상은반드시의사의치료를받아야함\"\n    ,\n      \"refs\": [\n        \"L15\",\n        \"L16\"\n      ]\n    ,\n      \"line\": \"p3:L15\"\n    },\n    {\n      \"key\": \"조치\",\n      \"value\": \"다시사용전오염된의류를세척하시오\"\n    ,\n      \"refs\": [\n        \"L16\"\n      ]\n    ,\n      \"line\": \"p3:L16\"\n    }\n  ]\n    ,\n    \"line\": \"p3:L15\"\n  },\n  {\n    \"after_item\": \"S4_INHAL\",\n    \"title_raw\": \"다.흡입했을때\",\n    \"reason\": \"코드없음\",\n    \"statements\": [\n      {\n        \"key\": \"조치\",\n        \"value\": \"신선한공기가있는곳으로옮기고호흡하기쉬운자세로안정을취하시오\"\n      ,\n      \"refs\": [\n        \"L17\"\n      ]\n    ,\n      \"line\": \"p3:L17\"\n    },\n    {\n      \"key\": \"조치\",\n      \"value\": \"필요한경우산소를공급하거나인공호흡을실시할것\"\n    ,\n      \"refs\": [\n        \"L17\",\n        \"L18\"\n      ]\n    ,\n      \"line\": \"p3:L17\"\n    },\n    {\n      \"key\": \"조치\",\n      \"value\": \"불편함을느끼면의료기관의사의진찰을받으시오\"\n    ,\n      \"refs\": [\n        \"L18\"\n      ]\n    ,\n      \"line\": \"p3:L18\"\n    }\n  ]\n    ,\n    \"line\": \"p3:L17\"\n  },\n  {\n    \"after_item\": \"S4_INGEST\",\n    \"title_raw\": \"라.먹었을때\",\n    \"reason\": \"코드없음\",\n    \"statements\": [\n      {\n        \"key\": \"조치\",\n        \"value\": \"즉시의사또는의료기관의진찰을받으시오\"\n      ,\n      \"refs\": [\n        \"L19\"\n      ]\n    ,\n      \"line\": \"p3:L19\"\n    },\n    {\n      \"key\": \"조치\",\n      \"value\": \"입을씻어내시오\"\n    ,\n      \"refs\": [\n        \"L19\"\n      ]\n    ,\n      \"line\": \"p3:L19\"\n    },\n    {\n      \"key\": \"주의\",\n      \"value\": \"토하게하지말것\"\n    ,\n      \"refs\": [\n        \"L19\"\n      ]\n    ,\n      \"line\": \"p3:L19\"\n    },\n    {\n      \"key\": \"조치\",\n      \"value\": \"환자가토하는경우구토물이폐로들어가지않도록머리를낮출것\"\n    ,\n      \"refs\": [\n        \"L19\",\n        \"L20\"\n      ]\n    ,\n      \"line\": \"p3:L19\"\n    }\n  ]\n    ,\n    \"line\": \"p3:L19\"\n  },\n  {\n    \"after_item\": \"S4_DOCTOR\",\n    \"title_raw\": \"마.기타의사의주의사항\",\n    \"reason\": \"코드없음\",\n    \"statements\": [\n      {\n        \"key\": \"조치\",\n        \"value\": \"일반지원조치를제공하고증상에따라처치할것\"\n      ,\n      \"refs\": [\n        \"L21\"\n      ]\n    ,\n      \"line\": \"p3:L21\"\n    },\n    {\n      \"key\": \"조치\",\n      \"value\": \"화상즉시물로씻어내면서부상부위에붙은천을제외하고옷을벗길것\"\n    ,\n      \"refs\": [\n        \"L21\",\n        \"L22\"\n      ]\n    ,\n      \"line\": \"p3:L21\"\n    },\n    {\n      \"key\": \"조치\",\n      \"value\": \"구급차를부르고병원으로운송중에도세척을계속할것\"\n    ,\n      \"refs\": [\n        \"L22\"\n      ]\n    ,\n      \"line\": \"p3:L22\"\n    },\n    {\n      \"key\": \"조치\",\n      \"value\": \"화학적화상즉시물로씻을것\"\n    ,\n      \"refs\": [\n        \"L22\"\n      ]\n    ,\n      \"line\": \"p3:L22\"\n    },\n    {\n      \"key\": \"조치\",\n      \"value\": \"씻으면서손상된부위에부착되지않은의복을제거할것\"\n    ,\n      \"refs\": [\n        \"L22\",\n        \"L23\"\n      ]\n    ,\n      \"line\": \"p3:L22\"\n    },\n    {\n      \"key\": \"조치\",\n      \"value\": \"구급차를부를것\"\n    ,\n      \"refs\": [\n        \"L23\"\n      ]\n    ,\n      \"line\": \"p3:L23\"\n    },\n    {\n      \"key\": \"조치\",\n      \"value\": \"병원으로이송하는도중세척을계속할것\"\n    ,\n      \"refs\": [\n        \"L23\"\n      ]\n    ,\n      \"line\": \"p3:L23\"\n    },\n    {\n      \"key\": \"조치\",\n      \"value\": \"피해자를따뜻하게유지하시오\"\n    ,\n      \"refs\": [\n        \"L23\",\n        \"L24\"\n      ]\n    ,\n      \"line\": \"p3:L23\"\n    },\n    {\n      \"key\": \"조치\",\n      \"value\": \"부상자를지속적으로관찰하시오\"\n    ,\n      \"refs\": [\n        \"L24\"\n      ]\n    ,\n      \"line\": \"p3:L24\"\n    },\n    {\n      \"key\": \"주의\",\n      \"value\": \"증상은지연되어서나타날수있음\"\n    ,\n      \"refs\": [\n        \"L24\"\n      ]\n    ,\n      \"line\": \"p3:L24\"\n    }\n  ]\n    ,\n    \"line\": \"p3:L21\"\n  },\n  {\n    \"after_item\": \"S4_SYMPTOM\",\n    \"title_raw\": \"가장중요한증상영향\",\n    \"reason\": \"코드없음\",\n    \"statements\": [\n      {\n        \"key\": \"영향\",\n        \"value\": \"급성및지연된\"\n      ,\n      \"refs\": [\n        \"L25\"\n      ]\n    ,\n      \"line\": \"p3:L25\"\n    },\n    {\n      \"key\": \"영향\",\n      \"value\": \"흡인할경우폐부종과폐렴을일으킬수있음\"\n    ,\n      \"refs\": [\n        \"L25\"\n      ]\n    ,\n      \"line\": \"p3:L25\"\n    },\n    {\n      \"key\": \"영향\",\n      \"value\": \"졸음또는현기증을일으킬수있음\"\n    ,\n      \"refs\": [\n        \"L25\"\n      ]\n    ,\n      \"line\": \"p3:L25\"\n    },\n    {\n      \"key\": \"영향\",\n      \"value\": \"두통구역구토설사타는듯한통증및심한부식성피부손상\"\n    ,\n      \"refs\": [\n        \"L25\",\n        \"L26\"\n      ]\n    ,\n      \"line\": \"p3:L25\"\n    },\n    {\n      \"key\": \"영향\",\n      \"value\": \"눈에심한손상을일으킴\"\n    ,\n      \"refs\": [\n        \"L26\"\n      ]\n    ,\n      \"line\": \"p3:L26\"\n    },\n    {\n      \"key\": \"증상\",\n      \"value\": \"통렬감눈물충혈팽윤및시야흐림이나타날수있음\"\n    ,\n      \"refs\": [\n        \"L26\"\n      ]\n    ,\n      \"line\": \"p3:L26\"\n    },\n    {\n      \"key\": \"영향\",\n      \"value\": \"실명을포함한영구적눈손상이일어날수있음\"\n    ,\n      \"refs\": [\n        \"L27\"\n      ]\n    ,\n      \"line\": \"p3:L27\"\n    },\n    {\n      \"key\": \"영향\",\n      \"value\": \"호흡기자극을일으킬수있음\"\n    ,\n      \"refs\": [\n        \"L27\"\n      ]\n    ,\n      \"line\": \"p3:L27\"\n    },\n    {\n      \"key\": \"영향\",\n      \"value\": \"장기간노출되면만성영향을일으킬수있음\"\n    ,\n      \"refs\": [\n        \"L27\",\n        \"L28\"\n      ]\n    ,\n      \"line\": \"p3:L27\"\n    }\n  ]\n    ,\n    \"line\": \"p3:L25\"\n  },\n  {\n    \"after_item\": \"S4_DOCTOR\",\n    \"title_raw\": \"일반적인조치사항\",\n    \"reason\": \"코드없음\",\n    \"statements\": [\n      {\n        \"key\": \"조치\",\n        \"value\": \"오염된모든의류를즉시벗으시오\"\n      ,\n      \"refs\": [\n        \"L29\"\n      ]\n    ,\n      \"line\": \"p3:L29\"\n    },\n    {\n      \"key\": \"조치\",\n      \"value\": \"노출되거나노출이우려되면의학적인조치조언을받으시오\"\n    ,\n      \"refs\": [\n        \"L29\"\n      ]\n    ,\n      \"line\": \"p3:L29\"\n    },\n    {\n      \"key\": \"조치\",\n      \"value\": \"불편함을느끼면의사의진찰을받으시오\"\n    ,\n      \"refs\": [\n        \"L29\",\n        \"L30\"\n      ]\n    ,\n      \"line\": \"p3:L29\"\n    },\n    {\n      \"key\": \"조치\",\n      \"value\": \"가능하면라벨의표시사항을보여주시오\"\n    ,\n      \"refs\": [\n        \"L30\"\n      ]\n    ,\n      \"line\": \"p3:L30\"\n    },\n    {\n      \"key\": \"조치\",\n      \"value\": \"의사에게사용된물질에대해알리고예방조치를취할수있도록할것\"\n    ,\n      \"refs\": [\n        \"L30\"\n      ]\n    ,\n      \"line\": \"p3:L30\"\n    },\n    {\n      \"key\": \"조치\",\n      \"value\": \"본물질안전보건자료를담당의사에게보일것\"\n    ,\n      \"refs\": [\n        \"L31\"\n      ]\n    ,\n      \"line\": \"p3:L31\"\n    },\n    {\n      \"key\": \"조치\",\n      \"value\": \"다시사용전오염된의류를세척하시오\"\n    ,\n      \"refs\": [\n        \"L31\"\n      ]\n    ,\n      \"line\": \"p3:L31\"\n    }\n  ]\n    ,\n    \"line\": \"p3:L29\"\n  }\n]\n}",
+  "mode": "json_schema",
+  "finish_reason": "stop",
+  "usage": {
+   "prompt_tokens": 2824,
+   "completion_tokens": 3853,
+   "total_tokens": 6677
+  },
+  "attempts": 1,
+  "errors": [],
+  "requests": [
+   {
+    "mode": "json_schema",
+    "finish_reason": "stop",
+    "usage": {
+     "prompt_tokens": 2824,
+     "completion_tokens": 3853,
+     "total_tokens": 6677
+    },
+    "seconds": 44.446,
+    "chars": 7839,
+    "whitespace": 3575,
+    "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S4_EYE\",\n      \"title_raw\": \"가.눈에들어갔을때\",\n      \"start\": \"L13\",\n      \"end\": \"L14\"\n    },\n    {\n      \"item_code\": \"S4_SKIN\",\n      \"title_raw\": \"나.피부에접촉했을때\",\n      \"start\": \"L15\",\n      \"end\": \"L16\"\n    },\n    {\n      \"item_code\": \"S4_INHAL\",\n      \"title_raw\": \"다.흡입했을때\",\n      \"start\": \"L17\",\n      \"end\": \"L18\"\n    },\n    {\n      \"item_code\": \"S4_INGEST\",\n      \"title_raw\": \"라.먹었을때\",\n      \"start\": \"L19\",\n      \"end\": \"L20\"\n    },\n    {\n      \"item_",
+    "tail": "\n      \"line\": \"p3:L30\"\n    },\n    {\n      \"key\": \"조치\",\n      \"value\": \"의사에게사용된물질에대해알리고예방조치를취할수있도록할것\"\n    ,\n      \"refs\": [\n        \"L30\"\n      ]\n    ,\n      \"line\": \"p3:L30\"\n    },\n    {\n      \"key\": \"조치\",\n      \"value\": \"본물질안전보건자료를담당의사에게보일것\"\n    ,\n      \"refs\": [\n        \"L31\"\n      ]\n    ,\n      \"line\": \"p3:L31\"\n    },\n    {\n      \"key\": \"조치\",\n      \"value\": \"다시사용전오염된의류를세척하시오\"\n    ,\n      \"refs\": [\n        \"L31\"\n      ]\n    ,\n      \"line\": \"p3:L31\"\n    }\n  ]\n    ,\n    \"line\": \"p3:L29\"\n  }\n]\n}"
+   }
+  ],
+  "seconds": 44.451,
+  "check_problems": [
+   "narratives[0].start: 원문에 없는 줄 번호 L13",
+   "narratives[0].end: 원문에 없는 줄 번호 L14",
+   "narratives[1].start: 원문에 없는 줄 번호 L15",
+   "narratives[1].end: 원문에 없는 줄 번호 L16",
+   "narratives[2].start: 원문에 없는 줄 번호 L17",
+   "narratives[2].end: 원문에 없는 줄 번호 L18",
+   "narratives[3].start: 원문에 없는 줄 번호 L19",
+   "narratives[3].end: 원문에 없는 줄 번호 L20",
+   "narratives[4].start: 원문에 없는 줄 번호 L21",
+   "narratives[4].end: 원문에 없는 줄 번호 L24",
+   "narratives[5].start: 원문에 없는 줄 번호 L25",
+   "narratives[5].end: 원문에 없는 줄 번호 L28",
+   "narratives[6].start: 원문에 없는 줄 번호 L29",
+   "narratives[6].end: 원문에 없는 줄 번호 L31"
+  ]
+ },
+ "components_given": null
+}

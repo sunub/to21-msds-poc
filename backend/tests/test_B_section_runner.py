@@ -805,10 +805,13 @@ def with_pictograms(codes: list[str]) -> dict:
 
 
 @pytest.fixture
-def fake_map(tmp_path, monkeypatch):
+def fake_map(env, tmp_path, monkeypatch):
     path = tmp_path / "hazard_label_map.csv"
     path.write_text(FAKE_MAP, encoding="utf-8")
     monkeypatch.setattr(pc, "HAZARD_MAP", path)
+    # 가짜 문서 글에도 H900이 있어야 원문 대조 규칙이 H코드를 비우지 않는다 (source_rules, ADR-029)
+    with (env / "pages" / DOC / "p001.txt").open("a", encoding="utf-8") as f:
+        f.write("L13 H900 가짜 유해 문구\n")
 
 
 def test_pictograms_match_map(env, fake_map):
@@ -929,6 +932,143 @@ def test_select_docs_by_purpose(env, script):
         script.select_docs(None, None, False)          # 평가용이 섞인 전체 목록
     with pytest.raises(KeyError):
         script.select_docs(["T21-NONE"], None, False)
+
+
+# ── manifest 밖 문서: 쪽 글자 폴더의 meta.json으로 문서 정보를 만든다 (format40) ──
+
+OUTSIDE = "RAW-99"
+OUTSIDE_META = {"doc_id": OUTSIDE, "version": "가상판", "source_file": "99_가상 세척제.pdf", "page_count": 2,
+                "dpi": 200, "text_layer": "정상",
+                "pages": [{"page": 1, "state": "정상", "text_source": "텍스트층"},
+                          {"page": 2, "state": "정상", "text_source": "텍스트층"}]}
+
+
+def write_outside(pages: Path, doc_id: str = OUTSIDE, meta: dict | None = OUTSIDE_META) -> Path:
+    """pages 아래에 가짜 문서 폴더: DOC과 같은 쪽 글자 2쪽과 meta.json(meta가 None이면 없음)."""
+    d = pages / doc_id
+    d.mkdir(parents=True, exist_ok=True)
+    (d / "p001.txt").write_text(PAGE1, encoding="utf-8")
+    (d / "p002.txt").write_text(page2(), encoding="utf-8")
+    if meta is not None:
+        (d / "meta.json").write_text(json.dumps({**meta, "doc_id": doc_id}, ensure_ascii=False), encoding="utf-8")
+    return d
+
+
+def run_outside(env: Path, doc_id: str = OUTSIDE) -> dict:
+    (env / "sections" / f"{doc_id}.json").write_text(json.dumps({"msds": [{"pages": [1, 2], "sections": spans()}]}),
+                                                     encoding="utf-8")
+    return sr.run_document(doc_id, TAG, RUN, FakeClient(), pages_dir=env / "pages", sections_dir=env / "sections",
+                           codes_dir=env / "codes", runs_dir=env / "runs")
+
+
+def test_pages_meta_reads_meta_json(tmp_path):
+    write_outside(tmp_path)
+    assert sr.doc_meta_from_pages(OUTSIDE, tmp_path) == {
+        "doc_id": OUTSIDE, "source_file": "99_가상 세척제.pdf", "pages": 2, "text_layer": "정상",
+        "language": None, "purpose": "기타"}
+
+
+def test_pages_meta_page_count_missing_counts_page_files(tmp_path):
+    write_outside(tmp_path, meta={k: v for k, v in OUTSIDE_META.items() if k != "page_count"})
+    (tmp_path / OUTSIDE / "p002.png").write_bytes(b"")          # 그림·config는 세지 않는다
+    assert sr.doc_meta_from_pages(OUTSIDE, tmp_path)["pages"] == 2
+
+
+def test_pages_meta_missing_is_none(tmp_path):
+    write_outside(tmp_path, meta=None)
+    assert sr.doc_meta_from_pages(OUTSIDE, tmp_path) is None
+    assert sr.doc_meta_from_pages("RAW-98", tmp_path) is None   # 폴더도 없음
+
+
+def test_pages_meta_run_document_outside_manifest(env):
+    write_outside(env / "pages")
+    summary = run_outside(env)
+    out = read_json(env / "runs" / RUN / "outputs" / f"{OUTSIDE}.json")
+    assert validate_to21(out) == []
+    assert out["doc"]["doc_id"] == OUTSIDE and out["doc"]["source_file"] == "99_가상 세척제.pdf"
+    assert (out["doc"]["page_count"], out["doc"]["text_layer"], out["doc"]["language"]) == (2, "정상", None)
+    assert out["msds"][0]["product"]["name"] == "가상 세정액 B"
+    warnings = read_json(env / "runs" / RUN / "checks" / f"{OUTSIDE}.json")["warnings"]
+    assert [w for w in warnings if "manifest에 없는 문서" in w] == ["manifest에 없는 문서: 쪽 글자 폴더의 meta.json을 씀"]
+    assert summary["warnings"] == warnings
+
+
+def test_pages_meta_run_document_without_meta_raises(env):
+    write_outside(env / "pages", meta=None)
+    with pytest.raises(KeyError, match=OUTSIDE):
+        run_outside(env)
+
+
+def test_pages_meta_manifest_row_wins_over_meta(env):
+    """manifest에 있는 문서는 meta.json이 있어도 manifest 행을 쓰고 경고를 남기지 않는다."""
+    (env / "pages" / DOC / "meta.json").write_text(
+        json.dumps({**OUTSIDE_META, "doc_id": DOC, "source_file": "다른 이름.pdf"}, ensure_ascii=False),
+        encoding="utf-8")
+    summary = run(env, FakeClient())
+    assert read_json(env / "runs" / RUN / "outputs" / f"{DOC}.json")["doc"]["source_file"] == "가상 세정액 B.pdf"
+    assert summary["warnings"] == []
+
+
+def ids(rows: list[dict]) -> list[str]:
+    return [r["doc_id"] for r in rows]
+
+
+def test_pages_meta_select_targets_mixed_docs(env, script):
+    write_outside(env / "pages")
+    got = script.select_targets([DOC, OUTSIDE], None, False, env / "pages")
+    assert ids(got) == [DOC, OUTSIDE]
+    assert got[0] == manifest.get(DOC)
+    assert got[1] == sr.doc_meta_from_pages(OUTSIDE, env / "pages")
+
+
+def test_pages_meta_select_targets_manifest_only_same_as_select_docs(env, script):
+    assert script.select_targets([DOC, "T21-X03"], None, False, env / "pages") == \
+        script.select_docs([DOC, "T21-X03"], None, False)
+    assert script.select_targets(None, "개발", False, env / "pages") == script.select_docs(None, "개발", False)
+
+
+def test_pages_meta_select_targets_unknown_without_meta(env, script):
+    write_outside(env / "pages", meta=None)
+    with pytest.raises(KeyError, match=OUTSIDE):
+        script.select_targets([DOC, OUTSIDE], None, False, env / "pages")
+
+
+def test_pages_meta_select_targets_eval_mixed_needs_allow_eval(env, script):
+    write_outside(env / "pages")
+    with pytest.raises(ValueError, match="T21-X02"):
+        script.select_targets([OUTSIDE, "T21-X02"], None, False, env / "pages")
+    assert ids(script.select_targets([OUTSIDE, "T21-X02"], None, True, env / "pages")) == ["T21-X02", OUTSIDE]
+
+
+def test_pages_meta_select_targets_all_in_pages_dir(env, script):
+    """meta.json이 있는 폴더만 문서 번호 순으로. manifest에 있는 문서는 manifest 행을 쓴다. DOC 폴더는 meta.json이 없다."""
+    pages = env / "pages"
+    for d in (OUTSIDE, "RAW-10", "T21-X03"):
+        write_outside(pages, d)
+    (pages / "빈 폴더").mkdir()
+    got = script.select_targets(None, None, False, pages, all_in_pages_dir=True)
+    assert ids(got) == ["RAW-10", OUTSIDE, "T21-X03"]
+    assert got[2] == manifest.get("T21-X03")
+    assert got[0]["purpose"] == "기타" and got[0]["source_file"] == "99_가상 세척제.pdf"
+
+
+def test_pages_meta_select_targets_all_in_pages_dir_eval(env, script):
+    write_outside(env / "pages")
+    write_outside(env / "pages", "T21-X02")          # manifest의 평가용 문서
+    with pytest.raises(ValueError, match="T21-X02"):
+        script.select_targets(None, None, False, env / "pages", all_in_pages_dir=True)
+    got = script.select_targets(None, None, True, env / "pages", all_in_pages_dir=True)
+    assert ids(got) == [OUTSIDE, "T21-X02"]
+
+
+def test_pages_meta_select_targets_all_in_pages_dir_errors(env, script, tmp_path):
+    with pytest.raises(ValueError):                  # meta.json이 있는 폴더가 없다
+        script.select_targets(None, None, False, env / "pages", all_in_pages_dir=True)
+    write_outside(env / "pages")
+    with pytest.raises(ValueError):                  # --docs·--purpose와 같이 쓰지 않는다
+        script.select_targets([DOC], None, False, env / "pages", all_in_pages_dir=True)
+    with pytest.raises(ValueError):
+        script.select_targets(None, "개발", False, env / "pages", all_in_pages_dir=True)
 
 
 # ── run_config: 실행 기록에 행 형식·이미지 입력 설정을 남긴다 (ADR-019) ──

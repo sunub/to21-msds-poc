@@ -1,0 +1,149 @@
+{
+ "doc_id": "T21-S013",
+ "msds_index": 0,
+ "section": 14,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "transport": [
+   {
+    "mode": "공통",
+    "basis_raw": null,
+    "regulated": true,
+    "un_no": "1049",
+    "shipping_name": "HYDROGEN, COMPRESSED",
+    "hazard_class": "2.1",
+    "sub_risk": null,
+    "packing_group": "해당없음",
+    "marine_pollutant": "비해당",
+    "ems_fire": "F-D",
+    "ems_spill": "S-U",
+    "line": "p9:L32"
+   },
+   {
+    "mode": "육상",
+    "basis_raw": "(ADR)",
+    "regulated": true,
+    "un_no": "1049",
+    "shipping_name": "HYDROGEN, COMPRESSED",
+    "hazard_class": "2.1",
+    "sub_risk": null,
+    "packing_group": "해당없음",
+    "marine_pollutant": "비해당",
+    "ems_fire": "F-D",
+    "ems_spill": "S-U",
+    "line": "p10:L5"
+   },
+   {
+    "mode": "해상",
+    "basis_raw": "(IMDG)",
+    "regulated": true,
+    "un_no": "1049",
+    "shipping_name": "HYDROGEN, COMPRESSED",
+    "hazard_class": "2.1",
+    "sub_risk": null,
+    "packing_group": "해당없음",
+    "marine_pollutant": "비해당",
+    "ems_fire": "F-D",
+    "ems_spill": "S-U",
+    "line": "p10:L7"
+   },
+   {
+    "mode": "항공",
+    "basis_raw": "(IATA)",
+    "regulated": true,
+    "un_no": "1049",
+    "shipping_name": "HYDROGEN, COMPRESSED",
+    "hazard_class": "2.1",
+    "sub_risk": null,
+    "packing_group": "해당없음",
+    "marine_pollutant": "비해당",
+    "ems_fire": "F-D",
+    "ems_spill": "S-U",
+    "line": "p10:L9"
+   }
+  ],
+  "narratives": [
+   {
+    "item_code": "S14_SPECIAL",
+    "title_raw": "바. 사용자가 운송 또는 운송수단에 관련해 알 필요가 있거나 필요한 특별한 안전 대책 :",
+    "start": "p10:L2",
+    "end": "p10:L13"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S14_SPECIAL",
+    "title_raw": "- 9",
+    "reason": "판단불가",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [],
+    "suggested_code": null,
+    "line": "p9:L36"
+   },
+   {
+    "after_item": "S14_SPECIAL",
+    "title_raw": "· Tunnel restriction code : B/D",
+    "reason": "판단불가",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [
+     {
+      "value": "key:Tunnel restriction code, value:B/D",
+      "line": "p10:L6"
+     }
+    ],
+    "suggested_code": null,
+    "line": "p10:L6"
+   },
+   {
+    "after_item": "S14_SPECIAL",
+    "title_raw": "· 해양오염물질 : 해당없음",
+    "reason": "판단불가",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [
+     {
+      "value": "key:해양오염물질, value:해당없음",
+      "line": "p10:L8"
+     }
+    ],
+    "suggested_code": null,
+    "line": "p10:L8"
+   }
+  ]
+ },
+ "raw_text": "### transport\nmode | basis_raw | regulated | un_no | shipping_name | hazard_class | sub_risk | packing_group | marine_pollutant | ems_fire | ems_spill | line\n공통 |  | true | 1049 | HYDROGEN, COMPRESSED | 2.1 |  | 해당없음 | 해당없음 | F-D | S-U | p9:L32\n육상(ADR·국내) | (ADR) | true | 1049 | HYDROGEN, COMPRESSED | 2.1 |  | 해당없음 | 해당없음 | F-D | S-U | p10:L5\n해상(IMDG) | (IMDG) | true | 1049 | HYDROGEN, COMPRESSED | 2.1 |  | 해당없음 | 해당없음 | F-D | S-U | p10:L7\n항공(IATA) | (IATA) | true | 1049 | HYDROGEN, COMPRESSED | 2.1 |  | 해당없음 | 해당없음 | F-D | S-U | p10:L9\n\n### narratives\nitem_code | title_raw | start | end\nS14_SPECIAL | 바. 사용자가 운송 또는 운송수단에 관련해 알 필요가 있거나 필요한 특별한 안전 대책 : | p10:L2 | p10:L13\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\nS14_SPECIAL | - 9 | 판단불가 |  |  |  |  |  | p9:L36\nS14_SPECIAL | · Tunnel restriction code : B/D | 판단불가 |  |  |  | key:Tunnel restriction code, value:B/D |  | p10:L6\nS14_SPECIAL | · 해양오염물질 : 해당없음 | 판단불가 |  |  |  | key:해양오염물질, value:해당없음 |  | p10:L8",
+ "mode": "rows",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 3258,
+  "completion_tokens": 447,
+  "total_tokens": 3705
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "rows",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 3258,
+    "completion_tokens": 447,
+    "total_tokens": 3705
+   },
+   "seconds": 7.819,
+   "chars": 1032,
+   "whitespace": 234,
+   "head": "### transport\nmode | basis_raw | regulated | un_no | shipping_name | hazard_class | sub_risk | packing_group | marine_pollutant | ems_fire | ems_spill | line\n공통 |  | true | 1049 | HYDROGEN, COMPRESSED | 2.1 |  | 해당없음 | 해당없음 | F-D | S-U | p9:L32\n육상(ADR·국내) | (ADR) | true | 1049 | HYDROGEN, COMPRESSED | 2.1 |  | 해당없음 | 해당없음 | F-D | S-U | p10:L5\n해상(IMDG) | (IMDG) | true | 1049 | HYDROGEN, COMPRESSED | 2.1 |  | 해당없음 | 해당없음 | F-D | S-U | p10:L7\n항공(IATA) | (IATA) | true | 1049 | HYDROGEN, COMPRESSED |",
+   "tail": "U | p10:L9\n\n### narratives\nitem_code | title_raw | start | end\nS14_SPECIAL | 바. 사용자가 운송 또는 운송수단에 관련해 알 필요가 있거나 필요한 특별한 안전 대책 : | p10:L2 | p10:L13\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\nS14_SPECIAL | - 9 | 판단불가 |  |  |  |  |  | p9:L36\nS14_SPECIAL | · Tunnel restriction code : B/D | 판단불가 |  |  |  | key:Tunnel restriction code, value:B/D |  | p10:L6\nS14_SPECIAL | · 해양오염물질 : 해당없음 | 판단불가 |  |  |  | key:해양오염물질, value:해당없음 |  | p10:L8"
+  }
+ ],
+ "seconds": 7.82,
+ "check_problems": [],
+ "components_given": null
+}

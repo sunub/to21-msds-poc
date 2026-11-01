@@ -1,0 +1,279 @@
+{
+ "doc_id": "T21-M001",
+ "msds_index": 0,
+ "section": 8,
+ "reextracted": true,
+ "ok": true,
+ "parsed": {
+  "exposure_limits": [
+   {
+    "comp_name": "Carbon monoxide",
+    "comp_cas": "630-08-0",
+    "standard": "생물학적",
+    "limit_type": "TWA",
+    "q": {
+     "raw": "30.0ppm",
+     "value": 30.0,
+     "unit": "ppm"
+    },
+    "form": null,
+    "kr_basis": null,
+    "bio_medium": "blood",
+    "bio_timing": "end of shift",
+    "bio_determinant": "Carboxyhemoglobin (background, nonspecific)",
+    "notations": [],
+    "line": "p5:L12"
+   },
+   {
+    "comp_name": "Carbon monoxide",
+    "comp_cas": "630-08-0",
+    "standard": "생물학적",
+    "limit_type": "STEL",
+    "q": {
+     "raw": "200.0ppm",
+     "value": 200.0,
+     "unit": "ppm"
+    },
+    "form": null,
+    "kr_basis": null,
+    "bio_medium": "endexhaled air",
+    "bio_timing": "end of shift",
+    "bio_determinant": "Carbon monoxide (background, nonspecific)",
+    "notations": [],
+    "line": "p5:L14"
+   }
+  ],
+  "narratives": [
+   {
+    "item_code": "S8_ENG",
+    "title_raw": "나. 적절한 공학적 관리",
+    "start": "p5:L22",
+    "end": "p5:L23"
+   },
+   {
+    "item_code": "S8_RESP",
+    "title_raw": "다. 개인보호구 ○ 호흡기 보호",
+    "start": "p5:L24",
+    "end": "p5:L27"
+   },
+   {
+    "item_code": "S8_EYE",
+    "title_raw": "○ 눈 보호",
+    "start": "p5:L28",
+    "end": "p5:L30"
+   },
+   {
+    "item_code": "S8_HAND",
+    "title_raw": "○ 손 보호",
+    "start": "p5:L31",
+    "end": "p5:L32"
+   },
+   {
+    "item_code": "S8_BODY",
+    "title_raw": "○ 신체 보호",
+    "start": "p5:L33",
+    "end": "p5:L34"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": null,
+    "title_raw": "가. 화학물질의 노출기준, 생물학적 노출기준 등",
+    "reason": "필드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [
+     {
+      "value": "작업장에 적절한 배기 및 환기가 이루어 지도록 하시오.",
+      "line": "p5:L23"
+     }
+    ],
+    "suggested_code": null,
+    "line": "p5:L23"
+   },
+   {
+    "after_item": null,
+    "title_raw": null,
+    "reason": "필드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [
+     {
+      "value": "보호 장갑/보호복/보안경/보안면/귀마개를 착용하십시오.",
+      "line": "p5:L34"
+     }
+    ],
+    "suggested_code": null,
+    "line": "p5:L34"
+   }
+  ]
+ },
+ "raw_text": "### exposure_limits\ncomp_name=Carbon monoxide | comp_cas=630-08-0 | standard=생물학적 | limit_type=TWA | q=30.0ppm | bio_medium=blood | bio_timing=end of shift | bio_determinant=Carboxyhemoglobin (background, nonspecific) | line=p5:L12\ncomp_name=Carbon monoxide | comp_cas=630-08-0 | standard=생물학적 | limit_type=STEL | q=200.0ppm | bio_medium=endexhaled air | bio_timing=end of shift | bio_determinant=Carbon monoxide (background, nonspecific) | line=p5:L14\n\n### narratives\nS8_ENG | 나. 적절한 공학적 관리 | p5:L22 | p5:L23\nS8_RESP | 다. 개인보호구 ○ 호흡기 보호 | p5:L24 | p5:L27\nS8_EYE | ○ 눈 보호 | p5:L28 | p5:L30\nS8_HAND | ○ 손 보호 | p5:L31 | p5:L32\nS8_BODY | ○ 신체 보호 | p5:L33 | p5:L34\n\n### extras\n | 가. 화학물질의 노출기준, 생물학적 노출기준 등 | 필드없음 |  |  |  | 작업장에 적절한 배기 및 환기가 이루어 지도록 하시오. |  | p5:L23\n |  | 필드없음 |  |  |  | 보호 장갑/보호복/보안경/보안면/귀마개를 착용하십시오. |  | p5:L34",
+ "mode": "rows",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 4130,
+  "completion_tokens": 366,
+  "total_tokens": 4496
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "rows",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 4130,
+    "completion_tokens": 366,
+    "total_tokens": 4496
+   },
+   "seconds": 5.824,
+   "chars": 828,
+   "whitespace": 149,
+   "head": "### exposure_limits\ncomp_name=Carbon monoxide | comp_cas=630-08-0 | standard=생물학적 | limit_type=TWA | q=30.0ppm | bio_medium=blood | bio_timing=end of shift | bio_determinant=Carboxyhemoglobin (background, nonspecific) | line=p5:L12\ncomp_name=Carbon monoxide | comp_cas=630-08-0 | standard=생물학적 | limit_type=STEL | q=200.0ppm | bio_medium=endexhaled air | bio_timing=end of shift | bio_determinant=Carbon monoxide (background, nonspecific) | line=p5:L14\n\n### narratives\nS8_ENG | 나. 적절한 공학적 관리 | p5:L22",
+   "tail": " | p5:L23\nS8_RESP | 다. 개인보호구 ○ 호흡기 보호 | p5:L24 | p5:L27\nS8_EYE | ○ 눈 보호 | p5:L28 | p5:L30\nS8_HAND | ○ 손 보호 | p5:L31 | p5:L32\nS8_BODY | ○ 신체 보호 | p5:L33 | p5:L34\n\n### extras\n | 가. 화학물질의 노출기준, 생물학적 노출기준 등 | 필드없음 |  |  |  | 작업장에 적절한 배기 및 환기가 이루어 지도록 하시오. |  | p5:L23\n |  | 필드없음 |  |  |  | 보호 장갑/보호복/보안경/보안면/귀마개를 착용하십시오. |  | p5:L34"
+  }
+ ],
+ "seconds": 5.826,
+ "check_problems": [],
+ "first_attempt": {
+  "ok": true,
+  "parsed": {
+   "exposure_limits": [],
+   "narratives": [
+    {
+     "item_code": "S8_ENG",
+     "title_raw": "나. 적절한 공학적 관리",
+     "start": "p5:L22",
+     "end": "p5:L23"
+    },
+    {
+     "item_code": "S8_RESP",
+     "title_raw": "○ 호흡기 보호",
+     "start": "p5:L25",
+     "end": "p5:L27"
+    },
+    {
+     "item_code": "S8_EYE",
+     "title_raw": "○ 눈 보호",
+     "start": "p5:L28",
+     "end": "p5:L30"
+    },
+    {
+     "item_code": "S8_HAND",
+     "title_raw": "○ 손 보호",
+     "start": "p5:L31",
+     "end": "p5:L32"
+    },
+    {
+     "item_code": "S8_BODY",
+     "title_raw": "○ 신체 보호",
+     "start": "p5:L33",
+     "end": "p5:L34"
+    }
+   ],
+   "extras": [
+    {
+     "after_item": null,
+     "title_raw": "가. 화학물질의 노출기준, 생물학적 노출기준 등",
+     "reason": "필드없음",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": null,
+     "statements": [
+      {
+       "value": "3.5 % of hemoglobin",
+       "line": "p5:L5"
+      },
+      {
+       "value": "Medium: blood",
+       "line": "p5:L5"
+      },
+      {
+       "value": "Time: end of shift",
+       "line": "p5:L5"
+      },
+      {
+       "value": "Parameter: Carboxyhemoglobin (background, nonspecific)",
+       "line": "p5:L5"
+      }
+     ],
+     "suggested_code": null,
+     "line": "p5:L5"
+    },
+    {
+     "after_item": null,
+     "title_raw": "구성성분",
+     "reason": "필드없음",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": null,
+     "statements": [
+      {
+       "value": "국내기준",
+       "line": "p5:L4"
+      },
+      {
+       "value": "ACGIH",
+       "line": "p5:L4"
+      },
+      {
+       "value": "생물학적 노출기준",
+       "line": "p5:L4"
+      }
+     ],
+     "suggested_code": null,
+     "line": "p5:L4"
+    }
+   ]
+  },
+  "raw_text": "### exposure_limits\ncomp_name=Carbon monoxide | comp_cas=630-08-0 | standard=국내 | limit_type=TWA | q=25 ppm |  |  |  |  |  |  | p5:L13\ncomp_name=Carbon monoxide | comp_cas=630-08-0 | standard=생물학적 | limit_type=TWA | q=30.0ppm |  |  | blood | end of shift | Carboxyhemoglobin |  | p5:L12\ncomp_name=Carbon monoxide | comp_cas=630-08-0 | standard=생물학적 | limit_type=STEL | q=200.0ppm |  |  | endexhaled air | end of shift | Carbon monoxide |  | p5:L14\n\n### narratives\nS8_ENG | 나. 적절한 공학적 관리 | p5:L22 | p5:L23\nS8_RESP | ○ 호흡기 보호 | p5:L25 | p5:L27\nS8_EYE | ○ 눈 보호 | p5:L28 | p5:L30\nS8_HAND | ○ 손 보호 | p5:L31 | p5:L32\nS8_BODY | ○ 신체 보호 | p5:L33 | p5:L34\n\n### extras\n | 가. 화학물질의 노출기준, 생물학적 노출기준 등 | 필드없음 |  |  |  | 3.5 % of hemoglobin; Medium: blood; Time: end of shift; Parameter: Carboxyhemoglobin (background, nonspecific) |  | p5:L5\n | 구성성분 | 필드없음 |  |  |  | 국내기준; ACGIH; 생물학적 노출기준 |  | p5:L4",
+  "mode": "rows",
+  "finish_reason": "stop",
+  "usage": {
+   "prompt_tokens": 3932,
+   "completion_tokens": 401,
+   "total_tokens": 4333
+  },
+  "attempts": 1,
+  "errors": [
+   "exposure_limits p5:L13 comp_name=Carbon monoxide | comp_cas=630…: .limit_type: 'limit_type=TWA' is not valid under any of the given schemas; .standard: 'standard=국내' is not valid under any of the given schemas",
+   "exposure_limits p5:L12 comp_name=Carbon monoxide | comp_cas=630…: .limit_type: 'limit_type=TWA' is not valid under any of the given schemas; .standard: 'standard=생물학적' is not valid under any of the given schemas",
+   "exposure_limits p5:L14 comp_name=Carbon monoxide | comp_cas=630…: .limit_type: 'limit_type=STEL' is not valid under any of the given schemas; .standard: 'standard=생물학적' is not valid under any of the given schemas"
+  ],
+  "requests": [
+   {
+    "mode": "rows",
+    "finish_reason": "stop",
+    "usage": {
+     "prompt_tokens": 3932,
+     "completion_tokens": 401,
+     "total_tokens": 4333
+    },
+    "seconds": 6.862,
+    "chars": 888,
+    "whitespace": 187,
+    "head": "### exposure_limits\ncomp_name=Carbon monoxide | comp_cas=630-08-0 | standard=국내 | limit_type=TWA | q=25 ppm |  |  |  |  |  |  | p5:L13\ncomp_name=Carbon monoxide | comp_cas=630-08-0 | standard=생물학적 | limit_type=TWA | q=30.0ppm |  |  | blood | end of shift | Carboxyhemoglobin |  | p5:L12\ncomp_name=Carbon monoxide | comp_cas=630-08-0 | standard=생물학적 | limit_type=STEL | q=200.0ppm |  |  | endexhaled air | end of shift | Carbon monoxide |  | p5:L14\n\n### narratives\nS8_ENG | 나. 적절한 공학적 관리 | p5:L22 | p5",
+    "tail": ":L23\nS8_RESP | ○ 호흡기 보호 | p5:L25 | p5:L27\nS8_EYE | ○ 눈 보호 | p5:L28 | p5:L30\nS8_HAND | ○ 손 보호 | p5:L31 | p5:L32\nS8_BODY | ○ 신체 보호 | p5:L33 | p5:L34\n\n### extras\n | 가. 화학물질의 노출기준, 생물학적 노출기준 등 | 필드없음 |  |  |  | 3.5 % of hemoglobin; Medium: blood; Time: end of shift; Parameter: Carboxyhemoglobin (background, nonspecific) |  | p5:L5\n | 구성성분 | 필드없음 |  |  |  | 국내기준; ACGIH; 생물학적 노출기준 |  | p5:L4"
+   }
+  ],
+  "seconds": 6.865,
+  "check_problems": []
+ },
+ "components_given": [
+  [
+   "Methane",
+   "74-82-8"
+  ],
+  [
+   "Hydrogen",
+   "1333-74-0"
+  ],
+  [
+   "Carbon monoxide",
+   "630-08-0"
+  ]
+ ]
+}

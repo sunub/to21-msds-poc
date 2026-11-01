@@ -1,0 +1,157 @@
+{
+ "doc_id": "T21-M002",
+ "msds_index": 0,
+ "section": 4,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S4_EYE",
+    "title_raw": "가. 눈에 들어갔을 때",
+    "start": "p2:L26",
+    "end": "p2:L27"
+   },
+   {
+    "item_code": "S4_SKIN",
+    "title_raw": "나. 피부에 접촉했을 때",
+    "start": "p2:L28",
+    "end": "p2:L29"
+   },
+   {
+    "item_code": "S4_INHAL",
+    "title_raw": "다. 흡입했을 때",
+    "start": "p2:L30",
+    "end": "p3:L3"
+   },
+   {
+    "item_code": "S4_INGEST",
+    "title_raw": "라. 먹었을 때",
+    "start": "p3:L4",
+    "end": "p3:L6"
+   },
+   {
+    "item_code": "S4_DOCTOR",
+    "title_raw": "마. 기타 의사의 주의사항",
+    "start": "p3:L7",
+    "end": "p3:L8"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S4_END",
+    "title_raw": "가. 눈에 들어갔을 때",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "value": "- | 지속적인 자극이 발생하는 경우, 긴급 의료조치를 받으시오.",
+      "line": "p2:L27"
+     }
+    ],
+    "suggested_code": "S4_EYE",
+    "line": "p2:L26"
+   },
+   {
+    "after_item": "S4_EYE",
+    "title_raw": "나. 피부에 접촉했을 때",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "value": "- | 지속적인 자극이 발생하는 경우, 긴급 의료조치를 받으시오.",
+      "line": "p2:L29"
+     }
+    ],
+    "suggested_code": "S4_SKIN",
+    "line": "p2:L28"
+   },
+   {
+    "after_item": "S4_SKIN",
+    "title_raw": "다. 흡입했을 때",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "value": "- | 신선한 공기가 있는 곳으로 옮기시오.",
+      "line": "p2:L31"
+     },
+     {
+      "value": "- | 긴급 의료조치를 받으시오.",
+      "line": "p2:L32"
+     },
+     {
+      "value": "- | 호흡하지 않는 경우 인공호흡을 실시하시오.",
+      "line": "p3:L1"
+     },
+     {
+      "value": "- | 호흡이 힘들 경우 산소를 공급하시오.",
+      "line": "p3:L2"
+     },
+     {
+      "value": "- | 따뜻하게 하고 안정되게 해주시오.",
+      "line": "p3:L3"
+     }
+    ],
+    "suggested_code": "S4_INHAL",
+    "line": "p2:L30"
+   },
+   {
+    "after_item": "S4_INHAL",
+    "title_raw": "라. 먹었을 때",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "value": "- | 물질을 먹거나 흡입하였을 경우, 구강대구강법으로 인공호흡을 하지 말고 적절한 호흡",
+      "line": "p3:L5"
+     },
+     {
+      "value": "의료장비를 이용하시오.",
+      "line": "p3:L6"
+     }
+    ],
+    "suggested_code": "S4_INGEST",
+    "line": "p3:L4"
+   },
+   {
+    "after_item": "S4_INGEST",
+    "title_raw": "마. 기타 의사의 주의사항",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "value": "- | 의료인력이 해당물질에 대해 인지하고 보호조치를 취하도록 하시오.",
+      "line": "p3:L8"
+     }
+    ],
+    "suggested_code": "S4_DOCTOR",
+    "line": "p3:L7"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S4_EYE\",\n      \"title_raw\": \"가. 눈에 들어갔을 때\",\n      \"start\": \"p2:L26\",\n      \"end\": \"p2:L27\"\n    },\n    {\n      \"item_code\": \"S4_SKIN\",\n      \"title_raw\": \"나. 피부에 접촉했을 때\",\n      \"start\": \"p2:L28\",\n      \"end\": \"p2:L29\"\n    },\n    {\n      \"item_code\": \"S4_INHAL\",\n      \"title_raw\": \"다. 흡입했을 때\",\n      \"start\": \"p2:L30\",\n      \"end\": \"p3:L3\"\n    },\n    {\n      \"item_code\": \"S4_INGEST\",\n      \"title_raw\": \"라. 먹었을 때\",\n      \"start\": \"p3:L4\",\n      \"end\": \"p3:L6\"\n    },\n    {\n      \"item_code\": \"S4_DOCTOR\",\n      \"title_raw\": \"마. 기타 의사의 주의사항\",\n      \"start\": \"p3:L7\",\n      \"end\": \"p3:L8\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S4_END\",\n      \"title_raw\": \"가. 눈에 들어갔을 때\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"- | 지속적인 자극이 발생하는 경우, 긴급 의료조치를 받으시오.\"\n        ,\n          \"line\": \"p2:L27\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S4_EYE\"\n    ,\n      \"line\": \"p2:L26\"\n    },\n    {\n      \"after_item\": \"S4_EYE\",\n      \"title_raw\": \"나. 피부에 접촉했을 때\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"- | 지속적인 자극이 발생하는 경우, 긴급 의료조치를 받으시오.\"\n        ,\n          \"line\": \"p2:L29\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S4_SKIN\"\n    ,\n      \"line\": \"p2:L28\"\n    },\n    {\n      \"after_item\": \"S4_SKIN\",\n      \"title_raw\": \"다. 흡입했을 때\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"- | 신선한 공기가 있는 곳으로 옮기시오.\"\n        ,\n          \"line\": \"p2:L31\"\n        }\n      ,\n        {\n          \"value\": \"- | 긴급 의료조치를 받으시오.\"\n        ,\n          \"line\": \"p2:L32\"\n        }\n      ,\n        {\n          \"value\": \"- | 호흡하지 않는 경우 인공호흡을 실시하시오.\"\n        ,\n          \"line\": \"p3:L1\"\n        }\n      ,\n        {\n          \"value\": \"- | 호흡이 힘들 경우 산소를 공급하시오.\"\n        ,\n          \"line\": \"p3:L2\"\n        }\n      ,\n        {\n          \"value\": \"- | 따뜻하게 하고 안정되게 해주시오.\"\n        ,\n          \"line\": \"p3:L3\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S4_INHAL\"\n    ,\n      \"line\": \"p2:L30\"\n    },\n    {\n      \"after_item\": \"S4_INHAL\",\n      \"title_raw\": \"라. 먹었을 때\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"- | 물질을 먹거나 흡입하였을 경우, 구강대구강법으로 인공호흡을 하지 말고 적절한 호흡\"\n        ,\n          \"line\": \"p3:L5\"\n        }\n      ,\n        {\n          \"value\": \"의료장비를 이용하시오.\"\n        ,\n          \"line\": \"p3:L6\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S4_INGEST\"\n    ,\n      \"line\": \"p3:L4\"\n    },\n    {\n      \"after_item\": \"S4_INGEST\",\n      \"title_raw\": \"마. 기타 의사의 주의사항\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"- | 의료인력이 해당물질에 대해 인지하고 보호조치를 취하도록 하시오.\"\n        ,\n          \"line\": \"p3:L8\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S4_DOCTOR\"\n    ,\n      \"line\": \"p3:L7\"\n    }\n  ]\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 2105,
+  "completion_tokens": 1124,
+  "total_tokens": 3229
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 2105,
+    "completion_tokens": 1124,
+    "total_tokens": 3229
+   },
+   "seconds": 18.176,
+   "chars": 2782,
+   "whitespace": 1234,
+   "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S4_EYE\",\n      \"title_raw\": \"가. 눈에 들어갔을 때\",\n      \"start\": \"p2:L26\",\n      \"end\": \"p2:L27\"\n    },\n    {\n      \"item_code\": \"S4_SKIN\",\n      \"title_raw\": \"나. 피부에 접촉했을 때\",\n      \"start\": \"p2:L28\",\n      \"end\": \"p2:L29\"\n    },\n    {\n      \"item_code\": \"S4_INHAL\",\n      \"title_raw\": \"다. 흡입했을 때\",\n      \"start\": \"p2:L30\",\n      \"end\": \"p3:L3\"\n    },\n    {\n      \"item_code\": \"S4_INGEST\",\n      \"title_raw\": \"라. 먹었을 때\",\n      \"start\": \"p3:L4\",\n      \"end\": \"p",
+   "tail": "     {\n          \"value\": \"의료장비를 이용하시오.\"\n        ,\n          \"line\": \"p3:L6\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S4_INGEST\"\n    ,\n      \"line\": \"p3:L4\"\n    },\n    {\n      \"after_item\": \"S4_INGEST\",\n      \"title_raw\": \"마. 기타 의사의 주의사항\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"- | 의료인력이 해당물질에 대해 인지하고 보호조치를 취하도록 하시오.\"\n        ,\n          \"line\": \"p3:L8\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S4_DOCTOR\"\n    ,\n      \"line\": \"p3:L7\"\n    }\n  ]\n}"
+  }
+ ],
+ "seconds": 18.178,
+ "check_problems": [],
+ "components_given": null
+}

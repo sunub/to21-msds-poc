@@ -1,0 +1,213 @@
+{
+ "doc_id": "T21-M001",
+ "msds_index": 0,
+ "section": 8,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "exposure_limits": [
+   {
+    "comp_name": "Carbon monoxide",
+    "comp_cas": "630-08-0",
+    "standard": "국내",
+    "limit_type": "TWA",
+    "q": {
+     "raw": "25 ppm",
+     "value": 25,
+     "unit": "ppm"
+    },
+    "form": null,
+    "kr_basis": "노출기준",
+    "bio_medium": null,
+    "bio_timing": null,
+    "bio_determinant": null,
+    "notations": [],
+    "line": "p5:L13"
+   },
+   {
+    "comp_name": "Carbon monoxide",
+    "comp_cas": "630-08-0",
+    "standard": "ACGIH",
+    "limit_type": "TWA",
+    "q": {
+     "raw": "30.0ppm",
+     "value": 30.0,
+     "unit": "ppm"
+    },
+    "form": null,
+    "kr_basis": null,
+    "bio_medium": null,
+    "bio_timing": null,
+    "bio_determinant": null,
+    "notations": [
+     "nonspecific"
+    ],
+    "line": "p5:L12"
+   },
+   {
+    "comp_name": "Carbon monoxide",
+    "comp_cas": "630-08-0",
+    "standard": "ACGIH",
+    "limit_type": "STEL",
+    "q": {
+     "raw": "200.0ppm",
+     "value": 200.0,
+     "unit": "ppm"
+    },
+    "form": null,
+    "kr_basis": null,
+    "bio_medium": null,
+    "bio_timing": null,
+    "bio_determinant": null,
+    "notations": [
+     "nonspecific"
+    ],
+    "line": "p5:L14"
+   },
+   {
+    "comp_name": "Carbon monoxide",
+    "comp_cas": "630-08-0",
+    "standard": "생물학적",
+    "limit_type": "TWA",
+    "q": {
+     "raw": "30.0ppm",
+     "value": 30.0,
+     "unit": "ppm"
+    },
+    "form": "endexhaled air",
+    "kr_basis": null,
+    "bio_medium": "end of shift",
+    "bio_timing": null,
+    "bio_determinant": "Carboxyhemoglobin",
+    "notations": [
+     "nonspecific"
+    ],
+    "line": "p5:L12"
+   },
+   {
+    "comp_name": "Carbon monoxide",
+    "comp_cas": "630-08-0",
+    "standard": "생물학적",
+    "limit_type": "STEL",
+    "q": {
+     "raw": "200.0ppm",
+     "value": 200.0,
+     "unit": "ppm"
+    },
+    "form": "endexhaled air",
+    "kr_basis": null,
+    "bio_medium": "end of shift",
+    "bio_timing": null,
+    "bio_determinant": "Carboxyhemoglobin",
+    "notations": [
+     "nonspecific"
+    ],
+    "line": "p5:L14"
+   }
+  ],
+  "narratives": [
+   {
+    "item_code": "S8_ENG",
+    "title_raw": "나. 적절한 공학적 관리",
+    "start": "p5:L22",
+    "end": "p5:L23"
+   },
+   {
+    "item_code": "S8_RESP",
+    "title_raw": "○ 호흡기 보호",
+    "start": "p5:L25",
+    "end": "p5:L27"
+   },
+   {
+    "item_code": "S8_EYE",
+    "title_raw": "○ 눈 보호",
+    "start": "p5:L28",
+    "end": "p5:L30"
+   },
+   {
+    "item_code": "S8_HAND",
+    "title_raw": "○ 손 보호",
+    "start": "p5:L31",
+    "end": "p5:L32"
+   },
+   {
+    "item_code": "S8_BODY",
+    "title_raw": "○ 신체 보호",
+    "start": "p5:L33",
+    "end": "p5:L34"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S8_END",
+    "title_raw": "가. 화학물질의 노출기준, 생물학적 노출기준 등",
+    "reason": "코드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [
+     {
+      "value": "3.5 % of hemoglobin",
+      "line": "p5:L3"
+     },
+     {
+      "value": "Medium: blood",
+      "line": "p5:L3"
+     },
+     {
+      "value": "Time: end of shift",
+      "line": "p5:L3"
+     },
+     {
+      "value": "Parameter: Carboxyhemoglobin (background, nonspecific)",
+      "line": "p5:L3"
+     }
+    ],
+    "suggested_code": "EXPOSURE_LIMITS",
+    "line": "p5:L3"
+   }
+  ]
+ },
+ "raw_text": "### exposure_limits\ncomp_name | comp_cas | standard | limit_type | q | form | kr_basis | bio_medium | bio_timing | bio_determinant | notations | line\nCarbon monoxide | 630-08-0 | 국내 | TWA | 25 ppm |  | 노출기준 |  |  |  |  | p5:L13\nCarbon monoxide | 630-08-0 | ACGIH | TWA | 30.0ppm |  |  |  |  |  | nonspecific | p5:L12\nCarbon monoxide | 630-08-0 | ACGIH | STEL | 200.0ppm |  |  |  |  |  | nonspecific | p5:L14\nCarbon monoxide | 630-08-0 | 생물학적 | TWA | 30.0ppm | endexhaled air |  | end of shift |  | Carboxyhemoglobin | nonspecific | p5:L12\nCarbon monoxide | 630-08-0 | 생물학적 | STEL | 200.0ppm | endexhaled air |  | end of shift |  | Carboxyhemoglobin | nonspecific | p5:L14\n\n### narratives\nitem_code | title_raw | start | end\nS8_ENG | 나. 적절한 공학적 관리 | p5:L22 | p5:L23\nS8_RESP | ○ 호흡기 보호 | p5:L25 | p5:L27\nS8_EYE | ○ 눈 보호 | p5:L28 | p5:L30\nS8_HAND | ○ 손 보호 | p5:L31 | p5:L32\nS8_BODY | ○ 신체 보호 | p5:L33 | p5:L34\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\nS8_END | 가. 화학물질의 노출기준, 생물학적 노출기준 등 | 코드없음 |  |  |  | 3.5 % of hemoglobin; Medium: blood; Time: end of shift; Parameter: Carboxyhemoglobin (background, nonspecific) | EXPOSURE_LIMITS | p5:L3",
+ "mode": "rows",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 3932,
+  "completion_tokens": 510,
+  "total_tokens": 4442
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "rows",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 3932,
+    "completion_tokens": 510,
+    "total_tokens": 4442
+   },
+   "seconds": 8.363,
+   "chars": 1205,
+   "whitespace": 262,
+   "head": "### exposure_limits\ncomp_name | comp_cas | standard | limit_type | q | form | kr_basis | bio_medium | bio_timing | bio_determinant | notations | line\nCarbon monoxide | 630-08-0 | 국내 | TWA | 25 ppm |  | 노출기준 |  |  |  |  | p5:L13\nCarbon monoxide | 630-08-0 | ACGIH | TWA | 30.0ppm |  |  |  |  |  | nonspecific | p5:L12\nCarbon monoxide | 630-08-0 | ACGIH | STEL | 200.0ppm |  |  |  |  |  | nonspecific | p5:L14\nCarbon monoxide | 630-08-0 | 생물학적 | TWA | 30.0ppm | endexhaled air |  | end of shift |  | Ca",
+   "tail": "_raw | start | end\nS8_ENG | 나. 적절한 공학적 관리 | p5:L22 | p5:L23\nS8_RESP | ○ 호흡기 보호 | p5:L25 | p5:L27\nS8_EYE | ○ 눈 보호 | p5:L28 | p5:L30\nS8_HAND | ○ 손 보호 | p5:L31 | p5:L32\nS8_BODY | ○ 신체 보호 | p5:L33 | p5:L34\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\nS8_END | 가. 화학물질의 노출기준, 생물학적 노출기준 등 | 코드없음 |  |  |  | 3.5 % of hemoglobin; Medium: blood; Time: end of shift; Parameter: Carboxyhemoglobin (background, nonspecific) | EXPOSURE_LIMITS | p5:L3"
+  }
+ ],
+ "seconds": 8.366,
+ "check_problems": [],
+ "components_given": [
+  [
+   "Methane",
+   "74-82-8"
+  ],
+  [
+   "Hydrogen",
+   "1333-74-0"
+  ],
+  [
+   "Carbon monoxide",
+   "630-08-0"
+  ]
+ ]
+}
