@@ -1113,3 +1113,87 @@ def test_run_config_save_run_info_rows_max_tokens(tmp_path):
     sr.save_run_info(tmp_path / "b", TAG)
     info = {k: yaml.safe_load((tmp_path / k / "run_info.yaml").read_text(encoding="utf-8")) for k in "ab"}
     assert info["a"]["rows_max_tokens"] == 16384 and info["b"]["rows_max_tokens"] is None
+
+
+# ── 진행 알림 (서비스 API, on_event) ─────────────────────
+
+def collect_events(env: Path, client) -> list[dict]:
+    events, lock = [], threading.Lock()
+
+    def on_event(e: dict) -> None:
+        with lock:
+            events.append(e)
+
+    run(env, client, on_event=on_event)
+    return events
+
+
+def test_on_event_plan_lists_every_section_with_pages_and_title(env):
+    events = collect_events(env, FakeClient())
+    plans = [e for e in events if e["type"] == "plan"]
+    assert len(plans) == 1 and events[0] is plans[0]
+    secs = plans[0]["sections"]
+    assert [(s["msds_index"], s["section"]) for s in secs] == [(0, n) for n in range(1, 17)]
+    by_no = {s["section"]: s for s in secs}
+    assert by_no[1]["pages"] == [1] and by_no[16]["pages"] == [2]
+    assert by_no[2]["title"] == ss.load_specs()[2].title
+    assert plans[0]["msds_count"] == 1 and plans[0]["page_count"] == 2
+
+
+def test_on_event_reports_each_section_start_and_done_then_finalize(env):
+    events = collect_events(env, FakeClient())
+    started = {(e["msds_index"], e["section"]) for e in events if e["type"] == "section_started"}
+    done = [e for e in events if e["type"] == "section_done"]
+    assert started == {(0, n) for n in range(1, 17)}
+    assert sorted(e["section"] for e in done) == list(range(1, 17))
+    assert all(e["ok"] for e in done)
+    assert {"reextracted", "needs_review", "seconds", "errors"} <= done[0].keys()
+    types = [e["type"] for e in events]
+    last_done = max(i for i, t in enumerate(types) if t == "section_done")
+    assert types.index("finalize") > last_done
+    for e in done:   # 항의 시작은 그 항의 끝보다 먼저 알린다
+        assert events.index(next(x for x in events if x["type"] == "section_started"
+                                 and x["section"] == e["section"])) < events.index(e)
+
+
+def test_on_event_failed_section_is_done_not_ok(env):
+    events = collect_events(env, FakeClient(fail={4}))
+    four = next(e for e in events if e["type"] == "section_done" and e["section"] == 4)
+    assert four["ok"] is False and four["needs_review"] is True and four["errors"]
+
+
+def test_on_event_absent_keeps_old_behaviour(env):
+    assert run(env, FakeClient())["sections_ok"] == 16
+
+
+def test_raw_is_written_before_section_done_is_reported(env):
+    """화면이 section_done을 보고 항별 결과를 물으면 파일이 이미 있어야 한다. 끝나기 전 항의 파일은 없다."""
+    raw_dir = env / "runs" / RUN / "raw"
+    seen: dict[int, dict] = {}
+
+    def on_event(e: dict) -> None:
+        if e["type"] == "section_done":
+            seen[e["section"]] = read_json(raw_dir / f"{DOC}_m0_s{e['section']:02d}.json")
+
+    run(env, FakeClient(), on_event=on_event)
+    assert sorted(seen) == list(range(1, 17))
+    assert all(raw["section"] == no and raw["ok"] is True for no, raw in seen.items())
+
+
+def test_raw_survives_when_a_later_step_fails(env, monkeypatch):
+    """펼치기가 터져도 끝난 항의 값은 남는다."""
+    def boom(*a, **k):
+        raise RuntimeError("펼치기 실패")
+
+    monkeypatch.setattr(sr, "to_to21", boom)
+    with pytest.raises(RuntimeError):
+        run(env, FakeClient())
+    assert len(list((env / "runs" / RUN / "raw").glob("*.json"))) == 16
+
+
+def test_write_json_leaves_no_temp_file_and_replaces_whole(tmp_path):
+    path = tmp_path / "a" / "b.json"
+    sr._write_json(path, {"v": 1})
+    sr._write_json(path, {"v": 2})
+    assert json.loads(path.read_text(encoding="utf-8")) == {"v": 2}
+    assert [p.name for p in path.parent.iterdir()] == ["b.json"]
