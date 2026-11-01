@@ -12,6 +12,7 @@ from pathlib import Path
 import pytest
 
 from msds.compliance.htodb.csv_repo import CsvRepo
+from msds.compliance.htodb.regulation import RegulationProvider
 from msds.compliance.mixture.ate_source import get_ate
 from msds.compliance.mixture.build_components import build_components
 from msds.compliance.mixture.class_lookup_db import _DbRepo, make_db_class_lookup, make_db_tox_lookup
@@ -139,3 +140,5 @@ def test_샘플CSV와_실제DB의_분류·독성값이_같다():
     for cas in SAMPLE_CAS:  # 샘플 8종: 같은 CAS를 두 창고에서 찾은 결과가 같아야 바꿔 끼울 수 있다(설계서 15장)
         assert list(make_db_class_lookup(sample)(cas)) == list(make_db_class_lookup(real)(cas)), cas
         assert list(make_db_tox_lookup(sample)(cas)) == list(make_db_tox_lookup(real)(cas)), cas
+        reg = lambda repo: RegulationProvider(repo, knowledge_version="v").get_regulation(cas, None)["rows"]
+        assert reg(sample) == reg(real), cas  # 15항 규제 행(항목 코드·기준 농도)도 같아야 한다
