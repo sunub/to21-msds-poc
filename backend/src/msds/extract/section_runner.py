@@ -38,7 +38,7 @@ from msds.extract.expand import to_to21
 from msds.extract.inputs import _PAGE_FILE, SECTION_NOS, DocumentInput, load_document, model_lines, section_lines
 from msds.extract.pictogram_check import check_msds, load_hazard_map
 from msds.extract.rows import parse_rows
-from msds.extract.section_prompts import SECTION_PROMPT_VERSION, build_system, build_user, prompt_hash, rows_sections
+from msds.extract.section_prompts import SECTION_PROMPT_VERSION, build_system, build_user, prompt_hash
 from msds.extract.section_specs import response_schema
 
 DOC_TIME_LIMIT = 300          # 초. 넘으면 경고만 남기고 멈추지 않는다
@@ -242,7 +242,7 @@ def run_document(doc_id: str, model_tag: str, run_name: str, client=None, *,
     stage("inputs", time.perf_counter() - t)
 
     # 2~3. 항목별 동시 호출과 1회 재추출. 안내문은 워크북을 읽으므로 스레드에 넘기기 전에 만든다.
-    rows = rows_sections(cfg.get("rows_sections") or [])     # 시험용 판 s12면 서술만 있는 항을 더한다
+    rows = set(cfg.get("rows_sections") or [])
     prompts = {no: (build_system(no, no in rows), response_schema(no)) for no in SECTION_NOS}
     image_warnings: list[str] = []
     futures = {}
@@ -353,7 +353,7 @@ def save_run_info(run: Path, model_tag: str, pages_dir=PAGES, max_workers: int |
     """같은 조건으로 다시 돌릴 수 있게 모델·프롬프트·스키마 버전과 쪽 글자 폴더를 남긴다.
     주소·키·환경변수 값은 쓰지 않는다. 쪽 글자 폴더는 저장소 기준 상대 경로로 쓴다."""
     cfg = load_model_config(model_tag)
-    rows = rows_sections(cfg.get("rows_sections") or [])     # 시험용 판 s12면 서술만 있는 항을 더한다
+    rows = set(cfg.get("rows_sections") or [])
     info = {
         "model_tag": model_tag,
         "model": cfg["model"],
