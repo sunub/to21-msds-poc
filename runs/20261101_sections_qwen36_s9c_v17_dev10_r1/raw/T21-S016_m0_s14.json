@@ -1,0 +1,79 @@
+{
+ "doc_id": "T21-S016",
+ "msds_index": 0,
+ "section": 14,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "transport": [
+   {
+    "mode": "해상",
+    "basis_raw": "IMDG CODE/IATA DGR",
+    "regulated": true,
+    "un_no": "1114",
+    "shipping_name": "BENZENE",
+    "hazard_class": "3",
+    "sub_risk": null,
+    "packing_group": "II",
+    "marine_pollutant": "해당",
+    "ems_fire": "F-E",
+    "ems_spill": "S-D",
+    "line": "p8:L2"
+   }
+  ],
+  "narratives": [
+   {
+    "item_code": "S14_SPECIAL",
+    "title_raw": "바. 사용자가 운송 또는 운송 수단에 관련해 알 필요가 있거나 필요한 특별한 안전 대책",
+    "start": "p8:L12",
+    "end": "p8:L16"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S14_SPECIAL",
+    "title_raw": "마. 해양오염물질",
+    "reason": "코드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [
+     {
+      "value": "해당됨",
+      "line": "p8:L10"
+     }
+    ],
+    "suggested_code": "MARINE_POLLUTANT",
+    "line": "p8:L10"
+   }
+  ]
+ },
+ "raw_text": "### transport\nmode | basis_raw | regulated | un_no | shipping_name | hazard_class | sub_risk | packing_group | marine_pollutant | ems_fire | ems_spill | line\n해상 | IMDG CODE/IATA DGR | true | 1114 | BENZENE | 3 |  | II | 해당 | F-E | S-D | p8:L2\n\n### narratives\nitem_code | title_raw | start | end\nS14_SPECIAL | 바. 사용자가 운송 또는 운송 수단에 관련해 알 필요가 있거나 필요한 특별한 안전 대책 | p8:L12 | p8:L16\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\nS14_SPECIAL | 마. 해양오염물질 | 코드없음 |  |  |  | 해당됨 | MARINE_POLLUTANT | p8:L10",
+ "mode": "rows",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 2910,
+  "completion_tokens": 198,
+  "total_tokens": 3108
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "rows",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 2910,
+    "completion_tokens": 198,
+    "total_tokens": 3108
+   },
+   "seconds": 3.556,
+   "chars": 557,
+   "whitespace": 117,
+   "head": "### transport\nmode | basis_raw | regulated | un_no | shipping_name | hazard_class | sub_risk | packing_group | marine_pollutant | ems_fire | ems_spill | line\n해상 | IMDG CODE/IATA DGR | true | 1114 | BENZENE | 3 |  | II | 해당 | F-E | S-D | p8:L2\n\n### narratives\nitem_code | title_raw | start | end\nS14_SPECIAL | 바. 사용자가 운송 또는 운송 수단에 관련해 알 필요가 있거나 필요한 특별한 안전 대책 | p8:L12 | p8:L16\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\nS14_SPECIAL | 마.",
+   "tail": " 해양오염물질 | 코드없음 |  |  |  | 해당됨 | MARINE_POLLUTANT | p8:L10"
+  }
+ ],
+ "seconds": 3.557,
+ "check_problems": []
+}

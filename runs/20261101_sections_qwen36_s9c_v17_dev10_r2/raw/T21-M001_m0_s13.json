@@ -1,0 +1,83 @@
+{
+ "doc_id": "T21-M001",
+ "msds_index": 0,
+ "section": 13,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S13_METHOD",
+    "title_raw": "가. 폐기방법",
+    "start": "p9:L32",
+    "end": "p9:L33"
+   },
+   {
+    "item_code": "S13_CAUTION",
+    "title_raw": "나. 폐기시 주의사항",
+    "start": "p9:L34",
+    "end": "p9:L36"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S13_METHOD",
+    "title_raw": "나. 폐기시 주의사항",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "value": "국가 규정에 따라 폐기하십시오.",
+      "line": "p9:L35"
+     },
+     {
+      "value": "인가받은 폐기물 관리업체에 보내십시오.",
+      "line": "p9:L36"
+     }
+    ],
+    "suggested_code": "S13_CAUTION",
+    "line": "p9:L34"
+   },
+   {
+    "after_item": "S13_CAUTION",
+    "title_raw": "13. 폐기시 주의사항",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "value": "빈용기는 재활용 또는 폐기를 위해 허가된 폐기물 처리장에 수집되어야 합니다.",
+      "line": "p9:L33"
+     }
+    ],
+    "suggested_code": "S13_METHOD",
+    "line": "p9:L32"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S13_METHOD\",\n      \"title_raw\": \"가. 폐기방법\",\n      \"start\": \"p9:L32\",\n      \"end\": \"p9:L33\"\n    },\n    {\n      \"item_code\": \"S13_CAUTION\",\n      \"title_raw\": \"나. 폐기시 주의사항\",\n      \"start\": \"p9:L34\",\n      \"end\": \"p9:L36\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S13_METHOD\",\n      \"title_raw\": \"나. 폐기시 주의사항\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"국가 규정에 따라 폐기하십시오.\"\n        ,\n        \"line\": \"p9:L35\"\n        },\n        {\n          \"value\": \"인가받은 폐기물 관리업체에 보내십시오.\"\n        ,\n        \"line\": \"p9:L36\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S13_CAUTION\"\n    ,\n      \"line\": \"p9:L34\"\n    },\n    {\n      \"after_item\": \"S13_CAUTION\",\n      \"title_raw\": \"13. 폐기시 주의사항\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"빈용기는 재활용 또는 폐기를 위해 허가된 폐기물 처리장에 수집되어야 합니다.\"\n        ,\n        \"line\": \"p9:L33\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S13_METHOD\"\n    ,\n      \"line\": \"p9:L32\"\n    }\n  ]\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 1877,
+  "completion_tokens": 426,
+  "total_tokens": 2303
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 1877,
+    "completion_tokens": 426,
+    "total_tokens": 2303
+   },
+   "seconds": 6.18,
+   "chars": 1022,
+   "whitespace": 418,
+   "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S13_METHOD\",\n      \"title_raw\": \"가. 폐기방법\",\n      \"start\": \"p9:L32\",\n      \"end\": \"p9:L33\"\n    },\n    {\n      \"item_code\": \"S13_CAUTION\",\n      \"title_raw\": \"나. 폐기시 주의사항\",\n      \"start\": \"p9:L34\",\n      \"end\": \"p9:L36\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S13_METHOD\",\n      \"title_raw\": \"나. 폐기시 주의사항\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"국가 규정에 따라 폐기하십시오.\"\n        ,\n        \"line\": \"p9:L35\"\n       ",
+   "tail": "  \"value\": \"인가받은 폐기물 관리업체에 보내십시오.\"\n        ,\n        \"line\": \"p9:L36\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S13_CAUTION\"\n    ,\n      \"line\": \"p9:L34\"\n    },\n    {\n      \"after_item\": \"S13_CAUTION\",\n      \"title_raw\": \"13. 폐기시 주의사항\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"빈용기는 재활용 또는 폐기를 위해 허가된 폐기물 처리장에 수집되어야 합니다.\"\n        ,\n        \"line\": \"p9:L33\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S13_METHOD\"\n    ,\n      \"line\": \"p9:L32\"\n    }\n  ]\n}"
+  }
+ ],
+ "seconds": 6.181,
+ "check_problems": []
+}

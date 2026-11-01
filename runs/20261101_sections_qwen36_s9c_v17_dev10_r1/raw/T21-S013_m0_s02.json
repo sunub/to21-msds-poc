@@ -1,0 +1,148 @@
+{
+ "doc_id": "T21-S013",
+ "msds_index": 0,
+ "section": 2,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "hazard": {
+   "classified": true,
+   "classes": [
+    {
+     "group": "물리적",
+     "class_code": "PH_FLAM_GAS",
+     "category": "1",
+     "raw": "인화성 가스 구분 1",
+     "line": "p1:L18"
+    },
+    {
+     "group": "물리적",
+     "class_code": "PH_PRESS_GAS",
+     "category": "압축가스",
+     "raw": "고압가스 압축가스",
+     "line": "p1:L19"
+    }
+   ],
+   "signal_word": "위험",
+   "pictograms": [
+    {
+     "code": "GHS02"
+    },
+    {
+     "code": "GHS04"
+    }
+   ],
+   "h_statements": [
+    {
+     "code": "H220",
+     "text": "극인화성 가스",
+     "line": "p1:L25"
+    },
+    {
+     "code": "H280",
+     "text": "고압가스 포함: 가열하면 폭발할 수 있음",
+     "line": "p1:L26"
+    }
+   ],
+   "p_statements": [
+    {
+     "code": "P210",
+     "type": "예방",
+     "text": "열, 고온의 표면, 스파크, 화염 및 그 밖의 점화원으로부터 멀리하시오. 금연",
+     "line": "p2:L3"
+    },
+    {
+     "code": "P377",
+     "type": "대응",
+     "text": "가스 누출 화재; 누출을 안전하게 막을 수 없다면 불을 끄려하지 마시오.",
+     "line": "p2:L5"
+    },
+    {
+     "code": "P381",
+     "type": "대응",
+     "text": "누출 시 모든 점화원을 제거하시오.",
+     "line": "p2:L6"
+    },
+    {
+     "code": "P403",
+     "type": "저장",
+     "text": "환기가 잘 되는 곳에 보관하시오.",
+     "line": "p2:L8"
+    },
+    {
+     "code": "P410+P403",
+     "type": "저장",
+     "text": "직사광선을 피하시오. 환기가 잘 되는 곳에 보관하시오.",
+     "line": "p2:L9"
+    }
+   ],
+   "other_hazards": [
+    {
+     "value": "자료없음",
+     "line": "p2:L11"
+    }
+   ],
+   "nfpa": {
+    "health": 0,
+    "fire": 4,
+    "reactivity": 0,
+    "special": null
+   },
+   "lines": {
+    "pictograms": "p1:L21",
+    "nfpa": "p2:L12"
+   }
+  },
+  "narratives": [
+   {
+    "item_code": "S2_LABEL_NOTE",
+    "title_raw": "나. 예방조치문구를 포함한 경고 표지 항목",
+    "start": "p1:L20",
+    "end": "p2:L10"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S2_LABEL_NOTE",
+    "title_raw": "다. 유해·위험성 분류기준에 포함되지 않는 기타 유해·위험성",
+    "reason": "필드없음",
+    "statements": [
+     {
+      "value": "자료없음",
+      "line": "p2:L11"
+     }
+    ],
+    "suggested_code": "OTHER_HAZARDS",
+    "line": "p2:L10"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"hazard\": {\n    \"classified\": true,\n    \"classes\": [\n      {\n        \"group\": \"물리적\",\n        \"class_code\": \"PH_FLAM_GAS\",\n        \"category\": \"1\",\n        \"raw\": \"인화성 가스 구분 1\",\n        \"line\": \"p1:L18\"\n      },\n      {\n        \"group\": \"물리적\",\n        \"class_code\": \"PH_PRESS_GAS\",\n        \"category\": \"압축가스\",\n        \"raw\": \"고압가스 압축가스\",\n        \"line\": \"p1:L19\"\n      }\n    ],\n    \"signal_word\": \"위험\",\n    \"pictograms\": [\n      {\n        \"code\": \"GHS02\"\n      },\n      {\n        \"code\": \"GHS04\"\n      }\n    ],\n    \"h_statements\": [\n      {\n        \"code\": \"H220\",\n        \"text\": \"극인화성 가스\",\n        \"line\": \"p1:L25\"\n      },\n      {\n        \"code\": \"H280\",\n        \"text\": \"고압가스 포함: 가열하면 폭발할 수 있음\",\n        \"line\": \"p1:L26\"\n      }\n    ],\n    \"p_statements\": [\n      {\n        \"code\": \"P210\",\n        \"type\": \"예방\",\n        \"text\": \"열, 고온의 표면, 스파크, 화염 및 그 밖의 점화원으로부터 멀리하시오. 금연\",\n        \"line\": \"p2:L3\"\n      },\n      {\n        \"code\": \"P377\",\n        \"type\": \"대응\",\n        \"text\": \"가스 누출 화재; 누출을 안전하게 막을 수 없다면 불을 끄려하지 마시오.\",\n        \"line\": \"p2:L5\"\n      },\n      {\n        \"code\": \"P381\",\n        \"type\": \"대응\",\n        \"text\": \"누출 시 모든 점화원을 제거하시오.\",\n        \"line\": \"p2:L6\"\n      },\n      {\n        \"code\": \"P403\",\n        \"type\": \"저장\",\n        \"text\": \"환기가 잘 되는 곳에 보관하시오.\",\n        \"line\": \"p2:L8\"\n      },\n      {\n        \"code\": \"P410+P403\",\n        \"type\": \"저장\",\n        \"text\": \"직사광선을 피하시오. 환기가 잘 되는 곳에 보관하시오.\",\n        \"line\": \"p2:L9\"\n      }\n    ],\n    \"other_hazards\": [\n      {\n        \"value\": \"자료없음\",\n        \"line\": \"p2:L11\"\n      }\n    ],\n    \"nfpa\": {\n      \"health\": 0,\n      \"fire\": 4,\n      \"reactivity\": 0,\n      \"special\": null\n    }\n  ,\n  \"lines\": {\n    \"pictograms\": \"p1:L21\",\n    \"nfpa\": \"p2:L12\"\n  }\n}\n  ,\n  \"narratives\": [\n    {\n      \"item_code\": \"S2_LABEL_NOTE\",\n      \"title_raw\": \"나. 예방조치문구를 포함한 경고 표지 항목\",\n      \"start\":  \t\"p1:L20\",\n      \"end\": \"p2:L10\"\n    }\n  ]\n  ,\n  \"extras\": [\n    {\n      \"after_item\": \"S2_LABEL_NOTE\",\n      \"title_raw\": \"다. 유해·위험성 분류기준에 포함되지 않는 기타 유해·위험성\",\n      \"reason\": \"필드없음\",\n      \"statements\": [\n        {\n          \"value\": \"자료없음\",\n          \"line\": \"p2:L11\"\n        }\n      ]\n    ,\n    \"suggested_code\": \"OTHER_HAZARDS\"\n    ,\n    \"line\": \"p2:L10\"\n    }\n  ]\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 6455,
+  "completion_tokens": 965,
+  "total_tokens": 7420
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 6455,
+    "completion_tokens": 965,
+    "total_tokens": 7420
+   },
+   "seconds": 12.08,
+   "chars": 2226,
+   "whitespace": 938,
+   "head": "{\n  \"hazard\": {\n    \"classified\": true,\n    \"classes\": [\n      {\n        \"group\": \"물리적\",\n        \"class_code\": \"PH_FLAM_GAS\",\n        \"category\": \"1\",\n        \"raw\": \"인화성 가스 구분 1\",\n        \"line\": \"p1:L18\"\n      },\n      {\n        \"group\": \"물리적\",\n        \"class_code\": \"PH_PRESS_GAS\",\n        \"category\": \"압축가스\",\n        \"raw\": \"고압가스 압축가스\",\n        \"line\": \"p1:L19\"\n      }\n    ],\n    \"signal_word\": \"위험\",\n    \"pictograms\": [\n      {\n        \"code\": \"GHS02\"\n      },\n      {\n        \"code\": \"GHS04\"\n ",
+   "tail": "}\n}\n  ,\n  \"narratives\": [\n    {\n      \"item_code\": \"S2_LABEL_NOTE\",\n      \"title_raw\": \"나. 예방조치문구를 포함한 경고 표지 항목\",\n      \"start\":  \t\"p1:L20\",\n      \"end\": \"p2:L10\"\n    }\n  ]\n  ,\n  \"extras\": [\n    {\n      \"after_item\": \"S2_LABEL_NOTE\",\n      \"title_raw\": \"다. 유해·위험성 분류기준에 포함되지 않는 기타 유해·위험성\",\n      \"reason\": \"필드없음\",\n      \"statements\": [\n        {\n          \"value\": \"자료없음\",\n          \"line\": \"p2:L11\"\n        }\n      ]\n    ,\n    \"suggested_code\": \"OTHER_HAZARDS\"\n    ,\n    \"line\": \"p2:L10\"\n    }\n  ]\n}"
+  }
+ ],
+ "seconds": 12.081,
+ "check_problems": []
+}

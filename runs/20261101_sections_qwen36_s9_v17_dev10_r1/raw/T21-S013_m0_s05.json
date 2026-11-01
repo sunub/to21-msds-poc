@@ -1,0 +1,130 @@
+{
+ "doc_id": "T21-S013",
+ "msds_index": 0,
+ "section": 5,
+ "reextracted": true,
+ "ok": true,
+ "parsed": {
+  "narratives": [],
+  "extras": [
+   {
+    "after_item": "S5_END",
+    "title_raw": "5. 폭발·화재시 대처방법",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "key": "항목명",
+      "value": "5. 폭발·화재시 대처방법",
+      "line": "p3:L11"
+     }
+    ],
+    "line": "p3:L11"
+   }
+  ]
+ },
+ "raw_text": "{\"narratives\":[],\"extras\":[{\"after_item\":\"S5_END\",\"title_raw\":\"5. 폭발·화재시 대처방법\",\"reason\":\"코드없음\",\"statements\":[{\"key\":\"항목명\",\"value\":\"5. 폭발·화재시 대처방법\",\"line\":\"p3:L11\"}],\"line\":\"p3:L11\"}]}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 2815,
+  "completion_tokens": 76,
+  "total_tokens": 2891
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 2815,
+    "completion_tokens": 76,
+    "total_tokens": 2891
+   },
+   "seconds": 1.181,
+   "chars": 183,
+   "whitespace": 4,
+   "head": "{\"narratives\":[],\"extras\":[{\"after_item\":\"S5_END\",\"title_raw\":\"5. 폭발·화재시 대처방법\",\"reason\":\"코드없음\",\"statements\":[{\"key\":\"항목명\",\"value\":\"5. 폭발·화재시 대처방법\",\"line\":\"p3:L11\"}],\"line\":\"p3:L11\"}]}",
+   "tail": ""
+  }
+ ],
+ "seconds": 1.182,
+ "check_problems": [],
+ "first_attempt": {
+  "ok": true,
+  "parsed": {
+   "narratives": [
+    {
+     "item_code": "S5_MEDIA",
+     "title_raw": "가. 적절한(부적절한) 소화제",
+     "start": "L12",
+     "end": "L19"
+    },
+    {
+     "item_code": "S5_SPECIFIC",
+     "title_raw": "나. 화학물질로부터 생기는 특정 유해성",
+     "start": "L20",
+     "end": "L31"
+    },
+    {
+     "item_code": "S5_FIREFIGHT",
+     "title_raw": "다. 화재진압시 착용할 보호구 및 예방조치",
+     "start": "L32",
+     "end": "L44"
+    }
+   ],
+   "extras": [
+    {
+     "after_item": "S5_FIREFIGHT",
+     "title_raw": "5. 폭발·화재시 대처방법",
+     "reason": "코드없음",
+     "statements": [
+      {
+       "value": "5. 폭발·화재시 대처방법",
+       "line": "L11"
+      }
+     ],
+     "suggested_code": "SECTION_TITLE_5",
+     "line": "L11"
+    }
+   ]
+  },
+  "raw_text": "{\"narratives\":[{\"item_code\":\"S5_MEDIA\",\"title_raw\":\"가. 적절한(부적절한) 소화제\",\"start\":\"L12\",\"end\":\"L19\"},{\"item_code\":\"S5_SPECIFIC\",\"title_raw\":\"나. 화학물질로부터 생기는 특정 유해성\",\"start\":\"L20\",\"end\":\"L31\"},{\"item_code\":\"S5_FIREFIGHT\",\"title_raw\":\"다. 화재진압시 착용할 보호구 및 예방조치\",\"start\":\"L32\",\"end\":\"L44\"}],\"extras\":[{\"after_item\":\"S5_FIREFIGHT\",\"title_raw\":\"5. 폭발·화재시 대처방법\",\"reason\":\"코드없음\",\"statements\":[{\"value\":\"5. 폭발·화재시 대처방법\",\"line\":\"L11\"}],\"suggested_code\":\"SECTION_TITLE_5\",\"line\":\"L11\"}]}",
+  "mode": "json_schema",
+  "finish_reason": "stop",
+  "usage": {
+   "prompt_tokens": 2676,
+   "completion_tokens": 187,
+   "total_tokens": 2863
+  },
+  "attempts": 1,
+  "errors": [],
+  "requests": [
+   {
+    "mode": "json_schema",
+    "finish_reason": "stop",
+    "usage": {
+     "prompt_tokens": 2676,
+     "completion_tokens": 187,
+     "total_tokens": 2863
+    },
+    "seconds": 3.377,
+    "chars": 470,
+    "whitespace": 15,
+    "head": "{\"narratives\":[{\"item_code\":\"S5_MEDIA\",\"title_raw\":\"가. 적절한(부적절한) 소화제\",\"start\":\"L12\",\"end\":\"L19\"},{\"item_code\":\"S5_SPECIFIC\",\"title_raw\":\"나. 화학물질로부터 생기는 특정 유해성\",\"start\":\"L20\",\"end\":\"L31\"},{\"item_code\":\"S5_FIREFIGHT\",\"title_raw\":\"다. 화재진압시 착용할 보호구 및 예방조치\",\"start\":\"L32\",\"end\":\"L44\"}],\"extras\":[{\"after_item\":\"S5_FIREFIGHT\",\"title_raw\":\"5. 폭발·화재시 대처방법\",\"reason\":\"코드없음\",\"statements\":[{\"value\":\"5. 폭발·화재시 대처방법\",\"line\":\"L11\"}],\"suggested_code\":\"SECTION_TITLE_5\",\"line\":\"L11\"}]}",
+    "tail": ""
+   }
+  ],
+  "seconds": 3.378,
+  "check_problems": [
+   "narratives[0].start: 원문에 없는 줄 번호 L12",
+   "narratives[0].end: 원문에 없는 줄 번호 L19",
+   "narratives[1].start: 원문에 없는 줄 번호 L20",
+   "narratives[1].end: 원문에 없는 줄 번호 L31",
+   "narratives[2].start: 원문에 없는 줄 번호 L32",
+   "narratives[2].end: 원문에 없는 줄 번호 L44",
+   "extras[0].statements[0].line: 원문에 없는 줄 번호 L11",
+   "extras[0].line: 원문에 없는 줄 번호 L11"
+  ]
+ }
+}

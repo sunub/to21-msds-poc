@@ -1,0 +1,198 @@
+{
+ "doc_id": "T21-M004",
+ "msds_index": 0,
+ "section": 14,
+ "reextracted": true,
+ "ok": true,
+ "parsed": {
+  "transport": [
+   {
+    "mode": "공통",
+    "basis_raw": null,
+    "regulated": true,
+    "un_no": "1075",
+    "shipping_name": "PETROLEUM GASES, LIQUEFIED",
+    "hazard_class": "2.1",
+    "sub_risk": null,
+    "packing_group": "해당없음",
+    "marine_pollutant": "비해당",
+    "ems_fire": "F-D",
+    "ems_spill": "S-U",
+    "line": "p13:L32"
+   }
+  ],
+  "narratives": [],
+  "extras": [
+   {
+    "after_item": "S14_SPECIAL",
+    "title_raw": "가. 유엔 번호",
+    "reason": "필드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": {
+     "raw": "1075",
+     "value": 1075
+    },
+    "statements": [],
+    "suggested_code": "UN_NO",
+    "line": "p13:L32"
+   },
+   {
+    "after_item": "S14_SPECIAL",
+    "title_raw": "나. 유엔 적정 선적명",
+    "reason": "필드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [
+     {
+      "value": "PETROLEUM GASES, LIQUEFIED",
+      "line": "p13:L33"
+     }
+    ],
+    "suggested_code": "SHIPPING_NAME",
+    "line": "p13:L33"
+   },
+   {
+    "after_item": "S14_SPECIAL",
+    "title_raw": "다. 운송에서의 위험성 등급",
+    "reason": "필드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [
+     {
+      "value": "2.1",
+      "line": "p13:L34"
+     }
+    ],
+    "suggested_code": "HAZARD_CLASS",
+    "line": "p13:L34"
+   },
+   {
+    "after_item": "S14_SPECIAL",
+    "title_raw": "라. 용기등급",
+    "reason": "필드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [
+     {
+      "value": "해당없음",
+      "line": "p13:L35"
+     }
+    ],
+    "suggested_code": "PACKING_GROUP",
+    "line": "p13:L35"
+   },
+   {
+    "after_item": "S14_SPECIAL",
+    "title_raw": "마. 해양오염물질",
+    "reason": "필드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [
+     {
+      "value": "해당없음",
+      "line": "p13:L36"
+     }
+    ],
+    "suggested_code": "MARINE_POLLUTANT",
+    "line": "p13:L36"
+   }
+  ]
+ },
+ "raw_text": "### transport\nmode | basis_raw | regulated | un_no | shipping_name | hazard_class | sub_risk | packing_group | marine_pollutant | ems_fire | ems_spill | line\n공통 |  | true | 1075 | PETROLEUM GASES, LIQUEFIED | 2.1 |  | 해당없음 | 해당없음 | F-D | S-U | p13:L32\n\n### narratives\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\nS14_SPECIAL | 가. 유엔 번호 | 필드없음 |  |  | 1075 |  | UN_NO | p13:L32\nS14_SPECIAL | 나. 유엔 적정 선적명 | 필드없음 |  |  |  | PETROLEUM GASES, LIQUEFIED | SHIPPING_NAME | p13:L33\nS14_SPECIAL | 다. 운송에서의 위험성 등급 | 필드없음 |  |  |  | 2.1 | HAZARD_CLASS | p13:L34\nS14_SPECIAL | 라. 용기등급 | 필드없음 |  |  |  | 해당없음 | PACKING_GROUP | p13:L35\nS14_SPECIAL | 마. 해양오염물질 | 필드없음 |  |  |  | 해당없음 | MARINE_POLLUTANT | p13:L36",
+ "mode": "rows",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 3010,
+  "completion_tokens": 329,
+  "total_tokens": 3339
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "rows",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 3010,
+    "completion_tokens": 329,
+    "total_tokens": 3339
+   },
+   "seconds": 4.712,
+   "chars": 761,
+   "whitespace": 169,
+   "head": "### transport\nmode | basis_raw | regulated | un_no | shipping_name | hazard_class | sub_risk | packing_group | marine_pollutant | ems_fire | ems_spill | line\n공통 |  | true | 1075 | PETROLEUM GASES, LIQUEFIED | 2.1 |  | 해당없음 | 해당없음 | F-D | S-U | p13:L32\n\n### narratives\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\nS14_SPECIAL | 가. 유엔 번호 | 필드없음 |  |  | 1075 |  | UN_NO | p13:L32\nS14_SPECIAL | 나. 유엔 적정 선적명 | 필드없음 |  |  |  | PETROLEUM GASES",
+   "tail": ", LIQUEFIED | SHIPPING_NAME | p13:L33\nS14_SPECIAL | 다. 운송에서의 위험성 등급 | 필드없음 |  |  |  | 2.1 | HAZARD_CLASS | p13:L34\nS14_SPECIAL | 라. 용기등급 | 필드없음 |  |  |  | 해당없음 | PACKING_GROUP | p13:L35\nS14_SPECIAL | 마. 해양오염물질 | 필드없음 |  |  |  | 해당없음 | MARINE_POLLUTANT | p13:L36"
+  }
+ ],
+ "seconds": 4.714,
+ "check_problems": [],
+ "first_attempt": {
+  "ok": true,
+  "parsed": {
+   "transport": [
+    {
+     "mode": "공통",
+     "basis_raw": null,
+     "regulated": true,
+     "un_no": "1075",
+     "shipping_name": "PETROLEUM GASES, LIQUEFIED",
+     "hazard_class": "2.1",
+     "sub_risk": null,
+     "packing_group": "해당없음",
+     "marine_pollutant": "비해당",
+     "ems_fire": "F-D",
+     "ems_spill": "S-U",
+     "line": "p13:L32"
+    }
+   ],
+   "narratives": [
+    {
+     "item_code": "S14_SPECIAL",
+     "title_raw": "마. 사용자가 운송 또는 운송수단에 관련해 알 필요가 있거나 필요한 특별한 안전 대책",
+     "start": "p13:L37",
+     "end": "p13:L39"
+    }
+   ],
+   "extras": []
+  },
+  "raw_text": "### transport\nmode | basis_raw | regulated | un_no | shipping_name | hazard_class | sub_risk | packing_group | marine_pollutant | ems_fire | ems_spill | line\n공통 |  | true | 1075 | PETROLEUM GASES, LIQUEFIED | 2.1 |  | 해당없음 | 비해당 | F-D | S-U | p13:L32\n\n### narratives\nitem_code | title_raw | start | end\nS14_SPECIAL | 마. 사용자가 운송 또는 운송수단에 관련해 알 필요가 있거나 필요한 특별한 안전 대책 | p13:L37 | p13:L39\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\n | 가. 유엔 번호 | 필드없음 |  |  | 1075 |  | UN_NO\n | 나. 유엔 적정 선적명 | 필드없음 |  |  |  | PETROLEUM GASES, LIQUEFIED | SHIPPING_NAME\n | 다. 운송에서의 위험성 등급 | 필드없음 |  |  |  | 2.1 | HAZARD_CLASS\n | 라. 용기등급 | 필드없음 |  |  |  | 해당없음 | PACKING_GROUP\n | 마. 해양오염물질 | 필드없음 |  |  |  | 해당없음 | MARINE_POLLUTANT",
+  "mode": "rows",
+  "finish_reason": "stop",
+  "usage": {
+   "prompt_tokens": 2810,
+   "completion_tokens": 322,
+   "total_tokens": 3132
+  },
+  "attempts": 1,
+  "errors": [
+   "extras | 가. 유엔 번호 | 필드없음 |  |  | 1075 |  | UN_N…: 열 8개, 기대 9개",
+   "extras | 나. 유엔 적정 선적명 | 필드없음 |  |  |  | PETROLE…: 열 8개, 기대 9개",
+   "extras | 다. 운송에서의 위험성 등급 | 필드없음 |  |  |  | 2.1 …: 열 8개, 기대 9개",
+   "extras | 라. 용기등급 | 필드없음 |  |  |  | 해당없음 | PACKI…: 열 8개, 기대 9개",
+   "extras | 마. 해양오염물질 | 필드없음 |  |  |  | 해당없음 | MAR…: 열 8개, 기대 9개"
+  ],
+  "requests": [
+   {
+    "mode": "rows",
+    "finish_reason": "stop",
+    "usage": {
+     "prompt_tokens": 2810,
+     "completion_tokens": 322,
+     "total_tokens": 3132
+    },
+    "seconds": 4.862,
+    "chars": 773,
+    "whitespace": 185,
+    "head": "### transport\nmode | basis_raw | regulated | un_no | shipping_name | hazard_class | sub_risk | packing_group | marine_pollutant | ems_fire | ems_spill | line\n공통 |  | true | 1075 | PETROLEUM GASES, LIQUEFIED | 2.1 |  | 해당없음 | 비해당 | F-D | S-U | p13:L32\n\n### narratives\nitem_code | title_raw | start | end\nS14_SPECIAL | 마. 사용자가 운송 또는 운송수단에 관련해 알 필요가 있거나 필요한 특별한 안전 대책 | p13:L37 | p13:L39\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\n | 가. 유",
+    "tail": "엔 번호 | 필드없음 |  |  | 1075 |  | UN_NO\n | 나. 유엔 적정 선적명 | 필드없음 |  |  |  | PETROLEUM GASES, LIQUEFIED | SHIPPING_NAME\n | 다. 운송에서의 위험성 등급 | 필드없음 |  |  |  | 2.1 | HAZARD_CLASS\n | 라. 용기등급 | 필드없음 |  |  |  | 해당없음 | PACKING_GROUP\n | 마. 해양오염물질 | 필드없음 |  |  |  | 해당없음 | MARINE_POLLUTANT"
+   }
+  ],
+  "seconds": 4.864,
+  "check_problems": []
+ }
+}

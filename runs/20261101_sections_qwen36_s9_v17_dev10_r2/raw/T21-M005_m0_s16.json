@@ -1,0 +1,192 @@
+{
+ "doc_id": "T21-M005",
+ "msds_index": 0,
+ "section": 16,
+ "reextracted": true,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S16_SOURCE",
+    "title_raw": "가. 자료의 출처",
+    "start": "p12:L27",
+    "end": "p12:L34"
+   },
+   {
+    "item_code": "S16_OTHER",
+    "title_raw": "라. 기타",
+    "start": "p13:L4",
+    "end": "p13:L6"
+   }
+  ],
+  "meta_revision": {
+   "first_issue_date": "2021-12-08",
+   "last_revision_date": "2023-09-08",
+   "lines": {
+    "first_issue_date": "p12:L36",
+    "last_revision_date": "p13:L1"
+   }
+  },
+  "extras": [
+   {
+    "title_raw": "다. 개정 횟수 및 최종 개정일자",
+    "reason": "필드없음",
+    "line": "p12:L37"
+   },
+   {
+    "statements": [
+     {
+      "key": "개정 횟수",
+      "value": "1",
+      "line": "p12:L38"
+     },
+     {
+      "key": "최종 개정일자",
+      "value": "2023-09-08",
+      "line": "p13:L1"
+     },
+     {
+      "key": "최종 개정이력",
+      "value": "'변경내역 없음'",
+      "line": "p13:L2"
+     }
+    ],
+    "line": "p12:L37"
+   }
+  ]
+ },
+ "raw_text": "{\"narratives\":[{\"item_code\":\"S16_SOURCE\",\"title_raw\":\"가. 자료의 출처\",\"start\":\"p12:L27\",\"end\":\"p12:L34\"},{\"item_code\":\"S16_OTHER\",\"title_raw\":\"라. 기타\",\"start\":\"p13:L4\",\"end\":\"p13:L6\"}],\"meta_revision\":{\"first_issue_date\":\"2021-12-08\",\"last_revision_date\":\"2023-09-08\",\"lines\":{\"first_issue_date\":\"p12:L36\",\"last_revision_date\":\"p13:L1\"}},\"extras\":[{\"title_raw\":\"다. 개정 횟수 및 최종 개정일자\",\"reason\":\"필드없음\",\"line\":\"p12:L37\"},{\"statements\":[{\"key\":\"개정 횟수\",\"value\":\"1\",\"line\":\"p12:L38\"},{\"key\":\"최종 개정일자\",\"value\":\"2023-09-08\",\"line\":\"p13:L1\"},{\"key\":\"최종 개정이력\",\"value\":\"'변경내역 없음'\",\"line\":\"p13:L2\"}],\"line\":\"p12:L37\"}]}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 2986,
+  "completion_tokens": 251,
+  "total_tokens": 3237
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 2986,
+    "completion_tokens": 251,
+    "total_tokens": 3237
+   },
+   "seconds": 3.378,
+   "chars": 599,
+   "whitespace": 12,
+   "head": "{\"narratives\":[{\"item_code\":\"S16_SOURCE\",\"title_raw\":\"가. 자료의 출처\",\"start\":\"p12:L27\",\"end\":\"p12:L34\"},{\"item_code\":\"S16_OTHER\",\"title_raw\":\"라. 기타\",\"start\":\"p13:L4\",\"end\":\"p13:L6\"}],\"meta_revision\":{\"first_issue_date\":\"2021-12-08\",\"last_revision_date\":\"2023-09-08\",\"lines\":{\"first_issue_date\":\"p12:L36\",\"last_revision_date\":\"p13:L1\"}},\"extras\":[{\"title_raw\":\"다. 개정 횟수 및 최종 개정일자\",\"reason\":\"필드없음\",\"line\":\"p12:L37\"},{\"statements\":[{\"key\":\"개정 횟수\",\"value\":\"1\",\"line\":\"p12:L38\"},{\"key\":\"최종 개정일자\",\"value\":\"2023",
+   "tail": "-09-08\",\"line\":\"p13:L1\"},{\"key\":\"최종 개정이력\",\"value\":\"'변경내역 없음'\",\"line\":\"p13:L2\"}],\"line\":\"p12:L37\"}]}"
+  }
+ ],
+ "seconds": 3.379,
+ "check_problems": [],
+ "first_attempt": {
+  "ok": true,
+  "parsed": {
+   "narratives": [
+    {
+     "item_code": "S16_SOURCE",
+     "title_raw": "가. 자료의 출처",
+     "start": "L27",
+     "end": "L34"
+    },
+    {
+     "item_code": "S16_OTHER",
+     "title_raw": "라. 기타",
+     "start": "L13:L4",
+     "end": "L13:L6"
+    }
+   ],
+   "meta_revision": {
+    "first_issue_date": "2021-12-08",
+    "last_revision_date": "2023-09-08",
+    "lines": {
+     "first_issue_date": "L12:L36",
+     "last_revision_date": "L13:L1"
+    }
+   },
+   "extras": [
+    {
+     "after_item": "S16_SOURCE",
+     "title_raw": "나. 최초 작성일자",
+     "reason": "필드없음",
+     "statements": [
+      {
+       "key": "최초 작성일자",
+       "value": "2021-12-08",
+       "line": "L12:L36"
+      }
+     ],
+     "line": "L12:L36"
+    },
+    {
+     "after_item": "S16_SOURCE",
+     "title_raw": "다. 개정 횟수 및 최종 개정일자",
+     "reason": "필드없음",
+     "statements": [
+      {
+       "key": "개정 횟수",
+       "value": "1",
+       "line": "L12:L38"
+      },
+      {
+       "key": "최종 개정일자",
+       "value": "2023-09-08",
+       "line": "L13:L1"
+      },
+      {
+       "key": "최종 개정이력",
+       "value": "'변경내역 없음'",
+       "line": "L13:L2"
+      }
+     ],
+     "line": "L12:L37"
+    }
+   ]
+  },
+  "raw_text": "{\"narratives\":[{\"item_code\":\"S16_SOURCE\",\"title_raw\":\"가. 자료의 출처\",\"start\":\"L27\",\"end\":\"L34\"},{\"item_code\":\"S16_OTHER\",\"title_raw\":\"라. 기타\",\"start\":\"L13:L4\",\"end\":\"L13:L6\"}],\"meta_revision\":{\"first_issue_date\":\"2021-12-08\",\"last_revision_date\":\"2023-09-08\",\"lines\":{\"first_issue_date\":\"L12:L36\",\"last_revision_date\":\"L13:L1\"}},\"extras\":[{\"after_item\":\"S16_SOURCE\",\"title_raw\":\"나. 최초 작성일자\",\"reason\":\"필드없음\",\"statements\":[{\"key\":\"최초 작성일자\",\"value\":\"2021-12-08\",\"line\":\"L12:L36\"}],\"line\":\"L12:L36\"},{\"after_item\":\"S16_SOURCE\",\"title_raw\":\"다. 개정 횟수 및 최종 개정일자\",\"reason\":\"필드없음\",\"statements\":[{\"key\":\"개정 횟수\",\"value\":\"1\",\"line\":\"L12:L38\"},{\"key\":\"최종 개정일자\",\"value\":\"2023-09-08\",\"line\":\"L13:L1\"},{\"key\":\"최종 개정이력\",\"value\":\"'변경내역 없음'\",\"line\":\"L13:L2\"}],\"line\":\"L12:L37\"}]}",
+  "mode": "json_schema",
+  "finish_reason": "stop",
+  "usage": {
+   "prompt_tokens": 2744,
+   "completion_tokens": 312,
+   "total_tokens": 3056
+  },
+  "attempts": 1,
+  "errors": [],
+  "requests": [
+   {
+    "mode": "json_schema",
+    "finish_reason": "stop",
+    "usage": {
+     "prompt_tokens": 2744,
+     "completion_tokens": 312,
+     "total_tokens": 3056
+    },
+    "seconds": 4.537,
+    "chars": 755,
+    "whitespace": 15,
+    "head": "{\"narratives\":[{\"item_code\":\"S16_SOURCE\",\"title_raw\":\"가. 자료의 출처\",\"start\":\"L27\",\"end\":\"L34\"},{\"item_code\":\"S16_OTHER\",\"title_raw\":\"라. 기타\",\"start\":\"L13:L4\",\"end\":\"L13:L6\"}],\"meta_revision\":{\"first_issue_date\":\"2021-12-08\",\"last_revision_date\":\"2023-09-08\",\"lines\":{\"first_issue_date\":\"L12:L36\",\"last_revision_date\":\"L13:L1\"}},\"extras\":[{\"after_item\":\"S16_SOURCE\",\"title_raw\":\"나. 최초 작성일자\",\"reason\":\"필드없음\",\"statements\":[{\"key\":\"최초 작성일자\",\"value\":\"2021-12-08\",\"line\":\"L12:L36\"}],\"line\":\"L12:L36\"},{\"after_i",
+    "tail": "tem\":\"S16_SOURCE\",\"title_raw\":\"다. 개정 횟수 및 최종 개정일자\",\"reason\":\"필드없음\",\"statements\":[{\"key\":\"개정 횟수\",\"value\":\"1\",\"line\":\"L12:L38\"},{\"key\":\"최종 개정일자\",\"value\":\"2023-09-08\",\"line\":\"L13:L1\"},{\"key\":\"최종 개정이력\",\"value\":\"'변경내역 없음'\",\"line\":\"L13:L2\"}],\"line\":\"L12:L37\"}]}"
+   }
+  ],
+  "seconds": 4.537,
+  "check_problems": [
+   "narratives[0].start: 원문에 없는 줄 번호 L27",
+   "narratives[0].end: 원문에 없는 줄 번호 L34",
+   "narratives[1].start: 원문에 없는 줄 번호 L13:L4",
+   "narratives[1].end: 원문에 없는 줄 번호 L13:L6",
+   "meta_revision.lines.first_issue_date: 원문에 없는 줄 번호 L12:L36",
+   "meta_revision.lines.last_revision_date: 원문에 없는 줄 번호 L13:L1",
+   "extras[0].statements[0].line: 원문에 없는 줄 번호 L12:L36",
+   "extras[0].line: 원문에 없는 줄 번호 L12:L36",
+   "extras[1].statements[0].line: 원문에 없는 줄 번호 L12:L38",
+   "extras[1].statements[1].line: 원문에 없는 줄 번호 L13:L1",
+   "extras[1].statements[2].line: 원문에 없는 줄 번호 L13:L2",
+   "extras[1].line: 원문에 없는 줄 번호 L12:L37"
+  ]
+ }
+}

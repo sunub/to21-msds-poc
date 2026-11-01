@@ -1,0 +1,165 @@
+{
+ "doc_id": "T21-M005",
+ "msds_index": 0,
+ "section": 3,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "composition": {
+   "type": "혼합물",
+   "no_hazardous_component": false,
+   "lines": {
+    "type": "p2:L34",
+    "no_hazardous_component": "p2:L34"
+   }
+  },
+  "components": [
+   {
+    "name": "Hydrocarbons, (C=4), ethylene- manuf.-by-product",
+    "name_en": "Hydrocarbons, (C=4), ethylene- manuf.-by-product",
+    "synonyms": [],
+    "cas_no": "68476-52-8",
+    "ke_no": null,
+    "ec_no": null,
+    "other_id": null,
+    "other_id_type": null,
+    "parent_seq": null,
+    "read_across_cas": null,
+    "content": {
+     "raw": "0-100",
+     "lower_op": ">=",
+     "lower": 0,
+     "upper_op": "<=",
+     "upper": 100,
+     "unit": "%"
+    },
+    "content_note": null,
+    "content_basis": null,
+    "trade_secret": null,
+    "approval_no": null,
+    "approval_expiry": null,
+    "line": "p2:L36"
+   },
+   {
+    "name": "1,3-Butadiene",
+    "name_en": "1,3-Butadiene",
+    "synonyms": [],
+    "cas_no": "106-99-0",
+    "ke_no": null,
+    "ec_no": null,
+    "other_id": null,
+    "other_id_type": null,
+    "parent_seq": null,
+    "read_across_cas": null,
+    "content": {
+     "raw": "0-43.9",
+     "lower_op": ">=",
+     "lower": 0,
+     "upper_op": "<=",
+     "upper": 43.9,
+     "unit": "%"
+    },
+    "content_note": null,
+    "content_basis": null,
+    "trade_secret": null,
+    "approval_no": null,
+    "approval_expiry": null,
+    "line": "p3:L2"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": null,
+    "title_raw": "구성성분",
+    "reason": "필드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [
+     {
+      "value": "구성성분",
+      "line": "p3:L1"
+     }
+    ],
+    "suggested_code": null,
+    "line": "p3:L1"
+   },
+   {
+    "after_item": null,
+    "title_raw": "관용명 및 이명",
+    "reason": "필드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [
+     {
+      "value": "관용명 및 이명",
+      "line": "p3:L1"
+     }
+    ],
+    "suggested_code": null,
+    "line": "p3:L1"
+   },
+   {
+    "after_item": null,
+    "title_raw": "CAS No.",
+    "reason": "필드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [
+     {
+      "value": "CAS No.",
+      "line": "p3:L1"
+     }
+    ],
+    "suggested_code": null,
+    "line": "p3:L1"
+   },
+   {
+    "after_item": null,
+    "title_raw": "대표함유율(%)",
+    "reason": "필드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [
+     {
+      "value": "대표함유율(%)",
+      "line": "p3:L1"
+     }
+    ],
+    "suggested_code": null,
+    "line": "p3:L1"
+   }
+  ]
+ },
+ "raw_text": "### composition\ntype | no_hazardous_component | line\n혼합물 | false | p2:L34\n\n### components\nname | name_en | synonyms | cas_no | ke_no | ec_no | other_id | other_id_type | parent_seq | read_across_cas | content | content_note | content_basis | trade_secret | approval_no | approval_expiry | line\nHydrocarbons, (C=4), ethylene- manuf.-by-product | Hydrocarbons, (C=4), ethylene- manuf.-by-product |  | 68476-52-8 |  |  |  |  |  |  | 0-100 |  |  |  |  |  | p2:L36\n1,3-Butadiene | 1,3-Butadiene |  | 106-99-0 |  |  |  |  |  |  | 0-43.9 |  |  |  |  |  | p3:L2\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\n | 구성성분 | 필드없음 |  |  |  | 구성성분 |  | p3:L1\n | 관용명 및 이명 | 필드없음 |  |  |  | 관용명 및 이명 |  | p3:L1\n | CAS No. | 필드없음 |  |  |  | CAS No. |  | p3:L1\n | 대표함유율(%) | 필드없음 |  |  |  | 대표함유율(%) |  | p3:L1",
+ "mode": "rows",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 3373,
+  "completion_tokens": 376,
+  "total_tokens": 3749
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "rows",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 3373,
+    "completion_tokens": 376,
+    "total_tokens": 3749
+   },
+   "seconds": 5.55,
+   "chars": 851,
+   "whitespace": 213,
+   "head": "### composition\ntype | no_hazardous_component | line\n혼합물 | false | p2:L34\n\n### components\nname | name_en | synonyms | cas_no | ke_no | ec_no | other_id | other_id_type | parent_seq | read_across_cas | content | content_note | content_basis | trade_secret | approval_no | approval_expiry | line\nHydrocarbons, (C=4), ethylene- manuf.-by-product | Hydrocarbons, (C=4), ethylene- manuf.-by-product |  | 68476-52-8 |  |  |  |  |  |  | 0-100 |  |  |  |  |  | p2:L36\n1,3-Butadiene | 1,3-Butadiene |  | 106-9",
+   "tail": "9-0 |  |  |  |  |  |  | 0-43.9 |  |  |  |  |  | p3:L2\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\n | 구성성분 | 필드없음 |  |  |  | 구성성분 |  | p3:L1\n | 관용명 및 이명 | 필드없음 |  |  |  | 관용명 및 이명 |  | p3:L1\n | CAS No. | 필드없음 |  |  |  | CAS No. |  | p3:L1\n | 대표함유율(%) | 필드없음 |  |  |  | 대표함유율(%) |  | p3:L1"
+  }
+ ],
+ "seconds": 5.556,
+ "check_problems": []
+}

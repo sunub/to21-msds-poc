@@ -1,0 +1,637 @@
+{
+ "sections": [
+  {
+   "msds_index": 0,
+   "section": 1,
+   "ok": true,
+   "mode": "json_schema",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 1,
+   "seconds": 9.386,
+   "usage": {
+    "prompt_tokens": 3357,
+    "completion_tokens": 621,
+    "total_tokens": 3978
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 2,
+   "ok": true,
+   "mode": "json_schema",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": true,
+   "attempts": 2,
+   "seconds": 21.607,
+   "usage": {
+    "prompt_tokens": 12934,
+    "completion_tokens": 1929,
+    "total_tokens": 14863
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 3,
+   "ok": true,
+   "mode": "rows",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 1,
+   "seconds": 4.988,
+   "usage": {
+    "prompt_tokens": 3279,
+    "completion_tokens": 238,
+    "total_tokens": 3517
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 4,
+   "ok": true,
+   "mode": "json_schema",
+   "errors": [],
+   "check_problems": [
+    "narratives[2].start: 원문에 없는 줄 번호 p3:L31",
+    "extras[2].line: 원문에 없는 줄 번호 p3:L31"
+   ],
+   "reextracted": true,
+   "attempts": 2,
+   "seconds": 25.633,
+   "usage": {
+    "prompt_tokens": 4787,
+    "completion_tokens": 2524,
+    "total_tokens": 7311
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 5,
+   "ok": true,
+   "mode": "json_schema",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": true,
+   "attempts": 2,
+   "seconds": 18.743,
+   "usage": {
+    "prompt_tokens": 5404,
+    "completion_tokens": 1569,
+    "total_tokens": 6973
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 6,
+   "ok": true,
+   "mode": "json_schema",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 1,
+   "seconds": 13.112,
+   "usage": {
+    "prompt_tokens": 2136,
+    "completion_tokens": 995,
+    "total_tokens": 3131
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 7,
+   "ok": true,
+   "mode": "json_schema",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 1,
+   "seconds": 9.144,
+   "usage": {
+    "prompt_tokens": 2027,
+    "completion_tokens": 597,
+    "total_tokens": 2624
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 8,
+   "ok": true,
+   "mode": "rows",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 1,
+   "seconds": 9.553,
+   "usage": {
+    "prompt_tokens": 3260,
+    "completion_tokens": 627,
+    "total_tokens": 3887
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 9,
+   "ok": true,
+   "mode": "rows",
+   "errors": [
+    "physchem p6:L8 SOLUBILITY |  |  | 1.62mg/L |  | temp=21…: .cond: {'temp': 21, 'temp_unit': '℃'} is not valid under any of the given schemas"
+   ],
+   "check_problems": [],
+   "reextracted": true,
+   "attempts": 2,
+   "seconds": 17.786,
+   "usage": {
+    "prompt_tokens": 7885,
+    "completion_tokens": 1442,
+    "total_tokens": 9327
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 10,
+   "ok": true,
+   "mode": "json_schema",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": true,
+   "attempts": 2,
+   "seconds": 32.651,
+   "usage": {
+    "prompt_tokens": 5667,
+    "completion_tokens": 3633,
+    "total_tokens": 9300
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 11,
+   "ok": true,
+   "mode": "rows",
+   "errors": [
+    "toxicity p8:L28 |  | TX_STOT_RE | NOAEC | = 9000 ppm | r…: 열 20개, 기대 19개",
+    "toxicity p8:L6 Hydrogen | 1333-74-0 | TX_SKIN |  |  |  …: 열 18개, 기대 19개",
+    "toxicity p8:L8 Hydrogen | 1333-74-0 | TX_EYE |  |  |  |…: 열 18개, 기대 19개",
+    "toxicity p8:L26 Hydrogen | 1333-74-0 | TX_STOT_RE |  |  …: 열 18개, 기대 19개",
+    "toxicity p8:L23 Methane | 74-82-8 | TX_STOT_SE |  |  | r…: 열 18개, 기대 19개",
+    "toxicity p8:L28 Methane | 74-82-8 | TX_STOT_RE | NOAEC |…: .descriptor: 'NOAEC' is not valid under any of the given schemas"
+   ],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 2,
+   "seconds": 43.826,
+   "usage": {
+    "prompt_tokens": 10284,
+    "completion_tokens": 5852,
+    "total_tokens": 16136
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 12,
+   "ok": true,
+   "mode": "rows",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 1,
+   "seconds": 16.053,
+   "usage": {
+    "prompt_tokens": 3718,
+    "completion_tokens": 1275,
+    "total_tokens": 4993
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 13,
+   "ok": true,
+   "mode": "json_schema",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 1,
+   "seconds": 5.304,
+   "usage": {
+    "prompt_tokens": 1895,
+    "completion_tokens": 275,
+    "total_tokens": 2170
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 14,
+   "ok": true,
+   "mode": "rows",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 1,
+   "seconds": 6.329,
+   "usage": {
+    "prompt_tokens": 2914,
+    "completion_tokens": 360,
+    "total_tokens": 3274
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 15,
+   "ok": true,
+   "mode": "rows",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 1,
+   "seconds": 4.726,
+   "usage": {
+    "prompt_tokens": 5690,
+    "completion_tokens": 228,
+    "total_tokens": 5918
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 16,
+   "ok": true,
+   "mode": "json_schema",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 1,
+   "seconds": 8.398,
+   "usage": {
+    "prompt_tokens": 2400,
+    "completion_tokens": 533,
+    "total_tokens": 2933
+   }
+  }
+ ],
+ "schema_errors": [],
+ "to21_validator": [
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[0]",
+   "message": "title_raw·reason 필수"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[1]",
+   "message": "title_raw·reason 필수"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[2]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[4]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[5]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[6]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[7]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[8]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[9]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[10]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[11]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[12]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[13]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[14]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[15]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[37]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[38]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[41]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[42]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[43]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[46]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[47]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[50]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[52]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "경고",
+   "rule": "V15",
+   "field": "msds[0].extras[48].q",
+   "message": "값 20250827가 원문 '2025-08-27'에 없음"
+  }
+ ],
+ "expand_problems": [
+  {
+   "msds_index": 0,
+   "section": 4,
+   "kind": "bad_range",
+   "detail": "narratives[2]: p3:L31 > p3:L6"
+  },
+  {
+   "msds_index": 0,
+   "section": 4,
+   "kind": "extras_in_narrative",
+   "detail": "4행"
+  },
+  {
+   "msds_index": 0,
+   "section": 5,
+   "kind": "extras_in_narrative",
+   "detail": "2행"
+  },
+  {
+   "msds_index": 0,
+   "section": 6,
+   "kind": "extras_in_narrative",
+   "detail": "3행"
+  },
+  {
+   "msds_index": 0,
+   "section": 7,
+   "kind": "extras_in_narrative",
+   "detail": "2행"
+  },
+  {
+   "msds_index": 0,
+   "section": 10,
+   "kind": "extras_in_narrative",
+   "detail": "5행"
+  },
+  {
+   "msds_index": 0,
+   "section": 12,
+   "kind": "extras_in_narrative",
+   "detail": "3행"
+  },
+  {
+   "msds_index": 0,
+   "section": 13,
+   "kind": "extras_in_narrative",
+   "detail": "1행"
+  },
+  {
+   "msds_index": 0,
+   "section": 14,
+   "kind": "extras_in_narrative",
+   "detail": "1행"
+  },
+  {
+   "msds_index": 0,
+   "section": 11,
+   "kind": "unlinked_component",
+   "detail": "extras[16]: PRODUCT / None"
+  },
+  {
+   "msds_index": 0,
+   "section": 11,
+   "kind": "unlinked_component",
+   "detail": "extras[17]: PRODUCT / None"
+  },
+  {
+   "msds_index": 0,
+   "section": 11,
+   "kind": "unlinked_component",
+   "detail": "extras[18]: PRODUCT / None"
+  },
+  {
+   "msds_index": 0,
+   "section": 11,
+   "kind": "unlinked_component",
+   "detail": "extras[19]: PRODUCT / None"
+  },
+  {
+   "msds_index": 0,
+   "section": 11,
+   "kind": "unlinked_component",
+   "detail": "extras[20]: PRODUCT / None"
+  },
+  {
+   "msds_index": 0,
+   "section": 11,
+   "kind": "unlinked_component",
+   "detail": "extras[21]: PRODUCT / None"
+  },
+  {
+   "msds_index": 0,
+   "section": 11,
+   "kind": "unlinked_component",
+   "detail": "extras[22]: PRODUCT / None"
+  },
+  {
+   "msds_index": 0,
+   "section": 11,
+   "kind": "unlinked_component",
+   "detail": "extras[23]: PRODUCT / None"
+  },
+  {
+   "msds_index": 0,
+   "section": 11,
+   "kind": "unlinked_component",
+   "detail": "extras[24]: PRODUCT / None"
+  },
+  {
+   "msds_index": 0,
+   "section": 11,
+   "kind": "unlinked_component",
+   "detail": "extras[25]: PRODUCT / None"
+  },
+  {
+   "msds_index": 0,
+   "section": 11,
+   "kind": "unlinked_component",
+   "detail": "extras[26]: PRODUCT / None"
+  },
+  {
+   "msds_index": 0,
+   "section": 11,
+   "kind": "unlinked_component",
+   "detail": "extras[27]: PRODUCT / None"
+  },
+  {
+   "msds_index": 0,
+   "section": 11,
+   "kind": "unlinked_component",
+   "detail": "extras[28]: PRODUCT / None"
+  },
+  {
+   "msds_index": 0,
+   "section": 11,
+   "kind": "unlinked_component",
+   "detail": "extras[29]: PRODUCT / None"
+  },
+  {
+   "msds_index": 0,
+   "section": 11,
+   "kind": "unlinked_component",
+   "detail": "extras[30]: PRODUCT / None"
+  }
+ ],
+ "warnings": [
+  "항목 분할 파일 없음: 임시 분할 (찾은 항 16/16, MSDS 1건)"
+ ],
+ "sections_method": "provisional",
+ "pictogram_check": [
+  {
+   "msds_index": 0,
+   "model": [
+    "GHS02",
+    "GHS04"
+   ],
+   "inferred": [],
+   "missing": [],
+   "extra": [
+    "GHS02",
+    "GHS04"
+   ],
+   "ok": true,
+   "unmapped_h": [
+    "H220",
+    "H280"
+   ]
+  }
+ ],
+ "needs_review": [
+  {
+   "msds_index": 0,
+   "section": 4
+  },
+  {
+   "msds_index": 0,
+   "section": 5
+  },
+  {
+   "msds_index": 0,
+   "section": 6
+  },
+  {
+   "msds_index": 0,
+   "section": 7
+  },
+  {
+   "msds_index": 0,
+   "section": 9
+  },
+  {
+   "msds_index": 0,
+   "section": 10
+  },
+  {
+   "msds_index": 0,
+   "section": 11
+  },
+  {
+   "msds_index": 0,
+   "section": 12
+  },
+  {
+   "msds_index": 0,
+   "section": 13
+  },
+  {
+   "msds_index": 0,
+   "section": 14
+  }
+ ]
+}

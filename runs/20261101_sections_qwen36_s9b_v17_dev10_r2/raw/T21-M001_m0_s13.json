@@ -1,0 +1,70 @@
+{
+ "doc_id": "T21-M001",
+ "msds_index": 0,
+ "section": 13,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S13_METHOD",
+    "title_raw": "가. 폐기방법",
+    "start": "p9:L32",
+    "end": "p9:L33"
+   },
+   {
+    "item_code": "S13_CAUTION",
+    "title_raw": "나. 폐기시 주의사항",
+    "start": "p9:L34",
+    "end": "p9:L36"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S13_METHOD",
+    "title_raw": "나. 폐기시 주의사항",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "value": "- 국가 규정에 따라 폐기하십시오.",
+      "line": "p9:L35"
+     },
+     {
+      "value": "- 인가받은 폐기물 관리업체에 보내십시오.",
+      "line": "p9:L36"
+     }
+    ],
+    "suggested_code": "S13_CAUTION",
+    "line": "p9:L34"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S13_METHOD\",\n      \"title_raw\": \"가. 폐기방법\",\n      \"start\": \"p9:L32\",\n      \"end\": \"p9:L33\"\n    },\n    {\n      \"item_code\": \"S13_CAUTION\",\n      \"title_raw\": \"나. 폐기시 주의사항\",\n      \"start\": \"p9:L34\",\n      \"end\": \"p9:L36\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S13_METHOD\",\n      \"title_raw\": \"나. 폐기시 주의사항\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"- 국가 규정에 따라 폐기하십시오.\"\n        ,\n        \"line\": \"p9:L35\"\n        },\n        {\n          \"value\": \"- 인가받은 폐기물 관리업체에 보내십시오.\"\n        ,\n        \"line\": \"p9:L36\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S13_CAUTION\"\n    ,\n      \"line\": \"p9:L34\"\n    }\n  ]\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 1862,
+  "completion_tokens": 295,
+  "total_tokens": 2157
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 1862,
+    "completion_tokens": 295,
+    "total_tokens": 2157
+   },
+   "seconds": 4.576,
+   "chars": 698,
+   "whitespace": 285,
+   "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S13_METHOD\",\n      \"title_raw\": \"가. 폐기방법\",\n      \"start\": \"p9:L32\",\n      \"end\": \"p9:L33\"\n    },\n    {\n      \"item_code\": \"S13_CAUTION\",\n      \"title_raw\": \"나. 폐기시 주의사항\",\n      \"start\": \"p9:L34\",\n      \"end\": \"p9:L36\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S13_METHOD\",\n      \"title_raw\": \"나. 폐기시 주의사항\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"- 국가 규정에 따라 폐기하십시오.\"\n        ,\n        \"line\": \"p9:L35\"\n     ",
+   "tail": "   },\n        {\n          \"value\": \"- 인가받은 폐기물 관리업체에 보내십시오.\"\n        ,\n        \"line\": \"p9:L36\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S13_CAUTION\"\n    ,\n      \"line\": \"p9:L34\"\n    }\n  ]\n}"
+  }
+ ],
+ "seconds": 4.577,
+ "check_problems": []
+}

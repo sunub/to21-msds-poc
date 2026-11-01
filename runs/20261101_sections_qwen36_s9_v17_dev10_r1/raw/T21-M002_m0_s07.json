@@ -1,0 +1,120 @@
+{
+ "doc_id": "T21-M002",
+ "msds_index": 0,
+ "section": 7,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "narratives": [],
+  "extras": [
+   {
+    "after_item": "S7_END",
+    "title_raw": "7. 취급 및 저장방법",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "key": "가",
+      "value": "안전취급요령\n- 공학적 관리 및 개인보호구를 참조하여 작업하시오.\n- 물질 취급 시 모든 장비를 반드시 접지하시오.\n- 압력을 가하거나, 자르거나, 용접, 납땜, 접합, 뚫기, 연마 또는 열에 폭로, 화염, 불꽃, 정전기 또는 다른 점화원에 폭로하지 마시오.\n- 용기가 비워진 후에도 제품 찌꺼기가 남아 있을 수 있으므로 모든 MSDS/경고표시 예방조치를 따르시오.\n- 피해야 할 물질 및 조건에 유의하시오.",
+      "line": "p4:L18-p4:L25"
+     },
+     {
+      "key": "나",
+      "value": "안전한 저장방법\n- 밀폐하여 보관하시오.\n- 열·스파크·화염·고열로부터 멀리하시오. - 금연\n- 피해야 할 물질 및 조건에 유의하시오.\n- 환기가 잘 되는 곳에 보관하시오.",
+      "line": "p4:L26-p4:L30"
+     }
+    ],
+    "suggested_code": "S7_HANDLING,S7_STORAGE",
+    "line": "p4:L17"
+   }
+  ]
+ },
+ "raw_text": "{\"narratives\":[],\"extras\":[{\"after_item\":\"S7_END\",\"title_raw\":\"7. 취급 및 저장방법\",\"reason\":\"코드없음\",\"statements\":[{\"key\":\"가\",\"value\":\"안전취급요령\\n- 공학적 관리 및 개인보호구를 참조하여 작업하시오.\\n- 물질 취급 시 모든 장비를 반드시 접지하시오.\\n- 압력을 가하거나, 자르거나, 용접, 납땜, 접합, 뚫기, 연마 또는 열에 폭로, 화염, 불꽃, 정전기 또는 다른 점화원에 폭로하지 마시오.\\n- 용기가 비워진 후에도 제품 찌꺼기가 남아 있을 수 있으므로 모든 MSDS/경고표시 예방조치를 따르시오.\\n- 피해야 할 물질 및 조건에 유의하시오.\",\"line\":\"p4:L18-p4:L25\"},{\"key\":\"나\",\"value\":\"안전한 저장방법\\n- 밀폐하여 보관하시오.\\n- 열·스파크·화염·고열로부터 멀리하시오. - 금연\\n- 피해야 할 물질 및 조건에 유의하시오.\\n- 환기가 잘 되는 곳에 보관하시오.\",\"line\":\"p4:L26-p4:L30\"}],\"suggested_code\":\"S7_HANDLING,S7_STORAGE\",\"line\":\"p4:L17\"}]}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 2045,
+  "completion_tokens": 288,
+  "total_tokens": 2333
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 2045,
+    "completion_tokens": 288,
+    "total_tokens": 2333
+   },
+   "seconds": 4.445,
+   "chars": 593,
+   "whitespace": 72,
+   "head": "{\"narratives\":[],\"extras\":[{\"after_item\":\"S7_END\",\"title_raw\":\"7. 취급 및 저장방법\",\"reason\":\"코드없음\",\"statements\":[{\"key\":\"가\",\"value\":\"안전취급요령\\n- 공학적 관리 및 개인보호구를 참조하여 작업하시오.\\n- 물질 취급 시 모든 장비를 반드시 접지하시오.\\n- 압력을 가하거나, 자르거나, 용접, 납땜, 접합, 뚫기, 연마 또는 열에 폭로, 화염, 불꽃, 정전기 또는 다른 점화원에 폭로하지 마시오.\\n- 용기가 비워진 후에도 제품 찌꺼기가 남아 있을 수 있으므로 모든 MSDS/경고표시 예방조치를 따르시오.\\n- 피해야 할 물질 및 조건에 유의하시오.\",\"line\":\"p4:L18-p4:L25\"},{\"key\":\"나\",\"value\":\"안전한 저장방법\\n- 밀폐하여 보관하시오.\\n- 열·스파크·화염·고열로부터 멀리하시오. - 금연\\n- 피해야 할 물질 및 조건에 유의하시오.\\n- 환기가 잘 되는 곳에 ",
+   "tail": "보관하시오.\",\"line\":\"p4:L26-p4:L30\"}],\"suggested_code\":\"S7_HANDLING,S7_STORAGE\",\"line\":\"p4:L17\"}]}"
+  }
+ ],
+ "seconds": 4.445,
+ "check_problems": [
+  "extras[0].statements[0].line: 원문에 없는 줄 번호 p4:L18-p4:L25",
+  "extras[0].statements[1].line: 원문에 없는 줄 번호 p4:L26-p4:L30"
+ ],
+ "reextract_attempt": {
+  "ok": true,
+  "parsed": {
+   "narratives": [],
+   "extras": [
+    {
+     "after_item": "S7_END",
+     "title_raw": "7. 취급 및 저장방법",
+     "reason": "코드없음",
+     "statements": [
+      {
+       "key": "가. 안전취급요령",
+       "value": "- 공학적 관리 및 개인보호구를 참조하여 작업하시오.\n- 물질 취급 시 모든 장비를 반드시 접지하시오.\n- 압력을 가하거나, 자르거나, 용접, 납땜, 접합, 뚫기, 연마 또는 열에 폭로, 화염, 불꽃, 정전기 또는 다른 점화원에 폭로하지 마시오.\n- 용기가 비워진 후에도 제품 찌꺼기가 남아 있을 수 있으므로 모든 MSDS/경고표시 예방조치를 따르시오.\n- 피해야 할 물질 및 조건에 유의하시오.",
+       "line": "p4:L18-p4:L25"
+      },
+      {
+       "key": "나. 안전한 저장방법",
+       "value": "- 밀폐하여 보관하시오.\n- 열·스파크·화염·고열로부터 멀리하시오. - 금연\n- 피해야 할 물질 및 조건에 유의하시오.\n- 환기가 잘 되는 곳에 보관하시오.",
+       "line": "p4:L26-p4:L30"
+      }
+     ],
+     "suggested_code": "S7_HANDLING,S7_STORAGE",
+     "line": "p4:L17"
+    }
+   ]
+  },
+  "raw_text": "{\"narratives\":[],\"extras\":[{\"after_item\":\"S7_END\",\"title_raw\":\"7. 취급 및 저장방법\",\"reason\":\"코드없음\",\"statements\":[{\"key\":\"가. 안전취급요령\",\"value\":\"- 공학적 관리 및 개인보호구를 참조하여 작업하시오.\\n- 물질 취급 시 모든 장비를 반드시 접지하시오.\\n- 압력을 가하거나, 자르거나, 용접, 납땜, 접합, 뚫기, 연마 또는 열에 폭로, 화염, 불꽃, 정전기 또는 다른 점화원에 폭로하지 마시오.\\n- 용기가 비워진 후에도 제품 찌꺼기가 남아 있을 수 있으므로 모든 MSDS/경고표시 예방조치를 따르시오.\\n- 피해야 할 물질 및 조건에 유의하시오.\",\"line\":\"p4:L18-p4:L25\"},{\"key\":\"나. 안전한 저장방법\",\"value\":\"- 밀폐하여 보관하시오.\\n- 열·스파크·화염·고열로부터 멀리하시오. - 금연\\n- 피해야 할 물질 및 조건에 유의하시오.\\n- 환기가 잘 되는 곳에 보관하시오.\",\"line\":\"p4:L26-p4:L30\"}],\"suggested_code\":\"S7_HANDLING,S7_STORAGE\",\"line\":\"p4:L17\"}]}",
+  "mode": "json_schema",
+  "finish_reason": "stop",
+  "usage": {
+   "prompt_tokens": 2106,
+   "completion_tokens": 288,
+   "total_tokens": 2394
+  },
+  "attempts": 1,
+  "errors": [],
+  "requests": [
+   {
+    "mode": "json_schema",
+    "finish_reason": "stop",
+    "usage": {
+     "prompt_tokens": 2106,
+     "completion_tokens": 288,
+     "total_tokens": 2394
+    },
+    "seconds": 3.583,
+    "chars": 593,
+    "whitespace": 74,
+    "head": "{\"narratives\":[],\"extras\":[{\"after_item\":\"S7_END\",\"title_raw\":\"7. 취급 및 저장방법\",\"reason\":\"코드없음\",\"statements\":[{\"key\":\"가. 안전취급요령\",\"value\":\"- 공학적 관리 및 개인보호구를 참조하여 작업하시오.\\n- 물질 취급 시 모든 장비를 반드시 접지하시오.\\n- 압력을 가하거나, 자르거나, 용접, 납땜, 접합, 뚫기, 연마 또는 열에 폭로, 화염, 불꽃, 정전기 또는 다른 점화원에 폭로하지 마시오.\\n- 용기가 비워진 후에도 제품 찌꺼기가 남아 있을 수 있으므로 모든 MSDS/경고표시 예방조치를 따르시오.\\n- 피해야 할 물질 및 조건에 유의하시오.\",\"line\":\"p4:L18-p4:L25\"},{\"key\":\"나. 안전한 저장방법\",\"value\":\"- 밀폐하여 보관하시오.\\n- 열·스파크·화염·고열로부터 멀리하시오. - 금연\\n- 피해야 할 물질 및 조건에 유의하시오.\\n- 환기가 잘 되는 곳에 ",
+    "tail": "보관하시오.\",\"line\":\"p4:L26-p4:L30\"}],\"suggested_code\":\"S7_HANDLING,S7_STORAGE\",\"line\":\"p4:L17\"}]}"
+   }
+  ],
+  "seconds": 3.584,
+  "check_problems": [
+   "extras[0].statements[0].line: 원문에 없는 줄 번호 p4:L18-p4:L25",
+   "extras[0].statements[1].line: 원문에 없는 줄 번호 p4:L26-p4:L30"
+  ]
+ }
+}

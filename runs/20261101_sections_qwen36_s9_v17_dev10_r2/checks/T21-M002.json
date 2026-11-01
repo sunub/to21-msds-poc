@@ -1,0 +1,470 @@
+{
+ "sections": [
+  {
+   "msds_index": 0,
+   "section": 1,
+   "ok": true,
+   "mode": "json_schema",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 1,
+   "seconds": 7.611,
+   "usage": {
+    "prompt_tokens": 3308,
+    "completion_tokens": 573,
+    "total_tokens": 3881
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 2,
+   "ok": true,
+   "mode": "json_schema",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 1,
+   "seconds": 7.117,
+   "usage": {
+    "prompt_tokens": 6428,
+    "completion_tokens": 536,
+    "total_tokens": 6964
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 3,
+   "ok": true,
+   "mode": "rows",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 1,
+   "seconds": 4.823,
+   "usage": {
+    "prompt_tokens": 3352,
+    "completion_tokens": 329,
+    "total_tokens": 3681
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 4,
+   "ok": true,
+   "mode": "json_schema",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 1,
+   "seconds": 1.706,
+   "usage": {
+    "prompt_tokens": 2096,
+    "completion_tokens": 83,
+    "total_tokens": 2179
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 5,
+   "ok": false,
+   "mode": "json_schema",
+   "errors": [
+    "[json_schema] 출력 길이 한도에 걸려 잘림 (max_tokens=8192)"
+   ],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 2,
+   "seconds": 98.845,
+   "usage": {
+    "prompt_tokens": 4704,
+    "completion_tokens": 16384,
+    "total_tokens": 21088
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 6,
+   "ok": true,
+   "mode": "json_schema",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 1,
+   "seconds": 8.954,
+   "usage": {
+    "prompt_tokens": 2164,
+    "completion_tokens": 728,
+    "total_tokens": 2892
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 7,
+   "ok": true,
+   "mode": "json_schema",
+   "errors": [],
+   "check_problems": [
+    "extras[0].statements[0].line: 원문에 없는 줄 번호 p4:L18-p4:L25",
+    "extras[0].statements[1].line: 원문에 없는 줄 번호 p4:L26-p4:L30"
+   ],
+   "reextracted": false,
+   "attempts": 2,
+   "seconds": 7.674,
+   "usage": {
+    "prompt_tokens": 4151,
+    "completion_tokens": 564,
+    "total_tokens": 4715
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 8,
+   "ok": true,
+   "mode": "rows",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 1,
+   "seconds": 8.262,
+   "usage": {
+    "prompt_tokens": 3499,
+    "completion_tokens": 652,
+    "total_tokens": 4151
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 9,
+   "ok": true,
+   "mode": "rows",
+   "errors": [
+    "physchem p6:L12 UEL+LEL |  |  | 15 % / 5 % |  |  |  | p6…: .prop_code: 'UEL+LEL' is not valid under any of the given schemas"
+   ],
+   "check_problems": [],
+   "reextracted": true,
+   "attempts": 2,
+   "seconds": 14.928,
+   "usage": {
+    "prompt_tokens": 8017,
+    "completion_tokens": 1413,
+    "total_tokens": 9430
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 10,
+   "ok": true,
+   "mode": "json_schema",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 1,
+   "seconds": 3.745,
+   "usage": {
+    "prompt_tokens": 2084,
+    "completion_tokens": 252,
+    "total_tokens": 2336
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 11,
+   "ok": true,
+   "mode": "rows",
+   "errors": [
+    "toxicity p7:L15 Tetrahydrothiophene |  | TX_ORAL | LD50 …: 열 18개, 기대 19개",
+    "toxicity p7:L19 Tetrahydrothiophene |  | TX_DERMAL | LD5…: 열 18개, 기대 19개",
+    "toxicity p7:L24 Tetrahydrothiophene |  | TX_INHAL | LC50…: 열 18개, 기대 19개",
+    "toxicity p7:L25 Tert-butyl mercaptan |  | TX_INHAL | LC5…: 열 18개, 기대 19개",
+    "toxicity p7:L27 NATURAL GAS, LIQUIFIED |  | TX_SKIN |  |…: 열 18개, 기대 19개",
+    "toxicity p7:L29 Tetrahydrothiophene |  | TX_SKIN |  |  |…: 열 18개, 기대 19개",
+    "toxicity p7:L31 Tert-butyl mercaptan |  | TX_SKIN |  |  …: 열 18개, 기대 19개",
+    "toxicity p7:L34 NATURAL GAS, LIQUIFIED |  | TX_EYE |  | …: 열 18개, 기대 19개",
+    "toxicity p8:L1 Tetrahydrothiophene |  | TX_EYE |  |  | …: 열 18개, 기대 19개",
+    "toxicity p8:L3 Tert-butyl mercaptan |  | TX_EYE |  |  |…: 열 18개, 기대 19개",
+    "toxicity p8:L7 NATURAL GAS, LIQUIFIED |  | TX_RESP_SENS…: 열 18개, 기대 19개",
+    "toxicity p8:L9 Tetrahydrothiophene |  | TX_RESP_SENS | …: 열 18개, 기대 19개",
+    "toxicity p8:L11 Tert-butyl mercaptan |  | TX_RESP_SENS |…: 열 18개, 기대 19개",
+    "toxicity p8:L16 NATURAL GAS, LIQUIFIED |  | TX_MUTA |  |…: 열 18개, 기대 19개",
+    "toxicity p8:L18 Tetrahydrothiophene |  | TX_MUTA |  |  |…: 열 18개, 기대 19개",
+    "toxicity p8:L22 Tert-butyl mercaptan |  | TX_MUTA |  |  …: 열 18개, 기대 19개",
+    "toxicity p8:L27 NATURAL GAS, LIQUIFIED |  | TX_REPRO |  …: 열 18개, 기대 19개",
+    "toxicity p8:L29 Tetrahydrothiophene |  | TX_REPRO |  |  …: 열 18개, 기대 19개",
+    "toxicity p8:L31 Tert-butyl mercaptan |  | TX_REPRO |  | …: 열 18개, 기대 19개",
+    "toxicity p8:L34 NATURAL GAS, LIQUIFIED |  | TX_STOT_SE |…: 열 18개, 기대 19개",
+    "toxicity p8:L36 Tetrahydrothiophene |  | TX_STOT_SE |  |…: 열 18개, 기대 19개",
+    "toxicity p8:L38 Tert-butyl mercaptan |  | TX_STOT_SE |  …: 열 18개, 기대 19개",
+    "toxicity p9:L2 NATURAL GAS, LIQUIFIED |  | TX_STOT_RE |…: 열 18개, 기대 19개",
+    "toxicity p9:L4 Tetrahydrothiophene |  | TX_STOT_RE |  |…: 열 18개, 기대 19개",
+    "toxicity p9:L6 Tert-butyl mercaptan |  | TX_STOT_RE |  …: 열 18개, 기대 19개"
+   ],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 2,
+   "seconds": 54.015,
+   "usage": {
+    "prompt_tokens": 12186,
+    "completion_tokens": 6924,
+    "total_tokens": 19110
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 12,
+   "ok": true,
+   "mode": "rows",
+   "errors": [
+    "ecotox p9:L34 NATURAL GAS, LIQUIFIED |  | ECO_PERSIST …: .duration_unit: '년' is not valid under any of the given schemas"
+   ],
+   "check_problems": [],
+   "reextracted": true,
+   "attempts": 2,
+   "seconds": 33.449,
+   "usage": {
+    "prompt_tokens": 8891,
+    "completion_tokens": 3880,
+    "total_tokens": 12771
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 13,
+   "ok": true,
+   "mode": "json_schema",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 1,
+   "seconds": 1.913,
+   "usage": {
+    "prompt_tokens": 1874,
+    "completion_tokens": 102,
+    "total_tokens": 1976
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 14,
+   "ok": true,
+   "mode": "rows",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 1,
+   "seconds": 3.228,
+   "usage": {
+    "prompt_tokens": 2794,
+    "completion_tokens": 207,
+    "total_tokens": 3001
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 15,
+   "ok": true,
+   "mode": "rows",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 1,
+   "seconds": 46.247,
+   "usage": {
+    "prompt_tokens": 6923,
+    "completion_tokens": 5760,
+    "total_tokens": 12683
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 16,
+   "ok": true,
+   "mode": "json_schema",
+   "errors": [],
+   "check_problems": [
+    "extras[0].statements[0].line: 원문에 없는 줄 번호 p13:L20-p13:L21",
+    "extras[0].statements[1].line: 원문에 없는 줄 번호 p13:L22-p13:L24",
+    "extras[0].statements[2].line: 원문에 없는 줄 번호 p13:L25-p13:L28",
+    "extras[0].statements[3].line: 원문에 없는 줄 번호 p13:L29-p13:L31",
+    "extras[0].statements[4].line: 원문에 없는 줄 번호 p13:L32-p13:L34"
+   ],
+   "reextracted": false,
+   "attempts": 2,
+   "seconds": 11.52,
+   "usage": {
+    "prompt_tokens": 6286,
+    "completion_tokens": 971,
+    "total_tokens": 7257
+   }
+  }
+ ],
+ "schema_errors": [],
+ "to21_validator": [
+  {
+   "level": "경고",
+   "rule": "V21",
+   "field": "msds[0].meta.header_product_name",
+   "message": "머리글 '물질안전성보건자료' ≠ 1항 '천연가스(Natural Gas with Odorant)'"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[9]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[11]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "경고",
+   "rule": "V13",
+   "field": "msds[0].physchem[7]",
+   "message": "FLASH_POINT 값 -188 범위 밖"
+  }
+ ],
+ "expand_problems": [
+  {
+   "msds_index": 0,
+   "section": 5,
+   "kind": "missing_section",
+   "detail": "5항 응답 없음"
+  },
+  {
+   "msds_index": 0,
+   "section": 8,
+   "kind": "extras_in_narrative",
+   "detail": "3행"
+  },
+  {
+   "msds_index": 0,
+   "section": 11,
+   "kind": "extras_in_narrative",
+   "detail": "11행"
+  },
+  {
+   "msds_index": 0,
+   "section": 12,
+   "kind": "extras_in_narrative",
+   "detail": "6행"
+  },
+  {
+   "msds_index": 0,
+   "section": 14,
+   "kind": "extras_in_narrative",
+   "detail": "1행"
+  },
+  {
+   "msds_index": 0,
+   "section": 15,
+   "kind": "extras_in_narrative",
+   "detail": "12행"
+  },
+  {
+   "msds_index": 0,
+   "section": 7,
+   "kind": "bad_line",
+   "detail": "extras[7].statements[0]: p4:L18-p4:L25"
+  },
+  {
+   "msds_index": 0,
+   "section": 7,
+   "kind": "bad_line",
+   "detail": "extras[7].statements[1]: p4:L26-p4:L30"
+  },
+  {
+   "msds_index": 0,
+   "section": 16,
+   "kind": "bad_line",
+   "detail": "extras[40].statements[0]: p13:L20-p13:L21"
+  },
+  {
+   "msds_index": 0,
+   "section": 16,
+   "kind": "bad_line",
+   "detail": "extras[40].statements[1]: p13:L22-p13:L24"
+  },
+  {
+   "msds_index": 0,
+   "section": 16,
+   "kind": "bad_line",
+   "detail": "extras[40].statements[2]: p13:L25-p13:L28"
+  },
+  {
+   "msds_index": 0,
+   "section": 16,
+   "kind": "bad_line",
+   "detail": "extras[40].statements[3]: p13:L29-p13:L31"
+  },
+  {
+   "msds_index": 0,
+   "section": 16,
+   "kind": "bad_line",
+   "detail": "extras[40].statements[4]: p13:L32-p13:L34"
+  }
+ ],
+ "warnings": [
+  "항목 분할 파일 없음: 임시 분할 (찾은 항 16/16, MSDS 1건)"
+ ],
+ "sections_method": "provisional",
+ "pictogram_check": [
+  {
+   "msds_index": 0,
+   "model": [
+    "GHS02",
+    "GHS04"
+   ],
+   "inferred": [],
+   "missing": [],
+   "extra": [
+    "GHS02",
+    "GHS04"
+   ],
+   "ok": true,
+   "unmapped_h": [
+    "H220",
+    "H280"
+   ]
+  }
+ ],
+ "needs_review": [
+  {
+   "msds_index": 0,
+   "section": 5
+  },
+  {
+   "msds_index": 0,
+   "section": 7
+  },
+  {
+   "msds_index": 0,
+   "section": 8
+  },
+  {
+   "msds_index": 0,
+   "section": 9
+  },
+  {
+   "msds_index": 0,
+   "section": 11
+  },
+  {
+   "msds_index": 0,
+   "section": 12
+  },
+  {
+   "msds_index": 0,
+   "section": 14
+  },
+  {
+   "msds_index": 0,
+   "section": 15
+  },
+  {
+   "msds_index": 0,
+   "section": 16
+  }
+ ]
+}
