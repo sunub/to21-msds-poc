@@ -465,8 +465,9 @@ def _realign(t: _Table, cells: list[str]) -> dict | None:
     """열 수가 하나 어긋난 행을 살린 행 dict. 살릴 수 없으면 None (ADR-021).
     모델이 긴 빈 칸 줄에서 빈 칸 하나를 빠뜨리거나 더 쓴 행을 살린다. 예: 19열 독성 표의 ` |  | TX_ORAL | … |  | 값있음 | p8:L8`(18칸)
     - 하나 적으면 모든 자리에 빈 칸을 하나 끼워 보고, 하나 많으면 빈 칸을 하나씩 빼 본다. 검증을 통과한 해석만 남긴다.
-    - 값 두 칸 사이에 끼운 해석은 빈 칸 옆·줄 끝에 끼운 해석보다 선택지 열을 덜 채우면 뺀다.
-      예: '값있음 | p8:L8' 사이에 끼우면 값있음이 status 대신 statements로 간다.
+    - 값 두 칸 사이에 끼운 해석은 빈 칸 옆·줄 끝에 끼운 해석보다 선택지 열을 더 채울 때만 남긴다. 같으면 뺀다.
+      예: '값있음 | p8:L8' 사이에 끼우면 값있음이 status 대신 statements로 간다. 모델이 빠뜨리는 것은 빈 칸 줄의
+      빈 칸이다 (11/01 v17 실행 8개에서 같을 때도 남겨 독성 426행·규제 167행이 모호하다고 버려졌다).
     - 남은 해석에서 값이 있는 칸의 열 배치가 모두 같을 때만 그 행을 쓴다.
     - 배치가 둘 이상 남으면 그중 선택지 열을 가장 많이 채운 해석만 남긴다. 그래도 배치가 둘 이상이면 모호해 버린다 (ADR-029).
       예: 15열 규제 표의 `OSH | OSH_PROHIBIT | 금지대상 유해물질 |  |  | 해당없음 |  | … | p10:L23`(14칸)은
@@ -475,7 +476,7 @@ def _realign(t: _Table, cells: list[str]) -> dict | None:
     if len(cells) == n + 1:
         tries = [(cells[:k] + cells[k + 1:], True) for k, c in enumerate(cells) if not c]
     elif len(cells) == n - 1:
-        blank = [True, *(not c for c in cells), True]       # 줄 양 끝 바깥은 빈 칸으로 본다
+        blank = [False, *(not c for c in cells), False]     # 줄 끝에 끼우면 안쪽 이웃 칸만 본다 (값을 밀어내는 해석이다)
         tries = [(cells[:k] + [""] + cells[k:], blank[k] or blank[k + 1]) for k in range(n)]
     else:
         return None
@@ -487,7 +488,7 @@ def _realign(t: _Table, cells: list[str]) -> dict | None:
             readings.append((tuple(i for i, c in enumerate(x) if c), sum(row[c] is not None for c in choice_cols),
                              by_blank, row))
     best = max((f for _, f, b, _ in readings if b), default=0)
-    kept = [(p, f, row) for p, f, b, row in readings if b or f >= best]
+    kept = [(p, f, row) for p, f, b, row in readings if b or f > best]
     if len({p for p, _, _ in kept}) > 1:
         most = max(f for _, f, _ in kept)
         kept = [k for k in kept if k[1] == most]

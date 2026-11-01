@@ -632,15 +632,39 @@ def test_parse_rows_align_no_blank_to_remove_is_error():
     assert parsed["cmr"] == [] and len(errors) == 1 and errors[0].endswith(": 열 9개, 기대 8개")
 
 
-def test_parse_rows_align_choice_between_values_is_error():
+def test_parse_rows_align_choice_between_values_prefers_blank_side():
     """값 두 칸 사이의 빈 칸(class)을 빠뜨린 행: 빈 칸 줄 옆에 끼우면 해당없음이 class로,
-    값 사이에 끼우면 status(선택지)로 간다. class의 값 없음 글자는 status로 옮기므로(ADR-029) 두 해석이
-    선택지 열을 똑같이 채우고, 열 배치가 달라 모호하다고 보고 버린다."""
+    값 사이에 끼우면 status(선택지)로 간다. 두 해석이 선택지 열을 똑같이 채우면 빈 칸 옆 해석을 쓴다.
+    class의 값 없음 글자는 status로 옮기므로(ADR-029) 결과는 원래 행과 같다."""
     full = cells(11, "cmr", **COMP, hazard="발암성", agency="KR_OSH", status="해당없음", line="p5:L10")
     short = full[:4] + full[5:]
     parsed, errors = rw.parse_rows(table(11, "cmr", " | ".join(short)), 11)
-    assert parsed["cmr"] == []
-    assert len(errors) == 1 and errors[0].endswith(": 열 7개, 기대 8개")
+    assert errors == []
+    assert parsed["cmr"] == rw.parse_rows(table(11, "cmr", " | ".join(full)), 11)[0]["cmr"]
+
+
+@pytest.mark.parametrize("short, expected", [
+    # 11/01 실행에서 버려진 모양: 앞 빈 칸 줄에서 하나가 빠지고 분류·설명·상태·줄은 끝에 붙어 있다
+    (["가상물질 갑", "1234-56-6", "TX_STOT_SE", "결과기술"] + [""] * 11 + ["가상 설명", "값있음", "p4:L23"],
+     {"statements": [{"value": "가상 설명", "line": "p4:L23"}], "status": "값있음", "classification": None}),
+    (["가상물질 갑", "1234-56-6", "TX_STOT_SE"] + [""] * 11 + ["구분 3", "가상 설명", "값있음", "p11:L8"],
+     {"classification": "구분 3", "status": "값있음"}),
+])
+def test_parse_rows_align_blank_side_beats_between_values_tie(short, expected):
+    """빈 칸 줄 옆에 끼운 해석과 값 사이에 끼운 해석이 선택지 열을 똑같이 채우면 빈 칸 옆 해석을 쓴다.
+    모델은 긴 빈 칸 줄에서 빈 칸 하나를 빠뜨린다 (11/01 v17 실행 8개에서 독성 426행·규제 167행이 이 모양으로 버려졌다)."""
+    assert len(short) == len(rw.row_tables(11)["toxicity"]) - 1
+    parsed, errors = rw.parse_rows(table(11, "toxicity", " | ".join(short)), 11)
+    assert errors == []
+    [r] = parsed["toxicity"]
+    assert {k: r[k] for k in expected} == expected
+
+
+def test_parse_rows_align_two_blank_runs_still_dropped():
+    """빈 칸 줄이 값 양쪽에 있어 GLP가 guideline인지 data_source인지 모르는 행은 여전히 버린다 (ADR-029)."""
+    short = ["가상물질 갑", "", "TX_ORAL", "LD50", "1,750 mg/kg", "랫드"] + [""] * 7 + ["GLP", "", "", "값있음", "p7:L15"]
+    parsed, errors = rw.parse_rows(table(11, "toxicity", " | ".join(short)), 11)
+    assert parsed["toxicity"] == [] and len(errors) == 1
 
 
 def test_parse_rows_align_object_table():
