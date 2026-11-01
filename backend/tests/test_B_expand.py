@@ -1084,3 +1084,28 @@ def test_law_level_line_has_no_item_code(no_conventions, line):
             {"comp_name": None, "comp_cas": None, "law": "DG", "item_code": "DG_HAZMAT", "applicable": "비해당", "line": line}]
     out = reg_rows(rows)
     assert (out[0][1], out[1][1]) == (None, "DG_HAZMAT")
+
+
+def test_cmr_rows_without_agency_dropped(no_conventions):
+    """기관이 빈 CMR 행은 뺀다. 'PRODUCT : 분류되지않음', '발암성 : 자료없음' 같은 제품·항목 줄이라 기관 분류가 아니다
+    (개발 골드 10건의 CMR 61행은 모두 기관이 있다. 그 내용은 독성 표의 발암성 등에 있다)."""
+    r = responses()
+    r[11]["cmr"] = [
+        {"comp_name": None, "comp_cas": None, "hazard": "발암성", "agency": None, "class": None, "status": "자료없음",
+         "note": None, "line": "p5:L9"},
+        {"comp_name": "가상물질 갑", "comp_cas": "1234-56-6", "hazard": "발암성", "agency": "IARC", "class": "Group 3",
+         "status": "값있음", "note": None, "line": "p5:L9"}]
+    m, _ = expand_one(r)
+    assert [(x["agency"], x["class"]) for x in m["cmr"]] == [("IARC", "Group 3")]
+    assert [e["field"] for e in m["evidence"] if e["field"].startswith("cmr")] == ["cmr[0]"]
+
+
+@pytest.mark.parametrize("line, want", [("p5:L10", "2B"), ("p5:L9", "Group 2B")])
+def test_cmr_group_prefix_only_when_written(no_conventions, line, want):
+    """CMR 등급은 원문 표기대로다. 근거 줄('IARC 3군')에 'Group'이 없는데 모델이 붙였으면 뗀다
+    (골드 M013 '2B' / S016 'Group 1'). 근거 줄을 모르면(p5:L9 없음) 그대로 둔다."""
+    r = responses()
+    r[11]["cmr"] = [{"comp_name": "가상물질 갑", "comp_cas": "1234-56-6", "hazard": "발암성", "agency": "IARC",
+                     "class": "Group 2B", "status": "값있음", "note": None, "line": line}]
+    m, _ = expand_one(r)
+    assert m["cmr"][0]["class"] == want
