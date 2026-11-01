@@ -194,7 +194,7 @@ def test_value_and_range_are_exclusive(systems, no):
 
 
 def test_version():
-    assert sp.SECTION_PROMPT_VERSION == "s9"
+    assert sp.SECTION_PROMPT_VERSION == "s10"
 
 
 @pytest.mark.parametrize("no", NOS)
@@ -225,8 +225,8 @@ def rows_systems():
     return {no: sp.build_system(no, rows=True) for no in ROWS_SECTIONS_DEFAULT}
 
 
-def test_rows_version_s9():
-    assert sp.SECTION_PROMPT_VERSION == "s9"
+def test_rows_version_s10():
+    assert sp.SECTION_PROMPT_VERSION == "s10"
 
 
 @pytest.mark.parametrize("no", ROWS_SECTIONS_DEFAULT)

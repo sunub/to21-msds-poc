@@ -34,7 +34,8 @@ CODE_OWNED: dict[str, set[str]] = {
     "*": {"seq"},                                 # 순번은 행 순서대로 코드가 붙인다
     "meta": {"page_start", "page_end"},           # 항목 분할의 쪽 범위(MsdsPart.pages)로 안다
     "narratives": {"status", "statements"},       # 코드가 start~end 줄을 문장으로 나눈다 (R14)
-    "extras": {"page", "section_no"},             # 쪽은 line에서, 항 번호는 호출에서 안다
+    "extras": {"page", "section_no",              # 쪽은 line에서, 항 번호는 호출에서 안다
+               "suggested_code"},                 # 공백 금지 서버에서 이 칸을 끝없이 이어 써 서술 항을 잃었다 (11/01). 채점에 안 쓴다
     "STMT": {"text", "std_code", "match_score"},  # 원문 줄은 line에서 채우고, 문구DB 매칭은 하지 않는다
 }
 
