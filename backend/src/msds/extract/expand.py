@@ -317,6 +317,7 @@ def clear_descriptor_without_value(rows: list[dict]) -> None:
                 r["q"] = None
 
 
+_GROUP = re.compile(r"^\s*group\s*", re.IGNORECASE)
 _SECOND_UNIT = re.compile(r"^\s*(?P<a>-?\d[\d.,]*\s*[^\s\d()（）][^()（）]*?)\s*[(（]\s*"
                           r"(?P<b>-?\d[\d.,]*\s*[^\s\d()（）][^()（）]*?)\s*[)）]?\s*$")
 _TOTAL = re.compile(r"^\s*(?:total|합\s*계|계|sum)\s*$", re.IGNORECASE)
@@ -593,6 +594,12 @@ def expand_msds(sections: dict[int, dict | None], lines_by_id: dict[str, Line],
                                lines_by_id)
             continue
         pairs = drop_repeated(pairs)
+        if key == "cmr":       # 기관이 빈 행은 제품·항목 줄(PRODUCT : 분류되지않음 등)이라 기관 분류가 아니다 (골드 CMR 61행 모두 기관 있음)
+            pairs = [(no, r) for no, r in pairs if r.get("agency")]
+            pairs = [(no, {**r, "class": _GROUP.sub("", r["class"])}            # 등급은 원문 표기대로 (골드 M013 '2B' / S016 'Group 1')
+                      if r.get("class") and _GROUP.match(r["class"])
+                      and "group" not in getattr(lines_by_id.get(r.get("line")), "text", "group").lower() else r)
+                     for no, r in pairs]
         if key == "exposure_limits":
             pairs = [(no, x) for no, r in pairs for x in split_second_unit(r)]
         src = [r for _, r in pairs]
