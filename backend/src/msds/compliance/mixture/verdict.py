@@ -1,15 +1,18 @@
 """classify_mixture_all 결과와 공급사(MSDS) 기재 분류를 항목별로 비교해 판정 4종·유형·심각도를 붙인다.
 
-판정 이름·유형·심각도·근거 규칙 id 는 아래 상수 한 곳에 모았다. 규칙표/설계서에 정의가 없어 [기본안]을 가정으로 썼으므로
-정의가 오면 이 상수만 바꾼다. 항목 필드는 2항에 한정된 이름을 쓰지 않아 15항 비교도 같은 모양으로 쓸 수 있다.
+판정 이름·유형·심각도·근거 규칙 id 는 아래 상수 한 곳에 모았다. 유형 이름과 심각도는 설계서 7장·18장
+(규칙표 v0.3 severity.yaml)을 따르고, 근거 규칙 id(VRD-*)는 설계서에 없어 우리 쪽 번호를 쓴다. 항목 필드는 2항에 한정된 이름을 쓰지 않아 15항 비교도 같은 모양으로 쓸 수 있다.
 """
 from ..single import _main, _same
 from .acute import _rows
 from .rules_loader import load_mixture_rules
 
-# ── 상수 (가정: 규칙표·설계서에 정의 없음) ──────────────────────────────
+# ── 상수 (설계서 7장·18장, 규칙표 v0.3 severity.yaml) ─────────────────────
 MATCH, MISMATCH, BORDER, LACK = "일치", "불일치", "경계", "근거부족"
-UNDER, OVER, MISSING, EXTRA = "과소분류", "과대분류", "누락", "과기재"
+# 틀림의 네 경우(안쪽 구분). rule_id 와 이유 문장은 네 경우를 나눠 쓰고, 결과의 type 은 설계서 2항 이름 두 가지로 낸다.
+UNDER, OVER, MISSING, EXTRA = "under", "over", "missing", "extra"
+# 설계서 18장: MSDS 미기재 또는 낮은 구분 → 과소분류, MSDS가 더 높은 구분·추가 기재 → 과대분류
+TYPE_NAME = {UNDER: "과소분류", MISSING: "과소분류", OVER: "과대분류", EXTRA: "과대분류"}
 SEVERITY = {UNDER: "높음", MISSING: "높음", OVER: "낮음", EXTRA: "낮음"}
 RULE_IDS = {"match": "VRD-1", "type": {UNDER: "VRD-2", OVER: "VRD-3", MISSING: "VRD-4", EXTRA: "VRD-5"},
             "border": "VRD-6", "lack": "VRD-7"}
@@ -18,7 +21,7 @@ NO_CLASS = "분류안됨"
 _INF = float("inf")
 _ACUTE_ROUTE = {"HH_ACUTE_ORAL": "경구", "HH_ACUTE_DERMAL": "경피", "HH_ACUTE_INHAL": "흡입"}
 BASE_ASSUMPTIONS = [
-    "판정·유형·심각도·rule_id 는 규칙표에 정의가 없어 기본안을 가정으로 씀(상수는 verdict.py 상단)",
+    "rule_id(VRD-1~7)는 설계서에 정의가 없어 우리 쪽 번호를 씀(상수는 verdict.py 상단)",
     "구분 순서는 규칙표 rules 의 나열 순서(위험한 구분부터), 급성독성은 acute_tox_ate.csv 구분 순서. 분류안됨은 가장 약함",
     "세부구분 차이(1 ↔ 1B)는 일치로 봄(single.py 팀 결정과 같음)",
     "MSDS 미기재는 분류안됨과 같은 뜻으로 봄",
@@ -48,7 +51,7 @@ def _key(c):
 
 
 def _row(class_code, form, verdict, rule_id, *, type_=None, msds=None, low=None, high=None, reason="", extra_asm=()):
-    return {"class_code": class_code, "form": form, "verdict": verdict, "type": type_, "severity": SEVERITY.get(type_),
+    return {"class_code": class_code, "form": form, "verdict": verdict, "type": TYPE_NAME.get(type_), "severity": SEVERITY.get(type_),
             "msds_value": msds, "our_value": {"low": low, "high": high}, "reason": reason, "rule_id": rule_id,
             "assumptions": BASE_ASSUMPTIONS + list(extra_asm)}
 
