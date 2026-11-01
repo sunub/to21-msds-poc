@@ -64,6 +64,12 @@ class HazardClass(_Model):
 
 class Statement(_Model):
     code: str | None = None
+    system: Literal["GHS", "EUH", "R"] | None = None
+    mark: str | None = None
+
+
+class PStatement(Statement):
+    type: Literal["일반", "예방", "대응", "저장", "폐기"] | None = None
 
 
 class Hazard(_Model):
@@ -71,6 +77,11 @@ class Hazard(_Model):
     signal_word: Literal["위험", "경고", "없음"] | None = None
     pictograms: list[Statement] | None = None
     h_statements: list[Statement] | None = None
+    p_statements: list[PStatement] | None = None
+
+
+class Transport(_Model):
+    un_no: str | None = None
 
 
 class Regulation(_Model):
@@ -92,6 +103,7 @@ class Msds(_Model):
     physchem: list[dict[str, Any]] | None = None
     toxicity: list[dict[str, Any]] | None = None
     ecotox: list[dict[str, Any]] | None = None
+    transport: list[Transport] | None = None
     dangerous_goods: list[dict[str, Any]] | None = None
 
 
