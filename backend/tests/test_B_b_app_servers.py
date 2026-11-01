@@ -92,7 +92,7 @@ def test_rngd_ps_masks_api_key(srv):
         return 0, out, ""
     r = srv.rngd_ps(ENV, runner=runner)
     assert r["ok"] and "abc123" not in r["text"] and "***" in r["text"]
-    assert r["models"] == [{"pid": 777, "model": "Qwen/X"}]
+    assert r["models"] == [{"pid": 777, "model": "Qwen/X", "elapsed_s": None}]   # 옛 모양(pid comm args)은 지난 시간 모름
 
 
 def test_rngd_ps_without_ssh(srv):
@@ -154,3 +154,108 @@ def test_append_server_log(srv, tmp_path):
     lines = text.splitlines()
     assert text.count("| 시각 |") == 1 and len([l for l in lines if "pod_" in l]) == 2
     assert FAKE_KEY not in text
+
+
+@pytest.mark.parametrize("prefix", ["ssh ", "  ssh  ", "'ssh' "])
+def test_ssh_accepts_command_or_arguments(srv, prefix):
+    assert srv.rngd_ssh_args({**ENV, "RNGD_SSH": prefix + ENV["RNGD_SSH"]}) == srv.rngd_ssh_args(ENV)
+
+
+def test_ssh_preserves_quoted_arguments(srv):
+    value = '-i "<키 경로>" -p <포트> <사용자>@<호스트>'
+    expected = ["ssh", "-n", "-o", "BatchMode=yes", "-i", "<키 경로>", "-p", "<포트>", "<사용자>@<호스트>"]
+    assert srv.rngd_ssh_args({"RNGD_SSH": value}) == expected
+    assert srv.rngd_ssh_args({"RNGD_SSH": "ssh " + value}) == expected
+
+
+def test_model_status_friendly_missing_url(srv):
+    result = srv.model_status("t", CFG, {}, opener=lambda *a, **kw: pytest.fail("must not call"))
+    assert result["error"] is None  # 기존 응답 키는 그대로 둔다.
+    assert CFG["base_url_env"] in result["friendly"]["message"]
+    assert result["friendly"]["raw"] == "주소 설정 없음"
+
+
+@pytest.mark.parametrize("wrapped", [False, True])
+@pytest.mark.parametrize("error", [ConnectionRefusedError, TimeoutError])
+def test_model_status_friendly_connection_failure(srv, wrapped, error):
+    from urllib.error import URLError
+    exc = error(FAKE_KEY)
+    if wrapped:
+        exc = URLError(exc)
+    result = srv.model_status("t", CFG, ENV, opener=opener_of(error=exc))
+    assert result["error"] == type(exc).__name__
+    assert result["friendly"]["message"] == "모델 서버가 응답하지 않습니다."
+    no_key(result)
+
+
+# ── RNGD 터널 (step 6) ─────────────────────────────────────
+
+TUNNEL_ENV = {**ENV, "RNGD_BASE_URL": "http://127.0.0.1:18000/v1", "RNGD_API_KEY": FAKE_KEY}
+TUNNEL_ARGS = ["ssh", "-N", "-o", "BatchMode=yes", "-o", "ExitOnForwardFailure=yes", "-o", "ServerAliveInterval=30",
+               "-L", "18000:127.0.0.1:8000", "-i", "~/.ssh/fake", "-p", "22", "user@host"]
+
+
+def test_rngd_ps_reads_elapsed_seconds(srv):
+    seen = []
+    out = ("+ 가상 표 +\n  777  1234 furiosa-llm /usr/local/bin/furiosa-llm serve Qwen/X --api-key abc123 --port 8000\n"
+           "  778 furiosa-llm /usr/local/bin/furiosa-llm serve Qwen/Y --port 8000\n")
+
+    def runner(args, timeout):
+        seen.append(args[-1])
+        return 0, out, ""
+    r = srv.rngd_ps(ENV, runner=runner)
+    assert "ps -eo pid,etimes,comm,args" in seen[0] and "furiosa-smi ps" in seen[0]
+    assert r["models"] == [{"pid": 777, "model": "Qwen/X", "elapsed_s": 1234},
+                           {"pid": 778, "model": "Qwen/Y", "elapsed_s": None}]
+    assert "abc123" not in r["text"]
+
+
+@pytest.mark.parametrize("url, port", [
+    ("http://127.0.0.1:18000/v1", 18000), ("http://localhost:18001/v1", 18001),
+    ("http://10.0.0.5:8000/v1", None), ("https://rngd.example.com:8000/v1", None),
+    ("http://127.0.0.1/v1", None), ("http://127.0.0.1:포트/v1", None), ("", None), (None, None),
+])
+def test_tunnel_port(srv, url, port):
+    env = {} if url is None else {"RNGD_BASE_URL": url}
+    assert srv.tunnel_port(env) == port
+
+
+@pytest.mark.parametrize("prefix", ["", "ssh ", "  ssh  "])
+def test_tunnel_args(srv, prefix):
+    args = srv.tunnel_args({**TUNNEL_ENV, "RNGD_SSH": prefix + ENV["RNGD_SSH"]})
+    assert args == TUNNEL_ARGS
+    assert srv.RNGD_REMOTE_PORT == 8000
+    no_key(args)                                                    # RNGD_API_KEY 값을 넣지 않는다
+
+
+def test_tunnel_args_none_without_ssh_or_local_port(srv):
+    assert srv.tunnel_args({**TUNNEL_ENV, "RNGD_BASE_URL": "http://10.0.0.5:8000/v1"}) is None
+    assert srv.tunnel_args({k: v for k, v in TUNNEL_ENV.items() if k != "RNGD_BASE_URL"}) is None
+    assert srv.tunnel_args({k: v for k, v in TUNNEL_ENV.items() if k != "RNGD_SSH"}) is None
+    assert srv.tunnel_args({**TUNNEL_ENV, "RNGD_SSH": "ssh"}) is None
+
+
+class FakeSock:
+    def __init__(self):
+        self.closed = False
+
+    def close(self):
+        self.closed = True
+
+
+def test_port_open_true_and_closes(srv):
+    seen, socks = [], []
+
+    def connector(address, timeout=None):
+        seen.append((address, timeout))
+        socks.append(FakeSock())
+        return socks[-1]
+    assert srv.port_open(18000, connector=connector) is True
+    assert seen == [(("127.0.0.1", 18000), 0.5)] and socks[0].closed
+
+
+@pytest.mark.parametrize("error", [ConnectionRefusedError, PermissionError, TimeoutError, OSError])
+def test_port_open_false_on_os_errors(srv, error):
+    def connector(address, timeout=None):
+        raise error("가상")
+    assert srv.port_open(18000, connector=connector, timeout=0.1) is False

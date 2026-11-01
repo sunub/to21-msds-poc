@@ -243,7 +243,8 @@ def _rows(a: dict, b: dict) -> dict:
 
 def diff_runs(a: dict, b: dict) -> dict:
     """a, b는 summarize_run 결과. 점수는 0~100, delta = b − a.
-    docs는 두 실행의 채점 문서 비교다. 문서가 다르면 항목 점수도 다른 문서 묶음의 평균이라 화면에 알린다."""
+    docs는 두 실행의 채점 문서 비교다. 문서가 다르면 항목 점수도 다른 문서 묶음의 평균이라 화면에 알린다.
+    same_conditions는 조건·안내문 해시가 모두 같고 채점 문서도 같을 때만 참이다(그때 차이는 흔들림일 수 있다)."""
     items = _items(a, b)
     da, db = set(a.get("docs") or []), set(b.get("docs") or [])
     drops = sorted((i for i in items if i["delta"] is not None and i["delta"] <= DROP), key=lambda i: i["delta"])
@@ -251,6 +252,7 @@ def diff_runs(a: dict, b: dict) -> dict:
         "a": {k: a.get(k) for k in _RUN_KEYS}, "b": {k: b.get(k) for k in _RUN_KEYS},
         "conditions": _conditions(a, b),
         "prompt_changed_sections": _prompt_changed(a, b),
+        "same_conditions": _same_conditions(a, b) and da == db,
         "docs": {"common": sorted(da & db), "only_a": sorted(da - db), "only_b": sorted(db - da)},
         "items": items,
         "weighted": {"a": a.get("weighted"), "b": b.get("weighted"),
