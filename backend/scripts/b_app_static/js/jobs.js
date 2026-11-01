@@ -79,6 +79,11 @@ function jobsReconcile() {
   const J = S.jobs, models = J.opts?.models || [];
   if (!jobsModel(J.t.model)) J.t.model = jobsDefaultModel(J.runs.find(run => run.name === J.t.base)?.model_tag);
   const pick = models.find(m => !jobsDraftModel(m) && m.connected === true) || jobsModel(jobsDefaultModel());
+  // 직접 고르지 않았다면 연결된 모델로 옮긴다. 예: 화면을 연 뒤에 Pod가 준비된 경우. 특정 실행을 다시 시험할 때는 그 실행의 모델을 지킨다.
+  if (!J.t.modelPicked && !J.t.base && !jobsReady(J.t.model) && pick?.connected === true) {
+    J.t.model = pick.tag;
+    if (S.focus.model) S.focus = {...S.focus, model: pick.tag};
+  }
   if (!jobsModel(J.r.model) || (!jobsReady(J.r.model) && pick?.connected === true)) J.r.model = pick?.tag || null;
   const docs = jobsDocs();
   if (!J.defaultsApplied && !J.t.doc) J.t.doc = docs.find(d => jobsAllowed(d, "try"))?.doc_id || null;
@@ -86,7 +91,7 @@ function jobsReconcile() {
   if (!docs.some(d => d.doc_id === J.t.doc)) J.t.doc = null;
   const allowed = docs.filter(d => jobsAllowed(d, "run")).map(d => d.doc_id);
   J.r.docs = J.r.docs === null ? new Set(allowed) : new Set([...J.r.docs].filter(id => allowed.includes(id)));
-  if (!models.some(m => m.connected === true)) J.t.dry = true;
+  if (!models.some(m => m.connected === true) && !J.t.dry) { J.t.dry = true; J.t.dryForced = true; }
   if (!J.r.edited) J.r.name = jobsSuggestName();
 }
 async function jobsLoadOptions() {
@@ -116,7 +121,7 @@ async function jobsEnsure(args = {}) {
     J.t.edit = false; J.t.dirty = false; J.t.text = ""; J.t.textFor = null; J.promptAttempt = null;
     J.expanded["jobs-scope"] = true;
   }
-  if (Object.hasOwn(args, "practice")) J.t.dry = args.practice;
+  if (Object.hasOwn(args, "practice")) { J.t.dry = args.practice; J.t.dryForced = false; }
   if ((args.doc || args.section) && !Object.hasOwn(args, "path")) {
     S.focus = {...S.focus, path: null, kind: null, expected: null, actual: null, expected_text: null, actual_text: null, line: null, lines: [], source_set: null};
   }
@@ -152,7 +157,7 @@ function jobsFormStatus() {
 function jobsModelSelect(form, kind) {
   const select = h("select", {onchange: e => {
     form.model = e.target.value;
-    if (kind === "try") { jobsRemember(); jobsRenderTry(); jobsRenderConnection(); }
+    if (kind === "try") { form.modelPicked = true; jobsRemember(); jobsRenderTry(); jobsRenderConnection(); }
     else { if (!form.edited) form.name = jobsSuggestName(); jobsRenderRun(); }
   }}, [...(S.jobs.opts?.models || [])].sort((a, b) => Number(jobsDraftModel(a)) - Number(jobsDraftModel(b)))
     .map(m => h("option", {value: m.tag, disabled: kind === "run" && m.connected !== true},
@@ -181,12 +186,15 @@ function jobsRenderTry() {
   if (!J.opts) { coreReplace(el, jobsFormStatus() || jobsNote(T("common.legacy.loading"), {role: "status"})); return; }
   const active = document.activeElement?.id;
   const docs = jobsDocs(), allowed = jobsAllowed(docs.find(d => d.doc_id === t.doc), "try"), one = jobsSingle();
+  // 고를 수 있는 문서를 먼저 둔다. 평가용 문서는 한 줄로 접는다(열 수 없고 번호순으로 맨 앞에 와서 개발 문서를 가린다).
+  const closed = docs.filter(d => !jobsAllowed(d, "try") && d.group !== "eval"), evals = docs.filter(d => !jobsAllowed(d, "try") && d.group === "eval");
+  const closedReason = d => d.run_reason?.try || T("jobs.no_runnable.todo");
   const select = h("select", {onchange: e => { t.doc = e.target.value; jobsRemember(); jobsRenderTry(); }},
-    h("option", {value: ""}, T("jobs.form.no_doc")), docs.map(d => h("option", {value: d.doc_id, disabled: !jobsAllowed(d, "try")},
+    h("option", {value: ""}, T("jobs.form.no_doc")), [...docs.filter(d => jobsAllowed(d, "try")), ...closed].map(d => h("option", {value: d.doc_id, disabled: !jobsAllowed(d, "try")},
       d.doc_id, d.run_reason?.try ? ` — ${d.run_reason.try}` : ""))); select.value = t.doc || "";
   const base = h("select", {onchange: e => {
     t.base = e.target.value; t.model = jobsDefaultModel(J.runs.find(run => run.name === t.base)?.model_tag);
-    jobsRemember(); jobsRenderTry(); jobsRenderConnection();
+    t.modelPicked = !!t.base; jobsRemember(); jobsRenderTry(); jobsRenderConnection();
   }},
     h("option", {value: ""}, T("jobs.form.base_auto")),
     J.runs.filter(r => !["eval", "silver", "models"].includes(r.run_kind) && [...(r.docs || []), ...(r.no_gold || [])].includes(t.doc))
@@ -198,12 +206,15 @@ function jobsRenderTry() {
       const check = document.getElementById("jobs-edit"); if (check) check.checked = true; }});
   textarea.value = t.text;
   const ready = jobsReady(t.model), busy = J.busy === "try";
-  if (!ready) t.dry = true;
+  // AI가 없어 켠 연습은 AI가 연결되면 푼다. 직접 켠 연습은 그대로 둔다.
+  if (!ready && !t.dry) { t.dry = true; t.dryForced = true; }
+  if (ready && t.dryForced) { t.dry = false; t.dryForced = false; }
   const controls = h("div", {class: "job-form-grid"},
     jobsField("jobs-model", T("jobs.form.model"), T("jobs.fields.model"), jobsModelSelect(t, "try")),
     jobsField("jobs-doc", T("jobs.form.doc"), T("jobs.fields.doc"), select));
   const scope = jobsDetails("jobs-scope", T("jobs.scope.expand"), controls,
-    h("ul", {class: "muted"}, docs.filter(d => !jobsAllowed(d, "try")).map(d => h("li", null, d.doc_id, " — ", d.run_reason?.try || T("jobs.no_runnable.todo")))),
+    h("ul", {class: "muted"}, evals.length ? h("li", null, T("jobs.batch.eval_locked", {count: evals.length})) : null,
+      [...new Set(closed.map(closedReason))].map(reason => h("li", null, closed.filter(d => closedReason(d) === reason).map(d => d.doc_id).join(", "), " — ", reason))),
     jobsNote(T("jobs.fields.pages")), jobsNote(jobsSet()?.label || S.ctx.set || T("common.none")),
     h("fieldset", null, h("legend", null, T("jobs.scope.label")),
       h("label", null, h("input", {type: "checkbox", checked: t.all, onchange: e => { t.all = e.target.checked; jobsRemember(); jobsRenderTry(); }}), T("jobs.form.all")),
@@ -235,7 +246,7 @@ function jobsRenderTry() {
     h("div", {class: "job-actions"}, jobsButton("jobs-send", busy ? "jobs.form.sending" : t.dry ? "jobs.actions.preview" : "jobs.actions.send", jobsStartTry,
       !!J.busy || !!J.optionsError || !allowed || !t.model || (!t.all && !t.secs.size) || (!t.dry && !ready), ready)),
     h("label", {hidden: !ready}, h("input", {id: "jobs-dry", type: "checkbox", checked: t.dry, disabled: !(J.opts.models || []).some(m => m.connected === true),
-      onchange: e => { t.dry = e.target.checked; jobsRenderTry(); }}), T("jobs.fields.dry_run")),
+      onchange: e => { t.dry = e.target.checked; t.dryForced = false; jobsRenderTry(); }}), T("jobs.fields.dry_run")),
     jobsNote(term("practice", T("jobs.trial.practice_meaning")), {class: "muted"}), J.message.try || null, scope,
     jobsDetails("jobs-next", T("jobs.trial.next_options"),
       jobsButton("jobs-open-guide", "jobs.trial.start_guide", () => go("s08", {branch: "try"})),

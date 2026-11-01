@@ -1109,7 +1109,7 @@ servers.compare.company.limit|한 번에 모델 하나|S06,S08
 servers.choice.rented|다른 방법 · 빌린 서버(RunPod)|S06,S08
 servers.compare.rented.cost|시간당 약 ${cost_per_hour} (예시)|S06,S08
 servers.compare.rented.wait|준비 시간은 매번 다릅니다. 준비 중에는 기다린 시간을 보여 줍니다.|S06,S08
-servers.compare.rented.cleanup|사용 뒤 삭제하세요. 앱이 만든 서버는 생성 후 4시간에 자동 삭제됩니다.|S06,S08
+servers.compare.rented.cleanup|사용 뒤 삭제하세요. 잊어도 요청이 20분 없으면 앱이 지우고, 서버 안 타이머가 4시간에 지웁니다.|S06,S08
 servers.compare.company.cost_meaning|추가 임대료가 없다는 뜻입니다. 회사 장비의 운영비까지 없다는 뜻은 아닙니다.|S06,S08
 servers.company.connected|회사 서버로 가는 연결 통로는 열려 있습니다.|S01,S02,S03,S06,S08
 servers.company.off|이 서버의 AI는 꺼져 있습니다. 켜는 데 보통 15~25분 걸립니다.|S06
@@ -1159,7 +1159,7 @@ servers.rented.adopted|앱이 만든 예시 서버 {server}을 자동으로 이�
 servers.rented.cost|실제 요금이 나갑니다: 시간당 약 ${cost_per_hour} (예시).|S06
 servers.rented.estimated_cost|가동 {hours}시간의 추정 비용은 ${cost}입니다.|S06
 servers.rented.deletion_hours|생성 후 4시간에 자동 삭제합니다. 지금은 {hours}시간 남았습니다.|S06
-servers.rented.scheduler|앱이 켜져 있어야 예약된 삭제를 확인합니다.|S06
+servers.rented.scheduler|20분 자동 삭제는 앱이 켜져 있을 때 돕니다. 4시간 타이머는 서버 안에서 돌아 앱이 꺼져도 지웁니다.|S06
 servers.rented.list_storage|서버 목록과 저장공간 비용|S06
 servers.rented.ownership|소유와 상태|S06
 servers.rented.uptime|가동 시간|S06
@@ -1265,7 +1265,7 @@ servers.confirm.changed_state|상태가 바뀌면 이전 확인으로 실행하�
 servers.confirm.open_expired|실행 시간이 지난 경우 보기|P02
 servers.confirm.open_busy|진행 작업 때문에 잠긴 경우 보기|P02
 servers.confirm.create.target|{model}. 기존 서버가 있으면 비용이 추가됩니다.|P02
-servers.confirm.create.cost|켜진 동안 시간당 약 ${cost_per_hour}가 듭니다(예시). 준비 완료 시각은 모릅니다. 사용 뒤 삭제하세요. 앱이 만든 서버는 생성 후 4시간에 자동 삭제됩니다. 앱이 켜져 있어야 예약을 확인합니다.|P02
+servers.confirm.create.cost|켜진 동안 시간당 약 ${cost_per_hour}가 듭니다(예시). 준비 완료 시각은 모릅니다. 요청이 20분 없으면 앱이 지우고, 앱이 꺼져 있어도 서버 안 타이머가 4시간에 지웁니다.|P02
 servers.confirm.create.action|시간당 약 ${cost_per_hour} 서버 만들기|P02
 servers.confirm.delete.target|{pod_id}. 이 앱이 만든 서버입니다. 진행 작업은 없습니다.|P02
 servers.confirm.delete.cost|가동 {hours}시간. 추정 비용 ${cost}. 별도 저장공간 비용은 남을 수 있습니다.|P02
