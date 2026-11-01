@@ -47,6 +47,13 @@ LINES = [
     L("p5:L5", "가상 추가 물성 1.20"),
     L("p5:L8", "가상물질 을 | 경구 LD50 > 2000 mg/kg (랫드)"),
     L("p5:L10", "IARC 3군"),
+    L("p5:L12", "인화 또는 폭발 범위의 상한/하한 | 4.0~76% | 자료없음"),
+    L("p5:L13", "인화점 | 자료없음 | 자료없음"),
+    L("p5:L14", "인화 또는 폭발 범위의 상한/하한 75 / 4 %"),
+    L("p5:L15", "인화 또는 폭발 범위의 상한/하한 | 자료없음"),
+    L("p5:L16", "폭발상한(UEL) 8.0vol%"),
+    L("p5:L17", "폭발하한(LEL) 1.2vol%"),
+    L("p5:L18", "pH | 7.0 | 자료없음"),
     L("p6:L5", "UN 번호 : 해당없음"),
     L("p6:L10", "작업환경측정대상물질 : 해당"),
     L("p7:L3", "최종 개정일자 : 2024-05-01"),
@@ -896,3 +903,64 @@ def test_toxicity_descriptor_cleared_without_value(no_conventions):
          "species": None, "q": None, "statements": [{"value": "비자극성", "line": "p5:L8"}], "line": "p5:L8"}]
     m, _ = expand_one(r)
     assert [x["descriptor"] for x in m["toxicity"]] == ["LD50", None, "결과기술"]
+
+
+
+# ── 9항 폭발 범위(UEL·LEL)와 빈 값 ─────────────────────
+
+def phys_rows(r9_physchem, no_conv=True):
+    r = responses()
+    r[9]["physchem"] = r9_physchem
+    m, _ = expand_one(r)
+    return [(x["prop_code"], (x["q"] or {}).get("value"), (x["q"] or {}).get("unit"), (x["q"] or {}).get("status"),
+             (x["q"] or {}).get("lower"), (x["q"] or {}).get("upper")) for x in m["physchem"]]
+
+
+@pytest.mark.parametrize("row, want", [
+    ({"prop_code": None, "q": {"raw": "4.0~76%", "lower_op": ">=", "lower": 4.0, "upper_op": "<=", "upper": 76, "unit": "%"},
+      "line": "p5:L12"}, [("UEL", 76, "%", "값있음", None, None), ("LEL", 4.0, "%", "값있음", None, None)]),
+    ({"prop_code": "UEL", "q": {"raw": "75 / 4 %", "value": 75, "unit": "/ 4 %"}, "line": "p5:L14"},
+     [("UEL", 75, "%", "값있음", None, None), ("LEL", 4, "%", "값있음", None, None)]),
+    ({"prop_code": None, "q": {"raw": "자료없음"}, "line": "p5:L15"},
+     [("UEL", None, None, "자료없음", None, None), ("LEL", None, None, "자료없음", None, None)]),
+])
+def test_flammability_range_split_into_uel_lel(no_conventions, row, want):
+    """폭발 범위 상한/하한 한 줄은 UEL·LEL 두 행이다. UEL은 큰 숫자, LEL은 작은 숫자를 단일값으로 두고 원문 표기는
+    raw에 둔다(골드·실버 6건과 TO21 재생성 도구의 '상한/하한 X / Y' 표기). 상태어만 있으면 두 행 모두 그 상태다."""
+    assert phys_rows([row]) == want
+
+
+def test_flammability_rows_on_separate_lines_unchanged(no_conventions):
+    rows = [{"prop_code": "UEL", "q": {"raw": "8.0vol%", "value": 8.0, "unit": "vol%"}, "line": "p5:L16"},
+            {"prop_code": "LEL", "q": {"raw": "1.2vol%", "value": 1.2, "unit": "vol%"}, "line": "p5:L17"}]
+    assert phys_rows(rows) == [("UEL", 8.0, "vol%", "값있음", None, None), ("LEL", 1.2, "vol%", "값있음", None, None)]
+
+
+def test_split_pair_replaces_both_model_rows_on_same_line(no_conventions):
+    """모델이 같은 줄로 UEL·LEL을 모두 범위로 썼어도 두 행만 남는다."""
+    q = {"raw": "4.0~76%", "lower_op": ">=", "lower": 4.0, "upper_op": "<=", "upper": 76, "unit": "%"}
+    rows = [{"prop_code": "UEL", "q": q, "line": "p5:L12"}, {"prop_code": "LEL", "q": q, "line": "p5:L12"}]
+    assert phys_rows(rows) == [("UEL", 76, "%", "값있음", None, None), ("LEL", 4.0, "%", "값있음", None, None)]
+
+
+def test_blank_physchem_value_filled_from_line_status(no_conventions):
+    """값·글자가 모두 빈 물성 행은 근거 줄에서 이름 다음 칸이 상태어면 그 상태다 ('인화점 | 자료없음 | 자료없음').
+    상태어가 아닌 값(숫자 등)은 채우지 않는다."""
+    rows = [{"prop_code": "FLASH_POINT", "line": "p5:L13"}, {"prop_code": "PH", "line": "p5:L18"}]
+    assert phys_rows(rows) == [("FLASH_POINT", None, None, "자료없음", None, None), ("PH", None, None, None, None, None)]
+
+
+def test_lone_flammability_status_row_gets_partner(no_conventions):
+    """UEL만 있고 상태어뿐이면 LEL도 같은 상태다(골드의 상태어 행은 두 행이 같다). 숫자 하나뿐인 행은 짝을 만들지 않는다."""
+    assert phys_rows([{"prop_code": "UEL", "q": {"raw": "해당 없음"}, "line": "p5:L18"}]) == [
+        ("UEL", None, None, "해당없음", None, None), ("LEL", None, None, "해당없음", None, None)]
+    assert phys_rows([{"prop_code": "UEL", "q": {"raw": "8.0vol%", "value": 8.0, "unit": "vol%"}, "line": "p5:L16"}]) == [
+        ("UEL", 8.0, "vol%", "값있음", None, None)]
+
+
+@pytest.mark.parametrize("raw, unit", [("인화 상한값 15 %(V) 인화 하한값 5 %(V)", "%(V)"), ("1.6 ~ 12% (volume in air)", "%"),
+                                       ("8.0vol%/1.2vol%", "vol%"), ("1.4 ~ 11.7", None)])
+def test_flammability_pair_unit(raw, unit):
+    """단위는 마지막 숫자 뒤 표기다. 공백 뒤 괄호 설명은 떼고, 붙은 괄호(%(V))는 둔다 (골드 M001·M005·S016·M004)."""
+    uel, lel = ex._flammability_pair(raw)
+    assert uel["unit"] == unit == lel["unit"] and uel["value"] > lel["value"]

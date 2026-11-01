@@ -447,6 +447,8 @@ def _build(t: _Table, cells: list[str]) -> tuple[dict | None, str | None]:
     if t.name == "toxicity" and row["endpoint"] not in _ACUTE and row["descriptor"] is None and not _has_number(row["q"]):
         row["descriptor"] = "결과기술"                              # 11항 비급성 행의 문장·값 없음 결과
     if t.name == "physchem":
+        if row["prop_code"] == "UEL+LEL":       # 사전의 묶음 표기를 코드로 쓴 행. 펼치기가 근거 줄·값으로 UEL·LEL 두 행을 만든다
+            row["prop_code"] = "UEL"
         text = row["text_value"]
         if row["q"] is None and _compact(text) in _NO_VALUE:
             row["q"], row["text_value"] = {"raw": _compact(text)}, None   # 9항은 상태 열이 없어 값 없음을 q.raw로 옮긴다
