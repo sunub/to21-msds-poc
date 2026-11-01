@@ -88,15 +88,14 @@ def _field_rows(wb, keys: list[str], doc_keys: list[str]) -> list[str]:
     return out
 
 
-def _rules(wb, codes: set[str], stored: bool = True, plain: frozenset[str] = frozenset()) -> list[str]:
-    """stored=False면 저장 예를 빼고 원문 예만 둔다. 행 형식은 원문 표기를 받아 코드가 나누기 때문이다.
-    plain에 든 규칙(예: R24)은 stored와 상관없이 원문 예만 둔다."""
+def _rules(wb, codes: set[str], stored: bool = True) -> list[str]:
+    """stored=False면 저장 예를 빼고 원문 예만 둔다. 행 형식은 원문 표기를 받아 코드가 나누기 때문이다."""
     out = []
     for r in _rows(wb["3_정규화규칙"])[3:]:
         if r[0] in codes:
             line = f"- {r[0]} {r[1]}: {r[2]}"
             if r[3]:
-                line += f" 원문 예: {r[3]}" + (f" → 저장 예: {r[4]}" if stored and r[0] not in plain else "")
+                line += f" 원문 예: {r[3]}" + (f" → 저장 예: {r[4]}" if stored else "")
             if r[5]:
                 line += f" ({r[5]})"
             out.append(line)
