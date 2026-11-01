@@ -24,7 +24,7 @@ from collections import Counter, defaultdict
 from msds.common.merge import DICTIONARY_VERSION, SCHEMA_VERSION, now_kst
 from msds.common.paths import to21_file
 from msds.common.schema import load_schema, msds_item_schema
-from msds.extract.inputs import SECTION_NOS, Line, line_index
+from msds.extract.inputs import SECTION_NOS, Line, line_index, line_parents
 from msds.extract.section_specs import META_REVISION_FIELDS
 from msds.extract.source_rules import apply_source_rules, fill_thresholds
 
@@ -189,10 +189,16 @@ def _component_in_line(text: str | None, by_key: dict[str, dict]) -> dict | None
     return next(iter(hits.values())) if len(hits) == 1 else None
 
 
+def _any_component(text: str | None, by_key: dict[str, dict]) -> bool:
+    return any(k in _norm(text) for k in by_key)
+
+
 def link_components(rows: list[dict], components: list[dict], lines_by_id: dict[str, Line] | None = None) -> list[dict]:
     """comp_name·comp_cas를 3항 성분의 seq(글자)인 comp_ref로 바꾼 새 행 목록. CAS 먼저, 다음 이름.
     둘 다 비었으면 근거 줄(lines_by_id)에 성분 이름·CAS가 하나만 보일 때 그 성분이다 ('- 이소부텐 : 자료없음' 목록).
-    그래도 모르거나 어느 성분에도 안 맞으면 "MIX"."""
+    근거 줄에 성분이 없으면 부모 줄을 가까운 것부터 보고, 성분이 보이는 첫 부모에서 하나면 그 성분이다
+    ('- 1,3 부타디엔 : 구분 1A' 아래 '· IARC : 2A'). 그래도 모르거나 어느 성분에도 안 맞으면 "MIX"."""
+    parents = line_parents(list(lines_by_id.values())) if lines_by_id else {}
     by_cas = {_norm(c.get("cas_no")): c for c in components if _norm(c.get("cas_no"))}
     by_name: dict[str, dict] = {}
     for c in components:
@@ -206,7 +212,10 @@ def link_components(rows: list[dict], components: list[dict], lines_by_id: dict[
              or by_name.get(_norm(re.split(r"[,(（]", name)[0])))    # 'NATURAL GAS, LIQUIFIED'의 수식어를 뗀 이름
         if c is None and lines_by_id and not _norm(name) and not _norm(r.get("comp_cas")):
             line = lines_by_id.get(r.get("line"))
-            c = _component_in_line(line.text if line else None, {**by_name, **by_cas})
+            for up in ([line, *parents.get(line.id, [])] if line else []):
+                c = _component_in_line(up.text, {**by_name, **by_cas})
+                if c or _any_component(up.text, {**by_name, **by_cas}):
+                    break
         out.append({**{k: v for k, v in r.items() if k not in _COMP_KEYS},
                     "comp_ref": str(c["seq"]) if c else "MIX"})
     return out

@@ -873,3 +873,13 @@ def test_rows_physchem_no_value_expands_to_q_status(no_conventions, monkeypatch)
     doc = ex.to_to21(DOC_META, [{**responses(), 9: parsed}], LINES, "가상엔진 v1")
     row = next(r for r in doc[0]["msds"][0]["physchem"] if r["prop_code"] == "ODOR_THRESHOLD")
     assert row["q"]["status"] == "자료없음" and row["text_value"] is None
+
+
+def test_link_components_from_parent_line():
+    """근거 줄에 성분이 없으면 부모 줄('- 가상물질 을 : 구분 1A' 아래 '· IARC : 2A')에서 찾는다. 가까운 부모부터 보고,
+    성분이 보이는 첫 부모에서 하나면 그 성분, 둘 이상이면 MIX."""
+    texts = ["○ 발암성 PRODUCT : 구분 1A", "- 가상물질 을 : 구분 1A", "· IARC : 2A",
+             "○ 생식독성 : 가상물질 갑, 가상물질 을", "· IARC : 해당없음", "· 자료없음"]
+    lines = {f"p9:L{i}": L(f"p9:L{i}", t) for i, t in enumerate(texts, 1)}
+    rows = [{"comp_name": None, "comp_cas": None, "line": f"p9:L{i}"} for i in (3, 5, 1)]
+    assert [r["comp_ref"] for r in ex.link_components(rows, COMPS, lines)] == ["2", "MIX", "MIX"]

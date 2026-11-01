@@ -332,9 +332,8 @@ def test_calls_one_section_each_with_its_lines(env):
     sec3 = client.calls_for(3)[0]
     assert sec3["system"] == build_system(3)
     assert sec3["schema"] == ss.response_schema(3)
-    # 1항 제목(p1:L2) 앞 p1:L1은 문서 머리라 3항 구간 앞에 붙는다 (ADR-020)
-    assert sec3["user"] == ("[3항 원문]\np1:L1 물질안전보건자료\n"
-                            "p1:L8 3. 구성성분의 명칭 및 함유량\np1:L9 가상물질 갑 | 1234-56-6 | 10 ~ 20")
+    # 1항 제목(p1:L2) 앞 p1:L1은 문서 머리라 3항 구간 앞에 붙는다 (ADR-020). 3항 제목 줄(p1:L8)은 보내지 않는다
+    assert sec3["user"] == "[3항 원문]\np1:L1 물질안전보건자료\np1:L9 가상물질 갑 | 1234-56-6 | 10 ~ 20"
     assert all("[다시 확인할 점]" not in c["user"] for c in client.calls)
 
 
@@ -495,7 +494,7 @@ def test_preamble_in_every_section_request(env):
     run(env, client)
     assert len(client.calls) == 16
     assert all(c["user"].split("\n")[1] == "p1:L1 물질안전보건자료" for c in client.calls)
-    assert "p1:L1 물질안전보건자료\np1:L8 3. 구성성분의 명칭 및 함유량" in client.calls_for(3)[0]["user"]
+    assert "p1:L1 물질안전보건자료\np1:L9 가상물질 갑" in client.calls_for(3)[0]["user"]
 
 
 def test_preamble_line_allowed_as_evidence(env):
