@@ -5,7 +5,7 @@ import { Suspense, useState } from "react";
 import { SaveGuardDialog } from "@/components/review/save-guard-dialog";
 import { DocFrame } from "@/components/shell/doc-frame";
 import { Slot } from "@/components/shell/slot";
-import { SourcePane, Split } from "@/components/shell/split";
+import { Foot, Pane, Row, SourcePane } from "@/components/shell/layout";
 import { Button, UnderlineTabs } from "@/components/ui";
 import { REVIEW_TABS, isReviewTab, routes, type ReviewTab } from "@/lib/routes";
 
@@ -51,18 +51,23 @@ function ReviewBody({ doc }: { doc: string }) {
       </div>
       <Slot title="문서 요약 줄" note="개정일, 혼합물·단일물질, 기준일, 지식DB 판이 들어올 자리" className="py-2" />
 
-      <Split source={<SourcePane note="선택한 판정의 근거 쪽으로 이동하는 원문 자리" />}>
-        {PANELS[tab].map((p) => (
-          <Slot key={p.title} title={p.title} note={p.note} className="min-h-40" />
-        ))}
-      </Split>
+      <Row>
+        <SourcePane />
+        <div className="flex min-w-0 grow basis-105 flex-col gap-5">
+          {PANELS[tab].map((p) => (
+            <Pane key={p.title} title={p.title}>
+              <p className="text-sm text-mut">{p.note}</p>
+            </Pane>
+          ))}
+        </div>
+      </Row>
 
-      <div className="flex items-center justify-end gap-2 border-t border-line pt-4">
-        <span className="mr-auto text-sm text-mut">미검수·미검토 안내가 들어올 자리</span>
-        <Button variant="primary" onClick={() => setGuardOpen(true)}>
+      <Foot>
+        <p className="text-mut">미검수·미검토 안내가 들어올 자리</p>
+        <Button variant="primary" size="lg" onClick={() => setGuardOpen(true)}>
           저장하기
         </Button>
-      </div>
+      </Foot>
 
       <SaveGuardDialog
         open={guardOpen}

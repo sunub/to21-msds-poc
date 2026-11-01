@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { Suspense } from "react";
 import { DocFrame } from "@/components/shell/doc-frame";
+import { Foot, Row } from "@/components/shell/layout";
 import { Slot } from "@/components/shell/slot";
 import { buttonStyles } from "@/components/ui";
 import { routes } from "@/lib/routes";
@@ -19,18 +20,18 @@ export default function SavePage() {
               <p className="mt-1 text-mut">결과를 데이터베이스에 저장하고, 재생성 MSDS와 판정이 담긴 PDF로 내려받습니다.</p>
             </section>
             <Slot title="2차 판정 요약과 처리 상태" note="판정 건수, 미검토·처리 건수, 추출값 검수 여부가 들어올 자리" />
-            <div className="grid gap-4 lg:grid-cols-2">
-              <Slot title="데이터베이스에 저장" note="저장 상태, 저장 시각, 값의 출처별 칸 수, 다시 저장·JSON 내려받기가 들어올 자리" className="min-h-56" />
-              <Slot title="PDF로 출력" note="PDF 구성과 포함 항목 선택, 미리 보기가 들어올 자리" className="min-h-56" />
-            </div>
-            <div className="flex gap-2">
-              <Link href={routes.review(doc)} className={buttonStyles()}>
+            <Row className="items-stretch">
+              <Slot title="데이터베이스에 저장" note="저장 상태, 저장 시각, 값의 출처별 칸 수, 다시 저장·JSON 내려받기가 들어올 자리" className="min-h-56 grow basis-105" />
+              <Slot title="PDF로 출력" note="PDF 구성과 포함 항목 선택, 미리 보기가 들어올 자리" className="min-h-56 grow basis-105" />
+            </Row>
+            <Foot>
+              <Link href={routes.review(doc)} className={buttonStyles({ size: "lg" })}>
                 판정으로 돌아가기
               </Link>
-              <Link href={routes.home()} className={buttonStyles()}>
+              <Link href={routes.home()} className={buttonStyles({ size: "lg" })}>
                 목록으로
               </Link>
-            </div>
+            </Foot>
           </div>
         )}
       </DocFrame>
