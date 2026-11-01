@@ -1,0 +1,119 @@
+{
+ "doc_id": "RAW-11",
+ "msds_index": 0,
+ "section": 8,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "exposure_limits": [
+   {
+    "comp_name": null,
+    "comp_cas": null,
+    "standard": "국내",
+    "limit_type": null,
+    "q": null,
+    "form": null,
+    "kr_basis": null,
+    "bio_medium": null,
+    "bio_timing": null,
+    "bio_determinant": null,
+    "notations": [],
+    "line": "p5:L20"
+   },
+   {
+    "comp_name": null,
+    "comp_cas": null,
+    "standard": "생물학적",
+    "limit_type": null,
+    "q": {
+     "raw": "자료없음"
+    },
+    "form": null,
+    "kr_basis": null,
+    "bio_medium": null,
+    "bio_timing": null,
+    "bio_determinant": null,
+    "notations": [],
+    "line": "p5:L22"
+   }
+  ],
+  "narratives": [
+   {
+    "item_code": "S8_ENG",
+    "title_raw": "적절한 공학적 관리:",
+    "start": "p5:L23",
+    "end": "p5:L26"
+   },
+   {
+    "item_code": "S8_RESP",
+    "title_raw": "호흡기 보호:",
+    "start": "p5:L28",
+    "end": "p5:L29"
+   },
+   {
+    "item_code": "S8_HAND",
+    "title_raw": "손 보호:",
+    "start": "p5:L30",
+    "end": "p5:L36"
+   },
+   {
+    "item_code": "S8_EYE",
+    "title_raw": "눈 보호:",
+    "start": "p5:L37",
+    "end": "p5:L38"
+   },
+   {
+    "item_code": "S8_BODY",
+    "title_raw": "신체 보호:",
+    "start": "p5:L39",
+    "end": "p5:L40"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S8_BODY",
+    "title_raw": "일반적인 보호 및 위생상 주의사항:",
+    "reason": "코드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [
+     {
+      "value": "휴식시간 전과 작업 후에 손과 얼굴을 씻을 것. 피부와 눈에 접촉을 피할 것.",
+      "line": "p6:L9"
+     }
+    ],
+    "suggested_code": "S8_HYGIENE",
+    "line": "p6:L9"
+   }
+  ]
+ },
+ "raw_text": "### exposure_limits\ncomp_name | comp_cas | standard | limit_type | q | form | kr_basis | bio_medium | bio_timing | bio_determinant | notations | line\n |  | 국내 |  |  |  |  |  |  |  |  | p5:L20\n |  | 생물학적 |  | 자료없음 |  |  |  |  |  |  | p5:L22\n\n### narratives\nitem_code | title_raw | start | end\nS8_ENG | 적절한 공학적 관리: | p5:L23 | p5:L26\nS8_RESP | 호흡기 보호: | p5:L28 | p5:L29\nS8_HAND | 손 보호: | p5:L30 | p5:L36\nS8_EYE | 눈 보호: | p5:L37 | p5:L38\nS8_BODY | 신체 보호: | p5:L39 | p5:L40\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\nS8_BODY | 일반적인 보호 및 위생상 주의사항: | 코드없음 |  |  |  | 휴식시간 전과 작업 후에 손과 얼굴을 씻을 것. 피부와 눈에 접촉을 피할 것. | S8_HYGIENE | p6:L9",
+ "mode": "rows",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 3994,
+  "completion_tokens": 302,
+  "total_tokens": 4296
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "rows",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 3994,
+    "completion_tokens": 302,
+    "total_tokens": 4296
+   },
+   "seconds": 6.108,
+   "chars": 689,
+   "whitespace": 174,
+   "head": "### exposure_limits\ncomp_name | comp_cas | standard | limit_type | q | form | kr_basis | bio_medium | bio_timing | bio_determinant | notations | line\n |  | 국내 |  |  |  |  |  |  |  |  | p5:L20\n |  | 생물학적 |  | 자료없음 |  |  |  |  |  |  | p5:L22\n\n### narratives\nitem_code | title_raw | start | end\nS8_ENG | 적절한 공학적 관리: | p5:L23 | p5:L26\nS8_RESP | 호흡기 보호: | p5:L28 | p5:L29\nS8_HAND | 손 보호: | p5:L30 | p5:L36\nS8_EYE | 눈 보호: | p5:L37 | p5:L38\nS8_BODY | 신체 보호: | p5:L39 | p5:L40\n\n### extras\nafter_item | title_",
+   "tail": "raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\nS8_BODY | 일반적인 보호 및 위생상 주의사항: | 코드없음 |  |  |  | 휴식시간 전과 작업 후에 손과 얼굴을 씻을 것. 피부와 눈에 접촉을 피할 것. | S8_HYGIENE | p6:L9"
+  }
+ ],
+ "seconds": 6.11,
+ "check_problems": []
+}

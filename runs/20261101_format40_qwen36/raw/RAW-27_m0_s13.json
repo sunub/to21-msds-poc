@@ -1,0 +1,149 @@
+{
+ "doc_id": "RAW-27",
+ "msds_index": 0,
+ "section": 13,
+ "reextracted": true,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S13_METHOD",
+    "title_raw": "가. 폐기방법",
+    "start": "p7:L18",
+    "end": "p7:L18"
+   },
+   {
+    "item_code": "S13_CAUTION",
+    "title_raw": "나. 폐기 시 주의사항",
+    "start": "p7:L19",
+    "end": "p7:L19"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S13_METHOD",
+    "title_raw": "폐기 시 주의사항",
+    "reason": "코드없음",
+    "line": "p7:L17"
+   },
+   {
+    "after_item": "S13_CAUTION",
+    "title_raw": "폐기 시 주의사항",
+    "reason": "코드없음",
+    "line": "p7:L19"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S13_METHOD\",\n      \"title_raw\": \"가. 폐기방법\",\n      \"start\": \"p7:L18\",\n      \"end\": \"p7:L18\"\n    },\n    {\n      \"item_code\": \"S13_CAUTION\",\n      \"title_raw\": \"나. 폐기 시 주의사항\",\n      \"start\": \"p7:L19\",\n      \"end\": \"p7:L19\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S13_METHOD\",\n      \"title_raw\": \"폐기 시 주의사항\",\n      \"reason\": \"코드없음\",\n      \"line\": \"p7:L17\"\n    },\n    {\n      \"after_item\": \"S13_CAUTION\",\n      \"title_raw\": \"폐기 시 주의사항\",\n      \"reason\": \"코드없음\",\n      \"line\": \"p7:L19\"\n    }\n  ]\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 2087,
+  "completion_tokens": 244,
+  "total_tokens": 2331
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 2087,
+    "completion_tokens": 244,
+    "total_tokens": 2331
+   },
+   "seconds": 4.059,
+   "chars": 547,
+   "whitespace": 191,
+   "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S13_METHOD\",\n      \"title_raw\": \"가. 폐기방법\",\n      \"start\": \"p7:L18\",\n      \"end\": \"p7:L18\"\n    },\n    {\n      \"item_code\": \"S13_CAUTION\",\n      \"title_raw\": \"나. 폐기 시 주의사항\",\n      \"start\": \"p7:L19\",\n      \"end\": \"p7:L19\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S13_METHOD\",\n      \"title_raw\": \"폐기 시 주의사항\",\n      \"reason\": \"코드없음\",\n      \"line\": \"p7:L17\"\n    },\n    {\n      \"after_item\": \"S13_CAUTION\",\n      \"title_raw\": \"폐기 시 주의사항\",\n      \"reas",
+   "tail": "on\": \"코드없음\",\n      \"line\": \"p7:L19\"\n    }\n  ]\n}"
+  }
+ ],
+ "seconds": 4.06,
+ "check_problems": [],
+ "first_attempt": {
+  "ok": true,
+  "parsed": {
+   "narratives": [
+    {
+     "item_code": "S13_METHOD",
+     "title_raw": "가. 폐기방법",
+     "start": "L18",
+     "end": "L18"
+    },
+    {
+     "item_code": "S13_CAUTION",
+     "title_raw": "나. 폐기 시 주의사항",
+     "start": "L19",
+     "end": "L19"
+    }
+   ],
+   "extras": [
+    {
+     "after_item": "S13_CAUTION",
+     "title_raw": "13. 폐기 시 주의사항",
+     "reason": "코드없음",
+     "statements": [
+      {
+       "value": "가. 폐기방법 폐기물관리법에 명시된 경우 규정에 따라 내용물 및 용기를 폐기하시오.",
+       "line": "L18"
+      }
+     ],
+     "suggested_code": "NARRATIVE_HEADER",
+     "line": "L17"
+    },
+    {
+     "after_item": "S13_CAUTION",
+     "title_raw": "나. 폐기 시 주의사항",
+     "reason": "코드없음",
+     "statements": [
+      {
+       "value": "나. 폐기 시 주의사항 (관련 법규에 명시된 내용에 따라) 내용물 용기를 폐기하시오.",
+       "line": "L19"
+      }
+     ],
+     "suggested_code": "NARRATIVE_HEADER",
+     "line": "L19"
+    }
+   ]
+  },
+  "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S13_METHOD\",\n      \"title_raw\": \"가. 폐기방법\",\n      \"start\": \"L18\",\n      \"end\": \"L18\"\n    },\n    {\n      \"item_code\": \"S13_CAUTION\",\n      \"title_raw\": \"나. 폐기 시 주의사항\",\n      \"start\": \"L19\",\n      \"end\": \"L19\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S13_CAUTION\",\n      \"title_raw\": \"13. 폐기 시 주의사항\",\n      \"reason\": \"코드없음\"\n    ,\n      \"statements\": [\n        {\n          \"value\": \"가. 폐기방법 폐기물관리법에 명시된 경우 규정에 따라 내용물 및 용기를 폐기하시오.\"\n        ,\n          \"line\": \"L18\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"NARRATIVE_HEADER\"\n    ,\n      \"line\": \"L17\"\n    }\n  ,\n    {\n      \"after_item\": \"S13_CAUTION\",\n      \"title_raw\": \"나. 폐기 시 주의사항\",\n      \"reason\": \"코드없음\"\n    ,\n      \"statements\": [\n        {\n          \"value\": \"나. 폐기 시 주의사항 (관련 법규에 명시된 내용에 따라) 내용물 용기를 폐기하시오.\"\n        ,\n          \"line\": \"L19\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"NARRATIVE_HEADER\"\n    ,\n      \"line\": \"L19\"\n    }\n  ]\n}",
+  "mode": "json_schema",
+  "finish_reason": "stop",
+  "usage": {
+   "prompt_tokens": 1944,
+   "completion_tokens": 405,
+   "total_tokens": 2349
+  },
+  "attempts": 1,
+  "errors": [],
+  "requests": [
+   {
+    "mode": "json_schema",
+    "finish_reason": "stop",
+    "usage": {
+     "prompt_tokens": 1944,
+     "completion_tokens": 405,
+     "total_tokens": 2349
+    },
+    "seconds": 7.67,
+    "chars": 965,
+    "whitespace": 395,
+    "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S13_METHOD\",\n      \"title_raw\": \"가. 폐기방법\",\n      \"start\": \"L18\",\n      \"end\": \"L18\"\n    },\n    {\n      \"item_code\": \"S13_CAUTION\",\n      \"title_raw\": \"나. 폐기 시 주의사항\",\n      \"start\": \"L19\",\n      \"end\": \"L19\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S13_CAUTION\",\n      \"title_raw\": \"13. 폐기 시 주의사항\",\n      \"reason\": \"코드없음\"\n    ,\n      \"statements\": [\n        {\n          \"value\": \"가. 폐기방법 폐기물관리법에 명시된 경우 규정에 따라 내용물 및 용기를 폐기하시오.\"\n        ,\n      ",
+    "tail": "    \"line\": \"L18\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"NARRATIVE_HEADER\"\n    ,\n      \"line\": \"L17\"\n    }\n  ,\n    {\n      \"after_item\": \"S13_CAUTION\",\n      \"title_raw\": \"나. 폐기 시 주의사항\",\n      \"reason\": \"코드없음\"\n    ,\n      \"statements\": [\n        {\n          \"value\": \"나. 폐기 시 주의사항 (관련 법규에 명시된 내용에 따라) 내용물 용기를 폐기하시오.\"\n        ,\n          \"line\": \"L19\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"NARRATIVE_HEADER\"\n    ,\n      \"line\": \"L19\"\n    }\n  ]\n}"
+   }
+  ],
+  "seconds": 7.671,
+  "check_problems": [
+   "narratives[0].start: 원문에 없는 줄 번호 L18",
+   "narratives[0].end: 원문에 없는 줄 번호 L18",
+   "narratives[1].start: 원문에 없는 줄 번호 L19",
+   "narratives[1].end: 원문에 없는 줄 번호 L19",
+   "extras[0].statements[0].line: 원문에 없는 줄 번호 L18",
+   "extras[0].line: 원문에 없는 줄 번호 L17",
+   "extras[1].statements[0].line: 원문에 없는 줄 번호 L19",
+   "extras[1].line: 원문에 없는 줄 번호 L19"
+  ]
+ }
+}

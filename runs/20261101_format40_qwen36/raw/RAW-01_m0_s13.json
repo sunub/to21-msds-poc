@@ -1,0 +1,106 @@
+{
+ "doc_id": "RAW-01",
+ "msds_index": 0,
+ "section": 13,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S13_METHOD",
+    "title_raw": "가. 폐기방법",
+    "start": "p7:L15",
+    "end": "p7:L18"
+   },
+   {
+    "item_code": "S13_CAUTION",
+    "title_raw": "나. 폐기시 주의사항",
+    "start": "p7:L20",
+    "end": "p7:L23"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S13_METHOD",
+    "title_raw": "가. 폐기방법",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "value": "2종류이상의 지정폐기물이 혼합되어 있어 분리하여 처리하기 어려운 경우에는 소각 또는 이와 유사한 방법으로 감량화 안정화 처리할 수 있음.",
+      "refs": [
+       "p7:L15"
+      ],
+      "line": "p7:L15"
+     },
+     {
+      "value": "유수분리가 가능한 것은 유수분리방법으로 사전 처리할 것.",
+      "refs": [
+       "p7:L17"
+      ],
+      "line": "p7:L17"
+     },
+     {
+      "value": "소각 처리할 것.",
+      "refs": [
+       "p7:L18"
+      ],
+      "line": "p7:L18"
+     }
+    ],
+    "suggested_code": "S13_METHOD",
+    "line": "p7:L14"
+   },
+   {
+    "after_item": "S13_CAUTION",
+    "title_raw": "나. 폐기시 주의사항",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "value": "사업장폐기물을 배출하는 사업자(사업장폐기물배출자)는 사업장에서 발생하는 폐기물을 스스로 처리하거나, 폐기물처리업자, 다른 사람의 폐기물을 재생처리 하는 자, 폐기물 처리시설을 설치 운영하는 자에게 위임하여 처리하여야 함.",
+      "refs": [
+       "p7:L20"
+      ],
+      "line": "p7:L20"
+     },
+     {
+      "value": "폐기물관리법상 규정을 준수할 것.",
+      "refs": [
+       "p7:L23"
+      ],
+      "line": "p7:L23"
+     }
+    ],
+    "suggested_code": "S13_CAUTION",
+    "line": "p7:L19"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S13_METHOD\",\n      \"title_raw\": \"가. 폐기방법\",\n      \"start\": \"p7:L15\",\n      \"end\": \"p7:L18\"\n    },\n    {\n      \"item_code\": \"S13_CAUTION\",\n      \"title_raw\": \"나. 폐기시 주의사항\",\n      \"start\": \"p7:L20\",\n      \"end\": \"p7:L23\"\n    }\n  ]\n  ,\n  \"extras\": [\n    {\n      \"after_item\": \"S13_METHOD\",\n      \"title_raw\": \"가. 폐기방법\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"2종류이상의 지정폐기물이 혼합되어 있어 분리하여 처리하기 어려운 경우에는 소각 또는 이와 유사한 방법으로 감량화 안정화 처리할 수 있음.\"\n        ,\n        \"refs\": [\n          \"p7:L15\"\n        ]\n        ,\n        \"line\": \"p7:L15\"\n        }\n      ,\n      {\n          \"value\": \"유수분리가 가능한 것은 유수분리방법으로 사전 처리할 것.\"\n        ,\n        \"refs\": [\n          \"p7:L17\"\n        ]\n        ,\n        \"line\": \"p7:L17\"\n        }\n      ,\n      {\n          \"value\": \"소각 처리할 것.\"\n        ,\n        \"refs\": [\n          \"p7:L18\"\n        ]\n        ,\n        \"line\": \"p7:L18\"\n        }\n      ]\n     ,\n     \"suggested_code\": \"S13_METHOD\"\n     ,\n    \"line\": \"p7:L14\"\n    }\n  ,\n  {\n      \"after_item\": \"S13_CAUTION\",\n      \"title_raw\": \"나. 폐기시 주의사항\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"사업장폐기물을 배출하는 사업자(사업장폐기물배출자)는 사업장에서 발생하는 폐기물을 스스로 처리하거나, 폐기물처리업자, 다른 사람의 폐기물을 재생처리 하는 자, 폐기물 처리시설을 설치 운영하는 자에게 위임하여 처리하여야 함.\"\n        ,\n        \"refs\": [\n          \"p7:L20\"\n        ]\n        ,\n        \"line\": \"p7:L20\"\n        }\n      ,\n      {\n          \"value\": \"폐기물관리법상 규정을 준수할 것.\"\n        ,\n        \"refs\": [\n          \"p7:L23\"\n        ]\n        ,\n        \"line\": \"p7:L23\"\n        }\n      ]\n     ,\n    \"suggested_code\": \"S13_CAUTION\"\n     ,\n    \"line\": \"p7:L19\"\n    }\n  ]\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 2063,
+  "completion_tokens": 701,
+  "total_tokens": 2764
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 2063,
+    "completion_tokens": 701,
+    "total_tokens": 2764
+   },
+   "seconds": 13.569,
+   "chars": 1651,
+   "whitespace": 761,
+   "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S13_METHOD\",\n      \"title_raw\": \"가. 폐기방법\",\n      \"start\": \"p7:L15\",\n      \"end\": \"p7:L18\"\n    },\n    {\n      \"item_code\": \"S13_CAUTION\",\n      \"title_raw\": \"나. 폐기시 주의사항\",\n      \"start\": \"p7:L20\",\n      \"end\": \"p7:L23\"\n    }\n  ]\n  ,\n  \"extras\": [\n    {\n      \"after_item\": \"S13_METHOD\",\n      \"title_raw\": \"가. 폐기방법\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"2종류이상의 지정폐기물이 혼합되어 있어 분리하여 처리하기 어려운 경우에는 소각 또는 이와 유사한 방법으로 감량화",
+   "tail": "   {\n          \"value\": \"사업장폐기물을 배출하는 사업자(사업장폐기물배출자)는 사업장에서 발생하는 폐기물을 스스로 처리하거나, 폐기물처리업자, 다른 사람의 폐기물을 재생처리 하는 자, 폐기물 처리시설을 설치 운영하는 자에게 위임하여 처리하여야 함.\"\n        ,\n        \"refs\": [\n          \"p7:L20\"\n        ]\n        ,\n        \"line\": \"p7:L20\"\n        }\n      ,\n      {\n          \"value\": \"폐기물관리법상 규정을 준수할 것.\"\n        ,\n        \"refs\": [\n          \"p7:L23\"\n        ]\n        ,\n        \"line\": \"p7:L23\"\n        }\n      ]\n     ,\n    \"suggested_code\": \"S13_CAUTION\"\n     ,\n    \"line\": \"p7:L19\"\n    }\n  ]\n}"
+  }
+ ],
+ "seconds": 13.569,
+ "check_problems": []
+}

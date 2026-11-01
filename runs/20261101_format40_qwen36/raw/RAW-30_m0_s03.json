@@ -1,0 +1,86 @@
+{
+ "doc_id": "RAW-30",
+ "msds_index": 0,
+ "section": 3,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "composition": {
+   "type": "혼합물",
+   "no_hazardous_component": false,
+   "lines": {
+    "type": "p1:L33",
+    "no_hazardous_component": "p1:L33"
+   }
+  },
+  "components": [
+   {
+    "name": "상압 증류탑 잔사유 (환원된 원유 )",
+    "name_en": "ATMOSPHERIC TOWER RESIDUE (REDUCED CRUDE OIL)",
+    "synonyms": [],
+    "cas_no": "64741-45-3",
+    "ke_no": "KE-30131",
+    "ec_no": null,
+    "other_id": null,
+    "other_id_type": null,
+    "parent_seq": null,
+    "read_across_cas": null,
+    "content": {
+     "raw": "100",
+     "value": 100,
+     "unit": "%"
+    },
+    "content_note": null,
+    "content_basis": null,
+    "trade_secret": null,
+    "approval_no": null,
+    "approval_expiry": null,
+    "line": "p1:L36"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "3",
+    "title_raw": "본 제품은 유기황이 최대 0.5% 포함되어 있음.",
+    "reason": "필드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": {
+     "raw": "0.5",
+     "value": 0.5
+    },
+    "statements": [],
+    "suggested_code": null,
+    "line": "p1:L37"
+   }
+  ]
+ },
+ "raw_text": "### composition\ntype | no_hazardous_component | line\n혼합물 | false | p1:L33\n\n### components\nname | name_en | synonyms | cas_no | ke_no | ec_no | other_id | other_id_type | parent_seq | read_across_cas | content | content_note | content_basis | trade_secret | approval_no | approval_expiry | line\n상압 증류탑 잔사유 (환원된 원유 ) | ATMOSPHERIC TOWER RESIDUE (REDUCED CRUDE OIL) |  | 64741-45-3 | KE-30131 |  |  |  |  |  | 100 |  |  |  |  |  | p1:L36\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\n3 | 본 제품은 유기황이 최대 0.5% 포함되어 있음. | 필드없음 |  |  | 0.5 |  |  | p1:L37",
+ "mode": "rows",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 3760,
+  "completion_tokens": 235,
+  "total_tokens": 3995
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "rows",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 3760,
+    "completion_tokens": 235,
+    "total_tokens": 3995
+   },
+   "seconds": 5.386,
+   "chars": 608,
+   "whitespace": 133,
+   "head": "### composition\ntype | no_hazardous_component | line\n혼합물 | false | p1:L33\n\n### components\nname | name_en | synonyms | cas_no | ke_no | ec_no | other_id | other_id_type | parent_seq | read_across_cas | content | content_note | content_basis | trade_secret | approval_no | approval_expiry | line\n상압 증류탑 잔사유 (환원된 원유 ) | ATMOSPHERIC TOWER RESIDUE (REDUCED CRUDE OIL) |  | 64741-45-3 | KE-30131 |  |  |  |  |  | 100 |  |  |  |  |  | p1:L36\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_ca",
+   "tail": "s | q | statements | suggested_code | line\n3 | 본 제품은 유기황이 최대 0.5% 포함되어 있음. | 필드없음 |  |  | 0.5 |  |  | p1:L37"
+  }
+ ],
+ "seconds": 5.389,
+ "check_problems": []
+}

@@ -1,0 +1,66 @@
+{
+ "doc_id": "RAW-20",
+ "msds_index": 0,
+ "section": 13,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S13_METHOD",
+    "title_raw": "가. 폐기방법",
+    "start": "p8:L24",
+    "end": "p8:L24"
+   },
+   {
+    "item_code": "S13_CAUTION",
+    "title_raw": "나. 폐기시 주의사항(오염된 용기 및 포장의 폐기 방법을 포함함)",
+    "start": "p8:L25",
+    "end": "p8:L26"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S13_CAUTION",
+    "title_raw": "폐기시 주의사항",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "value": "폐기물관리법에 명시된 내용에 따라 내용물 및 용기를 폐기하시오.",
+      "line": "p8:L26"
+     }
+    ],
+    "suggested_code": "S13_CAUTION",
+    "line": "p8:L25"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S13_METHOD\",\n      \"title_raw\": \"가. 폐기방법\",\n      \"start\": \"p8:L24\",\n      \"end\": \"p8:L24\"\n    },\n    {\n      \"item_code\": \"S13_CAUTION\",\n      \"title_raw\": \"나. 폐기시 주의사항(오염된 용기 및 포장의 폐기 방법을 포함함)\",\n      \"start\": \"p8:L25\",\n      \"end\": \"p8:L26\"\n    }\n  ]\n  ,\n  \"extras\": [\n    {\n      \"after_item\": \"S13_CAUTION\",\n      \"title_raw\": \"폐기시 주의사항\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"폐기물관리법에 명시된 내용에 따라 내용물 및 용기를 폐기하시오.\"\n        ,\n          \"line\": \"p8:L26\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S13_CAUTION\"\n    ,\n      \"line\": \"p8:L25\"\n    }\n  ]\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 1937,
+  "completion_tokens": 283,
+  "total_tokens": 2220
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 1937,
+    "completion_tokens": 283,
+    "total_tokens": 2220
+   },
+   "seconds": 5.616,
+   "chars": 641,
+   "whitespace": 245,
+   "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S13_METHOD\",\n      \"title_raw\": \"가. 폐기방법\",\n      \"start\": \"p8:L24\",\n      \"end\": \"p8:L24\"\n    },\n    {\n      \"item_code\": \"S13_CAUTION\",\n      \"title_raw\": \"나. 폐기시 주의사항(오염된 용기 및 포장의 폐기 방법을 포함함)\",\n      \"start\": \"p8:L25\",\n      \"end\": \"p8:L26\"\n    }\n  ]\n  ,\n  \"extras\": [\n    {\n      \"after_item\": \"S13_CAUTION\",\n      \"title_raw\": \"폐기시 주의사항\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"폐기물관리법에 명시된 내용에 따라 내용물 및 용기를 폐기하시오.",
+   "tail": "\"\n        ,\n          \"line\": \"p8:L26\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S13_CAUTION\"\n    ,\n      \"line\": \"p8:L25\"\n    }\n  ]\n}"
+  }
+ ],
+ "seconds": 5.617,
+ "check_problems": []
+}

@@ -1,0 +1,103 @@
+{
+ "doc_id": "RAW-31",
+ "msds_index": 0,
+ "section": 5,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S5_MEDIA",
+    "title_raw": "가. 적절한(부적절한) 소화제",
+    "start": "p2:L11",
+    "end": "p2:L12"
+   },
+   {
+    "item_code": "S5_SPECIFIC",
+    "title_raw": "나. 화학물질로부터 생기는 특정 유해성",
+    "start": "p2:L13",
+    "end": "p2:L15"
+   },
+   {
+    "item_code": "S5_FIREFIGHT",
+    "title_raw": "다. 화재진압시 착용할 보호구 및 예방조치",
+    "start": "p2:L16",
+    "end": "p2:L22"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S5_FIREFIGHT",
+    "title_raw": "다. 화재진압시 착용할 보호구 및 예방조치",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "key": "내용",
+      "value": "위험하지 않다면 화재지역에서 용기를 옮기시오.",
+      "line": "p2:L16"
+     },
+     {
+      "key": "내용",
+      "value": "누출물은 오염을 유발할 수 있음",
+      "line": "p2:L17"
+     },
+     {
+      "key": "내용",
+      "value": "소화수의 처분을 위해 도랑을 파서 가두고 물질이 흩어지지 않게 하시오.",
+      "line": "p2:L18"
+     },
+     {
+      "key": "내용",
+      "value": "탱크 화재 시 소화가 진화된 후에도 다량의 물로 용기를 식히시오.",
+      "line": "p2:L19"
+     },
+     {
+      "key": "내용",
+      "value": "탱크 화재시 압력 방출장치에서 고음이 있거나 탱크가 변색할 경우 즉시 물러나시오.",
+      "line": "p2:L20"
+     },
+     {
+      "key": "내용",
+      "value": "탱크 화재 시 화염에 휩싸인 탱크에서 물러나시오.",
+      "line": "p2:L21"
+     },
+     {
+      "key": "내용",
+      "value": "화재시 적절한 개인보호구를 착용하시오.",
+      "line": "p2:L22"
+     }
+    ],
+    "suggested_code": "S5_FIREFIGHT_DETAILS",
+    "line": "p2:L16"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S5_MEDIA\",\n      \"title_raw\": \"가. 적절한(부적절한) 소화제\",\n      \"start\": \"p2:L11\",\n      \"end\": \"p2:L12\"\n    },\n    {\n      \"item_code\": \"S5_SPECIFIC\",\n      \"title_raw\": \"나. 화학물질로부터 생기는 특정 유해성\",\n      \"start\": \"p2:L13\",\n      \"end\": \"p2:L15\"\n    },\n    {\n      \"item_code\": \"S5_FIREFIGHT\",\n      \"title_raw\": \"다. 화재진압시 착용할 보호구 및 예방조치\",\n      \"start\": \"p2:L16\",\n      \"end\": \"p2:L22\"\n    }\n  ]\n,\n  \"extras\": [\n    {\n      \"after_item\": \"S5_FIREFIGHT\",\n      \"title_raw\": \"다. 화재진압시 착용할 보호구 및 예방조치\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"key\": \"내용\",\n          \"value\": \"위험하지 않다면 화재지역에서 용기를 옮기시오.\"\n        ,\n          \"line\": \"p2:L16\"\n        },\n        {\n          \"key\": \"내용\",\n          \"value\": \"누출물은 오염을 유발할 수 있음\"\n        ,\n          \"line\": \"p2:L17\"\n        },\n        {\n          \"key\": \"내용\",\n          \"value\": \"소화수의 처분을 위해 도랑을 파서 가두고 물질이 흩어지지 않게 하시오.\"\n        ,\n          \"line\": \"p2:L18\"\n        },\n        {\n          \"key\": \"내용\",\n          \"value\": \"탱크 화재 시 소화가 진화된 후에도 다량의 물로 용기를 식히시오.\"\n        ,\n          \"line\": \"p2:L19\"\n        },\n        {\n          \"key\": \"내용\",\n          \"value\": \"탱크 화재시 압력 방출장치에서 고음이 있거나 탱크가 변색할 경우 즉시 물러나시오.\"\n        ,\n          \"line\": \"p2:L20\"\n        },\n        {\n          \"key\": \"내용\",\n          \"value\": \"탱크 화재 시 화염에 휩싸인 탱크에서 물러나시오.\"\n        ,\n          \"line\": \"p2:L21\"\n        },\n        {\n          \"key\": \"내용\",\n          \"value\": \"화재시 적절한 개인보호구를 착용하시오.\"\n        ,\n          \"line\": \"p2:L22\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S5_FIREFIGHT_DETAILS\"\n    ,\n      \"line\": \"p2:L16\"\n    }\n  ]\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 9157,
+  "completion_tokens": 678,
+  "total_tokens": 9835
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 9157,
+    "completion_tokens": 678,
+    "total_tokens": 9835
+   },
+   "seconds": 15.44,
+   "chars": 1613,
+   "whitespace": 719,
+   "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S5_MEDIA\",\n      \"title_raw\": \"가. 적절한(부적절한) 소화제\",\n      \"start\": \"p2:L11\",\n      \"end\": \"p2:L12\"\n    },\n    {\n      \"item_code\": \"S5_SPECIFIC\",\n      \"title_raw\": \"나. 화학물질로부터 생기는 특정 유해성\",\n      \"start\": \"p2:L13\",\n      \"end\": \"p2:L15\"\n    },\n    {\n      \"item_code\": \"S5_FIREFIGHT\",\n      \"title_raw\": \"다. 화재진압시 착용할 보호구 및 예방조치\",\n      \"start\": \"p2:L16\",\n      \"end\": \"p2:L22\"\n    }\n  ]\n,\n  \"extras\": [\n    {\n      \"after_item\": \"S5_FIREFIGHT\",\n      \"tit",
+   "tail": "      {\n          \"key\": \"내용\",\n          \"value\": \"탱크 화재시 압력 방출장치에서 고음이 있거나 탱크가 변색할 경우 즉시 물러나시오.\"\n        ,\n          \"line\": \"p2:L20\"\n        },\n        {\n          \"key\": \"내용\",\n          \"value\": \"탱크 화재 시 화염에 휩싸인 탱크에서 물러나시오.\"\n        ,\n          \"line\": \"p2:L21\"\n        },\n        {\n          \"key\": \"내용\",\n          \"value\": \"화재시 적절한 개인보호구를 착용하시오.\"\n        ,\n          \"line\": \"p2:L22\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S5_FIREFIGHT_DETAILS\"\n    ,\n      \"line\": \"p2:L16\"\n    }\n  ]\n}"
+  }
+ ],
+ "seconds": 15.441,
+ "check_problems": []
+}

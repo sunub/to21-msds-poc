@@ -1,0 +1,110 @@
+{
+ "doc_id": "RAW-08",
+ "msds_index": 0,
+ "section": 4,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S4_EYE",
+    "title_raw": "가. 눈에 들어갔을 때",
+    "start": "p3:L13",
+    "end": "p3:L15"
+   },
+   {
+    "item_code": "S4_SKIN",
+    "title_raw": "나. 피부에 접촉했을 때",
+    "start": "p3:L16",
+    "end": "p3:L17"
+   },
+   {
+    "item_code": "S4_INHAL",
+    "title_raw": "다. 흡입했을 때",
+    "start": "p3:L18",
+    "end": "p3:L19"
+   },
+   {
+    "item_code": "S4_INGEST",
+    "title_raw": "라. 먹었을 때",
+    "start": "p3:L20",
+    "end": "p3:L22"
+   },
+   {
+    "item_code": "S4_DOCTOR",
+    "title_raw": "마. 기타 의사의 주의사항",
+    "start": "p3:L23",
+    "end": "p3:L27"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S4_DOCTOR",
+    "title_raw": "증상",
+    "reason": "필드없음",
+    "statements": [
+     {
+      "value": "작열감. 실명을 초래할 수 있음. 발적과 눈물을 일으킬 수 있음. 홍진 (피부 발적).",
+      "line": "p3:L26"
+     }
+    ],
+    "suggested_code": "S4_SYMPTOM",
+    "line": "p3:L26"
+   },
+   {
+    "after_item": "S4_DOCTOR",
+    "title_raw": "노출 영향",
+    "reason": "필드없음",
+    "statements": [
+     {
+      "value": "자료 없음",
+      "line": "p3:L27"
+     }
+    ],
+    "suggested_code": "EXPOSURE_EFFECT",
+    "line": "p3:L27"
+   },
+   {
+    "after_item": "S4_DOCTOR",
+    "title_raw": "응급 처치자의 자기 방어",
+    "reason": "필드없음",
+    "statements": [
+     {
+      "value": "피부, 눈 또는 의복과 접촉을 피할 것. 개인 보호의를 착용하시오 (8항 참조).",
+      "line": "p3:L28"
+     }
+    ],
+    "suggested_code": "PROTECTIVE_EQUIPMENT",
+    "line": "p3:L28"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S4_EYE\",\n      \"title_raw\": \"가. 눈에 들어갔을 때\",\n      \"start\": \"p3:L13\",\n      \"end\": \"p3:L15\"\n    },\n    {\n      \"item_code\": \"S4_SKIN\",\n      \"title_raw\": \"나. 피부에 접촉했을 때\",\n      \"start\": \"p3:L16\",\n      \"end\": \"p3:L17\"\n    },\n    {\n      \"item_code\": \"S4_INHAL\",\n      \"title_raw\": \"다. 흡입했을 때\",\n      \"start\": \"p3:L18\",\n      \"end\": \"p3:L19\"\n    },\n    {\n      \"item_code\": \"S4_INGEST\",\n      \"title_raw\": \"라. 먹었을 때\",\n      \"start\": \"p3:L20\",\n      \"end\": \"p3:L22\"\n    },\n    {\n      \"item_code\": \"S4_DOCTOR\",\n      \"title_raw\": \"마. 기타 의사의 주의사항\",\n      \"start\": \"p3:L23\",\n      \"end\": \"p3:L27\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S4_DOCTOR\",\n      \"title_raw\": \"증상\",\n      \"reason\": \"필드없음\",\n      \"statements\": [\n        {\n          \"value\": \"작열감. 실명을 초래할 수 있음. 발적과 눈물을 일으킬 수 있음. 홍진 (피부 발적).\"\n        ,\n          \"line\": \"p3:L26\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S4_SYMPTOM\"\n    ,\n      \"line\": \"p3:L26\"\n    },\n    {\n      \"after_item\": \"S4_DOCTOR\",\n      \"title_raw\": \"노출 영향\",\n      \"reason\": \"필드없음\",\n      \"statements\": [\n        {\n          \"value\": \"자료 없음\"\n        ,\n          \"line\": \"p3:L27\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"EXPOSURE_EFFECT\"\n    ,\n      \"line\": \"p3:L27\"\n    },\n    {\n      \"after_item\": \"S4_DOCTOR\",\n      \"title_raw\": \"응급 처치자의 자기 방어\",\n      \"reason\": \"필드없음\",\n      \"statements\": [\n        {\n          \"value\": \"피부, 눈 또는 의복과 접촉을 피할 것. 개인 보호의를 착용하시오 (8항 참조).\"\n        ,\n          \"line\": \"p3:L28\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"PROTECTIVE_EQUIPMENT\"\n    ,\n      \"line\": \"p3:L28\"\n    }\n  ]\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 2324,
+  "completion_tokens": 691,
+  "total_tokens": 3015
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 2324,
+    "completion_tokens": 691,
+    "total_tokens": 3015
+   },
+   "seconds": 12.428,
+   "chars": 1622,
+   "whitespace": 644,
+   "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S4_EYE\",\n      \"title_raw\": \"가. 눈에 들어갔을 때\",\n      \"start\": \"p3:L13\",\n      \"end\": \"p3:L15\"\n    },\n    {\n      \"item_code\": \"S4_SKIN\",\n      \"title_raw\": \"나. 피부에 접촉했을 때\",\n      \"start\": \"p3:L16\",\n      \"end\": \"p3:L17\"\n    },\n    {\n      \"item_code\": \"S4_INHAL\",\n      \"title_raw\": \"다. 흡입했을 때\",\n      \"start\": \"p3:L18\",\n      \"end\": \"p3:L19\"\n    },\n    {\n      \"item_code\": \"S4_INGEST\",\n      \"title_raw\": \"라. 먹었을 때\",\n      \"start\": \"p3:L20\",\n      \"end\": ",
+   "tail": "alue\": \"자료 없음\"\n        ,\n          \"line\": \"p3:L27\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"EXPOSURE_EFFECT\"\n    ,\n      \"line\": \"p3:L27\"\n    },\n    {\n      \"after_item\": \"S4_DOCTOR\",\n      \"title_raw\": \"응급 처치자의 자기 방어\",\n      \"reason\": \"필드없음\",\n      \"statements\": [\n        {\n          \"value\": \"피부, 눈 또는 의복과 접촉을 피할 것. 개인 보호의를 착용하시오 (8항 참조).\"\n        ,\n          \"line\": \"p3:L28\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"PROTECTIVE_EQUIPMENT\"\n    ,\n      \"line\": \"p3:L28\"\n    }\n  ]\n}"
+  }
+ ],
+ "seconds": 12.429,
+ "check_problems": []
+}

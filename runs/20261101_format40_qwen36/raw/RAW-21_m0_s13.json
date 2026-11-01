@@ -1,0 +1,92 @@
+{
+ "doc_id": "RAW-21",
+ "msds_index": 0,
+ "section": 13,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S13_METHOD",
+    "title_raw": "가. 폐기방법",
+    "start": "p7:L7",
+    "end": "p7:L10"
+   },
+   {
+    "item_code": "S13_CAUTION",
+    "title_raw": "나. 폐기시 주의사항",
+    "start": "p7:L11",
+    "end": "p7:L12"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S13_METHOD",
+    "title_raw": "폐기방법 내용",
+    "reason": "필드없음",
+    "statements": [
+     {
+      "value": "폐합성수지 및 기타 폐합성 고분자화합물 중 열경화성의 것은 최대직경 15㎝ 이하의 크기로 파쇄. 절단하거나 용융한 후 안정형 매립시설에 처리하여야 한다.",
+      "refs": [
+       "15"
+      ],
+      "line": "p7:L8"
+     }
+    ],
+    "line": "p7:L8"
+   },
+   {
+    "after_item": "S13_METHOD",
+    "title_raw": "폐기방법 내용2",
+    "reason": "필드없음",
+    "statements": [
+     {
+      "value": "폐합성수지 및 기타 폐합성 고분자화합물 중 열경화성 외의 것은 소각 처리하여야 한다.",
+      "line": "p7:L10"
+     }
+    ],
+    "line": "p7:L10"
+   },
+   {
+    "after_item": "S13_CAUTION",
+    "title_raw": "폐기시 주의사항 내용",
+    "reason": "필드없음",
+    "statements": [
+     {
+      "value": "폐기물관리법에 명시된 경우 규정에 명시된 주의사항을 고려하시오.",
+      "line": "p7:L12"
+     }
+    ],
+    "line": "p7:L12"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S13_METHOD\",\n      \"title_raw\": \"가. 폐기방법\",\n      \"start\": \"p7:L7\",\n      \"end\": \"p7:L10\"\n    },\n    {\n      \"item_code\": \"S13_CAUTION\",\n      \"title_raw\": \"나. 폐기시 주의사항\",\n      \"start\": \"p7:L11\",\n      \"end\": \"p7:L12\"\n    }\n  ]\n  ,\n  \"extras\": [\n    {\n      \"after_item\": \"S13_METHOD\",\n      \"title_raw\": \"폐기방법 내용\",\n      \"reason\": \"필드없음\",\n      \"statements\": [\n        {\n          \"value\": \"폐합성수지 및 기타 폐합성 고분자화합물 중 열경화성의 것은 최대직경 15㎝ 이하의 크기로 파쇄. 절단하거나 용융한 후 안정형 매립시설에 처리하여야 한다.\"\n        ,\n        \"refs\": [\n          \"15\"\n        ]\n        ,\n        \"line\": \"p7:L8\"\n        }\n      ]\n    ,\n    \"line\": \"p7:L8\"\n    }\n  ,\n  {\n      \"after_item\": \"S13_METHOD\",\n      \"title_raw\": \"폐기방법 내용2\",\n      \"reason\": \"필드없음\",\n      \"statements\": [\n        {\n          \"value\": \"폐합성수지 및 기타 폐합성 고분자화합물 중 열경화성 외의 것은 소각 처리하여야 한다.\"\n        ,\n        \"line\": \"p7:L10\"\n        }\n      ]\n    ,\n    \"line\": \"p7:L10\"\n    }\n  ,\n  {\n      \"after_item\": \"S13_CAUTION\",\n      \"title_raw\": \"폐기시 주의사항 내용\",\n      \"reason\": \"필드없음\",\n      \"statements\": [\n        {\n          \"value\": \"폐기물관리법에 명시된 경우 규정에 명시된 주의사항을 고려하시오.\"\n        ,\n        \"line\": \"p7:L12\"\n        }\n      ]\n    ,\n    \"line\": \"p7:L12\"\n    }\n  ]\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 1938,
+  "completion_tokens": 545,
+  "total_tokens": 2483
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 1938,
+    "completion_tokens": 545,
+    "total_tokens": 2483
+   },
+   "seconds": 10.002,
+   "chars": 1226,
+   "whitespace": 513,
+   "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S13_METHOD\",\n      \"title_raw\": \"가. 폐기방법\",\n      \"start\": \"p7:L7\",\n      \"end\": \"p7:L10\"\n    },\n    {\n      \"item_code\": \"S13_CAUTION\",\n      \"title_raw\": \"나. 폐기시 주의사항\",\n      \"start\": \"p7:L11\",\n      \"end\": \"p7:L12\"\n    }\n  ]\n  ,\n  \"extras\": [\n    {\n      \"after_item\": \"S13_METHOD\",\n      \"title_raw\": \"폐기방법 내용\",\n      \"reason\": \"필드없음\",\n      \"statements\": [\n        {\n          \"value\": \"폐합성수지 및 기타 폐합성 고분자화합물 중 열경화성의 것은 최대직경 15㎝ 이하의 크기로 파쇄. 절단하거나 용융한",
+   "tail": "법 내용2\",\n      \"reason\": \"필드없음\",\n      \"statements\": [\n        {\n          \"value\": \"폐합성수지 및 기타 폐합성 고분자화합물 중 열경화성 외의 것은 소각 처리하여야 한다.\"\n        ,\n        \"line\": \"p7:L10\"\n        }\n      ]\n    ,\n    \"line\": \"p7:L10\"\n    }\n  ,\n  {\n      \"after_item\": \"S13_CAUTION\",\n      \"title_raw\": \"폐기시 주의사항 내용\",\n      \"reason\": \"필드없음\",\n      \"statements\": [\n        {\n          \"value\": \"폐기물관리법에 명시된 경우 규정에 명시된 주의사항을 고려하시오.\"\n        ,\n        \"line\": \"p7:L12\"\n        }\n      ]\n    ,\n    \"line\": \"p7:L12\"\n    }\n  ]\n}"
+  }
+ ],
+ "seconds": 10.003,
+ "check_problems": []
+}

@@ -1,0 +1,865 @@
+{
+ "doc_id": "RAW-38",
+ "msds_index": 0,
+ "section": 11,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "toxicity": [
+   {
+    "comp_name": null,
+    "comp_cas": null,
+    "endpoint": "TX_ORAL",
+    "descriptor": "LD50",
+    "q": {
+     "raw": "> 10000 mg/kg bw",
+     "lower_op": ">",
+     "lower": 10000,
+     "unit": "mg/kg bw"
+    },
+    "species": null,
+    "sex": null,
+    "duration_value": null,
+    "duration_unit": null,
+    "physical_form": null,
+    "exposure_type": null,
+    "converted": null,
+    "read_across_cas": null,
+    "guideline": null,
+    "data_source": null,
+    "classification": null,
+    "statements": [],
+    "status": "값있음",
+    "line": "p6:L11"
+   },
+   {
+    "comp_name": null,
+    "comp_cas": null,
+    "endpoint": "TX_DERMAL",
+    "descriptor": "LD50",
+    "q": {
+     "raw": "> 5000 mg/kg bw",
+     "lower_op": ">",
+     "lower": 5000,
+     "unit": "mg/kg bw"
+    },
+    "species": null,
+    "sex": null,
+    "duration_value": null,
+    "duration_unit": null,
+    "physical_form": null,
+    "exposure_type": null,
+    "converted": null,
+    "read_across_cas": null,
+    "guideline": null,
+    "data_source": null,
+    "classification": null,
+    "statements": [],
+    "status": "값있음",
+    "line": "p6:L13"
+   },
+   {
+    "comp_name": null,
+    "comp_cas": null,
+    "endpoint": "TX_INHAL",
+    "descriptor": "LC50",
+    "q": {
+     "raw": "> 6 mg/l",
+     "lower_op": ">",
+     "lower": 6,
+     "unit": "mg/l"
+    },
+    "species": null,
+    "sex": null,
+    "duration_value": null,
+    "duration_unit": null,
+    "physical_form": null,
+    "exposure_type": "분진/미스트",
+    "converted": null,
+    "read_across_cas": null,
+    "guideline": null,
+    "data_source": null,
+    "classification": null,
+    "statements": [],
+    "status": "값있음",
+    "line": "p6:L19"
+   },
+   {
+    "comp_name": null,
+    "comp_cas": null,
+    "endpoint": "TX_RESP_SENS",
+    "descriptor": "결과기술",
+    "q": {
+     "raw": "자료없음"
+    },
+    "species": null,
+    "sex": null,
+    "duration_value": null,
+    "duration_unit": null,
+    "physical_form": null,
+    "exposure_type": null,
+    "converted": null,
+    "read_across_cas": null,
+    "guideline": null,
+    "data_source": null,
+    "classification": null,
+    "statements": [],
+    "status": "자료없음",
+    "line": "p6:L25"
+   },
+   {
+    "comp_name": null,
+    "comp_cas": null,
+    "endpoint": "TX_STOT_SE",
+    "descriptor": "결과기술",
+    "q": null,
+    "species": null,
+    "sex": null,
+    "duration_value": null,
+    "duration_unit": null,
+    "physical_form": null,
+    "exposure_type": null,
+    "converted": null,
+    "read_across_cas": null,
+    "guideline": null,
+    "data_source": null,
+    "classification": null,
+    "statements": [
+     {
+      "value": "사람에서 증기 또는 분진에 의한 호흡기 자극성이 보고됨.",
+      "line": "p6:L38"
+     }
+    ],
+    "status": "값있음",
+    "line": "p6:L38"
+   },
+   {
+    "comp_name": null,
+    "comp_cas": null,
+    "endpoint": "TX_STOT_RE",
+    "descriptor": "결과기술",
+    "q": null,
+    "species": null,
+    "sex": null,
+    "duration_value": null,
+    "duration_unit": null,
+    "physical_form": null,
+    "exposure_type": null,
+    "converted": null,
+    "read_across_cas": null,
+    "guideline": null,
+    "data_source": null,
+    "classification": null,
+    "statements": [
+     {
+      "value": "실험동물에서 신경계 기능 억제, 약한 빈혈, 망상적혈구 증가, 간장 기능 항진, 호흡기계의 만성 염증, 비염, 기관지염, 폐의 염증 및 기종, 간장 및 신장의 변성이 보고됨.",
+      "line": "p7:L2"
+     }
+    ],
+    "status": "값있음",
+    "line": "p7:L2"
+   },
+   {
+    "comp_name": null,
+    "comp_cas": null,
+    "endpoint": "TX_ASP",
+    "descriptor": "결과기술",
+    "q": {
+     "raw": "자료없음"
+    },
+    "species": null,
+    "sex": null,
+    "duration_value": null,
+    "duration_unit": null,
+    "physical_form": null,
+    "exposure_type": null,
+    "converted": null,
+    "read_across_cas": null,
+    "guideline": null,
+    "data_source": null,
+    "classification": null,
+    "statements": [],
+    "status": "자료없음",
+    "line": "p7:L5"
+   }
+  ],
+  "cmr": [
+   {
+    "comp_name": null,
+    "comp_cas": null,
+    "hazard": "생식세포변이원성",
+    "agency": null,
+    "class": "대사활성계 유무에 상관없이 음성 Salmonella typhimurium",
+    "status": "값있음",
+    "note": null,
+    "line": "p6:L33"
+   },
+   {
+    "comp_name": null,
+    "comp_cas": null,
+    "hazard": "생식독성",
+    "agency": null,
+    "class": "NOAEL(생식(본 투여농도에서 영향없음) 1000 1세대 생식연구에서 성욕, 임신, 한배새끼수 또는 어린새끼 의 생존능력에 있어서 악영향을 나타내지 않음 ppm 랫드",
+    "status": "값있음",
+    "note": null,
+    "line": "p6:L35"
+   }
+  ],
+  "narratives": [
+   {
+    "item_code": "S11_ROUTE",
+    "title_raw": "가. 가능성이 높은 노출 경로에 관한 정보",
+    "start": "p5:L37",
+    "end": "p6:L7"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S11_ROUTE",
+    "title_raw": "나. 건강 유해성 정보",
+    "reason": "코드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [],
+    "suggested_code": "11항 서술",
+    "line": "p6:L8"
+   },
+   {
+    "after_item": "TX_ORAL",
+    "title_raw": "급성독성(경구)",
+    "reason": "코드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [],
+    "suggested_code": "11항 서술",
+    "line": "p6:L10"
+   },
+   {
+    "after_item": "TX_DERMAL",
+    "title_raw": "급성독성(경피)",
+    "reason": "코드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [],
+    "suggested_code": "11항 서술",
+    "line": "p6:L12"
+   },
+   {
+    "after_item": "TX_INHAL",
+    "title_raw": "급성독성(흡입:가스)",
+    "reason": "코드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [],
+    "suggested_code": "11항 서술",
+    "line": "p6:L14"
+   },
+   {
+    "after_item": "TX_INHAL",
+    "title_raw": "급성독성(흡입:증기)",
+    "reason": "코드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [],
+    "suggested_code": "11항 서술",
+    "line": "p6:L16"
+   },
+   {
+    "after_item": "TX_INHAL",
+    "title_raw": "급성독성(흡입:분진/미스트)",
+    "reason": "코드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [],
+    "suggested_code": "11항 서술",
+    "line": "p6:L18"
+   },
+   {
+    "after_item": "TX_SKIN",
+    "title_raw": "피부 부식성 또는 자극성",
+    "reason": "코드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [],
+    "suggested_code": "11항 서술",
+    "line": "p6:L20"
+   },
+   {
+    "after_item": "TX_EYE",
+    "title_raw": "심한 눈 손상 또는 자극성",
+    "reason": "코드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [],
+    "suggested_code": "11항 서술",
+    "line": "p6:L22"
+   },
+   {
+    "after_item": "TX_RESP_SENS",
+    "title_raw": "호흡기 과민성",
+    "reason": "코드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [],
+    "suggested_code": "11항 서술",
+    "line": "p6:L24"
+   },
+   {
+    "after_item": "TX_SKIN_SENS",
+    "title_raw": "피부 과민성",
+    "reason": "코드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [],
+    "suggested_code": "11항 서술",
+    "line": "p6:L26"
+   },
+   {
+    "after_item": "TX_CARC",
+    "title_raw": "발암성",
+    "reason": "코드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [],
+    "suggested_code": "11항 서술",
+    "line": "p6:L28"
+   },
+   {
+    "after_item": "TX_MUTA",
+    "title_raw": "생식세포 변이원성",
+    "reason": "코드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [],
+    "suggested_code": "11항 서술",
+    "line": "p6:L32"
+   },
+   {
+    "after_item": "TX_REPRO",
+    "title_raw": "생식독성",
+    "reason": "코드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [],
+    "suggested_code": "11항 서술",
+    "line": "p6:L34"
+   },
+   {
+    "after_item": "TX_STOT_SE",
+    "title_raw": "특정표적장기·전신 독성(1회 노출)",
+    "reason": "코드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [],
+    "suggested_code": "11항 서술",
+    "line": "p6:L37"
+   },
+   {
+    "after_item": "TX_STOT_RE",
+    "title_raw": "특정표적장기·전신 독성(반복 노출)",
+    "reason": "코드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [],
+    "suggested_code": "11항 서술",
+    "line": "p7:L1"
+   },
+   {
+    "after_item": "TX_ASP",
+    "title_raw": "흡인유해성",
+    "reason": "코드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [],
+    "suggested_code": "11항 서술",
+    "line": "p7:L4"
+   }
+  ]
+ },
+ "raw_text": "### toxicity\ncomp_name | comp_cas | endpoint | descriptor | q | species | sex | duration_value | duration_unit | physical_form | exposure_type | converted | read_across_cas | guideline | data_source | classification | statements | status | line\n |  | TX_ORAL | LD50 | > 10000 mg/kg bw |  |  |  |  |  |  |  |  |  |  |  |  | 값있음 | p6:L11\n |  | TX_DERMAL | LD50 | > 5000 mg/kg bw |  |  |  |  |  |  |  |  |  |  |  |  | 값있음 | p6:L13\n |  | TX_INHAL | LC50 | > 6 mg/l |  |  |  |  |  | 분진/미스트 |  |  |  |  |  |  | 값있음 | p6:L19\n |  | TX_SKIN |  |  |  | 토끼 |  |  |  |  |  |  |  |  |  | 비자극성 | 값있음 | p6:L21\n |  | TX_EYE |  |  |  | 토끼 |  |  |  |  |  |  |  |  |  | 비자극성 | 값있음 | p6:L23\n |  | TX_RESP_SENS |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 자료없음 | p6:L25\n |  | TX_SKIN_SENS |  |  |  | 기니피그 |  |  |  |  |  |  |  |  |  | 비과민성 | 값있음 | p6:L27\n |  | TX_STOT_SE |  |  |  |  |  |  |  |  |  |  |  |  |  | 사람에서 증기 또는 분진에 의한 호흡기 자극성이 보고됨. | 값있음 | p6:L38\n |  | TX_STOT_RE |  |  |  |  |  |  |  |  |  |  |  |  |  | 실험동물에서 신경계 기능 억제, 약한 빈혈, 망상적혈구 증가, 간장 기능 항진, 호흡기계의 만성 염증, 비염, 기관지염, 폐의 염증 및 기종, 간장 및 신장의 변성이 보고됨. | 값있음 | p7:L2\n |  | TX_ASP |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 자료없음 | p7:L5\n\n### cmr\ncomp_name | comp_cas | hazard | agency | class | status | note | line\n |  | 발암성 | ECHA | 발암성에 대한 분명한 증거없음 | 값있음 |  | p6:L29\n |  | 발암성 | SIDS | Group 2년간의 식이연구에서 암수컷 랫드에서 발암영향이 없는 것으로 보이나, 수컷 마우스에게서는 모호한 증거를 보임 | 값있음 |  | p6:L30\n |  | 생식세포 변이원성 |  |  | 대사활성계 유무에 상관없이 음성 Salmonella typhimurium | 값있음 |  | p6:L33\n |  | 생식독성 |  |  | NOAEL(생식(본 투여농도에서 영향없음) 1000 1세대 생식연구에서 성욕, 임신, 한배새끼수 또는 어린새끼 의 생존능력에 있어서 악영향을 나타내지 않음 ppm 랫드 | 값있음 |  | p6:L35\n\n### narratives\nitem_code | title_raw | start | end\nS11_ROUTE | 가. 가능성이 높은 노출 경로에 관한 정보 | p5:L37 | p6:L7\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\nS11_ROUTE | 나. 건강 유해성 정보 | 코드없음 |  |  |  |  | 11항 서술 | p6:L8\nTX_ORAL | 급성독성(경구) | 코드없음 |  |  |  |  | 11항 서술 | p6:L10\nTX_DERMAL | 급성독성(경피) | 코드없음 |  |  |  |  | 11항 서술 | p6:L12\nTX_INHAL | 급성독성(흡입:가스) | 코드없음 |  |  |  |  | 11항 서술 | p6:L14\nTX_INHAL | 급성독성(흡입:증기) | 코드없음 |  |  |  |  | 11항 서술 | p6:L16\nTX_INHAL | 급성독성(흡입:분진/미스트) | 코드없음 |  |  |  |  | 11항 서술 | p6:L18\nTX_SKIN | 피부 부식성 또는 자극성 | 코드없음 |  |  |  |  | 11항 서술 | p6:L20\nTX_EYE | 심한 눈 손상 또는 자극성 | 코드없음 |  |  |  |  | 11항 서술 | p6:L22\nTX_RESP_SENS | 호흡기 과민성 | 코드없음 |  |  |  |  | 11항 서술 | p6:L24\nTX_SKIN_SENS | 피부 과민성 | 코드없음 |  |  |  |  | 11항 서술 | p6:L26\nTX_CARC | 발암성 | 코드없음 |  |  |  |  | 11항 서술 | p6:L28\nTX_MUTA | 생식세포 변이원성 | 코드없음 |  |  |  |  | 11항 서술 | p6:L32\nTX_REPRO | 생식독성 | 코드없음 |  |  |  |  | 11항 서술 | p6:L34\nTX_STOT_SE | 특정표적장기·전신 독성(1회 노출) | 코드없음 |  |  |  |  | 11항 서술 | p6:L37\nTX_STOT_RE | 특정표적장기·전신 독성(반복 노출) | 코드없음 |  |  |  |  | 11항 서술 | p7:L1\nTX_ASP | 흡인유해성 | 코드없음 |  |  |  |  | 11항 서술 | p7:L4",
+ "mode": "rows",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 4958,
+  "completion_tokens": 1546,
+  "total_tokens": 6504
+ },
+ "attempts": 1,
+ "errors": [
+  "toxicity p6:L21 |  | TX_SKIN |  |  |  | 토끼 |  |  |  |  |…: .sex: '토끼' is not valid under any of the given schemas",
+  "toxicity p6:L23 |  | TX_EYE |  |  |  | 토끼 |  |  |  |  | …: .sex: '토끼' is not valid under any of the given schemas",
+  "toxicity p6:L27 |  | TX_SKIN_SENS |  |  |  | 기니피그 |  |  …: .sex: '기니피그' is not valid under any of the given schemas",
+  "cmr p6:L29 |  | 발암성 | ECHA | 발암성에 대한 분명한 증거없음 | 값있음…: .agency: 'ECHA' is not valid under any of the given schemas",
+  "cmr p6:L30 |  | 발암성 | SIDS | Group 2년간의 식이연구에서 암수컷 …: .agency: 'SIDS' is not valid under any of the given schemas"
+ ],
+ "requests": [
+  {
+   "mode": "rows",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 4958,
+    "completion_tokens": 1546,
+    "total_tokens": 6504
+   },
+   "seconds": 21.207,
+   "chars": 2791,
+   "whitespace": 917,
+   "head": "### toxicity\ncomp_name | comp_cas | endpoint | descriptor | q | species | sex | duration_value | duration_unit | physical_form | exposure_type | converted | read_across_cas | guideline | data_source | classification | statements | status | line\n |  | TX_ORAL | LD50 | > 10000 mg/kg bw |  |  |  |  |  |  |  |  |  |  |  |  | 값있음 | p6:L11\n |  | TX_DERMAL | LD50 | > 5000 mg/kg bw |  |  |  |  |  |  |  |  |  |  |  |  | 값있음 | p6:L13\n |  | TX_INHAL | LC50 | > 6 mg/l |  |  |  |  |  | 분진/미스트 |  |  |  |  |  ",
+   "tail": " |  |  |  |  | 11항 서술 | p6:L22\nTX_RESP_SENS | 호흡기 과민성 | 코드없음 |  |  |  |  | 11항 서술 | p6:L24\nTX_SKIN_SENS | 피부 과민성 | 코드없음 |  |  |  |  | 11항 서술 | p6:L26\nTX_CARC | 발암성 | 코드없음 |  |  |  |  | 11항 서술 | p6:L28\nTX_MUTA | 생식세포 변이원성 | 코드없음 |  |  |  |  | 11항 서술 | p6:L32\nTX_REPRO | 생식독성 | 코드없음 |  |  |  |  | 11항 서술 | p6:L34\nTX_STOT_SE | 특정표적장기·전신 독성(1회 노출) | 코드없음 |  |  |  |  | 11항 서술 | p6:L37\nTX_STOT_RE | 특정표적장기·전신 독성(반복 노출) | 코드없음 |  |  |  |  | 11항 서술 | p7:L1\nTX_ASP | 흡인유해성 | 코드없음 |  |  |  |  | 11항 서술 | p7:L4"
+  }
+ ],
+ "seconds": 21.215,
+ "check_problems": [],
+ "reextract_attempt": {
+  "ok": true,
+  "parsed": {
+   "toxicity": [
+    {
+     "comp_name": null,
+     "comp_cas": null,
+     "endpoint": "TX_ORAL",
+     "descriptor": "LD50",
+     "q": {
+      "raw": "> 10000 mg/kg bw",
+      "lower_op": ">",
+      "lower": 10000,
+      "unit": "mg/kg bw"
+     },
+     "species": null,
+     "sex": null,
+     "duration_value": null,
+     "duration_unit": null,
+     "physical_form": null,
+     "exposure_type": null,
+     "converted": null,
+     "read_across_cas": null,
+     "guideline": null,
+     "data_source": null,
+     "classification": null,
+     "statements": [],
+     "status": "값있음",
+     "line": "p6:L11"
+    },
+    {
+     "comp_name": null,
+     "comp_cas": null,
+     "endpoint": "TX_DERMAL",
+     "descriptor": "LD50",
+     "q": {
+      "raw": "> 5000 mg/kg bw",
+      "lower_op": ">",
+      "lower": 5000,
+      "unit": "mg/kg bw"
+     },
+     "species": null,
+     "sex": null,
+     "duration_value": null,
+     "duration_unit": null,
+     "physical_form": null,
+     "exposure_type": null,
+     "converted": null,
+     "read_across_cas": null,
+     "guideline": null,
+     "data_source": null,
+     "classification": null,
+     "statements": [],
+     "status": "값있음",
+     "line": "p6:L13"
+    },
+    {
+     "comp_name": null,
+     "comp_cas": null,
+     "endpoint": "TX_INHAL",
+     "descriptor": "LC50",
+     "q": {
+      "raw": "> 6 mg/l",
+      "lower_op": ">",
+      "lower": 6,
+      "unit": "mg/l"
+     },
+     "species": null,
+     "sex": null,
+     "duration_value": null,
+     "duration_unit": null,
+     "physical_form": null,
+     "exposure_type": "분진/미스트",
+     "converted": null,
+     "read_across_cas": null,
+     "guideline": null,
+     "data_source": null,
+     "classification": null,
+     "statements": [],
+     "status": "값있음",
+     "line": "p6:L19"
+    },
+    {
+     "comp_name": null,
+     "comp_cas": null,
+     "endpoint": "TX_RESP_SENS",
+     "descriptor": "결과기술",
+     "q": {
+      "raw": "자료없음"
+     },
+     "species": null,
+     "sex": null,
+     "duration_value": null,
+     "duration_unit": null,
+     "physical_form": null,
+     "exposure_type": null,
+     "converted": null,
+     "read_across_cas": null,
+     "guideline": null,
+     "data_source": null,
+     "classification": null,
+     "statements": [],
+     "status": "자료없음",
+     "line": "p6:L25"
+    },
+    {
+     "comp_name": null,
+     "comp_cas": null,
+     "endpoint": "TX_STOT_SE",
+     "descriptor": "결과기술",
+     "q": null,
+     "species": null,
+     "sex": null,
+     "duration_value": null,
+     "duration_unit": null,
+     "physical_form": null,
+     "exposure_type": null,
+     "converted": null,
+     "read_across_cas": null,
+     "guideline": null,
+     "data_source": null,
+     "classification": null,
+     "statements": [
+      {
+       "value": "사람에서 증기 또는 분진에 의한 호흡기 자극성이 보고됨.",
+       "line": "p6:L38"
+      }
+     ],
+     "status": "값있음",
+     "line": "p6:L38"
+    },
+    {
+     "comp_name": null,
+     "comp_cas": null,
+     "endpoint": "TX_STOT_RE",
+     "descriptor": "결과기술",
+     "q": null,
+     "species": null,
+     "sex": null,
+     "duration_value": null,
+     "duration_unit": null,
+     "physical_form": null,
+     "exposure_type": null,
+     "converted": null,
+     "read_across_cas": null,
+     "guideline": null,
+     "data_source": null,
+     "classification": null,
+     "statements": [
+      {
+       "value": "실험동물에서 신경계 기능 억제, 약한 빈혈, 망상적혈구 증가, 간장 기능 항진, 호흡기계의 만성 염증, 비염, 기관지염, 폐의 염증 및 기종, 간장 및 신장의 변성이 보고됨.",
+       "line": "p7:L2"
+      }
+     ],
+     "status": "값있음",
+     "line": "p7:L2"
+    },
+    {
+     "comp_name": null,
+     "comp_cas": null,
+     "endpoint": "TX_ASP",
+     "descriptor": "결과기술",
+     "q": {
+      "raw": "자료없음"
+     },
+     "species": null,
+     "sex": null,
+     "duration_value": null,
+     "duration_unit": null,
+     "physical_form": null,
+     "exposure_type": null,
+     "converted": null,
+     "read_across_cas": null,
+     "guideline": null,
+     "data_source": null,
+     "classification": null,
+     "statements": [],
+     "status": "자료없음",
+     "line": "p7:L5"
+    }
+   ],
+   "cmr": [
+    {
+     "comp_name": null,
+     "comp_cas": null,
+     "hazard": "생식세포변이원성",
+     "agency": null,
+     "class": "대사활성계 유무에 상관없이 음성 Salmonella typhimurium",
+     "status": "값있음",
+     "note": null,
+     "line": "p6:L33"
+    },
+    {
+     "comp_name": null,
+     "comp_cas": null,
+     "hazard": "생식독성",
+     "agency": null,
+     "class": "NOAEL(생식(본 투여농도에서 영향없음) 1000 1세대 생식연구에서 성욕, 임신, 한배새끼수 또는 어린새끼의 생존능력에 있어서 악영향을 나타내지 않음 ppm 랫드",
+     "status": "값있음",
+     "note": null,
+     "line": "p6:L35"
+    }
+   ],
+   "narratives": [
+    {
+     "item_code": "S11_ROUTE",
+     "title_raw": "가. 가능성이 높은 노출 경로에 관한 정보",
+     "start": "p5:L37",
+     "end": "p6:L7"
+    }
+   ],
+   "extras": [
+    {
+     "after_item": "S11_ROUTE",
+     "title_raw": "나. 건강 유해성 정보",
+     "reason": "코드없음",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": null,
+     "statements": [],
+     "suggested_code": "11항의 소제목",
+     "line": "p6:L8"
+    },
+    {
+     "after_item": "S11_ROUTE",
+     "title_raw": "○ 급성독성",
+     "reason": "코드없음",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": null,
+     "statements": [],
+     "suggested_code": "11항의 소제목",
+     "line": "p6:L9"
+    },
+    {
+     "after_item": "S11_ROUTE",
+     "title_raw": "● 급성독성(경구)",
+     "reason": "코드없음",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": null,
+     "statements": [],
+     "suggested_code": "11항의 소제목",
+     "line": "p6:L10"
+    },
+    {
+     "after_item": "S11_ROUTE",
+     "title_raw": "● 급성독성(경피)",
+     "reason": "코드없음",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": null,
+     "statements": [],
+     "suggested_code": "11항의 소제목",
+     "line": "p6:L12"
+    },
+    {
+     "after_item": "S11_ROUTE",
+     "title_raw": "● 급성독성(흡입:가스)",
+     "reason": "코드없음",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": null,
+     "statements": [],
+     "suggested_code": "11항의 소제목",
+     "line": "p6:L14"
+    },
+    {
+     "after_item": "S11_ROUTE",
+     "title_raw": "● 급성독성(흡입:증기)",
+     "reason": "코드없음",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": null,
+     "statements": [],
+     "suggested_code": "11항의 소제목",
+     "line": "p6:L16"
+    },
+    {
+     "after_item": "S11_ROUTE",
+     "title_raw": "● 급성독성(흡입:분진/미스트)",
+     "reason": "코드없음",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": null,
+     "statements": [],
+     "suggested_code": "11항의 소제목",
+     "line": "p6:L18"
+    },
+    {
+     "after_item": "S11_ROUTE",
+     "title_raw": "○ 피부 부식성 또는 자극성",
+     "reason": "코드없음",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": null,
+     "statements": [],
+     "suggested_code": "11항의 소제목",
+     "line": "p6:L20"
+    },
+    {
+     "after_item": "S11_ROUTE",
+     "title_raw": "○ 심한 눈 손상 또는 자극성",
+     "reason": "코드없음",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": null,
+     "statements": [],
+     "suggested_code": "11항의 소제목",
+     "line": "p6:L22"
+    },
+    {
+     "after_item": "S11_ROUTE",
+     "title_raw": "○ 호흡기 과민성",
+     "reason": "코드없음",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": null,
+     "statements": [],
+     "suggested_code": "11항의 소제목",
+     "line": "p6:L24"
+    },
+    {
+     "after_item": "S11_ROUTE",
+     "title_raw": "○ 피부 과민성",
+     "reason": "코드없음",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": null,
+     "statements": [],
+     "suggested_code": "11항의 소제목",
+     "line": "p6:L26"
+    },
+    {
+     "after_item": "S11_ROUTE",
+     "title_raw": "○ 발암성",
+     "reason": "코드없음",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": null,
+     "statements": [],
+     "suggested_code": "11항의 소제목",
+     "line": "p6:L28"
+    },
+    {
+     "after_item": "S11_ROUTE",
+     "title_raw": "○ 생식세포 변이원성",
+     "reason": "코드없음",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": null,
+     "statements": [],
+     "suggested_code": "11항의 소제목",
+     "line": "p6:L32"
+    },
+    {
+     "after_item": "S11_ROUTE",
+     "title_raw": "○ 생식독성",
+     "reason": "코드없음",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": null,
+     "statements": [],
+     "suggested_code": "11항의 소제목",
+     "line": "p6:L34"
+    },
+    {
+     "after_item": "S11_ROUTE",
+     "title_raw": "○ 특정표적장기·전신 독성(1회 노출)",
+     "reason": "코드없음",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": null,
+     "statements": [],
+     "suggested_code": "11항의 소제목",
+     "line": "p6:L37"
+    },
+    {
+     "after_item": "S11_ROUTE",
+     "title_raw": "○ 특정표적장기·전신 독성(반복 노출)",
+     "reason": "코드없음",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": null,
+     "statements": [],
+     "suggested_code": "11항의 소제목",
+     "line": "p7:L1"
+    },
+    {
+     "after_item": "S11_ROUTE",
+     "title_raw": "○ 흡인유해성",
+     "reason": "코드없음",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": null,
+     "statements": [],
+     "suggested_code": "11항의 소제목",
+     "line": "p7:L4"
+    }
+   ]
+  },
+  "raw_text": "### toxicity\ncomp_name | comp_cas | endpoint | descriptor | q | species | sex | duration_value | duration_unit | physical_form | exposure_type | converted | read_across_cas | guideline | data_source | classification | statements | status | line\n |  | TX_ORAL | LD50 | > 10000 mg/kg bw |  |  |  |  |  |  |  |  |  |  |  |  | 값있음 | p6:L11\n |  | TX_DERMAL | LD50 | > 5000 mg/kg bw |  |  |  |  |  |  |  |  |  |  |  |  | 값있음 | p6:L13\n |  | TX_INHAL | LC50 | > 6 mg/l |  |  |  |  |  | 분진/미스트 |  |  |  |  |  |  | 값있음 | p6:L19\n |  | TX_SKIN |  |  |  | 토끼 |  |  |  |  |  |  |  |  |  | 비자극성 | 값있음 | p6:L21\n |  | TX_EYE |  |  |  | 토끼 |  |  |  |  |  |  |  |  |  | 비자극성 | 값있음 | p6:L23\n |  | TX_RESP_SENS |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 자료없음 | p6:L25\n |  | TX_SKIN_SENS |  |  |  | 기니피그 |  |  |  |  |  |  |  |  |  | 비과민성 | 값있음 | p6:L27\n |  | TX_STOT_SE |  |  |  |  |  |  |  |  |  |  |  |  |  | 사람에서 증기 또는 분진에 의한 호흡기 자극성이 보고됨. | 값있음 | p6:L38\n |  | TX_STOT_RE |  |  |  |  |  |  |  |  |  |  |  |  |  | 실험동물에서 신경계 기능 억제, 약한 빈혈, 망상적혈구 증가, 간장 기능 항진, 호흡기계의 만성 염증, 비염, 기관지염, 폐의 염증 및 기종, 간장 및 신장의 변성이 보고됨. | 값있음 | p7:L2\n |  | TX_ASP |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 자료없음 | p7:L5\n\n### cmr\ncomp_name | comp_cas | hazard | agency | class | status | note | line\n |  | 발암성 | ECHA | 발암성에 대한 분명한 증거없음 | 값있음 |  | p6:L29\n |  | 발암성 | SIDS | Group 2년간의 식이연구에서 암수컷 랫드에서 발암영향이 없는 것으로 보이나, 수컷 마우스에게서는 모호한 증거를 보임 | 값있음 |  | p6:L30\n |  | 생식세포 변이원성 |  |  | 대사활성계 유무에 상관없이 음성 Salmonella typhimurium | 값있음 |  | p6:L33\n |  | 생식독성 |  |  | NOAEL(생식(본 투여농도에서 영향없음) 1000 1세대 생식연구에서 성욕, 임신, 한배새끼수 또는 어린새끼의 생존능력에 있어서 악영향을 나타내지 않음 ppm 랫드 | 값있음 |  | p6:L35\n\n### narratives\nitem_code | title_raw | start | end\nS11_ROUTE | 가. 가능성이 높은 노출 경로에 관한 정보 | p5:L37 | p6:L7\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\nS11_ROUTE | 나. 건강 유해성 정보 | 코드없음 |  |  |  |  | 11항의 소제목 | p6:L8\nS11_ROUTE | ○ 급성독성 | 코드없음 |  |  |  |  | 11항의 소제목 | p6:L9\nS11_ROUTE | ● 급성독성(경구) | 코드없음 |  |  |  |  | 11항의 소제목 | p6:L10\nS11_ROUTE | ● 급성독성(경피) | 코드없음 |  |  |  |  | 11항의 소제목 | p6:L12\nS11_ROUTE | ● 급성독성(흡입:가스) | 코드없음 |  |  |  |  | 11항의 소제목 | p6:L14\nS11_ROUTE | ● 급성독성(흡입:증기) | 코드없음 |  |  |  |  | 11항의 소제목 | p6:L16\nS11_ROUTE | ● 급성독성(흡입:분진/미스트) | 코드없음 |  |  |  |  | 11항의 소제목 | p6:L18\nS11_ROUTE | ○ 피부 부식성 또는 자극성 | 코드없음 |  |  |  |  | 11항의 소제목 | p6:L20\nS11_ROUTE | ○ 심한 눈 손상 또는 자극성 | 코드없음 |  |  |  |  | 11항의 소제목 | p6:L22\nS11_ROUTE | ○ 호흡기 과민성 | 코드없음 |  |  |  |  | 11항의 소제목 | p6:L24\nS11_ROUTE | ○ 피부 과민성 | 코드없음 |  |  |  |  | 11항의 소제목 | p6:L26\nS11_ROUTE | ○ 발암성 | 코드없음 |  |  |  |  | 11항의 소제목 | p6:L28\nS11_ROUTE | ○ 생식세포 변이원성 | 코드없음 |  |  |  |  | 11항의 소제목 | p6:L32\nS11_ROUTE | ○ 생식독성 | 코드없음 |  |  |  |  | 11항의 소제목 | p6:L34\nS11_ROUTE | ○ 특정표적장기·전신 독성(1회 노출) | 코드없음 |  |  |  |  | 11항의 소제목 | p6:L37\nS11_ROUTE | ○ 특정표적장기·전신 독성(반복 노출) | 코드없음 |  |  |  |  | 11항의 소제목 | p7:L1\nS11_ROUTE | ○ 흡인유해성 | 코드없음 |  |  |  |  | 11항의 소제목 | p7:L4",
+  "mode": "rows",
+  "finish_reason": "stop",
+  "usage": {
+   "prompt_tokens": 5214,
+   "completion_tokens": 1624,
+   "total_tokens": 6838
+  },
+  "attempts": 1,
+  "errors": [
+   "toxicity p6:L21 |  | TX_SKIN |  |  |  | 토끼 |  |  |  |  |…: .sex: '토끼' is not valid under any of the given schemas",
+   "toxicity p6:L23 |  | TX_EYE |  |  |  | 토끼 |  |  |  |  | …: .sex: '토끼' is not valid under any of the given schemas",
+   "toxicity p6:L27 |  | TX_SKIN_SENS |  |  |  | 기니피그 |  |  …: .sex: '기니피그' is not valid under any of the given schemas",
+   "cmr p6:L29 |  | 발암성 | ECHA | 발암성에 대한 분명한 증거없음 | 값있음…: .agency: 'ECHA' is not valid under any of the given schemas",
+   "cmr p6:L30 |  | 발암성 | SIDS | Group 2년간의 식이연구에서 암수컷 …: .agency: 'SIDS' is not valid under any of the given schemas"
+  ],
+  "requests": [
+   {
+    "mode": "rows",
+    "finish_reason": "stop",
+    "usage": {
+     "prompt_tokens": 5214,
+     "completion_tokens": 1624,
+     "total_tokens": 6838
+    },
+    "seconds": 11.968,
+    "chars": 2919,
+    "whitespace": 950,
+    "head": "### toxicity\ncomp_name | comp_cas | endpoint | descriptor | q | species | sex | duration_value | duration_unit | physical_form | exposure_type | converted | read_across_cas | guideline | data_source | classification | statements | status | line\n |  | TX_ORAL | LD50 | > 10000 mg/kg bw |  |  |  |  |  |  |  |  |  |  |  |  | 값있음 | p6:L11\n |  | TX_DERMAL | LD50 | > 5000 mg/kg bw |  |  |  |  |  |  |  |  |  |  |  |  | 값있음 | p6:L13\n |  | TX_INHAL | LC50 | > 6 mg/l |  |  |  |  |  | 분진/미스트 |  |  |  |  |  ",
+    "tail": "11_ROUTE | ○ 호흡기 과민성 | 코드없음 |  |  |  |  | 11항의 소제목 | p6:L24\nS11_ROUTE | ○ 피부 과민성 | 코드없음 |  |  |  |  | 11항의 소제목 | p6:L26\nS11_ROUTE | ○ 발암성 | 코드없음 |  |  |  |  | 11항의 소제목 | p6:L28\nS11_ROUTE | ○ 생식세포 변이원성 | 코드없음 |  |  |  |  | 11항의 소제목 | p6:L32\nS11_ROUTE | ○ 생식독성 | 코드없음 |  |  |  |  | 11항의 소제목 | p6:L34\nS11_ROUTE | ○ 특정표적장기·전신 독성(1회 노출) | 코드없음 |  |  |  |  | 11항의 소제목 | p6:L37\nS11_ROUTE | ○ 특정표적장기·전신 독성(반복 노출) | 코드없음 |  |  |  |  | 11항의 소제목 | p7:L1\nS11_ROUTE | ○ 흡인유해성 | 코드없음 |  |  |  |  | 11항의 소제목 | p7:L4"
+   }
+  ],
+  "seconds": 11.98,
+  "check_problems": []
+ }
+}

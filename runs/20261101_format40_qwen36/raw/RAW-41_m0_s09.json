@@ -1,0 +1,628 @@
+{
+ "doc_id": "RAW-41",
+ "msds_index": 0,
+ "section": 9,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "physchem": [
+   {
+    "prop_code": "ODOR",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "text_value": "약한 아민냄새가 날 수 있음",
+    "cond": null,
+    "data_source": null,
+    "line": "p3:L27"
+   },
+   {
+    "prop_code": "PH",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": {
+     "raw": "4.0 ~ 8.0",
+     "lower_op": ">=",
+     "lower": 4.0,
+     "upper_op": "<=",
+     "upper": 8.0
+    },
+    "text_value": null,
+    "cond": null,
+    "data_source": null,
+    "line": "p3:L29"
+   },
+   {
+    "prop_code": "BOILING",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": {
+     "raw": "> 100℃",
+     "lower_op": ">",
+     "lower": 100,
+     "unit": "C"
+    },
+    "text_value": null,
+    "cond": null,
+    "data_source": null,
+    "line": "p3:L31"
+   },
+   {
+    "prop_code": "SOLUBILITY",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "text_value": "100% 가용성",
+    "cond": null,
+    "data_source": null,
+    "line": "p3:L37"
+   },
+   {
+    "prop_code": "RELATIVE_DENSITY",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": {
+     "raw": "1.10 ~ 1.16",
+     "lower_op": ">=",
+     "lower": 1.1,
+     "upper_op": "<=",
+     "upper": 1.16
+    },
+    "text_value": null,
+    "cond": null,
+    "data_source": null,
+    "line": "p3:L39"
+   },
+   {
+    "prop_code": "APPEARANCE_STATE",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "text_value": "투명한 점성이 있는 액체",
+    "cond": null,
+    "data_source": null,
+    "line": "p3:L25"
+   },
+   {
+    "prop_code": "APPEARANCE_COLOR",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "text_value": "무색 또는 황색",
+    "cond": null,
+    "data_source": null,
+    "line": "p3:L26"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "ODOR",
+    "title_raw": "나. 냄새역치",
+    "reason": "필드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [
+     {
+      "value": "자료없음",
+      "line": "p3:L28"
+     }
+    ],
+    "suggested_code": "ODOR_THRESHOLD",
+    "line": "p3:L28"
+   },
+   {
+    "after_item": "RELATIVE_DENSITY",
+    "title_raw": "마. 녹는점/어는점",
+    "reason": "필드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [
+     {
+      "value": "자료 없음",
+      "line": "p3:L30"
+     }
+    ],
+    "suggested_code": "MELT_FREEZE",
+    "line": "p3:L30"
+   },
+   {
+    "after_item": "BOILING",
+    "title_raw": "사. 인화점",
+    "reason": "필드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [
+     {
+      "value": "자료 없음",
+      "line": "p3:L32"
+     }
+    ],
+    "suggested_code": "FLASH_POINT",
+    "line": "p3:L32"
+   },
+   {
+    "after_item": "BOILING",
+    "title_raw": "아. 증발 속도",
+    "reason": "필드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [
+     {
+      "value": "자료 없음",
+      "line": "p3:L33"
+     }
+    ],
+    "suggested_code": "EVAP_RATE",
+    "line": "p3:L33"
+   },
+   {
+    "after_item": "BOILING",
+    "title_raw": "자. 인화성 (고체, 기체)",
+    "reason": "필드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [
+     {
+      "value": "자료 없음",
+      "line": "p3:L34"
+     }
+    ],
+    "suggested_code": "FLAMMABILITY",
+    "line": "p3:L34"
+   },
+   {
+    "after_item": "BOILING",
+    "title_raw": "차. 인화 또는 폭발 범위의 상한/하한",
+    "reason": "필드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [
+     {
+      "value": "자료 없음",
+      "line": "p3:L35"
+     }
+    ],
+    "suggested_code": "UEL+LEL",
+    "line": "p3:L35"
+   },
+   {
+    "after_item": "BOILING",
+    "title_raw": "카. 증기압",
+    "reason": "필드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [
+     {
+      "value": "자료 없음",
+      "line": "p3:L36"
+     }
+    ],
+    "suggested_code": "VAPOR_PRESSURE",
+    "line": "p3:L36"
+   },
+   {
+    "after_item": "RELATIVE_DENSITY",
+    "title_raw": "파. 증기밀도",
+    "reason": "필드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [
+     {
+      "value": "자료 없음",
+      "line": "p3:L38"
+     }
+    ],
+    "suggested_code": "VAPOR_DENSITY",
+    "line": "p3:L38"
+   },
+   {
+    "after_item": "RELATIVE_DENSITY",
+    "title_raw": "거. N-옥탄올/물 분배계수",
+    "reason": "필드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [
+     {
+      "value": "자료 없음",
+      "line": "p3:L40"
+     }
+    ],
+    "suggested_code": "LOG_KOW",
+    "line": "p3:L40"
+   },
+   {
+    "after_item": "RELATIVE_DENSITY",
+    "title_raw": "너. 자연발화온도",
+    "reason": "필드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [
+     {
+      "value": "자료 없음",
+      "line": "p3:L41"
+     }
+    ],
+    "suggested_code": "AUTOIGNITION",
+    "line": "p3:L41"
+   },
+   {
+    "after_item": "RELATIVE_DENSITY",
+    "title_raw": "더. 분해온도",
+    "reason": "필드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [
+     {
+      "value": "자료 없음",
+      "line": "p3:L42"
+     }
+    ],
+    "suggested_code": "DECOMPOSITION",
+    "line": "p3:L42"
+   },
+   {
+    "after_item": "RELATIVE_DENSITY",
+    "title_raw": "러. 점도",
+    "reason": "필드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [
+     {
+      "value": "COA 참조",
+      "line": "p3:L43"
+     }
+    ],
+    "suggested_code": "VISCOSITY",
+    "line": "p3:L43"
+   },
+   {
+    "after_item": "RELATIVE_DENSITY",
+    "title_raw": "머. 분자량",
+    "reason": "필드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [
+     {
+      "value": "자료 없음",
+      "line": "p3:L44"
+     }
+    ],
+    "suggested_code": "MOL_WEIGHT",
+    "line": "p3:L44"
+   }
+  ]
+ },
+ "raw_text": "### physchem\nprop_code | comp_name | comp_cas | q | text_value | cond | data_source | line\nODOR |  |  |  | 약한 아민냄새가 날 수 있음 |  |  | p3:L27\nPH |  |  | 4.0 ~ 8.0 |  |  |  | p3:L29\nBOILING |  |  | > 100℃ |  |  |  | p3:L31\nSOLUBILITY |  |  |  | 100% 가용성 |  |  | p3:L37\nRELATIVE_DENSITY |  |  | 1.10 ~ 1.16 |  |  |  | p3:L39\nAPPEARANCE_STATE |  |  |  | 투명한 점성이 있는 액체 |  |  | p3:L25\nAPPEARANCE_COLOR |  |  |  | 무색 또는 황색 |  |  | p3:L26\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\n9항_END | 가. 외관 | 코드없음 |  |  |  | 성상 | 투명한 점성이 있는 액체; 색 | 무색 또는 황색 | APPEARANCE_STATE, APPEARANCE_COLOR | p3:L24\nODOR | 나. 냄새역치 | 필드없음 |  |  |  | 자료없음 | ODOR_THRESHOLD | p3:L28\nRELATIVE_DENSITY | 마. 녹는점/어는점 | 필드없음 |  |  |  | 자료 없음 | MELT_FREEZE | p3:L30\nBOILING | 사. 인화점 | 필드없음 |  |  |  | 자료 없음 | FLASH_POINT | p3:L32\nBOILING | 아. 증발 속도 | 필드없음 |  |  |  | 자료 없음 | EVAP_RATE | p3:L33\nBOILING | 자. 인화성 (고체, 기체) | 필드없음 |  |  |  | 자료 없음 | FLAMMABILITY | p3:L34\nBOILING | 차. 인화 또는 폭발 범위의 상한/하한 | 필드없음 |  |  |  | 자료 없음 | UEL+LEL | p3:L35\nBOILING | 카. 증기압 | 필드없음 |  |  |  | 자료 없음 | VAPOR_PRESSURE | p3:L36\nRELATIVE_DENSITY | 파. 증기밀도 | 필드없음 |  |  |  | 자료 없음 | VAPOR_DENSITY | p3:L38\nRELATIVE_DENSITY | 거. N-옥탄올/물 분배계수 | 필드없음 |  |  |  | 자료 없음 | LOG_KOW | p3:L40\nRELATIVE_DENSITY | 너. 자연발화온도 | 필드없음 |  |  |  | 자료 없음 | AUTOIGNITION | p3:L41\nRELATIVE_DENSITY | 더. 분해온도 | 필드없음 |  |  |  | 자료 없음 | DECOMPOSITION | p3:L42\nRELATIVE_DENSITY | 러. 점도 | 필드없음 |  |  |  | COA 참조 | VISCOSITY | p3:L43\nRELATIVE_DENSITY | 머. 분자량 | 필드없음 |  |  |  | 자료 없음 | MOL_WEIGHT | p3:L44",
+ "mode": "rows",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 4093,
+  "completion_tokens": 792,
+  "total_tokens": 4885
+ },
+ "attempts": 1,
+ "errors": [
+  "extras p3:L24 9항_END | 가. 외관 | 코드없음 |  |  |  | 성상 | 투명…: 열 11개, 기대 9개"
+ ],
+ "requests": [
+  {
+   "mode": "rows",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 4093,
+    "completion_tokens": 792,
+    "total_tokens": 4885
+   },
+   "seconds": 12.275,
+   "chars": 1582,
+   "whitespace": 439,
+   "head": "### physchem\nprop_code | comp_name | comp_cas | q | text_value | cond | data_source | line\nODOR |  |  |  | 약한 아민냄새가 날 수 있음 |  |  | p3:L27\nPH |  |  | 4.0 ~ 8.0 |  |  |  | p3:L29\nBOILING |  |  | > 100℃ |  |  |  | p3:L31\nSOLUBILITY |  |  |  | 100% 가용성 |  |  | p3:L37\nRELATIVE_DENSITY |  |  | 1.10 ~ 1.16 |  |  |  | p3:L39\nAPPEARANCE_STATE |  |  |  | 투명한 점성이 있는 액체 |  |  | p3:L25\nAPPEARANCE_COLOR |  |  |  | 무색 또는 황색 |  |  | p3:L26\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q |",
+   "tail": " | 필드없음 |  |  |  | 자료 없음 | VAPOR_PRESSURE | p3:L36\nRELATIVE_DENSITY | 파. 증기밀도 | 필드없음 |  |  |  | 자료 없음 | VAPOR_DENSITY | p3:L38\nRELATIVE_DENSITY | 거. N-옥탄올/물 분배계수 | 필드없음 |  |  |  | 자료 없음 | LOG_KOW | p3:L40\nRELATIVE_DENSITY | 너. 자연발화온도 | 필드없음 |  |  |  | 자료 없음 | AUTOIGNITION | p3:L41\nRELATIVE_DENSITY | 더. 분해온도 | 필드없음 |  |  |  | 자료 없음 | DECOMPOSITION | p3:L42\nRELATIVE_DENSITY | 러. 점도 | 필드없음 |  |  |  | COA 참조 | VISCOSITY | p3:L43\nRELATIVE_DENSITY | 머. 분자량 | 필드없음 |  |  |  | 자료 없음 | MOL_WEIGHT | p3:L44"
+  }
+ ],
+ "seconds": 12.279,
+ "check_problems": [],
+ "reextract_attempt": {
+  "ok": true,
+  "parsed": {
+   "physchem": [
+    {
+     "prop_code": "APPEARANCE_STATE",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": null,
+     "text_value": "투명한 점성이 있는 액체",
+     "cond": null,
+     "data_source": null,
+     "line": "p3:L25"
+    },
+    {
+     "prop_code": "APPEARANCE_COLOR",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": null,
+     "text_value": "무색 또는 황색",
+     "cond": null,
+     "data_source": null,
+     "line": "p3:L26"
+    },
+    {
+     "prop_code": "ODOR",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": null,
+     "text_value": "약한 아민냄새가 날 수 있음",
+     "cond": null,
+     "data_source": null,
+     "line": "p3:L27"
+    },
+    {
+     "prop_code": "ODOR_THRESHOLD",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": {
+      "raw": "자료없음"
+     },
+     "text_value": null,
+     "cond": null,
+     "data_source": null,
+     "line": "p3:L28"
+    },
+    {
+     "prop_code": "PH",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": {
+      "raw": "4.0 ~ 8.0",
+      "lower_op": ">=",
+      "lower": 4.0,
+      "upper_op": "<=",
+      "upper": 8.0
+     },
+     "text_value": null,
+     "cond": null,
+     "data_source": null,
+     "line": "p3:L29"
+    },
+    {
+     "prop_code": "MELT_FREEZE",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": {
+      "raw": "자료없음"
+     },
+     "text_value": null,
+     "cond": null,
+     "data_source": null,
+     "line": "p3:L30"
+    },
+    {
+     "prop_code": "BOILING",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": {
+      "raw": "> 100",
+      "lower_op": ">",
+      "lower": 100
+     },
+     "text_value": null,
+     "cond": {
+      "temp": 100,
+      "temp_unit": "C"
+     },
+     "data_source": null,
+     "line": "p3:L31"
+    },
+    {
+     "prop_code": "FLASH_POINT",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": {
+      "raw": "자료없음"
+     },
+     "text_value": null,
+     "cond": null,
+     "data_source": null,
+     "line": "p3:L32"
+    },
+    {
+     "prop_code": "EVAP_RATE",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": {
+      "raw": "자료없음"
+     },
+     "text_value": null,
+     "cond": null,
+     "data_source": null,
+     "line": "p3:L33"
+    },
+    {
+     "prop_code": "FLAMMABILITY",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": {
+      "raw": "자료없음"
+     },
+     "text_value": null,
+     "cond": null,
+     "data_source": null,
+     "line": "p3:L34"
+    },
+    {
+     "prop_code": "VAPOR_PRESSURE",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": {
+      "raw": "자료없음"
+     },
+     "text_value": null,
+     "cond": null,
+     "data_source": null,
+     "line": "p3:L36"
+    },
+    {
+     "prop_code": "SOLUBILITY",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": null,
+     "text_value": "100% 가용성",
+     "cond": null,
+     "data_source": null,
+     "line": "p3:L37"
+    },
+    {
+     "prop_code": "VAPOR_DENSITY",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": {
+      "raw": "자료없음"
+     },
+     "text_value": null,
+     "cond": null,
+     "data_source": null,
+     "line": "p3:L38"
+    },
+    {
+     "prop_code": "RELATIVE_DENSITY",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": {
+      "raw": "1.10 ~ 1.16",
+      "lower_op": ">=",
+      "lower": 1.1,
+      "upper_op": "<=",
+      "upper": 1.16
+     },
+     "text_value": null,
+     "cond": null,
+     "data_source": null,
+     "line": "p3:L39"
+    },
+    {
+     "prop_code": "LOG_KOW",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": {
+      "raw": "자료없음"
+     },
+     "text_value": null,
+     "cond": null,
+     "data_source": null,
+     "line": "p3:L40"
+    },
+    {
+     "prop_code": "AUTOIGNITION",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": {
+      "raw": "자료없음"
+     },
+     "text_value": null,
+     "cond": null,
+     "data_source": null,
+     "line": "p3:L41"
+    },
+    {
+     "prop_code": "DECOMPOSITION",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": {
+      "raw": "자료없음"
+     },
+     "text_value": null,
+     "cond": null,
+     "data_source": null,
+     "line": "p3:L42"
+    },
+    {
+     "prop_code": "VISCOSITY",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": null,
+     "text_value": "COA 참조",
+     "cond": null,
+     "data_source": null,
+     "line": "p3:L43"
+    },
+    {
+     "prop_code": "MOL_WEIGHT",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": {
+      "raw": "자료없음"
+     },
+     "text_value": null,
+     "cond": null,
+     "data_source": null,
+     "line": "p3:L44"
+    }
+   ],
+   "extras": [
+    {
+     "after_item": "9_END",
+     "title_raw": "가. 외관",
+     "reason": "코드없음",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": null,
+     "statements": [
+      {
+       "value": "성상: 투명한 점성이 있는 액체",
+       "line": "p3:L24"
+      },
+      {
+       "value": "색: 무색 또는 황색",
+       "line": "p3:L24"
+      }
+     ],
+     "suggested_code": null,
+     "line": "p3:L24"
+    }
+   ]
+  },
+  "raw_text": "### physchem\nprop_code | comp_name | comp_cas | q | text_value | cond | data_source | line\nAPPEARANCE_STATE |  |  |  | 투명한 점성이 있는 액체 |  |  | p3:L25\nAPPEARANCE_COLOR |  |  |  | 무색 또는 황색 |  |  | p3:L26\nODOR |  |  |  | 약한 아민냄새가 날 수 있음 |  |  | p3:L27\nODOR_THRESHOLD |  |  |  | 자료없음 |  |  | p3:L28\nPH |  |  | 4.0 ~ 8.0 |  |  |  | p3:L29\nMELT_FREEZE |  |  |  | 자료없음 |  |  | p3:L30\nBOILING |  |  | > 100 |  | temp=100; temp_unit=C |  | p3:L31\nFLASH_POINT |  |  |  | 자료없음 |  |  | p3:L32\nEVAP_RATE |  |  |  | 자료없음 |  |  | p3:L33\nFLAMMABILITY |  |  |  | 자료없음 |  |  | p3:L34\nUEL+LEL |  |  |  | 자료없음 |  |  | p3:L35\nVAPOR_PRESSURE |  |  |  | 자료없음 |  |  | p3:L36\nSOLUBILITY |  |  |  | 100% 가용성 |  |  | p3:L37\nVAPOR_DENSITY |  |  |  | 자료없음 |  |  | p3:L38\nRELATIVE_DENSITY |  |  | 1.10 ~ 1.16 |  |  |  | p3:L39\nLOG_KOW |  |  |  | 자료없음 |  |  | p3:L40\nAUTOIGNITION |  |  |  | 자료없음 |  |  | p3:L41\nDECOMPOSITION |  |  |  | 자료없음 |  |  | p3:L42\nVISCOSITY |  |  |  | COA 참조 |  |  | p3:L43\nMOL_WEIGHT |  |  |  | 자료없음 |  |  | p3:L44\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\n9_END | 가. 외관 | 코드없음 |  |  |  | 성상: 투명한 점성이 있는 액체; 색: 무색 또는 황색 |  | p3:L24",
+  "mode": "rows",
+  "finish_reason": "stop",
+  "usage": {
+   "prompt_tokens": 4144,
+   "completion_tokens": 628,
+   "total_tokens": 4772
+  },
+  "attempts": 1,
+  "errors": [
+   "physchem p3:L35 UEL+LEL |  |  |  | 자료없음 |  |  | p3:L35: .prop_code: 'UEL+LEL' is not valid under any of the given schemas"
+  ],
+  "requests": [
+   {
+    "mode": "rows",
+    "finish_reason": "stop",
+    "usage": {
+     "prompt_tokens": 4144,
+     "completion_tokens": 628,
+     "total_tokens": 4772
+    },
+    "seconds": 5.905,
+    "chars": 1190,
+    "whitespace": 379,
+    "head": "### physchem\nprop_code | comp_name | comp_cas | q | text_value | cond | data_source | line\nAPPEARANCE_STATE |  |  |  | 투명한 점성이 있는 액체 |  |  | p3:L25\nAPPEARANCE_COLOR |  |  |  | 무색 또는 황색 |  |  | p3:L26\nODOR |  |  |  | 약한 아민냄새가 날 수 있음 |  |  | p3:L27\nODOR_THRESHOLD |  |  |  | 자료없음 |  |  | p3:L28\nPH |  |  | 4.0 ~ 8.0 |  |  |  | p3:L29\nMELT_FREEZE |  |  |  | 자료없음 |  |  | p3:L30\nBOILING |  |  | > 100 |  | temp=100; temp_unit=C |  | p3:L31\nFLASH_POINT |  |  |  | 자료없음 |  |  | p3:L32\nEVAP_RATE |  |  |  | ",
+    "tail": ":L37\nVAPOR_DENSITY |  |  |  | 자료없음 |  |  | p3:L38\nRELATIVE_DENSITY |  |  | 1.10 ~ 1.16 |  |  |  | p3:L39\nLOG_KOW |  |  |  | 자료없음 |  |  | p3:L40\nAUTOIGNITION |  |  |  | 자료없음 |  |  | p3:L41\nDECOMPOSITION |  |  |  | 자료없음 |  |  | p3:L42\nVISCOSITY |  |  |  | COA 참조 |  |  | p3:L43\nMOL_WEIGHT |  |  |  | 자료없음 |  |  | p3:L44\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\n9_END | 가. 외관 | 코드없음 |  |  |  | 성상: 투명한 점성이 있는 액체; 색: 무색 또는 황색 |  | p3:L24"
+   }
+  ],
+  "seconds": 5.911,
+  "check_problems": []
+ }
+}

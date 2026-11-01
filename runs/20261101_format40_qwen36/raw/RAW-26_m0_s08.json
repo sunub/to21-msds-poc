@@ -1,0 +1,214 @@
+{
+ "doc_id": "RAW-26",
+ "msds_index": 0,
+ "section": 8,
+ "reextracted": true,
+ "ok": true,
+ "parsed": {
+  "exposure_limits": [
+   {
+    "comp_name": "Propylene glycol",
+    "comp_cas": null,
+    "standard": "기타",
+    "limit_type": "TWA",
+    "q": {
+     "raw": "10 mg/m3",
+     "value": 10,
+     "unit": "mg/m3"
+    },
+    "form": null,
+    "kr_basis": null,
+    "bio_medium": null,
+    "bio_timing": null,
+    "bio_determinant": null,
+    "notations": [],
+    "line": "p4:L19"
+   }
+  ],
+  "narratives": [
+   {
+    "item_code": "S8_ENG",
+    "title_raw": "적절한 공학적 관리: 노출제한 조건 혹은 지침에 맞는 풍매 수준을 유지할 수 있도록 국소",
+    "start": "p4:L21",
+    "end": "p4:L24"
+   },
+   {
+    "item_code": "S8_EYE",
+    "title_raw": "눈 보호: 측면 보호판이 부착된 보안경을 사용하십시오. 눈에 자극을 주는 입자에 노출될",
+    "start": "p4:L26",
+    "end": "p4:L27"
+   },
+   {
+    "item_code": "S8_HAND",
+    "title_raw": "손 보호: 이 물질을 취급할 때는 장갑이 필요하지 않음. 물질을 위한 일반적 위생",
+    "start": "p4:L29",
+    "end": "p4:L30"
+   },
+   {
+    "item_code": "S8_BODY",
+    "title_raw": "신체 보호: 신체를 덮는 깨끗한 의복 외 별다른 주의 사항이 필요치 않음.",
+    "start": "p4:L31",
+    "end": "p4:L31"
+   },
+   {
+    "item_code": "S8_RESP",
+    "title_raw": "호흡기 보호: 노출기준이나 가이드라인을 초과할 가능성이 있는 경우 호흡용보호구를",
+    "start": "p4:L32",
+    "end": "p4:L37"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S8_RESP",
+    "title_raw": "성분",
+    "reason": "필드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": {
+     "raw": "규정"
+    },
+    "statements": [
+     {
+      "value": "목록 유형",
+      "line": "p4:L18"
+     }
+    ],
+    "suggested_code": "값/표기",
+    "line": "p4:L18"
+   }
+  ]
+ },
+ "raw_text": "### exposure_limits\ncomp_name | comp_cas | standard | limit_type | q | form | kr_basis | bio_medium | bio_timing | bio_determinant | notations | line\nPropylene glycol |  | 기타 | TWA | 10 mg/m3 |  |  |  |  |  |  | p4:L19\n\n### narratives\nitem_code | title_raw | start | end\nS8_ENG | 적절한 공학적 관리: 노출제한 조건 혹은 지침에 맞는 풍매 수준을 유지할 수 있도록 국소 | p4:L21 | p4:L24\nS8_EYE | 눈 보호: 측면 보호판이 부착된 보안경을 사용하십시오. 눈에 자극을 주는 입자에 노출될 | p4:L26 | p4:L27\nS8_HAND | 손 보호: 이 물질을 취급할 때는 장갑이 필요하지 않음. 물질을 위한 일반적 위생 | p4:L29 | p4:L30\nS8_BODY | 신체 보호: 신체를 덮는 깨끗한 의복 외 별다른 주의 사항이 필요치 않음. | p4:L31 | p4:L31\nS8_RESP | 호흡기 보호: 노출기준이나 가이드라인을 초과할 가능성이 있는 경우 호흡용보호구를 | p4:L32 | p4:L37\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\nS8_RESP | 성분 | 필드없음 |  |  |  | 규정 | 목록 유형 | 값/표기 | p4:L18",
+ "mode": "rows",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 3889,
+  "completion_tokens": 345,
+  "total_tokens": 4234
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "rows",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 3889,
+    "completion_tokens": 345,
+    "total_tokens": 4234
+   },
+   "seconds": 5.689,
+   "chars": 806,
+   "whitespace": 189,
+   "head": "### exposure_limits\ncomp_name | comp_cas | standard | limit_type | q | form | kr_basis | bio_medium | bio_timing | bio_determinant | notations | line\nPropylene glycol |  | 기타 | TWA | 10 mg/m3 |  |  |  |  |  |  | p4:L19\n\n### narratives\nitem_code | title_raw | start | end\nS8_ENG | 적절한 공학적 관리: 노출제한 조건 혹은 지침에 맞는 풍매 수준을 유지할 수 있도록 국소 | p4:L21 | p4:L24\nS8_EYE | 눈 보호: 측면 보호판이 부착된 보안경을 사용하십시오. 눈에 자극을 주는 입자에 노출될 | p4:L26 | p4:L27\nS8_HAND | 손 보호: 이 물질을 취급할 때는 장갑이 필요하지 않음. 물질을 위한 일반적 위생 | p4:L29 | p4:L30\nS8",
+   "tail": "_BODY | 신체 보호: 신체를 덮는 깨끗한 의복 외 별다른 주의 사항이 필요치 않음. | p4:L31 | p4:L31\nS8_RESP | 호흡기 보호: 노출기준이나 가이드라인을 초과할 가능성이 있는 경우 호흡용보호구를 | p4:L32 | p4:L37\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\nS8_RESP | 성분 | 필드없음 |  |  |  | 규정 | 목록 유형 | 값/표기 | p4:L18"
+  }
+ ],
+ "seconds": 5.693,
+ "check_problems": [],
+ "first_attempt": {
+  "ok": true,
+  "parsed": {
+   "exposure_limits": [
+    {
+     "comp_name": "Propylene glycol",
+     "comp_cas": null,
+     "standard": "기타",
+     "limit_type": "TWA",
+     "q": {
+      "raw": "10 mg/m3",
+      "value": 10,
+      "unit": "mg/m3"
+     },
+     "form": null,
+     "kr_basis": null,
+     "bio_medium": null,
+     "bio_timing": null,
+     "bio_determinant": null,
+     "notations": [],
+     "line": "p4:L19"
+    }
+   ],
+   "narratives": [
+    {
+     "item_code": "S8_ENG",
+     "title_raw": "적절한 공학적 관리",
+     "start": "p4:L21",
+     "end": "p4:L24"
+    },
+    {
+     "item_code": "S8_EYE",
+     "title_raw": "눈 보호",
+     "start": "p4:L26",
+     "end": "p4:L27"
+    },
+    {
+     "item_code": "S8_HAND",
+     "title_raw": "손 보호",
+     "start": "p4:L29",
+     "end": "p4:L30"
+    },
+    {
+     "item_code": "S8_BODY",
+     "title_raw": "신체 보호",
+     "start": "p4:L31",
+     "end": "p4:L31"
+    },
+    {
+     "item_code": "S8_RESP",
+     "title_raw": "호흡기 보호",
+     "start": "p4:L32",
+     "end": "p4:L37"
+    }
+   ],
+   "extras": [
+    {
+     "after_item": "S8_RESP",
+     "title_raw": "화학물질의 노출기준, 생물학적 노출기준 등",
+     "reason": "필드없음",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": null,
+     "statements": [
+      {
+       "value": "노출 기준이 있는 경우 아래에 나타납니다. 노출 기준이 표시되지 않으면 적용되는 값이 없습니다.",
+       "line": "p4:L15"
+      }
+     ],
+     "suggested_code": null,
+     "line": "p4:L15"
+    }
+   ]
+  },
+  "raw_text": "### exposure_limits\ncomp_name | comp_cas | standard | limit_type | q | form | kr_basis | bio_medium | bio_timing | bio_determinant | notations | line\nPropylene glycol |  | 기타 | TWA | 10 mg/m3 |  |  |  |  |  |  | p4:L19\n\n### narratives\nitem_code | title_raw | start | end\nS8_ENG | 적절한 공학적 관리 | p4:L21 | p4:L24\nS8_EYE | 눈 보호 | p4:L26 | p4:L27\nS8_HAND | 손 보호 | p4:L29 | p4:L30\nS8_BODY | 신체 보호 | p4:L31 | p4:L31\nS8_RESP | 호흡기 보호 | p4:L32 | p4:L37\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\nS8_RESP | 화학물질의 노출기준, 생물학적 노출기준 등 | 필드없음 |  |  |  | 노출 기준이 있는 경우 아래에 나타납니다. 노출 기준이 표시되지 않으면 적용되는 값이 없습니다. |  | p4:L15\nS8_RESP | 성분 | 필드없음 |  |  |  | 규정 | 목록 유형 | 값/표기 |  | p4:L18",
+  "mode": "rows",
+  "finish_reason": "stop",
+  "usage": {
+   "prompt_tokens": 3841,
+   "completion_tokens": 308,
+   "total_tokens": 4149
+  },
+  "attempts": 1,
+  "errors": [
+   "extras p4:L18 S8_RESP | 성분 | 필드없음 |  |  |  | 규정 | 목록 유…: 열 11개, 기대 9개"
+  ],
+  "requests": [
+   {
+    "mode": "rows",
+    "finish_reason": "stop",
+    "usage": {
+     "prompt_tokens": 3841,
+     "completion_tokens": 308,
+     "total_tokens": 4149
+    },
+    "seconds": 6.457,
+    "chars": 729,
+    "whitespace": 175,
+    "head": "### exposure_limits\ncomp_name | comp_cas | standard | limit_type | q | form | kr_basis | bio_medium | bio_timing | bio_determinant | notations | line\nPropylene glycol |  | 기타 | TWA | 10 mg/m3 |  |  |  |  |  |  | p4:L19\n\n### narratives\nitem_code | title_raw | start | end\nS8_ENG | 적절한 공학적 관리 | p4:L21 | p4:L24\nS8_EYE | 눈 보호 | p4:L26 | p4:L27\nS8_HAND | 손 보호 | p4:L29 | p4:L30\nS8_BODY | 신체 보호 | p4:L31 | p4:L31\nS8_RESP | 호흡기 보호 | p4:L32 | p4:L37\n\n### extras\nafter_item | title_raw | reason | comp_name |",
+    "tail": " comp_cas | q | statements | suggested_code | line\nS8_RESP | 화학물질의 노출기준, 생물학적 노출기준 등 | 필드없음 |  |  |  | 노출 기준이 있는 경우 아래에 나타납니다. 노출 기준이 표시되지 않으면 적용되는 값이 없습니다. |  | p4:L15\nS8_RESP | 성분 | 필드없음 |  |  |  | 규정 | 목록 유형 | 값/표기 |  | p4:L18"
+   }
+  ],
+  "seconds": 6.459,
+  "check_problems": []
+ }
+}

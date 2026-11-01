@@ -1,0 +1,152 @@
+{
+ "doc_id": "RAW-40",
+ "msds_index": 0,
+ "section": 3,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "composition": {
+   "type": "혼합물",
+   "no_hazardous_component": false,
+   "lines": {
+    "type": "p2:L2",
+    "no_hazardous_component": "p2:L2"
+   }
+  },
+  "components": [
+   {
+    "name": "아크릴아마이드-소듐아크릴레이 트 공중합체",
+    "name_en": "2-PROPENOIC ACID, POLYMER, SODIUM SALT WITH 2- PROPENAMIDE",
+    "synonyms": [],
+    "cas_no": "25085-02-3",
+    "ke_no": null,
+    "ec_no": null,
+    "other_id": null,
+    "other_id_type": null,
+    "parent_seq": null,
+    "read_across_cas": null,
+    "content": {
+     "raw": "30-40",
+     "lower_op": ">=",
+     "lower": 30,
+     "upper_op": "<=",
+     "upper": 40,
+     "unit": "%"
+    },
+    "content_note": null,
+    "content_basis": null,
+    "trade_secret": null,
+    "approval_no": null,
+    "approval_expiry": null,
+    "line": "p2:L4"
+   },
+   {
+    "name": "Polyoxyethylene Sorbitan monoalkylester",
+    "name_en": "(Z)-MONO-9-OCTADECENOATE SORBITAN POLY(OXY- 1,2-ETHANEDIYL) DERIVS.",
+    "synonyms": [],
+    "cas_no": "9005-65-6",
+    "ke_no": null,
+    "ec_no": null,
+    "other_id": null,
+    "other_id_type": null,
+    "parent_seq": null,
+    "read_across_cas": null,
+    "content": {
+     "raw": "1-4",
+     "lower_op": ">=",
+     "lower": 1,
+     "upper_op": "<=",
+     "upper": 4,
+     "unit": "%"
+    },
+    "content_note": null,
+    "content_basis": null,
+    "trade_secret": null,
+    "approval_no": null,
+    "approval_expiry": null,
+    "line": "p2:L5"
+   },
+   {
+    "name": "수첨 탈황 처리된 경질 석유",
+    "name_en": "HYDROTREATED LIGHT PETROLEUM",
+    "synonyms": [],
+    "cas_no": "64742-47-8",
+    "ke_no": null,
+    "ec_no": null,
+    "other_id": null,
+    "other_id_type": null,
+    "parent_seq": null,
+    "read_across_cas": null,
+    "content": {
+     "raw": "20-30",
+     "lower_op": ">=",
+     "lower": 20,
+     "upper_op": "<=",
+     "upper": 30,
+     "unit": "%"
+    },
+    "content_note": null,
+    "content_basis": null,
+    "trade_secret": null,
+    "approval_no": null,
+    "approval_expiry": null,
+    "line": "p2:L6"
+   },
+   {
+    "name": "물",
+    "name_en": "DIHYDROGEN OXIDE",
+    "synonyms": [],
+    "cas_no": "7732-18-5",
+    "ke_no": null,
+    "ec_no": null,
+    "other_id": null,
+    "other_id_type": null,
+    "parent_seq": null,
+    "read_across_cas": null,
+    "content": {
+     "raw": "25-35",
+     "lower_op": ">=",
+     "lower": 25,
+     "upper_op": "<=",
+     "upper": 35,
+     "unit": "%"
+    },
+    "content_note": null,
+    "content_basis": null,
+    "trade_secret": null,
+    "approval_no": null,
+    "approval_expiry": null,
+    "line": "p2:L7"
+   }
+  ],
+  "extras": []
+ },
+ "raw_text": "### composition\ntype | no_hazardous_component | line\n혼합물 | false | p2:L2\n\n### components\nname | name_en | synonyms | cas_no | ke_no | ec_no | other_id | other_id_type | parent_seq | read_across_cas | content | content_note | content_basis | trade_secret | approval_no | approval_expiry | line\n아크릴아마이드-소듐아크릴레이 트 공중합체 | 2-PROPENOIC ACID, POLYMER, SODIUM SALT WITH 2- PROPENAMIDE |  | 25085-02-3 |  |  |  |  |  |  | 30-40 |  |  |  |  |  | p2:L4\nPolyoxyethylene Sorbitan monoalkylester | (Z)-MONO-9-OCTADECENOATE SORBITAN POLY(OXY- 1,2-ETHANEDIYL) DERIVS. |  | 9005-65-6 |  |  |  |  |  |  | 1-4 |  |  |  |  |  | p2:L5\n수첨 탈황 처리된 경질 석유 | HYDROTREATED LIGHT PETROLEUM |  | 64742-47-8 |  |  |  |  |  |  | 20-30 |  |  |  |  |  | p2:L6\n물 | DIHYDROGEN OXIDE |  | 7732-18-5 |  |  |  |  |  |  | 25-35 |  |  |  |  |  | p2:L7\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line",
+ "mode": "rows",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 3867,
+  "completion_tokens": 420,
+  "total_tokens": 4287
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "rows",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 3867,
+    "completion_tokens": 420,
+    "total_tokens": 4287
+   },
+   "seconds": 7.605,
+   "chars": 918,
+   "whitespace": 221,
+   "head": "### composition\ntype | no_hazardous_component | line\n혼합물 | false | p2:L2\n\n### components\nname | name_en | synonyms | cas_no | ke_no | ec_no | other_id | other_id_type | parent_seq | read_across_cas | content | content_note | content_basis | trade_secret | approval_no | approval_expiry | line\n아크릴아마이드-소듐아크릴레이 트 공중합체 | 2-PROPENOIC ACID, POLYMER, SODIUM SALT WITH 2- PROPENAMIDE |  | 25085-02-3 |  |  |  |  |  |  | 30-40 |  |  |  |  |  | p2:L4\nPolyoxyethylene Sorbitan monoalkylester | (Z)-MONO-9-OCTAD",
+   "tail": "ECENOATE SORBITAN POLY(OXY- 1,2-ETHANEDIYL) DERIVS. |  | 9005-65-6 |  |  |  |  |  |  | 1-4 |  |  |  |  |  | p2:L5\n수첨 탈황 처리된 경질 석유 | HYDROTREATED LIGHT PETROLEUM |  | 64742-47-8 |  |  |  |  |  |  | 20-30 |  |  |  |  |  | p2:L6\n물 | DIHYDROGEN OXIDE |  | 7732-18-5 |  |  |  |  |  |  | 25-35 |  |  |  |  |  | p2:L7\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line"
+  }
+ ],
+ "seconds": 7.611,
+ "check_problems": []
+}

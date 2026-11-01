@@ -1,0 +1,85 @@
+{
+ "doc_id": "RAW-40",
+ "msds_index": 0,
+ "section": 5,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S5_MEDIA",
+    "title_raw": "가. 적절한(및 부적절한) 소화제",
+    "start": "p2:L21",
+    "end": "p2:L21"
+   },
+   {
+    "item_code": "S5_SPECIFIC",
+    "title_raw": "나. 화학물질로부터 생기는 특정 유해성",
+    "start": "p2:L23",
+    "end": "p2:L24"
+   },
+   {
+    "item_code": "S5_FIREFIGHT",
+    "title_raw": "다. 화재 진압 시 착용할 보호구 및 예방조치",
+    "start": "p2:L26",
+    "end": "p2:L28"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S5_MEDIA",
+    "title_raw": "나. 화학물질로부터 생기는 특정 유해성",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "key": "열분해 생성물",
+      "value": "탄소산화물, 질소산화물",
+      "line": "p2:L23"
+     },
+     {
+      "key": "화재 및 폭발 위험",
+      "value": "자료 없음",
+      "line": "p2:L24"
+     }
+    ],
+    "suggested_code": "S5_SPECIFIC",
+    "line": "p2:L22"
+   },
+   {
+    "after_item": "S5_FIREFIGHT",
+    "title_raw": "5. 폭발·화재시 대처방법",
+    "reason": "코드없음",
+    "statements": [],
+    "line": "p2:L19"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S5_MEDIA\",\n      \"title_raw\": \"가. 적절한(및 부적절한) 소화제\",\n      \"start\": \"p2:L21\",\n      \"end\": \"p2:L21\"\n    },\n    {\n      \"item_code\": \"S5_SPECIFIC\",\n      \"title_raw\": \"나. 화학물질로부터 생기는 특정 유해성\",\n      \"start\": \"p2:L23\",\n      \"end\": \"p2:L24\"\n    },\n    {\n      \"item_code\": \"S5_FIREFIGHT\",\n      \"title_raw\": \"다. 화재 진압 시 착용할 보호구 및 예방조치\",\n      \"start\": \"p2:L26\",\n      \"end\": \"p2:L28\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S5_MEDIA\",\n      \"title_raw\": \"나. 화학물질로부터 생기는 특정 유해성\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"key\": \"열분해 생성물\",\n          \"value\": \"탄소산화물, 질소산화물\"\n        ,\n        \"line\": \"p2:L23\"\n        },\n        {\n          \"key\": \"화재 및 폭발 위험\",\n          \"value\": \"자료 없음\",\n          \"line\": \"p2:L24\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S5_SPECIFIC\"\n    ,\n      \"line\": \"p2:L22\"\n    },\n    {\n      \"after_item\": \"S5_FIREFIGHT\",\n      \"title_raw\": \"5. 폭발·화재시 대처방법\",\n      \"reason\": \"코드없음\",\n      \"statements\": [],\n      \"line\": \"p2:L19\"\n    }\n  ]\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 2056,
+  "completion_tokens": 449,
+  "total_tokens": 2505
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 2056,
+    "completion_tokens": 449,
+    "total_tokens": 2505
+   },
+   "seconds": 8.581,
+   "chars": 1052,
+   "whitespace": 407,
+   "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S5_MEDIA\",\n      \"title_raw\": \"가. 적절한(및 부적절한) 소화제\",\n      \"start\": \"p2:L21\",\n      \"end\": \"p2:L21\"\n    },\n    {\n      \"item_code\": \"S5_SPECIFIC\",\n      \"title_raw\": \"나. 화학물질로부터 생기는 특정 유해성\",\n      \"start\": \"p2:L23\",\n      \"end\": \"p2:L24\"\n    },\n    {\n      \"item_code\": \"S5_FIREFIGHT\",\n      \"title_raw\": \"다. 화재 진압 시 착용할 보호구 및 예방조치\",\n      \"start\": \"p2:L26\",\n      \"end\": \"p2:L28\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S5_MEDIA\",\n      \"titl",
+   "tail": "없음\",\n      \"statements\": [\n        {\n          \"key\": \"열분해 생성물\",\n          \"value\": \"탄소산화물, 질소산화물\"\n        ,\n        \"line\": \"p2:L23\"\n        },\n        {\n          \"key\": \"화재 및 폭발 위험\",\n          \"value\": \"자료 없음\",\n          \"line\": \"p2:L24\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S5_SPECIFIC\"\n    ,\n      \"line\": \"p2:L22\"\n    },\n    {\n      \"after_item\": \"S5_FIREFIGHT\",\n      \"title_raw\": \"5. 폭발·화재시 대처방법\",\n      \"reason\": \"코드없음\",\n      \"statements\": [],\n      \"line\": \"p2:L19\"\n    }\n  ]\n}"
+  }
+ ],
+ "seconds": 8.582,
+ "check_problems": []
+}

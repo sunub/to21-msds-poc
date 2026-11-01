@@ -1,0 +1,164 @@
+{
+ "doc_id": "RAW-34",
+ "msds_index": 0,
+ "section": 12,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "ecotox": [
+   {
+    "comp_name": "Zinc oxide",
+    "comp_cas": null,
+    "endpoint": "ECO_FISH",
+    "descriptor": "LC50",
+    "q": {
+     "raw": "315 ㎍/ℓ",
+     "value": 315,
+     "unit": "ug/L"
+    },
+    "species": "Thymallus arcticus",
+    "duration_value": 96,
+    "duration_unit": "hr",
+    "guideline": "ASTM",
+    "data_source": "지수식, 담수",
+    "statements": [],
+    "status": "값있음",
+    "line": "p8:L1"
+   },
+   {
+    "comp_name": "Zinc oxide",
+    "comp_cas": null,
+    "endpoint": "ECO_CRUST",
+    "descriptor": "LC50",
+    "q": {
+     "raw": "1220 ㎍/ℓ",
+     "value": 1220,
+     "unit": "ug/L"
+    },
+    "species": "Daphnia magna",
+    "duration_value": 48,
+    "duration_unit": "hr",
+    "guideline": "US EPA/600/4-85/013",
+    "data_source": "지수식, 담수, GLP",
+    "statements": [],
+    "status": "값있음",
+    "line": "p8:L4"
+   },
+   {
+    "comp_name": "Zinc oxide",
+    "comp_cas": null,
+    "endpoint": "ECO_ALGAE",
+    "descriptor": "EC10",
+    "q": {
+     "raw": "350 ㎍/ℓ",
+     "value": 350,
+     "unit": "ug/L"
+    },
+    "species": "Chlorella sp.",
+    "duration_value": 48,
+    "duration_unit": "hr",
+    "guideline": null,
+    "data_source": "지수식, 담수",
+    "statements": [],
+    "status": "값있음",
+    "line": "p8:L7"
+   }
+  ],
+  "narratives": [
+   {
+    "item_code": "S12_OTHER",
+    "title_raw": "가. 생태독성",
+    "start": "p7:L35",
+    "end": "p8:L7"
+   },
+   {
+    "item_code": "S12_OTHER",
+    "title_raw": "나. 잔류성 및 분해성",
+    "start": "p8:L8",
+    "end": "p8:L13"
+   },
+   {
+    "item_code": "S12_OTHER",
+    "title_raw": "다. 생물농축성",
+    "start": "p8:L14",
+    "end": "p8:L15"
+   },
+   {
+    "item_code": "S12_OTHER",
+    "title_raw": "라. 토양 이동성",
+    "start": "p8:L16",
+    "end": "p8:L17"
+   },
+   {
+    "item_code": "S12_OTHER",
+    "title_raw": "마. 기타 유해 영향",
+    "start": "p8:L18",
+    "end": "p8:L19"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S12_OTHER",
+    "title_raw": "● 분해성",
+    "reason": "필드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [
+     {
+      "value": "자료없음",
+      "line": "p8:L9"
+     }
+    ],
+    "suggested_code": "ECO_PERSIST",
+    "line": "p8:L9"
+   },
+   {
+    "after_item": "S12_OTHER",
+    "title_raw": "● 생분해성",
+    "reason": "필드없음",
+    "comp_name": "Zinc oxide",
+    "comp_cas": null,
+    "q": {
+     "raw": "{value:100,unit:'%'}"
+    },
+    "statements": [
+     {
+      "value": "100 (%) 40 hr",
+      "line": "p8:L12"
+     }
+    ],
+    "suggested_code": "ECO_PERSIST",
+    "line": "p8:L12"
+   }
+  ]
+ },
+ "raw_text": "### ecotox\ncomp_name | comp_cas | endpoint | descriptor | q | species | duration_value | duration_unit | guideline | data_source | statements | status | line\nZinc oxide |  | ECO_FISH | LC50 | 315 ㎍/ℓ | Thymallus arcticus | 96 | hr | ASTM | 지수식, 담수 |  | 값있음 | p8:L1\nZinc oxide |  | ECO_CRUST | LC50 | 1220 ㎍/ℓ | Daphnia magna | 48 | hr | US EPA/600/4-85/013 | 지수식, 담수, GLP |  | 값있음 | p8:L4\nZinc oxide |  | ECO_ALGAE | EC10 | 350 ㎍/ℓ | Chlorella sp. | 48 | hr |  | 지수식, 담수 |  | 값있음 | p8:L7\n\n### narratives\nitem_code | title_raw | start | end\nS12_OTHER | 가. 생태독성 | p7:L35 | p8:L7\nS12_OTHER | 나. 잔류성 및 분해성 | p8:L8 | p8:L13\nS12_OTHER | 다. 생물농축성 | p8:L14 | p8:L15\nS12_OTHER | 라. 토양 이동성 | p8:L16 | p8:L17\nS12_OTHER | 마. 기타 유해 영향 | p8:L18 | p8:L19\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\nS12_OTHER | ● 분해성 | 필드없음 |  |  |  | 자료없음 | ECO_PERSIST | p8:L9\nS12_OTHER | ● 생분해성 | 필드없음 | Zinc oxide |  | {value:100,unit:'%'} | 100 (%) 40 hr | ECO_PERSIST | p8:L12",
+ "mode": "rows",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 3707,
+  "completion_tokens": 475,
+  "total_tokens": 4182
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "rows",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 3707,
+    "completion_tokens": 475,
+    "total_tokens": 4182
+   },
+   "seconds": 9.48,
+   "chars": 1014,
+   "whitespace": 230,
+   "head": "### ecotox\ncomp_name | comp_cas | endpoint | descriptor | q | species | duration_value | duration_unit | guideline | data_source | statements | status | line\nZinc oxide |  | ECO_FISH | LC50 | 315 ㎍/ℓ | Thymallus arcticus | 96 | hr | ASTM | 지수식, 담수 |  | 값있음 | p8:L1\nZinc oxide |  | ECO_CRUST | LC50 | 1220 ㎍/ℓ | Daphnia magna | 48 | hr | US EPA/600/4-85/013 | 지수식, 담수, GLP |  | 값있음 | p8:L4\nZinc oxide |  | ECO_ALGAE | EC10 | 350 ㎍/ℓ | Chlorella sp. | 48 | hr |  | 지수식, 담수 |  | 값있음 | p8:L7\n\n### narrati",
+   "tail": "| title_raw | start | end\nS12_OTHER | 가. 생태독성 | p7:L35 | p8:L7\nS12_OTHER | 나. 잔류성 및 분해성 | p8:L8 | p8:L13\nS12_OTHER | 다. 생물농축성 | p8:L14 | p8:L15\nS12_OTHER | 라. 토양 이동성 | p8:L16 | p8:L17\nS12_OTHER | 마. 기타 유해 영향 | p8:L18 | p8:L19\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\nS12_OTHER | ● 분해성 | 필드없음 |  |  |  | 자료없음 | ECO_PERSIST | p8:L9\nS12_OTHER | ● 생분해성 | 필드없음 | Zinc oxide |  | {value:100,unit:'%'} | 100 (%) 40 hr | ECO_PERSIST | p8:L12"
+  }
+ ],
+ "seconds": 9.484,
+ "check_problems": []
+}

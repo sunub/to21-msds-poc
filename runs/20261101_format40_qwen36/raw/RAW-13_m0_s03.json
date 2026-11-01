@@ -1,0 +1,106 @@
+{
+ "doc_id": "RAW-13",
+ "msds_index": 0,
+ "section": 3,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "composition": {
+   "type": "혼합물",
+   "no_hazardous_component": false,
+   "lines": {
+    "type": "p3:L1",
+    "no_hazardous_component": "p3:L1"
+   }
+  },
+  "components": [
+   {
+    "name": "Benzene",
+    "name_en": null,
+    "synonyms": [],
+    "cas_no": "71-43-2",
+    "ke_no": null,
+    "ec_no": null,
+    "other_id": null,
+    "other_id_type": null,
+    "parent_seq": null,
+    "read_across_cas": null,
+    "content": {
+     "raw": "99.92",
+     "value": 99.92,
+     "unit": "%"
+    },
+    "content_note": null,
+    "content_basis": "중량",
+    "trade_secret": false,
+    "approval_no": null,
+    "approval_expiry": null,
+    "line": "p3:L2"
+   },
+   {
+    "name": "Impurity",
+    "name_en": null,
+    "synonyms": [],
+    "cas_no": null,
+    "ke_no": null,
+    "ec_no": null,
+    "other_id": null,
+    "other_id_type": null,
+    "parent_seq": null,
+    "read_across_cas": null,
+    "content": {
+     "raw": "0.08",
+     "value": 0.08,
+     "unit": "%"
+    },
+    "content_note": "미검출",
+    "content_basis": "중량",
+    "trade_secret": false,
+    "approval_no": null,
+    "approval_expiry": null,
+    "line": "p3:L3"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": null,
+    "title_raw": "구성성분",
+    "reason": "필드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [],
+    "suggested_code": null,
+    "line": "p3:L1"
+   }
+  ]
+ },
+ "raw_text": "### composition\ntype | no_hazardous_component | line\n혼합물 | false | p3:L1\n\n### components\nname | name_en | synonyms | cas_no | ke_no | ec_no | other_id | other_id_type | parent_seq | read_across_cas | content | content_note | content_basis | trade_secret | approval_no | approval_expiry | line\nBenzene |  |  | 71-43-2 |  |  |  |  |  |  | 99.92 |  | 중량 | false |  |  | p3:L2\nImpurity |  |  |  |  |  |  |  |  |  | 0.08 | 미검출 | 중량 | false |  |  | p3:L3\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\n | 구성성분 | 필드없음 |  |  |  |  |  | p3:L1",
+ "mode": "rows",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 3678,
+  "completion_tokens": 226,
+  "total_tokens": 3904
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "rows",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 3678,
+    "completion_tokens": 226,
+    "total_tokens": 3904
+   },
+   "seconds": 5.672,
+   "chars": 594,
+   "whitespace": 150,
+   "head": "### composition\ntype | no_hazardous_component | line\n혼합물 | false | p3:L1\n\n### components\nname | name_en | synonyms | cas_no | ke_no | ec_no | other_id | other_id_type | parent_seq | read_across_cas | content | content_note | content_basis | trade_secret | approval_no | approval_expiry | line\nBenzene |  |  | 71-43-2 |  |  |  |  |  |  | 99.92 |  | 중량 | false |  |  | p3:L2\nImpurity |  |  |  |  |  |  |  |  |  | 0.08 | 미검출 | 중량 | false |  |  | p3:L3\n\n### extras\nafter_item | title_raw | reason | comp_",
+   "tail": "name | comp_cas | q | statements | suggested_code | line\n | 구성성분 | 필드없음 |  |  |  |  |  | p3:L1"
+  }
+ ],
+ "seconds": 5.674,
+ "check_problems": []
+}

@@ -1,0 +1,84 @@
+{
+ "doc_id": "RAW-07",
+ "msds_index": 0,
+ "section": 13,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S13_METHOD",
+    "title_raw": "가. 폐기 방법",
+    "start": "p10:L15",
+    "end": "p10:L16"
+   },
+   {
+    "item_code": "S13_CAUTION",
+    "title_raw": "나. 폐기시 주의사항(오염된 용기 및 포장의 폐기 방법을 포함함)",
+    "start": "p10:L17",
+    "end": "p10:L18"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S13_CAUTION",
+    "title_raw": "13: 폐기시 주의사항",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "value": "가. 폐기 방법",
+      "refs": [
+       "S13_METHOD"
+      ],
+      "line": "p10:L15"
+     },
+     {
+      "value": "잔여물/미사용 제품의 폐기물 지역 규정에 따라 폐기 하시오. 폐기물을 환경 법규에 따라 폐기할 것.",
+      "line": "p10:L16"
+     },
+     {
+      "value": "나. 폐기시 주의사항(오염된 용기 및 포장의 폐기 방법을 포함함)",
+      "refs": [
+       "S13_CAUTION"
+      ],
+      "line": "p10:L17"
+     },
+     {
+      "value": "오염된 포장 빈 용기를 재사용하지 마시오.",
+      "line": "p10:L18"
+     }
+    ],
+    "suggested_code": "SECTION_TITLE",
+    "line": "p10:L14"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S13_METHOD\",\n      \"title_raw\": \"가. 폐기 방법\",\n      \"start\": \"p10:L15\",\n      \"end\": \"p10:L16\"\n    },\n    {\n      \"item_code\": \"S13_CAUTION\",\n      \"title_raw\": \"나. 폐기시 주의사항(오염된 용기 및 포장의 폐기 방법을 포함함)\",\n      \"start\": \"p10:L17\",\n      \"end\": \"p10:L18\"\n    }\n  ]\n,\n  \"extras\": [\n    {\n      \"after_item\": \"S13_CAUTION\",\n      \"title_raw\": \"13: 폐기시 주의사항\",\n      \"reason\": \"코드없음\"\n    ,\n      \"statements\": [\n        {\n          \"value\": \"가. 폐기 방법\"\n        ,\n          \"refs\": [\n            \"S13_METHOD\"\n          ]\n        ,\n          \"line\": \"p10:L15\"\n        }\n      ,\n        {\n          \"value\": \"잔여물/미사용 제품의 폐기물 지역 규정에 따라 폐기 하시오. 폐기물을 환경 법규에 따라 폐기할 것.\"\n        ,\n          \"line\": \"p10:L16\"\n        }\n      ,\n        {\n          \"value\": \"나. 폐기시 주의사항(오염된 용기 및 포장의 폐기 방법을 포함함)\"\n        ,\n          \"refs\": [\n            \"S13_CAUTION\"\n          ]\n        ,\n          \"line\": \"p10:L17\"\n        }\n      ,\n        {\n          \"value\": \"오염된 포장 빈 용기를 재사용하지 마시오.\"\n        ,\n          \"line\": \"p10:L18\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"SECTION_TITLE\"\n    ,\n      \"line\": \"p10:L14\"\n    }\n  ]\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 1956,
+  "completion_tokens": 481,
+  "total_tokens": 2437
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 1956,
+    "completion_tokens": 481,
+    "total_tokens": 2437
+   },
+   "seconds": 9.152,
+   "chars": 1143,
+   "whitespace": 535,
+   "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S13_METHOD\",\n      \"title_raw\": \"가. 폐기 방법\",\n      \"start\": \"p10:L15\",\n      \"end\": \"p10:L16\"\n    },\n    {\n      \"item_code\": \"S13_CAUTION\",\n      \"title_raw\": \"나. 폐기시 주의사항(오염된 용기 및 포장의 폐기 방법을 포함함)\",\n      \"start\": \"p10:L17\",\n      \"end\": \"p10:L18\"\n    }\n  ]\n,\n  \"extras\": [\n    {\n      \"after_item\": \"S13_CAUTION\",\n      \"title_raw\": \"13: 폐기시 주의사항\",\n      \"reason\": \"코드없음\"\n    ,\n      \"statements\": [\n        {\n          \"value\": \"가. 폐기 방법\"\n        ,\n   ",
+   "tail": "/미사용 제품의 폐기물 지역 규정에 따라 폐기 하시오. 폐기물을 환경 법규에 따라 폐기할 것.\"\n        ,\n          \"line\": \"p10:L16\"\n        }\n      ,\n        {\n          \"value\": \"나. 폐기시 주의사항(오염된 용기 및 포장의 폐기 방법을 포함함)\"\n        ,\n          \"refs\": [\n            \"S13_CAUTION\"\n          ]\n        ,\n          \"line\": \"p10:L17\"\n        }\n      ,\n        {\n          \"value\": \"오염된 포장 빈 용기를 재사용하지 마시오.\"\n        ,\n          \"line\": \"p10:L18\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"SECTION_TITLE\"\n    ,\n      \"line\": \"p10:L14\"\n    }\n  ]\n}"
+  }
+ ],
+ "seconds": 9.153,
+ "check_problems": []
+}

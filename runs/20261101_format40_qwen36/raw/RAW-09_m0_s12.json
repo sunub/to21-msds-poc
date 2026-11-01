@@ -1,0 +1,104 @@
+{
+ "doc_id": "RAW-09",
+ "msds_index": 0,
+ "section": 12,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "ecotox": [],
+  "narratives": [
+   {
+    "item_code": "S12_OTHER",
+    "title_raw": "가. 생태독성 장기적인 영향에 의해 수생생물에게 유독함.",
+    "start": "p5:L35",
+    "end": "p5:L35"
+   },
+   {
+    "item_code": "S12_OTHER",
+    "title_raw": "나. 잔류성 및 분해성 본 혼합물 내 성분의 분해성에 대한 이용 가능한 자료가 없음.",
+    "start": "p5:L38",
+    "end": "p5:L38"
+   },
+   {
+    "item_code": "S12_OTHER",
+    "title_raw": "다. 생물 농축성 자료없음.",
+    "start": "p5:L39",
+    "end": "p5:L39"
+   },
+   {
+    "item_code": "S12_OTHER",
+    "title_raw": "라. 토양 이동성 본 제품에 관한 이용가능한 자료가 없음.",
+    "start": "p5:L40",
+    "end": "p5:L40"
+   },
+   {
+    "item_code": "S12_OTHER",
+    "title_raw": "마. 기타 유해 영향 본 성분으로부터 부정적인 환경 영향 (예: 오존층 감소, 광화학적 오존 발생 가능성, 호르몬 붕괴, 지구 온난화 가능성) 은 없을 것으로 보입니다.",
+    "start": "p5:L41",
+    "end": "p5:L42"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S12_OTHER",
+    "title_raw": "수생환경 유해성, 급성 비전문가가 취급하거나 폐기하는 경우 환경적 유해성을 배제할 수 없음.",
+    "reason": "필드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [
+     {
+      "value": "수생환경 유해성, 급성: 비전문가가 취급하거나 폐기하는 경우 환경적 유해성을 배제할 수 없음.",
+      "line": "p5:L36"
+     }
+    ],
+    "suggested_code": "ECO_OTHER",
+    "line": "p5:L36"
+   },
+   {
+    "after_item": "S12_OTHER",
+    "title_raw": "수생환경 유해성, 만성 장기적인 영향에 의해 수생생물에게 유독함.",
+    "reason": "필드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [
+     {
+      "value": "수생환경 유해성, 만성: 장기적인 영향에 의해 수생생물에게 유독함.",
+      "line": "p5:L37"
+     }
+    ],
+    "suggested_code": "ECO_OTHER",
+    "line": "p5:L37"
+   }
+  ]
+ },
+ "raw_text": "### ecotox\ncomp_name | comp_cas | endpoint | descriptor | q | species | duration_value | duration_unit | guideline | data_source | statements | status | line\n\n### narratives\nitem_code | title_raw | start | end\nS12_OTHER | 가. 생태독성 장기적인 영향에 의해 수생생물에게 유독함. | p5:L35 | p5:L35\nS12_OTHER | 나. 잔류성 및 분해성 본 혼합물 내 성분의 분해성에 대한 이용 가능한 자료가 없음. | p5:L38 | p5:L38\nS12_OTHER | 다. 생물 농축성 자료없음. | p5:L39 | p5:L39\nS12_OTHER | 라. 토양 이동성 본 제품에 관한 이용가능한 자료가 없음. | p5:L40 | p5:L40\nS12_OTHER | 마. 기타 유해 영향 본 성분으로부터 부정적인 환경 영향 (예: 오존층 감소, 광화학적 오존 발생 가능성, 호르몬 붕괴, 지구 온난화 가능성) 은 없을 것으로 보입니다. | p5:L41 | p5:L42\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\nS12_OTHER | 수생환경 유해성, 급성 비전문가가 취급하거나 폐기하는 경우 환경적 유해성을 배제할 수 없음. | 필드없음 |  |  |  | 수생환경 유해성, 급성: 비전문가가 취급하거나 폐기하는 경우 환경적 유해성을 배제할 수 없음. | ECO_OTHER | p5:L36\nS12_OTHER | 수생환경 유해성, 만성 장기적인 영향에 의해 수생생물에게 유독함. | 필드없음 |  |  |  | 수생환경 유해성, 만성: 장기적인 영향에 의해 수생생물에게 유독함. | ECO_OTHER | p5:L37",
+ "mode": "rows",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 3530,
+  "completion_tokens": 440,
+  "total_tokens": 3970
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "rows",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 3530,
+    "completion_tokens": 440,
+    "total_tokens": 3970
+   },
+   "seconds": 8.841,
+   "chars": 973,
+   "whitespace": 215,
+   "head": "### ecotox\ncomp_name | comp_cas | endpoint | descriptor | q | species | duration_value | duration_unit | guideline | data_source | statements | status | line\n\n### narratives\nitem_code | title_raw | start | end\nS12_OTHER | 가. 생태독성 장기적인 영향에 의해 수생생물에게 유독함. | p5:L35 | p5:L35\nS12_OTHER | 나. 잔류성 및 분해성 본 혼합물 내 성분의 분해성에 대한 이용 가능한 자료가 없음. | p5:L38 | p5:L38\nS12_OTHER | 다. 생물 농축성 자료없음. | p5:L39 | p5:L39\nS12_OTHER | 라. 토양 이동성 본 제품에 관한 이용가능한 자료가 없음. | p5:L40 | p5:L40\nS12_OTHER | 마. 기타 유해 영향 본 성분으로부터 부정적인 환경 ",
+   "tail": "영향 (예: 오존층 감소, 광화학적 오존 발생 가능성, 호르몬 붕괴, 지구 온난화 가능성) 은 없을 것으로 보입니다. | p5:L41 | p5:L42\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\nS12_OTHER | 수생환경 유해성, 급성 비전문가가 취급하거나 폐기하는 경우 환경적 유해성을 배제할 수 없음. | 필드없음 |  |  |  | 수생환경 유해성, 급성: 비전문가가 취급하거나 폐기하는 경우 환경적 유해성을 배제할 수 없음. | ECO_OTHER | p5:L36\nS12_OTHER | 수생환경 유해성, 만성 장기적인 영향에 의해 수생생물에게 유독함. | 필드없음 |  |  |  | 수생환경 유해성, 만성: 장기적인 영향에 의해 수생생물에게 유독함. | ECO_OTHER | p5:L37"
+  }
+ ],
+ "seconds": 8.844,
+ "check_problems": []
+}

@@ -1,0 +1,95 @@
+{
+ "doc_id": "RAW-28",
+ "msds_index": 0,
+ "section": 4,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S4_INHAL",
+    "title_raw": "흡입했을 때:",
+    "start": "p2:L19",
+    "end": "p2:L20"
+   },
+   {
+    "item_code": "S4_SKIN",
+    "title_raw": "피부에 접촉했을 때:",
+    "start": "p2:L21",
+    "end": "p2:L21"
+   },
+   {
+    "item_code": "S4_EYE",
+    "title_raw": "눈에 들어갔을 때:",
+    "start": "p2:L22",
+    "end": "p2:L23"
+   },
+   {
+    "item_code": "S4_INGEST",
+    "title_raw": "먹었을 때:",
+    "start": "p2:L24",
+    "end": "p2:L24"
+   },
+   {
+    "item_code": "S4_SYMPTOM",
+    "title_raw": "급성 및 지연성의 가장 중요한 증상/영향:",
+    "start": "p2:L25",
+    "end": "p2:L27"
+   },
+   {
+    "item_code": "S4_DOCTOR",
+    "title_raw": "기타 의사의 주의사항:",
+    "start": "p3:L2",
+    "end": "p3:L3"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S4_END",
+    "title_raw": "필요한 응급조치 기술",
+    "reason": "필드없음",
+    "statements": [
+     {
+      "key": "일반적인 조치사항",
+      "value": "노출우려가 있다면 Section 8 의 개인 보호 장비를 참조하십시오.",
+      "line": "p2:L17"
+     },
+     {
+      "key": "즉각적인 의사 치료와 특별 처치",
+      "value": "수행할 것",
+      "line": "p2:L28"
+     }
+    ],
+    "line": "p2:L16"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S4_INHAL\",\n      \"title_raw\": \"흡입했을 때:\",\n      \"start\": \"p2:L19\",\n      \"end\": \"p2:L20\"\n    },\n    {\n      \"item_code\": \"S4_SKIN\",\n      \"title_raw\": \"피부에 접촉했을 때:\",\n      \"start\": \"p2:L21\",\n      \"end\": \"p2:L21\"\n    },\n    {\n      \"item_code\": \"S4_EYE\",\n      \"title_raw\": \"눈에 들어갔을 때:\",\n      \"start\": \"p2:L22\",\n      \"end\": \"p2:L23\"\n    },\n    {\n      \"item_code\": \"S4_INGEST\",\n      \"title_raw\": \"먹었을 때:\",\n      \"start\": \"p2:L24\",\n      \"end\": \"p2:L24\"\n    },\n    {\n      \"item_code\": \"S4_SYMPTOM\",\n      \"title_raw\": \"급성 및 지연성의 가장 중요한 증상/영향:\",\n      \"start\": \"p2:L25\",\n      \"end\": \"p2:L27\"\n    },\n    {\n      \"item_code\": \"S4_DOCTOR\",\n      \"title_raw\": \"기타 의사의 주의사항:\",\n      \"start\": \"p3:L2\",\n      \"end\": \"p3:L3\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S4_END\",\n      \"title_raw\": \"필요한 응급조치 기술\",\n      \"reason\": \"필드없음\",\n      \"statements\": [\n        {\n          \"key\": \"일반적인 조치사항\",\n          \"value\": \"노출우려가 있다면 Section 8 의 개인 보호 장비를 참조하십시오.\"\n        ,\n        \"line\": \"p2:L17\"\n      },\n      {\n        \"key\": \"즉각적인 의사 치료와 특별 처치\",\n        \"value\": \"수행할 것\",\n        \"line\": \"p2:L28\"\n      }\n    ]\n  ,\n  \"line\": \"p2:L16\"\n}\n  ]\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 2394,
+  "completion_tokens": 525,
+  "total_tokens": 2919
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 2394,
+    "completion_tokens": 525,
+    "total_tokens": 2919
+   },
+   "seconds": 9.378,
+   "chars": 1190,
+   "whitespace": 449,
+   "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S4_INHAL\",\n      \"title_raw\": \"흡입했을 때:\",\n      \"start\": \"p2:L19\",\n      \"end\": \"p2:L20\"\n    },\n    {\n      \"item_code\": \"S4_SKIN\",\n      \"title_raw\": \"피부에 접촉했을 때:\",\n      \"start\": \"p2:L21\",\n      \"end\": \"p2:L21\"\n    },\n    {\n      \"item_code\": \"S4_EYE\",\n      \"title_raw\": \"눈에 들어갔을 때:\",\n      \"start\": \"p2:L22\",\n      \"end\": \"p2:L23\"\n    },\n    {\n      \"item_code\": \"S4_INGEST\",\n      \"title_raw\": \"먹었을 때:\",\n      \"start\": \"p2:L24\",\n      \"end\": \"p2:L24\"",
+   "tail": " \"title_raw\": \"기타 의사의 주의사항:\",\n      \"start\": \"p3:L2\",\n      \"end\": \"p3:L3\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S4_END\",\n      \"title_raw\": \"필요한 응급조치 기술\",\n      \"reason\": \"필드없음\",\n      \"statements\": [\n        {\n          \"key\": \"일반적인 조치사항\",\n          \"value\": \"노출우려가 있다면 Section 8 의 개인 보호 장비를 참조하십시오.\"\n        ,\n        \"line\": \"p2:L17\"\n      },\n      {\n        \"key\": \"즉각적인 의사 치료와 특별 처치\",\n        \"value\": \"수행할 것\",\n        \"line\": \"p2:L28\"\n      }\n    ]\n  ,\n  \"line\": \"p2:L16\"\n}\n  ]\n}"
+  }
+ ],
+ "seconds": 9.379,
+ "check_problems": []
+}

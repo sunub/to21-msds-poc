@@ -1,0 +1,75 @@
+{
+ "doc_id": "RAW-19",
+ "msds_index": 0,
+ "section": 3,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "composition": {
+   "type": "혼합물",
+   "no_hazardous_component": false,
+   "lines": {
+    "type": "p2:L18",
+    "no_hazardous_component": "p2:L18"
+   }
+  },
+  "components": [
+   {
+    "name": "불화 메틸렌",
+    "name_en": "Methylene fluoride",
+    "synonyms": [
+     "CH2F2",
+     "Difluoromethane"
+    ],
+    "cas_no": "75-10-5",
+    "ke_no": null,
+    "ec_no": null,
+    "other_id": null,
+    "other_id_type": null,
+    "parent_seq": null,
+    "read_across_cas": null,
+    "content": {
+     "raw": "99.9 이상",
+     "lower_op": ">=",
+     "lower": 99.9,
+     "unit": "%"
+    },
+    "content_note": null,
+    "content_basis": "중량",
+    "trade_secret": null,
+    "approval_no": null,
+    "approval_expiry": null,
+    "line": "p2:L20"
+   }
+  ],
+  "extras": []
+ },
+ "raw_text": "### composition\ntype | no_hazardous_component | line\n혼합물 | false | p2:L18\n\n### components\nname | name_en | synonyms | cas_no | ke_no | ec_no | other_id | other_id_type | parent_seq | read_across_cas | content | content_note | content_basis | trade_secret | approval_no | approval_expiry | line\n불화 메틸렌 | Methylene fluoride | CH2F2; Difluoromethane | 75-10-5 |  |  |  |  |  |  | 99.9 이상 |  | 중량 |  |  |  | p2:L20\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line",
+ "mode": "rows",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 3692,
+  "completion_tokens": 173,
+  "total_tokens": 3865
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "rows",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 3692,
+    "completion_tokens": 173,
+    "total_tokens": 3865
+   },
+   "seconds": 3.727,
+   "chars": 518,
+   "whitespace": 104,
+   "head": "### composition\ntype | no_hazardous_component | line\n혼합물 | false | p2:L18\n\n### components\nname | name_en | synonyms | cas_no | ke_no | ec_no | other_id | other_id_type | parent_seq | read_across_cas | content | content_note | content_basis | trade_secret | approval_no | approval_expiry | line\n불화 메틸렌 | Methylene fluoride | CH2F2; Difluoromethane | 75-10-5 |  |  |  |  |  |  | 99.9 이상 |  | 중량 |  |  |  | p2:L20\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | sug",
+   "tail": "gested_code | line"
+  }
+ ],
+ "seconds": 3.731,
+ "check_problems": []
+}

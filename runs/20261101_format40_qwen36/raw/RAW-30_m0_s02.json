@@ -1,0 +1,149 @@
+{
+ "doc_id": "RAW-30",
+ "msds_index": 0,
+ "section": 2,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "hazard": {
+   "classified": true,
+   "classes": [
+    {
+     "group": "물리적",
+     "class_code": "PH_FLAM_LIQ",
+     "category": "4",
+     "raw": "인화성 액체 : 구분4",
+     "line": "p1:L13"
+    },
+    {
+     "group": "건강",
+     "class_code": "HH_SKIN_CORR",
+     "category": "2",
+     "raw": "피부 부식성/피부 자극성 : 구분2",
+     "line": "p1:L13"
+    },
+    {
+     "group": "건강",
+     "class_code": "HH_EYE_DMG",
+     "category": "2",
+     "raw": "심한 눈 손상성/눈 자극성 : 구분2",
+     "line": "p1:L14"
+    },
+    {
+     "group": "건강",
+     "class_code": "HH_CARCINOGEN",
+     "category": "1B",
+     "raw": "발암성 : 구분1B",
+     "line": "p1:L14"
+    }
+   ],
+   "signal_word": "경고",
+   "h_statements": [
+    {
+     "code": "H227",
+     "text": "가연성 액체",
+     "line": "p1:L20"
+    }
+   ],
+   "p_statements": [
+    {
+     "code": "P210",
+     "type": "예방",
+     "text": "열, 고온의 표면, 스파크, 화염 및 그 밖의 점화원으로부터 멀리하시오. 금연",
+     "line": "p1:L23"
+    },
+    {
+     "code": "P280",
+     "type": "예방",
+     "text": "보호장갑·보호의·보안경·안면보호구를(을) 착용하시오.",
+     "line": "p1:L24"
+    },
+    {
+     "code": "P370+P378",
+     "type": "대응",
+     "text": "화재 시: 불을 끄기 위해 적절한 소화제를 사용하시오.",
+     "line": "p1:L26"
+    },
+    {
+     "code": "P403+P235",
+     "type": "저장",
+     "text": "환기가 잘 되는 곳에 보관하시오. 저온으로 유지하시오.",
+     "line": "p1:L28"
+    },
+    {
+     "code": "P501",
+     "type": "폐기",
+     "text": "폐기물 관련 법령에 따라 내용물/용기를 폐기하시오",
+     "line": "p1:L30"
+    }
+   ],
+   "nfpa": {
+    "health": 0,
+    "fire": 2,
+    "reactivity": 0
+   },
+   "lines": {
+    "classified": "p1:L13",
+    "signal_word": "p1:L18",
+    "pictograms": "p1:L16",
+    "nfpa": "p1:L32"
+   }
+  },
+  "narratives": [],
+  "extras": [
+   {
+    "title_raw": "다. 유해성·위험성 분류기준에 포함되지 않는 기타 유해성·위험성",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "value": "보건 : 0, 화재 : 2, 반응성 : 0",
+      "line": "p1:L32"
+     }
+    ],
+    "line": "p1:L32"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"hazard\": {\n    \"classified\": true,\n    \"classes\": [\n      {\n        \"group\": \"물리적\",\n        \"class_code\": \"PH_FLAM_LIQ\",\n        \"category\": \"4\",\n        \"raw\": \"인화성 액체 : 구분4\",\n        \"line\": \"p1:L13\"\n      },\n      {\n        \"group\": \"건강\",\n        \"class_code\": \"HH_SKIN_CORR\",\n        \"category\": \"2\",\n        \"raw\": \"피부 부식성/피부 자극성 : 구분2\",\n        \"line\": \"p1:L13\"\n      },\n      {\n        \"group\": \"건강\",\n        \"class_code\": \"HH_EYE_DMG\",\n        \"category\": \"2\",\n        \"raw\": \"심한 눈 손상성/눈 자극성 : 구분2\",\n        \"line\": \"p1:L14\"\n      },\n      {\n        \"group\": \"건강\",\n        \"class_code\": \"HH_CARCINOGEN\",\n        \"category\": \"1B\",\n        \"raw\": \"발암성 : 구분1B\",\n        \"line\": \"p1:L14\"\n      }\n    ],\n    \"signal_word\": \"경고\",\n    \"h_statements\": [\n      {\n        \"code\": \"H227\",\n        \"text\": \"가연성 액체\",\n        \"line\": \"p1:L20\"\n      }\n    ],\n    \"p_statements\": [\n      {\n        \"code\": \"P210\",\n        \"type\": \"예방\",\n        \"text\": \"열, 고온의 표면, 스파크, 화염 및 그 밖의 점화원으로부터 멀리하시오. 금연\",\n        \"line\": \"p1:L23\"\n      },\n      {\n        \"code\": \"P280\",\n        \"type\": \"예방\",\n        \"text\": \"보호장갑·보호의·보안경·안면보호구를(을) 착용하시오.\",\n        \"line\": \"p1:L24\"\n      },\n      {\n        \"code\": \"P370+P378\",\n        \"type\": \"대응\",\n        \"text\": \"화재 시: 불을 끄기 위해 적절한 소화제를 사용하시오.\",\n        \"line\": \"p1:L26\"\n      },\n      {\n        \"code\": \"P403+P235\",\n        \"type\": \"저장\",\n        \"text\": \"환기가 잘 되는 곳에 보관하시오. 저온으로 유지하시오.\",\n        \"line\": \"p1:L28\"\n      },\n      {\n        \"code\": \"P501\",\n        \"type\": \"폐기\",\n        \"text\": \"폐기물 관련 법령에 따라 내용물/용기를 폐기하시오\",\n        \"line\": \"p1:L30\"\n      }\n    ],\n    \"nfpa\": {\n      \"health\": 0,\n      \"fire\": 2,\n      \"reactivity\": 0\n    },\n    \"lines\": {\n      \"classified\": \"p1:L13\",\n      \"signal_word\": \"p1:L18\",\n      \"pictograms\": \"p1:L16\",\n      \"nfpa\": \"p1:L32\"\n    }\n  },\n  \"narratives\": [],\n  \"extras\": [\n    {\n      \"title_raw\": \"다. 유해성·위험성 분류기준에 포함되지 않는 기타 유해성·위험성\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"보건 : 0, 화재 : 2, 반응성 : 0\",\n          \"line\": \"p1:L32\"\n        }\n      ],\n      \"line\": \"p1:L32\"\n    }\n  ]\n}",
+ "mode": "json_object",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 8612,
+  "completion_tokens": 909,
+  "total_tokens": 9521
+ },
+ "attempts": 2,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "length",
+   "usage": {
+    "prompt_tokens": 5473,
+    "completion_tokens": 8192,
+    "total_tokens": 13665
+   },
+   "seconds": 73.23,
+   "chars": 9334,
+   "whitespace": 8190,
+   "head": "{\n  \"hazard\": {\n    \"classified\": true,\n    \"classes\": [\n      {\n        \"group\": \"물리적\",\n        \"class_code\": \"PH_FLAM_LIQ\",\n        \"category\": \"4\",\n        \"raw\": \"인화성 액체 : 구분4\"\n      ,\n        \"line\": \"p1:L13\"\n      },\n      {\n        \"group\": \"건강\",\n        \"class_code\": \"HH_SKIN_CORR\",\n        \"category\": \"2\",\n        \"raw\": \"피부 부식성/피부 자극성 : 구분2\"\n      ,\n        \"line\": \"p1:L13\"\n      },\n      {\n        \"group\": \"건강\",\n        \"class_code\": \"HH_EYE_DMG\",\n        \"category\": \"2\",\n        \"raw",
+   "tail": "                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    "
+  },
+  {
+   "mode": "json_object",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 8612,
+    "completion_tokens": 909,
+    "total_tokens": 9521
+   },
+   "seconds": 7.544,
+   "chars": 2093,
+   "whitespace": 861,
+   "head": "{\n  \"hazard\": {\n    \"classified\": true,\n    \"classes\": [\n      {\n        \"group\": \"물리적\",\n        \"class_code\": \"PH_FLAM_LIQ\",\n        \"category\": \"4\",\n        \"raw\": \"인화성 액체 : 구분4\",\n        \"line\": \"p1:L13\"\n      },\n      {\n        \"group\": \"건강\",\n        \"class_code\": \"HH_SKIN_CORR\",\n        \"category\": \"2\",\n        \"raw\": \"피부 부식성/피부 자극성 : 구분2\",\n        \"line\": \"p1:L13\"\n      },\n      {\n        \"group\": \"건강\",\n        \"class_code\": \"HH_EYE_DMG\",\n        \"category\": \"2\",\n        \"raw\": \"심한 눈 손상성/눈",
+   "tail": "\n    \"nfpa\": {\n      \"health\": 0,\n      \"fire\": 2,\n      \"reactivity\": 0\n    },\n    \"lines\": {\n      \"classified\": \"p1:L13\",\n      \"signal_word\": \"p1:L18\",\n      \"pictograms\": \"p1:L16\",\n      \"nfpa\": \"p1:L32\"\n    }\n  },\n  \"narratives\": [],\n  \"extras\": [\n    {\n      \"title_raw\": \"다. 유해성·위험성 분류기준에 포함되지 않는 기타 유해성·위험성\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"보건 : 0, 화재 : 2, 반응성 : 0\",\n          \"line\": \"p1:L32\"\n        }\n      ],\n      \"line\": \"p1:L32\"\n    }\n  ]\n}"
+  }
+ ],
+ "seconds": 80.778,
+ "check_problems": []
+}

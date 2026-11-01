@@ -1,0 +1,207 @@
+{
+ "doc_id": "RAW-48",
+ "msds_index": 0,
+ "section": 4,
+ "reextracted": true,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S4_EYE",
+    "title_raw": "가. 눈에 들어갔을 때",
+    "start": "p1:L37",
+    "end": "p1:L37"
+   },
+   {
+    "item_code": "S4_SKIN",
+    "title_raw": "나. 피부에 접촉했을 때",
+    "start": "p1:L38",
+    "end": "p1:L38"
+   },
+   {
+    "item_code": "S4_INHAL",
+    "title_raw": "다. 흡입했을 때",
+    "start": "p1:L39",
+    "end": "p1:L39"
+   },
+   {
+    "item_code": "S4_INGEST",
+    "title_raw": "라. 먹었을 때",
+    "start": "p1:L40",
+    "end": "p1:L40"
+   },
+   {
+    "item_code": "S4_DOCTOR",
+    "title_raw": "마. 기타 의사의 주의사항",
+    "start": "p1:L41",
+    "end": "p1:L41"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S4_EYE",
+    "title_raw": "나. 피부에 접촉했을 때",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "value": "해당없음",
+      "line": "p1:L38"
+     }
+    ],
+    "line": "p1:L38"
+   },
+   {
+    "after_item": "S4_INGEST",
+    "title_raw": "라. 먹었을 때",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "value": "입을 씻어내시오.",
+      "line": "p1:L40"
+     },
+     {
+      "value": "삼켰다면 즉시 의사의 진찰을 받으시오.",
+      "line": "p1:L40"
+     }
+    ],
+    "line": "p1:L40"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S4_EYE\",\n      \"title_raw\": \"가. 눈에 들어갔을 때\",\n      \"start\": \"p1:L37\",\n      \"end\": \"p1:L37\"\n    },\n    {\n      \"item_code\": \"S4_SKIN\",\n      \"title_raw\": \"나. 피부에 접촉했을 때\",\n      \"start\": \"p1:L38\",\n      \"end\": \"p1:L38\"\n    },\n    {\n      \"item_code\": \"S4_INHAL\",\n      \"title_raw\": \"다. 흡입했을 때\",\n      \"start\": \"p1:L39\",\n      \"end\": \"p1:L39\"\n    },\n    {\n      \"item_code\": \"S4_INGEST\",\n      \"title_raw\": \"라. 먹었을 때\",\n      \"start\": \"p1:L40\",\n      \"end\": \"p1:L40\"\n    },\n    {\n      \"item_code\": \"S4_DOCTOR\",\n      \"title_raw\": \"마. 기타 의사의 주의사항\",\n      \"start\": \"p1:L41\",\n      \"end\": \"p1:L41\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S4_EYE\",\n      \"title_raw\": \"나. 피부에 접촉했을 때\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"해당없음\",\n          \"line\": \"p1:L38\"\n        }\n      ],\n      \"line\": \"p1:L38\"\n    },\n    {\n      \"after_item\": \"S4_INGEST\",\n      \"title_raw\": \"라. 먹었을 때\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"입을 씻어내시오.\",\n          \"line\": \"p1:L40\"\n        },\n        {\n          \"value\": \"삼켰다면 즉시 의사의 진찰을 받으시오.\",\n          \"line\": \"p1:L40\"\n        }\n      ],\n      \"line\": \"p1:L40\"\n    }\n  ]\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 2377,
+  "completion_tokens": 528,
+  "total_tokens": 2905
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 2377,
+    "completion_tokens": 528,
+    "total_tokens": 2905
+   },
+   "seconds": 6.811,
+   "chars": 1224,
+   "whitespace": 488,
+   "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S4_EYE\",\n      \"title_raw\": \"가. 눈에 들어갔을 때\",\n      \"start\": \"p1:L37\",\n      \"end\": \"p1:L37\"\n    },\n    {\n      \"item_code\": \"S4_SKIN\",\n      \"title_raw\": \"나. 피부에 접촉했을 때\",\n      \"start\": \"p1:L38\",\n      \"end\": \"p1:L38\"\n    },\n    {\n      \"item_code\": \"S4_INHAL\",\n      \"title_raw\": \"다. 흡입했을 때\",\n      \"start\": \"p1:L39\",\n      \"end\": \"p1:L39\"\n    },\n    {\n      \"item_code\": \"S4_INGEST\",\n      \"title_raw\": \"라. 먹었을 때\",\n      \"start\": \"p1:L40\",\n      \"end\": ",
+   "tail": "에 접촉했을 때\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"해당없음\",\n          \"line\": \"p1:L38\"\n        }\n      ],\n      \"line\": \"p1:L38\"\n    },\n    {\n      \"after_item\": \"S4_INGEST\",\n      \"title_raw\": \"라. 먹었을 때\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"입을 씻어내시오.\",\n          \"line\": \"p1:L40\"\n        },\n        {\n          \"value\": \"삼켰다면 즉시 의사의 진찰을 받으시오.\",\n          \"line\": \"p1:L40\"\n        }\n      ],\n      \"line\": \"p1:L40\"\n    }\n  ]\n}"
+  }
+ ],
+ "seconds": 6.812,
+ "check_problems": [],
+ "first_attempt": {
+  "ok": true,
+  "parsed": {
+   "narratives": [
+    {
+     "item_code": "S4_EYE",
+     "title_raw": "가. 눈에 들어갔을 때",
+     "start": "L37",
+     "end": "L37"
+    },
+    {
+     "item_code": "S4_SKIN",
+     "title_raw": "나. 피부에 접촉했을 때",
+     "start": "L38",
+     "end": "L38"
+    },
+    {
+     "item_code": "S4_INHAL",
+     "title_raw": "다. 흡입했을 때",
+     "start": "L39",
+     "end": "L39"
+    },
+    {
+     "item_code": "S4_INGEST",
+     "title_raw": "라. 먹었을 때",
+     "start": "L40",
+     "end": "L40"
+    },
+    {
+     "item_code": "S4_DOCTOR",
+     "title_raw": "마. 기타 의사의 주의사항",
+     "start": "L41",
+     "end": "L41"
+    }
+   ],
+   "extras": [
+    {
+     "after_item": "S4_EYE",
+     "title_raw": "나. 피부에 접촉했을 때",
+     "reason": "코드없음",
+     "statements": [
+      {
+       "value": "해당없음",
+       "line": "L38"
+      }
+     ],
+     "suggested_code": "S4_SKIN",
+     "line": "L38"
+    },
+    {
+     "after_item": "S4_INHAL",
+     "title_raw": "라. 먹었을 때",
+     "reason": "코드없음",
+     "statements": [
+      {
+       "value": "입을 씻어내시오. 삼켰다면 즉시 의사의 진찰을 받으시오.",
+       "line": "L40"
+      }
+     ],
+     "suggested_code": "S4_INGEST",
+     "line": "L40"
+    }
+   ]
+  },
+  "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S4_EYE\",\n      \"title_raw\": \"가. 눈에 들어갔을 때\",\n      \"start\": \"L37\",\n      \"end\": \"L37\"\n    },\n    {\n      \"item_code\": \"S4_SKIN\",\n      \"title_raw\": \"나. 피부에 접촉했을 때\",\n      \"start\": \"L38\",\n      \"end\": \"L38\"\n    },\n    {\n      \"item_code\": \"S4_INHAL\",\n      \"title_raw\": \"다. 흡입했을 때\",\n      \"start\": \"L39\",\n      \"end\": \"L39\"\n    },\n    {\n      \"item_code\": \"S4_INGEST\",\n      \"title_raw\": \"라. 먹었을 때\",\n      \"start\": \"L40\",\n      \"end\": \"L40\"\n    },\n    {\n      \"item_code\": \"S4_DOCTOR\",\n      \"title_raw\": \"마. 기타 의사의 주의사항\",\n      \"start\": \"L41\",\n      \"end\": \"L41\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S4_EYE\",\n      \"title_raw\": \"나. 피부에 접촉했을 때\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"해당없음\"\n        , \"line\": \"L38\"\n        }\n      ]\n    , \"suggested_code\": \"S4_SKIN\"\n    , \"line\": \"L38\"\n    },\n    {\n      \"after_item\": \"S4_INHAL\",\n      \"title_raw\": \"라. 먹었을 때\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"입을 씻어내시오. 삼켰다면 즉시 의사의 진찰을 받으시오.\"\n        , \"line\": \"L40\"\n        }\n      ]\n    , \"suggested_code\": \"S4_INGEST\"\n    , \"line\": \"L40\"\n    }\n  ]\n}",
+  "mode": "json_schema",
+  "finish_reason": "stop",
+  "usage": {
+   "prompt_tokens": 2138,
+   "completion_tokens": 508,
+   "total_tokens": 2646
+  },
+  "attempts": 1,
+  "errors": [],
+  "requests": [
+   {
+    "mode": "json_schema",
+    "finish_reason": "stop",
+    "usage": {
+     "prompt_tokens": 2138,
+     "completion_tokens": 508,
+     "total_tokens": 2646
+    },
+    "seconds": 8.885,
+    "chars": 1177,
+    "whitespace": 457,
+    "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S4_EYE\",\n      \"title_raw\": \"가. 눈에 들어갔을 때\",\n      \"start\": \"L37\",\n      \"end\": \"L37\"\n    },\n    {\n      \"item_code\": \"S4_SKIN\",\n      \"title_raw\": \"나. 피부에 접촉했을 때\",\n      \"start\": \"L38\",\n      \"end\": \"L38\"\n    },\n    {\n      \"item_code\": \"S4_INHAL\",\n      \"title_raw\": \"다. 흡입했을 때\",\n      \"start\": \"L39\",\n      \"end\": \"L39\"\n    },\n    {\n      \"item_code\": \"S4_INGEST\",\n      \"title_raw\": \"라. 먹었을 때\",\n      \"start\": \"L40\",\n      \"end\": \"L40\"\n    },\n    {\n  ",
+    "tail": "itle_raw\": \"나. 피부에 접촉했을 때\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"해당없음\"\n        , \"line\": \"L38\"\n        }\n      ]\n    , \"suggested_code\": \"S4_SKIN\"\n    , \"line\": \"L38\"\n    },\n    {\n      \"after_item\": \"S4_INHAL\",\n      \"title_raw\": \"라. 먹었을 때\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"입을 씻어내시오. 삼켰다면 즉시 의사의 진찰을 받으시오.\"\n        , \"line\": \"L40\"\n        }\n      ]\n    , \"suggested_code\": \"S4_INGEST\"\n    , \"line\": \"L40\"\n    }\n  ]\n}"
+   }
+  ],
+  "seconds": 8.886,
+  "check_problems": [
+   "narratives[0].start: 원문에 없는 줄 번호 L37",
+   "narratives[0].end: 원문에 없는 줄 번호 L37",
+   "narratives[1].start: 원문에 없는 줄 번호 L38",
+   "narratives[1].end: 원문에 없는 줄 번호 L38",
+   "narratives[2].start: 원문에 없는 줄 번호 L39",
+   "narratives[2].end: 원문에 없는 줄 번호 L39",
+   "narratives[3].start: 원문에 없는 줄 번호 L40",
+   "narratives[3].end: 원문에 없는 줄 번호 L40",
+   "narratives[4].start: 원문에 없는 줄 번호 L41",
+   "narratives[4].end: 원문에 없는 줄 번호 L41",
+   "extras[0].statements[0].line: 원문에 없는 줄 번호 L38",
+   "extras[0].line: 원문에 없는 줄 번호 L38",
+   "extras[1].statements[0].line: 원문에 없는 줄 번호 L40",
+   "extras[1].line: 원문에 없는 줄 번호 L40"
+  ]
+ }
+}

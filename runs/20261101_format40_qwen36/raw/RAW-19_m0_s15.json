@@ -1,0 +1,226 @@
+{
+ "doc_id": "RAW-19",
+ "msds_index": 0,
+ "section": 15,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "regulations": [
+   {
+    "law": "OSH",
+    "item_code": "OSH_PSM",
+    "item_raw": "공정안전보고서(PSM) 제출대상",
+    "comp_name": "R-32 (Methylene Fluoride)",
+    "comp_cas": null,
+    "applicable": "해당",
+    "threshold": null,
+    "qty": null,
+    "qty_alt": null,
+    "sub_class": null,
+    "cycle": null,
+    "country": null,
+    "value_raw": null,
+    "remark": null,
+    "line": "p7:L9"
+   },
+   {
+    "law": "CCA",
+    "item_code": "CCA_ACCIDENT",
+    "item_raw": "사고대비물질",
+    "comp_name": null,
+    "comp_cas": null,
+    "applicable": "비해당",
+    "threshold": null,
+    "qty": null,
+    "qty_alt": null,
+    "sub_class": null,
+    "cycle": null,
+    "country": null,
+    "value_raw": null,
+    "remark": null,
+    "line": "p7:L10"
+   },
+   {
+    "law": "DG",
+    "item_code": "DG_HAZMAT",
+    "item_raw": "위험물안전관리법 위험물",
+    "comp_name": null,
+    "comp_cas": null,
+    "applicable": "비해당",
+    "threshold": null,
+    "qty": null,
+    "qty_alt": null,
+    "sub_class": null,
+    "cycle": null,
+    "country": null,
+    "value_raw": null,
+    "remark": null,
+    "line": "p7:L11"
+   },
+   {
+    "law": "WASTE",
+    "item_code": "WASTE_DESIG",
+    "item_raw": "지정폐기물",
+    "comp_name": null,
+    "comp_cas": null,
+    "applicable": "비해당",
+    "threshold": null,
+    "qty": null,
+    "qty_alt": null,
+    "sub_class": null,
+    "cycle": null,
+    "country": null,
+    "value_raw": null,
+    "remark": null,
+    "line": "p7:L12"
+   }
+  ],
+  "dangerous_goods": [],
+  "waste": [],
+  "intl_class": [],
+  "narratives": [],
+  "extras": []
+ },
+ "raw_text": "### regulations\nlaw | item_code | item_raw | comp_name | comp_cas | applicable | threshold | qty | qty_alt | sub_class | cycle | country | value_raw | remark | line\nOSH | OSH_PSM | 공정안전보고서(PSM) 제출대상 | R-32 (Methylene Fluoride) |  | 해당 |  |  |  |  |  |  |  | p7:L9\nCCA | CCA_ACCIDENT | 사고대비물질 |  |  | 비해당 |  |  |  |  |  |  |  | p7:L10\nDG | DG_HAZMAT | 위험물안전관리법 위험물 |  |  | 비해당 |  |  |  |  |  |  |  | p7:L11\nWASTE | WASTE_DESIG | 지정폐기물 |  |  | 비해당 |  |  |  |  |  |  |  | p7:L12\nINTL | INTL_US | 미국 규제(OSHA, CERCLA, EPCRA, TSCA 등) |  |  | 비해당 |  |  |  |  | US |  |  | p7:L14\nINTL | INTL_EU | EU 규제(CLP, REACH 등) |  |  | 비해당 |  |  |  |  | EU |  |  | p7:L15\n\n### dangerous_goods\ncomp_name | comp_cas | class | item | water_soluble | grade | designated_qty | line\n\n### waste\ncomp_name | comp_cas | designated | waste_type | line\n\n### intl_class\ncomp_name | comp_cas | system | class_raw | h_code | status | line\n\n### narratives\nitem_code | title_raw | start | end\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line",
+ "mode": "rows",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 6126,
+  "completion_tokens": 417,
+  "total_tokens": 6543
+ },
+ "attempts": 1,
+ "errors": [
+  "regulations p7:L14 INTL | INTL_US | 미국 규제(OSHA, CERCLA, EPC…: 열 14개, 기대 15개",
+  "regulations p7:L15 INTL | INTL_EU | EU 규제(CLP, REACH 등) |  …: 열 14개, 기대 15개"
+ ],
+ "requests": [
+  {
+   "mode": "rows",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 6126,
+    "completion_tokens": 417,
+    "total_tokens": 6543
+   },
+   "seconds": 8.859,
+   "chars": 1065,
+   "whitespace": 280,
+   "head": "### regulations\nlaw | item_code | item_raw | comp_name | comp_cas | applicable | threshold | qty | qty_alt | sub_class | cycle | country | value_raw | remark | line\nOSH | OSH_PSM | 공정안전보고서(PSM) 제출대상 | R-32 (Methylene Fluoride) |  | 해당 |  |  |  |  |  |  |  | p7:L9\nCCA | CCA_ACCIDENT | 사고대비물질 |  |  | 비해당 |  |  |  |  |  |  |  | p7:L10\nDG | DG_HAZMAT | 위험물안전관리법 위험물 |  |  | 비해당 |  |  |  |  |  |  |  | p7:L11\nWASTE | WASTE_DESIG | 지정폐기물 |  |  | 비해당 |  |  |  |  |  |  |  | p7:L12\nINTL | INTL_US | 미국 규제(O",
+   "tail": "p7:L14\nINTL | INTL_EU | EU 규제(CLP, REACH 등) |  |  | 비해당 |  |  |  |  | EU |  |  | p7:L15\n\n### dangerous_goods\ncomp_name | comp_cas | class | item | water_soluble | grade | designated_qty | line\n\n### waste\ncomp_name | comp_cas | designated | waste_type | line\n\n### intl_class\ncomp_name | comp_cas | system | class_raw | h_code | status | line\n\n### narratives\nitem_code | title_raw | start | end\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line"
+  }
+ ],
+ "seconds": 8.873,
+ "check_problems": [],
+ "reextract_attempt": {
+  "ok": true,
+  "parsed": {
+   "regulations": [
+    {
+     "law": "OSH",
+     "item_code": "OSH_PSM",
+     "item_raw": "공정안전보고서(PSM) 제출대상",
+     "comp_name": "R-32 (Methylene Fluoride)",
+     "comp_cas": null,
+     "applicable": "해당",
+     "threshold": null,
+     "qty": null,
+     "qty_alt": null,
+     "sub_class": null,
+     "cycle": null,
+     "country": null,
+     "value_raw": null,
+     "remark": null,
+     "line": "p7:L9"
+    },
+    {
+     "law": "CCA",
+     "item_code": "CCA_ACCIDENT",
+     "item_raw": "사고대비물질",
+     "comp_name": null,
+     "comp_cas": null,
+     "applicable": "비해당",
+     "threshold": null,
+     "qty": null,
+     "qty_alt": null,
+     "sub_class": null,
+     "cycle": null,
+     "country": null,
+     "value_raw": null,
+     "remark": null,
+     "line": "p7:L10"
+    },
+    {
+     "law": "DG",
+     "item_code": "DG_HAZMAT",
+     "item_raw": "위험물안전관리법 위험물",
+     "comp_name": null,
+     "comp_cas": null,
+     "applicable": "비해당",
+     "threshold": null,
+     "qty": null,
+     "qty_alt": null,
+     "sub_class": null,
+     "cycle": null,
+     "country": null,
+     "value_raw": null,
+     "remark": null,
+     "line": "p7:L11"
+    },
+    {
+     "law": "WASTE",
+     "item_code": "WASTE_DESIG",
+     "item_raw": "지정폐기물",
+     "comp_name": null,
+     "comp_cas": null,
+     "applicable": "비해당",
+     "threshold": null,
+     "qty": null,
+     "qty_alt": null,
+     "sub_class": null,
+     "cycle": null,
+     "country": null,
+     "value_raw": null,
+     "remark": null,
+     "line": "p7:L12"
+    }
+   ],
+   "dangerous_goods": [],
+   "waste": [],
+   "intl_class": [],
+   "narratives": [],
+   "extras": []
+  },
+  "raw_text": "### regulations\nlaw | item_code | item_raw | comp_name | comp_cas | applicable | threshold | qty | qty_alt | sub_class | cycle | country | value_raw | remark | line\nOSH | OSH_PSM | 공정안전보고서(PSM) 제출대상 | R-32 (Methylene Fluoride) |  | 해당 |  |  |  |  |  |  |  | p7:L9\nCCA | CCA_ACCIDENT | 사고대비물질 |  |  | 비해당 |  |  |  |  |  |  |  | p7:L10\nDG | DG_HAZMAT | 위험물안전관리법 위험물 |  |  | 비해당 |  |  |  |  |  |  |  | p7:L11\nWASTE | WASTE_DESIG | 지정폐기물 |  |  | 비해당 |  |  |  |  |  |  |  | p7:L12\nINTL | INTL_US | 미국 규제(OSHA, CERCLA, EPCRA, TSCA 등) |  |  | 비해당 |  |  |  |  | US |  |  | p7:L14\nINTL | INTL_EU | EU 규제(CLP, REACH 등) |  |  | 비해당 |  |  |  |  | EU |  |  | p7:L15\n\n### dangerous_goods\ncomp_name | comp_cas | class | item | water_soluble | grade | designated_qty | line\n\n### waste\ncomp_name | comp_cas | designated | waste_type | line\n\n### intl_class\ncomp_name | comp_cas | system | class_raw | h_code | status | line\n\n### narratives\nitem_code | title_raw | start | end\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line",
+  "mode": "rows",
+  "finish_reason": "stop",
+  "usage": {
+   "prompt_tokens": 6211,
+   "completion_tokens": 417,
+   "total_tokens": 6628
+  },
+  "attempts": 1,
+  "errors": [
+   "regulations p7:L14 INTL | INTL_US | 미국 규제(OSHA, CERCLA, EPC…: 열 14개, 기대 15개",
+   "regulations p7:L15 INTL | INTL_EU | EU 규제(CLP, REACH 등) |  …: 열 14개, 기대 15개"
+  ],
+  "requests": [
+   {
+    "mode": "rows",
+    "finish_reason": "stop",
+    "usage": {
+     "prompt_tokens": 6211,
+     "completion_tokens": 417,
+     "total_tokens": 6628
+    },
+    "seconds": 6.321,
+    "chars": 1065,
+    "whitespace": 280,
+    "head": "### regulations\nlaw | item_code | item_raw | comp_name | comp_cas | applicable | threshold | qty | qty_alt | sub_class | cycle | country | value_raw | remark | line\nOSH | OSH_PSM | 공정안전보고서(PSM) 제출대상 | R-32 (Methylene Fluoride) |  | 해당 |  |  |  |  |  |  |  | p7:L9\nCCA | CCA_ACCIDENT | 사고대비물질 |  |  | 비해당 |  |  |  |  |  |  |  | p7:L10\nDG | DG_HAZMAT | 위험물안전관리법 위험물 |  |  | 비해당 |  |  |  |  |  |  |  | p7:L11\nWASTE | WASTE_DESIG | 지정폐기물 |  |  | 비해당 |  |  |  |  |  |  |  | p7:L12\nINTL | INTL_US | 미국 규제(O",
+    "tail": "p7:L14\nINTL | INTL_EU | EU 규제(CLP, REACH 등) |  |  | 비해당 |  |  |  |  | EU |  |  | p7:L15\n\n### dangerous_goods\ncomp_name | comp_cas | class | item | water_soluble | grade | designated_qty | line\n\n### waste\ncomp_name | comp_cas | designated | waste_type | line\n\n### intl_class\ncomp_name | comp_cas | system | class_raw | h_code | status | line\n\n### narratives\nitem_code | title_raw | start | end\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line"
+   }
+  ],
+  "seconds": 6.351,
+  "check_problems": []
+ }
+}

@@ -1,0 +1,161 @@
+{
+ "doc_id": "RAW-03",
+ "msds_index": 0,
+ "section": 13,
+ "reextracted": true,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S13_METHOD",
+    "title_raw": "가. 폐기방법",
+    "start": "p6:L22",
+    "end": "p6:L24"
+   },
+   {
+    "item_code": "S13_CAUTION",
+    "title_raw": "나. 폐기시 주의사항",
+    "start": "p6:L26",
+    "end": "p6:L28"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S13_METHOD",
+    "title_raw": "폐기물의 발생을 최대한 억제하고, 발생한 폐기물을 스스로 재활용함으로써 폐기물의 배출을 최소화할 것.",
+    "reason": "필드없음",
+    "statements": [
+     {
+      "value": "폐기물의 발생을 최대한 억제하고, 발생한 폐기물을 스스로 재활용함으로써 폐기물의 배출을 최소화할 것.",
+      "line": "p6:L24"
+     }
+    ],
+    "suggested_code": "S13_METHOD",
+    "line": "p6:L24"
+   },
+   {
+    "after_item": "S13_CAUTION",
+    "title_raw": "폐기물관리법상 규정을 준수할 것.",
+    "reason": "필드없음",
+    "statements": [
+     {
+      "value": "폐기물관리법상 규정을 준수할 것.",
+      "line": "p6:L28"
+     }
+    ],
+    "suggested_code": "S13_CAUTION",
+    "line": "p6:L28"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S13_METHOD\",\n      \"title_raw\": \"가. 폐기방법\",\n      \"start\": \"p6:L22\",\n      \"end\": \"p6:L24\"\n    },\n    {\n      \"item_code\": \"S13_CAUTION\",\n      \"title_raw\": \"나. 폐기시 주의사항\",\n      \"start\": \"p6:L26\",\n      \"end\": \"p6:L28\"\n    }\n  ]\n  ,\n  \"extras\": [\n    {\n      \"after_item\": \"S13_METHOD\",\n      \"title_raw\": \"폐기물의 발생을 최대한 억제하고, 발생한 폐기물을 스스로 재활용함으로써 폐기물의 배출을 최소화할 것.\",\n      \"reason\": \"필드없음\",\n      \"statements\": [\n        {\n          \"value\": \"폐기물의 발생을 최대한 억제하고, 발생한 폐기물을 스스로 재활용함으로써 폐기물의 배출을 최소화할 것.\"\n        ,\n          \"line\": \"p6:L24\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S13_METHOD\"\n    ,\n      \"line\": \"p6:L24\"\n    }\n  ,\n    {\n      \"after_item\": \"S13_CAUTION\",\n      \"title_raw\": \"폐기물관리법상 규정을 준수할 것.\",\n      \"reason\": \"필드없음\",\n      \"statements\": [\n        {\n          \"value\": \"폐기물관리법상 규정을 준수할 것.\"\n        ,\n          \"line\": \"p6:L28\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S13_CAUTION\"\n    ,\n      \"line\": \"p6:L28\"\n    }\n  ]\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 2137,
+  "completion_tokens": 427,
+  "total_tokens": 2564
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 2137,
+    "completion_tokens": 427,
+    "total_tokens": 2564
+   },
+   "seconds": 6.84,
+   "chars": 999,
+   "whitespace": 388,
+   "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S13_METHOD\",\n      \"title_raw\": \"가. 폐기방법\",\n      \"start\": \"p6:L22\",\n      \"end\": \"p6:L24\"\n    },\n    {\n      \"item_code\": \"S13_CAUTION\",\n      \"title_raw\": \"나. 폐기시 주의사항\",\n      \"start\": \"p6:L26\",\n      \"end\": \"p6:L28\"\n    }\n  ]\n  ,\n  \"extras\": [\n    {\n      \"after_item\": \"S13_METHOD\",\n      \"title_raw\": \"폐기물의 발생을 최대한 억제하고, 발생한 폐기물을 스스로 재활용함으로써 폐기물의 배출을 최소화할 것.\",\n      \"reason\": \"필드없음\",\n      \"statements\": [\n        {\n          \"value\": \"폐기물의 발생을 최대한 ",
+   "tail": "억제하고, 발생한 폐기물을 스스로 재활용함으로써 폐기물의 배출을 최소화할 것.\"\n        ,\n          \"line\": \"p6:L24\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S13_METHOD\"\n    ,\n      \"line\": \"p6:L24\"\n    }\n  ,\n    {\n      \"after_item\": \"S13_CAUTION\",\n      \"title_raw\": \"폐기물관리법상 규정을 준수할 것.\",\n      \"reason\": \"필드없음\",\n      \"statements\": [\n        {\n          \"value\": \"폐기물관리법상 규정을 준수할 것.\"\n        ,\n          \"line\": \"p6:L28\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S13_CAUTION\"\n    ,\n      \"line\": \"p6:L28\"\n    }\n  ]\n}"
+  }
+ ],
+ "seconds": 6.843,
+ "check_problems": [],
+ "first_attempt": {
+  "ok": true,
+  "parsed": {
+   "narratives": [
+    {
+     "item_code": "S13_METHOD",
+     "title_raw": "가. 폐기방법",
+     "start": "L22",
+     "end": "L24"
+    },
+    {
+     "item_code": "S13_CAUTION",
+     "title_raw": "나. 폐기시 주의사항",
+     "start": "L26",
+     "end": "L28"
+    }
+   ],
+   "extras": [
+    {
+     "after_item": "S13_METHOD",
+     "title_raw": "나. 폐기시 주의사항",
+     "reason": "코드없음",
+     "statements": [
+      {
+       "key": "사업장폐기물을 배출하는 사업자(사업장폐기물배출자)는 사업장에서 발생하는 폐기물을 스스로 처리하거나, 폐기물처리업자, 다른 사람의 폐기물을 재생처리 하는 자, 폐기물 처리시설을 설치 운영하는 자에게 위임하여 처리하여야 함.",
+       "value": "p6:L26-p6:L27",
+       "refs": [],
+       "line": "p6:L26"
+      }
+     ],
+     "line": "p6:L26"
+    },
+    {
+     "after_item": "S13_CAUTION",
+     "title_raw": "폐기물관리법상 규정을 준수할 것.",
+     "reason": "코드없음",
+     "statements": [
+      {
+       "key": "폐기물관리법상 규정을 준수할 것.",
+       "value": "p6:L28",
+       "refs": [],
+       "line": "p6:L28"
+      }
+     ],
+     "line": "p6:L28"
+    }
+   ]
+  },
+  "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S13_METHOD\",\n      \"title_raw\": \"가. 폐기방법\",\n      \"start\": \"L22\",\n      \"end\": \"L24\"\n    },\n    {\n      \"item_code\": \"S13_CAUTION\",\n      \"title_raw\": \"나. 폐기시 주의사항\",\n      \"start\": \"L26\",\n      \"end\": \"L28\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S13_METHOD\",\n      \"title_raw\": \"나. 폐기시 주의사항\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"key\": \"사업장폐기물을 배출하는 사업자(사업장폐기물배출자)는 사업장에서 발생하는 폐기물을 스스로 처리하거나, 폐기물처리업자, 다른 사람의 폐기물을 재생처리 하는 자, 폐기물 처리시설을 설치 운영하는 자에게 위임하여 처리하여야 함.\",\n          \"value\": \"p6:L26-p6:L27\"\n        ,\n        \"refs\": []\n        ,\n        \"line\": \"p6:L26\"\n        }\n      ]\n    ,\n    \"line\": \"p6:L26\"\n    }\n  ,\n  {\n    \"after_item\": \"S13_CAUTION\",\n    \"title_raw\": \"폐기물관리법상 규정을 준수할 것.\",\n    \"reason\": \"코드없음\",\n    \"statements\": [\n      {\n        \"key\": \"폐기물관리법상 규정을 준수할 것.\",\n        \"value\": \"p6:L28\"\n      ,\n      \"refs\": []\n      ,\n      \"line\": \"p6:L28\"\n      }\n    ]\n  ,\n  \"line\": \"p6:L28\"\n  }\n]\n}",
+  "mode": "json_schema",
+  "finish_reason": "stop",
+  "usage": {
+   "prompt_tokens": 2066,
+   "completion_tokens": 448,
+   "total_tokens": 2514
+  },
+  "attempts": 1,
+  "errors": [],
+  "requests": [
+   {
+    "mode": "json_schema",
+    "finish_reason": "stop",
+    "usage": {
+     "prompt_tokens": 2066,
+     "completion_tokens": 448,
+     "total_tokens": 2514
+    },
+    "seconds": 8.927,
+    "chars": 994,
+    "whitespace": 379,
+    "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S13_METHOD\",\n      \"title_raw\": \"가. 폐기방법\",\n      \"start\": \"L22\",\n      \"end\": \"L24\"\n    },\n    {\n      \"item_code\": \"S13_CAUTION\",\n      \"title_raw\": \"나. 폐기시 주의사항\",\n      \"start\": \"L26\",\n      \"end\": \"L28\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S13_METHOD\",\n      \"title_raw\": \"나. 폐기시 주의사항\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"key\": \"사업장폐기물을 배출하는 사업자(사업장폐기물배출자)는 사업장에서 발생하는 폐기물을 스스로 처리하거나, 폐기물처리업자, 다른 사람의 폐기물",
+    "tail": "을 재생처리 하는 자, 폐기물 처리시설을 설치 운영하는 자에게 위임하여 처리하여야 함.\",\n          \"value\": \"p6:L26-p6:L27\"\n        ,\n        \"refs\": []\n        ,\n        \"line\": \"p6:L26\"\n        }\n      ]\n    ,\n    \"line\": \"p6:L26\"\n    }\n  ,\n  {\n    \"after_item\": \"S13_CAUTION\",\n    \"title_raw\": \"폐기물관리법상 규정을 준수할 것.\",\n    \"reason\": \"코드없음\",\n    \"statements\": [\n      {\n        \"key\": \"폐기물관리법상 규정을 준수할 것.\",\n        \"value\": \"p6:L28\"\n      ,\n      \"refs\": []\n      ,\n      \"line\": \"p6:L28\"\n      }\n    ]\n  ,\n  \"line\": \"p6:L28\"\n  }\n]\n}"
+   }
+  ],
+  "seconds": 8.928,
+  "check_problems": [
+   "narratives[0].start: 원문에 없는 줄 번호 L22",
+   "narratives[0].end: 원문에 없는 줄 번호 L24",
+   "narratives[1].start: 원문에 없는 줄 번호 L26",
+   "narratives[1].end: 원문에 없는 줄 번호 L28"
+  ]
+ }
+}

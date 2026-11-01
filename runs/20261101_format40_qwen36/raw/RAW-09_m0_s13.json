@@ -1,0 +1,65 @@
+{
+ "doc_id": "RAW-09",
+ "msds_index": 0,
+ "section": 13,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S13_METHOD",
+    "title_raw": "가. 폐기방법",
+    "start": "p5:L44",
+    "end": "p5:L46"
+   },
+   {
+    "item_code": "S13_CAUTION",
+    "title_raw": "나. 폐기시 주의사항",
+    "start": "p5:L47",
+    "end": "p5:L49"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S13_CAUTION",
+    "title_raw": "지정폐기물의 분류번호",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "value": "사용자, 생산자, 폐기물 처리업체가 협의하여 폐기물 코드를 부여해야 함.",
+      "line": "p6:L1"
+     }
+    ],
+    "line": "p6:L1"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S13_METHOD\",\n      \"title_raw\": \"가. 폐기방법\",\n      \"start\": \"p5:L44\",\n      \"end\": \"p5:L46\"\n    },\n    {\n      \"item_code\": \"S13_CAUTION\",\n      \"title_raw\": \"나. 폐기시 주의사항\",\n      \"start\": \"p5:L47\",\n      \"end\": \"p5:L49\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S13_CAUTION\",\n      \"title_raw\": \"지정폐기물의 분류번호\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"사용자, 생산자, 폐기물 처리업체가 협의하여 폐기물 코드를 부여해야 함.\"\n        ,\n          \"line\": \"p6:L1\"\n        }\n      ]\n    ,\n      \"line\": \"p6:L1\"\n    }\n  ]\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 2074,
+  "completion_tokens": 253,
+  "total_tokens": 2327
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 2074,
+    "completion_tokens": 253,
+    "total_tokens": 2327
+   },
+   "seconds": 6.117,
+   "chars": 575,
+   "whitespace": 224,
+   "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S13_METHOD\",\n      \"title_raw\": \"가. 폐기방법\",\n      \"start\": \"p5:L44\",\n      \"end\": \"p5:L46\"\n    },\n    {\n      \"item_code\": \"S13_CAUTION\",\n      \"title_raw\": \"나. 폐기시 주의사항\",\n      \"start\": \"p5:L47\",\n      \"end\": \"p5:L49\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S13_CAUTION\",\n      \"title_raw\": \"지정폐기물의 분류번호\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"사용자, 생산자, 폐기물 처리업체가 협의하여 폐기물 코드를 부여해야 함.\"\n        ,\n        ",
+   "tail": "  \"line\": \"p6:L1\"\n        }\n      ]\n    ,\n      \"line\": \"p6:L1\"\n    }\n  ]\n}"
+  }
+ ],
+ "seconds": 6.118,
+ "check_problems": []
+}

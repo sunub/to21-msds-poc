@@ -1,0 +1,143 @@
+{
+ "doc_id": "RAW-28",
+ "msds_index": 0,
+ "section": 3,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "composition": {
+   "type": "혼합물",
+   "no_hazardous_component": false,
+   "lines": {
+    "type": "p2:L6",
+    "no_hazardous_component": "p2:L6"
+   }
+  },
+  "components": [
+   {
+    "name": "Lithium 12-hydroxyoctadecanoate",
+    "name_en": null,
+    "synonyms": [],
+    "cas_no": "7620-77-1",
+    "ke_no": "KE-20761",
+    "ec_no": null,
+    "other_id": null,
+    "other_id_type": null,
+    "parent_seq": null,
+    "read_across_cas": null,
+    "content": {
+     "raw": ">= 10.0 - <= 16.0 %",
+     "lower_op": ">=",
+     "lower": 10.0,
+     "upper_op": "<=",
+     "upper": 16.0,
+     "unit": "%"
+    },
+    "content_note": null,
+    "content_basis": null,
+    "trade_secret": null,
+    "approval_no": null,
+    "approval_expiry": null,
+    "line": "p2:L7"
+   },
+   {
+    "name": "1-Dodecene polymer with 1-Octene, Hydrogenated Ethene, tetrafluoro-, homopolymer",
+    "name_en": null,
+    "synonyms": [],
+    "cas_no": "163149-29-9",
+    "ke_no": null,
+    "ec_no": null,
+    "other_id": null,
+    "other_id_type": null,
+    "parent_seq": null,
+    "read_across_cas": null,
+    "content": {
+     "raw": ">= 77.0 - <= 85.0 %",
+     "lower_op": ">=",
+     "lower": 77.0,
+     "upper_op": "<=",
+     "upper": 85.0,
+     "unit": "%"
+    },
+    "content_note": null,
+    "content_basis": null,
+    "trade_secret": null,
+    "approval_no": null,
+    "approval_expiry": null,
+    "line": "p2:L10"
+   },
+   {
+    "name": null,
+    "name_en": null,
+    "synonyms": [],
+    "cas_no": "9002-84-0",
+    "ke_no": "KE-33429",
+    "ec_no": null,
+    "other_id": null,
+    "other_id_type": null,
+    "parent_seq": null,
+    "read_across_cas": null,
+    "content": {
+     "raw": ">= 3.0 - <= 4.0 %",
+     "lower_op": ">=",
+     "lower": 3.0,
+     "upper_op": "<=",
+     "upper": 4.0,
+     "unit": "%"
+    },
+    "content_note": null,
+    "content_basis": null,
+    "trade_secret": null,
+    "approval_no": null,
+    "approval_expiry": null,
+    "line": "p2:L13"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": null,
+    "title_raw": "기존화학물 질목록번호",
+    "reason": "필드없음",
+    "comp_name": "1-Dodecene polymer with 1-Octene, Hydrogenated Ethene, tetrafluoro-, homopolymer",
+    "comp_cas": "163149-29-9",
+    "q": null,
+    "statements": [
+     {
+      "value": "KE# 없음.",
+      "line": "p2:L10"
+     }
+    ],
+    "suggested_code": null,
+    "line": "p2:L10"
+   }
+  ]
+ },
+ "raw_text": "### composition\ntype | no_hazardous_component | line\n혼합물 | false | p2:L6\n\n### components\nname | name_en | synonyms | cas_no | ke_no | ec_no | other_id | other_id_type | parent_seq | read_across_cas | content | content_note | content_basis | trade_secret | approval_no | approval_expiry | line\nLithium 12-hydroxyoctadecanoate |  |  | 7620-77-1 | KE-20761 |  |  |  |  |  | >= 10.0 - <= 16.0 % |  |  |  |  |  | p2:L7\n1-Dodecene polymer with 1-Octene, Hydrogenated Ethene, tetrafluoro-, homopolymer |  |  | 163149-29-9 |  |  |  |  |  |  | >= 77.0 - <= 85.0 % |  |  |  |  |  | p2:L10\n |  |  | 9002-84-0 | KE-33429 |  |  |  |  |  | >= 3.0 - <= 4.0 % |  |  |  |  |  | p2:L13\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\n | 기존화학물 질목록번호 | 필드없음 | 1-Dodecene polymer with 1-Octene, Hydrogenated Ethene, tetrafluoro-, homopolymer | 163149-29-9 |  | KE# 없음. |  | p2:L10",
+ "mode": "rows",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 3960,
+  "completion_tokens": 400,
+  "total_tokens": 4360
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "rows",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 3960,
+    "completion_tokens": 400,
+    "total_tokens": 4360
+   },
+   "seconds": 7.652,
+   "chars": 919,
+   "whitespace": 215,
+   "head": "### composition\ntype | no_hazardous_component | line\n혼합물 | false | p2:L6\n\n### components\nname | name_en | synonyms | cas_no | ke_no | ec_no | other_id | other_id_type | parent_seq | read_across_cas | content | content_note | content_basis | trade_secret | approval_no | approval_expiry | line\nLithium 12-hydroxyoctadecanoate |  |  | 7620-77-1 | KE-20761 |  |  |  |  |  | >= 10.0 - <= 16.0 % |  |  |  |  |  | p2:L7\n1-Dodecene polymer with 1-Octene, Hydrogenated Ethene, tetrafluoro-, homopolymer |  | ",
+   "tail": " | 163149-29-9 |  |  |  |  |  |  | >= 77.0 - <= 85.0 % |  |  |  |  |  | p2:L10\n |  |  | 9002-84-0 | KE-33429 |  |  |  |  |  | >= 3.0 - <= 4.0 % |  |  |  |  |  | p2:L13\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\n | 기존화학물 질목록번호 | 필드없음 | 1-Dodecene polymer with 1-Octene, Hydrogenated Ethene, tetrafluoro-, homopolymer | 163149-29-9 |  | KE# 없음. |  | p2:L10"
+  }
+ ],
+ "seconds": 7.658,
+ "check_problems": []
+}

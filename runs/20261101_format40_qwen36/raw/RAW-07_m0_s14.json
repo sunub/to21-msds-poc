@@ -1,0 +1,140 @@
+{
+ "doc_id": "RAW-07",
+ "msds_index": 0,
+ "section": 14,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "transport": [
+   {
+    "mode": "공통",
+    "basis_raw": null,
+    "regulated": true,
+    "un_no": "3264",
+    "shipping_name": "부식성 액체, 산성, 무기물, n.o.s. (Nitric Acid)",
+    "hazard_class": "8",
+    "sub_risk": null,
+    "packing_group": "III",
+    "marine_pollutant": "해당",
+    "ems_fire": "F-A",
+    "ems_spill": "S-B",
+    "line": "p10:L20"
+   }
+  ],
+  "narratives": [
+   {
+    "item_code": "S14_SPECIAL",
+    "title_raw": "가. 유엔 번호 또는 ID 번호",
+    "start": "p10:L20",
+    "end": "p10:L26"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S14_SPECIAL",
+    "title_raw": "나. 유엔 적정 선적명",
+    "reason": "필드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [],
+    "suggested_code": "SHIPPING_NAME",
+    "line": "p10:L21"
+   },
+   {
+    "after_item": "S14_SPECIAL",
+    "title_raw": "다. 운송에서의 위험성 등급",
+    "reason": "필드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [],
+    "suggested_code": "HAZARD_CLASS",
+    "line": "p10:L22"
+   },
+   {
+    "after_item": "S14_SPECIAL",
+    "title_raw": "라. 용기등급",
+    "reason": "필드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [],
+    "suggested_code": "PACKING_GROUP",
+    "line": "p10:L23"
+   },
+   {
+    "after_item": "S14_SPECIAL",
+    "title_raw": "마. 해양 오염 물질",
+    "reason": "필드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [],
+    "suggested_code": "MARINE_POLLUTANT",
+    "line": "p10:L24"
+   },
+   {
+    "after_item": "S14_SPECIAL",
+    "title_raw": "특정조항",
+    "reason": "필드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [],
+    "suggested_code": "EMS",
+    "line": "p10:L25"
+   },
+   {
+    "after_item": "S14_SPECIAL",
+    "title_raw": "설명",
+    "reason": "필드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [],
+    "suggested_code": null,
+    "line": "p10:L26"
+   },
+   {
+    "after_item": "S14_SPECIAL",
+    "title_raw": "바. 사용자에 대한 특별 주의사항",
+    "reason": "필드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [],
+    "suggested_code": null,
+    "line": "p10:L27"
+   }
+  ]
+ },
+ "raw_text": "### transport\nmode | basis_raw | regulated | un_no | shipping_name | hazard_class | sub_risk | packing_group | marine_pollutant | ems_fire | ems_spill | line\n공통 |  | true | 3264 | 부식성 액체, 산성, 무기물, n.o.s. (Nitric Acid) | 8 |  | III | 해당 | F-A | S-B | p10:L20\n\n### narratives\nitem_code | title_raw | start | end\nS14_SPECIAL | 가. 유엔 번호 또는 ID 번호 | p10:L20 | p10:L26\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\nS14_SPECIAL | 나. 유엔 적정 선적명 | 필드없음 |  |  |  |  | SHIPPING_NAME | p10:L21\nS14_SPECIAL | 다. 운송에서의 위험성 등급 | 필드없음 |  |  |  |  | HAZARD_CLASS | p10:L22\nS14_SPECIAL | 라. 용기등급 | 필드없음 |  |  |  |  | PACKING_GROUP | p10:L23\nS14_SPECIAL | 마. 해양 오염 물질 | 필드없음 |  |  |  |  | MARINE_POLLUTANT | p10:L24\nS14_SPECIAL | 특정조항 | 필드없음 |  |  |  |  | EMS | p10:L25\nS14_SPECIAL | 설명 | 필드없음 |  |  |  |  |  | p10:L26\nS14_SPECIAL | 바. 사용자에 대한 특별 주의사항 | 필드없음 |  |  |  |  |  | p10:L27",
+ "mode": "rows",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 3070,
+  "completion_tokens": 411,
+  "total_tokens": 3481
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "rows",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 3070,
+    "completion_tokens": 411,
+    "total_tokens": 3481
+   },
+   "seconds": 9.055,
+   "chars": 924,
+   "whitespace": 228,
+   "head": "### transport\nmode | basis_raw | regulated | un_no | shipping_name | hazard_class | sub_risk | packing_group | marine_pollutant | ems_fire | ems_spill | line\n공통 |  | true | 3264 | 부식성 액체, 산성, 무기물, n.o.s. (Nitric Acid) | 8 |  | III | 해당 | F-A | S-B | p10:L20\n\n### narratives\nitem_code | title_raw | start | end\nS14_SPECIAL | 가. 유엔 번호 또는 ID 번호 | p10:L20 | p10:L26\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\nS14_SPECIAL | 나. 유엔 적정 선적명 | 필",
+   "tail": "드없음 |  |  |  |  | SHIPPING_NAME | p10:L21\nS14_SPECIAL | 다. 운송에서의 위험성 등급 | 필드없음 |  |  |  |  | HAZARD_CLASS | p10:L22\nS14_SPECIAL | 라. 용기등급 | 필드없음 |  |  |  |  | PACKING_GROUP | p10:L23\nS14_SPECIAL | 마. 해양 오염 물질 | 필드없음 |  |  |  |  | MARINE_POLLUTANT | p10:L24\nS14_SPECIAL | 특정조항 | 필드없음 |  |  |  |  | EMS | p10:L25\nS14_SPECIAL | 설명 | 필드없음 |  |  |  |  |  | p10:L26\nS14_SPECIAL | 바. 사용자에 대한 특별 주의사항 | 필드없음 |  |  |  |  |  | p10:L27"
+  }
+ ],
+ "seconds": 9.057,
+ "check_problems": []
+}

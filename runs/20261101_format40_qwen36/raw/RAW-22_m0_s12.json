@@ -1,0 +1,144 @@
+{
+ "doc_id": "RAW-22",
+ "msds_index": 0,
+ "section": 12,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "ecotox": [
+   {
+    "comp_name": null,
+    "comp_cas": null,
+    "endpoint": "ECO_FISH",
+    "descriptor": "LC50",
+    "q": {
+     "raw": "자료없음"
+    },
+    "species": null,
+    "duration_value": null,
+    "duration_unit": null,
+    "guideline": null,
+    "data_source": "US NLM/ECHA",
+    "statements": [],
+    "status": "자료없음",
+    "line": "p4:L29"
+   },
+   {
+    "comp_name": null,
+    "comp_cas": null,
+    "endpoint": "ECO_CRUST",
+    "descriptor": "EC50",
+    "q": {
+     "raw": "자료없음"
+    },
+    "species": null,
+    "duration_value": null,
+    "duration_unit": null,
+    "guideline": null,
+    "data_source": null,
+    "statements": [],
+    "status": "자료없음",
+    "line": "p4:L30"
+   },
+   {
+    "comp_name": null,
+    "comp_cas": null,
+    "endpoint": "ECO_ALGAE",
+    "descriptor": "EC50",
+    "q": {
+     "raw": "자료없음"
+    },
+    "species": null,
+    "duration_value": null,
+    "duration_unit": null,
+    "guideline": null,
+    "data_source": null,
+    "statements": [],
+    "status": "자료없음",
+    "line": "p4:L31"
+   }
+  ],
+  "narratives": [
+   {
+    "item_code": "S12_OTHER",
+    "title_raw": "12. 환경에 미치는 영향",
+    "start": "p4:L27",
+    "end": "p4:L35"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S12_OTHER",
+    "title_raw": "2) 잔류성 및 분해성",
+    "reason": "필드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [],
+    "suggested_code": "ECO_PERSIST",
+    "line": "p4:L32"
+   },
+   {
+    "after_item": "S12_OTHER",
+    "title_raw": "3) 생물 농축성",
+    "reason": "필드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [],
+    "suggested_code": "ECO_BIOACC",
+    "line": "p4:L33"
+   },
+   {
+    "after_item": "S12_OTHER",
+    "title_raw": "4) 토양 이동성",
+    "reason": "필드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [],
+    "suggested_code": "ECO_SOIL",
+    "line": "p4:L34"
+   },
+   {
+    "after_item": "S12_OTHER",
+    "title_raw": "5) 기타 유해 영향",
+    "reason": "코드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [],
+    "suggested_code": null,
+    "line": "p4:L35"
+   }
+  ]
+ },
+ "raw_text": "### ecotox\ncomp_name | comp_cas | endpoint | descriptor | q | species | duration_value | duration_unit | guideline | data_source | statements | status | line\n |  | ECO_FISH | LC50 |  |  |  |  |  | US NLM/ECHA |  | 자료없음 | p4:L29\n |  | ECO_CRUST | EC50 |  |  |  |  |  |  |  |  | 자료없음 | p4:L30\n |  | ECO_ALGAE | EC50 |  |  |  |  |  |  |  |  | 자료없음 | p4:L31\n\n### narratives\nitem_code | title_raw | start | end\nS12_OTHER | 12. 환경에 미치는 영향 | p4:L27 | p4:L35\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\nS12_OTHER | 2) 잔류성 및 분해성 | 필드없음 |  |  |  |  | ECO_PERSIST | p4:L32\nS12_OTHER | 3) 생물 농축성 | 필드없음 |  |  |  |  | ECO_BIOACC | p4:L33\nS12_OTHER | 4) 토양 이동성 | 필드없음 |  |  |  |  | ECO_SOIL | p4:L34\nS12_OTHER | 5) 기타 유해 영향 | 코드없음 |  |  |  |  |  | p4:L35",
+ "mode": "rows",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 3478,
+  "completion_tokens": 362,
+  "total_tokens": 3840
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "rows",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 3478,
+    "completion_tokens": 362,
+    "total_tokens": 3840
+   },
+   "seconds": 6.66,
+   "chars": 804,
+   "whitespace": 224,
+   "head": "### ecotox\ncomp_name | comp_cas | endpoint | descriptor | q | species | duration_value | duration_unit | guideline | data_source | statements | status | line\n |  | ECO_FISH | LC50 |  |  |  |  |  | US NLM/ECHA |  | 자료없음 | p4:L29\n |  | ECO_CRUST | EC50 |  |  |  |  |  |  |  |  | 자료없음 | p4:L30\n |  | ECO_ALGAE | EC50 |  |  |  |  |  |  |  |  | 자료없음 | p4:L31\n\n### narratives\nitem_code | title_raw | start | end\nS12_OTHER | 12. 환경에 미치는 영향 | p4:L27 | p4:L35\n\n### extras\nafter_item | title_raw | reason | com",
+   "tail": "p_name | comp_cas | q | statements | suggested_code | line\nS12_OTHER | 2) 잔류성 및 분해성 | 필드없음 |  |  |  |  | ECO_PERSIST | p4:L32\nS12_OTHER | 3) 생물 농축성 | 필드없음 |  |  |  |  | ECO_BIOACC | p4:L33\nS12_OTHER | 4) 토양 이동성 | 필드없음 |  |  |  |  | ECO_SOIL | p4:L34\nS12_OTHER | 5) 기타 유해 영향 | 코드없음 |  |  |  |  |  | p4:L35"
+  }
+ ],
+ "seconds": 6.67,
+ "check_problems": []
+}

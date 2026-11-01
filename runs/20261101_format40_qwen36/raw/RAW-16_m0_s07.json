@@ -1,0 +1,176 @@
+{
+ "doc_id": "RAW-16",
+ "msds_index": 0,
+ "section": 7,
+ "reextracted": true,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S7_HANDLING",
+    "title_raw": "안전취급요령",
+    "start": "p4:L10",
+    "end": "p4:L13"
+   },
+   {
+    "item_code": "S7_STORAGE",
+    "title_raw": "안전한 저장 방법",
+    "start": "p4:L14",
+    "end": "p4:L16"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S7_HANDLING",
+    "title_raw": "적절한 환기가 이루어지는 상태에서만 사용할 것. 노출방지 및 개인보호구 항목의 적절한 공학적 관리 참조.",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "key": "내용",
+      "value": "적절한 환기가 이루어지는 상태에서만 사용할 것. 노출방지 및 개인보호구 항목의 적절한 공학적 관리 참조.",
+      "line": "p4:L12"
+     }
+    ],
+    "line": "p4:L12"
+   },
+   {
+    "after_item": "S7_STORAGE",
+    "title_raw": "부적절한 용기 재질",
+    "reason": "코드없음",
+    "q": {
+     "raw": "알려지지 않음",
+     "value": null
+    },
+    "statements": [
+     {
+      "key": "재질",
+      "value": "알려지지 않음",
+      "line": "p4:L16"
+     }
+    ],
+    "line": "p4:L16"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S7_HANDLING\",\n      \"title_raw\": \"안전취급요령\",\n      \"start\": \"p4:L10\",\n      \"end\": \"p4:L13\"\n    },\n    {\n      \"item_code\": \"S7_STORAGE\",\n      \"title_raw\": \"안전한 저장 방법\",\n      \"start\": \"p4:L14\",\n      \"end\": \"p4:L16\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S7_HANDLING\",\n      \"title_raw\": \"적절한 환기가 이루어지는 상태에서만 사용할 것. 노출방지 및 개인보호구 항목의 적절한 공학적 관리 참조.\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"key\": \"내용\",\n          \"value\": \"적절한 환기가 이루어지는 상태에서만 사용할 것. 노출방지 및 개인보호구 항목의 적절한 공학적 관리 참조.\"\n        ,\n          \"line\": \"p4:L12\"\n        }\n      ],\n      \"line\": \"p4:L12\"\n    },\n    {\n      \"after_item\": \"S7_STORAGE\",\n      \"title_raw\": \"부적절한 용기 재질\",\n      \"reason\": \"코드없음\",\n      \"q\": {\n        \"raw\": \"알려지지 않음\",\n        \"value\": null\n      },\n      \"statements\": [\n        {\n          \"key\": \"재질\",\n          \"value\": \"알려지지 않음\"\n        ,\n          \"line\": \"p4:L16\"\n        }\n      ],\n      \"line\": \"p4:L16\"\n    }\n  ]\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 2226,
+  "completion_tokens": 405,
+  "total_tokens": 2631
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 2226,
+    "completion_tokens": 405,
+    "total_tokens": 2631
+   },
+   "seconds": 6.364,
+   "chars": 994,
+   "whitespace": 406,
+   "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S7_HANDLING\",\n      \"title_raw\": \"안전취급요령\",\n      \"start\": \"p4:L10\",\n      \"end\": \"p4:L13\"\n    },\n    {\n      \"item_code\": \"S7_STORAGE\",\n      \"title_raw\": \"안전한 저장 방법\",\n      \"start\": \"p4:L14\",\n      \"end\": \"p4:L16\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S7_HANDLING\",\n      \"title_raw\": \"적절한 환기가 이루어지는 상태에서만 사용할 것. 노출방지 및 개인보호구 항목의 적절한 공학적 관리 참조.\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"key\": \"내용\",\n          \"va",
+   "tail": "lue\": \"적절한 환기가 이루어지는 상태에서만 사용할 것. 노출방지 및 개인보호구 항목의 적절한 공학적 관리 참조.\"\n        ,\n          \"line\": \"p4:L12\"\n        }\n      ],\n      \"line\": \"p4:L12\"\n    },\n    {\n      \"after_item\": \"S7_STORAGE\",\n      \"title_raw\": \"부적절한 용기 재질\",\n      \"reason\": \"코드없음\",\n      \"q\": {\n        \"raw\": \"알려지지 않음\",\n        \"value\": null\n      },\n      \"statements\": [\n        {\n          \"key\": \"재질\",\n          \"value\": \"알려지지 않음\"\n        ,\n          \"line\": \"p4:L16\"\n        }\n      ],\n      \"line\": \"p4:L16\"\n    }\n  ]\n}"
+  }
+ ],
+ "seconds": 6.365,
+ "check_problems": [],
+ "first_attempt": {
+  "ok": true,
+  "parsed": {
+   "narratives": [
+    {
+     "item_code": "S7_HANDLING",
+     "title_raw": "안전취급요령",
+     "start": "L10",
+     "end": "L13"
+    },
+    {
+     "item_code": "S7_STORAGE",
+     "title_raw": "안전한 저장 방법",
+     "start": "L14",
+     "end": "L16"
+    }
+   ],
+   "extras": [
+    {
+     "after_item": "S7_HANDLING",
+     "title_raw": "적절한 환기가 이루어지는 상태에서만 사용할 것. 노출방지 및 개인보호구 항목의 적절한 공학적 관리 참조.",
+     "reason": "코드없음",
+     "statements": [
+      {
+       "key": "조건",
+       "value": "적절한 환기가 이루어지는 상태",
+       "refs": [
+        "노출방지 및 개인보호구 항목"
+       ],
+       "line": "L12"
+      }
+     ],
+     "suggested_code": "S7_HANDLING",
+     "line": "L12"
+    },
+    {
+     "after_item": "S7_STORAGE",
+     "title_raw": "부적절한 용기 재질",
+     "reason": "필드없음",
+     "q": {
+      "raw": "알려지지 않음",
+      "value": null
+     },
+     "statements": [
+      {
+       "key": "재질",
+       "value": "알려지지 않음",
+       "line": "L16"
+      }
+     ],
+     "suggested_code": "S7_STORAGE",
+     "line": "L16"
+    }
+   ]
+  },
+  "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S7_HANDLING\",\n      \"title_raw\": \"안전취급요령\",\n      \"start\": \"L10\",\n      \"end\": \"L13\"\n    },\n    {\n      \"item_code\": \"S7_STORAGE\",\n      \"title_raw\": \"안전한 저장 방법\",\n      \"start\": \"L14\",\n      \"end\": \"L16\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S7_HANDLING\",\n      \"title_raw\": \"적절한 환기가 이루어지는 상태에서만 사용할 것. 노출방지 및 개인보호구 항목의 적절한 공학적 관리 참조.\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"key\": \"조건\",\n          \"value\": \"적절한 환기가 이루어지는 상태\"\n        ,\n        \"refs\": [\n          \"노출방지 및 개인보호구 항목\"\n        ],\n        \"line\": \"L12\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S7_HANDLING\"\n    ,\n      \"line\": \"L12\"\n    },\n    {\n      \"after_item\": \"S7_STORAGE\",\n      \"title_raw\": \"부적절한 용기 재질\",\n      \"reason\": \"필드없음\",\n      \"q\": {\n        \"raw\": \"알려지지 않음\",\n        \"value\": null\n      },\n      \"statements\": [\n        {\n          \"key\": \"재질\",\n          \"value\": \"알려지지 않음\"\n        ,\n        \"line\": \"L16\"\n        }\n      ],\n      \"suggested_code\": \"S7_STORAGE\",\n      \"line\": \"L16\"\n    }\n  ]\n}",
+  "mode": "json_schema",
+  "finish_reason": "stop",
+  "usage": {
+   "prompt_tokens": 2083,
+   "completion_tokens": 425,
+   "total_tokens": 2508
+  },
+  "attempts": 1,
+  "errors": [],
+  "requests": [
+   {
+    "mode": "json_schema",
+    "finish_reason": "stop",
+    "usage": {
+     "prompt_tokens": 2083,
+     "completion_tokens": 425,
+     "total_tokens": 2508
+    },
+    "seconds": 8.929,
+    "chars": 1068,
+    "whitespace": 451,
+    "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S7_HANDLING\",\n      \"title_raw\": \"안전취급요령\",\n      \"start\": \"L10\",\n      \"end\": \"L13\"\n    },\n    {\n      \"item_code\": \"S7_STORAGE\",\n      \"title_raw\": \"안전한 저장 방법\",\n      \"start\": \"L14\",\n      \"end\": \"L16\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S7_HANDLING\",\n      \"title_raw\": \"적절한 환기가 이루어지는 상태에서만 사용할 것. 노출방지 및 개인보호구 항목의 적절한 공학적 관리 참조.\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"key\": \"조건\",\n          \"value\": \"적절한 환",
+    "tail": "\n        ],\n        \"line\": \"L12\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S7_HANDLING\"\n    ,\n      \"line\": \"L12\"\n    },\n    {\n      \"after_item\": \"S7_STORAGE\",\n      \"title_raw\": \"부적절한 용기 재질\",\n      \"reason\": \"필드없음\",\n      \"q\": {\n        \"raw\": \"알려지지 않음\",\n        \"value\": null\n      },\n      \"statements\": [\n        {\n          \"key\": \"재질\",\n          \"value\": \"알려지지 않음\"\n        ,\n        \"line\": \"L16\"\n        }\n      ],\n      \"suggested_code\": \"S7_STORAGE\",\n      \"line\": \"L16\"\n    }\n  ]\n}"
+   }
+  ],
+  "seconds": 8.93,
+  "check_problems": [
+   "narratives[0].start: 원문에 없는 줄 번호 L10",
+   "narratives[0].end: 원문에 없는 줄 번호 L13",
+   "narratives[1].start: 원문에 없는 줄 번호 L14",
+   "narratives[1].end: 원문에 없는 줄 번호 L16",
+   "extras[0].statements[0].line: 원문에 없는 줄 번호 L12",
+   "extras[0].line: 원문에 없는 줄 번호 L12",
+   "extras[1].statements[0].line: 원문에 없는 줄 번호 L16",
+   "extras[1].line: 원문에 없는 줄 번호 L16"
+  ]
+ }
+}

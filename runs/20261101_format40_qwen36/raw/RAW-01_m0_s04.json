@@ -1,0 +1,78 @@
+{
+ "doc_id": "RAW-01",
+ "msds_index": 0,
+ "section": 4,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S4_EYE",
+    "title_raw": "가. 눈에 들어갔을 때",
+    "start": "p2:L22",
+    "end": "p2:L25"
+   },
+   {
+    "item_code": "S4_SKIN",
+    "title_raw": "나. 피부에 접촉했을 때",
+    "start": "p2:L26",
+    "end": "p2:L30"
+   },
+   {
+    "item_code": "S4_INHAL",
+    "title_raw": "다. 흡입했을 때",
+    "start": "p2:L31",
+    "end": "p2:L34"
+   },
+   {
+    "item_code": "S4_INGEST",
+    "title_raw": "라. 먹었을 때",
+    "start": "p2:L35",
+    "end": "p2:L38"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S4_INGEST",
+    "title_raw": "마 응급처치 및 의사의 주의사항",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "value": "오염상황을 의료관계자에게 알려 그들도 적절한 보호조치를 취하도록 하시오.",
+      "line": "p2:L40"
+     }
+    ],
+    "suggested_code": "S4_DOCTOR",
+    "line": "p2:L39"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S4_EYE\",\n      \"title_raw\": \"가. 눈에 들어갔을 때\",\n      \"start\": \"p2:L22\",\n      \"end\": \"p2:L25\"\n    },\n    {\n      \"item_code\": \"S4_SKIN\",\n      \"title_raw\": \"나. 피부에 접촉했을 때\",\n      \"start\": \"p2:L26\",\n      \"end\": \"p2:L30\"\n    },\n    {\n      \"item_code\": \"S4_INHAL\",\n      \"title_raw\": \"다. 흡입했을 때\",\n      \"start\": \"p2:L31\",\n      \"end\": \"p2:L34\"\n    },\n    {\n      \"item_code\": \"S4_INGEST\",\n      \"title_raw\": \"라. 먹었을 때\",\n      \"start\": \"p2:L35\",\n      \"end\": \"p2:L38\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S4_INGEST\",\n      \"title_raw\": \"마 응급처치 및 의사의 주의사항\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"오염상황을 의료관계자에게 알려 그들도 적절한 보호조치를 취하도록 하시오.\"\n        ,\n          \"line\": \"p2:L40\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S4_DOCTOR\"\n    ,\n      \"line\": \"p2:L39\"\n    }\n  ]\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 2323,
+  "completion_tokens": 381,
+  "total_tokens": 2704
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 2323,
+    "completion_tokens": 381,
+    "total_tokens": 2704
+   },
+   "seconds": 9.03,
+   "chars": 868,
+   "whitespace": 330,
+   "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S4_EYE\",\n      \"title_raw\": \"가. 눈에 들어갔을 때\",\n      \"start\": \"p2:L22\",\n      \"end\": \"p2:L25\"\n    },\n    {\n      \"item_code\": \"S4_SKIN\",\n      \"title_raw\": \"나. 피부에 접촉했을 때\",\n      \"start\": \"p2:L26\",\n      \"end\": \"p2:L30\"\n    },\n    {\n      \"item_code\": \"S4_INHAL\",\n      \"title_raw\": \"다. 흡입했을 때\",\n      \"start\": \"p2:L31\",\n      \"end\": \"p2:L34\"\n    },\n    {\n      \"item_code\": \"S4_INGEST\",\n      \"title_raw\": \"라. 먹었을 때\",\n      \"start\": \"p2:L35\",\n      \"end\": ",
+   "tail": "\"p2:L38\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S4_INGEST\",\n      \"title_raw\": \"마 응급처치 및 의사의 주의사항\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"오염상황을 의료관계자에게 알려 그들도 적절한 보호조치를 취하도록 하시오.\"\n        ,\n          \"line\": \"p2:L40\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S4_DOCTOR\"\n    ,\n      \"line\": \"p2:L39\"\n    }\n  ]\n}"
+  }
+ ],
+ "seconds": 9.031,
+ "check_problems": []
+}

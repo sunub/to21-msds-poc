@@ -1,0 +1,120 @@
+{
+ "doc_id": "RAW-04",
+ "msds_index": 0,
+ "section": 5,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S5_MEDIA",
+    "title_raw": "가.적절한 (및 부적절한) 소화제:",
+    "start": "p3:L19",
+    "end": "p3:L21"
+   },
+   {
+    "item_code": "S5_SPECIFIC",
+    "title_raw": "나.화학물질로부터 생기는 특정 유해성 (예, 연소 시 발생 유해물질):",
+    "start": "p3:L22",
+    "end": "p3:L24"
+   },
+   {
+    "item_code": "S5_FIREFIGHT",
+    "title_raw": "다.화재 진압 시 착용할 보호구 및 예방조치:",
+    "start": "p3:L25",
+    "end": "p3:L29"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S5_MEDIA",
+    "title_raw": "가.적절한 (및 부적절한) 소화제:",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "key": "적절한 소화제",
+      "value": "건조화학제, 포말, 내알콜성포말, 물분무, 이산화탄소",
+      "line": "p3:L20"
+     },
+     {
+      "key": "부적절한 소화제",
+      "value": "고압수의 사용",
+      "line": "p3:L21"
+     }
+    ],
+    "suggested_code": "S5_MEDIA",
+    "line": "p3:L19"
+   },
+   {
+    "after_item": "S5_SPECIFIC",
+    "title_raw": "나.화학물질로부터 생기는 특정 유해성 (예, 연소 시 발생 유해물질):",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "value": "소화 작업으로 인한 유출물이 하수구나 배수로로 유입되지 않게 하시오.",
+      "line": "p3:L23"
+     },
+     {
+      "value": "열 분해 시 유해물질인 탄소산화물, 황산화물을 생성함.",
+      "line": "p3:L24"
+     }
+    ],
+    "suggested_code": "S5_SPECIFIC",
+    "line": "p3:L22"
+   },
+   {
+    "after_item": "S5_FIREFIGHT",
+    "title_raw": "다.화재 진압 시 착용할 보호구 및 예방조치:",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "value": "화재 진압 시 필요할 경우 자급식 호흡장비를 착용하시오.",
+      "line": "p3:L26"
+     },
+     {
+      "value": "오염된 방화수는 분리하여 수거하시오.",
+      "line": "p3:L27"
+     },
+     {
+      "value": "본 방화수가 배수구로 배출되지 않도록 하시오.",
+      "line": "p3:L28"
+     },
+     {
+      "value": "화재 잔재 및 오염된 방화수는 지역 규정에 따라 폐기하시오.",
+      "line": "p3:L29"
+     }
+    ],
+    "suggested_code": "S5_FIREFIGHT",
+    "line": "p3:L25"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S5_MEDIA\",\n      \"title_raw\": \"가.적절한 (및 부적절한) 소화제:\",\n      \"start\": \"p3:L19\",\n      \"end\": \"p3:L21\"\n    },\n    {\n      \"item_code\": \"S5_SPECIFIC\",\n      \"title_raw\": \"나.화학물질로부터 생기는 특정 유해성 (예, 연소 시 발생 유해물질):\",\n      \"start\": \"p3:L22\",\n      \"end\": \"p3:L24\"\n    },\n    {\n      \"item_code\": \"S5_FIREFIGHT\",\n      \"title_raw\": \"다.화재 진압 시 착용할 보호구 및 예방조치:\",\n      \"start\": \"p3:L25\",\n      \"end\": \"p3:L29\"\n    }\n  ]\n  ,\n  \"extras\": [\n    {\n      \"after_item\": \"S5_MEDIA\",\n      \"title_raw\": \"가.적절한 (및 부적절한) 소화제:\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"key\": \"적절한 소화제\",\n          \"value\": \"건조화학제, 포말, 내알콜성포말, 물분무, 이산화탄소\"\n        ,\n          \"line\": \"p3:L20\"\n        },\n        {\n          \"key\": \"부적절한 소화제\",\n          \"value\": \"고압수의 사용\"\n        ,\n          \"line\": \"p3:L21\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S5_MEDIA\"\n    ,\n      \"line\": \"p3:L19\"\n    },\n    {\n      \"after_item\": \"S5_SPECIFIC\",\n      \"title_raw\": \"나.화학물질로부터 생기는 특정 유해성 (예, 연소 시 발생 유해물질):\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"소화 작업으로 인한 유출물이 하수구나 배수로로 유입되지 않게 하시오.\"\n        ,\n          \"line\": \"p3:L23\"\n        },\n        {\n          \"value\": \"열 분해 시 유해물질인 탄소산화물, 황산화물을 생성함.\"\n        ,\n          \"line\": \"p3:L24\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S5_SPECIFIC\"\n    ,\n      \"line\": \"p3:L22\"\n    },\n    {\n      \"after_item\": \"S5_FIREFIGHT\",\n      \"title_raw\": \"다.화재 진압 시 착용할 보호구 및 예방조치:\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"화재 진압 시 필요할 경우 자급식 호흡장비를 착용하시오.\"\n        ,\n          \"line\": \"p3:L26\"\n        },\n        {\n          \"value\": \"오염된 방화수는 분리하여 수거하시오.\"\n        ,\n          \"line\": \"p3:L27\"\n        },\n        {\n          \"value\": \"본 방화수가 배수구로 배출되지 않도록 하시오.\"\n        ,\n          \"line\": \"p3:L28\"\n        },\n        {\n          \"value\": \"화재 잔재 및 오염된 방화수는 지역 규정에 따라 폐기하시오.\"\n        ,\n          \"line\": \"p3:L29\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S5_FIREFIGHT\"\n    ,\n      \"line\": \"p3:L25\"\n    }\n  ]\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 2151,
+  "completion_tokens": 875,
+  "total_tokens": 3026
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 2151,
+    "completion_tokens": 875,
+    "total_tokens": 3026
+   },
+   "seconds": 14.369,
+   "chars": 2057,
+   "whitespace": 879,
+   "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S5_MEDIA\",\n      \"title_raw\": \"가.적절한 (및 부적절한) 소화제:\",\n      \"start\": \"p3:L19\",\n      \"end\": \"p3:L21\"\n    },\n    {\n      \"item_code\": \"S5_SPECIFIC\",\n      \"title_raw\": \"나.화학물질로부터 생기는 특정 유해성 (예, 연소 시 발생 유해물질):\",\n      \"start\": \"p3:L22\",\n      \"end\": \"p3:L24\"\n    },\n    {\n      \"item_code\": \"S5_FIREFIGHT\",\n      \"title_raw\": \"다.화재 진압 시 착용할 보호구 및 예방조치:\",\n      \"start\": \"p3:L25\",\n      \"end\": \"p3:L29\"\n    }\n  ]\n  ,\n  \"extras\": [\n    {\n      \"after_item\": \"",
+   "tail": "value\": \"화재 진압 시 필요할 경우 자급식 호흡장비를 착용하시오.\"\n        ,\n          \"line\": \"p3:L26\"\n        },\n        {\n          \"value\": \"오염된 방화수는 분리하여 수거하시오.\"\n        ,\n          \"line\": \"p3:L27\"\n        },\n        {\n          \"value\": \"본 방화수가 배수구로 배출되지 않도록 하시오.\"\n        ,\n          \"line\": \"p3:L28\"\n        },\n        {\n          \"value\": \"화재 잔재 및 오염된 방화수는 지역 규정에 따라 폐기하시오.\"\n        ,\n          \"line\": \"p3:L29\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S5_FIREFIGHT\"\n    ,\n      \"line\": \"p3:L25\"\n    }\n  ]\n}"
+  }
+ ],
+ "seconds": 14.371,
+ "check_problems": []
+}

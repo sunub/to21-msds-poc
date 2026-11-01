@@ -1,0 +1,66 @@
+{
+ "doc_id": "RAW-03",
+ "msds_index": 0,
+ "section": 7,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S7_HANDLING",
+    "title_raw": "가. 안전취급요령",
+    "start": "p3:L17",
+    "end": "p3:L22"
+   },
+   {
+    "item_code": "S7_STORAGE",
+    "title_raw": "나. 안전한 저장 방법",
+    "start": "p3:L23",
+    "end": "p3:L28"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S7_END",
+    "title_raw": "7. 취급 및 저장 방법",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "value": "7. 취급 및 저장 방법",
+      "line": "p3:L16"
+     }
+    ],
+    "suggested_code": "SECTION_TITLE",
+    "line": "p3:L16"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S7_HANDLING\",\n      \"title_raw\": \"가. 안전취급요령\",\n      \"start\": \"p3:L17\",\n      \"end\": \"p3:L22\"\n    },\n    {\n      \"item_code\": \"S7_STORAGE\",\n      \"title_raw\": \"나. 안전한 저장 방법\",\n      \"start\": \"p3:L23\",\n      \"end\": \"p3:L28\"\n    }\n  ]\n  ,\n  \"extras\": [\n    {\n      \"after_item\": \"S7_END\",\n      \"title_raw\": \"7. 취급 및 저장 방법\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"7. 취급 및 저장 방법\"\n        ,\n          \"line\": \"p3:L16\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"SECTION_TITLE\"\n    ,\n      \"line\": \"p3:L16\"\n    }\n  ]\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 2111,
+  "completion_tokens": 251,
+  "total_tokens": 2362
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 2111,
+    "completion_tokens": 251,
+    "total_tokens": 2362
+   },
+   "seconds": 6.238,
+   "chars": 599,
+   "whitespace": 240,
+   "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S7_HANDLING\",\n      \"title_raw\": \"가. 안전취급요령\",\n      \"start\": \"p3:L17\",\n      \"end\": \"p3:L22\"\n    },\n    {\n      \"item_code\": \"S7_STORAGE\",\n      \"title_raw\": \"나. 안전한 저장 방법\",\n      \"start\": \"p3:L23\",\n      \"end\": \"p3:L28\"\n    }\n  ]\n  ,\n  \"extras\": [\n    {\n      \"after_item\": \"S7_END\",\n      \"title_raw\": \"7. 취급 및 저장 방법\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"7. 취급 및 저장 방법\"\n        ,\n          \"line\": \"p3:L16\"\n     ",
+   "tail": "   }\n      ]\n    ,\n      \"suggested_code\": \"SECTION_TITLE\"\n    ,\n      \"line\": \"p3:L16\"\n    }\n  ]\n}"
+  }
+ ],
+ "seconds": 6.239,
+ "check_problems": []
+}

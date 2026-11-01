@@ -1,0 +1,246 @@
+{
+ "doc_id": "RAW-38",
+ "msds_index": 0,
+ "section": 8,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "exposure_limits": [
+   {
+    "comp_name": "다이메틸 테레프탈레이트",
+    "comp_cas": null,
+    "standard": "국내",
+    "limit_type": null,
+    "q": {
+     "raw": "자료없음"
+    },
+    "form": null,
+    "kr_basis": null,
+    "bio_medium": null,
+    "bio_timing": null,
+    "bio_determinant": null,
+    "notations": [],
+    "line": "p4:L25"
+   },
+   {
+    "comp_name": "다이메틸 테레프탈레이트",
+    "comp_cas": null,
+    "standard": "ACGIH",
+    "limit_type": null,
+    "q": {
+     "raw": "자료없음"
+    },
+    "form": null,
+    "kr_basis": null,
+    "bio_medium": null,
+    "bio_timing": null,
+    "bio_determinant": null,
+    "notations": [],
+    "line": "p4:L25"
+   },
+   {
+    "comp_name": "다이메틸 테레프탈레이트",
+    "comp_cas": null,
+    "standard": "생물학적",
+    "limit_type": null,
+    "q": {
+     "raw": "자료없음"
+    },
+    "form": null,
+    "kr_basis": null,
+    "bio_medium": null,
+    "bio_timing": null,
+    "bio_determinant": null,
+    "notations": [],
+    "line": "p4:L25"
+   }
+  ],
+  "narratives": [
+   {
+    "item_code": "S8_ENG",
+    "title_raw": "나. 적절한 공학적 관리",
+    "start": "p4:L26",
+    "end": "p4:L29"
+   },
+   {
+    "item_code": "S8_RESP",
+    "title_raw": "○ 호흡기 보호",
+    "start": "p4:L31",
+    "end": "p4:L32"
+   },
+   {
+    "item_code": "S8_EYE",
+    "title_raw": "○ 눈 보호",
+    "start": "p4:L33",
+    "end": "p4:L34"
+   },
+   {
+    "item_code": "S8_HAND",
+    "title_raw": "○ 손 보호",
+    "start": "p4:L35",
+    "end": "p4:L36"
+   },
+   {
+    "item_code": "S8_BODY",
+    "title_raw": "○ 신체 보호",
+    "start": "p4:L37",
+    "end": "p4:L38"
+   }
+  ],
+  "extras": []
+ },
+ "raw_text": "### exposure_limits\ncomp_name | comp_cas | standard | limit_type | q | form | kr_basis | bio_medium | bio_timing | bio_determinant | notations | line\n다이메틸 테레프탈레이트 |  | 국내 |  | 자료없음 |  |  |  |  |  |  | p4:L25\n다이메틸 테레프탈레이트 |  | ACGIH |  | 자료없음 |  |  |  |  |  |  | p4:L25\n다이메틸 테레프탈레이트 |  | 생물학적 |  | 자료없음 |  |  |  |  |  |  | p4:L25\n\n### narratives\nitem_code | title_raw | start | end\nS8_ENG | 나. 적절한 공학적 관리 | p4:L26 | p4:L29\nS8_RESP | ○ 호흡기 보호 | p4:L31 | p4:L32\nS8_EYE | ○ 눈 보호 | p4:L33 | p4:L34\nS8_HAND | ○ 손 보호 | p4:L35 | p4:L36\nS8_BODY | ○ 신체 보호 | p4:L37 | p4:L38\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\nS8_ENG | 가. 화학물질의 노출기준, 생물학적 노출기준 등 | 필드없음 |  |  |  | 구성성분 | 국내기준 | ACGIH규정 | 생물학적 기준 | p4:L24",
+ "mode": "rows",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 3474,
+  "completion_tokens": 352,
+  "total_tokens": 3826
+ },
+ "attempts": 1,
+ "errors": [
+  "extras p4:L24 S8_ENG | 가. 화학물질의 노출기준, 생물학적 노출기준 등 | 필드…: 열 11개, 기대 9개"
+ ],
+ "requests": [
+  {
+   "mode": "rows",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 3474,
+    "completion_tokens": 352,
+    "total_tokens": 3826
+   },
+   "seconds": 7.53,
+   "chars": 766,
+   "whitespace": 199,
+   "head": "### exposure_limits\ncomp_name | comp_cas | standard | limit_type | q | form | kr_basis | bio_medium | bio_timing | bio_determinant | notations | line\n다이메틸 테레프탈레이트 |  | 국내 |  | 자료없음 |  |  |  |  |  |  | p4:L25\n다이메틸 테레프탈레이트 |  | ACGIH |  | 자료없음 |  |  |  |  |  |  | p4:L25\n다이메틸 테레프탈레이트 |  | 생물학적 |  | 자료없음 |  |  |  |  |  |  | p4:L25\n\n### narratives\nitem_code | title_raw | start | end\nS8_ENG | 나. 적절한 공학적 관리 | p4:L26 | p4:L29\nS8_RESP | ○ 호흡기 보호 | p4:L31 | p4:L32\nS8_EYE | ○ 눈 보호 | p4:L33 | p4:L34\nS8_HAND",
+   "tail": " | ○ 손 보호 | p4:L35 | p4:L36\nS8_BODY | ○ 신체 보호 | p4:L37 | p4:L38\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\nS8_ENG | 가. 화학물질의 노출기준, 생물학적 노출기준 등 | 필드없음 |  |  |  | 구성성분 | 국내기준 | ACGIH규정 | 생물학적 기준 | p4:L24"
+  }
+ ],
+ "seconds": 7.534,
+ "check_problems": [],
+ "reextract_attempt": {
+  "ok": true,
+  "parsed": {
+   "exposure_limits": [
+    {
+     "comp_name": "다이메틸 테레프탈레이트",
+     "comp_cas": null,
+     "standard": "국내",
+     "limit_type": null,
+     "q": {
+      "raw": "자료없음"
+     },
+     "form": null,
+     "kr_basis": null,
+     "bio_medium": null,
+     "bio_timing": null,
+     "bio_determinant": null,
+     "notations": [],
+     "line": "p4:L25"
+    },
+    {
+     "comp_name": "다이메틸 테레프탈레이트",
+     "comp_cas": null,
+     "standard": "ACGIH",
+     "limit_type": null,
+     "q": {
+      "raw": "자료없음"
+     },
+     "form": null,
+     "kr_basis": null,
+     "bio_medium": null,
+     "bio_timing": null,
+     "bio_determinant": null,
+     "notations": [],
+     "line": "p4:L25"
+    },
+    {
+     "comp_name": "다이메틸 테레프탈레이트",
+     "comp_cas": null,
+     "standard": "생물학적",
+     "limit_type": null,
+     "q": {
+      "raw": "자료없음"
+     },
+     "form": null,
+     "kr_basis": null,
+     "bio_medium": null,
+     "bio_timing": null,
+     "bio_determinant": null,
+     "notations": [],
+     "line": "p4:L25"
+    }
+   ],
+   "narratives": [
+    {
+     "item_code": "S8_ENG",
+     "title_raw": "가. 화학물질의 노출기준, 생물학적 노출기준 등",
+     "start": "p4:L23",
+     "end": "p4:L25"
+    },
+    {
+     "item_code": "S8_ENG",
+     "title_raw": "나. 적절한 공학적 관리",
+     "start": "p4:L26",
+     "end": "p4:L29"
+    },
+    {
+     "item_code": "S8_RESP",
+     "title_raw": "○ 호흡기 보호",
+     "start": "p4:L31",
+     "end": "p4:L32"
+    },
+    {
+     "item_code": "S8_EYE",
+     "title_raw": "○ 눈 보호",
+     "start": "p4:L33",
+     "end": "p4:L34"
+    },
+    {
+     "item_code": "S8_HAND",
+     "title_raw": "○ 손 보호",
+     "start": "p4:L35",
+     "end": "p4:L36"
+    },
+    {
+     "item_code": "S8_BODY",
+     "title_raw": "○ 신체 보호",
+     "start": "p4:L37",
+     "end": "p4:L38"
+    }
+   ],
+   "extras": []
+  },
+  "raw_text": "### exposure_limits\ncomp_name | comp_cas | standard | limit_type | q | form | kr_basis | bio_medium | bio_timing | bio_determinant | notations | line\n다이메틸 테레프탈레이트 |  | 국내 |  | 자료없음 |  |  |  |  |  |  | p4:L25\n다이메틸 테레프탈레이트 |  | ACGIH |  | 자료없음 |  |  |  |  |  |  | p4:L25\n다이메틸 테레프탈레이트 |  | 생물학적 |  | 자료없음 |  |  |  |  |  |  | p4:L25\n\n### narratives\nitem_code | title_raw | start | end\nS8_ENG | 가. 화학물질의 노출기준, 생물학적 노출기준 등 | p4:L23 | p4:L25\nS8_ENG | 나. 적절한 공학적 관리 | p4:L26 | p4:L29\nS8_RESP | ○ 호흡기 보호 | p4:L31 | p4:L32\nS8_EYE | ○ 눈 보호 | p4:L33 | p4:L34\nS8_HAND | ○ 손 보호 | p4:L35 | p4:L36\nS8_BODY | ○ 신체 보호 | p4:L37 | p4:L38\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\nS8_ENG | 구성성분 | 국내기준 | ACGIH규정 | 생물학적 기준 | 필드없음 |  |  | p4:L24",
+  "mode": "rows",
+  "finish_reason": "stop",
+  "usage": {
+   "prompt_tokens": 3522,
+   "completion_tokens": 367,
+   "total_tokens": 3889
+  },
+  "attempts": 1,
+  "errors": [
+   "extras p4:L24 S8_ENG | 구성성분 | 국내기준 | ACGIH규정 | 생물학적 기준…: .reason: '국내기준' is not valid under any of the given schemas"
+  ],
+  "requests": [
+   {
+    "mode": "rows",
+    "finish_reason": "stop",
+    "usage": {
+     "prompt_tokens": 3522,
+     "completion_tokens": 367,
+     "total_tokens": 3889
+    },
+    "seconds": 5.802,
+    "chars": 788,
+    "whitespace": 202,
+    "head": "### exposure_limits\ncomp_name | comp_cas | standard | limit_type | q | form | kr_basis | bio_medium | bio_timing | bio_determinant | notations | line\n다이메틸 테레프탈레이트 |  | 국내 |  | 자료없음 |  |  |  |  |  |  | p4:L25\n다이메틸 테레프탈레이트 |  | ACGIH |  | 자료없음 |  |  |  |  |  |  | p4:L25\n다이메틸 테레프탈레이트 |  | 생물학적 |  | 자료없음 |  |  |  |  |  |  | p4:L25\n\n### narratives\nitem_code | title_raw | start | end\nS8_ENG | 가. 화학물질의 노출기준, 생물학적 노출기준 등 | p4:L23 | p4:L25\nS8_ENG | 나. 적절한 공학적 관리 | p4:L26 | p4:L29\nS8_RESP | ○ 호흡기 보호 | p4:",
+    "tail": "L31 | p4:L32\nS8_EYE | ○ 눈 보호 | p4:L33 | p4:L34\nS8_HAND | ○ 손 보호 | p4:L35 | p4:L36\nS8_BODY | ○ 신체 보호 | p4:L37 | p4:L38\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\nS8_ENG | 구성성분 | 국내기준 | ACGIH규정 | 생물학적 기준 | 필드없음 |  |  | p4:L24"
+   }
+  ],
+  "seconds": 5.803,
+  "check_problems": []
+ }
+}

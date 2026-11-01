@@ -1,0 +1,134 @@
+{
+ "doc_id": "RAW-13",
+ "msds_index": 0,
+ "section": 13,
+ "reextracted": true,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S13_METHOD",
+    "title_raw": "가. 폐기방법",
+    "start": "p9:L28",
+    "end": "p9:L29"
+   },
+   {
+    "item_code": "S13_CAUTION",
+    "title_raw": "나. 폐기시 주의사항",
+    "start": "p9:L31",
+    "end": "p9:L31"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S13_METHOD",
+    "title_raw": "나. 폐기시 주의사항",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "value": "- 폐기물 관리법에 명시된 경우 규정에 명시된 주의사항을 고려하시오",
+      "line": "p9:L31"
+     }
+    ],
+    "suggested_code": "S13_CAUTION",
+    "line": "p9:L30"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S13_METHOD\",\n      \"title_raw\": \"가. 폐기방법\",\n      \"start\": \"p9:L28\",\n      \"end\": \"p9:L29\"\n    },\n    {\n      \"item_code\": \"S13_CAUTION\",\n      \"title_raw\": \"나. 폐기시 주의사항\",\n      \"start\": \"p9:L31\",\n      \"end\": \"p9:L31\"\n    }\n  ]\n  ,\n  \"extras\": [\n    {\n      \"after_item\": \"S13_METHOD\",\n      \"title_raw\": \"나. 폐기시 주의사항\",\n      \"reason\": \"코드없음\"\n    ,\n      \"statements\": [\n        {\n          \"value\": \"- 폐기물 관리법에 명시된 경우 규정에 명시된 주의사항을 고려하시오\"\n        ,\n          \"line\": \"p9:L31\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S13_CAUTION\"\n    ,\n      \"line\": \"p9:L30\"\n    }\n  ]\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 1999,
+  "completion_tokens": 273,
+  "total_tokens": 2272
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 1999,
+    "completion_tokens": 273,
+    "total_tokens": 2272
+   },
+   "seconds": 5.268,
+   "chars": 625,
+   "whitespace": 246,
+   "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S13_METHOD\",\n      \"title_raw\": \"가. 폐기방법\",\n      \"start\": \"p9:L28\",\n      \"end\": \"p9:L29\"\n    },\n    {\n      \"item_code\": \"S13_CAUTION\",\n      \"title_raw\": \"나. 폐기시 주의사항\",\n      \"start\": \"p9:L31\",\n      \"end\": \"p9:L31\"\n    }\n  ]\n  ,\n  \"extras\": [\n    {\n      \"after_item\": \"S13_METHOD\",\n      \"title_raw\": \"나. 폐기시 주의사항\",\n      \"reason\": \"코드없음\"\n    ,\n      \"statements\": [\n        {\n          \"value\": \"- 폐기물 관리법에 명시된 경우 규정에 명시된 주의사항을 고려하시오\"\n        ,\n    ",
+   "tail": "      \"line\": \"p9:L31\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S13_CAUTION\"\n    ,\n      \"line\": \"p9:L30\"\n    }\n  ]\n}"
+  }
+ ],
+ "seconds": 5.27,
+ "check_problems": [],
+ "first_attempt": {
+  "ok": true,
+  "parsed": {
+   "narratives": [
+    {
+     "item_code": "S13_METHOD",
+     "title_raw": "가. 폐기방법",
+     "start": "L28",
+     "end": "L29"
+    },
+    {
+     "item_code": "S13_CAUTION",
+     "title_raw": "나. 폐기시 주의사항",
+     "start": "L31",
+     "end": "L31"
+    }
+   ],
+   "extras": [
+    {
+     "after_item": "S9_END",
+     "title_raw": "13. 폐기시 주의사항",
+     "reason": "코드없음",
+     "statements": [
+      {
+       "key": "항목번호",
+       "value": "13",
+       "refs": [],
+       "line": "p9:L26"
+      }
+     ],
+     "line": "p9:L26"
+    }
+   ]
+  },
+  "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S13_METHOD\",\n      \"title_raw\": \"가. 폐기방법\",\n      \"start\": \"L28\",\n      \"end\": \"L29\"\n    },\n    {\n      \"item_code\": \"S13_CAUTION\",\n      \"title_raw\": \"나. 폐기시 주의사항\",\n      \"start\": \"L31\",\n      \"end\": \"L31\"\n    }\n  ]\n  ,\n  \"extras\": [\n    {\n      \"after_item\": \"S9_END\",\n      \"title_raw\": \"13. 폐기시 주의사항\",\n      \"reason\": \"코드없음\"\n    ,\n      \"statements\": [\n        {\n          \"key\": \"항목번호\",\n          \"value\": \"13\"\n        ,\n          \"refs\": []\n        ,\n          \"line\": \"p9:L26\"\n        }\n      ]\n    ,\n      \"line\": \"p9:L26\"\n    }\n  ]\n}",
+  "mode": "json_schema",
+  "finish_reason": "stop",
+  "usage": {
+   "prompt_tokens": 1928,
+   "completion_tokens": 252,
+   "total_tokens": 2180
+  },
+  "attempts": 1,
+  "errors": [],
+  "requests": [
+   {
+    "mode": "json_schema",
+    "finish_reason": "stop",
+    "usage": {
+     "prompt_tokens": 1928,
+     "completion_tokens": 252,
+     "total_tokens": 2180
+    },
+    "seconds": 6.1,
+    "chars": 587,
+    "whitespace": 258,
+    "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S13_METHOD\",\n      \"title_raw\": \"가. 폐기방법\",\n      \"start\": \"L28\",\n      \"end\": \"L29\"\n    },\n    {\n      \"item_code\": \"S13_CAUTION\",\n      \"title_raw\": \"나. 폐기시 주의사항\",\n      \"start\": \"L31\",\n      \"end\": \"L31\"\n    }\n  ]\n  ,\n  \"extras\": [\n    {\n      \"after_item\": \"S9_END\",\n      \"title_raw\": \"13. 폐기시 주의사항\",\n      \"reason\": \"코드없음\"\n    ,\n      \"statements\": [\n        {\n          \"key\": \"항목번호\",\n          \"value\": \"13\"\n        ,\n          \"refs\": []\n        ",
+    "tail": ",\n          \"line\": \"p9:L26\"\n        }\n      ]\n    ,\n      \"line\": \"p9:L26\"\n    }\n  ]\n}"
+   }
+  ],
+  "seconds": 6.101,
+  "check_problems": [
+   "narratives[0].start: 원문에 없는 줄 번호 L28",
+   "narratives[0].end: 원문에 없는 줄 번호 L29",
+   "narratives[1].start: 원문에 없는 줄 번호 L31",
+   "narratives[1].end: 원문에 없는 줄 번호 L31"
+  ]
+ }
+}

@@ -1,0 +1,76 @@
+{
+ "doc_id": "RAW-29",
+ "msds_index": 0,
+ "section": 6,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S6_PERSONAL",
+    "title_raw": "가. 인체를 보호하기 위해 필요한 조치사항 및 보호구",
+    "start": "p4:L21",
+    "end": "p4:L27"
+   },
+   {
+    "item_code": "S6_ENV",
+    "title_raw": "나. 환경을 보호하기 위해 필요한 조치사항",
+    "start": "p4:L29",
+    "end": "p4:L30"
+   },
+   {
+    "item_code": "S6_CLEANUP",
+    "title_raw": "다. 정화 또는 제거 방법",
+    "start": "p4:L31",
+    "end": "p4:L33"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S6_PERSONAL",
+    "title_raw": "고형물 및 고형 잔류물은 인가된 시설에서 폐기하시오.",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "value": "고형물 및 고형 잔류물은 인가된 시설에서 폐기하시오.",
+      "line": "p4:L28"
+     },
+     {
+      "key": "국가 기관",
+      "value": "알리시오",
+      "line": "p4:L33"
+     }
+    ],
+    "line": "p4:L33"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S6_PERSONAL\",\n      \"title_raw\": \"가. 인체를 보호하기 위해 필요한 조치사항 및 보호구\",\n      \"start\": \"p4:L21\",\n      \"end\": \"p4:L27\"\n    },\n    {\n      \"item_code\": \"S6_ENV\",\n      \"title_raw\": \"나. 환경을 보호하기 위해 필요한 조치사항\",\n      \"start\": \"p4:L29\",\n      \"end\": \"p4:L30\"\n    },\n    {\n      \"item_code\": \"S6_CLEANUP\",\n      \"title_raw\": \"다. 정화 또는 제거 방법\",\n      \"start\": \"p4:L31\",\n      \"end\": \"p4:L33\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S6_PERSONAL\",\n      \"title_raw\": \"고형물 및 고형 잔류물은 인가된 시설에서 폐기하시오.\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"고형물 및 고형 잔류물은 인가된 시설에서 폐기하시오.\"\n       \n      ,\n      \"line\": \"p4:L28\"\n    },\n    {\n      \"key\": \"국가 기관\",\n      \"value\": \"알리시오\",\n      \"line\": \"p4:L33\"\n    }\n  ]\n  ,\n  \"line\": \"p4:L33\"\n}\n  ]\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 2253,
+  "completion_tokens": 364,
+  "total_tokens": 2617
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 2253,
+    "completion_tokens": 364,
+    "total_tokens": 2617
+   },
+   "seconds": 7.751,
+   "chars": 809,
+   "whitespace": 301,
+   "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S6_PERSONAL\",\n      \"title_raw\": \"가. 인체를 보호하기 위해 필요한 조치사항 및 보호구\",\n      \"start\": \"p4:L21\",\n      \"end\": \"p4:L27\"\n    },\n    {\n      \"item_code\": \"S6_ENV\",\n      \"title_raw\": \"나. 환경을 보호하기 위해 필요한 조치사항\",\n      \"start\": \"p4:L29\",\n      \"end\": \"p4:L30\"\n    },\n    {\n      \"item_code\": \"S6_CLEANUP\",\n      \"title_raw\": \"다. 정화 또는 제거 방법\",\n      \"start\": \"p4:L31\",\n      \"end\": \"p4:L33\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S6_PERSONAL\",\n      \"tit",
+   "tail": "le_raw\": \"고형물 및 고형 잔류물은 인가된 시설에서 폐기하시오.\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"고형물 및 고형 잔류물은 인가된 시설에서 폐기하시오.\"\n       \n      ,\n      \"line\": \"p4:L28\"\n    },\n    {\n      \"key\": \"국가 기관\",\n      \"value\": \"알리시오\",\n      \"line\": \"p4:L33\"\n    }\n  ]\n  ,\n  \"line\": \"p4:L33\"\n}\n  ]\n}"
+  }
+ ],
+ "seconds": 7.752,
+ "check_problems": []
+}

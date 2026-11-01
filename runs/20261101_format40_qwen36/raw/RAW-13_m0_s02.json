@@ -1,0 +1,450 @@
+{
+ "doc_id": "RAW-13",
+ "msds_index": 0,
+ "section": 2,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "hazard": {
+   "classified": true,
+   "classes": [
+    {
+     "group": "물리적",
+     "class_code": "PH_FLAM_LIQ",
+     "category": "2",
+     "raw": "인화성 액체 구분 2",
+     "line": "p1:L18"
+    },
+    {
+     "group": "건강",
+     "class_code": "HH_SKIN_CORR",
+     "category": "2",
+     "raw": "피부 부식성 또는 자극성 물질 구분 2",
+     "line": "p1:L19"
+    },
+    {
+     "group": "건강",
+     "class_code": "HH_EYE_DMG",
+     "category": "2",
+     "raw": "심한 눈 손상 또는 자극성 물질 구분 2",
+     "line": "p1:L20"
+    },
+    {
+     "group": "건강",
+     "class_code": "HH_CARCINOGEN",
+     "category": "1",
+     "raw": "발암성물질 구분 1",
+     "line": "p1:L21"
+    },
+    {
+     "group": "건강",
+     "class_code": "HH_MUTAGEN",
+     "category": "1",
+     "raw": "생식세포 변이원성 물질 구분 1",
+     "line": "p1:L22"
+    },
+    {
+     "group": "건강",
+     "class_code": "HH_STOT_RE",
+     "category": "1",
+     "target_organs": [
+      "중추 신경계",
+      "조혈계"
+     ],
+     "raw": "특정표적장기·전신 독성 물질(반복 노출) 구분 1",
+     "line": "p1:L23"
+    },
+    {
+     "group": "건강",
+     "class_code": "HH_ASPIRATION",
+     "category": "1",
+     "raw": "흡인유해성 물질 구분 1",
+     "line": "p1:L24"
+    },
+    {
+     "group": "환경",
+     "class_code": "ENV_AQ_CHRONIC",
+     "category": "2",
+     "raw": "만성 수생 환경유해성 물질 구분 2",
+     "line": "p1:L25"
+    }
+   ],
+   "signal_word": "위험",
+   "pictograms": [
+    {
+     "code": "GHS02"
+    },
+    {
+     "code": "GHS07"
+    },
+    {
+     "code": "GHS08"
+    },
+    {
+     "code": "GHS09"
+    }
+   ],
+   "h_statements": [
+    {
+     "code": "H225",
+     "text": "고인화성 액체 및 증기",
+     "line": "p2:L30"
+    },
+    {
+     "code": "H304",
+     "text": "삼켜서 기도로 유입되면 치명적일 수 있음",
+     "line": "p2:L31"
+    },
+    {
+     "code": "H315",
+     "text": "피부에 자극을 일으킴",
+     "line": "p2:L32"
+    },
+    {
+     "code": "H319",
+     "text": "눈에 심한 자극을 일으킴",
+     "line": "p2:L1"
+    },
+    {
+     "code": "H340",
+     "text": "유전적인 결함을 일으킬 수 있음",
+     "line": "p2:L2"
+    },
+    {
+     "code": "H350",
+     "text": "암을 일으킬 수 있음",
+     "line": "p2:L3"
+    },
+    {
+     "code": "H372",
+     "text": "장기간 또는 반복적으로 노출되면 (중추 신경계, 조혈계)장기에 손상을 일으킴",
+     "line": "p2:L4"
+    },
+    {
+     "code": "H411",
+     "text": "장기적인 영향에 의해 수생생물에게 유독함",
+     "line": "p2:L5"
+    }
+   ],
+   "p_statements": [
+    {
+     "code": "P201",
+     "type": "예방",
+     "text": "사용 전 취급 설명서를 확보하시오.",
+     "line": "p2:L8"
+    },
+    {
+     "code": "P202",
+     "type": "예방",
+     "text": "모든 안전 예방조치 문구를 읽고 이해하기 전에는 취급하지 마시오.",
+     "line": "p2:L9"
+    },
+    {
+     "code": "P210",
+     "type": "예방",
+     "text": "열, 고온의 표면, 스파크, 화염 및 그 밖의 점화원으로부터 멀리하시오. 금연",
+     "line": "p2:L10"
+    },
+    {
+     "code": "P233",
+     "type": "예방",
+     "text": "용기를 단단히 밀폐하시오.",
+     "line": "p2:L11"
+    },
+    {
+     "code": "P240",
+     "type": "예방",
+     "text": "용기와 수용설비를 접지하시오.",
+     "line": "p2:L12"
+    },
+    {
+     "code": "P241",
+     "type": "예방",
+     "text": "방폭형 (전기·환기·조명) 설비를 사용하시오.",
+     "line": "p2:L13"
+    },
+    {
+     "code": "P242",
+     "type": "예방",
+     "text": "스파크가 발생하지 않는 도구를 사용하시오.",
+     "line": "p2:L14"
+    },
+    {
+     "code": "P243",
+     "type": "예방",
+     "text": "정전기 방지 조치를 취하시오.",
+     "line": "p2:L15"
+    },
+    {
+     "code": "P260",
+     "type": "예방",
+     "text": "분진·흄·가스·미스트·증기·스프레이를(을) 흡입하지 마시오.",
+     "line": "p2:L16"
+    },
+    {
+     "code": "P264",
+     "type": "예방",
+     "text": "취급후에는 손을 철저히 씻으시오",
+     "line": "p2:L17"
+    },
+    {
+     "code": "P270",
+     "type": "예방",
+     "text": "이 제품을 사용할 때에는 먹거나, 마시거나 흡연하지 마시오.",
+     "line": "p2:L18"
+    },
+    {
+     "code": "P273",
+     "type": "예방",
+     "text": "환경으로 배출하지 마시오.",
+     "line": "p2:L19"
+    },
+    {
+     "code": "P280",
+     "type": "예방",
+     "text": "보호장갑·보호의·보안경·안면보호구를(을) 착용하시오.",
+     "line": "p2:L20"
+    },
+    {
+     "code": "P301+P310",
+     "type": "대응",
+     "text": "삼켰다면 : 즉시 의료기관·의사의 진찰을 받으시오.",
+     "line": "p2:L22"
+    },
+    {
+     "code": "P302+P352",
+     "type": "대응",
+     "text": "피부에 묻으면 : 다량의 물로 씻으시오.",
+     "line": "p2:L23"
+    },
+    {
+     "code": "P303+P361+P353",
+     "type": "대응",
+     "text": "피부(또는 머리카락)에 묻으면: 오염된 모든 의복은 벗으시오. 피부를 물로 씻으시오/샤워하시오.",
+     "line": "p2:L24"
+    },
+    {
+     "code": "P305+P351+P338",
+     "type": "대응",
+     "text": "눈에 묻으면: 몇 분간 물로 조심해서 씻으시오. 가능하면 콘택트렌즈를 제거하시오. 계속 씻으시오.",
+     "line": "p2:L26"
+    },
+    {
+     "code": "P308+P313",
+     "type": "대응",
+     "text": "노출되거나 노출이 우려되면: 의학적인 조치·조언을 구하시오.",
+     "line": "p2:L28"
+    },
+    {
+     "code": "P314",
+     "type": "대응",
+     "text": "불편함을 느끼면 의학적인 조치/조언을 받으시오.",
+     "line": "p2:L29"
+    },
+    {
+     "code": "P321",
+     "type": "대응",
+     "text": "필요한 처치를 하시오",
+     "line": "p2:L30"
+    },
+    {
+     "code": "P331",
+     "type": "대응",
+     "text": "토하게 하지 마시오.",
+     "line": "p2:L31"
+    },
+    {
+     "code": "P332+P313",
+     "type": "대응",
+     "text": "피부 자극이 나타나면: 의학적인 조치·조언을 구하시오.",
+     "line": "p2:L32"
+    },
+    {
+     "code": "P337+P313",
+     "type": "대응",
+     "text": "눈에 자극이 지속되면: 의학적인 조치·조언을 구하시오.",
+     "line": "p2:L33"
+    },
+    {
+     "code": "P362+P364",
+     "type": "대응",
+     "text": "오염된 의복은 벗고 다시 사용 전 세척하시오.",
+     "line": "p2:L34"
+    },
+    {
+     "code": "P370+P378",
+     "type": "대응",
+     "text": "불을 끄기 위해 적절한 소화도구를 사용하시오",
+     "line": "p2:L35"
+    },
+    {
+     "code": "P391",
+     "type": "대응",
+     "text": "누출물을 모으시오.",
+     "line": "p2:L36"
+    },
+    {
+     "code": "P403+P235",
+     "type": "저장",
+     "text": "환기가 잘 되는 곳에 보관하시오. 저온으로 유지하시오.",
+     "line": "p2:L38"
+    },
+    {
+     "code": "P405",
+     "type": "저장",
+     "text": "잠금장치를 하여 저장하시오.",
+     "line": "p2:L39"
+    },
+    {
+     "code": "P501",
+     "type": "폐기",
+     "text": "폐기물 관련 법령에 따라 내용물·용기를 폐기하시오",
+     "line": "p2:L41"
+    }
+   ],
+   "nfpa": {
+    "health": 2,
+    "fire": 3,
+    "reactivity": 0,
+    "special": "Impurity"
+   },
+   "lines": {
+    "pictograms": "p2:L27",
+    "nfpa": "p2:L43"
+   }
+  },
+  "narratives": [
+   {
+    "item_code": "S2_LABEL_NOTE",
+    "title_raw": "가. 유해·위험성 분류",
+    "start": "p1:L17",
+    "end": "p1:L25"
+   },
+   {
+    "item_code": "S2_LABEL_NOTE",
+    "title_raw": "나. 예방조치문구를 포함한 경고 표지 항목",
+    "start": "p1:L26",
+    "end": "p2:L41"
+   },
+   {
+    "item_code": "S2_LABEL_NOTE",
+    "title_raw": "다. 유해·위험성 분류기준에 포함되지 않는 기타 유해·위험성",
+    "start": "p2:L42",
+    "end": "p2:L48"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S2_LABEL_NOTE",
+    "title_raw": "그림문자",
+    "statements": [
+     {
+      "key": "위험",
+      "value": "",
+      "line": "p2:L28"
+     }
+    ],
+    "line": "p2:L27"
+   },
+   {
+    "after_item": "S2_LABEL_NOTE",
+    "title_raw": "유해·위험문구",
+    "statements": [
+     {
+      "key": "예방",
+      "value": "",
+      "line": "p2:L6"
+     },
+     {
+      "key": "대응",
+      "value": "",
+      "line": "p2:L21"
+     },
+     {
+      "key": "저장",
+      "value": "",
+      "line": "p2:L37"
+     },
+     {
+      "key": "폐기",
+      "value": "",
+      "line": "p2:L40"
+     }
+    ],
+    "line": "p2:L29"
+   },
+   {
+    "after_item": "S2_LABEL_NOTE",
+    "title_raw": "제품 NFPA 등급",
+    "statements": [
+     {
+      "key": "보건(Health)",
+      "value": "화재(Flammability), 반응성(Reactivity)",
+      "line": "p2:L43"
+     },
+     {
+      "key": "NFPA 지수",
+      "value": "0 = 불충분 , 1 = 약간 , 2 = 보통 , 3 = 높음 , 4 = 매우 높음",
+      "line": "p2:L44"
+     }
+    ],
+    "line": "p2:L43"
+   },
+   {
+    "after_item": "S2_LABEL_NOTE",
+    "title_raw": "화학물질명 | NFPA 지수",
+    "statements": [
+     {
+      "key": "보건(Health)",
+      "value": "화재",
+      "line": "p2:L46"
+     },
+     {
+      "key": "반응성(Reactivity)",
+      "value": "",
+      "line": "p2:L46"
+     },
+     {
+      "key": "Benzene",
+      "value": "2 | 3 | 0",
+      "line": "p2:L47"
+     },
+     {
+      "key": "Impurity",
+      "value": "",
+      "line": "p2:L48"
+     }
+    ],
+    "line": "p2:L45"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"hazard\": {\n    \"classified\": true,\n    \"classes\": [\n      {\n        \"group\": \"물리적\",\n        \"class_code\": \"PH_FLAM_LIQ\",\n        \"category\": \"2\",\n        \"raw\": \"인화성 액체 구분 2\",\n        \"line\": \"p1:L18\"\n      },\n      {\n        \"group\": \"건강\",\n        \"class_code\": \"HH_SKIN_CORR\",\n        \"category\": \"2\",\n        \"raw\": \"피부 부식성 또는 자극성 물질 구분 2\",\n        \"line\": \"p1:L19\"\n      },\n      {\n        \"group\": \"건강\",\n        \"class_code\": \"HH_EYE_DMG\",\n        \"category\": \"2\",\n        \"raw\": \"심한 눈 손상 또는 자극성 물질 구분 2\",\n        \"line\": \"p1:L20\"\n      },\n      {\n        \"group\": \"건강\",\n        \"class_code\": \"HH_CARCINOGEN\",\n        \"category\": \"1\",\n        \"raw\": \"발암성물질 구분 1\",\n        \"line\": \"p1:L21\"\n      },\n      {\n        \"group\": \"건강\",\n        \"class_code\": \"HH_MUTAGEN\",\n        \"category\": \"1\",\n        \"raw\": \"생식세포 변이원성 물질 구분 1\",\n        \"line\": \"p1:L22\"\n      },\n      {\n        \"group\": \"건강\",\n        \"class_code\": \"HH_STOT_RE\",\n        \"category\": \"1\",\n        \"target_organs\": [\n          \"중추 신경계\",\n          \"조혈계\"\n        ],\n        \"raw\": \"특정표적장기·전신 독성 물질(반복 노출) 구분 1\",\n        \"line\": \"p1:L23\"\n      },\n      {\n        \"group\": \"건강\",\n        \"class_code\": \"HH_ASPIRATION\",\n        \"category\": \"1\",\n        \"raw\": \"흡인유해성 물질 구분 1\",\n        \"line\": \"p1:L24\"\n      },\n      {\n        \"group\": \"환경\",\n        \"class_code\": \"ENV_AQ_CHRONIC\",\n        \"category\": \"2\",\n        \"raw\": \"만성 수생 환경유해성 물질 구분 2\",\n        \"line\": \"p1:L25\"\n      }\n    ],\n    \"signal_word\": \"위험\",\n    \"pictograms\": [\n      {\n        \"code\": \"GHS02\"\n      },\n      {\n        \"code\": \"GHS07\"\n      },\n      {\n        \"code\": \"GHS08\"\n      },\n      {\n        \"code\": \"GHS09\"\n      }\n    ],\n    \"h_statements\": [\n      {\n        \"code\": \"H225\",\n        \"text\": \"고인화성 액체 및 증기\",\n        \"line\": \"p2:L30\"\n      },\n      {\n        \"code\": \"H304\",\n        \"text\": \"삼켜서 기도로 유입되면 치명적일 수 있음\",\n        \"line\": \"p2:L31\"\n      },\n      {\n        \"code\": \"H315\",\n        \"text\": \"피부에 자극을 일으킴\",\n        \"line\": \"p2:L32\"\n      },\n      {\n        \"code\": \"H319\",\n        \"text\": \"눈에 심한 자극을 일으킴\",\n        \"line\": \"p2:L1\"\n      },\n      {\n        \"code\": \"H340\",\n        \"text\": \"유전적인 결함을 일으킬 수 있음\",\n        \"line\": \"p2:L2\"\n      },\n      {\n        \"code\": \"H350\",\n        \"text\": \"암을 일으킬 수 있음\",\n        \"line\": \"p2:L3\"\n      },\n      {\n        \"code\": \"H372\",\n        \"text\": \"장기간 또는 반복적으로 노출되면 (중추 신경계, 조혈계)장기에 손상을 일으킴\",\n        \"line\": \"p2:L4\"\n      },\n      {\n        \"code\": \"H411\",\n        \"text\": \"장기적인 영향에 의해 수생생물에게 유독함\",\n        \"line\": \"p2:L5\"\n      }\n    ],\n    \"p_statements\": [\n      {\n        \"code\": \"P201\",\n        \"type\": \"예방\",\n        \"text\": \"사용 전 취급 설명서를 확보하시오.\",\n        \"line\": \"p2:L8\"\n      },\n      {\n        \"code\": \"P202\",\n        \"type\": \"예방\",\n        \"text\": \"모든 안전 예방조치 문구를 읽고 이해하기 전에는 취급하지 마시오.\",\n        \"line\": \"p2:L9\"\n      },\n      {\n        \"code\": \"P210\",\n        \"type\": \"예방\",\n        \"text\": \"열, 고온의 표면, 스파크, 화염 및 그 밖의 점화원으로부터 멀리하시오. 금연\",\n        \"line\": \"p2:L10\"\n      },\n      {\n        \"code\": \"P233\",\n        \"type\": \"예방\",\n        \"text\": \"용기를 단단히 밀폐하시오.\",\n        \"line\": \"p2:L11\"\n      },\n      {\n        \"code\": \"P240\",\n        \"type\": \"예방\",\n        \"text\": \"용기와 수용설비를 접지하시오.\",\n        \"line\": \"p2:L12\"\n      },\n      {\n        \"code\": \"P241\",\n        \"type\": \"예방\",\n        \"text\": \"방폭형 (전기·환기·조명) 설비를 사용하시오.\",\n        \"line\": \"p2:L13\"\n      },\n      {\n        \"code\": \"P242\",\n        \"type\": \"예방\",\n        \"text\": \"스파크가 발생하지 않는 도구를 사용하시오.\",\n        \"line\": \"p2:L14\"\n      },\n      {\n        \"code\": \"P243\",\n        \"type\": \"예방\",\n        \"text\": \"정전기 방지 조치를 취하시오.\",\n        \"line\": \"p2:L15\"\n      },\n      {\n        \"code\": \"P260\",\n        \"type\": \"예방\",\n        \"text\": \"분진·흄·가스·미스트·증기·스프레이를(을) 흡입하지 마시오.\",\n        \"line\": \"p2:L16\"\n      },\n      {\n        \"code\": \"P264\",\n        \"type\": \"예방\",\n        \"text\": \"취급후에는 손을 철저히 씻으시오\",\n        \"line\": \"p2:L17\"\n      },\n      {\n        \"code\": \"P270\",\n        \"type\": \"예방\",\n        \"text\": \"이 제품을 사용할 때에는 먹거나, 마시거나 흡연하지 마시오.\",\n        \"line\": \"p2:L18\"\n      },\n      {\n        \"code\": \"P273\",\n        \"type\": \"예방\",\n        \"text\": \"환경으로 배출하지 마시오.\",\n        \"line\": \"p2:L19\"\n      },\n      {\n        \"code\": \"P280\",\n        \"type\": \"예방\",\n        \"text\": \"보호장갑·보호의·보안경·안면보호구를(을) 착용하시오.\",\n        \"line\": \"p2:L20\"\n      },\n      {\n        \"code\": \"P301+P310\",\n        \"type\": \"대응\",\n        \"text\": \"삼켰다면 : 즉시 의료기관·의사의 진찰을 받으시오.\",\n        \"line\": \"p2:L22\"\n      },\n      {\n        \"code\": \"P302+P352\",\n        \"type\": \"대응\",\n        \"text\": \"피부에 묻으면 : 다량의 물로 씻으시오.\",\n        \"line\": \"p2:L23\"\n      },\n      {\n        \"code\": \"P303+P361+P353\",\n        \"type\": \"대응\",\n        \"text\": \"피부(또는 머리카락)에 묻으면: 오염된 모든 의복은 벗으시오. 피부를 물로 씻으시오/샤워하시오.\",\n        \"line\": \"p2:L24\"\n      },\n      {\n        \"code\": \"P305+P351+P338\",\n        \"type\": \"대응\",\n        \"text\": \"눈에 묻으면: 몇 분간 물로 조심해서 씻으시오. 가능하면 콘택트렌즈를 제거하시오. 계속 씻으시오.\",\n        \"line\": \"p2:L26\"\n      },\n      {\n        \"code\": \"P308+P313\",\n        \"type\": \"대응\",\n        \"text\": \"노출되거나 노출이 우려되면: 의학적인 조치·조언을 구하시오.\",\n        \"line\": \"p2:L28\"\n      },\n      {\n        \"code\": \"P314\",\n        \"type\": \"대응\",\n        \"text\": \"불편함을 느끼면 의학적인 조치/조언을 받으시오.\",\n        \"line\": \"p2:L29\"\n      },\n      {\n        \"code\": \"P321\",\n        \"type\": \"대응\",\n        \"text\": \"필요한 처치를 하시오\",\n        \"line\": \"p2:L30\"\n      },\n      {\n        \"code\": \"P331\",\n        \"type\": \"대응\",\n        \"text\": \"토하게 하지 마시오.\",\n        \"line\": \"p2:L31\"\n      },\n      {\n        \"code\": \"P332+P313\",\n        \"type\": \"대응\",\n        \"text\": \"피부 자극이 나타나면: 의학적인 조치·조언을 구하시오.\",\n        \"line\": \"p2:L32\"\n      },\n      {\n        \"code\": \"P337+P313\",\n        \"type\": \"대응\",\n        \"text\": \"눈에 자극이 지속되면: 의학적인 조치·조언을 구하시오.\",\n        \"line\": \"p2:L33\"\n      },\n      {\n        \"code\": \"P362+P364\",\n        \"type\": \"대응\",\n        \"text\": \"오염된 의복은 벗고 다시 사용 전 세척하시오.\",\n        \"line\": \"p2:L34\"\n      },\n      {\n        \"code\": \"P370+P378\",\n        \"type\": \"대응\",\n        \"text\": \"불을 끄기 위해 적절한 소화도구를 사용하시오\",\n        \"line\": \"p2:L35\"\n      },\n      {\n        \"code\": \"P391\",\n        \"type\": \"대응\",\n        \"text\": \"누출물을 모으시오.\",\n        \"line\": \"p2:L36\"\n      },\n      {\n        \"code\": \"P403+P235\",\n        \"type\": \"저장\",\n        \"text\": \"환기가 잘 되는 곳에 보관하시오. 저온으로 유지하시오.\",\n        \"line\": \"p2:L38\"\n      },\n      {\n        \"code\": \"P405\",\n        \"type\": \"저장\",\n        \"text\": \"잠금장치를 하여 저장하시오.\",\n        \"line\": \"p2:L39\"\n      },\n      {\n        \"code\": \"P501\",\n        \"type\": \"폐기\",\n        \"text\": \"폐기물 관련 법령에 따라 내용물·용기를 폐기하시오\",\n        \"line\": \"p2:L41\"\n      }\n    ],\n    \"nfpa\": {\n      \"health\": 2,\n      \"fire\": 3,\n      \"reactivity\": 0,\n      \"special\": \"Impurity\"\n    },\n    \"lines\": {\n      \"pictograms\": \"p2:L27\",\n      \"nfpa\": \"p2:L43\"\n    }\n  },\n  \"narratives\": [\n    {\n      \"item_code\": \"S2_LABEL_NOTE\",\n      \"title_raw\": \"가. 유해·위험성 분류\",\n      \"start\":  \t\"p1:L17\",\n      \"end\": \"p1:L25\"\n    },\n    {\n      \"item_code\": \"S2_LABEL_NOTE\",\n      \"title_raw\": \"나. 예방조치문구를 포함한 경고 표지 항목\",\n      \"start\": \"p1:L26\",\n      \"end\": \"p2:L41\"\n    },\n    {\n      \"item_code\": \"S2_LABEL_NOTE\",\n      \"title_raw\": \"다. 유해·위험성 분류기준에 포함되지 않는 기타 유해·위험성\",\n      \"start\": \"p2:L42\",\n      \"end\": \"p2:L48\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S2_LABEL_NOTE\",\n      \"title_raw\": \"그림문자\",\n      \"statements\": [\n        {\n          \"key\": \"위험\",\n          \"value\": \"\"\n        ,\n          \"line\": \"p2:L28\"\n        }\n      ],\n      \"line\": \"p2:L27\"\n    },\n    {\n      \"after_item\": \"S2_LABEL_NOTE\",\n      \"title_raw\": \"유해·위험문구\",\n      \"statements\": [\n        {\n          \"key\": \"예방\",\n          \"value\": \"\"\n        ,\n          \"line\": \"p2:L6\"\n        },\n        {\n          \"key\": \"대응\",\n          \"value\": \"\"\n        ,\n          \"line\": \"p2:L21\"\n        },\n        {\n          \"key\": \"저장\",\n          \"value\": \"\"\n        ,\n          \"line\": \"p2:L37\"\n        },\n        {\n          \"key\": \"폐기\",\n          \"value\": \"\"\n        ,\n          \"line\": \"p2:L40\"\n        }\n      ],\n      \"line\": \"p2:L29\"\n    },\n    {\n      \"after_item\": \"S2_LABEL_NOTE\",\n      \"title_raw\": \"제품 NFPA 등급\",\n      \"statements\": [\n        {\n          \"key\": \"보건(Health)\",\n          \"value\": \"화재(Flammability), 반응성(Reactivity)\"\n        ,\n          \"line\": \"p2:L43\"\n        },\n        {\n          \"key\": \"NFPA 지수\",\n          \"value\": \"0 = 불충분 , 1 = 약간 , 2 = 보통 , 3 = 높음 , 4 = 매우 높음\"\n        ,\n          \"line\": \"p2:L44\"\n        }\n      ],\n      \"line\": \"p2:L43\"\n    },\n    {\n      \"after_item\": \"S2_LABEL_NOTE\",\n      \"title_raw\": \"화학물질명 | NFPA 지수\",\n      \"statements\": [\n        {\n          \"key\": \"보건(Health)\",\n          \"value\": \"화재\"\n        ,\n          \"line\": \"p2:L46\"\n        },\n        {\n          \"key\": \"반응성(Reactivity)\",\n          \"value\": \"\"\n        ,\n          \"line\": \"p2:L46\"\n        },\n        {\n          \"key\": \"Benzene\",\n          \"value\": \"2 | 3 | 0\"\n        ,\n          \"line\": \"p2:L47\"\n        },\n        {\n          \"key\": \"Impurity\",\n          \"value\": \"\"\n        ,\n          \"line\": \"p2:L48\"\n        }\n      ],\n      \"line\": \"p2:L45\"\n    }\n  ]\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 7486,
+  "completion_tokens": 3801,
+  "total_tokens": 11287
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 7486,
+    "completion_tokens": 3801,
+    "total_tokens": 11287
+   },
+   "seconds": 43.79,
+   "chars": 8953,
+   "whitespace": 3972,
+   "head": "{\n  \"hazard\": {\n    \"classified\": true,\n    \"classes\": [\n      {\n        \"group\": \"물리적\",\n        \"class_code\": \"PH_FLAM_LIQ\",\n        \"category\": \"2\",\n        \"raw\": \"인화성 액체 구분 2\",\n        \"line\": \"p1:L18\"\n      },\n      {\n        \"group\": \"건강\",\n        \"class_code\": \"HH_SKIN_CORR\",\n        \"category\": \"2\",\n        \"raw\": \"피부 부식성 또는 자극성 물질 구분 2\",\n        \"line\": \"p1:L19\"\n      },\n      {\n        \"group\": \"건강\",\n        \"class_code\": \"HH_EYE_DMG\",\n        \"category\": \"2\",\n        \"raw\": \"심한 눈 손상 또",
+   "tail": " [\n        {\n          \"key\": \"보건(Health)\",\n          \"value\": \"화재\"\n        ,\n          \"line\": \"p2:L46\"\n        },\n        {\n          \"key\": \"반응성(Reactivity)\",\n          \"value\": \"\"\n        ,\n          \"line\": \"p2:L46\"\n        },\n        {\n          \"key\": \"Benzene\",\n          \"value\": \"2 | 3 | 0\"\n        ,\n          \"line\": \"p2:L47\"\n        },\n        {\n          \"key\": \"Impurity\",\n          \"value\": \"\"\n        ,\n          \"line\": \"p2:L48\"\n        }\n      ],\n      \"line\": \"p2:L45\"\n    }\n  ]\n}"
+  }
+ ],
+ "seconds": 43.793,
+ "check_problems": []
+}

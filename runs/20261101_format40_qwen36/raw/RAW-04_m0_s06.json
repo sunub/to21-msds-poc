@@ -1,0 +1,72 @@
+{
+ "doc_id": "RAW-04",
+ "msds_index": 0,
+ "section": 6,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S6_PERSONAL",
+    "title_raw": "가.인체를 보호하기 위해 필요한 조치 사항 및 보호구:",
+    "start": "p3:L31",
+    "end": "p3:L33"
+   },
+   {
+    "item_code": "S6_ENV",
+    "title_raw": "나.환경을 보호하기 위해 필요한 조치사항:",
+    "start": "p3:L34",
+    "end": "p3:L37"
+   },
+   {
+    "item_code": "S6_CLEANUP",
+    "title_raw": "다.정화 또는 제거 방법:",
+    "start": "p3:L38",
+    "end": "p4:L6"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S6_CLEANUP",
+    "title_raw": "NDM ㈜이수화학 A4(210×297mm)",
+    "reason": "필드없음",
+    "statements": [
+     {
+      "value": "NDM ㈜이수화학 A4(210×297mm)",
+      "line": "p3:L39"
+     }
+    ],
+    "suggested_code": "PUBLISHER",
+    "line": "p3:L39"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S6_PERSONAL\",\n      \"title_raw\": \"가.인체를 보호하기 위해 필요한 조치 사항 및 보호구:\",\n      \"start\": \"p3:L31\",\n      \"end\": \"p3:L33\"\n    },\n    {\n      \"item_code\": \"S6_ENV\",\n      \"title_raw\": \"나.환경을 보호하기 위해 필요한 조치사항:\",\n      \"start\": \"p3:L34\",\n      \"end\": \"p3:L37\"\n    },\n    {\n      \"item_code\": \"S6_CLEANUP\",\n      \"title_raw\": \"다.정화 또는 제거 방법:\",\n      \"start\": \"p3:L38\",\n      \"end\": \"p4:L6\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S6_CLEANUP\",\n      \"title_raw\": \"NDM ㈜이수화학 A4(210×297mm)\",\n      \"reason\": \"필드없음\",\n      \"statements\": [\n        {\n          \"value\": \"NDM ㈜이수화학 A4(210×297mm)\"\n       \n  ,\n      \"line\": \"p3:L39\"\n    }\n  ]\n  ,\n  \"suggested_code\": \"PUBLISHER\"\n    ,\n      \"line\": \"p3:L39\"\n    }\n  ]\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 2208,
+  "completion_tokens": 343,
+  "total_tokens": 2551
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 2208,
+    "completion_tokens": 343,
+    "total_tokens": 2551
+   },
+   "seconds": 7.291,
+   "chars": 757,
+   "whitespace": 269,
+   "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S6_PERSONAL\",\n      \"title_raw\": \"가.인체를 보호하기 위해 필요한 조치 사항 및 보호구:\",\n      \"start\": \"p3:L31\",\n      \"end\": \"p3:L33\"\n    },\n    {\n      \"item_code\": \"S6_ENV\",\n      \"title_raw\": \"나.환경을 보호하기 위해 필요한 조치사항:\",\n      \"start\": \"p3:L34\",\n      \"end\": \"p3:L37\"\n    },\n    {\n      \"item_code\": \"S6_CLEANUP\",\n      \"title_raw\": \"다.정화 또는 제거 방법:\",\n      \"start\": \"p3:L38\",\n      \"end\": \"p4:L6\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S6_CLEANUP\",\n      \"titl",
+   "tail": "e_raw\": \"NDM ㈜이수화학 A4(210×297mm)\",\n      \"reason\": \"필드없음\",\n      \"statements\": [\n        {\n          \"value\": \"NDM ㈜이수화학 A4(210×297mm)\"\n       \n  ,\n      \"line\": \"p3:L39\"\n    }\n  ]\n  ,\n  \"suggested_code\": \"PUBLISHER\"\n    ,\n      \"line\": \"p3:L39\"\n    }\n  ]\n}"
+  }
+ ],
+ "seconds": 7.291,
+ "check_problems": []
+}

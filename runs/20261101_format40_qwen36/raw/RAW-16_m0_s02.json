@@ -1,0 +1,114 @@
+{
+ "doc_id": "RAW-16",
+ "msds_index": 0,
+ "section": 2,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "hazard": {
+   "classified": true,
+   "classes": [
+    {
+     "group": "환경",
+     "class_code": "ENV_AQ_ACUTE",
+     "category": "1",
+     "raw": "급성 수생환경 유해성 : 구분 1",
+     "line": "p1:L27"
+    },
+    {
+     "group": "환경",
+     "class_code": "ENV_AQ_CHRONIC",
+     "category": "1",
+     "raw": "만성 수생환경 유해성 : 구분 1",
+     "line": "p1:L28"
+    }
+   ],
+   "signal_word": "경고",
+   "pictograms": [
+    {
+     "code": "GHS09"
+    }
+   ],
+   "h_statements": [
+    {
+     "code": "H400",
+     "text": "수생생물에 매우 유독함.",
+     "line": "p2:L2"
+    },
+    {
+     "code": "H410",
+     "text": "장기적인 영향에 의해 수생생물에게 매우 유독함.",
+     "line": "p2:L3"
+    }
+   ],
+   "p_statements": [
+    {
+     "code": "P273",
+     "type": "예방",
+     "text": "환경으로 배출하지 마시오.",
+     "line": "p2:L5"
+    },
+    {
+     "code": "P391",
+     "type": "대응",
+     "text": "누출물을 모으시오.",
+     "line": "p2:L7"
+    },
+    {
+     "code": "P501",
+     "type": "폐기",
+     "text": "폐기물관리법에 명시된 내용에 따라 내용물과 용기를 폐기하시오.",
+     "line": "p2:L9"
+    }
+   ],
+   "other_hazards": [
+    {
+     "key": "기타 유해성",
+     "value": "자료없음",
+     "line": "p2:L11"
+    }
+   ],
+   "nfpa": {
+    "health": 0,
+    "fire": 0,
+    "reactivity": 0,
+    "special": ""
+   },
+   "lines": {
+    "signal_word": "p1:L31",
+    "pictograms": "p1:L30",
+    "nfpa": "p1:L25"
+   }
+  },
+  "narratives": [],
+  "extras": []
+ },
+ "raw_text": "{\n  \"hazard\": {\n    \"classified\": true,\n    \"classes\": [\n      {\n        \"group\": \"환경\",\n        \"class_code\": \"ENV_AQ_ACUTE\",\n        \"category\": \"1\",\n        \"raw\": \"급성 수생환경 유해성 : 구분 1\",\n        \"line\": \"p1:L27\"\n      },\n      {\n        \"group\": \"환경\",\n        \"class_code\": \"ENV_AQ_CHRONIC\",\n        \"category\": \"1\",\n        \"raw\": \"만성 수생환경 유해성 : 구분 1\",\n        \"line\": \"p1:L28\"\n      }\n    ],\n    \"signal_word\": \"경고\",\n    \"pictograms\": [\n      {\n        \"code\": \"GHS09\"\n      }\n    ],\n    \"h_statements\": [\n      {\n        \"code\": \"H400\",\n        \"text\": \"수생생물에 매우 유독함.\",\n        \"line\": \"p2:L2\"\n      },\n      {\n        \"code\": \"H410\",\n        \"text\": \"장기적인 영향에 의해 수생생물에게 매우 유독함.\",\n        \"line\": \"p2:L3\"\n      }\n    ],\n    \"p_statements\": [\n      {\n        \"code\": \"P273\",\n        \"type\": \"예방\",\n        \"text\": \"환경으로 배출하지 마시오.\",\n        \"line\": \"p2:L5\"\n      },\n      {\n        \"code\": \"P391\",\n        \"type\": \"대응\",\n        \"text\": \"누출물을 모으시오.\",\n        \"line\": \"p2:L7\"\n      },\n      {\n        \"code\": \"P501\",\n        \"type\": \"폐기\",\n        \"text\": \"폐기물관리법에 명시된 내용에 따라 내용물과 용기를 폐기하시오.\",\n        \"line\": \"p2:L9\"\n      }\n    ],\n    \"other_hazards\": [\n      {\n        \"key\": \"기타 유해성\",\n        \"value\": \"자료없음\",\n        \"line\": \"p2:L11\"\n      }\n    ]\n  ,\n    \"nfpa\": {\n      \"health\": 0,\n      \"fire\": 0,\n      \"reactivity\": 0,\n      \"special\": \"\"\n    }\n  ,\n    \"lines\": {\n      \"signal_word\": \"p1:L31\",\n      \"pictograms\": \"p1:L30\",\n      \"nfpa\": \"p1:L25\"\n    }\n  }\n,\n  \"narratives\": [],\n  \"extras\": []\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 6682,
+  "completion_tokens": 644,
+  "total_tokens": 7326
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 6682,
+    "completion_tokens": 644,
+    "total_tokens": 7326
+   },
+   "seconds": 13.05,
+   "chars": 1505,
+   "whitespace": 641,
+   "head": "{\n  \"hazard\": {\n    \"classified\": true,\n    \"classes\": [\n      {\n        \"group\": \"환경\",\n        \"class_code\": \"ENV_AQ_ACUTE\",\n        \"category\": \"1\",\n        \"raw\": \"급성 수생환경 유해성 : 구분 1\",\n        \"line\": \"p1:L27\"\n      },\n      {\n        \"group\": \"환경\",\n        \"class_code\": \"ENV_AQ_CHRONIC\",\n        \"category\": \"1\",\n        \"raw\": \"만성 수생환경 유해성 : 구분 1\",\n        \"line\": \"p1:L28\"\n      }\n    ],\n    \"signal_word\": \"경고\",\n    \"pictograms\": [\n      {\n        \"code\": \"GHS09\"\n      }\n    ],\n    \"h_statem",
+   "tail": "\": \"P501\",\n        \"type\": \"폐기\",\n        \"text\": \"폐기물관리법에 명시된 내용에 따라 내용물과 용기를 폐기하시오.\",\n        \"line\": \"p2:L9\"\n      }\n    ],\n    \"other_hazards\": [\n      {\n        \"key\": \"기타 유해성\",\n        \"value\": \"자료없음\",\n        \"line\": \"p2:L11\"\n      }\n    ]\n  ,\n    \"nfpa\": {\n      \"health\": 0,\n      \"fire\": 0,\n      \"reactivity\": 0,\n      \"special\": \"\"\n    }\n  ,\n    \"lines\": {\n      \"signal_word\": \"p1:L31\",\n      \"pictograms\": \"p1:L30\",\n      \"nfpa\": \"p1:L25\"\n    }\n  }\n,\n  \"narratives\": [],\n  \"extras\": []\n}"
+  }
+ ],
+ "seconds": 13.052,
+ "check_problems": []
+}
