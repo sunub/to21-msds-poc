@@ -121,7 +121,8 @@ def test_같은_입력은_항상_같고_입력_순서와_무관():
 
 def test_필드_이름은_2항_전용이_아니다():
     v = one(res("3"), msds("3"))
-    assert set(v) == {"class_code", "form", "verdict", "type", "severity", "msds_value", "our_value", "reason", "rule_id", "assumptions"}
+    assert set(v) == {"class_code", "form", "verdict", "type", "severity", "msds_value", "msds_form", "our_value", "reason", "rule_id",
+                      "assumptions"}
     assert v["assumptions"]
 
 
@@ -138,5 +139,5 @@ def test_25번_황산_전체_집계():
     by = {(v["class_code"], v["form"]): v for v in out["verdicts"]}
     assert by[("HH_SKIN_CORR", None)]["verdict"] == "일치" and by[("HH_EYE_DMG", None)]["verdict"] == "일치"
     assert by[("PH_METAL_CORR", None)]["verdict"] == "일치"
-    assert by[("HH_ACUTE_INHAL", "증기")]["verdict"] == "근거부족"
+    assert by[("HH_ACUTE_INHAL", "분진·미스트")]["type"] == "형태·세부 표기"  # 증기 줄과 한 줄로 묶임 (설계서 24장 예제 2)
     assert out == aggregate_verdicts(results, item["hazard"]["classes"])
