@@ -973,3 +973,38 @@ def test_biological_exposure_limit_is_bei(no_conventions):
                                 "q": {"raw": "25 ㎍/g", "value": 25, "unit": "ug/g"}, "line": "p4:L3"}]
     m, _ = expand_one(r)
     assert m["exposure_limits"][0]["limit_type"] == "BEI"
+
+
+# ── 8항 두 단위 값·단순 질식제, 3항 합계 행 ───────────────
+
+def el_rows(r8, conventions=False):
+    r = responses()
+    r[8]["exposure_limits"] = r8
+    m, _ = expand_one(r)
+    return [(x["standard"], x["limit_type"], (x["q"] or {}).get("value"), (x["q"] or {}).get("unit"), (x["q"] or {}).get("status"))
+            for x in m["exposure_limits"]]
+
+
+@pytest.mark.parametrize("raw", ["0.5 ppm (1.6 mg/m3)", "0.5 ppm (1.6 mg/m3"])
+def test_exposure_value_with_second_unit_split(no_conventions, raw):
+    """'0.5 ppm (1.6 mg/m3)'는 단위마다 한 행이다 (골드 S016, 실버 M002). 닫는 괄호가 빠져도 같다."""
+    row = {"comp_name": None, "comp_cas": "1234-56-6", "standard": "ACGIH", "limit_type": "TWA",
+           "q": {"raw": raw, "value": 0.5, "unit": "ppm"}, "line": "p4:L3"}
+    assert el_rows([row]) == [("ACGIH", "TWA", 0.5, "ppm", "값있음"), ("ACGIH", "TWA", 1.6, "mg/m3", "값있음")]
+
+
+def test_simple_asphyxiant_is_not_applicable(no_conventions):
+    """값이 '단순 질식제'뿐이면 수치 기준이 없는 것이라 상태는 해당없음이다 (골드 S003, 실버 S001·S003)."""
+    row = {"comp_name": None, "comp_cas": "1234-56-6", "standard": "ACGIH", "limit_type": None,
+           "q": {"raw": "단순 질식제"}, "line": "p4:L3"}
+    assert el_rows([row]) == [("ACGIH", None, None, None, "해당없음")]
+
+
+def test_total_component_row_is_dropped(no_conventions):
+    """성분표의 합계 행('Total | 100%')은 성분이 아니다. 골드·실버에 없고, 남기면 단일 성분 문서가 두 성분이 된다 (S001)."""
+    r = responses()
+    r[3]["components"] = r[3]["components"][:1] + [{"name": "Total", "cas_no": None, "content": {"raw": "100%", "value": 100, "unit": "%"},
+                                                    "line": "p2:L6"}]
+    r[8]["exposure_limits"][0]["comp_cas"] = None
+    m, _ = expand_one(r)
+    assert [c["name"] for c in m["components"]] == ["가상물질 갑"] and m["exposure_limits"][0]["comp_ref"] == "1"

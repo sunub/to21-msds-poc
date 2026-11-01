@@ -310,6 +310,24 @@ def clear_descriptor_without_value(rows: list[dict]) -> None:
             r["descriptor"] = None if r.get("status") in _NO_VALUE else "결과기술"
 
 
+_SECOND_UNIT = re.compile(r"^\s*(?P<a>-?\d[\d.,]*\s*[^\s\d()（）][^()（）]*?)\s*[(（]\s*"
+                          r"(?P<b>-?\d[\d.,]*\s*[^\s\d()（）][^()（）]*?)\s*[)）]?\s*$")
+_TOTAL = re.compile(r"^\s*(?:total|합\s*계|계|sum)\s*$", re.IGNORECASE)
+
+
+def split_second_unit(row: dict) -> list[dict]:
+    """노출기준 값이 '0.5 ppm (1.6 mg/m3)'처럼 단위 둘로 적혔으면 단위마다 한 행 (골드 S016, 실버 M002).
+    닫는 괄호가 빠져도 같다. 두 쪽 모두 숫자와 단위가 있을 때만 나눈다."""
+    m = _SECOND_UNIT.match((row.get("q") or {}).get("raw") or "")
+    if not m:
+        return [row]
+    from msds.extract.rows import parse_qm      # rows가 펼치기 결과 형식을 쓰므로 여기서 부른다
+    parts = [parse_qm(m[k].strip()) for k in ("a", "b")]
+    if not all(p.get("value") is not None and p.get("unit") for p in parts) or parts[0]["unit"] == parts[1]["unit"]:
+        return [row]
+    return [{**row, "q": p} for p in parts]
+
+
 def drop_repeated(pairs: list[tuple[int, dict]]) -> list[tuple[int, dict]]:
     """원문 줄까지 같은 행은 모델이 반복한 것이라 처음 것만 남긴다. 줄이 없거나 다르면 남긴다."""
     seen, out = set(), []
@@ -521,6 +539,9 @@ def expand_msds(sections: dict[int, dict | None], lines_by_id: dict[str, Line],
             spans[no].append((pos[start], pos[end]))
 
     # 2. TO21 키 순서대로 펼친다. 성분은 다른 행의 comp_ref가 가리키므로 먼저 만든다.
+    # 성분표의 합계 행('Total | 100%')은 성분이 아니다. 남기면 단일 성분 문서가 두 성분이 된다 (S001)
+    rows["components"] = [(no, r) for no, r in rows["components"]
+                          if not (_TOTAL.match(r.get("name") or "") and not r.get("cas_no"))]
     components = _shape(props["components"], [r for _, r in rows["components"]], lines_by_id)
     item: dict = {}
     for key, node in props.items():
@@ -539,6 +560,8 @@ def expand_msds(sections: dict[int, dict | None], lines_by_id: dict[str, Line],
                                lines_by_id)
             continue
         pairs = drop_repeated(pairs)
+        if key == "exposure_limits":
+            pairs = [(no, x) for no, r in pairs for x in split_second_unit(r)]
         src = [r for _, r in pairs]
         if key == "extras":
             # 같은 항 서술 구간 안의 줄을 가리키는 extras는 서술 문장을 다시 쓴 것이라 버리고 항마다 센다
@@ -580,6 +603,9 @@ def expand_msds(sections: dict[int, dict | None], lines_by_id: dict[str, Line],
             for r in item[key]:
                 if r.get("standard") == "생물학적":      # 생물학적 노출기준은 늘 BEI다 (골드·실버 33행)
                     r["limit_type"] = "BEI"
+                q = r.get("q") or {}
+                if q and all(q.get(k) is None for k in ("value", "lower", "upper")) and re.search(r"단순\s*질식", q.get("raw") or ""):
+                    q["status"] = "해당없음"            # 단순 질식제: 수치 기준이 없다 (골드 S003, 실버 S001·S003)
         for i, (no, r) in enumerate(pairs):
             walk(no, r, f"{key}[{i}]")
 
