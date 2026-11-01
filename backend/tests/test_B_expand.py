@@ -1008,3 +1008,18 @@ def test_total_component_row_is_dropped(no_conventions):
     r[8]["exposure_limits"][0]["comp_cas"] = None
     m, _ = expand_one(r)
     assert [c["name"] for c in m["components"]] == ["가상물질 갑"] and m["exposure_limits"][0]["comp_ref"] == "1"
+
+
+def test_exposure_value_none_word_is_not_applicable(no_conventions):
+    """노출기준 표의 '없음'은 기준이 없다는 뜻이라 해당없음이다 (골드 S013)."""
+    row = {"comp_name": None, "comp_cas": "1234-56-6", "standard": "국내", "limit_type": None, "q": {"raw": "없음"}, "line": "p4:L3"}
+    assert el_rows([row]) == [("국내", None, None, None, "해당없음")]
+
+
+def test_empty_component_row_is_dropped(no_conventions):
+    """이름도 CAS도 없는 성분 행은 버린다. 남기면 단일 성분 문서가 두 성분이 된다 (S001). 골드·실버에 이런 행은 없다."""
+    r = responses()
+    r[3]["components"] = r[3]["components"][:1] + [{"name": None, "cas_no": None, "line": "p2:L6"}]
+    r[8]["exposure_limits"][0]["comp_cas"] = None
+    m, _ = expand_one(r)
+    assert len(m["components"]) == 1 and m["exposure_limits"][0]["comp_ref"] == "1"

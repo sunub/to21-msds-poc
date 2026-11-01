@@ -539,9 +539,9 @@ def expand_msds(sections: dict[int, dict | None], lines_by_id: dict[str, Line],
             spans[no].append((pos[start], pos[end]))
 
     # 2. TO21 키 순서대로 펼친다. 성분은 다른 행의 comp_ref가 가리키므로 먼저 만든다.
-    # 성분표의 합계 행('Total | 100%')은 성분이 아니다. 남기면 단일 성분 문서가 두 성분이 된다 (S001)
+    # 성분표의 합계 행('Total | 100%')과 이름·CAS가 모두 빈 행은 성분이 아니다. 남기면 단일 성분 문서가 두 성분이 된다 (S001)
     rows["components"] = [(no, r) for no, r in rows["components"]
-                          if not (_TOTAL.match(r.get("name") or "") and not r.get("cas_no"))]
+                          if r.get("cas_no") or (r.get("name") and not _TOTAL.match(r["name"]))]
     components = _shape(props["components"], [r for _, r in rows["components"]], lines_by_id)
     item: dict = {}
     for key, node in props.items():
@@ -604,8 +604,9 @@ def expand_msds(sections: dict[int, dict | None], lines_by_id: dict[str, Line],
                 if r.get("standard") == "생물학적":      # 생물학적 노출기준은 늘 BEI다 (골드·실버 33행)
                     r["limit_type"] = "BEI"
                 q = r.get("q") or {}
-                if q and all(q.get(k) is None for k in ("value", "lower", "upper")) and re.search(r"단순\s*질식", q.get("raw") or ""):
-                    q["status"] = "해당없음"            # 단순 질식제: 수치 기준이 없다 (골드 S003, 실버 S001·S003)
+                if q and all(q.get(k) is None for k in ("value", "lower", "upper")) and (re.search(r"단순\s*질식", q.get("raw") or "")
+                                                                                 or _word_key(q.get("raw") or "") == "없음"):
+                    q["status"] = "해당없음"            # 단순 질식제·'없음': 수치 기준이 없다 (골드 S003·S013, 실버 S001·S003)
         for i, (no, r) in enumerate(pairs):
             walk(no, r, f"{key}[{i}]")
 
