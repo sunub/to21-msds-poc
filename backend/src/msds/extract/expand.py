@@ -180,17 +180,23 @@ def _norm(s: str | None) -> str:
     return re.sub(r"\s+", "", s or "").casefold()
 
 
+def _name_in_line(key: str, text: str | None) -> bool:
+    """줄에 성분 이름·CAS가 보이는지. 두 글자 이하 이름은 앞뒤에 글자가 없을 때만 본다. '물'은 '유독물질'·'물벼룩'에도 있다."""
+    if len(key) > 2:
+        return key in _norm(text)
+    return re.search(rf"(?<!\w){re.escape(key)}(?!\w)", (text or "").casefold()) is not None
+
+
 def _component_in_line(text: str | None, by_key: dict[str, dict]) -> dict | None:
     """줄에 보이는 성분이 하나면 그 성분. 다른 이름 안에 든 이름(을 ⊂ 을 염)은 세지 않는다."""
-    t = _norm(text)
-    found = [k for k in by_key if k in t]
+    found = [k for k in by_key if _name_in_line(k, text)]
     found = [k for k in found if not any(k != o and k in o for o in found)]
     hits = {by_key[k]["seq"]: by_key[k] for k in found}
     return next(iter(hits.values())) if len(hits) == 1 else None
 
 
 def _any_component(text: str | None, by_key: dict[str, dict]) -> bool:
-    return any(k in _norm(text) for k in by_key)
+    return any(_name_in_line(k, text) for k in by_key)
 
 
 def link_components(rows: list[dict], components: list[dict], lines_by_id: dict[str, Line] | None = None) -> list[dict]:

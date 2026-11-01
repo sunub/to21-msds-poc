@@ -885,6 +885,25 @@ def test_link_components_from_parent_line():
     assert [r["comp_ref"] for r in ex.link_components(rows, COMPS, lines)] == ["2", "MIX", "MIX"]
 
 
+def test_link_components_short_name_needs_word_edges():
+    """두 글자 이하 이름은 앞뒤에 글자가 없을 때만 줄에서 찾는다. '물'은 '유독물질'·'물벼룩'에도 들어 있다."""
+    comps = [{"seq": 1, "name": "물", "cas_no": None}, {"seq": 2, "name": "가상물질 갑", "cas_no": None},
+             {"seq": 3, "name": "Ag", "cas_no": None}]
+    lines = {x.id: x for x in [L("p9:L1", "유독물질 : 해당없음"), L("p9:L2", "물벼룩 EC50 : 자료없음"),
+                               L("p9:L3", "- 물 : 자료없음"), L("p9:L4", "Agency : 자료없음"),
+                               L("p9:L5", "- Ag : 자료없음"), L("p9:L6", "- 가상물질 갑 : 자료없음")]}
+    rows = [{"comp_name": None, "comp_cas": None, "line": f"p9:L{i}"} for i in range(1, 7)]
+    assert [r["comp_ref"] for r in ex.link_components(rows, comps, lines)] == ["MIX", "MIX", "1", "MIX", "3", "2"]
+
+
+def test_short_name_inside_word_does_not_stop_parent_search():
+    """줄 안 낱말에 든 짧은 이름 때문에 부모 줄 찾기를 멈추지 않는다."""
+    comps = [{"seq": 1, "name": "물", "cas_no": None}, {"seq": 2, "name": "가상물질 갑", "cas_no": None}]
+    lines = {x.id: x for x in [L("p9:L1", "- 가상물질 갑 : 구분 1A"), L("p9:L2", "· 유독물질 : 해당")]}
+    rows = [{"comp_name": None, "comp_cas": None, "line": "p9:L2"}]
+    assert ex.link_components(rows, comps, lines)[0]["comp_ref"] == "2"
+
+
 def test_toxicity_descriptor_cleared_without_value(no_conventions):
     """숫자가 없는 독성 행: 상태가 값 없음이면 지표를 비워 A의 규칙('결과기술'·'ATE')에 맡기고, 설명만 있는 행은
     '결과기술'로 둔다. 골드는 숫자 없는 행을 모두 그렇게 적는다. 숫자가 있는 행의 지표는 그대로 둔다."""
