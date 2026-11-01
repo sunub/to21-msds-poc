@@ -7,8 +7,13 @@ import {
   Button,
   Card,
   Dialog,
+  Dropzone,
   Field,
+  FileAlertIcon,
+  FileCheckIcon,
+  FileIcon,
   Input,
+  Paper,
   PillTabs,
   Progress,
   Skeleton,
@@ -43,6 +48,7 @@ const SWATCHES: { group: string; items: { name: string; cls: string }[] }[] = [
       { name: "bg", cls: "bg-bg" },
       { name: "tint", cls: "bg-tint" },
       { name: "sel", cls: "bg-sel" },
+      { name: "paper", cls: "bg-paper" },
     ],
   },
   {
@@ -110,6 +116,7 @@ export default function DesignSystemPage() {
   } = useForm<SampleForm>({ defaultValues: { reviewer: "", memo: "" } });
   const [saved, setSaved] = useState<string | null>(null);
   const [dialogOpen, setDialogOpen] = useState(false);
+  const [dropped, setDropped] = useState<string | null>(null);
 
   return (
     <>
@@ -254,6 +261,36 @@ export default function DesignSystemPage() {
               {saved && <span role="status" className="text-sm text-grn">{saved}</span>}
             </div>
           </form>
+        </Section>
+
+        <Section title="파일 끌어 놓기" note="끌어 놓기와 버튼 선택이 같은 곳으로 모입니다. 끌고 들어오면 파란 바탕, 오류면 빨간 테두리입니다.">
+          <Dropzone accept="application/pdf,.pdf" onFiles={(files) => setDropped(files.map((f) => f.name).join(", "))} className="max-w-xl">
+            <p className="text-lg font-medium">검수할 PDF를 이 영역으로 끌어 놓으세요</p>
+            <p className="text-mut">{dropped ?? "한 번에 한 건씩 올립니다"}</p>
+          </Dropzone>
+          <div className="grid gap-3 sm:grid-cols-3">
+            <Dropzone status="checking" onFiles={() => {}}>
+              <FileIcon className="text-blue" />
+              <p className="text-mut">checking · 확인하는 중</p>
+            </Dropzone>
+            <Dropzone status="ready" onFiles={() => {}}>
+              <FileCheckIcon className="text-grn" />
+              <p className="font-medium text-grn">ready · 올릴 수 있습니다</p>
+            </Dropzone>
+            <Dropzone status="invalid" onFiles={() => {}}>
+              <FileAlertIcon className="text-red" />
+              <p className="text-red">invalid · PDF 파일이 아닙니다</p>
+            </Dropzone>
+          </div>
+        </Section>
+
+        <Section title="원문 종이" note="원문 쪽을 보여 줄 때 씁니다. 연한 둘레 위의 흰 종이에 12px 글자로 적습니다.">
+          <div className="max-w-xl">
+            <Paper className="min-h-0">
+              <b>3. 구성성분의 명칭 및 함유량</b>
+              <div>황산 Sulfuric acid 7664-93-9 93~98</div>
+            </Paper>
+          </div>
         </Section>
 
         <Section title="대화상자" note="막지 않고 고르게 할 때 씁니다. 그림자 없이 얇은 선과 어두운 뒷배경으로 띄웁니다.">
