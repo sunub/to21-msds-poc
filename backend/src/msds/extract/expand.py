@@ -369,6 +369,30 @@ def _section_names_component(rows: list[dict], component: dict, lines_by_id: dic
     return any(_norm(n) and _norm(n) in text for n in names)
 
 
+def collapse_unnamed(rows: list[dict], components: list[dict], lines_by_id: dict[str, Line]) -> list[dict]:
+    """근거 줄·부모 줄에 성분 이름·CAS가 없는데 성분만 다르고 나머지가 같은 행이 둘 이상이면 MIX 한 행으로 모은다.
+    골드는 성분 없는 줄의 독성·CMR·생태 행을 모두 MIX 한 행으로 적는다 (M002 'ο 발암성 : 자료없음'을 모델이 성분마다 복제).
+    부모 줄이 성분을 가리키면('- 부탄 : …' 아래 '· OSHA : 해당없음') 성분별 행이 맞으므로 그대로 둔다."""
+    if len(components) < 2:
+        return rows
+    parents = line_parents(list(lines_by_id.values()))
+    keys = {_norm(x): c for c in components for x in (c.get("name"), c.get("name_en"), c.get("cas_no"), *(c.get("synonyms") or []))
+            if _norm(x)}
+    def named(line_id: str | None) -> bool:
+        line = lines_by_id.get(line_id)
+        return line is None or any(_any_component(x.text, keys) for x in [line, *parents.get(line.id, [])])
+    groups: dict[str, list[int]] = {}
+    for i, r in enumerate(rows):
+        groups.setdefault(json.dumps({k: v for k, v in r.items() if k != "comp_ref"}, ensure_ascii=False, sort_keys=True),
+                          []).append(i)
+    drop, mix = set(), set()
+    for idx in groups.values():
+        if len({rows[i]["comp_ref"] for i in idx} - {"MIX"}) >= 2 and not named(rows[idx[0]].get("line")):
+            mix.add(idx[0])
+            drop.update(idx[1:])
+    return [{**r, "comp_ref": "MIX"} if i in mix else r for i, r in enumerate(rows) if i not in drop]
+
+
 def drop_repeated(pairs: list[tuple[int, dict]]) -> list[tuple[int, dict]]:
     """원문 줄까지 같은 행은 모델이 반복한 것이라 처음 것만 남긴다. 줄이 없거나 다르면 남긴다."""
     seen, out = set(), []
@@ -630,6 +654,8 @@ def expand_msds(sections: dict[int, dict | None], lines_by_id: dict[str, Line],
             for i, ((no, r), linked) in enumerate(zip(pairs, src)):
                 if linked["comp_ref"] == "MIX" and (_norm(r.get("comp_name")) or _norm(r.get("comp_cas"))):
                     problem(no, "unlinked_component", f"{key}[{i}]: {r.get('comp_name')} / {r.get('comp_cas')}")
+            if key in ("toxicity", "cmr", "ecotox"):
+                src = collapse_unnamed(src, components, lines_by_id)
             if key in _SINGLE_COMP_KEYS and len(components) == 1:
                 if key == "regulations" and not _section_names_component(src, components[0], lines_by_id):
                     src = [{**r, "comp_ref": "MIX"} for r in src]   # 15항에 성분이 안 나오면 제품 값 (R10, 골드 S001·S003)
