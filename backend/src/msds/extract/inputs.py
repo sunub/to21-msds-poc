@@ -168,9 +168,6 @@ def section_lines(doc: DocumentInput, msds_index: int, section_no: int, with_pre
 _EDGE = 2      # 쪽 위·아래에서 머리글·바닥글을 찾는 줄 수
 _PAGE_NO = re.compile(r"^\s*(?:-\s*)?\d{1,3}\s*(?:/\s*\d{1,3})?\s*(?:-\s*)?$|^\s*(?:page|쪽)\s*\d+(?:\s*(?:of|/)\s*\d+)?\s*$",
                       re.IGNORECASE)
-_TITLE = re.compile(r"^\s*(\d{1,2})\s*[.)]\s*\S")
-
-
 def page_noise(lines: list[Line]) -> set[str]:
     """쪽 머리글·바닥글·쪽 번호 줄의 id. 쪽 위·아래 _EDGE줄 가운데 같은 자리(위·아래에서 몇 번째)에 같은 글(숫자는
     무시)이 절반 이상 쪽(3쪽 이상 문서)에 되풀이되거나, 쪽 번호 모양인 줄이다. 쪽을 넘는 목록의 데이터 줄은 같은 글이라도
@@ -192,13 +189,10 @@ def page_noise(lines: list[Line]) -> set[str]:
 
 
 def model_lines(doc: DocumentInput, msds_index: int, section_no: int) -> list[Line]:
-    """모델에 보내는 줄: section_lines에서 항 구간의 쪽 머리글·바닥글·쪽 번호와 그 항 제목 줄('7. 취급 및 저장방법')을
-    뺀다. 항 번호는 이미 알고, 제목 줄은 모델이 extras로 옮기다 반복에 빠지는 시작점이었다(10/31 v17 실행 10건 중 8건).
-    문서 머리는 그대로 둔다. ':'가 있는 제목 줄은 값이 붙어 있을 수 있어 남긴다. 줄 번호는 바꾸지 않는다."""
-    span = section_lines(doc, msds_index, section_no, with_preamble=False)
-    drop = page_noise(doc.lines) & {l.id for l in span}
-    drop |= {l.id for l in span[:2]
-             if (m := _TITLE.match(l.text)) and int(m[1]) == section_no and not re.search(r"[:：]", l.text)}
+    """모델에 보내는 줄: section_lines에서 항 구간의 쪽 머리글·바닥글·쪽 번호를 뺀다. 문서 머리와 줄 번호는 그대로 둔다.
+    항 제목 줄은 남긴다. 문서 머리와 항 본문의 경계라, 빼면 모델이 문서 머리의 표기를 가져오거나 제목 바로 뒤 행을
+    빠뜨렸다(11/01 실행, 3·8·11·12·15항)."""
+    drop = page_noise(doc.lines) & {l.id for l in section_lines(doc, msds_index, section_no, with_preamble=False)}
     return [l for l in section_lines(doc, msds_index, section_no) if l.id not in drop]
 
 
