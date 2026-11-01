@@ -512,6 +512,7 @@ _HEADS = {
                ("ECO_BIOACC", r"생물\s*농축|농축성"), ("ECO_SOIL", r"토양\s*이동"), ("ECO_OZONE", r"오존"),
                ("ECO_OTHER", r"기타\s*유해\s*영향")]}
 _HEAD_TABLE = {11: "toxicity", 12: "ecotox"}
+_CMR_ENDPOINT = {"발암성": "TX_CARC", "생식세포변이원성": "TX_MUTA", "생식독성": "TX_REPRO"}
 _HEAD_TAIL = re.compile(r"^[^\s:：|]*(?:\s*(?:독성|물질|또는\s*\S*\s*자극성|\([^)]*\)|노출\)|정보))*\s*[:：|]?\s*")
 
 
@@ -824,6 +825,19 @@ def expand_msds(sections: dict[int, dict | None], lines_by_id: dict[str, Line],
     # 1-2. 폭발 범위 상한/하한 한 줄은 UEL·LEL 두 행으로, 값이 빈 행은 근거 줄의 상태어로 (모델 표기가 실행마다 달랐다)
     phys = [(no, fill_blank_from_line(r, lines_by_id)) for no, r in split_flammability(phys, lines_by_id)]
     rows["physchem"], rows["extras"] = phys, extras
+    # 1-2-1. 기관이 빈 CMR 행은 기관 분류가 아니라 11항 독성 내용이다. 독성 행으로 옮긴다
+    #        (골드 S013 'Methane : 음성 …' → TX_MUTA, '자료없음' → TX_CARC. 골드 CMR 61행은 모두 기관이 있다)
+    have = {(r.get("line"), r.get("endpoint")) for _, r in rows["toxicity"]}
+    for no, r in rows["cmr"]:
+        code = _CMR_ENDPOINT.get(_word_key(r.get("hazard") or ""))
+        status = r.get("status") or ("값있음" if r.get("note") else None)
+        if r.get("agency") or not code or not status or (r.get("line"), code) in have:
+            continue
+        have.add((r.get("line"), code))
+        rows["toxicity"].append((no, {"comp_name": r.get("comp_name"), "comp_cas": r.get("comp_cas"), "endpoint": code,
+                                      "descriptor": None, "q": {"raw": status} if status in _NO_VALUE else None,
+                                      "status": status, "line": r.get("line"),
+                                      "statements": [{"value": r["note"], "line": r.get("line")}] if r.get("note") else []}))
     # 1-3. 8항 '기준 이름 : 상태어' 줄을 가리키는 노출기준 행이 없으면 더한다 (모델이 extras로 묶었다)
     span8 = [x for no, r in [*rows["exposure_limits"], *rows["extras"], *rows["narratives"]] if no == 8
              for v in (r.get("line"), r.get("start"), r.get("end")) if v for x in re.findall(r"p\d+:L\d+", v)]

@@ -1088,7 +1088,7 @@ def test_law_level_line_has_no_item_code(no_conventions, line):
 
 
 def test_cmr_rows_without_agency_dropped(no_conventions):
-    """기관이 빈 CMR 행은 뺀다. 'PRODUCT : 분류되지않음', '발암성 : 자료없음' 같은 제품·항목 줄이라 기관 분류가 아니다
+    """기관이 빈 CMR 행은 CMR에서 빼고 독성 행으로 옮긴다. 'PRODUCT : 분류되지않음', '발암성 : 자료없음' 같은 제품·항목 줄이라 기관 분류가 아니다
     (개발 골드 10건의 CMR 61행은 모두 기관이 있다. 그 내용은 독성 표의 발암성 등에 있다)."""
     r = responses()
     r[11]["cmr"] = [
@@ -1096,9 +1096,15 @@ def test_cmr_rows_without_agency_dropped(no_conventions):
          "note": None, "line": "p5:L9"},
         {"comp_name": "가상물질 갑", "comp_cas": "1234-56-6", "hazard": "발암성", "agency": "IARC", "class": "Group 3",
          "status": "값있음", "note": None, "line": "p5:L9"}]
+    r[11]["cmr"].append({"comp_name": "가상물질 을", "comp_cas": None, "hazard": "생식세포변이원성", "agency": None, "class": None,
+                         "status": "값있음", "note": "가상 음성 결과", "line": "p5:L8"})
     m, _ = expand_one(r)
     assert [(x["agency"], x["class"]) for x in m["cmr"]] == [("IARC", "Group 3")]
     assert [e["field"] for e in m["evidence"] if e["field"].startswith("cmr")] == ["cmr[0]"]
+    # 기관 없는 행은 독성 행으로 옮긴다 (골드 S013 'Methane : 음성 …' → TX_MUTA, '자료없음' → TX_CARC 자료없음)
+    moved = [(x["endpoint"], x["status"], [s["value"] for s in x["statements"]]) for x in m["toxicity"]
+             if x["endpoint"] in ("TX_CARC", "TX_MUTA")]
+    assert moved == [("TX_CARC", "자료없음", []), ("TX_MUTA", "값있음", ["가상 음성 결과"])]
 
 
 @pytest.mark.parametrize("line, want", [("p5:L10", "2B"), ("p5:L9", "Group 2B")])
