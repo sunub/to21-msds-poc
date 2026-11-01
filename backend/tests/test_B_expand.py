@@ -1119,3 +1119,15 @@ def test_link_name_and_cas_disagree(line, want):
     lines = {l.id: l for l in LINES}
     row = {"comp_name": "가상물질 을", "comp_cas": "1234-56-6", "line": line}
     assert ex.link_components([row], comps, lines)[0]["comp_ref"] == want
+
+
+@pytest.mark.parametrize("line, want", [("p6:L10", ["MIX"]), ("p2:L5", ["1", "2"])])
+def test_unnamed_line_rows_per_component_collapse_to_mix(no_conventions, line, want):
+    """근거 줄·부모 줄에 성분이 없는데 성분만 다르고 나머지가 같은 11·12항 행이 여럿이면 MIX 한 행이다
+    (골드: 성분 없는 줄의 독성·CMR·생태 행은 모두 MIX 한 행. M002 'ο 발암성 : 자료없음'을 모델이 성분마다 복제했다).
+    줄에 성분이 보이면 그대로 둔다."""
+    r = responses()
+    r[11]["cmr"] = [{"comp_name": n, "comp_cas": None, "hazard": "발암성", "agency": "IARC", "class": None,
+                     "status": "해당없음", "note": None, "line": line} for n in ("가상물질 갑", "가상물질 을")]
+    m, _ = expand_one(r)
+    assert [x["comp_ref"] for x in m["cmr"]] == want
