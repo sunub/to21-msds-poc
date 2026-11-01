@@ -29,6 +29,7 @@ from __future__ import annotations
 
 import json
 import shutil
+from collections.abc import Callable
 from pathlib import Path
 
 import pymupdf
@@ -213,7 +214,10 @@ def judge_states(doc) -> tuple[list[str], str]:
     return [p["state"] for p in follow_doc(pages, text_layer)], text_layer
 
 
-def preprocess(pdf_path: Path, doc_id: str, dpi: int = 150, force: bool = False) -> dict:
+def preprocess(pdf_path: Path, doc_id: str, dpi: int = 150, force: bool = False,
+               on_page: Callable[[int, int], None] | None = None) -> dict:
+    """on_page(쪽 번호, 전체 쪽수)는 쪽 이미지와 글을 쓴 뒤 쪽마다 한 번 부른다 (서비스 API의 진행 표시).
+    이미 만든 결과를 그대로 돌려줄 때(force 아님)는 부르지 않는다."""
     out_dir = paths.page_dir(doc_id)
     meta_path = paths.page_meta(doc_id)
     if meta_path.exists() and not force:
@@ -244,6 +248,8 @@ def preprocess(pdf_path: Path, doc_id: str, dpi: int = 150, force: bool = False)
         cover = _image_cover(page)
         state = judge_page(c, cover)
         pages.append({"page": i, "state": state, "image_cover": round(cover, 3), **c, "overstrike": overstrike})
+        if on_page:
+            on_page(i, doc.page_count)
 
     text_layer = judge_doc([p["state"] for p in pages], totals)
     pages = follow_doc(pages, text_layer)
