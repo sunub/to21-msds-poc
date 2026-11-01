@@ -137,6 +137,65 @@ def physchem_code(text: str | None, exact: bool = False) -> str | None:
     return next((c for n, c in _physchem_names() if n and (key == n if exact else key.startswith(n))), None)
 
 
+@functools.cache
+def _flammability_names() -> tuple[str, ...]:
+    """폭발 범위 상한/하한을 한 줄에 적은 이름(동의어 사전 physchem의 UEL+LEL 묶음 표기)."""
+    return tuple(sorted((_word_key(n) for n in _dictionary()["physchem"].get("UEL+LEL", [])), key=len, reverse=True))
+
+
+_NUMBER = re.compile(r"-?\d+(?:\.\d+)?")
+
+
+def _flammability_pair(raw: str) -> tuple[dict, dict] | None:
+    """원문 표기 하나 → (UEL QM, LEL QM). 숫자가 둘 이상이면 큰 수가 UEL, 작은 수가 LEL인 단일값이고, 단위는 마지막 숫자
+    뒤의 표기다('4.0~76%' → 76 %, 4 %). 숫자 없이 상태어만 있으면 두 행 모두 그 원문이다. 그 밖에는 None."""
+    nums = [float(x) for x in _NUMBER.findall(raw or "")]
+    if len(nums) >= 2:
+        tail = re.split(r"\d", raw)[-1]
+        unit = re.sub(r"\s+\(.*$", "", tail).strip(" ~/,") or None     # 공백 뒤 괄호 설명은 떼고 붙은 괄호(%(V))는 둔다
+        num = lambda v: int(v) if v.is_integer() else v
+        return ({"raw": raw, "value": num(max(nums)), "unit": unit}, {"raw": raw, "value": num(min(nums)), "unit": unit})
+    if not nums and status_word(raw)[0]:
+        return {"raw": raw}, {"raw": raw}
+    return None
+
+
+def split_flammability(phys: list[tuple[int, dict]], lines_by_id: dict[str, Line]) -> list[tuple[int, dict]]:
+    """폭발 범위 상한/하한을 한 줄에 적은 행을 UEL·LEL 두 행으로 나눈다 (골드·실버 6건과 같은 꼴).
+    대상: 근거 줄이 묶음 이름(UEL+LEL)으로 시작하는 행, 숫자가 둘인 UEL·LEL 행, 짝 없이 상태어만 적힌 UEL·LEL 행.
+    같은 줄의 UEL·LEL 행은 두 행으로 바꾼다. UEL·LEL이 줄마다 따로 적혀 있으면 그대로 둔다."""
+    codes = {r.get("prop_code") for _, r in phys}
+    out, done = [], set()
+    for no, r in phys:
+        line = r.get("line")
+        text = _word_key(_strip_bullet(getattr(lines_by_id.get(line), "text", "") or ""))
+        raw = (r.get("q") or {}).get("raw") or r.get("text_value") or ""
+        code = r.get("prop_code")
+        lone = code in ("UEL", "LEL") and ({"UEL", "LEL"} - {code}) - codes and not _NUMBER.search(raw)
+        combined = any(text.startswith(n) for n in _flammability_names()) or lone
+        pair = _flammability_pair(raw) if combined or (code in ("UEL", "LEL")
+                                                       and len(_NUMBER.findall(raw)) >= 2) else None
+        if pair is None or r.get("prop_code") not in (None, "UEL", "LEL"):
+            out.append((no, r))
+        elif line not in done:
+            done.add(line)
+            base = {k: v for k, v in r.items() if k not in ("prop_code", "q", "text_value")}
+            out += [(no, {**base, "prop_code": "UEL", "q": pair[0], "text_value": None}),
+                    (no, {**base, "prop_code": "LEL", "q": pair[1], "text_value": None})]
+    return out
+
+
+def fill_blank_from_line(row: dict, lines_by_id: dict[str, Line]) -> dict:
+    """값·글자가 모두 빈 물성 행: 근거 줄에서 이름 다음 칸이 상태어(자료없음 등)면 그것을 값으로 둔다.
+    모델이 '인화점 | 자료없음 | 자료없음'의 값 칸을 비운 일이 있었다. 상태어가 아니면 그대로 둔다."""
+    q = row.get("q") or {}
+    if q.get("raw") or any(q.get(k) is not None for k in ("value", "lower", "upper")) or row.get("text_value"):
+        return row
+    cells = [c.strip() for c in re.split(r"[|:：]", getattr(lines_by_id.get(row.get("line")), "text", "") or "")]
+    value = next((c for c in cells[1:] if c), None)
+    return {**row, "q": {"raw": value}} if value and status_word(value)[0] else row
+
+
 def _extra_to_physchem(row: dict, code: str) -> dict:
     values = [s["value"] for s in row.get("statements") or [] if s.get("value")]
     return {"prop_code": code, "comp_name": row.get("comp_name"), "comp_cas": row.get("comp_cas"), "q": row.get("q"),
@@ -449,6 +508,8 @@ def expand_msds(sections: dict[int, dict | None], lines_by_id: dict[str, Line],
             extras.append((no, r))
     if len(extras) < len(rows["extras"]):      # 옮긴 행은 원문 순서 자리에 둔다
         phys.sort(key=lambda p: pos.get(p[1].get("line"), len(pos)))
+    # 1-2. 폭발 범위 상한/하한 한 줄은 UEL·LEL 두 행으로, 값이 빈 행은 근거 줄의 상태어로 (모델 표기가 실행마다 달랐다)
+    phys = [(no, fill_blank_from_line(r, lines_by_id)) for no, r in split_flammability(phys, lines_by_id)]
     rows["physchem"], rows["extras"] = phys, extras
 
     # 서술 구간(양 끝 포함 줄 위치)을 항마다 모은다. extras 거르기에 쓰므로 펼치기 전에 끝낸다 (ADR-022).

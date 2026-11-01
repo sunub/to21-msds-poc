@@ -870,3 +870,12 @@ def test_score_fix_unit_pressure_case(text, unit):
                                         ("50 mg/kg", "mg/kg"), ("101.3 kPa", "kPa")])
 def test_score_fix_unit_other_units_unchanged(text, unit):
     assert rw.parse_qm(text)["unit"] == unit
+
+
+def test_physchem_combined_flammability_code_is_kept_as_uel():
+    """모델이 9항 코드 칸에 사전의 묶음 표기 'UEL+LEL'을 쓰면 행을 버리지 않고 UEL로 읽는다.
+    펼치기가 근거 줄·값으로 UEL·LEL 두 행을 만든다 (11/01 실행에서 이 행이 검증 오류로 버려졌다)."""
+    cols = " | ".join(rw.row_tables(9)["physchem"])
+    text = f"### physchem\n{cols}\nUEL+LEL |  |  | 75 / 4 % |  |  |  | p4:L13\n"
+    parsed, errors = rw.parse_rows(text, 9)
+    assert errors == [] and parsed["physchem"][0]["prop_code"] == "UEL"
