@@ -483,7 +483,7 @@ def test_physchem_rows_relinked_by_dictionary(no_conventions):
     m, _ = expand_one(r)
     assert [(p["prop_code"], p["text_value"], (p["q"] or {}).get("value")) for p in m["physchem"]] == [
         ("FLASH_POINT", None, 60), ("APPEARANCE_COLOR", "무색", None), ("VISCOSITY", None, 7.5)]
-    assert [e["title_raw"] for e in m["extras"]] == ["가상 추가 물성", "증기압 온도"]
+    assert [e["title_raw"] for e in m["extras"]] == ["가상 추가 물성", "증기압 온도", "용해도"]   # 값 없는 행은 옮기지 않는다
 
 
 def test_regulation_law_from_item_code(no_conventions):

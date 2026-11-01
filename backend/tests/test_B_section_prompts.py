@@ -194,7 +194,7 @@ def test_value_and_range_are_exclusive(systems, no):
 
 
 def test_version():
-    assert sp.SECTION_PROMPT_VERSION == "s8"
+    assert sp.SECTION_PROMPT_VERSION == "s9"
 
 
 @pytest.mark.parametrize("no", NOS)
