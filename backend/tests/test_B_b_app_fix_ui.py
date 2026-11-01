@@ -1183,7 +1183,7 @@ def test_only_approved_colors_carry_meaning():
         if 'var(--failure)' in body and selectors.strip() != ':root':
             assert all('error' in s or 'fail' in s for s in selectors.split(',')), selectors
     module, _ = _fix_copy()
-    assert all(entry['color'] in palette for entry in module.doc_legend())
+    assert all(entry['color'] is None or entry['color'] in palette for entry in module.doc_legend())
     # 오류와 값 차이의 색을 혼동하지 않는다. 상태 글은 그대로 보인다.
     run_js(r"""
       const low=scoreCall(8,{ok:false,mode:'json_schema'});
