@@ -39,11 +39,12 @@ def test_acute_table_id():
 def test_params_값():
     keys = ["acute_include_min", "acute_unknown_limit", "acute_mix_rule_id", "acute_basis", "ppm_vapour_molar_volume",
             "density_to_mg_factor", "inhal_base_hours", "trace_amount_upper_percent", "classification_source_order",
-            "inhal_forms_기체", "inhal_forms_액체", "inhal_forms_고체"]
+            "inhal_forms_기체", "inhal_forms_액체", "inhal_forms_고체", "non_toxic_cas"]
     assert {r["key"] for r in read_rules(RULES_DIR / "params.csv")} == set(keys)
     assert param("acute_include_min") == 1.0 and param("acute_unknown_limit") == 10
     assert param_list("inhal_forms_액체") == ["vapour", "mist"]
     assert param_list("classification_source_order") == ["환경부", "고용노동부"]
+    assert param_list("non_toxic_cas") == ["7732-18-5"]  # 물 (설계서 21·24장)
     assert inhal_forms("액체") == ["vapour", "mist"] and inhal_forms("플라즈마") == []
 
 
