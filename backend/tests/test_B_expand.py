@@ -1245,3 +1245,17 @@ def test_recode_regulations_keeps_row_when_threshold_not_in_line():
     rows[0]["threshold"] = {"raw": "0.1% 이상", "lower_op": ">=", "lower": 0.1, "unit": "%"}
     ex.recode_regulations(rows, lines, R_COMPS)
     assert rows[0]["item_code"] == "CCA_PRTR"
+
+
+def test_add_missing_items_heading_and_status():
+    """항목 이름만 적힌 제목 줄과 그 상태(같은 줄 ':' 뒤 또는 다음 상태 줄)가 있는데 그 코드의 행이 없으면 MIX 행을 더한다
+    (M013 '작업환경 측정대상물질' / '규제되지 않음.'을 모델이 뺐다. 개발 골드는 15항에 적힌 국내 항목 66개 모두 행이 있다).
+    그 코드의 행이 이미 있거나, 다음 줄이 상태 줄이 아니면 더하지 않는다."""
+    lines = {l.id: l for l in R_LINES}
+    rows = [{"law": "OSH", "item_code": "OSH_EXPOSURE_STD", "applicable": "해당", "comp_ref": "1", "line": "p10:L5"},
+            {"law": "OSH", "item_code": None, "applicable": "비해당", "comp_ref": "1", "line": "p11:L4"}]   # 범위 끝
+    new = ex.add_missing_items(rows, lines)
+    assert [(r["law"], r["item_code"], r["applicable"], r["comp_ref"], r["line"]) for r in new] == [
+        ("OSH", "OSH_MEASURE", "비해당", "MIX", "p10:L9")]
+    rows.append({"law": "OSH", "item_code": "OSH_MEASURE", "applicable": "해당", "comp_ref": "1", "line": "p10:L9"})
+    assert ex.add_missing_items(rows, lines) == []
