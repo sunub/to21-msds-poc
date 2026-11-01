@@ -43,16 +43,16 @@ def test_일치_세부구분과_분류없음_양쪽():
     assert one(res("분류안됨"), [])["verdict"] == "일치"
 
 
-@pytest.mark.parametrize("ours, stated, typ, sev", [
-    ("2", ["4"], "과소분류", "높음"),    # MSDS가 더 약함
-    ("4", ["2"], "과대분류", "낮음"),    # MSDS가 더 강함
-    ("3", [], "누락", "높음"),           # MSDS에 항목 없음
-    ("분류안됨", ["4"], "과기재", "낮음"),  # 우리는 분류 없음
+@pytest.mark.parametrize("ours, stated, case, typ, sev", [
+    ("2", ["4"], V.UNDER, "과소분류", "높음"),       # MSDS가 더 약함
+    ("4", ["2"], V.OVER, "과대분류", "낮음"),        # MSDS가 더 강함
+    ("3", [], V.MISSING, "과소분류", "높음"),        # MSDS에 항목 없음 (설계서 18장: 미기재도 과소분류)
+    ("분류안됨", ["4"], V.EXTRA, "과대분류", "낮음"),  # 우리는 분류 없음 (설계서 18장: 추가 기재는 과대분류)
 ])
-def test_불일치_4유형(ours, stated, typ, sev):
+def test_불일치_4유형(ours, stated, case, typ, sev):
     v = one(res(ours), msds(*stated))
     assert (v["verdict"], v["type"], v["severity"]) == ("불일치", typ, sev)
-    assert v["rule_id"] == V.RULE_IDS["type"][typ]
+    assert v["rule_id"] == V.RULE_IDS["type"][case]
 
 
 def test_경계_MSDS가_범위_안():
@@ -65,7 +65,7 @@ def test_경계_MSDS가_범위_안():
 def test_경계인데_MSDS가_범위_밖이면_불일치():
     assert one(res("4", "3"), msds("1"))["type"] == "과대분류"
     assert one(res("3", "2"), msds("5"))["type"] == "과소분류"
-    assert one(res("3", "2"), [])["type"] == "누락"
+    assert one(res("3", "2"), [])["type"] == "과소분류"
 
 
 def test_근거부족():
@@ -77,7 +77,7 @@ def test_위험_순서_정의_없으면_근거부족():
     v = one(res("1", cc="PH_METAL_CORR"), msds("2", cc="PH_METAL_CORR"))  # PH_* 는 rules 가 없어 순서 정의 없음
     assert v["verdict"] == "근거부족" and "순서" in v["reason"]
     assert one(res("1", cc="PH_METAL_CORR"), msds("1", cc="PH_METAL_CORR"))["verdict"] == "일치"  # 같으면 순서 불필요
-    assert one(res("분류안됨", cc="PH_METAL_CORR"), msds("1", cc="PH_METAL_CORR"))["type"] == "과기재"
+    assert one(res("분류안됨", cc="PH_METAL_CORR"), msds("1", cc="PH_METAL_CORR"))["type"] == "과대분류"
 
 
 def test_order_덮어쓰기():
@@ -94,7 +94,7 @@ def test_흡입은_형태별로_비교():
     results = [res("2", cc="HH_ACUTE_INHAL", form="증기"), res("2", cc="HH_ACUTE_INHAL", form="분진·미스트")]
     out = aggregate_verdicts(results, msds("2", cc="HH_ACUTE_INHAL", form="증기"))
     by = {v["form"]: v for v in out["verdicts"]}
-    assert by["증기"]["verdict"] == "일치" and by["분진·미스트"]["type"] == "누락"
+    assert by["증기"]["verdict"] == "일치" and by["분진·미스트"]["type"] == "과소분류"
 
 
 def test_해당없음_대조_건너뜀은_따로():
