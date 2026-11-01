@@ -780,6 +780,41 @@ def test_link_components_drops_trailing_qualifier():
     assert [r["comp_ref"] for r in ex.link_components(rows, COMPS)] == ["1", "2", "MIX"]
 
 
+def test_link_components_from_source_line():
+    """성분 표기가 빈 행은 근거 줄에 성분 이름·CAS가 하나만 보이면 그 성분이다 ('- 이소부텐 : 자료없음' 꼴 목록).
+    둘 이상 보이거나 하나도 없으면 MIX. 이름이 다른 이름에 들어 있으면 긴 이름만 센다."""
+    comps = [*COMPS, {"seq": 3, "name": "가상물질 을 염", "cas_no": None}]
+    lines = {x.id: x for x in [L("p9:L1", "- 가상물질 을 : 자료없음"), L("p9:L2", "- 1234-56-6 : 해당없음"),
+                               L("p9:L3", "가상물질 갑, 가상물질 을 : 자료없음"), L("p9:L4", "PRODUCT : 자료없음"),
+                               L("p9:L5", "- 가상물질 을 염 : 자료없음")]}
+    rows = [{"comp_name": None, "comp_cas": None, "line": f"p9:L{i}"} for i in range(1, 6)]
+    rows.append({"comp_name": "PRODUCT", "comp_cas": None, "line": "p9:L1"})   # 적힌 이름이 있으면 줄을 보지 않는다
+    assert [r["comp_ref"] for r in ex.link_components(rows, comps, lines)] == ["2", "1", "MIX", "MIX", "3", "MIX"]
+
+
+# ── 11항 CMR·중복 행 ────────────────────────────────────
+
+@pytest.mark.parametrize("raw, want", [
+    ("구분 1B", ("1B", None)), ("구분1A", ("1A", None)), ("생식세포변이원성 1B", ("1B", None)),
+    ("발암성 : 구분 2", ("2", None)), ("해당없음", (None, "해당없음")), ("해당 없음", (None, "해당없음")),
+    ("자료없음", (None, "자료없음")), ("Group 1", ("Group 1", None)), ("Carc. 1A", ("Carc. 1A", None)),
+    ("A2", ("A2", None)), ("분류되지않음", ("분류되지않음", None))])
+def test_fix_cmr_class(raw, want):
+    """CMR 등급은 '구분'과 유해성 이름을 뺀 기관 표기다 (R07). 상태어(C7)만 적혔으면 등급을 비우고 status로 옮긴다."""
+    r = {"hazard": "발암성", "agency": "KR_OSH", "class": raw, "status": "값있음"}
+    ex.fix_cmr_class([r])
+    assert (r["class"], r["status"] if want[1] else None) == want
+
+
+def test_repeated_rows_with_same_line_are_dropped(no_conventions):
+    """원문 줄까지 같은 행은 모델이 반복한 것이라 하나만 남긴다. 줄이 다르면 같은 내용이어도 남긴다."""
+    r = responses()
+    row = r[11]["cmr"][0]
+    r[11]["cmr"] += [dict(row), dict(row), {**row, "line": "p5:L8"}]
+    m, _ = expand_one(r)
+    assert len(m["cmr"]) == 2
+
+
 # ── 표기 규칙 자리 ─────────────────────────────────────
 
 def test_apply_conventions_absent(no_conventions):
