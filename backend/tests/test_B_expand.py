@@ -1131,3 +1131,59 @@ def test_unnamed_line_rows_per_component_collapse_to_mix(no_conventions, line, w
                      "status": "해당없음", "note": None, "line": line} for n in ("가상물질 갑", "가상물질 을")]
     m, _ = expand_one(r)
     assert [x["comp_ref"] for x in m["cmr"]] == want
+
+
+# ── 11·12항 extras → 독성·생태 행 (모델이 서술 행을 extras로 보냄) ─────
+
+X_LINES = [L("p9:L1", "나. 건강 유해성 정보"),
+           L("p9:L2", "o 피부 과민성 알레르기성 피부 반응을 일으킬 수 있음."),
+           L("p9:L3", "○ 발암성물질"),
+           L("p9:L4", "○ 생식독성"),
+           L("p9:L5", "  - 가상물질 을 : 자료없음"),
+           L("p9:L6", "라.토양이동성 자료없음"),
+           L("p9:L7", "* 경피 독성"),
+           L("p9:L8", "가.생분해성 : 자료 없음")]
+
+
+def x_rows(extras):
+    lines = {l.id: l for l in X_LINES}
+    moved, left = ex.extras_to_rows(extras, lines)
+    return {k: [(no, r["endpoint"], r["status"], r.get("comp_name"), (r.get("statements") or [{}])[0].get("value"))
+                for no, r in v] for k, v in moved.items()}, left
+
+
+def test_extras_to_rows_heading_lines():
+    """원문 줄이 독성·생태 항목명으로 시작하고 뒤에 값이 있으면 그 표의 서술 행으로 옮긴다 (M013 'o 피부 과민성 …').
+    값이 상태어 하나면 그 상태, 아니면 값있음. 제목만 있는 줄('○ 발암성물질', '* 경피 독성')과 생분해성은 옮기지 않는다."""
+    ext = [(11, {"title_raw": "o 피부 과민성 알레르기성 피부 반응을 일으킬 수 있음.", "reason": "코드없음", "line": "p9:L2"}),
+           (11, {"title_raw": "○ 발암성물질", "reason": "코드없음", "line": "p9:L3"}),
+           (11, {"title_raw": "* 경피 독성", "reason": "코드없음", "line": "p9:L7"}),
+           (12, {"title_raw": "라.토양이동성", "reason": "코드없음", "line": "p9:L6"}),
+           (12, {"title_raw": "가.생분해성", "reason": "코드없음", "line": "p9:L8"})]
+    moved, left = x_rows(ext)
+    assert moved["toxicity"] == [(11, "TX_SKIN_SENS", "값있음", None, "알레르기성 피부 반응을 일으킬 수 있음.")]
+    assert moved["ecotox"] == [(12, "ECO_SOIL", "자료없음", None, None)]
+    assert [r["line"] for _, r in left] == ["p9:L3", "p9:L7", "p9:L8"]
+
+
+def test_extras_to_rows_component_under_heading():
+    """제목이 성분인 extras('- 가상물질 을 : 자료없음')는 부모 줄의 항목명으로 옮기고 성분을 둔다."""
+    ext = [(11, {"title_raw": "- 가상물질 을", "reason": "코드없음", "comp_name": "가상물질 을",
+                 "statements": [{"value": "자료없음", "line": "p9:L5"}], "line": "p9:L5"})]
+    moved, left = x_rows(ext)
+    assert moved["toxicity"] == [(11, "TX_REPRO", "자료없음", "가상물질 을", None)] and left == []
+
+
+def test_extras_to_rows_skips_other_sections():
+    ext = [(9, {"title_raw": "o 피부 과민성 알레르기성", "reason": "코드없음", "line": "p9:L2"})]
+    moved, left = x_rows(ext)
+    assert moved == {"toxicity": [], "ecotox": []} and len(left) == 1
+
+
+
+def test_extras_to_rows_ecotox_only_status_values():
+    """생태는 값이 상태어 하나일 때만 옮긴다 ('잔류성 및 분해성'의 '및 분해성'을 값으로 읽지 않게)."""
+    lines = {l.id: l for l in [L("p9:L1", "나.잔류성 및 분해성"), L("p9:L2", "다.오존층 유해성 : 몬트리올 의정서 미등재")]}
+    moved, left = ex.extras_to_rows([(12, {"title_raw": "나.잔류성 및 분해성", "line": "p9:L1"}),
+                                     (12, {"title_raw": "다.오존층 유해성", "line": "p9:L2"})], lines)
+    assert moved["ecotox"] == [] and len(left) == 2

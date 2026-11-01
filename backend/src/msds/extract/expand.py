@@ -369,6 +369,67 @@ def _section_names_component(rows: list[dict], component: dict, lines_by_id: dic
     return any(_norm(n) and _norm(n) in text for n in names)
 
 
+_HEAD = r"^\s*(?:[○●ο◦•·\-*o]\s*|\d+\s*[.)]\s*|[가-하]\s*[.)]\s*)?\s*"
+_HEADS = {
+    "toxicity": [("TX_SKIN_SENS", r"피부\s*과민"), ("TX_RESP_SENS", r"호흡기\s*과민"), ("TX_SKIN", r"피부\s*(?:부식|자극)"),
+                 ("TX_EYE", r"(?:심한\s*)?눈\s*(?:손상|자극)"), ("TX_CARC", r"발암"), ("TX_MUTA", r"생식\s*세포|변이원"),
+                 ("TX_REPRO", r"생식\s*독성"), ("TX_STOT_SE", r"(?:특정\s*)?표적\s*장기.{0,12}?(?:1\s*회|단회)"),
+                 ("TX_STOT_RE", r"(?:특정\s*)?표적\s*장기.{0,12}?반복"), ("TX_ASP", r"흡인"),
+                 ("TX_ORAL", r"경구"), ("TX_DERMAL", r"경피"), ("TX_INHAL", r"흡입")],
+    "ecotox": [("ECO_FISH", r"어류"), ("ECO_CRUST", r"갑각류|물벼룩"), ("ECO_ALGAE", r"조류"), ("ECO_PERSIST", r"잔류성|(?<!생)분해성"),
+               ("ECO_BIOACC", r"생물\s*농축|농축성"), ("ECO_SOIL", r"토양\s*이동"), ("ECO_OZONE", r"오존"),
+               ("ECO_OTHER", r"기타\s*유해\s*영향")]}
+_HEAD_TABLE = {11: "toxicity", 12: "ecotox"}
+_HEAD_TAIL = re.compile(r"^[^\s:：|]*(?:\s*(?:독성|물질|또는\s*\S*\s*자극성|\([^)]*\)|노출\)|정보))*\s*[:：|]?\s*")
+
+
+def _heading(table: str, text: str) -> tuple[str, str] | None:
+    """원문 줄이 독성·생태 항목명으로 시작하면 (항목 코드, 이름 뒤 값 글자). '생분해성'은 농축성 아래라 보지 않는다."""
+    for code, pat in _HEADS[table]:
+        if m := re.match(_HEAD + f"(?:{pat})", text or ""):
+            if code == "ECO_PERSIST" and re.match(_HEAD + r"생분해", text):
+                return None
+            rest = text[m.end():]
+            return code, rest[_HEAD_TAIL.match(rest).end():].strip(" -|:：")
+    return None
+
+
+def extras_to_rows(extras: list[tuple[int, dict]], lines_by_id: dict[str, Line]
+                   ) -> tuple[dict[str, list[tuple[int, dict]]], list[tuple[int, dict]]]:
+    """11·12항 extras 가운데 원문 줄이 독성·생태 항목명으로 시작하고 값이 있는 것을 그 표의 서술 행으로 옮긴다.
+    모델이 'o 피부 과민성 알레르기성 …' 같은 서술 행을 extras로 보냈다 (개발 골드 10건 기준 실행마다 독성 8.4·생태 9.5행).
+    제목이 성분인 extras('- 이소부텐 : 자료없음')는 부모 줄의 항목명을 쓴다. 값이 상태어 하나면 그 상태(지표는 비워 둔다),
+    아니면 값있음·결과기술·q 없음(골드 서술 행 표기). 숫자가 든 값은 지표를 정할 수 없어 옮기지 않는다.
+    생태는 상태어 값만 옮긴다. '나. 잔류성 및 분해성'처럼 여러 낱말 제목의 뒷말을 값으로 읽어 틀린 행이 더 많았다
+    (실행 8개 재채점: 상태어 아닌 값까지 옮기면 맞는 행 3.8 대 틀린 행 20.4/회)."""
+    parents = line_parents(list(lines_by_id.values()))
+    moved: dict[str, list[tuple[int, dict]]] = {"toxicity": [], "ecotox": []}
+    left = []
+    for no, r in extras:
+        table, line = _HEAD_TABLE.get(no), lines_by_id.get(r.get("line"))
+        got = _heading(table, line.text) if table and line else None
+        stmts = " ".join(s.get("value") or "" for s in r.get("statements") or []).strip()
+        if table and line and got is None and (r.get("comp_name") or r.get("comp_cas")):
+            up = next((h for h in (_heading(table, x.text) for x in parents.get(line.id, [])) if h), None)
+            after = line.text.split(":", 1)[1] if ":" in line.text else ""
+            got = (up[0], after.strip()) if up else None
+        value = (got[1] if got else "") or stmts
+        if not got or not value or re.search(r"\d", value):
+            left.append((no, r))
+            continue
+        status = status_word(value)[0]
+        if table == "ecotox" and not status:
+            left.append((no, r))
+            continue
+        row = {"comp_name": r.get("comp_name"), "comp_cas": r.get("comp_cas"), "endpoint": got[0], "line": line.id}
+        if status:
+            row.update(descriptor=None, q={"raw": value}, status=status, statements=[])
+        else:
+            row.update(descriptor="결과기술", q=None, status="값있음", statements=[{"value": value, "line": line.id}])
+        moved[table].append((no, row))
+    return moved, left
+
+
 def collapse_unnamed(rows: list[dict], components: list[dict], lines_by_id: dict[str, Line]) -> list[dict]:
     """근거 줄·부모 줄에 성분 이름·CAS가 없는데 성분만 다르고 나머지가 같은 행이 둘 이상이면 MIX 한 행으로 모은다.
     골드는 성분 없는 줄의 독성·CMR·생태 행을 모두 MIX 한 행으로 적는다 (M002 'ο 발암성 : 자료없음'을 모델이 성분마다 복제).
@@ -594,6 +655,13 @@ def expand_msds(sections: dict[int, dict | None], lines_by_id: dict[str, Line],
     # 1-2. 폭발 범위 상한/하한 한 줄은 UEL·LEL 두 행으로, 값이 빈 행은 근거 줄의 상태어로 (모델 표기가 실행마다 달랐다)
     phys = [(no, fill_blank_from_line(r, lines_by_id)) for no, r in split_flammability(phys, lines_by_id)]
     rows["physchem"], rows["extras"] = phys, extras
+    # 1-3. 11·12항 extras 중 항목명으로 시작하는 서술 줄은 독성·생태 행으로. 모델이 같은 줄에 같은 항목 행을 냈으면 두지 않는다
+    moved, rows["extras"] = extras_to_rows(rows["extras"], lines_by_id)
+    for key, new in moved.items():
+        have = {(r.get("line"), r.get("endpoint")) for _, r in rows[key]}
+        new = [(no, r) for no, r in new if (r["line"], r["endpoint"]) not in have]
+        if new:
+            rows[key] = sorted(rows[key] + new, key=lambda p: pos.get(p[1].get("line"), len(pos)))
 
     # 서술 구간(양 끝 포함 줄 위치)을 항마다 모은다. extras 거르기에 쓰므로 펼치기 전에 끝낸다 (ADR-022).
     # narrative()가 문장을 만드는 구간과 같다: 두 끝이 원문에 있고 start <= end.
