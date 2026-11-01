@@ -1,0 +1,429 @@
+{
+ "sections": [
+  {
+   "msds_index": 0,
+   "section": 1,
+   "ok": true,
+   "mode": "json_schema",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 1,
+   "seconds": 6.67,
+   "usage": {
+    "prompt_tokens": 3506,
+    "completion_tokens": 495,
+    "total_tokens": 4001
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 2,
+   "ok": true,
+   "mode": "json_schema",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 1,
+   "seconds": 6.309,
+   "usage": {
+    "prompt_tokens": 5338,
+    "completion_tokens": 463,
+    "total_tokens": 5801
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 3,
+   "ok": true,
+   "mode": "rows",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 1,
+   "seconds": 5.18,
+   "usage": {
+    "prompt_tokens": 3301,
+    "completion_tokens": 350,
+    "total_tokens": 3651
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 4,
+   "ok": true,
+   "mode": "json_schema",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 1,
+   "seconds": 7.34,
+   "usage": {
+    "prompt_tokens": 2156,
+    "completion_tokens": 564,
+    "total_tokens": 2720
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 5,
+   "ok": true,
+   "mode": "json_schema",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 1,
+   "seconds": 9.627,
+   "usage": {
+    "prompt_tokens": 2137,
+    "completion_tokens": 816,
+    "total_tokens": 2953
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 6,
+   "ok": true,
+   "mode": "json_schema",
+   "errors": [],
+   "check_problems": [
+    "extras[0].statements[0].line: 원문에 없는 줄 번호 p2:L25-p2:L26",
+    "extras[0].line: 원문에 없는 줄 번호 p2:L24-p2:L33"
+   ],
+   "reextracted": false,
+   "attempts": 2,
+   "seconds": 7.515,
+   "usage": {
+    "prompt_tokens": 4111,
+    "completion_tokens": 562,
+    "total_tokens": 4673
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 7,
+   "ok": true,
+   "mode": "json_schema",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 1,
+   "seconds": 2.502,
+   "usage": {
+    "prompt_tokens": 2018,
+    "completion_tokens": 134,
+    "total_tokens": 2152
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 8,
+   "ok": true,
+   "mode": "rows",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 1,
+   "seconds": 4.956,
+   "usage": {
+    "prompt_tokens": 3187,
+    "completion_tokens": 334,
+    "total_tokens": 3521
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 9,
+   "ok": true,
+   "mode": "rows",
+   "errors": [
+    "physchem p3:L24 BOILING |  |  | -196 °C |  | temp=-195.7…: cond 열: '칸=값'이 아니거나 모르는 칸 'HSDB' (칸: temp, temp_unit, pressure, pressure_unit, method, reference, conc_value, conc_unit)",
+    "physchem p3:L28 UEL+LEL |  |  | - / − |  |  |  | p3:L28: .prop_code: 'UEL+LEL' is not valid under any of the given schemas",
+    "physchem p3:L29 VAPOR_PRESSURE |  |  | 1 atm |  | temp=7…: .cond: {'temp': 77.347, 'temp_unit': 'deg K'} is not valid under any of the given schemas"
+   ],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 2,
+   "seconds": 13.129,
+   "usage": {
+    "prompt_tokens": 7844,
+    "completion_tokens": 1232,
+    "total_tokens": 9076
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 10,
+   "ok": true,
+   "mode": "json_schema",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 1,
+   "seconds": 5.567,
+   "usage": {
+    "prompt_tokens": 2018,
+    "completion_tokens": 390,
+    "total_tokens": 2408
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 11,
+   "ok": true,
+   "mode": "rows",
+   "errors": [
+    "toxicity p4:L7 질소 | 7727-37-9 | TX_SKIN | 결과기술 |  |  | …: 열 18개, 기대 19개",
+    "toxicity p4:L9 질소 | 7727-37-9 | TX_EYE | 결과기술 |  |  |  …: 열 18개, 기대 19개",
+    "toxicity p4:L23 질소 | 7727-37-9 | TX_STOT_SE | 결과기술 |  | …: 열 18개, 기대 19개"
+   ],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 2,
+   "seconds": 18.8,
+   "usage": {
+    "prompt_tokens": 8991,
+    "completion_tokens": 2337,
+    "total_tokens": 11328
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 12,
+   "ok": true,
+   "mode": "rows",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 1,
+   "seconds": 9.804,
+   "usage": {
+    "prompt_tokens": 3319,
+    "completion_tokens": 826,
+    "total_tokens": 4145
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 13,
+   "ok": true,
+   "mode": "json_schema",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 1,
+   "seconds": 2.688,
+   "usage": {
+    "prompt_tokens": 1908,
+    "completion_tokens": 146,
+    "total_tokens": 2054
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 14,
+   "ok": true,
+   "mode": "rows",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 1,
+   "seconds": 5.762,
+   "usage": {
+    "prompt_tokens": 2789,
+    "completion_tokens": 395,
+    "total_tokens": 3184
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 15,
+   "ok": true,
+   "mode": "rows",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 1,
+   "seconds": 14.011,
+   "usage": {
+    "prompt_tokens": 6056,
+    "completion_tokens": 1425,
+    "total_tokens": 7481
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 16,
+   "ok": true,
+   "mode": "json_schema",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 1,
+   "seconds": 14.529,
+   "usage": {
+    "prompt_tokens": 3112,
+    "completion_tokens": 1508,
+    "total_tokens": 4620
+   }
+  }
+ ],
+ "schema_errors": [],
+ "to21_validator": [
+  {
+   "level": "경고",
+   "rule": "V21",
+   "field": "msds[0].meta.header_product_name",
+   "message": "머리글 'SKC에어가스' ≠ 1항 '질소(NITROGEN)'"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[1]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[2]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[3]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[4]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[21]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[22]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[28]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[29]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[33]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  }
+ ],
+ "expand_problems": [
+  {
+   "msds_index": 0,
+   "section": 11,
+   "kind": "extras_in_narrative",
+   "detail": "1행"
+  },
+  {
+   "msds_index": 0,
+   "section": 12,
+   "kind": "extras_in_narrative",
+   "detail": "5행"
+  },
+  {
+   "msds_index": 0,
+   "section": 14,
+   "kind": "extras_in_narrative",
+   "detail": "8행"
+  },
+  {
+   "msds_index": 0,
+   "section": 15,
+   "kind": "extras_in_narrative",
+   "detail": "3행"
+  },
+  {
+   "msds_index": 0,
+   "section": 3,
+   "kind": "unlinked_component",
+   "detail": "extras[2]: 질소,NITROGEN(Refrigerated) / None"
+  },
+  {
+   "msds_index": 0,
+   "section": 6,
+   "kind": "bad_line",
+   "detail": "extras[19]: p2:L24-p2:L33"
+  },
+  {
+   "msds_index": 0,
+   "section": 6,
+   "kind": "bad_line",
+   "detail": "extras[19].statements[0]: p2:L25-p2:L26"
+  }
+ ],
+ "warnings": [
+  "항목 분할 파일 없음: 임시 분할 (찾은 항 16/16, MSDS 1건)"
+ ],
+ "sections_method": "provisional",
+ "pictogram_check": [
+  {
+   "msds_index": 0,
+   "model": [
+    "GHS04"
+   ],
+   "inferred": [],
+   "missing": [],
+   "extra": [
+    "GHS04"
+   ],
+   "ok": true,
+   "unmapped_h": [
+    "H281"
+   ]
+  }
+ ],
+ "needs_review": [
+  {
+   "msds_index": 0,
+   "section": 3
+  },
+  {
+   "msds_index": 0,
+   "section": 6
+  },
+  {
+   "msds_index": 0,
+   "section": 9
+  },
+  {
+   "msds_index": 0,
+   "section": 11
+  },
+  {
+   "msds_index": 0,
+   "section": 12
+  },
+  {
+   "msds_index": 0,
+   "section": 14
+  },
+  {
+   "msds_index": 0,
+   "section": 15
+  }
+ ]
+}

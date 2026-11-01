@@ -1,0 +1,165 @@
+{
+ "doc_id": "T21-S014",
+ "msds_index": 0,
+ "section": 2,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "hazard": {
+   "classified": true,
+   "classes": [
+    {
+     "group": "물리적",
+     "class_code": "PH_FLAM_GAS",
+     "category": "1",
+     "raw": "인화성 가스 : 구분1",
+     "line": "p1:L23"
+    },
+    {
+     "group": "물리적",
+     "class_code": "PH_PRESS_GAS",
+     "category": "압축가스",
+     "raw": "압축가스",
+     "line": "p1:L24"
+    }
+   ],
+   "signal_word": "위험",
+   "pictograms": [
+    {
+     "code": "GHS02"
+    },
+    {
+     "code": "GHS04"
+    }
+   ],
+   "h_statements": [
+    {
+     "code": "H220",
+     "text": "극인화성 가스",
+     "line": "p1:L28"
+    },
+    {
+     "code": "H280",
+     "text": "가열하면 폭발할 수 있음",
+     "line": "p1:L29"
+    }
+   ],
+   "p_statements": [
+    {
+     "code": "P210",
+     "type": "예방",
+     "text": "열,고온의 표면,스파크,화염 및 그 밖의 점화원으로부터 멀리하시오.금연",
+     "line": "p1:L31"
+    },
+    {
+     "code": "P377",
+     "type": "대응",
+     "text": "누출성 가스 화재 시 누출을 안전하게 막을 수 없다면 불을 끄려하지 마시오.",
+     "line": "p1:L32"
+    },
+    {
+     "code": "P381",
+     "type": "대응",
+     "text": "누출 시 모든 점화원을 제거하시오.",
+     "line": "p1:L32"
+    },
+    {
+     "code": "P403",
+     "type": "저장",
+     "text": "환기가 잘 되는 곳에 보관하시오.",
+     "line": "p1:L33"
+    },
+    {
+     "code": "P410+P403",
+     "type": "저장",
+     "text": "직사광선을 피하시오. 환기가 잘 되는 곳에 보관하시오.",
+     "line": "p1:L33"
+    }
+   ],
+   "nfpa": {
+    "health": 0,
+    "fire": 4,
+    "reactivity": 0,
+    "special": ""
+   },
+   "lines": {
+    "signal_word": "p1:L27",
+    "pictograms": "p1:L26",
+    "nfpa": "p1:L36"
+   }
+  },
+  "narratives": [
+   {
+    "item_code": "S2_LABEL_NOTE",
+    "title_raw": "가. 유해성·위험성 분류",
+    "start": "p1:L23",
+    "end": "p1:L24"
+   },
+   {
+    "item_code": "S2_LABEL_NOTE",
+    "title_raw": "나. 예방조치문구를 포함한 경고표지 항목",
+    "start": "p1:L25",
+    "end": "p1:L34"
+   },
+   {
+    "item_code": "S2_LABEL_NOTE",
+    "title_raw": "다. 유해·위험성 분류기준에 포함되지 않는 기타 유해·위험성(예. 분진폭발 위험성)",
+    "start": "p1:L35",
+    "end": "p1:L40"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S2_LABEL_NOTE",
+    "title_raw": "다. 유해·위험성 분류기준에 포함되지 않는 기타 유해·위험성(예. 분진폭발 위험성)",
+    "reason": "필드없음",
+    "statements": [
+     {
+      "key": "보건 (Health)",
+      "value": "0",
+      "line": "p1:L38"
+     },
+     {
+      "key": "화재 (Flammability)",
+      "value": "4",
+      "line": "p1:L39"
+     },
+     {
+      "key": "반응성 (Instability)",
+      "value": "0",
+      "line": "p1:L40"
+     }
+    ],
+    "line": "p1:L35"
+   }
+  ]
+ },
+ "raw_text": "{\"hazard\":{\"classified\":true,\"classes\":[{\"group\":\"물리적\",\"class_code\":\"PH_FLAM_GAS\",\"category\":\"1\",\"raw\":\"인화성 가스 : 구분1\",\"line\":\"p1:L23\"},{\"group\":\"물리적\",\"class_code\":\"PH_PRESS_GAS\",\"category\":\"압축가스\",\"raw\":\"압축가스\",\"line\":\"p1:L24\"}],\"signal_word\":\"위험\",\"pictograms\":[{\"code\":\"GHS02\"},{\"code\":\"GHS04\"}],\"h_statements\":[{\"code\":\"H220\",\"text\":\"극인화성 가스\",\"line\":\"p1:L28\"},{\"code\":\"H280\",\"text\":\"가열하면 폭발할 수 있음\",\"line\":\"p1:L29\"}],\"p_statements\":[{\"code\":\"P210\",\"type\":\"예방\",\"text\":\"열,고온의 표면,스파크,화염 및 그 밖의 점화원으로부터 멀리하시오.금연\",\"line\":\"p1:L31\"},{\"code\":\"P377\",\"type\":\"대응\",\"text\":\"누출성 가스 화재 시 누출을 안전하게 막을 수 없다면 불을 끄려하지 마시오.\",\"line\":\"p1:L32\"},{\"code\":\"P381\",\"type\":\"대응\",\"text\":\"누출 시 모든 점화원을 제거하시오.\",\"line\":\"p1:L32\"},{\"code\":\"P403\",\"type\":\"저장\",\"text\":\"환기가 잘 되는 곳에 보관하시오.\",\"line\":\"p1:L33\"},{\"code\":\"P410+P403\",\"type\":\"저장\",\"text\":\"직사광선을 피하시오. 환기가 잘 되는 곳에 보관하시오.\",\"line\":\"p1:L33\"}],\"nfpa\":{\"health\":0,\"fire\":4,\"reactivity\":0,\"special\":\"\"},\"lines\":{\"signal_word\":\"p1:L27\",\"pictograms\":\"p1:L26\",\"nfpa\":\"p1:L36\"}},\"narratives\":[{\"item_code\":\"S2_LABEL_NOTE\",\"title_raw\":\"가. 유해성·위험성 분류\",\"start\":\"p1:L23\",\"end\":\"p1:L24\"},{\"item_code\":\"S2_LABEL_NOTE\",\"title_raw\":\"나. 예방조치문구를 포함한 경고표지 항목\",\"start\":\"p1:L25\",\"end\":\"p1:L34\"},{\"item_code\":\"S2_LABEL_NOTE\",\"title_raw\":\"다. 유해·위험성 분류기준에 포함되지 않는 기타 유해·위험성(예. 분진폭발 위험성)\",\"start\":\"p1:L35\",\"end\":\"p1:L40\"}],\"extras\":[{\"after_item\":\"S2_LABEL_NOTE\",\"title_raw\":\"다. 유해·위험성 분류기준에 포함되지 않는 기타 유해·위험성(예. 분진폭발 위험성)\",\"reason\":\"필드없음\",\"statements\":[{\"key\":\"보건 (Health)\",\"value\":\"0\",\"line\":\"p1:L38\"},{\"key\":\"화재 (Flammability)\",\"value\":\"4\",\"line\":\"p1:L39\"},{\"key\":\"반응성 (Instability)\",\"value\":\"0\",\"line\":\"p1:L40\"}],\"line\":\"p1:L35\"}]}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 5536,
+  "completion_tokens": 683,
+  "total_tokens": 6219
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 5536,
+    "completion_tokens": 683,
+    "total_tokens": 6219
+   },
+   "seconds": 8.887,
+   "chars": 1624,
+   "whitespace": 63,
+   "head": "{\"hazard\":{\"classified\":true,\"classes\":[{\"group\":\"물리적\",\"class_code\":\"PH_FLAM_GAS\",\"category\":\"1\",\"raw\":\"인화성 가스 : 구분1\",\"line\":\"p1:L23\"},{\"group\":\"물리적\",\"class_code\":\"PH_PRESS_GAS\",\"category\":\"압축가스\",\"raw\":\"압축가스\",\"line\":\"p1:L24\"}],\"signal_word\":\"위험\",\"pictograms\":[{\"code\":\"GHS02\"},{\"code\":\"GHS04\"}],\"h_statements\":[{\"code\":\"H220\",\"text\":\"극인화성 가스\",\"line\":\"p1:L28\"},{\"code\":\"H280\",\"text\":\"가열하면 폭발할 수 있음\",\"line\":\"p1:L29\"}],\"p_statements\":[{\"code\":\"P210\",\"type\":\"예방\",\"text\":\"열,고온의 표면,스파크,화염 및 그 밖의 점화원으로부터 멀리",
+   "tail": "_raw\":\"나. 예방조치문구를 포함한 경고표지 항목\",\"start\":\"p1:L25\",\"end\":\"p1:L34\"},{\"item_code\":\"S2_LABEL_NOTE\",\"title_raw\":\"다. 유해·위험성 분류기준에 포함되지 않는 기타 유해·위험성(예. 분진폭발 위험성)\",\"start\":\"p1:L35\",\"end\":\"p1:L40\"}],\"extras\":[{\"after_item\":\"S2_LABEL_NOTE\",\"title_raw\":\"다. 유해·위험성 분류기준에 포함되지 않는 기타 유해·위험성(예. 분진폭발 위험성)\",\"reason\":\"필드없음\",\"statements\":[{\"key\":\"보건 (Health)\",\"value\":\"0\",\"line\":\"p1:L38\"},{\"key\":\"화재 (Flammability)\",\"value\":\"4\",\"line\":\"p1:L39\"},{\"key\":\"반응성 (Instability)\",\"value\":\"0\",\"line\":\"p1:L40\"}],\"line\":\"p1:L35\"}]}"
+  }
+ ],
+ "seconds": 8.889,
+ "check_problems": []
+}

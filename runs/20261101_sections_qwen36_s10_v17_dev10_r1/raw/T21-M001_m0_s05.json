@@ -1,0 +1,148 @@
+{
+ "doc_id": "T21-M001",
+ "msds_index": 0,
+ "section": 5,
+ "reextracted": true,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S5_MEDIA",
+    "title_raw": "가. 적절한(부적절한) 소화제",
+    "start": "p3:L7",
+    "end": "p3:L30"
+   },
+   {
+    "item_code": "S5_SPECIFIC",
+    "title_raw": "나. 화학물질로부터 생기는 특정 유해성",
+    "start": "p3:L15",
+    "end": "p3:L28"
+   },
+   {
+    "item_code": "S5_FIREFIGHT",
+    "title_raw": "다. 화재 진압 시 착용할 보호구 및 예방조치",
+    "start": "p3:L31",
+    "end": "p4:L9"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S5_MEDIA",
+    "title_raw": "5. 폭발·화재시 대처방법",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "key": "항목명",
+      "value": "5. 폭발·화재시 대처방법",
+      "line": "p3:L6"
+     }
+    ],
+    "line": "p3:L6"
+   }
+  ]
+ },
+ "raw_text": "{\"narratives\":[{\"item_code\":\"S5_MEDIA\",\"title_raw\":\"가. 적절한(부적절한) 소화제\",\"start\":\"p3:L7\",\"end\":\"p3:L30\"},{\"item_code\":\"S5_SPECIFIC\",\"title_raw\":\"나. 화학물질로부터 생기는 특정 유해성\",\"start\":\"p3:L15\",\"end\":\"p3:L28\"},{\"item_code\":\"S5_FIREFIGHT\",\"title_raw\":\"다. 화재 진압 시 착용할 보호구 및 예방조치\",\"start\":\"p3:L31\",\"end\":\"p4:L9\"}],\"extras\":[{\"after_item\":\"S5_MEDIA\",\"title_raw\":\"5. 폭발·화재시 대처방법\",\"reason\":\"코드없음\",\"statements\":[{\"key\":\"항목명\",\"value\":\"5. 폭발·화재시 대처방법\",\"line\":\"p3:L6\"}],\"line\":\"p3:L6\"}]}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 2696,
+  "completion_tokens": 193,
+  "total_tokens": 2889
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 2696,
+    "completion_tokens": 193,
+    "total_tokens": 2889
+   },
+   "seconds": 2.709,
+   "chars": 465,
+   "whitespace": 17,
+   "head": "{\"narratives\":[{\"item_code\":\"S5_MEDIA\",\"title_raw\":\"가. 적절한(부적절한) 소화제\",\"start\":\"p3:L7\",\"end\":\"p3:L30\"},{\"item_code\":\"S5_SPECIFIC\",\"title_raw\":\"나. 화학물질로부터 생기는 특정 유해성\",\"start\":\"p3:L15\",\"end\":\"p3:L28\"},{\"item_code\":\"S5_FIREFIGHT\",\"title_raw\":\"다. 화재 진압 시 착용할 보호구 및 예방조치\",\"start\":\"p3:L31\",\"end\":\"p4:L9\"}],\"extras\":[{\"after_item\":\"S5_MEDIA\",\"title_raw\":\"5. 폭발·화재시 대처방법\",\"reason\":\"코드없음\",\"statements\":[{\"key\":\"항목명\",\"value\":\"5. 폭발·화재시 대처방법\",\"line\":\"p3:L6\"}],\"line\":\"p3:L6\"}]}",
+   "tail": ""
+  }
+ ],
+ "seconds": 2.71,
+ "check_problems": [],
+ "first_attempt": {
+  "ok": true,
+  "parsed": {
+   "narratives": [
+    {
+     "item_code": "S5_MEDIA",
+     "title_raw": "가. 적절한(부적절한) 소화제",
+     "start": "L7",
+     "end": "L14"
+    },
+    {
+     "item_code": "S5_SPECIFIC",
+     "title_raw": "나. 화학물질로부터 생기는 특정 유해성",
+     "start": "L15",
+     "end": "L28"
+    },
+    {
+     "item_code": "S5_FIREFIGHT",
+     "title_raw": "다. 화재 진압 시 착용할 보호구 및 예방조치",
+     "start": "L31",
+     "end": "L9"
+    }
+   ],
+   "extras": [
+    {
+     "after_item": "S5_FIREFIGHT",
+     "title_raw": "5. 폭발·화재시 대처방법",
+     "reason": "코드없음",
+     "statements": [
+      {
+       "value": "5. 폭발·화재시 대처방법",
+       "line": "L6"
+      }
+     ],
+     "line": "L6"
+    }
+   ]
+  },
+  "raw_text": "{\"narratives\":[{\"item_code\":\"S5_MEDIA\",\"title_raw\":\"가. 적절한(부적절한) 소화제\",\"start\":\"L7\",\"end\":\"L14\"},{\"item_code\":\"S5_SPECIFIC\",\"title_raw\":\"나. 화학물질로부터 생기는 특정 유해성\",\"start\":\"L15\",\"end\":\"L28\"},{\"item_code\":\"S5_FIREFIGHT\",\"title_raw\":\"다. 화재 진압 시 착용할 보호구 및 예방조치\",\"start\":\"L31\",\"end\":\"L9\"}],\"extras\":[{\"after_item\":\"S5_FIREFIGHT\",\"title_raw\":\"5. 폭발·화재시 대처방법\",\"reason\":\"코드없음\",\"statements\":[{\"value\":\"5. 폭발·화재시 대처방법\",\"line\":\"L6\"}],\"line\":\"L6\"}]}",
+  "mode": "json_schema",
+  "finish_reason": "stop",
+  "usage": {
+   "prompt_tokens": 2561,
+   "completion_tokens": 174,
+   "total_tokens": 2735
+  },
+  "attempts": 1,
+  "errors": [],
+  "requests": [
+   {
+    "mode": "json_schema",
+    "finish_reason": "stop",
+    "usage": {
+     "prompt_tokens": 2561,
+     "completion_tokens": 174,
+     "total_tokens": 2735
+    },
+    "seconds": 3.146,
+    "chars": 433,
+    "whitespace": 17,
+    "head": "{\"narratives\":[{\"item_code\":\"S5_MEDIA\",\"title_raw\":\"가. 적절한(부적절한) 소화제\",\"start\":\"L7\",\"end\":\"L14\"},{\"item_code\":\"S5_SPECIFIC\",\"title_raw\":\"나. 화학물질로부터 생기는 특정 유해성\",\"start\":\"L15\",\"end\":\"L28\"},{\"item_code\":\"S5_FIREFIGHT\",\"title_raw\":\"다. 화재 진압 시 착용할 보호구 및 예방조치\",\"start\":\"L31\",\"end\":\"L9\"}],\"extras\":[{\"after_item\":\"S5_FIREFIGHT\",\"title_raw\":\"5. 폭발·화재시 대처방법\",\"reason\":\"코드없음\",\"statements\":[{\"value\":\"5. 폭발·화재시 대처방법\",\"line\":\"L6\"}],\"line\":\"L6\"}]}",
+    "tail": ""
+   }
+  ],
+  "seconds": 3.147,
+  "check_problems": [
+   "narratives[0].start: 원문에 없는 줄 번호 L7",
+   "narratives[0].end: 원문에 없는 줄 번호 L14",
+   "narratives[1].start: 원문에 없는 줄 번호 L15",
+   "narratives[1].end: 원문에 없는 줄 번호 L28",
+   "narratives[2].start: 원문에 없는 줄 번호 L31",
+   "narratives[2].end: 원문에 없는 줄 번호 L9",
+   "extras[0].statements[0].line: 원문에 없는 줄 번호 L6",
+   "extras[0].line: 원문에 없는 줄 번호 L6"
+  ]
+ }
+}

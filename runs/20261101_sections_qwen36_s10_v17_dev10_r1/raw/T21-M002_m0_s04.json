@@ -1,0 +1,145 @@
+{
+ "doc_id": "T21-M002",
+ "msds_index": 0,
+ "section": 4,
+ "reextracted": true,
+ "ok": true,
+ "parsed": {
+  "narratives": [],
+  "extras": [
+   {
+    "after_item": "S4_DOCTOR",
+    "title_raw": "4. 응급조치요령",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "key": "4. 응급조치요령",
+      "value": "4. 응급조치요령",
+      "line": "p2:L17"
+     }
+    ],
+    "line": "p2:L17"
+   }
+  ]
+ },
+ "raw_text": "{\"narratives\":[],\"extras\":[{\"after_item\":\"S4_DOCTOR\",\"title_raw\":\"4. 응급조치요령\",\"reason\":\"코드없음\",\"statements\":[{\"key\":\"4. 응급조치요령\",\"value\":\"4. 응급조치요령\",\"line\":\"p2:L17\"}],\"line\":\"p2:L17\"}]}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 2258,
+  "completion_tokens": 79,
+  "total_tokens": 2337
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 2258,
+    "completion_tokens": 79,
+    "total_tokens": 2337
+   },
+   "seconds": 1.552,
+   "chars": 182,
+   "whitespace": 3,
+   "head": "{\"narratives\":[],\"extras\":[{\"after_item\":\"S4_DOCTOR\",\"title_raw\":\"4. 응급조치요령\",\"reason\":\"코드없음\",\"statements\":[{\"key\":\"4. 응급조치요령\",\"value\":\"4. 응급조치요령\",\"line\":\"p2:L17\"}],\"line\":\"p2:L17\"}]}",
+   "tail": ""
+  }
+ ],
+ "seconds": 1.552,
+ "check_problems": [],
+ "first_attempt": {
+  "ok": true,
+  "parsed": {
+   "narratives": [
+    {
+     "item_code": "S4_EYE",
+     "title_raw": "가. 눈에 들어갔을 때",
+     "start": "L18",
+     "end": "L19"
+    },
+    {
+     "item_code": "S4_SKIN",
+     "title_raw": "나. 피부에 접촉했을 때",
+     "start": "L20",
+     "end": "L21"
+    },
+    {
+     "item_code": "S4_INHAL",
+     "title_raw": "다. 흡입했을 때",
+     "start": "L22",
+     "end": "L3"
+    },
+    {
+     "item_code": "S4_INGEST",
+     "title_raw": "라. 먹었을 때",
+     "start": "L4",
+     "end": "L5"
+    },
+    {
+     "item_code": "S4_DOCTOR",
+     "title_raw": "마. 기타 의사의 주의사항",
+     "start": "L6",
+     "end": "L7"
+    }
+   ],
+   "extras": [
+    {
+     "after_item": "S4_DOCTOR",
+     "title_raw": "4. 응급조치요령",
+     "reason": "코드없음",
+     "statements": [
+      {
+       "value": "4. 응급조치요령",
+       "line": "L17"
+      }
+     ],
+     "line": "L17"
+    }
+   ]
+  },
+  "raw_text": "{\"narratives\":[{\"item_code\":\"S4_EYE\",\"title_raw\":\"가. 눈에 들어갔을 때\",\"start\":\"L18\",\"end\":\"L19\"},{\"item_code\":\"S4_SKIN\",\"title_raw\":\"나. 피부에 접촉했을 때\",\"start\":\"L20\",\"end\":\"L21\"},{\"item_code\":\"S4_INHAL\",\"title_raw\":\"다. 흡입했을 때\",\"start\":\"L22\",\"end\":\"L3\"},{\"item_code\":\"S4_INGEST\",\"title_raw\":\"라. 먹었을 때\",\"start\":\"L4\",\"end\":\"L5\"},{\"item_code\":\"S4_DOCTOR\",\"title_raw\":\"마. 기타 의사의 주의사항\",\"start\":\"L6\",\"end\":\"L7\"}],\"extras\":[{\"after_item\":\"S4_DOCTOR\",\"title_raw\":\"4. 응급조치요령\",\"reason\":\"코드없음\",\"statements\":[{\"value\":\"4. 응급조치요령\",\"line\":\"L17\"}],\"line\":\"L17\"}]}",
+  "mode": "json_schema",
+  "finish_reason": "stop",
+  "usage": {
+   "prompt_tokens": 2060,
+   "completion_tokens": 213,
+   "total_tokens": 2273
+  },
+  "attempts": 1,
+  "errors": [],
+  "requests": [
+   {
+    "mode": "json_schema",
+    "finish_reason": "stop",
+    "usage": {
+     "prompt_tokens": 2060,
+     "completion_tokens": 213,
+     "total_tokens": 2273
+    },
+    "seconds": 3.666,
+    "chars": 537,
+    "whitespace": 15,
+    "head": "{\"narratives\":[{\"item_code\":\"S4_EYE\",\"title_raw\":\"가. 눈에 들어갔을 때\",\"start\":\"L18\",\"end\":\"L19\"},{\"item_code\":\"S4_SKIN\",\"title_raw\":\"나. 피부에 접촉했을 때\",\"start\":\"L20\",\"end\":\"L21\"},{\"item_code\":\"S4_INHAL\",\"title_raw\":\"다. 흡입했을 때\",\"start\":\"L22\",\"end\":\"L3\"},{\"item_code\":\"S4_INGEST\",\"title_raw\":\"라. 먹었을 때\",\"start\":\"L4\",\"end\":\"L5\"},{\"item_code\":\"S4_DOCTOR\",\"title_raw\":\"마. 기타 의사의 주의사항\",\"start\":\"L6\",\"end\":\"L7\"}],\"extras\":[{\"after_item\":\"S4_DOCTOR\",\"title_raw\":\"4. 응급조치요령\",\"reason\":\"코드없음\",\"statements\":[{\"value\":\"4. 응",
+    "tail": "급조치요령\",\"line\":\"L17\"}],\"line\":\"L17\"}]}"
+   }
+  ],
+  "seconds": 3.667,
+  "check_problems": [
+   "narratives[0].start: 원문에 없는 줄 번호 L18",
+   "narratives[0].end: 원문에 없는 줄 번호 L19",
+   "narratives[1].start: 원문에 없는 줄 번호 L20",
+   "narratives[1].end: 원문에 없는 줄 번호 L21",
+   "narratives[2].start: 원문에 없는 줄 번호 L22",
+   "narratives[2].end: 원문에 없는 줄 번호 L3",
+   "narratives[3].start: 원문에 없는 줄 번호 L4",
+   "narratives[3].end: 원문에 없는 줄 번호 L5",
+   "narratives[4].start: 원문에 없는 줄 번호 L6",
+   "narratives[4].end: 원문에 없는 줄 번호 L7",
+   "extras[0].statements[0].line: 원문에 없는 줄 번호 L17",
+   "extras[0].line: 원문에 없는 줄 번호 L17"
+  ]
+ }
+}
