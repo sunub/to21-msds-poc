@@ -58,6 +58,7 @@ LINES = [
     L("p6:L10", "작업환경측정대상물질 : 해당"),
     L("p6:L11", "2)화학물질관리법에 의한 규제 : 해당 없음"),
     L("p6:L12", "나.유해화학물질관리법에 의한 규제 자료없음"),
+    L("p6:L13", "등록대상기존화학물질 : 가상-0001"),
     L("p7:L3", "최종 개정일자 : 2024-05-01"),
 ]
 
@@ -452,7 +453,7 @@ def test_transport_rows_same_document_as_json(no_conventions, monkeypatch):
 
 
 def kreach(**kw) -> dict:
-    return {"law": "KREACH", "item_code": "KREACH_REG", "line": "p6:L10", **kw}
+    return {"law": "KREACH", "item_code": "KREACH_REG", "line": "p6:L13", **kw}
 
 
 def regulations_of(rows: list[dict]) -> list[dict]:
@@ -1065,7 +1066,7 @@ def test_kreach_unrecorded_row_added_when_absent(no_conventions):
     화평법 행이 있으면 더하지 않는다."""
     row = {"comp_name": "가상물질 갑", "comp_cas": None, "law": "OSH", "item_code": "OSH_MEASURE", "applicable": "해당", "line": "p6:L10"}
     assert reg_rows([row], single=False) == [("OSH", "OSH_MEASURE", "해당", "1"), ("KREACH", None, "미기재", "MIX")]
-    kreach = {**row, "law": "KREACH", "item_code": "KREACH_REG"}
+    kreach = {**row, "law": "KREACH", "item_code": "KREACH_REG", "line": "p6:L13"}
     assert [x[0] for x in reg_rows([row, kreach], single=False)] == ["OSH", "KREACH"]
 
 
@@ -1187,3 +1188,60 @@ def test_extras_to_rows_ecotox_only_status_values():
     moved, left = ex.extras_to_rows([(12, {"title_raw": "나.잔류성 및 분해성", "line": "p9:L1"}),
                                      (12, {"title_raw": "다.오존층 유해성", "line": "p9:L2"})], lines)
     assert moved["ecotox"] == [] and len(left) == 2
+
+
+# ── 15항 항목 코드: 근거 줄·제목 줄을 동의어 사전으로 (모델이 앞 제목의 코드를 붙이거나 지어냄) ─────
+
+R_LINES = [L("p10:L1", "가. 산업안전보건법에 의한 규제"),
+           L("p10:L2", "- 가상물질 갑 : 해당없음"),
+           L("p10:L3", "- 가상물질 을 : 노출기준 설정물질"),
+           L("p10:L4", "노출기준설정물질"),
+           L("p10:L5", "가상물질 갑 (CAS 1234-56-6)"),
+           L("p10:L6", "배출저감계획서 제출 대상 물질"),
+           L("p10:L7", "- 가상물질 갑 : 가상 비고"),
+           L("p10:L8", "등록대상 기존 화학물질 (PEC) (가상 고시)"),
+           L("p10:L9", "작업환경 측정대상물질"),
+           L("p10:L10", "규제되지 않음."),
+           L("p11:L1", "가. 산업안전보건법에 의한 규제 PRODUCT : 관리대상유해물질, 노출기준설정물질, 작업환경측"),
+           L("p11:L2", "정대상물질"),
+           L("p11:L3", "- 가상물질 을 : 관리대상유해물질, 노출기준설정대상물질, 작업환경측정대상물질"),
+           L("p11:L4", "- 가상물질 갑 : 해당없음")]
+R_COMPS = [{"seq": 1, "name": "가상물질 갑", "cas_no": "1234-56-6"}, {"seq": 2, "name": "가상물질 을", "cas_no": "2345-67-7"}]
+
+
+@pytest.mark.parametrize("line, law, code, want", [
+    ("p10:L5", "OSH", "OSH_MEASURE", ("OSH", "OSH_EXPOSURE_STD")),    # 성분 줄 → 위 제목 '노출기준설정물질' (M013)
+    ("p10:L2", "OSH", "OSH_EXPOSURE_STD", ("OSH", None)),           # 성분 줄 → 위가 법령 제목이면 코드 없음 (M004)
+    ("p10:L3", "OSH", "OSH_EXPOSURE_STD", ("OSH", "OSH_EXPOSURE_STD")),   # 값 부분이 항목명이면 그 코드
+    ("p10:L7", "CCA", "CCA_PRTR", ("CCA", "CCA_PRTR")),             # 위 제목이 사전에 없으면 그대로
+    ("p10:L8", "KREACH", "KREACH_EXIST", ("KREACH", "KREACH_REG")), # 근거 줄이 항목명이면 그 코드
+    ("p10:L10", "OSH", "OSH_HEALTH_EXAM", ("OSH", "OSH_MEASURE")),  # 상태 줄 → 위 제목
+    ("p11:L3", "OSH", "OSH_MEASURE", ("OSH", "OSH_MEASURE")),       # 한 줄에 항목 여럿: 모델 코드가 그중 하나면 그대로 (M004)
+    ("p11:L3", "OSH", "OSH_PSM", ("OSH", "OSH_PSM")),               # 그중에 없으면 모호해 그대로
+    ("p11:L4", "OSH", "OSH_EXPOSURE_STD", ("OSH", None)),           # 부모(글머리 '가.')가 법령 제목. 끊긴 줄을 건너뛴다 (M004)
+])
+def test_recode_regulations(line, law, code, want):
+    """15항 항목 코드는 근거 줄이나 그 목록의 제목 줄에 적힌 항목명(동의어 사전 R25)으로 정한다."""
+    rows = [{"law": law, "item_code": code, "applicable": "해당", "comp_ref": "1", "line": line}]
+    ex.recode_regulations(rows, {l.id: l for l in R_LINES}, R_COMPS)
+    assert (rows[0]["law"], rows[0]["item_code"]) == want
+
+
+def test_recode_regulations_skips_intl():
+    rows = [{"law": "INTL", "item_code": "INTL_EU", "applicable": "해당", "comp_ref": "1", "line": "p10:L5"}]
+    ex.recode_regulations(rows, {l.id: l for l in R_LINES}, R_COMPS)
+    assert rows[0]["item_code"] == "INTL_EU"
+
+
+def test_recode_regulations_keeps_row_when_threshold_not_in_line():
+    """행의 기준농도 숫자가 근거 줄에 없으면 줄 번호가 틀린 행이라 코드를 바꾸지 않는다
+    (S016: 유독물질 85% 행이 다음 항목 줄 '- 해당됨 (0.1% 이상 …)'을 가리켰다)."""
+    lines = {l.id: l for l in [L("p8:L45", "○ 유독물질"), L("p8:L46", "- 해당됨 (85% 이상 함유한 가상물질 갑)"),
+                               L("p8:L47", "○ 배출량조사대상화학물질"), L("p8:L48", "- 해당됨 (0.1% 이상 함유한 가상물질 갑)")]}
+    rows = [{"law": "CCA", "item_code": "CCA_TOXIC", "applicable": "해당", "comp_ref": "1", "line": "p8:L48",
+             "threshold": {"raw": "85% 이상", "lower_op": ">=", "lower": 85, "unit": "%"}}]
+    ex.recode_regulations(rows, lines, R_COMPS)
+    assert rows[0]["item_code"] == "CCA_TOXIC"
+    rows[0]["threshold"] = {"raw": "0.1% 이상", "lower_op": ">=", "lower": 0.1, "unit": "%"}
+    ex.recode_regulations(rows, lines, R_COMPS)
+    assert rows[0]["item_code"] == "CCA_PRTR"
