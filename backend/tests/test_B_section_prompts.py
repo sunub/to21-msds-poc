@@ -332,3 +332,30 @@ def test_s11_leaves_other_sections_unchanged(no):
 def test_unknown_variant_is_rejected():
     with pytest.raises(ValueError, match="s99"):
         sp.build_system(7, variant="s99")
+
+
+NARRATIVE_ONLY = (4, 5, 6, 7, 10, 13)
+
+
+def test_rows_sections_default_and_s12():
+    """기본은 모델 설정의 rows_sections 그대로다. s12는 서술만 있는 항(4·5·6·7·10·13)을 행 형식에 더한다.
+    공백 금지 서버에서 JSON 서술 항은 80개 중 65~68개가 서술 항목을 비웠고, 행 형식 항의 서술 항목은 정상이었다."""
+    base = {3, 8, 9, 11, 12, 14, 15}
+    assert sp.rows_sections(base, variant="s10") == base
+    assert sp.rows_sections(base, variant="s12") == base | set(NARRATIVE_ONLY)
+
+
+@pytest.mark.parametrize("no", NARRATIVE_ONLY)
+def test_s12_rows_narrative_guide(no):
+    """s12의 행 형식 서술 항 안내: 항 제목 줄은 쓰지 않고, 소제목 줄이 start, 다음 소제목 앞 줄이 end다."""
+    guide = _part(sp.build_system(no, rows=True, variant="s12"), "이 항의 안내")
+    assert "항 제목 줄" in guide and "`start`" in guide and "`end`" in guide
+    assert f"{no}. {load_specs()[no].title}" in guide
+    assert "항 제목 줄" not in _part(sp.build_system(no, rows=True), "이 항의 안내")
+
+
+@pytest.mark.parametrize("no", (1, 2, 3, 8, 9, 11, 12, 14, 15, 16))
+def test_s12_leaves_other_sections_unchanged(no):
+    """s12는 서술만 있는 항만 바꾼다. 다른 항의 안내문은 s10과 같다."""
+    rows = no in ROWS_SECTIONS_DEFAULT
+    assert sp.build_system(no, rows=rows, variant="s12") == sp.build_system(no, rows=rows)
