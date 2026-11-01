@@ -37,7 +37,7 @@ import pod
 from msds.common.paths import CONFIGS, ROOT
 
 ENV_FILE = ROOT / ".env"
-SERVER_ENV_PREFIXES = ("RNGD_", "RUNPOD_", "VLLM_")
+SERVER_ENV_PREFIXES = ("RNGD_", "RUNPOD_")          # VLLM_ 태그(qwen38)는 명령줄 기준선 실행 전용이라 앱이 지켜보지 않는다
 REMOTE_DIR = "/root/to21-bc"
 _SAFE_MODEL = re.compile(r"^[\w./:-]+$")
 _SAFE_DEVICES = re.compile(r"^[\w:,]+$")
@@ -282,7 +282,7 @@ LOCKING_KINDS = ("run", "try")                       # 모델 서버를 쓰는 �
 TUNNEL_WAIT, TUNNEL_STEP = 10, 0.5                   # 터널 포트가 열리기·닫히기를 기다리는 최대 초와 간격
 _POD_ID = re.compile(r"^[a-z0-9]{6,40}$")
 _SECRET_PREFIXES = ("RNGD_", "RUNPOD_", "VLLM_", "LLM_", "ANTHROPIC_")
-_WHERE = (("RUNPOD_", "RunPod"), ("RNGD_", "RNGD"), ("VLLM_", "vLLM"))
+_WHERE = (("RUNPOD_", "RunPod"), ("RNGD_", "RNGD"))
 
 
 class _Refuse(Exception):
