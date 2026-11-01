@@ -1284,3 +1284,14 @@ def test_standard_status_rows():
     new = ex.standard_status_rows(have, ["p5:L1", "p5:L6"], lines)
     assert [(r["standard"], r["limit_type"], r["q"]["raw"], r["line"]) for r in new] == [
         ("국내", "TWA", "자료없음", "p5:L2"), ("생물학적", "BEI", "해당없음", "p5:L3")]
+
+
+def test_fix_eco_descriptor():
+    """생태 행: 값이 없으면 지표를 비워 A 규칙(어류 등 결과기술, 잔류성 분해율, 농축성 BCF→분해율)에 맡긴다 — 골드 표기와 같다.
+    모델은 '- 트랜스 2 부텐 : 자료없음'에 LC50·EC50을 붙였다 (M004). 숫자 행인데 근거 줄에 log Kow·log Pow가 있으면 logKow (골드 21행)."""
+    lines = {l.id: l for l in [L("p12:L1", "- 가상물질 갑 : log Kow 1.99"), L("p12:L2", "- 가상물질 갑 : 자료없음")]}
+    no_value = {"endpoint": "ECO_FISH", "descriptor": "LC50", "q": {"raw": "자료없음"}, "status": "자료없음", "line": "p12:L2"}
+    kow = {"endpoint": "ECO_PERSIST", "descriptor": "결과기술", "q": {"raw": "1.99", "value": 1.99}, "status": "값있음", "line": "p12:L1"}
+    lc50 = {"endpoint": "ECO_FISH", "descriptor": "LC50", "q": {"raw": "10 mg/L", "value": 10, "unit": "mg/L"}, "status": "값있음",
+            "line": "p12:L2"}
+    assert [ex.fix_eco_descriptor(r, lines)["descriptor"] for r in (no_value, kow, lc50)] == [None, "logKow", "LC50"]

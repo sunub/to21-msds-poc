@@ -583,6 +583,22 @@ def standard_status_rows(rows: list[dict], span: list[str], lines_by_id: dict[st
     return new
 
 
+_KOW = re.compile(r"log\s*[KP]\s*o\s*w", re.IGNORECASE)
+
+
+def fix_eco_descriptor(row: dict, lines_by_id: dict[str, Line]) -> dict:
+    """생태 행의 지표. 값(숫자)이 없으면 비워 A 규칙(어류·갑각류·조류·토양 결과기술, 잔류성 분해율, 농축성 BCF→분해율)에
+    맡긴다 — 골드 표기와 같다. 모델은 '- 트랜스 2 부텐 : 자료없음'에 LC50·EC50을 붙였다 (M004).
+    숫자 행인데 근거 줄에 log Kow·log Pow가 있으면 logKow (골드 21행. 모델은 결과기술로 적었다)."""
+    q = row.get("q") or {}
+    if all(q.get(k) is None for k in ("value", "lower", "upper")):
+        return {**row, "descriptor": None}
+    text = getattr(lines_by_id.get(row.get("line")), "text", "") or ""
+    if row.get("descriptor") in (None, "결과기술", "기타") and _KOW.search(text):
+        return {**row, "descriptor": "logKow"}
+    return row
+
+
 def collapse_unnamed(rows: list[dict], components: list[dict], lines_by_id: dict[str, Line]) -> list[dict]:
     """근거 줄·부모 줄에 성분 이름·CAS가 없는데 성분만 다르고 나머지가 같은 행이 둘 이상이면 MIX 한 행으로 모은다.
     골드는 성분 없는 줄의 독성·CMR·생태 행을 모두 MIX 한 행으로 적는다 (M002 'ο 발암성 : 자료없음'을 모델이 성분마다 복제).
@@ -887,6 +903,8 @@ def expand_msds(sections: dict[int, dict | None], lines_by_id: dict[str, Line],
                 else:
                     src = [{**r, "comp_ref": str(components[0]["seq"])}
                            if r["comp_ref"] == "MIX" and _law_of(r) not in _PRODUCT_LAWS else r for r in src]
+        if key == "ecotox":
+            src = [fix_eco_descriptor(r, lines_by_id) for r in src]
         if {"q", "text_value"} <= _resolve(node["items"]).get("properties", {}).keys():
             src = [status_to_q(r) for r in src]
         if key == "regulations":
