@@ -291,3 +291,44 @@ def test_section_16_meta_revision_labels(systems):
                  "최초작성일", "최종 개정일자", "개정횟수"):
         assert word in text, word
     assert "최초작성일" not in systems[15]
+
+
+# ── 시험용 안내문 판(PROMPT_VARIANT) ─────────────────────
+
+JSON_NARRATIVE_NOS = (4, 5, 6, 7, 10, 13)
+
+
+def test_default_variant_is_s10():
+    """환경 변수를 주지 않으면 기존 안내문(s10)이다. 시험용 판은 고를 때만 쓴다."""
+    assert sp.PROMPT_VARIANT is None and sp.SECTION_PROMPT_VERSION == "s10"
+    assert sp.build_system(7) == sp.build_system(7, variant=None)
+
+
+@pytest.mark.parametrize("no", JSON_NARRATIVE_NOS)
+def test_s11_json_narrative_guides_subtitles_and_section_title(no):
+    """s11: JSON 서술 항 안내에 소제목은 서술 항목의 start~end라 extras에 쓰지 않는다는 것과 항 제목 줄은 쓰지 않는다는
+    것을 더한다. 11/01 실행에서 서술 항 실패는 모두 narratives가 비고 항 내용이 extras로 간 응답이었다."""
+    base, test = sp.build_system(no), sp.build_system(no, variant="s11")
+    assert "extras`에 쓰지 않는다" in _part(test, "이 항의 안내") and "항 제목 줄" in _part(test, "이 항의 안내")
+    assert "항 제목 줄" not in _part(base, "이 항의 안내")
+
+
+@pytest.mark.parametrize("no", JSON_NARRATIVE_NOS)
+def test_s11_json_narrative_r24_without_stored_example(no):
+    """s11: JSON 서술 항의 R24는 원문 예만 보인다(extras에 넣는 저장 모양을 보이지 않는다). 다른 규칙의 저장 예는 둔다."""
+    rules = _part(sp.build_system(no, variant="s11"), "[규칙]")
+    r24 = next(l for l in rules.splitlines() if l.startswith("- R24"))
+    assert "저장 예" not in r24 and "원문 예" in r24
+    assert "저장 예" in next(l for l in rules.splitlines() if l.startswith("- R04"))
+
+
+@pytest.mark.parametrize("no", (1, 3, 8, 9, 11, 12, 14, 15))
+def test_s11_leaves_other_sections_unchanged(no):
+    """s11은 JSON 서술 항만 바꾼다. 1항과 행 형식 항(3·8·9·11·12·14·15)의 안내문은 s10과 같다."""
+    rows = no in ROWS_SECTIONS_DEFAULT
+    assert sp.build_system(no, rows=rows, variant="s11") == sp.build_system(no, rows=rows)
+
+
+def test_unknown_variant_is_rejected():
+    with pytest.raises(ValueError, match="s99"):
+        sp.build_system(7, variant="s99")
