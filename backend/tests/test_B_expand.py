@@ -896,16 +896,24 @@ def test_link_components_from_parent_line():
 
 
 def test_toxicity_descriptor_cleared_without_value(no_conventions):
-    """숫자가 없는 독성 행: 상태가 값 없음이면 지표를 비워 A의 규칙('결과기술'·'ATE')에 맡기고, 설명만 있는 행은
-    '결과기술'로 둔다. 골드는 숫자 없는 행을 모두 그렇게 적는다. 숫자가 있는 행의 지표는 그대로 둔다."""
+    """숫자가 없는 독성 행의 지표는 상태와 관계없이 '결과기술'이다. 혼합물 급성의 값 없는 행도 같다
+    (개발 골드 10건의 숫자 없는 독성 261행 모두. A 규칙의 'ATE'는 예제 1건에서 온 기본값이다).
+    숫자가 있는 행의 지표는 그대로 둔다. 설명만 있는 행(값있음)의 q는 비우고, q에만 적힌 글은 statements로 옮긴다
+    (골드 135행 모두 q 없음)."""
     r = responses()
     r[11]["toxicity"] += [
         {"comp_name": "가상물질 을", "comp_cas": None, "endpoint": "TX_DERMAL", "descriptor": "LD50", "status": "자료없음",
          "species": None, "q": {"raw": "자료없음"}, "statements": [], "line": "p5:L8"},
         {"comp_name": "가상물질 을", "comp_cas": None, "endpoint": "TX_SKIN", "descriptor": "Draize", "status": "값있음",
          "species": None, "q": None, "statements": [{"value": "비자극성", "line": "p5:L8"}], "line": "p5:L8"}]
+    r[11]["toxicity"].append({"comp_name": "가상물질 을", "comp_cas": None, "endpoint": "TX_EYE", "descriptor": None,
+                              "status": "값있음", "species": None, "q": {"raw": "가상 자극 없음"}, "statements": [],
+                              "line": "p5:L8"})
     m, _ = expand_one(r)
-    assert [x["descriptor"] for x in m["toxicity"]] == ["LD50", None, "결과기술"]
+    assert [x["descriptor"] for x in m["toxicity"]] == ["LD50", "결과기술", "결과기술", "결과기술"]
+    assert m["toxicity"][2]["q"] is None and m["toxicity"][3]["q"] is None
+    assert [s["value"] for s in m["toxicity"][3]["statements"]] == ["가상 자극 없음"]
+    assert m["toxicity"][1]["q"]["status"] == "자료없음"                 # 값 없는 행의 q(상태)는 둔다
 
 
 
