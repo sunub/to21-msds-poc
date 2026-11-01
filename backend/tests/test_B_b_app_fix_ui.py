@@ -612,7 +612,8 @@ def test_model_lookup_failure_is_not_ai_off():
       assert.ok(context().includes(T('context.model.query_failed')));
       assert.ok(!context().includes(T('context.model.state_off')));
       data={models:[{...model,url_set:false,error:null}]}; await shellPollServers();
-      assert.ok(context().includes(T('context.model.readiness_unknown')));
+      assert.ok(context().includes(T('context.model.state_off')));
+      assert.ok(!context().includes(T('context.model.readiness_unknown')));
       data={models:[]}; await shellPollServers();
       assert.ok(context().includes(T('context.model.readiness_unknown')));
       data={models:[{tag:'empty',reachable:true,model_served:null,match:null}]}; await shellPollServers();
