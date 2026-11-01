@@ -1109,3 +1109,13 @@ def test_cmr_group_prefix_only_when_written(no_conventions, line, want):
                      "class": "Group 2B", "status": "값있음", "note": None, "line": line}]
     m, _ = expand_one(r)
     assert m["cmr"][0]["class"] == want
+
+
+@pytest.mark.parametrize("line, want", [("p5:L8", "2"), ("p6:L10", "2"), ("p2:L5", "1")])
+def test_link_name_and_cas_disagree(line, want):
+    """이름과 CAS가 서로 다른 성분을 가리키면 근거 줄에 적힌 쪽을 따르고, 둘 다 안 적혔으면 이름을 따른다.
+    모델이 '1,3 부타디엔 | 106-97-8'(부탄의 CAS)처럼 맞는 이름에 다른 성분의 CAS를 붙였다 (M004, 실행 8개 372행)."""
+    comps = [{"seq": 1, "name": "가상물질 갑", "cas_no": "1234-56-6"}, {"seq": 2, "name": "가상물질 을", "cas_no": "2345-67-7"}]
+    lines = {l.id: l for l in LINES}
+    row = {"comp_name": "가상물질 을", "comp_cas": "1234-56-6", "line": line}
+    assert ex.link_components([row], comps, lines)[0]["comp_ref"] == want
