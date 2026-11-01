@@ -180,9 +180,19 @@ def _norm(s: str | None) -> str:
     return re.sub(r"\s+", "", s or "").casefold()
 
 
-def link_components(rows: list[dict], components: list[dict]) -> list[dict]:
+def _component_in_line(text: str | None, by_key: dict[str, dict]) -> dict | None:
+    """줄에 보이는 성분이 하나면 그 성분. 다른 이름 안에 든 이름(을 ⊂ 을 염)은 세지 않는다."""
+    t = _norm(text)
+    found = [k for k in by_key if k in t]
+    found = [k for k in found if not any(k != o and k in o for o in found)]
+    hits = {by_key[k]["seq"]: by_key[k] for k in found}
+    return next(iter(hits.values())) if len(hits) == 1 else None
+
+
+def link_components(rows: list[dict], components: list[dict], lines_by_id: dict[str, Line] | None = None) -> list[dict]:
     """comp_name·comp_cas를 3항 성분의 seq(글자)인 comp_ref로 바꾼 새 행 목록. CAS 먼저, 다음 이름.
-    둘 다 비었거나 어느 성분에도 안 맞으면 "MIX"."""
+    둘 다 비었으면 근거 줄(lines_by_id)에 성분 이름·CAS가 하나만 보일 때 그 성분이다 ('- 이소부텐 : 자료없음' 목록).
+    그래도 모르거나 어느 성분에도 안 맞으면 "MIX"."""
     by_cas = {_norm(c.get("cas_no")): c for c in components if _norm(c.get("cas_no"))}
     by_name: dict[str, dict] = {}
     for c in components:
@@ -194,8 +204,42 @@ def link_components(rows: list[dict], components: list[dict]) -> list[dict]:
         name = r.get("comp_name") or ""
         c = (by_cas.get(_norm(r.get("comp_cas"))) or by_name.get(_norm(name))
              or by_name.get(_norm(re.split(r"[,(（]", name)[0])))    # 'NATURAL GAS, LIQUIFIED'의 수식어를 뗀 이름
+        if c is None and lines_by_id and not _norm(name) and not _norm(r.get("comp_cas")):
+            line = lines_by_id.get(r.get("line"))
+            c = _component_in_line(line.text if line else None, {**by_name, **by_cas})
         out.append({**{k: v for k, v in r.items() if k not in _COMP_KEYS},
                     "comp_ref": str(c["seq"]) if c else "MIX"})
+    return out
+
+
+_CMR_PREFIX = re.compile(r"^\s*(?:발암성|생식\s*세포\s*변이원성|생식\s*독성)\s*[:：]?\s*")
+_CATEGORY_WORD = re.compile(r"^구분\s*(?=\d)")
+
+
+def fix_cmr_class(rows: list[dict]) -> None:
+    """CMR 등급(class)에서 '구분'과 유해성 이름을 뺀다 (R07, 기관 표기는 그대로). 상태어(C7)만 적혔으면 등급을 비우고
+    status로 옮긴다. '분류되지않음'처럼 사전에만 있는 표기는 기관 표기로 보고 그대로 둔다."""
+    status = _resolve(msds_item_schema()["properties"]["cmr"]["items"])["properties"]["status"]
+    words = {_word_key(w): w for w in next(b for b in status["anyOf"] if b.get("type") == "string")["enum"]
+             if w != "값있음"}
+    for r in rows:
+        if not r.get("class"):
+            continue
+        c = _CATEGORY_WORD.sub("", _CMR_PREFIX.sub("", r["class"])).strip()
+        if _word_key(c) in words:
+            r["class"], r["status"] = None, words[_word_key(c)]
+        else:
+            r["class"] = c or None
+
+
+def drop_repeated(pairs: list[tuple[int, dict]]) -> list[tuple[int, dict]]:
+    """원문 줄까지 같은 행은 모델이 반복한 것이라 처음 것만 남긴다. 줄이 없거나 다르면 남긴다."""
+    seen, out = set(), []
+    for no, r in pairs:
+        key = json.dumps(r, sort_keys=True, ensure_ascii=False) if r.get("line") else None
+        if key is None or key not in seen:
+            out.append((no, r))
+            seen.add(key)
     return out
 
 
@@ -414,6 +458,7 @@ def expand_msds(sections: dict[int, dict | None], lines_by_id: dict[str, Line],
             item[key] = _shape(node, [narrative(no, r, f"{key}[{i}]") for i, (no, r) in enumerate(pairs)],
                                lines_by_id)
             continue
+        pairs = drop_repeated(pairs)
         src = [r for _, r in pairs]
         if key == "extras":
             # 같은 항 서술 구간 안의 줄을 가리키는 extras는 서술 문장을 다시 쓴 것이라 버리고 항마다 센다
@@ -431,7 +476,7 @@ def expand_msds(sections: dict[int, dict | None], lines_by_id: dict[str, Line],
                     "page": lines_by_id[r["line"]].page if r.get("line") in lines_by_id else None}
                    for no, r in pairs]
         if "comp_ref" in node["items"].get("properties", {}):
-            src = link_components(src, components)
+            src = link_components(src, components, lines_by_id)
             for i, ((no, r), linked) in enumerate(zip(pairs, src)):
                 if linked["comp_ref"] == "MIX" and (_norm(r.get("comp_name")) or _norm(r.get("comp_cas"))):
                     problem(no, "unlinked_component", f"{key}[{i}]: {r.get('comp_name')} / {r.get('comp_cas')}")
@@ -446,6 +491,8 @@ def expand_msds(sections: dict[int, dict | None], lines_by_id: dict[str, Line],
         if key == "regulations":
             fill_law(item[key])
             fill_kreach_applicable(item[key])
+        if key == "cmr":
+            fix_cmr_class(item[key])
         for i, (no, r) in enumerate(pairs):
             walk(no, r, f"{key}[{i}]")
 
