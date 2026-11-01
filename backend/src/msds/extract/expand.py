@@ -26,7 +26,7 @@ from msds.common.paths import to21_file
 from msds.common.schema import load_schema, msds_item_schema
 from msds.extract.inputs import SECTION_NOS, Line, line_index, line_parents
 from msds.extract.section_specs import META_REVISION_FIELDS
-from msds.extract.source_rules import apply_source_rules, fill_thresholds
+from msds.extract.source_rules import apply_source_rules, clear_numberless_thresholds, fill_thresholds
 
 _NO_VALUE = {"자료없음", "해당없음", "미기재"}
 _NOTE = re.compile(r"^(?P<base>[^()（）]+?)\s*[(（](?P<note>[^()（）]+)[)）]$")   # 상태어(괄호 설명), Q.note
@@ -571,6 +571,7 @@ def expand_msds(sections: dict[int, dict | None], lines_by_id: dict[str, Line],
         if key == "regulations":
             fill_law(item[key])
             fill_kreach_applicable(item[key])
+            clear_numberless_thresholds(item[key])       # 해당 여부를 정한 뒤, 숫자 없는 기준농도('비해당')를 비운다
         if key == "cmr":
             fix_cmr_class(item[key])
         if key == "toxicity":
