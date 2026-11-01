@@ -31,7 +31,9 @@ from msds.extract.section_specs import SectionSpec, load_specs, response_schema
 # 고른 판은 실행 기록의 prompt_version과 prompt_hash에 남는다. 확정되면 기본에 합치고 여기서 뺀다.
 PROMPT_VARIANTS = {
     "s11": "JSON 서술 항: 소제목·항 제목 줄 안내를 더하고 R24 저장 예를 뺌 (11/01 서술 항 실패 = narratives가 비고 extras로 감)",
+    "s12": "서술만 있는 항(4·5·6·7·10·13)을 행 형식으로 받고 항 제목 줄·소제목 안내를 더함 (공백 금지 서버에서 JSON 서술 항이 비었다)",
 }
+NARRATIVE_ONLY_SECTIONS = (4, 5, 6, 7, 10, 13)   # 서술 항목과 extras만 받는 항. 2항(유해성)·16항(관리정보)은 객체 칸이 있어 뺀다
 PROMPT_VARIANT = os.environ.get("MSDS_PROMPT_VARIANT") or None
 if PROMPT_VARIANT is not None and PROMPT_VARIANT not in PROMPT_VARIANTS:
     raise ValueError(f"MSDS_PROMPT_VARIANT={PROMPT_VARIANT!r}: 고를 수 있는 판은 {sorted(PROMPT_VARIANTS)}")
@@ -87,6 +89,12 @@ _COMP_GUIDE = ("- 성분이 따로 적힌 행은 `comp_name`·`comp_cas`에 원�
                "제품 전체 값이면 둘 다 쓰지 않는다.")
 _NARRATIVE_GUIDE = ("- 서술 항목(narratives)은 항목 코드마다 한 행이다. `item_code`, 원문 제목(`title_raw`), "
                     "내용이 시작·끝나는 줄 번호(`start`, `end`)만 적는다. 문장을 다시 쓰지 않는다.")
+# s12 (행 형식으로 받는 서술 항): 항 제목 줄과 소제목 줄을 어디에 쓰는지 정한다. [응답 형식]의 extras 규칙과 함께 쓴다
+_NARRATIVE_GUIDE_S12 = ("- 항 제목 줄(예: `{no}. {title}`)은 어느 표에도 쓰지 않는다.\n"
+                        "- 소제목(예: `가. …`)은 [코드표]에서 이름이 같거나 가장 가까운 서술 항목 코드의 행이다. 소제목 줄을 "
+                        "`start`, 다음 소제목 바로 앞 줄(없으면 이 항의 마지막 줄)을 `end`로 쓴다. 소제목과 내용이 한 줄에 "
+                        "있어도 그 줄이 `start`다.\n"
+                        "- `extras`에는 어느 서술 항목 코드에도 맞지 않는 소제목이 붙은 값만 쓴다.")
 # s11 (JSON 서술 항): 행 형식 안내([응답 형식])에만 있던 extras 규칙을 JSON 서술 항에도 둔다
 _NARRATIVE_GUIDE_S11 = ("- 소제목(예: `가. …`)과 그 아래 문장은 [코드표]에서 이름이 같거나 가장 가까운 서술 항목 코드의 "
                         "`start`~`end`에 들어간다. `extras`에 쓰지 않는다.\n"
@@ -141,7 +149,14 @@ def _fields(wb, spec: SectionSpec, schema: dict) -> list[str]:
     return [r for r in rows if _in_schema(schema, _FIELD_PATH.match(r).group(1))]
 
 
-def _guide(spec: SectionSpec, schema: dict, s11_narrative: bool = False) -> str:
+def rows_sections(base, variant: str | None = None) -> set[int]:
+    """행 형식으로 받을 항. base는 모델 설정의 rows_sections. variant가 None이면 지금 고른 판(PROMPT_VARIANT)이다.
+    s12는 서술만 있는 항(NARRATIVE_ONLY_SECTIONS)을 더한다."""
+    v = PROMPT_VARIANT if variant is None else variant
+    return set(base) | (set(NARRATIVE_ONLY_SECTIONS) if v == "s12" else set())
+
+
+def _guide(spec: SectionSpec, schema: dict, s11_narrative: bool = False, s12_narrative: bool = False) -> str:
     parts = [GUIDES[spec.no]] if spec.no in GUIDES else []
     if any('"comp_name"' in json.dumps(schema["properties"][t]) for t in spec.targets):
         parts.append(_COMP_GUIDE)
@@ -149,6 +164,8 @@ def _guide(spec: SectionSpec, schema: dict, s11_narrative: bool = False) -> str:
         parts.append(_NARRATIVE_GUIDE)
         if s11_narrative:
             parts.append(_NARRATIVE_GUIDE_S11.format(no=spec.no, title=spec.title))
+        if s12_narrative:
+            parts.append(_NARRATIVE_GUIDE_S12.format(no=spec.no, title=spec.title))
     return "\n".join(parts)
 
 
@@ -160,15 +177,17 @@ def _narrative_table(wb, codes: tuple[str, ...]) -> list[str]:
 
 def build_system(no: int, rows: bool = False, variant: str | None = PROMPT_VARIANT) -> str:
     """rows=True면 표를 한 줄 한 행으로 받는 안내문이다 (ADR-019). variant는 시험용 판(PROMPT_VARIANTS)이고
-    None이면 기본 안내문이다. s11은 JSON 서술 항(서술 항목 코드가 있고 행 형식이 아닌 항)만 바꾼다."""
+    None이면 기본 안내문이다. s11은 JSON 서술 항(서술 항목 코드가 있고 행 형식이 아닌 항)만, s12는 행 형식으로 받는
+    서술만 있는 항(NARRATIVE_ONLY_SECTIONS)만 바꾼다."""
     if variant is not None and variant not in PROMPT_VARIANTS:
         raise ValueError(f"안내문 판 {variant!r}이 없습니다. 고를 수 있는 판: {sorted(PROMPT_VARIANTS)}")
     spec = load_specs()[no]
     schema = response_schema(no)
     wb = _workbook()
     s11_narrative = variant == "s11" and not rows and bool(spec.narrative_codes)
+    s12_narrative = variant == "s12" and rows and no in NARRATIVE_ONLY_SECTIONS
     common = (_COMMON_ROWS if rows else _COMMON).format(no=no, title=spec.title)
-    guide = _guide(spec, schema, s11_narrative)
+    guide = _guide(spec, schema, s11_narrative, s12_narrative)
     fields = _fields(wb, spec, schema)
     rule_codes = _BASE_RULES | _referenced_rules(fields) | set(re.findall(r"R\d{2}", common + guide))
     refs = re.findall(r"\[참조 ([^\]]*)\]", "\n".join(fields))
