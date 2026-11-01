@@ -245,9 +245,9 @@ def test_page_noise_needs_three_pages():
     assert inputs.page_noise(lines) == set()
 
 
-def test_model_lines_drop_noise_and_section_title(tmp_path):
-    """모델에 보내는 줄에서 항 구간의 머리글·쪽 번호와 그 항 제목 줄을 뺀다. 문서 머리(앞머리)는 그대로 둔다.
-    제목 줄에 ':'가 있으면 값이 붙은 줄일 수 있어 남긴다."""
+def test_model_lines_drop_page_noise_keep_section_title(tmp_path):
+    """모델에 보내는 줄에서 항 구간의 머리글·쪽 번호만 뺀다. 항 제목 줄은 문서 머리와 항 본문의 경계라 남긴다
+    (11/01 실행: 제목 줄을 빼자 3·8·11·12·15항이 문서 머리의 표기를 가져오거나 첫 행을 빠뜨렸다). 문서 머리는 그대로 둔다."""
     head = "[ 가상 MSDS ]"
     pages = write_pages(tmp_path / "pages", {
         1: f"{head}\n제품명 : 시험액\n1. 화학제품과 회사에 관한 정보\n가. 제품명 : 시험액\n1",
@@ -259,9 +259,9 @@ def test_model_lines_drop_noise_and_section_title(tmp_path):
         "2": {"start": "p2:L2", "end": "p2:L4", "method": "title"},
         "3": {"start": "p3:L2", "end": "p3:L4", "method": "title"}}}]})
     doc = inputs.load_document(DOC, pages, secs, tmp_path / "codes")
-    assert [l.id for l in inputs.model_lines(doc, 0, 1)] == ["p1:L1", "p1:L2", "p1:L4"]
+    assert [l.id for l in inputs.model_lines(doc, 0, 1)] == ["p1:L1", "p1:L2", "p1:L3", "p1:L4"]
     assert [l.id for l in inputs.model_lines(doc, 0, 2)] == ["p1:L1", "p1:L2", "p2:L2", "p2:L3"]
-    assert [l.id for l in inputs.model_lines(doc, 0, 3)] == ["p1:L1", "p1:L2", "p3:L3"]
+    assert [l.id for l in inputs.model_lines(doc, 0, 3)] == ["p1:L1", "p1:L2", "p3:L2", "p3:L3"]
 
 
 # ── 줄의 부모 줄 ────────────────────────────────────────

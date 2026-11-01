@@ -172,7 +172,7 @@ def _run_section(client, doc: DocumentInput, msds_index: int, no: int, system: s
                  allowed: set[str], rows: bool = False, images: list[Path] = (),
                  rows_max_tokens: int | None = None) -> tuple[SectionResult, dict, dict | None]:
     """반환: (항 결과, 첫 시도, 재추출 시도 또는 None). images는 첫 시도와 재추출 모두에 붙인다."""
-    lines = model_lines(doc, msds_index, no)      # 쪽 머리글·바닥글·쪽 번호와 항 제목 줄은 보내지 않는다
+    lines = model_lines(doc, msds_index, no)      # 쪽 머리글·바닥글·쪽 번호는 보내지 않는다
     first = _attempt(client, no, system, build_user(no, lines, images=images), schema, allowed, rows,
                      rows_max_tokens)
     second = None
