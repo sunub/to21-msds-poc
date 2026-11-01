@@ -343,6 +343,94 @@ def split_second_unit(row: dict) -> list[dict]:
     return [{**row, "q": p} for p in parts]
 
 
+_LAW_HEAD = re.compile(r"법(?:률)?\s*(?:\([^)]*\)\s*)?에\s*(?:의한|따른|관한)\s*규제|등에\s*관한\s*법률\s*$")
+_REG_STATUS = re.compile(r"^(?:규제되지않음|해당없음|해당사항없음|비해당|해당|해당됨|자료없음|등재되지않음)$")
+_DOMESTIC = ("OSH", "CCA", "KREACH")
+
+
+@functools.cache
+def _reg_names() -> list[tuple[str, str]]:
+    names = [(_word_key(n), c) for c, ns in _dictionary()["regulations"].items() for n in ns]
+    return sorted((x for x in names if x[0]), key=lambda x: -len(x[0]))
+
+
+def regulation_code(text: str | None) -> str | None:
+    """규제 항목 이름을 동의어 사전(R25)에서 찾아 코드로. 이름 뒤에 값·괄호가 이어질 수 있어 앞머리로 비교한다."""
+    key = _word_key(_strip_bullet(text or ""))
+    return next((c for n, c in _reg_names() if key.startswith(n)), None)
+
+
+def _reg_codes_in(text: str | None) -> set[str]:
+    """글 안에 적힌 규제 항목 이름의 코드 전부 ('관리대상유해물질, 노출기준설정물질' → 두 코드).
+    긴 이름부터 찾고 찾은 자리는 지워, 긴 이름 안의 짧은 이름(등록대상기존화학물질 ⊃ 기존화학물질)은 세지 않는다."""
+    key, codes = _word_key(text or ""), set()
+    for n, c in _reg_names():           # 긴 이름부터
+        if n in key:
+            codes.add(c)
+            key = key.replace(n, "\0")
+    return codes
+
+
+def recode_regulations(rows: list[dict], lines_by_id: dict[str, Line], components: list[dict]) -> None:
+    """국내 법령(산안법·화관법·화평법) 행의 항목 코드를 원문의 항목 이름으로 바로잡는다 (동의어 사전 R25).
+    - 근거 줄(성분 줄이면 값 부분)에 적힌 항목이 하나면 그 코드 ('등록대상 기존 화학물질 (PEC)' → KREACH_REG.
+      모델은 KREACH_EXIST). 여럿이면 모델 코드가 그중 하나일 때 그대로, 아니면 모호해 그대로 둔다 (M004 한 줄 여러 항목)
+    - 성분 줄·상태 줄의 값이 비었거나 상태어면 제목 줄로 정한다. 글머리·들여쓰기 부모를, 없으면 위로 같은 목록의
+      성분·상태 줄을 건너뛴 첫 줄을 본다. 법령 제목이면 코드 없음 (골드 M004 '가. 산업안전보건법에 의한 규제' 아래
+      '- 부텐 1 : 해당없음'), 항목 이름 하나면 그 코드 (M013 '노출기준설정물질' 아래 성분 줄에 모델이 앞 제목의
+      OSH_MEASURE를 붙였다), 그 밖에는 그대로 둔다. 값이 사전에 없는 글이면('노출기준설정대상물질') 그대로 둔다."""
+    keys = {_norm(x): c for c in components for x in (c.get("name"), c.get("name_en"), c.get("cas_no"), *(c.get("synonyms") or []))
+            if _norm(x)}
+    ids = list(lines_by_id)
+    at = {lid: i for i, lid in enumerate(ids)}
+    parents = line_parents(list(lines_by_id.values()))
+
+    def is_status(text: str) -> bool:
+        return bool(_REG_STATUS.match(_word_key(text)))
+
+    def listed(text: str) -> bool:          # 같은 목록의 성분 줄·상태 줄
+        return _any_component(text, keys) or is_status(text)
+
+    def heading(lid: str) -> str | None:
+        ups = [x for x in parents.get(lid, []) if not listed(x.text)][:1]
+        if not ups:
+            for j in range(at[lid] - 1, max(at[lid] - 12, -1), -1):
+                if not listed(lines_by_id[ids[j]].text):
+                    ups = [lines_by_id[ids[j]]]
+                    break
+        if not ups:
+            return None
+        if _LAW_HEAD.search(ups[0].text):
+            return "법령"
+        codes = _reg_codes_in(ups[0].text)
+        return next(iter(codes)) if len(codes) == 1 else None
+
+    for r in rows:
+        if _law_of(r) not in _DOMESTIC or r.get("line") not in at:
+            continue
+        text = lines_by_id[r["line"]].text
+        thr = r.get("threshold") or {}
+        num = next((thr[k] for k in ("value", "lower", "upper") if thr.get(k) is not None), None)
+        if num is not None and f"{num:g}" not in text.replace(",", ""):
+            continue                         # 기준농도가 근거 줄에 없다: 줄 번호가 틀린 행 (S016)
+        if listed(text):
+            value = re.split(r"[:：|]", text, maxsplit=1)[1] if re.search(r"[:：|]", text) else ""
+            if _any_component(text, keys) and value.strip() and not is_status(value):
+                codes = _reg_codes_in(value)
+                code = next(iter(codes)) if len(codes) == 1 else None
+            else:
+                code = heading(r["line"])
+        else:
+            codes = _reg_codes_in(text) if regulation_code(text) else set()
+            code = next(iter(codes)) if len(codes) == 1 else None
+        if r.get("item_code") is not None and code not in ("법령", None) and r["item_code"] in _reg_codes_in(text):
+            continue                         # 모델 코드가 줄에 적힌 항목 중 하나
+        if code == "법령":
+            r["item_code"] = None
+        elif code and code.split("_")[0] in _DOMESTIC and code != r.get("item_code"):
+            r["item_code"], r["law"] = code, code.split("_")[0]
+
+
 _LAW_LEVEL = re.compile(r"법(?:률)?\s*에\s*(?:의한|따른)\s*규제\s*[:：]?\s*(?P<v>.*)$")
 
 
@@ -733,6 +821,7 @@ def expand_msds(sections: dict[int, dict | None], lines_by_id: dict[str, Line],
         if {"q", "text_value"} <= _resolve(node["items"]).get("properties", {}).keys():
             src = [status_to_q(r) for r in src]
         if key == "regulations":
+            recode_regulations(src, lines_by_id, components)
             src = [_law_level_item(r, lines_by_id) for r in src]
             if src and not any(_law_of(r) == "KREACH" for r in src):   # R18: 화평법 항목이 없는 문서는 미기재 한 행 (골드 6건)
                 src.append({"law": "KREACH", "item_code": None, "applicable": "미기재", "comp_ref": "MIX"})
