@@ -431,6 +431,36 @@ def recode_regulations(rows: list[dict], lines_by_id: dict[str, Line], component
             r["item_code"], r["law"] = code, code.split("_")[0]
 
 
+_REG_APPLICABLE = {"규제되지않음": "비해당", "해당없음": "비해당", "해당사항없음": "비해당", "비해당": "비해당",
+                   "등재되지않음": "비해당", "해당": "해당", "해당됨": "해당", "자료없음": "자료없음"}
+
+
+def add_missing_items(rows: list[dict], lines_by_id: dict[str, Line]) -> list[dict]:
+    """15항 원문에 항목 이름만 적힌 제목 줄과 그 상태(같은 줄 ':' 뒤, 또는 바로 다음 상태 줄)가 있는데 그 코드의 행이
+    하나도 없으면 더할 MIX 행들 (국내 법령만). 모델이 M013 '작업환경 측정대상물질' / '규제되지 않음.'을 뺐다.
+    개발 골드는 15항에 적힌 국내 항목 이름 66개 모두 그 코드의 행이 있다. 범위는 규제 행 근거 줄의 처음~끝이다."""
+    ids = list(lines_by_id)
+    at = sorted(ids.index(r["line"]) for r in rows if r.get("line") in lines_by_id)
+    if not at:
+        return []
+    have = {r.get("item_code") for r in rows}
+    new = []
+    for i in range(at[0], at[-1] + 1):
+        text = _strip_bullet(lines_by_id[ids[i]].text)
+        code = regulation_code(text)
+        if not code or code.split("_")[0] not in _DOMESTIC or code in have or len(_reg_codes_in(text)) != 1:
+            continue
+        name = next(n for n, c in _reg_names() if c == code and _word_key(text).startswith(n))
+        rest = _word_key(text)[len(name):]
+        if not rest and i + 1 < len(ids):
+            rest = _word_key(lines_by_id[ids[i + 1]].text)
+        if rest in _REG_APPLICABLE:
+            have.add(code)
+            new.append({"law": code.split("_")[0], "item_code": code, "applicable": _REG_APPLICABLE[rest],
+                        "comp_ref": "MIX", "line": ids[i]})
+    return new
+
+
 _LAW_LEVEL = re.compile(r"법(?:률)?\s*에\s*(?:의한|따른)\s*규제\s*[:：]?\s*(?P<v>.*)$")
 
 
@@ -822,6 +852,7 @@ def expand_msds(sections: dict[int, dict | None], lines_by_id: dict[str, Line],
             src = [status_to_q(r) for r in src]
         if key == "regulations":
             recode_regulations(src, lines_by_id, components)
+            src = src + add_missing_items(src, lines_by_id)      # 모델 행 순서는 그대로 두고 뒤에 더한다
             src = [_law_level_item(r, lines_by_id) for r in src]
             if src and not any(_law_of(r) == "KREACH" for r in src):   # R18: 화평법 항목이 없는 문서는 미기재 한 행 (골드 6건)
                 src.append({"law": "KREACH", "item_code": None, "applicable": "미기재", "comp_ref": "MIX"})
