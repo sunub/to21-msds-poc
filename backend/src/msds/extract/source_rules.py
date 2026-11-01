@@ -19,7 +19,7 @@ from __future__ import annotations
 import re
 from functools import lru_cache
 
-from msds.extract.inputs import Line
+from msds.extract.inputs import Line, line_parents
 from msds.extract.rows import _has_number, parse_qm
 from msds.extract.section_prompts import _workbook
 
@@ -218,16 +218,73 @@ def _threshold_qm(f: re.Match) -> dict:
     return {**parse_qm(f"{f['n']} {unit} 이상"), "raw": f.group(0)}
 
 
+_HEADING = re.compile(r"^\s*(?:[○●ο■□◆◇▶▷※]|[가-하]\s*[.)]|\(?\d{1,2}\)|[①-⑳])")   # 항목 제목 줄의 기호
+_LIST_ITEM = re.compile(r"^\s*[-–·•ㆍ∙]")                                         # 그 아래 목록 줄의 기호
+
+
+def _open_parens(text: str) -> int:
+    return sum(text.count(c) for c in "(（[") - sum(text.count(c) for c in ")）]")
+
+
+def _segments(text: str) -> list[tuple[int, int]]:
+    """괄호 밖 쉼표·쌍반점으로 나눈 조각의 (시작, 끝) 위치. 괄호 안의 쉼표는 나누지 않는다."""
+    out, depth, start = [], 0, 0
+    for i, ch in enumerate(text):
+        depth += ch in "(（[" and 1 or (-1 if ch in ")）]" and depth else 0)
+        if ch in ",;" and depth == 0:
+            out.append((start, i))
+            start = i + 1
+    return [*out, (start, len(text))]
+
+
+def _in_item_segment(found: list[re.Match], text: str, item_raw: str | None) -> list[re.Match]:
+    """줄이 항목을 쉼표로 나열하고 item_raw가 그 줄에 있으면, item_raw가 든 조각 안의 'N% 이상'들."""
+    segs = _segments(text)
+    if not item_raw or len(segs) < 2 or _compact(item_raw) not in _compact(text):
+        return []
+    mine = [(a, b) for a, b in segs if _compact(item_raw) in _compact(text[a:b])]
+    return [f for f in found if any(a <= f.start() <= b for a, b in mine)]
+
+
+def _owned(f: re.Match, text: str, item_raw: str | None) -> bool:
+    """줄에 하나뿐인 'N% 이상'을 이 행에 써도 되는가. 줄이 항목을 쉼표로 나열하면 그 조각에 항목 이름이 있어야 한다 (M004:
+    '관리대상유해물질, 작업환경측정대상물질(및 이를 1 wt% 이상 …)'의 1 wt%는 작업환경측정에만 붙는다). 이름이 없거나 나열이
+    아니거나, 항목 이름이 줄에 아예 없으면(다른 표기) 쓴다."""
+    segs = _segments(text)
+    if not item_raw or len(segs) < 2 or _compact(item_raw) not in _compact(text):
+        return True
+    a, b = next((s, e) for s, e in segs if s <= f.start() < e + 1)
+    return _compact(item_raw) in _compact(text[a:b])
+
+
+def clear_numberless_thresholds(regulations: list[dict]) -> None:
+    """숫자 없는 기준농도('비해당' 등)를 비운다. 골드·실버의 기준농도 28개는 모두 숫자가 있다.
+    화평법 해당 여부(fill_kreach_applicable)가 이 글자를 읽은 뒤에 부른다."""
+    for r in regulations:
+        if r.get("threshold") and not _has_number(r["threshold"]):
+            r["threshold"] = None
+
+
 def fill_thresholds(rows: list[dict], lines_by_id: dict[str, Line]) -> list[dict]:
     """15항 규제 행(아직 line이 있는 중간 형식 행)의 threshold를 근거 줄로 채우거나 바로잡은 새 목록.
-    근거 글은 행 line의 줄과 바로 다음 줄('(1%' / '이상)'처럼 끊긴 경우)을 공백 하나로 이은 글이다.
+    근거 글은 행 line의 줄과 바로 다음 줄('(1%' / '이상)'처럼 끊긴 경우)을 공백 하나로 이은 글이다. 괄호가 열린 채
+    끝나면 두 줄까지 더 잇는다('특수건강진단물질(및 이를 1' / 'wt% 이상 …)').
     다음 줄이 글머리('- ', '●', '가.' 등)로 시작하면 다른 성분·항목의 줄이라 잇지 않는다.
     - 채우기: threshold에 숫자가 없으면 ① item_raw 바로 뒤의 '(N% 이상)', 없으면 ② 근거 글에 하나뿐인 'N% 이상'.
+      ②는 근거 글이 항목을 쉼표로 나열하면 'N% 이상'이 든 조각에 item_raw가 있을 때만 쓴다 (_owned).
+      ③ 그래도 없으면 item_raw가 든 나열 조각 안에 하나뿐인 'N% 이상'.
     - 바로잡기: threshold의 숫자가 하나이고 근거 글에 같은 숫자의 'N% 이상'이 있으면(① 조각 먼저) 그 조각으로 바꾼다.
       부등호는 >=, 단위는 원문 그대로(% 또는 wt%)가 된다. 범위(숫자 둘)와 근거 글에 없는 숫자는 그대로 둔다.
+    - 근거 글에 'N% 이상'이 없고 근거 줄이 ':' 없는 항목 제목(○·●·가. 등)이면 그 아래 목록 줄(-·•)을 잇는다
+      ('○ 작업환경측정물질' 아래 '- 해당됨 (1% 이상 …)'). 모델이 제목 줄을 근거로 적은 일이 있었다 (S016).
+      채우기·바로잡기 조건은 같다.
     - 근거 줄이 없거나 원문에 없는 줄 번호인 행은 그대로 둔다. 넘겨받은 행은 바꾸지 않는다."""
     ids = list(lines_by_id)
     pos = {lid: i for i, lid in enumerate(ids)}
+    children: dict[str, list[str]] = {}
+    for lid, ups in line_parents(list(lines_by_id.values())).items():
+        if ups:
+            children.setdefault(ups[0].id, []).append(lid)
     out = []
     for r in rows:
         at = pos.get(r.get("line"))
@@ -236,11 +293,21 @@ def fill_thresholds(rows: list[dict], lines_by_id: dict[str, Line]) -> list[dict
             continue
         own, *rest = (lines_by_id[lid].text.strip() for lid in ids[at:at + 2])
         text = " ".join([own, *(t for t in rest if not _NEW_ITEM.match(t))])
+        for lid in ids[at + 2:at + 4] if rest and not _NEW_ITEM.match(rest[0]) else []:   # 괄호가 열린 채 끝나면 더 잇는다
+            nxt = lines_by_id[lid].text.strip()
+            if _open_parens(text) <= 0 or _NEW_ITEM.match(nxt):
+                break
+            text = f"{text} {nxt}"
+        if not _THRESHOLD.search(text) and _HEADING.match(own) and not re.search(r"[:：]", own):   # 항목 이름뿐인 제목
+            text = " ".join([text, *(lines_by_id[c].text.strip() for c in children.get(r["line"], [])
+                                     if _LIST_ITEM.match(lines_by_id[c].text))])
         found = list(_THRESHOLD.finditer(text))
         item = _after_item(r.get("item_raw"), text)
         q = r.get("threshold")
         if not _has_number(q):
-            f = item or (found[0] if len(found) == 1 else None)
+            mine = _in_item_segment(found, text, r.get("item_raw"))
+            f = (item or (found[0] if len(found) == 1 and _owned(found[0], text, r.get("item_raw")) else None)
+                 or (mine[0] if len(mine) == 1 else None))
         else:
             nums = [q[k] for k in ("value", "lower", "upper") if q.get(k) is not None]
             same = [x for x in (item, *found) if x and len(nums) == 1 and float(x["n"]) == nums[0]]
