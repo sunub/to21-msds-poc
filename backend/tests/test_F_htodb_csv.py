@@ -6,6 +6,7 @@
 """
 import csv
 import json
+import os
 from pathlib import Path
 
 import pytest
@@ -13,7 +14,7 @@ import pytest
 from msds.compliance.htodb.csv_repo import CsvRepo
 from msds.compliance.mixture.ate_source import get_ate
 from msds.compliance.mixture.build_components import build_components
-from msds.compliance.mixture.class_lookup_db import make_db_class_lookup, make_db_tox_lookup
+from msds.compliance.mixture.class_lookup_db import _DbRepo, make_db_class_lookup, make_db_tox_lookup
 from msds.compliance.mixture.classify_mixture import classify_mixture_all
 from msds.compliance.mixture.physical import physical_inputs
 from msds.compliance.mixture.verdict import aggregate_verdicts
@@ -111,3 +112,30 @@ def test_25번_황산_샘플DB_연결():
     assert len(inhal) == 1 and inhal[0]["type"] == "형태·세부 표기"
     carc = next(v for v in out["verdicts"] if v["class_code"] == "HH_CARCINOGEN")
     assert carc["verdict"] == "일치"  # 1A 는 고용노동부(KR03)에만 있음 — 출처 우선순위를 항목 단위로 적용
+
+
+# ── 샘플 CSV ↔ 실제 HTODB(로컬 PostgreSQL) 대조 ─────────────────────────────
+SAMPLE_CAS = ["7664-93-9", "7732-18-5", "64-17-5", "71-43-2", "108-88-3", "111-76-2", "1310-73-2", "1330-20-7"]
+
+
+def _real_db():
+    """실제 HTODB에 붙을 수 있으면 repo, 아니면 None. HTODB_SKIP=1 이면 시도하지 않는다."""
+    if os.environ.get("HTODB_SKIP") == "1":
+        return None
+    try:
+        repo = _DbRepo()
+        repo.chemicals(cas="7664-93-9")
+        return repo
+    except Exception:
+        return None
+
+
+@pytest.mark.skipif(not CsvRepo().available(), reason="to21_sample 없음")
+def test_샘플CSV와_실제DB의_분류·독성값이_같다():
+    real = _real_db()
+    if real is None:
+        pytest.skip("실제 HTODB에 붙을 수 없음(HTODB_SKIP=1 또는 deploy/htodb 미적재)")
+    sample = CsvRepo()
+    for cas in SAMPLE_CAS:  # 샘플 8종: 같은 CAS를 두 창고에서 찾은 결과가 같아야 바꿔 끼울 수 있다(설계서 15장)
+        assert list(make_db_class_lookup(sample)(cas)) == list(make_db_class_lookup(real)(cas)), cas
+        assert list(make_db_tox_lookup(sample)(cas)) == list(make_db_tox_lookup(real)(cas)), cas
