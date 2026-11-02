@@ -233,7 +233,7 @@ dialog::backdrop { background: var(--backdrop); }
 #source-top { grid-row: 4; }
 #source-values { grid-column: 1; grid-row: 5 / span 2; }
 #source-selection, #source-page { grid-column: 2; min-width: 0; }
-#source-selection { grid-row: 5; }
+#source-selection { grid-row: 5; scroll-margin-top: var(--sticky-offset); }
 #source-page { grid-row: 6; }
 #source-details { grid-row: 7; min-width: 0; }
 #source-problem-list { max-height: 640px; overflow-y: auto; }
