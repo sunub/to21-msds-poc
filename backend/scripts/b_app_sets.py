@@ -99,7 +99,7 @@ def doc_entry(doc_dir: Path, rows: list[dict]) -> dict:
 
 
 def _subdirs(path: Path) -> list[Path]:
-    return sorted(p for p in path.iterdir() if p.is_dir())
+    return sorted(p for p in path.iterdir() if p.is_dir() and not p.name.startswith("."))   # 복사 중인 임시 폴더는 숨긴다
 
 
 def _unusable_reason(docs: list[dict]) -> str | None:

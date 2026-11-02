@@ -9,7 +9,8 @@ const SHELL_SCREENS = {
   s06: {title: "nav.servers", views: ["servers-summary", "servers-rngd", "servers-runpod", "servers-models", "servers-log"]},
   s07: {title: "nav.help", views: ["help-topics", "help-glossary"]},
   s09: {title: "jobs.trial.open_batch", parent: "s03", views: ["jobs-run"]},
-  s10: {title: "compare.table.open", parent: "s04", views: ["jobs-compare"]}
+  s10: {title: "compare.table.open", parent: "s04", views: ["jobs-compare"]},
+  s11: {title: "nav.swap", views: ["swap-view"]}
 };
 const shellViews = new Map();
 S.shell = {route: null, sets: [], keys: [], contextErrors: [], contextLoaded: false,
@@ -136,16 +137,47 @@ function shellRenderContext() {
   coreReplace(el, 
     h("div", {class: "context-field"}, h("span", {class: "context-label"}, T("context.documents.label")),
       h("strong", null, currentSet?.label || missing),
-      h("button", {id: "context-change-set", class: "text-button", type: "button", onclick: shellOpenContext}, T("context.change_documents")),
+      shellScoreChip(currentSet, currentKey),
+      h("div", {class: "context-links"},
+        h("button", {id: "context-change-set", class: "text-button", type: "button", onclick: shellOpenContext}, T("context.change_documents")),
+        h("button", {id: "context-swap", class: "text-button", type: "button", onclick: () => go("s11", {swapView: "start"}).catch(fail)}, T("nav.swap"))),
       h("p", {class: "raw"}, currentSet?.id || "")),
     h("div", {class: "context-field"}, h("span", {class: "context-label"}, T("context.answer.label")),
       h("strong", null, ["gold", "silver"].includes(currentKey?.kind)
         ? term(currentKey.kind, currentKey.label) : currentKey?.label || missing),
       h("button", {id: "context-change-key", class: "text-button", type: "button", onclick: shellOpenContext}, T("context.change_answer")),
+      h("div", {id: "context-answer-note"}),
       h("p", null, T("context.answer_trust"))),
     h("div", {id: "context-model", class: "context-field", role: "status", "aria-live": "polite"}),
     S.shell.contextErrors.length ? h("div", {class: "context-errors"}, S.shell.contextErrors.map(loadFailure)) : null);
   shellRenderModels();
+  emit("context_rendered", {});
+}
+// 고른 문서 묶음에 고른 정답이 있는 문서 수. 잠긴 문서는 세지 않는다.
+function shellScoreChip(set, key) {
+  if (!Array.isArray(set?.docs) || !Array.isArray(key?.docs)) return null;
+  const count = set.docs.filter(doc => !doc.locked && key.docs.includes(doc.doc_id)).length;
+  return h("span", {id: "context-score-chip", class: `swap-chip ${count ? "yes" : "no"}`},
+    T(count ? "swap.context.score_docs" : "swap.context.no_score", {count}));
+}
+// 빌린 서버의 요금과 자동 삭제. 닫는 단추는 AI 켜기와 비용 화면에만 둔다 (11/2 사용자 결정).
+function shellRentedNote(data) {
+  const session = data?.session, pod = (data?.pods || []).find(item => item.session);
+  if (!session || !pod) return null;
+  const where = T("context.model.rented_close_where");
+  if (!session.ready) return [num(pod.minutes) ? T("context.model.rented_elapsed", {minutes: Math.round(pod.minutes)}) : null, where].filter(Boolean).join(" ");
+  return [[num(pod.cost_per_hr) ? T("context.model.rented_hourly", {cost: pod.cost_per_hr}) : null,
+    [num(session.idle_minutes) ? T("context.model.rented_auto_close", {idle: session.idle_minutes}) : null,
+      num(pod.auto_delete_min) ? T("context.model.rented_auto_left", {minutes: pod.auto_delete_min}) : null].filter(Boolean).join(" ")]
+    .filter(Boolean).join(" · "), where].filter(Boolean).join(" ");
+}
+function shellOffNotes(data) {
+  const closed = data?.last_auto_close;
+  const quiet = !data?.runpod_error && !(data?.pods || []).some(pod => pod.owned && pod.status === "RUNNING");
+  return [T("context.model.off_normal"), quiet ? T("context.model.off_no_cost") : null,
+    closed ? T(`context.model.auto_closed_${closed.kind}`, {limit: closed.limit_min}) : null,
+    closed && num(closed.minutes) && num(closed.cost) ? T("context.model.auto_closed_cost", {minutes: closed.minutes, cost: closed.cost}) : null]
+    .filter(Boolean).join(" ");
 }
 function shellModelState(model, data = S.shell.servers) {
   if (!model) return "readiness_unknown";
@@ -191,7 +223,8 @@ function shellRenderModels() {
   coreReplace(el, h("span", {class: "context-label"}, T("context.model.current_label", {model: T("context.model.default_name")})),
     h("strong", null, state),
     h("button", {class: "text-button", type: "button", onclick: () => go("s06").catch(fail)}, T("context.prepare_model")),
-    off ? h("p", null, T("context.model.off_normal")) : null,
+    off ? h("p", null, shellOffNotes(S.shell.servers)) : null,
+    !error && shellRentedNote(S.shell.servers) ? h("p", null, shellRentedNote(S.shell.servers)) : null,
     h("p", null, T("context.model.saved_readable")),
     S.shell.serverAt ? h("p", {class: "muted"}, T("context.model.checked_at", {time: when(S.shell.serverAt)})) : null,
     error && !unavailable ? rawError(error.message) : null);
