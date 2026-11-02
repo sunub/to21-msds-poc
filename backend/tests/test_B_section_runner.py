@@ -26,6 +26,7 @@ from msds.extract import rows as rw
 from msds.extract import section_runner as sr
 from msds.extract import section_specs as ss
 from msds.extract.client import CallResult, load_model_config
+from msds.extract.inputs import EXTRACT_SECTIONS
 from msds.extract.section_prompts import SECTION_PROMPT_VERSION, build_system, prompt_hash
 
 SCRIPTS = Path(__file__).resolve().parents[1] / "scripts"
@@ -89,8 +90,8 @@ def responses() -> dict[int, dict]:
                 components=[{"name": "가상물질 갑", "cas_no": "1234-56-6",
                              "content": {"raw": "10 ~ 20", "lower_op": ">=", "lower": 10, "upper_op": "<=",
                                          "upper": 20, "unit": "%"}, "line": "p1:L9"}])
-    r[4]["narratives"] = [{"item_code": ss.load_specs()[4].narrative_codes[0], "title_raw": "가. 눈에 들어갔을 때",
-                           "start": "p1:L11", "end": "p1:L12"}]
+    r[8]["narratives"] = [{"item_code": ss.load_specs()[8].narrative_codes[0], "title_raw": None,
+                           "start": "p2:L8", "end": "p2:L8"}]
     return r
 
 
@@ -289,7 +290,7 @@ def test_end_to_end_writes_all_files(env):
     summary = run(env, client)
 
     assert summary["doc_id"] == DOC
-    assert (summary["sections_ok"], summary["sections_failed"], summary["reextracted"]) == (16, 0, 0)
+    assert (summary["sections_ok"], summary["sections_failed"], summary["reextracted"]) == (9, 0, 0)
     assert summary["schema_errors"] == 0
     assert summary["warnings"] == []
 
@@ -301,20 +302,20 @@ def test_end_to_end_writes_all_files(env):
     m = out["msds"][0]
     assert m["product"]["name"] == "가상 세정액 B"
     assert m["components"][0]["cas_no"] == "1234-56-6"
-    assert m["narratives"][0]["statements"][0]["text"] == "- 즉시 다량의 물로 씻어내시오."
+    assert m["narratives"][0]["statements"][0]["text"] == "가상 내용 8"
 
     c = checks(env)
     assert set(c) == {"sections", "schema_errors", "to21_validator", "expand_problems", "warnings", "needs_review",
                       "sections_method", "pictogram_check"}
     assert c["sections_method"] == "file"
-    assert [(s["msds_index"], s["section"]) for s in c["sections"]] == [(0, n) for n in range(1, 17)]
+    assert [(s["msds_index"], s["section"]) for s in c["sections"]] == [(0, n) for n in EXTRACT_SECTIONS]
     assert all(s["ok"] and s["errors"] == [] and s["check_problems"] == [] and not s["reextracted"]
                for s in c["sections"])
     assert c["schema_errors"] == [] and c["expand_problems"] == [] and c["needs_review"] == []
     assert isinstance(c["to21_validator"], list)
 
     raws = sorted(p.name for p in (run_path / "raw").iterdir())
-    assert raws == [f"{DOC}_m0_s{n:02d}.json" for n in range(1, 17)]
+    assert raws == [f"{DOC}_m0_s{n:02d}.json" for n in EXTRACT_SECTIONS]
     raw = read_json(run_path / "raw" / f"{DOC}_m0_s03.json")
     assert raw["parsed"] == responses()[3]
     assert raw["mode"] == "json_schema" and raw["finish_reason"] == "stop" and raw["attempts"] == 1
@@ -328,7 +329,7 @@ def test_end_to_end_writes_all_files(env):
 def test_calls_one_section_each_with_its_lines(env):
     client = FakeClient()
     run(env, client)
-    assert sorted(c["schema_name"] for c in client.calls) == [f"sec{n:02d}" for n in range(1, 17)]
+    assert sorted(c["schema_name"] for c in client.calls) == [f"sec{n:02d}" for n in EXTRACT_SECTIONS]
     sec3 = client.calls_for(3)[0]
     assert sec3["system"] == build_system(3)
     assert sec3["schema"] == ss.response_schema(3)
@@ -340,10 +341,10 @@ def test_calls_one_section_each_with_its_lines(env):
 
 def test_all_calls_send_require_all_false(env):
     """항목별 경로는 서버 스키마의 필수 칸을 줄여 보낸다. 재추출 호출도 같다 (ADR-017)."""
-    client = FakeClient(plan={2: [bad_line()], 5: [TimeoutError("가짜 시간 초과")]})
+    client = FakeClient(plan={2: [bad_line()], 8: [TimeoutError("가짜 시간 초과")]})
     run(env, client)
-    assert len(client.calls) == 18
-    assert [c["require_all"] for c in client.calls] == [False] * 18
+    assert len(client.calls) == 11
+    assert [c["require_all"] for c in client.calls] == [False] * 11
 
 
 def test_bad_line_is_reextracted_once(env):
@@ -420,13 +421,13 @@ def test_classes_reextract_still_empty_keeps_first(env):
 
 
 def test_failed_call_is_retried_and_replaced(env):
-    client = FakeClient(plan={5: [TimeoutError("가짜 시간 초과")]})
+    client = FakeClient(plan={8: [TimeoutError("가짜 시간 초과")]})
     summary = run(env, client)
-    assert len(client.calls_for(5)) == 2
-    assert "가짜 시간 초과" in client.calls_for(5)[1]["user"]
+    assert len(client.calls_for(8)) == 2
+    assert "가짜 시간 초과" in client.calls_for(8)[1]["user"]
     assert summary["sections_failed"] == 0 and summary["reextracted"] == 1
-    assert section_check(env, 5)["ok"] is True
-    raw = read_json(env / "runs" / RUN / "raw" / f"{DOC}_m0_s05.json")
+    assert section_check(env, 8)["ok"] is True
+    raw = read_json(env / "runs" / RUN / "raw" / f"{DOC}_m0_s08.json")
     assert raw["first_attempt"]["requests"] == []
 
 
@@ -444,14 +445,14 @@ def test_raw_keeps_requests(env):
 
     run(env, Client())
     assert read_json(env / "runs" / RUN / "raw" / f"{DOC}_m0_s03.json")["requests"] == reqs
-    assert read_json(env / "runs" / RUN / "raw" / f"{DOC}_m0_s04.json")["requests"] == []
+    assert read_json(env / "runs" / RUN / "raw" / f"{DOC}_m0_s08.json")["requests"] == []
 
 
 def test_exception_section_fails_others_remain(env):
     client = FakeClient(fail={3})
     summary = run(env, client)
     assert len(client.calls_for(3)) == 2          # 한 번만 다시 보낸다
-    assert summary["sections_failed"] == 1 and summary["sections_ok"] == 15
+    assert summary["sections_failed"] == 1 and summary["sections_ok"] == 8
 
     s = section_check(env, 3)
     assert s["ok"] is False and s["reextracted"] is False
@@ -464,7 +465,7 @@ def test_exception_section_fails_others_remain(env):
     assert validate_to21(out) == []
     assert out["msds"][0]["product"]["name"] == "가상 세정액 B"
     assert out["msds"][0]["components"] == []
-    assert len(list((env / "runs" / RUN / "raw").iterdir())) == 16
+    assert len(list((env / "runs" / RUN / "raw").iterdir())) == 9
 
 
 def test_timing_rows(env):
@@ -474,11 +475,11 @@ def test_timing_rows(env):
     assert all(set(r) == keys and r["doc_id"] == DOC for r in rows)
     stages = [r["stage"] for r in rows]
     assert stages.count("total") == 1
-    assert stages.count("call") == 16
+    assert stages.count("call") == 9
     assert stages.count("reextract") == 1
     assert stages.count("inputs") == stages.count("expand") == stages.count("checks") == 1
     calls = [r for r in rows if r["stage"] == "call"]
-    assert sorted(r["section"] for r in calls) == list(range(1, 17))
+    assert sorted(r["section"] for r in calls) == list(EXTRACT_SECTIONS)
     assert all(r["prompt_tokens"] == 100 and r["completion_tokens"] == 10 for r in calls)
 
 
@@ -493,7 +494,7 @@ def test_preamble_in_every_section_request(env):
     """가짜 문서의 1항 제목(p1:L2) 앞 줄 p1:L1은 문서 머리라 모든 항 호출에 붙는다 (ADR-020)."""
     client = FakeClient()
     run(env, client)
-    assert len(client.calls) == 16
+    assert len(client.calls) == 9
     assert all(c["user"].split("\n")[1] == "p1:L1 물질안전보건자료" for c in client.calls)
     assert "p1:L1 물질안전보건자료\np1:L8 3. 구성성분의 명칭 및 함유량" in client.calls_for(3)[0]["user"]
 
@@ -580,8 +581,8 @@ def rows_cfg(monkeypatch):
 def test_rows_section_goes_to_call_text(env, rows_cfg):
     client = FakeClient()
     summary = run(env, client)
-    assert (summary["sections_ok"], summary["sections_failed"], summary["reextracted"]) == (16, 0, 0)
-    assert len(client.calls) == 16
+    assert (summary["sections_ok"], summary["sections_failed"], summary["reextracted"]) == (9, 0, 0)
+    assert len(client.calls) == 9
     assert [c["method"] for c in client.calls_for(11)] == ["call_text"]
     assert all(c["method"] == "call" for c in client.calls if c["no"] != 11)
     assert client.calls_for(11)[0]["system"] == build_system(11, rows=True)
@@ -605,7 +606,7 @@ def test_rows_default_config_never_calls_call_text(env):
     """rows_sections가 없는 태그는 모든 항이 JSON 경로(call)다."""
     client = FakeClient()
     run(env, client)
-    assert len(client.calls) == 16 and all(c["method"] == "call" for c in client.calls)
+    assert len(client.calls) == 9 and all(c["method"] == "call" for c in client.calls)
 
 
 def test_rows_parse_error_goes_to_feedback(env, rows_cfg):
@@ -873,7 +874,7 @@ def test_save_run_info(tmp_path, monkeypatch):
     info = yaml.safe_load(text)
     assert info["model_tag"] == TAG and info["model"] == cfg["model"]
     assert info["prompt_version"] == SECTION_PROMPT_VERSION
-    assert info["prompt_hashes"] == {n: prompt_hash(n) for n in range(1, 17)}
+    assert info["prompt_hashes"] == {n: prompt_hash(n) for n in EXTRACT_SECTIONS}
     assert info["schema_version"] == SCHEMA_VERSION
     assert info["started_at"].endswith("+09:00")
     assert info["git_commit"] is None or isinstance(info["git_commit"], str)
@@ -912,9 +913,9 @@ def test_no_system_prompt_or_schema_in_run_files(env):
     sr.save_run_info(run_path, TAG)
     run(env, FakeClient(plan={2: [bad_line()]}, fail={3}))
     files = [run_path / "run_info.yaml", *sorted((run_path / "raw").iterdir())]
-    assert len(files) == 17
+    assert len(files) == 10
     needles = []
-    for n in range(1, 17):
+    for n in EXTRACT_SECTIONS:
         head = build_system(n)[:50]
         needles += [head, json.dumps(head, ensure_ascii=False)[1:-1]]   # JSON 안에서는 따옴표가 \"로 바뀐다
     for f in files:
@@ -1133,9 +1134,9 @@ def test_on_event_plan_lists_every_section_with_pages_and_title(env):
     plans = [e for e in events if e["type"] == "plan"]
     assert len(plans) == 1 and events[0] is plans[0]
     secs = plans[0]["sections"]
-    assert [(s["msds_index"], s["section"]) for s in secs] == [(0, n) for n in range(1, 17)]
+    assert [(s["msds_index"], s["section"]) for s in secs] == [(0, n) for n in EXTRACT_SECTIONS]
     by_no = {s["section"]: s for s in secs}
-    assert by_no[1]["pages"] == [1] and by_no[16]["pages"] == [2]
+    assert by_no[1]["pages"] == [1] and by_no[15]["pages"] == [2]
     assert by_no[2]["title"] == ss.load_specs()[2].title
     assert plans[0]["msds_count"] == 1 and plans[0]["page_count"] == 2
 
@@ -1144,8 +1145,8 @@ def test_on_event_reports_each_section_start_and_done_then_finalize(env):
     events = collect_events(env, FakeClient())
     started = {(e["msds_index"], e["section"]) for e in events if e["type"] == "section_started"}
     done = [e for e in events if e["type"] == "section_done"]
-    assert started == {(0, n) for n in range(1, 17)}
-    assert sorted(e["section"] for e in done) == list(range(1, 17))
+    assert started == {(0, n) for n in EXTRACT_SECTIONS}
+    assert sorted(e["section"] for e in done) == list(EXTRACT_SECTIONS)
     assert all(e["ok"] for e in done)
     assert {"reextracted", "needs_review", "seconds", "errors"} <= done[0].keys()
     types = [e["type"] for e in events]
@@ -1157,13 +1158,13 @@ def test_on_event_reports_each_section_start_and_done_then_finalize(env):
 
 
 def test_on_event_failed_section_is_done_not_ok(env):
-    events = collect_events(env, FakeClient(fail={4}))
-    four = next(e for e in events if e["type"] == "section_done" and e["section"] == 4)
+    events = collect_events(env, FakeClient(fail={8}))
+    four = next(e for e in events if e["type"] == "section_done" and e["section"] == 8)
     assert four["ok"] is False and four["needs_review"] is True and four["errors"]
 
 
 def test_on_event_absent_keeps_old_behaviour(env):
-    assert run(env, FakeClient())["sections_ok"] == 16
+    assert run(env, FakeClient())["sections_ok"] == 9
 
 
 def test_raw_is_written_before_section_done_is_reported(env):
@@ -1176,7 +1177,7 @@ def test_raw_is_written_before_section_done_is_reported(env):
             seen[e["section"]] = read_json(raw_dir / f"{DOC}_m0_s{e['section']:02d}.json")
 
     run(env, FakeClient(), on_event=on_event)
-    assert sorted(seen) == list(range(1, 17))
+    assert sorted(seen) == list(EXTRACT_SECTIONS)
     assert all(raw["section"] == no and raw["ok"] is True for no, raw in seen.items())
 
 
@@ -1188,7 +1189,7 @@ def test_raw_survives_when_a_later_step_fails(env, monkeypatch):
     monkeypatch.setattr(sr, "to_to21", boom)
     with pytest.raises(RuntimeError):
         run(env, FakeClient())
-    assert len(list((env / "runs" / RUN / "raw").glob("*.json"))) == 16
+    assert len(list((env / "runs" / RUN / "raw").glob("*.json"))) == 9
 
 
 def test_write_json_leaves_no_temp_file_and_replaces_whole(tmp_path):
