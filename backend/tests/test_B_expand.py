@@ -42,6 +42,8 @@ LINES = [
     L("p4:L2", "1) 환기가 잘 되는 곳에서 취급하시오."),
     L("p4:L3", "가상물질 갑 | TWA 1 ppm"),
     L("p5:L1", "인화점 60 ℃ (밀폐식)"),
+    L("p5:L2", " ο 색상 : 무색"),
+    L("p5:L3", "점도  7.5 mPa·s"),
     L("p5:L5", "가상 추가 물성 1.20"),
     L("p5:L8", "가상물질 을 | 경구 LD50 > 2000 mg/kg (랫드)"),
     L("p5:L10", "IARC 3군"),
@@ -452,6 +454,46 @@ def regulations_of(rows: list[dict]) -> list[dict]:
     return doc["msds"][0]["regulations"]
 
 
+@pytest.mark.parametrize("text, code", [
+    ("성상  기체  ECHA", "APPEARANCE_STATE"),                 # 칸을 공백으로 나눈 표
+    (" ο 색상 : 무색", "APPEARANCE_COLOR"),
+    ("가. 외관 (물리적 상태, 색 등) 액체", "APPEARANCE_STATE"),
+    ("증기밀도  0.07", "VAPOR_DENSITY"),                       # '밀도'(RELATIVE_DENSITY)보다 긴 이름이 먼저
+    ("인화 또는 폭발 범위의 상한/하한  4.0~76%", None),         # 묶음 표기(UEL+LEL)는 코드 하나가 아니다
+    ("가상 추가 물성 1.20", None),
+])
+def test_physchem_code_from_dictionary(text, code):
+    assert ex.physchem_code(text) == code
+
+
+def test_physchem_code_exact_for_titles():
+    assert ex.physchem_code("러. 점도", exact=True) == "VISCOSITY"
+    assert ex.physchem_code("증기압 온도", exact=True) is None
+
+
+def test_physchem_rows_relinked_by_dictionary(no_conventions):
+    """동의어 사전(R25)에 있는 물성 이름은 부가 행이 아니라 물성 행이고, 코드가 빈 물성 행은 원문 줄의 이름으로 코드를 채운다."""
+    r = responses()
+    r[9]["physchem"].append({"prop_code": None, "text_value": "무색", "line": "p5:L2"})
+    r[9]["extras"] += [{"title_raw": "점도", "reason": "코드없음", "q": {"raw": "7.5 mPa·s", "value": 7.5, "unit": "mPa·s"},
+                        "statements": [], "line": "p5:L3"},
+                       {"title_raw": "증기압 온도", "reason": "필드없음", "q": {"raw": "21", "value": 21},   # 제목은 이름 전체로 비교
+                        "statements": [], "line": "p5:L5"},
+                       {"title_raw": "용해도", "reason": "코드없음", "q": None, "statements": [], "line": "p5:L5"}]
+    m, _ = expand_one(r)
+    assert [(p["prop_code"], p["text_value"], (p["q"] or {}).get("value")) for p in m["physchem"]] == [
+        ("FLASH_POINT", None, 60), ("APPEARANCE_COLOR", "무색", None), ("VISCOSITY", None, 7.5)]
+    assert [e["title_raw"] for e in m["extras"]] == ["가상 추가 물성", "증기압 온도", "용해도"]   # 값 없는 행은 옮기지 않는다
+
+
+def test_regulation_law_from_item_code(no_conventions):
+    """규제 항목 코드는 법령 하나에 속하므로(명세서 5-6) 비어 있는 법령은 항목 코드에서 채운다."""
+    regs = regulations_of([
+        {"comp_name": None, "comp_cas": None, "law": None, "item_code": c, "applicable": "해당", "line": "p6:L10"}
+        for c in ("INTL_US", "OSH_MEASURE", "KR_ETC", None)])
+    assert [r["law"] for r in regs] == ["INTL", "OSH", "KR_ETC", None]
+
+
 def test_applicable_kreach_with_value_becomes_haedang(no_conventions):
     """화평법 행에 값(value_raw 또는 threshold)이 있고 해당 여부가 비면 '해당' (사용자 결정 10/29, A-1 참고)."""
     regs = regulations_of([kreach(value_raw="가상-0001"),
@@ -603,6 +645,31 @@ def test_unlinked_component():
     assert [(p["section"], p["kind"]) for p in problems] == [(8, "unlinked_component")]
 
 
+def test_single_component_unnamed_rows_point_to_it(no_conventions):
+    """성분이 하나면 성분 표기 없는 11·12·15항 행은 그 성분이다 (명세서 1_항목정의 예시 '1'). 물성·부가행은 제품 값이라 MIX."""
+    r = responses()
+    r[3]["components"] = r[3]["components"][:1]
+    m, _ = expand_one(r)
+    assert m["cmr"][0]["comp_ref"] == "1"
+    assert m["physchem"][0]["comp_ref"] == "MIX"
+    assert m["extras"][0]["comp_ref"] == "MIX"
+
+
+def test_single_component_exposure_and_product_laws(no_conventions):
+    """성분이 하나면 성분 표기 없는 8항 노출기준도 그 성분이다 (R10, 1_항목정의 예시 '1').
+    15항의 위험물·폐기물 행은 제품 단위라 MIX로 둔다 (1_항목정의 예시, TO21 정합성 설계서 v0.4 29·40장)."""
+    r = responses()
+    r[3]["components"] = r[3]["components"][:1]
+    r[8]["exposure_limits"][0]["comp_cas"] = None
+    r[15]["regulations"] += [
+        {"comp_name": None, "comp_cas": None, "law": law, "item_code": code, "applicable": "비해당", "line": "p6:L10"}
+        for law, code in (("OSH", "OSH_PSM"), ("DG", "DG_HAZMAT"), (None, "WASTE_DESIG"))]   # 법령이 비면 항목 코드로
+    m, _ = expand_one(r)
+    assert m["exposure_limits"][0]["comp_ref"] == "1"
+    assert [(x["item_code"], x["comp_ref"]) for x in m["regulations"]] == [
+        ("OSH_MEASURE", "1"), ("OSH_PSM", "1"), ("DG_HAZMAT", "MIX"), ("WASTE_DESIG", "MIX")]
+
+
 # ── 숫자 묶음 ──────────────────────────────────────────
 
 def test_fill_q_no_value():
@@ -631,6 +698,31 @@ def test_fill_q_unknown():
     q = ex.fill_q({"raw": "무색"})
     assert q["status"] is None and q["dp"] is None
     assert ex.fill_q({"raw": "1.5E-3", "value": 0.0015})["dp"] is None
+
+
+@pytest.mark.parametrize("raw, status, note", [
+    ("해당없음(불연성)", "해당없음", "불연성"),          # TO21 예제 25 FLASH_POINT
+    ("No data available", "자료없음", None),            # 동의어 사전 status
+    ("N/A", "해당없음", None),
+    ("-", "미기재", None),                              # R15
+    ("판독불가", "판독불가", None),                      # C7
+])
+def test_fill_q_status_word(raw, status, note):
+    q = ex.fill_q({"raw": raw})
+    assert (q["raw"], q["status"], q["note"], q["value"]) == (raw, status, note, None)
+
+
+def test_status_text_value_moves_to_q(no_conventions):
+    """값 대신 상태어만 적힌 행은 text_value가 아니라 q의 상태다 (TO21 예제 25 FLAMMABILITY, 2_공통구조 Q.status)."""
+    r = responses()
+    r[9]["physchem"] += [{"prop_code": "FLAMMABILITY", "text_value": "해당없음", "line": "p5:L1"},
+                         {"prop_code": "APPEARANCE_COLOR", "text_value": "무색", "line": "p5:L1"},
+                         {"prop_code": "PH", "data_source": "자료없음", "line": "p5:L1"}]   # 칸이 밀려 출처에 적힘
+    m, _ = expand_one(r)
+    flam, color, ph = m["physchem"][1:]
+    assert flam["text_value"] is None and (flam["q"]["raw"], flam["q"]["status"]) == ("해당없음", "해당없음")
+    assert color["text_value"] == "무색" and color["q"] is None
+    assert ph["data_source"] is None and ph["q"]["status"] == "자료없음"
 
 
 # ── 서술 문장 ──────────────────────────────────────────
@@ -677,6 +769,50 @@ def test_link_components():
     assert out[0]["line"] == "p1:L1"
     assert not {"comp_name", "comp_cas"} & set(keys_in(out))
     assert rows[0]["comp_cas"] == "2345-67-7"      # 입력은 바꾸지 않는다
+
+
+def test_link_components_drops_trailing_qualifier():
+    """'NATURAL GAS, LIQUIFIED'처럼 쉼표·괄호 뒤 수식어가 붙은 이름은 수식어를 떼고 다시 비교한다.
+    공백으로 이어진 이름은 다른 물질일 수 있어 떼지 않는다."""
+    rows = [{"comp_name": "가상물질 갑, 액화", "comp_cas": None},
+            {"comp_name": "가상물질 을 (98%)", "comp_cas": None},
+            {"comp_name": "가상물질 갑 염", "comp_cas": None}]
+    assert [r["comp_ref"] for r in ex.link_components(rows, COMPS)] == ["1", "2", "MIX"]
+
+
+def test_link_components_from_source_line():
+    """성분 표기가 빈 행은 근거 줄에 성분 이름·CAS가 하나만 보이면 그 성분이다 ('- 이소부텐 : 자료없음' 꼴 목록).
+    둘 이상 보이거나 하나도 없으면 MIX. 이름이 다른 이름에 들어 있으면 긴 이름만 센다."""
+    comps = [*COMPS, {"seq": 3, "name": "가상물질 을 염", "cas_no": None}]
+    lines = {x.id: x for x in [L("p9:L1", "- 가상물질 을 : 자료없음"), L("p9:L2", "- 1234-56-6 : 해당없음"),
+                               L("p9:L3", "가상물질 갑, 가상물질 을 : 자료없음"), L("p9:L4", "PRODUCT : 자료없음"),
+                               L("p9:L5", "- 가상물질 을 염 : 자료없음")]}
+    rows = [{"comp_name": None, "comp_cas": None, "line": f"p9:L{i}"} for i in range(1, 6)]
+    rows.append({"comp_name": "PRODUCT", "comp_cas": None, "line": "p9:L1"})   # 적힌 이름이 있으면 줄을 보지 않는다
+    assert [r["comp_ref"] for r in ex.link_components(rows, comps, lines)] == ["2", "1", "MIX", "MIX", "3", "MIX"]
+
+
+# ── 11항 CMR·중복 행 ────────────────────────────────────
+
+@pytest.mark.parametrize("raw, want", [
+    ("구분 1B", ("1B", None)), ("구분1A", ("1A", None)), ("생식세포변이원성 1B", ("1B", None)),
+    ("발암성 : 구분 2", ("2", None)), ("해당없음", (None, "해당없음")), ("해당 없음", (None, "해당없음")),
+    ("자료없음", (None, "자료없음")), ("Group 1", ("Group 1", None)), ("Carc. 1A", ("Carc. 1A", None)),
+    ("A2", ("A2", None)), ("분류되지않음", ("분류되지않음", None))])
+def test_fix_cmr_class(raw, want):
+    """CMR 등급은 '구분'과 유해성 이름을 뺀 기관 표기다 (R07). 상태어(C7)만 적혔으면 등급을 비우고 status로 옮긴다."""
+    r = {"hazard": "발암성", "agency": "KR_OSH", "class": raw, "status": "값있음"}
+    ex.fix_cmr_class([r])
+    assert (r["class"], r["status"] if want[1] else None) == want
+
+
+def test_repeated_rows_with_same_line_are_dropped(no_conventions):
+    """원문 줄까지 같은 행은 모델이 반복한 것이라 하나만 남긴다. 줄이 다르면 같은 내용이어도 남긴다."""
+    r = responses()
+    row = r[11]["cmr"][0]
+    r[11]["cmr"] += [dict(row), dict(row), {**row, "line": "p5:L8"}]
+    m, _ = expand_one(r)
+    assert len(m["cmr"]) == 2
 
 
 # ── 표기 규칙 자리 ─────────────────────────────────────
@@ -737,3 +873,26 @@ def test_rows_physchem_no_value_expands_to_q_status(no_conventions, monkeypatch)
     doc = ex.to_to21(DOC_META, [{**responses(), 9: parsed}], LINES, "가상엔진 v1")
     row = next(r for r in doc[0]["msds"][0]["physchem"] if r["prop_code"] == "ODOR_THRESHOLD")
     assert row["q"]["status"] == "자료없음" and row["text_value"] is None
+
+
+def test_link_components_from_parent_line():
+    """근거 줄에 성분이 없으면 부모 줄('- 가상물질 을 : 구분 1A' 아래 '· IARC : 2A')에서 찾는다. 가까운 부모부터 보고,
+    성분이 보이는 첫 부모에서 하나면 그 성분, 둘 이상이면 MIX."""
+    texts = ["○ 발암성 PRODUCT : 구분 1A", "- 가상물질 을 : 구분 1A", "· IARC : 2A",
+             "○ 생식독성 : 가상물질 갑, 가상물질 을", "· IARC : 해당없음", "· 자료없음"]
+    lines = {f"p9:L{i}": L(f"p9:L{i}", t) for i, t in enumerate(texts, 1)}
+    rows = [{"comp_name": None, "comp_cas": None, "line": f"p9:L{i}"} for i in (3, 5, 1)]
+    assert [r["comp_ref"] for r in ex.link_components(rows, COMPS, lines)] == ["2", "MIX", "MIX"]
+
+
+def test_toxicity_descriptor_cleared_without_value(no_conventions):
+    """숫자가 없는 독성 행: 상태가 값 없음이면 지표를 비워 A의 규칙('결과기술'·'ATE')에 맡기고, 설명만 있는 행은
+    '결과기술'로 둔다. 골드는 숫자 없는 행을 모두 그렇게 적는다. 숫자가 있는 행의 지표는 그대로 둔다."""
+    r = responses()
+    r[11]["toxicity"] += [
+        {"comp_name": "가상물질 을", "comp_cas": None, "endpoint": "TX_DERMAL", "descriptor": "LD50", "status": "자료없음",
+         "species": None, "q": {"raw": "자료없음"}, "statements": [], "line": "p5:L8"},
+        {"comp_name": "가상물질 을", "comp_cas": None, "endpoint": "TX_SKIN", "descriptor": "Draize", "status": "값있음",
+         "species": None, "q": None, "statements": [{"value": "비자극성", "line": "p5:L8"}], "line": "p5:L8"}]
+    m, _ = expand_one(r)
+    assert [x["descriptor"] for x in m["toxicity"]] == ["LD50", None, "결과기술"]

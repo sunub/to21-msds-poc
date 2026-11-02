@@ -58,8 +58,8 @@ MSDS(물질안전보건자료) PDF에서 정보를 자동으로 뽑아 TO21 스�
 │   ├── scripts/             개발 전용 실행 진입점 (run_silver는 외부 API 호출)
 │   ├── configs/             모델·서버·실험 설정 (yaml). 모델 이름과 주소는 여기에만
 │   ├── tests/               공용 코드 시험, 역할별 완료 확인 시험, 경계 시험
-│   ├── requirements.txt     런타임 패키지만 (폐쇄망 반입 대상, 버전 고정)
-│   └── requirements-dev.txt 개발용 추가분 (검수표, 채점, 시험)
+│   ├── pyproject.toml       의존성 단일 원본 (런타임 · dev · ocr 그룹)
+│   └── uv.lock              모든 패키지의 고정 버전
 ├── frontend/                TypeScript. 검토 화면 (3주차)                  [E]
 ├── deploy/                  Docker, Apache 연결, 오프라인 설치 가이드 (3주차)
 ├── docs/
@@ -106,16 +106,16 @@ MSDS(물질안전보건자료) PDF에서 정보를 자동으로 뽑아 TO21 스�
 
 ```
 저장소 ──▶ 폐쇄망 패키지
-           ├─ 런타임 폴더 6개 + requirements.txt
+           ├─ 런타임 폴더 6개 + requirements.txt (uv export 로 그때 만든다)
            └─ frontend 빌드 결과물 (정적 파일)
 
-           나가지 않음: review/ evaluate/ scripts/ requirements-dev.txt .env
+           나가지 않음: review/ evaluate/ scripts/ dev·ocr 그룹 패키지 .env
 ```
 
 어긋남을 막는 장치는 둘입니다.
 
 - **금지 방향 시험:** `backend/tests/test_boundary.py`가 런타임 폴더의 import를 검사합니다. `review`나 `evaluate`를 부르면 실패합니다.
-- **의존성 파일 분리:** 개발에서만 필요한 패키지는 `requirements-dev.txt`에만 넣습니다.
+- **의존성 그룹 분리:** 개발에서만 필요한 패키지는 `pyproject.toml`의 `dev` 그룹에만 넣습니다. 반입 목록(`uv export --no-dev`)에 들어가지 않습니다.
 
 ---
 
@@ -126,9 +126,8 @@ MSDS(물질안전보건자료) PDF에서 정보를 자동으로 뽑아 TO21 스�
 ```bash
 git clone <저장소 주소>
 cd to21-msds-poc/backend
-python3.11 -m venv .venv
+uv sync                            # backend/.venv 에 런타임 + dev 설치 (uv: https://docs.astral.sh/uv/)
 source .venv/bin/activate          # Windows: .venv\Scripts\activate
-pip install -r requirements-dev.txt
 cp ../.env.example ../.env         # Windows: copy ..\.env.example ..\.env
 ```
 
@@ -164,9 +163,13 @@ Python은 **3.11로 통일**합니다. 작업은 역할별 브랜치(`a/작업�
 
 ## 의존성 관리
 
-- **backend:** `pip` + Python 3.11 가상환경. 패키지 목록은 둘로 나눕니다.
-  - `requirements.txt`: 런타임 패키지만. 폐쇄망 반입 대상이라 버전을 `==`로 고정합니다.
-  - `requirements-dev.txt`: 개발용 추가분(검수표, 채점, pytest). 개발 환경은 `pip install -r requirements-dev.txt`로 설치합니다.
+- **backend:** `uv` + Python 3.11~3.12. **`backend/pyproject.toml`이 단일 원본**이고 `uv.lock`이 모든 버전을 고정합니다.
+  `requirements*.txt`는 손으로 관리하지 않습니다.
+  - `[project] dependencies`: 런타임 패키지만. 폐쇄망 반입 대상이라 버전을 `==`로 고정합니다.
+  - `dev` 그룹: 개발용(검수표, 채점, pytest, httpx). `uv sync`가 기본으로 함께 설치합니다.
+  - `ocr` 그룹: OCR 실험(C, PaddleOCR·docling). GPU 휠이라 Linux GPU 서버에서만 `uv sync --group ocr`.
+  - 패키지 추가·변경: `uv add <패키지>==<버전>` (dev는 `--group dev`). `pyproject.toml`과 `uv.lock`을 함께 커밋합니다.
+  - 폐쇄망 반입 목록: `uv export --no-dev --no-hashes --no-emit-project -o <묶음 폴더>/requirements.txt`. 반입한 쪽은 `pip install -r`로 설치합니다.
 - **vLLM은 어느 파일에도 넣지 않습니다.** B가 GPU 서버에서만 설치합니다.
 - **frontend:** `package.json`과 lockfile을 커밋하고 Node 버전을 고정합니다. 도구는 팀이 정합니다.
 - 폐쇄망에는 Python 패키지 묶음과 화면의 빌드 결과물(정적 파일)만 반입합니다. 폐쇄망에서 npm을 설치하지 않습니다.
@@ -187,7 +190,6 @@ Python은 **3.11로 통일**합니다. 작업은 역할별 브랜치(`a/작업�
 - [ ] 코드 골격이 올라온 뒤 이 문서의 경로와 명령을 실제와 맞춘다.
 - [ ] `backend/` 분리에 따라 역할 가이드 6개의 경로와 실행 위치를 고친다 (가이드는 `src/`, `scripts/`, `tests/`가 루트에 있다고 가정한다).
 - [ ] `backend/scripts/`에서 `msds`를 import하는 방식을 정한다. pytest는 `backend/pyproject.toml`의 `pythonpath = ["src"]`로 해결했지만, `python scripts/x.py`로 직접 실행할 때의 경로는 아직 없다.
-- [ ] `requirements.txt`와 `requirements-dev.txt`를 실제 import에 맞춰 채우고 버전을 고정한다 (지금은 후보만 주석으로 적혀 있다).
 - [ ] `msds-bench/`는 자체 `.git`이 있어 루트 `.gitignore`로 제외했다. 나중에 옮길 부분이 있으면 골라서 가져온다.
 - [ ] `.github/CODEOWNERS`로 폴더별 담당을 지정한다.
 - [ ] `data/silver/`, `review/`, `gold/`는 TO21 문서에서 나온 파생물이라 D-47 대상인지 확인한다.

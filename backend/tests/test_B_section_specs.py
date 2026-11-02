@@ -294,6 +294,13 @@ def test_extras_rows_drop_seq_and_page():
     assert "seq" not in item and "page" not in item and "line" in item
 
 
+def test_extras_rows_drop_suggested_code():
+    """모델은 extras의 suggested_code를 쓰지 않는다. 공백 금지 서버에서 이 칸에 같은 글자를 끝없이 이어 쓰다 출력 한도에
+    걸려 서술 항을 잃었다(11/01 v17 실행 10건). 채점·검증은 이 칸을 쓰지 않고, TO21 출력에서는 null이다."""
+    for no in (4, 5, 7, 11):
+        assert "suggested_code" not in ss.response_schema(no)["properties"]["extras"]["items"]["properties"], no
+
+
 def test_narratives_use_section_codes():
     specs = ss.load_specs()
     for no in NOS:

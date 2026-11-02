@@ -4,7 +4,7 @@
 #   deploy/htodb/setup.sh <HTODB.zip>            최초 적재. 다시 실행하면 같은 데이터로 다시 맞춰 적재
 #   deploy/htodb/setup.sh --fresh <HTODB.zip>    SQL Server 쪽 사본을 강제로 새로 풂 (새 zip은 해시로 알아서 감지함)
 #
-# 필요: docker compose, backend/.venv (pip install -r backend/requirements-dev.txt), to21/v0.6/ 의 명세서 xlsx
+# 필요: docker compose, backend/.venv (cd backend && uv sync), to21/v0.6/ 의 명세서 xlsx
 # Windows는 WSL2 안에서 실행한다. 데이터·zip·mdf는 저장소에 두지 않는다(D-47).
 # .env가 없으면 무작위 비밀번호로 만든다(git 제외). 비밀번호는 명령줄에 넣지 않고 환경 변수로만 넘긴다.
 set -euo pipefail
@@ -30,11 +30,11 @@ say() { printf '\n== %s\n' "$*"; }
 
 if [[ ! -x "$PY" ]]; then
   [[ -e "$BACKEND/.venv/Scripts/python.exe" ]] && echo "Windows용 venv임 → WSL2 안에서 venv를 만들고 실행하세요" >&2
-  echo "backend/.venv 가 없음 → cd backend && python3.11 -m venv .venv && .venv/bin/pip install -r requirements-dev.txt" >&2
+  echo "backend/.venv 가 없음 → cd backend && uv sync" >&2
   exit 2
 fi
 "$PY" -c "import pymssql, psycopg, openpyxl" 2>/dev/null \
-  || { echo "적재 패키지 없음 → cd backend && .venv/bin/pip install -r requirements-dev.txt" >&2; exit 2; }
+  || { echo "적재 패키지 없음 → cd backend && uv sync" >&2; exit 2; }
 # 서버를 띄우기 전에 명세서부터 확인(없으면 받는 방법을 알려 주고 멈춤)
 PYTHONPATH="$BACKEND/src" "$PY" -c "from msds.common.paths import to21_file; to21_file('spec')"
 

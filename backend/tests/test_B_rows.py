@@ -246,6 +246,17 @@ def test_parse_rows_wrong_column_count_drops_only_that_line():
     assert validate(parsed, response_schema(11)) == []
 
 
+def test_parse_rows_stored_shape_in_number_cell_is_error():
+    """숫자 묶음 칸에 저장 모양({upper_op:...})을 쓰면 값이 사라지므로 그 줄을 오류로 돌려 재추출한다."""
+    lines = tox_text().splitlines()
+    bad = row(11, "toxicity", **COMP, endpoint="TX_INHAL", descriptor="LC50",
+              q="{upper_op:'>',upper:15000,unit:'ppm'}", line="p5:L6")
+    parsed, errors = rw.parse_rows("\n".join(lines[:3] + [bad] + lines[3:]), 11)
+    assert len(errors) == 1 and errors[0].startswith("toxicity p5:L6")
+    assert "원문 표기" in errors[0]
+    assert len(parsed["toxicity"]) == 3
+
+
 @pytest.mark.parametrize("bad", ["", "22", "L23", "p2 L23", "p2:L"])
 def test_parse_rows_bad_line_id_is_error(bad):
     text = table(11, "cmr",

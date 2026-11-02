@@ -11,10 +11,17 @@ runs/<실행 이름>/ 에 남는 것
   outputs/<문서>.json            TO21 v0.6 문서
   checks/<문서>.json             항별 결과(받은 방식 mode 포함), 스키마·TO21 검증기 결과, 펼치기 문제, 경고, 항목 분할 방식,
                                  그림문자 대조(pictogram_check), 사람 검토할 항
-  raw/<문서>_m<i>_s<NN>.json     항별 모델 응답과 사용량, 요청별 기록 requests (재추출했으면 다른 시도도)
+  raw/<문서>_m<i>_s<NN>.json     항별 모델 응답과 사용량, 요청별 기록 requests (재추출했으면 다른 시도도).
+                                 그 항이 끝나는 즉시 쓴다 (서버가 꺼져도 끝난 항의 값이 남고, API가 추출 중에 읽는다)
   timing.jsonl                   단계별 시간: inputs, call, reextract, expand, checks, total
   run_info.yaml                  모델, 프롬프트 버전·해시, 스키마 버전, 시각, git 커밋 (save_run_info)
 시스템 안내문과 중간 형식 스키마는 명세서 내용이라 저장하지 않는다 (D-47).
+
+진행 알림 (on_event, 서비스 API가 쓴다). 호출 스레드에서도 불리므로 받는 쪽이 잠금을 건다.
+  {"type": "plan", "msds_count", "page_count", "sections": [{msds_index, section, title, pages}]}  입력을 읽은 직후 한 번
+  {"type": "section_started", "msds_index", "section"}                                          항 호출을 시작할 때
+  {"type": "section_done", "msds_index", "section", "ok", "reextracted", "needs_review", "seconds", "errors"}
+  {"type": "finalize"}                                                                          모든 항이 끝나고 펼치기 전
 """
 from __future__ import annotations
 
@@ -22,6 +29,7 @@ import json
 import os
 import subprocess
 import time
+from collections.abc import Callable
 from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass
 from pathlib import Path
@@ -35,15 +43,19 @@ from msds.common.paths import DATA, PAGES, ROOT, RUNS
 from msds.common.schema import validate, validate_to21
 from msds.extract.client import ChatClient, load_model_config
 from msds.extract.expand import to_to21
-from msds.extract.inputs import _PAGE_FILE, SECTION_NOS, DocumentInput, load_document, section_lines
+from msds.extract.inputs import _PAGE_FILE, SECTION_NOS, DocumentInput, load_document, model_lines, section_lines
 from msds.extract.pictogram_check import check_msds, load_hazard_map
 from msds.extract.rows import parse_rows
 from msds.extract.section_prompts import SECTION_PROMPT_VERSION, build_system, build_user, prompt_hash
-from msds.extract.section_specs import response_schema
+from msds.extract.section_specs import load_specs, response_schema
 
 DOC_TIME_LIMIT = 300          # 초. 넘으면 경고만 남기고 멈추지 않는다
 _LINE_KEYS = ("line", "start", "end")
 _FEEDBACK_MAX = 20            # 다시 보낼 때 적는 문제 수
+# 명세서 1_항목정의에서 type이 code인 행 칸. 한 행만 빈 것은 '급성 독성 자료 없음'처럼 묶어 적은 행일 수 있어
+# 표 전체가 빈 경우만 본다. 규제 법령은 항목 코드에서 채운다(expand.fill_law).
+# CMR 기관은 '발암성 : 자료없음'처럼 기관 없는 행이 있어, 모두 자료없음인 문서는 표 전체가 빌 수 있으므로 보지 않는다.
+_CODE_COLUMNS = {"physchem": "prop_code", "toxicity": "endpoint", "ecotox": "endpoint", "regulations": "item_code"}
 IMAGE_SECTION = 2             # 쪽 이미지를 붙이는 항 (그림문자, ADR-019)
 IMAGE_PAGES = 2               # 붙이는 쪽 이미지 수 상한
 OUTSIDE_MANIFEST_WARNING = "manifest에 없는 문서: 쪽 글자 폴더의 meta.json을 씀"
@@ -63,8 +75,9 @@ class SectionResult:
 
 
 def check_section(parsed: dict | None, allowed_ids: set[str], no: int | None = None) -> list[str]:
-    """응답 안의 모든 line, lines 값, start, end가 allowed_ids 안에 있는지. 문제 문장 목록.
-    2항(no=2)은 H코드가 있는데 유해성 분류(hazard.classes)가 비면 문제로 잡는다. classified가 거짓이면 잡지 않는다 (ADR-024)."""
+    """응답 안의 모든 line, lines 값, start, end가 allowed_ids 안에 있는지, 코드표 칸이 통째로 비지 않았는지.
+    문제 문장 목록. 2항(no=2)은 H코드가 있는데 유해성 분류(hazard.classes)가 비면 문제로 잡는다.
+    classified가 거짓이면 잡지 않는다 (ADR-024)."""
     problems: list[str] = []
     hazard = parsed.get("hazard") if no == 2 and isinstance(parsed, dict) else None
     if isinstance(hazard, dict) and hazard.get("classified") is not False:
@@ -72,6 +85,11 @@ def check_section(parsed: dict | None, allowed_ids: set[str], no: int | None = N
         if isinstance(h, list) and h and not hazard.get("classes"):
             problems.append(f"hazard.classes가 비었음: 원문의 유해성 분류 행(예: 인화성 액체 구분 2)을 "
                             f"hazard.classes에 한 행씩 쓴다 (H코드 {len(h)}개가 있음)")
+    for table, column in _CODE_COLUMNS.items():
+        rows = (parsed or {}).get(table) or []
+        if len(rows) >= 2 and all(r.get(column) is None for r in rows):
+            problems.append(f"{table}: 모든 행의 {column}가 비었음. "
+                            "[코드표]에 맞는 코드를 쓰고, 맞는 코드가 없는 값은 extras에 쓴다")
 
     def check(path: str, value) -> None:
         if value is not None and not (isinstance(value, str) and value in allowed_ids):
@@ -162,7 +180,7 @@ def _run_section(client, doc: DocumentInput, msds_index: int, no: int, system: s
                  allowed: set[str], rows: bool = False, images: list[Path] = (),
                  rows_max_tokens: int | None = None) -> tuple[SectionResult, dict, dict | None]:
     """반환: (항 결과, 첫 시도, 재추출 시도 또는 None). images는 첫 시도와 재추출 모두에 붙인다."""
-    lines = section_lines(doc, msds_index, no)
+    lines = model_lines(doc, msds_index, no)      # 쪽 머리글·바닥글·쪽 번호는 보내지 않는다
     first = _attempt(client, no, system, build_user(no, lines, images=images), schema, allowed, rows,
                      rows_max_tokens)
     second = None
@@ -183,8 +201,26 @@ def _run_section(client, doc: DocumentInput, msds_index: int, no: int, system: s
 # ── 문서 하나 ──────────────────────────────────────────
 
 def _write_json(path: Path, obj) -> None:
+    """임시 파일에 쓰고 이름을 바꾼다. API가 쓰는 도중의 파일을 읽지 않게 한다."""
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(obj, ensure_ascii=False, indent=1), encoding="utf-8")
+    tmp = path.with_suffix(".json.tmp")
+    tmp.write_text(json.dumps(obj, ensure_ascii=False, indent=1), encoding="utf-8")
+    os.replace(tmp, path)
+
+
+def raw_path(run: Path, doc_id: str, msds_index: int, section: int) -> Path:
+    return Path(run) / "raw" / f"{doc_id}_m{msds_index}_s{section:02d}.json"
+
+
+def _raw_record(doc_id: str, res: SectionResult, first: dict, second: dict | None) -> dict:
+    chosen = second if res.reextracted else first
+    raw = {"doc_id": doc_id, "msds_index": res.msds_index, "section": res.section_no,
+           "reextracted": res.reextracted, **chosen}
+    if res.reextracted:
+        raw["first_attempt"] = first
+    elif second:
+        raw["reextract_attempt"] = second
+    return raw
 
 
 def doc_meta_from_pages(doc_id: str, pages_dir) -> dict | None:
@@ -201,11 +237,31 @@ def doc_meta_from_pages(doc_id: str, pages_dir) -> dict | None:
             "text_layer": meta.get("text_layer"), "language": None, "purpose": "기타"}
 
 
+def section_plan(doc: DocumentInput) -> dict:
+    """진행 알림의 plan: 건마다 1~16항과 그 항이 걸친 쪽(문서 머리 제외, fallback 항은 건의 쪽 전체)."""
+    specs = load_specs()
+    sections = [{"msds_index": part.index, "section": no, "title": specs[no].title,
+                 "pages": sorted({l.page for l in section_lines(doc, part.index, no, with_preamble=False)})}
+                for part in doc.msds for no in SECTION_NOS]
+    return {"type": "plan", "msds_count": len(doc.msds), "page_count": len({l.page for l in doc.lines}),
+            "sections": sections}
+
+
+def _section_done_event(res: SectionResult, first: dict, second: dict | None) -> dict:
+    chosen = second if res.reextracted else first
+    return {"type": "section_done", "msds_index": res.msds_index, "section": res.section_no, "ok": res.ok,
+            "reextracted": res.reextracted, "needs_review": not res.ok or bool(_problems(chosen)),
+            "seconds": res.seconds, "errors": list(res.errors)}
+
+
 def run_document(doc_id: str, model_tag: str, run_name: str, client=None, *,
                  max_workers: int | None = None, pages_dir=PAGES, sections_dir=DATA / "sections",
-                 codes_dir=DATA / "codes", runs_dir=RUNS) -> dict:
+                 codes_dir=DATA / "codes", runs_dir=RUNS,
+                 on_event: Callable[[dict], None] | None = None) -> dict:
     """요약 dict를 돌려준다: doc_id, seconds, sections_ok, sections_failed, reextracted, schema_errors, warnings.
-    manifest에 없는 문서는 쪽 글자 폴더의 meta.json으로 문서 정보를 만들고 경고를 남긴다. 그것도 없으면 KeyError."""
+    manifest에 없는 문서는 쪽 글자 폴더의 meta.json으로 문서 정보를 만들고 경고를 남긴다. 그것도 없으면 KeyError.
+    on_event가 있으면 진행을 알린다(모듈 설명의 진행 알림)."""
+    emit = on_event or (lambda event: None)
     t_start = time.perf_counter()
     cfg = load_model_config(model_tag)
     client = client or ChatClient(cfg)
@@ -230,6 +286,15 @@ def run_document(doc_id: str, model_tag: str, run_name: str, client=None, *,
     t = time.perf_counter()
     doc = load_document(doc_id, pages_dir, sections_dir, codes_dir)
     stage("inputs", time.perf_counter() - t)
+    emit(section_plan(doc))
+
+    def run_one(msds_index: int, no: int, *args):
+        emit({"type": "section_started", "msds_index": msds_index, "section": no})
+        outcome = _run_section(client, doc, msds_index, no, *args)
+        # 알리기 전에 쓴다: section_done을 본 화면이 바로 이 파일을 읽을 수 있어야 한다
+        _write_json(raw_path(run, doc_id, msds_index, no), _raw_record(doc_id, *outcome))
+        emit(_section_done_event(*outcome))
+        return outcome
 
     # 2~3. 항목별 동시 호출과 1회 재추출. 안내문은 워크북을 읽으므로 스레드에 넘기기 전에 만든다.
     rows = set(cfg.get("rows_sections") or [])
@@ -245,7 +310,7 @@ def run_document(doc_id: str, model_tag: str, run_name: str, client=None, *,
             for no in SECTION_NOS:
                 # 줄 번호 검사는 그 항에 보낸 줄(문서 머리 + 항 구간, fallback 항은 건의 쪽 전체) 기준 (ADR-020)
                 allowed = {l.id for l in section_lines(doc, part.index, no)}
-                futures[(part.index, no)] = pool.submit(_run_section, client, doc, part.index, no,
+                futures[(part.index, no)] = pool.submit(run_one, part.index, no,
                                                         *prompts[no], allowed, no in rows,
                                                         images if no == IMAGE_SECTION else [],
                                                         cfg.get("rows_max_tokens"))
@@ -259,19 +324,13 @@ def run_document(doc_id: str, model_tag: str, run_name: str, client=None, *,
         stage("call", first["seconds"], res.msds_index, res.section_no, first["usage"])
         if second:
             stage("reextract", second["seconds"], res.msds_index, res.section_no, second["usage"])
-        raw = {"doc_id": doc_id, "msds_index": res.msds_index, "section": res.section_no,
-               "reextracted": res.reextracted, **chosen}
-        if res.reextracted:
-            raw["first_attempt"] = first
-        elif second:
-            raw["reextract_attempt"] = second
-        _write_json(run / "raw" / f"{doc_id}_m{res.msds_index}_s{res.section_no:02d}.json", raw)
         section_checks.append({"msds_index": res.msds_index, "section": res.section_no, "ok": res.ok,
                                "mode": chosen["mode"], "errors": res.errors, "check_problems": chosen["check_problems"],
                                "reextracted": res.reextracted, "attempts": res.attempts,
                                "seconds": res.seconds, "usage": res.usage})
 
     # 4. 펼치기. 실패한 항은 None으로 넘겨 펼치기가 missing_section으로 남긴다.
+    emit({"type": "finalize"})
     t = time.perf_counter()
     parts: list[dict[int, dict | None]] = [{} for _ in doc.msds]
     for res in results:
