@@ -9,7 +9,7 @@ phase `app-redo`의 새 화면이 들어왔습니다. 설계 결정은 ADR-025·
 (cd backend && .venv/bin/python scripts/b_app.py)
 ```
 내 컴퓨터 127.0.0.1에서만 엽니다. 터미널에 표시된 주소로 접속합니다.
-기본 묶음은 `data/pages/prev/version9`, 기본 정답지는 `data/silver/claude`입니다.
+기본 묶음은 `data/pages/prev/version9`, 기본 정답지는 사람이 확인한 정답 `data/gold`입니다.
 `--pages-dir`와 `--gold-dir`는 시작 기본값입니다. 이후 화면에서 바꿀 수 있습니다.
 
 ## 화면 구성
@@ -30,11 +30,13 @@ phase `app-redo`의 새 화면이 들어왔습니다. 설계 결정은 ADR-025·
 문서 묶음과 정답지와 모델 연결 상태는 모든 화면에 보입니다.
 저장 결과는 모델 없이 읽습니다. 도움말에서 돌아와도 선택 대상이 유지됩니다.
 안내 기록은 `runs/manual/journey.json`에 저장합니다. 다시 보기는 성공 기록을 지우지 않습니다.
+안내의 왼쪽 칸은 내 컴퓨터의 저장 결과를 읽어 보입니다. 값은 기록이나 파일에 남기지 않습니다.
 
 ## 자료와 연결
 - `GET /api/sets`에서 문서 묶음과 사용 불가 이유를 읽습니다. 줄 번호 없는 판은 새 실행에서 고를 수 없습니다.
 - `GET /api/keys`에서 정답지를 읽습니다. 정답지를 바꾸면 저장 결과를 다시 채점합니다.
 - 신규 문서의 실행 가능 여부는 서버의 `runnable`과 이유를 따릅니다. 평가용 문서는 열거나 시험하지 않습니다.
+- 번호가 목록 밖이어도 `meta.json`의 원본 PDF 이름이 평가 문서와 같으면 평가용으로 잠급니다. 예: `RAW-50`은 `T21-050`입니다.
 - `RUNPOD_VLLM_BASE_URL`은 빌린 서버의 중계 주소입니다. `RUNPOD_VLLM_API_KEY`는 모델 접속 키입니다.
 - 앱을 다시 켜도 앱이 만든 Pod를 이어 씁니다. 다른 사람이 만든 Pod는 삭제하지 못합니다.
 - `.env`를 고친 뒤 설정 다시 읽기(`POST /api/servers/reload_env`)로 반영합니다.
@@ -48,7 +50,7 @@ phase `app-redo`의 새 화면이 들어왔습니다. 설계 결정은 ADR-025·
 - `b_app_jobs.py`·`b_app_servers.py`: 작업과 모델 서버를 관리합니다.
 - `b_app_sets.py`·`b_app_journey.py`: 자료 목록과 첫 사용 기록을 관리합니다.
 - `b_app_static/js/`: core → shell → score → source → compare → servers → jobs → journey → help → boot 순서입니다.
-- `b_app_static/index.html`·`app.css`·`guide.html`: 화면 틀과 공통 모양과 아홉 장 도움말입니다.
+- `b_app_static/index.html`·`app.css`·`guide.html`: 화면 틀과 공통 모양과 열 장 도움말입니다.
 - `b_app_static/design/`: 승인된 구조와 문구와 시안 및 구현 기록(BUILD.md)을 둡니다.
 - `b_app_static/DESIGN.md`·`PRODUCT.md`: 색과 글자 및 제품 사실의 기준입니다.
 

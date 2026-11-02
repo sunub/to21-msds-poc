@@ -25,7 +25,7 @@ from msds.common import manifest
 from msds.evaluate.score import LEVEL_ORDER, PASS_SCORE, WEIGHTS, score_pair, score_set
 
 NO_VALUE = ("자료없음", "해당없음", "비해당", "미기재")
-VERSION = 2   # 계산 규칙이 바뀌면 올린다. 캐시 키에 들어간다
+VERSION = 3   # 계산 규칙이 바뀌면 올린다. 캐시 키에 들어간다
 CACHE_DIR = Path(tempfile.gettempdir()) / "to21_b_app_cache"   # 기본 캐시 폴더. cache_dir=None이면 캐시를 쓰지 않는다
 RUNNING_HOURS = 6
 
