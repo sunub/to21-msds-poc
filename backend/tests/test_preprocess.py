@@ -1,10 +1,31 @@
 """전처리 시험. data/raw/에 해당 원본이 있을 때만 돈다."""
+import shutil
+
 import pytest
 
-from msds.common import manifest
+from msds.common import manifest, paths
 from msds.preprocess.render import preprocess
 
 CASES = {"T21-S016": "정상", "T21-S003": "글꼴깨짐", "T21-043": "글꼴깨짐", "T21-S013": "정상"}
+
+
+@pytest.fixture(autouse=True)
+def isolate_preprocess_outputs(tmp_path, monkeypatch):
+    """force=True도 저장된 추출물을 덮어쓰지 않도록 시험별 임시 폴더에 쓴다.
+
+    원본 PDF와 manifest는 그대로 읽고, 출처 선택에 필요한 기존 OCR JSON만 복사한다.
+    결과 TXT·PNG·meta·표는 복사하지 않고 전처리가 임시 폴더에서 새로 만들게 한다.
+    """
+    previous_pages = paths.PAGES
+    temporary_pages = tmp_path / "pages"
+    for doc_id in (*CASES, "T21-045", "T21-S001"):
+        source = previous_pages / doc_id
+        for pattern in ("ocr_all/p[0-9][0-9][0-9].ocr.json", "p[0-9][0-9][0-9].ocr.json"):
+            for cached in source.glob(pattern):
+                target = temporary_pages / doc_id / cached.relative_to(source)
+                target.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copy2(cached, target)
+    monkeypatch.setattr(paths, "PAGES", temporary_pages)
 
 
 @pytest.mark.parametrize("doc_id,expected", CASES.items())
