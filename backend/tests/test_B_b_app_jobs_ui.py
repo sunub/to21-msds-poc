@@ -1,6 +1,6 @@
 """승인된 시험/본 실행/작업 기록을 가짜 API와 DOM으로 검증한다."""
 import pytest
-from test_B_b_app_dom import run_js
+from test_B_b_app_dom import STATIC, run_js
 
 SETUP = r"""
 const el=id=>document.getElementById(id);
@@ -789,3 +789,29 @@ assert.ok(el('jobs-list').textContent.includes(T('steps.jobs.loading')));
 assert.ok(!el('jobs-list').textContent.includes(T('errors.loading.fact')));
 release();await opening;
 """)
+
+
+def test_finished_result_does_not_repeat_the_step_bar_and_server_note_comes_before_the_picked_value():
+    # 결과 화면에서 서버가 켜져 있다는 글이 첫 화면 아래로 밀렸다. 11/2 G4 캡처. 결과를 본 뒤가 끄기 가장 좋은 때다.
+    run_js(SETUP + "S.shell.servers={models:[{tag:'first',where:'RunPod',reachable:true,match:true}],rngd:{},pods:[{id:'p1',session:true,status:'RUNNING',cost_per_hr:2.5,cost_est:.75}],session:{pod_id:'p1',tag:'first',ready:true}};await go('s03'," + PICKED + ");listed=[job('done')];response=result(true);await jobsPoll();await jobsWatch('j1');" + r"""
+atStep('result');
+assert.equal(el('jobs-result').querySelector('.job-target'),null);
+const text=textOf('jobs-result');
+assert.ok(text.indexOf(T('steps.trial.server_on'))<text.indexOf(T('jobs.focus.title')));
+assert.ok(text.indexOf(T('steps.trial.server_on'))>=0);
+""")
+
+
+def test_no_picked_value_is_a_plain_line_not_a_highlighted_box():
+    run_js(SETUP + r"""
+await go('s03',{trialBranch:'try'});atStep('target');
+assert.ok(textOf('jobs-focus').includes(T('jobs.focus.none')));
+assert.equal(el('jobs-focus').classList.contains('job-focus'),false);
+await go('s03',""" + PICKED + r""");stepTo('target');
+assert.ok(el('jobs-focus').classList.contains('job-focus'));
+""")
+
+
+def test_model_choices_use_two_columns_so_the_list_fits_on_the_screen():
+    css = (STATIC / 'app.css').read_text()
+    assert '#jobs-model, #jobs-run-model { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));' in css
