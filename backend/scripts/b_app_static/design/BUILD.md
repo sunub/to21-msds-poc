@@ -89,7 +89,7 @@ P01과 P02는 원래 화면으로 돌아오는 확인 영역입니다.
 | `s03` | 다시 시험 (`nav.retest`) | `jobs-try`<br>`jobs-result`<br>`jobs-connection` | `js/jobs.js`<br>`js/servers.js`는 연결 구역 제공 | 6, 연결 구역 5 |
 | `s04` | 두 결과 비교 (`nav.compare`) | `compare-summary`<br>`compare-conditions`<br>`compare-items`<br>`compare-values`<br>`compare-rows`<br>`compare-prompts` | `js/compare.js` | 4 |
 | `s05` | 작업 기록 (`nav.jobs`) | `jobs-list`<br>`jobs-detail` | `js/jobs.js` | 6 |
-| `s06` | AI 켜기와 비용 (`nav.servers`) | `servers-summary`<br>`servers-rngd`<br>`servers-runpod`<br>`servers-models`<br>`servers-log` | `js/servers.js` | 5 |
+| `s06` | AI 켜기와 비용 (`nav.servers`) | `servers-flow` | `js/servers.js` | 5 |
 | `s07` | 도움말 (`nav.help`) | `help-topics`<br>`help-glossary` | `js/help.js` | 8 |
 | `s09` | 여러 문서 시험하기 (`jobs.trial.open_batch`) | `jobs-run` | `js/jobs.js` | 6 |
 | `s10` | 비교표 만들기 (`compare.table.open`) | `jobs-compare` | `js/jobs.js` | 6 |
@@ -170,7 +170,7 @@ step 9에서 94칸을 모두 확인했습니다. 첫 코드 표기는 자동 시
 | I41 | 결과의 항→표→행→칸 구조·기술 경로·칸 수·항 모름 | `renderDocRight, tableBlock, rowHead` | S02 source-values | 3 | `sourceStructure`: sourceTable. 원문 뒤 source-details에서 전체 항→표→행→칸과 원래 칸 이름·경로를 확인. 값/항/줄 선택으로 자동 펼치지 않음 (fix step 1). |
 | I42 | 결과 값·정답 값·정답에만 있는 행/칸·근거 줄 참조·비교 상태 | `valueRow, pickSilverOnly` | S02 source-values | 3 | `sourcePickProblem`: sourceValueButton. 문서별 문제 값은 쉬운 이름으로 표시. 다른 문서 선택도 같은 기준 유지. 세 종류 원값은 상세에 보존 (fix step 1). |
 | I43 | 선택한 값/줄·연결 값 수·근거 없음·좌표 없는 줄·스크롤 위치 | `noteSel, pickValue, pickLine, scrollInto` | S02 source-selection | 3 | `sourceRenderSelection`: sourceHasEvidence/sourcePick. 실제 근거와 추정 분리. 근거 없음은 원문 읽기 우선. 목록 스크롤·가시 초점·최신 정답 선택 유지 (fix step 1). |
-| I44 | 모델 선택·연결·다시 조회·기술 태그 | `modelSelect, connNote, loadOptions` | 공통 global-context, S03 jobs-connection, S06 servers-models | 1, 5, 6 | `serversRenderCompact`: S03 jobs-connection: serversRenderCompact + 기존 확인 동작 재사용. 모델 없음에도 같은 화면에서 터널/모델 준비. |
+| I44 | 모델 선택·연결·다시 조회·기술 태그 | `modelSelect, connNote, loadOptions` | 공통 global-context, S03 jobs-connection, S06 자세히 서랍 | 1, 5, 6 | `serversRenderCompact`: S03 jobs-connection: serversRenderCompact + 기존 확인 동작 재사용. 모델 없음에도 같은 화면에서 터널/모델 준비. |
 | I45 | 문서·입력 폴더·한 항/여러 항/전체 16항·기준 실행 자동/수동 | `renderJobTry` | S03 jobs-try | 6 | `jobsRenderTry`: S03 jobsRenderTry: 공통 set, runnable.try, 기준 실행과 1~16항 범위. |
 | I46 | 지시문 기본/고쳐 쓰기·불러오기·다른 모델/항에서 온 글·한 항 제한 | `renderJobTry, loadPrompt` | S03 jobs-try | 6 | `jobsLoadPrompt`: S03 jobsLoadPrompt: 한 항만 조회/편집, 늦은 응답과 다른 출처 표시. |
 | I47 | 지시문 임시 보관·새로고침 유실·전송 뒤 임시 파일 삭제·해시만 기록 | `renderJobTry, startTry` | S03 jobs-try, S07 help-topics | 6, 8 | `jobsRenderTry`: S03 지시문 위와 jobs-prompt-origin 펼침. 메모리만 보관. |
@@ -189,16 +189,16 @@ step 9에서 94칸을 모두 확인했습니다. 첫 코드 표기는 자동 시
 | I60 | 비교표 선택 순서·실행별 이름·선택 수·목록 갱신·제목·기본 라벨·출력 경로 | `renderJobCompare, startCompare` | S10 jobs-compare, S05 jobs-detail | 6 | `jobsRenderCompare`: S10 jobsRenderCompare/jobsStartCompare: 순서·이름표·제목, 기본 정답지 제한. S05 결과 경로. |
 | I61 | 작업 종류·내용·시작·상태·회차 진행·외부 프로세스·중단 가능 여부 | `renderJobList, progressText` | S05 jobs-list | 6 | `jobsRenderList`: S05 jobsRenderList: target 기준 조건·상태·진행·외부 작업·stoppable. |
 | I62 | 작업 결과·로그·닫기·종료 코드·스크롤 유지·갱신·중단 경고 | `openLog, refreshLog, stopJob` | S05 jobs-detail, P02 action-confirm | 6 | `jobsOpenLog`: S05 jobsOpenLog/jobsRefreshLog + P02: 로그 스크롤·원문 코드·키보드 확인/취소·중단. |
-| I63 | 현재 연결 모델·태그·조회 시각·재조회·서버 작업 진행과 마지막 결과 | `renderSrvTop, pollServers` | 공통 global-context, S06 servers-summary | 1, 5 | `serversRenderSummary`, `shellPollServers`·`shellScheduleServers` 한 타이머. S06 10초, 다른 화면 60초. |
-| I64 | 세션 Pod 번호·준비 여부·자동 삭제 감시·작업에 전달되는 연결 | `renderSrvTop, srvDetail` | S06 servers-summary·servers-runpod | 5 | `serversRenderRunpod`: session 번호·adopted·others·실제 모델 일치·설정 변수 이름. 주소·키 값은 미표시. |
-| I65 | 태그·기대 모델·서버 종류·주소 설정 여부·응답 여부·응답 모델·일치·오류 | `renderSrvModels` | S06 servers-models | 5 | `serversRenderModels`: 기대·응답 모델·태그·서버·주소 설정 유무·일치 여부·friendly 원문 펼침. |
-| I66 | 서버 변경 잠금·잠긴 이유·최신 조회 실패의 조작 금지 | `srvBtn, lockNote` | S06 servers-summary | 5 | `serversReason`·`serversLockNote`: can/why·409 작업·최신 조회 실패. 터널 열기만 실행 중 허용. |
-| I67 | Pod ID·이름·앱 소유 여부·상태·자동 삭제까지·시간당 요금·가동시간·추정 비용 | `renderSrvRunpod` | S06 servers-runpod | 5 | `serversRenderRunpod`: owned/deletable별 삭제 단추 미생성, uptime_s 시간·분, cost_est 달러, 비용 없음은 알 수 없음. |
-| I68 | Pod 생성·삭제·계정 오류·네트워크 볼륨 수와 비용 | `renderSrvRunpod` | S06 servers-runpod, P02 action-confirm | 5 | `serversRenderRunpod`·`serversPropose`·P02: 생성·삭제·계정 오류·볼륨 수·잔여 비용 경고. |
-| I69 | RNGD 카드 수·실행 모델·프로세스·사용 카드·올릴 모델 선택·올리기/내리기 | `renderSrvRngd` | S06 servers-rngd | 5 | `serversRenderRngd`: 선택 모델·카드 수·프로세스·올리기/내리기. 장비 출력은 펼침. |
-| I70 | 가린 장비 명령 출력·진단 오류·15~25분 대기·프로세스와 준비 완료의 차이 | `renderSrvRngd, srvDetail` | S06 servers-rngd | 5 | `serversDiagnosis`: 진단 네 가지·진단 불가·loading_since 경과·15~25분. 준비는 기대 모델 응답으로 판정. |
-| I71 | 서버 기록 마지막 10줄·기록 경로·수동 사용기록 이관 안내 | `renderSrvLog` | S06 servers-log, S07 help-topics | 5, 8 | `serversRenderLog`: 최근 10줄·실제 server_log.md·기록이 있을 때만 수동 이관 안내. helpRenderTopics의 servers 장에 연결. |
-| I72 | 변경 요약·주의·확인 만료·한 번 사용·취소·실패·삭제 후 남은 Pod·모델 내린 PID | `openSrvDialog, closeSrvDialog, srvExecute` | P02 action-confirm, S06 servers-summary | 5 | `serversOpenDialog`·`serversExecute`·`serversResult`: 요약·경고·포커스·Escape·만료·일회용·실패 상세·남은 Pod/PID. |
+| I63 | 현재 연결 모델·태그·조회 시각·재조회·서버 작업 진행과 마지막 결과 | `renderSrvTop, pollServers` | 공통 global-context, S06 servers-flow | 1, 5 | `serversRenderFlow`, `shellPollServers`·`shellScheduleServers` 한 타이머. S06 10초, 다른 화면 60초. 조회 시각은 행동 줄과 서랍. |
+| I64 | 세션 Pod 번호·준비 여부·자동 삭제 감시·작업에 전달되는 연결 | `renderSrvTop, srvDetail` | S06 자세히 서랍 | 5 | `serversDrawerPods`: session 번호·adopted·others·실제 모델 일치·설정 변수 이름. 주소·키 값은 미표시. |
+| I65 | 태그·기대 모델·서버 종류·주소 설정 여부·응답 여부·응답 모델·일치·오류 | `renderSrvModels` | S06 자세히 서랍 | 5 | `serversDrawerModels`: 기대·응답 모델·태그·서버·주소 설정 유무·일치 여부. friendly 원문은 서랍의 오류 기록. |
+| I66 | 서버 변경 잠금·잠긴 이유·최신 조회 실패의 조작 금지 | `srvBtn, lockNote` | S06 servers-flow | 5 | `serversReason`·`serversLockNote`: can/why·409 작업·최신 조회 실패. 터널 열기만 실행 중 허용. |
+| I67 | Pod ID·이름·앱 소유 여부·상태·자동 삭제까지·시간당 요금·가동시간·추정 비용 | `renderSrvRunpod` | S06 ④ 끄기, 자세히 서랍 | 5 | `serversStageStop`: 지금 쓰는 서버의 숫자. 전체 목록은 `serversDrawerPods`. owned/deletable별 삭제 단추 미생성, uptime_s 시간·분, cost_est 달러, 비용 없음은 알 수 없음. |
+| I68 | Pod 생성·삭제·계정 오류·네트워크 볼륨 수와 비용 | `renderSrvRunpod` | S06 ② 켜기, 자세히 서랍, P02 action-confirm | 5 | `serversStageStartRented`·`serversDrawerPods`·`serversPropose`·P02: 생성·삭제·계정 오류·볼륨 수·잔여 비용 경고. |
+| I69 | RNGD 카드 수·실행 모델·프로세스·사용 카드·올릴 모델 선택·올리기/내리기 | `renderSrvRngd` | S06 ②·④, 자세히 서랍 | 5 | `serversStageStartCompany`: 선택 모델·카드 수·올리기. 프로세스·내리기·장비 출력은 `serversDrawerCompany`. |
+| I70 | 가린 장비 명령 출력·진단 오류·15~25분 대기·프로세스와 준비 완료의 차이 | `renderSrvRngd, srvDetail` | S06 ②·③·④ | 5 | `serversDiagnosis`: 진단 네 가지·진단 불가·loading_since 경과·15~25분. 준비는 기대 모델 응답으로 판정. |
+| I71 | 서버 기록 마지막 10줄·기록 경로·수동 사용기록 이관 안내 | `renderSrvLog` | S06 자세히 서랍, S07 help-topics | 5, 8 | `serversDrawerLog`: 최근 10줄·실제 server_log.md·기록이 있을 때만 수동 이관 안내. helpRenderTopics의 servers 장에 연결. |
+| I72 | 변경 요약·주의·확인 만료·한 번 사용·취소·실패·삭제 후 남은 Pod·모델 내린 PID | `openSrvDialog, closeSrvDialog, srvExecute` | P02 action-confirm, S06 servers-flow | 5 | `serversOpenDialog`·`serversExecute`·`serversResult`: 요약·경고·포커스·Escape·만료·일회용·실패 상세·남은 Pod/PID. |
 | I73 | 도움말 전체 9장·장 링크·안내 재시작 | `index.html #help-frame, guide.html #s1~#s9` | S07 help-topics, S08 journey-choice | 7, 8 | `helpRenderTopics`: `js/help.js` → S07 `#help-topics`의 9개 details, `/static/guide.html#<장>`; `#help-replay` → S08(성공 기록 유지) |
 | I74 | 도구 역할·PDF→쪽 글자→16항→결과→채점·실행 이름 해설 | `guide.html #s1` | S07 help-topics flow | 8 | `helpRenderTopics`: `#help-flow`, `guide.html#flow`; 실행 이름·처리 순서·새 안내 기록 설명 |
 | I75 | 점수 해석·가중치·필수 목표·정답 초안 한계·원인 후보 기준 | `guide.html #s2, #s3` | S07 help-topics score | 8 | `helpRenderMethods`: `#help-score`, `#help-methods`, `guide.html#score`; 23개 방법·목표·무게·원인 후보·정답 초안 한계 |

@@ -335,32 +335,47 @@ dialog::backdrop { background: var(--backdrop); }
 #compare-total-change, #compare-criterion-change { margin-block: var(--space-section); }
 .compare-next { margin-block: var(--space-section); }
 
-/* S06: 추천 행동, 비용 비교, 다른 방법, 장비 상세 순서. */
-#screen-s06 > div { margin-bottom: var(--space-page); min-width: 0; }
-#servers-summary { padding-bottom: var(--space-section); border-bottom: var(--border-standard); }
-#servers-summary > p, #servers-rngd > p, #servers-runpod > p { max-width: 72ch; }
-.server-actions, .server-process { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--space-group); }
-.server-actions { margin: var(--space-group) 0; }
+/* S06: 단계 표시, 제목, 단계 내용, 행동 줄 순서 (ADR-039). 서버 목록과 기록은 자세히 서랍에 있다. */
+#screen-s06 > h1 { margin-bottom: var(--space-tight); }
+#screen-s06 > .help-context { margin-bottom: var(--space-group); }
+#servers-step-bar { margin-bottom: var(--space-group); min-width: 0; }
+#servers-step-say { margin-bottom: var(--space-tight); color: var(--muted); }
+#servers-flow { min-width: 0; }
+.step-screen > [role="status"]:empty { display: none; }
+.step-screen > .server-notice, .step-screen > .error-note, .step-screen > .server-actions { margin: 0; }
+.server-actions { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--space-group); margin: var(--space-group) 0; }
 .server-notice { background: var(--soft); border: var(--border-standard); padding: var(--space-group); margin: var(--space-group) 0; }
 .server-state { display: block; }
 .server-ready { color: var(--accent); }
 .server-action { min-width: 0; }
 .server-action p { margin-top: var(--space-small); font-size: var(--label-size); }
-.server-tunnel { border-block: var(--border-standard); padding: var(--space-group) 0; margin: var(--space-group) 0; }
-.server-choice { max-width: 620px; margin: var(--space-section) 0; }
-.server-primary { max-width: 900px; border: var(--border-standard); border-radius: var(--radius-panel); background: var(--paper); padding: var(--space-section); }
-.server-primary > h2 { margin-top: 0; }
-#servers-comparison .server-table th { width: 25%; }
-#servers-comparison { margin-top: var(--space-section); }
-.server-process { padding: var(--space-compact) 0; border-top: var(--border-standard); }
-.server-process > p { min-width: 0; }
-.server-table td, .server-table th { padding: var(--space-small); }
-.server-table .error-note { padding: var(--space-small); }
-#servers-runpod .server-table th:first-child { width: 20%; }
-#servers-runpod .server-table th:nth-child(2) { width: 22%; }
-#servers-runpod .server-table th:last-child { width: 22%; }
-#servers-models .server-table th:nth-child(2) { width: 10%; }
-#servers-models .server-table th:nth-child(3) { width: 30%; }
+.server-cards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-group); }
+.server-card { display: flex; flex-direction: column; gap: var(--space-compact); min-width: 0; }
+.server-card > h2, .server-card > p { margin: 0; }
+.server-card.fit { border: var(--border-selected); }
+.server-card > button { align-self: flex-start; margin-top: auto; }
+.server-fit { color: var(--accent); font-weight: 700; }
+.server-facts { display: grid; grid-template-columns: 96px minmax(0, 1fr); gap: var(--space-small) var(--space-compact); margin: 0; font-size: var(--label-size); }
+.server-facts dt { color: var(--muted); }
+.server-facts dd { margin: 0; min-width: 0; }
+.server-stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--space-compact); }
+.server-stat { min-width: 0; padding: var(--space-compact) var(--space-group); background: var(--paper); border: var(--border-standard); border-radius: var(--radius-panel); }
+.server-stat small { display: block; color: var(--muted); }
+.server-stat b { display: block; font-size: var(--title-size); font-weight: var(--title-weight); line-height: var(--title-line-height); }
+.server-delete { display: flex; align-items: center; gap: var(--space-group); }
+.server-delete > p { flex: 1; min-width: 0; margin: 0; }
+.server-delete > .server-action { flex: none; }
+.server-progress { display: flex; flex-direction: column; gap: var(--space-control-y); margin: 0; padding: 0; list-style: none; }
+.server-progress li { display: flex; align-items: center; gap: var(--space-compact); margin: 0; color: var(--muted); }
+.server-progress .done, .server-progress .now { color: var(--ink); }
+.server-progress .now { font-weight: 700; }
+.server-progress .done .step-no { background: var(--soft); border-color: var(--accent); color: var(--accent); }
+.server-progress .now .step-no { background: var(--accent); border-color: var(--accent); color: var(--paper); }
+.server-choice { max-width: 620px; }
+.server-details-link { margin: 0; color: var(--muted); font-size: var(--label-size); }
+.server-row { padding: var(--space-compact) 0; border-top: var(--border-standard); }
+.server-row > p { margin-bottom: var(--space-tight); }
+#details-drawer pre { padding: var(--space-small); white-space: pre-wrap; }
 #action-confirm .technical { font-family: var(--font-body); font-size: var(--body-size); }
 #jobs-connection { min-width: 0; }
 

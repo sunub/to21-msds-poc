@@ -73,7 +73,7 @@ def screen_views():
 def test_registered_views_match_build_and_html():
     expected = screen_views()
     assert set(expected) == set(SCREENS)
-    assert sum(map(len, expected.values())) == 32  # S08의 두 구역은 안내 층과 도움말로 옮겼다.
+    assert sum(map(len, expected.values())) == 28  # S08의 두 구역은 안내 층과 도움말로 옮겼다. S06 다섯 구역은 단계 흐름 하나다 (ADR-039).
     run_js("const expected=" + json.dumps(expected) + r""";
 for(const [id,views] of Object.entries(expected)){
  assert.deepEqual([...SHELL_SCREENS[id].views],views);
@@ -116,6 +116,14 @@ ERROR_PATHS = dict(zip(SCREENS, ["/api/runs", "/api/doc", "/api/options", "/api/
 def test_each_screen_api_error_has_fact_action_and_closed_safe_raw(screen):
     run_js(SETUP + f"failurePath={json.dumps(ERROR_PATHS[screen])};const route={json.dumps(screen)};" + r"""
 await go(route,args);await flush();
+if(route==='s06'){ // 단계 화면에는 접힘이 없다. 사실과 할 일은 단계에, 원래 오류는 자세히 서랍에 있다 (ADR-039).
+ const flat=el('screen-s06').querySelector('.error-note');assert.ok(flat);assert.ok(flat.querySelector('strong').textContent.trim());
+ assert.ok(flat.textContent.includes(T('common.todo',{action:''})));assert.equal(flat.querySelector('details'),null);
+ assert.ok(!flat.textContent.includes(raw));assertClean(flat);
+ el('servers-details-open').click();const body=document.querySelector('#details-drawer .drawer-body');
+ assert.ok(body.textContent.includes(raw));assert.equal(body.querySelector('details'),null);assert.equal(body.querySelector('fake-error'),null);assertClean(body);
+ return;
+}
 const roots=[el('screen-'+route),el('journey-notices')];
 const note=roots.flatMap(root=>root.querySelectorAll('.error-note')).find(n=>visible(n)&&n.textContent.includes(raw));
 assert.ok(note,route+' lost the actual API error');
