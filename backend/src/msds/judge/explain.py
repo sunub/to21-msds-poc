@@ -135,14 +135,19 @@ def _stored(out: dict, by: str, model: str, failures: list[str]) -> dict:
 
 
 def make_llm():
-    """모델 서버 주소가 설정돼 있을 때만 모델을 쓴다. 없으면 None(문장틀)."""
+    """모델 서버 주소가 설정돼 있을 때만 모델을 쓴다. 없으면 None(문장틀).
+
+    gate_kind: A1의 ChatClient 가 호출마다 잡는 창구 종류. A1이 이 값을 읽어야 추출 우선이 지켜진다 (open-issues 참고).
+    """
     tag = os.environ.get("MSDS_EXPLAIN_MODEL", EXPLAIN_MODEL_DEFAULT)
     try:
         from msds.extract.client import load_model_config
         cfg = load_model_config(tag)
         if not os.environ.get(cfg.get("base_url_env") or ""):
             return None
-        return engine.ChatExplainer(tag, cfg=cfg)
+        llm = engine.ChatExplainer(tag, cfg=cfg)
+        llm.client.gate_kind = "explain"
+        return llm
     except Exception as e:  # 설정 오류로 저장 흐름을 막지 않는다. 문장틀로 가고 시작 기록에 남긴다
         print(f"설명 모델을 쓰지 않음: {e}")
         return None
@@ -160,9 +165,17 @@ class _SemaphoreGate:
             yield
 
 
+class _ClientGated:
+    """A1의 ChatClient 가 호출마다 창구를 직접 잡는다. 바깥에서 또 잡으면 한 호출이 자리 둘을 쓰고, 상한이 1이면 자기 자리를 기다리다 멈춘다."""
+
+    @contextmanager
+    def slot_sync(self, kind):
+        yield
+
+
 def default_gate():
     try:
-        from msds.common.model_gate import gate
-        return gate
+        import msds.common.model_gate  # noqa: F401
     except ImportError:
         return _SemaphoreGate()
+    return _ClientGated()
