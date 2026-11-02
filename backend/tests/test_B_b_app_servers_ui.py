@@ -340,3 +340,11 @@ def test_connection_entry_keeps_requested_model_and_unknown_target_is_not_ready(
       await go('s06',{model:'removed-model'});assert.equal(document.getElementById('servers-return'),null);
       assert.ok(!document.getElementById('servers-summary').textContent.includes(T('servers.ready.title',{model:'Fake model B'})));
     """)
+
+
+def test_session_pod_state_is_readable_not_an_unknown_record():
+    run_js(FIXTURE + r"""
+      data.pods[0].state='준비됨';await setup();
+      assert.ok(view().textContent.includes(T('servers.rented.state',{state:'준비됨'})));
+      assert.equal(view().textContent.includes(T('common.codes.unknown')),false);
+    """)

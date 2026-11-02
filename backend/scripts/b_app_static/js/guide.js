@@ -1,20 +1,22 @@
 "use strict";
 
 // 장 위치는 승인 시안의 번호다. 선택한 실습만 이동 순서에 남긴다.
-const guideOrder = ["G01", "G02", "G03", "G04", "G05", "G06", "G07", "G08", "G09", "G10", "G11", "G12", "G13", "G14", "G15"];
+const guideOrder = ["G01", "G02", "G03", "G04", "G05", "G06", "G07", "G08", "G09", "G10", "G11", "G12", "G13", "G16", "G17", "G14", "G15"];
 const guideScreens = {
-  G02: {chapter: 1, n: 2, m: 3, example: "steps"}, G14: {chapter: 4, n: 2, m: 2, example: "defaults"},
+  G02: {chapter: 1, n: 2, m: 3, example: "steps"}, G14: {chapter: 4, n: 4, m: 4, example: "defaults"},
+  G16: {chapter: 4, n: 2, m: 4, example: "data"}, G17: {chapter: 4, n: 3, m: 4, example: "answers"},
   G01: {intro: true, example: "score"}, G03: {chapter: 1, n: 3, m: 3, example: "steps"},
   G04: {intro: true, example: "ready"}, G06: {intro: true, example: "source"},
   G09: {chapter: 3, n: 4, m: 7, example: "result"},
-  G13: {intro: true, example: "defaults"}, G15: {intro: true, example: "score"},
+  G13: {intro: true, example: "data"}, G15: {intro: true, example: "score"},
   G05: {chapter: 2, n: 2, m: 2, example: "ready"}, G07: {chapter: 3, n: 2, m: 7, example: "source"},
   G08: {chapter: 3, n: 3, m: 7, example: "practice"}, G10: {chapter: 3, n: 5, m: 7, example: "ai"},
   G11: {chapter: 3, n: 6, m: 7, example: "result"}, G12: {chapter: 3, n: 7, m: 7, example: "result"}
 };
 S.guide = {open: false, screen: "G01", bootEligible: false, bootChecked: false,
   returnFocus: null, confirmFocus: null, background: [], epoch: 0, readiness: null, source: null,
-  trial: null, returnScreen: null, session: null, target: null, aiChecking: false, returned: false};
+  trial: null, returnScreen: null, session: null, target: null, aiChecking: false, returned: false,
+  live: null, livePending: null};
 const GUIDE_REQUEST_MS = 15000, GUIDE_TRIAL_MS = 600000;
 
 function guideDefault() {return {state: "not_started", screen: null, choices: [], skipped: [], updated_at: null};}
@@ -87,6 +89,7 @@ async function guideOpen({resume = false, replay = false} = {}) {
   S.guide.screen = resume ? guideSupported(guideProgress().screen) : "G01";
   S.guide.bootChecked = true;
   if (!S.guide.session || replay) S.guide.session = {source: null, practice: 0, trial: null};
+  S.guide.livePending = guideLiveLoad();
   if (replay) {S.guide.target = null; S.guide.readiness = null; S.guide.returnScreen = null; S.guide.defaultsReturn = null;}
   if (replay) {
     // 성공·대기 작업·옛 갈래 진행을 건드리지 않는다. 직렬 PUT은 journey가 맡는다.
@@ -196,59 +199,192 @@ function guideChapterRow(meta) {
     h("p", {id: "guide-progress-text", class: "guide-progress-text"}, T("guide.progress",
       {chapter: T(`guide.chapters.${meta.chapter}`), n: meta.n, m: meta.m, k: meta.chapter})));
 }
-function guideExampleText(key) {return T(`guide.example.${key}`);}
-function guideExampleBlank() {return h("span", {class: "guide-placeholder", "aria-hidden": "true"});}
-function guideExampleRow(label, value) {return h("div", {class: "guide-mini-row"}, h("span", null, guideExampleText(label)),
-  value ? h("strong", null, guideExampleText(value)) : guideExampleBlank());}
-function guideExampleScore() {
-  return h("div", {class: "guide-mini-content"}, h("h2", null, guideExampleText("score_title")),
-    h("div", {class: "guide-mini-score"}, guideExampleBlank()), guideExampleBlank(),
-    h("div", {class: "guide-scale", "aria-hidden": "true"}), guideExampleBlank());
+function guideExampleText(key, args) {return T(`guide.example.${key}`, args);}
+function guideExampleRow(label, value) {return h("div", {class: "guide-mini-row"}, h("span", null, guideExampleText(label)), h("strong", null, value));}
+function guideExampleNote(key) {return h("p", {class: "guide-after"}, guideExampleText(key));}
+// 저장된 결과가 필요한 칸은 값이 없으면 빈 막대 대신 지금 상태를 글로 말한다.
+function guideExampleStatus() {
+  const state = S.guide.live?.state || "loading";
+  if (state === "loading") return h("p", {role: "status"}, guideExampleText("loading"));
+  if (state === "empty") return [h("strong", null, guideExampleText("empty")), h("p", null, guideExampleText("empty_note"))];
+  return [h("strong", null, guideExampleText("failed")), h("p", null, guideExampleText("failed_note"))];
 }
-function guideExamplePair(result = false) {
-  return h("div", {class: "guide-value-pair"}, [false, true].map(answer => h("div", null,
-    h("span", null, guideExampleText(result ? (answer ? "new_value" : "old_value") : (answer ? "answer_label" : "ai_value"))),
-    h("div", {class: "guide-value"}, guideExampleBlank()))));
+function guideExampleWaiting(key) {return S.guide.live?.finished ? h("p", null, guideExampleText(key)) : h("p", {role: "status"}, guideExampleText("loading"));}
+function guideExampleLine(value) {
+  if (!value) return null;
+  const line = value.entry.v.lines?.map(id => value.data.lines.find(row => row.id === id)).find(Boolean);
+  return line ? h("div", {class: "guide-mini-source"}, h("strong", null, guideExampleText("line_at", {page: line.page, line: line.no})),
+    h("p", null, line.text)) : null;
+}
+function guideExampleValues(value) {
+  const {v, only} = value.entry;
+  return h("div", {class: "guide-value-pair"},
+    h("div", null, h("span", null, guideExampleText("ai_value")), h("div", {class: "guide-value"}, only ? T("common.none") : jobsFocusValue(v.value, v.text))),
+    h("div", null, h("span", null, guideExampleText("answer_label")), h("div", {class: "guide-value"}, only ? jobsFocusValue(v.value, v.text) : jobsFocusValue(v.silver?.value, v.silver?.text))));
+}
+function guideExampleChange(change) {
+  return [h("p", null, T("guide.target", {doc: change.doc, section: change.section})), h("p", {class: "technical"}, change.key),
+    h("div", {class: "guide-value-pair"},
+      h("div", null, h("span", null, guideExampleText("old_value")), h("div", {class: "guide-value"}, change.before), h("p", {class: "muted"}, change.beforeRun)),
+      h("div", null, h("span", null, guideExampleText("new_value")), h("div", {class: "guide-value"}, change.after), h("p", {class: "muted"}, change.afterRun)))];
+}
+function guideExampleScoreBlock(run) {
+  const targets = run.targets;
+  return [h("p", null, T("score.summary.scope", {model: run.model_label || run.model_tag || scoreMissing(), count: run.docs?.length ?? scoreMissing()})),
+    h("div", {class: "score-number"}, fmt1(run.weighted), h("span", null, T("score.summary.denominator"))),
+    h("p", {class: "score-basis muted"}, scoreBasisText(run)),
+    targets ? [h("p", {class: "score-target-gap"}, T(targets.weighted.met ? "score.summary.headline_met" : "score.summary.headline_below",
+      {line: targets.weighted.line, gap: fmt1(targets.weighted.line - targets.weighted.value)})),
+      scoreBar(targets.weighted.value, targets.weighted.line),
+      h("p", {class: "score-essential"}, T(targets.must.met ? "score.summary.must_all" : "score.summary.must_some",
+        {total: targets.must.total, met: targets.must.met_count}))] : null];
+}
+function guideExampleProblem(run) {
+  const top = run.status_text?.top_problem, loss = run.status_text?.loss_basis;
+  if (!top) return null;
+  return h("div", {class: "guide-mini-sub"}, h("strong", null, T("score.summary.top_problem", {item: scoreItemName(top.name)})),
+    h("p", null, T("score.summary.loss_meaning", {total_loss: fmt1(loss?.loss_total), score: fmt1(run.weighted),
+      item_loss: num(top.loss) ? top.loss.toFixed(2) : scoreMissing()})));
+}
+function guideExampleKeyLabel() {return S.shell.keys.find(key => key.id === S.ctx.key)?.label || S.ctx.key || T("common.none");}
+function guideExampleSet() {return S.shell.sets.find(set => set.id === S.ctx.set);}
+function guideExampleAIState() {
+  const state = S.guide.aiState;
+  return state ? T(`guide.ready.states.${state}`) : guideExampleText("not_checked");
+}
+function guideExampleTunnel() {
+  const open = serversData()?.rngd?.tunnel?.open;
+  return guideExampleText(open == null ? "not_checked" : open ? "tunnel_open" : "tunnel_closed");
+}
+function guideExampleSteps() {
+  const E = guideExampleText, {run, value, change} = S.guide.live || {};
+  const top = run?.status_text?.top_problem;
+  return h("div", {class: "guide-mini-steps"},
+    h("div", null, h("h2", null, E("step1")), h("div", null,
+      run ? [h("div", {class: "score-number"}, fmt1(run.weighted), h("span", null, T("score.summary.denominator"))),
+        h("strong", null, E("biggest")), h("p", null, top ? scoreItemName(top.name) : T("common.none"))] : guideExampleStatus())),
+    h("div", null, h("h2", null, E("step2")), h("div", null,
+      value ? [h("span", null, E("ai_value")), h("div", {class: "guide-value"}, value.entry.only ? T("common.none") : jobsFocusValue(value.entry.v.value, value.entry.v.text)), guideExampleLine(value)]
+        : run ? guideExampleWaiting("no_value") : guideExampleStatus())),
+    h("div", null, h("h2", null, E("step3")), h("div", null,
+      change ? [h("span", null, E("old_value")), h("div", {class: "guide-value"}, change.before), h("span", null, E("new_value")), h("div", {class: "guide-value"}, change.after)]
+        : run ? guideExampleWaiting("no_change") : guideExampleStatus())));
+}
+function guideExampleBody(kind) {
+  const E = guideExampleText, live = S.guide.live || {}, {run, value, change, prompt, sample} = live, set = guideExampleSet();
+  if (kind === "score") return run ? [h("div", {class: "guide-mini-content"}, guideExampleScoreBlock(run)), guideExampleProblem(run)]
+    : h("div", {class: "guide-mini-content"}, guideExampleStatus());
+  if (kind === "ready") return h("div", {class: "guide-mini-content"}, h("h2", null, E("ready_title")),
+    guideExampleRow("saved", run ? scoreLabel(run) : live.state === "loading" ? E("loading") : E("empty")),
+    guideExampleRow("key", guideExampleKeyLabel()), guideExampleRow("ai", guideExampleAIState()), guideExampleNote("offline"));
+  if (kind === "source") return h("div", {class: "guide-mini-content"}, h("h2", null, E("source_title")),
+    value ? [h("p", null, T("guide.target", {doc: value.doc, section: value.section})), guideExampleValues(value), guideExampleLine(value), guideExampleNote("read_line")]
+      : run ? guideExampleWaiting("no_value") : guideExampleStatus());
+  if (kind === "result") return h("div", {class: "guide-mini-content"}, h("h2", null, E("result_title")),
+    change ? [guideExampleChange(change), guideExampleNote("result_note")] : run ? guideExampleWaiting("no_change") : guideExampleStatus());
+  if (kind === "defaults") return h("div", {class: "guide-mini-content"}, h("h2", null, E("defaults_title")),
+    guideExampleRow("set", set?.label || S.ctx.set || T("common.none")), guideExampleRow("key", guideExampleKeyLabel()),
+    run ? h("div", {class: "score-number"}, fmt1(run.weighted), h("span", null, T("score.summary.denominator"))) : guideExampleStatus(),
+    h("p", null, E("trust")));
+  if (kind === "practice") return h("div", {class: "guide-mini-content"}, h("h2", null, E("practice_title")),
+    value ? [guideExampleRow("document", value.doc), guideExampleRow("part", T("score.calls.section", {section: value.section})),
+      h("div", {class: "guide-mini-source"}, h("strong", null, E("instruction_title")), prompt ? h("p", null, prompt) : guideExampleWaiting("no_prompt"))]
+      : run ? guideExampleWaiting("no_value") : guideExampleStatus(), guideExampleNote("practice_offline"));
+  if (kind === "ai") return h("div", {class: "guide-mini-content"}, h("h2", null, E("ai_title")),
+    guideExampleRow("tunnel", guideExampleTunnel()), guideExampleRow("model", run?.model_label || run?.model_tag || E("not_checked")),
+    guideExampleRow("model_time", E("model_duration")), guideExampleNote("guide_return"));
+  if (kind === "data") {
+    const docs = set?.docs || [], locked = docs.filter(doc => doc.locked).length;
+    return h("div", {class: "guide-mini-content"}, h("h2", null, E("data_title")),
+      guideExampleRow("set", set?.label || S.ctx.set || T("common.none")), set?.path ? h("p", {class: "technical"}, set.path) : null,
+      h("p", null, E("data_counts", {open: docs.length - locked, locked})),
+      sample ? h("div", {class: "guide-mini-source"}, h("strong", null, E("data_doc", {doc: sample.doc, pages: sample.pages})),
+        h("p", {class: "muted"}, E("data_lines")),
+        sample.lines.map(line => h("p", {class: "technical"}, `L${String(line.no).padStart(3, "0")} ${line.text}`)))
+        : guideExampleWaiting("no_sample"));
+  }
+  if (kind === "answers") return h("div", {class: "guide-mini-content"}, h("h2", null, E("answers_title")),
+    S.shell.keys.filter(key => key.usable).map(key => h("div", {class: "guide-mini-key", "data-current": String(key.id === S.ctx.key)},
+      h("strong", null, key.label || key.id), h("p", {class: "technical"}, key.path),
+      h("p", null, E("answers_count", {docs: key.counts?.docs ?? key.docs?.length ?? 0, locked: key.counts?.eval_locked ?? 0})))),
+    value ? [h("p", null, E("answers_compare")), guideExampleValues(value)] : null);
+  return null;
 }
 function guideExample(kind) {
-  const E = guideExampleText;
-  let content;
-  if (kind === "steps") content = h("div", {class: "guide-mini-steps"},
-    h("div", null, h("h2", null, E("step1")), h("div", null, h("strong", null, E("biggest")),
-      h("p", {class: "guide-value"}, guideExampleBlank()), h("p", null, E("view_limit")))),
-    h("div", null, h("h2", null, E("step2")), h("div", null, guideExampleBlank(),
-      h("div", {class: "guide-mini-source"}, E("line"), guideExampleBlank()))),
-    h("div", null, h("h2", null, E("step3")), h("div", null, guideExampleBlank(),
-      h("p", {class: "guide-value"}, guideExampleBlank()), h("p", null, E("new_answer")))));
-  else {
-    let body;
-    if (kind === "score") body = [guideExampleScore(), h("div", {class: "guide-mini-sub"}, h("strong", null, E("biggest")),
-      h("p", null, E(S.guide.screen === "G01" ? "limit_definition" : "limit_short")),
-      S.guide.screen === "G01" ? h("p", null, E("exposure")) : null, guideExampleBlank())];
-    if (kind === "ready") body = h("div", {class: "guide-mini-content"}, h("h2", null, E("ready_title")),
-      guideExampleRow("saved"), guideExampleRow("key"), guideExampleRow("ai"), h("p", {class: "guide-after"}, E("offline")));
-    if (kind === "source" || kind === "result") body = h("div", {class: "guide-mini-content"}, h("h2", null, E(kind === "source" ? "source_title" : "result_title")),
-      guideExampleBlank(), guideExamplePair(kind === "result"),
-      h("div", {class: "guide-mini-source"}, h("strong", null, E("line")), guideExampleBlank()),
-      h("p", {class: "guide-after"}, E(kind === "source" ? "read_line" : "result_note")));
-    if (kind === "defaults") body = h("div", {class: "guide-mini-content"}, h("h2", null, E("defaults_title")),
-      guideExampleRow("set"), guideExampleRow("key", "answer_name"),
-      h("div", {class: "guide-mini-score"}, guideExampleBlank()), h("p", null, E("trust")));
-    if (kind === "practice") body = h("div", {class: "guide-mini-content"}, h("h2", null, E("practice_title")),
-      guideExampleRow("document"), guideExampleRow("part"), h("div", {class: "guide-mini-source"},
-        h("strong", null, E("instruction_title")), guideExampleBlank()), h("p", {class: "guide-after"}, E("practice_offline")));
-    if (kind === "ai") body = h("div", {class: "guide-mini-content"}, h("h2", null, E("ai_title")),
-      guideExampleRow("tunnel"), guideExampleRow("model"), guideExampleRow("model_time", "model_duration"),
-      h("p", {class: "guide-after"}, E("guide_return")));
-    content = h("div", {class: "guide-mini-screen"}, h("div", {class: "guide-mini-head"}, E("brand")),
-      h("div", {class: "guide-mini-context"}, E(S.guide.screen === "G01" ? "context_first" : "context"),
-        S.guide.screen === "G01" ? h("p", null, E("draft_definition")) : null), body);
-  }
+  const E = guideExampleText, set = guideExampleSet();
+  const content = kind === "steps" ? guideExampleSteps() : h("div", {class: "guide-mini-screen"},
+    h("div", {class: "guide-mini-head"}, E("brand")),
+    h("div", {class: "guide-mini-context"}, `${T("context.documents.label")}: ${set?.label || S.ctx.set || T("common.none")} · ${T("context.answer.label")}: ${guideExampleKeyLabel()}`),
+    guideExampleBody(kind));
   return h("aside", {id: "guide-example", class: "guide-example", role: "img", "aria-label": E("label")},
     h("div", {class: "app-name", "aria-hidden": "true"}, E("brand")),
-    h("div", {class: "guide-demo-center", "aria-hidden": "true"}, h("figure", null, h("figcaption", null, h("span", {class: "guide-example-badge"}, E("badge"))), content,
-      kind === "defaults" && S.guide.screen === "G13" ? h("p", {class: "guide-demo-caption"}, E("set_definition")) : null,
-      S.guide.screen === "G02" ? h("p", {class: "guide-demo-caption"}, T("guide.choices.example_unit")) : null)));
+    h("div", {class: "guide-demo-center", "aria-hidden": "true"}, h("figure", null,
+      h("figcaption", null, h("span", {class: "guide-example-badge"}, E("badge")), h("p", {class: "guide-demo-caption"}, E("caption"))), content)));
+}
+function guideExampleRefresh() {
+  const el = document.getElementById("guide-example");
+  if (S.guide.open && el) el.replaceWith(guideExample(guideScreens[S.guide.screen].example));
+}
+// 왼쪽 칸의 자료는 최근 결과·원문 대조와 같은 API에서 읽는다. 진행·성공 기록과 파일에는 남기지 않는다.
+async function guideLiveSample(live, valid) {
+  const doc = guideExampleSet()?.docs?.find(d => !d.locked && d.group !== "eval" && d.line_numbers !== false);
+  if (!doc) return;
+  try {
+    const data = await api(ctxUrl(`/api/doc?${new URLSearchParams({doc: doc.doc_id, set: S.ctx.set})}`));
+    if (valid()) live.sample = {doc: doc.doc_id, pages: data.pages?.length ?? doc.pages, lines: (data.lines || []).slice(0, 4)};
+  } catch (_) {/* 없으면 글로 말한다 */}
+}
+function guideLiveShown(v) {return jobsFocusValue(v.value, v.text);}
+async function guideLiveChange(live, pool, valid) {
+  const {run, value} = live;
+  const prior = pool.filter(other => other.name !== run.name && (other.docs || []).includes(value.doc)).at(-1);
+  if (!prior) return;
+  const data = await api(ctxUrl(`/api/doc?${new URLSearchParams({run: prior.name, doc: value.doc})}`));
+  if (!valid()) return;
+  const old = new Map((data.values || []).map(v => [v.key ?? v.path, v]));
+  const changed = v => old.has(v.key ?? v.path) && guideLiveShown(old.get(v.key ?? v.path)) !== guideLiveShown(v);
+  const rows = (value.data.values || []).filter(changed);
+  // 채점하는 표의 칸을 먼저 고른다. 서술 문장과 남은 칸은 줄이 밀려 다른 내용끼리 맞붙을 수 있다.
+  const clear = rows.filter(v => v.items?.length && !["narratives", "extras"].includes(v.table));
+  const row = clear.find(v => v.section === value.section) || clear[0] || rows.find(v => v.items?.length) || rows[0];
+  // 실행 이름 전체는 길어 회차만 보인다. 전체 이름은 최근 결과에서 볼 수 있다.
+  const short = r => r.label?.parts?.at(-1) || scoreLabel(r);
+  if (row) live.change = {doc: value.doc, section: row.section, key: row.key ?? row.path, before: guideLiveShown(old.get(row.key ?? row.path)), after: guideLiveShown(row),
+    beforeRun: short(prior), afterRun: short(run)};
+}
+async function guideLivePrompt(live, valid) {
+  const {run, value} = live;
+  if (!run.model_tag) return;
+  const data = await jobsReadPrompt(run.model_tag, value.section);
+  if (valid() && data?.text) live.prompt = data.text.split("\n").filter(line => line.trim()).slice(0, 3).join(" ");
+}
+function guideLiveLoad() {
+  const g = S.guide, context = scoreContext(), live = g.live = {state: "loading", context, finished: false};
+  const valid = () => g.open && g.live === live && context === scoreContext();
+  const update = () => {if (valid()) guideExampleRefresh();};
+  const work = (async () => {
+    const part = async task => {try {await task();} catch (_) {/* 이 칸만 글로 말한다 */} update();};
+    await Promise.all([part(() => guideLiveSample(live, valid)), (async () => {
+      let pool = [];
+      try {
+        const list = await api(ctxUrl("/api/runs"));
+        if (!valid()) return;
+        pool = (list.runs || []).filter(run => scoreEligible(run) && !["silver", "eval"].includes(run.run_kind));
+        const chosen = pool.find(run => run.name === list.current) || pool.at(-1);
+        const run = chosen ? await api(ctxUrl(scoreRunPath(chosen.name))) : null;
+        if (!valid()) return;
+        live.run = run?.set?.id === S.ctx.set && num(run.weighted) ? run : null;
+        live.state = live.run ? "ready" : "empty";
+      } catch (_) {if (valid()) live.state = "error";}
+      update();
+      if (!live.run || !valid()) return;
+      await part(async () => {live.value = await guideFindValue(live.run, new Set(), valid) || null;});
+      if (live.value && valid()) await Promise.all([part(() => guideLiveChange(live, pool, valid)), part(() => guideLivePrompt(live, valid))]);
+    })()]);
+    if (valid()) {live.finished = true; update();}
+  })();
+  g.livePending = work;
+  return work;
 }
 function guideRender() {
   if (!S.guide.open) return;
@@ -277,7 +413,7 @@ function guideRender() {
           h("p", {class: "muted"}, T("guide.ai.skip_note"))] : null,
         guideButton("guide-next", guideNextKey(), guideNext, true),
         ["G02", "G14"].includes(screen) && guideNextDisabled() ? h("p", {class: "guide-disabled-note"}, T(screen === "G02" ? "guide.choices.disabled" : "guide.defaults.disabled")) : null,
-        screen === "G10" ? [h("p", {class: "guide-after"}, T("guide.ai.cost_action")), h("p", {class: "muted"}, T("guide.ai.cost"))] : null)))),
+        screen === "G10" ? [h("p", {class: "guide-after"}, T("guide.ai.cost_action")), h("p", {class: "muted"}, T("guide.ai.cost")), h("p", {class: "muted"}, T("guide.ai.rented_time"))] : null)))),
     h("div", {id: "guide-confirm", class: "guide-confirm", hidden: true}));
   document.getElementById("guide-next").disabled = guideNextDisabled();
   guideRefreshRecords(); document.getElementById("guide-title").focus();
@@ -398,6 +534,19 @@ async function guideRecheckAI() {
   const epoch = S.guide.epoch; await guideCheckAI();
   if (guideCurrent(epoch) && guideAIReady()) return guideShow("G11");
 }
+async function guideFindValue(run, skipped, valid) {
+  const top = run?.status_text?.top_problem;
+  const docs = top?.section ? scoreProblemDocs(top).filter(doc => !sourceLock(doc) && (!run.docs || run.docs.includes(doc))) : [];
+  for (const doc of docs) {
+    const data = await guideRequest(api(ctxUrl(`/api/doc?${new URLSearchParams({run: run.name, doc})}`)));
+    if (!valid()) return null;
+    const scope = {run: run.name, doc, section: top.section, item: top.name};
+    const entries = sourceProblems(data, scope).filter(entry => !skipped.has(`${doc}:${entry.v.path}`));
+    const entry = sourceChooseProblem(entries, "wrong", data) || sourceChooseProblem(entries, "missing", data);
+    if (entry) return {...scope, data, entry};
+  }
+  return null;
+}
 async function guideLoadValue() {
   const g = S.guide, epoch = g.epoch, context = scoreContext(), state = g.source;
   state.state = "loading"; state.error = null; guideRender();
@@ -410,15 +559,11 @@ async function guideLoadValue() {
       const chosen = pool.find(r => r.name === data.current) || pool.at(-1);
       run = chosen ? await guideRequest(api(ctxUrl(scoreRunPath(chosen.name)))) : null;
     }
-    const top = run?.status_text?.top_problem;
-    const docs = top?.section ? scoreProblemDocs(top).filter(doc => !sourceLock(doc) && (!run.docs || run.docs.includes(doc))) : [];
-    for (const doc of docs) {
-      const data = await guideRequest(api(ctxUrl(`/api/doc?${new URLSearchParams({run: run.name, doc})}`)));
-      if (!guideCurrent(epoch, "G07") || context !== scoreContext()) return;
-      const scope = {run: run.name, doc, section: top.section, item: top.name};
-      const entries = sourceProblems(data, scope).filter(entry => !state.skipped.has(`${doc}:${entry.v.path}`));
-      const entry = sourceChooseProblem(entries, "wrong", data) || sourceChooseProblem(entries, "missing", data);
-      if (!entry) continue;
+    const valid = () => guideCurrent(epoch, "G07") && context === scoreContext();
+    const found = await guideFindValue(run, state.skipped, valid);
+    if (!valid()) return;
+    if (found) {
+      const {data, entry, ...scope} = found;
       Object.assign(state, scope, {data, entry, state: "waiting", line: Object.fromEntries(data.lines.map(line => [line.id, line])),
         selectedLines: new Set(), page: null});
       g.target = {...scope, model: run.model_tag}; guideRender(); return;
@@ -606,6 +751,7 @@ on("attempt_cancelled", ({job}) => {
 });
 on("context_changed", () => {
   S.guide.target = null; S.guide.readiness = null;
+  if (S.guide.open) guideLiveLoad();
   if (S.guide.open && !S.guide.applyingDefaults) guideShow("G05").catch(fail);
 });
 
@@ -680,7 +826,8 @@ function guidePracticeContent() {
   const screen = S.guide.screen;
   return h("div", {id: "guide-content"}, screen === "G05" ? guideReadinessContent() : screen === "G07" ? guideSourceContent()
     : ["G08", "G11"].includes(screen) ? guideTrialContent() : screen === "G10" ? guideAIContent()
-    : screen === "G12" ? guideRecordsContent() : screen === "G02" ? guideChoicesContent() : screen === "G14" ? guideDefaultsContent() : null);
+    : screen === "G12" ? guideRecordsContent() : screen === "G02" ? guideChoicesContent() : screen === "G14" ? guideDefaultsContent()
+    : screen === "G16" ? guideDataContent("source") : screen === "G17" ? guideDataContent("answers") : null);
 }
 function guideReadinessContent() {
   const r = S.guide.readiness || {}, failed = [r.results, r.key].includes("unknown");
@@ -771,6 +918,15 @@ function guidePlan(plan, prompt) {
       T("jobs.result.input_rows", {section: no, format: T(v.rows ? "jobs.result.format_rows" : "jobs.result.format_json"),
         count: v.lines, preamble: v.preamble_lines, first: v.first, last: v.last, pages: (v.pages || []).join(", "),
         images: (v.images || []).join(", ") || T("common.none"), method: coreCodeLabel("split", v.method)})))));
+}
+function guideDataContent(kind) {
+  const D = key => T(`guide.data.${kind}.${key}`), adds = kind === "source" ? ["add1", "add2", "add3", "add4"] : ["add1", "add2", "add3"];
+  return h("div", null, h("p", {class: "guide-lead"}, D("lead")),
+    kind === "source" ? [h("p", null, D("example")), h("p", null, D("set"))] : [h("h2", null, D("kinds_title")), h("ul", {class: "guide-terms"}, h("li", null, D("gold")), h("li", null, D("silver")))],
+    h("h2", null, D("change_title")), h("p", null, D("change")),
+    h("h2", null, D("receive_title")), h("p", null, D("receive")),
+    h("h2", null, D("add_title")), h("ol", {class: "guide-steps"}, adds.map(key => h("li", null, D(key)))),
+    h("p", {class: "guide-after"}, D("caution")));
 }
 function guideRecordsContent() {
   const record = S.guide.session || {};
