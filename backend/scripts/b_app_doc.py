@@ -14,6 +14,7 @@
 값의 채점 항목(items): 그 값이 TO21 채점기의 어느 항목 비교에 들어가는 칸인지다(ITEM_RULES). "이 값 때문에 깎였다"가
 아니다. 채점은 행 단위로 견주므로(예: 독성 행은 성분·항목·지표·상태·값을 한 묶음으로) 같은 항목의 다른 칸이 틀려도 깎인다.
 채점기 판이 바뀌면 test_B_b_app_doc의 섭동 시험(값 하나를 바꾸고 떨어진 항목과 items를 견줌)이 어긋남을 잡는다.
+행 묶음(row_groups): 이미 나온 판정을 표의 행으로 모으기만 한다. 칸은 값 목록과 정답에만 있는 칸에서 한 번씩만 들어간다.
 """
 import json
 import re
@@ -25,6 +26,7 @@ import yaml
 
 import _common  # noqa: F401  src 경로 등록
 import b_app_sets as bsets
+import b_app_text as bt
 from msds.common import manifest
 from msds.common.align import item_path_map, keyed_flatten, to_keyed
 from msds.common.jsonpath import flatten, get, is_cond, is_q, is_stmt, to_cell
@@ -344,37 +346,129 @@ def align_silver(pred_values: list[dict], gold_json: dict) -> dict[str, dict]:
     return {v["path"]: _silver(v, match.get(v["path"])) for v in pred_values}
 
 
-def field_counts(pred_json: dict, gold_json: dict) -> Counter:
-    """칸 단위 문제 수. (채점 항목, 항, 종류) → 개수. 원문 대조 화면의 분류와 같다 (사용자 결정 10/31):
-    결과 값의 정답 짝이 다르면 wrong, 짝이 없으면 made, 정답에만 있는 칸은 missing. 같은 칸은 세지 않는다.
-    점수 프로그램은 같은 값을 행 단위로 missing 1 + made 1로 셀 수 있어 수가 다르다."""
-    values, gold_values = flatten_values(pred_json), flatten_values(gold_json)
-    match, _ = _match(values, gold_values)
-    out = Counter()
+def _judge(values: list[dict], gold_values: list[dict]) -> tuple[list[dict], dict[tuple, int]]:
+    """values에 실버 판정(silver)을 붙이고, 실버에만 있는 칸과 (표, 결과 행) → 실버 행을 돌려준다.
+    pair_row는 짝 행이 결과에 있으면 그 결과 행 번호다(그 행이 칸 하나를 빠뜨렸다)."""
+    match, pairs = _match(values, gold_values)
     for v in values:
         g = match.get(v["path"])
-        if g and _norm(g["value"]) == _norm(v["value"]):
-            continue
-        for item in v["items"]:
-            out[(item, v["section"], "wrong" if g else "made")] += 1
+        v["silver"] = {**_silver(v, g), "text": g["text"] if g else None}
     matched = {g["path"] for g in match.values()}
-    for g in gold_values:
-        if g["path"] not in matched:
-            for item in g["items"]:
-                out[(item, g["section"], "missing")] += 1
-    return out
+    back = {(t, j): i for (t, i), j in pairs.items()}
+    return [{**g, "pair_row": back.get((g["table"], g["row"]))} for g in gold_values if g["path"] not in matched], pairs
 
 
-def run_field_counts(run: Path, gold_dir: Path, doc_ids) -> dict[str, Counter]:
-    """실행의 문서마다 field_counts. 결과 파일이나 정답 파일이 없는 문서는 셀 수 없어 뺀다.
+def _first_item(doc_json: dict | None) -> dict:
+    return ((doc_json or {}).get("msds") or [{}])[0]
+
+
+def _row_of(m: dict, table: str, i: int | None) -> dict:
+    row = get(m, f"{table}[{i}]") if i is not None else None
+    return row if isinstance(row, dict) else {}
+
+
+def _comp_name(ref, m: dict) -> str | None:
+    """comp_ref를 그 행이 나온 문서의 3항 성분 이름으로 잇는다. 번호는 문서마다 다르다. MIX는 제품 전체, 못 이으면 None."""
+    if ref in (None, ""):
+        return None
+    if str(ref) == "MIX":
+        return bt.UI_TEXT["source"]["rows"]["mix"]
+    c = next((c for c in m.get("components") or [] if str(c.get("seq")) == str(ref)), {})
+    return c.get("name") or c.get("cas_no") or None
+
+
+def _group_title(table: str, i: int | None, j: int | None, m: dict, gold_m: dict) -> str:
+    """결과 행 i(없으면 정답 행 j)의 제목. 성분 번호가 비어 있을 때만 짝 정답 행의 번호를 정답 3항으로 잇는다."""
+    row, pair = _row_of(m, table, i), _row_of(gold_m, table, j)
+    has_own = row.get("comp_ref") not in (None, "")
+    comp = _comp_name(row.get("comp_ref"), m) if has_own else _comp_name(pair.get("comp_ref"), gold_m)
+    return bt.row_title(table, row, pair, comp, j if i is None else i, gold_only=i is None)
+
+
+def _cell_kind(v: dict, side: str, has_gold: bool) -> str:
+    """화면의 sourceKind와 같은 네 갈래. 정답이 없으면 견주지 않았으므로 uncompared다."""
+    if side == "silver_only":
+        return "missing"
+    if not has_gold:
+        return "uncompared"
+    return "same" if v["silver"]["same"] else "made" if v["silver"]["value"] is None else "wrong"
+
+
+def row_groups(values: list[dict], silver_only: list[dict], pairs: dict[tuple, int], pred_json: dict,
+               gold_json: dict | None) -> list[dict]:
+    """값을 표의 행으로 묶는다(_judge의 결과를 모으기만 한다). 묶음 하나는 결과 행 하나와 그 짝 정답 행이고, 실버에만 있는 칸은
+    pair_row로 그 결과 행에 붙는다. 짝이 없는 실버 칸은 정답 행 번호(gold_row)로 따로 묶는다. 표가 아닌 값은 한 칸짜리 묶음이다.
+    paired: 표의 행이면 짝이 있는지, 표가 아니거나 정답이 없으면 None. 순서: 항 → 표가 처음 나온 순서 → 결과 행 → 짝 없는 정답 행."""
+    has_gold, m, gold_m = gold_json is not None, _first_item(pred_json), _first_item(gold_json)
+    groups: dict[tuple, dict] = {}
+    for side, cells in (("result", values), ("silver_only", silver_only)):
+        for v in cells:
+            table, row = v["table"], v["row"]
+            own = row if side == "result" else v["pair_row"]
+            if row is None:
+                key, i, j = (side, v["path"]), None, None
+            elif own is None:
+                key, i, j = ("gold", table, row), None, row
+            else:
+                key, i, j = ("result", table, own), own, pairs.get((table, own))
+            group = groups.get(key)
+            if group is None:
+                group = groups[key] = {
+                    "id": ":".join(map(str, key)), "table": table, "table_label": bt.table_label(table),
+                    "section": v["section"], "row": i, "gold_row": j,
+                    "paired": None if row is None or not has_gold else i is not None and j is not None,
+                    "title": bt.value_title(table, v["field"]) if row is None else _group_title(table, i, j, m, gold_m),
+                    "cells": [], "counts": {"wrong": 0, "made": 0, "missing": 0}}
+            kind = _cell_kind(v, side, has_gold)
+            group["cells"].append({"path": v["path"], "side": side, "field": v["field"], "section": v["section"],
+                                   "kind": kind, "items": v["items"]})
+            if kind in group["counts"]:
+                group["counts"][kind] += 1
+    tables: dict[str, int] = {}
+    for g in groups.values():
+        tables.setdefault(g["table"], len(tables))
+    return sorted(groups.values(), key=lambda g: (g["section"] if isinstance(g["section"], int) else 99, tables[g["table"]],
+                                                  g["row"] is None and g["gold_row"] is not None))
+
+
+def problem_counts(pred_json: dict, gold_json: dict) -> tuple[Counter, Counter]:
+    """(칸 단위 문제 수, 행 단위 문제 수). 칸: (채점 항목, 항, 종류) → 개수. 원문 대조 화면의 분류와 같다 (사용자 결정 10/31):
+    결과 값의 정답 짝이 다르면 wrong, 짝이 없으면 made, 정답에만 있는 칸은 missing. 같은 칸은 세지 않는다.
+    점수 프로그램은 같은 값을 행 단위로 missing 1 + made 1로 셀 수 있어 수가 다르다.
+    행: (채점 항목, 항) → row_groups의 묶음 수. 문제 칸이 그 항목에 들어가는 행만, 칸이 여럿이어도 한 번 센다."""
+    values, gold_values = flatten_values(pred_json), flatten_values(gold_json)
+    silver_only, pairs = _judge(values, gold_values)
+    fields, rows = Counter(), Counter()
+    for group in row_groups(values, silver_only, pairs, pred_json, gold_json):
+        problems = [c for c in group["cells"] if c["kind"] in group["counts"]]
+        for c in problems:
+            for item in c["items"]:
+                fields[(item, c["section"], c["kind"])] += 1
+        for item in {item for c in problems for item in c["items"]}:
+            rows[(item, group["section"])] += 1
+    return fields, rows
+
+
+def field_counts(pred_json: dict, gold_json: dict) -> Counter:
+    """칸 단위 문제 수(problem_counts의 앞쪽)."""
+    return problem_counts(pred_json, gold_json)[0]
+
+
+def run_problem_counts(run: Path, gold_dir: Path, doc_ids) -> tuple[dict[str, Counter], dict[str, Counter]]:
+    """실행의 문서마다 problem_counts를 (칸, 행)으로 나눠 준다. 결과 파일이나 정답 파일이 없는 문서는 셀 수 없어 뺀다.
     쪽 글자와 그림은 읽지 않으므로 평가용 문서도 내용을 꺼내지 않고 수만 센다."""
-    out = {}
+    fields, rows = {}, {}
     for doc_id in doc_ids:
         pred_path, gold_path = run / "outputs" / f"{doc_id}.json", Path(gold_dir) / f"{doc_id}.json"
         if pred_path.is_file() and gold_path.is_file():
-            out[doc_id] = field_counts(json.loads(pred_path.read_text(encoding="utf-8")),
-                                       json.loads(gold_path.read_text(encoding="utf-8")))
-    return out
+            fields[doc_id], rows[doc_id] = problem_counts(json.loads(pred_path.read_text(encoding="utf-8")),
+                                                          json.loads(gold_path.read_text(encoding="utf-8")))
+    return fields, rows
+
+
+def run_field_counts(run: Path, gold_dir: Path, doc_ids) -> dict[str, Counter]:
+    """실행의 문서마다 칸 단위 문제 수(run_problem_counts의 앞쪽)."""
+    return run_problem_counts(run, gold_dir, doc_ids)[0]
 
 
 def allowed_doc(doc_id: str, doc_dir: Path | None = None) -> bool:
@@ -390,7 +484,7 @@ def pages_view(doc_id: str, pages_dir: Path) -> dict:
     lines = page_lines(doc_id, pages_dir)
     return {"doc_id": doc_id, "pages": sorted({l["page"] for l in lines}), "lines": lines,
             "sections": section_spans(doc_id, pages_dir), "values": [], "silver_only": [], "line_index": {},
-            "has_gold": False, "silver_lines": None, "warnings": []}
+            "has_gold": False, "silver_lines": None, "warnings": [], "row_groups": []}
 
 
 def doc_view(run: Path, doc_id: str, pages_dir: Path, gold_dir: Path) -> dict:
@@ -405,14 +499,7 @@ def doc_view(run: Path, doc_id: str, pages_dir: Path, gold_dir: Path) -> dict:
     gold_values = flatten_values(gold, lines, spans) if gold else []
     silver_lines = {"basis": "text_match", "found": sum(1 for g in gold_values if g["lines"]),
                     "total": len(gold_values)} if gold is not None else None
-    match, pairs = _match(values, gold_values)
-    for v in values:
-        g = match.get(v["path"])
-        v["silver"] = {**_silver(v, g), "text": g["text"] if g else None}
-    # 실버에만 있는 칸. pair_row는 짝 행이 결과에 있으면 그 결과 행 번호(그 행이 칸 하나를 빠뜨렸다)
-    matched = {g["path"] for g in match.values()}
-    back = {(t, j): i for (t, i), j in pairs.items()}
-    silver_only = [{**g, "pair_row": back.get((g["table"], g["row"]))} for g in gold_values if g["path"] not in matched]
+    silver_only, pairs = _judge(values, gold_values)
     line_index: dict[str, list[str]] = {}
     for v in values:
         for lid in v["lines"]:
@@ -428,4 +515,5 @@ def doc_view(run: Path, doc_id: str, pages_dir: Path, gold_dir: Path) -> dict:
         warnings.append(f"이 문서에는 MSDS가 {count}건 있습니다. 첫 건만 보입니다.")
     return {"doc_id": doc_id, "pages": sorted({l["page"] for l in lines}), "lines": lines,
             "sections": spans, "values": values, "silver_only": silver_only, "line_index": line_index,
-            "has_gold": gold is not None, "silver_lines": silver_lines, "warnings": warnings}
+            "has_gold": gold is not None, "silver_lines": silver_lines, "warnings": warnings,
+            "row_groups": row_groups(values, silver_only, pairs, doc, gold)}

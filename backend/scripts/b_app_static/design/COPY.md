@@ -777,6 +777,88 @@ source.doc.howto|목록에서 값을 고르면 해당 원문 줄이 선택됩니
 source.doc.guess|정답의 근거 글과 글자가 같은 줄을 찾았습니다. AI가 남긴 근거가 아닌 추정 위치입니다.|S02
 source.doc.no_guess|정답의 근거 글을 이 묶음에서 찾지 못했습니다. 할 일: 해당 부분의 원문을 직접 읽으세요.|S02
 source.doc.counts|AI가 채운 값은 {total}개입니다. 정답과 다른 값은 {different}개입니다. 정답에만 있는 값은 {missing}개입니다.|S02
+source.rows.mix|제품 전체|S02
+source.rows.row_no|{no}행|S02
+source.rows.gold_row_no|정답 {no}행|S02
+source.row_parts.standard.국내|국내기준|S02
+source.row_parts.standard.생물학적|생물학적 노출기준|S02
+source.row_parts.prop_code.APPEARANCE_STATE|외관(성상)|S02
+source.row_parts.prop_code.APPEARANCE_COLOR|외관(색상)|S02
+source.row_parts.prop_code.ODOR|냄새|S02
+source.row_parts.prop_code.ODOR_THRESHOLD|냄새 역치|S02
+source.row_parts.prop_code.PH|pH|S02
+source.row_parts.prop_code.MELT_FREEZE|녹는점/어는점|S02
+source.row_parts.prop_code.BOILING|끓는점|S02
+source.row_parts.prop_code.FLASH_POINT|인화점|S02
+source.row_parts.prop_code.EVAP_RATE|증발 속도|S02
+source.row_parts.prop_code.FLAMMABILITY|인화성(고체, 기체)|S02
+source.row_parts.prop_code.UEL|폭발 범위 상한|S02
+source.row_parts.prop_code.LEL|폭발 범위 하한|S02
+source.row_parts.prop_code.VAPOR_PRESSURE|증기압|S02
+source.row_parts.prop_code.SOLUBILITY|용해도|S02
+source.row_parts.prop_code.VAPOR_DENSITY|증기 밀도|S02
+source.row_parts.prop_code.RELATIVE_DENSITY|비중(상대 밀도)|S02
+source.row_parts.prop_code.LOG_KOW|n-옥탄올/물 분배계수|S02
+source.row_parts.prop_code.AUTOIGNITION|자연발화 온도|S02
+source.row_parts.prop_code.DECOMPOSITION|분해 온도|S02
+source.row_parts.prop_code.VISCOSITY|점도|S02
+source.row_parts.prop_code.VISCOSITY_KIN|동점도|S02
+source.row_parts.prop_code.MOL_WEIGHT|분자량|S02
+source.row_parts.endpoint.TX_ORAL|급성 독성(경구)|S02
+source.row_parts.endpoint.TX_DERMAL|급성 독성(경피)|S02
+source.row_parts.endpoint.TX_INHAL|급성 독성(흡입)|S02
+source.row_parts.endpoint.TX_SKIN|피부 부식성/자극성|S02
+source.row_parts.endpoint.TX_EYE|심한 눈 손상/자극성|S02
+source.row_parts.endpoint.TX_RESP_SENS|호흡기 과민성|S02
+source.row_parts.endpoint.TX_SKIN_SENS|피부 과민성|S02
+source.row_parts.endpoint.TX_CARC|발암성|S02
+source.row_parts.endpoint.TX_MUTA|생식세포 변이원성|S02
+source.row_parts.endpoint.TX_REPRO|생식독성|S02
+source.row_parts.endpoint.TX_STOT_SE|특정 표적장기 독성(1회)|S02
+source.row_parts.endpoint.TX_STOT_RE|특정 표적장기 독성(반복)|S02
+source.row_parts.endpoint.TX_ASP|흡인 유해성|S02
+source.row_parts.endpoint.ECO_FISH|어류 독성|S02
+source.row_parts.endpoint.ECO_CRUST|갑각류 독성|S02
+source.row_parts.endpoint.ECO_ALGAE|조류 독성|S02
+source.row_parts.endpoint.ECO_OTHER|기타 생물 독성|S02
+source.row_parts.endpoint.ECO_PERSIST|잔류성과 분해성|S02
+source.row_parts.endpoint.ECO_BIOACC|생물 농축성|S02
+source.row_parts.endpoint.ECO_SOIL|토양 이동성|S02
+source.row_parts.endpoint.ECO_OZONE|오존층 유해성|S02
+source.row_parts.law.OSH|산업안전보건법|S02
+source.row_parts.law.KREACH|화평법|S02
+source.row_parts.law.CCA|화관법|S02
+source.row_parts.law.DG|위험물안전관리법|S02
+source.row_parts.law.WASTE|폐기물관리법|S02
+source.row_parts.law.POPS|잔류성오염물질 관리법|S02
+source.row_parts.law.KR_ETC|기타 국내법|S02
+source.row_parts.law.INTL|외국법·국제협약|S02
+source.row_parts.agency.KR_OSH|산업안전보건법|S02
+source.row_parts.agency.KR_CCA|화학물질관리법|S02
+source.row_parts.agency.EU_CLP|EU CLP|S02
+source.row_parts.system.EU_CLP|EU CLP|S02
+source.row_parts.system.JP|일본|S02
+source.value_titles.meta.msds_no|제출번호|S02
+source.value_titles.meta.first_issue_date|최초 작성일|S02
+source.value_titles.meta.last_revision_date|최종 개정일|S02
+source.value_titles.meta.revision_no|개정 횟수|S02
+source.value_titles.meta.revision_label|개정 표기|S02
+source.value_titles.meta.doc_code|문서 코드|S02
+source.value_titles.meta.header_product_name|머리글의 제품명|S02
+source.value_titles.meta.page_start|시작 쪽|S02
+source.value_titles.meta.page_end|끝 쪽|S02
+source.value_titles.meta.source_note|자료 메모|S02
+source.value_titles.product.name|제품명|S02
+source.value_titles.product.uses|용도|S02
+source.value_titles.product.restrictions|사용 제한|S02
+source.value_titles.product.synonyms|제품의 다른 이름|S02
+source.value_titles.hazard.classified|유해성 분류 여부|S02
+source.value_titles.hazard.signal_word|신호어|S02
+source.value_titles.hazard.nfpa.fire|NFPA 화재 위험|S02
+source.value_titles.hazard.nfpa.health|NFPA 건강 위험|S02
+source.value_titles.hazard.nfpa.reactivity|NFPA 반응 위험|S02
+source.value_titles.composition.type|조성 종류|S02
+source.value_titles.composition.no_hazardous_component|유해 성분 없음 표시|S02
 source.fields.value|값|S03,S05
 source.fields.text|원문 글|S02
 source.fields.refs|근거 줄|S02

@@ -152,7 +152,7 @@ def test_run_labels_are_added_without_changing_score_or_cache(app, ctx, env, mon
     # Steps 4/9 add presentation fields; every original scoring field remains identical.
     assert {k: v for k, v in detail.items()
             if k not in ("label", "model_label", "status_text", "card_summaries", "connection_notes", "key",
-                         "run_kind_label", "targets", "set")} == before
+                         "run_kind_label", "targets", "set", "problem_rows")} == before
     assert summary == before
 
 
@@ -327,6 +327,21 @@ def test_api_run_status_counts_are_field_level_like_source_view(app, ctx, env):
     assert [d["doc_id"] for d in top["docs"]] == [X01, X02]
     assert top["docs"][0]["counts"]["빠뜨림"] == missing
     assert top["docs"][1]["counts"] == {"빠뜨림": 0, "틀림": 0, "지어냄": 0}
+
+
+def test_api_run_has_problem_rows_per_criterion_and_doc(app, ctx, env):
+    """① 문제 고르기의 문제 행 수(STEPS.md A5). 문서 번호와 수만 싣고 status_text는 바꾸지 않는다."""
+    name = "20261029_sections_m1_dev10_loss"
+    make_run(env / "runs", name, {X01: make_doc(X01, toxicity=True), X02: make_doc(X02)})   # X01만 11항 독성을 비운다
+    code, data = get_json(app, ctx, "/api/run/" + name)
+    top = data["status_text"]["top_problem"]
+    _, rows = app.bdoc.run_problem_counts(env / "runs" / name, ctx.gold_dir, data["docs"])
+    got = data["problem_rows"][top["name"]]
+    assert code == 200 and got["row_count"] == rows[X01][(top["name"], top["section"])] > 0
+    assert {d["doc_id"]: d["row_count"] for d in got["docs"]} == {X01: got["row_count"], X02: 0}
+    assert list(data["problem_rows"]) == [r["name"] for r in data["status_text"]["losses"]]
+    assert all("row_count" not in r and "docs" not in r for r in data["status_text"]["losses"])   # 옛 응답 그대로
+    assert [set(d) for d in top["docs"]] == [{"doc_id", "score", "loss", "counts"}] * 2
 
 
 def test_api_run_unknown(app, ctx, env):
