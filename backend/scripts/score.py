@@ -4,7 +4,9 @@
   # 개발용 10건 (골드 기준)
   python scripts/score.py --pred runs/20261026_baseline_qwen38/outputs --title 기준선_개발 --purpose 개발
   python scripts/score.py --pred data/silver/gpt --title GPT실버_개발 --purpose 개발
-  # 25번 (TO21 정답 예제 기준)
+  # 평가용 10건 (25번은 골드가 없어 '정답 없음'으로 빠진다. 여기에 --gold-example25를 붙이지 않는다)
+  python scripts/score.py --pred runs/.../outputs --title 기준선_평가 --purpose 평가
+  # 25번 (TO21 정답 예제 기준, 평가 평균과 따로 적는다. 기술명세 2.12)
   python scripts/score.py --pred runs/.../outputs --title 기준선_25 --docs T21-025 --gold-example25
   # 특정 문서만
   python scripts/score.py --pred data/silver/claude --title 시험 --docs T21-S016 T21-M013

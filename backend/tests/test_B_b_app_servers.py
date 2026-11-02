@@ -3,7 +3,9 @@ import importlib
 import json
 
 import pytest
+import yaml
 
+from msds.common.paths import CONFIGS
 from test_B_compare_models import SCRIPTS
 
 FAKE_KEY = "sk-test-SHOULD-NEVER-APPEAR-9f8e7d"
@@ -76,7 +78,16 @@ def test_all_model_status_filters_tags(srv):
     cfg = {"models": {"gpt": {"model": "g", "base_url_env": "LLM_BASE_URL", "api_key_env": "LLM_API_KEY"},
                       "a": {**CFG}, "b": {**CFG, "base_url_env": "RNGD_BASE_URL"}, "c": {**CFG, "base_url_env": "VLLM_BASE_URL"}}}
     out = srv.all_model_status(cfg, {}, opener=opener_of({"data": []}))
-    assert [s["tag"] for s in out] == ["a", "b", "c"]
+    assert [s["tag"] for s in out] == ["a", "b"]
+
+
+def test_baseline_tag_does_not_ask_for_its_address(srv):
+    """qwen38은 명령줄 기준선 실행(run_baseline.py) 전용이다. 앱이 지켜보면 연결된 모델이 없을 때 시험 화면의 기본 모델이 되어
+    쓰지 않는 VLLM_BASE_URL을 채우라고 안내한다 (11/2). 주소를 비운 env라 네트워크는 부르지 않는다."""
+    cfg = yaml.safe_load((CONFIGS / "models.yaml").read_text(encoding="utf-8"))
+    tags = [s["tag"] for s in srv.all_model_status(cfg, {})]
+    assert "qwen38" not in tags
+    assert {"qwen36_35b_runpod", "qwen3_30b_a3b_rngd"} <= set(tags)
 
 
 def test_rngd_ssh_args(srv):

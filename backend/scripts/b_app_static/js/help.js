@@ -1,6 +1,6 @@
 "use strict";
 
-// 승인된 9장. 내용은 UI_TEXT만 읽으며 요청 기록과 원문을 복사하지 않는다.
+// 승인된 9장과 11/2에 더한 원문 자료·정답 장. 내용은 UI_TEXT만 읽으며 요청 기록과 원문을 복사하지 않는다.
 const HELP_CHAPTERS = {
   "flow": [
     [
@@ -145,10 +145,78 @@ const HELP_CHAPTERS = {
       "help.facts.source_colors"
     ]
   ],
+  "data": [
+    [
+      "p",
+      "help.data.source_meaning"
+    ],
+    [
+      "p",
+      "help.data.source_example"
+    ],
+    [
+      "p",
+      "help.data.source_change"
+    ],
+    [
+      "p",
+      "help.data.source_receive"
+    ],
+    [
+      "p",
+      "help.data.source_add_title"
+    ],
+    [
+      "ol",
+      "help.data.source_add1",
+      "help.data.source_add2",
+      "help.data.source_add3",
+      "help.data.source_add4"
+    ],
+    [
+      "p",
+      "help.data.source_caution"
+    ],
+    [
+      "p",
+      "help.data.answer_meaning"
+    ],
+    [
+      "ul",
+      "help.data.answer_gold",
+      "help.data.answer_silver"
+    ],
+    [
+      "p",
+      "help.data.answer_change"
+    ],
+    [
+      "p",
+      "help.data.answer_receive"
+    ],
+    [
+      "p",
+      "help.data.answer_add_title"
+    ],
+    [
+      "ol",
+      "help.data.answer_add1",
+      "help.data.answer_add2",
+      "help.data.answer_add3"
+    ],
+    [
+      "p",
+      "help.data.answer_caution"
+    ]
+  ],
   "setup": [
     [
       "p",
       "help.setup.read_offline"
+    ],
+    [
+      "p",
+      "help.setup.new_data"
     ],
     [
       "p",
@@ -398,6 +466,14 @@ const HELP_CHAPTERS = {
     ],
     [
       "p",
+      "help.servers.states"
+    ],
+    [
+      "p",
+      "help.servers.waiting"
+    ],
+    [
+      "p",
       "help.servers.company"
     ],
     [
@@ -541,7 +617,7 @@ const HELP_CHAPTERS = {
   ]
 };
 const HELP_CONTEXT = {s01: "score", s02: "source", s03: "retest", s04: "score",
-  s05: "recovery", s06: "servers", s09: "retest", s10: "score"};
+  s05: "recovery", s06: "servers", s09: "retest", s10: "score", s11: "data"};
 S.help = {topic: null, returnTo: null, lastScreen: null, pending: null, loaded: false,
   loading: false, glossaryError: null, criteriaError: null, criteria: null, search: ""};
 

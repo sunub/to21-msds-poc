@@ -123,15 +123,14 @@ assert.ok(el('jobs-try').textContent.includes(UI.context.models.claude));
 """)
 
 
-def test_example_panels_have_no_section_facts():
-    """왼쪽 예시에 문서 항 번호 설명이 다시 나오면 실패한다."""
+def test_example_panels_have_no_made_up_section_explanation():
+    """11/2 결정: 왼쪽 칸은 실제 값을 보인다. 실제 항 번호는 나와도 되지만 꾸며 쓴 항 설명은 나오지 않는다."""
     from test_B_b_app_guide_ui import PRACTICE_SETUP
     run_js(PRACTICE_SETUP + r"""
 await enter('G02');
 for(const screen of guideOrder){
  S.guide.screen=screen;guideRender();const copy=el('guide-example').textContent;
  assert.ok(!copy.includes(T('guide.choices.example_part')),screen);
- assert.doesNotMatch(copy,/\d+\s*(번\s*부분|항|개\s*주제)/,screen);
 }
 S.guide.screen='G03';guideRender();
 assert.ok(guideNode().querySelector('.guide-column').textContent.includes(T('guide.screens.G03.part')));
@@ -566,11 +565,11 @@ def test_dom_stringifies_non_node_arguments_like_browser():
     """)
 
 
-def test_help_renders_nine_chapters_as_elements():
+def test_help_renders_ten_chapters_as_elements():
     from test_B_b_app_help_ui import setup
     run_js(setup() + r"""
       await go('s07',{helpTopic:'score'});
-      assert.equal(document.querySelectorAll('details[data-help-topic]').length,9);
+      assert.equal(document.querySelectorAll('details[data-help-topic]').length,10);
       assert.doesNotMatch(document.getElementById('screen-s07').textContent,/\[object/);
       assert.ok(document.getElementById('help-methods').isConnected);
       assert.ok(document.getElementById('help-methods').textContent.includes('Fake method'));
@@ -612,7 +611,8 @@ def test_model_lookup_failure_is_not_ai_off():
       assert.ok(context().includes(T('context.model.query_failed')));
       assert.ok(!context().includes(T('context.model.state_off')));
       data={models:[{...model,url_set:false,error:null}]}; await shellPollServers();
-      assert.ok(context().includes(T('context.model.readiness_unknown')));
+      assert.ok(context().includes(T('context.model.state_off')));
+      assert.ok(!context().includes(T('context.model.readiness_unknown')));
       data={models:[]}; await shellPollServers();
       assert.ok(context().includes(T('context.model.readiness_unknown')));
       data={models:[{tag:'empty',reachable:true,model_served:null,match:null}]}; await shellPollServers();
@@ -1183,7 +1183,7 @@ def test_only_approved_colors_carry_meaning():
         if 'var(--failure)' in body and selectors.strip() != ':root':
             assert all('error' in s or 'fail' in s for s in selectors.split(',')), selectors
     module, _ = _fix_copy()
-    assert all(entry['color'] in palette for entry in module.doc_legend())
+    assert all(entry['color'] is None or entry['color'] in palette for entry in module.doc_legend())
     # 오류와 값 차이의 색을 혼동하지 않는다. 상태 글은 그대로 보인다.
     run_js(r"""
       const low=scoreCall(8,{ok:false,mode:'json_schema'});
