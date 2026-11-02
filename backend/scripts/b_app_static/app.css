@@ -578,7 +578,14 @@ body.guide-open { overflow: hidden; }
 }
 
 /* 단계 화면의 공통 틀 (ADR-039): 단계 표시, 맨 아래 행동 줄, 자세히 서랍, 카드. */
-.step-screen { display: flex; flex-direction: column; gap: var(--space-group); min-height: calc(100vh - var(--sticky-offset) - var(--space-section)); }
+.step-screen { display: flex; flex: 1; flex-direction: column; gap: var(--space-group); }
+/* 위쪽 제목과 설명을 뺀 남은 높이를 단계 화면까지 넘긴다. 내용이 짧아도 행동 줄이 창 맨 아래에 온다. */
+.work:has(> section:not([hidden]) .step-screen) { display: flex; flex-direction: column; }
+.work > section:not([hidden]):has(.step-screen), .work > section:not([hidden]) > :has(.step-screen) { display: flex; flex: 1; flex-direction: column; }
+/* 행동 줄을 담은 자리를 없는 셈 쳐서 줄이 단계 화면의 직계 항목이 되게 한다. margin-top:auto와 sticky가 여기에 달렸다. */
+.step-screen > :has(> .step-actions) { display: contents; }
+/* 처리 알림 글은 읽어 주기만 하고 행동 줄 밑에 띠를 만들지 않는다. 오류는 그대로 보인다. */
+body:has(.work > section:not([hidden]) .step-screen) #status:not(.error) { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 .steps { display: flex; align-items: stretch; list-style: none; margin: 0; padding: 0; overflow: hidden; background: var(--paper); border: var(--border-standard); border-radius: var(--radius-panel); }
 .steps > li { display: flex; flex: 1 1 0; min-width: 0; margin: 0; border-left: var(--border-standard); }
 .steps > li:first-child { border-left: 0; }

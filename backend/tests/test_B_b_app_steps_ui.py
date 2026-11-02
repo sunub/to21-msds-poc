@@ -217,3 +217,15 @@ def test_step_css_has_fixed_action_row_and_right_drawer_without_motion():
     assert re.search(r'#details-drawer\s*\{[^}]*margin:\s*0 0 0 auto', css)
     assert re.search(r'\.steps\s*\{', css)
     assert re.search(r'\.step-card\s*\{', css)
+
+
+def test_action_row_reaches_the_bottom_of_a_step_screen_without_a_page_scroll():
+    # 행동 줄을 담은 자리가 단계 화면의 직계 항목이어야 margin-top:auto와 sticky가 듣는다. 11/2 브라우저에서 줄이 화면 가운데에 떴다.
+    css = (STATIC / 'app.css').read_text()
+    assert re.search(r'\.step-screen\s*>\s*:has\(>\s*\.step-actions\)\s*\{[^}]*display:\s*contents', css)
+    # 제목과 설명이 위에 있으므로 창 높이로 정하면 페이지가 넘친다. 남은 높이를 채운다.
+    step_screen = re.search(r'\.step-screen\s*\{([^}]*)\}', css).group(1)
+    assert 'min-height' not in step_screen and re.search(r'flex:\s*1', step_screen)
+    assert re.search(r'\.work:has\(>\s*section:not\(\[hidden\]\)\s+\.step-screen\)\s*\{[^}]*flex-direction:\s*column', css)
+    # 처리 알림 글은 맨 아래 줄 밑에 띠를 만들지 않는다. 오류는 계속 보인다.
+    assert re.search(r'body:has\(.*?\.step-screen\)\s+#status:not\(\.error\)\s*\{[^}]*clip-path', css)
