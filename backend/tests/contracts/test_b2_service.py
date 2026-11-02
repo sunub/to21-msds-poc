@@ -1179,9 +1179,9 @@ def test_건너뛴_넘김을_다시_처리해도_상태가_그대로다(svc, put
 
 def test_저장_뒤_검토가_바뀌면_다시_저장할_때까지_골드가_아니다(svc, put, gold25):
     doc = {"doc": gold25["doc"], "msds": [{"meta": {"last_revision_date": "2022-06-29"}, "product": {"name": "황산"},
-                                           "composition": {"type": "혼합물"}, "components": [],
+                                           "composition": {"type": "혼합물"}, "components": [{"seq": 1, "name": "황산"}],
                                            "hazard": {"classes": [{"seq": 1, "class_code": "HH_SKIN_CORR", "category": "1"}]}}]}
-    marks = [{"msds_index": 0, "field": k, "status": "확인함"} for k in ("meta", "product", "composition", "hazard")]
+    marks = [{"msds_index": 0, "field": k, "status": "확인함"} for k in ("meta", "product", "composition", "components", "hazard")]
     put(handoff(doc, field_status=marks, fields_total=len(marks)))
     svc.drain()
     for fid in svc.save_overview(JOB)["reviews"]["unreviewed_ids"]:
