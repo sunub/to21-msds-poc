@@ -3,9 +3,10 @@
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useState } from "react";
 import { DocSummaryLine } from "@/components/review/doc-summary-line";
+import { HistoryPanel } from "@/components/review/history/history-panel";
 import { HazardPanel } from "@/components/review/hazard/hazard-panel";
 import { RegulationPanel } from "@/components/review/regulation/regulation-panel";
-import { ReviewStateProvider } from "@/components/review/review-state";
+import { ReviewStateProvider, useReviewState } from "@/components/review/review-state";
 import { SaveGuardDialog } from "@/components/review/save-guard-dialog";
 import { ValuesPanel } from "@/components/review/values-panel";
 import { DocFrame } from "@/components/shell/doc-frame";
@@ -40,6 +41,10 @@ function ReviewBody({ doc }: { doc: string }) {
   const param = useSearchParams().get("tab");
   const tab: ReviewTab = isReviewTab(param) ? param : "hazard";
   const [guardOpen, setGuardOpen] = useState(false);
+  const { unresolvedCount } = useReviewState();
+  // 처리하지 않은 판정이 없으면 경고 없이 바로 저장 화면으로 간다
+  const requestSave = () =>
+    unresolvedCount(2) + unresolvedCount(15) === 0 ? router.push(routes.save(doc)) : setGuardOpen(true);
 
   return (
     <div className="flex flex-col gap-5">
@@ -56,9 +61,11 @@ function ReviewBody({ doc }: { doc: string }) {
       {tab === "values" ? (
         <ValuesPanel docId={doc} />
       ) : tab === "hazard" ? (
-        <HazardPanel docId={doc} onSave={() => setGuardOpen(true)} />
+        <HazardPanel docId={doc} onSave={requestSave} />
       ) : tab === "regulation" ? (
-        <RegulationPanel docId={doc} onSave={() => setGuardOpen(true)} />
+        <RegulationPanel docId={doc} onSave={requestSave} />
+      ) : tab === "history" ? (
+        <HistoryPanel docId={doc} onSave={requestSave} />
       ) : (
         <>
       <Row>
@@ -74,7 +81,7 @@ function ReviewBody({ doc }: { doc: string }) {
 
       <Foot>
         <p className="text-mut">미검수·미검토 안내가 들어올 자리</p>
-        <Button variant="primary" size="lg" onClick={() => setGuardOpen(true)}>
+        <Button variant="primary" size="lg" onClick={requestSave}>
           저장하기
         </Button>
       </Foot>
@@ -82,6 +89,7 @@ function ReviewBody({ doc }: { doc: string }) {
       )}
 
       <SaveGuardDialog
+        docId={doc}
         open={guardOpen}
         onClose={() => setGuardOpen(false)}
         onSave={() => router.push(routes.save(doc))}

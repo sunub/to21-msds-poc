@@ -1,6 +1,7 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
+import { useSearchParams } from "next/navigation";
 import { useMemo, useState } from "react";
 import { DEMO_VALIDATION_ID } from "@/api/demo-findings";
 import { findingsQuery } from "@/api/findings";
@@ -31,7 +32,15 @@ export function HazardPanel({ docId, onSave }: { docId: string; onSave: () => vo
   const { data, isPending, isError, refetch } = useQuery(findingsQuery(docId, DEMO_VALIDATION_ID, { section: 2 }));
   const [filter, setFilter] = useState("all");
   const [sort, setSort] = useState<SortKey>("verdict");
-  const [selected, setSelected] = useState<string | undefined>();
+  // 다른 탭의 "이동"이 ?finding= 으로 넘긴 판정을 먼저 고른다. 값이 바뀌면(같은 탭에서 이동) 다시 그 판정으로 간다
+  const findingParam = useSearchParams().get("finding") ?? undefined;
+  const [selected, setSelected] = useState<string | undefined>(findingParam);
+  const [seenParam, setSeenParam] = useState(findingParam);
+  if (findingParam !== seenParam) {
+    setSeenParam(findingParam);
+    setSelected(findingParam);
+    setFilter("all");
+  }
   const { unresolvedByVerdict } = useReviewState();
 
   const rows = useMemo(() => {
