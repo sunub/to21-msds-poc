@@ -8,7 +8,9 @@
 """
 from collections import Counter
 
-from .classifier import product_type
+import yaml
+
+from .classifier import effective_components, product_type
 from .htodb.reference import ReferenceProvider
 from .htodb.regulation import RegulationProvider
 from .label import derive_label
@@ -18,7 +20,9 @@ from .mixture.ate_source import inhal_forms
 from .mixture.build_components import _state, build_components
 from .mixture.class_lookup_db import make_db_class_lookup, make_db_info_lookup, make_db_tox_lookup
 from .mixture.classify_mixture import classify_mixture_all
+from .mixture.params import RULES_DIR
 from .mixture.physical import physical_inputs
+from .mixture.ranges import content_range
 from .mixture.rules_loader import load_mixture_rules
 from .mixture.verdict import _order, _rank, aggregate_verdicts
 from .sec15_judge import judge_sec15
@@ -47,8 +51,45 @@ def _reassign_gas(classes: list[dict], raw_rows: list[dict], state: str | None) 
             for c in classes]
 
 
+def _impurity_rows(inputs: dict, provider: ReferenceProvider) -> list[tuple[str, str, float, float | None, float | None, str]]:
+    """불순물의 (항목, 구분, 한계농도, 함량 하한, 상한, 이름). 함량이 없으면 하한·상한이 None 이다 (설계서 19장)."""
+    limits = yaml.safe_load((RULES_DIR / "impurity_limits.yaml").read_text(encoding="utf-8"))["limits"]
+    out = []
+    for c in inputs.get("components") or []:
+        if c.get("content_note") != "불순물" or not c.get("cas_no"):
+            continue
+        rng = content_range([c])[0]
+        know = provider.get_reference(c["cas_no"], inputs.get("as_of_date")) or {}
+        for k in know.get("classes") or []:
+            if k["category"] in limits.get(k["class_code"], {}):
+                out.append((k["class_code"], k["category"], limits[k["class_code"]][k["category"]], rng["low"], rng["high"], c.get("name") or c["cas_no"]))
+    return out
+
+
+def _apply_impurities(results: list[dict], rows: list[tuple], rules: dict) -> dict[str, str]:
+    """한계농도를 넘는 불순물이 있는 항목만 혼합물 규칙으로 고친다. 반환: 항목별 설명."""
+    by_key = {(r["class_code"], r.get("form")): r for r in results}
+    notes: dict[str, str] = {}
+    for cc, cat, limit, low, high, name in rows:
+        order = _order(cc, None, rules, None)
+        main = (by_key.get((cc, None)) or {"result": {"low": "분류안됨", "high": "분류안됨"}})["result"]
+        worse = lambda a, b: min((a, b), key=lambda x: _rank(x, order) if _rank(x, order) is not None else 99)
+        if low is None and high is None:
+            res = {**main, "status": "근거부족", "reason": f"근거부족(불순물 함량): {name}의 함량이 없음"}
+            notes[cc] = res["reason"]
+        elif high < limit:
+            continue
+        else:
+            res = {"low": worse(main["low"], cat) if low >= limit else main["low"], "high": worse(main["high"], cat)}
+            res["status"] = "확정" if res["low"] == res["high"] else "경계"
+            notes[cc] = f"불순물 {name} {cat} 함량 {low}~{high}%, 한계농도 {limit}%: 이 항목만 혼합물 규칙 적용(설계서 19장)"
+        by_key[(cc, None)] = {"class_code": cc, "form": None, "result": res}
+    results[:] = list(by_key.values())
+    return notes
+
+
 def _single_2(inputs: dict, item: dict, provider: ReferenceProvider) -> dict:
-    comps = inputs.get("components") or []
+    comps = effective_components(inputs.get("components"))
     cas = comps[0].get("cas_no") if comps else None
     know = provider.get_reference(cas, inputs.get("as_of_date")) if cas else None
     if know and know.get("classes"):
@@ -64,11 +105,14 @@ def _single_2(inputs: dict, item: dict, provider: ReferenceProvider) -> dict:
         order = _order(cc, form, rules, None)
         ranked = sorted(set(cats), key=lambda x: (_rank(x, order) if _rank(x, order) is not None else 99, x))
         results.append({"class_code": cc, "form": form, "result": {"low": ranked[0], "high": ranked[0], "status": "확정"}})
+    notes = _apply_impurities(results, _impurity_rows(inputs, provider), rules)
     out = aggregate_verdicts(results, msds_classes, rules=rules)
     why = ("성분 CAS가 없음" if not cas else (know or {}).get("reason") if not (know or {}).get("knowledge_version")
            else "지식DB에 이 항목의 기준 분류가 없음(환경부·고용노동부 모두 없음, 설계서 18장)")
     for v in out["verdicts"]:
         v["assumptions"] = v["assumptions"] + SINGLE_ASSUMPTIONS
+        if v["class_code"] in notes and notes[v["class_code"]] not in v["reason"]:
+            v["reason"] = f"{v['reason']} / {notes[v['class_code']]}"
         if v["verdict"] == "근거부족" and v["reason"] == "우리 결과에 같은 항목이 없음":
             v["reason"] = why
     out["excluded"] += [{"class_code": c["class_code"], "form": c["route_form"], "status": "참고",
