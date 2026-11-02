@@ -1892,7 +1892,8 @@ help.failed.reload|설명 다시 읽기|S07
 help.data.source_meaning|원문 자료(문서 묶음)는 PDF를 쪽마다 글자와 그림으로 바꿔 둔 파일입니다. AI는 이 글자를 읽고, 근거도 이 글자의 줄 번호로 댑니다.|S07
 help.data.source_example|예: p5:L22는 5쪽 22번째 줄입니다.|S07
 help.data.source_change|바꾸기: 화면 위 ‘필요할 때 문서 바꾸기’에서 다른 묶음을 고릅니다. 그 묶음으로 돌린 저장 결과만 보입니다.|S07
-help.data.source_add_title|원문 자료를 새로 더하는 순서입니다.|S07
+help.data.source_receive|받은 폴더는 화면 위쪽의 새 자료 받기에서 가져옵니다. 앱이 줄 번호와 열지 않을 문서를 검사하고 복사까지 합니다. 점수가 나오는 폴더인지도 알려 줍니다.|S07
+help.data.source_add_title|직접 폴더를 만들어 더하는 순서입니다.|S07
 help.data.source_add1|data/pages/<묶음 이름>/<문서 번호>/ 폴더를 만듭니다.|S07
 help.data.source_add2|쪽마다 p001.txt(글자)와 p001.png(그림)를 넣습니다. 글자 줄 앞에 L001 같은 줄 번호가 있어야 새 시험에 쓸 수 있습니다.|S07
 help.data.source_add3|data/manifest.csv에 없는 문서 번호라면 meta.json도 넣습니다. 안의 doc_id가 폴더 이름과 같아야 열립니다.|S07
@@ -1902,7 +1903,8 @@ help.data.answer_meaning|정답은 AI 값과 견주는 기준입니다. 점수�
 help.data.answer_gold|사람이 확인한 정답(골드)은 사람이 검토해 확정한 답입니다. data/gold에 있습니다.|S07
 help.data.answer_silver|AI 정답 초안(실버)은 AI가 먼저 만든 비교용 답입니다. data/silver 아래 폴더에 있고, 틀릴 수 있습니다.|S07
 help.data.answer_change|바꾸기: 화면 위 ‘필요할 때 정답 바꾸기’에서 고릅니다. 저장된 결과를 AI 없이 다시 채점합니다.|S07
-help.data.answer_add_title|정답을 새로 더하는 순서입니다.|S07
+help.data.answer_receive|담당이 올린 새 정답은 화면 위쪽의 새 자료 받기에서 확인합니다. 받는 명령을 알려 주고, 받은 뒤에는 바뀐 문서 수를 보여 줍니다.|S07
+help.data.answer_add_title|정답 폴더를 직접 더하는 순서입니다.|S07
 help.data.answer_add1|data/silver/<이름>/ 또는 data/gold/<이름>/ 폴더를 만듭니다.|S07
 help.data.answer_add2|문서마다 <문서 번호>.json을 넣습니다. 예: T21-S001.json. 정해진 결과 형식(TO21 JSON)이어야 합니다.|S07
 help.data.answer_add3|화면을 새로고침하면 목록에 나타납니다. 앱을 다시 켤 필요는 없습니다.|S07
@@ -2070,6 +2072,7 @@ swap.problems.swap_conflict.message|앱에 같은 이름의 다른 폴더가 있
 swap.problems.swap_conflict.fix|받은 폴더의 이름을 바꾼 뒤 다시 검사하세요. 예: version18_2|S11
 swap.problems.swap_copy_failed.message|폴더를 복사하지 못했습니다: {detail}|S11
 swap.problems.swap_copy_failed.fix|디스크 공간과 폴더 권한을 확인한 뒤 다시 누르세요. 복사하다 만 파일은 남지 않습니다.|S11
+guide.ai.rented_time|빌린 서버는 켜는 데 3~6분 걸려요. 요청이 20분 없으면 앱이 닫아요.|G10
 help.setup.new_data|새 문서 폴더나 새 정답을 받았으면 화면 위쪽의 새 자료 받기를 누르세요. 문서 폴더는 검사한 뒤 앱으로 복사하고, 정답은 GitHub에서 받는 명령을 알려 줍니다.|S07
 help.servers.states|화면 위쪽에서 상태를 봅니다. AI 꺼짐은 정상입니다. 빌린 서버를 만들면 켜는 중이 3~6분 보이고, 연결된 모델이 보이면 시험을 보낼 수 있습니다.|S07
 help.servers.waiting|10분이 지나도 켜는 중이면 AI 켜기와 비용의 서버 기록을 확인하세요. 모델이 40분 동안 응답하지 않으면 앱이 서버를 지웁니다.|S07
