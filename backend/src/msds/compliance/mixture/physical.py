@@ -26,31 +26,44 @@ def physical_inputs(msds_item) -> dict:
             "flash_point": q("FLASH_POINT"), "boiling": q("BOILING")}
 
 
-# 인화성 액체 9항 단계: 규칙표 v0.3 flam_liquid.yaml(r2026.10c, 고시 제2026-26호 별표1)을 그대로 옮김. 단위 ℃
-FLQ_BASIS = "규칙표 v0.3 flam_liquid.yaml (고시 제2026-26호 별표1)"
+# 인화성 액체 9항 단계: rules/flam_liquid.yaml(규칙표 v0.3, 고시 제2026-26호 별표1)을 읽어 판정한다. 단위 ℃
+FLQ_BASIS = "rules/flam_liquid.yaml (규칙표 v0.3, 고시 제2026-26호 별표1)"
+_INF = float("inf")
+
+
+@lru_cache
+def _flq_table() -> dict:
+    import yaml
+    with open(RULES_DIR / "flam_liquid.yaml", encoding="utf-8") as f:
+        return yaml.safe_load(f)
 
 
 def _flam_liquid(physical):
-    """(구분 low, 구분 high, 상태, 설명). 인화점이 여럿이면 가장 낮은 값, 초기끓는점은 가장 낮은 값."""
+    """(구분 low, 구분 high, 상태, 설명). 인화점이 여럿이면 가장 낮은 값, 초기끓는점도 가장 낮은 값."""
+    table = _flq_table()
     fps = [x for x in physical.get("flash_point") or [] if isinstance(x.get("value"), (int, float))]
     if not fps:
         st = next((x.get("status") for x in physical.get("flash_point") or [] if x.get("status")), None)
         if st and ("해당없음" in st or "불연" in st):
-            return "분류안됨", "분류안됨", "확정", f"9항 인화점 '{st}' (non_flammable)"
-        return None, None, "근거부족", f"9항 인화점 {st or '없음'} (missing_prop)"
+            cat = table["non_flammable"]
+            return cat, cat, "확정", f"9항 인화점 '{st}' (non_flammable)"
+        return None, None, table["missing_prop"], f"9항 인화점 {st or '없음'} (missing_prop)"
     fp = min(x["value"] for x in fps)
     bps = [x["value"] for x in physical.get("boiling") or [] if isinstance(x.get("value"), (int, float))]
     bp = min(bps) if bps else None
-    if fp < 23:
-        if bp is None:
-            return "2", "1", "경계", f"인화점 {fp:g}℃ < 23, 초기끓는점 없음 → 구분 1(≤35℃) 또는 2"
-        cat = "1" if bp <= 35 else "2"
-        return cat, cat, "확정", f"인화점 {fp:g}℃ < 23, 초기끓는점 {bp:g}℃ (FLQ-{cat})"
-    if fp <= 60:
-        return "3", "3", "확정", f"인화점 {fp:g}℃ (23~60, FLQ-3)"
-    if fp <= 93:
-        return "4", "4", "확정", f"인화점 {fp:g}℃ (60 초과~93, FLQ-4)"
-    return "분류안됨", "분류안됨", "확정", f"인화점 {fp:g}℃ > 93"
+
+    def run(boiling):
+        tr = evaluate_rules_trace(table["rules"], {}, props={"FLASH_POINT": fp, "BOILING": boiling})
+        return tr["category"], tr["rule_id"]
+
+    if bp is not None:
+        cat, rid = run(bp)
+        return cat, cat, "확정", f"인화점 {fp:g}℃, 초기끓는점 {bp:g}℃ ({rid or '해당 규칙 없음'})"
+    lo, lo_id = run(_INF)   # 끓는점이 아주 높다고 볼 때(덜 위험한 쪽)
+    hi, hi_id = run(-_INF)  # 아주 낮다고 볼 때(더 위험한 쪽)
+    if lo == hi:
+        return lo, lo, "확정", f"인화점 {fp:g}℃ ({lo_id or '해당 규칙 없음'}, 초기끓는점과 무관)"
+    return lo, hi, "경계", f"인화점 {fp:g}℃, 초기끓는점 없음 → 구분 {hi}({hi_id}) 또는 {lo}({lo_id})"
 
 
 def _result(status, low=None, high=None, reason=None):
