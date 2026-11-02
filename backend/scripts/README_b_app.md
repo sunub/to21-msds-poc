@@ -25,6 +25,7 @@ phase `app-redo`의 새 화면이 들어왔습니다. 설계 결정은 ADR-025·
 | S08 처음 사용 | 결과 읽기와 한 부분 실제 시험의 두 갈래를 안내합니다. |
 | S09 여러 문서 시험 | 문서와 반복 수를 골라 실행합니다. |
 | S10 비교표 | 여러 결과를 선택한 순서로 모읍니다. |
+| S11 자료 바꾸기 | 받은 문서 폴더를 검사해 앱으로 복사하고, GitHub에 새 정답이 있는지 알립니다. 화면 위쪽의 새 자료 받기로 엽니다. |
 
 주소의 화면 표시(`#s03` 등)가 있으면 그 화면을 먼저 엽니다.
 문서 묶음과 정답지와 모델 연결 상태는 모든 화면에 보입니다.
@@ -48,6 +49,7 @@ phase `app-redo`의 새 화면이 들어왔습니다. 설계 결정은 ADR-025·
 - `b_app_text.py`: 고정 글 `UI_TEXT`와 용어 및 자료별 설명을 만듭니다. 승인 글은 `design/COPY.md`에서 옵니다.
 - `b_app_runs.py`·`b_app_diff.py`·`b_app_doc.py`: 점수와 비교와 원문을 읽습니다.
 - `b_app_jobs.py`·`b_app_servers.py`: 작업과 모델 서버를 관리합니다.
+- `b_app_swap.py`·`b_app_static/js/swap.js`: 받은 문서 폴더의 검사와 복사, 정답 상태를 맡습니다. 덮어쓰지 않습니다. 평가 문서는 열지 않습니다.
 - `b_app_sets.py`·`b_app_journey.py`: 자료 목록과 첫 사용 기록을 관리합니다.
 - `b_app_static/js/`: core → shell → score → source → compare → servers → jobs → journey → help → boot 순서입니다.
 - `b_app_static/index.html`·`app.css`·`guide.html`: 화면 틀과 공통 모양과 열 장 도움말입니다.

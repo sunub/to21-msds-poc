@@ -374,6 +374,7 @@ class ServerActions:
         self._adopt_checked: float | None = None     # 마지막으로 Pod 목록에서 이어 쓸 Pod를 찾은 시각
         self._watchdogs: dict[str, dict] = {}        # Pod 번호 → {"proc", "deadline"}
         self._idle: dict[str, dict] = {}             # Pod 번호 → {"since", "tokens", "ready"}. idle_tick만 쓴다
+        self._last_auto_close: dict | None = None    # 앱이 마지막으로 자동 삭제한 일. 사람이 지우면 지운다
         self._lock = threading.Lock()
 
     # ── 읽기 ───────────────────────────────────────────
@@ -432,7 +433,8 @@ class ServerActions:
                "ui_text": bt.server_ui_text(), "env_problems": self._env_problems(),
                "running_jobs": running, "locked": bool(running),
                "lock_reason": "; ".join(map(_running_text, running)) or None,
-               "session": None, "rngd_choices": self._rngd_choices(), "log_tail": self._log_tail(10)}
+               "session": None, "rngd_choices": self._rngd_choices(), "log_tail": self._log_tail(10),
+               "last_auto_close": self._last_auto_close}
         ready = None
         if self._session:
             cfg = self.models_cfg["models"]
@@ -440,7 +442,7 @@ class ServerActions:
             ready = any(m["reachable"] for m in models if cfg[m["tag"]].get("base_url_env") == pod_env)
             out["session"] = {"pod_id": self._session["pod_id"], "url": pod.pod_url(self._session["pod_id"]),
                               "tag": POD_TAG, "ready": ready, "adopted": self._session["adopted"],
-                              "others": list(self._session.get("others") or [])}
+                              "others": list(self._session.get("others") or []), "idle_minutes": IDLE_SECONDS // 60}
         if not self.env.get("RUNPOD_API_KEY"):
             out["runpod_error"] = "RUNPOD_API_KEY 없음"
         elif pods_error:
@@ -609,6 +611,7 @@ class ServerActions:
 
     def _do_pod_delete(self, params: dict) -> dict:
         self._need_runpod()
+        self._last_auto_close = None
         pid = params["pod_id"]
         before = next((p for p in self._pods() if p.get("id") == pid), None)
         if before is None:                           # 주인을 확인할 수 없으면 지우지 않는다
@@ -825,11 +828,16 @@ class ServerActions:
                 rec["since"] = now
             if now - rec["since"] < (IDLE_SECONDS if rec["ready"] else READY_LIMIT):
                 continue
-            reason = (f"요청 없이 {IDLE_SECONDS // 60}분이 지나 자동 삭제" if rec["ready"]
-                      else f"모델이 {READY_LIMIT // 60}분 동안 응답하지 않아 자동 삭제")
+            kind, limit = ("idle", IDLE_SECONDS) if rec["ready"] else ("no_reply", READY_LIMIT)
+            reason = (f"요청 없이 {limit // 60}분이 지나 자동 삭제" if rec["ready"]
+                      else f"모델이 {limit // 60}분 동안 응답하지 않아 자동 삭제")
             try:
-                if self._do_pod_delete({"pod_id": pod_id, "reason": reason})["ok"]:
+                done = self._do_pod_delete({"pod_id": pod_id, "reason": reason})
+                if done["ok"]:
                     deleted.append(pod_id)
+                    used = done["result"]
+                    self._last_auto_close = {"kind": kind, "limit_min": limit // 60, "cost": used["est_cost"],
+                                             "minutes": None if used["minutes"] is None else round(used["minutes"])}
             except (_Refuse, RuntimeError):          # 다른 앱이 먼저 지웠거나 RunPod 오류. 다음 차례에 다시 본다
                 pass
         return deleted
