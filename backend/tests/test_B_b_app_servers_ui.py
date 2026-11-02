@@ -570,7 +570,7 @@ def test_wait_step_never_turns_a_wrong_reply_into_ready():
 def test_wait_step_can_cancel_only_our_server_and_can_read_results_meanwhile():
     run_js(FIXTURE + r"""
       pending();await setup();assert.equal(action('pod_delete').textContent,T('steps.server.cancel_rented'));
-      assert.ok(byId('servers-read-results'));assert.equal(lastAction(),byId('servers-refresh'));
+      assert.ok(byId('servers-refresh'));assert.equal(lastAction(),byId('servers-read-results'));
       await action('pod_delete').click();assert.equal(byId('action-confirm').open,true);assert.equal(executions().length,0);
       byId('servers-cancel').click();
       Object.assign(data.pods[0],{owned:false,deletable:false});await shellPollServers();atStep('wait');
@@ -816,3 +816,63 @@ def test_drawer_has_no_tooltips_that_would_open_behind_it():
     run_js(FIXTURE + r"""
       await setup();assert.equal(openDrawer().querySelector('[data-tip]'),null);
     """)
+
+
+def test_card_that_cannot_start_the_chosen_ai_offers_another_ai_instead_of_turning_it_on():
+    # 11/2 코덱스 판독: "고른 AI는 이 서버에서 켤 수 없습니다" 아래에 "켜기"가 있어 글이 충돌했다.
+    run_js(FIXTURE + r"""
+      allOff();await setup();await go('s06',{model:'rented-b'});
+      assert.equal(byId('servers-use-company').textContent,T('steps.server.use_other_ai'));
+      assert.equal(byId('servers-use-rented').textContent,T('steps.server.use_rented'));
+      await go('s06',{model:'company-a'});
+      assert.equal(byId('servers-use-rented').textContent,T('steps.server.use_other_ai'));
+      assert.equal(byId('servers-use-company').textContent,T('steps.server.use_company'));
+    """)
+
+
+def test_status_lookup_failure_does_not_say_a_change_failed_and_retry_is_the_next_action():
+    run_js(FIXTURE + r"""
+      await setup();api=async()=>{throw Object.assign(new Error('Status down'),{status:500});};await shellPollServers();
+      assert.ok(stage().textContent.includes(T('servers.failed.fact')));
+      assert.ok(stage().textContent.includes(T('servers.failed.todo')));
+      assert.equal(stage().textContent.includes(T('servers.status.failure.fact')),false);
+      assert.equal(lastAction().id,'servers-refresh');
+      assert.equal(Array.from(stage().querySelectorAll('button')).filter(b=>b.id==='servers-refresh').length,1);
+    """)
+
+
+def test_waiting_offers_other_work_first_and_says_what_cancel_and_auto_delete_mean():
+    # 준비되면 저절로 넘어가므로 "다시 확인하기"가 주 행동이면 반복해서 눌러야 하는 것처럼 보인다.
+    run_js(FIXTURE + r"""
+      pending();await setup();atStep('wait');
+      assert.equal(lastAction().id,'servers-read-results');
+      assert.ok(byId('servers-refresh'));
+      assert.equal(action('pod_delete').textContent,T('steps.server.cancel_rented'));
+      assert.ok(stage().textContent.includes(T('steps.server.wait_auto',{minutes:36})));
+    """)
+
+
+def test_company_with_another_model_on_makes_turning_it_off_the_next_action():
+    run_js(FIXTURE + r"""
+      allOff();data.rngd.diagnosis='ok';data.rngd.models=[{model:'Other model',pid:5}];
+      await setup();await go('s06',{model:'company-a'});serversChoose('company');atStep('start');
+      assert.equal(byId('title-s06').textContent,T('steps.server.start_company_other_title'));
+      assert.equal(lastAction().getAttribute('data-server-action'),'rngd_down');
+      assert.equal(action('rngd_up').disabled,true);
+    """)
+
+
+def test_finished_server_in_the_drawer_has_no_hourly_rate():
+    # 끝난 서버 옆의 시간당 요금은 지금도 돈이 나가는 것처럼 읽힌다. 쓴 금액은 남긴다.
+    run_js(FIXTURE + r"""
+      data.pods.push({id:'old1',name:'Old server',owned:true,deletable:true,status:'EXITED',uptime_s:null,cost_per_hr:2.5,cost_est:36.55});
+      await setup();const pods=openDrawer(),old=pods.querySelector('[data-pod="old1"]');
+      assert.equal(old.textContent.includes(T('servers.rented.hourly_rate')),false);
+      assert.ok(old.textContent.includes('36.55'));
+      assert.ok(pods.querySelector('[data-pod="owned1"]').textContent.includes(T('servers.rented.hourly_rate')));
+    """)
+
+
+def test_old_preparation_time_is_not_written_as_a_general_record():
+    # G1에서 승인한 표 A2: 지난 기록의 고정 숫자를 일반 기록처럼 쓰지 않는다. 실제 기록은 session.ready_seconds다.
+    assert '기록 약 6분' not in (STATIC.parent / 'b_app_servers.py').read_text()
