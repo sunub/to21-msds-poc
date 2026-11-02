@@ -86,12 +86,11 @@ P01과 P02는 원래 화면으로 돌아오는 확인 영역입니다.
 |---|---|---|---|---|
 | `s01` | 최근 결과 (`nav.recent`) | `score-summary`<br>`score-problems`<br>`score-history`<br>`score-docs`<br>`score-grid`<br>`score-rows`<br>`score-rule`<br>`score-gaps` | `js/score.js` | 2 |
 | `s02` | 원문과 맞춰 보기 (`nav.source`) | `source-top`<br>`source-values`<br>`source-page`<br>`source-selection` | `js/source.js` | 3 |
-| `s03` | 다시 시험 (`nav.retest`) | `jobs-try`<br>`jobs-result`<br>`jobs-connection` | `js/jobs.js`<br>`js/servers.js`는 연결 구역 제공 | 6, 연결 구역 5 |
+| `s03` | 다시 시험 (`nav.retest`) | `jobs-try`<br>`jobs-run`<br>`jobs-connection`<br>`jobs-result` | `js/jobs.js`<br>`js/servers.js`는 연결 구역 제공 | 6, 연결 구역 5 |
 | `s04` | 두 결과 비교 (`nav.compare`) | `compare-summary`<br>`compare-conditions`<br>`compare-items`<br>`compare-values`<br>`compare-rows`<br>`compare-prompts` | `js/compare.js` | 4 |
 | `s05` | 작업 기록 (`nav.jobs`) | `jobs-list`<br>`jobs-detail` | `js/jobs.js` | 6 |
 | `s06` | AI 켜기와 비용 (`nav.servers`) | `servers-flow` | `js/servers.js` | 5 |
 | `s07` | 도움말 (`nav.help`) | `help-topics`<br>`help-glossary` | `js/help.js` | 8 |
-| `s09` | 여러 문서 시험하기 (`jobs.trial.open_batch`) | `jobs-run` | `js/jobs.js` | 6 |
 | `s10` | 비교표 만들기 (`compare.table.open`) | `jobs-compare` | `js/jobs.js` | 6 |
 | `p01` | 문서와 정답을 함께 검토한 뒤 적용하세요. (`context.picker.title`) | `context-picker` | `js/shell.js` | 1 |
 | `p02` | 동작별 작업 확인 (`servers.confirm.*`, `jobs.confirm.stop.*`) | `action-confirm` | `js/servers.js`<br>`js/jobs.js` | 5, 6 |

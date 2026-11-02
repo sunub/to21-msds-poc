@@ -1130,7 +1130,7 @@ servers.connection.unknown|아직 확인되지 않음|S06
 servers.connection.address|주소 설정|S06
 servers.connection.configured|설정됨. 실제 주소와 키는 표시하지 않음|S06
 servers.connection.ready_condition|기대한 모델의 응답이 와야 준비 완료입니다.|S06
-servers.connection.details|장비 상세와 설정 이름|S06
+servers.connection.details|AI 켜기와 비용 보기|S06
 servers.connection.ssh_meaning|다른 컴퓨터에 암호화된 명령을 보내는 방법이 보안 접속(SSH)입니다.|S06
 servers.connection.tunnel_meaning|AI 요청을 전달하는 연결 통로가 SSH 터널입니다.|S06
 servers.connection.devices|계산 부품은 {count}장입니다. 한 번에 모델 하나를 올립니다.|S06
@@ -1376,9 +1376,6 @@ jobs.prompt.memory_only|고친 글 전체는 현재 화면에만 보관합니다
 jobs.prompt.delete_temp|전송 임시 파일은 보낸 뒤 지웁니다.|S03,S08
 jobs.prompt.hash_only|기록에는 내용 확인값(해시)만 남깁니다.|S03,S08
 jobs.prompt.open_review|출처가 다른 설명 재검토 보기|S03,S08
-jobs.trial.next_options|첫 시험 안내와 여러 문서 시험|S03,S08
-jobs.trial.start_guide|한 부분 시험 안내 시작하기|S03,S08
-jobs.trial.open_batch|여러 문서 시험하기|S03,S05
 jobs.off.title|다시 시험하려면 AI 모델이 켜져 있어야 합니다.|S03,S06
 jobs.off.model|{model}는 아직 준비되지 않았습니다.|S03
 jobs.off.connect|AI 연결하기|S03
@@ -2017,6 +2014,77 @@ steps.server.details_title|자세히 · 서버와 설정|S06
 steps.server.details_hint|서버 목록과 설정 이름, 서버 기록을 봅니다.|S06
 steps.server.settings|설정 확인 기록|S06
 steps.server.connection|회사 서버 연결 기록|S06
+steps.back|이전 단계로 가기|S03
+steps.next|다음: {name}|S03
+steps.jobs.loading|작업 기록을 읽고 있습니다.|S05
+steps.trial.target|무엇을|S03
+steps.trial.model|어느 AI로|S03
+steps.trial.prompt|무엇을 시킬지|S03
+steps.trial.running|시험|S03
+steps.trial.result|결과|S03
+steps.trial.scope.a11y|시험 범위|S03
+steps.trial.scope.part|한 부분|S03
+steps.trial.scope.document|문서 전체|S03
+steps.trial.scope.batch|여러 문서|S03
+steps.trial.target_title|무엇을 다시 시험할까요?|S03
+steps.trial.target_filled|원문 화면에서 고른 부분이 채워져 있습니다. 그대로 두면 됩니다.|S03
+steps.trial.target_say|문서와 부분을 고르세요.|S03
+steps.trial.batch_hint|‘여러 문서’를 고르면 이 자리에 문서 목록과 반복 횟수가 나옵니다.|S03
+steps.trial.model_on_title|{model}가 켜져 있습니다. 이대로 시험하면 됩니다.|S03
+steps.trial.model_on_say|이번 결과를 만든 AI라 전후를 바로 비교할 수 있습니다.|S03
+steps.trial.model_off_title|고른 AI가 꺼져 있습니다. 먼저 켜야 합니다.|S03
+steps.trial.model_off_say|AI를 켠 뒤 ‘시험으로 돌아가기’를 누르면 이 화면으로 옵니다. 고른 문서와 부분은 그대로 남습니다.|S03
+steps.trial.state_on|지금 켜짐|S03
+steps.trial.state_off|지금 꺼짐|S03
+steps.trial.made_base|이번 결과를 만든 AI입니다.|S03
+steps.trial.on_note|응답을 확인했습니다.|S03
+steps.trial.on_rented|응답을 확인했습니다. 서버 요금은 시간당 ${hourly}입니다.|S03
+steps.trial.on_company|응답을 확인했습니다. 추가 임대료가 없습니다.|S03
+steps.trial.off_rented|켜면 시간당 ${hourly}가 나갑니다.|S03
+steps.trial.off_company|추가 임대료가 없습니다. 준비에 보통 15~25분 걸립니다.|S03
+steps.trial.off_note|켜러 가도 요금은 아직 나가지 않습니다. 서버를 만들 때 다시 확인합니다.|S03
+steps.trial.prepare|고른 AI 켜러 가기|S03
+steps.trial.practice|연습: AI 없이 보낼 내용 보기|S03
+steps.trial.prompt_title|AI에게 시킬 일을 정하세요.|S03
+steps.trial.prompt_say|이 글이 지시문입니다. 고치면 전후 점수로 효과를 볼 수 있습니다.|S03
+steps.trial.prompt_default|기본 지시문 그대로|S03
+steps.trial.prompt_default_note|같은 조건으로 결과만 다시 봅니다.|S03
+steps.trial.prompt_edit|고쳐서 시험|S03
+steps.trial.prompt_edit_note|고른 뒤 아래 글을 바로 고칩니다. 새로고침하면 고친 글은 사라집니다.|S03
+steps.trial.prompt_used_default|기본 지시문|S03
+steps.trial.prompt_used_edited|고친 지시문|S03
+steps.trial.send_note|{target}을 {model}에게 보냅니다.|S03
+steps.trial.previous_time|같은 조건의 지난 시험은 {seconds}초 걸렸습니다.|S03
+steps.trial.batch_prompt_title|조건을 확인하고 시작하세요.|S03
+steps.trial.running_title|AI가 {target}을 읽고 있습니다.|S03
+steps.trial.batch_running_title|여러 문서 시험이 진행 중입니다.|S03
+steps.trial.sent|AI에게 보냈습니다.|S03
+steps.trial.pending|AI의 응답과 결과를 기다립니다.|S03
+steps.trial.elapsed|시험을 시작한 지 {seconds}초입니다.|S03
+steps.trial.see_result|결과 보기|S03
+steps.trial.result_later|끝나면 결과로 저절로 넘어갑니다.|S03
+steps.trial.failed_title|시험이 실패했습니다.|S03
+steps.trial.took|{seconds}초 걸림|S03
+steps.trial.score_up|문서 전체 점수가 {before}점에서 {after}점으로 올랐습니다.|S03
+steps.trial.score_down|문서 전체 점수가 {before}점에서 {after}점으로 내려갔습니다.|S03
+steps.trial.score_same|문서 전체 점수가 {before}점으로 그대로입니다.|S03
+steps.trial.result_say|같은 조건을 반복해도 점수는 조금 달라질 수 있습니다. 한 번의 변화로 단정하지 마세요.|S03
+steps.trial.parse_title|AI가 답했지만 값을 읽지 못했습니다.|S03
+steps.trial.parse_todo|실제 시험 성공은 기록하지 않았습니다. 할 일: 자세히 보기의 ‘읽어 낸 값’을 보고 다시 시험하세요.|S03
+steps.trial.practice_title|연습이 끝났습니다. 보낼 내용만 확인했습니다.|S03
+steps.trial.practice_omitted|연습에서는 AI의 답과 점수를 만들지 않습니다. 보낸 입력은 자세히 보기에 있습니다.|S03
+steps.trial.after_practice|실제 시험 준비하기|S03
+steps.trial.change_unavailable|이 값의 전후 변화를 확인할 결과가 없습니다.|S03
+steps.trial.server_on|빌린 서버가 아직 켜져 있습니다.|S03
+steps.trial.company_on|회사 서버가 아직 켜져 있습니다. 추가 임대료는 없습니다.|S03
+steps.trial.close_server|AI 켜기와 비용에서 끄기|S03
+steps.trial.edit_again|지시문 고쳐 다시 시험|S03
+steps.trial.batch_done_title|여러 문서 시험이 끝났습니다.|S03
+steps.trial.open_recent|최근 결과에서 보기|S03
+steps.trial.details_title|자세히 · 시험 기록|S03
+steps.trial.details_hint|보낸 입력과 AI의 원래 답, 오류 기록을 봅니다.|S03
+steps.trial.prompt_origin_title|지시문의 출처와 보관 방식|S03
+steps.trial.conditions_title|대상과 조건|S03
 context.model.chip_on|AI 켜짐|위쪽 막대
 context.model.chip_no_cost|요금 없음|위쪽 막대
 context.model.chip_cost_unknown|요금 확인 안 됨|위쪽 막대

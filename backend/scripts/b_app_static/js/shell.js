@@ -1,17 +1,18 @@
 "use strict";
 
 const SHELL_SCREENS = {
-  s01: {title: "nav.recent", views: ["score-summary", "score-problems", "score-history", "score-docs", "score-grid", "score-rows", "score-rule", "score-gaps"]},
-  s02: {title: "nav.source", views: ["source-top", "source-values", "source-page", "source-selection"]},
-  s03: {title: "nav.retest", views: ["jobs-try", "jobs-result", "jobs-connection"]},
-  s04: {title: "nav.compare", views: ["compare-summary", "compare-conditions", "compare-items", "compare-values", "compare-rows", "compare-prompts"]},
-  s05: {title: "nav.jobs", views: ["jobs-list", "jobs-detail"]},
+  s01: {title: "nav.recent", loading: "errors.loading.fact", views: ["score-summary", "score-problems", "score-history", "score-docs", "score-grid", "score-rows", "score-rule", "score-gaps"]},
+  s02: {title: "nav.source", loading: "errors.loading.fact", views: ["source-top", "source-values", "source-page", "source-selection"]},
+  s03: {title: "nav.retest", views: ["jobs-try", "jobs-run", "jobs-connection", "jobs-result"]},
+  s04: {title: "nav.compare", loading: "errors.loading.fact", views: ["compare-summary", "compare-conditions", "compare-items", "compare-values", "compare-rows", "compare-prompts"]},
+  s05: {title: "nav.jobs", loading: "steps.jobs.loading", views: ["jobs-list", "jobs-detail"]},
   s06: {title: "nav.servers", views: ["servers-flow"]},
   s07: {title: "nav.help", views: ["help-topics", "help-glossary"]},
-  s09: {title: "jobs.trial.open_batch", parent: "s03", views: ["jobs-run"]},
   s10: {title: "compare.table.open", parent: "s04", views: ["jobs-compare"]},
   s11: {title: "nav.swap", views: ["swap-view"]}
 };
+// 옛 주소는 새 자리로 잇는다. 여러 문서 시험은 다시 시험 첫 단계의 갈래가 됐다 (ADR-039).
+const SHELL_MOVED = {s09: {id: "s03", args: {trialBranch: "batch"}}};
 const SHELL_NAV_GROUPS = [
   {title: "nav.group_flow", screens: ["s01", "s02", "s03", "s04"]},
   {title: "nav.group_other", screens: ["s06", "s05", "s07"]}
@@ -28,15 +29,19 @@ function shellDefineView(viewId, handlers) {
 }
 function shellInitialRoute(hash) {
   const id = String(hash || "").replace(/^#/, "");
-  return Object.hasOwn(SHELL_SCREENS, id) ? id : "s01";
+  return Object.hasOwn(SHELL_SCREENS, id) || Object.hasOwn(SHELL_MOVED, id) ? id : "s01";
 }
+// 화면마다 읽는 것이 다르다. 실행 결과를 읽지 않는 화면에 그 말을 쓰지 않는다.
+function shellLoadingText(id) { return T(SHELL_SCREENS[id]?.loading || "common.legacy.loading"); }
 function shellConclusion(id, text) {
   document.getElementById(`title-${id}`).textContent = text;
 }
 async function go(id, args = {}) {
   id = shellInitialRoute(id.startsWith("#") ? id : `#${id}`);
+  const moved = SHELL_MOVED[id];
+  if (moved) { id = moved.id; args = {...args, ...moved.args}; }
   S.focus = {...S.focus, ...args}; S.shell.route = id;
-  status(T("errors.loading.fact"));
+  status(shellLoadingText(id));
   if (S.shell.timer !== null) shellScheduleServers();
   const navigation = ++S.shell.navigation;
   history.replaceState(null, "", `#${id}`);
@@ -62,7 +67,7 @@ async function go(id, args = {}) {
     const el = document.getElementById(viewId);
     try {
       if (view.load) {
-        if (!el.textContent.trim()) el.replaceChildren(h("p", {role: "status"}, T("errors.loading.fact")));
+        if (!el.textContent.trim()) el.replaceChildren(h("p", {role: "status"}, shellLoadingText(id)));
         await view.load(args);
       }
       if (navigation !== S.shell.navigation) return;

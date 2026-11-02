@@ -9,7 +9,7 @@ from test_B_b_app_dom import STATIC, run_js
 from test_B_b_app_score_ui import FIXTURE as SCORE_FIXTURE
 
 
-SCREENS = tuple(f"s{n:02}" for n in range(1, 11) if n != 8)
+SCREENS = tuple(f"s{n:02}" for n in range(1, 11) if n not in (8, 9))  # S09는 S03의 갈래가 됐다 (ADR-039).
 BUILD = STATIC / "design/BUILD.md"
 SETUP = SCORE_FIXTURE + r"""
 const scoreApi=api;
@@ -109,18 +109,18 @@ for(const node of root.querySelectorAll('*')){
 
 
 ERROR_PATHS = dict(zip(SCREENS, ["/api/runs", "/api/doc", "/api/options", "/api/diff", "/api/jobs",
-                               "/api/servers", "/api/glossary", "/api/options", "/api/runs"]))
+                               "/api/servers", "/api/glossary", "/api/runs"]))
 
 
 @pytest.mark.parametrize("screen", SCREENS)
 def test_each_screen_api_error_has_fact_action_and_closed_safe_raw(screen):
     run_js(SETUP + f"failurePath={json.dumps(ERROR_PATHS[screen])};const route={json.dumps(screen)};" + r"""
 await go(route,args);await flush();
-if(route==='s06'){ // 단계 화면에는 접힘이 없다. 사실과 할 일은 단계에, 원래 오류는 자세히 서랍에 있다 (ADR-039).
- const flat=el('screen-s06').querySelector('.error-note');assert.ok(flat);assert.ok(flat.querySelector('strong').textContent.trim());
+if(route==='s06'||route==='s03'){ // 단계 화면에는 접힘이 없다. 사실과 할 일은 단계에, 원래 오류는 자세히 서랍에 있다 (ADR-039).
+ const flat=el('screen-'+route).querySelector('.error-note');assert.ok(flat);assert.ok(flat.querySelector('strong').textContent.trim());
  assert.ok(flat.textContent.includes(T('common.todo',{action:''})));assert.equal(flat.querySelector('details'),null);
  assert.ok(!flat.textContent.includes(raw));assertClean(flat);
- el('servers-details-open').click();const body=document.querySelector('#details-drawer .drawer-body');
+ el(route==='s06'?'servers-details-open':'jobs-details-open').click();const body=document.querySelector('#details-drawer .drawer-body');
  assert.ok(body.textContent.includes(raw));assert.equal(body.querySelector('details'),null);assert.equal(body.querySelector('fake-error'),null);assertClean(body);
  return;
 }
@@ -140,7 +140,7 @@ def test_navigation_loading_and_displayed_state_are_announced(screen):
     run_js(SETUP + f"holdPath={json.dumps(ERROR_PATHS[screen])};const route={json.dumps(screen)};" + r"""
 const opening=go(route,args);await flush();
 const statusNode=el('status');assert.equal(statusNode.getAttribute('role'),'status');
-assert.ok(statusNode.textContent.includes(T('errors.loading.fact')));
+assert.ok(statusNode.textContent.includes(shellLoadingText(route)));
 assert.ok([...el('screen-'+route).querySelectorAll('[role="status"]')].some(n=>visible(n)&&n.textContent.trim()));
 holdPath=null;release();await opening;await flush();
 assert.equal(statusNode.textContent,T('common.screen_shown',{screen:T(SHELL_SCREENS[route].title)}));

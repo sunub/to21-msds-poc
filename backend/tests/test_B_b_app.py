@@ -62,8 +62,9 @@ def test_index(app, ctx):
     assert "<title>" in text
     for element in ["app-header", "main-nav", "global-context", "ui-text"]:
         assert f'id="{element}"' in text
-    for no in [1, 2, 3, 4, 5, 6, 7, 9, 10]:
+    for no in [1, 2, 3, 4, 5, 6, 7, 10]:
         assert f'<section id="screen-s{no:02}" hidden' in text
+    assert 'id="screen-s09"' not in text  # 여러 문서 시험은 S03 첫 단계의 갈래가 됐다 (ADR-039).
 
 
 def test_static(app, ctx):
