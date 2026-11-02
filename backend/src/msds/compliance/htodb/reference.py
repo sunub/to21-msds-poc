@@ -28,6 +28,10 @@ class ReferenceProvider:
         self.repo, self.version = repo, knowledge_version
         self._classes, self._tox = make_db_class_lookup(repo), make_db_tox_lookup(repo)
 
+    def class_rows(self, cas_no: str) -> list[dict]:
+        """출처 우선순위(D-05)를 적용하기 전 지식DB 분류 행(환경부·고용노동부 모두). 판정 근거(trace)의 출처 비교에 쓴다."""
+        return list(self._classes(cas_no)) if cas_no else []
+
     def _version(self):
         if self.version:
             return self.version

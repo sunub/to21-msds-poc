@@ -21,6 +21,7 @@ from .mixture.physical import physical_inputs
 from .mixture.rules_loader import load_mixture_rules
 from .mixture.verdict import _order, _rank, aggregate_verdicts
 from .sec15_judge import judge_sec15
+from .trace import TRACE_ASSUMPTIONS, attach_mixture, attach_single, label_causes, label_sources, label_trace, sec15_trace
 
 ENGINE_VERSION = "0.1.0"
 SINGLE_ASSUMPTIONS = [
@@ -57,6 +58,7 @@ def _single_2(inputs: dict, item: dict, provider: ReferenceProvider) -> dict:
                          "reason": f"국내 고시 밖 구분(class_map '참고', D-18) — {c['source']}"}
                         for c in (know or {}).get("reference_only") or []]
     out["knowledge_version"] = (know or {}).get("knowledge_version")
+    attach_single(out["verdicts"], know, provider.class_rows(cas))
     return out
 
 
@@ -99,6 +101,7 @@ def _label(item: dict) -> tuple[list[dict], list[dict]]:
         derived["signal_word"] = "없음"
     msds = {"pictograms": pictograms, "signal_word": signal, "h_codes": h_codes}
     rows, excluded = [], []
+    src = label_sources(classes)
     for f in compare_label(derived, msds):
         code, name, d, m = LABEL_CODE[f["item"]], LABEL_NAME[f["item"]], f["derived"], f["msds"]
         if f["verdict"] == "참고":
@@ -124,7 +127,8 @@ def _label(item: dict) -> tuple[list[dict], list[dict]]:
                      "severity": f["severity"] if bad else None, "sv_id": "SV-06" if bad else None,
                      "msds_value": m, "msds_form": None, "our_value": {"low": d, "high": d},
                      "missing": f["missing"], "extra": f["extra"], "reason": reason, "rule_id": f["rule_id"] or "LBL-1",
-                     "assumptions": list(LABEL_ASSUMPTIONS)})
+                     "assumptions": list(LABEL_ASSUMPTIONS), "trace": label_trace(f, classes, f["rule_id"] or "LBL-1"),
+                     "causes": label_causes(verdict, f, name, src)})
     return rows, excluded
 
 
@@ -133,6 +137,7 @@ def _mixture_2(item: dict, repo) -> tuple[dict, list, list]:
     results = classify_mixture_all(b["components"], b["mixture_props"], state=b["mixture_props"].get("STATE"),
                                    physical=physical_inputs(item))
     out = aggregate_verdicts(results, (item.get("hazard") or {}).get("classes"))
+    attach_mixture(out["verdicts"], results, b["components"], item)  # 판정 근거(41장)·차이 원인 코드
     for e in out["excluded"]:
         if e["status"] == "대조" and not e.get("reason"):
             e["reason"] = "판정하지 않고 MSDS 기재와 성분 분류를 나란히 두는 항목(규칙표 compare 방식)"
@@ -163,6 +168,16 @@ def run_consistency(doc: dict, repo=None, msds_index: int = 0) -> dict:
     s2["excluded"] = s2["excluded"] + label_excl
     f2 = [{"id": f"F-2-{i:03d}", "section": "2", **v} for i, v in enumerate(s2["verdicts"] + label_rows, 1)]
     f15 = [{"id": f"F-15-{i:03d}", **v} for i, v in enumerate(s15["verdicts"], 1)]
+    comps_by_seq = {str(c.get("seq")): c for c in inputs.get("components") or []}
+    for f in f15:
+        f["trace"] = sec15_trace(f, comps_by_seq)
+    traces = {}
+    for f in f2 + f15:  # 설계서 44장: 판정 줄에는 trace_id, 계산 과정은 traces 에
+        t = f.pop("trace", None)
+        f["trace_id"] = None if t is None else "T" + f["id"][1:]
+        f.setdefault("causes", [])
+        if t is not None:
+            traces[f["trace_id"]] = t
     versions = {v.get("knowledge_version") for v in s15["verdicts"]} | {s2.get("knowledge_version")}
     versions.discard(None)
     if repo is not None and hasattr(repo, "version"):
@@ -178,7 +193,8 @@ def run_consistency(doc: dict, repo=None, msds_index: int = 0) -> dict:
             "summary": {"2항": _summary(f2), "15항": _summary(f15), "전체": _summary(f2 + f15),
                         "참고": len(s2["excluded"]) + len(s15["excluded"])},
             "findings": f2 + f15,
+            "traces": traces,
             "excluded": [{"section": "2", **e} for e in s2["excluded"]] + s15["excluded"],
-            "gaps": gaps, "assumptions": assumptions, "missing": inputs.get("missing"),
+            "gaps": gaps, "assumptions": assumptions + TRACE_ASSUMPTIONS, "missing": inputs.get("missing"),
         },
     }
