@@ -376,6 +376,8 @@ function sourceCriterionValues(row) {
 function sourceCriteriaTable() {
   const D = S.source, list = sourceCriteria().filter(row => sourceCriterionValues(row).loss > 1e-9);
   if (!list.length) return null;
+  // 문서를 고르면 그 문서의 깎인 점수를 보이므로 그 순서로 놓는다. 전체일 때는 API 순서 그대로다.
+  if (!D.docAll) list.sort((a, b) => sourceCriterionValues(b).loss - sourceCriterionValues(a).loss);
   const shown = D.allCriteria ? list : list.slice(0, SOURCE_TOP_CRITERIA);
   const unknown = T("context.unavailable");
   const cellCount = counts => counts ? Object.values(counts).reduce((sum, count) => sum + (num(count) ? count : 0), 0) : null;
@@ -390,7 +392,7 @@ function sourceCriteriaTable() {
         h("td", null, T("steps.source.loss", {points: fmt1(values.loss)})),
         h("td", null, num(values.rows) ? T("compare.rows.unit", {count: values.rows}) : unknown),
         h("td", null, num(cells) ? T("source.labels.cells", {count: cells}) : unknown),
-        h("td", null, h("button", {type: "button", class: `source-open-criterion${row.rank === 1 ? " primary" : ""}`, disabled: !row.section, onclick: () => sourceOpenCriterion(row)}, T("steps.source.open"))));
+        h("td", null, h("button", {type: "button", class: `source-open-criterion${row === shown[0] ? " primary" : ""}`, disabled: !row.section, onclick: () => sourceOpenCriterion(row)}, T("steps.source.open"))));
     }))),
     list.length > SOURCE_TOP_CRITERIA ? h("button", {id: "source-all-criteria", type: "button", class: "text-button", onclick: () => { D.allCriteria = !D.allCriteria; sourceRenderTop(); }},
       T(D.allCriteria ? "steps.source.top_criteria" : "steps.source.all_criteria", {count: list.length})) : null];

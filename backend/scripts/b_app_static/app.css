@@ -436,6 +436,7 @@ body:has(#screen-s02:not([hidden])) .sidebar { min-height: 0; overflow-y: auto; 
 .server-progress { display: flex; flex-direction: column; gap: var(--space-control-y); margin: 0; padding: 0; list-style: none; }
 .server-progress li { display: flex; align-items: center; gap: var(--space-compact); margin: 0; color: var(--muted); }
 .server-progress .done, .server-progress .now { color: var(--ink); }
+.server-progress .step-no { width: 18px; height: 18px; font-size: var(--code-size); }
 .server-progress .now { font-weight: 700; }
 .server-progress .done .step-no { background: var(--soft); border-color: var(--accent); color: var(--accent); }
 .server-progress .now .step-no { background: var(--accent); border-color: var(--accent); color: var(--paper); }
