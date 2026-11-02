@@ -19,6 +19,7 @@ import base64
 import json
 import os
 import re
+import threading
 import time
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -144,6 +145,73 @@ def parse_json(text: str):
         raise
 
 
+MAX_ATTEMPTS = 5          # 요청 하나를 보내는 최대 횟수
+BACKOFF_FIRST = 5         # 초. 실패 중 다시 보내 보기 전 대기. 한 차례 실패할 때마다 두 배 (5→10→20→40)
+UNREACHABLE_AFTER = 5     # 연달아 이만큼의 차례가 실패하면 서버가 꺼진 것으로 본다
+
+
+class ServerUnreachable(RuntimeError):
+    """모델 서버가 연달아 응답하지 않아, 이 클라이언트의 남은 호출을 보내지 않는다."""
+
+
+class ServerGate:
+    """한 클라이언트의 호출들이 함께 보는 서버 연결 상태. 스레드 여럿이 동시에 쓴다.
+
+    정상이면 요청을 막지 않는다. 연결 오류·429·5xx가 나면 실패 중이 되고, 그때부터는 정한 시각에 한 요청만
+    다시 보내 본다(나머지는 그 결과를 기다린다). 같은 차례에 함께 나간 요청들의 실패는 한 번만 센다.
+    서버가 응답하면(거부 응답 포함) 정상으로 돌아가고, 연달아 rounds 차례가 실패하면 닫혀 모든 호출이
+    ServerUnreachable로 바로 끝난다. 닫힌 관문은 다시 열지 않는다 (다시 돌리면 새 클라이언트를 만든다).
+    """
+
+    def __init__(self, first_delay: float = BACKOFF_FIRST, rounds: int = UNREACHABLE_AFTER):
+        self.first_delay = first_delay
+        self.rounds = rounds
+        self._cond = threading.Condition()
+        self._streak = 0          # 연달아 실패한 차례 수. 0이면 정상
+        self._probing = False     # 실패 중 다시 보내 보는 요청이 나가 있는가
+        self._next_at = 0.0       # 다음에 다시 보내 볼 시각 (time.monotonic)
+        self._down = False
+
+    def enter(self) -> int:
+        """보내도 될 때까지 기다렸다가 이 요청의 차례 번호를 돌려준다. 닫혔으면 ServerUnreachable."""
+        with self._cond:
+            while True:
+                if self._down:
+                    raise ServerUnreachable(f"모델 서버가 {self.rounds}차례 연달아 응답하지 않아(연결 오류·429·5xx) "
+                                            "남은 호출을 보내지 않습니다")
+                if self._streak == 0:
+                    return 0
+                now = time.monotonic()
+                if not self._probing and now >= self._next_at:
+                    self._probing = True
+                    return self._streak
+                self._cond.wait(None if self._probing else self._next_at - now)
+
+    def reached(self) -> None:
+        with self._cond:
+            self._streak = 0
+            self._probing = False
+            self._cond.notify_all()
+
+    def failed(self, turn: int) -> None:
+        with self._cond:
+            if turn == self._streak:          # 이 차례의 첫 실패만 센다. 늦게 온 이전 차례 실패는 버린다
+                self._streak += 1
+                self._probing = False
+                if self._streak >= self.rounds:
+                    self._down = True
+                else:
+                    self._next_at = time.monotonic() + self.first_delay * 2 ** (self._streak - 1)
+            self._cond.notify_all()
+
+    def abandon(self, turn: int) -> None:
+        """서버 상태를 알 수 없는 예외로 끝난 요청. 다시 보내 보던 요청이었으면 자리를 내준다."""
+        with self._cond:
+            if turn and turn == self._streak:
+                self._probing = False
+                self._cond.notify_all()
+
+
 class ChatClient:
     _working_mode: dict[str, str] = {}   # 모델별로 성공한 구조화 출력 방식
 
@@ -156,8 +224,12 @@ class ChatClient:
         api_key = os.getenv(cfg["api_key_env"]) or "EMPTY"
         if not base_url:
             raise RuntimeError(f".env에 {cfg['base_url_env']}가 없습니다.")
-        self.client = OpenAI(base_url=base_url, api_key=api_key,
-                             timeout=cfg.get("run", {}).get("request_timeout", 600))
+        run = cfg.get("run", {})
+        # SDK 자체 재시도(기본 2회)는 끈다. 켜 두면 아래 재시도와 곱해져 요청이 몇 배로 는다
+        self.client = OpenAI(base_url=base_url, api_key=api_key, max_retries=0,
+                             timeout=run.get("request_timeout", 600))
+        # 한 문서의 항 호출(스레드 여럿)이 함께 쓴다. 서버가 꺼졌으면 항마다 따로 재시도하지 않는다
+        self.gate = ServerGate(run.get("backoff_first", BACKOFF_FIRST), run.get("unreachable_after", UNREACHABLE_AFTER))
         # 출력 길이 한도 이름: 모델에 따라 max_tokens 또는 max_completion_tokens
         self.token_param = cfg.get("token_param", "max_tokens")
 
@@ -334,28 +406,35 @@ class ChatClient:
         return CallResult(None, text, mode, finish, usage, time.time() - t0, self.model, 1, errors, requests)
 
     def _call_with_backoff(self, messages, mode, schema_name, strict_schema, max_tokens, template=None, examples=None):
+        """요청 하나. 연결 오류·429·5xx면 관문(self.gate)이 정한 때에 다시 보낸다. 대기는 관문 안에서 한다.
+        서버가 연달아 응답하지 않으면 관문이 ServerUnreachable을 낸다. 이 호출도 최대 MAX_ATTEMPTS번만 보낸다."""
         from openai import APIStatusError, APIConnectionError, RateLimitError
 
-        delay = 5
-        for i in range(5):
+        for _ in range(MAX_ATTEMPTS):
+            turn = self.gate.enter()
             try:
-                return self._request(messages, mode, schema_name, strict_schema, max_tokens, template, examples)
-            except RateLimitError:
-                time.sleep(delay); delay *= 2
-            except APIConnectionError:
-                time.sleep(delay); delay *= 2
+                resp = self._request(messages, mode, schema_name, strict_schema, max_tokens, template, examples)
+            except (RateLimitError, APIConnectionError):     # 제한 시간 초과(APITimeoutError)도 여기 든다
+                self.gate.failed(turn)
+                continue
             except APIStatusError as e:
+                if e.status_code == 429 or e.status_code >= 500:
+                    self.gate.failed(turn)
+                    continue
+                self.gate.reached()                          # 거부 응답이라도 서버는 살아 있다
                 msg = str(e)
                 if e.status_code == 400 and "max_tokens" in msg and self.token_param == "max_tokens":
                     self.token_param = "max_completion_tokens"   # 추론 모델은 이름이 다르다
                     continue
                 if e.status_code in (400, 404, 422) and mode != "none":
                     raise _ModeRejected(str(e)[:300])
-                if e.status_code >= 500:
-                    time.sleep(delay); delay *= 2
-                    continue
                 raise
-        raise RuntimeError("API 호출이 계속 실패했습니다 (재시도 5회).")
+            except BaseException:
+                self.gate.abandon(turn)                      # 다시 보내 보던 요청이면 다른 호출이 이어받게 한다
+                raise
+            self.gate.reached()
+            return resp
+        raise RuntimeError(f"API 호출이 계속 실패했습니다 (재시도 {MAX_ATTEMPTS}회).")
 
 
 class _ModeRejected(Exception):
