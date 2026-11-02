@@ -4,7 +4,7 @@
 규칙은 TO21 예제(25 황산)의 값 없는 행에서 가져왔다. 행을 새로 만들거나 지우지 않는다
 (원문에 있는 "해당없음" 행을 적는 것은 추출 쪽 몫이다).
 - 8항 노출기준: 종류(limit_type)가 비었거나 '기타'면 국내·ACGIH는 TWA, 생물학적은 BEI
-- 11항 독성: 지표(descriptor)가 비었으면 '결과기술', 혼합물(MIX) 급성독성은 'ATE'
+- 11항 독성: 지표(descriptor)가 비었으면 '결과기술'. 원문 줄에 ATE가 있어 추출이 채운 'ATE'는 그대로 둔다
 - 12항 생태: 지표가 비었으면 '결과기술', 잔류성은 '분해율', 생물농축성은 같은 성분에 아직 없는 'BCF'→'분해율' 순
 - 11항 CMR: 등급(class)은 null
 - 11·12항 값 없는 행의 수치(q)가 비었으면 상태만 담은 빈 수치 객체(채점기가 줄을 짝지을 때 q의 상태까지 본다)
@@ -16,7 +16,6 @@ import copy
 NO_VALUE = {"자료없음", "해당없음", "미기재"}
 # shortcut: 아래 기본값은 TO21 예제 1건(25 황산)에서 미룬 것, 작은 골드(A-2)가 나오면 다시 맞춘다
 LIMIT_TYPE = {"국내": "TWA", "ACGIH": "TWA", "생물학적": "BEI"}
-ACUTE = {"TX_ORAL", "TX_DERMAL", "TX_INHAL"}
 ECO_DESCRIPTORS = {"ECO_PERSIST": ["분해율"], "ECO_BIOACC": ["BCF", "분해율"]}
 
 
@@ -34,7 +33,7 @@ def apply(msds_item: dict) -> dict:
             r["limit_type"] = LIMIT_TYPE[r["standard"]]
     for r in m.get("toxicity") or []:
         if r.get("status") in NO_VALUE and r.get("descriptor") is None:
-            r["descriptor"] = "ATE" if r.get("comp_ref") == "MIX" and r.get("endpoint") in ACUTE else "결과기술"
+            r["descriptor"] = "결과기술"
     eco = m.get("ecotox") or []
     used = {(r.get("comp_ref"), r.get("endpoint"), r.get("descriptor")) for r in eco}
     for r in eco:
