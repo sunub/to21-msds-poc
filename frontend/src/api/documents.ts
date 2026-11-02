@@ -6,6 +6,7 @@
 import { queryOptions } from "@tanstack/react-query";
 import { apiUrl, isPermanentError, requestJson } from "./client";
 import { DEMO_DETAIL, DEMO_DOC_ID } from "./demo";
+import { demoPageLines } from "./demo-pages";
 import {
   FINAL_STATUSES,
   createDocumentParamsSchema,
@@ -91,7 +92,10 @@ export const pageImageUrl = (id: string, page: number) => apiUrl(`${doc(id)}/pag
 export const pageLinesQuery = (id: string, page: number) =>
   queryOptions({
     queryKey: documentKeys.lines(id, page),
-    queryFn: ({ signal }) => requestJson(pageLinesResponseSchema, `${doc(id)}/pages/${page}/lines`, { signal }),
+    queryFn: ({ signal }) =>
+      process.env.NODE_ENV !== "production" && id === DEMO_DOC_ID
+        ? demoPageLines(page)
+        : requestJson(pageLinesResponseSchema, `${doc(id)}/pages/${page}/lines`, { signal }),
     // 전처리가 끝난 쪽의 원문은 바뀌지 않는다
     staleTime: Infinity,
   });

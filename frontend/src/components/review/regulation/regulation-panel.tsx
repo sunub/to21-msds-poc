@@ -5,8 +5,9 @@ import { useMemo, useState } from "react";
 import { DEMO_VALIDATION_ID } from "@/api/demo-findings";
 import { findingsQuery } from "@/api/findings";
 import type { FindingSummary, Verdict } from "@/api/findings-schemas";
-import { Foot, Pane, Row, SourcePane } from "@/components/shell/layout";
+import { Foot, Pane, Row } from "@/components/shell/layout";
 import { Button, Callout, Checkbox, PillTabs, Skeleton } from "@/components/ui";
+import { FindingSourceViewer } from "../source-viewer";
 import type { Decision } from "../hazard/finding-detail";
 import type { SortKey } from "../hazard/findings-table";
 import { VERDICT_LABEL, VERDICT_ORDER, severityRank } from "../hazard/verdict";
@@ -87,7 +88,11 @@ export function RegulationPanel({ docId, onSave }: { docId: string; onSave: () =
   return (
     <>
       <Row>
-        <SourcePane />
+        <FindingSourceViewer
+          docId={docId}
+          refs={current?.source_refs.map((r) => r.page_no) ?? []}
+          resetKey={current?.finding_id}
+        />
         <div className="flex min-w-0 grow basis-105 flex-col gap-5">
           <Pane title="선택한 판정의 상세">
             {current ? (
