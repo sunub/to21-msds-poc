@@ -24,21 +24,28 @@ def _rows() -> list[dict]:
     return read_rules(_MAP)
 
 
-def _find(code: str, cat: str | None) -> list[dict]:
+_EFFECT_WORDS = ("마취", "호흡기")
+
+
+def _find(code: str, cat: str | None, effect: str | None = None) -> list[dict]:
     if not cat or any(code.startswith(s["class_prefix"]) and cat == s["category"] for s in label_rules()["skip_category"]):
         return []
     rows = [r for r in _rows() if r["class_code"] == code]
-    return [r for r in rows if r["category"] == cat] or [r for r in rows if r["category"].startswith(cat)]
+    found = [r for r in rows if r["category"] == cat] or [r for r in rows if r["category"].startswith(cat)]
+    words = [w for w in _EFFECT_WORDS if w in (effect or "")]
+    if words and len(found) > 1:  # 표적장기 1회 구분3: 효과(마취 → H336, 호흡기 자극 → H335)로 행을 고른다(11/02 F)
+        found = [r for r in found if any(w in (r.get("note") or "") for w in words)] or found
+    return found
 
 
 def _match(pc: set, pictogram: str, from_classes: list[str] | None) -> set:
     return {x for x in pc if x[0] == pictogram and (from_classes is None or x[1] in from_classes)}
 
 
-def derive_label(classes: list[tuple[str, str | None]]) -> dict:
-    """classes: [(class_code, category)]. 반환: pictograms, signal_word, h_codes."""
+def derive_label(classes: list[tuple]) -> dict:
+    """classes: [(class_code, category)] 또는 [(class_code, category, effect)]. 반환: pictograms, signal_word, h_codes."""
     rules = label_rules()
-    hits = [(c, r) for c, cat in classes for r in _find(c, cat)]
+    hits = [(c[0], r) for c in classes for r in _find(c[0], c[1], c[2] if len(c) > 2 else None)]
     pc = {(r["pictogram"], c) for c, r in hits if r["pictogram"]}
     omitted = set()
     for rule in rules["pictogram_omit"]:  # 조건은 생략 전 상태로 판단한다

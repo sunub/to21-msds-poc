@@ -66,6 +66,8 @@ LABEL_ASSUMPTIONS = [
     "표시 요소는 MSDS 2항에 적힌 분류에서 도출해(고시 별표2, 제6조의2) MSDS의 그림문자·신호어·H코드와 비교한다(설계서 31장 공통 검증)",
     "H314가 있으면 H318은 적지 않아도 불일치가 아니라 참고(10/30 결정 C3). 그림문자 5개 이상이면 4개만 적어도 일치(PIC-4)",
     "분류에 없는 H코드를 MSDS가 더 적은 경우(label_rules '경고')는 판정 4종에 맞춰 불일치·낮음으로 낸다",
+    "표적장기 1회 구분3은 효과로 H335(호흡기 자극)·H336(마취)을 고른다. 효과가 비어 있으면 MSDS H코드로 짐작",
+    "MSDS의 묶음 H코드(예: H302+H332)는 나눠 비교하고, MSDS 신호어 '없음·해당없음'은 '없음'으로 맞춘다",
 ]
 
 
@@ -73,11 +75,29 @@ def _fmt_list(v):
     return ", ".join(v) if isinstance(v, list) else (v if v else "없음")
 
 
-def _label(inputs: dict) -> tuple[list[dict], list[dict]]:
-    """MSDS 2항 분류 → 표시 요소 도출 → MSDS 표시 요소와 비교. (판정 줄, 참고 줄)."""
-    hz = inputs.get("hazard") or {}
-    derived = derive_label([(c["class_code"], c.get("category")) for c in hz.get("classes") or [] if c.get("class_code")])
-    msds = {"pictograms": hz.get("pictograms"), "signal_word": hz.get("signal_word"), "h_codes": hz.get("h_codes")}
+def _label(item: dict) -> tuple[list[dict], list[dict]]:
+    """MSDS 2항 분류 → 표시 요소 도출 → MSDS 표시 요소와 비교. (판정 줄, 참고 줄). item = 추출 JSON msds[i]
+    (loader 입력에는 분류의 효과(effect) 칸이 없어 원본을 읽는다)."""
+    hz = item.get("hazard") or {}
+    # MSDS 값 정리: 'H302+H332' 같은 묶음 H코드는 나눠 보고, 신호어 '없음'은 신호어 없음으로 본다(11/02 F)
+    raw_h = [h.get("code") if isinstance(h, dict) else h for h in hz.get("h_statements") or []]
+    h_codes = sorted({p.strip() for h in raw_h if h for p in str(h).split("+") if p.strip()})
+    pictograms = [p.get("code") if isinstance(p, dict) else p for p in hz.get("pictograms") or []]
+    signal = hz.get("signal_word")
+    signal = "없음" if str(signal or "").strip() in ("없음", "해당없음", "해당 없음") else (signal or None)
+    classes = []
+    for c in hz.get("classes") or []:
+        if not c.get("class_code"):
+            continue
+        effect = c.get("effect")
+        if c["class_code"] == "HH_STOT_SE" and str(c.get("category")) == "3" and not effect:
+            # 효과가 비어 있으면 MSDS H코드로 짐작한다(H336 마취, H335 호흡기 자극). 둘 다 없으면 둘 다 도출
+            effect = " ".join(w for w, h in (("마취", "H336"), ("호흡기", "H335")) if h in h_codes) or None
+        classes.append((c["class_code"], c.get("category"), effect))
+    derived = derive_label(classes)
+    if signal == "없음" and derived["signal_word"] is None:  # 분류가 없어 신호어도 없음 = MSDS '없음'
+        derived["signal_word"] = "없음"
+    msds = {"pictograms": pictograms, "signal_word": signal, "h_codes": h_codes}
     rows, excluded = [], []
     for f in compare_label(derived, msds):
         code, name, d, m = LABEL_CODE[f["item"]], LABEL_NAME[f["item"]], f["derived"], f["msds"]
@@ -139,7 +159,7 @@ def run_consistency(doc: dict, repo=None, msds_index: int = 0) -> dict:
         s2 = {"verdicts": [], "excluded": [{"class_code": None, "form": None, "status": "판단불가", "msds_value": None,
                                             "our_value": None, "reason": pt["basis"]}]}
     s15 = judge_sec15(inputs, RegulationProvider(repo))
-    label_rows, label_excl = _label(inputs)
+    label_rows, label_excl = _label(item)
     s2["excluded"] = s2["excluded"] + label_excl
     f2 = [{"id": f"F-2-{i:03d}", "section": "2", **v} for i, v in enumerate(s2["verdicts"] + label_rows, 1)]
     f15 = [{"id": f"F-15-{i:03d}", **v} for i, v in enumerate(s15["verdicts"], 1)]
