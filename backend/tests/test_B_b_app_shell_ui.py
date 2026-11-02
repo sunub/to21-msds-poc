@@ -321,6 +321,21 @@ def test_top_bar_shows_price_and_cost_so_far_for_the_session_server():
     """)
 
 
+def test_top_bar_makes_room_for_price_by_dropping_the_answer_date_first():
+    # 요금이 붙으면 칩이 길어져 1440px에서 문서 묶음과 정답 이름이 잘렸다. 날짜 글을 먼저 뺀다. 11/2 브라우저 측정.
+    run_js(FIXTURES + TOP_BAR + r"""
+      await start();await serve({models:[OFF],pods:[]});
+      assert.equal(chipOf().classList.contains('billing'),false);
+      await serve({models:[ON],session:{pod_id:'p1',ready:true,idle_minutes:20},pods:[POD]});
+      assert.ok(chipOf().classList.contains('billing'));
+    """)
+    from test_B_b_app_dom import STATIC
+    css = (STATIC / 'app.css').read_text()
+    assert '@media (max-width: 1599px) { .context-fields:has(.context-ai.billing) #context-answer-note { display: none; } }' in css
+    # 1280px에서는 실패 글만으로도 문서 묶음 이름이 잘렸다. 날짜 글을 상태와 상관없이 뺀다.
+    assert '@media (max-width: 1439px) { #context-answer-note { display: none; } }' in css
+
+
 def test_top_bar_shows_cost_while_the_server_is_still_starting():
     run_js(FIXTURES + TOP_BAR + r"""
       await start();await serve({models:[LOADING],session:{pod_id:'p1',ready:false,idle_minutes:20},pods:[POD]});
