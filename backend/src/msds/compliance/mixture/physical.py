@@ -14,9 +14,40 @@ _NO_CLASS = "분류안됨"
 
 
 def physical_inputs(msds_item) -> dict:
-    """추출 JSON msds[i]에서 이 모듈이 쓰는 입력만 꺼낸다: 13항 transport, 2항 hazard.classes."""
+    """추출 JSON msds[i]에서 이 모듈이 쓰는 입력만 꺼낸다: 13항 transport, 2항 hazard.classes, 9항 인화점·초기끓는점."""
+    def q(code):
+        return [(p.get("q") or {}) for p in msds_item.get("physchem") or []
+                if p.get("prop_code") == code and str(p.get("comp_ref", "MIX")) in ("MIX", "None")]
     return {"transport": msds_item.get("transport") or [],
-            "msds_classes": (msds_item.get("hazard") or {}).get("classes") or []}
+            "msds_classes": (msds_item.get("hazard") or {}).get("classes") or [],
+            "flash_point": q("FLASH_POINT"), "boiling": q("BOILING")}
+
+
+# 인화성 액체 9항 단계: 규칙표 v0.3 flam_liquid.yaml(r2026.10c, 고시 제2026-26호 별표1)을 그대로 옮김. 단위 ℃
+FLQ_BASIS = "규칙표 v0.3 flam_liquid.yaml (고시 제2026-26호 별표1)"
+
+
+def _flam_liquid(physical):
+    """(구분 low, 구분 high, 상태, 설명). 인화점이 여럿이면 가장 낮은 값, 초기끓는점은 가장 낮은 값."""
+    fps = [x for x in physical.get("flash_point") or [] if isinstance(x.get("value"), (int, float))]
+    if not fps:
+        st = next((x.get("status") for x in physical.get("flash_point") or [] if x.get("status")), None)
+        if st and ("해당없음" in st or "불연" in st):
+            return "분류안됨", "분류안됨", "확정", f"9항 인화점 '{st}' (non_flammable)"
+        return None, None, "근거부족", f"9항 인화점 {st or '없음'} (missing_prop)"
+    fp = min(x["value"] for x in fps)
+    bps = [x["value"] for x in physical.get("boiling") or [] if isinstance(x.get("value"), (int, float))]
+    bp = min(bps) if bps else None
+    if fp < 23:
+        if bp is None:
+            return "2", "1", "경계", f"인화점 {fp:g}℃ < 23, 초기끓는점 없음 → 구분 1(≤35℃) 또는 2"
+        cat = "1" if bp <= 35 else "2"
+        return cat, cat, "확정", f"인화점 {fp:g}℃ < 23, 초기끓는점 {bp:g}℃ (FLQ-{cat})"
+    if fp <= 60:
+        return "3", "3", "확정", f"인화점 {fp:g}℃ (23~60, FLQ-3)"
+    if fp <= 93:
+        return "4", "4", "확정", f"인화점 {fp:g}℃ (60 초과~93, FLQ-4)"
+    return "분류안됨", "분류안됨", "확정", f"인화점 {fp:g}℃ > 93"
 
 
 def _result(status, low=None, high=None, reason=None):
@@ -46,9 +77,16 @@ def _needed_state(item_id):
 
 
 def _representative(components):
-    """함량(상한)이 가장 큰 성분. 상한이 없는 성분은 후보에서 뺀다. 동률이면 앞선 성분."""
+    """지식DB 분류가 있는 성분 중 함량(상한)이 가장 큰 성분(설계서 v0.4 52장 미결 6의 현재 가정).
+
+    분류가 있는 성분이 없으면 함량(상한)이 가장 큰 성분. 상한이 없는 성분은 후보에서 뺀다. 동률이면 앞선 성분.
+    전에는 분류와 상관없이 함량 최대 성분을 골라, 물(80%)이나 'Other ingredient'(CAS 없음)가 대표성분이 되어
+    물리적 위험성 전체가 근거부족이 되었다(T21-023 염산 20%, T21-006, 11/02 F 수정).
+    """
     cands = [c for c in components if c.get("high") is not None]
-    return max(cands, key=lambda c: c["high"]) if cands else None
+    with_class = [c for c in cands if c.get("class_rows")]
+    pool = with_class or cands
+    return max(pool, key=lambda c: c["high"]) if pool else None
 
 
 def _un(transport):
@@ -60,11 +98,12 @@ def _comp_row(c, role, **kw):
 
 
 def _transport(item_id, item, components, mixture_props, physical, state, rules):
-    asm = ["대표성분: 함량(상한)이 가장 큰 성분 한 개(규칙표 미결 4, 정의 확인 필요). 동률이면 입력 순서가 앞선 성분",
+    asm = ["대표성분: 지식DB 분류가 있는 성분 중 함량(상한)이 가장 큰 성분 한 개(설계서 52장 미결 6 가정, 정의 확인 필요). "
+           "없으면 함량 최대 성분, 동률이면 입력 순서가 앞선 성분",
            "대표성분의 분류는 class_rows(지식DB)에서 찾고 출처 우선순위는 build_class_inputs 를 따름",
            "UN 번호는 운송 규제 여부(해당·비위험물) 확인에만 쓰고 UN→분류 변환은 하지 않음: 규칙표가 가리키는 un_class_map.csv 가 저장소에 없음"]
     if item_id == "PH_FLAM_LIQ":
-        asm.append("flam_liquid.yaml(인화점·끓는점 판정)이 저장소에 없어 인화성 액체의 물성 단계는 계산하지 않음")
+        asm.append(f"인화성 액체의 9항 단계는 {FLQ_BASIS} 기준을 코드로 옮겨 계산(11/02 F)")
     rule_id = f"PHY-{item_id.removeprefix('PH_')}"
     need = _needed_state(item_id)
     st = _state(mixture_props, state)
@@ -97,6 +136,13 @@ def _transport(item_id, item, components, mixture_props, physical, state, rules)
         inputs[-1]["used_as"] = keys
         return _out(item_id, rules, res, rule_id, "대표성분의 분류를 혼합물 분류로 채택", inputs, asm,
                     extra=_flag(item, mixture_props, rules))
+    if item_id == "PH_FLAM_LIQ":  # 9항 인화점·초기끓는점 단계 (flam_liquid.yaml)
+        low, high, status, why = _flam_liquid(physical)
+        inputs.append({"role": "물성", "flash_point": physical.get("flash_point"), "boiling": physical.get("boiling"),
+                       "source": "9항 physchem"})
+        return _out(item_id, rules, _result(status, low, high, why if status == "근거부족" else None), "PHY-FLQ",
+                    "대표성분 분류 → 9항 인화점·초기끓는점", inputs, asm + [why],
+                    thresholds=[{"rule_id": "FLQ", "basis": FLQ_BASIS}])
     if item.get("rules"):  # 9항 물성 단계 (규칙표 property)
         props = build_props(mixture_props, rules)
         tr = evaluate_rules_trace(item["rules"], {}, props=props)

@@ -12,7 +12,9 @@ from .ranges import content_range
 _VALID = {"값있음", None}  # 추출 q.status 중 값을 쓸 수 있는 것
 _KIN_UNITS = {"mm2/s", "mm²/s", "cst", "㎟/s"}  # 동점도 단위 (1 cSt = 1 mm²/s)
 _DYN_UNITS = {"cp", "mpa·s", "mpa.s", "mpas", "mpa*s", "pa·s", "pa.s", "poise"}
-_STATE = {"액체": "액체", "고체": "고체", "기체": "가스", "가스": "가스"}  # 규칙표 prop("STATE") 값 형식
+# 규칙표 prop("STATE") 값 형식. 앞에서부터 찾으므로 '액체가스'(액화가스)가 '가스'로 잡히게 가스를 먼저 둔다.
+# '액상'·'분말'·'고상'처럼 흔한 표기도 받는다(11/02 F: T21-039 '액상'이 성상 미상이 되어 흡입 형태 셋을 모두 계산하던 문제).
+_STATE = {"가스": "가스", "기체": "가스", "액체": "액체", "액상": "액체", "고체": "고체", "고상": "고체", "분말": "고체"}
 _FLAG_NAMES = ("non_additive_1", "non_additive_2", "ph_extreme")
 
 

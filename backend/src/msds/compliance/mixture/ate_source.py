@@ -13,8 +13,13 @@ _ROUTE_EN = {**{k: k for k in _ROUTE}, **{v: k for k, v in _ROUTE.items()}}
 _FORM_EN = {**{k: k for k in _FORM}, **{v: k for k, v in _FORM.items()}}
 
 
+# build_components 는 성상 '기체'를 규칙표 STATE 값 '가스'로 맞춘다. params 의 키는 inhal_forms_기체 라서 되돌려 찾는다.
+# 전에는 '가스'로 찾다가 키가 없어 가스 제품도 흡입 형태 셋을 모두 계산했다(11/02 F 수정).
+_FORM_KEY = {"가스": "기체"}
+
+
 def inhal_forms(state: str) -> list[str]:
-    key = f"inhal_forms_{state}"  # 규칙 파일에 없는 성상은 형태를 정하지 않는다
+    key = f"inhal_forms_{_FORM_KEY.get(state, state)}"  # 규칙 파일에 없는 성상은 형태를 정하지 않는다
     return param_list(key) if has_param(key) else []
 
 
