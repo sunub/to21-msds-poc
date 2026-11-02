@@ -413,7 +413,7 @@ function guideRender() {
           h("p", {class: "muted"}, T("guide.ai.skip_note"))] : null,
         guideButton("guide-next", guideNextKey(), guideNext, true),
         ["G02", "G14"].includes(screen) && guideNextDisabled() ? h("p", {class: "guide-disabled-note"}, T(screen === "G02" ? "guide.choices.disabled" : "guide.defaults.disabled")) : null,
-        screen === "G10" ? [h("p", {class: "guide-after"}, T("guide.ai.cost_action")), h("p", {class: "muted"}, T("guide.ai.cost"))] : null)))),
+        screen === "G10" ? [h("p", {class: "guide-after"}, T("guide.ai.cost_action")), h("p", {class: "muted"}, T("guide.ai.cost")), h("p", {class: "muted"}, T("guide.ai.rented_time"))] : null)))),
     h("div", {id: "guide-confirm", class: "guide-confirm", hidden: true}));
   document.getElementById("guide-next").disabled = guideNextDisabled();
   guideRefreshRecords(); document.getElementById("guide-title").focus();
@@ -924,6 +924,7 @@ function guideDataContent(kind) {
   return h("div", null, h("p", {class: "guide-lead"}, D("lead")),
     kind === "source" ? [h("p", null, D("example")), h("p", null, D("set"))] : [h("h2", null, D("kinds_title")), h("ul", {class: "guide-terms"}, h("li", null, D("gold")), h("li", null, D("silver")))],
     h("h2", null, D("change_title")), h("p", null, D("change")),
+    h("h2", null, D("receive_title")), h("p", null, D("receive")),
     h("h2", null, D("add_title")), h("ol", {class: "guide-steps"}, adds.map(key => h("li", null, D(key)))),
     h("p", {class: "guide-after"}, D("caution")));
 }
