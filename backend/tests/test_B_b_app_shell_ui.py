@@ -29,7 +29,7 @@ def test_navigation_menu_focus_registration_and_hash_changes():
       location.hash='#s02';await start();
       const shared=document.getElementById('global-context');
       for(let n=1;n<=10;n++){
-        if(n===8)continue;
+        if(n===8||n===9)continue;  // S09는 다시 시험 첫 단계의 갈래가 됐다. 옛 주소는 아래에서 본다.
         const id='s'+String(n).padStart(2,'0');
         const button=document.querySelector('[data-screen="'+id+'"]');
         assert.equal(button.tagName,'button');
@@ -40,6 +40,7 @@ def test_navigation_menu_focus_registration_and_hash_changes():
         assert.equal(button.getAttribute('aria-current'),'page');
         assert.equal(document.getElementById('global-context'),shared);
       }
+      await go('s09');assert.equal(location.hash,'#s03');assert.equal(document.getElementById('screen-s03').hidden,false);
       let loaded=0;
       shellDefineView('source-top',{render:el=>el.textContent='source view',load:async()=>{loaded++;}});
       await go('s02');assert.equal(loaded,1);assert.equal(document.getElementById('source-top').textContent,'source view');
@@ -428,7 +429,7 @@ def test_menu_groups_the_work_order_and_the_rest_without_numbers():
       await start();const nav=document.getElementById('main-nav');
       const groups=nav.querySelectorAll('.nav-group');assert.equal(groups.length,2);
       const ids=g=>Array.from(g.querySelectorAll('[data-screen]'),b=>b.dataset.screen);
-      assert.deepEqual(ids(groups[0]).filter(id=>!['s09','s10'].includes(id)),['s01','s02','s03','s04']);
+      assert.deepEqual(ids(groups[0]).filter(id=>id!=='s10'),['s01','s02','s03','s04']);
       assert.deepEqual(ids(groups[1]),['s06','s05','s07']);
       assert.ok(groups[0].textContent.includes(T('nav.group_flow')));
       assert.ok(groups[1].textContent.includes(T('nav.group_other')));

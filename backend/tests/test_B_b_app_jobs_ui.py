@@ -45,6 +45,13 @@ api=async(path,opts={})=>{requests.push(path);
  throw new Error(path);
 };
 post=async(path,body)=>{posted.push({path,body});return {id:'j1',stopped:true};};
+const stepNow=()=>el('jobs-step-bar').querySelector('[aria-current="step"]').textContent;
+const atStep=key=>assert.ok(stepNow().includes(T('steps.trial.'+key)),stepNow());
+const stepTo=id=>jobsGoStep(id);
+const openDrawer=()=>{drawerClose();el('jobs-details-open').click();return document.querySelector('#details-drawer .drawer-body');};
+const chosenModel=(id='jobs-model')=>el(id).querySelector('input[checked]')?.value||'';
+const barText=()=>el('jobs-actions').textContent;
+const folds=()=>el('screen-s03').querySelectorAll('details').length;
 """
 
 
@@ -67,7 +74,7 @@ def test_focus_and_common_context_are_in_the_try_request():
     run_js(SETUP + r"""
 S.focus={doc:'T21-X01',section:8,run:'base'};await go('s03');
 assert.equal(el('jobs-doc').value,'T21-X01');assert.deepEqual([...S.jobs.t.secs],[8]);
-await el('jobs-send').click();
+stepTo('prompt');await el('jobs-send').click();
 assert.equal(posted.length,1);const b=posted[0].body;
 assert.equal(b.set,'pack');assert.equal(b.key,'gold/fake');assert.equal(b.doc,'T21-X01');
 assert.deepEqual(b.sections,[8]);assert.equal(b.base_run,'base');assert.equal(b.dry_run,false);
@@ -77,30 +84,29 @@ assert.ok(!('pages_dir' in b));
 
 def test_offline_recovery_keeps_edits_scope_and_explicit_practice():
     run_js(SETUP + r"""
-options=makeOptions(false);await go('s03',{doc:'T21-X01',section:8});
-assert.equal(el('jobs-dry').checked,true);assert.equal(el('jobs-dry').disabled,true);
-assert.equal(el('jobs-send').textContent,T('jobs.actions.preview'));
+options=makeOptions(false);await go('s03',{doc:'T21-X01',section:8});stepTo('model');
+assert.equal(el('jobs-practice').disabled,false);assert.equal(el('jobs-send'),null);
 assert.ok(textOf('jobs-try').includes(T('jobs.trial.practice_meaning')));
-assert.ok(el('jobs-connection').querySelector('button'));
+assert.ok(el('jobs-prepare'));assert.equal(el('jobs-connection').hidden,false);
+stepTo('prompt');assert.equal(el('jobs-send').textContent,T('jobs.actions.send'));assert.equal(el('jobs-send').disabled,true);
 change(el('jobs-edit'),true);input(el('jobs-prompt'),'edited text');
-el('jobs-scope').open=true;el('jobs-scope').dispatchEvent({type:'toggle'});
 const editor=el('jobs-prompt');await jobsPoll();assert.equal(el('jobs-prompt'),editor);
 options=makeOptions(true);await jobsPoll();
 assert.equal(S.jobs.t.text,'edited text');assert.deepEqual([...S.jobs.t.secs],[8]);
-assert.equal(el('jobs-scope').open,true);assert.equal(el('jobs-dry').disabled,false);
-assert.equal(el('jobs-dry').checked,false);
+assert.equal(el('jobs-send').disabled,false);
 assert.equal(el('jobs-send').textContent,T('jobs.actions.send'));
-await go('s09');assert.equal(el('jobs-run-start').disabled,false);
-options={...makeOptions(false),models:[]};await jobsPoll();assert.equal(el('jobs-run-start').disabled,true);
+await go('s09');stepTo('prompt');assert.equal(el('jobs-run-start').disabled,false);
+options={...makeOptions(false),models:[]};await jobsPoll();atStep('target');assert.equal(el('jobs-next').disabled,true);
 """)
 
 
 def test_poll_failures_and_same_data_recovery_are_visible_without_losing_input():
     run_js(SETUP + r"""
-await go('s03');change(el('jobs-edit'),true);input(el('jobs-prompt'),'keep me');
-optionsError=true;await jobsPoll();assert.ok(textOf('jobs-try').includes('options unavailable'));
+await go('s03');stepTo('prompt');change(el('jobs-edit'),true);input(el('jobs-prompt'),'keep me');
+optionsError=true;await jobsPoll();assert.ok(textOf('jobs-try').includes(T('common.legacy.load_error.message')));
+assert.ok(openDrawer().textContent.includes('options unavailable'));drawerClose();
 assert.equal(el('jobs-send').disabled,true);
-optionsError=false;await jobsPoll();assert.ok(!textOf('jobs-try').includes('options unavailable'));
+optionsError=false;await jobsPoll();assert.ok(!textOf('jobs-try').includes(T('common.legacy.load_error.message')));
 assert.equal(S.jobs.t.text,'keep me');
 await go('s05');jobsError=true;await jobsPoll();assert.ok(textOf('jobs-list').includes('jobs unavailable'));
 jobsError=false;await jobsPoll();assert.ok(!textOf('jobs-list').includes('jobs unavailable'));
@@ -113,9 +119,9 @@ def test_focus_value_and_estimated_line(kind, copy_key):
     import json
     run_js(SETUP + f"const kind={json.dumps(kind)},copyKey={json.dumps(copy_key)};" + r"""
 S.focus={doc:'T21-X01',section:8,path:kind?'fake.path':null,kind,expected:5,actual:8,line:'p2:L23',page:2,
- line_text:'fake source',estimated:kind==='missing'};await go('s03');
+ line_text:'fake source',estimated:kind==='missing'};await go('s03');stepTo('target');
 assert.ok(textOf('jobs-focus').includes(T('jobs.focus.'+copyKey,{key_value:'5',ai_value:'8'})));
-if(kind){assert.ok(textOf('jobs-focus').includes('fake.path'));
+if(kind){assert.ok(!textOf('jobs-focus').includes('fake.path'));assert.ok(openDrawer().textContent.includes('fake.path'));drawerClose();
  assert.ok(textOf('jobs-focus').includes(T('jobs.focus.'+(kind==='missing'?'line_estimated':'line'),{page:2,line_no:23,line_text:'fake source'})));}
 noGarbage(el('jobs-try'));
 """)
@@ -124,8 +130,10 @@ noGarbage(el('jobs-try'));
 def test_result_six_stages_descriptions_sent_key_and_safe_text():
     run_js(SETUP + r"""
 listed=[job('done')];response=result(true);await go('s03');await jobsWatch('j1');
-const node=el('jobs-result');for(const [head,help] of [['input','input'],['prompt','prompt'],['raw_answer','raw_answer'],['parsed','parsed'],['converted','to21'],['score','score']]){
- assert.ok(node.textContent.includes(T('jobs.detail.'+head)));assert.ok(node.textContent.includes(T('jobs.stages.'+help)));}
+// 다섯 기록은 서랍에, 시험 전후 점수는 결과 단계 본문에 있다.
+const node=el('jobs-result'),records=openDrawer();for(const [head,help] of [['input','input'],['prompt','prompt'],['raw_answer','raw_answer'],['parsed','parsed'],['converted','to21']]){
+ assert.ok(records.textContent.includes(T('jobs.detail.'+head)));assert.ok(records.textContent.includes(T('jobs.stages.'+help)));}
+assert.equal(records.querySelector('script'),null);noGarbage(records);drawerClose();
 assert.ok(node.textContent.includes('Sent key'));assert.ok(!node.textContent.includes('Chosen key'));
 assert.ok(node.textContent.includes('50.0'));assert.ok(node.textContent.includes('55.0'));
 assert.equal(node.querySelector('script'),null);noGarbage(node);
@@ -217,9 +225,9 @@ noGarbage(el('jobs-list'));
 
 def test_prompt_fetch_scope_and_run_confirmation_use_snapshot():
     run_js(SETUP + r"""
-await go('s03',{doc:'T21-X01',section:8});await el('jobs-load-prompt').click();assert.equal(el('jobs-prompt').value,'fake prompt');
+await go('s03',{doc:'T21-X01',section:8});stepTo('prompt');await el('jobs-load-prompt').click();assert.equal(el('jobs-prompt').value,'fake prompt');
 assert.ok(requests.includes('/api/prompt?model=first&no=8'));
-await go('s09');input(el('jobs-run-name'),'custom-name');input(el('jobs-repeat'),'2');
+await go('s09');input(el('jobs-run-name'),'custom-name');input(el('jobs-repeat'),'2');stepTo('prompt');
 let asked=false;post=async(path,body)=>{posted.push({path,body});if(!body.confirm){const e=new Error('confirm');e.status=409;e.body={needs_confirm:true,summary:'Review exact conditions'};throw e;}return {id:'batch'};};
 await el('jobs-run-start').click();assert.equal(posted.length,1);assert.ok(textOf('jobs-run').includes('Review exact conditions'));
 S.ctx.set='changed';await el('jobs-run-confirm').click();assert.equal(posted.length,2);
@@ -249,7 +257,7 @@ assert.equal(posted[0].path,'/api/jobs/j1/stop');
 
 def test_prompt_late_response_keeps_newer_draft_and_scope():
     run_js(SETUP + r"""
-await go('s03',{doc:'T21-X01',section:8});let resolve;
+await go('s03',{doc:'T21-X01',section:8});stepTo('prompt');let resolve;
 const previous=api;api=path=>path.startsWith('/api/prompt')?new Promise(r=>resolve=r):previous(path);
 const loading=jobsLoadPrompt();input(el('jobs-prompt'),'newer draft');resolve({text:'stale prompt'});await loading;
 assert.equal(S.jobs.t.text,'newer draft');
@@ -263,24 +271,26 @@ def test_changed_set_does_not_silently_choose_a_different_document_on_poll():
 await go('s03',{doc:'T21-X01',section:8});
 options={...options,sets:[...options.sets,{id:'other-pack',usable:true,docs:[{doc_id:'T21-X99',runnable:{try:true,run:true}}]}]};
 S.ctx.set='other-pack';await jobsPoll();assert.equal(S.jobs.t.doc,null);
-await jobsPoll();assert.equal(S.jobs.t.doc,null);assert.equal(el('jobs-send').disabled,true);
+await jobsPoll();assert.equal(S.jobs.t.doc,null);atStep('target');assert.equal(el('jobs-next').disabled,true);
 """)
 
 
 def test_boolean_problem_values_have_copy_and_expansion_survives_storage_errors():
     run_js(SETUP + r"""
-S.focus={doc:'T21-X01',section:8,path:'fake.bool',kind:'wrong',expected:true,actual:false};await go('s03');
+S.focus={doc:'T21-X01',section:8,path:'fake.bool',kind:'wrong',expected:true,actual:false};await go('s03');stepTo('target');
 noGarbage(el('jobs-focus'));assert.ok(textOf('jobs-focus').includes(T('source.value.true')));
-const d=el('jobs-scope');d.open=true;d.dispatchEvent({type:'toggle'});
-assert.equal(JSON.parse(store.get('b_app.cards'))['jobs-scope'],false);
+// 접힘은 다시 시험에서 사라졌다. 저장 오류에도 펼침 상태가 남는지는 작업 기록의 접힘으로 본다.
+listed=[job()];await go('s05');await jobsPoll();await jobsOpenLog('j1');
+const d=el('jobs-target-j1');d.open=true;d.dispatchEvent({type:'toggle'});
+assert.equal(JSON.parse(store.get('b_app.cards'))['jobs-target-j1'],false);
 localStorage.setItem=()=>{throw new Error('denied');};d.open=false;d.dispatchEvent({type:'toggle'});
-jobsRenderTry();assert.equal(el('jobs-scope').open,false);
+jobsRenderDetail();assert.equal(el('jobs-target-j1').open,false);
 """)
 
 
 def test_run_confirmation_uses_shared_dialog_with_keyboard_cancel():
     run_js(SETUP + r"""
-await go('s09');post=async()=>{const e=new Error('confirm');e.status=409;e.body={needs_confirm:true,summary:'Review exact conditions'};throw e;};
+await go('s09');stepTo('prompt');post=async()=>{const e=new Error('confirm');e.status=409;e.body={needs_confirm:true,summary:'Review exact conditions'};throw e;};
 el('jobs-run-start').focus();await el('jobs-run-start').click();const dialog=el('action-confirm');
 assert.equal(dialog.open,true);assert.ok(dialog.contains(el('jobs-run-confirm')));
 assert.equal(document.activeElement,el('jobs-confirm-cancel'));
@@ -296,7 +306,7 @@ def test_connection_can_open_tunnel_in_place_and_return_without_losing_target():
 options=makeOptions(false);S.shell.servers={models:[{tag:'first',where:'RNGD',reachable:false,match:false}],
  rngd:{diagnosis:'tunnel_closed',tunnel:{open:false},models:[]},can:{tunnel_open:true,rngd_up:true},
  rngd_choices:[{tag:'first',label:'First',cards:1}]};
-await go('s03',{doc:'T21-X01',section:8});
+await go('s03',{doc:'T21-X01',section:8});stepTo('model');
 const action=el('jobs-connection').querySelector('[data-server-action="tunnel_open"]');assert.ok(action);
 post=async(path,body)=>{posted.push({path,body});return {action:body.action,token:'fake-confirm',summary:'Fake tunnel',expires_in:60};};
 await action.click();assert.equal(S.shell.route,'s03');assert.equal(el('action-confirm').open,true);
@@ -387,25 +397,395 @@ assert.equal(lines.join('|'),'T21-X02, T21-X04 — TRY LOCK');
 
 def test_trial_model_follows_connection_until_the_user_picks_one():
     run_js(SETUP + r"""
-options=makeOptions(false);S.focus={model:'first'};await go('s03');
+options=makeOptions(false);S.focus={model:'first'};await go('s03');stepTo('model');
 assert.equal(S.jobs.t.model,'first');
 options=makeOptions(false);options.models[1].connected=true;
 await jobsLoadOptions();jobsRenderTry();
-assert.equal(S.jobs.t.model,'second');assert.equal(el('jobs-model').value,'second');
+assert.equal(S.jobs.t.model,'second');assert.equal(chosenModel(),'second');
 assert.equal(S.focus.model,'second');
 change(el('jobs-model'),'first');assert.equal(S.jobs.t.model,'first');
 await jobsLoadOptions();assert.equal(S.jobs.t.model,'first');
 """)
 
 
-def test_practice_forced_by_offline_is_released_but_a_chosen_practice_stays():
+def test_main_button_keeps_its_meaning_when_connection_changes_and_practice_does_not_stick():
+    # 옛 시험(연결이 없으면 연습 체크가 켜지고 주 단추가 연습으로 바뀜)의 뜻은 요청 밖 문제 12번으로 뒤집혔다.
     run_js(SETUP + r"""
-options=makeOptions(false);await go('s03',{doc:'T21-X01',section:8});
-assert.equal(el('jobs-dry').checked,true);assert.equal(el('jobs-send').textContent,T('jobs.actions.preview'));
+options=makeOptions(false);await go('s03',{doc:'T21-X01',section:8});stepTo('prompt');
+assert.equal(el('jobs-send').textContent,T('jobs.actions.send'));assert.equal(el('jobs-send').disabled,true);
 options=makeOptions(true);await jobsPoll();
-assert.equal(el('jobs-dry').checked,false);assert.equal(el('jobs-send').textContent,T('jobs.actions.send'));
-change(el('jobs-dry'),true);assert.equal(S.jobs.t.dry,true);
-options=makeOptions(false);await jobsPoll();assert.equal(S.jobs.t.dry,true);
+assert.equal(el('jobs-send').textContent,T('jobs.actions.send'));assert.equal(el('jobs-send').disabled,false);
+await el('jobs-practice').click();assert.equal(posted[0].body.dry_run,true);
+S.jobs.step='prompt';jobsRenderTry();assert.equal(el('jobs-send').textContent,T('jobs.actions.send'));
+await el('jobs-send').click();assert.equal(posted[1].body.dry_run,false);
+""")
+
+
+# ── 다시 시험 5단계와 세 갈래 (ADR-039, phase app-steps step 3) ──
+PICKED = "{doc:'T21-X01',section:8,base_run:'base',path:'fake.path',kind:'wrong',expected:5,actual:8,line:'p2:L23',source_set:'pack'}"
+
+
+def test_entry_starts_at_prompt_with_source_value_and_ai_on():
+    run_js(SETUP + "await go('s03'," + PICKED + ");" + r"""
+atStep('prompt');assert.ok(el('jobs-prompt'));assert.ok(el('jobs-send'));assert.equal(el('jobs-doc'),null);
+""")
+
+
+def test_entry_starts_at_model_with_source_value_and_ai_off():
+    run_js(SETUP + "options=makeOptions(false);await go('s03'," + PICKED + ");" + r"""
+atStep('model');assert.ok(el('jobs-model'));assert.equal(el('jobs-prompt'),null);
+""")
+
+
+def test_entry_starts_at_target_without_a_chosen_value():
+    run_js(SETUP + r"""
+await go('s03',{doc:'T21-X01',section:8,base_run:'base'});atStep('target');
+assert.ok(el('jobs-doc'));assert.equal(el('jobs-prompt'),null);
+""")
+
+
+def test_entry_does_not_skip_when_source_set_differs_or_document_is_locked():
+    run_js(SETUP + r"""
+await go('s03',{doc:'T21-X01',section:8,path:'fake.path',kind:'wrong',source_set:'other-pack'});atStep('target');
+assert.ok(textOf('jobs-try').includes(T('jobs.set_mismatch.title')));
+await go('s03',{doc:'T21-X02',section:8,path:'fake.path',kind:'wrong',source_set:'pack'});atStep('target');
+""")
+
+
+def test_moving_between_steps_and_screens_keeps_every_input():
+    run_js(SETUP + r"""
+await go('s03',{doc:'T21-X01',section:8});
+change(el('jobs-doc'),'RAW-FAKE');await el('jobs-next').click();atStep('model');
+change(el('jobs-model'),'second');options=makeOptions(true);
+const J=S.jobs;J.t.model='first';jobsRenderTry();await el('jobs-next').click();atStep('prompt');
+await J.promptPending;input(el('jobs-prompt'),'edited text');
+assert.equal(J.t.edit,true);
+await el('jobs-back').click();atStep('model');await el('jobs-back').click();atStep('target');
+assert.equal(el('jobs-doc').value,'RAW-FAKE');assert.deepEqual([...J.t.secs],[8]);
+await go('s05');await go('s03');atStep('target');
+assert.equal(J.t.text,'edited text');assert.equal(J.t.doc,'RAW-FAKE');assert.equal(J.t.model,'first');
+stepTo('prompt');assert.equal(el('jobs-prompt').value,'edited text');
+await go('s10');await go('s03');atStep('prompt');assert.equal(el('jobs-prompt').value,'edited text');
+assert.equal(posted.length,0);
+""")
+
+
+def test_moving_between_steps_sends_nothing():
+    run_js(SETUP + r"""
+await go('s03',{doc:'T21-X01',section:8});
+for(const id of ['model','prompt','target','prompt'])stepTo(id);
+assert.equal(posted.length,0);
+""")
+
+
+def test_model_choice_is_open_on_step_two_and_marks_on_and_off():
+    run_js(SETUP + r"""
+await go('s03',{doc:'T21-X01',section:8});stepTo('model');
+const group=el('jobs-model');assert.equal(group.closest('details'),null);
+assert.deepEqual(Array.from(group.querySelectorAll('input[type="radio"]'),n=>n.value),['first','second']);
+assert.equal(chosenModel(),'first');
+assert.ok(group.textContent.includes(T('steps.trial.state_on')));assert.ok(group.textContent.includes(T('steps.trial.state_off')));
+assert.equal(el('jobs-connection').hidden,true);
+assert.equal(el('jobs-next').textContent,T('steps.next',{name:T('steps.trial.prompt')}));
+""")
+
+
+def test_ai_off_shows_the_way_to_turn_on_and_coming_back_passes_step_two():
+    run_js(SETUP + "options=makeOptions(false);await go('s03'," + PICKED + ");" + r"""
+atStep('model');assert.equal(el('jobs-connection').hidden,false);
+assert.ok(el('jobs-connection').textContent.includes(T('servers.connection.selected')));
+assert.equal(el('jobs-connection').querySelector('details'),null);
+await el('jobs-prepare').click();assert.equal(S.shell.route,'s06');
+assert.equal(S.focus.model,'first');assert.equal(S.focus.returnScreen,'s03');
+options=makeOptions(true);await go('s03');atStep('prompt');assert.equal(S.focus.returnScreen,undefined);
+assert.equal(S.jobs.t.doc,'T21-X01');assert.deepEqual([...S.jobs.t.secs],[8]);
+""")
+
+
+def test_coming_back_with_another_ai_on_stays_and_does_not_change_the_choice():
+    run_js(SETUP + "options=makeOptions(false);await go('s03'," + PICKED + ");" + r"""
+await el('jobs-prepare').click();
+options=makeOptions(false);options.models[1].connected=true;await go('s03');
+atStep('model');assert.equal(S.jobs.t.model,'first');assert.equal(chosenModel(),'first');
+""")
+
+
+def test_practice_is_a_separate_action_and_the_main_button_keeps_its_meaning():
+    run_js(SETUP + r"""
+options=makeOptions(false);await go('s03',{doc:'T21-X01',section:8});stepTo('prompt');
+assert.equal(el('jobs-dry'),null);
+assert.equal(el('jobs-send').textContent,T('jobs.actions.send'));assert.equal(el('jobs-send').disabled,true);
+assert.ok(barText().includes(T('jobs.actions.run_unavailable')));
+assert.equal(el('jobs-practice').textContent,T('steps.trial.practice'));assert.equal(el('jobs-practice').disabled,false);
+assert.ok(!el('jobs-practice').classList.contains('primary'));
 options=makeOptions(true);await jobsPoll();
-assert.equal(el('jobs-dry').checked,true);assert.equal(el('jobs-send').textContent,T('jobs.actions.preview'));
+assert.equal(el('jobs-send').textContent,T('jobs.actions.send'));assert.equal(el('jobs-send').disabled,false);
+await el('jobs-practice').click();assert.equal(posted[0].body.dry_run,true);
+S.jobs.step='prompt';jobsRenderTry();await el('jobs-send').click();assert.equal(posted[1].body.dry_run,false);
+""")
+
+
+def test_practice_is_offered_on_step_two_when_ai_is_off():
+    run_js(SETUP + r"""
+options=makeOptions(false);await go('s03',{doc:'T21-X01',section:8});stepTo('model');
+assert.equal(el('jobs-practice').disabled,false);await el('jobs-practice').click();
+assert.equal(posted[0].path,'/api/jobs/try');assert.equal(posted[0].body.dry_run,true);
+""")
+
+
+def test_practice_result_is_marked_practice_and_is_not_a_first_success():
+    run_js(SETUP + r"""
+options=makeOptions(false);await go('s03',{doc:'T21-X01',section:8});stepTo('model');
+listed=[job('running',{dry_run:true,target:{...target,dry_run:true}})];await el('jobs-practice').click();atStep('running');
+response={plan};listed=[job('done',{dry_run:true,target:{...target,dry_run:true}})];await jobsPoll();atStep('result');
+assert.equal(el('jobs-result').querySelector('[data-job-status]').textContent,T('jobs.practice_done.state'));
+assert.equal(el('title-s03').textContent,T('steps.trial.practice_title'));
+assert.equal(S.journey.outcomes.t2.real,null);assert.ok(el('jobs-after-practice'));
+await el('jobs-after-practice').click();atStep('model');
+""")
+
+
+def test_first_step_has_three_branches_and_batch_opens_the_old_inputs():
+    run_js(SETUP + r"""
+await go('s03');atStep('target');
+for(const [id,key] of [['part','part'],['document','document'],['batch','batch']])
+ assert.equal(el('jobs-branch-'+id).textContent,T('steps.trial.scope.'+key));
+assert.equal(el('jobs-branch-part').getAttribute('aria-pressed'),'true');assert.equal(el('jobs-run').hidden,true);
+await el('jobs-branch-document').click();assert.equal(S.jobs.t.all,true);
+assert.equal(el('jobs-branch-document').getAttribute('aria-pressed'),'true');
+await el('jobs-branch-batch').click();assert.equal(el('jobs-run').hidden,false);
+assert.equal(el('jobs-doc'),null);
+assert.equal(el('jobs-run-doc-T21-X01').disabled,true);assert.ok(textOf('jobs-run').includes('RUN LOCK'));
+assert.ok(!textOf('jobs-run').includes('TRY LOCK'));assert.equal(el('jobs-run-doc-RAW-FAKE').disabled,false);
+await el('jobs-branch-part').click();assert.equal(S.jobs.t.all,false);assert.equal(el('jobs-run').hidden,true);
+assert.deepEqual([...S.jobs.t.secs],[1],'other branches keep the draft');
+""")
+
+
+def test_batch_branch_sends_the_same_start_request():
+    run_js(SETUP + r"""
+await go('s03');await el('jobs-branch-batch').click();input(el('jobs-repeat'),'2');input(el('jobs-run-name'),'my-run');
+await el('jobs-next').click();atStep('model');assert.equal(chosenModel('jobs-run-model'),'first');
+await el('jobs-next').click();atStep('prompt');assert.equal(el('jobs-prompt'),null);
+assert.ok(textOf('jobs-run').includes(T('jobs.multiple.default_prompt')));assert.equal(el('jobs-practice'),null);
+listed=[job('running',{id:'batch',kind:'run',target:{kind:'run',docs:['RAW-FAKE','T21-X02'],model:'first',set:'pack',repeat:2,run_names:['my-run','my-run_r2']}})];
+post=async(path,body)=>{posted.push({path,body});return {id:'batch'};};
+await el('jobs-run-start').click();
+assert.equal(posted[0].path,'/api/jobs/run');
+assert.deepEqual(posted[0].body,{model:'first',docs:['RAW-FAKE','T21-X02'],set:'pack',run_name:'my-run',repeat:2});
+atStep('running');
+listed=[job('done',{id:'batch',kind:'run',returncode:0,target:{kind:'run',docs:['RAW-FAKE','T21-X02'],model:'first',set:'pack',repeat:2,run_names:['my-run','my-run_r2']}})];
+await jobsPoll();atStep('result');assert.equal(el('title-s03').textContent,T('steps.trial.batch_done_title'));
+assert.ok(el('jobs-open-recent'));assert.equal(S.jobs.result,null);
+""")
+
+
+def test_batch_next_step_waits_for_a_valid_selection_with_a_reason():
+    run_js(SETUP + r"""
+await go('s03');await el('jobs-branch-batch').click();await el('jobs-select-none').click();
+assert.equal(el('jobs-next').disabled,true);assert.ok(barText().includes(T('jobs.form.invalid_run')));
+await el('jobs-select-all').click();assert.equal(el('jobs-next').disabled,false);
+input(el('jobs-repeat'),'11');assert.equal(el('jobs-next').disabled,true);
+input(el('jobs-repeat'),'3');assert.equal(el('jobs-next').disabled,false);
+""")
+
+
+def test_old_s09_address_opens_the_batch_branch():
+    run_js(SETUP + r"""
+assert.equal(SHELL_SCREENS.s09,undefined);assert.equal(el('screen-s09'),null);
+assert.equal(shellInitialRoute('#s09'),'s09');
+await go('s09');assert.equal(S.shell.route,'s03');assert.equal(location.hash,'#s03');
+atStep('target');assert.equal(el('jobs-branch-batch').getAttribute('aria-pressed'),'true');
+assert.equal(el('jobs-run').hidden,false);assert.equal(S.focus.trialBranch,undefined);
+await go('s01');await go('#s09');assert.equal(S.shell.route,'s03');assert.equal(el('jobs-run').hidden,false);
+""")
+
+
+def test_batch_address_works_at_start_and_menu_has_no_batch_entry():
+    run_js(SETUP + r"""
+location.hash='#s09';await start();assert.equal(S.shell.route,'s03');assert.equal(el('jobs-run').hidden,false);
+assert.equal(document.querySelector('[data-screen="s09"]'),null);
+assert.equal(document.querySelector('[data-parent="s03"]'),null);
+""")
+
+
+def test_result_step_says_a_rented_server_is_still_on_with_its_cost():
+    run_js(SETUP + r"""
+S.shell.servers={models:[{tag:'first',where:'RunPod',reachable:true,match:true}],rngd:{},pods:[{id:'p1',session:true,status:'RUNNING',cost_per_hr:2.5,cost_est:.75}],session:{pod_id:'p1',tag:'first',ready:true}};
+listed=[job('done')];response=result(true);await go('s03');await jobsWatch('j1');atStep('result');
+assert.ok(textOf('jobs-result').includes(T('steps.trial.server_on')));
+assert.ok(textOf('jobs-result').includes(T('context.model.rented_hourly',{cost:'2.50'})));
+assert.ok(textOf('jobs-result').includes(T('context.model.rented_so_far',{cost:'0.75'})));
+await el('jobs-server-open').click();assert.equal(S.shell.route,'s06');
+""")
+
+
+def test_result_step_says_a_company_model_is_still_on_without_rental_cost():
+    run_js(SETUP + r"""
+S.shell.servers={models:[{tag:'first',where:'RNGD',reachable:true,match:true}],rngd:{models:[{model:'first'}]},pods:[]};
+listed=[job('done')];response=result(true);await go('s03');await jobsWatch('j1');
+assert.ok(textOf('jobs-result').includes(T('steps.trial.company_on')));assert.ok(el('jobs-server-open'));
+""")
+
+
+def test_result_step_has_no_server_note_when_nothing_is_on():
+    run_js(SETUP + r"""
+listed=[job('done')];response=result(true);await go('s03');await jobsWatch('j1');atStep('result');
+assert.equal(el('jobs-server-open'),null);assert.ok(!textOf('jobs-result').includes(T('steps.trial.server_on')));
+""")
+
+
+def test_trial_keeps_running_across_screens_and_returns_to_running_then_result():
+    run_js(SETUP + r"""
+await go('s03',{doc:'T21-X01',section:8});stepTo('prompt');listed=[job()];
+await el('jobs-send').click();atStep('running');assert.equal(el('jobs-result').hidden,false);assert.equal(el('jobs-try').hidden,true);
+assert.ok(el('jobs-try-stop'));
+await go('s05');await go('s02').catch(()=>{});assert.ok(!posted.some(p=>p.path.includes('/stop')));
+await go('s03');atStep('running');
+response=result(true);listed=[job('done')];await go('s05');await jobsPoll();await go('s03');atStep('result');
+assert.equal(posted.filter(p=>p.path==='/api/jobs/try').length,1);
+""")
+
+
+def test_old_batch_address_during_a_running_trial_keeps_the_running_step():
+    run_js(SETUP + r"""
+await go('s03',{doc:'T21-X01',section:8});stepTo('prompt');listed=[job()];
+await el('jobs-send').click();atStep('running');
+await go('s09');assert.equal(S.shell.route,'s03');assert.equal(S.jobs.batch,false);atStep('running');
+await go('s03',{trialBranch:'batch'});assert.equal(S.jobs.batch,false);atStep('running');
+// 끝난 뒤에는 옛 주소가 다시 여러 문서 갈래를 연다.
+response=result(true);listed=[job('done')];await jobsPoll();
+await go('s09');assert.equal(S.jobs.batch,true);atStep('target');assert.equal(el('jobs-run').hidden,false);
+""")
+
+
+def test_failed_stopped_and_empty_results_stay_on_the_running_step_with_recovery():
+    for state, key in (("failed", "steps.trial.failed_title"), ("stopped", "jobs.stopped.fact")):
+        run_js(SETUP + f"const state='{state}',key='{key}';" + r"""
+listed=[job('running')];await go('s03');await jobsWatch('j1');atStep('running');
+listed=[job(state,{returncode:1,error:state==='failed'?{message:'Known error',fix:'Known action',raw:'raw exception'}:null})];await jobsPoll();
+atStep('running');assert.equal(el('title-s03').textContent,T(key));
+assert.ok(el('jobs-return-target'));assert.equal(folds(),0);
+await el('jobs-return-target').click();atStep('prompt');
+""")
+    run_js(SETUP + r"""
+listed=[job('done')];response=null;await go('s03');await jobsWatch('j1');atStep('running');
+assert.ok(textOf('jobs-result').includes('204'));assert.ok(el('jobs-result-retry'));assert.ok(el('jobs-return-target'));
+""")
+
+
+def test_stop_from_running_step_uses_the_confirmation_and_nothing_is_sent_before_it():
+    run_js(SETUP + r"""
+await go('s03',{doc:'T21-X01',section:8});stepTo('prompt');listed=[job()];await el('jobs-send').click();
+await el('jobs-try-stop').click();assert.equal(posted.filter(p=>p.path.includes('/stop')).length,0);
+await el('jobs-stop-confirm').click();assert.equal(posted.at(-1).path,'/api/jobs/j1/stop');
+""")
+
+
+def test_result_title_uses_whole_document_score_and_changed_criteria():
+    run_js(SETUP + r"""
+listed=[job('done')];response=result(true);await go('s03');await jobsWatch('j1');
+assert.equal(el('title-s03').textContent,T('steps.trial.score_up',{before:'50.0',after:'55.0'}));
+assert.ok(textOf('jobs-result').includes('fake item'));assert.equal(el('jobs-result').querySelector('th[scope="row"]').textContent,'fake item');
+""")
+
+
+def test_result_says_a_chosen_value_cannot_be_compared_yet():
+    run_js(SETUP + "listed=[job('done')];response=result(true);await go('s03'," + PICKED + ");await jobsWatch('j1');" + r"""
+assert.ok(textOf('jobs-result').includes(T('steps.trial.change_unavailable')));
+assert.ok(textOf('jobs-result').includes(T('jobs.focus.pair',{key_value:'5',ai_value:'8'})));
+""")
+
+
+def test_parse_failure_points_to_the_drawer_not_an_old_stage_number():
+    run_js(SETUP + r"""
+listed=[job('done')];response=result(false);await go('s03');await jobsWatch('j1');
+assert.equal(el('title-s03').textContent,T('steps.trial.parse_title'));
+assert.ok(textOf('jobs-result').includes(T('steps.trial.parse_todo')));
+assert.ok(openDrawer().textContent.includes('parse error'));
+""")
+
+
+def test_no_folds_in_any_branch_or_step_and_details_live_in_the_drawer():
+    run_js(SETUP + r"""
+S.jobs.t.dry=false;options.sets[0].docs.push({doc_id:'T21-E01',group:'eval',locked:true,runnable:{try:false,run:false},run_reason:{try:'EVAL LOCK',run:'EVAL LOCK'}});
+await go('s03',{doc:'T21-X01',section:8,path:'fake.path',kind:'wrong',expected:5,actual:8});
+for(const step of ['target','model','prompt']){stepTo(step);assert.equal(folds(),0,step);}
+const front=openDrawer();assert.equal(front.querySelector('details'),null);
+assert.ok(front.textContent.includes('fake.path'));assert.ok(front.textContent.includes(T('jobs.prompt.origin')));
+drawerClose();
+stepTo('target');await el('jobs-branch-document').click();assert.equal(folds(),0);
+await el('jobs-branch-batch').click();assert.equal(folds(),0);
+const batch=openDrawer();assert.ok(batch.textContent.includes(T('jobs.batch.keep_awake')));
+assert.ok(el('jobs-run-locked').textContent.includes('T21-E01'));assert.equal(el('jobs-run-locked').textContent.split('EVAL LOCK').length-1,1);
+assert.ok(!textOf('jobs-run').includes('EVAL LOCK'));assert.ok(textOf('jobs-run').includes(T('jobs.batch.eval_locked',{count:1})));
+drawerClose();stepTo('model');assert.equal(folds(),0);stepTo('prompt');assert.equal(folds(),0);
+""")
+
+
+def test_result_step_has_no_folds_and_records_are_flat_in_the_drawer():
+    run_js(SETUP + r"""
+listed=[job('done')];response=result(true);await go('s03');await jobsWatch('j1');assert.equal(folds(),0);
+const body=openDrawer();assert.equal(body.querySelector('details'),null);
+for(const [head,help] of [['input','input'],['prompt','prompt'],['raw_answer','raw_answer'],['parsed','parsed'],['converted','to21']]){
+ assert.ok(body.textContent.includes(T('jobs.detail.'+head)));assert.ok(body.textContent.includes(T('jobs.stages.'+help)));}
+assert.ok(body.textContent.includes('runs/manual/fake'));assert.ok(body.textContent.includes('j1'));
+""")
+
+
+def test_errors_show_fact_and_action_in_step_and_raw_in_drawer():
+    run_js(SETUP + r"""
+await go('s03',{doc:'T21-X01',section:8});stepTo('prompt');
+post=async()=>{const e=new Error('raw send problem');e.status=500;throw e;};
+await el('jobs-send').click();atStep('prompt');assert.equal(folds(),0);
+assert.ok(textOf('jobs-try').includes(T('jobs.send_unknown.fact')));assert.ok(!textOf('jobs-try').includes('raw send problem'));
+assert.ok(openDrawer().textContent.includes('raw send problem'));
+""")
+
+
+def test_step_bar_lets_finished_steps_go_back_and_blocks_them_while_running():
+    run_js(SETUP + r"""
+await go('s03',{doc:'T21-X01',section:8});stepTo('prompt');
+const bar=()=>el('jobs-step-bar');
+assert.equal(bar().querySelectorAll('button').length,2);
+await bar().querySelector('button').click();atStep('target');
+stepTo('prompt');listed=[job()];await el('jobs-send').click();atStep('running');
+assert.equal(bar().querySelectorAll('button').length,0);
+response=result(true);listed=[job('done')];await jobsPoll();atStep('result');
+assert.ok(bar().querySelectorAll('button').length>=3);
+assert.ok(bar().textContent.includes('T21-X01'));assert.ok(bar().textContent.includes('First'));
+""")
+
+
+def test_result_can_go_back_to_edit_and_reopen_without_counting_again():
+    run_js(SETUP + r"""
+const events=[];on('try_result_viewed',e=>events.push(e));
+await go('s03',{doc:'T21-X01',section:8});stepTo('prompt');listed=[job()];await el('jobs-send').click();
+response=result(true);listed=[job('done')];await jobsPoll();atStep('result');assert.equal(events.length,1);
+await el('jobs-edit-again').click();atStep('prompt');
+const reopen=el('jobs-step-bar').querySelectorAll('button').find(b=>b.textContent.includes(T('steps.trial.result')));
+await reopen.click();atStep('result');assert.equal(events.length,1);assert.equal(posted.length,1);
+""")
+
+
+def test_same_condition_time_is_shown_only_after_a_matching_real_trial():
+    run_js(SETUP + r"""
+const seen=()=>barText().includes(T('steps.trial.previous_time',{seconds:48}));
+await go('s03',{doc:'T21-X01',section:8});stepTo('prompt');assert.ok(!seen());
+listed=[job()];await el('jobs-send').click();
+response=result(true);response.results['8'].seconds=48;listed=[job('done')];await jobsPoll();atStep('result');
+await el('jobs-edit-again').click();assert.ok(seen());
+stepTo('target');change(el('jobs-doc'),'RAW-FAKE');stepTo('prompt');assert.ok(!seen(),'other document is another condition');
+""")
+
+
+def test_job_records_first_open_does_not_talk_about_results():
+    run_js(SETUP + r"""
+let release;const normal=api;api=(path,opts)=>path==='/api/jobs'?new Promise(r=>release=()=>r({jobs:[],running:[]})):normal(path,opts);
+const opening=go('s05');await Promise.resolve();
+assert.equal(el('status').textContent,T('steps.jobs.loading'));
+for(let i=0;i<20&&!release;i++)await Promise.resolve();
+assert.ok(el('jobs-list').textContent.includes(T('steps.jobs.loading')));
+assert.ok(!el('jobs-list').textContent.includes(T('errors.loading.fact')));
+release();await opening;
 """)

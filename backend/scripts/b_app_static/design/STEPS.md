@@ -340,6 +340,9 @@ step 0의 AC는 이 4건만 실행합니다. 새 기능이 없고 시험 변경�
 | G2 자료 바꾸기 | 문서·정답 선택 취소와 적용, S11 진입, 안내에서 자료 바꾸기 왕복 | 현재 기준·실행 당시 기준 구분. 선택 취소 무변경. 자료 바꾸기 연결 유지. |
 | G3 AI 4단계 | 각 너비에서 두 서버·준비 중·켜짐·오류·삭제 금지를 가짜 응답으로 본다. | 본문·서랍 접힘 0. 켜짐 상태의 페이지 스크롤 없음. 모순 문구 0. 실제 과금 행동은 실행하지 않음. |
 | G4 시험 5단계와 3갈래 | 원문 진입, 서버 왕복, 뒤로 이동, 다른 화면 이동, 연습, 진행·실패·204·완료의 가짜 결과 | 유효한 원문+AI 준비는 ③. AI 꺼짐은 ②. 입력 보존. 연습과 실제 성공 분리. 옛 s09 주소 정상 연결. |
+| G4 다섯 단계와 세 갈래의 너비 | 1280·1440·1680px에서 ①(한 부분, 문서 전체, 여러 문서) ②(켜짐, 꺼짐) ③ ④ ⑤를 찍는다. 실제 시험은 돌리지 않고 연습과 가짜 응답으로 본다. | 가로 스크롤 없음. G2의 1280×800 넘침 846px이 사라짐. 본문과 서랍 접힘 0. 행동 줄이 창 맨 아래에 닿음. |
+| G4 입력 보존 | 문서, 항, 모델, 고친 지시문을 넣고 단계를 앞뒤로 오간 뒤 S01에 갔다 돌아온다. S06 왕복도 한다. | 다섯 값이 그대로다. 이동만으로 요청이 나가지 않는다. |
+| G4 원문에서 넘어왔을 때 | S02에서 ‘이 부분 다시 시험’을 AI 켜짐과 꺼짐에서 누른다. 묶음을 바꾼 뒤에도 누른다. | 켜짐은 ③, 꺼짐은 ②, 묶음이 다르면 ①에서 시작한다. |
 | G5 원문 행 대조 | 틀림·만듦·못 뽑음 세 입구, 다른 문서, 좌표 없는 줄, 그림 없음, 값 없는 줄 선택 | 고른 행과 줄이 항상 보임. 그림 표시와 줄 일치. 페이지 스크롤 없음. 값 유무에 따라 비교 영역 높이가 흔들리지 않음. |
 | G5 단추 수와 서랍 | 큰 가짜 표로 서랍을 열기 전후 DOM 수를 센다. 모든 문서 조건은 동일하게 둔다. | 서랍을 열기 전 단추 200개 이하. 전체 표는 연 뒤 생성. 서랍 안 접힘 0. |
 | G6 안내와 도움말 | 새 data-guide 위치를 따라 두 갈래를 수행한다. 추정 줄만 본 경우와 연습만 한 경우도 확인한다. | 실제 요소를 가리킴. 기존 성공 기록 보존. 추정과 연습을 실제 성공으로 세지 않음. |
@@ -384,11 +387,15 @@ G3에서 더 볼 것은 아래와 같습니다. step 2가 더했습니다. 켜�
 - step 2: `serversCreateCost`는 그대로 확인 창에서 `summary` 문장의 요금을 읽습니다(`test_p02_create_button_shows_hourly_cost`의 계약). 화면의 견적만 `create_quote`를 씁니다. 둘 다 `POD_COST_HINT`에서 와서 값은 같습니다.
 - step 2: 이제 쓰지 않는 글이 있습니다. 예: `servers.choice.company`, `servers.choice.rented`, `servers.compare.cost`. `test_ui_text_matches_copy_md`는 쓰지 않는 글을 잡지 않습니다. 지우는 일은 step 7에 넘깁니다.
 - step 2: 다시 시험에서 다른 AI를 고른 뒤 위쪽 막대의 AI 칩으로 S06에 오면 그 AI 기준으로 ①이 열리고, ‘다른 서버에서 … 켜져 있거나 준비 중입니다’와 ‘그 서버 보기’가 함께 보입니다. 요금 숫자는 막대에 그대로 있습니다. G3에서 한 번 더 누르는 것이 불편하다고 보면 메뉴·칩 입구에서는 켜진 서버를 먼저 열도록 바꿉니다.
+- step 3: 코드에서 이름을 찾지 못한 글이 남아 있습니다. 예: `jobs.off.title`, `jobs.scope.open_whole`, `jobs.trial.rented_ready`. 이름을 조립해 쓰는 글이 섞여 있어 후보일 뿐입니다(`jobs.*` 394개 중 105개를 이름 검색으로 걸렀습니다). 지우는 일은 step 7에 넘깁니다.
+- step 3: `S09` 번호는 `STRUCTURE.md`의 줄(`S09 (독립 화면 없음)`)과 시험 이름에만 남습니다. 옛 시험 이름 `test_s09_*`는 뜻이 같아 그대로 두었습니다.
+- step 3: 시험 ①~③의 행동 줄이 가리는 높이와 긴 문서 목록의 스크롤은 대역 DOM으로 판정할 수 없습니다. G4 캡처에서 봅니다.
 
 ## 11. 안내 위치 변경
 
 - step 1에는 없습니다. `data-guide`가 붙은 요소를 옮기지 않았습니다. `guide-open` 단추는 id를 그대로 둔 채 위쪽 막대로 옮겼습니다.
 - step 2: S06 요소에는 코드상 `data-guide`가 없습니다. `STRUCTURE.md`가 적은 `s06-return`은 지금도 어디에도 붙어 있지 않아 옮길 것이 없습니다. 안내가 쓰는 `servers-guide-return`은 id를 그대로 두고 모든 단계 위쪽에 보입니다. 안내 글이 옛 위치를 말하는지는 step 6이 봅니다.
+- step 3: `s03-target`(문서 칸, ①), `s03-model`(모델 고르는 칸, ②), `s03-send`(주 단추, ③), `s03-practice`(연습 단추, ②·③), `s03-result-summary`(`#jobs-result`, ④·⑤)는 새 자리의 같은 뜻 요소에 붙였습니다. 요소가 단계마다 하나씩만 있으므로 안내가 부를 때 단계 지시 `trialStep`을 같이 보냅니다(`journey.js`). `STRUCTURE.md`의 ‘S03 첫 시험 안내 펼침’ 입구는 D1로 없어졌습니다. 그 줄과 안내 글은 step 6이 고칩니다.
 
 ## step 기록
 
@@ -458,3 +465,25 @@ G3에서 더 볼 것은 아래와 같습니다. step 2가 더했습니다. 켜�
   - `test_preservation_rows_have_resolvable_new_function_or_dom_id`: 시험은 그대로이고 `BUILD.md` 보존표 I44·I63~I72의 새 자리를 고쳤습니다.
 - 규칙 문서: 6장의 step 2 몫을 `PRODUCT.md` Server Facts와 `STRUCTURE.md` 보존표·흐름 5에 반영했습니다.
 - 넘기는 일: step 3의 서버 왕복은 `go("s06", {model, returnScreen})` 그대로입니다. `model`을 주면 전에 고른 서버를 잊고 그 AI 기준으로 열립니다. 다시 시험 ②는 `serversReady(serversModel(tag))`로 준비를 확인하면 됩니다. 메인 세션은 ‘발견한 것’의 ARCHITECTURE 표를 고쳐야 합니다.
+
+### step 3
+
+- 산출물: `js/jobs.js`의 5단계 흐름. 단계 이름은 `target`, `model`, `prompt`, `running`, `result`입니다. `S.jobs.step`에는 `target`, `model`, `prompt`, `job`만 저장하고 `job`은 `jobsStep()`이 작업 상태를 보고 `running`이나 `result`로 바꿉니다. `S.jobs.batch`가 ‘여러 문서’ 갈래입니다. 갈래를 바꿔도 다른 갈래의 초안(`J.t`, `J.r`)은 지우지 않습니다.
+- 시작 단계: `jobsEntryStep`이 `stepsFirstOpen`으로 정합니다. 원문에서 고른 값이 없거나 문서가 잠겼거나 원문과 묶음이 다르면 ①, AI가 꺼져 있으면 ②, 켜져 있으면 ③입니다. 안내(`journey.js`)와 옛 주소는 이번 이동에만 쓰는 지시 `trialStep`, `trialBranch`를 보냅니다.
+- 화면 자리: `#jobs-step-bar`, `#title-s03`, `#jobs-step-say`, `#jobs-flow` 안의 `.step-screen`(`jobs-try`, `jobs-run`, `jobs-connection`, `jobs-result`, `jobs-details`, `jobs-actions`). 주 행동은 `jobsActions`가 정합니다.
+- S09 처리: `SHELL_SCREENS`와 `index.html`에서 뺐습니다. `SHELL_MOVED`가 `#s09`와 `go("s09")`를 S03 ‘여러 문서’ 갈래로 보냅니다. 입력은 `jobsRunForm`(①)과 `jobsRunReview`(③)입니다. 시작 요청은 `jobsStartRun` 그대로입니다. 자료 바꾸기의 링크는 `go("s03", {trialBranch: "batch"})`로 바꿨습니다. 시험이 돌고 있으면 이 입구로 들어와도 ④를 그대로 보입니다(`jobsEnterStep`).
+- 서랍으로 옮긴 것: 고른 값의 기록 경로, 입력 묶음, 잠긴 문서 전체 목록, 지시문 출처와 보관 방식, 여러 문서 실행 조건과 이름 규칙, 시작 당시 조건, 결과 기록 다섯 가지(보낸 입력, 지시문 기록, 원래 답, 해석한 값, 바꾼 값), 원래 오류와 종료 코드. 전후 점수와 바뀐 기준은 ⑤ 본문입니다.
+- 지운 것: D1(첫 시험 안내와 여러 문서 시험 링크), D2(독립 S09 화면과 하위 메뉴). 연습 체크박스(`jobs-dry`)와 AI가 꺼지면 연습을 자동으로 켜던 동작(`dryForced`)도 없앴습니다. 연습은 `jobs-practice` 단추입니다. 요청 밖 문제 12번의 고침입니다.
+- 고친 요청 밖 문제: 4(결과 화면의 요금), 10(`shellLoadingText`, S05 첫 글 `steps.jobs.loading`), 12(연습), 14(모델 칸). `servers.connection.details` 글이 맞지 않던 단추는 다시 시험에서 나타나지 않습니다(`serversRenderCompact`의 `inStep`). 첫 사용 안내 띠의 연결 칸에는 그 글이 남습니다.
+- 바꾸지 않은 것: `jobsTryBody`, `/api/jobs/try`와 `/api/jobs/run`의 인자, `emit` 사건 이름과 내용, 첫 사용 성공 판정, `jobsRenderList`, `jobsRenderDetail`, `jobsRenderCompare`.
+- G3 메모: ④의 주 단추는 이미 언제나 ‘시험으로 돌아가기’입니다(`serversActions`의 `stop`, `test_B_b_app_servers_ui.py`). 고칠 것이 없었습니다.
+- 규칙 문서: 6장의 step 3 몫을 고쳤습니다(`STRUCTURE.md` S09·I46~I59, `DESIGN.md` 원문에서 시험으로 가는 규칙과 설명 입력란 자리, `BUILD.md` 화면 표).
+- 실패를 본 시험: 시간 초과로 끝난 이전 시도의 실패 기록이 없어, 이번 시도에서 커밋된 코드(`0a67722`)의 임시 사본에 새 시험 파일을 넣고 다시 돌렸습니다. `test_B_b_app_jobs_ui.py` 74건 중 49건 실패입니다. 새 시험 34건이 모두 들어 있습니다. 예: `test_entry_starts_at_prompt_with_source_value_and_ai_on`, `test_entry_starts_at_model_with_source_value_and_ai_off`, `test_moving_between_steps_and_screens_keeps_every_input`, `test_practice_is_a_separate_action_and_the_main_button_keeps_its_meaning`, `test_old_s09_address_opens_the_batch_branch`, `test_result_step_says_a_rented_server_is_still_on_with_its_cost`, `test_trial_keeps_running_across_screens_and_returns_to_running_then_result`, `test_no_folds_in_any_branch_or_step_and_details_live_in_the_drawer`, `test_job_records_first_open_does_not_talk_about_results`. 일부는 새 글이나 대역 함수가 없어서 실패한 것이라 모두가 동작 차이를 가리키지는 않습니다. `test_old_batch_address_during_a_running_trial_keeps_the_running_step`은 이번 시도에서 먼저 쓰고 실패를 본 뒤 고쳤습니다.
+- 옮긴 옛 시험과 이유: 지운 뜻은 없습니다.
+  - 이름만 바뀐 것: `test_practice_forced_by_offline_is_released_but_a_chosen_practice_stays` → `test_main_button_keeps_its_meaning_when_connection_changes_and_practice_does_not_stick`. 자동 연습이 없어져 ‘주 단추의 뜻이 그대로이고 연습이 남지 않는다’를 봅니다.
+  - 입력이 단계마다 나뉘어 해당 단계로 옮긴 뒤 같은 뜻을 보는 것: `test_B_b_app_jobs_ui.py`의 10건, `test_B_b_app_fix_ui.py`의 `test_draft_models_are_named_as_answer_drafts`, `test_machine_values_use_plain_labels_and_keep_original_details`, `test_retest_default_model_is_the_run_model_or_a_watched_one`, `test_s03_accepted_request_focuses_result_before_slow_poll`, `test_s03_after_send_moves_focus_to_result`, `test_s03_ai_off_makes_model_setup_primary_and_practice_secondary`, `test_s03_automatic_instruction_ignores_stale_targets_and_does_not_run_elsewhere`, `test_s03_disabling_custom_instruction_does_not_erase_the_draft`, `test_s03_instruction_box_is_prefilled_with_current_instruction`, `test_s03_offline_selected_model_still_offers_practice_with_other_model_ready`, `test_s09_runnable_docs_first_and_locked_docs_grouped`, `test_B_b_app_guide_ui.py`의 `test_try_model_and_value_are_plain`.
+  - 접힘이 서랍으로 간 것: `test_result_six_stages_descriptions_sent_key_and_safe_text`, `test_each_screen_api_error_has_fact_action_and_closed_safe_raw`(S03을 S06과 같은 경로로 봅니다).
+  - `test_boolean_problem_values_have_copy_and_expansion_survives_storage_errors`: 다시 시험에 접힘이 없어져, 저장 오류에도 펼침 상태가 남는지는 작업 기록의 접힘으로 봅니다.
+  - S09 화면이 없어져 기대값을 고친 것: `test_B_b_app.py`의 `test_index`(화면 번호에서 9를 빼고 `screen-s09`가 없음을 봅니다), `test_navigation_menu_focus_registration_and_hash_changes`, `test_menu_groups_the_work_order_and_the_rest_without_numbers`, `test_done_next_step_opens_a_screen_and_never_starts_a_server_or_a_test`, `test_navigation_loading_and_displayed_state_are_announced`(화면별 불러오는 글), `test_B_b_app_help_ui.py`의 `CONTEXT`, `test_B_b_app_audit_ui.py`의 `SCREENS`.
+  - `test_s01_to_s03_conclusion_first_and_the_work_order_is_in_the_menu`: S03 제목이 단계 제목으로 바뀌어 기대 글을 `steps.trial.*`로 고쳤습니다.
+- 넘기는 일: 메인 세션은 9장의 G4 줄로 브라우저를 봅니다. step 5는 `go("s03", {...S.focus})`와 `source_set`을 그대로 쓰면 시작 단계가 맞습니다. step 6은 11장의 ‘첫 시험 안내’ 줄을 고칩니다. step 7은 쓰지 않는 `jobs.*` 글을 지웁니다.

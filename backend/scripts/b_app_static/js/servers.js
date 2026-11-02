@@ -124,9 +124,7 @@ function serversDiagnosis() {
   }
   return serversKindProblem("company") || h("p", null, T("servers.connection.unknown"));
 }
-function serversReturn() {
-  return go(S.focus.returnScreen === "s09" ? "s09" : "s03");
-}
+function serversReturn() { return go("s03"); }
 // ── 단계 흐름: 서버 고르기 → 켜기 → 준비 기다리기 → 쓰고 나서 끄기 (ADR-039) ──
 function serversTargetTag() { return serversModel(S.focus.model)?.tag ?? S.focus.model ?? null; }
 // 켤 수 있는 서버는 API 값으로 정한다. 회사 서버는 rngd_choices, 빌린 서버는 create_quote다.
@@ -516,15 +514,18 @@ function serversUpdateConfirm() {
   const note = document.getElementById("servers-confirm-blocked");
   if (note) note.textContent = reason;
 }
-function serversRenderCompact(el, {model, primary = false} = {}) {
-  S.servers.compacts.set(el, {model, primary});
+// inStep: 단계 화면 안에서 쓴다. 주 행동은 행동 줄에 있고 접힘이 없다. extra는 다시 그려도 남는 제자리 행동이다.
+function serversRenderCompact(el, {model, primary = false, inStep = false, extra = null} = {}) {
+  S.servers.compacts.set(el, {model, primary, inStep, extra});
   const item = serversModel(model), state = serversState(item);
   coreReplace(el, h("h3", null, T("servers.connection.selected")), h("p", {class: "technical"}, serversLabel(item || {tag: model})),
     serversBadge(item), item?.reachable && item?.match === false ? h("p", null, T("servers.mismatch.title")) : null,
     S.shell.serverError ? serversProblem(S.shell.serverError) : serversModelNote(item),
-    h("button", {type: "button", class: primary ? "primary" : null,
-      onclick: () => go("s06", {model: item?.tag || model, returnScreen: S.shell.route === "s09" ? "s09" : "s03"})},
-      T(state === "connected" ? "servers.connection.details" : "context.prepare_model")));
+    inStep ? null : h("button", {type: "button", class: primary ? "primary" : null,
+      onclick: () => go("s06", {model: item?.tag || model, returnScreen: "s03"})},
+      T(state === "connected" ? "servers.connection.details" : "context.prepare_model")),
+    extra?.());
+  if (inStep) serversFlat(el);
 }
 function serversCatch(error, action) {
   S.servers.error = {error, action};

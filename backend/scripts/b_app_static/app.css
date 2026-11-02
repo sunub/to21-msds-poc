@@ -337,10 +337,11 @@ dialog::backdrop { background: var(--backdrop); }
 
 /* S06: 단계 표시, 제목, 단계 내용, 행동 줄 순서 (ADR-039). 서버 목록과 기록은 자세히 서랍에 있다. */
 #screen-s06 > h1 { margin-bottom: var(--space-tight); }
-#screen-s06 > .help-context { margin-bottom: var(--space-group); }
-#servers-step-bar { margin-bottom: var(--space-group); min-width: 0; }
-#servers-step-say { margin-bottom: var(--space-tight); color: var(--muted); }
-#servers-flow { min-width: 0; }
+#screen-s06 > .help-context, #screen-s03 > .help-context { margin-bottom: var(--space-group); }
+#servers-step-bar, #jobs-step-bar { margin-bottom: var(--space-group); min-width: 0; }
+#servers-step-say, #jobs-step-say { margin-bottom: var(--space-tight); color: var(--muted); }
+#jobs-step-say:empty { display: none; }
+#servers-flow, #jobs-flow { min-width: 0; }
 .step-screen > [role="status"]:empty { display: none; }
 .step-screen > .server-notice, .step-screen > .error-note, .step-screen > .server-actions { margin: 0; }
 .server-actions { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--space-group); margin: var(--space-group) 0; }
@@ -381,8 +382,7 @@ dialog::backdrop { background: var(--backdrop); }
 
 /* S03/S05/S09/S10: 시험 대상, 입력, 결과 단계와 작업 기록. */
 #jobs-try, #jobs-result, #jobs-run, #jobs-compare, #jobs-list, #jobs-detail { min-width: 0; }
-#jobs-result, #jobs-connection, #jobs-detail { margin-top: var(--space-section); }
-#jobs-connection { margin-bottom: var(--space-group); }
+#jobs-detail { margin-top: var(--space-section); }
 #jobs-prompt-status:empty { display: none; }
 .job-form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-group); }
 .job-field { display: grid; gap: var(--space-field); min-width: 0; margin-block: var(--space-small); }
@@ -413,6 +413,27 @@ dialog::backdrop { background: var(--backdrop); }
 #jobs-list [data-job-status] { display: block; }
 .job-error-summary { font-size: var(--label-size); }
 #jobs-try fieldset, #jobs-run fieldset { border: var(--border-standard); padding: var(--space-group); min-width: 0; }
+#jobs-try, #jobs-run, #jobs-result { display: flex; flex-direction: column; gap: var(--space-group); }
+#jobs-try > *, #jobs-run > *, #jobs-result > * { margin-block: 0; }
+#jobs-try .step-choices { border: 0; padding: 0; }
+/* 세 갈래와 고르는 카드: 고른 것은 글자 굵기와 테두리로도 구분한다. */
+.step-seg { display: inline-flex; align-self: flex-start; border: var(--border-input); border-radius: var(--radius-control); overflow: hidden; background: var(--paper); }
+.step-seg button { min-height: 44px; border: 0; border-left: var(--border-input); border-radius: 0; background: transparent; color: var(--ink); font-weight: var(--body-weight); }
+.step-seg button:first-child { border-left: 0; }
+.step-seg button.on { background: var(--ink); color: var(--paper); font-weight: 700; }
+.step-choices { display: flex; flex-direction: column; gap: var(--space-control-y); min-width: 0; }
+.step-choices legend { padding: 0; margin-bottom: var(--space-small); font-weight: var(--subsection-weight); }
+.step-choice { display: flex; align-items: center; gap: var(--space-compact); min-width: 0; padding: var(--space-compact) var(--space-group); background: var(--paper); border: var(--border-standard); border-radius: var(--radius-panel); cursor: pointer; }
+.step-choices legend + .step-choice { margin-top: 0; }
+.step-choice.on { border: var(--border-selected); }
+.step-choice input { flex: none; margin: 0; }
+.step-choice-body { flex: 1; min-width: 0; }
+.step-choice-body b { display: block; }
+.step-choice-body small { display: block; color: var(--muted); font-size: var(--label-size); }
+.step-choice-state { flex: none; color: var(--muted); font-size: var(--label-size); }
+.step-choice-state.on { color: var(--accent); font-weight: 700; }
+.job-server-note { display: flex; align-items: center; gap: var(--space-compact); }
+.job-server-note p { flex: 1; min-width: 0; margin: 0; }
 
 /* 도움말은 읽는 화면이다. 긴 경로만 줄바꿈하고 본문은 72ch 안에 둔다. */
 .help-context { color: var(--muted); font-size: var(--label-size); margin-bottom: var(--space-section); max-width: 72ch; }

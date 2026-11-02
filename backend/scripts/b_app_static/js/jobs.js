@@ -1,7 +1,9 @@
 "use strict";
 
 // 폼과 지시문은 메모리에만 둔다. 시작 당시 조건은 서버의 target을 읽는다.
-S.jobs = {opts: null, optionsError: null, optionsRecovered: false, pollError: null, recovered: false,
+// step은 표시 상태일 뿐 입력을 지우지 않는다: target, model, prompt, job(작업 상태에 따라 시험 또는 결과). batch는 '여러 문서' 갈래다.
+S.jobs = {step: null, batch: false, runWatch: null, sendError: null, runError: null, timings: {},
+  opts: null, optionsError: null, optionsRecovered: false, pollError: null, recovered: false,
   t: {doc: null, model: null, secs: new Set([1]), all: false, base: "", dry: false, edit: false, dirty: false, text: "", textFor: null},
   r: {model: null, docs: null, repeat: 1, name: "", edited: false}, c: {picked: [], labels: {}, title: ""},
   list: [], running: [], runs: [], runsError: null, runsKey: null, timer: null, polling: null, loadingOptions: null,
@@ -91,7 +93,6 @@ function jobsReconcile() {
   if (!docs.some(d => d.doc_id === J.t.doc)) J.t.doc = null;
   const allowed = docs.filter(d => jobsAllowed(d, "run")).map(d => d.doc_id);
   J.r.docs = J.r.docs === null ? new Set(allowed) : new Set([...J.r.docs].filter(id => allowed.includes(id)));
-  if (!models.some(m => m.connected === true) && !J.t.dry) { J.t.dry = true; J.t.dryForced = true; }
   if (!J.r.edited) J.r.name = jobsSuggestName();
 }
 async function jobsLoadOptions() {
@@ -113,15 +114,41 @@ async function jobsLoadRuns() {
     J.runs = data.runs || []; J.runsError = null; J.runsKey = key;
   } catch (error) { if (key === S.ctx.key) J.runsError = error; }
 }
+// 원문에서 고른 값이 지금 대상의 값인가.
+function jobsPickedValue() {
+  const f = S.focus, t = S.jobs.t;
+  return !!f.path && !t.all && f.doc === t.doc && t.secs.has(Number(f.section));
+}
+// 들어올 때 여는 단계. 고른 값이 없거나 원문과 묶음이 다르면 ①, AI가 꺼져 있으면 ②, 켜져 있으면 ③이다.
+function jobsEntryStep() {
+  const doc = jobsDocs().find(d => d.doc_id === S.jobs.t.doc);
+  const sameSet = !S.focus.source_set || S.focus.source_set === S.ctx.set;
+  return stepsFirstOpen([{id: "target", done: jobsPickedValue() && jobsAllowed(doc, "try") && sameSet},
+    {id: "model", done: jobsReady(S.jobs.t.model)}, {id: "prompt", done: false}]);
+}
+function jobsEnterStep(args, {trialBranch, trialStep, cameBack}) {
+  const J = S.jobs, running = J.step === "job" && jobsWatched()?.status === "running";
+  // 도는 시험을 덮지 않는다. 옛 주소로 들어와도 ④를 그대로 보인다.
+  if (trialBranch && !running) { J.batch = trialBranch === "batch"; J.step = "target"; }
+  else if (trialStep) J.step = trialStep;
+  else if (args.job) return;
+  else if (J.step === null || ((args.doc || args.section || args.path) && !running)) { J.batch = false; J.step = jobsEntryStep(); }
+  // 서버에서 돌아왔을 때 고른 AI가 응답하면 ②를 지난다. 다른 AI만 켜졌다면 머문다.
+  else if (cameBack && J.step === "model" && jobsReady(jobsForm().model)) J.step = "prompt";
+}
 async function jobsEnsure(args = {}) {
   const J = S.jobs, incoming = Object.keys(args).length ? args : !J.initialized ? S.focus : {};
+  // 단계 지시는 이번 이동에만 쓴다. S.focus에 남으면 다음 이동에 다시 적용된다.
+  const {trialBranch, trialStep, ...focus} = S.focus;
+  const cameBack = S.shell.route === "s03" && !!focus.returnScreen;
+  if (cameBack) delete focus.returnScreen;
+  S.focus = focus;
   if (args.journeyPrepare) {
     J.defaultsApplied = true; J.t.doc = args.doc || null;
-    J.t.secs = new Set(args.section ? [Number(args.section)] : []); J.t.all = false;
+    J.t.secs = new Set(args.section ? [Number(args.section)] : []); J.t.all = false; J.batch = false;
     J.t.edit = false; J.t.dirty = false; J.t.text = ""; J.t.textFor = null; J.promptAttempt = null;
-    J.expanded["jobs-scope"] = true;
   }
-  if (Object.hasOwn(args, "practice")) { J.t.dry = args.practice; J.t.dryForced = false; }
+  if (Object.hasOwn(args, "practice")) J.t.dry = args.practice;
   if ((args.doc || args.section) && !Object.hasOwn(args, "path")) {
     S.focus = {...S.focus, path: null, kind: null, expected: null, actual: null, expected_text: null, actual_text: null, line: null, lines: [], source_set: null};
   }
@@ -132,7 +159,7 @@ async function jobsEnsure(args = {}) {
   if (incoming.base_run || incoming.run) J.t.base = incoming.base_run || incoming.run;
   if (incoming.model) J.t.model = incoming.model;
   J.initialized = true;
-  if (!J.opts || args.journeyPrepare || args.journeyCheck) await jobsLoadOptions();
+  if (!J.opts || args.journeyPrepare || args.journeyCheck || cameBack) await jobsLoadOptions();
   if (J.runsKey !== S.ctx.key || J.runsKey === null) await jobsLoadRuns();
   if (!jobsModel(incoming.model) && (incoming.base_run || incoming.run || !jobsModel(J.t.model))) {
     J.t.model = jobsDefaultModel(J.runs.find(run => run.name === J.t.base)?.model_tag);
@@ -146,6 +173,7 @@ async function jobsEnsure(args = {}) {
   }
   if (!J.timer) await jobsPoll();
   jobsRemember();
+  if (S.shell.route === "s03") jobsEnterStep(args, {trialBranch, trialStep, cameBack});
   if (args.resumePending && J.list.some(job => job.id === args.job && job.kind === "try")) J.observed.add(args.job);
   if (args.job) await jobsWatch(args.job, false);
 }
@@ -154,19 +182,209 @@ function jobsFormStatus() {
   return J.optionsError ? loadFailure(J.optionsError.message)
     : J.optionsRecovered ? jobsNote(T("jobs.record.options_recovered"), {role: "status"}) : null;
 }
-function jobsModelSelect(form, kind) {
-  const select = h("select", {onchange: e => {
-    form.model = e.target.value;
-    if (kind === "try") { form.modelPicked = true; jobsRemember(); jobsRenderTry(); jobsRenderConnection(); }
-    else { if (!form.edited) form.name = jobsSuggestName(); jobsRenderRun(); }
-  }}, [...(S.jobs.opts?.models || [])].sort((a, b) => Number(jobsDraftModel(a)) - Number(jobsDraftModel(b)))
-    .map(m => h("option", {value: m.tag, disabled: kind === "run" && m.connected !== true},
-      jobsDraftModel(m) ? jobsModelLabel(m.tag) : m.option_label || jobsModelLabel(m.tag))));
-  select.value = form.model || "";
-  return select;
+// ── 다시 시험의 단계: 무엇을 → 어느 AI로 → 무엇을 시킬지 → 시험 → 결과 (ADR-039) ──
+function jobsForm() { return S.jobs.batch ? S.jobs.r : S.jobs.t; }
+function jobsWatched() {
+  const J = S.jobs, id = J.batch ? J.runWatch : J.watch;
+  return J.list.find(job => job.id === id) || null;
+}
+function jobsRunning() { return jobsWatched()?.status === "running"; }
+function jobsFinished() {
+  const J = S.jobs, job = jobsWatched();
+  if (J.batch) return job?.status === "done";
+  return !!J.watch && !["running", "failed", "stopped"].includes(job?.status) && J.resultLoaded && J.resultStatus === 200 && !!J.result;
+}
+// 다음 단계로 못 가는 이유. 없으면 빈 글이다.
+function jobsTargetReason() {
+  const J = S.jobs, t = J.t, r = J.r;
+  if (J.batch) return !r.docs?.size || !r.name.trim() || !Number.isInteger(r.repeat) || r.repeat < 1 || r.repeat > 10 ? T("jobs.form.invalid_run") : "";
+  const doc = jobsDocs().find(d => d.doc_id === t.doc);
+  if (!doc) return T("jobs.form.no_doc");
+  if (!jobsAllowed(doc, "try")) return doc.run_reason?.try || T("jobs.no_runnable.todo");
+  return !t.all && !t.secs.size ? T("jobs.form.no_sections") : "";
+}
+function jobsStep() {
+  const J = S.jobs, at = J.step || "target";
+  if (at === "job") return jobsFinished() ? "result" : "running";
+  // 대상이 사라지면 ①에서 고친다. 다른 문서로 몰래 바꾸지 않는다.
+  return at !== "target" && jobsTargetReason() ? "target" : at;
+}
+function jobsGoStep(id) {
+  S.jobs.step = ["running", "result"].includes(id) ? "job" : id;
+  jobsRenderSteps();
+  document.getElementById("title-s03").focus({preventScroll: true});
+}
+function jobsRenderSteps() { jobsRenderTry(); jobsRenderRun(); jobsRenderConnection(); jobsRenderResult(); }
+function jobsChooseBranch(kind) {
+  const J = S.jobs;
+  J.batch = kind === "batch";
+  if (!J.batch) { J.t.all = kind === "document"; jobsRemember(); }
+  jobsRenderSteps();
+  document.getElementById(`jobs-branch-${kind}`)?.focus({preventScroll: true});
+}
+function jobsTargetText() {
+  const J = S.jobs, t = J.t;
+  if (J.batch) return T("jobs.form.count", {count: J.r.docs?.size || 0, repeats: J.r.repeat});
+  return t.doc ? `${t.doc} · ${t.all ? T("jobs.form.all") : [...t.secs].map(section => T("jobs.form.section", {section})).join(", ")}` : T("jobs.form.no_doc");
+}
+function jobsResultSeconds(r) {
+  const rows = Object.values(r?.results || {});
+  return r?.run?.seconds ?? (rows.length === 1 ? rows[0].seconds : null);
+}
+// 같은 조건의 지난 시험 시간. 이 화면에서 끝까지 본 실제 시험만 기억한다.
+function jobsTimingKey({doc, sections, all, model, set, custom_prompt}) {
+  return JSON.stringify([doc, all ? null : [...(sections || [])].map(Number).sort((a, b) => a - b), !!all, model, set, !!custom_prompt]);
+}
+function jobsCurrentTiming() {
+  const t = S.jobs.t;
+  return S.jobs.timings[jobsTimingKey({doc: t.doc, sections: [...t.secs], all: t.all, model: t.model, set: S.ctx.set, custom_prompt: jobsSingle() && t.edit})];
+}
+function jobsStepList(current) {
+  const J = S.jobs, order = ["target", "model", "prompt", "running", "result"], at = order.indexOf(current);
+  const form = jobsForm(), valid = !jobsTargetReason(), running = jobsRunning(), seconds = J.batch ? null : jobsResultSeconds(J.result);
+  const summary = {target: jobsTargetText(), model: form.model ? jobsModelLabel(form.model) : "",
+    prompt: T(!J.batch && jobsSingle() && J.t.edit ? "steps.trial.prompt_used_edited" : "steps.trial.prompt_used_default"),
+    running: num(seconds) ? T("steps.trial.took", {seconds: Math.round(seconds)}) : ""};
+  const reachable = {target: !running, model: valid && !running, prompt: valid && !running && jobsReady(form.model), running, result: jobsFinished()};
+  return order.map((id, index) => ({id, label: T(`steps.trial.${id}`), done: index < at, summary: index < at ? summary[id] : "",
+    reachable: reachable[id], buttonId: `jobs-step-${id}`}));
+}
+function jobsResultHead() {
+  const J = S.jobs, r = J.result, job = jobsWatched();
+  if (J.batch) return [T("steps.trial.batch_done_title"), ""];
+  if (job?.target && !jobsResultMatches(job, r)) return [T("jobs.target_mismatch.fact"), ""];
+  if (!r.run && !r.results) return [T("steps.trial.practice_title"), ""];
+  if (r.results && !Object.values(r.results).every(v => v.ok === true)) return [T("steps.trial.parse_title"), ""];
+  const before = r.score?.before?.weighted, after = r.score?.after?.weighted;
+  if (!num(before) || !num(after)) return [T("jobs.result.plain_done"), ""];
+  return [T(after > before ? "steps.trial.score_up" : after < before ? "steps.trial.score_down" : "steps.trial.score_same",
+    {before: fmt1(before), after: fmt1(after)}), T("steps.trial.result_say")];
+}
+function jobsHead(step) {
+  const J = S.jobs, form = jobsForm(), job = jobsWatched();
+  if (step === "result") return jobsResultHead();
+  if (step === "running") {
+    if (job?.status === "failed") return [T("steps.trial.failed_title"), ""];
+    if (job?.status === "stopped") return [T("jobs.stopped.fact"), ""];
+    if (J.batch) return [T("steps.trial.batch_running_title"), T("jobs.running.leave_screen")];
+    if (J.resultError) return [T("common.legacy.load_error.message"), ""];
+    if (J.resultLoaded && !J.result && J.resultStatus === 204) return [T("jobs.result_missing.fact"), ""];
+    if (job && job.status !== "running") return [T("jobs.result.pending"), ""];
+    const t = job?.target || {};
+    const what = t.all ? T("jobs.form.all") : (t.sections || []).map(section => T("jobs.form.section", {section})).join(", ");
+    return [T("steps.trial.running_title", {target: what || jobsTargetText()}), T("jobs.running.leave_screen")];
+  }
+  if (J.optionsError) return [T("common.legacy.load_error.message"), ""];
+  if (!J.opts) return [T("common.legacy.loading"), ""];
+  if (step === "target") return [T("steps.trial.target_title"), T(J.batch ? "jobs.batch.title" : jobsPickedValue() ? "steps.trial.target_filled" : "steps.trial.target_say")];
+  if (step === "prompt") return J.batch ? [T("steps.trial.batch_prompt_title"), ""] : [T("steps.trial.prompt_title"), T("steps.trial.prompt_say")];
+  if (!form.model) return [T("jobs.form.no_models"), ""];
+  const made = !J.batch && J.runs.find(run => run.name === J.t.base)?.model_tag === form.model;
+  return jobsReady(form.model) ? [T("steps.trial.model_on_title", {model: jobsModelLabel(form.model)}), made ? T("steps.trial.model_on_say") : ""]
+    : [T("steps.trial.model_off_title"), T("steps.trial.model_off_say")];
+}
+function jobsSendReason(real) {
+  const J = S.jobs, t = J.t;
+  if (J.optionsError) return T("common.legacy.load_error.message");
+  const target = jobsTargetReason();
+  if (target) return target;
+  if (!t.model) return T("jobs.form.no_models");
+  return real && !jobsReady(t.model) ? T("jobs.actions.run_unavailable") : "";
+}
+function jobsOpenServers() {
+  const form = jobsForm();
+  // 고른 AI를 켜러 가는 길에 다른 AI가 켜져도 고른 값을 바꾸지 않는다.
+  if (!S.jobs.batch) form.modelPicked = true;
+  return go("s06", {model: form.model, returnScreen: "s03"}).catch(fail);
+}
+function jobsActions(step) {
+  const J = S.jobs, form = jobsForm(), ready = jobsReady(form.model), job = jobsWatched();
+  const records = {label: T("jobs.running.open_jobs"), onClick: () => go("s05").catch(fail), attrs: {id: "jobs-open-records"}};
+  const practice = J.batch ? null : {label: T("steps.trial.practice"), onClick: () => jobsStartTry({practice: true}),
+    disabled: !!J.busy || !!jobsSendReason(false), attrs: {id: "jobs-practice", "data-guide": "s03-practice"}};
+  const back = to => ({label: T("steps.back"), onClick: () => jobsGoStep(to), attrs: {id: "jobs-back"}});
+  if (step === "target") {
+    const reason = J.opts ? jobsTargetReason() : T("common.legacy.loading");
+    return {note: J.batch || reason ? "" : T("steps.trial.batch_hint"),
+      primary: {label: T("steps.next", {name: T("steps.trial.model")}), onClick: () => jobsGoStep("model"), disabled: !!reason, reason, attrs: {id: "jobs-next"}}};
+  }
+  if (step === "model") return {back: back("target"), note: ready ? "" : T("steps.trial.off_note"), secondary: practice,
+    primary: ready ? {label: T("steps.next", {name: T("steps.trial.prompt")}), onClick: () => jobsGoStep("prompt"), attrs: {id: "jobs-next"}}
+      : {label: T("steps.trial.prepare"), onClick: jobsOpenServers, disabled: !form.model, attrs: {id: "jobs-prepare"}}};
+  if (step === "prompt") {
+    if (J.batch) return {back: back("model"), primary: {label: T("jobs.batch.start"), onClick: jobsStartRun, disabled: !ready || !!J.busy || !J.r.docs?.size,
+      reason: ready ? "" : T("jobs.actions.run_unavailable"), attrs: {id: "jobs-run-start"}}};
+    const reason = jobsSendReason(true), seconds = jobsCurrentTiming();
+    return {back: back("model"), secondary: practice,
+      note: [J.t.model ? T("steps.trial.send_note", {target: jobsTargetText(), model: jobsModelLabel(J.t.model)}) : "",
+        num(seconds) ? T("steps.trial.previous_time", {seconds: Math.round(seconds)}) : ""].filter(Boolean).join(" "),
+      primary: {label: T(J.busy === "try" ? "jobs.form.sending" : "jobs.actions.send"), onClick: () => jobsStartTry({practice: false}), disabled: !!J.busy || !!reason, reason,
+        attrs: {id: "jobs-send", "data-guide": "s03-send"}}};
+  }
+  if (step === "running") {
+    if (!job || job.status === "running") return {secondary: records,
+      back: job?.stoppable ? {label: T("jobs.running.stop"), disabled: !!J.busy, attrs: {id: "jobs-try-stop"},
+        onClick: () => { J.confirm = {kind: "stop", id: job.id}; jobsOpenConfirm("jobs-try-stop"); }} : null,
+      primary: {label: T("steps.trial.see_result"), disabled: true, reason: T("steps.trial.result_later"), attrs: {id: "jobs-see-result"}}};
+    return {secondary: records, primary: {label: T("jobs.stopped.return_target"), onClick: () => jobsGoStep("prompt"), attrs: {id: "jobs-return-target"}}};
+  }
+  if (J.batch) return {back: back("target"), secondary: records,
+    primary: {label: T("steps.trial.open_recent"), onClick: () => go("s01").catch(fail), attrs: {id: "jobs-open-recent"}}};
+  const r = J.result;
+  if (!r.run && !r.results) return {primary: {label: T("steps.trial.after_practice"), onClick: () => jobsGoStep(ready ? "prompt" : "model"), attrs: {id: "jobs-after-practice"}}};
+  const again = {label: T("steps.trial.edit_again"), onClick: () => jobsGoStep("prompt"), attrs: {id: "jobs-edit-again"}};
+  if (r.run) return {secondary: again, primary: r.saved ? {label: T("jobs.done.open_source"), attrs: {id: "jobs-whole-source"},
+    onClick: () => go("s02", {run: r.saved.replace(/^.*?runs\//, ""), doc: r.plan?.doc_id, section: 1}).catch(fail)} : null};
+  return {secondary: again, primary: job?.target ? {label: T("jobs.done.open_source"), attrs: {id: "jobs-result-source"},
+    onClick: () => go("s02", {run: job.target.base_run || S.focus.run, doc: job.target.doc, section: job.target.sections?.[0] || 1, path: S.focus.path, line: S.focus.line}).catch(fail)} : null};
+}
+function jobsRenderFrame() {
+  const step = jobsStep(), active = document.activeElement, activeId = active?.id, [title, say] = jobsHead(step);
+  shellConclusion("s03", title);
+  document.getElementById("jobs-step-say").textContent = say;
+  stepsRenderBar(document.getElementById("jobs-step-bar"), {steps: jobsStepList(step), current: step, onGo: jobsGoStep});
+  coreReplace(document.getElementById("jobs-details"), h("p", {class: "server-details-link"},
+    h("button", {id: "jobs-details-open", type: "button", class: "text-button", onclick: jobsOpenDetails}, T("steps.details.open")), " ", T("steps.trial.details_hint")));
+  stepsRenderActions(document.getElementById("jobs-actions"), jobsActions(step));
+  if (activeId && !active.isConnected) document.getElementById(activeId)?.focus({preventScroll: true});
+  if (S.drawer.screen === "s03") jobsRenderDrawer(document.querySelector("#details-drawer .drawer-body"));
+}
+function jobsModelNote(m) {
+  const J = S.jobs, on = jobsReady(m.tag), where = serversModel(m.tag)?.where, pod = serversSessionPod(), quote = serversData()?.create_quote;
+  const made = !J.batch && J.runs.find(run => run.name === J.t.base)?.model_tag === m.tag ? T("steps.trial.made_base") : null;
+  const note = where === "RNGD" ? T(on ? "steps.trial.on_company" : "steps.trial.off_company")
+    : where === "RunPod" && on && num(pod?.cost_per_hr) ? T("steps.trial.on_rented", {hourly: pod.cost_per_hr.toFixed(2)})
+    : where === "RunPod" && !on && quote?.tag === m.tag && num(quote.cost_per_hr) ? T("steps.trial.off_rented", {hourly: quote.cost_per_hr.toFixed(2)})
+    : on ? T("steps.trial.on_note") : null;
+  return [made, note].filter(Boolean).join(" ");
+}
+function jobsModelState(m) {
+  if (jobsReady(m.tag)) return T("steps.trial.state_on");
+  const item = serversModel(m.tag);
+  const state = item || S.shell.serverError ? serversState(item) : m.connected === false ? "state_off" : "readiness_unknown";
+  return state === "state_off" ? T("steps.trial.state_off") : state === "connected" ? T("servers.models.connected") : T(`context.model.${state}`);
+}
+function jobsPickModel(form, kind, tag) {
+  form.model = tag;
+  if (kind === "try") { form.modelPicked = true; jobsRemember(); }
+  else if (!form.edited) form.name = jobsSuggestName();
+  jobsRenderSteps();
+}
+function jobsModelChoices(form, kind) {
+  const id = kind === "try" ? "jobs-model" : "jobs-run-model";
+  const models = [...(S.jobs.opts?.models || [])].sort((a, b) => Number(jobsDraftModel(a)) - Number(jobsDraftModel(b)));
+  return h("fieldset", {id, class: "step-choices", "data-guide": kind === "try" ? "s03-model" : null, onchange: e => jobsPickModel(form, kind, e.target.value)},
+    h("legend", null, T("jobs.form.model")),
+    models.length ? models.map(m => {
+      const on = form.model === m.tag, note = jobsModelNote(m);
+      return h("label", {class: `step-choice${on ? " on" : ""}`},
+        h("input", {id: `${id}-${m.tag}`, type: "radio", name: id, value: m.tag, checked: on, disabled: kind === "run" && m.connected !== true}),
+        h("span", {class: "step-choice-body"}, h("b", null, jobsModelLabel(m.tag)), note ? h("small", null, note) : null),
+        h("span", {class: `step-choice-state${jobsReady(m.tag) ? " on" : ""}`}, jobsModelState(m)));
+    }) : jobsNote(T("jobs.form.no_models")));
 }
 function jobsRenderFocus() {
-  const f = S.focus, valid = f.doc === S.jobs.t.doc && S.jobs.t.secs.has(Number(f.section)) && f.path;
+  const f = S.focus, valid = jobsPickedValue();
   const key = valid ? {wrong: "pair", missing: "missing", made: "made"}[f.kind] : null;
   const parsed = String(f.line || "").match(/^p(\d+):L(\d+)$/);
   const parts = String(f.path || "").replace(/\[\d+\]/g, "").split(".");
@@ -175,110 +393,127 @@ function jobsRenderFocus() {
   return h("div", {id: "jobs-focus", class: "job-focus"}, h("h3", null, T("jobs.focus.title")),
     key ? jobsNote([UI.source.table_names[table], sourceFieldName({field, table}, null)].filter(Boolean).join(" · ")) : null,
     jobsNote(T(`jobs.focus.${key || "none"}`, {key_value: jobsFocusValue(f.expected, f.expected_text), ai_value: jobsFocusValue(f.actual, f.actual_text)})),
-    key ? coreCodeRecord(f.path) : null,
     key && f.line ? jobsNote(f.line_text && parsed ? T(`jobs.focus.${f.estimated ? "line_estimated" : "line"}`,
       {page: parsed[1], line_no: parsed[2], line_text: f.line_text}) : T(`jobs.form.${f.estimated ? "focus_estimated" : "focus_line"}`, {line: f.line})) : null);
 }
-function jobsRenderTry() {
-  const J = S.jobs, t = J.t, el = document.getElementById("jobs-try");
-  shellConclusion("s03", T(J.optionsError ? "common.legacy.load_error.message" : !J.opts ? "common.legacy.loading"
-    : jobsReady(t.model) ? "jobs.trial.title" : "jobs.off.title"));
-  if (!J.opts) { coreReplace(el, jobsFormStatus() || jobsNote(T("common.legacy.loading"), {role: "status"})); return; }
-  const active = document.activeElement?.id;
-  const docs = jobsDocs(), allowed = jobsAllowed(docs.find(d => d.doc_id === t.doc), "try"), one = jobsSingle();
-  // 고를 수 있는 문서를 먼저 둔다. 평가용 문서는 한 줄로 접는다(열 수 없고 번호순으로 맨 앞에 와서 개발 문서를 가린다).
+function jobsSetNotice() {
+  return S.focus.source_set && S.focus.source_set !== S.ctx.set ? h("div", {class: "job-notice"}, jobsNote(T("jobs.set_mismatch.title")),
+    jobsNote(T("jobs.form.source_set", {set: S.focus.source_set})), jobsNote(T("jobs.form.next_set", {set: S.ctx.set}))) : null;
+}
+// ① 무엇을: 세 갈래. 갈래를 바꿔도 다른 갈래의 초안은 지우지 않는다.
+function jobsStageTarget() {
+  const J = S.jobs, t = J.t, branch = J.batch ? "batch" : t.all ? "document" : "part";
+  const seg = h("div", {class: "step-seg", role: "group", "aria-label": T("steps.trial.scope.a11y")}, ["part", "document", "batch"].map(kind =>
+    h("button", {id: `jobs-branch-${kind}`, type: "button", class: kind === branch ? "on" : null, "aria-pressed": String(kind === branch), onclick: () => jobsChooseBranch(kind)},
+      T(`steps.trial.scope.${kind}`))));
+  if (J.batch) return [seg];
+  const docs = jobsDocs();
+  // 고를 수 있는 문서를 먼저 둔다. 평가용 문서는 한 줄로 줄인다(열 수 없고 번호순으로 맨 앞에 와서 개발 문서를 가린다).
   const closed = docs.filter(d => !jobsAllowed(d, "try") && d.group !== "eval"), evals = docs.filter(d => !jobsAllowed(d, "try") && d.group === "eval");
   const closedReason = d => d.run_reason?.try || T("jobs.no_runnable.todo");
-  const select = h("select", {onchange: e => { t.doc = e.target.value; jobsRemember(); jobsRenderTry(); }},
+  const select = h("select", {"data-guide": "s03-target", onchange: e => { t.doc = e.target.value; jobsRemember(); jobsRenderSteps(); }},
     h("option", {value: ""}, T("jobs.form.no_doc")), [...docs.filter(d => jobsAllowed(d, "try")), ...closed].map(d => h("option", {value: d.doc_id, disabled: !jobsAllowed(d, "try")},
       d.doc_id, d.run_reason?.try ? ` — ${d.run_reason.try}` : ""))); select.value = t.doc || "";
   const base = h("select", {onchange: e => {
     t.base = e.target.value; t.model = jobsDefaultModel(J.runs.find(run => run.name === t.base)?.model_tag);
-    t.modelPicked = !!t.base; jobsRemember(); jobsRenderTry(); jobsRenderConnection();
+    t.modelPicked = !!t.base; jobsRemember(); jobsRenderSteps();
   }},
     h("option", {value: ""}, T("jobs.form.base_auto")),
     J.runs.filter(r => !["eval", "silver", "models"].includes(r.run_kind) && [...(r.docs || []), ...(r.no_gold || [])].includes(t.doc))
       .map(r => h("option", {value: r.name}, jobsRunLabel(r))));
   if (t.base && ![...base.querySelectorAll("option")].some(option => option.value === t.base)) base.append(h("option", {value: t.base}, t.base));
   base.value = t.base;
-  const textarea = h("textarea", {rows: 5, class: "job-prompt technical", spellcheck: "false", disabled: !one,
-    oninput: e => { t.text = e.target.value; t.edit = true; t.dirty = true; t.revision = (t.revision || 0) + 1;
-      const check = document.getElementById("jobs-edit"); if (check) check.checked = true; }});
-  textarea.value = t.text;
-  const ready = jobsReady(t.model), busy = J.busy === "try";
-  // AI가 없어 켠 연습은 AI가 연결되면 푼다. 직접 켠 연습은 그대로 둔다.
-  if (!ready && !t.dry) { t.dry = true; t.dryForced = true; }
-  if (ready && t.dryForced) { t.dry = false; t.dryForced = false; }
-  const controls = h("div", {class: "job-form-grid"},
-    jobsField("jobs-model", T("jobs.form.model"), T("jobs.fields.model"), jobsModelSelect(t, "try")),
-    jobsField("jobs-doc", T("jobs.form.doc"), T("jobs.fields.doc"), select));
-  const scope = jobsDetails("jobs-scope", T("jobs.scope.expand"), controls,
+  return [seg, jobsSetNotice(),
+    h("div", {class: "step-card"}, h("div", {class: "job-form-grid"},
+      jobsField("jobs-doc", T("jobs.form.doc"), T("jobs.fields.doc"), select),
+      jobsField("jobs-base", term("base_run", T("jobs.scope.base_run")), T("jobs.fields.base_run"), base)),
+      t.all ? jobsNote(T("jobs.form.all")) : h("fieldset", null, h("legend", null, T("jobs.scope.label")),
+        h("div", {class: "job-sections"}, Array.from({length: 16}, (_, i) => i + 1).map(n => h("label", null,
+          h("input", {id: `jobs-section-${n}`, type: "checkbox", checked: t.secs.has(n), onchange: e => {
+            e.target.checked ? t.secs.add(n) : t.secs.delete(n); jobsRemember(); jobsRenderSteps();
+          }}), T("jobs.form.section", {section: n}))))),
+      jobsNote(T("jobs.fields.scope"), {class: "muted"})),
+    docs.some(d => jobsAllowed(d, "try")) ? null : jobsNote(T("jobs.no_runnable.fact")),
     h("ul", {class: "muted"}, evals.length ? h("li", null, T("jobs.batch.eval_locked", {count: evals.length})) : null,
       [...new Set(closed.map(closedReason))].map(reason => h("li", null, closed.filter(d => closedReason(d) === reason).map(d => d.doc_id).join(", "), " — ", reason))),
-    jobsNote(T("jobs.fields.pages")), jobsNote(jobsSet()?.label || S.ctx.set || T("common.none")),
-    h("fieldset", null, h("legend", null, T("jobs.scope.label")),
-      h("label", null, h("input", {type: "checkbox", checked: t.all, onchange: e => { t.all = e.target.checked; jobsRemember(); jobsRenderTry(); }}), T("jobs.form.all")),
-      h("div", {class: "job-sections"}, Array.from({length: 16}, (_, i) => i + 1).map(n => h("label", null,
-        h("input", {type: "checkbox", checked: t.secs.has(n), disabled: t.all, onchange: e => {
-          e.target.checked ? t.secs.add(n) : t.secs.delete(n); jobsRemember(); jobsRenderTry();
-        }}), T("jobs.form.section", {section: n}))))), jobsNote(T("jobs.fields.scope")),
-    jobsField("jobs-base", term("base_run", T("jobs.scope.base_run")), T("jobs.fields.base_run"), base));
-  if (!t.doc) { scope.open = true; J.expanded["jobs-scope"] = true; }
-  coreReplace(el, jobsFormStatus(), jobsNote(t.doc ? `${t.doc} · ${t.all ? T("jobs.form.all") : [...t.secs].map(section => T("jobs.form.section", {section})).join(", ")}`
-    : T(docs.some(d => jobsAllowed(d, "try")) ? "jobs.form.no_doc" : "jobs.no_runnable.fact"), {class: "fixed-target"}),
-    t.model ? [jobsNote(T("servers.connection.selected") + ": " + jobsModelLabel(t.model)),
-      jobsModelDifference(t.model, J.runs.find(run => run.name === t.base)?.model_tag)] : null,
-    jobsRenderFocus(), jobsField("jobs-prompt", term("prompt", T("jobs.form.prompt")), T("jobs.prompt.hint"), textarea),
-    h("div", {id: "jobs-prompt-status", role: J.promptError ? "alert" : "status"},
-      J.promptBusy ? jobsNote(T("jobs.form.prompt_loading")) : J.promptError ? loadFailure(J.promptError.message) : null),
-    jobsNote(T("jobs.prompt.retest_hint")),
-    h("div", {class: "job-actions"}, h("label", null, h("input", {id: "jobs-edit", type: "checkbox", checked: t.edit && one, disabled: !one,
-      onchange: e => { t.edit = e.target.checked; jobsRenderTry(); }}), T("jobs.prompt.edit")),
-      jobsButton("jobs-load-prompt", "jobs.form.load_prompt", jobsLoadPrompt, !one || !t.model || J.promptBusy)),
-    !one ? jobsNote(T("jobs.multiple.no_edit")) : null,
-    t.textFor && t.textFor !== `${t.model}|${[...t.secs][0]}` ? jobsNote(T("jobs.prompt.review_foreign"), {class: "warning"}) : null,
-    jobsDetails("jobs-prompt-origin", T("jobs.prompt.details"), ["origin", "memory_only", "delete_temp", "hash_only"].map(key => jobsNote(T(`jobs.prompt.${key}`)))),
-    S.focus.source_set && S.focus.source_set !== S.ctx.set ? h("div", {class: "job-notice"}, jobsNote(T("jobs.set_mismatch.title")),
-      jobsNote(T("jobs.form.source_set", {set: S.focus.source_set})), jobsNote(T("jobs.form.next_set", {set: S.ctx.set}))) : null,
+    t.all ? null : jobsRenderFocus()];
+}
+// ② 어느 AI로: 고르는 칸은 접지 않는다. 켜는 길은 jobs-connection과 행동 줄에 있다.
+function jobsStageModel() {
+  const J = S.jobs, form = jobsForm();
+  return [jobsModelChoices(form, J.batch ? "run" : "try"),
+    !J.batch && form.model ? jobsModelDifference(form.model, J.runs.find(run => run.name === J.t.base)?.model_tag) : null,
     jobsNote(J.opts.try_hint?.note || T("jobs.try_hint.off"), {role: "status"}),
-    document.getElementById("jobs-connection"),
     jobsButton("jobs-options-reload", "jobs.form.reload", jobsPoll, !!J.loadingOptions),
-    h("div", {class: "job-actions"}, jobsButton("jobs-send", busy ? "jobs.form.sending" : t.dry ? "jobs.actions.preview" : "jobs.actions.send", jobsStartTry,
-      !!J.busy || !!J.optionsError || !allowed || !t.model || (!t.all && !t.secs.size) || (!t.dry && !ready), ready)),
-    h("label", {hidden: !ready}, h("input", {id: "jobs-dry", type: "checkbox", checked: t.dry, disabled: !(J.opts.models || []).some(m => m.connected === true),
-      onchange: e => { t.dry = e.target.checked; t.dryForced = false; jobsRenderTry(); }}), T("jobs.fields.dry_run")),
-    jobsNote(term("practice", T("jobs.trial.practice_meaning")), {class: "muted"}), J.message.try || null, scope,
-    jobsDetails("jobs-next", T("jobs.trial.next_options"),
-      jobsButton("jobs-open-guide", "jobs.trial.start_guide", () => go("s08", {branch: "try"})),
-      jobsButton("jobs-open-batch", "jobs.trial.open_batch", () => go("s09"))));
-  if (active) document.getElementById(active)?.focus({preventScroll: true});
-  document.getElementById("jobs-doc").setAttribute("data-guide", "s03-target");
-  document.getElementById("jobs-model").setAttribute("data-guide", "s03-model");
-  document.getElementById("jobs-send").setAttribute("data-guide", "s03-send");
-  document.getElementById("jobs-dry").setAttribute("data-guide", "s03-practice");
+    J.batch ? null : jobsNote(term("practice", T("jobs.trial.practice_meaning")), {class: "muted"}),
+    J.batch ? null : serversFlat(J.message.try) || null];
+}
+// ③ 무엇을 시킬지: 한 부분만 고쳐 쓸 수 있다. 늦게 온 기본 글은 고친 글을 덮지 못한다(jobsLoadPrompt).
+function jobsStagePrompt() {
+  const J = S.jobs, t = J.t, one = jobsSingle();
+  if (!one) return [jobsSetNotice(), h("div", {class: "step-card"}, jobsNote(T("jobs.multiple.no_edit")), jobsNote(T("jobs.multiple.default_prompt"))),
+    jobsNote(term("practice", T("jobs.trial.practice_meaning")), {class: "muted"}), serversFlat(J.message.try) || null];
+  const choice = (id, on, key) => h("label", {class: `step-choice${on ? " on" : ""}`},
+    h("input", {id, type: "radio", name: "jobs-prompt-mode", checked: on, onchange: e => {
+      t.edit = id === "jobs-edit" ? e.target.checked : !e.target.checked; jobsRenderTry();
+    }}),
+    h("span", {class: "step-choice-body"}, h("b", null, T(`steps.trial.${key}`)), h("small", null, T(`steps.trial.${key}_note`))));
+  const textarea = h("textarea", {rows: 8, class: "job-prompt technical", spellcheck: "false",
+    oninput: e => { t.text = e.target.value; t.edit = true; t.dirty = true; t.revision = (t.revision || 0) + 1;
+      const edit = document.getElementById("jobs-edit"), plain = document.getElementById("jobs-edit-default");
+      if (edit) edit.checked = true;
+      edit?.closest(".step-choice")?.classList.add("on"); plain?.closest(".step-choice")?.classList.remove("on"); }});
+  textarea.value = t.text;
+  const field = jobsField("jobs-prompt", term("prompt", T("jobs.form.prompt")), T("jobs.prompt.hint"), textarea);
   textarea.setAttribute("aria-describedby", "jobs-prompt-help jobs-prompt-status");
-  jobsRenderConnection();
-  emit("trial_form_shown", {valid: !J.optionsError && allowed && one, connected: ready,
+  return [jobsSetNotice(),
+    h("div", {class: "step-choices"}, choice("jobs-edit-default", !t.edit, "prompt_default"), choice("jobs-edit", t.edit, "prompt_edit")),
+    field,
+    h("div", {id: "jobs-prompt-status", role: J.promptError ? "alert" : "status"},
+      J.promptBusy ? jobsNote(T("jobs.form.prompt_loading")) : J.promptError ? serversFlat(loadFailure(J.promptError.message)) : null),
+    jobsButton("jobs-load-prompt", "jobs.form.load_prompt", jobsLoadPrompt, !t.model || J.promptBusy),
+    t.textFor && t.textFor !== `${t.model}|${[...t.secs][0]}` ? jobsNote(T("jobs.prompt.review_foreign"), {class: "warning"}) : null,
+    jobsNote(T("jobs.prompt.retest_hint"), {class: "muted"}),
+    jobsNote(term("practice", T("jobs.trial.practice_meaning")), {class: "muted"}), serversFlat(J.message.try) || null];
+}
+function jobsRenderTry() {
+  const J = S.jobs, t = J.t, el = document.getElementById("jobs-try");
+  if (!J.opts) {
+    el.hidden = false;
+    coreReplace(el, serversFlat(jobsFormStatus()) || jobsNote(T("common.legacy.loading"), {role: "status"}));
+    jobsRenderFrame(); return;
+  }
+  const active = document.activeElement?.id, step = jobsStep();
+  const body = step === "target" ? jobsStageTarget() : step === "model" ? jobsStageModel() : step === "prompt" && !J.batch ? jobsStagePrompt() : null;
+  el.hidden = !body;
+  coreReplace(el, body ? [serversFlat(jobsFormStatus()), body] : []);
+  if (active) document.getElementById(active)?.focus({preventScroll: true});
+  jobsRenderFrame();
+  const allowed = jobsAllowed(jobsDocs().find(d => d.doc_id === t.doc), "try"), one = jobsSingle();
+  emit("trial_form_shown", {valid: !J.optionsError && allowed && one, connected: jobsReady(t.model),
     signature: JSON.stringify([t.doc, [...t.secs], t.all, t.model, S.ctx.set, S.ctx.key])});
   if (S.shell.route === "s03" && allowed && one && t.model && !t.edit && !t.dirty && J.promptAttempt !== jobsPromptKey()) {
     J.promptPending = jobsLoadPrompt({automatic: true});
   }
 }
-function jobsRenderConnection() {
-  const el = document.getElementById("jobs-connection");
-  const ready = jobsReady(S.jobs.t.model);
-  el.hidden = ready;
-  if (ready) return;
-  serversRenderCompact(el, {model: S.jobs.t.model, primary: true});
-  const data = serversData(), model = serversModel(S.jobs.t.model);
-  const choice = data?.rngd_choices?.find(item => item.tag === S.jobs.t.model);
+function jobsConnectionActions(tag) {
+  const data = serversData(), model = serversModel(tag), out = [];
+  const choice = data?.rngd_choices?.find(item => item.tag === tag);
   if (choice) {
-    if (data.rngd?.tunnel?.open === false) el.append(serversAction("tunnel_open", {}, T("servers.busy.open_tunnel"), "jobs"));
-    el.append(serversAction("rngd_up", {tag: choice.tag}, T("servers.company.confirm_load", {model: choice.label || choice.model}), "jobs"));
-    for (const loaded of data.rngd?.models || []) el.append(serversAction("rngd_down", {model: loaded.model}, T("servers.ready.confirm_unload"), `jobs-${loaded.pid}`));
+    if (data.rngd?.tunnel?.open === false) out.push(serversAction("tunnel_open", {}, T("servers.busy.open_tunnel"), "jobs"));
+    out.push(serversAction("rngd_up", {tag: choice.tag}, T("servers.company.confirm_load", {model: choice.label || choice.model}), "jobs"));
+    for (const loaded of data.rngd?.models || []) out.push(serversAction("rngd_down", {model: loaded.model}, T("servers.ready.confirm_unload"), `jobs-${loaded.pid}`));
   } else if (model?.where === "RunPod") {
-    el.append(jobsNote(T("servers.empty.new_cost")), serversAction("pod_create", {}, T("servers.rented.confirm_create"), "jobs"));
+    out.push(jobsNote(T("servers.empty.new_cost")), serversAction("pod_create", {}, T("servers.rented.confirm_create"), "jobs"));
   }
+  return out;
+}
+function jobsRenderConnection() {
+  const el = document.getElementById("jobs-connection"), tag = jobsForm().model;
+  const show = jobsStep() === "model" && !jobsReady(tag) && !!S.jobs.opts;
+  el.hidden = !show;
+  if (!show) { S.servers.compacts.delete(el); coreReplace(el); return; }
+  serversRenderCompact(el, {model: tag, inStep: true, extra: () => jobsConnectionActions(tag)});
 }
 function jobsPromptKey() {
   const t = S.jobs.t;
@@ -321,8 +556,10 @@ async function jobsSubmitTry(body, {accept = () => true} = {}) {
 function jobsReadResult(id, options = {}) {
   return api(`/api/jobs/${encodeURIComponent(id)}/result`, {...options, withStatus: true});
 }
-async function jobsStartTry() {
+// 단추가 연습인지 실제 시험인지 정한다. 체크박스로 주 단추의 뜻을 바꾸지 않는다. 인자가 없으면 안내가 정한 값(t.dry)을 쓴다.
+async function jobsStartTry(mode = {}) {
   const J = S.jobs, t = J.t;
+  if (!J.busy && typeof mode.practice === "boolean") t.dry = mode.practice;
   if (J.busy || J.optionsError || !jobsAllowed(jobsDocs().find(d => d.doc_id === t.doc), "try") || !t.model || (!t.dry && !jobsReady(t.model))) return;
   const one = jobsSingle();
   const problem = !S.ctx.set || !S.ctx.key ? "missing_context" : !t.all && !t.secs.size ? "no_sections"
@@ -330,33 +567,34 @@ async function jobsStartTry() {
     : one && t.edit && t.textFor && t.textFor !== `${t.model}|${[...t.secs][0]}` ? "prompt_foreign" : null;
   if (problem) { J.message.try = jobsNote(T(`jobs.form.${problem}`), {role: "alert"}); jobsRenderTry(); return; }
   const body = jobsTryBody(t);
-  J.busy = "try"; J.message.try = null; jobsRemember(); jobsRenderTry();
+  J.busy = "try"; J.message.try = null; J.sendError = null; jobsRemember(); jobsRenderTry();
   try {
     const data = await jobsSubmitTry(body);
     J.watch = data.id; J.result = null; J.resultStatus = null; J.resultLoaded = false; J.resultError = null; J.resultRequest++;
-    J.message.try = jobsNote(T("jobs.form.sent"), {role: "status"});
-    jobsRenderResult();
+    J.step = "job";
+    jobsRenderSteps();
     if (S.shell.route === "s03") {
       const result = document.getElementById("jobs-result"), context = document.getElementById("global-context");
       result.style.scrollMarginTop = `${context?.offsetHeight || 0}px`;
       result.setAttribute("tabindex", "-1"); result.focus({preventScroll: true}); result.scrollIntoView?.({block: "start"});
     }
     await jobsPoll();
-  } catch (error) { J.message.try = jobsRequestError(error); }
+  } catch (error) { J.sendError = error; J.message.try = jobsRequestError(error); }
   finally {
     J.busy = null; jobsRenderTry(); jobsRenderResult();
   }
 }
 
-function jobsTarget(job) {
+function jobsTargetHead(job) {
   const t = job?.target;
-  if (!t) return h("div", null, jobsNote(T("jobs.record.unknown")), jobsNote(T("jobs.legacy.no_target")));
+  if (!t) return [jobsNote(T("jobs.record.unknown")), jobsNote(T("jobs.legacy.no_target"))];
   const head = t.kind === "try" ? `${t.doc || T("common.none")} · ${t.all ? T("jobs.form.all") : (t.sections || []).map(section => T("jobs.form.section", {section})).join(", ")}`
     : t.kind === "run" ? (t.docs || []).join(", ") : t.title || T("common.none");
-  return h("div", {class: "job-target"}, jobsNote(head, {class: "technical"}),
-    t.model ? jobsNote(jobsModel(t.model)?.label || t.model, {class: "technical"}) : null,
-    jobsDetails(`jobs-target-${job.id}`, T("jobs.record.conditions"),
-      t.set ? jobsNote(`${T("jobs.running.set")}: ${t.set}`, {class: "technical"}) : null,
+  return [jobsNote(head, {class: "technical"}), t.model ? jobsNote(jobsModel(t.model)?.label || t.model, {class: "technical"}) : null];
+}
+function jobsTargetConditions(job) {
+  const t = job.target;
+  return [t.set ? jobsNote(`${T("jobs.running.set")}: ${t.set}`, {class: "technical"}) : null,
       t.pages_dir ? jobsNote(`${T("jobs.detail.pages")}: ${t.pages_dir}`, {class: "technical"}) : null,
       t.kind === "try" ? jobsNote(T("jobs.result.key", {label: t.key?.label || T("jobs.result.key_unknown")})) : null,
       t.key?.fingerprint ? jobsNote(`${T("jobs.detail.key_hash")} ${t.key.fingerprint}`, {class: "technical"}) : null,
@@ -364,7 +602,11 @@ function jobsTarget(job) {
       t.kind === "try" ? jobsNote(T(jobsPractice(job) ? "jobs.trial.practice_meaning" : "jobs.running.real_trial")) : null,
       t.custom_prompt ? jobsNote(T("jobs.selected.prompt")) : null,
       t.repeat ? jobsNote(T("jobs.form.count", {count: t.docs?.length || 0, repeats: t.repeat})) : null,
-      [...(t.run_names || []), ...(t.runs || [])].map(name => jobsNote(name, {class: "technical"}))));
+      [...(t.run_names || []), ...(t.runs || [])].map(name => jobsNote(name, {class: "technical"}))];
+}
+function jobsTarget(job) {
+  if (!job?.target) return h("div", null, jobsTargetHead(job));
+  return h("div", {class: "job-target"}, jobsTargetHead(job), jobsDetails(`jobs-target-${job.id}`, T("jobs.record.conditions"), jobsTargetConditions(job)));
 }
 function jobsWarnings(warnings) {
   return (warnings || []).map(w => h("div", {class: "job-warning", role: "status"},
@@ -388,10 +630,11 @@ function jobsStatus(job) {
     "data-job-status": job.status, "data-tip": known === "unknown" ? T("jobs.record.unknown_tip") : null},
     T(known === "done" && jobsPractice(job) ? "jobs.practice_done.state" : `jobs.status.${known}`));
 }
+// 결과 기록은 서랍에 평평하게 둔다.
 function jobsStage(index, ...body) {
   const [title, help] = jobsStages[index];
-  return jobsDetails(`jobs-stage-${S.jobs.watch}-${index}`, h("span", null, T(`jobs.detail.${title}`),
-    h("small", {class: "job-stage-help"}, T(`jobs.stages.${help}`))), body);
+  return h("div", {id: `jobs-stage-${S.jobs.watch}-${index}`, class: "drawer-section"}, h("h3", null, T(`jobs.detail.${title}`)),
+    h("p", {class: "job-stage-help"}, T(`jobs.stages.${help}`)), body);
 }
 function jobsScore(result, job) {
   const sc = result.score, label = job?.target?.key?.label || T("jobs.result.key_unknown");
@@ -434,24 +677,44 @@ function jobsEmitResult(job, result) {
   S.jobs.emitted.add(job.id); emit("try_result_viewed", event);
 }
 function jobsResultSummary(r, job) {
-  if (r.run) return jobsNote(T("jobs.whole_done.kind"));
+  if (r.run) return h("div", {role: "status"}, jobsNote(T("jobs.whole_done.kind")),
+    jobsNote(T("jobs.result.whole_stats", {ok: r.run.sections_ok, failed: r.run.sections_failed, retries: r.run.reextracted, seconds: fmt1(r.run.seconds)})), jobsScore(r, job));
   if (r.results) {
     const rows = Object.values(r.results), ok = rows.length > 0 && rows.every(v => v.ok === true);
     return h("div", {role: "status"}, jobsNote(T(ok ? "jobs.result.plain_done" : "jobs.parse_failed.fact")),
-      !ok ? jobsNote(T("jobs.parse_failed.todo", {stage: 4})) : null, jobsScore(r, job));
+      !ok ? jobsNote(T("steps.trial.parse_todo")) : null, jobsScore(r, job));
   }
   return h("div", {role: "status"}, jobsNote(T(jobsPractice(job) ? "jobs.practice_done.title" : "jobs.result.practice_unconfirmed")),
-    jobsNote(T("jobs.practice_done.no_success")), jobsNote(T("jobs.practice_done.omitted_stages", {first_stage: 3, last_stage: 6})));
+    jobsNote(T("jobs.practice_done.no_success")), jobsNote(T("steps.trial.practice_omitted")));
 }
-function jobsRenderResult() {
-  document.getElementById("jobs-result").setAttribute("data-guide", "s03-result-summary");
-  const J = S.jobs, el = document.getElementById("jobs-result"), job = J.list.find(j => j.id === J.watch);
-  if (!J.watch) { coreReplace(el, jobsNote(T("jobs.form.waiting"), {class: "muted"})); return; }
-  const head = [h("h2", null, T("jobs.completion.title")), jobsNote(J.watch, {class: "technical"}), job ? jobsStatus(job) : null,
-    job ? jobsTarget(job) : null, job ? jobsFailure(job) : null, jobsWarnings(job?.warnings)];
+// 결과를 본 뒤에도 켜진 서버가 있으면 알린다. 요금은 위쪽 막대와 같은 값이다. 지금 쓰는 서버만 읽는다.
+function jobsServerNote() {
+  const data = serversData(), pod = serversSessionPod();
+  const company = !pod && (data?.models || []).some(model => model.where === "RNGD" && serversReady(model));
+  if (!pod && !company) return null;
+  return h("div", {class: "job-notice job-server-note"},
+    h("p", null, T(pod ? "steps.trial.server_on" : "steps.trial.company_on"), pod ? ` ${shellCostText(data, null)}` : ""),
+    h("button", {id: "jobs-server-open", type: "button", onclick: () => go("s06").catch(fail)}, T("steps.trial.close_server")));
+}
+function jobsBatchBody(step) {
+  const job = jobsWatched();
+  return [job ? h("div", {class: "job-target"}, jobsTargetHead(job)) : jobsNote(T("jobs.form.sent"), {role: "status"}),
+    job ? jobsStatus(job) : null, job ? serversFlat(jobsFailure(job)) : null, jobsWarnings(job?.warnings), job ? jobsProgress(job) : null,
+    step === "result" ? jobsServerNote() : null];
+}
+function jobsRenderTryResult(el) {
+  const J = S.jobs, job = J.list.find(j => j.id === J.watch);
+  const head = [job ? h("div", {class: "job-target"}, jobsTargetHead(job)) : null, job ? jobsStatus(job) : null,
+    job ? serversFlat(jobsFailure(job)) : null, jobsWarnings(job?.warnings)];
   if (job?.status === "stopped") { coreReplace(el, head, jobsNote(T("jobs.stopped.fact")), jobsNote(T("jobs.stopped.late_reply"))); return; }
-  if (J.resultError) { coreReplace(el, head, loadFailure(J.resultError.message), jobsButton("jobs-result-retry", "jobs.result.retry", () => jobsLoadResult(J.watch))); return; }
-  if (!J.resultLoaded) { coreReplace(el, head, jobsNote(T("jobs.result.pending"), {role: "status"})); return; }
+  if (J.resultError) { coreReplace(el, head, serversFlat(loadFailure(J.resultError.message)), jobsButton("jobs-result-retry", "jobs.result.retry", () => jobsLoadResult(J.watch))); return; }
+  if (!J.resultLoaded) {
+    const seconds = num(job?.started) ? Math.max(0, Math.round(Date.now() / 1000 - job.started)) : null;
+    coreReplace(el, head, job && job.status !== "running" ? jobsNote(T("jobs.result.pending"), {role: "status"})
+      : h("div", {class: "step-card"}, serversProgress([["done", T("steps.trial.sent")], ["now", T("steps.trial.pending")]]),
+        num(seconds) ? jobsNote(T("steps.trial.elapsed", {seconds}), {class: "muted", role: "status"}) : null));
+    return;
+  }
   const r = J.result;
   if (J.resultStatus !== 200 && J.resultStatus !== 204) {
     coreReplace(el, head, jobsNote(T("jobs.result.pending"), {role: "status"}),
@@ -461,7 +724,41 @@ function jobsRenderResult() {
     coreReplace(el, head, jobsNote(h("strong", null, T("jobs.result_missing.fact"))), jobsNote(T("jobs.result_missing.todo", {status_code: 204})),
       jobsButton("jobs-result-log", "jobs.result_missing.open_log", () => jobsOpenLog(J.watch)), jobsButton("jobs-result-retry", "jobs.result.retry", () => jobsLoadResult(J.watch))); return;
   }
-  const p = r.plan || {}, secs = Object.entries(p.sections || {}), mismatch = job?.target && !jobsResultMatches(job, r);
+  const mismatch = job?.target && !jobsResultMatches(job, r), seconds = jobsResultSeconds(r);
+  if (job?.target && !jobsPractice(job) && num(seconds)) J.timings[jobsTimingKey(job.target)] = seconds;
+  coreReplace(el, head, mismatch ? serversFlat(friendlyError({message: T("jobs.target_mismatch.fact"), fix: T("jobs.target_mismatch.todo")})) : null,
+    jobsResultSummary(r, job),
+    r.results && jobsPickedValue() && S.focus.kind ? [jobsRenderFocus(), jobsNote(T("steps.trial.change_unavailable"), {class: "muted"})] : null,
+    jobsServerNote());
+  if (job && !mismatch) jobsEmitResult(job, r);
+}
+function jobsRenderResult() {
+  const J = S.jobs, el = document.getElementById("jobs-result"), step = jobsStep(), show = step === "running" || step === "result";
+  el.setAttribute("data-guide", "s03-result-summary");
+  el.hidden = !show;
+  if (!show) coreReplace(el);
+  else if (J.batch) coreReplace(el, jobsBatchBody(step));
+  else jobsRenderTryResult(el);
+  jobsRenderFrame();
+}
+// ── 자세히 서랍: 고른 값의 기록, 입력 폴더, 잠긴 문서, 지시문 보관, 시험 기록, 오류 기록 ──
+function jobsDrawerLocks() {
+  const J = S.jobs, kind = J.batch ? "run" : "try", locked = jobsDocs().filter(d => !jobsAllowed(d, kind));
+  if (!locked.length) return null;
+  const evaluation = locked.filter(d => d.group === "eval"), reasons = new Map();
+  for (const doc of locked) {
+    const reason = doc.run_reason?.[kind] || T("context.unavailable");
+    if (!reasons.has(reason)) reasons.set(reason, []);
+    reasons.get(reason).push(doc.doc_id);
+  }
+  return h("div", {id: `jobs-${kind}-locked`, class: "drawer-section"},
+    h("h3", null, evaluation.length ? T("jobs.batch.eval_locked", {count: evaluation.length}) : T("jobs.batch.runnable")),
+    [...reasons].map(([reason, ids]) => [jobsNote(reason), jobsNote(ids.join(", "), {class: "technical"})]));
+}
+function jobsDrawerStages() {
+  const J = S.jobs, r = J.result, job = jobsWatched();
+  if (J.batch || !J.watch || !r) return null;
+  const p = r.plan || {}, secs = Object.entries(p.sections || {});
   const parts = [jobsStage(0,
     jobsNote(T("jobs.result.input_meta", {pages: p.pages_dir, method: coreCodeLabel("split", p.sections_method), count: p.msds_count})),
     coreCodeRecord(p.sections_method),
@@ -473,32 +770,49 @@ function jobsRenderResult() {
     jobsStage(1, jobsNote(T("jobs.detail.no_full_text")), h("ul", null, secs.map(([no, v]) => h("li", null,
       T("jobs.result.section", {section: no}), " — ", h("code", {class: "technical"}, v.prompt_hash || T("common.none")),
       v.system_override ? jobsNote(T("jobs.detail.prompt_edited", {section: no})) : null))))];
-  const summary = jobsResultSummary(r, job);
   if (r.run) {
-    const stats = T("jobs.result.whole_stats", {ok: r.run.sections_ok, failed: r.run.sections_failed, retries: r.run.reextracted, seconds: fmt1(r.run.seconds)});
-    parts.push(jobsStage(2, jobsNote(stats), jobsNote(T("jobs.whole_done.raw_path")), jobsNote(r.saved ? `${r.saved}/raw/` : T("common.none"), {class: "technical"})),
-      jobsStage(3, jobsPre(r.summary || {})), jobsStage(4, jobsNote(T("jobs.whole_done.no_journey_success")),
-        r.saved ? jobsButton("jobs-whole-source", "jobs.done.open_source", () => go("s02", {run: r.saved.replace(/^.*?runs\//, ""), doc: p.doc_id, section: 1})) : null),
-      jobsStage(5, jobsScore(r, job)));
+    parts.push(jobsStage(2, jobsNote(T("jobs.result.whole_stats", {ok: r.run.sections_ok, failed: r.run.sections_failed, retries: r.run.reextracted, seconds: fmt1(r.run.seconds)})),
+      jobsNote(T("jobs.whole_done.raw_path")), jobsNote(r.saved ? `${r.saved}/raw/` : T("common.none"), {class: "technical"})),
+      jobsStage(3, jobsPre(r.summary || {})), jobsStage(4, jobsNote(T("jobs.whole_done.no_journey_success"))));
   } else if (r.results) {
     const rows = Object.entries(r.results);
-    parts.push(jobsStage(2, rows.map(([no, v]) => h("div", null, h("h3", null, T("jobs.result.section", {section: no})),
+    parts.push(jobsStage(2, rows.map(([no, v]) => h("div", null, h("h4", null, T("jobs.result.section", {section: no})),
       jobsNote(T("jobs.result.raw_meta", {mode: coreCodeLabel("mode", v.mode), reason: coreCodeLabel("finish", v.finish_reason), seconds: fmt1(v.seconds)})),
       coreCodeRecord(v.mode, v.finish_reason), jobsPre(v.raw_text || T("jobs.result.no_answer"))))),
-      jobsStage(3, rows.map(([no, v]) => h("div", null, h("h3", null, T("jobs.result.section", {section: no})),
+      jobsStage(3, rows.map(([no, v]) => h("div", null, h("h4", null, T("jobs.result.section", {section: no})),
         jobsNote(T(v.ok ? "jobs.result.ok" : "jobs.result.bad")), jobsNote(T("jobs.result.parse_meta", {discarded: v.dropped_rows, retries: v.reextracted ? 1 : 0, attempts: v.attempts})),
         jobsNote(T("jobs.detail.tokens", {input_tokens: v.usage?.prompt_tokens, output_tokens: v.usage?.completion_tokens})),
         jobsWarnings(v.errors), jobsWarnings(v.check_problems), jobsPre(v.parsed)))),
       jobsStage(4, h("ul", null, Object.entries(r.fields || {}).map(([no, fields]) => h("li", null, T("jobs.result.section", {section: no}),
         h("ul", null, Object.entries(fields || {}).map(([name, count]) => h("li", null,
-          T("jobs.result.fields_count", {name: UI.source?.rows?.[name] || name, count: jobsValue(count)})))))))),
-      jobsStage(5, jobsScore(r, job)));
+          T("jobs.result.fields_count", {name: UI.source?.rows?.[name] || name, count: jobsValue(count)})))))))));
   }
-  coreReplace(el, head, mismatch ? friendlyError({message: T("jobs.target_mismatch.fact"), fix: T("jobs.target_mismatch.todo")}) : null,
-    summary, parts, r.saved ? jobsNote(`${T("jobs.completion.path")} ${r.saved}`, {class: "technical"}) : null,
-    job?.target ? jobsButton("jobs-result-source", "jobs.done.open_source", () => go("s02", {run: job.target.base_run || S.focus.run, doc: job.target.doc,
-      section: job.target.sections?.[0] || 1, path: S.focus.path, line: S.focus.line})) : null);
-  if (job && !mismatch) jobsEmitResult(job, r);
+  if (r.saved) parts.push(jobsNote(`${T("jobs.completion.path")} ${r.saved}`, {class: "technical"}));
+  if (job?.target && !jobsResultMatches(job, r)) parts.push(jobsNote(T("jobs.target_mismatch.todo")));
+  return parts;
+}
+function jobsDrawerRaw() {
+  const J = S.jobs, job = jobsWatched(), failure = error => error?.body?.error || error?.message;
+  const raws = [failure(J.optionsError), failure(J.promptError), failure(J.resultError), failure(J.sendError), failure(J.runError),
+    job?.error?.raw, failure(S.shell.serverError) && serversText(failure(S.shell.serverError)), serversText(serversModel(jobsForm().model)?.friendly?.raw)];
+  const unique = [...new Set(raws.filter(Boolean).map(String))];
+  const exit = job?.status === "failed" ? T(num(job.returncode) ? "jobs.legacy.exit_code" : "jobs.record.exit_missing", {count: job.returncode}) : null;
+  return unique.length || exit ? serversDrawerSection(T("common.raw_error_title"), exit ? jobsNote(exit) : null, unique.map(raw => jobsPre(raw))) : null;
+}
+function jobsRenderDrawer(body) {
+  const J = S.jobs, job = jobsWatched();
+  coreReplace(body,
+    jobsPickedValue() ? serversDrawerSection(T("jobs.focus.title"), coreCodeRecord(S.focus.path)) : null,
+    serversDrawerSection(T("jobs.scope.sets"), jobsNote(T("jobs.fields.pages")), jobsNote(jobsSet()?.label || S.ctx.set || T("common.none"))),
+    jobsDrawerLocks(),
+    J.batch ? serversDrawerSection(T("jobs.batch.details"), ["kind", "repeat_range", "keep_awake", "confirm", "outside_policy"].map(key => jobsNote(T(`jobs.batch.${key}`))))
+      : serversDrawerSection(T("steps.trial.prompt_origin_title"), ["origin", "memory_only", "delete_temp", "hash_only"].map(key => jobsNote(T(`jobs.prompt.${key}`)))),
+    job ? serversDrawerSection(T("steps.trial.conditions_title"), jobsNote(job.id, {class: "technical"}), job.target ? jobsTargetConditions(job) : jobsTargetHead(job)) : null,
+    jobsDrawerStages(), jobsDrawerRaw());
+  drawerFlatten(body);
+}
+function jobsOpenDetails() {
+  drawerOpen({title: T("steps.trial.details_title"), trigger: document.getElementById("jobs-details-open"), render: jobsRenderDrawer});
 }
 async function jobsLoadResult(id) {
   const J = S.jobs, request = ++J.resultRequest;
@@ -513,55 +827,59 @@ async function jobsLoadResult(id) {
 }
 async function jobsWatch(id, navigate = true) {
   const J = S.jobs;
-  J.selected = id;
+  J.selected = id; J.batch = false; J.step = "job";
   if (J.watch !== id) { J.watch = id; J.result = null; J.resultStatus = null; J.resultLoaded = false; J.resultError = null; J.resultRequest++; }
   if (navigate && S.shell.route !== "s03") await go("s03");
   if (J.list.find(j => j.id === id)?.status !== "running") await jobsLoadResult(id);
-  jobsRenderResult();
+  jobsRenderSteps();
 }
 
-function jobsRenderRun() {
-  const J = S.jobs, r = J.r, el = document.getElementById("jobs-run");
-  if (!J.opts) { coreReplace(el, jobsFormStatus() || jobsNote(T("common.legacy.loading"))); return; }
+// ‘여러 문서’ 갈래의 입력. ①에서 문서와 반복과 이름을 고르고 ③에서 조건을 확인한다. 잠긴 문서 전체 목록은 서랍에 있다.
+function jobsRunForm() {
+  const J = S.jobs, r = J.r;
   const refill = () => { if (!r.edited) r.name = jobsSuggestName(); jobsRenderRun(); };
-  const docs = jobsDocs(), ready = jobsReady(r.model);
-  const allowed = docs.filter(d => jobsAllowed(d, "run"));
-  const locked = docs.filter(d => !jobsAllowed(d, "run"));
-  const evaluation = locked.filter(d => d.group === "eval");
-  const reasons = new Map();
-  for (const doc of locked) {
-    const reason = doc.run_reason?.run || T("context.unavailable");
-    if (!reasons.has(reason)) reasons.set(reason, []);
-    reasons.get(reason).push(doc);
-  }
+  const docs = jobsDocs(), allowed = docs.filter(d => jobsAllowed(d, "run")), locked = docs.filter(d => !jobsAllowed(d, "run"));
+  const evaluation = locked.filter(d => d.group === "eval"), closed = locked.filter(d => d.group !== "eval");
   const checkbox = d => h("label", null,
     h("input", {id: `jobs-run-doc-${d.doc_id}`, type: "checkbox", checked: r.docs?.has(d.doc_id), disabled: !jobsAllowed(d, "run"),
       onchange: e => { e.target.checked ? r.docs.add(d.doc_id) : r.docs.delete(d.doc_id); refill(); }}), d.doc_id);
-  coreReplace(el, h("h2", null, T("jobs.batch.title")), jobsFormStatus(),
-    jobsField("jobs-run-model", T("jobs.form.model"), T("jobs.fields.model"), jobsModelSelect(r, "run")),
-    jobsNote(jobsSet()?.label || S.ctx.set || T("common.none")),
+  const count = () => T("jobs.form.count", {count: r.docs?.size || 0, repeats: r.repeat});
+  return [jobsNote(jobsSet()?.label || S.ctx.set || T("common.none")),
     h("fieldset", null, h("legend", null, T("jobs.batch.select_docs")),
-      h("div", {class: "job-actions"}, jobsButton("jobs-select-all", "jobs.form.select_all", () => { r.docs = new Set(docs.filter(d => jobsAllowed(d, "run")).map(d => d.doc_id)); refill(); }),
+      h("div", {class: "job-actions"}, jobsButton("jobs-select-all", "jobs.form.select_all", () => { r.docs = new Set(allowed.map(d => d.doc_id)); refill(); }),
         jobsButton("jobs-select-none", "jobs.form.select_none", () => { r.docs.clear(); refill(); })),
       h("div", {class: "job-docs"}, allowed.map(d => h("div", null, checkbox(d), d.run_reason?.run ? jobsNote(d.run_reason.run) : null))),
-      jobsNote(T("jobs.form.count", {count: r.docs?.size || 0, repeats: r.repeat}), {id: "jobs-run-count", role: "status"})),
-    locked.length ? jobsDetails("jobs-run-locked", evaluation.length ? T("jobs.batch.eval_locked", {count: evaluation.length}) : T("jobs.batch.runnable"),
-      [...reasons].map(([reason, group]) => h("div", null, jobsNote(reason), h("div", {class: "job-docs"}, group.map(checkbox))))) : null,
+      jobsNote(count(), {id: "jobs-run-count", role: "status"})),
+    evaluation.length ? jobsNote(T("jobs.batch.eval_locked", {count: evaluation.length}), {class: "muted"}) : null,
+    closed.length ? h("div", {class: "job-docs"}, closed.map(d => h("div", null, checkbox(d), jobsNote(d.run_reason?.run || T("context.unavailable"), {class: "muted"})))) : null,
     h("div", {class: "job-form-grid"}, jobsField("jobs-repeat", T("jobs.batch.repeats"), T("jobs.fields.repeat"),
       h("input", {type: "number", min: 1, max: 10, value: r.repeat, oninput: e => {
         r.repeat = Number(e.target.value);
-        document.getElementById("jobs-run-count").textContent = T("jobs.form.count", {count: r.docs?.size || 0, repeats: r.repeat});
+        document.getElementById("jobs-run-count").textContent = count();
+        jobsRenderFrame();
       }})),
       jobsField("jobs-run-name", T("jobs.form.run_name"), T("jobs.fields.run_name"), h("input", {type: "text", class: "technical", value: r.name,
-        oninput: e => { r.name = e.target.value; r.edited = true; }}))),
-    jobsButton("jobs-suggest", "jobs.form.suggest", () => { r.edited = false; refill(); }),
-    !ready ? h("div", {class: "job-actions"}, jobsNote(T("jobs.actions.run_unavailable")),
-      jobsButton("jobs-run-prepare", "context.prepare_model", () => go("s06", {model: r.model, returnScreen: "s09"}), false, true)) : null,
-    jobsButton("jobs-run-start", "jobs.batch.start", jobsStartRun, !ready || !!J.busy || !r.docs?.size, ready),
-    J.message.run || null,
-    J.confirm?.kind === "run" ? jobsNote(J.confirm.summary, {class: "technical"}) : null,
-    jobsDetails("jobs-run-conditions", T("jobs.batch.details"), ["kind", "repeat_range", "keep_awake", "confirm", "outside_policy"].map(k => jobsNote(T(`jobs.batch.${k}`)))),
-    jobsButton("jobs-run-records", "jobs.running.open_jobs", () => go("s05")));
+        oninput: e => { r.name = e.target.value; r.edited = true; jobsRenderFrame(); }}))),
+    jobsButton("jobs-suggest", "jobs.form.suggest", () => { r.edited = false; refill(); })];
+}
+function jobsRunReview() {
+  const J = S.jobs, r = J.r;
+  return [serversFlat(jobsFormStatus()),
+    h("div", {class: "step-card"}, jobsNote(T("jobs.form.count", {count: r.docs?.size || 0, repeats: r.repeat}), {id: "jobs-run-count", role: "status"}),
+      jobsNote([...(r.docs || [])].join(", "), {class: "technical"}),
+      r.model ? jobsNote(jobsModelLabel(r.model)) : null,
+      jobsNote(`${T("jobs.form.run_name")}: ${r.name}`, {class: "technical"})),
+    jobsNote(T("jobs.multiple.default_prompt")),
+    serversFlat(J.message.run) || null,
+    J.confirm?.kind === "run" ? jobsNote(J.confirm.summary, {class: "technical"}) : null];
+}
+function jobsRenderRun() {
+  const J = S.jobs, el = document.getElementById("jobs-run"), step = jobsStep();
+  const show = J.batch && !!J.opts && ["target", "prompt"].includes(step), active = document.activeElement?.id;
+  el.hidden = !show;
+  coreReplace(el, !show ? [] : step === "target" ? jobsRunForm() : jobsRunReview());
+  if (show && active) document.getElementById(active)?.focus({preventScroll: true});
+  jobsRenderFrame();
 }
 async function jobsStartRun(confirmed = false) {
   const J = S.jobs, r = J.r;
@@ -575,14 +893,16 @@ async function jobsStartRun(confirmed = false) {
     J.message.run = jobsNote(T("jobs.form.invalid_run"), {role: "alert"}); jobsRenderRun(); return;
   }
   if (body.confirm) jobsCloseConfirm();
-  J.busy = "run"; J.message.run = null; jobsRenderRun();
+  J.busy = "run"; J.message.run = null; J.runError = null; jobsRenderRun();
   try {
-    await post("/api/jobs/run", body); J.confirm = null;
-    J.message.run = jobsNote(T("jobs.form.sent"), {role: "status"}); await jobsPoll();
+    const data = await post("/api/jobs/run", body); J.confirm = null;
+    J.runWatch = data?.id || null;
+    if (J.runWatch) J.step = "job";
+    await jobsPoll();
   } catch (error) {
     if (error.status === 409 && error.body?.needs_confirm && !body.confirm) J.confirm = {kind: "run", body, summary: error.body.summary};
-    else { J.confirm = null; J.message.run = jobsRequestError(error); }
-  } finally { J.busy = null; jobsRenderRun(); if (J.confirm?.kind === "run") jobsOpenConfirm("jobs-run-start"); }
+    else { J.confirm = null; J.runError = error; J.message.run = jobsRequestError(error); }
+  } finally { J.busy = null; jobsRenderSteps(); if (J.confirm?.kind === "run") jobsOpenConfirm("jobs-run-start"); }
 }
 function jobsCompareAllowed(run) { return !run.error && !["eval", "silver", "models"].includes(run.run_kind) && run.kind !== "models"; }
 function jobsCompareConditions(run) {
@@ -781,18 +1101,18 @@ async function jobsPoll() {
   }
 }
 shellDefineView("jobs-try", {load: jobsEnsure, render: jobsRenderTry});
-shellDefineView("jobs-result", {render: jobsRenderResult});
+shellDefineView("jobs-run", {render: jobsRenderRun});
 shellDefineView("jobs-connection", {render: jobsRenderConnection});
-shellDefineView("jobs-run", {load: jobsEnsure, render: jobsRenderRun});
+shellDefineView("jobs-result", {render: jobsRenderResult});
 shellDefineView("jobs-compare", {load: jobsEnsure, render: jobsRenderCompare});
 shellDefineView("jobs-list", {load: jobsEnsure, render: jobsRenderList});
 shellDefineView("jobs-detail", {render: jobsRenderDetail});
 on("servers_changed", async () => {
   if (!S.jobs.initialized) return;
   if (await jobsLoadOptions()) { jobsRenderTry(); jobsRenderRun(); }
-  jobsRenderConnection();
+  jobsRenderConnection(); jobsRenderResult();
 });
 on("context_changed", async () => {
   if (!S.jobs.initialized) return;
-  jobsReconcile(); await jobsLoadRuns(); jobsRenderTry(); jobsRenderRun(); jobsRenderCompare();
+  jobsReconcile(); await jobsLoadRuns(); jobsRenderSteps(); jobsRenderCompare();
 });

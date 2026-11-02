@@ -11,7 +11,7 @@ from test_B_b_app_dom import STATIC, _Page, run_js
 
 TOPICS = ('flow', 'score', 'source', 'data', 'setup', 'retest', 'prompt', 'servers', 'recovery', 'protection')
 CONTEXT = {'s01': 'score', 's02': 'source', 's03': 'retest', 's04': 'score',
-           's05': 'recovery', 's06': 'servers', 's09': 'retest', 's10': 'score'}
+           's05': 'recovery', 's06': 'servers', 's10': 'score'}
 ENV_NAMES = ('RUNPOD_VLLM_BASE_URL', 'RUNPOD_VLLM_API_KEY', 'RNGD_BASE_URL',
              'RNGD_API_KEY', 'RUNPOD_API_KEY', 'RNGD_SSH')
 

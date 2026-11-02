@@ -169,7 +169,7 @@ function swapDone() {
     h("p", {class: "muted"}, T("swap.done.changed"), S.swap.results === null ? null : [" ",
       S.swap.results ? T("swap.done.results_found", {count: S.swap.results}) : T("swap.done.results_none")]),
     swapRow(null, T(on ? "swap.done.on_title" : "swap.done.off_title"), T(on ? "swap.done.on_note" : "swap.done.off_note"),
-      swapButton(T(on ? "swap.done.on_action" : "swap.done.off_action"), () => go(on ? "s09" : "s06").catch(fail), true)),
+      swapButton(T(on ? "swap.done.on_action" : "swap.done.off_action"), () => (on ? go("s03", {trialBranch: "batch"}) : go("s06")).catch(fail), true)),
     applied?.previous ? swapRow(null, T("swap.done.undo_title"), T("swap.done.undo_note", {set: applied.previous}),
       swapButton(T("swap.done.undo"), swapUndo)) : null];
 }

@@ -263,21 +263,21 @@ const normal=api;api=(p,o)=>p.startsWith('/api/runs')?Promise.resolve({runs:[{na
 for(const field of ['q','comp_ref']){
  await go('s03',{doc:'T21-X01',section:8,base_run:'base',path:`msds[0].exposure_limits[2].${field}`,
   kind:'wrong',expected:5,actual:8,line:'p2:L3'});
- const focus=el('jobs-focus');
+ stepTo('target');const focus=el('jobs-focus');
  assert.doesNotMatch(visibleText(focus),/msds\[0\]\.|comp_ref|\bq\b/);
  assert.ok(visibleText(focus).includes(UI.source.field_names[field] || UI.source.fields[field]));
- const details=focus.querySelector('details');assert.ok(details);assert.equal(details.open,false);
- details.open=true;assert.ok(visibleText(focus).includes(S.focus.path));
- assert.ok(visibleText(el('jobs-try')).includes(UI.context.models[chosen]));
- assert.equal(el('jobs-model').querySelector('option').textContent,UI.context.models[chosen]);
+ // 기술 경로는 접힘이 아니라 자세히 서랍에 있다.
+ assert.equal(focus.querySelector('details'),null);assert.ok(openDrawer().textContent.includes(S.focus.path));drawerClose();
+ stepTo('model');assert.ok(visibleText(el('jobs-try')).includes(UI.context.models[chosen]));
+ assert.equal(el('jobs-model').querySelector('b').textContent,UI.context.models[chosen]);
  assert.ok(visibleText(el('jobs-try')).includes(T('jobs.focus.model_difference',{model:UI.context.models[previous]})));
  assert.doesNotMatch(visibleText(el('jobs-try')),/⟦|undefined/);
 }
 S.jobs.runs[0].model_tag=chosen;jobsRenderTry();
 assert.ok(!el('jobs-try').textContent.includes(T('jobs.focus.model_difference',{model:UI.context.models[chosen]})));
-S.jobs.runs.push({name:'other-base',model_tag:previous,docs:['T21-X01']});jobsRenderTry();
+S.jobs.runs.push({name:'other-base',model_tag:previous,docs:['T21-X01']});stepTo('target');
 el('jobs-base').value='other-base';await el('jobs-base').dispatchEvent({type:'change'});
-assert.ok(visibleText(el('jobs-try')).includes(T('jobs.focus.model_difference',{model:UI.context.models[previous]})));
+stepTo('model');assert.ok(visibleText(el('jobs-try')).includes(T('jobs.focus.model_difference',{model:UI.context.models[previous]})));
 options.models[0].connected=true;await jobsLoadOptions();jobsRenderTry();
 assert.ok(visibleText(el('jobs-try')).includes(UI.context.models[chosen]));
 assert.ok(visibleText(el('jobs-try')).includes(T('jobs.focus.model_difference',{model:UI.context.models[previous]})));

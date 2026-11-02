@@ -281,7 +281,7 @@ def test_done_next_step_opens_a_screen_and_never_starts_a_server_or_a_test():
       await go('s11',{swapView:'done'});await settle();
       assert.ok(text('swap-view').includes(T('swap.done.on_note')));
       button(T('swap.done.on_action')).click();await settle();
-      assert.equal(S.shell.route,'s09');
+      assert.equal(S.shell.route,'s03');assert.equal(S.jobs.batch,true);
       assert.deepEqual(calls.filter(c=>c[0]==='POST').map(c=>c[1]),['/api/swap/check','/api/swap/apply']);
     """)
 
