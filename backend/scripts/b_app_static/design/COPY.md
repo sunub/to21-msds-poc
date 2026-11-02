@@ -1963,7 +1963,7 @@ steps.server.company_cost|추가 임대료 없음|S06
 steps.server.use_rented|빌린 서버로 켜기|S06
 steps.server.use_company|회사 서버로 켜기|S06
 steps.server.use_other_ai|이 서버에서 다른 AI 켜기|S06
-steps.server.stop_company_note|다 쓰면 모델을 끄세요. 그러면 다른 사람이 회사 서버를 쓸 수 있습니다. 연결을 닫아도 모델은 회사 서버에 켜진 채로 남습니다.|S06
+steps.server.stop_company_note|다 쓰면 모델을 끄세요. 회사 서버에는 한 번에 모델 하나만 올라갑니다. 연결을 닫아도 모델은 회사 서버에 켜진 채로 남습니다.|S06
 steps.server.start_company_other_title|먼저 켜져 있는 AI를 끄세요.|S06
 steps.server.wait_auto|이대로 두면 {minutes}분 뒤 자동으로 지워집니다.|S06
 servers.failed.fact|앱이 서버 상태를 읽지 못했습니다. 지금 요금이 나가는지도 알 수 없습니다.|S06
