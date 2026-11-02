@@ -5,6 +5,7 @@
  */
 import { queryOptions } from "@tanstack/react-query";
 import { apiUrl, isPermanentError, requestJson } from "./client";
+import { DEMO_DETAIL, DEMO_DOC_ID } from "./demo";
 import {
   FINAL_STATUSES,
   createDocumentParamsSchema,
@@ -71,7 +72,10 @@ export const documentListQuery = (status: DocumentFilter = "all") =>
 export const documentDetailQuery = (id: string) =>
   queryOptions({
     queryKey: documentKeys.detail(id),
-    queryFn: ({ signal }) => requestJson(documentDetailSchema, doc(id), { signal }),
+    queryFn: ({ signal }) =>
+      process.env.NODE_ENV !== "production" && id === DEMO_DOC_ID
+        ? DEMO_DETAIL
+        : requestJson(documentDetailSchema, doc(id), { signal }),
     staleTime: 0,
     refetchInterval: (query) => {
       if (isPermanentError(query.state.error)) return false;
