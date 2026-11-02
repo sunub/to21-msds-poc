@@ -811,7 +811,7 @@ def test_s01_button_and_hint_follow_the_kind_that_exists():
 
 
 def test_s01_to_s03_conclusion_first_and_the_work_order_is_in_the_menu():
-    # 화면 안의 글자뿐인 1·2·3 경로를 뺐다 (ADR-039). 같은 뜻은 왼쪽 메뉴의 번호와 현재 표시가 맡는다.
+    # 화면 안의 글자뿐인 1·2·3 경로를 뺐다 (ADR-039). 같은 뜻은 왼쪽 메뉴의 순서와 현재 표시가 맡는다.
     from test_B_b_app_score_ui import FIXTURE
     from test_B_b_app_source_ui import fixture
     from test_B_b_app_jobs_ui import SETUP
@@ -821,7 +821,9 @@ def test_s01_to_s03_conclusion_first_and_the_work_order_is_in_the_menu():
       assert.equal(area.querySelector('.score-flow'),null);
       const nav=el('main-nav').querySelector('[data-screen="'+S.shell.route+'"]');
       assert.equal(nav.getAttribute('aria-current'),'page');
-      assert.equal(nav.querySelector('.nav-no').textContent,order);
+      assert.equal(nav.querySelector('.nav-no'),null);
+      const flow=Array.from(el('main-nav').querySelectorAll('.nav-group')[0].querySelectorAll('[data-screen]'),b=>b.dataset.screen).filter(id=>!['s09','s10'].includes(id));
+      assert.equal(flow[Number(order)-1],S.shell.route);
     """
     run_js(FIXTURE + "shellRenderHeader();await go('s01');const order='1';" + check + r"""
       assert.equal(heading.textContent,T('score.summary.headline_model',{model:'Fake model'}));

@@ -3081,6 +3081,7 @@ UI_TEXT['help']['facts']['slow'] = '최근 결과의 문서별 시간에서 300�
 COPY_EXCEPTIONS['help.facts.slow'] = "S5 결정 2: ⑤ 수락 11/1 승인"
 UI_TEXT['common']['raw_error'] = '오류 기록 펼치기'
 COPY_EXCEPTIONS['common.raw_error'] = "S5 결정 2: ⑤ 수락 11/1 승인"
+UI_TEXT['common']['raw_error_title'] = '오류 기록'
 UI_TEXT['score']['load_failed']['todo'] = '할 일: 기록을 다시 읽으세요. 계속 실패하면 앱을 실행한 명령 입력 창(터미널)의 오류를 확인하세요.'
 COPY_EXCEPTIONS['score.load_failed.todo'] = "S5 결정 2: ⑤ 수락 11/1 승인"
 UI_TEXT['compare']['load_failed']['todo'] = '할 일: 비교 결과를 다시 불러오세요. 계속 실패하면 앱을 실행한 명령 입력 창(터미널)의 오류를 확인하세요.'
@@ -3143,6 +3144,7 @@ UI_TEXT['source']['labels']['raw_value'] = '원래 값과 위치 보기'
 COPY_EXCEPTIONS['source.labels.raw_value'] = "S5 결정 2: ⑤ 수락 11/1 승인"
 UI_TEXT['common']['code_record'] = '원래 기록 값 보기'
 COPY_EXCEPTIONS['common.code_record'] = "S5 결정 2: ⑤ 수락 11/1 승인"
+UI_TEXT['common']['code_record_title'] = '원래 기록 값'
 UI_TEXT['common'].setdefault('codes', {})
 UI_TEXT['common']['codes']['unknown'] = '설명되지 않은 기록 값입니다. 원래 기록 값을 확인하세요.'
 COPY_EXCEPTIONS['common.codes.unknown'] = "S5 결정 2: ⑤ 수락 11/1 승인"

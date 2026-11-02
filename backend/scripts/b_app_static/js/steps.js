@@ -33,8 +33,10 @@ function stepsRenderActions(el, {note, back, secondary, primary}) {
 // 서랍 안에서는 접지 않는다. 공용 함수(rawError, coreCodeRecord)가 만든 접힘도 제목과 본문으로 편다.
 function drawerFlatten(root) {
   for (const folded of root.querySelectorAll("details")) {
+    // 펼칠 것이 없으므로 "펼치기"가 든 제목 대신 납작한 제목을 쓴다.
+    const flat = folded.getAttribute("data-flat-title");
     folded.replaceWith(h("div", {class: "drawer-section"}, [...folded.childNodes].map(node =>
-      node.tagName?.toLowerCase() === "summary" ? h("h3", null, [...node.childNodes]) : node)));
+      node.tagName?.toLowerCase() === "summary" ? h("h3", null, flat || [...node.childNodes]) : node)));
   }
 }
 // render(body)는 열 때만 불린다. 큰 표를 미리 만들지 않기 위해서다.

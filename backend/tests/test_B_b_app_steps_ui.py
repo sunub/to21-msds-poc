@@ -180,8 +180,10 @@ def test_drawer_has_no_folds_even_when_shared_helpers_make_them():
       drawerOpen({title:'T',trigger:opener,render:node=>node.append(rawError('Raw message'),coreCodeRecord('code-value'),
         h('details',null,h('summary',null,'Outer'),h('p',null,'Outer text'),h('details',null,h('summary',null,'Inner'),h('p',null,'Inner text'))))});
       assert.equal(drawer.querySelectorAll('details').length,0);assert.equal(drawer.querySelectorAll('summary').length,0);
-      for(const shown of ['Raw message','code-value','Outer','Outer text','Inner','Inner text',T('common.raw_error')])
+      for(const shown of ['Raw message','code-value','Outer','Outer text','Inner','Inner text',T('common.raw_error_title'),T('common.code_record_title')])
         assert.ok(drawer.textContent.includes(shown),shown);
+      // 펼칠 것이 없으므로 제목에 펼치기나 보기를 쓰지 않는다.
+      for(const hidden of [T('common.raw_error'),T('common.code_record')]) assert.equal(drawer.textContent.includes(hidden),false,hidden);
       assert.deepEqual(Array.from(drawer.querySelectorAll('h3'),n=>n.textContent).filter(t=>['Outer','Inner'].includes(t)),['Outer','Inner']);
     """)
 

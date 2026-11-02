@@ -422,7 +422,8 @@ def test_app_purpose_and_definition_stay_visible_in_the_menu():
     """)
 
 
-def test_menu_numbers_the_work_order_and_groups_the_rest_without_numbers():
+def test_menu_groups_the_work_order_and_the_rest_without_numbers():
+    # 메뉴 번호가 단계 표시 번호와 겹쳐 헷갈렸다. 11/2 G2 사용자 결정으로 숫자는 단계 표시에만 둔다.
     run_js(FIXTURES + r"""
       await start();const nav=document.getElementById('main-nav');
       const groups=nav.querySelectorAll('.nav-group');assert.equal(groups.length,2);
@@ -431,8 +432,7 @@ def test_menu_numbers_the_work_order_and_groups_the_rest_without_numbers():
       assert.deepEqual(ids(groups[1]),['s06','s05','s07']);
       assert.ok(groups[0].textContent.includes(T('nav.group_flow')));
       assert.ok(groups[1].textContent.includes(T('nav.group_other')));
-      assert.deepEqual(Array.from(groups[0].querySelectorAll('.nav-no'),n=>n.textContent),['1','2','3','4']);
-      assert.equal(groups[1].querySelectorAll('.nav-no').length,0);
+      assert.equal(nav.querySelectorAll('.nav-no').length,0);
     """)
 
 
