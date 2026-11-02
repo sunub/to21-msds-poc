@@ -1,0 +1,216 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://to21-msds-poc.local/contracts/5-api.schema.json",
+  "title": "약속 ⑤ 화면 API에 새로 생기는 모양 (A1·A2·B2 → 화면)",
+  "description": "지금 api/extract_app.py 의 응답은 그대로 둔다. 새로 생기는 경로·칸만 정의한다. 화면 쪽은 frontend/src/api/schemas.ts 에 같은 모양을 zod 로 옮긴다.",
+  "$defs": {
+    "queue_fields": {
+      "description": "[A1] GET /api/documents, GET /api/documents/{id} 응답에 더하는 칸",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["queue_position", "eta_seconds", "review_stage"],
+      "properties": {
+        "queue_position": { "description": "대기 중이면 1부터, 아니면 null", "type": ["integer", "null"], "minimum": 1 },
+        "eta_seconds": { "description": "결과까지 예상 초. 모르면 null", "type": ["integer", "null"], "minimum": 0 },
+        "review_stage": {
+          "description": "[A2] 사람 구간 상태. 화면이 어디서 이어 열지 정한다. 판정 검수·저장 상태는 B의 judgment_status 를 본다",
+          "enum": ["검수 대기", "추출값 확인 중", "판정으로 넘김", null]
+        }
+      }
+    },
+    "to_judgment_request": {
+      "description": "[A2] POST /api/documents/{id}/to-judgment — 추출값 확인을 마치고 판정으로 넘긴다 (넘김②를 만든다). 판정 검수 중 추출값 수정은 기존 PUT /review/fields 가 넘김②를 자동으로 만든다",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["reviewer"],
+      "properties": { "reviewer": { "$ref": "common.schema.json#/$defs/reviewer" } }
+    },
+    "to_judgment_response": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["job_id", "handoff_seq"],
+      "properties": {
+        "job_id": { "$ref": "common.schema.json#/$defs/job_id" },
+        "handoff_seq": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "judgment_status": {
+      "description": "[B2] GET /api/judgments/{job_id}/status — 판정 화면에 들어가기 전 확인",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["job_id", "state", "latest_version", "pending_handoff", "explanations", "saved_snapshot"],
+      "properties": {
+        "job_id": { "$ref": "common.schema.json#/$defs/job_id" },
+        "state": {
+          "description": "판정 없음 = 넘김 기록이 아직 없음 / 판정 중 = 최신 넘김 기록을 계산하는 중 / 판정 있음",
+          "enum": ["판정 없음", "판정 중", "판정 있음", "판정 실패"]
+        },
+        "latest_version": { "type": ["integer", "null"], "minimum": 1 },
+        "pending_handoff": { "description": "아직 판정하지 않은 더 새 넘김 기록이 있으면 그 번호", "type": ["integer", "null"] },
+        "explanations": {
+          "type": "object", "additionalProperties": false, "required": ["done", "total"],
+          "properties": { "done": { "type": "integer", "minimum": 0 }, "total": { "type": "integer", "minimum": 0 } }
+        },
+        "saved_snapshot": { "description": "가장 최근 저장본 번호. 저장 전이면 null", "type": ["integer", "null"] },
+        "error": { "type": ["string", "null"] }
+      }
+    },
+    "judgment_view": {
+      "description": "[B2] GET /api/judgments/{job_id}?version=N (없으면 최신) — 판정 화면 2.3·2.4 가 읽는다. consistency 는 약속 ③ 그대로이고, 설명·검토는 finding_id 로 옆에 붙인다",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["job_id", "version", "is_latest", "handoff_seq", "judged_at", "consistency", "explanations", "reviews", "field_status"],
+      "properties": {
+        "job_id": { "$ref": "common.schema.json#/$defs/job_id" },
+        "version": { "type": "integer", "minimum": 1 },
+        "is_latest": { "type": "boolean" },
+        "handoff_seq": { "type": "integer", "minimum": 1 },
+        "judged_at": { "$ref": "common.schema.json#/$defs/datetime" },
+        "consistency": { "$ref": "3-consistency.schema.json" },
+        "explanations": {
+          "description": "finding_id → 설명. needs_explanation 인 항목만. 아직이면 status=작성 중",
+          "type": "object",
+          "additionalProperties": {
+            "oneOf": [
+              {
+                "type": "object", "additionalProperties": false, "required": ["status"],
+                "properties": { "status": { "const": "작성 중" } }
+              },
+              {
+                "type": "object", "additionalProperties": false,
+                "required": ["status", "by", "checked", "summary", "reasons", "basis"],
+                "properties": {
+                  "status": { "const": "완료" },
+                  "by": { "enum": ["llm", "template"] },
+                  "checked": { "type": "boolean" },
+                  "summary": { "type": "string" },
+                  "reasons": { "type": "array", "items": { "type": "string" } },
+                  "basis": { "type": "array", "items": { "type": "string" } }
+                }
+              }
+            ]
+          }
+        },
+        "reviews": {
+          "description": "finding_id → 그 항목의 현재 검토 상태 (버전과 무관하게 이어진다). 기록이 없으면 미검토로 본다",
+          "type": "object",
+          "additionalProperties": { "$ref": "#/$defs/review_state" }
+        },
+        "field_status": {
+          "description": "넘김 기록의 field_status 그대로 (근거 옆 '미검수/확인함/수정됨' 표시)",
+          "$ref": "1-handoff.schema.json#/properties/field_status"
+        }
+      }
+    },
+    "review_state": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "comment", "reviewer", "at", "history_count", "stale"],
+      "properties": {
+        "status": { "enum": ["미검토", "불일치 확정", "예외 승인", "확인"] },
+        "comment": { "type": ["string", "null"] },
+        "reviewer": { "anyOf": [{ "$ref": "common.schema.json#/$defs/reviewer" }, { "type": "null" }] },
+        "at": { "anyOf": [{ "$ref": "common.schema.json#/$defs/datetime" }, { "type": "null" }] },
+        "history_count": { "type": "integer", "minimum": 0 },
+        "stale": {
+          "description": "마지막 검토 뒤에 판정 값(verdict·expected)이 바뀌었으면 true. 화면이 '판정이 바뀌어 다시 확인 필요'를 띄운다",
+          "type": "boolean"
+        }
+      }
+    },
+    "review_event_request": {
+      "description": "[B2] POST /api/judgments/{job_id}/reviews — 판정 검토 남기기. 확인 = 일치 판정을 확인함, 되돌리기 = 미검토로",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["finding_id", "action", "reviewer", "seen_version"],
+      "properties": {
+        "finding_id": { "$ref": "common.schema.json#/$defs/finding_id" },
+        "action": { "enum": ["불일치 확정", "예외 승인", "확인", "의견", "되돌리기"] },
+        "comment": { "type": ["string", "null"], "maxLength": 2000 },
+        "reviewer": { "$ref": "common.schema.json#/$defs/reviewer" },
+        "seen_version": { "description": "검토자가 보고 있던 판정 버전. 더 새 버전이 있으면 409", "type": "integer", "minimum": 1 }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "action": { "enum": ["예외 승인", "의견"] } } },
+          "then": { "required": ["comment"], "properties": { "comment": { "type": "string", "minLength": 1 } } }
+        }
+      ]
+    },
+    "review_event": {
+      "description": "[B2] judge 스키마에 쌓는 검토 이벤트 한 건. 지우거나 고치지 않는다",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["event_id", "job_id", "finding_id", "action", "comment", "reviewer", "at", "version", "verdict_seen"],
+      "properties": {
+        "event_id": { "type": "integer", "minimum": 1 },
+        "job_id": { "$ref": "common.schema.json#/$defs/job_id" },
+        "finding_id": { "$ref": "common.schema.json#/$defs/finding_id" },
+        "action": { "enum": ["불일치 확정", "예외 승인", "확인", "의견", "되돌리기"] },
+        "comment": { "type": ["string", "null"] },
+        "reviewer": { "$ref": "common.schema.json#/$defs/reviewer" },
+        "at": { "$ref": "common.schema.json#/$defs/datetime" },
+        "version": { "type": "integer", "minimum": 1 },
+        "verdict_seen": { "description": "검토 당시 판정 (stale 판단에 쓴다)", "$ref": "common.schema.json#/$defs/verdict" }
+      }
+    },
+    "save_request": {
+      "description": "[B2] POST /api/judgments/{job_id}/snapshots — 저장. 미검토가 남아도 받는다",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["reviewer", "seen_version"],
+      "properties": {
+        "reviewer": { "$ref": "common.schema.json#/$defs/reviewer" },
+        "seen_version": { "type": "integer", "minimum": 1 },
+        "note": { "type": ["string", "null"], "maxLength": 2000 }
+      }
+    },
+    "snapshot": {
+      "description": "[B2] 저장본. 그 순간의 넘김 기록·판정 버전·검토 상태를 가리킨다. 다시 저장하면 새 번호",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["contract", "job_id", "snapshot_no", "handoff_seq", "version", "last_review_event_id",
+                   "counts", "saved_by", "saved_at", "note"],
+      "properties": {
+        "contract": { "const": "snapshot/1" },
+        "job_id": { "$ref": "common.schema.json#/$defs/job_id" },
+        "snapshot_no": { "type": "integer", "minimum": 1 },
+        "handoff_seq": { "type": "integer", "minimum": 1 },
+        "version": { "type": "integer", "minimum": 1 },
+        "last_review_event_id": {
+          "description": "이 번호까지의 검토 이벤트가 저장본에 포함된다. 없으면 null",
+          "type": ["integer", "null"]
+        },
+        "counts": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["findings", "미검토", "불일치 확정", "예외 승인", "확인", "미검수 칸"],
+          "properties": {
+            "findings": { "type": "integer", "minimum": 0 },
+            "미검토": { "type": "integer", "minimum": 0 },
+            "불일치 확정": { "type": "integer", "minimum": 0 },
+            "예외 승인": { "type": "integer", "minimum": 0 },
+            "확인": { "type": "integer", "minimum": 0 },
+            "미검수 칸": { "description": "field_status 에 없는(미검수) 추출값 칸 수", "type": "integer", "minimum": 0 }
+          }
+        },
+        "saved_by": { "$ref": "common.schema.json#/$defs/reviewer" },
+        "saved_at": { "$ref": "common.schema.json#/$defs/datetime" },
+        "note": { "type": ["string", "null"] }
+      }
+    },
+    "version_list_item": {
+      "description": "[B2] GET /api/judgments/{job_id}/versions 의 한 줄",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["version", "handoff_seq", "judged_at", "summary", "changed_findings"],
+      "properties": {
+        "version": { "type": "integer", "minimum": 1 },
+        "handoff_seq": { "type": "integer", "minimum": 1 },
+        "judged_at": { "$ref": "common.schema.json#/$defs/datetime" },
+        "summary": { "$ref": "3-consistency.schema.json#/$defs/msds_result/properties/summary" },
+        "changed_findings": { "description": "바로 앞 버전과 verdict·expected 가 달라진 finding_id", "type": "array", "items": { "$ref": "common.schema.json#/$defs/finding_id" } }
+      }
+    }
+  }
+}
