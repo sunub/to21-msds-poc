@@ -1229,3 +1229,33 @@ def test_row_labels_cover_the_schema_codes(text):
     assert set(labels['agency']) <= codes('cmr', 'agency')
     assert set(labels['standard']) <= codes('exposure_limits', 'standard')
     assert set(labels['system']) <= codes('intl_class', 'system')
+
+
+def test_every_row_field_of_the_schema_has_a_plain_name(text):
+    # 값 칸의 이름이 표 이름으로 대체되면 같은 이름이 여러 칸에 겹친다. 예: 12번 부분의 세 칸이 모두 '환경에 미치는 영향'.
+    from msds.common.schema import msds_item_schema
+    schema = msds_item_schema()
+    defs = schema.get("$defs", {})
+
+    def resolve(node):
+        while True:
+            if "$ref" in node:
+                node = defs.get(node["$ref"].split("/")[-1], {})
+            elif "anyOf" in node:
+                rest = [x for x in node["anyOf"] if x.get("type") != "null"]
+                if len(rest) != 1:
+                    return node
+                node = rest[0]
+            else:
+                return node
+
+    source = text.UI_TEXT["source"]
+    missing = []
+    for table in ("exposure_limits", "physchem", "toxicity", "cmr", "ecotox", "regulations", "components", "companies",
+                  "transport", "dangerous_goods", "waste", "intl_class", "extras", "narratives"):
+        node = resolve(schema["properties"][table])
+        node = resolve(node["items"]) if node.get("type") == "array" else node
+        for field in node["properties"]:
+            if not any(field in names for names in (text.VALUE_FIELD_LABELS, source["field_names"], source["fields"])):
+                missing.append((table, field))
+    assert missing == []

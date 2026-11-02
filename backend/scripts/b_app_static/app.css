@@ -246,6 +246,8 @@ body:has(#screen-s02:not([hidden])) .sidebar { min-height: 0; overflow-y: auto; 
 .work:has(> #screen-s02:not([hidden])) { min-height: 0; overflow: hidden; }
 #screen-s02:not([hidden]) { min-height: 0; }
 #source-flow, .step-screen:has(> #source-stage) { min-height: 0; min-width: 0; }
+/* 이 화면은 스크롤하지 않는다. sticky는 행동 줄을 부모 안에 가둬 창 아래에 틈을 남기고 비교 영역을 가린다. */
+#screen-s02 .step-actions { position: static; }
 #screen-s02 > h1 { margin-bottom: var(--space-tight); }
 #screen-s02 > .help-context { margin-bottom: var(--space-compact); }
 #source-step-bar { margin-bottom: var(--space-compact); min-width: 0; }
@@ -282,8 +284,8 @@ body:has(#screen-s02:not([hidden])) .sidebar { min-height: 0; overflow-y: auto; 
 .source-problem[aria-pressed=true] > small { color: var(--ink); }
 .source-controls { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 0 var(--space-group); }
 .source-basis, .source-state { padding: var(--space-compact); background: var(--paper); border: var(--border-standard); }
-.source-basis { margin-bottom: var(--space-compact); font-size: var(--label-size); }
-.source-basis p { margin-bottom: var(--space-tight); }
+.source-basis { display: flex; flex-wrap: wrap; gap: 0 var(--space-group); margin-bottom: var(--space-compact); padding-block: var(--space-small); font-size: var(--label-size); }
+.source-basis p { margin: 0; }
 .source-state { margin-bottom: var(--space-compact); }
 .source-criteria th:nth-child(n+2):nth-child(-n+4) { width: 84px; }
 .source-criteria th:last-child { width: 128px; }
@@ -305,7 +307,8 @@ body:has(#screen-s02:not([hidden])) .sidebar { min-height: 0; overflow-y: auto; 
 .source-row-head small { color: var(--muted); }
 .source-row-head button { min-height: 28px; margin-left: auto; }
 .source-row-table { margin-bottom: var(--space-small); }
-.source-row-table th, .source-row-table td { padding: var(--space-tight) var(--space-small); }
+.source-row-table th, .source-row-table td { padding: 2px var(--space-small); }
+.source-row-table .source-value { min-height: 28px; padding-block: 2px; }
 .source-row-table tbody th { font-weight: var(--body-weight); }
 .source-cell-row:has(.source-highlight) > * { background: var(--selected); }
 .source-value-note { font-size: var(--label-size); }
@@ -327,12 +330,17 @@ body:has(#screen-s02:not([hidden])) .sidebar { min-height: 0; overflow-y: auto; 
 .source-page-grid { display: grid; flex: 1; min-height: 0; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); grid-template-rows: minmax(0, 1fr); gap: var(--space-compact); }
 .source-panel { display: flex; flex-direction: column; min-width: 0; min-height: 0; padding: var(--space-small) var(--space-compact); background: var(--paper); border: var(--border-standard); border-radius: var(--radius-panel); }
 .source-panel h3 { flex: none; margin: 0 0 var(--space-tight); font-size: var(--label-size); }
-.source-panel-head { display: flex; flex: none; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0 var(--space-compact); }
+.source-panel-head { display: flex; flex: none; align-items: center; justify-content: space-between; gap: 0 var(--space-small); margin-bottom: var(--space-tight); }
+.source-panel-head h3 { flex: none; margin-bottom: 0; }
 .source-panel-head button { min-height: 28px; }
+.source-row-evidence { margin: 0 0 var(--space-tight); font-size: var(--label-size); }
 .source-panel > .technical { flex: none; margin-bottom: var(--space-tight); }
-.source-page-pickers { display: grid; flex: none; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 var(--space-small); font-size: var(--code-size); }
-.source-page-pickers label { display: inline; font-size: var(--code-size); }
-.source-page-pickers select { min-height: 32px; padding: var(--space-tight) var(--space-small); margin: var(--space-tight) 0 var(--space-small); font-size: var(--code-size); }
+/* 시안처럼 머리 한 줄에 둔다. 고르는 칸의 값이 스스로 설명하므로 이름표는 읽기 도구에만 준다. */
+.source-page-pickers { display: flex; flex: 1; justify-content: flex-end; gap: var(--space-tight); min-width: 0; font-size: var(--code-size); }
+.source-page-pickers > div { min-width: 0; }
+.source-page-pickers > div:last-child { flex: 0 1 170px; }
+.source-page-pickers label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.source-page-pickers select { width: 100%; min-height: 28px; padding: 2px var(--space-small); margin: 0; font-size: var(--code-size); }
 .source-image { flex: 1; min-height: 0; overflow: auto; }
 .source-page-wrap { position: relative; min-width: 0; }
 .source-page-wrap img { display: block; width: 100%; height: auto; }

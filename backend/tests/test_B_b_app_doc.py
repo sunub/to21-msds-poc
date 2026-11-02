@@ -1181,3 +1181,44 @@ def test_run_problem_counts_skip_docs_without_output_or_gold(bd, view_env):
     assert (field[X01], rows[X01]) == bd.problem_counts(pred, gold)
     assert "T21-X99" not in field and "T21-X99" not in rows
     assert field == bd.run_field_counts(run, view_env / "gold", [X01, X09, "T21-X99"])
+
+
+# ── 줄 좌표: version17처럼 pNNN.json 없이 item_trace.json만 있는 판 ──
+
+def test_lines_take_boxes_from_item_trace_when_page_json_is_absent(bd, tmp_path):
+    pages = tmp_path / "pages"
+    write_page(pages / X01, 1, PAGE_TXT, entries=None)
+    write_json(pages / X01 / "item_trace.json", [{"page": 1, "mode": "pdf_plus_paddle", "final_items": [
+        {"text": e["text"], "box": e["bbox"], "confidence": 1.0} for e in ENTRIES]}])
+    lines = {l["id"]: l for l in bd.page_lines(X01, pages)}
+    assert lines["p1:L1"]["bbox"] == [10, 10, 200, 30]
+    assert lines["p1:L3"]["bbox"] == [10, 98, 400, 122]          # 칸 둘을 합친 사각형
+    assert lines["p1:L6"]["bbox"] is None                        # 맞는 글자가 없으면 지어내지 않는다
+
+
+def test_page_json_wins_over_item_trace(bd, tmp_path):
+    pages = tmp_path / "pages"
+    write_page(pages / X01, 1, PAGE_TXT, ENTRIES)
+    write_json(pages / X01 / "item_trace.json", [{"page": 1, "final_items": [{"text": "가상 물질안전보건자료", "box": [1, 2, 3, 4]}]}])
+    assert bd.page_lines(X01, pages)[0]["bbox"] == [10, 10, 200, 30]
+
+
+def test_broken_item_trace_gives_no_boxes_and_no_error(bd, tmp_path):
+    pages = tmp_path / "pages"
+    write_page(pages / X01, 1, PAGE_TXT, entries=None)
+    (pages / X01 / "item_trace.json").write_text("{깨진 파일", encoding="utf-8")
+    assert all(l["bbox"] is None for l in bd.page_lines(X01, pages))
+
+
+def test_item_trace_boxes_are_turned_into_picture_pixels(bd, tmp_path):
+    # 글자층에서 읽은 쪽(pdf_xycut)의 좌표는 PDF 단위(1/72인치)이고 쪽 그림은 dpi로 그린다. OCR 쪽은 이미 그림 픽셀이다.
+    pages = tmp_path / "pages"
+    write_page(pages / X01, 1, ["L001 가상 물질안전보건자료"], entries=None)
+    write_page(pages / X01, 2, ["L001 가상 세정액"], entries=None)
+    write_json(pages / X01 / "meta.json", {"dpi": 144})
+    write_json(pages / X01 / "item_trace.json", [
+        {"page": 1, "mode": "pdf_xycut", "final_items": [{"text": "가상 물질안전보건자료", "box": [10, 20, 100, 30]}]},
+        {"page": 2, "mode": "paddle_cached_layout", "final_items": [{"text": "가상 세정액", "box": [10, 20, 100, 30]}]}])
+    lines = {l["id"]: l for l in bd.page_lines(X01, pages)}
+    assert lines["p1:L1"]["bbox"] == [20, 40, 200, 60]
+    assert lines["p2:L1"]["bbox"] == [10, 20, 100, 30]
