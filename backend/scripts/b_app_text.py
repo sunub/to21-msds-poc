@@ -3276,6 +3276,7 @@ UI_TEXT["steps"] = {
         "use_rented": "빌린 서버로 켜기",
         "use_company": "회사 서버로 켜기",
         "use_other_ai": "이 서버에서 다른 AI 켜기",
+        "stop_company_note": "다 쓰면 모델을 끄세요. 그러면 다른 사람이 회사 서버를 쓸 수 있습니다. 연결을 닫아도 모델은 회사 서버에 켜진 채로 남습니다.",
         "start_company_other_title": "먼저 켜져 있는 AI를 끄세요.",
         "wait_auto": "이대로 두면 {minutes}분 뒤 자동으로 지워집니다.",
         "other_on": "다른 서버에서 {model}가 켜져 있거나 준비 중입니다.",
