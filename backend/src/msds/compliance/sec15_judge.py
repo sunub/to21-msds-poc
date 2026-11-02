@@ -267,21 +267,36 @@ def _dg_db_name(group_name) -> tuple[str | None, str | None]:
     return m.group(), water
 
 
-def _dg_differences(inputs, item9, db_item, db_water) -> list[str]:
-    """MSDS 15항 위험물 행의 류·품명·수용성·지정수량을 판정한 품명과 맞춰 본다 (설계서 29장 5단계).
+def _dg_item_name(text) -> str | None:
+    """'제 1 석유류', '제1석유류 비수용성액체' → 제1석유류."""
+    m = _DG_ITEM.search(re.sub(r"\s+", "", str(text or "")))
+    return m.group() if m else None
 
-    MSDS가 9항 값만으로 정할 수 없는 품명을 적었으면 DB 품명으로만 비교한다. 없으면 비교하지 않는다.
+
+def _dg_differences(inputs, item9, db_class, db_item, db_water) -> list[str]:
+    """MSDS 15항 제품 위험물 행의 류·품명·수용성·지정수량을 맞춰 본다 (설계서 29장 5단계).
+
+    품명은 지식DB가 9항으로 못 정하는 품명이면 DB, 아니면 9항, 9항이 없으면 DB 순으로 본다. MSDS가 9항으로 못 정하는 품명을 적었으면 DB로만 본다.
     shortcut: 9항 용해도와 DB 지정수량은 대조하지 않는다. 용해도 문구 판독과 품목별 지정수량 행 선택을 만들 때 넣는다.
     """
-    rows = [d for d in inputs.get("dangerous_goods") or [] if d.get("item")]
-    row = next((d for d in rows if str(d.get("comp_ref")) == "MIX"), rows[0] if rows else None)
-    want_item = db_item if row and row["item"] in _DG_NOT_BY_FLASH else item9 or db_item
-    if row is None or want_item is None:
+    rows = [d for d in inputs.get("dangerous_goods") or [] if d.get("item") and str(d.get("comp_ref")) == "MIX"]
+    if not rows:
         return []
-    if _DG_ITEM.fullmatch(want_item) and row.get("class") not in (None, "제4류"):
-        return [f"류: MSDS {row['class']}, 판정 제4류 {want_item}"]
-    if row["item"] != want_item:
-        return [f"품명: MSDS {row['item']}, 판정 {want_item}"]
+    row = rows[0]
+    if db_class and row.get("class") and row["class"] != db_class:
+        return [f"류: MSDS {row['class']}, 지식DB {db_class}"]
+    if row.get("class") not in (None, "제4류") or (db_class and db_class != "제4류"):
+        return []  # 제4류가 아니면 인화점 품명 표를 쓰지 않는다
+    written = [_dg_item_name(d["item"]) or d["item"] for d in rows]
+    if db_item in _DG_NOT_BY_FLASH or written[0] in _DG_NOT_BY_FLASH:
+        want_item = db_item
+    else:
+        want_item = item9 or db_item
+    if want_item is None:
+        return []
+    if want_item not in written:
+        return [f"품명: MSDS {', '.join(written)}, 판정 {want_item}"]
+    row = rows[written.index(want_item)]
     if want_item != db_item:
         db_water = None
     out, water = [], row.get("water_soluble") if row.get("water_soluble") in ("수용성", "비수용성") else None
@@ -312,6 +327,10 @@ def _dg(inputs, sup, know_all):
     is_single = (inputs.get("composition") or {}).get("type") == "단일물질"
     # 인화점이 없으면 DB 품명으로 비교한다 (설계서 29장 6단계). 혼합물의 DB 품명은 성분 것이라 제품 품명이 아니다
     db_item, db_water = (db_item, db_water) if is_single else (None, None)
+    db_classes = {n for _, n, _ in db}
+    db_class = next(iter(db_classes)) if is_single and len(db_classes) == 1 else None
+    if db_item in _DG_NOT_BY_FLASH:  # 인화점으로 정한 품명 대신 지식DB 품명을 보여 준다
+        item, edge = None, False
     want_item = item or db_item
     src = [f"HTODB {i} {n}" + (f" {g}" if g else "") for i, n, g in db] + [f"9항: {basis}"]
     if db or (item and not edge):
@@ -331,7 +350,7 @@ def _dg(inputs, sup, know_all):
                     cause="CONDITION_CHECK", **common)
     if exp == "해당":
         if s == "해당":
-            diff = _dg_differences(inputs, item, db_item, db_water)
+            diff = _dg_differences(inputs, item, db_class, db_item, db_water)
             if diff:
                 return _row("MIX", None, "DG", "DG_HAZMAT", MISMATCH, RULE_IDS[THRESHOLD], type_=THRESHOLD, expected=exp,
                             reason=f"위험물 {'; '.join(diff)}: {reason}", **common)
