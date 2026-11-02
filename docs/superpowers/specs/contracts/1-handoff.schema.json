@@ -5,11 +5,28 @@
   "description": "A가 '판정해도 되는 추출값'이 생길 때마다 한 줄 쓴다. 쓴 뒤 바꾸지 않는다. extract.handoff 표의 한 줄이 이 JSON 하나다. 원문 근거(evidence)와 검증기 결과(validation)는 추출스키마 v0.6 안(msds[].evidence, msds[].validation)에 이미 있으므로 따로 두지 않는다.",
   "type": "object",
   "additionalProperties": false,
-  "required": ["contract", "job_id", "handoff_seq", "reason", "created_at", "as_of", "source",
-               "extraction_settings", "extraction", "extraction_sha256", "checks", "field_status"],
+  "required": [
+    "contract",
+    "job_id",
+    "handoff_seq",
+    "reason",
+    "created_at",
+    "as_of",
+    "source",
+    "extraction_settings",
+    "extraction",
+    "extraction_sha256",
+    "checks",
+    "field_status",
+    "fields_total"
+  ],
   "properties": {
-    "contract": { "const": "handoff/1" },
-    "job_id": { "$ref": "common.schema.json#/$defs/job_id" },
+    "contract": {
+      "const": "handoff/1"
+    },
+    "job_id": {
+      "$ref": "common.schema.json#/$defs/job_id"
+    },
     "handoff_seq": {
       "description": "작업 안에서 1부터 1씩 는다. B는 가장 큰 번호를 최신으로 본다",
       "type": "integer",
@@ -17,9 +34,16 @@
     },
     "reason": {
       "description": "extraction_done = 넘김① (추출·검증 끝) / values_reviewed = 추출값 확인을 마치고 판정으로 넘어감 / value_edited = 판정 검수 중 추출값 탭에서 고침 / rerun = 추출을 처음부터 다시 돌림",
-      "enum": ["extraction_done", "values_reviewed", "value_edited", "rerun"]
+      "enum": [
+        "extraction_done",
+        "values_reviewed",
+        "value_edited",
+        "rerun"
+      ]
     },
-    "created_at": { "$ref": "common.schema.json#/$defs/datetime" },
+    "created_at": {
+      "$ref": "common.schema.json#/$defs/datetime"
+    },
     "as_of": {
       "description": "판정 기준일. 업로드 때 받은 값, 없으면 업로드한 날",
       "$ref": "common.schema.json#/$defs/date"
@@ -27,28 +51,71 @@
     "source": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["filename", "file_sha256", "page_count", "text_layer"],
+      "required": [
+        "filename",
+        "file_sha256",
+        "page_count",
+        "text_layer"
+      ],
       "properties": {
-        "filename": { "type": "string", "minLength": 1 },
-        "file_sha256": { "$ref": "common.schema.json#/$defs/sha256" },
-        "page_count": { "type": "integer", "minimum": 1 },
-        "text_layer": { "$ref": "common.schema.json#/$defs/text_layer" }
+        "filename": {
+          "type": "string",
+          "minLength": 1
+        },
+        "file_sha256": {
+          "$ref": "common.schema.json#/$defs/sha256"
+        },
+        "page_count": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "text_layer": {
+          "$ref": "common.schema.json#/$defs/text_layer"
+        }
       }
     },
     "extraction_settings": {
       "description": "추출 설정 키. A의 같은 파일 재사용 판단에도 쓴다",
       "type": "object",
       "additionalProperties": false,
-      "required": ["model_tag", "model_config_sha256", "code_commit", "schema_version", "dictionary_version", "reused_from"],
+      "required": [
+        "model_tag",
+        "model_config_sha256",
+        "code_commit",
+        "schema_version",
+        "dictionary_version",
+        "reused_from"
+      ],
       "properties": {
-        "model_tag": { "description": "configs/models.yaml 태그. 예: qwen36_35b_runpod", "type": "string", "minLength": 1 },
-        "model_config_sha256": { "description": "models.yaml 의 그 모델 항목을 키 정렬해 직렬화한 해시", "$ref": "common.schema.json#/$defs/sha256" },
-        "code_commit": { "type": "string", "pattern": "^[0-9a-f]{7,40}$" },
-        "schema_version": { "const": "TO21-MSDS-EXT v0.6" },
-        "dictionary_version": { "const": "v0.6" },
+        "model_tag": {
+          "description": "configs/models.yaml 태그. 예: qwen36_35b_runpod",
+          "type": "string",
+          "minLength": 1
+        },
+        "model_config_sha256": {
+          "description": "models.yaml 의 그 모델 항목을 키 정렬해 직렬화한 해시",
+          "$ref": "common.schema.json#/$defs/sha256"
+        },
+        "code_commit": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{7,40}$"
+        },
+        "schema_version": {
+          "const": "TO21-MSDS-EXT v0.6"
+        },
+        "dictionary_version": {
+          "const": "v0.6"
+        },
         "reused_from": {
           "description": "같은 파일·같은 설정의 이전 작업에서 추출 결과를 재사용했으면 그 작업 번호",
-          "anyOf": [{ "$ref": "common.schema.json#/$defs/job_id" }, { "type": "null" }]
+          "anyOf": [
+            {
+              "$ref": "common.schema.json#/$defs/job_id"
+            },
+            {
+              "type": "null"
+            }
+          ]
         }
       }
     },
@@ -64,16 +131,34 @@
       "description": "추출스키마 안에 들어가지 않는 A의 검사 결과",
       "type": "object",
       "additionalProperties": false,
-      "required": ["validator", "failed_sections", "reextracted_sections", "source_mismatch"],
+      "required": [
+        "validator",
+        "failed_sections",
+        "reextracted_sections",
+        "source_mismatch"
+      ],
       "properties": {
         "validator": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["version", "errors", "warnings"],
+          "required": [
+            "version",
+            "errors",
+            "warnings"
+          ],
           "properties": {
-            "version": { "const": "v0.6" },
-            "errors": { "description": "msds[].validation 중 level=오류 개수 (전체)", "type": "integer", "minimum": 0 },
-            "warnings": { "type": "integer", "minimum": 0 }
+            "version": {
+              "const": "v0.6"
+            },
+            "errors": {
+              "description": "msds[].validation 중 level=오류 개수 (전체)",
+              "type": "integer",
+              "minimum": 0
+            },
+            "warnings": {
+              "type": "integer",
+              "minimum": 0
+            }
           }
         },
         "failed_sections": {
@@ -82,11 +167,31 @@
           "items": {
             "type": "object",
             "additionalProperties": false,
-            "required": ["msds_index", "section", "error"],
+            "required": [
+              "msds_index",
+              "section",
+              "error"
+            ],
             "properties": {
-              "msds_index": { "$ref": "common.schema.json#/$defs/msds_index" },
-              "section": { "enum": [1, 2, 3, 8, 9, 11, 12, 14, 15] },
-              "error": { "type": "string" }
+              "msds_index": {
+                "$ref": "common.schema.json#/$defs/msds_index"
+              },
+              "section": {
+                "enum": [
+                  1,
+                  2,
+                  3,
+                  8,
+                  9,
+                  11,
+                  12,
+                  14,
+                  15
+                ]
+              },
+              "error": {
+                "type": "string"
+              }
             }
           }
         },
@@ -96,10 +201,27 @@
           "items": {
             "type": "object",
             "additionalProperties": false,
-            "required": ["msds_index", "section"],
+            "required": [
+              "msds_index",
+              "section"
+            ],
             "properties": {
-              "msds_index": { "$ref": "common.schema.json#/$defs/msds_index" },
-              "section": { "enum": [1, 2, 3, 8, 9, 11, 12, 14, 15] }
+              "msds_index": {
+                "$ref": "common.schema.json#/$defs/msds_index"
+              },
+              "section": {
+                "enum": [
+                  1,
+                  2,
+                  3,
+                  8,
+                  9,
+                  11,
+                  12,
+                  14,
+                  15
+                ]
+              }
             }
           }
         },
@@ -109,10 +231,17 @@
           "items": {
             "type": "object",
             "additionalProperties": false,
-            "required": ["msds_index", "field"],
+            "required": [
+              "msds_index",
+              "field"
+            ],
             "properties": {
-              "msds_index": { "$ref": "common.schema.json#/$defs/msds_index" },
-              "field": { "$ref": "common.schema.json#/$defs/field_path" }
+              "msds_index": {
+                "$ref": "common.schema.json#/$defs/msds_index"
+              },
+              "field": {
+                "$ref": "common.schema.json#/$defs/field_path"
+              }
             }
           }
         }
@@ -124,13 +253,31 @@
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["msds_index", "field", "status"],
+        "required": [
+          "msds_index",
+          "field",
+          "status"
+        ],
         "properties": {
-          "msds_index": { "$ref": "common.schema.json#/$defs/msds_index" },
-          "field": { "$ref": "common.schema.json#/$defs/field_path" },
-          "status": { "enum": ["확인함", "수정됨"] }
+          "msds_index": {
+            "$ref": "common.schema.json#/$defs/msds_index"
+          },
+          "field": {
+            "$ref": "common.schema.json#/$defs/field_path"
+          },
+          "status": {
+            "enum": [
+              "확인함",
+              "수정됨"
+            ]
+          }
         }
       }
+    },
+    "fields_total": {
+      "description": "검수할 수 있는 칸의 수 (A2의 검수 보기와 같은 기준). 미검수 칸 = fields_total - field_status 길이. 저장 화면·저장본이 쓴다",
+      "type": "integer",
+      "minimum": 0
     }
   }
 }
