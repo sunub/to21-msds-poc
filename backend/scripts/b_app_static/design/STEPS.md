@@ -445,6 +445,15 @@ G5에서 더 볼 것은 아래와 같습니다. step 5가 더했습니다. 개�
 - step 6: `help.trial.open_stages`(‘입력부터 결과까지 6단계 보기’)는 이제 코드에서 쓰지 않는 후보입니다. 지우는 일은 step 7에 넘깁니다.
 - step 6: `docs/ARCHITECTURE.md`에 새로 적을 API는 없습니다. 메인 세션의 step 2, step 4 몫은 그대로입니다. ARCHITECTURE의 `scripts/b_app_text.py` 설명과 `guide.html` 줄은 바꿀 필요가 없습니다.
 
+- step 7: 이 phase 전부터 쓰이지 않던 것은 지우지 않고 적습니다. 찾은 방법은 코드(`js/*.js`, `b_app*.py`)에서 키 전체 이름, 묶음 읽기, 조립 이름으로 찾아 phase 시작 커밋 `386bfc5`와 비교한 것입니다. 이름을 찾지 못했다는 뜻이므로 후보입니다.
+  - `UI_TEXT` 후보 약 600개입니다. 묶음별 수는 `score` 152, `jobs` 142, `servers` 85, `errors` 64, `source` 54, `common` 52, `help` 34, `context` 16입니다. 예: `jobs.running.title`, `source.wrong.title`, `help.flow.title`. 그중 `source.wrong.title`처럼 step 3·5가 후보로 넘긴 글도 phase 시작 때 이미 쓰이지 않았습니다.
+  - `help.trial.open_stages`도 같습니다. step 6은 이 글을 step 7에 넘겼지만 `386bfc5`의 코드에도 부르는 곳이 없어 두었습니다.
+  - CSS 후보 8개: `.guide-demo-record`, `.guide-intro`, `.guide-sheet-column`, `.guide-skipped`, `.journey-choice`, `.journey-choices`, `.server-ready`, `#journey-records`.
+  - Python 함수 2개: `b_app_doc.align_silver`와 `b_app_text.explain`은 시험에서만 부릅니다.
+- step 7: `jobs.fields.model`, `jobs.fields.dry_run`은 이제 화면 코드가 부르지 않습니다. 하지만 `FIELD_HELP`로 서버 응답에 그대로 나가고 옛 계약 시험이 있어 지우지 않았습니다.
+- step 7: `glossary.runpod.meaning`의 ‘시간당 $2.49’는 시안이 아니라 phase 전부터 있던 말풍선 예시였습니다. 시안의 값과 같아 이번 검사(`test_mockup_fake_values_are_not_fixed_text`)가 잡았고, 예시 숫자를 `$2`, `$4`로 바꿨습니다. G6 뒤의 글 변경이라 G7에서 보여야 합니다. 서버 설정 `POD_COST_HINT = 2.49`는 실제 기록이고 검사 범위 밖이라 그대로입니다.
+- step 7: S06 ③의 확인 줄(`.server-progress`)은 단계 표시와 같은 번호 모양을 씁니다. G3에서 승인한 확인 목록이라 진행 표시로 세지 않았습니다. 두 번째 진행 표시로 읽히는지는 G7에서 봅니다.
+
 ## 11. 안내 위치 변경
 
 - step 1에는 없습니다. `data-guide`가 붙은 요소를 옮기지 않았습니다. `guide-open` 단추는 id를 그대로 둔 채 위쪽 막대로 옮겼습니다.
@@ -463,7 +472,7 @@ G5에서 더 볼 것은 아래와 같습니다. step 5가 더했습니다. 개�
 
 ## 12. 문구 승인표
 
-이번 phase(`app-steps`)에서 고친 글 36개, 지운 글 8개, 새 글 437개입니다. 기준은 phase를 시작한 커밋 `386bfc5`입니다. G6에서 사용자가 이 표를 읽고 고릅니다.
+이번 phase(`app-steps`)에서 고친 글 37개, 지운 글 33개, 새 글 437개입니다. step 7이 지운 25개와 고친 1개는 G6 승인 뒤의 변경입니다. 기준은 phase를 시작한 커밋 `386bfc5`입니다. G6에서 사용자가 이 표를 읽고 고릅니다.
 고칠 글은 키를 알려 주시면 됩니다. 표는 `UI_TEXT`에서 만들었고, 뒤 글이 지금 값과 다르면 `test_approval_table_shows_the_current_text_for_every_key_of_this_phase`가 실패합니다.
 
 ### 고친 글
@@ -502,6 +511,7 @@ G5에서 더 볼 것은 아래와 같습니다. step 5가 더했습니다. 개�
 | `help.facts.columns` | 시험 결과의 해석한 값에서 버린 줄 수를 봅니다. 모델의 원래 답과 정해진 열 수를 비교하세요. | 시험 결과의 자세히 보기에서 ‘읽어 낸 값’의 버린 줄 수를 봅니다. 모델의 원래 답과 정해진 열 수를 비교하세요. | S07 |
 | `help.data.source_change` | 바꾸기: 화면 위 ‘필요할 때 문서 바꾸기’에서 다른 묶음을 고릅니다. 그 묶음으로 돌린 저장 결과만 보입니다. | 바꾸기: 위쪽 막대의 ‘문서 묶음’을 눌러 다른 묶음을 고릅니다. 그 묶음으로 돌린 저장 결과만 보입니다. | S07 |
 | `help.data.answer_change` | 바꾸기: 화면 위 ‘필요할 때 정답 바꾸기’에서 고릅니다. 저장된 결과를 AI 없이 다시 채점합니다. | 바꾸기: 위쪽 막대의 ‘정답’을 눌러 고릅니다. 저장된 결과를 AI 없이 다시 채점합니다. | S07 |
+| `glossary.runpod.meaning` | 모델을 켜 둔 시간에 따라 요금을 내는 서버입니다. 예: 시간당 $2.49로 2시간을 쓰면 추정 비용은 $4.98입니다. | 모델을 켜 둔 시간에 따라 요금을 내는 서버입니다. 예: 시간당 $2로 2시간을 쓰면 추정 비용은 $4입니다. | S07. step 7이 고침, G7에서 봅니다 |
 | `glossary.input.meaning` | AI에게 보낼 원문의 쪽별 글자를 모아 둔 곳입니다. 예: 시안의 이전 개발 자료는 prev/version9입니다. | AI에게 보낼 원문의 쪽별 글자를 모아 둔 곳입니다. 예: 이전 개발 자료 묶음에는 문서마다 쪽별 글자 파일이 있습니다. | S07 |
 | `guide.screens.G03.lead` | 1 최근 결과에서 [문제의 원문 보기] → 2 원문 줄 확인 → 3 [이 부분 다시 시험] | 1 최근 결과에서 [문제의 원문 보기] → 2 원문 줄 확인 → 3 [이 부분 다시 시험하기] | 안내 G03 |
 | `guide.data.source.change` | 두 화면 뒤에서 바로 고를 수 있어요. 안내를 닫은 뒤에는 화면 맨 위 [필요할 때 문서 바꾸기]를 눌러요. 그 묶음으로 돌린 저장 결과만 보여요. | 두 화면 뒤에서 바로 고를 수 있어요. 안내를 닫은 뒤에는 위쪽 막대의 [문서 묶음]을 눌러요. 그 묶음으로 돌린 저장 결과만 보여요. | 안내 G16 |
@@ -521,6 +531,31 @@ G5에서 더 볼 것은 아래와 같습니다. step 5가 더했습니다. 개�
 | `score.flow.result` | 1 결과 보기 | (지움) | S01,S02 |
 | `score.flow.cause` | 2 원인 찾기 | (지움) | S01,S02 |
 | `score.flow.retest` | 3 다시 시험 | (지움) | S01,S02 |
+| `common.method` | 방법 | (지움) | S06,S08 |
+| `jobs.trial.title` | 같은 부분을 AI에게 다시 읽힐 준비가 됐습니다. | (지움) | S03,S08 |
+| `jobs.prompt.details` | 설명의 출처와 보관 방식 보기 | (지움) | S03,S08 |
+| `jobs.prompt.edit` | 기본 설명 고쳐 쓰기 | (지움) | S03,S08 |
+| `jobs.scope.expand` | 시험 범위와 이전 결과 바꾸기 | (지움) | S03,S08 |
+| `jobs.off.title` | 다시 시험하려면 AI 모델이 켜져 있어야 합니다. | (지움) | S03,S06 |
+| `jobs.completion.title` | 결과 기록과 완료 판정 | (지움) | S03,S08 |
+| `jobs.parse_failed.todo` | 실제 시험 성공은 기록하지 않았습니다. 할 일: {stage}단계의 오류를 보고 다시 시험하세요. | (지움) | S03,S08 |
+| `jobs.practice_done.omitted_stages` | 연습에서는 {first_stage}~{last_stage}단계의 모델 응답과 점수를 만들지 않습니다. | (지움) | S03,S08 |
+| `jobs.form.waiting` | 시험 결과를 고르면 여기에 표시합니다. | (지움) | S03 |
+| `source.problem_count` | 문서 {count}건에서 찾은 문제 값 | (지움) | S02,S08 |
+| `source.evidence.title` | 원문에 적힌 줄 | (지움) | S02,S08 |
+| `source.selection.expand` | 문서와 쪽과 부분 바꾸기 | (지움) | S02,S08 |
+| `source.page.expand` | 원문 그림과 줄 글자 보기 | (지움) | S02,S08 |
+| `source.structure.expand` | 값의 구조와 비교 범위 보기 | (지움) | S02,S08 |
+| `source.labels.raw_value` | 원래 값과 위치 보기 | (지움) | S02 |
+| `servers.choice.company` | 추천 · 회사 서버(RNGD) | (지움) | S06,S08 |
+| `servers.choice.rented` | 다른 방법 · 빌린 서버(RunPod) | (지움) | S06,S08 |
+| `servers.compare.cost` | 추가 임대료 | (지움) | S06,S08 |
+| `servers.company.alternative` | 다른 방법 | (지움) | S06 |
+| `servers.connection.processes` | 실행 중인 모델과 장비 출력 | (지움) | S06 |
+| `servers.rented.ownership` | 소유와 상태 | (지움) | S06 |
+| `servers.rented.identity` | 서버 이름과 번호 | (지움) | S06 |
+| `servers.models.title` | 모델별 연결 상태 | (지움) | S06 |
+| `servers.models.state` | 연결 상태 | (지움) | S06 |
 
 ### 새 글
 
@@ -1116,6 +1151,77 @@ G5에서 더 볼 것은 아래와 같습니다. step 5가 더했습니다. 개�
 |---|---|---|---|
 | `guide.trial.steps_note` | (새 글) | 다시 시험 화면은 무엇을 → 어느 AI로 → 무엇을 시킬지 → 시험 → 결과 순서예요. 이 카드는 앞의 세 단계를 미리 채워 둬요. | 안내 G11 |
 
+## 13. 끝 점검
+
+세 화면의 모든 단계와 서랍을 시험으로 훑었습니다. 화면 크기와 실제 사용 판정은 대역 DOM으로 알 수 없어 G7에서 잽니다.
+아래 ‘고침’은 대역 DOM 시험으로 확인했다는 뜻입니다. 픽셀 값은 시험으로 재지 않았습니다.
+
+### 계획 7장의 성공 기준을 시험과 브라우저로 나누어 확인한다
+
+| 순서 | 기준 | 시험 | 브라우저 (9장의 표와 행) |
+|---|---|---|---|
+| 1 | 공통 틀이 한 줄이고 1280×800에서 주 단추가 스크롤 없이 보임 | `test_top_bar_holds_documents_answers_ai_and_guide_on_one_line`, `test_bar_css_is_one_56px_line_with_tokens_only` | G2 ‘위쪽 막대 너비’. 주 단추 위치는 브라우저로만 잽니다 |
+| 2 | AI 켜기와 비용의 접힘 0 | `test_s06_every_step_and_its_drawer_has_no_fold_one_bar_one_action_row_and_clean_text`, `test_steps_have_no_folds` | G3 ‘접힘’ |
+| 2 | 켜짐 상태의 페이지 스크롤 없음 | 없음 | G3 ‘④ 쓰고 나서 끄기’ |
+| 2 | 모순 문구 0 | `test_ready_rented_server_shows_no_company_todo` | G3 ‘모순 문구’ |
+| 3 | 채워진 단계를 건너뜀 | `test_entry_starts_at_prompt_with_source_value_and_ai_on`, `test_entry_starts_at_model_with_source_value_and_ai_off`, `test_entry_starts_at_target_without_a_chosen_value`, `test_entry_does_not_skip_when_source_set_differs_or_document_is_locked` | G4 ‘원문에서 넘어왔을 때’ |
+| 3 | 기존 입력을 잃지 않음 | `test_moving_between_steps_and_screens_keeps_every_input` | G4 ‘입력 보존’ |
+| 4 | 고른 줄이 항상 보임 | `test_every_entry_shows_the_picked_row_inside_the_list_and_the_line_inside_the_lines` | G5 ‘입구 셋’ |
+| 4 | 미리 그리는 단추 200개 이하 | `test_structure_is_drawn_only_after_the_drawer_is_opened_and_buttons_stay_within_the_limit` | G5 ‘단추 수’ |
+| 5 | 안내의 모든 위치가 실제 요소를 가리킴 | `test_every_anchor_in_the_guide_code_and_structure_doc_is_attached_to_a_real_element` | G6 ‘위치 표시’ |
+| 6 | 시험 통과 | 전체 시험 명령(공통 규칙 6장) | 없음 |
+| 6 | 새 사용자 시험 이해 8, 조작 8 이상 | 없음 | G7 ‘수락’. AI 캡처 평가와 실제 사람 평가를 구분합니다 |
+| 6 | 사용자 수락 | 없음 | G7. 사용자의 몫입니다 |
+
+세 화면 공통의 끝 검사는 `test_s02_every_step_and_its_drawer_has_no_fold_one_bar_one_action_row_and_clean_text`, `test_s03_every_step_branch_and_drawer_has_no_fold_one_bar_one_action_row_and_clean_text`, `test_no_screen_has_two_progress_bars`입니다.
+
+### 요청 밖 문제 14개와 남긴 두 가지는 모두 고쳤고 브라우저 수치는 G7에서 다시 잰다
+
+| 번호 | 문제 | 결과 | 확인 |
+|---|---|---|---|
+| 1 | 비교 카드가 고정 막대에 가림 | 고침. S02는 페이지가 움직이지 않고 칸 안에서만 움직입니다 | `test_source_comparison_card_leaves_room_for_the_fixed_bar`, G5 ‘페이지 스크롤 없음’ |
+| 2 | 고른 원문 줄이 목록 밖에 남음 | 고침 | `test_every_entry_shows_the_picked_row_inside_the_list_and_the_line_inside_the_lines`, G5 ‘입구 셋’ |
+| 3 | 세 문제 종류의 범례가 같은 색 칸 | 고침(PR #123). 지금은 글로 구분합니다 | `test_source_legend_section_summaries_and_visible_comparison_states`, `test_problem_kind_legend_has_tips_for_made_and_missing` |
+| 4 | S06 밖에 요금 없음 | 고침. 위쪽 막대와 시험 ⑤에 보입니다 | `test_top_bar_shows_price_and_cost_so_far_for_the_session_server`, `test_result_step_says_a_rented_server_is_still_on_with_its_cost`, G2 ‘요금 글 네 상태’ |
+| 5 | 준비 완료와 다른 서버 할 일이 같이 나옴 | 고침 | `test_ready_rented_server_shows_no_company_todo`, G3 ‘모순 문구’ |
+| 6 | 빌린 서버용 AI를 골라도 회사 서버 추천 | 고침 | `test_which_server_fits_comes_from_api_values`, G3 ‘① 서버 고르기’ |
+| 7 | 끝난 서버와 다른 사람 서버가 같은 비용 표에 섞임 | 고침. 첫 화면에서 빼고 서랍에서 구분합니다 | `test_finished_and_others_servers_stay_out_of_first_screen_costs`, G3 ‘자세히 서랍’ |
+| 8 | 닫힌 값 구조가 단추를 미리 그림 | 고침. 서랍의 단추를 누른 뒤에만 그립니다 | `test_structure_is_drawn_only_after_the_drawer_is_opened_and_buttons_stay_within_the_limit`, G5 ‘단추 수’ |
+| 9 | 모든 원문 줄에 연결 값 0개 반복 | 고침(D3) | `test_line_list_shows_linked_lines_and_lines_near_the_pick_and_can_show_all`, G5 ‘원문 글자 기본 보기’ |
+| 10 | 작업 기록에 실행 결과 로딩 문구 | 고침 | `test_job_records_first_open_does_not_talk_about_results` |
+| 11 | 내부 이름이 그대로 노출 | 고침. 남은 것: 보낸 입력 첫 줄의 폴더 경로(10장 step 6) | `test_screens_show_no_folder_or_set_names_outside_the_raw_style`, `test_drawers_keep_folder_names_in_the_raw_style`, G6 ‘쉬운 이름’ |
+| 12 | 연습 체크박스가 주 단추 뜻을 바꿈 | 고침. 연습은 별도 단추입니다 | `test_practice_is_a_separate_action_and_the_main_button_keeps_its_meaning` |
+| 13 | 같은 접힘 제목과 ‘펼치기 펼치기’ | 고침 | `test_drawer_holds_server_list_settings_and_log_with_unique_titles`, `test_no_screen_repeats_an_action_word` |
+| 14 | 모델을 고르는 칸이 접혀 있음 | 고침. 시험 ②에 펼쳐 둡니다 | `test_model_choice_is_open_on_step_two_and_marks_on_and_off` |
+| 10장-1 | ‘못 뽑음’ 입구의 선택 값이 왼쪽 목록 밖 | 고침 | `test_every_entry_shows_the_picked_row_inside_the_list_and_the_line_inside_the_lines`, G5 ‘입구 셋’ |
+| 10장-2 | 값 없는 줄 선택 때 카드가 짧아져 페이지가 당겨짐 | 고침. 비교 영역 높이를 고정했습니다 | `test_picking_a_line_without_values_keeps_the_comparison_area_as_it_is`, `test_css_keeps_the_page_still_and_gives_the_comparison_area_a_fixed_track`, G5 ‘비교 영역 높이’ |
+
+### 지운 정보는 승인된 네 가지뿐이다
+
+| 번호 | 확인 |
+|---|---|
+| D1 | `test_no_folds_in_any_branch_or_step_and_details_live_in_the_drawer`, 12장의 `jobs.trial.next_options` 지움 |
+| D2 | `test_batch_address_works_at_start_and_menu_has_no_batch_entry` |
+| D3 | `test_line_list_shows_linked_lines_and_lines_near_the_pick_and_can_show_all` |
+| D4 | `test_model_list_shows_only_ais_this_app_can_turn_on_plus_the_chosen_one` |
+
+`STRUCTURE.md` 정보 보존표의 ‘승인된 삭제’가 이 네 가지와 같은지는 `test_preservation_table_deletions_are_exactly_the_approved_ones`가 봅니다. 새 자리는 `test_preservation_rows_of_the_step_screens_point_to_the_new_places`가 봅니다.
+
+### 메인 세션이 G7에서 잴 것
+
+1. 전체 시험 명령과 이 step의 AC를 다시 돌립니다.
+2. S02 ①②③, S03 ①②③④⑤(세 갈래), S06 ①②③④를 1280×800, 1440×900, 1680×1050에서 찍습니다. 가로 스크롤 없음, 행동 줄이 창 맨 아래, 단계 표시의 현재·끝남·못 감이 글로 구분되는지 봅니다(9장 G2~G5).
+3. 접힘 수를 잽니다. `document.querySelectorAll('#screen-s02 details, #screen-s03 details, #screen-s06 details, #details-drawer details').length`가 모든 단계와 서랍에서 0이어야 합니다.
+4. 실제 개발 문서로 S02 ②를 엽니다. 단추 200개 이하, 비교 영역 높이 변화 0px, 페이지 스크롤 0, 고른 행과 줄이 칸 안에 보이는지 재서 적습니다(9장 G5).
+5. S01의 주 단추가 1280×800에서 첫 화면 안에 있는지 재서 적습니다(9장 G1, G2). 아직 수치가 없습니다.
+6. 주 흐름을 왕복합니다. S01 → S02 ② → S03 → S06 → S03 → 연습 → ⑤ → 원문. 실제 시험과 서버 만들기는 사용자가 승인할 때만 합니다.
+7. 안내 두 갈래와 도움말 링크를 9장 G6 표대로 봅니다. 추정 줄과 연습이 실제 성공으로 세지지 않는지 봅니다.
+8. 새 글을 읽습니다. G6 메모대로 사용자가 G7에서 고칠 수 있습니다. 12장에서 step 7이 고친 `glossary.runpod.meaning`을 먼저 보입니다.
+9. 맥락 없는 이해도 시험을 합니다. 이해와 조작 각각 8/10 이상을 목표로 적고, AI 캡처 평가와 실제 사람 평가를 구분합니다.
+10. S06 ③의 확인 줄이 두 번째 진행 표시로 읽히는지 봅니다(10장 step 7).
+11. `docs/ARCHITECTURE.md`의 API 표에 `create_quote`, `session.ready_seconds`, `row_groups`, `problem_rows`를 더합니다. step 안에서 docs를 고치지 못해 넘긴 일입니다.
+12. 사용자의 수락을 G7 행에 기록받습니다. PR은 사용자가 지시할 때만 올립니다.
+
 ## step 기록
 
 ### G6 전 고침 (메인 세션, 11/2)
@@ -1357,3 +1463,28 @@ G5에서 더 볼 것은 아래와 같습니다. step 5가 더했습니다. 개�
   - 용어 수 40 → 47: `test_help_opens_requested_topic_and_loads_glossary_and_methods_without_model`, `test_glossary_failed_load_can_retry_without_losing_help_or_target`, `test_scoring_methods_retry_keeps_glossary_and_open_topic`. G5 메모의 말풍선을 더했기 때문입니다.
   - 입구 이름: `test_data_screens_explain_meaning_and_how_to_change_and_add`. step 1이 ‘필요할 때 문서 바꾸기’ 글자를 칩의 말풍선으로 옮겼으므로, 안내는 칩의 글 ‘문서 묶음’, ‘정답’을 말합니다.
 - 넘기는 일: 메인 세션은 9장의 G6 표로 안내 두 갈래와 도움말을 보고, 12장을 사용자에게 보입니다. step 7은 10장의 쓰지 않는 글 후보와 `help.trial.open_stages`를 봅니다.
+
+### step 7
+
+- 시작 조건: G6은 승인입니다. 메모에 수정 요청이 없어 먼저 반영할 것은 없었습니다.
+- 산출물: 끝 검사 시험, 이 phase가 쓰이지 않게 만든 글과 도우미 삭제, `STRUCTURE.md` 정보 보존표의 새 자리와 승인된 삭제, 13장 끝 점검입니다.
+- 지운 것:
+  - `UI_TEXT` 키 25개입니다. `COPY.md` 행 19개와 `COPY_EXCEPTIONS` 6개도 같이 지웠습니다(글 하나는 둘 중 한 곳에 있습니다). 목록은 12장 ‘지운 글’입니다. 남은 글의 값이 바뀌지 않은 것은 지우기 전 파일과 대조해 확인했습니다.
+  - JS 함수 1개: `sourceShowRow`. step 5가 만들었지만 화면 코드가 부르지 않고 시험 도우미만 불렀습니다.
+  - Python 도우미 2개: `b_app_doc.field_counts`, `b_app_doc.run_field_counts`. step 4의 `problem_counts`, `run_problem_counts`로 대체된 뒤 시험만 불렀습니다.
+  - CSS는 지우지 않았습니다. 이 phase가 쓰이지 않게 만든 규칙을 찾지 못했습니다. `billing`, `fit`은 이름 조립으로 쓰입니다.
+- 고친 글 1개: `glossary.runpod.meaning`의 예시 숫자입니다. 이유는 10장 step 7입니다.
+- 어떻게 골랐나: 지금 코드와 phase 시작 커밋 `386bfc5`의 코드에서 이름을 찾아, 그때 쓰였고 지금 안 쓰이는 것만 지웠습니다. 그때도 안 쓰이던 것은 10장에 적었습니다. 조립 이름(예: `steps.trial.${id}`)만으로 잡힌 글은 그 자리의 실제 값을 코드에서 읽어 판단했습니다.
+- 실패를 본 시험 19건:
+  - `test_mockup_fake_values_are_not_fixed_text[$2.49]`, `test_mockup_fake_values_are_not_fixed_text[2.49]`
+  - `test_text_this_phase_stopped_using_is_gone_from_the_text_and_copy_and_stays_in_the_approval_table`
+  - `test_helpers_this_phase_stopped_using_are_gone`
+  - `test_preservation_table_deletions_are_exactly_the_approved_ones`
+  - `test_preservation_rows_of_the_step_screens_point_to_the_new_places` 14건(I36~I49)
+  - 그 뒤에 쓴 `test_final_check_covers_every_success_criterion_and_problem_with_tests_that_exist`도 실패를 본 뒤 통과시켰습니다.
+- 처음부터 통과한 새 시험 25건: `test_s02_every_step_...`, `test_s03_every_step_branch_...`, `test_s06_every_step_...` 11건, `test_no_screen_has_two_progress_bars` 8건, 나머지 `test_mockup_fake_values_are_not_fixed_text` 4건입니다. step 2·3·5가 이미 지키는 동작이기 때문입니다. 검사가 빈 검사가 아닌지 일부러 깨뜨려 봤습니다. 단계에 접힘 넣기, 단계 표시 둘, 행동 줄 둘, `undefined` 글자, 없는 글 키, 서랍에 접힘 넣기 여섯 경우 모두 실패했고, 그대로 둔 경우는 통과했습니다.
+- 고친 옛 시험과 이유. 지운 뜻은 없습니다.
+  - `test_B_b_app_doc.py`, `test_B_b_app.py`: 지운 도우미 대신 `problem_counts(...)[0]`, `run_problem_counts(...)[0]`을 부릅니다. 두 함수가 같은지 비교하던 두 줄은 같은 함수를 비교하게 되어 뺐습니다.
+  - `test_B_b_app_source_ui.py`의 `pick` 도우미: `sourceShowRow`가 하던 세 줄을 시험 안에 옮겼습니다.
+  - `test_evidence_of_an_ai_value_says_it_is_the_line_the_ai_gave`: 지운 글을 `T(...)`로 찾으면 빈 검사가 되므로 옛 글자 ‘원문에 적힌 줄’을 직접 씁니다.
+- 넘기는 일: 메인 세션은 13장의 G7 목록을 따릅니다. 사용자 수락과 PR은 이 step의 몫이 아닙니다.

@@ -375,7 +375,6 @@ common.used|사용|S05
 common.job|작업|S05
 common.progress|진행|S05
 common.stop|중단|S05
-common.method|방법|S06,S08
 common.server|서버|S06
 common.manage|관리|S06
 common.action|할 수 있는 일|S08
@@ -892,7 +891,6 @@ source.fields.cas_no|물질 식별 번호(CAS)|S02
 source.fields.ke_no|국내 물질 번호(KE)|S02
 source.fields.comp_ref|성분 번호|S02
 source.title|원문과 AI의 값을 비교하세요.|S02,S08
-source.problem_count|문서 {count}건에서 찾은 문제 값|S02,S08
 source.unit_first_use|값을 누르면 원문이 바뀝니다. mg/m³는 공기 1세제곱미터에 든 물질의 양(밀리그램)입니다.|S02,S08
 source.filter.all|전체 {count}건|S02,S08
 source.filter.missing|못 뽑음 {count}칸|S02,S08
@@ -903,7 +901,6 @@ source.value.missing|못 뽑음 · {concentration} mg/m³|S02,S08
 source.value.made|만듦 · {concentration} mg/m³|S02,S08
 source.wrong.title|AI가 원문의 {expected}를 {actual}로 잘못 옮겼습니다.|S02,S08
 source.value.context|{doc} · {component} · {section}번 부분 · 허용 농도|S02,S08
-source.evidence.title|원문에 적힌 줄|S02,S08
 source.evidence.location|{page}쪽 {line_no}번째 줄|S02,S08
 source.evidence.recorded|AI 결과에 기록된 근거 위치입니다.|S02,S08
 source.value.model_label|{model}가 쓴 값|S02,S08
@@ -916,7 +913,6 @@ source.retest.open|이 부분 다시 시험하기|S02,S08
 source.retest.target|다시 시험 화면에 {doc}의 {section}번 부분과 ‘AI에게 시킬 일’ 입력란을 채웁니다.|S02,S08
 source.retest.duration|시험은 약 {seconds}초~{minutes}분입니다(예시). AI 준비 시간은 별도입니다.|S02,S08
 source.retest.cost|회사 서버는 추가 임대료가 없습니다. 빌린 서버는 켜 둔 시간만큼 요금이 나갑니다.|S02,S08
-source.selection.expand|문서와 쪽과 부분 바꾸기|S02,S08
 source.selection.current|현재 값|S02,S06
 source.selection.dev_doc|개발용 문서|S02,P01
 source.selection.section|{section}번 부분 · 노출 방지와 보호구|S02,S08
@@ -929,12 +925,10 @@ source.selection.eval_reason|평가 문서 잠금 이유 보기|S02,S08
 source.evidence.range|원문은 {page}쪽 {first_line}번째 줄부터 {last_line}번째 줄까지입니다.|S02,S08
 source.selection.restore|선택한 값과 쪽과 읽던 위치는 돌아올 때 복원합니다.|S02,S08
 source.selection.set_mismatch|원문과 다음 시험 묶음이 다른 경우 보기|S02,S08
-source.page.expand|원문 그림과 줄 글자 보기|S02,S08
 source.page.caption|{doc} · {page}쪽의 글자|S02,S08
 source.page.no_image|그림이 없는 경우에도 줄 글자는 남습니다.|S02,S08
 source.page.no_coordinates|좌표가 없는 줄은 글자만 확인할 수 있습니다.|S02,S08
 source.page.section_unknown|부분의 시작 줄을 못 찾은 경우 보기|S02,S08
-source.structure.expand|값의 구조와 비교 범위 보기|S02,S08
 source.structure.path|{section}번 부분 → 노출기준 표 → 행 → 기준 값|S02,S08
 source.structure.raw_path|원래 경로:|S02,S08
 source.structure.line_ref|줄 표기:|S02,S08
@@ -1189,13 +1183,10 @@ servers.messages.tunnel_timeout|연결 통로가 {seconds}초 안에 열리지 �
 servers.messages.tunnel_spawn_failed|보안 연결 프로그램을 시작하지 못했습니다. 할 일: 터미널에서 ssh 명령을 쓸 수 있는지 확인하세요.|S06
 servers.messages.tunnel_still_open|닫기를 요청한 {port}번 연결이 아직 열려 있습니다. 할 일: 잠시 뒤 서버 상태를 다시 확인하세요.|S06
 servers.choice.recommendation|추가 임대료 없는 회사 서버를 권합니다.|S06
-servers.compare.cost|추가 임대료|S06,S08
 servers.compare.wait|준비 시간|S06,S08
 servers.compare.limits|사용 제한과 정리|S06,S08
-servers.choice.company|추천 · 회사 서버(RNGD)|S06,S08
 servers.compare.company.wait|15~25분|S06,S08
 servers.compare.company.limit|한 번에 모델 하나|S06,S08
-servers.choice.rented|다른 방법 · 빌린 서버(RunPod)|S06,S08
 servers.compare.rented.cost|시간당 약 ${cost_per_hour} (예시)|S06,S08
 servers.compare.rented.wait|준비 시간은 매번 다릅니다. 준비 중에는 기다린 시간을 보여 줍니다.|S06,S08
 servers.compare.rented.cleanup|사용 뒤 삭제하세요. 잊어도 요청이 20분 없으면 앱이 지우고, 서버 안 타이머가 4시간에 지웁니다.|S06,S08
@@ -1205,7 +1196,6 @@ servers.company.off|이 서버의 AI는 꺼져 있습니다. 켜는 데 보통 1
 servers.company.confirm_load|{model} 켜기 확인하기|S06
 servers.company.read_while_waiting|기다리는 동안 저장된 결과를 읽을 수 있습니다.|S06
 servers.company.return_target|돌아갈 대상: {doc} · {section}번 부분.|S06
-servers.company.alternative|다른 방법|S06
 servers.company.rented_fallback|회사 서버를 쓸 수 없으면 빌린 서버를 확인하세요.|S06
 servers.company.open_rented|기존 임대 서버와 비용 보기|S06
 servers.connection.title|컴퓨터 연결과 모델 응답 확인|S06
@@ -1250,7 +1240,6 @@ servers.rented.estimated_cost|가동 {hours}시간의 추정 비용은 ${cost}�
 servers.rented.deletion_hours|생성 후 4시간에 자동 삭제합니다. 지금은 {hours}시간 남았습니다.|S06
 servers.rented.scheduler|요청이 20분 없으면 앱이 지웁니다. 이 감시는 앱이 켜져 있을 때만 돕니다. 4시간 타이머는 서버 안에서 돌아 앱이 꺼져도 지웁니다.|S06
 servers.rented.list_storage|서버 목록과 저장공간 비용|S06
-servers.rented.ownership|소유와 상태|S06
 servers.rented.uptime|가동 시간|S06
 servers.rented.hourly_rate|시간당 요금|S06
 servers.rented.total_cost|추정 비용|S06
@@ -1425,7 +1414,6 @@ jobs.kinds.silver|AI 정답 초안 만들기|S03
 jobs.kinds.eval|평가용 기록 · 열람 제한|S03
 jobs.kinds.outside|새 문서 시험 · 점수 없음|S03
 jobs.kinds.models|비교표|S03
-jobs.trial.title|같은 부분을 AI에게 다시 읽힐 준비가 됐습니다.|S03,S08
 jobs.trial.target|{doc} · {section}번 부분 · 작업장 공기 중 허용 농도|S03,S08
 jobs.trial.base_result|비교할 결과: {time} · {score}점|S03,S08
 jobs.prompt.hint|예: “숫자와 단위를 원문 그대로 옮기세요.” 고친 글은 새로고침하면 사라집니다.|S03,S08
@@ -1441,7 +1429,6 @@ jobs.trial.company_ready|{model}가 응답했습니다. 회사 서버를 사용�
 jobs.trial.company_cost|회사 서버는 추가 임대료가 없습니다.|S03,S08
 jobs.trial.duration|시험은 약 {seconds}초~{minutes}분입니다(예시). 준비 시간은 별도입니다.|S03,S08
 jobs.trial.practice_meaning|AI 없이 보낼 내용만 확인하는 연습입니다. 실제 시험 기록과 점수는 생기지 않습니다.|S03,S08
-jobs.scope.expand|시험 범위와 이전 결과 바꾸기|S03,S08
 jobs.scope.label|다시 읽힐 범위|S03,S08
 jobs.scope.single|한 부분 · {section}번 부분|S03,S08
 jobs.scope.multiple|여러 부분 · {section}번과 {other_section}번 부분|S03,S08
@@ -1455,17 +1442,14 @@ jobs.scope.base_run|새 답을 끼워 넣을 이전 결과|S03,S05
 jobs.scope.auto_selected|자동 선택 ·|S03,S08
 jobs.scope.check_runnable|고른 문서를 시험할 수 있는지 확인합니다.|S03,S08
 jobs.scope.open_mismatch|묶음이 다른 경우 보기|S03,S08
-jobs.prompt.details|설명의 출처와 보관 방식 보기|S03,S08
 jobs.prompt.origin|기본 설명은 모델별 기본 설정에서 가져옵니다.|S03,S08
 jobs.prompt.mode|설명 사용 방식|S03,S08
-jobs.prompt.edit|기본 설명 고쳐 쓰기|S03,S08
 jobs.prompt.default|기본 설명 그대로|S03,S08
 jobs.prompt.review_foreign|다른 모델이나 다른 부분의 글을 가져오면 전송 전에 재검토합니다.|S03,S08
 jobs.prompt.memory_only|고친 글 전체는 현재 화면에만 보관합니다.|S03,S08
 jobs.prompt.delete_temp|전송 임시 파일은 보낸 뒤 지웁니다.|S03,S08
 jobs.prompt.hash_only|기록에는 내용 확인값(해시)만 남깁니다.|S03,S08
 jobs.prompt.open_review|출처가 다른 설명 재검토 보기|S03,S08
-jobs.off.title|다시 시험하려면 AI 모델이 켜져 있어야 합니다.|S03,S06
 jobs.off.model|{model}는 아직 준비되지 않았습니다.|S03
 jobs.off.connect|AI 연결하기|S03
 jobs.running.title|시험이 진행 중입니다.|S03,S08
@@ -1527,7 +1511,6 @@ jobs.detail.key_hash|정답 파일 내용의 확인값:|S03,P01
 jobs.detail.hash_meaning|확인값은 현재 정답 파일을 구분하는 표시입니다. 과거 정답을 복원할 수는 없습니다.|S03,S08
 jobs.detail.changed_criterion|바뀐 점수 기준: 작업장 공기 중 허용 농도.|S03,S08
 jobs.detail.no_causality|한 번의 결과로 개선 원인을 확정하지 않습니다.|S03,S08
-jobs.completion.title|결과 기록과 완료 판정|S03,S08
 jobs.completion.job_id|작업 번호:|S03,S08
 jobs.completion.path|결과 위치:|S03,S08
 jobs.completion.evidence|확인 근거|S03,S08
@@ -1546,7 +1529,6 @@ jobs.completion.open_missing|결과 파일이 없는 상태 보기|S03,S08
 jobs.parse_failed.title|AI가 답했지만 {section}번 부분 값을 읽지 못했습니다.|S03,S08
 jobs.parse_failed.state|값 해석 실패|S03,S08
 jobs.parse_failed.fact|작업은 끝났지만 AI의 답을 값으로 읽지 못했습니다.|S03,S08
-jobs.parse_failed.todo|실제 시험 성공은 기록하지 않았습니다. 할 일: {stage}단계의 오류를 보고 다시 시험하세요.|S03,S08
 jobs.parse_failed.retry|같은 조건으로 다시 시험하기|S03,S08
 jobs.parse_failed.columns|해석 실패. 표의 열 수가 맞지 않습니다.|S03,S08
 jobs.parse_failed.column_count|오류: 필요한 {expected}개 칸 중 {received}개만 받았습니다.|S03,S08
@@ -1557,7 +1539,6 @@ jobs.practice_done.title|입력과 설명만 확인했습니다.|S03,S08
 jobs.practice_done.state|연습 완료|S03,S05
 jobs.practice_done.no_success|실제 시험 성공은 아직 없습니다.|S03,S08
 jobs.practice_done.connect|모델 연결하기|S03,S08
-jobs.practice_done.omitted_stages|연습에서는 {first_stage}~{last_stage}단계의 모델 응답과 점수를 만들지 않습니다.|S03,S08
 jobs.practice_done.shape|plan만 있음|S03,S08
 jobs.practice_done.record|연습에만 기록|S03,S08
 jobs.score_skipped.fact|시험 전후 점수는 계산하지 않았습니다.|S03
@@ -2577,7 +2558,7 @@ glossary.repetition.meaning|AI가 같은 글을 반복하다 답변 길이 제�
 glossary.model_tag.term|AI 설정의 짧은 이름(모델 태그)|S07
 glossary.model_tag.meaning|모델과 접속 설정을 구분하는 이름입니다. 예: AI 모델 A의 짧은 이름은 demo-model-a입니다.|S07
 glossary.runpod.term|시간당 요금을 내는 빌린 서버(RunPod)|S07
-glossary.runpod.meaning|모델을 켜 둔 시간에 따라 요금을 내는 서버입니다. 예: 시간당 $2.49로 2시간을 쓰면 추정 비용은 $4.98입니다.|S07
+glossary.runpod.meaning|모델을 켜 둔 시간에 따라 요금을 내는 서버입니다. 예: 시간당 $2로 2시간을 쓰면 추정 비용은 $4입니다.|S07
 glossary.rngd.term|회사에서 쓰는 AI 서버(RNGD)|S07
 glossary.rngd.meaning|한 번에 모델 하나를 준비하는 회사 장비입니다. 예: 추가 임대료는 없고 모델 준비에는 보통 15~25분 걸립니다.|S07
 glossary.pod.term|빌린 서버 한 대(Pod)|S07

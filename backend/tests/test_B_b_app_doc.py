@@ -525,7 +525,7 @@ def test_field_counts_match_source_view_classes(bd, view_env):
     m["cmr"].append({**copy.deepcopy(m["cmr"][0]), "agency": "가상기관"})    # 정답에 없는 행 → 만듦
     make_run(view_env / "runs", "r3", {X01: pred})
     gold = json.loads((view_env / "gold" / f"{X01}.json").read_text(encoding="utf-8"))
-    got = bd.field_counts(pred, gold)
+    got = bd.problem_counts(pred, gold)[0]
     dv = bd.doc_view(view_env / "runs" / "r3", X01, view_env / "pages9", view_env / "gold")
     assert got == _source_view_counts(dv)
     assert {kind for (_, _, kind) in got} == {"wrong", "made", "missing"}
@@ -533,18 +533,18 @@ def test_field_counts_match_source_view_classes(bd, view_env):
     assert signal["items"]
     for item in signal["items"]:
         assert got[(item, signal["section"], "wrong")] == 1
-    assert bd.field_counts(gold, gold) == Counter()                        # 같은 문서는 문제 값이 없다
+    assert bd.problem_counts(gold, gold)[0] == Counter()                        # 같은 문서는 문제 값이 없다
 
 
 def test_run_field_counts_reads_outputs_and_skips_docs_without_output_or_gold(bd, view_env):
     run = view_env / "runs" / "r1"
-    out = bd.run_field_counts(run, view_env / "gold", [X01, X09, "T21-X99"])
+    out = bd.run_problem_counts(run, view_env / "gold", [X01, X09, "T21-X99"])[0]
     pred = json.loads((run / "outputs" / f"{X01}.json").read_text(encoding="utf-8"))
     gold = json.loads((view_env / "gold" / f"{X01}.json").read_text(encoding="utf-8"))
-    assert out[X01] == bd.field_counts(pred, gold)
+    assert out[X01] == bd.problem_counts(pred, gold)[0]
     assert "T21-X99" not in out                                            # 결과 파일이 없다
     (view_env / "gold" / f"{X01}.json").unlink()
-    assert X01 not in bd.run_field_counts(run, view_env / "gold", [X01])   # 정답이 없으면 셀 수 없다
+    assert X01 not in bd.run_problem_counts(run, view_env / "gold", [X01])[0]   # 정답이 없으면 셀 수 없다
 
 
 def test_doc_view_refuses_eval_doc(bd, view_env):
@@ -1148,7 +1148,6 @@ def test_pages_view_has_no_row_groups(bd, view_env):
 def test_problem_counts_keep_field_counts_and_count_a_row_once(bd):
     pred, gold = edited(("exposure_limits[0].q.raw", "9 ppm"), ("exposure_limits[0].limit_type", "STEL")), rows_gold()
     field, rows = bd.problem_counts(pred, gold)
-    assert field == bd.field_counts(pred, gold)
     assert sum(n for (item, _, _), n in field.items() if item == ITEM_8) == 2  # 칸은 둘
     assert rows[(ITEM_8, 8)] == 1                                              # 행은 하나
 
@@ -1180,7 +1179,6 @@ def test_run_problem_counts_skip_docs_without_output_or_gold(bd, view_env):
     gold = json.loads((view_env / "gold" / f"{X01}.json").read_text(encoding="utf-8"))
     assert (field[X01], rows[X01]) == bd.problem_counts(pred, gold)
     assert "T21-X99" not in field and "T21-X99" not in rows
-    assert field == bd.run_field_counts(run, view_env / "gold", [X01, X09, "T21-X99"])
 
 
 # ── 줄 좌표: version17처럼 pNNN.json 없이 item_trace.json만 있는 판 ──
