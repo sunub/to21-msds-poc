@@ -14,6 +14,8 @@ CREATE TABLE IF NOT EXISTS judge.handoff_state (
   finished_at  timestamptz,
   PRIMARY KEY (job_id, handoff_seq)
 );
+-- 연결 장애로 실패한 줄. 시도 횟수를 쓰지 않고 복구될 때까지 다시 잡힌다.
+ALTER TABLE judge.handoff_state ADD COLUMN IF NOT EXISTS retryable boolean NOT NULL DEFAULT false;
 
 CREATE TABLE IF NOT EXISTS judge.judgment (
   job_id            text NOT NULL,
