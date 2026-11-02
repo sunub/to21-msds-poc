@@ -7,10 +7,10 @@ import { cn } from "@/lib/cn";
 import { SEVERITY_LABEL, VERDICT_LABEL, VERDICT_TONE } from "../hazard/verdict";
 
 const COLS = {
-  law: "w-18 flex-none",
-  item: "basis-0 grow-2",
-  msds: "basis-0 grow-2",
-  expected: "basis-0 grow-3",
+  law: "w-18 flex-none break-keep",
+  item: "min-w-0 basis-0 grow-2 break-keep break-words",
+  msds: "min-w-0 basis-0 grow-2 break-keep break-words",
+  expected: "min-w-0 basis-0 grow-3 break-keep break-words",
   verdict: "w-28 flex-none",
 } as const;
 
@@ -42,10 +42,13 @@ function Row({ r, selected, onSelect }: { r: FindingSummary; selected: boolean; 
 export function RegulationTable({
   rows,
   groups,
+  filtered,
   selectedId,
   onSelect,
 }: {
   rows: FindingSummary[];
+  /** 법령·불일치 거르기를 쓰는 중이면 머리줄에 표시한 건수와 전체 건수를 나란히 보여 준다 */
+  filtered: boolean;
   groups: FindingsResponse["groups"];
   selectedId: string | undefined;
   onSelect: (id: string) => void;
@@ -84,7 +87,7 @@ export function RegulationTable({
                 <span aria-hidden="true">{open ? "▾" : "▸"}</span>
                 <span className="font-medium">{g.title}</span>
                 <span className="text-mut">
-                  {g.total}건 · 일치 {g.matching_count}건
+                  {filtered ? `${items.length}건 표시 · 전체 ${g.total}건` : `${g.total}건 · 일치 ${g.matching_count}건`}
                 </span>
               </button>
               {open && (

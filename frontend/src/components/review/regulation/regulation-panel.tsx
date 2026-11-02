@@ -134,7 +134,13 @@ export function RegulationPanel({ docId, onSave }: { docId: string; onSave: () =
                   ))}
                 </div>
               </div>
-              <RegulationTable rows={rows} groups={data.groups} selectedId={current?.finding_id} onSelect={setSelected} />
+              <RegulationTable
+                rows={rows}
+                groups={data.groups}
+                filtered={law !== "all" || onlyMismatch}
+                selectedId={current?.finding_id}
+                onSelect={setSelected}
+              />
               <p className="text-sm text-mut">
                 구버전: MSDS 개정 뒤에 시행된 개정이 있으면 시행일과 함께 표시합니다.
               </p>

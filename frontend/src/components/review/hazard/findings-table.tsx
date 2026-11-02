@@ -14,11 +14,11 @@ const SORTS: { id: SortKey; label: string }[] = [
 ];
 
 const COLS = {
-  item: "basis-0 grow-3",
-  msds: "basis-0 grow-2",
-  expected: "basis-0 grow-3",
-  method: "basis-0 grow-2",
-  verdict: "basis-0 grow-2",
+  item: "min-w-0 basis-0 grow-3 break-keep break-words",
+  msds: "min-w-0 basis-0 grow-2 break-keep break-words",
+  expected: "min-w-0 basis-0 grow-3 break-keep break-words",
+  method: "min-w-0 basis-0 grow-2 break-keep break-words",
+  verdict: "min-w-0 basis-0 grow-2 break-keep break-words",
 } as const;
 
 /** 2항 판정 표: 판정 종류로 거르고, 행을 눌러 고른다. 일치 행은 전체 보기에서 접어 둔다. */
