@@ -1,5 +1,6 @@
 "use client";
 
+import { judgmentErrorText } from "@/api/judgments";
 import { useQuery } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
 import { useMemo, useState } from "react";
@@ -22,7 +23,7 @@ export function ComponentsPanel({ docId, onSave }: { docId: string; onSave: () =
   const validation = useValidationId(docId);
   const productParam = useSearchParams().get("product");
   const product = productParam === "single" || productParam === "unknown" ? productParam : undefined;
-  const { data, isPending, isError, refetch } = useQuery(componentsQuery(docId, validation, { product }));
+  const { data, isPending, isError, error, refetch } = useQuery(componentsQuery(docId, validation, { product }));
   const hazard = useQuery(findingsQuery(docId, validation, { section: 2 })).data;
   const regulation = useQuery(findingsQuery(docId, validation, { section: 15 })).data;
   const findingsById = useMemo(
@@ -36,7 +37,7 @@ export function ComponentsPanel({ docId, onSave }: { docId: string; onSave: () =
   if (isError) {
     return (
       <Callout tone="danger" role="alert" className="flex flex-wrap items-center gap-2">
-        <span>성분별 요약을 불러오지 못했습니다.</span>
+        <span>{judgmentErrorText(error, "성분별 요약을 불러오지 못했습니다.")}</span>
         <Button onClick={() => void refetch()}>다시 불러오기</Button>
       </Callout>
     );

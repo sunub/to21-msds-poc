@@ -7,7 +7,7 @@ import { useMemo, useState } from "react";
 import { documentDetailQuery, reviewQuery } from "@/api/documents";
 import { findingsQuery } from "@/api/findings";
 import type { Verdict } from "@/api/findings-schemas";
-import { isConflict, judgmentViewQuery } from "@/api/judgments";
+import { isConflict, judgmentErrorText, judgmentViewQuery } from "@/api/judgments";
 import { saveDocument,type SaveOptions, type SaveResponse } from "@/api/save";
 import { VERDICT_LABEL, VERDICT_ORDER, VERDICT_TONE } from "@/components/review/hazard/verdict";
 import { useReviewState } from "@/components/review/review-state";
@@ -66,16 +66,17 @@ export function SaveView({ docId }: { docId: string }) {
   const saveConflict = save.isError && isConflict(save.error);
   const saved: SaveResponse | undefined = save.data;
 
-  // 처리 상태를 읽어 오기 전에는 어느 화면인지 알 수 없다 (잠깐 틀린 화면이 보이지 않게 기다린다)
-  if (!ready || hazard.isPending || regulation.isPending) return <Skeleton className="w-2/3" />;
+  // 판정을 불러오지 못하면(서버에 판정 API 가 없을 때 등) 안내한다. 처리 상태를 읽어 오는 중에는 기다린다
   if (hazard.isError || regulation.isError) {
     return (
       <Callout tone="danger" role="alert" className="flex flex-wrap items-center gap-2">
-        <span>판정 결과를 불러오지 못했습니다.</span>
+        <span>{judgmentErrorText(hazard.error ?? regulation.error, "판정 결과를 불러오지 못했습니다.")}</span>
         <Button onClick={() => void Promise.all([hazard.refetch(), regulation.refetch()])}>다시 불러오기</Button>
       </Callout>
     );
   }
+  // 처리 상태를 읽어 오기 전에는 어느 화면인지 알 수 없다 (잠깐 틀린 화면이 보이지 않게 기다린다)
+  if (!ready || hazard.isPending || regulation.isPending) return <Skeleton className="w-2/3" />;
 
   const incomplete = unresolved > 0;
   const saving = save.isPending;

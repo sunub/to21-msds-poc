@@ -4,12 +4,14 @@ import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { findingsQuery } from "@/api/findings";
+import { judgmentErrorText } from "@/api/judgments";
 import type { FindingSummary } from "@/api/findings-schemas";
 import { Foot, Pane } from "@/components/shell/layout";
 import { Button, PillTabs, Table, TableHead } from "@/components/ui";
 import { cn } from "@/lib/cn";
 import { VERDICT_LABEL } from "../hazard/verdict";
 import { useReviewState, type HistoryEntry, type HistoryKind } from "../review-state";
+import { LoadError } from "../shared/load-error";
 import { useValidationId } from "../shared/use-validation-id";
 import { UnresolvedList, findingHref, useUnresolved } from "../unresolved-list";
 
@@ -44,7 +46,8 @@ export function HistoryPanel({ docId, onSave }: { docId: string; onSave: () => v
   const { history } = useReviewState();
   const unresolved = useUnresolved(docId);
   const validation = useValidationId(docId);
-  const hazard = useQuery(findingsQuery(docId, validation, { section: 2 })).data;
+  const hazardQuery = useQuery(findingsQuery(docId, validation, { section: 2 }));
+  const hazard = hazardQuery.data;
   const regulation = useQuery(findingsQuery(docId, validation, { section: 15 })).data;
   const byId = useMemo(
     () => new Map([...(hazard?.items ?? []), ...(regulation?.items ?? [])].map((f) => [f.finding_id, f])),
@@ -59,6 +62,11 @@ export function HistoryPanel({ docId, onSave }: { docId: string; onSave: () => v
     { id: "all", label: `전체 ${history.length}` },
     ...(Object.keys(KIND_LABEL) as HistoryKind[]).map((k) => ({ id: k, label: `${KIND_LABEL[k]} ${count(k)}` })),
   ];
+
+  // 판정을 불러오지 못하면 "처리할 판정이 없다"로 보이지 않게 안내한다
+  if (hazardQuery.isError) {
+    return <LoadError message={judgmentErrorText(hazardQuery.error, "판정을 불러오지 못했습니다.")} onRetry={() => void hazardQuery.refetch()} />;
+  }
 
   return (
     <>

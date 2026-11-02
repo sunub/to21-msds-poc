@@ -1,5 +1,6 @@
 "use client";
 
+import { judgmentErrorText } from "@/api/judgments";
 import { useQuery } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
 import { useMemo, useState } from "react";
@@ -25,7 +26,7 @@ const MISMATCH_VIEW: Verdict[] = ["mismatch", "outdated"];
 /** 2 검수 · 15항 법적 규제 탭: 왼쪽 원문, 오른쪽 위 선택한 판정의 상세, 아래 15항 판정 표 */
 export function RegulationPanel({ docId, onSave }: { docId: string; onSave: () => void }) {
   const validation = useValidationId(docId);
-  const { data, isPending, isError, refetch } = useQuery(findingsQuery(docId, validation, { section: 15 }));
+  const { data, isPending, isError, error, refetch } = useQuery(findingsQuery(docId, validation, { section: 15 }));
   const [law, setLaw] = useState("all");
   const [onlyMismatch, setOnlyMismatch] = useState(false);
   const [sort, setSort] = useState<SortKey>("verdict");
@@ -51,7 +52,7 @@ export function RegulationPanel({ docId, onSave }: { docId: string; onSave: () =
 
   if (isPending) return <Skeleton className="w-2/3" />;
   if (isError) {
-    return <LoadError message="15항 판정을 불러오지 못했습니다." onRetry={() => void refetch()} />;
+    return <LoadError message={judgmentErrorText(error, "15항 판정을 불러오지 못했습니다.")} onRetry={() => void refetch()} />;
   }
 
   // 고른 행이 없거나 거르기로 사라졌으면 보이는 첫 행을 고른다

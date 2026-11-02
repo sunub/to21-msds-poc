@@ -104,3 +104,9 @@ export const judgmentStatusQuery = (job: string) =>
 
 export const judgmentVersionsQuery = (job: string) =>
   queryOptions({ queryKey: judgmentKeys.versions(job), queryFn: ({ signal }) => getJudgmentVersions(job, signal) });
+
+/** 판정을 불러오지 못했을 때의 안내. 서버에 판정 API 가 아직 없거나(404·연결 실패) 막혀 있으면 준비 중이라고 알린다 */
+export function judgmentErrorText(error: unknown, fallback: string) {
+  const notReady = (error instanceof ApiRequestError && (error.status === 404 || error.status === 405)) || error instanceof TypeError;
+  return notReady ? "판정 서비스 준비 중입니다. 추출 단계까지 사용할 수 있습니다." : fallback;
+}

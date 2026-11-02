@@ -1,5 +1,6 @@
 "use client";
 
+import { judgmentErrorText } from "@/api/judgments";
 import { useQuery } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
 import { useMemo, useState } from "react";
@@ -20,7 +21,7 @@ const FILTER_VERDICTS = ["mismatch", "borderline", "insufficient_evidence", "war
 /** 2 검수 · 2항 유해성·위험성 탭: 왼쪽 원문, 오른쪽 위 선택한 판정의 상세, 아래 2항 판정 표 */
 export function HazardPanel({ docId, onSave }: { docId: string; onSave: () => void }) {
   const validation = useValidationId(docId);
-  const { data, isPending, isError, refetch } = useQuery(findingsQuery(docId, validation, { section: 2 }));
+  const { data, isPending, isError, error, refetch } = useQuery(findingsQuery(docId, validation, { section: 2 }));
   const [filter, setFilter] = useState("all");
   const [sort, setSort] = useState<SortKey>("verdict");
   // 다른 탭의 "이동"이 ?finding= 으로 넘긴 판정을 먼저 고른다. 값이 바뀌면(같은 탭에서 이동) 다시 그 판정으로 간다
@@ -41,7 +42,7 @@ export function HazardPanel({ docId, onSave }: { docId: string; onSave: () => vo
 
   if (isPending) return <Skeleton className="w-2/3" />;
   if (isError) {
-    return <LoadError message="2항 판정을 불러오지 못했습니다." onRetry={() => void refetch()} />;
+    return <LoadError message={judgmentErrorText(error, "2항 판정을 불러오지 못했습니다.")} onRetry={() => void refetch()} />;
   }
 
   // 고른 행이 없거나 거르기로 사라졌으면 보이는 첫 행을 고른다
