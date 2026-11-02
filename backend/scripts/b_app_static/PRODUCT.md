@@ -101,6 +101,7 @@ AI는 이 문서에서 값을 뽑아 정해진 결과 형식(TO21 JSON)에 채�
 ## Journey and Continuity
 
 첫 사용 기록은 `runs/manual/journey.json`에 보관합니다.
+안내의 성공 판정과 저장 형태는 단계 화면으로 바꿔도 그대로입니다. 안내는 가리킬 요소가 있는 단계로 먼저 옮깁니다 (ADR-039).
 읽기와 저장은 `GET /api/journey`와 `PUT /api/journey`를 씁니다.
 기록은 안내 진행(`progress`)과 사용 결과(`outcomes`)를 구분합니다.
 판정 대기 작업은 `pending`에 둡니다.

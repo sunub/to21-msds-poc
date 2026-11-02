@@ -866,11 +866,11 @@ function guideSourceContent() {
           h("div", {"data-line": line.id, "aria-pressed": "true"}, h("strong", null, T("guide.source.line", {page: line.page, line_no: line.no || line.id.split("L").at(-1)})),
             h("p", {class: "source-text"}, line.text))), h("p", null, T("guide.source.actual"))) : null,
       state?.state === "waiting" ? h("p", {class: "guide-inplace"}, T("guide.source.waiting")) : null),
-    h("p", {class: "guide-after"}, T("guide.source.key_caution")));
+    h("p", {class: "guide-after"}, T("guide.source.key_caution")), h("p", {class: "guide-after"}, T("guide.source.image_note")));
 }
 function guideAIContent() {
   const g = S.guide;
-  return h("div", null, h("p", {class: "guide-lead"}, T("guide.ai.lead")),
+  return h("div", null, h("p", {class: "guide-lead"}, T("guide.ai.lead")), h("p", null, T("guide.ai.steps")), h("p", null, T("guide.ai.return_order")),
     h("p", {role: "status"}, T(g.aiChecking ? "guide.ready.states.checking" : g.aiState === "unknown" ? "guide.ready.states.unknown"
       : g.returned ? "guide.ai.still_off" : "guide.ai.off")),
     serversData()?.rngd?.diagnosis === "no_model" ? h("p", null, T("guide.ai.tunnel_open")) : null,
@@ -881,7 +881,7 @@ function guideAIContent() {
 function guideTrialContent() {
   const t = S.guide.trial, dry = S.guide.screen === "G08", kind = dry ? "practice" : "trial";
   const running = ["running", "sending"].includes(t?.state), done = ["shown", "success"].includes(t?.state);
-  return h("div", null, dry ? h("p", {class: "guide-lead"}, T("guide.practice.lead")) : null,
+  return h("div", null, h("p", {class: "guide-lead"}, T(dry ? "guide.practice.lead" : "guide.trial.steps_note")),
     h("div", {id: "guide-practice", class: "guide-practice"}, guideBefore(kind),
       t?.doc ? h("p", {class: "raw"}, T("guide.target", {doc: t.doc, section: t.section})) : null,
       t?.model ? [h("p", null, T("servers.connection.selected"), ": ", jobsModelLabel(t.model)),

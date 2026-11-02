@@ -88,6 +88,12 @@ function term(word, shown = null) {
     "data-tip": [entry.short, entry.example].filter(Boolean).join("\n")}, shown ?? (copy ? copy.term : word))
     : h("span", null, shown ?? word);
 }
+// 제목 안의 전문 용어에 말풍선을 붙인다. 단추 안에는 쓰지 않는다. 단추 안에 초점 받는 요소를 두지 않기 위해서다.
+const CORE_TERM_WORDS = {TWA: "twa", STEL: "stel", ACGIH: "acgih", LD50: "ld50", LC50: "lc50", EC50: "ec50"};
+function termText(text) {
+  return String(text ?? "").split(/(?<![A-Za-z0-9])(TWA|STEL|ACGIH|LD50|LC50|EC50)(?![A-Za-z0-9])/)
+    .map(part => CORE_TERM_WORDS[part] ? term(CORE_TERM_WORDS[part], part) : part);
+}
 function on(event, handler) {
   if (!coreListeners.has(event)) coreListeners.set(event, new Set());
   coreListeners.get(event).add(handler);

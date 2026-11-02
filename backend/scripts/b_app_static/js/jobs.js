@@ -399,12 +399,14 @@ function jobsRenderFocus() {
   return h("div", {id: "jobs-focus", class: "job-focus"}, h("h3", null, T("jobs.focus.title")),
     key ? jobsNote([UI.source.table_names[table], sourceFieldName({field, table}, null)].filter(Boolean).join(" · ")) : null,
     jobsNote(T(`jobs.focus.${key || "none"}`, {key_value: jobsFocusValue(f.expected, f.expected_text), ai_value: jobsFocusValue(f.actual, f.actual_text)})),
-    key && f.line ? jobsNote(f.line_text && parsed ? T(`jobs.focus.${f.estimated ? "line_estimated" : "line"}`,
-      {page: parsed[1], line_no: parsed[2], line_text: f.line_text}) : T(`jobs.form.${f.estimated ? "focus_estimated" : "focus_line"}`, {line: f.line})) : null);
+    // 줄 표시(p1:L29)는 기록 값이다. 화면에는 쪽과 줄로 쓰고 기록 값은 서랍에 둔다.
+    key && parsed ? jobsNote(f.line_text ? T(`jobs.focus.${f.estimated ? "line_estimated" : "line"}`,
+      {page: parsed[1], line_no: parsed[2], line_text: f.line_text}) : T(`jobs.form.${f.estimated ? "focus_estimated" : "focus_line"}`, {page: parsed[1], line_no: parsed[2]})) : null);
 }
+function jobsSetName(id) { return S.shell.sets.find(set => set.id === id)?.label || id; }
 function jobsSetNotice() {
   return S.focus.source_set && S.focus.source_set !== S.ctx.set ? h("div", {class: "job-notice"}, jobsNote(T("jobs.set_mismatch.title")),
-    jobsNote(T("jobs.form.source_set", {set: S.focus.source_set})), jobsNote(T("jobs.form.next_set", {set: S.ctx.set}))) : null;
+    jobsNote(T("jobs.form.source_set", {set: jobsSetName(S.focus.source_set)})), jobsNote(T("jobs.form.next_set", {set: jobsSetName(S.ctx.set)}))) : null;
 }
 // ① 무엇을: 세 갈래. 갈래를 바꿔도 다른 갈래의 초안은 지우지 않는다.
 function jobsStageTarget() {

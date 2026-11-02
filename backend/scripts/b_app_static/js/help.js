@@ -125,6 +125,24 @@ const HELP_CHAPTERS = {
       "help.source.compare"
     ],
     [
+      "ol",
+      "help.source.step_choose",
+      "help.source.step_compare",
+      "help.source.step_send"
+    ],
+    [
+      "p",
+      "help.source.image_text"
+    ],
+    [
+      "p",
+      "help.source.kinds"
+    ],
+    [
+      "p",
+      "help.source.details"
+    ],
+    [
       "p",
       "help.facts.source_select"
     ],
@@ -303,8 +321,17 @@ const HELP_CHAPTERS = {
       "ol",
       "help.facts.trial_scope",
       "help.facts.trial_ready",
-      "help.facts.trial_practice",
-      "help.facts.trial_send"
+      "help.facts.trial_send",
+      "help.facts.trial_running",
+      "help.facts.trial_result"
+    ],
+    [
+      "p",
+      "help.facts.trial_practice"
+    ],
+    [
+      "p",
+      "help.facts.trial_records"
     ],
     [
       "table",
@@ -463,6 +490,17 @@ const HELP_CHAPTERS = {
     [
       "p",
       "help.servers.cost"
+    ],
+    [
+      "ol",
+      "help.servers.step_choose",
+      "help.servers.step_start",
+      "help.servers.step_wait",
+      "help.servers.step_stop"
+    ],
+    [
+      "p",
+      "help.servers.order"
     ],
     [
       "p",

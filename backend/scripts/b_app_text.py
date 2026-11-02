@@ -51,7 +51,7 @@ UI_TEXT: dict = {'nav': {'app_name': '화학 안전문서 AI 결과 검토',
                        'readiness_unknown': '준비 여부를 확인하지 못했습니다.',
                        'query_pending': '응답 확인 중',
                        'wait_before_send': '확인 전에는 시험을 보내지 않습니다.',
-                       'wrong_reply': '다른 모델 응답',
+                       'wrong_reply': '고른 AI와 다른 AI가 답함',
                        'mismatch': '기대한 {expected_model}와 응답 {actual_model}가 다릅니다.',
                        'company_loading': '켜는 중 · 회사 서버',
                        'company_elapsed': '{minutes}분 경과. 보통 15~25분이 걸립니다.',
@@ -161,6 +161,11 @@ UI_TEXT: dict = {'nav': {'app_name': '화학 안전문서 AI 결과 검토',
                     'probe': '일부 문서 시험 {round}회',
                     'diagnostic': '문제 확인 {run_id}',
                     'repeat': '{round}회차',
+                    'prompt_round': '{round}번째 판',
+                    'input_round': '{round}판',
+                    'input_temp': '임시판',
+                    'input_new': '새 문서 폴더',
+                    'dev_docs': '개발 {count}건',
                     'eval': '평가용 문서 한 건 · 열람 제한',
                     'title': '{date} {model} · {conditions}'},
             'legacy': {'load_error': {'message': '자료를 읽지 못했습니다.', 'fix': '할 일: 앱을 켠 터미널의 오류를 보고 화면을 다시 여세요.'},
@@ -1221,7 +1226,7 @@ UI_TEXT["compare"] = {'headline': {'none': '비교할 기준별 점수가 없습
             'scope': '공통 문서의 필수 항목 상세에서 찾은 값입니다.',
             'exposure': '{doc}의 허용 농도: {before} mg/m³ → {after} mg/m³.',
             'open_source': '이 값의 원문 보기',
-            'expand': '바뀐 값 펼치기',
+            'expand': '새로 맞춘 값과 새로 틀린 값',
             'same': '두 실행의 틀린 값 목록이 같습니다.',
             'fixed': '새로 맞춘 값 {count}개',
             'broken': '새로 틀린 값 {count}개',
@@ -1353,7 +1358,6 @@ COPY_EXCEPTIONS.update({'compare.selection.choose_two': '비교의 동적 조작
  'compare.items.section': '비교의 동적 조작·단위·API 누락 상태와 기존 정보 보존을 위한 일반 문구를 보충합니다.',
  'compare.items.name': '비교의 동적 조작·단위·API 누락 상태와 기존 정보 보존을 위한 일반 문구를 보충합니다.',
  'compare.items.delta': '비교의 동적 조작·단위·API 누락 상태와 기존 정보 보존을 위한 일반 문구를 보충합니다.',
- 'compare.values.expand': '비교의 동적 조작·단위·API 누락 상태와 기존 정보 보존을 위한 일반 문구를 보충합니다.',
  'compare.values.same': '비교의 동적 조작·단위·API 누락 상태와 기존 정보 보존을 위한 일반 문구를 보충합니다.',
  'compare.values.fixed': '비교의 동적 조작·단위·API 누락 상태와 기존 정보 보존을 위한 일반 문구를 보충합니다.',
  'compare.values.broken': '비교의 동적 조작·단위·API 누락 상태와 기존 정보 보존을 위한 일반 문구를 보충합니다.',
@@ -2177,8 +2181,8 @@ UI_TEXT["jobs"].update({'result_missing': {'fact': '작업은 끝났지만 결�
           'invalid_run': '문서와 실행 이름을 고르고 반복을 1~10회로 정하세요.',
           'missing_context': '문서 묶음과 정답지를 먼저 고르세요.',
           'sending': '보내는 중입니다.',
-          'focus_line': '원문 줄: {line}',
-          'focus_estimated': '원문 줄(추정): {line}',
+          'focus_line': '원문 줄: {page}쪽 {line_no}번째 줄',
+          'focus_estimated': '원문 줄(추정): {page}쪽 {line_no}번째 줄',
           'source_set': '원문을 본 묶음: {set}',
           'next_set': '다음 시험의 묶음: {set}'},
  'compare': {'label': '비교표 표시 이름',
@@ -2248,8 +2252,6 @@ COPY_EXCEPTIONS.update({'jobs.status.running': '동적 작업 조건과 상태 �
  'jobs.form.invalid_run': '동적 작업 조건과 상태 및 API 빈칸을 표시하는 일반 문구입니다. BUILD step 6에 근거를 기록합니다.',
  'jobs.form.missing_context': '동적 작업 조건과 상태 및 API 빈칸을 표시하는 일반 문구입니다. BUILD step 6에 근거를 기록합니다.',
  'jobs.form.sending': '동적 작업 조건과 상태 및 API 빈칸을 표시하는 일반 문구입니다. BUILD step 6에 근거를 기록합니다.',
- 'jobs.form.focus_line': '동적 작업 조건과 상태 및 API 빈칸을 표시하는 일반 문구입니다. BUILD step 6에 근거를 기록합니다.',
- 'jobs.form.focus_estimated': '동적 작업 조건과 상태 및 API 빈칸을 표시하는 일반 문구입니다. BUILD step 6에 근거를 기록합니다.',
  'jobs.form.source_set': '동적 작업 조건과 상태 및 API 빈칸을 표시하는 일반 문구입니다. BUILD step 6에 근거를 기록합니다.',
  'jobs.form.next_set': '동적 작업 조건과 상태 및 API 빈칸을 표시하는 일반 문구입니다. BUILD step 6에 근거를 기록합니다.',
  'jobs.compare.label': '동적 작업 조건과 상태 및 API 빈칸을 표시하는 일반 문구입니다. BUILD step 6에 근거를 기록합니다.',
@@ -2406,7 +2408,7 @@ UI_TEXT["journey"] = {'record': {'errors': {'unavailable': {'message': '첫 사�
            'completed': '갈래 2를 마쳤습니다. 실제 성공 기록이 남습니다.',
            'parse_failed': '작업은 끝났지만 값을 읽지 못했습니다.',
            'practice_stay': '갈래 2는 모델 준비 확인 단계에 머뭅니다.',
-           'parse_todo': '할 일: ‘④ 해석한 값’에서 오류를 확인하고 같은 조건으로 다시 시험하세요.'},
+           'parse_todo': '할 일: 자세히 보기의 ‘읽어 낸 값’에서 오류를 확인하고 같은 조건으로 다시 시험하세요.'},
  'skipped': {'title': '첫 사용 안내를 건너뛰었습니다.',
              'restart': '처음 사용 안내에서 언제든 다시 시작할 수 있습니다.',
              'keep_job': '이미 보낸 시험은 멈추지 않습니다.',
@@ -2463,7 +2465,7 @@ UI_TEXT["journey"] = {'record': {'errors': {'unavailable': {'message': '첫 사�
            'skip_read': '성공 기록 없이 원문을 계속 볼 수 있습니다.',
            'skip_trial': '작업과 성공 기록을 새로 만들지 않습니다. 이미 보낸 시험은 계속됩니다.'},
  'tracks': {'t1': {'steps': {'1': '최근 점수와 목표를 읽으세요.', '2': '가장 큰 문제의 원문을 여세요.', '3': '문제 값과 선택된 원문 줄을 맞춰 보세요.'}},
-            't2': {'steps': {'1': '시험할 문서와 부분을 고르세요.', '2': '실제 시험에 쓸 모델을 준비하세요.', '3': '대상과 설명을 읽고 실제 시험을 보내세요.', '4': '실제 시험의 결과를 열었습니다.'}}}}
+            't2': {'steps': {'1': '① 무엇을: 시험할 문서와 부분을 고르세요.', '2': '② 어느 AI로: 실제 시험에 쓸 모델을 준비하세요.', '3': '③ 무엇을 시킬지: 대상과 설명을 읽고 실제 시험을 보내세요.', '4': '⑤ 결과: 실제 시험의 결과를 열었습니다.'}}}}
 COPY_EXCEPTIONS.update({'journey.band.title': '승인 STRUCTURE의 안내 띠·단계·복구 문구이며 COPY에 동적 일반형이 없어 보충했습니다.',
  'journey.band.read': '승인 STRUCTURE의 안내 띠·단계·복구 문구이며 COPY에 동적 일반형이 없어 보충했습니다.',
  'journey.band.trial': '승인 STRUCTURE의 안내 띠·단계·복구 문구이며 COPY에 동적 일반형이 없어 보충했습니다.',
@@ -2478,7 +2480,6 @@ COPY_EXCEPTIONS.update({'journey.band.title': '승인 STRUCTURE의 안내 띠·�
  'journey.steps.todo': '승인 STRUCTURE의 안내 띠·단계·복구 문구이며 COPY에 동적 일반형이 없어 보충했습니다.',
  'journey.steps.skip_read': '승인 STRUCTURE의 안내 띠·단계·복구 문구이며 COPY에 동적 일반형이 없어 보충했습니다.',
  'journey.steps.skip_trial': '승인 STRUCTURE의 안내 띠·단계·복구 문구이며 COPY에 동적 일반형이 없어 보충했습니다.',
- 'journey.trial.parse_todo': '승인 STRUCTURE의 안내 띠·단계·복구 문구이며 COPY에 동적 일반형이 없어 보충했습니다.',
  'journey.pending.unknown': '승인 STRUCTURE의 안내 띠·단계·복구 문구이며 COPY에 동적 일반형이 없어 보충했습니다.',
  'journey.read.key_unusable': '승인 STRUCTURE의 안내 띠·단계·복구 문구이며 COPY에 동적 일반형이 없어 보충했습니다.',
  'journey.read.key_todo': '승인 STRUCTURE의 안내 띠·단계·복구 문구이며 COPY에 동적 일반형이 없어 보충했습니다.',
@@ -2528,6 +2529,12 @@ UI_TEXT["help"] = {'settings': {'runpod_url_pattern': '빌린 서버의 중계 �
             'compare': 'AI가 채운 값과 같은 위치의 원문 줄을 비교합니다.',
             'example': '예: 2쪽 23번째 줄에는 5 mg/m³가 적혀 있습니다.',
             'no_fallback': '근거가 없으면 임의의 줄을 대신 선택하지 않습니다.',
+            'step_choose': '① 문제 고르기: 점수를 많이 깎은 항목부터 고릅니다.',
+            'step_compare': '② 원문과 맞춰 보기: 왼쪽에서 행을 고르고, 그 행의 칸을 근거 줄과 함께 봅니다.',
+            'step_send': '③ 다시 시험으로 보내기: 문서와 부분을 다시 시험으로 넘깁니다. 시험은 여기서 시작하지 않습니다.',
+            'image_text': '원문 그림은 쪽 안의 위치를 확인하는 곳입니다. 글자는 원문 글자 칸에서 읽습니다.',
+            'kinds': '틀림은 같은 칸의 값이 정답과 다른 경우입니다. 만듦은 AI 결과에는 있는데 정답에는 없는 값입니다. 못 뽑음은 정답에는 있는데 AI 결과에는 없는 값입니다.',
+            'details': '원래 값과 위치, 비교 범위, 문서 전체 표, 추정 방법은 자세히 보기에 있습니다.',
             'open': '선택한 값과 원문 보기'},
  'setup': {'title': '처음 준비하기',
            'read_offline': '저장 결과를 읽는 데는 서버 설정이 필요 없습니다.',
@@ -2574,6 +2581,11 @@ UI_TEXT["help"] = {'settings': {'runpod_url_pattern': '빌린 서버의 중계 �
  'servers': {'title': 'AI 연결과 비용 관리',
              'cost': '빌린 서버는 켜진 시간에 따라 비용이 듭니다.',
              'company': '회사 서버는 연결 통로와 AI 준비를 따로 확인합니다.',
+             'step_choose': '① 서버 고르기: 고른 AI를 켤 수 있는 서버에 표시가 붙습니다.',
+             'step_start': '② 켜기: 요금과 자동 삭제를 확인 창에서 본 뒤 정합니다. 확인 창에서 실행해야 요청이 나갑니다.',
+             'step_wait': '③ 준비 기다리기: 앱이 확인한 상태까지만 보입니다. 화면을 떠나도 준비는 계속됩니다.',
+             'step_stop': '④ 쓰고 나서 끄기: 요금과 켜진 시간을 본 뒤 시험으로 돌아가거나 서버를 끕니다.',
+             'order': '시험으로 돌아가기는 서버를 끄지 않습니다. 순서는 시험으로 돌아가기, 결과 확인, 이 화면으로 다시 와서 끄기입니다. 끄지 않으면 요금이 계속 나갑니다.',
              'manual_record': '서버 기록은 운영용 수동 기록에도 옮겨 둡니다.',
              'open_rented': '빌린 서버 관리하기',
              'open_company': '회사 서버 관리하기'},
@@ -2602,7 +2614,7 @@ UI_TEXT["help"] = {'settings': {'runpod_url_pattern': '빌린 서버의 중계 �
            'criterion_count': '점수 기준은 23개입니다.',
            'load_failed': '용어를 불러오지 못하면 ‘설명을 읽지 못했습니다’와 다시 읽기를 제공합니다.',
            'open_score': '전체 점수 용어 보기',
-           'title': '화면에서 쓰는 말 40개',
+           'title': '화면에서 쓰는 말 47개',
            'columns': '쉬운 설명과 원래 용어',
            'failure': '설명을 읽지 못한 상태',
            'open_failure': '용어를 읽지 못한 상태 보기'},
@@ -2652,7 +2664,7 @@ UI_TEXT["help"] = {'settings': {'runpod_url_pattern': '빌린 서버의 중계 �
            'cause_variation': '흔들림: 조건이 같으면 반복 실행의 차이일 수 있습니다. 원인은 원문에서 확인합니다.',
            'source_select': '값을 누르면 근거 줄이 선택됩니다. 줄을 누르면 그 줄을 근거로 쓴 값이 선택됩니다.',
            'source_estimated': '못 뽑은 값의 위치는 글자를 맞춰 추정합니다. 추정 줄만 열어서는 결과 읽기 안내를 완료하지 않습니다.',
-           'source_colors': '같음과 다름과 정답에만 있음은 글로 구분합니다. 지금 고른 값과 줄은 노란 바탕으로 표시합니다.',
+           'source_colors': '같음과 틀림과 만듦과 못 뽑음은 글로 구분합니다. 지금 고른 값과 줄은 노란 바탕으로 표시합니다.',
            'journey': '첫 사용 안내는 결과 읽기와 한 부분 실제 시험의 두 갈래입니다. 다시 보기는 성공 기록과 연습 기록을 지우지 않습니다.',
            'journey_read': '가장 큰 문제의 값과 실제 근거 줄을 함께 열면 결과 읽기를 마칩니다. 근거가 없으면 임의의 줄로 대신하지 않습니다.',
            'journey_try': '실제 시험의 해석이 성공한 결과 요약을 열면 실제 성공을 기록합니다. 입력 확인 연습은 따로 기록합니다.',
@@ -2660,13 +2672,16 @@ UI_TEXT["help"] = {'settings': {'runpod_url_pattern': '빌린 서버의 중계 �
            'cards': '카드 접힘은 브라우저에 보관합니다. 저장소를 쓸 수 없어도 화면은 사용할 수 있습니다.',
            'setup_copy': '프로젝트 최상위의 .env.example을 복사한 파일 이름을 .env로 바꿉니다. .env는 Git에 올리지 않습니다.',
            'setup_open': '프로젝트 최상위에서 앱을 켭니다. 내 컴퓨터 127.0.0.1에서만 열립니다. 터미널에 표시된 주소를 브라우저에 입력하세요.',
-           'setup_reload': '설정을 고친 뒤 AI 켜기와 비용에서 설정 다시 읽기를 누르세요.',
+           'setup_reload': '설정을 고친 뒤 AI 켜기와 비용의 자세히 보기에서 설정 다시 읽기를 누르세요.',
            'rngd_tunnel': '회사 서버는 보안 연결 통로(SSH 터널)를 사용합니다. RNGD_SSH에서 접속 옵션을 준비합니다.',
-           'trial_scope': '다시 시험에서 개발용 문서와 문서 부분과 모델을 고릅니다. 여러 부분이나 문서 전체도 시험할 수 있습니다.',
-           'trial_ready': '모델 준비 상태를 확인하세요. 연결된 모델이 없으면 AI 켜기와 비용에서 준비합니다.',
+           'trial_scope': '① 무엇을: 한 부분, 문서 전체, 여러 문서 중에서 고르고 개발용 문서와 부분을 정합니다.',
+           'trial_ready': '② 어느 AI로: 모델을 고르고 응답을 확인합니다. 꺼져 있으면 AI 켜기와 비용에서 켠 뒤 돌아옵니다.',
            'trial_practice': '입력 확인 연습은 AI를 부르지 않습니다. 보낼 입력과 지시문만 확인합니다.',
-           'trial_send': '실제 시험 시작을 누른 뒤 결과 요약을 엽니다. 여섯 단계를 차례로 펼쳐 보세요.',
-           'trial_many': '여러 문서 시험에서 개발용 문서와 반복 횟수를 고릅니다. 두 결과 비교에서는 여러 결과의 비교표도 만들 수 있습니다.',
+           'trial_send': '③ 무엇을 시킬지: 기본 지시문을 그대로 쓰거나 고친 뒤 실제 시험을 시작합니다.',
+           'trial_running': '④ 시험: AI의 답을 기다립니다. 다른 화면으로 가도 시험은 계속되고, 끝나면 결과로 넘어갑니다.',
+           'trial_result': '⑤ 결과: 전후 점수와 고른 값의 변화를 봅니다. 서버가 켜져 있으면 요금도 함께 보입니다.',
+           'trial_records': '아래 기록 중 시험 전후 점수는 ⑤ 결과에 있고, 나머지 다섯 가지는 자세히 보기에 있습니다.',
+           'trial_many': '여러 문서는 ① 무엇을에서 ‘여러 문서’를 고릅니다. 개발용 문서와 반복 횟수를 정합니다. 두 결과 비교에서는 여러 결과의 비교표도 만들 수 있습니다.',
            'jobs': '작업 기록에서 진행과 오류를 봅니다. 중단이 허용된 작업만 멈출 수 있습니다.',
            'cli_command': '(cd backend && .venv/bin/python scripts/try_section.py --model <태그> --doc <문서 번호> '
                           '--section 11 --dry-run)',
@@ -2688,7 +2703,7 @@ UI_TEXT["help"] = {'settings': {'runpod_url_pattern': '빌린 서버의 중계 �
            'limit': '길이 제한은 답이 길거나 공백을 계속 쓰거나 같은 글을 반복할 때 생깁니다. 끝난 이유가 length인지 요청 기록에서 확인하세요.',
            'limit_rule': '한도에 걸린 답의 공백 비율이 50%를 넘으면 공백폭주입니다. 끝의 같은 글이 20자 이상이고 4번 이상 이어지면 반복입니다.',
            'limit_where': '최근 결과의 문서와 부분별 AI 요청 표에서 시도 횟수와 시간을 봅니다. 실패와 길이 제한 뒤 성공은 다른 상태입니다.',
-           'columns': '시험 결과의 해석한 값에서 버린 줄 수를 봅니다. 모델의 원래 답과 정해진 열 수를 비교하세요.',
+           'columns': '시험 결과의 자세히 보기에서 ‘읽어 낸 값’의 버린 줄 수를 봅니다. 모델의 원래 답과 정해진 열 수를 비교하세요.',
            'slow': '최근 결과의 문서별 시간에서 300초 목표선을 봅니다. 재요청으로 느려질 수 있습니다. 가장 오래 걸린 부분의 기록을 확인하세요.',
            'connection': '회사 연결 통로와 빌린 서버의 전원 상태를 각각 확인합니다. 오래 실행할 때는 컴퓨터가 잠들지 않게 설정하세요.',
            'protect_eval': '평가용 문서를 개발에 쓰면 평가 점수가 부풀 수 있습니다. 앱은 원문 조회와 시험을 거부합니다.',
@@ -2716,7 +2731,7 @@ UI_TEXT["glossary"] = {'silver': {'term': 'AI 정답 초안(실버)', 'meaning':
  'prompt_version': {'term': 'AI에게 시킬 일을 고친 차례',
                     'meaning': 'AI에게 보내는 글의 변경 순서를 구분하는 번호입니다. 예: 8번째 설명은 s8로 기록합니다.'},
  'input': {'term': '원문 글자를 모은 폴더',
-           'meaning': 'AI에게 보낼 원문의 쪽별 글자를 모아 둔 곳입니다. 예: 시안의 이전 개발 자료는 prev/version9입니다.'},
+           'meaning': 'AI에게 보낼 원문의 쪽별 글자를 모아 둔 곳입니다. 예: 이전 개발 자료 묶음에는 문서마다 쪽별 글자 파일이 있습니다.'},
  'page_text': {'term': '문서 한 쪽의 글자', 'meaning': '문서 한 페이지에서 읽어 낸 글입니다. 예: 원문 화면에서 예시 문서 1의 2쪽 글자를 읽습니다.'},
  'line': {'term': '원문의 쪽과 줄 번호', 'meaning': '값이 원문 어디에 있는지 나타내는 위치입니다. 예: p2:L23은 2쪽 23번째 줄입니다.'},
  'base_run': {'term': '새 답을 끼워 넣을 이전 결과(기준 실행)',
@@ -2773,7 +2788,6 @@ UI_TEXT["glossary"] = {'silver': {'term': 'AI 정답 초안(실버)', 'meaning':
                                    '뜻입니다.'}}
 COPY_EXCEPTIONS.update({'help.settings.runpod_url_pattern': '주소 예시를 표시하지 않는 상위 규칙에 따라 설정 이름만 안내합니다.',
  'help.settings.company_url_pattern': '주소 예시를 표시하지 않는 상위 규칙에 따라 설정 이름만 안내합니다.',
- 'help.terms.title': '실제 용어는 40개라 승인 표의 38개 제목을 바로잡았습니다.',
  'help.navigation.return': '옛 도움말의 사실과 직접 이동 및 복구 조작을 보존합니다. BUILD step 8 글 출처에 근거를 기록합니다.',
  'help.navigation.full': '옛 도움말의 사실과 직접 이동 및 복구 조작을 보존합니다. BUILD step 8 글 출처에 근거를 기록합니다.',
  'help.navigation.methods_failed': '옛 도움말의 사실과 직접 이동 및 복구 조작을 보존합니다. BUILD step 8 글 출처에 근거를 기록합니다.',
@@ -2801,7 +2815,6 @@ COPY_EXCEPTIONS.update({'help.settings.runpod_url_pattern': '주소 예시를 �
  'help.facts.cause_variation': '옛 도움말의 사실과 직접 이동 및 복구 조작을 보존합니다. BUILD step 8 글 출처에 근거를 기록합니다.',
  'help.facts.source_select': '옛 도움말의 사실과 직접 이동 및 복구 조작을 보존합니다. BUILD step 8 글 출처에 근거를 기록합니다.',
  'help.facts.source_estimated': '옛 도움말의 사실과 직접 이동 및 복구 조작을 보존합니다. BUILD step 8 글 출처에 근거를 기록합니다.',
- 'help.facts.source_colors': '옛 도움말의 사실과 직접 이동 및 복구 조작을 보존합니다. BUILD step 8 글 출처에 근거를 기록합니다.',
  'help.facts.journey': '옛 도움말의 사실과 직접 이동 및 복구 조작을 보존합니다. BUILD step 8 글 출처에 근거를 기록합니다.',
  'help.facts.journey_read': '옛 도움말의 사실과 직접 이동 및 복구 조작을 보존합니다. BUILD step 8 글 출처에 근거를 기록합니다.',
  'help.facts.journey_try': '옛 도움말의 사실과 직접 이동 및 복구 조작을 보존합니다. BUILD step 8 글 출처에 근거를 기록합니다.',
@@ -2809,13 +2822,7 @@ COPY_EXCEPTIONS.update({'help.settings.runpod_url_pattern': '주소 예시를 �
  'help.facts.cards': '옛 도움말의 사실과 직접 이동 및 복구 조작을 보존합니다. BUILD step 8 글 출처에 근거를 기록합니다.',
  'help.facts.setup_copy': '옛 도움말의 사실과 직접 이동 및 복구 조작을 보존합니다. BUILD step 8 글 출처에 근거를 기록합니다.',
  'help.facts.setup_open': '옛 도움말의 사실과 직접 이동 및 복구 조작을 보존합니다. BUILD step 8 글 출처에 근거를 기록합니다.',
- 'help.facts.setup_reload': '옛 도움말의 사실과 직접 이동 및 복구 조작을 보존합니다. BUILD step 8 글 출처에 근거를 기록합니다.',
  'help.facts.rngd_tunnel': '옛 도움말의 사실과 직접 이동 및 복구 조작을 보존합니다. BUILD step 8 글 출처에 근거를 기록합니다.',
- 'help.facts.trial_scope': '옛 도움말의 사실과 직접 이동 및 복구 조작을 보존합니다. BUILD step 8 글 출처에 근거를 기록합니다.',
- 'help.facts.trial_ready': '옛 도움말의 사실과 직접 이동 및 복구 조작을 보존합니다. BUILD step 8 글 출처에 근거를 기록합니다.',
- 'help.facts.trial_practice': '옛 도움말의 사실과 직접 이동 및 복구 조작을 보존합니다. BUILD step 8 글 출처에 근거를 기록합니다.',
- 'help.facts.trial_send': '옛 도움말의 사실과 직접 이동 및 복구 조작을 보존합니다. BUILD step 8 글 출처에 근거를 기록합니다.',
- 'help.facts.trial_many': '옛 도움말의 사실과 직접 이동 및 복구 조작을 보존합니다. BUILD step 8 글 출처에 근거를 기록합니다.',
  'help.facts.jobs': '옛 도움말의 사실과 직접 이동 및 복구 조작을 보존합니다. BUILD step 8 글 출처에 근거를 기록합니다.',
  'help.facts.cli_command': '옛 도움말의 사실과 직접 이동 및 복구 조작을 보존합니다. BUILD step 8 글 출처에 근거를 기록합니다.',
  'help.facts.cli_repeat': '옛 도움말의 사실과 직접 이동 및 복구 조작을 보존합니다. BUILD step 8 글 출처에 근거를 기록합니다.',
@@ -2835,7 +2842,6 @@ COPY_EXCEPTIONS.update({'help.settings.runpod_url_pattern': '주소 예시를 �
  'help.facts.limit': '옛 도움말의 사실과 직접 이동 및 복구 조작을 보존합니다. BUILD step 8 글 출처에 근거를 기록합니다.',
  'help.facts.limit_rule': '옛 도움말의 사실과 직접 이동 및 복구 조작을 보존합니다. BUILD step 8 글 출처에 근거를 기록합니다.',
  'help.facts.limit_where': '옛 도움말의 사실과 직접 이동 및 복구 조작을 보존합니다. BUILD step 8 글 출처에 근거를 기록합니다.',
- 'help.facts.columns': '옛 도움말의 사실과 직접 이동 및 복구 조작을 보존합니다. BUILD step 8 글 출처에 근거를 기록합니다.',
  'help.facts.slow': '옛 도움말의 사실과 직접 이동 및 복구 조작을 보존합니다. BUILD step 8 글 출처에 근거를 기록합니다.',
  'help.facts.connection': '옛 도움말의 사실과 직접 이동 및 복구 조작을 보존합니다. BUILD step 8 글 출처에 근거를 기록합니다.',
  'help.facts.protect_eval': '옛 도움말의 사실과 직접 이동 및 복구 조작을 보존합니다. BUILD step 8 글 출처에 근거를 기록합니다.',
@@ -3003,7 +3009,7 @@ COPY_EXCEPTIONS['help.facts.run_name'] = "S5 결정 2: ⑤ 수락 11/1 승인"
 UI_TEXT['help']['data'] = {
     "source_meaning": "원문 자료(문서 묶음)는 PDF를 쪽마다 글자와 그림으로 바꿔 둔 파일입니다. AI는 이 글자를 읽고, 근거도 이 글자의 줄 번호로 댑니다.",
     "source_example": "예: p5:L22는 5쪽 22번째 줄입니다.",
-    "source_change": "바꾸기: 화면 위 ‘필요할 때 문서 바꾸기’에서 다른 묶음을 고릅니다. 그 묶음으로 돌린 저장 결과만 보입니다.",
+    "source_change": "바꾸기: 위쪽 막대의 ‘문서 묶음’을 눌러 다른 묶음을 고릅니다. 그 묶음으로 돌린 저장 결과만 보입니다.",
     "source_receive": "받은 폴더는 화면 위쪽의 새 자료 받기에서 가져옵니다. 앱이 줄 번호와 열지 않을 문서를 검사하고 복사까지 합니다. 점수가 나오는 폴더인지도 알려 줍니다.",
     "source_add_title": "직접 폴더를 만들어 더하는 순서입니다.",
     "source_add1": "data/pages/<묶음 이름>/<문서 번호>/ 폴더를 만듭니다.",
@@ -3014,7 +3020,7 @@ UI_TEXT['help']['data'] = {
     "answer_meaning": "정답은 AI 값과 견주는 기준입니다. 점수는 AI가 뽑은 값이 정답과 얼마나 같은지로 계산합니다. 정답을 바꾸면 같은 결과의 점수도 달라집니다.",
     "answer_gold": "사람이 확인한 정답(골드)은 사람이 검토해 확정한 답입니다. data/gold에 있습니다.",
     "answer_silver": "AI 정답 초안(실버)은 AI가 먼저 만든 비교용 답입니다. data/silver 아래 폴더에 있고, 틀릴 수 있습니다.",
-    "answer_change": "바꾸기: 화면 위 ‘필요할 때 정답 바꾸기’에서 고릅니다. 저장된 결과를 AI 없이 다시 채점합니다.",
+    "answer_change": "바꾸기: 위쪽 막대의 ‘정답’을 눌러 고릅니다. 저장된 결과를 AI 없이 다시 채점합니다.",
     "answer_receive": "담당이 올린 새 정답은 화면 위쪽의 새 자료 받기에서 확인합니다. 받는 명령을 알려 주고, 받은 뒤에는 바뀐 문서 수를 보여 줍니다.",
     "answer_add_title": "정답 폴더를 직접 더하는 순서입니다.",
     "answer_add1": "data/silver/<이름>/ 또는 data/gold/<이름>/ 폴더를 만듭니다.",
@@ -3236,7 +3242,7 @@ UI_TEXT["context"]["model"].update({
 
 UI_TEXT["help"]["setup"]["new_data"] = "새 문서 폴더나 새 정답을 받았으면 화면 위쪽의 새 자료 받기를 누르세요. 문서 폴더는 검사한 뒤 앱으로 복사하고, 정답은 GitHub에서 받는 명령을 알려 줍니다."
 UI_TEXT["help"]["servers"]["states"] = "화면 위쪽에서 상태를 봅니다. AI 꺼짐은 정상입니다. 빌린 서버를 만들면 켜는 중이 3~6분 보이고, 연결된 모델이 보이면 시험을 보낼 수 있습니다."
-UI_TEXT["help"]["servers"]["waiting"] = "10분이 지나도 켜는 중이면 AI 켜기와 비용의 서버 기록을 확인하세요. 모델이 40분 동안 응답하지 않으면 앱이 서버를 지웁니다."
+UI_TEXT["help"]["servers"]["waiting"] = "10분이 지나도 켜는 중이면 AI 켜기와 비용의 자세히 보기에서 서버 기록을 확인하세요. 모델이 40분 동안 응답하지 않으면 앱이 서버를 지웁니다."
 
 # 단계 진행의 공통 틀 (phase app-steps, ADR-039). design/COPY.md의 steps 표가 정본이다.
 UI_TEXT["nav"].update({"group_flow": "작업 순서", "group_other": "그 밖의 화면"})
@@ -3312,6 +3318,7 @@ UI_TEXT["steps"] = {
         "cancel_rented": "취소하고 서버 지우기 (요금 멈춤)",
         "cancel_company": "취소하고 AI 끄기",
         "stop_say_rented": "다 쓰면 서버를 지워야 요금이 멈춥니다.",
+        "stop_order": "끄는 순서",
         "stat_uptime": "켜진 시간",
         "stat_total": "지금까지 (추정)",
         "stat_auto": "자동 삭제까지",
@@ -3544,7 +3551,7 @@ UI_TEXT["steps"]["source"] = {
     "evidence_title": "AI가 근거로 댄 줄",
     "choose_section": "부분 고르기",
     "filter_a11y": "문제 종류",
-    "kinds": "틀림: 값이 다름 · 만듦: 정답에 없는 값 · 못 뽑음: AI가 놓친 값",
+    "kind_notes": {"wrong": "값이 다름", "made": "정답에 없는 값", "missing": "AI가 놓친 값"},
     "doc_rows": "{doc} · {count}행",
     "row_kind": "{kind} {count}칸",
     "more_rows": "{count}행 더 보기",
@@ -3716,7 +3723,23 @@ _GLOSSARY_ALIASES = {'silver': ['실버', 'silver', '정답 초안', '정답 초
  'rows': ['행 형식', 'rows'],
  'variation': ['흔들림', 'variation'],
  'exposure': ['exposure', '노출기준', '허용 농도'],
- 'concentration_unit': ['concentration_unit', 'mg/m³']}
+ 'concentration_unit': ['concentration_unit', 'mg/m³'],
+ 'twa': ['twa', 'TWA'],
+ 'stel': ['stel', 'STEL'],
+ 'acgih': ['acgih', 'ACGIH'],
+ 'ld50': ['ld50', 'LD50'],
+ 'lc50': ['lc50', 'LC50'],
+ 'ec50': ['ec50', 'EC50'],
+ 'stop_order': ['stop_order', '끄는 순서']}
+UI_TEXT["glossary"].update({
+    "twa": {"term": "8시간 평균 허용 농도(TWA)", "meaning": "하루 8시간 일할 때 평균으로 넘지 말아야 하는 공기 중 농도입니다. 예: TWA 5 mg/m³는 8시간 평균이 5 mg/m³를 넘지 않아야 한다는 뜻입니다."},
+    "stel": {"term": "15분 허용 농도(STEL)", "meaning": "짧은 시간(보통 15분) 동안 넘지 말아야 하는 공기 중 농도입니다. 예: STEL 10 mg/m³는 15분 평균이 10 mg/m³를 넘지 않아야 한다는 뜻입니다."},
+    "acgih": {"term": "미국 산업위생 전문가 협의회(ACGIH)", "meaning": "작업장 노출기준을 권고하는 미국 단체입니다. 예: 같은 성분에 국내기준과 ACGIH 값이 따로 있을 수 있습니다."},
+    "ld50": {"term": "실험동물 절반이 죽는 양(LD50)", "meaning": "먹이거나 피부에 바른 양으로 잰 독성 값입니다. 값이 작을수록 독성이 큽니다. 예: LD50 300 mg/kg은 몸무게 1kg당 300 mg입니다."},
+    "lc50": {"term": "생물 절반이 죽는 농도(LC50)", "meaning": "공기나 물에 든 농도로 잰 독성 값입니다. 값이 작을수록 독성이 큽니다. 예: LC50 5 mg/L는 물 1L에 5 mg입니다."},
+    "ec50": {"term": "생물 절반에 영향을 주는 농도(EC50)", "meaning": "물벼룩이나 조류 같은 물속 생물의 절반에 영향을 주는 농도입니다. 값이 작을수록 독성이 큽니다. 예: EC50 2 mg/L는 물 1L에 2 mg입니다."},
+    "stop_order": {"term": "켜 둔 서버를 끄는 순서", "meaning": "시험으로 돌아가기는 서버를 끄지 않습니다. 결과를 본 뒤 AI 켜기와 비용에 다시 와서 끕니다. 예: 시험으로 돌아가기 → 결과 확인 → 서버 지우고 요금 멈추기."},
+})
 GLOSSARY: dict[str, dict] = {}
 for _glossary_key, _glossary_copy in UI_TEXT["glossary"].items():
     _short, _separator, _example = _glossary_copy["meaning"].partition(" 예: ")
@@ -4423,7 +4446,7 @@ def _date(name: str, started_at) -> str:
 
 def _prompt(token: str) -> bool:
     # 세 자리 s003은 안내문이 아니라 문서 번호다.
-    return bool(re.fullmatch(r"s\d+", token) and not re.fullmatch(r"s\d{3}", token))
+    return bool(re.fullmatch(r"s\d+[a-z]*", token) and not re.fullmatch(r"s\d{3}", token))
 
 
 def _input_version(token: str) -> str:
@@ -4434,9 +4457,30 @@ def _input_version(token: str) -> str:
     return token if re.fullmatch(r"version\d+", token) else ""
 
 
+def _prompt_name(version: str) -> str:
+    """s9 → 9번째 판. 뒤에 글자가 붙은 판은 그 글자를 남긴다. 예: s10h → 10번째 판 h."""
+    match = re.fullmatch(r"s(\d+)([a-z]*)", version)
+    if not match:
+        return version
+    name = UI_TEXT["common"]["run"]["prompt_round"].format(round=match[1])
+    return f"{name} {match[2]}" if match[2] else name
+
+
+def _input_name(version: str) -> str:
+    """version17 → 17판. 뜻을 모르는 폴더 이름은 짐작하지 않고 그대로 쓴다."""
+    words = UI_TEXT["common"]["run"]
+    match = re.fullmatch(r"version(\d+)", version)
+    if match:
+        return words["input_round"].format(round=match[1])
+    return {"chars_wrap": words["input_temp"], "pages": words["input_new"]}.get(version, version)
+
+
 def _condition(token: str) -> str:
     if token in _CONDITIONS:
         return _CONDITIONS[token]
+    dev = re.fullmatch(r"dev(\d+)", token)
+    if dev:
+        return UI_TEXT["common"]["run"]["dev_docs"].format(count=dev[1])
     doc = re.fullmatch(r"([smSM])(\d{3})", token)
     if doc:
         return UI_TEXT["common"]["run"]["document"].format(doc=f"T21-{doc[1].upper()}{doc[2]}")
@@ -4472,9 +4516,9 @@ def run_label(info: dict) -> dict:
 
     parts = [" ".join(v for v in (date, model) if v)]
     if prompt:
-        parts.append(UI_TEXT["common"]["run"]["prompt"].format(version=prompt))
+        parts.append(UI_TEXT["common"]["run"]["prompt"].format(version=_prompt_name(prompt)))
     if version:
-        parts.append(UI_TEXT["common"]["run"]["input"].format(version=version))
+        parts.append(UI_TEXT["common"]["run"]["input"].format(version=_input_name(version)))
     parts.extend(_condition(t) for t in tokens
                  if t not in ("sections", "silver", prompt) and not _prompt(t) and not _input_version(t))
     title = " · ".join(p for p in parts if p)
@@ -4502,7 +4546,7 @@ UI_TEXT["guide"] = {'navigation': '안내 이동',
  'screens': {'G01': {'title': 'AI가 화학 안전문서에서 뽑은 값을 정답과 견주고 고치는 도구예요', 'next': '시작하기'},
              'G03': {'title': '점수에서 원문 줄까지 세 번 누르면 돼요',
                      'next': '다음',
-                     'lead': '1 최근 결과에서 [문제의 원문 보기] → 2 원문 줄 확인 → 3 [이 부분 다시 시험]',
+                     'lead': '1 최근 결과에서 [문제의 원문 보기] → 2 원문 줄 확인 → 3 [이 부분 다시 시험하기]',
                      'terms': '알아 둘 말',
                      'draft': '정답: AI 값과 견주는 기준이에요. 사람이 확인한 정답과 AI 정답 초안이 있어요.',
                      'part': '부분: 문서의 16개 주제 중 하나예요(예: 8번 부분).',
@@ -4580,7 +4624,6 @@ COPY_EXCEPTIONS.update({'guide.navigation': '처음 사용 안내 시안 승인 
  'guide.screens.G01.next': '처음 사용 안내 시안 승인 10/31 (design/onboard/mockup.html)',
  'guide.screens.G03.title': '처음 사용 안내 시안 승인 10/31 (design/onboard/mockup.html)',
  'guide.screens.G03.next': '처음 사용 안내 시안 승인 10/31 (design/onboard/mockup.html)',
- 'guide.screens.G03.lead': '처음 사용 안내 시안 승인 10/31 (design/onboard/mockup.html)',
  'guide.screens.G03.terms': '처음 사용 안내 시안 승인 10/31 (design/onboard/mockup.html)',
  'guide.screens.G03.draft': '처음 사용 안내 시안 승인 10/31 (design/onboard/mockup.html)',
  'guide.screens.G03.part': '처음 사용 안내 시안 승인 10/31 (design/onboard/mockup.html)',
@@ -4649,7 +4692,8 @@ UI_TEXT["guide"].update({
         "estimated_only": "원문 줄(추정)만 있어요.", "no_actual": "AI가 댄 실제 근거 줄은 없어요.",
         "not_recorded": "원문 확인 성공은 기록하지 않았어요.",
         "line": "{page}쪽 {line_no}번째 줄 · 선택됨", "actual": "AI가 댄 실제 근거 줄이에요.",
-        "key_caution": "정답도 틀릴 수 있어요.", "empty": "확인할 틀린 값을 찾지 못했어요. 이 직접 해 보기는 건너뛸 수 있어요.",
+        "key_caution": "정답도 틀릴 수 있어요.",
+        "image_note": "원문 맞춰 보기 화면의 그림은 쪽 안의 위치를 확인하는 곳이에요. 글자는 원문 글자 칸에서 읽어요.", "empty": "확인할 틀린 값을 찾지 못했어요. 이 직접 해 보기는 건너뛸 수 있어요.",
         "request_failed": "원문을 불러오지 못했어요.", "retry_todo": "할 일: 같은 값을 다시 확인해요.",
     },
     "practice": {
@@ -4669,6 +4713,8 @@ UI_TEXT["guide"].update({
         "cost_action": "이 단추는 화면만 옮겨요. 돈이 드는 일은 그 화면의 확인 창에서 금액을 보고 직접 정해요.",
         "cost": "회사 서버는 임대료가 없어요. 빌린 서버는 시간당 요금이 들어요.",
         "return": "안내로 돌아가기", "return_note": "모델 상태를 다시 확인한 뒤 안내를 이어가요.",
+        "steps": "AI 켜기 화면은 서버 고르기 → 켜기 → 준비 기다리기 → 쓰고 나서 끄기 순서예요.",
+        "return_order": "AI가 준비되면 [안내로 돌아가기]를 눌러요. 돌아가도 서버는 꺼지지 않아요. 다 쓴 뒤 그 화면에 다시 와서 꺼요.",
     },
     "trial": {
         "uses": "실제 AI 시험 · AI를 불러요", "record": "성공하면 남는 기록: 실제 시험 성공",
@@ -4677,7 +4723,8 @@ UI_TEXT["guide"].update({
         "waiting_answer": "AI의 답을 기다리고 있어요.", "elapsed": "{seconds}초 지났어요.",
         "stages": {"input": "보낼 내용 준비", "answer": "AI 응답 받기", "parse": "답을 값으로 읽기", "summary": "결과 요약 보기"},
         "complete": "완료", "progress": "진행 중", "wait": "대기",
-        "not_yet": "실제 시험 성공은 아직 기록하지 않았어요.", "cannot_stop": "처리 중인 시험은 여기서 멈출 수 없어요.",
+        "not_yet": "실제 시험 성공은 아직 기록하지 않았어요.",
+        "steps_note": "다시 시험 화면은 무엇을 → 어느 AI로 → 무엇을 시킬지 → 시험 → 결과 순서예요. 이 카드는 앞의 세 단계를 미리 채워 둬요.", "cannot_stop": "처리 중인 시험은 여기서 멈출 수 없어요.",
         "done": "한 부분의 실제 시험이 끝났어요", "proof": "결과 판정 근거 보기",
         "proof_text": "보낸 문서와 {section}번 부분이 일치해요. 작업은 정상 종료했어요. 결과 요청은 {status}이에요. 선택 부분을 읽는 데 성공했어요.",
         "failed": "AI가 답했지만 읽지 못했어요", "failed_fact": "답을 결과 값으로 읽지 못했어요.",
@@ -4773,7 +4820,7 @@ UI_TEXT["guide"]["data"] = {
         "example": "예: p5:L22는 5쪽 22번째 줄이에요.",
         "set": "문서 여러 개를 모은 폴더 하나를 문서 묶음이라고 불러요.",
         "change_title": "바꾸는 법",
-        "change": "두 화면 뒤에서 바로 고를 수 있어요. 안내를 닫은 뒤에는 화면 맨 위 [필요할 때 문서 바꾸기]를 눌러요. 그 묶음으로 돌린 저장 결과만 보여요.",
+        "change": "두 화면 뒤에서 바로 고를 수 있어요. 안내를 닫은 뒤에는 위쪽 막대의 [문서 묶음]을 눌러요. 그 묶음으로 돌린 저장 결과만 보여요.",
         "receive_title": "새로 받았을 때",
         "receive": "받은 폴더는 화면 맨 위 [새 자료 받기]에서 가져와요. 앱이 줄 번호와 열지 않을 문서를 검사하고 복사까지 해요. 점수가 나오는 폴더인지도 알려 줘요.",
         "add_title": "직접 폴더를 만들 때",
@@ -4789,7 +4836,7 @@ UI_TEXT["guide"]["data"] = {
         "gold": "사람이 확인한 정답(골드): 사람이 검토해 확정한 답이에요. data/gold에 있어요.",
         "silver": "AI 정답 초안(실버): AI가 먼저 만든 비교용 답이에요. data/silver 아래 폴더에 있고, 틀릴 수 있어요.",
         "change_title": "바꾸는 법",
-        "change": "다음 화면에서 바로 고를 수 있어요. 안내를 닫은 뒤에는 화면 맨 위 [필요할 때 정답 바꾸기]를 눌러요. 저장된 결과를 AI 없이 다시 채점해요.",
+        "change": "다음 화면에서 바로 고를 수 있어요. 안내를 닫은 뒤에는 위쪽 막대의 [정답]을 눌러요. 저장된 결과를 AI 없이 다시 채점해요.",
         "receive_title": "새로 받았을 때",
         "receive": "담당이 새 정답을 올리면 화면 맨 위 [새 자료 받기]에서 확인해요. 받는 명령을 알려 주고, 받은 뒤에는 바뀐 문서 수를 보여 줘요.",
         "add_title": "직접 폴더를 만들 때",
@@ -4842,3 +4889,8 @@ for _fix_key in ("guide.defaults.unavailable", "guide.defaults.no_answers", "gui
                  "context.picker.results_found", "context.picker.results_empty",
                  "context.picker.results_failed", "context.picker.results_failed_todo"):
     COPY_EXCEPTIONS[_fix_key] = "onboard fix step 1: ⑤ 승인 대기"
+
+# 11/2 step 6 (ADR-039): 단계 화면에 맞춰 쓰거나 고친 안내 글은 COPY.md에 자기 행을 둔다. 승인은 G6 승인표로 받는다.
+for _step6_key in ("guide.source.image_note", "guide.ai.steps", "guide.ai.return_order", "guide.trial.steps_note",
+                   "guide.screens.G03.lead", "guide.data.source.change", "guide.data.answers.change"):
+    COPY_EXCEPTIONS.pop(_step6_key, None)
