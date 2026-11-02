@@ -478,3 +478,39 @@ def test_full_guide_page_has_same_new_lines():
     page = (STATIC / "guide.html").read_text(encoding="utf-8")
     for line in (help_text["setup"]["new_data"], help_text["servers"]["states"], help_text["servers"]["waiting"]):
         assert line in page, line
+
+
+def test_first_use_guide_tells_where_new_folder_and_new_answers_come_in():
+    run_js(FIXTURES + r"""
+      await start();await settle();
+      S.guide.open=true;S.guide.screen='G16';guideRender();
+      assert.ok(text('guide-overlay').includes(T('guide.data.source.receive')));
+      assert.ok(text('guide-overlay').includes(T('guide.data.source.add_title')));
+      S.guide.screen='G17';guideRender();
+      assert.ok(text('guide-overlay').includes(T('guide.data.answers.receive')));
+    """)
+
+
+def test_help_data_chapter_tells_where_new_folder_and_new_answers_come_in():
+    run_js(FIXTURES + r"""
+      await start();await go('s07',{helpTopic:'data'});await settle();
+      for(const key of ['source_receive','answer_receive'])assert.ok(text('help-data').includes(T('help.data.'+key)),key);
+    """)
+
+
+def test_swap_screen_links_to_help_and_returns():
+    run_js(FIXTURES + r"""
+      await open();
+      const link=el('help-context-s11').querySelector('a');
+      assert.equal(link.textContent,T('help.guide.data.title'));
+      link.click();await settle();
+      assert.equal(S.shell.route,'s07');assert.equal(el('help-data').open,true);
+    """)
+
+
+def test_guide_says_rented_server_start_time_and_automatic_close():
+    run_js(FIXTURES + r"""
+      await start();await settle();
+      S.guide.open=true;S.guide.screen='G10';guideRender();
+      assert.ok(text('guide-overlay').includes(T('guide.ai.rented_time')));
+    """)
