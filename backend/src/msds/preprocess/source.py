@@ -36,18 +36,20 @@ def word_agreement(layer: str, ocr: str) -> float | None:
     return round(2 * p * r / (p + r), 3) if p + r else 0.0
 
 
-def ocr_json_for(doc_id: str, page_no: int) -> Path | None:
+def ocr_json_for(doc_id: str, page_no: int, *, pages_root: Path | None = None) -> Path | None:
     """그 쪽의 OCR 결과. 모든 쪽을 OCR한 ocr_all/을 먼저 본다."""
-    for f in (paths.page_dir(doc_id) / "ocr_all" / f"p{page_no:03d}.ocr.json",
-              paths.page_dir(doc_id) / f"p{page_no:03d}.ocr.json"):
+    doc_dir = paths.page_dir(doc_id) if pages_root is None else Path(pages_root) / doc_id
+    for f in (doc_dir / "ocr_all" / f"p{page_no:03d}.ocr.json",
+              doc_dir / f"p{page_no:03d}.ocr.json"):
         if f.exists():
             return f
     return None
 
 
-def page_ocr_input(doc_id: str, page_no: int) -> Path:
+def page_ocr_input(doc_id: str, page_no: int, *, pages_root: Path | None = None) -> Path:
     """출처가 OCR인 쪽의 모델 입력·원문 대조 글."""
-    return paths.page_dir(doc_id) / f"p{page_no:03d}.ocr_input.txt"
+    doc_dir = paths.page_dir(doc_id) if pages_root is None else Path(pages_root) / doc_id
+    return doc_dir / f"p{page_no:03d}.ocr_input.txt"
 
 
 def choose(layer: str, ocr: str | None) -> dict:
