@@ -17,9 +17,9 @@
         "task": { "const": "explain_finding" },
         "lang": { "const": "ko" },
         "finding": {
-          "description": "약속 ③ finding 에서 만든 설명용 묶음. 원인이 있으면 reason 은 null (같은 내용을 causes 가 읽는 말로 담는다)",
+          "description": "약속 ③ finding 에서 만든 설명용 묶음. 값이 null 인 칸은 보내지 않는다 (우진 측정 프롬프트, type·severity 포함). 원인이 있으면 reason 은 null (같은 내용을 causes 가 읽는 말로 담는다)",
           "type": "object",
-          "required": ["id", "section", "kind", "item", "item_name", "msds", "expected", "verdict", "type", "severity"],
+          "required": ["id", "section", "kind", "item", "item_name", "msds", "expected", "verdict"],
           "properties": {
             "id": { "$ref": "common.schema.json#/$defs/finding_id" },
             "section": { "enum": ["2", "15"] },
