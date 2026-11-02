@@ -1198,3 +1198,19 @@ def test_write_json_leaves_no_temp_file_and_replaces_whole(tmp_path):
     sr._write_json(path, {"v": 2})
     assert json.loads(path.read_text(encoding="utf-8")) == {"v": 2}
     assert [p.name for p in path.parent.iterdir()] == ["b.json"]
+
+
+def test_skipped_sections_are_not_called(env):
+    """추출 대상(EXTRACT_SECTIONS) 밖의 항(4·5·6·7·10·13·16)은 모델을 부르지 않는다. 펼치기에는 빈 응답으로
+    넘겨 '응답 없음' 문제로 남기지 않는다."""
+    client = FakeClient()
+    summary = run(env, client)
+    called = {c["no"] for c in client.calls}
+    assert called == set(EXTRACT_SECTIONS) and not called & {4, 5, 6, 7, 10, 13, 16}
+    assert sr.SKIPPED_SECTIONS == (4, 5, 6, 7, 10, 13, 16)
+    assert summary["sections_failed"] == 0
+    c = checks(env)
+    assert not [p for p in c["expand_problems"] if p["section"] in sr.SKIPPED_SECTIONS]
+    out = read_json(env / "runs" / RUN / "outputs" / f"{DOC}.json")
+    assert validate_to21(out) == []
+    assert not [n for n in out["msds"][0]["narratives"] if n["item_code"].split("_")[0] in ("S4", "S5", "S6", "S7", "S10", "S13")]

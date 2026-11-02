@@ -542,12 +542,72 @@ def test_threshold_expand_msds_fills_regulations():
          "threshold": {"raw": "lower_op:>=,lower:1,unit:%", "lower_op": ">=", "lower": 1, "unit": "%"},
          "line": "p1:L5"}]}
     item, _ = ex.expand_msds({15: s15}, ex.line_index(lines), 0, "텍스트층")
-    t0, t1 = (r["threshold"] for r in item["regulations"])
+    t0, t1 = (r["threshold"] for r in item["regulations"][:2])      # 셋째는 R18 화평법 미기재 행
     assert (t0["lower_op"], t0["lower"], t0["unit"], t0["status"], t0["dp"]) == (">=", 0.1, "%", "값있음", 1)
     assert (t1["lower_op"], t1["lower"], t1["unit"], t1["status"]) == (">=", 1, "%", "값있음")
     assert [e["field"] for e in item["evidence"]] == ["regulations[0]", "regulations[1]"]
 
 
+HEADING_LINES = [                                              # 가짜 15항. 항목 제목 줄 아래 자식 줄에 기준농도가 있다
+    "가. 산업안전보건법에 의한 규제",
+    "○ 작업환경측정물질",
+    "- 해당됨 (1% 이상 함유한 가상물질)",
+    "○ 노출기준설정물질",
+    "- 해당됨 (가상물질)",
+    "○ 관리대상유해물질",
+    "- 가상물질 갑 : 0.1% 이상",
+    "- 가상물질 을 : 1% 이상",
+]
+
+
+def test_threshold_from_child_line_of_heading():
+    """근거 줄이 항목 제목('○ 작업환경측정물질')이고 기준농도가 그 자식 줄에 있으면 자식 줄로 채우거나 바로잡는다.
+    모델이 제목 줄을 근거로 적고 '1 %'만 옮긴 일이 있었다 (S016). 자식 줄에 'N% 이상'이 여럿이면 채우지 않는다."""
+    lines = ex.line_index(doc(*HEADING_LINES))
+    rows = [reg(None, "p1:L2", {"raw": "1 %", "value": 1, "unit": "%"}), reg(None, "p1:L2"),
+            reg(None, "p1:L4"), reg(None, "p1:L6"), reg(None, "p1:L6", {"raw": "1 %", "value": 1, "unit": "%"})]
+    assert th(fill_thresholds(rows, lines)) == [(">=", 1, None, "%", "1% 이상"), (">=", 1, None, "%", "1% 이상"), None,
+                                                None, (">=", 1, None, "%", "1% 이상")]
+
+
+def test_threshold_without_number_is_dropped():
+    """숫자 없는 기준농도('비해당' 등)는 기준농도가 아니라 비운다. 골드·실버 기준농도 28개는 모두 숫자가 있다.
+    숫자가 있는 기준농도는 둔다."""
+    from msds.extract.source_rules import clear_numberless_thresholds
+    rows = [reg(None, "p1:L1", {"raw": "비해당"}), reg(None, "p1:L1", {"raw": "해당없음", "status": "해당없음"}),
+            reg(None, "p1:L1", {"raw": "1% 이상", "lower_op": ">=", "lower": 1, "unit": "%"})]
+    clear_numberless_thresholds(rows)
+    assert th(rows) == [None, None, (">=", 1, None, "%", "1% 이상")]
+
+
+def test_threshold_not_taken_from_children_of_law_heading_with_content():
+    """근거 줄이 '가. 법령 PRODUCT : 항목, 항목'처럼 ':' 뒤에 내용이 있는 제목이면 자식 줄을 보지 않는다.
+    자식 줄은 성분마다의 기준농도라 제품 행에 붙이면 틀린다 (M004)."""
+    lines = ex.line_index(doc("가. 산업안전보건법에 의한 규제 PRODUCT : 관리대상유해물질, 작업환경측정대상물질",
+                              "- 가상물질 갑 : 작업환경측정대상물질(및 이를 1 wt% 이상 함유한 제제)"))
+    rows = [reg(None, "p1:L1", {"raw": "1 wt%", "value": 1, "unit": "wt%"}, comp_ref="MIX"), reg(None, "p1:L1", comp_ref="MIX")]
+    out = fill_thresholds(rows, lines)
+    assert th(out) == [(None, None, 1, "wt%", "1 wt%"), None]
+
+
+def test_threshold_in_listed_items_goes_only_to_its_item():
+    """한 줄에 항목이 쉼표로 나열되고 'N% 이상'이 그중 한 항목 뒤 괄호에만 있으면, 그 항목 행만 채운다 (M004).
+    괄호 안의 쉼표는 나누지 않는다. 항목 이름이 없는 행은 예전처럼 줄에 하나뿐인 'N% 이상'으로 채운다."""
+    lines = ex.line_index(doc("- 가상물질 : 관리대상유해물질, 노출기준설정대상물질, 작업환경측정대상물질(및 이를 1 wt% 이상 "
+                              "함유한 제제, 측정주기:6개월), 특별관리대상물질"))
+    rows = [reg("관리대상유해물질", "p1:L1"), reg("작업환경측정대상물질", "p1:L1"), reg("특별관리대상물질", "p1:L1"),
+            reg(None, "p1:L1")]
+    assert th(fill_thresholds(rows, lines)) == [None, (">=", 1, None, "wt%", "1 wt% 이상"), None,
+                                                (">=", 1, None, "wt%", "1 wt% 이상")]
+
+
+def test_threshold_follows_unclosed_parenthesis_to_later_line():
+    """괄호가 닫히지 않은 채 줄이 끝나면 다음 줄을 더 잇는다 (최대 2줄). M004 '특수건강진단물질(및 이를 1' / 'wt% 이상 …)'."""
+    lines = ex.line_index(doc("- 가상물질 : 관리대상유해물질, 작업환경측정대상물질(및 이를 1 wt% 이상 함유한",
+                              "제제, 측정주기:6개월), 특수건강진단물질(및 이를 1",
+                              "wt% 이상 함유한 제제, 진단:6개월 이내)"))
+    rows = [reg("특수건강진단물질", "p1:L1"), reg("관리대상유해물질", "p1:L1")]
+    assert th(fill_thresholds(rows, lines)) == [(">=", 1, None, "wt%", "1 wt% 이상"), None]
 # ── 9항 값 없음 ─────────────────────────────────────────
 
 from msds.extract.source_rules import fill_no_value              # noqa: E402

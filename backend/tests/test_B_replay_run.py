@@ -20,6 +20,8 @@ from msds.extract.inputs import load_document
 from msds.extract.rows import parse_rows
 from test_B_section_runner import PAGE1, page2, responses, rows11, spans
 
+from msds.extract.section_runner import SKIPPED_SECTIONS
+
 SCRIPTS = Path(__file__).resolve().parents[1] / "scripts"
 DOC, EVAL, NOGOLD = "T21-X01", "T21-X02", "T21-X03"
 ROWS = [
@@ -99,6 +101,7 @@ def gold_doc(root: Path, doc_id: str = DOC) -> dict:
     doc = load_document(doc_id, root / "pages", root / "sections", root / "codes")
     parts = [responses()]
     parts[0][ROWS_SECTION] = parse_rows(rows11(), ROWS_SECTION)[0]
+    parts[0].update({no: {} for no in SKIPPED_SECTIONS})      # 실행과 같이 추출 목표 밖의 항은 빈 응답
     out, _ = to_to21(manifest.get(doc_id), parts, doc.lines, "정답")
     return out
 
@@ -150,6 +153,12 @@ def test_missing_raw_file_is_skipped(rr, env):
     m = replay_doc(rr, env, make_run(env, skip={1}))["msds"][0]
     assert m["product"]["name"] is None
     assert len(m["components"]) == 1
+
+
+def test_skipped_sections_not_replayed(rr, env):
+    """옛 실행에 남은 추출 목표 밖 항(4·5·6·7·10·13)의 응답은 읽지 않는다. 지금 실행과 같은 조건으로 비교한다."""
+    m = replay_doc(rr, env, make_run(env))["msds"][0]
+    assert not [n for n in m["narratives"] if n["item_code"].split("_")[0] in ("S4", "S5", "S6", "S7", "S10", "S13")]
 
 
 def test_engine_written_to_doc(rr, env):

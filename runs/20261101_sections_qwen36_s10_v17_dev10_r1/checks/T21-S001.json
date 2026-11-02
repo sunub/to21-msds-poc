@@ -1,0 +1,511 @@
+{
+ "sections": [
+  {
+   "msds_index": 0,
+   "section": 1,
+   "ok": true,
+   "mode": "json_schema",
+   "errors": [],
+   "check_problems": [
+    "meta.lines.msds_no: 원문에 없는 줄 번호 L1",
+    "meta.lines.doc_code: 원문에 없는 줄 번호 L1",
+    "meta.lines.revision_no: 원문에 없는 줄 번호 L1",
+    "meta.lines.revision_label: 원문에 없는 줄 번호 L1",
+    "meta.lines.header_product_name: 원문에 없는 줄 번호 L1",
+    "meta.lines.source_note: 원문에 없는 줄 번호 L1",
+    "meta.lines.first_issue_date: 원문에 없는 줄 번호 L1",
+    "meta.lines.last_revision_date: 원문에 없는 줄 번호 L1",
+    "product.lines.name: 원문에 없는 줄 번호 L2",
+    "product.lines.code: 원문에 없는 줄 번호 L2",
+    "product.lines.synonyms: 원문에 없는 줄 번호 L2",
+    "product.lines.uses: 원문에 없는 줄 번호 L4",
+    "product.lines.restrictions: 원문에 없는 줄 번호 L8",
+    "product.lines.use_category_code: 원문에 없는 줄 번호 L2",
+    "companies[0].contacts[0].line: 원문에 없는 줄 번호 L12",
+    "companies[0].line: 원문에 없는 줄 번호 L10"
+   ],
+   "reextracted": false,
+   "attempts": 2,
+   "seconds": 9.159,
+   "usage": {
+    "prompt_tokens": 7599,
+    "completion_tokens": 760,
+    "total_tokens": 8359
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 2,
+   "ok": true,
+   "mode": "json_schema",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 1,
+   "seconds": 6.567,
+   "usage": {
+    "prompt_tokens": 5739,
+    "completion_tokens": 472,
+    "total_tokens": 6211
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 3,
+   "ok": true,
+   "mode": "rows",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 1,
+   "seconds": 5.156,
+   "usage": {
+    "prompt_tokens": 3501,
+    "completion_tokens": 315,
+    "total_tokens": 3816
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 4,
+   "ok": true,
+   "mode": "json_schema",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 1,
+   "seconds": 6.416,
+   "usage": {
+    "prompt_tokens": 2656,
+    "completion_tokens": 462,
+    "total_tokens": 3118
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 5,
+   "ok": true,
+   "mode": "json_schema",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 1,
+   "seconds": 4.567,
+   "usage": {
+    "prompt_tokens": 2606,
+    "completion_tokens": 264,
+    "total_tokens": 2870
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 6,
+   "ok": true,
+   "mode": "json_schema",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 1,
+   "seconds": 3.735,
+   "usage": {
+    "prompt_tokens": 2230,
+    "completion_tokens": 200,
+    "total_tokens": 2430
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 7,
+   "ok": true,
+   "mode": "json_schema",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 1,
+   "seconds": 2.986,
+   "usage": {
+    "prompt_tokens": 2148,
+    "completion_tokens": 136,
+    "total_tokens": 2284
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 8,
+   "ok": true,
+   "mode": "rows",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 1,
+   "seconds": 4.957,
+   "usage": {
+    "prompt_tokens": 3660,
+    "completion_tokens": 311,
+    "total_tokens": 3971
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 9,
+   "ok": true,
+   "mode": "rows",
+   "errors": [
+    "physchem p7:L12 UEL+LEL |  |  |  | 해당 없음 |  |  | p7:L12: .prop_code: 'UEL+LEL' is not valid under any of the given schemas",
+    "physchem p7:L13 VAPOR_PRESSURE |  |  | 760 ㎜Hg |  | temp…: .cond: {'temp': -196, 'temp_unit': '℃'} is not valid under any of the given schemas",
+    "physchem p7:L14 SOLUBILITY |  |  | 0.023 vol/vol |  | te…: .cond: {'temp': 0, 'temp_unit': '℃'} is not valid under any of the given schemas",
+    "physchem p7:L15 VAPOR_DENSITY |  |  | 1.153 kg/m3 |  | t…: .cond: {'temp': 21.1, 'temp_unit': '℃'} is not valid under any of the given schemas",
+    "physchem p7:L20 VISCOSITY |  |  | 0.01787cP |  | temp=27…: .cond: {'temp': 27, 'temp_unit': '℃'} is not valid under any of the given schemas"
+   ],
+   "check_problems": [],
+   "reextracted": true,
+   "attempts": 2,
+   "seconds": 11.432,
+   "usage": {
+    "prompt_tokens": 8344,
+    "completion_tokens": 1143,
+    "total_tokens": 9487
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 10,
+   "ok": true,
+   "mode": "json_schema",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 1,
+   "seconds": 4.162,
+   "usage": {
+    "prompt_tokens": 2272,
+    "completion_tokens": 237,
+    "total_tokens": 2509
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 11,
+   "ok": true,
+   "mode": "rows",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 1,
+   "seconds": 7.76,
+   "usage": {
+    "prompt_tokens": 5082,
+    "completion_tokens": 617,
+    "total_tokens": 5699
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 12,
+   "ok": true,
+   "mode": "rows",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 1,
+   "seconds": 8.98,
+   "usage": {
+    "prompt_tokens": 3544,
+    "completion_tokens": 785,
+    "total_tokens": 4329
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 13,
+   "ok": true,
+   "mode": "json_schema",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 1,
+   "seconds": 2.752,
+   "usage": {
+    "prompt_tokens": 2112,
+    "completion_tokens": 121,
+    "total_tokens": 2233
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 14,
+   "ok": true,
+   "mode": "rows",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 1,
+   "seconds": 4.326,
+   "usage": {
+    "prompt_tokens": 3001,
+    "completion_tokens": 237,
+    "total_tokens": 3238
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 15,
+   "ok": true,
+   "mode": "rows",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 1,
+   "seconds": 12.247,
+   "usage": {
+    "prompt_tokens": 6281,
+    "completion_tokens": 1346,
+    "total_tokens": 7627
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 16,
+   "ok": true,
+   "mode": "json_schema",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 1,
+   "seconds": 3.914,
+   "usage": {
+    "prompt_tokens": 2997,
+    "completion_tokens": 217,
+    "total_tokens": 3214
+   }
+  }
+ ],
+ "schema_errors": [],
+ "to21_validator": [
+  {
+   "level": "오류",
+   "rule": "V04",
+   "field": "msds[0].components",
+   "message": "함유량 하한 합계 200.0% > 100%"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[1]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[2]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[3]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[4]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[5]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[13]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  }
+ ],
+ "expand_problems": [
+  {
+   "msds_index": 0,
+   "section": 1,
+   "kind": "bad_line",
+   "detail": "meta.msds_no: L1"
+  },
+  {
+   "msds_index": 0,
+   "section": 1,
+   "kind": "bad_line",
+   "detail": "meta.doc_code: L1"
+  },
+  {
+   "msds_index": 0,
+   "section": 1,
+   "kind": "bad_line",
+   "detail": "meta.revision_no: L1"
+  },
+  {
+   "msds_index": 0,
+   "section": 1,
+   "kind": "bad_line",
+   "detail": "meta.revision_label: L1"
+  },
+  {
+   "msds_index": 0,
+   "section": 1,
+   "kind": "bad_line",
+   "detail": "meta.header_product_name: L1"
+  },
+  {
+   "msds_index": 0,
+   "section": 1,
+   "kind": "bad_line",
+   "detail": "meta.source_note: L1"
+  },
+  {
+   "msds_index": 0,
+   "section": 1,
+   "kind": "bad_line",
+   "detail": "meta.first_issue_date: L1"
+  },
+  {
+   "msds_index": 0,
+   "section": 1,
+   "kind": "bad_line",
+   "detail": "meta.last_revision_date: L1"
+  },
+  {
+   "msds_index": 0,
+   "section": 1,
+   "kind": "bad_line",
+   "detail": "product.name: L2"
+  },
+  {
+   "msds_index": 0,
+   "section": 1,
+   "kind": "bad_line",
+   "detail": "product.code: L2"
+  },
+  {
+   "msds_index": 0,
+   "section": 1,
+   "kind": "bad_line",
+   "detail": "product.synonyms: L2"
+  },
+  {
+   "msds_index": 0,
+   "section": 1,
+   "kind": "bad_line",
+   "detail": "product.uses: L4"
+  },
+  {
+   "msds_index": 0,
+   "section": 1,
+   "kind": "bad_line",
+   "detail": "product.restrictions: L8"
+  },
+  {
+   "msds_index": 0,
+   "section": 1,
+   "kind": "bad_line",
+   "detail": "product.use_category_code: L2"
+  },
+  {
+   "msds_index": 0,
+   "section": 1,
+   "kind": "bad_line",
+   "detail": "companies[0]: L10"
+  },
+  {
+   "msds_index": 0,
+   "section": 1,
+   "kind": "bad_line",
+   "detail": "companies[0].contacts[0]: L12"
+  },
+  {
+   "msds_index": 0,
+   "section": 8,
+   "kind": "unlinked_component",
+   "detail": "exposure_limits[0]: 질소 / None"
+  },
+  {
+   "msds_index": 0,
+   "section": 8,
+   "kind": "unlinked_component",
+   "detail": "exposure_limits[1]: 질소 / None"
+  },
+  {
+   "msds_index": 0,
+   "section": 8,
+   "kind": "unlinked_component",
+   "detail": "exposure_limits[2]: 질소 / None"
+  },
+  {
+   "msds_index": 0,
+   "section": 12,
+   "kind": "extras_in_narrative",
+   "detail": "9행"
+  },
+  {
+   "msds_index": 0,
+   "section": 14,
+   "kind": "extras_in_narrative",
+   "detail": "2행"
+  },
+  {
+   "msds_index": 0,
+   "section": 15,
+   "kind": "extras_in_narrative",
+   "detail": "6행"
+  }
+ ],
+ "warnings": [
+  "항목 분할 파일 없음: 임시 분할 (찾은 항 16/16, MSDS 1건)"
+ ],
+ "sections_method": "provisional",
+ "pictogram_check": [
+  {
+   "msds_index": 0,
+   "model": [
+    "GHS04"
+   ],
+   "inferred": [],
+   "missing": [],
+   "extra": [
+    "GHS04"
+   ],
+   "ok": false,
+   "unmapped_h": []
+  }
+ ],
+ "needs_review": [
+  {
+   "msds_index": 0,
+   "section": 1
+  },
+  {
+   "msds_index": 0,
+   "section": 2
+  },
+  {
+   "msds_index": 0,
+   "section": 8
+  },
+  {
+   "msds_index": 0,
+   "section": 9
+  },
+  {
+   "msds_index": 0,
+   "section": 12
+  },
+  {
+   "msds_index": 0,
+   "section": 14
+  },
+  {
+   "msds_index": 0,
+   "section": 15
+  }
+ ]
+}

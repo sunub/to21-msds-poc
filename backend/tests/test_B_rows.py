@@ -632,15 +632,42 @@ def test_parse_rows_align_no_blank_to_remove_is_error():
     assert parsed["cmr"] == [] and len(errors) == 1 and errors[0].endswith(": 열 9개, 기대 8개")
 
 
-def test_parse_rows_align_choice_between_values_is_error():
+def test_parse_rows_align_choice_between_values_prefers_blank_side():
     """값 두 칸 사이의 빈 칸(class)을 빠뜨린 행: 빈 칸 줄 옆에 끼우면 해당없음이 class로,
-    값 사이에 끼우면 status(선택지)로 간다. class의 값 없음 글자는 status로 옮기므로(ADR-029) 두 해석이
-    선택지 열을 똑같이 채우고, 열 배치가 달라 모호하다고 보고 버린다."""
+    값 사이에 끼우면 status(선택지)로 간다. 두 해석이 선택지 열을 똑같이 채우면 빈 칸 옆 해석을 쓴다.
+    class의 값 없음 글자는 status로 옮기므로(ADR-029) 결과는 원래 행과 같다."""
     full = cells(11, "cmr", **COMP, hazard="발암성", agency="KR_OSH", status="해당없음", line="p5:L10")
     short = full[:4] + full[5:]
     parsed, errors = rw.parse_rows(table(11, "cmr", " | ".join(short)), 11)
-    assert parsed["cmr"] == []
-    assert len(errors) == 1 and errors[0].endswith(": 열 7개, 기대 8개")
+    assert errors == []
+    assert parsed["cmr"] == rw.parse_rows(table(11, "cmr", " | ".join(full)), 11)[0]["cmr"]
+
+
+@pytest.mark.parametrize("short, expected", [
+    # 11/01 실행에서 버려진 모양: 앞 빈 칸 줄에서 하나가 빠지고 분류·설명·상태·줄은 끝에 붙어 있다
+    (["가상물질 갑", "1234-56-6", "TX_STOT_SE", "결과기술"] + [""] * 11 + ["가상 설명", "값있음", "p4:L23"],
+     {"statements": [{"value": "가상 설명", "line": "p4:L23"}], "status": "값있음", "classification": None}),
+    (["가상물질 갑", "1234-56-6", "TX_STOT_SE"] + [""] * 11 + ["구분 3", "가상 설명", "값있음", "p11:L8"],
+     {"classification": "구분 3", "status": "값있음"}),
+])
+def test_parse_rows_align_blank_side_beats_between_values_tie(short, expected):
+    """빈 칸 줄 옆에 끼운 해석과 값 사이에 끼운 해석이 선택지 열을 똑같이 채우면 빈 칸 옆 해석을 쓴다.
+    모델은 긴 빈 칸 줄에서 빈 칸 하나를 빠뜨린다 (11/01 v17 실행 8개에서 독성 426행·규제 167행이 이 모양으로 버려졌다)."""
+    assert len(short) == len(rw.row_tables(11)["toxicity"]) - 1
+    parsed, errors = rw.parse_rows(table(11, "toxicity", " | ".join(short)), 11)
+    assert errors == []
+    [r] = parsed["toxicity"]
+    assert {k: r[k] for k in expected} == expected
+
+
+def test_parse_rows_align_two_blank_runs_longest_wins():
+    """빈 칸 줄이 값 양쪽에 있어 GLP가 guideline인지 data_source인지 모르는 행: 긴 빈 칸 줄(7칸)에 끼워 data_source로 살린다.
+    알려진 한계: 골드 M002는 이 모양의 GLP를 guideline에 둔다. 두 열 모두 채점 열이 아니고, 행을 살리는 쪽을 택했다."""
+    short = ["가상물질 갑", "", "TX_ORAL", "LD50", "1,750 mg/kg", "랫드"] + [""] * 7 + ["GLP", "", "", "값있음", "p7:L15"]
+    parsed, errors = rw.parse_rows(table(11, "toxicity", " | ".join(short)), 11)
+    assert errors == []
+    [r] = parsed["toxicity"]
+    assert (r["data_source"], r["guideline"], r["status"], r["q"]["value"]) == ("GLP", None, "값있음", 1750)
 
 
 def test_parse_rows_align_object_table():
@@ -720,15 +747,18 @@ def test_score_fix_realign_extra_blank_keeps_reading_with_more_choices():
     assert errors == [] and parsed["regulations"][0]["applicable"] == "비해당"
 
 
-def test_score_fix_realign_tie_still_dropped():
-    """값이 자유 글 열 두 곳(country·value_raw) 중 어디인지 모르는 행: 두 해석이 선택지 열을 똑같이 채워 버린다."""
+def test_score_fix_realign_tie_goes_to_longest_blank_run():
+    """값이 자유 글 열 두 곳(country·value_raw) 중 어디인지 모르는 행: 두 해석이 선택지 열을 똑같이 채우면
+    가장 긴 빈 칸 줄에 빈 칸을 끼운다. 모델은 긴 빈 칸 줄에서 개수를 놓친다
+    (개발 골드 10건과 같은 줄을 맞춰 보면 규제 46/46, 독성 37/41이 이 해석과 가장 잘 맞는다)."""
     full = cells(15, "regulations", law="OSH", item_code="OSH_PROHIBIT", applicable="해당", value_raw="가상 값",
                  line="p10:L24")
     short = full[:8] + full[9:]                       # qty_alt의 빈 칸 하나를 뺀다
     assert short[11] == "가상 값" and not any(short[6:11]) and not short[12]
     parsed, errors = rw.parse_rows(table(15, "regulations", " | ".join(short)), 15)
-    assert parsed["regulations"] == []
-    assert len(errors) == 1 and errors[0].endswith(": 열 14개, 기대 15개")
+    assert errors == []
+    [r] = parsed["regulations"]
+    assert r["value_raw"] == "가상 값" and r["country"] is None
 
 
 def test_score_fix_realign_unique_reading_unchanged():
@@ -870,3 +900,12 @@ def test_score_fix_unit_pressure_case(text, unit):
                                         ("50 mg/kg", "mg/kg"), ("101.3 kPa", "kPa")])
 def test_score_fix_unit_other_units_unchanged(text, unit):
     assert rw.parse_qm(text)["unit"] == unit
+
+
+def test_physchem_combined_flammability_code_is_kept_as_uel():
+    """모델이 9항 코드 칸에 사전의 묶음 표기 'UEL+LEL'을 쓰면 행을 버리지 않고 UEL로 읽는다.
+    펼치기가 근거 줄·값으로 UEL·LEL 두 행을 만든다 (11/01 실행에서 이 행이 검증 오류로 버려졌다)."""
+    cols = " | ".join(rw.row_tables(9)["physchem"])
+    text = f"### physchem\n{cols}\nUEL+LEL |  |  | 75 / 4 % |  |  |  | p4:L13\n"
+    parsed, errors = rw.parse_rows(text, 9)
+    assert errors == [] and parsed["physchem"][0]["prop_code"] == "UEL"

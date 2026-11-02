@@ -24,6 +24,7 @@ from msds.evaluate.score import WEIGHTS, score_set
 from msds.extract.expand import to_to21
 from msds.extract.inputs import load_document
 from msds.extract.rows import parse_rows
+from msds.extract.section_runner import SKIPPED_SECTIONS
 
 
 def _read_json(path: Path):
@@ -40,12 +41,14 @@ def _section_value(rec: dict) -> dict | None:
 
 def replay_document(run_dir: Path, doc_id: str, pages_dir: Path, doc_meta: dict, engine: str) -> dict:
     """run_dir/raw/의 <doc_id>_m<i>_s<NN>.json을 지금 코드로 다시 읽어 TO21 문서 dict를 돌려준다.
-    raw 파일이 없는 항은 넘기지 않아 펼치기가 missing_section으로 남긴다."""
+    raw 파일이 없는 항은 넘기지 않아 펼치기가 missing_section으로 남긴다. 추출 목표 밖의 항(SKIPPED_SECTIONS)은
+    옛 실행에 응답이 있어도 읽지 않고 빈 응답으로 넘긴다. 지금 실행과 같은 조건으로 비교하려고다."""
     doc = load_document(doc_id, Path(pages_dir), paths.DATA / "sections", paths.DATA / "codes")
-    parts: list[dict[int, dict | None]] = [{} for _ in doc.msds]
+    parts: list[dict[int, dict | None]] = [{no: {} for no in SKIPPED_SECTIONS} for _ in doc.msds]
     for f in sorted((Path(run_dir) / "raw").glob(f"{doc_id}_m*_s*.json")):
         rec = _read_json(f)
-        parts[rec["msds_index"]][rec["section"]] = _section_value(rec)
+        if rec["section"] not in SKIPPED_SECTIONS:
+            parts[rec["msds_index"]][rec["section"]] = _section_value(rec)
     out, _ = to_to21(doc_meta, parts, doc.lines, engine)
     return out
 

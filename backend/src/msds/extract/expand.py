@@ -26,7 +26,7 @@ from msds.common.paths import to21_file
 from msds.common.schema import load_schema, msds_item_schema
 from msds.extract.inputs import EXTRACT_SECTIONS, SECTION_NOS, Line, line_index, line_parents
 from msds.extract.section_specs import META_REVISION_FIELDS
-from msds.extract.source_rules import apply_source_rules, fill_no_value, fill_thresholds
+from msds.extract.source_rules import apply_source_rules, clear_numberless_thresholds, fill_no_value, fill_thresholds
 
 _NO_VALUE = {"자료없음", "해당없음", "미기재"}
 _NOTE = re.compile(r"^(?P<base>[^()（）]+?)\s*[(（](?P<note>[^()（）]+)[)）]$")   # 상태어(괄호 설명), Q.note
@@ -137,6 +137,54 @@ def physchem_code(text: str | None, exact: bool = False) -> str | None:
     return next((c for n, c in _physchem_names() if n and (key == n if exact else key.startswith(n))), None)
 
 
+@functools.cache
+def _flammability_names() -> tuple[str, ...]:
+    """폭발 범위 상한/하한을 한 줄에 적은 이름(동의어 사전 physchem의 UEL+LEL 묶음 표기)."""
+    return tuple(sorted((_word_key(n) for n in _dictionary()["physchem"].get("UEL+LEL", [])), key=len, reverse=True))
+
+
+_NUMBER = re.compile(r"-?\d+(?:\.\d+)?")
+
+
+def _flammability_pair(raw: str) -> tuple[dict, dict] | None:
+    """원문 표기 하나 → (UEL QM, LEL QM). 숫자가 둘 이상이면 큰 수가 UEL, 작은 수가 LEL인 단일값이고, 단위는 마지막 숫자
+    뒤의 표기다('4.0~76%' → 76 %, 4 %). 숫자 없이 상태어만 있으면 두 행 모두 그 원문이다. 그 밖에는 None."""
+    nums = [float(x) for x in _NUMBER.findall(raw or "")]
+    if len(nums) >= 2:
+        tail = re.split(r"\d", raw)[-1]
+        unit = re.sub(r"\s+\(.*$", "", tail).strip(" ~/,") or None     # 공백 뒤 괄호 설명은 떼고 붙은 괄호(%(V))는 둔다
+        num = lambda v: int(v) if v.is_integer() else v
+        return ({"raw": raw, "value": num(max(nums)), "unit": unit}, {"raw": raw, "value": num(min(nums)), "unit": unit})
+    if not nums and status_word(raw)[0]:
+        return {"raw": raw}, {"raw": raw}
+    return None
+
+
+def split_flammability(phys: list[tuple[int, dict]], lines_by_id: dict[str, Line]) -> list[tuple[int, dict]]:
+    """폭발 범위 상한/하한을 한 줄에 적은 행을 UEL·LEL 두 행으로 나눈다 (골드·실버 6건과 같은 꼴).
+    대상: 근거 줄이 묶음 이름(UEL+LEL)으로 시작하는 행, 숫자가 둘인 UEL·LEL 행, 짝 없이 상태어만 적힌 UEL·LEL 행.
+    같은 줄의 UEL·LEL 행은 두 행으로 바꾼다. UEL·LEL이 줄마다 따로 적혀 있으면 그대로 둔다."""
+    codes = {r.get("prop_code") for _, r in phys}
+    out, done = [], set()
+    for no, r in phys:
+        line = r.get("line")
+        text = _word_key(_strip_bullet(getattr(lines_by_id.get(line), "text", "") or ""))
+        raw = (r.get("q") or {}).get("raw") or r.get("text_value") or ""
+        code = r.get("prop_code")
+        lone = code in ("UEL", "LEL") and ({"UEL", "LEL"} - {code}) - codes and not _NUMBER.search(raw)
+        combined = any(text.startswith(n) for n in _flammability_names()) or lone
+        pair = _flammability_pair(raw) if combined or (code in ("UEL", "LEL")
+                                                       and len(_NUMBER.findall(raw)) >= 2) else None
+        if pair is None or r.get("prop_code") not in (None, "UEL", "LEL"):
+            out.append((no, r))
+        elif line not in done:
+            done.add(line)
+            base = {k: v for k, v in r.items() if k not in ("prop_code", "q", "text_value")}
+            out += [(no, {**base, "prop_code": "UEL", "q": pair[0], "text_value": None}),
+                    (no, {**base, "prop_code": "LEL", "q": pair[1], "text_value": None})]
+    return out
+
+
 def _extra_to_physchem(row: dict, code: str) -> dict:
     values = [s["value"] for s in row.get("statements") or [] if s.get("value")]
     return {"prop_code": code, "comp_name": row.get("comp_name"), "comp_cas": row.get("comp_cas"), "q": row.get("q"),
@@ -195,6 +243,8 @@ def _any_component(text: str | None, by_key: dict[str, dict]) -> bool:
 
 def link_components(rows: list[dict], components: list[dict], lines_by_id: dict[str, Line] | None = None) -> list[dict]:
     """comp_name·comp_cas를 3항 성분의 seq(글자)인 comp_ref로 바꾼 새 행 목록. CAS 먼저, 다음 이름.
+    이름과 CAS가 서로 다른 성분을 가리키면 근거 줄·부모 줄에 적힌 쪽을, 둘 다 안 적혔으면 이름을 따른다
+    (모델이 '1,3 부타디엔 | 106-97-8'처럼 맞는 이름에 다른 성분의 CAS를 붙였다. M004).
     둘 다 비었으면 근거 줄(lines_by_id)에 성분 이름·CAS가 하나만 보일 때 그 성분이다 ('- 이소부텐 : 자료없음' 목록).
     근거 줄에 성분이 없으면 부모 줄을 가까운 것부터 보고, 성분이 보이는 첫 부모에서 하나면 그 성분이다
     ('- 1,3 부타디엔 : 구분 1A' 아래 '· IARC : 2A'). 그래도 모르거나 어느 성분에도 안 맞으면 "MIX"."""
@@ -208,8 +258,13 @@ def link_components(rows: list[dict], components: list[dict], lines_by_id: dict[
     out = []
     for r in rows:
         name = r.get("comp_name") or ""
-        c = (by_cas.get(_norm(r.get("comp_cas"))) or by_name.get(_norm(name))
-             or by_name.get(_norm(re.split(r"[,(（]", name)[0])))    # 'NATURAL GAS, LIQUIFIED'의 수식어를 뗀 이름
+        by_n = by_name.get(_norm(name)) or by_name.get(_norm(re.split(r"[,(（]", name)[0]))   # 'NATURAL GAS, LIQUIFIED'의 수식어를 뗀 이름
+        c = by_cas.get(_norm(r.get("comp_cas"))) or by_n
+        if by_n is not None and c is not by_n:
+            line = (lines_by_id or {}).get(r.get("line"))
+            text = _norm(" ".join(x.text for x in ([line, *parents.get(line.id, [])] if line else [])))
+            if not (_norm(c.get("cas_no")) in text and _norm(name) not in text):
+                c = by_n
         if c is None and lines_by_id and not _norm(name) and not _norm(r.get("comp_cas")):
             line = lines_by_id.get(r.get("line"))
             for up in ([line, *parents.get(line.id, [])] if line else []):
@@ -242,13 +297,380 @@ def fix_cmr_class(rows: list[dict]) -> None:
 
 
 def clear_descriptor_without_value(rows: list[dict]) -> None:
-    """값(숫자)이 없는 독성 행의 지표를 정한다. 상태가 값 없음(자료없음 등)이면 비워 A의 규칙이 '결과기술'(혼합물 급성은
-    'ATE')로 채우게 하고, 설명만 있는 행(값있음)은 '결과기술'로 둔다. 골드·실버의 숫자 없는 독성 행은 모두 그렇게 적혀
-    있다. 모델이 '- 이소부텐 : 자료없음'에 LD50을 적은 일이 있었다(11/01 실행)."""
+    """값(숫자)이 없는 독성 행의 지표는 상태와 관계없이 '결과기술'이다. 혼합물 급성의 값 없는 행도 같다
+    (개발 골드 10건의 숫자 없는 독성 261행 모두. A 규칙이 채우는 'ATE'는 예제 1건에서 온 기본값이라 먼저 채운다).
+    모델이 '- 이소부텐 : 자료없음'에 LD50을 적은 일이 있었다(11/01 실행).
+    설명만 있는 행(값있음)의 q는 비운다 (골드 135행 모두). q에만 글이 있으면 statements로 옮겨 잃지 않는다."""
     for r in rows:
         q = r.get("q") or {}
         if all(q.get(k) is None for k in ("value", "lower", "upper")):
-            r["descriptor"] = None if r.get("status") in _NO_VALUE else "결과기술"
+            r["descriptor"] = "결과기술"
+            if r.get("status") not in _NO_VALUE and r.get("q") is not None and not q.get("status"):
+                raw = (q.get("raw") or "").strip()
+                if raw and not r.get("statements"):
+                    r["statements"] = [{"seq": 1, "key": None, "value": raw, "refs": None, "cond": None, "std_code": None,
+                                        "match_score": None, "text": raw}]
+                r["q"] = None
+
+
+_GROUP = re.compile(r"^\s*group\s*", re.IGNORECASE)
+_SECOND_UNIT = re.compile(r"^\s*(?P<a>-?\d[\d.,]*\s*[^\s\d()（）][^()（）]*?)\s*[(（]\s*"
+                          r"(?P<b>-?\d[\d.,]*\s*[^\s\d()（）][^()（）]*?)\s*[)）]?\s*$")
+_TOTAL = re.compile(r"^\s*(?:total|합\s*계|계|sum)\s*$", re.IGNORECASE)
+
+
+def split_second_unit(row: dict) -> list[dict]:
+    """노출기준 값이 '0.5 ppm (1.6 mg/m3)'처럼 단위 둘로 적혔으면 단위마다 한 행 (골드 S016, 실버 M002).
+    닫는 괄호가 빠져도 같다. 두 쪽 모두 숫자와 단위가 있을 때만 나눈다."""
+    m = _SECOND_UNIT.match((row.get("q") or {}).get("raw") or "")
+    if not m:
+        return [row]
+    from msds.extract.rows import parse_qm      # rows가 펼치기 결과 형식을 쓰므로 여기서 부른다
+    parts = [parse_qm(m[k].strip()) for k in ("a", "b")]
+    if not all(p.get("value") is not None and p.get("unit") for p in parts) or parts[0]["unit"] == parts[1]["unit"]:
+        return [row]
+    return [{**row, "q": p} for p in parts]
+
+
+_LAW_HEAD = re.compile(r"법(?:률)?\s*(?:\([^)]*\)\s*)?에\s*(?:의한|따른|관한)\s*규제|등에\s*관한\s*법률\s*$")
+_REG_STATUS = re.compile(r"^(?:규제되지않음|해당없음|해당사항없음|비해당|해당|해당됨|자료없음|등재되지않음)$")
+_DOMESTIC = ("OSH", "CCA", "KREACH")
+
+
+@functools.cache
+def _reg_names() -> list[tuple[str, str]]:
+    names = [(_word_key(n), c) for c, ns in _dictionary()["regulations"].items() for n in ns]
+    return sorted((x for x in names if x[0]), key=lambda x: -len(x[0]))
+
+
+def regulation_code(text: str | None) -> str | None:
+    """규제 항목 이름을 동의어 사전(R25)에서 찾아 코드로. 이름 뒤에 값·괄호가 이어질 수 있어 앞머리로 비교한다."""
+    key = _word_key(_strip_bullet(text or ""))
+    return next((c for n, c in _reg_names() if key.startswith(n)), None)
+
+
+def _reg_codes_in(text: str | None) -> set[str]:
+    """글 안에 적힌 규제 항목 이름의 코드 전부 ('관리대상유해물질, 노출기준설정물질' → 두 코드).
+    긴 이름부터 찾고 찾은 자리는 지워, 긴 이름 안의 짧은 이름(등록대상기존화학물질 ⊃ 기존화학물질)은 세지 않는다."""
+    key, codes = _word_key(text or ""), set()
+    for n, c in _reg_names():           # 긴 이름부터
+        if n in key:
+            codes.add(c)
+            key = key.replace(n, "\0")
+    return codes
+
+
+def recode_regulations(rows: list[dict], lines_by_id: dict[str, Line], components: list[dict]) -> None:
+    """국내 법령(산안법·화관법·화평법) 행의 항목 코드를 원문의 항목 이름으로 바로잡는다 (동의어 사전 R25).
+    - 근거 줄(성분 줄이면 값 부분)에 적힌 항목이 하나면 그 코드 ('등록대상 기존 화학물질 (PEC)' → KREACH_REG.
+      모델은 KREACH_EXIST). 여럿이면 모델 코드가 그중 하나일 때 그대로, 아니면 모호해 그대로 둔다 (M004 한 줄 여러 항목)
+    - 성분 줄·상태 줄의 값이 비었거나 상태어면 제목 줄로 정한다. 글머리·들여쓰기 부모를, 없으면 위로 같은 목록의
+      성분·상태 줄을 건너뛴 첫 줄을 본다. 법령 제목이면 코드 없음 (골드 M004 '가. 산업안전보건법에 의한 규제' 아래
+      '- 부텐 1 : 해당없음'), 항목 이름 하나면 그 코드 (M013 '노출기준설정물질' 아래 성분 줄에 모델이 앞 제목의
+      OSH_MEASURE를 붙였다), 그 밖에는 그대로 둔다. 값이 사전에 없는 글이면('노출기준설정대상물질') 그대로 둔다."""
+    keys = {_norm(x): c for c in components for x in (c.get("name"), c.get("name_en"), c.get("cas_no"), *(c.get("synonyms") or []))
+            if _norm(x)}
+    ids = list(lines_by_id)
+    at = {lid: i for i, lid in enumerate(ids)}
+    parents = line_parents(list(lines_by_id.values()))
+
+    def is_status(text: str) -> bool:
+        return bool(_REG_STATUS.match(_word_key(text)))
+
+    def listed(text: str) -> bool:          # 같은 목록의 성분 줄·상태 줄
+        return _any_component(text, keys) or is_status(text)
+
+    def heading(lid: str) -> str | None:
+        ups = [x for x in parents.get(lid, []) if not listed(x.text)][:1]
+        if not ups:
+            for j in range(at[lid] - 1, max(at[lid] - 12, -1), -1):
+                if not listed(lines_by_id[ids[j]].text):
+                    ups = [lines_by_id[ids[j]]]
+                    break
+        if not ups:
+            return None
+        if _LAW_HEAD.search(ups[0].text):
+            return "법령"
+        codes = _reg_codes_in(ups[0].text)
+        return next(iter(codes)) if len(codes) == 1 else None
+
+    for r in rows:
+        if _law_of(r) not in _DOMESTIC or r.get("line") not in at:
+            continue
+        text = lines_by_id[r["line"]].text
+        thr = r.get("threshold") or {}
+        num = next((thr[k] for k in ("value", "lower", "upper") if thr.get(k) is not None), None)
+        if num is not None and f"{num:g}" not in text.replace(",", ""):
+            continue                         # 기준농도가 근거 줄에 없다: 줄 번호가 틀린 행 (S016)
+        if listed(text):
+            value = re.split(r"[:：|]", text, maxsplit=1)[1] if re.search(r"[:：|]", text) else ""
+            if _any_component(text, keys) and value.strip() and not is_status(value):
+                codes = _reg_codes_in(value)
+                code = next(iter(codes)) if len(codes) == 1 else None
+            else:
+                code = heading(r["line"])
+        else:
+            codes = _reg_codes_in(text) if regulation_code(text) else set()
+            code = next(iter(codes)) if len(codes) == 1 else None
+        if r.get("item_code") is not None and code not in ("법령", None) and r["item_code"] in _reg_codes_in(text):
+            continue                         # 모델 코드가 줄에 적힌 항목 중 하나
+        if code == "법령":
+            r["item_code"] = None
+        elif code and code.split("_")[0] in _DOMESTIC and code != r.get("item_code"):
+            r["item_code"], r["law"] = code, code.split("_")[0]
+
+
+_REG_APPLICABLE = {"규제되지않음": "비해당", "해당없음": "비해당", "해당사항없음": "비해당", "비해당": "비해당",
+                   "등재되지않음": "비해당", "해당": "해당", "해당됨": "해당", "자료없음": "자료없음"}
+
+
+def add_missing_items(rows: list[dict], lines_by_id: dict[str, Line]) -> list[dict]:
+    """15항 원문에 항목 이름만 적힌 제목 줄과 그 상태(같은 줄 ':' 뒤, 또는 바로 다음 상태 줄)가 있는데 그 코드의 행이
+    하나도 없으면 더할 MIX 행들 (국내 법령만). 모델이 M013 '작업환경 측정대상물질' / '규제되지 않음.'을 뺐다.
+    개발 골드는 15항에 적힌 국내 항목 이름 66개 모두 그 코드의 행이 있다. 범위는 규제 행 근거 줄의 처음~끝이다."""
+    ids = list(lines_by_id)
+    at = sorted(ids.index(r["line"]) for r in rows if r.get("line") in lines_by_id)
+    if not at:
+        return []
+    have = {r.get("item_code") for r in rows}
+    new = []
+    for i in range(at[0], at[-1] + 1):
+        text = _strip_bullet(lines_by_id[ids[i]].text)
+        code = regulation_code(text)
+        if not code or code.split("_")[0] not in _DOMESTIC or code in have or len(_reg_codes_in(text)) != 1:
+            continue
+        name = next(n for n, c in _reg_names() if c == code and _word_key(text).startswith(n))
+        rest = _word_key(text)[len(name):]
+        if not rest and i + 1 < len(ids):
+            rest = _word_key(lines_by_id[ids[i + 1]].text)
+        if rest in _REG_APPLICABLE:
+            have.add(code)
+            new.append({"law": code.split("_")[0], "item_code": code, "applicable": _REG_APPLICABLE[rest],
+                        "comp_ref": "MIX", "line": ids[i]})
+    return new
+
+
+def dg_row_from_table(rows: list[dict], dangerous_goods: list[dict]) -> list[dict]:
+    """규제 행이 있는데 위험물(DG) 행이 없고 위험물 표가 있으면 더할 DG_HAZMAT 행. 류(제N류)가 있으면 해당,
+    상태어(해당없음·자료없음)면 그 상태로 정한다. 개발 골드는 15항이 있는 문서마다 DG_HAZMAT 행이 하나다
+    (모델은 M013 '제4류 인화성액체 제2석유류'를 위험물 표에만 넣었다)."""
+    if not rows or any(_law_of(r) == "DG" for r in rows):
+        return []
+    for d in dangerous_goods:
+        cls = (d.get("class") or "").strip()
+        applicable = "해당" if re.match(r"제\s*\d+\s*류", cls) else _REG_APPLICABLE.get(_word_key(cls))
+        if applicable:
+            return [{"law": "DG", "item_code": "DG_HAZMAT", "applicable": applicable, "comp_ref": "MIX", "line": d.get("line")}]
+    return []
+
+
+_LAW_LEVEL = re.compile(r"법(?:률)?\s*에\s*(?:의한|따른)\s*규제\s*[:：]?\s*(?P<v>.*)$")
+
+
+def _law_level_item(row: dict, lines_by_id: dict[str, Line]) -> dict:
+    """근거 줄이 '○○법에 의한 규제 : 해당 없음'처럼 법령 단위 줄이면 산안법·화관법·화평법 행의 항목 코드를 비운다.
+    법령 하나에 대한 문장이라 특정 항목이 아니다 (골드 S001·S003). 위험물·폐기물은 골드도 코드를 둔다."""
+    law = _law_of(row)
+    m = _LAW_LEVEL.search(getattr(lines_by_id.get(row.get("line")), "text", "") or "")
+    v = (m["v"] if m else "").strip()
+    if law in ("OSH", "CCA", "KREACH") and m and (not v or status_word(v)[0] or _word_key(v) in ("해당", "비해당", "해당됨")):
+        return {**row, "law": law, "item_code": None}
+    return row
+
+
+def _section_names_component(rows: list[dict], component: dict, lines_by_id: dict[str, Line]) -> bool:
+    """행들의 근거 줄이 걸친 범위(처음~끝 줄)에 성분 이름·영문명·CAS·이명이 한 번이라도 나오는가.
+    15항이 법령 단위로만 적혀 성분이 나오지 않으면 그 값은 제품 전체 값이다 (R10, 골드 S001·S003 MIX / S014·S016 성분)."""
+    ids = list(lines_by_id)
+    at = sorted({ids.index(r["line"]) for r in rows if r.get("line") in lines_by_id})
+    if not at:
+        return True
+    text = _norm(" ".join(lines_by_id[i].text for i in ids[at[0]:at[-1] + 1]))
+    names = [component.get("name"), component.get("name_en"), component.get("cas_no"), *(component.get("synonyms") or [])]
+    return any(_norm(n) and _norm(n) in text for n in names)
+
+
+_HEAD = r"^\s*(?:[○●ο◦•·\-*o]\s*|\d+\s*[.)]\s*|[가-하]\s*[.)]\s*)?\s*"
+_HEADS = {
+    "toxicity": [("TX_SKIN_SENS", r"피부\s*과민"), ("TX_RESP_SENS", r"호흡기\s*과민"), ("TX_SKIN", r"피부\s*(?:부식|자극)"),
+                 ("TX_EYE", r"(?:심한\s*)?눈\s*(?:손상|자극)"), ("TX_CARC", r"발암"), ("TX_MUTA", r"생식\s*세포|변이원"),
+                 ("TX_REPRO", r"생식\s*독성"), ("TX_STOT_SE", r"(?:특정\s*)?표적\s*장기.{0,12}?(?:1\s*회|단회)"),
+                 ("TX_STOT_RE", r"(?:특정\s*)?표적\s*장기.{0,12}?반복"), ("TX_ASP", r"흡인"),
+                 ("TX_ORAL", r"경구"), ("TX_DERMAL", r"경피"), ("TX_INHAL", r"흡입")],
+    "ecotox": [("ECO_FISH", r"어류"), ("ECO_CRUST", r"갑각류|물벼룩"), ("ECO_ALGAE", r"조류"), ("ECO_PERSIST", r"잔류성|(?<!생)분해성"),
+               ("ECO_BIOACC", r"생물\s*농축|농축성"), ("ECO_SOIL", r"토양\s*이동"), ("ECO_OZONE", r"오존"),
+               ("ECO_OTHER", r"기타\s*유해\s*영향")]}
+_HEAD_TABLE = {11: "toxicity", 12: "ecotox"}
+_CMR_ENDPOINT = {"발암성": "TX_CARC", "생식세포변이원성": "TX_MUTA", "생식독성": "TX_REPRO"}
+_HEAD_TAIL = re.compile(r"^[^\s:：|]*(?:\s*(?:독성|물질|또는\s*\S*\s*자극성|\([^)]*\)|노출\)|정보))*\s*[:：|]?\s*")
+
+
+def _heading(table: str, text: str) -> tuple[str, str] | None:
+    """원문 줄이 독성·생태 항목명으로 시작하면 (항목 코드, 이름 뒤 값 글자). '생분해성'은 농축성 아래라 보지 않는다."""
+    for code, pat in _HEADS[table]:
+        if m := re.match(_HEAD + f"(?:{pat})", text or ""):
+            if code == "ECO_PERSIST" and re.match(_HEAD + r"생분해", text):
+                return None
+            rest = text[m.end():]
+            return code, rest[_HEAD_TAIL.match(rest).end():].strip(" -|:：")
+    return None
+
+
+def extras_to_rows(extras: list[tuple[int, dict]], lines_by_id: dict[str, Line]
+                   ) -> tuple[dict[str, list[tuple[int, dict]]], list[tuple[int, dict]]]:
+    """11·12항 extras 가운데 원문 줄이 독성·생태 항목명으로 시작하고 값이 있는 것을 그 표의 서술 행으로 옮긴다.
+    모델이 'o 피부 과민성 알레르기성 …' 같은 서술 행을 extras로 보냈다 (개발 골드 10건 기준 실행마다 독성 8.4·생태 9.5행).
+    제목이 성분인 extras('- 이소부텐 : 자료없음')는 부모 줄의 항목명을 쓴다. 값이 상태어 하나면 그 상태(지표는 비워 둔다),
+    아니면 값있음·결과기술·q 없음(골드 서술 행 표기). 숫자가 든 값은 지표를 정할 수 없어 옮기지 않는다.
+    생태는 상태어 값만 옮긴다. '나. 잔류성 및 분해성'처럼 여러 낱말 제목의 뒷말을 값으로 읽어 틀린 행이 더 많았다
+    (실행 8개 재채점: 상태어 아닌 값까지 옮기면 맞는 행 3.8 대 틀린 행 20.4/회)."""
+    parents = line_parents(list(lines_by_id.values()))
+    moved: dict[str, list[tuple[int, dict]]] = {"toxicity": [], "ecotox": []}
+    left = []
+    for no, r in extras:
+        table, line = _HEAD_TABLE.get(no), lines_by_id.get(r.get("line"))
+        got = _heading(table, line.text) if table and line else None
+        stmts = " ".join(s.get("value") or "" for s in r.get("statements") or []).strip()
+        if table and line and got is None and (r.get("comp_name") or r.get("comp_cas")):
+            up = next((h for h in (_heading(table, x.text) for x in parents.get(line.id, [])) if h), None)
+            after = line.text.split(":", 1)[1] if ":" in line.text else ""
+            got = (up[0], after.strip()) if up else None
+        value = (got[1] if got else "") or stmts
+        if not got or not value or re.search(r"\d", value):
+            left.append((no, r))
+            continue
+        status = status_word(value)[0]
+        if table == "ecotox" and not status:
+            left.append((no, r))
+            continue
+        row = {"comp_name": r.get("comp_name"), "comp_cas": r.get("comp_cas"), "endpoint": got[0], "line": line.id}
+        if status:
+            row.update(descriptor=None, q={"raw": value}, status=status, statements=[])
+        else:
+            row.update(descriptor="결과기술", q=None, status="값있음", statements=[{"value": value, "line": line.id}])
+        moved[table].append((no, row))
+    return moved, left
+
+
+_STANDARD_LINE = re.compile(r"^(?P<s>국내|ACGIH|생물학적|OSHA|NIOSH|EU)\s*(?:규정|노출\s*기준)?\s*[:：|]?\s*(?P<v>.+)$")
+
+
+def standard_status_rows(rows: list[dict], span: list[str], lines_by_id: dict[str, Line]) -> list[dict]:
+    """8항 범위(span 줄들의 처음~끝)의 '기준 이름 : 상태어' 줄을 가리키는 노출기준 행이 없으면 더할 MIX 행들.
+    종류는 TWA, 생물학적은 BEI (골드 값 없는 노출기준 40행 모두). 모델은 M002 'ο 국내규정 : 자료없음' 등 6줄을
+    extras 한 덩어리로 묶었다."""
+    ids = list(lines_by_id)
+    at = sorted(ids.index(x) for x in span if x in lines_by_id)
+    if not at:
+        return []
+    cited = {r.get("line") for r in rows}
+    new = []
+    for lid in ids[at[0]:at[-1] + 1]:
+        m = _STANDARD_LINE.match(_strip_bullet(lines_by_id[lid].text))
+        if m and lid not in cited and (status := status_word(m["v"].strip())[0]):
+            new.append({"comp_name": None, "comp_cas": None, "standard": m["s"],
+                        "limit_type": "BEI" if m["s"] == "생물학적" else "TWA", "q": {"raw": status}, "line": lid})
+    return new
+
+
+_KOW = re.compile(r"log\s*[KP]\s*o\s*w", re.IGNORECASE)
+
+
+def fix_eco_descriptor(row: dict, lines_by_id: dict[str, Line]) -> dict:
+    """생태 행의 지표. 값(숫자)이 없으면 비워 A 규칙(어류·갑각류·조류·토양 결과기술, 잔류성 분해율, 농축성 BCF→분해율)에
+    맡긴다 — 골드 표기와 같다. 모델은 '- 트랜스 2 부텐 : 자료없음'에 LC50·EC50을 붙였다 (M004).
+    숫자 행인데 근거 줄에 log Kow·log Pow가 있으면 logKow (골드 21행. 모델은 결과기술로 적었다)."""
+    q = row.get("q") or {}
+    if all(q.get(k) is None for k in ("value", "lower", "upper")):
+        return {**row, "descriptor": None}
+    text = getattr(lines_by_id.get(row.get("line")), "text", "") or ""
+    if row.get("descriptor") in (None, "결과기술", "기타") and _KOW.search(text):
+        return {**row, "descriptor": "logKow"}
+    return row
+
+
+_STANDARD_HEAD = re.compile(r"^\s*(국내|ACGIH|생물학적|OSHA|NIOSH|EU)")
+
+
+def _span_ids(span: list[str], lines_by_id: dict[str, Line]) -> list[str]:
+    ids = list(lines_by_id)
+    at = sorted(ids.index(x) for x in span if x in lines_by_id)
+    return ids[at[0]:at[-1] + 1] if at else []
+
+
+def table_status_rows(rows: list[dict], span: list[str], lines_by_id: dict[str, Line]) -> list[dict]:
+    """8항 표(머리글 '구성성분 | 국내규정 | ACGIH규정 | 생물학적 노출기준')의 성분 줄 칸이 상태어면, 그 성분 × 기준 행이 없을 때
+    더할 행들. 종류는 TWA, 생물학적은 BEI (골드 M004 18행. 모델은 자료없음 칸을 뺐다). 값 칸은 모델에 맡긴다.
+    쪽이 바뀌어 머리글이 반복돼도 같은 표로 본다."""
+    have = {(r.get("line"), r.get("standard")) for r in rows} | {(_norm(r.get("comp_name")), r.get("standard")) for r in rows}
+    header, new = None, []
+    for lid in _span_ids(span, lines_by_id):
+        cells = [c.strip() for c in lines_by_id[lid].text.split("|")]
+        if len(cells) >= 3 and all(_STANDARD_HEAD.match(c) for c in cells[1:]):
+            header = [_STANDARD_HEAD.match(c)[1] for c in cells[1:]]
+            continue
+        if not header or len(cells) != len(header) + 1 or not cells[0] or _STANDARD_HEAD.match(cells[0]):
+            continue
+        for std, cell in zip(header, cells[1:]):
+            status = status_word(cell)[0]
+            if status and (lid, std) not in have and (_norm(cells[0]), std) not in have:
+                new.append({"comp_name": cells[0], "comp_cas": None, "standard": std,
+                            "limit_type": "BEI" if std == "생물학적" else "TWA", "q": {"raw": cell}, "line": lid})
+    return new
+
+
+def heading_status_rows(table: str, rows: list[dict], span: list[str], lines_by_id: dict[str, Line],
+                        components: list[dict]) -> list[dict]:
+    """11·12항 '- 성분 : 상태어' 줄이 항목 소제목(● 어류 등) 아래 있고 그 행이 없으면 더할 서술 행들. 위로 올라가며 성분 줄과
+    항목 소제목이 아닌 줄(쪽 머리글·쪽 번호)을 건너뛰고 처음 만나는 항목 소제목의 코드를 쓴다 (골드 M004 '● 조류' 아래
+    '- 트랜스 2 부텐 : 자료없음'. 모델은 이런 줄 일부를 뺐다). 값이 상태어가 아닌 줄은 모델에 맡긴다."""
+    keys = {_norm(x): c for c in components for x in (c.get("name"), c.get("name_en"), c.get("cas_no"), *(c.get("synonyms") or []))
+            if _norm(x)}
+    ids = _span_ids(span, lines_by_id)
+    have = {(r.get("line"), r.get("endpoint")) for r in rows}
+    new = []
+    for i, lid in enumerate(ids):
+        text = _strip_bullet(lines_by_id[lid].text)
+        name, _, value = text.partition(":")
+        if not value or not _any_component(name, keys) or not (status := status_word(value.strip())[0]):
+            continue
+        code = None
+        for up in reversed(ids[max(0, i - 15):i]):
+            up_text = lines_by_id[up].text
+            if (got := _heading(table, up_text)) is not None:
+                code = got[0]
+                break
+            if not _any_component(up_text, keys) and re.match(r"^\s*(?:[가-하]\s*[.)]|\d+\s*[.)])", up_text):
+                break                        # 다른 큰 제목(가. 나. …)을 넘지 않는다
+        if code and (lid, code) not in have:
+            have.add((lid, code))
+            new.append({"comp_name": name.strip(), "comp_cas": None, "endpoint": code, "descriptor": None,
+                        "q": {"raw": status}, "status": status, "statements": [], "line": lid})
+    return new
+
+
+def collapse_unnamed(rows: list[dict], components: list[dict], lines_by_id: dict[str, Line]) -> list[dict]:
+    """근거 줄·부모 줄에 성분 이름·CAS가 없는데 성분만 다르고 나머지가 같은 행이 둘 이상이면 MIX 한 행으로 모은다.
+    골드는 성분 없는 줄의 독성·CMR·생태 행을 모두 MIX 한 행으로 적는다 (M002 'ο 발암성 : 자료없음'을 모델이 성분마다 복제).
+    부모 줄이 성분을 가리키면('- 부탄 : …' 아래 '· OSHA : 해당없음') 성분별 행이 맞으므로 그대로 둔다."""
+    if len(components) < 2:
+        return rows
+    parents = line_parents(list(lines_by_id.values()))
+    keys = {_norm(x): c for c in components for x in (c.get("name"), c.get("name_en"), c.get("cas_no"), *(c.get("synonyms") or []))
+            if _norm(x)}
+    def named(line_id: str | None) -> bool:
+        line = lines_by_id.get(line_id)
+        return line is None or any(_any_component(x.text, keys) for x in [line, *parents.get(line.id, [])])
+    groups: dict[str, list[int]] = {}
+    for i, r in enumerate(rows):
+        groups.setdefault(json.dumps({k: v for k, v in r.items() if k != "comp_ref"}, ensure_ascii=False, sort_keys=True),
+                          []).append(i)
+    drop, mix = set(), set()
+    for idx in groups.values():
+        if len({rows[i]["comp_ref"] for i in idx} - {"MIX"}) >= 2 and not named(rows[idx[0]].get("line")):
+            mix.add(idx[0])
+            drop.update(idx[1:])
+    return [{**r, "comp_ref": "MIX"} if i in mix else r for i, r in enumerate(rows) if i not in drop]
 
 
 def drop_repeated(pairs: list[tuple[int, dict]]) -> list[tuple[int, dict]]:
@@ -450,7 +872,34 @@ def expand_msds(sections: dict[int, dict | None], lines_by_id: dict[str, Line],
             extras.append((no, r))
     if len(extras) < len(rows["extras"]):      # 옮긴 행은 원문 순서 자리에 둔다
         phys.sort(key=lambda p: pos.get(p[1].get("line"), len(pos)))
+    # 1-2. 폭발 범위 상한/하한 한 줄은 UEL·LEL 두 행으로 (모델 표기가 실행마다 달랐다)
+    phys = split_flammability(phys, lines_by_id)   # 빈 값은 뒤에서 source_rules.fill_no_value가 채운다
     rows["physchem"], rows["extras"] = phys, extras
+    # 1-2-1. 기관이 빈 CMR 행은 기관 분류가 아니라 11항 독성 내용이다. 독성 행으로 옮긴다
+    #        (골드 S013 'Methane : 음성 …' → TX_MUTA, '자료없음' → TX_CARC. 골드 CMR 61행은 모두 기관이 있다)
+    have = {(r.get("line"), r.get("endpoint")) for _, r in rows["toxicity"]}
+    for no, r in rows["cmr"]:
+        code = _CMR_ENDPOINT.get(_word_key(r.get("hazard") or ""))
+        status = r.get("status") or ("값있음" if r.get("note") else None)
+        if r.get("agency") or not code or not status or (r.get("line"), code) in have:
+            continue
+        have.add((r.get("line"), code))
+        rows["toxicity"].append((no, {"comp_name": r.get("comp_name"), "comp_cas": r.get("comp_cas"), "endpoint": code,
+                                      "descriptor": None, "q": {"raw": status} if status in _NO_VALUE else None,
+                                      "status": status, "line": r.get("line"),
+                                      "statements": [{"value": r["note"], "line": r.get("line")}] if r.get("note") else []}))
+    # 1-3. 8항 '기준 이름 : 상태어' 줄을 가리키는 노출기준 행이 없으면 더한다 (모델이 extras로 묶었다)
+    span8 = [x for no, r in [*rows["exposure_limits"], *rows["extras"], *rows["narratives"]] if no == 8
+             for v in (r.get("line"), r.get("start"), r.get("end")) if v for x in re.findall(r"p\d+:L\d+", v)]
+    rows["exposure_limits"] += [(8, r) for r in standard_status_rows([r for _, r in rows["exposure_limits"]], span8, lines_by_id)]
+    rows["exposure_limits"] += [(8, r) for r in table_status_rows([r for _, r in rows["exposure_limits"]], span8, lines_by_id)]
+    # 1-4. 11·12항 extras 중 항목명으로 시작하는 서술 줄은 독성·생태 행으로. 모델이 같은 줄에 같은 항목 행을 냈으면 두지 않는다
+    moved, rows["extras"] = extras_to_rows(rows["extras"], lines_by_id)
+    for key, new in moved.items():
+        have = {(r.get("line"), r.get("endpoint")) for _, r in rows[key]}
+        new = [(no, r) for no, r in new if (r["line"], r["endpoint"]) not in have]
+        if new:
+            rows[key] = sorted(rows[key] + new, key=lambda p: pos.get(p[1].get("line"), len(pos)))
 
     # 서술 구간(양 끝 포함 줄 위치)을 항마다 모은다. extras 거르기에 쓰므로 펼치기 전에 끝낸다 (ADR-022).
     # narrative()가 문장을 만드는 구간과 같다: 두 끝이 원문에 있고 start <= end.
@@ -461,7 +910,16 @@ def expand_msds(sections: dict[int, dict | None], lines_by_id: dict[str, Line],
             spans[no].append((pos[start], pos[end]))
 
     # 2. TO21 키 순서대로 펼친다. 성분은 다른 행의 comp_ref가 가리키므로 먼저 만든다.
+    # 성분표의 합계 행('Total | 100%')과 이름·CAS가 모두 빈 행은 성분이 아니다. 남기면 단일 성분 문서가 두 성분이 된다 (S001)
+    rows["components"] = [(no, r) for no, r in rows["components"]
+                          if r.get("cas_no") or (r.get("name") and not _TOTAL.match(r["name"]))]
     components = _shape(props["components"], [r for _, r in rows["components"]], lines_by_id)
+    # 12항 소제목 아래 '- 성분 : 상태어' 줄에 행이 없으면 더한다 (모델이 뺀 값 없는 행, 골드 M004).
+    # 11항에도 쓰면 급성은 오르고 기타 독성은 내려 종합이 같아(실행 10개 재채점) 12항만 쓴다
+    for no, key in ((12, "ecotox"),):
+        span = [x for t_ in rows.values() for n_, r in t_ if n_ == no
+                for v in (r.get("line"), r.get("start"), r.get("end")) if isinstance(v, str) for x in re.findall(r"p\d+:L\d+", v)]
+        rows[key] += [(no, r) for r in heading_status_rows(key, [r for _, r in rows[key]], span, lines_by_id, components)]
     item: dict = {}
     for key, node in props.items():
         if key in ("evidence", "validation"):
@@ -479,6 +937,14 @@ def expand_msds(sections: dict[int, dict | None], lines_by_id: dict[str, Line],
                                lines_by_id)
             continue
         pairs = drop_repeated(pairs)
+        if key == "cmr":       # 기관이 빈 행은 제품·항목 줄(PRODUCT : 분류되지않음 등)이라 기관 분류가 아니다 (골드 CMR 61행 모두 기관 있음)
+            pairs = [(no, r) for no, r in pairs if r.get("agency")]
+            pairs = [(no, {**r, "class": _GROUP.sub("", r["class"])}            # 등급은 원문 표기대로 (골드 M013 '2B' / S016 'Group 1')
+                      if r.get("class") and _GROUP.match(r["class"])
+                      and "group" not in getattr(lines_by_id.get(r.get("line")), "text", "group").lower() else r)
+                     for no, r in pairs]
+        if key == "exposure_limits":
+            pairs = [(no, x) for no, r in pairs for x in split_second_unit(r)]
         src = [r for _, r in pairs]
         if key == "extras":
             # 같은 항 서술 구간 안의 줄을 가리키는 extras는 서술 문장을 다시 쓴 것이라 버리고 항마다 센다
@@ -500,23 +966,45 @@ def expand_msds(sections: dict[int, dict | None], lines_by_id: dict[str, Line],
             for i, ((no, r), linked) in enumerate(zip(pairs, src)):
                 if linked["comp_ref"] == "MIX" and (_norm(r.get("comp_name")) or _norm(r.get("comp_cas"))):
                     problem(no, "unlinked_component", f"{key}[{i}]: {r.get('comp_name')} / {r.get('comp_cas')}")
+            if key in ("toxicity", "cmr", "ecotox"):
+                src = collapse_unnamed(src, components, lines_by_id)
             if key in _SINGLE_COMP_KEYS and len(components) == 1:
-                src = [{**r, "comp_ref": str(components[0]["seq"])}
-                       if r["comp_ref"] == "MIX" and _law_of(r) not in _PRODUCT_LAWS else r for r in src]
+                if key == "regulations" and not _section_names_component(src, components[0], lines_by_id):
+                    src = [{**r, "comp_ref": "MIX"} for r in src]   # 15항에 성분이 안 나오면 제품 값 (R10, 골드 S001·S003)
+                else:
+                    src = [{**r, "comp_ref": str(components[0]["seq"])}
+                           if r["comp_ref"] == "MIX" and _law_of(r) not in _PRODUCT_LAWS else r for r in src]
+        if key == "ecotox":
+            src = [fix_eco_descriptor(r, lines_by_id) for r in src]
         if {"q", "text_value"} <= _resolve(node["items"]).get("properties", {}).keys():
             src = [status_to_q(r) for r in src]
         if key == "physchem":
             src = fill_no_value(src, lines_by_id)        # 근거 줄의 '자료없음' 등으로 빈 값 (ADR-029)
         if key == "regulations":
+            recode_regulations(src, lines_by_id, components)
+            src = src + add_missing_items(src, lines_by_id)      # 모델 행 순서는 그대로 두고 뒤에 더한다
+            src = src + dg_row_from_table(src, [r for _, r in rows.get("dangerous_goods", [])])
+            src = [_law_level_item(r, lines_by_id) for r in src]
+            if src and not any(_law_of(r) == "KREACH" for r in src):   # R18: 화평법 항목이 없는 문서는 미기재 한 행 (골드 6건)
+                src.append({"law": "KREACH", "item_code": None, "applicable": "미기재", "comp_ref": "MIX"})
             src = fill_thresholds(src, lines_by_id)      # 근거 줄의 'N% 이상'으로 기준농도 (ADR-029)
         item[key] = components if key == "components" else _shape(node, src, lines_by_id)
         if key == "regulations":
             fill_law(item[key])
             fill_kreach_applicable(item[key])
+            clear_numberless_thresholds(item[key])       # 해당 여부를 정한 뒤, 숫자 없는 기준농도('비해당')를 비운다
         if key == "cmr":
             fix_cmr_class(item[key])
         if key == "toxicity":
             clear_descriptor_without_value(item[key])
+        if key == "exposure_limits":
+            for r in item[key]:
+                if r.get("standard") == "생물학적":      # 생물학적 노출기준은 늘 BEI다 (골드·실버 33행)
+                    r["limit_type"] = "BEI"
+                q = r.get("q") or {}
+                if q and all(q.get(k) is None for k in ("value", "lower", "upper")) and (re.search(r"단순\s*질식", q.get("raw") or "")
+                                                                                 or _word_key(q.get("raw") or "") == "없음"):
+                    q["status"] = "해당없음"            # 단순 질식제·'없음': 수치 기준이 없다 (골드 S003·S013, 실버 S001·S003)
         for i, (no, r) in enumerate(pairs):
             walk(no, r, f"{key}[{i}]")
 
