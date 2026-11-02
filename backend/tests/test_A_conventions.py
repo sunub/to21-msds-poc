@@ -25,7 +25,8 @@ def test_no_value_rows_follow_to21_example():
     }
     out = apply(item)
     assert [r["limit_type"] for r in out["exposure_limits"]] == ["TWA", "BEI", None, "기타", None]
-    assert [r["descriptor"] for r in out["toxicity"]] == ["결과기술", "ATE", None, "ATE", "결과기술"]
+    # 빈 지표는 MIX 급성독성도 결과기술. 원문 줄에 ATE가 있어 추출이 채운 ATE는 그대로 둔다
+    assert [r["descriptor"] for r in out["toxicity"]] == ["결과기술", "ATE", None, "결과기술", "결과기술"]
     assert [r["descriptor"] for r in out["ecotox"]] == ["결과기술", "분해율", "BCF", "분해율", "결과기술"]   # 행은 지우지 않는다
     assert out["cmr"][0]["class"] is None
     assert item["toxicity"][0]["descriptor"] is None                                    # 입력은 바꾸지 않는다
