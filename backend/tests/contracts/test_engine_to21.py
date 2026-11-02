@@ -385,3 +385,56 @@ def test_표적장기_구분3_효과가_하나_빠지면_불일치다(repo):
 
 def test_표적장기_효과_없이_구분3만_적어도_일치다(repo):  # 세부 표기 차이
     assert _stot(repo, [{"class_code": "HH_STOT_SE", "category": "3"}])["verdict"] == "일치"
+
+
+def test_수유독성은_표적장기_구분3_비교로_가지_않는다():  # 회귀 방지
+    from msds.compliance.mixture.verdict import aggregate_verdicts
+    results = [{"class_code": "HH_REPRO", "form": None, "result": {"low": "1A", "high": "1A", "status": "확정"},
+                "extra": {"low": [{"category": "수유독성", "effect": None}], "high": [{"category": "수유독성", "effect": None}]}}]
+    v = aggregate_verdicts(results, [{"class_code": "HH_REPRO", "category": "1A"}])["verdicts"][0]
+    assert v["verdict"] == "일치" and "None" not in (v["reason"] or "")
+
+
+def test_혼합물의_류와_품명이_어긋나면_불일치다():
+    v = _dg(_dg_inputs({"item": "제1석유류", "class": "제3류"}, flash=11.8), {}, _dg_know("제1석유류 비수용성액체"))
+    assert v["verdict"] == "불일치" and "류:" in v["reason"]
+
+
+@pytest.mark.parametrize("written", ["제 4 류", "제4류 위험물"])
+def test_류_표기_변형을_같게_본다(written):
+    v = _dg(_dg_inputs({"item": "제2석유류", "class": written}, kind="단일물질"), {}, _dg_know("제2석유류 비수용성액체"))
+    assert v["verdict"] == "일치"
+
+
+def test_제4류가_아닌_물질의_품명_표시는_인화점_품명이_아니다():
+    v = _dg(_dg_inputs({"item": "유기과산화물", "class": "제5류"}, flash=50, kind="단일물질"), {}, _dg_know("유기과산화물(2종)", "제5류"))
+    assert v["db_threshold"] is None
+
+
+def test_표적장기_효과를_한_칸에_더_적으면_과대다():
+    from msds.compliance.mixture.verdict import aggregate_verdicts
+    results = [{"class_code": "HH_STOT_SE", "form": None, "result": {"low": "분류안됨", "high": "분류안됨", "status": "확정"},
+                "extra": {"low": [{"category": "3", "effect": "호흡기자극"}], "high": [{"category": "3", "effect": "호흡기자극"}]}}]
+    v = aggregate_verdicts(results, [{"class_code": "HH_STOT_SE", "category": "3", "effect": "호흡기도자극성, 마취영향"}])["verdicts"][0]
+    assert (v["verdict"], v["type"]) == ("불일치", "과대분류")
+
+
+@pytest.mark.parametrize("written,ours", [("졸음 또는 현기증", "마취"), ("기도 자극", "호흡기자극")])
+def test_표적장기_효과_동의어를_같게_본다(written, ours):
+    from msds.compliance.mixture.verdict import aggregate_verdicts
+    results = [{"class_code": "HH_STOT_SE", "form": None, "result": {"low": "분류안됨", "high": "분류안됨", "status": "확정"},
+                "extra": {"low": [{"category": "3", "effect": ours}], "high": [{"category": "3", "effect": ours}]}}]
+    assert aggregate_verdicts(results, [{"class_code": "HH_STOT_SE", "category": "3", "effect": written}])["verdicts"][0]["verdict"] == "일치"
+
+
+def test_표적장기_구분2_누락_문구가_사실과_맞다():
+    from msds.compliance.mixture.verdict import aggregate_verdicts
+    results = [{"class_code": "HH_STOT_SE", "form": None, "result": {"low": "2", "high": "2", "status": "확정"},
+                "extra": {"low": [{"category": "3", "effect": "마취"}], "high": [{"category": "3", "effect": "마취"}]}}]
+    v = aggregate_verdicts(results, [{"class_code": "HH_STOT_SE", "category": "3", "effect": "마취"}])["verdicts"][0]
+    assert v["type"] == "과소분류" and "항목 없음" not in v["reason"] and "3:마취" in v["reason"]
+
+
+def test_12항_만성_시험값은_급성_교차_확인에_쓰지_않는다(repo, contract_errors):
+    fish = _tox("ECO_FISH", 0.5, "mg/L", descriptor="LC50", duration_value=28, duration_unit="day")
+    assert _cross(repo, _single([{"class_code": "ENV_AQ_ACUTE", "category": "3"}], ecotox=[fish]), contract_errors) == {}

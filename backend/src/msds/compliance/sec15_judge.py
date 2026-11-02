@@ -283,9 +283,13 @@ def _dg_differences(inputs, item9, db_class, db_item, db_water) -> list[str]:
     if not rows:
         return []
     row = rows[0]
-    if db_class and row.get("class") and row["class"] != db_class:
-        return [f"류: MSDS {row['class']}, 지식DB {db_class}"]
-    if row.get("class") not in (None, "제4류") or (db_class and db_class != "제4류"):
+    written_class = re.sub(r"\s+", "", str(row.get("class") or ""))
+    written_class = (re.search(r"제\d류", written_class) or [None])[0]
+    if db_class and written_class and written_class != db_class:
+        return [f"류: MSDS {written_class}, 지식DB {db_class}"]
+    if written_class not in (None, "제4류") and _dg_item_name(row["item"]):
+        return [f"류: MSDS {written_class}인데 품명은 제4류의 {_dg_item_name(row['item'])}"]
+    if written_class not in (None, "제4류") or (db_class and db_class != "제4류"):
         return []  # 제4류가 아니면 인화점 품명 표를 쓰지 않는다
     written = [_dg_item_name(d["item"]) or d["item"] for d in rows]
     if db_item in _DG_NOT_BY_FLASH or written[0] in _DG_NOT_BY_FLASH:
@@ -329,7 +333,7 @@ def _dg(inputs, sup, know_all):
     db_item, db_water = (db_item, db_water) if is_single else (None, None)
     db_classes = {n for _, n, _ in db}
     db_class = next(iter(db_classes)) if is_single and len(db_classes) == 1 else None
-    if db_item in _DG_NOT_BY_FLASH:  # 인화점으로 정한 품명 대신 지식DB 품명을 보여 준다
+    if db_item in _DG_NOT_BY_FLASH or (db_class and db_class != "제4류"):  # 인화점 품명이 이 물질의 품명이 아니다
         item, edge = None, False
     want_item = item or db_item
     src = [f"HTODB {i} {n}" + (f" {g}" if g else "") for i, n, g in db] + [f"9항: {basis}"]
