@@ -1214,7 +1214,7 @@ servers.empty.recommendation|추천 방법|S06
 servers.empty.open_company|회사 서버 먼저 확인하기|S06
 servers.failed.title|모델 상태를 확인하지 못했습니다.|S06
 servers.failed.stale|마지막 상태를 현재 상태로 쓰지 않습니다.|S06
-servers.failed.todo|서버 변경은 잠시 막았습니다. 할 일: 상태를 다시 확인하세요.|S06
+servers.failed.todo|할 일: 다시 확인하기를 누르세요. 계속되면 자세히 보기의 오류 기록을 보세요. 그동안 서버 변경은 막아 둡니다.|S06
 servers.failed.retry|다시 확인하기|S06
 servers.failed.target|대상은 {doc}의 {section}번 부분으로 유지합니다.|S06
 servers.failed.error|조회 오류|S06
@@ -1966,7 +1966,6 @@ steps.server.use_other_ai|이 서버에서 다른 AI 켜기|S06
 steps.server.start_company_other_title|먼저 켜져 있는 AI를 끄세요.|S06
 steps.server.wait_auto|이대로 두면 {minutes}분 뒤 자동으로 지워집니다.|S06
 servers.failed.fact|앱이 서버 상태를 읽지 못했습니다. 지금 요금이 나가는지도 알 수 없습니다.|S06
-servers.failed.todo|할 일: 다시 확인하기를 누르세요. 계속되면 자세히 보기의 오류 기록을 보세요.|S06
 steps.server.other_on|다른 서버에서 {model}가 켜져 있거나 준비 중입니다.|S06
 steps.server.other_on_open|그 서버 보기|S06
 steps.server.back_choose|서버 다시 고르기|S06
