@@ -70,11 +70,11 @@ def test_신호어_불일치():
     assert (f["verdict"], f["severity"], f["rule_id"]) == ("불일치", "중간", "CMP-4")
 
 
-def test_msds_값이_없으면_근거부족():
+def test_msds_값이_없으면_불일치_중간():  # 설계서 7장 "빠지거나 다름 중간". 추출 실패 항은 judge()가 근거부족으로 바꾼다
     d = derive_label(SULFURIC)
     r = compare_label(d, {"pictograms": [], "signal_word": None, "h_codes": None})
-    assert {f["verdict"] for f in r} == {"근거부족"} and len(r) == 3
-    assert not any(f["verdict"] == "불일치" for f in r)
+    assert {(f["verdict"], f["severity"]) for f in r} == {("불일치", "중간")} and len(r) == 3
+    assert all(f["missing"] for f in r)
 
 
 def test_양쪽_다_비면_일치():
