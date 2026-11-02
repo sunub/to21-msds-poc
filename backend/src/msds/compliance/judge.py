@@ -12,11 +12,13 @@ from functools import lru_cache
 import psycopg
 
 from .consistency import ENGINE_VERSION, _reassign_gas, run_consistency
+from .mixture.acute import value_to_category
 from .mixture.build_components import _state
 from .explain import item_names
 from .htodb.reference import ReferenceProvider
 from .mixture.params import RULES_DIR
 from .mixture.rules_loader import load_mixture_rules
+from .mixture.units import to_target
 from .trace import cat_text
 
 CONTRACT = "consistency/2"
@@ -158,6 +160,8 @@ def _result(doc, i, item, as_of, provider, kv, failed) -> dict:
         elif row["class_code"] not in _LABEL_KEY:
             built.append(_class(row, ctx))
     built += _labels(c, ctx)
+    if c["product_type"]["value"] == "단일물질":
+        built += _cross_checks(i, item, ctx)
     for row in c["excluded"]:
         if row.get("class_code") not in _LABEL_KEY:
             built += _excluded(row, ctx)
@@ -242,6 +246,61 @@ def _class(row, ctx):
     # 문서 전체에 걸린 가정도 계산 근거에 남긴다 (파트 B 설계 3절)
     with_doc = {**row, "assumptions": list(row.get("assumptions") or []) + list(ctx["doc_assumptions"])}
     return f, _trace(raw, with_doc, ctx["kv"], cc, form, low, high, status, basis, calc)
+
+
+# ── 11·12항 수치 교차 확인 (설계서 19장, 단일물질) ─────────────────────
+
+_CROSS_ROUTE = {"HH_ACUTE_ORAL": ("TX_ORAL", "oral"), "HH_ACUTE_DERMAL": ("TX_DERMAL", "dermal"), "HH_ACUTE_INHAL": ("TX_INHAL", "inhal")}
+_FORM_EN = {"가스": "gas", "증기": "vapour", "분진·미스트": "mist"}
+_ROUTE_KO = {"oral": "경구", "dermal": "경피", "inhal": "흡입"}
+_AQ_DESCRIPTORS = ("LC50", "EC50", "ERC50", "EBC50", "LL50", "EL50")
+_AQ_CAT1_MAX = 1.0  # mg/L
+
+
+def _own_values(rows):
+    """이 물질의 단일 수치 행. 범위·부등호는 구분을 하나로 정할 수 없어 뺀다."""
+    return [r for r in rows if str(r.get("comp_ref")) in ("1", "MIX") and (r.get("q") or {}).get("value") is not None]
+
+
+def _cross_finding(i, cc, form, stated, low, reason, ctx):
+    msds = {"present": bool(stated), "category": _one(stated), "route_form": form, "evidence": _evidence({"class_code": cc}, ctx)}
+    expected = {"present": True, "low": low, "high": low, "route_form": form, "status": "확정"}
+    f = _base(i, f"F2:CROSS:{cc}:{form or '-'}", "2", "class", cc, f"11·12항 수치 교차 확인: {item_names().get(cc, cc)}", msds, expected, "경고", reason,
+              rule="CROSS-1", type_="내부 불일치", severity="낮음", method="MSDS 11·12항 수치")
+    return f, None
+
+
+def _cross_checks(i, item, ctx):
+    """11항 LD50·LC50과 12항 L(E)C50으로 정한 구분이 MSDS 2항과 다르면 내부 불일치 경고. 2항 판정과 별도다."""
+    stated: dict = {}
+    for c in (item.get("hazard") or {}).get("classes") or []:
+        stated.setdefault(c.get("class_code"), []).append(c)
+    out = []
+    for cc, (endpoint, route) in _CROSS_ROUTE.items():
+        rows = [r for r in _own_values(item.get("toxicity") or []) if str(r.get("endpoint")).startswith(endpoint)]
+        found: dict = {}
+        for r in rows:
+            q = r["q"]
+            forms = {c.get("route_form") for c in stated.get(cc, [])}
+            form = r.get("physical_form") if r.get("physical_form") in _FORM_EN else next(iter(forms)) if len(forms) == 1 else None
+            if route == "inhal" and form not in _FORM_EN:
+                continue
+            t = to_target(q["value"], q.get("unit"), route, _FORM_EN.get(form), hours=r.get("duration_value") if str(r.get("duration_unit")).lower().startswith(("h", "시")) else None)
+            if t and ((form if route == "inhal" else None) not in found or t["value"] < found[form if route == "inhal" else None]):
+                found[form if route == "inhal" else None] = t["value"]
+        for form, value in found.items():
+            cat = value_to_category(_ROUTE_KO[route], form, value) or "분류안됨"
+            cats = [c.get("category") for c in stated.get(cc, []) if route != "inhal" or c.get("route_form") == form]
+            if (cats or ["분류안됨"]) != [cat] and cat not in cats:
+                out.append(_cross_finding(i, cc, form, cats, cat, f"내부 불일치: 11항 값 {value:g}이면 {cat}인데 2항은 {_one(cats) or '기재 없음'}", ctx))
+    aq = [r["q"]["value"] for r in _own_values(item.get("ecotox") or [])
+          if str(r.get("descriptor")).upper().replace("(", "").replace(")", "") in _AQ_DESCRIPTORS and str(r["q"].get("unit")).lower() in ("mg/l", "㎎/ℓ")]
+    if aq:
+        value, cats = min(aq), [c.get("category") for c in stated.get("ENV_AQ_ACUTE", [])]
+        if (value <= _AQ_CAT1_MAX) != ("1" in cats):
+            out.append(_cross_finding(i, "ENV_AQ_ACUTE", None, cats, "1" if value <= _AQ_CAT1_MAX else None,
+                                      f"내부 불일치: 12항 값 {value:g} mg/L와 2항 수생 급성({_one(cats) or '기재 없음'})의 구분1 기준(1 mg/L 이하)이 맞지 않음", ctx))
+    return out
 
 
 def _class_status(row, raw):
