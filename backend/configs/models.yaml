@@ -110,6 +110,38 @@ models:
     concurrency: 16
     params: {temperature: 0}
 
+  # 이 컴퓨터의 Ollama. 끝까지 도는지 확인하는 개발용이다. 기준선이 아니고 점수를 비교에 쓰지 않는다
+  local_qwen35_ollama:
+    model: qwen3.5-9b-64k                # qwen3.5:9b + num_ctx 65536
+    base_url_env: LOCAL_LLM_BASE_URL     # 예: http://localhost:11434/v1
+    api_key_env: LOCAL_LLM_API_KEY       # 비워 두면 EMPTY
+    structured: [json_schema, none]
+    max_tokens: 8192
+    concurrency: 1                       # 동시 호출은 Ollama 대기열에서 기다리는 시간도 제한 시간에 들어간다
+    rows_sections: [3, 8, 9, 11, 12, 14, 15]
+    rows_max_tokens: 16384
+    image_input: true
+    params:
+      temperature: 0
+      presence_penalty: 0                # Ollama 기본 1.5는 키를 되풀이하는 JSON 출력을 망칠 수 있다
+      reasoning_effort: none             # 생각 모드 끔
+
+  # 같은 Ollama의 큰 모델. RunPod와 같은 계열이지만 양자화가 달라(nvfp4, MLX) 같은 모델로 치지 않는다. 역시 개발용이다
+  local_qwen36_35b_ollama:
+    model: qwen3.6-35b-a3b-64k           # qwen3.6:35b-a3b + num_ctx 65536
+    base_url_env: LOCAL_LLM_BASE_URL
+    api_key_env: LOCAL_LLM_API_KEY
+    structured: [json_schema, none]
+    max_tokens: 8192
+    concurrency: 1
+    rows_sections: [3, 8, 9, 11, 12, 14, 15]
+    rows_max_tokens: 16384
+    image_input: true
+    params:
+      temperature: 0
+      presence_penalty: 0
+      reasoning_effort: none
+
 run:
   max_retries: 2            # 스키마 검증 실패 시 재시도 횟수
   request_timeout: 600      # 초

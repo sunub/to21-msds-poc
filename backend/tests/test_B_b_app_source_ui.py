@@ -99,8 +99,9 @@ for(const [n,side,v] of [[1,'result',view.values[1].value],[1,'silver',view.valu
 def test_source_legend_section_summaries_and_visible_comparison_states():
     run_js(fixture() + r"""
 await go('s02',{section:8});
-const chips=el('source-top').querySelectorAll('.source-chip');assert.equal(chips.length,4);
-chips.forEach((c,i)=>assert.ok(c.getAttribute('style').includes(view.legend[i].color)));
+// 색으로 구분하는 것은 선택 표시뿐이다. 값의 세 상태는 글자로 구분하므로 색 칸을 그리지 않는다.
+const chips=el('source-top').querySelectorAll('.source-chip');assert.equal(chips.length,1);
+assert.ok(chips[0].getAttribute('style').includes(view.legend.find(x=>x.key==='picked').color));
 view.legend.forEach(x=>assert.ok(screen().includes(x.label)));
 assert.ok(screen().includes(view.ui_text.sections['8']));assert.ok(screen().includes(view.ui_text.howto));
 for(const key of ['same','different','missing'])assert.ok(screen().includes(T('source.legend.'+key)));
@@ -355,3 +356,83 @@ assert.ok(el('source-top').querySelector('.error-note'));
 assert.ok(screen().includes('Fake list read failure'));
 api=base;await el('source-reload').click();assert.ok(S.source.data);
 """)
+
+
+# 대역 DOM은 화면 배치를 계산하지 않는다. 실제 브라우저처럼 붙지 않은 요소의 scrollTop은 버리고,
+# 고정 막대·비교 카드·원문 줄의 위치를 정해 둔다.
+_LAYOUT = r"""
+const proto=Node.prototype;
+Object.defineProperty(proto,'scrollTop',{configurable:true,get(){return this._scrollTop||0;},set(v){if(this.isConnected)this._scrollTop=v;}});
+Object.defineProperty(proto,'clientHeight',{configurable:true,get(){return 300;}});
+const baseRect=proto.getBoundingClientRect;
+let panelRect={top:524,bottom:973};
+proto.getBoundingClientRect=function(){
+  if(this.dataset?.line){const b=this.parentElement,t=100+b.children.indexOf(this)*400-(b.scrollTop||0);return {top:t,bottom:t+100,left:0,right:10};}
+  if(this.id==='source-lines')return {top:100,bottom:400,left:0,right:10};
+  if(this.id==='source-selection')return {left:0,right:10,...panelRect};
+  if(this.id==='global-context')return {top:0,bottom:145,left:0,right:10};
+  return baseRect.call(this);
+};
+const scrolled=[];
+proto.scrollIntoView=function(options){scrolled.push({target:this.id||this.dataset?.line||'element',block:options?.block});};
+const landing={run:'current',doc:'T21-X01',section:8,item:'Fake criterion',pick:'mismatch'};
+"""
+
+
+def test_source_line_list_stays_on_the_picked_line_after_the_screen_renders():
+    run_js(fixture() + _LAYOUT + r"""
+view.values[1].lines=['p2:L4'];
+await go('s02',landing);await flush();
+assert.equal(S.source.selection.path,'msds[0].exposure_limits[1].q');
+// 고른 줄이 목록 바깥에 있으면 안 된다. 다시 그려도 목록을 맨 위로 되돌리지 않는다.
+assert.equal(el('source-lines').scrollTop,300);
+assert.equal(S.source.scroll[2],300);
+""")
+
+
+def test_source_line_list_restores_the_saved_position_when_it_is_drawn_again():
+    run_js(fixture() + _LAYOUT + r"""
+await go('s02',{run:'current',doc:'T21-X01',section:8});await flush();
+S.source.scroll[S.source.page]=120;
+sourceRenderPage();
+assert.equal(el('source-lines').scrollTop,120);
+""")
+
+
+def test_source_opening_a_problem_shows_the_comparison_card_below_the_fixed_bar():
+    run_js(fixture() + _LAYOUT + r"""
+await go('s02',landing);await flush();
+assert.deepEqual(scrolled.filter(x=>x.target==='source-selection'),[{target:'source-selection',block:'start'}]);
+// 원문 줄을 찾겠다고 페이지 전체를 움직이지 않는다. 움직이면 비교 카드가 고정 막대에 가린다.
+assert.deepEqual(scrolled.filter(x=>String(x.target).startsWith('p')),[]);
+""")
+
+
+def test_source_picking_a_value_moves_the_page_only_when_the_card_is_not_fully_visible():
+    run_js(fixture() + _LAYOUT + r"""
+await go('s02',landing);await flush();
+scrolled.length=0;
+panelRect={top:200,bottom:650};pick(1).click();
+assert.deepEqual(scrolled,[]);
+panelRect={top:-38,bottom:411};pick(1).click();
+assert.deepEqual(scrolled,[{target:'source-selection',block:'start'}]);
+scrolled.length=0;
+panelRect={top:524,bottom:973};pick(1).click();
+assert.deepEqual(scrolled,[{target:'source-selection',block:'start'}]);
+""")
+
+
+def test_source_opening_without_a_problem_or_picking_a_line_does_not_move_the_page():
+    run_js(fixture() + _LAYOUT + r"""
+await go('s02',{run:'current',doc:'T21-X01',section:8});await flush();
+assert.deepEqual(scrolled,[]);
+await change('source-page-select','2');
+document.querySelector('[data-line="p2:L3"]').click();
+assert.deepEqual(scrolled,[]);
+""")
+
+
+def test_source_comparison_card_leaves_room_for_the_fixed_bar():
+    import re
+    css = (Path(__file__).parents[1] / 'scripts/b_app_static/app.css').read_text()
+    assert re.search(r'#source-selection\s*\{[^}]*scroll-margin-top:\s*var\(--sticky-offset\)', css)

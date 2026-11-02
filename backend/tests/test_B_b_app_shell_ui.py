@@ -220,3 +220,56 @@ def test_tooltip_keyboard_escape_and_pointer_transfer():
       document.dispatchEvent({type:'mouseover',target:tip});clockTick(200);assert.equal(tip.hidden,false);
       document.dispatchEvent({type:'mouseout',relatedTarget:null});clockTick(200);assert.equal(tip.hidden,true);
     """)
+
+
+def test_model_strip_names_the_connected_model_without_other_models_noise():
+    # 실제 응답 모양(11/2): 회사 서버는 꺼짐, 주소 없는 태그 하나, Pod 하나가 Qwen3.6을 제공, 같은 주소의 다른 태그는 다른 모델 응답
+    run_js(FIXTURES + r"""
+      await start();const el=document.getElementById('context-model');
+      api=async()=>({rngd:{ok:true,diagnosis:'no_model'},models:[
+       {tag:'fake_rngd',where:'RNGD',url_set:true,reachable:false,error:'URLError'},
+       {tag:'fake_no_address',where:'vLLM',url_set:false,reachable:false,error:null},
+       {tag:'qwen36_35b_runpod',where:'RunPod',url_set:true,reachable:true,match:true,model_expected:'raw/model-id'},
+       {tag:'fake_same_pod',where:'RunPod',url_set:true,reachable:true,match:false}]});
+      await shellPollServers();
+      assert.ok(el.textContent.includes(UI.context.models.qwen36_35b_runpod));
+      assert.equal(el.textContent.includes('raw/model-id'),false);
+      assert.equal(el.textContent.includes(T('context.model.readiness_unknown')),false);
+      assert.equal(el.textContent.includes(T('context.model.wrong_reply')),false);
+    """)
+
+
+def test_model_without_address_is_off_and_real_problems_still_show_when_nothing_is_connected():
+    run_js(FIXTURES + r"""
+      await start();const el=document.getElementById('context-model');
+      assert.equal(shellModelState({where:'RunPod',url_set:false,reachable:false,error:null}),'state_off');
+      assert.equal(shellModelState({where:'RNGD',url_set:false,reachable:false,error:null},{rngd:{ok:true,diagnosis:'no_model'}}),'state_off');
+      assert.equal(shellModelState({where:'RunPod',url_set:true,reachable:false,error:'URLError'}),'query_failed');
+      api=async()=>({rngd:{ok:true,diagnosis:'no_model'},models:[
+       {tag:'fake_rngd',where:'RNGD',url_set:true,reachable:false,error:'URLError'},
+       {tag:'fake_pod',where:'RunPod',url_set:false,reachable:false,error:null}]});
+      await shellPollServers();
+      assert.ok(el.textContent.includes(T('context.model.state_off')));
+      assert.ok(el.textContent.includes(T('context.model.off_normal')));
+      assert.equal(el.textContent.includes(T('context.model.readiness_unknown')),false);
+      api=async()=>({rngd:{ok:true,diagnosis:'no_model'},models:[{tag:'fake_pod',where:'RunPod',url_set:true,reachable:true,match:false}]});
+      await shellPollServers();assert.ok(el.textContent.includes(T('context.model.wrong_reply')));
+    """)
+
+
+def test_session_pod_that_is_still_starting_reads_as_loading_not_failed():
+    # RunPod 프록시는 모델이 뜨기 전까지 404와 502를 돌려준다 (11/2 실제 Pod로 확인)
+    run_js(FIXTURES + r"""
+      await start();const el=document.getElementById('context-model');
+      const row={tag:'fake_pod',where:'RunPod',url_set:true,reachable:false,match:null,error:'HTTP 404'};
+      assert.equal(shellModelState(row,{session:{tag:'fake_pod',ready:false}}),'rented_loading');
+      assert.equal(shellModelState(row,{session:null}),'query_failed');
+      assert.equal(shellModelState({...row,error:'HTTP 502'},{session:{tag:'fake_pod',ready:false}}),'rented_loading');
+      assert.equal(shellModelState({...row,error:'HTTP 401'},{session:{tag:'fake_pod',ready:false}}),'query_failed');
+      assert.equal(shellModelState({...row,error:'TimeoutError'},{session:{tag:'fake_pod',ready:false}}),'query_failed');
+      api=async()=>({session:{tag:'fake_pod',ready:false},rngd:{ok:true,diagnosis:'no_model'},
+       models:[row,{tag:'fake_rngd',where:'RNGD',url_set:true,reachable:false,error:'URLError'}]});
+      await shellPollServers();
+      assert.ok(el.textContent.includes(T('context.model.rented_loading')));
+      assert.equal(el.textContent.includes(T('context.model.query_failed')),false);
+    """)

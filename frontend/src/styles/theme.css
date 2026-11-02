@@ -1,0 +1,69 @@
+/*
+ * Tailwind 테마: tokens.css 의 변수를 유틸리티 이름으로 연결한다.
+ * 기본 팔레트·그림자는 비워서, 시스템에 없는 값을 쓸 수 없게 한다.
+ * `inline` 이라 유틸리티가 var(--토큰)을 그대로 가리킨다.
+ */
+@theme inline {
+  --color-*: initial;
+  --color-transparent: transparent;
+  --color-white: #fff;
+
+  --color-ink: var(--ink);
+  --color-mut: var(--mut);
+  --color-sub: var(--sub);
+  --color-line: var(--line);
+  --color-line2: var(--line2);
+  --color-field-line: var(--field-line);
+  --color-outline: var(--outline);
+  --color-bg: var(--bg);
+  --color-tint: var(--tint);
+  --color-sel: var(--sel);
+  --color-surface: var(--surface);
+  --color-paper: var(--paper);
+
+  --color-blue: var(--blue);
+  --color-blue2: var(--blue2);
+  --color-blue-soft: var(--blue-soft);
+  --color-blue-line: var(--blue-line);
+
+  --color-red: var(--red);
+  --color-amb: var(--amb);
+  --color-amb-text: var(--amb-text);
+  --color-warn: var(--warn);
+  --color-grn: var(--grn);
+  --color-gry: var(--gry);
+  --color-stale: var(--stale);
+  --color-grn-soft: var(--grn-soft);
+  --color-red-soft: var(--red-soft);
+
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+
+  --radius-*: initial;
+  --radius-xs: var(--radius-xs);
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
+  --radius-full: var(--radius-full);
+
+  /* 글자 크기: 본문 14px, 보조 13px, 주석 12px */
+  --text-*: initial;
+  --text-xs: 12px;
+  --text-xs--line-height: 1.6;
+  --text-sm: 13px;
+  --text-sm--line-height: 1.5;
+  --text-base: 14px;
+  --text-base--line-height: 1.5;
+  --text-lg: 16px;
+  --text-lg--line-height: 1.5;
+  --text-xl: 18px;
+  --text-xl--line-height: 1.4;
+  --text-2xl: 24px;
+  --text-2xl--line-height: 1.3;
+
+  /* 얇은 선과 8px 모서리가 규칙이라 그림자는 쓰지 않는다 */
+  --shadow-*: initial;
+
+  --container-page: var(--page-w);
+  --spacing-target: var(--target-min);
+}

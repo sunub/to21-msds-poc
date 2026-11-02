@@ -762,138 +762,180 @@ assert.equal(posted.length,0);
 """)
 
 
-def test_example_panels_show_no_sample_data():
-    """예시 수치 재등장, API 값 유입, 값에 비례한 막대, 읽기 중복을 잡는다."""
-    run_js(PRACTICE_SETUP + r"""
-await journeyEnsure();await guideOpen();
-const textLookup=T,used=new Set();
-T=(key,...args)=>{if(key.startsWith('guide.example.'))used.add(key.slice('guide.example.'.length));return textLookup(key,...args);};
-// Only navigation order and explanatory product facts may contain numbers.
-// These describe the app/units, never a document value or a completed action.
-const allowedNumbers = [
- ['guide.example.step1', 'First navigation step'],
- ['guide.example.step2', 'Second navigation step'],
- ['guide.example.step3', 'Third navigation step'],
- ['guide.choices.example_unit', 'Definition of a unit, not a measured value'],
- ['guide.example.model_duration', 'Model preparation estimate, also shown in the AI guidance']
-];
-const states = [null,'checking','ready','loading','waiting','opening','estimated','sending','running',
- 'shown','success','error','empty','failed','cancelled','unavailable','recovery'];
-const baseline = new Map();
-const check = (screen) => {
- const example=el('guide-example'),copy=example.textContent;
- let withoutAllowed=copy;
- for(const [key,reason] of allowedNumbers){assert.ok(reason);withoutAllowed=withoutAllowed.split(T(key)).join('');}
- assert.ok(!/[\d０-９⁰¹²³⁴⁵⁶⁷⁸⁹]/u.test(withoutAllowed),screen+': '+withoutAllowed);
- assert.ok(!/T21-|RAW-|p\d+:L\d+|\{\w+\}|⟦|fake-units|Invented source|성분 A|AI 모델 A/.test(copy),screen+': '+copy);
- assert.ok(!copy.includes(T('guide.records.title')));
+LIVE_SETUP = PRACTICE_SETUP + r"""
+pack.label='Fake set label';pack.path='data/pages/fake-set';
+pack.docs[0]={...pack.docs[0],pages:3,line_numbers:true};pack.docs[1]={...pack.docs[1],pages:4,line_numbers:true};
+pack.counts={dev:2,eval_locked:1,other:0,outside:0,unknown:0};
+S.shell.keys=[{id:'silver/fake',label:'Fake answers',path:'data/silver/fake',usable:true,docs:['T21-X01','T21-X02'],counts:{docs:2,eval_locked:1,outside:0}},
+ {id:'gold/empty',label:'Empty answers',path:'data/gold/empty',usable:false,reason:'Fake reason',docs:[],counts:{docs:0,eval_locked:0,outside:0}}];
+runData={...runData,model_tag:'fake-model',model_label:'Fake model',label:{title:'Fake run title'},run_kind:'dev10',
+ targets:{weighted:{line:90,value:71,met:false},must:{total:17,met_count:4,met:false}}};
+runData.status_text={...runData.status_text,loss_basis:{loss_total:19},top_problem:{...runData.status_text.top_problem,loss:2.5}};
+const older={...clone(runData),name:'older-run',label:{title:'Older run title'}};
+value.key='exposure[k=fake].q';
+const sampleLines=[{id:'p1:L1',page:1,no:1,text:'Invented first line'},{id:'p1:L2',page:1,no:2,text:'Invented second line'}];
+const liveApi=api;
+let liveFails=false;
+api=async(p,o={})=>{
+ if(liveFails&&(p.startsWith('/api/runs')||p.startsWith('/api/doc?')))throw new Error('Invented failure');
+ if(p.startsWith('/api/runs')){requests.push(p);return {current:runData?.name,runs:runData?[older,runData]:[]};}
+ if(p.startsWith('/api/doc?')){
+  const q=new URLSearchParams(p.split('?')[1]);
+  if(q.get('run')==='older-run'){requests.push(p);const v=clone(view);v.values[0]={...v.values[0],path:'moved.row',value:11,text:'11 older-units'};return v;}
+  if(!q.get('run')){requests.push(p);assert.equal(q.get('set'),'fake-set');return {...clone(view),doc_id:q.get('doc'),lines:sampleLines,pages:[1,2,3],values:[],silver_only:[]};}
+ }
+ return liveApi(p,o);
+};
+async function liveOpen(screen){await journeyEnsure();await guideOpen();await S.guide.livePending;await guideShow(screen);await S.guide.livePending;await flush();return el('guide-example').textContent;}
+const notBlank=screen=>{
+ const example=el('guide-example');
+ assert.equal(example.querySelectorAll('.guide-placeholder').length,0,screen);
+ assert.doesNotMatch(example.textContent,/\{\w+\}|⟦|null|undefined/,screen);
  assert.equal(example.getAttribute('role'),'img');
  assert.equal(example.getAttribute('aria-label'),T('guide.example.label'));
  for(const child of example.children)assert.equal(child.getAttribute('aria-hidden'),'true');
- const blanks=example.querySelectorAll('.guide-placeholder');assert.ok(blanks.length,screen);
- for(const blank of blanks){
-  assert.equal(blank.textContent,'');assert.equal(blank.getAttribute('aria-hidden'),'true');
-  assert.equal(blank.getAttribute('style'),null);assert.equal(blank.getAttribute('aria-valuenow'),null);
- }
- assert.equal(example.querySelectorAll('button,input,select,a,textarea,[tabindex]').length,0);
- if(baseline.has(screen))assert.equal(copy,baseline.get(screen));else baseline.set(screen,copy);
+ assert.equal(example.querySelectorAll('button,input,select,a,textarea,[tabindex]').length,0,screen);
 };
+"""
+
+
+def test_example_panels_show_real_saved_results():
+    """왼쪽 칸은 빈 막대도 가짜 값도 아니라 최근 결과 화면과 같은 값을 보여 준다."""
+    run_js(LIVE_SETUP + r"""
+const copy=await liveOpen('G01');
 for(const screen of guideOrder){
- for(const state of states){
-  S.guide.screen=screen;
-  S.guide.readiness={results:state==='failed'?'unknown':state==='unavailable'?'absent':'present',key:'present',ai:'absent'};
-  S.guide.source={state,entry:{v:value},item:'Fake criterion',doc:view.doc_id,section:8,
-    page:2,selectedLines:new Set(['p2:L3']),line:{'p2:L3':view.lines[0]}};
-  S.guide.trial={state,dry:screen==='G08',plan,result:trialResult(true),id:'fake-job',recorded:true,
-    job:trialJob(screen==='G08'),section:8,started:Date.now(),response:{status:200}};
-  S.guide.returned=state==='ready';S.guide.session={source:null,practice:0,trial:null};
-  guideRender();check(screen);
- }
+ S.guide.screen=screen;guideRender();notBlank(screen);
+ assert.ok(el('guide-example').textContent.includes(T('guide.example.badge')),screen);
 }
-// Actual records remain on the right, even when their dates/counts change.
-const at='2024-03-02T23:05:06.000Z';
-S.journey.outcomes.t2.practice={first_at:at,last_at:at,count:37,last_job:'fake-job'};
-S.guide.screen='G15';guideRender();check('G15');
-assert.ok(el('guide-records').textContent.includes(T('journey.history.first_count',{time:when(at),count:37})));
-// The score unit is still needed by the actual preview, not by the illustration.
-const choice={set:pack,key:{id:'silver/fake',label:'Fake answers'},usable:true};
-S.guide.defaults={choices:[choice],selected:choice,preview:{count:1,run:{weighted:38.2,key:choice.key}}};
-S.guide.screen='G14';guideRender();check('G14');
-assert.ok(el('guide-content').textContent.includes('38.2'));
-assert.ok(el('guide-content').textContent.includes(T('guide.example.score_unit')));
-assert.deepEqual(Object.keys(UI.guide.example).filter(key=>!used.has(key)),[]);
-T=textLookup;
-assert.equal(UI.guide.example.values,undefined);assert.equal(UI.guide.example.records,undefined);
+assert.ok(copy.includes('71.0'));assert.ok(copy.includes(T('score.summary.scope',{model:'Fake model',count:2})));
+assert.ok(copy.includes(T('score.summary.must_some',{total:17,met:4})));
+assert.ok(copy.includes(T('score.summary.top_problem',{item:'Fake criterion'})));
+assert.ok(copy.includes(T('score.basis.label',{key:'Fake answers',count:2})));
+const see=(screen,...expected)=>{S.guide.screen=screen;guideRender();const text=el('guide-example').textContent;
+ for(const part of expected)assert.ok(text.includes(part),screen+': '+part+' / '+text);};
+see('G03','8 fake-units','Invented source 5','11 older-units');
+see('G05','Fake run title','Fake answers');
+see('G07','8 fake-units','5 fake-units','Invented source 5');
+see('G08','T21-X02',T('score.calls.section',{section:8}),'Invented section extraction instruction');
+see('G09','11 older-units','8 fake-units','Older run title','Fake run title');
+S.shell.servers={models:[],rngd:{ok:true,tunnel:{port:9,open:true}}};see('G10','Fake model',T('guide.example.tunnel_open'));
+S.shell.servers={models:[],rngd:{ok:true,tunnel:{port:9,open:false}}};see('G10',T('guide.example.tunnel_closed'));
+see('G14','Fake set label','Fake answers','71.0');
+see('G16','data/pages/fake-set',T('guide.example.data_counts',{open:2,locked:1}),'Invented first line');
+see('G17','Fake answers','data/silver/fake',T('guide.example.answers_count',{docs:2,locked:1}),'8 fake-units','5 fake-units');
+assert.ok(!el('guide-example').textContent.includes('Empty answers'));
 """)
-    import runpy
-
-    copy = runpy.run_path(str(STATIC.parent / 'b_app_text.py'))
-    example = copy['UI_TEXT']['guide']['example']
-    for key in copy['COPY_EXCEPTIONS']:
-        if key.startswith('guide.example.'):
-            assert key.removeprefix('guide.example.') in example
 
 
-def test_guide_examples_match_approved_scene_text():
-    """정지 예시의 내용은 API가 아니라 승인된 장면 자체와 대조한다."""
-    import json
-    import re
-    from test_B_b_app_dom import _Page
+def test_example_change_prefers_scored_table_cells_over_shifted_sentences():
+    """서술 문장은 줄이 밀려 다른 내용끼리 맞붙는다. 채점하는 표의 칸을 먼저 보인다."""
+    run_js(LIVE_SETUP + r"""
+const row=(key,table,section,text,items=['Fake criterion'])=>({path:key,key,table,section,field:'f',value:text,text,items,lines:['p2:L3'],silver:{same:false,value:'x',text:'x'}});
+view.values=[value,row('narr[k=1].s','narratives',8,'Invented new sentence'),row('reg[k=1].applicable','regulations',15,'Invented new cell')];
+const baseDoc=api;
+api=async(p,o={})=>{
+ if(p.startsWith('/api/doc?')&&new URLSearchParams(p.split('?')[1]).get('run')==='older-run')
+  return {...clone(view),values:[{...value},row('narr[k=1].s','narratives',8,'Invented old sentence'),row('reg[k=1].applicable','regulations',15,'Invented old cell')]};
+ return baseDoc(p,o);
+};
+await liveOpen('G09');
+const text=el('guide-example').textContent;
+assert.ok(text.includes('Invented new cell'),text);assert.ok(text.includes('Invented old cell'));
+assert.ok(!text.includes('Invented new sentence'));
+assert.ok(text.includes('reg[k=1].applicable'));
+assert.ok(text.includes(T('guide.target',{doc:'T21-X02',section:15})));
+""")
 
-    page = _Page()
-    page.feed((STATIC / 'design/onboard/mockup.html').read_text())
 
-    def find(node, predicate):
-        if isinstance(node, str):
-            return None
-        if predicate(node):
-            return node
-        return next((found for child in node['kids'] if (found := find(child, predicate))), None)
+def test_example_change_shows_only_round_of_long_run_label():
+    run_js(LIVE_SETUP + r"""
+older.label={title:'Long older title',parts:['Long older','Round one']};
+runData.label={title:'Long newer title',parts:['Long newer','Round two']};
+await liveOpen('G09');
+const text=el('guide-example').textContent;
+assert.ok(text.includes('Round one'));assert.ok(text.includes('Round two'));
+assert.ok(!text.includes('Long older title'));assert.ok(!text.includes('Long newer title'));
+""")
 
-    # 11/01 결정: 예시 값과 그 값에 종속된 문장만 뺀다.
-    # 나머지 승인 문구는 여전히 원본 HTML과 전체 문자열로 대조한다.
-    removed_data = {
-        '82.4', '/ 100점', '점', '목표 90점보다 7.6점 낮아요.', '목표선 90점',
-        '필수 기준은 점수를 매기는 23개 기준 가운데 꼭 맞아야 하는 17개예요.',
-        '필수 17개 중 12개가 목표를 채웠어요.', '이 기준에서 총점 2.95점이 깎였어요.',
-        'T21-X01', '8번 부분', '성분 A: 5 mg/m³', '8', '5', 'mg/m³',
-        'T21-X01 · 성분 A · 8번 부분', 'T21-X01 · 8번 부분 · AI 모델 A',
-        '성분 A의 노출 기준: 5 mg/m³.', '개발용 문서 10건',
-        '성분 A의 허용 농도를 원문에 적힌 단위와 함께 뽑아요.',
-        '부분은 문서를 나눈 16개 주제 중 하나예요. 8번 부분은 작업장 공기의 기준(노출기준)을 다뤄요.',
-        '있음', '없음', '열림', '꺼짐',
-    }
-    labels_without_data = {
-        '개발용 문서 10건 · AI 정답 초안': 'AI 정답 초안',
-        '개발용 문서 10건 · AI 정답 초안 · 사람 확인 전': 'AI 정답 초안 · 사람 확인 전',
-        '가장 큰 문제는 허용 농도예요.': '가장 큰 문제',
-        '5쪽 12번째 줄': '원문 줄', 'AI 모델 A': 'AI 모델',
-    }
 
-    def text(node):
-        if isinstance(node, str):
-            value = node.strip()
-            return '' if value in removed_data else labels_without_data.get(value, node)
-        # Step 0 removes only G15's fabricated records from the approved example.
-        if {'snapshot-variant', 'demo-record'} & set(node['attrs'].get('class', '').split()):
-            return ''
-        return ''.join(text(child) for child in node['kids'])
-
-    expected = {}
-    for screen in ['G01', 'G02', 'G03', 'G04', 'G05', 'G06', 'G07', 'G08', 'G09', 'G10', 'G11', 'G12', 'G13', 'G14', 'G15']:
-        scene = find(page.root, lambda node: node['attrs'].get('id') == screen)
-        demo = find(scene, lambda node: node['tag'] == 'aside')
-        expected[screen] = re.sub(r'\s+', '', text(demo))
-    run_js(GUIDE_SETUP + 'const approved=' + json.dumps(expected) + r""";
-await journeyEnsure();await guideOpen();
-const differences=[];
-for(const [screen,expected] of Object.entries(approved)){
- S.guide.screen=screen;guideRender();
- assert.equal(guideScreen(),screen);
- const actual=el('guide-example').textContent.replace(/\s+/g,'');
- if(actual!==expected)differences.push({screen,actual,expected});
+def test_example_panels_are_empty_only_in_words_when_no_result():
+    run_js(LIVE_SETUP + r"""
+runData=null;
+await liveOpen('G01');
+for(const screen of ['G01','G03','G07','G09','G14']){
+ S.guide.screen=screen;guideRender();notBlank(screen);
+ assert.ok(el('guide-example').textContent.includes(T('guide.example.empty')),screen);
+ assert.doesNotMatch(el('guide-example').textContent,/\d+\.\d/,screen);
 }
-assert.deepEqual(differences,[]);
+S.guide.screen='G16';guideRender();notBlank('G16');
+assert.ok(el('guide-example').textContent.includes('Invented first line'));
+""")
+
+
+def test_example_panel_read_failure_keeps_guide_working():
+    run_js(LIVE_SETUP + r"""
+liveFails=true;
+await liveOpen('G03');
+notBlank('G03');
+assert.ok(el('guide-example').textContent.includes(T('guide.example.failed')));
+assert.equal(guideScreen(),'G03');
+assert.equal(el('guide-next').disabled,false);
+await el('guide-next').click();await flush();
+assert.equal(guideScreen(),'G04');
+""")
+
+
+def test_example_panel_uses_only_open_docs_and_writes_nothing():
+    run_js(LIVE_SETUP + r"""
+const before=puts.length;
+await journeyEnsure();await guideOpen();
+const afterOpen=puts.length;
+await S.guide.livePending;await flush();
+assert.equal(puts.length,afterOpen);assert.equal(posted.length,0);assert.deepEqual(events,[]);
+const docs=requests.filter(p=>p.startsWith('/api/doc?')).map(p=>new URLSearchParams(p.split('?')[1]).get('doc'));
+assert.ok(docs.length);assert.ok(!docs.includes('T21-X99'));
+assert.equal(journeyPristine?typeof journeyPristine:'function','function');
+assert.equal(JSON.stringify(saved).includes('Invented'),false);assert.equal(JSON.stringify(saved).includes('fake-units'),false);
+""")
+
+
+def test_example_panel_ignores_results_of_previous_context():
+    run_js(LIVE_SETUP + r"""
+await journeyEnsure();await guideOpen();
+const stale=S.guide.live;
+S.ctx={...S.ctx,key:'gold/other'};
+const pending=guideLiveLoad();
+assert.notEqual(S.guide.live,stale);
+await S.guide.livePending;await pending;await flush();
+assert.equal(stale.run??null,null);
+assert.equal(S.guide.live.context,scoreContext());
+""")
+
+
+def test_data_screens_explain_meaning_and_how_to_change_and_add():
+    run_js(LIVE_SETUP + r"""
+await journeyEnsure();await guideOpen();await S.guide.livePending;
+assert.deepEqual(guideOrder.slice(-5),['G13','G16','G17','G14','G15']);
+await guideShow('G13');await flush();
+assert.equal(guideNode().querySelector('h1').textContent,T('guide.screens.G13.title'));
+await el('guide-next').click();await flush();
+assert.equal(guideScreen(),'G16');
+const source=el('guide-content').textContent;
+for(const key of ['lead','example','set','change_title','change','add_title','add1','add2','add3','add4','caution'])
+ assert.ok(source.includes(T('guide.data.source.'+key)),key);
+assert.ok(source.includes('data/pages/'));assert.ok(source.includes(T('context.change_documents')));
+assert.equal(el('guide-progress').children.length,4);
+await el('guide-next').click();await flush();
+assert.equal(guideScreen(),'G17');
+const answers=el('guide-content').textContent;
+for(const key of ['lead','kinds_title','gold','silver','change_title','change','add_title','add1','add2','add3','caution'])
+ assert.ok(answers.includes(T('guide.data.answers.'+key)),key);
+assert.ok(answers.includes('data/gold'));assert.ok(answers.includes('data/silver/'));assert.ok(answers.includes(T('context.change_answer')));
+await el('guide-next').click();await flush();
+assert.equal(guideScreen(),'G14');
+await el('guide-back').click();await flush();
+assert.equal(guideScreen(),'G17');
+assert.equal(saved.progress.guide.screen,'G14');
 """)
 
 

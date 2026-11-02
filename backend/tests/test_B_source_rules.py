@@ -608,3 +608,60 @@ def test_threshold_follows_unclosed_parenthesis_to_later_line():
                               "wt% 이상 함유한 제제, 진단:6개월 이내)"))
     rows = [reg("특수건강진단물질", "p1:L1"), reg("관리대상유해물질", "p1:L1")]
     assert th(fill_thresholds(rows, lines)) == [(">=", 1, None, "wt%", "1 wt% 이상"), None]
+# ── 9항 값 없음 ─────────────────────────────────────────
+
+from msds.extract.source_rules import fill_no_value              # noqa: E402
+
+PHYS_LINES = [                                                 # 가짜 9항. 표의 값 칸에 상태어만 적혔다
+    "9. 물리화학적 특성",
+    "pH  자료없음  자료없음",
+    "3)냄새 역치  자료 없음",
+    "인화점  해당 없음",
+    "끓는점  -161 ℃",
+    "증기압(25℃)  자료없음",
+    "점도  자료없음 / 해당없음",
+]
+
+
+def phys(code, line, q=None, text_value=None):
+    return {"prop_code": code, "comp_name": None, "comp_cas": None, "q": q, "text_value": text_value,
+            "cond": None, "data_source": None, "line": line}
+
+
+def phys_by_id():
+    return ex.line_index(doc(*PHYS_LINES))
+
+
+def test_no_value_fills_blank_row_from_line():
+    rows = [phys("PH", "p1:L2"), phys("ODOR_THRESHOLD", "p1:L3"), phys("FLASH_POINT", "p1:L4")]
+    out = fill_no_value(rows, phys_by_id())
+    assert [r["q"] for r in out] == [{"raw": "자료없음"}, {"raw": "자료없음"}, {"raw": "해당없음"}]
+
+
+@pytest.mark.parametrize("row", [
+    phys("BOILING", "p1:L5"),                              # 줄에 숫자가 있으면 값을 놓친 것일 수 있다
+    phys("VAPOR_PRESSURE", "p1:L6"),                       # 조건의 숫자도 같다
+    phys("VISCOSITY", "p1:L7"),                            # 상태어가 둘이면 고르지 않는다
+    phys("PH", "p9:L1"),                                   # 원문에 없는 줄
+    phys("PH", "p1:L2", text_value="산성"),                # 값이 있는 행
+    phys("PH", "p1:L2", q=parse_qm("7")),
+])
+def test_no_value_leaves_other_rows(row):
+    assert fill_no_value([row], phys_by_id()) == [row]
+
+
+def test_no_value_input_rows_not_changed():
+    rows = [phys("PH", "p1:L2")]
+    before = copy.deepcopy(rows)
+    out = fill_no_value(rows, phys_by_id())
+    assert rows == before and out[0] is not rows[0]
+
+
+def test_no_value_expand_msds_fills_physchem():
+    """펼치기가 9항 행을 _shape 전에 고쳐 TO21 Q의 status가 된다."""
+    s9 = {"physchem": [{"prop_code": "PH", "line": "p1:L2"}, {"prop_code": "BOILING", "q": parse_qm("-161 ℃"),
+                                                              "line": "p1:L5"}]}
+    item, _ = ex.expand_msds({9: s9}, phys_by_id(), 0, "텍스트층")
+    q0, q1 = (r["q"] for r in item["physchem"])
+    assert (q0["raw"], q0["status"], q0["value"]) == ("자료없음", "자료없음", None)
+    assert (q1["value"], q1["status"]) == (-161, "값있음")

@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://to21-msds-poc.local/contracts/4-explanation.schema.json",
+  "title": "설명 생성 (B2 ↔ 모델) 요청·응답·저장",
+  "description": "설계서 v0.4 'AI 서버 연동 ③ 설명 요청·응답 예시와 안전장치'를 따른다. 요청은 판정 결과(약속 ③)에서 만들고, 응답은 검사한 뒤 저장한다. 모델 응답의 판정·구분 값은 쓰지 않는다.",
+  "oneOf": [
+    { "$ref": "#/$defs/request" },
+    { "$ref": "#/$defs/model_response" },
+    { "$ref": "#/$defs/stored" }
+  ],
+  "$defs": {
+    "request": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["task", "lang", "finding", "trace", "evidence"],
+      "properties": {
+        "task": { "const": "explain_finding" },
+        "lang": { "const": "ko" },
+        "finding": {
+          "description": "약속 ③ finding 에서 id·section·item·msds·expected·verdict·type·severity 만 뽑은 것",
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["id", "section", "item", "msds", "expected", "verdict", "type", "severity"],
+          "properties": {
+            "id": { "$ref": "common.schema.json#/$defs/finding_id" },
+            "section": { "enum": ["2", "15"] },
+            "item": { "type": "string" },
+            "msds": { "type": "object" },
+            "expected": { "type": "object" },
+            "verdict": { "enum": ["불일치", "경계", "근거부족"] },
+            "type": { "$ref": "common.schema.json#/$defs/mismatch_type" },
+            "severity": { "$ref": "common.schema.json#/$defs/severity" }
+          }
+        },
+        "trace": {
+          "description": "약속 ③ trace.steps 그대로",
+          "type": "array",
+          "items": { "type": "object", "required": ["step"] }
+        },
+        "evidence": {
+          "type": "array",
+          "items": { "$ref": "common.schema.json#/$defs/evidence_ref" }
+        }
+      }
+    },
+    "model_response": {
+      "description": "모델에 JSON Schema 강제 출력으로 이 모양을 요구한다 (temperature 0)",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["finding_id", "summary", "reasons", "basis", "used_numbers"],
+      "properties": {
+        "finding_id": { "$ref": "common.schema.json#/$defs/finding_id" },
+        "summary": { "type": "string", "minLength": 1, "maxLength": 200 },
+        "reasons": { "type": "array", "minItems": 1, "maxItems": 5, "items": { "type": "string", "maxLength": 200 } },
+        "basis": { "type": "array", "maxItems": 5, "items": { "type": "string", "maxLength": 200 } },
+        "used_numbers": {
+          "description": "설명에 쓴 숫자. 모두 trace·evidence 에 있어야 검사를 통과한다",
+          "type": "array",
+          "items": { "type": "number" }
+        }
+      }
+    },
+    "stored": {
+      "description": "judge 스키마에 저장하는 설명 한 건. input_sha256 이 같으면 다시 만들지 않는다",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["contract", "finding_id", "input_sha256", "by", "checked", "summary", "reasons", "basis",
+                   "model", "created_at", "check_failures"],
+      "properties": {
+        "contract": { "const": "explanation/1" },
+        "finding_id": { "$ref": "common.schema.json#/$defs/finding_id" },
+        "input_sha256": {
+          "description": "request 를 키 정렬해 직렬화한 해시. finding 의 판정·trace·근거가 바뀌었을 때만 달라진다",
+          "$ref": "common.schema.json#/$defs/sha256"
+        },
+        "by": { "description": "llm = 모델 설명이 검사를 통과 / template = 검사 실패·호출 실패로 규칙별 템플릿 문장", "enum": ["llm", "template"] },
+        "checked": { "description": "숫자·코드 환각 검사를 통과했는가 (template 이면 true)", "type": "boolean" },
+        "summary": { "type": "string" },
+        "reasons": { "type": "array", "items": { "type": "string" } },
+        "basis": { "type": "array", "items": { "type": "string" } },
+        "model": { "description": "llm 이면 모델 태그, template 이면 템플릿 id", "type": "string" },
+        "created_at": { "$ref": "common.schema.json#/$defs/datetime" },
+        "check_failures": {
+          "description": "검사에 걸린 이유 (예: '숫자 0.5가 trace에 없음'). 통과면 빈 목록",
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    }
+  }
+}

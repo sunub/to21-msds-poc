@@ -1175,3 +1175,264 @@ def test_route_tunnel_open_close(srv, app, bj, where, tmp_path):
     assert 18000 not in ports.open
     no_ssh_args(data)
     no_secret(data, prop, res)
+
+
+# ── 사용 후 닫기: 지워진 Pod 잊기와 요청이 멈춘 Pod 자동 삭제 ─────────────────
+
+class FakeText:
+    def __init__(self, text):
+        self._b = text.encode()
+
+    def read(self):
+        return self._b
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, *a):
+        return False
+
+
+def metrics_text(*, running=0, waiting=0, prompt=0, generated=0):
+    return (f'vllm:num_requests_running{{engine="0",model_name="m"}} {running}.0\n'
+            f'vllm:num_requests_waiting{{engine="0",model_name="m"}} {waiting}.0\n'
+            'vllm:num_requests_waiting_by_reason{engine="0",model_name="m",reason="capacity"} 9.0\n'
+            f'vllm:prompt_tokens_total{{engine="0",model_name="m"}} {prompt}.0\n'
+            f'vllm:generation_tokens_total{{engine="0",model_name="m"}} {generated}.0\n')
+
+
+class MetricsCloud(FakeCloud):
+    """FakeCloud에 Pod의 /metrics를 더한다. metrics에 없는 Pod는 아직 모델이 뜨지 않은 Pod다(404)."""
+
+    def __init__(self, *a, metrics=None, **k):
+        super().__init__(*a, **k)
+        self.metrics = dict(metrics or {})
+
+    def __call__(self, req, timeout=None):
+        if req.full_url.endswith("/metrics"):
+            pod_id = re.match(r"https://(\w+)-8000", req.full_url)[1]
+            if pod_id not in self.metrics:
+                raise urllib.error.HTTPError(req.full_url, 404, "not ready", None, None)
+            return FakeText(self.metrics[pod_id])
+        return super().__call__(req, timeout=timeout)
+
+
+def ids(cloud):
+    return [p["id"] for p in cloud.pods]
+
+
+def test_status_forgets_session_when_pod_is_deleted_by_another_app(srv, pod, tmp_path):
+    cloud = FakeCloud(pods=[pod_of("abc123", "to21-b-qwen36", 5)], served={pod.pod_url("abc123"): [MODEL]})
+    sa = make(srv, tmp_path, cloud=cloud)
+    assert sa.status()["session"]["pod_id"] == "abc123"
+    cloud.pods.clear()
+    cloud.served.clear()
+    st = sa.status()
+    assert st["session"] is None and sa.job_env() == {}
+    assert all(m["error"] != "HTTP 404" for m in st["models"])
+
+
+def test_just_created_pod_missing_from_list_keeps_session_and_watchdog(srv, pod, tmp_path):
+    sa, cloud, watch, prop, res, key = create(srv, pod, tmp_path)
+    cloud.pods.clear()
+    assert sa.status()["session"]["pod_id"] == "newpod1" and watch.procs[0].terminated is False
+
+
+def test_idle_guard_deletes_pod_after_twenty_minutes_without_requests(srv, pod, tmp_path):
+    clock = Clock()
+    cloud = MetricsCloud(pods=[pod_of("abc123", "to21-b-qwen36", 5)], metrics={"abc123": metrics_text()},
+                         served={pod.pod_url("abc123"): [MODEL]})
+    sa = make(srv, tmp_path, cloud=cloud, clock=clock)
+    assert sa.status()["session"]["pod_id"] == "abc123"
+    assert sa.idle_tick() == []
+    clock.t += srv.IDLE_SECONDS - 1
+    assert sa.idle_tick() == [] and ids(cloud) == ["abc123"]
+    clock.t += 1
+    assert sa.idle_tick() == ["abc123"] and ids(cloud) == []
+    assert sa.status()["session"] is None
+    log = (tmp_path / "manual" / "server_log.md").read_text(encoding="utf-8")
+    assert "pod_delete" in log and "요청 없이 20분" in log
+    no_secret(log)
+
+
+def test_automatic_close_is_reported_with_time_and_cost(srv, pod, tmp_path):
+    clock = Clock()
+    cloud = MetricsCloud(pods=[pod_of("abc123", "to21-b-qwen36", 5)], metrics={"abc123": metrics_text()},
+                         served={pod.pod_url("abc123"): [MODEL]})
+    sa = make(srv, tmp_path, cloud=cloud, clock=clock)
+    assert sa.status()["last_auto_close"] is None
+    sa.idle_tick()
+    clock.t += srv.IDLE_SECONDS
+    assert sa.idle_tick() == ["abc123"]
+    closed = sa.status()["last_auto_close"]
+    assert closed["kind"] == "idle" and closed["limit_min"] == 20
+    assert isinstance(closed["minutes"], int) and closed["cost"] is not None
+
+
+def test_session_status_tells_idle_limit(srv, pod, tmp_path):
+    cloud = MetricsCloud(pods=[pod_of("abc123", "to21-b-qwen36", 5)], metrics={"abc123": metrics_text()},
+                         served={pod.pod_url("abc123"): [MODEL]})
+    sa = make(srv, tmp_path, cloud=cloud, clock=Clock())
+    assert sa.status()["session"]["idle_minutes"] == 20
+
+
+def test_manual_delete_clears_automatic_close_note(srv, pod, tmp_path):
+    clock = Clock()
+    cloud = MetricsCloud(pods=[pod_of("abc123", "to21-b-qwen36", 5)], metrics={"abc123": metrics_text()},
+                         served={pod.pod_url("abc123"): [MODEL]})
+    sa = make(srv, tmp_path, cloud=cloud, clock=clock)
+    sa.status()
+    sa.idle_tick()
+    clock.t += srv.IDLE_SECONDS
+    sa.idle_tick()
+    cloud.pods.append(pod_of("def456", "to21-b-qwen36", 5))
+    sa._do_pod_delete({"pod_id": "def456"})
+    assert sa.status()["last_auto_close"] is None
+
+
+def test_idle_guard_restarts_the_clock_when_tokens_or_requests_change(srv, tmp_path):
+    clock = Clock()
+    cloud = MetricsCloud(pods=[pod_of("abc123", "to21-b-qwen36", 5)], metrics={"abc123": metrics_text()})
+    sa = make(srv, tmp_path, cloud=cloud, clock=clock)
+    sa.idle_tick()
+    clock.t += srv.IDLE_SECONDS - 60
+    cloud.metrics["abc123"] = metrics_text(prompt=10)
+    assert sa.idle_tick() == []
+    clock.t += srv.IDLE_SECONDS - 60
+    cloud.metrics["abc123"] = metrics_text(prompt=10, running=1)
+    assert sa.idle_tick() == []
+    clock.t += srv.IDLE_SECONDS
+    cloud.metrics["abc123"] = metrics_text(prompt=10, waiting=1)
+    assert sa.idle_tick() == [] and ids(cloud) == ["abc123"]
+
+
+def test_idle_guard_ignores_the_by_reason_waiting_line(srv, tmp_path):
+    clock = Clock()
+    cloud = MetricsCloud(pods=[pod_of("abc123", "to21-b-qwen36", 5)], metrics={"abc123": metrics_text()})
+    sa = make(srv, tmp_path, cloud=cloud, clock=clock)
+    sa.idle_tick()
+    clock.t += srv.IDLE_SECONDS
+    assert sa.idle_tick() == ["abc123"]        # by_reason 줄의 9는 대기 요청이 아니다
+
+
+def test_idle_guard_never_deletes_while_a_job_runs(srv, tmp_path):
+    clock, jobs = Clock(), FakeJobs()
+    cloud = MetricsCloud(pods=[pod_of("abc123", "to21-b-qwen36", 5)], metrics={"abc123": metrics_text()})
+    sa = make(srv, tmp_path, cloud=cloud, clock=clock, jobs=jobs)
+    sa.idle_tick()
+    jobs.now = [LOCK_RUN]
+    clock.t += srv.IDLE_SECONDS * 3
+    assert sa.idle_tick() == [] and ids(cloud) == ["abc123"]
+    jobs.now = []
+    clock.t += srv.IDLE_SECONDS - 1
+    assert sa.idle_tick() == []                # 작업이 끝난 뒤부터 다시 잰다
+    clock.t += 1
+    assert sa.idle_tick() == ["abc123"]
+
+
+def test_idle_guard_waits_longer_while_the_model_is_loading_then_gives_up(srv, tmp_path):
+    clock = Clock()
+    cloud = MetricsCloud(pods=[pod_of("abc123", "to21-b-qwen36", 0)])
+    sa = make(srv, tmp_path, cloud=cloud, clock=clock)
+    sa.idle_tick()
+    clock.t += srv.READY_LIMIT - 1
+    assert sa.idle_tick() == [] and ids(cloud) == ["abc123"]
+    clock.t += 1
+    assert sa.idle_tick() == ["abc123"]
+    assert "응답하지 않아" in (tmp_path / "manual" / "server_log.md").read_text(encoding="utf-8")
+
+
+def test_idle_clock_starts_when_the_model_first_answers(srv, tmp_path):
+    clock = Clock()
+    cloud = MetricsCloud(pods=[pod_of("abc123", "to21-b-qwen36", 0)])
+    sa = make(srv, tmp_path, cloud=cloud, clock=clock)
+    sa.idle_tick()
+    clock.t += srv.READY_LIMIT - 60
+    cloud.metrics["abc123"] = metrics_text()
+    assert sa.idle_tick() == []
+    clock.t += srv.IDLE_SECONDS - 1
+    assert sa.idle_tick() == []
+    clock.t += 1
+    assert sa.idle_tick() == ["abc123"]
+
+
+def test_idle_guard_never_touches_pods_of_others_or_stopped_pods(srv, tmp_path):
+    clock = Clock()
+    stopped = {**pod_of("old111", "to21-b-qwen36", 500), "desiredStatus": "EXITED"}
+    cloud = MetricsCloud(pods=[pod_of("zzz999", "someone-else", 5), stopped])
+    sa = make(srv, tmp_path, cloud=cloud, clock=clock)
+    sa.idle_tick()
+    clock.t += srv.READY_LIMIT * 2
+    assert sa.idle_tick() == [] and ids(cloud) == ["zzz999", "old111"]
+    assert not cloud.sent("DELETE")
+
+
+def test_idle_guard_survives_runpod_errors_and_missing_key(srv, tmp_path):
+    def broken(req, timeout=None):
+        raise urllib.error.URLError(ConnectionRefusedError())
+    assert make(srv, tmp_path, cloud=broken).idle_tick() == []
+    env = {k: v for k, v in ENV.items() if k != "RUNPOD_API_KEY"}
+    assert make(srv, tmp_path, env=env).idle_tick() == []
+
+
+def test_idle_guard_counts_down_in_the_pod_row(srv, pod, tmp_path):
+    clock = Clock()
+    cloud = MetricsCloud(pods=[pod_of("abc123", "to21-b-qwen36", 5)], metrics={"abc123": metrics_text()},
+                         served={pod.pod_url("abc123"): [MODEL]})
+    sa = make(srv, tmp_path, cloud=cloud, clock=clock)
+    sa.status()
+    sa.idle_tick()
+    clock.t += 300
+    row = next(p for p in sa.status()["pods"] if p["id"] == "abc123")
+    assert row["auto_delete_min"] == srv.IDLE_SECONDS // 60 - 5
+
+
+def test_app_start_turns_the_idle_guard_on():
+    assert "servers.start_idle_guard()" in (SCRIPTS / "b_app.py").read_text(encoding="utf-8")
+
+
+def test_pod_delete_summary_does_not_quote_the_company_server_wait(srv, pod, tmp_path):
+    cloud = FakeCloud(pods=[pod_of("abc123", "to21-b-qwen36", 5)])
+    summary = make(srv, tmp_path, cloud=cloud).propose("pod_delete", {"pod_id": "abc123"})["summary"]
+    assert "15~25분" not in summary
+
+
+def test_pod_start_command_deletes_itself_after_four_hours(srv, pod, tmp_path):
+    sa, cloud, watch, prop, res, key = create(srv, pod, tmp_path)
+    cmd = cloud.sent("POST")[0]["body"]["dockerStartCmd"][0]
+    assert f'(sleep {srv.WATCHDOG_SECONDS}; runpodctl remove pod "$RUNPOD_POD_ID") & ' in cmd     # 11/2 실제 Pod로 확인
+    assert "vllm serve " in cmd and "--api-key \"$VLLM_API_KEY\"" in cmd
+
+
+def test_cost_text_quotes_the_real_auto_delete_limits(srv):
+    bt = srv.bt
+    for text in (bt.UI_TEXT["servers"]["compare"]["rented"]["cleanup"], bt.UI_TEXT["servers"]["confirm"]["create"]["cost"]):
+        assert f"{srv.IDLE_SECONDS // 60}분" in text and f"{srv.WATCHDOG_SECONDS // 3600}시간" in text
+    assert "예약을 확인" not in bt.UI_TEXT["servers"]["rented"]["scheduler"]
+
+
+class DeadAddressCloud(FakeCloud):
+    """모델 주소가 RunPod 프록시의 404를 돌려준다. 지워진 Pod의 주소가 .env에 남은 경우다."""
+
+    def __call__(self, req, timeout=None):
+        if req.full_url.endswith("/models") and req.full_url.split("/models")[0] not in self.served:
+            raise urllib.error.HTTPError(req.full_url, 404, "not found", None, None)
+        return super().__call__(req, timeout=timeout)
+
+
+def test_dead_pod_address_left_in_env_reads_as_no_server_not_a_failure(srv, tmp_path):
+    st = make(srv, tmp_path, cloud=DeadAddressCloud()).status()
+    pod_row = next(m for m in st["models"] if m["where"] == "RunPod")
+    assert pod_row["url_set"] is False and pod_row["error"] is None and pod_row["reachable"] is False
+    assert not pod_row.get("friendly")
+
+
+def test_session_pod_that_answers_404_is_still_reported(srv, pod, tmp_path):
+    cloud = DeadAddressCloud(pods=[pod_of("abc123", "to21-b-qwen36", 5)])
+    pod_row = next(m for m in make(srv, tmp_path, cloud=cloud).status()["models"] if m["where"] == "RunPod")
+    assert pod_row["url_set"] is True and pod_row["error"] == "HTTP 404"       # 켜는 중인 우리 Pod는 숨기지 않는다
+
+
+def test_company_server_404_is_not_hidden(srv, tmp_path):
+    rows = make(srv, tmp_path, cloud=DeadAddressCloud()).status()["models"]
+    assert all(m["url_set"] is True and m["error"] == "HTTP 404" for m in rows if m["where"] == "RNGD")
