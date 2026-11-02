@@ -2,7 +2,6 @@
 
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useCallback, useState } from "react";
 import { documentDetailQuery } from "@/api/documents";
 import type { DocumentDetail, SectionProgress } from "@/api/schemas";
@@ -14,24 +13,9 @@ import { DocFrame } from "@/components/shell/doc-frame";
 import { Foot, Pane, Row } from "@/components/shell/layout";
 import { Progress, Skeleton, StatusLabel, Table, TableHead, buttonStyles } from "@/components/ui";
 import { useDocumentTransitions } from "@/hooks/use-document-transitions";
+import { usePageParam } from "@/hooks/use-page-param";
 import { routes } from "@/lib/routes";
 import { allSectionsFailed, stageMessage } from "@/lib/status";
-
-/** ?page= 는 원문 칸의 쪽. 새로 고쳐도 유지되고 뒤로 가기 기록은 늘리지 않는다 */
-function usePageParam(docId: string) {
-  const router = useRouter();
-  const pathname = usePathname();
-  const params = useSearchParams();
-  const page = Math.max(1, Number(params.get("page")) || 1);
-  const setPage = useCallback(
-    (next: number) => {
-      const q = new URLSearchParams({ doc: docId, page: String(next) });
-      router.replace(`${pathname}?${q.toString()}`, { scroll: false });
-    },
-    [router, pathname, docId],
-  );
-  return [page, setPage] as const;
-}
 
 /**
  * 1.2~1.3 추출 진행과 끝난 뒤의 재생성 미리 보기. 진행 상태는 상세 쿼리 하나(2초 폴링)가 전부다.
@@ -55,7 +39,7 @@ function ExtractBody({ docId }: { docId: string }) {
 }
 
 function LoadedBody({ doc }: { doc: DocumentDetail }) {
-  const [page, setPage] = usePageParam(doc.id);
+  const [page, setPage] = usePageParam();
   const [selected, setSelected] = useState<SectionKey | null>(null);
 
   const openSection = useCallback(

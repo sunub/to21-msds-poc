@@ -16,9 +16,12 @@ import {
   regeneratedResponseSchema,
   resultResponseSchema,
   retryResponseSchema,
+  reviewResponseSchema,
   sectionResultResponseSchema,
   type CreateDocumentParams,
   type DocumentFilter,
+  type FieldReviewRequest,
+  type SectionReviewRequest,
 } from "./schemas";
 
 /** 진행 상태를 다시 묻는 간격 */
@@ -34,6 +37,7 @@ export const documentKeys = {
   detail: (id: string) => [...documentKeys.all, id] as const,
   lines: (id: string, page: number) => [...documentKeys.detail(id), "lines", page] as const,
   result: (id: string) => [...documentKeys.detail(id), "result"] as const,
+  review: (id: string) => [...documentKeys.detail(id), "review"] as const,
   regenerated: (id: string) => [...documentKeys.detail(id), "regenerated"] as const,
   section: (id: string, msdsIndex: number, section: number) =>
     [...documentKeys.detail(id), "section", msdsIndex, section] as const,
@@ -114,6 +118,13 @@ export const sectionResultQuery = (id: string, msdsIndex: number, section: numbe
       requestJson(sectionResultResponseSchema, `${doc(id)}/sections/${msdsIndex}/${section}`, { signal }),
   });
 
+/** 2.2 항별 칸과 검수 기록. 끝나기 전에는 409 이므로 status 가 done 일 때만 켠다(enabled). */
+export const reviewQuery = (id: string) =>
+  queryOptions({
+    queryKey: documentKeys.review(id),
+    queryFn: ({ signal }) => requestJson(reviewResponseSchema, `${doc(id)}/review`, { signal }),
+  });
+
 /* ── 쓰기 ───────────────────────────────────────────────── */
 
 /** 1. PDF 올리기. 본문은 PDF 바이트 그대로, filename·as_of 는 쿼리. */
@@ -131,4 +142,20 @@ export function createDocument(file: Blob, params: CreateDocumentParams) {
 /** 7. 실패·멈춘 문서를 처음부터 다시 (그 밖의 상태면 409) */
 export function retryDocument(id: string) {
   return requestJson(retryResponseSchema, `${doc(id)}/retry`, { method: "POST" });
+}
+
+const jsonBody = (body: unknown) => ({
+  method: "PUT",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify(body),
+});
+
+/** 칸 하나 확인·수정·되돌림. 바뀐 뒤의 전체 보기를 돌려준다 */
+export function saveFieldReview(id: string, body: FieldReviewRequest) {
+  return requestJson(reviewResponseSchema, `${doc(id)}/review/fields`, jsonBody(body));
+}
+
+/** 항 하나 확인 완료·취소 */
+export function saveSectionReview(id: string, body: SectionReviewRequest) {
+  return requestJson(reviewResponseSchema, `${doc(id)}/review/sections`, jsonBody(body));
 }

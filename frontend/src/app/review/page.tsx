@@ -2,9 +2,10 @@
 
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useState } from "react";
+import { DocSummaryLine } from "@/components/review/doc-summary-line";
 import { SaveGuardDialog } from "@/components/review/save-guard-dialog";
+import { ValuesPanel } from "@/components/review/values-panel";
 import { DocFrame } from "@/components/shell/doc-frame";
-import { Slot } from "@/components/shell/slot";
 import { Foot, Pane, Row, SourcePane } from "@/components/shell/layout";
 import { Button, UnderlineTabs } from "@/components/ui";
 import { REVIEW_TABS, isReviewTab, routes, type ReviewTab } from "@/lib/routes";
@@ -28,9 +29,7 @@ const PANELS: Record<ReviewTab, { title: string; note: string }[]> = {
     { title: "처리하지 않은 판정", note: "아직 처리하지 않은 판정 목록이 들어올 자리" },
     { title: "검토 이력", note: "시각, 검토자, 구분, 대상, 처리 내용, 의견 표가 들어올 자리" },
   ],
-  values: [
-    { title: "재생성 MSDS", note: "1~16항을 펼쳐 칸마다 확인함·수정됨으로 기록하는 자리" },
-  ],
+  values: [],
 };
 
 function ReviewBody({ doc }: { doc: string }) {
@@ -49,8 +48,12 @@ function ReviewBody({ doc }: { doc: string }) {
           onChange={(id) => router.replace(routes.review(doc, id as ReviewTab))}
         />
       </div>
-      <Slot title="문서 요약 줄" note="개정일, 혼합물·단일물질, 기준일, 지식DB 판이 들어올 자리" className="py-2" />
+      <DocSummaryLine docId={doc} />
 
+      {tab === "values" ? (
+        <ValuesPanel docId={doc} />
+      ) : (
+        <>
       <Row>
         <SourcePane />
         <div className="flex min-w-0 grow basis-105 flex-col gap-5">
@@ -68,6 +71,8 @@ function ReviewBody({ doc }: { doc: string }) {
           저장하기
         </Button>
       </Foot>
+        </>
+      )}
 
       <SaveGuardDialog
         open={guardOpen}

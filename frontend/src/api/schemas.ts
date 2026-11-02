@@ -287,6 +287,75 @@ export const regeneratedResponseSchema = z.object({
 });
 export type RegeneratedResponse = z.infer<typeof regeneratedResponseSchema>;
 
+/* ── GET·PUT /api/documents/{id}/review ────────────────── */
+
+const reviewValue = z.union([z.string(), z.number(), z.boolean()]).nullable();
+
+export const reviewFieldSchema = z.object({
+  /** MSDS 한 건 기준 경로. 예: components[0].cas_no */
+  path: z.string(),
+  label: z.string(),
+  /** 지금 값 (고쳤으면 고친 값) */
+  value: reviewValue,
+  /** 고치기 전 값. 고치지 않았으면 null */
+  original: reviewValue,
+  state: z.enum(["unchecked", "confirmed", "edited"]),
+  reviewer: z.string().nullable(),
+  at: z.string().nullable(),
+  /** 근거 쪽과 글. 없을 수 있다 */
+  page: pageNo.nullable(),
+  source_text: z.string().nullable(),
+  /** TO21 검증기 문제 */
+  problems: z.array(z.string()),
+});
+export type ReviewField = z.infer<typeof reviewFieldSchema>;
+
+export const reviewSectionSchema = z.object({
+  section: sectionNo,
+  title: z.string().nullable(),
+  status: sectionStatusSchema,
+  pages: z.array(pageNo),
+  needs_review: z.boolean(),
+  problems: z.array(z.string()),
+  confirmed: z.object({ reviewer: z.string(), at: z.string() }).nullable(),
+  field_count: z.number().int().nonnegative(),
+  checked_count: z.number().int().nonnegative(),
+  groups: z.array(z.object({ path: z.string(), title: z.string(), fields: z.array(reviewFieldSchema) })),
+});
+export type ReviewSection = z.infer<typeof reviewSectionSchema>;
+
+export const reviewResponseSchema = z.object({
+  summary: z.object({
+    sections_total: z.number().int(),
+    sections_confirmed: z.number().int(),
+    fields_total: z.number().int(),
+    fields_checked: z.number().int(),
+    fields_edited: z.number().int(),
+  }),
+  msds: z.array(
+    z.object({
+      msds_index: msdsIndex,
+      info: z.object({
+        product_name: z.string().nullable(),
+        last_revision_date: z.string().nullable(),
+        composition_type: z.string().nullable(),
+        component_count: z.number().int().nonnegative(),
+      }),
+      sections: z.array(reviewSectionSchema),
+    }),
+  ),
+});
+export type ReviewResponse = z.infer<typeof reviewResponseSchema>;
+
+export type FieldReviewRequest = {
+  msds_index: number;
+  path: string;
+  action: "confirm" | "edit" | "reset";
+  value?: string;
+  reviewer: string;
+};
+export type SectionReviewRequest = { msds_index: number; section: number; confirmed: boolean; reviewer: string };
+
 /* ── 7. POST /api/documents/{id}/retry ──────────────────── */
 
 /** 202 Accepted. 실패·멈춘 문서만 처음부터 다시 돌린다 (그 밖의 상태면 409). 대기 상태의 진행 상태 전체 */

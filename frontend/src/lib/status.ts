@@ -100,3 +100,19 @@ export function pagesLabel(pages: number[]) {
   const [first, last] = [pages[0], pages[pages.length - 1]];
   return first === last ? `${first}쪽` : `${first}~${last}쪽`;
 }
+
+/** 텍스트층을 입력 유형으로 (2.1). 정상이면 글자를 그대로 읽은 PDF 이고, 나머지는 잘못 읽힌 칸이 있을 수 있다 */
+export function inputType(textLayer: DocumentSummary["text_layer"]): { label: string; note: string; recommendValues: boolean } {
+  switch (textLayer) {
+    case "정상":
+      return { label: "디지털 PDF", note: "글자를 파일에서 바로 읽어 신뢰도가 높습니다.", recommendValues: false };
+    case "없음":
+      return { label: "스캔본 (이미지로 된 PDF)", note: "글자를 이미지에서 읽어 잘못 읽힌 칸이 있을 수 있습니다.", recommendValues: true };
+    case "글꼴깨짐":
+      return { label: "글자가 깨진 PDF", note: "파일의 글자가 깨져 있어 잘못 읽힌 칸이 있을 수 있습니다.", recommendValues: true };
+    case "혼합":
+      return { label: "글자와 이미지가 섞인 PDF", note: "이미지로 된 쪽에 잘못 읽힌 칸이 있을 수 있습니다.", recommendValues: true };
+    case null:
+      return { label: "판정 전", note: "입력 유형을 판정하지 못했습니다.", recommendValues: true };
+  }
+}

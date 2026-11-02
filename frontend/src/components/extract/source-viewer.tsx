@@ -1,11 +1,12 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { pageImageUrl, pageLinesQuery } from "@/api/documents";
 import type { DocumentDetail } from "@/api/schemas";
 import { Pane } from "@/components/shell/layout";
 import { Button, Paper, Progress, Skeleton, Spinner } from "@/components/ui";
+import { cn } from "@/lib/cn";
 
 /**
  * 원문 칸. 텍스트층이 정상이면 쪽 글을, 아니면(또는 아직 모르면) 쪽 이미지를 보여 준다.
@@ -15,10 +16,15 @@ export function SourceViewer({
   doc,
   page,
   onPage,
+  highlight,
+  className,
 }: {
   doc: DocumentDetail;
   page: number;
   onPage: (page: number) => void;
+  /** 근거 글. 이 글에 들어 있는 줄을 강조한다 (근거에 줄 번호가 없어 글로 찾으므로 같은 글이 여러 줄이면 모두 강조된다) */
+  highlight?: string | null;
+  className?: string;
 }) {
   const total = doc.page_count ?? doc.preprocess.total ?? 0;
   const ready = page <= doc.preprocess.done;
@@ -26,7 +32,7 @@ export function SourceViewer({
   return (
     <Pane
       title="원문"
-      className="basis-115 print:hidden"
+      className={cn("basis-115 print:hidden", className)}
       aside={
         total > 0 && (
           <div className="flex items-center gap-2">
@@ -46,7 +52,7 @@ export function SourceViewer({
       {ready ? (
         doc.text_layer === "정상" ? (
           <Paper>
-            <PageLines id={doc.id} page={page} />
+            <PageLines id={doc.id} page={page} highlight={highlight} />
           </Paper>
         ) : (
           <PageImage key={`${doc.id}-${page}`} id={doc.id} page={page} />
@@ -71,8 +77,12 @@ export function SourceViewer({
   );
 }
 
-function PageLines({ id, page }: { id: string; page: number }) {
+function PageLines({ id, page, highlight }: { id: string; page: number; highlight?: string | null }) {
   const { data, isPending, isError } = useQuery(pageLinesQuery(id, page));
+  const firstHit = useRef<HTMLParagraphElement>(null);
+  useEffect(() => {
+    firstHit.current?.scrollIntoView({ block: "nearest" });
+  }, [highlight, data]);
   if (isPending) {
     return (
       <div aria-hidden="true" className="grid gap-2.5">
@@ -83,8 +93,15 @@ function PageLines({ id, page }: { id: string; page: number }) {
     );
   }
   if (isError) return <p className="text-mut">이 쪽의 글을 읽지 못했습니다.</p>;
+  const isHit = (text: string) => !!highlight && text.trim().length > 1 && highlight.includes(text.trim());
+  const first = data.lines.find((l) => isHit(l.text))?.id;
   return data.lines.map((line) => (
-    <p key={line.id} data-line-id={line.id}>
+    <p
+      key={line.id}
+      ref={line.id === first ? firstHit : undefined}
+      data-line-id={line.id}
+      className={cn(isHit(line.text) && "bg-sel")}
+    >
       {line.text}
     </p>
   ));
