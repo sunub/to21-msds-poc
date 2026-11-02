@@ -438,14 +438,21 @@ body.guide-open { overflow: hidden; }
 .guide-mini-content { padding: var(--space-section); }
 .guide-mini-content h2, .guide-mini-steps h2 { font-size: var(--label-size); margin: 0; }
 .guide-mini-content > p { color: var(--muted); }
-.guide-mini-score { margin: var(--space-compact) 0; }
-.guide-placeholder { display: block; width: 100%; height: var(--space-compact); background: var(--scale-track); margin-block: var(--space-small); }
-.guide-mini-score > .guide-placeholder { height: var(--space-page); }
-.guide-mini-row > .guide-placeholder { width: var(--space-wide-page-x); flex-shrink: 0; }
+.guide-mini-key { padding: var(--space-compact) 0; border-top: var(--border-standard); }
+.guide-mini-key[data-current="true"] { background: var(--selected); padding-inline: var(--space-small); }
+.guide-mini-key p { margin: var(--space-tight) 0 0; }
+.guide-mini-screen .guide-value, .guide-mini-steps .guide-value { font-size: var(--label-size); font-weight: 700; overflow-wrap: break-word; }
+.guide-mini-screen .score-number, .guide-mini-steps .score-number { margin: var(--space-small) 0; }
+.guide-mini-steps .score-number { font-size: var(--value-size); white-space: nowrap; }
+.guide-mini-steps .score-number span { font-size: var(--label-size); }
+.guide-mini-screen .score-bar { display: block; width: 100%; max-width: 300px; }
+.guide-steps { margin: 0 0 var(--space-compact); padding-left: var(--space-section); }
+.guide-steps li { margin-bottom: var(--space-small); }
+.guide-column #guide-content h2 { margin-top: var(--space-section); }
+.guide-mini-source .technical { margin: var(--space-tight) 0 0; }
 .guide-mini-sub { padding: var(--space-group); border-top: var(--border-standard); }
 .guide-mini-sub p { margin-top: var(--space-small); }
 .guide-mini-sub p:last-child { margin-bottom: 0; }
-.guide-scale { height: var(--space-field); background: var(--scale-track); position: relative; margin: var(--space-section-small) 0 var(--space-compact); }
 .guide-mini-row { padding: var(--space-compact) 0; border-top: var(--border-standard); display: flex; justify-content: space-between; gap: var(--space-group); }
 .guide-after { margin-top: var(--space-group); }
 .guide-value-pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-group); padding-block: var(--space-group); border-block: var(--border-standard); }

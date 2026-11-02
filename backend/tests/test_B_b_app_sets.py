@@ -553,14 +553,87 @@ def test_key_for_dir(bsets, answer_keys, env):
 
 def test_default_key(bsets, answer_keys, env):
     keys = bsets.list_keys(answer_keys)
-    assert bsets.DEFAULT_KEY == "silver/claude"
+    assert bsets.DEFAULT_KEY == "gold"
     assert bsets.default_key(keys, answer_keys / "silver" / "claude") == "silver/claude"
     assert bsets.default_key(keys, answer_keys / "gold" / "a3") == "gold/a3"             # --gold-dir가 정한다
-    assert bsets.default_key(keys, answer_keys / "silver" / "gpt") == "silver/claude"     # 고를 수 없으면 기본
+    assert bsets.default_key(keys, answer_keys / "silver" / "gpt") == "gold/a3"           # 기본(gold)이 없으면 첫 번째 쓸 수 있는 정답지
     assert bsets.default_key(keys, env / "gold") == "gold"                                # 목록 밖 폴더는 그 폴더
-    no_claude = [k for k in keys if k["id"] != "silver/claude"]
-    assert bsets.default_key(no_claude, answer_keys / "silver" / "gpt") == "gold/a3"      # 첫 번째 쓸 수 있는 정답지
     assert bsets.default_key([], env / "gold") == "gold"
+
+
+def test_gold_folder_itself_is_a_key(bsets, bt, answer_keys):
+    """A가 골드를 data/gold/<문서>.json에 바로 올린다. 그 폴더 자체가 정답지 하나이고 기본값이다."""
+    gold_dir = answer_keys / "gold"
+    write_json(gold_dir / f"{X01}.json", make_doc(X01))
+    write_json(gold_dir / f"{X09}.json", make_doc(X09))                   # 평가용 정답. 열지 않고 이름만 센다
+    (gold_dir / f"{X01}.unreviewed.json").write_text("[]", encoding="utf-8")   # 검수 기록은 정답 파일이 아니다
+    keys = bsets.list_keys(answer_keys)
+    assert [k["id"] for k in keys] == ["gold", *KEY_IDS]
+    gold = keys[0]
+    assert gold["usable"] is True and gold["reason"] is None and gold["kind"] == "gold"
+    assert gold["docs"] == [X01] and gold["counts"] == {"docs": 1, "eval_locked": 1, "outside": 0}
+    assert gold["path"] == "data/gold" and gold["label"] == "사람이 확인한 정답" == bt.key_label("gold")
+    assert gold["fingerprint"]
+    assert bsets.find_key(keys, "gold") is gold
+    assert bsets.key_dir(answer_keys, "gold") == gold_dir
+    assert bsets.key_for_dir(keys, gold_dir)["id"] == "gold"
+    assert bsets.default_key(keys, gold_dir) == "gold"
+    assert bsets.default_key(keys, answer_keys / "silver" / "gpt") == "gold"   # 켤 때 폴더를 못 쓰면 기본 정답지
+
+
+def test_gold_folder_without_doc_files_is_not_a_key(bsets, answer_keys):
+    """layout 같은 하위 폴더만 있으면 data/gold 자체는 목록에 없다."""
+    assert "gold" not in [k["id"] for k in bsets.list_keys(answer_keys)]
+
+
+def test_same_source_as_eval_doc_is_locked(bsets, bt, env, monkeypatch):
+    """manifest 밖 번호라도 원본 PDF가 평가 문서와 같으면 평가 문서다. 예: RAW-50은 T21-050이다 (D-43)."""
+    import unicodedata
+    root = env / "data" / "pages"
+    write_json(root / "RAW-90" / "meta.json", {"doc_id": "RAW-90", "source_file": "가상 C.pdf"})
+    write_json(root / "RAW-91" / "meta.json", {"doc_id": "RAW-91", "source_file": unicodedata.normalize("NFD", "가상 C.pdf")})
+    write_json(root / "RAW-92" / "meta.json", {"doc_id": "RAW-92", "source_file": "다른 원본.pdf"})
+    write_json(root / "RAW-93" / "meta.json", {"doc_id": "RAW-93", "source_file": "가상 A.pdf"})   # 개발 문서와 같은 원본은 잠그지 않는다
+    for doc in ("RAW-90", "RAW-91", "RAW-92", "RAW-93"):
+        page(root / doc)
+    entries = {d: bsets.doc_entry(root / d, ROWS) for d in ("RAW-90", "RAW-91", "RAW-92", "RAW-93")}
+    for doc in ("RAW-90", "RAW-91"):
+        assert entries[doc]["group"] == "eval" and entries[doc]["locked"] is True, doc
+        assert entries[doc]["reason"] == bt.SET_TEXT["eval_locked"]
+        assert entries[doc]["line_numbers"] is None                       # 잠긴 문서의 쪽 글자는 열지 않는다
+        assert bsets.doc_lock(doc, root / doc, ROWS) == bt.SET_TEXT["eval_locked"]
+    assert entries["RAW-92"]["group"] == "outside" and entries["RAW-92"]["locked"] is False
+    assert entries["RAW-93"]["group"] == "outside" and entries["RAW-93"]["locked"] is False
+    assert bsets.doc_lock("RAW-92", root / "RAW-92", ROWS) is None
+
+
+def test_main_default_answer_key_is_gold(app, monkeypatch, env, tmp_path):
+    seen = {}
+    monkeypatch.setattr(app.bs, "ENV_FILE", tmp_path / ".env")          # 실제 .env를 열지 않는다
+
+    class FakeServer:
+        server_port = 8765
+
+        def __init__(self, address, handler):
+            pass
+
+        def serve_forever(self):
+            raise KeyboardInterrupt
+
+        def server_close(self):
+            pass
+
+    real = app.make_handler
+
+    def spy(ctx):
+        seen["ctx"] = ctx
+        return real(ctx)
+
+    monkeypatch.setattr(app, "ThreadingHTTPServer", FakeServer)
+    monkeypatch.setattr(app.webbrowser, "open", lambda url: None)
+    monkeypatch.setattr(app, "make_handler", spy)
+    assert app.main(["--runs-dir", str(env / "runs"), "--no-browser"]) == 0
+    assert seen["ctx"].gold_dir == app.GOLD
 
 
 def test_key_text(bt):
@@ -573,7 +646,7 @@ def test_key_text(bt):
 
 @pytest.mark.parametrize("key_id,label", [
     ("silver/claude", "AI 정답 초안 · Claude"), ("silver/gpt", "AI 정답 초안 · gpt"),
-    ("gold/a3", "사람이 확인한 정답 · a3"), ("gold", "gold"), ("기타/x", "기타/x")])
+    ("gold/a3", "사람이 확인한 정답 · a3"), ("gold", "사람이 확인한 정답"), ("기타/x", "기타/x")])
 def test_key_label(bt, key_id, label):
     assert bt.key_label(key_id) == label
     assert "합격" not in bt.key_label(key_id)

@@ -177,7 +177,7 @@ BAD = {
     "65자 작업 번호": lambda j: j["outcomes"]["t2"]["practice"].update(last_job="x" * 65),
     "갈래 1 성공의 작업 번호": lambda j: j["outcomes"]["t1"]["real"].update(last_job=JOB_A),
     "옮김 표시 2": lambda j: j.update(migrated_from=2),
-    "안내 화면 G16": lambda j: j["progress"].update(guide={**guide(), "screen": "G16"}),
+    "안내 화면 G18": lambda j: j["progress"].update(guide={**guide(), "screen": "G18"}),
     "안내 화면 G00": lambda j: j["progress"].update(guide={**guide(), "screen": "G00"}),
     "안내 화면 장면 이름": lambda j: j["progress"].update(guide={**guide(), "screen": "G07-success"}),
     "안내 선택 모르는 값": lambda j: j["progress"].update(guide={**guide(), "choices": ["score", "docs"]}),
@@ -248,13 +248,13 @@ def test_merge_replaces_progress_and_pending_and_keeps_migrated(bjn):
 
 
 def test_guide_progress_is_optional_and_checked(bjn, jfile):
-    """progress.guide는 없어도 된다(지금까지의 기록). 있으면 화면 G01~G15, 고른 것·건너뛴 것은 정해진 이름만."""
+    """progress.guide는 없어도 된다(지금까지의 기록). 있으면 화면 G01~G17, 고른 것·건너뛴 것은 정해진 이름만."""
     assert "guide" not in bjn.default()["progress"]                      # 기본값은 지금 모양 그대로
     assert bjn.validate(example()) == example()
     j = example()
     j["progress"]["guide"] = guide()
     assert bjn.validate(j) == j
-    for screen in ("G01", "G10", "G15", None):
+    for screen in ("G01", "G10", "G15", "G16", "G17", None):
         j["progress"]["guide"] = {**guide(), "screen": screen}
         assert bjn.validate(j) == j, screen
     j["progress"]["guide"] = {"state": "not_started", "screen": None, "choices": [], "skipped": [], "updated_at": None}
