@@ -26,12 +26,13 @@ from fastapi import FastAPI, HTTPException, Path as PathParam, Query, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
+from pydantic import BaseModel, Field, model_validator
 
 from msds.checks.validator import load_to21_module
 from msds.common import paths
 from msds.extract.inputs import read_page_lines
-from msds.service import pipeline, progress, regenerated
-from msds.service.store import DocumentStore
+from msds.service import pipeline, progress, regenerated, review
+from msds.service.store import DocumentStore, now_kst
 from msds.service.worker import Worker
 
 MAX_PDF_BYTES = 50 * 1024 * 1024
@@ -41,6 +42,27 @@ FRONTEND_OUT = paths.ROOT / "frontend" / "out"
 _DATE = r"^\d{4}-\d{2}-\d{2}$"
 _ACTIVE = ("queued", "running")
 _FAILED = ("failed", "interrupted")
+
+
+class FieldReview(BaseModel):
+    msds_index: int = Field(ge=0)
+    path: str = Field(min_length=1, max_length=300)
+    action: Literal["confirm", "edit", "reset"]
+    value: str | None = None
+    reviewer: str = Field(min_length=1, max_length=40, pattern=r"\S")
+
+    @model_validator(mode="after")
+    def edit_needs_value(self):
+        if self.action == "edit" and self.value is None:
+            raise ValueError("수정에는 value가 필요합니다")
+        return self
+
+
+class SectionReview(BaseModel):
+    msds_index: int = Field(ge=0)
+    section: int = Field(ge=1, le=16)
+    confirmed: bool
+    reviewer: str = Field(min_length=1, max_length=40, pattern=r"\S")
 
 
 def load_regen():
@@ -167,18 +189,58 @@ def create_app(store: DocumentStore | None = None, worker=None, pages_dir: Path 
         out, checks = pipeline.result_paths(request.app.state.store, doc_id)
         if not out.is_file():
             raise HTTPException(404, "결과 파일이 없습니다")
-        doc = json.loads(out.read_text(encoding="utf-8"))
+        doc = review.apply_edits(json.loads(out.read_text(encoding="utf-8")), request.app.state.store.load_review(doc_id))
         try:
             parts = regenerated.regenerate_sections(doc, load_regen())
         except Exception as e:   # TO21 제공 스크립트가 어떤 입력에서 터질지 여기서 알 수 없다
             raise HTTPException(500, f"재생성하지 못했습니다: {type(e).__name__}: {str(e)[:300]}") from e
         chk = json.loads(checks.read_text(encoding="utf-8")) if checks.is_file() else {}
-        review = {(r["msds_index"], r["section"]) for r in chk.get("needs_review", [])}
+        flagged = {(r["msds_index"], r["section"]) for r in chk.get("needs_review", [])}
         status = {(s["msds_index"], s["section"]): s["status"] for s in state["sections"]}
         return {"msds": [{**m, "sections": [{"section": s["section"], "title": s["title"],
                                              "status": status.get((m["msds_index"], s["section"]), "failed"),
-                                             "needs_review": (m["msds_index"], s["section"]) in review,
+                                             "needs_review": (m["msds_index"], s["section"]) in flagged,
                                              "lines": s["lines"]} for s in m["sections"]]} for m in parts]}
+
+    def review_inputs(request: Request, doc_id: str) -> tuple[dict, dict, dict]:
+        """(진행 상태, 추출 결과, 검사 결과). 끝나기 전이면 409, 결과 파일이 없으면 404."""
+        state = get_state(request, doc_id)
+        if state["status"] != "done":
+            raise HTTPException(409, "추출이 끝나지 않았습니다")
+        out, checks = pipeline.result_paths(request.app.state.store, doc_id)
+        if not out.is_file():
+            raise HTTPException(404, "결과 파일이 없습니다")
+        chk = json.loads(checks.read_text(encoding="utf-8")) if checks.is_file() else {}
+        return state, json.loads(out.read_text(encoding="utf-8")), chk
+
+    @app.get("/api/documents/{doc_id}/review")
+    def review_view(request: Request, doc_id: str):
+        """2.2 추출값 확인: 항별 칸, 근거, 검사 문제, 검수 기록."""
+        state, doc, chk = review_inputs(request, doc_id)
+        return review.build_view(doc, chk, state["sections"], request.app.state.store.load_review(doc_id))
+
+    @app.put("/api/documents/{doc_id}/review/fields")
+    def review_field(request: Request, doc_id: str, body: FieldReview):
+        """칸 하나 확인·수정·되돌림. 원래 값, 근거, 검토자, 시각을 함께 남긴다. 추출 결과 파일은 고치지 않는다."""
+        state, doc, chk = review_inputs(request, doc_id)
+        try:
+            record = request.app.state.store.update_review(doc_id, lambda r: review.set_field(
+                r, doc, body.msds_index, body.path, body.action, body.value, body.reviewer.strip(), now_kst()))
+        except KeyError:
+            raise HTTPException(404, f"없는 칸: {body.path}") from None
+        except ValueError as e:
+            raise HTTPException(422, str(e)) from None
+        return review.build_view(doc, chk, state["sections"], record)
+
+    @app.put("/api/documents/{doc_id}/review/sections")
+    def review_section(request: Request, doc_id: str, body: SectionReview):
+        """항 하나 확인 완료·취소."""
+        state, doc, chk = review_inputs(request, doc_id)
+        if body.msds_index >= len(doc["msds"]):
+            raise HTTPException(404, f"없는 MSDS: {body.msds_index}")
+        record = request.app.state.store.update_review(doc_id, lambda r: review.set_section(
+            r, body.msds_index, body.section, body.confirmed, body.reviewer.strip(), now_kst()))
+        return review.build_view(doc, chk, state["sections"], record)
 
     @app.post("/api/documents/{doc_id}/retry", status_code=202)
     def retry(request: Request, doc_id: str):
