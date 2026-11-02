@@ -1355,3 +1355,12 @@ def test_no_text_repeats_an_action_word(text):
     action = r'(펼치기|접기|보기|닫기|열기|고르기|바꾸기)'
     for key, value in _ui_leaves(text.UI_TEXT):
         assert not re.search(action + r'\s+\1', value), (key, value)
+
+
+def test_run_title_does_not_repeat_the_short_model_name_of_the_folder(text):
+    # 폴더 이름의 qwen36은 이미 앞에 쓴 모델 이름이다. 뜻을 모르는 조각은 그대로 둔다.
+    info = {"name": "20261101_sections_qwen36_s9_v17_dev10_r1", "model_tag": "qwen36_35b_runpod",
+            "prompt_version": "s9", "pages_dir": "data/pages/version17"}
+    assert "qwen36" not in text.run_label(info)["parts"]
+    assert text.run_label(info)["title"].startswith("11/1 Qwen3.6 35B")
+    assert "qwen" in text.run_label({**info, "model_tag": "other_tag"})["title"]
