@@ -128,7 +128,7 @@ def test_조회_오류가_한_번이라도_나면_예외를_낸다(gold25):
         def toxicity(self, chem_id):
             raise ConnectionError("끊김")
 
-    with pytest.raises(RuntimeError, match="끊김"):
+    with pytest.raises(ConnectionError, match="끊김"):
         judge(gold25, AS_OF, Flaky())
 
 
@@ -270,6 +270,29 @@ def test_추출_실패_항은_근거부족으로_낸다(gold25, repo, out25, con
             assert f["verdict"] == before[f["id"]]["verdict"]
 
 
+@pytest.mark.parametrize("section", [2, 3, 9, 11, 12, 14])
+def test_어느_항이_실패해도_이미_근거부족인_줄의_이유를_추출_실패로_바꾼다(gold25, repo, contract_errors, section):
+    out = judge(gold25, AS_OF, repo, [{"msds_index": 0, "section": section, "error": "x"}])
+    assert contract_errors("3-consistency.schema.json", out) == []
+    hit = [f for f in out["results"][0]["findings"] if f"{section}항 추출 실패" in (f["reason"] or "")]
+    assert hit and all(f["verdict"] == "근거부족" and f["causes"] == ["NO_BASIS"] for f in hit)
+
+
+def test_내용이_빈_문서는_일치로_나오지_않는다(repo):
+    for empty in ({"msds": []}, {"msds": [{}]}, {}):
+        verdicts = {f["verdict"] for f in judge(empty, AS_OF, repo)["results"][0]["findings"]}
+        assert "일치" not in verdicts and "불일치" not in verdicts
+    for empty in ({"msds": [{"meta": {"product_name": "X"}}]}, {"msds": [{"components": [{"seq": 1}]}]}, {"msds": [{"a": "  "}]}, {"msds": [{"components": [{"seq": 1, "trade_secret": False}]}]}, {"msds": [{"x": 0}]}, {"msds": [{"meta": {}}]}, {"msds": [{}, {}]}):
+        for r in judge(empty, AS_OF, repo)["results"]:
+            assert not {f["verdict"] for f in r["findings"]} & {"일치", "불일치"}
+
+
+def test_지수_표기_기준값을_숫자로_읽는다():
+    from msds.compliance.judge import _threshold_q
+    q = _threshold_q(">= 1e-07%")
+    assert q["lower"] == 1e-07 and q["unit"] == "%"
+
+
 def test_다른_msds의_실패는_영향이_없다(gold25, repo, out25):
     out = judge(gold25, AS_OF, repo, [{"msds_index": 3, "section": 15, "error": "x"}])
     assert out == out25
@@ -403,5 +426,5 @@ def test_시간_초과도_판정_대신_예외다(gold25):
         def regulations(self, chem_id):
             raise TimeoutError("응답 없음")
 
-    with pytest.raises(RuntimeError, match="응답 없음"):
+    with pytest.raises(TimeoutError, match="응답 없음"):
         judge(gold25, AS_OF, Slow())
