@@ -2763,18 +2763,18 @@ UI_TEXT["glossary"] = {'silver': {'term': 'AI 정답 초안(실버)', 'meaning':
                 'meaning': 'AI가 같은 글을 반복하다 답변 길이 제한에 걸린 상태입니다. 예: 끝부분의 같은 글이 20자 이상이고 4번 이상 이어지면 반복으로 '
                            '분류합니다.'},
  'model_tag': {'term': 'AI 설정의 짧은 이름(모델 태그)',
-               'meaning': '모델과 접속 설정을 구분하는 이름입니다. 예: 시안의 AI 모델 A는 demo-model-a입니다.'},
+               'meaning': '모델과 접속 설정을 구분하는 이름입니다. 예: AI 모델 A의 짧은 이름은 demo-model-a입니다.'},
  'runpod': {'term': '시간당 요금을 내는 빌린 서버(RunPod)',
             'meaning': '모델을 켜 둔 시간에 따라 요금을 내는 서버입니다. 예: 시간당 $2.49로 2시간을 쓰면 추정 비용은 $4.98입니다.'},
  'rngd': {'term': '회사에서 쓰는 AI 서버(RNGD)',
           'meaning': '한 번에 모델 하나를 준비하는 회사 장비입니다. 예: 추가 임대료는 없고 모델 준비에는 보통 15~25분 걸립니다.'},
  'pod': {'term': '빌린 서버 한 대(Pod)',
-         'meaning': 'RunPod에서 만들어 AI 모델을 실행하는 서버 한 대입니다. 예: 시안의 demo-pod-a는 앱이 만든 서버입니다.'},
+         'meaning': 'RunPod에서 만들어 AI 모델을 실행하는 서버 한 대입니다. 예: demo-pod-a는 앱이 만든 서버입니다.'},
  'repeat': {'term': '같은 조건을 반복한 차례(회차)', 'meaning': '동일한 조건으로 몇 번째 시험했는지 나타내는 번호입니다. 예: _r2는 두 번째 시험입니다.'},
  'extras': {'term': '표 밖에 남은 값(extras)',
             'meaning': '정해진 결과 칸에 넣지 못해 따로 보관한 값입니다. 예: 표 행 수 비교에는 남은 값 3개도 표시됩니다.'},
  'key_gap': {'term': '정답 초안에서 확인할 빈칸',
-             'meaning': '정답 자체에서 빠졌거나 검토해야 하는 곳입니다. 예: 시안은 성분 B의 출처 칸 1개를 확인 대상으로 표시합니다.'},
+             'meaning': '정답 자체에서 빠졌거나 검토해야 하는 곳입니다. 예: 성분 B의 출처 칸 1개를 확인 대상으로 표시합니다.'},
  'concurrency': {'term': '한꺼번에 보내는 AI 요청 수(동시 호출)',
                  'meaning': '동시에 처리하도록 보낸 요청의 수입니다. 예: 비교 화면의 두 실행은 한 번에 2개씩 보냈습니다.'},
  'rows': {'term': '한 줄에 한 행씩 받는 답(행 형식)',
@@ -3258,7 +3258,7 @@ UI_TEXT["steps"] = {
     "a11y": "이 화면의 단계",
     "actions_a11y": "이 단계의 행동",
     "current": "지금 단계",
-    "details": {"open": "자세히 보기", "close": "자세히 닫기"},
+    "details": {"open": "자세히 보기", "close": "닫기"},
     "server": {
         "cost_basis": "표시한 비용은 현재 서버의 추정값입니다.",
         "choose": "서버 고르기",
@@ -3297,7 +3297,7 @@ UI_TEXT["steps"] = {
         "fact_basis": "요금 근거",
         "fact_return": "돌아갈 곳",
         "return_value": "다시 시험 · {doc} · {section}번 부분",
-        "confirm_create": "켜진 동안 시간당 약 ${cost_per_hour}가 듭니다. 아래 단추를 누르는 순간부터 요금이 나갑니다. 준비 완료 시각은 모릅니다. 요청이 20분 없으면 앱이 지우고, 앱이 꺼져 있어도 서버 안 타이머가 4시간에 지웁니다.",
+        "confirm_create": "켜진 동안 시간당 약 ${cost_per_hour}가 듭니다. 아래 단추를 누르는 순간부터 요금이 나갑니다. 준비 완료 시각은 모릅니다. 앱이 켜져 있으면 요청이 20분 없을 때 앱이 지웁니다. 앱이 꺼져 있어도 서버 안 타이머가 4시간에 지웁니다.",
         "start_company_tunnel_title": "내 컴퓨터와 회사 서버를 연결하세요.",
         "start_company_pick_title": "내 컴퓨터와 회사 서버를 연결했습니다. 이제 AI를 고르세요.",
         "start_company_say": "회사 서버에는 한 번에 AI 하나만 올라갑니다.",
@@ -3308,7 +3308,7 @@ UI_TEXT["steps"] = {
         "start_done_company": "AI 켜기 시작",
         "wait_title": "{model}를 준비하고 있습니다.",
         "wait_say": "이 화면을 떠나도 준비는 계속됩니다. 준비되면 위쪽 막대가 바뀝니다.",
-        "wait_server": "빌린 서버가 켜져 있습니다. 이때부터 요금이 나갑니다.",
+        "wait_server": "빌린 서버가 켜져 있습니다. 요금이 나가고 있습니다.",
         "wait_server_unseen": "서버 목록에서 새 서버를 찾고 있습니다.",
         "wait_process": "회사 서버에서 모델 실행 프로그램을 확인했습니다.",
         "wait_process_unseen": "회사 서버에서 모델 실행 프로그램을 찾고 있습니다.",
@@ -3385,18 +3385,18 @@ UI_TEXT["steps"]["trial"] = {
     "failed_title": "시험이 실패했습니다.",
     "took": "{seconds}초 걸림",
     "practice_button_note": "연습 단추는 AI 없이 보낼 내용만 확인합니다. 연습으로는 시험 기록과 점수가 생기지 않습니다.",
-    "details_hint_practice": "보낸 입력과 오류 기록을 봅니다.",
+    "details_hint_practice": "보낼 내용과 오류 기록을 봅니다.",
     "partial_score_up": "이 부분을 바꾸니 문서 전체 점수가 {before}점에서 {after}점으로 올랐습니다.",
     "partial_score_down": "이 부분을 바꾸니 문서 전체 점수가 {before}점에서 {after}점으로 내려갔습니다.",
     "partial_score_same": "이 부분을 바꿔도 문서 전체 점수는 {before}점 그대로입니다.",
     "score_up": "문서 전체 점수가 {before}점에서 {after}점으로 올랐습니다.",
     "score_down": "문서 전체 점수가 {before}점에서 {after}점으로 내려갔습니다.",
-    "score_same": "문서 전체 점수가 {before}점으로 그대로입니다.",
+    "score_same": "문서 전체 점수는 {before}점 그대로입니다.",
     "result_say": "같은 조건을 반복해도 점수는 조금 달라질 수 있습니다. 한 번의 변화로 단정하지 마세요.",
     "parse_title": "AI가 답했지만 값을 읽지 못했습니다.",
     "parse_todo": "실제 시험 성공은 기록하지 않았습니다. 할 일: 자세히 보기의 ‘읽어 낸 값’을 보고 다시 시험하세요.",
     "practice_title": "연습이 끝났습니다. 보낼 내용만 확인했습니다.",
-    "practice_omitted": "연습에서는 AI의 답과 점수를 만들지 않습니다. 보낸 입력은 자세히 보기에 있습니다.",
+    "practice_omitted": "연습에서는 AI의 답과 점수를 만들지 않습니다. 보낼 내용은 자세히 보기에 있습니다.",
     "after_practice": "실제 시험 준비하기",
     "change_unavailable": "이 값의 전후 변화를 확인할 결과가 없습니다.",
     "server_on": "빌린 서버가 아직 켜져 있습니다.",
@@ -3544,7 +3544,7 @@ UI_TEXT["steps"]["source"] = {
     "open": "이 문제 보기",
     "all_criteria": "기준 {count}개 모두 보기",
     "top_criteria": "큰 문제만 보기",
-    "run_failed": "이 결과의 점수를 읽지 못해 항목 표를 보이지 않습니다. 할 일: 다시 불러오세요.",
+    "run_failed": "이 결과의 점수를 읽지 못해 항목 표를 보일 수 없습니다. 할 일: 다시 불러오세요.",
     "list_title": "문서 {count}건의 문제 행",
     "list_title_one": "{doc}의 문제 행",
     "earlier_rows": "앞쪽 {count}행 보기",
@@ -3612,7 +3612,7 @@ UI_TEXT["source"]["row_parts"] = {
         "TX_STOT_SE": "특정 표적장기 독성(1회)", "TX_STOT_RE": "특정 표적장기 독성(반복)", "TX_ASP": "흡인 유해성",
         "ECO_FISH": "어류 독성", "ECO_CRUST": "갑각류 독성", "ECO_ALGAE": "조류 독성", "ECO_OTHER": "기타 생물 독성",
         "ECO_PERSIST": "잔류성과 분해성", "ECO_BIOACC": "생물 농축성", "ECO_SOIL": "토양 이동성", "ECO_OZONE": "오존층 유해성"},
-    "law": {"OSH": "산업안전보건법", "KREACH": "화평법", "CCA": "화관법", "DG": "위험물안전관리법", "WASTE": "폐기물관리법",
+    "law": {"OSH": "산업안전보건법", "KREACH": "화학물질등록평가법", "CCA": "화학물질관리법", "DG": "위험물안전관리법", "WASTE": "폐기물관리법",
             "POPS": "잔류성오염물질 관리법", "KR_ETC": "기타 국내법", "INTL": "외국법·국제협약"},
     "agency": {"KR_OSH": "산업안전보건법", "KR_CCA": "화학물질관리법", "EU_CLP": "EU CLP"},
     "system": {"EU_CLP": "EU CLP", "JP": "일본"},
@@ -3625,7 +3625,7 @@ UI_TEXT["source"]["field_names"].update({
     "endpoint": "독성 항목", "descriptor": "독성 지표", "species": "시험 생물", "sex": "성별",
     "duration_value": "노출 시간", "duration_unit": "시간 단위", "physical_form": "물질 상태", "exposure_type": "노출 방식",
     "converted": "환산 여부", "read_across_cas": "유추 근거 물질 번호", "guideline": "시험 지침", "classification": "분류 판정",
-    "statements": "설명 문장", "hazard": "유해성 종류", "agency": "평가 기관", "class": "등급",
+    "statements": "설명 문장", "hazard": "유해성 종류", "agency": "기관 또는 법령", "class": "등급",
     "law": "법률", "item_code": "규제 항목", "item_raw": "규제 항목(원래 표기)", "applicable": "해당 여부", "threshold": "기준량",
     "qty": "수량", "qty_alt": "다른 단위 수량", "sub_class": "세부 분류", "cycle": "주기", "country": "국가",
     "value_raw": "규제 값(원래 표기)", "remark": "참고",
@@ -4519,8 +4519,10 @@ def run_label(info: dict) -> dict:
         parts.append(UI_TEXT["common"]["run"]["prompt"].format(version=_prompt_name(prompt)))
     if version:
         parts.append(UI_TEXT["common"]["run"]["input"].format(version=_input_name(version)))
+    # 폴더 이름의 짧은 모델 이름(qwen36)은 앞에 쓴 모델과 같아 되풀이하지 않는다.
     parts.extend(_condition(t) for t in tokens
-                 if t not in ("sections", "silver", prompt) and not _prompt(t) and not _input_version(t))
+                 if t not in ("sections", "silver", prompt) and not _prompt(t) and not _input_version(t)
+                 and not tag.startswith(f"{t}_"))
     title = " · ".join(p for p in parts if p)
     if info.get("kind") == "manual":
         title = UI_TEXT["common"]["run"]["manual"].format(title=title)
@@ -4713,7 +4715,7 @@ UI_TEXT["guide"].update({
         "cost_action": "이 단추는 화면만 옮겨요. 돈이 드는 일은 그 화면의 확인 창에서 금액을 보고 직접 정해요.",
         "cost": "회사 서버는 임대료가 없어요. 빌린 서버는 시간당 요금이 들어요.",
         "return": "안내로 돌아가기", "return_note": "모델 상태를 다시 확인한 뒤 안내를 이어가요.",
-        "steps": "AI 켜기 화면은 서버 고르기 → 켜기 → 준비 기다리기 → 쓰고 나서 끄기 순서예요.",
+        "steps": "AI 켜기와 비용 화면은 서버 고르기 → 켜기 → 준비 기다리기 → 쓰고 나서 끄기 순서예요.",
         "return_order": "AI가 준비되면 [안내로 돌아가기]를 눌러요. 돌아가도 서버는 꺼지지 않아요. 다 쓴 뒤 그 화면에 다시 와서 꺼요.",
     },
     "trial": {

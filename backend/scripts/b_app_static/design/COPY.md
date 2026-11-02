@@ -832,8 +832,8 @@ source.row_parts.endpoint.ECO_BIOACC|생물 농축성|S02
 source.row_parts.endpoint.ECO_SOIL|토양 이동성|S02
 source.row_parts.endpoint.ECO_OZONE|오존층 유해성|S02
 source.row_parts.law.OSH|산업안전보건법|S02
-source.row_parts.law.KREACH|화평법|S02
-source.row_parts.law.CCA|화관법|S02
+source.row_parts.law.KREACH|화학물질등록평가법|S02
+source.row_parts.law.CCA|화학물질관리법|S02
 source.row_parts.law.DG|위험물안전관리법|S02
 source.row_parts.law.WASTE|폐기물관리법|S02
 source.row_parts.law.POPS|잔류성오염물질 관리법|S02
@@ -2057,7 +2057,7 @@ help.facts.columns|시험 결과의 자세히 보기에서 ‘읽어 낸 값’�
 steps.a11y|이 화면의 단계|단계 표시
 steps.actions_a11y|이 단계의 행동|행동 줄
 steps.current|지금 단계|단계 표시
-steps.details.close|자세히 닫기|서랍
+steps.details.close|닫기|서랍
 common.raw_error_title|오류 기록|서랍
 common.code_record_title|원래 기록 값|서랍
 steps.server.cost_basis|표시한 비용은 현재 서버의 추정값입니다.|위쪽 막대, S06
@@ -2099,7 +2099,7 @@ steps.server.fact_storage|저장 공간|S06
 steps.server.fact_basis|요금 근거|S06
 steps.server.fact_return|돌아갈 곳|S06
 steps.server.return_value|다시 시험 · {doc} · {section}번 부분|S06
-steps.server.confirm_create|켜진 동안 시간당 약 ${cost_per_hour}가 듭니다. 아래 단추를 누르는 순간부터 요금이 나갑니다. 준비 완료 시각은 모릅니다. 요청이 20분 없으면 앱이 지우고, 앱이 꺼져 있어도 서버 안 타이머가 4시간에 지웁니다.|S06
+steps.server.confirm_create|켜진 동안 시간당 약 ${cost_per_hour}가 듭니다. 아래 단추를 누르는 순간부터 요금이 나갑니다. 준비 완료 시각은 모릅니다. 앱이 켜져 있으면 요청이 20분 없을 때 앱이 지웁니다. 앱이 꺼져 있어도 서버 안 타이머가 4시간에 지웁니다.|S06
 steps.server.start_company_tunnel_title|내 컴퓨터와 회사 서버를 연결하세요.|S06
 steps.server.start_company_pick_title|내 컴퓨터와 회사 서버를 연결했습니다. 이제 AI를 고르세요.|S06
 steps.server.start_company_say|회사 서버에는 한 번에 AI 하나만 올라갑니다.|S06
@@ -2110,7 +2110,7 @@ steps.server.start_done_rented|서버 만듦|S06
 steps.server.start_done_company|AI 켜기 시작|S06
 steps.server.wait_title|{model}를 준비하고 있습니다.|S06
 steps.server.wait_say|이 화면을 떠나도 준비는 계속됩니다. 준비되면 위쪽 막대가 바뀝니다.|S06
-steps.server.wait_server|빌린 서버가 켜져 있습니다. 이때부터 요금이 나갑니다.|S06
+steps.server.wait_server|빌린 서버가 켜져 있습니다. 요금이 나가고 있습니다.|S06
 steps.server.wait_server_unseen|서버 목록에서 새 서버를 찾고 있습니다.|S06
 steps.server.wait_process|회사 서버에서 모델 실행 프로그램을 확인했습니다.|S06
 steps.server.wait_process_unseen|회사 서버에서 모델 실행 프로그램을 찾고 있습니다.|S06
@@ -2186,18 +2186,18 @@ steps.trial.result_later|끝나면 결과로 저절로 넘어갑니다.|S03
 steps.trial.failed_title|시험이 실패했습니다.|S03
 steps.trial.took|{seconds}초 걸림|S03
 steps.trial.practice_button_note|연습 단추는 AI 없이 보낼 내용만 확인합니다. 연습으로는 시험 기록과 점수가 생기지 않습니다.|S03
-steps.trial.details_hint_practice|보낸 입력과 오류 기록을 봅니다.|S03
+steps.trial.details_hint_practice|보낼 내용과 오류 기록을 봅니다.|S03
 steps.trial.partial_score_up|이 부분을 바꾸니 문서 전체 점수가 {before}점에서 {after}점으로 올랐습니다.|S03
 steps.trial.partial_score_down|이 부분을 바꾸니 문서 전체 점수가 {before}점에서 {after}점으로 내려갔습니다.|S03
 steps.trial.partial_score_same|이 부분을 바꿔도 문서 전체 점수는 {before}점 그대로입니다.|S03
 steps.trial.score_up|문서 전체 점수가 {before}점에서 {after}점으로 올랐습니다.|S03
 steps.trial.score_down|문서 전체 점수가 {before}점에서 {after}점으로 내려갔습니다.|S03
-steps.trial.score_same|문서 전체 점수가 {before}점으로 그대로입니다.|S03
+steps.trial.score_same|문서 전체 점수는 {before}점 그대로입니다.|S03
 steps.trial.result_say|같은 조건을 반복해도 점수는 조금 달라질 수 있습니다. 한 번의 변화로 단정하지 마세요.|S03
 steps.trial.parse_title|AI가 답했지만 값을 읽지 못했습니다.|S03
 steps.trial.parse_todo|실제 시험 성공은 기록하지 않았습니다. 할 일: 자세히 보기의 ‘읽어 낸 값’을 보고 다시 시험하세요.|S03
 steps.trial.practice_title|연습이 끝났습니다. 보낼 내용만 확인했습니다.|S03
-steps.trial.practice_omitted|연습에서는 AI의 답과 점수를 만들지 않습니다. 보낸 입력은 자세히 보기에 있습니다.|S03
+steps.trial.practice_omitted|연습에서는 AI의 답과 점수를 만들지 않습니다. 보낼 내용은 자세히 보기에 있습니다.|S03
 steps.trial.after_practice|실제 시험 준비하기|S03
 steps.trial.change_unavailable|이 값의 전후 변화를 확인할 결과가 없습니다.|S03
 steps.source.choose|문제 고르기|S02
@@ -2221,7 +2221,7 @@ steps.source.loss|{points}점|S02
 steps.source.open|이 문제 보기|S02
 steps.source.all_criteria|기준 {count}개 모두 보기|S02
 steps.source.top_criteria|큰 문제만 보기|S02
-steps.source.run_failed|이 결과의 점수를 읽지 못해 항목 표를 보이지 않습니다. 할 일: 다시 불러오세요.|S02
+steps.source.run_failed|이 결과의 점수를 읽지 못해 항목 표를 보일 수 없습니다. 할 일: 다시 불러오세요.|S02
 steps.source.list_title|문서 {count}건의 문제 행|S02
 steps.source.list_title_one|{doc}의 문제 행|S02
 steps.source.earlier_rows|앞쪽 {count}행 보기|S02
@@ -2252,7 +2252,7 @@ source.field_names.guideline|시험 지침|S02
 source.field_names.classification|분류 판정|S02
 source.field_names.statements|설명 문장|S02
 source.field_names.hazard|유해성 종류|S02
-source.field_names.agency|평가 기관|S02
+source.field_names.agency|기관 또는 법령|S02
 source.field_names.class|등급|S02
 source.field_names.law|법률|S02
 source.field_names.item_code|규제 항목|S02
@@ -2575,19 +2575,19 @@ glossary.whitespace.meaning|AI가 답 대신 긴 빈칸을 내보내는 상태�
 glossary.repetition.term|같은 답을 계속 되풀이함(반복)|S07
 glossary.repetition.meaning|AI가 같은 글을 반복하다 답변 길이 제한에 걸린 상태입니다. 예: 끝부분의 같은 글이 20자 이상이고 4번 이상 이어지면 반복으로 분류합니다.|S07
 glossary.model_tag.term|AI 설정의 짧은 이름(모델 태그)|S07
-glossary.model_tag.meaning|모델과 접속 설정을 구분하는 이름입니다. 예: 시안의 AI 모델 A는 demo-model-a입니다.|S07
+glossary.model_tag.meaning|모델과 접속 설정을 구분하는 이름입니다. 예: AI 모델 A의 짧은 이름은 demo-model-a입니다.|S07
 glossary.runpod.term|시간당 요금을 내는 빌린 서버(RunPod)|S07
 glossary.runpod.meaning|모델을 켜 둔 시간에 따라 요금을 내는 서버입니다. 예: 시간당 $2.49로 2시간을 쓰면 추정 비용은 $4.98입니다.|S07
 glossary.rngd.term|회사에서 쓰는 AI 서버(RNGD)|S07
 glossary.rngd.meaning|한 번에 모델 하나를 준비하는 회사 장비입니다. 예: 추가 임대료는 없고 모델 준비에는 보통 15~25분 걸립니다.|S07
 glossary.pod.term|빌린 서버 한 대(Pod)|S07
-glossary.pod.meaning|RunPod에서 만들어 AI 모델을 실행하는 서버 한 대입니다. 예: 시안의 demo-pod-a는 앱이 만든 서버입니다.|S07
+glossary.pod.meaning|RunPod에서 만들어 AI 모델을 실행하는 서버 한 대입니다. 예: demo-pod-a는 앱이 만든 서버입니다.|S07
 glossary.repeat.term|같은 조건을 반복한 차례(회차)|S07
 glossary.repeat.meaning|동일한 조건으로 몇 번째 시험했는지 나타내는 번호입니다. 예: _r2는 두 번째 시험입니다.|S07
 glossary.extras.term|표 밖에 남은 값(extras)|S07,S01
 glossary.extras.meaning|정해진 결과 칸에 넣지 못해 따로 보관한 값입니다. 예: 표 행 수 비교에는 남은 값 3개도 표시됩니다.|S07
 glossary.key_gap.term|정답 초안에서 확인할 빈칸|S07
-glossary.key_gap.meaning|정답 자체에서 빠졌거나 검토해야 하는 곳입니다. 예: 시안은 성분 B의 출처 칸 1개를 확인 대상으로 표시합니다.|S07
+glossary.key_gap.meaning|정답 자체에서 빠졌거나 검토해야 하는 곳입니다. 예: 성분 B의 출처 칸 1개를 확인 대상으로 표시합니다.|S07
 glossary.concurrency.term|한꺼번에 보내는 AI 요청 수(동시 호출)|S07
 glossary.concurrency.meaning|동시에 처리하도록 보낸 요청의 수입니다. 예: 비교 화면의 두 실행은 한 번에 2개씩 보냈습니다.|S07
 glossary.rows.term|한 줄에 한 행씩 받는 답(행 형식)|S07
@@ -2791,7 +2791,7 @@ guide.trial.progress|진행 중|안내
 guide.skipped|건너뜀|안내
 guide.choices.selected|선택됨|안내
 guide.source.image_note|원문 맞춰 보기 화면의 그림은 쪽 안의 위치를 확인하는 곳이에요. 글자는 원문 글자 칸에서 읽어요.|안내 G07
-guide.ai.steps|AI 켜기 화면은 서버 고르기 → 켜기 → 준비 기다리기 → 쓰고 나서 끄기 순서예요.|안내 G10
+guide.ai.steps|AI 켜기와 비용 화면은 서버 고르기 → 켜기 → 준비 기다리기 → 쓰고 나서 끄기 순서예요.|안내 G10
 guide.ai.return_order|AI가 준비되면 [안내로 돌아가기]를 눌러요. 돌아가도 서버는 꺼지지 않아요. 다 쓴 뒤 그 화면에 다시 와서 꺼요.|안내 G10
 guide.trial.steps_note|다시 시험 화면은 무엇을 → 어느 AI로 → 무엇을 시킬지 → 시험 → 결과 순서예요. 이 카드는 앞의 세 단계를 미리 채워 둬요.|안내 G11
 guide.data.source.change|두 화면 뒤에서 바로 고를 수 있어요. 안내를 닫은 뒤에는 위쪽 막대의 [문서 묶음]을 눌러요. 그 묶음으로 돌린 저장 결과만 보여요.|안내 G16

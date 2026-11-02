@@ -190,7 +190,7 @@ A5의 문제 행 수는 서버가 세므로, 화면이 문서를 모두 읽을 �
 | `steps.back` | 이전 단계로 가기 | 끝난 단계와 행동 줄 |
 | `steps.next` | 다음: {name} | 다음 단계 단추 |
 | `steps.details.open` | 자세히 보기 | 화면별 서랍 입구 |
-| `steps.details.close` | 자세히 닫기 | 서랍 닫기 |
+| `steps.details.close` | 닫기 | 서랍 닫기 |
 | `steps.source.choose` | 문제 고르기 | 원문 ① |
 | `steps.source.compare` | 원문과 맞춰 보기 | 원문 ② |
 | `steps.source.send` | 다시 시험으로 보내기 | 원문 ③ |
@@ -463,13 +463,16 @@ G5에서 더 볼 것은 아래와 같습니다. step 5가 더했습니다. 개�
 
 ## 12. 문구 승인표
 
-이번 phase(`app-steps`)에서 고친 글 33개, 지운 글 8개, 새 글 437개입니다. 기준은 phase를 시작한 커밋 `386bfc5`입니다. G6에서 사용자가 이 표를 읽고 고릅니다.
+이번 phase(`app-steps`)에서 고친 글 36개, 지운 글 8개, 새 글 437개입니다. 기준은 phase를 시작한 커밋 `386bfc5`입니다. G6에서 사용자가 이 표를 읽고 고릅니다.
 고칠 글은 키를 알려 주시면 됩니다. 표는 `UI_TEXT`에서 만들었고, 뒤 글이 지금 값과 다르면 `test_approval_table_shows_the_current_text_for_every_key_of_this_phase`가 실패합니다.
 
 ### 고친 글
 
 | 키 | 전 | 후 | 쓰는 곳 |
 |---|---|---|---|
+| `glossary.model_tag.meaning` | 모델과 접속 설정을 구분하는 이름입니다. 예: 시안의 AI 모델 A는 demo-model-a입니다. | 모델과 접속 설정을 구분하는 이름입니다. 예: AI 모델 A의 짧은 이름은 demo-model-a입니다. | S07 용어 |
+| `glossary.pod.meaning` | RunPod에서 만들어 AI 모델을 실행하는 서버 한 대입니다. 예: 시안의 demo-pod-a는 앱이 만든 서버입니다. | RunPod에서 만들어 AI 모델을 실행하는 서버 한 대입니다. 예: demo-pod-a는 앱이 만든 서버입니다. | S07 용어 |
+| `glossary.key_gap.meaning` | 정답 자체에서 빠졌거나 검토해야 하는 곳입니다. 예: 시안은 성분 B의 출처 칸 1개를 확인 대상으로 표시합니다. | 정답 자체에서 빠졌거나 검토해야 하는 곳입니다. 예: 성분 B의 출처 칸 1개를 확인 대상으로 표시합니다. | S07 용어 |
 | `context.model.wrong_reply` | 다른 모델 응답 | 고른 AI와 다른 AI가 답함 | S06 |
 | `compare.values.expand` | 바뀐 값 펼치기 | 새로 맞춘 값과 새로 틀린 값 | S04 바뀐 값 카드 |
 | `jobs.form.focus_line` | 원문 줄: {line} | 원문 줄: {page}쪽 {line_no}번째 줄 | S03 고른 값 |
@@ -605,7 +608,7 @@ G5에서 더 볼 것은 아래와 같습니다. step 5가 더했습니다. 개�
 | `source.field_names.classification` | (새 글) | 분류 판정 | S02 |
 | `source.field_names.statements` | (새 글) | 설명 문장 | S02 |
 | `source.field_names.hazard` | (새 글) | 유해성 종류 | S02 |
-| `source.field_names.agency` | (새 글) | 평가 기관 | S02 |
+| `source.field_names.agency` | (새 글) | 기관 또는 법령 | S02 |
 | `source.field_names.class` | (새 글) | 등급 | S02 |
 | `source.field_names.law` | (새 글) | 법률 | S02 |
 | `source.field_names.item_code` | (새 글) | 규제 항목 | S02 |
@@ -722,8 +725,8 @@ G5에서 더 볼 것은 아래와 같습니다. step 5가 더했습니다. 개�
 | `source.row_parts.endpoint.ECO_SOIL` | (새 글) | 토양 이동성 | S02 |
 | `source.row_parts.endpoint.ECO_OZONE` | (새 글) | 오존층 유해성 | S02 |
 | `source.row_parts.law.OSH` | (새 글) | 산업안전보건법 | S02 |
-| `source.row_parts.law.KREACH` | (새 글) | 화평법 | S02 |
-| `source.row_parts.law.CCA` | (새 글) | 화관법 | S02 |
+| `source.row_parts.law.KREACH` | (새 글) | 화학물질등록평가법 | S02 |
+| `source.row_parts.law.CCA` | (새 글) | 화학물질관리법 | S02 |
 | `source.row_parts.law.DG` | (새 글) | 위험물안전관리법 | S02 |
 | `source.row_parts.law.WASTE` | (새 글) | 폐기물관리법 | S02 |
 | `source.row_parts.law.POPS` | (새 글) | 잔류성오염물질 관리법 | S02 |
@@ -838,7 +841,7 @@ G5에서 더 볼 것은 아래와 같습니다. step 5가 더했습니다. 개�
 | 키 | 전 | 후 | 쓰는 곳 |
 |---|---|---|---|
 | `steps.details.open` | (새 글) | 자세히 보기 | S06 서랍 입구 |
-| `steps.details.close` | (새 글) | 자세히 닫기 | 서랍 |
+| `steps.details.close` | (새 글) | 닫기 | 서랍 |
 
 **steps.server** (73개)
 
@@ -881,7 +884,7 @@ G5에서 더 볼 것은 아래와 같습니다. step 5가 더했습니다. 개�
 | `steps.server.fact_basis` | (새 글) | 요금 근거 | S06 |
 | `steps.server.fact_return` | (새 글) | 돌아갈 곳 | S06 |
 | `steps.server.return_value` | (새 글) | 다시 시험 · {doc} · {section}번 부분 | S06 |
-| `steps.server.confirm_create` | (새 글) | 켜진 동안 시간당 약 ${cost_per_hour}가 듭니다. 아래 단추를 누르는 순간부터 요금이 나갑니다. 준비 완료 시각은 모릅니다. 요청이 20분 없으면 앱이 지우고, 앱이 꺼져 있어도 서버 안 타이머가 4시간에 지웁니다. | S06 |
+| `steps.server.confirm_create` | (새 글) | 켜진 동안 시간당 약 ${cost_per_hour}가 듭니다. 아래 단추를 누르는 순간부터 요금이 나갑니다. 준비 완료 시각은 모릅니다. 앱이 켜져 있으면 요청이 20분 없을 때 앱이 지웁니다. 앱이 꺼져 있어도 서버 안 타이머가 4시간에 지웁니다. | S06 |
 | `steps.server.start_company_tunnel_title` | (새 글) | 내 컴퓨터와 회사 서버를 연결하세요. | S06 |
 | `steps.server.start_company_pick_title` | (새 글) | 내 컴퓨터와 회사 서버를 연결했습니다. 이제 AI를 고르세요. | S06 |
 | `steps.server.start_company_say` | (새 글) | 회사 서버에는 한 번에 AI 하나만 올라갑니다. | S06 |
@@ -892,7 +895,7 @@ G5에서 더 볼 것은 아래와 같습니다. step 5가 더했습니다. 개�
 | `steps.server.start_done_company` | (새 글) | AI 켜기 시작 | S06 |
 | `steps.server.wait_title` | (새 글) | {model}를 준비하고 있습니다. | S06 |
 | `steps.server.wait_say` | (새 글) | 이 화면을 떠나도 준비는 계속됩니다. 준비되면 위쪽 막대가 바뀝니다. | S06 |
-| `steps.server.wait_server` | (새 글) | 빌린 서버가 켜져 있습니다. 이때부터 요금이 나갑니다. | S06 |
+| `steps.server.wait_server` | (새 글) | 빌린 서버가 켜져 있습니다. 요금이 나가고 있습니다. | S06 |
 | `steps.server.wait_server_unseen` | (새 글) | 서버 목록에서 새 서버를 찾고 있습니다. | S06 |
 | `steps.server.wait_process` | (새 글) | 회사 서버에서 모델 실행 프로그램을 확인했습니다. | S06 |
 | `steps.server.wait_process_unseen` | (새 글) | 회사 서버에서 모델 실행 프로그램을 찾고 있습니다. | S06 |
@@ -989,18 +992,18 @@ G5에서 더 볼 것은 아래와 같습니다. step 5가 더했습니다. 개�
 | `steps.trial.failed_title` | (새 글) | 시험이 실패했습니다. | S03 |
 | `steps.trial.took` | (새 글) | {seconds}초 걸림 | S03 |
 | `steps.trial.practice_button_note` | (새 글) | 연습 단추는 AI 없이 보낼 내용만 확인합니다. 연습으로는 시험 기록과 점수가 생기지 않습니다. | S03 |
-| `steps.trial.details_hint_practice` | (새 글) | 보낸 입력과 오류 기록을 봅니다. | S03 |
+| `steps.trial.details_hint_practice` | (새 글) | 보낼 내용과 오류 기록을 봅니다. | S03 |
 | `steps.trial.partial_score_up` | (새 글) | 이 부분을 바꾸니 문서 전체 점수가 {before}점에서 {after}점으로 올랐습니다. | S03 |
 | `steps.trial.partial_score_down` | (새 글) | 이 부분을 바꾸니 문서 전체 점수가 {before}점에서 {after}점으로 내려갔습니다. | S03 |
 | `steps.trial.partial_score_same` | (새 글) | 이 부분을 바꿔도 문서 전체 점수는 {before}점 그대로입니다. | S03 |
 | `steps.trial.score_up` | (새 글) | 문서 전체 점수가 {before}점에서 {after}점으로 올랐습니다. | S03 |
 | `steps.trial.score_down` | (새 글) | 문서 전체 점수가 {before}점에서 {after}점으로 내려갔습니다. | S03 |
-| `steps.trial.score_same` | (새 글) | 문서 전체 점수가 {before}점으로 그대로입니다. | S03 |
+| `steps.trial.score_same` | (새 글) | 문서 전체 점수는 {before}점 그대로입니다. | S03 |
 | `steps.trial.result_say` | (새 글) | 같은 조건을 반복해도 점수는 조금 달라질 수 있습니다. 한 번의 변화로 단정하지 마세요. | S03 |
 | `steps.trial.parse_title` | (새 글) | AI가 답했지만 값을 읽지 못했습니다. | S03 |
 | `steps.trial.parse_todo` | (새 글) | 실제 시험 성공은 기록하지 않았습니다. 할 일: 자세히 보기의 ‘읽어 낸 값’을 보고 다시 시험하세요. | S03 |
 | `steps.trial.practice_title` | (새 글) | 연습이 끝났습니다. 보낼 내용만 확인했습니다. | S03 |
-| `steps.trial.practice_omitted` | (새 글) | 연습에서는 AI의 답과 점수를 만들지 않습니다. 보낸 입력은 자세히 보기에 있습니다. | S03 |
+| `steps.trial.practice_omitted` | (새 글) | 연습에서는 AI의 답과 점수를 만들지 않습니다. 보낼 내용은 자세히 보기에 있습니다. | S03 |
 | `steps.trial.after_practice` | (새 글) | 실제 시험 준비하기 | S03 |
 | `steps.trial.change_unavailable` | (새 글) | 이 값의 전후 변화를 확인할 결과가 없습니다. | S03 |
 | `steps.trial.server_on` | (새 글) | 빌린 서버가 아직 켜져 있습니다. | S03 |
@@ -1047,7 +1050,7 @@ G5에서 더 볼 것은 아래와 같습니다. step 5가 더했습니다. 개�
 | `steps.source.open` | (새 글) | 이 문제 보기 | S02 |
 | `steps.source.all_criteria` | (새 글) | 기준 {count}개 모두 보기 | S02 |
 | `steps.source.top_criteria` | (새 글) | 큰 문제만 보기 | S02 |
-| `steps.source.run_failed` | (새 글) | 이 결과의 점수를 읽지 못해 항목 표를 보이지 않습니다. 할 일: 다시 불러오세요. | S02 |
+| `steps.source.run_failed` | (새 글) | 이 결과의 점수를 읽지 못해 항목 표를 보일 수 없습니다. 할 일: 다시 불러오세요. | S02 |
 | `steps.source.list_title` | (새 글) | 문서 {count}건의 문제 행 | S02 |
 | `steps.source.list_title_one` | (새 글) | {doc}의 문제 행 | S02 |
 | `steps.source.earlier_rows` | (새 글) | 앞쪽 {count}행 보기 | S02 |
@@ -1104,7 +1107,7 @@ G5에서 더 볼 것은 아래와 같습니다. step 5가 더했습니다. 개�
 
 | 키 | 전 | 후 | 쓰는 곳 |
 |---|---|---|---|
-| `guide.ai.steps` | (새 글) | AI 켜기 화면은 서버 고르기 → 켜기 → 준비 기다리기 → 쓰고 나서 끄기 순서예요. | 안내 G10 |
+| `guide.ai.steps` | (새 글) | AI 켜기와 비용 화면은 서버 고르기 → 켜기 → 준비 기다리기 → 쓰고 나서 끄기 순서예요. | 안내 G10 |
 | `guide.ai.return_order` | (새 글) | AI가 준비되면 [안내로 돌아가기]를 눌러요. 돌아가도 서버는 꺼지지 않아요. 다 쓴 뒤 그 화면에 다시 와서 꺼요. | 안내 G10 |
 
 **guide.trial** (1개)
@@ -1114,6 +1117,17 @@ G5에서 더 볼 것은 아래와 같습니다. step 5가 더했습니다. 개�
 | `guide.trial.steps_note` | (새 글) | 다시 시험 화면은 무엇을 → 어느 AI로 → 무엇을 시킬지 → 시험 → 결과 순서예요. 이 카드는 앞의 세 단계를 미리 채워 둬요. | 안내 G11 |
 
 ## step 기록
+
+### G6 전 고침 (메인 세션, 11/2)
+
+- 코덱스에게 12장을 검토시켜 아래를 고쳤습니다. 표의 뒤 글은 고친 글입니다.
+  - 요금: `steps.server.wait_server`가 ‘이때부터 요금이 나갑니다’라고 써서 만들기를 누른 순간부터라는 안내와 어긋났습니다. `steps.server.confirm_create`에 20분 자동 삭제는 앱이 켜져 있을 때만 돈다는 조건을 썼습니다.
+  - 연습: `steps.trial.practice_omitted`, `steps.trial.details_hint_practice`의 ‘보낸 입력’을 ‘보낼 내용’으로 바꿨습니다. 연습은 AI에게 보내지 않습니다.
+  - 이름: `source.field_names.agency`, `source.row_parts.law.KREACH`, `source.row_parts.law.CCA`, `guide.ai.steps`. 같은 법을 두 이름으로 부르던 것을 맞췄습니다.
+  - 말투: `steps.source.run_failed`, `steps.trial.score_same`, `steps.details.close`.
+  - 말풍선의 ‘시안’: `glossary.model_tag`, `glossary.pod`, `glossary.key_gap`. 10장 step 6의 제안입니다.
+- 실행 제목이 짧은 모델 이름을 되풀이하지 않습니다. 예: ‘11/1 Qwen3.6 35B … qwen36 …’에서 뒤의 `qwen36`을 뺐습니다. `test_run_title_does_not_repeat_the_short_model_name_of_the_folder`가 지킵니다.
+- 코덱스가 지적했지만 고치지 않은 것: EC 번호, UN 번호, H 코드, NFPA, EU CLP는 MSDS의 표준 표기입니다. ‘회사 서버 (RNGD)’는 G3에서 승인한 글입니다. ‘9번째 판’과 ‘17판’은 뜻이 달라 둡니다.
 
 ### G5 반영 (메인 세션, 11/2)
 
