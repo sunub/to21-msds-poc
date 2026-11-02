@@ -141,6 +141,40 @@ def _compare_one(cc, form, r, msds, order):
     return _mismatch(cc, form, OVER, m, low, high, "MSDS가 우리 결과보다 강하게 기재")
 
 
+def _joined(main, effects):
+    return "·".join(([main] if main != NO_CLASS else []) + effects) or NO_CLASS
+
+
+def _compare_with_effects(cc, form, res, extra, msds, order):
+    """표적장기 1회: 구분 1·2와 함께 표시되는 구분3을 효과별로 비교한다 (설계서 25·36장, 규칙표 extra_rules)."""
+    effect_cats = lambda side: [f"{e['category']}:{e['effect']}" for e in extra.get(side) or []]
+    low, high = effect_cats("low"), effect_cats("high")
+    shown = {"low": _joined(res["low"], low), "high": _joined(res["high"], high)}
+    is_effect = lambda x: x.split(":", 1)[0].strip() == "3"
+    m = msds or []
+    stated, others = [x for x in m if is_effect(x)], [x for x in m if not is_effect(x)]
+    has = lambda ours: any(_same_effect(x, ours) or x.strip() == "3" for x in stated)
+    wrote = lambda x, ours: x.strip() == "3" or any(_same_effect(x, o) for o in ours)
+    main = _compare_one(cc, form, res, others, order)
+    missing = [o for o in low if not has(o)]
+    over = [x for x in stated if not wrote(x, high)]
+    if main["verdict"] == MISMATCH:  # 구분 1·2가 틀린 것이 더 무겁다. 구분3 표시 차이로 가리지 않는다
+        row = {**main, "msds_value": m or None}
+    elif low != high and not over and not missing:
+        row = _row(cc, form, BORDER, RULE_IDS["border"], msds=m, reason="함량 범위에 따라 구분3 해당 여부가 갈림")
+    elif missing:
+        type_ = UNDER if m else MISSING
+        row = _mismatch(cc, form, type_, m or None, None, None, f"우리는 {', '.join(missing)}, MSDS에 없음")
+    elif over:
+        row = _mismatch(cc, form, OVER, m, None, None, f"우리 결과에 없는 구분3: {', '.join(over)}")
+    elif main["verdict"] != MATCH:
+        row = {**main, "msds_value": m or None}
+    else:
+        row = _row(cc, form, MATCH, RULE_IDS["match"], msds=m, reason="구분·효과 같음")
+    row["our_value"] = shown
+    return row
+
+
 def _merge_form_pairs(verdicts, rules, override):
     """같은 항목에서 흡입 형태만 다른 두 줄을 한 줄로 묶는다 (설계서 18·24장, severity.yaml SV-03).
 
@@ -201,6 +235,8 @@ def aggregate_verdicts(results, msds_classes, *, rules=None, order=None) -> dict
                              "reason": (res or {}).get("reason") or r.get("skipped", "")})
         elif res["status"] == "근거부족":
             verdicts.append(_lack(cc, form, msds, res["low"], res["high"], res.get("reason") or "우리 결과가 근거부족"))
+        elif (r.get("extra") or {}).get("low") or (r.get("extra") or {}).get("high"):
+            verdicts.append(_compare_with_effects(cc, form, res, r["extra"], msds, _order(cc, form, rules, order)))
         else:
             verdicts.append(_compare_one(cc, form, res, msds, _order(cc, form, rules, order)))
     for (cc, form), m in stated.items():  # MSDS에만 있는 항목: 비교할 우리 결과가 없다
