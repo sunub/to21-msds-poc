@@ -87,6 +87,17 @@ class PostgresJobStore:
     def _connect(self):
         return psycopg.connect(self.dsn, row_factory=dict_row, connect_timeout=5)
 
+    def validate_schema(self) -> None:
+        """Fail application startup if the selected DB lacks the A1 schema."""
+        try:
+            with self._connect() as db:
+                db.execute(sql.SQL("""SELECT job_id, filename, file_sha256, size_bytes,
+                    as_of, status, stage, model_tag, progress_json, attempt_no,
+                    attempts_json, lease_token, lease_expires_at, created_at, updated_at
+                    FROM {} LIMIT 0""").format(self.table))
+        except (psycopg.errors.UndefinedTable, psycopg.errors.UndefinedColumn) as exc:
+            raise RuntimeError("추출 작업 테이블이 없거나 정의가 다릅니다. A1 마이그레이션을 확인하세요") from exc
+
     def pdf_path(self, doc_id: str) -> Path:
         if not re.fullmatch(r'U-\d{8}-\d{3,}', doc_id):
             raise ValueError('Invalid job identifier')

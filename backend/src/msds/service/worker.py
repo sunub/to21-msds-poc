@@ -79,6 +79,8 @@ class PostgresWorker:
             self._threads = [thread for thread in self._threads if thread.is_alive()]
             if self._threads:
                 return
+            if hasattr(self.store, "validate_schema"):
+                self.store.validate_schema()
             self._stop.clear()
             for stage, count in (('preprocess', self.preprocess_workers), ('extract', self.extract_workers)):
                 for index in range(count):
