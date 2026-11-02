@@ -21,4 +21,5 @@ export const loadDemo = {
   detail: () => (DEMO_ENABLED ? import("@/api/demo") : off()),
   pages: () => (DEMO_ENABLED ? import("@/api/demo-pages") : off()),
   judgment: () => (DEMO_ENABLED ? import("@/api/demo-judgment") : off()),
+  homeNav: () => (DEMO_ENABLED ? import("@/components/home/demo-nav") : off()),
 };

@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { judgmentStatusQuery } from "@/api/judgments";
 import { Suspense, useState } from "react";
 import { DocSummaryLine } from "@/components/review/doc-summary-line";
+import { JudgmentMetaLine } from "@/components/review/judgment-meta-line";
 import { HistoryPanel } from "@/components/review/history/history-panel";
 import { HazardPanel } from "@/components/review/hazard/hazard-panel";
 import { RegulationPanel } from "@/components/review/regulation/regulation-panel";
@@ -40,7 +41,7 @@ function ReviewBody({ doc }: { doc: string }) {
           onChange={(id) => router.replace(routes.review(doc, id as ReviewTab))}
         />
       </div>
-      <DocSummaryLine docId={doc} />
+      {tab === "values" ? <DocSummaryLine docId={doc} /> : <JudgmentMetaLine docId={doc} />}
 
       {outdated && (
         <Callout tone="danger" role="alert" className="flex flex-wrap items-center gap-2">

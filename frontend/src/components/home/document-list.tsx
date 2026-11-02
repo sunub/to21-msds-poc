@@ -115,6 +115,7 @@ function DocumentRow({ doc }: { doc: DocumentSummary }) {
         <StatusLabel tone={status.tone} className="text-base">
           {status.label}
         </StatusLabel>
+        {doc.status === "done" && doc.review_stage && <div className="mt-1 text-sm text-mut">{doc.review_stage}</div>}
       </div>
       <div className={COL.progress}>
         <div className="mb-1 text-sm">

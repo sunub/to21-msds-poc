@@ -17,6 +17,7 @@ import { SortToggle } from "../shared/sort-toggle";
 import { useValidationId } from "../shared/use-validation-id";
 import { RegulationDetail } from "./regulation-detail";
 import { RegulationTable } from "./regulation-table";
+import { FootActions } from "../shared/foot-actions";
 
 const LAWS = ["화관법", "산안법", "화평법", "위험물법"] as const;
 
@@ -111,9 +112,7 @@ export function RegulationPanel({ docId, onSave }: { docId: string; onSave: () =
 
       <Foot>
         <p className="text-mut">{unresolvedNote(unresolvedByVerdict(15), "15항")}</p>
-        <Button variant="primary" size="lg" onClick={onSave}>
-          저장하기
-        </Button>
+        <FootActions docId={docId} onSave={onSave} />
       </Foot>
     </>
   );

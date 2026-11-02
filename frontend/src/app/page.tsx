@@ -1,11 +1,8 @@
-import Link from "next/link";
+import { DemoNavSlot } from "@/components/home/demo-nav-slot";
 import { DocumentList } from "@/components/home/document-list";
 import { UploadForm } from "@/components/home/upload-form";
 import { AppHeader } from "@/components/shell/app-header";
-import { routes } from "@/lib/routes";
 
-// 뼈대 확인용: 검수·저장 화면은 아직 데이터가 붙지 않아 따로 오갈 길을 둔다.
-const PREVIEW_DOC = "T21-002";
 
 // 목록 화면은 1120px 폭 (templates 1.1)
 const WIDTH = "max-w-280";
@@ -24,15 +21,7 @@ export default function HomePage() {
         <UploadForm />
         <DocumentList />
 
-        <nav aria-label="뼈대 확인용 화면 목록" className="flex flex-wrap gap-x-5 gap-y-1 text-sm">
-          <span className="text-mut">뼈대 확인용:</span>
-          <Link href={routes.reviewMode(PREVIEW_DOC)}>2.1 검수 방식 선택</Link>
-          <Link href={routes.review(PREVIEW_DOC, "values")}>2.2 추출값 확인</Link>
-          <Link href={routes.review(PREVIEW_DOC, "hazard")}>2.3 2항 판정</Link>
-          <Link href={routes.review(PREVIEW_DOC, "regulation")}>2.4 15항 판정</Link>
-          <Link href={routes.save(PREVIEW_DOC)}>3 저장</Link>
-          <Link href="/design-system/">디자인 시스템</Link>
-        </nav>
+        <DemoNavSlot />
       </main>
     </>
   );

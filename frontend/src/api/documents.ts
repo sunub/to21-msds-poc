@@ -5,7 +5,7 @@
  */
 import { queryOptions } from "@tanstack/react-query";
 import { apiUrl, isPermanentError, requestJson } from "./client";
-import { isDemoDoc, loadDemo } from "@/lib/demo";
+import { DEMO_ENABLED, isDemoDoc, loadDemo } from "@/lib/demo";
 import {
   FINAL_STATUSES,
   createDocumentParamsSchema,
@@ -60,7 +60,18 @@ const LIST_POLL_MS = 5_000;
 export const documentListQuery = (status: DocumentFilter = "all") =>
   queryOptions({
     queryKey: documentKeys.list(status),
-    queryFn: ({ signal }) => requestJson(documentListResponseSchema, "/api/documents", { query: { status }, signal }),
+    queryFn: async ({ signal }) => {
+      // 데모 모드에서는 서버가 없어도 목록이 비지 않도록 데모 문서를 앞에 섞는다 (서버 오류는 데모 문서만 보인다)
+      const real = await requestJson(documentListResponseSchema, "/api/documents", { query: { status }, signal }).catch((e: unknown) => {
+        if (DEMO_ENABLED) return null;
+        throw e;
+      });
+      if (!DEMO_ENABLED) return real!;
+      const demo = (await loadDemo.detail()).demoList(status);
+      if (!real) return demo;
+      const sum = (k: keyof typeof demo.counts) => demo.counts[k] + real.counts[k];
+      return { items: [...demo.items, ...real.items], counts: { all: sum("all"), active: sum("active"), done: sum("done"), failed: sum("failed") } };
+    },
     refetchInterval: (query) => ((query.state.data?.counts.active ?? 0) > 0 ? LIST_POLL_MS : false),
   });
 

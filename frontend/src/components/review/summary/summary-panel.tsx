@@ -16,6 +16,7 @@ import { useValidationId } from "../shared/use-validation-id";
 import { ComponentDetail } from "./component-detail";
 import { ComponentsTable } from "./components-table";
 import { Constraints } from "./constraints";
+import { FootActions } from "../shared/foot-actions";
 
 /** 2 검수 · 성분별 요약 탭: 왼쪽 원문, 오른쪽 성분 상세, 아래 구성성분별 판단 요약 표와 제약사항 */
 export function ComponentsPanel({ docId, onSave }: { docId: string; onSave: () => void }) {
@@ -49,9 +50,7 @@ export function ComponentsPanel({ docId, onSave }: { docId: string; onSave: () =
       <p className="text-mut">
         {unresolved === 0 ? "처리하지 않은 판정이 없습니다." : `처리하지 않은 판정 ${unresolved}건은 저장하면 미검토로 남습니다.`}
       </p>
-      <Button variant="primary" size="lg" onClick={onSave}>
-        저장하기
-      </Button>
+      <FootActions docId={docId} onSave={onSave} />
     </Foot>
   );
 

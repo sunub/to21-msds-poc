@@ -262,8 +262,14 @@ export function SaveView({ docId }: { docId: string }) {
               <Button size="lg" disabled className="disabled:cursor-not-allowed disabled:border-dashed disabled:border-field-line disabled:bg-line2 disabled:text-mut disabled:opacity-100">
                 미리 보기
               </Button>
+              <Button size="lg" disabled className="disabled:cursor-not-allowed disabled:border-dashed disabled:border-field-line disabled:bg-line2 disabled:text-mut disabled:opacity-100">
+                리포트 HTML
+              </Button>
+              <Button size="lg" disabled className="disabled:cursor-not-allowed disabled:border-dashed disabled:border-field-line disabled:bg-line2 disabled:text-mut disabled:opacity-100">
+                리포트 Excel
+              </Button>
             </div>
-            <p className="text-sm text-mut">PDF 출력은 아직 연결되지 않았습니다.</p>
+            <p className="text-sm text-mut">PDF·리포트(HTML, Excel) 출력은 준비 중입니다.</p>
           </div>
         </section>
       </Row>

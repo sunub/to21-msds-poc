@@ -15,6 +15,7 @@ import { useValidationId } from "../shared/use-validation-id";
 import { FindingDetailView } from "./finding-detail";
 import { FindingsTable } from "./findings-table";
 import { VERDICT_LABEL, unresolvedNote } from "./verdict";
+import { FootActions } from "../shared/foot-actions";
 
 const FILTER_VERDICTS = ["mismatch", "borderline", "insufficient_evidence", "warning", "match"] as const;
 
@@ -94,9 +95,7 @@ export function HazardPanel({ docId, onSave }: { docId: string; onSave: () => vo
 
       <Foot>
         <p className="text-mut">{unresolvedNote(unresolvedByVerdict(2), "2항")}</p>
-        <Button variant="primary" size="lg" onClick={onSave}>
-          저장하기
-        </Button>
+        <FootActions docId={docId} onSave={onSave} />
       </Foot>
     </>
   );
