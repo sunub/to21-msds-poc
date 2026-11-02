@@ -279,7 +279,7 @@ DELETE_WAIT = 5                                      # Pod를 지운 뒤 목록�
 IDLE_SECONDS = 1200                                  # 요청이 이만큼 없으면 Pod를 지운다 (사용 후 닫기, 11/2 결정)
 READY_LIMIT = 2400                                   # 모델이 한 번도 응답하지 않은 Pod를 기다리는 시간(초). 모델을 받는 동안 지우지 않는다
 IDLE_TICK = 60                                       # 유휴 감시 간격(초)
-RELOAD_TEXT = "다시 켜면 모델을 받아 뜨기까지 몇 분 걸립니다(10/29 기록 약 6분)"
+RELOAD_TEXT = "다시 켜면 모델을 받아 뜨기까지 몇 분 걸립니다"
 RNGD_UP = {"qwen3_30b_a3b_rngd": ("Qwen3-30B", "npu:0,npu:1,npu:2,npu:3"),   # 태그 → (단추 이름, 카드). 카드는 4장뿐이다
            "gpt_oss_20b_rngd": ("gpt-oss", "npu:0")}
 LOCKING_KINDS = ("run", "try")                       # 모델 서버를 쓰는 작업. 비교표는 서버를 쓰지 않아 막지 않는다
@@ -533,7 +533,7 @@ class ServerActions:
         if self._session:
             warn.append(f"이 앱이 쓰던 Pod {self._session['pod_id']} 대신 새 Pod를 씁니다")
         summary = (f"{POD_GPU}, vLLM 0.32.0, {model} (이미지 2장, 최대 길이 40960). 시간당 약 ${POD_COST_HINT:.2f}. "
-                   f"요청이 {IDLE_SECONDS // 60}분 없으면 앱이 지우고, {WATCHDOG_SECONDS // 3600}시간 뒤 자동 삭제 감시를 함께 띄웁니다. 모델을 받아 뜨기까지 몇 분 걸립니다(10/29 기록 약 6분)")
+                   f"요청이 {IDLE_SECONDS // 60}분 없으면 앱이 지우고, {WATCHDOG_SECONDS // 3600}시간 뒤 자동 삭제 감시를 함께 띄웁니다. 모델을 받아 뜨기까지 몇 분 걸립니다")
         return {"params": {}, "summary": summary, "warning": " / ".join(warn) or None}
 
     def _plan_pod_delete(self, params: dict) -> dict:

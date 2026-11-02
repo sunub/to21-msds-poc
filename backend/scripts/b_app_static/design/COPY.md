@@ -1089,7 +1089,7 @@ servers.status.unavailable|서버 상태를 확인하지 못해 변경을 막았
 servers.status.failure.fact|서버 변경을 마치지 못했습니다.|S06
 servers.status.failure.todo|할 일: 오류 기록에서 연결 상태와 진행 중인 작업을 확인하세요.|S06
 servers.messages.pod_key_missing|빌린 모델의 접속 키가 설정되지 않았습니다. 할 일: 설정 파일의 RUNPOD_VLLM_API_KEY를 채운 뒤 설정 다시 읽기를 누르세요.|S06
-servers.messages.pod_not_ours|이 앱이 만든 서버가 아니라 삭제할 수 없습니다. 할 일: 서버 주인에게 확인하세요.|S06
+servers.messages.pod_not_ours|이 앱이 만든 서버가 아니라 여기서 삭제할 수 없습니다. 할 일: 서버를 만든 사람에게 묻거나 RunPod 웹 화면에서 확인하세요.|S06
 servers.messages.env_file_unknown|설정 파일의 위치를 찾지 못했습니다. 할 일: 앱을 다시 켜세요.|S06
 servers.messages.tunnel_no_port|회사 모델 주소가 내 컴퓨터 쪽 주소가 아닙니다. 할 일: RNGD_BASE_URL을 확인한 뒤 설정을 다시 읽으세요.|S06
 servers.messages.tunnel_already_open|내 컴퓨터의 {port}번 연결이 이미 열려 있습니다. 할 일: 모델이 응답하는지 확인하세요.|S06
@@ -1159,7 +1159,7 @@ servers.rented.adopted|앱이 만든 예시 서버 {server}을 자동으로 이�
 servers.rented.cost|실제 요금이 나갑니다: 시간당 약 ${cost_per_hour} (예시).|S06
 servers.rented.estimated_cost|가동 {hours}시간의 추정 비용은 ${cost}입니다.|S06
 servers.rented.deletion_hours|생성 후 4시간에 자동 삭제합니다. 지금은 {hours}시간 남았습니다.|S06
-servers.rented.scheduler|20분 자동 삭제는 앱이 켜져 있을 때 돕니다. 4시간 타이머는 서버 안에서 돌아 앱이 꺼져도 지웁니다.|S06
+servers.rented.scheduler|요청이 20분 없으면 앱이 지웁니다. 이 감시는 앱이 켜져 있을 때만 돕니다. 4시간 타이머는 서버 안에서 돌아 앱이 꺼져도 지웁니다.|S06
 servers.rented.list_storage|서버 목록과 저장공간 비용|S06
 servers.rented.ownership|소유와 상태|S06
 servers.rented.uptime|가동 시간|S06
@@ -1962,6 +1962,11 @@ steps.server.fact_cost|요금|S06
 steps.server.company_cost|추가 임대료 없음|S06
 steps.server.use_rented|빌린 서버로 켜기|S06
 steps.server.use_company|회사 서버로 켜기|S06
+steps.server.use_other_ai|이 서버에서 다른 AI 켜기|S06
+steps.server.start_company_other_title|먼저 켜져 있는 AI를 끄세요.|S06
+steps.server.wait_auto|이대로 두면 {minutes}분 뒤 자동으로 지워집니다.|S06
+servers.failed.fact|앱이 서버 상태를 읽지 못했습니다. 지금 요금이 나가는지도 알 수 없습니다.|S06
+servers.failed.todo|할 일: 다시 확인하기를 누르세요. 계속되면 자세히 보기의 오류 기록을 보세요.|S06
 steps.server.other_on|다른 서버에서 {model}가 켜져 있거나 준비 중입니다.|S06
 steps.server.other_on_open|그 서버 보기|S06
 steps.server.back_choose|서버 다시 고르기|S06
@@ -1995,7 +2000,7 @@ steps.server.wait_process_unseen|회사 서버에서 모델 실행 프로그램�
 steps.server.wait_reply|AI의 응답을 기다립니다.|S06
 steps.server.wait_match|고른 AI가 응답하면 다음 단계로 넘어갑니다.|S06
 steps.server.wait_on_for|서버가 켜진 지 {elapsed}입니다.|S06
-steps.server.cancel_rented|취소하고 서버 지우기|S06
+steps.server.cancel_rented|취소하고 서버 지우기 (요금 멈춤)|S06
 steps.server.cancel_company|취소하고 AI 끄기|S06
 steps.server.stop_say_rented|다 쓰면 서버를 지워야 요금이 멈춥니다.|S06
 steps.server.stat_uptime|켜진 시간|S06

@@ -93,8 +93,10 @@ function serversButton(id, key, fn, disabled = false) {
 }
 function serversProblem(error, action = null) {
   if (error?.body?.friendly) return serversFriendly(error.body.friendly);
+  // 상태를 읽지 못한 것은 서버를 바꾸다 실패한 것이 아니다.
   const prefix = error?.status === 503 ? "servers.disabled" : error?.status === 409 ? "servers.busy"
-    : error?.status === 410 ? "servers.confirm.expired" : action === "pod_create" ? "servers.create_unknown" : "servers.status.failure";
+    : error?.status === 410 ? "servers.confirm.expired" : action === "pod_create" ? "servers.create_unknown"
+    : action === "status" ? "servers.failed" : "servers.status.failure";
   const message = T(`${prefix}.${["servers.busy", "servers.create_unknown"].includes(prefix) ? "title" : "fact"}`);
   const fix = prefix === "servers.busy" ? T("servers.controls.busy") : T(`${prefix}.todo`);
   return serversFriendly({message, fix, raw: error?.body?.error || error?.message || ""});
@@ -204,7 +206,10 @@ function serversHead(step, kind) {
   if (!serversData()) return [T("servers.checking.title"), T("servers.checking.wait")];
   if (step === "choose") return [T("steps.server.choose_title"), serversChooseSay()];
   if (step === "start" && kind === "rented") return [T("steps.server.start_rented_title"), T("steps.server.start_rented_say")];
-  if (step === "start") return [T(serversCompanyStart().needsTunnel ? "steps.server.start_company_tunnel_title" : "steps.server.start_company_pick_title"), T("steps.server.start_company_say")];
+  if (step === "start") {
+    const company = serversCompanyStart();
+    return [T(company.needsTunnel ? "steps.server.start_company_tunnel_title" : company.loaded.length ? "steps.server.start_company_other_title" : "steps.server.start_company_pick_title"), T("steps.server.start_company_say")];
+  }
   const model = serversLabel(serversKindModel(kind));
   if (step === "wait") return [T("steps.server.wait_title", {model}), T("steps.server.wait_say")];
   return [T("servers.ready.title", {model}), T(kind === "rented" ? "steps.server.stop_say_rented" : "servers.ready.company_cost")];
@@ -252,7 +257,7 @@ function serversCard(kind, primary) {
       [T("servers.compare.limits"), T(rented ? "servers.compare.rented.cleanup" : "servers.compare.company.limit")]]),
     rented ? null : h("p", {class: "muted"}, T("servers.compare.company.cost_meaning")),
     serversKindProblem(kind),
-    h("button", {id: `servers-use-${kind}`, type: "button", class: primary ? "primary" : null, onclick: () => serversChoose(kind)}, T(`steps.server.use_${kind}`)));
+    h("button", {id: `servers-use-${kind}`, type: "button", class: primary ? "primary" : null, onclick: () => serversChoose(kind)}, T(fit === false ? "steps.server.use_other_ai" : `steps.server.use_${kind}`)));
 }
 function serversStageChoose() {
   if (!serversData()) return null;
@@ -296,7 +301,7 @@ function serversStageWait(kind) {
   model?.reachable === true && model?.match === false ? h("div", {class: "server-notice"}, h("strong", null, T("servers.mismatch.title"))) : null,
   rented ? [serversKindProblem("rented"), num(pod?.uptime_s) ? h("p", null, T("steps.server.wait_on_for", {elapsed: serversDuration(pod.uptime_s)})) : null,
     h("p", null, T("servers.session.preparing")),
-    num(pod?.auto_delete_min) ? h("p", {class: "muted"}, T("servers.time.auto_delete", {minutes: pod.auto_delete_min})) : null]
+    num(pod?.auto_delete_min) ? h("p", {class: "muted"}, T("steps.server.wait_auto", {minutes: pod.auto_delete_min})) : null]
     : serversDiagnosis()];
 }
 function serversStageStop(kind) {
@@ -330,9 +335,11 @@ function serversStartActions(kind) {
   if (kind === "rented") return {primary: serversStepAction("pod_create", {}, T("servers.rented.confirm_create"))};
   const {choice, needsTunnel, loaded} = serversCompanyStart();
   if (needsTunnel) return {primary: serversStepAction("tunnel_open", {}, T("servers.busy.open_tunnel"))};
-  return {note: T("steps.server.start_company_note"),
-    secondary: loaded.map(item => serversStepAction("rngd_down", {model: item.model}, T("servers.mismatch.unload"), `step-${item.pid ?? item.model}`)),
-    primary: choice ? serversStepAction("rngd_up", {tag: choice.tag}, T("servers.company.confirm_load", {model: serversText(choice.label || choice.model)})) : null};
+  const downs = loaded.map(item => serversStepAction("rngd_down", {model: item.model}, T("servers.mismatch.unload"), `step-${item.pid ?? item.model}`));
+  const up = choice ? serversStepAction("rngd_up", {tag: choice.tag}, T("servers.company.confirm_load", {model: serversText(choice.label || choice.model)})) : null;
+  // 다른 모델이 켜져 있으면 끄는 일이 먼저다. 다음 행동 자리에 그 일을 둔다.
+  if (downs.length) return {note: T("steps.server.start_company_note"), secondary: [up, ...downs.slice(0, -1)].filter(Boolean), primary: downs.at(-1)};
+  return {note: T("steps.server.start_company_note"), primary: up};
 }
 function serversBack(key, onClick) { return {label: T(key), onClick, attrs: {id: "servers-back"}}; }
 function serversActions(step, kind) {
@@ -345,12 +352,14 @@ function serversActions(step, kind) {
     return {note: [target, checked].filter(Boolean).join(" "),
       back: kind === "company" ? (loaded ? serversStepAction("rngd_down", {model: loaded.model}, T("steps.server.cancel_company"), `step-${loaded.pid ?? loaded.model}`) : null)
         : pod?.owned && pod.deletable ? serversStepAction("pod_delete", {pod_id: pod.id}, T("steps.server.cancel_rented"), pod.id) : null,
-      secondary: {label: T("servers.creating.read_results"), onClick: () => go("s01"), attrs: {id: "servers-read-results"}},
-      primary: {label: T("servers.failed.retry"), onClick: shellPollServers, disabled: !!S.shell.polling, attrs: {id: "servers-refresh"}}};
+      // 준비되면 저절로 ④로 넘어간다. 그래서 주 행동은 기다리는 동안 할 일이다.
+      secondary: {label: T("servers.failed.retry"), onClick: shellPollServers, disabled: !!S.shell.polling, attrs: {id: "servers-refresh"}},
+      primary: {label: T("servers.creating.read_results"), onClick: () => go("s01"), attrs: {id: "servers-read-results"}}};
   }
   if (step === "stop") return {note: [target, checked].filter(Boolean).join(" "),
     primary: {label: T("servers.ready.return_trial"), onClick: serversReturn, attrs: {id: "servers-return"}}};
-  return {note: T("context.model.saved_readable"), back: S.focus.returnScreen ? serversBack("servers.ready.return_trial", serversReturn) : null};
+  return {note: T("context.model.saved_readable"), back: S.focus.returnScreen ? serversBack("servers.ready.return_trial", serversReturn) : null,
+    primary: S.shell.serverError ? {label: T("servers.failed.retry"), onClick: shellPollServers, disabled: !!S.shell.polling, attrs: {id: "servers-refresh"}} : null};
 }
 function serversNotices(step, kind) {
   const data = serversData(), primary = step === "start" ? serversStartActions(kind).primary : null;
@@ -359,13 +368,13 @@ function serversNotices(step, kind) {
   return [S.guide?.returnScreen ? h("div", {class: "server-notice"}, h("p", null, T("guide.ai.return_note")),
     serversButton("servers-guide-return", "guide.ai.return", () => emit("guide_return", {}))) : null,
   h("div", {role: "status", "aria-live": "polite"}, S.servers.busy ? h("p", null, T("servers.status.busy")) : null),
-  S.shell.serverError ? serversFlat(serversProblem(S.shell.serverError)) : null, serversLockNote(),
+  S.shell.serverError ? serversFlat(serversProblem(S.shell.serverError, "status")) : null, serversLockNote(),
   S.servers.error ? serversFlat(serversProblem(S.servers.error.error, S.servers.error.action)) : null,
   S.servers.result ? serversResult(S.servers.result) : null,
   S.servers.reload ? h("div", {class: "server-notice", role: "status"}, h("p", null, T("servers.reload.done"))) : null,
   (data?.env_problems || []).map(info => serversFlat(serversFriendly(info))),
   S.shell.serverError || S.servers.error || data?.env_problems?.length || blocked ? h("div", {class: "server-actions"},
-    step === "wait" ? null : serversButton("servers-refresh", "servers.failed.retry", shellPollServers, !!S.shell.polling),
+    step === "wait" || (step === "choose" && S.shell.serverError) ? null : serversButton("servers-refresh", "servers.failed.retry", shellPollServers, !!S.shell.polling),
     serversButton("servers-reload-env", "servers.connection.reload", serversReloadEnv, !!S.servers.busy || !!S.servers.proposal)) : null,
   other ? h("div", {class: "server-notice"}, h("p", null, T("steps.server.other_on", {model: serversLabel(serversKindModel(other))})),
     h("button", {id: "servers-see-live", type: "button", onclick: () => serversMove(null, other)}, T("steps.server.other_on_open"))) : null];
@@ -405,7 +414,7 @@ function serversDrawerPods() {
         h("p", {class: "raw", "data-code-record": "pod"}, T("common.code_record_title"), ": ", serversText(state) || T("common.none")),
         h("p", {class: "muted"}, num(pod.auto_delete_min) ? T("servers.time.auto_delete", {minutes: pod.auto_delete_min}) : T("servers.time.no_schedule")),
         serversFacts([[T("servers.rented.uptime"), serversDuration(pod.uptime_s)],
-          [T("servers.rented.hourly_rate"), serversMoney(pod.cost_per_hr, true)], [T("servers.rented.total_cost"), serversMoney(pod.cost_est)]]),
+          state && state !== "RUNNING" ? null : [T("servers.rented.hourly_rate"), serversMoney(pod.cost_per_hr, true)], [T("servers.rented.total_cost"), serversMoney(pod.cost_est)]]),
         pod.owned && pod.deletable ? serversAction("pod_delete", {pod_id: pod.id}, T("servers.rented.confirm_delete"), `drawer-${pod.id}`)
           : h("p", null, !pod.owned ? T("servers.messages.pod_not_ours") : serversText(data.why?.pod_delete || data.lock_reason || T("servers.rented.no_delete"))));
     }) : h("p", null, T(data.runpod_error ? "servers.account_failed.cost_unknown" : "servers.empty.title")),
