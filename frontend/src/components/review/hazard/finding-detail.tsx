@@ -4,24 +4,19 @@ import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { findingDetailQuery } from "@/api/findings";
 import type { FindingDetail, FindingSummary } from "@/api/findings-schemas";
-import { AiChip, Button, Callout, Skeleton, StatusLabel } from "@/components/ui";
+import { AiChip, Button, Callout, Input, Skeleton, StatusLabel } from "@/components/ui";
+import { OPINION_MAX, useReviewState } from "../review-state";
 import { SEVERITY_LABEL, VERDICT_LABEL, VERDICT_TONE } from "./verdict";
 
-export type Decision = "confirmed" | "exception";
-
-/** 선택한 판정의 상세. 확정·예외 승인은 화면 상태일 뿐 서버에 보내지 않는다. */
+/** 선택한 판정의 상세. 확정·예외 승인·의견은 공유 상태(review-state)에 남고 서버에는 보내지 않는다. */
 export function FindingDetailView({
   docId,
   validationId,
   finding,
-  decision,
-  onDecide,
 }: {
   docId: string;
   validationId: string;
   finding: FindingSummary;
-  decision: Decision | null;
-  onDecide: (next: Decision | null) => void;
 }) {
   const { data, isPending, isError, refetch } = useQuery(findingDetailQuery(docId, validationId, finding.finding_id));
 
@@ -55,24 +50,71 @@ export function FindingDetailView({
       )}
       {data && <DetailBody detail={data} />}
 
-      <div className="flex flex-wrap items-center gap-2 border-t border-line2 pt-3">
-        {decision ? (
-          <>
-            <StatusLabel tone="success">{decision === "confirmed" ? "확정함" : "예외 승인함"}</StatusLabel>
-            <Button variant="link" onClick={() => onDecide(null)}>
-              되돌리기
-            </Button>
-          </>
-        ) : (
-          <>
-            <Button variant="primary" onClick={() => onDecide("confirmed")}>
-              {VERDICT_LABEL[finding.verdict]} 확정
-            </Button>
-            <Button variant="outline" onClick={() => onDecide("exception")}>
-              예외 승인
-            </Button>
-          </>
+      {finding.verdict !== "match" && <ReviewActions finding={finding} />}
+    </div>
+  );
+}
+
+/** 확정·예외 승인 버튼과 의견 칸. 일치 판정은 처리 대상이 아니라 그리지 않는다. */
+function ReviewActions({ finding }: { finding: FindingSummary }) {
+  const { getState, confirm, approveException, undo } = useReviewState();
+  const { state, opinion } = getState(finding.finding_id);
+  const [draft, setDraft] = useState("");
+  const inputId = `opinion-${finding.finding_id}`;
+  const needOpinion = draft.trim() === "";
+
+  if (state !== "unreviewed") {
+    return (
+      <div className="flex flex-col gap-2 border-t border-line2 pt-3">
+        <div className="flex flex-wrap items-center gap-2">
+          <StatusLabel tone="success">{state === "confirmed" ? "확정함" : "예외 승인함"}</StatusLabel>
+          <Button
+            variant="link"
+            onClick={() => {
+              undo(finding.finding_id);
+              setDraft("");
+            }}
+          >
+            되돌리기
+          </Button>
+        </div>
+        {opinion && (
+          <p className="text-sm break-words">
+            <span className="text-mut">의견 </span>
+            {opinion}
+          </p>
         )}
+      </div>
+    );
+  }
+
+  return (
+    <div className="flex flex-col gap-2 border-t border-line2 pt-3">
+      <label htmlFor={inputId} className="sr-only">
+        의견 남기기
+      </label>
+      <Input
+        id={inputId}
+        value={draft}
+        maxLength={OPINION_MAX}
+        placeholder="의견 남기기"
+        aria-describedby={`${inputId}-hint`}
+        onChange={(e) => setDraft(e.target.value)}
+      />
+      <p id={`${inputId}-hint`} className="text-xs text-mut tabular-nums">
+        확정은 의견을 비워도 됩니다. 예외 승인은 의견이 있어야 합니다. ({draft.length}/{OPINION_MAX}자)
+      </p>
+      <div className="flex flex-wrap items-center gap-2">
+        <Button variant="primary" onClick={() => confirm(finding.finding_id, draft)}>
+          {VERDICT_LABEL[finding.verdict]} 확정
+        </Button>
+        <Button
+          variant="outline"
+          disabled={needOpinion}
+          onClick={() => approveException(finding.finding_id, draft)}
+        >
+          예외 승인
+        </Button>
       </div>
     </div>
   );

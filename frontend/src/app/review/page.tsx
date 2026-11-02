@@ -5,6 +5,7 @@ import { Suspense, useState } from "react";
 import { DocSummaryLine } from "@/components/review/doc-summary-line";
 import { HazardPanel } from "@/components/review/hazard/hazard-panel";
 import { RegulationPanel } from "@/components/review/regulation/regulation-panel";
+import { ReviewStateProvider } from "@/components/review/review-state";
 import { SaveGuardDialog } from "@/components/review/save-guard-dialog";
 import { ValuesPanel } from "@/components/review/values-panel";
 import { DocFrame } from "@/components/shell/doc-frame";
@@ -93,7 +94,13 @@ function ReviewBody({ doc }: { doc: string }) {
 export default function ReviewPage() {
   return (
     <Suspense>
-      <DocFrame stage="review">{(doc) => <ReviewBody doc={doc} />}</DocFrame>
+      <DocFrame stage="review">
+        {(doc) => (
+          <ReviewStateProvider key={doc} docId={doc}>
+            <ReviewBody doc={doc} />
+          </ReviewStateProvider>
+        )}
+      </DocFrame>
     </Suspense>
   );
 }

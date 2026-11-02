@@ -4,6 +4,7 @@ import { useState } from "react";
 import type { FindingsResponse, FindingSummary } from "@/api/findings-schemas";
 import { StatusLabel, Table, TableHead, TableRow } from "@/components/ui";
 import { cn } from "@/lib/cn";
+import { ProcessedMark } from "../hazard/findings-table";
 import { SEVERITY_LABEL, VERDICT_LABEL, VERDICT_TONE } from "../hazard/verdict";
 
 const COLS = {
@@ -25,7 +26,10 @@ function Row({ r, selected, onSelect }: { r: FindingSummary; selected: boolean; 
       className={cn("border-l-4", selected ? "border-l-stale" : "border-l-transparent")}
     >
       <span className={cn(COLS.law, "font-medium")}>{r.law}</span>
-      <span className={cn(COLS.item, r.verdict !== "match" && "font-bold")}>{r.item}</span>
+      <span className={cn(COLS.item, r.verdict !== "match" && "font-bold")}>
+        {r.item}
+        <ProcessedMark findingId={r.finding_id} />
+      </span>
       <span className={COLS.msds}>{r.msds_value.text}</span>
       <span className={COLS.expected}>{r.expected_value.text}</span>
       <span className={cn(COLS.verdict, "flex flex-wrap items-center gap-x-1.5")}>

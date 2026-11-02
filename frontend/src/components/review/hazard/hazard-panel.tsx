@@ -8,9 +8,10 @@ import type { FindingSummary } from "@/api/findings-schemas";
 import { Foot, Pane, Row } from "@/components/shell/layout";
 import { Button, Callout, Skeleton } from "@/components/ui";
 import { FindingSourceViewer } from "../source-viewer";
-import { FindingDetailView, type Decision } from "./finding-detail";
+import { useReviewState } from "../review-state";
+import { FindingDetailView } from "./finding-detail";
 import { FindingsTable, type SortKey } from "./findings-table";
-import { NEEDS_ACTION, VERDICT_LABEL, VERDICT_ORDER, severityRank } from "./verdict";
+import { VERDICT_LABEL, VERDICT_ORDER, severityRank, unresolvedNote } from "./verdict";
 
 const verdictRank = (v: FindingSummary["verdict"]) => VERDICT_ORDER.indexOf(v);
 
@@ -31,7 +32,7 @@ export function HazardPanel({ docId, onSave }: { docId: string; onSave: () => vo
   const [filter, setFilter] = useState("all");
   const [sort, setSort] = useState<SortKey>("verdict");
   const [selected, setSelected] = useState<string | undefined>();
-  const [decisions, setDecisions] = useState<Record<string, Decision>>({});
+  const { unresolvedByVerdict } = useReviewState();
 
   const rows = useMemo(() => {
     const all = sortRows(data?.items ?? [], sort);
@@ -50,24 +51,11 @@ export function HazardPanel({ docId, onSave }: { docId: string; onSave: () => vo
 
   // 고른 행이 없거나 거르기로 사라졌으면 보이는 첫 행을 고른다
   const current = rows.find((r) => r.finding_id === selected) ?? rows[0];
-  const processed = (f: FindingSummary) => f.finding_id in decisions || f.review_state !== "unreviewed";
-  const left = NEEDS_ACTION.map((v) => ({
-    verdict: v,
-    n: data.items.filter((f) => f.verdict === v && !processed(f)).length,
-  })).filter((x) => x.n > 0);
-
   const filterItems = [
     { id: "all", label: `전체 ${data.items.length}` },
     ...FILTER_VERDICTS.map((v) => ({ id: v, label: `${VERDICT_LABEL[v]} ${data.counts[v] ?? 0}` })),
   ];
   const excluded = Object.values(data.excluded_counts).reduce((a, b) => a + b, 0);
-
-  const decide = (id: string, next: Decision | null) =>
-    setDecisions((d) => {
-      const rest = { ...d };
-      delete rest[id];
-      return next ? { ...rest, [id]: next } : rest;
-    });
 
   return (
     <>
@@ -85,8 +73,6 @@ export function HazardPanel({ docId, onSave }: { docId: string; onSave: () => vo
                 docId={docId}
                 validationId={data.validation_id}
                 finding={current}
-                decision={decisions[current.finding_id] ?? null}
-                onDecide={(next) => decide(current.finding_id, next)}
               />
             ) : (
               <p className="text-sm text-mut">표에서 판정을 고르면 상세가 여기에 나옵니다.</p>
@@ -111,9 +97,7 @@ export function HazardPanel({ docId, onSave }: { docId: string; onSave: () => vo
 
       <Foot>
         <p className="text-mut">
-          {left.length === 0
-            ? "처리하지 않은 불일치·경계·근거부족 판정이 없습니다."
-            : `처리하지 않은 판정이 있습니다: ${left.map((x) => `${VERDICT_LABEL[x.verdict]} ${x.n}건`).join(" · ")}. 저장하면 미검토로 남습니다.`}
+          {unresolvedNote(unresolvedByVerdict(2), "2항")}
         </p>
         <Button variant="primary" size="lg" onClick={onSave}>
           저장하기

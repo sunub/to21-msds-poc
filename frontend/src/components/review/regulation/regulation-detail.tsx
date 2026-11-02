@@ -3,7 +3,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { findingDetailQuery } from "@/api/findings";
 import type { FindingSummary } from "@/api/findings-schemas";
-import { FindingDetailView, type Decision } from "../hazard/finding-detail";
+import { FindingDetailView } from "../hazard/finding-detail";
 
 /**
  * 15항 판정의 상세. 2항과 같은 상세 위에 법령과 기준일을 한 줄로 붙인다.
@@ -13,14 +13,10 @@ export function RegulationDetail({
   docId,
   validationId,
   finding,
-  decision,
-  onDecide,
 }: {
   docId: string;
   validationId: string;
   finding: FindingSummary;
-  decision: Decision | null;
-  onDecide: (next: Decision | null) => void;
 }) {
   const { data } = useQuery(findingDetailQuery(docId, validationId, finding.finding_id));
 
@@ -37,8 +33,6 @@ export function RegulationDetail({
         docId={docId}
         validationId={validationId}
         finding={finding}
-        decision={decision}
-        onDecide={onDecide}
       />
     </div>
   );

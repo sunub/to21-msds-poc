@@ -4,6 +4,7 @@ import { useState } from "react";
 import type { FindingSummary } from "@/api/findings-schemas";
 import { PillTabs, StatusLabel, Table, TableHead, TableRow } from "@/components/ui";
 import { cn } from "@/lib/cn";
+import { useReviewState } from "../review-state";
 import { SEVERITY_LABEL, VERDICT_LABEL, VERDICT_TONE } from "./verdict";
 
 export type SortKey = "verdict" | "severity";
@@ -12,6 +13,13 @@ const SORTS: { id: SortKey; label: string }[] = [
   { id: "verdict", label: "판정 순" },
   { id: "severity", label: "심각도 순" },
 ];
+
+/** 처리한 판정의 표시 (공유 상태에서 읽는다). 처리 전이면 아무것도 그리지 않는다 */
+export function ProcessedMark({ findingId }: { findingId: string }) {
+  const { state } = useReviewState().getState(findingId);
+  if (state === "unreviewed") return null;
+  return <span className="block text-xs font-medium text-grn">{state === "confirmed" ? "확정함" : "예외 승인함"}</span>;
+}
 
 const COLS = {
   item: "min-w-0 basis-0 grow-3 break-keep break-words",
@@ -87,7 +95,10 @@ export function FindingsTable({
                 onClick={() => onSelect(r.finding_id)}
                 className={cn("border-l-4", selected ? "border-l-blue" : "border-l-transparent")}
               >
-                <span className={cn(COLS.item, "font-medium")}>{r.item}</span>
+                <span className={cn(COLS.item, "font-medium")}>
+                  {r.item}
+                  <ProcessedMark findingId={r.finding_id} />
+                </span>
                 <span className={COLS.msds}>{r.msds_value.text}</span>
                 <span className={COLS.expected}>{r.expected_value.text}</span>
                 <span className={cn(COLS.method, "text-sm text-mut")}>{r.method}</span>

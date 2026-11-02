@@ -8,9 +8,9 @@ import type { FindingSummary, Verdict } from "@/api/findings-schemas";
 import { Foot, Pane, Row } from "@/components/shell/layout";
 import { Button, Callout, Checkbox, PillTabs, Skeleton } from "@/components/ui";
 import { FindingSourceViewer } from "../source-viewer";
-import type { Decision } from "../hazard/finding-detail";
 import type { SortKey } from "../hazard/findings-table";
-import { VERDICT_LABEL, VERDICT_ORDER, severityRank } from "../hazard/verdict";
+import { VERDICT_ORDER, severityRank, unresolvedNote } from "../hazard/verdict";
+import { useReviewState } from "../review-state";
 import { RegulationDetail } from "./regulation-detail";
 import { RegulationTable } from "./regulation-table";
 
@@ -18,9 +18,6 @@ const LAWS = ["화관법", "산안법", "화평법", "위험물법"] as const;
 
 /** "불일치만 보기"에 들어가는 판정. 구버전도 고칠 것이 있어 함께 보여 준다 */
 const MISMATCH_VIEW: Verdict[] = ["mismatch", "outdated"];
-
-/** 15항에서 사람이 처리해야 하는 판정 (2항의 NEEDS_ACTION 에 구버전을 더한 것) */
-const NEEDS_ACTION_15: Verdict[] = ["mismatch", "outdated", "borderline", "insufficient"];
 
 const SORTS: { id: SortKey; label: string }[] = [
   { id: "verdict", label: "판정 순" },
@@ -45,7 +42,7 @@ export function RegulationPanel({ docId, onSave }: { docId: string; onSave: () =
   const [onlyMismatch, setOnlyMismatch] = useState(false);
   const [sort, setSort] = useState<SortKey>("verdict");
   const [selected, setSelected] = useState<string | undefined>();
-  const [decisions, setDecisions] = useState<Record<string, Decision>>({});
+  const { unresolvedByVerdict } = useReviewState();
 
   const rows = useMemo(
     () =>
@@ -67,23 +64,10 @@ export function RegulationPanel({ docId, onSave }: { docId: string; onSave: () =
 
   // 고른 행이 없거나 거르기로 사라졌으면 보이는 첫 행을 고른다
   const current = rows.find((r) => r.finding_id === selected) ?? rows[0];
-  const processed = (f: FindingSummary) => f.finding_id in decisions || f.review_state !== "unreviewed";
-  const left = NEEDS_ACTION_15.map((v) => ({
-    verdict: v,
-    n: data.items.filter((f) => f.verdict === v && !processed(f)).length,
-  })).filter((x) => x.n > 0);
-
   const lawItems = [
     { id: "all", label: `전체 ${data.items.length}` },
     ...LAWS.map((l) => ({ id: l, label: `${l} ${data.items.filter((f) => f.law === l).length}` })),
   ];
-
-  const decide = (id: string, next: Decision | null) =>
-    setDecisions((d) => {
-      const rest = { ...d };
-      delete rest[id];
-      return next ? { ...rest, [id]: next } : rest;
-    });
 
   return (
     <>
@@ -101,8 +85,6 @@ export function RegulationPanel({ docId, onSave }: { docId: string; onSave: () =
                 docId={docId}
                 validationId={data.validation_id}
                 finding={current}
-                decision={decisions[current.finding_id] ?? null}
-                onDecide={(next) => decide(current.finding_id, next)}
               />
             ) : (
               <p className="text-sm text-mut">표에서 판정을 고르면 상세가 여기에 나옵니다.</p>
@@ -156,9 +138,7 @@ export function RegulationPanel({ docId, onSave }: { docId: string; onSave: () =
 
       <Foot>
         <p className="text-mut">
-          {left.length === 0
-            ? "처리하지 않은 15항 판정이 없습니다."
-            : `처리하지 않은 15항 판정이 있습니다: ${left.map((x) => `${VERDICT_LABEL[x.verdict]} ${x.n}건`).join(" · ")}. 저장하면 미검토로 남습니다.`}
+          {unresolvedNote(unresolvedByVerdict(15), "15항")}
         </p>
         <Button variant="primary" size="lg" onClick={onSave}>
           저장하기

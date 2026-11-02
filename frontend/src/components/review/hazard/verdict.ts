@@ -31,3 +31,11 @@ const SEVERITY_RANK: Record<NonNullable<Severity>, number> = { high: 0, medium: 
 
 /** 심각도 높음→낮음, 심각도 없음은 맨 뒤 */
 export const severityRank = (s: Severity) => (s ? SEVERITY_RANK[s] : 3);
+
+/** 푸터 안내: 항(label)마다 처리하지 않은 판정 건수를 판정 종류 순으로 적는다 */
+export function unresolvedNote(counts: Partial<Record<Verdict, number>>, label: string) {
+  const parts = VERDICT_ORDER.filter((v) => (counts[v] ?? 0) > 0).map((v) => `${VERDICT_LABEL[v]} ${counts[v]}건`);
+  return parts.length === 0
+    ? `처리하지 않은 ${label} 판정이 없습니다.`
+    : `처리하지 않은 ${label} 판정이 있습니다: ${parts.join(" · ")}. 저장하면 미검토로 남습니다.`;
+}
