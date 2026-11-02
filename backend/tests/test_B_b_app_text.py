@@ -1364,3 +1364,12 @@ def test_run_title_does_not_repeat_the_short_model_name_of_the_folder(text):
     assert "qwen36" not in text.run_label(info)["parts"]
     assert text.run_label(info)["title"].startswith("11/1 Qwen3.6 35B")
     assert "qwen" in text.run_label({**info, "model_tag": "other_tag"})["title"]
+
+
+def test_whole_document_text_counts_the_parts_the_ai_extracts(text):
+    from msds.extract.inputs import EXTRACT_SECTIONS
+    jobs = text.UI_TEXT["jobs"]
+    for line in (jobs["fields"]["scope"], jobs["scope"]["whole"], jobs["whole"]["prompts"], jobs["whole_running"]["title"],
+                 jobs["whole_done"]["title"], jobs["form"]["all"], text.UI_TEXT["help"]["cli"]["all_meaning"]):
+        assert f"{len(EXTRACT_SECTIONS)}개 부분" in line, line
+        assert "16개" not in line

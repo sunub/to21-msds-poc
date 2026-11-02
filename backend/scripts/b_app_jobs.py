@@ -31,6 +31,7 @@ import b_app_sets as bsets
 import b_app_text as bt
 from _common import today
 from msds.common import manifest
+from msds.extract.inputs import EXTRACT_SECTIONS
 from msds.common.paths import RUNS
 from msds.extract.client import load_model_config
 
@@ -258,6 +259,9 @@ class JobManager:
             secs = sorted(set(sections))
             if not all(isinstance(n, int) and not isinstance(n, bool) and 1 <= n <= 16 for n in secs):
                 raise ValueError(f"항 번호는 1~16입니다: {sections}")
+            skipped = [n for n in secs if n not in EXTRACT_SECTIONS]
+            if skipped:
+                raise ValueError(f"이 부분은 AI가 뽑지 않습니다: {skipped}. 다시 시험할 수 있는 부분은 {list(EXTRACT_SECTIONS)}입니다")
         if system_text is not None:
             if all_ or len(secs) != 1:
                 raise ValueError("바꾼 안내문은 항 하나를 시험할 때만 쓸 수 있습니다")

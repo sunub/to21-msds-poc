@@ -949,3 +949,21 @@ assert.equal(labels.length,16);
 assert.ok(labels[7].textContent.includes(UI.source.section_names[8]));
 assert.ok(labels[7].textContent.includes('8'));
 """)
+
+
+def test_only_the_parts_the_ai_extracts_can_be_picked():
+    run_js(SETUP + r"""
+options.extract_sections=[1,8];
+await go('s03',{trialBranch:'try'});
+assert.ok(el('jobs-section-1'));assert.ok(el('jobs-section-8'));assert.equal(el('jobs-section-4'),null);
+assert.equal(jobsSectionOpen(8),true);assert.equal(jobsSectionOpen(4),false);
+await go('s03',{doc:'T21-X01',section:4});
+assert.ok(!S.jobs.t.secs.has(4),[...S.jobs.t.secs].join());
+""")
+
+
+def test_all_parts_stay_open_until_the_list_is_read():
+    run_js(SETUP + r"""
+S.jobs.opts=null;
+assert.equal(jobsSections().length,16);assert.equal(jobsSectionOpen(4),true);
+""")

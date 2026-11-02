@@ -109,6 +109,8 @@ async function sourceEnsure(args = {}) {
     if (D.item) D.docAll = !sourceDocOnly;
     else if (Object.hasOwn(incoming, "doc")) D.docAll = false;
   }
+  // 다시 시험할 수 있는 부분을 알아 둔다. 기다리지 않는다.
+  if (!S.jobs.opts && !S.jobs.loadingOptions) jobsLoadOptions().then(() => { if (S.shell.route === "s02") sourceRenderFrame(); });
   // 고른 문제를 들고 오면 ②에서 시작한다. 메뉴로 처음 들어오면 ①이다. 그 뒤로는 있던 자리를 연다.
   const pointed = ["section", "path", "pick"].some(name => args[name] != null);
   D.step = Object.keys(args).length ? (pointed ? "compare" : "choose") : D.step || "choose";
@@ -322,8 +324,8 @@ function sourceSelectedLines(v = sourceSelected()) {
   return v ? (v.lines || []).map(id => D.line[id]).filter(line => line && D.data.pages.includes(line.page)) : [];
 }
 function sourceActions(step) {
-  const D = S.source, target = !D.doc || D.section == null;
-  const reason = T("source.labels.choose_scope");
+  const D = S.source, off = D.section != null && !jobsSectionOpen(D.section), target = !D.doc || D.section == null || off;
+  const reason = T(off ? "steps.source.not_extracted" : "source.labels.choose_scope");
   // 항목 표가 있으면 표의 첫 단추가 주 행동이다. 표가 없을 때만 이 단추가 주 행동이다.
   if (step === "choose") {
     const next = {label: T("steps.next", {name: T("steps.source.compare")}), onClick: () => sourceGoStep("compare"),

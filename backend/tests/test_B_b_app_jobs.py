@@ -1069,3 +1069,18 @@ def test_route_result_none_is_204(bj, app, where):
                                                          "pages_dir": "../data/pages/version9"})[1]["id"]
         code, _, body = app.route("GET", f"/api/jobs/{job_id}/result", {}, None, ctx)
         assert code == 204 and body == b""
+
+
+# ── 11/2 main이 추출 대상을 9개 항으로 줄였다(5624a0d). try_section.py가 그 밖의 항을 받지 않는다 ──
+
+def test_route_try_rejects_a_part_the_ai_does_not_extract(bj, app, where):
+    ctx = ctx_of(app, where, manager(bj, where))
+    code, data = call(app, ctx, "POST", "/api/jobs/try", {"model": TAG, "doc": X01, "sections": [4],
+                                                         "pages_dir": "../data/pages/version9"})
+    assert code == 400 and "AI가 뽑지 않습니다" in data["message"] and "4" in data["message"]
+
+
+def test_route_options_lists_the_parts_the_ai_extracts(bj, app, where):
+    from msds.extract.inputs import EXTRACT_SECTIONS
+    ctx = ctx_of(app, where, manager(bj, where))
+    assert call(app, ctx, "GET", "/api/options")[1]["extract_sections"] == list(EXTRACT_SECTIONS)

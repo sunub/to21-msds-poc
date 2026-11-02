@@ -650,7 +650,7 @@ score.documents.time_state|시간 상태|S01
 score.documents.recorded|기록 있음|S01
 score.documents.within_time|{minutes}분 목표 이내|S01
 score.documents.time_unknown|시간 비교 불가|S01
-score.calls.title|문서 안 첫 번째 안전자료 · 16개 부분의 AI 요청|S01
+score.calls.title|문서 안 첫 번째 안전자료 · 부분별 AI 요청|S01
 score.calls.section|{section}번 부분|S01,S03
 score.calls.multiple_msds|한 파일에 안전자료가 여럿이면 자료 순번으로 나눠 표시합니다.|S01
 score.calls.example_scope|이 예시는 첫 번째 안전자료의 기록입니다.|S01
@@ -1390,7 +1390,7 @@ jobs.try_hint.off|응답한 모델이 없습니다. AI 없이 보낼 내용만 �
 jobs.fields.model|문서에서 값을 뽑을 모델입니다. 연결된 모델부터 보여 줍니다.|S03
 jobs.fields.doc|시험할 개발용 문서입니다. 평가용 문서는 고를 수 없습니다.|S03
 jobs.fields.pages|AI에게 보낼 원문 글자를 모은 폴더입니다.|S03
-jobs.fields.scope|다시 시험할 부분을 고릅니다. 문서 전체를 고르면 16개 부분을 보냅니다.|S03
+jobs.fields.scope|다시 시험할 부분을 고릅니다. AI가 뽑는 부분만 보입니다. 문서 전체를 고르면 9개 부분을 보냅니다.|S03
 jobs.fields.prompt|AI에게 시킬 일을 적습니다. 한 부분만 시험할 때 고칠 수 있습니다.|S03
 jobs.fields.base_run|새 답을 끼워 넣어 점수를 비교할 이전 결과입니다. 자동 선택은 같은 모델의 최근 개발용 10건 결과를 씁니다.|S03
 jobs.fields.dry_run|AI 없이 보낼 원문과 시킬 일만 확인합니다.|S03
@@ -1432,7 +1432,7 @@ jobs.trial.practice_meaning|AI 없이 보낼 내용만 확인하는 연습입니
 jobs.scope.label|다시 읽힐 범위|S03,S08
 jobs.scope.single|한 부분 · {section}번 부분|S03,S08
 jobs.scope.multiple|여러 부분 · {section}번과 {other_section}번 부분|S03,S08
-jobs.scope.whole|문서 전체 · 16개 부분|S03,S08
+jobs.scope.whole|문서 전체 · 9개 부분|S03,S08
 jobs.scope.prompt_limit|설명 수정은 한 부분 시험에서만 사용합니다.|S03,S08
 jobs.scope.open_multiple|여러 부분 시험 화면 보기|S03,S08
 jobs.scope.open_whole|문서 전체 시험 화면 보기|S03,S08
@@ -1552,14 +1552,14 @@ jobs.multiple.change_scope|범위 바꾸기|S03
 jobs.multiple.single|한 부분으로 돌아가기|S03
 jobs.multiple.whole|문서 전체 고르기|S03
 jobs.whole.title|{doc}의 전체를 시험합니다.|S03
-jobs.whole.prompts|16개 부분의 기본 설명을 사용합니다.|S03
+jobs.whole.prompts|9개 부분의 기본 설명을 사용합니다.|S03
 jobs.whole.journey_scope|첫 시험 안내는 한 부분 실제 시험으로 완료합니다.|S03
 jobs.whole.send|문서 전체 다시 시험하기|S03
-jobs.whole_running.title|문서의 16개 부분을 시험하고 있습니다.|S03
+jobs.whole_running.title|문서의 9개 부분을 시험하고 있습니다.|S03
 jobs.whole_running.state|진행 중|S03
 jobs.whole_running.elapsed|{doc}. 시작 후 {minutes}분이 지났습니다.|S03
 jobs.whole_running.open_result|문서 전체 결과 보기|S03
-jobs.whole_done.title|16개 부분 중 {failed}개를 해석하지 못했습니다.|S03
+jobs.whole_done.title|9개 부분 중 {failed}개를 해석하지 못했습니다.|S03
 jobs.whole_done.success|성공한 부분|S03
 jobs.whole_done.failure|실패한 부분|S03
 jobs.whole_done.failed_count|{section}번 부분 {count}개|S03
@@ -1905,7 +1905,7 @@ help.cli.option_column|옵션|S07
 help.cli.section_flag|--section|S07
 help.cli.section_meaning|시험할 문서 부분|S07
 help.cli.all_flag|--all|S07
-help.cli.all_meaning|문서 전체 16개 부분|S07
+help.cli.all_meaning|문서 전체 9개 부분|S07
 help.cli.dry_run_flag|--dry-run|S07
 help.cli.dry_run_meaning|AI 호출 없이 입력 확인|S07
 help.cli.system_file_flag|--system-file|S07
@@ -2207,6 +2207,7 @@ steps.source.list_title|문서 {count}건의 문제 행|S02
 steps.source.list_title_one|{doc}의 문제 행|S02
 steps.source.earlier_rows|앞쪽 {count}행 보기|S02
 steps.source.evidence_title|AI가 근거로 댄 줄|S02
+steps.source.not_extracted|이 부분은 AI가 뽑지 않아 다시 시험할 수 없습니다. 원문만 확인할 수 있습니다.|S02
 steps.source.choose_section|부분 고르기|S02
 source.labels.code_value|{name} ({code})|S02
 source.field_names.standard|기준 출처|S02
@@ -2618,7 +2619,7 @@ jobs.record.kind|종류|S03·S05
 jobs.form.model|AI 모델|S03·S05
 jobs.form.doc|문서|S03·S05
 jobs.form.section|{section}번 부분|S03·S05
-jobs.form.all|문서 전체 · 16개 부분|S03·S05
+jobs.form.all|문서 전체 · 9개 부분|S03·S05
 jobs.form.prompt|AI에게 시킬 일(지시문)|S03·S05
 jobs.form.run_name|실행 이름|S03·S05
 score.criteria.msds_original|(MSDS 건수)|S01

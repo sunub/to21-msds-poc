@@ -598,7 +598,7 @@ async function guidePrepareTrial() {
     if (S.jobs.optionsError) throw S.jobs.optionsError;
     const docs = jobsDocs().filter(d => jobsAllowed(d, "try") && d.group !== "eval" && !d.locked && !sourceLock(d.doc_id));
     const doc = docs.find(d => d.doc_id === g.target?.doc) || docs[0];
-    const section = g.target?.doc === doc?.doc_id ? g.target.section : 1;
+    const section = g.target?.doc === doc?.doc_id && jobsSectionOpen(g.target.section) ? g.target.section : jobsSections()[0];
     const model = g.screen === "G08" ? jobsDefaultModel(g.target?.doc === doc?.doc_id ? g.target.model : g.readiness?.run?.model_tag)
       : g.model || S.jobs.t.model;
     g.trial = {active: true, state: doc && model && S.ctx.key ? "waiting" : "unavailable", doc: doc?.doc_id, section, model,

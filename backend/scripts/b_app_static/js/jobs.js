@@ -63,6 +63,9 @@ function jobsModelDifference(tag, previous) {
   return previous && tag !== previous ? jobsNote(T("jobs.focus.model_difference", {model: jobsModelLabel(previous)})) : null;
 }
 function jobsReady(tag) { return !S.jobs.optionsError && jobsModel(tag)?.connected === true; }
+// AI가 뽑는 부분만 시험할 수 있다. 목록을 아직 못 읽었으면 막지 않는다. 서버가 다시 확인한다.
+function jobsSections() { return S.jobs.opts?.extract_sections || Array.from({length: 16}, (_, i) => i + 1); }
+function jobsSectionOpen(section) { return jobsSections().includes(Number(section)); }
 function jobsSingle() { return !S.jobs.t.all && S.jobs.t.secs.size === 1; }
 function jobsPractice(job) { return job?.dry_run === true || job?.target?.dry_run === true; }
 function jobsRemember() {
@@ -153,7 +156,7 @@ async function jobsEnsure(args = {}) {
     S.focus = {...S.focus, path: null, kind: null, expected: null, actual: null, expected_text: null, actual_text: null, line: null, lines: [], source_set: null};
   }
   if (incoming.doc) J.t.doc = incoming.doc;
-  if (Number.isInteger(Number(incoming.section)) && Number(incoming.section) >= 1 && Number(incoming.section) <= 16) {
+  if (Number.isInteger(Number(incoming.section)) && jobsSectionOpen(incoming.section)) {
     J.t.secs = new Set([Number(incoming.section)]); J.t.all = false;
   }
   if (incoming.base_run || incoming.run) J.t.base = incoming.base_run || incoming.run;
@@ -436,7 +439,7 @@ function jobsStageTarget() {
       jobsField("jobs-doc", T("jobs.form.doc"), T("jobs.fields.doc"), select),
       jobsField("jobs-base", term("base_run", T("jobs.scope.base_run")), T("jobs.fields.base_run"), base)),
       t.all ? jobsNote(T("jobs.form.all")) : h("fieldset", null, h("legend", null, T("jobs.scope.label")),
-        h("div", {class: "job-sections"}, Array.from({length: 16}, (_, i) => i + 1).map(n => h("label", null,
+        h("div", {class: "job-sections"}, jobsSections().map(n => h("label", null,
           h("input", {id: `jobs-section-${n}`, type: "checkbox", checked: t.secs.has(n), onchange: e => {
             e.target.checked ? t.secs.add(n) : t.secs.delete(n); jobsRemember(); jobsRenderSteps();
           }}), sourceLabel(n))))),

@@ -1171,3 +1171,14 @@ const whole=el('source-top').querySelector('tbody').querySelectorAll('tr');
 assert.ok(whole[0].textContent.includes(scoreItemName('Fake criterion')),whole[0].textContent);
 assert.ok(whole[0].textContent.includes(T('guide.example.biggest')));
 """)
+
+
+def test_retest_is_off_with_a_reason_for_a_part_the_ai_does_not_extract():
+    run_js(fixture() + STEPS + r"""
+await go('s02',{section:8,item:'Fake criterion',pick:'wrong'});
+S.jobs.opts={extract_sections:[1,8]};sourceRenderFrame();
+assert.equal(el('source-retest').disabled,false);
+sourceGoSection(4);sourceRenderFrame();
+assert.equal(el('source-retest').disabled,true);
+assert.ok(el('source-actions').textContent.includes(T('steps.source.not_extracted')));
+""")

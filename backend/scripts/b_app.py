@@ -54,6 +54,7 @@ import b_app_swap as bswap
 import b_app_text as bt
 from msds.common import manifest
 from msds.common.paths import BACKEND, CONFIGS, DATA, GOLD, PAGES, ROOT, RUNS
+from msds.extract.inputs import EXTRACT_SECTIONS
 from msds.extract.client import load_model_config
 from msds.extract.section_prompts import SECTION_PROMPT_VERSION, build_system, prompt_hash
 from msds.extract.section_runner import DOC_TIME_LIMIT
@@ -416,7 +417,8 @@ def _options(ctx: AppContext, *, advanced: bool = False) -> tuple[int, str, byte
     names = {tag: {v["value"]: {purpose: bj.free_run_name(runs_dir, bj.suggest_run_name(
         tag, SECTION_PROMPT_VERSION, v["value"], purpose)) for purpose in ("dev10", "probe")} for v in pages}
         for tag in cfg}
-    return _json(200, {"models": bt.order_models(models), "status_checked": status is not None, "ui_text": bt.server_ui_text(),
+    return _json(200, {"models": bt.order_models(models), "extract_sections": list(EXTRACT_SECTIONS),
+                       "status_checked": status is not None, "ui_text": bt.server_ui_text(),
                        "field_help": bt.FIELD_HELP, "try_hint": bt.try_hint(models, advanced),
                        "try_stage_help": bt.TRY_STAGE_HELP, "job_ui_text": bt.JOB_UI_TEXT,
                        "docs": [{"doc_id": r["doc_id"], "pages": r.get("pages")} for r in manifest.select("개발")],
