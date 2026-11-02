@@ -17,9 +17,23 @@ excluded 는 판정하지 않고 참고로만 보여 줄 줄이다(구버전, DB
 결정 9: 혼합물에서 제품 전체(MIX)로 적은 항목 행은, 성분별 행이 없는 성분의 같은 항목 판정에 이어 쓴다. 제품 전체 '해당'은
         다른 성분 때문일 수 있어, 함량상 비해당인 성분에는 과기재로 세지 않는다.
 """
+from functools import lru_cache
+
+import yaml
+
 from .htodb.regulation import covered_items
-from .mixture.params import param_list
+from .mixture.params import RULES_DIR, param_list
+from .mixture.rule_eval import evaluate_rules_trace
 from .sec15 import _expected
+
+_INF = float("inf")
+
+
+@lru_cache
+def _dg_table() -> dict:
+    """rules/dg_class4.yaml (규칙표 v0.3, 위험물안전관리법 시행령 별표1). 전에는 같은 기준을 코드에 적어 두었다(11/02 F)."""
+    with open(RULES_DIR / "dg_class4.yaml", encoding="utf-8") as f:
+        return yaml.safe_load(f)
 
 MATCH, MISMATCH, BORDER, LACK = "일치", "불일치", "경계", "근거부족"
 # 설계서 7장 · 규칙표 v0.3 severity.yaml (15항)
@@ -196,17 +210,17 @@ def _class4(physchem):
     ai, _ = _prop(physchem, "AUTOIGNITION")
     if fp is None:
         return None, False, f"9항 인화점 {fp_status or '없음'} — 제4류 품명 없음"
-    if (ai is not None and ai <= 100) or (fp <= -20 and bp is not None and bp <= 40):
-        return "특수인화물", False, f"인화점 {fp:g}℃"
-    if fp < 21:
-        return "제1석유류", False, f"인화점 {fp:g}℃ < 21"
-    if fp < 70:
-        return "제2석유류", True, f"인화점 {fp:g}℃ (가연성 액체량 40% 이하 예외 → 경계)"
-    if fp < 200:
-        return "제3석유류", True, f"인화점 {fp:g}℃ (도료류 예외 → 경계)"
-    if fp < 250:
-        return "제4석유류", True, f"인화점 {fp:g}℃ (도료류 예외 → 경계)"
-    return None, False, f"인화점 {fp:g}℃ ≥ 250 — 제4류 아님"
+    table = _dg_table()
+    # 자연발화온도·끓는점이 없으면 아주 높은 값으로 둔다(특수인화물 조건을 만족하지 않는 쪽, 전과 같은 처리)
+    props = {"STATE": "액체", "FLASH_POINT": fp, "BOILING": _INF if bp is None else bp,
+             "AUTOIGNITION": _INF if ai is None else ai}
+    rules = [{"id": r["id"], "category": r["item"], "when": r["when"]} for r in table["rules"]]
+    tr = evaluate_rules_trace(rules, {}, props=props)
+    if tr["rule_id"] is None:
+        return None, False, f"인화점 {fp:g}℃ — 제4류 품명 없음({tr['category']})"
+    rule = next(r for r in table["rules"] if r["id"] == tr["rule_id"])
+    edge = rule.get("edge")
+    return rule["item"], bool(edge), f"인화점 {fp:g}℃ ({rule['id']}" + (f", {edge} → 경계" if edge else "") + ")"
 
 
 def _dg(inputs, sup, know_all):
