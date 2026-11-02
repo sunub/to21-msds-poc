@@ -7,7 +7,7 @@
 - seq, Q의 status·dp·note, comp_ref, 서술 문장, extras의 쪽·항 번호, 근거(evidence)는 코드가 채운다.
 - 원문 줄로 확인되는 값(H·P 코드, 개정 횟수, 메타 값 없음, 전화번호, 비어 있는 유해성 분류)은 A의 함수 전에
   source_rules.apply_source_rules가 고친다. 15항 기준농도는 펼치기 전에 근거 줄로 source_rules.fill_thresholds가
-  채우거나 바로잡는다 (ADR-029).
+  채우거나 바로잡는다 (ADR-029). 9항 물성의 빈 값은 근거 줄의 상태어로 source_rules.fill_no_value가 채운다.
 - 값 없는 행의 표기는 A의 규칙 함수(msds.common.conventions.apply)에 맡긴다.
 - 15항 화평법 행은 값이 있는데 해당 여부가 비면 '해당'으로 채운다 (사용자 결정 10/29).
 """
@@ -26,7 +26,7 @@ from msds.common.paths import to21_file
 from msds.common.schema import load_schema, msds_item_schema
 from msds.extract.inputs import EXTRACT_SECTIONS, SECTION_NOS, Line, line_index, line_parents
 from msds.extract.section_specs import META_REVISION_FIELDS
-from msds.extract.source_rules import apply_source_rules, fill_thresholds
+from msds.extract.source_rules import apply_source_rules, fill_no_value, fill_thresholds
 
 _NO_VALUE = {"자료없음", "해당없음", "미기재"}
 _NOTE = re.compile(r"^(?P<base>[^()（）]+?)\s*[(（](?P<note>[^()（）]+)[)）]$")   # 상태어(괄호 설명), Q.note
@@ -505,6 +505,8 @@ def expand_msds(sections: dict[int, dict | None], lines_by_id: dict[str, Line],
                        if r["comp_ref"] == "MIX" and _law_of(r) not in _PRODUCT_LAWS else r for r in src]
         if {"q", "text_value"} <= _resolve(node["items"]).get("properties", {}).keys():
             src = [status_to_q(r) for r in src]
+        if key == "physchem":
+            src = fill_no_value(src, lines_by_id)        # 근거 줄의 '자료없음' 등으로 빈 값 (ADR-029)
         if key == "regulations":
             src = fill_thresholds(src, lines_by_id)      # 근거 줄의 'N% 이상'으로 기준농도 (ADR-029)
         item[key] = components if key == "components" else _shape(node, src, lines_by_id)
