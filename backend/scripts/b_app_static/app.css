@@ -620,6 +620,7 @@ body.guide-open { overflow: hidden; }
 }
 
 /* 단계 화면의 공통 틀 (ADR-039): 단계 표시, 맨 아래 행동 줄, 자세히 서랍, 카드. */
+#jobs-try > button, #jobs-run > button, #jobs-result > button { align-self: flex-start; }
 #jobs-model, #jobs-run-model { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-control-y) var(--space-group); }
 .step-screen { display: flex; flex: 1; flex-direction: column; gap: var(--space-group); }
 /* 위쪽 제목과 설명을 뺀 남은 높이를 단계 화면까지 넘긴다. 내용이 짧아도 행동 줄이 창 맨 아래에 온다. */

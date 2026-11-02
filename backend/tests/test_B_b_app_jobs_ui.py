@@ -86,7 +86,7 @@ def test_offline_recovery_keeps_edits_scope_and_explicit_practice():
     run_js(SETUP + r"""
 options=makeOptions(false);await go('s03',{doc:'T21-X01',section:8});stepTo('model');
 assert.equal(el('jobs-practice').disabled,false);assert.equal(el('jobs-send'),null);
-assert.ok(textOf('jobs-try').includes(T('jobs.trial.practice_meaning')));
+assert.ok(textOf('jobs-try').includes(T('steps.trial.practice_button_note')));
 assert.ok(el('jobs-prepare'));assert.equal(el('jobs-connection').hidden,false);
 stepTo('prompt');assert.equal(el('jobs-send').textContent,T('jobs.actions.send'));assert.equal(el('jobs-send').disabled,true);
 change(el('jobs-edit'),true);input(el('jobs-prompt'),'edited text');
@@ -685,7 +685,7 @@ await el('jobs-stop-confirm').click();assert.equal(posted.at(-1).path,'/api/jobs
 def test_result_title_uses_whole_document_score_and_changed_criteria():
     run_js(SETUP + r"""
 listed=[job('done')];response=result(true);await go('s03');await jobsWatch('j1');
-assert.equal(el('title-s03').textContent,T('steps.trial.score_up',{before:'50.0',after:'55.0'}));
+assert.equal(el('title-s03').textContent,T('steps.trial.partial_score_up',{before:'50.0',after:'55.0'}));
 assert.ok(textOf('jobs-result').includes('fake item'));assert.equal(el('jobs-result').querySelector('th[scope="row"]').textContent,'fake item');
 """)
 
@@ -815,3 +815,45 @@ assert.ok(el('jobs-focus').classList.contains('job-focus'));
 def test_model_choices_use_two_columns_so_the_list_fits_on_the_screen():
     css = (STATIC / 'app.css').read_text()
     assert '#jobs-model, #jobs-run-model { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));' in css
+
+
+def test_practice_note_is_about_the_practice_button_not_the_main_one():
+    # "실제 시험 기록과 점수는 생기지 않습니다"가 실제 시험 단추 위에 있어 글이 충돌했다. 11/2 코덱스 판독.
+    run_js(SETUP + "await go('s03'," + PICKED + ");" + r"""
+atStep('prompt');
+assert.ok(textOf('jobs-try').includes(T('steps.trial.practice_button_note')));
+assert.equal(textOf('jobs-try').includes(T('jobs.trial.practice_meaning')),false);
+stepTo('model');
+assert.ok(textOf('jobs-try').includes(T('steps.trial.practice_button_note')));
+""")
+
+
+def test_whole_document_does_not_ask_to_pick_parts():
+    run_js(SETUP + r"""
+await go('s03',{trialBranch:'try'});jobsChooseBranch('document');atStep('target');
+assert.equal(textOf('jobs-try').includes(T('jobs.fields.scope')),false);
+assert.ok(textOf('jobs-try').includes(T('jobs.form.all')));
+jobsChooseBranch('try');assert.ok(textOf('jobs-try').includes(T('jobs.fields.scope')));
+""")
+
+
+def test_failed_job_does_not_add_a_missing_result_message():
+    run_js(SETUP + r"""
+listed=[job('failed')];response=null;await go('s03');await jobsWatch('j1');atStep('running');
+assert.equal(textOf('jobs-result').includes(T('jobs.result_missing.fact')),false);
+listed=[job('done')];response=null;await jobsPoll();await jobsLoadResult('j1');
+assert.ok(textOf('jobs-result').includes(T('jobs.result_missing.fact')));
+""")
+
+
+def test_practice_result_does_not_promise_an_ai_answer_in_the_details_hint():
+    run_js(SETUP + r"""
+listed=[job('done',{dry_run:true,target:{...target,dry_run:true}})];response={plan};await go('s03');await jobsWatch('j1');atStep('result');
+assert.ok(textOf('jobs-details').includes(T('steps.trial.details_hint_practice')));
+assert.equal(textOf('jobs-details').includes(T('steps.trial.details_hint')),false);
+""")
+
+
+def test_step_buttons_keep_their_own_width():
+    css = (STATIC / 'app.css').read_text()
+    assert '#jobs-try > button, #jobs-run > button, #jobs-result > button { align-self: flex-start; }' in css

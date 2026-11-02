@@ -257,8 +257,9 @@ function jobsResultHead() {
   if (r.results && !Object.values(r.results).every(v => v.ok === true)) return [T("steps.trial.parse_title"), ""];
   const before = r.score?.before?.weighted, after = r.score?.after?.weighted;
   if (!num(before) || !num(after)) return [T("jobs.result.plain_done"), ""];
-  return [T(after > before ? "steps.trial.score_up" : after < before ? "steps.trial.score_down" : "steps.trial.score_same",
-    {before: fmt1(before), after: fmt1(after)}), T("steps.trial.result_say")];
+  // 한 부분 시험은 그 부분만 바꿔 계산한 점수다. 문서 전체를 새로 시험한 것으로 읽히지 않게 한다.
+  const prefix = r.run ? "steps.trial.score" : "steps.trial.partial_score";
+  return [T(`${prefix}_${after > before ? "up" : after < before ? "down" : "same"}`, {before: fmt1(before), after: fmt1(after)}), T("steps.trial.result_say")];
 }
 function jobsHead(step) {
   const J = S.jobs, form = jobsForm(), job = jobsWatched();
@@ -344,7 +345,8 @@ function jobsRenderFrame() {
   document.getElementById("jobs-step-say").textContent = say;
   stepsRenderBar(document.getElementById("jobs-step-bar"), {steps: jobsStepList(step), current: step, onGo: jobsGoStep});
   coreReplace(document.getElementById("jobs-details"), h("p", {class: "server-details-link"},
-    h("button", {id: "jobs-details-open", type: "button", class: "text-button", onclick: jobsOpenDetails}, T("steps.details.open")), " ", T("steps.trial.details_hint")));
+    h("button", {id: "jobs-details-open", type: "button", class: "text-button", onclick: jobsOpenDetails}, T("steps.details.open")), " ",
+    T(step === "result" && jobsPractice(jobsWatched()) ? "steps.trial.details_hint_practice" : "steps.trial.details_hint")));
   stepsRenderActions(document.getElementById("jobs-actions"), jobsActions(step));
   if (activeId && !active.isConnected) document.getElementById(activeId)?.focus({preventScroll: true});
   if (S.drawer.screen === "s03") jobsRenderDrawer(document.querySelector("#details-drawer .drawer-body"));
@@ -434,7 +436,7 @@ function jobsStageTarget() {
           h("input", {id: `jobs-section-${n}`, type: "checkbox", checked: t.secs.has(n), onchange: e => {
             e.target.checked ? t.secs.add(n) : t.secs.delete(n); jobsRemember(); jobsRenderSteps();
           }}), T("jobs.form.section", {section: n}))))),
-      jobsNote(T("jobs.fields.scope"), {class: "muted"})),
+      t.all ? null : jobsNote(T("jobs.fields.scope"), {class: "muted"})),
     docs.some(d => jobsAllowed(d, "try")) ? null : jobsNote(T("jobs.no_runnable.fact")),
     h("ul", {class: "muted"}, evals.length ? h("li", null, T("jobs.batch.eval_locked", {count: evals.length})) : null,
       [...new Set(closed.map(closedReason))].map(reason => h("li", null, closed.filter(d => closedReason(d) === reason).map(d => d.doc_id).join(", "), " — ", reason))),
@@ -447,14 +449,14 @@ function jobsStageModel() {
     !J.batch && form.model ? jobsModelDifference(form.model, J.runs.find(run => run.name === J.t.base)?.model_tag) : null,
     jobsNote(J.opts.try_hint?.note || T("jobs.try_hint.off"), {role: "status"}),
     jobsButton("jobs-options-reload", "jobs.form.reload", jobsPoll, !!J.loadingOptions),
-    J.batch ? null : jobsNote(term("practice", T("jobs.trial.practice_meaning")), {class: "muted"}),
+    J.batch ? null : jobsNote(term("practice", T("steps.trial.practice_button_note")), {class: "muted"}),
     J.batch ? null : serversFlat(J.message.try) || null];
 }
 // ③ 무엇을 시킬지: 한 부분만 고쳐 쓸 수 있다. 늦게 온 기본 글은 고친 글을 덮지 못한다(jobsLoadPrompt).
 function jobsStagePrompt() {
   const J = S.jobs, t = J.t, one = jobsSingle();
   if (!one) return [jobsSetNotice(), h("div", {class: "step-card"}, jobsNote(T("jobs.multiple.no_edit")), jobsNote(T("jobs.multiple.default_prompt"))),
-    jobsNote(term("practice", T("jobs.trial.practice_meaning")), {class: "muted"}), serversFlat(J.message.try) || null];
+    jobsNote(term("practice", T("steps.trial.practice_button_note")), {class: "muted"}), serversFlat(J.message.try) || null];
   const choice = (id, on, key) => h("label", {class: `step-choice${on ? " on" : ""}`},
     h("input", {id, type: "radio", name: "jobs-prompt-mode", checked: on, onchange: e => {
       t.edit = id === "jobs-edit" ? e.target.checked : !e.target.checked; jobsRenderTry();
@@ -476,7 +478,7 @@ function jobsStagePrompt() {
     jobsButton("jobs-load-prompt", "jobs.form.load_prompt", jobsLoadPrompt, !t.model || J.promptBusy),
     t.textFor && t.textFor !== `${t.model}|${[...t.secs][0]}` ? jobsNote(T("jobs.prompt.review_foreign"), {class: "warning"}) : null,
     jobsNote(T("jobs.prompt.retest_hint"), {class: "muted"}),
-    jobsNote(term("practice", T("jobs.trial.practice_meaning")), {class: "muted"}), serversFlat(J.message.try) || null];
+    jobsNote(term("practice", T("steps.trial.practice_button_note")), {class: "muted"}), serversFlat(J.message.try) || null];
 }
 function jobsRenderTry() {
   const J = S.jobs, t = J.t, el = document.getElementById("jobs-try");
@@ -722,6 +724,8 @@ function jobsRenderTryResult(el) {
     coreReplace(el, head, jobsNote(T("jobs.result.pending"), {role: "status"}),
       jobsButton("jobs-result-retry", "jobs.result.retry", () => jobsLoadResult(J.watch))); return;
   }
+  // 실패한 작업에 결과 파일이 없는 것은 당연하다. 실패 안내만 보인다.
+  if (!r && job?.status === "failed") { coreReplace(el, head); return; }
   if (!r) {
     coreReplace(el, head, jobsNote(h("strong", null, T("jobs.result_missing.fact"))), jobsNote(T("jobs.result_missing.todo", {status_code: 204})),
       jobsButton("jobs-result-log", "jobs.result_missing.open_log", () => jobsOpenLog(J.watch)), jobsButton("jobs-result-retry", "jobs.result.retry", () => jobsLoadResult(J.watch))); return;
