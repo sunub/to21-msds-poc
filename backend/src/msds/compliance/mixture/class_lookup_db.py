@@ -192,7 +192,8 @@ def make_db_info_lookup(repo=None):
                 return {**empty, "reason": "지식DB에 등록되지 않은 CAS"}
             mws = [v for v in (to_float(c.get("molecular_weight")) for c in chems) if v]
             tox = [x for c in chems for x in r.toxicity(c["chem_id"])["rows"]]
-            state = _substance_state([x for c in chems for x in r.physical_properties(c["chem_id"])["rows"]])
+            read_props = getattr(r, "physical_properties", None)  # 제공자에 물성이 없어도 분자량·M 계수는 쓴다
+            state = _substance_state([x for c in chems for x in read_props(c["chem_id"])["rows"]]) if read_props else None
         except Exception as e:  # 접속 불가·권한·쿼리 오류 모두 중단하지 않고 사유로 남긴다
             return {**empty, "reason": f"지식DB 접속·조회 실패({type(e).__name__}: {e})"}
         vals = aquatic_values(tox)
