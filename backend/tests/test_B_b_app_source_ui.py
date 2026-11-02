@@ -75,7 +75,7 @@ const screen=()=>el('screen-s02').textContent;
 const pick=(n,side='result')=>{
  const path='msds[0].exposure_limits['+n+'].q',only=side==='silver_only';
  const found=()=>Array.from(document.querySelectorAll("[data-source-path]")).find(e=>e.dataset.sourcePath===path&&e.dataset.side===side)||null;
- if(!found()&&S.source.data&&sourceRowOf(path,only))sourceShowRow(sourceRowOf(path,only).id);
+ if(!found()&&S.source.data&&sourceRowOf(path,only)){S.source.rowId=sourceRowOf(path,only).id;S.source.step='compare';sourceRenderAll();}
  return found();
 };
 const flush=async()=>{for(let i=0;i<40;i++)await Promise.resolve();};
@@ -1027,7 +1027,7 @@ def test_evidence_of_an_ai_value_says_it_is_the_line_the_ai_gave():
     run_js(fixture() + STEPS + r"""
 await go('s02',{section:8,item:'Fake criterion',pick:'wrong'});
 assert.ok(el('source-selection').textContent.includes(T('steps.source.evidence_title')));
-assert.ok(!el('source-selection').textContent.includes(T('source.evidence.title')));
+assert.ok(!el('source-selection').textContent.includes('원문에 적힌 줄'));
 """)
 
 

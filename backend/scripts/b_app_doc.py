@@ -472,11 +472,6 @@ def problem_counts(pred_json: dict, gold_json: dict) -> tuple[Counter, Counter]:
     return fields, rows
 
 
-def field_counts(pred_json: dict, gold_json: dict) -> Counter:
-    """칸 단위 문제 수(problem_counts의 앞쪽)."""
-    return problem_counts(pred_json, gold_json)[0]
-
-
 def run_problem_counts(run: Path, gold_dir: Path, doc_ids) -> tuple[dict[str, Counter], dict[str, Counter]]:
     """실행의 문서마다 problem_counts를 (칸, 행)으로 나눠 준다. 결과 파일이나 정답 파일이 없는 문서는 셀 수 없어 뺀다.
     쪽 글자와 그림은 읽지 않으므로 평가용 문서도 내용을 꺼내지 않고 수만 센다."""
@@ -487,11 +482,6 @@ def run_problem_counts(run: Path, gold_dir: Path, doc_ids) -> tuple[dict[str, Co
             fields[doc_id], rows[doc_id] = problem_counts(json.loads(pred_path.read_text(encoding="utf-8")),
                                                           json.loads(gold_path.read_text(encoding="utf-8")))
     return fields, rows
-
-
-def run_field_counts(run: Path, gold_dir: Path, doc_ids) -> dict[str, Counter]:
-    """실행의 문서마다 칸 단위 문제 수(run_problem_counts의 앞쪽)."""
-    return run_problem_counts(run, gold_dir, doc_ids)[0]
 
 
 def allowed_doc(doc_id: str, doc_dir: Path | None = None) -> bool:

@@ -319,7 +319,7 @@ def test_api_run_status_counts_are_field_level_like_source_view(app, ctx, env):
     make_run(env / "runs", name, {X01: make_doc(X01, toxicity=True), X02: make_doc(X02)})   # X01만 11항 독성을 비운다
     code, data = get_json(app, ctx, "/api/run/" + name)
     top = data["status_text"]["top_problem"]
-    field = app.bdoc.run_field_counts(env / "runs" / name, ctx.gold_dir, data["docs"])
+    field = app.bdoc.run_problem_counts(env / "runs" / name, ctx.gold_dir, data["docs"])[0]
     missing = sum(n for (item, section, kind), n in sum(field.values(), Counter()).items()
                   if (item, section, kind) == (top["name"], top["section"], "missing"))
     assert code == 200 and top["counts_basis"] == "field"
@@ -363,7 +363,7 @@ def test_run_status_and_summaries_do_not_change_cached_scores(app, ctx, env, mon
     code, result = get_json(app, ctx, "/api/run/" + name)
     assert code == 200
     # 문제 건수는 칸 단위로 센다(사용자 결정 10/31). 같은 수를 넘겨 다시 만들어도 같아야 한다
-    field = app.bdoc.run_field_counts(env / "runs" / name, ctx.gold_dir, before.get("docs") or [])
+    field = app.bdoc.run_problem_counts(env / "runs" / name, ctx.gold_dir, before.get("docs") or [])[0]
     assert result["status_text"] == app.bt.score_status(before, app.br.criteria(), connected=None,
                                                         per_doc=before.get("per_doc"), field_counts=field)
     assert set(result["card_summaries"]) == {"history", "docs", "grid", "rows"}

@@ -605,12 +605,6 @@ function sourceOpenRow({doc, data, group, cells}, user = true) {
   const found = sourceChooseProblem(entries, "mismatch", data) || entries[0];
   return found ? sourcePickProblem(doc, found.v, found.only, user) : null;
 }
-// 값을 고르지 않고 그 행의 칸만 보인다.
-function sourceShowRow(id) {
-  const D = S.source;
-  D.rowId = id; D.step = "compare";
-  sourceRenderAll();
-}
 function sourceTip(v, side) {
   return S.source.data.ui_text?.value_tips?.[side]?.[v.path]?.join("\n") || null;
 }

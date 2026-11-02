@@ -6,7 +6,10 @@ from pathlib import Path
 import pytest
 
 from test_B_b_app_dom import STATIC, run_js
+from test_B_b_app_jobs_ui import SETUP as JOBS_SETUP
 from test_B_b_app_score_ui import FIXTURE as SCORE_FIXTURE
+from test_B_b_app_servers_ui import FIXTURE as SERVERS_FIXTURE
+from test_B_b_app_source_ui import STEPS as SOURCE_STEPS, fixture as source_fixture
 
 
 SCREENS = tuple(f"s{n:02}" for n in range(1, 11) if n not in (8, 9))  # S09는 S03의 갈래가 됐다 (ADR-039).
@@ -357,3 +360,189 @@ def test_legacy_surface_and_helpers_are_removed_and_text_contract_remains():
     assert data["POLISH_TEXT"] is data["UI_TEXT"]
     for name in ("START_TEXT", "FIELD_HELP", "TRY_STAGE_HELP", "JOB_UI_TEXT", "GLOSSARY"):
         assert data[name]
+
+
+# ── 끝 검사 (step 7, ADR-039): 세 화면의 모든 단계와 서랍 ──
+# 단계 표시와 행동 줄은 단계마다 하나다. S06 ③의 확인 줄(.server-progress)은 G3에서 승인한 확인 목록이라 세지 않는다.
+STEP_AUDIT = r"""
+const auditStep=(route,label)=>{
+ const root=document.getElementById('screen-'+route);
+ assert.equal(root.querySelectorAll('details').length,0,label+': fold on the step');
+ assert.equal(root.querySelectorAll('ol.steps').length,1,label+': step bar count');
+ assert.equal(root.querySelectorAll('[aria-current="step"]').length,1,label+': current step count');
+ assert.equal(root.querySelectorAll('.step-actions').length,1,label+': action row count');
+ assert.doesNotMatch(root.textContent,/null|undefined|⟦/,label);
+};
+const auditDrawer=async(opener,label)=>{
+ drawerClose();document.getElementById(opener).click();
+ const body=document.querySelector('#details-drawer .drawer-body');
+ assert.equal(body.querySelectorAll('details').length,0,label+': fold in the drawer');
+ assert.doesNotMatch(body.textContent,/null|undefined|⟦/,label+' drawer');
+ drawerClose();
+};
+"""
+
+
+def test_s02_every_step_and_its_drawer_has_no_fold_one_bar_one_action_row_and_clean_text():
+    run_js(source_fixture() + SOURCE_STEPS + STEP_AUDIT + r"""
+const audit=async label=>{await flush();auditStep('s02',label);await auditDrawer('source-details-open',label);};
+await go('s02');atStep('choose');await audit('choose from the menu');
+await scoreOpenSource({...top,docs:docRows});atStep('compare');await audit('compare with a problem');
+sourceGoStep('send');await flush();atStep('send');await audit('send');
+sourceGoStep('choose');await flush();atStep('choose');await audit('choose after coming back');
+await go('s02',{doc:'T21-X01',section:8});atStep('compare');await audit('compare one part');
+// 문서 전체 표를 연 서랍도 접지 않는다.
+drawerClose();el('source-details-open').click();el('source-structure-open').click();
+assert.equal(document.querySelector('#details-drawer .drawer-body').querySelectorAll('details').length,0);drawerClose();
+// 결과 없이 원문만 볼 때
+S.score.list=[];S.score.run=null;S.score.name=null;api=async path=>{if(path.startsWith('/api/runs'))return {runs:[]};return {...view,values:[],silver_only:[],row_groups:[],has_gold:false,doc_id:'T21-X01'};};
+await sourceLoad(true);await flush();auditStep('s02','no results');await auditDrawer('source-details-open','no results');
+// 읽기 실패
+api=async()=>{throw new Error('Fake failure');};await sourceLoad(true);await flush();auditStep('s02','load failure');await auditDrawer('source-details-open','load failure');
+""")
+
+
+def test_s03_every_step_branch_and_drawer_has_no_fold_one_bar_one_action_row_and_clean_text():
+    run_js(JOBS_SETUP + STEP_AUDIT + r"""
+const flush=async()=>{for(let i=0;i<40;i++)await Promise.resolve();};
+const audit=async label=>{await flush();auditStep('s03',label);await auditDrawer('jobs-details-open',label);};
+await go('s03',{doc:'T21-X01',section:8,path:'fake.path',kind:'wrong',expected:5,actual:8});
+for(const step of ['target','model','prompt']){stepTo(step);atStep(step);await audit('part '+step);}
+stepTo('target');await el('jobs-branch-document').click();
+for(const step of ['target','model','prompt']){stepTo(step);atStep(step);await audit('document '+step);}
+stepTo('target');await el('jobs-branch-batch').click();
+for(const step of ['target','model','prompt']){stepTo(step);atStep(step);await audit('batch '+step);}
+stepTo('target');await el('jobs-branch-part').click();
+// AI가 꺼진 ②
+options=makeOptions(false);await go('s03',{doc:'T21-X01',section:8});stepTo('model');atStep('model');await audit('model off');
+options=makeOptions(true);
+// ④ 진행 중, 연습 진행 중
+listed=[job('running')];await go('s03');await jobsWatch('j1');atStep('running');await audit('running');
+listed=[job('running',{id:'j4',dry_run:true,target:{...target,dry_run:true}})];await jobsPoll();await jobsWatch('j4');atStep('running');await audit('practice running');
+// ⑤ 성공, 해석 실패, 연습, 실패, 중단, 결과 파일 없음, 여러 문서
+const finish=async(label,one,answer)=>{listed=[one];response=answer;await jobsPoll();await jobsWatch(one.id);await flush();await audit(label);};
+await finish('result ok',job('done',{id:'r1'}),result(true));atStep('result');
+await finish('result parse failure',job('done',{id:'r2'}),result(false));
+await finish('result practice',job('done',{id:'r3',dry_run:true,target:{...target,dry_run:true}}),{plan});
+await finish('job failed',job('failed',{id:'r4',returncode:1,error:{message:'Fake failure',fix:'Fake fix'}}),null);
+await finish('job stopped',job('stopped',{id:'r5',returncode:-15}),null);
+await finish('no result file',job('done',{id:'r6'}),null);
+await finish('batch',job('done',{id:'r7',kind:'run',target:{kind:'run',docs:['RAW-FAKE'],model:'first',set:'pack',repeat:1,run_names:['r1']}}),null);
+""")
+
+
+@pytest.mark.parametrize('label,step,prepare', [
+    ('choose', 'choose', "allOff();await setup();"),
+    ('start rented', 'start', "allOff();await setup();await byId('servers-use-rented').click();"),
+    ('start company', 'start', "allOff();await setup();await byId('servers-use-company').click();"),
+    ('start company, tunnel closed', 'start', "allOff();data.rngd.tunnel={port:18000,open:false};data.rngd.diagnosis='tunnel_closed';await setup();await byId('servers-use-company').click();"),
+    ('wait rented', 'wait', "pending();await setup();"),
+    ('wait company', 'wait', "allOff();data.rngd.diagnosis='loading';data.rngd.loading_since='2026-10-31T12:00:00+09:00';data.rngd.models=[{model:'Fake model A',pid:7}];S.focus.model='company-a';await setup();"),
+    ('stop rented', 'stop', "await setup();"),
+    ('stop company', 'stop', "allOff();data.rngd.diagnosis='ok';data.rngd.models=[{model:'Fake model A',pid:7}];Object.assign(data.models[0],{reachable:true,match:true,model_served:'Fake model A'});await setup();"),
+    ('status failure', 'choose', "await setup();api=async()=>{throw new Error('Status unavailable');};await shellPollServers();"),
+    ('account failure', 'choose', "allOff();data.friendly={message:'Fake',fix:'Fake fix',raw:'FakeRaw'};data.runpod_error='FakeRaw';data.rngd.diagnosis=null;data.rngd.ok=false;data.rngd.friendly={message:'Fake two',fix:'Fix two',raw:'FakeRawTwo'};await setup();"),
+    ('action failure', 'stop', "await setup();post=async()=>{throw new Error('Request failed');};await action('pod_delete').click();"),
+])
+def test_s06_every_step_and_its_drawer_has_no_fold_one_bar_one_action_row_and_clean_text(label, step, prepare):
+    run_js(SERVERS_FIXTURE + STEP_AUDIT + prepare + f"const label={json.dumps(label)};atStep({json.dumps(step)});" + r"""
+auditStep('s06',label);await auditDrawer('servers-details-open',label);
+""")
+
+
+@pytest.mark.parametrize("screen", SCREENS)
+def test_no_screen_has_two_progress_bars(screen):
+    run_js(SETUP + f"const route={json.dumps(screen)};" + r"""
+await go(route,args);await flush();
+const root=el('screen-'+route),bars=root.querySelectorAll('ol.steps').length,now=root.querySelectorAll('[aria-current="step"]').length;
+assert.equal(bars,['s02','s03','s06'].includes(route)?1:0);assert.equal(now,bars);
+""")
+
+
+# 시안의 가짜 값. 실제 요금과 시간은 API에서 읽는다. 시험 대역과 서버 설정 POD_COST_HINT는 고정 글이 아니다.
+MOCKUP_VALUES = ("$2.49", "2.49", "$0.33", "0.33", "5분 안팎", "3시간 52분")
+
+
+@pytest.mark.parametrize("value", MOCKUP_VALUES)
+def test_mockup_fake_values_are_not_fixed_text(value):
+    for path in [*sorted((STATIC / "js").glob("*.js")), STATIC.parent / "b_app_text.py"]:
+        assert value not in path.read_text(), (value, path.name)
+
+
+# 이 phase가 쓰이지 않게 만든 글과 도우미. phase 전부터 쓰이지 않던 것은 STEPS.md 10장에 적고 그대로 둔다.
+RETIRED_TEXT = (
+    "common.method", "jobs.trial.title", "jobs.prompt.details", "jobs.prompt.edit", "jobs.scope.expand",
+    "jobs.off.title", "jobs.completion.title", "jobs.parse_failed.todo", "jobs.practice_done.omitted_stages",
+    "jobs.form.waiting", "source.problem_count", "source.evidence.title", "source.selection.expand",
+    "source.page.expand", "source.structure.expand", "source.labels.raw_value", "servers.choice.company",
+    "servers.choice.rented", "servers.compare.cost", "servers.company.alternative", "servers.connection.processes",
+    "servers.rented.ownership", "servers.rented.identity", "servers.models.title", "servers.models.state",
+)
+
+
+def _leaf(tree, key):
+    for part in key.split("."):
+        if not isinstance(tree, dict) or part not in tree:
+            return None
+        tree = tree[part]
+    return tree
+
+
+def test_text_this_phase_stopped_using_is_gone_from_the_text_and_copy_and_stays_in_the_approval_table():
+    import runpy
+    data = runpy.run_path(str(STATIC.parent / "b_app_text.py"))
+    copy = (STATIC / "design/COPY.md").read_text()
+    steps = (STATIC / "design/STEPS.md").read_text().split("## 12. 문구 승인표", 1)[1].split("\n## ", 1)[0]
+    sources = "\n".join(p.read_text() for p in sorted((STATIC / "js").glob("*.js")))
+    for key in RETIRED_TEXT:
+        assert _leaf(data["UI_TEXT"], key) is None, key
+        assert key not in data["COPY_EXCEPTIONS"], key
+        assert not re.search(r"^" + re.escape(key) + r"\|", copy, re.M), key
+        assert f'"{key}"' not in sources, key
+        assert re.search(r"^\| `" + re.escape(key) + r"` \| .* \| \(지움\) \| ", steps, re.M), key
+
+
+def test_helpers_this_phase_stopped_using_are_gone():
+    source = (STATIC / "js/source.js").read_text()
+    doc = (STATIC.parent / "b_app_doc.py").read_text()
+    assert "sourceShowRow" not in source
+    assert "def field_counts" not in doc and "def run_field_counts" not in doc
+
+
+def _preservation():
+    source = (STATIC / "design/STRUCTURE.md").read_text()
+    return source.split("## 3. 정보 보존표", 1)[1].split("\n## 4.", 1)[0]
+
+
+def test_preservation_table_deletions_are_exactly_the_approved_ones():
+    table = _preservation().split("### 승인된 삭제", 1)[1]
+    rows = re.findall(r"^\| (D\d+) \|", table, re.M)
+    approved = re.findall(r"^\| (D\d+) \|", (STATIC / "design/STEPS.md").read_text().split("## 2. 지울 항목 목록", 1)[1].split("\n## 3.", 1)[0], re.M)
+    assert rows == approved == ["D1", "D2", "D3", "D4"]
+
+
+@pytest.mark.parametrize("row,place,gone", [
+    ("I36", "①", "대상 막대"), ("I37", "자세히 서랍", "접음"), ("I38", "②", "쪽·항 이동과"), ("I39", "②", "결과 열 머리글"),
+    ("I40", "②", "왼쪽 열"), ("I41", "서랍", "오른쪽 열"), ("I42", "②", "값 대조 표"), ("I43", "②", "선택 상태줄"),
+    ("I44", "②", "전역 모델 칸"), ("I45", "①", "시험 대상"), ("I46", "③", "‘모델 지시문’"), ("I47", "③", "편집 영역"),
+    ("I48", "연습 단추", "입력 확인 연습"), ("I49", "⑤", "S03 결과와"),
+])
+def test_preservation_rows_of_the_step_screens_point_to_the_new_places(row, place, gone):
+    line = next(line for line in _preservation().splitlines() if line.startswith(f"| {row} |"))
+    new_place = line.rstrip(" |").rsplit(" | ", 1)[1]
+    assert place in new_place, (row, new_place)
+    assert gone not in new_place, (row, new_place)
+
+
+def test_final_check_covers_every_success_criterion_and_problem_with_tests_that_exist():
+    steps = (STATIC / "design/STEPS.md").read_text()
+    section = steps.split("## 13. 끝 점검", 1)[1].split("\n## ", 1)[0]
+    names = set(re.findall(r"`(test_\w+)`", section))
+    assert len(names) >= 15
+    known = {name for path in Path(__file__).parent.glob("test_*.py")
+             for name in re.findall(r"^def (test_\w+)\(", path.read_text(), re.M)}
+    assert names <= known, names - known
+    problems = re.findall(r"^\| (\d+|10장-[12]) \| ", section.split("### 요청 밖 문제", 1)[1].split("\n### ", 1)[0], re.M)
+    assert problems == [str(n) for n in range(1, 15)] + ["10장-1", "10장-2"]
+    assert section.count("G7") >= 2
+    assert "### step 7" in steps.split("## 13. 끝 점검", 1)[1]
