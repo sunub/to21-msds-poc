@@ -146,3 +146,40 @@ def make_db_tox_lookup(repo=None):
         return ClassRows(rows, reason=None if rows else "지식DB에 쓸 수 있는 급성독성 수치 없음")
 
     return lookup
+
+
+# ── 성분 정보: 분자량 · 수생 M 계수 (11/02 F, 설계서 36·56장 D-07) ─────────────────────
+def make_db_info_lookup(repo=None):
+    """info_lookup(cas) → {"mw", "m", "m_basis", "aquatic", "reason"}. 같은 CAS는 한 번만 조회한다.
+
+    mw: tb_eng_chem_master_info.molecular_weight. m: {ENV_AQ_ACUTE: M 또는 None, ENV_AQ_CHRONIC: …}(m_factor.py).
+    조회 실패는 예외로 올리지 않고 reason 에 남기며, 이때 mw·m 은 비운다.
+    """
+    from .m_factor import aquatic_values, m_factors
+
+    cache: dict[str, dict] = {}
+
+    def lookup(cas):
+        if cas not in cache:
+            cache[cas] = _query(cas)
+        return cache[cas]
+
+    def _query(cas):
+        empty = {"mw": None, "m": {}, "m_basis": {}, "aquatic": None}
+        if repo is None and os.environ.get("HTODB_SKIP") == "1":
+            return {**empty, "reason": "지식DB 조회 안 함(HTODB_SKIP=1)"}
+        try:
+            r = repo or _DbRepo()
+            chems = r.chemicals(cas=cas)["rows"]
+            if not chems:
+                return {**empty, "reason": "지식DB에 등록되지 않은 CAS"}
+            mws = [v for v in (to_float(c.get("molecular_weight")) for c in chems) if v]
+            tox = [x for c in chems for x in r.toxicity(c["chem_id"])["rows"]]
+        except Exception as e:  # 접속 불가·권한·쿼리 오류 모두 중단하지 않고 사유로 남긴다
+            return {**empty, "reason": f"지식DB 접속·조회 실패({type(e).__name__}: {e})"}
+        vals = aquatic_values(tox)
+        ms = m_factors(vals)
+        return {"mw": mws[0] if mws else None, "m": {k: v["m"] for k, v in ms.items()},
+                "m_basis": {k: v["basis"] for k, v in ms.items()}, "aquatic": vals, "reason": None}
+
+    return lookup

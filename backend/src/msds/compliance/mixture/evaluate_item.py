@@ -94,13 +94,19 @@ def build_m(item_id, item, components, used):
     default = item.get("m_factor_default", 1)
     who = {(c.get("cas"), c.get("name")): c for c in components}
     entries = [u for u in used if u["class_code"] == item_id and u["key"] == "1"]
-    ms, notes, missing = [], [], []
+    ms, notes, missing, derived = [], [], [], []
     for u in entries:
-        m = who[(u["cas"], u["name"])].get("m")
+        comp = who[(u["cas"], u["name"])]
+        m = comp.get("m")
         m = m.get(item_id) if isinstance(m, dict) else m
+        why = (comp.get("m_basis") or {}).get(item_id)  # 지식DB로 정했거나 못 정한 이유(make_db_info_lookup)
         if m is None:
-            missing.append(u["name"])
+            missing.append(u["name"] + (f" ({why})" if why else ""))
+        elif why:
+            derived.append(f"{u['name']} M={m} ({why})")
         ms.append(default if m is None else m)
+    if derived:
+        notes.append(f"M 계수 지식DB 수생독성으로 산출(D-07, rules/m_factor.yaml): {'; '.join(derived)}")
     if missing:
         notes.append(f"M 계수 없음 → 규칙표 m_factor_default({default}) 사용: {', '.join(missing)}")
     if len(set(ms)) <= 1:
