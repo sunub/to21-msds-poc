@@ -3543,11 +3543,11 @@ def value_tip_lines(value, labels: dict) -> list[str]:
 
 
 def doc_legend() -> list[dict]:
-    """승인 토큰과 UI_GUIDE의 주황 의미를 원문 범례에 쓴다."""
+    """값의 세 상태는 화면에서 글자로만 구분하므로 색 칸을 주지 않는다. 색은 선택 표시에만 쓴다."""
     return [{"key": key, "label": label, "color": color} for key, label, color in [
-        ("same", UI_TEXT["source"]["legend"]["same"], "#53645e"),
-        ("diff", UI_TEXT["source"]["legend"]["different"], "#53645e"),
-        ("silver_only", UI_TEXT["source"]["legend"]["missing"], "#53645e"),
+        ("same", UI_TEXT["source"]["legend"]["same"], None),
+        ("diff", UI_TEXT["source"]["legend"]["different"], None),
+        ("silver_only", UI_TEXT["source"]["legend"]["missing"], None),
         ("picked", UI_TEXT["source"]["legend"]["selected"], "#fff3c6"),
     ]]
 
