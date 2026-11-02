@@ -70,6 +70,7 @@ async with gate.slot("explain"):
     response = await client.chat(...)
 ```
 
+- A1 구현(`get_model_gate()`)은 `extract/client.py`의 `ChatClient`가 호출마다 잡는다. 이 클라이언트를 쓰는 쪽은 바깥에서 다시 잡지 않는다 (B-35).
 - 가짜 창구: `asyncio.Semaphore`만 쓰는 구현. A2·B2는 A1의 창구가 나오기 전까지 이것으로 개발한다.
 - 동기 코드에서 쓸 `slot_sync(kind)`도 같은 뜻으로 둔다 (지금 `extract/client.py`는 스레드에서 돈다).
 
