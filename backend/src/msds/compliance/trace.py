@@ -10,6 +10,8 @@
 
 코드는 설계서 41장 8개에 우리가 필요해서 더한 것을 함께 쓴다(CAUSE_TEXT 의 '추가' 표시).
 """
+import re
+
 from .label import _find
 from .mixture.class_inputs import _SOURCE_NAME
 
@@ -39,6 +41,10 @@ CAUSE_TEXT = {
 _FORM_KO = {"gas": "가스", "vapour": "증기", "mist": "분진·미스트"}
 _ATE = {"HH_ACUTE_ORAL": ("TX_ORAL", "mg/kg"), "HH_ACUTE_DERMAL": ("TX_DERMAL", "mg/kg"), "HH_ACUTE_INHAL": ("TX_INHAL", None)}
 _INHAL_UNIT = {"가스": "ppm", "증기": "mg/L", "분진·미스트": "mg/L"}
+# 성분 제외 사유를 원인 문장에 쓸 때 풀어 쓴 말(11/02 F: '부등호 값'을 함량의 부등호로 잘못 읽은 설명이 나와서)
+EXCLUDED_TEXT = {"자료 없음": "독성 자료 없음", "부등호 값": "독성값이 부등호(>·<)뿐이라 계산에서 뺌",
+                 "무독성": "무독성 성분이라 계산에서 뺌", "분류 정보 없음": "지식DB 분류 없음",
+                 "해당 분류 없음": "이 항목의 분류 없음", "한계농도 미만": "함량이 한계농도 미만", "함량 없음": "함량 없음"}
 ATE_TOLERANCE = 0.05  # MSDS 11항 ATEmix 와 계산값 비교: 5% 안쪽 차이는 같은 값으로 봄(반올림·환산 차이)
 TRACE_ASSUMPTIONS = [
     "차이 원인 코드는 설계서 41장 8개에 DETAIL_DIFF·PROP_EDGE·MULTI_CATEGORY·NO_BASIS·표시 요소 3개·15항 4개를 더해 씀(11/02 F)",
@@ -74,20 +80,40 @@ def _msds(v):
     return cat_text(v.get("msds_value"))
 
 
+_PROP_NAME = {"VISCOSITY_40": "40℃ 동점도", "PH": "pH", "STATE": "성상", "LEL": "폭발 하한", "UEL": "폭발 상한",
+              "FLASH_POINT": "인화점", "BOILING": "초기끓는점"}
+
+
+def readable_reason(reason: str) -> str:
+    """엔진 내부 표기를 읽는 말로. '근거부족(prop VISCOSITY_40)' → '9항 40℃ 동점도 값이 없어 판정하지 못함'."""
+    def prop(m):
+        return f"9항 {_PROP_NAME.get(m.group(1), m.group(1))} 값이 없어 판정하지 못함"
+    r = re.sub(r"근거부족\(prop (\w+)\)", prop, reason or "")
+    r = re.sub(r"9항 인화점 \S+ \(missing_prop\)", "9항 인화점 값이 없어 판정하지 못함", r)
+    r = r.replace("대표성분의 분류 정보(class_rows) 없음", "대표성분의 분류 정보가 지식DB에 없어 판정하지 못함")
+    r = r.replace("우리 결과가 근거부족", "계산에 쓸 자료가 부족해 판정하지 못함")
+    r = r.replace("우리 결과에 같은 항목이 없음", "MSDS에만 있는 항목이라 비교할 계산 결과가 없음")
+    return re.sub(r"(?<=, )우리 ", "계산 ", r)  # 세부 표기 줄 'MSDS 냉동액화가스, 우리 압축가스'(6차)
+
+
 def _verdict_causes(v) -> list[dict]:
     """판정 줄만 보고 정하는 코드: 근거부족, 과소·과대, 형태·세부 표기."""
     out = []
     if v["verdict"] == "근거부족":
-        out.append(cause("NO_BASIS", v.get("reason") or ""))
+        out.append(cause("NO_BASIS", readable_reason(v.get("reason") or "")))
     t, (_, _, ours), msds = v.get("type"), _ours(v), _msds(v)
+    # 방향을 문장에 적는다(5차: 과대분류를 '더 약하게'로 쓴 설명). '위험성을'과 숫자 안내(6차: 구분 1을 구분 2보다
+    # '낮게' 적었다고 숫자로 읽은 설명이 재요청에도 남아서)
+    both_num = msds[:3] == "구분 " and ours[:3] == "구분 "
+    note = ", 구분 숫자가 작을수록 위험성이 큼" if both_num else ""
     if t == "과소분류":
-        out.append(cause("CAT_LOWER", f"MSDS {msds}, 계산 결과 {ours}"))
+        out.append(cause("CAT_LOWER", f"MSDS {msds}, 계산 결과 {ours}: MSDS가 계산 결과보다 위험성을 낮게 적음(과소분류{note})"))
     elif t == "과대분류":
-        out.append(cause("CAT_HIGHER", f"MSDS {msds}, 계산 결과 {ours}"))
+        out.append(cause("CAT_HIGHER", f"MSDS {msds}, 계산 결과 {ours}: MSDS가 계산 결과보다 위험성을 높게 적음(과대분류{note})"))
     if v.get("msds_form") and v["msds_form"] != v.get("form"):
         out.append(cause("FORM_DIFF", f"MSDS {v['msds_form']}, 계산 {v.get('form')}", msds_form=v["msds_form"], form=v.get("form")))
     elif t == "형태·세부 표기":
-        out.append(cause("DETAIL_DIFF", v.get("reason") or ""))
+        out.append(cause("DETAIL_DIFF", readable_reason(v.get("reason") or "")))
     return out
 
 
@@ -182,12 +208,13 @@ def mixture_causes(v, trace, components, item) -> list[dict]:
     if v["verdict"] == "근거부족" or (low == high == "분류안됨"):
         why = [{"name": i.get("name"), "excluded": i["excluded"]} for i in trace.get("inputs") or [] if i.get("excluded")]
         unknown = (trace.get("calc") or {}).get("unknown_pct")
-        tail = ", ".join(f"{w['name']}({w['excluded']})" for w in why)
+        tail = ", ".join(f"{w['name']}({EXCLUDED_TEXT.get(w['excluded'], w['excluded'])})" for w in why)
         if unknown:
-            tail += f"{'; ' if tail else ''}이용 불가 성분 {_g(unknown)}%"
+            # 상한 쪽 계산값이다(acute_classify). 상한 합이라 100%를 넘을 수 있음을 밝힌다(6차: T21-043 '합계 130%')
+            tail += f"{'; ' if tail else ''}독성 자료가 없는 성분의 함량 상한 합계 {_g(unknown)}%(이용 불가)"
         for c in out:
             if c["code"] in ("NO_BASIS", "CAT_HIGHER") and tail:
-                c["text"] += f" — 성분: {tail}"
+                c["text"] += f" — 계산에서 빠진 성분: {tail}"  # '성분:'만 쓰면 결과를 좌우한 성분으로 읽힘(5차)
                 c["components"] = why
     if low is not None and high is not None and low != high:
         roles = {i.get("role") for i in trace.get("inputs") or []}
@@ -196,8 +223,10 @@ def mixture_causes(v, trace, components, item) -> list[dict]:
         elif "물성" in roles:
             out.append(cause("PROP_EDGE", f"9항 물성이 비어 {cat_text(low)}~{cat_text(high)} 사이에서 갈림"))
         else:
-            out.append(cause("RANGE_EDGE", f"함량 하한으로 {cat_text(low)}, 상한으로 {cat_text(high)}"))
-    contrib = _contributors(trace)
+            out.append(cause("RANGE_EDGE", f"함량 하한으로 계산하면 {cat_text(low)}, 상한으로 계산하면 {cat_text(high)}. "
+                                           "실제 함량에 따라 결과가 갈리는 경계"))  # '갈림'은 '갈림니다'로 바뀜(6차)
+    # 판정 못 한 줄(4차)과 계산 결과가 분류안됨인 줄(5차)에 '결과를 좌우한 성분'은 오해를 부른다
+    contrib = _contributors(trace) if v["verdict"] != "근거부족" and not (low == high == "분류안됨") else []
     if contrib:
         i, share, basis = max(contrib, key=lambda x: x[1])
         out.append(cause("MAIN_COMPONENT", f"{i.get('name')} ({basis} {share:.0%})", name=i.get("name"), cas=i.get("cas"),
@@ -265,19 +294,22 @@ def label_trace(f, classes, rule_id) -> dict:
 
 
 def label_causes(verdict, f, item_name, src) -> list[dict]:
+    """원인 문장은 'MSDS 2항에 적힌 분류'에서 나온다는 것을 밝혀 쓴다(5차: 성분 때문이라고 읽은 설명이 나와서)."""
+    from .explain import class_label  # explain 이 이 모듈을 읽으므로 함수 안에서 부른다
     if verdict == "일치":
         return []
     if verdict == "근거부족":
         return [cause("NO_BASIS", f"MSDS에 {item_name}가 없음")]
     if f["item"] == "signal_word":
-        return [cause("LABEL_DIFF", f"분류로 보면 '{f['derived'] or '없음'}', MSDS '{f['msds']}'",
+        return [cause("LABEL_DIFF", f"MSDS 2항에 적힌 분류로 보면 신호어 '{f['derived'] or '없음'}', MSDS 기재 '{f['msds']}'",
                       from_classes=src.get(f["derived"], []))]
     out = []
     for code in f["missing"] or []:
-        out.append(cause("LABEL_MISSING", f"{code} ← {', '.join(src.get(code, [])) or '분류 대응 없음'}", item=code,
-                         from_classes=src.get(code, [])))
+        names = ", ".join(class_label(x) for x in src.get(code, [])) or "대응 분류 없음"
+        out.append(cause("LABEL_MISSING", f"{code}: MSDS 2항에 적힌 분류({names})로 보면 있어야 하는데 MSDS 표시에 없음",
+                         item=code, from_classes=src.get(code, [])))
     for code in f["extra"] or []:
-        out.append(cause("LABEL_EXTRA", f"{code}: MSDS 2항 분류에서 나오지 않음", item=code))
+        out.append(cause("LABEL_EXTRA", f"{code}: MSDS 2항에 적힌 분류로는 나오지 않는데 MSDS 표시에 있음", item=code))
     return out
 
 

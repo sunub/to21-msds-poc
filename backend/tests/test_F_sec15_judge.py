@@ -94,6 +94,20 @@ def test_함량범위가_기준에_걸치면_경계():
     comps = [{"seq": 1, "cas_no": A, "content": {"lower_op": ">=", "lower": 8, "upper_op": "<=", "upper": 12, "unit": "%"}}]
     v = one(judge_sec15(inputs([sup("CCA_TOXIC", "CCA", "해당")], comps), Fake({A: [db("CCA_TOXIC", "CCA", 10)]})), "CCA_TOXIC")
     assert v["verdict"] == "경계" and v["type"] is None  # 설계서 26장 예: 8~12%, 기준 10% → 경계
+    assert v["causes"][0]["text"] == ("함량 범위 8~12% 중 하한 8%는 기준(>= 10%)에 못 미치고 상한 12%는 기준을 충족해, "
+                                      "실제 함량에 따라 해당 여부가 갈리는 경계")  # 설명 4·6차: 원인 문장은 읽는 말, reason은 그대로
+    assert v["reason"] == "함량 8~12% 가 기준 >= 10% 에 걸침"
+    comps = [{"seq": 1, "cas_no": A, "content": {"upper_op": "<=", "upper": 25, "unit": "%"}}]       # 하한 없음 → 0
+    v = one(judge_sec15(inputs([sup("CCA_TOXIC", "CCA", "해당")], comps), Fake({A: [db("CCA_TOXIC", "CCA", 1)]})), "CCA_TOXIC")
+    assert "하한 0%는 기준(>= 1%)에 못 미치고 상한 25%" in v["causes"][0]["text"]
+
+
+def test_규제누락_원인_문장은_MSDS에_행이_없는지_비해당인지_구분한다():
+    p = Fake({A: [db("OSH_MEASURE", "OSH", 1)]})
+    no_row = one(judge_sec15(inputs([]), p), "OSH_MEASURE")["causes"][0]["text"]
+    said = one(judge_sec15(inputs([sup("OSH_MEASURE", "OSH", "비해당")]), p), "OSH_MEASURE")["causes"][0]["text"]
+    assert no_row.startswith("함량상 해당인데 MSDS 15항에 이 규제 항목이 없음(성분은 3항에 있음)")
+    assert said.startswith("함량상 해당인데 MSDS 기재는 비해당")
 
 
 def test_지식DB에_없는_CAS는_근거부족():
@@ -185,6 +199,8 @@ def test_결정6_금지물질은_함량상_해당이어도_MSDS_비해당이면_
     v = one(judge_sec15(inputs([sup("OSH_PROHIBIT", "OSH", "비해당")]), p), "OSH_PROHIBIT")
     assert (v["verdict"], v["type"], v["severity"]) == ("경계", None, None)
     assert "고무풀" in v["reason"] and "결정 6" in v["reason"]
+    c = v["causes"][0]
+    assert c["code"] == "CONDITION_CHECK" and "고무풀" not in c["text"] and "사람 확인" in c["text"]  # 설명 4차
     both = one(judge_sec15(inputs([sup("OSH_PROHIBIT", "OSH", "해당")]), p), "OSH_PROHIBIT")
     assert both["verdict"] == "일치"  # MSDS도 해당이면 그대로 비교
 

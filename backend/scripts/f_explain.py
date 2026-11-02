@@ -12,6 +12,7 @@ LLM 주소·키는 .env 에서 읽는다(models.yaml 의 base_url_env·api_key_e
 """
 import argparse
 import json
+import re
 import sys
 import time
 from collections import Counter
@@ -47,6 +48,11 @@ def main():
     a = ap.parse_args()
     repo = None if a.db else CsvRepo()
     llm = ChatExplainer(a.model) if a.model else None
+    if llm is not None:  # 서버가 없으면 줄마다 재시도하며 오래 기다리지 않게 먼저 확인한다
+        ok, msg = llm.ping()
+        print(msg)
+        if not ok:
+            sys.exit(2)
     out_dir = Path(a.out) if a.out else None
     if out_dir:
         out_dir.mkdir(parents=True, exist_ok=True)
@@ -71,7 +77,7 @@ def main():
                 mark = "검사O" if e["checked"] else "검사X"
                 retry = f"  (다시 요청: {'; '.join(e['llm_problems'])[:80]})" if e["llm_problems"] else ""
                 print(f"{tag} {f['id']} [{e['by']} {mark}] {e['summary']}{retry}")
-                problems.update(" ".join(p.split(" ")[:-1]) or p for p in e["llm_problems"])  # 값을 뗀 문제 종류
+                problems.update(re.sub(r"\s*[(:].*$|\s+\S+$", "", p) or p for p in e["llm_problems"])  # 값을 뗀 문제 종류
             if out_dir:
                 (out_dir / f"{tag.replace('#', '_')}.explained.json").write_text(
                     json.dumps(res, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
