@@ -33,7 +33,7 @@ export function statusLabel(doc: Pick<DocumentSummary, "status" | "stage" | "cou
 }
 
 /**
- * 목록의 "진행" 칸: 항을 나누기 전에는 단계("1 / 4단계"), 나눈 뒤에는 항("9 / 16항").
+ * 목록의 "진행" 칸: 항을 나누기 전에는 단계("1 / 4단계"), 나눈 뒤에는 항("9 / 9항", 추출 대상 항만 센다).
  * percent 는 진행 막대 길이.
  */
 export function progressLabel(doc: Pick<DocumentSummary, "stage_index" | "stage_total" | "counts">) {
