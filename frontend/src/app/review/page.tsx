@@ -4,6 +4,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useState } from "react";
 import { DocSummaryLine } from "@/components/review/doc-summary-line";
 import { HazardPanel } from "@/components/review/hazard/hazard-panel";
+import { RegulationPanel } from "@/components/review/regulation/regulation-panel";
 import { SaveGuardDialog } from "@/components/review/save-guard-dialog";
 import { ValuesPanel } from "@/components/review/values-panel";
 import { DocFrame } from "@/components/shell/doc-frame";
@@ -55,6 +56,8 @@ function ReviewBody({ doc }: { doc: string }) {
         <ValuesPanel docId={doc} />
       ) : tab === "hazard" ? (
         <HazardPanel docId={doc} onSave={() => setGuardOpen(true)} />
+      ) : tab === "regulation" ? (
+        <RegulationPanel docId={doc} onSave={() => setGuardOpen(true)} />
       ) : (
         <>
       <Row>

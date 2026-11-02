@@ -1,5 +1,5 @@
 /*
- * 2항 판정 화면용 고정 데이터 (개발용): 25번 황산 KZ-A-S004.
+ * 2항·15항 판정 화면용 고정 데이터 (개발용): 25번 황산 KZ-A-S004.
  * 문서 번호가 "demo" 일 때만 findings.ts 가 이 값을 돌려준다.
  */
 import type { FindingDetail, FindingsResponse, FindingSummary, SourceRef, Verdict } from "./findings-schemas";
@@ -198,6 +198,105 @@ export const DEMO_FINDINGS: FindingsResponse = {
   groups: [],
 };
 
+/* ── 15항 법적 규제 ─────────────────────────────────────── */
+
+const COMP_H2SO4 = "comp_h2so4";
+/** 성분에 걸리지 않는 제품 단위 판정의 묶음 번호 (component_id 는 null 로 온다) */
+export const PRODUCT_GROUP_ID = "product";
+
+type Row15 = {
+  law: string;
+  item: string;
+  msds: string;
+  expected: string;
+  verdict: Verdict;
+  severity: FindingSummary["severity"];
+  component_id: string | null;
+  inputs: string[];
+  explanation?: string;
+  law_effective_date?: string;
+};
+
+const METHOD_15 = "규제DB 조회 (as_of 기준)";
+
+const ROWS_15: Row15[] = [
+  {
+    law: "화관법",
+    item: "유독물질",
+    msds: "해당 (10% 이상)",
+    expected: "개정 법령의 세분 표기 필요 · 시행일 2025-01-01",
+    verdict: "outdated",
+    severity: "medium",
+    component_id: COMP_H2SO4,
+    inputs: ["황산 93~98% ≥ 10% → 해당", "규제DB 개정 시행일: 2025-01-01", "→ 구버전 (개정 전 표기 기준 판정)"],
+    explanation:
+      "화관법 유독물질 고시가 2025-01-01에 개정되어 세분 표기가 필요합니다. MSDS 15항은 개정 전 표기로, 구버전 기준 판정입니다.",
+    law_effective_date: "2025-01-01",
+  },
+  { law: "산안법", item: "작업환경측정 대상", msds: "해당 (1% 이상)", expected: "해당 (≥ 1%)", verdict: "match", severity: null, component_id: COMP_H2SO4, inputs: ["황산 93~98% ≥ 1% → 해당"] },
+  { law: "산안법", item: "특수건강진단 대상", msds: "해당 (1% 이상)", expected: "해당 (≥ 1%)", verdict: "match", severity: null, component_id: COMP_H2SO4, inputs: ["황산 93~98% ≥ 1% → 해당"] },
+  { law: "산안법", item: "공정안전보고서 대상", msds: "해당 (20% 이상)", expected: "해당 (≥ 20%)", verdict: "match", severity: null, component_id: COMP_H2SO4, inputs: ["황산 93~98% ≥ 20% → 해당"] },
+  { law: "산안법", item: "허용기준 설정물질", msds: "해당", expected: "해당", verdict: "match", severity: null, component_id: COMP_H2SO4, inputs: ["황산: 허용기준 설정물질 → 해당"] },
+  { law: "화관법", item: "사고대비물질", msds: "해당 (10% 이상)", expected: "해당 (≥ 10%)", verdict: "match", severity: null, component_id: COMP_H2SO4, inputs: ["황산 93~98% ≥ 10% → 해당"] },
+  { law: "화관법", item: "배출량조사 대상", msds: "해당 (1% 이상)", expected: "해당 (≥ 1%)", verdict: "match", severity: null, component_id: COMP_H2SO4, inputs: ["황산 93~98% ≥ 1% → 해당"] },
+  { law: "화평법", item: "등록대상기존화학물질", msds: "해당", expected: "해당", verdict: "match", severity: null, component_id: COMP_H2SO4, inputs: ["황산: 등록대상기존화학물질 → 해당"] },
+  { law: "위험물법", item: "위험물", msds: "해당없음", expected: "비해당 (인화점 없음)", verdict: "match", severity: null, component_id: null, inputs: ["제품: 인화점 없음 → 비해당"] },
+];
+
+const SUMMARIES_15: FindingSummary[] = ROWS_15.map((r, n) => ({
+  finding_id: `fnd_demo_15_${n + 1}`,
+  validation_id: DEMO_VALIDATION_ID,
+  msds_id: MSDS_ID,
+  section: 15,
+  item: r.item,
+  law: r.law,
+  component_id: r.component_id,
+  msds_value: { text: r.msds },
+  expected_value: { text: r.expected },
+  method: METHOD_15,
+  verdict: r.verdict,
+  severity: r.severity,
+  review_state: "unreviewed",
+  opinion_count: 0,
+  trace_id: `trc_demo_15_${n + 1}`,
+  source_refs: [ref(12)],
+}));
+
+const DETAILS_15: FindingDetail[] = ROWS_15.map((r, n) => ({
+  finding: SUMMARIES_15[n],
+  explanation: r.explanation
+    ? { text: r.explanation, source: "template", check_status: "passed", limitations: [] }
+    : { text: "", source: "unavailable", check_status: "not_checked", limitations: [] },
+  trace: {
+    trace_id: SUMMARIES_15[n].trace_id,
+    rule: { id: "REG-DB-LOOKUP", version: "1" },
+    inputs: r.inputs,
+    thresholds: [],
+    assumptions: [],
+  },
+  evidence: SUMMARIES_15[n].source_refs,
+  review: { state: "unreviewed", opinions: [] },
+  law_effective_date: r.law_effective_date ?? null,
+  msds_revision_date: null,
+  reference_date: "2026-11-02",
+}));
+
+export const DEMO_FINDINGS_15: FindingsResponse = {
+  validation_id: DEMO_VALIDATION_ID,
+  extraction_id: EXTRACTION_ID,
+  review_revision: 1,
+  items: SUMMARIES_15,
+  page: 1,
+  page_size: 20,
+  total: SUMMARIES_15.length,
+  counts: { outdated: 1, match: 8, mismatch: 0, borderline: 0, insufficient: 0, warning: 0 },
+  excluded_counts: { not_applicable: 0, excluded: 0 },
+  groups: [
+    { component_id: COMP_H2SO4, title: "황산 (93~98%)", total: 8, matching_count: 7 },
+    { component_id: PRODUCT_GROUP_ID, title: "제품", total: 1, matching_count: 1 },
+  ],
+};
+
 /** 없는 번호면 null */
 export const demoFindingDetail = (findingId: string): FindingDetail | null =>
-  DETAILS.find((d) => d.finding.finding_id === findingId) ?? null;
+  [...DETAILS, ...DETAILS_15].find((d) => d.finding.finding_id === findingId) ?? null;
