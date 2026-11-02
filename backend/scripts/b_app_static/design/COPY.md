@@ -166,6 +166,7 @@ context.set.label_new|새 문서 폴더 · data/pages 바로 아래|P01
 context.key.claude|AI 정답 초안 · Claude|P01
 context.key.silver|AI 정답 초안 · {name}|P01
 context.key.gold|사람이 확인한 정답 · {name}|P01
+context.key.gold_main|사람이 확인한 정답|P01
 context.models.qwen36_35b_runpod|Qwen3.6 35B · 빌린 서버|P01
 context.models.qwen3_30b_a3b_rngd|Qwen3 30B · 회사 서버|P01
 context.models.gpt_oss_20b_rngd|gpt-oss 20B · 회사 서버|P01
@@ -198,7 +199,7 @@ context.change_documents|필요할 때 문서 바꾸기|전역
 context.answer.label|비교한 정답|전역
 context.answer_draft|AI 정답 초안 · 사람 확인 전|전역
 context.change_answer|필요할 때 정답 바꾸기|전역
-context.answer_trust|점수는 개선 방향을 보는 참고용입니다. 값은 원문과 맞춘 뒤 믿으세요. 사람 확인 정답은 일부 개발 문서에만 있습니다.|전역
+context.answer_trust|점수는 개선 방향을 보는 참고용입니다. 값은 원문과 맞춘 뒤 믿으세요.|전역
 context.model.current_label|{model}의 지금 상태|전역
 context.prepare_model|시험할 때 AI 준비하기|전역
 context.model.off_normal|AI가 꺼져 있을 때는 정상 상태입니다.|P01,E01
@@ -208,7 +209,7 @@ context.model.expected_reply|기대한 {model}의 응답을 확인했습니다.|
 context.set.previous_version|이전 개발 자료 {version}판|P01,S01
 context.set.selected|선택한 묶음 · {set_id}|P01,S01
 context.answer.gold_count|사람이 확인한 정답 · {count}건|P01,E02
-context.answer.gold_scope|사람 확인 정답은 일부 개발 문서에만 있습니다. 정답이 있는 문서만 점수를 매깁니다.|P01,E02
+context.answer.gold_scope|정답이 있는 문서만 점수를 매깁니다.|P01,E02
 context.answer.doc_missing|선택 문서의 정답 없음|E05,S03
 context.model.rented_ready|연결됨 · 빌린 서버|P02,S02
 context.model.rented_cost|시간당 약 ${cost_per_hour} (예시). 가동 {hours}시간.|P02,S02
@@ -622,7 +623,7 @@ score.history.score|점수 / {maximum}|S01,S04
 score.history.current|현재 · 가장 최근|S01
 score.history.best|지난 최고점|S01,S10
 score.history.previous|이전 결과|S01
-score.history.comparable|네 결과는 같은 문서 {count}건과 같은 정답 초안으로 비교했습니다.|S01
+score.history.comparable|네 결과는 같은 문서 {count}건과 같은 정답으로 비교했습니다.|S01
 score.history.target|목표 점수은 모두 {line}점입니다.|S01
 score.history.exclude_answer|정답을 만들기 위한 실행은 최고점과 추세에서 제외합니다.|S01
 score.history.answer_records|정답 생성 기록도 아래 목록에서 따로 열 수 있습니다.|S01
@@ -668,7 +669,7 @@ score.rows.title|표에 담긴 행 수|S01
 score.rows.meaning|같은 종류의 값이 몇 줄씩 들어 있는지 비교합니다.|S01
 score.rows.kind|표 종류|S01
 score.rows.prediction|AI 결과|S01
-score.rows.answer|정답 초안|S01,P01
+score.rows.answer|정답|S01,P01
 score.rows.ratio|정답 대비 비율|S01
 score.rows.physchem|물리·화학 성질|S01,S02
 score.rows.cmr|암·유전·생식 독성|S01
@@ -820,8 +821,8 @@ source.evidence.location|{page}쪽 {line_no}번째 줄|S02,S08
 source.evidence.recorded|AI 결과에 기록된 근거 위치입니다.|S02,S08
 source.value.model_label|{model}가 쓴 값|S02,S08
 source.value.concentration_label|공기 속 물질의 허용량(허용 농도)|S02,S08
-source.value.draft|정답 초안: {concentration} mg/m³.|S02,S08
-source.value.draft_warning|정답 초안도 틀릴 수 있습니다. 값을 믿기 전에 원문과 맞춰 보세요.|S02,S08
+source.value.draft|정답: {concentration} mg/m³.|S02,S08
+source.value.draft_warning|정답도 틀릴 수 있습니다. 값을 믿기 전에 원문과 맞춰 보세요.|S02,S08
 source.wrong.risk|허용 농도를 높게 적으면 더 많이 노출되어도 안전하다고 오해할 수 있습니다.|S02,S08
 source.wrong.count_origin|앞 화면의 ‘틀림 {count}건’에 속한 값입니다.|S02,S08
 source.retest.open|이 부분 다시 시험하기|S02,S08
@@ -871,7 +872,7 @@ source.missing.risk|값이 빠지면 작업장 공기 기준을 확인할 수 �
 source.missing.count_origin|앞 화면의 ‘못 뽑음 {count}건’에 속한 값입니다.|S02
 source.made.title|AI가 원문에 없는 숫자를 넣었습니다.|S02
 source.made.no_data|자료 없음|S02
-source.made.draft|정답 초안: 자료 없음.|S02
+source.made.draft|정답: 자료 없음.|S02
 source.made.risk|없는 숫자를 넣으면 확인되지 않은 농도를 안전 기준으로 오해할 수 있습니다.|S02
 source.made.count_origin|앞 화면의 ‘만듦 {count}건’에 속한 값입니다.|S02
 source.unlinked.title|원문 줄을 찾지 못했습니다.|S02
@@ -1787,7 +1788,7 @@ help.score.title|점수와 비교 읽기|S07
 help.score.weight|중요한 항목에는 더 큰 비중을 줍니다.|S07
 help.score.target|전체 목표 점수은 90점입니다.|S07
 help.score.must|필수 17개 항목의 목표 달성 수는 따로 확인합니다.|S07
-help.score.draft|정답 초안도 틀릴 수 있습니다.|S07
+help.score.draft|정답도 틀릴 수 있습니다.|S07
 help.score.cause|2점 이상 하락한 항목의 원인 후보는 추정입니다.|S07
 help.score.open_methods|23개 기준의 측정 방법 보기|S07
 help.source.title|원문으로 확인하기|S07
@@ -1888,6 +1889,26 @@ help.failed.title|용어 설명을 읽지 못했습니다.|S07
 help.failed.scope|설명만 확인할 수 없습니다.|S07
 help.failed.todo|다른 기능은 사용할 수 있습니다. 할 일: 용어 설명만 다시 읽으세요.|S07
 help.failed.reload|설명 다시 읽기|S07
+help.data.source_meaning|원문 자료(문서 묶음)는 PDF를 쪽마다 글자와 그림으로 바꿔 둔 파일입니다. AI는 이 글자를 읽고, 근거도 이 글자의 줄 번호로 댑니다.|S07
+help.data.source_example|예: p5:L22는 5쪽 22번째 줄입니다.|S07
+help.data.source_change|바꾸기: 화면 위 ‘필요할 때 문서 바꾸기’에서 다른 묶음을 고릅니다. 그 묶음으로 돌린 저장 결과만 보입니다.|S07
+help.data.source_add_title|원문 자료를 새로 더하는 순서입니다.|S07
+help.data.source_add1|data/pages/<묶음 이름>/<문서 번호>/ 폴더를 만듭니다.|S07
+help.data.source_add2|쪽마다 p001.txt(글자)와 p001.png(그림)를 넣습니다. 글자 줄 앞에 L001 같은 줄 번호가 있어야 새 시험에 쓸 수 있습니다.|S07
+help.data.source_add3|data/manifest.csv에 없는 문서 번호라면 meta.json도 넣습니다. 안의 doc_id가 폴더 이름과 같아야 열립니다.|S07
+help.data.source_add4|화면을 새로고침하면 목록에 나타납니다. 앱을 다시 켤 필요는 없습니다.|S07
+help.data.source_caution|평가용 문서는 점수가 부풀려지지 않도록 개발 중에는 열지 않습니다. 목록에 잠김으로 보입니다. data/pages는 git에 올리지 않습니다.|S07
+help.data.answer_meaning|정답은 AI 값과 견주는 기준입니다. 점수는 AI가 뽑은 값이 정답과 얼마나 같은지로 계산합니다. 정답을 바꾸면 같은 결과의 점수도 달라집니다.|S07
+help.data.answer_gold|사람이 확인한 정답(골드)은 사람이 검토해 확정한 답입니다. data/gold에 있습니다.|S07
+help.data.answer_silver|AI 정답 초안(실버)은 AI가 먼저 만든 비교용 답입니다. data/silver 아래 폴더에 있고, 틀릴 수 있습니다.|S07
+help.data.answer_change|바꾸기: 화면 위 ‘필요할 때 정답 바꾸기’에서 고릅니다. 저장된 결과를 AI 없이 다시 채점합니다.|S07
+help.data.answer_add_title|정답을 새로 더하는 순서입니다.|S07
+help.data.answer_add1|data/silver/<이름>/ 또는 data/gold/<이름>/ 폴더를 만듭니다.|S07
+help.data.answer_add2|문서마다 <문서 번호>.json을 넣습니다. 예: T21-S001.json. 정해진 결과 형식(TO21 JSON)이어야 합니다.|S07
+help.data.answer_add3|화면을 새로고침하면 목록에 나타납니다. 앱을 다시 켤 필요는 없습니다.|S07
+help.data.answer_caution|골드는 A 담당이 검수해 올립니다. 고칠 곳을 찾으면 파일을 직접 바꾸지 말고 A 담당에게 알립니다. 평가용 문서의 정답은 열지 않고 개수만 셉니다.|S07
+help.guide.data.title|원문 자료와 정답은 무엇이고 어떻게 바꾸나요?|S07
+help.guide.data.summary|AI가 읽는 글과 점수 기준의 뜻, 바꾸고 새로 더하는 순서를 설명합니다.|S07
 help.guide.flow.title|앱은 어떤 일을 하나요?|S07
 help.guide.flow.summary|문서에서 값을 뽑아 저장하고 정답과 비교하는 순서를 설명합니다.|S07
 help.guide.score.title|점수와 문제 건수는 어떻게 읽나요?|S07
@@ -1914,9 +1935,9 @@ help.protection.command|(cd backend && .venv/bin/python -m pytest -q --ignore=te
 키|글|쓰는 곳
 ---|---|---
 glossary.silver.term|AI 정답 초안(실버)|S07
-glossary.silver.meaning|AI가 먼저 만든 비교용 답입니다. 예: 현재 점수는 AI 정답 초안과 비교한 값입니다.|S07
+glossary.silver.meaning|AI가 먼저 만든 비교용 답입니다. 예: data/silver/claude에 있는 답입니다.|S07
 glossary.gold.term|사람이 확인한 정답(골드)|S07
-glossary.gold.meaning|일부 개발 문서에만 있는 사람이 검토한 답입니다. 예: 정답 선택 화면에는 개발용 10건 중 3건이 표시됩니다.|S07
+glossary.gold.meaning|사람이 검토해 확정한 답입니다. 예: data/gold/T21-S001.json입니다.|S07
 glossary.weighted.term|중요도를 반영한 전체 점수(가중 종합)|S07
 glossary.weighted.meaning|각 기준에 중요도만큼 비중을 주어 계산한 점수입니다. 예: 최근 전체 점수 82.4점의 목표는 90점입니다.|S07
 glossary.must_count.term|필수 기준의 목표 달성 수|S07

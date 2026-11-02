@@ -401,6 +401,15 @@ def test_outside_docs_become_targets_with_pages_root(br, env):
     assert old["excluded"] == [RAW] and old["no_gold"] == [] and old["seconds_by_doc"] == {}
 
 
+def test_outside_doc_with_eval_source_is_excluded(br, env):
+    """번호가 manifest 밖이어도 원본이 평가 문서와 같으면 채점하지 않고 번호만 남긴다 (D-43)."""
+    root = outside_pages(env, RAW)
+    write_json(root / RAW / "meta.json", {"doc_id": RAW, "source_file": "가상 C.pdf"})   # ROWS의 평가 문서 X09와 같은 원본
+    make_run(env / "runs", "r_raw_eval", {RAW: make_doc(RAW)}, info={"pages_dir": "data/pages"})
+    s = summarize(br, env, "r_raw_eval", pages_root=root)
+    assert s["excluded"] == [RAW] and s["docs"] == [] and s["no_gold"] == []
+
+
 def test_outside_doc_needs_meta_in_the_run_set(br, env):
     root = outside_pages(env, RAW)
     make_run(env / "runs", "r_other_set", {RAW: make_doc(RAW)}, info={"pages_dir": "data/pages/prev/version9"})
@@ -438,7 +447,7 @@ def test_load_all_passes_pages_root(br, env):
 
 
 def test_version_1_cache_is_recomputed(br, env):
-    assert br.VERSION == 2
+    assert br.VERSION == 3
     make_run(env / "runs", "r1", {X01: make_doc(X01)})
     cache = env / "cache"
     fresh = summarize(br, env, "r1", cache_dir=cache)

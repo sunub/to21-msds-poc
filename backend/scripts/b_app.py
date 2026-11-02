@@ -52,7 +52,7 @@ import b_app_servers as bs
 import b_app_sets as bsets
 import b_app_text as bt
 from msds.common import manifest
-from msds.common.paths import BACKEND, CONFIGS, DATA, PAGES, ROOT, RUNS, SILVER
+from msds.common.paths import BACKEND, CONFIGS, DATA, GOLD, PAGES, ROOT, RUNS
 from msds.extract.client import load_model_config
 from msds.extract.section_prompts import SECTION_PROMPT_VERSION, build_system, prompt_hash
 from msds.extract.section_runner import DOC_TIME_LIMIT
@@ -61,6 +61,7 @@ HOST = "127.0.0.1"
 STATIC = Path(__file__).resolve().parent / "b_app_static"
 GAPS_FILE = CONFIGS / "silver_gaps.yaml"
 GAPS_KEY = "silver/claude"                           # silver_gaps.yaml은 Claude 실버의 빈 곳만 적는다
+TRY_DEFAULT_KEY = "silver/claude"                    # 화면이 정답지를 보내지 않을 때 try_section이 쓰는 기본
 _HEAVY = ("details", "per_doc", "grid")              # /api/runs 목록에서 빼는 큰 칸. /api/run/<이름>에만 준다
 _TYPES = {".html": "text/html; charset=utf-8", ".js": "text/javascript; charset=utf-8",
           ".css": "text/css; charset=utf-8"}
@@ -519,11 +520,11 @@ def _job_pages_dir(data: dict, ctx: AppContext):
 
 def _try_key(ctx: AppContext, want) -> tuple[str | None, dict]:
     """시험의 점수 전→후에 쓸 정답지: (--gold-dir로 넘길 폴더(backend 기준) 또는 None, 작업 target의 key).
-    고르면 _pick_key 결과에 given True. 안 고르면 try_section의 기본(data/silver/claude = DEFAULT_KEY)이고 given False다.
+    고르면 _pick_key 결과에 given True. 안 고르면 try_section의 기본(data/silver/claude = TRY_DEFAULT_KEY)이고 given False다.
     켤 때 받은 --gold-dir(_pick_key(None))는 쓰지 않는다. try_section이 실제로 쓰는 정답지와 같아야 해서다."""
     if want is None:
-        k = bsets.find_key(_key_list(ctx), bsets.DEFAULT_KEY)
-        return None, {"id": bsets.DEFAULT_KEY, "label": bt.key_label(bsets.DEFAULT_KEY),
+        k = bsets.find_key(_key_list(ctx), TRY_DEFAULT_KEY)
+        return None, {"id": TRY_DEFAULT_KEY, "label": bt.key_label(TRY_DEFAULT_KEY),
                       "fingerprint": k["fingerprint"] if k else None, "given": False}
     folder, key = _pick_key(ctx, want)
     return os.path.relpath(folder, ctx.jobs.backend_dir), {**key, "given": True}
@@ -748,8 +749,8 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--port", type=int, default=8765)
     ap.add_argument("--host", default=HOST, help=f"{HOST}만 받는다. 쪽 글자·안내문이 화면에 보이기 때문이다 (D-47)")
     ap.add_argument("--runs-dir", type=Path, default=RUNS)
-    ap.add_argument("--gold-dir", type=Path, default=SILVER / "claude",
-                    help="기본 정답지 폴더 (기본: Claude 실버). 화면에서는 data/silver·data/gold 아래 정답지를 고른다")
+    ap.add_argument("--gold-dir", type=Path, default=GOLD,
+                    help="기본 정답지 폴더 (기본: 사람이 확인한 정답 data/gold). 화면에서는 data/silver·data/gold 아래 정답지를 고른다")
     ap.add_argument("--pages-dir", type=Path, default=PAGES / "prev" / "version9",
                     help="쪽 글자·그림 폴더 (기본: C의 version9, data/pages/prev/version9)")
     ap.add_argument("--no-browser", action="store_true", help="브라우저를 자동으로 열지 않는다")
