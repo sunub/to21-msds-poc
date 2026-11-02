@@ -8,7 +8,7 @@ S.jobs = {step: null, batch: false, runWatch: null, sendError: null, runError: n
   r: {model: null, docs: null, repeat: 1, name: "", edited: false}, c: {picked: [], labels: {}, title: ""},
   list: [], running: [], runs: [], runsError: null, runsKey: null, timer: null, polling: null, loadingOptions: null,
   watch: null, result: null, resultStatus: null, resultLoaded: false, resultError: null, resultRequest: 0,
-  observed: new Set(), emitted: new Set(), terminal: new Set(), log: null, expanded: {},
+  observed: new Set(), emitted: new Set(), terminal: new Set(), log: null, expanded: {}, change: null,
   busy: null, message: {}, confirm: null, initialized: false, defaultsApplied: false,
   dialogReady: false, confirmTrigger: null, promptRequest: 0, promptBusy: false,
   promptAttempt: null, promptError: null, promptPending: null, selected: null};
@@ -738,8 +738,54 @@ function jobsRenderTryResult(el) {
   coreReplace(el, jobsPractice(job) ? head : [job ? serversFlat(jobsFailure(job)) : null, jobsWarnings(job?.warnings)],
     mismatch ? serversFlat(friendlyError({message: T("jobs.target_mismatch.fact"), fix: T("jobs.target_mismatch.todo")})) : null,
     jobsResultSummary(r, job), jobsServerNote(),
-    r.results && jobsPickedValue() && S.focus.kind ? [jobsRenderFocus(), jobsNote(T("steps.trial.change_unavailable"), {class: "muted"})] : null);
+    r.results && jobsPickedValue() && S.focus.kind ? [jobsRenderFocus(), jobsRenderChange(job)] : null);
   if (job && !mismatch) jobsEmitResult(job, r);
+}
+// ── 고른 값의 전후 (STEPS.md A7). 저장한 결과가 있을 때만 읽는다. 점수와 판정은 서버가 정한 값을 그대로 쓴다. ──
+// 행 번호는 문서마다 달라 같은 행의 표시가 아니다. 표의 행은 짝 정답 행으로, 짝 없는 AI 행은 제목으로, 표가 아닌 값은 경로로 찾는다.
+function jobsSameCell(before, after, path, only) {
+  const from = sourceRowOf(path, only, before), cell = from?.cells.find(item => item.path === path && (item.side === "silver_only") === only);
+  if (!cell) return null;
+  const rows = sourceRows(after);
+  const to = from.row == null && from.gold_row == null ? rows.find(row => row.row == null && row.gold_row == null && row.cells.some(item => item.path === path))
+    : from.gold_row != null ? rows.find(row => row.table === from.table && row.gold_row === from.gold_row)
+    : rows.find(row => row.table === from.table && row.gold_row == null && row.title === from.title);
+  return {cell, to: to?.cells.find(item => item.field === cell.field) || null, found: !!to};
+}
+function jobsChangeText(data, cell) {
+  const v = cell && cell.side !== "silver_only" ? data.values.find(value => value.path === cell.path) : null;
+  return v?.text ?? T("steps.trial.change_none");
+}
+async function jobsLoadChange(job, r) {
+  const J = S.jobs, f = S.focus, t = job?.target;
+  J.change = null;
+  // 점수를 계산한 시험만 결과 문서를 남긴다(try_section.save_manual_run). 같은 문서·부분·기준 결과일 때만 비교한다.
+  if (!r?.results || !r.score || !r.saved || !f.path || !f.run || !t || t.doc !== f.doc || !(t.sections || []).includes(Number(f.section)) || (t.base_run && t.base_run !== f.run)) return;
+  const run = r.saved.replace(/^.*?runs\//, ""), id = job.id, path = f.path;
+  const read = name => api(`/api/doc?${new URLSearchParams({run: name, doc: f.doc, ...(t.key?.id ? {key: t.key.id} : {})})}`);
+  J.change = {job: id, path, state: "loading"};
+  jobsRenderResult();
+  let next = {job: id, path, state: "none"};
+  try {
+    const [before, after] = await Promise.all([read(f.run), read(run)]);
+    const same = jobsSameCell(before, after, path, f.kind === "missing");
+    if (same) next = {job: id, path, state: "ready", run, doc: f.doc, section: f.section, found: same.found, field: same.cell.field,
+      before: {text: jobsChangeText(before, same.cell), kind: same.cell.kind},
+      after: same.to ? {text: jobsChangeText(after, same.to), kind: same.to.kind, path: same.to.path, side: same.to.side} : null};
+  } catch (_) { /* 읽지 못하면 비교할 결과가 없다고 말한다 */ }
+  if (J.change?.job === id && J.change.path === path) J.change = next;
+}
+function jobsRenderChange(job) {
+  const c = S.jobs.change;
+  if (c?.job !== job?.id || c?.path !== S.focus.path || c.state === "none") return jobsNote(T("steps.trial.change_unavailable"), {class: "muted"});
+  if (c.state === "loading") return jobsNote(T("steps.trial.change_loading"), {class: "muted", role: "status"});
+  const same = c.after && c.after.text === c.before.text && c.after.kind === c.before.kind;
+  return h("div", {id: "jobs-change", class: "job-notice"}, h("h3", null, T("steps.trial.change_title")),
+    !c.after ? jobsNote(T("steps.trial.change_gone")) : same ? jobsNote(T("steps.trial.change_same")) : [
+      jobsNote(T("steps.trial.change_value", {before: c.before.text, after: c.after.text})),
+      jobsNote(T("steps.trial.change_kind", {before: T(`source.kinds.${c.before.kind}`), after: T(`source.kinds.${c.after.kind}`)}))],
+    c.after ? h("button", {id: "jobs-change-source", type: "button", onclick: () => go("s02", {run: c.run, doc: c.doc, section: Number(c.section), path: c.after.path,
+      kind: c.after.kind, estimated: c.after.side === "silver_only"}).catch(fail)}, T("steps.trial.change_open")) : null);
 }
 function jobsRenderResult() {
   const J = S.jobs, el = document.getElementById("jobs-result"), step = jobsStep(), show = step === "running" || step === "result";
@@ -832,7 +878,12 @@ async function jobsLoadResult(id) {
     J.resultStatus = response.status;
     J.result = response.status === 200 ? response.data : null; J.resultLoaded = true; J.resultError = null;
   } catch (error) { if (J.watch === id && request === J.resultRequest) J.resultError = error; }
-  if (J.watch === id && request === J.resultRequest) jobsRenderResult();
+  if (J.watch !== id || request !== J.resultRequest) return;
+  jobsRenderResult();
+  if (J.result) {
+    await jobsLoadChange(J.list.find(job => job.id === id), J.result);
+    if (J.watch === id && request === J.resultRequest) jobsRenderResult();
+  }
 }
 async function jobsWatch(id, navigate = true) {
   const J = S.jobs;

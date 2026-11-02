@@ -22,10 +22,11 @@ function stepsFirstOpen(steps) {
 // 각 행동: {label, onClick, disabled, reason, attrs}. attrs는 단추에 그대로 붙는다. 다음 행동(primary)은 언제나 줄의 마지막 칸이다.
 function stepsRenderActions(el, {note, back, secondary, primary}) {
   const others = [secondary].flat().filter(Boolean);
-  const reasons = [back, ...others, primary].filter(action => action?.disabled && action.reason).map(action => action.reason);
+  const backs = [back].flat().filter(Boolean);
+  const reasons = [...backs, ...others, primary].filter(action => action?.disabled && action.reason).map(action => action.reason);
   const button = (action, kind = null) => h("button", {type: "button", class: kind, disabled: !!action.disabled, onclick: action.onClick, ...action.attrs}, action.label);
   coreReplace(el, h("div", {class: "step-actions", role: "group", "aria-label": T("steps.actions_a11y")},
-    back ? button(back) : null,
+    backs.map(action => button(action)),
     h("p", {class: "step-actions-say"}, [note, ...reasons].filter(Boolean).join(" ")),
     others.map(action => button(action)),
     primary ? button(primary, "primary") : null));

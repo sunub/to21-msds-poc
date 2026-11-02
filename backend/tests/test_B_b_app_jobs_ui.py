@@ -697,6 +697,71 @@ assert.ok(textOf('jobs-result').includes(T('jobs.focus.pair',{key_value:'5',ai_v
 """)
 
 
+CHANGE = r"""
+const groupRow=(table,row,gold_row,cells)=>({id:'result:'+table+':'+row,table,section:8,row,gold_row,paired:gold_row!=null,title:'Fake row',cells,counts:{}});
+const cell=(path,side,field,kind)=>({path,side,field,section:8,kind,items:['Fake item']});
+const before={values:[{path:'msds[0].exposure_limits[0].q',text:'8 fake-unit',silver:{same:false,value:5,text:'5 fake-unit'}}],silver_only:[],
+ row_groups:[groupRow('exposure_limits',0,3,[cell('msds[0].exposure_limits[0].q','result','q','wrong')])]};
+// 새 결과는 행 순서가 바뀌었다. 번호 0은 다른 정답 행이다.
+const after={values:[{path:'msds[0].exposure_limits[0].q',text:'99 other-row',silver:{same:false,value:1,text:'1'}},
+  {path:'msds[0].exposure_limits[2].q',text:'5 fake-unit',silver:{same:true,value:5,text:'5 fake-unit'}}],silver_only:[],
+ row_groups:[groupRow('exposure_limits',0,7,[cell('msds[0].exposure_limits[0].q','result','q','wrong')]),
+  groupRow('exposure_limits',2,3,[cell('msds[0].exposure_limits[2].q','result','q','same')])]};
+const baseApi=api,docCalls=[];let afterDoc=after;
+api=async(path,opts)=>{if(path.startsWith('/api/doc?')){const p=new URLSearchParams(path.split('?')[1]);docCalls.push(p);
+  return p.get('run')==='base'?before:afterDoc;}return baseApi(path,opts);};
+const pickedValue={doc:'T21-X01',section:8,base_run:'base',run:'base',path:'msds[0].exposure_limits[0].q',kind:'wrong',expected:5,actual:8,actual_text:'8 fake-unit',expected_text:'5 fake-unit',line:'p2:L23',source_set:'pack'};
+const saved={...result(true),saved:'/somewhere/runs/manual/fake'};
+"""
+
+
+def test_result_shows_the_picked_value_before_and_after_by_answer_row_not_by_path_number():
+    run_js(SETUP + CHANGE + "listed=[job('done')];response=saved;await go('s03',pickedValue);await jobsWatch('j1');" + r"""
+const text=textOf('jobs-result');
+assert.ok(text.includes(T('steps.trial.change_value',{before:'8 fake-unit',after:'5 fake-unit'})),text);
+assert.ok(text.includes(T('steps.trial.change_kind',{before:T('source.kinds.wrong'),after:T('source.kinds.same')})),text);
+assert.ok(!text.includes('99 other-row'));assert.ok(!text.includes(T('steps.trial.change_unavailable')));
+// 시작 당시의 정답지로 읽는다. 점수와 같은 기준이어야 한다.
+assert.ok(docCalls.every(p=>p.get('key')==='gold/sent'));
+assert.deepEqual(docCalls.map(p=>p.get('run')).sort(),['base','manual/fake']);
+""")
+
+
+def test_result_says_the_row_is_gone_and_gives_no_new_source_link():
+    run_js(SETUP + CHANGE + "afterDoc={values:[],silver_only:[],row_groups:[]};listed=[job('done')];response=saved;await go('s03',pickedValue);await jobsWatch('j1');" + r"""
+assert.ok(textOf('jobs-result').includes(T('steps.trial.change_gone')));assert.equal(el('jobs-change-source'),null);
+""")
+
+
+def test_result_opens_the_new_value_in_source_from_the_saved_run():
+    run_js(SETUP + CHANGE + "listed=[job('done')];response=saved;await go('s03',pickedValue);await jobsWatch('j1');" + r"""
+const jumps=[];const realGo=go;go=async(id,args)=>{jumps.push([id,args]);};
+await el('jobs-change-source').click();
+assert.equal(jumps[0][0],'s02');
+for(const [k,v] of Object.entries({run:'manual/fake',doc:'T21-X01',section:8,path:'msds[0].exposure_limits[2].q',kind:'same',estimated:false}))assert.equal(jumps[0][1][k],v,k);
+go=realGo;
+""")
+
+
+def test_result_without_saved_outputs_keeps_the_sentence_and_reads_nothing():
+    run_js(SETUP + CHANGE + "listed=[job('done')];response={...saved,score:null,saved:'/somewhere/runs/manual/fake'};await go('s03',pickedValue);await jobsWatch('j1');" + r"""
+assert.ok(textOf('jobs-result').includes(T('steps.trial.change_unavailable')));
+assert.equal(docCalls.length,0);assert.equal(el('jobs-change-source'),null);
+""")
+
+
+def test_result_of_another_section_does_not_claim_a_change_of_the_picked_value():
+    run_js(SETUP + CHANGE + "listed=[job('done',{target:{...target,sections:[9]}})];response=saved;await go('s03',pickedValue);await jobsWatch('j1');" + r"""
+assert.equal(docCalls.length,0);
+""")
+
+
+def test_result_says_when_the_value_did_not_change():
+    run_js(SETUP + CHANGE + "afterDoc=before;listed=[job('done')];response=saved;await go('s03',pickedValue);await jobsWatch('j1');" + r"""
+assert.ok(textOf('jobs-result').includes(T('steps.trial.change_same')));
+""")
+
+
 def test_parse_failure_points_to_the_drawer_not_an_old_stage_number():
     run_js(SETUP + r"""
 listed=[job('done')];response=result(false);await go('s03');await jobsWatch('j1');
