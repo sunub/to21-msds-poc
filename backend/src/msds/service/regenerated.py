@@ -1,4 +1,4 @@
-"""TO21 문서를 16항 MSDS로 다시 만들어 항별 줄 목록으로 나눈다 (서비스 API).
+"""TO21 문서를 MSDS로 다시 만들어 추출 대상 항(EXTRACT_SECTIONS)만 항별 줄 목록으로 나눈다 (서비스 API).
 
 만드는 일은 TO21 제공 재생성 스크립트(regenerate)가 한다. 모델을 부르지 않고, 파일도 쓰지 않는다(메모리 DB).
 화면이 항마다 상태를 붙여 그리도록 여기서 항으로 나눈다. 스크립트는 저장소에 올리지 않으므로(D-47) 인자로 받는다.
@@ -11,6 +11,8 @@ from __future__ import annotations
 
 import re
 from typing import Any
+
+from msds.extract.inputs import EXTRACT_SECTIONS
 
 _HEADING = re.compile(r"^(\d{1,2})\.\s+(.+)$")
 _NONE = re.compile(r"\bNone\b")
@@ -52,6 +54,7 @@ def regenerate_sections(doc: dict, regen: Any) -> list[dict]:
         for i in range(len(doc["msds"])):
             lines = [str(x) for x in regen.regenerate(db, i + 1) if not isinstance(x, regen.Alt)]
             header, sections = _split(lines)
+            sections = [s for s in sections if s["section"] in EXTRACT_SECTIONS]   # 나머지 항은 추출하지 않아 비어 있다
             out.append({"msds_index": i, "header": header, "sections": sections})
         return out
     finally:

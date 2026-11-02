@@ -24,7 +24,7 @@ from collections import Counter, defaultdict
 from msds.common.merge import DICTIONARY_VERSION, SCHEMA_VERSION, now_kst
 from msds.common.paths import to21_file
 from msds.common.schema import load_schema, msds_item_schema
-from msds.extract.inputs import SECTION_NOS, Line, line_index, line_parents
+from msds.extract.inputs import EXTRACT_SECTIONS, SECTION_NOS, Line, line_index, line_parents
 from msds.extract.section_specs import META_REVISION_FIELDS
 from msds.extract.source_rules import apply_source_rules, fill_thresholds
 
@@ -426,7 +426,8 @@ def expand_msds(sections: dict[int, dict | None], lines_by_id: dict[str, Line],
     for no in SECTION_NOS:
         resp = sections.get(no)
         if resp is None:
-            problem(no, "missing_section", f"{no}항 응답 없음")
+            if no in EXTRACT_SECTIONS:     # 추출 대상이 아닌 항은 처음부터 부르지 않으므로 없어도 문제가 아니다
+                problem(no, "missing_section", f"{no}항 응답 없음")
             continue
         for key, val in resp.items():
             if isinstance(val, list):

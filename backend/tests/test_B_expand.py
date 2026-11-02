@@ -8,6 +8,7 @@ from msds.checks.validator import run_to21_validator
 from msds.common.merge import DICTIONARY_VERSION, SCHEMA_VERSION
 from msds.common.schema import load_schema, msds_item_schema, validate, validate_to21
 from msds.extract import expand as ex
+from msds.extract.inputs import EXTRACT_SECTIONS
 from msds.extract import rows as rw
 from msds.extract import section_specs as ss
 from msds.extract.inputs import Line, line_index
@@ -307,7 +308,7 @@ def test_empty_msds_is_valid(no_conventions):
     doc, problems = ex.to_to21(DOC_META, [{}], LINES, "e")
     assert validate_to21(doc) == []
     assert [(p["msds_index"], p["section"], p["kind"]) for p in problems] == \
-           [(0, n, "missing_section") for n in range(1, 17)]
+           [(0, n, "missing_section") for n in EXTRACT_SECTIONS]
     m = doc["msds"][0]
     assert list(m) == list(msds_item_schema()["properties"])
     assert all(v is None for v in m["meta"].values())
@@ -317,14 +318,14 @@ def test_empty_msds_is_valid(no_conventions):
 
 def test_none_sections_count_as_missing(no_conventions):
     _, problems = expand_one({n: None for n in range(1, 17)})
-    assert len(problems) == 16 and {p["kind"] for p in problems} == {"missing_section"}
+    assert len(problems) == len(EXTRACT_SECTIONS) and {p["kind"] for p in problems} == {"missing_section"}
 
 
 def test_two_msds(no_conventions):
     doc, problems = ex.to_to21(DOC_META, [responses(), {3: responses()[3]}], LINES, "e")
     assert doc["doc"]["msds_count"] == 2 and len(doc["msds"]) == 2
     assert {p["msds_index"] for p in problems} == {1}
-    assert len(problems) == 15
+    assert len(problems) == len(EXTRACT_SECTIONS) - 1          # 응답이 있는 3항만 빠진다
 
 
 def test_meta_from_16_overrides_section_1_dates():
