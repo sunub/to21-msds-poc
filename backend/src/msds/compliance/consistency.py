@@ -4,13 +4,15 @@
     repo: None 이면 로컬 HTODB(PostgreSQL), htodb.csv_repo.CsvRepo() 면 샘플 CSV.
 
 흐름(설계서 8장): 입력 정리(loader) → 판별(classifier) → 2항(혼합물: mixture 계산 + verdict / 단일물질: 기준 분류 + verdict)
-→ 15항(sec15_judge) → 판정 집계(summary). 판정·구분 값은 규칙과 계산으로만 정하고, LLM 설명은 이 결과를 읽기만 한다.
+→ 표시 요소(MSDS 2항 분류 → 그림문자·신호어·H코드, 설계서 31장) → 15항(sec15_judge) → 판정 집계(summary). 판정·구분 값은 규칙과 계산으로만 정하고, LLM 설명은 이 결과를 읽기만 한다.
 """
 from collections import Counter
 
 from .classifier import product_type
 from .htodb.reference import ReferenceProvider
 from .htodb.regulation import RegulationProvider
+from .label import derive_label
+from .label_compare import compare_label
 from .loader import load_inputs
 from .mixture.build_components import build_components
 from .mixture.class_lookup_db import make_db_class_lookup, make_db_tox_lookup
@@ -58,6 +60,54 @@ def _single_2(inputs: dict, item: dict, provider: ReferenceProvider) -> dict:
     return out
 
 
+LABEL_CODE = {"h_codes": "LABEL_H_CODES", "pictograms": "LABEL_PICTOGRAMS", "signal_word": "LABEL_SIGNAL_WORD"}
+LABEL_NAME = {"h_codes": "H코드", "pictograms": "그림문자", "signal_word": "신호어"}
+LABEL_ASSUMPTIONS = [
+    "표시 요소는 MSDS 2항에 적힌 분류에서 도출해(고시 별표2, 제6조의2) MSDS의 그림문자·신호어·H코드와 비교한다(설계서 31장 공통 검증)",
+    "H314가 있으면 H318은 적지 않아도 불일치가 아니라 참고(10/30 결정 C3). 그림문자 5개 이상이면 4개만 적어도 일치(PIC-4)",
+    "분류에 없는 H코드를 MSDS가 더 적은 경우(label_rules '경고')는 판정 4종에 맞춰 불일치·낮음으로 낸다",
+]
+
+
+def _fmt_list(v):
+    return ", ".join(v) if isinstance(v, list) else (v if v else "없음")
+
+
+def _label(inputs: dict) -> tuple[list[dict], list[dict]]:
+    """MSDS 2항 분류 → 표시 요소 도출 → MSDS 표시 요소와 비교. (판정 줄, 참고 줄)."""
+    hz = inputs.get("hazard") or {}
+    derived = derive_label([(c["class_code"], c.get("category")) for c in hz.get("classes") or [] if c.get("class_code")])
+    msds = {"pictograms": hz.get("pictograms"), "signal_word": hz.get("signal_word"), "h_codes": hz.get("h_codes")}
+    rows, excluded = [], []
+    for f in compare_label(derived, msds):
+        code, name, d, m = LABEL_CODE[f["item"]], LABEL_NAME[f["item"]], f["derived"], f["msds"]
+        if f["verdict"] == "참고":
+            excluded.append({"class_code": code, "form": None, "status": "참고", "msds_value": m, "our_value": d,
+                             "reason": f"{name}: 생략 가능한 {_fmt_list(f['missing'])}를 MSDS가 적지 않음({f['rule_id']}, 결정 C3)"})
+            continue
+        verdict = "불일치" if f["verdict"] in ("불일치", "경고") else f["verdict"]
+        if verdict == "일치":
+            reason = f"{name} 같음" + (f" (그림문자 5개 이상이라 4개만 표시, {f['rule_id']})" if f["missing"] else "")
+        elif verdict == "근거부족":
+            reason = f"MSDS에 {name}가 없음 — 분류로 보면 {_fmt_list(d)}"
+        elif f["item"] == "signal_word":
+            reason = f"신호어: 분류로 보면 '{d or '없음'}', MSDS는 '{m}'"
+        else:
+            parts = []
+            if f["missing"]:
+                parts.append(f"분류로 보면 있어야 하는데 MSDS에 없음: {_fmt_list(f['missing'])}")
+            if f["extra"]:
+                parts.append(f"분류에 없는데 MSDS가 더 적음: {_fmt_list(f['extra'])}")
+            reason = f"{name}: " + "; ".join(parts)
+        bad = verdict == "불일치"
+        rows.append({"class_code": code, "form": None, "verdict": verdict, "type": "표시 요소 불일치" if bad else None,
+                     "severity": f["severity"] if bad else None, "sv_id": "SV-06" if bad else None,
+                     "msds_value": m, "msds_form": None, "our_value": {"low": d, "high": d},
+                     "missing": f["missing"], "extra": f["extra"], "reason": reason, "rule_id": f["rule_id"] or "LBL-1",
+                     "assumptions": list(LABEL_ASSUMPTIONS)})
+    return rows, excluded
+
+
 def _mixture_2(item: dict, repo) -> tuple[dict, list, list]:
     b = build_components(item, make_db_class_lookup(repo), make_db_tox_lookup(repo))
     results = classify_mixture_all(b["components"], b["mixture_props"], state=b["mixture_props"].get("STATE"),
@@ -89,7 +139,9 @@ def run_consistency(doc: dict, repo=None, msds_index: int = 0) -> dict:
         s2 = {"verdicts": [], "excluded": [{"class_code": None, "form": None, "status": "판단불가", "msds_value": None,
                                             "our_value": None, "reason": pt["basis"]}]}
     s15 = judge_sec15(inputs, RegulationProvider(repo))
-    f2 = [{"id": f"F-2-{i:03d}", "section": "2", **v} for i, v in enumerate(s2["verdicts"], 1)]
+    label_rows, label_excl = _label(inputs)
+    s2["excluded"] = s2["excluded"] + label_excl
+    f2 = [{"id": f"F-2-{i:03d}", "section": "2", **v} for i, v in enumerate(s2["verdicts"] + label_rows, 1)]
     f15 = [{"id": f"F-15-{i:03d}", **v} for i, v in enumerate(s15["verdicts"], 1)]
     versions = {v.get("knowledge_version") for v in s15["verdicts"]} | {s2.get("knowledge_version")}
     versions.discard(None)
