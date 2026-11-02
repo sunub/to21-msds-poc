@@ -1,4 +1,4 @@
-"""15항 판정 시험 (설계서 7·27~30장, 11/01 F 결정 1~5).
+"""15항 판정 시험 (설계서 7·27~30장, 11/01 F 결정 1~5, 11/02 결정 6~8).
 
 앞쪽은 이 파일 안의 가짜 지식 제공자로, 뒤쪽은 샘플 CSV(로컬에 있을 때)로 25번 황산을 확인한다.
 """
@@ -177,3 +177,49 @@ def test_25번_황산_15항():
     assert one(out, "DG_HAZMAT", "MIX")["verdict"] == "일치"  # 인화점 해당없음 → 위험물 비해당
     assert ex(out, "CCA_ACUTE")["status"] == "구버전"
     assert {e["item_code"] for e in out["excluded"] if e["comp_ref"] == "2"} >= {"CCA_CHRONIC", "CCA_ECO"}
+
+
+# ── 11/02 F 결정 6~8 ───────────────────────────────────────────────
+def test_결정6_금지물질은_함량상_해당이어도_MSDS_비해당이면_경계():
+    p = Fake({A: [db("OSH_PROHIBIT", "OSH", 5, op=">", kind="compare_human")]})
+    v = one(judge_sec15(inputs([sup("OSH_PROHIBIT", "OSH", "비해당")]), p), "OSH_PROHIBIT")
+    assert (v["verdict"], v["type"], v["severity"]) == ("경계", None, None)
+    assert "고무풀" in v["reason"] and "결정 6" in v["reason"]
+    both = one(judge_sec15(inputs([sup("OSH_PROHIBIT", "OSH", "해당")]), p), "OSH_PROHIBIT")
+    assert both["verdict"] == "일치"  # MSDS도 해당이면 그대로 비교
+
+
+def test_결정7_단일물질은_제품전체_행을_성분_행으로_본다():
+    single = lambda regs: {**inputs(regs), "composition": {"type": "단일물질"}}
+    p = Fake({A: [db("OSH_PSM", "OSH", 1)]})
+    out = judge_sec15(single([sup("OSH_PSM", "OSH", "해당", ref="MIX")]), p)
+    v = one(out, "OSH_PSM")
+    assert v["verdict"] == "일치" and any("결정 7" in a for a in v["assumptions"])
+    assert not [e for e in out["excluded"] if e["item_code"] == "OSH_PSM"]
+    mixed = judge_sec15(inputs([sup("OSH_PSM", "OSH", "해당", ref="MIX")]), p)  # 표기 없음 → 바꾸지 않음
+    assert ex(mixed, "OSH_PSM", ref="MIX")["status"] == "참고" and one(mixed, "OSH_PSM")["type"] == "규제 누락"
+    # 성분 번호로 적은 위험물 행은 제품 행으로 본다
+    dg = judge_sec15(single([sup("DG_HAZMAT", "DG", "비해당", ref="1")]), Fake({A: []}))
+    assert one(dg, "DG_HAZMAT", ref="MIX")["msds_value"] == "비해당"
+
+
+def test_결정8_법_단위_비해당은_항목별_판정에_이어쓴다():
+    p = Fake({A: [db("OSH_MANAGED", "OSH", 1)]})
+    blanket = {**sup(None, "OSH", "비해당"), "item_raw": "산업안전보건법에 의한 규제"}
+    out = judge_sec15(inputs([blanket]), p)
+    v = one(out, "OSH_MANAGED")
+    assert (v["verdict"], v["type"], v["msds_value"]) == ("불일치", "규제 누락", "비해당")
+    assert any("법 단위" in a for a in v["assumptions"])
+    e = ex(out, None)
+    assert e["status"] == "참고" and "이어 씀" in e["reason"]
+    assert not [r for r in out["verdicts"] if r["item_code"] is None]  # 항목 없는 줄은 판정하지 않음
+    # 항목별 행이 있으면 그 행이 우선
+    own = judge_sec15(inputs([blanket, sup("OSH_MANAGED", "OSH", "해당", threshold=pct(1))]), p)
+    assert one(own, "OSH_MANAGED")["verdict"] == "일치"
+
+
+def test_결정8_법_단위_해당은_항목을_특정할_수_없어_비교하지_않는다():
+    p = Fake({A: [db("OSH_MANAGED", "OSH", 1)]})
+    out = judge_sec15(inputs([{**sup(None, "OSH", "해당"), "item_raw": "영업비밀인정제외물질"}]), p)
+    assert "특정할 수 없어" in ex(out, None)["reason"]
+    assert one(out, "OSH_MANAGED")["msds_value"] is None  # '해당'은 이어 쓰지 않는다(과기재 오탐 방지)

@@ -1,10 +1,10 @@
 # version: f0.1 | source: 규칙표 v0.3 reg_map.csv(RM-01~37) · 명세서 v0.6 13_TO21DB매핑 F절 · 추출 스키마 v0.6 item_code | checked_by: | checked_date: | effective_from:
 # 지식DB 세부규제(REGULATE_ITEM_ID) → 추출 15항 항목 코드(item_code). 15항 판정(sec15_judge)과 규제 지식 제공자(htodb/regulation)가 읽는다.
-# kind: compare=함량·기준으로 판정 / reference=15항 기재 대상 아님(비교하지 않음) / status_only=규제 의무가 아닌 지위 정보(MSDS가 적었을 때만 비교)
+# kind: compare=함량·기준으로 판정 / compare_human=판정하되 MSDS가 비해당이면 단정하지 않고 경계 / reference=15항 기재 대상 아님(비교하지 않음) / status_only=규제 의무가 아닌 지위 정보(MSDS가 적었을 때만 비교)
 #       new_cca=2025 화관법 개정 세분 항목(MSDS가 세분 코드를 하나라도 쓸 때만 비교, 아니면 구버전 참고) / dg=제품 단위 위험물 / waste=제품 단위 폐기물(참고)
 # threshold_field: STD=STD_VALUE_PRIMARY(+SIGN·UNIT) / RESEARCH=RESEARCH_RANGE_STD(+SIGN·UNIT) / PSM=물질군 이름의 "중량 N% 이상" 또는 RESEARCH_RANGE / none=함량 기준 없음
 rule_id,law_code,law,msds_section,regulate_item_id,db_item_name,item_code,kind,threshold_field,source,note
-RM-01,OSH,산안법,가,KR001001001,금지대상 유해물질,OSH_PROHIBIT,compare,STD,규칙표 v0.3 RM-01,
+RM-01,OSH,산안법,가,KR001001001,금지대상 유해물질,OSH_PROHIBIT,compare_human,STD,규칙표 v0.3 RM-01,금지물질은 제품 형태 조건이 붙는 경우가 있어(예: 벤젠을 함유하는 고무풀 5% 초과) 함량만으로 누락을 단정하지 않음 → 경계(11/02 F 결정 6)
 RM-02,OSH,산안법,가,KR001001002,허가대상 유해물질,OSH_PERMIT,compare,STD,규칙표 v0.3 RM-02,
 RM-03,OSH,산안법,가,KR001001003,노출기준 설정물질,OSH_EXPOSURE_STD,compare,none,규칙표 v0.3 RM-03,노출기준 값은 8항(범위 밖). RESEARCH_* 칸은 함량 기준이 아니라 노출기준 값
 RM-04,OSH,산안법,가,KR001001004,관리대상 유해물질,OSH_MANAGED,compare,STD,규칙표 v0.3 RM-04,

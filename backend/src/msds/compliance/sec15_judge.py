@@ -1,13 +1,16 @@
 """15항 판정: 성분 함량과 지식DB 규제 기준으로 해당 여부를 정하고 MSDS 15항과 비교해 판정·유형·심각도를 붙인다.
 
 근거: 설계서 7장(유형·심각도), 27·28장(판정 FLOW·기준 농도 비교), 29장(위험물 제4류), 30장(유형), 10/30 결정 D4,
-11/01 F 결정 1~5(작업 기록 '15항 사전 분석과 결정'). 기대 해당 여부 계산은 정민의 sec15._expected(ADR 0004)를 그대로 쓴다.
+11/01 F 결정 1~5와 11/02 결정 6~8(작업 기록 '15항 사전 분석과 결정'). 기대 해당 여부 계산은 정민의 sec15._expected(ADR 0004)를 그대로 쓴다.
 
     judge_sec15(inputs, provider) → {"verdicts": [...], "excluded": [...]}
     inputs: loader.load_inputs 결과. provider: get_regulation(cas_no, as_of) 를 가진 지식 제공자(htodb.regulation)
 
 판정 줄 모양은 2항(mixture.verdict)과 맞춘다: verdict(일치·불일치·경계·근거부족), type, severity, rule_id, reason, assumptions.
 excluded 는 판정하지 않고 참고로만 보여 줄 줄이다(구버전, DB 값 확인 필요, 지위 정보, 폐기물).
+결정 6: 금지물질(reg_map kind=compare_human)은 함량상 해당이어도 MSDS가 비해당이면 '규제 누락'으로 단정하지 않고 경계.
+결정 7: 단일물질 제품에서 제품 전체(MIX)로 적은 성분 규제 행은 그 성분의 행으로, 성분에 적은 위험물·폐기물 행은 제품 행으로 본다.
+결정 8: 항목 코드 없이 법 단위로 적은 행은 판정하지 않고, '비해당'이면 같은 성분·같은 법의 항목별 판정에 이어 쓴다.
 """
 from .htodb.regulation import covered_items
 from .mixture.params import param_list
@@ -55,17 +58,31 @@ def _msds_threshold(r):
     return q.get("lower_op") or ">=", q["lower"]
 
 
-def _supplier(regs):
-    """MSDS 15항 행 → {(comp_ref, law, item): 행}. 결정 4: applicable 이 비었는데 값이 적혀 있으면 해당으로 본다."""
+def _supplier(regs, single_ref=None):
+    """MSDS 15항 행 → {(comp_ref, law, item): 행}. 결정 4: applicable 이 비었는데 값이 적혀 있으면 해당으로 본다.
+
+    single_ref: 단일물질 제품이면 그 성분 번호. 제품 전체(MIX)로 적은 성분 규제 행을 그 성분의 행으로 본다(위험물·폐기물 제외).
+    """
     out = {}
     for r in regs or []:
         if r.get("law") == "INTL":
             continue
         r = dict(r)
         r["_asm"] = []
+        product_item = r.get("item_code") in ("DG_HAZMAT", "WASTE_DESIG")
+        if single_ref and str(r.get("comp_ref")) == "MIX" and not product_item:
+            if (single_ref, r.get("law"), r.get("item_code")) in out:
+                continue
+            r["comp_ref"] = single_ref
+            r["_asm"].append("단일물질 제품이라 제품 전체(MIX)로 적은 행을 그 성분의 행으로 봄(11/02 F 결정 7)")
+        elif single_ref and str(r.get("comp_ref")) == single_ref and product_item:
+            if ("MIX", r.get("law"), r.get("item_code")) in out:
+                continue
+            r["comp_ref"] = "MIX"
+            r["_asm"].append("단일물질 제품이라 성분에 적은 위험물·폐기물 행을 제품 행으로 봄(11/02 F 결정 7)")
         if r.get("applicable") is None and (r.get("value_raw") or r.get("threshold")):
             r["applicable"] = "해당"
-            r["_asm"] = [f"MSDS 칸은 비었지만 값('{r.get('value_raw') or (r.get('threshold') or {}).get('raw')}')이 적혀 있어 "
+            r["_asm"] += [f"MSDS 칸은 비었지만 값('{r.get('value_raw') or (r.get('threshold') or {}).get('raw')}')이 적혀 있어 "
                          "해당으로 봄(11/01 F 결정 4)"]
         out[(str(r.get("comp_ref")), r.get("law"), r.get("item_code"))] = r
     return out
@@ -109,6 +126,10 @@ def _judge_component(key, s_row, comp, know, db_rows, covered):
     if exp == "경계":
         return _row(ref_no, cas, law, item, BORDER, RULE_IDS["border"], expected=exp, reason=basis, **common)
     if exp == "해당":
+        if s != "해당" and any(r["kind"] == "compare_human" for r in db_rows):
+            return _row(ref_no, cas, law, item, BORDER, RULE_IDS["border"], expected=exp,
+                        reason=f"함량상 해당이지만 금지물질은 제품 형태 조건(예: 고무풀)이 붙는 경우가 있어 사람 확인: {basis}"
+                               f" (11/02 F 결정 6)", **common)
         if s != "해당":
             return _row(ref_no, cas, law, item, MISMATCH, RULE_IDS[MISSING], type_=MISSING, expected=exp,
                         reason=f"함량상 해당인데 MSDS는 {s or '행 없음'}: {basis}", **common)
@@ -198,7 +219,8 @@ def judge_sec15(inputs: dict, provider, *, non_toxic_cas=None) -> dict:
     non_toxic = set(param_list("non_toxic_cas") if non_toxic_cas is None else non_toxic_cas)
     as_of = inputs.get("as_of_date")
     comps = {str(c.get("seq")): c for c in inputs.get("components") or []}
-    sup = _supplier(inputs.get("regulations"))
+    single = (inputs.get("composition") or {}).get("type") == "단일물질" and len(comps) == 1
+    sup = _supplier(inputs.get("regulations"), next(iter(comps)) if single else None)
     uses_new_cca = any(k[2] in NEW_CCA for k in sup)
     know = {ref: provider.get_regulation(c["cas_no"], as_of) for ref, c in comps.items() if c.get("cas_no")}
     refs: dict[tuple, list[dict]] = {}
@@ -206,6 +228,9 @@ def judge_sec15(inputs: dict, provider, *, non_toxic_cas=None) -> dict:
         for r in k.get("rows") or []:
             refs.setdefault((ref, r["law"], r["item_code"]), []).append(r)
     covered = covered_items()
+    # 항목 코드 없이 법 단위로 적은 행(예: '산업안전보건법에 의한 규제: 비해당'). 판정하지 않고, 같은 성분·같은 법에서
+    # 항목별 행이 없는 항목에 '비해당'을 이어 쓴다(11/02 F 결정 8).
+    blanket = {(k[0], k[1]): r for k, r in sup.items() if k[2] is None and r.get("applicable") == "비해당"}
     verdicts, excluded = [], []
     for key in sorted((set(sup) | set(refs)), key=lambda k: (k[0], k[1] or "", k[2] or "")):
         ref_no, law, item = key
@@ -215,6 +240,16 @@ def judge_sec15(inputs: dict, provider, *, non_toxic_cas=None) -> dict:
         cas = comp.get("cas_no")
         s = (s_row or {}).get("applicable")
         src = [r["source"] for r in db_rows]
+        if item is None:
+            excluded.append(_excl(ref_no, cas, law, item, "참고",
+                                  f"항목 없이 법 단위로 적은 행('{(s_row or {}).get('item_raw') or law}')"
+                                  + (" — 같은 법의 항목별 판정에 '비해당'으로 이어 씀" if (ref_no, law) in blanket
+                                     else " — 항목을 특정할 수 없어 비교하지 않음") + "(11/02 F 결정 8)", s, src))
+            continue
+        if ref_no != "MIX" and item in ("DG_HAZMAT", "WASTE_DESIG") and not db_rows:
+            excluded.append(_excl(ref_no, cas, law, item, "참고",
+                                  "위험물·폐기물은 제품 단위로 본다(설계서 29장, 11/01 F 결정 5) — 성분에 적은 행은 참고", s, src))
+            continue
         if ref_no == "MIX":
             if item == "DG_HAZMAT":
                 continue  # 아래에서 제품 단위로 판정
@@ -243,6 +278,10 @@ def judge_sec15(inputs: dict, provider, *, non_toxic_cas=None) -> dict:
                                   "기존화학물질 등 규제 의무가 아닌 지위 정보 — MSDS가 적지 않으면 비교하지 않음(11/01 F 결정 3)",
                                   s, src))
             continue
+        if s_row is None and (ref_no, law) in blanket:
+            b = blanket[(ref_no, law)]
+            s_row = {**b, "threshold": None, "_asm": b["_asm"] + [
+                f"항목별 행이 없어 법 단위 기재('{b.get('item_raw') or law}: 비해당')를 이 항목에 적용(11/02 F 결정 8)"]}
         verdicts.append(_judge_component(key, s_row, comp, know.get(ref_no), db_rows, covered))
     verdicts.append(_dg(inputs, sup, list(know.values())))
     keyf = lambda r: (r["comp_ref"], r["law"] or "", r["item_code"] or "")
