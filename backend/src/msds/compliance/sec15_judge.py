@@ -52,15 +52,32 @@ BASE_ASSUMPTIONS = [
 ]
 
 
+def _straddle_text(q, rows, results):
+    """함량 범위가 기준에 걸칠 때 원인 문장(11/02 F 설명 4차). 경계를 낸 기준 행 중 가장 낮은 기준으로 쓴다.
+    sec15._expected 와 같이 하한이 없으면 0, 상한이 없으면 100으로 본다."""
+    border = [r for r, (e, _) in zip(rows, results) if e == "경계" and r.get("threshold_value") is not None]
+    if not border:
+        return None
+    r = min(border, key=lambda x: x["threshold_value"])
+    q = q or {}
+    v = q.get("value")
+    lo = v if v is not None else (q.get("lower") if q.get("lower") is not None else 0)
+    hi = v if v is not None else (q.get("upper") if q.get("upper") is not None else 100)
+    t, op = r["threshold_value"], r.get("threshold_op") or ">="
+    return (f"함량 범위 {lo:g}~{hi:g}% 중 하한 {lo:g}%는 기준({op} {t:g}%)에 못 미치고 상한 {hi:g}%는 기준을 충족해, "
+            "실제 함량에 따라 해당 여부가 갈리는 경계")  # '갈림'은 LLM이 '갈림니다'로 바꿈(6차)
+
+
 def _row(comp_ref, cas, law, item, verdict, rule_id, *, type_=None, supplier=None, expected=None, msds_threshold=None,
-         db_threshold=None, reason="", source=(), version=None, as_of=None, extra_asm=(), db_text=(), cause=None):
+         db_threshold=None, reason="", source=(), version=None, as_of=None, extra_asm=(), db_text=(), cause=None,
+         cause_text=None):
     code = cause or CAUSE.get(type_) or CAUSE.get(verdict)
     return {"section": "15", "comp_ref": comp_ref, "cas_no": cas, "law": law, "item_code": item, "verdict": verdict,
             "type": type_, "severity": SEVERITY.get(type_), "sv_id": SV.get(type_), "rule_id": rule_id,
             "msds_value": supplier, "msds_threshold": msds_threshold, "expected": expected, "db_threshold": db_threshold,
             "reason": reason, "source": list(source), "db_text": list(db_text), "knowledge_version": version,
             "as_of": as_of, "assumptions": BASE_ASSUMPTIONS + list(extra_asm),
-            "causes": [] if verdict == MATCH or not code else [_cause(code, reason)]}
+            "causes": [] if verdict == MATCH or not code else [_cause(code, cause_text or reason)]}
 
 
 def _excl(comp_ref, cas, law, item, status, reason, supplier=None, source=()):
@@ -158,13 +175,17 @@ def _judge_component(key, s_row, comp, know, db_rows, covered, ph=None):
         elif ph is not None:
             asm.append(f"조문 조건 pH {ph_max:g} 이하를 9항 pH {ph:g}로 충족(11/02 F 결정 11)")
     if exp == "경계":
-        return _row(ref_no, cas, law, item, BORDER, RULE_IDS["border"], expected=exp, reason=basis, **common)
+        return _row(ref_no, cas, law, item, BORDER, RULE_IDS["border"], expected=exp, reason=basis,
+                    cause_text=_straddle_text(comp.get("content"), db_rows, results) or basis, **common)
     if exp == "해당":
         quote = f" 조문: {texts[0][:80]}" if texts else ""
         if s != "해당" and any(r["kind"] == "compare_human" for r in db_rows):
             return _row(ref_no, cas, law, item, BORDER, RULE_IDS["border"], expected=exp,
                         reason=f"함량상 해당이지만 금지물질은 제품 형태 조건(예: 고무풀)이 붙는 경우가 있어 사람 확인: {basis}"
-                               f" (11/02 F 결정 6).{quote}", cause="CONDITION_CHECK", **common)
+                               f" (11/02 F 결정 6).{quote}", cause="CONDITION_CHECK",
+                        cause_text=f"함량은 기준을 넘음({basis}). 다만 이 금지물질 조문은 특정 제품 형태에만 적용될 수 있고, "
+                                   f"이 제품이 그 형태인지는 정해지지 않아 사람 확인 필요. MSDS 기재: {s or '15항에 없음'}",
+                        **common)
         if s != "해당" and state:
             return _row(ref_no, cas, law, item, BORDER, RULE_IDS["border"], expected=exp,
                         reason=f"함량상 해당이지만 조문에 성상 조건('{state}')이 있어 사람 확인: {basis} (11/02 F 결정 11)",
@@ -174,8 +195,10 @@ def _judge_component(key, s_row, comp, know, db_rows, covered, ph=None):
                         reason=f"함량상 해당이지만 조문 조건 pH {ph_max:g} 이하를 9항 pH가 없어 확인 못 함: {basis}"
                                " (11/02 F 결정 11)", cause="CONDITION_CHECK", **common)
         if s != "해당":
+            said = f"MSDS 기재는 {s}" if s else "MSDS 15항에 이 규제 항목이 없음(성분은 3항에 있음)"
             return _row(ref_no, cas, law, item, MISMATCH, RULE_IDS[MISSING], type_=MISSING, expected=exp,
-                        reason=f"함량상 해당인데 MSDS는 {s or '행 없음'}: {basis}", **common)
+                        reason=f"함량상 해당인데 MSDS는 {s or '행 없음'}: {basis}",
+                        cause_text=f"함량상 해당인데 {said}: {basis}", **common)
         if mt and best and (mt[0] != best["threshold_op"] or abs(float(mt[1]) - best["threshold_value"]) > 1e-9):
             return _row(ref_no, cas, law, item, MISMATCH, RULE_IDS[THRESHOLD], type_=THRESHOLD, expected=exp,
                         reason=f"둘 다 해당이지만 기준 농도 표기가 다름: MSDS {_fmt(*mt)}, 지식DB {dbt}", **common)
