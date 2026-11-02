@@ -15,6 +15,7 @@ from urllib.parse import quote
 
 import pymupdf
 from openpyxl import Workbook
+from openpyxl.cell import Cell
 
 from msds.common.paths import to21_file
 
@@ -483,16 +484,21 @@ def to_pdf(data: dict, include: dict = ALL_INCLUDE) -> bytes:
 _ILLEGAL = re.compile(r"[\x00-\x08\x0b\x0c\x0e-\x1f\ud800-\udfff\ufffe\uffff]")
 
 
-def _safe(v):
+def _safe(ws, v):
     # 추출값이 =로 시작해도 수식으로 실행되지 않게 하고, 엑셀이 거부하는 제어 문자로 파일 전체가 막히지 않게 지운다
     if v is None or isinstance(v, (int, float)):
         return v
     v = _ILLEGAL.sub(" ", str(v))
-    return "'" + v if v[:1] in ("=", "+", "-", "@") else v
+    if v[:1] not in ("=", "+", "-", "@"):
+        return v
+    # 글자를 덧붙이면 값이 바뀐다. 문자열 칸으로 쓰고 quotePrefix 로 셀을 고쳐 입력해도 수식이 되지 않게 한다
+    cell = Cell(ws, value=v)
+    cell.data_type, cell.quotePrefix = "s", True
+    return cell
 
 
 def _append(ws, row):
-    ws.append([_safe(x) for x in row])
+    ws.append([_safe(ws, x) for x in row])
 
 
 def to_xlsx(data: dict, include: dict = ALL_INCLUDE) -> bytes:

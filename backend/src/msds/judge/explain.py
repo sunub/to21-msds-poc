@@ -51,9 +51,23 @@ def build_request(f: dict, trace: dict | None) -> dict:
             "causes": causes, "trace": compact, "evidence": evidence}
 
 
-_SAID_VERDICT = re.compile(r"판정(?:\s*결과)?[은는이가:\s]*(불일치|일치|경계|근거부족)|(불일치|일치|경계|근거부족)(?:으로|로)\s*판정")
-_SAID_EXPECTED = re.compile(r"(?:계산|검증)\s*결과[^.]{0,12}구분\s*(\d[A-C]?)|(?:계산|검증)\s*결과[은는:\s]*(\d[A-C]?)입니다")
-_SAID_MSDS = re.compile(r"MSDS[^.,]{0,12}구분\s*(\d[A-C]?)")
+_SAID_VERDICT = re.compile(r"판정(?:\s*결과)?[은는이가:\s]*(불일치|일치|경계|근거부족)|(불일치|일치|경계|근거부족)(?:으로|로)\s*(?:판정|보입|볼 수)"
+                          r"|(불일치|일치|경계|근거부족)\s*판정|(불일치|경계|근거부족)(?:입니다|이다|임\b)(?!라고)|(경계)에 해당")
+_SAID_SAME = re.compile(r"(?<!불)일치(?:합니다|한다(?!고)|함|하며|하고|하는(?!지)|해(?!야))|부합합니다|맞습니다|(?<!부)적절합니다|(?<!부)적합합니다|올바릅니다|정상입니다"
+                        r"|(?:오류|문제|이상|차이)[가는은이]? 없(?!는지|다고)|어긋나지 않|정확하게 기재"
+                        r"|(?:기재|MSDS|분류|두 값)[^.]{0,24}?(?:같습니다(?!만)|동일(?!하지))")
+_SAID_EXPECTED = re.compile(r"(?:계산|검증|산출|도출)(?:(?!MSDS)[^.]){0,20}?구분\s*(\d[A-C]?)(?!\s*기준)|(?:계산|검증)\s*결과[은는:\s]*(\d[A-C]?)입니다"
+                            r"|구분\s*(\d[A-C]?)[이가]?\s*(?:산출|도출)|(?:혼합물|제품)의?\s*분류는\s*구분\s*(\d[A-C]?)")
+_SAID_MSDS = re.compile(r"MSDS[^.,]{0,12}?구분\s*(\d[A-C]?)")
+_APPLICABLE = r"(비해당|미해당|해당하지 않|해당되지 않|해당 없음|해당 사항이 없|해당(?:합니다|입니다|이고|이며|으로|됩니다|이다|임\b|\.|$))"
+_SAID_DB_APPLICABLE = re.compile(r"(?:규제\s*DB|지식\s*DB|DB|계산|검증)(?:(?!MSDS)[^.,]){0,14}?" + _APPLICABLE)
+_SAID_MSDS_APPLICABLE = re.compile(r"MSDS[^.,]{0,14}?" + _APPLICABLE)
+_SAID_NOT_REGULATED = re.compile(r"규제 대상이 아닙|규제되지 않|대상에서 제외|적용되지 않")
+_SAID_REGULATED = re.compile(r"규제 대상입니다|법 적용을 받")
+
+
+def _applicable_word(said: str) -> str:
+    return "비해당" if said.startswith(("비해당", "미해당", "해당하지", "해당되지", "해당 없음", "해당 사항")) else "해당"
 
 
 def _categories(*values) -> set[str]:
@@ -63,16 +77,28 @@ def _categories(*values) -> set[str]:
 def claim_problems(resp: dict, req: dict) -> list[str]:
     """엔진과 다른 결론을 말하는 설명을 막는다 (개요 4절). 숫자 검사는 값이 요청 어딘가에 있으면 통과하므로 따로 본다.
 
-    shortcut: 흔한 문장 모양만 본다. 실제 모델 응답을 모은 뒤 걸러지지 않는 표현이 있으면 패턴을 늘린다.
+    shortcut: 문장 모양을 본다. 잘못 걸러도 문장틀로 가서 안전하지만 다른 표현은 지나갈 수 있다. 실제 모델 응답을 모으면 패턴을 늘린다.
     """
     f = req["finding"]
-    text = " ".join([str(resp.get("summary") or "")] + [str(x) for x in (resp.get("reasons") or []) + (resp.get("basis") or [])])
-    said = [a or b for a, b in _SAID_VERDICT.findall(text)]
+    # 과소·과대 줄의 요약은 문장틀로 덮어쓴다. 모델이 쓴 글이 아니고 화면에도 모델 글이 안 나가니 보지 않는다
+    summary = [] if f.get("type") in engine._DIRECTION_TYPES else [str(resp.get("summary") or "")]
+    text = " ".join(summary + [str(x) for x in (resp.get("reasons") or []) + (resp.get("basis") or [])])
+    said = [next(filter(None, groups)) for groups in _SAID_VERDICT.findall(text)]
+    if f["verdict"] != "일치" and _SAID_SAME.search(text):
+        said.append("일치")
     out = [f"판정을 '{w}'(으)로 말함. 엔진 판정은 '{f['verdict']}'" for w in said if w != f["verdict"]]
     exp, msds = f.get("expected") or {}, f.get("msds") or {}
+    if f.get("section") == "15":
+        out += [f"규제DB 결과를 '{w}'(으)로 말함" for w in map(_applicable_word, _SAID_DB_APPLICABLE.findall(text)) if w != exp.get("applicable")]
+        out += [f"MSDS를 '{w}'(으)로 말함" for w in map(_applicable_word, _SAID_MSDS_APPLICABLE.findall(text)) if w != msds.get("applicable")]
+        if exp.get("applicable") == "해당" and _SAID_NOT_REGULATED.search(text):
+            out.append("규제DB 결과를 '비해당'(으)로 말함")
+        if exp.get("applicable") == "비해당" and _SAID_REGULATED.search(text):
+            out.append("규제DB 결과를 '해당'(으)로 말함")
     if f.get("kind") == "class":  # 값이 없는 칸은 요청에서 빠지므로 칸 유무로 판단하면 검사를 건너뛴다
         allowed = _categories(exp.get("low"), exp.get("high"))
-        out += [f"계산 결과를 구분 {a or b}(으)로 말함" for a, b in _SAID_EXPECTED.findall(text) if (a or b) not in allowed]
+        said = [next(filter(None, groups)) for groups in _SAID_EXPECTED.findall(text)]
+        out += [f"계산 결과를 구분 {c}(으)로 말함" for c in said if c not in allowed]
         allowed = _categories(msds.get("category"))
         out += [f"MSDS를 구분 {c}(으)로 말함" for c in _SAID_MSDS.findall(text) if c not in allowed]
     return out
@@ -92,10 +118,11 @@ def generate(req: dict, llm=None, retries: int = 1) -> dict:
             try:
                 resp, meta = llm(engine.SYSTEM, engine._user(req, problems))
             except Exception as e:  # 모델 서버 장애로 설명이 '작성 중'에 멈추면 안 된다
-                resp, meta = None, {"errors": [f"{type(e).__name__}: {e}"[:200]]}
+                print(f"설명 모델 호출 실패: {type(e).__name__}: {e}")
+                resp, meta = None, {"errors": [type(e).__name__]}
             if fixed_summary and isinstance(resp, dict):  # 과소·과대의 한 줄 요약은 문장틀로 고정 (우진 측정 7차)
                 resp = {**resp, "llm_summary": resp.get("summary"), "summary": engine._summary(req)}
-            problems = engine.check(resp, req) + claim_problems(resp, req) if resp is not None else ["모델 응답 없음: " + "; ".join(meta.get("errors") or [])]
+            problems = engine.check(resp, req) + claim_problems(resp, req) if resp is not None else ["모델 응답 없음"]
             if not problems:
                 return _stored(engine._out("llm", resp, req, meta, failures), "llm", meta.get("model") or "llm", failures)
             failures += problems

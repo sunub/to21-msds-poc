@@ -9,15 +9,16 @@ from psycopg.rows import dict_row
 from psycopg.types.json import Jsonb
 from psycopg_pool import ConnectionPool
 
-from msds.compliance.htodb.config import pg_kwargs, setting
-from msds.compliance.judge import current_versions, judge
+from msds.compliance.htodb.config import pg_address, pg_kwargs, setting
+from msds.compliance.judge import KnowledgeUnavailable, current_versions, is_connection_error, judge
 
 from . import explain as ex
 from .display import view_display
 
 KST = timezone(timedelta(hours=9))
 LEASE = timedelta(minutes=5)
-EXPLAIN_LEASE = timedelta(minutes=10)
+# 보통의 호출보다 길게. 재요청이 겹쳐 넘으면 모델을 한 번 더 부를 수 있지만, 저장은 소유 조건으로 안전하다
+EXPLAIN_LEASE = timedelta(minutes=25)
 MAX_ATTEMPTS = 3
 RETRY_AFTER = timedelta(seconds=30)
 NEEDS_REVIEW = ("불일치", "경계", "근거부족", "경고")
@@ -25,6 +26,7 @@ JUDGED = ("일치", "불일치", "경계", "근거부족", "경고")
 # 확인은 일치 쪽, 확정·승인은 일치가 아닌 쪽에만 쓴다 (5-api review_event_request). 의견·되돌리기는 어디든 된다
 ACTION_VERDICTS = {"확인": ("일치", "참고", "범위 외"), "불일치 확정": NEEDS_REVIEW, "예외 승인": NEEDS_REVIEW}
 VERDICTS = ("일치", "불일치", "경계", "근거부족", "경고", "참고", "범위 외")
+TRANSIENT_MESSAGE = "지식DB 또는 저장소에 연결하지 못함. 복구되면 자동으로 다시 판정함"
 
 
 NOT_SENT = object()
@@ -32,6 +34,10 @@ NOT_SENT = object()
 
 class NotFound(Exception):
     pass
+
+
+class HandoffInvalid(ValueError):
+    """넘김 기록 자체가 잘못됨. 글은 화면에 그대로 나간다."""
 
 
 class InvalidAction(Exception):
@@ -47,9 +53,15 @@ class Conflict(Exception):
 
 
 def writer_kwargs(database: str | None = None) -> dict:
-    kw = pg_kwargs("admin")
-    return {**kw, "dbname": database or setting("JUDGE_PG_DATABASE", "kdb"), "user": "judge_writer",
+    return {**pg_address(), "dbname": database or setting("JUDGE_PG_DATABASE", "kdb"), "user": "judge_writer",
             "password": setting("JUDGE_PG_PASSWORD")}
+
+
+def _public_error(e: Exception) -> str:
+    """상태 API로 나가는 글. 다른 오류 원문에는 호스트·계정·파일 경로가 들어 있을 수 있어 서버 기록에만 남긴다."""
+    if isinstance(e, (KnowledgeUnavailable, HandoffInvalid)):
+        return str(e)[:1000]
+    return TRANSIENT_MESSAGE if is_connection_error(e) else f"판정 중 내부 오류 ({type(e).__name__}). 서버 기록을 확인하세요"
 
 
 def _iso(dt: datetime) -> str:
@@ -94,7 +106,7 @@ class JudgeService:
             taken = conn.execute(
                 """INSERT INTO judge.handoff_state (job_id, handoff_seq, state) VALUES (%(j)s, %(s)s, '판정 중')
                    ON CONFLICT (job_id, handoff_seq) DO UPDATE
-                     SET state = '판정 중', attempts = judge.handoff_state.attempts + 1, taken_at = now(), error = NULL
+                     SET state = '판정 중', attempts = judge.handoff_state.attempts + 1, taken_at = now(), error = NULL, retryable = false
                      WHERE judge.handoff_state.state = '실패'
                         OR (judge.handoff_state.state = '판정 중' AND judge.handoff_state.taken_at < now() - %(lease)s)
                    RETURNING attempts""", {"j": row["job_id"], "s": row["handoff_seq"], "lease": LEASE}).fetchone()
@@ -104,11 +116,22 @@ class JudgeService:
                 """INSERT INTO judge.handoff_state (job_id, handoff_seq, state, finished_at)
                    SELECT job_id, handoff_seq, '건너뜀', now() FROM extract.handoff
                    WHERE job_id = %s AND handoff_seq < %s ON CONFLICT DO NOTHING""", (row["job_id"], row["handoff_seq"]))
-            return conn.execute("SELECT body FROM extract.handoff WHERE job_id = %s AND handoff_seq = %s",
+            body = conn.execute("SELECT body FROM extract.handoff WHERE job_id = %s AND handoff_seq = %s",
                                 (row["job_id"], row["handoff_seq"])).fetchone()["body"]
+            if not isinstance(body, dict) or (body.get("job_id"), body.get("handoff_seq")) != (row["job_id"], row["handoff_seq"]):
+                # 본문 값대로 저장하면 다른 작업에 판정이 들어간다. 다시 해도 같으니 바로 멈춘다. 여기서 예외가 나면 줄이 뒤 작업을 모두 막는다
+                conn.execute("UPDATE judge.handoff_state SET state = '실패', attempts = %s, finished_at = now(), "
+                             "error = '넘김 기록 본문이 표의 작업 번호와 맞지 않음' WHERE job_id = %s AND handoff_seq = %s",
+                             (MAX_ATTEMPTS, row["job_id"], row["handoff_seq"]))
+                return None
+            return body
 
     def recover(self) -> None:
-        """서버가 다시 켜졌을 때: 이 서버가 잡고 있던 일은 끝날 수 없으니 바로 다시 잡히게 한다."""
+        """서버가 다시 켜졌을 때: 잡혀 있던 일은 끝날 수 없으니 바로 다시 잡히게 한다.
+
+        shortcut: 판정 작업자가 한 프로세스라고 가정한다. 여러 프로세스로 띄우면 살아 있는 작업도 다시 잡아 모델을 두 번 부른다
+        (저장은 안전하다). 프로세스를 늘릴 때 작업자별 소유자를 둔다.
+        """
         with self.pool.connection() as conn:
             conn.execute("UPDATE judge.handoff_state SET taken_at = now() - %s WHERE state = '판정 중'", (LEASE * 2,))
             conn.execute("UPDATE judge.explanation SET state = '대기', taken_at = NULL WHERE state = '작성 중'")
@@ -117,14 +140,18 @@ class JudgeService:
         """한 건 판정. 반환: 판정 버전. 건너뛰었거나 실패하면 None (실패 이유는 상태에 남는다)."""
         job_id, seq = body["job_id"], body["handoff_seq"]
         try:
-            if ex.sha256(body["extraction"]) != body["extraction_sha256"]:
-                raise ValueError("extraction_sha256 이 추출값과 맞지 않음")
+            if ex.sha256(body.get("extraction")) != body.get("extraction_sha256"):
+                raise HandoffInvalid("extraction_sha256 이 추출값과 맞지 않음")
             return self._judge_and_store(body)
         except Exception as e:  # 판정 하나가 죽어도 작업자는 계속 돈다. 이유는 화면(judgment_status.error)에 보인다
+            print(f"판정 실패 {job_id}#{seq}: {type(e).__name__}: {e}")
+            # 복구되면 같은 입력으로 성공하므로 시도 횟수를 쓰지 않고 계속 다시 잡는다
+            transient = isinstance(e, KnowledgeUnavailable) or is_connection_error(e)
             with self.pool.connection() as conn:
-                conn.execute("UPDATE judge.handoff_state SET state = '실패', error = %s, finished_at = now() "
+                conn.execute("UPDATE judge.handoff_state SET state = '실패', error = %s, finished_at = now(), retryable = %s, "
+                             "attempts = CASE WHEN %s THEN %s ELSE attempts - %s END "
                              "WHERE job_id = %s AND handoff_seq = %s AND state = '판정 중'",
-                             (f"{type(e).__name__}: {e}"[:1000], job_id, seq))
+                             (_public_error(e), transient, isinstance(e, HandoffInvalid), MAX_ATTEMPTS, int(transient), job_id, seq))
             return None
 
     def _judge_and_store(self, body: dict) -> int | None:
@@ -187,7 +214,7 @@ class JudgeService:
                      SELECT finding_id, input_sha256 FROM judge.explanation
                      WHERE state = '대기' OR (state = '작성 중' AND taken_at < now() - %s)
                      ORDER BY created_at, finding_id FOR UPDATE SKIP LOCKED LIMIT 1)
-                   RETURNING finding_id, input_sha256, request""", (EXPLAIN_LEASE,)).fetchone()
+                   RETURNING finding_id, input_sha256, request, taken_at""", (EXPLAIN_LEASE,)).fetchone()
 
     def process_explanation(self, row: dict) -> None:
         try:
@@ -199,15 +226,18 @@ class JudgeService:
             self._store_explanation(row, body)
         except Exception as e:  # 창구 장애, 이상한 응답, 저장 못 할 글자(NUL 등)로 설명이 '작성 중'에 멈추면 안 된다
             body = ex.generate(row["request"], None)
-            body["check_failures"].append(f"{type(e).__name__}: {e}"[:200])
+            print(f"설명 저장 실패: {type(e).__name__}: {e}")
+            body["check_failures"].append(type(e).__name__)  # 화면 API로 나간다. 원문의 서버 주소는 서버 기록에만 남긴다
             self._store_explanation(row, body)
 
     def _store_explanation(self, row: dict, body: dict) -> None:
         stored = {"contract": "explanation/1", "finding_id": row["finding_id"], "input_sha256": row["input_sha256"],
                   "created_at": _iso(datetime.now(KST)), **body}
+        # 임대가 끝나 다른 작업자가 다시 잡은 줄은 늦게 온 쪽이 덮어쓰지 못한다
         with self.pool.connection() as conn:
-            conn.execute("UPDATE judge.explanation SET state = '완료', body = %s WHERE finding_id = %s AND input_sha256 = %s",
-                         (Jsonb(stored), row["finding_id"], row["input_sha256"]))
+            conn.execute("UPDATE judge.explanation SET state = '완료', body = %s "
+                         "WHERE finding_id = %s AND input_sha256 = %s AND state = '작성 중' AND taken_at = %s",
+                         (Jsonb(stored), row["finding_id"], row["input_sha256"], row["taken_at"]))
 
     # ── 화면이 읽는 것 ─────────────────────────────────────────────────
 
@@ -220,7 +250,7 @@ class JudgeService:
             if not head:
                 return {**base, "state": "판정 없음"}
             seq = head["handoff_seq"]
-            st = conn.execute("SELECT state, attempts, error FROM judge.handoff_state WHERE job_id = %s AND handoff_seq = %s",
+            st = conn.execute("SELECT state, attempts, error, retryable FROM judge.handoff_state WHERE job_id = %s AND handoff_seq = %s",
                               (job_id, seq)).fetchone()
             latest = self._latest(conn, job_id)
             snap = conn.execute("SELECT max(snapshot_no) AS n FROM judge.snapshot WHERE job_id = %s", (job_id,)).fetchone()["n"]
@@ -237,7 +267,7 @@ class JudgeService:
         if st and st["state"] == "완료":
             return {**out, "state": "판정 있음"}
         out["pending_handoff"] = seq
-        if st and st["state"] == "실패" and st["attempts"] >= MAX_ATTEMPTS:
+        if st and st["state"] == "실패" and (st["attempts"] >= MAX_ATTEMPTS or st["retryable"]):
             return {**out, "state": "판정 실패", "error": st["error"]}
         return {**out, "state": "판정 중"}
 
