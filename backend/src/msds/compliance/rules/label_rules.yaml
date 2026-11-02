@@ -6,8 +6,8 @@
 pictogram_omit:
   - rule_id: PIC-1
     if_present: {pictogram: GHS06}
-    omit: {pictogram: GHS07}
-    source: 설계서 v0.4 31장·고시 제6조의2 ②1호
+    omit: {pictogram: GHS07, from_classes: [HH_ACUTE_ORAL, HH_ACUTE_DERMAL, HH_ACUTE_INHAL]}
+    source: 설계서 v0.4 31장(해골이 있으면 '급성독성용' 느낌표 생략)·규칙표 v0.2 label_rules scope·고시 제6조의2 ②1호. 11/02 F 범위 수정
   - rule_id: PIC-2
     if_present: {pictogram: GHS05}
     omit: {pictogram: GHS07, from_classes: [HH_SKIN_CORR, HH_EYE_DMG]}
