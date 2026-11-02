@@ -1,0 +1,66 @@
+{
+ "doc_id": "T21-S013",
+ "msds_index": 0,
+ "section": 13,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S13_METHOD",
+    "title_raw": "가. 폐기방법",
+    "start": "p9:L26",
+    "end": "p9:L27"
+   },
+   {
+    "item_code": "S13_CAUTION",
+    "title_raw": "나. 폐기시 주의사항",
+    "start": "p9:L28",
+    "end": "p9:L29"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S13_METHOD",
+    "title_raw": "나. 폐기시 주의사항",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "value": "- 하천, 호수, 토양, 배수구 등에 직접 유출을 피할 것.",
+      "line": "p9:L29"
+     }
+    ],
+    "suggested_code": "S13_CAUTION",
+    "line": "p9:L28"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S13_METHOD\",\n      \"title_raw\": \"가. 폐기방법\",\n      \"start\": \"p9:L26\",\n      \"end\": \"p9:L27\"\n    },\n    {\n      \"item_code\": \"S13_CAUTION\",\n      \"title_raw\": \"나. 폐기시 주의사항\",\n      \"start\": \"p9:L28\",\n      \"end\": \"p9:L29\"\n    }\n  ]\n  ,\n  \"extras\": [\n    {\n      \"after_item\": \"S13_METHOD\",\n      \"title_raw\": \"나. 폐기시 주의사항\",\n      \"reason\": \"코드없음\"\n    ,\n      \"statements\": [\n        {\n          \"value\": \"- 하천, 호수, 토양, 배수구 등에 직접 유출을 피할 것.\"\n        ,\n          \"line\": \"p9:L29\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S13_CAUTION\"\n    ,\n      \"line\": \"p9:L28\"\n    }\n  ]\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 1895,
+  "completion_tokens": 275,
+  "total_tokens": 2170
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 1895,
+    "completion_tokens": 275,
+    "total_tokens": 2170
+   },
+   "seconds": 5.304,
+   "chars": 621,
+   "whitespace": 247,
+   "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S13_METHOD\",\n      \"title_raw\": \"가. 폐기방법\",\n      \"start\": \"p9:L26\",\n      \"end\": \"p9:L27\"\n    },\n    {\n      \"item_code\": \"S13_CAUTION\",\n      \"title_raw\": \"나. 폐기시 주의사항\",\n      \"start\": \"p9:L28\",\n      \"end\": \"p9:L29\"\n    }\n  ]\n  ,\n  \"extras\": [\n    {\n      \"after_item\": \"S13_METHOD\",\n      \"title_raw\": \"나. 폐기시 주의사항\",\n      \"reason\": \"코드없음\"\n    ,\n      \"statements\": [\n        {\n          \"value\": \"- 하천, 호수, 토양, 배수구 등에 직접 유출을 피할 것.\"\n        ,\n        ",
+   "tail": "  \"line\": \"p9:L29\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S13_CAUTION\"\n    ,\n      \"line\": \"p9:L28\"\n    }\n  ]\n}"
+  }
+ ],
+ "seconds": 5.304,
+ "check_problems": []
+}

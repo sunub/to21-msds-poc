@@ -7,6 +7,7 @@ expand.to_to21이 MSDS마다 expand_msds 뒤, A의 apply_conventions 앞에 부�
   2항 그림(이미지 입력)에서만 읽은 코드를 지우지 않으려고, 글에 코드가 전혀 없는 문서만 고친다.
 - 개정 횟수: '개정 횟수 … : N' 줄로 meta.revision_no를 정한다. 'N-N'이면 비운다.
 - 메타 값 없음: meta의 글자 칸이 자료없음·해당없음·미기재(공백 무시)이면 비운다.
+- 메타 원문 확인: 제출번호는 형식(^AA\d{5}-\d{10}$)에 맞고 원문에 있을 때만, 첫 작성일·최종 개정일은 원문에 적혀 있을 때만 남긴다.
 - 전화번호: 연락처가 원문에 그대로 없고, 숫자가 같은 원문 조각이 있으면 그 조각으로 바꾼다.
 - 유해성 분류: MSDS 한 건인 문서에서 모델이 hazard.classes를 비웠으면 2항 분류 줄('- 인화성 액체 : 구분2')을
   명세서 5-1 코드표(없으면 13 매핑 시트의 '이름 : 구분 N' 글)로 읽어 채운다. 모델이 쓴 분류는 건드리지 않는다.
@@ -81,6 +82,36 @@ def _meta_no_value(item: dict) -> list[str]:
         if isinstance(v, str) and re.sub(r"\s+", "", v) in _NO_VALUE:
             item["meta"][k] = None
             changes.append(f"meta.{k} {v!r} → None")
+    return changes
+
+
+_MSDS_NO = re.compile(r"^AA\d{5}-\d{10}$")         # 명세서 1_항목정의 meta.msds_no 형식 (스키마 pattern)
+_DATE_FIELDS = ("first_issue_date", "last_revision_date")
+
+
+def _date_in(value: str, lines: list[Line]) -> bool:
+    """'YYYY-MM-DD'가 원문에 연·월·일(또는 일·월·연) 순서로 적혀 있는지. '2019. 3. 8', '2010년 06월 21일', '21/12/2017',
+    '20230218' 꼴을 본다."""
+    y, m, d = value.split("-")
+    m, d = int(m), int(d)
+    forms = (rf"{y}\D{{1,4}}0?{m}\D{{1,4}}0?{d}(?!\d)", rf"(?<!\d)0?{d}\D{{1,4}}0?{m}\D{{1,4}}{y}", rf"{y}{m:02d}{d:02d}")
+    return any(re.search(f, l.text) for l in lines for f in forms)
+
+
+def _meta_in_source(item: dict, lines: list[Line]) -> list[str]:
+    """제출번호는 형식(^AA\\d{5}-\\d{10}$)에 맞고 원문에 있을 때만, 날짜는 원문에 적혀 있을 때만 남긴다.
+    모델이 명세서 예시(AA00000-…)나 회사 약칭을 제출번호로, 없는 날짜를 개정일로 쓴 일이 있었다(11/01 실행)."""
+    changes, meta = [], item["meta"]
+    no = meta.get("msds_no")
+    alnum = lambda s: re.sub(r"[^0-9A-Za-z]", "", s).upper()      # 원문의 공백·여러 하이픈 꼴은 무시한다
+    if no and not (_MSDS_NO.match(no) and alnum(no) in alnum("".join(l.text for l in lines))):
+        meta["msds_no"] = None
+        changes.append(f"meta.msds_no {no!r} → None (형식 또는 원문 없음)")
+    for k in _DATE_FIELDS:
+        v = meta.get(k)
+        if v and re.fullmatch(r"\d{4}-\d{2}-\d{2}", v) and not _date_in(v, lines):
+            meta[k] = None
+            changes.append(f"meta.{k} {v!r} → None (원문 없음)")
     return changes
 
 
@@ -222,5 +253,5 @@ def apply_source_rules(item: dict, lines: list[Line], single_msds: bool = True) 
     """펼친 TO21 msds 항목 하나를 원문 줄로 확인해 바로 고친다. 고친 내용(사람이 읽는 한 줄씩)을 돌려준다.
     lines는 문서 전체 줄이다. 유해성 분류 채우기는 MSDS가 한 건(single_msds)일 때만 한다."""
     text = "\n".join(l.text for l in lines)
-    return (_clear_codes(item, text) + _revision_no(item, lines) + _meta_no_value(item)
+    return (_clear_codes(item, text) + _revision_no(item, lines) + _meta_no_value(item) + _meta_in_source(item, lines)
             + _phones(item, lines, text) + (_classes(item, lines) if single_msds else []))

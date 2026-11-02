@@ -1,0 +1,99 @@
+{
+ "doc_id": "T21-S014",
+ "msds_index": 0,
+ "section": 3,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "composition": {
+   "type": "혼합물",
+   "no_hazardous_component": false,
+   "lines": {
+    "type": "p2:L1",
+    "no_hazardous_component": "p2:L1"
+   }
+  },
+  "components": [
+   {
+    "name": "수소",
+    "name_en": "HYDROGEN GAS",
+    "synonyms": [],
+    "cas_no": "1333-74-0",
+    "ke_no": "KE-20137",
+    "ec_no": "215-605-7",
+    "other_id": null,
+    "other_id_type": null,
+    "parent_seq": null,
+    "read_across_cas": null,
+    "content": {
+     "raw": "99.999 %",
+     "value": 99.999,
+     "unit": "%"
+    },
+    "content_note": null,
+    "content_basis": "중량",
+    "trade_secret": false,
+    "approval_no": null,
+    "approval_expiry": null,
+    "line": "p2:L4"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S9_END",
+    "title_raw": "3. 구성성분의 명칭 및 함유량",
+    "reason": "필드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [],
+    "suggested_code": null,
+    "line": "p2:L1"
+   },
+   {
+    "after_item": "S9_END",
+    "title_raw": "이명(관용명)",
+    "reason": "필드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [
+     {
+      "value": "HYDROGEN GAS",
+      "line": "p2:L3"
+     }
+    ],
+    "suggested_code": null,
+    "line": "p2:L3"
+   }
+  ]
+ },
+ "raw_text": "### composition\ntype | no_hazardous_component | line\n혼합물 | false | p2:L1\n\n### components\nname | name_en | synonyms | cas_no | ke_no | ec_no | other_id | other_id_type | parent_seq | read_across_cas | content | content_note | content_basis | trade_secret | approval_no | approval_expiry | line\n수소 | HYDROGEN GAS |  | 1333-74-0 | KE-20137 | 215-605-7 |  |  |  |  | 99.999 % |  | 중량 | false |  |  | p2:L4\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\nS9_END | 3. 구성성분의 명칭 및 함유량 | 필드없음 |  |  |  |  |  | p2:L1\nS9_END | 이명(관용명) | 필드없음 |  |  |  | HYDROGEN GAS |  | p2:L3",
+ "mode": "rows",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 3374,
+  "completion_tokens": 251,
+  "total_tokens": 3625
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "rows",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 3374,
+    "completion_tokens": 251,
+    "total_tokens": 3625
+   },
+   "seconds": 4.022,
+   "chars": 625,
+   "whitespace": 141,
+   "head": "### composition\ntype | no_hazardous_component | line\n혼합물 | false | p2:L1\n\n### components\nname | name_en | synonyms | cas_no | ke_no | ec_no | other_id | other_id_type | parent_seq | read_across_cas | content | content_note | content_basis | trade_secret | approval_no | approval_expiry | line\n수소 | HYDROGEN GAS |  | 1333-74-0 | KE-20137 | 215-605-7 |  |  |  |  | 99.999 % |  | 중량 | false |  |  | p2:L4\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_co",
+   "tail": "de | line\nS9_END | 3. 구성성분의 명칭 및 함유량 | 필드없음 |  |  |  |  |  | p2:L1\nS9_END | 이명(관용명) | 필드없음 |  |  |  | HYDROGEN GAS |  | p2:L3"
+  }
+ ],
+ "seconds": 4.025,
+ "check_problems": []
+}

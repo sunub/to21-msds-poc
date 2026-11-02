@@ -1,0 +1,95 @@
+{
+ "doc_id": "T21-M004",
+ "msds_index": 0,
+ "section": 14,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "transport": [
+   {
+    "mode": "공통",
+    "basis_raw": null,
+    "regulated": true,
+    "un_no": "1075",
+    "shipping_name": "PETROLEUM GASES, LIQUEFIED",
+    "hazard_class": "2.1",
+    "sub_risk": null,
+    "packing_group": "해당없음",
+    "marine_pollutant": "비해당",
+    "ems_fire": "F-D",
+    "ems_spill": "S-U",
+    "line": "p13:L32"
+   }
+  ],
+  "narratives": [
+   {
+    "item_code": "S14_SPECIAL",
+    "title_raw": "바. 사용자가 운송 또는 운송수단에 관련해 알 필요가 있거나 필요한 특별한 안전 대책 :",
+    "start": "p13:L37",
+    "end": "p13:L39"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S14_SPECIAL",
+    "title_raw": "○ 화재시 비상조치의 종류 : F-D",
+    "reason": "코드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [
+     {
+      "value": "화재시 비상조치의 종류 : F-D",
+      "line": "p13:L38"
+     }
+    ],
+    "suggested_code": null,
+    "line": "p13:L38"
+   },
+   {
+    "after_item": "S14_SPECIAL",
+    "title_raw": "○ 유출시 비상조치의 종류 : S-U",
+    "reason": "코드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [
+     {
+      "value": "유출시 비상조치의 종류 : S-U",
+      "line": "p13:L39"
+     }
+    ],
+    "suggested_code": null,
+    "line": "p13:L39"
+   }
+  ]
+ },
+ "raw_text": "### transport\nmode | basis_raw | regulated | un_no | shipping_name | hazard_class | sub_risk | packing_group | marine_pollutant | ems_fire | ems_spill | line\n공통 |  | true | 1075 | PETROLEUM GASES, LIQUEFIED | 2.1 |  | 해당없음 | 비해당 | F-D | S-U | p13:L32\n\n### narratives\nitem_code | title_raw | start | end\nS14_SPECIAL | 바. 사용자가 운송 또는 운송수단에 관련해 알 필요가 있거나 필요한 특별한 안전 대책 : | p13:L37 | p13:L39\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\nS14_SPECIAL | ○ 화재시 비상조치의 종류 : F-D | 코드없음 |  |  |  | 화재시 비상조치의 종류 : F-D |  | p13:L38\nS14_SPECIAL | ○ 유출시 비상조치의 종류 : S-U | 코드없음 |  |  |  | 유출시 비상조치의 종류 : S-U |  | p13:L39",
+ "mode": "rows",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 2857,
+  "completion_tokens": 265,
+  "total_tokens": 3122
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "rows",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 2857,
+    "completion_tokens": 265,
+    "total_tokens": 3122
+   },
+   "seconds": 3.967,
+   "chars": 664,
+   "whitespace": 151,
+   "head": "### transport\nmode | basis_raw | regulated | un_no | shipping_name | hazard_class | sub_risk | packing_group | marine_pollutant | ems_fire | ems_spill | line\n공통 |  | true | 1075 | PETROLEUM GASES, LIQUEFIED | 2.1 |  | 해당없음 | 비해당 | F-D | S-U | p13:L32\n\n### narratives\nitem_code | title_raw | start | end\nS14_SPECIAL | 바. 사용자가 운송 또는 운송수단에 관련해 알 필요가 있거나 필요한 특별한 안전 대책 : | p13:L37 | p13:L39\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\nS14_S",
+   "tail": "PECIAL | ○ 화재시 비상조치의 종류 : F-D | 코드없음 |  |  |  | 화재시 비상조치의 종류 : F-D |  | p13:L38\nS14_SPECIAL | ○ 유출시 비상조치의 종류 : S-U | 코드없음 |  |  |  | 유출시 비상조치의 종류 : S-U |  | p13:L39"
+  }
+ ],
+ "seconds": 3.968,
+ "check_problems": []
+}

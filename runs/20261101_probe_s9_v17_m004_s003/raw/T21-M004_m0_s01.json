@@ -1,0 +1,101 @@
+{
+ "doc_id": "T21-M004",
+ "msds_index": 0,
+ "section": 1,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "meta": {
+   "msds_no": "YNCC",
+   "revision_label": "MIXED C4'S",
+   "header_product_name": "MIXED C4'S",
+   "first_issue_date": "p1:L1",
+   "last_revision_date": "p1:L1",
+   "lines": {
+    "msds_no": "p1:L1",
+    "revision_label": "p1:L1",
+    "header_product_name": "p1:L1"
+   }
+  },
+  "product": {
+   "name": "MIXED C4'S",
+   "code": "1075",
+   "uses": [
+    "연료",
+    "부타디엔 추출 원료"
+   ],
+   "restrictions": [
+    "사용상 주의사항을 숙지할 것"
+   ],
+   "lines": {
+    "name": "p1:L6",
+    "code": "p1:L7",
+    "uses": "p1:L9",
+    "restrictions": "p1:L10"
+   }
+  },
+  "companies": [
+   {
+    "role": "제조자",
+    "name": "여천NCC",
+    "address": "전남 여수시 여수산단3로 2 (평여동 205-6)",
+    "contacts": [
+     {
+      "type": "긴급",
+      "value": "061-688-6117",
+      "hours": "24시간",
+      "line": "p1:L3"
+     },
+     {
+      "type": "긴급",
+      "value": "061-688-6117",
+      "line": "p1:L14"
+     }
+    ],
+    "line": "p1:L12"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S1_END",
+    "title_raw": "물질안전보건자료",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "value": "물질안전보건자료",
+      "line": "p1:L2"
+     }
+    ],
+    "line": "p1:L2"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"meta\": {\n    \"msds_no\": \"YNCC\",\n    \"revision_label\": \"MIXED C4'S\",\n    \"header_product_name\": \"MIXED C4'S\",\n    \"first_issue_date\": \"p1:L1\",\n    \"last_revision_date\": \"p1:L1\"\n  ,\n  \"lines\": {\n    \"msds_no\": \"p1:L1\",\n    \"revision_label\": \"p1:L1\",\n    \"header_product_name\": \"p1:L1\"\n  }\n}\n,\n  \"product\": {\n    \"name\": \"MIXED C4'S\",\n    \"code\": \"1075\",\n    \"uses\": [\n      \"연료\",\n      \"부타디엔 추출 원료\"\n    ],\n    \"restrictions\": [\n      \"사용상 주의사항을 숙지할 것\"\n    ]\n  ,\n  \"lines\": {\n    \"name\": \"p1:L6\",\n    \"code\": \"p1:L7\",\n    \"uses\": \"p1:L9\",\n    \"restrictions\": \"p1:L10\"\n  }\n}\n,\n  \"companies\": [\n    {\n      \"role\": \"제조자\",\n      \"name\": \"여천NCC\",\n      \"address\": \"전남 여수시 여수산단3로 2 (평여동 205-6)\",\n      \"contacts\": [\n        {\n          \"type\": \"긴급\",\n          \"value\": \"061-688-6117\",\n          \"hours\": \"24시간\"\n        ,\n        \"line\": \"p1:L3\"\n      }\n    ,\n        {\n          \"type\": \"긴급\",\n          \"value\": \"061-688-6117\"\n        ,\n        \"line\": \"p1:L14\"\n      }\n    ]\n  ,\n  \"line\": \"p1:L12\"\n}\n]\n,\n  \"extras\": [\n    {\n      \"after_item\": \"S1_END\",\n      \"title_raw\": \"물질안전보건자료\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"물질안전보건자료\"\n        ,\n        \"line\": \"p1:L2\"\n      }\n    ]\n  ,\n    \"line\": \"p1:L2\"\n  }\n]\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 3369,
+  "completion_tokens": 571,
+  "total_tokens": 3940
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 3369,
+    "completion_tokens": 571,
+    "total_tokens": 3940
+   },
+   "seconds": 8.469,
+   "chars": 1248,
+   "whitespace": 470,
+   "head": "{\n  \"meta\": {\n    \"msds_no\": \"YNCC\",\n    \"revision_label\": \"MIXED C4'S\",\n    \"header_product_name\": \"MIXED C4'S\",\n    \"first_issue_date\": \"p1:L1\",\n    \"last_revision_date\": \"p1:L1\"\n  ,\n  \"lines\": {\n    \"msds_no\": \"p1:L1\",\n    \"revision_label\": \"p1:L1\",\n    \"header_product_name\": \"p1:L1\"\n  }\n}\n,\n  \"product\": {\n    \"name\": \"MIXED C4'S\",\n    \"code\": \"1075\",\n    \"uses\": [\n      \"연료\",\n      \"부타디엔 추출 원료\"\n    ],\n    \"restrictions\": [\n      \"사용상 주의사항을 숙지할 것\"\n    ]\n  ,\n  \"lines\": {\n    \"name\": \"p1:L6\",\n ",
+   "tail": "         \"value\": \"061-688-6117\",\n          \"hours\": \"24시간\"\n        ,\n        \"line\": \"p1:L3\"\n      }\n    ,\n        {\n          \"type\": \"긴급\",\n          \"value\": \"061-688-6117\"\n        ,\n        \"line\": \"p1:L14\"\n      }\n    ]\n  ,\n  \"line\": \"p1:L12\"\n}\n]\n,\n  \"extras\": [\n    {\n      \"after_item\": \"S1_END\",\n      \"title_raw\": \"물질안전보건자료\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"물질안전보건자료\"\n        ,\n        \"line\": \"p1:L2\"\n      }\n    ]\n  ,\n    \"line\": \"p1:L2\"\n  }\n]\n}"
+  }
+ ],
+ "seconds": 8.47,
+ "check_problems": []
+}

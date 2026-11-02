@@ -1,0 +1,126 @@
+{
+ "doc_id": "T21-S003",
+ "msds_index": 0,
+ "section": 3,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "composition": {
+   "type": "혼합물",
+   "no_hazardous_component": false,
+   "lines": {
+    "type": "p1:L32",
+    "no_hazardous_component": "p1:L32"
+   }
+  },
+  "components": [
+   {
+    "name": "질소",
+    "name_en": "NITROGEN",
+    "synonyms": [
+     "질소(Nitrogen)"
+    ],
+    "cas_no": "7727-37-9",
+    "ke_no": "KE-25994",
+    "ec_no": "231-783-9",
+    "other_id": null,
+    "other_id_type": null,
+    "parent_seq": null,
+    "read_across_cas": null,
+    "content": {
+     "raw": "100%",
+     "value": 100,
+     "unit": "%"
+    },
+    "content_note": null,
+    "content_basis": "중량",
+    "trade_secret": false,
+    "approval_no": null,
+    "approval_expiry": null,
+    "line": "p1:L5"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S3_END",
+    "title_raw": "3.구성성분의 명칭 및 함유량",
+    "reason": "필드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [
+     {
+      "value": "물질명 질소,NITROGEN(Refrigerated)",
+      "line": "p1:L33"
+     },
+     {
+      "value": "이명(관용명) 질소(Nitrogen)",
+      "line": "p1:L33"
+     }
+    ],
+    "suggested_code": null,
+    "line": "p1:L33"
+   },
+   {
+    "after_item": "S3_END",
+    "title_raw": "CAS번호",
+    "reason": "필드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [
+     {
+      "value": "CAS번호 7727-37-9",
+      "line": "p2:L1"
+     }
+    ],
+    "suggested_code": null,
+    "line": "p2:L1"
+   },
+   {
+    "after_item": "S3_END",
+    "title_raw": "함유량(%)",
+    "reason": "필드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [
+     {
+      "value": "함유량(%) 100%",
+      "line": "p2:L2"
+     }
+    ],
+    "suggested_code": null,
+    "line": "p2:L2"
+   }
+  ]
+ },
+ "raw_text": "### composition\ntype | no_hazardous_component | line\n혼합물 | false | p1:L32\n\n### components\nname | name_en | synonyms | cas_no | ke_no | ec_no | other_id | other_id_type | parent_seq | read_across_cas | content | content_note | content_basis | trade_secret | approval_no | approval_expiry | line\n질소 | NITROGEN | 질소(Nitrogen) | 7727-37-9 | KE-25994 | 231-783-9 |  |  |  |  | 100% |  | 중량 | false |  |  | p1:L5\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\nS3_END | 3.구성성분의 명칭 및 함유량 | 필드없음 |  |  |  | 물질명 질소,NITROGEN(Refrigerated); 이명(관용명) 질소(Nitrogen) |  | p1:L33\nS3_END | CAS번호 | 필드없음 |  |  |  | CAS번호 7727-37-9 |  | p2:L1\nS3_END | 함유량(%) | 필드없음 |  |  |  | 함유량(%) 100% |  | p2:L2",
+ "mode": "rows",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 3344,
+  "completion_tokens": 319,
+  "total_tokens": 3663
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "rows",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 3344,
+    "completion_tokens": 319,
+    "total_tokens": 3663
+   },
+   "seconds": 6.816,
+   "chars": 739,
+   "whitespace": 159,
+   "head": "### composition\ntype | no_hazardous_component | line\n혼합물 | false | p1:L32\n\n### components\nname | name_en | synonyms | cas_no | ke_no | ec_no | other_id | other_id_type | parent_seq | read_across_cas | content | content_note | content_basis | trade_secret | approval_no | approval_expiry | line\n질소 | NITROGEN | 질소(Nitrogen) | 7727-37-9 | KE-25994 | 231-783-9 |  |  |  |  | 100% |  | 중량 | false |  |  | p1:L5\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggest",
+   "tail": "ed_code | line\nS3_END | 3.구성성분의 명칭 및 함유량 | 필드없음 |  |  |  | 물질명 질소,NITROGEN(Refrigerated); 이명(관용명) 질소(Nitrogen) |  | p1:L33\nS3_END | CAS번호 | 필드없음 |  |  |  | CAS번호 7727-37-9 |  | p2:L1\nS3_END | 함유량(%) | 필드없음 |  |  |  | 함유량(%) 100% |  | p2:L2"
+  }
+ ],
+ "seconds": 6.819,
+ "check_problems": []
+}

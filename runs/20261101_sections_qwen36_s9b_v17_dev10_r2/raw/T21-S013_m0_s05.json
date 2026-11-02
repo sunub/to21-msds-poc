@@ -1,0 +1,165 @@
+{
+ "doc_id": "T21-S013",
+ "msds_index": 0,
+ "section": 5,
+ "reextracted": true,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S5_MEDIA",
+    "title_raw": "가. 적절한(부적절한) 소화제",
+    "start": "p3:L12",
+    "end": "p3:L19"
+   },
+   {
+    "item_code": "S5_SPECIFIC",
+    "title_raw": "나. 화학물질로부터 생기는 특정 유해성",
+    "start": "p3:L20",
+    "end": "p3:L31"
+   },
+   {
+    "item_code": "S5_FIREFIGHT",
+    "title_raw": "다. 화재진압시 착용할 보호구 및 예방조치",
+    "start": "p4:L1",
+    "end": "p4:L14"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S5_SPECIFIC",
+    "title_raw": "기타",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "value": "일부 물질은 고농도로 흡입시 자극적일 수 있음.",
+      "line": "p3:L33"
+     },
+     {
+      "value": "화재시 자극성, 부식성, 독성 가스를 발생할 수 있음.",
+      "line": "p3:L34"
+     },
+     {
+      "value": "화재에 노출된 실린더는 가연성 가스를 방출할 수 있음.",
+      "line": "p3:L35"
+     }
+    ],
+    "line": "p3:L32"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S5_MEDIA\",\n      \"title_raw\": \"가. 적절한(부적절한) 소화제\",\n      \"start\": \"p3:L12\",\n      \"end\": \"p3:L19\"\n    },\n    {\n      \"item_code\": \"S5_SPECIFIC\",\n      \"title_raw\": \"나. 화학물질로부터 생기는 특정 유해성\",\n      \"start\": \"p3:L20\",\n      \"end\": \"p3:L31\"\n    },\n    {\n      \"item_code\": \"S5_FIREFIGHT\",\n      \"title_raw\": \"다. 화재진압시 착용할 보호구 및 예방조치\",\n      \"start\": \"p4:L1\",\n      \"end\": \"p4:L14\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S5_SPECIFIC\",\n      \"title_raw\": \"기타\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"일부 물질은 고농도로 흡입시 자극적일 수 있음.\",\n          \"line\": \"p3:L33\"\n        },\n        {\n          \"value\": \"화재시 자극성, 부식성, 독성 가스를 발생할 수 있음.\",\n          \"line\": \"p3:L34\"\n        },\n        {\n          \"value\": \"화재에 노출된 실린더는 가연성 가스를 방출할 수 있음.\",\n          \"line\": \"p3:L35\"\n        }\n      ],\n      \"line\": \"p3:L32\"\n    }\n  ]\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 2829,
+  "completion_tokens": 394,
+  "total_tokens": 3223
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 2829,
+    "completion_tokens": 394,
+    "total_tokens": 3223
+   },
+   "seconds": 4.755,
+   "chars": 899,
+   "whitespace": 355,
+   "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S5_MEDIA\",\n      \"title_raw\": \"가. 적절한(부적절한) 소화제\",\n      \"start\": \"p3:L12\",\n      \"end\": \"p3:L19\"\n    },\n    {\n      \"item_code\": \"S5_SPECIFIC\",\n      \"title_raw\": \"나. 화학물질로부터 생기는 특정 유해성\",\n      \"start\": \"p3:L20\",\n      \"end\": \"p3:L31\"\n    },\n    {\n      \"item_code\": \"S5_FIREFIGHT\",\n      \"title_raw\": \"다. 화재진압시 착용할 보호구 및 예방조치\",\n      \"start\": \"p4:L1\",\n      \"end\": \"p4:L14\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S5_SPECIFIC\",\n      \"title_",
+   "tail": "raw\": \"기타\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"일부 물질은 고농도로 흡입시 자극적일 수 있음.\",\n          \"line\": \"p3:L33\"\n        },\n        {\n          \"value\": \"화재시 자극성, 부식성, 독성 가스를 발생할 수 있음.\",\n          \"line\": \"p3:L34\"\n        },\n        {\n          \"value\": \"화재에 노출된 실린더는 가연성 가스를 방출할 수 있음.\",\n          \"line\": \"p3:L35\"\n        }\n      ],\n      \"line\": \"p3:L32\"\n    }\n  ]\n}"
+  }
+ ],
+ "seconds": 4.755,
+ "check_problems": [],
+ "first_attempt": {
+  "ok": true,
+  "parsed": {
+   "narratives": [
+    {
+     "item_code": "S5_MEDIA",
+     "title_raw": "가. 적절한(부적절한) 소화제",
+     "start": "L12",
+     "end": "L19"
+    },
+    {
+     "item_code": "S5_SPECIFIC",
+     "title_raw": "나. 화학물질로부터 생기는 특정 유해성",
+     "start": "L20",
+     "end": "L31"
+    },
+    {
+     "item_code": "S5_FIREFIGHT",
+     "title_raw": "다. 화재진압시 착용할 보호구 및 예방조치",
+     "start": "L1",
+     "end": "L14"
+    }
+   ],
+   "extras": [
+    {
+     "after_item": "S5_MEDIA",
+     "title_raw": "기타",
+     "reason": "코드없음",
+     "statements": [
+      {
+       "value": "일부 물질은 고농도로 흡입시 자극적일 수 있음.",
+       "line": "L33"
+      },
+      {
+       "value": "화재시 자극성, 부식성, 독성 가스를 발생할 수 있음.",
+       "line": "L34"
+      },
+      {
+       "value": "화재에 노출된 실린더는 가연성 가스를 방출할 수 있음.",
+       "line": "L35"
+      }
+     ],
+     "line": "L32"
+    }
+   ]
+  },
+  "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S5_MEDIA\",\n      \"title_raw\": \"가. 적절한(부적절한) 소화제\",\n      \"start\": \"L12\",\n      \"end\": \"L19\"\n    },\n    {\n      \"item_code\": \"S5_SPECIFIC\",\n      \"title_raw\": \"나. 화학물질로부터 생기는 특정 유해성\",\n      \"start\": \"L20\",\n      \"end\": \"L31\"\n    },\n    {\n      \"item_code\": \"S5_FIREFIGHT\",\n      \"title_raw\": \"다. 화재진압시 착용할 보호구 및 예방조치\",\n      \"start\": \"L1\",\n      \"end\": \"L14\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S5_MEDIA\",\n      \"title_raw\": \"기타\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"일부 물질은 고농도로 흡입시 자극적일 수 있음.\"\n        ,\n          \"line\": \"L33\"\n        },\n        {\n          \"value\": \"화재시 자극성, 부식성, 독성 가스를 발생할 수 있음.\"\n        ,\n          \"line\": \"L34\"\n        },\n        {\n          \"value\": \"화재에 노출된 실린더는 가연성 가스를 방출할 수 있음.\"\n        ,\n          \"line\": \"L35\"\n        }\n      ]\n    ,\n      \"line\": \"L32\"\n    }\n  ]\n}",
+  "mode": "json_schema",
+  "finish_reason": "stop",
+  "usage": {
+   "prompt_tokens": 2651,
+   "completion_tokens": 385,
+   "total_tokens": 3036
+  },
+  "attempts": 1,
+  "errors": [],
+  "requests": [
+   {
+    "mode": "json_schema",
+    "finish_reason": "stop",
+    "usage": {
+     "prompt_tokens": 2651,
+     "completion_tokens": 385,
+     "total_tokens": 3036
+    },
+    "seconds": 5.495,
+    "chars": 898,
+    "whitespace": 387,
+    "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S5_MEDIA\",\n      \"title_raw\": \"가. 적절한(부적절한) 소화제\",\n      \"start\": \"L12\",\n      \"end\": \"L19\"\n    },\n    {\n      \"item_code\": \"S5_SPECIFIC\",\n      \"title_raw\": \"나. 화학물질로부터 생기는 특정 유해성\",\n      \"start\": \"L20\",\n      \"end\": \"L31\"\n    },\n    {\n      \"item_code\": \"S5_FIREFIGHT\",\n      \"title_raw\": \"다. 화재진압시 착용할 보호구 및 예방조치\",\n      \"start\": \"L1\",\n      \"end\": \"L14\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S5_MEDIA\",\n      \"title_raw\": \"기타\",\n      \"re",
+    "tail": "ason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"일부 물질은 고농도로 흡입시 자극적일 수 있음.\"\n        ,\n          \"line\": \"L33\"\n        },\n        {\n          \"value\": \"화재시 자극성, 부식성, 독성 가스를 발생할 수 있음.\"\n        ,\n          \"line\": \"L34\"\n        },\n        {\n          \"value\": \"화재에 노출된 실린더는 가연성 가스를 방출할 수 있음.\"\n        ,\n          \"line\": \"L35\"\n        }\n      ]\n    ,\n      \"line\": \"L32\"\n    }\n  ]\n}"
+   }
+  ],
+  "seconds": 5.496,
+  "check_problems": [
+   "narratives[0].start: 원문에 없는 줄 번호 L12",
+   "narratives[0].end: 원문에 없는 줄 번호 L19",
+   "narratives[1].start: 원문에 없는 줄 번호 L20",
+   "narratives[1].end: 원문에 없는 줄 번호 L31",
+   "narratives[2].start: 원문에 없는 줄 번호 L1",
+   "narratives[2].end: 원문에 없는 줄 번호 L14",
+   "extras[0].statements[0].line: 원문에 없는 줄 번호 L33",
+   "extras[0].statements[1].line: 원문에 없는 줄 번호 L34",
+   "extras[0].statements[2].line: 원문에 없는 줄 번호 L35",
+   "extras[0].line: 원문에 없는 줄 번호 L32"
+  ]
+ }
+}

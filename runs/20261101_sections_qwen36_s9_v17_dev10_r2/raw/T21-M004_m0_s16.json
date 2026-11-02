@@ -1,0 +1,234 @@
+{
+ "doc_id": "T21-M004",
+ "msds_index": 0,
+ "section": 16,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S16_SOURCE",
+    "title_raw": "가. 자료의 출처",
+    "start": "L36",
+    "end": "L45"
+   },
+   {
+    "item_code": "S16_OTHER",
+    "title_raw": "라. 기타",
+    "start": "L41",
+    "end": "L45"
+   }
+  ],
+  "meta_revision": {
+   "first_issue_date": "2000-01-03",
+   "revision_no": 9,
+   "revision_label": "9.0.0",
+   "last_revision_date": "2017-12-21",
+   "lines": {
+    "first_issue_date": "L25",
+    "revision_no": "L27",
+    "revision_label": "L27",
+    "last_revision_date": "L39"
+   }
+  },
+  "extras": [
+   {
+    "after_item": "S16_OTHER",
+    "title_raw": "나. 최초 작성일자 :",
+    "reason": "필드없음",
+    "statements": [
+     {
+      "key": "나. 최초 작성일자 :",
+      "value": "",
+      "line": "L25"
+     }
+    ],
+    "line": "L25"
+   },
+   {
+    "after_item": "S16_OTHER",
+    "title_raw": "다. 개정 횟수 및 최종 개정일자",
+    "reason": "필드없음",
+    "statements": [
+     {
+      "key": "다. 개정 횟수 및 최종 개정일자",
+      "value": "",
+      "line": "L26"
+     }
+    ],
+    "line": "L26"
+   },
+   {
+    "after_item": "S16_OTHER",
+    "title_raw": "16",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "key": "16",
+      "value": "16",
+      "line": "L45"
+     }
+    ],
+    "line": "L45"
+   }
+  ]
+ },
+ "raw_text": "{\"narratives\":[{\"item_code\":\"S16_SOURCE\",\"title_raw\":\"가. 자료의 출처\",\"start\":\"L36\",\"end\":\"L45\"},{\"item_code\":\"S16_OTHER\",\"title_raw\":\"라. 기타\",\"start\":\"L41\",\"end\":\"L45\"}],\"meta_revision\":{\"first_issue_date\":\"2000-01-03\",\"revision_no\":9,\"revision_label\":\"9.0.0\",\"last_revision_date\":\"2017-12-21\",\"lines\":{\"first_issue_date\":\"L25\",\"revision_no\":\"L27\",\"revision_label\":\"L27\",\"last_revision_date\":\"L39\"}},\"extras\":[{\"after_item\":\"S16_OTHER\",\"title_raw\":\"나. 최초 작성일자 :\",\"reason\":\"필드없음\",\"statements\":[{\"key\":\"나. 최초 작성일자 :\",\"value\":\"\",\"line\":\"L25\"}],\"line\":\"L25\"},{\"after_item\":\"S16_OTHER\",\"title_raw\":\"다. 개정 횟수 및 최종 개정일자\",\"reason\":\"필드없음\",\"statements\":[{\"key\":\"다. 개정 횟수 및 최종 개정일자\",\"value\":\"\",\"line\":\"L26\"}],\"line\":\"L26\"},{\"after_item\":\"S16_OTHER\",\"title_raw\":\"16\",\"reason\":\"코드없음\",\"statements\":[{\"key\":\"16\",\"value\":\"16\",\"line\":\"L45\"}],\"line\":\"L45\"}]}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 3553,
+  "completion_tokens": 308,
+  "total_tokens": 3861
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 3553,
+    "completion_tokens": 308,
+    "total_tokens": 3861
+   },
+   "seconds": 4.505,
+   "chars": 835,
+   "whitespace": 19,
+   "head": "{\"narratives\":[{\"item_code\":\"S16_SOURCE\",\"title_raw\":\"가. 자료의 출처\",\"start\":\"L36\",\"end\":\"L45\"},{\"item_code\":\"S16_OTHER\",\"title_raw\":\"라. 기타\",\"start\":\"L41\",\"end\":\"L45\"}],\"meta_revision\":{\"first_issue_date\":\"2000-01-03\",\"revision_no\":9,\"revision_label\":\"9.0.0\",\"last_revision_date\":\"2017-12-21\",\"lines\":{\"first_issue_date\":\"L25\",\"revision_no\":\"L27\",\"revision_label\":\"L27\",\"last_revision_date\":\"L39\"}},\"extras\":[{\"after_item\":\"S16_OTHER\",\"title_raw\":\"나. 최초 작성일자 :\",\"reason\":\"필드없음\",\"statements\":[{\"key\":\"나. 최",
+   "tail": "초 작성일자 :\",\"value\":\"\",\"line\":\"L25\"}],\"line\":\"L25\"},{\"after_item\":\"S16_OTHER\",\"title_raw\":\"다. 개정 횟수 및 최종 개정일자\",\"reason\":\"필드없음\",\"statements\":[{\"key\":\"다. 개정 횟수 및 최종 개정일자\",\"value\":\"\",\"line\":\"L26\"}],\"line\":\"L26\"},{\"after_item\":\"S16_OTHER\",\"title_raw\":\"16\",\"reason\":\"코드없음\",\"statements\":[{\"key\":\"16\",\"value\":\"16\",\"line\":\"L45\"}],\"line\":\"L45\"}]}"
+  }
+ ],
+ "seconds": 4.506,
+ "check_problems": [
+  "narratives[0].start: 원문에 없는 줄 번호 L36",
+  "narratives[0].end: 원문에 없는 줄 번호 L45",
+  "narratives[1].start: 원문에 없는 줄 번호 L41",
+  "narratives[1].end: 원문에 없는 줄 번호 L45",
+  "meta_revision.lines.first_issue_date: 원문에 없는 줄 번호 L25",
+  "meta_revision.lines.revision_no: 원문에 없는 줄 번호 L27",
+  "meta_revision.lines.revision_label: 원문에 없는 줄 번호 L27",
+  "meta_revision.lines.last_revision_date: 원문에 없는 줄 번호 L39",
+  "extras[0].statements[0].line: 원문에 없는 줄 번호 L25",
+  "extras[0].line: 원문에 없는 줄 번호 L25",
+  "extras[1].statements[0].line: 원문에 없는 줄 번호 L26",
+  "extras[1].line: 원문에 없는 줄 번호 L26",
+  "extras[2].statements[0].line: 원문에 없는 줄 번호 L45",
+  "extras[2].line: 원문에 없는 줄 번호 L45"
+ ],
+ "reextract_attempt": {
+  "ok": true,
+  "parsed": {
+   "narratives": [
+    {
+     "item_code": "S16_SOURCE",
+     "title_raw": "가. 자료의 출처",
+     "start": "L36",
+     "end": "L45"
+    },
+    {
+     "item_code": "S16_OTHER",
+     "title_raw": "라. 기타",
+     "start": "L41",
+     "end": "L45"
+    }
+   ],
+   "meta_revision": {
+    "first_issue_date": "2000-01-03",
+    "revision_no": 9,
+    "revision_label": "9.0.0",
+    "last_revision_date": "2017-12-21",
+    "lines": {
+     "first_issue_date": "L25",
+     "revision_no": "L27",
+     "revision_label": "L27",
+     "last_revision_date": "L39"
+    }
+   },
+   "extras": [
+    {
+     "after_item": "S16_OTHER",
+     "title_raw": "나. 최초 작성일자 :",
+     "reason": "필드없음",
+     "statements": [
+      {
+       "key": "나. 최초 작성일자 :",
+       "value": "",
+       "line": "L25"
+      }
+     ],
+     "line": "L25"
+    },
+    {
+     "after_item": "S16_OTHER",
+     "title_raw": "다. 개정 횟수 및 최종 개정일자",
+     "reason": "필드없음",
+     "statements": [
+      {
+       "key": "다. 개정 횟수 및 최종 개정일자",
+       "value": "",
+       "line": "L26"
+      }
+     ],
+     "line": "L26"
+    },
+    {
+     "after_item": "S16_OTHER",
+     "title_raw": "라. 기타",
+     "reason": "필드없음",
+     "statements": [
+      {
+       "key": "라. 기타",
+       "value": "",
+       "line": "L45"
+      }
+     ],
+     "line": "L45"
+    }
+   ]
+  },
+  "raw_text": "{\"narratives\":[{\"item_code\":\"S16_SOURCE\",\"title_raw\":\"가. 자료의 출처\",\"start\":\"L36\",\"end\":\"L45\"},{\"item_code\":\"S16_OTHER\",\"title_raw\":\"라. 기타\",\"start\":\"L41\",\"end\":\"L45\"}],\"meta_revision\":{\"first_issue_date\":\"2000-01-03\",\"revision_no\":9,\"revision_label\":\"9.0.0\",\"last_revision_date\":\"2017-12-21\",\"lines\":{\"first_issue_date\":\"L25\",\"revision_no\":\"L27\",\"revision_label\":\"L27\",\"last_revision_date\":\"L39\"}},\"extras\":[{\"after_item\":\"S16_OTHER\",\"title_raw\":\"나. 최초 작성일자 :\",\"reason\":\"필드없음\",\"statements\":[{\"key\":\"나. 최초 작성일자 :\",\"value\":\"\",\"line\":\"L25\"}],\"line\":\"L25\"},{\"after_item\":\"S16_OTHER\",\"title_raw\":\"다. 개정 횟수 및 최종 개정일자\",\"reason\":\"필드없음\",\"statements\":[{\"key\":\"다. 개정 횟수 및 최종 개정일자\",\"value\":\"\",\"line\":\"L26\"}],\"line\":\"L26\"},{\"after_item\":\"S16_OTHER\",\"title_raw\":\"라. 기타\",\"reason\":\"필드없음\",\"statements\":[{\"key\":\"라. 기타\",\"value\":\"\",\"line\":\"L45\"}],\"line\":\"L45\"}]}",
+  "mode": "json_schema",
+  "finish_reason": "stop",
+  "usage": {
+   "prompt_tokens": 3800,
+   "completion_tokens": 304,
+   "total_tokens": 4104
+  },
+  "attempts": 1,
+  "errors": [],
+  "requests": [
+   {
+    "mode": "json_schema",
+    "finish_reason": "stop",
+    "usage": {
+     "prompt_tokens": 3800,
+     "completion_tokens": 304,
+     "total_tokens": 4104
+    },
+    "seconds": 4.075,
+    "chars": 839,
+    "whitespace": 21,
+    "head": "{\"narratives\":[{\"item_code\":\"S16_SOURCE\",\"title_raw\":\"가. 자료의 출처\",\"start\":\"L36\",\"end\":\"L45\"},{\"item_code\":\"S16_OTHER\",\"title_raw\":\"라. 기타\",\"start\":\"L41\",\"end\":\"L45\"}],\"meta_revision\":{\"first_issue_date\":\"2000-01-03\",\"revision_no\":9,\"revision_label\":\"9.0.0\",\"last_revision_date\":\"2017-12-21\",\"lines\":{\"first_issue_date\":\"L25\",\"revision_no\":\"L27\",\"revision_label\":\"L27\",\"last_revision_date\":\"L39\"}},\"extras\":[{\"after_item\":\"S16_OTHER\",\"title_raw\":\"나. 최초 작성일자 :\",\"reason\":\"필드없음\",\"statements\":[{\"key\":\"나. 최",
+    "tail": "초 작성일자 :\",\"value\":\"\",\"line\":\"L25\"}],\"line\":\"L25\"},{\"after_item\":\"S16_OTHER\",\"title_raw\":\"다. 개정 횟수 및 최종 개정일자\",\"reason\":\"필드없음\",\"statements\":[{\"key\":\"다. 개정 횟수 및 최종 개정일자\",\"value\":\"\",\"line\":\"L26\"}],\"line\":\"L26\"},{\"after_item\":\"S16_OTHER\",\"title_raw\":\"라. 기타\",\"reason\":\"필드없음\",\"statements\":[{\"key\":\"라. 기타\",\"value\":\"\",\"line\":\"L45\"}],\"line\":\"L45\"}]}"
+   }
+  ],
+  "seconds": 4.076,
+  "check_problems": [
+   "narratives[0].start: 원문에 없는 줄 번호 L36",
+   "narratives[0].end: 원문에 없는 줄 번호 L45",
+   "narratives[1].start: 원문에 없는 줄 번호 L41",
+   "narratives[1].end: 원문에 없는 줄 번호 L45",
+   "meta_revision.lines.first_issue_date: 원문에 없는 줄 번호 L25",
+   "meta_revision.lines.revision_no: 원문에 없는 줄 번호 L27",
+   "meta_revision.lines.revision_label: 원문에 없는 줄 번호 L27",
+   "meta_revision.lines.last_revision_date: 원문에 없는 줄 번호 L39",
+   "extras[0].statements[0].line: 원문에 없는 줄 번호 L25",
+   "extras[0].line: 원문에 없는 줄 번호 L25",
+   "extras[1].statements[0].line: 원문에 없는 줄 번호 L26",
+   "extras[1].line: 원문에 없는 줄 번호 L26",
+   "extras[2].statements[0].line: 원문에 없는 줄 번호 L45",
+   "extras[2].line: 원문에 없는 줄 번호 L45"
+  ]
+ }
+}

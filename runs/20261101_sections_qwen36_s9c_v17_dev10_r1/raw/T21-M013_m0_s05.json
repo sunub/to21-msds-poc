@@ -1,0 +1,173 @@
+{
+ "doc_id": "T21-M013",
+ "msds_index": 0,
+ "section": 5,
+ "reextracted": true,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S5_MEDIA",
+    "title_raw": "가. 적절한 (및 부적절한) 소화제",
+    "start": "p3:L19",
+    "end": "p3:L21"
+   },
+   {
+    "item_code": "S5_SPECIFIC",
+    "title_raw": "나. 화학물질로부터 생기는 특정 유해성 (예: 연소시 발생 유해물질)",
+    "start": "p3:L22",
+    "end": "p3:L22"
+   },
+   {
+    "item_code": "S5_FIREFIGHT",
+    "title_raw": "다. 화재 진압 시 착용할 보호구 및 예방조치",
+    "start": "p3:L23",
+    "end": "p3:L25"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S5_FIREFIGHT",
+    "title_raw": "일반 화재 위험성",
+    "reason": "필드없음",
+    "statements": [
+     {
+      "value": "인화성 액체 및 증기.",
+      "line": "p3:L26"
+     }
+    ],
+    "line": "p3:L26"
+   },
+   {
+    "after_item": "S5_FIREFIGHT",
+    "title_raw": "특정 방법",
+    "reason": "필드없음",
+    "statements": [
+     {
+      "value": "표준 소방 절차를 준수하고 기타 관여된 물질의 위험성을 고려할 것.",
+      "line": "p3:L27"
+     }
+    ],
+    "line": "p3:L27"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S5_MEDIA\",\n      \"title_raw\": \"가. 적절한 (및 부적절한) 소화제\",\n      \"start\": \"p3:L19\",\n      \"end\": \"p3:L21\"\n    },\n    {\n      \"item_code\": \"S5_SPECIFIC\",\n      \"title_raw\": \"나. 화학물질로부터 생기는 특정 유해성 (예: 연소시 발생 유해물질)\",\n      \"start\": \"p3:L22\",\n      \"end\": \"p3:L22\"\n    },\n    {\n      \"item_code\": \"S5_FIREFIGHT\",\n      \"title_raw\": \"다. 화재 진압 시 착용할 보호구 및 예방조치\",\n      \"start\": \"p3:L23\",\n      \"end\": \"p3:L25\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S5_FIREFIGHT\",\n      \"title_raw\": \"일반 화재 위험성\",\n      \"reason\": \"필드없음\",\n      \"statements\": [\n        {\n          \"value\": \"인화성 액체 및 증기.\",\n          \"line\": \"p3:L26\"\n        }\n      ],\n      \"line\": \"p3:L26\"\n    },\n    {\n      \"after_item\": \"S5_FIREFIGHT\",\n      \"title_raw\": \"특정 방법\",\n      \"reason\": \"필드없음\",\n      \"statements\": [\n        {\n          \"value\": \"표준 소방 절차를 준수하고 기타 관여된 물질의 위험성을 고려할 것.\",\n          \"line\": \"p3:L27\"\n        }\n      ],\n      \"line\": \"p3:L27\"\n    }\n  ]\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 2301,
+  "completion_tokens": 422,
+  "total_tokens": 2723
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 2301,
+    "completion_tokens": 422,
+    "total_tokens": 2723
+   },
+   "seconds": 5.55,
+   "chars": 976,
+   "whitespace": 373,
+   "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S5_MEDIA\",\n      \"title_raw\": \"가. 적절한 (및 부적절한) 소화제\",\n      \"start\": \"p3:L19\",\n      \"end\": \"p3:L21\"\n    },\n    {\n      \"item_code\": \"S5_SPECIFIC\",\n      \"title_raw\": \"나. 화학물질로부터 생기는 특정 유해성 (예: 연소시 발생 유해물질)\",\n      \"start\": \"p3:L22\",\n      \"end\": \"p3:L22\"\n    },\n    {\n      \"item_code\": \"S5_FIREFIGHT\",\n      \"title_raw\": \"다. 화재 진압 시 착용할 보호구 및 예방조치\",\n      \"start\": \"p3:L23\",\n      \"end\": \"p3:L25\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S5_F",
+   "tail": "IREFIGHT\",\n      \"title_raw\": \"일반 화재 위험성\",\n      \"reason\": \"필드없음\",\n      \"statements\": [\n        {\n          \"value\": \"인화성 액체 및 증기.\",\n          \"line\": \"p3:L26\"\n        }\n      ],\n      \"line\": \"p3:L26\"\n    },\n    {\n      \"after_item\": \"S5_FIREFIGHT\",\n      \"title_raw\": \"특정 방법\",\n      \"reason\": \"필드없음\",\n      \"statements\": [\n        {\n          \"value\": \"표준 소방 절차를 준수하고 기타 관여된 물질의 위험성을 고려할 것.\",\n          \"line\": \"p3:L27\"\n        }\n      ],\n      \"line\": \"p3:L27\"\n    }\n  ]\n}"
+  }
+ ],
+ "seconds": 5.551,
+ "check_problems": [],
+ "first_attempt": {
+  "ok": true,
+  "parsed": {
+   "narratives": [
+    {
+     "item_code": "S5_MEDIA",
+     "title_raw": "가. 적절한 (및 부적절한) 소화제",
+     "start": "L19",
+     "end": "L21"
+    },
+    {
+     "item_code": "S5_SPECIFIC",
+     "title_raw": "나. 화학물질로부터 생기는 특정 유해성 (예: 연소시 발생 유해물질)",
+     "start": "L22",
+     "end": "L22"
+    },
+    {
+     "item_code": "S5_FIREFIGHT",
+     "title_raw": "다. 화재 진압 시 착용할 보호구 및 예방조치",
+     "start": "L23",
+     "end": "L25"
+    }
+   ],
+   "extras": [
+    {
+     "after_item": "S5_FIREFIGHT",
+     "title_raw": "일반 화재 위험성",
+     "reason": "필드없음",
+     "statements": [
+      {
+       "value": "인화성 액체 및 증기.",
+       "line": "L26"
+      }
+     ],
+     "line": "L26"
+    },
+    {
+     "after_item": "S5_FIREFIGHT",
+     "title_raw": "특정 방법",
+     "reason": "필드없음",
+     "statements": [
+      {
+       "value": "표준 소방 절차를 준수하고 기타 관여된 물질의 위험성을 고려할 것.",
+       "line": "L27"
+      }
+     ],
+     "line": "L27"
+    }
+   ]
+  },
+  "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S5_MEDIA\",\n      \"title_raw\": \"가. 적절한 (및 부적절한) 소화제\",\n      \"start\": \"L19\",\n      \"end\": \"L21\"\n    },\n    {\n      \"item_code\": \"S5_SPECIFIC\",\n      \"title_raw\": \"나. 화학물질로부터 생기는 특정 유해성 (예: 연소시 발생 유해물질)\",\n      \"start\": \"L22\",\n      \"end\": \"L22\"\n    },\n    {\n      \"item_code\": \"S5_FIREFIGHT\",\n      \"title_raw\": \"다. 화재 진압 시 착용할 보호구 및 예방조치\",\n      \"start\": \"L23\",\n      \"end\": \"L25\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S5_FIREFIGHT\",\n      \"title_raw\": \"일반 화재 위험성\",\n      \"reason\": \"필드없음\",\n      \"statements\": [\n        {\n          \"value\": \"인화성 액체 및 증기.\"\n        ,\n          \"line\": \"L26\"\n        }\n      ]\n    ,\n      \"line\": \"L26\"\n    },\n    {\n      \"after_item\": \"S5_FIREFIGHT\",\n      \"title_raw\": \"특정 방법\",\n      \"reason\": \"필드없음\",\n      \"statements\": [\n        {\n          \"value\": \"표준 소방 절차를 준수하고 기타 관여된 물질의 위험성을 고려할 것.\"\n        ,\n          \"line\": \"L27\"\n        }\n      ]\n    ,\n      \"line\": \"L27\"\n    }\n  ]\n}",
+  "mode": "json_schema",
+  "finish_reason": "stop",
+  "usage": {
+   "prompt_tokens": 2126,
+   "completion_tokens": 414,
+   "total_tokens": 2540
+  },
+  "attempts": 1,
+  "errors": [],
+  "requests": [
+   {
+    "mode": "json_schema",
+    "finish_reason": "stop",
+    "usage": {
+     "prompt_tokens": 2126,
+     "completion_tokens": 414,
+     "total_tokens": 2540
+    },
+    "seconds": 6.665,
+    "chars": 974,
+    "whitespace": 401,
+    "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S5_MEDIA\",\n      \"title_raw\": \"가. 적절한 (및 부적절한) 소화제\",\n      \"start\": \"L19\",\n      \"end\": \"L21\"\n    },\n    {\n      \"item_code\": \"S5_SPECIFIC\",\n      \"title_raw\": \"나. 화학물질로부터 생기는 특정 유해성 (예: 연소시 발생 유해물질)\",\n      \"start\": \"L22\",\n      \"end\": \"L22\"\n    },\n    {\n      \"item_code\": \"S5_FIREFIGHT\",\n      \"title_raw\": \"다. 화재 진압 시 착용할 보호구 및 예방조치\",\n      \"start\": \"L23\",\n      \"end\": \"L25\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S5_FIREFIGHT\",\n      \"",
+    "tail": "title_raw\": \"일반 화재 위험성\",\n      \"reason\": \"필드없음\",\n      \"statements\": [\n        {\n          \"value\": \"인화성 액체 및 증기.\"\n        ,\n          \"line\": \"L26\"\n        }\n      ]\n    ,\n      \"line\": \"L26\"\n    },\n    {\n      \"after_item\": \"S5_FIREFIGHT\",\n      \"title_raw\": \"특정 방법\",\n      \"reason\": \"필드없음\",\n      \"statements\": [\n        {\n          \"value\": \"표준 소방 절차를 준수하고 기타 관여된 물질의 위험성을 고려할 것.\"\n        ,\n          \"line\": \"L27\"\n        }\n      ]\n    ,\n      \"line\": \"L27\"\n    }\n  ]\n}"
+   }
+  ],
+  "seconds": 6.666,
+  "check_problems": [
+   "narratives[0].start: 원문에 없는 줄 번호 L19",
+   "narratives[0].end: 원문에 없는 줄 번호 L21",
+   "narratives[1].start: 원문에 없는 줄 번호 L22",
+   "narratives[1].end: 원문에 없는 줄 번호 L22",
+   "narratives[2].start: 원문에 없는 줄 번호 L23",
+   "narratives[2].end: 원문에 없는 줄 번호 L25",
+   "extras[0].statements[0].line: 원문에 없는 줄 번호 L26",
+   "extras[0].line: 원문에 없는 줄 번호 L26",
+   "extras[1].statements[0].line: 원문에 없는 줄 번호 L27",
+   "extras[1].line: 원문에 없는 줄 번호 L27"
+  ]
+ }
+}

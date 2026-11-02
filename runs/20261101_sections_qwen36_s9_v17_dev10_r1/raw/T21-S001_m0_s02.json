@@ -1,0 +1,126 @@
+{
+ "doc_id": "T21-S001",
+ "msds_index": 0,
+ "section": 2,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "hazard": {
+   "classified": true,
+   "classes": [
+    {
+     "group": "물리적",
+     "class_code": "PH_PRESS_GAS",
+     "category": "압축가스",
+     "raw": "고압가스 압축가스",
+     "line": "p2:L15"
+    }
+   ],
+   "signal_word": "경고",
+   "pictograms": [
+    {
+     "code": "GHS04"
+    }
+   ],
+   "h_statements": [
+    {
+     "code": "EUH066",
+     "text": "가열하면 폭발할 수 있음",
+     "line": "p2:L19"
+    },
+    {
+     "code": "EUH019",
+     "text": "고압가스 포함",
+     "line": "p2:L19"
+    }
+   ],
+   "p_statements": [
+    {
+     "code": "P403+P233",
+     "type": "저장",
+     "text": "용기는 조심해서 다루고, 충격을 주거나 전도되지 않게 하시오",
+     "line": "p2:L21"
+    },
+    {
+     "code": "P403",
+     "type": "저장",
+     "text": "직사광선을 피하고 환기가 잘 되는 곳에 보관하시오",
+     "line": "p2:L28"
+    },
+    {
+     "code": "P405",
+     "type": "저장",
+     "text": "사용후에는 용기 밸브를 완전히 잠그고, 용기 캡을 안전하게 씌우시오",
+     "line": "p2:L29"
+    },
+    {
+     "code": "P405",
+     "type": "저장",
+     "text": "용기 캡을 안전하게 씌우시오",
+     "line": "p2:L29"
+    },
+    {
+     "code": "P501",
+     "type": "폐기",
+     "text": "관련 법규에 명시된 경우 규정에 따라 내용물, 용기를 폐기하시오",
+     "line": "p2:L30"
+    }
+   ],
+   "nfpa": {
+    "health": 0,
+    "fire": 0,
+    "reactivity": 0
+   },
+   "lines": {
+    "signal_word": "p2:L18",
+    "pictograms": "p2:L17",
+    "nfpa": "p2:L31"
+   }
+  },
+  "narratives": [],
+  "extras": [
+   {
+    "after_item": "S2_LABEL_NOTE",
+    "title_raw": "마. 유해 위험성 분류기준에 포함되지 않는 기타 유해 위험성",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "key": "NFPA",
+      "value": "보건:0, 화재:0, 반응성:0",
+      "line": "p2:L31"
+     }
+    ],
+    "suggested_code": "ETC_UNMAPPED",
+    "line": "p2:L31"
+   }
+  ]
+ },
+ "raw_text": "{\"hazard\":{\"classified\":true,\"classes\":[{\"group\":\"물리적\",\"class_code\":\"PH_PRESS_GAS\",\"category\":\"압축가스\",\"raw\":\"고압가스 압축가스\",\"line\":\"p2:L15\"}],\"signal_word\":\"경고\",\"pictograms\":[{\"code\":\"GHS04\"}],\"h_statements\":[{\"code\":\"EUH066\",\"text\":\"가열하면 폭발할 수 있음\",\"line\":\"p2:L19\"},{\"code\":\"EUH019\",\"text\":\"고압가스 포함\",\"line\":\"p2:L19\"}],\"p_statements\":[{\"code\":\"P403+P233\",\"type\":\"저장\",\"text\":\"용기는 조심해서 다루고, 충격을 주거나 전도되지 않게 하시오\",\"line\":\"p2:L21\"},{\"code\":\"P403\",\"type\":\"저장\",\"text\":\"직사광선을 피하고 환기가 잘 되는 곳에 보관하시오\",\"line\":\"p2:L28\"},{\"code\":\"P405\",\"type\":\"저장\",\"text\":\"사용후에는 용기 밸브를 완전히 잠그고, 용기 캡을 안전하게 씌우시오\",\"line\":\"p2:L29\"},{\"code\":\"P405\",\"type\":\"저장\",\"text\":\"용기 캡을 안전하게 씌우시오\",\"line\":\"p2:L29\"},{\"code\":\"P501\",\"type\":\"폐기\",\"text\":\"관련 법규에 명시된 경우 규정에 따라 내용물, 용기를 폐기하시오\",\"line\":\"p2:L30\"}],\"nfpa\":{\"health\":0,\"fire\":0,\"reactivity\":0},\"lines\":{\"signal_word\":\"p2:L18\",\"pictograms\":\"p2:L17\",\"nfpa\":\"p2:L31\"}},\"narratives\":[],\"extras\":[{\"after_item\":\"S2_LABEL_NOTE\",\"title_raw\":\"마. 유해 위험성 분류기준에 포함되지 않는 기타 유해 위험성\",\"reason\":\"코드없음\",\"statements\":[{\"key\":\"NFPA\",\"value\":\"보건:0, 화재:0, 반응성:0\",\"line\":\"p2:L31\"}],\"suggested_code\":\"ETC_UNMAPPED\",\"line\":\"p2:L31\"}]}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 5775,
+  "completion_tokens": 469,
+  "total_tokens": 6244
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 5775,
+    "completion_tokens": 469,
+    "total_tokens": 6244
+   },
+   "seconds": 7.646,
+   "chars": 1112,
+   "whitespace": 47,
+   "head": "{\"hazard\":{\"classified\":true,\"classes\":[{\"group\":\"물리적\",\"class_code\":\"PH_PRESS_GAS\",\"category\":\"압축가스\",\"raw\":\"고압가스 압축가스\",\"line\":\"p2:L15\"}],\"signal_word\":\"경고\",\"pictograms\":[{\"code\":\"GHS04\"}],\"h_statements\":[{\"code\":\"EUH066\",\"text\":\"가열하면 폭발할 수 있음\",\"line\":\"p2:L19\"},{\"code\":\"EUH019\",\"text\":\"고압가스 포함\",\"line\":\"p2:L19\"}],\"p_statements\":[{\"code\":\"P403+P233\",\"type\":\"저장\",\"text\":\"용기는 조심해서 다루고, 충격을 주거나 전도되지 않게 하시오\",\"line\":\"p2:L21\"},{\"code\":\"P403\",\"type\":\"저장\",\"text\":\"직사광선을 피하고 환기가 잘 되는 곳에 보관하시오\",\"line\":\"p2:L28\"",
+   "tail": "e\":\"저장\",\"text\":\"용기 캡을 안전하게 씌우시오\",\"line\":\"p2:L29\"},{\"code\":\"P501\",\"type\":\"폐기\",\"text\":\"관련 법규에 명시된 경우 규정에 따라 내용물, 용기를 폐기하시오\",\"line\":\"p2:L30\"}],\"nfpa\":{\"health\":0,\"fire\":0,\"reactivity\":0},\"lines\":{\"signal_word\":\"p2:L18\",\"pictograms\":\"p2:L17\",\"nfpa\":\"p2:L31\"}},\"narratives\":[],\"extras\":[{\"after_item\":\"S2_LABEL_NOTE\",\"title_raw\":\"마. 유해 위험성 분류기준에 포함되지 않는 기타 유해 위험성\",\"reason\":\"코드없음\",\"statements\":[{\"key\":\"NFPA\",\"value\":\"보건:0, 화재:0, 반응성:0\",\"line\":\"p2:L31\"}],\"suggested_code\":\"ETC_UNMAPPED\",\"line\":\"p2:L31\"}]}"
+  }
+ ],
+ "seconds": 7.648,
+ "check_problems": []
+}

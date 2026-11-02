@@ -194,7 +194,7 @@ def test_value_and_range_are_exclusive(systems, no):
 
 
 def test_version():
-    assert sp.SECTION_PROMPT_VERSION == "s7"
+    assert sp.SECTION_PROMPT_VERSION == "s10"
 
 
 @pytest.mark.parametrize("no", NOS)
@@ -225,8 +225,17 @@ def rows_systems():
     return {no: sp.build_system(no, rows=True) for no in ROWS_SECTIONS_DEFAULT}
 
 
-def test_rows_version_s6():
-    assert sp.SECTION_PROMPT_VERSION == "s7"
+def test_rows_version_s10():
+    assert sp.SECTION_PROMPT_VERSION == "s10"
+
+
+@pytest.mark.parametrize("no", ROWS_SECTIONS_DEFAULT)
+def test_rows_rules_show_source_examples_only(rows_systems, systems, no):
+    """행 형식은 숫자 칸에 원문 표기를 쓰고 나누기는 코드가 하므로, 규칙에 저장 모양 예({lower_op:...})를 보이지 않는다.
+    모델이 저장 모양을 숫자 칸에 베껴 쓰기 때문이다. JSON 안내문은 그대로 둔다."""
+    rules = _part(rows_systems[no], "[규칙]")
+    assert "저장 예" not in rules and "{lower_op" not in rules and "원문 예" in rules
+    assert "저장 예" in _part(systems[no], "[규칙]")
 
 
 @pytest.mark.parametrize("no", ROWS_SECTIONS_DEFAULT)

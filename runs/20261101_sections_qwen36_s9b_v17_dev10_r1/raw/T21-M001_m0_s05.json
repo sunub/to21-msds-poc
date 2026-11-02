@@ -1,0 +1,72 @@
+{
+ "doc_id": "T21-M001",
+ "msds_index": 0,
+ "section": 5,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S5_MEDIA",
+    "title_raw": "가. 적절한(부적절한) 소화제",
+    "start": "p3:L7",
+    "end": "p3:L14"
+   },
+   {
+    "item_code": "S5_SPECIFIC",
+    "title_raw": "나. 화학물질로부터 생기는 특정 유해성",
+    "start": "p3:L15",
+    "end": "p3:L28"
+   },
+   {
+    "item_code": "S5_FIREFIGHT",
+    "title_raw": "다. 화재 진압 시 착용할 보호구 및 예방조치",
+    "start": "p3:L31",
+    "end": "p4:L9"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S5_MEDIA",
+    "title_raw": "기타",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "key": "내용",
+      "value": "물질의 흡입은 유해할 수 있습니다.",
+      "line": "p3:L30"
+     }
+    ],
+    "line": "p3:L29"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S5_MEDIA\",\n      \"title_raw\": \"가. 적절한(부적절한) 소화제\",\n      \"start\": \"p3:L7\",\n      \"end\": \"p3:L14\"\n    },\n    {\n      \"item_code\": \"S5_SPECIFIC\",\n      \"title_raw\": \"나. 화학물질로부터 생기는 특정 유해성\",\n      \"start\": \"p3:L15\",\n      \"end\": \"p3:L28\"\n    },\n    {\n      \"item_code\": \"S5_FIREFIGHT\",\n      \"title_raw\": \"다. 화재 진압 시 착용할 보호구 및 예방조치\",\n      \"start\": \"p3:L31\",\n      \"end\": \"p4:L9\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S5_MEDIA\",\n      \"title_raw\": \"기타\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"key\": \"내용\",\n          \"value\": \"물질의 흡입은 유해할 수 있습니다.\"\n        ,\n          \"line\": \"p3:L30\"\n        }\n      ]\n    ,\n      \"line\": \"p3:L29\"\n    }\n  ]\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 2582,
+  "completion_tokens": 315,
+  "total_tokens": 2897
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 2582,
+    "completion_tokens": 315,
+    "total_tokens": 2897
+   },
+   "seconds": 5.129,
+   "chars": 725,
+   "whitespace": 283,
+   "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S5_MEDIA\",\n      \"title_raw\": \"가. 적절한(부적절한) 소화제\",\n      \"start\": \"p3:L7\",\n      \"end\": \"p3:L14\"\n    },\n    {\n      \"item_code\": \"S5_SPECIFIC\",\n      \"title_raw\": \"나. 화학물질로부터 생기는 특정 유해성\",\n      \"start\": \"p3:L15\",\n      \"end\": \"p3:L28\"\n    },\n    {\n      \"item_code\": \"S5_FIREFIGHT\",\n      \"title_raw\": \"다. 화재 진압 시 착용할 보호구 및 예방조치\",\n      \"start\": \"p3:L31\",\n      \"end\": \"p4:L9\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S5_MEDIA\",\n      \"title_ra",
+   "tail": "w\": \"기타\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"key\": \"내용\",\n          \"value\": \"물질의 흡입은 유해할 수 있습니다.\"\n        ,\n          \"line\": \"p3:L30\"\n        }\n      ]\n    ,\n      \"line\": \"p3:L29\"\n    }\n  ]\n}"
+  }
+ ],
+ "seconds": 5.13,
+ "check_problems": []
+}

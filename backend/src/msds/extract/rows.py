@@ -394,6 +394,8 @@ def _value(text: str, kind: str, node: dict, defs: dict, line: str | None):
     if not text:
         return None
     if kind == "qm":
+        if text.startswith("{"):      # 저장 모양을 베껴 쓰면 parse_qm이 raw만 남겨 값이 사라진다
+            raise ValueError(f"숫자 묶음 칸에는 원문 표기를 쓴다(예: `> 2000 mg/kg`). 저장 모양이 아님 '{text}'")
         return parse_qm(text)
     if kind == "pairs":
         fields = _resolve(node, defs)["properties"]
