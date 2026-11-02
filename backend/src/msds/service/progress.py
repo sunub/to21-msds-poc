@@ -3,7 +3,7 @@
 파일을 읽거나 쓰지 않는 순수 함수만 둔다. 저장은 store, 이벤트를 내는 쪽은 pipeline과
 section_runner.run_document(on_event)다.
 
-진행의 기본 단위는 항목(MSDS 건 × 1~16항)이다. 추출이 항별로 동시에 돌기 때문에 쪽 단위 진행은 실제와
+진행의 기본 단위는 항목(MSDS 건 × 추출 대상 항(extract.inputs.EXTRACT_SECTIONS))이다. 추출이 항별로 동시에 돌기 때문에 쪽 단위 진행은 실제와
 맞지 않는다. 항이 걸친 쪽(pages)은 원문 이동용으로만 같이 둔다.
 
 status  : queued(대기) → running → done | failed | interrupted(서버가 꺼져 멈춤)

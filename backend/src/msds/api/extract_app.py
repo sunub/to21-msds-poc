@@ -4,7 +4,7 @@
 모델은 MSDS_SERVICE_MODEL(configs/models.yaml 태그, 기본 qwen36_35b_runpod)이고 접속 정보는 .env에서 읽는다.
 frontend/out(정적 빌드)이 있으면 같은 주소의 / 에서 화면을 낸다. 개발 서버(next dev)는 CORS로 붙는다.
 
-진행의 기본 단위는 항목(MSDS 건 × 1~16항)이다 (service.progress). 화면은 GET /api/documents/{id}를 1~2초마다 부른다.
+진행의 기본 단위는 항목(MSDS 건 × 추출 대상 9개 항: 1·2·3·8·9·11·12·14·15)이다 (service.progress). 화면은 GET /api/documents/{id}를 1~2초마다 부른다.
 
 POST /api/documents?filename=&as_of=      본문이 PDF 바이트 그대로(application/pdf). 202와 진행 상태
 GET  /api/documents?status=all|active|done|failed   목록(항별 목록 없이 개수만)과 상태별 개수
@@ -26,7 +26,7 @@ from fastapi import FastAPI, HTTPException, Path as PathParam, Query, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
-from pydantic import BaseModel, Field, model_validator
+from pydantic import BaseModel, Field, field_validator, model_validator
 
 from msds.checks.validator import load_to21_module
 from msds.common import paths
@@ -60,9 +60,16 @@ class FieldReview(BaseModel):
 
 class SectionReview(BaseModel):
     msds_index: int = Field(ge=0)
-    section: int = Field(ge=1, le=16)
+    section: int
     confirmed: bool
     reviewer: str = Field(min_length=1, max_length=40, pattern=r"\S")
+
+    @field_validator("section")
+    @classmethod
+    def in_extract_sections(cls, v: int) -> int:
+        if v not in review.SECTIONS:
+            raise ValueError(f"추출 대상 항이 아닙니다: {v} (대상: {', '.join(map(str, review.SECTIONS))})")
+        return v
 
 
 def load_regen():
