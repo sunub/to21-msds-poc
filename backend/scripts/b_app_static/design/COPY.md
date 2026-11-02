@@ -1941,6 +1941,8 @@ steps.a11y|이 화면의 단계|단계 표시
 steps.actions_a11y|이 단계의 행동|행동 줄
 steps.current|지금 단계|단계 표시
 steps.details.close|자세히 닫기|서랍
+common.raw_error_title|오류 기록|서랍
+common.code_record_title|원래 기록 값|서랍
 steps.server.cost_basis|표시한 비용은 현재 서버의 추정값입니다.|위쪽 막대, S06
 context.model.chip_on|AI 켜짐|위쪽 막대
 context.model.chip_no_cost|요금 없음|위쪽 막대

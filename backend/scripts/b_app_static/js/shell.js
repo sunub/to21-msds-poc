@@ -13,8 +13,8 @@ const SHELL_SCREENS = {
   s11: {title: "nav.swap", views: ["swap-view"]}
 };
 const SHELL_NAV_GROUPS = [
-  {title: "nav.group_flow", numbered: true, screens: ["s01", "s02", "s03", "s04"]},
-  {title: "nav.group_other", numbered: false, screens: ["s06", "s05", "s07"]}
+  {title: "nav.group_flow", screens: ["s01", "s02", "s03", "s04"]},
+  {title: "nav.group_other", screens: ["s06", "s05", "s07"]}
 ];
 const shellViews = new Map();
 S.shell = {route: null, sets: [], keys: [], contextErrors: [], contextLoaded: false,
@@ -83,10 +83,10 @@ function ctxUrl(path) {
   const params = new URLSearchParams(query); params.set("key", S.ctx.key);
   return `${base}?${params}`;
 }
-function shellNavButton(id, current = false, no = null) {
+function shellNavButton(id, current = false) {
   return h("button", {type: "button", "data-screen": id, onclick: () => {
     go(id).catch(fail); document.getElementById(`title-${id}`).focus();
-  }}, no ? h("span", {class: "nav-no"}, String(no)) : null, T(SHELL_SCREENS[id].title),
+  }}, T(SHELL_SCREENS[id].title),
   current ? h("span", {class: "nav-current", hidden: true}, T("nav.current")) : null);
 }
 function shellRenderHeader() {
@@ -96,7 +96,7 @@ function shellRenderHeader() {
   const nav = document.getElementById("main-nav"); nav.setAttribute("aria-label", T("nav.a11y"));
   const groups = SHELL_NAV_GROUPS.map(group => h("div", {class: "nav-group", role: "group", "aria-label": T(group.title)},
     h("p", {class: "nav-group-title"}, T(group.title)),
-    group.screens.map((id, index) => h("div", null, shellNavButton(id, true, group.numbered ? index + 1 : null),
+    group.screens.map(id => h("div", null, shellNavButton(id, true),
       Object.entries(SHELL_SCREENS).filter(([, screen]) => screen.parent === id).map(([child]) =>
         h("div", {class: "subnav", "data-parent": id, hidden: true}, shellNavButton(child)))))));
   nav.replaceChildren(...groups, h("p", {class: "sidebar-note"}, T("nav.purpose")),

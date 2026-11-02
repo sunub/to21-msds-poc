@@ -37,7 +37,7 @@ function coreCodeLabel(kind, value) {
   return labels && Object.hasOwn(labels, key) ? labels[key] : T("common.codes.unknown");
 }
 function coreCodeRecord(...values) {
-  return h("details", {class: "code-record"}, h("summary", null, T("common.code_record")),
+  return h("details", {class: "code-record", "data-flat-title": T("common.code_record_title")}, h("summary", null, T("common.code_record")),
     h("code", {class: "raw"}, values.filter(value => value != null && value !== "").join(" · ") || T("common.none")));
 }
 function fill(el, attrs, kids) {
@@ -120,7 +120,7 @@ function errorCopy(text) {
   return String(text || "").split("`").map((part, i) => i % 2 ? h("code", {class: "technical"}, part) : part);
 }
 function rawError(raw) {
-  return h("details", null, h("summary", null, T("common.raw_error")), h("pre", {class: "technical"}, raw || ""));
+  return h("details", {"data-flat-title": T("common.raw_error_title")}, h("summary", null, T("common.raw_error")), h("pre", {class: "technical"}, raw || ""));
 }
 function friendlyError(info) {
   if (!info) return null;
