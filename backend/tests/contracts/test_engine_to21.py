@@ -196,8 +196,8 @@ def _dg_inputs(row, flash=47, kind="혼합물"):
     return {"physchem": prop, "dangerous_goods": [{"comp_ref": "MIX", "class": "제4류", **row}], "composition": {"type": kind}, "as_of_date": "2026-11-03"}
 
 
-def _dg_know(group):
-    return [{"rows": [{"kind": "dg", "regulate_item_id": "KR004001004", "db_item_name": "제4류", "group_name": group}], "knowledge_version": "v"}]
+def _dg_know(group, db_class="제4류"):
+    return [{"rows": [{"kind": "dg", "regulate_item_id": "KR004001004", "db_item_name": db_class, "group_name": group}], "knowledge_version": "v"}]
 
 
 def test_위험물_품명이_다르면_기준_불일치다():  # 설계서 29장 5단계
@@ -240,7 +240,7 @@ def test_9항만으로_못_정하는_품명은_DB_품명으로만_비교한다(i
 
 
 def test_위험물_류가_다르면_기준_불일치다():
-    v = _dg(_dg_inputs({"item": "제2석유류", "class": "제3류"}), {}, _dg_know("제2석유류 비수용성액체"))
+    v = _dg(_dg_inputs({"item": "제2석유류", "class": "제3류"}, kind="단일물질"), {}, _dg_know("제2석유류 비수용성액체"))
     assert v["verdict"] == "불일치" and "류:" in v["reason"]
 
 
@@ -309,3 +309,79 @@ def test_교차_확인은_30분_값을_4시간_값으로_쓰지_않는다(repo, 
 def test_12항_마이크로그램_단위를_환산한다(repo, contract_errors):
     fish = _tox("ECO_FISH", 500, "µg/L", descriptor="LC50")
     assert "m0/F2:CROSS:ENV_AQ_ACUTE:-" in _cross(repo, _single([{"class_code": "ENV_AQ_ACUTE", "category": "3"}], ecotox=[fish]), contract_errors)
+
+
+def test_제4류가_아닌_위험물은_인화점_품명과_비교하지_않는다():  # MEKP 인화점 50, 제5류
+    row = {"item": "유기과산화물", "class": "제5류"}
+    assert _dg(_dg_inputs(row, flash=50, kind="단일물질"), {}, _dg_know("유기과산화물(2종)", "제5류"))["verdict"] == "일치"
+    assert _dg(_dg_inputs(row, flash=50), {}, _dg_know("유기과산화물(2종)", "제5류"))["verdict"] == "일치"
+
+
+def test_성분_위험물_행은_제품_품명과_비교하지_않는다():
+    inputs = _dg_inputs({"item": "제1석유류"}, flash=35)
+    inputs["dangerous_goods"][0]["comp_ref"] = "1"
+    assert _dg(inputs, {}, _dg_know("제1석유류 비수용성액체"))["verdict"] == "일치"
+
+
+def test_제품_위험물_행이_여럿이면_하나라도_맞으면_된다():
+    inputs = _dg_inputs({"item": "제3석유류"}, flash=30)
+    inputs["dangerous_goods"].append({"comp_ref": "MIX", "class": "제4류", "item": "제2석유류"})
+    assert _dg(inputs, {}, _dg_know("제2석유류 비수용성액체"))["verdict"] == "일치"
+
+
+@pytest.mark.parametrize("written,group,flash", [("제1석유류", "알코올류", 13), ("제1석유류", "특수인화물", None), ("제4석유류", "동식물유류", 240)])
+def test_9항으로_못_정하는_DB_품명과_다르면_불일치다(written, group, flash):  # 에탄올을 제1석유류로 적은 경우
+    v = _dg(_dg_inputs({"item": written}, flash=flash, kind="단일물질"), {}, _dg_know(group))
+    assert v["verdict"] == "불일치" and group in v["reason"]
+
+
+@pytest.mark.parametrize("written", ["제 2 석유류", "제2석유류 비수용성액체"])
+def test_품명_표기_변형을_같게_본다(written):
+    assert _dg(_dg_inputs({"item": written}), {}, _dg_know("제2석유류 비수용성액체"))["verdict"] == "일치"
+
+
+def test_불순물_규칙을_적용_못하면_judge_결과에_남는다(repo):
+    doc = _toluene_with_benzene(_q(0.2, "%"))
+    doc["doc"] = {"doc_id": "X"}
+    doc["msds"][0]["components"][1]["cas_no"] = None
+    assert any("불순물 벤젠" in x["text"] for x in judge(doc, "2026-11-03", repo)["results"][0]["limitations"])
+
+
+def test_수생이_아닌_12항_값은_교차_확인에_쓰지_않는다(repo, contract_errors):
+    soil = _tox("ECO_SOIL", 0.5, "mg/L", descriptor="EC50")
+    assert _cross(repo, _single([{"class_code": "ENV_AQ_ACUTE", "category": "3"}], ecotox=[soil]), contract_errors) == {}
+
+
+def test_하루_노출_값은_교차_확인에_쓰지_않는다(repo, contract_errors):
+    row = _tox("TX_INHAL", 30, "mg/L", descriptor="LC50", physical_form="증기", duration_value=1, duration_unit="day")
+    assert _cross(repo, _single([{"class_code": "HH_ACUTE_INHAL", "category": "4", "route_form": "증기"}], [row]), contract_errors) == {}
+
+
+def _thinner_doc(classes):
+    return {"doc": {"doc_id": "X"}, "msds": [{"composition": {"type": "혼합물"}, "hazard": {"classes": classes}, "toxicity": [],
+                                               "components": [{"seq": i + 1, "cas_no": c, "name": c, "content": _q(v, "%"), "trade_secret": False} for i, (c, v) in enumerate(THINNER)],
+                                               "physchem": [_prop("APPEARANCE_STATE", None, text="액체")]}]}
+
+
+def _stot(repo, classes):
+    c = run_consistency(_thinner_doc(classes), repo)["consistency"]
+    return next(f for f in c["findings"] if f.get("class_code") == "HH_STOT_SE")
+
+
+def test_표적장기_구분3_효과가_같으면_일치다(repo):  # P02. 전에는 분류안됨으로 판정해 거짓 불일치
+    f = _stot(repo, [{"class_code": "HH_STOT_SE", "category": "3", "effect": "마취"}, {"class_code": "HH_STOT_SE", "category": "3", "effect": "호흡기계 자극"}])
+    assert f["verdict"] == "일치" and "3:마취" in f["our_value"]["low"]
+
+
+def test_표적장기_구분3을_안_적으면_과소가_아니라_누락으로_잡는다(repo):
+    f = _stot(repo, [])
+    assert f["verdict"] == "불일치" and "3:" in f["reason"]
+
+
+def test_표적장기_구분3_효과가_하나_빠지면_불일치다(repo):
+    f = _stot(repo, [{"class_code": "HH_STOT_SE", "category": "3", "effect": "마취"}])
+    assert f["verdict"] == "불일치" and "호흡기" in f["reason"]
+
+
+def test_표적장기_효과_없이_구분3만_적어도_일치다(repo):  # 세부 표기 차이
+    assert _stot(repo, [{"class_code": "HH_STOT_SE", "category": "3"}])["verdict"] == "일치"

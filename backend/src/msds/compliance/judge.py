@@ -256,6 +256,7 @@ _FORM_EN = {"가스": "gas", "증기": "vapour", "분진·미스트": "mist"}
 _ROUTE_KO = {"oral": "경구", "dermal": "경피", "inhal": "흡입"}
 _AQ_DESCRIPTORS = ("LC50", "EC50", "ERC50", "EBC50", "LL50", "EL50", "LEC50", "IC50")
 _AQ_UNIT_TO_MG_L = {"mg/l": 1.0, "㎎/ℓ": 1.0, "㎎/l": 1.0, "mg/ℓ": 1.0, "ug/l": 0.001, "µg/l": 0.001, "μg/l": 0.001}
+_AQ_ENDPOINTS = ("ECO_FISH", "ECO_DAPHNIA", "ECO_CRUST", "ECO_ALGA", "ECO_AQUATIC")
 _AQ_CAT1_MAX = 1.0  # mg/L
 
 
@@ -265,10 +266,14 @@ def _own_values(rows, refs):
 
 
 def _exposure_hours(row):
+    """시험 시간(시간). 시간이 없으면 None(4시간으로 본다), 단위를 모르면 0(환산표에 없어 건너뛰게 된다)."""
     unit, value = str(row.get("duration_unit") or "").lower(), row.get("duration_value")
     if value is None:
         return None
-    return value if unit.startswith(("h", "시")) else value / 60 if unit.startswith(("min", "분")) else None
+    for words, hours in ((("min", "분"), 1 / 60), (("h", "시"), 1), (("d", "일"), 24), (("w", "주"), 168)):
+        if unit.startswith(words):
+            return value * hours
+    return 0
 
 
 def _cross_finding(i, cc, form, stated, low, reason, ctx):
@@ -296,6 +301,7 @@ def _cross_checks(i, item, ctx):
         rows = [r for r in _own_values(item.get("toxicity") or [], refs)
                 if str(r.get("endpoint")).startswith(endpoint) and r.get("descriptor") in ("LD50", "LC50")]
         found: dict = {}
+        estimated: set = set()
         for r in rows:
             q = r["q"]
             form = None
@@ -304,6 +310,8 @@ def _cross_checks(i, item, ctx):
                 form = r.get("physical_form") if r.get("physical_form") in _FORM_EN else next(iter(forms)) if len(forms) == 1 else default_form
                 if form not in _FORM_EN:
                     continue
+                if r.get("physical_form") not in _FORM_EN and not forms:
+                    estimated.add(form)
             t = to_target(q["value"], q.get("unit"), route, _FORM_EN.get(form), hours=_exposure_hours(r))
             if t and "미환산" not in t["note"] and (form not in found or t["value"] < found[form]):
                 found[form] = t["value"]
@@ -316,9 +324,9 @@ def _cross_checks(i, item, ctx):
             if "5" in cats and cat == "분류안됨":  # 구분5는 고시 밖이라 참고로만 둔다 (D-18)
                 continue
             if (cats or ["분류안됨"]) != [cat] and cat not in cats:
-                out.append(_cross_finding(i, cc, form, cats, cat, f"내부 불일치: 11항 값 {value:g}이면 {cat}인데 2항은 {_one(cats) or '기재 없음'}", ctx))
+                out.append(_cross_finding(i, cc, form, cats, cat, f"내부 불일치: 11항 값 {value:g}이면 {cat}인데 2항은 {_one(cats) or '기재 없음'}" + (f" (흡입 형태는 성상으로 추정한 {form})" if form in estimated else ""), ctx))
     aq = [r["q"]["value"] * _AQ_UNIT_TO_MG_L[str(r["q"].get("unit")).lower()] for r in _own_values(item.get("ecotox") or [], refs)
-          if str(r.get("descriptor")).upper().replace("(", "").replace(")", "") in _AQ_DESCRIPTORS and str(r["q"].get("unit")).lower() in _AQ_UNIT_TO_MG_L]
+          if str(r.get("endpoint")).startswith(_AQ_ENDPOINTS) and str(r.get("descriptor")).upper().replace("(", "").replace(")", "") in _AQ_DESCRIPTORS and str(r["q"].get("unit")).lower() in _AQ_UNIT_TO_MG_L]
     if aq:
         value, cats = min(aq), [c.get("category") for c in stated.get("ENV_AQ_ACUTE", [])]
         if (value <= _AQ_CAT1_MAX) != ("1" in cats):
@@ -583,6 +591,7 @@ def _reliability(ate, classes):
 def _limitations(findings, c):
     out = [{"finding_id": f["id"], "text": f"{f['label']}: {f['reason']}"} for f in findings if f["verdict"] in ("경계", "근거부족")]
     texts = [g["reason"] for g in c["gaps"]] + [f"입력에 없음: {m}" for m in c.get("missing") or []]
+    texts += [e["reason"] for e in c["excluded"] if e.get("class_code") is None and e.get("section") == "2" and e.get("status") == "참고"]
     return out + [{"finding_id": None, "text": t} for t in dict.fromkeys(texts)]
 
 
