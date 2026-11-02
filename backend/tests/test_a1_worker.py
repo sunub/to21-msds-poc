@@ -6,9 +6,24 @@ import time
 import uuid
 from types import SimpleNamespace
 
+import pytest
+
 from msds.service import progress
 from msds.service.jobs import LeaseLost
 from msds.service.worker import PostgresWorker
+
+
+def test_worker_does_not_start_with_invalid_schema(tmp_path):
+    class InvalidStore:
+        root = tmp_path
+
+        def validate_schema(self):
+            raise RuntimeError("마이그레이션을 확인하세요")
+
+    worker = PostgresWorker(InvalidStore())
+    with pytest.raises(RuntimeError, match="마이그레이션"):
+        worker.start()
+    assert worker._threads == []
 
 
 class Queue:

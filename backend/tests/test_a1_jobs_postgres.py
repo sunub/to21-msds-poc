@@ -42,6 +42,13 @@ def new_job(store, filename='a.pdf'):
     return store.create(b'%PDF-1.7\ntest', filename, None, 'model', today='20261103')
 
 
+def test_schema_validation_checks_existing_database(store):
+    store.validate_schema()
+    missing = PostgresJobStore(store.dsn, store.root, schema='missing_a1_schema')
+    with pytest.raises(RuntimeError, match='마이그레이션'):
+        missing.validate_schema()
+
+
 def test_db_create_leaves_no_file_mode_state_and_preserves_orphan_on_failure(store):
     with pytest.raises(psycopg.Error):
         store.create(b'%PDF-1.7\ntest', 'bad.pdf', '2026-99-99', 'model', today='20261103')
