@@ -285,7 +285,7 @@ function serversStageStartCompany() {
   select.value = S.servers.choice || "";
   return [h("div", {class: "step-card"}, serversProgress(needsTunnel
     ? [["now", T("steps.server.tunnel_line")], ["next", T("steps.server.pick_line")]]
-    : [["done", T("servers.company.connected")], ["now", T("steps.server.pick_line")]])),
+    : [["done", T("servers.company.connected")], ["now", T(loaded.length ? "steps.server.start_company_other_title" : "steps.server.pick_line")]])),
   needsTunnel ? h("div", {class: "server-notice"}, h("strong", null, T("servers.diagnosis.tunnel_closed.fact")), h("p", null, T("servers.diagnosis.tunnel_closed.todo")))
     : loaded.length ? h("div", {class: "server-notice"}, h("strong", null, T("servers.mismatch.title")), h("p", null, T("servers.mismatch.limit")))
     : serversDiagnosis(),
@@ -312,6 +312,7 @@ function serversStageStop(kind) {
       h("div", {class: "step-card"}, serversFacts([[T("steps.server.fact_cost"), T("steps.server.company_cost")],
         num(loaded[0]?.elapsed_s) ? [T("steps.server.stat_uptime"), serversDuration(loaded[0].elapsed_s)] : null])),
       h("p", {class: "muted"}, T("steps.server.preparation_unknown")),
+      h("p", null, T("steps.server.stop_company_note")),
       h("div", {class: "server-actions"}, loaded.map(item => serversAction("rngd_down", {model: item.model}, T("servers.ready.confirm_unload"), `step-${item.pid ?? item.model}`)),
         rngd.tunnel?.open ? serversAction("tunnel_close", {}, T("servers.connection.confirm_close"), "step") : null)];
   }

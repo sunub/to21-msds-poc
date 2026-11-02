@@ -876,3 +876,23 @@ def test_finished_server_in_the_drawer_has_no_hourly_rate():
 def test_old_preparation_time_is_not_written_as_a_general_record():
     # G1에서 승인한 표 A2: 지난 기록의 고정 숫자를 일반 기록처럼 쓰지 않는다. 실제 기록은 session.ready_seconds다.
     assert '기록 약 6분' not in (STATIC.parent / 'b_app_servers.py').read_text()
+
+
+def test_company_with_another_model_on_says_the_same_thing_in_the_progress_list():
+    # 제목은 끄라고 하고 진행 목록은 고르라고 하면 지금 할 일이 엇갈린다.
+    run_js(FIXTURE + r"""
+      allOff();data.rngd.diagnosis='ok';data.rngd.models=[{model:'Other model',pid:5}];
+      await setup();await go('s06',{model:'company-a'});serversChoose('company');
+      const progress=stage().querySelector('.server-progress').textContent;
+      assert.ok(progress.includes(T('steps.server.start_company_other_title')));
+      assert.equal(progress.includes(T('steps.server.pick_line')),false);
+    """)
+
+
+def test_company_stop_step_says_what_turning_off_and_closing_each_do():
+    run_js(FIXTURE + r"""
+      allOff();data.rngd.diagnosis='ok';data.rngd.models=[{model:'Fake model A',pid:5}];
+      Object.assign(data.models[0],{reachable:true,match:true,model_served:'Fake model A'});
+      await setup();await go('s06',{model:'company-a'});atStep('stop');
+      assert.ok(stage().textContent.includes(T('steps.server.stop_company_note')));
+    """)
