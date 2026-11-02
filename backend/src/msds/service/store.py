@@ -18,13 +18,15 @@ import os
 import re
 import threading
 from pathlib import Path
+from typing import Callable
 
 from msds.common.merge import now_kst
-from msds.service import progress
+from msds.service import progress, review
 
 _ID = re.compile(r"^U-(\d{8})-(\d{3,})$")
 PDF_NAME = "source.pdf"
 STATE_NAME = "state.json"
+REVIEW_NAME = "review.json"
 
 
 class DocumentStore:
@@ -85,7 +87,32 @@ class DocumentStore:
         with self._lock:
             if not progress.can_retry(self._states[doc_id]):
                 return None
+            self._set_aside_review(doc_id)
             return self.apply(doc_id, {"type": "queued"})
+
+    # ── 검수 기록 ──
+    def load_review(self, doc_id: str) -> dict:
+        with self._lock:
+            path = self.root / doc_id / REVIEW_NAME
+            return json.loads(path.read_text(encoding="utf-8")) if path.is_file() else review.empty()
+
+    def update_review(self, doc_id: str, change: Callable[[dict], None]) -> dict:
+        """검수 기록을 읽어 change로 고치고 저장한다. change가 예외를 내면 저장하지 않는다."""
+        with self._lock:
+            record = self.load_review(doc_id)
+            change(record)
+            path = self.root / doc_id / REVIEW_NAME
+            tmp = path.with_suffix(".json.tmp")
+            tmp.write_text(json.dumps(record, ensure_ascii=False, indent=1), encoding="utf-8")
+            os.replace(tmp, path)
+            return record
+
+    def _set_aside_review(self, doc_id: str) -> None:
+        """다시 돌리면 칸 경로와 값이 달라지므로 이전 실행의 검수 기록은 지우지 않고 옆으로 치운다."""
+        path = self.root / doc_id / REVIEW_NAME
+        if path.is_file():
+            stamp = now_kst().replace(":", "").replace("+", "_")
+            os.replace(path, path.with_name(f"review.이전-{stamp}.json"))
 
     def recover(self) -> list[str]:
         """서버를 켤 때 부른다. 돌던(running) 작업은 interrupted로 바꾸고, 대기 중이던 문서 번호를 올린 순서로 돌려준다."""
