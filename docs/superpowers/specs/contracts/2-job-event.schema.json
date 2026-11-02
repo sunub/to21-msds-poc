@@ -1,0 +1,133 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://to21-msds-poc.local/contracts/2-job-event.schema.json",
+  "title": "약속 ② 작업 진행 이벤트 (A2 단계 함수 → A1 작업 흐름)",
+  "description": "A2의 단계 함수 process(job_id, ctx) 는 진행을 ctx.emit(event) 로만 알린다. 예외를 밖으로 내지 않고 failed 이벤트로 끝낸다. 지금 service/progress.apply_event 와 extract/section_runner 의 이벤트를 그대로 잇고, checks 단계와 checks_done·handoff 이벤트를 더했다. queued·interrupted 는 A1만 낸다.",
+  "oneOf": [
+    { "$ref": "#/$defs/queued" }, { "$ref": "#/$defs/started" }, { "$ref": "#/$defs/page" },
+    { "$ref": "#/$defs/preprocess_done" }, { "$ref": "#/$defs/stage" }, { "$ref": "#/$defs/plan" },
+    { "$ref": "#/$defs/section_started" }, { "$ref": "#/$defs/section_done" }, { "$ref": "#/$defs/finalize" },
+    { "$ref": "#/$defs/checks_done" }, { "$ref": "#/$defs/handoff" }, { "$ref": "#/$defs/done" },
+    { "$ref": "#/$defs/failed" }, { "$ref": "#/$defs/interrupted" }
+  ],
+  "$defs": {
+    "section_no": { "enum": [1, 2, 3, 8, 9, 11, 12, 14, 15] },
+    "queued": {
+      "description": "A1만 낸다. 다시 돌릴 때 진행 칸을 비운다",
+      "type": "object", "additionalProperties": false, "required": ["type"],
+      "properties": { "type": { "const": "queued" } }
+    },
+    "started": {
+      "type": "object", "additionalProperties": false, "required": ["type"],
+      "properties": { "type": { "const": "started" } }
+    },
+    "page": {
+      "type": "object", "additionalProperties": false, "required": ["type", "page", "total"],
+      "properties": {
+        "type": { "const": "page" },
+        "page": { "type": "integer", "minimum": 1 },
+        "total": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "preprocess_done": {
+      "type": "object", "additionalProperties": false, "required": ["type", "page_count", "text_layer"],
+      "properties": {
+        "type": { "const": "preprocess_done" },
+        "page_count": { "type": "integer", "minimum": 1 },
+        "text_layer": { "$ref": "common.schema.json#/$defs/text_layer" }
+      }
+    },
+    "stage": {
+      "description": "단계가 바뀔 때. 지금 STAGES 에 checks 를 더한다",
+      "type": "object", "additionalProperties": false, "required": ["type", "stage"],
+      "properties": {
+        "type": { "const": "stage" },
+        "stage": { "enum": ["preprocess", "sections", "extract", "checks", "finalize"] }
+      }
+    },
+    "plan": {
+      "type": "object", "additionalProperties": false, "required": ["type", "msds_count", "page_count", "sections"],
+      "properties": {
+        "type": { "const": "plan" },
+        "msds_count": { "type": "integer", "minimum": 1 },
+        "page_count": { "type": "integer", "minimum": 1 },
+        "sections": {
+          "type": "array",
+          "items": {
+            "type": "object", "additionalProperties": false, "required": ["msds_index", "section", "title", "pages"],
+            "properties": {
+              "msds_index": { "$ref": "common.schema.json#/$defs/msds_index" },
+              "section": { "$ref": "#/$defs/section_no" },
+              "title": { "type": ["string", "null"] },
+              "pages": { "type": "array", "items": { "type": "integer", "minimum": 1 } }
+            }
+          }
+        }
+      }
+    },
+    "section_started": {
+      "type": "object", "additionalProperties": false, "required": ["type", "msds_index", "section"],
+      "properties": {
+        "type": { "const": "section_started" },
+        "msds_index": { "$ref": "common.schema.json#/$defs/msds_index" },
+        "section": { "$ref": "#/$defs/section_no" }
+      }
+    },
+    "section_done": {
+      "type": "object", "additionalProperties": false,
+      "required": ["type", "msds_index", "section", "ok", "reextracted", "needs_review", "seconds", "errors"],
+      "properties": {
+        "type": { "const": "section_done" },
+        "msds_index": { "$ref": "common.schema.json#/$defs/msds_index" },
+        "section": { "$ref": "#/$defs/section_no" },
+        "ok": { "type": "boolean" },
+        "reextracted": { "type": "boolean" },
+        "needs_review": { "type": "boolean" },
+        "seconds": { "type": ["number", "null"], "minimum": 0 },
+        "errors": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "finalize": {
+      "type": "object", "additionalProperties": false, "required": ["type"],
+      "properties": { "type": { "const": "finalize" } }
+    },
+    "checks_done": {
+      "description": "새 이벤트. 검증기·원문 대조·오류 항 재추출이 끝났을 때",
+      "type": "object", "additionalProperties": false, "required": ["type", "errors", "warnings", "reextracted"],
+      "properties": {
+        "type": { "const": "checks_done" },
+        "errors": { "type": "integer", "minimum": 0 },
+        "warnings": { "type": "integer", "minimum": 0 },
+        "reextracted": { "type": "integer", "minimum": 0, "description": "다시 추출한 항 수" }
+      }
+    },
+    "handoff": {
+      "description": "새 이벤트. 넘김 기록(약속 ①)을 같은 트랜잭션에서 썼을 때",
+      "type": "object", "additionalProperties": false, "required": ["type", "handoff_seq"],
+      "properties": {
+        "type": { "const": "handoff" },
+        "handoff_seq": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "done": {
+      "description": "handoff 뒤에만 낸다",
+      "type": "object", "additionalProperties": false, "required": ["type", "summary"],
+      "properties": {
+        "type": { "const": "done" },
+        "summary": { "type": "object", "description": "지금 run_document 요약 그대로 (warnings 포함 가능)" }
+      }
+    },
+    "failed": {
+      "type": "object", "additionalProperties": false, "required": ["type", "error"],
+      "properties": {
+        "type": { "const": "failed" },
+        "error": { "type": "string", "maxLength": 600 }
+      }
+    },
+    "interrupted": {
+      "description": "A1만 낸다 (서버를 다시 켤 때)",
+      "type": "object", "additionalProperties": false, "required": ["type"],
+      "properties": { "type": { "const": "interrupted" } }
+    }
+  }
+}

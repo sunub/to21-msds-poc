@@ -6,6 +6,7 @@ import pytest
 
 from msds.checks.validator import load_to21_module
 from msds.common import paths
+from msds.extract.inputs import EXTRACT_SECTIONS
 from msds.service import regenerated
 
 
@@ -74,11 +75,11 @@ has_regen = pytest.mark.skipif(not (paths.TO21 / paths.TO21_FILES["regen"]).is_f
 
 
 @has_regen
-def test_real_module_gives_sixteen_sections_for_example():
+def test_real_module_gives_extract_sections_for_example():
     doc = json.loads(paths.to21_file("example25").read_text(encoding="utf-8"))
     out = regenerated.regenerate_sections(doc, load_to21_module("regen"))
     assert len(out) == len(doc["msds"])
-    assert all([s["section"] for s in m["sections"]] == list(range(1, 17)) for m in out)
+    assert all([s["section"] for s in m["sections"]] == list(EXTRACT_SECTIONS) for m in out)
 
 
 @has_regen
@@ -87,4 +88,4 @@ def test_real_module_survives_document_with_all_sections_failed():
     doc = json.loads(paths.to21_file("example25").read_text(encoding="utf-8"))
     empty = {"doc": doc["doc"], "msds": [{"product": {}, "meta": {}}]}
     out = regenerated.regenerate_sections(empty, load_to21_module("regen"))
-    assert [s["section"] for s in out[0]["sections"]] == list(range(1, 17))
+    assert [s["section"] for s in out[0]["sections"]] == list(EXTRACT_SECTIONS)

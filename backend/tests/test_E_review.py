@@ -5,6 +5,7 @@ import pytest
 from fastapi.testclient import TestClient
 
 from msds.api import extract_app
+from msds.extract.inputs import EXTRACT_SECTIONS
 from msds.service import pipeline, review
 from msds.service.store import DocumentStore
 
@@ -14,9 +15,9 @@ MSDS = {
     "companies": [{"name": "노루", "address": None}],
     "components": [{"seq": 1, "name": "물", "cas_no": "7732-18-5",
                     "content": {"raw": "1~2", "lower": 1, "upper": 2, "unit": "%"}}],
-    "narratives": [{"item_code": "S4_EYE", "title_raw": "가. 눈", "status": "값있음",
+    "narratives": [{"item_code": "S8_PPE", "title_raw": "가. 눈 보호", "status": "값있음",
                     "statements": [{"seq": 1, "key": None, "value": "씻으시오", "text": "가. 눈 : 씻으시오"}]}],
-    "extras": [{"seq": 1, "section_no": 7, "title_raw": "취급", "statements": [{"key": "저장", "value": "서늘한 곳", "text": "x"}]}],
+    "extras": [{"seq": 1, "section_no": 9, "title_raw": "취급", "statements": [{"key": "저장", "value": "서늘한 곳", "text": "x"}]}],
     "evidence": [{"field": "components[0]", "page": 2, "source_text": "물 7732-18-5", "needs_review": None},
                  {"field": "product.name", "page": 1, "source_text": "제품명 : 젯소", "needs_review": None}],
     "validation": [],
@@ -42,12 +43,13 @@ def build(record=None):
 
 def test_every_root_goes_to_its_section():
     secs = by_no(build())
-    assert sorted(secs) == list(range(1, 17))
+    assert sorted(secs) == list(EXTRACT_SECTIONS)          # 추출하지 않는 항은 보이지 않는다
     assert "meta.msds_no" in fields(secs[1]) and "companies[0].name" in fields(secs[1])
     assert "components[0].name" in fields(secs[3])
-    assert "narratives[0].statements[0].value" in fields(secs[4])
-    assert "extras[0].statements[0].value" in fields(secs[7])
-    assert fields(secs[5]) == {}
+    assert "narratives[0].statements[0].value" in fields(secs[8])
+    assert "extras[0].statements[0].value" in fields(secs[9])
+    assert fields(secs[12]) == {}
+    assert 4 not in secs and 7 not in secs
 
 
 def test_hides_null_raw_and_bookkeeping_fields():
@@ -62,7 +64,7 @@ def test_field_has_label_value_and_longest_evidence():
     assert f["label"] == "CAS 번호" and f["value"] == "7732-18-5"
     assert f["page"] == 2 and f["source_text"] == "물 7732-18-5"
     assert fields(by_no(build())[1])["product.name"]["page"] == 1
-    assert fields(by_no(build())[7])["extras[0].statements[0].value"]["label"] == "저장"
+    assert fields(by_no(build())[9])["extras[0].statements[0].value"]["label"] == "저장"
 
 
 def test_group_title_uses_item_name_or_korean_root_title():
@@ -124,12 +126,14 @@ def test_section_confirm_counts_in_summary():
     rec = review.empty()
     review.set_section(rec, 0, 3, True, "김", "t")
     view = build(rec)
-    assert view["summary"]["sections_confirmed"] == 1 and view["summary"]["sections_total"] == 16
+    assert view["summary"]["sections_confirmed"] == 1 and view["summary"]["sections_total"] == len(EXTRACT_SECTIONS)
     assert by_no(view)[3]["confirmed"] == {"reviewer": "김", "at": "t"}
     review.set_section(rec, 0, 3, False, "김", "t")
     assert build(rec)["summary"]["sections_confirmed"] == 0
     with pytest.raises(KeyError):
         review.set_section(rec, 0, 17, True, "김", "t")
+    with pytest.raises(KeyError):          # 추출 대상이 아닌 항
+        review.set_section(rec, 0, 4, True, "김", "t")
 
 
 # ── API ─────────────────────────────────────────────

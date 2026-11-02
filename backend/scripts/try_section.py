@@ -32,7 +32,7 @@ from msds.evaluate.score import score_pair
 from msds.extract import section_runner as sr
 from msds.extract.client import ChatClient, load_model_config
 from msds.extract.expand import to_to21
-from msds.extract.inputs import SECTION_NOS, load_document, section_lines
+from msds.extract.inputs import EXTRACT_SECTIONS, SECTION_NOS, load_document, section_lines
 from msds.extract.rows import row_tables
 from msds.extract.section_prompts import SECTION_PROMPT_VERSION, build_system
 from msds.extract.section_specs import META_REVISION_FIELDS, load_specs, response_schema
@@ -317,8 +317,8 @@ def _parser() -> argparse.ArgumentParser:
     ap.add_argument("--model", required=True, help="configs/models.yaml의 태그")
     ap.add_argument("--doc", required=True, help="문서 번호. 평가용 문서는 받지 않는다 (D-43)")
     which = ap.add_mutually_exclusive_group(required=True)
-    which.add_argument("--section", type=int, action="append", choices=SECTION_NOS, help="항 번호. 여러 번 줄 수 있다")
-    which.add_argument("--all", action="store_true", help="문서 전체(16개 항)를 실행기로 돌린다")
+    which.add_argument("--section", type=int, action="append", choices=EXTRACT_SECTIONS, help="항 번호(추출 대상 항만). 여러 번 줄 수 있다")
+    which.add_argument("--all", action="store_true", help="문서의 추출 대상 항(1·2·3·8·9·11·12·14·15)을 실행기로 돌린다")
     ap.add_argument("--pages-dir", type=Path, default=PAGES, help="쪽 글자 폴더 (없으면 data/pages)")
     ap.add_argument("--dry-run", action="store_true", help="① 보낸 입력과 ② 안내문만 보이고 서버를 부르지 않는다")
     ap.add_argument("--system-file", type=Path, help="이 글을 안내문 대신 보낸다. --section 하나일 때만. 기록에는 해시만")
@@ -362,7 +362,7 @@ def main(argv: list[str] | None = None) -> int:
     a = ap.parse_args(argv)
     if a.system_file and (a.all or len(a.section) != 1):
         ap.error("--system-file은 --section 하나와 함께만 쓴다")
-    sections = list(SECTION_NOS) if a.all else sorted(set(a.section))
+    sections = list(EXTRACT_SECTIONS) if a.all else sorted(set(a.section))
     try:
         p = plan(a.doc, a.model, sections, a.pages_dir)
     except (KeyError, ValueError) as e:

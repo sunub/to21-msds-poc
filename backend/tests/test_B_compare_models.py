@@ -29,6 +29,8 @@ ROWS = [
 def make_doc(doc_id: str = X01, **empty) -> dict:
     """가짜 TO21 문서. empty에 든 표는 비운다(예: toxicity=True)."""
     doc, _ = ex.to_to21({**DOC_META, "doc_id": doc_id}, [responses()], LINES, "가상엔진")
+    m = doc["msds"][0]                                     # R18 화평법 미기재 행은 이 도구 시험의 대상이 아니라 뺀다
+    m["regulations"] = [r for r in m["regulations"] if not (r["law"] == "KREACH" and r["applicable"] == "미기재")]
     for table, on in empty.items():
         if on:
             doc["msds"][0][table] = []
