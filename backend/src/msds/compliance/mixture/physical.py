@@ -4,8 +4,11 @@
 쓰지 않고 assumptions 에 남긴다. 결과는 classify_item 과 같은 모양(class_code, result, rule, inputs, calc, thresholds, assumptions,
 knowledge_version)이다. 판정 안 함(대조만)은 status "대조", 판정 대상이 아님은 status "해당 없음"으로 둔다.
 """
+from functools import lru_cache
+
 from .class_inputs import build_class_inputs
 from .evaluate_item import build_props
+from .params import RULES_DIR, read_rules
 from .rule_eval import evaluate_rules, evaluate_rules_trace
 
 _STATE_BY_SUFFIX = {"_GAS": "가스", "_LIQ": "액체", "_SOL": "고체"}  # 항목 이름 끝으로 정하는 성상 제한 (규칙표 representative.state_filter)
@@ -89,6 +92,48 @@ def _representative(components):
     return max(pool, key=lambda c: c["high"]) if pool else None
 
 
+UN_BASIS = "규칙표 v0.2 un_class_map.csv (TO21 분류 로직 v6 물리위험성 — 위험물 운송정보)"
+_SELF_REACT_UN = {str(n) for n in range(3221, 3241)}  # 자기반응성 물질 UN번호(UN-20·21 제외, UN-22 대상)
+
+
+@lru_cache
+def _un_rules() -> tuple:
+    return tuple(read_rules(RULES_DIR / "un_class_map.csv"))
+
+
+def _from_un(item_id, un_rows, state):
+    """14항 UN 운송정보 → (구분, 규칙 행, 쓴 운송 행). 맞는 규칙이 없으면 None (설계서 33장 ①단계, D-17)."""
+    for t in un_rows:
+        cls = str(t.get("hazard_class") or "").strip()
+        if not cls:
+            continue
+        subs = {s.strip() for s in str(t.get("sub_risk") or "").replace(",", "/").split("/") if s.strip()}
+        pg = str(t.get("packing_group") or "").strip().upper()
+        pg = pg if pg in ("I", "II", "III") else ""
+        un_no = str(t.get("un_no") or "").strip().upper().removeprefix("UN").strip()
+        for r in _un_rules():
+            if r["hazard_class"] != item_id:
+                continue
+            if r["un_class"] == "1.x":
+                if not cls.startswith("1."):
+                    continue
+            elif r["un_class"] != cls:
+                continue
+            if r["subsidiary"] and not set(r["subsidiary"].split("/")) <= subs:
+                continue
+            if r["packing_group"] and r["packing_group"] != pg:
+                continue
+            if r["state"] and r["state"] != state:
+                continue
+            if r["rule_id"] in ("UN-20", "UN-21") and un_no in _SELF_REACT_UN:
+                continue
+            if "{type}" in r["category"]:  # 형식(B~F)은 UN번호별 형식표가 있어야 정할 수 있다 → 대표성분으로 넘김
+                continue
+            cat = cls if "{div}" in r["category"] else r["category"]
+            return cat, r, t
+    return None
+
+
 def _un(transport):
     return [t for t in transport if t.get("un_no") and t.get("regulated") is not False]
 
@@ -101,7 +146,7 @@ def _transport(item_id, item, components, mixture_props, physical, state, rules)
     asm = ["대표성분: 지식DB 분류가 있는 성분 중 함량(상한)이 가장 큰 성분 한 개(설계서 52장 미결 6 가정, 정의 확인 필요). "
            "없으면 함량 최대 성분, 동률이면 입력 순서가 앞선 성분",
            "대표성분의 분류는 class_rows(지식DB)에서 찾고 출처 우선순위는 build_class_inputs 를 따름",
-           "UN 번호는 운송 규제 여부(해당·비위험물) 확인에만 쓰고 UN→분류 변환은 하지 않음: 규칙표가 가리키는 un_class_map.csv 가 저장소에 없음"]
+           f"UN 운송정보 → 분류는 {UN_BASIS}. 맞는 규칙이 없으면 대표성분 → 9항 순서(설계서 33장, D-17)"]
     if item_id == "PH_FLAM_LIQ":
         asm.append(f"인화성 액체의 9항 단계는 {FLQ_BASIS} 기준을 코드로 옮겨 계산(11/02 F)")
     rule_id = f"PHY-{item_id.removeprefix('PH_')}"
@@ -113,8 +158,8 @@ def _transport(item_id, item, components, mixture_props, physical, state, rules)
     if need and not st:
         asm.append(f"제품 성상을 몰라 성상 제한({need})을 적용하지 못함")
     un = _un(physical.get("transport") or [])
-    un_in = [{"role": "UN", "un_no": t.get("un_no"), "hazard_class": t.get("hazard_class"), "packing_group": t.get("packing_group"),
-              "mode": t.get("mode"), "source": "14항 transport"} for t in un]
+    un_in = [{"role": "UN", "un_no": t.get("un_no"), "hazard_class": t.get("hazard_class"), "sub_risk": t.get("sub_risk"),
+              "packing_group": t.get("packing_group"), "mode": t.get("mode"), "source": "14항 transport"} for t in un]
     if not un:
         why = "14항 운송정보 없음" if not physical.get("transport") else "UN 번호 없음 또는 운송 비위험물"
         if item_id == "PH_FLAM_LIQ":  # 11/02 F 결정 12: UN이 없어도 인화성 액체는 9항 인화점으로 판정
@@ -129,6 +174,18 @@ def _transport(item_id, item, components, mixture_props, physical, state, rules)
         asm.append("운송 규제(UN)에 해당하지 않으면 대표성분으로 물리적 위험성을 판정하지 않음 — 희석 제품에 성분 분류가 그대로 "
                    "붙는 오탐을 막으려는 것(인화성 액체만 9항으로 판정, 11/02 F 결정 12)")
         return _out(item_id, rules, _result("해당 없음", _NO_CLASS, _NO_CLASS, why), "PHY-UN", "UN 운송정보 우선", un_in, asm)
+    hit = _from_un(item_id, un, st)  # ① UN 운송정보 (11/02 F: 규칙표 un_class_map 연결)
+    if hit:
+        cat, r, t = hit
+        if "TO21 규칙" in (r.get("note") or ""):
+            asm.append(f"{r['rule_id']}은 TO21 고유 규칙(고시에 직접 근거 없음, 설계서 미결) — {r['note']}")
+        used = [{**i, "used": i["un_no"] == t.get("un_no") and i["mode"] == t.get("mode")} for i in un_in]
+        why = (f"UN{t.get('un_no')} 등급 {t.get('hazard_class')}"
+               + (f"/{t.get('sub_risk')}" if t.get("sub_risk") else "")
+               + (f" 용기등급 {t.get('packing_group')}" if r["packing_group"] else "") + f" → {cat} ({r['rule_id']})")
+        return _out(item_id, rules, _result("확정", cat, cat), f"PHY-{r['rule_id']}", "14항 UN 운송정보 → un_class_map",
+                    used, asm + [why], thresholds=[{"rule_id": r["rule_id"], "basis": UN_BASIS}])
+    asm.append("UN 운송정보에 이 항목의 규칙이 없어 대표성분으로 넘어감")
     rep = _representative(components)
     if rep is None:
         return _out(item_id, rules, _result("근거부족", reason="대표성분을 정할 함량(상한)이 없음"), rule_id, "대표성분 분류", un_in, asm)

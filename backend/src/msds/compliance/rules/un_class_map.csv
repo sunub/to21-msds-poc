@@ -1,0 +1,34 @@
+# un_class_map.csv — 14항 운송정보(UN 등급·부위험성·용기등급) → 물리적 위험성 구분 (설계서 33장, D-17)
+# version: r2026.10b | source: TO21 MSDS GHS 분류 로직 v6 (물리위험성 — 위험물 운송정보) | checked_by: | checked_date:
+# 판정 순서: ① 이 표 (운송정보가 있을 때) → ② 대표성분 분류(상태별) → ③ 9항 물성(인화점·끓는점 → flam_liquid.yaml)
+# un_class: 주위험성 등급. subsidiary: 부위험성(최대 2개, '/'로 구분, 빈칸=조건 없음). packing_group: I/II/III, 빈칸=조건 없음
+# category의 {div}는 등급 소수점(1.1~1.6), {type}은 형식(B~F, 자기반응성·유기과산화물 UN번호 표 기준)
+# state: 자연발화성(4.2 PG I)은 9항 상태로 액체/고체 결정. TO21 고유 규칙은 note에 'TO21 규칙'으로 표시 (고시에 직접 근거 없음)
+# 저장소 반입: 11/02 F — 규칙표 v0.2(2026-10-26 수령) 그대로. mixture/physical.py 가 읽는다. {type}(자기반응성·유기과산화물 형식)은 UN번호별 형식표가 없어 쓰지 않음
+rule_id,un_class,subsidiary,packing_group,state,hazard_class,category,note
+UN-01,1.x,,,,PH_EXPLOSIVE,등급 {div},
+UN-02,2.1,,,,PH_FLAM_GAS,1,
+UN-03,2.3,2.1,,,PH_FLAM_GAS,1,부위험성 조건 필수
+UN-04,2.2,5.1,,,PH_OXID_GAS,1,부위험성 조건 필수
+UN-05,2.3,5.1,,,PH_OXID_GAS,1,2.3/5.1/8 포함
+UN-10,3,,I,,PH_FLAM_LIQ,1,
+UN-11,3,,II,,PH_FLAM_LIQ,2,
+UN-12,3,,III,,PH_FLAM_LIQ,3,
+UN-20,4.1,,II,,PH_FLAM_SOL,1,자기반응성 UN번호 제외
+UN-21,4.1,,III,,PH_FLAM_SOL,2,자기반응성 UN번호 제외
+UN-22,4.1,,,,PH_SELF_REACT,형식 {type},자기반응성 UN번호(UN3221~3240)일 때
+UN-30,4.2,,I,액체,PH_PYRO_LIQ,1,
+UN-31,4.2,,I,고체,PH_PYRO_SOL,1,
+UN-32,4.2,,II,,PH_SELF_HEAT,1,
+UN-33,4.2,,III,,PH_SELF_HEAT,2,
+UN-40,4.3,,I,,PH_WATER_REACT,1,
+UN-41,4.3,,II,,PH_WATER_REACT,2,
+UN-42,4.3,,III,,PH_WATER_REACT,3,
+UN-50,5.1,,I,액체,PH_OXID_LIQ,1,
+UN-51,5.1,,II,액체,PH_OXID_LIQ,2,
+UN-52,5.1,,III,액체,PH_OXID_LIQ,3,
+UN-53,5.1,,I,고체,PH_OXID_SOL,1,
+UN-54,5.1,,II,고체,PH_OXID_SOL,2,
+UN-55,5.1,,III,고체,PH_OXID_SOL,3,
+UN-60,5.2,,,,PH_ORG_PEROX,형식 {type},형식 B~F만 (A·G는 운송정보로 판정 안 함)
+UN-80,8,,III,,PH_METAL_CORR,1,TO21 규칙 — 미결 (금속부식 시험값이 없으면 '추정' 표시)

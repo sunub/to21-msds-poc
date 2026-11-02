@@ -63,3 +63,40 @@ def test_결정12_인화점도_없거나_다른_항목이면_전처럼_판정_�
     assert (r["result"]["status"], r["rule"]["id"]) == ("해당 없음", "PHY-UN")
     r = _run("PH_OXID_LIQ", fp=47)
     assert r["result"]["status"] == "해당 없음"
+
+
+# ── 11/02 F: UN 운송정보 → 분류 (설계서 33장 ①단계, 규칙표 v0.2 un_class_map.csv) ──────────
+def _un_run(item_id, cls, pg=None, sub=None, un="1993", state="액체"):
+    rules = load_mixture_rules()
+    physical = {"transport": [{"mode": "공통", "un_no": un, "hazard_class": cls, "packing_group": pg, "sub_risk": sub,
+                               "regulated": True}], "msds_classes": [], **phys(None, None, "자료없음")}
+    acid = comp("성분", 50, [{"result_code": "GHS011601", "source": "KR02"}])  # 금속부식성 1
+    return classify_physical(item_id, rules["classes"][item_id], [acid], {"STATE": state}, physical, rules=rules)
+
+
+@pytest.mark.parametrize("item_id, cls, pg, sub, state, cat, rid", [
+    ("PH_FLAM_LIQ", "3", "III", None, "액체", "3", "UN-12"),    # T21-006 UN1993
+    ("PH_FLAM_LIQ", "3", "II", None, "액체", "2", "UN-11"),     # T21-043 UN1263
+    ("PH_FLAM_GAS", "2.1", "해당없음", None, "가스", "1", "UN-02"),
+    ("PH_OXID_GAS", "2.2", None, "5.1", "가스", "1", "UN-04"),
+    ("PH_OXID_LIQ", "5.1", "II", None, "액체", "2", "UN-51"),
+    ("PH_OXID_SOL", "5.1", "II", None, "고체", "2", "UN-54"),
+    ("PH_EXPLOSIVE", "1.4", None, None, "고체", "1.4", "UN-01"),
+    ("PH_METAL_CORR", "8", "III", None, "액체", "1", "UN-80"),  # T21-023 UN1789, TO21 고유 규칙
+])
+def test_UN_운송정보로_분류한다(item_id, cls, pg, sub, state, cat, rid):
+    r = _un_run(item_id, cls, pg, sub, state=state)
+    assert (r["result"]["low"], r["result"]["status"], r["rule"]["id"]) == (cat, "확정", f"PHY-{rid}")
+
+
+def test_UN_규칙이_없으면_대표성분으로_넘어간다():
+    r = _un_run("PH_METAL_CORR", "8", "II")  # 25번 UN1830(8급 II): 운송 규칙 없음 → 대표성분 분류 1
+    assert r["rule"]["id"] == "PHY-METAL_CORR" and r["result"]["low"] == "1"
+    assert any("TO21 고유 규칙" in a for a in _un_run("PH_METAL_CORR", "8", "III")["assumptions"])
+    r = _un_run("PH_OXID_GAS", "2.2")  # 부위험성 5.1 이 없으면 산화성 가스 아님 → 대표성분(분류 없음) → 분류안됨
+    assert r["rule"]["id"] != "PHY-UN-04"
+
+
+def test_자기반응성_UN번호는_인화성_고체로_보지_않는다():
+    r = _un_run("PH_FLAM_SOL", "4.1", "II", un="3226", state="고체")
+    assert r["rule"]["id"] != "PHY-UN-20"
