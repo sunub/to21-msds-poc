@@ -55,14 +55,23 @@ def _g(x):
     return f"{x:.4g}" if isinstance(x, (int, float)) else str(x)
 
 
+def cat_text(c) -> str:
+    """구분 값 → 읽는 글. '2' → '구분 2', '분류안됨'·'압축가스'처럼 숫자로 시작하지 않으면 그대로."""
+    if c in (None, "", []):
+        return "기재 없음"
+    if isinstance(c, list):
+        return ", ".join(cat_text(x) for x in c)
+    c = str(c)
+    return c if not c[0].isdigit() else f"구분 {c}"
+
+
 def _ours(v):
     low, high = (v.get("our_value") or {}).get("low"), (v.get("our_value") or {}).get("high")
-    return low, high, ("없음" if low is None else low if low == high else f"{low}~{high}")
+    return low, high, ("없음" if low is None else cat_text(low) if low == high else f"{cat_text(low)}~{cat_text(high)}")
 
 
 def _msds(v):
-    m = v.get("msds_value")
-    return ", ".join(m) if isinstance(m, list) and m else (m or "기재 없음")
+    return cat_text(v.get("msds_value"))
 
 
 def _verdict_causes(v) -> list[dict]:
@@ -183,11 +192,11 @@ def mixture_causes(v, trace, components, item) -> list[dict]:
     if low is not None and high is not None and low != high:
         roles = {i.get("role") for i in trace.get("inputs") or []}
         if "대표성분" in roles and not ("물성" in roles):
-            out.append(cause("MULTI_CATEGORY", f"대표성분 분류의 구분 {low}·{high}"))
+            out.append(cause("MULTI_CATEGORY", f"대표성분 분류의 {cat_text(low)}·{cat_text(high)}"))
         elif "물성" in roles:
-            out.append(cause("PROP_EDGE", f"9항 물성이 비어 {low}~{high} 사이에서 갈림"))
+            out.append(cause("PROP_EDGE", f"9항 물성이 비어 {cat_text(low)}~{cat_text(high)} 사이에서 갈림"))
         else:
-            out.append(cause("RANGE_EDGE", f"함량 하한으로 {low}, 상한으로 {high}"))
+            out.append(cause("RANGE_EDGE", f"함량 하한으로 {cat_text(low)}, 상한으로 {cat_text(high)}"))
     contrib = _contributors(trace)
     if contrib:
         i, share, basis = max(contrib, key=lambda x: x[1])
