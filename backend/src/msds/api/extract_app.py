@@ -22,16 +22,19 @@ from contextlib import asynccontextmanager
 from pathlib import Path
 from typing import Literal
 
-from fastapi import FastAPI, HTTPException, Path as PathParam, Query, Request
+from fastapi import FastAPI, HTTPException, Path as PathParam, Request
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field, field_validator, model_validator
 
 from msds.checks.validator import load_to21_module
+from msds.api.jobs_routes import make_router
 from msds.common import paths
 from msds.extract.inputs import read_page_lines
-from msds.service import pipeline, progress, regenerated, review
+from msds.extract.section_runner import raw_path
+from msds.service import pipeline, regenerated, review
+from msds.service.jobs import ReviewNotReady
 from msds.service.store import DocumentStore, now_kst
 from msds.service.worker import Worker
 
@@ -39,9 +42,6 @@ MAX_PDF_BYTES = 50 * 1024 * 1024
 CORS_ENV = "MSDS_CORS_ORIGINS"
 DEFAULT_CORS = "http://localhost:3000,http://127.0.0.1:3000,http://localhost:3101,http://127.0.0.1:3101"
 FRONTEND_OUT = paths.ROOT / "frontend" / "out"
-_DATE = r"^\d{4}-\d{2}-\d{2}$"
-_ACTIVE = ("queued", "running")
-_FAILED = ("failed", "interrupted")
 
 
 class FieldReview(BaseModel):
@@ -83,15 +83,40 @@ def create_app(store: DocumentStore | None = None, worker=None, pages_dir: Path 
 
     @asynccontextmanager
     async def lifespan(app: FastAPI):
-        st = app.state.store = store or DocumentStore(pipeline.service_root(), taken_dirs=[paths.PAGES])
-        wk = app.state.worker = worker or Worker(st, pipeline.process)
+        db_url = os.environ.get("MSDS_SERVICE_DATABASE_URL")
+        if store is not None:
+            st = store
+        elif db_url:
+            from msds.service.jobs import PostgresJobStore
+            st = PostgresJobStore(db_url, pipeline.service_root(), taken_dirs=(paths.PAGES,))
+        else:
+            st = DocumentStore(pipeline.service_root(), taken_dirs=[paths.PAGES])
+        app.state.store = st
+        if worker is not None:
+            wk = worker
+        elif db_url and store is None:
+            from msds.service.worker import PostgresWorker
+            wk = PostgresWorker(st,
+                preprocess_workers=int(os.environ.get("MSDS_PREPROCESS_WORKERS", "1")),
+                extract_workers=int(os.environ.get("MSDS_EXTRACT_WORKERS", "1")))
+        else:
+            wk = Worker(st, pipeline.process)
+        app.state.worker = wk
         wk.start()
-        for doc_id in st.recover():
-            wk.submit(doc_id)
-        yield
-        wk.stop(timeout=1)
+        if not (db_url and store is None and worker is None):
+            for doc_id in st.recover():
+                wk.submit(doc_id)
+        try:
+            yield
+        finally:
+            wk.stop(timeout=1)
 
     app = FastAPI(title="TO21 MSDS 추출 API", lifespan=lifespan)
+
+    @app.exception_handler(ReviewNotReady)
+    async def review_not_ready(request: Request, exc: ReviewNotReady):
+        return JSONResponse(status_code=409, content={"detail": "작업이 다시 실행되어 이전 결과를 검수할 수 없습니다"})
+
     pages_root = Path(pages_dir) if pages_dir else None
     app.add_middleware(CORSMiddleware, allow_methods=["*"], allow_headers=["*"],
                        allow_origins=[o.strip() for o in os.environ.get(CORS_ENV, DEFAULT_CORS).split(",") if o.strip()])
@@ -102,45 +127,39 @@ def create_app(store: DocumentStore | None = None, worker=None, pages_dir: Path 
             raise HTTPException(404, f"없는 문서: {doc_id}")
         return state
 
+    def artifact_paths(request: Request, doc_id: str) -> dict | None:
+        store = request.app.state.store
+        if not hasattr(store, "artifact_paths"):
+            return None
+        published = store.artifact_paths(doc_id)
+        if published is not None:
+            return published
+        # Unpublished PostgreSQL attempts must never fall back to old files.
+        empty = store.root / ".unpublished"
+        return {"pages_dir": empty / "pages", "sections_dir": empty / "sections", "runs_dir": empty / "runs"}
+
+    def page_root(request: Request, doc_id: str) -> Path:
+        published = artifact_paths(request, doc_id)
+        return published["pages_dir"] if published else (pages_root or paths.PAGES)
+
+    def result_paths(request: Request, doc_id: str) -> tuple[Path, Path]:
+        store = request.app.state.store
+        published = artifact_paths(request, doc_id)
+        if published:
+            run = published["runs_dir"] / doc_id
+            return run / "outputs" / f"{doc_id}.json", run / "checks" / f"{doc_id}.json"
+        return pipeline.result_paths(store, doc_id)
+
     @app.get("/api/health")
     def health():
         return {"ok": True, "model_tag": pipeline.model_tag()}
 
-    @app.post("/api/documents", status_code=202)
-    async def upload(request: Request, filename: str = Query(min_length=1, max_length=255),
-                     as_of: str | None = Query(None, pattern=_DATE)):
-        name = Path(filename.replace("\\", "/")).name
-        if not name.lower().endswith(".pdf"):
-            raise HTTPException(400, "PDF 파일만 올릴 수 있습니다")
-        if int(request.headers.get("content-length") or 0) > MAX_PDF_BYTES:
-            raise HTTPException(413, f"파일이 너무 큽니다 (최대 {MAX_PDF_BYTES // 1024 // 1024}MB)")
-        body = await request.body()
-        if len(body) > MAX_PDF_BYTES:
-            raise HTTPException(413, f"파일이 너무 큽니다 (최대 {MAX_PDF_BYTES // 1024 // 1024}MB)")
-        if not body.startswith(b"%PDF-"):
-            raise HTTPException(400, "PDF 파일이 아닙니다")
-        state = request.app.state.store.create(body, name, as_of, pipeline.model_tag())
-        request.app.state.worker.submit(state["id"])
-        return progress.view(state)
-
-    @app.get("/api/documents")
-    def list_documents(request: Request, status: Literal["all", "active", "done", "failed"] = "all"):
-        states = request.app.state.store.list()
-        groups = {"all": states,
-                  "active": [s for s in states if s["status"] in _ACTIVE],
-                  "done": [s for s in states if s["status"] == "done"],
-                  "failed": [s for s in states if s["status"] in _FAILED]}
-        return {"items": [progress.summary_view(s) for s in groups[status]],
-                "counts": {k: len(v) for k, v in groups.items()}}
-
-    @app.get("/api/documents/{doc_id}")
-    def detail(request: Request, doc_id: str):
-        return progress.view(get_state(request, doc_id))
+    app.include_router(make_router(get_state, lambda: MAX_PDF_BYTES))
 
     @app.get("/api/documents/{doc_id}/pages/{page}/image")
     def page_image(request: Request, doc_id: str, page: int = PathParam(ge=1)):
         get_state(request, doc_id)
-        path = (pages_root or paths.PAGES) / doc_id / f"p{page:03d}.png"
+        path = page_root(request, doc_id) / doc_id / f"p{page:03d}.png"
         if not path.is_file():
             raise HTTPException(404, "쪽 이미지가 아직 없습니다")
         return FileResponse(path, media_type="image/png")
@@ -149,7 +168,7 @@ def create_app(store: DocumentStore | None = None, worker=None, pages_dir: Path 
     def page_lines(request: Request, doc_id: str, page: int = PathParam(ge=1)):
         get_state(request, doc_id)
         try:
-            lines = [l for l in read_page_lines(doc_id, pages_root or paths.PAGES) if l.page == page]
+            lines = [l for l in read_page_lines(doc_id, page_root(request, doc_id)) if l.page == page]
         except FileNotFoundError:
             lines = []
         if not lines:
@@ -161,7 +180,7 @@ def create_app(store: DocumentStore | None = None, worker=None, pages_dir: Path 
         state = get_state(request, doc_id)
         if state["status"] != "done":
             raise HTTPException(409, "추출이 끝나지 않았습니다")
-        out, checks = pipeline.result_paths(request.app.state.store, doc_id)
+        out, checks = result_paths(request, doc_id)
         if not out.is_file():
             raise HTTPException(404, "결과 파일이 없습니다")
         chk = json.loads(checks.read_text(encoding="utf-8")) if checks.is_file() else {}
@@ -180,7 +199,9 @@ def create_app(store: DocumentStore | None = None, worker=None, pages_dir: Path 
         # 상태부터 본다: 다시 돌리는 중이면 이전 실행의 파일이 남아 있다
         if item["status"] not in ("done", "failed"):
             raise HTTPException(409, "이 항은 아직 끝나지 않았습니다")
-        path = pipeline.section_raw_path(request.app.state.store, doc_id, msds_index, section)
+        published = artifact_paths(request, doc_id)
+        path = (raw_path(published["runs_dir"] / doc_id, doc_id, msds_index, section) if published
+                else pipeline.section_raw_path(request.app.state.store, doc_id, msds_index, section))
         if not path.is_file():
             raise HTTPException(404, "항 결과 파일이 없습니다")
         raw = json.loads(path.read_text(encoding="utf-8"))
@@ -193,7 +214,7 @@ def create_app(store: DocumentStore | None = None, worker=None, pages_dir: Path 
         state = get_state(request, doc_id)
         if state["status"] != "done":
             raise HTTPException(409, "추출이 끝나지 않았습니다")
-        out, checks = pipeline.result_paths(request.app.state.store, doc_id)
+        out, checks = result_paths(request, doc_id)
         if not out.is_file():
             raise HTTPException(404, "결과 파일이 없습니다")
         doc = review.apply_edits(json.loads(out.read_text(encoding="utf-8")), request.app.state.store.load_review(doc_id))
@@ -214,7 +235,7 @@ def create_app(store: DocumentStore | None = None, worker=None, pages_dir: Path 
         state = get_state(request, doc_id)
         if state["status"] != "done":
             raise HTTPException(409, "추출이 끝나지 않았습니다")
-        out, checks = pipeline.result_paths(request.app.state.store, doc_id)
+        out, checks = result_paths(request, doc_id)
         if not out.is_file():
             raise HTTPException(404, "결과 파일이 없습니다")
         chk = json.loads(checks.read_text(encoding="utf-8")) if checks.is_file() else {}
@@ -248,15 +269,6 @@ def create_app(store: DocumentStore | None = None, worker=None, pages_dir: Path 
         record = request.app.state.store.update_review(doc_id, lambda r: review.set_section(
             r, body.msds_index, body.section, body.confirmed, body.reviewer.strip(), now_kst()))
         return review.build_view(doc, chk, state["sections"], record)
-
-    @app.post("/api/documents/{doc_id}/retry", status_code=202)
-    def retry(request: Request, doc_id: str):
-        state = get_state(request, doc_id)
-        next_state = request.app.state.store.requeue(doc_id)
-        if next_state is None:
-            raise HTTPException(409, f"다시 돌릴 수 없는 문서입니다 (지금: {state['status']})")
-        request.app.state.worker.submit(doc_id)
-        return progress.view(next_state)
 
     if static_dir and Path(static_dir).is_dir():
         app.mount("/", StaticFiles(directory=static_dir, html=True), name="frontend")
