@@ -1147,3 +1147,11 @@ view.lines[1].bbox=null;await sourceLoad(true);
 await go('s02',{section:8,item:'Fake criterion',pick:'wrong'});
 assert.ok(head().includes(T('source.page.no_coordinates')),head());
 """)
+
+
+def test_comparison_area_is_not_crushed_when_the_guide_strip_is_open():
+    # 안내 띠(약 430px)가 열리면 칸들이 눌려 쓸 수 없었다. 그때만 작업 영역이 안쪽으로 스크롤한다.
+    rules = _css_rules()
+    assert 'overflow-y: auto' in rules['.work:has(> #journey-strip:not([hidden])):has(> #screen-s02:not([hidden]))']
+    assert 'height: calc(100vh - 112px)' in rules['.work:has(> #journey-strip:not([hidden])) > #screen-s02:not([hidden])']
+    assert 'overflow: hidden' in rules['.work:has(> #screen-s02:not([hidden]))']
