@@ -50,9 +50,10 @@ import b_app_journey as bjn
 import b_app_runs as br
 import b_app_servers as bs
 import b_app_sets as bsets
+import b_app_swap as bswap
 import b_app_text as bt
 from msds.common import manifest
-from msds.common.paths import BACKEND, CONFIGS, DATA, PAGES, ROOT, RUNS, SILVER
+from msds.common.paths import BACKEND, CONFIGS, DATA, GOLD, PAGES, ROOT, RUNS
 from msds.extract.client import load_model_config
 from msds.extract.section_prompts import SECTION_PROMPT_VERSION, build_system, prompt_hash
 from msds.extract.section_runner import DOC_TIME_LIMIT
@@ -61,6 +62,7 @@ HOST = "127.0.0.1"
 STATIC = Path(__file__).resolve().parent / "b_app_static"
 GAPS_FILE = CONFIGS / "silver_gaps.yaml"
 GAPS_KEY = "silver/claude"                           # silver_gaps.yaml은 Claude 실버의 빈 곳만 적는다
+TRY_DEFAULT_KEY = "silver/claude"                    # 화면이 정답지를 보내지 않을 때 try_section이 쓰는 기본
 _HEAVY = ("details", "per_doc", "grid")              # /api/runs 목록에서 빼는 큰 칸. /api/run/<이름>에만 준다
 _TYPES = {".html": "text/html; charset=utf-8", ".js": "text/javascript; charset=utf-8",
           ".css": "text/css; charset=utf-8"}
@@ -88,6 +90,7 @@ class AppContext:
     run_history: dict[str, list[dict]] | None = None  # /api/runs가 읽은 가벼운 목록. 정답지 폴더(글자)별, 새로 읽을 때 갱신
     data_root: Path | None = None                    # 정답지(data/silver·gold)를 찾는 곳(main은 data/). None이면 gold_dir 하나만 쓴다
     journey_file: Path | None = None                 # 첫 사용 기록(main은 runs/manual/journey.json). None이면 /api/journey는 503
+    downloads_dir: Path | None = None                # 자료 바꾸기가 받은 폴더를 찾는 곳. None이면 내 컴퓨터의 Downloads
 
 
 def _json(code: int, obj) -> tuple[int, str, bytes]:
@@ -519,19 +522,53 @@ def _job_pages_dir(data: dict, ctx: AppContext):
 
 def _try_key(ctx: AppContext, want) -> tuple[str | None, dict]:
     """시험의 점수 전→후에 쓸 정답지: (--gold-dir로 넘길 폴더(backend 기준) 또는 None, 작업 target의 key).
-    고르면 _pick_key 결과에 given True. 안 고르면 try_section의 기본(data/silver/claude = DEFAULT_KEY)이고 given False다.
+    고르면 _pick_key 결과에 given True. 안 고르면 try_section의 기본(data/silver/claude = TRY_DEFAULT_KEY)이고 given False다.
     켤 때 받은 --gold-dir(_pick_key(None))는 쓰지 않는다. try_section이 실제로 쓰는 정답지와 같아야 해서다."""
     if want is None:
-        k = bsets.find_key(_key_list(ctx), bsets.DEFAULT_KEY)
-        return None, {"id": bsets.DEFAULT_KEY, "label": bt.key_label(bsets.DEFAULT_KEY),
+        k = bsets.find_key(_key_list(ctx), TRY_DEFAULT_KEY)
+        return None, {"id": TRY_DEFAULT_KEY, "label": bt.key_label(TRY_DEFAULT_KEY),
                       "fingerprint": k["fingerprint"] if k else None, "given": False}
     folder, key = _pick_key(ctx, want)
     return os.path.relpath(folder, ctx.jobs.backend_dir), {**key, "given": True}
 
 
+def _swap_ready(ctx: AppContext) -> bool:
+    return ctx.pages_root is not None and ctx.data_root is not None
+
+
+def _swap_get(path: str, query: dict[str, list[str]], ctx: AppContext) -> tuple[int, str, bytes]:
+    """받은 폴더 목록과 정답 상태. 정답 상태는 fetch=1일 때만 GitHub를 부른다."""
+    if not _swap_ready(ctx):
+        return _json(503, {"error": "자료 바꾸기가 꺼져 있습니다"})
+    if path == "/api/swap/candidates":
+        return _json(200, bswap.candidates(Path(ctx.downloads_dir or Path.home() / "Downloads"), Path(ctx.pages_root)))
+    if path == "/api/swap/gold":
+        return _json(200, bswap.gold_status(Path(ctx.data_root) / "gold", ctx.repo_root,
+                                            fetch=query.get("fetch") == ["1"], since=(query.get("since") or [None])[0]))
+    return _json(404, {"error": f"없는 주소: {path}"})
+
+
+def _swap_post(path: str, body: bytes | None, ctx: AppContext) -> tuple[int, str, bytes]:
+    """받은 폴더 검사(파일을 옮기지 않는다)와 적용. 요금이 들지 않고 덮어쓰지 않아 확인 토큰을 받지 않는다."""
+    if not _swap_ready(ctx):
+        return _json(503, {"error": "자료 바꾸기가 꺼져 있습니다"})
+    data = _body(body)
+    if data is None:
+        return _fail(400, "bad_query", detail="본문은 JSON 객체여야 합니다")
+    action = {"/api/swap/check": bswap.inspect, "/api/swap/apply": bswap.apply}.get(path)
+    if action is None:
+        return _json(404, {"error": f"없는 주소: POST {path}"})
+    try:
+        return _json(200, action(data.get("path"), Path(ctx.pages_root), Path(ctx.data_root) / "gold"))
+    except bswap.SwapProblem as e:
+        return _json(400, bt.swap_problem(e.kind, **e.facts))
+
+
 def _post(path: str, body: bytes | None, ctx: AppContext) -> tuple[int, str, bytes]:
     if path.startswith("/api/servers/"):
         return _server_post(path, body, ctx)
+    if path.startswith("/api/swap/"):
+        return _swap_post(path, body, ctx)
     if ctx.jobs is None:
         return _json(503, {"error": "작업 탭이 꺼져 있습니다(--runs-dir를 기본 runs/가 아닌 곳으로 주면 꺼집니다)"})
     data = _body(body)
@@ -660,6 +697,8 @@ def route(method: str, path: str, query: dict[str, list[str]], body: bytes | Non
         if ctx.jobs is None:
             return _json(503, {"error": "작업 탭이 꺼져 있습니다(--runs-dir를 기본 runs/가 아닌 곳으로 주면 꺼집니다)"})
         return _job_get(path, query, ctx)
+    if path.startswith("/api/swap/"):
+        return _swap_get(path, query, ctx)
     if path == "/api/sets":
         return _sets(ctx)
     if path == "/api/keys":
@@ -748,8 +787,8 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--port", type=int, default=8765)
     ap.add_argument("--host", default=HOST, help=f"{HOST}만 받는다. 쪽 글자·안내문이 화면에 보이기 때문이다 (D-47)")
     ap.add_argument("--runs-dir", type=Path, default=RUNS)
-    ap.add_argument("--gold-dir", type=Path, default=SILVER / "claude",
-                    help="기본 정답지 폴더 (기본: Claude 실버). 화면에서는 data/silver·data/gold 아래 정답지를 고른다")
+    ap.add_argument("--gold-dir", type=Path, default=GOLD,
+                    help="기본 정답지 폴더 (기본: 사람이 확인한 정답 data/gold). 화면에서는 data/silver·data/gold 아래 정답지를 고른다")
     ap.add_argument("--pages-dir", type=Path, default=PAGES / "prev" / "version9",
                     help="쪽 글자·그림 폴더 (기본: C의 version9, data/pages/prev/version9)")
     ap.add_argument("--no-browser", action="store_true", help="브라우저를 자동으로 열지 않는다")
@@ -762,6 +801,7 @@ def main(argv: list[str] | None = None) -> int:
     jobs = manager if a.runs_dir.resolve() == RUNS.resolve() else None
     # 키는 .env에서만: 켤 때 load_dotenv, 그 뒤 '설정 다시 읽기'. 켤 때 네트워크는 부르지 않는다(Pod 이어 쓰기는 첫 요청 때)
     servers = bs.ServerActions(os.environ, manager, RUNS / "manual" / "server_log.md", env_file=bs.ENV_FILE)
+    servers.start_idle_guard()                       # 요청이 멈춘 Pod를 지운다 (사용 후 닫기)
     # 첫 사용 기록은 --runs-dir와 상관없이 저장소의 runs/manual에 둔다. 켤 때 파일을 만들지 않는다(첫 PUT 때 만든다)
     ctx = AppContext(runs_dir=a.runs_dir, gold_dir=a.gold_dir, pages_dir=a.pages_dir, jobs=jobs,
                      pages_root=PAGES, model_status=servers.model_status, servers=servers, data_root=DATA,

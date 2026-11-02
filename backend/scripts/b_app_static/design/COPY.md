@@ -166,6 +166,7 @@ context.set.label_new|새 문서 폴더 · data/pages 바로 아래|P01
 context.key.claude|AI 정답 초안 · Claude|P01
 context.key.silver|AI 정답 초안 · {name}|P01
 context.key.gold|사람이 확인한 정답 · {name}|P01
+context.key.gold_main|사람이 확인한 정답|P01
 context.models.qwen36_35b_runpod|Qwen3.6 35B · 빌린 서버|P01
 context.models.qwen3_30b_a3b_rngd|Qwen3 30B · 회사 서버|P01
 context.models.gpt_oss_20b_rngd|gpt-oss 20B · 회사 서버|P01
@@ -192,13 +193,13 @@ context.key_reason.key_not_to21|정해진 결과 형식(TO21 JSON)의 정답 파
 context.key_reason.key_eval_only|평가용 문서의 정답만 있어 고를 수 없습니다.|P01
 context.key_reason.unknown_key|정답지 {id}를 찾지 못했습니다. 할 일: 정답지 목록에서 다시 고르세요.|P01
 context.key_reason.unusable_key|이 정답지를 쓸 수 없습니다. 이유: {reason}|P01
-context.documents.label|점수를 매긴 문서|전역
+context.documents.label|시험할 문서 묶음(폴더)|전역
 context.documents.count|개발용 문서 {count}건|전역
 context.change_documents|필요할 때 문서 바꾸기|전역
 context.answer.label|비교한 정답|전역
 context.answer_draft|AI 정답 초안 · 사람 확인 전|전역
 context.change_answer|필요할 때 정답 바꾸기|전역
-context.answer_trust|점수는 개선 방향을 보는 참고용입니다. 값은 원문과 맞춘 뒤 믿으세요. 사람 확인 정답은 일부 개발 문서에만 있습니다.|전역
+context.answer_trust|점수는 개선 방향을 보는 참고용입니다. 값은 원문과 맞춘 뒤 믿으세요.|전역
 context.model.current_label|{model}의 지금 상태|전역
 context.prepare_model|시험할 때 AI 준비하기|전역
 context.model.off_normal|AI가 꺼져 있을 때는 정상 상태입니다.|P01,E01
@@ -208,7 +209,7 @@ context.model.expected_reply|기대한 {model}의 응답을 확인했습니다.|
 context.set.previous_version|이전 개발 자료 {version}판|P01,S01
 context.set.selected|선택한 묶음 · {set_id}|P01,S01
 context.answer.gold_count|사람이 확인한 정답 · {count}건|P01,E02
-context.answer.gold_scope|사람 확인 정답은 일부 개발 문서에만 있습니다. 정답이 있는 문서만 점수를 매깁니다.|P01,E02
+context.answer.gold_scope|정답이 있는 문서만 점수를 매깁니다.|P01,E02
 context.answer.doc_missing|선택 문서의 정답 없음|E05,S03
 context.model.rented_ready|연결됨 · 빌린 서버|P02,S02
 context.model.rented_cost|시간당 약 ${cost_per_hour} (예시). 가동 {hours}시간.|P02,S02
@@ -622,7 +623,7 @@ score.history.score|점수 / {maximum}|S01,S04
 score.history.current|현재 · 가장 최근|S01
 score.history.best|지난 최고점|S01,S10
 score.history.previous|이전 결과|S01
-score.history.comparable|네 결과는 같은 문서 {count}건과 같은 정답 초안으로 비교했습니다.|S01
+score.history.comparable|네 결과는 같은 문서 {count}건과 같은 정답으로 비교했습니다.|S01
 score.history.target|목표 점수은 모두 {line}점입니다.|S01
 score.history.exclude_answer|정답을 만들기 위한 실행은 최고점과 추세에서 제외합니다.|S01
 score.history.answer_records|정답 생성 기록도 아래 목록에서 따로 열 수 있습니다.|S01
@@ -668,7 +669,7 @@ score.rows.title|표에 담긴 행 수|S01
 score.rows.meaning|같은 종류의 값이 몇 줄씩 들어 있는지 비교합니다.|S01
 score.rows.kind|표 종류|S01
 score.rows.prediction|AI 결과|S01
-score.rows.answer|정답 초안|S01,P01
+score.rows.answer|정답|S01,P01
 score.rows.ratio|정답 대비 비율|S01
 score.rows.physchem|물리·화학 성질|S01,S02
 score.rows.cmr|암·유전·생식 독성|S01
@@ -820,8 +821,8 @@ source.evidence.location|{page}쪽 {line_no}번째 줄|S02,S08
 source.evidence.recorded|AI 결과에 기록된 근거 위치입니다.|S02,S08
 source.value.model_label|{model}가 쓴 값|S02,S08
 source.value.concentration_label|공기 속 물질의 허용량(허용 농도)|S02,S08
-source.value.draft|정답 초안: {concentration} mg/m³.|S02,S08
-source.value.draft_warning|정답 초안도 틀릴 수 있습니다. 값을 믿기 전에 원문과 맞춰 보세요.|S02,S08
+source.value.draft|정답: {concentration} mg/m³.|S02,S08
+source.value.draft_warning|정답도 틀릴 수 있습니다. 값을 믿기 전에 원문과 맞춰 보세요.|S02,S08
 source.wrong.risk|허용 농도를 높게 적으면 더 많이 노출되어도 안전하다고 오해할 수 있습니다.|S02,S08
 source.wrong.count_origin|앞 화면의 ‘틀림 {count}건’에 속한 값입니다.|S02,S08
 source.retest.open|이 부분 다시 시험하기|S02,S08
@@ -871,7 +872,7 @@ source.missing.risk|값이 빠지면 작업장 공기 기준을 확인할 수 �
 source.missing.count_origin|앞 화면의 ‘못 뽑음 {count}건’에 속한 값입니다.|S02
 source.made.title|AI가 원문에 없는 숫자를 넣었습니다.|S02
 source.made.no_data|자료 없음|S02
-source.made.draft|정답 초안: 자료 없음.|S02
+source.made.draft|정답: 자료 없음.|S02
 source.made.risk|없는 숫자를 넣으면 확인되지 않은 농도를 안전 기준으로 오해할 수 있습니다.|S02
 source.made.count_origin|앞 화면의 ‘만듦 {count}건’에 속한 값입니다.|S02
 source.unlinked.title|원문 줄을 찾지 못했습니다.|S02
@@ -1109,7 +1110,7 @@ servers.compare.company.limit|한 번에 모델 하나|S06,S08
 servers.choice.rented|다른 방법 · 빌린 서버(RunPod)|S06,S08
 servers.compare.rented.cost|시간당 약 ${cost_per_hour} (예시)|S06,S08
 servers.compare.rented.wait|준비 시간은 매번 다릅니다. 준비 중에는 기다린 시간을 보여 줍니다.|S06,S08
-servers.compare.rented.cleanup|사용 뒤 삭제하세요. 앱이 만든 서버는 생성 후 4시간에 자동 삭제됩니다.|S06,S08
+servers.compare.rented.cleanup|사용 뒤 삭제하세요. 잊어도 요청이 20분 없으면 앱이 지우고, 서버 안 타이머가 4시간에 지웁니다.|S06,S08
 servers.compare.company.cost_meaning|추가 임대료가 없다는 뜻입니다. 회사 장비의 운영비까지 없다는 뜻은 아닙니다.|S06,S08
 servers.company.connected|회사 서버로 가는 연결 통로는 열려 있습니다.|S01,S02,S03,S06,S08
 servers.company.off|이 서버의 AI는 꺼져 있습니다. 켜는 데 보통 15~25분 걸립니다.|S06
@@ -1159,7 +1160,7 @@ servers.rented.adopted|앱이 만든 예시 서버 {server}을 자동으로 이�
 servers.rented.cost|실제 요금이 나갑니다: 시간당 약 ${cost_per_hour} (예시).|S06
 servers.rented.estimated_cost|가동 {hours}시간의 추정 비용은 ${cost}입니다.|S06
 servers.rented.deletion_hours|생성 후 4시간에 자동 삭제합니다. 지금은 {hours}시간 남았습니다.|S06
-servers.rented.scheduler|앱이 켜져 있어야 예약된 삭제를 확인합니다.|S06
+servers.rented.scheduler|20분 자동 삭제는 앱이 켜져 있을 때 돕니다. 4시간 타이머는 서버 안에서 돌아 앱이 꺼져도 지웁니다.|S06
 servers.rented.list_storage|서버 목록과 저장공간 비용|S06
 servers.rented.ownership|소유와 상태|S06
 servers.rented.uptime|가동 시간|S06
@@ -1265,7 +1266,7 @@ servers.confirm.changed_state|상태가 바뀌면 이전 확인으로 실행하�
 servers.confirm.open_expired|실행 시간이 지난 경우 보기|P02
 servers.confirm.open_busy|진행 작업 때문에 잠긴 경우 보기|P02
 servers.confirm.create.target|{model}. 기존 서버가 있으면 비용이 추가됩니다.|P02
-servers.confirm.create.cost|켜진 동안 시간당 약 ${cost_per_hour}가 듭니다(예시). 준비 완료 시각은 모릅니다. 사용 뒤 삭제하세요. 앱이 만든 서버는 생성 후 4시간에 자동 삭제됩니다. 앱이 켜져 있어야 예약을 확인합니다.|P02
+servers.confirm.create.cost|켜진 동안 시간당 약 ${cost_per_hour}가 듭니다(예시). 준비 완료 시각은 모릅니다. 요청이 20분 없으면 앱이 지우고, 앱이 꺼져 있어도 서버 안 타이머가 4시간에 지웁니다.|P02
 servers.confirm.create.action|시간당 약 ${cost_per_hour} 서버 만들기|P02
 servers.confirm.delete.target|{pod_id}. 이 앱이 만든 서버입니다. 진행 작업은 없습니다.|P02
 servers.confirm.delete.cost|가동 {hours}시간. 추정 비용 ${cost}. 별도 저장공간 비용은 남을 수 있습니다.|P02
@@ -1787,7 +1788,7 @@ help.score.title|점수와 비교 읽기|S07
 help.score.weight|중요한 항목에는 더 큰 비중을 줍니다.|S07
 help.score.target|전체 목표 점수은 90점입니다.|S07
 help.score.must|필수 17개 항목의 목표 달성 수는 따로 확인합니다.|S07
-help.score.draft|정답 초안도 틀릴 수 있습니다.|S07
+help.score.draft|정답도 틀릴 수 있습니다.|S07
 help.score.cause|2점 이상 하락한 항목의 원인 후보는 추정입니다.|S07
 help.score.open_methods|23개 기준의 측정 방법 보기|S07
 help.source.title|원문으로 확인하기|S07
@@ -1888,6 +1889,28 @@ help.failed.title|용어 설명을 읽지 못했습니다.|S07
 help.failed.scope|설명만 확인할 수 없습니다.|S07
 help.failed.todo|다른 기능은 사용할 수 있습니다. 할 일: 용어 설명만 다시 읽으세요.|S07
 help.failed.reload|설명 다시 읽기|S07
+help.data.source_meaning|원문 자료(문서 묶음)는 PDF를 쪽마다 글자와 그림으로 바꿔 둔 파일입니다. AI는 이 글자를 읽고, 근거도 이 글자의 줄 번호로 댑니다.|S07
+help.data.source_example|예: p5:L22는 5쪽 22번째 줄입니다.|S07
+help.data.source_change|바꾸기: 화면 위 ‘필요할 때 문서 바꾸기’에서 다른 묶음을 고릅니다. 그 묶음으로 돌린 저장 결과만 보입니다.|S07
+help.data.source_receive|받은 폴더는 화면 위쪽의 새 자료 받기에서 가져옵니다. 앱이 줄 번호와 열지 않을 문서를 검사하고 복사까지 합니다. 점수가 나오는 폴더인지도 알려 줍니다.|S07
+help.data.source_add_title|직접 폴더를 만들어 더하는 순서입니다.|S07
+help.data.source_add1|data/pages/<묶음 이름>/<문서 번호>/ 폴더를 만듭니다.|S07
+help.data.source_add2|쪽마다 p001.txt(글자)와 p001.png(그림)를 넣습니다. 글자 줄 앞에 L001 같은 줄 번호가 있어야 새 시험에 쓸 수 있습니다.|S07
+help.data.source_add3|data/manifest.csv에 없는 문서 번호라면 meta.json도 넣습니다. 안의 doc_id가 폴더 이름과 같아야 열립니다.|S07
+help.data.source_add4|화면을 새로고침하면 목록에 나타납니다. 앱을 다시 켤 필요는 없습니다.|S07
+help.data.source_caution|평가용 문서는 점수가 부풀려지지 않도록 개발 중에는 열지 않습니다. 목록에 잠김으로 보입니다. data/pages는 git에 올리지 않습니다.|S07
+help.data.answer_meaning|정답은 AI 값과 견주는 기준입니다. 점수는 AI가 뽑은 값이 정답과 얼마나 같은지로 계산합니다. 정답을 바꾸면 같은 결과의 점수도 달라집니다.|S07
+help.data.answer_gold|사람이 확인한 정답(골드)은 사람이 검토해 확정한 답입니다. data/gold에 있습니다.|S07
+help.data.answer_silver|AI 정답 초안(실버)은 AI가 먼저 만든 비교용 답입니다. data/silver 아래 폴더에 있고, 틀릴 수 있습니다.|S07
+help.data.answer_change|바꾸기: 화면 위 ‘필요할 때 정답 바꾸기’에서 고릅니다. 저장된 결과를 AI 없이 다시 채점합니다.|S07
+help.data.answer_receive|담당이 올린 새 정답은 화면 위쪽의 새 자료 받기에서 확인합니다. 받는 명령을 알려 주고, 받은 뒤에는 바뀐 문서 수를 보여 줍니다.|S07
+help.data.answer_add_title|정답 폴더를 직접 더하는 순서입니다.|S07
+help.data.answer_add1|data/silver/<이름>/ 또는 data/gold/<이름>/ 폴더를 만듭니다.|S07
+help.data.answer_add2|문서마다 <문서 번호>.json을 넣습니다. 예: T21-S001.json. 정해진 결과 형식(TO21 JSON)이어야 합니다.|S07
+help.data.answer_add3|화면을 새로고침하면 목록에 나타납니다. 앱을 다시 켤 필요는 없습니다.|S07
+help.data.answer_caution|골드는 A 담당이 검수해 올립니다. 고칠 곳을 찾으면 파일을 직접 바꾸지 말고 A 담당에게 알립니다. 평가용 문서의 정답은 열지 않고 개수만 셉니다.|S07
+help.guide.data.title|원문 자료와 정답은 무엇이고 어떻게 바꾸나요?|S07
+help.guide.data.summary|AI가 읽는 글과 점수 기준의 뜻, 바꾸고 새로 더하는 순서를 설명합니다.|S07
 help.guide.flow.title|앱은 어떤 일을 하나요?|S07
 help.guide.flow.summary|문서에서 값을 뽑아 저장하고 정답과 비교하는 순서를 설명합니다.|S07
 help.guide.score.title|점수와 문제 건수는 어떻게 읽나요?|S07
@@ -1909,14 +1932,159 @@ help.guide.protection.summary|평가용 문서 잠금과 접속 키 보관 원�
 help.setup.command|(cd backend && .venv/bin/python scripts/b_app.py)|S07
 help.protection.command|(cd backend && .venv/bin/python -m pytest -q --ignore=tests/test_preprocess.py)|S07
 
+### swap — S11 자료 바꾸기
+
+시안 6화면을 11/2 승인 대기로 옮겼습니다. 윗줄 지금 닫기 단추는 11/2 사용자 결정으로 넣지 않았습니다.
+
+|키|글|쓰는 곳|
+|---|---|---|
+nav.swap|새 자료 받기|전역, S11
+context.model.off_no_cost|요금이 나가지 않습니다.|전역
+context.model.rented_hourly|시간당 약 ${cost}|전역
+context.model.rented_auto_close|요청이 {idle}분 없으면 자동으로 닫힙니다.|전역
+context.model.rented_auto_left|{minutes}분 남았습니다.|전역
+context.model.rented_close_where|지금 닫으려면 AI 켜기와 비용 화면으로 가세요.|전역
+context.model.auto_closed_idle|요청 없이 {limit}분이 지나 서버를 닫았습니다.|전역
+context.model.auto_closed_no_reply|모델이 {limit}분 동안 응답하지 않아 서버를 닫았습니다.|전역
+context.model.auto_closed_cost|켠 시간 {minutes}분, 추정 ${cost}.|전역
+swap.context.score_docs|점수를 매길 수 있는 문서 {count}건|S11
+swap.context.no_score|점수 없음 · 양식만 확인|S11
+swap.context.gold_note|최근 올린 날 {date} · 정답 {count}건 사용|S11
+swap.context.gold_changed|새 정답이 들어왔습니다. 문서 {count}건이 바뀌어 점수를 다시 계산합니다.|S11
+swap.context.gold_changed_open|무엇이 바뀌었나요|S11
+swap.steps.a11y|폴더 바꾸기 단계|S11
+swap.steps.pick|1 폴더 고르기|S11
+swap.steps.check|2 검사|S11
+swap.steps.apply|3 적용|S11
+swap.back|처음으로|S11
+swap.start.title|어떤 자료를 새로 받았나요?|S11
+swap.start.lead|받은 자료에 따라 하는 일이 다릅니다. 검사와 복사에는 AI를 쓰지 않아 요금이 들지 않습니다.|S11
+swap.start.docs_title|새 문서 폴더|S11
+swap.start.docs_note|PDF를 글자로 바꾸는 담당이 보내 준 폴더입니다. 문서마다 쪽별 글자가 들어 있고, AI가 이 글을 읽습니다. 예: Downloads/version17_신규40|S11
+swap.start.docs_action|폴더 고르기|S11
+swap.start.gold_title|새 정답 파일|S11
+swap.start.gold_note|정답 담당이 GitHub에 올린 파일입니다. AI 결과와 견줘 점수를 매기는 기준입니다.|S11
+swap.start.gold_action|새 정답 받기|S11
+swap.start.have_title|새로 받은 자료가 없을 때|S11
+swap.start.have_note|앱에 이미 있는 폴더나 정답으로 바꾸기만 합니다. 파일은 복사하지 않습니다.|S11
+swap.start.have_action|앱에 있는 것으로 바꾸기|S11
+swap.pick.title|어느 문서 폴더를 쓸까요?|S11
+swap.pick.lead|Downloads에서 문서 폴더처럼 보이는 것을 찾았습니다. 앱에 없는 폴더는 검사한 뒤 앱으로 복사합니다. 검사만으로는 파일이 옮겨지지 않습니다.|S11
+swap.pick.in_app|앱에 있음|S11
+swap.pick.not_in_app|앱에 없음|S11
+swap.pick.meta|문서 {count}건 · {time}에 받음|S11
+swap.pick.check|검사하기|S11
+swap.pick.empty|Downloads에서 문서 폴더를 찾지 못했습니다. 아래에 경로를 직접 적어 주세요.|S11
+swap.pick.unreadable|Downloads 폴더를 읽지 못했습니다. 아래에 경로를 직접 적어 주세요.|S11
+swap.pick.other_label|다른 곳에 있는 폴더의 전체 경로|S11
+swap.pick.other_placeholder|/Users/내이름/Downloads/version18|S11
+swap.pick.other_hint|압축 파일은 먼저 풀어 주세요.|S11
+swap.check.checking|폴더를 검사하고 있습니다. 파일은 옮기지 않습니다.|S11
+swap.check.title.score|이 폴더로 시험하고 점수도 볼 수 있습니다.|S11
+swap.check.title.format_only|이 폴더는 쓸 수 있지만 점수는 나오지 않습니다.|S11
+swap.check.title.unusable|이 폴더로는 시험할 수 없습니다.|S11
+swap.check.no_overlap_title|이 폴더의 문서와 겹치는 정답이 없습니다.|S11
+swap.check.no_overlap_body|정답이 있는 문서와 문서 번호가 다릅니다. 이 폴더는 처음 보는 문서에서 AI 결과가 양식에 맞는지 볼 때 고릅니다.|S11
+swap.check.alternative|점수를 보려면 정답이 있는 문서 {count}건이 든 {set} 폴더를 고르세요.|S11
+swap.check.unusable_body|시험할 수 있는 문서가 없습니다. 줄 번호가 없거나 열지 않는 문서뿐입니다. 폴더를 보낸 담당에게 줄 번호가 있는 판을 요청하세요.|S11
+swap.check.can_title|이 폴더로 할 수 있는 일|S11
+swap.check.yes|가능|S11
+swap.check.no|안 됨|S11
+swap.check.batch_yes|{count}건을 한꺼번에 시험하기. AI 결과가 정해진 양식에 맞는지 봅니다.|S11
+swap.check.score_yes|점수 매기기. 정답이 있는 문서 {count}건에 점수가 나옵니다.|S11
+swap.check.score_no|점수 매기기. 비교할 정답이 없습니다.|S11
+swap.check.try_yes|문서 하나의 한 부분만 다시 시험하기. 고를 수 있는 문서 {count}건.|S11
+swap.check.try_no|문서 하나의 한 부분만 다시 시험하기. 지금은 개발용 문서 목록에 있는 문서만 됩니다.|S11
+swap.check.facts_title|검사 결과|S11
+swap.check.docs_label|문서|S11
+swap.check.docs_value|{count}건|S11
+swap.check.lines_label|줄 번호|S11
+swap.check.lines_all|열 수 있는 {count}건 모두 있음. AI가 근거로 적는 번호라 있어야 시험할 수 있습니다. 예: L001|S11
+swap.check.lines_some|열 수 있는 문서 중 {count}건에 없음. 이 문서들은 시험에서 빠집니다. AI가 근거로 적는 번호입니다. 예: L001|S11
+swap.check.locked_label|열지 않는 문서|S11
+swap.check.locked_none|없음|S11
+swap.check.locked_eval|최종 평가 문서 {count}건. 점수가 부풀지 않도록 복사만 하고 열지 않습니다.|S11
+swap.check.locked_same|{doc}는 최종 평가 문서 {eval_doc}와 원본이 같습니다.|S11
+swap.check.locked_unknown|용도를 확인할 수 없는 문서 {count}건. 문서 폴더의 meta.json에 문서 번호가 있어야 열립니다.|S11
+swap.check.target_label|앱에 넣을 곳|S11
+swap.check.target_new|이 앱을 켠 작업 폴더에만 들어갑니다. 받은 폴더는 그대로 둡니다.|S11
+swap.check.target_same|이미 앱에 있습니다. 복사하지 않습니다.|S11
+swap.check.target_conflict_title|앱에 같은 이름의 다른 폴더가 있습니다.|S11
+swap.check.target_conflict|덮어쓰지 않습니다. 받은 폴더의 이름을 바꾼 뒤 다시 검사하세요. 예: version18_2|S11
+swap.check.past_label|지난 결과|S11
+swap.check.past_value|지우지 않습니다. 이전 문서 묶음으로 돌아가면 다시 보입니다.|S11
+swap.check.apply_note_new|누르면 이 폴더를 앱으로 복사하고 화면 위쪽의 시험할 문서 묶음을 이 폴더로 바꿉니다. 다음 화면의 되돌리기 단추로 이전 묶음으로 돌아갈 수 있습니다.|S11
+swap.check.apply_note_same|누르면 복사 없이 화면 위쪽의 시험할 문서 묶음만 이 폴더로 바꿉니다. 다음 화면의 되돌리기 단추로 이전 묶음으로 돌아갈 수 있습니다.|S11
+swap.check.apply|이 폴더로 바꾸기|S11
+swap.check.applying|폴더를 복사하고 있습니다.|S11
+swap.check.switching|문서 묶음을 바꾸고 있습니다.|S11
+swap.check.other|다른 폴더 고르기|S11
+swap.done.title|이제 이 폴더로 시험합니다.|S11
+swap.done.changed|화면 위쪽의 시험할 문서 묶음이 바뀌었습니다.|S11
+swap.done.results_none|이 폴더로 만든 결과가 아직 없어 최근 결과 화면은 비어 있습니다.|S11
+swap.done.results_found|이 폴더로 만든 결과 {count}개를 최근 결과에서 볼 수 있습니다.|S11
+swap.done.off_title|다음 할 일: AI 켜기|S11
+swap.done.off_note|시험하려면 AI가 켜져 있어야 합니다. 이 단추는 서버 고르는 화면만 엽니다. 요금은 그 화면에서 서버를 만든 때부터 나갑니다.|S11
+swap.done.off_action|서버 고르는 화면 열기|S11
+swap.done.on_title|다음 할 일: 여러 문서 시험하기|S11
+swap.done.on_note|AI가 연결되어 있습니다. 이 단추는 시험할 문서를 고르는 화면만 엽니다. 시험은 그 화면에서 시작합니다.|S11
+swap.done.on_action|시험 화면 열기|S11
+swap.done.undo_title|되돌리기|S11
+swap.done.undo_note|이전 문서 묶음({set})으로 돌아갑니다. 복사한 파일은 지우지 않습니다.|S11
+swap.done.undo|되돌리기|S11
+swap.done.undone|이전 문서 묶음으로 돌아갔습니다.|S11
+swap.gold.title|새 정답은 GitHub에서 받습니다.|S11
+swap.gold.lead|정답 담당이 검수해 올립니다. 앱에서 정답 파일을 고치지 않습니다. 고칠 곳을 찾으면 담당에게 알려 주세요.|S11
+swap.gold.now_title|내 컴퓨터에 받아 둔 정답|S11
+swap.gold.name_label|이름|S11
+swap.gold.name_value|사람이 확인한 정답|S11
+swap.gold.commit_label|최근에 올린 것|S11
+swap.gold.commit_none|기록을 읽지 못했습니다.|S11
+swap.gold.docs_label|점수에 쓰는 정답|S11
+swap.gold.docs_value|개발용 문서 {count}건|S11
+swap.gold.eval_label|최종 평가용 정답|S11
+swap.gold.eval_value|{count}건. 점수가 부풀지 않도록 파일을 열지 않고 개수만 셉니다.|S11
+swap.gold.selected_label|지금 비교 중인 정답|S11
+swap.gold.other_selected|지금 점수는 이 정답이 아니라 다른 정답과 비교합니다.|S11
+swap.gold.use_gold|이 정답으로 바꾸기|S11
+swap.gold.checking|GitHub를 확인하고 있습니다.|S11
+swap.gold.behind_title|GitHub에 더 새 정답이 있습니다. 개발용 문서 {dev}건, 최종 평가 문서 {eval_docs}건이 다릅니다.|S11
+swap.gold.behind_body|터미널에서 아래 명령으로 받은 뒤 다시 확인하기를 누르세요. 앱을 다시 켤 필요는 없습니다.|S11
+swap.gold.branch_note|이 앱은 {branch} 가지에서 켜져 있어 main의 정답을 합치는 명령을 보여 줍니다.|S11
+swap.gold.latest|GitHub의 정답과 같습니다. 받을 것이 없습니다.|S11
+swap.gold.offline|GitHub에 연결하지 못했습니다. 받아 둔 정답은 그대로 쓸 수 있습니다.|S11
+swap.gold.changed_title|지난번 뒤로 새 정답이 들어왔습니다. 개발용 문서 {dev}건, 최종 평가 문서 {eval_docs}건이 바뀌었습니다.|S11
+swap.gold.changed_docs|바뀐 개발용 문서: {docs}|S11
+swap.gold.after|새 정답을 받으면 저장된 결과의 점수를 AI 없이 다시 계산합니다. 저장된 AI 결과는 바뀌지 않습니다.|S11
+swap.gold.recheck|다시 확인하기|S11
+swap.gold.open_scores|최근 결과의 점수 보기|S11
+swap.problems.swap_no_path.message|폴더를 찾지 못했습니다: {path}|S11
+swap.problems.swap_no_path.fix|폴더의 전체 경로를 적어 주세요. 예: /Users/내이름/Downloads/version18|S11
+swap.problems.swap_doc_folder.message|{name}은 문서 하나의 폴더입니다.|S11
+swap.problems.swap_doc_folder.fix|그 위 폴더를 고르세요.|S11
+swap.problems.swap_bad_name.message|폴더 이름을 쓸 수 없습니다: {name}|S11
+swap.problems.swap_bad_name.fix|글자, 숫자, 밑줄만 남도록 이름을 바꾼 뒤 다시 검사하세요. 예: version18|S11
+swap.problems.swap_no_docs.message|{name} 바로 안에 문서 폴더가 없습니다.|S11
+swap.problems.swap_no_docs.fix|압축을 풀었는지 확인하세요. 한 단계 안쪽 폴더일 수도 있습니다. 문서 폴더에는 p001.txt 같은 파일이 있습니다.|S11
+swap.problems.swap_unusable.message|{name}에는 시험할 수 있는 문서가 없습니다.|S11
+swap.problems.swap_unusable.fix|폴더를 보낸 담당에게 줄 번호가 있는 판을 요청하세요.|S11
+swap.problems.swap_conflict.message|앱에 같은 이름의 다른 폴더가 있습니다: {target}|S11
+swap.problems.swap_conflict.fix|받은 폴더의 이름을 바꾼 뒤 다시 검사하세요. 예: version18_2|S11
+swap.problems.swap_copy_failed.message|폴더를 복사하지 못했습니다: {detail}|S11
+swap.problems.swap_copy_failed.fix|디스크 공간과 폴더 권한을 확인한 뒤 다시 누르세요. 복사하다 만 파일은 남지 않습니다.|S11
+guide.ai.rented_time|빌린 서버는 켜는 데 3~6분 걸려요. 요청이 20분 없으면 앱이 닫아요.|G10
+help.setup.new_data|새 문서 폴더나 새 정답을 받았으면 화면 위쪽의 새 자료 받기를 누르세요. 문서 폴더는 검사한 뒤 앱으로 복사하고, 정답은 GitHub에서 받는 명령을 알려 줍니다.|S07
+help.servers.states|화면 위쪽에서 상태를 봅니다. AI 꺼짐은 정상입니다. 빌린 서버를 만들면 켜는 중이 3~6분 보이고, 연결된 모델이 보이면 시험을 보낼 수 있습니다.|S07
+help.servers.waiting|10분이 지나도 켜는 중이면 AI 켜기와 비용의 서버 기록을 확인하세요. 모델이 40분 동안 응답하지 않으면 앱이 서버를 지웁니다.|S07
+
 ### glossary — S07 용어 · S01, S02 첫 소개
 
 키|글|쓰는 곳
 ---|---|---
 glossary.silver.term|AI 정답 초안(실버)|S07
-glossary.silver.meaning|AI가 먼저 만든 비교용 답입니다. 예: 현재 점수는 AI 정답 초안과 비교한 값입니다.|S07
+glossary.silver.meaning|AI가 먼저 만든 비교용 답입니다. 예: data/silver/claude에 있는 답입니다.|S07
 glossary.gold.term|사람이 확인한 정답(골드)|S07
-glossary.gold.meaning|일부 개발 문서에만 있는 사람이 검토한 답입니다. 예: 정답 선택 화면에는 개발용 10건 중 3건이 표시됩니다.|S07
+glossary.gold.meaning|사람이 검토해 확정한 답입니다. 예: data/gold/T21-S001.json입니다.|S07
 glossary.weighted.term|중요도를 반영한 전체 점수(가중 종합)|S07
 glossary.weighted.meaning|각 기준에 중요도만큼 비중을 주어 계산한 점수입니다. 예: 최근 전체 점수 82.4점의 목표는 90점입니다.|S07
 glossary.must_count.term|필수 기준의 목표 달성 수|S07

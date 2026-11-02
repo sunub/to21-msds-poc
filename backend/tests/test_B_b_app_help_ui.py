@@ -9,7 +9,7 @@ import pytest
 from test_B_b_app_dom import STATIC, _Page, run_js
 
 
-TOPICS = ('flow', 'score', 'source', 'setup', 'retest', 'prompt', 'servers', 'recovery', 'protection')
+TOPICS = ('flow', 'score', 'source', 'data', 'setup', 'retest', 'prompt', 'servers', 'recovery', 'protection')
 CONTEXT = {'s01': 'score', 's02': 'source', 's03': 'retest', 's04': 'score',
            's05': 'recovery', 's06': 'servers', 's09': 'retest', 's10': 'score'}
 ENV_NAMES = ('RUNPOD_VLLM_BASE_URL', 'RUNPOD_VLLM_API_KEY', 'RNGD_BASE_URL',
@@ -46,6 +46,25 @@ def test_guide_headings_and_deep_links_follow_copy_order():
         section = next(n for n in tree if n['attrs'].get('id') == topic)
         assert copy[f'help.guide.{topic}.summary'] in content(section)
         assert any(n['tag'] == 'a' and n['attrs'].get('href') == '#' + topic for n in tree)
+
+
+def test_data_chapter_explains_source_and_answers_in_both_help_pages():
+    copy = copy_rows()
+    keys = [k for k in copy if k.startswith('help.data.')]
+    assert len(keys) >= 12
+    page = _Page(); page.feed((STATIC / 'guide.html').read_text())
+    section = next(n for n in nodes(page.root) if n['attrs'].get('id') == 'data')
+    for key in keys:
+        assert copy[key] in content(section), key
+    text = content(section)
+    for fact in ('data/pages/', 'data/silver/', 'data/gold', 'p001.txt', 'L001', 'meta.json', 'T21-S001.json'):
+        assert fact in text
+    run_js(setup() + r"""
+      await go('s07',{helpTopic:'data'});
+      const body=document.getElementById('help-data');
+      assert.equal(body.open,true);
+      for(const key of """ + json.dumps(keys) + r""")assert.ok(body.textContent.includes(T(key)),key);
+    """)
 
 
 def test_guide_environment_cells_have_correct_proxy_fact_and_no_secrets_or_addresses():

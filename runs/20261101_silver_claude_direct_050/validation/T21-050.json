@@ -1,0 +1,46 @@
+{
+  "merge_warnings": [],
+  "input_sources": {
+    "1": "텍스트층",
+    "2": "텍스트층",
+    "3": "텍스트층",
+    "4": "텍스트층",
+    "5": "텍스트층",
+    "6": "텍스트층",
+    "7": "텍스트층",
+    "8": "텍스트층",
+    "9": "텍스트층",
+    "10": "텍스트층",
+    "11": "텍스트층"
+  },
+  "missing_bundles": [],
+  "schema_errors": [],
+  "to21_validator": [
+    {
+      "level": "경고",
+      "rule": "V07",
+      "field": "msds[0].hazard",
+      "message": "분류 없음인데 신호어 있음"
+    },
+    {
+      "level": "오류",
+      "rule": "V16",
+      "field": "msds[0].physchem[3].q",
+      "message": "status=값있음인데 값 없음"
+    },
+    {
+      "level": "오류",
+      "rule": "V16",
+      "field": "msds[0].physchem[14].q",
+      "message": "status=값있음인데 값 없음"
+    },
+    {
+      "level": "오류",
+      "rule": "V16",
+      "field": "msds[0].physchem[18].q",
+      "message": "status=값있음인데 값 없음"
+    }
+  ],
+  "reused_bundles": {},
+  "applicable_conflicts": []
+}
