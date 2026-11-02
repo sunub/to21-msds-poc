@@ -1135,3 +1135,15 @@ assert.ok(at('source.structure.doc_comparison')<at('steps.source.raw_value_title
 assert.ok(at('source.estimation.expand')<at('steps.source.raw_value_title'),JSON.stringify(titles));
 assert.ok(at('steps.source.raw_value_title')<at('steps.source.target_title'),JSON.stringify(titles));
 """)
+
+
+def test_comparison_head_says_when_the_picture_cannot_mark_the_line():
+    # version17에서 값의 12%는 줄 좌표가 없다. 그림에 표시가 없는 이유를 표 아래까지 내려가지 않고 읽는다.
+    run_js(fixture() + STEPS + r"""
+const head=()=>el('source-selection').querySelector('.source-row-evidence').textContent;
+await go('s02',{section:8,item:'Fake criterion',pick:'wrong'});
+assert.ok(!head().includes(T('source.page.no_coordinates')));
+view.lines[1].bbox=null;await sourceLoad(true);
+await go('s02',{section:8,item:'Fake criterion',pick:'wrong'});
+assert.ok(head().includes(T('source.page.no_coordinates')),head());
+""")

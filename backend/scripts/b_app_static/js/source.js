@@ -766,7 +766,8 @@ function sourceEvidenceWhere(v, only) {
   const lines = sourceSelectedLines(v);
   if (!lines.length) return T(only ? "source.doc.no_guess" : "source.unlinked.title");
   const where = lines.map(line => T(only ? "source.missing.location" : "source.evidence.location", {page: line.page, line_no: line.no})).join(", ");
-  return `${T(only ? "source.missing.evidence_title" : "steps.source.evidence_title")}: ${where}`;
+  const mark = lines.some(line => !line.bbox) ? ` ${T("source.page.no_coordinates")}` : "";
+  return `${T(only ? "source.missing.evidence_title" : "steps.source.evidence_title")}: ${where}.${mark}`;
 }
 function sourceRenderSelection() {
   const D = S.source, d = D.data, el = document.getElementById("source-selection"), show = sourceStep() === "compare" && !!d;
