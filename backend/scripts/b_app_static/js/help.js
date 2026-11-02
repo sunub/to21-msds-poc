@@ -160,6 +160,10 @@ const HELP_CHAPTERS = {
     ],
     [
       "p",
+      "help.data.source_receive"
+    ],
+    [
+      "p",
       "help.data.source_add_title"
     ],
     [
@@ -185,6 +189,10 @@ const HELP_CHAPTERS = {
     [
       "p",
       "help.data.answer_change"
+    ],
+    [
+      "p",
+      "help.data.answer_receive"
     ],
     [
       "p",
@@ -609,7 +617,7 @@ const HELP_CHAPTERS = {
   ]
 };
 const HELP_CONTEXT = {s01: "score", s02: "source", s03: "retest", s04: "score",
-  s05: "recovery", s06: "servers", s09: "retest", s10: "score"};
+  s05: "recovery", s06: "servers", s09: "retest", s10: "score", s11: "data"};
 S.help = {topic: null, returnTo: null, lastScreen: null, pending: null, loaded: false,
   loading: false, glossaryError: null, criteriaError: null, criteria: null, search: ""};
 
