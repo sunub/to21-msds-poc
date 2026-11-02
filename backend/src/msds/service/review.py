@@ -10,10 +10,12 @@ from __future__ import annotations
 import copy
 import re
 
+from msds.extract.inputs import EXTRACT_SECTIONS
+
 SECTION_OF_ROOT = {"meta": 1, "product": 1, "companies": 1, "hazard": 2, "composition": 3, "components": 3,
-                   "exposure_limits": 8, "physchem": 9, "toxicity": 11, "cmr": 11, "ecotox": 12, "waste": 13,
+                   "exposure_limits": 8, "physchem": 9, "toxicity": 11, "cmr": 11, "ecotox": 12, "waste": 15,
                    "transport": 14, "dangerous_goods": 15, "regulations": 15, "intl_class": 15}
-SECTIONS = range(1, 17)
+SECTIONS = EXTRACT_SECTIONS    # 추출·검수 대상 항
 # 코드가 채우는 칸, 원문 그대로의 칸, 근거 줄
 _HIDDEN = {"seq", "comp_ref", "parent_seq", "dp", "status", "note", "raw", "text", "refs", "std_code", "match_score",
            "line", "lines", "page", "section_no", "after_item", "reason", "suggested_code", "item_code", "title_raw",

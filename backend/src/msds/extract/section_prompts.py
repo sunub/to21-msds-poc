@@ -14,6 +14,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 import re
 from functools import lru_cache
 from pathlib import Path
@@ -26,7 +27,17 @@ from msds.extract.prompt_builder import _BASE_RULES, _code_table, _field_rows, _
 from msds.extract.rows import rows_guide
 from msds.extract.section_specs import SectionSpec, load_specs, response_schema
 
-SECTION_PROMPT_VERSION = "s10"   # 안내문 내용을 고치면 올린다. 실행 기록에 남는다. s3은 10/28에 되돌린 extras 규칙판이 썼다. s5: 행 형식 안내, 2항 그림문자(C2 코드표·이미지 안내) 추가. 14항도 행 형식(s5 실행 전이라 버전 유지). 그 밖의 JSON 안내문은 s4와 같다. s6: 행 형식 안내에 표마다 선택지 줄, 비해당·단위·값 없는 행·extras 규칙 추가 (rows-tune. s5로 돌린 실행 기록이 이미 있어 올림). s7: 16항 관리정보 칸 대응(rows-tune3). s8은 되돌린 score-fix2 keyed-rows가 썼다. s9: 행 형식 규칙에서 저장 예를 뺌. s10: extras의 suggested_code를 받지 않음
+# 시험용 안내문 판. 기본(None)은 SECTION_BASE_VERSION 안내문이다. 시험할 때만 MSDS_PROMPT_VARIANT로 고른다.
+# 고른 판은 실행 기록의 prompt_version과 prompt_hash에 남는다. 확정되면 기본에 합치고 여기서 뺀다.
+PROMPT_VARIANTS = {
+    "s11": "8·9·12항 안내 한 줄씩: 값 없는 표 칸도 행으로, 생태독성 한 줄 → 어류·갑각류·조류 세 행, 상한/하한 한 줄 → UEL·LEL "
+           "(11/01 원인 확인에서 코드로 못 고친 모델 쪽 누락: M004 8항·12항)",
+}
+PROMPT_VARIANT = os.environ.get("MSDS_PROMPT_VARIANT") or None
+if PROMPT_VARIANT is not None and PROMPT_VARIANT not in PROMPT_VARIANTS:
+    raise ValueError(f"MSDS_PROMPT_VARIANT={PROMPT_VARIANT!r}: 고를 수 있는 판은 {sorted(PROMPT_VARIANTS)}")
+SECTION_BASE_VERSION = "s10"     # 안내문 내용을 고치면 올린다. 실행 기록에 남는다. s3은 10/28에 되돌린 extras 규칙판이 썼다. s5: 행 형식 안내, 2항 그림문자(C2 코드표·이미지 안내) 추가. 14항도 행 형식(s5 실행 전이라 버전 유지). 그 밖의 JSON 안내문은 s4와 같다. s6: 행 형식 안내에 표마다 선택지 줄, 비해당·단위·값 없는 행·extras 규칙 추가 (rows-tune. s5로 돌린 실행 기록이 이미 있어 올림). s7: 16항 관리정보 칸 대응(rows-tune3). s8은 되돌린 score-fix2 keyed-rows가 썼다. s9: 행 형식 규칙에서 저장 예를 뺌. s10: extras의 suggested_code를 받지 않음
+SECTION_PROMPT_VERSION = PROMPT_VARIANT or SECTION_BASE_VERSION
 IMAGE_MAX_SIDE = 1200           # 2항에 붙이는 쪽 이미지의 긴 변 픽셀 (ADR-019)
 _IMAGE_NOTE = "[2항이 있는 쪽 이미지. 그림문자(마름모 안 그림)를 보고 pictograms에 GHS 코드를 적는다]"
 
@@ -72,6 +83,14 @@ GUIDES = {
 - 원문의 `최종 개정일자`·`개정일자`·`개정일`·`최종 개정일`은 `meta_revision.last_revision_date`에 적는다. 최초작성일 값을 여기에 쓰지 않는다.
 - 원문의 `개정횟수`·`개정 번호`는 `meta_revision.revision_no`(숫자)와 `meta_revision.revision_label`(원문 글자, 예: `0 회`)에 적는다.
 - 값이 `자료없음`이거나 비어 있으면 그 칸을 쓰지 않는다. 이 네 칸은 `extras`에 쓰지 않는다.""",
+}
+# s11: 기본 안내 뒤에 더하는 줄. 코드로 되돌릴 수 없는 모델 쪽 누락을 노린다 (개발 골드 M004)
+GUIDES_S11 = {
+    8: "- 표의 칸이 `자료없음`·`해당없음`이어도 성분 × 기준 출처마다 행을 쓰고 q에 그 글자를 둔다. 기준 출처만 적힌 줄"
+       "(예: `국내규정 : 자료없음`)도 성분 열을 비우고 행으로 쓴다.",
+    9: "- 상한과 하한이 한 줄에 함께 적혀 있으면 UEL과 LEL 두 행으로 쓴다. prop_code에 `UEL+LEL`을 쓰지 않는다.",
+    12: "- 제목(예: `가. 생태독성`) 아래에 어류·갑각류·조류 구분 없이 성분 값이 하나만 적힌 줄(예: `- 가상물질 갑 : 자료없음`)은 "
+        "ECO_FISH·ECO_CRUST·ECO_ALGAE 세 행으로 쓴다.",
 }
 _COMP_GUIDE = ("- 성분이 따로 적힌 행은 `comp_name`·`comp_cas`에 원문의 성분 이름과 CAS 번호를 적는다. "
                "제품 전체 값이면 둘 다 쓰지 않는다.")
@@ -126,8 +145,10 @@ def _fields(wb, spec: SectionSpec, schema: dict) -> list[str]:
     return [r for r in rows if _in_schema(schema, _FIELD_PATH.match(r).group(1))]
 
 
-def _guide(spec: SectionSpec, schema: dict) -> str:
+def _guide(spec: SectionSpec, schema: dict, variant: str | None = None) -> str:
     parts = [GUIDES[spec.no]] if spec.no in GUIDES else []
+    if variant == "s11" and spec.no in GUIDES_S11:
+        parts.append(GUIDES_S11[spec.no])
     if any('"comp_name"' in json.dumps(schema["properties"][t]) for t in spec.targets):
         parts.append(_COMP_GUIDE)
     if spec.narrative_codes:
@@ -141,13 +162,16 @@ def _narrative_table(wb, codes: tuple[str, ...]) -> list[str]:
             *(" | ".join(x for x in r if x) for r in rows[4:] if r[1] in codes)]
 
 
-def build_system(no: int, rows: bool = False) -> str:
-    """rows=True면 표를 한 줄 한 행으로 받는 안내문이다 (ADR-019)."""
+def build_system(no: int, rows: bool = False, variant: str | None = PROMPT_VARIANT) -> str:
+    """rows=True면 표를 한 줄 한 행으로 받는 안내문이다 (ADR-019). variant는 시험용 판(PROMPT_VARIANTS)이고
+    None이면 기본 안내문이다."""
+    if variant is not None and variant not in PROMPT_VARIANTS:
+        raise ValueError(f"안내문 판 {variant!r}이 없습니다. 고를 수 있는 판: {sorted(PROMPT_VARIANTS)}")
     spec = load_specs()[no]
     schema = response_schema(no)
     wb = _workbook()
     common = (_COMMON_ROWS if rows else _COMMON).format(no=no, title=spec.title)
-    guide = _guide(spec, schema)
+    guide = _guide(spec, schema, variant)
     fields = _fields(wb, spec, schema)
     rule_codes = _BASE_RULES | _referenced_rules(fields) | set(re.findall(r"R\d{2}", common + guide))
     refs = re.findall(r"\[참조 ([^\]]*)\]", "\n".join(fields))

@@ -1,0 +1,116 @@
+{
+ "doc_id": "T21-M002",
+ "msds_index": 0,
+ "section": 2,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "hazard": {
+   "classified": true,
+   "classes": [
+    {
+     "group": "물리적",
+     "class_code": "PH_FLAM_GAS",
+     "category": "1",
+     "raw": "인화성 가스 : 구분 1",
+     "line": "p1:L14"
+    },
+    {
+     "group": "물리적",
+     "class_code": "PH_PRESS_GAS",
+     "category": "1",
+     "raw": "고압가스 : 구분 1",
+     "line": "p1:L15"
+    }
+   ],
+   "signal_word": "위험",
+   "pictograms": [
+    {
+     "code": "GHS02"
+    },
+    {
+     "code": "GHS04"
+    }
+   ],
+   "h_statements": [
+    {
+     "code": "H220",
+     "text": "극인화성 가스",
+     "line": "p1:L20"
+    },
+    {
+     "code": "H280",
+     "text": "고압가스",
+     "line": "p1:L21"
+    }
+   ],
+   "p_statements": [
+    {
+     "code": "P210",
+     "type": "예방",
+     "text": "열·스파크·화염·고열로부터 멀리하시오. - 금연",
+     "line": "p2:L1"
+    },
+    {
+     "code": "P377",
+     "type": "대응",
+     "text": "누출성 가스 화재 시 누출을 안전하게 막을 수 없다면 불을 끄려하지 마시오.",
+     "line": "p2:L3"
+    },
+    {
+     "code": "P381",
+     "type": "대응",
+     "text": "안전하게 처리하는 것이 가능하면 모든 점화원을 제거하시오.",
+     "line": "p2:L4"
+    },
+    {
+     "code": "P403",
+     "type": "저장",
+     "text": "환기가 잘 되는 곳에 보관하시오.",
+     "line": "p2:L6"
+    }
+   ],
+   "nfpa": {
+    "health": 0,
+    "fire": 4,
+    "reactivity": 0,
+    "special": ""
+   },
+   "lines": {
+    "signal_word": "p1:L18",
+    "pictograms": "p1:L17",
+    "nfpa": "p2:L9"
+   }
+  },
+  "narratives": [],
+  "extras": []
+ },
+ "raw_text": "{\"hazard\":{\"classified\":true,\"classes\":[{\"group\":\"물리적\",\"class_code\":\"PH_FLAM_GAS\",\"category\":\"1\",\"raw\":\"인화성 가스 : 구분 1\",\"line\":\"p1:L14\"},{\"group\":\"물리적\",\"class_code\":\"PH_PRESS_GAS\",\"category\":\"1\",\"raw\":\"고압가스 : 구분 1\",\"line\":\"p1:L15\"}],\"signal_word\":\"위험\",\"pictograms\":[{\"code\":\"GHS02\"},{\"code\":\"GHS04\"}],\"h_statements\":[{\"code\":\"H220\",\"text\":\"극인화성 가스\",\"line\":\"p1:L20\"},{\"code\":\"H280\",\"text\":\"고압가스\",\"line\":\"p1:L21\"}],\"p_statements\":[{\"code\":\"P210\",\"type\":\"예방\",\"text\":\"열·스파크·화염·고열로부터 멀리하시오. - 금연\",\"line\":\"p2:L1\"},{\"code\":\"P377\",\"type\":\"대응\",\"text\":\"누출성 가스 화재 시 누출을 안전하게 막을 수 없다면 불을 끄려하지 마시오.\",\"line\":\"p2:L3\"},{\"code\":\"P381\",\"type\":\"대응\",\"text\":\"안전하게 처리하는 것이 가능하면 모든 점화원을 제거하시오.\",\"line\":\"p2:L4\"},{\"code\":\"P403\",\"type\":\"저장\",\"text\":\"환기가 잘 되는 곳에 보관하시오.\",\"line\":\"p2:L6\"}],\"nfpa\":{\"health\":0,\"fire\":4,\"reactivity\":0,\"special\":\"\"},\"lines\":{\"signal_word\":\"p1:L18\",\"pictograms\":\"p1:L17\",\"nfpa\":\"p2:L9\"}},\"narratives\":[],\"extras\":[]}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 6392,
+  "completion_tokens": 372,
+  "total_tokens": 6764
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 6392,
+    "completion_tokens": 372,
+    "total_tokens": 6764
+   },
+   "seconds": 5.377,
+   "chars": 915,
+   "whitespace": 32,
+   "head": "{\"hazard\":{\"classified\":true,\"classes\":[{\"group\":\"물리적\",\"class_code\":\"PH_FLAM_GAS\",\"category\":\"1\",\"raw\":\"인화성 가스 : 구분 1\",\"line\":\"p1:L14\"},{\"group\":\"물리적\",\"class_code\":\"PH_PRESS_GAS\",\"category\":\"1\",\"raw\":\"고압가스 : 구분 1\",\"line\":\"p1:L15\"}],\"signal_word\":\"위험\",\"pictograms\":[{\"code\":\"GHS02\"},{\"code\":\"GHS04\"}],\"h_statements\":[{\"code\":\"H220\",\"text\":\"극인화성 가스\",\"line\":\"p1:L20\"},{\"code\":\"H280\",\"text\":\"고압가스\",\"line\":\"p1:L21\"}],\"p_statements\":[{\"code\":\"P210\",\"type\":\"예방\",\"text\":\"열·스파크·화염·고열로부터 멀리하시오. - 금연\",\"line\":\"p",
+   "tail": "2:L1\"},{\"code\":\"P377\",\"type\":\"대응\",\"text\":\"누출성 가스 화재 시 누출을 안전하게 막을 수 없다면 불을 끄려하지 마시오.\",\"line\":\"p2:L3\"},{\"code\":\"P381\",\"type\":\"대응\",\"text\":\"안전하게 처리하는 것이 가능하면 모든 점화원을 제거하시오.\",\"line\":\"p2:L4\"},{\"code\":\"P403\",\"type\":\"저장\",\"text\":\"환기가 잘 되는 곳에 보관하시오.\",\"line\":\"p2:L6\"}],\"nfpa\":{\"health\":0,\"fire\":4,\"reactivity\":0,\"special\":\"\"},\"lines\":{\"signal_word\":\"p1:L18\",\"pictograms\":\"p1:L17\",\"nfpa\":\"p2:L9\"}},\"narratives\":[],\"extras\":[]}"
+  }
+ ],
+ "seconds": 5.379,
+ "check_problems": []
+}

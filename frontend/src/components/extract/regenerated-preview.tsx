@@ -11,7 +11,7 @@ import { cn } from "@/lib/cn";
 type RegenSection = RegeneratedResponse["msds"][number]["sections"][number];
 
 /**
- * 끝난 문서의 재생성 MSDS. 추출값으로 16항 문서를 다시 만든 것으로, 모델을 다시 부르지 않는다.
+ * 끝난 문서의 재생성 MSDS. 추출값으로 문서를 다시 만든 것으로(추출 대상 1·2·3·8·9·11·12·14·15항만 담긴다), 모델을 다시 부르지 않는다.
  * PDF 는 브라우저 인쇄로 저장한다 (인쇄할 때는 이 칸만 남는다).
  */
 export function RegeneratedPreview({

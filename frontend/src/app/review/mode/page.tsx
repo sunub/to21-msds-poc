@@ -60,7 +60,7 @@ function Mode({ doc }: { doc: DocumentDetail }) {
         <ModeCard
           title="추출값 확인부터 하기"
           recommended={type.recommendValues}
-          body="재생성한 16항 MSDS를 원문과 나란히 놓고 칸마다 확인하고 고칩니다. 끝나면 판정 단계로 넘어갑니다."
+          body="재생성한 MSDS(1·2·3·8·9·11·12·14·15항)를 원문과 나란히 놓고 칸마다 확인하고 고칩니다. 끝나면 판정 단계로 넘어갑니다."
           flow='확인한 칸은 "확인함", 고친 칸은 "수정됨"으로 기록됩니다.'
           href={routes.review(doc.id, "values")}
           action="추출값 확인 시작하기"
