@@ -231,3 +231,21 @@ def test_action_row_reaches_the_bottom_of_a_step_screen_without_a_page_scroll():
     assert re.search(r'\.work:has\(>\s*section:not\(\[hidden\]\)\s+\.step-screen\)\s*\{[^}]*flex-direction:\s*column', css)
     # 처리 알림 글은 맨 아래 줄 밑에 띠를 만들지 않는다. 오류는 계속 보인다.
     assert re.search(r'body:has\(.*?\.step-screen\)\s+#status:not\(\.error\)\s*\{[^}]*clip-path', css)
+
+
+def test_drawer_leaves_the_top_bar_readable_so_cost_stays_visible():
+    # 서랍이 위쪽 막대까지 덮으면 요금 글이 가려진다. 11/2 코덱스 판독과 캡처로 확인했다.
+    css = (STATIC / 'app.css').read_text()
+    assert re.search(r'#details-drawer\s*\{[^}]*top:\s*calc\(var\(--sticky-offset\) - 16px\)', css)
+    assert re.search(r'#details-drawer\s*\{[^}]*height:\s*calc\(100vh - var\(--sticky-offset\) \+ 16px\)', css)
+    assert re.search(r'#details-drawer::backdrop\s*\{[^}]*top:\s*calc\(var\(--sticky-offset\) - 16px\)', css)
+
+
+def test_money_and_failure_read_differently_from_off_in_the_top_bar():
+    # 꺼짐과 켜는 중이 같은 빈 원이었고, 비용 글이 작고 옅었다. 켜는 중에도 돈이 나간다.
+    css = (STATIC / 'app.css').read_text()
+    assert re.search(r'\.context-ai\.billing\s*\{[^}]*border-color:\s*var\(--accent\)', css)
+    assert re.search(r'\.context-ai\.billing \.context-dot\s*\{[^}]*border-color:\s*var\(--accent\)', css)
+    assert re.search(r'\.context-ai\.billing small:last-child\s*\{[^}]*color:\s*var\(--ink\)', css)
+    assert re.search(r'#context-model\.error \.context-ai b\s*\{[^}]*color:\s*var\(--failure\)', css)
+

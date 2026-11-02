@@ -384,6 +384,8 @@ def test_strip_shows_gold_upload_date_only_for_main_gold():
     run_js(FIXTURES + r"""
       await start();await settle();
       assert.ok(text('context-answer-note').includes(T('swap.context.gold_note',{date:'11/1',count:1})));
+      // 좁은 창에서는 막대에서 날짜 글이 빠지므로 정답 칩의 말풍선에서도 읽는다.
+      assert.ok(el('context-change-key').getAttribute('data-tip').includes(T('swap.context.gold_note',{date:'11/1',count:1})));
       shellApplyContext({set:'version17',key:'silver/claude'});await settle();
       assert.ok(!text('context-answer-note').includes('11/1'));
     """)

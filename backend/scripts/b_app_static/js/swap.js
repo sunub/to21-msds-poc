@@ -278,6 +278,12 @@ function swapRenderContextNote() {
   const note = current?.id === "gold" && state.goldCommit ? T("swap.context.gold_note",
     {date: swapDate(state.goldCommit.at), count: current.docs?.length ?? 0}) : null;
   coreReplace(el, note ? h("small", {class: "context-note", "data-tip": note}, note) : null);
+  // 좁은 창에서는 막대에서 날짜 글이 빠지므로 정답 칩의 말풍선에도 둔다.
+  const chip = document.getElementById("context-change-key");
+  if (chip) {
+    if (chip.getAttribute("data-tip-base") == null) chip.setAttribute("data-tip-base", chip.getAttribute("data-tip") || "");
+    chip.setAttribute("data-tip", [chip.getAttribute("data-tip-base"), note].filter(Boolean).join("\n"));
+  }
   // 새 정답 알림은 점수를 바꾸는 일이라 막대 아래 줄에 다 보인다. 알림이 있을 때만 줄이 생긴다.
   coreReplace(document.getElementById("context-gold-notice"),
     state.goldNotice ? h("p", {class: "swap-gold-changed"}, T("swap.context.gold_changed", {count: state.goldNotice}), " ",
