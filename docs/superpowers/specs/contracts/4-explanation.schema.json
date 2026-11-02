@@ -12,19 +12,20 @@
     "request": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["task", "lang", "finding", "trace", "evidence"],
+      "required": ["task", "lang", "finding", "causes", "trace", "evidence"],
       "properties": {
         "task": { "const": "explain_finding" },
         "lang": { "const": "ko" },
         "finding": {
-          "description": "약속 ③ finding 에서 id·section·item·msds·expected·verdict·type·severity 만 뽑은 것",
+          "description": "약속 ③ finding 에서 만든 설명용 묶음. 원인이 있으면 reason 은 null (같은 내용을 causes 가 읽는 말로 담는다)",
           "type": "object",
-          "additionalProperties": false,
-          "required": ["id", "section", "item", "msds", "expected", "verdict", "type", "severity"],
+          "required": ["id", "section", "kind", "item", "item_name", "msds", "expected", "verdict", "type", "severity"],
           "properties": {
             "id": { "$ref": "common.schema.json#/$defs/finding_id" },
             "section": { "enum": ["2", "15"] },
+            "kind": { "type": "string" },
             "item": { "type": "string" },
+            "item_name": { "type": "string" },
             "msds": { "type": "object" },
             "expected": { "type": "object" },
             "verdict": { "enum": ["불일치", "경계", "근거부족"] },
@@ -32,32 +33,30 @@
             "severity": { "$ref": "common.schema.json#/$defs/severity" }
           }
         },
-        "trace": {
-          "description": "약속 ③ trace.steps 그대로",
+        "causes": {
+          "description": "trace.cause_texts. 우진 실측(RNGD Qwen3-30B, 실제 HTODB 122줄 7회)에서 원인 문장이 지어낸 이유를 줄인 핵심 입력이다",
           "type": "array",
-          "items": { "type": "object", "required": ["step"] }
+          "items": { "type": "object", "required": ["code", "text"] }
+        },
+        "trace": {
+          "description": "약속 ③ trace 요약 (compliance/explain.py compact_trace). 계산 근거가 없으면 null",
+          "type": ["object", "null"]
         },
         "evidence": {
           "type": "array",
-          "items": { "$ref": "common.schema.json#/$defs/evidence_ref" }
+          "items": { "type": "object", "required": ["page", "text", "field"] }
         }
       }
     },
     "model_response": {
-      "description": "모델에 JSON Schema 강제 출력으로 이 모양을 요구한다 (temperature 0)",
+      "description": "모델에 JSON Schema 강제 출력으로 이 모양을 요구한다 (temperature 0). used_numbers 는 받지 않고 글에서 직접 뽑는다 (우진 측정 2차: 목록이 반복되다 출력 한도에 걸림)",
       "type": "object",
       "additionalProperties": false,
-      "required": ["finding_id", "summary", "reasons", "basis", "used_numbers"],
+      "required": ["summary", "reasons", "basis"],
       "properties": {
-        "finding_id": { "$ref": "common.schema.json#/$defs/finding_id" },
-        "summary": { "type": "string", "minLength": 1, "maxLength": 200 },
-        "reasons": { "type": "array", "minItems": 1, "maxItems": 5, "items": { "type": "string", "maxLength": 200 } },
-        "basis": { "type": "array", "maxItems": 5, "items": { "type": "string", "maxLength": 200 } },
-        "used_numbers": {
-          "description": "설명에 쓴 숫자. 모두 trace·evidence 에 있어야 검사를 통과한다",
-          "type": "array",
-          "items": { "type": "number" }
-        }
+        "summary": { "type": "string", "minLength": 1 },
+        "reasons": { "type": "array", "items": { "type": "string" } },
+        "basis": { "type": "array", "items": { "type": "string" } }
       }
     },
     "stored": {

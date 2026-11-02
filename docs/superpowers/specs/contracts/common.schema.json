@@ -168,7 +168,7 @@
       ]
     },
     "cause_code": {
-      "description": "차이 원인 코드 (설계서 v0.4 'trace 반환 규격', 엔진이 붙임)",
+      "description": "차이 원인 코드. 앞 8개는 설계서 v0.4 'trace 반환 규격', 나머지는 판정 엔진이 필요해 더한 것 (compliance/trace.py CAUSE_TEXT)",
       "enum": [
         "CAT_LOWER",
         "CAT_HIGHER",
@@ -177,7 +177,18 @@
         "RANGE_EDGE",
         "ATE_VALUE_DIFF",
         "SOURCE_DIFF",
-        "ASSUMED"
+        "ASSUMED",
+        "DETAIL_DIFF",
+        "PROP_EDGE",
+        "MULTI_CATEGORY",
+        "NO_BASIS",
+        "LABEL_MISSING",
+        "LABEL_EXTRA",
+        "LABEL_DIFF",
+        "REG_MISSING",
+        "THRESHOLD_DIFF",
+        "OVER_STATED",
+        "CONDITION_CHECK"
       ]
     },
     "knowledge": {
@@ -243,10 +254,12 @@
       }
     },
     "out_of_scope_reason": {
-      "description": "범위 외 판정의 이유 (화면 2.3 '해당 없음 5 · 대조 2')",
+      "description": "범위 외 판정의 이유 (화면 2.3 '해당 없음 5 · 대조 2'). 구버전 제외 = D-09로 PoC 제외, 해외 규제 = 검증 범위 밖 (설계서 v0.4 '제외 항목은 범위 외로 표시')",
       "enum": [
         "해당 없음",
         "대조만",
+        "구버전 제외",
+        "해외 규제",
         null
       ]
     },
@@ -259,7 +272,8 @@
         "위험물법",
         "폐기물법",
         "POPs법",
-        "기타 국내"
+        "기타 국내",
+        "해외"
       ]
     }
   }

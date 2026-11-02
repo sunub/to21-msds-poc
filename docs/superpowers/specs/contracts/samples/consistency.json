@@ -1,0 +1,155 @@
+{
+  "contract": "consistency/2",
+  "doc_id": "T21-025",
+  "as_of": "2026-11-02",
+  "engine_version": "0.1.0",
+  "knowledge": {
+    "provider": "reference",
+    "version": "ref-2026.10",
+    "rules": "r2026.10",
+    "logic": "to21_v6@6"
+  },
+  "results": [
+    {
+      "msds_index": 0,
+      "msds_revision_date": "2022-06-29",
+      "product_type": {
+        "value": "혼합물",
+        "basis": "3항 표기"
+      },
+      "summary": {
+        "일치": 0,
+        "불일치": 1,
+        "경계": 0,
+        "근거부족": 0,
+        "경고": 0,
+        "참고": 0,
+        "범위 외": 0
+      },
+      "findings": [
+        {
+          "id": "m0/F2:HH_ACUTE_INHAL:분진·미스트",
+          "section": "2",
+          "kind": "class",
+          "item": "HH_ACUTE_INHAL",
+          "label": "급성독성물질(흡입)",
+          "law_label": null,
+          "comp": null,
+          "msds": {
+            "present": true,
+            "category": "2",
+            "route_form": "증기",
+            "evidence": [
+              {
+                "field": "hazard.classes[0]",
+                "page": 4
+              }
+            ]
+          },
+          "expected": {
+            "present": true,
+            "category": "2",
+            "route_form": "분진·미스트",
+            "low": "2",
+            "high": "2",
+            "status": "확정"
+          },
+          "verdict": "불일치",
+          "type": "형태·세부 표기",
+          "severity": "중간",
+          "rule": "VRD-8",
+          "causes": [
+            "FORM_DIFF"
+          ],
+          "trace_id": "T-0001",
+          "needs_explanation": true,
+          "method": "ATEmix 계산",
+          "reason": "구분은 같고 형태만 다름",
+          "out_of_scope_reason": null
+        }
+      ],
+      "traces": {
+        "T-0001": {
+          "kind": "mixture_calc",
+          "rule": {
+            "id": "ATE-MIX-01",
+            "basis": "고시 별표1",
+            "formula": null
+          },
+          "inputs": [
+            {
+              "cas": "7664-93-9",
+              "name": "황산"
+            }
+          ],
+          "thresholds": [
+            {
+              "category": "2",
+              "range": "0.05 < x ≤ 0.5"
+            }
+          ],
+          "assumptions": [
+            {
+              "id": "D-06",
+              "text": "흡입 형태 가정"
+            }
+          ],
+          "knowledge_version": "ref-2026.10",
+          "steps": [
+            {
+              "step": "황산 93~98%: ATE 0.375"
+            }
+          ],
+          "result": {
+            "low": "2",
+            "high": "2",
+            "status": "확정"
+          },
+          "cause_texts": [
+            {
+              "code": "FORM_DIFF",
+              "text": "MSDS 증기, 계산 분진·미스트"
+            }
+          ],
+          "basis_lines": [
+            "구분은 같고 형태만 다름"
+          ],
+          "calc_lines": [
+            "황산 93~98%: ATE 0.375"
+          ]
+        }
+      },
+      "components": [
+        {
+          "comp_ref": "1",
+          "name": "황산",
+          "cas": "7664-93-9",
+          "content": null,
+          "reference_classes": [
+            {
+              "class_code": "HH_SKIN_CORR",
+              "category": "1",
+              "route_form": null,
+              "source": "환경부"
+            }
+          ],
+          "ate": [
+            {
+              "route": "inhal",
+              "value": 0.375,
+              "unit": "mg/L",
+              "form": "분진·미스트",
+              "source": "TO21 독성DB",
+              "step": 1,
+              "excluded": null
+            }
+          ],
+          "regulation_hits": 8,
+          "reliability": "높음",
+          "notes": []
+        }
+      ],
+      "limitations": []
+    }
+  ]
+}
