@@ -16,6 +16,7 @@ from .htodb.regulation import RegulationProvider
 from .label import derive_label
 from .label_compare import compare_label
 from .loader import load_inputs
+from .mixture.acute import value_to_category
 from .mixture.ate_source import inhal_forms
 from .mixture.build_components import _state, build_components
 from .mixture.class_lookup_db import make_db_class_lookup, make_db_info_lookup, make_db_tox_lookup
@@ -24,11 +25,12 @@ from .mixture.params import RULES_DIR
 from .mixture.physical import physical_inputs
 from .mixture.ranges import content_range
 from .mixture.rules_loader import load_mixture_rules
+from .mixture.units import to_target
 from .mixture.verdict import _order, _rank, aggregate_verdicts
 from .sec15_judge import judge_sec15
 from .trace import TRACE_ASSUMPTIONS, attach_mixture, attach_single, label_causes, label_sources, label_trace, sec15_trace
 
-ENGINE_VERSION = "0.2.0"
+ENGINE_VERSION = "0.3.0"
 SINGLE_ASSUMPTIONS = [
     "단일물질은 지식DB 기준 분류(D-05 항목 단위 환경부→고용노동부)를 그대로 '우리 결과'로 보고 MSDS 2항과 비교(설계서 18장)",
     "기준 분류에 없는 항목을 MSDS만 적었으면 근거부족(설계서 18장: 두 출처 모두 없음 → 근거부족)",
@@ -194,12 +196,50 @@ def _label(item: dict) -> tuple[list[dict], list[dict]]:
     return rows, excluded
 
 
+_ACUTE_ENDPOINT = {"TX_ORAL": ("HH_ACUTE_ORAL", "경구", "oral"), "TX_DERMAL": ("HH_ACUTE_DERMAL", "경피", "dermal"), "TX_INHAL": ("HH_ACUTE_INHAL", "흡입", "inhal")}
+_FORM_EN = {"가스": "gas", "증기": "vapour", "분진·미스트": "mist"}
+
+
+def _apply_product_tests(results: list[dict], item: dict) -> None:
+    """제품 자체 시험값(11항 MIX)이 있으면 그 항목은 계산 대신 시험값으로 분류한다 (설계서 20장). 낮은 값을 쓴다 (D-04).
+
+    실측만 쓴다: 공급사 계산값(ATE, '계산'이 적힌 값)을 쓰면 MSDS를 MSDS 자신과 비교하게 된다. 실험종이 없는 값, 범위·부등호도 뺀다.
+    """
+    best: dict = {}
+    for t in item.get("toxicity") or []:
+        q, hit = t.get("q") or {}, _ACUTE_ENDPOINT.get(str(t.get("endpoint")))
+        if not hit or str(t.get("comp_ref")) != "MIX" or q.get("value") is None or t.get("descriptor") not in ("LD50", "LC50"):
+            continue
+        if not t.get("species") or "계산" in str(q.get("raw")):
+            continue
+        cc, route_ko, route = hit
+        form = t.get("physical_form") if route == "inhal" else None
+        if route == "inhal" and form not in _FORM_EN:
+            continue
+        hours = t.get("duration_value") if str(t.get("duration_unit")).lower().startswith(("h", "시")) else None
+        conv = to_target(q["value"], q.get("unit"), route, _FORM_EN.get(form), hours=hours)
+        if conv and ((cc, form) not in best or conv["value"] < best[(cc, form)][0]):
+            best[(cc, form)] = (conv["value"], route_ko, q.get("raw"))
+    for r in results:
+        hit = best.get((r["class_code"], r.get("form")))
+        if hit:
+            cat = value_to_category(hit[1], r.get("form"), hit[0]) or "분류안됨"
+            r["result"] = {"low": cat, "high": cat, "status": "확정"}
+            r["product_test"] = f"제품 시험값 {hit[2]}로 분류 (설계서 20장). 계산보다 우선"
+
+
 def _mixture_2(item: dict, repo) -> tuple[dict, list, list]:
     b = build_components(item, make_db_class_lookup(repo), make_db_tox_lookup(repo), make_db_info_lookup(repo))
     results = classify_mixture_all(b["components"], b["mixture_props"], state=b["mixture_props"].get("STATE"),
                                    physical=physical_inputs(item))
+    _apply_product_tests(results, item)
     out = aggregate_verdicts(results, (item.get("hazard") or {}).get("classes"))
     attach_mixture(out["verdicts"], results, b["components"], item)  # 판정 근거(41장)·차이 원인 코드
+    tested = {(r["class_code"], r.get("form")): r["product_test"] for r in results if r.get("product_test")}
+    for v in out["verdicts"]:
+        note = tested.get((v["class_code"], v.get("form")))
+        if note:
+            v["reason"] = f"{v['reason']} / {note}" if v.get("reason") else note
     for e in out["excluded"]:
         if e["status"] == "대조" and not e.get("reason"):
             e["reason"] = "판정하지 않고 MSDS 기재와 성분 분류를 나란히 두는 항목(규칙표 compare 방식)"

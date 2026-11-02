@@ -232,3 +232,30 @@ def test_단일물질의_9항_품명과_DB_품명이_다르면_경고다():  # �
 
 def test_혼합물은_성분_DB_품명이_제품과_달라도_경고가_아니다():
     assert _dg(_dg_inputs({"item": "제2석유류"}), {}, _dg_know("제3석유류 비수용성액체"))["verdict"] == "일치"
+
+
+def _mix_with_test(row):
+    return {"msds": [{"composition": {"type": "혼합물"}, "hazard": {"classes": []}, "toxicity": [row],
+                      "components": [{"seq": 1, "cas_no": "108-88-3", "name": "톨루엔", "content": _q(50, "%"), "trade_secret": False},
+                                     {"seq": 2, "cas_no": "1330-20-7", "name": "자일렌", "content": _q(50, "%"), "trade_secret": False}],
+                      "physchem": [_prop("APPEARANCE_STATE", None, text="액체")]}]}
+
+
+def _oral(repo, row):
+    c = run_consistency(_mix_with_test(row), repo)["consistency"]
+    return next(f for f in c["findings"] if f["class_code"] == "HH_ACUTE_ORAL")
+
+
+def test_제품_시험값이_있으면_계산보다_우선한다(repo):  # 설계서 20장
+    f = _oral(repo, _tox("TX_ORAL", 100, "mg/kg", comp_ref="MIX", species="Rat"))
+    assert f["our_value"]["low"] == "3" and "제품 시험값" in f["reason"]
+
+
+@pytest.mark.parametrize("row", [
+    _tox("TX_ORAL", 100, "mg/kg", comp_ref="MIX", descriptor="ATE", species="Rat"),  # 공급사 계산값
+    _tox("TX_ORAL", 100, "mg/kg", comp_ref="MIX"),  # 실험종 없음
+    {**_tox("TX_ORAL", 100, "mg/kg", comp_ref="MIX", species="쥐"), "q": {**_q(100, "mg/kg"), "raw": "100 mg/kg GHS 첨가식에 따라 계산"}},
+    _tox("TX_ORAL", 100, "mg/kg", comp_ref="1", species="Rat"),  # 성분 값
+])
+def test_실측이_아니면_제품_시험값으로_쓰지_않는다(repo, row):
+    assert "제품 시험값" not in (_oral(repo, row)["reason"] or "")
