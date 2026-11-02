@@ -37,7 +37,6 @@ UI_TEXT: dict = {'nav': {'app_name': '화학 안전문서 AI 결과 검토',
                        'off': '{model}이 연결되지 않았습니다. AI가 꺼져 있을 때는 정상 상태입니다.',
                        'reading': '저장된 점수와 원문은 AI 없이 볼 수 있습니다.',
                        'action': '할 일: 다시 시험하려면 AI 켜기와 비용에서 모델을 준비하세요.',
-                       'current_label': '{model}의 지금 상태',
                        'off_normal': 'AI가 꺼져 있을 때는 정상 상태입니다.',
                        'saved_readable': '저장된 결과는 AI 없이 읽을 수 있습니다. 다시 시험할 때만 AI가 필요합니다.',
                        'company_ready': '연결됨 · 회사 서버',
@@ -540,7 +539,6 @@ UI_TEXT["score"] = {'criteria': {'hint': '23가지 기준의 점수와 목표를
             'regulations': '규제 (15번 부분)',
             'intl_class': '국제 분류 (15번 부분)',
             'extras': '표 밖에 남은 값'},
- 'flow': {'a11y': '현재 작업의 흐름', 'result': '1 결과 보기', 'cause': '2 원인 찾기', 'retest': '3 다시 시험'},
  'problem': {'counts': {'missing': '정답에 있는 값을 못 뽑음 {count}건',
                         'made': '정답에 없는 값을 만듦 {count}건',
                         'wrong': '정답과 다른 값을 뽑음 {count}건'},
@@ -3240,10 +3238,29 @@ UI_TEXT["help"]["setup"]["new_data"] = "새 문서 폴더나 새 정답을 받�
 UI_TEXT["help"]["servers"]["states"] = "화면 위쪽에서 상태를 봅니다. AI 꺼짐은 정상입니다. 빌린 서버를 만들면 켜는 중이 3~6분 보이고, 연결된 모델이 보이면 시험을 보낼 수 있습니다."
 UI_TEXT["help"]["servers"]["waiting"] = "10분이 지나도 켜는 중이면 AI 켜기와 비용의 서버 기록을 확인하세요. 모델이 40분 동안 응답하지 않으면 앱이 서버를 지웁니다."
 
+# 단계 진행의 공통 틀 (phase app-steps, ADR-039). design/COPY.md의 steps 표가 정본이다.
+UI_TEXT["nav"].update({"group_flow": "작업 순서", "group_other": "그 밖의 화면"})
+UI_TEXT["context"]["documents"]["short"] = "문서 묶음"
+UI_TEXT["context"]["answer"]["short"] = "정답"
+UI_TEXT["context"]["model"].update({
+    "chip_on": "AI 켜짐",
+    "chip_no_cost": "요금 없음",
+    "chip_cost_unknown": "요금 확인 안 됨",
+    "rented_so_far": "지금까지 약 ${cost}",
+})
+UI_TEXT["steps"] = {
+    "a11y": "이 화면의 단계",
+    "actions_a11y": "이 단계의 행동",
+    "current": "지금 단계",
+    "details": {"close": "자세히 닫기"},
+    "server": {"cost_basis": "표시한 비용은 현재 서버의 추정값입니다."},
+}
+
 # 자료 바꾸기 화면(S11). design/COPY.md의 swap 표가 정본이다.
 UI_TEXT["nav"]["swap"] = "새 자료 받기"
 UI_TEXT["swap"] = {
     "context": {"score_docs": "점수를 매길 수 있는 문서 {count}건", "no_score": "점수 없음 · 양식만 확인",
+                "score_docs_short": "채점 문서 {count}건", "no_score_short": "점수 없음",
                 "gold_note": "최근 올린 날 {date} · 정답 {count}건 사용",
                 "gold_changed": "새 정답이 들어왔습니다. 문서 {count}건이 바뀌어 점수를 다시 계산합니다.",
                 "gold_changed_open": "무엇이 바뀌었나요"},

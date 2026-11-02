@@ -9,8 +9,13 @@
 </head>
 <body>
 <header id="app-header">
-  <div id="app-heading" class="app-head"></div>
-  <div id="global-context" class="context"></div>
+  <div id="global-context" class="context">
+    <div id="app-heading" class="app-name"></div>
+    <div id="context-fields" class="context-fields"></div>
+    <div id="app-bar-side" class="head-side"></div>
+    <div id="context-gold-notice" class="context-notice"></div>
+    <div id="context-errors" class="context-errors"></div>
+  </div>
   <nav id="main-nav" class="sidebar"></nav>
 </header>
 <main id="work" class="work">
@@ -95,10 +100,12 @@
 <div id="tip" class="tip" role="tooltip" hidden></div>
 <dialog id="context-picker" aria-labelledby="context-picker-title"></dialog>
 <dialog id="action-confirm"></dialog>
+<dialog id="details-drawer" aria-labelledby="details-drawer-title"></dialog>
 <div id="status" role="status" aria-live="polite"></div>
 <script id="ui-text" type="application/json">__B_APP_UI_TEXT__</script>
 <script src="/static/js/core.js"></script>
 <script src="/static/js/shell.js"></script>
+<script src="/static/js/steps.js"></script>
 <script src="/static/js/score.js"></script>
 <script src="/static/js/source.js"></script>
 <script src="/static/js/compare.js"></script>

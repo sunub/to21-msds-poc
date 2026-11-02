@@ -70,6 +70,7 @@ class Element {
   set textContent(s){this.replaceChildren(String(s));}
   set innerHTML(s){this.replaceChildren(new Element('svg'));}
   get firstChild(){return this.children[0];}
+  get childNodes(){return [...this.children];}
   get classList(){const self=this; return {contains:c=>(self.attrs.class||'').split(' ').includes(c),
     toggle(c,on){const a=new Set((self.attrs.class||'').split(' ').filter(Boolean)); if(on===undefined)on=!a.has(c); on?a.add(c):a.delete(c); self.attrs.class=[...a].join(' ');},
     add(c){this.toggle(c,true);},remove(c){this.toggle(c,false);}};}

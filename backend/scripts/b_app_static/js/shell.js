@@ -12,6 +12,10 @@ const SHELL_SCREENS = {
   s10: {title: "compare.table.open", parent: "s04", views: ["jobs-compare"]},
   s11: {title: "nav.swap", views: ["swap-view"]}
 };
+const SHELL_NAV_GROUPS = [
+  {title: "nav.group_flow", numbered: true, screens: ["s01", "s02", "s03", "s04"]},
+  {title: "nav.group_other", numbered: false, screens: ["s06", "s05", "s07"]}
+];
 const shellViews = new Map();
 S.shell = {route: null, sets: [], keys: [], contextErrors: [], contextLoaded: false,
   servers: null, serverError: null, serverAt: null, polling: null, timer: null,
@@ -26,15 +30,8 @@ function shellInitialRoute(hash) {
   const id = String(hash || "").replace(/^#/, "");
   return Object.hasOwn(SHELL_SCREENS, id) ? id : "s01";
 }
-function shellConclusion(id, text, normal = true) {
-  const title = document.getElementById(`title-${id}`);
-  title.textContent = text;
-  const existing = document.getElementById(`flow-${id}`);
-  if (!normal) { existing?.remove(); return; }
-  if (existing) return;
-  const current = ["s01", "s02", "s03"].indexOf(id);
-  title.before(h("ol", {id: `flow-${id}`, class: "score-flow", "aria-label": T("score.flow.a11y")},
-    ["result", "cause", "retest"].map((step, i) => h("li", {"aria-current": i === current ? "step" : null}, T(`score.flow.${step}`)))));
+function shellConclusion(id, text) {
+  document.getElementById(`title-${id}`).textContent = text;
 }
 async function go(id, args = {}) {
   id = shellInitialRoute(id.startsWith("#") ? id : `#${id}`);
@@ -86,23 +83,25 @@ function ctxUrl(path) {
   const params = new URLSearchParams(query); params.set("key", S.ctx.key);
   return `${base}?${params}`;
 }
-function shellNavButton(id, key = SHELL_SCREENS[id].title, current = false) {
+function shellNavButton(id, current = false, no = null) {
   return h("button", {type: "button", "data-screen": id, onclick: () => {
     go(id).catch(fail); document.getElementById(`title-${id}`).focus();
-  }}, T(key), current ? h("span", {class: "nav-current", hidden: true}, T("nav.current")) : null);
+  }}, no ? h("span", {class: "nav-no"}, String(no)) : null, T(SHELL_SCREENS[id].title),
+  current ? h("span", {class: "nav-current", hidden: true}, T("nav.current")) : null);
 }
 function shellRenderHeader() {
-  document.getElementById("app-heading").replaceChildren(
-    h("div", null, h("div", {class: "app-name"}, T("nav.app_name")),
-      h("p", {class: "app-purpose"}, T("nav.purpose")),
-      h("p", {class: "definition"}, T("common.document_definition"))),
-    h("div", {class: "head-side"}, h("button", {id: "guide-open", type: "button", onclick: () => emit("guide_open", {})}, T("nav.open_guide")), shellNavButton("s05", "nav.open_jobs")));
+  document.getElementById("app-heading").textContent = T("nav.app_name");
+  coreReplace(document.getElementById("app-bar-side"),
+    h("button", {id: "guide-open", type: "button", onclick: () => emit("guide_open", {})}, T("nav.open_guide")));
   const nav = document.getElementById("main-nav"); nav.setAttribute("aria-label", T("nav.a11y"));
-  const entries = ["s01", "s02", "s03", "s04", "s05", "s06", "s07"].map(id =>
-    h("div", null, shellNavButton(id, SHELL_SCREENS[id].title, true),
+  const groups = SHELL_NAV_GROUPS.map(group => h("div", {class: "nav-group", role: "group", "aria-label": T(group.title)},
+    h("p", {class: "nav-group-title"}, T(group.title)),
+    group.screens.map((id, index) => h("div", null, shellNavButton(id, true, group.numbered ? index + 1 : null),
       Object.entries(SHELL_SCREENS).filter(([, screen]) => screen.parent === id).map(([child]) =>
-        h("div", {class: "subnav", "data-parent": id, hidden: true}, shellNavButton(child)))));
-  nav.replaceChildren(...entries, h("p", {class: "sidebar-note"}, T("common.local_only"), h("br"), T("common.tool_kind")));
+        h("div", {class: "subnav", "data-parent": id, hidden: true}, shellNavButton(child)))))));
+  nav.replaceChildren(...groups, h("p", {class: "sidebar-note"}, T("nav.purpose")),
+    h("p", {class: "sidebar-note"}, T("common.document_definition")),
+    h("p", {class: "sidebar-note"}, T("common.local_only"), h("br"), T("common.tool_kind")));
 }
 function shellChosen(items, saved, fallback) {
   return items.find(item => item.id === saved && item.usable)?.id
@@ -129,36 +128,45 @@ async function shellLoadContext() {
   S.ctx = {version: 1, set: shellChosen(S.shell.sets, valid.set, sets.default), key: shellChosen(S.shell.keys, valid.key, keys.default)};
   S.shell.contextLoaded = true; shellRenderContext();
 }
+const shellTipLines = (...lines) => lines.filter(Boolean).join("\n");
 function shellRenderContext() {
   const currentSet = S.shell.sets.find(item => item.id === S.ctx.set);
   const currentKey = S.shell.keys.find(item => item.id === S.ctx.key);
   const missing = T(S.shell.contextLoaded ? "common.none" : "common.legacy.loading");
-  const el = document.getElementById("global-context"); el.setAttribute("aria-label", T("context.a11y"));
-  coreReplace(el, 
-    h("div", {class: "context-field"}, h("span", {class: "context-label"}, T("context.documents.label")),
-      h("strong", null, currentSet?.label || missing),
-      shellScoreChip(currentSet, currentKey),
-      h("div", {class: "context-links"},
-        h("button", {id: "context-change-set", class: "text-button", type: "button", onclick: shellOpenContext}, T("context.change_documents")),
-        h("button", {id: "context-swap", class: "text-button", type: "button", onclick: () => go("s11", {swapView: "start"}).catch(fail)}, T("nav.swap"))),
-      h("p", {class: "raw"}, currentSet?.id || "")),
-    h("div", {class: "context-field"}, h("span", {class: "context-label"}, T("context.answer.label")),
-      h("strong", null, ["gold", "silver"].includes(currentKey?.kind)
-        ? term(currentKey.kind, currentKey.label) : currentKey?.label || missing),
-      h("button", {id: "context-change-key", class: "text-button", type: "button", onclick: shellOpenContext}, T("context.change_answer")),
-      h("div", {id: "context-answer-note"}),
-      h("p", null, T("context.answer_trust"))),
-    h("div", {id: "context-model", class: "context-field", role: "status", "aria-live": "polite"}),
-    S.shell.contextErrors.length ? h("div", {class: "context-errors"}, S.shell.contextErrors.map(loadFailure)) : null);
+  document.getElementById("global-context").setAttribute("aria-label", T("context.a11y"));
+  // 막대에는 고른 값만 둔다. 원래 폴더 이름과 정답의 신뢰 범위는 말풍선과 선택 창에서 본다.
+  coreReplace(document.getElementById("context-fields"),
+    h("div", {class: "context-field context-links"},
+      h("button", {id: "context-change-set", class: "context-chip", type: "button", onclick: shellOpenContext,
+        "data-tip": shellTipLines(T("context.documents.label"), currentSet?.label, currentSet?.id, shellScoreTip(currentSet, currentKey), T("context.change_documents"))},
+      h("small", null, T("context.documents.short")), h("b", null, currentSet?.label || missing), shellScoreChip(currentSet, currentKey)),
+      h("button", {id: "context-swap", class: "text-button", type: "button", onclick: () => go("s11", {swapView: "start"}).catch(fail)}, T("nav.swap"))),
+    h("div", {class: "context-field"},
+      h("button", {id: "context-change-key", class: "context-chip", type: "button", onclick: shellOpenContext,
+        "data-tip": shellTipLines(T("context.answer.label"), currentKey?.label, UI.glossary?.[currentKey?.kind]?.meaning, T("context.answer_trust"), T("context.change_answer"))},
+      h("small", null, T("context.answer.short")), h("b", null, currentKey?.label || missing)),
+      h("div", {id: "context-answer-note"})),
+    h("div", {id: "context-model", class: "context-field", role: "status", "aria-live": "polite"}));
+  coreReplace(document.getElementById("context-errors"), S.shell.contextErrors.map(loadFailure));
   shellRenderModels();
   emit("context_rendered", {});
 }
-// 고른 문서 묶음에 고른 정답이 있는 문서 수. 잠긴 문서는 세지 않는다.
-function shellScoreChip(set, key) {
+// 고른 문서 묶음에 고른 정답이 있는 문서 수. 잠긴 문서는 세지 않는다. 목록을 모르면 null이다.
+function shellScoreCount(set, key) {
   if (!Array.isArray(set?.docs) || !Array.isArray(key?.docs)) return null;
-  const count = set.docs.filter(doc => !doc.locked && key.docs.includes(doc.doc_id)).length;
+  return set.docs.filter(doc => !doc.locked && key.docs.includes(doc.doc_id)).length;
+}
+function shellScoreChip(set, key) {
+  const count = shellScoreCount(set, key);
+  if (count === null) return null;
   return h("span", {id: "context-score-chip", class: `swap-chip ${count ? "yes" : "no"}`},
-    T(count ? "swap.context.score_docs" : "swap.context.no_score", {count}));
+    T(count ? "swap.context.score_docs_short" : "swap.context.no_score_short", {count}));
+}
+// 막대에 다 쓰지 못하는 뜻은 말풍선에 쓴다.
+function shellScoreTip(set, key) {
+  const count = shellScoreCount(set, key);
+  if (count === null) return null;
+  return T(count ? "swap.context.score_docs" : "swap.context.no_score", {count});
 }
 // 빌린 서버의 요금과 자동 삭제. 닫는 단추는 AI 켜기와 비용 화면에만 둔다 (11/2 사용자 결정).
 function shellRentedNote(data) {
@@ -171,13 +179,25 @@ function shellRentedNote(data) {
       num(pod.auto_delete_min) ? T("context.model.rented_auto_left", {minutes: pod.auto_delete_min}) : null].filter(Boolean).join(" ")]
     .filter(Boolean).join(" · "), where].filter(Boolean).join(" ");
 }
+// 우리 서버가 켜져 있지 않다고 확인한 경우만 참이다. 목록을 못 읽으면 요금이 없다고 단정하지 않는다.
+function shellNoOwnServer(data) {
+  return !!data && !data.runpod_error && !(data.pods || []).some(pod => pod.owned && pod.status === "RUNNING");
+}
 function shellOffNotes(data) {
   const closed = data?.last_auto_close;
-  const quiet = !data?.runpod_error && !(data?.pods || []).some(pod => pod.owned && pod.status === "RUNNING");
-  return [T("context.model.off_normal"), quiet ? T("context.model.off_no_cost") : null,
+  return [T("context.model.off_normal"), shellNoOwnServer(data) ? T("context.model.off_no_cost") : null,
     closed ? T(`context.model.auto_closed_${closed.kind}`, {limit: closed.limit_min}) : null,
     closed && num(closed.minutes) && num(closed.cost) ? T("context.model.auto_closed_cost", {minutes: closed.minutes, cost: closed.cost}) : null]
     .filter(Boolean).join(" ");
+}
+// 막대의 요금 글. 지금 쓰는 서버만 읽는다. 다른 사람 서버와 꺼진 서버의 금액은 합치지 않는다.
+function shellCostText(data, error) {
+  if (!data && !error) return null;
+  const pod = (data?.pods || []).find(item => item.session);
+  if (!pod) return T(shellNoOwnServer(data) ? "context.model.chip_no_cost" : "context.model.chip_cost_unknown");
+  const parts = [num(pod.cost_per_hr) ? T("context.model.rented_hourly", {cost: pod.cost_per_hr.toFixed(2)}) : null,
+    num(pod.cost_est) ? T("context.model.rented_so_far", {cost: pod.cost_est.toFixed(2)}) : null].filter(Boolean);
+  return parts.length ? parts.join(" · ") : T("context.model.chip_cost_unknown");
 }
 function shellModelState(model, data = S.shell.servers) {
   if (!model) return "readiness_unknown";
@@ -214,20 +234,29 @@ function shellRenderModels() {
   // 연결된 모델이 있으면 오해만 주는 상태는 뺀다. 예: 같은 Pod를 바라보는 다른 태그의 "다른 모델 응답". 실패와 켜는 중은 남긴다.
   const details = states.filter(state => state !== "state_ready" && (off || state !== "state_off")
     && !(models.length && ["wrong_reply", "readiness_unknown"].includes(state)));
-  const summary = [models.length ? T("context.model.connected_count", {count: models.length, names: models.map(label).join(", ")}) : null,
-    ...details.map(state => T(`context.model.${state}`))].filter(Boolean).join(" · ");
+  const names = models.map(label).join(", ");
+  const detailText = details.map(state => T(`context.model.${state}`)).join(" · ");
+  const connected = !error && !!S.shell.servers && models.length > 0;
   const state = error ? T(unavailable ? "context.model.readiness_unknown" : "context.model.query_failed")
     : !S.shell.servers ? T("context.model.query_pending")
-    : summary;
+    : connected ? T("context.model.chip_on") : detailText;
+  const onSession = (S.shell.servers?.pods || []).some(item => item.session);
+  const cost = shellCostText(S.shell.servers, error);
   el.classList.toggle("error", !!error && !unavailable);
-  coreReplace(el, h("span", {class: "context-label"}, T("context.model.current_label", {model: T("context.model.default_name")})),
-    h("strong", null, state),
-    h("button", {class: "text-button", type: "button", onclick: () => go("s06").catch(fail)}, T("context.prepare_model")),
-    off ? h("p", null, shellOffNotes(S.shell.servers)) : null,
-    !error && shellRentedNote(S.shell.servers) ? h("p", null, shellRentedNote(S.shell.servers)) : null,
-    h("p", null, T("context.model.saved_readable")),
-    S.shell.serverAt ? h("p", {class: "muted"}, T("context.model.checked_at", {time: when(S.shell.serverAt)})) : null,
-    error && !unavailable ? rawError(error.message) : null);
+  coreReplace(el, h("button", {id: "context-model-open", class: `context-chip context-ai${connected ? " on" : ""}`, type: "button",
+    onclick: () => go("s06").catch(fail),
+    "data-tip": shellTipLines(connected ? [T("context.model.connected_count", {count: models.length, names}), detailText].filter(Boolean).join(" · ") : state,
+      onSession ? T("steps.server.cost_basis") : null,
+      off ? shellOffNotes(S.shell.servers) : null,
+      !error ? shellRentedNote(S.shell.servers) : null,
+      T("context.model.saved_readable"),
+      S.shell.serverAt ? T("context.model.checked_at", {time: when(S.shell.serverAt)}) : null,
+      error && !unavailable ? error.message : null,
+      T("context.prepare_model"))},
+  h("span", {class: "context-dot", "aria-hidden": "true"}),
+  h("b", null, state),
+  connected ? h("small", {class: "context-ai-name"}, [names, detailText].filter(Boolean).join(" · ")) : null,
+  cost ? h("small", null, cost) : null));
   shellMeasureHeader();
 }
 function shellMeasureHeader() {

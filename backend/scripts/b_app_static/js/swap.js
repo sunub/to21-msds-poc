@@ -275,9 +275,11 @@ function swapRenderContextNote() {
   const el = document.getElementById("context-answer-note");
   if (!el) return;
   const state = S.swap, current = S.shell.keys.find(key => key.id === S.ctx.key);
-  coreReplace(el,
-    current?.id === "gold" && state.goldCommit ? h("p", null, T("swap.context.gold_note",
-      {date: swapDate(state.goldCommit.at), count: current.docs?.length ?? 0})) : null,
+  const note = current?.id === "gold" && state.goldCommit ? T("swap.context.gold_note",
+    {date: swapDate(state.goldCommit.at), count: current.docs?.length ?? 0}) : null;
+  coreReplace(el, note ? h("small", {class: "context-note", "data-tip": note}, note) : null);
+  // 새 정답 알림은 점수를 바꾸는 일이라 막대 아래 줄에 다 보인다. 알림이 있을 때만 줄이 생긴다.
+  coreReplace(document.getElementById("context-gold-notice"),
     state.goldNotice ? h("p", {class: "swap-gold-changed"}, T("swap.context.gold_changed", {count: state.goldNotice}), " ",
       h("button", {id: "context-gold-open", class: "text-button", type: "button",
         onclick: () => go("s11", {swapView: "gold"}).catch(fail)}, T("swap.context.gold_changed_open"))) : null);
