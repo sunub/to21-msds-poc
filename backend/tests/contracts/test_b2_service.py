@@ -193,7 +193,7 @@ def test_판정이_계속_실패하면_판정_실패로_보이고_이전_버전�
     svc.drain()
 
     def boom(*a, **k):
-        raise ConnectionError("지식DB 내려감")
+        raise ValueError("계산할 수 없는 값")
 
     monkeypatch.setattr(svc_mod, "judge", boom)
     put(handoff(edited(gold25), 2))
@@ -201,7 +201,7 @@ def test_판정이_계속_실패하면_판정_실패로_보이고_이전_버전�
         admin.execute("UPDATE judge.handoff_state SET finished_at = now() - interval '1 hour' WHERE state = '실패'")
         svc.drain()
     st = svc.status(JOB)
-    assert st["state"] == "판정 실패" and "지식DB 내려감" in st["error"] and st["pending_handoff"] == 2
+    assert st["state"] == "판정 실패" and "ValueError" in st["error"] and "계산할 수 없는 값" not in st["error"] and st["pending_handoff"] == 2
     assert st["latest_version"] == 1 and svc.view(JOB)["version"] == 1
     admin.execute("UPDATE judge.handoff_state SET finished_at = now() - interval '1 hour' WHERE state = '실패'")
     assert svc.claim_handoff() is None  # 한도를 넘으면 더 잡지 않는다
@@ -513,7 +513,7 @@ def test_위험한_글자는_리포트에서_무력화한다(svc, put, gold25, a
     assert "<script>alert" not in api.post(url, json={"format": "html", "include": ALL}).text
     wb = load_workbook(io.BytesIO(api.post(url, json={"format": "xlsx", "include": ALL}).content))
     cells = [c.value for row in wb["검토 이력"].iter_rows(min_row=2) for c in row]
-    assert all(not str(v).startswith("=") for v in cells if v)
+    assert "=HYPERLINK(\"http://x\")" in cells  # 글자는 그대로 두고 수식으로만 만들지 않는다
     assert all(c.data_type != "f" for ws in wb for row in ws.iter_rows() for c in row)
 
 
@@ -539,7 +539,240 @@ def test_조회_중_지식DB_장애는_근거부족이_아니라_판정_실패�
     put(handoff(gold25))
     flaky.drain()
     assert flaky.status(JOB)["latest_version"] is None
-    assert "too many clients" in admin.execute("SELECT error FROM judge.handoff_state WHERE job_id=%s", (JOB,)).fetchone()[0]
+    st = flaky.status(JOB)
+    assert st["state"] == "판정 실패" and st["error"] == svc_mod.TRANSIENT_MESSAGE
+
+
+def test_지식DB가_복구되면_시도_한도와_상관없이_자동으로_판정한다(svc, put, gold25, pool, admin):
+    repo = FlakyRepo()
+    flaky = JudgeService(pool=pool, provider=repo)
+    put(handoff(gold25))
+    for _ in range(svc_mod.MAX_ATTEMPTS + 2):  # 한도보다 오래 끊겨 있어도
+        admin.execute("UPDATE judge.handoff_state SET finished_at = now() - interval '1 hour' WHERE state = '실패'")
+        flaky.drain()
+        assert flaky.status(JOB)["state"] == "판정 실패"
+    assert admin.execute("SELECT attempts FROM judge.handoff_state WHERE job_id=%s", (JOB,)).fetchone()[0] < svc_mod.MAX_ATTEMPTS
+    assert flaky.claim_handoff() is None  # 30초 간격은 지킨다
+    repo.down = False
+    admin.execute("UPDATE judge.handoff_state SET finished_at = now() - interval '1 hour' WHERE state = '실패'")
+    flaky.drain()
+    st = flaky.status(JOB)
+    assert st["state"] == "판정 있음" and st["latest_version"] == 1 and st["error"] is None
+
+
+class BrokenRepo(CsvRepo):
+    def regulations(self, chem_id):
+        raise ValueError("코드 문제")
+
+
+def test_조회_안의_일반_오류는_연결_장애가_아니라_한도에서_멈춘다(svc, put, gold25, pool, admin):
+    broken = JudgeService(pool=pool, provider=BrokenRepo())
+    put(handoff(gold25))
+    for _ in range(svc_mod.MAX_ATTEMPTS):
+        admin.execute("UPDATE judge.handoff_state SET finished_at = now() - interval '1 hour' WHERE state = '실패'")
+        broken.drain()
+    assert broken.status(JOB)["state"] == "판정 실패" and broken.status(JOB)["error"] != svc_mod.TRANSIENT_MESSAGE
+    admin.execute("UPDATE judge.handoff_state SET finished_at = now() - interval '1 hour' WHERE state = '실패'")
+    assert broken.claim_handoff() is None
+
+
+def test_지식DB_적재_차수_문제는_이유를_보이고_해결되면_판정한다(svc, put, gold25, admin, monkeypatch):
+    real = svc_mod.current_versions
+
+    def boom(*a):
+        raise svc_mod.KnowledgeUnavailable("지식DB 적재 차수가 하나로 정해지지 않음")
+
+    monkeypatch.setattr(svc_mod, "current_versions", boom)
+    put(handoff(gold25))
+    svc.drain()
+    st = svc.status(JOB)
+    assert st["state"] == "판정 실패" and "적재 차수" in st["error"]
+    monkeypatch.setattr(svc_mod, "current_versions", real)
+    admin.execute("UPDATE judge.handoff_state SET finished_at = now() - interval '1 hour' WHERE state = '실패'")
+    svc.drain()
+    assert svc.status(JOB)["state"] == "판정 있음"
+
+
+@pytest.mark.parametrize("exc", [RuntimeError, ValueError, KeyError])
+def test_다른_오류의_원문도_상태_API로_나가지_않는다(svc, put, gold25, monkeypatch, exc):
+    def boom(*a, **k):
+        raise exc("설정 없음: /home/x/.env host=10.0.0.9 user=kdb")
+
+    monkeypatch.setattr(svc_mod, "judge", boom)
+    put(handoff(gold25))
+    svc.drain()
+    svc_error = svc.status(JOB)["error"] or ""
+    assert not any(x in svc_error for x in (".env", "10.0.0.9", "kdb"))
+
+
+def test_쿼리_제한_시간_초과는_연결_장애가_아니라_한도에서_멈춘다():
+    from msds.compliance.judge import is_connection_error
+    assert not is_connection_error(psycopg.errors.QueryCanceled("canceling statement due to statement timeout"))
+    assert not is_connection_error(psycopg.errors.ProgramLimitExceeded("too big"))
+    assert is_connection_error(psycopg.errors.TooManyConnections("too many clients")) and is_connection_error(psycopg.errors.AdminShutdown("shutdown"))
+    assert is_connection_error(psycopg.OperationalError("connection failed")) and is_connection_error(ConnectionError())
+
+
+def test_접속_정보는_상태_API로_나가지_않는다(svc, put, gold25, monkeypatch):
+    def boom(*a, **k):
+        raise psycopg.OperationalError('connection to server at "10.0.0.9", port 5433 failed: password for user "kdb"')
+
+    monkeypatch.setattr(svc_mod, "judge", boom)
+    put(handoff(gold25))
+    svc.drain()
+    st = svc.status(JOB)
+    assert st["state"] == "판정 실패" and not any(x in st["error"] for x in ("10.0.0.9", "5433", "kdb"))
+
+
+def test_본문의_작업_번호가_표와_다르면_다른_작업에_저장하지_않는다(svc, put, gold25, admin):
+    body = handoff(gold25)
+    put(body)
+    admin.execute("UPDATE extract.handoff SET body = jsonb_set(body, '{job_id}', '\"U-다른작업\"') WHERE job_id = %s", (JOB,))
+    svc.drain()
+    assert svc.status(JOB)["state"] == "판정 실패"
+    assert admin.execute("SELECT count(*) FROM judge.judgment").fetchone()[0] == 0
+
+
+@pytest.mark.parametrize("bad", [[], "x", [1]])
+def test_본문이_객체가_아닌_넘김도_뒤_작업을_막지_않는다(svc, put, gold25, admin, bad):
+    admin.execute("INSERT INTO extract.handoff (job_id, handoff_seq, body) VALUES ('U-망가짐', 1, %s)", (Jsonb(bad),))
+    put(handoff(gold25))
+    svc.drain()  # 망가진 줄을 멈추면 그 차례는 빈손으로 끝난다. 작업자는 다음 차례에 뒤 작업을 잡는다
+    svc.drain()
+    assert svc.status("U-망가짐")["state"] == "판정 실패"
+    assert svc.status(JOB)["state"] == "판정 있음"
+
+
+def test_해시가_다른_넘김은_다시_해도_같으니_바로_멈춘다(svc, put, gold25, admin):
+    put({**handoff(gold25), "extraction_sha256": SHA})
+    svc.drain()
+    st = svc.status(JOB)
+    assert st["state"] == "판정 실패" and "extraction_sha256" in st["error"]
+    admin.execute("UPDATE judge.handoff_state SET finished_at = now() - interval '1 hour'")
+    assert svc.claim_handoff() is None
+
+
+def test_임대가_끝난_늦은_작업자는_완료된_설명을_덮어쓰지_못한다(svc, put, gold25, pool, admin):
+    llm = JudgeService(pool=pool, provider=svc.provider, llm=lambda s, u: ({"summary": "늦은 줄입니다.", "reasons": [], "basis": [], "used_numbers": []}, {"model": "fake", "errors": []}))
+    put(handoff(gold25))
+    svc.judge_step()
+    slow = svc.claim_explanation()
+    admin.execute("UPDATE judge.explanation SET taken_at = now() - %s WHERE finding_id=%s AND input_sha256=%s",
+                  (svc_mod.EXPLAIN_LEASE * 2, slow["finding_id"], slow["input_sha256"]))
+    fast = svc.claim_explanation()
+    assert (fast["finding_id"], fast["input_sha256"]) == (slow["finding_id"], slow["input_sha256"])
+    llm.process_explanation(fast)
+    before = admin.execute("SELECT body FROM judge.explanation WHERE finding_id=%s AND input_sha256=%s", (slow["finding_id"], slow["input_sha256"])).fetchone()[0]
+    svc.process_explanation(slow)  # 문장틀로 늦게 끝남
+    after = admin.execute("SELECT body FROM judge.explanation WHERE finding_id=%s AND input_sha256=%s", (slow["finding_id"], slow["input_sha256"])).fetchone()[0]
+    assert after == before
+
+
+def test_서비스는_관리자_비밀번호_없이_시작한다(monkeypatch):
+    real = svc_mod.setting
+    monkeypatch.setattr("msds.compliance.htodb.config.setting", lambda k, *d: (_ for _ in ()).throw(RuntimeError(k)) if k == "HTODB_PG_PASSWORD" else real(k, *d))
+    assert writer_kwargs("x")["user"] == "judge_writer"
+
+
+@pytest.mark.parametrize("text", [
+    "MSDS 기재와 계산 결과가 일치합니다.", "두 값이 동일합니다.", "불일치입니다.", "차이가 없습니다.", "산출한 분류는 구분 3입니다."])
+def test_판정과_반대되는_설명은_검사에_걸린다(text):
+    req = {"finding": {"section": "2", "kind": "class", "verdict": "경계", "msds": {"category": "2"}, "expected": {}}}
+    assert ex.claim_problems({"summary": text}, req)
+
+
+@pytest.mark.parametrize("text", [
+    "이 항목은 일치 판정입니다.", "일치로 볼 수 있습니다.", "MSDS 기재 내용은 계산 결과와 부합합니다.", "두 값은 서로 맞습니다.",
+    "MSDS의 구분이 계산 결과와 동일하므로 문제가 없습니다.", "기재된 분류는 적절합니다.", "혼합물의 분류는 구분 1입니다.", "구분 1이 산출되었습니다.",
+    "계산 결과와 일치하는 것으로 확인되었습니다.", "양쪽 값이 서로 일치해 수정할 필요가 없습니다.", "두 값 사이에 차이는 없습니다.", "MSDS의 분류는 올바릅니다.",
+    "MSDS 기재에는 오류가 없습니다.", "이 줄은 정상입니다.", "본 항목은 적합합니다.", "계산 결과와 어긋나지 않습니다.", "이상이 없습니다."])
+def test_불일치_줄에_맞다고_하는_설명은_검사에_걸린다(text):
+    req = {"finding": {"section": "2", "kind": "class", "verdict": "불일치", "msds": {"category": "2"}, "expected": {"low": "3", "high": "3"}}}
+    assert ex.claim_problems({"summary": text}, req)
+
+
+@pytest.mark.parametrize("text", ["동일하지 않습니다.", "부적절합니다.", "일치한다고 보기 어렵습니다.", "차이가 없다고 단정할 수 없습니다.", "MSDS 기재와 일치하는지 검토자가 확인해야 합니다.", "MSDS 기재는 계산 결과와 일치해야 합니다.", "MSDS가 틀렸을 가능성이 있어 확인이 필요합니다.", "농도 기준과 같습니다만 구분은 다릅니다.", "성분 A의 값은 시험 자료와 같습니다. 그러나 구분이 달라 불일치입니다.",
+                                  "계산 과정에서 사용한 기준은 구분 1 기준이며 결과는 구분 3입니다."])
+def test_정직한_설명은_검사를_지나간다(text):
+    req = {"finding": {"section": "2", "kind": "class", "verdict": "불일치", "msds": {"category": "2"}, "expected": {"low": "3", "high": "3"}}}
+    assert ex.claim_problems({"summary": text}, req) == []
+
+
+def test_문장틀_설명은_검사에_걸리지_않는다(svc, put, gold25, admin):
+    from msds.compliance import explain as engine
+    put(handoff(gold25))
+    svc.judge_step()
+    rows = admin.execute("SELECT request FROM judge.explanation").fetchall()
+    assert rows and [p for (r,) in rows for p in ex.claim_problems(engine.template(r), r)] == []
+
+
+def test_문장틀로_덮은_과대분류_요약은_모델_글로_검사하지_않는다():
+    req = {"finding": {"section": "2", "kind": "class", "verdict": "불일치", "msds": {"category": "1"}, "expected": {}}}
+    req["finding"]["type"] = next(iter(ex.engine._DIRECTION_TYPES))
+    fixed = {"summary": "두 값이 일치합니다.", "reasons": [], "basis": []}
+    assert ex.claim_problems(fixed, req) == []
+    req["finding"]["type"] = "기준 불일치"  # 덮어쓰지 않는 줄은 모델이 무엇을 붙여 보내도 요약을 본다
+    assert ex.claim_problems({**fixed, "llm_summary": "x"}, req)
+
+
+def test_일치하지_않는다는_설명은_검사를_지나간다():
+    req = {"finding": {"section": "2", "kind": "class", "verdict": "불일치", "msds": {"category": "2"}, "expected": {"low": "3", "high": "3"}}}
+    assert ex.claim_problems({"summary": "MSDS는 구분 2이고 계산 결과는 구분 3으로 일치하지 않습니다."}, req) == []
+
+
+@pytest.mark.parametrize("text,bad", [
+    ("규제DB 결과는 비해당이고 MSDS는 해당입니다.", True), ("규제DB 결과는 해당 없음입니다.", True), ("규제DB에 따르면 해당합니다.", False),
+    ("MSDS에 해당 항목이 없습니다.", False), ("규제DB 결과는 해당이고 MSDS는 비해당입니다.", False), ("규제DB 기준 미해당입니다.", True),
+    ("규제 적용 대상에서 제외됩니다.", True), ("함량이 기준 미만이라 적용되지 않습니다.", True), ("규제DB 결과와 달리 MSDS는 비해당입니다.", False)])
+def test_15항_해당_비해당을_엔진과_대조한다(text, bad):
+    req = {"finding": {"section": "15", "kind": "regulation", "verdict": "불일치", "msds": {"applicable": "비해당"}, "expected": {"applicable": "해당"}}}
+    assert bool(ex.claim_problems({"summary": text}, req)) is bad
+
+
+def test_실패_이유의_서버_주소는_저장하지_않는다():
+    body = ex.generate({"finding": {"id": "x", "section": "2", "kind": "class", "item": "a", "item_name": "a", "verdict": "불일치", "msds": {}, "expected": {}},
+                        "causes": [], "trace": None, "evidence": []},
+                       lambda s, u: (_ for _ in ()).throw(ConnectionError("http://10.1.2.3:8000/v1 host=llm.internal localhost:8000 끊김")), retries=0)
+    joined = " ".join(body["check_failures"])
+    assert body["by"] == "template" and not any(x in joined for x in ("10.1.2.3", "llm.internal", "localhost:8000"))
+
+
+def test_설명_검사는_아주_긴_글자에도_오래_걸리지_않는다():
+    import time
+    req = {"finding": {"section": "15", "kind": "regulation", "verdict": "불일치", "msds": {"applicable": "비해당"}, "expected": {"applicable": "해당"}}}
+    start = time.monotonic()
+    for text in ("MSDS " * 20000, "계산 " * 20000, "가" * 100000, "a.b-c" * 20000, "[" * 100000, "기재 " * 20000):
+        ex.claim_problems({"summary": text}, req)
+    assert time.monotonic() - start < 20
+
+
+def test_모든_설명_요청이_계약을_지킨다(svc, put, gold25, admin, contract_errors):
+    put(handoff(gold25))
+    svc.judge_step()
+    rows = admin.execute("SELECT request FROM judge.explanation").fetchall()
+    assert rows and [e for (r,) in rows for e in contract_errors("4-explanation.schema.json#/$defs/request", r)] == []
+    found = {f["id"]: f for r in svc.view(JOB)["consistency"]["results"] for f in r["findings"]}
+    for (r,) in rows:  # 값이 있으면 빠지지 않는다. 계약은 null 칸만 생략을 허용한다
+        f = found[r["finding"]["id"]]
+        assert (r["finding"].get("type"), r["finding"].get("severity")) == (f["type"], f["severity"])
+
+
+def test_15항_판정의_원문_탭은_15항을_먼저_연다():
+    from msds.judge.display import _pages
+    pages = _pages([{"field": "components[0]", "page": 1}, {"field": "regulations[0]", "page": 5}], "15")
+    assert [p["section"] for p in pages] == [15, 3]
+
+
+def test_엑셀은_글머리_값을_바꾸지_않고_수식으로_만들지_않는다():
+    from openpyxl import Workbook
+    wb = Workbook()
+    reports._append(wb.active, ["- 글머리", "=1+1", "+82", "@a", "보통", 3, None])
+    saved = io.BytesIO()
+    wb.save(saved)
+    ws = load_workbook(io.BytesIO(saved.getvalue())).active
+    cells = list(ws[1])
+    assert [c.value for c in cells[:6]] == ["- 글머리", "=1+1", "+82", "@a", "보통", 3]
+    assert all(c.data_type == "s" and c.quotePrefix for c in cells[:4])
 
 
 def test_판정_전_값으로는_저장도_검토도_할_수_없다(svc, put, gold25):
@@ -591,7 +824,7 @@ def test_모델이_예외를_내도_문장틀로_끝난다(svc, put, gold25, poo
     fake.drain()
     assert admin.execute("SELECT count(*) FROM judge.explanation WHERE state <> '완료'").fetchone()[0] == 0
     e = admin.execute("SELECT body FROM judge.explanation WHERE finding_id=%s", (FID,)).fetchone()[0]
-    assert e["by"] == "template" and any("모델 호출 실패" in x for x in e["check_failures"])
+    assert e["by"] == "template" and "모델 응답 없음" in e["check_failures"]
 
 
 def test_늦게_끝난_옛_넘김은_최신_판정을_덮지_않는다(svc, put, gold25):
@@ -798,7 +1031,7 @@ def test_창구가_죽어도_설명이_멈추지_않는다(svc, put, gold25, poo
     fake.drain()
     assert admin.execute("SELECT count(*) FROM judge.explanation WHERE state <> '완료'").fetchone()[0] == 0
     body = admin.execute("SELECT body FROM judge.explanation WHERE finding_id=%s", (FID,)).fetchone()[0]
-    assert body["by"] == "template" and any("창구 장애" in x for x in body["check_failures"])
+    assert body["by"] == "template" and "창구 장애" not in " ".join(body["check_failures"]) and body["check_failures"]
 
 
 def test_이상한_글자도_엑셀과_입력을_막지_않는다(svc, put, gold25, api):
