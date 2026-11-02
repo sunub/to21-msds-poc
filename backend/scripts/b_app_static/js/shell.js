@@ -243,7 +243,7 @@ function shellRenderModels() {
   const onSession = (S.shell.servers?.pods || []).some(item => item.session);
   const cost = shellCostText(S.shell.servers, error);
   el.classList.toggle("error", !!error && !unavailable);
-  coreReplace(el, h("button", {id: "context-model-open", class: `context-chip context-ai${connected ? " on" : ""}`, type: "button",
+  coreReplace(el, h("button", {id: "context-model-open", class: `context-chip context-ai${connected ? " on" : ""}${onSession ? " billing" : ""}`, type: "button",
     onclick: () => go("s06").catch(fail),
     "data-tip": shellTipLines(connected ? [T("context.model.connected_count", {count: models.length, names}), detailText].filter(Boolean).join(" · ") : state,
       onSession ? T("steps.server.cost_basis") : null,

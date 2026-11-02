@@ -226,6 +226,8 @@ def test_action_row_reaches_the_bottom_of_a_step_screen_without_a_page_scroll():
     # 제목과 설명이 위에 있으므로 창 높이로 정하면 페이지가 넘친다. 남은 높이를 채운다.
     step_screen = re.search(r'\.step-screen\s*\{([^}]*)\}', css).group(1)
     assert 'min-height' not in step_screen and re.search(r'flex:\s*1', step_screen)
+    # 화면 구역의 아래 여백이 남으면 줄이 창 맨 아래에서 32px 떠 있다. `#screen-s06 > div`를 이기려면 #work로 시작해야 한다.
+    assert re.search(r'#work > section:not\(\[hidden\]\) > :has\(\.step-screen\)\s*\{[^}]*margin-bottom:\s*0', css)
     assert re.search(r'\.work:has\(>\s*section:not\(\[hidden\]\)\s+\.step-screen\)\s*\{[^}]*flex-direction:\s*column', css)
     # 처리 알림 글은 맨 아래 줄 밑에 띠를 만들지 않는다. 오류는 계속 보인다.
     assert re.search(r'body:has\(.*?\.step-screen\)\s+#status:not\(\.error\)\s*\{[^}]*clip-path', css)
