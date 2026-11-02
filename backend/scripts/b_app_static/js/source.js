@@ -344,7 +344,7 @@ function sourceActions(step) {
   }};
   const unlinked = !!v && !sourceSelectedLines(v).length;
   return {back: D.run ? [move("source-prev-row", "previous_row", -1), move("source-next-row", "next_row", 1)] : null,
-    note: T("steps.source.compare_note"),
+    note: off ? null : T("steps.source.compare_note"),
     secondary: unlinked ? retest : null, primary: unlinked ? read : retest};
 }
 function sourceRenderFrame(step = sourceStep()) {
