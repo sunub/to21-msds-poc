@@ -30,8 +30,13 @@ import { z } from "zod";
 /** 데모 문서에서만 듣는 모양 바꾸기(성분 요약의 &product=single·unknown). 운영 요청에는 실리지 않는다 */
 export type DemoVariant = "single" | "unknown" | undefined;
 
+/** 판정 API 주소 앞부분. 추출 API 와 따로 둘 수 있고(NEXT_PUBLIC_JUDGMENT_API_BASE), 비어 있으면 추출 API 주소(NEXT_PUBLIC_API_BASE)를 쓴다. 정해 두면 데모 문서도 이 서버를 부른다 (개발용 임시 서버 시험) */
+const JUDGMENT_BASE = process.env.NEXT_PUBLIC_JUDGMENT_API_BASE || undefined;
+const useDemo = (job: string) => isDemoDoc(job) && !JUDGMENT_BASE;
+
 const base = (job: string) => `/api/judgments/${encodeURIComponent(job)}`;
 const post = (body: unknown, signal?: AbortSignal) => ({
+  base: JUDGMENT_BASE,
   method: "POST",
   headers: { "Content-Type": "application/json" },
   body: JSON.stringify(body),
@@ -42,33 +47,33 @@ const post = (body: unknown, signal?: AbortSignal) => ({
 export const isConflict = (error: unknown) => error instanceof ApiRequestError && error.status === 409;
 
 export async function getJudgmentStatus(job: string, signal?: AbortSignal) {
-  if (isDemoDoc(job)) return (await loadDemo.judgment()).demoStatus(job);
-  return requestJson(judgmentStatus, `${base(job)}/status`, { signal });
+  if (useDemo(job)) return (await loadDemo.judgment()).demoStatus(job);
+  return requestJson(judgmentStatus, `${base(job)}/status`, { base: JUDGMENT_BASE, signal });
 }
 
 export async function getJudgmentView(job: string, version?: number, variant?: DemoVariant, signal?: AbortSignal): Promise<JudgmentView> {
-  if (isDemoDoc(job)) return (await loadDemo.judgment()).demoView(job, variant);
-  return requestJson(judgmentView, base(job), { query: version ? { version: String(version) } : undefined, signal });
+  if (useDemo(job)) return (await loadDemo.judgment()).demoView(job, variant);
+  return requestJson(judgmentView, base(job), { base: JUDGMENT_BASE, query: version ? { version: String(version) } : undefined, signal });
 }
 
 export async function getJudgmentVersions(job: string, signal?: AbortSignal) {
-  if (isDemoDoc(job)) return (await loadDemo.judgment()).demoVersions(job);
-  return requestJson(z.array(versionListItem), `${base(job)}/versions`, { signal });
+  if (useDemo(job)) return (await loadDemo.judgment()).demoVersions(job);
+  return requestJson(z.array(versionListItem), `${base(job)}/versions`, { base: JUDGMENT_BASE, signal });
 }
 
 export async function postReview(job: string, request: ReviewEventRequest) {
-  if (isDemoDoc(job)) return (await loadDemo.judgment()).demoPostReview(job, request);
+  if (useDemo(job)) return (await loadDemo.judgment()).demoPostReview(job, request);
   return requestJson(reviewEvent, `${base(job)}/reviews`, post(request));
 }
 
 export async function postSnapshot(job: string, request: SaveRequest, demo?: { fail?: boolean }) {
-  if (isDemoDoc(job)) return (await loadDemo.judgment()).demoPostSnapshot(job, request, !!demo?.fail);
+  if (useDemo(job)) return (await loadDemo.judgment()).demoPostSnapshot(job, request, !!demo?.fail);
   return requestJson(snapshot, `${base(job)}/snapshots`, post(request));
 }
 
 /** 추출값 확인을 마치고 판정으로 넘긴다 (넘김②를 만든다) */
 export async function postToJudgment(docId: string, reviewer: string) {
-  if (isDemoDoc(docId)) return (await loadDemo.judgment()).demoToJudgment(docId);
+  if (useDemo(docId)) return (await loadDemo.judgment()).demoToJudgment(docId);
   return requestJson(toJudgmentResponse, `/api/documents/${encodeURIComponent(docId)}/to-judgment`, post({ reviewer }));
 }
 

@@ -15,6 +15,7 @@ import { usePageParam } from "@/hooks/use-page-param";
 import { cn } from "@/lib/cn";
 import { useReviewer } from "@/lib/reviewer";
 import { routes } from "@/lib/routes";
+import { fieldLabel } from "@/lib/field-labels";
 
 /**
  * 쓰기 하나의 공통 처리. 같은 문서의 쓰기는 scope 로 차례로 보낸다 (늦게 온 응답이 새 값을 덮지 않게).
@@ -220,7 +221,7 @@ function SectionBlock({
           ) : (
             section.groups.map((g) => (
               <div key={g.path} className="flex flex-col">
-                {g.fields.length > 1 && <h4 className="mb-1 text-sm font-medium text-sub">{g.title}</h4>}
+                {g.fields.length > 1 && <h4 className="mb-1 text-sm font-medium text-sub">{fieldLabel(g.title)}</h4>}
                 {g.fields.map((f) => (
                   <FieldRow key={f.path} docId={docId} msdsIndex={msdsIndex} field={f} reviewer={reviewer} onSource={onSource} />
                 ))}
@@ -302,7 +303,7 @@ const FieldRow = memo(function FieldRow({
   return (
     <div className="border-b border-line2 py-2 last:border-b-0">
       <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-        <span className="w-32 flex-none text-sm break-words text-mut">{field.label}</span>
+        <span className="w-32 flex-none text-sm break-words text-mut">{fieldLabel(field.label)}</span>
         <span className="min-w-0 flex-1 basis-40 text-sm break-words">
           {field.value === null ? <span className="text-mut">값 없음</span> : String(field.value)}
         </span>
@@ -335,7 +336,7 @@ const FieldRow = memo(function FieldRow({
         >
           <div className="flex flex-wrap gap-2">
             <Input
-              aria-label={`${field.label} 고치기`}
+              aria-label={`${fieldLabel(field.label)} 고치기`}
               value={draft}
               autoFocus
               onChange={(e) => setDraft(e.target.value)}

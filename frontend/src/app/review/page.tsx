@@ -21,8 +21,11 @@ function ReviewBody({ doc }: { doc: string }) {
   const param = useSearchParams().get("tab");
   const tab: ReviewTab = isReviewTab(param) ? param : "hazard";
   const [guardOpen, setGuardOpen] = useState(false);
-  const { unresolvedCount, conflict, refresh } = useReviewState();
-  const status = useQuery(judgmentStatusQuery(doc)).data;
+  const { unresolvedCount, conflict, refresh, version } = useReviewState();
+  // 추출값 탭은 판정이 필요 없다: 판정 서버가 없을 때 불필요한 요청과 오류를 만들지 않는다
+  const status = useQuery({ ...judgmentStatusQuery(doc), enabled: tab !== "values" }).data;
+  // 판정이 새로 나와 화면의 판정보다 최신이면 409 와 같은 안내를 미리 한다
+  const outdated = conflict || (status?.latest_version != null && version !== null && status.latest_version > version);
   // 처리하지 않은 판정이 없으면 경고 없이 바로 저장 화면으로 간다
   const requestSave = () =>
     unresolvedCount(2) + unresolvedCount(15) === 0 ? router.push(routes.save(doc)) : setGuardOpen(true);
@@ -39,7 +42,7 @@ function ReviewBody({ doc }: { doc: string }) {
       </div>
       <DocSummaryLine docId={doc} />
 
-      {conflict && (
+      {outdated && (
         <Callout tone="danger" role="alert" className="flex flex-wrap items-center gap-2">
           <span>더 새로운 판정 버전이 있습니다. 새로고침해 주세요.</span>
           <Button onClick={refresh}>새로고침</Button>
@@ -74,16 +77,23 @@ function ReviewBody({ doc }: { doc: string }) {
 }
 
 /** 2 검수: 탭(2항, 15항, 성분별 요약, 검토 이력, 추출값)을 언제든 오간다. 탭은 ?tab= 에 남긴다. */
+function ReviewRoot() {
+  const tab = useSearchParams().get("tab");
+  return (
+    <DocFrame stage="review">
+      {(doc) => (
+        <ReviewStateProvider key={doc} docId={doc} enabled={tab !== "values"}>
+          <ReviewBody doc={doc} />
+        </ReviewStateProvider>
+      )}
+    </DocFrame>
+  );
+}
+
 export default function ReviewPage() {
   return (
     <Suspense>
-      <DocFrame stage="review">
-        {(doc) => (
-          <ReviewStateProvider key={doc} docId={doc}>
-            <ReviewBody doc={doc} />
-          </ReviewStateProvider>
-        )}
-      </DocFrame>
+      <ReviewRoot />
     </Suspense>
   );
 }

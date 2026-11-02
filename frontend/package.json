@@ -9,7 +9,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "mock:judgment": "node dev-mock/judgment-server.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "5.9.2",

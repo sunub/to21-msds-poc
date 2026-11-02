@@ -39,9 +39,9 @@ export function isPermanentError(error: unknown) {
   return (error instanceof ApiRequestError && error.status < 500) || error instanceof ApiContractError;
 }
 
-export function apiUrl(path: string, query?: Record<string, string>) {
+export function apiUrl(path: string, query?: Record<string, string>, base = BASE) {
   const q = query ? `?${new URLSearchParams(query).toString()}` : "";
-  return `${BASE}${path}${q}`;
+  return `${base}${path}${q}`;
 }
 
 /**
@@ -62,10 +62,10 @@ async function toRequestError(res: Response): Promise<ApiRequestError> {
 export async function requestJson<S extends z.ZodType>(
   schema: S,
   path: string,
-  init?: RequestInit & { query?: Record<string, string> },
+  init?: RequestInit & { query?: Record<string, string>; base?: string },
 ): Promise<z.infer<S>> {
-  const { query, ...rest } = init ?? {};
-  const res = await fetch(apiUrl(path, query), {
+  const { query, base, ...rest } = init ?? {};
+  const res = await fetch(apiUrl(path, query, base), {
     ...rest,
     headers: { Accept: "application/json", ...rest.headers },
   });

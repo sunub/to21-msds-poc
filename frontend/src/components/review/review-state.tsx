@@ -58,14 +58,15 @@ type ReviewStateValue = {
 
 const Ctx = createContext<ReviewStateValue | null>(null);
 
-export function ReviewStateProvider({ docId, children }: { docId: string; children: ReactNode }) {
+/** enabled 가 false 면 판정을 새로 부르지 않는다 (판정이 필요 없는 추출값 탭). 이미 받아 둔 값은 그대로 쓴다 */
+export function ReviewStateProvider({ docId, enabled = true, children }: { docId: string; enabled?: boolean; children: ReactNode }) {
   const reviewerName = useReviewer() || "미지정";
   const validation = useValidationId(docId);
   const queryClient = useQueryClient();
   // 판정 목록은 여러 탭이 쓰는 것과 같은 요청이라 캐시를 나눠 쓴다
-  const view = useQuery(judgmentViewQuery(docId, validation));
-  const hazard = useQuery(findingsQuery(docId, validation, { section: 2 })).data;
-  const regulation = useQuery(findingsQuery(docId, validation, { section: 15 })).data;
+  const view = useQuery({ ...judgmentViewQuery(docId, validation), enabled });
+  const hazard = useQuery({ ...findingsQuery(docId, validation, { section: 2 }), enabled }).data;
+  const regulation = useQuery({ ...findingsQuery(docId, validation, { section: 15 }), enabled }).data;
   const findings = useMemo(() => [...(hazard?.items ?? []), ...(regulation?.items ?? [])], [hazard, regulation]);
   const byId = useMemo(() => new Map(findings.map((f) => [f.finding_id, f])), [findings]);
 
