@@ -59,13 +59,14 @@ def _component(f: dict) -> str | None:
     return f"{name} ({raw})" if raw else str(name)
 
 
-def _pages(evidence) -> list[dict]:
+def _pages(evidence, own_section: str) -> list[dict]:
     pages = set()
     for e in evidence or []:
         section = _EVIDENCE_SECTION.get(re.split(r"[.\[]", e.get("field") or "")[0])
         if section and e.get("page"):
             pages.add((section, e["page"]))
-    return [{"section": s, "page": p} for s, p in sorted(pages)]
+    # 화면은 첫 번째를 기본으로 연다 (계약 5-api). 판정한 항이 먼저 나와야 한다
+    return [{"section": s, "page": p} for s, p in sorted(pages, key=lambda x: (str(x[0]) != own_section, x))]
 
 
 def finding_display(f: dict, trace: dict | None) -> dict:
@@ -74,7 +75,7 @@ def finding_display(f: dict, trace: dict | None) -> dict:
     if f["reason"] and f["reason"] not in basis:
         basis.insert(0, f["reason"])
     return {"msds": msds, "expected": expected, "component": _component(f), "basis_lines": basis,
-            "calc_lines": list((trace or {}).get("calc_lines") or []), "source_pages": _pages(f["msds"].get("evidence"))}
+            "calc_lines": list((trace or {}).get("calc_lines") or []), "source_pages": _pages(f["msds"].get("evidence"), f["section"])}
 
 
 def view_display(consistency: dict) -> dict:
