@@ -3,7 +3,6 @@
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
 import { useMemo, useState } from "react";
-import { DEMO_VALIDATION_ID } from "@/api/demo-findings";
 import { findingsQuery } from "@/api/findings";
 import type { FindingSummary } from "@/api/findings-schemas";
 import { Foot, Pane } from "@/components/shell/layout";
@@ -11,6 +10,7 @@ import { Button, PillTabs, Table, TableHead } from "@/components/ui";
 import { cn } from "@/lib/cn";
 import { VERDICT_LABEL } from "../hazard/verdict";
 import { useReviewState, type HistoryEntry, type HistoryKind } from "../review-state";
+import { useValidationId } from "../shared/use-validation-id";
 import { UnresolvedList, findingHref, useUnresolved } from "../unresolved-list";
 
 const KIND_LABEL: Record<HistoryKind, string> = { confirm: "확정", exception: "예외 승인", undo: "되돌림" };
@@ -19,9 +19,9 @@ const COLS = {
   at: "w-32 flex-none",
   reviewer: "w-20 flex-none",
   kind: "w-20 flex-none",
-  target: "min-w-0 basis-0 grow-2 break-keep break-words",
-  content: "min-w-0 basis-0 grow-3 break-keep break-words",
-  opinion: "min-w-0 basis-0 grow-3 break-keep break-words",
+  target: "min-w-0 basis-0 grow-2 [word-break:keep-all] break-words",
+  content: "min-w-0 basis-0 grow-3 [word-break:keep-all] break-words",
+  opinion: "min-w-0 basis-0 grow-3 [word-break:keep-all] break-words",
   go: "w-16 flex-none",
 } as const;
 
@@ -40,8 +40,9 @@ function contentOf(h: HistoryEntry, f: FindingSummary | undefined) {
 export function HistoryPanel({ docId, onSave }: { docId: string; onSave: () => void }) {
   const { history } = useReviewState();
   const unresolved = useUnresolved(docId);
-  const hazard = useQuery(findingsQuery(docId, DEMO_VALIDATION_ID, { section: 2 })).data;
-  const regulation = useQuery(findingsQuery(docId, DEMO_VALIDATION_ID, { section: 15 })).data;
+  const validation = useValidationId(docId);
+  const hazard = useQuery(findingsQuery(docId, validation, { section: 2 })).data;
+  const regulation = useQuery(findingsQuery(docId, validation, { section: 15 })).data;
   const byId = useMemo(
     () => new Map([...(hazard?.items ?? []), ...(regulation?.items ?? [])].map((f) => [f.finding_id, f])),
     [hazard, regulation],

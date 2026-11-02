@@ -29,7 +29,7 @@ function buildCards(docId: string, items: ComponentSummary[], findingsById: Map<
       add({
         key: `lim:${l.finding_id ?? c.component_id}:${l.kind}`,
         title: f?.item ?? c.name,
-        label: l.kind === "insufficient" ? VERDICT_LABEL.insufficient : VERDICT_LABEL.borderline,
+        label: l.kind === "insufficient" ? VERDICT_LABEL.insufficient_evidence : VERDICT_LABEL.borderline,
         tone: l.kind === "insufficient" ? "neutral" : "warning",
         text: l.reason,
         href: f ? findingHref(docId, f) : null,

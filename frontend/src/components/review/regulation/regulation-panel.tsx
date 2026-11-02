@@ -3,15 +3,17 @@
 import { useQuery } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
 import { useMemo, useState } from "react";
-import { DEMO_VALIDATION_ID } from "@/api/demo-findings";
 import { findingsQuery } from "@/api/findings";
-import type { FindingSummary, Verdict } from "@/api/findings-schemas";
+import type { Verdict } from "@/api/findings-schemas";
 import { Foot, Pane, Row } from "@/components/shell/layout";
-import { Button, Callout, Checkbox, PillTabs, Skeleton } from "@/components/ui";
+import { Button, Checkbox, PillTabs, Skeleton } from "@/components/ui";
 import { FindingSourceViewer } from "../source-viewer";
-import type { SortKey } from "../hazard/findings-table";
-import { VERDICT_ORDER, severityRank, unresolvedNote } from "../hazard/verdict";
+import { unresolvedNote } from "../hazard/verdict";
 import { useReviewState } from "../review-state";
+import { LoadError } from "../shared/load-error";
+import { sortRows, type SortKey } from "../shared/sort";
+import { SortToggle } from "../shared/sort-toggle";
+import { useValidationId } from "../shared/use-validation-id";
 import { RegulationDetail } from "./regulation-detail";
 import { RegulationTable } from "./regulation-table";
 
@@ -20,25 +22,10 @@ const LAWS = ["화관법", "산안법", "화평법", "위험물법"] as const;
 /** "불일치만 보기"에 들어가는 판정. 구버전도 고칠 것이 있어 함께 보여 준다 */
 const MISMATCH_VIEW: Verdict[] = ["mismatch", "outdated"];
 
-const SORTS: { id: SortKey; label: string }[] = [
-  { id: "verdict", label: "판정 순" },
-  { id: "severity", label: "심각도 순" },
-];
-
-const verdictRank = (v: Verdict) => VERDICT_ORDER.indexOf(v);
-
-/** 기본은 판정 종류 순 안에서 심각도 높음→낮음. 심각도 순은 심각도를 먼저 본다. */
-function sortRows(rows: FindingSummary[], sort: SortKey) {
-  return [...rows].sort((a, b) =>
-    sort === "severity"
-      ? severityRank(a.severity) - severityRank(b.severity) || verdictRank(a.verdict) - verdictRank(b.verdict)
-      : verdictRank(a.verdict) - verdictRank(b.verdict) || severityRank(a.severity) - severityRank(b.severity),
-  );
-}
-
 /** 2 검수 · 15항 법적 규제 탭: 왼쪽 원문, 오른쪽 위 선택한 판정의 상세, 아래 15항 판정 표 */
 export function RegulationPanel({ docId, onSave }: { docId: string; onSave: () => void }) {
-  const { data, isPending, isError, refetch } = useQuery(findingsQuery(docId, DEMO_VALIDATION_ID, { section: 15 }));
+  const validation = useValidationId(docId);
+  const { data, isPending, isError, refetch } = useQuery(findingsQuery(docId, validation, { section: 15 }));
   const [law, setLaw] = useState("all");
   const [onlyMismatch, setOnlyMismatch] = useState(false);
   const [sort, setSort] = useState<SortKey>("verdict");
@@ -64,12 +51,7 @@ export function RegulationPanel({ docId, onSave }: { docId: string; onSave: () =
 
   if (isPending) return <Skeleton className="w-2/3" />;
   if (isError) {
-    return (
-      <Callout tone="danger" role="alert" className="flex flex-wrap items-center gap-2">
-        <span>15항 판정을 불러오지 못했습니다.</span>
-        <Button onClick={() => void refetch()}>다시 불러오기</Button>
-      </Callout>
-    );
+    return <LoadError message="15항 판정을 불러오지 못했습니다." onRetry={() => void refetch()} />;
   }
 
   // 고른 행이 없거나 거르기로 사라졌으면 보이는 첫 행을 고른다
@@ -112,24 +94,7 @@ export function RegulationPanel({ docId, onSave }: { docId: string; onSave: () =
                   />
                   <span className="text-xs text-mut">구버전 판정도 함께 보여 줍니다.</span>
                 </div>
-                <div role="group" aria-label="정렬 기준" className="flex items-center gap-1 text-sm text-mut">
-                  <span>정렬</span>
-                  {SORTS.map((s) => (
-                    <button
-                      key={s.id}
-                      type="button"
-                      aria-pressed={sort === s.id}
-                      onClick={() => setSort(s.id)}
-                      className={
-                        sort === s.id
-                          ? "rounded-sm bg-blue-soft px-2 py-0.5 font-bold text-blue2"
-                          : "rounded-sm px-2 py-0.5 text-mut"
-                      }
-                    >
-                      {s.label}
-                    </button>
-                  ))}
-                </div>
+                <SortToggle sort={sort} onSort={setSort} />
               </div>
               <RegulationTable
                 rows={rows}
@@ -138,18 +103,14 @@ export function RegulationPanel({ docId, onSave }: { docId: string; onSave: () =
                 selectedId={current?.finding_id}
                 onSelect={setSelected}
               />
-              <p className="text-sm text-mut">
-                구버전: MSDS 개정 뒤에 시행된 개정이 있으면 시행일과 함께 표시합니다.
-              </p>
+              <p className="text-sm text-mut">구버전: MSDS 개정 뒤에 시행된 개정이 있으면 시행일과 함께 표시합니다.</p>
             </div>
           </Pane>
         </div>
       </Row>
 
       <Foot>
-        <p className="text-mut">
-          {unresolvedNote(unresolvedByVerdict(15), "15항")}
-        </p>
+        <p className="text-mut">{unresolvedNote(unresolvedByVerdict(15), "15항")}</p>
         <Button variant="primary" size="lg" onClick={onSave}>
           저장하기
         </Button>

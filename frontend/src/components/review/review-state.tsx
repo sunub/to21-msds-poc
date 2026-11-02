@@ -8,10 +8,11 @@
  */
 import { useQuery } from "@tanstack/react-query";
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
-import { DEMO_VALIDATION_ID } from "@/api/demo-findings";
 import { findingsQuery } from "@/api/findings";
-import type { FindingSummary, ReviewState, Verdict } from "@/api/findings-schemas";
+import type { ReviewState, Verdict } from "@/api/findings-schemas";
 import { useReviewer } from "@/lib/reviewer";
+import { isActionable } from "./hazard/verdict";
+import { useValidationId } from "./shared/use-validation-id";
 
 export type HistoryKind = "confirm" | "exception" | "undo";
 
@@ -28,7 +29,7 @@ export type HistoryEntry = {
   opinion: string;
 };
 
-export type FindingReview = { state: ReviewState; opinion: string };
+type FindingReview = { state: ReviewState; opinion: string };
 
 export const OPINION_MAX = 500;
 
@@ -71,8 +72,15 @@ function kstNow(): string {
 let seq = 0;
 const newId = () => `hist_${Date.now().toString(36)}_${(seq++).toString(36)}`;
 
-/** 사람이 처리해야 하는 판정: 일치가 아닌 것 전부 */
-const needsAction = (f: Pick<FindingSummary, "verdict">) => f.verdict !== "match";
+export const REVIEW_STATE_LABEL: Record<ReviewState, string> = {
+  unreviewed: "미검토",
+  confirmed: "확정함",
+  exception_approved: "예외 승인함",
+  opinion: "의견만 남김",
+};
+
+/** 처리를 마친 상태인가. 의견만 남긴 판정은 처리한 것으로 보지 않는다 (미처리에 포함) */
+export const isProcessed = (state: ReviewState) => state === "confirmed" || state === "exception_approved";
 
 type ReviewStateValue = {
   /** 저장소에서 읽어 오기 전에는 false (그동안은 처리 전 상태로 보인다) */
@@ -82,7 +90,7 @@ type ReviewStateValue = {
   /** 의견이 비어 있으면 처리하지 않는다 */
   approveException: (findingId: string, opinion: string) => void;
   undo: (findingId: string) => void;
-  /** 처리하지 않은 불일치·경계·근거부족·경고·구버전 건수 */
+  /** 처리하지 않은 불일치·경계·근거부족·경고·구버전 건수 (의견만 남긴 판정 포함, 일치·해당 없음·비교 제외 제외) */
   unresolvedCount: (section: 2 | 15) => number;
   unresolvedByVerdict: (section: 2 | 15) => Partial<Record<Verdict, number>>;
   history: HistoryEntry[];
@@ -92,9 +100,10 @@ const Ctx = createContext<ReviewStateValue | null>(null);
 
 export function ReviewStateProvider({ docId, children }: { docId: string; children: ReactNode }) {
   const reviewerName = useReviewer() || "미지정";
+  const validation = useValidationId(docId);
   // 판정 목록은 두 탭이 쓰는 것과 같은 요청이라 캐시를 나눠 쓴다
-  const hazard = useQuery(findingsQuery(docId, DEMO_VALIDATION_ID, { section: 2 })).data;
-  const regulation = useQuery(findingsQuery(docId, DEMO_VALIDATION_ID, { section: 15 })).data;
+  const hazard = useQuery(findingsQuery(docId, validation, { section: 2 })).data;
+  const regulation = useQuery(findingsQuery(docId, validation, { section: 15 })).data;
   const findings = useMemo(() => [...(hazard?.items ?? []), ...(regulation?.items ?? [])], [hazard, regulation]);
 
   const [data, setData] = useState<Stored>(EMPTY);
@@ -147,7 +156,7 @@ export function ReviewStateProvider({ docId, children }: { docId: string; childr
   const approveException = useCallback(
     (findingId: string, opinion: string) => {
       const text = opinion.trim().slice(0, OPINION_MAX);
-      if (text) record(findingId, "exception", { state: "exception", opinion: text });
+      if (text) record(findingId, "exception", { state: "exception_approved", opinion: text });
     },
     [record],
   );
@@ -163,7 +172,7 @@ export function ReviewStateProvider({ docId, children }: { docId: string; childr
     (section: 2 | 15) => {
       const counts: Partial<Record<Verdict, number>> = {};
       for (const f of findings) {
-        if (f.section === section && needsAction(f) && getState(f.finding_id).state === "unreviewed") {
+        if (f.section === section && isActionable(f.verdict) && !isProcessed(getState(f.finding_id).state)) {
           counts[f.verdict] = (counts[f.verdict] ?? 0) + 1;
         }
       }

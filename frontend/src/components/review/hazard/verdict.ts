@@ -5,25 +5,38 @@ export const VERDICT_LABEL: Record<Verdict, string> = {
   match: "일치",
   mismatch: "불일치",
   borderline: "경계",
-  insufficient: "근거부족",
+  insufficient_evidence: "근거부족",
   warning: "경고",
   outdated: "구버전",
+  not_applicable: "해당 없음",
+  excluded: "비교 제외",
 };
 
 export const VERDICT_TONE: Record<Verdict, Tone> = {
   match: "success",
   mismatch: "danger",
   borderline: "warning",
-  insufficient: "neutral",
+  insufficient_evidence: "neutral",
   warning: "warning",
   outdated: "stale",
+  not_applicable: "neutral",
+  excluded: "neutral",
 };
 
 /** 표의 기본 정렬 순서와 거르기 알약 순서 */
-export const VERDICT_ORDER: Verdict[] = ["mismatch", "borderline", "insufficient", "warning", "outdated", "match"];
+export const VERDICT_ORDER: Verdict[] = [
+  "mismatch",
+  "borderline",
+  "insufficient_evidence",
+  "warning",
+  "outdated",
+  "match",
+  "not_applicable",
+  "excluded",
+];
 
-/** 사람이 처리해야 하는 판정 (푸터 안내의 기준) */
-export const NEEDS_ACTION: Verdict[] = ["mismatch", "borderline", "insufficient"];
+/** 사람이 처리해야 하는 판정. 일치, 해당 없음, 비교 제외는 처리 대상이 아니다 */
+export const isActionable = (v: Verdict) => v !== "match" && v !== "not_applicable" && v !== "excluded";
 
 export const SEVERITY_LABEL: Record<NonNullable<Severity>, string> = { high: "높음", medium: "중간", low: "낮음" };
 

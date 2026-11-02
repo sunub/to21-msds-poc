@@ -2,11 +2,11 @@
 
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
-import { DEMO_DOC_ID } from "@/api/demo";
 import { documentDetailQuery, pageImageUrl, pageLinesQuery } from "@/api/documents";
 import { Pane } from "@/components/shell/layout";
 import { Button, Paper, Skeleton } from "@/components/ui";
 import { cn } from "@/lib/cn";
+import { isDemoDoc } from "@/lib/demo";
 
 /**
  * 2항·15항 탭의 원문 칸. 고른 판정의 근거 쪽(refs)으로 넘어가고, 쪽 이전·다음 이동도 된다.
@@ -75,7 +75,7 @@ export function FindingSourceViewer({
       )}
       <Paper>
         {/* 데모 문서에는 쪽 이미지가 없어 요청하지 않는다 (404 로그가 남는다) */}
-        {docId !== DEMO_DOC_ID && <PageImage key={`${docId}-${page}`} id={docId} page={page} />}
+        {!isDemoDoc(docId) && <PageImage key={`${docId}-${page}`} id={docId} page={page} />}
         <PageLines id={docId} page={page} />
       </Paper>
     </Pane>
@@ -97,7 +97,7 @@ function PageLines({ id, page }: { id: string; page: number }) {
   if (data.lines.length === 0) {
     return (
       <p className="text-mut">
-        {id === DEMO_DOC_ID ? "이 쪽의 원문은 데모 데이터에 없습니다." : "이 쪽에는 읽은 글이 없습니다."}
+        {isDemoDoc(id) ? "이 쪽의 원문은 데모 데이터에 없습니다." : "이 쪽에는 읽은 글이 없습니다."}
       </p>
     );
   }
@@ -108,7 +108,7 @@ function PageLines({ id, page }: { id: string; page: number }) {
           <span aria-hidden="true" className="w-6 flex-none text-right text-mut tabular-nums">
             {line.no}
           </span>
-          <span className="min-w-0 break-keep break-words">{line.text}</span>
+          <span className="min-w-0 [word-break:keep-all] break-words">{line.text}</span>
         </li>
       ))}
     </ol>

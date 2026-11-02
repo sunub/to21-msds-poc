@@ -5,8 +5,7 @@
  */
 import { z } from "zod";
 import { requestJson } from "./client";
-import { DEMO_DOC_ID } from "./demo";
-import { demoSave } from "./demo-save";
+import { isDemoDoc, loadDemo } from "@/lib/demo";
 
 /** 저장 화면의 옵션 (PDF 에 넣을 것) */
 export type SaveOptions = { includeRevisionAppendix: boolean; includeOpinions: boolean };
@@ -27,14 +26,14 @@ export const saveResponseSchema = z.object({
 export type SaveResponse = z.infer<typeof saveResponseSchema>;
 
 /** demo.fail 은 데모 문서에서만 듣는다 (실패 화면을 백엔드 없이 보려는 용도) */
-export const saveDocument = (
+export const saveDocument = async (
   docId: string,
   options: SaveOptions,
   summary: SaveSummary,
   demo?: { fail?: boolean },
 ): Promise<SaveResponse> =>
-  process.env.NODE_ENV !== "production" && docId === DEMO_DOC_ID
-    ? demoSave(summary, !!demo?.fail)
+  isDemoDoc(docId)
+    ? (await loadDemo.save()).demoSave(summary, !!demo?.fail)
     : requestJson(saveResponseSchema, `/api/v1/documents/${encodeURIComponent(docId)}/snapshots`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },

@@ -11,14 +11,24 @@ const day = z.iso.date();
 
 /* ── 공통 값 ─────────────────────────────────────────────── */
 
-/** 일치·불일치·경계·근거부족·경고·구버전 */
-export const verdictSchema = z.enum(["match", "mismatch", "borderline", "insufficient", "warning", "outdated"]);
+/** 일치·불일치·경계·근거부족·경고·구버전·해당 없음·비교 제외 (명세서 용어) */
+export const verdictSchema = z.enum([
+  "match",
+  "mismatch",
+  "borderline",
+  "insufficient_evidence",
+  "warning",
+  "outdated",
+  "not_applicable",
+  "excluded",
+]);
 export type Verdict = z.infer<typeof verdictSchema>;
 
 export const severitySchema = z.enum(["high", "medium", "low"]).nullable();
 export type Severity = z.infer<typeof severitySchema>;
 
-export const reviewStateSchema = z.enum(["unreviewed", "confirmed", "exception"]);
+/** 미검토·확정·예외 승인·의견만 남김 (명세서 용어) */
+export const reviewStateSchema = z.enum(["unreviewed", "confirmed", "exception_approved", "opinion"]);
 export type ReviewState = z.infer<typeof reviewStateSchema>;
 
 /** 원문 근거 한 곳. bbox 는 아직 항상 null */
@@ -30,6 +40,9 @@ export const sourceRefSchema = z.object({
 export type SourceRef = z.infer<typeof sourceRefSchema>;
 
 const valueText = z.object({ text: z.string() });
+
+/** 15항 판정 중 성분에 걸리지 않는 제품 단위 판정의 묶음 번호 (판정의 component_id 는 null 로 오고, 묶음은 이 값으로 온다) */
+export const PRODUCT_GROUP_ID = "product";
 
 /* ── API-12 GET .../validations/{validation_id}/findings ── */
 

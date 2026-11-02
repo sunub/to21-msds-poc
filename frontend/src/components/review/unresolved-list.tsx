@@ -3,13 +3,13 @@
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
 import { useMemo } from "react";
-import { DEMO_VALIDATION_ID } from "@/api/demo-findings";
 import { findingsQuery } from "@/api/findings";
 import type { FindingSummary } from "@/api/findings-schemas";
 import { StatusLabel } from "@/components/ui";
 import { routes } from "@/lib/routes";
-import { SEVERITY_LABEL, VERDICT_LABEL, VERDICT_ORDER, VERDICT_TONE, severityRank } from "./hazard/verdict";
-import { useReviewState } from "./review-state";
+import { SEVERITY_LABEL, VERDICT_LABEL, VERDICT_ORDER, VERDICT_TONE, isActionable, severityRank } from "./hazard/verdict";
+import { isProcessed, useReviewState } from "./review-state";
+import { useValidationId } from "./shared/use-validation-id";
 
 /** 판정이 있는 탭의 주소. 고른 판정은 ?finding= 으로 넘긴다 (판정 패널이 그 판정을 먼저 고른다) */
 export const findingHref = (docId: string, f: Pick<FindingSummary, "section" | "finding_id">) =>
@@ -18,12 +18,13 @@ export const findingHref = (docId: string, f: Pick<FindingSummary, "section" | "
 /** 처리하지 않은 판정: 2항, 15항 순으로, 같은 항 안에서는 판정 종류와 심각도 순 */
 export function useUnresolved(docId: string): FindingSummary[] {
   const { getState } = useReviewState();
-  const hazard = useQuery(findingsQuery(docId, DEMO_VALIDATION_ID, { section: 2 })).data;
-  const regulation = useQuery(findingsQuery(docId, DEMO_VALIDATION_ID, { section: 15 })).data;
+  const validation = useValidationId(docId);
+  const hazard = useQuery(findingsQuery(docId, validation, { section: 2 })).data;
+  const regulation = useQuery(findingsQuery(docId, validation, { section: 15 })).data;
   return useMemo(
     () =>
       [...(hazard?.items ?? []), ...(regulation?.items ?? [])]
-        .filter((f) => f.verdict !== "match" && getState(f.finding_id).state === "unreviewed")
+        .filter((f) => isActionable(f.verdict) && !isProcessed(getState(f.finding_id).state))
         .sort(
           (a, b) =>
             a.section - b.section ||

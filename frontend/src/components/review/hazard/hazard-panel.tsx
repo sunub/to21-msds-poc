@@ -3,33 +3,24 @@
 import { useQuery } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
 import { useMemo, useState } from "react";
-import { DEMO_VALIDATION_ID } from "@/api/demo-findings";
 import { findingsQuery } from "@/api/findings";
-import type { FindingSummary } from "@/api/findings-schemas";
 import { Foot, Pane, Row } from "@/components/shell/layout";
-import { Button, Callout, Skeleton } from "@/components/ui";
+import { Button, Skeleton } from "@/components/ui";
 import { FindingSourceViewer } from "../source-viewer";
 import { useReviewState } from "../review-state";
+import { LoadError } from "../shared/load-error";
+import { sortRows, type SortKey } from "../shared/sort";
+import { useValidationId } from "../shared/use-validation-id";
 import { FindingDetailView } from "./finding-detail";
-import { FindingsTable, type SortKey } from "./findings-table";
-import { VERDICT_LABEL, VERDICT_ORDER, severityRank, unresolvedNote } from "./verdict";
+import { FindingsTable } from "./findings-table";
+import { VERDICT_LABEL, unresolvedNote } from "./verdict";
 
-const verdictRank = (v: FindingSummary["verdict"]) => VERDICT_ORDER.indexOf(v);
-
-/** 기본은 판정 종류 순(불일치→근거부족→경고→일치) 안에서 심각도 높음→낮음. 심각도 순은 반대로 묶는다. */
-function sortRows(rows: FindingSummary[], sort: SortKey) {
-  return [...rows].sort((a, b) =>
-    sort === "severity"
-      ? severityRank(a.severity) - severityRank(b.severity) || verdictRank(a.verdict) - verdictRank(b.verdict)
-      : verdictRank(a.verdict) - verdictRank(b.verdict) || severityRank(a.severity) - severityRank(b.severity),
-  );
-}
-
-const FILTER_VERDICTS = ["mismatch", "borderline", "insufficient", "warning", "match"] as const;
+const FILTER_VERDICTS = ["mismatch", "borderline", "insufficient_evidence", "warning", "match"] as const;
 
 /** 2 검수 · 2항 유해성·위험성 탭: 왼쪽 원문, 오른쪽 위 선택한 판정의 상세, 아래 2항 판정 표 */
 export function HazardPanel({ docId, onSave }: { docId: string; onSave: () => void }) {
-  const { data, isPending, isError, refetch } = useQuery(findingsQuery(docId, DEMO_VALIDATION_ID, { section: 2 }));
+  const validation = useValidationId(docId);
+  const { data, isPending, isError, refetch } = useQuery(findingsQuery(docId, validation, { section: 2 }));
   const [filter, setFilter] = useState("all");
   const [sort, setSort] = useState<SortKey>("verdict");
   // 다른 탭의 "이동"이 ?finding= 으로 넘긴 판정을 먼저 고른다. 값이 바뀌면(같은 탭에서 이동) 다시 그 판정으로 간다
@@ -50,12 +41,7 @@ export function HazardPanel({ docId, onSave }: { docId: string; onSave: () => vo
 
   if (isPending) return <Skeleton className="w-2/3" />;
   if (isError) {
-    return (
-      <Callout tone="danger" role="alert" className="flex flex-wrap items-center gap-2">
-        <span>2항 판정을 불러오지 못했습니다.</span>
-        <Button onClick={() => void refetch()}>다시 불러오기</Button>
-      </Callout>
-    );
+    return <LoadError message="2항 판정을 불러오지 못했습니다." onRetry={() => void refetch()} />;
   }
 
   // 고른 행이 없거나 거르기로 사라졌으면 보이는 첫 행을 고른다
@@ -105,9 +91,7 @@ export function HazardPanel({ docId, onSave }: { docId: string; onSave: () => vo
       </Row>
 
       <Foot>
-        <p className="text-mut">
-          {unresolvedNote(unresolvedByVerdict(2), "2항")}
-        </p>
+        <p className="text-mut">{unresolvedNote(unresolvedByVerdict(2), "2항")}</p>
         <Button variant="primary" size="lg" onClick={onSave}>
           저장하기
         </Button>

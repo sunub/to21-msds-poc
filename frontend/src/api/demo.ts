@@ -1,10 +1,9 @@
 /*
  * 백엔드 없이 검수 화면을 볼 때 쓰는 고정 데이터 (개발용).
- * 문서 번호가 DEMO_DOC_ID 일 때만 documents.ts 가 이 값을 돌려준다.
+ * 문서 번호가 DEMO_DOC_ID 일 때만(lib/demo.ts 의 스위치가 켜져 있을 때) documents.ts 가 이 값을 돌려준다.
  */
+import { DEMO_DOC_ID } from "@/lib/demo";
 import type { DocumentDetail } from "./schemas";
-
-export const DEMO_DOC_ID = "demo";
 
 export const DEMO_DETAIL: DocumentDetail = {
   id: DEMO_DOC_ID,

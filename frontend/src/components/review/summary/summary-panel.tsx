@@ -4,12 +4,12 @@ import { useQuery } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
 import { useMemo, useState } from "react";
 import { componentsQuery } from "@/api/components";
-import { DEMO_VALIDATION_ID } from "@/api/demo-findings";
 import { findingsQuery } from "@/api/findings";
 import { Foot, Pane, Row } from "@/components/shell/layout";
 import { Button, Callout, Skeleton } from "@/components/ui";
 import { FindingSourceViewer } from "../source-viewer";
 import { useReviewState } from "../review-state";
+import { useValidationId } from "../shared/use-validation-id";
 import { ComponentDetail } from "./component-detail";
 import { ComponentsTable } from "./components-table";
 import { Constraints } from "./constraints";
@@ -17,11 +17,12 @@ import { Constraints } from "./constraints";
 /** 2 검수 · 성분별 요약 탭: 왼쪽 원문, 오른쪽 성분 상세, 아래 구성성분별 판단 요약 표와 제약사항 */
 export function ComponentsPanel({ docId, onSave }: { docId: string; onSave: () => void }) {
   // &product=single 은 demo 문서에서만 듣는다 (components.ts 가 운영 요청에는 싣지 않는다)
+  const validation = useValidationId(docId);
   const productParam = useSearchParams().get("product");
   const product = productParam === "single" || productParam === "unknown" ? productParam : undefined;
-  const { data, isPending, isError, refetch } = useQuery(componentsQuery(docId, DEMO_VALIDATION_ID, { product }));
-  const hazard = useQuery(findingsQuery(docId, DEMO_VALIDATION_ID, { section: 2 })).data;
-  const regulation = useQuery(findingsQuery(docId, DEMO_VALIDATION_ID, { section: 15 })).data;
+  const { data, isPending, isError, refetch } = useQuery(componentsQuery(docId, validation, { product }));
+  const hazard = useQuery(findingsQuery(docId, validation, { section: 2 })).data;
+  const regulation = useQuery(findingsQuery(docId, validation, { section: 15 })).data;
   const findingsById = useMemo(
     () => new Map([...(hazard?.items ?? []), ...(regulation?.items ?? [])].map((f) => [f.finding_id, f])),
     [hazard, regulation],

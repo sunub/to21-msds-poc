@@ -2,9 +2,9 @@
  * 2항·15항 판정 화면용 고정 데이터 (개발용): 25번 황산 KZ-A-S004.
  * 문서 번호가 "demo" 일 때만 findings.ts 가 이 값을 돌려준다.
  */
-import type { FindingDetail, FindingsResponse, FindingSummary, SourceRef, Verdict } from "./findings-schemas";
-
-export const DEMO_VALIDATION_ID = "val_demo";
+import { DEMO_VALIDATION_ID } from "@/lib/demo";
+import { ApiRequestError } from "./client";
+import { PRODUCT_GROUP_ID, type FindingDetail, type FindingsResponse, type FindingSummary, type SourceRef, type Verdict } from "./findings-schemas";
 
 const EXTRACTION_ID = "ext_demo";
 const MSDS_ID = "msds_a";
@@ -52,7 +52,7 @@ const ROWS: Row[] = [
     msds: "구분1",
     expected: "— (제품 시험자료 없음)",
     method: "9항 시험값",
-    verdict: "insufficient",
+    verdict: "insufficient_evidence",
     severity: null,
     pages: [4],
     rule: { id: "METAL-CORR-TEST", version: "1" },
@@ -64,7 +64,7 @@ const ROWS: Row[] = [
     msds: "구분3",
     expected: "— (기준정보 없음)",
     method: "M-factor 가산",
-    verdict: "insufficient",
+    verdict: "insufficient_evidence",
     severity: null,
     pages: [4],
     rule: { id: "AQUATIC-CHRONIC-SUM", version: "1" },
@@ -185,7 +185,7 @@ const toDetail = (r: Row, n: number): FindingDetail => ({
 
 const DETAILS = ROWS.map(toDetail);
 
-export const DEMO_FINDINGS: FindingsResponse = {
+const DEMO_FINDINGS: FindingsResponse = {
   validation_id: DEMO_VALIDATION_ID,
   extraction_id: EXTRACTION_ID,
   review_revision: 1,
@@ -193,7 +193,7 @@ export const DEMO_FINDINGS: FindingsResponse = {
   page: 1,
   page_size: 20,
   total: SUMMARIES.length,
-  counts: { mismatch: 1, borderline: 0, insufficient: 2, warning: 1, match: 5, outdated: 0 },
+  counts: { mismatch: 1, borderline: 0, insufficient_evidence: 2, warning: 1, match: 5, outdated: 0 },
   excluded_counts: { not_applicable: 0, excluded: 0 },
   groups: [],
 };
@@ -201,9 +201,6 @@ export const DEMO_FINDINGS: FindingsResponse = {
 /* ── 15항 법적 규제 ─────────────────────────────────────── */
 
 const COMP_H2SO4 = "comp_h2so4";
-/** 성분에 걸리지 않는 제품 단위 판정의 묶음 번호 (component_id 는 null 로 온다) */
-export const PRODUCT_GROUP_ID = "product";
-
 type Row15 = {
   law: string;
   item: string;
@@ -289,7 +286,7 @@ export const DEMO_FINDINGS_15: FindingsResponse = {
   page: 1,
   page_size: 20,
   total: SUMMARIES_15.length,
-  counts: { outdated: 1, match: 8, mismatch: 0, borderline: 0, insufficient: 0, warning: 0 },
+  counts: { outdated: 1, match: 8, mismatch: 0, borderline: 0, insufficient_evidence: 0, warning: 0 },
   excluded_counts: { not_applicable: 0, excluded: 0 },
   groups: [
     { component_id: COMP_H2SO4, title: "황산 (93~98%)", total: 8, matching_count: 7 },
@@ -298,5 +295,33 @@ export const DEMO_FINDINGS_15: FindingsResponse = {
 };
 
 /** 없는 번호면 null */
-export const demoFindingDetail = (findingId: string): FindingDetail | null =>
+const demoFindingDetail = (findingId: string): FindingDetail | null =>
   [...DETAILS, ...DETAILS_15].find((d) => d.finding.finding_id === findingId) ?? null;
+
+/* ── findings.ts 가 demo 문서에서 부르는 진입점 ─────────────── */
+
+type DemoParams = { verdict?: Verdict; section?: 2 | 15 };
+
+/** 항(section)에 맞는 고정 응답. 항을 안 정하면 2항과 15항을 합친다 (counts 는 합산) */
+function demoBase(section?: 2 | 15): FindingsResponse {
+  if (section === 2) return DEMO_FINDINGS;
+  if (section === 15) return DEMO_FINDINGS_15;
+  const counts = { ...DEMO_FINDINGS.counts };
+  for (const [k, n] of Object.entries(DEMO_FINDINGS_15.counts)) counts[k] = (counts[k] ?? 0) + n;
+  const items = [...DEMO_FINDINGS.items, ...DEMO_FINDINGS_15.items];
+  return { ...DEMO_FINDINGS, items, total: items.length, counts, groups: [...DEMO_FINDINGS.groups, ...DEMO_FINDINGS_15.groups] };
+}
+
+/** 걸러진 목록. total 은 거른 개수다 (counts·groups 는 항 기준 전체, 거르기 전 그대로) */
+export function demoFindingsResponse(params: DemoParams): FindingsResponse {
+  const base = demoBase(params.section);
+  const items = base.items.filter((f) => !params.verdict || f.verdict === params.verdict);
+  return { ...base, items, total: items.length };
+}
+
+/** 없는 번호면 404 */
+export function demoFindingDetailOrThrow(findingId: string): FindingDetail {
+  const detail = demoFindingDetail(findingId);
+  if (!detail) throw new ApiRequestError(404, "http_404", "판정을 찾을 수 없습니다.");
+  return detail;
+}

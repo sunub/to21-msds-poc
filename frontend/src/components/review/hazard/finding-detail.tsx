@@ -5,8 +5,8 @@ import { useState } from "react";
 import { findingDetailQuery } from "@/api/findings";
 import type { FindingDetail, FindingSummary } from "@/api/findings-schemas";
 import { AiChip, Button, Callout, Input, Skeleton, StatusLabel } from "@/components/ui";
-import { OPINION_MAX, useReviewState } from "../review-state";
-import { SEVERITY_LABEL, VERDICT_LABEL, VERDICT_TONE } from "./verdict";
+import { OPINION_MAX, REVIEW_STATE_LABEL, isProcessed, useReviewState } from "../review-state";
+import { SEVERITY_LABEL, VERDICT_LABEL, VERDICT_TONE, isActionable } from "./verdict";
 
 /** 선택한 판정의 상세. 확정·예외 승인·의견은 공유 상태(review-state)에 남고 서버에는 보내지 않는다. */
 export function FindingDetailView({
@@ -50,12 +50,12 @@ export function FindingDetailView({
       )}
       {data && <DetailBody detail={data} />}
 
-      {finding.verdict !== "match" && <ReviewActions finding={finding} />}
+      {isActionable(finding.verdict) && <ReviewActions finding={finding} />}
     </div>
   );
 }
 
-/** 확정·예외 승인 버튼과 의견 칸. 일치 판정은 처리 대상이 아니라 그리지 않는다. */
+/** 확정·예외 승인 버튼과 의견 칸. 일치·해당 없음·비교 제외 판정은 처리 대상이 아니라 그리지 않는다. */
 function ReviewActions({ finding }: { finding: FindingSummary }) {
   const { getState, confirm, approveException, undo } = useReviewState();
   const { state, opinion } = getState(finding.finding_id);
@@ -63,11 +63,11 @@ function ReviewActions({ finding }: { finding: FindingSummary }) {
   const inputId = `opinion-${finding.finding_id}`;
   const needOpinion = draft.trim() === "";
 
-  if (state !== "unreviewed") {
+  if (isProcessed(state)) {
     return (
       <div className="flex flex-col gap-2 border-t border-line2 pt-3">
         <div className="flex flex-wrap items-center gap-2">
-          <StatusLabel tone="success">{state === "confirmed" ? "확정함" : "예외 승인함"}</StatusLabel>
+          <StatusLabel tone="success">{REVIEW_STATE_LABEL[state]}</StatusLabel>
           <Button
             variant="link"
             onClick={() => {
@@ -90,6 +90,12 @@ function ReviewActions({ finding }: { finding: FindingSummary }) {
 
   return (
     <div className="flex flex-col gap-2 border-t border-line2 pt-3">
+      {state === "opinion" && (
+        <p className="text-sm break-words">
+          <b className="text-amb-text">{REVIEW_STATE_LABEL.opinion}</b>
+          {opinion && <span className="text-mut"> · {opinion}</span>}
+        </p>
+      )}
       <label htmlFor={inputId} className="sr-only">
         의견 남기기
       </label>
@@ -110,6 +116,8 @@ function ReviewActions({ finding }: { finding: FindingSummary }) {
         </Button>
         <Button
           variant="outline"
+          // 비활성일 때도 글자가 읽히도록 흐리게 하지 않고 색으로 구분한다 (대비 4.5:1 이상)
+          className="disabled:border-line disabled:bg-tint disabled:text-sub disabled:opacity-100"
           disabled={needOpinion}
           onClick={() => approveException(finding.finding_id, draft)}
         >

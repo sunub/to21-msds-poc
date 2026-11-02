@@ -6,11 +6,11 @@ import { cn } from "@/lib/cn";
 import { classificationChip, confidenceView, formatConcentration } from "./format";
 
 const COLS = {
-  name: "min-w-0 basis-0 grow-[10] break-keep break-words",
+  name: "min-w-0 basis-0 grow-[10] [word-break:keep-all] break-words",
   cas: "min-w-0 basis-0 grow-[12] break-keep",
   conc: "min-w-0 basis-0 grow-[8] break-keep",
-  cls: "min-w-0 basis-0 grow-30 break-keep break-words",
-  ate: "min-w-0 basis-0 grow-30 break-keep break-words",
+  cls: "min-w-0 basis-0 grow-30 [word-break:keep-all] break-words",
+  ate: "min-w-0 basis-0 grow-30 [word-break:keep-all] break-words",
   legal: "min-w-0 basis-0 grow-[12] break-keep",
   conf: "min-w-0 basis-0 grow-[10]",
 } as const;

@@ -136,3 +136,10 @@ export const DEMO_COMPONENTS_UNKNOWN: ComponentsResponse = {
   limitations: [],
   confidence_rule_version: null,
 };
+
+/** components.ts 가 demo 문서에서 부르는 진입점 */
+export function demoComponents(product: "single" | "unknown" | undefined): ComponentsResponse {
+  if (product === "single") return DEMO_COMPONENTS_SINGLE;
+  if (product === "unknown") return DEMO_COMPONENTS_UNKNOWN;
+  return DEMO_COMPONENTS_MIXTURE;
+}
