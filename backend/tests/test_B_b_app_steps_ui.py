@@ -213,6 +213,23 @@ def test_steps_script_loads_after_shell_and_before_screens():
     assert 'id="details-drawer"' in html
 
 
+def test_action_can_carry_id_and_data_attributes_and_keeps_its_reason():
+    run_js(BASE + r"""
+      const clicked=[];
+      stepsRenderActions(host,{primary:{label:'Go',onClick:()=>clicked.push(1),attrs:{id:'go-now','data-kind':'x'}}});
+      el('go-now').click();assert.deepEqual(clicked,[1]);assert.equal(el('go-now').getAttribute('data-kind'),'x');
+      stepsRenderActions(host,{primary:{label:'Go',disabled:true,reason:'Because',attrs:{id:'go-now'}}});
+      assert.equal(el('go-now').disabled,true);assert.ok(host.textContent.includes('Because'));
+    """)
+
+
+def test_step_button_can_have_an_id_so_focus_survives_a_redraw():
+    run_js(BASE + r"""
+      stepsRenderBar(host,{steps:[{id:'a',label:'A',done:true,buttonId:'step-a'},{id:'b',label:'B',done:false}],current:'b',onGo:()=>{}});
+      assert.ok(el('step-a'));assert.equal(el('step-a').tagName,'button');
+    """)
+
+
 def test_step_css_has_fixed_action_row_and_right_drawer_without_motion():
     css = (STATIC / 'app.css').read_text()
     assert re.search(r'\.step-actions\s*\{[^}]*position:\s*sticky[^}]*bottom:\s*0', css)

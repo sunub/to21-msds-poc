@@ -1944,6 +1944,74 @@ steps.details.close|자세히 닫기|서랍
 common.raw_error_title|오류 기록|서랍
 common.code_record_title|원래 기록 값|서랍
 steps.server.cost_basis|표시한 비용은 현재 서버의 추정값입니다.|위쪽 막대, S06
+steps.details.open|자세히 보기|S06 서랍 입구
+steps.server.choose|서버 고르기|S06
+steps.server.start|켜기|S06
+steps.server.wait|준비 기다리기|S06
+steps.server.stop|쓰고 나서 끄기|S06
+steps.server.choose_title|어느 서버에서 AI를 켤까요?|S06
+steps.server.choose_target|다시 시험에서 {model}를 골랐습니다.|S06
+steps.server.only_on|이 AI는 {server}에서 켤 수 있습니다.|S06
+steps.server.no_server|이 앱에서는 이 AI를 켤 수 없습니다. 할 일: 다시 시험에서 다른 AI를 고르세요.|S06
+steps.server.rented_name|빌린 서버 (RunPod)|S06
+steps.server.company_name|회사 서버 (RNGD)|S06
+steps.server.matches|고른 AI를 켤 수 있습니다.|S06
+steps.server.mismatch|고른 AI는 이 서버에서 켤 수 없습니다.|S06
+steps.server.fact_models|켤 수 있는 AI|S06
+steps.server.fact_cost|요금|S06
+steps.server.company_cost|추가 임대료 없음|S06
+steps.server.use_rented|빌린 서버로 켜기|S06
+steps.server.use_company|회사 서버로 켜기|S06
+steps.server.other_on|다른 서버에서 {model}가 켜져 있거나 준비 중입니다.|S06
+steps.server.other_on_open|그 서버 보기|S06
+steps.server.back_choose|서버 다시 고르기|S06
+steps.server.start_rented_title|요금을 확인하고 서버를 만드세요.|S06
+steps.server.start_rented_say|다음 단추는 확인 창을 엽니다. 요금은 확인 창에서 만들기를 누른 순간부터 나갑니다.|S06
+steps.server.stat_hourly|시간당 요금|S06
+steps.server.stat_forgot|잊었을 때 ({hours}시간)|S06
+steps.server.forgot_note|서버 안 타이머가 {hours}시간에 지운다고 보고 계산한 추정입니다. 저장 공간 비용은 별도입니다.|S06
+steps.server.quote_basis|지난 기록으로 잡은 추정입니다. 실제 요금과 다를 수 있습니다.|S06
+steps.server.fact_target_model|켜는 AI|S06
+steps.server.fact_auto_delete|자동 삭제|S06
+steps.server.fact_storage|저장 공간|S06
+steps.server.fact_basis|요금 근거|S06
+steps.server.fact_return|돌아갈 곳|S06
+steps.server.return_value|다시 시험 · {doc} · {section}번 부분|S06
+steps.server.confirm_create|켜진 동안 시간당 약 ${cost_per_hour}가 듭니다. 아래 단추를 누르는 순간부터 요금이 나갑니다. 준비 완료 시각은 모릅니다. 요청이 20분 없으면 앱이 지우고, 앱이 꺼져 있어도 서버 안 타이머가 4시간에 지웁니다.|S06
+steps.server.start_company_tunnel_title|내 컴퓨터와 회사 서버를 연결하세요.|S06
+steps.server.start_company_pick_title|내 컴퓨터와 회사 서버를 연결했습니다. 이제 AI를 고르세요.|S06
+steps.server.start_company_say|회사 서버에는 한 번에 AI 하나만 올라갑니다.|S06
+steps.server.start_company_note|추가 임대료는 없습니다. 켜는 동안 다른 작업을 해도 됩니다.|S06
+steps.server.tunnel_line|회사 서버 연결 통로를 엽니다.|S06
+steps.server.pick_line|켤 AI를 고릅니다.|S06
+steps.server.start_done_rented|서버 만듦|S06
+steps.server.start_done_company|AI 켜기 시작|S06
+steps.server.wait_title|{model}를 준비하고 있습니다.|S06
+steps.server.wait_say|이 화면을 떠나도 준비는 계속됩니다. 준비되면 위쪽 막대가 바뀝니다.|S06
+steps.server.wait_server|빌린 서버가 켜져 있습니다. 이때부터 요금이 나갑니다.|S06
+steps.server.wait_server_unseen|서버 목록에서 새 서버를 찾고 있습니다.|S06
+steps.server.wait_process|회사 서버에서 모델 실행 프로그램을 확인했습니다.|S06
+steps.server.wait_process_unseen|회사 서버에서 모델 실행 프로그램을 찾고 있습니다.|S06
+steps.server.wait_reply|AI의 응답을 기다립니다.|S06
+steps.server.wait_match|고른 AI가 응답하면 다음 단계로 넘어갑니다.|S06
+steps.server.wait_on_for|서버가 켜진 지 {elapsed}입니다.|S06
+steps.server.cancel_rented|취소하고 서버 지우기|S06
+steps.server.cancel_company|취소하고 AI 끄기|S06
+steps.server.stop_say_rented|다 쓰면 서버를 지워야 요금이 멈춥니다.|S06
+steps.server.stat_uptime|켜진 시간|S06
+steps.server.stat_total|지금까지 (추정)|S06
+steps.server.stat_auto|자동 삭제까지|S06
+steps.server.auto_unknown|확인 안 됨|S06
+steps.server.delete_note|시험을 더 하려면 그대로 두세요. 오늘 더 쓰지 않으면 서버를 지우세요. 지우는 순간 요금이 멈추고, 다음에 다시 만들 수 있습니다.|S06
+steps.server.delete_action|서버 지우고 요금 멈추기|S06
+steps.server.others_running|이 앱이 만든 다른 서버 {count}개도 켜져 있습니다. 할 일: 자세히 보기에서 지우세요.|S06
+steps.server.preparation_unknown|준비에 걸린 시간 기록이 없습니다.|S06
+steps.server.prepared_time|준비에 약 {elapsed} 걸렸습니다.|S06
+steps.server.prepared_short|약 {elapsed} 걸림|S06
+steps.server.details_title|자세히 · 서버와 설정|S06
+steps.server.details_hint|서버 목록과 설정 이름, 서버 기록을 봅니다.|S06
+steps.server.settings|설정 확인 기록|S06
+steps.server.connection|회사 서버 연결 기록|S06
 context.model.chip_on|AI 켜짐|위쪽 막대
 context.model.chip_no_cost|요금 없음|위쪽 막대
 context.model.chip_cost_unknown|요금 확인 안 됨|위쪽 막대

@@ -3,7 +3,7 @@
 // 단계 화면의 공통 틀: 단계 표시, 맨 아래 행동 줄, 자세히 서랍 (ADR-039).
 S.drawer = {trigger: null, triggerId: null, screen: null};
 
-// steps: [{id, label, done, summary, reachable}]. reachable을 주지 않으면 끝난 단계만 누를 수 있다.
+// steps: [{id, label, done, summary, reachable, buttonId}]. reachable을 주지 않으면 끝난 단계만 누를 수 있다. 다시 그려도 초점을 찾으려면 buttonId를 준다.
 function stepsRenderBar(el, {steps, current, onGo}) {
   coreReplace(el, h("ol", {class: "steps", "aria-label": T("steps.a11y")}, steps.map((step, index) => {
     const now = step.id === current;
@@ -11,7 +11,7 @@ function stepsRenderBar(el, {steps, current, onGo}) {
       h("span", {class: "step-words"}, h("b", null, step.label), h("small", null, now ? T("steps.current") : step.summary))];
     if (now) return h("li", {class: "step now", "aria-current": "step"}, body);
     if (step.reachable ?? step.done) {
-      return h("li", null, h("button", {class: `step ${step.done ? "done" : "open"}`, type: "button", onclick: () => onGo(step.id)}, body));
+      return h("li", null, h("button", {id: step.buttonId, class: `step ${step.done ? "done" : "open"}`, type: "button", onclick: () => onGo(step.id)}, body));
     }
     return h("li", {class: "step", "aria-disabled": "true"}, body);
   })));
@@ -19,11 +19,11 @@ function stepsRenderBar(el, {steps, current, onGo}) {
 function stepsFirstOpen(steps) {
   return steps.find(step => !step.done)?.id ?? steps.at(-1)?.id ?? null;
 }
-// 각 행동: {label, onClick, disabled, reason}. 다음 행동(primary)은 언제나 줄의 마지막 칸이다.
+// 각 행동: {label, onClick, disabled, reason, attrs}. attrs는 단추에 그대로 붙는다. 다음 행동(primary)은 언제나 줄의 마지막 칸이다.
 function stepsRenderActions(el, {note, back, secondary, primary}) {
   const others = [secondary].flat().filter(Boolean);
   const reasons = [back, ...others, primary].filter(action => action?.disabled && action.reason).map(action => action.reason);
-  const button = (action, kind = null) => h("button", {type: "button", class: kind, disabled: !!action.disabled, onclick: action.onClick}, action.label);
+  const button = (action, kind = null) => h("button", {type: "button", class: kind, disabled: !!action.disabled, onclick: action.onClick, ...action.attrs}, action.label);
   coreReplace(el, h("div", {class: "step-actions", role: "group", "aria-label": T("steps.actions_a11y")},
     back ? button(back) : null,
     h("p", {class: "step-actions-say"}, [note, ...reasons].filter(Boolean).join(" ")),

@@ -357,6 +357,19 @@ G2에서 더 볼 것은 아래와 같습니다. step 1이 더했습니다.
 | 왼쪽 메뉴 | 1280×800에서 메뉴 끝까지 본다 | 번호와 묶음 제목이 보임. 목적과 정의 글이 메뉴와 겹치지 않음 |
 | 단계 표시·행동 줄·서랍 | 아직 어느 화면에도 붙지 않았다. 브라우저 콘솔에서 `document.getElementById('jobs-try')`에 `stepsRenderBar`와 `stepsRenderActions`를 가짜 값으로 불러 보고, `drawerOpen({title:'자세히', render:n=>n.append(rawError('원문'))})`를 부른다 | 현재·끝남·못 감 세 모양이 글로도 구분됨. 다음 행동이 오른쪽 끝. 서랍이 오른쪽에 열리고 움직임이 없음. Esc로 닫으면 초점이 돌아옴 |
 
+G3에서 더 볼 것은 아래와 같습니다. step 2가 더했습니다. 켜짐과 준비 중 상태는 가짜 `/api/servers` 응답으로 봅니다. 실제 과금 동작은 누르지 않습니다.
+
+| 상태 | 재는 방법 | 통과 기준 |
+|---|---|---|
+| ① 서버 고르기 | 1280×800, 1440×900, 1680×1050 캡처. 고른 AI 없음, 빌린 서버용 AI, 회사 서버용 AI, 켤 서버가 없는 AI 네 경우 | 두 카드가 나란함. 고른 AI에 맞는 카드가 먼저이고 표시가 있음. 빌린 서버용 AI에서 회사 서버 추천 글이 없음. 시안의 $2.49가 아니라 `create_quote` 값 |
+| ② 켜기 (빌린 서버) | 같은 세 너비 캡처. 단추를 눌러 확인 창까지 열고 취소 | 확인 창에 시간당 요금과 자동 삭제 글. 취소하면 ②에 남음. 실행 요청 없음 |
+| ② 켜기 (회사 서버) | 같은 세 너비 캡처. 통로 닫힘, 통로 열림, 다른 모델이 떠 있음 세 경우 | 단계 안의 주 행동이 하나. 통로가 열렸을 때만 ‘연결했습니다’ 제목. 다른 모델이 있으면 켜기가 막히고 이유가 보임 |
+| ③ 준비 기다리기 | 같은 세 너비 캡처. `session.ready`가 거짓인 빌린 서버, `diagnosis`가 `loading`인 회사 서버 | 앱이 확인한 줄까지만 완료 표시. 가짜 진행률과 ‘5분 안팎’ 같은 숫자 없음. 응답하면 10초 안에 ④로 넘어감 |
+| ④ 쓰고 나서 끄기 | 같은 세 너비 캡처. 앱이 만든 서버, 앱이 만들지 않은 서버, 회사 서버 | 켜짐 상태의 페이지 스크롤 없음(문서 높이가 창 높이 이하). 숫자 네 칸. 앱이 만들지 않은 서버는 지우기 단추 없음. 행동 줄 오른쪽 끝이 ‘시험으로 돌아가기’ |
+| 접힘 | 네 단계와 서랍에서 `document.querySelectorAll('#screen-s06 details, #details-drawer details').length` | 0 |
+| 모순 문구 | 빌린 서버 준비됨 + 회사 서버 `no_model`, 상태 조회 실패 두 경우를 본문과 서랍에서 읽는다 | 앞의 경우 회사 서버 할 일 없음. 뒤의 경우 ‘켜진 AI 모델이 없습니다’ 없음 |
+| 자세히 서랍 | 1280×800에서 끝난 서버와 남의 서버가 섞인 목록으로 열고, 서랍에서 지우기 확인 창을 열었다 닫는다 | 서랍 안 가로 스크롤 없음. 제목이 겹치지 않음. 확인 창이 서랍 위에 뜸. 닫으면 연 단추로 초점이 돌아옴. 주 화면의 비용 숫자에 끝난 서버 금액이 없음 |
+
 이 측정은 서버 상태·시험 결과의 가짜 응답으로 할 수 있습니다. 평가 문서와 실제 과금 요청은 필요하지 않습니다.
 키보드로 단계·서랍을 열고 닫은 뒤 초점이 돌아오는지도 같은 관문에서 확인합니다.
 
@@ -364,9 +377,18 @@ G2에서 더 볼 것은 아래와 같습니다. step 1이 더했습니다.
 
 - 전체 시험에서 `test_E_regenerated.py`의 실제 모듈 시험 2건이 실패합니다. TO21 제공 파일 `TO21_MSDS_DB적재_재생성_v0.6.py` 514줄의 f-string이 Python 3.12 문법이라 B의 3.11 venv에서 읽히지 않습니다(`SyntaxError: f-string expression part cannot include a backslash`). step 0 커밋의 깨끗한 사본에서도 같습니다. 이 시험은 PR #130(`2870459`)에서 왔습니다. TO21 파일과 E 시험은 B가 고치지 않습니다.
 
+- step 2: 만들기 확인 창의 요약에 서버가 만든 글 ‘(10/29 기록 약 6분)’이 그대로 나옵니다(`_plan_pod_create`). 날짜가 붙은 실제 기록이고 다른 시험이 이 요약 계약을 보므로 고치지 않았습니다. G3에서 빼야 한다면 서버 글 한 줄만 고치면 됩니다.
+- step 2: 회사 서버의 ‘15~25분’은 전에 승인된 글(RNGD 기록)이라 ① 카드와 ③ 안내(`servers.diagnosis.loading.todo`)에 그대로 씁니다. 빌린 서버만 기록 없는 숫자를 빼는 규칙(A2)을 적용했습니다.
+- step 2: 다시 시험의 연결 단추 글 `servers.connection.details`(‘장비 상세와 설정 이름’)는 이제 ④ 단계로 가는 단추라 뜻이 맞지 않습니다. `serversRenderCompact`의 이름과 인자를 유지하는 step이라 글은 그대로 두었습니다. 다시 시험을 고치는 step 3에 넘깁니다.
+- step 2: `docs/ARCHITECTURE.md`의 작업 화면 API 표에 `GET /api/servers`의 `create_quote{tag,cost_per_hr,max_hours,max_cost,basis}`와 `session.ready_seconds`를 더해야 합니다. step 안에서 docs를 고치지 못해 메인 세션에 넘깁니다.
+- step 2: `serversCreateCost`는 그대로 확인 창에서 `summary` 문장의 요금을 읽습니다(`test_p02_create_button_shows_hourly_cost`의 계약). 화면의 견적만 `create_quote`를 씁니다. 둘 다 `POD_COST_HINT`에서 와서 값은 같습니다.
+- step 2: 이제 쓰지 않는 글이 있습니다. 예: `servers.choice.company`, `servers.choice.rented`, `servers.compare.cost`. `test_ui_text_matches_copy_md`는 쓰지 않는 글을 잡지 않습니다. 지우는 일은 step 7에 넘깁니다.
+- step 2: 다시 시험에서 다른 AI를 고른 뒤 위쪽 막대의 AI 칩으로 S06에 오면 그 AI 기준으로 ①이 열리고, ‘다른 서버에서 … 켜져 있거나 준비 중입니다’와 ‘그 서버 보기’가 함께 보입니다. 요금 숫자는 막대에 그대로 있습니다. G3에서 한 번 더 누르는 것이 불편하다고 보면 메뉴·칩 입구에서는 켜진 서버를 먼저 열도록 바꿉니다.
+
 ## 11. 안내 위치 변경
 
 - step 1에는 없습니다. `data-guide`가 붙은 요소를 옮기지 않았습니다. `guide-open` 단추는 id를 그대로 둔 채 위쪽 막대로 옮겼습니다.
+- step 2: S06 요소에는 코드상 `data-guide`가 없습니다. `STRUCTURE.md`가 적은 `s06-return`은 지금도 어디에도 붙어 있지 않아 옮길 것이 없습니다. 안내가 쓰는 `servers-guide-return`은 id를 그대로 두고 모든 단계 위쪽에 보입니다. 안내 글이 옛 위치를 말하는지는 step 6이 봅니다.
 
 ## step 기록
 
@@ -406,3 +428,28 @@ G2에서 더 볼 것은 아래와 같습니다. step 1이 더했습니다.
   - 지운 시험은 없습니다. 시험 대역 DOM에 `childNodes`를 더했습니다.
 - 넘기는 일: step 2~5는 `stepsRenderBar`와 `stepsRenderActions`를 화면에 붙이고 화면을 `.step-screen`으로 감쌉니다. 서랍의 `render(body)`에는 `rawError`와 `coreCodeRecord`를 그대로 넣어도 됩니다. `drawerOpen`이 접힘을 제목과 본문으로 폅니다.
 
+### step 2
+
+- 산출물: `js/servers.js`의 4단계 흐름. 단계 이름은 `choose`, `start`, `wait`, `stop`입니다. `serversStep`이 정합니다. 켜진 상태는 `serversKindState(kind)`가 `off`, `wait`, `stop`으로 돌려줍니다. 사용자가 옮긴 것만 `S.servers.kind`(`rented`, `company`)와 `S.servers.step`(`choose`, `start`)에 둡니다. `serversRenderCompact`의 이름과 인자는 그대로입니다.
+- 화면 자리: S06은 구역 하나(`servers-flow`)입니다. 단계 표시는 `#servers-step-bar`, 한 줄 설명은 `#servers-step-say`, 제목은 `#title-s06`입니다. 시안 순서대로 단계 표시가 제목 위에 있습니다.
+- `steps.js`: 행동에 `attrs`를, 단계에 `buttonId`를 더했습니다. 다시 그려도 초점을 찾고 `data-server-action`을 붙이기 위해서입니다. step 3·5에서도 씁니다.
+- API(A1·A2): `/api/servers`에 `create_quote{tag,cost_per_hr,max_hours,max_cost,basis}`와 `session.ready_seconds`를 더했습니다. `ready_seconds`는 앱이 만든 서버에서 고른 모델이 처음 맞게 답한 때까지입니다. 상태를 읽을 때 재므로 S06 밖에서는 최대 60초 늦을 수 있어 화면에 ‘약’을 붙입니다. 메모리에만 있어 앱을 다시 켜면 ‘기록 없음’입니다. A3은 새 필드 없이 앱이 아는 줄만 보입니다.
+- 서버 판단: 켤 수 있는지는 회사 서버 `rngd_choices`, 빌린 서버 `create_quote.tag`로 정합니다. 응답 여부는 `models[].where`와 `reachable`, `match`로 봅니다. 코드에 모델 이름이 없습니다.
+- 서랍으로 옮긴 것: 서버 전체 목록과 소유·상태·금액, 저장 공간, 이어 쓰기 기록, 모델별 연결 표, 연결 통로 포트와 프로그램 번호, 장비 출력, 설정 다시 읽은 결과와 설정 이름, 서버 기록, 원래 오류. 서랍 제목 ‘설정 확인 기록’과 ‘회사 서버 연결 기록’이 겹치던 ‘장비 상세와 설정 이름’ 두 개를 대신합니다(요청 밖 문제 13).
+- 단계 안에 남긴 것: 켜기·지우기·모델 끄기·통로 닫기, 사실과 할 일, 오류가 있을 때의 ‘다시 확인하기’와 ‘설정 다시 읽기’. 서랍의 ‘설정 다시 읽기’는 늘 있습니다.
+- 지운 것: 없습니다. D1~D3은 S06 항목이 아닙니다.
+- 고친 요청 밖 문제: 5(모순 글), 6(빌린 서버용 AI에 회사 서버 추천), 7(끝난 서버 금액이 첫 화면에 섞임), 13(같은 이름 제목).
+- 실패를 본 시험: `test_B_b_app_servers_ui.py`의 새 시험 47건(`test_opens_choose_step_when_no_ai_is_on`, `test_opens_wait_step_while_a_server_is_being_made`, `test_opens_stop_step_when_the_chosen_ai_replies`, `test_choose_marks_only_the_server_that_can_start_the_chosen_ai`, `test_which_server_fits_comes_from_api_values`, `test_rented_start_shows_the_quote_and_creates_only_after_confirmation`, `test_company_start_asks_for_one_action_at_a_time`, `test_wait_step_says_only_what_the_app_knows`, `test_prepared_time_is_a_number_only_with_a_record`, `test_stop_step_has_cost_numbers_and_delete_goes_through_confirmation`, `test_stop_step_has_no_delete_for_a_server_not_ours`, `test_ready_rented_server_shows_no_company_todo`, `test_status_failure_never_comes_with_no_model_or_no_program`, `test_finished_and_others_servers_stay_out_of_first_screen_costs`, `test_steps_have_no_folds` 등), 뒤에 더한 `test_list_failure_never_calls_our_server_someone_elses`, `test_drawer_has_no_tooltips_that_would_open_behind_it`, `test_B_b_app_steps_ui.py`의 `test_action_can_carry_id_and_data_attributes_and_keeps_its_reason`, `test_step_button_can_have_an_id_so_focus_survives_a_redraw`, `test_B_b_app_server_actions.py`의 `test_status_quotes_a_new_pod_from_settings_not_from_running_pods` 등 5건.
+- 옮긴 옛 시험과 이유. 지운 시험은 없습니다.
+  - 서버 목록·연결·설정·기록을 옛 구역에서 찾던 시험은 서랍을 열고 같은 내용을 봅니다: `test_pod_ownership_deletability_and_adoption_are_visible`, `test_pod_uptime_cost_and_unknown_do_not_claim_free`, `test_tunnel_port_ownership_and_elapsed_time`, `test_server_log_instruction_only_with_lines`, `test_model_mismatch_unknown_and_no_missing_strings`, `test_session_pod_state_is_readable_not_an_unknown_record`, `test_expected_offline_diagnosis_is_neutral_in_table_and_compact`, `test_reload_waits_for_old_inflight_status_then_reads_fresh_status`, `test_model_lookup_failure_is_not_ai_off`.
+  - 켜기 단추를 첫 화면에서 찾던 시험은 ①에서 서버를 고른 뒤 봅니다: `test_rngd_diagnosis_fact_and_next_action`, `test_tunnel_open_uses_confirmation_and_token_even_while_running`, `test_409_locks_actions_shows_jobs_and_preserves_tunnel_exception`, `test_slow_double_submit_and_failed_create_are_not_retried_automatically`, `test_expired_confirmation_does_not_post_and_keeps_recovery`, `test_model_process_and_tunnel_actions_use_api_targets`, `test_connection_entry_keeps_requested_model_and_unknown_target_is_not_ready`, `test_p02_create_button_shows_hourly_cost`.
+  - 접힌 원래 오류를 보던 시험은 단계에 접힘이 없고 원래 오류가 서랍에 있는지 봅니다: `test_unknown_diagnosis_uses_model_friendly_not_invented_cause`, `test_503_disables_actions_with_fact_todo_and_collapsed_raw`, `test_each_screen_api_error_has_fact_action_and_closed_safe_raw[s06]`, `test_server_state_has_plain_label_and_raw_state_in_detail`.
+  - `test_refresh_preserves_device_details_and_keyboard_selection`: 장비 접힘이 사라져 선택·초점 유지와 서랍이 열린 채 유지되는지 봅니다.
+  - `test_loading_elapsed_fake_clock_unknown_time_and_no_duplicate_load`: ③에는 켜기 단추가 아예 없고, `serversReason`도 중복 켜기를 막는지 봅니다.
+  - `test_s06_recommended_server_and_two_way_comparison_first`: 고른 AI가 없을 때 회사 서버를 먼저 권하고 두 서버를 함께 비교하는지 봅니다. 켜진 서버의 요금을 새 서버 견적에 쓰지 않는지 더 봅니다. 옛 비교표에 있던 ‘새 서버를 만들면 시간당 실제 요금이 발생합니다’는 서랍에서 봅니다.
+  - `test_s06_action_failure_and_recovery_remain_visible_before_details`: 통로 닫기가 서랍으로 가서 지우기 실패로 같은 뜻을 봅니다.
+  - `test_reload_env_posts_then_refreshes_and_shows_names_only`: 이름 목록은 서랍에, ‘다시 읽었습니다’는 단계에 있습니다.
+  - `test_registered_views_match_build_and_html`: 구역 수 기대값을 32에서 28로 바꿨습니다. S06 다섯 구역이 하나가 됐기 때문입니다.
+  - `test_preservation_rows_have_resolvable_new_function_or_dom_id`: 시험은 그대로이고 `BUILD.md` 보존표 I44·I63~I72의 새 자리를 고쳤습니다.
+- 규칙 문서: 6장의 step 2 몫을 `PRODUCT.md` Server Facts와 `STRUCTURE.md` 보존표·흐름 5에 반영했습니다.
+- 넘기는 일: step 3의 서버 왕복은 `go("s06", {model, returnScreen})` 그대로입니다. `model`을 주면 전에 고른 서버를 잊고 그 AI 기준으로 열립니다. 다시 시험 ②는 `serversReady(serversModel(tag))`로 준비를 확인하면 됩니다. 메인 세션은 ‘발견한 것’의 ARCHITECTURE 표를 고쳐야 합니다.

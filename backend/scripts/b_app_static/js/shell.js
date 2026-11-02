@@ -6,7 +6,7 @@ const SHELL_SCREENS = {
   s03: {title: "nav.retest", views: ["jobs-try", "jobs-result", "jobs-connection"]},
   s04: {title: "nav.compare", views: ["compare-summary", "compare-conditions", "compare-items", "compare-values", "compare-rows", "compare-prompts"]},
   s05: {title: "nav.jobs", views: ["jobs-list", "jobs-detail"]},
-  s06: {title: "nav.servers", views: ["servers-summary", "servers-rngd", "servers-runpod", "servers-models", "servers-log"]},
+  s06: {title: "nav.servers", views: ["servers-flow"]},
   s07: {title: "nav.help", views: ["help-topics", "help-glossary"]},
   s09: {title: "jobs.trial.open_batch", parent: "s03", views: ["jobs-run"]},
   s10: {title: "compare.table.open", parent: "s04", views: ["jobs-compare"]},

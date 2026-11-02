@@ -141,31 +141,21 @@ def test_s06_recommended_server_and_two_way_comparison_first():
     from test_B_b_app_servers_ui import FIXTURE
     run_js(FIXTURE + FIX_VISIBLE + r"""
       data.session=null;data.models[1].reachable=false;data.models[1].match=false;
-      await setup();const page=view(),company=document.getElementById('servers-rngd');
-      const visible=visibleText(page),comparison=document.getElementById('servers-comparison');
-      assert.ok(comparison,'both choices must be compared before opening the alternative');
-      const order=page.querySelectorAll('*');assert.ok(order.indexOf(action('rngd_up')) < order.indexOf(comparison));
-      assert.equal(action('rngd_up').classList.contains('primary'),true);
-      assert.equal(company.closest('details'),null);
-      const rows=comparison.querySelectorAll('tbody tr');assert.equal(rows.length,2);
-      for(const key of ['servers.compare.company.wait','servers.compare.rented.wait','servers.empty.new_cost'])
-        assert.ok(visibleText(comparison).includes(T(key)));
-      assert.ok(visibleText(comparison).includes('$2.50'));
-      const alternate=document.getElementById('servers-runpod').querySelector('details');
-      assert.ok(alternate);assert.equal(alternate.open,false);
-      assert.equal(alternate.querySelector('summary').textContent,T('servers.company.alternative'));
+      await setup();const page=view(),visible=visibleText(page);
+      const cards=stage().querySelectorAll('.server-card');assert.equal(cards.length,2,'both choices must be compared at once');
+      assert.equal(cards[0].dataset.serverKind,'company');
+      assert.equal(byId('servers-use-company').classList.contains('primary'),true);
+      assert.equal(byId('servers-use-rented').classList.contains('primary'),false);
+      for(const key of ['servers.compare.company.wait','servers.compare.rented.wait','servers.choice.recommendation'])
+        assert.ok(visible.includes(T(key)),key);
+      assert.ok(visible.includes('$1.73'));assert.ok(!visible.includes('$2.50'),'a running server price is not the new server quote');
       assert.ok(!visible.includes(T('servers.rented.confirm_create')));
-      const diagnostics=document.getElementById('servers-models').querySelector('details');
-      assert.ok(diagnostics);assert.equal(diagnostics.open,false);
       assert.ok(!visible.includes(T('servers.connection.expected')));
-      alternate.open=true;await shellPollServers();
-      assert.equal(document.getElementById('servers-runpod').querySelector('details').open,true);
-      data.rngd.tunnel.open=false;data.can.tunnel_open=true;data.rngd.diagnosis='tunnel_closed';await shellPollServers();
-      assert.ok(action('tunnel_open').classList.contains('primary'));
-      assert.ok(!action('rngd_up').classList.contains('primary'));
-      data.pods=[];await shellPollServers();
-      assert.ok(visibleText(document.getElementById('servers-comparison')).includes(T('servers.rented.unknown')));
-      assert.ok(!visibleText(document.getElementById('servers-comparison')).includes('$0'));
+      assert.equal(page.querySelectorAll('details').length,0);
+      assert.ok(openDrawer().textContent.includes(T('servers.empty.new_cost')));drawerClose();
+      data.create_quote=null;await shellPollServers();
+      const rented=stage().querySelector('[data-server-kind="rented"]');
+      assert.ok(visibleText(rented).includes(T('servers.rented.unknown')));assert.ok(!visibleText(rented).includes('$0'));
       assert.equal(calls.filter(c=>c[0]==='post').length,0);
     """)
 
@@ -177,13 +167,14 @@ def test_p02_create_button_shows_hourly_cost(cost):
     # The backend's present contract puts the quoted rate in summary, not in a numeric key.
     summary = f"Fake GPU. 시간당 약 ${cost}. 준비 시간 미확인."
     run_js(FIXTURE + f"const quoted={json.dumps(summary)},cost={json.dumps(cost)};" + r"""
-      await setup();const original=post;let quote=quoted;
+      allOff();await setup();await byId('servers-use-rented').click();const original=post;let quote=quoted;
       post=async(path,body)=>path.endsWith('/propose')?{token:'priced-once',action:body.action,summary:quote,expires_in:600}:original(path,body);
       await action('pod_create').click();let confirm=document.getElementById('servers-confirm');
       assert.equal(confirm.textContent,T('servers.confirm.create.action',{cost_per_hour:cost}));
       assert.ok(confirm.textContent.includes('$'+cost));assert.equal(confirm.disabled,false);
       assert.equal(calls.filter(c=>c[1].endsWith('/execute')).length,0);
       await confirm.click();assert.equal(calls.filter(c=>c[1].endsWith('/execute')).length,1);
+      await byId('servers-use-rented').click();
       for(const missing of ['No quote available',quoted+' '+quoted,'Total $99.00']) {
         quote=missing;await action('pod_create').click();confirm=document.getElementById('servers-confirm');
         assert.equal(confirm.disabled,true);assert.ok(document.getElementById('servers-confirm-blocked').textContent);
@@ -283,10 +274,10 @@ def test_sticky_header_does_not_cover_focused_controls():
 def test_s06_action_failure_and_recovery_remain_visible_before_details():
     from test_B_b_app_servers_ui import FIXTURE
     run_js(FIXTURE + FIX_VISIBLE + r"""
-      await setup();post=async()=>{throw new Error('Request failed');};await action('tunnel_close').click();
-      assert.ok(visibleText(document.getElementById('servers-summary')).includes(T('servers.status.failure.fact')));
+      await setup();post=async()=>{throw new Error('Request failed');};await action('pod_delete').click();
+      assert.ok(visibleText(stage()).includes(T('servers.status.failure.fact')));
       api=async()=>{throw new Error('Status failed');};await shellPollServers();
-      const summary=document.getElementById('servers-summary');
+      const summary=stage();
       assert.ok(visibleText(summary).includes(T('servers.failed.retry')));
       assert.ok(visibleText(summary).includes(T('servers.status.failure.todo')));
     """)
@@ -586,7 +577,8 @@ def test_model_lookup_failure_is_not_ai_off():
       api=async path=>{assert.equal(path,'/api/servers');return data;};
       shellRenderContext(); await shellPollServers(); await go('s06');
       const context=()=>document.getElementById('context-model').textContent;
-      const row=()=>document.getElementById('servers-models').textContent;
+      document.getElementById('servers-details-open').click();
+      const row=()=>document.querySelector('#details-drawer .drawer-body').textContent;
       assert.ok(context().includes(T('context.model.query_failed')));
       assert.ok(row().includes(T('context.model.query_failed')));
       assert.ok(!context().includes(T('context.model.state_off')));
@@ -1261,11 +1253,12 @@ def test_server_state_has_plain_label_and_raw_state_in_detail():
       await setup();
       for(const state of ['RUNNING','EXITED','FUTURE_STATE']){
         data.pods[0].state=state;await shellPollServers();
-        const table=document.getElementById('servers-runpod');table.querySelector('details').open=true;
+        assert.ok(!visibleText(stage()).includes(state));
+        const table=openDrawer().querySelector('[data-pod="owned1"]');
         const label=state==='FUTURE_STATE'?T('common.codes.unknown'):T('common.codes.pod.'+state);
-        assert.ok(visibleText(table).includes(label));assert.ok(!visibleText(table).includes(state));
-        const raw=table.querySelector('.code-record');assert.ok(raw);assert.equal(raw.open,false);
-        assert.ok(raw.textContent.includes(state));
+        assert.ok(visibleText(table).includes(label));
+        assert.ok(table.querySelector('.raw[data-code-record]').textContent.includes(state));
+        drawerClose();
       }
     """)
 
