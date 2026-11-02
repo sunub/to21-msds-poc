@@ -60,7 +60,10 @@ export function FindingsTable({
 
   return (
     <div className="flex flex-col gap-3">
-      <PillTabs label="판정 종류로 거르기" items={filterItems} value={filter} onChange={onFilter} />
+      {/* 1024px 폭에서 알약이 두 줄로 넘어가지 않도록 좁은 화면에서는 안쪽 여백을 줄인다 */}
+      <div className="[&_button]:px-1.5 xl:[&_button]:px-3">
+        <PillTabs label="판정 종류로 거르기" items={filterItems} value={filter} onChange={onFilter} />
+      </div>
       <SortToggle sort={sort} onSort={onSort} />
 
       <GridTable label="2항 판정 표">

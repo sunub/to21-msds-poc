@@ -6,7 +6,9 @@ import { useMemo, useState } from "react";
 import { componentsQuery } from "@/api/components";
 import { findingsQuery } from "@/api/findings";
 import { Foot, Pane, Row } from "@/components/shell/layout";
-import { Button, Callout, Skeleton } from "@/components/ui";
+import Link from "next/link";
+import { routes } from "@/lib/routes";
+import { Button, Callout, Skeleton, buttonStyles } from "@/components/ui";
 import { FindingSourceViewer } from "../source-viewer";
 import { useReviewState } from "../review-state";
 import { useValidationId } from "../shared/use-validation-id";
@@ -56,9 +58,17 @@ export function ComponentsPanel({ docId, onSave }: { docId: string; onSave: () =
   if (data.product_type === "unknown") {
     return (
       <>
-        <Callout tone="warning" role="alert" className="flex flex-col gap-1">
-          <b>혼합물인지 단일물질인지 확인할 수 없습니다.</b>
-          <span>성분 구성은 자동으로 정하지 않습니다. 사용자가 직접 지정해 주세요. 지정하기 전에는 성분별 요약을 보여 주지 않습니다.</span>
+        <Callout tone="warning" role="alert" className="flex flex-col gap-1 [word-break:keep-all]">
+          <b>제품이 혼합물인지 단일물질인지 자동으로 판별하지 못했습니다.</b>
+          <span>유형 지정 기능은 아직 연결되지 않았습니다. 담당자에게 확인을 요청해 주세요.</span>
+          <span className="mt-1 flex flex-wrap gap-2">
+            <Link href={routes.review(docId, "hazard")} className={buttonStyles()}>
+              2항 판정으로 가기
+            </Link>
+            <Link href={routes.review(docId, "regulation")} className={buttonStyles()}>
+              15항 판정으로 가기
+            </Link>
+          </span>
         </Callout>
         {foot}
       </>
@@ -87,7 +97,6 @@ export function ComponentsPanel({ docId, onSave }: { docId: string; onSave: () =
                 product={data.product_type}
                 component={current}
                 findingsById={findingsById}
-                ruleVersion={data.confidence_rule_version}
               />
             ) : (
               <p className="text-sm text-mut">표에서 성분을 고르면 상세가 여기에 나옵니다.</p>

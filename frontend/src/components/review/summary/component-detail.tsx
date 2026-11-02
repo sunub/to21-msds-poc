@@ -17,13 +17,11 @@ export function ComponentDetail({
   product,
   component: c,
   findingsById,
-  ruleVersion,
 }: {
   docId: string;
   product: ProductType;
   component: ComponentSummary;
   findingsById: Map<string, FindingSummary>;
-  ruleVersion: string | null;
 }) {
   const conf = confidenceView(c.confidence);
   const groups = groupBySource(c.classifications);
@@ -43,7 +41,7 @@ export function ComponentDetail({
     : null;
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4 [word-break:keep-all]">
       <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
         <h3 className="text-xl font-bold">{c.name}</h3>
         <span className="text-mut">
@@ -113,7 +111,6 @@ export function ComponentDetail({
           </ol>
           <p className="mt-1.5 text-sm text-mut">
             1~2단계는 신뢰도 높음, 3~4단계는 보통, 미상이 있으면 낮음입니다.
-            {ruleVersion && ` (신뢰도 규칙 ${ruleVersion})`}
           </p>
         </div>
       )}

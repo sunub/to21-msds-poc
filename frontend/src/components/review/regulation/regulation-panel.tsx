@@ -88,11 +88,10 @@ export function RegulationPanel({ docId, onSave }: { docId: string; onSave: () =
               <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2">
                 <div className="flex flex-col">
                   <Checkbox
-                    label="불일치만 보기"
+                    label="불일치·구버전만 보기"
                     checked={onlyMismatch}
                     onChange={(e) => setOnlyMismatch(e.target.checked)}
                   />
-                  <span className="text-xs text-mut">구버전 판정도 함께 보여 줍니다.</span>
                 </div>
                 <SortToggle sort={sort} onSort={setSort} />
               </div>

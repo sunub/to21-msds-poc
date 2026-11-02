@@ -98,7 +98,7 @@ export function SaveView({ docId }: { docId: string }) {
         : { tone: "neutral" as const, label: "저장 전" };
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-6 [word-break:keep-all]">
       <section>
         <h1 className="text-2xl font-bold">{title}</h1>
         <p className="mt-1 text-mut">{lead}</p>
@@ -175,9 +175,7 @@ export function SaveView({ docId }: { docId: string }) {
                 </div>
               ))}
             </div>
-          ) : (
-            <p className="text-sm text-mut">추출값 확인 기록이 없어 값의 출처별 칸 수는 표시하지 않습니다.</p>
-          )}
+          ) : null}
 
           <p className="text-sm text-mut">수정과 추가에는 원래 값, 근거, 검토자, 시각이 함께 남습니다. 다시 저장하면 같은 문서의 기록을 덮어씁니다.</p>
 
@@ -191,7 +189,7 @@ export function SaveView({ docId }: { docId: string }) {
             <Callout tone="info" role="status" className="flex flex-col gap-0.5">
               <b>저장했습니다.{incomplete && ` 미검토 ${saved.included.unreviewed}건 포함`}</b>
               <span>
-                저장 번호 {saved.snapshot_id} · 포함한 처리 {saved.included.confirmed + saved.included.exception}건 (확정 {saved.included.confirmed} · 예외 승인{" "}
+                포함한 처리 {saved.included.confirmed + saved.included.exception}건 (확정 {saved.included.confirmed} · 예외 승인{" "}
                 {saved.included.exception})
                 {incomplete ? ` · 미검토 ${saved.included.unreviewed}건` : ""}
               </span>
@@ -199,7 +197,7 @@ export function SaveView({ docId }: { docId: string }) {
           )}
           {save.isError && !saving && (
             <Callout tone="danger" role="alert" className="flex flex-wrap items-center gap-2">
-              <span>저장하지 못했습니다. {save.error instanceof Error ? save.error.message : ""} 다시 시도해 주세요.</span>
+              <span>저장하지 못했습니다. 잠시 뒤 다시 시도해 주세요.</span>
               <Button onClick={() => save.mutate()}>다시 시도</Button>
             </Callout>
           )}
@@ -234,14 +232,14 @@ export function SaveView({ docId }: { docId: string }) {
             />
           </div>
           <p className="text-sm text-mut">
-            {incomplete && "미검토 판정은 PDF에 \"미검토\"로 표시됩니다. "}원문 PDF는 들어 있지 않습니다. 파일 이름: {fileName}
+            {incomplete && "미검토 판정은 PDF에 \"미검토\"로 표시됩니다. "}원문 PDF는 들어 있지 않습니다. 파일 이름: <span className="whitespace-nowrap">{fileName}</span>
           </p>
           <div className="mt-auto flex flex-col gap-2">
             <div className="flex flex-wrap gap-2">
-              <Button variant="primary" size="lg" disabled>
+              <Button variant="primary" size="lg" disabled className="disabled:cursor-not-allowed disabled:border-dashed disabled:border-field-line disabled:bg-line2 disabled:text-mut disabled:opacity-100">
                 PDF로 출력
               </Button>
-              <Button size="lg" disabled>
+              <Button size="lg" disabled className="disabled:cursor-not-allowed disabled:border-dashed disabled:border-field-line disabled:bg-line2 disabled:text-mut disabled:opacity-100">
                 미리 보기
               </Button>
             </div>

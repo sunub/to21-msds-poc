@@ -36,7 +36,7 @@ export function SaveGuardDialog({
         </>
       }
     >
-      <p className="mb-3 leading-relaxed">
+      <p className="mb-3 leading-relaxed [word-break:keep-all]">
         저장하면 아래 판정은 &quot;미검토&quot;로 남습니다. 지금 처리하고 저장하거나, 그대로 저장할 수 있습니다.
       </p>
       {/* 닫혀 있는 동안은 그리지 않는다 (같은 목록이 화면 밖에 한 벌 더 남지 않게) */}

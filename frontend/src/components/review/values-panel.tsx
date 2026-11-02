@@ -31,6 +31,16 @@ function useReviewWrite<T>(docId: string, write: (body: T) => Promise<ReviewResp
   });
 }
 
+/** 추출값 기록을 불러오다 실패했을 때의 문장. 404 와 연결 실패를 사용자 말로 바꾼다 (api/client.ts 는 그대로 둔다) */
+function loadErrorText(error: unknown) {
+  if (error instanceof ApiRequestError) {
+    return error.status === 404
+      ? "추출값 기록을 불러오지 못했습니다. 서버가 켜져 있는지 확인해 주세요."
+      : error.message;
+  }
+  return "서버에 연결하지 못했습니다. 연결되면 이어서 보여 줍니다.";
+}
+
 const errorText = (error: unknown) =>
   error instanceof ApiRequestError ? error.message : "저장하지 못했습니다. 서버가 켜져 있는지 확인해 주세요.";
 
@@ -67,7 +77,7 @@ function Values({ doc }: { doc: DocumentDetail }) {
   if (isError) {
     return (
       <div role="alert" className="flex flex-col items-start gap-2 text-sm">
-        <p className="text-red">{errorText(error)}</p>
+        <p className="text-red">{loadErrorText(error)}</p>
         <Button onClick={() => void refetch()}>다시 불러오기</Button>
       </div>
     );

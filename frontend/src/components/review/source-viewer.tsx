@@ -38,7 +38,8 @@ export function FindingSourceViewer({
   return (
     <Pane
       title="원문"
-      className="basis-115 print:hidden"
+      // 오른쪽 열이 길 때 원문이 위쪽에 붙어 따라오게 한다 (넓은 화면에서만)
+      className="basis-115 print:hidden lg:sticky lg:top-4"
       aside={
         <div className="flex items-center gap-2">
           <Button aria-label="이전 쪽" disabled={page <= 1} onClick={() => go(page - 1)}>
@@ -73,7 +74,7 @@ export function FindingSourceViewer({
           ))}
         </div>
       )}
-      <Paper>
+      <Paper className="max-h-[calc(100vh-8rem)] overflow-y-auto">
         {/* 데모 문서에는 쪽 이미지가 없어 요청하지 않는다 (404 로그가 남는다) */}
         {!isDemoDoc(docId) && <PageImage key={`${docId}-${page}`} id={docId} page={page} />}
         <PageLines id={docId} page={page} />

@@ -5,10 +5,11 @@ import type { ComponentSummary } from "@/api/components-schemas";
 import type { FindingSummary } from "@/api/findings-schemas";
 import { StatusLabel, type Tone } from "@/components/ui";
 import { VERDICT_LABEL } from "../hazard/verdict";
+import { REVIEW_STATE_LABEL, isProcessed, useReviewState } from "../review-state";
 import { findingHref } from "../unresolved-list";
 import { CONFIDENCE } from "./format";
 
-type Card = { key: string; title: string; label: string; tone: Tone; text: string; href: string | null; linkText: string };
+type Card = { findingId: string | null; key: string; title: string; label: string; tone: Tone; text: string; href: string | null; linkText: string };
 
 /**
  * 제약사항·검토 필요: 성분들의 근거부족·경계 사유와, 신뢰도가 높지 않은 이유를 한곳에 모은다.
@@ -27,6 +28,7 @@ function buildCards(docId: string, items: ComponentSummary[], findingsById: Map<
     for (const l of c.limitations) {
       const f = l.finding_id ? findingsById.get(l.finding_id) : undefined;
       add({
+        findingId: f?.finding_id ?? null,
         key: `lim:${l.finding_id ?? c.component_id}:${l.kind}`,
         title: f?.item ?? c.name,
         label: l.kind === "insufficient" ? VERDICT_LABEL.insufficient_evidence : VERDICT_LABEL.borderline,
@@ -40,6 +42,7 @@ function buildCards(docId: string, items: ComponentSummary[], findingsById: Map<
       const link = c.target_links.find((t) => t.section === 2);
       const f = link ? findingsById.get(link.finding_id) : undefined;
       add({
+        findingId: f?.finding_id ?? null,
         key: `conf:${c.component_id}`,
         title: f?.item ?? c.name,
         label: `신뢰도 ${CONFIDENCE[c.confidence.level].label}`,
@@ -62,7 +65,10 @@ export function Constraints({
   items: ComponentSummary[];
   findingsById: Map<string, FindingSummary>;
 }) {
-  const cards = buildCards(docId, items, findingsById);
+  const { getState } = useReviewState();
+  // 미처리 카드가 앞에 오고, 이미 확정·예외 승인한 판정의 카드는 뒤로 보낸다 (들어온 순서는 유지)
+  const done = (c: Card) => !!c.findingId && isProcessed(getState(c.findingId).state);
+  const cards = buildCards(docId, items, findingsById).sort((a, b) => Number(done(a)) - Number(done(b)));
   if (cards.length === 0) {
     return (
       <div className="flex flex-wrap items-center gap-3 rounded-md border border-dashed border-field-line bg-white p-5">
@@ -77,7 +83,14 @@ export function Constraints({
         <li key={c.key} className="flex flex-col gap-1.5 rounded-md border border-line bg-white px-4 py-3.5">
           <div className="flex flex-wrap items-center justify-between gap-2">
             <b className="break-keep">{c.title}</b>
-            <StatusLabel tone={c.tone}>{c.label}</StatusLabel>
+            <span className="flex flex-wrap items-center gap-x-2">
+              {done(c) && c.findingId && (
+                <span className="rounded-xs bg-grn-soft px-1.5 py-px text-xs font-medium text-grn">
+                  {REVIEW_STATE_LABEL[getState(c.findingId).state]}
+                </span>
+              )}
+              <StatusLabel tone={c.tone}>{c.label}</StatusLabel>
+            </span>
           </div>
           <p className="text-sm leading-relaxed break-keep text-sub">{c.text}</p>
           {c.href && (

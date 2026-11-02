@@ -16,7 +16,7 @@ import { UnresolvedList, findingHref, useUnresolved } from "../unresolved-list";
 const KIND_LABEL: Record<HistoryKind, string> = { confirm: "확정", exception: "예외 승인", undo: "되돌림" };
 
 const COLS = {
-  at: "w-32 flex-none",
+  at: "w-40 flex-none",
   reviewer: "w-20 flex-none",
   kind: "w-20 flex-none",
   target: "min-w-0 basis-0 grow-2 [word-break:keep-all] break-words",
@@ -25,15 +25,18 @@ const COLS = {
   go: "w-16 flex-none",
 } as const;
 
-/** "2026-11-02T13:32:41+09:00" → "2026.11.02 13:32" (이력의 시각은 이미 한국 시간이다) */
-const formatAt = (at: string) => `${at.slice(0, 10).replaceAll("-", ".")} ${at.slice(11, 16)}`;
+/** "2026-11-02T13:32:41+09:00" → "2026.11.02 13:32:41" (이력의 시각은 이미 한국 시간이다) */
+const formatAt = (at: string) => `${at.slice(0, 10).replaceAll("-", ".")} ${at.slice(11, 19)}`;
 
 /** 처리 내용: 무엇으로 처리했는지. 판정 목록을 못 찾으면 구분만 보여 준다 */
 function contentOf(h: HistoryEntry, f: FindingSummary | undefined) {
   if (h.kind === "undo") return "처리 전으로 되돌림";
   const verdict = f ? VERDICT_LABEL[f.verdict] : "";
   const head = h.kind === "confirm" ? `${verdict} 확정`.trim() : `예외 승인${verdict ? ` · ${verdict}` : ""}`;
-  return f ? `${head} · ${f.msds_value.text} → ${f.expected_value.text}` : head;
+  if (!f) return head;
+  // 기호 없이 풀어 쓴다: "근거부족 확정 · MSDS 구분1 · 기준값 없음"
+  const expected = f.expected_value.text.trim().startsWith("—") ? "기준값 없음" : `기준값 ${f.expected_value.text}`;
+  return `${head} · MSDS ${f.msds_value.text} · ${expected}`;
 }
 
 /** 2 검수 · 검토 이력 탭: 위에 처리하지 않은 판정, 아래에 처리 이력(최근 순) */

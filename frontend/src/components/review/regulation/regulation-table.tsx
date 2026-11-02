@@ -5,6 +5,7 @@ import { PRODUCT_GROUP_ID, type FindingsResponse, type FindingSummary } from "@/
 import { StatusLabel } from "@/components/ui";
 import { ProcessedMark } from "../hazard/findings-table";
 import { SEVERITY_LABEL, VERDICT_LABEL, VERDICT_TONE } from "../hazard/verdict";
+import { NoBreakDates } from "../shared/nowrap-dates";
 import { Cell, GridBody, GridHead, GridRow, GridTable, HeadCell, SpanRow } from "../shared/grid-table";
 
 /*
@@ -31,8 +32,8 @@ function Row({ r, selected, onSelect }: { r: FindingSummary; selected: boolean; 
         </span>
         <ProcessedMark findingId={r.finding_id} />
       </Cell>
-      <Cell className={WIDE}>{r.msds_value.text}</Cell>
-      <Cell>{r.expected_value.text}</Cell>
+      <Cell className={WIDE}><NoBreakDates text={r.msds_value.text} /></Cell>
+      <Cell><NoBreakDates text={r.expected_value.text} /></Cell>
       <Cell className="flex flex-wrap items-center gap-x-1.5">
         <StatusLabel tone={VERDICT_TONE[r.verdict]} className="text-sm">
           {VERDICT_LABEL[r.verdict]}
