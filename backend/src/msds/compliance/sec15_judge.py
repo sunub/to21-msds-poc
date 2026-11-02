@@ -17,6 +17,7 @@ excluded 는 판정하지 않고 참고로만 보여 줄 줄이다(구버전, DB
 결정 9: 혼합물에서 제품 전체(MIX)로 적은 항목 행은, 성분별 행이 없는 성분의 같은 항목 판정에 이어 쓴다. 제품 전체 '해당'은
         다른 성분 때문일 수 있어, 함량상 비해당인 성분에는 과기재로 세지 않는다.
 """
+import re
 from functools import lru_cache
 
 import yaml
@@ -251,6 +252,38 @@ def _class4(physchem):
     return rule["item"], bool(edge), f"인화점 {fp:g}℃ ({rule['id']}" + (f", {edge} → 경계" if edge else "") + ")"
 
 
+_DG_ITEM = re.compile(r"특수인화물|알코올류|제[1-4]석유류|동식물유류")
+
+
+def _dg_db_name(group_name) -> tuple[str | None, str | None]:
+    """DB 품명 '제3석유류 비수용성액체' → (품명, 수용성). 제4류가 아니면 (None, None)."""
+    m = _DG_ITEM.search(group_name or "")
+    if not m:
+        return None, None
+    water = "비수용성" if "비수용성" in group_name else "수용성" if "수용성액체" in group_name else None
+    return m.group(), water
+
+
+def _dg_differences(inputs, want_item, db_water) -> list[str]:
+    """MSDS 15항 위험물 행의 품명·수용성·지정수량을 판정한 품명과 맞춰 본다 (설계서 29장 5단계)."""
+    rows = [d for d in inputs.get("dangerous_goods") or [] if d.get("item")]
+    row = next((d for d in rows if str(d.get("comp_ref")) == "MIX"), rows[0] if rows else None)
+    if row is None or want_item is None:
+        return []
+    if row["item"] != want_item:
+        return [f"품명: MSDS {row['item']}, 판정 {want_item}"]
+    out, water = [], row.get("water_soluble") if row.get("water_soluble") in ("수용성", "비수용성") else None
+    if water and db_water and water != db_water:
+        out.append(f"수용성: MSDS {water}, 지식DB {db_water}")
+    rule = next((r for r in _dg_table()["rules"] if r["item"] == want_item), None)
+    table_qty = (rule or {}).get("qty") or {}
+    expected_qty = table_qty.get("any") or table_qty.get(water or db_water)
+    msds_qty = (row.get("designated_qty") or {}).get("value")
+    if expected_qty and msds_qty is not None and float(msds_qty) != float(expected_qty):
+        out.append(f"지정수량: MSDS {msds_qty:g}L, 시행령 별표1 {expected_qty:g}L")
+    return out
+
+
 def _dg(inputs, sup, know_all):
     s_row = sup.get(("MIX", "DG", "DG_HAZMAT"))
     s = (s_row or {}).get("applicable")
@@ -261,6 +294,9 @@ def _dg(inputs, sup, know_all):
     db = sorted({(r["regulate_item_id"], r["db_item_name"], r.get("group_name"))
                  for k in know_all for r in k.get("rows") or [] if r["kind"] == "dg"})
     item, edge, basis = _class4(inputs.get("physchem"))
+    db_names = {_dg_db_name(g) for _, _, g in db} - {(None, None)}
+    db_item, db_water = next(iter(db_names)) if len(db_names) == 1 else (None, None)
+    want_item = item or db_item  # 인화점이 없으면 DB 품명으로 비교한다 (설계서 29장 6단계)
     src = [f"HTODB {i} {n}" + (f" {g}" if g else "") for i, n, g in db] + [f"9항: {basis}"]
     if db or (item and not edge):
         exp = "해당"
@@ -273,12 +309,20 @@ def _dg(inputs, sup, know_all):
            "동식물유류·알코올류(함량 60%)는 9항만으로 정할 수 없어 판정하지 않음"]
     version = next((k.get("knowledge_version") for k in know_all if k.get("knowledge_version")), None)
     common = dict(supplier=s, source=src, version=version, as_of=inputs.get("as_of_date"), extra_asm=asm,
-                  db_threshold=(item or None))
+                  db_threshold=want_item)
     if exp == "경계":
         return _row("MIX", None, "DG", "DG_HAZMAT", BORDER, RULE_IDS["border"], expected=exp, reason=reason,
                     cause="CONDITION_CHECK", **common)
     if exp == "해당":
         if s == "해당":
+            diff = _dg_differences(inputs, want_item, db_water if want_item == db_item else None)
+            if diff:
+                return _row("MIX", None, "DG", "DG_HAZMAT", MISMATCH, RULE_IDS[THRESHOLD], type_=THRESHOLD, expected=exp,
+                            reason=f"위험물 {'; '.join(diff)}: {reason}", **common)
+            if item and db_item and item != db_item and (inputs.get("composition") or {}).get("type") == "단일물질":
+                # 혼합물의 DB 품명은 성분 것이라 제품 품명과 달라도 이상이 아니다
+                return _row("MIX", None, "DG", "DG_HAZMAT", "경고", RULE_IDS["match"], expected=exp,
+                            reason=f"9항으로 정한 품명 {item}과 지식DB 품명 {db_item}이 다름: {reason}", **common)
             return _row("MIX", None, "DG", "DG_HAZMAT", MATCH, RULE_IDS["match"], expected=exp, reason=reason, **common)
         return _row("MIX", None, "DG", "DG_HAZMAT", MISMATCH, RULE_IDS[MISSING], type_=MISSING, expected=exp,
                     reason=f"위험물 해당인데 MSDS는 {s or '행 없음'}: {reason}", **common)

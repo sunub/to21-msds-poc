@@ -11,6 +11,7 @@ from msds.compliance.mixture.build_components import build_components
 from msds.compliance.mixture.class_lookup_db import make_db_class_lookup, make_db_info_lookup, make_db_tox_lookup
 from msds.compliance.mixture.classify_mixture import classify_mixture_all
 from msds.compliance.mixture.physical import physical_inputs
+from msds.compliance.sec15_judge import _dg
 
 
 def _q(value, unit=None):
@@ -188,3 +189,46 @@ def test_12항_값이_구분1_기준과_맞지_않으면_경고다(repo, contrac
     fish = _tox("ECO_FISH", 0.5, "mg/L", descriptor="LC50")
     assert "m0/F2:CROSS:ENV_AQ_ACUTE:-" in _cross(repo, _single([{"class_code": "ENV_AQ_ACUTE", "category": "3"}], ecotox=[fish]), contract_errors)
     assert _cross(repo, _single([{"class_code": "ENV_AQ_ACUTE", "category": "1"}], ecotox=[fish]), contract_errors) == {}
+
+
+def _dg_inputs(row, flash=47, kind="혼합물"):
+    prop = {"FLASH_POINT": [{"comp_ref": "MIX", "q": _q(flash, "℃")}], "APPEARANCE_STATE": [{"comp_ref": "MIX", "text_value": "액체", "q": None}]} if flash is not None else {"APPEARANCE_STATE": [{"comp_ref": "MIX", "text_value": "액체", "q": None}]}
+    return {"physchem": prop, "dangerous_goods": [{"comp_ref": "MIX", "class": "제4류", **row}], "composition": {"type": kind}, "as_of_date": "2026-11-03"}
+
+
+def _dg_know(group):
+    return [{"rows": [{"kind": "dg", "regulate_item_id": "KR004001004", "db_item_name": "제4류", "group_name": group}], "knowledge_version": "v"}]
+
+
+def test_위험물_품명이_다르면_기준_불일치다():  # 설계서 29장 5단계
+    v = _dg(_dg_inputs({"item": "제1석유류"}), {}, _dg_know("제2석유류 비수용성액체"))
+    assert (v["verdict"], v["type"]) == ("불일치", "기준 불일치") and "품명" in v["reason"]
+
+
+def test_위험물_품명_수용성_지정수량이_맞으면_일치다():
+    row = {"item": "제2석유류", "water_soluble": "비수용성", "designated_qty": _q(1000, "L")}
+    assert _dg(_dg_inputs(row), {}, _dg_know("제2석유류 비수용성액체"))["verdict"] == "일치"
+
+
+def test_위험물_수용성이_DB와_다르면_기준_불일치다():
+    v = _dg(_dg_inputs({"item": "제2석유류", "water_soluble": "수용성"}), {}, _dg_know("제2석유류 비수용성액체"))
+    assert v["verdict"] == "불일치" and "수용성" in v["reason"]
+
+
+def test_위험물_지정수량이_시행령과_다르면_기준_불일치다():
+    v = _dg(_dg_inputs({"item": "제2석유류", "water_soluble": "비수용성", "designated_qty": _q(2000, "L")}), {}, _dg_know("제2석유류 비수용성액체"))
+    assert v["verdict"] == "불일치" and "지정수량" in v["reason"]
+
+
+def test_인화점이_없으면_DB_품명으로_비교한다():  # 설계서 29장 6단계
+    v = _dg(_dg_inputs({"item": "제1석유류"}, flash=None), {}, _dg_know("제2석유류 비수용성액체"))
+    assert v["verdict"] == "불일치" and v["db_threshold"] == "제2석유류"
+
+
+def test_단일물질의_9항_품명과_DB_품명이_다르면_경고다():  # 설계서 29장 4단계
+    v = _dg(_dg_inputs({"item": "제2석유류"}, kind="단일물질"), {}, _dg_know("제3석유류 비수용성액체"))
+    assert v["verdict"] == "경고" and "지식DB 품명" in v["reason"]
+
+
+def test_혼합물은_성분_DB_품명이_제품과_달라도_경고가_아니다():
+    assert _dg(_dg_inputs({"item": "제2석유류"}), {}, _dg_know("제3석유류 비수용성액체"))["verdict"] == "일치"
