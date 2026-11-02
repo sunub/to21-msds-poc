@@ -92,6 +92,18 @@ def classify_item(item_id, components, mixture_props, *, rules=None, source_orde
     return out
 
 
+def _real_inhal_form(comp: dict) -> str | None:
+    """D-22: 환경부 '흡입:가스'가 붙은 성분의 실제 흡입 형태. 다른 출처 분류, 그다음 독성값에 증기·분진·미스트가 있으면 그 형태다.
+
+    shortcut: 둘 다 없으면 재지정하지 않는다. TO21은 물질 성상으로 정하지만 지식 조회에 물질 성상이 없다. 물질 성상을 조회하게 되면 넣는다.
+    """
+    for row in comp.get("class_rows") or []:
+        hit = lookup_class(row["result_code"])
+        if hit and hit[0] == "HH_ACUTE_INHAL" and hit[2] in ("vapour", "mist"):
+            return hit[2]
+    return next((r["form"] for r in comp.get("db") or [] if r.get("route") == "inhal" and r.get("form") in ("vapour", "mist")), None)
+
+
 def _acute_components(components) -> list[dict]:
     """classify_acute 입력으로 바꾼다.
 
@@ -102,10 +114,12 @@ def _acute_components(components) -> list[dict]:
     out = []
     for c in components:
         classes = []
+        real_form = _real_inhal_form(c)
         for row in c.get("class_rows") or []:
             hit = lookup_class(row["result_code"])
             if hit and hit[0].startswith("HH_ACUTE"):
-                classes.append({"class_code": hit[0], "category": hit[1], "route_form": hit[2],
+                form = real_form if real_form and row["source"] == "KR02" and hit[2] == "gas" else hit[2]
+                classes.append({"class_code": hit[0], "category": hit[1], "route_form": form,
                                 "source": _SOURCE_NAME.get(row["source"], row["source"])})
         out.append({"cas": c.get("cas") or c.get("cas_no"), "name": c.get("name"),
                     "content": {"low": c.get("low"), "high": c.get("high")}, "non_toxic": c.get("non_toxic", False),
