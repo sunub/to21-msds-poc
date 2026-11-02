@@ -190,17 +190,17 @@ def test_diff_ui_text_counts_hidden_items_including_unscored(text, diff_info):
     assert result["empty"] == text.UI_TEXT["compare"]["items"]["empty"]
 
 
-def test_doc_legend_matches_existing_css_colors_and_returns_fresh_values(text):
-    expected = [("same", text.UI_TEXT["source"]["legend"]["same"], "#53645e"),
-                ("diff", text.UI_TEXT["source"]["legend"]["different"], "#53645e"),
-                ("silver_only", text.UI_TEXT["source"]["legend"]["missing"], "#53645e"),
+def test_doc_legend_gives_color_only_to_the_selection_and_returns_fresh_values(text):
+    expected = [("same", text.UI_TEXT["source"]["legend"]["same"], None),
+                ("diff", text.UI_TEXT["source"]["legend"]["different"], None),
+                ("silver_only", text.UI_TEXT["source"]["legend"]["missing"], None),
                 ("picked", text.UI_TEXT["source"]["legend"]["selected"], "#fff3c6")]
     legend = text.doc_legend()
     assert [(v["key"], v["label"], v["color"]) for v in legend] == expected
     css = (SCRIPTS / "b_app_static" / "app.css").read_text()
-    assert all(color in css for _, _, color in expected)
-    legend[0]["color"] = "changed"
-    assert text.doc_legend()[0]["color"] == "#53645e"
+    assert "#fff3c6" in css
+    legend[3]["color"] = "changed"
+    assert text.doc_legend()[3]["color"] == "#fff3c6"
 
 
 def test_doc_ui_text_summaries_count_values_and_missing_cells_separately(text):

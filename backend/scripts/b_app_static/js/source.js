@@ -9,9 +9,9 @@ S.source = {run: null, doc: null, raw: false, override: null, list: [], initiali
   section: null, item: null, page: null, selection: null, line: {}, values: {}, sections: {},
   selectedLines: new Set(), selectedPaths: new Set(), open: new Set(), emitted: new Set(),
   filter: "all", gone: false, draw: null, scroll: {}, problemData: new Map(), problemKey: null,
-  problemErrors: new Map(), problemRequest: 0, choice: 0, problemScroll: 0, problemScope: null};
+  problemErrors: new Map(), problemRequest: 0, choice: 0, problemScroll: 0, problemScope: null, reveal: false};
 const SOURCE_VIEWS = {"source-top": sourceRenderTop, "source-values": sourceRenderProblems,
-  "source-page": sourceRenderPage, "source-selection": sourceRenderSelection};
+  "source-page": sourceRenderPage, "source-selection": sourceShowSelection};
 for (const [id, render] of Object.entries(SOURCE_VIEWS)) {
   shellDefineView(id, {render, ...(id === "source-top" ? {load: sourceEnsure} : {})});
 }
@@ -249,7 +249,7 @@ function sourceRenderTop() {
   else if (D.error?.status === 404 || D.absent || (!D.doc && !D.error)) state = h("p", {class: "source-state"}, T(D.doc || D.run ? "source.empty.document" : "source.empty.runs"));
   else if (D.error) state = friendlyError({message: T("source.load_failed.fact"), fix: T("source.load_failed.todo"), raw: D.error.message});
   const legend = d ? h("div", {class: "source-legend"}, (d.legend || []).map(entry => h("span", {class: "source-legend-entry"},
-    h("span", {class: "source-chip", "aria-hidden": "true", style: `background:${entry.color}`}), entry.label))) : null;
+    entry.color ? h("span", {class: "source-chip", "aria-hidden": "true", style: `background:${entry.color}`}) : null, entry.label))) : null;
   const failed = !!D.error || !!D.locked || D.absent;
   shellConclusion("s02", T(D.loading ? "source.loading" : D.locked ? "source.locked.title" : D.error?.status === 404 || D.absent
     ? "source.empty.document" : D.error ? "source.load_failed.fact" : "source.title"), !failed && !D.loading);
@@ -417,7 +417,18 @@ function sourcePick(v, side = "result", user = true) {
     }
     if (visible) button?.focus({preventScroll: true});
     if (side !== "silver_only") sourceEvidence(v);
-  }
+    sourceRevealSelection();
+  } else D.reveal = true;
+}
+// 다른 화면에서 문제를 열 때는 화면을 다 그린 뒤 비교 카드를 보여 준다. 이 뷰가 s02에서 마지막으로 그려진다.
+function sourceShowSelection() {
+  sourceRenderSelection();
+  if (S.source.reveal) { S.source.reveal = false; sourceRevealSelection(); }
+}
+function sourceRevealSelection() {
+  const panel = document.getElementById("source-selection"), box = panel.getBoundingClientRect();
+  const barBottom = document.getElementById("global-context")?.getBoundingClientRect().bottom || 0;
+  if (box.top < barBottom || box.bottom > window.innerHeight) panel.scrollIntoView?.({block: "start"});
 }
 function sourceValueElement(path, side = "result") {
   return [...document.querySelectorAll("[data-source-path]")].find(el => el.dataset.sourcePath === path && el.dataset.side === side);
@@ -514,7 +525,6 @@ function sourceScrollLine(id) {
   if (line && box) {
     box.scrollTop = (box.scrollTop || 0) + line.getBoundingClientRect().top - box.getBoundingClientRect().top - (box.clientHeight || 0) / 3;
     S.source.scroll[S.source.page] = box.scrollTop;
-    line.scrollIntoView?.({block: "nearest"});
   }
 }
 function sourceGoSection(section) {
@@ -576,7 +586,6 @@ function sourceRenderPage() {
       h("small", null, T("source.labels.line_values", {count: (d.line_index[line.id] || []).length})),
       h("span", {class: "source-line-state"})], () => sourcePickLine(line.id),
       {class: "source-line", "data-line": line.id, "aria-pressed": "false"})) : h("p", null, T("source.empty.lines")));
-  list.scrollTop = D.scroll[page] || 0;
   list.addEventListener("scroll", () => { D.scroll[page] = list.scrollTop; });
   coreReplace(el, h("h2", null, T("source.page.expand")),
     h("div", {class: "source-controls"},
@@ -584,5 +593,7 @@ function sourceRenderPage() {
       sourceSelect("source-section-select", T("source.labels.section"), Array.from({length: 16}, (_, i) => ({id: String(i + 1), label: sourceLabel(i + 1)})), String(D.section ?? ""), value => sourceChooseSection(+value))),
     D.section ? h("p", {class: "technical"}, span ? T("source.labels.range", {start: span.start, end: span.end}) : T("source.section_unknown.title", {section: D.section})) : null,
     hasPage ? h("div", {class: "source-page-grid"}, wrap, list) : h("p", {class: "source-state"}, T("source.empty.pages")));
+  // 화면에 붙기 전에 넣은 스크롤 위치는 브라우저가 버린다.
+  list.scrollTop = D.scroll[page] || 0;
   sourceMark();
 }
