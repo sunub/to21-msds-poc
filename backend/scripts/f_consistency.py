@@ -7,7 +7,7 @@
                                                                                   건마다 결과 JSON 저장
     --all   불일치·경계·근거부족만이 아니라 일치 줄도 모두 출력
 
-결과 JSON 은 설계서 44장 consistency 블록이다. 실제 HTODB 값이 들어가므로 --out 은 저장소 밖(local/ 등)에 둔다(D-47).
+결과 JSON 은 설계서 44장 consistency 블록이다(판정 줄의 trace_id → traces 에 계산 근거, causes 에 차이 원인 코드). 실제 HTODB 값이 들어가므로 --out 은 저장소 밖(local/ 등)에 둔다(D-47).
 """
 import argparse
 import json
@@ -40,7 +40,8 @@ def _line(f):
     else:
         what = f"성분{f['comp_ref']} {f['item_code']}  MSDS {f.get('msds_value')} / 기대 {f.get('expected')}"
     kind = f" [{f['type']}·{f['severity']}]" if f.get("type") else ""
-    return f"    {f['id']} {f['verdict']}{kind}  {what}  — {f['reason'][:120]}"
+    causes = f"  <{'·'.join(c['code'] for c in f.get('causes') or [])}>" if f.get("causes") else ""
+    return f"    {f['id']} {f['verdict']}{kind}  {what}{causes}  — {f['reason'][:120]}"
 
 
 def main():

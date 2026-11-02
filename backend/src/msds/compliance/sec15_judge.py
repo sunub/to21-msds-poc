@@ -25,6 +25,7 @@ from .htodb.regulation import covered_items
 from .mixture.params import RULES_DIR, param_list
 from .mixture.rule_eval import evaluate_rules_trace
 from .sec15 import _expected
+from .trace import cause as _cause
 
 _INF = float("inf")
 
@@ -41,6 +42,8 @@ MISSING, THRESHOLD, EXTRA = "규제 누락", "기준 불일치", "과기재"
 SEVERITY = {MISSING: "높음", THRESHOLD: "중간", EXTRA: "낮음"}
 SV = {MISSING: "SV-02", THRESHOLD: "SV-04", EXTRA: "SV-08"}
 RULE_IDS = {"match": "S15-1", MISSING: "S15-2", THRESHOLD: "S15-3", EXTRA: "S15-4", "border": "S15-5", "lack": "S15-6"}
+# 차이 원인 코드(trace.CAUSE_TEXT). 경계는 함량이 기준에 걸칠 때 RANGE_EDGE, 조문 조건 때문이면 CONDITION_CHECK(_row 의 cause)
+CAUSE = {MISSING: "REG_MISSING", THRESHOLD: "THRESHOLD_DIFF", EXTRA: "OVER_STATED", LACK: "NO_BASIS", BORDER: "RANGE_EDGE"}
 NEW_CCA = {"CCA_ACUTE", "CCA_CHRONIC", "CCA_ECO"}
 BASE_ASSUMPTIONS = [
     "rule_id(S15-1~6)는 설계서에 없어 우리 쪽 번호를 씀. 유형·심각도는 설계서 7장(severity.yaml SV-02·04·08)",
@@ -50,12 +53,14 @@ BASE_ASSUMPTIONS = [
 
 
 def _row(comp_ref, cas, law, item, verdict, rule_id, *, type_=None, supplier=None, expected=None, msds_threshold=None,
-         db_threshold=None, reason="", source=(), version=None, as_of=None, extra_asm=(), db_text=()):
+         db_threshold=None, reason="", source=(), version=None, as_of=None, extra_asm=(), db_text=(), cause=None):
+    code = cause or CAUSE.get(type_) or CAUSE.get(verdict)
     return {"section": "15", "comp_ref": comp_ref, "cas_no": cas, "law": law, "item_code": item, "verdict": verdict,
             "type": type_, "severity": SEVERITY.get(type_), "sv_id": SV.get(type_), "rule_id": rule_id,
             "msds_value": supplier, "msds_threshold": msds_threshold, "expected": expected, "db_threshold": db_threshold,
             "reason": reason, "source": list(source), "db_text": list(db_text), "knowledge_version": version,
-            "as_of": as_of, "assumptions": BASE_ASSUMPTIONS + list(extra_asm)}
+            "as_of": as_of, "assumptions": BASE_ASSUMPTIONS + list(extra_asm),
+            "causes": [] if verdict == MATCH or not code else [_cause(code, reason)]}
 
 
 def _excl(comp_ref, cas, law, item, status, reason, supplier=None, source=()):
@@ -159,15 +164,15 @@ def _judge_component(key, s_row, comp, know, db_rows, covered, ph=None):
         if s != "해당" and any(r["kind"] == "compare_human" for r in db_rows):
             return _row(ref_no, cas, law, item, BORDER, RULE_IDS["border"], expected=exp,
                         reason=f"함량상 해당이지만 금지물질은 제품 형태 조건(예: 고무풀)이 붙는 경우가 있어 사람 확인: {basis}"
-                               f" (11/02 F 결정 6).{quote}", **common)
+                               f" (11/02 F 결정 6).{quote}", cause="CONDITION_CHECK", **common)
         if s != "해당" and state:
             return _row(ref_no, cas, law, item, BORDER, RULE_IDS["border"], expected=exp,
                         reason=f"함량상 해당이지만 조문에 성상 조건('{state}')이 있어 사람 확인: {basis} (11/02 F 결정 11)",
-                        **common)
+                        cause="CONDITION_CHECK", **common)
         if s != "해당" and ph_max is not None and ph is None:
             return _row(ref_no, cas, law, item, BORDER, RULE_IDS["border"], expected=exp,
                         reason=f"함량상 해당이지만 조문 조건 pH {ph_max:g} 이하를 9항 pH가 없어 확인 못 함: {basis}"
-                               " (11/02 F 결정 11)", **common)
+                               " (11/02 F 결정 11)", cause="CONDITION_CHECK", **common)
         if s != "해당":
             return _row(ref_no, cas, law, item, MISMATCH, RULE_IDS[MISSING], type_=MISSING, expected=exp,
                         reason=f"함량상 해당인데 MSDS는 {s or '행 없음'}: {basis}", **common)
@@ -247,7 +252,8 @@ def _dg(inputs, sup, know_all):
     common = dict(supplier=s, source=src, version=version, as_of=inputs.get("as_of_date"), extra_asm=asm,
                   db_threshold=(item or None))
     if exp == "경계":
-        return _row("MIX", None, "DG", "DG_HAZMAT", BORDER, RULE_IDS["border"], expected=exp, reason=reason, **common)
+        return _row("MIX", None, "DG", "DG_HAZMAT", BORDER, RULE_IDS["border"], expected=exp, reason=reason,
+                    cause="CONDITION_CHECK", **common)
     if exp == "해당":
         if s == "해당":
             return _row("MIX", None, "DG", "DG_HAZMAT", MATCH, RULE_IDS["match"], expected=exp, reason=reason, **common)
