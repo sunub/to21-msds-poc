@@ -88,7 +88,7 @@ const editor=el('jobs-prompt');await jobsPoll();assert.equal(el('jobs-prompt'),e
 options=makeOptions(true);await jobsPoll();
 assert.equal(S.jobs.t.text,'edited text');assert.deepEqual([...S.jobs.t.secs],[8]);
 assert.equal(el('jobs-scope').open,true);assert.equal(el('jobs-dry').disabled,false);
-assert.equal(el('jobs-dry').checked,true);change(el('jobs-dry'),false);
+assert.equal(el('jobs-dry').checked,false);
 assert.equal(el('jobs-send').textContent,T('jobs.actions.send'));
 await go('s09');assert.equal(el('jobs-run-start').disabled,false);
 options={...makeOptions(false),models:[]};await jobsPoll();assert.equal(el('jobs-run-start').disabled,true);
@@ -357,4 +357,55 @@ await go('s10');S.jobs.runs[0]={...S.jobs.runs[0],key:{label:'Recorded answer'},
 jobsRenderCompare();assert.ok(textOf('jobs-compare').includes('Recorded answer'));assert.ok(textOf('jobs-compare').includes('Recorded pack'));
 assert.ok(textOf('jobs-compare').includes('prompt-example'));
 assert.ok(textOf('jobs-compare').includes(T('score.conditions.score_counts',{total:1,scored:1,missing:0,excluded:0})));
+""")
+
+
+EVAL_OPTIONS = r"""
+options.sets[0].docs.unshift({doc_id:'T21-E01',group:'eval',runnable:{try:false,run:false},run_reason:{try:'EVAL LOCK',run:'EVAL LOCK'}},
+ {doc_id:'T21-E02',group:'eval',runnable:{try:false,run:false},run_reason:{try:'EVAL LOCK',run:'EVAL LOCK'}});
+"""
+
+
+def test_doc_choice_lists_open_documents_first_and_folds_evaluation_documents():
+    run_js(SETUP + EVAL_OPTIONS + r"""
+await go('s03');
+const values=[...el('jobs-doc').querySelectorAll('option')].map(n=>n.value).filter(Boolean);
+assert.deepEqual(values,['T21-X01','RAW-FAKE','T21-X02','T21-X03']);
+assert.ok(!textOf('jobs-try').includes('EVAL LOCK'));
+assert.ok(textOf('jobs-try').includes(T('jobs.batch.eval_locked',{count:2})));
+""")
+
+
+def test_same_reason_documents_share_one_line():
+    run_js(SETUP + r"""
+options.sets[0].docs.push({doc_id:'T21-X04',runnable:{try:false,run:true},run_reason:{try:'TRY LOCK',run:null}});
+await go('s03');
+const lines=el('jobs-try').querySelectorAll('ul li').map(n=>n.textContent).filter(t=>t.includes('TRY LOCK'));
+assert.equal(lines.join('|'),'T21-X02, T21-X04 — TRY LOCK');
+""")
+
+
+def test_trial_model_follows_connection_until_the_user_picks_one():
+    run_js(SETUP + r"""
+options=makeOptions(false);S.focus={model:'first'};await go('s03');
+assert.equal(S.jobs.t.model,'first');
+options=makeOptions(false);options.models[1].connected=true;
+await jobsLoadOptions();jobsRenderTry();
+assert.equal(S.jobs.t.model,'second');assert.equal(el('jobs-model').value,'second');
+assert.equal(S.focus.model,'second');
+change(el('jobs-model'),'first');assert.equal(S.jobs.t.model,'first');
+await jobsLoadOptions();assert.equal(S.jobs.t.model,'first');
+""")
+
+
+def test_practice_forced_by_offline_is_released_but_a_chosen_practice_stays():
+    run_js(SETUP + r"""
+options=makeOptions(false);await go('s03',{doc:'T21-X01',section:8});
+assert.equal(el('jobs-dry').checked,true);assert.equal(el('jobs-send').textContent,T('jobs.actions.preview'));
+options=makeOptions(true);await jobsPoll();
+assert.equal(el('jobs-dry').checked,false);assert.equal(el('jobs-send').textContent,T('jobs.actions.send'));
+change(el('jobs-dry'),true);assert.equal(S.jobs.t.dry,true);
+options=makeOptions(false);await jobsPoll();assert.equal(S.jobs.t.dry,true);
+options=makeOptions(true);await jobsPoll();
+assert.equal(el('jobs-dry').checked,true);assert.equal(el('jobs-send').textContent,T('jobs.actions.preview'));
 """)

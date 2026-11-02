@@ -151,12 +151,16 @@ function shellModelState(model, data = S.shell.servers) {
   if (!model) return "readiness_unknown";
   if (model.reachable === true && model.match === true) return "state_ready";
   if (model.reachable === true && model.match === false) return "wrong_reply";
-  if (model.where === "RNGD" && model.url_set !== false) {
+  // 주소가 없으면 물어볼 서버가 없는 것이다. 예: 빌린 서버를 아직 켜지 않은 상태.
+  if (model.url_set === false) return "state_off";
+  if (model.where === "RNGD") {
     const diagnosis = data?.rngd?.diagnosis;
     if (diagnosis === "no_model" && data.rngd.ok === true) return "state_off";
     if (diagnosis === "loading") return "company_loading";
     if (diagnosis === "tunnel_closed") return "tunnel_closed";
   }
+  // RunPod 프록시는 모델이 뜨기 전까지 404와 502를 돌려준다. 켜는 중인 우리 Pod의 이 응답은 실패가 아니다.
+  if (model.where === "RunPod" && /^HTTP (404|502)$/.test(model.error || "") && data?.session && !data.session.ready) return "rented_loading";
   if (model.error) return "query_failed";
   // 모델 목록 API가 빈 목록으로 응답한 경우만 꺼짐으로 확인한다.
   if (model.reachable === true && !model.model_served) return "state_off";
@@ -171,11 +175,13 @@ function shellRenderModels() {
   if (!el) return;
   const error = S.shell.serverError;
   const models = (S.shell.servers?.models || []).filter(model => model.reachable && model.match);
-  const label = model => model.label || model.model_label || model.model_expected || model.tag || T("context.model.default_name");
+  const label = model => model.label || model.model_label || UI.context.models?.[model.tag] || model.model_expected || model.tag || T("context.model.default_name");
   const unavailable = error?.status === 503;
   const states = shellModelStates();
   const off = !error && !!S.shell.servers && states.every(state => state === "state_off");
-  const details = states.filter(state => state !== "state_ready" && (off || state !== "state_off"));
+  // 연결된 모델이 있으면 오해만 주는 상태는 뺀다. 예: 같은 Pod를 바라보는 다른 태그의 "다른 모델 응답". 실패와 켜는 중은 남긴다.
+  const details = states.filter(state => state !== "state_ready" && (off || state !== "state_off")
+    && !(models.length && ["wrong_reply", "readiness_unknown"].includes(state)));
   const summary = [models.length ? T("context.model.connected_count", {count: models.length, names: models.map(label).join(", ")}) : null,
     ...details.map(state => T(`context.model.${state}`))].filter(Boolean).join(" · ");
   const state = error ? T(unavailable ? "context.model.readiness_unknown" : "context.model.query_failed")
