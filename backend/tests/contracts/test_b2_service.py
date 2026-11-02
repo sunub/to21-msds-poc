@@ -207,6 +207,39 @@ def test_판정이_계속_실패하면_판정_실패로_보이고_이전_버전�
     assert svc.claim_handoff() is None  # 한도를 넘으면 더 잡지 않는다
 
 
+def test_다른_프로세스가_살아_있으면_그_작업을_빼앗지_않는다(svc, put, gold25, pool, judge_database):
+    put(handoff(gold25))
+    first = JudgeService(pool=pool, provider=svc.provider)
+    second = JudgeService(pool=pool, provider=svc.provider)
+    first.recover_if_alone()
+    try:
+        assert first.claim_handoff()["handoff_seq"] == 1
+        with psycopg.connect(**pool.kwargs, autocommit=True) as other_session:  # 첫 프로세스의 잠금을 보는 다른 연결
+            assert other_session.execute("SELECT pg_try_advisory_lock(%s) AS ok", (svc_mod.ALIVE_LOCK,)).fetchone()["ok"] is False
+        second.recover_if_alone()
+        try:
+            assert second.claim_handoff() is None  # 임대 중인 작업을 다시 잡지 않는다
+        finally:
+            second._alive.close()
+    finally:
+        first._alive.close()
+    third = JudgeService(pool=pool, provider=svc.provider)
+    third.recover_if_alone()  # 모두 죽었으니 바로 이어받는다
+    try:
+        assert third.claim_handoff()["handoff_seq"] == 1
+    finally:
+        third._alive.close()
+
+
+def test_A1_창구가_있으면_바깥에서_다시_잡지_않고_없으면_임시_창구를_쓴다(monkeypatch):
+    import sys
+    import types
+    monkeypatch.setitem(sys.modules, "msds.common.model_gate", types.ModuleType("msds.common.model_gate"))
+    assert isinstance(ex.default_gate(), ex._ClientGated)
+    monkeypatch.setitem(sys.modules, "msds.common.model_gate", None)
+    assert isinstance(ex.default_gate(), ex._SemaphoreGate)
+
+
 def test_서버가_죽은_뒤_다시_켜면_잡던_일을_이어서_한다(svc, put, gold25, pool):
     put(handoff(gold25))
     assert svc.claim_handoff()["handoff_seq"] == 1
