@@ -14,7 +14,7 @@ _NO_CLASS = "분류안됨"
 
 
 def physical_inputs(msds_item) -> dict:
-    """추출 JSON msds[i]에서 이 모듈이 쓰는 입력만 꺼낸다: 13항 transport, 2항 hazard.classes, 9항 인화점·초기끓는점."""
+    """추출 JSON msds[i]에서 이 모듈이 쓰는 입력만 꺼낸다: 14항 transport, 2항 hazard.classes, 9항 인화점·초기끓는점."""
     def q(code):
         return [(p.get("q") or {}) for p in msds_item.get("physchem") or []
                 if p.get("prop_code") == code and str(p.get("comp_ref", "MIX")) in ("MIX", "None")]
@@ -114,10 +114,20 @@ def _transport(item_id, item, components, mixture_props, physical, state, rules)
         asm.append(f"제품 성상을 몰라 성상 제한({need})을 적용하지 못함")
     un = _un(physical.get("transport") or [])
     un_in = [{"role": "UN", "un_no": t.get("un_no"), "hazard_class": t.get("hazard_class"), "packing_group": t.get("packing_group"),
-              "mode": t.get("mode"), "source": "13항 transport"} for t in un]
+              "mode": t.get("mode"), "source": "14항 transport"} for t in un]
     if not un:
-        why = "13항 운송정보 없음" if not physical.get("transport") else "UN 번호 없음 또는 운송 비위험물"
-        asm.append("운송 규제에 해당하지 않으면 물리적 위험성 판정 대상이 아닌 것으로 봄(규제 밖 위험성은 놓칠 수 있음)")
+        why = "14항 운송정보 없음" if not physical.get("transport") else "UN 번호 없음 또는 운송 비위험물"
+        if item_id == "PH_FLAM_LIQ":  # 11/02 F 결정 12: UN이 없어도 인화성 액체는 9항 인화점으로 판정
+            low, high, status, fl_why = _flam_liquid(physical)
+            if status != "근거부족":
+                inputs = un_in + [{"role": "물성", "flash_point": physical.get("flash_point"),
+                                   "boiling": physical.get("boiling"), "source": "9항 physchem"}]
+                asm.append(f"{why} — 대표성분은 쓰지 않고 9항 인화점·초기끓는점으로만 판정(11/02 F 결정 12)")
+                return _out(item_id, rules, _result(status, low, high), "PHY-FLQ", "UN 없음 → 9항 인화점·초기끓는점",
+                            inputs, asm + [fl_why], thresholds=[{"rule_id": "FLQ", "basis": FLQ_BASIS}])
+            asm.append(f"9항 인화점도 없어 판정하지 않음({fl_why})")
+        asm.append("운송 규제(UN)에 해당하지 않으면 대표성분으로 물리적 위험성을 판정하지 않음 — 희석 제품에 성분 분류가 그대로 "
+                   "붙는 오탐을 막으려는 것(인화성 액체만 9항으로 판정, 11/02 F 결정 12)")
         return _out(item_id, rules, _result("해당 없음", _NO_CLASS, _NO_CLASS, why), "PHY-UN", "UN 운송정보 우선", un_in, asm)
     rep = _representative(components)
     if rep is None:

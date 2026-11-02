@@ -35,3 +35,31 @@ def test_인화점_자료없음은_근거부족_불연성은_분류안됨():
     assert _flam_liquid(phys(status="자료없음"))[2] == "근거부족"
     assert _flam_liquid(phys(status="해당없음(불연성)"))[:3] == ("분류안됨", "분류안됨", "확정")
     assert _flam_liquid(phys(10))[:3] == ("2", "1", "경계")  # 초기끓는점이 없으면 1·2 사이
+
+
+# ── 11/02 F 결정 12: UN(운송 규제)이 없는 제품 ─────────────────────────────
+from msds.compliance.mixture.physical import classify_physical  # noqa: E402
+from msds.compliance.mixture.rules_loader import load_mixture_rules  # noqa: E402
+
+
+def _run(item_id, fp=None, status=None, transport=()):
+    rules = load_mixture_rules()
+    ethanol = comp("에탄올", 5, [{"class_code": "PH_FLAM_LIQ", "category": "2", "source": "KR02"}])
+    physical = {"transport": list(transport), "msds_classes": [], **phys(fp, None, status)}
+    return classify_physical(item_id, rules["classes"][item_id], [ethanol, comp("물", 95)], {"STATE": "액체"}, physical,
+                             rules=rules)
+
+
+def test_결정12_UN이_없어도_인화성_액체는_9항_인화점으로_판정():
+    r = _run("PH_FLAM_LIQ", fp=47)
+    assert (r["result"]["low"], r["result"]["status"], r["rule"]["id"]) == ("3", "확정", "PHY-FLQ")
+    assert any("결정 12" in a for a in r["assumptions"])
+    r = _run("PH_FLAM_LIQ", fp=100)  # 에탄올 5% 수용액처럼 인화점이 높으면 대표성분(에탄올 구분2)을 쓰지 않고 분류안됨
+    assert r["result"]["low"] == "분류안됨"
+
+
+def test_결정12_인화점도_없거나_다른_항목이면_전처럼_판정_대상_아님():
+    r = _run("PH_FLAM_LIQ", status="자료없음")
+    assert (r["result"]["status"], r["rule"]["id"]) == ("해당 없음", "PHY-UN")
+    r = _run("PH_OXID_LIQ", fp=47)
+    assert r["result"]["status"] == "해당 없음"
