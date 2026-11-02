@@ -29,7 +29,9 @@ class _DbRepo:
 
         from ..htodb import repo
         from ..htodb.config import pg_kwargs
-        with psycopg.connect(**pg_kwargs("reader"), row_factory=dict_row, connect_timeout=2) as conn:
+        pg = pg_kwargs("reader")
+        pg["options"] += " -c statement_timeout=30000"  # 멈춘 쿼리 하나가 판정 스레드 전체를 세우지 않게 한다
+        with psycopg.connect(**pg, row_factory=dict_row, connect_timeout=2) as conn:
             return getattr(repo, fn)(conn, *args, **kw)
 
     def chemicals(self, **kw):
