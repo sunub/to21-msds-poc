@@ -1,0 +1,40 @@
+# m_factor.yaml — 수생환경 유해성 곱셈계수(M) 표 (설계서 36·56장, D-07)
+# version: r2026.11a | source: 고용노동부고시 제2026-26호 별표1 4.2 다 'M 계수' 표, TO21 MSDS GHS 분류 로직 v6 30·33쪽
+# checked_by: | checked_date:
+# 저장소 반입: 11/02 F — 규칙표 v0.3에는 M 표가 없고 m_factor_default(1)만 있어 새로 만들었다.
+#   표 값은 고시 원문(hwp 본문 추출)과 대조함(11/02 F). mixture/m_factor.py 가 읽는다.
+#
+# 표 읽는 법: 값이 lower 보다 크면(>) 그 줄의 m. 위에서부터 검사한다.
+#   마지막 줄보다 작은 값은 고시 '이하 10배씩 계속'에 따라 lower 를 1/10, m 을 10배씩 늘려 간다.
+#   첫 줄보다 큰 값(급성 L(E)C50 > 1 등)은 표 밖이라 M 을 정하지 않는다 → 성분이 구분 1이면 1을 쓰고 '표 밖'으로 남긴다.
+meta: {version: r2026.11a, source: "고용노동부고시 제2026-26호 별표1 4.2 다, TO21 로직 v6 30·33쪽"}
+
+acute:                       # 급성 L(E)C50 (mg/L), GHS0311~0314 (어류·갑각류·조류·기타) 중 최솟값
+  upper: 1                   # 0.1 < L(E)C50 ≤ 1 → 1. 1 초과는 표 밖
+  table: [[0.1, 1], [0.01, 10], [0.001, 100], [0.0001, 1000], [0.00001, 10000]]
+
+chronic:                     # 만성 NOEC 또는 ECx (mg/L), GHS0325~0328 중 '=' 값의 최솟값
+  not_rapid:                 # 성분 a: 빠르게 분해되지 않는 성분
+    upper: 0.1
+    table: [[0.01, 1], [0.001, 10], [0.0001, 100], [0.00001, 1000], [0.000001, 10000]]
+  rapid:                     # 성분 b: 빠르게 분해되는 성분 (0.01 < NOEC ≤ 0.1 은 고시 표에서 '-' → 표 밖)
+    upper: 0.01
+    table: [[0.001, 1], [0.0001, 10], [0.00001, 100], [0.000001, 1000]]
+  rapid_unknown: not_rapid   # 생분해성(GHS0331) 자료가 없으면 빠르게 분해되지 않는 것으로 본다(보수적, TO21 로직 v6 이식본과 같음)
+  noec_missing: acute        # NOEC 가 없으면 급성 L(E)C50 표로 정한다 (TO21 로직 v6 33쪽 '급성수생환경 유해성 값으로 계산')
+
+use_signs: ["=", ">=", "<="]  # D-12: =·≥·≤ 값만 쓴다. >·< 값은 M 을 정하는 데 쓰지 않는다. 범위는 최솟값
+default: 1                    # 쓸 값이 없을 때. mixture_rules.yaml m_factor_default 와 같다(가정 표시)
+
+examples:                     # tests/test_F_m_factor.py 가 실행한다
+  - {kind: acute, value: 0.5, out: 1}
+  - {kind: acute, value: 0.1, out: 10}
+  - {kind: acute, value: 0.05, out: 10}
+  - {kind: acute, value: 0.0005, out: 1000}
+  - {kind: acute, value: 0.000005, out: 100000}      # 표 아래 → 10배씩 계속
+  - {kind: acute, value: 2.6, out: null}             # 표 밖(1 초과)
+  - {kind: not_rapid, value: 0.005, out: 10}         # 검증실습 P05 가상성분 X
+  - {kind: not_rapid, value: 0.05, out: 1}
+  - {kind: rapid, value: 0.005, out: 1}
+  - {kind: rapid, value: 0.0005, out: 10}
+  - {kind: rapid, value: 0.05, out: null}            # 고시 표 '-'

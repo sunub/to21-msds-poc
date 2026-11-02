@@ -1,0 +1,57 @@
+# version: e0.1 | source: 설계서 v0.4 31장·고시 제6조의2 | checked_by: | checked_date: | effective_from:
+# 표시 요소(그림문자·신호어·H코드) 도출 규칙과 MSDS 2항 비교 판정표. label.py와 label_compare.py가 읽는다.
+# from_classes를 생략하면 어느 분류에서 왔든 적용한다.
+
+# 그림문자 생략: if_present 그림문자가 있으면 omit 그림문자를 뺀다. 조건은 생략 전 상태로 한 번에 판단한다.
+pictogram_omit:
+  - rule_id: PIC-1
+    if_present: {pictogram: GHS06}
+    omit: {pictogram: GHS07, from_classes: [HH_ACUTE_ORAL, HH_ACUTE_DERMAL, HH_ACUTE_INHAL]}
+    source: 설계서 v0.4 31장(해골이 있으면 '급성독성용' 느낌표 생략)·규칙표 v0.2 label_rules scope·고시 제6조의2 ②1호. 11/02 F 범위 수정
+  - rule_id: PIC-2
+    if_present: {pictogram: GHS05}
+    omit: {pictogram: GHS07, from_classes: [HH_SKIN_CORR, HH_EYE_DMG]}
+    source: 설계서 v0.4 31장·고시 제6조의2 ②2호
+  - rule_id: PIC-3
+    if_present: {pictogram: GHS08, from_classes: [HH_RESP_SENS]}
+    omit: {pictogram: GHS07, from_classes: [HH_SKIN_SENS, HH_SKIN_CORR, HH_EYE_DMG]}
+    source: 설계서 v0.4 31장·고시 제6조의2 ②3호
+
+# 그림문자가 min_derived개 이상이면 max_display개만 표시해도 불일치가 아니다.
+pictogram_limit:
+  rule_id: PIC-4
+  min_derived: 5
+  max_display: 4
+  source: 설계서 v0.4 31장·고시 제6조의2
+
+# 신호어: priority 순서로 처음 걸린 것. 걸린 행이 있는데 둘 다 없으면 fallback_with_hits, 걸린 행이 없으면 fallback_no_hits.
+signal_word:
+  rule_id: SIG-1
+  priority: [위험, 경고]
+  fallback_with_hits: 없음
+  fallback_no_hits: null
+  source: 설계서 v0.4 31장·고시 제6조의2
+
+# H코드 생략 가능: if_present가 있으면 optional H코드는 MSDS에 없어도 불일치가 아니라 참고.
+h_code_optional:
+  - rule_id: HS-1
+    if_present: H314
+    optional: H318
+    verdict: 참고
+    severity: null
+    source: 설계서 v0.4 31장
+
+# 표시 요소를 만들지 않는 분류 구분
+skip_category:
+  - rule_id: ACUTE-CAT5
+    class_prefix: HH_ACUTE
+    category: "5"
+    source: 설계서 v0.4 31장 (급성독성 구분5는 고시 참고사항, 분류 제외)
+
+# MSDS 2항 비교 판정표
+compare:
+  missing_h: {rule_id: CMP-1, verdict: 불일치, severity: 중간, source: 설계서 v0.4 31장}
+  extra_h: {rule_id: CMP-2, verdict: 경고, severity: 낮음, source: 설계서 v0.4 31장}
+  pictogram_diff: {rule_id: CMP-3, verdict: 불일치, severity: 중간, source: 설계서 v0.4 31장}
+  signal_diff: {rule_id: CMP-4, verdict: 불일치, severity: 중간, source: 설계서 v0.4 31장}
+  msds_empty: {rule_id: CMP-5, verdict: 근거부족, severity: null, source: 설계서 v0.4 31장}

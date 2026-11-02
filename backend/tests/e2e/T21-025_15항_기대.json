@@ -1,0 +1,707 @@
+{
+  "meta": {
+    "doc": "T21-025 황산 (혼합물: 황산 93~98%, 물 2~7%)",
+    "scope": "15항 국내 규제 판정 목록(성분×항목, 제품 단위 위험물). 해외 규제(INTL)는 판정하지 않음",
+    "input": "data/silver/claude/T21-025.json",
+    "input_sha256": "98d8d6796542433b2a39a13355dac340d8d7e67d4862d01acaa8deed698c6cc5",
+    "rules": "rules/reg_map.csv (f0.1), 11/01 F 결정 1~5, 11/02 결정 6~8",
+    "knowledge": "to21_sample CSV (= htodb-94f8b6ff7f24, 대조 시험으로 확인)",
+    "fixed_on": "2026-11-02",
+    "basis": "10/30 결정 B2·D4: 설계서 39장 기대 결과 기준. 설계서와 다르거나 39장에 없는 불일치 줄은 diff_reason 에 이유",
+    "compared_fields": [
+      "msds_value",
+      "msds_threshold",
+      "expected",
+      "db_threshold",
+      "verdict",
+      "type",
+      "severity",
+      "rule_id"
+    ]
+  },
+  "summary": {
+    "불일치": 2,
+    "일치": 36
+  },
+  "verdicts": [
+    {
+      "comp_ref": "1",
+      "item_code": "CCA_ACCIDENT",
+      "msds_value": "해당",
+      "msds_threshold": ">= 10%",
+      "expected": "해당",
+      "db_threshold": ">= 10%",
+      "verdict": "일치",
+      "type": null,
+      "severity": null,
+      "rule_id": "S15-1",
+      "design_39": {
+        "msds": "해당 (10% 이상)",
+        "expected": "해당 (≥ 10%)",
+        "verdict": "일치",
+        "same": true
+      }
+    },
+    {
+      "comp_ref": "1",
+      "item_code": "CCA_PERMIT",
+      "msds_value": "비해당",
+      "msds_threshold": null,
+      "expected": null,
+      "db_threshold": null,
+      "verdict": "일치",
+      "type": null,
+      "severity": null,
+      "rule_id": "S15-1",
+      "design_39": null
+    },
+    {
+      "comp_ref": "1",
+      "item_code": "CCA_PROHIBIT",
+      "msds_value": "비해당",
+      "msds_threshold": null,
+      "expected": "비해당",
+      "db_threshold": null,
+      "verdict": "일치",
+      "type": null,
+      "severity": null,
+      "rule_id": "S15-1",
+      "design_39": null
+    },
+    {
+      "comp_ref": "1",
+      "item_code": "CCA_PRTR",
+      "msds_value": "해당",
+      "msds_threshold": ">= 1%",
+      "expected": "해당",
+      "db_threshold": ">= 1%",
+      "verdict": "일치",
+      "type": null,
+      "severity": null,
+      "rule_id": "S15-1",
+      "design_39": {
+        "msds": "해당 (1% 이상)",
+        "expected": "해당 (≥ 1%)",
+        "verdict": "일치",
+        "same": true
+      }
+    },
+    {
+      "comp_ref": "1",
+      "item_code": "CCA_RESTRICT",
+      "msds_value": "비해당",
+      "msds_threshold": null,
+      "expected": "비해당",
+      "db_threshold": null,
+      "verdict": "일치",
+      "type": null,
+      "severity": null,
+      "rule_id": "S15-1",
+      "design_39": null
+    },
+    {
+      "comp_ref": "1",
+      "item_code": "CCA_TOXIC",
+      "msds_value": "해당",
+      "msds_threshold": ">= 10%",
+      "expected": "해당",
+      "db_threshold": ">= 10%",
+      "verdict": "일치",
+      "type": null,
+      "severity": null,
+      "rule_id": "S15-1",
+      "design_39": {
+        "msds": "해당 (10% 이상)",
+        "expected": "개정 법령의 세분 표기 필요",
+        "verdict": "구버전",
+        "same": false
+      },
+      "diff_reason": "39장은 이 줄을 '구버전(중간)'으로 그렸지만 구버전 판정은 D-09로 PoC에서 제외한다. 유독물질 행 자체는 기준(10% 이상)과 함량이 맞아 일치로 판정하고, 2025 개정 세분 항목(인체급성)을 excluded 에 '구버전'으로 따로 표시해 '갱신 필요'를 보여 준다(11/01 F 결정 1)."
+    },
+    {
+      "comp_ref": "1",
+      "item_code": "KREACH_CMR",
+      "msds_value": "비해당",
+      "msds_threshold": null,
+      "expected": "비해당",
+      "db_threshold": null,
+      "verdict": "일치",
+      "type": null,
+      "severity": null,
+      "rule_id": "S15-1",
+      "design_39": null
+    },
+    {
+      "comp_ref": "1",
+      "item_code": "KREACH_PRIORITY",
+      "msds_value": "해당",
+      "msds_threshold": null,
+      "expected": "해당",
+      "db_threshold": "기준 농도 없음(함유하면 해당)",
+      "verdict": "일치",
+      "type": null,
+      "severity": null,
+      "rule_id": "S15-1",
+      "design_39": null
+    },
+    {
+      "comp_ref": "1",
+      "item_code": "KREACH_REG",
+      "msds_value": "해당",
+      "msds_threshold": null,
+      "expected": "해당",
+      "db_threshold": "기준 농도 없음(함유하면 해당)",
+      "verdict": "일치",
+      "type": null,
+      "severity": null,
+      "rule_id": "S15-1",
+      "design_39": {
+        "msds": "해당",
+        "expected": "해당",
+        "verdict": "일치",
+        "same": true
+      }
+    },
+    {
+      "comp_ref": "1",
+      "item_code": "OSH_EXPOSURE_STD",
+      "msds_value": "해당",
+      "msds_threshold": null,
+      "expected": "해당",
+      "db_threshold": "기준 농도 없음(함유하면 해당)",
+      "verdict": "일치",
+      "type": null,
+      "severity": null,
+      "rule_id": "S15-1",
+      "design_39": null
+    },
+    {
+      "comp_ref": "1",
+      "item_code": "OSH_HEALTH_EXAM",
+      "msds_value": "해당",
+      "msds_threshold": ">= 1%",
+      "expected": "해당",
+      "db_threshold": ">= 1%",
+      "verdict": "일치",
+      "type": null,
+      "severity": null,
+      "rule_id": "S15-1",
+      "design_39": {
+        "msds": "해당 (1% 이상)",
+        "expected": "해당 (≥ 1%)",
+        "verdict": "일치",
+        "same": true
+      }
+    },
+    {
+      "comp_ref": "1",
+      "item_code": "OSH_MANAGED",
+      "msds_value": "해당",
+      "msds_threshold": ">= 1%",
+      "expected": "해당",
+      "db_threshold": ">= 0.1%",
+      "verdict": "불일치",
+      "type": "기준 불일치",
+      "severity": "중간",
+      "rule_id": "S15-3",
+      "design_39": null,
+      "diff_reason": "39장에 없는 줄. 지식DB 관리대상유해물질 기준은 0.1 wt% 이상인데 MSDS는 '1% 이상'으로 적어 기준 불일치(중간). 법령 원문(산안법 시행규칙 별표12) 확인 필요."
+    },
+    {
+      "comp_ref": "1",
+      "item_code": "OSH_MEASURE",
+      "msds_value": "해당",
+      "msds_threshold": ">= 1%",
+      "expected": "해당",
+      "db_threshold": ">= 1%",
+      "verdict": "일치",
+      "type": null,
+      "severity": null,
+      "rule_id": "S15-1",
+      "design_39": {
+        "msds": "해당 (1% 이상)",
+        "expected": "해당 (≥ 1%)",
+        "verdict": "일치",
+        "same": true
+      }
+    },
+    {
+      "comp_ref": "1",
+      "item_code": "OSH_PERMISSIBLE",
+      "msds_value": "해당",
+      "msds_threshold": null,
+      "expected": "해당",
+      "db_threshold": "기준 농도 없음(함유하면 해당)",
+      "verdict": "일치",
+      "type": null,
+      "severity": null,
+      "rule_id": "S15-1",
+      "design_39": {
+        "msds": "해당",
+        "expected": "해당",
+        "verdict": "일치",
+        "same": true
+      }
+    },
+    {
+      "comp_ref": "1",
+      "item_code": "OSH_PERMIT",
+      "msds_value": "비해당",
+      "msds_threshold": null,
+      "expected": "비해당",
+      "db_threshold": null,
+      "verdict": "일치",
+      "type": null,
+      "severity": null,
+      "rule_id": "S15-1",
+      "design_39": null
+    },
+    {
+      "comp_ref": "1",
+      "item_code": "OSH_PROHIBIT",
+      "msds_value": "비해당",
+      "msds_threshold": null,
+      "expected": "비해당",
+      "db_threshold": null,
+      "verdict": "일치",
+      "type": null,
+      "severity": null,
+      "rule_id": "S15-1",
+      "design_39": null
+    },
+    {
+      "comp_ref": "1",
+      "item_code": "OSH_PSM",
+      "msds_value": "해당",
+      "msds_threshold": ">= 20%",
+      "expected": "해당",
+      "db_threshold": ">= 20%",
+      "verdict": "일치",
+      "type": null,
+      "severity": null,
+      "rule_id": "S15-1",
+      "design_39": {
+        "msds": "해당 (20% 이상)",
+        "expected": "해당 (≥ 20%)",
+        "verdict": "일치",
+        "same": true
+      }
+    },
+    {
+      "comp_ref": "1",
+      "item_code": "OSH_SPECIAL",
+      "msds_value": null,
+      "msds_threshold": null,
+      "expected": "해당",
+      "db_threshold": ">= 0.1%",
+      "verdict": "불일치",
+      "type": "규제 누락",
+      "severity": "높음",
+      "rule_id": "S15-2",
+      "design_39": null,
+      "diff_reason": "39장에 없는 줄. 지식DB에 황산이 특별관리물질(0.1 wt% 이상)로 있는데 MSDS에 행이 없어 규제 누락(높음). 지정 시점에 따라 구버전일 수도 있어 확인 필요."
+    },
+    {
+      "comp_ref": "1",
+      "item_code": "POPS",
+      "msds_value": "비해당",
+      "msds_threshold": null,
+      "expected": null,
+      "db_threshold": null,
+      "verdict": "일치",
+      "type": null,
+      "severity": null,
+      "rule_id": "S15-1",
+      "design_39": null
+    },
+    {
+      "comp_ref": "2",
+      "item_code": "CCA_ACCIDENT",
+      "msds_value": "비해당",
+      "msds_threshold": null,
+      "expected": "비해당",
+      "db_threshold": null,
+      "verdict": "일치",
+      "type": null,
+      "severity": null,
+      "rule_id": "S15-1",
+      "design_39": {
+        "msds": "비해당",
+        "expected": "비해당",
+        "verdict": "일치",
+        "same": true
+      }
+    },
+    {
+      "comp_ref": "2",
+      "item_code": "CCA_PERMIT",
+      "msds_value": "비해당",
+      "msds_threshold": null,
+      "expected": null,
+      "db_threshold": null,
+      "verdict": "일치",
+      "type": null,
+      "severity": null,
+      "rule_id": "S15-1",
+      "design_39": {
+        "msds": "비해당",
+        "expected": "비해당",
+        "verdict": "일치",
+        "same": true
+      }
+    },
+    {
+      "comp_ref": "2",
+      "item_code": "CCA_PROHIBIT",
+      "msds_value": "비해당",
+      "msds_threshold": null,
+      "expected": "비해당",
+      "db_threshold": null,
+      "verdict": "일치",
+      "type": null,
+      "severity": null,
+      "rule_id": "S15-1",
+      "design_39": {
+        "msds": "비해당",
+        "expected": "비해당",
+        "verdict": "일치",
+        "same": true
+      }
+    },
+    {
+      "comp_ref": "2",
+      "item_code": "CCA_PRTR",
+      "msds_value": "비해당",
+      "msds_threshold": null,
+      "expected": "비해당",
+      "db_threshold": null,
+      "verdict": "일치",
+      "type": null,
+      "severity": null,
+      "rule_id": "S15-1",
+      "design_39": {
+        "msds": "비해당",
+        "expected": "비해당",
+        "verdict": "일치",
+        "same": true
+      }
+    },
+    {
+      "comp_ref": "2",
+      "item_code": "CCA_RESTRICT",
+      "msds_value": "비해당",
+      "msds_threshold": null,
+      "expected": "비해당",
+      "db_threshold": null,
+      "verdict": "일치",
+      "type": null,
+      "severity": null,
+      "rule_id": "S15-1",
+      "design_39": {
+        "msds": "비해당",
+        "expected": "비해당",
+        "verdict": "일치",
+        "same": true
+      }
+    },
+    {
+      "comp_ref": "2",
+      "item_code": "CCA_TOXIC",
+      "msds_value": "비해당",
+      "msds_threshold": null,
+      "expected": "비해당",
+      "db_threshold": null,
+      "verdict": "일치",
+      "type": null,
+      "severity": null,
+      "rule_id": "S15-1",
+      "design_39": {
+        "msds": "비해당",
+        "expected": "비해당",
+        "verdict": "일치",
+        "same": true
+      }
+    },
+    {
+      "comp_ref": "2",
+      "item_code": "KREACH_CMR",
+      "msds_value": "비해당",
+      "msds_threshold": null,
+      "expected": "비해당",
+      "db_threshold": null,
+      "verdict": "일치",
+      "type": null,
+      "severity": null,
+      "rule_id": "S15-1",
+      "design_39": {
+        "msds": "비해당",
+        "expected": "비해당",
+        "verdict": "일치",
+        "same": true
+      }
+    },
+    {
+      "comp_ref": "2",
+      "item_code": "KREACH_PRIORITY",
+      "msds_value": "비해당",
+      "msds_threshold": null,
+      "expected": "비해당",
+      "db_threshold": null,
+      "verdict": "일치",
+      "type": null,
+      "severity": null,
+      "rule_id": "S15-1",
+      "design_39": {
+        "msds": "비해당",
+        "expected": "비해당",
+        "verdict": "일치",
+        "same": true
+      }
+    },
+    {
+      "comp_ref": "2",
+      "item_code": "KREACH_REG",
+      "msds_value": "비해당",
+      "msds_threshold": null,
+      "expected": "비해당",
+      "db_threshold": null,
+      "verdict": "일치",
+      "type": null,
+      "severity": null,
+      "rule_id": "S15-1",
+      "design_39": {
+        "msds": "비해당",
+        "expected": "비해당",
+        "verdict": "일치",
+        "same": true
+      }
+    },
+    {
+      "comp_ref": "2",
+      "item_code": "OSH_EXPOSURE_STD",
+      "msds_value": "비해당",
+      "msds_threshold": null,
+      "expected": "비해당",
+      "db_threshold": null,
+      "verdict": "일치",
+      "type": null,
+      "severity": null,
+      "rule_id": "S15-1",
+      "design_39": {
+        "msds": "비해당",
+        "expected": "비해당",
+        "verdict": "일치",
+        "same": true
+      }
+    },
+    {
+      "comp_ref": "2",
+      "item_code": "OSH_HEALTH_EXAM",
+      "msds_value": "비해당",
+      "msds_threshold": null,
+      "expected": "비해당",
+      "db_threshold": null,
+      "verdict": "일치",
+      "type": null,
+      "severity": null,
+      "rule_id": "S15-1",
+      "design_39": {
+        "msds": "비해당",
+        "expected": "비해당",
+        "verdict": "일치",
+        "same": true
+      }
+    },
+    {
+      "comp_ref": "2",
+      "item_code": "OSH_MANAGED",
+      "msds_value": "비해당",
+      "msds_threshold": null,
+      "expected": "비해당",
+      "db_threshold": null,
+      "verdict": "일치",
+      "type": null,
+      "severity": null,
+      "rule_id": "S15-1",
+      "design_39": {
+        "msds": "비해당",
+        "expected": "비해당",
+        "verdict": "일치",
+        "same": true
+      }
+    },
+    {
+      "comp_ref": "2",
+      "item_code": "OSH_MEASURE",
+      "msds_value": "비해당",
+      "msds_threshold": null,
+      "expected": "비해당",
+      "db_threshold": null,
+      "verdict": "일치",
+      "type": null,
+      "severity": null,
+      "rule_id": "S15-1",
+      "design_39": {
+        "msds": "비해당",
+        "expected": "비해당",
+        "verdict": "일치",
+        "same": true
+      }
+    },
+    {
+      "comp_ref": "2",
+      "item_code": "OSH_PERMISSIBLE",
+      "msds_value": "비해당",
+      "msds_threshold": null,
+      "expected": "비해당",
+      "db_threshold": null,
+      "verdict": "일치",
+      "type": null,
+      "severity": null,
+      "rule_id": "S15-1",
+      "design_39": {
+        "msds": "비해당",
+        "expected": "비해당",
+        "verdict": "일치",
+        "same": true
+      }
+    },
+    {
+      "comp_ref": "2",
+      "item_code": "OSH_PERMIT",
+      "msds_value": "비해당",
+      "msds_threshold": null,
+      "expected": "비해당",
+      "db_threshold": null,
+      "verdict": "일치",
+      "type": null,
+      "severity": null,
+      "rule_id": "S15-1",
+      "design_39": {
+        "msds": "비해당",
+        "expected": "비해당",
+        "verdict": "일치",
+        "same": true
+      }
+    },
+    {
+      "comp_ref": "2",
+      "item_code": "OSH_PROHIBIT",
+      "msds_value": "비해당",
+      "msds_threshold": null,
+      "expected": "비해당",
+      "db_threshold": null,
+      "verdict": "일치",
+      "type": null,
+      "severity": null,
+      "rule_id": "S15-1",
+      "design_39": {
+        "msds": "비해당",
+        "expected": "비해당",
+        "verdict": "일치",
+        "same": true
+      }
+    },
+    {
+      "comp_ref": "2",
+      "item_code": "OSH_PSM",
+      "msds_value": "비해당",
+      "msds_threshold": null,
+      "expected": "비해당",
+      "db_threshold": null,
+      "verdict": "일치",
+      "type": null,
+      "severity": null,
+      "rule_id": "S15-1",
+      "design_39": {
+        "msds": "비해당",
+        "expected": "비해당",
+        "verdict": "일치",
+        "same": true
+      }
+    },
+    {
+      "comp_ref": "2",
+      "item_code": "POPS",
+      "msds_value": "비해당",
+      "msds_threshold": null,
+      "expected": null,
+      "db_threshold": null,
+      "verdict": "일치",
+      "type": null,
+      "severity": null,
+      "rule_id": "S15-1",
+      "design_39": {
+        "msds": "비해당",
+        "expected": "비해당",
+        "verdict": "일치",
+        "same": true
+      }
+    },
+    {
+      "comp_ref": "MIX",
+      "item_code": "DG_HAZMAT",
+      "msds_value": "비해당",
+      "msds_threshold": null,
+      "expected": "비해당",
+      "db_threshold": null,
+      "verdict": "일치",
+      "type": null,
+      "severity": null,
+      "rule_id": "S15-1",
+      "design_39": {
+        "msds": "해당없음",
+        "expected": "비해당 (인화점 없음)",
+        "verdict": "일치",
+        "same": true
+      }
+    }
+  ],
+  "excluded": [
+    {
+      "comp_ref": "1",
+      "item_code": "CCA_ACUTE",
+      "status": "구버전"
+    },
+    {
+      "comp_ref": "1",
+      "item_code": "KREACH_EXIST",
+      "status": "참고"
+    },
+    {
+      "comp_ref": "1",
+      "item_code": "WASTE_DESIG",
+      "status": "참고"
+    },
+    {
+      "comp_ref": "2",
+      "item_code": "CCA_ACUTE",
+      "status": "참고"
+    },
+    {
+      "comp_ref": "2",
+      "item_code": "CCA_CHRONIC",
+      "status": "참고"
+    },
+    {
+      "comp_ref": "2",
+      "item_code": "CCA_ECO",
+      "status": "참고"
+    },
+    {
+      "comp_ref": "2",
+      "item_code": "KREACH_ETC",
+      "status": "참고"
+    },
+    {
+      "comp_ref": "2",
+      "item_code": "KREACH_EXIST",
+      "status": "참고"
+    },
+    {
+      "comp_ref": "MIX",
+      "item_code": "WASTE_DESIG",
+      "status": "참고"
+    }
+  ]
+}
