@@ -46,7 +46,7 @@ def compare_label(derived: dict, msds: dict) -> list[dict]:
         m = msds.get(item)
         m = [x for x in m if x is not None] if isinstance(m, list) else m
         if not m:  # None 또는 빈 목록. 양쪽 다 비었으면 비교할 것이 없다
-            out.append(_same(item, d, m) if not d else _finding(item, cmp["msds_empty"], d, m))
+            out.append(_same(item, d, m) if not d else _finding(item, cmp["msds_empty"], d, m, missing=d if isinstance(d, list) else [d]))
         elif item == "h_codes":
             out += _h_codes(d, m, cmp, rules["h_code_optional"])
         elif item == "pictograms":

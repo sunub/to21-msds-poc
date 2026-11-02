@@ -176,7 +176,7 @@ def _label(item: dict) -> tuple[list[dict], list[dict]]:
         elif verdict == "근거부족":
             reason = f"MSDS에 {name}가 없음 — 분류로 보면 {_fmt_list(d)}"
         elif f["item"] == "signal_word":
-            reason = f"신호어: 분류로 보면 '{d or '없음'}', MSDS는 '{m}'"
+            reason = f"신호어: 분류로 보면 '{d or '없음'}', MSDS는 '{m or '기재 없음'}'"
         else:
             parts = []
             if f["missing"]:
