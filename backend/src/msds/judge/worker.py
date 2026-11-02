@@ -22,7 +22,7 @@ class Workers:
                 self._stop.wait(self.idle)
 
     def start(self) -> None:
-        self.service.recover()
+        self.service.recover_if_alone()
         steps = [self.service.judge_step] + [self.service.explain_step] * self.n_explain
         self._threads = [threading.Thread(target=self._loop, args=(s,), daemon=True, name=f"judge-{i}") for i, s in enumerate(steps)]
         for t in self._threads:

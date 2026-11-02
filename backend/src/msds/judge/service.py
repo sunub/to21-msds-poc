@@ -30,6 +30,7 @@ TRANSIENT_MESSAGE = "지식DB 또는 저장소에 연결하지 못함. 복구되
 
 
 NOT_SENT = object()
+ALIVE_LOCK = 0x4A554447  # 판정 작업자가 살아 있음을 나타내는 PostgreSQL 잠금 번호
 
 
 class NotFound(Exception):
@@ -83,6 +84,7 @@ class JudgeService:
         self.pool = pool or ConnectionPool("", kwargs={**writer_kwargs(database), "row_factory": dict_row},
                                            min_size=1, max_size=8, open=True)
         self.provider, self.llm, self.gate = provider, llm, gate or ex.default_gate()
+        self._alive = None
 
     # ── 넘김 기록 가져가기 ─────────────────────────────────────────────
 
@@ -127,14 +129,21 @@ class JudgeService:
             return body
 
     def recover(self) -> None:
-        """서버가 다시 켜졌을 때: 잡혀 있던 일은 끝날 수 없으니 바로 다시 잡히게 한다.
-
-        shortcut: 판정 작업자가 한 프로세스라고 가정한다. 여러 프로세스로 띄우면 살아 있는 작업도 다시 잡아 모델을 두 번 부른다
-        (저장은 안전하다). 프로세스를 늘릴 때 작업자별 소유자를 둔다.
-        """
+        """잡혀 있던 일은 끝날 수 없을 때 바로 다시 잡히게 한다. 서버 시작은 recover_if_alone 을 쓴다."""
         with self.pool.connection() as conn:
             conn.execute("UPDATE judge.handoff_state SET taken_at = now() - %s WHERE state = '판정 중'", (LEASE * 2,))
             conn.execute("UPDATE judge.explanation SET state = '대기', taken_at = NULL WHERE state = '작성 중'")
+
+    def recover_if_alone(self) -> None:
+        """다른 프로세스가 살아 있으면 그 작업은 진행 중이니 건드리지 않는다 (A1은 여러 프로세스를 지원한다). 그때는 임대 시간이 지나야 다시 잡힌다.
+
+        프로세스마다 공유 잠금을 쥐고 있어, 배타 잠금을 얻었다면 혼자라는 뜻이다. 프로세스가 죽으면 연결과 함께 잠금이 풀린다.
+        """
+        self._alive = psycopg.connect(autocommit=True, **self.pool.kwargs)
+        if self._alive.execute("SELECT pg_try_advisory_lock(%s) AS ok", (ALIVE_LOCK,)).fetchone()["ok"]:
+            self.recover()
+            self._alive.execute("SELECT pg_advisory_unlock(%s)", (ALIVE_LOCK,))
+        self._alive.execute("SELECT pg_advisory_lock_shared(%s)", (ALIVE_LOCK,))
 
     def process_handoff(self, body: dict) -> int | None:
         """한 건 판정. 반환: 판정 버전. 건너뛰었거나 실패하면 None (실패 이유는 상태에 남는다)."""
@@ -531,6 +540,8 @@ class JudgeService:
                          (body["job_id"], body["handoff_seq"], Jsonb(body)))
 
     def close(self):
+        if self._alive:
+            self._alive.close()
         self.pool.close()
 
     # ── 작업자 한 걸음 ────────────────────────────────────────────────
