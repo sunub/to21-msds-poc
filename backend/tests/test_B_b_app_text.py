@@ -1158,3 +1158,74 @@ def test_job_error_messages_share_screen_copy(text):
         for field in ("message", "fix"):
             key = "other" if kind == "no_line" and field == "message" else kind
             assert entry[field] == approved_copy(f"errors.job.{key}.{field}")
+
+
+def test_problem_rows_count_per_item_and_doc_without_touching_the_status(text):
+    """문제 행 수는 항목 이름과 항으로 거른다. 손실 순서와 status_text는 그대로이고 문서별 값에 행 수만 더한다."""
+    from collections import Counter
+    info = loss_info(('8항 노출기준', '필수', .6, .95), ('가짜 일반', '일반', .9, .8))
+    per_doc = {'T21-X01': {'items': {'8항 노출기준': .5, '가짜 일반': .9}},
+               'T21-X02': {'items': {'8항 노출기준': .7, '가짜 일반': .9}},
+               'T21-X03': {'items': {'8항 노출기준': .6, '가짜 일반': .9}}}
+    field = {'T21-X01': Counter({('8항 노출기준', 8, 'wrong'): 5}), 'T21-X02': Counter({('8항 노출기준', 8, 'missing'): 1})}
+    rows = {'T21-X01': Counter({('8항 노출기준', 8): 3, ('8항 노출기준', 3): 7, ('가짜 일반', None): 2, ('가짜 일반', 5): 1}),
+            'T21-X02': Counter({('8항 노출기준', 8): 1})}                       # T21-X03은 셀 수 없었다(정답 없음)
+    status = text.score_status(info, LOSS_CRITERIA, per_doc=per_doc, field_counts=field)
+    before = copy.deepcopy(status)
+    got = text.problem_rows(status, per_doc, field, rows)
+    assert status == before
+    assert list(got) == [row['name'] for row in status['losses']]               # 손실 순서 그대로
+    assert got['8항 노출기준']['row_count'] == 4 and got['가짜 일반']['row_count'] == 3   # 항을 모르면 모든 항을 센다
+    docs = got['8항 노출기준']['docs']
+    assert {d['doc_id']: d['row_count'] for d in docs} == {'T21-X01': 3, 'T21-X02': 1, 'T21-X03': None}
+    assert [{k: v for k, v in d.items() if k != 'row_count'} for d in docs] == status['top_problem']['docs']
+
+
+def test_problem_rows_are_empty_when_nothing_could_be_counted(text):
+    from collections import Counter
+    status = text.score_status(loss_info(('8항 노출기준', '필수', .6, .95)), LOSS_CRITERIA)
+    assert text.problem_rows(status, {}, {}, {}) == {}
+    assert text.problem_rows({'losses': [], 'loss_basis': None}, {}, {}, {'T21-X01': Counter()}) == {}
+
+
+def test_row_title_uses_labels_and_keeps_unknown_codes_as_written(text):
+    title = text.row_title
+    assert title('exposure_limits', {'standard': '국내', 'limit_type': 'TWA'}, {}, '가짜성분A', 0) == '가짜성분A / 국내기준 / TWA'
+    assert title('exposure_limits', {'standard': 'ACGIH', 'limit_type': 'STEL'}, {}, None, 2) == '3행 / ACGIH / STEL'
+    assert title('physchem', {'prop_code': 'FLASH_POINT'}, {}, '제품 전체', 0) == '제품 전체 / 인화점'
+    assert title('physchem', {'prop_code': 'NEW_CODE'}, {}, '제품 전체', 0) == '제품 전체 / NEW_CODE'
+    assert title('toxicity', {'endpoint': 'TX_ORAL'}, {'descriptor': 'LD50'}, '가짜성분B', 0) == '가짜성분B / 급성 독성(경구) / LD50'
+    assert title('toxicity', {}, {'endpoint': 'TX_ORAL'}, None, 4, gold_only=True) == '정답 5행 / 급성 독성(경구)'
+    assert title('regulations', {'law': 'OSH', 'item_raw': '가짜 대상', 'item_code': 'OSH_MEASURE'}, {}, '제품 전체', 0) \
+        == '제품 전체 / 산업안전보건법 / 가짜 대상'
+    assert title('regulations', {'law': 'OSH', 'item_code': 'OSH_MEASURE'}, {}, '제품 전체', 0) \
+        == '제품 전체 / 산업안전보건법 / OSH_MEASURE'
+    assert title('hazard.classes', {'raw': '가짜 분류 : 구분 2', 'class_code': 'HH_X'}, {}, None, 0) == '가짜 분류 : 구분 2'
+    assert title('transport', {'mode': '해상'}, {}, None, 0) == '해상'
+    assert title('hazard.h_statements', {}, {}, None, 1) == '2행'                # 구분 값이 없으면 행 번호
+    assert title('없는표', {'x': 1}, {}, None, 0) == '1행'
+
+
+def test_value_title_names_the_field_or_falls_back_to_the_table(text):
+    assert text.value_title('hazard', 'signal_word') == '신호어'
+    assert text.value_title('meta', 'msds_no') == '제출번호'
+    assert text.value_title('hazard', 'nfpa.fire') == 'NFPA 화재 위험'
+    assert text.value_title('product', 'name') == '제품명'
+    assert text.value_title('meta', '새칸') == '관리정보'
+    assert text.value_title('없는표', '새칸') == '없는표'
+
+
+def test_row_labels_cover_the_schema_codes(text):
+    from msds.common.schema import msds_item_schema
+    from msds.extract.expand import _resolve
+    props = msds_item_schema()['properties']
+    def codes(table, column):
+        node = _resolve(props[table]['items'])['properties'][column]
+        return set(next(b for b in node['anyOf'] if b.get('type') == 'string')['enum'])
+    labels = text.UI_TEXT['source']['row_parts']
+    assert codes('physchem', 'prop_code') == set(labels['prop_code'])
+    assert codes('toxicity', 'endpoint') == codes('ecotox', 'endpoint') == set(labels['endpoint'])
+    assert codes('regulations', 'law') == set(labels['law'])
+    assert set(labels['agency']) <= codes('cmr', 'agency')
+    assert set(labels['standard']) <= codes('exposure_limits', 'standard')
+    assert set(labels['system']) <= codes('intl_class', 'system')

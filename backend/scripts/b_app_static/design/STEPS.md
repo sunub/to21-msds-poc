@@ -169,6 +169,9 @@ API 주소는 `/api/jobs/try`와 `/api/jobs/run`입니다. step 3 설명의 축�
 | A7 | 결과의 부분 점수, 문제 칸 수, 고른 값 전후, 달라진 값 원문 열기 | score.before/after.weighted는 문서 전체 점수다. 시안처럼 별도의 ‘부분 종합 점수’는 없다. 문제 칸 전후와 선택 값의 새 짝도 없다. 현재 결과 버튼은 base_run을 연다(`jobs.js:396–412`, `:499–500`). | 점수는 서버가 준 전체 점수와 해당 기준 이름으로 표시한다. 부분 점수를 새로 계산하지 않는다. saved 실행에 outputs가 있으면 `/api/doc`로 이전·새 결과를 읽고 같은 기준의 칸을 비교한다. 경로 번호만 같다고 같은 행으로 보지 않는다. outputs가 없으면 변화와 새 원문 링크를 만들지 않는다. `try_section.py:203–214`는 점수 계산이 있을 때만 부분 시험 outputs를 저장한다. | 3, 행 연결은 4·5와 연계 |
 | A8 | 시험 중 ‘AI 응답 대기 → 저장·점수 계산’ | `/api/jobs`는 작업 상태와 시작 시각을 준다. 한 부분 시험의 내부 처리 단계는 없다(`b_app_jobs.py:432–442`). | 접수와 전체 진행 상태만 사실로 보인다. 결과가 오기 전에는 ‘응답과 결과를 기다립니다’로 합친다. 시간만으로 내부 단계가 끝났다고 표시하지 않는다. | 3 |
 
+step 4 반영: A4는 `/api/doc`의 `row_groups`로, A5는 `/api/run/<이름>`의 `problem_rows`로 채웠습니다. 모양은 ‘step 기록’의 step 4에 있습니다.
+A5의 문제 행 수는 서버가 세므로, 화면이 문서를 모두 읽을 때까지 ‘읽는 중/일부 읽음’을 보일 필요가 없습니다.
+
 서버 정책도 시안 작성 뒤 바뀌었습니다. 현재 코드는 요청 없음 20분과 최초 응답 없음 40분을 따로 감시합니다.
 그 근거는 `b_app_servers.py:279–280`, `:810–843`입니다. 4시간 감시도 남아 있습니다.
 예: `_delete_in_min`은 확인된 두 마감 중 이른 쪽을 고릅니다. 마감을 모두 모르면 `None`을 돌려줍니다.
@@ -378,6 +381,8 @@ G3에서 더 볼 것은 아래와 같습니다. step 2가 더했습니다. 켜�
 이 측정은 서버 상태·시험 결과의 가짜 응답으로 할 수 있습니다. 평가 문서와 실제 과금 요청은 필요하지 않습니다.
 키보드로 단계·서랍을 열고 닫은 뒤 초점이 돌아오는지도 같은 관문에서 확인합니다.
 
+- step 4: 화면을 고치지 않아 이번에 볼 것은 없습니다. step 5의 G5에서 가장 큰 개발 문서를 열어 ① 표와 ② 행 목록이 늦지 않은지 봅니다. `row_groups`로 `/api/doc` 응답이 약 45% 커졌습니다(가장 큰 문서 1,321KB → 1,948KB).
+
 ## 10. 발견한 것
 
 - 전체 시험에서 `test_E_regenerated.py`의 실제 모듈 시험 2건이 실패합니다. TO21 제공 파일 `TO21_MSDS_DB적재_재생성_v0.6.py` 514줄의 f-string이 Python 3.12 문법이라 B의 3.11 venv에서 읽히지 않습니다(`SyntaxError: f-string expression part cannot include a backslash`). step 0 커밋의 깨끗한 사본에서도 같습니다. 이 시험은 PR #130(`2870459`)에서 왔습니다. TO21 파일과 E 시험은 B가 고치지 않습니다.
@@ -392,6 +397,12 @@ G3에서 더 볼 것은 아래와 같습니다. step 2가 더했습니다. 켜�
 - step 3: 코드에서 이름을 찾지 못한 글이 남아 있습니다. 예: `jobs.off.title`, `jobs.scope.open_whole`, `jobs.trial.rented_ready`. 이름을 조립해 쓰는 글이 섞여 있어 후보일 뿐입니다(`jobs.*` 394개 중 105개를 이름 검색으로 걸렀습니다). 지우는 일은 step 7에 넘깁니다.
 - step 3: `S09` 번호는 `STRUCTURE.md`의 줄(`S09 (독립 화면 없음)`)과 시험 이름에만 남습니다. 옛 시험 이름 `test_s09_*`는 뜻이 같아 그대로 두었습니다.
 - step 3: 시험 ①~③의 행동 줄이 가리는 높이와 긴 문서 목록의 스크롤은 대역 DOM으로 판정할 수 없습니다. G4 캡처에서 봅니다.
+
+- step 4: `docs/ARCHITECTURE.md`의 작업 화면 API 표에 `GET /api/doc`의 `row_groups`와 `GET /api/run/<이름>`의 `problem_rows`를 더해야 합니다. step 안에서 docs를 고치지 못해 메인 세션에 넘깁니다.
+- step 4: 코드 이름표(`source.row_parts`)는 코드 값을 읽기 쉬운 말로 옮긴 표입니다. 표기 대부분은 법령과 GHS의 공개 용어이지만, TO21 명세서의 코드표와 같은 글자가 많습니다. 이 파일은 git에 올라갑니다. D-47에 비춰 괜찮은지 사용자가 봐 주어야 합니다.
+- step 4: `regulations`의 `item_code`와 `hazard.classes`의 `class_code`에는 이름표를 만들지 않았습니다. 개발 문서의 AI 결과는 원문 표기(`item_raw`, `raw`)가 모든 행에 있어 쓰이지 않았습니다. 원문 표기가 비면 코드가 그대로 보입니다.
+- step 4: H·P 문구 중 코드가 없는 행 8개는 구분 값이 없어 제목이 행 번호입니다(`hazard.h_statements` 2개, `hazard.p_statements` 6개). 지어내지 않는 규칙대로입니다.
+- step 4: `extras`(표 밖에 남은 값)는 묶음 551개 중 534개가 AI에만 있습니다. 칸에 채점 항목이 없어(`items`가 빈 목록) `problem_rows`에는 들어가지 않고, 부분 전체를 볼 때만 목록에 나옵니다. ② 목록에서 어떻게 보일지는 step 5가 정합니다.
 
 ## 11. 안내 위치 변경
 
@@ -494,3 +505,41 @@ G3에서 더 볼 것은 아래와 같습니다. step 2가 더했습니다. 켜�
   - S09 화면이 없어져 기대값을 고친 것: `test_B_b_app.py`의 `test_index`(화면 번호에서 9를 빼고 `screen-s09`가 없음을 봅니다), `test_navigation_menu_focus_registration_and_hash_changes`, `test_menu_groups_the_work_order_and_the_rest_without_numbers`, `test_done_next_step_opens_a_screen_and_never_starts_a_server_or_a_test`, `test_navigation_loading_and_displayed_state_are_announced`(화면별 불러오는 글), `test_B_b_app_help_ui.py`의 `CONTEXT`, `test_B_b_app_audit_ui.py`의 `SCREENS`.
   - `test_s01_to_s03_conclusion_first_and_the_work_order_is_in_the_menu`: S03 제목이 단계 제목으로 바뀌어 기대 글을 `steps.trial.*`로 고쳤습니다.
 - 넘기는 일: 메인 세션은 9장의 G4 줄로 브라우저를 봅니다. step 5는 `go("s03", {...S.focus})`와 `source_set`을 그대로 쓰면 시작 단계가 맞습니다. step 6은 11장의 ‘첫 시험 안내’ 줄을 고칩니다. step 7은 쓰지 않는 `jobs.*` 글을 지웁니다.
+
+### step 4
+
+- 산출물: `b_app_doc.py`의 `row_groups`, `problem_counts`, `run_problem_counts`와 `b_app_text.py`의 `row_title`, `value_title`, `table_label`, `problem_rows`입니다. 글은 `UI_TEXT.source`의 `rows`, `row_parts`, `value_titles`이고 `COPY.md`에 82줄을 더했습니다. 화면 코드는 고치지 않았습니다.
+- 새 응답 키 ①: `/api/doc`의 `row_groups`입니다. 실행 없이 원문만 볼 때는 빈 목록입니다. 묶음 하나의 모양은 아래와 같습니다.
+  - `id`: 다시 고를 때 쓰는 표시. 예: `result:exposure_limits:0`, `gold:toxicity:3`.
+  - `table`, `table_label`, `section`.
+  - `row`: 결과 쪽 행 번호. 짝 없는 정답 행과 표가 아닌 값은 `null`입니다.
+  - `gold_row`: 짝 정답 행 번호. 없으면 `null`입니다.
+  - `paired`: 표의 행이면 짝이 있는지(`true`/`false`). 표가 아니거나 정답이 없으면 `null`입니다.
+  - `title`: 행 제목. 예: `가짜성분A / 국내기준 / TWA`.
+  - `cells`: 칸 목록. 칸마다 `path`, `side`(`result`/`silver_only`), `field`, `section`, `kind`(`same`/`wrong`/`made`/`missing`/`uncompared`), `items`입니다. 값과 판정 글은 `values`, `silver_only`에서 `path`와 `side`로 찾습니다. 경로만으로는 찾지 마세요. 두 목록의 번호는 서로 다른 문서의 번호라 겹칠 수 있습니다.
+  - `counts`: `{wrong, made, missing}`.
+- 새 응답 키 ②: `/api/run/<이름>`의 `problem_rows`입니다. 기준 이름 → `{row_count, docs: [{doc_id, score, loss, counts, row_count}]}`이고 순서는 손실 순서입니다. 셀 수 없었던 문서의 `row_count`는 `null`입니다.
+- `status_text`는 바꾸지 않았습니다. `losses[]`에 `docs`를 더하면 S01의 값 단추가 맨 위 문제 밖에서도 열려 화면 동작이 바뀝니다. 처음에는 `status_text` 안에 넣었다가 기존 시험이 깨져 새 키로 옮겼습니다.
+- 행 제목 규칙:
+  - 성분 번호는 그 행이 나온 문서의 3항에서 찾습니다. 번호는 문서마다 다르기 때문입니다. 예: AI의 2번과 정답의 2번은 다른 성분일 수 있습니다.
+  - `MIX`는 ‘제품 전체’입니다. 번호가 비면 짝 정답 행의 번호를 정답 3항으로 잇습니다. 번호가 있는데 못 이으면 이름을 지어내지 않고 `1행`, 정답 쪽은 `정답 1행`으로 보입니다.
+  - 구분 칸은 `ROW_TITLE_SLOTS`입니다. 짝 찾기 키(`common.align.LIST_KEYS`)와 같은 칸을 쓰되 원문 표기가 있으면 먼저 씁니다. 이름표가 없는 값은 원래 표기 그대로입니다.
+- 바꾸지 않은 것: `_silver`, `_match`, 채점 함수. `doc_view`의 판정 코드는 `_judge`로 옮기기만 했습니다. `field_counts`와 `run_field_counts`는 같은 값을 돌려주는 얇은 함수가 됐습니다.
+- 잰 값: 개발 문서 10건, 실행 `20261101_sections_qwen36_s9_v17_dev10_r1`, 정답 `data/gold`입니다. 평가 문서는 읽지 않았습니다. 칸 14,427개가 묶음 2,562개가 됐고, 문제 칸 9,468개가 문제 행 1,929개가 됐습니다. 문서마다 칸 수의 합과 문제 칸 수가 기존 값 목록과 같습니다.
+
+| 항 | 표 | 묶음 | 문제 행 | 칸 | 짝 있음 | AI에만 | 정답에만 | 성분 못 이음 |
+|---|---|---|---|---|---|---|---|---|
+| 8 | `exposure_limits` | 87 | 64 | 388 | 62 | 5 | 20 | 0 |
+| 9 | `physchem` | 221 | 79 | 725 | 193 | 0 | 28 | 0 |
+| 11 | `toxicity` | 324 | 295 | 2,053 | 161 | 10 | 153 | 0 |
+| 11 | `cmr` | 100 | 49 | 441 | 64 | 30 | 6 | 0 |
+| 12 | `ecotox` | 197 | 185 | 1,223 | 145 | 8 | 44 | 0 |
+| 15 | `regulations` | 316 | 248 | 1,872 | 222 | 27 | 67 | 0 |
+
+- 옛 코드와 대조: 커밋 `b58f94c`의 `b_app_doc.py`와 개발 문서 10건을 견줬습니다. `doc_view`(새 키 제외)와 `field_counts`가 10건 모두 같습니다.
+- 시간: `run_problem_counts`는 10건에 1.78초입니다. 고치기 전 `run_field_counts`가 1.77초였습니다. 같은 펼치기를 두 번 돌지 않도록 칸 수와 행 수를 한 번에 셉니다.
+- 실패를 본 시험: 구현 전에 돌려 30건이 실패했습니다(원인은 `row_groups` 키와 `problem_counts` 함수가 없는 것). `test_B_b_app_doc.py`의 `test_row_group_gathers_cells_of_one_row_with_table_title_and_counts`, `test_silver_only_cell_joins_the_paired_result_row`, `test_gold_row_without_a_pair_is_grouped_by_gold_row_and_marked`, `test_result_row_without_a_pair_is_made_and_marked`, `test_row_paired_by_similar_cells_uses_its_own_comp_ref`, `test_unlinked_comp_ref_shows_the_row_number_and_invents_no_name`, `test_blank_comp_ref_uses_the_paired_gold_row`, `test_non_table_value_is_a_one_cell_group`, `test_rows_of_sections_8_9_11_12_15` 6건, `test_groups_keep_every_cell_exactly_once`, `test_groups_are_ordered_by_section_then_table_and_gold_rows_come_last`, `test_row_groups_only_add_a_key`, `test_route_doc_carries_row_groups`, `test_without_gold_rows_are_uncompared_and_have_no_pair_mark`, `test_pages_view_has_no_row_groups`, `test_problem_counts_*` 3건, `test_run_problem_counts_skip_docs_without_output_or_gold`와 `test_B_b_app_text.py`의 `test_row_title_uses_labels_and_keeps_unknown_codes_as_written`, `test_value_title_names_the_field_or_falls_back_to_the_table`, `test_row_labels_cover_the_schema_codes`입니다.
+- 순서를 어긴 시험 넷: `test_comp_ref_links_to_components_of_the_same_document`는 첫 실행의 이름 거르기에 빠졌습니다. `test_problem_rows_count_per_item_and_doc_without_touching_the_status`, `test_problem_rows_are_empty_when_nothing_could_be_counted`, `test_api_run_has_problem_rows_per_criterion_and_doc`는 키를 옮기면서 구현과 같이 썼습니다. 뒤에 코드를 일부러 망가뜨린 상태(정답 행의 성분을 AI 3항으로 잇기, `problem_rows` 지우기)에서 실패하는 것을 확인했습니다.
+- 일부러 망가뜨려 본 결과: 7가지 중 6가지를 처음부터 잡았습니다. 못 잡은 ‘정답 2번째 행의 칸 잃기’는 가짜 문서에 그런 경우가 없어서였습니다. `many_problems`를 넓혀 지금은 잡습니다. 이 밖에 ‘행 수를 항으로 거르지 않기’, ‘행 번호 안 보이기’도 잡습니다.
+- 고친 옛 시험 하나: `test_run_labels_are_added_without_changing_score_or_cache`의 제외 목록에 `problem_rows`를 더했습니다. 이 시험은 표시용 새 키를 빼고 원래 점수 칸이 같은지 봅니다. `/api/run`에 표시용 키를 더하면 목록에 넣어야 합니다. 뜻은 그대로입니다. 지운 시험은 없습니다.
+- 넘기는 일: step 5는 ② 목록을 `row_groups`로, ① 표의 행 수를 `problem_rows[기준 이름].row_count`로 그립니다. 문서를 고르면 `docs[]`의 값을 씁니다. 기준으로 거를 때는 칸의 `items`와 `section`을 봅니다(기존 `sourceProblems`와 같은 조건). 결과 화면의 고른 값 전후(4장 A7)도 같은 묶음으로 잇습니다. 메인 세션은 ARCHITECTURE의 API 표에 새 키 둘을 더합니다. 새 글 82줄은 G6 승인표에 넣습니다.

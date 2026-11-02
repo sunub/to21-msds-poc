@@ -3514,6 +3514,38 @@ UI_TEXT["swap"] = {
     },
 }
 
+# 원문 맞춰 보기의 행 제목(app-steps step 4). 코드 값의 사람 말 이름이다. 이름이 없는 값은 원래 표기로 보인다.
+UI_TEXT["source"]["rows"] = {"mix": "제품 전체", "row_no": "{no}행", "gold_row_no": "정답 {no}행"}
+UI_TEXT["source"]["row_parts"] = {
+    "standard": {"국내": "국내기준", "생물학적": "생물학적 노출기준"},
+    "prop_code": {
+        "APPEARANCE_STATE": "외관(성상)", "APPEARANCE_COLOR": "외관(색상)", "ODOR": "냄새", "ODOR_THRESHOLD": "냄새 역치",
+        "PH": "pH", "MELT_FREEZE": "녹는점/어는점", "BOILING": "끓는점", "FLASH_POINT": "인화점", "EVAP_RATE": "증발 속도",
+        "FLAMMABILITY": "인화성(고체, 기체)", "UEL": "폭발 범위 상한", "LEL": "폭발 범위 하한", "VAPOR_PRESSURE": "증기압",
+        "SOLUBILITY": "용해도", "VAPOR_DENSITY": "증기 밀도", "RELATIVE_DENSITY": "비중(상대 밀도)",
+        "LOG_KOW": "n-옥탄올/물 분배계수", "AUTOIGNITION": "자연발화 온도", "DECOMPOSITION": "분해 온도", "VISCOSITY": "점도",
+        "VISCOSITY_KIN": "동점도", "MOL_WEIGHT": "분자량"},
+    "endpoint": {
+        "TX_ORAL": "급성 독성(경구)", "TX_DERMAL": "급성 독성(경피)", "TX_INHAL": "급성 독성(흡입)",
+        "TX_SKIN": "피부 부식성/자극성", "TX_EYE": "심한 눈 손상/자극성", "TX_RESP_SENS": "호흡기 과민성",
+        "TX_SKIN_SENS": "피부 과민성", "TX_CARC": "발암성", "TX_MUTA": "생식세포 변이원성", "TX_REPRO": "생식독성",
+        "TX_STOT_SE": "특정 표적장기 독성(1회)", "TX_STOT_RE": "특정 표적장기 독성(반복)", "TX_ASP": "흡인 유해성",
+        "ECO_FISH": "어류 독성", "ECO_CRUST": "갑각류 독성", "ECO_ALGAE": "조류 독성", "ECO_OTHER": "기타 생물 독성",
+        "ECO_PERSIST": "잔류성과 분해성", "ECO_BIOACC": "생물 농축성", "ECO_SOIL": "토양 이동성", "ECO_OZONE": "오존층 유해성"},
+    "law": {"OSH": "산업안전보건법", "KREACH": "화평법", "CCA": "화관법", "DG": "위험물안전관리법", "WASTE": "폐기물관리법",
+            "POPS": "잔류성오염물질 관리법", "KR_ETC": "기타 국내법", "INTL": "외국법·국제협약"},
+    "agency": {"KR_OSH": "산업안전보건법", "KR_CCA": "화학물질관리법", "EU_CLP": "EU CLP"},
+    "system": {"EU_CLP": "EU CLP", "JP": "일본"},
+}
+UI_TEXT["source"]["value_titles"] = {
+    "meta": {"msds_no": "제출번호", "first_issue_date": "최초 작성일", "last_revision_date": "최종 개정일",
+             "revision_no": "개정 횟수", "revision_label": "개정 표기", "doc_code": "문서 코드",
+             "header_product_name": "머리글의 제품명", "page_start": "시작 쪽", "page_end": "끝 쪽", "source_note": "자료 메모"},
+    "product": {"name": "제품명", "uses": "용도", "restrictions": "사용 제한", "synonyms": "제품의 다른 이름"},
+    "hazard": {"classified": "유해성 분류 여부", "signal_word": "신호어", "nfpa.fire": "NFPA 화재 위험",
+               "nfpa.health": "NFPA 건강 위험", "nfpa.reactivity": "NFPA 반응 위험"},
+    "composition": {"type": "조성 종류", "no_hazardous_component": "유해 성분 없음 표시"},
+}
 POLISH_TEXT = UI_TEXT
 
 
@@ -3707,6 +3739,55 @@ def value_tip_lines(value, labels: dict) -> list[str]:
     return []
 
 
+# 표마다 행 제목의 구분 칸. 칸 하나에 후보가 여럿이면 값이 있는 첫 칸을 쓴다. 칸은 common.align.LIST_KEYS의 짝 키와 같고,
+# 코드 칸에 원문 표기가 함께 있으면 원문 표기를 먼저 쓴다(item_raw, raw, title_raw).
+ROW_TITLE_SLOTS: dict[str, tuple] = {
+    "exposure_limits": (("standard",), ("limit_type",)),
+    "physchem": (("prop_code",),),
+    "toxicity": (("endpoint",), ("descriptor",), ("species",)),
+    "cmr": (("hazard",), ("agency",)),
+    "ecotox": (("endpoint",), ("descriptor",), ("species",)),
+    "regulations": (("law",), ("item_raw", "item_code")),
+    "dangerous_goods": (("class",), ("item",)),
+    "waste": (("waste_type",),),
+    "intl_class": (("system",), ("h_code", "class_raw")),
+    "transport": (("mode",),),
+    "components": (("name", "cas_no"),),
+    "companies": (("role",), ("name",)),
+    "hazard.classes": (("raw", "class_code"),),
+    "hazard.pictograms": (("code",),),
+    "hazard.h_statements": (("code",),),
+    "hazard.p_statements": (("code",),),
+    "hazard.other_hazards": (("key",), ("value",)),
+    "narratives": (("title_raw", "item_code"),),
+    "extras": (("title_raw",),),
+}
+# 행이 성분 하나를 가리키는 표. 성분을 잇지 못하면 이름을 지어내지 않고 그 자리에 행 번호를 보인다.
+ROW_COMP_TABLES = {"exposure_limits", "physchem", "toxicity", "cmr", "ecotox", "regulations", "dangerous_goods", "waste",
+                   "intl_class"}
+
+
+def row_title(table: str, row: dict, pair: dict, comp: str | None, no: int, *, gold_only: bool = False) -> str:
+    """행 제목: 성분 이름 / 구분 값들. row는 그 행, pair는 짝 행이고 row에 없는 칸만 pair에서 읽는다(둘 다 없으면 {}).
+    comp는 이미 이은 성분 이름이다. no는 0부터 세는 행 번호이고, 이을 값이 없으면 사람이 읽는 번호로 보인다."""
+    number = UI_TEXT["source"]["rows"]["gold_row_no" if gold_only else "row_no"].format(no=no + 1)
+    parts = [comp] if comp else [number] if table in ROW_COMP_TABLES else []
+    for slot in ROW_TITLE_SLOTS.get(table, ()):
+        hit = next(((f, v) for side in (row, pair) for f in slot if (v := side.get(f)) not in (None, "")), None)
+        if hit:
+            parts.append(UI_TEXT["source"]["row_parts"].get(hit[0], {}).get(str(hit[1]), str(hit[1])))
+    return " / ".join(parts or [number])
+
+
+def value_title(table: str, field: str) -> str:
+    """표가 아닌 값의 제목: 칸 이름, 없으면 표 이름, 그것도 없으면 원래 표기."""
+    return UI_TEXT["source"]["value_titles"].get(table, {}).get(field) or table_label(table)
+
+
+def table_label(table: str) -> str:
+    return UI_TEXT["source"]["table_names"].get(table, table)
+
+
 def doc_legend() -> list[dict]:
     """값의 세 상태는 화면에서 글자로만 구분하므로 색 칸을 주지 않는다. 색은 선택 표시에만 쓴다."""
     return [{"key": key, "label": label, "color": color} for key, label, color in [
@@ -3778,6 +3859,12 @@ def _field_count(row: dict, counter) -> dict:
             for kind, key in _FIELD_KINDS.items()}
 
 
+def _row_count(row: dict, counter) -> int:
+    """한 항목의 문제 행 수. _field_count처럼 항목 이름과 항으로 거르고, 항을 모르면 모든 항의 행을 센다."""
+    return sum(n for (item, section), n in counter.items()
+               if item == row["name"] and (row["section"] is None or section == row["section"]))
+
+
 def _doc_losses(row: dict, per_doc: dict | None, weight_total: float,
                 field_counts: dict | None = None) -> list[dict]:
     """항목 손실을 문서별로 나눈다. 항목 점수가 문서 평균이라 문서 손실의 합이 항목 손실과 같다."""
@@ -3824,6 +3911,20 @@ def score_losses(info: dict, criteria: dict, per_doc: dict | None = None, field_
     if losses and round(losses[0]["loss"], 9) > 0:
         top = {**losses[0], "docs": _doc_losses(losses[0], per_doc, total, field_counts)}
     return {"losses": losses, "top_problem": top, "loss_basis": {"weight_total": total, "loss_total": 100 - weighted}}
+
+
+def problem_rows(status: dict, per_doc: dict | None, field_counts: dict | None, row_counts: dict | None) -> dict:
+    """문제 고르기 표의 행 수. 기준 이름 → {"row_count", "docs": [{doc_id, score, loss, counts, row_count}]}.
+    status(score_status의 결과)의 손실 순서와 값은 그대로 두고 수만 더한다. status_text 안에 넣지 않는 이유: S01의 값 단추는
+    docs가 있는 맨 위 문제에서만 열리고, 옛 응답을 바꾸지 않는다. 셀 수 없었던 문서의 row_count는 None이다."""
+    basis = status.get("loss_basis")
+    if not row_counts or not basis:
+        return {}
+    merged = sum(row_counts.values(), Counter())
+    return {row["name"]: {"row_count": _row_count(row, merged),
+                          "docs": [{**d, "row_count": _row_count(row, row_counts[d["doc_id"]]) if d["doc_id"] in row_counts
+                                    else None} for d in _doc_losses(row, per_doc, basis["weight_total"], field_counts)]}
+            for row in status["losses"]}
 
 
 def score_targets(info: dict, criteria: dict) -> dict | None:
