@@ -101,6 +101,8 @@ async with gate.slot("explain"):
 | ⑤ 동작 | 확인은 일치·참고·범위 외에만, 확정·승인은 처리 대상에만 (422). 최신 넘김 판정 전 검토·저장 409. 글이 빠진 PDF 422. `stale`·`changed_findings`에 msds 포함. 골드는 저장 뒤 바뀌면 실버 | 저장본의 추출값과 판정이 어긋나지 않게, 거짓 골드 방지 (6-screens 미결 2보다 좁다) |
 | ⑤ | `judgment_status.unreviewed`, `review_state.last_event_id`, `review_event_request.seen_event_id`, `conflict_response`, `report_document` 추가 | 6-screens 0절 미검토 수, 동시 처리 충돌, 409 모양, JSON 리포트 모양 |
 
+`mismatch_type`에 `내부 불일치`를 더했다. 단일물질의 11·12항 수치와 2항 구분이 다를 때의 경고다 (설계서 19장). id는 `m0/F2:CROSS:<class_code>:<route_form 또는 ->`.
+
 `judgment_status`의 `판정 실패`에 연결 장애도 포함된다. 이 경우 `error`가 자동 재시도를 알리고, 복구되면 새 넘김 없이 `판정 있음`이 된다.
 
 `4-explanation` 요청의 `finding.type`·`severity`는 값이 없으면 보내지 않으므로 필수에서 뺐다 (측정된 프롬프트 유지).

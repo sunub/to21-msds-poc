@@ -6,6 +6,7 @@ import pytest
 
 from msds.compliance.consistency import run_consistency
 from msds.compliance.htodb.csv_repo import CsvRepo
+from msds.compliance.judge import judge
 from msds.compliance.mixture.build_components import build_components
 from msds.compliance.mixture.class_lookup_db import make_db_class_lookup, make_db_info_lookup, make_db_tox_lookup
 from msds.compliance.mixture.classify_mixture import classify_mixture_all
@@ -144,3 +145,46 @@ def test_불순물_함량이_기준을_걸치면_경계다(repo):
 def test_불순물_함량이_없으면_근거부족이다(repo):
     f = _carcinogen(repo, _toluene_with_benzene({"raw": None, "status": "자료없음"}))
     assert f["verdict"] == "근거부족" and "불순물 함량" in f["reason"]
+
+
+def _tox(endpoint, value, unit, **kw):
+    return {"comp_ref": "1", "endpoint": endpoint, "descriptor": kw.pop("descriptor", "LD50"), "q": _q(value, unit), "physical_form": None, "duration_value": None, "duration_unit": None, **kw}
+
+
+def _single(classes, toxicity=(), ecotox=()):
+    return {"doc": {"doc_id": "X-1"}, "msds": [{"composition": {"type": "단일물질"}, "hazard": {"classes": classes}, "toxicity": list(toxicity), "ecotox": list(ecotox),
+                                                 "components": [{"seq": 1, "cas_no": "108-88-3", "name": "톨루엔", "content": _q(99.5, "%"), "trade_secret": False}],
+                                                 "physchem": [_prop("APPEARANCE_STATE", None, text="액체")]}]}
+
+
+def _cross(repo, doc, contract_errors):
+    out = judge(doc, "2026-11-03", repo)
+    assert contract_errors("3-consistency.schema.json", out) == []
+    return {f["id"]: f for f in out["results"][0]["findings"] if ":CROSS:" in f["id"]}
+
+
+def test_11항_값과_2항_구분이_다르면_내부_불일치_경고다(repo, contract_errors):  # 설계서 19장 예: LD50 2,140 인데 구분4
+    doc = _single([{"class_code": "HH_ACUTE_ORAL", "category": "4"}], [_tox("TX_ORAL", 2140, "mg/kg")])
+    f = _cross(repo, doc, contract_errors)["m0/F2:CROSS:HH_ACUTE_ORAL:-"]
+    assert (f["verdict"], f["type"], f["expected"]["low"], f["msds"]["category"]) == ("경고", "내부 불일치", "분류안됨", "4")
+    assert f["needs_explanation"] is False
+
+
+def test_11항_값과_2항_구분이_같으면_경고가_없다(repo, contract_errors):
+    assert _cross(repo, _single([{"class_code": "HH_ACUTE_ORAL", "category": "4"}], [_tox("TX_ORAL", 1500, "mg/kg")]), contract_errors) == {}
+
+
+def test_여러_값이면_가장_낮은_값으로_본다(repo, contract_errors):  # D-04
+    doc = _single([{"class_code": "HH_ACUTE_ORAL", "category": "4"}], [_tox("TX_ORAL", 3000, "mg/kg"), _tox("TX_ORAL", 1500, "mg/kg")])
+    assert _cross(repo, doc, contract_errors) == {}
+
+
+def test_부등호_값으로는_교차_확인하지_않는다(repo, contract_errors):
+    row = {"comp_ref": "1", "endpoint": "TX_ORAL", "descriptor": "LD50", "q": {**_q(None, "mg/kg"), "lower": 2000, "lower_op": ">"}, "physical_form": None}
+    assert _cross(repo, _single([{"class_code": "HH_ACUTE_ORAL", "category": "4"}], [row]), contract_errors) == {}
+
+
+def test_12항_값이_구분1_기준과_맞지_않으면_경고다(repo, contract_errors):
+    fish = _tox("ECO_FISH", 0.5, "mg/L", descriptor="LC50")
+    assert "m0/F2:CROSS:ENV_AQ_ACUTE:-" in _cross(repo, _single([{"class_code": "ENV_AQ_ACUTE", "category": "3"}], ecotox=[fish]), contract_errors)
+    assert _cross(repo, _single([{"class_code": "ENV_AQ_ACUTE", "category": "1"}], ecotox=[fish]), contract_errors) == {}
