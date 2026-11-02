@@ -186,12 +186,12 @@ function scoreRenderSummary() {
   const el = document.getElementById("score-summary"), state = S.score, run = state.run;
   el.setAttribute("aria-busy", String(state.loading || !state.context));
   if (state.loading || !state.context) {
-    shellConclusion("s01", T("errors.loading.fact"), false);
+    shellConclusion("s01", T("errors.loading.fact"));
     el.replaceChildren(h("p", {role: "status"}, num(state.count) ? T("score.loading.scoring", {count: state.count}) : T("errors.loading.fact")));
     return;
   }
   if (state.error) {
-    shellConclusion("s01", T("score.load_failed.fact"), false);
+    shellConclusion("s01", T("score.load_failed.fact"));
     el.replaceChildren(friendlyError({message: T("score.load_failed.fact"), fix: T("score.load_failed.todo"), raw: state.error}),
       scoreButton("score-reload", "score.partial.reload", () => scoreLoad(true)));
     return;
@@ -202,7 +202,7 @@ function scoreRenderSummary() {
     scoreNote(T("score.partial.todo")), scoreDetails(T("common.raw_error"),
       broken.map(row => h("p", {class: "technical"}, row.name, ": ", row.error)))) : null;
   if (!run) {
-    shellConclusion("s01", T("score.empty.title"), false);
+    shellConclusion("s01", T("score.empty.title"));
     coreReplace(el, warning, h("div", {class: "score-empty"},
       h("h2", null, T("score.empty.state")), scoreNote(T("score.empty.no_mixing")),
       scoreButton("score-prepare", "score.empty.prepare", () => go("s03").catch(fail), {class: "primary"}),

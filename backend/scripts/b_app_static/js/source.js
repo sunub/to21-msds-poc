@@ -250,9 +250,8 @@ function sourceRenderTop() {
   else if (D.error) state = friendlyError({message: T("source.load_failed.fact"), fix: T("source.load_failed.todo"), raw: D.error.message});
   const legend = d ? h("div", {class: "source-legend"}, (d.legend || []).map(entry => h("span", {class: "source-legend-entry"},
     entry.color ? h("span", {class: "source-chip", "aria-hidden": "true", style: `background:${entry.color}`}) : null, entry.label))) : null;
-  const failed = !!D.error || !!D.locked || D.absent;
   shellConclusion("s02", T(D.loading ? "source.loading" : D.locked ? "source.locked.title" : D.error?.status === 404 || D.absent
-    ? "source.empty.document" : D.error ? "source.load_failed.fact" : "source.title"), !failed && !D.loading);
+    ? "source.empty.document" : D.error ? "source.load_failed.fact" : "source.title"));
   controls.open = !D.section || D.open.has("controls");
   controls.addEventListener("toggle", () => { if (controls.isConnected) sourceOpen("controls", controls.open); });
   coreReplace(controls, controls.querySelector("summary"), ...Array.from(controls.children).slice(1),

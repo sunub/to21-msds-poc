@@ -22,7 +22,7 @@ assert.equal(when(null),'—');assert.equal(when('not-a-date'),'—');
     run_js(PRACTICE_SETUP + clock + r"""
 await enter('G10');S.shell.serverAt=at;guideRender();shellRenderContext();
 assert.ok(el('guide-content').textContent.includes(T('guide.ai.checked',{time:shown})));
-assert.ok(el('context-model').textContent.includes(shown));
+assert.ok(el('context-model-open').getAttribute('data-tip').includes(shown));
 S.guide.session.source=at;await guideShow('G12');
 assert.ok(el('guide-session-records').textContent.includes(shown));
 S.journey.outcomes.t1.real={first_at:at,last_at:at,count:2};await guideShow('G15');
@@ -810,39 +810,33 @@ def test_s01_button_and_hint_follow_the_kind_that_exists():
     """)
 
 
-def test_s01_conclusion_first_and_path_on_s01_to_s03():
+def test_s01_to_s03_conclusion_first_and_the_work_order_is_in_the_menu():
+    # 화면 안의 글자뿐인 1·2·3 경로를 뺐다 (ADR-039). 같은 뜻은 왼쪽 메뉴의 번호와 현재 표시가 맡는다.
     from test_B_b_app_score_ui import FIXTURE
     from test_B_b_app_source_ui import fixture
     from test_B_b_app_jobs_ui import SETUP
     check = r"""
       const area=el('screen-'+S.shell.route), heading=area.querySelector('h1');
       assert.notEqual(heading.textContent,T(SHELL_SCREENS[S.shell.route].title));
-      const flow=area.querySelector('.score-flow');assert.ok(flow);
-      assert.deepEqual(Array.from(flow.querySelectorAll('li'),n=>n.textContent),
-        ['result','cause','retest'].map(k=>T('score.flow.'+k)));
-      assert.equal(flow.querySelector('[aria-current="step"]').textContent,T('score.flow.'+current));
-      assert.equal(flow.querySelector('button'),null);
-      const nodes=Array.from(area.querySelectorAll('*'));
-      assert.ok(nodes.indexOf(flow)<nodes.indexOf(heading));
+      assert.equal(area.querySelector('.score-flow'),null);
+      const nav=el('main-nav').querySelector('[data-screen="'+S.shell.route+'"]');
+      assert.equal(nav.getAttribute('aria-current'),'page');
+      assert.equal(nav.querySelector('.nav-no').textContent,order);
     """
-    run_js(FIXTURE + "await go('s01');const current='result';" + check + r"""
+    run_js(FIXTURE + "shellRenderHeader();await go('s01');const order='1';" + check + r"""
       assert.equal(heading.textContent,T('score.summary.headline_model',{model:'Fake model'}));
       api=async()=>{throw new Error('Fake failure');};await scoreLoad(true);
       assert.equal(el('title-s01').textContent,T('score.load_failed.fact'));
-      assert.equal(el('screen-s01').querySelector('.score-flow'),null);
     """)
-    run_js(fixture() + "await go('s02',{section:8});const current='cause';" + check + r"""
+    run_js(fixture() + "shellRenderHeader();await go('s02',{section:8});const order='2';" + check + r"""
       assert.equal(heading.textContent,T('source.title'));
       api=async()=>{throw new Error('Fake failure');};await sourceLoad(true);
       assert.equal(el('title-s02').textContent,T('source.load_failed.fact'));
-      assert.equal(el('screen-s02').querySelector('.score-flow'),null);
     """)
-    run_js(SETUP + "await go('s03',{doc:'T21-X01',section:8});const current='retest';" + check + r"""
+    run_js(SETUP + "shellRenderHeader();await go('s03',{doc:'T21-X01',section:8});const order='3';" + check + r"""
       assert.equal(heading.textContent,T('jobs.trial.title'));
       options=makeOptions(false);await jobsLoadOptions();jobsRenderTry();
       assert.equal(el('title-s03').textContent,T('jobs.off.title'));
-      optionsError=true;await jobsLoadOptions();jobsRenderTry();
-      assert.equal(el('screen-s03').querySelector('.score-flow'),null);
     """)
 
 

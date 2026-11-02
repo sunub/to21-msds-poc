@@ -19,6 +19,7 @@
 |---|---|---|---|
 | 1 | `js/core.js` | 상태 `S`, 요소 만들기 `h`·`s`·`fill`, 요청 `api`·`post`, 글 `T`, 오류, 접기, 말풍선, 저장소, 사건 `on`·`emit` | 1 |
 | 2 | `js/shell.js` | 구역 등록 `shellDefineView`, 화면 이동 `go`, 해시, 공통 맥락, 첫 화면, `start` | 1 |
+| 2.5 | `js/steps.js` | 단계 표시 `stepsRenderBar`·`stepsFirstOpen`, 행동 줄 `stepsRenderActions`, 자세히 서랍 `drawerOpen`·`drawerClose` (ADR-039) | app-steps 1 |
 | 3 | `js/score.js` | 최근 결과, 문제, 이력, 문서와 호출, 행 수, 채점 기준 | 2 |
 | 4 | `js/source.js` | 원문 그림과 줄, 값 대조, 근거 선택 | 3 |
 | 5 | `js/compare.js` | 두 결과 비교, 바뀐 값, 지시문 차이 | 4 |

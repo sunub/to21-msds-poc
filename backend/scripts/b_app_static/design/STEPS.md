@@ -1,6 +1,6 @@
 # 세 화면의 선택은 단계 안으로 옮기고, 확인용 기록은 화면마다 자세히 서랍 하나에 모읍니다.
 
-이 문서는 G1에서 검토할 제안입니다. 삭제와 화면 변경은 아직 승인되거나 구현되지 않았습니다.
+G1은 11/2에 승인됐습니다. 지울 항목 D1·D2·D3, 서랍 배치표, 규칙 변경 11줄을 표대로 합니다. 메모는 "G1 승인 반영"에 있습니다.
 조사 기준은 2026-11-02의 `b/app-steps`, 커밋 `386bfc5`입니다.
 정본 승인 기록의 G0는 승인입니다. 메모는 “지금 step 0만 돌린다”입니다.
 
@@ -85,16 +85,26 @@ S05 작업 기록과 S10 비교표에도 `jobsDetails`가 쓰입니다. 공용 �
 
 ## 2. 지울 항목 목록
 
-정보를 삭제하지 않아도 중복 경로를 줄일 수 있습니다. 아래 3개만 G1 삭제 후보로 올립니다.
-아직 삭제하지 않았습니다. 다른 표와 기록과 잠금 이유는 삭제 후보가 아닙니다.
+정보를 삭제하지 않아도 중복 경로를 줄일 수 있습니다. 아래 3개만 지웁니다. G1에서 셋 다 승인됐습니다.
+다른 표와 기록과 잠금 이유는 지우지 않습니다.
 
 | 번호 | 화면에서 무엇이 사라지나 | 왜 안 쓴다고 보나 | 지웠을 때 잃는 것 | 되살리는 방법 | 정보 보존표의 해당 행 |
 |---|---|---|---|---|---|
 | D1 | 다시 시험 아래 ‘첫 시험 안내와 여러 문서 시험’ 접힘과 그 안의 두 링크 | 안내는 `shell.js:99`의 공통 단추로 열린다. 여러 문서는 시안의 1단계에서 고른다. 현재 안내 링크는 `go("s08")`인데 `SHELL_SCREENS`에 s08도 없다. | 폼 맨 아래의 반복 진입점. 안내 기능과 여러 문서 실행 기능은 잃지 않는다. | 공통 안내 사건과 새 여러 문서 갈래를 여는 보조 링크를 다시 둔다. 옛 s08 주소는 복원하지 않는다. | I01·I07: 안내 진입·다시 보기. I58·I59: 여러 문서 실행 |
 | D2 | 별도 ‘여러 문서 시험’ 하위 메뉴와 독립 화면 | `shell.js:11`, `:103–104`, `index.html:78–82`의 독립 입구를 새 S03 1단계가 대신한다. 입력과 시작 요청은 현재 `jobsRenderRun`을 이관한다. | 별도 화면이라는 구분. 문서·모델·반복·이름·확인은 모두 남는다. 옛 `#s09`와 `go("s09")`도 새 갈래로 이어야 한다. | 별도 메뉴를 다시 연결한다. 실행 입력 상태와 서버 요청은 공용으로 유지한다. | I44·I58·I59: 모델과 여러 문서 실행 |
-| D3 | 원문 글자 줄마다 반복되는 ‘연결 값 0개’ | `source.js:586`은 모든 줄에 숫자를 붙인다. 같은 정보는 선택 줄의 연결 값 수(`:503`, `:550–556`)와 빈 선택 안내에도 있다. | 고르기 전에 각 줄의 연결 값이 없다는 숫자 표시. 원문 줄과 연결 자료는 남는다. | 줄 설명에 0개 표기를 다시 켠다. 연결 값이 있는 줄의 표시와 전체 줄 보기는 계속 둔다. | I40·I43: 줄별 연결 값 수와 선택 상태 |
+| D3 | 원문 글자 줄마다 반복되는 ‘연결 값 0개’ 글자와, 쪽의 모든 줄을 늘어놓는 기본 보기. 기본 목록은 연결 값이 있는 줄과 고른 줄 주변만 보이고, 전체 보기는 단추로 연다 (G1 메모) | `source.js:586`은 모든 줄에 숫자를 붙인다. 같은 정보는 선택 줄의 연결 값 수(`:503`, `:550–556`)와 빈 선택 안내에도 있다. | 고르기 전에 각 줄의 연결 값이 없다는 숫자 표시. 못 뽑은 값의 줄이 기본 목록에서 빠진다. 값을 고르거나 쪽 전체 줄을 누르면 보인다(사용자가 알고 정했다). | 줄 설명에 0개 표기와 전체 줄 기본 보기를 다시 켠다. 연결 값이 있는 줄의 표시와 전체 줄 보기는 계속 둔다. | I40·I43: 줄별 연결 값 수와 선택 상태 |
 
 D1·D2는 step 3, D3는 step 5가 맡습니다. step 7은 승인된 삭제만 적용됐는지 확인합니다.
+
+### G1 승인 반영
+
+11/2 사용자 답을 아래처럼 반영했습니다. 정본은 `docs/plan/B_앱_단계화_승인.md`입니다.
+
+| 물음 | 답 | 뜻 |
+|---|---|---|
+| 지울 항목 | ① 셋 다 지운다 | D3은 글자 삭제에 더해 원문 글자 목록의 기본 보기까지 바꾼다. 위 D3 행이 정본이다 |
+| 서랍 배치표와 규칙 변경 11줄 | ① 표대로 | 1장과 6장을 그대로 따른다 |
+| 시안과 달라지는 7곳 | ① 앱에 있는 값만 보인다 | 시험 결과 제목은 문서 전체 점수와 바뀐 기준별 전후로 쓴다. 부분 점수를 서버 응답에 더하지 않는다. 4장 A7이 이 뜻이다 |
 ‘값의 구조와 비교 범위’, ‘장비 출력’, ‘서버 기록’은 사용하는 곳이 있으므로 삭제하지 않습니다.
 종료된 서버와 다른 사람 서버도 전체 목록에서 지우지 않습니다. 자세히 서랍에서 상태를 구분합니다.
 
@@ -335,12 +345,28 @@ step 0의 AC는 이 4건만 실행합니다. 새 기능이 없고 시험 변경�
 | G6 안내와 도움말 | 새 data-guide 위치를 따라 두 갈래를 수행한다. 추정 줄만 본 경우와 연습만 한 경우도 확인한다. | 실제 요소를 가리킴. 기존 성공 기록 보존. 추정과 연습을 실제 성공으로 세지 않음. |
 | G7 수락 | 실제 세 화면과 주 흐름을 사용자 검토에 올린다. 프로젝트 맥락 없는 이해도 시험을 별도 실시한다. | 이해·조작 각각 8/10 이상을 목표로 기록. AI 캡처 평가와 실제 사람 평가를 구분. 사용자 수락 전 UI 완료라고 부르지 않음. |
 
+G2에서 더 볼 것은 아래와 같습니다. step 1이 더했습니다.
+
+| 상태 | 재는 방법 | 통과 기준 |
+|---|---|---|
+| 위쪽 막대 너비 | 1280×800, 1440×900, 1680×1050에서 막대 높이와 문서 가로 폭을 잰다 | 막대 높이 56px 이하. 가로 스크롤 없음. S01 주 단추가 스크롤 없이 보임 |
+| 요금 글 네 상태 | `/api/servers`를 가짜 응답으로 바꿔 꺼짐, 준비 중, 켜짐, 조회 실패를 본다 | 꺼짐은 ‘AI 꺼짐 요금 없음’. 준비 중과 켜짐은 시간당 요금과 지금까지 비용. 조회 실패는 ‘상태 확인 실패 요금 확인 안 됨’. 목록을 못 읽으면 ‘요금 없음’이라고 쓰지 않음 |
+| 막대 안 줄어듦 | 1280px에서 긴 묶음 이름, 긴 정답 이름, 요금이 함께 있을 때 본다 | 요금은 잘리지 않음. 묶음과 정답 이름은 말줄임표로 줄고 말풍선에서 모두 보임. 켜진 모델 이름은 1440px 아래에서 말풍선으로만 보임 |
+| 아래 줄 | 새 정답 알림과 목록 조회 실패를 가짜 응답으로 본다 | 그때만 막대 아래에 줄이 생김. `--sticky-offset`이 늘어 원문 카드가 가려지지 않음 |
+| 문서 묶음 바꾸기 | 칩을 눌러 선택 창을 열고 취소와 적용을 한다 | 기존 동작 그대로. 닫으면 칩으로 초점이 돌아옴 |
+| 왼쪽 메뉴 | 1280×800에서 메뉴 끝까지 본다 | 번호와 묶음 제목이 보임. 목적과 정의 글이 메뉴와 겹치지 않음 |
+| 단계 표시·행동 줄·서랍 | 아직 어느 화면에도 붙지 않았다. 브라우저 콘솔에서 `document.getElementById('jobs-try')`에 `stepsRenderBar`와 `stepsRenderActions`를 가짜 값으로 불러 보고, `drawerOpen({title:'자세히', render:n=>n.append(rawError('원문'))})`를 부른다 | 현재·끝남·못 감 세 모양이 글로도 구분됨. 다음 행동이 오른쪽 끝. 서랍이 오른쪽에 열리고 움직임이 없음. Esc로 닫으면 초점이 돌아옴 |
+
 이 측정은 서버 상태·시험 결과의 가짜 응답으로 할 수 있습니다. 평가 문서와 실제 과금 요청은 필요하지 않습니다.
 키보드로 단계·서랍을 열고 닫은 뒤 초점이 돌아오는지도 같은 관문에서 확인합니다.
 
 ## 10. 발견한 것
 
+- 전체 시험에서 `test_E_regenerated.py`의 실제 모듈 시험 2건이 실패합니다. TO21 제공 파일 `TO21_MSDS_DB적재_재생성_v0.6.py` 514줄의 f-string이 Python 3.12 문법이라 B의 3.11 venv에서 읽히지 않습니다(`SyntaxError: f-string expression part cannot include a backslash`). step 0 커밋의 깨끗한 사본에서도 같습니다. 이 시험은 PR #130(`2870459`)에서 왔습니다. TO21 파일과 E 시험은 B가 고치지 않습니다.
+
 ## 11. 안내 위치 변경
+
+- step 1에는 없습니다. `data-guide`가 붙은 요소를 옮기지 않았습니다. `guide-open` 단추는 id를 그대로 둔 채 위쪽 막대로 옮겼습니다.
 
 ## step 기록
 
@@ -354,3 +380,21 @@ step 0의 AC는 이 4건만 실행합니다. 새 기능이 없고 시험 변경�
 - AC 결과: G0·필수 제목·파일 존재·화면 및 시험 무변경 검사 통과. `HTODB_SKIP=1 .venv/bin/python -m pytest -q tests/test_B_b_app_dom.py`는 4 passed(0.13초). 브라우저 검증은 하지 않았다.
 - 자료 점검: 문서 번호·원문 줄·화학물질 식별번호·키 값 없음. 작성 근거는 UI 코드와 계약과 시안이다. 보호 대상 438개 파일의 바이트 지문이 작성 전과 같다.
 - 넘기는 일: G1에서 삭제 3개와 서랍 배치와 규칙 변경안을 검토한다. G1 전에는 step 1을 시작하지 않는다.
+
+### step 1
+
+- 산출물: 위쪽 막대 한 줄(`#global-context`), 번호 있는 왼쪽 메뉴(`SHELL_NAV_GROUPS`), `js/steps.js`의 `stepsRenderBar`·`stepsFirstOpen`·`stepsRenderActions`·`drawerOpen`·`drawerClose`, `app.css`의 `.steps`·`.step-actions`·`.step-card`·`.step-screen`·`#details-drawer`. 규칙 문서는 6장의 step 1 몫을 고쳤습니다.
+- 요금: `/api/servers`의 `pods[]` 가운데 `session`이 참인 서버의 `cost_per_hr`·`cost_est`를 그대로 읽습니다(`shellCostText`). 화면에서 다시 계산하지 않습니다. API에 빈칸이 없어 `b_app_servers.py`는 고치지 않았습니다. A1(만들기 전 견적)은 step 2의 몫입니다.
+- 막대로 옮기며 달라진 것: 묶음 원래 이름, 조회 시각, 정답 신뢰 범위, AI 상태 설명, 자동 삭제 안내는 칩의 말풍선으로 옮겼습니다. 앱 목적과 문서 정의는 왼쪽 메뉴 아래로 옮겼습니다. 새 정답 알림은 막대 아래 줄(`#context-gold-notice`)로 옮겼습니다. 앱 이름 글자는 18px에서 16px로 줄였습니다.
+- G2에서 보여 드릴 것: 머리글의 ‘진행 중 작업 보기’ 단추를 뺐습니다. 왼쪽 메뉴 ‘작업 기록’과 같은 화면으로 가서 잃는 정보는 없지만 D1~D3 목록에 없는 제거입니다. 시안의 위쪽 막대에도 없습니다. ‘자료 바꾸기’ 단추는 시안에 없지만 7장 끝의 약속대로 남겼습니다.
+- 실패를 본 시험: `test_B_b_app_steps_ui.py` 21건 전부(`test_current_step_is_marked_and_says_it_is_current`, `test_next_action_is_always_the_last_slot`, `test_drawer_escape_closes_and_returns_focus`, `test_drawer_has_no_folds_even_when_shared_helpers_make_them` 등)와 `test_B_b_app_shell_ui.py`의 새 시험 13건(`test_top_bar_holds_documents_answers_ai_and_guide_on_one_line`, `test_top_bar_shows_price_and_cost_so_far_for_the_session_server`, `test_top_bar_says_off_without_cost_only_when_nothing_of_ours_runs`, `test_top_bar_lookup_failure_reads_differently_from_off`, `test_menu_numbers_the_work_order_and_groups_the_rest_without_numbers`, `test_screens_have_no_second_text_only_path` 등). 구현 전 34건 실패를 확인했습니다. `test_top_bar_keeps_set_and_answer_change_flow_and_swap_entry`는 기존 동작을 지키는 시험이라 처음부터 통과했습니다.
+- 옮긴 옛 시험과 이유:
+  - `test_s01_conclusion_first_and_path_on_s01_to_s03` → `test_s01_to_s03_conclusion_first_and_the_work_order_is_in_the_menu`: 화면 안 1·2·3 글자를 뺐습니다. 위치의 뜻은 메뉴 번호와 `aria-current`가 맡습니다.
+  - `test_strip_shows_loading_minutes_while_pod_starts`, `test_strip_shows_cost_and_auto_close_when_connected`, `test_strip_says_no_cost_when_off_and_nothing_of_ours_runs`, `test_strip_explains_automatic_close_after_it_happens`: 긴 설명이 말풍선으로 가서 칩 글과 말풍선을 합쳐 읽습니다.
+  - `test_strip_has_no_close_button_for_rented_server`: 단추는 여전히 하나입니다. 글자 대신 칩을 누르면 S06으로 가는지 봅니다.
+  - `test_strip_tells_when_new_gold_arrived_and_screen_clears_it`: 알림 위치만 `#context-gold-notice`로 바꿨습니다.
+  - `test_strip_says_whether_the_chosen_documents_can_get_a_score`, `test_strip_labels_say_what_the_next_test_uses_and_link_to_swap`: 칩에는 짧은 글, 말풍선에는 긴 글을 봅니다.
+  - `test_times_use_korean_format_everywhere`, `test_model_connection_names_count_neutral_absence_and_error_recovery`, `test_model_without_address_is_off_and_real_problems_still_show_when_nothing_is_connected`: 조회 시각, 모델 수, 정상 안내를 말풍선에서 봅니다.
+  - 지운 시험은 없습니다. 시험 대역 DOM에 `childNodes`를 더했습니다.
+- 넘기는 일: step 2~5는 `stepsRenderBar`와 `stepsRenderActions`를 화면에 붙이고 화면을 `.step-screen`으로 감쌉니다. 서랍의 `render(body)`에는 `rawError`와 `coreCodeRecord`를 그대로 넣어도 됩니다. `drawerOpen`이 접힘을 제목과 본문으로 폅니다.
+

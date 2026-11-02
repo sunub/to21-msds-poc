@@ -182,7 +182,7 @@ function jobsRenderFocus() {
 function jobsRenderTry() {
   const J = S.jobs, t = J.t, el = document.getElementById("jobs-try");
   shellConclusion("s03", T(J.optionsError ? "common.legacy.load_error.message" : !J.opts ? "common.legacy.loading"
-    : jobsReady(t.model) ? "jobs.trial.title" : "jobs.off.title"), !!J.opts && !J.optionsError);
+    : jobsReady(t.model) ? "jobs.trial.title" : "jobs.off.title"));
   if (!J.opts) { coreReplace(el, jobsFormStatus() || jobsNote(T("common.legacy.loading"), {role: "status"})); return; }
   const active = document.activeElement?.id;
   const docs = jobsDocs(), allowed = jobsAllowed(docs.find(d => d.doc_id === t.doc), "try"), one = jobsSingle();

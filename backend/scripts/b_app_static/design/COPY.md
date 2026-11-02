@@ -146,6 +146,8 @@ nav.servers|AI 켜기와 비용|전역
 nav.help|도움말|전역
 nav.current|보고 있음|전역
 nav.a11y|작업 메뉴|전역
+nav.group_flow|작업 순서|전역
+nav.group_other|그 밖의 화면|전역
 
 ### context — 전역 상태 · P01 자료 기준
 
@@ -194,13 +196,14 @@ context.key_reason.key_eval_only|평가용 문서의 정답만 있어 고를 수
 context.key_reason.unknown_key|정답지 {id}를 찾지 못했습니다. 할 일: 정답지 목록에서 다시 고르세요.|P01
 context.key_reason.unusable_key|이 정답지를 쓸 수 없습니다. 이유: {reason}|P01
 context.documents.label|시험할 문서 묶음(폴더)|전역
+context.documents.short|문서 묶음|전역
 context.documents.count|개발용 문서 {count}건|전역
 context.change_documents|필요할 때 문서 바꾸기|전역
 context.answer.label|비교한 정답|전역
+context.answer.short|정답|전역
 context.answer_draft|AI 정답 초안 · 사람 확인 전|전역
 context.change_answer|필요할 때 정답 바꾸기|전역
 context.answer_trust|점수는 개선 방향을 보는 참고용입니다. 값은 원문과 맞춘 뒤 믿으세요.|전역
-context.model.current_label|{model}의 지금 상태|전역
 context.prepare_model|시험할 때 AI 준비하기|전역
 context.model.off_normal|AI가 꺼져 있을 때는 정상 상태입니다.|P01,E01
 context.model.saved_readable|저장된 결과는 AI 없이 읽을 수 있습니다. 다시 시험할 때만 AI가 필요합니다.|전역
@@ -529,10 +532,6 @@ score.tables.ecotox|생태 독성 (12번 부분)|S01
 score.tables.regulations|규제 (15번 부분)|S01
 score.tables.intl_class|국제 분류 (15번 부분)|S01
 score.tables.extras|표 밖에 남은 값|S01
-score.flow.a11y|현재 작업의 흐름|S01,S02
-score.flow.result|1 결과 보기|S01,S02
-score.flow.cause|2 원인 찾기|S01,S02
-score.flow.retest|3 다시 시험|S01,S02
 score.summary.headline_model|{model}의 최근 점수는 목표보다 낮습니다.|S01,S08
 score.summary.scope|{model} · 개발용 문서 {count}건의 점수|S01,S08
 score.summary.denominator|/ 100점|S01,S08
@@ -1932,6 +1931,22 @@ help.guide.protection.summary|평가용 문서 잠금과 접속 키 보관 원�
 help.setup.command|(cd backend && .venv/bin/python scripts/b_app.py)|S07
 help.protection.command|(cd backend && .venv/bin/python -m pytest -q --ignore=tests/test_preprocess.py)|S07
 
+### steps — 단계 진행의 공통 틀
+
+위쪽 막대 한 줄, 화면 위 단계 표시, 맨 아래 행동 줄, 자세히 서랍의 글입니다. 최종 문구는 G6에서 검토합니다.
+
+키|글|쓰는 곳
+---|---|---
+steps.a11y|이 화면의 단계|단계 표시
+steps.actions_a11y|이 단계의 행동|행동 줄
+steps.current|지금 단계|단계 표시
+steps.details.close|자세히 닫기|서랍
+steps.server.cost_basis|표시한 비용은 현재 서버의 추정값입니다.|위쪽 막대, S06
+context.model.chip_on|AI 켜짐|위쪽 막대
+context.model.chip_no_cost|요금 없음|위쪽 막대
+context.model.chip_cost_unknown|요금 확인 안 됨|위쪽 막대
+context.model.rented_so_far|지금까지 약 ${cost}|위쪽 막대
+
 ### swap — S11 자료 바꾸기
 
 시안 6화면을 11/2 승인 대기로 옮겼습니다. 윗줄 지금 닫기 단추는 11/2 사용자 결정으로 넣지 않았습니다.
@@ -1949,6 +1964,8 @@ context.model.auto_closed_no_reply|모델이 {limit}분 동안 응답하지 않�
 context.model.auto_closed_cost|켠 시간 {minutes}분, 추정 ${cost}.|전역
 swap.context.score_docs|점수를 매길 수 있는 문서 {count}건|S11
 swap.context.no_score|점수 없음 · 양식만 확인|S11
+swap.context.score_docs_short|채점 문서 {count}건|위쪽 막대
+swap.context.no_score_short|점수 없음|위쪽 막대
 swap.context.gold_note|최근 올린 날 {date} · 정답 {count}건 사용|S11
 swap.context.gold_changed|새 정답이 들어왔습니다. 문서 {count}건이 바뀌어 점수를 다시 계산합니다.|S11
 swap.context.gold_changed_open|무엇이 바뀌었나요|S11

@@ -140,7 +140,8 @@ def test_model_connection_names_count_neutral_absence_and_error_recovery():
       assert.ok(el.textContent.includes(T('context.model.readiness_unknown')));assert.equal(el.classList.contains('error'),false);
       api=async()=>({models:[{label:'Fake model A',model_expected:'fake-a',reachable:true,match:true},{model_expected:'fake-b',reachable:true,match:true},{model_expected:'wrong',reachable:true,match:false}]});
       await shellPollServers();assert.ok(el.textContent.includes('Fake model A'));assert.ok(el.textContent.includes('fake-b'));
-      assert.ok(el.textContent.includes('2'));assert.equal(el.textContent.includes('wrong'),false);
+      assert.ok(document.getElementById('context-model-open').getAttribute('data-tip').includes(T('context.model.connected_count',{count:2,names:'Fake model A, fake-b'})));
+      assert.equal(el.textContent.includes('wrong'),false);
       api=async()=>{throw Object.assign(new Error('disabled'),{status:503});};await shellPollServers();
       assert.ok(el.textContent.includes(T('context.model.readiness_unknown')));assert.equal(el.classList.contains('error'),false);
       api=async()=>{throw new Error('read failed');};await shellPollServers();assert.equal(el.classList.contains('error'),true);
@@ -250,7 +251,7 @@ def test_model_without_address_is_off_and_real_problems_still_show_when_nothing_
        {tag:'fake_pod',where:'RunPod',url_set:false,reachable:false,error:null}]});
       await shellPollServers();
       assert.ok(el.textContent.includes(T('context.model.state_off')));
-      assert.ok(el.textContent.includes(T('context.model.off_normal')));
+      assert.ok(document.getElementById('context-model-open').getAttribute('data-tip').includes(T('context.model.off_normal')));
       assert.equal(el.textContent.includes(T('context.model.readiness_unknown')),false);
       api=async()=>({rngd:{ok:true,diagnosis:'no_model'},models:[{tag:'fake_pod',where:'RunPod',url_set:true,reachable:true,match:false}]});
       await shellPollServers();assert.ok(el.textContent.includes(T('context.model.wrong_reply')));
@@ -273,3 +274,178 @@ def test_session_pod_that_is_still_starting_reads_as_loading_not_failed():
       assert.ok(el.textContent.includes(T('context.model.rented_loading')));
       assert.equal(el.textContent.includes(T('context.model.query_failed')),false);
     """)
+
+
+# ── 위쪽 막대 한 줄과 왼쪽 메뉴 묶음 (phase app-steps, ADR-039) ─────────
+
+TOP_BAR = r"""
+const el=id=>document.getElementById(id);
+const chipOf=()=>el('context-model-open');
+const seen=()=>chipOf().textContent;
+const tip=()=>chipOf().getAttribute('data-tip');
+const POD={id:'p1',session:true,owned:true,status:'RUNNING',minutes:8,cost_per_hr:2.49,cost_est:0.33,uptime_s:480,auto_delete_min:18};
+const ON={tag:'q',label:'Fake rented model',where:'RunPod',url_set:true,reachable:true,match:true};
+const OFF={tag:'q',where:'RunPod',url_set:false,reachable:false,match:false};
+const LOADING={tag:'q',where:'RunPod',url_set:true,reachable:false,match:null,error:'HTTP 502'};
+const serve=async value=>{api=async path=>{if(path==='/api/servers'){if(value instanceof Error)throw value;return value;}if(path==='/api/sets')return sets;if(path==='/api/keys')return keys;throw new Error(path);};await shellPollServers();};
+"""
+
+
+def test_top_bar_holds_documents_answers_ai_and_guide_on_one_line():
+    run_js(FIXTURES + TOP_BAR + r"""
+      await start();const bar=el('global-context');
+      for(const id of ['context-change-set','context-change-key','context-model-open','guide-open','context-swap'])
+        assert.ok(bar.contains(el(id)),id);
+      assert.ok(bar.textContent.includes(T('nav.app_name')));
+      assert.ok(bar.textContent.includes('Development nine'));assert.ok(bar.textContent.includes('Draft answers'));
+      assert.ok(el('context-change-set').textContent.includes(T('context.documents.short')));
+      assert.ok(el('context-change-key').textContent.includes(T('context.answer.short')));
+      assert.equal(bar.querySelectorAll('p').length,0);
+      assert.equal(bar.querySelectorAll('details').length,0);
+      // 원래 폴더 이름은 막대에 그대로 쓰지 않고 말풍선과 선택 창에 남긴다
+      assert.equal(bar.textContent.includes('prev/v9'),false);
+      assert.ok(el('context-change-set').getAttribute('data-tip').includes('prev/v9'));
+      assert.ok(el('context-change-key').getAttribute('data-tip').includes(T('context.answer_trust')));
+    """)
+
+
+def test_top_bar_shows_price_and_cost_so_far_for_the_session_server():
+    run_js(FIXTURES + TOP_BAR + r"""
+      await start();await serve({models:[ON],session:{pod_id:'p1',ready:true,idle_minutes:20},pods:[POD]});
+      assert.ok(seen().includes(T('context.model.chip_on')));
+      assert.ok(seen().includes(T('context.model.rented_hourly',{cost:2.49})));
+      assert.ok(seen().includes(T('context.model.rented_so_far',{cost:0.33})));
+      assert.ok(seen().includes('Fake rented model'));
+      assert.ok(tip().includes(T('steps.server.cost_basis')));
+      assert.equal(seen().includes(T('context.model.chip_no_cost')),false);
+    """)
+
+
+def test_top_bar_shows_cost_while_the_server_is_still_starting():
+    run_js(FIXTURES + TOP_BAR + r"""
+      await start();await serve({models:[LOADING],session:{pod_id:'p1',ready:false,idle_minutes:20},pods:[POD]});
+      assert.ok(seen().includes(T('context.model.rented_loading')));
+      assert.ok(seen().includes(T('context.model.rented_hourly',{cost:2.49})));
+      assert.ok(seen().includes(T('context.model.rented_so_far',{cost:0.33})));
+      assert.equal(seen().includes(T('context.model.chip_on')),false);
+    """)
+
+
+def test_top_bar_says_off_without_cost_only_when_nothing_of_ours_runs():
+    run_js(FIXTURES + TOP_BAR + r"""
+      await start();await serve({models:[OFF],pods:[{id:'team',owned:false,status:'RUNNING',cost_per_hr:9,cost_est:9}]});
+      assert.ok(seen().includes(T('context.model.state_off')));
+      assert.ok(seen().includes(T('context.model.chip_no_cost')));
+      assert.equal(seen().includes('9'),false);                                     // 남의 서버 금액을 합치지 않는다
+      await serve({models:[OFF],pods:[],runpod_error:'RUNPOD_API_KEY'});
+      assert.ok(seen().includes(T('context.model.state_off')));
+      assert.equal(seen().includes(T('context.model.chip_no_cost')),false);          // 목록을 못 읽으면 무료라고 쓰지 않는다
+      assert.ok(seen().includes(T('context.model.chip_cost_unknown')));
+    """)
+
+
+def test_top_bar_lookup_failure_reads_differently_from_off():
+    run_js(FIXTURES + TOP_BAR + r"""
+      await start();await serve(new Error('read failed'));
+      assert.ok(seen().includes(T('context.model.query_failed')));
+      assert.equal(seen().includes(T('context.model.state_off')),false);
+      assert.equal(seen().includes(T('context.model.chip_no_cost')),false);
+      assert.ok(seen().includes(T('context.model.chip_cost_unknown')));
+      assert.equal(el('context-model').classList.contains('error'),true);
+      assert.ok(tip().includes('read failed'));
+    """)
+
+
+def test_top_bar_session_server_without_price_says_unknown_instead_of_a_number():
+    run_js(FIXTURES + TOP_BAR + r"""
+      await start();await serve({models:[ON],session:{pod_id:'p1',ready:true,idle_minutes:20},pods:[{...POD,cost_per_hr:null,cost_est:null}]});
+      assert.ok(seen().includes(T('context.model.chip_cost_unknown')));
+      assert.equal(seen().includes('null'),false);assert.equal(seen().includes('$'),false);
+    """)
+
+
+def test_top_bar_ai_chip_opens_servers_and_notes_move_to_its_tip():
+    run_js(FIXTURES + TOP_BAR + r"""
+      await start();await serve({models:[OFF],pods:[]});
+      for(const key of ['off_normal','off_no_cost','saved_readable'])assert.ok(tip().includes(T('context.model.'+key)),key);
+      assert.ok(tip().includes(T('context.prepare_model')));
+      assert.ok(tip().includes(when(S.shell.serverAt)));
+      assert.equal(el('context-model').querySelectorAll('button').length,1);
+      chipOf().click();await Promise.resolve();assert.equal(S.shell.route,'s06');
+    """)
+
+
+def test_top_bar_keeps_set_and_answer_change_flow_and_swap_entry():
+    run_js(FIXTURES + TOP_BAR + r"""
+      await start();let changes=0;on('context_changed',()=>changes++);
+      el('context-change-set').focus();el('context-change-set').click();
+      assert.equal(el('context-picker').open,true);
+      el('context-set').value='.';el('context-apply').click();
+      assert.equal(S.ctx.set,'.');assert.equal(changes,1);assert.equal(document.activeElement.id,'context-change-set');
+      assert.ok(el('global-context').textContent.includes('New documents'));
+      el('context-swap').click();await Promise.resolve();assert.equal(S.shell.route,'s11');
+    """)
+
+
+def test_context_errors_appear_below_the_line_and_notes_keep_their_place():
+    run_js(FIXTURES + TOP_BAR + r"""
+      await start();assert.equal(el('context-errors').children.length,0);
+      api=async()=>{throw new Error('unavailable');};await shellLoadContext();
+      assert.ok(el('context-errors').querySelector('.error-note'));
+      assert.equal(el('context-fields').contains(el('context-errors')),false);
+      assert.ok(el('context-fields').contains(el('context-answer-note')));
+      assert.equal(el('context-fields').contains(el('context-gold-notice')),false);
+    """)
+
+
+def test_app_purpose_and_definition_stay_visible_in_the_menu():
+    run_js(FIXTURES + r"""
+      await start();const nav=document.getElementById('main-nav');
+      assert.ok(nav.textContent.includes(T('nav.purpose')));
+      assert.ok(nav.textContent.includes(T('common.document_definition')));
+      assert.ok(nav.textContent.includes(T('common.local_only')));
+    """)
+
+
+def test_menu_numbers_the_work_order_and_groups_the_rest_without_numbers():
+    run_js(FIXTURES + r"""
+      await start();const nav=document.getElementById('main-nav');
+      const groups=nav.querySelectorAll('.nav-group');assert.equal(groups.length,2);
+      const ids=g=>Array.from(g.querySelectorAll('[data-screen]'),b=>b.dataset.screen);
+      assert.deepEqual(ids(groups[0]).filter(id=>!['s09','s10'].includes(id)),['s01','s02','s03','s04']);
+      assert.deepEqual(ids(groups[1]),['s06','s05','s07']);
+      assert.ok(groups[0].textContent.includes(T('nav.group_flow')));
+      assert.ok(groups[1].textContent.includes(T('nav.group_other')));
+      assert.deepEqual(Array.from(groups[0].querySelectorAll('.nav-no'),n=>n.textContent),['1','2','3','4']);
+      assert.equal(groups[1].querySelectorAll('.nav-no').length,0);
+    """)
+
+
+def test_screens_have_no_second_text_only_path():
+    run_js(FIXTURES + r"""
+      await start();
+      for(const id of ['s01','s02','s03']){
+        shellConclusion(id,'Conclusion');
+        assert.equal(document.getElementById('title-'+id).textContent,'Conclusion');
+        assert.equal(document.getElementById('flow-'+id),null);
+      }
+      assert.equal(document.querySelectorAll('.score-flow').length,0);
+    """)
+
+
+def test_jobs_are_reached_from_the_menu_and_not_duplicated_in_the_bar():
+    run_js(FIXTURES + r"""
+      await start();
+      assert.equal(document.querySelectorAll('[data-screen="s05"]').length,1);
+      assert.ok(document.getElementById('main-nav').contains(document.querySelector('[data-screen="s05"]')));
+    """)
+
+
+def test_bar_css_is_one_56px_line_with_tokens_only():
+    import re
+    from test_B_b_app_dom import STATIC
+    css = (STATIC / 'app.css').read_text()
+    assert re.search(r'\.context\s*\{[^}]*min-height:\s*56px', css)
+    assert re.search(r'\.context-fields\s*\{[^}]*flex-wrap:\s*nowrap', css)
+    assert re.search(r'--sticky-offset:\s*72px', css)
+    assert '.score-flow' not in css
