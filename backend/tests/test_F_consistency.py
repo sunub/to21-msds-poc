@@ -90,6 +90,19 @@ def test_결과_구조는_설계서_44장_consistency_블록(repo):
     assert dg["item_code"] == "DG_HAZMAT"
 
 
+def test_표시_요소는_MSDS_분류에서_도출해_비교한다(repo):
+    doc = _doc([("HH_SKIN_CORR", "1", None), ("HH_EYE_DMG", "1", None)])
+    hz = doc["msds"][0]["hazard"]
+    hz.update(signal_word="경고", pictograms=[{"code": "GHS05"}], h_statements=[{"code": "H314"}, {"code": "H335"}])
+    c = run_consistency(doc, repo)["consistency"]
+    by = {f["class_code"]: f for f in c["findings"] if (f.get("class_code") or "").startswith("LABEL_")}
+    assert by["LABEL_PICTOGRAMS"]["verdict"] == "일치"
+    sig = by["LABEL_SIGNAL_WORD"]
+    assert (sig["verdict"], sig["type"], sig["severity"], sig["sv_id"]) == ("불일치", "표시 요소 불일치", "중간", "SV-06")
+    h = by["LABEL_H_CODES"]  # H318 은 H314 가 있으면 생략 가능(결정 C3) → H335 만 '더 적음'
+    assert (h["verdict"], h["severity"], h["extra"], h["missing"]) == ("불일치", "낮음", ["H335"], [])
+
+
 def test_지식DB에_없는_CAS는_멈추지_않고_근거부족(repo):
     c = run_consistency(_doc([("HH_SKIN_CORR", "1", None)], cas="9999-99-9"), repo)["consistency"]
     f = next(f for f in c["findings"] if f["section"] == "2")
@@ -109,7 +122,11 @@ def _run(name, i=0):
 def test_25번_황산_묶음_요약은_e2e_고정본과_같다():
     c = _run("T21-025")
     assert c["product_type"]["value"] == "혼합물"
-    assert {k: c["summary"]["2항"][k] for k in VERDICTS} == {"일치": 21, "불일치": 3, "경계": 0, "근거부족": 1}
+    # 2항 = 분류 25줄(e2e 고정본: 일치 21·불일치 3·근거부족 1) + 표시 요소 3줄(H코드·그림문자·신호어 모두 일치)
+    assert {k: c["summary"]["2항"][k] for k in VERDICTS} == {"일치": 24, "불일치": 3, "경계": 0, "근거부족": 1}
+    label = [f for f in c["findings"] if (f.get("class_code") or "").startswith("LABEL_")]
+    assert [(f["class_code"], f["verdict"]) for f in label] == [
+        ("LABEL_H_CODES", "일치"), ("LABEL_PICTOGRAMS", "일치"), ("LABEL_SIGNAL_WORD", "일치")]
     assert {k: c["summary"]["15항"][k] for k in VERDICTS} == {"일치": 36, "불일치": 2, "경계": 0, "근거부족": 0}
     assert c["summary"]["전체"]["심각도"] == {"높음": 1, "중간": 2, "낮음": 2}
 
