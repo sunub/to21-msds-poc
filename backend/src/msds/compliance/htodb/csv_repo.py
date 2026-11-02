@@ -19,6 +19,7 @@ _CLASS = "TB_GHS_CHEM_CLASS_MAP"
 _TOX = "TB_ENG_CHEM_TOXICITY_TEST_INFO"
 _REG_MAP = "TB_ENG_REGULA_CHEM_MAP"
 _REG_STD = "TB_ENG_REG_NOTICE_STD"
+_REG_CONTENT = "TB_ENG_REG_NOTICE_CONTENT"
 
 
 def _int(v):
@@ -65,9 +66,13 @@ class CsvRepo:
         return {"rows": rows}
 
     def regulations(self, chem_id: str) -> dict:
-        """repo.regulations 와 같은 키 중 판정에 쓰는 두 가지: rows(물질↔세부규제), notice_std(함량 기준)."""
+        """repo.regulations 와 같은 키 중 판정에 쓰는 셋: rows(물질↔세부규제), notice_std(함량 기준), notice_content(조문 문구)."""
         rows = sorted((r for r in self._rows(_REG_MAP) if r.get("chem_id") == chem_id),
                       key=lambda r: (r["regulate_id"], r["regulate_item_id"]))
         std = sorted((r for r in self._rows(_REG_STD) if r.get("chem_id") == chem_id),
                      key=lambda r: (r["regulate_item_id"], _int(r.get("notice_seq")), _int(r.get("std_seq"))))
-        return {"rows": rows, "notice_std": std}
+        content = []
+        if (self.folder / f"{_REG_CONTENT}.csv").exists():
+            content = sorted((r for r in self._rows(_REG_CONTENT) if r.get("chem_id") == chem_id),
+                             key=lambda r: (r["regulate_item_id"], _int(r.get("notice_seq")), r.get("lang_code") or ""))
+        return {"rows": rows, "notice_std": std, "notice_content": content}
