@@ -390,6 +390,8 @@ function jobsRenderFocus() {
   const parts = String(f.path || "").replace(/\[\d+\]/g, "").split(".");
   const field = parts.slice().reverse().find(part => UI.source.field_names[part]) || parts.at(-1);
   const table = parts.find(part => UI.source.table_names[part]);
+  // 고른 값이 없으면 강조할 것이 없다. 한 줄로만 말한다.
+  if (!key) return h("p", {id: "jobs-focus", class: "muted"}, T("jobs.focus.none", {key_value: "", ai_value: ""}));
   return h("div", {id: "jobs-focus", class: "job-focus"}, h("h3", null, T("jobs.focus.title")),
     key ? jobsNote([UI.source.table_names[table], sourceFieldName({field, table}, null)].filter(Boolean).join(" · ")) : null,
     jobsNote(T(`jobs.focus.${key || "none"}`, {key_value: jobsFocusValue(f.expected, f.expected_text), ai_value: jobsFocusValue(f.actual, f.actual_text)})),
@@ -726,10 +728,11 @@ function jobsRenderTryResult(el) {
   }
   const mismatch = job?.target && !jobsResultMatches(job, r), seconds = jobsResultSeconds(r);
   if (job?.target && !jobsPractice(job) && num(seconds)) J.timings[jobsTimingKey(job.target)] = seconds;
-  coreReplace(el, head, mismatch ? serversFlat(friendlyError({message: T("jobs.target_mismatch.fact"), fix: T("jobs.target_mismatch.todo")})) : null,
-    jobsResultSummary(r, job),
-    r.results && jobsPickedValue() && S.focus.kind ? [jobsRenderFocus(), jobsNote(T("steps.trial.change_unavailable"), {class: "muted"})] : null,
-    jobsServerNote());
+  // 대상과 끝남은 단계 표시와 제목에 이미 있다. 연습은 연습이라고 남긴다. 켜진 서버 글은 첫 화면 안에 오도록 고른 값보다 앞에 둔다.
+  coreReplace(el, jobsPractice(job) ? head : [job ? serversFlat(jobsFailure(job)) : null, jobsWarnings(job?.warnings)],
+    mismatch ? serversFlat(friendlyError({message: T("jobs.target_mismatch.fact"), fix: T("jobs.target_mismatch.todo")})) : null,
+    jobsResultSummary(r, job), jobsServerNote(),
+    r.results && jobsPickedValue() && S.focus.kind ? [jobsRenderFocus(), jobsNote(T("steps.trial.change_unavailable"), {class: "muted"})] : null);
   if (job && !mismatch) jobsEmitResult(job, r);
 }
 function jobsRenderResult() {
