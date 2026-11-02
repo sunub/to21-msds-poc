@@ -152,6 +152,10 @@ const HELP_CHAPTERS = {
     ],
     [
       "p",
+      "help.setup.new_data"
+    ],
+    [
+      "p",
       "help.setup.file_intro",
       "help.setup.filename",
       "help.setup.file_end"
@@ -395,6 +399,14 @@ const HELP_CHAPTERS = {
     [
       "p",
       "help.servers.cost"
+    ],
+    [
+      "p",
+      "help.servers.states"
+    ],
+    [
+      "p",
+      "help.servers.waiting"
     ],
     [
       "p",

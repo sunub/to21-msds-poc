@@ -94,7 +94,7 @@ UI_TEXT: dict = {'nav': {'app_name': '화학 안전문서 AI 결과 검토',
                             'key_eval_only': '평가용 문서의 정답만 있어 고를 수 없습니다.',
                             'unknown_key': '정답지 {id}를 찾지 못했습니다. 할 일: 정답지 목록에서 다시 고르세요.',
                             'unusable_key': '이 정답지를 쓸 수 없습니다. 이유: {reason}'},
-             'documents': {'label': '점수를 매긴 문서', 'count': '개발용 문서 {count}건'},
+             'documents': {'label': '시험할 문서 묶음(폴더)', 'count': '개발용 문서 {count}건'},
              'change_documents': '필요할 때 문서 바꾸기',
              'answer': {'label': '비교한 정답',
                         'gold_count': '사람이 확인한 정답 · {count}건',
@@ -3199,6 +3199,131 @@ COPY_EXCEPTIONS['journey.record.expect.screen'] = "처음 사용 안내 Wispr �
 COPY_EXCEPTIONS['journey.record.expect.choices'] = "처음 사용 안내 Wispr 구조 승인 10/31: progress.guide 검사 문장"
 COPY_EXCEPTIONS['journey.record.expect.practices'] = "처음 사용 안내 Wispr 구조 승인 10/31: progress.guide 검사 문장"
 
+# 윗줄의 빌린 서버 요금과 자동 삭제 (자료 바꾸기 시안 6, 11/2).
+UI_TEXT["context"]["model"].update({
+    "off_no_cost": "요금이 나가지 않습니다.",
+    "rented_hourly": "시간당 약 ${cost}",
+    "rented_auto_close": "요청이 {idle}분 없으면 자동으로 닫힙니다.",
+    "rented_auto_left": "{minutes}분 남았습니다.",
+    "rented_close_where": "지금 닫으려면 AI 켜기와 비용 화면으로 가세요.",
+    "auto_closed_idle": "요청 없이 {limit}분이 지나 서버를 닫았습니다.",
+    "auto_closed_no_reply": "모델이 {limit}분 동안 응답하지 않아 서버를 닫았습니다.",
+    "auto_closed_cost": "켠 시간 {minutes}분, 추정 ${cost}.",
+})
+
+UI_TEXT["help"]["setup"]["new_data"] = "새 문서 폴더나 새 정답을 받았으면 화면 위쪽의 새 자료 받기를 누르세요. 문서 폴더는 검사한 뒤 앱으로 복사하고, 정답은 GitHub에서 받는 명령을 알려 줍니다."
+UI_TEXT["help"]["servers"]["states"] = "화면 위쪽에서 상태를 봅니다. AI 꺼짐은 정상입니다. 빌린 서버를 만들면 켜는 중이 3~6분 보이고, 연결된 모델이 보이면 시험을 보낼 수 있습니다."
+UI_TEXT["help"]["servers"]["waiting"] = "10분이 지나도 켜는 중이면 AI 켜기와 비용의 서버 기록을 확인하세요. 모델이 40분 동안 응답하지 않으면 앱이 서버를 지웁니다."
+
+# 자료 바꾸기 화면(S11). design/COPY.md의 swap 표가 정본이다.
+UI_TEXT["nav"]["swap"] = "새 자료 받기"
+UI_TEXT["swap"] = {
+    "context": {"score_docs": "점수를 매길 수 있는 문서 {count}건", "no_score": "점수 없음 · 양식만 확인",
+                "gold_note": "최근 올린 날 {date} · 정답 {count}건 사용",
+                "gold_changed": "새 정답이 들어왔습니다. 문서 {count}건이 바뀌어 점수를 다시 계산합니다.",
+                "gold_changed_open": "무엇이 바뀌었나요"},
+    "steps": {"a11y": "폴더 바꾸기 단계", "pick": "1 폴더 고르기", "check": "2 검사", "apply": "3 적용"},
+    "back": "처음으로",
+    "start": {"title": "어떤 자료를 새로 받았나요?",
+              "lead": "받은 자료에 따라 하는 일이 다릅니다. 검사와 복사에는 AI를 쓰지 않아 요금이 들지 않습니다.",
+              "docs_title": "새 문서 폴더",
+              "docs_note": "PDF를 글자로 바꾸는 담당이 보내 준 폴더입니다. 문서마다 쪽별 글자가 들어 있고, AI가 이 글을 읽습니다. 예: Downloads/version17_신규40",
+              "docs_action": "폴더 고르기",
+              "gold_title": "새 정답 파일",
+              "gold_note": "정답 담당이 GitHub에 올린 파일입니다. AI 결과와 견줘 점수를 매기는 기준입니다.",
+              "gold_action": "새 정답 받기",
+              "have_title": "새로 받은 자료가 없을 때",
+              "have_note": "앱에 이미 있는 폴더나 정답으로 바꾸기만 합니다. 파일은 복사하지 않습니다.",
+              "have_action": "앱에 있는 것으로 바꾸기"},
+    "pick": {"title": "어느 문서 폴더를 쓸까요?",
+             "lead": "Downloads에서 문서 폴더처럼 보이는 것을 찾았습니다. 앱에 없는 폴더는 검사한 뒤 앱으로 복사합니다. 검사만으로는 파일이 옮겨지지 않습니다.",
+             "in_app": "앱에 있음", "not_in_app": "앱에 없음",
+             "meta": "문서 {count}건 · {time}에 받음",
+             "check": "검사하기",
+             "empty": "Downloads에서 문서 폴더를 찾지 못했습니다. 아래에 경로를 직접 적어 주세요.",
+             "unreadable": "Downloads 폴더를 읽지 못했습니다. 아래에 경로를 직접 적어 주세요.",
+             "other_label": "다른 곳에 있는 폴더의 전체 경로",
+             "other_placeholder": "/Users/내이름/Downloads/version18",
+             "other_hint": "압축 파일은 먼저 풀어 주세요."},
+    "check": {"checking": "폴더를 검사하고 있습니다. 파일은 옮기지 않습니다.",
+              "title": {"score": "이 폴더로 시험하고 점수도 볼 수 있습니다.",
+                        "format_only": "이 폴더는 쓸 수 있지만 점수는 나오지 않습니다.",
+                        "unusable": "이 폴더로는 시험할 수 없습니다."},
+              "no_overlap_title": "이 폴더의 문서와 겹치는 정답이 없습니다.",
+              "no_overlap_body": "정답이 있는 문서와 문서 번호가 다릅니다. 이 폴더는 처음 보는 문서에서 AI 결과가 양식에 맞는지 볼 때 고릅니다.",
+              "alternative": "점수를 보려면 정답이 있는 문서 {count}건이 든 {set} 폴더를 고르세요.",
+              "unusable_body": "시험할 수 있는 문서가 없습니다. 줄 번호가 없거나 열지 않는 문서뿐입니다. 폴더를 보낸 담당에게 줄 번호가 있는 판을 요청하세요.",
+              "can_title": "이 폴더로 할 수 있는 일",
+              "yes": "가능", "no": "안 됨",
+              "batch_yes": "{count}건을 한꺼번에 시험하기. AI 결과가 정해진 양식에 맞는지 봅니다.",
+              "score_yes": "점수 매기기. 정답이 있는 문서 {count}건에 점수가 나옵니다.",
+              "score_no": "점수 매기기. 비교할 정답이 없습니다.",
+              "try_yes": "문서 하나의 한 부분만 다시 시험하기. 고를 수 있는 문서 {count}건.",
+              "try_no": "문서 하나의 한 부분만 다시 시험하기. 지금은 개발용 문서 목록에 있는 문서만 됩니다.",
+              "facts_title": "검사 결과",
+              "docs_label": "문서", "docs_value": "{count}건",
+              "lines_label": "줄 번호",
+              "lines_all": "열 수 있는 {count}건 모두 있음. AI가 근거로 적는 번호라 있어야 시험할 수 있습니다. 예: L001",
+              "lines_some": "열 수 있는 문서 중 {count}건에 없음. 이 문서들은 시험에서 빠집니다. AI가 근거로 적는 번호입니다. 예: L001",
+              "locked_label": "열지 않는 문서",
+              "locked_none": "없음",
+              "locked_eval": "최종 평가 문서 {count}건. 점수가 부풀지 않도록 복사만 하고 열지 않습니다.",
+              "locked_same": "{doc}는 최종 평가 문서 {eval_doc}와 원본이 같습니다.",
+              "locked_unknown": "용도를 확인할 수 없는 문서 {count}건. 문서 폴더의 meta.json에 문서 번호가 있어야 열립니다.",
+              "target_label": "앱에 넣을 곳",
+              "target_new": "이 앱을 켠 작업 폴더에만 들어갑니다. 받은 폴더는 그대로 둡니다.",
+              "target_same": "이미 앱에 있습니다. 복사하지 않습니다.",
+              "target_conflict_title": "앱에 같은 이름의 다른 폴더가 있습니다.",
+              "target_conflict": "덮어쓰지 않습니다. 받은 폴더의 이름을 바꾼 뒤 다시 검사하세요. 예: version18_2",
+              "past_label": "지난 결과",
+              "past_value": "지우지 않습니다. 이전 문서 묶음으로 돌아가면 다시 보입니다.",
+              "apply_note_new": "누르면 이 폴더를 앱으로 복사하고 화면 위쪽의 시험할 문서 묶음을 이 폴더로 바꿉니다. 다음 화면의 되돌리기 단추로 이전 묶음으로 돌아갈 수 있습니다.",
+              "apply_note_same": "누르면 복사 없이 화면 위쪽의 시험할 문서 묶음만 이 폴더로 바꿉니다. 다음 화면의 되돌리기 단추로 이전 묶음으로 돌아갈 수 있습니다.",
+              "apply": "이 폴더로 바꾸기", "applying": "폴더를 복사하고 있습니다.", "switching": "문서 묶음을 바꾸고 있습니다.", "other": "다른 폴더 고르기"},
+    "done": {"title": "이제 이 폴더로 시험합니다.",
+             "changed": "화면 위쪽의 시험할 문서 묶음이 바뀌었습니다.",
+             "results_none": "이 폴더로 만든 결과가 아직 없어 최근 결과 화면은 비어 있습니다.",
+             "results_found": "이 폴더로 만든 결과 {count}개를 최근 결과에서 볼 수 있습니다.",
+             "off_title": "다음 할 일: AI 켜기",
+             "off_note": "시험하려면 AI가 켜져 있어야 합니다. 이 단추는 서버 고르는 화면만 엽니다. 요금은 그 화면에서 서버를 만든 때부터 나갑니다.",
+             "off_action": "서버 고르는 화면 열기",
+             "on_title": "다음 할 일: 여러 문서 시험하기",
+             "on_note": "AI가 연결되어 있습니다. 이 단추는 시험할 문서를 고르는 화면만 엽니다. 시험은 그 화면에서 시작합니다.",
+             "on_action": "시험 화면 열기",
+             "undo_title": "되돌리기",
+             "undo_note": "이전 문서 묶음({set})으로 돌아갑니다. 복사한 파일은 지우지 않습니다.",
+             "undo": "되돌리기", "undone": "이전 문서 묶음으로 돌아갔습니다."},
+    "gold": {"title": "새 정답은 GitHub에서 받습니다.",
+             "lead": "정답 담당이 검수해 올립니다. 앱에서 정답 파일을 고치지 않습니다. 고칠 곳을 찾으면 담당에게 알려 주세요.",
+             "now_title": "내 컴퓨터에 받아 둔 정답",
+             "name_label": "이름", "name_value": "사람이 확인한 정답",
+             "commit_label": "최근에 올린 것", "commit_none": "기록을 읽지 못했습니다.",
+             "docs_label": "점수에 쓰는 정답", "docs_value": "개발용 문서 {count}건",
+             "eval_label": "최종 평가용 정답", "eval_value": "{count}건. 점수가 부풀지 않도록 파일을 열지 않고 개수만 셉니다.",
+             "selected_label": "지금 비교 중인 정답",
+             "other_selected": "지금 점수는 이 정답이 아니라 다른 정답과 비교합니다.",
+             "use_gold": "이 정답으로 바꾸기",
+             "checking": "GitHub를 확인하고 있습니다.",
+             "behind_title": "GitHub에 더 새 정답이 있습니다. 개발용 문서 {dev}건, 최종 평가 문서 {eval_docs}건이 다릅니다.",
+             "behind_body": "터미널에서 아래 명령으로 받은 뒤 다시 확인하기를 누르세요. 앱을 다시 켤 필요는 없습니다.",
+             "branch_note": "이 앱은 {branch} 가지에서 켜져 있어 main의 정답을 합치는 명령을 보여 줍니다.",
+             "latest": "GitHub의 정답과 같습니다. 받을 것이 없습니다.",
+             "offline": "GitHub에 연결하지 못했습니다. 받아 둔 정답은 그대로 쓸 수 있습니다.",
+             "changed_title": "지난번 뒤로 새 정답이 들어왔습니다. 개발용 문서 {dev}건, 최종 평가 문서 {eval_docs}건이 바뀌었습니다.",
+             "changed_docs": "바뀐 개발용 문서: {docs}",
+             "after": "새 정답을 받으면 저장된 결과의 점수를 AI 없이 다시 계산합니다. 저장된 AI 결과는 바뀌지 않습니다.",
+             "recheck": "다시 확인하기", "open_scores": "최근 결과의 점수 보기"},
+    "problems": {
+        "swap_no_path": {"message": "폴더를 찾지 못했습니다: {path}", "fix": "폴더의 전체 경로를 적어 주세요. 예: /Users/내이름/Downloads/version18"},
+        "swap_doc_folder": {"message": "{name}은 문서 하나의 폴더입니다.", "fix": "그 위 폴더를 고르세요."},
+        "swap_bad_name": {"message": "폴더 이름을 쓸 수 없습니다: {name}", "fix": "글자, 숫자, 밑줄만 남도록 이름을 바꾼 뒤 다시 검사하세요. 예: version18"},
+        "swap_no_docs": {"message": "{name} 바로 안에 문서 폴더가 없습니다.", "fix": "압축을 풀었는지 확인하세요. 한 단계 안쪽 폴더일 수도 있습니다. 문서 폴더에는 p001.txt 같은 파일이 있습니다."},
+        "swap_unusable": {"message": "{name}에는 시험할 수 있는 문서가 없습니다.", "fix": "폴더를 보낸 담당에게 줄 번호가 있는 판을 요청하세요."},
+        "swap_conflict": {"message": "앱에 같은 이름의 다른 폴더가 있습니다: {target}", "fix": "받은 폴더의 이름을 바꾼 뒤 다시 검사하세요. 예: version18_2"},
+        "swap_copy_failed": {"message": "폴더를 복사하지 못했습니다: {detail}", "fix": "디스크 공간과 폴더 권한을 확인한 뒤 다시 누르세요. 복사하다 만 파일은 남지 않습니다."},
+    },
+}
+
 POLISH_TEXT = UI_TEXT
 
 
@@ -3823,6 +3948,13 @@ for _journey_group, _journey_values in UI_TEXT["journey"]["record"].items():
             JOURNEY_TEXT["errors"][_journey_kind].update(_journey_copy)
     else:
         JOURNEY_TEXT[_journey_group] = dict(_journey_values)
+
+
+def swap_problem(kind: str, **facts) -> dict:
+    """자료 바꾸기의 오류 본문 {"error", "message", "fix"}."""
+    copy = UI_TEXT["swap"]["problems"][kind]
+    message = copy["message"].format(**facts)
+    return {"error": message, "message": message, "fix": copy["fix"]}
 
 
 def journey_problem(kind: str, **facts) -> dict:
