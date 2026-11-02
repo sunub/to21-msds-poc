@@ -22,6 +22,7 @@ from functools import lru_cache
 
 import yaml
 
+from .classifier import effective_components
 from .htodb.regulation import covered_items
 from .mixture.params import RULES_DIR, param_list
 from .mixture.rule_eval import evaluate_rules_trace
@@ -253,6 +254,8 @@ def _class4(physchem):
 
 
 _DG_ITEM = re.compile(r"특수인화물|알코올류|제[1-4]석유류|동식물유류")
+_DG_NOT_BY_FLASH = ("특수인화물", "알코올류", "동식물유류")  # 성분 정보나 끓는점·발화점이 있어야 정한다
+_DG_LITER = ("L", "ℓ", "리터", "l")
 
 
 def _dg_db_name(group_name) -> tuple[str | None, str | None]:
@@ -264,21 +267,31 @@ def _dg_db_name(group_name) -> tuple[str | None, str | None]:
     return m.group(), water
 
 
-def _dg_differences(inputs, want_item, db_water) -> list[str]:
-    """MSDS 15항 위험물 행의 품명·수용성·지정수량을 판정한 품명과 맞춰 본다 (설계서 29장 5단계)."""
+def _dg_differences(inputs, item9, db_item, db_water) -> list[str]:
+    """MSDS 15항 위험물 행의 류·품명·수용성·지정수량을 판정한 품명과 맞춰 본다 (설계서 29장 5단계).
+
+    MSDS가 9항 값만으로 정할 수 없는 품명을 적었으면 DB 품명으로만 비교한다. 없으면 비교하지 않는다.
+    shortcut: 9항 용해도와 DB 지정수량은 대조하지 않는다. 용해도 문구 판독과 품목별 지정수량 행 선택을 만들 때 넣는다.
+    """
     rows = [d for d in inputs.get("dangerous_goods") or [] if d.get("item")]
     row = next((d for d in rows if str(d.get("comp_ref")) == "MIX"), rows[0] if rows else None)
+    want_item = db_item if row and row["item"] in _DG_NOT_BY_FLASH else item9 or db_item
     if row is None or want_item is None:
         return []
+    if _DG_ITEM.fullmatch(want_item) and row.get("class") not in (None, "제4류"):
+        return [f"류: MSDS {row['class']}, 판정 제4류 {want_item}"]
     if row["item"] != want_item:
         return [f"품명: MSDS {row['item']}, 판정 {want_item}"]
+    if want_item != db_item:
+        db_water = None
     out, water = [], row.get("water_soluble") if row.get("water_soluble") in ("수용성", "비수용성") else None
     if water and db_water and water != db_water:
         out.append(f"수용성: MSDS {water}, 지식DB {db_water}")
     rule = next((r for r in _dg_table()["rules"] if r["item"] == want_item), None)
     table_qty = (rule or {}).get("qty") or {}
     expected_qty = table_qty.get("any") or table_qty.get(water or db_water)
-    msds_qty = (row.get("designated_qty") or {}).get("value")
+    qty = row.get("designated_qty") or {}
+    msds_qty = qty.get("value") if qty.get("unit") in _DG_LITER else None
     if expected_qty and msds_qty is not None and float(msds_qty) != float(expected_qty):
         out.append(f"지정수량: MSDS {msds_qty:g}L, 시행령 별표1 {expected_qty:g}L")
     return out
@@ -296,7 +309,10 @@ def _dg(inputs, sup, know_all):
     item, edge, basis = _class4(inputs.get("physchem"))
     db_names = {_dg_db_name(g) for _, _, g in db} - {(None, None)}
     db_item, db_water = next(iter(db_names)) if len(db_names) == 1 else (None, None)
-    want_item = item or db_item  # 인화점이 없으면 DB 품명으로 비교한다 (설계서 29장 6단계)
+    is_single = (inputs.get("composition") or {}).get("type") == "단일물질"
+    # 인화점이 없으면 DB 품명으로 비교한다 (설계서 29장 6단계). 혼합물의 DB 품명은 성분 것이라 제품 품명이 아니다
+    db_item, db_water = (db_item, db_water) if is_single else (None, None)
+    want_item = item or db_item
     src = [f"HTODB {i} {n}" + (f" {g}" if g else "") for i, n, g in db] + [f"9항: {basis}"]
     if db or (item and not edge):
         exp = "해당"
@@ -315,12 +331,11 @@ def _dg(inputs, sup, know_all):
                     cause="CONDITION_CHECK", **common)
     if exp == "해당":
         if s == "해당":
-            diff = _dg_differences(inputs, want_item, db_water if want_item == db_item else None)
+            diff = _dg_differences(inputs, item, db_item, db_water)
             if diff:
                 return _row("MIX", None, "DG", "DG_HAZMAT", MISMATCH, RULE_IDS[THRESHOLD], type_=THRESHOLD, expected=exp,
                             reason=f"위험물 {'; '.join(diff)}: {reason}", **common)
-            if item and db_item and item != db_item and (inputs.get("composition") or {}).get("type") == "단일물질":
-                # 혼합물의 DB 품명은 성분 것이라 제품 품명과 달라도 이상이 아니다
+            if item and db_item and item != db_item and db_item not in _DG_NOT_BY_FLASH:
                 return _row("MIX", None, "DG", "DG_HAZMAT", "경고", RULE_IDS["match"], expected=exp,
                             reason=f"9항으로 정한 품명 {item}과 지식DB 품명 {db_item}이 다름: {reason}", **common)
             return _row("MIX", None, "DG", "DG_HAZMAT", MATCH, RULE_IDS["match"], expected=exp, reason=reason, **common)
@@ -345,8 +360,9 @@ def judge_sec15(inputs: dict, provider, *, non_toxic_cas=None) -> dict:
     non_toxic = set(param_list("non_toxic_cas") if non_toxic_cas is None else non_toxic_cas)
     as_of = inputs.get("as_of_date")
     comps = {str(c.get("seq")): c for c in inputs.get("components") or []}
-    single = (inputs.get("composition") or {}).get("type") == "단일물질" and len(comps) == 1
-    sup = _supplier(inputs.get("regulations"), next(iter(comps)) if single else None)
+    main_comps = effective_components(inputs.get("components"))
+    single = (inputs.get("composition") or {}).get("type") == "단일물질" and len(main_comps) == 1
+    sup = _supplier(inputs.get("regulations"), str(main_comps[0].get("seq")) if single else None)
     uses_new_cca = any(k[2] in NEW_CCA for k in sup)
     know = {ref: provider.get_regulation(c["cas_no"], as_of) for ref, c in comps.items() if c.get("cas_no")}
     refs: dict[tuple, list[dict]] = {}
@@ -430,6 +446,7 @@ def judge_sec15(inputs: dict, provider, *, non_toxic_cas=None) -> dict:
             s_row = {**b, "threshold": None, "_asm": b["_asm"] + [
                 f"항목별 행이 없어 법 단위 기재('{b.get('item_raw') or law}: 비해당')를 이 항목에 적용(11/02 F 결정 8)"]}
         verdicts.append(_judge_component(key, s_row, comp, know.get(ref_no), db_rows, covered, ph))
-    verdicts.append(_dg(inputs, sup, list(know.values())))
+    # 불순물은 제품의 위험물 품명을 정하지 않는다
+    verdicts.append(_dg(inputs, sup, [k for ref, k in know.items() if comps[ref].get("content_note") != "불순물"]))
     keyf = lambda r: (r["comp_ref"], r["law"] or "", r["item_code"] or "")
     return {"verdicts": sorted(verdicts, key=keyf), "excluded": sorted(excluded, key=keyf)}

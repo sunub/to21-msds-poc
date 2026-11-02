@@ -1,6 +1,6 @@
 """TO21이 준 수락 시험(Msds-test v0.4 test_to21_v6.py)의 P02~P05 기대값을 우리 엔진으로 확인한다.
 
-TO21 패키지와 다른 점은 시험마다 이유를 적었다. 입력값은 그 패키지의 products.csv·product_components.csv 다.
+입력값은 그 패키지의 products.csv·product_components.csv 다. 패키지와 다른 결과와 이유는 docs/backend/b/decisions.md 에 있다.
 """
 import pytest
 
@@ -211,7 +211,7 @@ def test_위험물_품명_수용성_지정수량이_맞으면_일치다():
 
 
 def test_위험물_수용성이_DB와_다르면_기준_불일치다():
-    v = _dg(_dg_inputs({"item": "제2석유류", "water_soluble": "수용성"}), {}, _dg_know("제2석유류 비수용성액체"))
+    v = _dg(_dg_inputs({"item": "제2석유류", "water_soluble": "수용성"}, kind="단일물질"), {}, _dg_know("제2석유류 비수용성액체"))
     assert v["verdict"] == "불일치" and "수용성" in v["reason"]
 
 
@@ -221,7 +221,7 @@ def test_위험물_지정수량이_시행령과_다르면_기준_불일치다():
 
 
 def test_인화점이_없으면_DB_품명으로_비교한다():  # 설계서 29장 6단계
-    v = _dg(_dg_inputs({"item": "제1석유류"}, flash=None), {}, _dg_know("제2석유류 비수용성액체"))
+    v = _dg(_dg_inputs({"item": "제1석유류"}, flash=None, kind="단일물질"), {}, _dg_know("제2석유류 비수용성액체"))
     assert v["verdict"] == "불일치" and v["db_threshold"] == "제2석유류"
 
 
@@ -232,3 +232,80 @@ def test_단일물질의_9항_품명과_DB_품명이_다르면_경고다():  # �
 
 def test_혼합물은_성분_DB_품명이_제품과_달라도_경고가_아니다():
     assert _dg(_dg_inputs({"item": "제2석유류"}), {}, _dg_know("제3석유류 비수용성액체"))["verdict"] == "일치"
+
+
+@pytest.mark.parametrize("item,flash,group", [("알코올류", 13, "알코올류"), ("동식물유류", 240, "동식물유류"), ("특수인화물", -30, "특수인화물")])
+def test_9항만으로_못_정하는_품명은_DB_품명으로만_비교한다(item, flash, group):
+    assert _dg(_dg_inputs({"item": item}, flash=flash, kind="단일물질"), {}, _dg_know(group))["verdict"] == "일치"
+
+
+def test_위험물_류가_다르면_기준_불일치다():
+    v = _dg(_dg_inputs({"item": "제2석유류", "class": "제3류"}), {}, _dg_know("제2석유류 비수용성액체"))
+    assert v["verdict"] == "불일치" and "류:" in v["reason"]
+
+
+def test_지정수량_단위가_리터가_아니면_비교하지_않는다():
+    row = {"item": "제2석유류", "water_soluble": "비수용성", "designated_qty": _q(200, "kg")}
+    assert _dg(_dg_inputs(row), {}, _dg_know("제2석유류 비수용성액체"))["verdict"] == "일치"
+
+
+def test_기체_물질의_흡입_가스는_재지정하지_않는다(repo):  # 설계서 D-22 "액체·고체 물질이면"
+    from msds.compliance.mixture.classify_mixture import _real_inhal_form
+    rows = [{"result_code": "GHS020303", "source": "KR02"}, {"result_code": "GHS020403", "source": "KR03"}]
+    assert _real_inhal_form({"state": "기체", "class_rows": rows, "db": []}) is None
+    assert _real_inhal_form({"state": None, "class_rows": rows, "db": []}) is None
+    assert _real_inhal_form({"state": "액체", "class_rows": [rows[0]], "db": []}) == "vapour"  # 근거가 없으면 성상 기본값
+    assert _real_inhal_form({"state": "고체", "class_rows": [rows[0]], "db": []}) == "mist"
+
+
+def test_코드_없이_문구만_있으면_없는_것이_아니라_근거부족이다(repo):  # T21-S001
+    doc = _single([{"class_code": "PH_PRESS_GAS", "category": "압축가스"}])
+    doc["msds"][0]["hazard"]["h_statements"] = [{"seq": 1, "code": None, "text": "고압가스 포함"}]
+    c = run_consistency(doc, repo)["consistency"]
+    h = [f for f in c["findings"] if f.get("class_code") == "LABEL_H_CODES"]
+    assert h and all(f["verdict"] == "근거부족" and "문구만" in f["reason"] for f in h)
+
+
+def test_불순물_ppm과_이하_표기를_읽는다(repo):
+    assert _carcinogen(repo, _toluene_with_benzene(_q(2000, "ppm")))["our_value"]["low"] == "1A"  # 0.2%
+    upper = {**_q(None, "%"), "raw": "<= 0.05", "upper": 0.05, "upper_op": "<="}
+    assert "불순물 함량" not in _carcinogen(repo, _toluene_with_benzene(upper))["reason"]  # 함량을 읽어 0.1% 미만으로 판단
+
+
+def test_불순물_미만_표기가_기준이면_닿지_않는다(repo):
+    below = {**_q(None, "%"), "raw": "< 0.1", "upper": 0.1, "upper_op": "<"}
+    assert _carcinogen(repo, _toluene_with_benzene(below))["verdict"] != "경계"
+
+
+def test_불순물_CAS가_없으면_참고로_남는다(repo):
+    doc = _toluene_with_benzene(_q(0.2, "%"))
+    doc["msds"][0]["components"][1]["cas_no"] = None
+    excluded = run_consistency(doc, repo)["consistency"]["excluded"]
+    assert any("불순물 벤젠" in (e.get("reason") or "") for e in excluded)
+
+
+def test_불순물은_제품_위험물_품명을_정하지_않는다(repo):
+    doc = _toluene_with_benzene(_q(0.01, "%"))
+    doc["msds"][0]["components"][0]["cas_no"] = "7732-18-5"  # 물
+    c = run_consistency(doc, repo)["consistency"]
+    dg = next(f for f in c["findings"] if f.get("item_code") == "DG_HAZMAT")
+    assert dg["type"] != "규제 누락"
+
+
+def test_교차_확인은_LD50_LC50만_쓴다(repo, contract_errors):
+    doc = _single([{"class_code": "HH_ACUTE_ORAL", "category": "4"}], [_tox("TX_ORAL", 3000, "mg/kg", descriptor="TDLo")])
+    assert _cross(repo, doc, contract_errors) == {}
+
+
+def test_교차_확인은_구분5와_분류안됨을_다르게_보지_않는다(repo, contract_errors):
+    assert _cross(repo, _single([{"class_code": "HH_ACUTE_ORAL", "category": "5"}], [_tox("TX_ORAL", 3000, "mg/kg")]), contract_errors) == {}
+
+
+def test_교차_확인은_30분_값을_4시간_값으로_쓰지_않는다(repo, contract_errors):
+    row = _tox("TX_INHAL", 8.3, "mg/L", descriptor="LC50", physical_form="분진·미스트", duration_value=30, duration_unit="min")
+    assert _cross(repo, _single([{"class_code": "HH_ACUTE_INHAL", "category": "4", "route_form": "분진·미스트"}], [row]), contract_errors) == {}
+
+
+def test_12항_마이크로그램_단위를_환산한다(repo, contract_errors):
+    fish = _tox("ECO_FISH", 500, "µg/L", descriptor="LC50")
+    assert "m0/F2:CROSS:ENV_AQ_ACUTE:-" in _cross(repo, _single([{"class_code": "ENV_AQ_ACUTE", "category": "3"}], ecotox=[fish]), contract_errors)

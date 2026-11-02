@@ -11,6 +11,7 @@ from functools import lru_cache
 
 import psycopg
 
+from .classifier import effective_components
 from .consistency import ENGINE_VERSION, _reassign_gas, run_consistency
 from .mixture.acute import value_to_category
 from .mixture.build_components import _state
@@ -253,13 +254,21 @@ def _class(row, ctx):
 _CROSS_ROUTE = {"HH_ACUTE_ORAL": ("TX_ORAL", "oral"), "HH_ACUTE_DERMAL": ("TX_DERMAL", "dermal"), "HH_ACUTE_INHAL": ("TX_INHAL", "inhal")}
 _FORM_EN = {"가스": "gas", "증기": "vapour", "분진·미스트": "mist"}
 _ROUTE_KO = {"oral": "경구", "dermal": "경피", "inhal": "흡입"}
-_AQ_DESCRIPTORS = ("LC50", "EC50", "ERC50", "EBC50", "LL50", "EL50")
+_AQ_DESCRIPTORS = ("LC50", "EC50", "ERC50", "EBC50", "LL50", "EL50", "LEC50", "IC50")
+_AQ_UNIT_TO_MG_L = {"mg/l": 1.0, "㎎/ℓ": 1.0, "㎎/l": 1.0, "mg/ℓ": 1.0, "ug/l": 0.001, "µg/l": 0.001, "μg/l": 0.001}
 _AQ_CAT1_MAX = 1.0  # mg/L
 
 
-def _own_values(rows):
+def _own_values(rows, refs):
     """이 물질의 단일 수치 행. 범위·부등호는 구분을 하나로 정할 수 없어 뺀다."""
-    return [r for r in rows if str(r.get("comp_ref")) in ("1", "MIX") and (r.get("q") or {}).get("value") is not None]
+    return [r for r in rows if str(r.get("comp_ref")) in refs and (r.get("q") or {}).get("value") is not None]
+
+
+def _exposure_hours(row):
+    unit, value = str(row.get("duration_unit") or "").lower(), row.get("duration_value")
+    if value is None:
+        return None
+    return value if unit.startswith(("h", "시")) else value / 60 if unit.startswith(("min", "분")) else None
 
 
 def _cross_finding(i, cc, form, stated, low, reason, ctx):
@@ -271,30 +280,45 @@ def _cross_finding(i, cc, form, stated, low, reason, ctx):
 
 
 def _cross_checks(i, item, ctx):
-    """11항 LD50·LC50과 12항 L(E)C50으로 정한 구분이 MSDS 2항과 다르면 내부 불일치 경고. 2항 판정과 별도다."""
+    """11항 LD50·LC50과 12항 L(E)C50으로 정한 구분이 MSDS 2항과 다르면 내부 불일치 경고. 2항 판정과 별도다.
+
+    shortcut: 분자량·밀도가 있어야 하는 단위(증기 ppm, mmol/kg, mL/kg)와 표에 없는 노출시간은 건너뛴다. 실버에 그런 단일물질 값이 없다.
+    """
     stated: dict = {}
     for c in (item.get("hazard") or {}).get("classes") or []:
         stated.setdefault(c.get("class_code"), []).append(c)
+    main = effective_components(item.get("components"))
+    refs = {"MIX", *(str(c.get("seq")) for c in main[:1])}
+    state = _state(item, [])
+    default_form = {"액체": "증기", "고체": "분진·미스트", "가스": "가스", "기체": "가스"}.get(state)  # D-06
     out = []
     for cc, (endpoint, route) in _CROSS_ROUTE.items():
-        rows = [r for r in _own_values(item.get("toxicity") or []) if str(r.get("endpoint")).startswith(endpoint)]
+        rows = [r for r in _own_values(item.get("toxicity") or [], refs)
+                if str(r.get("endpoint")).startswith(endpoint) and r.get("descriptor") in ("LD50", "LC50")]
         found: dict = {}
         for r in rows:
             q = r["q"]
-            forms = {c.get("route_form") for c in stated.get(cc, [])}
-            form = r.get("physical_form") if r.get("physical_form") in _FORM_EN else next(iter(forms)) if len(forms) == 1 else None
-            if route == "inhal" and form not in _FORM_EN:
-                continue
-            t = to_target(q["value"], q.get("unit"), route, _FORM_EN.get(form), hours=r.get("duration_value") if str(r.get("duration_unit")).lower().startswith(("h", "시")) else None)
-            if t and ((form if route == "inhal" else None) not in found or t["value"] < found[form if route == "inhal" else None]):
-                found[form if route == "inhal" else None] = t["value"]
+            form = None
+            if route == "inhal":
+                forms = {c.get("route_form") for c in stated.get(cc, [])} - {None}
+                form = r.get("physical_form") if r.get("physical_form") in _FORM_EN else next(iter(forms)) if len(forms) == 1 else default_form
+                if form not in _FORM_EN:
+                    continue
+            t = to_target(q["value"], q.get("unit"), route, _FORM_EN.get(form), hours=_exposure_hours(r))
+            if t and "미환산" not in t["note"] and (form not in found or t["value"] < found[form]):
+                found[form] = t["value"]
         for form, value in found.items():
             cat = value_to_category(_ROUTE_KO[route], form, value) or "분류안됨"
-            cats = [c.get("category") for c in stated.get(cc, []) if route != "inhal" or c.get("route_form") == form]
+            rows_2 = stated.get(cc, [])
+            if route == "inhal" and rows_2 and all(c.get("route_form") not in (form, None) for c in rows_2):
+                continue  # 2항이 다른 형태로 적었으면 형태 차이는 2항 판정이 본다
+            cats = [c.get("category") for c in rows_2 if route != "inhal" or c.get("route_form") in (form, None)]
+            if "5" in cats and cat == "분류안됨":  # 구분5는 고시 밖이라 참고로만 둔다 (D-18)
+                continue
             if (cats or ["분류안됨"]) != [cat] and cat not in cats:
                 out.append(_cross_finding(i, cc, form, cats, cat, f"내부 불일치: 11항 값 {value:g}이면 {cat}인데 2항은 {_one(cats) or '기재 없음'}", ctx))
-    aq = [r["q"]["value"] for r in _own_values(item.get("ecotox") or [])
-          if str(r.get("descriptor")).upper().replace("(", "").replace(")", "") in _AQ_DESCRIPTORS and str(r["q"].get("unit")).lower() in ("mg/l", "㎎/ℓ")]
+    aq = [r["q"]["value"] * _AQ_UNIT_TO_MG_L[str(r["q"].get("unit")).lower()] for r in _own_values(item.get("ecotox") or [], refs)
+          if str(r.get("descriptor")).upper().replace("(", "").replace(")", "") in _AQ_DESCRIPTORS and str(r["q"].get("unit")).lower() in _AQ_UNIT_TO_MG_L]
     if aq:
         value, cats = min(aq), [c.get("category") for c in stated.get("ENV_AQ_ACUTE", [])]
         if (value <= _AQ_CAT1_MAX) != ("1" in cats):
