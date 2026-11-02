@@ -404,7 +404,9 @@ def test_practice_result_says_practice_done_not_done():
         assert.notEqual(states[0].textContent,T('jobs.status.done'));
       }
       listed=[job('done')];response=result(true);await jobsPoll();await jobsLoadResult('j1');
-      assert.equal(el('jobs-result').querySelector('[data-job-status]').textContent,T('jobs.status.done'));
+      // 실제 시험은 제목과 단계 표시가 끝났음을 말한다. 상태 글은 작업 기록에서 본다.
+      assert.equal(el('jobs-result').querySelector('[data-job-status]'),null);
+      assert.equal(el('jobs-list').querySelector('[data-job-status]').textContent,T('jobs.status.done'));
       assert.equal(S.journey.outcomes.t2.real,null);
     """)
 
