@@ -118,8 +118,12 @@ textarea { resize: vertical; }
 #context-model { flex: none; }
 .context-dot { width: var(--space-small); height: var(--space-small); border: 2px solid var(--muted); border-radius: 50%; }
 .context-ai.on { border-color: var(--accent); background: var(--soft); }
+.context-ai.billing { border-color: var(--accent); }
+.context-ai.billing .context-dot { border-color: var(--accent); }
+.context-ai.billing small:last-child { color: var(--ink); }
 .context-ai.on .context-dot { background: var(--accent); border-color: var(--accent); }
 #context-model.error .context-ai { border: var(--border-failure); }
+#context-model.error .context-ai b { color: var(--failure); }
 .context-ai-name { display: none; }
 .context-errors, .context-notice { grid-column: 1 / -1; }
 .context-errors:empty, .context-notice:empty { display: none; }
@@ -608,8 +612,10 @@ button.step:hover { background: var(--ground); }
 .step-actions { position: sticky; bottom: 0; z-index: 10; display: flex; align-items: center; gap: var(--space-control-y); margin: auto calc(-1 * var(--work-x)) calc(-1 * var(--space-page)); min-height: 64px; padding: var(--space-control-y) var(--work-x); background: var(--paper); border-top: var(--border-standard); }
 .step-actions > button { flex: none; white-space: nowrap; }
 .step-actions-say { flex: 1; min-width: 0; margin: 0; color: var(--muted); font-size: var(--label-size); }
-#details-drawer { position: fixed; inset: 0 0 0 auto; width: min(500px, 100vw); height: 100vh; max-height: 100vh; margin: 0 0 0 auto; padding: 0; border: 0; border-left: var(--border-selected); border-radius: 0; }
+#details-drawer { position: fixed; top: calc(var(--sticky-offset) - 16px); right: 0; bottom: 0; left: auto; width: min(500px, 100vw); height: calc(100vh - var(--sticky-offset) + 16px); max-height: calc(100vh - var(--sticky-offset) + 16px); margin: 0 0 0 auto; padding: 0; border: 0; border-left: var(--border-selected); border-radius: 0; }
 #details-drawer[open] { display: flex; flex-direction: column; }
+/* 서랍을 열어도 위쪽 막대의 요금 글은 어둡게 덮지 않는다. */
+#details-drawer::backdrop { top: calc(var(--sticky-offset) - 16px); }
 .drawer-head { display: flex; flex: none; align-items: center; justify-content: space-between; gap: var(--space-group); padding: var(--space-compact) var(--space-section-small); border-bottom: var(--border-standard); }
 .drawer-head h2 { margin: 0; }
 .drawer-close { flex: none; }
