@@ -14,7 +14,8 @@ from .htodb.regulation import RegulationProvider
 from .label import derive_label
 from .label_compare import compare_label
 from .loader import load_inputs
-from .mixture.build_components import build_components
+from .mixture.ate_source import inhal_forms
+from .mixture.build_components import _state, build_components
 from .mixture.class_lookup_db import make_db_class_lookup, make_db_info_lookup, make_db_tox_lookup
 from .mixture.classify_mixture import classify_mixture_all
 from .mixture.physical import physical_inputs
@@ -28,13 +29,30 @@ SINGLE_ASSUMPTIONS = [
     "단일물질은 지식DB 기준 분류(D-05 항목 단위 환경부→고용노동부)를 그대로 '우리 결과'로 보고 MSDS 2항과 비교(설계서 18장)",
     "기준 분류에 없는 항목을 MSDS만 적었으면 근거부족(설계서 18장: 두 출처 모두 없음 → 근거부족)",
     "같은 항목에 기준 구분이 여럿이면 가장 위험한 구분으로 비교",
+    "환경부 '흡입:가스'가 액체·고체 물질이면 다른 출처 형태로, 없으면 성상으로 재지정(D-22, D-06)",
 ]
+
+
+_FORM_NAME = {"gas": "가스", "vapour": "증기", "mist": "분진·미스트"}
+
+
+def _reassign_gas(classes: list[dict], raw_rows: list[dict], state: str | None) -> list[dict]:
+    """D-22: 환경부 '흡입:가스'가 액체·고체 물질이면 다른 출처 형태로, 없으면 성상 기준(D-06)으로 재지정한다. 성상을 모르면 그대로 둔다."""
+    if state not in ("액체", "고체"):
+        return classes
+    allowed = inhal_forms(state)
+    other = {r["form"] for r in raw_rows if r.get("class_code") == "HH_ACUTE_INHAL" and r.get("form") in allowed}
+    form = _FORM_NAME[next((f for f in allowed if f in other), allowed[0])]  # 성상 순서대로 (액체: 증기, 분진·미스트)
+    return [{**c, "route_form": form} if c["class_code"] == "HH_ACUTE_INHAL" and c["route_form"] == "가스" and c.get("source") == "환경부" else c
+            for c in classes]
 
 
 def _single_2(inputs: dict, item: dict, provider: ReferenceProvider) -> dict:
     comps = inputs.get("components") or []
     cas = comps[0].get("cas_no") if comps else None
     know = provider.get_reference(cas, inputs.get("as_of_date")) if cas else None
+    if know and know.get("classes"):
+        know = {**know, "classes": _reassign_gas(know["classes"], provider.class_rows(cas), _state(item, []))}
     msds_classes = (item.get("hazard") or {}).get("classes") or []
     rules = load_mixture_rules()
     groups: dict[tuple, list[str]] = {}
