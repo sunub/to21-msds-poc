@@ -245,6 +245,9 @@ body:has(#screen-s02:not([hidden])) { height: 100vh; min-height: 0; }
 body:has(#screen-s02:not([hidden])) .sidebar { min-height: 0; overflow-y: auto; }
 .work:has(> #screen-s02:not([hidden])) { min-height: 0; overflow: hidden; }
 #screen-s02:not([hidden]) { min-height: 0; }
+/* 안내 띠는 약 430px이다. 열려 있으면 칸을 누르지 않고 작업 영역을 스크롤한다. 보통 때는 스크롤하지 않는다. */
+.work:has(> #journey-strip:not([hidden])):has(> #screen-s02:not([hidden])) { overflow-x: hidden; overflow-y: auto; }
+.work:has(> #journey-strip:not([hidden])) > #screen-s02:not([hidden]) { flex: none; height: calc(100vh - 112px); }
 #source-flow, .step-screen:has(> #source-stage) { min-height: 0; min-width: 0; }
 /* 이 화면은 스크롤하지 않는다. sticky는 행동 줄을 부모 안에 가둬 창 아래에 틈을 남기고 비교 영역을 가린다. */
 #screen-s02 .step-actions { position: static; }
