@@ -1398,8 +1398,8 @@ UI_TEXT["servers"] = {'confirm': {'load': {'title': '회사 서버에서 {model}
                       'action': '확인하고 모델 켜기'},
              'create': {'title': '요금을 내고 새 서버를 만들까요?',
                         'target': '{model}. 기존 서버가 있으면 비용이 추가됩니다.',
-                        'cost': '켜진 동안 시간당 약 ${cost_per_hour}가 듭니다(예시). 준비 완료 시각은 모릅니다. 사용 뒤 삭제하세요. 앱이 만든 '
-                                '서버는 생성 후 4시간에 자동 삭제됩니다. 앱이 켜져 있어야 예약을 확인합니다.',
+                        'cost': '켜진 동안 시간당 약 ${cost_per_hour}가 듭니다(예시). 준비 완료 시각은 모릅니다. 요청이 20분 없으면 앱이 지우고, '
+                                '앱이 꺼져 있어도 서버 안 타이머가 4시간에 지웁니다.',
                         'action': '시간당 약 ${cost_per_hour} 서버 만들기'},
              'delete': {'title': '서버 {server}을 삭제할까요?',
                         'target': '{pod_id}. 이 앱이 만든 서버입니다. 진행 작업은 없습니다.',
@@ -1487,7 +1487,7 @@ UI_TEXT["servers"] = {'confirm': {'load': {'title': '회사 서버에서 {model}
                          'cost_meaning': '추가 임대료가 없다는 뜻입니다. 회사 장비의 운영비까지 없다는 뜻은 아닙니다.'},
              'rented': {'cost': '시간당 약 ${cost_per_hour} (예시)',
                         'wait': '준비 시간은 매번 다릅니다. 준비 중에는 기다린 시간을 보여 줍니다.',
-                        'cleanup': '사용 뒤 삭제하세요. 앱이 만든 서버는 생성 후 4시간에 자동 삭제됩니다.'}},
+                        'cleanup': '사용 뒤 삭제하세요. 잊어도 요청이 20분 없으면 앱이 지우고, 서버 안 타이머가 4시간에 지웁니다.'}},
  'company': {'connected': '회사 서버로 가는 연결 통로는 열려 있습니다.',
              'off': '이 서버의 AI는 꺼져 있습니다. 켜는 데 보통 15~25분 걸립니다.',
              'confirm_load': '{model} 켜기 확인하기',
@@ -1549,7 +1549,7 @@ UI_TEXT["servers"] = {'confirm': {'load': {'title': '회사 서버에서 {model}
             'cost': '실제 요금이 나갑니다: 시간당 약 ${cost_per_hour} (예시).',
             'estimated_cost': '가동 {hours}시간의 추정 비용은 ${cost}입니다.',
             'deletion_hours': '생성 후 4시간에 자동 삭제합니다. 지금은 {hours}시간 남았습니다.',
-            'scheduler': '앱이 켜져 있어야 예약된 삭제를 확인합니다.',
+            'scheduler': '20분 자동 삭제는 앱이 켜져 있을 때 돕니다. 4시간 타이머는 서버 안에서 돌아 앱이 꺼져도 지웁니다.',
             'list_storage': '서버 목록과 저장공간 비용',
             'ownership': '소유와 상태',
             'uptime': '가동 시간',
@@ -2685,7 +2685,7 @@ UI_TEXT["help"] = {'settings': {'runpod_url_pattern': '빌린 서버의 중계 �
            'server_confirmation': '서버를 바꾸기 전에 대상과 비용을 확인합니다. 확인 화면의 실행 단추를 눌러야 요청합니다.',
            'server_locked': '시험이나 실행이 진행 중이면 서버 변경을 막습니다. 회사 연결 통로 열기는 진행 중에도 가능합니다.',
            'server_owner': '앱이 만든 빌린 서버만 삭제할 수 있습니다. 앱을 다시 켜면 같은 서버를 이어 씁니다.',
-           'server_cost': '앱이 만든 서버는 생성 후 4시간 자동 삭제 대상입니다. 예약을 확인하려면 앱이 켜져 있어야 합니다.',
+           'server_cost': '앱이 만든 서버는 요청이 20분 없으면 앱이 지웁니다. 앱이 꺼져 있어도 서버 안 타이머가 4시간에 지웁니다.',
            'server_record': '서버 기록은 runs/manual/server_log.md에 남습니다. 운영 기록은 docs/plan/RunPod_사용기록.md에 따로 '
                             '옮깁니다.',
            'limit': '길이 제한은 답이 길거나 공백을 계속 쓰거나 같은 글을 반복할 때 생깁니다. 끝난 이유가 length인지 요청 기록에서 확인하세요.',
@@ -3162,6 +3162,11 @@ COPY_EXCEPTIONS['common.codes.pod.STOPPED'] = "S5 결정 2: ⑤ 수락 11/1 승�
 UI_TEXT['common']['codes']['pod']['CREATED'] = '서버 생성됨'
 COPY_EXCEPTIONS['common.codes.pod.CREATED'] = "S5 결정 2: ⑤ 수락 11/1 승인"
 UI_TEXT['common']['codes']['pod']['PENDING'] = '서버 실행 대기 중'
+# 이 앱이 쓰는 Pod의 상태는 _pod_view가 글로 보낸다. 라벨 표에 없으면 "설명되지 않은 기록 값"으로 나온다 (11/2 수정)
+UI_TEXT['common'].setdefault('code_aliases', {}).setdefault('pod', {}).update({'준비됨': 'READY', '준비 중': 'LOADING'})
+UI_TEXT['common']['codes']['pod'].update({'READY': '준비됨', 'LOADING': '준비 중'})
+for _key in ('common.code_aliases.pod.준비됨', 'common.code_aliases.pod.준비 중', 'common.codes.pod.READY', 'common.codes.pod.LOADING'):
+    COPY_EXCEPTIONS[_key] = "11/2 서버 상태 표시 수정: 앱이 보내는 상태 이름"
 COPY_EXCEPTIONS['common.codes.pod.PENDING'] = "S5 결정 2: ⑤ 수락 11/1 승인"
 UI_TEXT['common']['codes'].setdefault('split', {})
 UI_TEXT['common']['codes']['split']['file'] = '저장된 부분 구간을 사용함'

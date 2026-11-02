@@ -762,6 +762,7 @@ def main(argv: list[str] | None = None) -> int:
     jobs = manager if a.runs_dir.resolve() == RUNS.resolve() else None
     # 키는 .env에서만: 켤 때 load_dotenv, 그 뒤 '설정 다시 읽기'. 켤 때 네트워크는 부르지 않는다(Pod 이어 쓰기는 첫 요청 때)
     servers = bs.ServerActions(os.environ, manager, RUNS / "manual" / "server_log.md", env_file=bs.ENV_FILE)
+    servers.start_idle_guard()                       # 요청이 멈춘 Pod를 지운다 (사용 후 닫기)
     # 첫 사용 기록은 --runs-dir와 상관없이 저장소의 runs/manual에 둔다. 켤 때 파일을 만들지 않는다(첫 PUT 때 만든다)
     ctx = AppContext(runs_dir=a.runs_dir, gold_dir=a.gold_dir, pages_dir=a.pages_dir, jobs=jobs,
                      pages_root=PAGES, model_status=servers.model_status, servers=servers, data_root=DATA,
