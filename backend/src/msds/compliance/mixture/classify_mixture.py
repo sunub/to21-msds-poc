@@ -3,6 +3,7 @@
 설계서 41장 모양(class_code, result, rule, inputs, calc, thresholds, assumptions, knowledge_version)으로 만든다.
 MSDS 기재와의 비교(판정 4종·심각도)는 하지 않는다.
 """
+from .ate_source import inhal_forms
 from .acute_classify import classify_acute
 from .class_inputs import _SOURCE_NAME
 from .evaluate_item import evaluate_item, include_min_for
@@ -93,15 +94,16 @@ def classify_item(item_id, components, mixture_props, *, rules=None, source_orde
 
 
 def _real_inhal_form(comp: dict) -> str | None:
-    """D-22: 환경부 '흡입:가스'가 붙은 성분의 실제 흡입 형태. 다른 출처 분류, 그다음 독성값에 증기·분진·미스트가 있으면 그 형태다.
-
-    shortcut: 둘 다 없으면 재지정하지 않는다. TO21은 물질 성상으로 정하지만 지식 조회에 물질 성상이 없다. 물질 성상을 조회하게 되면 넣는다.
-    """
+    """D-22: 환경부 '흡입:가스'가 붙은 액체·고체 물질의 실제 흡입 형태. 다른 출처 분류, 독성값, 성상 순으로 정한다. 기체 물질은 그대로 둔다."""
+    state = comp.get("state")
+    if state not in ("액체", "고체"):
+        return None
     for row in comp.get("class_rows") or []:
         hit = lookup_class(row["result_code"])
         if hit and hit[0] == "HH_ACUTE_INHAL" and hit[2] in ("vapour", "mist"):
             return hit[2]
-    return next((r["form"] for r in comp.get("db") or [] if r.get("route") == "inhal" and r.get("form") in ("vapour", "mist")), None)
+    from_tox = next((r["form"] for r in comp.get("db") or [] if r.get("route") == "inhal" and r.get("form") in ("vapour", "mist")), None)
+    return from_tox or inhal_forms(state)[0]
 
 
 def _acute_components(components) -> list[dict]:
