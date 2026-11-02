@@ -41,7 +41,7 @@ export function RetryButton({
           </>
         }
       >
-        <p>{filename} 의 모든 항을 모델에 다시 호출합니다. 성공한 항도 다시 돌리며 이전 결과는 덮어씁니다.</p>
+        <p>{filename} 의 모든 항을 모델에 다시 호출합니다. 성공한 항도 다시 돌리며 이전 결과는 덮어씁니다. 확인·수정 기록은 따로 보관되고 새 결과에는 이어지지 않습니다.</p>
         {retry.isError && (
           <p role="alert" className="mt-2 text-sm text-red">
             다시 돌리지 못했습니다. 서버가 켜져 있는지 확인하고 다시 눌러 주세요.
