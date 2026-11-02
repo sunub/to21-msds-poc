@@ -9,6 +9,8 @@ import json
 import re
 from functools import lru_cache
 
+import psycopg
+
 from .consistency import ENGINE_VERSION, _reassign_gas, run_consistency
 from .mixture.build_components import _state
 from .explain import item_names
@@ -40,11 +42,22 @@ _FAILED_SECTION = {
 }
 
 
+def is_connection_error(e: Exception) -> bool:
+    """값이나 코드가 아니라 연결 문제인가. 복구되면 같은 입력으로 성공한다. 쿼리 제한 시간 초과 등 서버가 답한 다른 오류는 뺀다."""
+    if isinstance(e, psycopg.OperationalError):  # 연결 전 실패는 sqlstate 가 없다. 08 연결, 53 자원 부족, 57P 서버 종료
+        return e.sqlstate is None or e.sqlstate[:2] in ("08", "53") or e.sqlstate[:3] == "57P"
+    return isinstance(e, (ConnectionError, TimeoutError))
+
+
+class KnowledgeUnavailable(RuntimeError):
+    """지식DB가 판정할 수 없는 상태 (적재 중 등). 글은 화면에 그대로 나가므로 접속 정보를 넣지 않는다."""
+
+
 class _WatchedRepo:
     """엔진의 지식 조회는 오류를 삼키고 '근거부족'으로 이어 간다. 오류를 적어 두어 judge()가 판정 대신 예외를 내게 한다."""
 
     def __init__(self, repo):
-        self._repo, self.errors = repo, []
+        self._repo, self.errors, self.connection_error = repo, [], None
 
     def __getattr__(self, name):
         attr = getattr(self._repo, name)
@@ -56,6 +69,8 @@ class _WatchedRepo:
                 return attr(*args, **kw)
             except Exception as e:
                 self.errors.append(f"{name}: {type(e).__name__}: {e}")
+                if is_connection_error(e):
+                    self.connection_error = e
                 raise
 
         return call
@@ -89,12 +104,21 @@ def current_versions(provider=None) -> dict:
         from .mixture.class_lookup_db import _DbRepo
         version = _DbRepo().version()
         if not version:
-            raise RuntimeError("지식DB 적재 차수가 하나로 정해지지 않음 (htodb.load_log 확인)")
+            raise KnowledgeUnavailable("지식DB 적재 차수가 하나로 정해지지 않음 (htodb.load_log 확인). 해결되면 자동으로 다시 판정함")
     else:
         version = provider.version() if hasattr(provider, "version") else "unknown"
     return {"engine_version": ENGINE_VERSION,
             "knowledge": {"provider": "reference", "version": version,
                           "rules": f"{load_mixture_rules()['meta']['version']}+{_loaded_rules_digest()}", "logic": LOGIC_ID}}
+
+
+def _has_value(v) -> bool:
+    """MSDS 내용이 있는가. 문서 정보·원문 조각·순번만 있으면 판정할 내용이 없다."""
+    if isinstance(v, dict):
+        return any(_has_value(x) for k, x in v.items() if k not in ("meta", "evidence", "seq"))
+    if isinstance(v, list):
+        return any(map(_has_value, v))
+    return bool(v.strip()) if isinstance(v, str) else bool(v)  # false·0 은 추출 기본값일 수 있어 내용으로 치지 않는다
 
 
 def judge(extraction: dict, as_of: str, provider=None, failed_sections=()) -> dict:
@@ -109,7 +133,11 @@ def judge(extraction: dict, as_of: str, provider=None, failed_sections=()) -> di
     results = []
     for i, item in enumerate(items):
         failed = [s for s in failed_sections if s["msds_index"] == i]
+        if not _has_value(item):  # 양쪽 다 비어 '일치'로 나오면 안 된다. 3항 실패는 모든 줄에 걸린다
+            failed = [*failed, {"msds_index": i, "section": 3, "error": "추출값이 비어 있음"}]
         results.append(_result(extraction, i, item, as_of, repo, versions["knowledge"]["version"], failed))
+    if repo.connection_error:
+        raise repo.connection_error
     if repo.errors:
         raise RuntimeError(f"지식DB 조회 실패 {len(repo.errors)}건: {repo.errors[0]}"[:500])
     out = {"contract": CONTRACT, "doc_id": (extraction.get("doc") or {}).get("doc_id"), "as_of": as_of,
@@ -333,7 +361,7 @@ def _threshold_q(text):
     """엔진의 기준 표기('>= 10%')를 계약의 TO21 Q 구조로."""
     if not text:
         return None
-    m = re.fullmatch(r"(>=|>|<=|<)\s*([\d.]+)\s*(\S*)", str(text).strip())
+    m = re.fullmatch(r"(>=|>|<=|<)\s*([\d.]+(?:[eE][-+]?\d+)?)\s*(\S*)", str(text).strip())
     if not m:  # '기준 농도 없음(함유하면 해당)'. 판단 근거 줄에 남는다
         return None
     side = "lower" if m[1].startswith(">") else "upper"
@@ -414,7 +442,7 @@ def _apply_failed(built, failed):
         if hit is None:
             continue
         for f, t in built:
-            if f["verdict"] not in _ACTIVE or not hit(f):
+            if f["verdict"] not in (*_ACTIVE, "근거부족") or not hit(f):  # 이미 근거부족이어도 진짜 이유로 바꾼다
                 continue
             text = f"{s['section']}항 추출 실패로 판정할 수 없음: {s.get('error') or '이유 없음'}"
             f.update(verdict="근거부족", type=None, severity=None, needs_explanation=True, reason=text, causes=["NO_BASIS"])
