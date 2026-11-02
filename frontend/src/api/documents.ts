@@ -73,7 +73,7 @@ export const documentDetailQuery = (id: string) =>
   queryOptions({
     queryKey: documentKeys.detail(id),
     queryFn: async ({ signal }) =>
-      isDemoDoc(id) ? (await loadDemo.detail()).DEMO_DETAIL : requestJson(documentDetailSchema, doc(id), { signal }),
+      isDemoDoc(id) ? (await loadDemo.detail()).demoDetail(id) : requestJson(documentDetailSchema, doc(id), { signal }),
     staleTime: 0,
     refetchInterval: (query) => {
       if (isPermanentError(query.state.error)) return false;

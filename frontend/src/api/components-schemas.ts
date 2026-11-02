@@ -1,6 +1,7 @@
 /*
- * 성분별 요약 API 계약: 명세서 API-14 (GET /api/v1/documents/{doc}/validations/{validation}/components?msds_id=).
- * findings-schemas.ts 와 같은 방식이다. 타입은 스키마에서 z.infer 로 뽑고, 이름은 서버가 보내는 그대로(snake_case) 둔다.
+ * 성분별 요약 화면이 쓰는 모델. 서버 응답이 아니다: 계약에는 성분 요약 API 가 없어서
+ * api/adapt/components.ts 가 판정 한 벌(judgment_view)에서 이 모양을 만든다. 만들 수 없는 칸은 그 파일 위쪽에 적었다.
+ * 아래 주석의 "명세 미확정"은 옛 명세서(API-14) 시절의 메모이고, 지금 기준은 contracts/ 다.
  *
  * 명세 미확정, 서버 확정 후 맞출 것 (우리가 임의로 정한 모양):
  *  - classifications 원소: {source, name, classification, version, basis}. name 은 위험 분류 이름(예: "피부"), classification 은 구분(예: "1"),

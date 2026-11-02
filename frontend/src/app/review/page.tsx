@@ -1,6 +1,8 @@
 "use client";
 
+import { useQuery } from "@tanstack/react-query";
 import { useRouter, useSearchParams } from "next/navigation";
+import { judgmentStatusQuery } from "@/api/judgments";
 import { Suspense, useState } from "react";
 import { DocSummaryLine } from "@/components/review/doc-summary-line";
 import { HistoryPanel } from "@/components/review/history/history-panel";
@@ -11,7 +13,7 @@ import { ReviewStateProvider, useReviewState } from "@/components/review/review-
 import { SaveGuardDialog } from "@/components/review/save-guard-dialog";
 import { ValuesPanel } from "@/components/review/values-panel";
 import { DocFrame } from "@/components/shell/doc-frame";
-import { UnderlineTabs } from "@/components/ui";
+import { Button, Callout, UnderlineTabs } from "@/components/ui";
 import { REVIEW_TABS, isReviewTab, routes, type ReviewTab } from "@/lib/routes";
 
 function ReviewBody({ doc }: { doc: string }) {
@@ -19,7 +21,8 @@ function ReviewBody({ doc }: { doc: string }) {
   const param = useSearchParams().get("tab");
   const tab: ReviewTab = isReviewTab(param) ? param : "hazard";
   const [guardOpen, setGuardOpen] = useState(false);
-  const { unresolvedCount } = useReviewState();
+  const { unresolvedCount, conflict, refresh } = useReviewState();
+  const status = useQuery(judgmentStatusQuery(doc)).data;
   // 처리하지 않은 판정이 없으면 경고 없이 바로 저장 화면으로 간다
   const requestSave = () =>
     unresolvedCount(2) + unresolvedCount(15) === 0 ? router.push(routes.save(doc)) : setGuardOpen(true);
@@ -35,6 +38,18 @@ function ReviewBody({ doc }: { doc: string }) {
         />
       </div>
       <DocSummaryLine docId={doc} />
+
+      {conflict && (
+        <Callout tone="danger" role="alert" className="flex flex-wrap items-center gap-2">
+          <span>더 새로운 판정 버전이 있습니다. 새로고침해 주세요.</span>
+          <Button onClick={refresh}>새로고침</Button>
+        </Callout>
+      )}
+      {status?.pending_handoff != null && (
+        <Callout role="status">
+          {status.state === "판정 중" ? "더 새로운 추출값으로 판정 중입니다." : "더 새로운 추출값으로 다시 판정할 수 있습니다."}
+        </Callout>
+      )}
 
       {tab === "values" ? (
         <ValuesPanel docId={doc} />

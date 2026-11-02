@@ -7,7 +7,8 @@ import { useMemo, useState } from "react";
 import { documentDetailQuery, reviewQuery } from "@/api/documents";
 import { findingsQuery } from "@/api/findings";
 import type { Verdict } from "@/api/findings-schemas";
-import { saveDocument, type SaveOptions, type SaveResponse } from "@/api/save";
+import { isConflict, judgmentViewQuery } from "@/api/judgments";
+import { saveDocument,type SaveOptions, type SaveResponse } from "@/api/save";
 import { VERDICT_LABEL, VERDICT_ORDER, VERDICT_TONE } from "@/components/review/hazard/verdict";
 import { useReviewState } from "@/components/review/review-state";
 import { useValidationId } from "@/components/review/shared/use-validation-id";
@@ -28,16 +29,18 @@ const SAVED_AT = new Intl.DateTimeFormat("ko-KR", {
   hour12: true,
 });
 
-/** 판정 요약에 건수가 0이어도 보여 주는 판정 (시안). 구버전·해당 없음·비교 제외는 있을 때만 보여 준다 */
-const SUMMARY_ALWAYS: Verdict[] = ["mismatch", "borderline", "insufficient_evidence", "warning", "match"];
+/** 판정 요약에 건수가 0이어도 보여 주는 판정 (시안). 경고·구버전·해당 없음·비교 제외는 있을 때만 보여 준다 (계약에 경고 판정이 없다) */
+const SUMMARY_ALWAYS: Verdict[] = ["mismatch", "borderline", "insufficient_evidence", "match"];
 
 const stem = (filename: string) => filename.replace(/\.pdf$/i, "");
 
 /** 저장 화면 (3.1 모두 처리, 3.2 미검토 포함). 어느 쪽인지는 검수 화면에서 이어받은 처리 상태로 정한다. */
 export function SaveView({ docId }: { docId: string }) {
   const reviewer = useReviewer() || "미지정";
-  const { ready, getState, unresolvedCount } = useReviewState();
+  const { ready, getState, unresolvedCount, version, refresh } = useReviewState();
   const validation = useValidationId(docId);
+  // 사람이 추출값을 검수한 기록(field_status). 비어 있으면 "추출값 미검수"
+  const fieldStatusCount = useQuery({ ...judgmentViewQuery(docId, validation), select: (v) => v.field_status.length }).data;
   const hazard = useQuery(findingsQuery(docId, validation, { section: 2 }));
   const regulation = useQuery(findingsQuery(docId, validation, { section: 15 }));
   const { data: doc } = useQuery(documentDetailQuery(docId));
@@ -58,8 +61,9 @@ export function SaveView({ docId }: { docId: string }) {
   }, [findings]);
 
   const save = useMutation({
-    mutationFn: () => saveDocument(docId, options, { reviewer, confirmed, exception, unresolved }, { fail: failDemo }),
+    mutationFn: () => saveDocument(docId, options, { reviewer, seenVersion: version ?? 1 }, { fail: failDemo }),
   });
+  const saveConflict = save.isError && isConflict(save.error);
   const saved: SaveResponse | undefined = save.data;
 
   // 처리 상태를 읽어 오기 전에는 어느 화면인지 알 수 없다 (잠깐 틀린 화면이 보이지 않게 기다린다)
@@ -76,7 +80,8 @@ export function SaveView({ docId }: { docId: string }) {
   const incomplete = unresolved > 0;
   const saving = save.isPending;
   const fileName = `${doc ? stem(doc.filename) : docId}_MSDS_검토결과.pdf`;
-  const extractionDone = review ? review.summary.sections_confirmed >= review.summary.sections_total : null;
+  const extractionDone =
+    fieldStatusCount === 0 ? false : review ? review.summary.sections_confirmed >= review.summary.sections_total : null;
 
   const title = !incomplete
     ? "검토를 마쳤습니다"
@@ -187,15 +192,29 @@ export function SaveView({ docId }: { docId: string }) {
           )}
           {saved && !saving && (
             <Callout tone="info" role="status" className="flex flex-col gap-0.5">
-              <b>저장했습니다.{incomplete && ` 미검토 ${saved.included.unreviewed}건 포함`}</b>
+              {/* 미검토 건수는 화면의 처리 대상(불일치·경계·근거부족 등) 기준이다. 저장본의 미검토 수는 일치 판정까지 세므로 쓰지 않는다 */}
+              <b>저장했습니다.{incomplete && ` 미검토 ${unresolved}건 포함`}</b>
               <span>
                 포함한 처리 {saved.included.confirmed + saved.included.exception}건 (확정 {saved.included.confirmed} · 예외 승인{" "}
                 {saved.included.exception})
-                {incomplete ? ` · 미검토 ${saved.included.unreviewed}건` : ""}
+                {incomplete ? ` · 미검토 ${unresolved}건` : ""}
               </span>
             </Callout>
           )}
-          {save.isError && !saving && (
+          {saveConflict && !saving && (
+            <Callout tone="danger" role="alert" className="flex flex-wrap items-center gap-2">
+              <span>더 새로운 판정 버전이 있습니다. 새로고침해 주세요.</span>
+              <Button
+                onClick={() => {
+                  refresh();
+                  save.reset();
+                }}
+              >
+                새로고침
+              </Button>
+            </Callout>
+          )}
+          {save.isError && !saveConflict && !saving && (
             <Callout tone="danger" role="alert" className="flex flex-wrap items-center gap-2">
               <span>저장하지 못했습니다. 잠시 뒤 다시 시도해 주세요.</span>
               <Button onClick={() => save.mutate()}>다시 시도</Button>

@@ -122,6 +122,11 @@ function DocumentRow({ doc }: { doc: DocumentSummary }) {
           {doc.counts.needs_review > 0 && <span className="text-amb-text"> · 확인 {doc.counts.needs_review}항</span>}
         </div>
         <Progress value={progress.percent} label={`${doc.filename} 진행률`} />
+        {doc.queue_position != null && (
+          <div className="mt-1 text-sm text-mut">
+            대기 {doc.queue_position}번째{doc.eta_seconds != null && ` · 약 ${Math.max(1, Math.ceil(doc.eta_seconds / 60))}분`}
+          </div>
+        )}
       </div>
       <div className={cn(COL.layer, "text-sm", doc.text_layer && doc.text_layer !== "정상" ? "text-amb-text" : "text-sub")}>
         {doc.text_layer ?? <span className="text-mut">판정 전</span>}

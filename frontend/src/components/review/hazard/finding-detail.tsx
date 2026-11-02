@@ -68,7 +68,7 @@ export function FindingDetailView({
 /** 확정·예외 승인 버튼과 의견 칸. 일치·해당 없음·비교 제외 판정은 처리 대상이 아니라 그리지 않는다. */
 function ReviewActions({ finding }: { finding: FindingSummary }) {
   const { getState, confirm, approveException, undo } = useReviewState();
-  const { state, opinion } = getState(finding.finding_id);
+  const { state, opinion, stale } = getState(finding.finding_id);
   const [draft, setDraft] = useState("");
   const inputId = `opinion-${finding.finding_id}`;
   const needOpinion = draft.trim() === "";
@@ -78,6 +78,7 @@ function ReviewActions({ finding }: { finding: FindingSummary }) {
       <div className="flex flex-col gap-2 border-t border-line2 pt-3">
         <div className="flex flex-wrap items-center gap-2">
           <StatusLabel tone="success">{REVIEW_STATE_LABEL[state]}</StatusLabel>
+          {stale && <StatusLabel tone="warning">판정이 바뀌어 다시 확인 필요</StatusLabel>}
           <Button
             variant="link"
             onClick={() => {
@@ -153,7 +154,8 @@ function DetailBody({ detail }: { detail: FindingDetail }) {
 
   return (
     <>
-      {explanation.source !== "unavailable" && (
+      {explanation.status === "writing" && <p className="text-sm text-mut">설명을 작성 중입니다. 잠시 뒤 자동으로 나타납니다.</p>}
+      {explanation.source !== "unavailable" && explanation.status !== "writing" && (
         <div className="flex flex-col gap-1.5">
           <p className="leading-relaxed [word-break:keep-all] break-words"><NoBreakDates text={explanation.text} /></p>
           <div className="flex flex-wrap items-center gap-2 text-sm text-mut">
@@ -164,6 +166,13 @@ function DetailBody({ detail }: { detail: FindingDetail }) {
             )}
             {explanation.check_status === "failed" && <span className="text-red">자동 검사를 통과하지 못했습니다</span>}
           </div>
+          {explanation.reasons.length > 0 && (
+            <ul className="m-0 list-disc pl-4.5 text-sm text-sub">
+              {explanation.reasons.map((r, i) => (
+                <li key={i}>{r}</li>
+              ))}
+            </ul>
+          )}
           {explanation.limitations.length > 0 && (
             <Callout className="[word-break:keep-all]">
               <ul className="m-0 list-none p-0">
@@ -210,7 +219,12 @@ function DetailBody({ detail }: { detail: FindingDetail }) {
         </div>
       )}
 
-      {pages.length > 0 && <p className="text-sm text-mut">원문 근거 {pagesText}</p>}
+      {pages.length > 0 && (
+        <p className="text-sm text-mut">
+          원문 근거 {pagesText}
+          {detail.evidence_status && ` · 추출값 ${detail.evidence_status}`}
+        </p>
+      )}
     </>
   );
 }

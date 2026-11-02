@@ -1,45 +1,33 @@
 /*
- * 저장 요청. 검수 결과를 서버에 스냅숏으로 남긴다.
- * 명세 미확정, 서버 확정 후 맞출 것: 요청 경로(POST /api/v1/documents/{doc}/snapshots), 요청 본문, 응답 모양은
- * 명세서 방향만 보고 정한 임시 값이다. 개발 중이고 문서 번호가 "demo" 이면 백엔드 없이 데모 응답을 쓴다.
+ * 저장 요청. POST /api/judgments/{job_id}/snapshots (계약 save_request → snapshot).
+ * 저장 화면의 PDF 옵션(수정 이력 부록·검토자 의견 포함)은 계약의 저장 요청에 없어 서버로 보내지 않는다.
+ * 검토자가 보고 있던 판정 버전(seenVersion)을 함께 보내고, 더 새 버전이 있으면 409 가 난다.
  */
-import { z } from "zod";
-import { requestJson } from "./client";
-import { isDemoDoc, loadDemo } from "@/lib/demo";
+import { postSnapshot } from "./judgments";
 
-/** 저장 화면의 옵션 (PDF 에 넣을 것) */
+/** 저장 화면의 옵션 (PDF 에 넣을 것). 서버로 보내지 않는다 */
 export type SaveOptions = { includeRevisionAppendix: boolean; includeOpinions: boolean };
 
-/** 저장에 포함하는 처리 상태 요약 */
-export type SaveSummary = { reviewer: string; confirmed: number; exception: number; unresolved: number };
+export type SaveSummary = { reviewer: string; seenVersion: number };
 
-export const saveResponseSchema = z.object({
-  snapshot_id: z.string(),
-  /** ISO-8601, 시간대 포함 */
-  saved_at: z.iso.datetime({ offset: true }),
-  included: z.object({
-    confirmed: z.int().nonnegative(),
-    exception: z.int().nonnegative(),
-    unreviewed: z.int().nonnegative(),
-  }),
-});
-export type SaveResponse = z.infer<typeof saveResponseSchema>;
+/** 저장 결과: 저장본 번호·시각과 저장에 담긴 처리 건수 */
+export type SaveResponse = {
+  snapshot_no: number;
+  saved_at: string;
+  included: { confirmed: number; exception: number; unreviewed: number };
+};
 
 /** demo.fail 은 데모 문서에서만 듣는다 (실패 화면을 백엔드 없이 보려는 용도) */
-export const saveDocument = async (
+export async function saveDocument(
   docId: string,
-  options: SaveOptions,
+  _options: SaveOptions,
   summary: SaveSummary,
   demo?: { fail?: boolean },
-): Promise<SaveResponse> =>
-  isDemoDoc(docId)
-    ? (await loadDemo.save()).demoSave(summary, !!demo?.fail)
-    : requestJson(saveResponseSchema, `/api/v1/documents/${encodeURIComponent(docId)}/snapshots`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          options: { include_revision_appendix: options.includeRevisionAppendix, include_opinions: options.includeOpinions },
-          reviewer: summary.reviewer,
-          review: { confirmed: summary.confirmed, exception_approved: summary.exception, unreviewed: summary.unresolved },
-        }),
-      });
+): Promise<SaveResponse> {
+  const s = await postSnapshot(docId, { reviewer: summary.reviewer, seen_version: summary.seenVersion }, demo);
+  return {
+    snapshot_no: s.snapshot_no,
+    saved_at: s.saved_at,
+    included: { confirmed: s.counts["불일치 확정"] + s.counts.확인, exception: s.counts["예외 승인"], unreviewed: s.counts.미검토 },
+  };
+}

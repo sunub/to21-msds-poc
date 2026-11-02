@@ -11,12 +11,17 @@ import { SEVERITY_LABEL, VERDICT_LABEL, VERDICT_TONE } from "./verdict";
 
 /** 처리한 판정의 표시 (공유 상태에서 읽는다). 처리 전이면 아무것도 그리지 않는다 */
 export function ProcessedMark({ findingId }: { findingId: string }) {
-  const { state } = useReviewState().getState(findingId);
-  if (state === "unreviewed") return null;
+  const { state, stale } = useReviewState().getState(findingId);
+  if (state === "unreviewed" && !stale) return null;
   return (
-    <span className={isProcessed(state) ? "block text-xs font-medium text-grn" : "block text-xs font-medium text-amb-text"}>
-      {REVIEW_STATE_LABEL[state]}
-    </span>
+    <>
+      {state !== "unreviewed" && (
+        <span className={isProcessed(state) ? "block text-xs font-medium text-grn" : "block text-xs font-medium text-amb-text"}>
+          {REVIEW_STATE_LABEL[state]}
+        </span>
+      )}
+      {stale && <span className="block text-xs font-medium text-amb-text">판정이 바뀌어 다시 확인 필요</span>}
+    </>
   );
 }
 

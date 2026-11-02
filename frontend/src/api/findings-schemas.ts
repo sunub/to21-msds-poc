@@ -62,6 +62,8 @@ export const findingSummarySchema = z.object({
   severity: severitySchema,
   review_state: reviewStateSchema,
   opinion_count: count,
+  /** 마지막 검토 뒤에 판정이 바뀌었으면 true (계약 review_state.stale) */
+  review_stale: z.boolean(),
   trace_id: z.string(),
   source_refs: z.array(sourceRefSchema),
 });
@@ -94,6 +96,10 @@ export type FindingsResponse = z.infer<typeof findingsResponseSchema>;
 
 export const explanationSchema = z.object({
   text: z.string(),
+  /** done = 설명 있음 / writing = 작성 중(계약 explanations 의 status) / none = 설명 대상 아님 */
+  status: z.enum(["done", "writing", "none"]),
+  /** 계약 explanations 의 reasons (설명 근거 문장들) */
+  reasons: z.array(z.string()),
   source: z.enum(["ai", "template", "unavailable"]),
   check_status: z.enum(["passed", "failed", "not_checked"]),
   limitations: z.array(z.string()),
@@ -117,6 +123,8 @@ export const findingDetailSchema = z.object({
   trace: traceSchema.nullable(),
   evidence: z.array(sourceRefSchema),
   review: z.object({ state: reviewStateSchema, opinions: z.array(z.string()) }),
+  /** 추출값(근거 칸)의 사람 검수 상태. 칸 기록이 없으면 미검수. 근거 칸이 없으면 null (계약 field_status) */
+  evidence_status: z.enum(["미검수", "확인함", "수정됨"]).nullable(),
   law_effective_date: day.nullable(),
   msds_revision_date: day.nullable(),
   reference_date: day,

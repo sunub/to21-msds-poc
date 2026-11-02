@@ -13,6 +13,7 @@
  * 항이 걸친 쪽(pages)은 원문 이동용으로만 같이 온다.
  */
 import { z } from "zod";
+import { queueFields } from "./contract/api";
 
 /* ── 공통 값 ─────────────────────────────────────────────── */
 
@@ -109,6 +110,11 @@ export const documentSummarySchema = z.object({
   counts: sectionCountsSchema,
   /** POST /retry 로 다시 돌릴 수 있는가: 실패·멈춘 문서, 또는 끝났지만 실패한 항이 있는 문서 */
   can_retry: z.boolean(),
+  /**
+   * 대기 순번·예상 시간·사람 구간 상태 (계약 queue_fields). 서버가 아직 보내지 않는 동안에도 받도록 모두 선택으로 둔다.
+   * 서버가 보내기 시작하면 계약대로 필수로 바꾼다.
+   */
+  ...queueFields.partial().shape,
 });
 export type DocumentSummary = z.infer<typeof documentSummarySchema>;
 

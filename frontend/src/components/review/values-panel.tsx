@@ -2,6 +2,8 @@
 
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { judgmentKeys, postToJudgment } from "@/api/judgments";
 import { memo, useCallback, useState } from "react";
 import { ApiRequestError } from "@/api/client";
 import { documentDetailQuery, documentKeys, reviewQuery, saveFieldReview, saveSectionReview } from "@/api/documents";
@@ -64,6 +66,16 @@ function Values({ doc }: { doc: DocumentDetail }) {
   const [page, setPage] = usePageParam();
   const [evidence, setEvidence] = useState<string | null>(null);
   const [open, setOpen] = useState<string | null>(null);
+  const router = useRouter();
+  const queryClient = useQueryClient();
+  // 추출값 확인을 마치고 판정으로 넘긴다 (넘김 기록을 만든다). 판정 상태를 다시 읽고 2항 판정으로 간다
+  const handoff = useMutation({
+    mutationFn: () => postToJudgment(doc.id, reviewer),
+    onSuccess: () => {
+      void queryClient.invalidateQueries({ queryKey: judgmentKeys.all });
+      router.push(routes.review(doc.id, "hazard"));
+    },
+  });
 
   const showSource = useCallback(
     (nextPage: number | null, text: string | null) => {
@@ -132,9 +144,24 @@ function Values({ doc }: { doc: DocumentDetail }) {
           {total}항 중 {confirmed}항을 확인했습니다.
           {confirmed < total ? ` 남은 ${total - confirmed}개 항은 미검수로 남습니다.` : " 판정 단계로 넘어갈 수 있습니다."}
         </p>
-        <Link href={routes.review(doc.id, "hazard")} className={buttonStyles({ variant: "primary", size: "lg" })}>
-          2항 판정으로 가기
-        </Link>
+        <div className="flex flex-wrap items-center gap-2">
+          {handoff.isError && (
+            <span role="alert" className="text-sm text-red">
+              판정으로 넘기지 못했습니다. 잠시 뒤 다시 시도해 주세요.
+            </span>
+          )}
+          <Link href={routes.review(doc.id, "hazard")} className={buttonStyles({ size: "lg" })}>
+            2항 판정으로 가기
+          </Link>
+          <Button
+            variant="primary"
+            size="lg"
+            disabled={!reviewer || handoff.isPending}
+            onClick={() => handoff.mutate()}
+          >
+            {handoff.isPending ? "넘기는 중…" : "판정으로 넘기기"}
+          </Button>
+        </div>
       </Foot>
     </>
   );

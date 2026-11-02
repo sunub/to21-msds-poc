@@ -1,9 +1,7 @@
-import { validationIdFor } from "@/lib/demo";
-
 /**
- * 판정 요청에 쓰는 검증 번호를 얻는 한 곳. 모든 판정·성분 요청이 이 값을 쓴다.
- * 데모 문서는 데모 번호, 그 외에는 "latest" (서버 확정 후 교체: 문서 응답의 검증 번호).
+ * 판정 요청에 쓰는 판정 버전. 한 곳에서만 정한다. 계약에는 별도 검증 번호가 없고 판정 버전(version)만 있다:
+ * 화면은 늘 최신("latest")을 읽고, 검토·저장 요청에는 읽은 버전 번호(seen_version)를 실어 보낸다.
  */
-export function useValidationId(docId: string): string {
-  return validationIdFor(docId);
+export function useValidationId(_docId: string): string {
+  return "latest";
 }

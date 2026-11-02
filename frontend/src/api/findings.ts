@@ -1,48 +1,17 @@
 /*
- * 2항·15항 판정 API 호출과 TanStack Query 설정.
- * documents.ts 와 같은 방식이다. 캐시 키는 findingKeys 한 곳에서 만든다.
+ * 2항·15항 판정 쿼리. 서버 응답은 판정 한 벌(judgment_view)이고, 판정 목록·상세는 거기서 화면 모델로 바꿔 쓴다 (api/adapt).
+ * 판정·성분 요약·검토 상태가 같은 요청 하나를 나눠 쓴다. version 은 "latest"(기본)나 판정 버전 번호.
  */
 import { queryOptions } from "@tanstack/react-query";
-import { isDemoDoc, loadDemo } from "@/lib/demo";
-import { requestJson } from "./client";
-import { findingDetailSchema, findingsResponseSchema, type Verdict } from "./findings-schemas";
+import { adaptDetail, adaptFindings, type FindingsParams } from "./adapt/findings";
+import { judgmentViewQuery } from "./judgments";
 
-export type FindingsParams = { verdict?: Verdict; section?: 2 | 15 };
+export type { FindingsParams };
 
-const validationPath = (doc: string, validation: string) =>
-  `/api/v1/documents/${encodeURIComponent(doc)}/validations/${encodeURIComponent(validation)}`;
+/** 판정 목록 */
+export const findingsQuery = (doc: string, version = "latest", params: FindingsParams = {}) =>
+  queryOptions({ ...judgmentViewQuery(doc, version), select: (view) => adaptFindings(view, params) });
 
-export const findingKeys = {
-  all: ["findings"] as const,
-  list: (doc: string, validation: string, params: FindingsParams = {}) =>
-    [...findingKeys.all, doc, validation, "list", params] as const,
-  detail: (doc: string, validation: string, findingId: string) =>
-    [...findingKeys.all, doc, validation, "detail", findingId] as const,
-};
-
-/** API-12. 판정 목록 */
-export const findingsQuery = (doc: string, validation: string, params: FindingsParams = {}) =>
-  queryOptions({
-    queryKey: findingKeys.list(doc, validation, params),
-    queryFn: async ({ signal }) => {
-      if (isDemoDoc(doc)) return (await loadDemo.findings()).demoFindingsResponse(params);
-      const query: Record<string, string> = {};
-      if (params.verdict) query.verdict = params.verdict;
-      if (params.section) query.section = String(params.section);
-      return requestJson(findingsResponseSchema, `${validationPath(doc, validation)}/findings`, { query, signal });
-    },
-  });
-
-/** API-13. 판정 한 건의 상세 */
-export const findingDetailQuery = (doc: string, validation: string, findingId: string) =>
-  queryOptions({
-    queryKey: findingKeys.detail(doc, validation, findingId),
-    queryFn: async ({ signal }) =>
-      isDemoDoc(doc)
-        ? (await loadDemo.findings()).demoFindingDetailOrThrow(findingId)
-        : requestJson(
-            findingDetailSchema,
-            `${validationPath(doc, validation)}/findings/${encodeURIComponent(findingId)}`,
-            { signal },
-          ),
-  });
+/** 판정 한 건의 상세 */
+export const findingDetailQuery = (doc: string, version: string, findingId: string) =>
+  queryOptions({ ...judgmentViewQuery(doc, version), select: (view) => adaptDetail(view, findingId) });

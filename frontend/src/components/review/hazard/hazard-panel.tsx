@@ -48,7 +48,8 @@ export function HazardPanel({ docId, onSave }: { docId: string; onSave: () => vo
   const current = rows.find((r) => r.finding_id === selected) ?? rows[0];
   const filterItems = [
     { id: "all", label: `전체 ${data.items.length}` },
-    ...FILTER_VERDICTS.map((v) => ({ id: v, label: `${VERDICT_LABEL[v]} ${data.counts[v] ?? 0}` })),
+    // 계약에는 경고 판정이 없어 건수가 0이면 탭을 그리지 않는다 (있으면 보인다)
+    ...FILTER_VERDICTS.filter((v) => v !== "warning" || (data.counts[v] ?? 0) > 0).map((v) => ({ id: v, label: `${VERDICT_LABEL[v]} ${data.counts[v] ?? 0}` })),
   ];
   const excluded = Object.values(data.excluded_counts).reduce((a, b) => a + b, 0);
 
