@@ -62,8 +62,9 @@ def test_index(app, ctx):
     assert "<title>" in text
     for element in ["app-header", "main-nav", "global-context", "ui-text"]:
         assert f'id="{element}"' in text
-    for no in [1, 2, 3, 4, 5, 6, 7, 9, 10]:
+    for no in [1, 2, 3, 4, 5, 6, 7, 10]:
         assert f'<section id="screen-s{no:02}" hidden' in text
+    assert 'id="screen-s09"' not in text  # 여러 문서 시험은 S03 첫 단계의 갈래가 됐다 (ADR-039).
 
 
 def test_static(app, ctx):
@@ -143,15 +144,15 @@ def test_run_labels_are_added_without_changing_score_or_cache(app, ctx, env, mon
     detail = get_json(app, ctx, "/api/run/" + name)[1]
     for result in (listing, detail):
         assert result["label"] == {
-            "title": "10/30 Qwen3.6 35B · 빌린 서버 · AI에게 시킨 일 s7 · 원문 자료 version9 · 분류 검사 · 개발 10건 · 2회차",
+            "title": "10/30 Qwen3.6 35B · 빌린 서버 · AI에게 시킨 일 7번째 판 · 원문 자료 9판 · 분류 검사 · 개발 10건 · 2회차",
             "subtitle": name,
-            "parts": ["10/30 Qwen3.6 35B", "빌린 서버", "AI에게 시킨 일 s7", "원문 자료 version9", "분류 검사", "개발 10건", "2회차"],
+            "parts": ["10/30 Qwen3.6 35B", "빌린 서버", "AI에게 시킨 일 7번째 판", "원문 자료 9판", "분류 검사", "개발 10건", "2회차"],
         }
         assert result["model_label"] == "Qwen3.6 35B · 빌린 서버"
     # Steps 4/9 add presentation fields; every original scoring field remains identical.
     assert {k: v for k, v in detail.items()
             if k not in ("label", "model_label", "status_text", "card_summaries", "connection_notes", "key",
-                         "run_kind_label", "targets", "set")} == before
+                         "run_kind_label", "targets", "set", "problem_rows")} == before
     assert summary == before
 
 
@@ -318,7 +319,7 @@ def test_api_run_status_counts_are_field_level_like_source_view(app, ctx, env):
     make_run(env / "runs", name, {X01: make_doc(X01, toxicity=True), X02: make_doc(X02)})   # X01만 11항 독성을 비운다
     code, data = get_json(app, ctx, "/api/run/" + name)
     top = data["status_text"]["top_problem"]
-    field = app.bdoc.run_field_counts(env / "runs" / name, ctx.gold_dir, data["docs"])
+    field = app.bdoc.run_problem_counts(env / "runs" / name, ctx.gold_dir, data["docs"])[0]
     missing = sum(n for (item, section, kind), n in sum(field.values(), Counter()).items()
                   if (item, section, kind) == (top["name"], top["section"], "missing"))
     assert code == 200 and top["counts_basis"] == "field"
@@ -326,6 +327,21 @@ def test_api_run_status_counts_are_field_level_like_source_view(app, ctx, env):
     assert [d["doc_id"] for d in top["docs"]] == [X01, X02]
     assert top["docs"][0]["counts"]["빠뜨림"] == missing
     assert top["docs"][1]["counts"] == {"빠뜨림": 0, "틀림": 0, "지어냄": 0}
+
+
+def test_api_run_has_problem_rows_per_criterion_and_doc(app, ctx, env):
+    """① 문제 고르기의 문제 행 수(STEPS.md A5). 문서 번호와 수만 싣고 status_text는 바꾸지 않는다."""
+    name = "20261029_sections_m1_dev10_loss"
+    make_run(env / "runs", name, {X01: make_doc(X01, toxicity=True), X02: make_doc(X02)})   # X01만 11항 독성을 비운다
+    code, data = get_json(app, ctx, "/api/run/" + name)
+    top = data["status_text"]["top_problem"]
+    _, rows = app.bdoc.run_problem_counts(env / "runs" / name, ctx.gold_dir, data["docs"])
+    got = data["problem_rows"][top["name"]]
+    assert code == 200 and got["row_count"] == rows[X01][(top["name"], top["section"])] > 0
+    assert {d["doc_id"]: d["row_count"] for d in got["docs"]} == {X01: got["row_count"], X02: 0}
+    assert list(data["problem_rows"]) == [r["name"] for r in data["status_text"]["losses"]]
+    assert all("row_count" not in r and "docs" not in r for r in data["status_text"]["losses"])   # 옛 응답 그대로
+    assert [set(d) for d in top["docs"]] == [{"doc_id", "score", "loss", "counts"}] * 2
 
 
 def test_api_run_unknown(app, ctx, env):
@@ -347,7 +363,7 @@ def test_run_status_and_summaries_do_not_change_cached_scores(app, ctx, env, mon
     code, result = get_json(app, ctx, "/api/run/" + name)
     assert code == 200
     # 문제 건수는 칸 단위로 센다(사용자 결정 10/31). 같은 수를 넘겨 다시 만들어도 같아야 한다
-    field = app.bdoc.run_field_counts(env / "runs" / name, ctx.gold_dir, before.get("docs") or [])
+    field = app.bdoc.run_problem_counts(env / "runs" / name, ctx.gold_dir, before.get("docs") or [])[0]
     assert result["status_text"] == app.bt.score_status(before, app.br.criteria(), connected=None,
                                                         per_doc=before.get("per_doc"), field_counts=field)
     assert set(result["card_summaries"]) == {"history", "docs", "grid", "rows"}

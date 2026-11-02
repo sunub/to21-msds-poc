@@ -1436,3 +1436,49 @@ def test_session_pod_that_answers_404_is_still_reported(srv, pod, tmp_path):
 def test_company_server_404_is_not_hidden(srv, tmp_path):
     rows = make(srv, tmp_path, cloud=DeadAddressCloud()).status()["models"]
     assert all(m["url_set"] is True and m["error"] == "HTTP 404" for m in rows if m["where"] == "RNGD")
+
+
+# ── 만들기 전 견적과 준비에 걸린 시간 (phase app-steps step 2, STEPS.md A1·A2) ──
+
+def test_status_quotes_a_new_pod_from_settings_not_from_running_pods(srv, tmp_path):
+    cloud = FakeCloud(pods=[pod_of("abc123", "to21-b-qwen36", 83, cost=9.99)])
+    st = make(srv, tmp_path, cloud=cloud).status()
+    quote = st["create_quote"]
+    assert quote["tag"] == srv.POD_TAG and quote["cost_per_hr"] == srv.POD_COST_HINT
+    assert quote["max_hours"] == srv.WATCHDOG_SECONDS // 3600
+    assert quote["max_cost"] == round(srv.POD_COST_HINT * quote["max_hours"], 2)
+    assert isinstance(quote["basis"], str) and quote["basis"]
+    no_secret(st)
+
+
+def test_status_quote_stays_when_runpod_list_cannot_be_read(srv, tmp_path):
+    env = {k: v for k, v in ENV.items() if k != "RUNPOD_API_KEY"}
+    st = make(srv, tmp_path, env=env).status()
+    assert st["runpod_error"] and st["create_quote"]["cost_per_hr"] == srv.POD_COST_HINT
+
+
+def test_status_has_no_quote_when_the_pod_model_is_not_configured(srv, tmp_path):
+    sa = make(srv, tmp_path)
+    sa.models_cfg = {"models": {k: v for k, v in MODELS_CFG["models"].items() if k != srv.POD_TAG}}
+    assert sa.status()["create_quote"] is None
+
+
+def test_ready_seconds_counts_from_creation_to_first_matching_reply(srv, pod, tmp_path):
+    clock = Clock()
+    sa, cloud, _watch, _prop, _res, _key = create(srv, pod, tmp_path, clock=clock)
+    assert sa.status()["session"]["ready_seconds"] is None
+    clock.t += 250
+    cloud.served[pod.pod_url("newpod1")] = ["다른 모델"]             # 서버는 답하지만 고른 모델이 아니다
+    assert sa.status()["session"]["ready_seconds"] is None
+    clock.t += 50
+    cloud.served[pod.pod_url("newpod1")] = [MODEL]
+    assert sa.status()["session"]["ready_seconds"] == 300
+    clock.t += 500
+    assert sa.status()["session"]["ready_seconds"] == 300           # 첫 응답 시각에서 움직이지 않는다
+
+
+def test_ready_seconds_is_unknown_for_an_adopted_pod(srv, pod, tmp_path):
+    cloud = FakeCloud(pods=[pod_of("abc123", "to21-b-qwen36", 40)])
+    cloud.served[pod.pod_url("abc123")] = [MODEL]
+    st = make(srv, tmp_path, cloud=cloud).status()
+    assert st["session"]["adopted"] is True and st["session"]["ready_seconds"] is None

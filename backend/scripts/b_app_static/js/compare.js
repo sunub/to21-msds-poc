@@ -168,7 +168,7 @@ function compareRenderSummary() {
     : !num(w.delta) ? T("compare.headline.unscored", {a: "A", b: "B"})
     : w.delta < 0 ? T("compare.headline.decreased", {gap: Math.abs(w.delta).toFixed(1)})
     : w.delta > 0 ? T("compare.swapped.title", {gap: w.delta.toFixed(1)}) : T("compare.headline.equal", {a: "A", b: "B"});
-  shellConclusion("s04", headline, false);
+  shellConclusion("s04", headline);
   document.getElementById("title-s04").setAttribute("class", d ? `compare-headline ${compareClass(w.delta)}` : "");
   const host = document.getElementById("compare-summary");
   if (!d && !D.loading && !D.error && !D.list.some(compareAllowed)) {

@@ -217,7 +217,7 @@ async function journeyStart(track, practice = false) {
   if (track === "t1") return u.phase === 3 && u.target ? journeyGo("s02", "s02-diff-values", {...u.target, pick: "mismatch"})
     : journeyGo("s01", u.phase === 2 ? "s01-top-problem" : "s01-score");
   const t = u.target;
-  return journeyGo("s03", "s03-target", {journeyPrepare: !resumed || missing, practice,
+  return journeyGo("s03", "s03-target", {journeyPrepare: !resumed || missing, practice, trialStep: "target",
     ...(t ? {doc: t.doc, section: t.section, base_run: t.run} : {})});
 }
 async function journeyNext() {
@@ -232,11 +232,11 @@ async function journeyNext() {
   }
   if (u.phase === 1 && u.trialReady) {
     u.phase = 2; u.modelAfter = u.optionsRevision + 1;
-    return journeyGo("s03", "s03-model", {journeyCheck: true});
+    return journeyGo("s03", "s03-model", {journeyCheck: true, trialStep: "model"});
   }
-  if (u.phase === 2 && u.modelReady) {u.phase = 3; return journeyGo("s03", "s03-send", {practice: false});}
+  if (u.phase === 2 && u.modelReady) {u.phase = 3; return journeyGo("s03", "s03-send", {practice: false, trialStep: "prompt"});}
   if (S.journey.pending?.job) return journeyOpenPending();
-  return journeyGo("s03", "s03-send");
+  return journeyGo("s03", "s03-send", {trialStep: "prompt"});
 }
 function journeyOpenPending() {
   const id = S.journey.pending?.job;
@@ -300,8 +300,8 @@ function journeyRenderStrip() {
     if (phase === 1 && !u.trialReady) children.push(journeyParagraph("journey.trial.single_only"));
     if (phase === 2) {
       const connection = journeyConnection("strip"); children.push(connection,
-        journeyParagraph("journey.trial.fresh_reply"), journeyButton("journey-model-refresh", "jobs.form.reload", () => journeyGo("s03", "s03-model", {journeyCheck: true})),
-        journeyButton("journey-practice-step", "jobs.actions.preview", () => journeyGo("s03", "s03-practice", {practice: true})));
+        journeyParagraph("journey.trial.fresh_reply"), journeyButton("journey-model-refresh", "jobs.form.reload", () => journeyGo("s03", "s03-model", {journeyCheck: true, trialStep: "model"})),
+        journeyButton("journey-practice-step", "jobs.actions.preview", () => journeyGo("s03", "s03-practice", {practice: true, trialStep: "model"})));
     }
     if (j.outcomes.t2.practice) children.push(journeyParagraph("journey.history.first_count", {time: T("journey.practice"), count: j.outcomes.t2.practice.count}), journeyParagraph("journey.trial.practice_stay"));
     children.push(journeyButton("journey-next", phase === 1 ? "journey.trial.next_model" : phase === 2 ? "journey.trial.continue_ready" : phase === 3 ? "nav.retest" : "journey.pending.open_result",

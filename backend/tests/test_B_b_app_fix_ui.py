@@ -22,7 +22,7 @@ assert.equal(when(null),'—');assert.equal(when('not-a-date'),'—');
     run_js(PRACTICE_SETUP + clock + r"""
 await enter('G10');S.shell.serverAt=at;guideRender();shellRenderContext();
 assert.ok(el('guide-content').textContent.includes(T('guide.ai.checked',{time:shown})));
-assert.ok(el('context-model').textContent.includes(shown));
+assert.ok(el('context-model-open').getAttribute('data-tip').includes(shown));
 S.guide.session.source=at;await guideShow('G12');
 assert.ok(el('guide-session-records').textContent.includes(shown));
 S.journey.outcomes.t1.real={first_at:at,last_at:at,count:2};await guideShow('G15');
@@ -71,8 +71,8 @@ for(const c of cases){
  options={...makeOptions(false),models:c.models};
  api=async(p,o)=>p.startsWith('/api/runs')?{runs:[{name:'base',model_tag:c.run,docs:['T21-X01'],run_kind:'dev10'}]}:original(p,o);
  S.jobs.opts=null;S.jobs.runsKey=null;S.jobs.t.model=null;
- await go('s03',{doc:'T21-X01',section:8,base_run:'base'});
- assert.equal(S.jobs.t.model,c.want,JSON.stringify(c));assert.equal(el('jobs-model').value,c.want || '');
+ await go('s03',{doc:'T21-X01',section:8,base_run:'base'});stepTo('model');
+ assert.equal(S.jobs.t.model,c.want,JSON.stringify(c));assert.equal(chosenModel(),c.want || '');
  await jobsLoadOptions();assert.equal(S.jobs.t.model,c.want);
 }
 options={...makeOptions(false),models:[{tag:'gpt',watched:false},{tag:'first',watched:true,connected:true},{tag:'second',watched:true}]};
@@ -81,7 +81,7 @@ S.jobs.opts=null;S.jobs.runsKey=null;await go('s03',{base_run:'base'});
 change(el('jobs-model'),'gpt');await jobsLoadOptions();assert.equal(S.jobs.t.model,'gpt');
 await go('s03');assert.equal(S.jobs.t.model,'gpt','returning must preserve manual choice');
 await go('s03',{base_run:'base'});assert.equal(S.jobs.t.model,'second');
-S.jobs.runs.push({name:'another-base',model_tag:'first',docs:['T21-X01']});jobsRenderTry();
+S.jobs.runs.push({name:'another-base',model_tag:'first',docs:['T21-X01']});stepTo('target');
 change(el('jobs-base'),'another-base');assert.equal(S.jobs.t.model,'first');
 assert.equal(posted.length,0);
 """)
@@ -101,8 +101,8 @@ assert.equal(posted.length,0);
 """)
 
 
-def test_draft_models_are_named_as_answer_drafts():
-    """정답 초안 모델도 고를 수 있지만 시험 모델 뒤에서 용도가 드러나야 한다."""
+def test_draft_models_are_named_as_answer_drafts_when_already_chosen():
+    """정답 초안 모델은 목록에서 빠지지만, 이미 고른 경우에는 남고 용도가 드러나야 한다 (11/2 G4 사용자 결정)."""
     from test_B_b_app_jobs_ui import SETUP
     run_js(SETUP + r"""
 assert.equal(UI.context.models.gpt,UI.context.models.claude.replace('Claude','GPT'));
@@ -110,16 +110,13 @@ options.models=[{tag:'gpt',watched:false},{tag:'first',watched:true},
  {tag:'claude',watched:false},{tag:'second',watched:true}];
 await go('s03');
 for(const kind of ['try','run']){
- const select=jobsModelSelect(kind==='try'?S.jobs.t:S.jobs.r,kind),opts=select.querySelectorAll('option');
- assert.deepEqual([...opts].map(o=>o.value),['first','second','gpt','claude']);
- for(const tag of ['gpt','claude']){
-  const opt=opts.find(o=>o.value===tag);assert.equal(opt.textContent,UI.context.models[tag]);
-  if(kind==='try')assert.equal(opt.disabled,false);
- }
+ const form=kind==='try'?S.jobs.t:S.jobs.r;form.model='gpt';
+ const opts=jobsModelChoices(form,kind).querySelectorAll('input');
+ assert.deepEqual([...opts].map(o=>o.value),['first','second','gpt']);
+ const opt=opts.find(o=>o.value==='gpt');assert.equal(opt.closest('label').querySelector('b').textContent,UI.context.models.gpt);
+ if(kind==='try')assert.equal(opt.disabled,false);
 }
 assert.deepEqual(options.models.map(m=>m.tag),['gpt','first','claude','second'],'API order must not be mutated');
-change(el('jobs-model'),'claude');assert.equal(S.jobs.t.model,'claude');
-assert.ok(el('jobs-try').textContent.includes(UI.context.models.claude));
 """)
 
 
@@ -141,31 +138,21 @@ def test_s06_recommended_server_and_two_way_comparison_first():
     from test_B_b_app_servers_ui import FIXTURE
     run_js(FIXTURE + FIX_VISIBLE + r"""
       data.session=null;data.models[1].reachable=false;data.models[1].match=false;
-      await setup();const page=view(),company=document.getElementById('servers-rngd');
-      const visible=visibleText(page),comparison=document.getElementById('servers-comparison');
-      assert.ok(comparison,'both choices must be compared before opening the alternative');
-      const order=page.querySelectorAll('*');assert.ok(order.indexOf(action('rngd_up')) < order.indexOf(comparison));
-      assert.equal(action('rngd_up').classList.contains('primary'),true);
-      assert.equal(company.closest('details'),null);
-      const rows=comparison.querySelectorAll('tbody tr');assert.equal(rows.length,2);
-      for(const key of ['servers.compare.company.wait','servers.compare.rented.wait','servers.empty.new_cost'])
-        assert.ok(visibleText(comparison).includes(T(key)));
-      assert.ok(visibleText(comparison).includes('$2.50'));
-      const alternate=document.getElementById('servers-runpod').querySelector('details');
-      assert.ok(alternate);assert.equal(alternate.open,false);
-      assert.equal(alternate.querySelector('summary').textContent,T('servers.company.alternative'));
+      await setup();const page=view(),visible=visibleText(page);
+      const cards=stage().querySelectorAll('.server-card');assert.equal(cards.length,2,'both choices must be compared at once');
+      assert.equal(cards[0].dataset.serverKind,'company');
+      assert.equal(byId('servers-use-company').classList.contains('primary'),true);
+      assert.equal(byId('servers-use-rented').classList.contains('primary'),false);
+      for(const key of ['servers.compare.company.wait','servers.compare.rented.wait','servers.choice.recommendation'])
+        assert.ok(visible.includes(T(key)),key);
+      assert.ok(visible.includes('$1.73'));assert.ok(!visible.includes('$2.50'),'a running server price is not the new server quote');
       assert.ok(!visible.includes(T('servers.rented.confirm_create')));
-      const diagnostics=document.getElementById('servers-models').querySelector('details');
-      assert.ok(diagnostics);assert.equal(diagnostics.open,false);
       assert.ok(!visible.includes(T('servers.connection.expected')));
-      alternate.open=true;await shellPollServers();
-      assert.equal(document.getElementById('servers-runpod').querySelector('details').open,true);
-      data.rngd.tunnel.open=false;data.can.tunnel_open=true;data.rngd.diagnosis='tunnel_closed';await shellPollServers();
-      assert.ok(action('tunnel_open').classList.contains('primary'));
-      assert.ok(!action('rngd_up').classList.contains('primary'));
-      data.pods=[];await shellPollServers();
-      assert.ok(visibleText(document.getElementById('servers-comparison')).includes(T('servers.rented.unknown')));
-      assert.ok(!visibleText(document.getElementById('servers-comparison')).includes('$0'));
+      assert.equal(page.querySelectorAll('details').length,0);
+      assert.ok(openDrawer().textContent.includes(T('servers.empty.new_cost')));drawerClose();
+      data.create_quote=null;await shellPollServers();
+      const rented=stage().querySelector('[data-server-kind="rented"]');
+      assert.ok(visibleText(rented).includes(T('servers.rented.unknown')));assert.ok(!visibleText(rented).includes('$0'));
       assert.equal(calls.filter(c=>c[0]==='post').length,0);
     """)
 
@@ -177,13 +164,14 @@ def test_p02_create_button_shows_hourly_cost(cost):
     # The backend's present contract puts the quoted rate in summary, not in a numeric key.
     summary = f"Fake GPU. 시간당 약 ${cost}. 준비 시간 미확인."
     run_js(FIXTURE + f"const quoted={json.dumps(summary)},cost={json.dumps(cost)};" + r"""
-      await setup();const original=post;let quote=quoted;
+      allOff();await setup();await byId('servers-use-rented').click();const original=post;let quote=quoted;
       post=async(path,body)=>path.endsWith('/propose')?{token:'priced-once',action:body.action,summary:quote,expires_in:600}:original(path,body);
       await action('pod_create').click();let confirm=document.getElementById('servers-confirm');
       assert.equal(confirm.textContent,T('servers.confirm.create.action',{cost_per_hour:cost}));
       assert.ok(confirm.textContent.includes('$'+cost));assert.equal(confirm.disabled,false);
       assert.equal(calls.filter(c=>c[1].endsWith('/execute')).length,0);
       await confirm.click();assert.equal(calls.filter(c=>c[1].endsWith('/execute')).length,1);
+      await byId('servers-use-rented').click();
       for(const missing of ['No quote available',quoted+' '+quoted,'Total $99.00']) {
         quote=missing;await action('pod_create').click();confirm=document.getElementById('servers-confirm');
         assert.equal(confirm.disabled,true);assert.ok(document.getElementById('servers-confirm-blocked').textContent);
@@ -205,18 +193,19 @@ def test_s09_runnable_docs_first_and_locked_docs_grouped():
       await go('s09');const form=el('jobs-run'),checks=form.querySelectorAll('input[type="checkbox"]');
       assert.equal(checks[0].id,'jobs-run-doc-RAW-FAKE');assert.equal(checks[0].disabled,false);
       assert.equal(el('jobs-run-doc-T21-X02').disabled,false);
-      const locked=el('jobs-run-locked');assert.ok(locked);
+      // 잠긴 문서 전체 목록과 이유는 서랍에, 본문에는 잠금 요약과 이 선택을 막는 이유가 있다.
+      openDrawer();const locked=el('jobs-run-locked');assert.ok(locked);
       assert.ok(locked.textContent.includes('T21-X90'));assert.ok(locked.textContent.includes('T21-X91'));
       assert.equal(locked.textContent.split('EVAL LOCK').length-1,1);
-      assert.ok(locked.textContent.includes(T('jobs.batch.eval_locked',{count:2})));
-      assert.equal(form.textContent.split('EVAL LOCK').length-1,1);
-      assert.ok(form.textContent.indexOf(T('jobs.form.count',{count:2,repeats:1}))<form.textContent.indexOf('EVAL LOCK'));
+      assert.ok(locked.textContent.includes(T('jobs.batch.eval_locked',{count:2})));drawerClose();
+      assert.ok(!form.textContent.includes('EVAL LOCK'));
+      assert.ok(form.textContent.indexOf(T('jobs.form.count',{count:2,repeats:1}))<form.textContent.indexOf(T('jobs.batch.eval_locked',{count:2})));
       assert.ok(form.textContent.includes('RUN LOCK'));assert.ok(!form.textContent.includes('NOT RUN REASON'));
       await el('jobs-select-all').click();assert.deepEqual([...S.jobs.r.docs],['RAW-FAKE','T21-X02']);
-      const prepare=form.querySelectorAll('button').find(b=>b.textContent===T('context.prepare_model'));
+      await el('jobs-next').click();atStep('model');const prepare=el('jobs-prepare');
       assert.ok(prepare);let dest;const normalGo=go;go=async(id,args)=>{dest=[id,args];};await prepare.click();
-      assert.equal(dest[0],'s06');assert.equal(dest[1].returnScreen,'s09');assert.equal(dest[1].model,'first');go=normalGo;
-      options=JSON.parse(JSON.stringify(options));options.models[0].connected=true;await jobsPoll();await el('jobs-run-start').click();
+      assert.equal(dest[0],'s06');assert.equal(dest[1].returnScreen,'s03');assert.equal(dest[1].model,'first');go=normalGo;
+      options=JSON.parse(JSON.stringify(options));options.models[0].connected=true;await jobsPoll();await el('jobs-next').click();atStep('prompt');await el('jobs-run-start').click();
       assert.deepEqual(posted[0].body.docs,['RAW-FAKE','T21-X02']);
       assert.equal(posted[0].body.set,'pack');
     """)
@@ -283,10 +272,10 @@ def test_sticky_header_does_not_cover_focused_controls():
 def test_s06_action_failure_and_recovery_remain_visible_before_details():
     from test_B_b_app_servers_ui import FIXTURE
     run_js(FIXTURE + FIX_VISIBLE + r"""
-      await setup();post=async()=>{throw new Error('Request failed');};await action('tunnel_close').click();
-      assert.ok(visibleText(document.getElementById('servers-summary')).includes(T('servers.status.failure.fact')));
+      await setup();post=async()=>{throw new Error('Request failed');};await action('pod_delete').click();
+      assert.ok(visibleText(stage()).includes(T('servers.status.failure.fact')));
       api=async()=>{throw new Error('Status failed');};await shellPollServers();
-      const summary=document.getElementById('servers-summary');
+      const summary=stage();
       assert.ok(visibleText(summary).includes(T('servers.failed.retry')));
       assert.ok(visibleText(summary).includes(T('servers.status.failure.todo')));
     """)
@@ -310,7 +299,7 @@ def test_s03_instruction_box_is_prefilled_with_current_instruction():
         release=()=>failPrompt?reject(new Error('Fake prompt failure')):resolve({text:'current instruction'});
       }):normal(path,opts);
       await go('s03',{doc:'T21-X01',section:8});
-      assert.ok(release,'instruction should load on entry');
+      assert.ok(release,'instruction should load on entry');stepTo('prompt');
       assert.ok(el('jobs-prompt-status').textContent.includes(T('jobs.form.prompt_loading')));
       assert.ok(el('jobs-prompt').getAttribute('aria-describedby').includes('jobs-prompt-status'));
       release();await S.jobs.promptPending;assert.equal(el('jobs-prompt').value,'current instruction');
@@ -318,13 +307,14 @@ def test_s03_instruction_box_is_prefilled_with_current_instruction():
       S.jobs.t.secs=new Set([9]);jobsRenderTry();await Promise.resolve();
       input(el('jobs-prompt'),'my edit');release();await S.jobs.promptPending;
       assert.equal(el('jobs-prompt').value,'my edit');
-      await go('s03',{doc:'RAW-FAKE',section:8});await Promise.resolve();
+      await go('s03',{doc:'RAW-FAKE',section:8});await Promise.resolve();stepTo('prompt');
       assert.equal(el('jobs-prompt').value,'my edit');
       S.jobs.t.edit=false;failPrompt=true;const retry=jobsLoadPrompt();release();await retry;
-      assert.ok(el('jobs-prompt-status').textContent.includes('Fake prompt failure'));
+      assert.ok(el('jobs-prompt-status').textContent.includes(T('common.legacy.load_error.message')));
+      assert.ok(openDrawer().textContent.includes('Fake prompt failure'));drawerClose();
       failPrompt=false;const recovered=el('jobs-load-prompt').click();release();await recovered;
       assert.equal(el('jobs-prompt').value,'current instruction');
-      assert.ok(!el('jobs-prompt-status').textContent.includes('Fake prompt failure'));
+      assert.ok(!el('jobs-prompt-status').textContent.includes(T('common.legacy.load_error.message')));
     """)
 
 
@@ -332,13 +322,14 @@ def test_s03_ai_off_makes_model_setup_primary_and_practice_secondary():
     from test_B_b_app_jobs_ui import SETUP
     run_js(SETUP + r"""
       options=makeOptions(false);options.models=[{tag:'gpt',connected:false}];
-      await go('s03',{doc:'T21-X01',section:8,model:'gpt'});await Promise.resolve();
-      const page=el('screen-s03'),prepare=el('jobs-connection').querySelector('button');
+      await go('s03',{doc:'T21-X01',section:8,model:'gpt'});stepTo('model');await Promise.resolve();
+      // 다음 행동은 행동 줄의 마지막 칸이다. 연습은 그 앞의 보조 행동이다.
+      const page=el('screen-s03'),prepare=el('jobs-prepare');
       assert.ok(prepare.classList.contains('primary'));
-      assert.ok(!el('jobs-send').classList.contains('primary'));
+      assert.ok(!el('jobs-practice').classList.contains('primary'));
       assert.equal(page.querySelectorAll('button.primary').length,1);
-      assert.ok(page.textContent.indexOf(T('context.prepare_model'))<page.textContent.indexOf(T('jobs.actions.preview')));
-      assert.equal(page.textContent.split(T('jobs.actions.preview')).length-1,1);
+      assert.equal(el('jobs-actions').querySelector('.step-actions').children.at(-1),prepare);
+      assert.equal(page.textContent.split(T('steps.trial.practice')).length-1,1);
       assert.ok(el('jobs-connection').textContent.includes(UI.context.models.gpt));
       let dest;go=async(id,args)=>{dest=[id,args];};await prepare.click();
       assert.equal(dest[0],'s06');assert.equal(dest[1].returnScreen,'s03');
@@ -349,11 +340,10 @@ def test_s03_ai_off_makes_model_setup_primary_and_practice_secondary():
 def test_s03_offline_selected_model_still_offers_practice_with_other_model_ready():
     from test_B_b_app_jobs_ui import SETUP
     run_js(SETUP + r"""
-      await go('s03',{doc:'T21-X01',section:8});
+      await go('s03',{doc:'T21-X01',section:8});stepTo('model');
       change(el('jobs-model'),'second');
-      assert.equal(el('jobs-send').textContent,T('jobs.actions.preview'));
-      assert.equal(el('jobs-send').disabled,false);
-      await el('jobs-send').click();assert.equal(posted[0].body.dry_run,true);
+      assert.ok(el('jobs-prepare'));assert.equal(el('jobs-practice').disabled,false);
+      await el('jobs-practice').click();assert.equal(posted[0].body.dry_run,true);
       assert.equal(posted[0].body.model,'second');
     """)
 
@@ -361,7 +351,7 @@ def test_s03_offline_selected_model_still_offers_practice_with_other_model_ready
 def test_s03_accepted_request_focuses_result_before_slow_poll():
     from test_B_b_app_jobs_ui import SETUP
     run_js(SETUP + r"""
-      await go('s03',{doc:'T21-X01',section:8});const normal=api;
+      await go('s03',{doc:'T21-X01',section:8});stepTo('prompt');const normal=api;
       let release;api=(path,opts)=>path==='/api/options'?new Promise(resolve=>release=()=>resolve(options)):normal(path,opts);
       const region=el('jobs-result');let scrolls=0;region.scrollIntoView=()=>scrolls++;
       const sending=el('jobs-send').click();await Promise.resolve();await Promise.resolve();
@@ -376,10 +366,10 @@ def test_s03_automatic_instruction_ignores_stale_targets_and_does_not_run_elsewh
       const normal=api,waiting=[];
       api=(path,opts)=>path.startsWith('/api/prompt')?new Promise(resolve=>waiting.push({path,resolve})):normal(path,opts);
       await go('s05');assert.equal(waiting.length,0);
-      await go('s03',{doc:'T21-X01',section:8});const first=S.jobs.promptPending;
+      await go('s03',{doc:'T21-X01',section:8});const first=S.jobs.promptPending;stepTo('model');
       change(el('jobs-model'),'second');const second=S.jobs.promptPending;
       assert.equal(waiting.length,2);waiting[1].resolve({text:'new model instruction'});await second;
-      waiting[0].resolve({text:'old model instruction'});await first;
+      waiting[0].resolve({text:'old model instruction'});await first;stepTo('prompt');
       assert.equal(el('jobs-prompt').value,'new model instruction');assert.equal(S.jobs.promptBusy,false);
       S.jobs.t.all=true;jobsRenderTry();assert.equal(waiting.length,2);
       S.jobs.t.all=false;S.jobs.t.doc=null;jobsRenderTry();assert.equal(waiting.length,2);
@@ -390,10 +380,10 @@ def test_s03_automatic_instruction_ignores_stale_targets_and_does_not_run_elsewh
 def test_s03_disabling_custom_instruction_does_not_erase_the_draft():
     from test_B_b_app_jobs_ui import SETUP
     run_js(SETUP + r"""
-      await go('s03',{doc:'T21-X01',section:8});await S.jobs.promptPending;
+      await go('s03',{doc:'T21-X01',section:8});await S.jobs.promptPending;stepTo('prompt');
       input(el('jobs-prompt'),'keep disabled draft');change(el('jobs-edit'),false);
       const count=requests.filter(p=>p.startsWith('/api/prompt')).length;
-      await go('s03',{doc:'RAW-FAKE',section:9});await S.jobs.promptPending;
+      await go('s03',{doc:'RAW-FAKE',section:9});await S.jobs.promptPending;stepTo('prompt');
       assert.equal(el('jobs-prompt').value,'keep disabled draft');
       assert.equal(requests.filter(p=>p.startsWith('/api/prompt')).length,count);
       await el('jobs-load-prompt').click();assert.equal(el('jobs-prompt').value,'fake prompt');
@@ -411,7 +401,9 @@ def test_practice_result_says_practice_done_not_done():
         assert.notEqual(states[0].textContent,T('jobs.status.done'));
       }
       listed=[job('done')];response=result(true);await jobsPoll();await jobsLoadResult('j1');
-      assert.equal(el('jobs-result').querySelector('[data-job-status]').textContent,T('jobs.status.done'));
+      // 실제 시험은 제목과 단계 표시가 끝났음을 말한다. 상태 글은 작업 기록에서 본다.
+      assert.equal(el('jobs-result').querySelector('[data-job-status]'),null);
+      assert.equal(el('jobs-list').querySelector('[data-job-status]').textContent,T('jobs.status.done'));
       assert.equal(S.journey.outcomes.t2.real,null);
     """)
 
@@ -420,14 +412,15 @@ def test_practice_result_says_practice_done_not_done():
 def test_s03_after_send_moves_focus_to_result(practice):
     from test_B_b_app_jobs_ui import SETUP
     run_js(SETUP + f"const practice={str(practice).lower()};" + r"""
-      options=makeOptions(!practice);await go('s03',{doc:'T21-X01',section:8});
+      options=makeOptions(!practice);await go('s03',{doc:'T21-X01',section:8});stepTo('prompt');
       const region=el('jobs-result');let scrolls=0;region.scrollIntoView=()=>scrolls++;
       listed=[job('running',{dry_run:practice,target:{...target,dry_run:practice}})];
-      el('jobs-send').focus();await el('jobs-send').click();
+      const button=()=>el(practice?'jobs-practice':'jobs-send');
+      button().focus();await button().click();
       assert.equal(document.activeElement,region);assert.equal(scrolls,1);
       assert.equal(region.getAttribute('tabindex'),'-1');
       await jobsPoll();assert.equal(scrolls,1);
-      post=async()=>{throw new Error('rejected');};await el('jobs-send').click();assert.equal(scrolls,1);
+      stepTo('prompt');post=async()=>{throw new Error('rejected');};await button().click();assert.equal(scrolls,1);
     """)
 
 
@@ -586,7 +579,8 @@ def test_model_lookup_failure_is_not_ai_off():
       api=async path=>{assert.equal(path,'/api/servers');return data;};
       shellRenderContext(); await shellPollServers(); await go('s06');
       const context=()=>document.getElementById('context-model').textContent;
-      const row=()=>document.getElementById('servers-models').textContent;
+      document.getElementById('servers-details-open').click();
+      const row=()=>document.querySelector('#details-drawer .drawer-body').textContent;
       assert.ok(context().includes(T('context.model.query_failed')));
       assert.ok(row().includes(T('context.model.query_failed')));
       assert.ok(!context().includes(T('context.model.state_off')));
@@ -810,39 +804,35 @@ def test_s01_button_and_hint_follow_the_kind_that_exists():
     """)
 
 
-def test_s01_conclusion_first_and_path_on_s01_to_s03():
+def test_s01_to_s03_conclusion_first_and_the_work_order_is_in_the_menu():
+    # 화면 안의 글자뿐인 1·2·3 경로를 뺐다 (ADR-039). 같은 뜻은 왼쪽 메뉴의 순서와 현재 표시가 맡는다.
     from test_B_b_app_score_ui import FIXTURE
     from test_B_b_app_source_ui import fixture
     from test_B_b_app_jobs_ui import SETUP
     check = r"""
       const area=el('screen-'+S.shell.route), heading=area.querySelector('h1');
       assert.notEqual(heading.textContent,T(SHELL_SCREENS[S.shell.route].title));
-      const flow=area.querySelector('.score-flow');assert.ok(flow);
-      assert.deepEqual(Array.from(flow.querySelectorAll('li'),n=>n.textContent),
-        ['result','cause','retest'].map(k=>T('score.flow.'+k)));
-      assert.equal(flow.querySelector('[aria-current="step"]').textContent,T('score.flow.'+current));
-      assert.equal(flow.querySelector('button'),null);
-      const nodes=Array.from(area.querySelectorAll('*'));
-      assert.ok(nodes.indexOf(flow)<nodes.indexOf(heading));
+      assert.equal(area.querySelector('.score-flow'),null);
+      const nav=el('main-nav').querySelector('[data-screen="'+S.shell.route+'"]');
+      assert.equal(nav.getAttribute('aria-current'),'page');
+      assert.equal(nav.querySelector('.nav-no'),null);
+      const flow=Array.from(el('main-nav').querySelectorAll('.nav-group')[0].querySelectorAll('[data-screen]'),b=>b.dataset.screen).filter(id=>id!=='s10');
+      assert.equal(flow[Number(order)-1],S.shell.route);
     """
-    run_js(FIXTURE + "await go('s01');const current='result';" + check + r"""
+    run_js(FIXTURE + "shellRenderHeader();await go('s01');const order='1';" + check + r"""
       assert.equal(heading.textContent,T('score.summary.headline_model',{model:'Fake model'}));
       api=async()=>{throw new Error('Fake failure');};await scoreLoad(true);
       assert.equal(el('title-s01').textContent,T('score.load_failed.fact'));
-      assert.equal(el('screen-s01').querySelector('.score-flow'),null);
     """)
-    run_js(fixture() + "await go('s02',{section:8});const current='cause';" + check + r"""
+    run_js(fixture() + "shellRenderHeader();await go('s02',{section:8});const order='2';" + check + r"""
       assert.equal(heading.textContent,T('source.title'));
       api=async()=>{throw new Error('Fake failure');};await sourceLoad(true);
       assert.equal(el('title-s02').textContent,T('source.load_failed.fact'));
-      assert.equal(el('screen-s02').querySelector('.score-flow'),null);
     """)
-    run_js(SETUP + "await go('s03',{doc:'T21-X01',section:8});const current='retest';" + check + r"""
-      assert.equal(heading.textContent,T('jobs.trial.title'));
-      options=makeOptions(false);await jobsLoadOptions();jobsRenderTry();
-      assert.equal(el('title-s03').textContent,T('jobs.off.title'));
-      optionsError=true;await jobsLoadOptions();jobsRenderTry();
-      assert.equal(el('screen-s03').querySelector('.score-flow'),null);
+    run_js(SETUP + "shellRenderHeader();await go('s03',{doc:'T21-X01',section:8});const order='3';" + check + r"""
+      assert.equal(heading.textContent,T('steps.trial.target_title'));
+      options=makeOptions(false);await jobsLoadOptions();stepTo('model');
+      assert.equal(el('title-s03').textContent,T('steps.trial.model_off_title'));
     """)
 
 
@@ -879,23 +869,26 @@ def test_s01_no_results_hides_run_selector_and_offers_next_step():
 
 
 def test_s02_direct_entry_starts_from_document_and_section_choice():
+    # 고르는 칸을 접지 않는다 (ADR-039). ①에 문서와 부분이 있고, 행 목록은 ②에서 보며, 큰 표는 미리 그리지 않는다.
     from test_B_b_app_source_ui import fixture
     run_js(fixture() + FIX_VISIBLE + r"""
-      view.values=Array.from({length:854},(_,i)=>({...view.values[1],path:'fake['+i+'].q'}));
+      view.values=Array.from({length:854},(_,i)=>({...view.values[1],row:i,path:'fake['+i+'].q'}));
       await go('s02');
-      assert.equal(el('source-problem-list'),null);
-      assert.ok(el('source-doc-select').closest('details').open);
+      assert.equal(el('source-selection').hidden,true);assert.equal(el('source-page').hidden,true);
+      assert.equal(el('source-top').querySelectorAll('details').length,0);
+      assert.ok(el('source-doc-select'));
       assert.ok(el('source-section-choice'));assert.equal(el('source-section-choice').value,'');
       assert.ok(visibleText(el('source-top')).includes(T('source.labels.choose_scope')));
       await change('source-section-choice','8');
+      assert.equal(el('source-section-choice').value,'8');
+      el('source-next').click();
+      assert.ok(el('source-problem-list').querySelectorAll('button').length<=61);
       el('source-problem-list').querySelector('button').click();
-      const structure=document.querySelector('[data-source-section="8"]').closest('details');
-      assert.equal(structure.open,false);
-      assert.ok(Array.from(el('source-selection').querySelectorAll('details')).every(d=>!d.open));
-      assert.equal(document.querySelector('[data-source-section="8"]').parentElement.open,false);
+      assert.equal(document.querySelector('[data-source-section="8"]'),null);
+      assert.equal(el('source-selection').querySelectorAll('details').length,0);
       const nodes=Array.from(el('screen-s02').querySelectorAll('*'));
       assert.ok(nodes.indexOf(el('source-selection'))<nodes.indexOf(el('source-page')));
-      assert.ok(nodes.indexOf(el('source-page'))<nodes.indexOf(document.querySelector('[data-source-section="8"]')));
+      assert.ok(nodes.indexOf(el('source-page'))<nodes.indexOf(el('source-actions')));
     """)
 
 
@@ -908,7 +901,7 @@ second.silver_only=[];
 const originalApi=api;
 api=async path=>{
  if(path.startsWith('/api/doc?')&&new URLSearchParams(path.split('?')[1]).get('doc')==='T21-X02'){
-   calls.push(path);return second;
+   calls.push(path);return {...second,row_groups:rowGroupsOf(second)};
  }return originalApi(path);
 };
 """
@@ -921,7 +914,7 @@ def test_s02_problem_list_spans_documents_of_the_same_criterion():
       const groups=el('source-problem-list').querySelectorAll('[data-problem-doc]');
       assert.deepEqual(Array.from(groups,g=>g.dataset.problemDoc),['T21-X01','T21-X02']);
       assert.ok(!el('source-problem-list').textContent.includes(view.values[3].path));
-      const b=groups[1].querySelector('button');await b.click();
+      const b=groups[1].querySelector('button');await b.click();await flush();
       assert.equal(S.source.data.doc_id,'T21-X02');assert.equal(S.source.item,'Fake criterion');
       assert.equal(S.source.section,8);assert.equal(S.source.selection.path,second.values[0].path);
       assert.ok(el('source-selection').textContent.includes('Second document value'));
@@ -934,17 +927,20 @@ def test_s02_problem_list_spans_documents_of_the_same_criterion():
 
 
 def test_s02_problem_list_uses_plain_field_names():
+    # 행 제목이 왼쪽 목록을, 쉬운 칸 이름이 행의 표를 맡는다. 경로는 서랍에 있다.
     from test_B_b_app_source_ui import fixture
     run_js(fixture() + r"""
       view.ui_text.value_field_labels={comp_ref:'Fake component label',limit_type:'Fake limit label',q:'Fake numeric label'};
-      view.values[0].field='comp_ref';view.values[1].field='limit_type';
+      view.values[0].field='comp_ref';view.values[0].row=1;view.values[1].field='limit_type';
       await go('s02',{section:8,item:'Fake criterion'});
       const list=el('source-problem-list'),text=list.textContent;
       assert.doesNotMatch(text,/comp_ref|limit_type|msds\[0\]|\bq\b/);
-      for(const label of Object.values(view.ui_text.value_field_labels))assert.ok(text.includes(label));
       assert.equal(text.split('T21-X01').length-1,1);
       list.querySelector('button').click();
-      assert.ok(el('screen-s02').textContent.includes(view.values[0].path));
+      const table=el('source-selection').textContent;
+      assert.doesNotMatch(table,/comp_ref|limit_type|msds\[0\]/);
+      for(const label of ['Fake component label','Fake limit label'])assert.ok(table.includes(label));
+      assert.ok(openDrawer().textContent.includes(view.values[1].path));
     """)
 
 
@@ -979,20 +975,23 @@ def test_s02_criterion_counts_use_run_api_without_recounting_loaded_values():
       for(const [kind,count] of [['missing',17],['wrong',11],['made',9]])
         assert.equal(el('source-filter-'+kind).textContent,T('source.filter.'+kind,{count}));
       top.counts=null;sourceRenderProblems();
-      assert.ok(el('source-values').textContent.includes(T('common.legacy.cell_labels.c_none')));
+      // API에 수가 없으면 지어내지 않고 종류 이름만 쓴다. '기록 없음'은 아래 목록의 행과 어긋나 G5 전에 뺐다.
+      assert.equal(el('source-filter-wrong').textContent,T('source.kinds.wrong'));
       assert.ok(!el('source-filter-wrong').textContent.includes('0'));
     """)
 
 
 def test_s02_late_document_click_does_not_replace_new_key_selection():
+    # 읽은 문서는 다시 받지 않으므로 처음 받는 문서의 응답을 늦춘다.
     from test_B_b_app_source_ui import fixture
     run_js(fixture() + SOURCE_GROUPS + r"""
       await go('s02',{run:'current',doc:'T21-X01',section:8,item:'Fake criterion',pick:'mismatch'});
+      S.source.problemData.clear();
       const upstream=api;let releaseOld;
       api=async path=>{
         const p=new URLSearchParams(path.split('?')[1]);
-        if(p.get('doc')==='T21-X01'&&p.get('key')==='gold/fake')
-          return new Promise(resolve=>{releaseOld=()=>resolve({...view,doc_id:'T21-X01'});});
+        if(p.get('doc')==='T21-X02'&&p.get('key')==='gold/fake')
+          return new Promise(resolve=>{releaseOld=()=>resolve({...second,row_groups:rowGroupsOf(second)});});
         return upstream(path);
       };
       const pendingPick=sourcePickProblem('T21-X02',second.values[0],false);await flush();
@@ -1012,10 +1011,6 @@ def test_s02_value_selection_preserves_list_scroll_and_visible_focus():
       el('source-problem-list').querySelector('button').click();
       assert.equal(el('source-problem-list').scrollTop,120);
       assert.equal(document.activeElement.closest('[data-problem-doc]').dataset.problemDoc,'T21-X01');
-      const section=document.querySelector('[data-source-section="8"]');
-      const outer=section.parentElement;outer.open=true;outer.dispatchEvent({type:'toggle'});
-      section.open=true;section.dispatchEvent({type:'toggle'});
-      const table=section.querySelector('details');table.open=true;table.dispatchEvent({type:'toggle'});
       const same=pick(2);same.focus();same.click();
       assert.ok(document.activeElement.isConnected);assert.equal(document.activeElement.dataset.sourcePath,view.values[2].path);
     """)
@@ -1060,7 +1055,7 @@ def test_s02_choosing_another_section_clears_the_previous_value():
     run_js(fixture() + r"""
       await go('s02',{section:8,item:'Fake criterion',pick:'mismatch'});
       assert.ok(S.source.selection);
-      await change('source-section-choice','12');
+      await change('source-section-select','12');
       assert.equal(S.source.section,12);assert.equal(S.source.item,null);
       assert.equal(S.source.selection,null);assert.equal(S.source.selectedLines.size,0);
       assert.ok(!el('source-selection').textContent.includes('8 fake-unit'));
@@ -1242,18 +1237,18 @@ def test_machine_values_use_plain_labels_and_keep_original_details():
         const raw=cell.querySelector('.code-record');assert.ok(raw);assert.equal(raw.open,false);
         assert.ok(raw.textContent.includes(mode));assert.ok(raw.textContent.includes('공백폭주'));
       }
-      await go('s03',{doc:'T21-X01',section:8});await el('jobs-send').click();
+      await go('s03',{doc:'T21-X01',section:8});stepTo('prompt');await el('jobs-send').click();
       response={plan:{doc_id:'T21-X01',model_tag:'first',msds_count:1,sections_method:'provisional',sections:{'8':{
         method:'fallback',lines:2,preamble_lines:1,first:'p1:L1',last:'p1:L2',pages:[1],images:[],rows:false}}},
         results:{'8':{ok:true,mode:'json_schema',finish_reason:'length',seconds:1,raw_text:'fake',parsed:{}}}};
-      listed=[job('done')];await jobsPoll();const inputStage=el('jobs-stage-j1-0'),answer=el('jobs-stage-j1-2');
-      for(const section of [inputStage,answer])section.open=true;
+      // 결과 기록은 서랍에 평평하게 있다. 사람 말 글 아래에 '원래 기록 값'이 제목과 함께 있다.
+      listed=[job('done')];await jobsPoll();openDrawer();const inputStage=el('jobs-stage-j1-0'),answer=el('jobs-stage-j1-2');
       assert.ok(visibleText(inputStage).includes(T('common.codes.split.provisional')));
       assert.ok(visibleText(inputStage).includes(T('common.codes.split.fallback')));
       assert.ok(visibleText(answer).includes(T('common.codes.finish.length')));
-      assert.ok(!visibleText(answer).includes('json_schema'));
-      assert.ok(answer.querySelector('.code-record').textContent.includes('json_schema'));
-      assert.ok(answer.querySelector('.code-record').textContent.includes('length'));
+      assert.ok(answer.textContent.includes(T('common.code_record_title')));
+      assert.ok(answer.querySelector('code.raw').textContent.includes('json_schema'));
+      assert.ok(answer.querySelector('code.raw').textContent.includes('length'));
       assert.equal(coreCodeLabel('mode','future_mode'),T('common.codes.unknown'));
       assert.equal(coreCodeLabel('mode',null),T('common.none'));
     """)
@@ -1265,11 +1260,12 @@ def test_server_state_has_plain_label_and_raw_state_in_detail():
       await setup();
       for(const state of ['RUNNING','EXITED','FUTURE_STATE']){
         data.pods[0].state=state;await shellPollServers();
-        const table=document.getElementById('servers-runpod');table.querySelector('details').open=true;
+        assert.ok(!visibleText(stage()).includes(state));
+        const table=openDrawer().querySelector('[data-pod="owned1"]');
         const label=state==='FUTURE_STATE'?T('common.codes.unknown'):T('common.codes.pod.'+state);
-        assert.ok(visibleText(table).includes(label));assert.ok(!visibleText(table).includes(state));
-        const raw=table.querySelector('.code-record');assert.ok(raw);assert.equal(raw.open,false);
-        assert.ok(raw.textContent.includes(state));
+        assert.ok(visibleText(table).includes(label));
+        assert.ok(table.querySelector('.raw[data-code-record]').textContent.includes(state));
+        drawerClose();
       }
     """)
 
@@ -1278,8 +1274,8 @@ def test_value_details_and_error_records_have_distinct_names():
     from test_B_b_app_source_ui import fixture
     run_js(fixture() + r"""
       await go('s02',{run:'current',doc:'T21-X01',section:8});pick(1).click();
-      const details=document.querySelector('.source-raw');assert.ok(details);
-      assert.equal(details.querySelector('summary').textContent,T('source.labels.raw_value'));
-      assert.notEqual(T('source.labels.raw_value'),T('common.raw_error'));
+      const body=openDrawer();assert.ok(body.querySelector('.source-raw'));
+      assert.ok(body.textContent.includes(T('steps.source.raw_value_title')));
+      assert.notEqual(T('steps.source.raw_value_title'),T('common.raw_error_title'));
       assert.equal(rawError('fake').querySelector('summary').textContent,T('common.raw_error'));
     """)

@@ -4,6 +4,8 @@ from test_B_b_app_dom import STATIC, run_js
 FIXTURES = r"""
 const el=id=>document.getElementById(id);
 const text=id=>el(id).textContent;
+// 막대에는 상태와 요금만 쓰고 긴 설명은 AI 칩의 말풍선에 있다 (ADR-039). 둘을 합쳐 읽는다.
+const modelInfo=()=>text('context-model')+'\n'+el('context-model-open').getAttribute('data-tip');
 const sets={default:'version17',sets:[
  {id:'version17',label:'version17',usable:true,counts:{dev:1,eval_locked:1},docs:[{doc_id:'T21-X01',locked:false},{doc_id:'T21-X09',locked:true}]},
  {id:'newset',label:'newset',usable:true,counts:{outside:1},docs:[{doc_id:'RAW-90',locked:false}]}]};
@@ -44,18 +46,21 @@ const open=async(view='start')=>{await start();await go('s11',{swapView:view});a
 def test_strip_says_whether_the_chosen_documents_can_get_a_score():
     run_js(FIXTURES + r"""
       await start();
-      assert.equal(text('context-score-chip'),T('swap.context.score_docs',{count:1}));   // 잠긴 평가 문서는 세지 않는다
+      assert.equal(text('context-score-chip'),T('swap.context.score_docs_short',{count:1}));   // 잠긴 평가 문서는 세지 않는다
       assert.ok(el('context-score-chip').classList.contains('yes'));
+      assert.ok(el('context-change-set').getAttribute('data-tip').includes(T('swap.context.score_docs',{count:1})));
       shellApplyContext({set:'newset',key:'gold'});
-      assert.equal(text('context-score-chip'),T('swap.context.no_score'));
+      assert.equal(text('context-score-chip'),T('swap.context.no_score_short'));
       assert.ok(el('context-score-chip').classList.contains('no'));
+      assert.ok(el('context-change-set').getAttribute('data-tip').includes(T('swap.context.no_score')));
     """)
 
 
 def test_strip_labels_say_what_the_next_test_uses_and_link_to_swap():
     run_js(FIXTURES + r"""
       await start();
-      assert.ok(text('global-context').includes(T('context.documents.label')));
+      assert.ok(text('global-context').includes(T('context.documents.short')));
+      assert.ok(el('context-change-set').getAttribute('data-tip').includes(T('context.documents.label')));
       el('context-swap').click();await settle();
       assert.equal(S.shell.route,'s11');
       assert.equal(el('screen-s11').hidden,false);
@@ -186,7 +191,7 @@ def test_apply_switches_strip_once_and_undo_returns_without_deleting():
       assert.equal(text('title-s11'),T('swap.done.title'));
       assert.ok(text('swap-view').includes(T('swap.done.changed')));
       assert.ok(text('swap-view').includes(T('swap.done.results_none')));
-      assert.equal(text('context-score-chip'),T('swap.context.no_score'));
+      assert.equal(text('context-score-chip'),T('swap.context.no_score_short'));
       assert.ok(text('swap-view').includes(T('swap.done.undo_note',{set:'version17'})));
       button(T('swap.done.undo')).click();await settle();
       assert.equal(S.ctx.set,'version17');assert.deepEqual(changes,['newset','version17']);
@@ -276,7 +281,7 @@ def test_done_next_step_opens_a_screen_and_never_starts_a_server_or_a_test():
       await go('s11',{swapView:'done'});await settle();
       assert.ok(text('swap-view').includes(T('swap.done.on_note')));
       button(T('swap.done.on_action')).click();await settle();
-      assert.equal(S.shell.route,'s09');
+      assert.equal(S.shell.route,'s03');assert.equal(S.jobs.batch,true);
       assert.deepEqual(calls.filter(c=>c[0]==='POST').map(c=>c[1]),['/api/swap/check','/api/swap/apply']);
     """)
 
@@ -349,14 +354,14 @@ def test_strip_tells_when_new_gold_arrived_and_screen_clears_it():
       const changes=[];on('context_changed',e=>changes.push(e.key));
       await start();await settle();
       assert.ok(calls.some(c=>c[1]==='/api/swap/gold?since=oldsha1'));
-      assert.ok(text('context-answer-note').includes(T('swap.context.gold_changed',{count:3})));
+      assert.ok(text('context-gold-notice').includes(T('swap.context.gold_changed',{count:3})));   // 막대 한 줄 아래에 다 보인다
       assert.equal(changes.length,1);                                                   // 열려 있던 점수를 새 정답으로 다시 읽는다
       el('context-gold-open').click();await settle();
       assert.equal(text('title-s11'),T('swap.gold.title'));
       assert.ok(text('swap-view').includes(T('swap.gold.changed_title',{dev:2,eval_docs:1})));
       assert.ok(text('swap-view').includes(T('swap.gold.changed_docs',{docs:'T21-X01, T21-X02'})));
       assert.equal(JSON.parse(localStorage.getItem('b_app.swap.gold_seen')),'85d599f');
-      assert.ok(!text('context-answer-note').includes(T('swap.context.gold_changed',{count:3})));
+      assert.ok(!text('context-gold-notice').includes(T('swap.context.gold_changed',{count:3})));
     """)
 
 
@@ -379,6 +384,8 @@ def test_strip_shows_gold_upload_date_only_for_main_gold():
     run_js(FIXTURES + r"""
       await start();await settle();
       assert.ok(text('context-answer-note').includes(T('swap.context.gold_note',{date:'11/1',count:1})));
+      // 좁은 창에서는 막대에서 날짜 글이 빠지므로 정답 칩의 말풍선에서도 읽는다.
+      assert.ok(el('context-change-key').getAttribute('data-tip').includes(T('swap.context.gold_note',{date:'11/1',count:1})));
       shellApplyContext({set:'version17',key:'silver/claude'});await settle();
       assert.ok(!text('context-answer-note').includes('11/1'));
     """)
@@ -405,9 +412,9 @@ def test_strip_shows_loading_minutes_while_pod_starts():
       servers={models:[{tag:'q',where:'RunPod',url_set:true,reachable:false,error:'HTTP 502'}],session:{pod_id:'p1',ready:false,idle_minutes:20},
         pods:[{id:'p1',session:true,owned:true,status:'RUNNING',minutes:3.4,cost_per_hr:2.49,auto_delete_min:37}]};
       await start();await settle();
-      assert.ok(text('context-model').includes(T('context.model.rented_loading')));
-      assert.ok(text('context-model').includes(T('context.model.rented_elapsed',{minutes:3})));
-      assert.ok(text('context-model').includes(T('context.model.rented_close_where')));
+      assert.ok(modelInfo().includes(T('context.model.rented_loading')));
+      assert.ok(modelInfo().includes(T('context.model.rented_elapsed',{minutes:3})));
+      assert.ok(modelInfo().includes(T('context.model.rented_close_where')));
     """)
 
 
@@ -417,7 +424,7 @@ def test_strip_shows_cost_and_auto_close_when_connected():
         pods:[{id:'p1',session:true,owned:true,status:'RUNNING',minutes:9,cost_per_hr:2.49,auto_delete_min:18}]};
       await start();await settle();
       for(const shown of [T('context.model.rented_hourly',{cost:2.49}),T('context.model.rented_auto_close',{idle:20}),T('context.model.rented_auto_left',{minutes:18}),T('context.model.rented_close_where')])
-        assert.ok(text('context-model').includes(shown),shown);
+        assert.ok(modelInfo().includes(shown),shown);
     """)
 
 
@@ -427,7 +434,8 @@ def test_strip_has_no_close_button_for_rented_server():
         pods:[{id:'p1',session:true,owned:true,status:'RUNNING',minutes:9,cost_per_hr:2.49,auto_delete_min:18}]};
       await start();await settle();
       const buttons=el('context-model').querySelectorAll('button');
-      assert.equal(buttons.length,1);assert.equal(buttons[0].textContent,T('context.prepare_model'));
+      assert.equal(buttons.length,1);assert.ok(buttons[0].getAttribute('data-tip').includes(T('context.prepare_model')));
+      buttons[0].click();await settle();assert.equal(S.shell.route,'s06');
     """)
 
 
@@ -435,13 +443,13 @@ def test_strip_says_no_cost_when_off_and_nothing_of_ours_runs():
     run_js(FIXTURES + r"""
       servers={models:[""" + MODEL_OFF + r"""],pods:[{id:'team',owned:false,status:'RUNNING'}]};
       await start();await settle();
-      assert.ok(text('context-model').includes(T('context.model.off_no_cost')));
+      assert.ok(modelInfo().includes(T('context.model.off_no_cost')));
       servers={models:[""" + MODEL_OFF + r"""],pods:[{id:'p1',owned:true,status:'RUNNING'}]};
       await shellPollServers();
-      assert.ok(!text('context-model').includes(T('context.model.off_no_cost')));
+      assert.ok(!modelInfo().includes(T('context.model.off_no_cost')));
       servers={models:[""" + MODEL_OFF + r"""],pods:[],runpod_error:'RUNPOD_API_KEY'};
       await shellPollServers();
-      assert.ok(!text('context-model').includes(T('context.model.off_no_cost')));       // 목록을 못 읽으면 단정하지 않는다
+      assert.ok(!modelInfo().includes(T('context.model.off_no_cost')));       // 목록을 못 읽으면 단정하지 않는다
     """)
 
 
@@ -449,12 +457,12 @@ def test_strip_explains_automatic_close_after_it_happens():
     run_js(FIXTURES + r"""
       servers={models:[""" + MODEL_OFF + r"""],pods:[],last_auto_close:{kind:'idle',limit_min:20,minutes:26,cost:1.08}};
       await start();await settle();
-      assert.ok(text('context-model').includes(T('context.model.auto_closed_idle',{limit:20})));
-      assert.ok(text('context-model').includes(T('context.model.auto_closed_cost',{minutes:26,cost:1.08})));
+      assert.ok(modelInfo().includes(T('context.model.auto_closed_idle',{limit:20})));
+      assert.ok(modelInfo().includes(T('context.model.auto_closed_cost',{minutes:26,cost:1.08})));
       servers={...servers,last_auto_close:{kind:'no_reply',limit_min:40,minutes:41,cost:null}};
       await shellPollServers();
-      assert.ok(text('context-model').includes(T('context.model.auto_closed_no_reply',{limit:40})));
-      assert.ok(!text('context-model').includes(T('context.model.auto_closed_cost',{minutes:41,cost:null})));
+      assert.ok(modelInfo().includes(T('context.model.auto_closed_no_reply',{limit:40})));
+      assert.ok(!modelInfo().includes(T('context.model.auto_closed_cost',{minutes:41,cost:null})));
     """)
 
 
