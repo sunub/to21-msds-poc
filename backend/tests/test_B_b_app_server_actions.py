@@ -1255,6 +1255,41 @@ def test_idle_guard_deletes_pod_after_twenty_minutes_without_requests(srv, pod, 
     no_secret(log)
 
 
+def test_automatic_close_is_reported_with_time_and_cost(srv, pod, tmp_path):
+    clock = Clock()
+    cloud = MetricsCloud(pods=[pod_of("abc123", "to21-b-qwen36", 5)], metrics={"abc123": metrics_text()},
+                         served={pod.pod_url("abc123"): [MODEL]})
+    sa = make(srv, tmp_path, cloud=cloud, clock=clock)
+    assert sa.status()["last_auto_close"] is None
+    sa.idle_tick()
+    clock.t += srv.IDLE_SECONDS
+    assert sa.idle_tick() == ["abc123"]
+    closed = sa.status()["last_auto_close"]
+    assert closed["kind"] == "idle" and closed["limit_min"] == 20
+    assert isinstance(closed["minutes"], int) and closed["cost"] is not None
+
+
+def test_session_status_tells_idle_limit(srv, pod, tmp_path):
+    cloud = MetricsCloud(pods=[pod_of("abc123", "to21-b-qwen36", 5)], metrics={"abc123": metrics_text()},
+                         served={pod.pod_url("abc123"): [MODEL]})
+    sa = make(srv, tmp_path, cloud=cloud, clock=Clock())
+    assert sa.status()["session"]["idle_minutes"] == 20
+
+
+def test_manual_delete_clears_automatic_close_note(srv, pod, tmp_path):
+    clock = Clock()
+    cloud = MetricsCloud(pods=[pod_of("abc123", "to21-b-qwen36", 5)], metrics={"abc123": metrics_text()},
+                         served={pod.pod_url("abc123"): [MODEL]})
+    sa = make(srv, tmp_path, cloud=cloud, clock=clock)
+    sa.status()
+    sa.idle_tick()
+    clock.t += srv.IDLE_SECONDS
+    sa.idle_tick()
+    cloud.pods.append(pod_of("def456", "to21-b-qwen36", 5))
+    sa._do_pod_delete({"pod_id": "def456"})
+    assert sa.status()["last_auto_close"] is None
+
+
 def test_idle_guard_restarts_the_clock_when_tokens_or_requests_change(srv, tmp_path):
     clock = Clock()
     cloud = MetricsCloud(pods=[pod_of("abc123", "to21-b-qwen36", 5)], metrics={"abc123": metrics_text()})

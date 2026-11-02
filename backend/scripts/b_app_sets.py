@@ -15,6 +15,7 @@
 import hashlib
 import json
 import re
+import unicodedata
 from datetime import datetime
 from pathlib import Path
 
@@ -42,12 +43,19 @@ def _page_files(doc_dir: Path) -> list[tuple[int, Path]]:
     return sorted((int(m.group(1)), p) for p in doc_dir.iterdir() if (m := _PAGE_FILE.match(p.name)))
 
 
-def _meta_doc_id(doc_dir: Path) -> str | None:
+def _read_meta(doc_dir: Path) -> dict:
     try:
         meta = json.loads((doc_dir / "meta.json").read_text(encoding="utf-8"))
     except (OSError, ValueError):
-        return None
-    return meta.get("doc_id") if isinstance(meta, dict) else None
+        return {}
+    return meta if isinstance(meta, dict) else {}
+
+
+def _same_source_as_eval(meta: dict, rows: list[dict]) -> bool:
+    """원본 PDF 이름이 평가 문서와 같은가. 예: RAW-50은 T21-050이다. 맥의 파일 이름은 NFD일 수 있어 맞춰 비교한다 (D-43)."""
+    nfc = lambda name: unicodedata.normalize("NFC", name or "")   # noqa: E731
+    source = nfc(meta.get("source_file"))
+    return bool(source) and any(r.get("purpose") == "평가" and nfc(r.get("source_file")) == source for r in rows)
 
 
 def _group(doc_id: str, doc_dir: Path | None, rows: list[dict]) -> str:
@@ -57,7 +65,10 @@ def _group(doc_id: str, doc_dir: Path | None, rows: list[dict]) -> str:
     row = next((r for r in rows if r["doc_id"] == doc_id), None)
     if row is not None:
         return _GROUPS.get(row.get("purpose"), "other")
-    return "outside" if doc_dir is not None and _meta_doc_id(doc_dir) == doc_id else "unknown"
+    meta = _read_meta(doc_dir) if doc_dir is not None else {}
+    if _same_source_as_eval(meta, rows):
+        return "eval"
+    return "outside" if meta.get("doc_id") == doc_id else "unknown"
 
 
 def _first_line_numbered(path: Path) -> bool:
@@ -87,7 +98,7 @@ def doc_entry(doc_dir: Path, rows: list[dict]) -> dict:
 
 
 def _subdirs(path: Path) -> list[Path]:
-    return sorted(p for p in path.iterdir() if p.is_dir())
+    return sorted(p for p in path.iterdir() if p.is_dir() and not p.name.startswith("."))   # 복사 중인 임시 폴더는 숨긴다
 
 
 def _unusable_reason(docs: list[dict]) -> str | None:

@@ -50,6 +50,7 @@ import b_app_journey as bjn
 import b_app_runs as br
 import b_app_servers as bs
 import b_app_sets as bsets
+import b_app_swap as bswap
 import b_app_text as bt
 from msds.common import manifest
 from msds.common.paths import BACKEND, CONFIGS, DATA, PAGES, ROOT, RUNS, SILVER
@@ -88,6 +89,7 @@ class AppContext:
     run_history: dict[str, list[dict]] | None = None  # /api/runs가 읽은 가벼운 목록. 정답지 폴더(글자)별, 새로 읽을 때 갱신
     data_root: Path | None = None                    # 정답지(data/silver·gold)를 찾는 곳(main은 data/). None이면 gold_dir 하나만 쓴다
     journey_file: Path | None = None                 # 첫 사용 기록(main은 runs/manual/journey.json). None이면 /api/journey는 503
+    downloads_dir: Path | None = None                # 자료 바꾸기가 받은 폴더를 찾는 곳. None이면 내 컴퓨터의 Downloads
 
 
 def _json(code: int, obj) -> tuple[int, str, bytes]:
@@ -529,9 +531,43 @@ def _try_key(ctx: AppContext, want) -> tuple[str | None, dict]:
     return os.path.relpath(folder, ctx.jobs.backend_dir), {**key, "given": True}
 
 
+def _swap_ready(ctx: AppContext) -> bool:
+    return ctx.pages_root is not None and ctx.data_root is not None
+
+
+def _swap_get(path: str, query: dict[str, list[str]], ctx: AppContext) -> tuple[int, str, bytes]:
+    """받은 폴더 목록과 정답 상태. 정답 상태는 fetch=1일 때만 GitHub를 부른다."""
+    if not _swap_ready(ctx):
+        return _json(503, {"error": "자료 바꾸기가 꺼져 있습니다"})
+    if path == "/api/swap/candidates":
+        return _json(200, bswap.candidates(Path(ctx.downloads_dir or Path.home() / "Downloads"), Path(ctx.pages_root)))
+    if path == "/api/swap/gold":
+        return _json(200, bswap.gold_status(Path(ctx.data_root) / "gold", ctx.repo_root,
+                                            fetch=query.get("fetch") == ["1"], since=(query.get("since") or [None])[0]))
+    return _json(404, {"error": f"없는 주소: {path}"})
+
+
+def _swap_post(path: str, body: bytes | None, ctx: AppContext) -> tuple[int, str, bytes]:
+    """받은 폴더 검사(파일을 옮기지 않는다)와 적용. 요금이 들지 않고 덮어쓰지 않아 확인 토큰을 받지 않는다."""
+    if not _swap_ready(ctx):
+        return _json(503, {"error": "자료 바꾸기가 꺼져 있습니다"})
+    data = _body(body)
+    if data is None:
+        return _fail(400, "bad_query", detail="본문은 JSON 객체여야 합니다")
+    action = {"/api/swap/check": bswap.inspect, "/api/swap/apply": bswap.apply}.get(path)
+    if action is None:
+        return _json(404, {"error": f"없는 주소: POST {path}"})
+    try:
+        return _json(200, action(data.get("path"), Path(ctx.pages_root), Path(ctx.data_root) / "gold"))
+    except bswap.SwapProblem as e:
+        return _json(400, bt.swap_problem(e.kind, **e.facts))
+
+
 def _post(path: str, body: bytes | None, ctx: AppContext) -> tuple[int, str, bytes]:
     if path.startswith("/api/servers/"):
         return _server_post(path, body, ctx)
+    if path.startswith("/api/swap/"):
+        return _swap_post(path, body, ctx)
     if ctx.jobs is None:
         return _json(503, {"error": "작업 탭이 꺼져 있습니다(--runs-dir를 기본 runs/가 아닌 곳으로 주면 꺼집니다)"})
     data = _body(body)
@@ -660,6 +696,8 @@ def route(method: str, path: str, query: dict[str, list[str]], body: bytes | Non
         if ctx.jobs is None:
             return _json(503, {"error": "작업 탭이 꺼져 있습니다(--runs-dir를 기본 runs/가 아닌 곳으로 주면 꺼집니다)"})
         return _job_get(path, query, ctx)
+    if path.startswith("/api/swap/"):
+        return _swap_get(path, query, ctx)
     if path == "/api/sets":
         return _sets(ctx)
     if path == "/api/keys":

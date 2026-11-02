@@ -192,7 +192,7 @@ context.key_reason.key_not_to21|정해진 결과 형식(TO21 JSON)의 정답 파
 context.key_reason.key_eval_only|평가용 문서의 정답만 있어 고를 수 없습니다.|P01
 context.key_reason.unknown_key|정답지 {id}를 찾지 못했습니다. 할 일: 정답지 목록에서 다시 고르세요.|P01
 context.key_reason.unusable_key|이 정답지를 쓸 수 없습니다. 이유: {reason}|P01
-context.documents.label|점수를 매긴 문서|전역
+context.documents.label|시험할 문서 묶음(폴더)|전역
 context.documents.count|개발용 문서 {count}건|전역
 context.change_documents|필요할 때 문서 바꾸기|전역
 context.answer.label|비교한 정답|전역
@@ -1908,6 +1908,150 @@ help.guide.protection.title|어떤 문서와 정보를 보호하나요?|S07
 help.guide.protection.summary|평가용 문서 잠금과 접속 키 보관 원칙을 확인합니다.|S07
 help.setup.command|(cd backend && .venv/bin/python scripts/b_app.py)|S07
 help.protection.command|(cd backend && .venv/bin/python -m pytest -q --ignore=tests/test_preprocess.py)|S07
+
+### swap — S11 자료 바꾸기
+
+시안 6화면을 11/2 승인 대기로 옮겼습니다. 윗줄 지금 닫기 단추는 11/2 사용자 결정으로 넣지 않았습니다.
+
+|키|글|쓰는 곳|
+|---|---|---|
+nav.swap|새 자료 받기|전역, S11
+context.model.off_no_cost|요금이 나가지 않습니다.|전역
+context.model.rented_hourly|시간당 약 ${cost}|전역
+context.model.rented_auto_close|요청이 {idle}분 없으면 자동으로 닫힙니다.|전역
+context.model.rented_auto_left|{minutes}분 남았습니다.|전역
+context.model.rented_close_where|지금 닫으려면 AI 켜기와 비용 화면으로 가세요.|전역
+context.model.auto_closed_idle|요청 없이 {limit}분이 지나 서버를 닫았습니다.|전역
+context.model.auto_closed_no_reply|모델이 {limit}분 동안 응답하지 않아 서버를 닫았습니다.|전역
+context.model.auto_closed_cost|켠 시간 {minutes}분, 추정 ${cost}.|전역
+swap.context.score_docs|점수를 매길 수 있는 문서 {count}건|S11
+swap.context.no_score|점수 없음 · 양식만 확인|S11
+swap.context.gold_note|최근 올린 날 {date} · 정답 {count}건 사용|S11
+swap.context.gold_changed|새 정답이 들어왔습니다. 문서 {count}건이 바뀌어 점수를 다시 계산합니다.|S11
+swap.context.gold_changed_open|무엇이 바뀌었나요|S11
+swap.steps.a11y|폴더 바꾸기 단계|S11
+swap.steps.pick|1 폴더 고르기|S11
+swap.steps.check|2 검사|S11
+swap.steps.apply|3 적용|S11
+swap.back|처음으로|S11
+swap.start.title|어떤 자료를 새로 받았나요?|S11
+swap.start.lead|받은 자료에 따라 하는 일이 다릅니다. 검사와 복사에는 AI를 쓰지 않아 요금이 들지 않습니다.|S11
+swap.start.docs_title|새 문서 폴더|S11
+swap.start.docs_note|PDF를 글자로 바꾸는 담당이 보내 준 폴더입니다. 문서마다 쪽별 글자가 들어 있고, AI가 이 글을 읽습니다. 예: Downloads/version17_신규40|S11
+swap.start.docs_action|폴더 고르기|S11
+swap.start.gold_title|새 정답 파일|S11
+swap.start.gold_note|정답 담당이 GitHub에 올린 파일입니다. AI 결과와 견줘 점수를 매기는 기준입니다.|S11
+swap.start.gold_action|새 정답 받기|S11
+swap.start.have_title|새로 받은 자료가 없을 때|S11
+swap.start.have_note|앱에 이미 있는 폴더나 정답으로 바꾸기만 합니다. 파일은 복사하지 않습니다.|S11
+swap.start.have_action|앱에 있는 것으로 바꾸기|S11
+swap.pick.title|어느 문서 폴더를 쓸까요?|S11
+swap.pick.lead|Downloads에서 문서 폴더처럼 보이는 것을 찾았습니다. 앱에 없는 폴더는 검사한 뒤 앱으로 복사합니다. 검사만으로는 파일이 옮겨지지 않습니다.|S11
+swap.pick.in_app|앱에 있음|S11
+swap.pick.not_in_app|앱에 없음|S11
+swap.pick.meta|문서 {count}건 · {time}에 받음|S11
+swap.pick.check|검사하기|S11
+swap.pick.empty|Downloads에서 문서 폴더를 찾지 못했습니다. 아래에 경로를 직접 적어 주세요.|S11
+swap.pick.unreadable|Downloads 폴더를 읽지 못했습니다. 아래에 경로를 직접 적어 주세요.|S11
+swap.pick.other_label|다른 곳에 있는 폴더의 전체 경로|S11
+swap.pick.other_placeholder|/Users/내이름/Downloads/version18|S11
+swap.pick.other_hint|압축 파일은 먼저 풀어 주세요.|S11
+swap.check.checking|폴더를 검사하고 있습니다. 파일은 옮기지 않습니다.|S11
+swap.check.title.score|이 폴더로 시험하고 점수도 볼 수 있습니다.|S11
+swap.check.title.format_only|이 폴더는 쓸 수 있지만 점수는 나오지 않습니다.|S11
+swap.check.title.unusable|이 폴더로는 시험할 수 없습니다.|S11
+swap.check.no_overlap_title|이 폴더의 문서와 겹치는 정답이 없습니다.|S11
+swap.check.no_overlap_body|정답이 있는 문서와 문서 번호가 다릅니다. 이 폴더는 처음 보는 문서에서 AI 결과가 양식에 맞는지 볼 때 고릅니다.|S11
+swap.check.alternative|점수를 보려면 정답이 있는 문서 {count}건이 든 {set} 폴더를 고르세요.|S11
+swap.check.unusable_body|시험할 수 있는 문서가 없습니다. 줄 번호가 없거나 열지 않는 문서뿐입니다. 폴더를 보낸 담당에게 줄 번호가 있는 판을 요청하세요.|S11
+swap.check.can_title|이 폴더로 할 수 있는 일|S11
+swap.check.yes|가능|S11
+swap.check.no|안 됨|S11
+swap.check.batch_yes|{count}건을 한꺼번에 시험하기. AI 결과가 정해진 양식에 맞는지 봅니다.|S11
+swap.check.score_yes|점수 매기기. 정답이 있는 문서 {count}건에 점수가 나옵니다.|S11
+swap.check.score_no|점수 매기기. 비교할 정답이 없습니다.|S11
+swap.check.try_yes|문서 하나의 한 부분만 다시 시험하기. 고를 수 있는 문서 {count}건.|S11
+swap.check.try_no|문서 하나의 한 부분만 다시 시험하기. 지금은 개발용 문서 목록에 있는 문서만 됩니다.|S11
+swap.check.facts_title|검사 결과|S11
+swap.check.docs_label|문서|S11
+swap.check.docs_value|{count}건|S11
+swap.check.lines_label|줄 번호|S11
+swap.check.lines_all|열 수 있는 {count}건 모두 있음. AI가 근거로 적는 번호라 있어야 시험할 수 있습니다. 예: L001|S11
+swap.check.lines_some|열 수 있는 문서 중 {count}건에 없음. 이 문서들은 시험에서 빠집니다. AI가 근거로 적는 번호입니다. 예: L001|S11
+swap.check.locked_label|열지 않는 문서|S11
+swap.check.locked_none|없음|S11
+swap.check.locked_eval|최종 평가 문서 {count}건. 점수가 부풀지 않도록 복사만 하고 열지 않습니다.|S11
+swap.check.locked_same|{doc}는 최종 평가 문서 {eval_doc}와 원본이 같습니다.|S11
+swap.check.locked_unknown|용도를 확인할 수 없는 문서 {count}건. 문서 폴더의 meta.json에 문서 번호가 있어야 열립니다.|S11
+swap.check.target_label|앱에 넣을 곳|S11
+swap.check.target_new|이 앱을 켠 작업 폴더에만 들어갑니다. 받은 폴더는 그대로 둡니다.|S11
+swap.check.target_same|이미 앱에 있습니다. 복사하지 않습니다.|S11
+swap.check.target_conflict_title|앱에 같은 이름의 다른 폴더가 있습니다.|S11
+swap.check.target_conflict|덮어쓰지 않습니다. 받은 폴더의 이름을 바꾼 뒤 다시 검사하세요. 예: version18_2|S11
+swap.check.past_label|지난 결과|S11
+swap.check.past_value|지우지 않습니다. 이전 문서 묶음으로 돌아가면 다시 보입니다.|S11
+swap.check.apply_note_new|누르면 이 폴더를 앱으로 복사하고 화면 위쪽의 시험할 문서 묶음을 이 폴더로 바꿉니다. 다음 화면의 되돌리기 단추로 이전 묶음으로 돌아갈 수 있습니다.|S11
+swap.check.apply_note_same|누르면 복사 없이 화면 위쪽의 시험할 문서 묶음만 이 폴더로 바꿉니다. 다음 화면의 되돌리기 단추로 이전 묶음으로 돌아갈 수 있습니다.|S11
+swap.check.apply|이 폴더로 바꾸기|S11
+swap.check.applying|폴더를 복사하고 있습니다.|S11
+swap.check.switching|문서 묶음을 바꾸고 있습니다.|S11
+swap.check.other|다른 폴더 고르기|S11
+swap.done.title|이제 이 폴더로 시험합니다.|S11
+swap.done.changed|화면 위쪽의 시험할 문서 묶음이 바뀌었습니다.|S11
+swap.done.results_none|이 폴더로 만든 결과가 아직 없어 최근 결과 화면은 비어 있습니다.|S11
+swap.done.results_found|이 폴더로 만든 결과 {count}개를 최근 결과에서 볼 수 있습니다.|S11
+swap.done.off_title|다음 할 일: AI 켜기|S11
+swap.done.off_note|시험하려면 AI가 켜져 있어야 합니다. 이 단추는 서버 고르는 화면만 엽니다. 요금은 그 화면에서 서버를 만든 때부터 나갑니다.|S11
+swap.done.off_action|서버 고르는 화면 열기|S11
+swap.done.on_title|다음 할 일: 여러 문서 시험하기|S11
+swap.done.on_note|AI가 연결되어 있습니다. 이 단추는 시험할 문서를 고르는 화면만 엽니다. 시험은 그 화면에서 시작합니다.|S11
+swap.done.on_action|시험 화면 열기|S11
+swap.done.undo_title|되돌리기|S11
+swap.done.undo_note|이전 문서 묶음({set})으로 돌아갑니다. 복사한 파일은 지우지 않습니다.|S11
+swap.done.undo|되돌리기|S11
+swap.done.undone|이전 문서 묶음으로 돌아갔습니다.|S11
+swap.gold.title|새 정답은 GitHub에서 받습니다.|S11
+swap.gold.lead|정답 담당이 검수해 올립니다. 앱에서 정답 파일을 고치지 않습니다. 고칠 곳을 찾으면 담당에게 알려 주세요.|S11
+swap.gold.now_title|내 컴퓨터에 받아 둔 정답|S11
+swap.gold.name_label|이름|S11
+swap.gold.name_value|사람이 확인한 정답|S11
+swap.gold.commit_label|최근에 올린 것|S11
+swap.gold.commit_none|기록을 읽지 못했습니다.|S11
+swap.gold.docs_label|점수에 쓰는 정답|S11
+swap.gold.docs_value|개발용 문서 {count}건|S11
+swap.gold.eval_label|최종 평가용 정답|S11
+swap.gold.eval_value|{count}건. 점수가 부풀지 않도록 파일을 열지 않고 개수만 셉니다.|S11
+swap.gold.selected_label|지금 비교 중인 정답|S11
+swap.gold.other_selected|지금 점수는 이 정답이 아니라 다른 정답과 비교합니다.|S11
+swap.gold.use_gold|이 정답으로 바꾸기|S11
+swap.gold.checking|GitHub를 확인하고 있습니다.|S11
+swap.gold.behind_title|GitHub에 더 새 정답이 있습니다. 개발용 문서 {dev}건, 최종 평가 문서 {eval_docs}건이 다릅니다.|S11
+swap.gold.behind_body|터미널에서 아래 명령으로 받은 뒤 다시 확인하기를 누르세요. 앱을 다시 켤 필요는 없습니다.|S11
+swap.gold.branch_note|이 앱은 {branch} 가지에서 켜져 있어 main의 정답을 합치는 명령을 보여 줍니다.|S11
+swap.gold.latest|GitHub의 정답과 같습니다. 받을 것이 없습니다.|S11
+swap.gold.offline|GitHub에 연결하지 못했습니다. 받아 둔 정답은 그대로 쓸 수 있습니다.|S11
+swap.gold.changed_title|지난번 뒤로 새 정답이 들어왔습니다. 개발용 문서 {dev}건, 최종 평가 문서 {eval_docs}건이 바뀌었습니다.|S11
+swap.gold.changed_docs|바뀐 개발용 문서: {docs}|S11
+swap.gold.after|새 정답을 받으면 저장된 결과의 점수를 AI 없이 다시 계산합니다. 저장된 AI 결과는 바뀌지 않습니다.|S11
+swap.gold.recheck|다시 확인하기|S11
+swap.gold.open_scores|최근 결과의 점수 보기|S11
+swap.problems.swap_no_path.message|폴더를 찾지 못했습니다: {path}|S11
+swap.problems.swap_no_path.fix|폴더의 전체 경로를 적어 주세요. 예: /Users/내이름/Downloads/version18|S11
+swap.problems.swap_doc_folder.message|{name}은 문서 하나의 폴더입니다.|S11
+swap.problems.swap_doc_folder.fix|그 위 폴더를 고르세요.|S11
+swap.problems.swap_bad_name.message|폴더 이름을 쓸 수 없습니다: {name}|S11
+swap.problems.swap_bad_name.fix|글자, 숫자, 밑줄만 남도록 이름을 바꾼 뒤 다시 검사하세요. 예: version18|S11
+swap.problems.swap_no_docs.message|{name} 바로 안에 문서 폴더가 없습니다.|S11
+swap.problems.swap_no_docs.fix|압축을 풀었는지 확인하세요. 한 단계 안쪽 폴더일 수도 있습니다. 문서 폴더에는 p001.txt 같은 파일이 있습니다.|S11
+swap.problems.swap_unusable.message|{name}에는 시험할 수 있는 문서가 없습니다.|S11
+swap.problems.swap_unusable.fix|폴더를 보낸 담당에게 줄 번호가 있는 판을 요청하세요.|S11
+swap.problems.swap_conflict.message|앱에 같은 이름의 다른 폴더가 있습니다: {target}|S11
+swap.problems.swap_conflict.fix|받은 폴더의 이름을 바꾼 뒤 다시 검사하세요. 예: version18_2|S11
+swap.problems.swap_copy_failed.message|폴더를 복사하지 못했습니다: {detail}|S11
+swap.problems.swap_copy_failed.fix|디스크 공간과 폴더 권한을 확인한 뒤 다시 누르세요. 복사하다 만 파일은 남지 않습니다.|S11
+help.setup.new_data|새 문서 폴더나 새 정답을 받았으면 화면 위쪽의 새 자료 받기를 누르세요. 문서 폴더는 검사한 뒤 앱으로 복사하고, 정답은 GitHub에서 받는 명령을 알려 줍니다.|S07
+help.servers.states|화면 위쪽에서 상태를 봅니다. AI 꺼짐은 정상입니다. 빌린 서버를 만들면 켜는 중이 3~6분 보이고, 연결된 모델이 보이면 시험을 보낼 수 있습니다.|S07
+help.servers.waiting|10분이 지나도 켜는 중이면 AI 켜기와 비용의 서버 기록을 확인하세요. 모델이 40분 동안 응답하지 않으면 앱이 서버를 지웁니다.|S07
 
 ### glossary — S07 용어 · S01, S02 첫 소개
 
