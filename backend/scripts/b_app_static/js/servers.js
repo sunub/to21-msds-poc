@@ -365,7 +365,7 @@ function serversNotices(step, kind) {
   const blocked = primary && data?.can?.[primary.attrs["data-server-action"]] === false;
   const other = ["choose", "start"].includes(step) ? SERVERS_KINDS.find(item => item !== S.servers.kind && serversKindState(item) !== "off") : null;
   return [S.guide?.returnScreen ? h("div", {class: "server-notice"}, h("p", null, T("guide.ai.return_note")),
-    serversButton("servers-guide-return", "guide.ai.return", () => emit("guide_return", {}))) : null,
+    h("button", {id: "servers-guide-return", type: "button", "data-guide": "s06-return", onclick: () => emit("guide_return", {})}, T("guide.ai.return"))) : null,
   h("div", {role: "status", "aria-live": "polite"}, S.servers.busy ? h("p", null, T("servers.status.busy")) : null),
   S.shell.serverError ? serversFlat(serversProblem(S.shell.serverError, "status")) : null, serversLockNote(),
   S.servers.error ? serversFlat(serversProblem(S.servers.error.error, S.servers.error.action)) : null,
@@ -381,7 +381,7 @@ function serversNotices(step, kind) {
 function serversRenderFlow(el) {
   const step = serversStep(), kind = serversKind(), [title, say] = serversHead(step, kind);
   shellConclusion("s06", title);
-  document.getElementById("servers-step-say").textContent = say;
+  coreReplace(document.getElementById("servers-step-say"), say, step === "stop" ? [" ", term("stop_order", T("steps.server.stop_order"))] : null);
   stepsRenderBar(document.getElementById("servers-step-bar"), {steps: serversStepList(step), current: step, onGo: serversGo});
   const stage = !serversData() ? null : step === "choose" ? serversStageChoose() : step === "wait" ? serversStageWait(kind)
     : step === "stop" ? serversStageStop(kind) : kind === "rented" ? serversStageStartRented() : serversStageStartCompany();

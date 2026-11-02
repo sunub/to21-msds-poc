@@ -144,9 +144,9 @@ def test_run_labels_are_added_without_changing_score_or_cache(app, ctx, env, mon
     detail = get_json(app, ctx, "/api/run/" + name)[1]
     for result in (listing, detail):
         assert result["label"] == {
-            "title": "10/30 Qwen3.6 35B · 빌린 서버 · AI에게 시킨 일 s7 · 원문 자료 version9 · 분류 검사 · 개발 10건 · 2회차",
+            "title": "10/30 Qwen3.6 35B · 빌린 서버 · AI에게 시킨 일 7번째 판 · 원문 자료 9판 · 분류 검사 · 개발 10건 · 2회차",
             "subtitle": name,
-            "parts": ["10/30 Qwen3.6 35B", "빌린 서버", "AI에게 시킨 일 s7", "원문 자료 version9", "분류 검사", "개발 10건", "2회차"],
+            "parts": ["10/30 Qwen3.6 35B", "빌린 서버", "AI에게 시킨 일 7번째 판", "원문 자료 9판", "분류 검사", "개발 10건", "2회차"],
         }
         assert result["model_label"] == "Qwen3.6 35B · 빌린 서버"
     # Steps 4/9 add presentation fields; every original scoring field remains identical.

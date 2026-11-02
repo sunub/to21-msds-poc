@@ -165,7 +165,7 @@ function scoreConditions(run) {
     [T("score.conditions.raw_name"), h("code", {class: "raw"}, run.name)],
     [T("common.model"), h("span", null, run.model_label || run.model_tag || scoreMissing(),
       h("span", {class: "raw"}, [run.model_tag, run.model].filter(Boolean).join(" / ")))],
-    [term("prompt_version", T("score.conditions.prompt")), run.prompt_version || scoreMissing()],
+    [term("prompt_version", T("score.conditions.prompt")), h("span", {class: "raw"}, run.prompt_version || scoreMissing())],
     [T("score.conditions.pages"), h("span", {class: "raw"}, run.pages_dir || scoreMissing())],
     [T("score.history.started"), when(run.started_at)],
     [T("score.conditions.kind"), UI.jobs.kinds[run.run_kind] || run.run_kind || scoreMissing()],

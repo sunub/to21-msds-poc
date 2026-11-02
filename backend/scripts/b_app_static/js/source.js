@@ -507,6 +507,11 @@ function sourceFilterCounts() {
   const D = S.source;
   return D.docAll ? sourceCriterion()?.counts : sourceCriterionDocs().find(doc => doc.doc_id === D.doc)?.counts;
 }
+// 뜻은 말풍선에 있다. 안내 도움말과 같은 용어 사전 글이다.
+function sourceKindLegend() {
+  const terms = {wrong: "wrong", made: "invented", missing: "missing"};
+  return Object.keys(terms).map((kind, i) => [i ? " · " : "", term(terms[kind], T(`source.kinds.${kind}`)), ": ", T(`steps.source.kind_notes.${kind}`)]);
+}
 function sourceRenderProblems() {
   const el = document.getElementById("source-values"), D = S.source;
   el.setAttribute("data-guide", "s02-diff-values");
@@ -534,7 +539,7 @@ function sourceRenderProblems() {
         : num(counts?.[UI.score.cause_keys[kind]]) ? T(`source.filter.${kind}`, {count: counts[UI.score.cause_keys[kind]]})
         : T(`source.kinds.${kind}`),
         () => { D.filter = kind; D.rowStart = 0; D.rowLimit = SOURCE_ROW_BATCH; sourceRenderProblems(); sourceRenderFrame(); document.getElementById(`source-filter-${kind}`).focus(); }, {"aria-pressed": String(D.filter === kind)}))),
-    h("p", {class: "source-kinds"}, T("steps.source.kinds")),
+    h("p", {class: "source-kinds"}, sourceKindLegend()),
     h("div", {id: "source-problem-list"}, D.rowStart > 0 ? sourceButton("source-rows-before", T("steps.source.earlier_rows", {count: D.rowStart}), () => {
       const open = Math.min(SOURCE_ROW_BATCH, D.rowStart);
       D.rowStart -= open; D.rowLimit += open; sourceRenderProblems();
@@ -779,7 +784,7 @@ function sourceRenderSelection() {
   // 다른 행을 열면 맨 위부터 보인다. 같은 행의 다른 칸을 고를 때는 보던 자리를 지킨다.
   if (D.shownRow !== D.rowId) { D.shownRow = D.rowId; el.scrollTop = 0; }
   coreReplace(el, h("div", {class: "source-row-head"},
-      h("h2", {class: "big-value"}, group?.title || T(D.run ? "source.labels.choose" : "source.raw.title")),
+      h("h2", {class: "big-value"}, group?.title ? termText(group.title) : T(D.run ? "source.labels.choose" : "source.raw.title")),
       group ? h("small", null, T("steps.source.row_summary", {doc: D.doc, section: group.section ?? T("context.unavailable"), total: group.cells.length, problems}),
         at >= 0 ? ` · ${T("steps.source.row_position", {total: rows.length, index: at + 1})}` : "") : null,
       sourceDetailsButton()),

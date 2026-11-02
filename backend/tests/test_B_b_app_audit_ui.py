@@ -148,6 +148,88 @@ assertClean(statusNode);
 """)
 
 
+# 쉬운 이름 옆에 작게 두는 원래 이름(.raw, .technical)과 값(option의 value)만 내부 이름을 쓸 수 있다.
+VISIBLE_TEXT = r"""
+const plainText=node=>{
+ if(typeof node==='string')return node;
+ if(node.hidden)return '';
+ const cls=node.getAttribute('class')||'';
+ if(/(^|\s)(raw|technical)(\s|$)/.test(cls))return '';
+ return node.children.map(plainText).join(' ');
+};
+"""
+
+
+@pytest.mark.parametrize("screen", SCREENS)
+def test_screens_show_no_folder_or_set_names_outside_the_raw_style(screen):
+    run_js(SETUP + VISIBLE_TEXT + f"const route={json.dumps(screen)};" + r"""
+run.name='20261101_sections_fake_s9_v17_dev3_r1';previous.name='20261031_sections_fake_s8_v17_dev3_r2';
+args.run=run.name;args.b=run.name;args.a=previous.name;args.base_run=run.name;
+await go(route,args);await flush();
+const steps={s02:['choose','compare','send'],s03:['target','model','prompt'],s06:['choose','start']}[route]||[null];
+for(const step of steps){
+ if(route==='s02'&&step)sourceGoStep(step);
+ if(route==='s03'&&step)jobsGoStep(step);
+ if(route==='s06'&&step)serversGo?.(step);
+ await flush();
+ const text=plainText(el('screen-'+route));
+ for(const name of [run.name,previous.name,'prev/fake','다른 모델 응답'])assert.ok(!text.includes(name),route+' '+step+' shows '+name);
+}
+""")
+
+
+@pytest.mark.parametrize("screen,opener", [("s02", "source-details-open"), ("s03", "jobs-details-open"), ("s06", "servers-details-open")])
+def test_drawers_keep_folder_names_in_the_raw_style(screen, opener):
+    run_js(SETUP + VISIBLE_TEXT + f"const route={json.dumps(screen)},opener={json.dumps(opener)};" + r"""
+run.name='20261101_sections_fake_s9_v17_dev3_r1';previous.name='20261031_sections_fake_s8_v17_dev3_r2';
+args.run=run.name;args.b=run.name;args.a=previous.name;args.base_run=run.name;
+job.target.base_run=run.name;
+await go(route,args);await flush();
+if(route==='s03'){await jobsWatch(job.id,true);await flush();}
+el(opener).click();await flush();
+const body=document.querySelector('#details-drawer .drawer-body');
+const text=plainText(body);
+for(const name of [run.name,previous.name,'prev/fake'])assert.ok(!text.includes(name),route+' drawer shows '+name+': '+text.slice(0,400));
+""")
+
+
+def test_focus_line_reads_as_page_and_line_not_as_a_code():
+    run_js(SETUP + VISIBLE_TEXT + r"""
+await go('s03',{doc:'T21-X01',section:8,path:'fake.q',kind:'wrong',line:'p1:L29',expected:5,actual:0,expected_text:'5',actual_text:'0',lines:['p1:L29']});await flush();
+jobsGoStep('target');await flush();
+const text=plainText(el('screen-s03'));
+assert.ok(!text.includes('p1:L29'),text);
+assert.ok(text.includes(T('jobs.form.focus_line',{page:'1',line_no:'29'})),text);
+""")
+
+
+def test_set_mismatch_note_uses_the_set_label_not_the_folder_name():
+    run_js(SETUP + VISIBLE_TEXT + r"""
+S.shell.sets=[pack,{id:'next/other',label:'Other pages',usable:true,docs:[]}];
+S.ctx.set=pack.id;
+await go('s03',{doc:'T21-X01',section:8,path:'fake.q',kind:'wrong',source_set:'next/other'});await flush();
+jobsGoStep('target');await flush();
+const text=plainText(el('screen-s03'));
+assert.ok(text.includes(T('jobs.form.source_set',{set:'Other pages'})),text);
+assert.ok(text.includes(T('jobs.form.next_set',{set:'Fake pages'})),text);
+assert.ok(!text.includes('next/other'));assert.ok(!text.includes(pack.id));
+""")
+
+
+@pytest.mark.parametrize("screen", SCREENS)
+def test_no_screen_repeats_an_action_word(screen):
+    run_js(SETUP + f"const route={json.dumps(screen)};" + r"""
+await go(route,args);await flush();
+const words=/(펼치기|접기|보기|닫기|열기)\s*\1/;
+const walk=node=>{
+ if(typeof node==='string')return;
+ if(['summary','button'].includes(node.tagName))assert.ok(!words.test(node.textContent),node.textContent);
+ node.children.forEach(walk);
+};
+walk(el('screen-'+route));
+""")
+
+
 def test_native_details_toggle_keeps_expansion_state_current():
     run_js(SETUP + r"""
 await go('s07');

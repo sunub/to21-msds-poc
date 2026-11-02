@@ -923,14 +923,14 @@ assert.equal(guideScreen(),'G16');
 const source=el('guide-content').textContent;
 for(const key of ['lead','example','set','change_title','change','add_title','add1','add2','add3','add4','caution'])
  assert.ok(source.includes(T('guide.data.source.'+key)),key);
-assert.ok(source.includes('data/pages/'));assert.ok(source.includes(T('context.change_documents')));
+assert.ok(source.includes('data/pages/'));assert.ok(source.includes(T('context.documents.short')));
 assert.equal(el('guide-progress').children.length,4);
 await el('guide-next').click();await flush();
 assert.equal(guideScreen(),'G17');
 const answers=el('guide-content').textContent;
 for(const key of ['lead','kinds_title','gold','silver','change_title','change','add_title','add1','add2','add3','caution'])
  assert.ok(answers.includes(T('guide.data.answers.'+key)),key);
-assert.ok(answers.includes('data/gold'));assert.ok(answers.includes('data/silver/'));assert.ok(answers.includes(T('context.change_answer')));
+assert.ok(answers.includes('data/gold'));assert.ok(answers.includes('data/silver/'));assert.ok(answers.includes(T('context.answer.short')));
 await el('guide-next').click();await flush();
 assert.equal(guideScreen(),'G14');
 await el('guide-back').click();await flush();
@@ -1467,4 +1467,149 @@ saved.pending={attempt:'a1',job:'j1',mode:'real',started_at:new Date().toISOStri
 const normal=api;api=async(p,o)=>p==='/api/jobs'?{jobs:[{id:'j1',status:'failed',error:{message:'Fake job failed',fix:'Retry input'}}]}:normal(p,o);
 await journeyEnsure();assert.ok(el('journey-notices').textContent.includes('Fake job failed'));
 assert.equal(el('journey-notices').textContent.includes(T('journey.trial.waiting')),false);
+""")
+
+
+# ── step 6: 안내가 가리키는 자리는 단계 화면의 같은 뜻 요소다 (ADR-039) ──
+def _anchors_named_by_the_guide():
+    import re
+    names = set()
+    for name in ('journey.js', 'guide.js'):
+        for call in re.findall(r'journeyGo\("s\d\d",[^{)]*', (STATIC / 'js' / name).read_text()):
+            names |= set(re.findall(r'"([a-z0-9-]+)"', call.split(',', 1)[1]))
+    return names
+
+
+def test_every_anchor_in_the_guide_code_and_structure_doc_is_attached_to_a_real_element():
+    import re
+    sources = "\n".join(p.read_text() for p in sorted((STATIC / 'js').glob('*.js')))
+    attached = set(re.findall(r'''"data-guide"\s*[:,]\s*(?:kind === "try" \? )?"([a-z0-9-]+)"''', sources))
+    named = _anchors_named_by_the_guide()
+    assert {'s02-diff-values', 's03-target', 's03-model', 's03-send', 's03-practice', 's03-result-summary'} <= named
+    assert named <= attached, named - attached
+    documented = re.search(r'안내 대상은 고정 식별자 `data-guide`로 찾습니다: (.*)\.', (STATIC / 'design/STRUCTURE.md').read_text())[1]
+    assert set(re.findall(r'`([a-z0-9-]+)`', documented)) == attached
+
+
+def test_s03_anchors_exist_after_the_guide_moves_to_their_step():
+    from test_B_b_app_jobs_ui import SETUP as JOBS_SETUP
+    run_js(JOBS_SETUP + r"""
+const normal=api;api=async(p,o)=>p==='/api/journey'?{journey:journeyDefault(),problems:[]}:normal(p,o);
+await journeyEnsure();
+const flush=async()=>{for(let i=0;i<40;i++)await Promise.resolve();};
+const anchor=id=>document.querySelector('[data-guide="'+id+'"]');
+await go('s03',{doc:'T21-X01',section:8});
+for(const [id,step,key] of [['s03-target','target','target'],['s03-model','model','model'],['s03-practice','model','model'],['s03-send','prompt','prompt']]){
+ S.journeyUI.blocked=null;await journeyGo('s03',id,{trialStep:step});await flush();
+ atStep(key);
+ const node=anchor(id);assert.ok(node,id);assert.ok(node.isConnected,id);
+ assert.equal(document.activeElement,node,id);assert.equal(S.journeyUI.blocked,null,id);
+}
+assert.equal(posted.length,0);
+// 그 단계가 아니면 그 자리는 없다. 안내는 그래서 먼저 옮긴다.
+stepTo('target');assert.equal(anchor('s03-send'),null);assert.equal(anchor('s03-model'),null);
+listed=[job('done')];response=result(true);
+await journeyGo('s03','s03-result-summary',{job:'j1'});await flush();
+atStep('result');assert.ok(anchor('s03-result-summary').isConnected);assert.equal(S.journeyUI.blocked,null);
+assert.equal(posted.length,0);
+""")
+
+
+def test_s02_anchors_exist_on_the_compare_step_and_the_guide_goes_there_first():
+    from test_B_b_app_source_ui import fixture
+    run_js(fixture() + r"""
+const normal=api;api=async(p,o)=>p==='/api/journey'?{journey:journeyDefault(),problems:[]}:normal(p,o);
+await journeyEnsure();
+const anchor=id=>document.querySelector('[data-guide="'+id+'"]');
+await go('s02',{run:'current',doc:'T21-X01'});sourceGoStep('choose');
+assert.equal(sourceStep(),'choose');
+await journeyGo('s02','s02-diff-values',{run:'current',doc:'T21-X01',section:8,item:'Fake criterion',pick:'mismatch'});await flush();
+assert.equal(sourceStep(),'compare');assert.equal(S.journeyUI.blocked,null);
+const list=anchor('s02-diff-values');assert.ok(list);assert.equal(list.hidden,false);assert.equal(document.activeElement,list);
+for(const id of ['s02-evidence','s02-lines'])assert.ok(anchor(id)?.isConnected,id);
+sourceGoStep('send');assert.equal(anchor('s02-evidence'),null);
+""")
+
+
+def test_s01_anchors_stay_where_the_guide_points():
+    from test_B_b_app_score_ui import FIXTURE as SCORE_FIXTURE
+    run_js(SCORE_FIXTURE + r"""
+const normal=api;api=async(p,o)=>p==='/api/journey'?{journey:journeyDefault(),problems:[]}:normal(p,o);
+await journeyEnsure();
+for(const id of ['s01-score','s01-top-problem']){
+ await journeyGo('s01',id);
+ assert.ok(document.querySelector('[data-guide="'+id+'"]').isConnected,id);assert.equal(S.journeyUI.blocked,null,id);
+}
+""")
+
+
+def test_s06_return_anchor_is_on_every_server_step_while_the_guide_waits():
+    from test_B_b_app_servers_ui import FIXTURE as SERVERS_FIXTURE
+    run_js(SERVERS_FIXTURE + r"""
+S.guide.returnScreen='G10';
+const anchor=()=>document.querySelector('[data-guide="s06-return"]');
+await setup();atStep('stop');assert.equal(anchor(),byId('servers-guide-return'));assert.ok(anchor().isConnected);
+assert.ok(view().textContent.includes(T('guide.ai.return')));
+pending();await shellPollServers();atStep('wait');assert.ok(anchor()?.isConnected);
+allOff();await shellPollServers();atStep('choose');assert.ok(anchor()?.isConnected);
+S.guide.returnScreen=null;await go('s06');assert.equal(anchor(),null);
+""")
+
+
+def test_success_rules_and_event_names_stay_the_same():
+    source = (STATIC / 'js/journey.js').read_text() + (STATIC / 'js/guide.js').read_text()
+    for name in ('evidence_line_shown', 'attempt_started', 'attempt_accepted', 'attempt_cancelled', 'try_result_viewed',
+                 'practice_result', 'problem_opened', 'onboarding_completed', 'onboarding_step_viewed', 'first_success_recorded', 'practice_recorded'):
+        assert f'"{name}"' in source, name
+    # 추정 줄은 성공이 아니고, 연습은 실제 성공과 따로 센다.
+    assert 'if (e.mismatch !== true)' in source
+    assert 'e.mode === "real" && e.section_ok !== true' in source
+    assert 'e.mode === "practice" ? "practice" : "real"' in source
+    assert 'event.mode === (t.dry ? "practice" : "real") && (t.dry || event.section_ok)' in source
+
+
+def test_guide_keeps_five_chapters_and_real_practice_split():
+    run_js(PRACTICE_SETUP + r"""
+assert.deepEqual(Object.keys(UI.guide.chapters),['1','2','3','4','5']);
+await readyTarget('G08');assert.equal(S.guide.trial.dry,true);
+ready=true;await guideShow('G11');await flush();assert.equal(S.guide.trial.dry,false);
+assert.equal(S.journey.outcomes.t2.real,null);assert.equal(S.journey.outcomes.t2.practice,null);
+""")
+
+
+def test_guide_says_the_picture_shows_position_and_the_text_is_read_in_the_text_box():
+    run_js(PRACTICE_SETUP + r"""
+await readyTarget('G07');
+const note=T('guide.source.image_note');
+assert.ok(guideNode().textContent.includes(note));
+assert.ok(note.includes('그림'));
+assert.ok(note.includes('위치'));assert.ok(note.includes('원문 글자'));
+""")
+
+
+def test_guide_reads_server_and_retest_steps_in_their_order():
+    run_js(PRACTICE_SETUP + r"""
+const inOrder=(text,keys)=>{let at=-1;for(const key of keys){const next=text.indexOf(T(key),at+1);assert.ok(next>at,key+' in '+text);at=next;}};
+await readyTarget('G10');assert.equal(guideNode().getAttribute('data-screen'),'G10');
+const steps=T('guide.ai.steps');assert.ok(guideNode().textContent.includes(steps));
+inOrder(steps,['steps.server.choose','steps.server.start','steps.server.wait','steps.server.stop']);
+const order=T('guide.ai.return_order');assert.ok(guideNode().textContent.includes(order));assert.ok(order.includes(T('guide.ai.return')));
+ready=true;await guideShow('G11');await flush();
+const note=T('guide.trial.steps_note');assert.ok(guideNode().textContent.includes(note));
+inOrder(note,['steps.trial.target','steps.trial.model','steps.trial.prompt','steps.trial.running','steps.trial.result']);
+// 줄거리 띠도 다시 시험의 단계 이름을 쓴다.
+const strip=UI.journey.tracks.t2.steps;
+for(const [no,key] of [['1','target'],['2','model'],['3','prompt'],['4','result']])assert.ok(strip[no].includes(T('steps.trial.'+key)),no);
+""")
+
+
+def test_guide_names_only_buttons_that_exist_now():
+    run_js(PRACTICE_SETUP + r"""
+const lead=T('guide.screens.G03.lead');
+assert.ok(lead.includes(T('score.summary.open_source')));assert.ok(lead.includes(T('source.retest.open')));
+for(const key of ['guide.data.source.change','help.data.source_change'])assert.ok(T(key).includes(T('context.documents.short')),key);
+for(const key of ['guide.data.answers.change','help.data.answer_change'])assert.ok(T(key).includes(T('context.answer.short')),key);
+for(const key of ['guide.data.source.receive','guide.data.answers.receive'])assert.ok(T(key).includes(T('nav.swap')),key);
+assert.ok(T('journey.trial.parse_todo').includes(T('steps.details.open').split(' ')[0]));
+assert.ok(T('journey.trial.parse_todo').includes('읽어 낸 값'));
 """)
