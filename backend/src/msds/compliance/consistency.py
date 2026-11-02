@@ -28,7 +28,7 @@ from .mixture.verdict import _order, _rank, aggregate_verdicts
 from .sec15_judge import judge_sec15
 from .trace import TRACE_ASSUMPTIONS, attach_mixture, attach_single, label_causes, label_sources, label_trace, sec15_trace
 
-ENGINE_VERSION = "0.2.0"
+ENGINE_VERSION = "0.3.0"
 SINGLE_ASSUMPTIONS = [
     "단일물질은 지식DB 기준 분류(D-05 항목 단위 환경부→고용노동부)를 그대로 '우리 결과'로 보고 MSDS 2항과 비교(설계서 18장)",
     "기준 분류에 없는 항목을 MSDS만 적었으면 근거부족(설계서 18장: 두 출처 모두 없음 → 근거부족)",
@@ -51,41 +51,63 @@ def _reassign_gas(classes: list[dict], raw_rows: list[dict], state: str | None) 
             for c in classes]
 
 
-def _impurity_rows(inputs: dict, provider: ReferenceProvider) -> list[tuple[str, str, float, float | None, float | None, str]]:
-    """불순물의 (항목, 구분, 한계농도, 함량 하한, 상한, 이름). 함량이 없으면 하한·상한이 None 이다 (설계서 19장)."""
+def _impurity_range(comp: dict) -> tuple[float | None, float | None, bool]:
+    """불순물 함량 (하한, 상한, 상한 미포함). 함량을 읽지 못하면 하한·상한이 None 이다."""
+    q = dict(comp.get("content") or {})
+    if str(q.get("unit") or "").strip().lower() == "ppm":
+        q.update({k: q[k] / 10000 for k in ("value", "lower", "upper") if q.get(k) is not None}, unit="%")
+    rng = content_range([{**comp, "content": q}])[0]
+    if rng["low"] is None and q.get("upper") is not None:  # "0.05% 이하"
+        return 0.0, float(q["upper"]), False
+    return rng["low"], rng["high"], rng["high_exclusive"]
+
+
+def _impurity_rows(inputs: dict, provider: ReferenceProvider) -> tuple[list[dict], list[str]]:
+    """불순물의 분류 행과, 기준 분류를 조회하지 못한 불순물 설명 (설계서 19장)."""
     limits = yaml.safe_load((RULES_DIR / "impurity_limits.yaml").read_text(encoding="utf-8"))["limits"]
-    out = []
+    rows, unknown = [], []
     for c in inputs.get("components") or []:
-        if c.get("content_note") != "불순물" or not c.get("cas_no"):
+        if c.get("content_note") != "불순물":
             continue
-        rng = content_range([c])[0]
-        know = provider.get_reference(c["cas_no"], inputs.get("as_of_date")) or {}
-        for k in know.get("classes") or []:
+        name = c.get("name") or c.get("cas_no") or f"성분 {c.get('seq')}"
+        know = provider.get_reference(c["cas_no"], inputs.get("as_of_date")) if c.get("cas_no") else None
+        if not (know or {}).get("classes"):
+            unknown.append(f"불순물 {name}: {'지식DB에 기준 분류가 없음' if c.get('cas_no') else 'CAS가 없음'}. 불순물 규칙을 적용하지 못함 (설계서 19장)")
+            continue
+        low, high, exclusive = _impurity_range(c)
+        for k in know["classes"]:
             if k["category"] in limits.get(k["class_code"], {}):
-                out.append((k["class_code"], k["category"], limits[k["class_code"]][k["category"]], rng["low"], rng["high"], c.get("name") or c["cas_no"]))
-    return out
+                rows.append({"cc": k["class_code"], "cat": k["category"], "limit": limits[k["class_code"]][k["category"]],
+                             "low": low, "high": high, "exclusive": exclusive, "name": name})
+    return rows, unknown
 
 
-def _apply_impurities(results: list[dict], rows: list[tuple], rules: dict) -> dict[str, str]:
-    """한계농도를 넘는 불순물이 있는 항목만 혼합물 규칙으로 고친다. 반환: 항목별 설명."""
+def _apply_impurities(results: list[dict], rows: list[dict], rules: dict) -> dict[str, str]:
+    """한계농도를 넘는 불순물이 있는 항목만 혼합물 규칙으로 고친다. 같은 구분끼리 합산한다 (D-16). 반환: 항목별 설명."""
     by_key = {(r["class_code"], r.get("form")): r for r in results}
-    notes: dict[str, str] = {}
-    for cc, cat, limit, low, high, name in rows:
+    groups: dict[tuple, list[dict]] = {}
+    for r in rows:
+        groups.setdefault((r["cc"], r["cat"]), []).append(r)
+    notes: dict[str, list[str]] = {}
+    lacking = {r["cc"] for r in rows if r["low"] is None and r["high"] is None}
+    for (cc, cat), group in sorted(groups.items()):
         order = _order(cc, None, rules, None)
-        main = (by_key.get((cc, None)) or {"result": {"low": "분류안됨", "high": "분류안됨"}})["result"]
         worse = lambda a, b: min((a, b), key=lambda x: _rank(x, order) if _rank(x, order) is not None else 99)
-        if low is None and high is None:
-            res = {**main, "status": "근거부족", "reason": f"근거부족(불순물 함량): {name}의 함량이 없음"}
-            notes[cc] = res["reason"]
-        elif high < limit:
+        main = (by_key.get((cc, None)) or {"result": {"low": "분류안됨", "high": "분류안됨"}})["result"]
+        names = ", ".join(r["name"] for r in group)
+        if cc in lacking:
+            by_key[(cc, None)] = {"class_code": cc, "form": None, "result": {**main, "status": "근거부족", "reason": f"근거부족(불순물 함량): {names}의 함량을 읽지 못함"}}
+            notes.setdefault(cc, []).append(f"근거부족(불순물 함량): {names}")
             continue
-        else:
-            res = {"low": worse(main["low"], cat) if low >= limit else main["low"], "high": worse(main["high"], cat)}
-            res["status"] = "확정" if res["low"] == res["high"] else "경계"
-            notes[cc] = f"불순물 {name} {cat} 함량 {low}~{high}%, 한계농도 {limit}%: 이 항목만 혼합물 규칙 적용(설계서 19장)"
+        low, high, limit = sum(r["low"] for r in group), sum(r["high"] for r in group), group[0]["limit"]
+        if high < limit or (high == limit and all(r["exclusive"] for r in group)):
+            continue
+        res = {"low": worse(main["low"], cat) if low >= limit else main["low"], "high": worse(main["high"], cat)}
+        res["status"] = "확정" if res["low"] == res["high"] else "경계"
         by_key[(cc, None)] = {"class_code": cc, "form": None, "result": res}
+        notes.setdefault(cc, []).append(f"불순물 {names} {cat} 함량 {low:g}~{high:g}%, 한계농도 {limit:g}%: 이 항목만 혼합물 규칙 적용(설계서 19장)")
     results[:] = list(by_key.values())
-    return notes
+    return {cc: "; ".join(v) for cc, v in notes.items()}
 
 
 def _single_2(inputs: dict, item: dict, provider: ReferenceProvider) -> dict:
@@ -105,7 +127,8 @@ def _single_2(inputs: dict, item: dict, provider: ReferenceProvider) -> dict:
         order = _order(cc, form, rules, None)
         ranked = sorted(set(cats), key=lambda x: (_rank(x, order) if _rank(x, order) is not None else 99, x))
         results.append({"class_code": cc, "form": form, "result": {"low": ranked[0], "high": ranked[0], "status": "확정"}})
-    notes = _apply_impurities(results, _impurity_rows(inputs, provider), rules)
+    impurity_rows, impurity_unknown = _impurity_rows(inputs, provider)
+    notes = _apply_impurities(results, impurity_rows, rules)
     out = aggregate_verdicts(results, msds_classes, rules=rules)
     why = ("성분 CAS가 없음" if not cas else (know or {}).get("reason") if not (know or {}).get("knowledge_version")
            else "지식DB에 이 항목의 기준 분류가 없음(환경부·고용노동부 모두 없음, 설계서 18장)")
@@ -119,6 +142,7 @@ def _single_2(inputs: dict, item: dict, provider: ReferenceProvider) -> dict:
                          "msds_value": None, "our_value": c["category"],
                          "reason": f"국내 고시 밖 구분(class_map '참고', D-18) — {c['source']}"}
                         for c in (know or {}).get("reference_only") or []]
+    out["excluded"] += [{"class_code": None, "form": None, "status": "참고", "msds_value": None, "our_value": None, "reason": r} for r in impurity_unknown]
     out["knowledge_version"] = (know or {}).get("knowledge_version")
     attach_single(out["verdicts"], know, provider.class_rows(cas))
     return out
@@ -164,8 +188,12 @@ def _label(item: dict) -> tuple[list[dict], list[dict]]:
     msds = {"pictograms": pictograms, "signal_word": signal, "h_codes": h_codes}
     rows, excluded = [], []
     src = label_sources(classes)
+    # H코드 번호 없이 문구만 적은 MSDS는 빠뜨린 것이 아니다. 문구를 코드로 옮기는 대조는 없어 판단하지 못한다
+    text_only = {"h_codes": any(isinstance(h, dict) and not h.get("code") and h.get("text") for h in hz.get("h_statements") or [])}
     for f in compare_label(derived, msds):
         code, name, d, m = LABEL_CODE[f["item"]], LABEL_NAME[f["item"]], f["derived"], f["msds"]
+        if f["rule_id"] == "CMP-5" and text_only.get(f["item"]):
+            f = {**f, "verdict": "근거부족", "severity": None}
         if f["verdict"] == "참고":
             excluded.append({"class_code": code, "form": None, "status": "참고", "msds_value": m, "our_value": d,
                              "reason": f"{name}: 생략 가능한 {_fmt_list(f['missing'])}를 MSDS가 적지 않음({f['rule_id']}, 결정 C3)"})
@@ -174,7 +202,8 @@ def _label(item: dict) -> tuple[list[dict], list[dict]]:
         if verdict == "일치":
             reason = f"{name} 같음" + (f" (그림문자 5개 이상이라 4개만 표시, {f['rule_id']})" if f["missing"] else "")
         elif verdict == "근거부족":
-            reason = f"MSDS에 {name}가 없음 — 분류로 보면 {_fmt_list(d)}"
+            reason = (f"MSDS에 {name} 번호 없이 문구만 있어 대조하지 못함 — 분류로 보면 {_fmt_list(d)}" if text_only.get(f["item"])
+                      else f"MSDS에 {name}가 없음 — 분류로 보면 {_fmt_list(d)}")
         elif f["item"] == "signal_word":
             reason = f"신호어: 분류로 보면 '{d or '없음'}', MSDS는 '{m or '기재 없음'}'"
         else:

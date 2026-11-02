@@ -11,7 +11,7 @@ n = 0 이면 불명확, n = 1 이면 단일물질 표기일 때 단일물질, n 
 
 def effective_components(components: list[dict] | None) -> list[dict]:
     return [c for c in components or []
-            if c.get("content_note") != "불순물" and "안정제" not in str(c.get("name") or "")]
+            if c.get("content_note") != "불순물" and not any(w in str(c.get("name") or "").lower() for w in ("안정제", "stabilizer", "stabiliser"))]
 
 
 def product_type(inputs: dict) -> dict:
