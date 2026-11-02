@@ -19,6 +19,7 @@ from msds.common.paths import ROOT
 from msds.extract import expand as ex
 from msds.extract.inputs import EXTRACT_SECTIONS
 from msds.extract import rows as rw
+from msds.extract import section_runner as sr
 from msds.extract import section_specs as ss
 from msds.extract.client import ChatClient, load_model_config
 from msds.extract.inputs import load_document
@@ -394,7 +395,7 @@ def test_saved_run_reads_with_summarize_run(ts, env, monkeypatch):
     assert run.parent == env / "runs" / "manual" and run.name.endswith(f"_{DOC}_s11")
 
     info = yaml.safe_load((run / "run_info.yaml").read_text(encoding="utf-8"))
-    run_info_keys = ["model_tag", "model", "prompt_version", "rows_sections", "rows_max_tokens", "image_input",
+    run_info_keys = ["model_tag", "model", "prompt_version", "rows_sections", "skipped_sections", "rows_max_tokens", "image_input",
                      "prompt_hashes", "schema_version", "pages_dir", "concurrency", "started_at", "git_commit"]
     assert list(info) == run_info_keys
     assert info["model_tag"] == TAG

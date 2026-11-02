@@ -291,3 +291,24 @@ def test_section_16_meta_revision_labels(systems):
                  "최초작성일", "최종 개정일자", "개정횟수"):
         assert word in text, word
     assert "최초작성일" not in systems[15]
+
+
+# ── 시험용 안내문 판 s11 (MSDS_PROMPT_VARIANT) ─────────
+
+def test_s11_adds_lines_only_to_sections_8_9_12():
+    """s11은 8·9·12항 안내에 한 줄씩 더하고, 그 밖의 항과 기본 안내문(None)은 그대로다."""
+    from msds.extract import section_prompts as sp
+    for no in (1, 2, 3, 8, 9, 11, 12, 14, 15, 16):
+        rows = no in (3, 8, 9, 11, 12, 14, 15)
+        base, s11 = sp.build_system(no, rows, variant=None), sp.build_system(no, rows, variant="s11")
+        if no in sp.GUIDES_S11:
+            assert sp.GUIDES_S11[no] in s11 and sp.GUIDES_S11[no] not in base
+            assert s11.replace("\n" + sp.GUIDES_S11[no], "") == base
+        else:
+            assert s11 == base
+
+
+def test_unknown_variant_rejected():
+    from msds.extract import section_prompts as sp
+    with pytest.raises(ValueError):
+        sp.build_system(8, True, variant="s99")

@@ -45,7 +45,7 @@ from msds.common.paths import DATA, PAGES, ROOT, RUNS
 from msds.common.schema import validate, validate_to21
 from msds.extract.client import ChatClient, load_model_config
 from msds.extract.expand import to_to21
-from msds.extract.inputs import _PAGE_FILE, EXTRACT_SECTIONS, DocumentInput, load_document, model_lines, section_lines
+from msds.extract.inputs import _PAGE_FILE, EXTRACT_SECTIONS, SECTION_NOS, DocumentInput, load_document, model_lines, section_lines
 from msds.extract.pictogram_check import check_msds, load_hazard_map
 from msds.extract.rows import parse_rows
 from msds.extract.section_prompts import SECTION_PROMPT_VERSION, build_system, build_user, prompt_hash
@@ -54,6 +54,8 @@ from msds.extract.section_specs import load_specs, response_schema
 DOC_TIME_LIMIT = 300          # 초. 넘으면 경고만 남기고 멈추지 않는다
 _LINE_KEYS = ("line", "start", "end")
 _FEEDBACK_MAX = 20            # 다시 보낼 때 적는 문제 수
+# 모델을 부르지 않는 항: 추출 대상(inputs.EXTRACT_SECTIONS) 밖의 항. 펼치기에는 빈 응답으로 넘긴다.
+SKIPPED_SECTIONS = tuple(no for no in SECTION_NOS if no not in EXTRACT_SECTIONS)
 # 명세서 1_항목정의에서 type이 code인 행 칸. 한 행만 빈 것은 '급성 독성 자료 없음'처럼 묶어 적은 행일 수 있어
 # 표 전체가 빈 경우만 본다. 규제 법령은 항목 코드에서 채운다(expand.fill_law).
 # CMR 기관은 '발암성 : 자료없음'처럼 기관 없는 행이 있어, 모두 자료없음인 문서는 표 전체가 빌 수 있으므로 보지 않는다.
@@ -334,7 +336,7 @@ def run_document(doc_id: str, model_tag: str, run_name: str, client=None, *,
     # 4. 펼치기. 실패한 항은 None으로 넘겨 펼치기가 missing_section으로 남긴다.
     emit({"type": "finalize"})
     t = time.perf_counter()
-    parts: list[dict[int, dict | None]] = [{} for _ in doc.msds]
+    parts: list[dict[int, dict | None]] = [{no: {} for no in SKIPPED_SECTIONS} for _ in doc.msds]
     for res in results:
         parts[res.msds_index][res.section_no] = res.parsed if res.ok else None
     out, expand_problems = to_to21(row, parts, doc.lines, f"{model_tag}:{cfg['model']}")
@@ -410,6 +412,7 @@ def save_run_info(run: Path, model_tag: str, pages_dir=PAGES, max_workers: int |
         "model": cfg["model"],
         "prompt_version": SECTION_PROMPT_VERSION,
         "rows_sections": sorted(rows),
+        "skipped_sections": list(SKIPPED_SECTIONS),          # 부르지 않는 항 (추출 목표 밖)
         "rows_max_tokens": cfg.get("rows_max_tokens"),      # 행 형식 호출의 출력 한도. 없으면 max_tokens (ADR-021)
         "image_input": bool(cfg.get("image_input")),
         "prompt_hashes": {no: prompt_hash(no, no in rows) for no in EXTRACT_SECTIONS},   # 실제로 보내는 안내문의 해시
