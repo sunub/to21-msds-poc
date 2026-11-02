@@ -219,8 +219,9 @@ function serversStat(label, value) {
   return h("div", {class: "server-stat"}, h("small", null, label), h("b", null, value));
 }
 function serversProgress(rows) {
-  return h("ol", {class: "server-progress"}, rows.map(([state, text], index) =>
-    h("li", {class: state}, h("span", {class: "step-no"}, state === "done" ? "✓" : String(index + 1)), h("span", null, text))));
+  return h("ol", {class: "server-progress"}, rows.map(([state, text]) =>
+    // 숫자를 쓰지 않는다. 위쪽 단계 표시와 겹쳐 보인다.
+    h("li", {class: state}, h("span", {class: "step-no"}, state === "done" ? "✓" : ""), h("span", null, text))));
 }
 function serversStepAction(action, params, label, suffix = "") {
   const reason = serversReason(action), id = serversActionId(action, suffix);

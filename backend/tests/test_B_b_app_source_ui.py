@@ -1155,3 +1155,19 @@ def test_comparison_area_is_not_crushed_when_the_guide_strip_is_open():
     assert 'overflow-y: auto' in rules['.work:has(> #journey-strip:not([hidden])):has(> #screen-s02:not([hidden]))']
     assert 'height: calc(100vh - 112px)' in rules['.work:has(> #journey-strip:not([hidden])) > #screen-s02:not([hidden])']
     assert 'overflow: hidden' in rules['.work:has(> #screen-s02:not([hidden]))']
+
+
+def test_choose_table_follows_the_shown_loss_when_one_document_is_chosen():
+    # 문서를 고르면 그 문서의 깎인 점수를 보인다. API 순서(전체 기준)로 두면 '많이 깎은 순서'라는 글과 어긋난다.
+    run_js(fixture() + STEPS + r"""
+scored.problem_rows['Other criterion'].docs[0].loss=4.5;
+await go('s02',{doc:'T21-X01'});atStep('choose');
+const rows=el('source-top').querySelector('tbody').querySelectorAll('tr');
+assert.ok(rows[0].textContent.includes(scoreItemName('Other criterion')),rows[0].textContent);
+assert.ok(rows[0].querySelector('button.primary'));assert.equal(rows[1].querySelector('button.primary'),null);
+assert.ok(!rows[1].textContent.includes(T('guide.example.biggest')));
+await change('source-doc-select','');
+const whole=el('source-top').querySelector('tbody').querySelectorAll('tr');
+assert.ok(whole[0].textContent.includes(scoreItemName('Fake criterion')),whole[0].textContent);
+assert.ok(whole[0].textContent.includes(T('guide.example.biggest')));
+""")

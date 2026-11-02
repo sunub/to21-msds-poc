@@ -896,3 +896,15 @@ def test_company_stop_step_says_what_turning_off_and_closing_each_do():
       await setup();await go('s06',{model:'company-a'});atStep('stop');
       assert.ok(stage().textContent.includes(T('steps.server.stop_company_note')));
     """)
+
+
+def test_wait_list_does_not_look_like_the_step_bar():
+    # ③의 확인 줄에 1, 2, 3 숫자를 쓰면 위쪽 단계 표시와 겹쳐 지금 단계를 다시 확인하게 된다(G7 판독).
+    run_js(FIXTURE + r"""
+const list=serversProgress([['done','First'],['now','Second'],['todo','Third']]);
+const marks=list.querySelectorAll('.step-no').map(n=>n.textContent);
+assert.equal(marks.join('|'),'✓||');
+assert.equal(list.querySelector('li.now').textContent,'Second');
+""")
+    rules = (STATIC / 'app.css').read_text()
+    assert re.search(r'\.server-progress \.step-no \{[^}]*width: 18px', rules)
