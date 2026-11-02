@@ -13,6 +13,8 @@ expand.to_to21이 MSDS마다 expand_msds 뒤, A의 apply_conventions 앞에 부�
   명세서 5-1 코드표(없으면 13 매핑 시트의 '이름 : 구분 N' 글)로 읽어 채운다. 모델이 쓴 분류는 건드리지 않는다.
 - 15항 기준농도: 규제 행의 근거 줄에 적힌 'N% 이상'·'N wt% 이상'으로 threshold를 채우거나 바로잡는다(fill_thresholds).
   expand_msds가 펼치기 전(행에 line이 있을 때) 부른다. 법령 표의 값은 쓰지 않는다. 원문에 적힌 값만 쓴다.
+- 9항 값 없음: 값(q·text_value)이 모두 빈 물성 행의 근거 줄이 자료없음·해당없음·미기재 가운데 하나만 적고
+  숫자가 없으면 그 글자를 q로 채운다(fill_no_value). 로컬 모델이 행만 쓰고 값 칸을 비운 일이 있었다(11/02 실행).
 """
 from __future__ import annotations
 
@@ -313,6 +315,22 @@ def fill_thresholds(rows: list[dict], lines_by_id: dict[str, Line]) -> list[dict
             same = [x for x in (item, *found) if x and len(nums) == 1 and float(x["n"]) == nums[0]]
             f = same[0] if same else None
         out.append({**r, "threshold": _threshold_qm(f)} if f else r)
+    return out
+
+
+def fill_no_value(rows: list[dict], lines_by_id: dict[str, Line]) -> list[dict]:
+    """9항 물성 행(아직 line이 있는 중간 형식 행) 가운데 q·text_value가 모두 빈 행의 q를 근거 줄의 상태어로 채운 새 목록.
+    근거 줄(글머리 '3)'·'가.' 등은 떼고)에 숫자가 없고 상태어가 한 종류만 있을 때만 채운다. 숫자가 있으면 모델이 값을
+    놓친 것일 수 있어 그대로 둔다. 근거 줄이 없거나 원문에 없는 줄 번호인 행도 그대로 둔다. 넘겨받은 행은 바꾸지 않는다."""
+    out = []
+    for r in rows:
+        line = lines_by_id.get(r.get("line"))
+        if r.get("q") is not None or r.get("text_value") or line is None:
+            out.append(r)
+            continue
+        text = _NEW_ITEM.sub("", line.text.strip())
+        words = {w for w in _NO_VALUE if w in re.sub(r"\s+", "", text)}
+        out.append({**r, "q": {"raw": words.pop()}} if len(words) == 1 and not re.search(r"\d", text) else r)
     return out
 
 

@@ -7,7 +7,7 @@
 - seq, Q의 status·dp·note, comp_ref, 서술 문장, extras의 쪽·항 번호, 근거(evidence)는 코드가 채운다.
 - 원문 줄로 확인되는 값(H·P 코드, 개정 횟수, 메타 값 없음, 전화번호, 비어 있는 유해성 분류)은 A의 함수 전에
   source_rules.apply_source_rules가 고친다. 15항 기준농도는 펼치기 전에 근거 줄로 source_rules.fill_thresholds가
-  채우거나 바로잡는다 (ADR-029).
+  채우거나 바로잡는다 (ADR-029). 9항 물성의 빈 값은 근거 줄의 상태어로 source_rules.fill_no_value가 채운다.
 - 값 없는 행의 표기는 A의 규칙 함수(msds.common.conventions.apply)에 맡긴다.
 - 15항 화평법 행은 값이 있는데 해당 여부가 비면 '해당'으로 채운다 (사용자 결정 10/29).
 """
@@ -24,9 +24,9 @@ from collections import Counter, defaultdict
 from msds.common.merge import DICTIONARY_VERSION, SCHEMA_VERSION, now_kst
 from msds.common.paths import to21_file
 from msds.common.schema import load_schema, msds_item_schema
-from msds.extract.inputs import SECTION_NOS, Line, line_index, line_parents
+from msds.extract.inputs import EXTRACT_SECTIONS, SECTION_NOS, Line, line_index, line_parents
 from msds.extract.section_specs import META_REVISION_FIELDS
-from msds.extract.source_rules import apply_source_rules, clear_numberless_thresholds, fill_thresholds
+from msds.extract.source_rules import apply_source_rules, clear_numberless_thresholds, fill_no_value, fill_thresholds
 
 _NO_VALUE = {"자료없음", "해당없음", "미기재"}
 _NOTE = re.compile(r"^(?P<base>[^()（）]+?)\s*[(（](?P<note>[^()（）]+)[)）]$")   # 상태어(괄호 설명), Q.note
@@ -183,17 +183,6 @@ def split_flammability(phys: list[tuple[int, dict]], lines_by_id: dict[str, Line
             out += [(no, {**base, "prop_code": "UEL", "q": pair[0], "text_value": None}),
                     (no, {**base, "prop_code": "LEL", "q": pair[1], "text_value": None})]
     return out
-
-
-def fill_blank_from_line(row: dict, lines_by_id: dict[str, Line]) -> dict:
-    """값·글자가 모두 빈 물성 행: 근거 줄에서 이름 다음 칸이 상태어(자료없음 등)면 그것을 값으로 둔다.
-    모델이 '인화점 | 자료없음 | 자료없음'의 값 칸을 비운 일이 있었다. 상태어가 아니면 그대로 둔다."""
-    q = row.get("q") or {}
-    if q.get("raw") or any(q.get(k) is not None for k in ("value", "lower", "upper")) or row.get("text_value"):
-        return row
-    cells = [c.strip() for c in re.split(r"[|:：]", getattr(lines_by_id.get(row.get("line")), "text", "") or "")]
-    value = next((c for c in cells[1:] if c), None)
-    return {**row, "q": {"raw": value}} if value and status_word(value)[0] else row
 
 
 def _extra_to_physchem(row: dict, code: str) -> dict:
@@ -859,7 +848,8 @@ def expand_msds(sections: dict[int, dict | None], lines_by_id: dict[str, Line],
     for no in SECTION_NOS:
         resp = sections.get(no)
         if resp is None:
-            problem(no, "missing_section", f"{no}항 응답 없음")
+            if no in EXTRACT_SECTIONS:     # 추출 대상이 아닌 항은 처음부터 부르지 않으므로 없어도 문제가 아니다
+                problem(no, "missing_section", f"{no}항 응답 없음")
             continue
         for key, val in resp.items():
             if isinstance(val, list):
@@ -882,8 +872,8 @@ def expand_msds(sections: dict[int, dict | None], lines_by_id: dict[str, Line],
             extras.append((no, r))
     if len(extras) < len(rows["extras"]):      # 옮긴 행은 원문 순서 자리에 둔다
         phys.sort(key=lambda p: pos.get(p[1].get("line"), len(pos)))
-    # 1-2. 폭발 범위 상한/하한 한 줄은 UEL·LEL 두 행으로, 값이 빈 행은 근거 줄의 상태어로 (모델 표기가 실행마다 달랐다)
-    phys = [(no, fill_blank_from_line(r, lines_by_id)) for no, r in split_flammability(phys, lines_by_id)]
+    # 1-2. 폭발 범위 상한/하한 한 줄은 UEL·LEL 두 행으로 (모델 표기가 실행마다 달랐다)
+    phys = split_flammability(phys, lines_by_id)   # 빈 값은 뒤에서 source_rules.fill_no_value가 채운다
     rows["physchem"], rows["extras"] = phys, extras
     # 1-2-1. 기관이 빈 CMR 행은 기관 분류가 아니라 11항 독성 내용이다. 독성 행으로 옮긴다
     #        (골드 S013 'Methane : 음성 …' → TX_MUTA, '자료없음' → TX_CARC. 골드 CMR 61행은 모두 기관이 있다)
@@ -988,6 +978,8 @@ def expand_msds(sections: dict[int, dict | None], lines_by_id: dict[str, Line],
             src = [fix_eco_descriptor(r, lines_by_id) for r in src]
         if {"q", "text_value"} <= _resolve(node["items"]).get("properties", {}).keys():
             src = [status_to_q(r) for r in src]
+        if key == "physchem":
+            src = fill_no_value(src, lines_by_id)        # 근거 줄의 '자료없음' 등으로 빈 값 (ADR-029)
         if key == "regulations":
             recode_regulations(src, lines_by_id, components)
             src = src + add_missing_items(src, lines_by_id)      # 모델 행 순서는 그대로 두고 뒤에 더한다

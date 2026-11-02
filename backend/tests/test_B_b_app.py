@@ -653,7 +653,7 @@ def test_main_passes_data_root(app, monkeypatch, env, tmp_path):
     monkeypatch.setattr(app, "make_handler", lambda c: seen.setdefault("ctx", c) and real(c))
     assert app.main(["--runs-dir", str(env / "runs"), "--no-browser"]) == 0
     assert seen["ctx"].data_root == app.DATA
-    assert seen["ctx"].gold_dir == app.SILVER / "claude"
+    assert seen["ctx"].gold_dir == app.GOLD
 
 
 # ── 서버 시작 ──────────────────────────────────────────

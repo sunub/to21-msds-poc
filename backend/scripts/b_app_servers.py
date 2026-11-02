@@ -37,7 +37,7 @@ import pod
 from msds.common.paths import CONFIGS, ROOT
 
 ENV_FILE = ROOT / ".env"
-SERVER_ENV_PREFIXES = ("RNGD_", "RUNPOD_", "VLLM_")
+SERVER_ENV_PREFIXES = ("RNGD_", "RUNPOD_")          # VLLM_ 태그(qwen38)는 명령줄 기준선 실행 전용이라 앱이 지켜보지 않는다
 REMOTE_DIR = "/root/to21-bc"
 _SAFE_MODEL = re.compile(r"^[\w./:-]+$")
 _SAFE_DEVICES = re.compile(r"^[\w:,]+$")
@@ -269,20 +269,25 @@ POD_COST_HINT = 2.49                                 # 시간당 달러. 10/29 �
 POD_KEY_ENV = "RUNPOD_VLLM_API_KEY"                  # Pod의 vLLM 키. Pod 환경(VLLM_API_KEY)과 작업·연결 확인에 같은 .env 값을 쓴다
 ADOPT_EVERY = 30                                     # 이 앱이 전에 만든 Pod를 찾는 목록 요청 간격(초)
 # 10/29 인계 문서의 시작 줄 + 2항 쪽 이미지 2장 (ADR-019). 키는 Pod 안의 환경 변수로만 받는다
-POD_SERVE = ('vllm serve {model} --trust-remote-code --host 0.0.0.0 --port 8000 --api-key "$VLLM_API_KEY" '
+# 앞의 타이머는 맥이 잠들거나 앱이 꺼져도 Pod 안에서 Pod를 지운다. runpodctl은 시작 뒤에 생겨 켤 때는 찾지 못해도 시각이 되면 돈다 (11/2 실제 Pod로 확인)
+POD_SERVE = ('(sleep {life}; runpodctl remove pod "$RUNPOD_POD_ID") & vllm serve {model} --trust-remote-code --host 0.0.0.0 --port 8000 --api-key "$VLLM_API_KEY" '
              "--max-model-len 40960 --max-num-seqs 64 --gpu-memory-utilization 0.85 "
              "--limit-mm-per-prompt '{{\"image\": 2}}'")
 WATCHDOG_SECONDS = 14400                             # Pod를 만들고 4시간이 지나면 지운다 (지우기를 잊어도 과금이 멈추게)
 TOKEN_TTL = 600                                      # 확인 토큰 유효 시간(초)
 DELETE_WAIT = 5                                      # Pod를 지운 뒤 목록을 다시 볼 때까지(초)
-RELOAD_TEXT = "다시 띄우면 15~25분 걸립니다"
+IDLE_SECONDS = 1200                                  # 요청이 이만큼 없으면 Pod를 지운다 (사용 후 닫기, 11/2 결정)
+READY_LIMIT = 2400                                   # 모델이 한 번도 응답하지 않은 Pod를 기다리는 시간(초). 모델을 받는 동안 지우지 않는다
+IDLE_TICK = 60                                       # 유휴 감시 간격(초)
+RELOAD_TEXT = "다시 켜면 모델을 받아 뜨기까지 몇 분 걸립니다(10/29 기록 약 6분)"
 RNGD_UP = {"qwen3_30b_a3b_rngd": ("Qwen3-30B", "npu:0,npu:1,npu:2,npu:3"),   # 태그 → (단추 이름, 카드). 카드는 4장뿐이다
            "gpt_oss_20b_rngd": ("gpt-oss", "npu:0")}
 LOCKING_KINDS = ("run", "try")                       # 모델 서버를 쓰는 작업. 비교표는 서버를 쓰지 않아 막지 않는다
 TUNNEL_WAIT, TUNNEL_STEP = 10, 0.5                   # 터널 포트가 열리기·닫히기를 기다리는 최대 초와 간격
 _POD_ID = re.compile(r"^[a-z0-9]{6,40}$")
+_METRIC = re.compile(r"^vllm:(num_requests_running|num_requests_waiting|prompt_tokens_total|generation_tokens_total)\{[^}]*\} (\S+)$", re.M)
 _SECRET_PREFIXES = ("RNGD_", "RUNPOD_", "VLLM_", "LLM_", "ANTHROPIC_")
-_WHERE = (("RUNPOD_", "RunPod"), ("RNGD_", "RNGD"), ("VLLM_", "vLLM"))
+_WHERE = (("RUNPOD_", "RunPod"), ("RNGD_", "RNGD"))
 
 
 class _Refuse(Exception):
@@ -368,6 +373,8 @@ class ServerActions:
         self._session: dict | None = None
         self._adopt_checked: float | None = None     # 마지막으로 Pod 목록에서 이어 쓸 Pod를 찾은 시각
         self._watchdogs: dict[str, dict] = {}        # Pod 번호 → {"proc", "deadline"}
+        self._idle: dict[str, dict] = {}             # Pod 번호 → {"since", "tokens", "ready"}. idle_tick만 쓴다
+        self._last_auto_close: dict | None = None    # 앱이 마지막으로 자동 삭제한 일. 사람이 지우면 지운다
         self._lock = threading.Lock()
 
     # ── 읽기 ───────────────────────────────────────────
@@ -389,6 +396,9 @@ class ServerActions:
         for s in out:
             name = str(cfg[s["tag"]].get("base_url_env", ""))
             s["where"] = next((w for p, w in _WHERE if name.startswith(p)), name)
+            if s["where"] == "RunPod" and not self._session and (not s["url_set"] or s["error"] == "HTTP 404"):
+                # 켠 Pod가 없으면 물어볼 서버가 없는 것이다. .env에 지워진 Pod의 주소가 남아 있어도 고장이 아니다 (11/2)
+                s.update(url_set=False, error=None, friendly=None)
         return out
 
     def tunnel_status(self) -> dict:
@@ -410,13 +420,21 @@ class ServerActions:
 
     def status(self) -> dict:
         self._ensure_session()
+        pods, pods_error = None, None
+        if self.env.get("RUNPOD_API_KEY"):
+            try:
+                pods = self._pods()
+                self._forget_gone_session(pods)
+            except RuntimeError as e:                # RunPod 연결·HTTP 오류. 다른 칸은 그대로 보인다
+                pods_error = self._mask(str(e))
         running = self._running()
         models = self.model_status()
         out = {"models": models, "pods": [], "volumes": None, "rngd": rngd_ps(self.env, runner=self._runner),
                "ui_text": bt.server_ui_text(), "env_problems": self._env_problems(),
                "running_jobs": running, "locked": bool(running),
                "lock_reason": "; ".join(map(_running_text, running)) or None,
-               "session": None, "rngd_choices": self._rngd_choices(), "log_tail": self._log_tail(10)}
+               "session": None, "rngd_choices": self._rngd_choices(), "log_tail": self._log_tail(10),
+               "last_auto_close": self._last_auto_close}
         ready = None
         if self._session:
             cfg = self.models_cfg["models"]
@@ -424,13 +442,15 @@ class ServerActions:
             ready = any(m["reachable"] for m in models if cfg[m["tag"]].get("base_url_env") == pod_env)
             out["session"] = {"pod_id": self._session["pod_id"], "url": pod.pod_url(self._session["pod_id"]),
                               "tag": POD_TAG, "ready": ready, "adopted": self._session["adopted"],
-                              "others": list(self._session.get("others") or [])}
+                              "others": list(self._session.get("others") or []), "idle_minutes": IDLE_SECONDS // 60}
         if not self.env.get("RUNPOD_API_KEY"):
             out["runpod_error"] = "RUNPOD_API_KEY 없음"
+        elif pods_error:
+            out["runpod_error"] = pods_error
         else:
             try:
                 now = self._now()
-                out["pods"] = [self._pod_view(self._brief(p, now), ready, locked=bool(running)) for p in self._pods()]
+                out["pods"] = [self._pod_view(self._brief(p, now), ready, locked=bool(running)) for p in pods]
                 out["volumes"] = len(pod.list_volumes(opener=self._opener, env=self.env))
             except RuntimeError as e:                # RunPod 연결·HTTP 오류. 다른 칸은 그대로 보인다
                 out["runpod_error"] = self._mask(str(e))
@@ -512,7 +532,7 @@ class ServerActions:
         if self._session:
             warn.append(f"이 앱이 쓰던 Pod {self._session['pod_id']} 대신 새 Pod를 씁니다")
         summary = (f"{POD_GPU}, vLLM 0.32.0, {model} (이미지 2장, 최대 길이 40960). 시간당 약 ${POD_COST_HINT:.2f}. "
-                   f"{WATCHDOG_SECONDS // 3600}시간 뒤 자동 삭제 감시를 함께 띄웁니다. 모델을 받아 뜨기까지 몇 분 걸립니다(10/29 기록 약 6분)")
+                   f"요청이 {IDLE_SECONDS // 60}분 없으면 앱이 지우고, {WATCHDOG_SECONDS // 3600}시간 뒤 자동 삭제 감시를 함께 띄웁니다. 모델을 받아 뜨기까지 몇 분 걸립니다(10/29 기록 약 6분)")
         return {"params": {}, "summary": summary, "warning": " / ".join(warn) or None}
 
     def _plan_pod_delete(self, params: dict) -> dict:
@@ -579,7 +599,7 @@ class ServerActions:
         if not key:                                  # 요약을 본 뒤 설정 다시 읽기로 빠졌을 수 있다
             raise _Refuse(400, bt.SERVER_TEXT["pod_key_missing"])
         model = self.models_cfg["models"][POD_TAG]["model"]
-        pod_id = pod.create_pod(POD_SERVE.format(model=model), key, name=POD_NAME, opener=self._opener, env=self.env)
+        pod_id = pod.create_pod(POD_SERVE.format(model=model, life=WATCHDOG_SECONDS), key, name=POD_NAME, opener=self._opener, env=self.env)
         self._session = {"pod_id": pod_id, "created": self._clock(), "adopted": False}
         watchdog = self._start_watchdog(pod_id)
         note = (f"{model}, {POD_GPU}, 시간당 약 ${POD_COST_HINT:.2f}, "
@@ -591,6 +611,7 @@ class ServerActions:
 
     def _do_pod_delete(self, params: dict) -> dict:
         self._need_runpod()
+        self._last_auto_close = None
         pid = params["pod_id"]
         before = next((p for p in self._pods() if p.get("id") == pid), None)
         if before is None:                           # 주인을 확인할 수 없으면 지우지 않는다
@@ -609,6 +630,8 @@ class ServerActions:
             if w:
                 w["proc"].terminate()
         note = f"{_minutes_cost(b, '켜진')}, 남은 Pod {len(left)}개" + ("" if gone else " — 지운 뒤에도 목록에 남아 있음")
+        if params.get("reason"):
+            note = f"{params['reason']}, {note}"
         line = append_server_log(self.log_path, "pod_delete", target=f"{pid} ({b['name']})" if b["name"] else pid,
                                  note=note, _secrets=self._secrets())
         return {"ok": gone, "result": {"pod_id": pid, "gone": gone, "minutes": b["minutes"], "est_cost": b["est_cost"],
@@ -757,6 +780,81 @@ class ServerActions:
     def _pods(self) -> list[dict]:
         return pod.list_pods(opener=self._opener, env=self.env)
 
+    def _forget_gone_session(self, pods: list[dict]) -> None:
+        """세션의 Pod가 목록에 없으면 잊는다. 예: 다른 앱이나 Pod 안 타이머가 지운 경우. 방금 만든 Pod는 목록에 늦게 나올 수 있어 2분은 기다린다."""
+        s = self._session
+        if not s or any(p.get("id") == s["pod_id"] for p in pods):
+            return
+        if s["created"] is not None and self._clock() - s["created"] < 120:
+            return
+        self._session = None
+        w = self._watchdogs.pop(s["pod_id"], None)
+        if w:
+            w["proc"].terminate()
+
+    def _pod_activity(self, pod_id: str) -> tuple[float, float] | None:
+        """vLLM 지표(/metrics)의 (처리 중+대기 요청 수, 누적 토큰 수). 모델이 아직 응답하지 않으면 None."""
+        url = pod.pod_url(pod_id).removesuffix("/v1") + "/metrics"
+        req = urllib.request.Request(url, headers={"User-Agent": "to21-b-app/1.0"})
+        try:
+            with (self._opener or urllib.request.urlopen)(req, timeout=10) as resp:
+                text = resp.read().decode("utf-8", "replace")
+        except Exception:
+            return None
+        found = {name: float(value) for name, value in _METRIC.findall(text)}
+        if not found:
+            return None
+        return (found.get("num_requests_running", 0.0) + found.get("num_requests_waiting", 0.0),
+                found.get("prompt_tokens_total", 0.0) + found.get("generation_tokens_total", 0.0))
+
+    def idle_tick(self) -> list[str]:
+        """켜진 우리 Pod의 마지막 사용 시각을 갱신하고, 한도를 넘은 Pod를 지운다. 지운 Pod 번호를 돌려준다.
+        사용의 근거는 이 컴퓨터의 실행 중 작업과 vLLM 지표다. 남의 Pod는 건드리지 않는다."""
+        if not self.env.get("RUNPOD_API_KEY"):
+            return []
+        try:
+            ours = [p for p in self._pods() if _owned(p) and p.get("desiredStatus") == "RUNNING"]
+        except RuntimeError:
+            return []
+        now, deleted = self._clock(), []
+        self._idle = {p["id"]: self._idle.get(p["id"]) or {"since": now, "tokens": None, "ready": False} for p in ours}
+        for pod_id, rec in self._idle.items():
+            seen = self._pod_activity(pod_id)
+            if seen is not None:
+                if not rec["ready"] or seen[0] or seen[1] != rec["tokens"]:
+                    rec["since"] = now
+                rec.update(tokens=seen[1], ready=True)
+            if self._running():
+                rec["since"] = now
+            if now - rec["since"] < (IDLE_SECONDS if rec["ready"] else READY_LIMIT):
+                continue
+            kind, limit = ("idle", IDLE_SECONDS) if rec["ready"] else ("no_reply", READY_LIMIT)
+            reason = (f"요청 없이 {limit // 60}분이 지나 자동 삭제" if rec["ready"]
+                      else f"모델이 {limit // 60}분 동안 응답하지 않아 자동 삭제")
+            try:
+                done = self._do_pod_delete({"pod_id": pod_id, "reason": reason})
+                if done["ok"]:
+                    deleted.append(pod_id)
+                    used = done["result"]
+                    self._last_auto_close = {"kind": kind, "limit_min": limit // 60, "cost": used["est_cost"],
+                                             "minutes": None if used["minutes"] is None else round(used["minutes"])}
+            except (_Refuse, RuntimeError):          # 다른 앱이 먼저 지웠거나 RunPod 오류. 다음 차례에 다시 본다
+                pass
+        return deleted
+
+    def start_idle_guard(self) -> threading.Thread:
+        """앱이 켜져 있는 동안 IDLE_TICK마다 idle_tick을 부른다. 앱이 꺼져 있으면 Pod 안 타이머가 지운다."""
+        def loop():
+            while True:
+                self._sleep(IDLE_TICK)
+                try:
+                    self.idle_tick()
+                except Exception as e:               # 감시가 죽으면 요금이 계속 나간다. 키가 섞일 수 있어 종류만 남긴다
+                    print(f"유휴 감시 오류: {type(e).__name__}", flush=True)
+        thread = threading.Thread(target=loop, daemon=True, name="pod-idle-guard")
+        thread.start()
+        return thread
+
     def _ensure_session(self) -> None:
         """세션이 없으면 이 앱이 전에 만든 켜진 Pod를 이어 쓴다(앱을 다시 켠 뒤 첫 요청 때). 가장 최근에 켜진 것을 고르고
         나머지는 others에 둔다. 목록 요청은 ADOPT_EVERY초에 한 번까지이고, RunPod 오류면 세션 없이 넘어간다."""
@@ -827,7 +925,15 @@ class ServerActions:
         owned = _owned(b)
         return {**b, "ours": owned, "owned": owned, "deletable": owned and not locked, "session": bool(mine),
                 "state": ("준비됨" if ready else "준비 중") if mine else None,
-                "auto_delete_min": max(0, round((w["deadline"] - self._clock()) / 60)) if w else None}
+                "auto_delete_min": self._delete_in_min(b["id"], w)}
+
+    def _delete_in_min(self, pod_id: str, watchdog: dict | None) -> int | None:
+        """자동 삭제까지 남은 분. 유휴 삭제와 4시간 감시 중 먼저 오는 쪽이다. 둘 다 모르면 None."""
+        rec = self._idle.get(pod_id)
+        limit = (IDLE_SECONDS if rec["ready"] else READY_LIMIT) if rec else None
+        deadlines = [rec["since"] + limit] if rec else []
+        deadlines += [watchdog["deadline"]] if watchdog else []
+        return max(0, round((min(deadlines) - self._clock()) / 60)) if deadlines else None
 
     def _log_tail(self, n: int) -> list[str]:
         return self._log_rows()[-n:]
