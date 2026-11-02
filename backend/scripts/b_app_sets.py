@@ -6,6 +6,7 @@
 - 평가용 문서는 폴더 안의 어떤 파일도 열지 않는다. 문서 번호와 잠긴 이유만 둔다 (D-43).
 - 요청에서 받은 묶음 id로 경로를 만들지 않는다. find_set으로 목록에 있는 id인지 먼저 본다.
 정답지는 data/silver/<이름>, data/gold/<이름> 폴더 하나하나다. 예: silver/claude.
+- A가 골드를 data/gold/<문서>.json에 바로 올린다. 그런 파일이 있으면 data/gold 자체도 정답지(id "gold")이고 기본값이다.
 - 문서별 <문서>.json만 정답 파일로 본다(<문서>.review.json 등은 뺀다). 평가용 문서의 정답 파일은 이름만 센다 (D-43).
 - 요청에서 받은 정답지 id도 find_key로 목록에 있는지 먼저 본다.
 - 정답지마다 지금 폴더 내용의 지문(fingerprint)과 가장 늦은 수정 시각(updated_at)을 둔다. 과거 점수의 정답지를 재현하는 값이 아니다.
@@ -15,6 +16,7 @@
 import hashlib
 import json
 import re
+import unicodedata
 from datetime import datetime
 from pathlib import Path
 
@@ -26,7 +28,7 @@ from msds.extract.inputs import _LINE_NO, _PAGE_FILE
 DOC_ID = re.compile(r"^[A-Z][A-Z0-9]*-[A-Z0-9]+$")   # T21-S003, RAW-01. 요청에서 받은 문서 번호는 이것으로 먼저 거른다(경로 탈출 막기)
 DEFAULT_SET = "prev/version9"
 KEY_FILE = re.compile(r"^([A-Z][A-Z0-9]*-[A-Z0-9]+)\.json$")   # <문서>.json만. <문서>.review.json·다른 이름은 뺀다
-DEFAULT_KEY = "silver/claude"
+DEFAULT_KEY = "gold"
 _KEY_KINDS = ("silver", "gold")
 _GROUPS = {"개발": "dev", "평가": "eval"}            # manifest의 그 밖 용도(기타)는 other
 _COUNT_KEYS = {"dev": "dev", "eval": "eval_locked", "other": "other", "outside": "outside", "unknown": "unknown"}
@@ -42,12 +44,19 @@ def _page_files(doc_dir: Path) -> list[tuple[int, Path]]:
     return sorted((int(m.group(1)), p) for p in doc_dir.iterdir() if (m := _PAGE_FILE.match(p.name)))
 
 
-def _meta_doc_id(doc_dir: Path) -> str | None:
+def _read_meta(doc_dir: Path) -> dict:
     try:
         meta = json.loads((doc_dir / "meta.json").read_text(encoding="utf-8"))
     except (OSError, ValueError):
-        return None
-    return meta.get("doc_id") if isinstance(meta, dict) else None
+        return {}
+    return meta if isinstance(meta, dict) else {}
+
+
+def _same_source_as_eval(meta: dict, rows: list[dict]) -> bool:
+    """원본 PDF 이름이 평가 문서와 같은가. 예: RAW-50은 T21-050이다. 맥의 파일 이름은 NFD일 수 있어 맞춰 비교한다 (D-43)."""
+    nfc = lambda name: unicodedata.normalize("NFC", name or "")   # noqa: E731
+    source = nfc(meta.get("source_file"))
+    return bool(source) and any(r.get("purpose") == "평가" and nfc(r.get("source_file")) == source for r in rows)
 
 
 def _group(doc_id: str, doc_dir: Path | None, rows: list[dict]) -> str:
@@ -57,7 +66,10 @@ def _group(doc_id: str, doc_dir: Path | None, rows: list[dict]) -> str:
     row = next((r for r in rows if r["doc_id"] == doc_id), None)
     if row is not None:
         return _GROUPS.get(row.get("purpose"), "other")
-    return "outside" if doc_dir is not None and _meta_doc_id(doc_dir) == doc_id else "unknown"
+    meta = _read_meta(doc_dir) if doc_dir is not None else {}
+    if _same_source_as_eval(meta, rows):
+        return "eval"
+    return "outside" if meta.get("doc_id") == doc_id else "unknown"
 
 
 def _first_line_numbered(path: Path) -> bool:
@@ -87,7 +99,7 @@ def doc_entry(doc_dir: Path, rows: list[dict]) -> dict:
 
 
 def _subdirs(path: Path) -> list[Path]:
-    return sorted(p for p in path.iterdir() if p.is_dir())
+    return sorted(p for p in path.iterdir() if p.is_dir() and not p.name.startswith("."))   # 복사 중인 임시 폴더는 숨긴다
 
 
 def _unusable_reason(docs: list[dict]) -> str | None:
@@ -237,7 +249,7 @@ def _fingerprint(answers: dict[str, bytes]) -> str | None:
     return h.hexdigest()[:16]
 
 
-def _key_entry(folder: Path, kind: str, data_root: Path, purposes: dict[str, str]) -> dict:
+def _key_entry(folder: Path, kind: str, data_root: Path, purposes: dict[str, str], key_id: str | None = None) -> dict:
     files = [p for p in folder.iterdir() if not p.name.startswith(".")]     # .gitkeep만 있으면 빈 폴더다
     names = sorted(m.group(1) for p in files if p.is_file() and (m := KEY_FILE.match(p.name)))
     locked = [d for d in names if purposes.get(d) == "평가"]
@@ -247,7 +259,7 @@ def _key_entry(folder: Path, kind: str, data_root: Path, purposes: dict[str, str
     times = [(folder / f"{d}.json").stat().st_mtime for d in docs]
     reason = (None if docs else "key_empty" if not files else "key_no_doc_files" if not names
               else "key_eval_only" if len(locked) == len(names) else "key_not_to21")
-    key_id = f"{kind}/{folder.name}"
+    key_id = key_id or f"{kind}/{folder.name}"
     return {"id": key_id, "label": bt.key_label(key_id), "kind": kind,
             "path": folder.relative_to(data_root.parent).as_posix(), "usable": reason is None,
             "reason": bt.KEY_TEXT[reason] if reason else None, "docs": docs,
@@ -265,6 +277,8 @@ def list_keys(data_root: Path, rows: list[dict] | None = None) -> list[dict]:
         return []
     purposes = {r["doc_id"]: r.get("purpose") for r in (manifest.load() if rows is None else rows)}
     keys = [_key_entry(f, base.name, data_root, purposes) for base in bases for f in _subdirs(base)]
+    keys += [_key_entry(base, base.name, data_root, purposes, key_id=base.name) for base in bases
+             if any(p.is_file() and KEY_FILE.match(p.name) for p in base.iterdir())]
     return sorted(keys, key=lambda k: k["id"])
 
 
