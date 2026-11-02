@@ -101,8 +101,8 @@ assert.equal(posted.length,0);
 """)
 
 
-def test_draft_models_are_named_as_answer_drafts():
-    """정답 초안 모델도 고를 수 있지만 시험 모델 뒤에서 용도가 드러나야 한다."""
+def test_draft_models_are_named_as_answer_drafts_when_already_chosen():
+    """정답 초안 모델은 목록에서 빠지지만, 이미 고른 경우에는 남고 용도가 드러나야 한다 (11/2 G4 사용자 결정)."""
     from test_B_b_app_jobs_ui import SETUP
     run_js(SETUP + r"""
 assert.equal(UI.context.models.gpt,UI.context.models.claude.replace('Claude','GPT'));
@@ -110,16 +110,13 @@ options.models=[{tag:'gpt',watched:false},{tag:'first',watched:true},
  {tag:'claude',watched:false},{tag:'second',watched:true}];
 await go('s03');
 for(const kind of ['try','run']){
- const group=jobsModelChoices(kind==='try'?S.jobs.t:S.jobs.r,kind),opts=group.querySelectorAll('input');
- assert.deepEqual([...opts].map(o=>o.value),['first','second','gpt','claude']);
- for(const tag of ['gpt','claude']){
-  const opt=opts.find(o=>o.value===tag);assert.equal(opt.closest('label').querySelector('b').textContent,UI.context.models[tag]);
-  if(kind==='try')assert.equal(opt.disabled,false);
- }
+ const form=kind==='try'?S.jobs.t:S.jobs.r;form.model='gpt';
+ const opts=jobsModelChoices(form,kind).querySelectorAll('input');
+ assert.deepEqual([...opts].map(o=>o.value),['first','second','gpt']);
+ const opt=opts.find(o=>o.value==='gpt');assert.equal(opt.closest('label').querySelector('b').textContent,UI.context.models.gpt);
+ if(kind==='try')assert.equal(opt.disabled,false);
 }
 assert.deepEqual(options.models.map(m=>m.tag),['gpt','first','claude','second'],'API order must not be mutated');
-stepTo('model');change(el('jobs-model'),'claude');assert.equal(S.jobs.t.model,'claude');
-assert.ok(el('jobs-try').textContent.includes(UI.context.models.claude));
 """)
 
 

@@ -374,7 +374,9 @@ function jobsPickModel(form, kind, tag) {
 }
 function jobsModelChoices(form, kind) {
   const id = kind === "try" ? "jobs-model" : "jobs-run-model";
-  const models = [...(S.jobs.opts?.models || [])].sort((a, b) => Number(jobsDraftModel(a)) - Number(jobsDraftModel(b)));
+  // AI 켜기 화면에서 다루는 모델만 고른다 (11/2 G4 사용자 결정). 이미 고른 모델은 몰래 바꾸지 않으려고 남긴다.
+  const models = (S.jobs.opts?.models || []).filter(m => !jobsDraftModel(m) || m.tag === form.model)
+    .sort((a, b) => Number(jobsDraftModel(a)) - Number(jobsDraftModel(b)));
   return h("fieldset", {id, class: "step-choices", "data-guide": kind === "try" ? "s03-model" : null, onchange: e => jobsPickModel(form, kind, e.target.value)},
     h("legend", null, T("jobs.form.model")),
     models.length ? models.map(m => {
@@ -435,7 +437,7 @@ function jobsStageTarget() {
         h("div", {class: "job-sections"}, Array.from({length: 16}, (_, i) => i + 1).map(n => h("label", null,
           h("input", {id: `jobs-section-${n}`, type: "checkbox", checked: t.secs.has(n), onchange: e => {
             e.target.checked ? t.secs.add(n) : t.secs.delete(n); jobsRemember(); jobsRenderSteps();
-          }}), T("jobs.form.section", {section: n}))))),
+          }}), sourceLabel(n))))),
       t.all ? null : jobsNote(T("jobs.fields.scope"), {class: "muted"})),
     docs.some(d => jobsAllowed(d, "try")) ? null : jobsNote(T("jobs.no_runnable.fact")),
     h("ul", {class: "muted"}, evals.length ? h("li", null, T("jobs.batch.eval_locked", {count: evals.length})) : null,

@@ -857,3 +857,30 @@ assert.equal(textOf('jobs-details').includes(T('steps.trial.details_hint')),fals
 def test_step_buttons_keep_their_own_width():
     css = (STATIC / 'app.css').read_text()
     assert '#jobs-try > button, #jobs-run > button, #jobs-result > button { align-self: flex-start; }' in css
+
+
+def test_model_list_shows_only_ais_this_app_can_turn_on_plus_the_chosen_one():
+    # 11/2 G4 사용자 결정: AI 켜기 화면에서 다루지 않는 모델은 목록에서 뺀다. 이미 고른 모델은 몰래 바꾸지 않는다.
+    run_js(SETUP + r"""
+options.models=[{tag:'gpt',watched:false},{tag:'first',watched:true},{tag:'local',watched:false},{tag:'second',watched:true}];
+await go('s03');
+for(const kind of ['try','run']){
+ const form=kind==='try'?S.jobs.t:S.jobs.r;
+ form.model='first';
+ let values=[...jobsModelChoices(form,kind).querySelectorAll('input')].map(o=>o.value);
+ assert.deepEqual(values,['first','second']);
+ form.model='local';
+ values=[...jobsModelChoices(form,kind).querySelectorAll('input')].map(o=>o.value);
+ assert.deepEqual(values,['first','second','local']);
+}
+""")
+
+
+def test_part_checkboxes_say_what_each_part_is():
+    run_js(SETUP + r"""
+await go('s03',{trialBranch:'try'});atStep('target');
+const labels=el('jobs-try').querySelectorAll('.job-sections label');
+assert.equal(labels.length,16);
+assert.ok(labels[7].textContent.includes(UI.source.section_names[8]));
+assert.ok(labels[7].textContent.includes('8'));
+""")
