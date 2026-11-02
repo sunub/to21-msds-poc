@@ -119,8 +119,10 @@ def test_벤젠_단일물질():
     c = _run("T21-S016")
     assert c["product_type"]["value"] == "단일물질"
     f15 = {(f["comp_ref"], f["item_code"]): f for f in c["findings"] if f["section"] == "15"}
-    assert f15[("1", "OSH_PROHIBIT")]["verdict"] == "경계"   # 결정 6: 고무풀 조건
-    assert f15[("1", "OSH_PSM")]["verdict"] == "일치"        # 결정 7: MIX 로 적은 행을 성분 행으로
+    prohibit = f15[("1", "OSH_PROHIBIT")]
+    assert prohibit["verdict"] == "경계" and "고무풀" in " ".join(prohibit["db_text"])  # 결정 6, 근거는 DB 조문
+    psm = next(e for e in c["excluded"] if e["section"] == "15" and e["comp_ref"] == "1" and e["item_code"] == "OSH_PSM")
+    assert "결정 10" in psm["reason"]                        # 인화성 액체 범주의 PSM은 판정하지 않음
     carc = next(f for f in c["findings"] if f["section"] == "2" and f["class_code"] == "HH_CARCINOGEN")
     assert carc["verdict"] == "일치" and carc["our_value"]["low"] == "1A"
 

@@ -1,4 +1,4 @@
-"""15항 판정 시험 (설계서 7·27~30장, 11/01 F 결정 1~5, 11/02 결정 6~8).
+"""15항 판정 시험 (설계서 7·27~30장, 11/01 F 결정 1~5, 11/02 결정 6~9).
 
 앞쪽은 이 파일 안의 가짜 지식 제공자로, 뒤쪽은 샘플 CSV(로컬에 있을 때)로 25번 황산을 확인한다.
 """
@@ -196,8 +196,9 @@ def test_결정7_단일물질은_제품전체_행을_성분_행으로_본다():
     v = one(out, "OSH_PSM")
     assert v["verdict"] == "일치" and any("결정 7" in a for a in v["assumptions"])
     assert not [e for e in out["excluded"] if e["item_code"] == "OSH_PSM"]
-    mixed = judge_sec15(inputs([sup("OSH_PSM", "OSH", "해당", ref="MIX")]), p)  # 표기 없음 → 바꾸지 않음
-    assert ex(mixed, "OSH_PSM", ref="MIX")["status"] == "참고" and one(mixed, "OSH_PSM")["type"] == "규제 누락"
+    mixed = judge_sec15(inputs([sup("OSH_PSM", "OSH", "해당", ref="MIX")]), p)  # 표기 없음 → 결정 7이 아니라 결정 9
+    assert ex(mixed, "OSH_PSM", ref="MIX")["status"] == "참고"
+    assert any("결정 9" in a for a in one(mixed, "OSH_PSM")["assumptions"])
     # 성분 번호로 적은 위험물 행은 제품 행으로 본다
     dg = judge_sec15(single([sup("DG_HAZMAT", "DG", "비해당", ref="1")]), Fake({A: []}))
     assert one(dg, "DG_HAZMAT", ref="MIX")["msds_value"] == "비해당"
@@ -223,3 +224,105 @@ def test_결정8_법_단위_해당은_항목을_특정할_수_없어_비교하�
     out = judge_sec15(inputs([{**sup(None, "OSH", "해당"), "item_raw": "영업비밀인정제외물질"}]), p)
     assert "특정할 수 없어" in ex(out, None)["reason"]
     assert one(out, "OSH_MANAGED")["msds_value"] is None  # '해당'은 이어 쓰지 않는다(과기재 오탐 방지)
+
+
+B = "2222-22-2"
+TWO = [{"seq": 1, "cas_no": A, "content": RANGE}, {"seq": 2, "cas_no": B, "content": {"lower": 0.1, "upper": 0.5, "unit": "%"}}]
+
+
+def test_결정9_혼합물의_제품전체_행은_성분_판정에_이어쓴다():
+    p = Fake({A: [db("OSH_MANAGED", "OSH", 1)], B: [db("OSH_MANAGED", "OSH", 1)]})
+    out = judge_sec15(inputs([sup("OSH_MANAGED", "OSH", "해당", ref="MIX", threshold=pct(1))], TWO), p)
+    a = one(out, "OSH_MANAGED", ref="1")
+    assert (a["verdict"], a["msds_value"]) == ("일치", "해당") and any("결정 9" in x for x in a["assumptions"])
+    b = one(out, "OSH_MANAGED", ref="2")  # 0.1~0.5% < 1% → 비해당. 제품 '해당'은 성분 1 때문 → 과기재로 세지 않음
+    assert b["verdict"] == "일치" and "다른 성분" in b["reason"]
+    assert "이어 씀" in ex(out, "OSH_MANAGED", ref="MIX")["reason"]
+    # 제품 전체 '비해당'이면 해당 성분은 규제 누락
+    neg = judge_sec15(inputs([sup("OSH_MANAGED", "OSH", "비해당", ref="MIX")], TWO), p)
+    assert one(neg, "OSH_MANAGED", ref="1")["type"] == "규제 누락"
+
+
+def test_결정9_성분별_행이_있으면_그_행이_우선이고_지위정보도_비교한다():
+    p = Fake({A: [db("OSH_MANAGED", "OSH", 1), db("KREACH_EXIST", "KREACH", kind="status_only")]})
+    out = judge_sec15(inputs([sup("OSH_MANAGED", "OSH", "해당", ref="MIX"), sup("OSH_MANAGED", "OSH", "비해당", ref="1"),
+                              sup("KREACH_EXIST", "KREACH", "해당", ref="MIX")]), p)
+    assert one(out, "OSH_MANAGED")["msds_value"] == "비해당"          # 성분 행 우선
+    assert one(out, "KREACH_EXIST")["verdict"] == "일치"              # 제품 전체로 적었으면 결정 3의 '적었을 때'에 해당
+
+
+def test_결정9_DB에_걸리는_성분이_없는_제품전체_해당은_참고로_확인필요():
+    out = judge_sec15(inputs([sup("OSH_PSM", "OSH", "해당", ref="MIX")]), Fake({A: []}))
+    assert "확인 필요" in ex(out, "OSH_PSM", ref="MIX")["reason"]
+
+
+def test_혼합물의_제품전체_법단위_비해당도_모든_성분에_이어쓴다():
+    p = Fake({A: [db("OSH_MANAGED", "OSH", 1)]})
+    out = judge_sec15(inputs([{**sup(None, "OSH", "비해당", ref="MIX"), "item_raw": "산업안전보건법에 의한 규정"}]), p)
+    v = one(out, "OSH_MANAGED")
+    assert v["msds_value"] == "비해당" and any("법 단위" in a for a in v["assumptions"])
+
+
+def test_액화가스는_위험물_제4류가_아니다():
+    phys = {"APPEARANCE_STATE": [{"text_value": "액체가스"}, {"text_value": "기체"}],
+            "FLASH_POINT": [{"comp_ref": "MIX", "q": {"value": -76}}]}
+    v = one(judge_sec15(inputs([sup("DG_HAZMAT", "DG", "비해당", ref="MIX")], physchem=phys), Fake({A: []})),
+            "DG_HAZMAT", ref="MIX")
+    assert v["verdict"] == "일치" and v["expected"] == "비해당" and "가스" in v["reason"]
+
+
+# ── 11/02 F 결정 10·11 (실제 HTODB로 silver 전체를 돌려 찾은 오탐) ─────────────
+def test_PSM_조문과_범주를_읽는다():
+    data = {"rows": [{"regulate_id": "KR001001", "regulate_item_id": "KR001001009", "is_del": "0"}],
+            "notice_std": [{"regulate_item_id": "KR001001009", "notice_seq": "3", "chem_group_name": "수소",
+                            "research_range": "100", "is_del": "0"}],
+            "notice_content": [{"regulate_item_id": "KR001001009", "notice_seq": "3", "lang_code": "ko", "is_del": "0",
+                                "apply_basis": "수소 중량 %: 0~100 제조ㆍ취급ㆍ저장(kg/일): 5000"}]}
+    psm = regulation_rows(data)[0]  # RESEARCH_RANGE 100 을 '100% 이상'으로 읽던 것 → 조문 '0~' = 함유하면 해당
+    assert (psm["threshold_op"], psm["threshold_value"], psm["kind"]) == (">", 0.0, "compare")
+    assert psm["db_text"] == ["수소 중량 %: 0~100 제조ㆍ취급ㆍ저장(kg/일): 5000"]
+    data["notice_std"][0].update(chem_group_name="인화성 액체", research_range="")
+    data["notice_content"][0]["apply_basis"] = "인화성 액체 제조ㆍ취급(kg/일): 5000 저장(kg/일): 200000"
+    assert regulation_rows(data)[0]["kind"] == "psm_category"
+
+
+def test_결정10_인화성_범주의_PSM은_판정하지_않는다():
+    p = Fake({A: [db("OSH_PSM", "OSH", kind="psm_category")]})
+    out = judge_sec15(inputs([]), p)
+    assert not [v for v in out["verdicts"] if v["item_code"] == "OSH_PSM"]
+    assert "결정 10" in ex(out, "OSH_PSM")["reason"]
+
+
+def test_조문_조건을_읽는다():
+    data = {"rows": [{"regulate_id": "KR001001", "regulate_item_id": "KR001001007", "is_del": "0"},
+                     {"regulate_id": "KR001001", "regulate_item_id": "KR001001005", "is_del": "0"}],
+            "notice_std": [{"regulate_item_id": "KR001001007", "notice_seq": "5", "std_value_primary": "0.100",
+                            "std_value_primary_unit": "wt%", "std_value_primary_sign": "≥", "is_del": "0"}],
+            "notice_content": [{"regulate_item_id": "KR001001007", "notice_seq": "5", "is_del": "0",
+                                "apply_basis": "및 이를 0.1 wt% 이상 함유한 제제(≤ pH 2.0)"},
+                               {"regulate_item_id": "KR001001005", "notice_seq": "4", "is_del": "0",
+                                "notice_contents": "유리섬유", "chem_state": "분진인 경우에 한함"}]}
+    by = {r["item_code"]: r for r in regulation_rows(data)}
+    assert by["OSH_SPECIAL"]["condition"] == {"state": None, "ph_max": 2.0}
+    assert by["OSH_MEASURE"]["condition"] == {"state": "분진인 경우에 한함", "ph_max": None}
+
+
+def _cond(item, value, **c):
+    return {**db(item, "OSH", value), "condition": {"state": None, "ph_max": None, **c}}
+
+
+def test_결정11_pH_조건은_9항_pH로_확인한다():
+    p = Fake({A: [_cond("OSH_SPECIAL", 0.1, ph_max=2.0)]})
+    ph = lambda v: {"PH": [{"comp_ref": "MIX", "q": {"value": v}}]}
+    met = one(judge_sec15(inputs([], physchem=ph(0.3)), p), "OSH_SPECIAL")
+    assert met["type"] == "규제 누락" and any("pH 0.3" in a for a in met["assumptions"])
+    over = one(judge_sec15(inputs([], physchem=ph(5.0)), p), "OSH_SPECIAL")
+    assert (over["verdict"], over["expected"]) == ("일치", "비해당")
+    none = one(judge_sec15(inputs([]), p), "OSH_SPECIAL")
+    assert none["verdict"] == "경계" and "pH" in none["reason"]
+
+
+def test_결정11_성상_조건이_있으면_경계():
+    p = Fake({A: [_cond("OSH_MEASURE", 0.0, state="분진인 경우에 한함")]})
+    v = one(judge_sec15(inputs([sup("OSH_MEASURE", "OSH", "비해당")]), p), "OSH_MEASURE")
+    assert v["verdict"] == "경계" and "분진" in v["reason"]

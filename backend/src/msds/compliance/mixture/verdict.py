@@ -3,9 +3,11 @@
 판정 이름·유형·심각도·근거 규칙 id 는 아래 상수 한 곳에 모았다. 유형 이름과 심각도는 설계서 7장·18장
 (규칙표 v0.3 severity.yaml)을 따르고, 근거 규칙 id(VRD-*)는 설계서에 없어 우리 쪽 번호를 쓴다. 항목 필드는 2항에 한정된 이름을 쓰지 않아 15항 비교도 같은 모양으로 쓸 수 있다.
 """
+from functools import lru_cache
+
 from ..single import _main, _same
 from .acute import _rows
-from .rules_loader import load_mixture_rules
+from .rules_loader import load_class_map, load_mixture_rules
 
 # ── 상수 (설계서 7장·18장, 규칙표 v0.3 severity.yaml) ─────────────────────
 MATCH, MISMATCH, BORDER, LACK = "일치", "불일치", "경계", "근거부족"
@@ -26,7 +28,11 @@ BASE_ASSUMPTIONS = [
     "구분 순서는 규칙표 rules 의 나열 순서(위험한 구분부터), 급성독성은 acute_tox_ate.csv 구분 순서. 분류안됨은 가장 약함",
     "세부구분 차이(1 ↔ 1B)는 일치로 봄(single.py 팀 결정과 같음)",
     "MSDS 미기재는 분류안됨과 같은 뜻으로 봄",
+    "규칙표에 순서가 없는 항목(물리적 위험성, 표적장기 1회 구분3)은 class_map 결과코드 순서(위험한 구분부터)로 비교. "
+    "고압가스 종류(압축·액화·냉동액화·용해)는 위험 순서가 아니라 세부 표기 차이로 봄(11/02 F)",
 ]
+# 같은 순위로 보는 항목: 고압가스는 종류 차이일 뿐 어느 쪽이 더 위험하다고 할 수 없다
+_SAME_RANK = {"PH_PRESS_GAS"}
 FORM_ASSUMPTION = ("형태만 다른 두 줄(우리가 확정한 형태 ↔ MSDS가 적은 형태)을 한 줄로 묶음(설계서 18·24장). 구분이 같으면 "
                    "형태·세부 표기(중간), 구분도 다르면 구분 방향으로 과소·과대를 정하고 형태 차이는 이유에 적음(이 경우는 설계서에 없어 가정)")
 
@@ -40,13 +46,43 @@ def _order(class_code, form, rules, override):
     else:
         item = rules["classes"].get(class_code) or {}
         cats = [str(r["category"]) for r in item.get("rules") or []]
-    return {c: i for i, c in reversed(list(enumerate(cats)))}  # 같은 구분이 여럿이면 가장 위험한 위치
+    order = {c: i for i, c in reversed(list(enumerate(cats)))}  # 같은 구분이 여럿이면 가장 위험한 위치
+    n = len(cats)
+    for c in _map_cats(class_code):  # 규칙표에 없는 구분은 class_map 순서로 뒤에 붙인다
+        if c not in order:
+            order[c] = len(cats) if class_code in _SAME_RANK else n
+            n += 1
+    return order
+
+
+@lru_cache
+def _map_cats(class_code) -> tuple:
+    """class_map 의 그 항목 구분을 결과코드 순서(GHSxxxx01, 02 … = 위험한 구분부터)로."""
+    rows = sorted(load_class_map()["by_code"].items())
+    return tuple(dict.fromkeys(r["category"] for _, r in rows if r["class_code"] == class_code))
+
+
+_EFFECT_WORDS = ("마취", "호흡기")
+
+
+def _same_effect(msds_cat, ours):
+    """표적장기 1회 구분3처럼 '구분:효과'로 적은 두 값이 같은 구분·같은 효과인가. 효과 문구는 낱말(마취·호흡기)로 맞춘다."""
+    if not (msds_cat and ours and ":" in msds_cat and ":" in ours):
+        return False
+    (mh, me), (oh, oe) = (s.split(":", 1) for s in (msds_cat, ours))
+    words = lambda s: {w for w in _EFFECT_WORDS if w in s}
+    return mh.strip() == oh.strip() and bool(words(oe)) and words(oe) <= words(me)
 
 
 def _rank(cat, order):
+    """구분의 위험 순위. '3:마취 영향'처럼 효과가 붙은 구분은 앞의 구분(3)으로 본다."""
     if cat == NO_CLASS:
         return _INF
-    return order.get(cat, order.get(_main(cat)))
+    keys = [cat, _main(cat)]
+    if cat and ":" in cat:
+        head = cat.split(":", 1)[0].strip()
+        keys += [head, _main(head)]
+    return next((order[k] for k in keys if k in order), None)
 
 
 def _key(c):
@@ -79,6 +115,8 @@ def _compare_one(cc, form, r, msds, order):
             return _mismatch(cc, form, EXTRA, m, low, high, f"우리는 분류안됨, MSDS는 {', '.join(m)}")
         if any(_same(x, low) for x in m):
             return _row(cc, form, MATCH, RULE_IDS["match"], msds=m, low=low, high=high, reason="구분 같음")
+        if any(_same_effect(x, low) for x in m):
+            return _row(cc, form, MATCH, RULE_IDS["match"], msds=m, low=low, high=high, reason="구분·효과 같음(효과 문구만 다름)")
     else:
         if not m:
             return (_row(cc, form, BORDER, RULE_IDS["border"], low=low, high=high, reason="MSDS 미기재(분류안됨)가 범위 안")
@@ -96,6 +134,8 @@ def _compare_one(cc, form, r, msds, order):
     mrk = min(rk for rk, _ in mr)  # MSDS 기재가 여럿이면 가장 위험하게 적은 것
     if low != high and strong <= mrk <= weak:
         return _row(cc, form, BORDER, RULE_IDS["border"], msds=m, low=low, high=high, reason="MSDS 기재가 우리 범위 안")
+    if low == high and mrk == strong:  # 순위는 같고 표기만 다름(구분3의 효과, 고압가스 종류)
+        return _mismatch(cc, form, FORM, m, low, high, f"구분 순위는 같고 세부 표기만 다름: MSDS {', '.join(m)}, 우리 {low}")
     if mrk > weak:
         return _mismatch(cc, form, UNDER, m, low, high, "MSDS가 우리 결과보다 약하게 기재")
     return _mismatch(cc, form, OVER, m, low, high, "MSDS가 우리 결과보다 강하게 기재")
