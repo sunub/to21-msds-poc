@@ -2,6 +2,8 @@
 
 입력 읽기 → 항목별 동시 호출 → 줄 번호 검사, 실패·문제 항만 1회 재추출 → 펼치기 → 검사 → 기록.
 한 항의 호출이 실패해도 그 항만 실패로 남기고 나머지는 계속한다.
+다만 모델 서버가 연달아 응답하지 않으면 항들이 함께 쓰는 ChatClient의 관문(ServerGate)이 닫혀,
+남은 항과 재추출은 요청을 보내지 않고 바로 실패로 남는다 (client.ServerUnreachable).
 모델 설정의 rows_sections에 든 항은 행 형식으로 받는다: call_text → rows.parse_rows → 스키마 검증.
 버린 줄의 오류도 재추출 피드백에 넣는다 (ADR-019).
 모델 설정의 image_input이 참이면 2항 호출에 2항이 있는 쪽 이미지를 붙인다. 펼친 뒤 H코드로 추론한 그림문자와
@@ -43,7 +45,7 @@ from msds.common.paths import DATA, PAGES, ROOT, RUNS
 from msds.common.schema import validate, validate_to21
 from msds.extract.client import ChatClient, load_model_config
 from msds.extract.expand import to_to21
-from msds.extract.inputs import _PAGE_FILE, SECTION_NOS, DocumentInput, load_document, model_lines, section_lines
+from msds.extract.inputs import _PAGE_FILE, EXTRACT_SECTIONS, DocumentInput, load_document, model_lines, section_lines
 from msds.extract.pictogram_check import check_msds, load_hazard_map
 from msds.extract.rows import parse_rows
 from msds.extract.section_prompts import SECTION_PROMPT_VERSION, build_system, build_user, prompt_hash
@@ -238,11 +240,11 @@ def doc_meta_from_pages(doc_id: str, pages_dir) -> dict | None:
 
 
 def section_plan(doc: DocumentInput) -> dict:
-    """진행 알림의 plan: 건마다 1~16항과 그 항이 걸친 쪽(문서 머리 제외, fallback 항은 건의 쪽 전체)."""
+    """진행 알림의 plan: 건마다 추출 대상 항(EXTRACT_SECTIONS)과 그 항이 걸친 쪽(문서 머리 제외, fallback 항은 건의 쪽 전체)."""
     specs = load_specs()
     sections = [{"msds_index": part.index, "section": no, "title": specs[no].title,
                  "pages": sorted({l.page for l in section_lines(doc, part.index, no, with_preamble=False)})}
-                for part in doc.msds for no in SECTION_NOS]
+                for part in doc.msds for no in EXTRACT_SECTIONS]
     return {"type": "plan", "msds_count": len(doc.msds), "page_count": len({l.page for l in doc.lines}),
             "sections": sections}
 
@@ -298,7 +300,7 @@ def run_document(doc_id: str, model_tag: str, run_name: str, client=None, *,
 
     # 2~3. 항목별 동시 호출과 1회 재추출. 안내문은 워크북을 읽으므로 스레드에 넘기기 전에 만든다.
     rows = set(cfg.get("rows_sections") or [])
-    prompts = {no: (build_system(no, no in rows), response_schema(no)) for no in SECTION_NOS}
+    prompts = {no: (build_system(no, no in rows), response_schema(no)) for no in EXTRACT_SECTIONS}
     image_warnings: list[str] = []
     futures = {}
     with ThreadPoolExecutor(max_workers=workers(cfg, max_workers)) as pool:
@@ -307,7 +309,7 @@ def run_document(doc_id: str, model_tag: str, run_name: str, client=None, *,
             if cfg.get("image_input"):
                 images, missing = section_images(doc, part.index, pages_dir)
                 image_warnings += missing
-            for no in SECTION_NOS:
+            for no in EXTRACT_SECTIONS:
                 # 줄 번호 검사는 그 항에 보낸 줄(문서 머리 + 항 구간, fallback 항은 건의 쪽 전체) 기준 (ADR-020)
                 allowed = {l.id for l in section_lines(doc, part.index, no)}
                 futures[(part.index, no)] = pool.submit(run_one, part.index, no,
@@ -410,7 +412,7 @@ def save_run_info(run: Path, model_tag: str, pages_dir=PAGES, max_workers: int |
         "rows_sections": sorted(rows),
         "rows_max_tokens": cfg.get("rows_max_tokens"),      # 행 형식 호출의 출력 한도. 없으면 max_tokens (ADR-021)
         "image_input": bool(cfg.get("image_input")),
-        "prompt_hashes": {no: prompt_hash(no, no in rows) for no in SECTION_NOS},   # 실제로 보내는 안내문의 해시
+        "prompt_hashes": {no: prompt_hash(no, no in rows) for no in EXTRACT_SECTIONS},   # 실제로 보내는 안내문의 해시
         "schema_version": SCHEMA_VERSION,
         "pages_dir": os.path.relpath(pages_dir, ROOT),
         "concurrency": workers(cfg, max_workers),
