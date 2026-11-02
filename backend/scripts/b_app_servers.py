@@ -279,7 +279,7 @@ DELETE_WAIT = 5                                      # Pod를 지운 뒤 목록�
 IDLE_SECONDS = 1200                                  # 요청이 이만큼 없으면 Pod를 지운다 (사용 후 닫기, 11/2 결정)
 READY_LIMIT = 2400                                   # 모델이 한 번도 응답하지 않은 Pod를 기다리는 시간(초). 모델을 받는 동안 지우지 않는다
 IDLE_TICK = 60                                       # 유휴 감시 간격(초)
-RELOAD_TEXT = "다시 켜면 모델을 받아 뜨기까지 몇 분 걸립니다(10/29 기록 약 6분)"
+RELOAD_TEXT = "다시 켜면 모델을 받아 뜨기까지 몇 분 걸립니다"
 RNGD_UP = {"qwen3_30b_a3b_rngd": ("Qwen3-30B", "npu:0,npu:1,npu:2,npu:3"),   # 태그 → (단추 이름, 카드). 카드는 4장뿐이다
            "gpt_oss_20b_rngd": ("gpt-oss", "npu:0")}
 LOCKING_KINDS = ("run", "try")                       # 모델 서버를 쓰는 작업. 비교표는 서버를 쓰지 않아 막지 않는다
@@ -433,8 +433,8 @@ class ServerActions:
                "ui_text": bt.server_ui_text(), "env_problems": self._env_problems(),
                "running_jobs": running, "locked": bool(running),
                "lock_reason": "; ".join(map(_running_text, running)) or None,
-               "session": None, "rngd_choices": self._rngd_choices(), "log_tail": self._log_tail(10),
-               "last_auto_close": self._last_auto_close}
+               "session": None, "rngd_choices": self._rngd_choices(), "create_quote": self._create_quote(),
+               "log_tail": self._log_tail(10), "last_auto_close": self._last_auto_close}
         ready = None
         if self._session:
             cfg = self.models_cfg["models"]
@@ -442,7 +442,8 @@ class ServerActions:
             ready = any(m["reachable"] for m in models if cfg[m["tag"]].get("base_url_env") == pod_env)
             out["session"] = {"pod_id": self._session["pod_id"], "url": pod.pod_url(self._session["pod_id"]),
                               "tag": POD_TAG, "ready": ready, "adopted": self._session["adopted"],
-                              "others": list(self._session.get("others") or []), "idle_minutes": IDLE_SECONDS // 60}
+                              "others": list(self._session.get("others") or []), "idle_minutes": IDLE_SECONDS // 60,
+                              "ready_seconds": self._ready_seconds(models)}
         if not self.env.get("RUNPOD_API_KEY"):
             out["runpod_error"] = "RUNPOD_API_KEY 없음"
         elif pods_error:
@@ -532,7 +533,7 @@ class ServerActions:
         if self._session:
             warn.append(f"이 앱이 쓰던 Pod {self._session['pod_id']} 대신 새 Pod를 씁니다")
         summary = (f"{POD_GPU}, vLLM 0.32.0, {model} (이미지 2장, 최대 길이 40960). 시간당 약 ${POD_COST_HINT:.2f}. "
-                   f"요청이 {IDLE_SECONDS // 60}분 없으면 앱이 지우고, {WATCHDOG_SECONDS // 3600}시간 뒤 자동 삭제 감시를 함께 띄웁니다. 모델을 받아 뜨기까지 몇 분 걸립니다(10/29 기록 약 6분)")
+                   f"요청이 {IDLE_SECONDS // 60}분 없으면 앱이 지우고, {WATCHDOG_SECONDS // 3600}시간 뒤 자동 삭제 감시를 함께 띄웁니다. 모델을 받아 뜨기까지 몇 분 걸립니다")
         return {"params": {}, "summary": summary, "warning": " / ".join(warn) or None}
 
     def _plan_pod_delete(self, params: dict) -> dict:
@@ -909,6 +910,24 @@ class ServerActions:
         cfg = self.models_cfg["models"]
         return [{"tag": t, "label": label, "model": cfg[t]["model"], "devices": d, "cards": len(d.split(","))}
                 for t, (label, d) in RNGD_UP.items() if t in cfg]
+
+    def _create_quote(self) -> dict | None:
+        """새 Pod를 만들기 전의 견적. 켜진 Pod의 요금을 쓰지 않는다. max_cost는 Pod 안 타이머가 지운다고 볼 때의 추정이고 상한이 아니다."""
+        if POD_TAG not in self.models_cfg["models"]:
+            return None
+        hours = WATCHDOG_SECONDS // 3600
+        return {"tag": POD_TAG, "cost_per_hr": POD_COST_HINT, "max_hours": hours,
+                "max_cost": round(POD_COST_HINT * hours, 2), "basis": bt.UI_TEXT["steps"]["server"]["quote_basis"]}
+
+    def _ready_seconds(self, models: list[dict]) -> int | None:
+        """Pod를 만든 때부터 그 모델이 처음 맞게 답한 때까지(초). 상태를 읽을 때 재므로 읽는 간격만큼 늦을 수 있다.
+        다시 켠 뒤 이어 받은 Pod는 시작을 몰라 None이다."""
+        s = self._session
+        if s["created"] is None:
+            return None
+        if "ready_at" not in s and any(m["tag"] == POD_TAG and m["reachable"] and m["match"] for m in models):
+            s["ready_at"] = self._clock()
+        return round(s["ready_at"] - s["created"]) if "ready_at" in s else None
 
     def _start_watchdog(self, pod_id: str) -> bool:
         cmd = f"sleep {WATCHDOG_SECONDS}; {shlex.quote(str(self.jobs.python))} scripts/pod.py delete {shlex.quote(pod_id)}"

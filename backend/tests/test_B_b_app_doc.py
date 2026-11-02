@@ -525,7 +525,7 @@ def test_field_counts_match_source_view_classes(bd, view_env):
     m["cmr"].append({**copy.deepcopy(m["cmr"][0]), "agency": "가상기관"})    # 정답에 없는 행 → 만듦
     make_run(view_env / "runs", "r3", {X01: pred})
     gold = json.loads((view_env / "gold" / f"{X01}.json").read_text(encoding="utf-8"))
-    got = bd.field_counts(pred, gold)
+    got = bd.problem_counts(pred, gold)[0]
     dv = bd.doc_view(view_env / "runs" / "r3", X01, view_env / "pages9", view_env / "gold")
     assert got == _source_view_counts(dv)
     assert {kind for (_, _, kind) in got} == {"wrong", "made", "missing"}
@@ -533,18 +533,18 @@ def test_field_counts_match_source_view_classes(bd, view_env):
     assert signal["items"]
     for item in signal["items"]:
         assert got[(item, signal["section"], "wrong")] == 1
-    assert bd.field_counts(gold, gold) == Counter()                        # 같은 문서는 문제 값이 없다
+    assert bd.problem_counts(gold, gold)[0] == Counter()                        # 같은 문서는 문제 값이 없다
 
 
 def test_run_field_counts_reads_outputs_and_skips_docs_without_output_or_gold(bd, view_env):
     run = view_env / "runs" / "r1"
-    out = bd.run_field_counts(run, view_env / "gold", [X01, X09, "T21-X99"])
+    out = bd.run_problem_counts(run, view_env / "gold", [X01, X09, "T21-X99"])[0]
     pred = json.loads((run / "outputs" / f"{X01}.json").read_text(encoding="utf-8"))
     gold = json.loads((view_env / "gold" / f"{X01}.json").read_text(encoding="utf-8"))
-    assert out[X01] == bd.field_counts(pred, gold)
+    assert out[X01] == bd.problem_counts(pred, gold)[0]
     assert "T21-X99" not in out                                            # 결과 파일이 없다
     (view_env / "gold" / f"{X01}.json").unlink()
-    assert X01 not in bd.run_field_counts(run, view_env / "gold", [X01])   # 정답이 없으면 셀 수 없다
+    assert X01 not in bd.run_problem_counts(run, view_env / "gold", [X01])[0]   # 정답이 없으면 셀 수 없다
 
 
 def test_doc_view_refuses_eval_doc(bd, view_env):
@@ -911,3 +911,312 @@ def test_route_page_png_with_set(app, sets_env):
     assert png("/pages/raw-90/p001.png", set=".")[0] == 400
     no_root = make_ctx(app, sets_env, sets_env / "startup")
     assert app.route("GET", f"/pages/{X01}/p001.png", {"set": ["prev/v9"]}, None, no_root)[0] == 404
+
+
+# ── row_groups: 칸을 표의 행으로 묶는다 (phase app-steps step 4, STEPS.md A4·A5) ──
+
+KINDS = ("wrong", "made", "missing")
+ITEM_8 = "8항 노출기준(성분·출처·종류·값)"
+
+
+def rows_gold() -> dict:
+    """성분 이름이 가짜성분A·B·C인 가짜 문서. 번호는 seq 1·2·3이다 (D-43, 직접 만든 값)."""
+    doc = scored_doc()
+    m = doc["msds"][0]
+    for c, name in zip(m["components"], ("가짜성분A", "가짜성분B", "가짜성분C")):
+        c["name"] = name
+    m["regulations"][0]["item_raw"] = "가짜 측정 대상"
+    return doc
+
+
+def edited(*edits) -> dict:
+    """rows_gold에 (경로, 값)을 적용한 결과 문서."""
+    doc = rows_gold()
+    for path, value in edits:
+        set_(doc["msds"][0], path, value)
+    return doc
+
+
+def rows_view(bd, env, pred, gold=None, name="rg"):
+    write_json(env / "gold" / f"{X01}.json", gold if gold is not None else rows_gold())
+    make_run(env / "runs", name, {X01: pred})
+    return bd.doc_view(env / "runs" / name, X01, env / "pages9", env / "gold")
+
+
+def group(dv, table, row=None, gold_row=None):
+    hits = [g for g in dv["row_groups"] if g["table"] == table and g["row"] == row and g["gold_row"] == gold_row]
+    assert len(hits) == 1, (table, row, gold_row, [(g["table"], g["row"], g["gold_row"]) for g in dv["row_groups"]])
+    return hits[0]
+
+
+def cell(g, path, side="result"):
+    hits = [c for c in g["cells"] if c["path"] == path and c["side"] == side]
+    assert len(hits) == 1, path
+    return hits[0]
+
+
+def test_row_group_gathers_cells_of_one_row_with_table_title_and_counts(bd, view_env):
+    dv = rows_view(bd, view_env, edited(("exposure_limits[0].q.raw", "9 ppm")))
+    g = group(dv, "exposure_limits", row=0, gold_row=0)
+    paths = [v["path"] for v in dv["values"] if v["table"] == "exposure_limits" and v["row"] == 0]
+    assert len(paths) >= 4 and [c["path"] for c in g["cells"]] == paths     # 같은 행의 칸을 모두 담는다
+    assert g["table_label"] == "노출기준" and g["section"] == 8 and g["paired"] is True
+    assert g["title"] == "가짜성분A / 국내기준 / TWA"
+    assert g["counts"] == {"wrong": 1, "made": 0, "missing": 0}
+    assert cell(g, "msds[0].exposure_limits[0].q")["kind"] == "wrong"
+    assert cell(g, "msds[0].exposure_limits[0].standard")["kind"] == "same"
+    assert cell(g, "msds[0].exposure_limits[0].q")["items"] == [ITEM_8]
+
+
+def test_silver_only_cell_joins_the_paired_result_row(bd, view_env):
+    dv = rows_view(bd, view_env, edited(("toxicity[0].species", None)))
+    g = group(dv, "toxicity", row=0, gold_row=0)
+    only = cell(g, "msds[0].toxicity[0].species", side="silver_only")
+    assert only["kind"] == "missing" and only["field"] == "species"
+    assert g["paired"] is True and g["counts"] == {"wrong": 0, "made": 0, "missing": 1}
+    # 빠뜨린 칸이 구분 값이어도 짝 정답 행의 값으로 제목을 만든다
+    assert g["title"] == "가짜성분B / 급성 독성(경구) / LD50 / 랫드"
+
+
+def test_gold_row_without_a_pair_is_grouped_by_gold_row_and_marked(bd, view_env):
+    pred = rows_gold()
+    pred["msds"][0]["toxicity"] = []
+    dv = rows_view(bd, view_env, pred)
+    g = group(dv, "toxicity", row=None, gold_row=0)
+    assert g["paired"] is False and g["table_label"] == "독성" and g["section"] == 11
+    assert {c["side"] for c in g["cells"]} == {"silver_only"} and {c["kind"] for c in g["cells"]} == {"missing"}
+    assert g["counts"] == {"wrong": 0, "made": 0, "missing": len(g["cells"])} and len(g["cells"]) >= 4
+    assert g["title"] == "가짜성분B / 급성 독성(경구) / LD50 / 랫드"
+
+
+def test_result_row_without_a_pair_is_made_and_marked(bd, view_env):
+    pred = rows_gold()
+    pred["msds"][0]["cmr"].append({**copy.deepcopy(pred["msds"][0]["cmr"][0]), "agency": "가상기관", "hazard": "생식독성",
+                                   "class": "9", "comp_ref": "3", "status": "자료없음"})
+    dv = rows_view(bd, view_env, pred)
+    g = group(dv, "cmr", row=1, gold_row=None)
+    assert g["paired"] is False and {c["kind"] for c in g["cells"]} == {"made"}
+    assert g["counts"] == {"wrong": 0, "made": len(g["cells"]), "missing": 0}
+    assert g["title"] == "가짜성분C / 생식독성 / 가상기관"                   # 이름표가 없는 값은 원래 표기 그대로
+
+
+def test_row_paired_by_similar_cells_uses_its_own_comp_ref(bd, view_env):
+    dv = rows_view(bd, view_env, edited(("exposure_limits[0].comp_ref", "MIX")))
+    g = group(dv, "exposure_limits", row=0, gold_row=0)
+    assert g["title"] == "제품 전체 / 국내기준 / TWA"
+    assert cell(g, "msds[0].exposure_limits[0].comp_ref")["kind"] == "wrong"
+
+
+def test_comp_ref_links_to_components_of_the_same_document(bd, view_env):
+    """성분 번호는 문서마다 다르다. AI 행은 AI의 3항으로, 정답 행은 정답의 3항으로 잇는다."""
+    pred = rows_gold()
+    m = pred["msds"][0]
+    m["components"][0]["name"], m["components"][1]["name"] = "가짜성분B", "가짜성분A"   # AI는 번호를 바꿔 뽑았다
+    m["toxicity"] = []
+    m["exposure_limits"][0]["comp_ref"] = "2"                                         # AI의 2번 = 가짜성분A
+    dv = rows_view(bd, view_env, pred)
+    assert group(dv, "toxicity", row=None, gold_row=0)["title"].startswith("가짜성분B / ")   # 정답의 2번
+    assert group(dv, "exposure_limits", row=0, gold_row=0)["title"] == "가짜성분A / 국내기준 / TWA"
+
+
+def test_unlinked_comp_ref_shows_the_row_number_and_invents_no_name(bd, view_env):
+    dv = rows_view(bd, view_env, edited(("exposure_limits[0].comp_ref", "9")))
+    assert group(dv, "exposure_limits", row=0, gold_row=0)["title"] == "1행 / 국내기준 / TWA"
+    gold = rows_gold()
+    gold["msds"][0]["exposure_limits"][0]["comp_ref"] = "9"
+    pred = rows_gold()
+    pred["msds"][0]["exposure_limits"] = []
+    dv = rows_view(bd, view_env, pred, gold, name="rg2")
+    assert group(dv, "exposure_limits", row=None, gold_row=0)["title"] == "정답 1행 / 국내기준 / TWA"
+
+
+def test_blank_comp_ref_uses_the_paired_gold_row(bd, view_env):
+    dv = rows_view(bd, view_env, edited(("exposure_limits[0].comp_ref", None)))
+    g = group(dv, "exposure_limits", row=0, gold_row=0)
+    assert g["title"] == "가짜성분A / 국내기준 / TWA"
+    assert cell(g, "msds[0].exposure_limits[0].comp_ref", side="silver_only")["kind"] == "missing"
+
+
+def test_non_table_value_is_a_one_cell_group(bd, view_env):
+    dv = rows_view(bd, view_env, edited(("hazard.signal_word", "위험"), ("meta.msds_no", None)))
+    signal = [g for g in dv["row_groups"] if g["cells"][0]["path"] == "msds[0].hazard.signal_word"]
+    assert len(signal) == 1
+    g = signal[0]
+    assert (g["row"], g["gold_row"], g["paired"], g["table_label"]) == (None, None, None, "유해성")
+    assert [c["kind"] for c in g["cells"]] == ["wrong"] and g["counts"] == {"wrong": 1, "made": 0, "missing": 0}
+    assert g["title"] == "신호어"
+    only = [g for g in dv["row_groups"] if g["cells"][0]["path"] == "msds[0].meta.msds_no"]
+    assert len(only) == 1 and only[0]["cells"][0]["side"] == "silver_only" and only[0]["title"] == "제출번호"
+    assert only[0]["counts"] == {"wrong": 0, "made": 0, "missing": 1}
+
+
+@pytest.mark.parametrize("section,table,path,title", [
+    (8, "exposure_limits", "exposure_limits[0].q.raw", "가짜성분A / 국내기준 / TWA"),
+    (9, "physchem", "physchem[0].q.raw", "제품 전체 / 인화점"),
+    (11, "toxicity", "toxicity[0].q.raw", "가짜성분B / 급성 독성(경구) / LD50 / 랫드"),
+    (11, "cmr", "cmr[0].class", "제품 전체 / 발암성 / IARC"),
+    (12, "ecotox", "ecotox[0].q.raw", "가짜성분B / 어류 독성 / LC50 / 가상 어류"),
+    (15, "regulations", "regulations[0].applicable", "가짜성분A / 산업안전보건법 / 가짜 측정 대상"),
+])
+def test_rows_of_sections_8_9_11_12_15(bd, view_env, section, table, path, title):
+    """계획 9장에서 재 보지 않은 부분: 항마다 묶음·짝·제목이 맞고, 정답 행만 남아도 같은 제목이다."""
+    dv = rows_view(bd, view_env, edited((path, "가짜 다른 값")))
+    g = group(dv, table, row=0, gold_row=0)
+    assert g["section"] == section and g["paired"] is True and g["title"] == title
+    assert g["counts"] == {"wrong": 1, "made": 0, "missing": 0}
+    assert g["table_label"] == bd.bt.UI_TEXT["source"]["table_names"][table]
+    others = [o for o in dv["row_groups"] if o is not g]
+    assert all(sum(o["counts"].values()) == 0 for o in others)              # 다른 묶음에는 문제가 없다
+    pred = rows_gold()
+    pred["msds"][0][table] = []
+    alone = group(rows_view(bd, view_env, pred, name=f"rg_{table}"), table, row=None, gold_row=0)
+    assert alone["section"] == section and alone["paired"] is False and alone["title"] == title
+
+
+def many_problems() -> dict:
+    pred = edited(("exposure_limits[0].q.raw", "9 ppm"), ("hazard.signal_word", "위험"), ("meta.msds_no", None),
+                  ("toxicity[0].species", None), ("components[0].ke_no", None), ("components[1].content.raw", "9"))
+    m = pred["msds"][0]
+    m["cmr"].append({**copy.deepcopy(m["cmr"][0]), "agency": "가상기관", "hazard": "생식독성", "comp_ref": "3"})
+    m["ecotox"] = []
+    del m["regulations"][1:]                                                # 정답 행 1·2가 짝 없이 남는다
+    return pred
+
+
+def test_groups_keep_every_cell_exactly_once(bd, view_env):
+    dv = rows_view(bd, view_env, many_problems())
+    got = [(c["side"], c["path"]) for g in dv["row_groups"] for c in g["cells"]]
+    want = [("result", v["path"]) for v in dv["values"]] + [("silver_only", g["path"]) for g in dv["silver_only"]]
+    assert sorted(got) == sorted(want) and len(got) == len(set(got))        # 잃지도 겹치지도 않는다
+    kinds = Counter(c["kind"] for g in dv["row_groups"] for c in g["cells"])
+    assert {k: kinds[k] for k in KINDS} == {k: sum(g["counts"][k] for g in dv["row_groups"]) for k in KINDS}
+    problems = sum(not v["silver"]["same"] for v in dv["values"]) + len(dv["silver_only"])
+    assert sum(sum(g["counts"].values()) for g in dv["row_groups"]) == problems > 0
+    assert kinds["made"] > 0 and kinds["wrong"] > 0 and kinds["missing"] > 0
+
+
+def test_groups_are_ordered_by_section_then_table_and_gold_rows_come_last(bd, view_env):
+    pred = many_problems()
+    pred["msds"][0]["toxicity"].pop(0)
+    dv = rows_view(bd, view_env, pred)
+    sections = [g["section"] if g["section"] is not None else 99 for g in dv["row_groups"]]
+    assert sections == sorted(sections)
+    tox = [g for g in dv["row_groups"] if g["table"] == "toxicity"]
+    assert [g["paired"] for g in tox] == sorted((g["paired"] for g in tox), reverse=True)
+    assert len({g["id"] for g in dv["row_groups"]}) == len(dv["row_groups"])  # 다시 고를 때 쓰는 표시가 겹치지 않는다
+
+
+def test_row_groups_only_add_a_key(bd, view_env):
+    dv = rows_view(bd, view_env, many_problems())
+    assert set(dv) == {"doc_id", "pages", "lines", "sections", "values", "silver_only", "line_index", "has_gold",
+                       "silver_lines", "warnings", "row_groups"}
+    assert {k for v in dv["values"] for k in v} == {"path", "key", "section", "table", "row", "field", "value", "text",
+                                                    "lines", "items", "silver"}
+    assert {k for v in dv["silver_only"] for k in v} == {"path", "key", "section", "table", "row", "field", "value",
+                                                         "text", "lines", "items", "pair_row"}
+    assert set(dv["row_groups"][0]) == {"id", "table", "table_label", "section", "row", "gold_row", "paired", "title",
+                                        "cells", "counts"}
+    assert set(dv["row_groups"][0]["cells"][0]) == {"path", "side", "field", "section", "kind", "items"}
+
+
+def test_route_doc_carries_row_groups(app, view_env):
+    write_json(view_env / "gold" / f"{X01}.json", rows_gold())
+    make_run(view_env / "runs", "rg", {X01: many_problems()})
+    ctx = make_ctx(app, view_env, view_env / "pages9")
+    code, _, body = app.route("GET", "/api/doc", {"run": ["rg"], "doc": [X01]}, None, ctx)
+    data = json.loads(body)
+    assert code == 200 and data["row_groups"]
+    assert data["row_groups"] == json.loads(json.dumps(
+        app.bdoc.doc_view(view_env / "runs" / "rg", X01, ctx.pages_dir, ctx.gold_dir)["row_groups"]))
+    assert {"values", "silver_only", "line_index", "legend", "ui_text", "set", "key"} <= data.keys()
+
+
+def test_without_gold_rows_are_uncompared_and_have_no_pair_mark(bd, view_env):
+    (view_env / "gold" / f"{X01}.json").unlink()
+    dv = bd.doc_view(view_env / "runs" / "r1", X01, view_env / "pages9", view_env / "gold")
+    assert dv["row_groups"] and {c["kind"] for g in dv["row_groups"] for c in g["cells"]} == {"uncompared"}
+    assert all(g["paired"] is None and g["gold_row"] is None for g in dv["row_groups"])
+    assert all(sum(g["counts"].values()) == 0 for g in dv["row_groups"])
+
+
+def test_pages_view_has_no_row_groups(bd, view_env):
+    assert bd.pages_view(X01, view_env / "pages9")["row_groups"] == []
+
+
+# ── 문제 행 수: 문제 목록(/api/run의 losses)에 싣는다 ──
+
+def test_problem_counts_keep_field_counts_and_count_a_row_once(bd):
+    pred, gold = edited(("exposure_limits[0].q.raw", "9 ppm"), ("exposure_limits[0].limit_type", "STEL")), rows_gold()
+    field, rows = bd.problem_counts(pred, gold)
+    assert sum(n for (item, _, _), n in field.items() if item == ITEM_8) == 2  # 칸은 둘
+    assert rows[(ITEM_8, 8)] == 1                                              # 행은 하나
+
+
+def test_problem_counts_count_a_row_for_each_item_of_its_problem_cells(bd):
+    pred = edited(("components[1].content.raw", "9"), ("components[1].ke_no", "KE-99999"))
+    _, rows = bd.problem_counts(pred, rows_gold())
+    assert rows[("함유량(부등호·값·단위 6요소)", 3)] == 1
+    assert rows[("구성성분 필드(성분명·KE)", 3)] == 1
+    assert rows[("구성성분(CAS 기준 매칭)", 3)] == 0                            # 문제 칸이 이 항목에 들어가지 않는다
+
+
+def test_problem_counts_match_row_groups_of_the_view(bd, view_env):
+    pred, gold = many_problems(), rows_gold()
+    dv = rows_view(bd, view_env, pred, gold)
+    want = Counter()
+    for g in dv["row_groups"]:
+        for item in {i for c in g["cells"] if c["kind"] in KINDS for i in c["items"]}:
+            want[(item, g["section"])] += 1
+    _, rows = bd.problem_counts(pred, gold)
+    assert rows == want and sum(rows.values()) > 0
+    assert bd.problem_counts(gold, gold) == (Counter(), Counter())             # 같은 문서는 문제가 없다
+
+
+def test_run_problem_counts_skip_docs_without_output_or_gold(bd, view_env):
+    run = view_env / "runs" / "r1"
+    field, rows = bd.run_problem_counts(run, view_env / "gold", [X01, X09, "T21-X99"])
+    pred = json.loads((run / "outputs" / f"{X01}.json").read_text(encoding="utf-8"))
+    gold = json.loads((view_env / "gold" / f"{X01}.json").read_text(encoding="utf-8"))
+    assert (field[X01], rows[X01]) == bd.problem_counts(pred, gold)
+    assert "T21-X99" not in field and "T21-X99" not in rows
+
+
+# ── 줄 좌표: version17처럼 pNNN.json 없이 item_trace.json만 있는 판 ──
+
+def test_lines_take_boxes_from_item_trace_when_page_json_is_absent(bd, tmp_path):
+    pages = tmp_path / "pages"
+    write_page(pages / X01, 1, PAGE_TXT, entries=None)
+    write_json(pages / X01 / "item_trace.json", [{"page": 1, "mode": "pdf_plus_paddle", "final_items": [
+        {"text": e["text"], "box": e["bbox"], "confidence": 1.0} for e in ENTRIES]}])
+    lines = {l["id"]: l for l in bd.page_lines(X01, pages)}
+    assert lines["p1:L1"]["bbox"] == [10, 10, 200, 30]
+    assert lines["p1:L3"]["bbox"] == [10, 98, 400, 122]          # 칸 둘을 합친 사각형
+    assert lines["p1:L6"]["bbox"] is None                        # 맞는 글자가 없으면 지어내지 않는다
+
+
+def test_page_json_wins_over_item_trace(bd, tmp_path):
+    pages = tmp_path / "pages"
+    write_page(pages / X01, 1, PAGE_TXT, ENTRIES)
+    write_json(pages / X01 / "item_trace.json", [{"page": 1, "final_items": [{"text": "가상 물질안전보건자료", "box": [1, 2, 3, 4]}]}])
+    assert bd.page_lines(X01, pages)[0]["bbox"] == [10, 10, 200, 30]
+
+
+def test_broken_item_trace_gives_no_boxes_and_no_error(bd, tmp_path):
+    pages = tmp_path / "pages"
+    write_page(pages / X01, 1, PAGE_TXT, entries=None)
+    (pages / X01 / "item_trace.json").write_text("{깨진 파일", encoding="utf-8")
+    assert all(l["bbox"] is None for l in bd.page_lines(X01, pages))
+
+
+def test_item_trace_boxes_are_turned_into_picture_pixels(bd, tmp_path):
+    # 글자층에서 읽은 쪽(pdf_xycut)의 좌표는 PDF 단위(1/72인치)이고 쪽 그림은 dpi로 그린다. OCR 쪽은 이미 그림 픽셀이다.
+    pages = tmp_path / "pages"
+    write_page(pages / X01, 1, ["L001 가상 물질안전보건자료"], entries=None)
+    write_page(pages / X01, 2, ["L001 가상 세정액"], entries=None)
+    write_json(pages / X01 / "meta.json", {"dpi": 144})
+    write_json(pages / X01 / "item_trace.json", [
+        {"page": 1, "mode": "pdf_xycut", "final_items": [{"text": "가상 물질안전보건자료", "box": [10, 20, 100, 30]}]},
+        {"page": 2, "mode": "paddle_cached_layout", "final_items": [{"text": "가상 세정액", "box": [10, 20, 100, 30]}]}])
+    lines = {l["id"]: l for l in bd.page_lines(X01, pages)}
+    assert lines["p1:L1"]["bbox"] == [20, 40, 200, 60]
+    assert lines["p2:L1"]["bbox"] == [10, 20, 100, 30]

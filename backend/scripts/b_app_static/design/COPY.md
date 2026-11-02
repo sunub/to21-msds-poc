@@ -30,10 +30,11 @@
 |2-P|S03|AI 없이 입력만 확인. 연습만 기록하고 모델 준비 단계 유지.|
 |재시작·복구|S08|성공 이력 보존. 안내를 닫아도 작업은 계속됨. 취소한 시도의 늦은 응답은 성공에 포함하지 않음.|
 
-## 용어표 — 40개
+## 용어표 — 47개
 
 아래 `glossary` 표에 용어와 설명을 한 번씩 정의했습니다.
 시안의 38개 용어를 유지합니다. 허용 농도와 농도 단위 두 용어는 S01·S02 첫 등장에서도 설명합니다.
+11/2 step 6에서 일곱 개를 더했습니다. TWA, STEL, ACGIH, LD50, LC50, EC50은 원문 맞춰 보기의 행 제목에 나옵니다. 서버를 끄는 순서는 AI 켜기와 비용 ④의 말풍선입니다.
 
 ## 이름 바꾸기
 
@@ -146,6 +147,8 @@ nav.servers|AI 켜기와 비용|전역
 nav.help|도움말|전역
 nav.current|보고 있음|전역
 nav.a11y|작업 메뉴|전역
+nav.group_flow|작업 순서|전역
+nav.group_other|그 밖의 화면|전역
 
 ### context — 전역 상태 · P01 자료 기준
 
@@ -194,13 +197,14 @@ context.key_reason.key_eval_only|평가용 문서의 정답만 있어 고를 수
 context.key_reason.unknown_key|정답지 {id}를 찾지 못했습니다. 할 일: 정답지 목록에서 다시 고르세요.|P01
 context.key_reason.unusable_key|이 정답지를 쓸 수 없습니다. 이유: {reason}|P01
 context.documents.label|시험할 문서 묶음(폴더)|전역
+context.documents.short|문서 묶음|전역
 context.documents.count|개발용 문서 {count}건|전역
 context.change_documents|필요할 때 문서 바꾸기|전역
 context.answer.label|비교한 정답|전역
+context.answer.short|정답|전역
 context.answer_draft|AI 정답 초안 · 사람 확인 전|전역
 context.change_answer|필요할 때 정답 바꾸기|전역
 context.answer_trust|점수는 개선 방향을 보는 참고용입니다. 값은 원문과 맞춘 뒤 믿으세요.|전역
-context.model.current_label|{model}의 지금 상태|전역
 context.prepare_model|시험할 때 AI 준비하기|전역
 context.model.off_normal|AI가 꺼져 있을 때는 정상 상태입니다.|P01,E01
 context.model.saved_readable|저장된 결과는 AI 없이 읽을 수 있습니다. 다시 시험할 때만 AI가 필요합니다.|전역
@@ -221,7 +225,7 @@ context.model.query_failed|상태 확인 실패|P02,S06
 context.model.readiness_unknown|준비 여부를 확인하지 못했습니다.|P02,S06
 context.model.query_pending|응답 확인 중|S06
 context.model.wait_before_send|확인 전에는 시험을 보내지 않습니다.|S06
-context.model.wrong_reply|다른 모델 응답|S06
+context.model.wrong_reply|고른 AI와 다른 AI가 답함|S06
 context.model.mismatch|기대한 {expected_model}와 응답 {actual_model}가 다릅니다.|S06
 context.model.company_loading|켜는 중 · 회사 서버|E08,S01
 context.model.company_elapsed|{minutes}분 경과. 보통 15~25분이 걸립니다.|E08,S01
@@ -371,7 +375,6 @@ common.used|사용|S05
 common.job|작업|S05
 common.progress|진행|S05
 common.stop|중단|S05
-common.method|방법|S06,S08
 common.server|서버|S06
 common.manage|관리|S06
 common.action|할 수 있는 일|S08
@@ -382,6 +385,11 @@ common.candidate|후보|P01
 common.available|가능|P01
 common.present|있음|P01
 common.ai|AI|S01,S03
+common.run.prompt_round|{round}번째 판|실행 이름(run_label)
+common.run.input_round|{round}판|실행 이름(run_label)
+common.run.input_temp|임시판|실행 이름(run_label)
+common.run.input_new|새 문서 폴더|실행 이름(run_label)
+common.run.dev_docs|개발 {count}건|실행 이름(run_label)
 
 ### errors — E01–E09 복구
 
@@ -529,10 +537,6 @@ score.tables.ecotox|생태 독성 (12번 부분)|S01
 score.tables.regulations|규제 (15번 부분)|S01
 score.tables.intl_class|국제 분류 (15번 부분)|S01
 score.tables.extras|표 밖에 남은 값|S01
-score.flow.a11y|현재 작업의 흐름|S01,S02
-score.flow.result|1 결과 보기|S01,S02
-score.flow.cause|2 원인 찾기|S01,S02
-score.flow.retest|3 다시 시험|S01,S02
 score.summary.headline_model|{model}의 최근 점수는 목표보다 낮습니다.|S01,S08
 score.summary.scope|{model} · 개발용 문서 {count}건의 점수|S01,S08
 score.summary.denominator|/ 100점|S01,S08
@@ -646,7 +650,7 @@ score.documents.time_state|시간 상태|S01
 score.documents.recorded|기록 있음|S01
 score.documents.within_time|{minutes}분 목표 이내|S01
 score.documents.time_unknown|시간 비교 불가|S01
-score.calls.title|문서 안 첫 번째 안전자료 · 16개 부분의 AI 요청|S01
+score.calls.title|문서 안 첫 번째 안전자료 · 부분별 AI 요청|S01
 score.calls.section|{section}번 부분|S01,S03
 score.calls.multiple_msds|한 파일에 안전자료가 여럿이면 자료 순번으로 나눠 표시합니다.|S01
 score.calls.example_scope|이 예시는 첫 번째 안전자료의 기록입니다.|S01
@@ -778,6 +782,88 @@ source.doc.howto|목록에서 값을 고르면 해당 원문 줄이 선택됩니
 source.doc.guess|정답의 근거 글과 글자가 같은 줄을 찾았습니다. AI가 남긴 근거가 아닌 추정 위치입니다.|S02
 source.doc.no_guess|정답의 근거 글을 이 묶음에서 찾지 못했습니다. 할 일: 해당 부분의 원문을 직접 읽으세요.|S02
 source.doc.counts|AI가 채운 값은 {total}개입니다. 정답과 다른 값은 {different}개입니다. 정답에만 있는 값은 {missing}개입니다.|S02
+source.rows.mix|제품 전체|S02
+source.rows.row_no|{no}행|S02
+source.rows.gold_row_no|정답 {no}행|S02
+source.row_parts.standard.국내|국내기준|S02
+source.row_parts.standard.생물학적|생물학적 노출기준|S02
+source.row_parts.prop_code.APPEARANCE_STATE|외관(성상)|S02
+source.row_parts.prop_code.APPEARANCE_COLOR|외관(색상)|S02
+source.row_parts.prop_code.ODOR|냄새|S02
+source.row_parts.prop_code.ODOR_THRESHOLD|냄새 역치|S02
+source.row_parts.prop_code.PH|pH|S02
+source.row_parts.prop_code.MELT_FREEZE|녹는점/어는점|S02
+source.row_parts.prop_code.BOILING|끓는점|S02
+source.row_parts.prop_code.FLASH_POINT|인화점|S02
+source.row_parts.prop_code.EVAP_RATE|증발 속도|S02
+source.row_parts.prop_code.FLAMMABILITY|인화성(고체, 기체)|S02
+source.row_parts.prop_code.UEL|폭발 범위 상한|S02
+source.row_parts.prop_code.LEL|폭발 범위 하한|S02
+source.row_parts.prop_code.VAPOR_PRESSURE|증기압|S02
+source.row_parts.prop_code.SOLUBILITY|용해도|S02
+source.row_parts.prop_code.VAPOR_DENSITY|증기 밀도|S02
+source.row_parts.prop_code.RELATIVE_DENSITY|비중(상대 밀도)|S02
+source.row_parts.prop_code.LOG_KOW|n-옥탄올/물 분배계수|S02
+source.row_parts.prop_code.AUTOIGNITION|자연발화 온도|S02
+source.row_parts.prop_code.DECOMPOSITION|분해 온도|S02
+source.row_parts.prop_code.VISCOSITY|점도|S02
+source.row_parts.prop_code.VISCOSITY_KIN|동점도|S02
+source.row_parts.prop_code.MOL_WEIGHT|분자량|S02
+source.row_parts.endpoint.TX_ORAL|급성 독성(경구)|S02
+source.row_parts.endpoint.TX_DERMAL|급성 독성(경피)|S02
+source.row_parts.endpoint.TX_INHAL|급성 독성(흡입)|S02
+source.row_parts.endpoint.TX_SKIN|피부 부식성/자극성|S02
+source.row_parts.endpoint.TX_EYE|심한 눈 손상/자극성|S02
+source.row_parts.endpoint.TX_RESP_SENS|호흡기 과민성|S02
+source.row_parts.endpoint.TX_SKIN_SENS|피부 과민성|S02
+source.row_parts.endpoint.TX_CARC|발암성|S02
+source.row_parts.endpoint.TX_MUTA|생식세포 변이원성|S02
+source.row_parts.endpoint.TX_REPRO|생식독성|S02
+source.row_parts.endpoint.TX_STOT_SE|특정 표적장기 독성(1회)|S02
+source.row_parts.endpoint.TX_STOT_RE|특정 표적장기 독성(반복)|S02
+source.row_parts.endpoint.TX_ASP|흡인 유해성|S02
+source.row_parts.endpoint.ECO_FISH|어류 독성|S02
+source.row_parts.endpoint.ECO_CRUST|갑각류 독성|S02
+source.row_parts.endpoint.ECO_ALGAE|조류 독성|S02
+source.row_parts.endpoint.ECO_OTHER|기타 생물 독성|S02
+source.row_parts.endpoint.ECO_PERSIST|잔류성과 분해성|S02
+source.row_parts.endpoint.ECO_BIOACC|생물 농축성|S02
+source.row_parts.endpoint.ECO_SOIL|토양 이동성|S02
+source.row_parts.endpoint.ECO_OZONE|오존층 유해성|S02
+source.row_parts.law.OSH|산업안전보건법|S02
+source.row_parts.law.KREACH|화학물질등록평가법|S02
+source.row_parts.law.CCA|화학물질관리법|S02
+source.row_parts.law.DG|위험물안전관리법|S02
+source.row_parts.law.WASTE|폐기물관리법|S02
+source.row_parts.law.POPS|잔류성오염물질 관리법|S02
+source.row_parts.law.KR_ETC|기타 국내법|S02
+source.row_parts.law.INTL|외국법·국제협약|S02
+source.row_parts.agency.KR_OSH|산업안전보건법|S02
+source.row_parts.agency.KR_CCA|화학물질관리법|S02
+source.row_parts.agency.EU_CLP|EU CLP|S02
+source.row_parts.system.EU_CLP|EU CLP|S02
+source.row_parts.system.JP|일본|S02
+source.value_titles.meta.msds_no|제출번호|S02
+source.value_titles.meta.first_issue_date|최초 작성일|S02
+source.value_titles.meta.last_revision_date|최종 개정일|S02
+source.value_titles.meta.revision_no|개정 횟수|S02
+source.value_titles.meta.revision_label|개정 표기|S02
+source.value_titles.meta.doc_code|문서 코드|S02
+source.value_titles.meta.header_product_name|머리글의 제품명|S02
+source.value_titles.meta.page_start|시작 쪽|S02
+source.value_titles.meta.page_end|끝 쪽|S02
+source.value_titles.meta.source_note|자료 메모|S02
+source.value_titles.product.name|제품명|S02
+source.value_titles.product.uses|용도|S02
+source.value_titles.product.restrictions|사용 제한|S02
+source.value_titles.product.synonyms|제품의 다른 이름|S02
+source.value_titles.hazard.classified|유해성 분류 여부|S02
+source.value_titles.hazard.signal_word|신호어|S02
+source.value_titles.hazard.nfpa.fire|NFPA 화재 위험|S02
+source.value_titles.hazard.nfpa.health|NFPA 건강 위험|S02
+source.value_titles.hazard.nfpa.reactivity|NFPA 반응 위험|S02
+source.value_titles.composition.type|조성 종류|S02
+source.value_titles.composition.no_hazardous_component|유해 성분 없음 표시|S02
 source.fields.value|값|S03,S05
 source.fields.text|원문 글|S02
 source.fields.refs|근거 줄|S02
@@ -803,20 +889,18 @@ source.fields.approx|근삿값 여부|S02
 source.fields.dp|소수 자릿수|S02
 source.fields.cas_no|물질 식별 번호(CAS)|S02
 source.fields.ke_no|국내 물질 번호(KE)|S02
-source.fields.comp_ref|성분 참조|S02
+source.fields.comp_ref|성분 번호|S02
 source.title|원문과 AI의 값을 비교하세요.|S02,S08
-source.problem_count|문서 {count}건에서 찾은 문제 값|S02,S08
 source.unit_first_use|값을 누르면 원문이 바뀝니다. mg/m³는 공기 1세제곱미터에 든 물질의 양(밀리그램)입니다.|S02,S08
 source.filter.all|전체 {count}건|S02,S08
-source.filter.missing|못 뽑음 {count}|S02,S08
-source.filter.made|만듦 {count}|S02,S08
-source.filter.wrong|틀림 {count}|S02,S08
+source.filter.missing|못 뽑음 {count}칸|S02,S08
+source.filter.made|만듦 {count}칸|S02,S08
+source.filter.wrong|틀림 {count}칸|S02,S08
 source.value.wrong|틀림 · {concentration} mg/m³|S02,S08
 source.value.missing|못 뽑음 · {concentration} mg/m³|S02,S08
 source.value.made|만듦 · {concentration} mg/m³|S02,S08
 source.wrong.title|AI가 원문의 {expected}를 {actual}로 잘못 옮겼습니다.|S02,S08
 source.value.context|{doc} · {component} · {section}번 부분 · 허용 농도|S02,S08
-source.evidence.title|원문에 적힌 줄|S02,S08
 source.evidence.location|{page}쪽 {line_no}번째 줄|S02,S08
 source.evidence.recorded|AI 결과에 기록된 근거 위치입니다.|S02,S08
 source.value.model_label|{model}가 쓴 값|S02,S08
@@ -829,7 +913,6 @@ source.retest.open|이 부분 다시 시험하기|S02,S08
 source.retest.target|다시 시험 화면에 {doc}의 {section}번 부분과 ‘AI에게 시킬 일’ 입력란을 채웁니다.|S02,S08
 source.retest.duration|시험은 약 {seconds}초~{minutes}분입니다(예시). AI 준비 시간은 별도입니다.|S02,S08
 source.retest.cost|회사 서버는 추가 임대료가 없습니다. 빌린 서버는 켜 둔 시간만큼 요금이 나갑니다.|S02,S08
-source.selection.expand|문서와 쪽과 부분 바꾸기|S02,S08
 source.selection.current|현재 값|S02,S06
 source.selection.dev_doc|개발용 문서|S02,P01
 source.selection.section|{section}번 부분 · 노출 방지와 보호구|S02,S08
@@ -842,12 +925,10 @@ source.selection.eval_reason|평가 문서 잠금 이유 보기|S02,S08
 source.evidence.range|원문은 {page}쪽 {first_line}번째 줄부터 {last_line}번째 줄까지입니다.|S02,S08
 source.selection.restore|선택한 값과 쪽과 읽던 위치는 돌아올 때 복원합니다.|S02,S08
 source.selection.set_mismatch|원문과 다음 시험 묶음이 다른 경우 보기|S02,S08
-source.page.expand|원문 그림과 줄 글자 보기|S02,S08
 source.page.caption|{doc} · {page}쪽의 글자|S02,S08
 source.page.no_image|그림이 없는 경우에도 줄 글자는 남습니다.|S02,S08
 source.page.no_coordinates|좌표가 없는 줄은 글자만 확인할 수 있습니다.|S02,S08
 source.page.section_unknown|부분의 시작 줄을 못 찾은 경우 보기|S02,S08
-source.structure.expand|값의 구조와 비교 범위 보기|S02,S08
 source.structure.path|{section}번 부분 → 노출기준 표 → 행 → 기준 값|S02,S08
 source.structure.raw_path|원래 경로:|S02,S08
 source.structure.line_ref|줄 표기:|S02,S08
@@ -1051,6 +1132,7 @@ compare.builder_done.title|두 실행의 비교표를 만들었습니다.|S10
 compare.builder_done.columns|표의 열|S10
 compare.side_a|A|S04
 compare.side_b|B|S04
+compare.values.expand|새로 맞춘 값과 새로 틀린 값|S04 바뀐 값 카드
 
 ### servers — S06 연결 · P02 확인
 
@@ -1090,7 +1172,7 @@ servers.status.unavailable|서버 상태를 확인하지 못해 변경을 막았
 servers.status.failure.fact|서버 변경을 마치지 못했습니다.|S06
 servers.status.failure.todo|할 일: 오류 기록에서 연결 상태와 진행 중인 작업을 확인하세요.|S06
 servers.messages.pod_key_missing|빌린 모델의 접속 키가 설정되지 않았습니다. 할 일: 설정 파일의 RUNPOD_VLLM_API_KEY를 채운 뒤 설정 다시 읽기를 누르세요.|S06
-servers.messages.pod_not_ours|이 앱이 만든 서버가 아니라 삭제할 수 없습니다. 할 일: 서버 주인에게 확인하세요.|S06
+servers.messages.pod_not_ours|이 앱이 만든 서버가 아니라 여기서 삭제할 수 없습니다. 할 일: 서버를 만든 사람에게 묻거나 RunPod 웹 화면에서 확인하세요.|S06
 servers.messages.env_file_unknown|설정 파일의 위치를 찾지 못했습니다. 할 일: 앱을 다시 켜세요.|S06
 servers.messages.tunnel_no_port|회사 모델 주소가 내 컴퓨터 쪽 주소가 아닙니다. 할 일: RNGD_BASE_URL을 확인한 뒤 설정을 다시 읽으세요.|S06
 servers.messages.tunnel_already_open|내 컴퓨터의 {port}번 연결이 이미 열려 있습니다. 할 일: 모델이 응답하는지 확인하세요.|S06
@@ -1101,13 +1183,10 @@ servers.messages.tunnel_timeout|연결 통로가 {seconds}초 안에 열리지 �
 servers.messages.tunnel_spawn_failed|보안 연결 프로그램을 시작하지 못했습니다. 할 일: 터미널에서 ssh 명령을 쓸 수 있는지 확인하세요.|S06
 servers.messages.tunnel_still_open|닫기를 요청한 {port}번 연결이 아직 열려 있습니다. 할 일: 잠시 뒤 서버 상태를 다시 확인하세요.|S06
 servers.choice.recommendation|추가 임대료 없는 회사 서버를 권합니다.|S06
-servers.compare.cost|추가 임대료|S06,S08
 servers.compare.wait|준비 시간|S06,S08
 servers.compare.limits|사용 제한과 정리|S06,S08
-servers.choice.company|추천 · 회사 서버(RNGD)|S06,S08
 servers.compare.company.wait|15~25분|S06,S08
 servers.compare.company.limit|한 번에 모델 하나|S06,S08
-servers.choice.rented|다른 방법 · 빌린 서버(RunPod)|S06,S08
 servers.compare.rented.cost|시간당 약 ${cost_per_hour} (예시)|S06,S08
 servers.compare.rented.wait|준비 시간은 매번 다릅니다. 준비 중에는 기다린 시간을 보여 줍니다.|S06,S08
 servers.compare.rented.cleanup|사용 뒤 삭제하세요. 잊어도 요청이 20분 없으면 앱이 지우고, 서버 안 타이머가 4시간에 지웁니다.|S06,S08
@@ -1117,7 +1196,6 @@ servers.company.off|이 서버의 AI는 꺼져 있습니다. 켜는 데 보통 1
 servers.company.confirm_load|{model} 켜기 확인하기|S06
 servers.company.read_while_waiting|기다리는 동안 저장된 결과를 읽을 수 있습니다.|S06
 servers.company.return_target|돌아갈 대상: {doc} · {section}번 부분.|S06
-servers.company.alternative|다른 방법|S06
 servers.company.rented_fallback|회사 서버를 쓸 수 없으면 빌린 서버를 확인하세요.|S06
 servers.company.open_rented|기존 임대 서버와 비용 보기|S06
 servers.connection.title|컴퓨터 연결과 모델 응답 확인|S06
@@ -1131,7 +1209,7 @@ servers.connection.unknown|아직 확인되지 않음|S06
 servers.connection.address|주소 설정|S06
 servers.connection.configured|설정됨. 실제 주소와 키는 표시하지 않음|S06
 servers.connection.ready_condition|기대한 모델의 응답이 와야 준비 완료입니다.|S06
-servers.connection.details|장비 상세와 설정 이름|S06
+servers.connection.details|AI 켜기와 비용 보기|S06
 servers.connection.ssh_meaning|다른 컴퓨터에 암호화된 명령을 보내는 방법이 보안 접속(SSH)입니다.|S06
 servers.connection.tunnel_meaning|AI 요청을 전달하는 연결 통로가 SSH 터널입니다.|S06
 servers.connection.devices|계산 부품은 {count}장입니다. 한 번에 모델 하나를 올립니다.|S06
@@ -1160,9 +1238,8 @@ servers.rented.adopted|앱이 만든 예시 서버 {server}을 자동으로 이�
 servers.rented.cost|실제 요금이 나갑니다: 시간당 약 ${cost_per_hour} (예시).|S06
 servers.rented.estimated_cost|가동 {hours}시간의 추정 비용은 ${cost}입니다.|S06
 servers.rented.deletion_hours|생성 후 4시간에 자동 삭제합니다. 지금은 {hours}시간 남았습니다.|S06
-servers.rented.scheduler|20분 자동 삭제는 앱이 켜져 있을 때 돕니다. 4시간 타이머는 서버 안에서 돌아 앱이 꺼져도 지웁니다.|S06
+servers.rented.scheduler|요청이 20분 없으면 앱이 지웁니다. 이 감시는 앱이 켜져 있을 때만 돕니다. 4시간 타이머는 서버 안에서 돌아 앱이 꺼져도 지웁니다.|S06
 servers.rented.list_storage|서버 목록과 저장공간 비용|S06
-servers.rented.ownership|소유와 상태|S06
 servers.rented.uptime|가동 시간|S06
 servers.rented.hourly_rate|시간당 요금|S06
 servers.rented.total_cost|추정 비용|S06
@@ -1215,7 +1292,7 @@ servers.empty.recommendation|추천 방법|S06
 servers.empty.open_company|회사 서버 먼저 확인하기|S06
 servers.failed.title|모델 상태를 확인하지 못했습니다.|S06
 servers.failed.stale|마지막 상태를 현재 상태로 쓰지 않습니다.|S06
-servers.failed.todo|서버 변경은 잠시 막았습니다. 할 일: 상태를 다시 확인하세요.|S06
+servers.failed.todo|할 일: 다시 확인하기를 누르세요. 계속되면 자세히 보기의 오류 기록을 보세요. 그동안 서버 변경은 막아 둡니다.|S06
 servers.failed.retry|다시 확인하기|S06
 servers.failed.target|대상은 {doc}의 {section}번 부분으로 유지합니다.|S06
 servers.failed.error|조회 오류|S06
@@ -1313,7 +1390,7 @@ jobs.try_hint.off|응답한 모델이 없습니다. AI 없이 보낼 내용만 �
 jobs.fields.model|문서에서 값을 뽑을 모델입니다. 연결된 모델부터 보여 줍니다.|S03
 jobs.fields.doc|시험할 개발용 문서입니다. 평가용 문서는 고를 수 없습니다.|S03
 jobs.fields.pages|AI에게 보낼 원문 글자를 모은 폴더입니다.|S03
-jobs.fields.scope|다시 시험할 부분을 고릅니다. 문서 전체를 고르면 16개 부분을 보냅니다.|S03
+jobs.fields.scope|다시 시험할 부분을 고릅니다. AI가 뽑는 부분만 보입니다. 문서 전체를 고르면 9개 부분을 보냅니다.|S03
 jobs.fields.prompt|AI에게 시킬 일을 적습니다. 한 부분만 시험할 때 고칠 수 있습니다.|S03
 jobs.fields.base_run|새 답을 끼워 넣어 점수를 비교할 이전 결과입니다. 자동 선택은 같은 모델의 최근 개발용 10건 결과를 씁니다.|S03
 jobs.fields.dry_run|AI 없이 보낼 원문과 시킬 일만 확인합니다.|S03
@@ -1337,7 +1414,6 @@ jobs.kinds.silver|AI 정답 초안 만들기|S03
 jobs.kinds.eval|평가용 기록 · 열람 제한|S03
 jobs.kinds.outside|새 문서 시험 · 점수 없음|S03
 jobs.kinds.models|비교표|S03
-jobs.trial.title|같은 부분을 AI에게 다시 읽힐 준비가 됐습니다.|S03,S08
 jobs.trial.target|{doc} · {section}번 부분 · 작업장 공기 중 허용 농도|S03,S08
 jobs.trial.base_result|비교할 결과: {time} · {score}점|S03,S08
 jobs.prompt.hint|예: “숫자와 단위를 원문 그대로 옮기세요.” 고친 글은 새로고침하면 사라집니다.|S03,S08
@@ -1353,11 +1429,10 @@ jobs.trial.company_ready|{model}가 응답했습니다. 회사 서버를 사용�
 jobs.trial.company_cost|회사 서버는 추가 임대료가 없습니다.|S03,S08
 jobs.trial.duration|시험은 약 {seconds}초~{minutes}분입니다(예시). 준비 시간은 별도입니다.|S03,S08
 jobs.trial.practice_meaning|AI 없이 보낼 내용만 확인하는 연습입니다. 실제 시험 기록과 점수는 생기지 않습니다.|S03,S08
-jobs.scope.expand|시험 범위와 이전 결과 바꾸기|S03,S08
 jobs.scope.label|다시 읽힐 범위|S03,S08
 jobs.scope.single|한 부분 · {section}번 부분|S03,S08
 jobs.scope.multiple|여러 부분 · {section}번과 {other_section}번 부분|S03,S08
-jobs.scope.whole|문서 전체 · 16개 부분|S03,S08
+jobs.scope.whole|문서 전체 · 9개 부분|S03,S08
 jobs.scope.prompt_limit|설명 수정은 한 부분 시험에서만 사용합니다.|S03,S08
 jobs.scope.open_multiple|여러 부분 시험 화면 보기|S03,S08
 jobs.scope.open_whole|문서 전체 시험 화면 보기|S03,S08
@@ -1367,20 +1442,14 @@ jobs.scope.base_run|새 답을 끼워 넣을 이전 결과|S03,S05
 jobs.scope.auto_selected|자동 선택 ·|S03,S08
 jobs.scope.check_runnable|고른 문서를 시험할 수 있는지 확인합니다.|S03,S08
 jobs.scope.open_mismatch|묶음이 다른 경우 보기|S03,S08
-jobs.prompt.details|설명의 출처와 보관 방식 보기|S03,S08
 jobs.prompt.origin|기본 설명은 모델별 기본 설정에서 가져옵니다.|S03,S08
 jobs.prompt.mode|설명 사용 방식|S03,S08
-jobs.prompt.edit|기본 설명 고쳐 쓰기|S03,S08
 jobs.prompt.default|기본 설명 그대로|S03,S08
 jobs.prompt.review_foreign|다른 모델이나 다른 부분의 글을 가져오면 전송 전에 재검토합니다.|S03,S08
 jobs.prompt.memory_only|고친 글 전체는 현재 화면에만 보관합니다.|S03,S08
 jobs.prompt.delete_temp|전송 임시 파일은 보낸 뒤 지웁니다.|S03,S08
 jobs.prompt.hash_only|기록에는 내용 확인값(해시)만 남깁니다.|S03,S08
 jobs.prompt.open_review|출처가 다른 설명 재검토 보기|S03,S08
-jobs.trial.next_options|첫 시험 안내와 여러 문서 시험|S03,S08
-jobs.trial.start_guide|한 부분 시험 안내 시작하기|S03,S08
-jobs.trial.open_batch|여러 문서 시험하기|S03,S05
-jobs.off.title|다시 시험하려면 AI 모델이 켜져 있어야 합니다.|S03,S06
 jobs.off.model|{model}는 아직 준비되지 않았습니다.|S03
 jobs.off.connect|AI 연결하기|S03
 jobs.running.title|시험이 진행 중입니다.|S03,S08
@@ -1442,7 +1511,6 @@ jobs.detail.key_hash|정답 파일 내용의 확인값:|S03,P01
 jobs.detail.hash_meaning|확인값은 현재 정답 파일을 구분하는 표시입니다. 과거 정답을 복원할 수는 없습니다.|S03,S08
 jobs.detail.changed_criterion|바뀐 점수 기준: 작업장 공기 중 허용 농도.|S03,S08
 jobs.detail.no_causality|한 번의 결과로 개선 원인을 확정하지 않습니다.|S03,S08
-jobs.completion.title|결과 기록과 완료 판정|S03,S08
 jobs.completion.job_id|작업 번호:|S03,S08
 jobs.completion.path|결과 위치:|S03,S08
 jobs.completion.evidence|확인 근거|S03,S08
@@ -1461,7 +1529,6 @@ jobs.completion.open_missing|결과 파일이 없는 상태 보기|S03,S08
 jobs.parse_failed.title|AI가 답했지만 {section}번 부분 값을 읽지 못했습니다.|S03,S08
 jobs.parse_failed.state|값 해석 실패|S03,S08
 jobs.parse_failed.fact|작업은 끝났지만 AI의 답을 값으로 읽지 못했습니다.|S03,S08
-jobs.parse_failed.todo|실제 시험 성공은 기록하지 않았습니다. 할 일: {stage}단계의 오류를 보고 다시 시험하세요.|S03,S08
 jobs.parse_failed.retry|같은 조건으로 다시 시험하기|S03,S08
 jobs.parse_failed.columns|해석 실패. 표의 열 수가 맞지 않습니다.|S03,S08
 jobs.parse_failed.column_count|오류: 필요한 {expected}개 칸 중 {received}개만 받았습니다.|S03,S08
@@ -1472,7 +1539,6 @@ jobs.practice_done.title|입력과 설명만 확인했습니다.|S03,S08
 jobs.practice_done.state|연습 완료|S03,S05
 jobs.practice_done.no_success|실제 시험 성공은 아직 없습니다.|S03,S08
 jobs.practice_done.connect|모델 연결하기|S03,S08
-jobs.practice_done.omitted_stages|연습에서는 {first_stage}~{last_stage}단계의 모델 응답과 점수를 만들지 않습니다.|S03,S08
 jobs.practice_done.shape|plan만 있음|S03,S08
 jobs.practice_done.record|연습에만 기록|S03,S08
 jobs.score_skipped.fact|시험 전후 점수는 계산하지 않았습니다.|S03
@@ -1486,14 +1552,14 @@ jobs.multiple.change_scope|범위 바꾸기|S03
 jobs.multiple.single|한 부분으로 돌아가기|S03
 jobs.multiple.whole|문서 전체 고르기|S03
 jobs.whole.title|{doc}의 전체를 시험합니다.|S03
-jobs.whole.prompts|16개 부분의 기본 설명을 사용합니다.|S03
+jobs.whole.prompts|9개 부분의 기본 설명을 사용합니다.|S03
 jobs.whole.journey_scope|첫 시험 안내는 한 부분 실제 시험으로 완료합니다.|S03
 jobs.whole.send|문서 전체 다시 시험하기|S03
-jobs.whole_running.title|문서의 16개 부분을 시험하고 있습니다.|S03
+jobs.whole_running.title|문서의 9개 부분을 시험하고 있습니다.|S03
 jobs.whole_running.state|진행 중|S03
 jobs.whole_running.elapsed|{doc}. 시작 후 {minutes}분이 지났습니다.|S03
 jobs.whole_running.open_result|문서 전체 결과 보기|S03
-jobs.whole_done.title|16개 부분 중 {failed}개를 해석하지 못했습니다.|S03
+jobs.whole_done.title|9개 부분 중 {failed}개를 해석하지 못했습니다.|S03
 jobs.whole_done.success|성공한 부분|S03
 jobs.whole_done.failure|실패한 부분|S03
 jobs.whole_done.failed_count|{section}번 부분 {count}개|S03
@@ -1606,6 +1672,8 @@ jobs.multiple_running.title|{section}번과 {other_section}번 부분을 시험�
 jobs.multiple_running.sent|선택한 두 부분을 보냈습니다.|S03
 jobs.multiple_running.progress|{doc}의 한 부분씩 결과를 확인합니다.|S03
 jobs.multiple.default_prompt|여러 부분은 각 부분의 기본 설명을 사용합니다.|S03
+jobs.form.focus_line|원문 줄: {page}쪽 {line_no}번째 줄|S03 고른 값
+jobs.form.focus_estimated|원문 줄(추정): {page}쪽 {line_no}번째 줄|S03 고른 값
 
 ### journey — S08 두 갈래 안내
 
@@ -1764,6 +1832,14 @@ journey.track|해 볼 일|S08
 journey.practice|연습|S08
 journey.resume.action|이어하기|S08
 journey.skip|건너뛰기|S08
+journey.trial.parse_todo|할 일: 자세히 보기의 ‘읽어 낸 값’에서 오류를 확인하고 같은 조건으로 다시 시험하세요.|안내 띠
+journey.tracks.t1.steps.1|최근 점수와 목표를 읽으세요.|안내 띠
+journey.tracks.t1.steps.2|가장 큰 문제의 원문을 여세요.|안내 띠
+journey.tracks.t1.steps.3|문제 값과 선택된 원문 줄을 맞춰 보세요.|안내 띠
+journey.tracks.t2.steps.1|① 무엇을: 시험할 문서와 부분을 고르세요.|안내 띠
+journey.tracks.t2.steps.2|② 어느 AI로: 실제 시험에 쓸 모델을 준비하세요.|안내 띠
+journey.tracks.t2.steps.3|③ 무엇을 시킬지: 대상과 설명을 읽고 실제 시험을 보내세요.|안내 띠
+journey.tracks.t2.steps.4|⑤ 결과: 실제 시험의 결과를 열었습니다.|안내 띠
 
 ### help — S07 도움말
 
@@ -1829,7 +1905,7 @@ help.cli.option_column|옵션|S07
 help.cli.section_flag|--section|S07
 help.cli.section_meaning|시험할 문서 부분|S07
 help.cli.all_flag|--all|S07
-help.cli.all_meaning|문서 전체 16개 부분|S07
+help.cli.all_meaning|문서 전체 9개 부분|S07
 help.cli.dry_run_flag|--dry-run|S07
 help.cli.dry_run_meaning|AI 호출 없이 입력 확인|S07
 help.cli.system_file_flag|--system-file|S07
@@ -1877,7 +1953,7 @@ help.terms.section_count|문서 부분은 16개입니다.|S07
 help.terms.criterion_count|점수 기준은 23개입니다.|S07
 help.terms.load_failed|용어를 불러오지 못하면 ‘설명을 읽지 못했습니다’와 다시 읽기를 제공합니다.|S07
 help.terms.open_score|전체 점수 용어 보기|S07
-help.terms.title|화면에서 쓰는 말 38개|S07
+help.terms.title|화면에서 쓰는 말 47개|S07
 help.terms.columns|쉬운 설명과 원래 용어|S07
 help.journey.title|첫 사용 기록과 재시작|S07
 help.journey.storage|안내 기록은 프로젝트 파일에 보관합니다.|S07
@@ -1891,7 +1967,7 @@ help.failed.todo|다른 기능은 사용할 수 있습니다. 할 일: 용어 �
 help.failed.reload|설명 다시 읽기|S07
 help.data.source_meaning|원문 자료(문서 묶음)는 PDF를 쪽마다 글자와 그림으로 바꿔 둔 파일입니다. AI는 이 글자를 읽고, 근거도 이 글자의 줄 번호로 댑니다.|S07
 help.data.source_example|예: p5:L22는 5쪽 22번째 줄입니다.|S07
-help.data.source_change|바꾸기: 화면 위 ‘필요할 때 문서 바꾸기’에서 다른 묶음을 고릅니다. 그 묶음으로 돌린 저장 결과만 보입니다.|S07
+help.data.source_change|바꾸기: 위쪽 막대의 ‘문서 묶음’을 눌러 다른 묶음을 고릅니다. 그 묶음으로 돌린 저장 결과만 보입니다.|S07
 help.data.source_receive|받은 폴더는 화면 위쪽의 새 자료 받기에서 가져옵니다. 앱이 줄 번호와 열지 않을 문서를 검사하고 복사까지 합니다. 점수가 나오는 폴더인지도 알려 줍니다.|S07
 help.data.source_add_title|직접 폴더를 만들어 더하는 순서입니다.|S07
 help.data.source_add1|data/pages/<묶음 이름>/<문서 번호>/ 폴더를 만듭니다.|S07
@@ -1902,7 +1978,7 @@ help.data.source_caution|평가용 문서는 점수가 부풀려지지 않도록
 help.data.answer_meaning|정답은 AI 값과 견주는 기준입니다. 점수는 AI가 뽑은 값이 정답과 얼마나 같은지로 계산합니다. 정답을 바꾸면 같은 결과의 점수도 달라집니다.|S07
 help.data.answer_gold|사람이 확인한 정답(골드)은 사람이 검토해 확정한 답입니다. data/gold에 있습니다.|S07
 help.data.answer_silver|AI 정답 초안(실버)은 AI가 먼저 만든 비교용 답입니다. data/silver 아래 폴더에 있고, 틀릴 수 있습니다.|S07
-help.data.answer_change|바꾸기: 화면 위 ‘필요할 때 정답 바꾸기’에서 고릅니다. 저장된 결과를 AI 없이 다시 채점합니다.|S07
+help.data.answer_change|바꾸기: 위쪽 막대의 ‘정답’을 눌러 고릅니다. 저장된 결과를 AI 없이 다시 채점합니다.|S07
 help.data.answer_receive|담당이 올린 새 정답은 화면 위쪽의 새 자료 받기에서 확인합니다. 받는 명령을 알려 주고, 받은 뒤에는 바뀐 문서 수를 보여 줍니다.|S07
 help.data.answer_add_title|정답 폴더를 직접 더하는 순서입니다.|S07
 help.data.answer_add1|data/silver/<이름>/ 또는 data/gold/<이름>/ 폴더를 만듭니다.|S07
@@ -1931,6 +2007,347 @@ help.guide.protection.title|어떤 문서와 정보를 보호하나요?|S07
 help.guide.protection.summary|평가용 문서 잠금과 접속 키 보관 원칙을 확인합니다.|S07
 help.setup.command|(cd backend && .venv/bin/python scripts/b_app.py)|S07
 help.protection.command|(cd backend && .venv/bin/python -m pytest -q --ignore=tests/test_preprocess.py)|S07
+help.source.step_choose|① 문제 고르기: 점수를 많이 깎은 항목부터 고릅니다.|S07 원문 장
+help.source.step_compare|② 원문과 맞춰 보기: 왼쪽에서 행을 고르고, 그 행의 칸을 근거 줄과 함께 봅니다.|S07 원문 장
+help.source.step_send|③ 다시 시험으로 보내기: 문서와 부분을 다시 시험으로 넘깁니다. 시험은 여기서 시작하지 않습니다.|S07 원문 장
+help.source.image_text|원문 그림은 쪽 안의 위치를 확인하는 곳입니다. 글자는 원문 글자 칸에서 읽습니다.|S07 원문 장
+help.source.kinds|틀림은 같은 칸의 값이 정답과 다른 경우입니다. 만듦은 AI 결과에는 있는데 정답에는 없는 값입니다. 못 뽑음은 정답에는 있는데 AI 결과에는 없는 값입니다.|S07 원문 장
+help.source.details|원래 값과 위치, 비교 범위, 문서 전체 표, 추정 방법은 자세히 보기에 있습니다.|S07 원문 장
+help.servers.step_choose|① 서버 고르기: 고른 AI를 켤 수 있는 서버에 표시가 붙습니다.|S07 서버 장
+help.servers.step_start|② 켜기: 요금과 자동 삭제를 확인 창에서 본 뒤 정합니다. 확인 창에서 실행해야 요청이 나갑니다.|S07 서버 장
+help.servers.step_wait|③ 준비 기다리기: 앱이 확인한 상태까지만 보입니다. 화면을 떠나도 준비는 계속됩니다.|S07 서버 장
+help.servers.step_stop|④ 쓰고 나서 끄기: 요금과 켜진 시간을 본 뒤 시험으로 돌아가거나 서버를 끕니다.|S07 서버 장
+help.servers.order|시험으로 돌아가기는 서버를 끄지 않습니다. 순서는 시험으로 돌아가기, 결과 확인, 이 화면으로 다시 와서 끄기입니다. 끄지 않으면 요금이 계속 나갑니다.|S07 서버 장
+help.facts.source_colors|같음과 틀림과 만듦과 못 뽑음은 글로 구분합니다. 지금 고른 값과 줄은 노란 바탕으로 표시합니다.|S07
+help.facts.setup_reload|설정을 고친 뒤 AI 켜기와 비용의 자세히 보기에서 설정 다시 읽기를 누르세요.|S07
+help.facts.trial_scope|① 무엇을: 한 부분, 문서 전체, 여러 문서 중에서 고르고 개발용 문서와 부분을 정합니다.|S07 다시 시험 장
+help.facts.trial_ready|② 어느 AI로: 모델을 고르고 응답을 확인합니다. 꺼져 있으면 AI 켜기와 비용에서 켠 뒤 돌아옵니다.|S07 다시 시험 장
+help.facts.trial_send|③ 무엇을 시킬지: 기본 지시문을 그대로 쓰거나 고친 뒤 실제 시험을 시작합니다.|S07 다시 시험 장
+help.facts.trial_running|④ 시험: AI의 답을 기다립니다. 다른 화면으로 가도 시험은 계속되고, 끝나면 결과로 넘어갑니다.|S07 다시 시험 장
+help.facts.trial_result|⑤ 결과: 전후 점수와 고른 값의 변화를 봅니다. 서버가 켜져 있으면 요금도 함께 보입니다.|S07 다시 시험 장
+help.facts.trial_records|아래 기록 중 시험 전후 점수는 ⑤ 결과에 있고, 나머지 다섯 가지는 자세히 보기에 있습니다.|S07 다시 시험 장
+help.facts.trial_many|여러 문서는 ① 무엇을에서 ‘여러 문서’를 고릅니다. 개발용 문서와 반복 횟수를 정합니다. 두 결과 비교에서는 여러 결과의 비교표도 만들 수 있습니다.|S07 다시 시험 장
+help.facts.columns|시험 결과의 자세히 보기에서 ‘읽어 낸 값’의 버린 줄 수를 봅니다. 모델의 원래 답과 정해진 열 수를 비교하세요.|S07
+
+### steps — 단계 진행의 공통 틀
+
+위쪽 막대 한 줄, 화면 위 단계 표시, 맨 아래 행동 줄, 자세히 서랍의 글입니다. 최종 문구는 G6에서 검토합니다.
+
+키|글|쓰는 곳
+---|---|---
+steps.a11y|이 화면의 단계|단계 표시
+steps.actions_a11y|이 단계의 행동|행동 줄
+steps.current|지금 단계|단계 표시
+steps.details.close|닫기|서랍
+common.raw_error_title|오류 기록|서랍
+common.code_record_title|원래 기록 값|서랍
+steps.server.cost_basis|표시한 비용은 현재 서버의 추정값입니다.|위쪽 막대, S06
+steps.details.open|자세히 보기|S06 서랍 입구
+steps.server.choose|서버 고르기|S06
+steps.server.start|켜기|S06
+steps.server.wait|준비 기다리기|S06
+steps.server.stop|쓰고 나서 끄기|S06
+steps.server.choose_title|어느 서버에서 AI를 켤까요?|S06
+steps.server.choose_target|다시 시험에서 {model}를 골랐습니다.|S06
+steps.server.only_on|이 AI는 {server}에서 켤 수 있습니다.|S06
+steps.server.no_server|이 앱에서는 이 AI를 켤 수 없습니다. 할 일: 다시 시험에서 다른 AI를 고르세요.|S06
+steps.server.rented_name|빌린 서버 (RunPod)|S06
+steps.server.company_name|회사 서버 (RNGD)|S06
+steps.server.matches|고른 AI를 켤 수 있습니다.|S06
+steps.server.mismatch|고른 AI는 이 서버에서 켤 수 없습니다.|S06
+steps.server.fact_models|켤 수 있는 AI|S06
+steps.server.fact_cost|요금|S06
+steps.server.company_cost|추가 임대료 없음|S06
+steps.server.use_rented|빌린 서버로 켜기|S06
+steps.server.use_company|회사 서버로 켜기|S06
+steps.server.use_other_ai|이 서버에서 다른 AI 켜기|S06
+steps.server.stop_company_note|다 쓰면 모델을 끄세요. 회사 서버에는 한 번에 모델 하나만 올라갑니다. 연결을 닫아도 모델은 회사 서버에 켜진 채로 남습니다.|S06
+steps.server.start_company_other_title|먼저 켜져 있는 AI를 끄세요.|S06
+steps.server.wait_auto|이대로 두면 {minutes}분 뒤 자동으로 지워집니다.|S06
+servers.failed.fact|앱이 서버 상태를 읽지 못했습니다. 지금 요금이 나가는지도 알 수 없습니다.|S06
+steps.server.other_on|다른 서버에서 {model}가 켜져 있거나 준비 중입니다.|S06
+steps.server.other_on_open|그 서버 보기|S06
+steps.server.back_choose|서버 다시 고르기|S06
+steps.server.start_rented_title|요금을 확인하고 서버를 만드세요.|S06
+steps.server.start_rented_say|다음 단추는 확인 창을 엽니다. 요금은 확인 창에서 만들기를 누른 순간부터 나갑니다.|S06
+steps.server.stat_hourly|시간당 요금|S06
+steps.server.stat_forgot|잊었을 때 ({hours}시간)|S06
+steps.server.forgot_note|서버 안 타이머가 {hours}시간에 지운다고 보고 계산한 추정입니다. 저장 공간 비용은 별도입니다.|S06
+steps.server.quote_basis|지난 기록으로 잡은 추정입니다. 실제 요금과 다를 수 있습니다.|S06
+steps.server.fact_target_model|켜는 AI|S06
+steps.server.fact_auto_delete|자동 삭제|S06
+steps.server.fact_storage|저장 공간|S06
+steps.server.fact_basis|요금 근거|S06
+steps.server.fact_return|돌아갈 곳|S06
+steps.server.return_value|다시 시험 · {doc} · {section}번 부분|S06
+steps.server.confirm_create|켜진 동안 시간당 약 ${cost_per_hour}가 듭니다. 아래 단추를 누르는 순간부터 요금이 나갑니다. 준비 완료 시각은 모릅니다. 앱이 켜져 있으면 요청이 20분 없을 때 앱이 지웁니다. 앱이 꺼져 있어도 서버 안 타이머가 4시간에 지웁니다.|S06
+steps.server.start_company_tunnel_title|내 컴퓨터와 회사 서버를 연결하세요.|S06
+steps.server.start_company_pick_title|내 컴퓨터와 회사 서버를 연결했습니다. 이제 AI를 고르세요.|S06
+steps.server.start_company_say|회사 서버에는 한 번에 AI 하나만 올라갑니다.|S06
+steps.server.start_company_note|추가 임대료는 없습니다. 켜는 동안 다른 작업을 해도 됩니다.|S06
+steps.server.tunnel_line|회사 서버 연결 통로를 엽니다.|S06
+steps.server.pick_line|켤 AI를 고릅니다.|S06
+steps.server.start_done_rented|서버 만듦|S06
+steps.server.start_done_company|AI 켜기 시작|S06
+steps.server.wait_title|{model}를 준비하고 있습니다.|S06
+steps.server.wait_say|이 화면을 떠나도 준비는 계속됩니다. 준비되면 위쪽 막대가 바뀝니다.|S06
+steps.server.wait_server|빌린 서버가 켜져 있습니다. 요금이 나가고 있습니다.|S06
+steps.server.wait_server_unseen|서버 목록에서 새 서버를 찾고 있습니다.|S06
+steps.server.wait_process|회사 서버에서 모델 실행 프로그램을 확인했습니다.|S06
+steps.server.wait_process_unseen|회사 서버에서 모델 실행 프로그램을 찾고 있습니다.|S06
+steps.server.wait_reply|AI의 응답을 기다립니다.|S06
+steps.server.wait_match|고른 AI가 응답하면 다음 단계로 넘어갑니다.|S06
+steps.server.wait_on_for|서버가 켜진 지 {elapsed}입니다.|S06
+steps.server.cancel_rented|취소하고 서버 지우기 (요금 멈춤)|S06
+steps.server.cancel_company|취소하고 AI 끄기|S06
+steps.server.stop_say_rented|다 쓰면 서버를 지워야 요금이 멈춥니다.|S06
+steps.server.stat_uptime|켜진 시간|S06
+steps.server.stat_total|지금까지 (추정)|S06
+steps.server.stat_auto|자동 삭제까지|S06
+steps.server.auto_unknown|확인 안 됨|S06
+steps.server.delete_note|시험을 더 하려면 그대로 두세요. 오늘 더 쓰지 않으면 서버를 지우세요. 지우는 순간 요금이 멈추고, 다음에 다시 만들 수 있습니다.|S06
+steps.server.delete_action|서버 지우고 요금 멈추기|S06
+steps.server.others_running|이 앱이 만든 다른 서버 {count}개도 켜져 있습니다. 할 일: 자세히 보기에서 지우세요.|S06
+steps.server.preparation_unknown|준비에 걸린 시간 기록이 없습니다.|S06
+steps.server.prepared_time|준비에 약 {elapsed} 걸렸습니다.|S06
+steps.server.prepared_short|약 {elapsed} 걸림|S06
+steps.server.details_title|자세히 · 서버와 설정|S06
+steps.server.details_hint|서버 목록과 설정 이름, 서버 기록을 봅니다.|S06
+steps.server.settings|설정 확인 기록|S06
+steps.server.connection|회사 서버 연결 기록|S06
+steps.back|이전 단계로 가기|S03
+steps.next|다음: {name}|S03
+steps.jobs.loading|작업 기록을 읽고 있습니다.|S05
+steps.trial.target|무엇을|S03
+steps.trial.model|어느 AI로|S03
+steps.trial.prompt|무엇을 시킬지|S03
+steps.trial.running|시험|S03
+steps.trial.result|결과|S03
+steps.trial.scope.a11y|시험 범위|S03
+steps.trial.scope.part|한 부분|S03
+steps.trial.scope.document|문서 전체|S03
+steps.trial.scope.batch|여러 문서|S03
+steps.trial.target_title|무엇을 다시 시험할까요?|S03
+steps.trial.target_filled|원문 화면에서 고른 부분이 채워져 있습니다. 그대로 두면 됩니다.|S03
+steps.trial.target_say|문서와 부분을 고르세요.|S03
+steps.trial.batch_hint|‘여러 문서’를 고르면 이 자리에 문서 목록과 반복 횟수가 나옵니다.|S03
+steps.trial.model_on_title|{model}가 켜져 있습니다. 이대로 시험하면 됩니다.|S03
+steps.trial.model_on_say|이번 결과를 만든 AI라 전후를 바로 비교할 수 있습니다.|S03
+steps.trial.model_off_title|고른 AI가 꺼져 있습니다. 먼저 켜야 합니다.|S03
+steps.trial.model_off_say|AI를 켠 뒤 ‘시험으로 돌아가기’를 누르면 이 화면으로 옵니다. 고른 문서와 부분은 그대로 남습니다.|S03
+steps.trial.state_on|지금 켜짐|S03
+steps.trial.state_off|지금 꺼짐|S03
+steps.trial.made_base|이번 결과를 만든 AI입니다.|S03
+steps.trial.on_note|응답을 확인했습니다.|S03
+steps.trial.on_rented|응답을 확인했습니다. 서버 요금은 시간당 ${hourly}입니다.|S03
+steps.trial.on_company|응답을 확인했습니다. 추가 임대료가 없습니다.|S03
+steps.trial.off_rented|켜면 시간당 ${hourly}가 나갑니다.|S03
+steps.trial.off_company|추가 임대료가 없습니다. 준비에 보통 15~25분 걸립니다.|S03
+steps.trial.off_note|켜러 가도 요금은 아직 나가지 않습니다. 서버를 만들 때 다시 확인합니다.|S03
+steps.trial.prepare|고른 AI 켜러 가기|S03
+steps.trial.practice|연습: AI 없이 보낼 내용 보기|S03
+steps.trial.prompt_title|AI에게 시킬 일을 정하세요.|S03
+steps.trial.prompt_say|이 글이 지시문입니다. 고치면 전후 점수로 효과를 볼 수 있습니다.|S03
+steps.trial.prompt_default|기본 지시문 그대로|S03
+steps.trial.prompt_default_note|같은 조건으로 결과만 다시 봅니다.|S03
+steps.trial.prompt_edit|고쳐서 시험|S03
+steps.trial.prompt_edit_note|고른 뒤 아래 글을 바로 고칩니다. 새로고침하면 고친 글은 사라집니다.|S03
+steps.trial.prompt_used_default|기본 지시문|S03
+steps.trial.prompt_used_edited|고친 지시문|S03
+steps.trial.send_note|{target}을 {model}에게 보냅니다.|S03
+steps.trial.previous_time|같은 조건의 지난 시험은 {seconds}초 걸렸습니다.|S03
+steps.trial.batch_prompt_title|조건을 확인하고 시작하세요.|S03
+steps.trial.running_title|AI가 {target}을 읽고 있습니다.|S03
+steps.trial.batch_running_title|여러 문서 시험이 진행 중입니다.|S03
+steps.trial.sent|AI에게 보냈습니다.|S03
+steps.trial.pending|AI의 응답과 결과를 기다립니다.|S03
+steps.trial.elapsed|시험을 시작한 지 {seconds}초입니다.|S03
+steps.trial.see_result|결과 보기|S03
+steps.trial.result_later|끝나면 결과로 저절로 넘어갑니다.|S03
+steps.trial.failed_title|시험이 실패했습니다.|S03
+steps.trial.took|{seconds}초 걸림|S03
+steps.trial.practice_button_note|연습 단추는 AI 없이 보낼 내용만 확인합니다. 연습으로는 시험 기록과 점수가 생기지 않습니다.|S03
+steps.trial.details_hint_practice|보낼 내용과 오류 기록을 봅니다.|S03
+steps.trial.partial_score_up|이 부분을 바꾸니 문서 전체 점수가 {before}점에서 {after}점으로 올랐습니다.|S03
+steps.trial.partial_score_down|이 부분을 바꾸니 문서 전체 점수가 {before}점에서 {after}점으로 내려갔습니다.|S03
+steps.trial.partial_score_same|이 부분을 바꿔도 문서 전체 점수는 {before}점 그대로입니다.|S03
+steps.trial.score_up|문서 전체 점수가 {before}점에서 {after}점으로 올랐습니다.|S03
+steps.trial.score_down|문서 전체 점수가 {before}점에서 {after}점으로 내려갔습니다.|S03
+steps.trial.score_same|문서 전체 점수는 {before}점 그대로입니다.|S03
+steps.trial.result_say|같은 조건을 반복해도 점수는 조금 달라질 수 있습니다. 한 번의 변화로 단정하지 마세요.|S03
+steps.trial.parse_title|AI가 답했지만 값을 읽지 못했습니다.|S03
+steps.trial.parse_todo|실제 시험 성공은 기록하지 않았습니다. 할 일: 자세히 보기의 ‘읽어 낸 값’을 보고 다시 시험하세요.|S03
+steps.trial.practice_title|연습이 끝났습니다. 보낼 내용만 확인했습니다.|S03
+steps.trial.practice_omitted|연습에서는 AI의 답과 점수를 만들지 않습니다. 보낼 내용은 자세히 보기에 있습니다.|S03
+steps.trial.after_practice|실제 시험 준비하기|S03
+steps.trial.change_unavailable|이 값의 전후 변화를 확인할 결과가 없습니다.|S03
+steps.source.choose|문제 고르기|S02
+steps.source.compare|원문과 맞춰 보기|S02
+steps.source.send|다시 시험으로 보내기|S02
+steps.source.choose_title|어떤 항목의 문제부터 볼까요?|S02
+steps.source.choose_say|점수를 많이 깎은 순서입니다. 맨 위부터 보면 됩니다.|S02
+steps.source.row_meaning|행은 표의 한 줄입니다. 칸은 그 줄 안의 값 하나입니다.|S02
+steps.source.choose_summary|{what} · 문제 있는 행 {count}개 · 바꾸기|S02
+steps.source.choose_summary_plain|{what} · 바꾸기|S02
+steps.source.compare_hint|한 행씩 확인|S02
+steps.source.send_hint|고른 부분을 넘김|S02
+steps.source.send_summary|{doc} · {section}번 부분|S02
+steps.source.all_docs|전체 {count}건|S02
+steps.source.col_item|문제가 있는 항목|S02
+steps.source.col_loss|깎인 점수|S02
+steps.source.col_rows|문제 행|S02
+steps.source.col_cells|문제 칸|S02
+steps.source.col_open|볼 문제|S02
+steps.source.loss|{points}점|S02
+steps.source.open|이 문제 보기|S02
+steps.source.all_criteria|기준 {count}개 모두 보기|S02
+steps.source.top_criteria|큰 문제만 보기|S02
+steps.source.run_failed|이 결과의 점수를 읽지 못해 항목 표를 보일 수 없습니다. 할 일: 다시 불러오세요.|S02
+steps.source.list_title|문서 {count}건의 문제 행|S02
+steps.source.list_title_one|{doc}의 문제 행|S02
+steps.source.earlier_rows|앞쪽 {count}행 보기|S02
+steps.source.evidence_title|AI가 근거로 댄 줄|S02
+steps.source.not_extracted|이 부분은 AI가 뽑지 않아 다시 시험할 수 없습니다. 원문만 확인할 수 있습니다.|S02
+steps.source.choose_section|부분 고르기|S02
+source.labels.code_value|{name} ({code})|S02
+source.field_names.standard|기준 출처|S02
+source.field_names.form|물질 형태|S02
+source.field_names.kr_basis|국내 기준 근거|S02
+source.field_names.bio_medium|생물 시료|S02
+source.field_names.bio_timing|채취 시기|S02
+source.field_names.bio_determinant|측정 대상|S02
+source.field_names.notations|표기|S02
+source.field_names.prop_code|물성 항목|S02
+source.field_names.text_value|글로 적힌 값|S02
+source.field_names.data_source|자료 출처|S02
+source.field_names.endpoint|독성 항목|S02
+source.field_names.descriptor|독성 지표|S02
+source.field_names.species|시험 생물|S02
+source.field_names.sex|성별|S02
+source.field_names.duration_value|노출 시간|S02
+source.field_names.duration_unit|시간 단위|S02
+source.field_names.physical_form|물질 상태|S02
+source.field_names.exposure_type|노출 방식|S02
+source.field_names.converted|환산 여부|S02
+source.field_names.read_across_cas|유추 근거 물질 번호|S02
+source.field_names.guideline|시험 지침|S02
+source.field_names.classification|분류 판정|S02
+source.field_names.statements|설명 문장|S02
+source.field_names.hazard|유해성 종류|S02
+source.field_names.agency|기관 또는 법령|S02
+source.field_names.class|등급|S02
+source.field_names.law|법률|S02
+source.field_names.item_code|규제 항목|S02
+source.field_names.item_raw|규제 항목(원래 표기)|S02
+source.field_names.applicable|해당 여부|S02
+source.field_names.threshold|기준량|S02
+source.field_names.qty|수량|S02
+source.field_names.qty_alt|다른 단위 수량|S02
+source.field_names.sub_class|세부 분류|S02
+source.field_names.cycle|주기|S02
+source.field_names.country|국가|S02
+source.field_names.value_raw|규제 값(원래 표기)|S02
+source.field_names.remark|참고|S02
+source.field_names.name_en|영어 이름|S02
+source.field_names.synonyms|다른 이름|S02
+source.field_names.ec_no|EC 번호|S02
+source.field_names.other_id|다른 식별 번호|S02
+source.field_names.other_id_type|다른 식별 번호의 종류|S02
+source.field_names.parent_seq|상위 성분 순번|S02
+source.field_names.content|함유량|S02
+source.field_names.content_note|함유량 메모|S02
+source.field_names.content_basis|함유량 기준|S02
+source.field_names.trade_secret|영업비밀 여부|S02
+source.field_names.approval_no|승인 번호|S02
+source.field_names.approval_expiry|승인 만료일|S02
+source.field_names.role|회사 역할|S02
+source.field_names.site|사업장|S02
+source.field_names.address|주소|S02
+source.field_names.postcode|우편번호|S02
+source.field_names.department|부서|S02
+source.field_names.contacts.type|연락처 종류|S02
+source.field_names.contacts.value|연락처|S02
+source.field_names.mode|운송 수단|S02
+source.field_names.basis_raw|근거 표기|S02
+source.field_names.regulated|규제 여부|S02
+source.field_names.un_no|UN 번호|S02
+source.field_names.shipping_name|운송 품명|S02
+source.field_names.hazard_class|위험 등급|S02
+source.field_names.sub_risk|부차 위험|S02
+source.field_names.packing_group|포장 등급|S02
+source.field_names.marine_pollutant|해양 오염 물질|S02
+source.field_names.ems_fire|비상 조치(화재)|S02
+source.field_names.ems_spill|비상 조치(누출)|S02
+source.field_names.item|품명|S02
+source.field_names.water_soluble|수용성 여부|S02
+source.field_names.grade|등급 표기|S02
+source.field_names.designated_qty|지정 수량|S02
+source.field_names.designated|지정폐기물 여부|S02
+source.field_names.waste_type|폐기물 종류|S02
+source.field_names.system|분류 체계|S02
+source.field_names.class_raw|분류(원래 표기)|S02
+source.field_names.h_code|H 코드|S02
+source.field_names.section_no|넣을 부분 번호|S02
+source.field_names.after_item|앞 항목|S02
+source.field_names.title_raw|원문 제목|S02
+source.field_names.reason|표 밖에 둔 이유|S02
+source.field_names.suggested_code|제안 코드|S02
+steps.source.filter_a11y|문제 종류|S02
+steps.source.doc_rows|{doc} · {count}행|S02
+steps.source.row_kind|{kind} {count}칸|S02
+steps.source.more_rows|{count}행 더 보기|S02
+steps.source.partial|일부 문서만 읽었습니다. 할 일: 읽지 못한 문서를 다시 불러오세요.|S02
+steps.source.previous_row|이전 행 보기|S02
+steps.source.next_row|다음 행 보기|S02
+steps.source.row_summary|{doc} · {section}번 부분 · 칸 {total}개 중 문제 {problems}개|S02
+steps.source.row_position|{total}행 중 {index}번째 행|S02
+steps.source.col_result|결과|S02
+steps.source.compare_note|노란색은 지금 보는 값과 그 근거입니다. AI가 틀렸다면 이 부분을 다시 시험하세요.|S02
+steps.source.image_title|원문 그림 · {page}쪽|S02
+steps.source.lines_title|원문 글자 · {page}쪽|S02
+steps.source.lines_near|원문 글자 · {page}쪽 {line}번째 줄 근처|S02
+steps.source.all_lines|쪽 전체 줄 보기|S02
+steps.source.near_lines|고른 값 근처 줄 보기|S02
+steps.source.no_linked_lines|이 쪽에는 값과 연결된 줄이 없습니다. 할 일: 쪽 전체 줄을 보세요.|S02
+steps.source.send_title|이 내용을 다시 시험으로 넘깁니다.|S02
+steps.source.send_say|이 단추는 시험을 시작하지 않습니다. 다음 화면에서 AI와 지시문을 확인합니다.|S02
+steps.source.send_no_value|고른 값이 없습니다. 문서와 부분만 넘깁니다.|S02
+steps.source.details_title|자세히 · 원문과 값|S02
+steps.source.details_hint|문서 전체 표와 추정 방법, 잠긴 문서를 봅니다.|S02
+steps.source.raw_value_title|원래 값과 위치|S02
+steps.source.scope_title|비교 범위|S02
+steps.source.scope_items|이 값은 ‘{items}’ 점수에 들어갑니다.|S02
+steps.source.scope_none|이 값은 점수 기준에 들어가지 않습니다.|S02
+steps.source.scope_note|같은 표의 다른 칸은 다른 기준에도 쓰일 수 있습니다.|S02
+steps.source.doc_table_open|문서 전체 표 열기|S02
+steps.source.howto_title|값과 줄을 고르는 법|S02
+steps.source.target_title|보고 있는 기록|S02
+steps.trial.change_title|고른 값의 변화|S03
+steps.trial.change_value|AI 값: {before} → {after}|S03
+steps.trial.change_kind|판정: {before} → {after}|S03
+steps.trial.change_same|이 값은 달라지지 않았습니다.|S03
+steps.trial.change_gone|새 결과에서 이 행을 찾지 못했습니다.|S03
+steps.trial.change_loading|고른 값의 변화를 읽고 있습니다.|S03
+steps.trial.change_open|새 결과에서 이 값 원문 보기|S03
+steps.trial.change_none|값 없음|S03
+steps.trial.server_on|빌린 서버가 아직 켜져 있습니다.|S03
+steps.trial.company_on|회사 서버가 아직 켜져 있습니다. 추가 임대료는 없습니다.|S03
+steps.trial.close_server|AI 켜기와 비용에서 끄기|S03
+steps.trial.edit_again|지시문 고쳐 다시 시험|S03
+steps.trial.batch_done_title|여러 문서 시험이 끝났습니다.|S03
+steps.trial.open_recent|최근 결과에서 보기|S03
+steps.trial.details_title|자세히 · 시험 기록|S03
+steps.trial.details_hint|보낸 입력과 AI의 원래 답, 오류 기록을 봅니다.|S03
+steps.trial.prompt_origin_title|지시문의 출처와 보관 방식|S03
+steps.trial.conditions_title|대상과 조건|S03
+context.model.chip_on|AI 켜짐|위쪽 막대
+context.model.chip_no_cost|요금 없음|위쪽 막대
+context.model.chip_cost_unknown|요금 확인 안 됨|위쪽 막대
+context.model.rented_so_far|지금까지 약 ${cost}|위쪽 막대
+steps.server.stop_order|끄는 순서|S06 ④ 말풍선
+steps.source.kind_notes.wrong|값이 다름|S02 ② 문제 종류 안내
+steps.source.kind_notes.made|정답에 없는 값|S02 ② 문제 종류 안내
+steps.source.kind_notes.missing|AI가 놓친 값|S02 ② 문제 종류 안내
 
 ### swap — S11 자료 바꾸기
 
@@ -1949,6 +2366,8 @@ context.model.auto_closed_no_reply|모델이 {limit}분 동안 응답하지 않�
 context.model.auto_closed_cost|켠 시간 {minutes}분, 추정 ${cost}.|전역
 swap.context.score_docs|점수를 매길 수 있는 문서 {count}건|S11
 swap.context.no_score|점수 없음 · 양식만 확인|S11
+swap.context.score_docs_short|채점 문서 {count}건|위쪽 막대
+swap.context.no_score_short|점수 없음|위쪽 막대
 swap.context.gold_note|최근 올린 날 {date} · 정답 {count}건 사용|S11
 swap.context.gold_changed|새 정답이 들어왔습니다. 문서 {count}건이 바뀌어 점수를 다시 계산합니다.|S11
 swap.context.gold_changed_open|무엇이 바뀌었나요|S11
@@ -2075,7 +2494,7 @@ swap.problems.swap_copy_failed.fix|디스크 공간과 폴더 권한을 확인�
 guide.ai.rented_time|빌린 서버는 켜는 데 3~6분 걸려요. 요청이 20분 없으면 앱이 닫아요.|G10
 help.setup.new_data|새 문서 폴더나 새 정답을 받았으면 화면 위쪽의 새 자료 받기를 누르세요. 문서 폴더는 검사한 뒤 앱으로 복사하고, 정답은 GitHub에서 받는 명령을 알려 줍니다.|S07
 help.servers.states|화면 위쪽에서 상태를 봅니다. AI 꺼짐은 정상입니다. 빌린 서버를 만들면 켜는 중이 3~6분 보이고, 연결된 모델이 보이면 시험을 보낼 수 있습니다.|S07
-help.servers.waiting|10분이 지나도 켜는 중이면 AI 켜기와 비용의 서버 기록을 확인하세요. 모델이 40분 동안 응답하지 않으면 앱이 서버를 지웁니다.|S07
+help.servers.waiting|10분이 지나도 켜는 중이면 AI 켜기와 비용의 자세히 보기에서 서버 기록을 확인하세요. 모델이 40분 동안 응답하지 않으면 앱이 서버를 지웁니다.|S07
 
 ### glossary — S07 용어 · S01, S02 첫 소개
 
@@ -2104,7 +2523,7 @@ glossary.prompt.meaning|어떤 값을 어떤 형식으로 뽑을지 AI에게 주
 glossary.prompt_version.term|AI에게 시킬 일을 고친 차례|S07,S04
 glossary.prompt_version.meaning|AI에게 보내는 글의 변경 순서를 구분하는 번호입니다. 예: 8번째 설명은 s8로 기록합니다.|S07
 glossary.input.term|원문 글자를 모은 폴더|S07
-glossary.input.meaning|AI에게 보낼 원문의 쪽별 글자를 모아 둔 곳입니다. 예: 시안의 이전 개발 자료는 prev/version9입니다.|S07
+glossary.input.meaning|AI에게 보낼 원문의 쪽별 글자를 모아 둔 곳입니다. 예: 이전 개발 자료 묶음에는 문서마다 쪽별 글자 파일이 있습니다.|S07
 glossary.page_text.term|문서 한 쪽의 글자|S07
 glossary.page_text.meaning|문서 한 페이지에서 읽어 낸 글입니다. 예: 원문 화면에서 예시 문서 1의 2쪽 글자를 읽습니다.|S07
 glossary.line.term|원문의 쪽과 줄 번호|S07
@@ -2138,19 +2557,19 @@ glossary.whitespace.meaning|AI가 답 대신 긴 빈칸을 내보내는 상태�
 glossary.repetition.term|같은 답을 계속 되풀이함(반복)|S07
 glossary.repetition.meaning|AI가 같은 글을 반복하다 답변 길이 제한에 걸린 상태입니다. 예: 끝부분의 같은 글이 20자 이상이고 4번 이상 이어지면 반복으로 분류합니다.|S07
 glossary.model_tag.term|AI 설정의 짧은 이름(모델 태그)|S07
-glossary.model_tag.meaning|모델과 접속 설정을 구분하는 이름입니다. 예: 시안의 AI 모델 A는 demo-model-a입니다.|S07
+glossary.model_tag.meaning|모델과 접속 설정을 구분하는 이름입니다. 예: AI 모델 A의 짧은 이름은 demo-model-a입니다.|S07
 glossary.runpod.term|시간당 요금을 내는 빌린 서버(RunPod)|S07
-glossary.runpod.meaning|모델을 켜 둔 시간에 따라 요금을 내는 서버입니다. 예: 시간당 $2.49로 2시간을 쓰면 추정 비용은 $4.98입니다.|S07
+glossary.runpod.meaning|모델을 켜 둔 시간에 따라 요금을 내는 서버입니다. 예: 시간당 $2로 2시간을 쓰면 추정 비용은 $4입니다.|S07
 glossary.rngd.term|회사에서 쓰는 AI 서버(RNGD)|S07
 glossary.rngd.meaning|한 번에 모델 하나를 준비하는 회사 장비입니다. 예: 추가 임대료는 없고 모델 준비에는 보통 15~25분 걸립니다.|S07
 glossary.pod.term|빌린 서버 한 대(Pod)|S07
-glossary.pod.meaning|RunPod에서 만들어 AI 모델을 실행하는 서버 한 대입니다. 예: 시안의 demo-pod-a는 앱이 만든 서버입니다.|S07
+glossary.pod.meaning|RunPod에서 만들어 AI 모델을 실행하는 서버 한 대입니다. 예: demo-pod-a는 앱이 만든 서버입니다.|S07
 glossary.repeat.term|같은 조건을 반복한 차례(회차)|S07
 glossary.repeat.meaning|동일한 조건으로 몇 번째 시험했는지 나타내는 번호입니다. 예: _r2는 두 번째 시험입니다.|S07
 glossary.extras.term|표 밖에 남은 값(extras)|S07,S01
 glossary.extras.meaning|정해진 결과 칸에 넣지 못해 따로 보관한 값입니다. 예: 표 행 수 비교에는 남은 값 3개도 표시됩니다.|S07
 glossary.key_gap.term|정답 초안에서 확인할 빈칸|S07
-glossary.key_gap.meaning|정답 자체에서 빠졌거나 검토해야 하는 곳입니다. 예: 시안은 성분 B의 출처 칸 1개를 확인 대상으로 표시합니다.|S07
+glossary.key_gap.meaning|정답 자체에서 빠졌거나 검토해야 하는 곳입니다. 예: 성분 B의 출처 칸 1개를 확인 대상으로 표시합니다.|S07
 glossary.concurrency.term|한꺼번에 보내는 AI 요청 수(동시 호출)|S07
 glossary.concurrency.meaning|동시에 처리하도록 보낸 요청의 수입니다. 예: 비교 화면의 두 실행은 한 번에 2개씩 보냈습니다.|S07
 glossary.rows.term|한 줄에 한 행씩 받는 답(행 형식)|S07
@@ -2161,4 +2580,201 @@ glossary.exposure.term|작업장 공기의 기준(노출기준)|S07
 glossary.exposure.meaning|공기 속 물질이 얼마나 있어도 되는지 정한 값이 허용 농도입니다. 예: 가짜 원문의 성분 A 허용 농도는 5 mg/m³입니다.|S07
 glossary.concentration_unit.term|공기 속 물질의 양을 나타내는 단위(mg/m³)|S07
 glossary.concentration_unit.meaning|공기 1세제곱미터에 든 물질의 양을 밀리그램으로 나타냅니다. 예: 5 mg/m³는 공기 1세제곱미터에 물질 5밀리그램이 있다는 뜻입니다.|S07
+glossary.twa.term|8시간 평균 허용 농도(TWA)|S07 용어 · 말풍선
+glossary.twa.meaning|하루 8시간 일할 때 평균으로 넘지 말아야 하는 공기 중 농도입니다. 예: TWA 5 mg/m³는 8시간 평균이 5 mg/m³를 넘지 않아야 한다는 뜻입니다.|S07 용어 · 말풍선
+glossary.stel.term|15분 허용 농도(STEL)|S07 용어 · 말풍선
+glossary.stel.meaning|짧은 시간(보통 15분) 동안 넘지 말아야 하는 공기 중 농도입니다. 예: STEL 10 mg/m³는 15분 평균이 10 mg/m³를 넘지 않아야 한다는 뜻입니다.|S07 용어 · 말풍선
+glossary.acgih.term|미국 산업위생 전문가 협의회(ACGIH)|S07 용어 · 말풍선
+glossary.acgih.meaning|작업장 노출기준을 권고하는 미국 단체입니다. 예: 같은 성분에 국내기준과 ACGIH 값이 따로 있을 수 있습니다.|S07 용어 · 말풍선
+glossary.ld50.term|실험동물 절반이 죽는 양(LD50)|S07 용어 · 말풍선
+glossary.ld50.meaning|먹이거나 피부에 바른 양으로 잰 독성 값입니다. 값이 작을수록 독성이 큽니다. 예: LD50 300 mg/kg은 몸무게 1kg당 300 mg입니다.|S07 용어 · 말풍선
+glossary.lc50.term|생물 절반이 죽는 농도(LC50)|S07 용어 · 말풍선
+glossary.lc50.meaning|공기나 물에 든 농도로 잰 독성 값입니다. 값이 작을수록 독성이 큽니다. 예: LC50 5 mg/L는 물 1L에 5 mg입니다.|S07 용어 · 말풍선
+glossary.ec50.term|생물 절반에 영향을 주는 농도(EC50)|S07 용어 · 말풍선
+glossary.ec50.meaning|물벼룩이나 조류 같은 물속 생물의 절반에 영향을 주는 농도입니다. 값이 작을수록 독성이 큽니다. 예: EC50 2 mg/L는 물 1L에 2 mg입니다.|S07 용어 · 말풍선
+glossary.stop_order.term|켜 둔 서버를 끄는 순서|S07 용어 · 말풍선
+glossary.stop_order.meaning|시험으로 돌아가기는 서버를 끄지 않습니다. 결과를 본 뒤 AI 켜기와 비용에 다시 와서 끕니다. 예: 시험으로 돌아가기 → 결과 확인 → 서버 지우고 요금 멈추기.|S07 용어 · 말풍선
 
+### 표에 없던 키 — 글은 위 표나 UI_TEXT와 같습니다
+
+11/2 step 6에서 모든 키가 자기 행을 갖도록 더했습니다. 안내(`guide.source.image_note`, `guide.ai.steps`, `guide.ai.return_order`, `guide.trial.steps_note`) 넷은 이번 step의 새 글입니다. `guide.screens.G03.lead`, `guide.data.source.change`, `guide.data.answers.change` 셋은 이번 step에 고친 글입니다. 나머지는 글을 바꾸지 않았습니다.
+
+키|글|쓰는 곳
+---|---|---
+compare.conditions.labels.모델|AI 모델|S04
+compare.conditions.labels.입력 판|원문 글자 묶음|S04
+compare.criteria.same|같음|S04
+compare.prompt.rows|한 줄에 한 행씩 받는 답(행 형식)|S04
+compare.values.kind|문제 종류|S04
+compare.values.content|기록된 내용|S04
+compare.rows.table|표|S04
+compare.target_line|목표 점수 {line}점|S04
+compare.unknown|확인 안 됨|S04
+jobs.result.section|{section}번 부분|S03·S05
+jobs.status.failed|실패|S03·S05
+jobs.kind.try|한 부분 시험|S03·S05
+jobs.kind.compare|비교표|S03·S05
+jobs.record.progress|진행|S03·S05
+jobs.record.kind|종류|S03·S05
+jobs.form.model|AI 모델|S03·S05
+jobs.form.doc|문서|S03·S05
+jobs.form.section|{section}번 부분|S03·S05
+jobs.form.all|문서 전체 · 9개 부분|S03·S05
+jobs.form.prompt|AI에게 시킬 일(지시문)|S03·S05
+jobs.form.run_name|실행 이름|S03·S05
+score.criteria.msds_original|(MSDS 건수)|S01
+score.criteria.management_original|(관리정보)|S01
+score.criteria.product_original|(제품명)|S01
+score.criteria.signal_original|(신호어)|S01
+score.criteria.pictogram_original|(그림문자)|S01
+score.criteria.hazard_original|(H 코드)|S01
+score.criteria.precaution_original|(P 코드)|S01
+score.criteria.classification_original|(유해성 분류)|S01
+score.criteria.components_original|(구성성분(CAS))|S01
+score.criteria.component_fields_original|(구성성분 필드)|S01
+score.criteria.content_original|(함유량)|S01
+score.criteria.exposure_original|(8번 부분 · 노출기준)|S01
+score.criteria.physchem_required_original|(9번 부분 필수 물성)|S01
+score.criteria.physchem_other_original|(9번 부분 기타 물성)|S01
+score.criteria.acute_original|(11번 부분 급성독성)|S01
+score.criteria.toxicity_other_original|(11번 부분 기타 독성)|S01
+score.criteria.cmr_original|(11번 부분 CMR)|S01
+score.criteria.ecology_original|(12번 부분 생태)|S01
+score.criteria.domestic_original|(15번 부분 국내 규제)|S01
+score.criteria.regulation_concentration_original|(15번 부분 국내 규제 기준농도)|S01
+score.criteria.foreign_original|(15번 부분 해외)|S01
+score.criteria.transport_original|(14번 부분 운송)|S01
+score.criteria.narrative_original|(서술형)|S01
+score.summary.target_line|목표 점수 {line}점|S01
+score.basis.fallback|확인 안 됨|S01
+score.item_names.MSDS 건수|문서 안 안전자료 수|S01
+score.item_names.관리정보|작성일과 개정 정보|S01
+score.item_names.제품명|제품과 회사 정보|S01
+score.item_names.신호어|위험을 알리는 말|S01
+score.item_names.그림문자|위험 표시 그림|S01
+score.item_names.H 코드|위험 문구 번호|S01
+score.item_names.P 코드|예방 문구 번호|S01
+score.item_names.유해성 분류|위험의 종류와 정도|S01
+score.item_names.구성성분(CAS)|들어 있는 성분 목록|S01
+score.item_names.구성성분 필드|성분 이름과 번호|S01
+score.item_names.함유량|성분이 들어 있는 양|S01
+score.item_names.8항 노출기준|작업장 공기 중 허용 농도|S01
+score.item_names.9항 필수 물성|주요 물리·화학 성질|S01
+score.item_names.9항 기타 물성|그 밖의 물리·화학 성질|S01
+score.item_names.11항 급성독성|짧은 노출의 독성|S01
+score.item_names.11항 기타 독성|그 밖의 독성|S01
+score.item_names.11항 CMR|암·유전·생식 관련 독성|S01
+score.item_names.12항 생태|환경에 미치는 영향|S01
+score.item_names.15항 국내 규제|국내 규제 해당 여부|S01
+score.item_names.15항 국내 규제 기준농도|국내 규제의 기준 농도|S01
+score.item_names.15항 해외|해외 규제 해당 여부|S01
+score.item_names.14항 운송|운송에 필요한 정보|S01
+score.item_names.서술형|문장으로 쓰인 설명|S01
+score.item_methods.MSDS 건수|자료를 몇 건으로 나눴는지 비교|S01
+score.item_methods.관리정보|번호와 날짜와 개정 횟수 비교|S01
+score.item_methods.제품명|이름과 긴급 전화 비교|S01
+score.item_methods.신호어|위험·경고 같은 말 비교|S01
+score.item_methods.그림문자|선택한 위험 그림 종류 비교|S01
+score.item_methods.H 코드|위험 문구 번호의 목록 비교|S01
+score.item_methods.P 코드|예방 문구 번호의 목록 비교|S01
+score.item_methods.유해성 분류|위험 종류와 단계의 짝 비교|S01
+score.item_methods.구성성분(CAS)|성분 식별 번호로 목록 비교|S01
+score.item_methods.구성성분 필드|성분별 이름과 국내 번호 비교|S01
+score.item_methods.함유량|부등호와 수치와 단위 비교|S01
+score.item_methods.8항 노출기준|성분과 기준 종류와 수치 비교|S01
+score.item_methods.9항 필수 물성|끓는점 등 주요 성질 비교|S01
+score.item_methods.9항 기타 물성|색과 냄새 등 나머지 성질 비교|S01
+score.item_methods.11항 급성독성|먹음·피부·흡입 독성 비교|S01
+score.item_methods.11항 기타 독성|자극과 과민 반응 비교|S01
+score.item_methods.11항 CMR|세 종류 독성의 분류 비교|S01
+score.item_methods.12항 생태|생물 독성과 분해성 비교|S01
+score.item_methods.15항 국내 규제|규제 항목과 해당 여부 비교|S01
+score.item_methods.15항 국내 규제 기준농도|규제가 적용되는 농도 비교|S01
+score.item_methods.15항 해외|해외 규제 항목과 해당 여부 비교|S01
+score.item_methods.14항 운송|운송 번호와 위험 등급 비교|S01
+score.item_methods.서술형|응급조치 등 문장의 글자 유사도 비교|S01
+score.cause_keys.missing|빠뜨림|S01
+score.cause_keys.wrong|틀림|S01
+score.cause_keys.made|지어냄|S01
+score.cause_names.missing|못 뽑음|S01
+score.cause_names.wrong|틀림|S01
+score.cause_names.made|없는 값을 만듦|S01
+score.actions.retest|이 부분 다시 시험하기|S01
+source.empty.pages|원문 쪽 자료가 없습니다. 할 일: 원문이 있는 문서 묶음을 고르세요.|S02
+source.empty.lines|이 쪽에는 줄 글자가 없습니다.|S02
+source.labels.run|실행|S02
+source.labels.doc|문서|S02
+source.labels.section|부분|S02
+source.labels.page|쪽|S02
+source.labels.selected|선택됨|S02
+source.kinds.wrong|틀림|S02
+source.kinds.made|만듦|S02
+source.kinds.missing|못 뽑음|S02
+source.kinds.same|정답과 같음|S02
+source.section_names.1|제품과 회사|S02
+source.section_names.2|위험성|S02
+source.section_names.4|응급조치|S02
+source.section_names.5|화재 대처|S02
+source.section_names.6|누출 대처|S02
+source.section_names.7|취급과 저장|S02
+source.section_names.8|노출 방지와 보호구|S02
+source.section_names.9|물리·화학 성질|S02
+source.section_names.10|안정성과 반응|S02
+source.section_names.11|독성|S02
+source.section_names.12|환경 영향|S02
+source.section_names.13|폐기|S02
+source.section_names.14|운송|S02
+source.section_names.16|그 밖의 정보|S02
+source.table_names.components|성분|S02
+source.table_names.exposure_limits|노출기준|S02
+source.table_names.physchem|물리·화학 성질|S02
+source.table_names.toxicity|독성|S02
+source.table_names.cmr|암·유전·생식 관련 독성|S02
+source.table_names.ecotox|환경에 미치는 영향|S02
+source.table_names.transport|운송|S02
+source.table_names.regulations|규제|S02
+source.table_names.extras|표 밖에 남은 값|S02
+source.field_names.q|값|S02
+servers.models.connected|연결됨|S06
+servers.models.off|AI 꺼짐|S06
+servers.models.empty|등록된 모델이 없습니다.|S06
+servers.models.tag|AI 설정의 짧은 이름(모델 태그)|S06
+journey.band.open|처음 사용 안내 열기|안내
+help.settings.runpod_key_name|RUNPOD_VLLM_API_KEY|S07
+help.settings.company_url_name|RNGD_BASE_URL|S07
+help.navigation.example|예|S07
+guide.chapters.1|시작|안내
+guide.chapters.5|완료|안내
+guide.close.action|안내 닫기|안내
+guide.close.cancel|안내 계속하기|안내
+guide.screens.G03.lead|1 최근 결과에서 [문제의 원문 보기] → 2 원문 줄 확인 → 3 [이 부분 다시 시험하기]|안내 G03
+guide.example.brand|화학 안전문서 AI 결과 검토|안내
+guide.example.score_unit|/ 100점|안내
+guide.example.answer_label|정답|안내
+guide.example.set|문서 묶음|안내
+guide.example.document|문서|안내
+guide.example.part|부분|안내
+guide.example.instruction_title|AI에게 시킬 일|안내
+guide.example.ai_title|AI 켜기와 비용|안내
+guide.example.model|AI 모델|안내
+guide.example.model_duration|15~25분|안내
+guide.example.guide_return|안내로 돌아가기|안내
+guide.practice_skip|건너뛰기|안내
+guide.target|{doc} · {section}번 부분|안내
+guide.ready.states.present|있음|안내
+guide.ready.states.absent|없음|안내
+guide.ready.states.unknown|확인 안 됨|안내
+guide.source.key_value|정답|안내
+guide.practice.prompt|AI에게 시킬 일|안내
+guide.ai.return|안내로 돌아가기|안내
+guide.trial.retry|다시 시험|안내
+guide.trial.complete|완료|안내
+guide.trial.progress|진행 중|안내
+guide.skipped|건너뜀|안내
+guide.choices.selected|선택됨|안내
+guide.source.image_note|원문 맞춰 보기 화면의 그림은 쪽 안의 위치를 확인하는 곳이에요. 글자는 원문 글자 칸에서 읽어요.|안내 G07
+guide.ai.steps|AI 켜기와 비용 화면은 서버 고르기 → 켜기 → 준비 기다리기 → 쓰고 나서 끄기 순서예요.|안내 G10
+guide.ai.return_order|AI가 준비되면 [안내로 돌아가기]를 눌러요. 돌아가도 서버는 꺼지지 않아요. 다 쓴 뒤 그 화면에 다시 와서 꺼요.|안내 G10
+guide.trial.steps_note|다시 시험 화면은 무엇을 → 어느 AI로 → 무엇을 시킬지 → 시험 → 결과 순서예요. 이 카드는 앞의 세 단계를 미리 채워 둬요.|안내 G11
+guide.data.source.change|두 화면 뒤에서 바로 고를 수 있어요. 안내를 닫은 뒤에는 위쪽 막대의 [문서 묶음]을 눌러요. 그 묶음으로 돌린 저장 결과만 보여요.|안내 G16
+guide.data.answers.change|다음 화면에서 바로 고를 수 있어요. 안내를 닫은 뒤에는 위쪽 막대의 [정답]을 눌러요. 저장된 결과를 AI 없이 다시 채점해요.|안내 G17
