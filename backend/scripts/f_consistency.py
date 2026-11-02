@@ -44,6 +44,12 @@ def _line(f):
 
 
 def main():
+    # Windows 에서 출력을 파이프(| Select-Object 등)로 넘기면 cp949 로 인코딩된다. cp949 에 없는 글자(—, ≤ 등)는
+    # 멈추지 않고 '?'로 바꿔 찍는다. 저장하는 JSON 은 항상 UTF-8 이라 영향 없음.
+    try:
+        sys.stdout.reconfigure(errors="replace")
+    except (AttributeError, ValueError):
+        pass
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("paths", nargs="+", help="추출 JSON 파일 또는 폴더")
     ap.add_argument("--db", action="store_true", help="실제 HTODB(로컬 PostgreSQL) 사용. 없으면 샘플 CSV")
