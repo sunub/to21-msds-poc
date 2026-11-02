@@ -15,7 +15,7 @@ from .label import derive_label
 from .label_compare import compare_label
 from .loader import load_inputs
 from .mixture.build_components import build_components
-from .mixture.class_lookup_db import make_db_class_lookup, make_db_tox_lookup
+from .mixture.class_lookup_db import make_db_class_lookup, make_db_info_lookup, make_db_tox_lookup
 from .mixture.classify_mixture import classify_mixture_all
 from .mixture.physical import physical_inputs
 from .mixture.rules_loader import load_mixture_rules
@@ -129,7 +129,7 @@ def _label(item: dict) -> tuple[list[dict], list[dict]]:
 
 
 def _mixture_2(item: dict, repo) -> tuple[dict, list, list]:
-    b = build_components(item, make_db_class_lookup(repo), make_db_tox_lookup(repo))
+    b = build_components(item, make_db_class_lookup(repo), make_db_tox_lookup(repo), make_db_info_lookup(repo))
     results = classify_mixture_all(b["components"], b["mixture_props"], state=b["mixture_props"].get("STATE"),
                                    physical=physical_inputs(item))
     out = aggregate_verdicts(results, (item.get("hazard") or {}).get("classes"))

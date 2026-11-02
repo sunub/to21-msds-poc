@@ -27,7 +27,7 @@ from msds.compliance.htodb.regulation import RegulationProvider  # noqa: E402
 from msds.compliance.loader import load_inputs  # noqa: E402
 from msds.compliance.sec15_judge import judge_sec15  # noqa: E402
 from msds.compliance.mixture.build_components import build_components  # noqa: E402
-from msds.compliance.mixture.class_lookup_db import make_db_class_lookup, make_db_tox_lookup  # noqa: E402
+from msds.compliance.mixture.class_lookup_db import make_db_class_lookup, make_db_info_lookup, make_db_tox_lookup  # noqa: E402
 from msds.compliance.mixture.classify_mixture import classify_mixture_all  # noqa: E402
 from msds.compliance.mixture.physical import physical_inputs  # noqa: E402
 from msds.compliance.mixture.rules_loader import load_mixture_rules  # noqa: E402
@@ -78,18 +78,18 @@ def _key(v):
 
 def _lookups(source):
     if source == "db":
-        return make_db_class_lookup(), make_db_tox_lookup(), "HTODB 로컬 PostgreSQL"
+        return make_db_class_lookup(), make_db_tox_lookup(), make_db_info_lookup(), "HTODB 로컬 PostgreSQL"
     repo = CsvRepo()
     if not repo.available():
         raise FileNotFoundError(f"지식DB 샘플 CSV가 없음: {repo.folder}")
-    return make_db_class_lookup(repo), make_db_tox_lookup(repo), "to21_sample CSV"
+    return make_db_class_lookup(repo), make_db_tox_lookup(repo), make_db_info_lookup(repo), "to21_sample CSV"
 
 
 def run(source: str = "csv") -> dict:
     """25번 황산을 채점기에 넣어 비교에 쓰는 부분만 돌려준다. 같은 입력이면 항상 같은 값이어야 한다."""
     item = json.loads(INPUT.read_text(encoding="utf-8"))["msds"][0]
-    class_lookup, tox_lookup, _ = _lookups(source)
-    b = build_components(item, class_lookup, tox_lookup)
+    class_lookup, tox_lookup, info_lookup, _ = _lookups(source)
+    b = build_components(item, class_lookup, tox_lookup, info_lookup)
     results = classify_mixture_all(b["components"], b["mixture_props"], state=b["mixture_props"].get("STATE"),
                                    physical=physical_inputs(item))
     out = aggregate_verdicts(results, item["hazard"]["classes"])
@@ -274,7 +274,7 @@ def main():
         now, path = (run(source), FIXED) if s == "2" else (run15(source), FIXED15)
         if a.write:
             path.parent.mkdir(parents=True, exist_ok=True)
-            name = _lookups(source)[2]
+            name = _lookups(source)[3]
             fixed = build_fixed(now, name) if s == "2" else build_fixed15(now, name)
             path.write_text(json.dumps(fixed, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
             print(f"{s}항 고정본을 썼음: {path.relative_to(ROOT)}  {fixed['summary']}")
