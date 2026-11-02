@@ -4,6 +4,7 @@ TO21 패키지와 다른 점은 시험마다 이유를 적었다. 입력값은 �
 """
 import pytest
 
+from msds.compliance.consistency import run_consistency
 from msds.compliance.htodb.csv_repo import CsvRepo
 from msds.compliance.mixture.build_components import build_components
 from msds.compliance.mixture.class_lookup_db import make_db_class_lookup, make_db_info_lookup, make_db_tox_lookup
@@ -111,3 +112,35 @@ def test_P05_수생_M계수(repo):
     r = _run(repo, [("TEST-X", 2), ("7732-18-5", 98)])
     assert _cat(r[("ENV_AQ_ACUTE", None)]) == "분류안됨"  # 2% x M10 = 20 < 25
     assert _cat(r[("ENV_AQ_CHRONIC", None)]) == "2"  # 10 x 20 = 200 >= 25
+
+
+def _toluene_with_benzene(content, cat="1A"):
+    benzene = {"seq": 2, "cas_no": "71-43-2", "name": "벤젠", "content": content, "content_note": "불순물", "trade_secret": False}
+    return {"msds": [{"composition": {"type": "단일물질"}, "hazard": {"classes": [{"class_code": "HH_CARCINOGEN", "category": cat}]},
+                      "components": [{"seq": 1, "cas_no": "108-88-3", "name": "톨루엔", "content": _q(99.5, "%"), "trade_secret": False}, benzene],
+                      "physchem": [_prop("APPEARANCE_STATE", None, text="액체")]}]}
+
+
+def _carcinogen(repo, doc):
+    c = run_consistency(doc, repo)["consistency"]
+    assert c["product_type"]["value"] == "단일물질"
+    return next(f for f in c["findings"] if f["class_code"] == "HH_CARCINOGEN")
+
+
+def test_불순물이_한계농도_미만이면_적용하지_않는다(repo):  # 설계서 17장 톨루엔 99.5% + 벤젠 0.05%
+    assert _carcinogen(repo, _toluene_with_benzene(_q(0.05, "%")))["our_value"]["low"] != "1A"
+
+
+def test_불순물이_한계농도_이상이면_그_항목만_혼합물_규칙이다(repo):
+    f = _carcinogen(repo, _toluene_with_benzene(_q(0.2, "%")))
+    assert (f["verdict"], f["our_value"]["low"]) == ("일치", "1A") and "불순물 벤젠" in f["reason"]
+
+
+def test_불순물_함량이_기준을_걸치면_경계다(repo):
+    rng = {**_q(None, "%"), "raw": "0.05~0.2", "lower": 0.05, "lower_op": ">=", "upper": 0.2, "upper_op": "<="}
+    assert _carcinogen(repo, _toluene_with_benzene(rng))["verdict"] == "경계"
+
+
+def test_불순물_함량이_없으면_근거부족이다(repo):
+    f = _carcinogen(repo, _toluene_with_benzene({"raw": None, "status": "자료없음"}))
+    assert f["verdict"] == "근거부족" and "불순물 함량" in f["reason"]
