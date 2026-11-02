@@ -1181,4 +1181,6 @@ assert.equal(el('source-retest').disabled,false);
 sourceGoSection(4);sourceRenderFrame();
 assert.equal(el('source-retest').disabled,true);
 assert.ok(el('source-actions').textContent.includes(T('steps.source.not_extracted')));
+// '다시 시험하세요'라는 글과 나란히 놓이면 서로 어긋난다
+assert.ok(!el('source-actions').textContent.includes(T('steps.source.compare_note')));
 """)
