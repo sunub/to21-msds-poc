@@ -62,7 +62,11 @@ def _map_cats(class_code) -> tuple:
     return tuple(dict.fromkeys(r["category"] for _, r in rows if r["class_code"] == class_code))
 
 
-_EFFECT_WORDS = ("마취", "호흡기")
+_EFFECT_WORDS = {"마취": "마취", "졸음": "마취", "현기증": "마취", "호흡기": "호흡기", "기도": "호흡기"}  # H336·H335 문구도 같은 효과다
+
+
+def _effects(text) -> set[str]:
+    return {v for k, v in _EFFECT_WORDS.items() if k in text}
 
 
 def _same_effect(msds_cat, ours):
@@ -70,8 +74,7 @@ def _same_effect(msds_cat, ours):
     if not (msds_cat and ours and ":" in msds_cat and ":" in ours):
         return False
     (mh, me), (oh, oe) = (s.split(":", 1) for s in (msds_cat, ours))
-    words = lambda s: {w for w in _EFFECT_WORDS if w in s}
-    return mh.strip() == oh.strip() and bool(words(oe)) and words(oe) <= words(me)
+    return mh.strip() == oh.strip() and bool(_effects(oe)) and _effects(oe) <= _effects(me)
 
 
 def _rank(cat, order):
@@ -154,12 +157,15 @@ def _compare_with_effects(cc, form, res, extra, msds, order):
     m = msds or []
     stated, others = [x for x in m if is_effect(x)], [x for x in m if not is_effect(x)]
     has = lambda ours: any(_same_effect(x, ours) or x.strip() == "3" for x in stated)
-    wrote = lambda x, ours: x.strip() == "3" or any(_same_effect(x, o) for o in ours)
+    ours_effects = lambda ours: set().union(*(_effects(o) for o in ours)) if ours else set()
+    wrote = lambda x, ours: x.strip() == "3" or (bool(_effects(x)) and _effects(x) <= ours_effects(ours))  # 한 칸에 여러 효과를 적어도 각각 본다
     main = _compare_one(cc, form, res, others, order)
     missing = [o for o in low if not has(o)]
     over = [x for x in stated if not wrote(x, high)]
     if main["verdict"] == MISMATCH:  # 구분 1·2가 틀린 것이 더 무겁다. 구분3 표시 차이로 가리지 않는다
         row = {**main, "msds_value": m or None}
+        if stated:
+            row["reason"] = f"{main['reason'].replace(', MSDS에 항목 없음', '')}, MSDS는 {', '.join(stated)}만 적음"
     elif low != high and not over and not missing:
         row = _row(cc, form, BORDER, RULE_IDS["border"], msds=m, reason="함량 범위에 따라 구분3 해당 여부가 갈림")
     elif missing:
@@ -235,7 +241,7 @@ def aggregate_verdicts(results, msds_classes, *, rules=None, order=None) -> dict
                              "reason": (res or {}).get("reason") or r.get("skipped", "")})
         elif res["status"] == "근거부족":
             verdicts.append(_lack(cc, form, msds, res["low"], res["high"], res.get("reason") or "우리 결과가 근거부족"))
-        elif (r.get("extra") or {}).get("low") or (r.get("extra") or {}).get("high"):
+        elif cc == "HH_STOT_SE" and ((r.get("extra") or {}).get("low") or (r.get("extra") or {}).get("high")):
             verdicts.append(_compare_with_effects(cc, form, res, r["extra"], msds, _order(cc, form, rules, order)))
         else:
             verdicts.append(_compare_one(cc, form, res, msds, _order(cc, form, rules, order)))

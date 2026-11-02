@@ -258,6 +258,7 @@ _AQ_DESCRIPTORS = ("LC50", "EC50", "ERC50", "EBC50", "LL50", "EL50", "LEC50", "I
 _AQ_UNIT_TO_MG_L = {"mg/l": 1.0, "㎎/ℓ": 1.0, "㎎/l": 1.0, "mg/ℓ": 1.0, "ug/l": 0.001, "µg/l": 0.001, "μg/l": 0.001}
 _AQ_ENDPOINTS = ("ECO_FISH", "ECO_DAPHNIA", "ECO_CRUST", "ECO_ALGA", "ECO_AQUATIC")
 _AQ_CAT1_MAX = 1.0  # mg/L
+_AQ_ACUTE_MAX_HOURS = 96  # 그보다 긴 시험은 만성값이다
 
 
 def _own_values(rows, refs):
@@ -326,7 +327,7 @@ def _cross_checks(i, item, ctx):
             if (cats or ["분류안됨"]) != [cat] and cat not in cats:
                 out.append(_cross_finding(i, cc, form, cats, cat, f"내부 불일치: 11항 값 {value:g}이면 {cat}인데 2항은 {_one(cats) or '기재 없음'}" + (f" (흡입 형태는 성상으로 추정한 {form})" if form in estimated else ""), ctx))
     aq = [r["q"]["value"] * _AQ_UNIT_TO_MG_L[str(r["q"].get("unit")).lower()] for r in _own_values(item.get("ecotox") or [], refs)
-          if str(r.get("endpoint")).startswith(_AQ_ENDPOINTS) and str(r.get("descriptor")).upper().replace("(", "").replace(")", "") in _AQ_DESCRIPTORS and str(r["q"].get("unit")).lower() in _AQ_UNIT_TO_MG_L]
+          if str(r.get("endpoint")).startswith(_AQ_ENDPOINTS) and (_exposure_hours(r) or 0) <= _AQ_ACUTE_MAX_HOURS and str(r.get("descriptor")).upper().replace("(", "").replace(")", "") in _AQ_DESCRIPTORS and str(r["q"].get("unit")).lower() in _AQ_UNIT_TO_MG_L]
     if aq:
         value, cats = min(aq), [c.get("category") for c in stated.get("ENV_AQ_ACUTE", [])]
         if (value <= _AQ_CAT1_MAX) != ("1" in cats):
@@ -336,6 +337,9 @@ def _cross_checks(i, item, ctx):
 
 
 def _class_status(row, raw):
+    our = row.get("our_value") or {}
+    if our.get("low") != our.get("high"):
+        return "경계"
     if raw and (raw.get("result") or {}).get("status") in ("확정", "경계", "근거부족") and row["verdict"] not in ("경계", "근거부족"):
         return raw["result"]["status"]
     return row["verdict"] if row["verdict"] in ("경계", "근거부족") else "확정"
