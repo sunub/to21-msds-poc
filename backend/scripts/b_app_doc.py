@@ -35,6 +35,7 @@ from msds.extract.inputs import load_document, read_page_lines
 
 CELL_SEP = " | "
 _PAGE_JSON = re.compile(r"^p(\d+)\.json$")
+DEFAULT_DPI = 200                                           # C의 전처리 기본값 (pdf_pipeline)
 _SKIP_TOP = ("evidence", "validation")
 _NARR_CODE = re.compile(r"^S(\d+)_")                       # 서술 항목 코드 S4_EYE → 4항 (명세서 5-3_서술항목)
 _ROW = re.compile(r"^(\w+)\[(\d+)\]\.?(.*)$")               # toxicity[3].q
@@ -117,14 +118,36 @@ def _entries(doc_dir: Path) -> dict[int, dict[str, deque]]:
     out: dict[int, dict[str, deque]] = {}
     for p in doc_dir.glob("p*.json"):
         m = _PAGE_JSON.match(p.name)
-        if not m:
-            continue
-        by_key: dict[str, deque] = defaultdict(deque)
-        for e in json.loads(p.read_text(encoding="utf-8")).get("entries") or []:
-            box, k = e.get("bbox"), _key(e.get("text") or "")
-            if k and isinstance(box, list) and len(box) == 4:
-                by_key[k].append(box)
-        out[int(m.group(1))] = by_key
+        if m:
+            out[int(m.group(1))] = _boxes_by_key(json.loads(p.read_text(encoding="utf-8")).get("entries"), "bbox")
+    return out or _trace_entries(doc_dir)
+
+
+def _boxes_by_key(items, box_key: str) -> dict[str, deque]:
+    by_key: dict[str, deque] = defaultdict(deque)
+    for e in items or []:
+        box, k = e.get(box_key), _key(e.get("text") or "")
+        if k and isinstance(box, list) and len(box) == 4:
+            by_key[k].append(box)
+    return by_key
+
+
+def _trace_entries(doc_dir: Path) -> dict[int, dict[str, deque]]:
+    """version17은 pNNN.json 없이 item_trace.json에 쪽별 글자 조각과 좌표를 둔다. 없거나 깨졌으면 빈 값이다.
+    글자층에서 읽은 쪽(pdf_xycut)의 좌표는 PDF 단위(1/72인치)라 쪽 그림 픽셀로 바꾼다. OCR 쪽은 이미 그림 픽셀이다."""
+    try:
+        trace = json.loads((doc_dir / "item_trace.json").read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return {}
+    try:
+        dpi = json.loads((doc_dir / "meta.json").read_text(encoding="utf-8")).get("dpi") or DEFAULT_DPI
+    except (OSError, ValueError):
+        dpi = DEFAULT_DPI
+    out = {}
+    for page in trace:
+        scale = dpi / 72 if page.get("mode") == "pdf_xycut" else 1
+        items = [{**e, "box": [v * scale for v in e["box"]]} for e in page.get("final_items") or [] if isinstance(e.get("box"), list)]
+        out[page["page"]] = _boxes_by_key(items, "box")
     return out
 
 

@@ -884,7 +884,7 @@ source.fields.approx|근삿값 여부|S02
 source.fields.dp|소수 자릿수|S02
 source.fields.cas_no|물질 식별 번호(CAS)|S02
 source.fields.ke_no|국내 물질 번호(KE)|S02
-source.fields.comp_ref|성분 참조|S02
+source.fields.comp_ref|성분 번호|S02
 source.title|원문과 AI의 값을 비교하세요.|S02,S08
 source.problem_count|문서 {count}건에서 찾은 문제 값|S02,S08
 source.unit_first_use|값을 누르면 원문이 바뀝니다. mg/m³는 공기 1세제곱미터에 든 물질의 양(밀리그램)입니다.|S02,S08
@@ -2185,6 +2185,93 @@ steps.source.all_criteria|기준 {count}개 모두 보기|S02
 steps.source.top_criteria|큰 문제만 보기|S02
 steps.source.run_failed|이 결과의 점수를 읽지 못해 항목 표를 보이지 않습니다. 할 일: 다시 불러오세요.|S02
 steps.source.list_title|문서 {count}건의 문제 행|S02
+steps.source.list_title_one|{doc}의 문제 행|S02
+steps.source.earlier_rows|앞쪽 {count}행 보기|S02
+steps.source.evidence_title|AI가 근거로 댄 줄|S02
+steps.source.choose_section|부분 고르기|S02
+source.labels.code_value|{name} ({code})|S02
+source.field_names.standard|기준 출처|S02
+source.field_names.form|물질 형태|S02
+source.field_names.kr_basis|국내 기준 근거|S02
+source.field_names.bio_medium|생물 시료|S02
+source.field_names.bio_timing|채취 시기|S02
+source.field_names.bio_determinant|측정 대상|S02
+source.field_names.notations|표기|S02
+source.field_names.prop_code|물성 항목|S02
+source.field_names.text_value|글로 적힌 값|S02
+source.field_names.data_source|자료 출처|S02
+source.field_names.endpoint|독성 항목|S02
+source.field_names.descriptor|독성 지표|S02
+source.field_names.species|시험 생물|S02
+source.field_names.sex|성별|S02
+source.field_names.duration_value|노출 시간|S02
+source.field_names.duration_unit|시간 단위|S02
+source.field_names.physical_form|물질 상태|S02
+source.field_names.exposure_type|노출 방식|S02
+source.field_names.converted|환산 여부|S02
+source.field_names.read_across_cas|유추 근거 물질 번호|S02
+source.field_names.guideline|시험 지침|S02
+source.field_names.classification|분류 판정|S02
+source.field_names.statements|설명 문장|S02
+source.field_names.hazard|유해성 종류|S02
+source.field_names.agency|평가 기관|S02
+source.field_names.class|등급|S02
+source.field_names.law|법률|S02
+source.field_names.item_code|규제 항목|S02
+source.field_names.item_raw|규제 항목(원래 표기)|S02
+source.field_names.applicable|해당 여부|S02
+source.field_names.threshold|기준량|S02
+source.field_names.qty|수량|S02
+source.field_names.qty_alt|다른 단위 수량|S02
+source.field_names.sub_class|세부 분류|S02
+source.field_names.cycle|주기|S02
+source.field_names.country|국가|S02
+source.field_names.value_raw|규제 값(원래 표기)|S02
+source.field_names.remark|참고|S02
+source.field_names.name_en|영어 이름|S02
+source.field_names.synonyms|다른 이름|S02
+source.field_names.ec_no|EC 번호|S02
+source.field_names.other_id|다른 식별 번호|S02
+source.field_names.other_id_type|다른 식별 번호의 종류|S02
+source.field_names.parent_seq|상위 성분 순번|S02
+source.field_names.content|함유량|S02
+source.field_names.content_note|함유량 메모|S02
+source.field_names.content_basis|함유량 기준|S02
+source.field_names.trade_secret|영업비밀 여부|S02
+source.field_names.approval_no|승인 번호|S02
+source.field_names.approval_expiry|승인 만료일|S02
+source.field_names.role|회사 역할|S02
+source.field_names.site|사업장|S02
+source.field_names.address|주소|S02
+source.field_names.postcode|우편번호|S02
+source.field_names.department|부서|S02
+source.field_names.contacts.type|연락처 종류|S02
+source.field_names.contacts.value|연락처|S02
+source.field_names.mode|운송 수단|S02
+source.field_names.basis_raw|근거 표기|S02
+source.field_names.regulated|규제 여부|S02
+source.field_names.un_no|UN 번호|S02
+source.field_names.shipping_name|운송 품명|S02
+source.field_names.hazard_class|위험 등급|S02
+source.field_names.sub_risk|부차 위험|S02
+source.field_names.packing_group|포장 등급|S02
+source.field_names.marine_pollutant|해양 오염 물질|S02
+source.field_names.ems_fire|비상 조치(화재)|S02
+source.field_names.ems_spill|비상 조치(누출)|S02
+source.field_names.item|품명|S02
+source.field_names.water_soluble|수용성 여부|S02
+source.field_names.grade|등급 표기|S02
+source.field_names.designated_qty|지정 수량|S02
+source.field_names.designated|지정폐기물 여부|S02
+source.field_names.waste_type|폐기물 종류|S02
+source.field_names.system|분류 체계|S02
+source.field_names.class_raw|분류(원래 표기)|S02
+source.field_names.h_code|H 코드|S02
+source.field_names.section_no|넣을 부분 번호|S02
+source.field_names.after_item|앞 항목|S02
+source.field_names.title_raw|원문 제목|S02
+source.field_names.reason|표 밖에 둔 이유|S02
+source.field_names.suggested_code|제안 코드|S02
 steps.source.filter_a11y|문제 종류|S02
 steps.source.kinds|틀림: 값이 다름 · 만듦: 정답에 없는 값 · 못 뽑음: AI가 놓친 값|S02
 steps.source.doc_rows|{doc} · {count}행|S02

@@ -490,9 +490,9 @@ await go('s03');await go('s02');atStep('compare');assert.equal(S.source.selectio
 """)
 
 
-def test_choose_left_list_is_rows_with_a_title_and_kind_counts_and_a_click_moves_on():
+def test_compare_left_list_is_rows_with_a_title_and_kind_counts_and_a_click_opens_the_row():
     run_js(fixture() + STEPS + r"""
-await go('s02');atStep('choose');
+await go('s02',{doc:'T21-X01',section:8});atStep('compare');
 // 칸이 아니라 행이다: 같은 행의 칸 둘은 단추 하나다.
 view.values.push({...view.values[1],path:'msds[0].exposure_limits[1].extra',field:'extra'});await sourceLoad(true);
 const button=rowButton(row(1));assert.ok(button);
@@ -500,7 +500,7 @@ assert.ok(button.textContent.includes('Fake row 1'));
 assert.ok(button.textContent.includes(T('source.kinds.wrong')));
 assert.ok(button.textContent.includes(T('steps.source.row_kind',{kind:T('source.kinds.wrong'),count:2})));
 assert.equal(el('source-problem-list').querySelectorAll('[data-row-id="'+row(1)+'"]').length,1);
-await button.click();atStep('compare');
+await button.click();await flush();atStep('compare');
 assert.equal(sourceCurrentRow().id,row(1));
 """)
 
@@ -538,11 +538,13 @@ def test_choose_table_opens_a_criterion_that_is_not_the_top_problem_across_its_d
     run_js(fixture() + STEPS + r"""
 await go('s02');
 const buttons=el('source-top').querySelector('tbody').querySelectorAll('tr')[1].querySelectorAll('button');
-// 이름은 왼쪽 목록만 바꾼다. 단추가 2단계로 간다.
-await buttons[0].click();atStep('choose');assert.equal(S.source.item,'Other criterion');
+// 이름도 단추도 그 항목의 2단계로 간다. 목록에는 그 항목의 행만 있다.
+await buttons[0].click();await flush();atStep('compare');assert.equal(S.source.item,'Other criterion');
 assert.ok(rowButton(row(3)));assert.equal(rowButton(row(1)),null);
+assert.equal(S.source.selection.path,view.values[3].path);
+sourceGoStep('choose');
 const open=el('source-top').querySelector('tbody').querySelectorAll('tr')[1].querySelector('.source-open-criterion');
-await open.click();atStep('compare');assert.equal(S.source.item,'Other criterion');assert.equal(S.source.selection.path,view.values[3].path);
+await open.click();await flush();atStep('compare');assert.equal(S.source.item,'Other criterion');assert.equal(S.source.selection.path,view.values[3].path);
 """)
 
 
@@ -638,7 +640,27 @@ def test_picked_row_beyond_the_first_batch_of_the_list_is_still_drawn():
 for(let i=100;i<400;i++)view.values.unshift({...view.values[2],row:i,path:'msds[0].exposure_limits['+i+'].q',silver:{same:false,value:1,text:'1'},lines:['p2:L3']});
 await go('s02',{section:8,item:'Fake criterion',path:view.silver_only[0].path,kind:'missing'});
 assert.ok(el('source-problem-list').querySelector('[aria-pressed="true"]'));
-assert.ok(el('source-rows-more'));
+// 고른 행이 맨 끝 묶음에 있어 앞쪽 행을 여는 단추가 있다. 뒤쪽 행을 여는 단추는 아래 시험이 본다.
+assert.ok(el('source-rows-before'));
+""")
+
+
+def test_long_list_draws_only_the_batch_around_the_picked_row_and_can_widen_both_ways():
+    # 실제 가장 큰 문서의 11번 부분 260행에서 맨 끝 행을 열면 단추가 321개였다. 기준은 200개 이하다.
+    run_js(fixture() + STEPS + r"""
+for(let i=100;i<400;i++)view.values.unshift({...view.values[2],row:i,path:'msds[0].exposure_limits['+i+'].q',silver:{same:false,value:1,text:'1'},lines:['p2:L3']});
+await go('s02',{section:8,item:'Fake criterion',path:'msds[0].exposure_limits[250].q',kind:'wrong'});
+const drawn=()=>el('source-problem-list').querySelectorAll('.source-problem').length;
+assert.ok(el('source-problem-list').querySelector('[aria-pressed="true"]'));
+assert.equal(drawn(),60);assert.ok(el('screen-s02').querySelectorAll('button').length<=200);
+const before=el('source-rows-before').textContent,more=el('source-rows-more').textContent;
+assert.ok(before.includes('120'),before);
+el('source-rows-before').click();assert.equal(drawn(),120);
+assert.ok(el('source-rows-before').textContent.includes('60'));assert.equal(el('source-rows-more').textContent,more);
+el('source-rows-more').click();assert.equal(drawn(),180);
+assert.ok(el('source-problem-list').querySelector('[aria-pressed="true"]'));
+// 필터를 바꾸면 앞에서부터 다시 그린다
+el('source-filter-made').click();assert.equal(el('source-rows-before'),null);
 """)
 
 
@@ -920,3 +942,196 @@ el('source-page').querySelector('[data-line="p2:L3"]').click();
 assert.equal(document.activeElement.dataset.line,'p2:L3');assert.ok(document.activeElement.isConnected);
 """)
 
+
+
+# ── G5 전 고침: 메인 세션이 가짜 자료 앱으로 실제 브라우저에서 찾은 문제들 ──
+
+def test_old_picture_finishing_late_does_not_move_the_new_picture():
+    # 화면을 다시 그리면 그림이 새로 만들어진다. 버려진 그림의 load가 늦게 돌면 새 그림 칸의 스크롤을 0으로 되돌렸다.
+    run_js(fixture() + STEPS + r"""
+await go('s02',{section:8,item:'Fake criterion',pick:'mismatch'});
+const old=el('source-image').querySelector('img');
+sourceRenderPage();
+const fresh=el('source-image').querySelector('img');assert.notEqual(old,fresh);assert.equal(old.isConnected,false);
+const box=el('source-image');box.scrollTop=120;
+old.naturalWidth=1000;old.naturalHeight=1400;old.clientWidth=0;
+old.dispatchEvent({type:'load'});
+assert.equal(box.scrollTop,120);
+""")
+
+
+def test_picture_scrolls_to_the_box_when_it_is_on_screen():
+    run_js(fixture() + STEPS + r"""
+await go('s02',{section:8,item:'Fake criterion',pick:'mismatch'});
+const box=el('source-image'),img=box.querySelector('img');box.clientHeight=90;
+img.naturalWidth=1000;img.naturalHeight=1400;img.clientWidth=500;
+img.dispatchEvent({type:'load'});
+assert.equal(box.querySelectorAll('rect').length,1);
+assert.equal(box.scrollTop,20*500/1000-90/3);
+""")
+
+
+def test_filters_without_counts_show_only_the_kind_name():
+    # 항목을 고르기 전에는 API의 칸 수가 없다. '기록 없음'이라고 쓰면 아래 목록의 행과 어긋난다.
+    run_js(fixture() + STEPS + r"""
+await go('s02',{doc:'T21-X01',section:8});
+for(const kind of ['wrong','made','missing'])assert.equal(el('source-filter-'+kind).textContent,T('source.kinds.'+kind));
+assert.ok(!el('source-values').textContent.includes(T('common.legacy.cell_labels.c_none')));
+""")
+
+
+def test_list_title_names_the_document_when_only_one_is_listed():
+    run_js(fixture() + STEPS + r"""
+await go('s02',{doc:'T21-X01',section:8});
+const head=el('source-values').querySelector('.source-rows-head');
+assert.ok(head.textContent.includes(T('steps.source.list_title_one',{doc:'T21-X01'})),head.textContent);
+await go('s02',{section:8,item:'Fake criterion',pick:'mismatch'});await flush();
+const after=el('source-values').querySelector('.source-rows-head');
+assert.ok(after.textContent.includes(T('steps.source.list_title',{count:2})),after.textContent);
+""")
+
+
+def test_choose_step_has_one_list_and_one_strong_button():
+    # 시안처럼 ①에는 항목 표 하나만 둔다. 왼쪽 행 목록이 함께 있으면 어느 쪽부터 고를지 헷갈린다(처음 보는 사람 시험).
+    run_js(fixture() + STEPS + r"""
+await go('s02');atStep('choose');
+assert.equal(el('source-values').hidden,true);assert.equal(el('source-problem-list'),null);
+assert.equal(el('source-next').classList.contains('primary'),false);
+assert.equal(el('screen-s02').querySelectorAll('button.primary').length,1);
+assert.ok(el('source-top').querySelector('button.primary').classList.contains('source-open-criterion'));
+// 항목 이름을 눌러도 그 항목의 ②로 간다
+await el('source-top').querySelectorAll('.source-criterion-name')[1].click();await flush();
+atStep('compare');assert.equal(S.source.item,'Other criterion');assert.ok(el('source-problem-list'));
+""")
+
+
+def test_choose_step_without_a_table_keeps_next_as_the_strong_button():
+    run_js(fixture() + STEPS + r"""
+S.score.run={...runs[1]};
+await go('s02');atStep('choose');
+await change('source-section-choice','8');
+assert.ok(el('source-next').classList.contains('primary'));
+""")
+
+
+def test_row_table_shows_problem_cells_first():
+    run_js(fixture() + STEPS + r"""
+view.values.unshift({...view.values[2],row:1,path:'msds[0].exposure_limits[1].comp_ref',field:'comp_ref',items:['Fake criterion'],silver:{same:true,value:'1',text:'1'},lines:['p2:L3']});
+await go('s02',{section:8,item:'Fake criterion',path:'msds[0].exposure_limits[1].q',kind:'wrong'});
+const kinds=el('source-selection').querySelectorAll('tr.source-cell-row').map(r=>r.querySelector('.source-cell-state').textContent);
+assert.equal(kinds[0],T('source.kinds.wrong'));assert.equal(kinds.at(-1),T('source.kinds.same'));
+""")
+
+
+def test_evidence_of_an_ai_value_says_it_is_the_line_the_ai_gave():
+    run_js(fixture() + STEPS + r"""
+await go('s02',{section:8,item:'Fake criterion',pick:'wrong'});
+assert.ok(el('source-selection').textContent.includes(T('steps.source.evidence_title')));
+assert.ok(!el('source-selection').textContent.includes(T('source.evidence.title')));
+""")
+
+
+def test_section_choice_placeholder_is_short():
+    run_js(fixture() + STEPS + r"""
+await go('s02');
+const first=el('source-section-choice').querySelector('option');
+assert.equal(first.textContent,T('steps.source.choose_section'));
+assert.ok(T('steps.source.choose_section').length<=8);
+""")
+
+
+def test_picked_cell_is_shown_inside_the_comparison_area():
+    # 낮은 창에서는 표가 비교 영역보다 길다. 고른 칸이 영역 밖이면 영역 안에서만 움직인다. 창은 움직이지 않는다.
+    run_js(fixture() + STEPS + _LIST_LAYOUT + r"""
+const baseRect2=Node.prototype.getBoundingClientRect;
+Node.prototype.getBoundingClientRect=function(){
+ if(this.tagName==='tr'&&this.classList.contains('source-cell-row'))return {top:500-(el('source-selection').scrollTop||0),bottom:540-(el('source-selection').scrollTop||0),left:0,right:10};
+ if(this.id==='source-selection')return {top:100,bottom:324,left:0,right:10};
+ return baseRect2.call(this);
+};
+await go('s02',{section:8,item:'Fake criterion',pick:'wrong'});
+const panel=el('source-selection');
+assert.ok(panel.scrollTop>0,String(panel.scrollTop));
+const cell=panel.querySelector('.source-value[aria-pressed="true"]').closest('tr').getBoundingClientRect();
+assert.ok(cell.top>=100&&cell.bottom<=324,JSON.stringify(cell));
+assert.deepEqual(scrolled,[]);
+""")
+
+
+def test_comparison_area_starts_from_the_top_when_another_row_opens():
+    run_js(fixture() + STEPS + _LIST_LAYOUT + r"""
+await go('s02',{section:8,item:'Fake criterion',pick:'wrong'});
+const panel=el('source-selection');panel.scrollTop=80;
+const other=sourceVisibleRows().find(r=>!sourceIsCurrentRow(r));
+await sourceOpenRow(other);await flush();
+assert.equal(panel.scrollTop,0);
+""")
+
+
+def test_every_cell_of_the_row_table_has_its_own_name_not_the_table_name():
+    run_js(fixture() + STEPS + r"""
+await go('s02',{section:8,item:'Fake criterion',pick:'wrong'});
+const v=(table,field)=>({table,field});
+assert.equal(sourceFieldName(v('ecotox','endpoint')),T('source.field_names.endpoint'));
+assert.equal(sourceFieldName(v('toxicity','statements[1]')),T('source.field_names.statements'));
+assert.equal(sourceFieldName(v('companies','contacts[1].type')),T('source.field_names.contacts.type'));
+assert.equal(sourceFieldName(v('product','name')),T('source.value_titles.product.name'));
+assert.equal(sourceFieldName(v('hazard','nfpa.fire')),UI.source.value_titles.hazard['nfpa.fire']);
+assert.equal(sourceFieldName(v('regulations','no_such_field')),UI.source.table_names.regulations);
+""")
+
+
+def test_code_values_show_their_plain_name_next_to_the_code():
+    run_js(fixture() + STEPS + r"""
+await go('s02',{section:8,item:'Fake criterion',pick:'wrong'});
+const text=(field,value)=>sourceValueText({field},value);
+assert.equal(text('endpoint','ECO_ALGAE'),T('source.labels.code_value',{name:UI.source.row_parts.endpoint.ECO_ALGAE,code:'ECO_ALGAE'}));
+assert.equal(text('comp_ref','MIX'),T('source.labels.code_value',{name:T('source.rows.mix'),code:'MIX'}));
+assert.equal(text('standard','국내'),UI.source.row_parts.standard['국내']);
+assert.equal(text('comp_ref','1'),'1');
+assert.equal(text('endpoint','MADE_UP'),'MADE_UP');
+assert.equal(text('q',null),T('common.none'));
+""")
+
+
+def test_action_row_reaches_the_bottom_of_the_window_on_the_source_screen():
+    # 스크롤하지 않는 화면에서 sticky는 행동 줄을 부모 안에 가둔다. 그러면 창 아래에 32px이 남고 비교 영역 16px을 가린다.
+    rules = _css_rules()
+    assert 'position: static' in rules['#screen-s02 .step-actions']
+
+
+def test_picture_panel_keeps_its_choosers_in_the_head_and_the_range_in_the_drawer():
+    # 그림 칸의 높이를 그림에 쓴다. 시안도 머리 한 줄이다. 줄 구간은 기록이라 서랍으로 옮긴다.
+    run_js(fixture() + STEPS + r"""
+await go('s02',{section:8,item:'Fake criterion',pick:'mismatch'});
+const panel=el('source-image').parentElement,head=panel.querySelector('.source-panel-head');
+assert.ok(head.querySelector('h3'));assert.ok(head.querySelector('#source-page-select'));assert.ok(head.querySelector('#source-section-select'));
+const range=T('source.labels.range',{start:'p2:L3',end:'p2:L4'});
+assert.ok(!el('source-page').textContent.includes(range));
+assert.ok(openDrawer().textContent.includes(range));
+""")
+
+
+def test_comparison_head_always_says_where_the_evidence_is():
+    run_js(fixture() + STEPS + r"""
+const head=()=>el('source-selection').querySelector('.source-row-evidence').textContent;
+await go('s02',{section:8,item:'Fake criterion',pick:'wrong'});
+assert.ok(head().includes(T('steps.source.evidence_title')));assert.ok(head().includes(T('source.evidence.location',{page:2,line_no:3})));
+await go('s02',{section:8,item:'Fake criterion',pick:'missing'});
+assert.ok(head().includes(T('source.missing.evidence_title')));assert.ok(head().includes(T('source.missing.location',{page:2,line_no:4})));
+view.values[1].lines=[];await sourceLoad(true);
+await go('s02',{section:8,item:'Fake criterion',path:view.values[1].path,kind:'wrong'});
+assert.ok(head().includes(T('source.unlinked.title')));
+""")
+
+
+def test_drawer_starts_with_plain_summaries_and_ends_with_the_raw_records():
+    run_js(fixture() + STEPS + r"""
+await go('s02',{section:8,item:'Fake criterion',pick:'mismatch'});
+const titles=openDrawer().querySelectorAll('h3').map(n=>n.textContent);
+const at=key=>titles.indexOf(T(key));
+assert.ok(at('source.structure.doc_comparison')>=0);
+assert.ok(at('source.structure.doc_comparison')<at('steps.source.raw_value_title'),JSON.stringify(titles));
+assert.ok(at('source.estimation.expand')<at('steps.source.raw_value_title'),JSON.stringify(titles));
+assert.ok(at('steps.source.raw_value_title')<at('steps.source.target_title'),JSON.stringify(titles));
+""")

@@ -869,7 +869,7 @@ def test_s01_no_results_hides_run_selector_and_offers_next_step():
 
 
 def test_s02_direct_entry_starts_from_document_and_section_choice():
-    # 고르는 칸을 접지 않는다 (ADR-039). ①에 문서와 부분과 행 목록이 함께 있고, 큰 표는 미리 그리지 않는다.
+    # 고르는 칸을 접지 않는다 (ADR-039). ①에 문서와 부분이 있고, 행 목록은 ②에서 보며, 큰 표는 미리 그리지 않는다.
     from test_B_b_app_source_ui import fixture
     run_js(fixture() + FIX_VISIBLE + r"""
       view.values=Array.from({length:854},(_,i)=>({...view.values[1],row:i,path:'fake['+i+'].q'}));
@@ -881,6 +881,7 @@ def test_s02_direct_entry_starts_from_document_and_section_choice():
       assert.ok(visibleText(el('source-top')).includes(T('source.labels.choose_scope')));
       await change('source-section-choice','8');
       assert.equal(el('source-section-choice').value,'8');
+      el('source-next').click();
       assert.ok(el('source-problem-list').querySelectorAll('button').length<=61);
       el('source-problem-list').querySelector('button').click();
       assert.equal(document.querySelector('[data-source-section="8"]'),null);
@@ -974,7 +975,8 @@ def test_s02_criterion_counts_use_run_api_without_recounting_loaded_values():
       for(const [kind,count] of [['missing',17],['wrong',11],['made',9]])
         assert.equal(el('source-filter-'+kind).textContent,T('source.filter.'+kind,{count}));
       top.counts=null;sourceRenderProblems();
-      assert.ok(el('source-values').textContent.includes(T('common.legacy.cell_labels.c_none')));
+      // API에 수가 없으면 지어내지 않고 종류 이름만 쓴다. '기록 없음'은 아래 목록의 행과 어긋나 G5 전에 뺐다.
+      assert.equal(el('source-filter-wrong').textContent,T('source.kinds.wrong'));
       assert.ok(!el('source-filter-wrong').textContent.includes('0'));
     """)
 

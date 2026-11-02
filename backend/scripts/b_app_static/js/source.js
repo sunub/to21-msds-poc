@@ -11,7 +11,7 @@ S.source = {step: null, run: null, doc: null, docAll: true, raw: false, override
   section: null, item: null, page: null, selection: null, rowId: null, line: {}, values: {}, only: {}, sections: {},
   selectedLines: new Set(), selectedPaths: new Set(), emitted: new Set(),
   filter: "all", gone: false, draw: null, scroll: {}, problemData: new Map(), problemKey: null,
-  problemErrors: new Map(), problemRequest: 0, choice: 0, problemScroll: 0, rowLimit: SOURCE_ROW_BATCH,
+  problemErrors: new Map(), problemRequest: 0, choice: 0, problemScroll: 0, rowStart: 0, rowLimit: SOURCE_ROW_BATCH,
   allLines: false, allCriteria: false, runData: null, runFor: null, runError: null, runRequest: 0};
 const SOURCE_VIEWS = {"source-top": sourceRenderTop, "source-values": sourceRenderProblems,
   "source-page": sourceRenderPage, "source-selection": sourceRenderSelection};
@@ -58,7 +58,7 @@ function sourceSelect(id, label, options, selected, action) {
   return h("div", null, h("label", {for: id}, label), select);
 }
 function sourceResetSelection() {
-  Object.assign(S.source, {selection: null, rowId: null, page: null, gone: false, filter: "all", scroll: {}, rowLimit: SOURCE_ROW_BATCH});
+  Object.assign(S.source, {selection: null, rowId: null, page: null, gone: false, filter: "all", scroll: {}, rowStart: 0, rowLimit: SOURCE_ROW_BATCH});
   S.source.selectedLines.clear(); S.source.selectedPaths.clear();
 }
 async function sourceEnsure(args = {}) {
@@ -182,7 +182,7 @@ async function sourceLoadProblems(force = false) {
   const D = S.source, docs = sourceProblemDocs();
   const key = JSON.stringify([D.run, D.override, S.ctx.key, D.item, D.section, docs]);
   if (!force && D.problemKey === key) { sourceRenderProblems(); return; }
-  if (D.problemKey !== key) D.rowLimit = SOURCE_ROW_BATCH;
+  if (D.problemKey !== key) { D.rowStart = 0; D.rowLimit = SOURCE_ROW_BATCH; }
   D.problemKey = key; D.problemErrors.clear();
   const request = ++D.problemRequest;
   if (!D.data || !D.run) { sourceRenderProblems(); return; }
@@ -324,8 +324,12 @@ function sourceSelectedLines(v = sourceSelected()) {
 function sourceActions(step) {
   const D = S.source, target = !D.doc || D.section == null;
   const reason = T("source.labels.choose_scope");
-  if (step === "choose") return {primary: {label: T("steps.next", {name: T("steps.source.compare")}), onClick: () => sourceGoStep("compare"),
-    disabled: !sourceHasTarget(), reason, attrs: {id: "source-next"}}};
+  // 항목 표가 있으면 표의 첫 단추가 주 행동이다. 표가 없을 때만 이 단추가 주 행동이다.
+  if (step === "choose") {
+    const next = {label: T("steps.next", {name: T("steps.source.compare")}), onClick: () => sourceGoStep("compare"),
+      disabled: !sourceHasTarget(), reason, attrs: {id: "source-next"}};
+    return D.run && sourceCriteria().some(row => sourceCriterionValues(row).loss > 1e-9) ? {secondary: next} : {primary: next};
+  }
   if (step === "send") return {back: {label: T("steps.back"), onClick: () => sourceGoStep("compare"), attrs: {id: "source-back"}},
     primary: {label: T("steps.source.send"), onClick: sourceRetest, disabled: target, reason, attrs: {id: "source-retest"}}};
   const v = sourceSelected(), rows = sourceVisibleRows(), at = rows.findIndex(row => sourceIsCurrentRow(row));
@@ -380,7 +384,7 @@ function sourceCriteriaTable() {
     h("tbody", null, shown.map(row => {
       const values = sourceCriterionValues(row), cells = cellCount(values.counts);
       return h("tr", {class: D.item === row.name ? "source-criterion-on" : null},
-        h("td", null, h("button", {type: "button", class: "text-button source-criterion-name", "aria-pressed": String(D.item === row.name), onclick: () => sourceChooseCriterion(row)}, scoreItemName(row.name)),
+        h("td", null, h("button", {type: "button", class: "text-button source-criterion-name", disabled: !row.section, onclick: () => sourceOpenCriterion(row)}, scoreItemName(row.name)),
           D.docAll && row.rank === 1 ? h("span", {class: "source-top-tag"}, T("guide.example.biggest")) : null,
           row.section ? h("small", null, sourceLabel(row.section)) : null),
         h("td", null, T("steps.source.loss", {points: fmt1(values.loss)})),
@@ -390,14 +394,6 @@ function sourceCriteriaTable() {
     }))),
     list.length > SOURCE_TOP_CRITERIA ? h("button", {id: "source-all-criteria", type: "button", class: "text-button", onclick: () => { D.allCriteria = !D.allCriteria; sourceRenderTop(); }},
       T(D.allCriteria ? "steps.source.top_criteria" : "steps.source.all_criteria", {count: list.length})) : null];
-}
-function sourceChooseCriterion(row) {
-  const D = S.source, page = D.page;
-  ++D.choice;
-  sourceResetSelection(); D.page = page;
-  D.item = row.name; D.section = row.section ?? null;
-  sourceRenderTop(); sourceRenderFrame();
-  return sourceLoadProblems();
 }
 function sourceOpenCriterion(row) {
   const D = S.source, docs = sourceCriterionDocs(row.name);
@@ -415,7 +411,7 @@ function sourceStageChoose() {
       ...(D.run && docs.length > 1 ? [{id: "", label: T("steps.source.all_docs", {count: docs.length})}] : []),
       ...docs.map(id => ({id, label: id}))], D.run && docs.length > 1 && D.docAll ? "" : D.doc, value => sourceChangeTarget("doc", value)),
     sourceSelect("source-section-choice", T("source.labels.section"), [
-      {id: "", label: T("source.labels.choose_scope")},
+      {id: "", label: T("steps.source.choose_section")},
       ...Array.from({length: 16}, (_, i) => ({id: String(i + 1), label: sourceLabel(i + 1)}))
     ], String(D.section ?? ""), value => sourceChooseSection(value ? +value : null)),
     sourceSelect("source-set-select", T("source.selection.source_set"), [
@@ -447,9 +443,9 @@ function sourceStageSend() {
     fact(T("source.labels.doc"), D.doc), fact(T("source.labels.section"), sourceLabel(D.section)),
     D.run ? fact(T("source.labels.run"), run?.label?.title || D.run) : null,
     v ? fact(T("source.labels.field"), sourceFieldName(v)) : null,
-    v ? fact(T("source.labels.result"), only ? T("common.none") : v.text ?? T("common.none")) : null,
-    v ? fact(T("source.labels.answer"), (only ? v.text : v.silver?.text) ?? T("common.none")) : null,
-    v ? fact(T(only ? "source.missing.evidence_title" : "source.evidence.title"), lines.length
+    v ? fact(T("source.labels.result"), only ? T("common.none") : sourceValueText(v, v.text)) : null,
+    v ? fact(T("source.labels.answer"), sourceValueText(v, only ? v.text : v.silver?.text)) : null,
+    v ? fact(T(only ? "source.missing.evidence_title" : "steps.source.evidence_title"), lines.length
       ? lines.map(line => h("span", {class: "page-text"}, T(only ? "source.missing.location" : "source.evidence.location", {page: line.page, line_no: line.no})))
       : T(only ? "source.doc.no_guess" : "source.unlinked.title")) : h("p", null, T("steps.source.send_no_value")))),
     openable && !jobsAllowed(openable, "try") ? h("p", {role: "status"}, openable.run_reason?.try || T("jobs.no_runnable.todo")) : null,
@@ -516,35 +512,40 @@ function sourceRenderProblems() {
   el.setAttribute("data-guide", "s02-diff-values");
   const previous = document.getElementById("source-problem-list");
   if (previous && previous.offsetParent !== null) D.problemScroll = previous.scrollTop || 0;
-  // 원문만 볼 때와 ③에는 행 목록이 없다.
-  el.hidden = !D.data || !D.run || sourceStep() === "send";
+  // 행 목록은 ②에만 있다. ①은 시안대로 항목 표 하나다.
+  el.hidden = !D.data || !D.run || sourceStep() !== "compare";
   if (el.hidden) { el.replaceChildren(); return; }
   const docs = sourceProblemDocs(), rows = sourceVisibleRows(), counts = sourceFilterCounts();
-  // 고른 행은 언제나 그린다.
+  // 고른 행은 언제나 그린다. 목록이 길면 고른 행이 든 묶음만 그려 단추 수를 줄인다.
   const at = rows.findIndex(sourceIsCurrentRow);
-  if (at >= D.rowLimit) D.rowLimit = (Math.floor(at / SOURCE_ROW_BATCH) + 1) * SOURCE_ROW_BATCH;
-  const drawn = rows.slice(0, D.rowLimit);
+  if (at >= 0 && (at < D.rowStart || at >= D.rowStart + D.rowLimit)) { D.rowStart = Math.floor(at / SOURCE_ROW_BATCH) * SOURCE_ROW_BATCH; D.rowLimit = SOURCE_ROW_BATCH; }
+  if (D.rowStart >= rows.length) D.rowStart = 0;
+  const drawn = rows.slice(D.rowStart, D.rowStart + D.rowLimit), after = rows.length - D.rowStart - drawn.length;
   const button = entry => {
     const on = sourceIsCurrentRow(entry);
     return sourceButton(null, [h("b", {class: "big-value"}, entry.group.title),
       h("small", null, sourceRowSummary(entry), on ? ` · ${T("source.labels.selected")}` : "")],
       () => sourceOpenRow(entry), {class: "source-problem", "data-row-id": entry.group.id, "aria-pressed": String(on)});
   };
-  coreReplace(el, h("div", {class: "source-rows-head"}, h("h2", null, T("steps.source.list_title", {count: docs.length})),
+  coreReplace(el, h("div", {class: "source-rows-head"}, h("h2", null, docs.length === 1 ? T("steps.source.list_title_one", {doc: docs[0]}) : T("steps.source.list_title", {count: docs.length})),
       D.item ? h("p", {class: "issue-meta"}, T("source.labels.criterion", {item: D.item})) : null),
     h("div", {class: "source-filters", role: "group", "aria-label": T("steps.source.filter_a11y")}, ["all", ...SOURCE_KINDS].map(kind =>
       sourceButton(`source-filter-${kind}`, kind === "all" ? T("source.filter.all_values")
         : num(counts?.[UI.score.cause_keys[kind]]) ? T(`source.filter.${kind}`, {count: counts[UI.score.cause_keys[kind]]})
-        : `${T(`source.kinds.${kind}`)} · ${T("common.legacy.cell_labels.c_none")}`,
-        () => { D.filter = kind; sourceRenderProblems(); sourceRenderFrame(); document.getElementById(`source-filter-${kind}`).focus(); }, {"aria-pressed": String(D.filter === kind)}))),
+        : T(`source.kinds.${kind}`),
+        () => { D.filter = kind; D.rowStart = 0; D.rowLimit = SOURCE_ROW_BATCH; sourceRenderProblems(); sourceRenderFrame(); document.getElementById(`source-filter-${kind}`).focus(); }, {"aria-pressed": String(D.filter === kind)}))),
     h("p", {class: "source-kinds"}, T("steps.source.kinds")),
-    h("div", {id: "source-problem-list"}, docs.map(doc => {
+    h("div", {id: "source-problem-list"}, D.rowStart > 0 ? sourceButton("source-rows-before", T("steps.source.earlier_rows", {count: D.rowStart}), () => {
+      const open = Math.min(SOURCE_ROW_BATCH, D.rowStart);
+      D.rowStart -= open; D.rowLimit += open; sourceRenderProblems();
+      (document.getElementById("source-rows-before") || document.getElementById("source-problem-list"))?.focus({preventScroll: true});
+    }, {class: "text-button"}) : null, docs.map(doc => {
       const own = drawn.filter(entry => entry.doc === doc), all = rows.filter(entry => entry.doc === doc).length;
       if (!own.length && !D.problemErrors.has(doc)) return null;
       return h("section", {"data-problem-doc": doc}, h("h3", {class: "source-document"}, T("steps.source.doc_rows", {doc, count: all})),
         D.problemErrors.has(doc) ? h("p", {role: "status"}, T("steps.source.partial")) : null, own.map(button));
     }),
-    rows.length > drawn.length ? sourceButton("source-rows-more", T("steps.source.more_rows", {count: rows.length - drawn.length}), () => {
+    after > 0 ? sourceButton("source-rows-more", T("steps.source.more_rows", {count: after}), () => {
       D.rowLimit += SOURCE_ROW_BATCH; sourceRenderProblems();
       document.getElementById("source-rows-more")?.focus({preventScroll: true});
     }, {class: "text-button"}) : null),
@@ -564,9 +565,20 @@ function sourceRevealRow(list) {
     S.source.problemScroll = list.scrollTop;
   }
 }
+// 칸 이름. 줄 번호는 떼고 찾는다. 예: statements[1], contacts[0].type
+function sourceFieldKey(v) { return (v.field || "").replace(/\[\d+\]/g, ""); }
 function sourceFieldName(v, data = S.source.data) {
-  return data?.ui_text?.value_field_labels?.[v.field] || UI.source.field_names[v.field]
-    || UI.source.fields[v.field] || UI.source.table_names[v.table] || T("source.labels.field");
+  const key = sourceFieldKey(v);
+  const named = key.split(".").reduce((item, part) => item?.[part], UI.source.field_names);
+  return UI.source.value_titles[v.table]?.[key] || data?.ui_text?.value_field_labels?.[key] || (typeof named === "string" ? named : null)
+    || UI.source.fields[key] || UI.source.table_names[v.table] || T("source.labels.field");
+}
+// 코드 값은 쉬운 이름과 함께 보인다. 이름표에 없는 값은 원래 표기 그대로다.
+function sourceValueText(v, text) {
+  if (text == null) return T("common.none");
+  const key = sourceFieldKey(v), name = key === "comp_ref" && text === "MIX" ? T("source.rows.mix") : UI.source.row_parts[key]?.[text];
+  if (!name) return text;
+  return name.includes(text) ? name : T("source.labels.code_value", {name, code: text});
 }
 async function sourcePickProblem(doc, v, only, user = true) {
   const D = S.source, filter = D.filter, key = S.ctx.key, choice = user ? ++D.choice : D.choice;
@@ -599,7 +611,7 @@ function sourceTip(v, side) {
 }
 function sourceValueButton(v, side) {
   const only = side === "silver_only", silver = side === "silver";
-  return sourceButton(null, h("span", {class: "big-value"}, (silver ? v.silver?.text : v.text) ?? T("common.none")),
+  return sourceButton(null, h("span", {class: "big-value"}, sourceValueText(v, silver ? v.silver?.text : v.text)),
     // 서랍의 표에서 고르면 서랍을 닫고 그 행을 연다.
     () => { drawerClose(); sourcePick(v, side); }, {class: `source-value source-${sourceKind(v, only)}`, "data-source-path": v.path, "data-side": side,
       "data-tip": sourceTip(v, side), "aria-pressed": "false"});
@@ -725,7 +737,8 @@ function sourceRowTable(group) {
   return h("table", {class: "source-row-table"},
     h("thead", null, h("tr", null, ["field", "result", "answer"].map(key => h("th", {scope: "col"}, T(`source.labels.${key}`))),
       h("th", {scope: "col"}, T("steps.source.col_result")))),
-    h("tbody", null, group.cells.map(cell => {
+    // 문제가 있는 칸을 먼저 보인다. 같은 칸은 아래에 둔다.
+    h("tbody", null, [...group.cells].sort((a, b) => SOURCE_KINDS.includes(b.kind) - SOURCE_KINDS.includes(a.kind)).map(cell => {
       const only = cell.side === "silver_only", v = only ? D.only[cell.path] : D.values[cell.path];
       return v ? h("tr", {class: "source-cell-row"}, h("th", {scope: "row"}, sourceFieldName(v)),
         h("td", null, only ? T("common.none") : sourceValueButton(v, "result")),
@@ -739,7 +752,7 @@ function sourceValueNote(v, only) {
   if (!v) return h("div", {class: "source-value-note", "data-guide": "s02-evidence"}, sourceCurrentRow() && !D.selection ? h("p", null, T("source.labels.choose")) : null,
     D.selection?.line ? h("p", null, D.selection.line, " — ", T("source.labels.line_values", {count: D.selectedPaths.size})) : null, unit);
   return h("div", {class: "source-value-note", "data-guide": "s02-evidence"},
-    h("h3", null, T(only ? "source.missing.evidence_title" : "source.evidence.title")),
+    h("h3", null, T(only ? "source.missing.evidence_title" : "steps.source.evidence_title")),
     lines.map(line => h("div", {class: `selected-line source-evidence${only ? " source-estimated" : ""}`},
       h("p", null, T(only ? "source.missing.location" : "source.evidence.location", {page: line.page, line_no: line.no})), h("p", null, line.text))),
     h("p", null, T(lines.length ? (only ? "source.doc.guess" : "source.evidence.recorded") : only ? "source.doc.no_guess" : "source.unlinked.title")),
@@ -748,6 +761,13 @@ function sourceValueNote(v, only) {
     lines.some(line => !line.bbox) ? h("p", null, T("source.page.no_coordinates")) : null,
     h("p", null, T(`source.comparison.${sourceKind(v, only)}`), " ", T("source.value.draft_warning")), unit);
 }
+// 표가 길어도 근거 위치는 머리에 늘 보인다. 추정 줄은 추정이라고 쓴다.
+function sourceEvidenceWhere(v, only) {
+  const lines = sourceSelectedLines(v);
+  if (!lines.length) return T(only ? "source.doc.no_guess" : "source.unlinked.title");
+  const where = lines.map(line => T(only ? "source.missing.location" : "source.evidence.location", {page: line.page, line_no: line.no})).join(", ");
+  return `${T(only ? "source.missing.evidence_title" : "steps.source.evidence_title")}: ${where}`;
+}
 function sourceRenderSelection() {
   const D = S.source, d = D.data, el = document.getElementById("source-selection"), show = sourceStep() === "compare" && !!d;
   el.hidden = !show;
@@ -755,11 +775,14 @@ function sourceRenderSelection() {
   const group = sourceCurrentRow(), v = sourceSelected(), only = D.selection?.side === "silver_only";
   const rows = sourceVisibleRows(), at = rows.findIndex(sourceIsCurrentRow);
   const problems = group ? group.cells.filter(cell => SOURCE_KINDS.includes(cell.kind)).length : 0;
+  // 다른 행을 열면 맨 위부터 보인다. 같은 행의 다른 칸을 고를 때는 보던 자리를 지킨다.
+  if (D.shownRow !== D.rowId) { D.shownRow = D.rowId; el.scrollTop = 0; }
   coreReplace(el, h("div", {class: "source-row-head"},
       h("h2", {class: "big-value"}, group?.title || T(D.run ? "source.labels.choose" : "source.raw.title")),
       group ? h("small", null, T("steps.source.row_summary", {doc: D.doc, section: group.section ?? T("context.unavailable"), total: group.cells.length, problems}),
         at >= 0 ? ` · ${T("steps.source.row_position", {total: rows.length, index: at + 1})}` : "") : null,
       sourceDetailsButton()),
+    v ? h("p", {class: "source-row-evidence"}, sourceEvidenceWhere(v, only)) : null,
     d.warnings?.map(warning => h("p", {class: "source-warning page-text"}, warning)),
     shellKeyMismatch(d.key) ? h("p", {class: "answer-mismatch"}, shellKeyMismatch(d.key)) : null,
     d.set?.note ? h("p", {class: "source-warning"}, d.set.note) : null,
@@ -769,6 +792,14 @@ function sourceRenderSelection() {
       // 세 상태는 글자로 구분하고 색 칸은 선택 표시 하나다 (PR #123).
       entry.color ? h("span", {class: "source-chip", "aria-hidden": "true", style: `background:${entry.color}`}) : null, entry.label))) : null);
   sourceMark();
+  sourceRevealCell(el);
+}
+// 낮은 창에서는 표가 비교 영역보다 길다. 고른 칸이 영역 밖이면 영역 안에서만 움직인다. 창은 움직이지 않는다.
+function sourceRevealCell(panel) {
+  const cell = panel.querySelector('.source-value[aria-pressed="true"]')?.closest("tr");
+  if (!cell) return;
+  const box = cell.getBoundingClientRect(), area = panel.getBoundingClientRect();
+  if (box.top < area.top || box.bottom > area.bottom) panel.scrollTop = (panel.scrollTop || 0) + box.top - area.top - (panel.clientHeight || 0) / 3;
 }
 // ── 자세히 서랍: 열 때만 그린다. 전체 표는 서랍 안의 단추를 누른 뒤에 만든다 ──
 function sourceOpenDetails() {
@@ -782,11 +813,9 @@ function sourceRenderDrawer(body) {
     coreReplace(table, sourceStructure());
     table.focus();
   }}, T("steps.source.doc_table_open")));
+  const span = D.section != null ? d?.sections?.[D.section] : null;
+  // 쉬운 요약을 먼저 쓰고 프로그램용 기록은 맨 끝에 둔다.
   coreReplace(body,
-    v ? serversDrawerSection(T("steps.source.raw_value_title"), h("div", {class: "source-raw"}, h("p", {class: "technical"}, v.path),
-      h("pre", {class: "technical"}, JSON.stringify(D.selection.side === "silver" ? v.silver?.value : v.value, null, 2) ?? T("common.none")))) : null,
-    v ? serversDrawerSection(T("steps.source.scope_title"), h("p", null, items.length ? T("steps.source.scope_items", {items: items.map(scoreItemName).join(", ")}) : T("steps.source.scope_none")),
-      h("p", null, T("steps.source.scope_note"))) : null,
     d ? serversDrawerSection(T("source.structure.doc_comparison"), h("p", null, T("source.doc.counts", {
       total: d.values.length, different: d.has_gold ? d.values.filter(value => !value.silver?.same).length : T("context.unavailable"), missing: d.silver_only.length})),
       h("p", null, T("source.labels.matched_count", {count: d.has_gold ? d.values.filter(value => value.silver?.same).length : T("context.unavailable")})), table) : null,
@@ -795,11 +824,16 @@ function sourceRenderDrawer(body) {
       coverage.basis === "text_match" ? h("p", null, T("source.estimation.method")) : null,
       h("p", null, T("source.estimation.count_meaning")), h("p", null, T("source.estimation.verify"))) : null,
     d ? serversDrawerSection(T("steps.source.howto_title"), h("p", null, d.ui_text?.howto || T("source.doc.howto"))) : null,
+    v ? serversDrawerSection(T("steps.source.scope_title"), h("p", null, items.length ? T("steps.source.scope_items", {items: items.map(scoreItemName).join(", ")}) : T("steps.source.scope_none")),
+      h("p", null, T("steps.source.scope_note"))) : null,
     serversDrawerSection(T("source.selection.eval_reason"), S.shell.sets.map(set => h("div", null,
       h("p", null, set.label, set.reason ? ` — ${set.reason}` : ""),
       h("p", null, T("source.locked.counts", {dev: set.counts?.dev ?? 0, locked: set.counts?.eval_locked ?? 0, outside: set.counts?.outside ?? 0})),
       (set.docs || []).filter(doc => doc.locked).map(doc => h("p", {class: "raw"}, doc.doc_id, " — ", doc.reason))))),
-    serversDrawerSection(T("steps.source.target_title"), h("p", {class: "technical"}, D.run || T("source.raw.title"), D.doc ? ` / ${D.doc}` : "")),
+    v ? serversDrawerSection(T("steps.source.raw_value_title"), h("div", {class: "source-raw"}, h("p", {class: "technical"}, v.path),
+      h("pre", {class: "technical"}, JSON.stringify(D.selection.side === "silver" ? v.silver?.value : v.value, null, 2) ?? T("common.none")))) : null,
+    serversDrawerSection(T("steps.source.target_title"), h("p", {class: "technical"}, D.run || T("source.raw.title"), D.doc ? ` / ${D.doc}` : ""),
+      span ? h("p", {class: "technical"}, T("source.labels.range", {start: span.start, end: span.end})) : null),
     raw ? serversDrawerSection(T("common.raw_error_title"), h("pre", {class: "technical"}, raw)) : null,
     [...D.problemErrors].map(([doc, error]) => serversDrawerSection(T("common.raw_error_title"), h("p", {class: "technical"}, doc), h("pre", {class: "technical"}, error.message))));
 }
@@ -849,7 +883,8 @@ function sourcePickLine(id) {
 }
 function sourceDrawBoxes(img, svg) {
   const D = S.source;
-  if (!img.naturalWidth || !img.naturalHeight) return;
+  // 다시 그리면 그림이 새로 만들어진다. 버려진 그림의 load가 늦게 돌면 새 그림 칸의 위치를 되돌린다.
+  if (!img.isConnected || !img.naturalWidth || !img.naturalHeight) return;
   svg.setAttribute("viewBox", `0 0 ${img.naturalWidth} ${img.naturalHeight}`);
   const lines = [...D.selectedLines].map(id => D.line[id]).filter(line => line?.page === D.page &&
     Array.isArray(line.bbox) && line.bbox.length === 4 && line.bbox.every(Number.isFinite));
@@ -916,9 +951,10 @@ function sourceRenderPage() {
   const pickers = h("div", {class: "source-page-pickers"},
     sourceSelect("source-page-select", T("source.labels.page"), d.pages.map(p => ({id: String(p), label: T("source.labels.page_name", {page: p})})), String(page ?? ""), value => sourcePage(+value)),
     sourceSelect("source-section-select", T("source.labels.section"), Array.from({length: 16}, (_, i) => ({id: String(i + 1), label: sourceLabel(i + 1)})), String(D.section ?? ""), value => sourceChooseSection(+value)));
-  const range = D.section ? h("p", {class: "technical"}, span ? T("source.labels.range", {start: span.start, end: span.end}) : T("source.section_unknown.title", {section: D.section})) : null;
+  // 부분을 찾지 못했을 때만 본문에 알린다. 줄 구간은 기록이라 서랍에 둔다.
+  const range = D.section && !span ? h("p", {class: "technical"}, T("source.section_unknown.title", {section: D.section})) : null;
   coreReplace(el, hasPage ? h("div", {class: "source-page-grid"},
-    h("section", {class: "source-panel"}, h("h3", null, T("steps.source.image_title", {page})), pickers, range, h("div", {id: "source-image", class: "source-image"}, wrap)),
+    h("section", {class: "source-panel"}, h("div", {class: "source-panel-head"}, h("h3", null, T("steps.source.image_title", {page})), pickers), range, h("div", {id: "source-image", class: "source-image"}, wrap)),
     h("section", {class: "source-panel"}, h("div", {class: "source-panel-head"}, h("h3", {id: "source-lines-title"}), toggle), list))
     : [pickers, range, h("p", {class: "source-state"}, T("source.empty.pages"))]);
   sourceRenderLines();
