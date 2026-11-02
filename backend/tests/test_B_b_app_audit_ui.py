@@ -116,11 +116,11 @@ ERROR_PATHS = dict(zip(SCREENS, ["/api/runs", "/api/doc", "/api/options", "/api/
 def test_each_screen_api_error_has_fact_action_and_closed_safe_raw(screen):
     run_js(SETUP + f"failurePath={json.dumps(ERROR_PATHS[screen])};const route={json.dumps(screen)};" + r"""
 await go(route,args);await flush();
-if(route==='s06'||route==='s03'){ // 단계 화면에는 접힘이 없다. 사실과 할 일은 단계에, 원래 오류는 자세히 서랍에 있다 (ADR-039).
+if(['s02','s03','s06'].includes(route)){ // 단계 화면에는 접힘이 없다. 사실과 할 일은 단계에, 원래 오류는 자세히 서랍에 있다 (ADR-039).
  const flat=el('screen-'+route).querySelector('.error-note');assert.ok(flat);assert.ok(flat.querySelector('strong').textContent.trim());
  assert.ok(flat.textContent.includes(T('common.todo',{action:''})));assert.equal(flat.querySelector('details'),null);
  assert.ok(!flat.textContent.includes(raw));assertClean(flat);
- el(route==='s06'?'servers-details-open':'jobs-details-open').click();const body=document.querySelector('#details-drawer .drawer-body');
+ el({s02:'source-details-open',s03:'jobs-details-open',s06:'servers-details-open'}[route]).click();const body=document.querySelector('#details-drawer .drawer-body');
  assert.ok(body.textContent.includes(raw));assert.equal(body.querySelector('details'),null);assert.equal(body.querySelector('fake-error'),null);assertClean(body);
  return;
 }
@@ -225,7 +225,7 @@ def test_css_has_no_fixed_desktop_overflow_or_untokenized_color():
 
 
 def test_source_help_and_controls_precede_the_two_column_content():
-    # 도움말 삽입 뒤 자동 배치가 선택 상자를 원문 아래로 밀던 겹침을 막는다.
+    # 옛 두 열 순서의 뜻: 도움말과 고르는 칸이 내용에 겹치지 않고, 지금 단계의 근거와 행동이 보인다 (ADR-039).
     styles = {}
     for selectors, body, parents in css_rules():
         if parents:
@@ -233,15 +233,15 @@ def test_source_help_and_controls_precede_the_two_column_content():
         for selector in selectors.split(","):
             styles.setdefault(selector.strip(), {}).update(
                 (name.strip(), value.strip()) for name, value in re.findall(r"([\w-]+)\s*:\s*([^;]+)", body))
-    headers = [styles[s] for s in ("#screen-s02 > h1", "#help-context-s02", "#source-top")]
-    assert all(s.get("grid-column") == "1 / -1" for s in headers)
-    rows = [int(s["grid-row"]) for s in headers]
-    assert rows == sorted(set(rows))
-    values = styles["#source-values"]["grid-row"]
-    selection = int(styles["#source-selection"]["grid-row"])
-    page = int(styles["#source-page"]["grid-row"])
-    assert rows[-1] < selection < page
-    assert values == f"{selection} / span {page - selection + 1}"
+    assert styles["#source-stage"]["display"] == "grid"
+    assert styles['#screen-s02[data-step="compare"] #source-stage']["grid-template-rows"] == "minmax(0, 2fr) minmax(0, 3fr)"
+    assert styles['#screen-s02[data-step="compare"] #source-values']["grid-row"] == "1 / span 2"
+    run_js(r"""
+const nodes=Array.from(document.getElementById('screen-s02').querySelectorAll('*')),at=id=>nodes.indexOf(document.getElementById(id));
+assert.ok(at('source-step-bar')<at('title-s02'));assert.ok(at('title-s02')<at('help-context-s02'));
+assert.ok(at('help-context-s02')<at('source-stage'));assert.ok(at('source-stage')<at('source-actions'));
+assert.ok(at('source-values')<at('source-selection'));assert.ok(at('source-selection')<at('source-page'));
+""")
 
 
 def test_preservation_rows_have_resolvable_new_function_or_dom_id():

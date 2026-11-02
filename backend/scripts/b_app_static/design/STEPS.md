@@ -383,6 +383,22 @@ G3에서 더 볼 것은 아래와 같습니다. step 2가 더했습니다. 켜�
 
 - step 4: 화면을 고치지 않아 이번에 볼 것은 없습니다. step 5의 G5에서 가장 큰 개발 문서를 열어 ① 표와 ② 행 목록이 늦지 않은지 봅니다. `row_groups`로 `/api/doc` 응답이 약 45% 커졌습니다(가장 큰 문서 1,321KB → 1,948KB).
 
+G5에서 더 볼 것은 아래와 같습니다. step 5가 더했습니다. 개발 문서와 가짜 응답으로 봅니다. 시험 전송은 누르지 않습니다.
+
+| 상태 | 재는 방법 | 통과 기준 |
+|---|---|---|
+| 세 단계의 세 너비 | ①(메뉴로 들어옴) ②(큰 단추로 들어옴) ③을 1280×800, 1440×900, 1680×1050에서 찍는다 | 가로 스크롤 없음. 행동 줄이 창 맨 아래에 닿음. 단계 표시의 현재·끝남·못 감이 글로 구분됨 |
+| 페이지 스크롤 없음 | 세 단계에서 `document.documentElement.scrollHeight`와 `innerHeight`를 잰다. ②에서 왼쪽 목록, 칸 표, 그림, 줄 목록을 각각 끝까지 굴린다 | 문서 높이가 창 높이 이하. `window.scrollY`가 0으로 남음. 네 칸이 저마다 안쪽으로 움직임 |
+| 입구 셋 | 틀림, 만듦, 못 뽑음 값을 `go("s02", {run, doc, section, path, kind, estimated})`로 하나씩 연다. 첫 60행 밖의 행도 연다 | 고른 행이 왼쪽 목록 안에, 고른 줄이 줄 목록 안에 보임. 못 뽑음 입구의 글은 ‘원문 줄(추정)’ |
+| 비교 영역 높이 | 맨 아래까지 굴린 상태에서 값 있는 줄과 값 없는 줄을 번갈아 누르고 `#source-selection`의 높이와 `window.scrollY`를 잰다 | 높이 변화 0px, 스크롤 변화 0px (옛 97px 당김이 사라짐) |
+| 칸 전환과 표시 일치 | 근거 줄이 다른 칸 둘을 번갈아 누른다. 줄 좌표가 없는 값, 그림 없는 쪽도 본다 | 그림의 노란 칸과 줄 목록의 노란 줄이 같은 줄. 좌표 없으면 글로 알림 |
+| 다른 문서의 값 | 기준을 고르고 전체 문서로 둔 뒤 다음 행 보기로 문서 경계를 넘는다 | 이미 읽은 문서는 다시 받지 않음. 문서 이름과 쪽 그림이 함께 바뀜 |
+| 단추 수 | ②에서 `document.querySelectorAll('#screen-s02 button').length`를 잰다. 줄이 많은 쪽에서 재고, 서랍의 표를 연 뒤에도 잰다 | 서랍 표를 열기 전 200개 이하. 전체 표는 ‘문서 전체 표 열기’를 누른 뒤 생김 |
+| 원문 글자 기본 보기 | 값을 고른 쪽과 값이 없는 쪽에서 본 뒤 전체 보기로 바꾼다 | 연결 값 있는 줄과 고른 줄 앞뒤 2줄만 보임. 전체 보기에서 쪽의 모든 줄. ‘연결 값 0개’ 글자 없음 |
+| 접힘과 서랍 | ①②③과 서랍에서 `document.querySelectorAll('#screen-s02 details, #details-drawer details').length`. 서랍을 Esc로 닫는다 | 0. 열었던 단추로 초점이 돌아옴 |
+| 시험으로 보내기 | ②에서 바로, ③을 거쳐서, AI 켜짐과 꺼짐, 묶음을 바꾼 뒤에 각각 누른다 | G4 표와 같음. 켜짐은 ③, 꺼짐은 ②, 묶음이 다르면 ① |
+| 결과의 고른 값 전후 | 저장된 시험 결과와 저장 안 된 결과를 가짜 응답으로 본다 | 값이 바뀌면 전후와 판정, 그대로면 ‘달라지지 않았습니다’. 저장이 없으면 비교하지 못한다는 문장만 보임 |
+
 ## 10. 발견한 것
 
 - 전체 시험에서 `test_E_regenerated.py`의 실제 모듈 시험 2건이 실패합니다. TO21 제공 파일 `TO21_MSDS_DB적재_재생성_v0.6.py` 514줄의 f-string이 Python 3.12 문법이라 B의 3.11 venv에서 읽히지 않습니다(`SyntaxError: f-string expression part cannot include a backslash`). step 0 커밋의 깨끗한 사본에서도 같습니다. 이 시험은 PR #130(`2870459`)에서 왔습니다. TO21 파일과 E 시험은 B가 고치지 않습니다.
@@ -404,11 +420,19 @@ G3에서 더 볼 것은 아래와 같습니다. step 2가 더했습니다. 켜�
 - step 4: H·P 문구 중 코드가 없는 행 8개는 구분 값이 없어 제목이 행 번호입니다(`hazard.h_statements` 2개, `hazard.p_statements` 6개). 지어내지 않는 규칙대로입니다.
 - step 4: `extras`(표 밖에 남은 값)는 묶음 551개 중 534개가 AI에만 있습니다. 칸에 채점 항목이 없어(`items`가 빈 목록) `problem_rows`에는 들어가지 않고, 부분 전체를 볼 때만 목록에 나옵니다. ② 목록에서 어떻게 보일지는 step 5가 정합니다.
 
+- step 5: `docs/ARCHITECTURE.md`에 적을 것은 step 4가 넘긴 두 키와 같습니다. 이번 step은 새 API 키를 더하지 않았습니다.
+- step 5: 화면 코드(JS)에서 이름을 찾지 못한 `source.*` 글이 73개 있습니다. 예: `source.wrong.title`, `source.selection.expand`, `source.page.expand`. 서버 코드가 쓰는 글(`source.legend.*`는 `doc_legend`)이 섞여 있어 후보일 뿐입니다. 지우는 일은 step 7에 넘깁니다.
+- step 5: `extras`(표 밖에 남은 값)는 채점 항목이 없어 기준을 고른 목록에는 나오지 않고, 부분이나 문서 전체를 볼 때만 나옵니다. step 4가 넘긴 질문의 답입니다. AI에만 있는 행이 왼쪽 목록 앞쪽을 차지할 수 있으므로 G5 화면에서 봅니다.
+- step 5: `/api/doc` 응답이 커진 만큼 문서 전체 기준을 처음 열 때 다른 문서를 모두 받습니다(`sourceLoadProblems`). 가장 큰 문서가 약 1.9MB입니다. 시간은 재지 않았습니다. G5에서 봅니다.
+- step 5: 행 목록은 60행씩 그리고 ‘N행 더 보기’로 늘립니다. 쪽에 연결 값 있는 줄이 80줄을 넘고 칸 표가 길면 단추 수가 200개 가까이 갑니다. 시험은 큰 가짜 표로 통과했지만 실제 쪽의 수치는 G5에서 재야 합니다.
+
 ## 11. 안내 위치 변경
 
 - step 1에는 없습니다. `data-guide`가 붙은 요소를 옮기지 않았습니다. `guide-open` 단추는 id를 그대로 둔 채 위쪽 막대로 옮겼습니다.
 - step 2: S06 요소에는 코드상 `data-guide`가 없습니다. `STRUCTURE.md`가 적은 `s06-return`은 지금도 어디에도 붙어 있지 않아 옮길 것이 없습니다. 안내가 쓰는 `servers-guide-return`은 id를 그대로 두고 모든 단계 위쪽에 보입니다. 안내 글이 옛 위치를 말하는지는 step 6이 봅니다.
 - step 3: `s03-target`(문서 칸, ①), `s03-model`(모델 고르는 칸, ②), `s03-send`(주 단추, ③), `s03-practice`(연습 단추, ②·③), `s03-result-summary`(`#jobs-result`, ④·⑤)는 새 자리의 같은 뜻 요소에 붙였습니다. 요소가 단계마다 하나씩만 있으므로 안내가 부를 때 단계 지시 `trialStep`을 같이 보냅니다(`journey.js`). `STRUCTURE.md`의 ‘S03 첫 시험 안내 펼침’ 입구는 D1로 없어졌습니다. 그 줄과 안내 글은 step 6이 고칩니다.
+
+- step 5: S02의 세 위치는 뜻이 같은 새 자리에 그대로 붙였습니다. `s02-diff-values`는 `#source-values`(왼쪽 행 목록, ①·②), `s02-evidence`는 `.source-value-note`(고른 값의 근거, ②), `s02-lines`는 `#source-page`(그림과 글자, ②)입니다. 안내는 `pick: "mismatch"`를 들고 오므로(`journey.js:217`, `:231`) ②에서 시작합니다. 옛 위치가 없어진 것은 없습니다. `s02-evidence`와 `s02-lines`는 ①·③에 없으므로 안내 글이 그 단계에서 가리키지 않는지 step 6이 봅니다.
 
 ## step 기록
 
@@ -543,3 +567,44 @@ G3에서 더 볼 것은 아래와 같습니다. step 2가 더했습니다. 켜�
 - 일부러 망가뜨려 본 결과: 7가지 중 6가지를 처음부터 잡았습니다. 못 잡은 ‘정답 2번째 행의 칸 잃기’는 가짜 문서에 그런 경우가 없어서였습니다. `many_problems`를 넓혀 지금은 잡습니다. 이 밖에 ‘행 수를 항으로 거르지 않기’, ‘행 번호 안 보이기’도 잡습니다.
 - 고친 옛 시험 하나: `test_run_labels_are_added_without_changing_score_or_cache`의 제외 목록에 `problem_rows`를 더했습니다. 이 시험은 표시용 새 키를 빼고 원래 점수 칸이 같은지 봅니다. `/api/run`에 표시용 키를 더하면 목록에 넣어야 합니다. 뜻은 그대로입니다. 지운 시험은 없습니다.
 - 넘기는 일: step 5는 ② 목록을 `row_groups`로, ① 표의 행 수를 `problem_rows[기준 이름].row_count`로 그립니다. 문서를 고르면 `docs[]`의 값을 씁니다. 기준으로 거를 때는 칸의 `items`와 `section`을 봅니다(기존 `sourceProblems`와 같은 조건). 결과 화면의 고른 값 전후(4장 A7)도 같은 묶음으로 잇습니다. 메인 세션은 ARCHITECTURE의 API 표에 새 키 둘을 더합니다. 새 글 82줄은 G6 승인표에 넣습니다.
+
+### step 5
+
+- 산출물: 원문 맞춰 보기의 3단계입니다. 단계 이름은 `choose`(문제 고르기), `compare`(원문과 맞춰 보기), `send`(다시 시험으로 보내기)입니다. 상태는 `S.source.step`, 함수는 `sourceStep`, `sourceGoStep`, `sourceStepList`, `sourceActions`, `sourceRenderFrame`입니다.
+- 자리: `index.html`의 S02는 `#source-step-bar`, `#source-step-say`, `#source-flow` 안의 `.step-screen`(`#source-stage`, `#source-details`, `#source-actions`)입니다. `SOURCE_VIEWS`와 `SHELL_SCREENS.s02.views`의 네 이름은 그대로이고 그리는 내용만 나눴습니다.
+  - `source-top`: ①의 고르는 칸과 항목 표, ③의 넘길 내용
+  - `source-values`: 왼쪽 행 목록(①·②)
+  - `source-selection`: 한 행의 칸 표와 고른 값의 근거(②)
+  - `source-page`: 원문 그림과 원문 글자(②)
+- 시작 단계: `section`, `path`, `pick` 중 하나를 들고 오면 ②입니다. 인자 없이 메뉴로 처음 오면 ①입니다. 그 뒤 메뉴로 돌아오면 있던 단계와 행과 칸과 쪽을 엽니다(3장의 ‘시험에서 돌아오면 같은 위치’). 읽는 중에는 가던 단계를 지키고, 읽지 못하면 ①에서 이유를 보입니다.
+- 행 묶음: `sourceRows`, `sourceRowOf`, `sourceRowEntries`, `sourceVisibleRows`, `sourceOpenRow`, `sourceShowRow`입니다. 판정은 `row_groups` 칸의 `kind`를 그대로 쓰고 화면에서 다시 계산하지 않습니다. 값은 `path`와 `side`로 찾습니다. ① 표의 행 수는 `problem_rows`, 칸 수는 `losses[].counts`입니다.
+- 서랍(`sourceOpenDetails`, `sourceRenderDrawer`)으로 옮긴 것: 원래 값과 위치, 비교 범위, 문서 전체의 비교와 문서 전체 표, 추정 방법과 찾은 수, 값과 줄을 고르는 법, 평가 문서 잠금 이유, 보고 있는 기록, 원래 오류. 서랍 안에 접힘은 없습니다.
+- 지운 것: D3 하나입니다. 줄마다 붙던 ‘연결 값 0개’ 글자를 지웠고, 기본 목록은 연결 값이 있는 줄과 고른 줄 앞뒤 2줄(`sourcePageLines`)입니다. 전체 보기는 `source-lines-toggle`입니다. 원문만 볼 때는 고를 값이 없어 쪽 전체입니다. `sourceRevealSelection`은 페이지가 움직이지 않게 되어 지웠습니다.
+- 요청 밖 문제의 처리:
+  - 8번: 문서 전체 표는 서랍의 ‘문서 전체 표 열기’를 누른 뒤에만 만듭니다.
+  - 9번: 위 D3입니다.
+  - 10장-1(못 뽑음 입구): `sourceRevealRow`가 목록 안에서만 움직여 고른 행을 보입니다. 첫 60행 밖이면 `rowLimit`를 늘려 그립니다. 필터가 가리면 전체로 돌립니다.
+  - 10장-2(97px 당김): 페이지가 스크롤하지 않고, 비교 영역 높이는 `grid-template-rows: minmax(0, 2fr) minmax(0, 3fr)`로 내용과 상관없이 정해집니다.
+  - PR #123의 세 가지는 유지합니다. 창을 움직이는 코드가 없고(`test_source_code_never_moves_the_window`), 줄 위치는 붙인 뒤 넣고, 범례의 색 칸은 선택 표시 하나입니다.
+- 결과의 고른 값 전후(G4 메모, 4장 A7): `jobsSameCell`, `jobsLoadChange`, `jobsRenderChange`입니다. 저장된 결과와 기준 결과를 `/api/doc`으로 읽어 같은 행을 찾습니다. 표의 행은 짝 정답 행 번호로, 짝 없는 AI 행은 제목으로, 표가 아닌 값은 경로로 찾습니다. 경로 번호만 같다고 같은 행으로 보지 않습니다. 저장이 없거나 문서·부분·기준 결과가 다르면 비교하지 못한다는 문장만 보입니다.
+- 공통 틀의 작은 변경: `stepsRenderActions`의 `back`이 목록도 받습니다(이전 행, 다음 행). 다른 화면의 동작은 그대로입니다.
+- 새 글: `UI_TEXT["steps"]["source"]`, `UI_TEXT["steps"]["trial"]`의 `change_*`, `UI_TEXT["source"]["filter"]`의 세 칸입니다. `COPY.md`에 같이 넣었습니다. G6 승인표에 넣습니다.
+- 시안과 다른 곳(G5에서 봐 주세요):
+  - ①: 시안 `Main.dc.html`에는 왼쪽 목록이 없지만 step 지시대로 왼쪽에 행 목록, 오른쪽에 항목 표를 둡니다.
+  - 서랍: 표를 여는 단추를 한 번 더 누릅니다. 원래 값만 보려고 서랍을 열 때 큰 표를 기다리지 않게 하려는 것입니다. 단점은 클릭이 하나 늡니다.
+  - 필터의 수는 API가 주는 칸 수이고 글도 ‘틀림 N칸’입니다. 시안의 행 수와 다릅니다. 행 수로 바꾸려면 화면에서 세야 해서 칸 수를 그대로 씁니다.
+  - ③: 독립 시안이 없어 넘길 내용을 표로 읽어 줍니다. ②의 ‘이 부분 다시 시험하기’가 같은 일을 바로 합니다.
+- 실패를 본 시험: 앞 시도가 쓰던 작업 공간을 이어받아, 구현 전의 실패 기록이 남아 있지 않습니다. 그래서 커밋 `5c25935`의 코드 사본에 새 시험 파일을 넣어 다시 돌렸습니다. 원인은 단언 실패와 `sourceGoStep is not defined` 같은 없는 함수입니다.
+  - `test_B_b_app_source_ui.py`: 68건 중 46건 실패, 22건 통과. 실패한 함수 44개입니다.
+    - 새 시험: `test_actions_keep_the_next_action_last_and_a_value_without_a_line_reads_the_section_first`, `test_big_button_from_recent_results_starts_at_compare_and_menu_starts_at_choose`, `test_changing_the_cell_moves_the_image_box_and_the_line_to_the_same_line`, `test_choose_left_list_is_rows_with_a_title_and_kind_counts_and_a_click_moves_on`, `test_choose_table_opens_a_criterion_that_is_not_the_top_problem_across_its_documents`, `test_choose_table_shows_api_loss_rows_and_cells_in_api_order`, `test_choose_table_uses_document_values_when_a_document_is_chosen`, `test_compare_has_cells_of_one_row_image_and_lines_together`, `test_css_keeps_the_page_still_and_gives_the_comparison_area_a_fixed_track`, `test_every_entry_shows_the_picked_row_inside_the_list_and_the_line_inside_the_lines`, `test_filter_that_hides_the_picked_row_returns_to_all_when_another_entry_picks_it`, `test_line_list_says_what_to_do_when_nothing_on_the_page_is_linked`, `test_line_list_shows_linked_lines_and_lines_near_the_pick_and_can_show_all`, `test_line_pick_keeps_focus_on_the_new_line_button`, `test_load_failure_has_fact_and_todo_on_screen_and_the_raw_error_in_the_drawer`, `test_next_needs_something_to_look_at`, `test_no_details_in_any_step_and_drawer_holds_the_records`, `test_opening_a_problem_keeps_the_compare_step_while_the_document_is_read`, `test_picked_row_beyond_the_first_batch_of_the_list_is_still_drawn`, `test_picking_a_line_opens_the_row_of_its_first_value`, `test_picking_a_line_without_values_keeps_the_comparison_area_as_it_is`, `test_picking_a_value_in_the_structure_closes_the_drawer_and_opens_its_row`, `test_raw_mode_chooses_document_and_section_then_reads_the_page_without_rows`, `test_row_table_uses_plain_field_names_and_keeps_paths_in_the_drawer`, `test_rows_span_documents_and_next_row_moves_to_the_other_document_without_reading_it_again`, `test_run_made_after_the_first_list_is_found_when_a_result_opens_it`, `test_run_that_is_not_the_score_run_reads_its_own_table`, `test_send_step_passes_the_focus_to_retest_and_compare_can_skip_it`, `test_send_step_says_when_the_estimated_line_is_only_an_estimate`, `test_step_bar_can_go_back_to_choose_keeping_the_pick_and_says_what_was_chosen`, `test_structure_is_drawn_only_after_the_drawer_is_opened_and_buttons_stay_within_the_limit`, `test_warnings_and_answer_mismatch_stay_visible_on_the_compare_step`
+    - 옮긴 옛 시험: `test_source_code_never_moves_the_window`, `test_source_comparison_card_leaves_room_for_the_fixed_bar`, `test_source_estimated_lines_have_distinct_text_style_and_no_guess_state`, `test_source_first_open_current_run_then_preserves_manual_document_value_and_page`, `test_source_initial_run_list_failure_is_recoverable_without_unhandled_rejection`, `test_source_key_default_input_and_response_metadata_image_contract`, `test_source_latest_document_and_key_win_races_and_key_reload_keeps_manual_choice`, `test_source_legend_section_summaries_and_visible_comparison_states`, `test_source_loading_failure_retry_no_stale_values_and_raw_text`, `test_source_new_doc_keeps_item_filter_but_manual_choice_survives_menu_reentry`, `test_source_opening_a_problem_or_picking_a_value_does_not_move_the_window`, `test_source_value_tips_and_raw_json_are_safe_on_all_three_sides`
+  - 다른 파일 10건: `test_result_shows_the_picked_value_before_and_after_by_answer_row_not_by_path_number`, `test_result_says_the_row_is_gone_and_gives_no_new_source_link`, `test_result_opens_the_new_value_in_source_from_the_saved_run`, `test_result_says_when_the_value_did_not_change`, `test_s02_direct_entry_starts_from_document_and_section_choice`, `test_s02_problem_list_uses_plain_field_names`, `test_s02_value_selection_preserves_list_scroll_and_visible_focus`, `test_value_details_and_error_records_have_distinct_names`, `test_each_screen_api_error_has_fact_action_and_closed_safe_raw[s02]`, `test_source_help_and_controls_precede_the_two_column_content`
+  - 옛 코드에서도 통과한 새 시험 하나: `test_estimated_line_says_so_and_is_not_a_success`. 옛 코드가 이미 지키던 규칙(추정 줄은 성공이 아니다)을 새 흐름에서 지키는지 보는 시험입니다.
+- 옮기거나 고친 옛 시험(구조가 바뀌어 뜻을 새 자리로 옮김, 뜻을 지운 시험 없음):
+  - 이름을 바꿔 옮김: `test_source_opening_a_problem_shows_the_comparison_card_below_the_fixed_bar`와 `test_source_picking_a_value_moves_the_page_only_when_the_card_is_not_fully_visible` → `test_source_opening_a_problem_or_picking_a_value_does_not_move_the_window`. 옛 시험은 페이지를 움직여 막대 아래로 맞췄는지 봤고, 이제 페이지가 움직이지 않으므로 움직이지 않는지 봅니다. 함께 `test_source_comparison_card_leaves_room_for_the_fixed_bar`는 고정 작업 영역 CSS를 봅니다.
+  - 값이 서랍으로 간 것(같은 글을 서랍에서 확인): `test_source_value_tips_and_raw_json_are_safe_on_all_three_sides`, `test_source_legend_section_summaries_and_visible_comparison_states`, `test_source_estimated_lines_have_distinct_text_style_and_no_guess_state`, `test_source_loading_failure_retry_no_stale_values_and_raw_text`, `test_source_initial_run_list_failure_is_recoverable_without_unhandled_rejection`, `test_value_details_and_error_records_have_distinct_names`, `test_each_screen_api_error_has_fact_action_and_closed_safe_raw`
+  - 고르는 칸이 ①에 있어 ①로 돌아가 고르게 된 것: `test_source_first_open_current_run_then_preserves_manual_document_value_and_page`, `test_source_key_default_input_and_response_metadata_image_contract`, `test_source_latest_document_and_key_win_races_and_key_reload_keeps_manual_choice`, `test_source_new_doc_keeps_item_filter_but_manual_choice_survives_menu_reentry`, `test_s02_direct_entry_starts_from_document_and_section_choice`, `test_s02_choosing_another_section_clears_the_previous_value`
+  - 행 묶음과 캐시 때문에 대역을 맞춘 것: `test_source_no_gold_no_matching_problem_unknown_section_and_deleted_path`, `test_s02_problem_list_spans_documents_of_the_same_criterion`, `test_s02_late_document_click_does_not_replace_new_key_selection`, `test_s02_value_selection_preserves_list_scroll_and_visible_focus`
+  - 왼쪽 목록에서 표로 옮긴 것: `test_s02_problem_list_uses_plain_field_names`(칸 이름은 칸 표에서, 경로는 서랍에서 확인), `test_source_help_and_controls_precede_the_two_column_content`(두 열 순서 → 단계 화면의 순서와 격자)
+- 이번 시도에서 고친 시험 하나: `test_opening_a_problem_keeps_the_compare_step_while_the_document_is_read`의 대역이 첫 문서 다음의 다른 문서 요청까지 잡아 두어 끝나지 않았습니다. 첫 문서만 잡도록 고쳤습니다. 화면 코드의 문제가 아닙니다.
+- 넘기는 일: step 6은 11장의 S02 위치, 새 글의 승인표, 안내 글이 옛 자리를 말하는지 봅니다. step 7은 10장의 쓰지 않는 글 후보 73개를 봅니다. 메인 세션은 G5 브라우저 확인(9장)과 ARCHITECTURE의 API 표(step 4의 두 키)를 맡습니다.

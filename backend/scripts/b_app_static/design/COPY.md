@@ -889,9 +889,9 @@ source.title|원문과 AI의 값을 비교하세요.|S02,S08
 source.problem_count|문서 {count}건에서 찾은 문제 값|S02,S08
 source.unit_first_use|값을 누르면 원문이 바뀝니다. mg/m³는 공기 1세제곱미터에 든 물질의 양(밀리그램)입니다.|S02,S08
 source.filter.all|전체 {count}건|S02,S08
-source.filter.missing|못 뽑음 {count}|S02,S08
-source.filter.made|만듦 {count}|S02,S08
-source.filter.wrong|틀림 {count}|S02,S08
+source.filter.missing|못 뽑음 {count}칸|S02,S08
+source.filter.made|만듦 {count}칸|S02,S08
+source.filter.wrong|틀림 {count}칸|S02,S08
 source.value.wrong|틀림 · {concentration} mg/m³|S02,S08
 source.value.missing|못 뽑음 · {concentration} mg/m³|S02,S08
 source.value.made|만듦 · {concentration} mg/m³|S02,S08
@@ -2162,6 +2162,68 @@ steps.trial.practice_title|연습이 끝났습니다. 보낼 내용만 확인했
 steps.trial.practice_omitted|연습에서는 AI의 답과 점수를 만들지 않습니다. 보낸 입력은 자세히 보기에 있습니다.|S03
 steps.trial.after_practice|실제 시험 준비하기|S03
 steps.trial.change_unavailable|이 값의 전후 변화를 확인할 결과가 없습니다.|S03
+steps.source.choose|문제 고르기|S02
+steps.source.compare|원문과 맞춰 보기|S02
+steps.source.send|다시 시험으로 보내기|S02
+steps.source.choose_title|어떤 항목의 문제부터 볼까요?|S02
+steps.source.choose_say|점수를 많이 깎은 순서입니다. 맨 위부터 보면 됩니다.|S02
+steps.source.row_meaning|행은 표의 한 줄입니다. 칸은 그 줄 안의 값 하나입니다.|S02
+steps.source.choose_summary|{what} · 문제 있는 행 {count}개 · 바꾸기|S02
+steps.source.choose_summary_plain|{what} · 바꾸기|S02
+steps.source.compare_hint|한 행씩 확인|S02
+steps.source.send_hint|고른 부분을 넘김|S02
+steps.source.send_summary|{doc} · {section}번 부분|S02
+steps.source.all_docs|전체 {count}건|S02
+steps.source.col_item|문제가 있는 항목|S02
+steps.source.col_loss|깎인 점수|S02
+steps.source.col_rows|문제 행|S02
+steps.source.col_cells|문제 칸|S02
+steps.source.col_open|볼 문제|S02
+steps.source.loss|{points}점|S02
+steps.source.open|이 문제 보기|S02
+steps.source.all_criteria|기준 {count}개 모두 보기|S02
+steps.source.top_criteria|큰 문제만 보기|S02
+steps.source.run_failed|이 결과의 점수를 읽지 못해 항목 표를 보이지 않습니다. 할 일: 다시 불러오세요.|S02
+steps.source.list_title|문서 {count}건의 문제 행|S02
+steps.source.filter_a11y|문제 종류|S02
+steps.source.kinds|틀림: 값이 다름 · 만듦: 정답에 없는 값 · 못 뽑음: AI가 놓친 값|S02
+steps.source.doc_rows|{doc} · {count}행|S02
+steps.source.row_kind|{kind} {count}칸|S02
+steps.source.more_rows|{count}행 더 보기|S02
+steps.source.partial|일부 문서만 읽었습니다. 할 일: 읽지 못한 문서를 다시 불러오세요.|S02
+steps.source.previous_row|이전 행 보기|S02
+steps.source.next_row|다음 행 보기|S02
+steps.source.row_summary|{doc} · {section}번 부분 · 칸 {total}개 중 문제 {problems}개|S02
+steps.source.row_position|{total}행 중 {index}번째 행|S02
+steps.source.col_result|결과|S02
+steps.source.compare_note|노란색은 지금 보는 값과 그 근거입니다. AI가 틀렸다면 이 부분을 다시 시험하세요.|S02
+steps.source.image_title|원문 그림 · {page}쪽|S02
+steps.source.lines_title|원문 글자 · {page}쪽|S02
+steps.source.lines_near|원문 글자 · {page}쪽 {line}번째 줄 근처|S02
+steps.source.all_lines|쪽 전체 줄 보기|S02
+steps.source.near_lines|고른 값 근처 줄 보기|S02
+steps.source.no_linked_lines|이 쪽에는 값과 연결된 줄이 없습니다. 할 일: 쪽 전체 줄을 보세요.|S02
+steps.source.send_title|이 내용을 다시 시험으로 넘깁니다.|S02
+steps.source.send_say|이 단추는 시험을 시작하지 않습니다. 다음 화면에서 AI와 지시문을 확인합니다.|S02
+steps.source.send_no_value|고른 값이 없습니다. 문서와 부분만 넘깁니다.|S02
+steps.source.details_title|자세히 · 원문과 값|S02
+steps.source.details_hint|문서 전체 표와 추정 방법, 잠긴 문서를 봅니다.|S02
+steps.source.raw_value_title|원래 값과 위치|S02
+steps.source.scope_title|비교 범위|S02
+steps.source.scope_items|이 값은 ‘{items}’ 점수에 들어갑니다.|S02
+steps.source.scope_none|이 값은 점수 기준에 들어가지 않습니다.|S02
+steps.source.scope_note|같은 표의 다른 칸은 다른 기준에도 쓰일 수 있습니다.|S02
+steps.source.doc_table_open|문서 전체 표 열기|S02
+steps.source.howto_title|값과 줄을 고르는 법|S02
+steps.source.target_title|보고 있는 기록|S02
+steps.trial.change_title|고른 값의 변화|S03
+steps.trial.change_value|AI 값: {before} → {after}|S03
+steps.trial.change_kind|판정: {before} → {after}|S03
+steps.trial.change_same|이 값은 달라지지 않았습니다.|S03
+steps.trial.change_gone|새 결과에서 이 행을 찾지 못했습니다.|S03
+steps.trial.change_loading|고른 값의 변화를 읽고 있습니다.|S03
+steps.trial.change_open|새 결과에서 이 값 원문 보기|S03
+steps.trial.change_none|값 없음|S03
 steps.trial.server_on|빌린 서버가 아직 켜져 있습니다.|S03
 steps.trial.company_on|회사 서버가 아직 켜져 있습니다. 추가 임대료는 없습니다.|S03
 steps.trial.close_server|AI 켜기와 비용에서 끄기|S03

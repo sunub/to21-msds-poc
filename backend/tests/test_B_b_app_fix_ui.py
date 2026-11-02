@@ -869,23 +869,25 @@ def test_s01_no_results_hides_run_selector_and_offers_next_step():
 
 
 def test_s02_direct_entry_starts_from_document_and_section_choice():
+    # 고르는 칸을 접지 않는다 (ADR-039). ①에 문서와 부분과 행 목록이 함께 있고, 큰 표는 미리 그리지 않는다.
     from test_B_b_app_source_ui import fixture
     run_js(fixture() + FIX_VISIBLE + r"""
-      view.values=Array.from({length:854},(_,i)=>({...view.values[1],path:'fake['+i+'].q'}));
+      view.values=Array.from({length:854},(_,i)=>({...view.values[1],row:i,path:'fake['+i+'].q'}));
       await go('s02');
-      assert.equal(el('source-problem-list'),null);
-      assert.ok(el('source-doc-select').closest('details').open);
+      assert.equal(el('source-selection').hidden,true);assert.equal(el('source-page').hidden,true);
+      assert.equal(el('source-top').querySelectorAll('details').length,0);
+      assert.ok(el('source-doc-select'));
       assert.ok(el('source-section-choice'));assert.equal(el('source-section-choice').value,'');
       assert.ok(visibleText(el('source-top')).includes(T('source.labels.choose_scope')));
       await change('source-section-choice','8');
+      assert.equal(el('source-section-choice').value,'8');
+      assert.ok(el('source-problem-list').querySelectorAll('button').length<=61);
       el('source-problem-list').querySelector('button').click();
-      const structure=document.querySelector('[data-source-section="8"]').closest('details');
-      assert.equal(structure.open,false);
-      assert.ok(Array.from(el('source-selection').querySelectorAll('details')).every(d=>!d.open));
-      assert.equal(document.querySelector('[data-source-section="8"]').parentElement.open,false);
+      assert.equal(document.querySelector('[data-source-section="8"]'),null);
+      assert.equal(el('source-selection').querySelectorAll('details').length,0);
       const nodes=Array.from(el('screen-s02').querySelectorAll('*'));
       assert.ok(nodes.indexOf(el('source-selection'))<nodes.indexOf(el('source-page')));
-      assert.ok(nodes.indexOf(el('source-page'))<nodes.indexOf(document.querySelector('[data-source-section="8"]')));
+      assert.ok(nodes.indexOf(el('source-page'))<nodes.indexOf(el('source-actions')));
     """)
 
 
@@ -898,7 +900,7 @@ second.silver_only=[];
 const originalApi=api;
 api=async path=>{
  if(path.startsWith('/api/doc?')&&new URLSearchParams(path.split('?')[1]).get('doc')==='T21-X02'){
-   calls.push(path);return second;
+   calls.push(path);return {...second,row_groups:rowGroupsOf(second)};
  }return originalApi(path);
 };
 """
@@ -911,7 +913,7 @@ def test_s02_problem_list_spans_documents_of_the_same_criterion():
       const groups=el('source-problem-list').querySelectorAll('[data-problem-doc]');
       assert.deepEqual(Array.from(groups,g=>g.dataset.problemDoc),['T21-X01','T21-X02']);
       assert.ok(!el('source-problem-list').textContent.includes(view.values[3].path));
-      const b=groups[1].querySelector('button');await b.click();
+      const b=groups[1].querySelector('button');await b.click();await flush();
       assert.equal(S.source.data.doc_id,'T21-X02');assert.equal(S.source.item,'Fake criterion');
       assert.equal(S.source.section,8);assert.equal(S.source.selection.path,second.values[0].path);
       assert.ok(el('source-selection').textContent.includes('Second document value'));
@@ -924,17 +926,20 @@ def test_s02_problem_list_spans_documents_of_the_same_criterion():
 
 
 def test_s02_problem_list_uses_plain_field_names():
+    # 행 제목이 왼쪽 목록을, 쉬운 칸 이름이 행의 표를 맡는다. 경로는 서랍에 있다.
     from test_B_b_app_source_ui import fixture
     run_js(fixture() + r"""
       view.ui_text.value_field_labels={comp_ref:'Fake component label',limit_type:'Fake limit label',q:'Fake numeric label'};
-      view.values[0].field='comp_ref';view.values[1].field='limit_type';
+      view.values[0].field='comp_ref';view.values[0].row=1;view.values[1].field='limit_type';
       await go('s02',{section:8,item:'Fake criterion'});
       const list=el('source-problem-list'),text=list.textContent;
       assert.doesNotMatch(text,/comp_ref|limit_type|msds\[0\]|\bq\b/);
-      for(const label of Object.values(view.ui_text.value_field_labels))assert.ok(text.includes(label));
       assert.equal(text.split('T21-X01').length-1,1);
       list.querySelector('button').click();
-      assert.ok(el('screen-s02').textContent.includes(view.values[0].path));
+      const table=el('source-selection').textContent;
+      assert.doesNotMatch(table,/comp_ref|limit_type|msds\[0\]/);
+      for(const label of ['Fake component label','Fake limit label'])assert.ok(table.includes(label));
+      assert.ok(openDrawer().textContent.includes(view.values[1].path));
     """)
 
 
@@ -975,14 +980,16 @@ def test_s02_criterion_counts_use_run_api_without_recounting_loaded_values():
 
 
 def test_s02_late_document_click_does_not_replace_new_key_selection():
+    # 읽은 문서는 다시 받지 않으므로 처음 받는 문서의 응답을 늦춘다.
     from test_B_b_app_source_ui import fixture
     run_js(fixture() + SOURCE_GROUPS + r"""
       await go('s02',{run:'current',doc:'T21-X01',section:8,item:'Fake criterion',pick:'mismatch'});
+      S.source.problemData.clear();
       const upstream=api;let releaseOld;
       api=async path=>{
         const p=new URLSearchParams(path.split('?')[1]);
-        if(p.get('doc')==='T21-X01'&&p.get('key')==='gold/fake')
-          return new Promise(resolve=>{releaseOld=()=>resolve({...view,doc_id:'T21-X01'});});
+        if(p.get('doc')==='T21-X02'&&p.get('key')==='gold/fake')
+          return new Promise(resolve=>{releaseOld=()=>resolve({...second,row_groups:rowGroupsOf(second)});});
         return upstream(path);
       };
       const pendingPick=sourcePickProblem('T21-X02',second.values[0],false);await flush();
@@ -1002,10 +1009,6 @@ def test_s02_value_selection_preserves_list_scroll_and_visible_focus():
       el('source-problem-list').querySelector('button').click();
       assert.equal(el('source-problem-list').scrollTop,120);
       assert.equal(document.activeElement.closest('[data-problem-doc]').dataset.problemDoc,'T21-X01');
-      const section=document.querySelector('[data-source-section="8"]');
-      const outer=section.parentElement;outer.open=true;outer.dispatchEvent({type:'toggle'});
-      section.open=true;section.dispatchEvent({type:'toggle'});
-      const table=section.querySelector('details');table.open=true;table.dispatchEvent({type:'toggle'});
       const same=pick(2);same.focus();same.click();
       assert.ok(document.activeElement.isConnected);assert.equal(document.activeElement.dataset.sourcePath,view.values[2].path);
     """)
@@ -1050,7 +1053,7 @@ def test_s02_choosing_another_section_clears_the_previous_value():
     run_js(fixture() + r"""
       await go('s02',{section:8,item:'Fake criterion',pick:'mismatch'});
       assert.ok(S.source.selection);
-      await change('source-section-choice','12');
+      await change('source-section-select','12');
       assert.equal(S.source.section,12);assert.equal(S.source.item,null);
       assert.equal(S.source.selection,null);assert.equal(S.source.selectedLines.size,0);
       assert.ok(!el('source-selection').textContent.includes('8 fake-unit'));
@@ -1269,8 +1272,8 @@ def test_value_details_and_error_records_have_distinct_names():
     from test_B_b_app_source_ui import fixture
     run_js(fixture() + r"""
       await go('s02',{run:'current',doc:'T21-X01',section:8});pick(1).click();
-      const details=document.querySelector('.source-raw');assert.ok(details);
-      assert.equal(details.querySelector('summary').textContent,T('source.labels.raw_value'));
-      assert.notEqual(T('source.labels.raw_value'),T('common.raw_error'));
+      const body=openDrawer();assert.ok(body.querySelector('.source-raw'));
+      assert.ok(body.textContent.includes(T('steps.source.raw_value_title')));
+      assert.notEqual(T('steps.source.raw_value_title'),T('common.raw_error_title'));
       assert.equal(rawError('fake').querySelector('summary').textContent,T('common.raw_error'));
     """)
