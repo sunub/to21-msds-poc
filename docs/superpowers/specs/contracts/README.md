@@ -111,4 +111,4 @@ async with gate.slot("explain"):
 
 3절의 `#n` 번호 순서·`seq:` 키와 4절의 `samples/`도 이때 더했다.
 
-`extract.handoff` 표 (약속 ①): `job_id text, handoff_seq integer, body jsonb, created_at timestamptz, PRIMARY KEY (job_id, handoff_seq)`. `body`가 `1-handoff.schema.json` 한 건이다. B 계정 `judge_writer`는 이 표만 읽는다.
+`extract.handoff` 표 (약속 ①): A2 표(`a2_0003_extract_handoff.sql`, 브랜치 `a2/one-pdf`)를 따른다. 칸은 `job_id, handoff_seq, reason, as_of, extraction_sha256, payload_json, created_at`, 기본 키 `(job_id, handoff_seq)`. `payload_json`이 `1-handoff.schema.json` 한 건이다. B 계정 `judge_writer`는 이 표만 읽는다. 처음에는 `body` 칸이었으나 A2 표에 맞춰 바꿨다 (2026-11-03).
