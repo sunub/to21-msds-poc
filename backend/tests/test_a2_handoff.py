@@ -74,6 +74,7 @@ def test_contract_preserves_validator_errors_failed_sections_and_real_retry(samp
     assert payload['checks']['source_mismatch'] == [{'msds_index': 0, 'field': 'hazard.signal_word'}]
     assert len(payload['extraction']['msds'][0]['validation']) == 2
     assert payload['extraction_sha256'] == canonical_sha256(payload['extraction'])
+    assert payload['fields_total'] == 1
     assert sample['extraction'] == original
 
 
@@ -149,11 +150,68 @@ def test_edit_revalidates_new_value_and_preserves_original(sample, monkeypatch):
     assert payload['field_status'] == [{'msds_index': 0, 'field': 'product.name', 'status': '수정됨'}]
 
 
-def test_validator_rejects_contract_with_missing_required_field(sample, tmp_path):
+def test_fields_total_counts_reviewable_fields_across_msds(sample):
+    first = sample['extraction']['msds'][0]
+    first['product'].update(name_en='', uses=['산업용', '시험용'])
+    first['components'] = [{'cas_no': '123-45-6', 'content': {'lower': 0, 'upper': None},
+                            'trade_secret': False, 'seq': 1, 'raw': '원문'}]
+    second = {'product': {'name': '두 번째'}, 'validation': [], 'evidence': [],
+              'physchem': [{'prop_code': 'PH', 'value': {'value': 0, 'unit': ''}, 'raw': '원문'}],
+              'narratives': [{'item_code': 'S04_FIRST_AID', 'value': '대상 항이 아님'}]}
+    sample['extraction']['msds'].append(second)
+    for section in sorted(handoff._SECTIONS):
+        raw = handoff.raw_path(sample['run_dir'], sample['job_id'], 1, section)
+        raw.parent.mkdir(parents=True, exist_ok=True)
+        raw.write_text(json.dumps({'msds_index': 1, 'section': section}), encoding='utf-8')
+        sample['checks']['sections'].append({'msds_index': 1, 'section': section, 'ok': True})
     payload = handoff.build_handoff(**sample)
-    payload.pop('extraction_sha256')
+    # Six fields in the first MSDS, three in the second. Empty/hidden fields,
+    # evidence, validation and unsupported sections do not count.
+    assert payload['fields_total'] == 9
+    assert payload['field_status'] == []
+    view = review.build_view(sample['extraction'], sample['checks'], [], sample['review_record'])
+    assert payload['fields_total'] == view['summary']['fields_total']
+
+
+def test_fields_total_keeps_a_field_cleared_during_review(sample, monkeypatch):
+    review.set_field(sample['review_record'], sample['extraction'], 0, 'product.name',
+                     'edit', '', 'reviewer', sample['created_at'])
+    monkeypatch.setattr(handoff, 'validate_to21', lambda value: [])
+    monkeypatch.setattr(handoff, 'run_to21_validator', lambda value: [])
+    payload = handoff.build_handoff(**sample)
+    assert payload['extraction']['msds'][0]['product']['name'] is None
+    assert payload['fields_total'] == len(payload['field_status']) == 1
+    view = review.build_view(sample['extraction'], sample['checks'], [], sample['review_record'])
+    assert payload['fields_total'] == view['summary']['fields_total']
+    assert sample['extraction']['msds'][0]['product']['name'] == '원본'
+
+
+def test_fields_total_can_be_zero_without_reviewable_values(sample):
+    sample['extraction']['msds'][0]['product']['name'] = None
+    assert handoff.build_handoff(**sample)['fields_total'] == 0
+
+
+@pytest.mark.parametrize('field', ['extraction_sha256', 'fields_total'])
+def test_validator_rejects_contract_with_missing_required_field(sample, field):
+    payload = handoff.build_handoff(**sample)
+    payload.pop(field)
     with pytest.raises(handoff.HandoffNotReady):
         handoff.validate_contract(payload)
+
+
+@pytest.mark.parametrize('value', [-1, 1.5, True, '1', None])
+def test_validator_rejects_invalid_fields_total(sample, value):
+    payload = handoff.build_handoff(**sample)
+    payload['fields_total'] = value
+    with pytest.raises(handoff.HandoffNotReady, match='fields_total'):
+        handoff.validate_contract(payload)
+
+
+def test_runtime_handoff_contract_matches_shared_contract():
+    root = Path(__file__).resolve().parents[2]
+    runtime = json.loads((root / 'docs/contracts/1-handoff.schema.json').read_text(encoding='utf-8'))
+    shared = json.loads((root / 'docs/superpowers/specs/contracts/1-handoff.schema.json').read_text(encoding='utf-8'))
+    assert runtime == shared
 
 
 def test_real_database_serializes_handoff_sequence_and_preserves_rows(sample, tmp_path):
@@ -194,9 +252,10 @@ def test_real_database_serializes_handoff_sequence_and_preserves_rows(sample, tm
                 store, job_id, as_of=sample['as_of'], schema=schema), range(2)))
         assert sorted(value['handoff_seq'] for value in values) == [1, 2]
         with psycopg.connect(dsn) as db:
-            rows = db.execute(sql.SQL('SELECT handoff_seq, extraction_sha256 FROM {} ORDER BY handoff_seq')
+            rows = db.execute(sql.SQL('SELECT handoff_seq, extraction_sha256, payload_json FROM {} ORDER BY handoff_seq')
                               .format(sql.Identifier(schema, 'handoff'))).fetchall()
             assert len(rows) == 2 and rows[0][1] == rows[1][1]
+            assert all(row[2]['fields_total'] == 1 for row in rows)
             with pytest.raises(psycopg.Error) as exc:
                 db.execute(sql.SQL('DELETE FROM {}').format(sql.Identifier(schema, 'handoff')))
             assert exc.value.sqlstate == '55000'

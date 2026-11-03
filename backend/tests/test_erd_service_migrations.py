@@ -1,4 +1,4 @@
-"""Real PostgreSQL checks for the extract/judge ERD migrations.
+"""Real PostgreSQL checks for the extract ERD migrations and handoff grants.
 
 Opt in only with TO21_ERD_TEST_DATABASE_URL pointing at a disposable database.
 Each test creates random schemas, applies the actual migrations with only the
@@ -22,9 +22,6 @@ TABLE_FILES = (
     "a1_0001_extract_jobs.sql",
     "a2_0002_extract_results_reviews_artifacts.sql",
     "a2_0003_extract_handoff.sql",
-    "b2_0004_judge_runs_versions.sql",
-    "b2_0005_judge_explanations_reviews.sql",
-    "b2_0006_judge_snapshots_artifacts.sql",
 )
 HASH = "a" * 64
 
@@ -49,9 +46,8 @@ def test_grants_are_retargeted_to_temporary_schemas():
     assert not re.search(r"\b(?:ON|IN)\s+SCHEMA\s+(?:extract|judge)\b", isolated, re.I)
     assert not re.search(r"\b(?:extract|judge)\.", isolated)
     assert "ON SCHEMA erd_a_example" in isolated
-    assert "ON SCHEMA erd_b_example" in isolated
     assert "IN SCHEMA erd_a_example" in isolated
-    assert "IN SCHEMA erd_b_example" in isolated
+    assert "erd_b_example" not in isolated
 
 
 @pytest.fixture
@@ -104,32 +100,13 @@ def _handoff(conn, schema, job_id, *, seq=1, payload_seq=None):
         "source": {}, "extraction_settings": {}, "extraction": {},
         "extraction_sha256": HASH,
         "checks": {"validator": {}, "failed_sections": [], "reextracted_sections": [], "source_mismatch": []},
-        "field_status": [],
+        "field_status": [], "fields_total": 0,
     }
     conn.execute(sql.SQL("""INSERT INTO {} (job_id, handoff_seq, reason, as_of, extraction_sha256,
                                                payload_json, created_at)
                             VALUES (%s, %s, 'extraction_done', %s, %s, %s, %s)""")
                  .format(_table(schema, "handoff")), (job_id, seq, date, HASH, Jsonb(payload), timestamp))
 
-
-def _run(conn, schema, job_id):
-    conn.execute(sql.SQL("INSERT INTO {} (job_id) VALUES (%s)").format(_table(schema, "runs")), (job_id,))
-
-
-def _version(conn, schema, job_id, version, handoff_seq):
-    conn.execute(sql.SQL("""INSERT INTO {} (job_id, version, handoff_seq, judgment_key, as_of,
-                                               engine_version, knowledge_json, consistency_json)
-                            VALUES (%s, %s, %s, %s, '2026-11-02', '1.0.0', %s, %s)""")
-                 .format(_table(schema, "versions")),
-                 (job_id, version, handoff_seq, HASH, Jsonb({}), Jsonb({})))
-
-
-def _snapshot(conn, schema, job_id, no, version, handoff_seq, event_id=None):
-    conn.execute(sql.SQL("""INSERT INTO {} (job_id, snapshot_no, version, handoff_seq, last_review_event_id,
-                                               review_state_json, counts_json, saved_by)
-                            VALUES (%s, %s, %s, %s, %s, %s, %s, 'reviewer')""")
-                 .format(_table(schema, "snapshots")),
-                 (job_id, no, version, handoff_seq, event_id, Jsonb({}), Jsonb({})))
 
 
 def test_duplicate_pdf_and_same_job_result_references(migrated_db):
@@ -194,7 +171,7 @@ def test_extract_queue_claim_skips_rows_locked_by_another_worker(migrated_db):
 
 
 def test_invalid_job_and_queue_lease_states_are_rejected(migrated_db):
-    conn, a, b = migrated_db
+    conn, a, _ = migrated_db
     job_id = "U-20261102-001"
     _job(conn, a, job_id)
     assert conn.execute(sql.SQL("SELECT as_of FROM {} WHERE job_id=%s")
@@ -205,10 +182,6 @@ def test_invalid_job_and_queue_lease_states_are_rejected(migrated_db):
     with pytest.raises(psycopg.errors.CheckViolation):
         conn.execute(sql.SQL("UPDATE {} SET lease_token='orphan' WHERE job_id=%s")
                      .format(_table(a, "jobs")), (job_id,))
-    _run(conn, b, job_id)
-    with pytest.raises(psycopg.errors.CheckViolation):
-        conn.execute(sql.SQL("UPDATE {} SET processed_handoff_seq=3, pending_handoff_seq=2 WHERE job_id=%s")
-                     .format(_table(b, "runs")), (job_id,))
 
 
 def test_handoff_rejects_metadata_mismatch(migrated_db):
@@ -229,51 +202,6 @@ def test_handoff_rejects_metadata_mismatch(migrated_db):
                      .format(_table(a, "handoff")), (job_id,))
     assert error.value.sqlstate == "55000"
 
-
-def test_snapshot_and_report_remain_in_their_job_and_version(migrated_db):
-    conn, _, b = migrated_db
-    first, second = "U-20261102-001", "U-20261102-002"
-    for job_id in (first, second):
-        _run(conn, b, job_id)
-    _version(conn, b, first, 1, 1)
-    _version(conn, b, first, 2, 2)
-    _version(conn, b, second, 1, 1)
-    other_event = conn.execute(sql.SQL("""INSERT INTO {} (job_id, version, finding_id, action, reviewer,
-                                                            verdict_seen, review_seq)
-                                          VALUES (%s, 1, 'm0/F2:HH_SKIN_CORR:-', '확인', 'reviewer',
-                                                  '일치', 1) RETURNING event_id""")
-                               .format(_table(b, "reviews")), (second,)).fetchone()[0]
-    _snapshot(conn, b, first, 1, 1, 1)  # saving without reviewed findings is allowed
-    with pytest.raises(psycopg.errors.ForeignKeyViolation):
-        _snapshot(conn, b, first, 2, 1, 2)  # version 1 was made from handoff 1
-    with pytest.raises(psycopg.errors.ForeignKeyViolation):
-        _snapshot(conn, b, first, 3, 1, 1, other_event)
-    with pytest.raises(psycopg.errors.ForeignKeyViolation):
-        conn.execute(sql.SQL("""INSERT INTO {} (artifact_id, job_id, version, snapshot_no, format,
-                                                   storage_uri, content_sha256, request_json)
-                                VALUES ('wrong-version', %s, 2, 1, 'pdf', 'test://report', %s, %s)""")
-                     .format(_table(b, "artifacts")), (first, HASH, Jsonb({})))
-    conn.execute(sql.SQL("""INSERT INTO {} (artifact_id, job_id, version, snapshot_no, format,
-                                               storage_uri, content_sha256, request_json)
-                            VALUES ('preview', %s, 2, NULL, 'html', 'test://preview', %s, %s)""")
-                 .format(_table(b, "artifacts")), (first, HASH, Jsonb({})))
-
-
-def test_explanations_can_start_empty_but_completed_need_audited_content(migrated_db):
-    conn, _, b = migrated_db
-    job_id = "U-20261102-001"
-    _run(conn, b, job_id)
-    _version(conn, b, job_id, 1, 1)
-    conn.execute(sql.SQL("""INSERT INTO {} (explanation_id, job_id, version, finding_id, status)
-                            VALUES ('pending', %s, 1, 'm0/F2:HH_SKIN_CORR:-', '작성 중')""")
-                 .format(_table(b, "explanations")), (job_id,))
-    with pytest.raises(psycopg.errors.CheckViolation):
-        conn.execute(sql.SQL("UPDATE {} SET status='완료' WHERE explanation_id='pending'")
-                     .format(_table(b, "explanations")))
-    conn.execute(sql.SQL("""UPDATE {} SET status='완료', source='template', checked=true,
-                                        input_sha256=%s, payload_json=%s WHERE explanation_id='pending'""")
-                 .format(_table(b, "explanations")),
-                 (HASH, Jsonb({"summary": "근거", "reasons": [], "basis": []})))
 
 
 def test_role_grants_restrict_cross_area_access(migrated_db):
