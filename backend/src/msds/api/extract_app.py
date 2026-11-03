@@ -31,6 +31,7 @@ from pydantic import BaseModel, Field, field_validator, model_validator
 from msds.checks.validator import load_to21_module
 from msds.checks.final_validation import summarize_checks, validate_document
 from msds.api.jobs_routes import make_router
+from msds.api import judge_app
 from msds.common import paths
 from msds.extract.inputs import read_page_lines
 from msds.extract.section_runner import raw_path
@@ -45,6 +46,7 @@ MAX_PDF_BYTES = 50 * 1024 * 1024
 CORS_ENV = "MSDS_CORS_ORIGINS"
 DEFAULT_CORS = "http://localhost:3000,http://127.0.0.1:3000,http://localhost:3101,http://127.0.0.1:3101"
 FRONTEND_OUT = paths.ROOT / "frontend" / "out"
+JUDGE_EMBED_ENV = "MSDS_JUDGE_IN_EXTRACT_APP"
 
 
 class FieldReview(BaseModel):
@@ -83,6 +85,7 @@ def load_regen():
 def create_app(store: DocumentStore | None = None, worker=None, pages_dir: Path | None = None,
                static_dir: Path | None = FRONTEND_OUT) -> FastAPI:
     """store·worker를 주지 않으면 켤 때 data/service와 실제 파이프라인 작업자를 만든다."""
+    judge_embedded = os.environ.get(JUDGE_EMBED_ENV) == "1"
 
     @asynccontextmanager
     async def lifespan(app: FastAPI):
@@ -107,12 +110,16 @@ def create_app(store: DocumentStore | None = None, worker=None, pages_dir: Path 
             wk = Worker(st, pipeline.process)
         app.state.worker = wk
         wk.start()
-        if not (db_url and store is None and worker is None):
-            for doc_id in st.recover():
-                wk.submit(doc_id)
         try:
+            if judge_embedded:
+                judge_app.attach(app)
+            if not (db_url and store is None and worker is None):
+                for doc_id in st.recover():
+                    wk.submit(doc_id)
             yield
         finally:
+            if judge_embedded and hasattr(app.state, "judge_workers"):
+                judge_app.detach(app)
             wk.stop(timeout=1)
 
     app = FastAPI(title="TO21 MSDS 추출 API", lifespan=lifespan)
@@ -165,6 +172,8 @@ def create_app(store: DocumentStore | None = None, worker=None, pages_dir: Path 
         return {"ok": True, "model_tag": pipeline.model_tag()}
 
     app.include_router(make_router(get_state, lambda: MAX_PDF_BYTES))
+    if judge_embedded:
+        app.include_router(judge_app.router)
 
     @app.get("/api/documents/{doc_id}/pages/{page}/image")
     def page_image(request: Request, doc_id: str, page: int = PathParam(ge=1)):
