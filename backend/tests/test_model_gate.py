@@ -11,6 +11,30 @@ from msds.common import model_gate
 from msds.common.model_gate import ModelGate, ProcessModelGate
 
 
+def test_explanation_client_uses_explain_queue_without_changing_extract_default(monkeypatch):
+    from contextlib import contextmanager
+    from types import SimpleNamespace
+    from msds.extract import client as extract_client
+
+    kinds = []
+
+    @contextmanager
+    def slot(kind):
+        kinds.append(kind)
+        yield
+
+    monkeypatch.setattr(extract_client, 'get_model_gate', lambda: SimpleNamespace(slot_sync=slot))
+    client = extract_client.ChatClient.__new__(extract_client.ChatClient)
+    client.cfg = {}
+    client.model = 'test'
+    client.token_param = 'max_tokens'
+    client.client = SimpleNamespace(chat=SimpleNamespace(completions=SimpleNamespace(create=lambda **_: None)))
+    client._request([], 'json_object', 'test', {}, 10)
+    client.gate_kind = 'explain'
+    client._request([], 'json_object', 'test', {}, 10)
+    assert kinds == ['extract', 'explain']
+
+
 def _process_call(path, kind, entered, release):
     gate = ProcessModelGate(1, path)
     with gate.slot_sync(kind):
