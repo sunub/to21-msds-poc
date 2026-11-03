@@ -186,7 +186,7 @@ class PostgresJobStore:
             return record
 
     def create(self, pdf: bytes, filename: str, as_of: str | None, model_tag: str,
-               today: str | None = None) -> dict:
+               today: str | None = None, *, reuse: bool = True) -> dict:
         # Serialize ID allocation with every API process using this database.
         # Never create state.json: file-mode workers must not pick up DB jobs.
         now = now_kst()
@@ -216,6 +216,7 @@ class PostgresJobStore:
                                         .format(self.table), (digest,)).fetchall()
             state = progress.new_state(doc_id, filename, digest, len(pdf), as_of, model_tag, now,
                                        [row['job_id'] for row in duplicate_rows])
+            state['reuse_requested'] = reuse
             # On an uncertain insert/commit outcome, preserve the original PDF.
             # Future allocations skip the orphan's directory and never overwrite it.
             self.pdf_path(doc_id).write_bytes(pdf)
@@ -252,6 +253,7 @@ class PostgresJobStore:
             state.pop('_prepared_token', None)
             state.pop('_working_token', None)
             state.pop('_pending_terminal', None)
+            state.pop('reused_from', None)
             state['updated_at'] = now_kst()
             db.execute(sql.SQL("""UPDATE {} SET status='queued', stage=NULL, progress_json=%s,
                 attempt_no=0, lease_token=NULL, lease_expires_at=NULL, updated_at=now() WHERE job_id=%s""")
@@ -396,6 +398,19 @@ class PostgresJobStore:
 
     def complete(self, doc_id: str, token: str, *, error: str | None = None) -> dict:
         return self.finish(doc_id, token, error=error)
+
+    def fail_handoff(self, doc_id: str, token: str, error: str) -> None:
+        """Record a failed automatic handoff so a completed job is not silently stranded."""
+        with self._connect() as db:
+            row = db.execute(sql.SQL('SELECT status, progress_json FROM {} WHERE job_id=%s FOR UPDATE')
+                             .format(self.table), (doc_id,)).fetchone()
+            if not row or row['status'] != 'done' or row['progress_json'].get('_active_token') != token:
+                return
+            state = row['progress_json']
+            progress.apply_event(state, {'type': 'failed', 'error': error[:500]})
+            state['updated_at'] = now_kst()
+            db.execute(sql.SQL('UPDATE {} SET status=%s, progress_json=%s, updated_at=now() WHERE job_id=%s')
+                       .format(self.table), ('failed', Jsonb(state), doc_id))
 
     def recover_expired(self) -> int:
         with self._connect() as db:

@@ -78,6 +78,8 @@ def apply_event(state: dict, event: dict) -> dict:
                  errors=list(event.get("errors") or [])[:ERRORS_KEPT])
     elif kind == "finalize":
         state["stage"] = "finalize"
+    elif kind == "reused":
+        state["reused_from"] = event["job_id"]
     elif kind == "done":
         summary = dict(event.get("summary") or {})
         state["warnings"] += list(summary.pop("warnings", []) or [])
@@ -118,6 +120,7 @@ def summary_view(state: dict) -> dict:
             "error", "page_count", "text_layer", "msds_count")
     return {**{k: state[k] for k in keep}, "stage_index": stage_index(state), "stage_total": len(STAGES),
             "counts": counts(state), "can_retry": can_retry(state),
+            "reused_from": state.get("reused_from"),
             "validation": (state.get("summary") or {}).get("validation")}
 
 
