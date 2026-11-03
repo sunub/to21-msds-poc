@@ -6,6 +6,10 @@ import pytest
 from msds.checks.final_validation import summarize_checks, validate_document
 
 
+def all_sections(index=0):
+    return [{'msds_index': index, 'section': no, 'ok': True} for no in (1, 2, 3, 8, 9, 11, 12, 14, 15)]
+
+
 def test_validator_errors_in_extras_are_mapped_without_changing_source():
     doc = {"msds": [{"extras": [{"section_no": 3}, {"section_no": 12}, {"section_no": 14}]}]}
     checks = {"schema_errors": [], "sections": [{"msds_index": 0, "section": 9, "ok": True}],
@@ -26,7 +30,8 @@ def test_validator_errors_in_extras_are_mapped_without_changing_source():
 
 
 def test_warning_and_unmapped_findings_remain_visible():
-    checks = {"schema_errors": [], "to21_validator": [{"level": "경고", "rule": "V14", "field": None}]}
+    checks = {"schema_errors": [], "to21_validator": [{"level": "경고", "rule": "V14", "field": None}],
+              "sections": all_sections()}
     result = summarize_checks({"msds": [{}]}, checks)
     assert result["status"] == "needs_review"
     assert result["validator_warnings"] == 1
@@ -57,7 +62,7 @@ def test_missing_or_malformed_checks_never_appear_valid(checks):
 
 def test_valid_check_passes_and_canonical_root_maps_to_section():
     doc = {"msds": [{"components": [{"cas_no": "0000-00-0"}]}]}
-    checks = {"schema_errors": [], "to21_validator": []}
+    checks = {"schema_errors": [], "to21_validator": [], "sections": all_sections()}
     assert summarize_checks(doc, checks)["status"] == "passed"
     checks["to21_validator"] = [{"level": "오류", "rule": "V01", "field": "msds[0].components[0].cas_no"}]
     assert summarize_checks(doc, checks)["needs_review"] == [{"msds_index": 0, "section": 3}]
@@ -110,6 +115,38 @@ def test_validators_cannot_change_original_or_each_others_input():
         value["msds"].clear()
         return []
 
-    _, summary = validate_document(doc, {}, schema_validator=schema, semantic_validator=semantic)
+    _, summary = validate_document(doc, {'sections': all_sections()}, schema_validator=schema, semantic_validator=semantic)
     assert summary["status"] == "passed"
     assert doc["msds"][0]["product"]["name"] == "테스트"
+
+
+def test_empty_document_cannot_pass_even_with_no_reported_errors():
+    summary = summarize_checks({'msds': []}, {'schema_errors': [], 'to21_validator': [], 'sections': []})
+    assert summary['status'] == 'invalid'
+    assert summary['invalid_msds'] is True
+
+
+def test_missing_sections_cannot_be_reported_as_passed():
+    checks = {'schema_errors': [], 'to21_validator': []}
+    summary = summarize_checks({'msds': [{}]}, checks)
+    assert summary['status'] == 'invalid'
+    assert summary['missing_sections'] == [{'msds_index': 0, 'section': no} for no in (1, 2, 3, 8, 9, 11, 12, 14, 15)]
+    checks['sections'] = all_sections()[:-1]
+    assert summarize_checks({'msds': [{}]}, checks)['missing_sections'] == [{'msds_index': 0, 'section': 15}]
+
+
+def test_duplicate_or_out_of_scope_section_record_cannot_pass():
+    checks = {'schema_errors': [], 'to21_validator': [], 'sections': all_sections() + [all_sections()[0]]}
+    summary = summarize_checks({'msds': [{}]}, checks)
+    assert summary['status'] == 'invalid' and summary['invalid_section_records'] == 1
+    checks['sections'] = all_sections() + [{'msds_index': 1, 'section': 1, 'ok': True}]
+    assert summarize_checks({'msds': [{}]}, checks)['invalid_section_records'] == 1
+
+
+def test_each_msds_requires_its_own_nine_sections():
+    checks = {'schema_errors': [], 'to21_validator': [], 'sections': all_sections(0)}
+    summary = summarize_checks({'msds': [{}, {}]}, checks)
+    assert summary['status'] == 'invalid'
+    assert len(summary['missing_sections']) == 9
+    checks['sections'].extend(all_sections(1))
+    assert summarize_checks({'msds': [{}, {}]}, checks)['status'] == 'passed'
