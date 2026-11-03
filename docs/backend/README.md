@@ -26,17 +26,17 @@
 
 개요 `fcac3a4188fb`, 나누기 `7fa6d03ccd33`, 화면 `b6a427e2da29`. 팀 공유가 끝나면 저장소 사본이 기준이 된다.
 
-## 진행 상태 (2026-11-02)
+## 진행 상태 (2026-11-03)
 
 | 부분 | 상태 |
 |---|---|
-| 약속 ①~⑤ 스키마 | main 공유본 기준으로 맞춤. 구현하며 바꾼 칸은 README 7절. 팀 확인 필요 |
-| B1 엔진 | 우진(F) `f/compliance` `0dde06f`까지 병합. D-22 단일물질 재지정만 추가. 설계서 대비 남은 차이는 `b/decisions.md` |
-| B1 `judge()` | 완료. 새 파일 `compliance/judge.py` |
-| B2 판정 서비스 | 구현·시험 완료. 실제 넘김 표와 모델 창구는 대역 |
-| A ↔ B 연결 | A2의 `extract.handoff` 대기 |
+| 약속 ①~⑤ 스키마 | main 공유본 기준으로 맞춤. 구현하며 바꾼 칸은 README 7절 |
+| B1 엔진 | main (#143). 우진(F) 작업은 main에서 합쳐진다. 결정과 남은 차이는 `b/decisions.md` |
+| B1 `judge()` | 완료. `compliance/judge.py` |
+| B2 판정 서비스 | main (#143, #145). A2 `extract.handoff`(#142)를 읽고, 추출 앱에 붙는다(#144) |
+| 화면 연결 | 판정 탭 main (#138). "판정으로 넘기기" 경로만 어긋남 (`b/handoffs.md` 화면) |
 
-브랜치: `b1/judge-engine` (작업 공간 `~/team/to21-b`). main과 `f/compliance`를 병합했고 로컬 커밋만 있다. 푸시·PR은 하지 않았다.
+작업 공간 `~/team/to21-b`. 작업마다 최신 main에서 새 브랜치를 만든다.
 
 ## 시험
 

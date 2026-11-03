@@ -120,6 +120,8 @@ def generate(req: dict, llm=None, retries: int = 1) -> dict:
             except Exception as e:  # 모델 서버 장애로 설명이 '작성 중'에 멈추면 안 된다
                 print(f"설명 모델 호출 실패: {type(e).__name__}: {e}")
                 resp, meta = None, {"errors": [type(e).__name__]}
+            if isinstance(resp, dict):  # 근거는 엔진이 만든다. 모델은 없는 쪽·틀린 항 번호를 붙였다 (우진 결정 14)
+                resp = {**resp, "basis": engine.engine_basis(req)}
             if fixed_summary and isinstance(resp, dict):  # 과소·과대의 한 줄 요약은 문장틀로 고정 (우진 측정 7차)
                 resp = {**resp, "llm_summary": resp.get("summary"), "summary": engine._summary(req)}
             problems = engine.check(resp, req) + claim_problems(resp, req) if resp is not None else ["모델 응답 없음"]

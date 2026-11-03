@@ -142,3 +142,64 @@ def test_샘플CSV와_실제DB의_분류·독성값이_같다():
         assert list(make_db_tox_lookup(sample)(cas)) == list(make_db_tox_lookup(real)(cas)), cas
         reg = lambda repo: RegulationProvider(repo, knowledge_version="v").get_regulation(cas, None)["rows"]
         assert reg(sample) == reg(real), cas  # 15항 규제 행(항목 코드·기준 농도)도 같아야 한다
+
+
+def test_지식DB_보정표의_행은_실제DB에_그대로_있고_읽을_때만_고친다():
+    """보정 행이 가리키는 DB 행이 원래 값 그대로 있어야 한다. 지식DB가 고쳐지면 이 시험이 실패해 보정을 지울 때를 알린다."""
+    from msds.compliance.htodb.regulation import fixes, regulation_rows
+    real = _real_db()
+    if real is None:
+        pytest.skip("실제 HTODB에 붙을 수 없음(HTODB_SKIP=1 또는 deploy/htodb 미적재)")
+    for (cas, item_id), f in fixes().items():
+        chem = real.chemicals(cas=cas)["rows"][0]["chem_id"]
+        raw = next(r for r in regulation_rows(real.regulations(chem)) if r["regulate_item_id"] == item_id)
+        assert f"{raw['threshold_op']}{raw['threshold_value']:g}" == f["db_value"], f["fix_id"]
+        row = next(r for r in RegulationProvider(real).get_regulation(cas, None)["rows"] if r["regulate_item_id"] == item_id)
+        op, value, state = FIX_CASES[f["fix_id"]][-1]  # 보정표가 아니라 법령에서 정한 기대값과 대조
+        assert (row["threshold_op"], row["threshold_value"], row["condition"]["state"]) == (op, value, state), f["fix_id"]
+        assert f["fix_id"] in row["source"] and row["condition"]["ph_max"] == raw["condition"]["ph_max"]
+
+
+
+# 보정 행마다 판정이 어떻게 바뀌는지 하나씩. 보정이 빠지거나 새로 생기면 이 표도 고쳐야 한다(결정 B-43)
+_TALC = "석면이 1% 이상 함유된 탈크만 해당"
+FIX_CASES = {  # fix_id: (CAS, 함량 %, 법, 항목, MSDS 기재, 보정 후 판정, 보정 후 (부호, 기준 %, 적용 조건))
+    "FX-01": ("61788-33-8", 1.0, "OSH", "OSH_PROHIBIT", "비해당", "일치", (">", 1.0, None)),    # 1% 이하는 제외. 보정 전에는 경계
+    "FX-02": ("14807-96-6", 0.5, "CCA", "CCA_PROHIBIT", "비해당", "경계", (">=", 0.0, _TALC)),  # 석면 함유 탈크만, 함량 기준 없음. 보정 전에는 일치(30%면 규제 누락 높음)
+    "FX-03": ("14807-96-6", 0.5, "OSH", "OSH_PROHIBIT", "비해당", "경계", (">=", 0.0, _TALC)),  # 제9호는 1% 제외가 없다. 보정 전에는 일치
+    "FX-04": ("12001-29-5", 1.0, "OSH", "OSH_PROHIBIT", "비해당", "경계", (">=", 1.0, None)),  # 1% 이상 금지. 보정 전에는 일치
+}
+
+
+@pytest.mark.parametrize("fix_id", sorted(FIX_CASES))
+def test_지식DB_보정은_판정에_반영되고_근거에_보정_번호가_남는다(fix_id):
+    from msds.compliance.htodb.regulation import fixes
+    from msds.compliance.sec15_judge import judge_sec15
+    assert {f["fix_id"] for f in fixes().values()} == set(FIX_CASES)
+    real = _real_db()
+    if real is None:
+        pytest.skip("실제 HTODB에 붙을 수 없음")
+    cas, content, law, item, said, verdict, _ = FIX_CASES[fix_id]
+    inp = {"as_of_date": "2026-11-01", "physchem": {}, "dangerous_goods": [],
+           "components": [{"seq": 1, "cas_no": cas, "content": {"raw": str(content), "value": content, "unit": "%"}}],
+           "regulations": [{"comp_ref": "1", "law": l, "item_code": i, "applicable": said, "threshold": None, "value_raw": None}
+                           for l, i in (("CCA", "CCA_PROHIBIT"), ("OSH", "OSH_PROHIBIT"))]}
+    out = judge_sec15(inp, RegulationProvider(real))
+    v = next(v for v in out["verdicts"] if v["item_code"] == item and v["comp_ref"] == "1")
+    assert v["verdict"] == verdict and f"보정 {fix_id}" in " ".join(v["source"]), v
+
+
+@pytest.mark.parametrize("threshold, verdict", [(None, "일치"), (0.0, "일치"), (1.0, "일치"), (5.0, "불일치")])
+def test_탈크를_금지물질로_적은_MSDS의_0퍼센트_1퍼센트_기준은_일치(threshold, verdict):
+    """MSDS는 탈크 금지물질을 '0% 이상'(함유하면) 또는 '석면이 1% 이상 함유된 탈크'로 적는다. 1%는 조건의 숫자다(결정 B-43)."""
+    from msds.compliance.sec15_judge import judge_sec15
+    real = _real_db()
+    if real is None:
+        pytest.skip("실제 HTODB에 붙을 수 없음")
+    thr = None if threshold is None else {"value": threshold, "unit": "%"}
+    inp = {"as_of_date": "2026-11-01", "physchem": {}, "dangerous_goods": [],
+           "components": [{"seq": 1, "cas_no": "14807-96-6", "content": {"raw": "30", "value": 30.0, "unit": "%"}}],
+           "regulations": [{"comp_ref": "1", "law": l, "item_code": i, "applicable": "해당", "threshold": thr, "value_raw": None}
+                           for l, i in (("CCA", "CCA_PROHIBIT"), ("OSH", "OSH_PROHIBIT"))]}
+    out = judge_sec15(inp, RegulationProvider(real))["verdicts"]
+    assert {v["verdict"] for v in out if v["comp_ref"] == "1" and v["item_code"] in ("CCA_PROHIBIT", "OSH_PROHIBIT")} == {verdict}
