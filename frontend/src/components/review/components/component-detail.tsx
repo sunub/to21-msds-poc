@@ -6,14 +6,15 @@ import type { ComponentSummary } from "@/api/judgment";
 import { Card, PillTabs, StatusLabel, buttonStyles } from "@/components/ui";
 import { cn } from "@/lib/cn";
 import {
+  ateKey,
   ateLadder,
+  ateTabLabel,
   classChip,
   classLabel,
   componentHeadline,
-  defaultRoute,
+  defaultAteKey,
   groupBySource,
   reliabilityTone,
-  routeLabel,
   sourcesAgree,
   type AteEntry,
 } from "@/lib/components";
@@ -127,9 +128,9 @@ function SingleClasses({ component }: { component: ComponentSummary }) {
 }
 
 function AteLadder({ ate }: { ate: AteEntry[] }) {
-  const [picked, setPicked] = useState<AteEntry["route"] | null>(null);
-  const route = picked && ate.some((a) => a.route === picked) ? picked : defaultRoute(ate);
-  const entry = ate.find((a) => a.route === route);
+  const [picked, setPicked] = useState<string | null>(null);
+  const key = picked && ate.some((a) => ateKey(a) === picked) ? picked : defaultAteKey(ate);
+  const entry = ate.find((a) => ateKey(a) === key);
   if (!entry) {
     return (
       <div>
@@ -141,13 +142,14 @@ function AteLadder({ ate }: { ate: AteEntry[] }) {
   return (
     <div>
       <div className="mb-1.5 flex flex-wrap items-center justify-between gap-2">
-        <span className="text-sm font-medium text-mut">{classLabel(ACUTE[entry.route])} ATE를 가져온 순서</span>
+        <span className="text-sm font-medium text-mut">{classLabel(ACUTE[entry.route])}
+          {entry.form && ` · ${entry.form}`} ATE를 가져온 순서</span>
         {ate.length > 1 && (
           <PillTabs
             label="경로"
-            items={ate.map((a) => ({ id: a.route, label: routeLabel(a.route) }))}
-            value={entry.route}
-            onChange={(id) => setPicked(id as AteEntry["route"])}
+            items={ate.map((a) => ({ id: ateKey(a), label: ateTabLabel(a) }))}
+            value={ateKey(entry)}
+            onChange={setPicked}
           />
         )}
       </div>
