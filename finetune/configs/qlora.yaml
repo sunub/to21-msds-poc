@@ -1,0 +1,49 @@
+# 추출 모델 QLoRA 설정 (11/03 F). 모델이 정해지면 base_model과 chat_template_kwargs만 바꾼다.
+# 값을 바꿔 다시 돌릴 때는 run_name도 바꾼다. 결과 폴더가 <output_dir>/<run_name>/ 이다.
+
+run_name: to21_qlora_v1
+output_dir: finetune/out            # 저장소에 올리지 않는다 (.gitignore)
+
+# 원본(bf16) 체크포인트를 쓴다. -FP8·-AWQ 같은 양자화본은 학습에 못 쓴다.
+#   예: RNGD에서 쓰는 furiosa-ai/Qwen3-30B-A3B-Instruct-2507-FP8 → Qwen/Qwen3-30B-A3B-Instruct-2507
+#       RunPod에서 쓰는 Qwen/Qwen3.6-35B-A3B-FP8 → Qwen/Qwen3.6-35B-A3B
+base_model: Qwen/Qwen3-30B-A3B-Instruct-2507
+trust_remote_code: false
+# 추론 설정(backend/configs/models.yaml 그 태그의 params.extra_body.chat_template_kwargs)과 같게 둔다.
+# 생각 모드가 있는 모델(Qwen3 혼합형 등)은 {enable_thinking: false}. 다르면 학습 글과 추론 글의 앞부분이 달라진다.
+chat_template_kwargs: {}
+
+max_seq_len: 16384                  # 이보다 긴 예시는 자르지 않고 뺀다(--check-data로 먼저 길이를 본다)
+attn_implementation: sdpa           # flash-attn을 깔았으면 flash_attention_2
+
+quantization:                       # QLoRA: 원본을 4bit(NF4)로 올리고 LoRA만 학습한다
+  load_in_4bit: true
+  quant_type: nf4
+  double_quant: true
+
+lora:
+  r: 16
+  alpha: 32
+  dropout: 0.05
+  # 주의(attention) 투영만 학습한다. Qwen·Llama 계열 밀집·MoE 모델 모두 이름이 같다.
+  # MoE의 전문가(experts) 층은 수가 많아 메모리·시간이 크게 늘고, vLLM LoRA 지원도 모델마다 달라 넣지 않는다.
+  target_modules: [q_proj, k_proj, v_proj, o_proj]
+  exclude_modules: ".*(visual|vision).*"   # 멀티모달 모델의 이미지 쪽 층은 건드리지 않는다
+
+train:
+  epochs: 2
+  lr: 1.0e-4
+  scheduler: cosine
+  warmup: 0.05                      # 1보다 작으면 전체 단계 대비 비율
+  weight_decay: 0.0
+  max_grad_norm: 1.0
+  batch_size: 1
+  grad_accum: 8                     # 한 번에 반영하는 예시 수 = batch_size × grad_accum
+  gradient_checkpointing: true
+  optim: paged_adamw_8bit
+  bf16: true
+  logging_steps: 5
+  eval_steps: 25
+  save_steps: 50
+  eval_before: true                 # 학습 전 검증 손실도 남긴다(전후 비교)
+  seed: 2026

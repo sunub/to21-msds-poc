@@ -1,0 +1,9 @@
+# 추출 모델 QLoRA 학습용 (GPU 서버). backend 가상환경과 따로 둔다.
+# torch는 RunPod PyTorch 이미지에 깔린 것(CUDA 맞춤)을 그대로 쓴다. 없으면 https://pytorch.org 안내대로 CUDA 판을 먼저 깐다.
+# 아래 판은 11/03 CPU 시험(finetune/tests)에서 확인한 판이다. bitsandbytes 4bit는 GPU에서만 확인할 수 있다.
+transformers==5.22.1
+peft==0.21.2
+accelerate==1.15.0
+bitsandbytes>=0.48
+pyyaml>=6
+pytest>=8
