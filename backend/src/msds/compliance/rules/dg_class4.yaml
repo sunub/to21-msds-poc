@@ -1,0 +1,17 @@
+# dg_class4.yaml — 위험물안전관리법 제4류(인화성 액체) 품명·지정수량 (설계서 29장, D-11)
+# version: r2026.10c | source: 위험물안전관리법 시행령 별표1 (원문 대조 필요 — 미결 8) | checked_by: | checked_date:
+# 1기압 기준. 수용성 여부는 9항 용해도 또는 규제DB. 예외 규정(가연성 액체량 40 중량% 이하 등)이 걸리는 품명은 '경계'
+# 저장소 반입: 11/02 F — 규칙표 v0.3 그대로. sec15_judge.py 가 읽는다(전에는 같은 기준을 코드에 적어 두었음, 설계서 45장)
+meta: {version: r2026.10c}
+applies_if: 'prop("STATE") == "액체"'
+rules:
+  - {id: DG4-SP, item: 특수인화물, when: 'prop("AUTOIGNITION") <= 100 or (prop("FLASH_POINT") <= -20 and prop("BOILING") <= 40)', qty: {any: 50}}
+  - {id: DG4-AL, item: 알코올류,  when: 'flag("c1_c3_alcohol") >= 60', qty: {any: 400}, note: "탄소 1~3개 포화1가 알코올 함량 60% 이상"}
+  - {id: DG4-1,  item: 제1석유류, when: 'prop("FLASH_POINT") < 21', qty: {비수용성: 200, 수용성: 400}}
+  - {id: DG4-2,  item: 제2석유류, when: 'prop("FLASH_POINT") >= 21 and prop("FLASH_POINT") < 70', qty: {비수용성: 1000, 수용성: 2000}, edge: "가연성 액체량 40% 이하 예외"}
+  - {id: DG4-3,  item: 제3석유류, when: 'prop("FLASH_POINT") >= 70 and prop("FLASH_POINT") < 200', qty: {비수용성: 2000, 수용성: 4000}, edge: "도료류 예외"}
+  - {id: DG4-4,  item: 제4석유류, when: 'prop("FLASH_POINT") >= 200 and prop("FLASH_POINT") < 250', qty: {any: 6000}, edge: "도료류 예외"}
+note: "동식물유류(인화점 250℃ 미만)는 성분 정보가 필요 → 대조만. 제1·2·3·5·6류는 규제DB Y/N과 대조"
+examples:
+  - {name: "인화점 12", in: {props: {STATE: 액체, FLASH_POINT: 12, BOILING: 80, AUTOIGNITION: 400}}, out: "제1석유류"}
+  - {name: "인화점 -30, 비점 35", in: {props: {STATE: 액체, FLASH_POINT: -30, BOILING: 35, AUTOIGNITION: 300}}, out: "특수인화물"}
