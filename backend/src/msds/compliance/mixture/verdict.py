@@ -218,6 +218,27 @@ def _merge_form_pairs(verdicts, rules, override):
     return out
 
 
+def _no_proof(row, r):
+    """지식DB에는 '분류 안 됨' 행이 없어 빈칸은 자료 없음이다. 빈칸 성분이 있으면 MSDS가 과하다고 말할 근거가 없다 (멘토링 3번)."""
+    if row["type"] != TYPE_NAME[OVER]:
+        return row
+    limits = (r.get("calc") or {}).get("include_min") or 0
+    limit = min((v for v in limits.values() if v is not None), default=0) if isinstance(limits, dict) else (limits or 0)
+    names = [i.get("name") or i.get("cas") or "이름 없는 성분" for i in r.get("inputs") or []
+             if i.get("excluded") in ("해당 분류 없음", "분류 정보 없음", "함량 없음", "자료 없음")
+             and ((i.get("content") or {}).get("high") is None or i["content"]["high"] >= limit)]
+    if not names:
+        return row
+    return _lack(row["class_code"], row["form"], row["msds_value"], row["our_value"]["low"], row["our_value"]["high"],
+                 f"MSDS가 더 강하게 적었으나 기준 분류나 함량을 알 수 없는 성분이 있어 과대 여부를 정할 수 없음: {', '.join(names)}")
+
+
+def _sum_note(row, res):
+    if res.get("to21_sum"):
+        row["reason"] += " (같은 구분 성분 합산으로 분류됨, TO21 기준)"
+    return row
+
+
 def aggregate_verdicts(results, msds_classes, *, rules=None, order=None) -> dict:
     """results: classify_mixture_all 결과, msds_classes: 추출 JSON hazard.classes[]. order: {class_code: [구분…위험한 순]} 덮어쓰기.
 
@@ -242,9 +263,9 @@ def aggregate_verdicts(results, msds_classes, *, rules=None, order=None) -> dict
         elif res["status"] == "근거부족":
             verdicts.append(_lack(cc, form, msds, res["low"], res["high"], res.get("reason") or "우리 결과가 근거부족"))
         elif cc == "HH_STOT_SE" and ((r.get("extra") or {}).get("low") or (r.get("extra") or {}).get("high")):
-            verdicts.append(_compare_with_effects(cc, form, res, r["extra"], msds, _order(cc, form, rules, order)))
+            verdicts.append(_sum_note(_no_proof(_compare_with_effects(cc, form, res, r["extra"], msds, _order(cc, form, rules, order)), r), res))
         else:
-            verdicts.append(_compare_one(cc, form, res, msds, _order(cc, form, rules, order)))
+            verdicts.append(_sum_note(_no_proof(_compare_one(cc, form, res, msds, _order(cc, form, rules, order)), r), res))
     for (cc, form), m in stated.items():  # MSDS에만 있는 항목: 비교할 우리 결과가 없다
         if (cc, form) not in seen:
             verdicts.append(_lack(cc, form, sorted(m), None, None, "우리 결과에 같은 항목이 없음"))
