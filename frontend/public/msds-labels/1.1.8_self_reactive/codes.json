@@ -1,0 +1,65 @@
+{
+  "source": "경고표지의 기재항목(제6조 관련) 1.1.8 자기반응성 물질 및 혼합물(self-reactive substances and mixtures)",
+  "items": [
+    {
+      "class": "형식 A",
+      "ghs": ["GHS01.png"],
+      "rtdg": null,
+      "rtdg_note": "운송불가",
+      "signal": "위험",
+      "hazard": ["H240"],
+      "prevention": ["P210", "P234", "P235", "P240", "P280"],
+      "response": ["P370+P372+P380+P373"],
+      "storage": ["P403", "P411", "P420"],
+      "disposal": ["P501"]
+    },
+    {
+      "class": "형식 B",
+      "ghs": ["GHS02.png", "GHS01.png"],
+      "rtdg": ["RTDG_4.1.png", "RTDG_1.png"],
+      "rtdg_note": "두 그림문자 함께 표시(또는 아님)",
+      "signal": "위험",
+      "hazard": ["H241"],
+      "prevention": ["P210", "P234", "P235", "P240", "P280"],
+      "response": ["P370+P380+P375[+P378]"],
+      "response_note": "[+P378]은 원문 표기 그대로(대괄호 부분 선택 적용)",
+      "storage": ["P403", "P411", "P420"],
+      "disposal": ["P501"]
+    },
+    {
+      "class": "형식 C 및 D",
+      "ghs": ["GHS02.png"],
+      "rtdg": ["RTDG_4.1.png"],
+      "signal": "위험",
+      "hazard": ["H242"],
+      "prevention": ["P210", "P234", "P235", "P240", "P280"],
+      "response": ["P370+P378"],
+      "storage": ["P403", "P411", "P420"],
+      "disposal": ["P501"]
+    },
+    {
+      "class": "형식 E 및 F",
+      "ghs": ["GHS02.png"],
+      "rtdg": ["RTDG_4.1.png"],
+      "signal": "경고",
+      "hazard": ["H242"],
+      "prevention": ["P210", "P234", "P235", "P240", "P280"],
+      "response": ["P370+P378"],
+      "storage": ["P403", "P411", "P420"],
+      "disposal": ["P501"]
+    },
+    {
+      "class": "형식 G",
+      "ghs": null,
+      "ghs_note": "없음",
+      "rtdg": null,
+      "rtdg_note": "요구되지 않음",
+      "signal": null,
+      "hazard": [],
+      "prevention": [],
+      "response": [],
+      "storage": [],
+      "disposal": []
+    }
+  ]
+}
