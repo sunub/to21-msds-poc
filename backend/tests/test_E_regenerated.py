@@ -70,6 +70,16 @@ def test_each_msds_uses_memory_db_and_closes_it():
     assert mod.paths == [":memory:"] and mod.Db.closed
 
 
+def test_empty_narrative_title_gets_standard_title_without_changing_doc(monkeypatch):
+    monkeypatch.setattr(regenerated, "_standard_titles", lambda: {"S8_EYE": "눈 보호"})
+    doc = {"msds": [{"narratives": [{"item_code": "S8_EYE", "title_raw": None},
+                                    {"item_code": "S8_RESP", "title_raw": "다. 개인 보호구"},
+                                    {"item_code": "모름", "title_raw": ""}]}, {}]}
+    seen = regenerated._fill_titles(doc)
+    assert [r["title_raw"] for r in seen["msds"][0]["narratives"]] == ["눈 보호", "다. 개인 보호구", regenerated.NO_TITLE]
+    assert doc["msds"][0]["narratives"][0]["title_raw"] is None and seen["msds"][1] == {}
+
+
 has_regen = pytest.mark.skipif(not (paths.TO21 / paths.TO21_FILES["regen"]).is_file(),
                                reason="TO21 제공 파일이 없습니다 (to21/README.md 참고)")
 
@@ -89,3 +99,19 @@ def test_real_module_survives_document_with_all_sections_failed():
     empty = {"doc": doc["doc"], "msds": [{"product": {}, "meta": {}}]}
     out = regenerated.regenerate_sections(empty, load_to21_module("regen"))
     assert [s["section"] for s in out[0]["sections"]] == list(EXTRACT_SECTIONS)
+
+
+@has_regen
+def test_real_module_survives_empty_title_with_extras():
+    """빈 제목과 extras가 함께 있으면 스크립트가 TypeError로 멈추던 문서 (49번 미리매)."""
+    doc = json.loads(paths.to21_file("example25").read_text(encoding="utf-8"))
+    m = doc["msds"][0]
+    target = next(r for r in m["narratives"] if r["item_code"].startswith("S8_"))
+    target["title_raw"] = None
+    m["extras"] = [{"section_no": 8, "title_raw": "가짜 미정의 항목", "statements": []}]
+    regen = load_to21_module("regen")
+    with pytest.raises(TypeError):
+        regen.regenerate(regen.to_db(doc, ":memory:"), 1)              # 스크립트 자체는 그대로 멈춘다
+    sec8 = next(s for s in regenerated.regenerate_sections(doc, regen)[0]["sections"] if s["section"] == 8)
+    assert any(line["text"] == regenerated._standard_titles()[target["item_code"]] for line in sec8["lines"])
+    assert not any("None" in line["text"] for line in sec8["lines"])
