@@ -20,6 +20,8 @@ curl -X POST http://127.0.0.1:8020/api/documents/<작업번호>/results/persist
 
 `GET /api/documents/<작업번호>/result`의 `validation`은 스키마 오류, TO21 오류·경고·검증기 예외, 실패 항목을 요약한다. `invalid`는 검증 오류가 있다는 뜻이다. 작업의 `done`은 추출 작업 종료를 뜻하며 검증 통과를 의미하지 않는다. 공식 검증 오류는 해당 항목을 식별할 수 있을 때 검수 목록에도 포함한다. 위치를 알 수 없으면 `unmapped_findings`에 보존한다.
 
+`GET /api/documents/<작업번호>/results/stored`는 PostgreSQL에 저장된 현재 실행의 추출·검사 기록을 해시 확인 후 조회한다.
+
 ## 판정 전달
 
 결과 저장이 끝난 뒤 아래 API는 현재 완료된 실행의 추출 결과와 검증 기록, 검수 수정분을 `handoff/1` 계약으로 검사하고 `extract.handoff`에 새 불변 전달본을 만든다.
