@@ -733,3 +733,22 @@ def test_순물질_인화점_50도는_함량_제외_규정이_없어_해당이�
 def test_자료없음_위험물_행과_인화점_자료없음은_근거부족이다():
     inp = _dg_inputs({"item": None, "class": "자료없음"}, flash=None)
     assert _dg(inp, {}, [])["verdict"] == "근거부족"
+
+
+# ── 최종 검증 (PR 전) ─────────────────────────────────────────
+def test_가스는_위험물_자료없음이어도_근거부족이_아니다():
+    # T21-S003 질소: 가스는 시행령 별표 1의 어느 류도 아니다 (고체·액체)
+    inp = {**_dg_inputs({"item": None, "class": "자료없음"}, flash=None)}
+    inp["physchem"]["APPEARANCE_STATE"] = [{"comp_ref": "MIX", "text_value": "가스"}]
+    assert _dg(inp, {}, [])["verdict"] == "일치"
+
+
+def test_인화점_자료없음_행_뒤의_값을_읽는다():
+    inp = _dg_inputs({"item": None, "class": "해당없음"}, flash=None)
+    inp["physchem"]["FLASH_POINT"] = [{"comp_ref": "MIX", "q": {"value": None, "status": "자료없음"}}, {"comp_ref": "MIX", "q": _q(10, "℃")}]
+    assert _dg(inp, {}, [])["type"] == "규제 누락"
+
+
+@pytest.mark.parametrize("cls", ["위험물에 해당되지 않음", "규제되지 않음", "해당사항 없음"])
+def test_위험물_류_칸의_부정_문구(cls):
+    assert _dg(_dg_inputs({"item": None, "class": cls}, flash=10), {}, [])["type"] == "규제 누락"

@@ -132,3 +132,9 @@ def test_범위_문장의_숫자_칸(text, pv, div, want):
 def test_흡입_칸의_LC50_mg_kg은_단위_오타로_보고_LD50은_뺀다():
     assert (p.parse_acute("LC50 6.5 ㎎/㎏ 4 hr (노동부 구분 3)", "6.5", "GHS0205")["sign"]) == "="
     assert p.parse_acute("LD50 101 ㎎/㎏ 실험종 : Rabbit", "101", "GHS0205")["sign"] == "?"
+
+
+def test_단위가_다른_범위는_숫자_칸의_시간_환산과_단위를_함께_맞춘다():
+    # 말로노니트릴: 'LD50 200 ~ 300 ㎎/㎥ 2 hr', 숫자 칸 212.13 = 300/√2 (시간만 환산, 단위는 그대로)
+    r = p.parse_acute("LD50 200 ~ 300 ㎎/㎥ 2 hr 실험종 : Rat", "212.13", "GHS0204")
+    assert r["value"] == pytest.approx(200 / 2 ** 0.5 / 1000, rel=1e-3)
