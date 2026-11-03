@@ -6,6 +6,7 @@
                                                                               configs/models.yaml 의 모델로 LLM 설명
     python scripts/f_explain.py ../data/silver/claude --db --model qwen3_30b_a3b_rngd --out ../local/explain_db1
     --limit N   LLM 설명은 처음 N줄만(나머지는 문장틀). 서버를 처음 붙여 볼 때 쓴다
+    --api       --out 폴더에 문서마다 화면 계약 모양(API-12 판정 목록·API-13 상세, compliance/api_view.py)도 쓴다
 
 LLM 주소·키는 .env 에서 읽는다(models.yaml 의 base_url_env·api_key_env). 외부 중계 모델(gpt·claude 태그)은 쓸 수 없다.
 요청에 HTODB 값이 들어가기 때문이다(D-47). 같은 이유로 --out 은 저장소 밖(local/ 등)에 둔다.
@@ -22,6 +23,7 @@ BACKEND = Path(__file__).resolve().parents[1]
 if str(BACKEND / "src") not in sys.path:
     sys.path.insert(0, str(BACKEND / "src"))
 
+from msds.compliance.api_view import api_view, findings_response  # noqa: E402
 from msds.compliance.consistency import run_consistency  # noqa: E402
 from msds.compliance.explain import ChatExplainer, explain_consistency  # noqa: E402
 from msds.compliance.htodb.csv_repo import CsvRepo  # noqa: E402
@@ -45,7 +47,10 @@ def main():
     ap.add_argument("--model", help="configs/models.yaml 모델 태그. 없으면 문장틀 설명만")
     ap.add_argument("--limit", type=int, help="LLM 설명을 붙일 최대 줄 수")
     ap.add_argument("--out", help="건마다 결과 JSON 을 쓸 폴더(저장소 밖)")
+    ap.add_argument("--api", action="store_true", help="--out 폴더에 화면 계약 모양(API-12·13) JSON 도 쓴다")
     a = ap.parse_args()
+    if a.api and not a.out:
+        ap.error("--api 는 --out 과 함께 쓴다")
     repo = None if a.db else CsvRepo()
     llm = ChatExplainer(a.model) if a.model else None
     if llm is not None:  # 서버가 없으면 줄마다 재시도하며 오래 기다리지 않게 먼저 확인한다
@@ -61,6 +66,7 @@ def main():
         doc = json.loads(path.read_text(encoding="utf-8"))
         if not isinstance(doc, dict) or "msds" not in doc:
             continue
+        views = []
         for i, item in enumerate(doc.get("msds") or []):
             res = run_consistency(doc, repo, i)
             todo = [f["id"] for f in res["consistency"]["findings"] if f["verdict"] != "일치"]
@@ -81,6 +87,14 @@ def main():
             if out_dir:
                 (out_dir / f"{tag.replace('#', '_')}.explained.json").write_text(
                     json.dumps(res, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+            if a.api:
+                views.append(api_view(res, item, msds_id=f"{path.stem}_{i}", validation_id=path.stem))
+        if a.api and views:
+            api = {"findings": {str(s or "all"): findings_response(views, validation_id=path.stem, extraction_id=path.stem,
+                                                                   section=s) for s in (None, 2, 15)},
+                   "details": [d for v in views for d in v["details"]]}
+            (out_dir / f"{path.stem}.api.json").write_text(json.dumps(api, ensure_ascii=False, indent=2) + "\n",
+                                                           encoding="utf-8")
     print(f"합계  설명 {total['설명']}  LLM {total['llm']}  문장틀 {total['template']}  검사 통과 {total['검사 통과']}  "
           f"LLM 실패→문장틀 {total['대체']}  ({time.time() - t0:.0f}초)")
     if problems:

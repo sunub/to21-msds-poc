@@ -15,6 +15,7 @@ from __future__ import annotations
 
 import re
 import statistics
+import unicodedata
 
 SHRINK = 0.15      # 위아래로 상자 높이의 이 비율만큼 줄여서 본다 (조금 겹쳐 잡힌 이웃 줄을 떼어 낸다)
 GUTTER = 1.0       # 세로 빈 띠가 조각 높이의 이 배수 이상이어야 단 사이로 본다 (낱말 사이는 이보다 좁다)
@@ -76,7 +77,27 @@ def _rows(items: list[dict]) -> list[list[dict]]:
     return [sorted(r["items"], key=lambda i: i["box"][0]) for r in rows]
 
 
-def _cut(items: list[dict], h: float) -> list[list[dict]]:
+_SUBHEADING_NAMES = frozenset({"신호어", "유해위험문구", "예방조치문구", "signalword",
+                              "hazardstatements", "precautionarystatements"})
+
+
+def _subheading_cut(items: list[dict], gaps: list[tuple[float, float]], h: float) -> float | None:
+    """짧은 GHS 소제목 바로 위를 가로지르는 실제 빈 띠가 있으면 읽기 영역을 나눈다.
+
+    본문 속 단어는 경계가 아니다. 조각 전체가 표준 소제목이고 그 위에 영역 전체의 빈 띠가 있어야 한다.
+    이 경계를 먼저 따르면 앞의 H 문구를 다음 P 문구 구역의 왼쪽 라벨 뒤로 보내지 않는다.
+    """
+    boundaries = []
+    for item in items:
+        name = re.sub(r"[\s·ㆍ•∙:：]", "", unicodedata.normalize("NFKC", item["text"])).casefold()
+        if name not in _SUBHEADING_NAMES:
+            continue
+        top = _y(item)[0]
+        boundaries.extend(center for center, width in gaps if abs(center + width / 2 - top) <= 0.25 * h)
+    return min(boundaries, default=None)
+
+
+def _cut(items: list[dict], h: float, *, repair_table_layout: bool = False) -> list[list[dict]]:
     """가장 넓은 빈 띠 한 곳에서 자르고 양쪽을 다시 자른다.
 
     한 번에 모든 줄 사이를 자르면 두 단 본문이 줄마다 잘려 좌우가 섞인다. 단 사이 띠는 줄 사이보다 넓어서
@@ -85,6 +106,11 @@ def _cut(items: list[dict], h: float) -> list[list[dict]]:
     if len(items) == 1:
         return [items]
     ys = _gaps([_y(i) for i in items], 0)
+    boundary = _subheading_cut(items, ys, h) if repair_table_layout else None
+    if boundary is not None:
+        top, bottom = _split(items, [boundary], lambda i: sum(_y(i)) / 2)
+        return (_cut(top, h, repair_table_layout=repair_table_layout)
+                + _cut(bottom, h, repair_table_layout=repair_table_layout))
     xs = [g for g in _gaps([(i["box"][0], i["box"][2]) for i in items], GUTTER * h)]
     x_cut = None
     if xs:
@@ -94,11 +120,12 @@ def _cut(items: list[dict], h: float) -> list[list[dict]]:
             x_cut = (cols, width)
     y_width = max((g[1] for g in ys), default=None)
     if x_cut and (y_width is None or x_cut[1] > y_width):
-        return [row for c in x_cut[0] for row in _cut(c, h)]
+        return [row for c in x_cut[0] for row in _cut(c, h, repair_table_layout=repair_table_layout)]
     if ys:
         cut = max(ys, key=lambda g: g[1])[0]
         top, bottom = _split(items, [cut], lambda i: sum(_y(i)) / 2)
-        return _cut(top, h) + _cut(bottom, h)
+        return (_cut(top, h, repair_table_layout=repair_table_layout)
+                + _cut(bottom, h, repair_table_layout=repair_table_layout))
     return _rows(items)
 
 
@@ -107,33 +134,43 @@ def _inside(it: dict, box) -> bool:
     return box[0] <= cx <= box[2] and box[1] <= cy <= box[3]
 
 
-def _table_rows(items: list[dict], tables: list[list[list]]) -> list[dict]:
+def _table_rows(items: list[dict], tables: list[list[list]], *, preserve_empty_cells: bool = False) -> list[dict]:
     """선으로 그린 표의 한 행에 든 조각을 칸 순서대로 이어 조각 하나로 바꾼다.
 
     칸 안 줄 간격과 행 사이 간격이 같으면 위치만으로는 행 경계를 알 수 없다 (M005 2쪽: 6.8pt / 7.1pt).
     여러 줄 칸 옆에 한 줄 칸이 있으면 줄로 읽을 때 칸끼리 섞이므로, 그려진 선이 정한 칸 경계를 따른다.
     글이 든 칸이 둘 이상인 행만 바꾼다. 칸 사이는 공백 두 칸으로 띄운다 (글자는 그대로 둔다).
+    preserve_empty_cells이면 데이터 표의 빈 칸도 parts에 남긴다. 항목 틀의 가상 열과 합친 칸의 None은 제외한다.
     """
     used: set[int] = set()
     merged = []
-    for table in tables:
-        for row in table:
+    for table_index, table in enumerate(tables):
+        keep_empty = preserve_empty_cells and is_data_table(table_grid(items, table))
+        for row_index, row in enumerate(table):
             cells = []
+            cell_boxes = []
             for box in sorted((c for c in row if c), key=lambda c: c[0]):
                 members = [i for i in items if id(i) not in used and _inside(i, box)]
-                if members:
+                if members or keep_empty:
                     cells.append(members)
+                    cell_boxes.append(box)
                     used.update(id(i) for i in members)
-            if len(cells) < 2:
+            if len(cells) < 2 or not any(cells):
                 for members in cells:    # 칸 하나뿐이면 그대로 두고 XY-cut에 맡긴다
                     used.difference_update(id(i) for i in members)
                 continue
             boxes = [i["box"] for c in cells for i in c]
             parts = [{"text": " ".join(i["text"].strip() for r in _rows(c) for i in r),
-                      "x0": min(i["box"][0] for i in c), "x1": max(i["box"][2] for i in c)} for c in cells]
-            merged.append({"text": "  ".join(p["text"] for p in parts), "parts": parts,   # parts: 넘어간 줄을 칸에 잇는 데 쓴다
+                      "x0": min((i["box"][0] for i in c), default=box[0]),
+                      "x1": max((i["box"][2] for i in c), default=box[2])}
+                     for c, box in zip(cells, cell_boxes)]
+            merged_item = {"text": "  ".join(p["text"] for p in parts), "parts": parts,
                            "box": [min(b[0] for b in boxes), min(b[1] for b in boxes),
-                                   max(b[2] for b in boxes), max(b[3] for b in boxes)]})
+                                   max(b[2] for b in boxes), max(b[3] for b in boxes)]}
+            if preserve_empty_cells:
+                # 실제 칸 경계가 있는 행은 빈 칸 때문에 이웃 행과 합치지 않는다.
+                merged_item["table_row"] = [table_index, row_index]
+            merged.append(merged_item)
     return [i for i in items if id(i) not in used] + merged
 
 
@@ -204,6 +241,230 @@ def continue_grid(items: list[dict], table: list[list], cols: list[tuple[float, 
     return grid[:end]
 
 
+def _data_cells(items: list[dict], table: list[list], *, leading_edge: bool = False) -> list[list[dict | None]]:
+    """조각 하나를 한 셀에만 배정한다. 긴 이름도 글자 단위로 쪼개지 않는다.
+
+    복원한 열에서는 조각의 시작 x를 쓴다. 빈 옆 칸까지 길게 인쇄된 이름의 중심으로 열을 바꾸지 않기 위해서다.
+    y는 줄의 중심을 써서 글자 상자가 가로 선을 약간 넘는 경우를 허용한다.
+    """
+    cells = [[None if box is None else {"box": list(box), "source_item_indices": []} for box in row]
+             for row in table]
+    for index, item in enumerate(items):
+        if not item["text"].strip():
+            continue
+        x = item["box"][0] if leading_edge else (item["box"][0] + item["box"][2]) / 2
+        y = (item["box"][1] + item["box"][3]) / 2
+        for row in cells:
+            target = next((cell for cell in row if cell is not None
+                           and cell["box"][0] - 1e-3 <= x <= cell["box"][2] + 1e-3
+                           and cell["box"][1] <= y <= cell["box"][3]), None)
+            if target is not None:
+                target["source_item_indices"].append(index)
+                break
+    for row in cells:
+        for cell in row:
+            if cell is not None:
+                members = [items[i] for i in cell["source_item_indices"]]
+                cell["text"] = " ".join(i["text"].strip() for line in _rows(members) for i in line)
+    return cells
+
+
+def _cell_grid(cells: list[list[dict | None]]) -> list[list[str]]:
+    return [[cell["text"] if cell is not None else "" for cell in row] for row in cells]
+
+
+def _continued_data_geometry(items: list[dict], table: list[list], schema: dict) -> list[list] | None:
+    """직전 쪽의 명시적 열 이름이 같은 위치에서 반복될 때만 연속 표의 실제 영역을 복원한다."""
+    cols, head = schema.get("cols", []), schema.get("head", [])
+    if len(cols) < 3 or len(cols) != len(head) or not all(str(c).strip() for c in head):
+        return None
+    if any(a >= b for a, b in cols) or any(a[1] > b[0] + 1e-3 for a, b in zip(cols, cols[1:])):
+        return None
+    rows = []
+    for row in table:
+        boxes = [c for c in row if c is not None]
+        if not boxes:
+            break
+        top, bottom = min(c[1] for c in boxes), max(c[3] for c in boxes)
+        rows.append([[left, top, right, bottom] for left, right in cols])
+    cells = _data_cells(items, rows, leading_edge=True)
+    grid = _cell_grid(cells)
+    norm = lambda value: "".join(unicodedata.normalize("NFKC", value).split())
+    if not grid or list(map(norm, grid[0])) != list(map(norm, head)):
+        return None
+    end = len(rows)
+    for index, row in enumerate(cells[1:], 1):
+        members = [items[i] for cell in row if cell is not None for i in cell["source_item_indices"]]
+        if any(_is_section_heading(i["text"]) for i in members) or sum(bool(c.strip()) for c in grid[index]) < 2:
+            end = index
+            break
+    return rows[:end] if end >= 2 else None
+
+
+def _logical_data_geometry(items: list[dict], table: list[list]) -> list[list]:
+    """본문 셀이 덮는 머리글의 여백 조각만 합쳐 실제 열을 복원한다.
+
+    글이 든 머리글 두 개를 덮는 본문 셀은 진짜 병합 셀이다. 그 셀로 열을 합치지 않는다.
+    열 이름이 있는 빈 데이터 열은 남기고, 머리글·본문 모두 빈 여백 조각만 제외한다.
+    """
+    if len(table) < 2 or len(table[0]) < 3 or any(box is None for box in table[0]):
+        return table
+    cells = _data_cells(items, table)
+    head = cells[0]
+    if sum(bool(cell["text"]) for cell in head) < 2:
+        return table
+    parent = list(range(len(head)))
+
+    def find(index):
+        while parent[index] != index:
+            parent[index] = parent[parent[index]]
+            index = parent[index]
+        return index
+
+    for row in table[1:]:
+        for box in row:
+            if box is None:
+                continue
+            hits = [index for index, cell in enumerate(head)
+                    if min(box[2], cell["box"][2]) - max(box[0], cell["box"][0]) > 1e-3]
+            if len(hits) > 1 and sum(bool(head[i]["text"]) for i in hits) <= 1:
+                for index in hits[1:]:
+                    parent[find(index)] = find(hits[0])
+    groups = []
+    for index in range(len(head)):
+        if not groups or find(index) != find(groups[-1][0]):
+            groups.append([])
+        groups[-1].append(index)
+    groups = [group for group in groups
+              if any(row[i] is not None and row[i]["text"] for row in cells for i in group)]
+    if len(groups) < 3 or (len(groups) == len(head) and all(len(g) == 1 for g in groups)):
+        return table
+    cols = [[head[group[0]]["box"][0], head[group[-1]]["box"][2]] for group in groups]
+    cols[0][0], cols[-1][1] = head[0]["box"][0], head[-1]["box"][2]
+    # 제거한 빈 여백은 앞 셀의 빈 가장자리다. 데이터 값을 옮기거나 복제하지 않는다.
+    for previous, following in zip(cols, cols[1:]):
+        previous[1] = following[0]
+    rows = []
+    for row in table:
+        boxes = [box for box in row if box is not None]
+        top, bottom = min(b[1] for b in boxes), max(b[3] for b in boxes)
+        resolved = [[left, top, right, bottom] for left, right in cols]
+        for box in boxes:
+            covered = [index for index, (left, right) in enumerate(cols)
+                       if box[0] <= left + 1e-3 and box[2] >= right - 1e-3]
+            if len(covered) > 1:
+                first, last = covered[0], covered[-1]
+                resolved[first] = [cols[first][0], top, cols[last][1], bottom]
+                for index in covered[1:]:
+                    resolved[index] = None
+        rows.append(resolved)
+    return rows
+
+
+def _join_data_name_rows(items: list[dict], table: list[list]) -> list[list]:
+    """가까운 이름 줄이 명시적 연결어 뒤에서 이어질 때만 하나의 성분 행으로 묶는다.
+
+    detector가 텍스트 줄을 행으로 잘랐지만 다른 식별 값은 앞 줄에만 있는 경우다.
+    빈 CAS를 가진 별도 성분이나 전체 폭 설명행을 일반적으로 앞 행에 합치지 않는다.
+    """
+    rows = [[None if box is None else list(box) for box in row] for row in table]
+    index = 2
+    while index < len(rows):
+        cells = _data_cells(items, rows, leading_edge=True)
+        previous, current = cells[index - 1], cells[index]
+        before = [c for c in previous if c is not None and c["text"]]
+        after = [c for c in current if c is not None and c["text"]]
+        if (len(before) >= 3 and len(after) == 1 and current[0] is after[0]
+                and previous[0] is not None and all(c is not None for c in current)
+                and re.search(r"(?:\b(?:and|or)|[,\-])\s*$", previous[0]["text"], re.IGNORECASE)
+                and re.match(r"^[a-z]", after[0]["text"])):
+            first_items = [items[i] for i in previous[0]["source_item_indices"]]
+            tail_items = [items[i] for i in after[0]["source_item_indices"]]
+            h = statistics.median(i["box"][3] - i["box"][1] for i in first_items + tail_items)
+            gap = min(i["box"][1] for i in tail_items) - max(i["box"][3] for i in first_items)
+            same_start = abs(min(i["box"][0] for i in tail_items) - min(i["box"][0] for i in first_items)) <= h / 2
+            if same_start and 0 <= gap <= h / 2:
+                bottom = max(c[3] for c in rows[index] if c is not None)
+                for box in rows[index - 1]:
+                    if box is not None:
+                        box[3] = bottom
+                rows.pop(index)
+                continue
+        index += 1
+    return rows
+
+
+def resolve_page_data_tables(items: list[dict], tables: list[list[list]], previous_schema: dict | None = None) -> dict:
+    """v16: TXT·MD·근거 상자가 공유하는 데이터 표 셀과 읽기 조각을 만든다.
+
+    이전 쪽의 명시적 머리글을 첫 표에서 열별로 재확인한 경우에만 연속 표를 복원한다.
+    그 밖의 표는 기존 데이터 표 판별과 항 제목 침범 검사를 따른다. 빈 실제 셀과 병합 None을 구별한다.
+    원본 items·tables는 바꾸지 않으며, body_items는 원래 객체를 유지해 Docling의 중복 소비를 막는다.
+    """
+    regions, consumed = [], set()
+    order = sorted(range(len(tables)), key=lambda n: min((c[1], c[0]) for r in tables[n] for c in r if c))
+    for position, table_index in enumerate(order):
+        original = tables[table_index]
+        restored = (_continued_data_geometry(items, original, previous_schema)
+                    if position == 0 and previous_schema else None)
+        normalized = _logical_data_geometry(items, original) if restored is None else original
+        geometry = _join_data_name_rows(items, restored or normalized)
+        cells = _data_cells(items, geometry, leading_edge=restored is not None or normalized is not original)
+        grid = _cell_grid(cells)
+        if not is_data_table(grid) or _table_crosses_heading(items, geometry):
+            continue
+        indices = {i for row in cells for cell in row if cell is not None for i in cell["source_item_indices"]}
+        if not indices or indices.intersection(consumed):
+            continue
+        boxes = [c for row in geometry for c in row if c is not None]
+        region = {"kind": "continued_data_table" if restored is not None else "ruled_data_table",
+                  "source_table_index": table_index, "table": geometry, "cells": cells, "grid": grid,
+                  "cell_kinds": [["merged" if c is None else "text" if c["text"] else "empty" for c in row]
+                                 for row in cells],
+                  "box": [min(c[0] for c in boxes), min(c[1] for c in boxes),
+                          max(c[2] for c in boxes), max(c[3] for c in boxes)],
+                  "source_item_indices": sorted(indices),
+                  "schema_source_page": previous_schema.get("source_page") if restored is not None else None}
+        regions.append(region)
+        consumed.update(indices)
+
+    atoms = []
+    for region_index, region in enumerate(regions):
+        for row_index, row in enumerate(region["cells"]):
+            present = [c for c in row if c is not None]
+            indices = [i for cell in present for i in cell["source_item_indices"]]
+            if not indices:
+                continue
+            parts = [{"text": c["text"], "x0": c["box"][0], "x1": c["box"][2],
+                      "source_item_indices": c["source_item_indices"]} for c in present]
+            boxes = [c["box"] for c in present]
+            atoms.append({"text": "  ".join(c["text"] for c in present), "parts": parts,
+                          "box": [min(c[0] for c in boxes), min(c[1] for c in boxes),
+                                  max(c[2] for c in boxes), max(c[3] for c in boxes)],
+                          "table_row": ["resolved", region_index, row_index],
+                          "source_item_indices": indices})
+
+    def overlaps(table, region):
+        boxes = [c for row in table for c in row if c is not None]
+        left, top = min(c[0] for c in boxes), min(c[1] for c in boxes)
+        right, bottom = max(c[2] for c in boxes), max(c[3] for c in boxes)
+        a, b, c, d = region["box"]
+        return min(right, c) > max(left, a) and min(bottom, d) > max(top, b)
+
+    remaining = [table for table in tables if not any(overlaps(table, region) for region in regions)]
+    body = [item for index, item in enumerate(items) if index not in consumed]
+    next_schema = None
+    for region in regions:
+        head, row = region["grid"][0], region["table"][0]
+        # 머리글에 이름이 없는 가상 열, 병합 칸, 본문 값으로 열 schema를 만들지 않는다.
+        if len(head) >= 3 and all(head) and all(box is not None for box in row):
+            cols = [(box[0], box[2]) for box in row]
+            if all(a[1] <= b[0] + 1e-3 for a, b in zip(cols, cols[1:])):
+                next_schema = {"cols": cols, "head": list(head)}
+    return {"items": body + atoms, "body_items": body, "tables": remaining, "regions": regions,
+            "next_schema": next_schema, "source_data_indices": sorted(consumed)}
+
+
 def table_md(grid: list[list[str]]) -> str:
     """칸 격자 → Markdown 표. 첫 행을 머리글로 쓴다. 칸 안의 '|'는 '\\|'로 바꾼다."""
     def line(cells):
@@ -252,18 +513,45 @@ def section_headings(items: list[dict], after: int = 0) -> list[tuple[float, int
     return out
 
 
-def reading_order(items: list[dict], tables: list[list[list]] | None = None) -> list[list[dict]]:
+def reading_order(items: list[dict], tables: list[list[list]] | None = None, *,
+                  preserve_empty_cells: bool = False, repair_table_layout: bool = False) -> list[list[dict]]:
     """조각 → 읽는 순서의 줄 목록. 글자가 없는 조각은 뺀다.
 
     tables(page_tables)를 주면 선으로 그린 표의 행을 먼저 한 조각으로 묶은 뒤 읽는다.
+    v15 옵션: 빈 칸 보존과 잘못 잡힌 표·두 열 줄바꿈 수정을 각각 켠다. 기존 호출의 동작은 유지한다.
     """
     items = [i for i in items if i["text"].strip()]
-    if tables:
-        items = _table_rows(items, tables)
     if not items:
         return []
-    h = statistics.median(i["box"][3] - i["box"][1] for i in items)
-    return join_wrapped(_cut(items, h), h)
+    source_height = statistics.median(i["box"][3] - i["box"][1] for i in items)
+    if tables and repair_table_layout:
+        # 표 탐지기가 줄 없는 본문까지 가상의 표로 확장하면 항 제목이 이전 값에 섞인다.
+        # 제목과 다른 높이의 본문을 같은 행으로 잡은 표만 버리고 원래 조각의 좌표를 따른다.
+        tables = [t for t in tables if not _table_crosses_heading(items, t)]
+    if tables:
+        items = _table_rows(items, tables, preserve_empty_cells=preserve_empty_cells)
+    h = source_height if repair_table_layout else statistics.median(i["box"][3] - i["box"][1] for i in items)
+    return join_wrapped(_cut(items, h, repair_table_layout=repair_table_layout), h,
+                        repair_table_layout=repair_table_layout)
+
+
+def _is_section_heading(text: str) -> bool:
+    text = text.strip()
+    match = _SECTION_NO.match(text)
+    if not match:
+        return False
+    number = int(match[1])
+    return number in SECTION_WORDS and any(w in text.replace(" ", "") for w in SECTION_WORDS[number])
+
+
+def _table_crosses_heading(items: list[dict], table: list[list]) -> bool:
+    """항 제목과 다른 물리적 줄의 본문을 한 표 행에 넣은 오탐인가."""
+    for row in table:
+        members = [i for i in items if any(box and _inside(i, box) for box in row)]
+        headings = [i for i in members if _is_section_heading(i["text"])]
+        if any(not _same_row(other, heading) for heading in headings for other in members if other is not heading):
+            return True
+    return False
 
 
 COL_TOL = 1.0     # 두 칸의 시작 x가 h의 이 배수 안이면 같은 열이다
@@ -277,7 +565,7 @@ def _parts(item: dict) -> list[dict]:
     return item.get("parts") or [{"text": item["text"], "x0": item["box"][0], "x1": item["box"][2]}]
 
 
-def join_wrapped(rows: list[list[dict]], h: float) -> list[list[dict]]:
+def join_wrapped(rows: list[list[dict]], h: float, *, repair_table_layout: bool = False) -> list[list[dict]]:
     """칸 글이 다음 줄로 넘어간 것을 위 줄의 그 칸에 잇는다 (항목명|값의 긴 값, 성분 표의 긴 이름).
 
     다음 줄을 위 줄에 잇는 조건 (모두)
@@ -297,7 +585,7 @@ def join_wrapped(rows: list[list[dict]], h: float) -> list[list[dict]]:
         row = [{**i, "box": list(i["box"]), "parts": [{**p, "last": p["x1"]} for p in _parts(i)],
                 "table": "parts" in i} for i in r]
         prev = out[-1] if out else None
-        pairs = _wrap_pairs(prev, row, h, right_edge) if prev else None
+        pairs = _wrap_pairs(prev, row, h, right_edge, repair_table_layout=repair_table_layout) if prev else None
         if pairs is None:
             out.append(row)
             continue
@@ -313,13 +601,18 @@ def join_wrapped(rows: list[list[dict]], h: float) -> list[list[dict]]:
     return out
 
 
-def _wrap_pairs(prev: list[dict], row: list[dict], h: float, right_edge):
+def _wrap_pairs(prev: list[dict], row: list[dict], h: float, right_edge, *, repair_table_layout: bool = False):
     """row가 prev에서 넘어온 줄이면 [((prev 조각, 그 칸), row의 칸)], 아니면 None."""
     top, bottom = min(i["box"][1] for i in row), max(i["box"][3] for i in prev)
     if not (-0.5 * h <= top - bottom <= LINE_GAP * h):
         return None
     above = [(i, p) for i in prev for p in i["parts"]]
     below = [p for i in row for p in i["parts"]]
+    if repair_table_layout:
+        if any("table_row" in i or _is_section_heading(i["text"]) for i in prev + row):
+            return None
+        if len(above) == len(below) == 2:
+            return _wrapped_label_pairs(above, below, h, top - bottom)
     if len(below) >= len(above):
         return None
     pairs, used = [], set()
@@ -329,11 +622,40 @@ def _wrap_pairs(prev: list[dict], row: list[dict], h: float, right_edge):
             return None
         i, p = hit[0]
         edge = right_edge(p["x0"])
-        if p["last"] < edge - WRAP_FILL * h or edge - p["x0"] < MIN_WRAP_COL * h:
+        # 줄 끝에 문장이 먼저 끝난 긴 설명도 같은 값 칸에서 바로 이어질 수 있다.
+        # 두 열의 항목|설명 배치, 좁은 행간, 넓은 값 열, 양쪽 모두 서술문인 경우만 허용한다.
+        prose_continuation = (repair_table_layout and len(above) == 2 and len(below) == 1
+                              and p is above[-1][1] and top - bottom <= 0.4 * h
+                              and edge - p["x0"] >= 12 * h
+                              and _prose(p["text"]) and _prose(new["text"]))
+        if (p["last"] < edge - WRAP_FILL * h and not prose_continuation) or edge - p["x0"] < MIN_WRAP_COL * h:
             return None
         used.add(id(p))
         pairs.append(((i, p), new))
     return pairs
+
+
+_LABEL_START = re.compile(r"^(?:[가-힣]|[A-Za-z]|\d{1,2})[.)]\s*")
+
+
+def _prose(text: str) -> bool:
+    return len(text.strip()) >= 20 and len(text.split()) >= 3 and bool(re.search(r"[가-힣A-Za-z]", text))
+
+
+def _wrapped_label_pairs(above, below, h: float, gap: float):
+    """항목명과 설명이 동시에 접힌 두 열을 칸별로 잇는다. 새 목록 항목은 경계다."""
+    if gap > 0.4 * h or any(abs(old[1]["x0"] - new["x0"]) > COL_TOL * h
+                            for old, new in zip(above, below)):
+        return None
+    left, value = above[0][1], above[1][1]
+    if not _LABEL_START.match(left["text"].strip()) or _LABEL_START.match(below[0]["text"].strip()):
+        return None
+    width = value["x0"] - left["x0"]
+    if width < MIN_WRAP_COL * h or left["last"] - left["x0"] < 0.7 * width:
+        return None
+    if not _prose(value["text"]) or not _prose(below[1]["text"]):
+        return None
+    return list(zip(above, below))
 
 
 def reading_text(items: list[dict], tables: list[list[list]] | None = None) -> str:
