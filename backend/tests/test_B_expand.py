@@ -1234,6 +1234,83 @@ def test_recode_regulations(line, law, code, want):
     assert (rows[0]["law"], rows[0]["item_code"]) == want
 
 
+WATER_LINES = [
+    L("p8:L1", "가. 산업안전보건법에 의한 규제"),
+    L("p8:L2", "○ 작업환경측정물질"),
+    L("p8:L3", "- 해당됨 (가상물질 갑)"),
+    L("p8:L4", "- [물] : 해당없음"),
+    L("p8:L5", "○ 노출기준설정물질"),
+    L("p8:L6", "- 해당됨 (가상물질 갑)"),
+    L("p8:L7", "- [물] : 해당없음"),
+]
+WATER_COMPS = [
+    {"seq": 1, "name": "가상물질 갑", "cas_no": "1234-56-6"},
+    {"seq": 2, "name": "물", "cas_no": "7732-18-5"},
+]
+
+
+@pytest.mark.parametrize(
+    "line, code",
+    [
+        ("p8:L4", "OSH_MEASURE"),  # 물의 상태 줄 → 위 항목 제목
+        ("p8:L5", "OSH_EXPOSURE_STD"),  # 항목 제목 줄 자체
+        ("p8:L7", "OSH_EXPOSURE_STD"),
+    ],
+)
+def test_recode_regulations_keeps_code_when_component_is_water(line, code):
+    """성분 '물'이 '노출기준설정물질'의 '물'과 겹쳐 제목 줄을 성분 줄로 보면 법령 제목까지 올라가 코드가 지워졌다 (25번)."""
+    rows = [{"law": "OSH", "item_code": code, "comp_ref": "2", "line": line}]
+    ex.recode_regulations(rows, {l.id: l for l in WATER_LINES}, WATER_COMPS)
+    assert rows[0]["item_code"] == code
+
+
+@pytest.mark.parametrize(
+    "text, found",
+    [
+        ("관리대상유해물질, 노출기준설정물질", False),  # 낱말 안의 글자
+        ("- [물] : 해당없음", True),
+        ("물 해당없음", True),
+        ("물 : 해당없음", True),
+        ("물(증류수)", True),
+    ],
+)
+def test_one_letter_component_matches_whole_word_only(text, found):
+    keys = {"물": {"seq": 2, "name": "물"}}
+    assert ex._any_component(text, keys) is found
+    assert (ex._component_in_line(text, keys) is not None) is found
+
+
+@pytest.mark.parametrize("code", ["CCA_TOXIC", "KREACH_EXIST"])
+def test_recode_regulations_keeps_code_named_on_component_line(code):
+    """성분 이름이 함께 적힌 줄이어도 항목명이 그 줄에 있으면 법령 제목으로 코드를 지우지 않는다 (23번)."""
+    lines = [
+        L("p12:L1", "나. 화학물질관리법에 의한 규제 :"),
+        L(
+            "p12:L2",
+            "• 기존화학물질(KE-00000), 유독물질 (가상물질 갑 및 이를 10% 이상 함유한 혼합물),",
+        ),
+    ]
+    rows = [
+        {
+            "law": code.split("_")[0],
+            "item_code": code,
+            "comp_ref": "1",
+            "line": "p12:L2",
+        }
+    ]
+    ex.recode_regulations(rows, {l.id: l for l in lines}, WATER_COMPS)
+    assert rows[0]["item_code"] == code
+
+
+def test_link_components_does_not_link_item_names_to_water():
+    """성분 없는 제품 규제 목록을 '물질'의 '물' 때문에 물에 붙이면 안 된다 (23번)."""
+    lines = {
+        "p11:L1": L("p11:L1", "가. 산업안전보건법 : 관리대상유해물질, 노출기준설정물질")
+    }
+    rows = [{"law": "OSH", "item_code": "OSH_MANAGED", "line": "p11:L1"}]
+    assert ex.link_components(rows, WATER_COMPS, lines)[0]["comp_ref"] == "MIX"
+
+
 def test_recode_regulations_skips_intl():
     rows = [{"law": "INTL", "item_code": "INTL_EU", "applicable": "해당", "comp_ref": "1", "line": "p10:L5"}]
     ex.recode_regulations(rows, {l.id: l for l in R_LINES}, R_COMPS)
