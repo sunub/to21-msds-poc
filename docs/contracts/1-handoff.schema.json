@@ -6,7 +6,7 @@
   "type": "object",
   "additionalProperties": false,
   "required": ["contract", "job_id", "handoff_seq", "reason", "created_at", "as_of", "source",
-               "extraction_settings", "extraction", "extraction_sha256", "checks", "field_status"],
+               "extraction_settings", "extraction", "extraction_sha256", "checks", "field_status", "fields_total"],
   "properties": {
     "contract": { "const": "handoff/1" },
     "job_id": { "$ref": "common.schema.json#/$defs/job_id" },
@@ -117,6 +117,11 @@
           }
         }
       }
+    },
+    "fields_total": {
+      "description": "검수할 수 있는 칸의 수 (A2의 검수 보기와 같은 기준). 미검수 칸 = fields_total - field_status 길이. 저장 화면·저장본이 쓴다",
+      "type": "integer",
+      "minimum": 0
     },
     "field_status": {
       "description": "사람의 추출값 검수 상태. 기록이 없는 칸은 '미검수'. B는 판정 화면 근거 옆 표시에만 쓴다. 누가 무엇을 고쳤는지는 A에 있다",
