@@ -155,7 +155,7 @@ def _section_checks(checks: dict, run_dir: Path, job_id: str, msds_count: int) -
             if not isinstance(errors, list) or not errors:
                 raise HandoffNotReady('실패한 항의 오류 기록이 없습니다')
             failed.append({'msds_index': index, 'section': section, 'error': '; '.join(map(str, errors))})
-        if 'first_attempt' in raw or 'reextract_attempt' in raw:
+        if 'first_attempt' in raw or 'reextract_attempt' in raw or 'final_validation_attempt' in raw:
             reextracted.append({'msds_index': index, 'section': section})
     expected = {(index, section) for index in range(msds_count) for section in _SECTIONS}
     if not expected or seen != expected:
@@ -242,7 +242,8 @@ def build_handoff(*, job_id: str, handoff_seq: int, reason: str, created_at: str
                    'page_count': state.get('page_count'), 'text_layer': state.get('text_layer')},
         'extraction_settings': {'model_tag': state.get('model_tag'), 'model_config_sha256': cfg_hash,
                                 'code_commit': commit, 'schema_version': doc['schema_version'],
-                                'dictionary_version': doc['dictionary_version'], 'reused_from': None},
+                                'dictionary_version': doc['dictionary_version'],
+                                'reused_from': state.get('reused_from')},
         'extraction': edited, 'extraction_sha256': canonical_sha256(edited),
         'checks': {'validator': {'version': 'v0.6', 'errors': errors, 'warnings': warnings},
                    'failed_sections': failed, 'reextracted_sections': retried,
@@ -274,8 +275,7 @@ def publish_handoff(store, job_id: str, *, as_of: str, reason: str = 'extraction
         if not job or job['status'] != 'done' or job['progress_json'].get('_active_token') != token:
             raise ResultNotReady('추출 결과가 변경되어 전달할 수 없습니다')
         state = job['progress_json']
-        path = store._review_path(job_id, state)
-        record = _read_json(path, '검수 기록') if path.is_file() else review.empty()
+        record, _ = store._load_review_locked(db, job_id, state)
         row = db.execute(sql.SQL('SELECT COALESCE(max(handoff_seq), 0) AS seq FROM {} WHERE job_id=%s')
                          .format(sql.Identifier(schema, 'handoff')), (job_id,)).fetchone()
         sequence = row['seq'] + 1

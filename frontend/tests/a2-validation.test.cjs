@@ -27,6 +27,9 @@ for (const extension of [".ts", ".tsx"]) {
 const { documentSummarySchema, resultResponseSchema } = require("../src/api/schemas.ts");
 const { statusLabel, validationLabel } = require("../src/lib/status.ts");
 const { ValidationNotice } = require("../src/components/extract/validation-notice.tsx");
+const { QueryClient, QueryClientProvider, QueryObserver } = require("@tanstack/react-query");
+const { sectionResultQuery } = require("../src/api/documents.ts");
+const { SectionValues } = require("../src/components/extract/section-progress.tsx");
 
 const summary = {
   id: "U-20261103-001", filename: "test.pdf", size: 100, as_of: null, model_tag: "model",
@@ -79,4 +82,43 @@ test("아직 처리 중이면 최종 검사 알림을 표시하지 않고 결과
   assert.doesNotMatch(incomplete, />추출값 검증 통과<\/span>/);
   const result = resultResponseSchema.parse({ to21: {}, needs_review: [], warnings: [], schema_errors: [], to21_validator: [], validation: valid });
   assert.deepEqual(result.validation, valid);
+});
+
+test("열린 항 미리보기는 최종 재추출을 채택하면 새 값을 받아 표시한다", { timeout: 3000 }, async (t) => {
+  const section = {
+    msds_index: 0, section: 1, title: "제품 정보", pages: [1], status: "done",
+    needs_review: false, reextracted: false, seconds: .1, errors: [],
+  };
+  let value = "최초추출값";
+  const calls = [];
+  t.mock.method(globalThis, "fetch", async (url) => {
+    calls.push(url);
+    return Response.json({ ...section, check_problems: [], parsed: { name: value } });
+  });
+  // 캐시가 아직 최신인 동안에도 재추출 완료를 받으면 즉시 새 값을 읽어야 한다.
+  const client = new QueryClient({ defaultOptions: { queries: { staleTime: Infinity, retry: false } } });
+  const observer = new QueryObserver(client, sectionResultQuery(summary.id, 0, 1, false));
+  const unsubscribe = observer.subscribe(() => {});
+  t.after(() => { unsubscribe(); client.clear(); });
+  await client.fetchQuery(sectionResultQuery(summary.id, 0, 1, false));
+  assert.equal(observer.getCurrentResult().data.parsed.name, "최초추출값");
+
+  const preview = (progress) => renderToStaticMarkup(React.createElement(
+    QueryClientProvider, { client }, React.createElement(SectionValues, { docId: summary.id, section: progress }),
+  ));
+  assert.match(preview(section), /최초추출값/);
+
+  value = "재추출수정값";
+  const refreshed = new Promise((resolve) => {
+    const stop = observer.subscribe((result) => {
+      if (result.data?.parsed.name === value) { stop(); resolve(); }
+    });
+  });
+  observer.setOptions(sectionResultQuery(summary.id, 0, 1, true));
+  await refreshed;
+  assert.equal(calls.length, 2);
+  assert.equal(calls[0], calls[1]);
+  const markup = preview({ ...section, reextracted: true });
+  assert.match(markup, /재추출수정값/);
+  assert.doesNotMatch(markup, /최초추출값/);
 });

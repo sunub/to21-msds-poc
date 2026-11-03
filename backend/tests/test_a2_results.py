@@ -14,8 +14,10 @@ from psycopg import sql
 import pytest
 from fastapi.testclient import TestClient
 
-from msds.service.jobs import LeaseLost, PostgresJobStore
+from msds.service.jobs import LeaseLost, PostgresJobStore, ReviewNotReady
 from msds.service.results import ResultConflict, ResultNotReady, ResultStore, canonical_sha256
+from msds.service import review
+from msds.service.worker import PostgresWorker
 
 
 def test_json_hash_is_canonical_and_rejects_nonfinite_values():
@@ -65,6 +67,189 @@ def test_validate_schema_checks_required_result_table(stores):
 def finish(store, job, claimed):
     store.bind(job['id'], claimed['lease_token']).apply(job['id'], {'type': 'done', 'summary': {}})
     return store.complete(job['id'], claimed['lease_token'])
+
+
+def test_review_events_survive_restart_and_retry_without_changing_extraction(stores):
+    jobs, results, schema = stores
+    job, claim = start_extraction(jobs)
+    doc = {'msds': [{'product': {'name': '원본'}}]}
+    jobs.bind(job['id'], claim['lease_token']).apply(job['id'], {
+        'type': 'plan', 'msds_count': 1,
+        'sections': [{'msds_index': 0, 'section': 1, 'pages': [1]}],
+    })
+    jobs.bind(job['id'], claim['lease_token']).apply(job['id'], {
+        'type': 'section_done', 'msds_index': 0, 'section': 1, 'ok': False,
+        'needs_review': True, 'reextracted': True, 'errors': ['확인 필요'],
+    })
+    results.save_for_lease(job['id'], claim['lease_token'], doc, {})
+    finish(jobs, job, claim)
+    jobs.update_review(job['id'], lambda record: review.set_field(
+        record, doc, 0, 'product.name', 'edit', '수정', '검토자', '2026-11-03T12:00:00+09:00'))
+    restarted = PostgresJobStore(jobs.dsn, jobs.root, schema=schema)
+    current = restarted.load_review(job['id'])
+    assert review.apply_edits(doc, current)['msds'][0]['product']['name'] == '수정'
+    assert results.get_active(job['id'])['extraction'] == doc
+    with psycopg.connect(jobs.dsn) as db:
+        rows = db.execute(sql.SQL('SELECT result_id, action, field_path, reviewer FROM {} WHERE job_id=%s')
+                          .format(sql.Identifier(schema, 'reviews')), (job['id'],)).fetchall()
+    assert rows == [(f"a2-{job['id']}-{claim['lease_token']}-extraction", 'edit', 'product.name', '검토자')]
+    restarted.requeue(job['id'])
+    with pytest.raises(ReviewNotReady):
+        restarted.load_review(job['id'])
+    with psycopg.connect(jobs.dsn) as db:
+        count = db.execute(sql.SQL('SELECT count(*) FROM {} WHERE job_id=%s')
+                           .format(sql.Identifier(schema, 'reviews')), (job['id'],)).fetchone()[0]
+    assert count == 1
+
+
+def prepare_reuse_candidate(jobs, results, issue=None):
+    import yaml
+
+    first, claimed = start_extraction(jobs)
+    sections = [{'msds_index': 0, 'section': no, 'title': str(no), 'pages': [1]}
+                for no in (1, 2, 3, 8, 9, 11, 12, 14, 15)]
+    checks = {'sections': [{**{k: row[k] for k in ('msds_index', 'section')}, 'ok': True,
+                            'errors': [], 'reextracted': False} for row in sections],
+              'schema_errors': [], 'to21_validator': [], 'needs_review': [], 'warnings': []}
+    doc = {'doc': {'doc_id': first['id'], 'source_file': 'one.pdf',
+                   'extraction': {'extracted_at': '2026-11-03T12:00:00+09:00'}},
+           'msds': [{}]}
+    if issue == 'failed_section':
+        checks['sections'][0].update(ok=False, errors=['TimeoutError'])
+    elif issue == 'schema_error':
+        checks['schema_errors'] = ['missing product name']
+    elif issue in ('validator_error', 'validator_exception'):
+        checks['to21_validator'] = [{'level': '오류' if issue == 'validator_error' else '예외',
+                                    'message': '검증 실패'}]
+    elif issue == 'missing_section':
+        # Keep the old plan and checks equally incomplete: a length comparison
+        # alone cannot establish that all required extraction sections exist.
+        sections.pop()
+        checks['sections'].pop()
+    elif issue == 'missing_validator':
+        checks.pop('to21_validator')
+    jobs.bind(first['id'], claimed['lease_token']).apply(first['id'],
+        {'type': 'plan', 'msds_count': 1, 'page_count': 1, 'sections': sections})
+    for row in sections:
+        jobs.bind(first['id'], claimed['lease_token']).apply(first['id'],
+            {'type': 'section_done', 'msds_index': 0, 'section': row['section'], 'ok': True,
+             'needs_review': False, 'reextracted': False, 'errors': []})
+    results.save_for_lease(first['id'], claimed['lease_token'], doc, checks,
+                           extracted_at='2026-11-03T12:00:00+09:00')
+    finish(jobs, first, claimed)
+    info = {'model_tag': 'model', 'model_config_sha256': 'a' * 64, 'prompt_hashes': {},
+            'schema_version': 'v0.6', 'dictionary_version': 'v0.6', 'git_commit': 'abc123',
+            'rows_sections': [], 'rows_max_tokens': None, 'image_input': False}
+    old_run = jobs.attempt_paths(first['id'], claimed['lease_token'])['runs_dir'] / first['id']
+    old_run.mkdir(parents=True)
+    (old_run / 'run_info.yaml').write_text(yaml.safe_dump(info), encoding='utf-8')
+    for row in sections:
+        raw = old_run / 'raw' / f"{first['id']}_m0_s{row['section']:02d}.json"
+        raw.parent.mkdir(parents=True, exist_ok=True)
+        raw.write_text(json.dumps({'doc_id': first['id'], 'msds_index': 0,
+                                   'section': row['section']}), encoding='utf-8')
+    return first, info
+
+
+def test_identical_pdf_and_settings_reuse_extraction_without_reusing_reviews(stores):
+    import yaml
+
+    jobs, results, _ = stores
+    first, info = prepare_reuse_candidate(jobs, results)
+    jobs.update_review(first['id'], lambda record: review.set_field(
+        record, {'msds': [{'product': {'name': '원본'}}]}, 0, 'product.name',
+        'edit', '수정', '검토자', '2026-11-03T13:00:00+09:00'))
+    second, claim = start_extraction(jobs)
+    assert first['id'] in second['duplicate_of']
+
+    def save_info(path, tag, pages_dir):
+        path.mkdir(parents=True, exist_ok=True)
+        (path / 'run_info.yaml').write_text(yaml.safe_dump(info), encoding='utf-8')
+
+    steps = SimpleNamespace(save_run_info=save_info,
+                            extract=lambda *args, **kwargs: pytest.fail('model extraction must be skipped'))
+    worker = PostgresWorker(jobs, steps=steps, result_store=results)
+    worker._extract(jobs.bind(second['id'], claim['lease_token']), second['id'],
+                    jobs.attempt_paths(second['id'], claim['lease_token']), claim['lease_token'])
+    jobs.complete(second['id'], claim['lease_token'])
+    assert jobs.get(second['id'])['reused_from'] == first['id']
+    assert results.get_active(second['id'])['extraction']['doc']['doc_id'] == second['id']
+    assert jobs.load_review(second['id']) == review.empty()
+    no_reuse = jobs.create(b'%PDF-1.7\nfake', 'one.pdf', None, 'model',
+                           today='20261103', reuse=False)
+    assert worker._reuse_completed(jobs, no_reuse,
+        {'runs_dir': jobs.root / 'unused'}, lambda event: None) is None
+
+
+def fresh_extraction_steps(info, calls):
+    import yaml
+
+    def save_info(path, tag, pages_dir):
+        path.mkdir(parents=True, exist_ok=True)
+        (path / 'run_info.yaml').write_text(yaml.safe_dump(info), encoding='utf-8')
+
+    def extract(doc_id, model_tag, run_name, *, pages_dir, sections_dir, runs_dir, on_event):
+        calls.append(doc_id)
+        doc = {'doc': {'doc_id': doc_id, 'extraction': {'extracted_at': '2026-11-03T14:00:00+09:00'}},
+               'msds': [{'product': {'name': '새 추출'}}]}
+        checks = {'schema_errors': [], 'to21_validator': [], 'sections': [
+            {'msds_index': 0, 'section': no, 'ok': True}
+            for no in (1, 2, 3, 8, 9, 11, 12, 14, 15)
+        ]}
+        for directory, payload in (('outputs', doc), ('checks', checks)):
+            target = runs_dir / doc_id / directory / f'{doc_id}.json'
+            target.parent.mkdir(parents=True, exist_ok=True)
+            target.write_text(json.dumps(payload), encoding='utf-8')
+        return {'sections_ok': 9}
+
+    return SimpleNamespace(save_run_info=save_info, extract=extract)
+
+
+@pytest.mark.parametrize('issue', ['failed_section', 'schema_error', 'validator_error',
+                                  'validator_exception', 'missing_section', 'missing_validator'])
+def test_invalid_completed_result_falls_back_to_fresh_extraction(stores, issue):
+    jobs, results, _ = stores
+    previous, info = prepare_reuse_candidate(jobs, results, issue)
+    job, claim = start_extraction(jobs)
+    assert previous['id'] in job['duplicate_of']
+    calls = []
+    worker = PostgresWorker(jobs, steps=fresh_extraction_steps(info, calls), result_store=results)
+    worker._extract(jobs.bind(job['id'], claim['lease_token']), job['id'],
+                    jobs.attempt_paths(job['id'], claim['lease_token']), claim['lease_token'])
+    jobs.complete(job['id'], claim['lease_token'])
+    assert calls == [job['id']]
+    assert jobs.get(job['id']).get('reused_from') is None
+    assert results.get_active(job['id'])['extraction']['msds'][0]['product']['name'] == '새 추출'
+
+
+def test_manual_retry_uses_fresh_extraction_even_with_valid_duplicate(stores):
+    jobs, results, _ = stores
+    previous, info = prepare_reuse_candidate(jobs, results)
+    job, claim = start_extraction(jobs)
+    bound = jobs.bind(job['id'], claim['lease_token'])
+    bound.apply(job['id'], {'type': 'plan', 'msds_count': 1,
+                           'sections': [{'msds_index': 0, 'section': 1}]})
+    bound.apply(job['id'], {'type': 'section_done', 'msds_index': 0, 'section': 1,
+                           'ok': False, 'needs_review': True, 'reextracted': True,
+                           'errors': ['TimeoutError']})
+    bound.apply(job['id'], {'type': 'reused', 'job_id': previous['id']})
+    finish(jobs, job, claim)
+
+    retried = jobs.requeue(job['id'])
+    assert retried['reuse_requested'] is False
+    assert previous['id'] in retried['duplicate_of']
+    assert 'reused_from' not in retried
+    pre = jobs.claim(stage='preprocess')
+    jobs.queue_next(job['id'], pre['lease_token'])
+    claim = jobs.claim(stage='extract')
+    calls = []
+    worker = PostgresWorker(jobs, steps=fresh_extraction_steps(info, calls), result_store=results)
+    worker._extract(jobs.bind(job['id'], claim['lease_token']), job['id'],
+                    jobs.attempt_paths(job['id'], claim['lease_token']), claim['lease_token'])
+    jobs.complete(job['id'], claim['lease_token'])
+    assert calls == [job['id']]
+    assert jobs.get(job['id']).get('reused_from') is None
+    assert results.get_active(job['id'])['extraction']['msds'][0]['product']['name'] == '새 추출'
 
 
 def test_atomic_pair_is_idempotent_and_visible_only_after_completion(stores):
@@ -246,10 +431,24 @@ def test_completed_result_api_persists_existing_output_and_reports_errors(stores
     assert saved['extracted_at'] == '2026-11-03T09:30:00+09:00'
 
 
-def test_worker_persists_results_and_exposes_invalid_verification(stores):
+@pytest.mark.parametrize('auto_handoff', ['off', 'success', 'failure'])
+def test_worker_persists_results_and_exposes_invalid_verification(stores, monkeypatch, auto_handoff):
     from msds.service.worker import PostgresWorker
+    from msds.service import handoff
 
     jobs, results, _ = stores
+    published = []
+    if auto_handoff == 'off':
+        monkeypatch.delenv('MSDS_AUTO_HANDOFF', raising=False)
+    else:
+        monkeypatch.setenv('MSDS_AUTO_HANDOFF', '1')
+
+        def publish(store, job_id, *, as_of, schema):
+            if auto_handoff == 'failure':
+                raise RuntimeError('handoff unavailable')
+            published.append((job_id, as_of, schema))
+
+        monkeypatch.setattr(handoff, 'publish_handoff', publish)
     job = jobs.create(b'%PDF-1.7\ntest', 'one.pdf', None, 'model', today='20261103')
 
     def preprocess(path, doc_id, *, force, on_page, pages_root):
@@ -276,13 +475,23 @@ def test_worker_persists_results_and_exposes_invalid_verification(stores):
     try:
         worker.start()
         deadline = time.monotonic() + 10
-        while time.monotonic() < deadline and jobs.get(job['id'])['status'] not in ('done', 'failed'):
+        while time.monotonic() < deadline:
+            status = jobs.get(job['id'])['status']
+            if (auto_handoff == 'off' and status in ('done', 'failed')
+                    or auto_handoff == 'success' and published
+                    or auto_handoff == 'failure' and status == 'failed'):
+                break
             time.sleep(.02)
         state = jobs.get(job['id'])
-        assert state['status'] == 'done'
+        assert state['status'] == ('failed' if auto_handoff == 'failure' else 'done')
         assert state['summary']['validation']['status'] == 'invalid'
         assert state['summary']['validation']['validator_errors'] == 1
         assert state['summary']['results_persisted'] is True
-        assert results.get_active(job['id'])['extracted_at'] == '2026-11-03T09:30:00+09:00'
+        if auto_handoff == 'failure':
+            assert '자동 판정 전달 실패' in state['error']
+        else:
+            assert results.get_active(job['id'])['extracted_at'] == '2026-11-03T09:30:00+09:00'
+        if auto_handoff == 'success':
+            assert published == [(job['id'], '2026-11-03', jobs.schema)]
     finally:
         worker.stop(timeout=5)

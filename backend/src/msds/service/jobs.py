@@ -7,6 +7,7 @@ Each worker must use ``bind(job_id, token)`` for *all* pipeline event writes.
 from __future__ import annotations
 
 import math
+import copy
 import hashlib
 import json
 import os
@@ -110,6 +111,28 @@ class PostgresJobStore:
             raise ReviewNotReady(doc_id)
         return self.attempt_paths(doc_id, token)['runs_dir'].parent / 'review.json'
 
+    def _load_review_locked(self, db, doc_id: str, state: dict) -> tuple[dict, str | None]:
+        """Read the current result's review; older file reviews remain importable."""
+        token = state.get('_active_token')
+        if not token:
+            raise ReviewNotReady(doc_id)
+        result_id = f'a2-{doc_id}-{token}-extraction'
+        result = None
+        table = sql.Identifier(self.schema, 'results')
+        if db.execute('SELECT to_regclass(%s)', (table.as_string(db),)).fetchone()['to_regclass']:
+            result = db.execute(sql.SQL('SELECT result_id FROM {} WHERE job_id=%s AND result_id=%s AND kind=%s')
+                                .format(table), (doc_id, result_id, 'extraction')).fetchone()
+        if result:
+            latest = db.execute(sql.SQL('SELECT after_json FROM {} WHERE job_id=%s AND result_id=%s '
+                                        'ORDER BY review_seq DESC LIMIT 1')
+                                .format(sql.Identifier(self.schema, 'reviews')),
+                                (doc_id, result_id)).fetchone()
+            if latest:
+                return latest['after_json']['record'], result_id
+        path = self._review_path(doc_id, state)
+        record = json.loads(path.read_text(encoding='utf-8')) if path.is_file() else review.empty()
+        return record, result_id if result else None
+
     def load_review(self, doc_id: str) -> dict:
         with self._connect() as db:
             row = db.execute(sql.SQL('SELECT status, progress_json FROM {} WHERE job_id=%s FOR SHARE')
@@ -118,8 +141,8 @@ class PostgresJobStore:
                 raise KeyError(doc_id)
             if row['status'] != 'done':
                 raise ReviewNotReady(doc_id)
-            path = self._review_path(doc_id, row['progress_json'])
-            return json.loads(path.read_text(encoding='utf-8')) if path.is_file() else review.empty()
+            record, _ = self._load_review_locked(db, doc_id, row['progress_json'])
+            return record
 
     def update_review(self, doc_id: str, change: Callable[[dict], None]) -> dict:
         # Serialize the result version and file mutation with retry's row lock.
@@ -130,9 +153,29 @@ class PostgresJobStore:
                 raise KeyError(doc_id)
             if row['status'] != 'done':
                 raise ReviewNotReady(doc_id)
-            path = self._review_path(doc_id, row['progress_json'])
-            record = json.loads(path.read_text(encoding='utf-8')) if path.is_file() else review.empty()
+            record, result_id = self._load_review_locked(db, doc_id, row['progress_json'])
+            before = copy.deepcopy(record)
             change(record)
+            if result_id:
+                if len(record['log']) != len(before['log']) + 1:
+                    raise ValueError('검수 변경은 하나의 이벤트를 남겨야 합니다')
+                event = record['log'][-1]
+                action = event['action']
+                if action not in ('confirm', 'edit', 'reset', 'section_confirm', 'section_unconfirm'):
+                    raise ValueError('알 수 없는 검수 동작입니다')
+                sequence = db.execute(sql.SQL('SELECT COALESCE(max(review_seq), 0) + 1 AS seq FROM {} '
+                                              'WHERE job_id=%s')
+                                      .format(sql.Identifier(self.schema, 'reviews')),
+                                      (doc_id,)).fetchone()['seq']
+                db.execute(sql.SQL('''INSERT INTO {} (review_id, job_id, result_id, review_seq,
+                    msds_index, field_path, section_no, action, before_json, after_json, reviewer, created_at)
+                    VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)''')
+                    .format(sql.Identifier(self.schema, 'reviews')),
+                    (uuid.uuid4().hex, doc_id, result_id, sequence, event['msds_index'],
+                     event.get('path'), event.get('section'), action, Jsonb({'record': before}),
+                     Jsonb({'record': record}), event['reviewer'], event['at']))
+                return record
+            path = self._review_path(doc_id, row['progress_json'])
             path.parent.mkdir(parents=True, exist_ok=True)
             tmp = path.with_name(f'.{path.name}.{uuid.uuid4().hex}.tmp')
             try:
@@ -143,7 +186,7 @@ class PostgresJobStore:
             return record
 
     def create(self, pdf: bytes, filename: str, as_of: str | None, model_tag: str,
-               today: str | None = None) -> dict:
+               today: str | None = None, *, reuse: bool = True) -> dict:
         # Serialize ID allocation with every API process using this database.
         # Never create state.json: file-mode workers must not pick up DB jobs.
         now = now_kst()
@@ -173,6 +216,7 @@ class PostgresJobStore:
                                         .format(self.table), (digest,)).fetchall()
             state = progress.new_state(doc_id, filename, digest, len(pdf), as_of, model_tag, now,
                                        [row['job_id'] for row in duplicate_rows])
+            state['reuse_requested'] = reuse
             # On an uncertain insert/commit outcome, preserve the original PDF.
             # Future allocations skip the orphan's directory and never overwrite it.
             self.pdf_path(doc_id).write_bytes(pdf)
@@ -209,6 +253,10 @@ class PostgresJobStore:
             state.pop('_prepared_token', None)
             state.pop('_working_token', None)
             state.pop('_pending_terminal', None)
+            state.pop('reused_from', None)
+            # A manual retry requests a new extraction, including when an older
+            # duplicate has since become eligible for reuse.
+            state['reuse_requested'] = False
             state['updated_at'] = now_kst()
             db.execute(sql.SQL("""UPDATE {} SET status='queued', stage=NULL, progress_json=%s,
                 attempt_no=0, lease_token=NULL, lease_expires_at=NULL, updated_at=now() WHERE job_id=%s""")
@@ -353,6 +401,19 @@ class PostgresJobStore:
 
     def complete(self, doc_id: str, token: str, *, error: str | None = None) -> dict:
         return self.finish(doc_id, token, error=error)
+
+    def fail_handoff(self, doc_id: str, token: str, error: str) -> None:
+        """Record a failed automatic handoff so a completed job is not silently stranded."""
+        with self._connect() as db:
+            row = db.execute(sql.SQL('SELECT status, progress_json FROM {} WHERE job_id=%s FOR UPDATE')
+                             .format(self.table), (doc_id,)).fetchone()
+            if not row or row['status'] != 'done' or row['progress_json'].get('_active_token') != token:
+                return
+            state = row['progress_json']
+            progress.apply_event(state, {'type': 'failed', 'error': error[:500]})
+            state['updated_at'] = now_kst()
+            db.execute(sql.SQL('UPDATE {} SET status=%s, progress_json=%s, updated_at=now() WHERE job_id=%s')
+                       .format(self.table), ('failed', Jsonb(state), doc_id))
 
     def recover_expired(self) -> int:
         with self._connect() as db:

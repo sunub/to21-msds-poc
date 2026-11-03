@@ -247,10 +247,16 @@ def test_real_database_serializes_handoff_sequence_and_preserves_rows(sample, tm
         shutil.copytree(sample['run_dir'], run)
         import yaml
         (run / 'run_info.yaml').write_text(yaml.safe_dump(sample['run_info']), encoding='utf-8')
+        store.update_review(job_id, lambda record: review.set_field(
+            record, sample['extraction'], 0, 'product.name', 'confirm', None,
+            '검토자', '2026-11-03T12:00:00+09:00'))
         with ThreadPoolExecutor(max_workers=2) as pool:
             values = list(pool.map(lambda _: handoff.publish_handoff(
                 store, job_id, as_of=sample['as_of'], schema=schema), range(2)))
         assert sorted(value['handoff_seq'] for value in values) == [1, 2]
+        assert all(value['field_status'] == [
+            {'msds_index': 0, 'field': 'product.name', 'status': '확인함'},
+        ] for value in values)
         with psycopg.connect(dsn) as db:
             rows = db.execute(sql.SQL('SELECT handoff_seq, extraction_sha256, payload_json FROM {} ORDER BY handoff_seq')
                               .format(sql.Identifier(schema, 'handoff'))).fetchall()
