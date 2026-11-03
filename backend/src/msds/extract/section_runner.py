@@ -27,6 +27,7 @@ runs/<실행 이름>/ 에 남는 것
 """
 from __future__ import annotations
 
+import hashlib
 import json
 import os
 import subprocess
@@ -268,6 +269,12 @@ def run_document(doc_id: str, model_tag: str, run_name: str, client=None, *,
     emit = on_event or (lambda event: None)
     t_start = time.perf_counter()
     cfg = load_model_config(model_tag)
+    info_path = Path(runs_dir) / run_name / "run_info.yaml"
+    if info_path.is_file():
+        recorded = yaml.safe_load(info_path.read_text(encoding="utf-8")) or {}
+        digest = recorded.get("model_config_sha256")
+        if digest is not None and digest != model_config_sha256(cfg):
+            raise RuntimeError("추출 시작 후 모델 설정이 바뀌어 실행을 중단합니다")
     client = client or ChatClient(cfg)
     meta_warnings: list[str] = []
     try:
@@ -402,6 +409,13 @@ def workers(cfg: dict, max_workers: int | None = None) -> int:
     return max_workers or cfg.get("concurrency") or 16
 
 
+def model_config_sha256(cfg: dict) -> str:
+    """Hash the actual model entry, excluding the added tag and shared run config."""
+    model = {key: value for key, value in cfg.items() if key not in ("tag", "run")}
+    data = json.dumps(model, sort_keys=True, separators=(",", ":"), ensure_ascii=False, allow_nan=False)
+    return hashlib.sha256(data.encode("utf-8")).hexdigest()
+
+
 def save_run_info(run: Path, model_tag: str, pages_dir=PAGES, max_workers: int | None = None) -> None:
     """같은 조건으로 다시 돌릴 수 있게 모델·프롬프트·스키마 버전과 쪽 글자 폴더를 남긴다.
     주소·키·환경변수 값은 쓰지 않는다. 쪽 글자 폴더는 저장소 기준 상대 경로로 쓴다."""
@@ -410,6 +424,7 @@ def save_run_info(run: Path, model_tag: str, pages_dir=PAGES, max_workers: int |
     info = {
         "model_tag": model_tag,
         "model": cfg["model"],
+        "model_config_sha256": model_config_sha256(cfg),
         "prompt_version": SECTION_PROMPT_VERSION,
         "rows_sections": sorted(rows),
         "skipped_sections": list(SKIPPED_SECTIONS),          # 부르지 않는 항 (추출 목표 밖)
