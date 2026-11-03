@@ -29,7 +29,7 @@ from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field, field_validator, model_validator
 
 from msds.checks.validator import load_to21_module
-from msds.checks.final_validation import summarize_checks
+from msds.checks.final_validation import summarize_checks, validate_document
 from msds.api.jobs_routes import make_router
 from msds.common import paths
 from msds.extract.inputs import read_page_lines
@@ -221,9 +221,25 @@ def create_app(store: DocumentStore | None = None, worker=None, pages_dir: Path 
         chk = json.loads(checks.read_text(encoding="utf-8"))
         try:
             validation = summarize_checks(doc, chk)
+            verified, _ = validate_document(doc, chk)
+            if (verified["schema_errors"] != chk["schema_errors"] or
+                    verified["to21_validator"] != chk["to21_validator"]):
+                raise HTTPException(409, "추출 결과와 검사 기록이 현재 검증 결과와 일치하지 않습니다")
         except ValueError as exc:
             raise HTTPException(409, f"검사 기록을 확인할 수 없습니다: {exc}") from exc
-        saved = ResultStore(store.dsn, schema=store.schema).save_completed(doc_id, token, doc, chk)
+        result_store = ResultStore(store.dsn, schema=store.schema)
+        try:
+            result_store.get_active(doc_id)
+        except ResultNotReady:
+            # Prefer the actual extracted_at in the result. A prior saved
+            # snapshot keeps its existing provenance on repeated requests.
+            extracted_at = (doc.get("doc", {}).get("extraction") or {}).get("extracted_at")
+        else:
+            extracted_at = None
+        try:
+            saved = result_store.save_completed(doc_id, token, doc, chk, extracted_at=extracted_at)
+        except ValueError as exc:
+            raise HTTPException(409, f"추출 시각을 확인할 수 없습니다: {exc}") from exc
         return {"job_id": doc_id, "validation": validation, **saved}
 
     @app.get("/api/documents/{doc_id}/results/stored")
@@ -246,7 +262,9 @@ def create_app(store: DocumentStore | None = None, worker=None, pages_dir: Path 
         if not hasattr(store, "dsn") or not hasattr(store, "schema"):
             raise HTTPException(409, "PostgreSQL 작업에서만 판정용 전달을 만들 수 있습니다")
         saved = ResultStore(store.dsn, schema=store.schema).get_active(doc_id)
-        as_of = extraction_date(saved.get("extracted_at"))
+        doc = saved.get("extraction") or {}
+        actual = (doc.get("doc", {}).get("extraction") or {}).get("extracted_at")
+        as_of = extraction_date(actual)
         payload = publish_handoff(store, doc_id, as_of=as_of, schema=store.schema)
         return {"job_id": doc_id, "handoff_seq": payload["handoff_seq"], "as_of": payload["as_of"],
                 "extraction_sha256": payload["extraction_sha256"], "validator": payload["checks"]["validator"]}
