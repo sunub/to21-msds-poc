@@ -7,6 +7,7 @@ Each worker must use ``bind(job_id, token)`` for *all* pipeline event writes.
 from __future__ import annotations
 
 import math
+import copy
 import hashlib
 import json
 import os
@@ -110,6 +111,28 @@ class PostgresJobStore:
             raise ReviewNotReady(doc_id)
         return self.attempt_paths(doc_id, token)['runs_dir'].parent / 'review.json'
 
+    def _load_review_locked(self, db, doc_id: str, state: dict) -> tuple[dict, str | None]:
+        """Read the current result's review; older file reviews remain importable."""
+        token = state.get('_active_token')
+        if not token:
+            raise ReviewNotReady(doc_id)
+        result_id = f'a2-{doc_id}-{token}-extraction'
+        result = None
+        table = sql.Identifier(self.schema, 'results')
+        if db.execute('SELECT to_regclass(%s)', (table.as_string(db),)).fetchone()['to_regclass']:
+            result = db.execute(sql.SQL('SELECT result_id FROM {} WHERE job_id=%s AND result_id=%s AND kind=%s')
+                                .format(table), (doc_id, result_id, 'extraction')).fetchone()
+        if result:
+            latest = db.execute(sql.SQL('SELECT after_json FROM {} WHERE job_id=%s AND result_id=%s '
+                                        'ORDER BY review_seq DESC LIMIT 1')
+                                .format(sql.Identifier(self.schema, 'reviews')),
+                                (doc_id, result_id)).fetchone()
+            if latest:
+                return latest['after_json']['record'], result_id
+        path = self._review_path(doc_id, state)
+        record = json.loads(path.read_text(encoding='utf-8')) if path.is_file() else review.empty()
+        return record, result_id if result else None
+
     def load_review(self, doc_id: str) -> dict:
         with self._connect() as db:
             row = db.execute(sql.SQL('SELECT status, progress_json FROM {} WHERE job_id=%s FOR SHARE')
@@ -118,8 +141,8 @@ class PostgresJobStore:
                 raise KeyError(doc_id)
             if row['status'] != 'done':
                 raise ReviewNotReady(doc_id)
-            path = self._review_path(doc_id, row['progress_json'])
-            return json.loads(path.read_text(encoding='utf-8')) if path.is_file() else review.empty()
+            record, _ = self._load_review_locked(db, doc_id, row['progress_json'])
+            return record
 
     def update_review(self, doc_id: str, change: Callable[[dict], None]) -> dict:
         # Serialize the result version and file mutation with retry's row lock.
@@ -130,9 +153,29 @@ class PostgresJobStore:
                 raise KeyError(doc_id)
             if row['status'] != 'done':
                 raise ReviewNotReady(doc_id)
-            path = self._review_path(doc_id, row['progress_json'])
-            record = json.loads(path.read_text(encoding='utf-8')) if path.is_file() else review.empty()
+            record, result_id = self._load_review_locked(db, doc_id, row['progress_json'])
+            before = copy.deepcopy(record)
             change(record)
+            if result_id:
+                if len(record['log']) != len(before['log']) + 1:
+                    raise ValueError('검수 변경은 하나의 이벤트를 남겨야 합니다')
+                event = record['log'][-1]
+                action = event['action']
+                if action not in ('confirm', 'edit', 'reset', 'section_confirm', 'section_unconfirm'):
+                    raise ValueError('알 수 없는 검수 동작입니다')
+                sequence = db.execute(sql.SQL('SELECT COALESCE(max(review_seq), 0) + 1 AS seq FROM {} '
+                                              'WHERE job_id=%s')
+                                      .format(sql.Identifier(self.schema, 'reviews')),
+                                      (doc_id,)).fetchone()['seq']
+                db.execute(sql.SQL('''INSERT INTO {} (review_id, job_id, result_id, review_seq,
+                    msds_index, field_path, section_no, action, before_json, after_json, reviewer, created_at)
+                    VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)''')
+                    .format(sql.Identifier(self.schema, 'reviews')),
+                    (uuid.uuid4().hex, doc_id, result_id, sequence, event['msds_index'],
+                     event.get('path'), event.get('section'), action, Jsonb({'record': before}),
+                     Jsonb({'record': record}), event['reviewer'], event['at']))
+                return record
+            path = self._review_path(doc_id, row['progress_json'])
             path.parent.mkdir(parents=True, exist_ok=True)
             tmp = path.with_name(f'.{path.name}.{uuid.uuid4().hex}.tmp')
             try:

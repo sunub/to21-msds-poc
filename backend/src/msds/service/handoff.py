@@ -274,8 +274,7 @@ def publish_handoff(store, job_id: str, *, as_of: str, reason: str = 'extraction
         if not job or job['status'] != 'done' or job['progress_json'].get('_active_token') != token:
             raise ResultNotReady('추출 결과가 변경되어 전달할 수 없습니다')
         state = job['progress_json']
-        path = store._review_path(job_id, state)
-        record = _read_json(path, '검수 기록') if path.is_file() else review.empty()
+        record, _ = store._load_review_locked(db, job_id, state)
         row = db.execute(sql.SQL('SELECT COALESCE(max(handoff_seq), 0) AS seq FROM {} WHERE job_id=%s')
                          .format(sql.Identifier(schema, 'handoff')), (job_id,)).fetchone()
         sequence = row['seq'] + 1
