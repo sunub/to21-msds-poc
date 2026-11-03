@@ -78,6 +78,23 @@ def read_page_lines(doc_id: str, pages_dir: Path = PAGES) -> list[Line]:
     return lines
 
 
+def pages_problems(doc_ids: list[str], pages_dir: Path = PAGES) -> list[str]:
+    """실행 전에 볼 쪽 글자 문제. 쪽 파일이 없거나, 글이 있는 쪽의 첫 줄에 줄번호(L001)가 없는 문서를 적는다.
+    read_page_lines는 줄번호 없는 글도 받아 주므로, 깨진 입력 폴더를 고르면 오류 없이 돌아간다. 그래서 따로 본다."""
+    problems = []
+    for doc_id in doc_ids:
+        doc_dir = Path(pages_dir) / doc_id
+        files = [p for p in doc_dir.iterdir() if _PAGE_FILE.match(p.name)] if doc_dir.is_dir() else []
+        if not files:
+            problems.append(f"{doc_id}: 쪽 글자 파일 없음")
+            continue
+        firsts = [next((l for l in p.read_text(encoding="utf-8").splitlines() if l.strip()), None) for p in files]
+        written = [l for l in firsts if l is not None]
+        if not written or not all(_LINE_NO.match(l) for l in written):
+            problems.append(f"{doc_id}: 줄번호 없는 쪽 글자")
+    return problems
+
+
 def _fallback_sections() -> dict[int, SectionSpan]:
     return {n: SectionSpan(None, None, "fallback") for n in SECTION_NOS}
 

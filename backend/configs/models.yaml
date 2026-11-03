@@ -98,6 +98,51 @@ models:
       extra_body:
         chat_template_kwargs: {enable_thinking: false}
 
+  # 회사 GPU(48GB급으로 추정, 11/3) 대신 쓰는 RunPod 48GB 시험대. 모델·요청 방식은 qwen36_35b_runpod와 같고
+  # 서버 설정(server)만 다르다. pod_up.py --tag로 띄우면 이 값으로 vLLM을 띄운다.
+  # 48GB에서 FP8 가중치(약 36GB)를 빼면 KV에 약 10GB가 남아 48k 요청을 8개 안팎 받는다.
+  qwen36_35b_runpod_48g:
+    model: Qwen/Qwen3.6-35B-A3B-FP8
+    base_url_env: RUNPOD_VLLM_BASE_URL
+    api_key_env: RUNPOD_VLLM_API_KEY
+    structured: [json_schema, json_object, none]
+    max_tokens: 8192
+    concurrency: 8
+    rows_sections: [3, 8, 9, 11, 12, 14, 15]
+    rows_max_tokens: 16384
+    image_input: true
+    params:
+      temperature: 0
+      extra_body:
+        chat_template_kwargs: {enable_thinking: false}
+    server:
+      max_model_len: 49152        # 지금까지 가장 긴 호출이 입력+출력 34k (11/3 집계)
+      max_num_seqs: 8
+      gpu_memory_utilization: 0.92
+
+  # 위와 같고 결정적 모드(vLLM batch invariance, 베타)만 켠다. 같은 입력이면 함께 처리되는 요청에 상관없이 같은 출력.
+  # 이전 요청 계산 재사용(prefix caching)과 함께 쓸 때의 보장이 문서에 없어 끈다
+  qwen36_35b_runpod_48g_det:
+    model: Qwen/Qwen3.6-35B-A3B-FP8
+    base_url_env: RUNPOD_VLLM_BASE_URL
+    api_key_env: RUNPOD_VLLM_API_KEY
+    structured: [json_schema, json_object, none]
+    max_tokens: 8192
+    concurrency: 8
+    rows_sections: [3, 8, 9, 11, 12, 14, 15]
+    rows_max_tokens: 16384
+    image_input: true
+    params:
+      temperature: 0
+      extra_body:
+        chat_template_kwargs: {enable_thinking: false}
+    server:
+      max_model_len: 49152
+      max_num_seqs: 8
+      gpu_memory_utilization: 0.92
+      batch_invariant: true
+      prefix_caching: false
+
   # RunPod vLLM 0.32.0
   nuextract2_8b_runpod:
     model: numind/NuExtract-2.0-8B

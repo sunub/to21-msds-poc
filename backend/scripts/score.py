@@ -24,6 +24,14 @@ from _common import today
 from msds.common import manifest, paths
 from msds.evaluate.score import score_set, write_report
 
+EVAL_EXCLUDED = {"T21-025"}   # 평가 평균에 넣지 않는 문서 (ADR-0005)
+
+
+def eval_gaps(keep: set[str], no_pred: list[str], no_gold: list[str]) -> list[str]:
+    """평가 평균에 들어가야 하는데 결과나 정답이 없는 문서. 있으면 평균의 문서 수가 달라져 채점하지 않는다."""
+    return sorted((set(no_pred) | set(no_gold)) & (keep - EVAL_EXCLUDED))
+
+
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--pred", required=True, help="결과 JSON 폴더 (T21-*.json)")
@@ -32,6 +40,8 @@ if __name__ == "__main__":
     ap.add_argument("--docs", nargs="+", help="문서 번호를 직접 고른다")
     ap.add_argument("--gold-example25", action="store_true", help="T21-025를 TO21 정답 예제로 채점")
     a = ap.parse_args()
+    if a.purpose == "평가" and a.gold_example25:
+        ap.error("--purpose 평가에는 --gold-example25를 붙이지 않습니다. 25번은 --docs T21-025로 따로 채점합니다 (ADR-0005)")
 
     keep = None
     if a.purpose:
@@ -62,6 +72,10 @@ if __name__ == "__main__":
                       json.loads(p.read_text(encoding="utf-8"))))
     if keep is not None:
         no_pred = sorted(keep - found)
+    if a.purpose == "평가":
+        gaps = eval_gaps(keep, no_pred, no_gold)
+        if gaps:
+            sys.exit(f"평가 문서 {len(gaps)}건의 결과나 정답이 없어 채점하지 않습니다: {', '.join(gaps)}")
 
     for d in no_gold:
         print(f"[정답 없음] {d}")

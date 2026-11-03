@@ -17,6 +17,7 @@ POST /api/documents/{id}/retry             실패·멈춘 문서를 처음부터
 from __future__ import annotations
 
 import json
+import logging
 import os
 from contextlib import asynccontextmanager
 from pathlib import Path
@@ -75,6 +76,9 @@ class SectionReview(BaseModel):
         if v not in review.SECTIONS:
             raise ValueError(f"추출 대상 항이 아닙니다: {v} (대상: {', '.join(map(str, review.SECTIONS))})")
         return v
+
+
+logger = logging.getLogger(__name__)
 
 
 def load_regen():
@@ -311,7 +315,10 @@ def create_app(store: DocumentStore | None = None, worker=None, pages_dir: Path 
         try:
             parts = regenerated.regenerate_sections(doc, load_regen())
         except Exception as e:   # TO21 제공 스크립트가 어떤 입력에서 터질지 여기서 알 수 없다
-            raise HTTPException(500, f"재생성하지 못했습니다: {type(e).__name__}: {str(e)[:300]}") from e
+            logger.exception("재생성 실패: %s", doc_id)
+            raise HTTPException(500, "재생성하지 못했습니다. 추출값 중 재생성 스크립트가 처리하지 못한 값이 있습니다. "
+                                     "다시 불러와도 같으면 개발 담당에게 아래 내용을 알려 주세요. "
+                                     f"(문서 {doc_id}, {type(e).__name__}: {str(e)[:300]})") from e
         chk = json.loads(checks.read_text(encoding="utf-8")) if checks.is_file() else {}
         flagged = {(r["msds_index"], r["section"]) for r in chk.get("needs_review", [])}
         status = {(s["msds_index"], s["section"]): s["status"] for s in state["sections"]}

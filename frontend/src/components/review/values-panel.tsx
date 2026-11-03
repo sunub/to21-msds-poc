@@ -10,6 +10,7 @@ import { SourceViewer } from "@/components/extract/source-viewer";
 import { Foot, Pane, Row } from "@/components/shell/layout";
 import { Button, Input, Skeleton, StatusLabel, buttonStyles } from "@/components/ui";
 import { usePageParam } from "@/hooks/use-page-param";
+import { useObservedHeight } from "@/hooks/use-observed-height";
 import { cn } from "@/lib/cn";
 import { useReviewer } from "@/lib/reviewer";
 import { routes } from "@/lib/routes";
@@ -54,6 +55,7 @@ function Values({ doc }: { doc: DocumentDetail }) {
   const [page, setPage] = usePageParam();
   const [evidence, setEvidence] = useState<string | null>(null);
   const [open, setOpen] = useState<string | null>(null);
+  const preview = useObservedHeight<HTMLDivElement>();
 
   const showSource = useCallback(
     (nextPage: number | null, text: string | null) => {
@@ -80,42 +82,44 @@ function Values({ doc }: { doc: DocumentDetail }) {
   return (
     <>
       <Row>
-        <SourceViewer doc={doc} page={page} onPage={setPage} highlight={evidence} className="lg:sticky lg:top-4" />
-        <Pane
-          title="재생성 MSDS"
-          className="basis-105"
-          aside={
-            <span className="text-sm text-mut tabular-nums">
-              {total}항 중 {confirmed}항 확인{edited > 0 && ` · 수정 ${edited}칸`} · 항을 눌러 펼칩니다
-            </span>
-          }
-        >
-          {!reviewer && (
-            <p role="alert" className="text-sm text-amb-text">
-              위쪽에서 검토자 이름을 정하면 확인하고 고칠 수 있습니다. 기록에 이 이름이 남습니다.
-            </p>
-          )}
-          {data.msds.map((m) => (
-            <div key={m.msds_index} role="group" aria-label={`MSDS ${m.msds_index + 1}건`} className="flex flex-col gap-2">
-              {data.msds.length > 1 && <h3 className="font-bold">MSDS {m.msds_index + 1}건 · {m.info.product_name}</h3>}
-              {m.sections.map((s) => {
-                const key = `${m.msds_index}:${s.section}`;
-                return (
-                  <SectionBlock
-                    key={key}
-                    docId={doc.id}
-                    msdsIndex={m.msds_index}
-                    section={s}
-                    open={openKey === key}
-                    reviewer={reviewer}
-                    onToggle={() => setOpen(openKey === key ? "" : key)}
-                    onSource={showSource}
-                  />
-                );
-              })}
-            </div>
-          ))}
-        </Pane>
+        <SourceViewer doc={doc} page={page} onPage={setPage} highlight={evidence} panelHeight={preview.height} />
+        <div ref={preview.ref} className="min-w-0 grow basis-105">
+          <Pane
+            title="재생성 MSDS"
+            className="basis-105"
+            aside={
+              <span className="text-sm text-mut tabular-nums">
+                {total}항 중 {confirmed}항 확인{edited > 0 && ` · 수정 ${edited}칸`} · 항을 눌러 펼칩니다
+              </span>
+            }
+          >
+            {!reviewer && (
+              <p role="alert" className="text-sm text-amb-text">
+                위쪽에서 검토자 이름을 정하면 확인하고 고칠 수 있습니다. 기록에 이 이름이 남습니다.
+              </p>
+            )}
+            {data.msds.map((m) => (
+              <div key={m.msds_index} role="group" aria-label={`MSDS ${m.msds_index + 1}건`} className="flex flex-col gap-2">
+                {data.msds.length > 1 && <h3 className="font-bold">MSDS {m.msds_index + 1}건 · {m.info.product_name}</h3>}
+                {m.sections.map((s) => {
+                  const key = `${m.msds_index}:${s.section}`;
+                  return (
+                    <SectionBlock
+                      key={key}
+                      docId={doc.id}
+                      msdsIndex={m.msds_index}
+                      section={s}
+                      open={openKey === key}
+                      reviewer={reviewer}
+                      onToggle={() => setOpen(openKey === key ? "" : key)}
+                      onSource={showSource}
+                    />
+                  );
+                })}
+              </div>
+            ))}
+          </Pane>
+        </div>
       </Row>
       <Foot>
         <p className="text-mut">

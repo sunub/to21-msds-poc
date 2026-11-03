@@ -266,6 +266,21 @@ def test_select_docs_rejects_eval_in_docs_option(cm, env):
         cm.select_docs(loaded(cm, env, [("a", "r1")]), env / "gold", [X01, X09])
 
 
+def test_select_docs_outside_manifest_is_excluded_not_error(cm, env):
+    outside = "T21-X50"
+    make_run(env, "r1", {X01: make_doc(X01), outside: make_doc(outside)})
+    docs, excluded = cm.select_docs(loaded(cm, env, [("a", "r1")]), env / "gold")
+    assert docs == [X01]
+    assert excluded == [{"doc_id": outside, "reason": "정답 없음"}]
+
+
+def test_select_docs_outside_manifest_does_not_hide_eval(cm, env):
+    outside = "T21-X50"
+    make_run(env, "r1", {outside: make_doc(outside), X09: make_doc(X09)})
+    with pytest.raises(ValueError, match=X09):
+        cm.select_docs(loaded(cm, env, [("a", "r1")]), env / "gold")
+
+
 # ── main ───────────────────────────────────────────────
 
 def test_main_writes_files(cm, env, monkeypatch):
