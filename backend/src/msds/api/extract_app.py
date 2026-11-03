@@ -4,7 +4,7 @@
 모델은 MSDS_SERVICE_MODEL(configs/models.yaml 태그, 기본 qwen36_35b_runpod)이고 접속 정보는 .env에서 읽는다.
 frontend/out(정적 빌드)이 있으면 같은 주소의 / 에서 화면을 낸다. 개발 서버(next dev)는 CORS로 붙는다.
 
-진행의 기본 단위는 항목(MSDS 건 × 1~16항)이다 (service.progress). 화면은 GET /api/documents/{id}를 1~2초마다 부른다.
+진행의 기본 단위는 항목(MSDS 건 × 추출 대상 9개 항: 1·2·3·8·9·11·12·14·15)이다 (service.progress). 화면은 GET /api/documents/{id}를 1~2초마다 부른다.
 
 POST /api/documents?filename=&as_of=      본문이 PDF 바이트 그대로(application/pdf). 202와 진행 상태
 GET  /api/documents?status=all|active|done|failed   목록(항별 목록 없이 개수만)과 상태별 개수
@@ -22,16 +22,23 @@ from contextlib import asynccontextmanager
 from pathlib import Path
 from typing import Literal
 
-from fastapi import FastAPI, HTTPException, Path as PathParam, Query, Request
+from fastapi import FastAPI, HTTPException, Path as PathParam, Request
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
-from pydantic import BaseModel, Field, model_validator
+from pydantic import BaseModel, Field, field_validator, model_validator
 
 from msds.checks.validator import load_to21_module
+from msds.checks.final_validation import summarize_checks, validate_document
+from msds.api.jobs_routes import make_router
+from msds.api import judge_app
 from msds.common import paths
 from msds.extract.inputs import read_page_lines
-from msds.service import pipeline, progress, regenerated, review
+from msds.extract.section_runner import raw_path
+from msds.service import pipeline, regenerated, review
+from msds.service.jobs import ReviewNotReady
+from msds.service.results import ResultConflict, ResultNotReady, ResultStore
+from msds.service.handoff import HandoffNotReady, extraction_date, publish_handoff
 from msds.service.store import DocumentStore, now_kst
 from msds.service.worker import Worker
 
@@ -39,9 +46,7 @@ MAX_PDF_BYTES = 50 * 1024 * 1024
 CORS_ENV = "MSDS_CORS_ORIGINS"
 DEFAULT_CORS = "http://localhost:3000,http://127.0.0.1:3000,http://localhost:3101,http://127.0.0.1:3101"
 FRONTEND_OUT = paths.ROOT / "frontend" / "out"
-_DATE = r"^\d{4}-\d{2}-\d{2}$"
-_ACTIVE = ("queued", "running")
-_FAILED = ("failed", "interrupted")
+JUDGE_EMBED_ENV = "MSDS_JUDGE_IN_EXTRACT_APP"
 
 
 class FieldReview(BaseModel):
@@ -60,9 +65,16 @@ class FieldReview(BaseModel):
 
 class SectionReview(BaseModel):
     msds_index: int = Field(ge=0)
-    section: int = Field(ge=1, le=16)
+    section: int
     confirmed: bool
     reviewer: str = Field(min_length=1, max_length=40, pattern=r"\S")
+
+    @field_validator("section")
+    @classmethod
+    def in_extract_sections(cls, v: int) -> int:
+        if v not in review.SECTIONS:
+            raise ValueError(f"추출 대상 항이 아닙니다: {v} (대상: {', '.join(map(str, review.SECTIONS))})")
+        return v
 
 
 def load_regen():
@@ -73,18 +85,55 @@ def load_regen():
 def create_app(store: DocumentStore | None = None, worker=None, pages_dir: Path | None = None,
                static_dir: Path | None = FRONTEND_OUT) -> FastAPI:
     """store·worker를 주지 않으면 켤 때 data/service와 실제 파이프라인 작업자를 만든다."""
+    judge_embedded = os.environ.get(JUDGE_EMBED_ENV) == "1"
 
     @asynccontextmanager
     async def lifespan(app: FastAPI):
-        st = app.state.store = store or DocumentStore(pipeline.service_root(), taken_dirs=[paths.PAGES])
-        wk = app.state.worker = worker or Worker(st, pipeline.process)
+        db_url = os.environ.get("MSDS_SERVICE_DATABASE_URL")
+        if store is not None:
+            st = store
+        elif db_url:
+            from msds.service.jobs import PostgresJobStore
+            st = PostgresJobStore(db_url, pipeline.service_root(), taken_dirs=(paths.PAGES,))
+        else:
+            st = DocumentStore(pipeline.service_root(), taken_dirs=[paths.PAGES])
+        app.state.store = st
+        if worker is not None:
+            wk = worker
+        elif db_url and store is None:
+            from msds.service.worker import PostgresWorker
+            wk = PostgresWorker(st,
+                result_store=ResultStore(st.dsn, schema=st.schema),
+                preprocess_workers=int(os.environ.get("MSDS_PREPROCESS_WORKERS", "1")),
+                extract_workers=int(os.environ.get("MSDS_EXTRACT_WORKERS", "1")))
+        else:
+            wk = Worker(st, pipeline.process)
+        app.state.worker = wk
         wk.start()
-        for doc_id in st.recover():
-            wk.submit(doc_id)
-        yield
-        wk.stop(timeout=1)
+        try:
+            if judge_embedded:
+                judge_app.attach(app)
+            if not (db_url and store is None and worker is None):
+                for doc_id in st.recover():
+                    wk.submit(doc_id)
+            yield
+        finally:
+            if judge_embedded and hasattr(app.state, "judge_workers"):
+                judge_app.detach(app)
+            wk.stop(timeout=1)
 
     app = FastAPI(title="TO21 MSDS 추출 API", lifespan=lifespan)
+
+    @app.exception_handler(ReviewNotReady)
+    async def review_not_ready(request: Request, exc: ReviewNotReady):
+        return JSONResponse(status_code=409, content={"detail": "작업이 다시 실행되어 이전 결과를 검수할 수 없습니다"})
+
+    @app.exception_handler(ResultNotReady)
+    @app.exception_handler(ResultConflict)
+    @app.exception_handler(HandoffNotReady)
+    async def result_conflict(request: Request, exc: Exception):
+        return JSONResponse(status_code=409, content={"detail": str(exc)})
+
     pages_root = Path(pages_dir) if pages_dir else None
     app.add_middleware(CORSMiddleware, allow_methods=["*"], allow_headers=["*"],
                        allow_origins=[o.strip() for o in os.environ.get(CORS_ENV, DEFAULT_CORS).split(",") if o.strip()])
@@ -95,45 +144,41 @@ def create_app(store: DocumentStore | None = None, worker=None, pages_dir: Path 
             raise HTTPException(404, f"없는 문서: {doc_id}")
         return state
 
+    def artifact_paths(request: Request, doc_id: str) -> dict | None:
+        store = request.app.state.store
+        if not hasattr(store, "artifact_paths"):
+            return None
+        published = store.artifact_paths(doc_id)
+        if published is not None:
+            return published
+        # Unpublished PostgreSQL attempts must never fall back to old files.
+        empty = store.root / ".unpublished"
+        return {"pages_dir": empty / "pages", "sections_dir": empty / "sections", "runs_dir": empty / "runs"}
+
+    def page_root(request: Request, doc_id: str) -> Path:
+        published = artifact_paths(request, doc_id)
+        return published["pages_dir"] if published else (pages_root or paths.PAGES)
+
+    def result_paths(request: Request, doc_id: str) -> tuple[Path, Path]:
+        store = request.app.state.store
+        published = artifact_paths(request, doc_id)
+        if published:
+            run = published["runs_dir"] / doc_id
+            return run / "outputs" / f"{doc_id}.json", run / "checks" / f"{doc_id}.json"
+        return pipeline.result_paths(store, doc_id)
+
     @app.get("/api/health")
     def health():
         return {"ok": True, "model_tag": pipeline.model_tag()}
 
-    @app.post("/api/documents", status_code=202)
-    async def upload(request: Request, filename: str = Query(min_length=1, max_length=255),
-                     as_of: str | None = Query(None, pattern=_DATE)):
-        name = Path(filename.replace("\\", "/")).name
-        if not name.lower().endswith(".pdf"):
-            raise HTTPException(400, "PDF 파일만 올릴 수 있습니다")
-        if int(request.headers.get("content-length") or 0) > MAX_PDF_BYTES:
-            raise HTTPException(413, f"파일이 너무 큽니다 (최대 {MAX_PDF_BYTES // 1024 // 1024}MB)")
-        body = await request.body()
-        if len(body) > MAX_PDF_BYTES:
-            raise HTTPException(413, f"파일이 너무 큽니다 (최대 {MAX_PDF_BYTES // 1024 // 1024}MB)")
-        if not body.startswith(b"%PDF-"):
-            raise HTTPException(400, "PDF 파일이 아닙니다")
-        state = request.app.state.store.create(body, name, as_of, pipeline.model_tag())
-        request.app.state.worker.submit(state["id"])
-        return progress.view(state)
-
-    @app.get("/api/documents")
-    def list_documents(request: Request, status: Literal["all", "active", "done", "failed"] = "all"):
-        states = request.app.state.store.list()
-        groups = {"all": states,
-                  "active": [s for s in states if s["status"] in _ACTIVE],
-                  "done": [s for s in states if s["status"] == "done"],
-                  "failed": [s for s in states if s["status"] in _FAILED]}
-        return {"items": [progress.summary_view(s) for s in groups[status]],
-                "counts": {k: len(v) for k, v in groups.items()}}
-
-    @app.get("/api/documents/{doc_id}")
-    def detail(request: Request, doc_id: str):
-        return progress.view(get_state(request, doc_id))
+    app.include_router(make_router(get_state, lambda: MAX_PDF_BYTES))
+    if judge_embedded:
+        app.include_router(judge_app.router)
 
     @app.get("/api/documents/{doc_id}/pages/{page}/image")
     def page_image(request: Request, doc_id: str, page: int = PathParam(ge=1)):
         get_state(request, doc_id)
-        path = (pages_root or paths.PAGES) / doc_id / f"p{page:03d}.png"
+        path = page_root(request, doc_id) / doc_id / f"p{page:03d}.png"
         if not path.is_file():
             raise HTTPException(404, "쪽 이미지가 아직 없습니다")
         return FileResponse(path, media_type="image/png")
@@ -142,7 +187,7 @@ def create_app(store: DocumentStore | None = None, worker=None, pages_dir: Path 
     def page_lines(request: Request, doc_id: str, page: int = PathParam(ge=1)):
         get_state(request, doc_id)
         try:
-            lines = [l for l in read_page_lines(doc_id, pages_root or paths.PAGES) if l.page == page]
+            lines = [l for l in read_page_lines(doc_id, page_root(request, doc_id)) if l.page == page]
         except FileNotFoundError:
             lines = []
         if not lines:
@@ -154,13 +199,84 @@ def create_app(store: DocumentStore | None = None, worker=None, pages_dir: Path 
         state = get_state(request, doc_id)
         if state["status"] != "done":
             raise HTTPException(409, "추출이 끝나지 않았습니다")
-        out, checks = pipeline.result_paths(request.app.state.store, doc_id)
+        out, checks = result_paths(request, doc_id)
         if not out.is_file():
             raise HTTPException(404, "결과 파일이 없습니다")
         chk = json.loads(checks.read_text(encoding="utf-8")) if checks.is_file() else {}
-        return {"to21": json.loads(out.read_text(encoding="utf-8")),
-                "needs_review": chk.get("needs_review", []), "warnings": chk.get("warnings", []),
+        doc = json.loads(out.read_text(encoding="utf-8"))
+        try:
+            validation = summarize_checks(doc, chk)
+        except ValueError:
+            validation = {"status": "unavailable"}
+        return {"to21": doc,
+                "needs_review": validation.get("needs_review", chk.get("needs_review", [])),
+                "warnings": chk.get("warnings", []), "validation": validation,
                 "schema_errors": chk.get("schema_errors", []), "to21_validator": chk.get("to21_validator", [])}
+
+    @app.post("/api/documents/{doc_id}/results/persist")
+    def persist_completed_result(request: Request, doc_id: str):
+        """Persist a previously completed, currently published PostgreSQL attempt."""
+        state = get_state(request, doc_id)
+        store = request.app.state.store
+        if not hasattr(store, "dsn") or not hasattr(store, "schema"):
+            raise HTTPException(409, "PostgreSQL 작업에서만 결과를 저장할 수 있습니다")
+        token = state.get("_active_token")
+        if state["status"] != "done" or not token:
+            raise HTTPException(409, "완료된 현재 추출 결과가 없습니다")
+        out, checks = result_paths(request, doc_id)
+        if not out.is_file() or not checks.is_file():
+            raise HTTPException(409, "추출 결과 또는 검사 기록이 없습니다")
+        doc = json.loads(out.read_text(encoding="utf-8"))
+        chk = json.loads(checks.read_text(encoding="utf-8"))
+        try:
+            validation = summarize_checks(doc, chk)
+            verified, _ = validate_document(doc, chk)
+            if (verified["schema_errors"] != chk["schema_errors"] or
+                    verified["to21_validator"] != chk["to21_validator"]):
+                raise HTTPException(409, "추출 결과와 검사 기록이 현재 검증 결과와 일치하지 않습니다")
+        except ValueError as exc:
+            raise HTTPException(409, f"검사 기록을 확인할 수 없습니다: {exc}") from exc
+        result_store = ResultStore(store.dsn, schema=store.schema)
+        try:
+            result_store.get_active(doc_id)
+        except ResultNotReady:
+            # Prefer the actual extracted_at in the result. A prior saved
+            # snapshot keeps its existing provenance on repeated requests.
+            extracted_at = (doc.get("doc", {}).get("extraction") or {}).get("extracted_at")
+        else:
+            extracted_at = None
+        try:
+            saved = result_store.save_completed(doc_id, token, doc, chk, extracted_at=extracted_at)
+        except ValueError as exc:
+            raise HTTPException(409, f"추출 시각을 확인할 수 없습니다: {exc}") from exc
+        return {"job_id": doc_id, "validation": validation, **saved}
+
+    @app.get("/api/documents/{doc_id}/results/stored")
+    def stored_result(request: Request, doc_id: str):
+        """Read the active extraction and verification snapshot from PostgreSQL."""
+        get_state(request, doc_id)
+        store = request.app.state.store
+        if not hasattr(store, "dsn") or not hasattr(store, "schema"):
+            raise HTTPException(409, "PostgreSQL 작업에서만 저장된 결과를 조회할 수 있습니다")
+        saved = ResultStore(store.dsn, schema=store.schema).get_active(doc_id)
+        return {"job_id": doc_id, "to21": saved["extraction"], "checks": saved["checks"],
+                "validation": summarize_checks(saved["extraction"], saved["checks"]),
+                "extraction_sha256": saved["extraction_sha256"], "checks_sha256": saved["checks_sha256"]}
+
+    @app.post("/api/documents/{doc_id}/handoffs", status_code=201)
+    def create_handoff(request: Request, doc_id: str):
+        """Publish the extraction snapshot using its actual extraction date."""
+        get_state(request, doc_id)
+        store = request.app.state.store
+        if not hasattr(store, "dsn") or not hasattr(store, "schema"):
+            raise HTTPException(409, "PostgreSQL 작업에서만 판정용 전달을 만들 수 있습니다")
+        saved = ResultStore(store.dsn, schema=store.schema).get_active(doc_id)
+        doc = saved.get("extraction") or {}
+        actual = (doc.get("doc", {}).get("extraction") or {}).get("extracted_at")
+        as_of = extraction_date(actual)
+        payload = publish_handoff(store, doc_id, as_of=as_of, schema=store.schema)
+        return {"job_id": doc_id, "handoff_seq": payload["handoff_seq"], "as_of": payload["as_of"],
+                "extraction_sha256": payload["extraction_sha256"], "validator": payload["checks"]["validator"]}
 
     @app.get("/api/documents/{doc_id}/sections/{msds_index}/{section}")
     def section_result(request: Request, doc_id: str, msds_index: int = PathParam(ge=0),
@@ -173,7 +289,9 @@ def create_app(store: DocumentStore | None = None, worker=None, pages_dir: Path 
         # 상태부터 본다: 다시 돌리는 중이면 이전 실행의 파일이 남아 있다
         if item["status"] not in ("done", "failed"):
             raise HTTPException(409, "이 항은 아직 끝나지 않았습니다")
-        path = pipeline.section_raw_path(request.app.state.store, doc_id, msds_index, section)
+        published = artifact_paths(request, doc_id)
+        path = (raw_path(published["runs_dir"] / doc_id, doc_id, msds_index, section) if published
+                else pipeline.section_raw_path(request.app.state.store, doc_id, msds_index, section))
         if not path.is_file():
             raise HTTPException(404, "항 결과 파일이 없습니다")
         raw = json.loads(path.read_text(encoding="utf-8"))
@@ -186,7 +304,7 @@ def create_app(store: DocumentStore | None = None, worker=None, pages_dir: Path 
         state = get_state(request, doc_id)
         if state["status"] != "done":
             raise HTTPException(409, "추출이 끝나지 않았습니다")
-        out, checks = pipeline.result_paths(request.app.state.store, doc_id)
+        out, checks = result_paths(request, doc_id)
         if not out.is_file():
             raise HTTPException(404, "결과 파일이 없습니다")
         doc = review.apply_edits(json.loads(out.read_text(encoding="utf-8")), request.app.state.store.load_review(doc_id))
@@ -207,7 +325,7 @@ def create_app(store: DocumentStore | None = None, worker=None, pages_dir: Path 
         state = get_state(request, doc_id)
         if state["status"] != "done":
             raise HTTPException(409, "추출이 끝나지 않았습니다")
-        out, checks = pipeline.result_paths(request.app.state.store, doc_id)
+        out, checks = result_paths(request, doc_id)
         if not out.is_file():
             raise HTTPException(404, "결과 파일이 없습니다")
         chk = json.loads(checks.read_text(encoding="utf-8")) if checks.is_file() else {}
@@ -241,15 +359,6 @@ def create_app(store: DocumentStore | None = None, worker=None, pages_dir: Path 
         record = request.app.state.store.update_review(doc_id, lambda r: review.set_section(
             r, body.msds_index, body.section, body.confirmed, body.reviewer.strip(), now_kst()))
         return review.build_view(doc, chk, state["sections"], record)
-
-    @app.post("/api/documents/{doc_id}/retry", status_code=202)
-    def retry(request: Request, doc_id: str):
-        state = get_state(request, doc_id)
-        next_state = request.app.state.store.requeue(doc_id)
-        if next_state is None:
-            raise HTTPException(409, f"다시 돌릴 수 없는 문서입니다 (지금: {state['status']})")
-        request.app.state.worker.submit(doc_id)
-        return progress.view(next_state)
 
     if static_dir and Path(static_dir).is_dir():
         app.mount("/", StaticFiles(directory=static_dir, html=True), name="frontend")

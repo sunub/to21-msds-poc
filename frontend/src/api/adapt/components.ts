@@ -1,198 +1,72 @@
 /*
- * 성분별 요약 변환: 계약에는 성분 요약 API 가 없어, judgment_view 의 findings + traces + product_type + limitations 에서 만든다.
- *
- * 만들 수 없는 칸 (계약에 값이 없다):
- *  - 자료 신뢰도(confidence): 항상 null → 화면은 "미확인"으로 보인다. 신뢰도에서 나오는 제약사항 카드도 없다.
- *  - 성분 단위 분류가 없는 성분(예: 물)의 기준 분류: 빈 목록 → 표에 "—"
- *  - 분류 출처별 비교는 expected.source 를 쉼표로 나눈 값만 안다 (출처마다 분류가 다른지는 알 수 없다)
- *  - 성분이 trace 입력에만 있고 판정(finding)이 없으면 CAS·이름·함량·ATE 만 있다
- *  - confidence_rule_version: null
+ * 성분별 요약 변환: 계약의 consistency.results[].components[] (성분별 판단 요약)를 화면 모델로 옮긴다.
+ * 이름·CAS·함량·기준 분류(reference_classes)·사용 ATE(ate)·15항 해당 수(regulation_hits)·자료 신뢰도(reliability)·ATE 수집 순서 문장(notes)은
+ * 서버 값을 그대로 쓴다. 이 파일이 직접 만드는 것은 아래 셋뿐이다.
+ *  - 기준 분류 칩의 이름: 서버가 class_code 별 이름을 따로 주지 않아, 같은 판정 결과의 finding.label 을 찾아 쓴다 (없으면 class_code)
+ *  - 표의 사용 ATE 한 줄: 서버의 ate[] 를 문장으로 잇는다
+ *  - 판정으로 가는 연결: 이 성분이 들어간 판정(finding)의 번호
  */
-import { formatQ } from "@/lib/format-judgment";
 import type { ComponentsResponse, ComponentSummary } from "../components-schemas";
 import type { JudgmentView } from "../contract/api";
-import type { Finding, MsdsResult, Trace } from "../contract/consistency";
-import { classCode } from "../contract/common";
-import { ACUTE_ROUTE, ATE_STEP_LABELS, CLASS_SHORT, itemName, lawName } from "./labels";
+import type { Finding, ConsistencyComponent, MsdsResult } from "../contract/consistency";
 import { PRODUCT_TYPE, screenVerdict } from "./maps";
 import { resultOf } from "./findings";
 
-type Comp = { key: string; cas: string | null; name: string; compRef: string | null };
+const RELIABILITY = { 높음: "high", 보통: "medium", 낮음: "low" } as const;
+const ROUTE = { oral: "경구", dermal: "경피", inhal: "흡입" } as const;
 
-const compKey = (cas: string | null | undefined, name: string | null | undefined) => cas ?? `name:${name ?? ""}`;
-
-/** 판정 항목과 trace 입력에 나온 성분을 모은다 (처음 나온 순서) */
-function collectComps(r: MsdsResult): Comp[] {
-  const comps = new Map<string, Comp>();
-  const add = (cas: string | null, name: string | null, compRef: string | null) => {
-    const key = compKey(cas, name);
-    const prev = comps.get(key);
-    if (prev) {
-      if (!prev.compRef && compRef) prev.compRef = compRef;
-      return;
-    }
-    comps.set(key, { key, cas, name: name ?? cas ?? "이름 없음", compRef });
+/** 서버 함량(Q)을 화면 함량 모양으로: 원문(raw)은 서버가 준 그대로 */
+function concentration(q: ConsistencyComponent["content"]): ComponentSummary["concentration"] {
+  if (!q) return { raw_text: "", min: null, max: null, operator: null, unit: null };
+  const min = q.lower ?? q.value ?? null;
+  const max = q.upper ?? q.value ?? null;
+  return {
+    raw_text: q.raw ?? "",
+    min,
+    max,
+    operator: min !== null && max === null ? ">=" : min === null && max !== null ? "<=" : null,
+    unit: q.unit ?? null,
   };
-  for (const f of r.findings) if (f.comp) add(f.comp.cas, f.comp.name, f.comp.comp_ref);
-  for (const t of Object.values(r.traces)) for (const i of t.inputs) if (i.cas || i.name) add(i.cas, i.name, null);
-  return [...comps.values()];
 }
 
-const isComp = (f: Finding, c: Comp) => !!f.comp && compKey(f.comp.cas, f.comp.name) === c.key;
-const traceOf = (r: MsdsResult, f: Finding): Trace | undefined => (f.trace_id ? r.traces[f.trace_id] : undefined);
-
-function concentration(r: MsdsResult, c: Comp): ComponentSummary["concentration"] {
-  for (const t of Object.values(r.traces)) {
-    const i = t.inputs.find((x) => compKey(x.cas, x.name) === c.key && x.content);
-    if (i?.content) {
-      const { low, high } = i.content;
-      const lo = low ?? null;
-      const hi = high ?? null;
-      const raw = lo !== null && hi !== null ? (lo === hi ? `${lo}` : `${lo}~${hi}`) : `${lo ?? hi ?? ""}`;
-      return {
-        raw_text: raw,
-        min: lo,
-        max: hi,
-        operator: lo !== null && hi === null ? ">=" : lo === null && hi !== null ? "<=" : null,
-        unit: "%",
-      };
-    }
-  }
-  const q = r.findings.find((f) => isComp(f, c) && (f.msds.content || f.expected.content));
-  const content = q?.msds.content ?? q?.expected.content;
-  if (content) {
-    const lo = content.lower ?? content.value ?? null;
-    const hi = content.upper ?? content.value ?? null;
-    return {
-      raw_text: content.raw ?? formatQ(content),
-      min: lo,
-      max: hi,
-      operator: lo !== null && hi === null ? ">=" : lo === null && hi !== null ? "<=" : null,
-      unit: content.unit ?? null,
-    };
-  }
-  return { raw_text: "", min: null, max: null, operator: null, unit: null };
-}
-
-/** 기준 분류: 성분 단위 분류 판정(class)의 검증 결과. 출처는 expected.source 를 쉼표로 나눈다 */
-function classifications(r: MsdsResult, c: Comp, basis: string): ComponentSummary["classifications"] {
-  const out: ComponentSummary["classifications"] = [];
-  // 계약 class_code 순서로 보인다 (피부 → 눈 → 발암성 → 표적장기)
-  const order = (f: Finding) => classCode.options.indexOf(f.item as (typeof classCode.options)[number]);
-  for (const f of [...r.findings].sort((a, b) => order(a) - order(b))) {
-    if (f.kind !== "class" || !isComp(f, c) || !f.expected.present) continue;
-    const name = CLASS_SHORT[f.item] ?? itemName(f);
-    const sources = (f.expected.source ?? "").split(",").map((s) => s.trim()).filter(Boolean);
-    for (const source of sources.length ? sources : [basis]) {
-      out.push({ source, name, classification: f.expected.category ?? "", version: null, basis });
-    }
-  }
-  return out;
-}
-
-const ACUTE = ["HH_ACUTE_ORAL", "HH_ACUTE_DERMAL", "HH_ACUTE_INHAL"];
-
-/** 급성 독성 trace 에서 이 성분의 입력을 찾는다 */
-function acuteInput(r: MsdsResult, c: Comp, classCode: string) {
-  const f = r.findings.find((x) => x.kind === "class" && x.item === classCode);
-  const t = f && traceOf(r, f);
-  const input = t?.inputs.find((i) => compKey(i.cas, i.name) === c.key);
-  return { f, t, input };
-}
-
-/** 흡입 ATE 를 가져온 6단계: 채택한 단계 앞은 "없음", 뒤는 "해당 없음" */
-function ateSteps(r: MsdsResult, c: Comp): ComponentSummary["ate_steps"] {
-  const { input } = acuteInput(r, c, "HH_ACUTE_INHAL");
-  if (!input) return [];
-  const adoptedStep = input.step ?? null;
-  return ATE_STEP_LABELS.map((label, i) => {
-    const step = i + 1;
-    const adopted = adoptedStep === step;
-    const value = adopted ? (input.ate_used ?? null) : null;
-    return {
-      step,
-      label,
-      input: adopted ? (input.excluded ?? [input.value?.form, input.value?.hours ? `${input.value.hours}hr` : null].filter(Boolean).join(", ")) || null : null,
-      adopted,
-      value,
-      unit: adopted && value !== null ? (input.value?.unit ?? null) : null,
-      excluded_reason: adopted ? null : adoptedStep !== null && step < adoptedStep ? "없음" : "해당 없음",
-    };
-  });
-}
-
-/** 표의 "사용 ATE (단계)" 한 줄 */
-function usedAte(r: MsdsResult, c: Comp, mixture: boolean): ComponentSummary["used_ate"] {
+/** 사용 ATE 한 줄: "경구 제외(11항) · 흡입 0.375 mg/L 분진·미스트 (MSDS 11항, 3단계)" */
+function usedAte(c: ConsistencyComponent, mixture: boolean): ComponentSummary["used_ate"] {
   if (!mixture) return { applicable: false, reason: "해당 없음 (단일물질은 계산하지 않음)" };
-  const parts: string[] = [];
-  let step: number | null = null;
-  let value: number | null = null;
-  let unit: string | null = null;
-  for (const code of ACUTE) {
-    const { input } = acuteInput(r, c, code);
-    if (!input) continue;
-    const route = ACUTE_ROUTE[code];
-    if (input.ate_used != null) {
-      const v = input.value;
-      parts.push(`${route} ${input.ate_used}${v?.unit ? ` ${v.unit}` : ""}${v?.form ? ` ${v.form}` : ""} (${[input.source?.replace(/^MSDS\s*/, ""), input.step ? `${input.step}단계` : null].filter(Boolean).join(", ")})`);
-      if (code === "HH_ACUTE_INHAL") {
-        step = input.step ?? null;
-        value = input.ate_used;
-        unit = v?.unit ?? null;
-      }
-    } else if (input.excluded) {
-      parts.push(code === "HH_ACUTE_ORAL" ? `${route} 제외(${input.excluded})` : `${input.excluded}${input.step ? ` (${input.step}단계)` : ""}`);
-      if (code === "HH_ACUTE_INHAL") step = input.step ?? null;
-    }
-  }
-  if (parts.length === 0) return { applicable: false, reason: "해당 없음" };
-  return { applicable: true, reason: parts.join(" · "), value, unit, step };
+  const parts = c.ate.map((a) => {
+    const route = ROUTE[a.route];
+    if (a.excluded) return `${route} 제외${a.source ? `(${a.excluded})` : ` · ${a.excluded}`}${a.step ? ` (${a.step}단계)` : ""}`;
+    const value = a.value !== null ? ` ${a.value}${a.unit ? ` ${a.unit}` : ""}${a.form ? ` ${a.form}` : ""}` : "";
+    const origin = [a.source?.replace(/^MSDS\s*/, ""), a.step ? `${a.step}단계` : null].filter(Boolean).join(", ");
+    return `${route}${value}${origin ? ` (${origin})` : ""}`;
+  });
+  return parts.length ? { applicable: true, reason: parts.join(" · ") } : { applicable: false, reason: "-" };
 }
 
-/** 근거에 나온 쪽 (칸 경로의 앞부분으로 항을 짐작한다: components → 3항, toxicity → 11항 …) */
-function sourceRefs(r: MsdsResult, c: Comp): ComponentSummary["source_refs"] {
-  const sectionOf = (field: string) =>
-    field.startsWith("components") ? 3 : field.startsWith("tox") ? 11 : field.startsWith("hazard") ? 2 : field.startsWith("reg") ? 15 : 0;
-  const refs = new Map<string, { section: number; page_no: number }>();
-  const addFrom = (f: Finding, all: boolean) => {
-    for (const e of [...(f.msds.evidence ?? []), ...(f.expected.evidence ?? [])]) {
-      const section = sectionOf(e.field);
-      // 성분의 근거는 성분표(3항)와 독성 정보(11항) 쪽. 그 밖의 쪽은 아래 대체 경로에서만 쓴다
-      if (e.page !== null && (all || section === 3 || section === 11)) refs.set(`${e.page}`, { section, page_no: e.page });
-    }
-  };
-  // 이 성분에 걸린 판정, 그리고 계산 과정(trace)의 입력에 이 성분이 들어간 판정 (예: 혼합물 급성 독성)
-  const mine = (f: Finding) => isComp(f, c) || !!traceOf(r, f)?.inputs.some((i) => compKey(i.cas, i.name) === c.key);
-  for (const f of r.findings) if (mine(f)) addFrom(f, false);
-  // 3·11항 쪽이 없으면 이 성분에 걸린 판정의 근거 쪽을 쓴다
-  if (refs.size === 0) for (const f of r.findings) if (isComp(f, c)) addFrom(f, true);
-  // 판정이 없는 성분은 성분표(3항) 쪽을 같이 쓴다
-  if (refs.size === 0) for (const f of r.findings) addFrom(f, false);
-  return [...refs.values()].sort((a, b) => a.page_no - b.page_no);
-}
+const isOfComp = (f: Finding, c: ConsistencyComponent) => f.comp?.comp_ref === c.comp_ref;
 
 export function adaptComponents(view: JudgmentView): ComponentsResponse {
-  const r = resultOf(view);
+  const r: MsdsResult = resultOf(view);
   const productType = PRODUCT_TYPE[r.product_type.value];
   const mixture = productType === "mixture";
-  const basis = view.consistency.knowledge.provider === "to21" ? "TO21 분류기준" : `기준정보 ${view.consistency.knowledge.version}`;
-
-  const comps = productType === "unknown" ? [] : collectComps(r);
+  const labelOf = (code: string) => r.findings.find((f) => f.kind === "class" && f.item === code)?.label ?? code;
   const findingById = new Map(r.findings.map((f) => [f.id, f]));
 
-  const items: ComponentSummary[] = comps.map((c, idx) => {
-    const mine = r.findings.filter((f) => isComp(f, c));
+  const items: ComponentSummary[] = (productType === "unknown" ? [] : r.components).map((c, idx) => {
+    const mine = r.findings.filter((f) => isOfComp(f, c));
+    // 이 성분의 흡입 독성처럼 성분 없이 제품 단위로 나온 판정도, 계산 과정(trace)에 이 성분이 들어 있으면 이 성분의 판정으로 본다
+    const viaTrace = r.findings.filter((f) => !f.comp && f.trace_id && r.traces[f.trace_id]?.inputs.some((i) => c.cas !== null && i.cas === c.cas));
+    const related = [...mine, ...viaTrace];
+
     const legal = mine
       .filter((f) => (f.kind === "regulation" && f.expected.applicable === "해당") || (f.kind === "dangerous_goods" && !!f.expected.dg?.item))
-      .map((f) => ({ finding_id: f.id, label: `${lawName(f) ?? ""} ${itemName(f)}`.trim() }));
-    const inhal = r.findings.find((f) => f.kind === "class" && f.item === "HH_ACUTE_INHAL");
-    const target = mixture && inhal && acuteInput(r, c, "HH_ACUTE_INHAL").input ? [{ section: 2 as const, finding_id: inhal.id }] : [];
+      .map((f) => ({ finding_id: f.id, label: f.label }));
+    const target = mixture ? viaTrace.filter((f) => f.kind === "class").slice(0, 1).map((f) => ({ section: 2 as const, finding_id: f.id })) : [];
 
     // 제약사항: 성분에 걸린 판정의 사유. 판정 없이 제품 전체에 걸린 사유는 첫 성분에 붙인다
     const limitations = r.limitations
       .filter((l) => {
         const f = l.finding_id ? findingById.get(l.finding_id) : undefined;
-        return f?.comp ? isComp(f, c) : idx === 0;
+        return f?.comp ? isOfComp(f, c) : idx === 0;
       })
       .map((l) => {
         const f = l.finding_id ? findingById.get(l.finding_id) : undefined;
@@ -200,21 +74,41 @@ export function adaptComponents(view: JudgmentView): ComponentsResponse {
         return { kind, reason: l.text, finding_id: l.finding_id };
       });
 
+    // 근거 쪽: 서버가 정한 쪽 중 성분표(3항)·독성(11항) 쪽을 쓴다. 없으면 이 성분에 걸린 판정의 쪽
+    const pages = (sections: number[] | null) => {
+      const seen = new Map<number, { section: number; page_no: number }>();
+      for (const f of related) {
+        for (const p of view.display[f.id]?.source_pages ?? []) {
+          if (!sections || sections.includes(p.section)) seen.set(p.page, { section: p.section, page_no: p.page });
+        }
+      }
+      return [...seen.values()].sort((a, b) => a.page_no - b.page_no);
+    };
+    const sourceRefs = pages([3, 11]).length ? pages([3, 11]) : pages(null);
+
     return {
-      component_id: c.key,
+      component_id: c.comp_ref,
       msds_id: `m${r.msds_index}`,
-      name: c.name,
+      name: c.name ?? c.cas ?? c.comp_ref,
       cas_no: c.cas,
-      concentration: concentration(r, c),
-      classifications: classifications(r, c, basis),
-      ate_steps: mixture ? ateSteps(r, c) : [],
-      used_ate: usedAte(r, c, mixture),
+      concentration: concentration(c.content),
+      classifications: c.reference_classes.map((x) => ({
+        source: x.source,
+        name: labelOf(x.class_code),
+        classification: x.category,
+        version: null,
+        basis: x.source,
+      })),
+      notes: c.notes,
+      used_ate: usedAte(c, mixture),
       legal_findings: legal,
-      // 계약에 신뢰도가 없다
-      confidence: { level: null, reason: "" },
+      // 15항 해당 수는 서버가 센 값(regulation_hits)을 그대로 보인다: legal_findings 는 연결용 목록이다
+      regulation_hits: c.regulation_hits,
+      // 자료 신뢰도는 서버 값. 사유는 서버가 따로 주지 않아 ATE 수집 순서 문장(notes)을 쓴다
+      confidence: { level: RELIABILITY[c.reliability], reason: c.notes.join(" · ") },
       limitations,
       target_links: target,
-      source_refs: sourceRefs(r, c),
+      source_refs: sourceRefs,
     };
   });
 
@@ -227,4 +121,3 @@ export function adaptComponents(view: JudgmentView): ComponentsResponse {
     confidence_rule_version: null,
   };
 }
-

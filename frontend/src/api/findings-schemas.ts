@@ -64,6 +64,8 @@ export const findingSummarySchema = z.object({
   opinion_count: count,
   /** 마지막 검토 뒤에 판정이 바뀌었으면 true (계약 review_state.stale) */
   review_stale: z.boolean(),
+  /** 이 항목의 마지막 검토 이벤트 번호 (계약 review_state.last_event_id). 다음 검토에 seen_event_id 로 돌려보낸다. 기록이 없으면 null */
+  review_event_id: z.int().positive().nullable(),
   trace_id: z.string(),
   source_refs: z.array(sourceRefSchema),
 });
@@ -120,6 +122,8 @@ export type Trace = z.infer<typeof traceSchema>;
 export const findingDetailSchema = z.object({
   finding: findingSummarySchema,
   explanation: explanationSchema,
+  /** 상세의 판단 근거 줄들 (서버 display.basis_lines) */
+  basis_lines: z.array(z.string()),
   trace: traceSchema.nullable(),
   evidence: z.array(sourceRefSchema),
   review: z.object({ state: reviewStateSchema, opinions: z.array(z.string()) }),

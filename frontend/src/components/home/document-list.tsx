@@ -4,13 +4,16 @@ import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import Link from "next/link";
 import { useState } from "react";
 import { documentListQuery } from "@/api/documents";
+import type { JudgmentBatchItem } from "@/api/contract/api";
+import { judgmentSummaryQuery } from "@/api/judgments";
 import type { DocumentFilter, DocumentSummary } from "@/api/schemas";
 import { RetryButton } from "@/components/documents/retry-button";
 import { Button, PillTabs, Progress, Skeleton, StatusLabel, Table, TableHead, buttonStyles } from "@/components/ui";
 import { cn } from "@/lib/cn";
 import { formatDateTime } from "@/lib/format";
 import { routes } from "@/lib/routes";
-import { allSectionsFailed, progressLabel, statusLabel } from "@/lib/status";
+import { documentStage } from "@/lib/doc-stage";
+import { progressLabel } from "@/lib/status";
 
 const FILTERS: { id: DocumentFilter; label: string }[] = [
   { id: "all", label: "전체" },
@@ -32,6 +35,7 @@ const COL = {
   status: "w-22",
   progress: "min-w-0 flex-2",
   layer: "w-28",
+  grade: "w-16",
   updated: "w-35",
   action: "flex w-25 justify-end",
 };
@@ -44,6 +48,10 @@ export function DocumentList() {
   // 보기를 바꾸는 동안 이전 목록을 남겨 깜빡이지 않게 한다
   const list = useQuery({ ...documentListQuery(view), placeholderData: keepPreviousData });
   const counts = list.data?.counts;
+  // 추출이 끝난 문서만 판정 요약을 묻는다 (한 번에). 판정 서버가 없으면 추출 쪽 정보로만 그린다
+  const doneIds = (list.data?.items ?? []).filter((d) => d.status === "done").map((d) => d.id);
+  const summary = useQuery(judgmentSummaryQuery(doneIds)).data;
+  const judgmentOf = new Map((summary ?? []).map((s) => [s.job_id, s]));
 
   return (
     <section className="flex flex-col gap-3">
@@ -63,6 +71,7 @@ export function DocumentList() {
             <span className={COL.status}>단계</span>
             <span className={COL.progress}>진행</span>
             <span className={COL.layer}>텍스트층</span>
+            <span className={COL.grade}>등급</span>
             <span className={COL.updated}>마지막 작업</span>
             <span className={COL.action} />
           </TableHead>
@@ -85,7 +94,7 @@ export function DocumentList() {
           ) : list.data.items.length === 0 ? (
             <p className="px-5 py-8 text-center text-mut">{EMPTY[view]}</p>
           ) : (
-            list.data.items.map((doc) => <DocumentRow key={doc.id} doc={doc} />)
+            list.data.items.map((doc) => <DocumentRow key={doc.id} doc={doc} judgment={judgmentOf.get(doc.id)} />)
           )}
         </div>
       </Table>
@@ -93,8 +102,8 @@ export function DocumentList() {
   );
 }
 
-function DocumentRow({ doc }: { doc: DocumentSummary }) {
-  const status = statusLabel(doc);
+function DocumentRow({ doc, judgment }: { doc: DocumentSummary; judgment?: JudgmentBatchItem }) {
+  const stage = documentStage(doc, judgment);
   const progress = progressLabel(doc);
 
   return (
@@ -102,7 +111,7 @@ function DocumentRow({ doc }: { doc: DocumentSummary }) {
       <div className={COL.doc}>
         <div className="truncate font-medium">{doc.filename}</div>
         <div className="truncate text-sm text-mut">
-          {doc.id}
+          {[doc.product_name, doc.doc_code, doc.id].filter(Boolean).join(" · ")}
           {doc.page_count != null && ` · ${doc.page_count}쪽`}
         </div>
         {doc.error && (doc.status === "failed" || doc.status === "interrupted") && (
@@ -112,8 +121,8 @@ function DocumentRow({ doc }: { doc: DocumentSummary }) {
         )}
       </div>
       <div className={COL.status}>
-        <StatusLabel tone={status.tone} className="text-base">
-          {status.label}
+        <StatusLabel tone={stage.tone} className="text-base">
+          {stage.label}
         </StatusLabel>
         {doc.status === "done" && doc.review_stage && <div className="mt-1 text-sm text-mut">{doc.review_stage}</div>}
       </div>
@@ -132,28 +141,21 @@ function DocumentRow({ doc }: { doc: DocumentSummary }) {
       <div className={cn(COL.layer, "text-sm", doc.text_layer && doc.text_layer !== "정상" ? "text-amb-text" : "text-sub")}>
         {doc.text_layer ?? <span className="text-mut">판정 전</span>}
       </div>
+      <div className={cn(COL.grade, "text-sm", judgment?.data_grade === "골드" ? "font-bold text-amb-text" : "text-sub")}>{judgment?.data_grade ?? "-"}</div>
       <div className={cn(COL.updated, "text-sm text-mut")}>{formatDateTime(doc.updated_at)}</div>
       <div className={COL.action}>
-        <RowAction doc={doc} />
+        <RowAction doc={doc} href={stage.href} text={stage.action} />
       </div>
     </div>
   );
 }
 
-/** 상태마다 다음 행동 하나: 진행 보기 · 검수하기 · 다시 시도 */
-function RowAction({ doc }: { doc: DocumentSummary }) {
-  // 모든 항이 실패한 문서는 검수할 값이 없다
-  if (doc.status === "done" && !allSectionsFailed(doc)) {
-    return (
-      <Link href={routes.reviewMode(doc.id)} className={buttonStyles({ variant: "primary" })}>
-        검수하기
-      </Link>
-    );
-  }
-  if (doc.can_retry) return <RetryButton docId={doc.id} filename={doc.filename} />;
+/** 상태마다 다음 행동 하나: 진행 보기 · 이어서 하기 · 열기 (규칙은 lib/doc-stage.ts). 실패한 문서는 다시 시도 */
+function RowAction({ doc, href, text }: { doc: DocumentSummary; href: string; text: string }) {
+  if (doc.status !== "done" && doc.can_retry) return <RetryButton docId={doc.id} filename={doc.filename} />;
   return (
-    <Link href={routes.extract(doc.id)} className={buttonStyles()}>
-      진행 보기
+    <Link href={href} className={buttonStyles(text === "진행 보기" ? undefined : { variant: "primary" })}>
+      {text}
     </Link>
   );
 }

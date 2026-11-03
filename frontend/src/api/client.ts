@@ -5,6 +5,7 @@
  *   - ApiContractError: 서버는 성공했는데 응답 모양이 계약(schemas.ts)과 다름 → 어느 쪽 버그인지 바로 보이게
  */
 import type { z } from "zod";
+import { conflictResponse } from "./contract/api";
 import { apiErrorSchema } from "./schemas";
 
 /**
@@ -18,6 +19,8 @@ export class ApiRequestError extends Error {
     readonly status: number,
     readonly code: string,
     message: string,
+    /** 응답 본문 그대로 (409 의 conflict_response 처럼 화면이 칸을 읽을 때) */
+    readonly data?: unknown,
   ) {
     super(message);
     this.name = "ApiRequestError";
@@ -50,6 +53,9 @@ export function apiUrl(path: string, query?: Record<string, string>, base = BASE
  */
 async function toRequestError(res: Response): Promise<ApiRequestError> {
   const body: unknown = await res.json().catch(() => null);
+  // 판정 서버의 409: { detail: { message, latest_version, pending_handoff } } (계약 conflict_response)
+  const conflict = conflictResponse.safeParse(body);
+  if (conflict.success) return new ApiRequestError(res.status, `http_${res.status}`, conflict.data.detail.message, conflict.data);
   const parsed = apiErrorSchema.safeParse(body);
   if (!parsed.success) return new ApiRequestError(res.status, "unknown", `서버가 ${res.status} 로 응답했습니다.`);
   const { detail } = parsed.data;

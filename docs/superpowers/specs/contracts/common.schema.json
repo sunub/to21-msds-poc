@@ -1,0 +1,282 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://to21-msds-poc.local/contracts/common.schema.json",
+  "title": "공용 정의 (모든 계약이 함께 쓴다)",
+  "description": "추출 데이터는 TO21 추출스키마 v0.6($id https://to21.co.kr/schema/msds-extraction/v0.6)을 그대로 참조한다. 여기에는 우리 계약에만 있는 값을 둔다.",
+  "$defs": {
+    "job_id": {
+      "description": "작업 번호. A가 업로드 때 만든다. 지금 service/store.py의 U-<날짜>-<순번>",
+      "type": "string",
+      "pattern": "^U-\\d{8}-\\d{3,}$"
+    },
+    "msds_index": {
+      "description": "한 PDF 안의 MSDS 순번 (추출스키마 msds[] 의 자리, 0부터)",
+      "type": "integer",
+      "minimum": 0
+    },
+    "field_path": {
+      "description": "msds 한 건 기준 칸 경로. 추출스키마 evidence[].field 와 같은 표기. 예: components[0].content",
+      "type": "string",
+      "minLength": 1
+    },
+    "date": {
+      "type": "string",
+      "format": "date",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+    },
+    "datetime": {
+      "description": "ISO 8601, +09:00 (추출스키마 doc.extraction.extracted_at 과 같은 표기)",
+      "type": "string",
+      "format": "date-time"
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "reviewer": {
+      "description": "검토자 이름. 화면이 브라우저에 둔 이름을 그대로 보낸다 (frontend/src/lib/reviewer.ts, 인증 없음)",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 50
+    },
+    "text_layer": {
+      "description": "추출스키마 doc.text_layer 와 같은 값",
+      "enum": [
+        "정상",
+        "글꼴깨짐",
+        "없음",
+        "혼합",
+        null
+      ]
+    },
+    "Q": {
+      "description": "TO21 수치 객체 (추출스키마 v0.6 $defs/Q)",
+      "$ref": "https://to21.co.kr/schema/msds-extraction/v0.6#/$defs/Q"
+    },
+    "extraction_v06": {
+      "description": "TO21 추출스키마 v0.6 문서 전체 ({doc, msds[]})",
+      "$ref": "https://to21.co.kr/schema/msds-extraction/v0.6"
+    },
+    "class_code": {
+      "description": "추출스키마 v0.6 hazard.classes[].class_code 와 같은 코드",
+      "enum": [
+        "PH_EXPLOSIVE",
+        "PH_FLAM_GAS",
+        "PH_AEROSOL",
+        "PH_OXID_GAS",
+        "PH_PRESS_GAS",
+        "PH_FLAM_LIQ",
+        "PH_FLAM_SOL",
+        "PH_SELF_REACT",
+        "PH_PYRO_LIQ",
+        "PH_PYRO_SOL",
+        "PH_SELF_HEAT",
+        "PH_WATER_REACT",
+        "PH_OXID_LIQ",
+        "PH_OXID_SOL",
+        "PH_ORG_PEROX",
+        "PH_METAL_CORR",
+        "PH_DESENS_EXPL",
+        "HH_ACUTE_ORAL",
+        "HH_ACUTE_DERMAL",
+        "HH_ACUTE_INHAL",
+        "HH_SKIN_CORR",
+        "HH_EYE_DMG",
+        "HH_RESP_SENS",
+        "HH_SKIN_SENS",
+        "HH_MUTAGEN",
+        "HH_CARCINOGEN",
+        "HH_REPRO",
+        "HH_STOT_SE",
+        "HH_STOT_RE",
+        "HH_ASPIRATION",
+        "ENV_AQ_ACUTE",
+        "ENV_AQ_CHRONIC",
+        "ENV_OZONE",
+        "ETC_UNMAPPED"
+      ]
+    },
+    "route_form": {
+      "description": "추출스키마 v0.6 hazard.classes[].route_form",
+      "enum": [
+        "가스",
+        "증기",
+        "분진·미스트",
+        null
+      ]
+    },
+    "law": {
+      "description": "추출스키마 v0.6 regulations[].law. 판정 대상은 INTL(해외) 제외",
+      "enum": [
+        "OSH",
+        "KREACH",
+        "CCA",
+        "DG",
+        "WASTE",
+        "POPS",
+        "KR_ETC",
+        "INTL"
+      ]
+    },
+    "applicable": {
+      "description": "추출스키마 v0.6 regulations[].applicable 값 + 엔진의 '경계'",
+      "enum": [
+        "해당",
+        "비해당",
+        "자료없음",
+        "미기재",
+        "경계"
+      ]
+    },
+    "finding_id": {
+      "description": "판정 항목 ID. 판정 버전이 바뀌어도 같은 항목이면 같다. 판정 검토 이력을 잇는 키. 규칙은 contracts/README.md 3절",
+      "type": "string",
+      "pattern": "^m\\d+/(F2|F2L|F15|F15DG|FPT):[^\\s]+$"
+    },
+    "verdict": {
+      "description": "판정. 앞의 4가지가 설계서 v0.4 '판정 체계'. 경고 = 설계서 v0.4 결과 구조 summary 의 '경고'(표시 요소 중복 등, 화면 2.3 목업 '경고 · 낮음'). 참고 = D-18 구분5 등. 범위 외 = 검증 범위 밖(화면 2.3 '범위 외 · 비교 제외')",
+      "enum": [
+        "일치",
+        "불일치",
+        "경계",
+        "근거부족",
+        "경고",
+        "참고",
+        "범위 외"
+      ]
+    },
+    "mismatch_type": {
+      "description": "불일치 유형 (설계서 v0.4 '판정 체계와 심각도')",
+      "enum": [
+        "과소분류",
+        "규제 누락",
+        "형태·세부 표기",
+        "기준 불일치",
+        "구버전",
+        "표시 요소 불일치",
+        "과대분류",
+        "과기재",
+        "내부 불일치",
+        "화평법 항목 누락",
+        null
+      ]
+    },
+    "severity": {
+      "enum": [
+        "높음",
+        "중간",
+        "낮음",
+        null
+      ]
+    },
+    "cause_code": {
+      "description": "차이 원인 코드. 앞 8개는 설계서 v0.4 'trace 반환 규격', 나머지는 판정 엔진이 필요해 더한 것 (compliance/trace.py CAUSE_TEXT)",
+      "enum": [
+        "CAT_LOWER",
+        "CAT_HIGHER",
+        "MAIN_COMPONENT",
+        "FORM_DIFF",
+        "RANGE_EDGE",
+        "ATE_VALUE_DIFF",
+        "SOURCE_DIFF",
+        "ASSUMED",
+        "DETAIL_DIFF",
+        "PROP_EDGE",
+        "MULTI_CATEGORY",
+        "NO_BASIS",
+        "LABEL_MISSING",
+        "LABEL_EXTRA",
+        "LABEL_DIFF",
+        "REG_MISSING",
+        "THRESHOLD_DIFF",
+        "OVER_STATED",
+        "CONDITION_CHECK"
+      ]
+    },
+    "knowledge": {
+      "description": "어떤 지식·규칙으로 판정했나 (설계서 v0.4 '지식 교체와 버전 관리' 기록 필드)",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "provider",
+        "version",
+        "rules",
+        "logic"
+      ],
+      "properties": {
+        "provider": {
+          "description": "지식 제공자. reference(HTODB) | to21(API)",
+          "enum": [
+            "reference",
+            "to21"
+          ]
+        },
+        "version": {
+          "description": "지식 버전. HTODB 적재 차수 등. 예: ref-2026.10",
+          "type": "string",
+          "minLength": 1
+        },
+        "rules": {
+          "description": "규칙표 버전. 예: r0.3",
+          "type": "string",
+          "minLength": 1
+        },
+        "logic": {
+          "description": "분류 로직 id (ghsclass ClassificationLogic.id). 예: to21_v6@6",
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "evidence_ref": {
+      "description": "원문 근거 한 줄. 추출스키마 v0.6 msds[].evidence[] 에서 가져온다",
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "field",
+        "page"
+      ],
+      "properties": {
+        "field": {
+          "$ref": "#/$defs/field_path"
+        },
+        "page": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        },
+        "source_text": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "out_of_scope_reason": {
+      "description": "범위 외 판정의 이유 (화면 2.3 '해당 없음 5 · 대조 2'). 구버전 제외 = D-09로 PoC 제외, 해외 규제 = 검증 범위 밖 (설계서 v0.4 '제외 항목은 범위 외로 표시')",
+      "enum": [
+        "해당 없음",
+        "대조만",
+        "구버전 제외",
+        "해외 규제",
+        null
+      ]
+    },
+    "law_label": {
+      "description": "화면 표시용 법령 이름 (화면 2.4 법령 거르기)",
+      "enum": [
+        "산안법",
+        "화관법",
+        "화평법",
+        "위험물법",
+        "폐기물법",
+        "POPs법",
+        "기타 국내",
+        "해외"
+      ]
+    }
+  }
+}

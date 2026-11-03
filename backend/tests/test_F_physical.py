@@ -1,0 +1,102 @@
+"""물리적 위험성 보완 시험 (설계서 31·33장, D-17, 미결 6 · 11/02 F 수정).
+
+실제 HTODB로 silver 전체를 돌려 보니 두 가지로 물리적 위험성이 통째로 근거부족이 되었다.
+- 대표성분: 함량 최대 성분을 분류와 상관없이 골라 물(T21-023 염산 20%)이나 CAS 없는 'Other ingredient'(T21-006)가 뽑혔다.
+  설계서 52장 미결 6의 현재 가정('분류 있는 성분 중 함량 최대')대로 고친다.
+- 인화성 액체 9항 단계: 규칙표 flam_liquid.yaml 이 저장소에 없다며 계산하지 않았다. 규칙표 v0.3 값을 옮긴다.
+"""
+import pytest
+
+from msds.compliance.mixture.physical import _flam_liquid, _representative
+
+
+def comp(name, high, classes=()):
+    return {"name": name, "high": high, "class_rows": list(classes)}
+
+
+def test_대표성분은_분류가_있는_성분_중_함량_최대():
+    water, hcl = comp("물", 80.5), comp("염산", 20.5, [{"class_code": "PH_METAL_CORR"}])
+    assert _representative([hcl, water])["name"] == "염산"
+    assert _representative([water, comp("기타", 60)])["name"] == "물"  # 분류 있는 성분이 없으면 함량 최대
+
+
+def phys(fp=None, bp=None, status=None):
+    return {"flash_point": [{"value": fp, "status": status or ("값있음" if fp is not None else "자료없음")}],
+            "boiling": [{"value": bp}] if bp is not None else []}
+
+
+@pytest.mark.parametrize("fp, bp, cat", [(22, 30, "1"), (22, 80, "2"), (47, None, "3"), (61, 150, "4"), (100, 200, "분류안됨")])
+def test_인화성액체_9항_단계는_flam_liquid_yaml_기준(fp, bp, cat):  # yaml examples + T21-006(인화점 47)
+    low, high, status, _ = _flam_liquid(phys(fp, bp))
+    assert (low, high, status) == (cat, cat, "확정")
+
+
+def test_인화점_자료없음은_근거부족_불연성은_분류안됨():
+    assert _flam_liquid(phys(status="자료없음"))[2] == "근거부족"
+    assert _flam_liquid(phys(status="해당없음(불연성)"))[:3] == ("분류안됨", "분류안됨", "확정")
+    assert _flam_liquid(phys(10))[:3] == ("2", "1", "경계")  # 초기끓는점이 없으면 1·2 사이
+
+
+# ── 11/02 F 결정 12: UN(운송 규제)이 없는 제품 ─────────────────────────────
+from msds.compliance.mixture.physical import classify_physical  # noqa: E402
+from msds.compliance.mixture.rules_loader import load_mixture_rules  # noqa: E402
+
+
+def _run(item_id, fp=None, status=None, transport=()):
+    rules = load_mixture_rules()
+    ethanol = comp("에탄올", 5, [{"class_code": "PH_FLAM_LIQ", "category": "2", "source": "KR02"}])
+    physical = {"transport": list(transport), "msds_classes": [], **phys(fp, None, status)}
+    return classify_physical(item_id, rules["classes"][item_id], [ethanol, comp("물", 95)], {"STATE": "액체"}, physical,
+                             rules=rules)
+
+
+def test_결정12_UN이_없어도_인화성_액체는_9항_인화점으로_판정():
+    r = _run("PH_FLAM_LIQ", fp=47)
+    assert (r["result"]["low"], r["result"]["status"], r["rule"]["id"]) == ("3", "확정", "PHY-FLQ")
+    assert any("결정 12" in a for a in r["assumptions"])
+    r = _run("PH_FLAM_LIQ", fp=100)  # 에탄올 5% 수용액처럼 인화점이 높으면 대표성분(에탄올 구분2)을 쓰지 않고 분류안됨
+    assert r["result"]["low"] == "분류안됨"
+
+
+def test_결정12_인화점도_없거나_다른_항목이면_전처럼_판정_대상_아님():
+    r = _run("PH_FLAM_LIQ", status="자료없음")
+    assert (r["result"]["status"], r["rule"]["id"]) == ("해당 없음", "PHY-UN")
+    r = _run("PH_OXID_LIQ", fp=47)
+    assert r["result"]["status"] == "해당 없음"
+
+
+# ── 11/02 F: UN 운송정보 → 분류 (설계서 33장 ①단계, 규칙표 v0.2 un_class_map.csv) ──────────
+def _un_run(item_id, cls, pg=None, sub=None, un="1993", state="액체"):
+    rules = load_mixture_rules()
+    physical = {"transport": [{"mode": "공통", "un_no": un, "hazard_class": cls, "packing_group": pg, "sub_risk": sub,
+                               "regulated": True}], "msds_classes": [], **phys(None, None, "자료없음")}
+    acid = comp("성분", 50, [{"result_code": "GHS011601", "source": "KR02"}])  # 금속부식성 1
+    return classify_physical(item_id, rules["classes"][item_id], [acid], {"STATE": state}, physical, rules=rules)
+
+
+@pytest.mark.parametrize("item_id, cls, pg, sub, state, cat, rid", [
+    ("PH_FLAM_LIQ", "3", "III", None, "액체", "3", "UN-12"),    # T21-006 UN1993
+    ("PH_FLAM_LIQ", "3", "II", None, "액체", "2", "UN-11"),     # T21-043 UN1263
+    ("PH_FLAM_GAS", "2.1", "해당없음", None, "가스", "1", "UN-02"),
+    ("PH_OXID_GAS", "2.2", None, "5.1", "가스", "1", "UN-04"),
+    ("PH_OXID_LIQ", "5.1", "II", None, "액체", "2", "UN-51"),
+    ("PH_OXID_SOL", "5.1", "II", None, "고체", "2", "UN-54"),
+    ("PH_EXPLOSIVE", "1.4", None, None, "고체", "1.4", "UN-01"),
+    ("PH_METAL_CORR", "8", "III", None, "액체", "1", "UN-80"),  # T21-023 UN1789, TO21 고유 규칙
+])
+def test_UN_운송정보로_분류한다(item_id, cls, pg, sub, state, cat, rid):
+    r = _un_run(item_id, cls, pg, sub, state=state)
+    assert (r["result"]["low"], r["result"]["status"], r["rule"]["id"]) == (cat, "확정", f"PHY-{rid}")
+
+
+def test_UN_규칙이_없으면_대표성분으로_넘어간다():
+    r = _un_run("PH_METAL_CORR", "8", "II")  # 25번 UN1830(8급 II): 운송 규칙 없음 → 대표성분 분류 1
+    assert r["rule"]["id"] == "PHY-METAL_CORR" and r["result"]["low"] == "1"
+    assert any("TO21 고유 규칙" in a for a in _un_run("PH_METAL_CORR", "8", "III")["assumptions"])
+    r = _un_run("PH_OXID_GAS", "2.2")  # 부위험성 5.1 이 없으면 산화성 가스 아님 → 대표성분(분류 없음) → 분류안됨
+    assert r["rule"]["id"] != "PHY-UN-04"
+
+
+def test_자기반응성_UN번호는_인화성_고체로_보지_않는다():
+    r = _un_run("PH_FLAM_SOL", "4.1", "II", un="3226", state="고체")
+    assert r["rule"]["id"] != "PHY-UN-20"

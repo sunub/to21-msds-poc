@@ -54,6 +54,7 @@ import b_app_swap as bswap
 import b_app_text as bt
 from msds.common import manifest
 from msds.common.paths import BACKEND, CONFIGS, DATA, GOLD, PAGES, ROOT, RUNS
+from msds.extract.inputs import EXTRACT_SECTIONS
 from msds.extract.client import load_model_config
 from msds.extract.section_prompts import SECTION_PROMPT_VERSION, build_system, prompt_hash
 from msds.extract.section_runner import DOC_TIME_LIMIT
@@ -195,9 +196,10 @@ def _run_with_text(run: Path, ctx: AppContext, gold_dir: Path, key: dict) -> dic
     summaries = {kind: bt.card_summary(kind, info) for kind in ("docs", "grid", "rows")}
     summaries["history"] = bt.card_summary("history", {"runs": history})
     # 문제 건수는 원문 대조 화면과 같은 칸 단위로 센다 (사용자 결정 10/31)
-    field = bdoc.run_field_counts(run, gold_dir, info.get("docs") or [])
+    field, rows = bdoc.run_problem_counts(run, gold_dir, info.get("docs") or [])
     status = bt.score_status(info, br.criteria(), connected=connected, per_doc=info.get("per_doc"), field_counts=field)
-    return {**info, "status_text": status, "targets": status["targets"],
+    return {**info, "status_text": status, "problem_rows": bt.problem_rows(status, info.get("per_doc"), field, rows),
+            "targets": status["targets"],
             "card_summaries": summaries, "connection_notes": bt.connection_notes(info.get("model")), "key": key,
             "set": _run_set(info, _set_list(ctx))}
 
@@ -415,7 +417,8 @@ def _options(ctx: AppContext, *, advanced: bool = False) -> tuple[int, str, byte
     names = {tag: {v["value"]: {purpose: bj.free_run_name(runs_dir, bj.suggest_run_name(
         tag, SECTION_PROMPT_VERSION, v["value"], purpose)) for purpose in ("dev10", "probe")} for v in pages}
         for tag in cfg}
-    return _json(200, {"models": bt.order_models(models), "status_checked": status is not None, "ui_text": bt.server_ui_text(),
+    return _json(200, {"models": bt.order_models(models), "extract_sections": list(EXTRACT_SECTIONS),
+                       "status_checked": status is not None, "ui_text": bt.server_ui_text(),
                        "field_help": bt.FIELD_HELP, "try_hint": bt.try_hint(models, advanced),
                        "try_stage_help": bt.TRY_STAGE_HELP, "job_ui_text": bt.JOB_UI_TEXT,
                        "docs": [{"doc_id": r["doc_id"], "pages": r.get("pages")} for r in manifest.select("개발")],

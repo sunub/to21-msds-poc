@@ -10,7 +10,8 @@
     "dev": "next dev",
     "build": "next build",
     "typecheck": "tsc --noEmit",
-    "mock:judgment": "node dev-mock/judgment-server.mjs"
+    "mock:judgment": "node dev-mock/judgment-server.mjs",
+    "test:contract": "node dev-mock/test-contract.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "5.9.2",

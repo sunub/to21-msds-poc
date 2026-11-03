@@ -33,6 +33,8 @@ const sideShape = {
   /** expected 쪽: 기준정보 출처 (예: KR02 환경부, TO21 독성DB, MSDS 11항) */
   source: z.string().nullable().optional(),
   evidence: z.array(c.evidenceRef).optional(),
+  /** regulation: 규제 시행일 (화면 2.4 '시행 2025-01-01'). 구버전 판정은 설계서 v0.4 D-09가 PoC 제외라 PoC에서는 null 이 기본 (contracts/6-screens.md 미결 1) */
+  effective_from: c.date.nullable().optional(),
 };
 
 /** MSDS 기재값. 없으면 present=false */
@@ -75,17 +77,29 @@ export const finding = z.strictObject({
   trace_id: traceId.nullable(),
   /** verdict 가 불일치·경계·근거부족이면 true. B2는 이것만 설명을 만든다 */
   needs_explanation: z.boolean(),
+  /** 항목 이름 (화면 표의 '유해성 항목'·'규제 항목'). 예: 급성 독성 (흡입), 유독물질. B1이 규칙표 class_map·reg_map 에서 붙인다 */
+  label: z.string().min(1),
+  /** 판정 방법 (화면 2.3 '판정 방법' 열). 예: ATEmix 계산, 기준 분류 비교, 9항 시험값, M-factor 가산, 별표2 매핑, 규제DB 대조, 인화점 판정 */
+  method: z.string().min(1),
+  out_of_scope_reason: c.outOfScopeReason,
+  /** 15항이면 법령 표시 이름, 2항이면 null */
+  law_label: c.lawLabel.nullable(),
+  /** 엔진이 적은 판정 이유 원문. 화면 '판정 근거'의 첫 줄 */
+  reason: z.string(),
 });
 
-/** 판정 근거 (설계서 v0.4 trace 반환 규격). 계산이 없는 판정(단순 조회·비교)은 steps 만 채운다 */
-export const trace = z.strictObject({
+/**
+ * 판정 근거 (설계서 v0.4 trace 반환 규격). 계산이 없는 판정(단순 조회·비교)은 steps 만 채운다.
+ * 계산 종류마다 칸이 달라 inputs·thresholds 의 칸을 강제하지 않는다 (additionalProperties: true)
+ */
+export const trace = z.looseObject({
   kind: z.enum(["mixture_calc", "reference_lookup", "regulation_check", "label_check", "dg_check", "product_type"]),
   class_code: c.classCode.nullable().optional(),
   form: c.routeForm.optional(),
   result: z
-    .strictObject({
-      low: z.string().nullable(),
-      high: z.string().nullable(),
+    .looseObject({
+      low: z.unknown(),
+      high: z.unknown(),
       status: z.enum(["확정", "경계", "근거부족"]),
     })
     .optional(),
@@ -95,43 +109,21 @@ export const trace = z.strictObject({
     basis: z.string(),
     formula: z.string().nullable().optional(),
   }),
-  inputs: z.array(
-    z.strictObject({
-      cas: z.string().nullable(),
-      name: z.string().nullable(),
-      content: z
-        .strictObject({ low: z.number().nullable().optional(), high: z.number().nullable().optional() })
-        .optional(),
-      value: z
-        .strictObject({
-          /** LD50·LC50·L(E)C50·NOEC 등 */
-          type: z.string().optional(),
-          op: z.enum(["=", ">", ">=", "<", "<="]).optional(),
-          v: z.number().optional(),
-          unit: z.string().optional(),
-          hours: z.number().nullable().optional(),
-          form: c.routeForm.optional(),
-        })
-        .optional(),
-      ate_used: z.number().nullable().optional(),
-      source: z.string().nullable().optional(),
-      /** ATE 수집 단계 (설계서 v0.4 성분별 ATE 수집 순서) */
-      step: z.int().nullable().optional(),
-      /** 기여도 0~1 */
-      share: z.number().min(0).max(1).nullable().optional(),
-      flags: z.array(z.string()).optional(),
-      /** 계산에서 뺀 이유 (예: 무독성, 한계농도 미만) */
-      excluded: z.string().nullable().optional(),
-    }),
-  ),
+  inputs: z.array(z.record(z.string(), z.unknown())),
   /** 계산값 (합계·ATEmix·미상 % 등). 계산마다 칸이 달라 자유 형식 */
   calc: z.record(z.string(), z.unknown()).nullable().optional(),
-  thresholds: z.array(z.strictObject({ category: z.string(), range: z.string() })),
+  thresholds: z.array(z.record(z.string(), z.unknown())),
   /** 가정값과 결정 ID (예: id D-07, text M=1 가정). 설계서 v0.4 미결사항의 가정도 여기에 남긴다 */
   assumptions: z.array(z.strictObject({ id: z.string(), text: z.string() })),
   knowledge_version: z.string(),
   /** 사람이 읽는 계산 순서 (설계서 v0.4 설명 요청 예시의 trace 배열). 설명 요청에 그대로 들어간다 */
   steps: z.array(z.looseObject({ step: z.string() })),
+  /** 원인 코드별 문장 (설명 요청에 그대로 들어간다) */
+  cause_texts: z.array(z.strictObject({ code: c.causeCode, text: z.string() })).optional(),
+  /** 화면 '판단 근거' 줄의 재료 */
+  basis_lines: z.array(z.string()).optional(),
+  /** 화면 '계산 과정' 줄의 재료 */
+  calc_lines: z.array(z.string()).optional(),
 });
 
 /** findings 의 verdict 별 개수 */
@@ -142,6 +134,38 @@ export const summary = z.strictObject({
   근거부족: z.int().min(0),
   참고: z.int().min(0),
   "범위 외": z.int().min(0),
+  경고: z.int().min(0),
+});
+
+/** 성분별 판단 요약 (설계서 v0.4 화면 예시 ④, 화면 '성분별 요약' 탭). 단일물질이면 한 줄 */
+export const componentSummary = z.strictObject({
+  comp_ref: z.string(),
+  name: z.string().nullable(),
+  cas: z.string().nullable(),
+  /** 함량 (TO21 Q) */
+  content: c.Q.nullable(),
+  /** 기준 분류 (출처별). 예: 피부1 (KR02 환경부) */
+  reference_classes: z.array(
+    z.strictObject({ class_code: c.classCode, category: z.string(), route_form: c.routeForm, source: z.string() }),
+  ),
+  /** 사용 ATE (경로별, 몇 단계에서 가져왔는지). 제외면 excluded */
+  ate: z.array(
+    z.strictObject({
+      route: z.enum(["oral", "dermal", "inhal"]),
+      value: z.number().nullable(),
+      unit: z.string().nullable(),
+      form: c.routeForm,
+      source: z.string().nullable(),
+      step: z.int().nullable(),
+      excluded: z.string().nullable(),
+    }),
+  ),
+  /** 15항 해당 판정 수 */
+  regulation_hits: z.int().min(0),
+  /** 자료 신뢰도 (화면 ④ 자료 열) */
+  reliability: z.enum(["높음", "보통", "낮음"]),
+  /** 성분 상세에 보일 ATE 수집 순서·가정 문장 */
+  notes: z.array(z.string()),
 });
 
 export const msdsResult = z.strictObject({
@@ -156,11 +180,13 @@ export const msdsResult = z.strictObject({
   traces: z.record(traceId, trace),
   /** 제약사항·검토 필요 문장 (설계서 v0.4 구성성분별 판단 요약의 제약사항). 근거부족·경계·가정 사유를 모은다 */
   limitations: z.array(z.strictObject({ finding_id: c.findingId.nullable(), text: z.string() })),
+  /** 성분별 판단 요약 (설계서 v0.4 화면 예시 ④, 화면 성분별 요약 탭). 단일물질이면 한 줄 */
+  components: z.array(componentSummary),
 });
 
 /** judge(extraction, as_of, provider) -> 이 JSON. 상태가 없고 DB에 쓰지 않는다 */
 export const consistency = z.strictObject({
-  contract: z.literal("consistency/1"),
+  contract: z.literal("consistency/2"),
   /** extraction.doc.doc_id 그대로 */
   doc_id: z.string(),
   as_of: c.date,
@@ -174,3 +200,4 @@ export type MsdsResult = z.infer<typeof msdsResult>;
 export type Finding = z.infer<typeof finding>;
 export type Trace = z.infer<typeof trace>;
 export type Side = z.infer<typeof msdsSide>;
+export type ConsistencyComponent = z.infer<typeof componentSummary>;

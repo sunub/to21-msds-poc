@@ -1,25 +1,35 @@
 /*
- * 판정·저장 임시 서버 (개발용). 계약 5-api 의 판정 경로를 Node 내장 http 만으로 흉내 낸다. 포트 8021.
+ * 판정·저장 임시 서버 (개발용). 계약 5-api(consistency/2)의 판정 경로를 Node 내장 http 만으로 흉내 낸다. 포트 8021.
  *   pnpm mock:judgment
- * 화면에서 쓰려면 프론트를 NEXT_PUBLIC_JUDGMENT_API_BASE=http://127.0.0.1:8021 로 띄운다 (CORS 는 localhost 를 허용).
- * 이 폴더는 src 밖이라 pnpm build 결과물에 들어가지 않는다.
+ * 화면에서 쓰려면 프론트를 NEXT_PUBLIC_JUDGMENT_API_BASE=http://127.0.0.1:8021 (추출 쪽 신규 경로도 쓰려면 NEXT_PUBLIC_API_BASE 도 같은 주소) 로 띄운다.
+ * CORS 는 localhost 를 허용한다. 이 폴더는 src 밖이라 pnpm build 결과물에 들어가지 않는다.
  *
- * 구현한 경로
+ * 판정 서버 (B2)
  *   GET  /api/judgments/{job}/status
- *   GET  /api/judgments/{job}?version=N        (없으면 최신)
+ *   GET  /api/judgments/{job}?version=N          (없으면 최신)
  *   GET  /api/judgments/{job}/versions
- *   POST /api/judgments/{job}/reviews          201 review_event. seen_version < 최신 → 409, 예외 승인·의견에 comment 없음 → 422
- *   POST /api/judgments/{job}/snapshots        201 snapshot.     seen_version < 최신 → 409. 저장할 때마다 snapshot_no 증가
- *   POST /api/documents/{id}/to-judgment       200 {job_id, handoff_seq}. 3초 뒤 새 판정 버전(2)이 생긴다
+ *   GET  /api/judgments/{job}/history            판정 검토·저장 이력 (최근 것부터)
+ *   GET  /api/judgments/{job}/save-overview
+ *   GET  /api/judgments/summary?job_ids=a,b,c
+ *   POST /api/judgments/{job}/reviews            201 review_event. 낡은 seen_version·seen_event_id 409, 확인·확정 대상이 아닌 판정 422
+ *   POST /api/judgments/{job}/snapshots          201 snapshot. 낡은 판정 409. 저장할 때마다 snapshot_no 증가
+ *   POST /api/judgments/{job}/reports            html·xlsx·pdf·json 파일 (개발용 내용)
+ * 추출 서버 (A) 쪽 신규 칸 — demo 문서만
+ *   POST /api/documents/{id}/to-judgment         200 {job_id, handoff_seq}. 3초 뒤 새 판정 버전(2)이 생긴다
+ *   GET  /api/documents/{id}/review/log          추출값 검수 기록 (history_entry[])
+ *   GET  /api/documents, GET /api/documents/{id} queue_fields·document_extras 가 붙은 문서 목록·상세
  *
- * 판정 데이터는 src/api/demo-judgment.ts 를 그대로 쓴다 (시작할 때 TypeScript 로 .gen/ 에 옮겨 읽는다. 두 번 쓰지 않는다).
- * 요청 본문과 응답은 src/api/contract 의 zod 로 확인하고, 어긋나면 로그에 이유를 남긴다 (응답이 어긋나면 500).
+ * 응답 데이터와 상태 규칙은 src/api/demo-judgment.ts 의 핵심 함수를 그대로 쓴다 (브라우저 데모와 같은 코드, 두 번 쓰지 않는다).
+ * 시작할 때 TypeScript 를 .gen/ 에 옮겨 읽는다. 요청 본문과 응답은 src/api/contract 의 zod 로 확인하고,
+ * 어긋나면 로그에 이유를 남긴다 (응답이 어긋나면 500).
  *
  * 상황은 job_id 로 가른다 (계약의 job_id 는 U-날짜-순번 이라 demo 계열 이름도 받는다):
  *   demo            판정 있음, 처리 전 (그 밖의 U-… 번호도 같다)
  *   demo-states     설명 작성 중 1건(8초 뒤 완료), 판정이 바뀐(stale) 검토 1건, 판정 중 + 더 새 넘김(pending_handoff)
  *   demo-conflict   읽어 간 판정(버전 1)이 낡는다: 첫 검토·저장 요청은 409, 다시 읽으면 버전 2
  *   demo-savefail   저장이 500 으로 실패한다
+ *   demo-pdffail    PDF 리포트가 422(글이 빠진 PDF)로 거절된다
+ *   demo-single / demo-unknown  단일물질(수소) / 단일·혼합을 판별하지 못함
  * 상태는 서버 메모리에만 있다 (서버를 다시 켜면 사라진다).
  */
 import fs from "node:fs";
@@ -36,7 +46,7 @@ const PORT = Number(process.env.PORT ?? 8021);
 const ts = createRequire(path.join(ROOT, "package.json"))("typescript");
 const GEN = path.join(HERE, ".gen");
 fs.rmSync(GEN, { recursive: true, force: true });
-for (const f of ["client", "schemas", "demo-judgment", "contract/api", "contract/common", "contract/consistency"]) {
+for (const f of ["client", "schemas", "demo", "demo-judgment", "contract/api", "contract/common", "contract/consistency"]) {
   const src = fs.readFileSync(path.join(ROOT, "src", "api", `${f}.ts`), "utf8");
   const js = ts
     .transpileModule(src, { compilerOptions: { module: "esnext", target: "es2022" } })
@@ -48,105 +58,21 @@ fs.writeFileSync(path.join(GEN, "package.json"), '{"type":"module"}');
 const load = (f) => import(pathToFileURL(path.join(GEN, f)).href);
 const D = await load("demo-judgment.js");
 const A = await load("contract/api.js");
+const DOCS = await load("demo.js");
+const S = await load("schemas.js");
 
 /* ── 도우미 ── */
-const kst = (ms = Date.now()) => `${new Date(ms + 9 * 3600_000).toISOString().slice(0, 19)}+09:00`;
-const DEMO_JOB = "U-20261102-025";
 const validJob = (job) => job === "demo" || job.startsWith("demo-") || /^U-\d{8}-\d{3,}$/.test(job);
-const jobOut = (job) => (/^U-/.test(job) ? job : DEMO_JOB);
-const scenarioOf = (job) =>
-  job.startsWith("demo-states") ? "states" : job.startsWith("demo-conflict") ? "conflict" : job.startsWith("demo-savefail") ? "savefail" : "plain";
-const WRITING_MS = 8000;
-const JUDGE_MS = 3000;
 const log = (...a) => console.log(new Date().toTimeString().slice(0, 8), ...a);
 const warn = (...a) => console.error(new Date().toTimeString().slice(0, 8), "[계약 어긋남]", ...a);
-
-const jobs = new Map();
-function stateOf(job) {
-  let st = jobs.get(job);
-  if (st) return st;
-  const scen = scenarioOf(job);
-  const seed = D.demoView(scen === "states" ? "demo-states" : "demo").reviews;
-  st = {
-    scen,
-    latest: 1,
-    handoff: scen === "states" ? 2 : 1,
-    pending: scen === "states" ? 2 : null,
-    judging: scen === "states",
-    startedAt: Date.now(),
-    eventSeq: 0,
-    snapshots: [],
-    armConflict: scen === "conflict",
-    // 처음부터 있던 검토 (demo-states 의 stale 검토). verdict_seen 은 모르므로 staleSeed 로 표시한다
-    reviews: Object.fromEntries(Object.entries(seed).map(([id, r]) => [id, { ...r, verdict_seen: null, staleSeed: r.stale }])),
-  };
-  jobs.set(job, st);
-  return st;
-}
-
-/** 버전 2 에서 바뀌는 판정: 금속부식성 근거부족 → 경계 (stale 시험용) */
-const CHANGED_ID = "m0/F2:PH_METAL_CORR:-";
-
-function viewOf(job, version) {
-  const st = stateOf(job);
-  const v = structuredClone(D.demoView(st.scen === "states" ? "demo-states" : "demo"));
-  v.job_id = jobOut(job);
-  v.version = version;
-  v.is_latest = version === st.latest;
-  v.handoff_seq = version === 1 ? 1 : st.handoff;
-  if (version >= 2) {
-    v.judged_at = kst(st.v2At ?? Date.now());
-    const r = v.consistency.results[0];
-    const f = r.findings.find((x) => x.id === CHANGED_ID);
-    if (f && f.verdict === "근거부족") {
-      f.verdict = "경계";
-      r.summary["근거부족"] -= 1;
-      r.summary["경계"] += 1;
-    }
-  }
-  // 작성 중 설명은 일정 시간 뒤 완료된다
-  if (Date.now() - st.startedAt > WRITING_MS) {
-    for (const [id, e] of Object.entries(v.explanations)) {
-      if (e.status === "작성 중") v.explanations[id] = { status: "완료", by: "template", checked: true, summary: "작성한 설명입니다.", reasons: [], basis: [] };
-    }
-  }
-  const verdictOf = new Map(v.consistency.results[0].findings.map((f) => [f.id, f.verdict]));
-  v.reviews = Object.fromEntries(
-    Object.entries(st.reviews).map(([id, r]) => {
-      const stale = r.staleSeed || (r.verdict_seen !== null && verdictOf.has(id) && verdictOf.get(id) !== r.verdict_seen);
-      return [id, { status: r.status, comment: r.comment, reviewer: r.reviewer, at: r.at, history_count: r.history_count, stale: !!stale }];
-    }),
-  );
-  return v;
-}
-
-const statusOf = (job) => {
-  const st = stateOf(job);
-  const exps = Object.values(viewOf(job, st.latest).explanations);
-  return {
-    job_id: jobOut(job),
-    state: st.judging ? "판정 중" : "판정 있음",
-    latest_version: st.latest,
-    pending_handoff: st.pending,
-    explanations: { done: exps.filter((e) => e.status === "완료").length, total: exps.length },
-    saved_snapshot: st.snapshots.length ? st.snapshots.length : null,
-    error: null,
-  };
-};
-
-const versionsOf = (job) => {
-  const st = stateOf(job);
-  const base = viewOf(job, 1);
-  const list = [{ version: 1, handoff_seq: 1, judged_at: base.judged_at, summary: base.consistency.results[0].summary, changed_findings: [] }];
-  for (let n = 2; n <= st.latest; n += 1) {
-    const v = viewOf(job, n);
-    list.push({ version: n, handoff_seq: v.handoff_seq, judged_at: v.judged_at, summary: v.consistency.results[0].summary, changed_findings: [CHANGED_ID] });
-  }
-  return list.reverse();
-};
-
-/* ── HTTP ── */
 const issuesText = (error) => error.issues.slice(0, 6).map((i) => `${i.path.join(".") || "(최상위)"}: ${i.message}`).join("; ");
+
+const stores = new Map();
+const storeOf = (job) => {
+  let st = stores.get(job);
+  if (!st) stores.set(job, (st = D.newStore(job)));
+  return st;
+};
 
 function cors(req, res) {
   const origin = req.headers.origin ?? "";
@@ -156,8 +82,10 @@ function cors(req, res) {
   }
   res.setHeader("Access-Control-Allow-Methods", "GET,POST,PUT,OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type,Accept");
+  res.setHeader("Access-Control-Expose-Headers", "Content-Disposition");
 }
 
+/** JSON 응답. schema 가 있으면 계약으로 확인하고 어긋나면 500 */
 function send(res, status, body, schema, what) {
   if (schema) {
     const parsed = schema.safeParse(body);
@@ -173,6 +101,7 @@ function send(res, status, body, schema, what) {
 }
 
 const fail = (res, status, detail) => send(res, status, { detail });
+
 /** FastAPI 의 422 모양 */
 const invalid = (res, error, what) => {
   warn(`요청 ${what}: ${issuesText(error)}`);
@@ -189,95 +118,74 @@ async function readJson(req) {
   }
 }
 
-/** demo-conflict: 화면이 버전 1 을 읽은 뒤 더 새 판정(버전 2)이 생긴 것으로 한다. 첫 쓰기 요청 때 일어난다 */
-function armConflict(st) {
-  if (!st.armConflict) return;
-  st.armConflict = false;
-  st.latest = 2;
-  st.v2At = Date.now();
-  st.handoff = 2;
-}
-
-const REVIEW_STATUS = { "불일치 확정": "불일치 확정", "예외 승인": "예외 승인", 확인: "확인" };
-
-async function postReview(job, req, res) {
-  const body = await readJson(req);
-  if (!body.ok) return fail(res, 422, "본문이 JSON 이 아닙니다");
-  const parsed = A.reviewEventRequest.safeParse(body.value);
-  if (!parsed.success) return invalid(res, parsed.error, "reviews");
-  const r = parsed.data;
-  const st = stateOf(job);
-  armConflict(st);
-  if (r.seen_version < st.latest) return fail(res, 409, `더 새로운 판정 버전이 있습니다 (최신 ${st.latest}, 본 것 ${r.seen_version})`);
-  if (r.seen_version > st.latest) return fail(res, 422, `아직 없는 판정 버전입니다: ${r.seen_version}`);
-  const f = viewOf(job, st.latest).consistency.results[0].findings.find((x) => x.id === r.finding_id);
-  if (!f) return fail(res, 404, `없는 판정 항목: ${r.finding_id}`);
-  const prev = st.reviews[r.finding_id];
-  const at = kst();
-  const status = r.action === "되돌리기" ? "미검토" : r.action === "의견" ? (prev?.status ?? "미검토") : REVIEW_STATUS[r.action];
-  st.reviews[r.finding_id] = {
-    status,
-    comment: r.action === "되돌리기" ? null : (r.comment ?? prev?.comment ?? null),
-    reviewer: r.reviewer,
-    at,
-    history_count: (prev?.history_count ?? 0) + 1,
-    verdict_seen: f.verdict,
-    staleSeed: false,
-  };
-  const event = { event_id: ++st.eventSeq, job_id: jobOut(job), finding_id: r.finding_id, action: r.action, comment: r.comment ?? null, reviewer: r.reviewer, at, version: st.latest, verdict_seen: f.verdict };
-  return send(res, 201, event, A.reviewEvent, "review_event");
-}
-
-async function postSnapshot(job, req, res) {
-  const body = await readJson(req);
-  if (!body.ok) return fail(res, 422, "본문이 JSON 이 아닙니다");
-  const parsed = A.saveRequest.safeParse(body.value);
-  if (!parsed.success) return invalid(res, parsed.error, "snapshots");
-  const r = parsed.data;
-  const st = stateOf(job);
-  if (st.scen === "savefail") return fail(res, 500, "서버가 저장을 마치지 못했습니다.");
-  armConflict(st);
-  if (r.seen_version < st.latest) return fail(res, 409, `더 새로운 판정 버전이 있습니다 (최신 ${st.latest}, 본 것 ${r.seen_version})`);
-  if (r.seen_version > st.latest) return fail(res, 422, `아직 없는 판정 버전입니다: ${r.seen_version}`);
-  const view = viewOf(job, st.latest);
-  const counts = { findings: 0, 미검토: 0, "불일치 확정": 0, "예외 승인": 0, 확인: 0, "미검수 칸": 0 };
-  const fields = new Set();
-  for (const f of view.consistency.results[0].findings) {
-    if (f.kind === "product_type") continue;
-    counts.findings += 1;
-    counts[view.reviews[f.id]?.status ?? "미검토"] += 1;
-    for (const e of [...(f.msds.evidence ?? []), ...(f.expected.evidence ?? [])]) fields.add(`${view.consistency.results[0].msds_index}|${e.field}`);
+/** 핵심 함수가 던지는 FakeHttpError 를 응답으로. 409 본문은 conflict_response 로 확인한다 */
+function sendError(res, e) {
+  if (e instanceof D.FakeHttpError) {
+    if (e.status === 409) {
+      const parsed = A.conflictResponse.safeParse(e.body);
+      if (!parsed.success) warn(`409 본문: ${issuesText(parsed.error)}`);
+    }
+    return send(res, e.status, e.body);
   }
-  const checked = new Set(view.field_status.map((s) => `${s.msds_index}|${s.field}`));
-  counts["미검수 칸"] = [...fields].filter((k) => !checked.has(k)).length;
-  const snap = {
-    contract: "snapshot/1", job_id: jobOut(job), snapshot_no: st.snapshots.length + 1, handoff_seq: view.handoff_seq, version: view.version,
-    last_review_event_id: st.eventSeq || null, counts, saved_by: r.reviewer, saved_at: kst(), note: r.note ?? null,
-  };
-  const status = send(res, 201, snap, A.snapshot, "snapshot");
-  if (status === 201) st.snapshots.push(snap);
-  return status;
+  throw e;
 }
 
-async function postToJudgment(id, req, res) {
+async function withBody(req, res, schema, what, fn) {
   const body = await readJson(req);
   if (!body.ok) return fail(res, 422, "본문이 JSON 이 아닙니다");
-  const parsed = A.toJudgmentRequest.safeParse(body.value);
-  if (!parsed.success) return invalid(res, parsed.error, "to-judgment");
-  const st = stateOf(id);
-  st.handoff += 1;
-  st.pending = st.handoff;
-  st.judging = true;
-  const seq = st.handoff;
-  setTimeout(() => {
-    st.latest += 1;
-    st.v2At = Date.now();
-    st.judging = false;
-    st.pending = null;
-    st.startedAt = 0; // 새 판정의 설명은 처음부터 완료
-    log(`판정 끝: ${id} 버전 ${st.latest} (넘김 ${seq})`);
-  }, JUDGE_MS);
-  return send(res, 200, { job_id: jobOut(id), handoff_seq: seq }, A.toJudgmentResponse, "to-judgment");
+  const parsed = schema.safeParse(body.value);
+  if (!parsed.success) return invalid(res, parsed.error, what);
+  try {
+    return fn(parsed.data);
+  } catch (e) {
+    return sendError(res, e);
+  }
+}
+
+const contentDisposition = (filename) => `attachment; filename="download"; filename*=UTF-8''${encodeURIComponent(filename)}`;
+
+async function judgments(req, res, url, job, sub) {
+  const st = storeOf(job);
+  const guard = (fn) => {
+    try {
+      return fn();
+    } catch (e) {
+      return sendError(res, e);
+    }
+  };
+  if (req.method === "GET" && sub === "status") return guard(() => send(res, 200, D.statusOf(job, st), A.judgmentStatus, "judgment_status"));
+  if (req.method === "GET" && sub === "versions") return guard(() => send(res, 200, D.versionsOf(job, st), A.versionListItem.array(), "versions"));
+  if (req.method === "GET" && sub === "history") return guard(() => send(res, 200, D.historyOf(job, st), A.historyEntry.array(), "history"));
+  if (req.method === "GET" && sub === "save-overview") return guard(() => send(res, 200, D.saveOverviewOf(job, st), A.saveOverview, "save_overview"));
+  if (req.method === "GET" && !sub) {
+    const raw = url.searchParams.get("version");
+    const version = raw === null ? undefined : Number(raw);
+    return guard(() => send(res, 200, D.viewOf(job, st, version), A.judgmentView, "judgment_view"));
+  }
+  if (req.method === "POST" && sub === "reviews") {
+    return withBody(req, res, A.reviewEventRequest, "reviews", (r) => send(res, 201, D.postReviewTo(job, st, r), A.reviewEvent, "review_event"));
+  }
+  if (req.method === "POST" && sub === "snapshots") {
+    return withBody(req, res, A.saveRequest, "snapshots", (r) => send(res, 201, D.postSnapshotTo(job, st, r), A.snapshot, "snapshot"));
+  }
+  if (req.method === "POST" && sub === "reports") {
+    return withBody(req, res, A.reportRequest, "reports", (r) => {
+      const file = D.reportOf(job, st, r);
+      if (r.format === "json") {
+        const parsed = A.reportDocument.safeParse(JSON.parse(file.body));
+        if (!parsed.success) {
+          warn(`응답 report_document: ${issuesText(parsed.error)}`);
+          return fail(res, 500, "서버 응답이 계약과 다릅니다 (report_document)");
+        }
+      }
+      const headers = { "Content-Type": file.contentType };
+      if (r.format !== "html") headers["Content-Disposition"] = contentDisposition(file.filename);
+      res.writeHead(200, headers);
+      res.end(Buffer.from(file.body, "utf8"));
+      return 200;
+    });
+  }
+  return fail(res, 405, "지원하지 않는 요청입니다");
 }
 
 const server = http.createServer(async (req, res) => {
@@ -285,46 +193,37 @@ const server = http.createServer(async (req, res) => {
   const url = new URL(req.url ?? "/", `http://${req.headers.host}`);
   let status = 404;
   try {
+    const p = url.pathname.replace(/\/$/, "");
+    let m;
     if (req.method === "OPTIONS") {
       res.writeHead(204);
       res.end();
       status = 204;
+    } else if (req.method === "GET" && p === "/api/health") {
+      status = send(res, 200, { ok: true, mock: "judgment" });
+    } else if (req.method === "GET" && p === "/api/judgments/summary") {
+      const ids = (url.searchParams.get("job_ids") ?? "").split(",").filter(Boolean);
+      status = ids.some((id) => !/^U-\d{8}-\d{3,}$/.test(id))
+        ? fail(res, 422, "job_ids 는 작업 번호(U-날짜-순번)여야 합니다")
+        : send(res, 200, ids.map((id) => D.summaryItemOf(id, storeOf(id))), A.judgmentBatchItem.array(), "summary");
+    } else if ((m = p.match(/^\/api\/judgments\/([^/]+)(?:\/(status|versions|history|save-overview|reviews|snapshots|reports))?$/))) {
+      const job = decodeURIComponent(m[1]);
+      status = validJob(job) ? await judgments(req, res, url, job, m[2]) : fail(res, 404, `없는 판정: ${job}`);
+    } else if (req.method === "POST" && (m = p.match(/^\/api\/documents\/([^/]+)\/to-judgment$/))) {
+      const id = decodeURIComponent(m[1]);
+      status = validJob(id)
+        ? await withBody(req, res, A.toJudgmentRequest, "to-judgment", () => send(res, 200, D.toJudgmentTo(id, storeOf(id)), A.toJudgmentResponse, "to_judgment_response"))
+        : fail(res, 404, `없는 문서: ${id}`);
+    } else if (req.method === "GET" && (m = p.match(/^\/api\/documents\/([^/]+)\/review\/log$/))) {
+      status = send(res, 200, D.reviewLogOf(), A.historyEntry.array(), "review/log");
+    } else if (req.method === "GET" && p === "/api/documents") {
+      const filter = url.searchParams.get("status") ?? "all";
+      status = send(res, 200, DOCS.demoList(filter), S.documentListResponseSchema, "documents");
+    } else if (req.method === "GET" && (m = p.match(/^\/api\/documents\/([^/]+)$/))) {
+      const id = decodeURIComponent(m[1]);
+      status = validJob(id) ? send(res, 200, DOCS.demoDetail(id), S.documentDetailSchema, "document") : fail(res, 404, `없는 문서: ${id}`);
     } else {
-      const p = url.pathname.replace(/\/$/, "");
-      let m;
-      if (req.method === "GET" && p === "/api/health") {
-        status = send(res, 200, { ok: true, mock: "judgment" });
-      } else if (req.method === "POST" && (m = p.match(/^\/api\/documents\/([^/]+)\/to-judgment$/))) {
-        const id = decodeURIComponent(m[1]);
-        status = validJob(id) ? await postToJudgment(id, req, res) : fail(res, 404, `없는 문서: ${id}`);
-      } else if ((m = p.match(/^\/api\/judgments\/([^/]+)(?:\/(status|versions|reviews|snapshots))?$/))) {
-        const job = decodeURIComponent(m[1]);
-        const sub = m[2];
-        if (!validJob(job)) {
-          status = fail(res, 404, `없는 판정: ${job}`);
-        } else if (req.method === "GET" && sub === "status") {
-          status = send(res, 200, statusOf(job), A.judgmentStatus, "judgment_status");
-        } else if (req.method === "GET" && sub === "versions") {
-          status = send(res, 200, versionsOf(job), A.versionListItem.array(), "versions");
-        } else if (req.method === "GET" && !sub) {
-          const st = stateOf(job);
-          const raw = url.searchParams.get("version");
-          const version = raw === null ? st.latest : Number(raw);
-          if (!Number.isInteger(version) || version < 1 || version > st.latest) {
-            status = fail(res, 404, `없는 판정 버전: ${raw}`);
-          } else {
-            status = send(res, 200, viewOf(job, version), A.judgmentView, "judgment_view");
-          }
-        } else if (req.method === "POST" && sub === "reviews") {
-          status = await postReview(job, req, res);
-        } else if (req.method === "POST" && sub === "snapshots") {
-          status = await postSnapshot(job, req, res);
-        } else {
-          status = fail(res, 405, "지원하지 않는 요청입니다");
-        }
-      } else {
-        status = fail(res, 404, "Not Found");
-      }
+      status = fail(res, 404, "Not Found");
     }
   } catch (e) {
     warn(`처리 중 오류: ${e instanceof Error ? e.stack : e}`);
@@ -333,4 +232,13 @@ const server = http.createServer(async (req, res) => {
   log(`${req.method} ${url.pathname}${url.search} → ${status}`);
 });
 
-server.listen(PORT, "127.0.0.1", () => log(`판정 임시 서버: http://127.0.0.1:${PORT}  (demo, demo-states, demo-conflict, demo-savefail)`));
+// 방금 끈 서버의 포트가 잠시 잡혀 있으면(Windows 의 EFAULT·EADDRINUSE) 몇 초 뒤 다시 시도한다
+const listen = () => server.listen(PORT, "127.0.0.1", () => log(`판정 임시 서버: http://127.0.0.1:${PORT}  (demo, demo-states, demo-conflict, demo-savefail, demo-pdffail, demo-single, demo-unknown)`));
+let tries = 0;
+server.on("error", (e) => {
+  if ((e.code === "EFAULT" || e.code === "EADDRINUSE") && tries++ < 30) {
+    log(`포트 ${PORT} 를 아직 쓸 수 없음(${e.code}). 2초 뒤 다시 시도 (${tries}/30)`);
+    setTimeout(listen, 2000);
+  } else throw e;
+});
+listen();

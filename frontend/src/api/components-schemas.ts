@@ -1,17 +1,7 @@
 /*
- * 성분별 요약 화면이 쓰는 모델. 서버 응답이 아니다: 계약에는 성분 요약 API 가 없어서
- * api/adapt/components.ts 가 판정 한 벌(judgment_view)에서 이 모양을 만든다. 만들 수 없는 칸은 그 파일 위쪽에 적었다.
- * 아래 주석의 "명세 미확정"은 옛 명세서(API-14) 시절의 메모이고, 지금 기준은 contracts/ 다.
- *
- * 명세 미확정, 서버 확정 후 맞출 것 (우리가 임의로 정한 모양):
- *  - classifications 원소: {source, name, classification, version, basis}. name 은 위험 분류 이름(예: "피부"), classification 은 구분(예: "1"),
- *    source 는 출처(예: "KR02 환경부"), basis 는 기준(예: "TO21 분류기준")으로 보고 쓴다.
- *  - ate_steps 원소: {step, label, input, adopted, value, unit, excluded_reason}. 화면은 6단계를 순서대로 그린다.
- *  - used_ate.reason 은 표의 "사용 ATE (단계)" 칸에 그대로 보여 줄 한 줄 설명으로 보고 쓴다.
- *  - concentration.operator 는 ">=" "<=" 외의 값이면 raw_text 를 그대로 보여 준다.
- *  - source_refs (명세에 없는 필드): 성분이 나온 원문 항·쪽. 원문 칸의 이동 쪽에 쓴다.
- *  - 응답 맨 위 limitations 는 모양을 정하지 않아 객체 목록으로만 받는다.
- * 신뢰도(confidence)는 서버가 계산한 값만 보여 준다. 프론트에서 다시 계산하지 않는다.
+ * 성분별 요약 화면이 쓰는 모델. 서버 응답이 아니다: 계약에는 성분 요약 API 가 따로 없고,
+ * 판정(judgment_view)의 consistency.results[].components[] (성분별 판단 요약)와 finding 에서 api/adapt/components.ts 가 이 모양을 만든다.
+ * 신뢰도(reliability)·기준 분류·ATE·15항 해당 수·ATE 수집 순서 문장(notes)은 서버 값을 그대로 쓴다.
  */
 import { z } from "zod";
 
@@ -41,26 +31,10 @@ export const classificationSchema = z.object({
 });
 export type Classification = z.infer<typeof classificationSchema>;
 
-export const ateStepSchema = z.object({
-  /** 1~6. 독성DB 수치, 분류 구분 → 환산값, MSDS 11항 수치, 부등호 값만 있음, 무독성 성분, 자료 없음 */
-  step: pageNo,
-  label: z.string(),
-  /** 값을 가져온 근거 설명 (예: "미스트, 4hr") */
-  input: z.string().nullable(),
-  adopted: z.boolean(),
-  value: z.number().nullable(),
-  unit: z.string().nullable(),
-  /** 채택하지 않은 이유 (예: "없음", "해당 없음") */
-  excluded_reason: z.string().nullable(),
-});
-export type AteStep = z.infer<typeof ateStepSchema>;
-
+/** 표의 "사용 ATE (단계)" 칸 한 줄 (서버의 ate[] 를 읽기 좋게 이은 문장) */
 export const usedAteSchema = z.object({
   applicable: z.boolean(),
   reason: z.string(),
-  value: z.number().nullable().optional(),
-  unit: z.string().nullable().optional(),
-  step: pageNo.nullable().optional(),
 });
 export type UsedAte = z.infer<typeof usedAteSchema>;
 
@@ -93,10 +67,12 @@ export const componentSummarySchema = z.object({
   cas_no: z.string().nullable(),
   concentration: concentrationSchema,
   classifications: z.array(classificationSchema),
-  /** 혼합물만 단계가 온다. 단일물질은 빈 배열 */
-  ate_steps: z.array(ateStepSchema),
+  /** 성분 상세에 보일 ATE 수집 순서·가정 문장 (서버 notes). 단일물질은 비어 있다 */
+  notes: z.array(z.string()),
   used_ate: usedAteSchema,
   legal_findings: z.array(legalFindingRefSchema),
+  /** 15항 해당 판정 수 (서버가 센 값) */
+  regulation_hits: count,
   confidence: confidenceSchema,
   limitations: z.array(componentLimitationSchema),
   target_links: z.array(targetLinkSchema),

@@ -3,17 +3,22 @@
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
 import { Suspense } from "react";
-import { documentDetailQuery } from "@/api/documents";
+import { documentDetailQuery, resultQuery } from "@/api/documents";
 import type { DocumentDetail } from "@/api/schemas";
+import { ValidationNotice } from "@/components/extract/validation-notice";
 import { DocFrame } from "@/components/shell/doc-frame";
 import { Foot, Row } from "@/components/shell/layout";
 import { Card, Skeleton, buttonStyles } from "@/components/ui";
 import { cn } from "@/lib/cn";
 import { routes } from "@/lib/routes";
-import { allSectionsFailed, inputType } from "@/lib/status";
+import { allSectionsFailed, inputType, statusLabel } from "@/lib/status";
 
 function ModeBody({ docId }: { docId: string }) {
   const { data: doc } = useQuery(documentDetailQuery(docId));
+  const result = useQuery({
+    ...resultQuery(docId),
+    enabled: doc?.status === "done" && !doc.validation && !doc.summary?.validation,
+  });
   if (!doc) return <Skeleton className="w-2/3" />;
   if (doc.status !== "done" || allSectionsFailed(doc)) {
     return (
@@ -23,12 +28,14 @@ function ModeBody({ docId }: { docId: string }) {
       </p>
     );
   }
-  return <Mode doc={doc} />;
+  return <Mode doc={{ ...doc, validation: doc.validation ?? doc.summary?.validation ?? result.data?.validation ?? null }} />;
 }
 
 /** 2.1 검수 방식 선택: 텍스트층으로 입력 유형을 판정해 권장 순서를 안내한다. 어느 쪽을 골라도 된다 */
 function Mode({ doc }: { doc: DocumentDetail }) {
   const type = inputType(doc.text_layer);
+  const validationUncertain = statusLabel(doc).tone !== "success";
+  const recommendValues = type.recommendValues || validationUncertain;
   const { done, failed, needs_review: review, total } = doc.counts;
   return (
     <div className="flex flex-col gap-5">
@@ -36,6 +43,7 @@ function Mode({ doc }: { doc: DocumentDetail }) {
         <h1 className="text-2xl font-bold">추출이 끝났습니다. 다음 단계를 선택해 주세요</h1>
         <p className="mt-1 text-mut">문서 종류에 따라 추출값 확인을 건너뛸 수 있습니다.</p>
       </section>
+      <ValidationNotice status={doc.status} counts={doc.counts} validation={doc.validation} />
       <Card className="flex flex-col gap-3">
         <dl className="m-0 flex flex-wrap gap-x-12 gap-y-3">
           <div>
@@ -52,22 +60,24 @@ function Mode({ doc }: { doc: DocumentDetail }) {
           </div>
         </dl>
         <p className="text-sm text-sub">
-          이 문서는 {type.label}(으)로 확인되어{" "}
-          <strong>{type.recommendValues ? "추출값 확인부터" : "판정으로 바로 가기"}</strong>를 권장합니다. 다른 방식을 골라도 됩니다.
+          {validationUncertain
+            ? "검증 결과를 확인해야 하므로 "
+            : `이 문서는 ${type.label}(으)로 확인되어 `}
+          <strong>{recommendValues ? "추출값 확인부터" : "판정으로 바로 가기"}</strong>를 권장합니다. 다른 방식을 골라도 됩니다.
         </p>
       </Card>
       <Row className="items-stretch">
         <ModeCard
           title="추출값 확인부터 하기"
-          recommended={type.recommendValues}
-          body="재생성한 16항 MSDS를 원문과 나란히 놓고 칸마다 확인하고 고칩니다. 끝나면 판정 단계로 넘어갑니다."
+          recommended={recommendValues}
+          body="재생성한 MSDS(1·2·3·8·9·11·12·14·15항)를 원문과 나란히 놓고 칸마다 확인하고 고칩니다. 끝나면 판정 단계로 넘어갑니다."
           flow='확인한 칸은 "확인함", 고친 칸은 "수정됨"으로 기록됩니다.'
           href={routes.review(doc.id, "values")}
           action="추출값 확인 시작하기"
         />
         <ModeCard
           title="판정으로 바로 가기"
-          recommended={!type.recommendValues}
+          recommended={!recommendValues}
           body="추출값 확인을 건너뛰고 2항 유해성·위험성과 15항 법적 규제 판정부터 확인합니다."
           flow='건너뛴 추출값은 "미검수"로 남고, 검수 화면의 추출값 탭에서 언제든 확인할 수 있습니다.'
           href={routes.review(doc.id, "hazard")}

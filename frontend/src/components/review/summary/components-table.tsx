@@ -57,7 +57,7 @@ export function ComponentsTable({
                 {c.classifications[0] && ` (${c.classifications[0].basis})`}
               </span>
               <span className={cn(COLS.ate, !c.used_ate.applicable && "text-mut")}>{c.used_ate.reason}</span>
-              <span className={COLS.legal}>{c.legal_findings.length > 0 ? `${c.legal_findings.length}건 해당` : "없음"}</span>
+              <span className={COLS.legal}>{c.regulation_hits > 0 ? `${c.regulation_hits}건 해당` : "없음"}</span>
               <span className={COLS.conf}>
                 <StatusLabel tone={conf.tone} className="text-base">
                   {conf.label}

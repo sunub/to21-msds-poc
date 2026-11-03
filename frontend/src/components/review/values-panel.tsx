@@ -315,7 +315,14 @@ const FieldRow = memo(function FieldRow({
         {field.state === "confirmed" && <StatusLabel tone="success">확인함</StatusLabel>}
         {field.state === "edited" && <StatusLabel tone="info">수정됨</StatusLabel>}
         {field.problems.length > 0 && <StatusLabel tone="danger">검사 실패</StatusLabel>}
+        {/* 서버가 칸마다 주는 표시 (review_field_extras): 이미 검사 실패 문제가 아래에 나오면 중복해서 달지 않는다 */}
+        {field.flag && !(field.flag === "검사 실패" && field.problems.length > 0) && (
+          <StatusLabel tone={field.flag === "검사 실패" ? "danger" : "warning"}>{field.flag}</StatusLabel>
+        )}
       </div>
+      {field.flag_text && (
+        <p className={`mt-1 text-sm break-words ${field.flag === "검사 실패" ? "text-red" : "text-amb-text"}`}>{field.flag_text}</p>
+      )}
       {field.problems.map((p, i) => (
         <p key={i} className="mt-1 text-sm break-words text-red">
           {p}

@@ -5,6 +5,8 @@ import { useSearchParams } from "next/navigation";
 import type { ReactNode } from "react";
 import { ApiRequestError } from "@/api/client";
 import { documentDetailQuery } from "@/api/documents";
+import type { JudgmentBatchItem } from "@/api/contract/api";
+import { judgmentSummaryQuery } from "@/api/judgments";
 import type { DocumentDetail } from "@/api/schemas";
 import { Stepper } from "@/components/ui";
 import { cn } from "@/lib/cn";
@@ -44,10 +46,12 @@ export function DocFrame({
 }) {
   const doc = useDocId();
   const { data, error } = useQuery({ ...documentDetailQuery(doc ?? ""), enabled: !!doc });
-  const stageNotes = { ...(data ? defaultNotes(data) : {}), ...notes };
+  // 판정 서버의 등급·미검토 수·저장 여부 (머리줄과 단계 띠). 판정 서버가 없으면 추출 쪽 정보로만 그린다
+  const judgment = useQuery({ ...judgmentSummaryQuery(doc ? [doc] : []), enabled: !!doc && data?.status === "done" }).data?.[0];
+  const stageNotes = { ...(data ? defaultNotes(data, judgment) : {}), ...notes };
   return (
     <>
-      <AppHeader doc={data ? stem(data.filename) : (doc ?? undefined)} note={data && headerNote(data)} width={width} />
+      <AppHeader doc={data ? headerTitle(data) : (doc ?? undefined)} note={data && headerNote(data, judgment)} width={width} />
       <div className="border-b border-line bg-white print:hidden">
         <div className={cn("mx-auto px-8", width)}>
           <Stepper steps={STAGES.map((s) => ({ ...s, note: stageNotes[s.id] }))} current={stage} />
@@ -74,11 +78,46 @@ function stem(filename: string) {
   return filename.replace(/\.pdf$/i, "");
 }
 
-function headerNote(doc: DocumentDetail) {
-  const pages = doc.page_count ? `${doc.page_count}쪽` : "쪽 수 확인 중";
-  return `${doc.filename} · ${pages} · ${formatBytes(doc.size)}`;
+/** 머리줄 제목: "T21-025 황산 MSDS" (제품명이 아직 없으면 파일 이름) */
+function headerTitle(doc: DocumentDetail) {
+  return doc.product_name ? `${doc.id} ${doc.product_name} MSDS` : stem(doc.filename);
 }
 
-function defaultNotes(doc: DocumentDetail): Partial<Record<Stage, string>> {
-  return { extract: stageNote(doc), review: doc.status === "done" ? undefined : "· 추출이 끝나면 열림" };
+const VALUES_LABEL = { 미검수: "미검수", 일부: "일부 검수", 완료: "검수 완료" } as const;
+
+/** 머리줄 옆 글: "KZ-A-S004 · 14쪽 · 실버 · 미검수" (문서 코드·등급·추출값 검수는 서버가 주면 붙인다) */
+function headerNote(doc: DocumentDetail, judgment?: JudgmentBatchItem) {
+  const pages = doc.page_count ? `${doc.page_count}쪽` : "쪽 수 확인 중";
+  if (!doc.doc_code && !doc.values_review) return `${doc.filename} · ${pages} · ${formatBytes(doc.size)}`;
+  return [doc.doc_code ?? doc.filename, pages, judgment?.data_grade, doc.values_review && VALUES_LABEL[doc.values_review.state]].filter(Boolean).join(" · ");
+}
+
+/** 단계 띠 글: 추출은 진행 상태, 검수는 추출값 검수와 판정 상태, 저장은 저장본 번호 */
+function defaultNotes(doc: DocumentDetail, judgment?: JudgmentBatchItem): Partial<Record<Stage, string>> {
+  if (doc.status !== "done") return { extract: stageNote(doc), review: "· 추출이 끝나면 열림" };
+  const values =
+    doc.review_stage === "추출값 확인 중"
+      ? "추출값 확인 중"
+      : doc.values_review?.state === "완료"
+        ? "추출값 확인함"
+        : doc.values_review?.state === "일부"
+          ? "추출값 일부 확인"
+          : doc.review_stage === "판정으로 넘김"
+            ? "추출값 확인 건너뜀"
+            : undefined;
+  const verdict = !judgment
+    ? undefined
+    : judgment.state === "판정 중"
+      ? "판정 중"
+      : judgment.state === "판정 있음"
+        ? judgment.unreviewed > 0
+          ? `판정 미검토 ${judgment.unreviewed}건`
+          : "판정 모두 처리"
+        : undefined;
+  const review = [values, verdict].filter(Boolean).join(" · ");
+  return {
+    extract: stageNote(doc),
+    review: review ? `· ${review}` : undefined,
+    save: judgment?.saved_snapshot != null ? `· 저장본 ${judgment.saved_snapshot}` : undefined,
+  };
 }

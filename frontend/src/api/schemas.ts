@@ -9,11 +9,11 @@
  *   빠졌거나 모양이 다른 필드는 그 자리에서 오류로 알린다).
  * - 나중에 FastAPI 의 OpenAPI(/openapi.json) 와 이 파일을 맞대는 계약 시험으로 바꾼다.
  *
- * 진행의 기본 단위는 항목(MSDS 건 × 1~16항)이다. 추출은 항별로 동시에 돌아 쪽 단위 진행은 실제와 맞지 않는다.
+ * 진행의 기본 단위는 항목(MSDS 건 × 추출 대상 9개 항: 1·2·3·8·9·11·12·14·15)이다. 추출은 항별로 동시에 돌아 쪽 단위 진행은 실제와 맞지 않는다.
  * 항이 걸친 쪽(pages)은 원문 이동용으로만 같이 온다.
  */
 import { z } from "zod";
-import { queueFields } from "./contract/api";
+import { documentExtras, queueFields, reviewFieldExtras } from "./contract/api";
 
 /* ── 공통 값 ─────────────────────────────────────────────── */
 
@@ -22,10 +22,10 @@ export const jobStatusSchema = z.enum(["queued", "running", "done", "failed", "i
 export type JobStatus = z.infer<typeof jobStatusSchema>;
 
 /**
- * 작업 단계: 1 전처리, 2 항목 나누기, 3 모델 추출, 4 정리·검증. 끝나면 done, 시작 전이면 null.
+ * 작업 단계: 1 전처리, 2 항목 나누기, 3 모델 추출, 4 검증(checks), 5 정리. 끝나면 done, 시작 전이면 null (계약 6-screens 1.2·1.3: 4단계에 checks 를 더해 5단계).
  * 화면의 추출·검수·저장 단계(components/shell 의 Stage)와 다른 것이라 이름을 달리한다.
  */
-export const jobStageSchema = z.enum(["preprocess", "sections", "extract", "finalize", "done"]);
+export const jobStageSchema = z.enum(["preprocess", "sections", "extract", "checks", "finalize", "done"]);
 export type JobStage = z.infer<typeof jobStageSchema>;
 
 /** 항 상태. 사람이 볼 항인지는 needs_review 로 따로 온다 (성공했지만 검토가 필요한 항이 있다). */
@@ -37,7 +37,7 @@ export type TextLayer = z.infer<typeof textLayerSchema>;
 
 const count = z.int().nonnegative();
 const pageNo = z.int().positive();
-/** MSDS 항 번호 1~16 */
+/** MSDS 항 번호. 추출 대상은 9개 항뿐이지만, 예전에 16항으로 돌린 문서도 읽히도록 1~16을 받는다 */
 const sectionNo = z.int().min(1).max(16);
 /** 한 PDF 안의 MSDS 순번 (0부터) */
 const msdsIndex = z.int().nonnegative();
@@ -73,7 +73,7 @@ export type HealthResponse = z.infer<typeof healthResponseSchema>;
 /* ── 문서 한 줄 (목록) ─────────────────────────────────── */
 
 export const sectionCountsSchema = z.object({
-  /** MSDS 건수 × 16. 항목을 나누기 전에는 0 */
+  /** MSDS 건수 × 9 (추출 대상 항). 항목을 나누기 전에는 0 */
   total: count,
   queued: count,
   running: count,
@@ -82,6 +82,19 @@ export const sectionCountsSchema = z.object({
   needs_review: count,
 });
 export type SectionCounts = z.infer<typeof sectionCountsSchema>;
+
+/** 추출 이후의 스키마·공식 검증 요약. 구버전 서버는 이 값을 보내지 않을 수 있다. */
+export const validationSummarySchema = z.object({
+  status: z.enum(["passed", "needs_review", "invalid", "unavailable"]),
+  schema_errors: count.optional(),
+  validator_errors: count.optional(),
+  validator_warnings: count.optional(),
+  validator_exceptions: count.optional(),
+  failed_sections: z.array(z.object({ msds_index: msdsIndex, section: sectionNo })).optional(),
+  needs_review: z.array(z.object({ msds_index: msdsIndex, section: sectionNo })).optional(),
+  unmapped_findings: z.array(z.unknown()).optional(),
+});
+export type ValidationSummary = z.infer<typeof validationSummarySchema>;
 
 export const documentSummarySchema = z.object({
   /** U-<날짜>-<순번> */
@@ -103,10 +116,10 @@ export const documentSummarySchema = z.object({
   text_layer: textLayerSchema.nullable(),
   /** 문서 안 MSDS 건수. 항목을 나눈 뒤에 온다 */
   msds_count: count.nullable(),
-  /** 1~4. 시작 전이면 0, 끝났으면 4 */
-  stage_index: z.int().min(0).max(4),
-  stage_total: z.literal(4),
-  /** "9 / 16항" 은 counts.done / counts.total */
+  /** 1~5. 시작 전이면 0, 끝났으면 5 (서버가 아직 4단계로 보내는 동안에도 받는다) */
+  stage_index: z.int().min(0).max(5),
+  stage_total: z.union([z.literal(4), z.literal(5)]),
+  /** "9 / 9항" 은 counts.done / counts.total */
   counts: sectionCountsSchema,
   /** POST /retry 로 다시 돌릴 수 있는가: 실패·멈춘 문서, 또는 끝났지만 실패한 항이 있는 문서 */
   can_retry: z.boolean(),
@@ -115,6 +128,13 @@ export const documentSummarySchema = z.object({
    * 서버가 보내기 시작하면 계약대로 필수로 바꾼다.
    */
   ...queueFields.partial().shape,
+  /**
+   * 제품명·문서 코드·개정일·혼합물(성분 수)·추출값 검수 진행 (계약 document_extras, A2).
+   * 서버가 아직 보내지 않는 동안에도 받도록 선택으로 둔다. 없으면 화면은 파일 이름만 보인다.
+   */
+  ...documentExtras.partial().shape,
+  /** 최종 검사 요약. 없거나 null이면 검증 결과를 확인할 수 없다. */
+  validation: validationSummarySchema.nullable().optional(),
 });
 export type DocumentSummary = z.infer<typeof documentSummarySchema>;
 
@@ -147,6 +167,7 @@ export const runSummarySchema = z.object({
   sections_failed: count,
   reextracted: count,
   schema_errors: count,
+  validation: validationSummarySchema.nullable().optional(),
 });
 export type RunSummary = z.infer<typeof runSummarySchema>;
 
@@ -233,6 +254,7 @@ export const resultResponseSchema = z.object({
   /** 사람이 볼 항: 실패, 검사 문제, 펼치기 문제, 그림문자 대조 불일치 */
   needs_review: z.array(sectionRefSchema),
   warnings: z.array(z.string()),
+  validation: validationSummarySchema.nullable().optional(),
   /** validate_to21 (TO21 스키마 검증 문장) */
   schema_errors: z.array(z.string()),
   /** TO21 검증기 V01~V23 */
@@ -313,6 +335,8 @@ export const reviewFieldSchema = z.object({
   source_text: z.string().nullable(),
   /** TO21 검증기 문제 */
   problems: z.array(z.string()),
+  /** 신뢰도 낮음·검사 실패 표시와 문장 (계약 review_field_extras, A2). 서버가 아직 보내지 않는 동안에도 받는다 */
+  ...reviewFieldExtras.partial().shape,
 });
 export type ReviewField = z.infer<typeof reviewFieldSchema>;
 

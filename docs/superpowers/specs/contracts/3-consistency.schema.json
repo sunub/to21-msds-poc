@@ -1,0 +1,829 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://to21-msds-poc.local/contracts/3-consistency.schema.json",
+  "title": "약속 ③ 판정 결과 (B1 judge() → B2)",
+  "description": "judge(extraction: 추출스키마 v0.6 문서, as_of: date, provider) -> 이 JSON. 상태가 없고 DB에 쓰지 않는다. 같은 입력·같은 버전이면 바이트까지 같아야 한다(키 정렬 직렬화 기준). 설계서 v0.4 '결과 구조(consistency 블록)'를 따르되 (1) 한 PDF의 msds 여러 건을 results[] 로 담고 (2) review·explanation 은 넣지 않는다 (B2가 따로 쌓는다).",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contract",
+    "doc_id",
+    "as_of",
+    "engine_version",
+    "knowledge",
+    "results"
+  ],
+  "properties": {
+    "contract": {
+      "const": "consistency/2"
+    },
+    "doc_id": {
+      "description": "extraction.doc.doc_id 그대로",
+      "type": "string"
+    },
+    "as_of": {
+      "$ref": "common.schema.json#/$defs/date"
+    },
+    "engine_version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "knowledge": {
+      "$ref": "common.schema.json#/$defs/knowledge"
+    },
+    "results": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/msds_result"
+      }
+    }
+  },
+  "$defs": {
+    "msds_result": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "msds_index",
+        "msds_revision_date",
+        "product_type",
+        "summary",
+        "findings",
+        "traces",
+        "limitations",
+        "components"
+      ],
+      "properties": {
+        "msds_index": {
+          "$ref": "common.schema.json#/$defs/msds_index"
+        },
+        "msds_revision_date": {
+          "description": "meta.last_revision_date, 없으면 first_issue_date (설계서 v0.4 '입력 데이터 매핑')",
+          "anyOf": [
+            {
+              "$ref": "common.schema.json#/$defs/date"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "product_type": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "value",
+            "basis"
+          ],
+          "properties": {
+            "value": {
+              "enum": [
+                "단일물질",
+                "혼합물",
+                "불명확"
+              ]
+            },
+            "basis": {
+              "type": "string"
+            }
+          }
+        },
+        "summary": {
+          "description": "findings 의 verdict 별 개수",
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "일치",
+            "불일치",
+            "경계",
+            "근거부족",
+            "경고",
+            "참고",
+            "범위 외"
+          ],
+          "properties": {
+            "일치": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "불일치": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "경계": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "근거부족": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "참고": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "범위 외": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "경고": {
+              "type": "integer",
+              "minimum": 0
+            }
+          }
+        },
+        "findings": {
+          "description": "finding.id 오름차순으로 정렬 (같은 입력이면 같은 순서)",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/finding"
+          }
+        },
+        "traces": {
+          "description": "trace_id → trace",
+          "type": "object",
+          "propertyNames": {
+            "pattern": "^T-\\d{4,}$"
+          },
+          "additionalProperties": {
+            "$ref": "#/$defs/trace"
+          }
+        },
+        "limitations": {
+          "description": "제약사항·검토 필요 문장 (설계서 v0.4 '구성성분별 판단 요약'의 제약사항). 근거부족·경계·가정 사유를 모은다",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "finding_id",
+              "text"
+            ],
+            "properties": {
+              "finding_id": {
+                "anyOf": [
+                  {
+                    "$ref": "common.schema.json#/$defs/finding_id"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "text": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "components": {
+          "description": "성분별 판단 요약 (설계서 v0.4 화면 예시 ④, 화면 '성분별 요약' 탭). 단일물질이면 한 줄",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/component_summary"
+          }
+        }
+      }
+    },
+    "finding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "section",
+        "kind",
+        "item",
+        "comp",
+        "msds",
+        "expected",
+        "verdict",
+        "type",
+        "severity",
+        "rule",
+        "causes",
+        "trace_id",
+        "needs_explanation",
+        "label",
+        "method",
+        "out_of_scope_reason",
+        "law_label",
+        "reason"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "common.schema.json#/$defs/finding_id"
+        },
+        "section": {
+          "enum": [
+            "2",
+            "15"
+          ]
+        },
+        "kind": {
+          "description": "class = 2항 유해성 분류 / label = 2항 표시 요소 / regulation = 15항 규제 / dangerous_goods = 15항 위험물 / product_type = 단일·혼합 판별",
+          "enum": [
+            "class",
+            "label",
+            "regulation",
+            "dangerous_goods",
+            "product_type"
+          ]
+        },
+        "item": {
+          "description": "class: class_code / label: H코드·그림문자 코드·SIGNAL / regulation: '<law>.<item_code>' / dangerous_goods: 'DG' / product_type: 'TYPE'",
+          "type": "string"
+        },
+        "comp": {
+          "description": "성분 단위 판정이면 그 성분. 제품 전체면 null",
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "comp_ref",
+                "cas",
+                "name"
+              ],
+              "properties": {
+                "comp_ref": {
+                  "description": "추출스키마 comp_ref (성분 seq 또는 'MIX')",
+                  "type": "string"
+                },
+                "cas": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "name": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        "msds": {
+          "description": "MSDS 기재값. 없으면 present=false",
+          "$ref": "#/$defs/side",
+          "unevaluatedProperties": false
+        },
+        "expected": {
+          "description": "엔진의 검증 결과. 함량 범위로 갈리면 low·high 가 다르고 status=경계",
+          "allOf": [
+            {
+              "$ref": "#/$defs/side"
+            },
+            {
+              "type": "object",
+              "required": [
+                "status"
+              ],
+              "properties": {
+                "status": {
+                  "enum": [
+                    "확정",
+                    "경계",
+                    "근거부족"
+                  ]
+                },
+                "low": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "high": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
+              }
+            }
+          ],
+          "unevaluatedProperties": false
+        },
+        "verdict": {
+          "$ref": "common.schema.json#/$defs/verdict"
+        },
+        "type": {
+          "$ref": "common.schema.json#/$defs/mismatch_type"
+        },
+        "severity": {
+          "$ref": "common.schema.json#/$defs/severity"
+        },
+        "rule": {
+          "description": "적용 규칙 ID (규칙표 v0.3 rule_id). 없으면 null",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "causes": {
+          "type": "array",
+          "items": {
+            "$ref": "common.schema.json#/$defs/cause_code"
+          },
+          "uniqueItems": true,
+          "description": "차이 원인 코드. 설명 문장은 trace.cause_texts 에 있다"
+        },
+        "trace_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^T-\\d{4,}$"
+        },
+        "needs_explanation": {
+          "description": "verdict 가 불일치·경계·근거부족이면 true. B2는 이것만 설명을 만든다",
+          "type": "boolean"
+        },
+        "label": {
+          "description": "항목 이름 (화면 표의 '유해성 항목'·'규제 항목'). 예: 급성 독성 (흡입), 유독물질. B1이 규칙표 class_map·reg_map 에서 붙인다",
+          "type": "string",
+          "minLength": 1
+        },
+        "method": {
+          "description": "판정 방법 (화면 2.3 '판정 방법' 열). 예: ATEmix 계산, 기준 분류 비교, 9항 시험값, M-factor 가산, 별표2 매핑, 규제DB 대조, 인화점 판정",
+          "type": "string",
+          "minLength": 1
+        },
+        "out_of_scope_reason": {
+          "$ref": "common.schema.json#/$defs/out_of_scope_reason"
+        },
+        "law_label": {
+          "description": "15항이면 법령 표시 이름, 2항이면 null",
+          "anyOf": [
+            {
+              "$ref": "common.schema.json#/$defs/law_label"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "reason": {
+          "description": "엔진이 적은 판정 이유 원문. 화면 '판정 근거'의 첫 줄",
+          "type": "string"
+        }
+      }
+    },
+    "side": {
+      "description": "한쪽(MSDS 기재 또는 검증 결과)의 값. kind 에 따라 쓰는 칸이 다르다",
+      "type": "object",
+      "properties": {
+        "present": {
+          "type": "boolean"
+        },
+        "category": {
+          "description": "class: 구분 ('1','1A','2' …)",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "route_form": {
+          "$ref": "common.schema.json#/$defs/route_form"
+        },
+        "code": {
+          "description": "label: H코드·그림문자 코드·신호어",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "applicable": {
+          "description": "regulation: 해당 여부",
+          "anyOf": [
+            {
+              "$ref": "common.schema.json#/$defs/applicable"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "threshold": {
+          "description": "regulation: 기준 농도 (TO21 Q 구조)",
+          "anyOf": [
+            {
+              "$ref": "common.schema.json#/$defs/Q"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "content": {
+          "description": "regulation·class: 판정에 쓴 성분 함량 (TO21 Q 구조)",
+          "anyOf": [
+            {
+              "$ref": "common.schema.json#/$defs/Q"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "dg": {
+          "description": "dangerous_goods: 류·품명·수용성·등급",
+          "type": [
+            "object",
+            "null"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "class": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "item": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "water_soluble": {
+              "type": [
+                "boolean",
+                "null"
+              ]
+            },
+            "grade": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        },
+        "product_type": {
+          "enum": [
+            "단일물질",
+            "혼합물",
+            "불명확",
+            null
+          ]
+        },
+        "source": {
+          "description": "expected 쪽: 기준정보 출처 (예: KR02 환경부, TO21 독성DB, MSDS 11항)",
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "$ref": "common.schema.json#/$defs/evidence_ref"
+          }
+        },
+        "effective_from": {
+          "description": "regulation: 규제 시행일 (화면 2.4 '시행 2025-01-01'). 구버전 판정은 설계서 v0.4 D-09가 PoC 제외라 PoC에서는 null 이 기본 (contracts/6-screens.md 미결 1)",
+          "anyOf": [
+            {
+              "$ref": "common.schema.json#/$defs/date"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "present"
+      ]
+    },
+    "trace": {
+      "description": "판정 근거 (설계서 v0.4 'trace 반환 규격'). 계산이 없는 판정(단순 조회·비교)은 steps 만 채운다. 계산 종류마다 칸이 달라 inputs·thresholds 의 칸을 강제하지 않는다. 설명 요청이 이 근거를 쓴다 (우진 실측, contracts/README.md 7절)",
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "kind",
+        "rule",
+        "inputs",
+        "thresholds",
+        "assumptions",
+        "knowledge_version",
+        "steps"
+      ],
+      "properties": {
+        "kind": {
+          "enum": [
+            "mixture_calc",
+            "reference_lookup",
+            "regulation_check",
+            "label_check",
+            "dg_check",
+            "product_type"
+          ]
+        },
+        "class_code": {
+          "anyOf": [
+            {
+              "$ref": "common.schema.json#/$defs/class_code"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "form": {
+          "$ref": "common.schema.json#/$defs/route_form"
+        },
+        "result": {
+          "type": "object",
+          "additionalProperties": true,
+          "required": [
+            "low",
+            "high",
+            "status"
+          ],
+          "properties": {
+            "low": {},
+            "high": {},
+            "status": {
+              "enum": [
+                "확정",
+                "경계",
+                "근거부족"
+              ]
+            }
+          }
+        },
+        "rule": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "id",
+            "basis"
+          ],
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "basis": {
+              "description": "예: 고시 별표1",
+              "type": "string"
+            },
+            "formula": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        },
+        "inputs": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "calc": {
+          "description": "계산값 (합계·ATEmix·미상 % 등). 계산마다 칸이 달라 자유 형식",
+          "type": [
+            "object",
+            "null"
+          ]
+        },
+        "thresholds": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "assumptions": {
+          "description": "가정값과 결정 ID (예: {'id':'D-07','text':'M=1 가정'}). 설계서 v0.4 미결사항의 가정도 여기에 남긴다",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "text"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "text": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "knowledge_version": {
+          "type": "string"
+        },
+        "steps": {
+          "description": "사람이 읽는 계산 순서 (설계서 v0.4 설명 요청 예시의 trace 배열). 설명 요청에 그대로 들어간다",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "step"
+            ],
+            "properties": {
+              "step": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "cause_texts": {
+          "description": "원인 코드별 문장 (설명 요청에 그대로 들어간다)",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "code",
+              "text"
+            ],
+            "properties": {
+              "code": {
+                "$ref": "common.schema.json#/$defs/cause_code"
+              },
+              "text": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "basis_lines": {
+          "description": "화면 '판단 근거' 줄의 재료",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "calc_lines": {
+          "description": "화면 '계산 과정' 줄의 재료",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "component_summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "comp_ref",
+        "name",
+        "cas",
+        "content",
+        "reference_classes",
+        "ate",
+        "regulation_hits",
+        "reliability",
+        "notes"
+      ],
+      "properties": {
+        "comp_ref": {
+          "type": "string"
+        },
+        "name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "cas": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "content": {
+          "description": "함량 (TO21 Q)",
+          "anyOf": [
+            {
+              "$ref": "common.schema.json#/$defs/Q"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "reference_classes": {
+          "description": "기준 분류 (출처별). 예: 피부1 (KR02 환경부)",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "class_code",
+              "category",
+              "route_form",
+              "source"
+            ],
+            "properties": {
+              "class_code": {
+                "$ref": "common.schema.json#/$defs/class_code"
+              },
+              "category": {
+                "type": "string"
+              },
+              "route_form": {
+                "$ref": "common.schema.json#/$defs/route_form"
+              },
+              "source": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "ate": {
+          "description": "사용 ATE (경로별, 몇 단계에서 가져왔는지). 제외면 excluded",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "route",
+              "value",
+              "unit",
+              "form",
+              "source",
+              "step",
+              "excluded"
+            ],
+            "properties": {
+              "route": {
+                "enum": [
+                  "oral",
+                  "dermal",
+                  "inhal"
+                ]
+              },
+              "value": {
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "unit": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "form": {
+                "$ref": "common.schema.json#/$defs/route_form"
+              },
+              "source": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "step": {
+                "type": [
+                  "integer",
+                  "null"
+                ]
+              },
+              "excluded": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            }
+          }
+        },
+        "regulation_hits": {
+          "description": "15항 '해당' 판정 수",
+          "type": "integer",
+          "minimum": 0
+        },
+        "reliability": {
+          "description": "자료 신뢰도 (화면 ④ '자료' 열)",
+          "enum": [
+            "높음",
+            "보통",
+            "낮음"
+          ]
+        },
+        "notes": {
+          "description": "성분 상세에 보일 ATE 수집 순서·가정 문장",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

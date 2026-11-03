@@ -1,0 +1,43 @@
+# version: f0.1 | source: 규칙표 v0.3 reg_map.csv(RM-01~37) · 명세서 v0.6 13_TO21DB매핑 F절 · 추출 스키마 v0.6 item_code | checked_by: | checked_date: | effective_from:
+# 지식DB 세부규제(REGULATE_ITEM_ID) → 추출 15항 항목 코드(item_code). 15항 판정(sec15_judge)과 규제 지식 제공자(htodb/regulation)가 읽는다.
+# kind: compare=함량·기준으로 판정 / compare_human=판정하되 MSDS가 비해당이면 단정하지 않고 경계 / reference=15항 기재 대상 아님(비교하지 않음) / status_only=규제 의무가 아닌 지위 정보(MSDS가 적었을 때만 비교)
+#       new_cca=2025 화관법 개정 세분 항목(MSDS가 세분 코드를 하나라도 쓸 때만 비교, 아니면 구버전 참고) / dg=제품 단위 위험물 / waste=제품 단위 폐기물(참고)
+# threshold_field: STD=STD_VALUE_PRIMARY(+SIGN·UNIT) / RESEARCH=RESEARCH_RANGE_STD(+SIGN·UNIT) / PSM=물질군 이름의 "중량 N% 이상" 또는 RESEARCH_RANGE / none=함량 기준 없음
+rule_id,law_code,law,msds_section,regulate_item_id,db_item_name,item_code,kind,threshold_field,source,note
+RM-01,OSH,산안법,가,KR001001001,금지대상 유해물질,OSH_PROHIBIT,compare_human,STD,규칙표 v0.3 RM-01,금지물질은 제품 형태 조건이 붙는 경우가 있어(예: 벤젠을 함유하는 고무풀 5% 초과) 함량만으로 누락을 단정하지 않음 → 경계(11/02 F 결정 6)
+RM-02,OSH,산안법,가,KR001001002,허가대상 유해물질,OSH_PERMIT,compare,STD,규칙표 v0.3 RM-02,
+RM-03,OSH,산안법,가,KR001001003,노출기준 설정물질,OSH_EXPOSURE_STD,compare,none,규칙표 v0.3 RM-03,노출기준 값은 8항(범위 밖). RESEARCH_* 칸은 함량 기준이 아니라 노출기준 값
+RM-04,OSH,산안법,가,KR001001004,관리대상 유해물질,OSH_MANAGED,compare,STD,규칙표 v0.3 RM-04,
+RM-05,OSH,산안법,가,KR001001005,작업환경 측정물질,OSH_MEASURE,compare,STD,규칙표 v0.3 RM-05,기준 단위 vol%/wt% 혼재 → 중량%로 비교(설계서 미결 7)
+RM-06,OSH,산안법,가,KR001001006,특수건강 진단대상 유해인자,OSH_HEALTH_EXAM,compare,STD,규칙표 v0.3 RM-06,기준 단위 vol%/wt% 혼재 → 중량%로 비교(설계서 미결 7)
+RM-07,OSH,산안법,가,KR001001007,특별관리물질,OSH_SPECIAL,compare,STD,규칙표 v0.3 RM-07 · 스키마 v0.6,
+RM-08,OSH,산안법,가,KR001001008,허용기준 준수물질,OSH_PERMISSIBLE,compare,none,규칙표 v0.3 RM-08,RESEARCH_* 칸은 허용기준 값
+RM-09,OSH,산안법,가,KR001001009,공정안전관리(PSM) 대상물질,OSH_PSM,compare,PSM,규칙표 v0.3 RM-09,규정량(kg)은 수량 기준. 함량 기준은 물질군 이름에서 읽음
+RM-10,OSH,산안법,가,KR001001010,국소배기장치의 안전검사 대상 유해물질,,reference,none,규칙표 v0.3 RM-10,15항 기재 대상 아님
+RM-11,OSH,산안법,가,KR001001011,국소배기 설치대상 유해물질,,reference,none,규칙표 v0.3 RM-11,15항 기재 대상 아님
+RM-12,OSH,산안법,가,KR001001012,신규화학물질,,reference,none,규칙표 v0.3 RM-12,산안법 신규화학물질 — 참고
+RM-13,WASTE,폐기물관리법,마,KR002002001,폐유기용제,WASTE_DESIG,waste,none,규칙표 v0.3 RM-13,제품 단위 — 폐기물 판정 규칙 없음(참고)
+RM-14,WASTE,폐기물관리법,마,KR002002002,지정폐기물,WASTE_DESIG,waste,none,규칙표 v0.3 RM-14,제품 단위 — 폐기물 판정 규칙 없음(참고)
+RM-15,KREACH,화평법,다,KR002008001,등록대상기존화학물질,KREACH_REG,compare,STD,규칙표 v0.3 RM-15,
+RM-16,KREACH,화평법,다,KR002008002,등록 또는 신고 면제대상 화학물질,KREACH_ETC,status_only,none,규칙표 v0.3 RM-16,면제·신규 지위 정보(11/01 F 결정 3)
+RM-17,KREACH,화평법,다,KR002008003,중점관리물질,KREACH_PRIORITY,compare,STD,규칙표 v0.3 RM-17,
+RM-18,KREACH,화평법,다,KR002008004,CMR기존화학물질,KREACH_CMR,compare,STD,규칙표 v0.3 RM-18,
+RM-19,KREACH,화평법,다,KR002008007,신규화학물질,KREACH_ETC,status_only,none,규칙표 v0.3 RM-19,면제·신규 지위 정보(11/01 F 결정 3)
+RM-20,KREACH,화평법,다,KR002008009,기존화학물질,KREACH_EXIST,status_only,none,규칙표 v0.3 RM-20,규제 의무가 아닌 지위 정보(11/01 F 결정 3)
+RM-21,CCA,화관법,나,KR002009001,유독물질,CCA_TOXIC,compare,STD,규칙표 v0.3 RM-21,개정 전 구분류
+RM-22,CCA,화관법,나,KR002009001_1,인체 급성 유해성 물질,CCA_ACUTE,new_cca,STD,규칙표 v0.3 RM-22,2025 개정 세분(11/01 F 결정 1)
+RM-23,CCA,화관법,나,KR002009001_2,인체 만성 유해성 물질,CCA_CHRONIC,new_cca,STD,규칙표 v0.3 RM-23,2025 개정 세분(11/01 F 결정 1)
+RM-24,CCA,화관법,나,KR002009001_3,생태 유해성물질,CCA_ECO,new_cca,STD,규칙표 v0.3 RM-24,2025 개정 세분(11/01 F 결정 1)
+RM-25,CCA,화관법,나,KR002009003,제한물질,CCA_RESTRICT,compare,STD,규칙표 v0.3 RM-25,
+RM-26,CCA,화관법,나,KR002009004,금지물질,CCA_PROHIBIT,compare,STD,규칙표 v0.3 RM-26,
+RM-27,CCA,화관법,나,KR002009005,사고대비물질,CCA_ACCIDENT,compare,STD,규칙표 v0.3 RM-27,
+RM-28,CCA,화관법,나,KR002009006,PRTR물질,CCA_PRTR,compare,RESEARCH,규칙표 v0.3 RM-28,함량 기준은 RESEARCH_RANGE_STD
+RM-29,CCA,화관법,나,KR002009010,배출저감계획서 제출 대상 물질,,reference,none,규칙표 v0.3 RM-29,15항 참고
+RM-30,CCA,화관법,나,KR002009011,택배운송금지물질,,reference,none,규칙표 v0.3 RM-30,15항 참고
+RM-31,CCA,화관법,나,KR002009012,환각물질,CCA_HALLUC,compare,STD,규칙표 v0.3 RM-31 · 스키마 v0.6,
+RM-32,DG,위험물안전관리법,라,KR004001001,제1류,DG_HAZMAT,dg,none,규칙표 v0.3 RM-32,제품 단위(설계서 29장)
+RM-33,DG,위험물안전관리법,라,KR004001002,제2류,DG_HAZMAT,dg,none,규칙표 v0.3 RM-33,제품 단위(설계서 29장)
+RM-34,DG,위험물안전관리법,라,KR004001003,제3류,DG_HAZMAT,dg,none,규칙표 v0.3 RM-34,제품 단위(설계서 29장)
+RM-35,DG,위험물안전관리법,라,KR004001004,제4류,DG_HAZMAT,dg,none,규칙표 v0.3 RM-35,"품명=CHEM_GROUP_NAME, 지정수량=STD_VALUE_PRIMARY(ℓ)"
+RM-36,DG,위험물안전관리법,라,KR004001005,제5류,DG_HAZMAT,dg,none,규칙표 v0.3 RM-36,제품 단위(설계서 29장)
+RM-37,DG,위험물안전관리법,라,KR004001006,제6류,DG_HAZMAT,dg,none,규칙표 v0.3 RM-37,제품 단위(설계서 29장)

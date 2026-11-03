@@ -8,6 +8,7 @@ from msds.checks.validator import run_to21_validator
 from msds.common.merge import DICTIONARY_VERSION, SCHEMA_VERSION
 from msds.common.schema import load_schema, msds_item_schema, validate, validate_to21
 from msds.extract import expand as ex
+from msds.extract.inputs import EXTRACT_SECTIONS
 from msds.extract import rows as rw
 from msds.extract import section_specs as ss
 from msds.extract.inputs import Line, line_index
@@ -47,8 +48,18 @@ LINES = [
     L("p5:L5", "가상 추가 물성 1.20"),
     L("p5:L8", "가상물질 을 | 경구 LD50 > 2000 mg/kg (랫드)"),
     L("p5:L10", "IARC 3군"),
+    L("p5:L12", "인화 또는 폭발 범위의 상한/하한 | 4.0~76% | 자료없음"),
+    L("p5:L13", "인화점 | 자료없음 | 자료없음"),
+    L("p5:L14", "인화 또는 폭발 범위의 상한/하한 75 / 4 %"),
+    L("p5:L15", "인화 또는 폭발 범위의 상한/하한 | 자료없음"),
+    L("p5:L16", "폭발상한(UEL) 8.0vol%"),
+    L("p5:L17", "폭발하한(LEL) 1.2vol%"),
+    L("p5:L18", "pH | 7.0 | 자료없음"),
     L("p6:L5", "UN 번호 : 해당없음"),
     L("p6:L10", "작업환경측정대상물질 : 해당"),
+    L("p6:L11", "2)화학물질관리법에 의한 규제 : 해당 없음"),
+    L("p6:L12", "나.유해화학물질관리법에 의한 규제 자료없음"),
+    L("p6:L13", "등록대상기존화학물질 : 가상-0001"),
     L("p7:L3", "최종 개정일자 : 2024-05-01"),
 ]
 
@@ -307,7 +318,7 @@ def test_empty_msds_is_valid(no_conventions):
     doc, problems = ex.to_to21(DOC_META, [{}], LINES, "e")
     assert validate_to21(doc) == []
     assert [(p["msds_index"], p["section"], p["kind"]) for p in problems] == \
-           [(0, n, "missing_section") for n in range(1, 17)]
+           [(0, n, "missing_section") for n in EXTRACT_SECTIONS]
     m = doc["msds"][0]
     assert list(m) == list(msds_item_schema()["properties"])
     assert all(v is None for v in m["meta"].values())
@@ -317,14 +328,14 @@ def test_empty_msds_is_valid(no_conventions):
 
 def test_none_sections_count_as_missing(no_conventions):
     _, problems = expand_one({n: None for n in range(1, 17)})
-    assert len(problems) == 16 and {p["kind"] for p in problems} == {"missing_section"}
+    assert len(problems) == len(EXTRACT_SECTIONS) and {p["kind"] for p in problems} == {"missing_section"}
 
 
 def test_two_msds(no_conventions):
     doc, problems = ex.to_to21(DOC_META, [responses(), {3: responses()[3]}], LINES, "e")
     assert doc["doc"]["msds_count"] == 2 and len(doc["msds"]) == 2
     assert {p["msds_index"] for p in problems} == {1}
-    assert len(problems) == 15
+    assert len(problems) == len(EXTRACT_SECTIONS) - 1          # 응답이 있는 3항만 빠진다
 
 
 def test_meta_from_16_overrides_section_1_dates():
@@ -443,7 +454,7 @@ def test_transport_rows_same_document_as_json(no_conventions, monkeypatch):
 
 
 def kreach(**kw) -> dict:
-    return {"law": "KREACH", "item_code": "KREACH_REG", "line": "p6:L10", **kw}
+    return {"law": "KREACH", "item_code": "KREACH_REG", "line": "p6:L13", **kw}
 
 
 def regulations_of(rows: list[dict]) -> list[dict]:
@@ -491,7 +502,7 @@ def test_regulation_law_from_item_code(no_conventions):
     regs = regulations_of([
         {"comp_name": None, "comp_cas": None, "law": None, "item_code": c, "applicable": "해당", "line": "p6:L10"}
         for c in ("INTL_US", "OSH_MEASURE", "KR_ETC", None)])
-    assert [r["law"] for r in regs] == ["INTL", "OSH", "KR_ETC", None]
+    assert [r["law"] for r in regs] == ["INTL", "OSH", "KR_ETC", None, "KREACH"]     # 끝은 R18 화평법 미기재 행
 
 
 def test_applicable_kreach_with_value_becomes_haedang(no_conventions):
@@ -662,12 +673,13 @@ def test_single_component_exposure_and_product_laws(no_conventions):
     r[3]["components"] = r[3]["components"][:1]
     r[8]["exposure_limits"][0]["comp_cas"] = None
     r[15]["regulations"] += [
-        {"comp_name": None, "comp_cas": None, "law": law, "item_code": code, "applicable": "비해당", "line": "p6:L10"}
-        for law, code in (("OSH", "OSH_PSM"), ("DG", "DG_HAZMAT"), (None, "WASTE_DESIG"))]   # 법령이 비면 항목 코드로
+        {"comp_name": None, "comp_cas": None, "law": law, "item_code": code, "applicable": "비해당", "line": line}
+        for law, code, line in (("OSH", "OSH_PSM", "p2:L5"), ("DG", "DG_HAZMAT", "p6:L10"),
+                                (None, "WASTE_DESIG", "p6:L10"))]   # 법령이 비면 항목 코드로. 근거 범위(p2~p6)에 성분이 나온다
     m, _ = expand_one(r)
     assert m["exposure_limits"][0]["comp_ref"] == "1"
     assert [(x["item_code"], x["comp_ref"]) for x in m["regulations"]] == [
-        ("OSH_MEASURE", "1"), ("OSH_PSM", "1"), ("DG_HAZMAT", "MIX"), ("WASTE_DESIG", "MIX")]
+        ("OSH_MEASURE", "1"), ("OSH_PSM", "1"), ("DG_HAZMAT", "MIX"), ("WASTE_DESIG", "MIX"), (None, "MIX")]   # 끝은 R18 행
 
 
 # ── 숫자 묶음 ──────────────────────────────────────────
@@ -886,13 +898,446 @@ def test_link_components_from_parent_line():
 
 
 def test_toxicity_descriptor_cleared_without_value(no_conventions):
-    """숫자가 없는 독성 행: 상태가 값 없음이면 지표를 비워 A의 규칙('결과기술'·'ATE')에 맡기고, 설명만 있는 행은
-    '결과기술'로 둔다. 골드는 숫자 없는 행을 모두 그렇게 적는다. 숫자가 있는 행의 지표는 그대로 둔다."""
+    """숫자가 없는 독성 행의 지표는 상태와 관계없이 '결과기술'이다. 혼합물 급성의 값 없는 행도 같다
+    (개발 골드 10건의 숫자 없는 독성 261행 모두. A 규칙의 'ATE'는 예제 1건에서 온 기본값이다).
+    숫자가 있는 행의 지표는 그대로 둔다. 설명만 있는 행(값있음)의 q는 비우고, q에만 적힌 글은 statements로 옮긴다
+    (골드 135행 모두 q 없음)."""
     r = responses()
     r[11]["toxicity"] += [
         {"comp_name": "가상물질 을", "comp_cas": None, "endpoint": "TX_DERMAL", "descriptor": "LD50", "status": "자료없음",
          "species": None, "q": {"raw": "자료없음"}, "statements": [], "line": "p5:L8"},
         {"comp_name": "가상물질 을", "comp_cas": None, "endpoint": "TX_SKIN", "descriptor": "Draize", "status": "값있음",
          "species": None, "q": None, "statements": [{"value": "비자극성", "line": "p5:L8"}], "line": "p5:L8"}]
+    r[11]["toxicity"].append({"comp_name": "가상물질 을", "comp_cas": None, "endpoint": "TX_EYE", "descriptor": None,
+                              "status": "값있음", "species": None, "q": {"raw": "가상 자극 없음"}, "statements": [],
+                              "line": "p5:L8"})
     m, _ = expand_one(r)
-    assert [x["descriptor"] for x in m["toxicity"]] == ["LD50", None, "결과기술"]
+    assert [x["descriptor"] for x in m["toxicity"]] == ["LD50", "결과기술", "결과기술", "결과기술"]
+    assert m["toxicity"][2]["q"] is None and m["toxicity"][3]["q"] is None
+    assert [s["value"] for s in m["toxicity"][3]["statements"]] == ["가상 자극 없음"]
+    assert m["toxicity"][1]["q"]["status"] == "자료없음"                 # 값 없는 행의 q(상태)는 둔다
+
+
+
+# ── 9항 폭발 범위(UEL·LEL)와 빈 값 ─────────────────────
+
+def phys_rows(r9_physchem, no_conv=True):
+    r = responses()
+    r[9]["physchem"] = r9_physchem
+    m, _ = expand_one(r)
+    return [(x["prop_code"], (x["q"] or {}).get("value"), (x["q"] or {}).get("unit"), (x["q"] or {}).get("status"),
+             (x["q"] or {}).get("lower"), (x["q"] or {}).get("upper")) for x in m["physchem"]]
+
+
+@pytest.mark.parametrize("row, want", [
+    ({"prop_code": None, "q": {"raw": "4.0~76%", "lower_op": ">=", "lower": 4.0, "upper_op": "<=", "upper": 76, "unit": "%"},
+      "line": "p5:L12"}, [("UEL", 76, "%", "값있음", None, None), ("LEL", 4.0, "%", "값있음", None, None)]),
+    ({"prop_code": "UEL", "q": {"raw": "75 / 4 %", "value": 75, "unit": "/ 4 %"}, "line": "p5:L14"},
+     [("UEL", 75, "%", "값있음", None, None), ("LEL", 4, "%", "값있음", None, None)]),
+    ({"prop_code": None, "q": {"raw": "자료없음"}, "line": "p5:L15"},
+     [("UEL", None, None, "자료없음", None, None), ("LEL", None, None, "자료없음", None, None)]),
+])
+def test_flammability_range_split_into_uel_lel(no_conventions, row, want):
+    """폭발 범위 상한/하한 한 줄은 UEL·LEL 두 행이다. UEL은 큰 숫자, LEL은 작은 숫자를 단일값으로 두고 원문 표기는
+    raw에 둔다(골드·실버 6건과 TO21 재생성 도구의 '상한/하한 X / Y' 표기). 상태어만 있으면 두 행 모두 그 상태다."""
+    assert phys_rows([row]) == want
+
+
+def test_flammability_rows_on_separate_lines_unchanged(no_conventions):
+    rows = [{"prop_code": "UEL", "q": {"raw": "8.0vol%", "value": 8.0, "unit": "vol%"}, "line": "p5:L16"},
+            {"prop_code": "LEL", "q": {"raw": "1.2vol%", "value": 1.2, "unit": "vol%"}, "line": "p5:L17"}]
+    assert phys_rows(rows) == [("UEL", 8.0, "vol%", "값있음", None, None), ("LEL", 1.2, "vol%", "값있음", None, None)]
+
+
+def test_split_pair_replaces_both_model_rows_on_same_line(no_conventions):
+    """모델이 같은 줄로 UEL·LEL을 모두 범위로 썼어도 두 행만 남는다."""
+    q = {"raw": "4.0~76%", "lower_op": ">=", "lower": 4.0, "upper_op": "<=", "upper": 76, "unit": "%"}
+    rows = [{"prop_code": "UEL", "q": q, "line": "p5:L12"}, {"prop_code": "LEL", "q": q, "line": "p5:L12"}]
+    assert phys_rows(rows) == [("UEL", 76, "%", "값있음", None, None), ("LEL", 4.0, "%", "값있음", None, None)]
+
+
+def test_blank_physchem_value_filled_from_line_status(no_conventions):
+    """값·글자가 모두 빈 물성 행은 근거 줄에서 이름 다음 칸이 상태어면 그 상태다 ('인화점 | 자료없음 | 자료없음').
+    상태어가 아닌 값(숫자 등)은 채우지 않는다."""
+    rows = [{"prop_code": "FLASH_POINT", "line": "p5:L13"}, {"prop_code": "PH", "line": "p5:L18"}]
+    assert phys_rows(rows) == [("FLASH_POINT", None, None, "자료없음", None, None), ("PH", None, None, None, None, None)]
+
+
+def test_lone_flammability_status_row_gets_partner(no_conventions):
+    """UEL만 있고 상태어뿐이면 LEL도 같은 상태다(골드의 상태어 행은 두 행이 같다). 숫자 하나뿐인 행은 짝을 만들지 않는다."""
+    assert phys_rows([{"prop_code": "UEL", "q": {"raw": "해당 없음"}, "line": "p5:L18"}]) == [
+        ("UEL", None, None, "해당없음", None, None), ("LEL", None, None, "해당없음", None, None)]
+    assert phys_rows([{"prop_code": "UEL", "q": {"raw": "8.0vol%", "value": 8.0, "unit": "vol%"}, "line": "p5:L16"}]) == [
+        ("UEL", 8.0, "vol%", "값있음", None, None)]
+
+
+@pytest.mark.parametrize("raw, unit", [("인화 상한값 15 %(V) 인화 하한값 5 %(V)", "%(V)"), ("1.6 ~ 12% (volume in air)", "%"),
+                                       ("8.0vol%/1.2vol%", "vol%"), ("1.4 ~ 11.7", None)])
+def test_flammability_pair_unit(raw, unit):
+    """단위는 마지막 숫자 뒤 표기다. 공백 뒤 괄호 설명은 떼고, 붙은 괄호(%(V))는 둔다 (골드 M001·M005·S016·M004)."""
+    uel, lel = ex._flammability_pair(raw)
+    assert uel["unit"] == unit == lel["unit"] and uel["value"] > lel["value"]
+
+
+def test_biological_exposure_limit_is_bei(no_conventions):
+    """8항 생물학적 노출기준은 기준 종류가 늘 BEI다 (골드·실버 33행 모두). 모델이 '기타'로 쓴 일이 있었다."""
+    r = responses()
+    r[8]["exposure_limits"] = [{"comp_name": None, "comp_cas": "1234-56-6", "standard": "생물학적", "limit_type": "기타",
+                                "q": {"raw": "25 ㎍/g", "value": 25, "unit": "ug/g"}, "line": "p4:L3"}]
+    m, _ = expand_one(r)
+    assert m["exposure_limits"][0]["limit_type"] == "BEI"
+
+
+# ── 8항 두 단위 값·단순 질식제, 3항 합계 행 ───────────────
+
+def el_rows(r8, conventions=False):
+    r = responses()
+    r[8]["exposure_limits"] = r8
+    m, _ = expand_one(r)
+    return [(x["standard"], x["limit_type"], (x["q"] or {}).get("value"), (x["q"] or {}).get("unit"), (x["q"] or {}).get("status"))
+            for x in m["exposure_limits"]]
+
+
+@pytest.mark.parametrize("raw", ["0.5 ppm (1.6 mg/m3)", "0.5 ppm (1.6 mg/m3"])
+def test_exposure_value_with_second_unit_split(no_conventions, raw):
+    """'0.5 ppm (1.6 mg/m3)'는 단위마다 한 행이다 (골드 S016, 실버 M002). 닫는 괄호가 빠져도 같다."""
+    row = {"comp_name": None, "comp_cas": "1234-56-6", "standard": "ACGIH", "limit_type": "TWA",
+           "q": {"raw": raw, "value": 0.5, "unit": "ppm"}, "line": "p4:L3"}
+    assert el_rows([row]) == [("ACGIH", "TWA", 0.5, "ppm", "값있음"), ("ACGIH", "TWA", 1.6, "mg/m3", "값있음")]
+
+
+def test_simple_asphyxiant_is_not_applicable(no_conventions):
+    """값이 '단순 질식제'뿐이면 수치 기준이 없는 것이라 상태는 해당없음이다 (골드 S003, 실버 S001·S003)."""
+    row = {"comp_name": None, "comp_cas": "1234-56-6", "standard": "ACGIH", "limit_type": None,
+           "q": {"raw": "단순 질식제"}, "line": "p4:L3"}
+    assert el_rows([row]) == [("ACGIH", None, None, None, "해당없음")]
+
+
+def test_total_component_row_is_dropped(no_conventions):
+    """성분표의 합계 행('Total | 100%')은 성분이 아니다. 골드·실버에 없고, 남기면 단일 성분 문서가 두 성분이 된다 (S001)."""
+    r = responses()
+    r[3]["components"] = r[3]["components"][:1] + [{"name": "Total", "cas_no": None, "content": {"raw": "100%", "value": 100, "unit": "%"},
+                                                    "line": "p2:L6"}]
+    r[8]["exposure_limits"][0]["comp_cas"] = None
+    m, _ = expand_one(r)
+    assert [c["name"] for c in m["components"]] == ["가상물질 갑"] and m["exposure_limits"][0]["comp_ref"] == "1"
+
+
+def test_exposure_value_none_word_is_not_applicable(no_conventions):
+    """노출기준 표의 '없음'은 기준이 없다는 뜻이라 해당없음이다 (골드 S013)."""
+    row = {"comp_name": None, "comp_cas": "1234-56-6", "standard": "국내", "limit_type": None, "q": {"raw": "없음"}, "line": "p4:L3"}
+    assert el_rows([row]) == [("국내", None, None, None, "해당없음")]
+
+
+def test_empty_component_row_is_dropped(no_conventions):
+    """이름도 CAS도 없는 성분 행은 버린다. 남기면 단일 성분 문서가 두 성분이 된다 (S001). 골드·실버에 이런 행은 없다."""
+    r = responses()
+    r[3]["components"] = r[3]["components"][:1] + [{"name": None, "cas_no": None, "line": "p2:L6"}]
+    r[8]["exposure_limits"][0]["comp_cas"] = None
+    m, _ = expand_one(r)
+    assert len(m["components"]) == 1 and m["exposure_limits"][0]["comp_ref"] == "1"
+
+
+def test_single_component_regulations_mix_when_section_never_names_it(no_conventions):
+    """성분이 하나여도 15항 원문(규제 행 근거 줄의 범위)에 그 성분 이름·CAS가 한 번도 없으면 15항 행은 제품 값(MIX)이다
+    (골드 S001·S003: 법령 단위 '화학물질관리법에 의한 규제 : 해당 없음'). 성분이 나오면 성분 번호다 (골드 S014·S016)."""
+    r = responses()
+    r[3]["components"] = r[3]["components"][:1]
+    r[15]["regulations"] = [{"comp_name": None, "comp_cas": None, "law": "OSH", "item_code": "OSH_MEASURE",
+                             "applicable": "해당", "line": "p6:L10"}]
+    m, _ = expand_one(r)
+    assert m["regulations"][0]["comp_ref"] == "MIX"                 # p6:L10 '작업환경측정대상물질 : 해당'
+    r[15]["regulations"][0]["line"] = "p2:L5"                        # '가상물질 갑 | 1234-56-6 | 10 ~ 20'
+    m, _ = expand_one(r)
+    assert m["regulations"][0]["comp_ref"] == "1"
+
+
+
+def reg_rows(r15, single=True):
+    r = responses()
+    if single:
+        r[3]["components"] = r[3]["components"][:1]
+    r[15]["regulations"] = r15
+    m, _ = expand_one(r)
+    return [(x["law"], x["item_code"], x["applicable"], x["comp_ref"]) for x in m["regulations"]]
+
+
+def test_kreach_unrecorded_row_added_when_absent(no_conventions):
+    """화평법 행이 하나도 없으면 'KREACH / 코드 없음 / 미기재 / MIX' 행을 하나 더한다 (R18, 골드 6건 모두).
+    화평법 행이 있으면 더하지 않는다."""
+    row = {"comp_name": "가상물질 갑", "comp_cas": None, "law": "OSH", "item_code": "OSH_MEASURE", "applicable": "해당", "line": "p6:L10"}
+    assert reg_rows([row], single=False) == [("OSH", "OSH_MEASURE", "해당", "1"), ("KREACH", None, "미기재", "MIX")]
+    kreach = {**row, "law": "KREACH", "item_code": "KREACH_REG", "line": "p6:L13"}
+    assert [x[0] for x in reg_rows([row, kreach], single=False)] == ["OSH", "KREACH"]
+
+
+def test_single_component_regulations_mix_even_if_model_names_component(no_conventions):
+    """15항 원문에 성분이 나오지 않으면 모델이 성분 칸에 적었어도 MIX다. 원문에 근거가 없는 성분 지정이다 (골드 S003)."""
+    row = {"comp_name": "가상물질 갑", "comp_cas": "1234-56-6", "law": "CCA", "item_code": "CCA_TOXIC", "applicable": "비해당",
+           "line": "p6:L11"}
+    assert reg_rows([row])[0][3] == "MIX"
+
+
+@pytest.mark.parametrize("line", ["p6:L11", "p6:L12"])
+def test_law_level_line_has_no_item_code(no_conventions, line):
+    """근거 줄이 '○○법에 의한 규제 : 해당 없음'처럼 법령 단위면 산안법·화관법·화평법 행의 항목 코드를 비운다 (골드 S001·S003).
+    위험물·폐기물은 코드를 둔다."""
+    rows = [{"comp_name": None, "comp_cas": None, "law": "CCA", "item_code": "CCA_PRTR", "applicable": "비해당", "line": line},
+            {"comp_name": None, "comp_cas": None, "law": "DG", "item_code": "DG_HAZMAT", "applicable": "비해당", "line": line}]
+    out = reg_rows(rows)
+    assert (out[0][1], out[1][1]) == (None, "DG_HAZMAT")
+
+
+def test_cmr_rows_without_agency_dropped(no_conventions):
+    """기관이 빈 CMR 행은 CMR에서 빼고 독성 행으로 옮긴다. 'PRODUCT : 분류되지않음', '발암성 : 자료없음' 같은 제품·항목 줄이라 기관 분류가 아니다
+    (개발 골드 10건의 CMR 61행은 모두 기관이 있다. 그 내용은 독성 표의 발암성 등에 있다)."""
+    r = responses()
+    r[11]["cmr"] = [
+        {"comp_name": None, "comp_cas": None, "hazard": "발암성", "agency": None, "class": None, "status": "자료없음",
+         "note": None, "line": "p5:L9"},
+        {"comp_name": "가상물질 갑", "comp_cas": "1234-56-6", "hazard": "발암성", "agency": "IARC", "class": "Group 3",
+         "status": "값있음", "note": None, "line": "p5:L9"}]
+    r[11]["cmr"].append({"comp_name": "가상물질 을", "comp_cas": None, "hazard": "생식세포변이원성", "agency": None, "class": None,
+                         "status": "값있음", "note": "가상 음성 결과", "line": "p5:L8"})
+    m, _ = expand_one(r)
+    assert [(x["agency"], x["class"]) for x in m["cmr"]] == [("IARC", "Group 3")]
+    assert [e["field"] for e in m["evidence"] if e["field"].startswith("cmr")] == ["cmr[0]"]
+    # 기관 없는 행은 독성 행으로 옮긴다 (골드 S013 'Methane : 음성 …' → TX_MUTA, '자료없음' → TX_CARC 자료없음)
+    moved = [(x["endpoint"], x["status"], [s["value"] for s in x["statements"]]) for x in m["toxicity"]
+             if x["endpoint"] in ("TX_CARC", "TX_MUTA")]
+    assert moved == [("TX_CARC", "자료없음", []), ("TX_MUTA", "값있음", ["가상 음성 결과"])]
+
+
+@pytest.mark.parametrize("line, want", [("p5:L10", "2B"), ("p5:L9", "Group 2B")])
+def test_cmr_group_prefix_only_when_written(no_conventions, line, want):
+    """CMR 등급은 원문 표기대로다. 근거 줄('IARC 3군')에 'Group'이 없는데 모델이 붙였으면 뗀다
+    (골드 M013 '2B' / S016 'Group 1'). 근거 줄을 모르면(p5:L9 없음) 그대로 둔다."""
+    r = responses()
+    r[11]["cmr"] = [{"comp_name": "가상물질 갑", "comp_cas": "1234-56-6", "hazard": "발암성", "agency": "IARC",
+                     "class": "Group 2B", "status": "값있음", "note": None, "line": line}]
+    m, _ = expand_one(r)
+    assert m["cmr"][0]["class"] == want
+
+
+@pytest.mark.parametrize("line, want", [("p5:L8", "2"), ("p6:L10", "2"), ("p2:L5", "1")])
+def test_link_name_and_cas_disagree(line, want):
+    """이름과 CAS가 서로 다른 성분을 가리키면 근거 줄에 적힌 쪽을 따르고, 둘 다 안 적혔으면 이름을 따른다.
+    모델이 '1,3 부타디엔 | 106-97-8'(부탄의 CAS)처럼 맞는 이름에 다른 성분의 CAS를 붙였다 (M004, 실행 8개 372행)."""
+    comps = [{"seq": 1, "name": "가상물질 갑", "cas_no": "1234-56-6"}, {"seq": 2, "name": "가상물질 을", "cas_no": "2345-67-7"}]
+    lines = {l.id: l for l in LINES}
+    row = {"comp_name": "가상물질 을", "comp_cas": "1234-56-6", "line": line}
+    assert ex.link_components([row], comps, lines)[0]["comp_ref"] == want
+
+
+@pytest.mark.parametrize("line, want", [("p6:L10", ["MIX"]), ("p2:L5", ["1", "2"])])
+def test_unnamed_line_rows_per_component_collapse_to_mix(no_conventions, line, want):
+    """근거 줄·부모 줄에 성분이 없는데 성분만 다르고 나머지가 같은 11·12항 행이 여럿이면 MIX 한 행이다
+    (골드: 성분 없는 줄의 독성·CMR·생태 행은 모두 MIX 한 행. M002 'ο 발암성 : 자료없음'을 모델이 성분마다 복제했다).
+    줄에 성분이 보이면 그대로 둔다."""
+    r = responses()
+    r[11]["cmr"] = [{"comp_name": n, "comp_cas": None, "hazard": "발암성", "agency": "IARC", "class": None,
+                     "status": "해당없음", "note": None, "line": line} for n in ("가상물질 갑", "가상물질 을")]
+    m, _ = expand_one(r)
+    assert [x["comp_ref"] for x in m["cmr"]] == want
+
+
+# ── 11·12항 extras → 독성·생태 행 (모델이 서술 행을 extras로 보냄) ─────
+
+X_LINES = [L("p9:L1", "나. 건강 유해성 정보"),
+           L("p9:L2", "o 피부 과민성 알레르기성 피부 반응을 일으킬 수 있음."),
+           L("p9:L3", "○ 발암성물질"),
+           L("p9:L4", "○ 생식독성"),
+           L("p9:L5", "  - 가상물질 을 : 자료없음"),
+           L("p9:L6", "라.토양이동성 자료없음"),
+           L("p9:L7", "* 경피 독성"),
+           L("p9:L8", "가.생분해성 : 자료 없음")]
+
+
+def x_rows(extras):
+    lines = {l.id: l for l in X_LINES}
+    moved, left = ex.extras_to_rows(extras, lines)
+    return {k: [(no, r["endpoint"], r["status"], r.get("comp_name"), (r.get("statements") or [{}])[0].get("value"))
+                for no, r in v] for k, v in moved.items()}, left
+
+
+def test_extras_to_rows_heading_lines():
+    """원문 줄이 독성·생태 항목명으로 시작하고 뒤에 값이 있으면 그 표의 서술 행으로 옮긴다 (M013 'o 피부 과민성 …').
+    값이 상태어 하나면 그 상태, 아니면 값있음. 제목만 있는 줄('○ 발암성물질', '* 경피 독성')과 생분해성은 옮기지 않는다."""
+    ext = [(11, {"title_raw": "o 피부 과민성 알레르기성 피부 반응을 일으킬 수 있음.", "reason": "코드없음", "line": "p9:L2"}),
+           (11, {"title_raw": "○ 발암성물질", "reason": "코드없음", "line": "p9:L3"}),
+           (11, {"title_raw": "* 경피 독성", "reason": "코드없음", "line": "p9:L7"}),
+           (12, {"title_raw": "라.토양이동성", "reason": "코드없음", "line": "p9:L6"}),
+           (12, {"title_raw": "가.생분해성", "reason": "코드없음", "line": "p9:L8"})]
+    moved, left = x_rows(ext)
+    assert moved["toxicity"] == [(11, "TX_SKIN_SENS", "값있음", None, "알레르기성 피부 반응을 일으킬 수 있음.")]
+    assert moved["ecotox"] == [(12, "ECO_SOIL", "자료없음", None, None)]
+    assert [r["line"] for _, r in left] == ["p9:L3", "p9:L7", "p9:L8"]
+
+
+def test_extras_to_rows_component_under_heading():
+    """제목이 성분인 extras('- 가상물질 을 : 자료없음')는 부모 줄의 항목명으로 옮기고 성분을 둔다."""
+    ext = [(11, {"title_raw": "- 가상물질 을", "reason": "코드없음", "comp_name": "가상물질 을",
+                 "statements": [{"value": "자료없음", "line": "p9:L5"}], "line": "p9:L5"})]
+    moved, left = x_rows(ext)
+    assert moved["toxicity"] == [(11, "TX_REPRO", "자료없음", "가상물질 을", None)] and left == []
+
+
+def test_extras_to_rows_skips_other_sections():
+    ext = [(9, {"title_raw": "o 피부 과민성 알레르기성", "reason": "코드없음", "line": "p9:L2"})]
+    moved, left = x_rows(ext)
+    assert moved == {"toxicity": [], "ecotox": []} and len(left) == 1
+
+
+
+def test_extras_to_rows_ecotox_only_status_values():
+    """생태는 값이 상태어 하나일 때만 옮긴다 ('잔류성 및 분해성'의 '및 분해성'을 값으로 읽지 않게)."""
+    lines = {l.id: l for l in [L("p9:L1", "나.잔류성 및 분해성"), L("p9:L2", "다.오존층 유해성 : 몬트리올 의정서 미등재")]}
+    moved, left = ex.extras_to_rows([(12, {"title_raw": "나.잔류성 및 분해성", "line": "p9:L1"}),
+                                     (12, {"title_raw": "다.오존층 유해성", "line": "p9:L2"})], lines)
+    assert moved["ecotox"] == [] and len(left) == 2
+
+
+# ── 15항 항목 코드: 근거 줄·제목 줄을 동의어 사전으로 (모델이 앞 제목의 코드를 붙이거나 지어냄) ─────
+
+R_LINES = [L("p10:L1", "가. 산업안전보건법에 의한 규제"),
+           L("p10:L2", "- 가상물질 갑 : 해당없음"),
+           L("p10:L3", "- 가상물질 을 : 노출기준 설정물질"),
+           L("p10:L4", "노출기준설정물질"),
+           L("p10:L5", "가상물질 갑 (CAS 1234-56-6)"),
+           L("p10:L6", "배출저감계획서 제출 대상 물질"),
+           L("p10:L7", "- 가상물질 갑 : 가상 비고"),
+           L("p10:L8", "등록대상 기존 화학물질 (PEC) (가상 고시)"),
+           L("p10:L9", "작업환경 측정대상물질"),
+           L("p10:L10", "규제되지 않음."),
+           L("p11:L1", "가. 산업안전보건법에 의한 규제 PRODUCT : 관리대상유해물질, 노출기준설정물질, 작업환경측"),
+           L("p11:L2", "정대상물질"),
+           L("p11:L3", "- 가상물질 을 : 관리대상유해물질, 노출기준설정대상물질, 작업환경측정대상물질"),
+           L("p11:L4", "- 가상물질 갑 : 해당없음")]
+R_COMPS = [{"seq": 1, "name": "가상물질 갑", "cas_no": "1234-56-6"}, {"seq": 2, "name": "가상물질 을", "cas_no": "2345-67-7"}]
+
+
+@pytest.mark.parametrize("line, law, code, want", [
+    ("p10:L5", "OSH", "OSH_MEASURE", ("OSH", "OSH_EXPOSURE_STD")),    # 성분 줄 → 위 제목 '노출기준설정물질' (M013)
+    ("p10:L2", "OSH", "OSH_EXPOSURE_STD", ("OSH", None)),           # 성분 줄 → 위가 법령 제목이면 코드 없음 (M004)
+    ("p10:L3", "OSH", "OSH_EXPOSURE_STD", ("OSH", "OSH_EXPOSURE_STD")),   # 값 부분이 항목명이면 그 코드
+    ("p10:L7", "CCA", "CCA_PRTR", ("CCA", "CCA_PRTR")),             # 위 제목이 사전에 없으면 그대로
+    ("p10:L8", "KREACH", "KREACH_EXIST", ("KREACH", "KREACH_REG")), # 근거 줄이 항목명이면 그 코드
+    ("p10:L10", "OSH", "OSH_HEALTH_EXAM", ("OSH", "OSH_MEASURE")),  # 상태 줄 → 위 제목
+    ("p11:L3", "OSH", "OSH_MEASURE", ("OSH", "OSH_MEASURE")),       # 한 줄에 항목 여럿: 모델 코드가 그중 하나면 그대로 (M004)
+    ("p11:L3", "OSH", "OSH_PSM", ("OSH", "OSH_PSM")),               # 그중에 없으면 모호해 그대로
+    ("p11:L4", "OSH", "OSH_EXPOSURE_STD", ("OSH", None)),           # 부모(글머리 '가.')가 법령 제목. 끊긴 줄을 건너뛴다 (M004)
+])
+def test_recode_regulations(line, law, code, want):
+    """15항 항목 코드는 근거 줄이나 그 목록의 제목 줄에 적힌 항목명(동의어 사전 R25)으로 정한다."""
+    rows = [{"law": law, "item_code": code, "applicable": "해당", "comp_ref": "1", "line": line}]
+    ex.recode_regulations(rows, {l.id: l for l in R_LINES}, R_COMPS)
+    assert (rows[0]["law"], rows[0]["item_code"]) == want
+
+
+def test_recode_regulations_skips_intl():
+    rows = [{"law": "INTL", "item_code": "INTL_EU", "applicable": "해당", "comp_ref": "1", "line": "p10:L5"}]
+    ex.recode_regulations(rows, {l.id: l for l in R_LINES}, R_COMPS)
+    assert rows[0]["item_code"] == "INTL_EU"
+
+
+def test_recode_regulations_keeps_row_when_threshold_not_in_line():
+    """행의 기준농도 숫자가 근거 줄에 없으면 줄 번호가 틀린 행이라 코드를 바꾸지 않는다
+    (S016: 유독물질 85% 행이 다음 항목 줄 '- 해당됨 (0.1% 이상 …)'을 가리켰다)."""
+    lines = {l.id: l for l in [L("p8:L45", "○ 유독물질"), L("p8:L46", "- 해당됨 (85% 이상 함유한 가상물질 갑)"),
+                               L("p8:L47", "○ 배출량조사대상화학물질"), L("p8:L48", "- 해당됨 (0.1% 이상 함유한 가상물질 갑)")]}
+    rows = [{"law": "CCA", "item_code": "CCA_TOXIC", "applicable": "해당", "comp_ref": "1", "line": "p8:L48",
+             "threshold": {"raw": "85% 이상", "lower_op": ">=", "lower": 85, "unit": "%"}}]
+    ex.recode_regulations(rows, lines, R_COMPS)
+    assert rows[0]["item_code"] == "CCA_TOXIC"
+    rows[0]["threshold"] = {"raw": "0.1% 이상", "lower_op": ">=", "lower": 0.1, "unit": "%"}
+    ex.recode_regulations(rows, lines, R_COMPS)
+    assert rows[0]["item_code"] == "CCA_PRTR"
+
+
+def test_add_missing_items_heading_and_status():
+    """항목 이름만 적힌 제목 줄과 그 상태(같은 줄 ':' 뒤 또는 다음 상태 줄)가 있는데 그 코드의 행이 없으면 MIX 행을 더한다
+    (M013 '작업환경 측정대상물질' / '규제되지 않음.'을 모델이 뺐다. 개발 골드는 15항에 적힌 국내 항목 66개 모두 행이 있다).
+    그 코드의 행이 이미 있거나, 다음 줄이 상태 줄이 아니면 더하지 않는다."""
+    lines = {l.id: l for l in R_LINES}
+    rows = [{"law": "OSH", "item_code": "OSH_EXPOSURE_STD", "applicable": "해당", "comp_ref": "1", "line": "p10:L5"},
+            {"law": "OSH", "item_code": None, "applicable": "비해당", "comp_ref": "1", "line": "p11:L4"}]   # 범위 끝
+    new = ex.add_missing_items(rows, lines)
+    assert [(r["law"], r["item_code"], r["applicable"], r["comp_ref"], r["line"]) for r in new] == [
+        ("OSH", "OSH_MEASURE", "비해당", "MIX", "p10:L9")]
+    rows.append({"law": "OSH", "item_code": "OSH_MEASURE", "applicable": "해당", "comp_ref": "1", "line": "p10:L9"})
+    assert ex.add_missing_items(rows, lines) == []
+
+
+@pytest.mark.parametrize("cls, want", [("제4류", [("DG", "DG_HAZMAT", "해당", "MIX")]),
+                                       ("해당없음", [("DG", "DG_HAZMAT", "비해당", "MIX")]),
+                                       (None, [])])
+def test_dg_row_from_dangerous_goods(no_conventions, cls, want):
+    """규제 행이 있는데 위험물(DG) 행이 없고 위험물 표가 있으면 그 표로 DG_HAZMAT 행을 더한다. 류(제N류)가 있으면 해당,
+    상태어면 그 상태 (개발 골드: 15항이 있는 문서마다 DG_HAZMAT 행이 하나. 모델은 M013 '제4류 …'를 위험물 표에만 넣었다)."""
+    r = responses()
+    r[15]["dangerous_goods"] = [{"class": cls, "item": "제2석유류" if cls == "제4류" else None, "line": "p6:L11"}]
+    m, _ = expand_one(r)
+    assert [(x["law"], x["item_code"], x["applicable"], x["comp_ref"]) for x in m["regulations"] if x["law"] == "DG"] == want
+
+
+def test_standard_status_rows():
+    """8항 범위의 '기준 이름 : 상태어' 줄을 가리키는 노출기준 행이 없으면 MIX 행을 더한다. 종류는 TWA, 생물학적은 BEI
+    (골드 값 없는 노출기준 40행 모두. 모델은 M002 'ο 국내규정 : 자료없음' 등 6줄을 extras 한 덩어리로 묶었다).
+    이미 행이 가리키는 줄과 값이 상태어가 아닌 줄은 두지 않는다."""
+    lines = {l.id: l for l in [L("p5:L1", "가. 화학물질의 노출기준, 생물학적 노출기준 등"), L("p5:L2", "ο 국내규정 : 자료없음"),
+                               L("p5:L3", "ο 생물학적 노출기준 : 해당없음"), L("p5:L4", "ο ACGIH 규정 : TWA 1 ppm"),
+                               L("p5:L5", "- OSHA 규정 자료없음"), L("p5:L6", "나. 적절한 공학적 관리")]}
+    have = [{"comp_name": None, "standard": "ACGIH", "line": "p5:L4"}, {"comp_name": None, "standard": "OSHA", "line": "p5:L5"}]
+    new = ex.standard_status_rows(have, ["p5:L1", "p5:L6"], lines)
+    assert [(r["standard"], r["limit_type"], r["q"]["raw"], r["line"]) for r in new] == [
+        ("국내", "TWA", "자료없음", "p5:L2"), ("생물학적", "BEI", "해당없음", "p5:L3")]
+
+
+def test_fix_eco_descriptor():
+    """생태 행: 값이 없으면 지표를 비워 A 규칙(어류 등 결과기술, 잔류성 분해율, 농축성 BCF→분해율)에 맡긴다 — 골드 표기와 같다.
+    모델은 '- 트랜스 2 부텐 : 자료없음'에 LC50·EC50을 붙였다 (M004). 숫자 행인데 근거 줄에 log Kow·log Pow가 있으면 logKow (골드 21행)."""
+    lines = {l.id: l for l in [L("p12:L1", "- 가상물질 갑 : log Kow 1.99"), L("p12:L2", "- 가상물질 갑 : 자료없음")]}
+    no_value = {"endpoint": "ECO_FISH", "descriptor": "LC50", "q": {"raw": "자료없음"}, "status": "자료없음", "line": "p12:L2"}
+    kow = {"endpoint": "ECO_PERSIST", "descriptor": "결과기술", "q": {"raw": "1.99", "value": 1.99}, "status": "값있음", "line": "p12:L1"}
+    lc50 = {"endpoint": "ECO_FISH", "descriptor": "LC50", "q": {"raw": "10 mg/L", "value": 10, "unit": "mg/L"}, "status": "값있음",
+            "line": "p12:L2"}
+    assert [ex.fix_eco_descriptor(r, lines)["descriptor"] for r in (no_value, kow, lc50)] == [None, "logKow", "LC50"]
+
+
+# ── 표·소제목 아래의 '성분 : 상태어' 칸 → 행 (모델이 뺀 값 없는 행, 골드 M004) ─────
+
+T_LINES = [L("p5:L37", "구성성분 | 국내규정 | ACGIH규정 | 생물학적 노출기준"),
+           L("p5:L38", "가상물질 갑 | TWA : 2ppm | TWA 2 ppm | 자료없음"),
+           L("p5:L39", "5"),
+           L("p6:L2", "구성성분 | 국내규정 | ACGIH규정 | 생물학적 노출기준"),
+           L("p6:L3", "가상물질 을 | 자료없음 | TWA 250 ppm | 해당없음"),
+           L("p11:L31", "● 어류"),
+           L("p11:L32", "- 가상물질 갑 : LC50 45 mg/L"),
+           L("p11:L33", "- 가상물질 을 : 자료없음"),
+           L("p11:L34", "11"),
+           L("p12:L1", "[ 가상 머리글 ]"),
+           L("p12:L2", "● 조류"),
+           L("p12:L3", "- 가상물질 갑 : 자료없음")]
+
+
+def test_table_status_rows():
+    """8항 표(머리글 '구성성분 | 국내규정 | ACGIH규정 | 생물학적 노출기준')의 성분 줄 칸이 상태어면, 그 성분 × 기준 행이 없을 때
+    더한다. 종류는 TWA, 생물학적은 BEI (골드 M004 18행). 값 칸과 이미 있는 행은 두지 않는다. 쪽이 바뀌어 머리글이 반복돼도 같다."""
+    lines = {l.id: l for l in T_LINES}
+    have = [{"comp_name": "가상물질 을", "standard": "국내", "line": "p6:L3"}]
+    new = ex.table_status_rows(have, ["p5:L37", "p6:L3"], lines)
+    assert [(r["comp_name"], r["standard"], r["limit_type"], r["q"]["raw"], r["line"]) for r in new] == [
+        ("가상물질 갑", "생물학적", "BEI", "자료없음", "p5:L38"), ("가상물질 을", "생물학적", "BEI", "해당없음", "p6:L3")]
+
+
+def test_heading_status_rows():
+    """11·12항 '- 성분 : 상태어' 줄이 항목 소제목(● 어류 등) 아래 있고 그 행이 없으면 더한다. 위로 올라가며 성분 줄·쪽 머리글을
+    건너뛴다 (골드 M004 '● 조류' 아래 '- 트랜스 2 부텐 : 자료없음'). 값 줄과 이미 있는 행은 두지 않는다."""
+    lines = {l.id: l for l in T_LINES}
+    comps = [{"seq": 1, "name": "가상물질 갑", "cas_no": "1234-56-6"}, {"seq": 2, "name": "가상물질 을", "cas_no": "2345-67-7"}]
+    have = [{"comp_name": "가상물질 갑", "endpoint": "ECO_FISH", "line": "p11:L32"}]
+    new = ex.heading_status_rows("ecotox", have, ["p11:L31", "p12:L3"], lines, comps)
+    assert [(r["comp_name"], r["endpoint"], r["status"], r["line"]) for r in new] == [
+        ("가상물질 을", "ECO_FISH", "자료없음", "p11:L33"), ("가상물질 갑", "ECO_ALGAE", "자료없음", "p12:L3")]
+    have.append({"comp_name": "가상물질 을", "endpoint": "ECO_FISH", "line": "p11:L33"})
+    assert len(ex.heading_status_rows("ecotox", have, ["p11:L31", "p12:L3"], lines, comps)) == 1

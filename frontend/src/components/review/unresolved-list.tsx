@@ -8,7 +8,7 @@ import type { FindingSummary } from "@/api/findings-schemas";
 import { StatusLabel } from "@/components/ui";
 import { routes } from "@/lib/routes";
 import { SEVERITY_LABEL, VERDICT_LABEL, VERDICT_ORDER, VERDICT_TONE, isActionable, severityRank } from "./hazard/verdict";
-import { isProcessed, useReviewState } from "./review-state";
+import { isResolved, useReviewState } from "./review-state";
 import { useValidationId } from "./shared/use-validation-id";
 
 /** 판정이 있는 탭의 주소. 고른 판정은 ?finding= 으로 넘긴다 (판정 패널이 그 판정을 먼저 고른다) */
@@ -24,7 +24,7 @@ export function useUnresolved(docId: string): FindingSummary[] {
   return useMemo(
     () =>
       [...(hazard?.items ?? []), ...(regulation?.items ?? [])]
-        .filter((f) => isActionable(f.verdict) && !isProcessed(getState(f.finding_id).state))
+        .filter((f) => isActionable(f.verdict) && !isResolved(getState(f.finding_id)))
         .sort(
           (a, b) =>
             a.section - b.section ||

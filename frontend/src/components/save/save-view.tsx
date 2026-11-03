@@ -1,20 +1,18 @@
 "use client";
 
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { useMemo, useState } from "react";
-import { documentDetailQuery, reviewQuery } from "@/api/documents";
-import { findingsQuery } from "@/api/findings";
+import { useState } from "react";
+import { documentDetailQuery } from "@/api/documents";
+import type { ReportRequest } from "@/api/contract/api";
 import type { Verdict } from "@/api/findings-schemas";
-import { isConflict, judgmentErrorText, judgmentViewQuery } from "@/api/judgments";
-import { saveDocument,type SaveOptions, type SaveResponse } from "@/api/save";
-import { VERDICT_LABEL, VERDICT_ORDER, VERDICT_TONE } from "@/components/review/hazard/verdict";
-import { useReviewState } from "@/components/review/review-state";
-import { useValidationId } from "@/components/review/shared/use-validation-id";
+import { isConflict, judgmentErrorText, judgmentKeys, postReport, postSnapshot, saveOverviewQuery } from "@/api/judgments";
+import { VERDICT_TONE } from "@/components/review/hazard/verdict";
 import { Foot, Row } from "@/components/shell/layout";
 import { Button, Callout, Checkbox, Skeleton, Spinner, StatusLabel, buttonStyles } from "@/components/ui";
 import { cn } from "@/lib/cn";
+import { downloadBlob, openBlob } from "@/lib/download";
 import { useReviewer } from "@/lib/reviewer";
 import { routes } from "@/lib/routes";
 
@@ -29,60 +27,82 @@ const SAVED_AT = new Intl.DateTimeFormat("ko-KR", {
   hour12: true,
 });
 
-/** 판정 요약에 건수가 0이어도 보여 주는 판정 (시안). 경고·구버전·해당 없음·비교 제외는 있을 때만 보여 준다 (계약에 경고 판정이 없다) */
-const SUMMARY_ALWAYS: Verdict[] = ["mismatch", "borderline", "insufficient_evidence", "match"];
+/** 판정 요약의 칸: [서버 verdict 이름, 화면 색, 건수가 0이어도 보이는가]. 참고·범위 외는 있을 때만 보여 준다 */
+const SUMMARY: [string, Verdict, boolean][] = [
+  ["불일치", "mismatch", true],
+  ["경계", "borderline", true],
+  ["근거부족", "insufficient_evidence", true],
+  ["경고", "warning", true],
+  ["일치", "match", true],
+  ["참고", "not_applicable", false],
+  ["범위 외", "excluded", false],
+];
+
+/** PDF 에 넣을 항목 (계약 report_request.include) */
+const INCLUDE_ITEMS: { key: keyof ReportRequest["include"]; label: string }[] = [
+  { key: "regenerated_msds", label: "재생성 MSDS" },
+  { key: "findings_2", label: "2항 판정 표" },
+  { key: "findings_15", label: "15항 판정 표" },
+  { key: "components", label: "성분별 요약" },
+  { key: "history", label: "검토 이력" },
+];
 
 const stem = (filename: string) => filename.replace(/\.pdf$/i, "");
 
-/** 저장 화면 (3.1 모두 처리, 3.2 미검토 포함). 어느 쪽인지는 검수 화면에서 이어받은 처리 상태로 정한다. */
+const DISABLED_BUTTON = "disabled:cursor-not-allowed disabled:border-dashed disabled:border-field-line disabled:bg-line2 disabled:text-mut disabled:opacity-100";
+
+type ReportKind = "pdf" | "preview" | "html" | "xlsx" | "json";
+
+/** 저장 화면 (3.1 모두 처리, 3.2 미검토 포함). 어느 쪽인지는 서버의 저장 개요(save-overview)로 정한다. */
 export function SaveView({ docId }: { docId: string }) {
   const reviewer = useReviewer() || "미지정";
-  const { ready, getState, unresolvedCount, version, refresh } = useReviewState();
-  const validation = useValidationId(docId);
-  // 사람이 추출값을 검수한 기록(field_status). 비어 있으면 "추출값 미검수"
-  const fieldStatusCount = useQuery({ ...judgmentViewQuery(docId, validation), select: (v) => v.field_status.length }).data;
-  const hazard = useQuery(findingsQuery(docId, validation, { section: 2 }));
-  const regulation = useQuery(findingsQuery(docId, validation, { section: 15 }));
+  const queryClient = useQueryClient();
+  const overviewQuery = useQuery(saveOverviewQuery(docId));
   const { data: doc } = useQuery(documentDetailQuery(docId));
-  // 추출값 확인 기록이 있을 때만 쓴다 (없으면 해당 칸을 그리지 않는다)
-  const review = useQuery({ ...reviewQuery(docId), enabled: doc?.status === "done", retry: false }).data;
-
-  const [options, setOptions] = useState<SaveOptions>({ includeRevisionAppendix: true, includeOpinions: true });
+  const [include, setInclude] = useState<ReportRequest["include"]>({ regenerated_msds: true, findings_2: true, findings_15: true, components: true, history: true });
   const failDemo = useSearchParams().get("fail") === "1";
 
-  const findings = useMemo(() => [...(hazard.data?.items ?? []), ...(regulation.data?.items ?? [])], [hazard.data, regulation.data]);
-  const confirmed = findings.filter((f) => getState(f.finding_id).state === "confirmed").length;
-  const exception = findings.filter((f) => getState(f.finding_id).state === "exception_approved").length;
-  const unresolved = unresolvedCount(2) + unresolvedCount(15);
-  const verdictCounts = useMemo(() => {
-    const n: Partial<Record<Verdict, number>> = {};
-    for (const f of findings) n[f.verdict] = (n[f.verdict] ?? 0) + 1;
-    return n;
-  }, [findings]);
+  const overview = overviewQuery.data;
+  const lastSnapshot = overview?.snapshots[0];
 
   const save = useMutation({
-    mutationFn: () => saveDocument(docId, options, { reviewer, seenVersion: version ?? 1 }, { fail: failDemo }),
+    // 화면이 읽은 판정 버전(seen_version)과 함께 저장한다: 더 새 판정이 있으면 409
+    mutationFn: () => postSnapshot(docId, { reviewer, seen_version: overview?.version ?? 1 }, { fail: failDemo }),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: [...judgmentKeys.all] }),
   });
   const saveConflict = save.isError && isConflict(save.error);
-  const saved: SaveResponse | undefined = save.data;
+  const saved = save.data;
 
-  // 판정을 불러오지 못하면(서버에 판정 API 가 없을 때 등) 안내한다. 처리 상태를 읽어 오는 중에는 기다린다
-  if (hazard.isError || regulation.isError) {
+  const report = useMutation({
+    mutationFn: async (kind: ReportKind) => {
+      const format = kind === "preview" ? "html" : kind;
+      // 미리 보기는 저장하지 않은 최신 판정(snapshot_no null)으로, 나머지는 가장 최근 저장본으로 만든다
+      const request: ReportRequest = { format, snapshot_no: kind === "preview" ? null : (lastSnapshot?.snapshot_no ?? null), include };
+      const file = await postReport(docId, request);
+      if (kind === "preview") {
+        if (!openBlob(file.blob)) throw new Error("새 탭이 막혀 미리 보기를 열지 못했습니다. 팝업을 허용해 주세요.");
+      } else downloadBlob(file.blob, file.filename);
+    },
+  });
+
+  if (overviewQuery.isError) {
     return (
       <Callout tone="danger" role="alert" className="flex flex-wrap items-center gap-2">
-        <span>{judgmentErrorText(hazard.error ?? regulation.error, "판정 결과를 불러오지 못했습니다.")}</span>
-        <Button onClick={() => void Promise.all([hazard.refetch(), regulation.refetch()])}>다시 불러오기</Button>
+        <span>{judgmentErrorText(overviewQuery.error, "판정 결과를 불러오지 못했습니다.")}</span>
+        <Button onClick={() => void overviewQuery.refetch()}>다시 불러오기</Button>
       </Callout>
     );
   }
-  // 처리 상태를 읽어 오기 전에는 어느 화면인지 알 수 없다 (잠깐 틀린 화면이 보이지 않게 기다린다)
-  if (!ready || hazard.isPending || regulation.isPending) return <Skeleton className="w-2/3" />;
+  if (!overview) return <Skeleton className="w-2/3" />;
 
+  const unresolved = overview.reviews.미검토;
+  const confirmed = overview.reviews["불일치 확정"] + overview.reviews.확인;
+  const exception = overview.reviews["예외 승인"];
   const incomplete = unresolved > 0;
   const saving = save.isPending;
+  const reporting = report.isPending;
   const fileName = `${doc ? stem(doc.filename) : docId}_MSDS_검토결과.pdf`;
-  const extractionDone =
-    fieldStatusCount === 0 ? false : review ? review.summary.sections_confirmed >= review.summary.sections_total : null;
+  const values = overview.values;
 
   const title = !incomplete
     ? "검토를 마쳤습니다"
@@ -99,9 +119,12 @@ export function SaveView({ docId }: { docId: string }) {
     ? { tone: "info" as const, label: "저장 중" }
     : save.isError
       ? { tone: "danger" as const, label: "저장하지 못함" }
-      : saved
-        ? { tone: "success" as const, label: incomplete ? "저장됨 · 미검토 포함" : "저장됨" }
+      : saved || lastSnapshot
+        ? { tone: "success" as const, label: `저장됨 · 저장본 ${(saved ?? lastSnapshot)!.snapshot_no}${incomplete ? " · 미검토 포함" : ""}` }
         : { tone: "neutral" as const, label: "저장 전" };
+  const savedAt = (saved ?? lastSnapshot)?.saved_at;
+
+  const reportError = report.isError ? (report.error instanceof Error ? report.error.message : "리포트를 만들지 못했습니다.") : null;
 
   return (
     <div className="flex flex-col gap-6 [word-break:keep-all]">
@@ -113,22 +136,15 @@ export function SaveView({ docId }: { docId: string }) {
       <section aria-label="2차 판정 요약과 처리 상태" className="flex flex-col gap-3 rounded-md border border-line bg-white px-5 py-4">
         <div className="flex flex-wrap items-center gap-x-7 gap-y-2">
           <b>2차 판정 요약</b>
-          {VERDICT_ORDER.filter((v) => SUMMARY_ALWAYS.includes(v) || (verdictCounts[v] ?? 0) > 0).map((v) => (
-            <StatusLabel key={v} tone={VERDICT_TONE[v]} className="text-base text-ink">
-              {VERDICT_LABEL[v]} {verdictCounts[v] ?? 0}
+          {SUMMARY.filter(([key, , always]) => always || overview.verdicts.total[key as keyof typeof overview.verdicts.total] > 0).map(([key, verdict]) => (
+            <StatusLabel key={key} tone={VERDICT_TONE[verdict]} className="text-base text-ink">
+              {key} {overview.verdicts.total[key as keyof typeof overview.verdicts.total]}
             </StatusLabel>
           ))}
         </div>
         <div className="flex flex-wrap items-center gap-x-3.5 gap-y-2 border-t border-line2 pt-3">
           <b>처리 상태</b>
-          <span
-            className={cn(
-              "rounded-sm px-3 py-1 font-bold",
-              incomplete ? "bg-tint text-amb-text" : "bg-grn-soft text-grn",
-            )}
-          >
-            미검토 {unresolved}건
-          </span>
+          <span className={cn("rounded-sm px-3 py-1 font-bold", incomplete ? "bg-tint text-amb-text" : "bg-grn-soft text-grn")}>미검토 {unresolved}건</span>
           <span className="text-mut">
             처리 {confirmed + exception}건 (확정 {confirmed} · 예외 승인 {exception})
           </span>
@@ -138,11 +154,9 @@ export function SaveView({ docId }: { docId: string }) {
             </Link>
           )}
           <span className="flex-1" />
-          {extractionDone !== null && (
-            <span className={cn("rounded-sm px-3 py-1 font-bold", extractionDone ? "bg-grn-soft text-grn" : "bg-tint text-amb-text")}>
-              {extractionDone ? "추출값 확인함" : "추출값 미검수"}
-            </span>
-          )}
+          <span className={cn("rounded-sm px-3 py-1 font-bold", values.state === "완료" ? "bg-grn-soft text-grn" : "bg-tint text-amb-text")}>
+            {values.state === "완료" ? "추출값 확인함" : values.state === "일부" ? "추출값 일부 확인" : "추출값 미검수"}
+          </span>
         </div>
       </section>
 
@@ -157,33 +171,33 @@ export function SaveView({ docId }: { docId: string }) {
 
           <dl className="m-0 grid grid-cols-[5rem_1fr] gap-x-3 gap-y-1.5">
             <dt className="text-mut">저장 시각</dt>
-            <dd className="m-0">{saved ? SAVED_AT.format(new Date(saved.saved_at)) : "—"}</dd>
+            <dd className="m-0">{savedAt ? SAVED_AT.format(new Date(savedAt)) : "—"}</dd>
             <dt className="text-mut">검토자</dt>
             <dd className="m-0">{reviewer}</dd>
             <dt className="text-mut">저장 내용</dt>
             <dd className="m-0">최종 값, 값의 출처, 2차 판정, 처리 상태, 의견</dd>
           </dl>
 
-          {review ? (
-            <div className="overflow-hidden rounded-sm border border-line">
-              <div className="flex bg-tint px-3.5 py-2 text-sm font-medium text-mut">
-                <span className="flex-1">값의 출처</span>
-                <span className="w-16 text-right">칸 수</span>
-              </div>
-              {[
-                ["확인함", review.summary.fields_checked],
-                ["수정됨", review.summary.fields_edited],
-                ["미검수 (확인하지 않음)", Math.max(0, review.summary.fields_total - review.summary.fields_checked - review.summary.fields_edited)],
-              ].map(([label, n]) => (
-                <div key={label} className="flex border-t border-line2 px-3.5 py-2.5">
-                  <span className="flex-1">{label}</span>
-                  <span className="w-16 text-right tabular-nums">{n}</span>
-                </div>
-              ))}
+          <div className="overflow-hidden rounded-sm border border-line">
+            <div className="flex bg-tint px-3.5 py-2 text-sm font-medium text-mut">
+              <span className="flex-1">값의 출처</span>
+              <span className="w-16 text-right">칸 수</span>
             </div>
-          ) : null}
+            {(
+              [
+                ["확인함", values.confirmed],
+                ["수정됨", values.edited],
+                ["미검수 (확인하지 않음)", values.model_as_is],
+              ] as const
+            ).map(([label, n]) => (
+              <div key={label} className="flex border-t border-line2 px-3.5 py-2.5">
+                <span className="flex-1">{label}</span>
+                <span className="w-16 text-right tabular-nums">{n}</span>
+              </div>
+            ))}
+          </div>
 
-          <p className="text-sm text-mut">수정과 추가에는 원래 값, 근거, 검토자, 시각이 함께 남습니다. 다시 저장하면 같은 문서의 기록을 덮어씁니다.</p>
+          <p className="text-sm text-mut">수정과 추가에는 원래 값, 근거, 검토자, 시각이 함께 남습니다. 다시 저장하면 새 저장본 번호로 남습니다.</p>
 
           {saving && (
             <div role="status" className="flex items-center gap-3 text-sm text-mut">
@@ -193,12 +207,13 @@ export function SaveView({ docId }: { docId: string }) {
           )}
           {saved && !saving && (
             <Callout tone="info" role="status" className="flex flex-col gap-0.5">
-              {/* 미검토 건수는 화면의 처리 대상(불일치·경계·근거부족 등) 기준이다. 저장본의 미검토 수는 일치 판정까지 세므로 쓰지 않는다 */}
-              <b>저장했습니다.{incomplete && ` 미검토 ${unresolved}건 포함`}</b>
+              <b>
+                저장했습니다. 저장본 {saved.snapshot_no}
+                {incomplete && ` · 미검토 ${saved.counts.미검토}건 포함`}
+              </b>
               <span>
-                포함한 처리 {saved.included.confirmed + saved.included.exception}건 (확정 {saved.included.confirmed} · 예외 승인{" "}
-                {saved.included.exception})
-                {incomplete ? ` · 미검토 ${unresolved}건` : ""}
+                포함한 처리 {saved.counts["불일치 확정"] + saved.counts.확인 + saved.counts["예외 승인"]}건 (확정 {saved.counts["불일치 확정"] + saved.counts.확인} · 예외 승인{" "}
+                {saved.counts["예외 승인"]}){incomplete ? ` · 미검토 ${saved.counts.미검토}건` : ""} · 미검수 칸 {saved.counts["미검수 칸"]}
               </span>
             </Callout>
           )}
@@ -207,8 +222,8 @@ export function SaveView({ docId }: { docId: string }) {
               <span>더 새로운 판정 버전이 있습니다. 새로고침해 주세요.</span>
               <Button
                 onClick={() => {
-                  refresh();
                   save.reset();
+                  void queryClient.invalidateQueries({ queryKey: [...judgmentKeys.all] });
                 }}
               >
                 새로고침
@@ -224,7 +239,10 @@ export function SaveView({ docId }: { docId: string }) {
 
           <div className="mt-auto flex flex-wrap gap-2">
             <Button variant="primary" size="lg" disabled={saving} aria-busy={saving} onClick={() => save.mutate()}>
-              {saving ? "저장 중…" : saved ? "다시 저장하기" : "저장하기"}
+              {saving ? "저장 중…" : saved || lastSnapshot ? "다시 저장하기" : "저장하기"}
+            </Button>
+            <Button size="lg" disabled={reporting} onClick={() => report.mutate("json")}>
+              JSON 내려받기
             </Button>
           </div>
         </section>
@@ -235,41 +253,44 @@ export function SaveView({ docId }: { docId: string }) {
           </h2>
           <ul className="m-0 list-disc pl-4.5 leading-relaxed text-sub">
             <li>표지 · 문서 번호, 제품명, 원본 파일, 검토자, 검토 일시, 2차 판정 개수와 미검토 건수</li>
-            <li>재생성 MSDS · 최종 값으로 만든 16항 문서</li>
-            <li>2차 판정 표 · 2항, 15항, 처리 상태와 검토자 의견</li>
-            <li>부록 · 수정 이력</li>
+            <li>고른 항목: 재생성 MSDS, 2항·15항 판정 표, 성분별 요약, 검토 이력</li>
+            <li>판정 표에는 처리 상태와 검토자 의견이 함께 나옵니다</li>
           </ul>
-          <div className="flex flex-col gap-2">
-            <Checkbox
-              label="수정 이력 부록 포함"
-              checked={options.includeRevisionAppendix}
-              onChange={(e) => setOptions({ ...options, includeRevisionAppendix: e.target.checked })}
-            />
-            <Checkbox
-              label="검토자 의견 포함"
-              checked={options.includeOpinions}
-              onChange={(e) => setOptions({ ...options, includeOpinions: e.target.checked })}
-            />
-          </div>
+          <fieldset className="m-0 flex flex-col gap-2 border-0 p-0">
+            <legend className="mb-1 text-sm font-medium text-mut">포함할 항목</legend>
+            {INCLUDE_ITEMS.map((item) => (
+              <Checkbox
+                key={item.key}
+                label={item.label}
+                checked={include[item.key]}
+                onChange={(e) => setInclude({ ...include, [item.key]: e.target.checked })}
+              />
+            ))}
+          </fieldset>
           <p className="text-sm text-mut">
             {incomplete && "미검토 판정은 PDF에 \"미검토\"로 표시됩니다. "}원문 PDF는 들어 있지 않습니다. 파일 이름: <span className="whitespace-nowrap">{fileName}</span>
           </p>
+          {reportError && (
+            <Callout tone="danger" role="alert" className="[word-break:keep-all]">
+              리포트를 만들지 못했습니다. {reportError}
+            </Callout>
+          )}
           <div className="mt-auto flex flex-col gap-2">
             <div className="flex flex-wrap gap-2">
-              <Button variant="primary" size="lg" disabled className="disabled:cursor-not-allowed disabled:border-dashed disabled:border-field-line disabled:bg-line2 disabled:text-mut disabled:opacity-100">
-                PDF로 출력
+              <Button variant="primary" size="lg" disabled={reporting} aria-busy={reporting} className={DISABLED_BUTTON} onClick={() => report.mutate("pdf")}>
+                {reporting && report.variables === "pdf" ? "만드는 중…" : "PDF로 출력"}
               </Button>
-              <Button size="lg" disabled className="disabled:cursor-not-allowed disabled:border-dashed disabled:border-field-line disabled:bg-line2 disabled:text-mut disabled:opacity-100">
+              <Button size="lg" disabled={reporting} className={DISABLED_BUTTON} onClick={() => report.mutate("preview")}>
                 미리 보기
               </Button>
-              <Button size="lg" disabled className="disabled:cursor-not-allowed disabled:border-dashed disabled:border-field-line disabled:bg-line2 disabled:text-mut disabled:opacity-100">
+              <Button size="lg" disabled={reporting} className={DISABLED_BUTTON} onClick={() => report.mutate("html")}>
                 리포트 HTML
               </Button>
-              <Button size="lg" disabled className="disabled:cursor-not-allowed disabled:border-dashed disabled:border-field-line disabled:bg-line2 disabled:text-mut disabled:opacity-100">
+              <Button size="lg" disabled={reporting} className={DISABLED_BUTTON} onClick={() => report.mutate("xlsx")}>
                 리포트 Excel
               </Button>
             </div>
-            <p className="text-sm text-mut">PDF·리포트(HTML, Excel) 출력은 준비 중입니다.</p>
+            <p className="text-sm text-mut">미리 보기는 저장하지 않은 최신 판정으로, 나머지는 가장 최근 저장본으로 만듭니다.</p>
           </div>
         </section>
       </Row>

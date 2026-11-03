@@ -15,7 +15,9 @@ from msds.common.paths import DATA, PAGES
 
 _LINE_NO = re.compile(r"^L(\d+) (.*)$")
 _PAGE_FILE = re.compile(r"^p(\d+)\.txt$")
-SECTION_NOS = range(1, 17)
+SECTION_NOS = range(1, 17)    # 문서를 나누는 항 (경계는 16개 모두 필요하다)
+# 모델을 부르는 항 (기업 합의 2026-10-29, 기술명세 2.9). 나머지 항은 호출하지 않고 골드에서도 비운다
+EXTRACT_SECTIONS = (1, 2, 3, 8, 9, 11, 12, 14, 15)
 PREAMBLE_MAX = 40     # 문서 머리로 붙이는 줄 수 상한. 목차·표지는 길어도 값이 적다
 
 

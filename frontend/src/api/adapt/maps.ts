@@ -15,12 +15,15 @@ const VERDICT: Record<Finding["verdict"], Verdict> = {
   불일치: "mismatch",
   경계: "borderline",
   근거부족: "insufficient_evidence",
+  경고: "warning",
   참고: "not_applicable",
   "범위 외": "excluded",
 };
 
-export function screenVerdict(f: Pick<Finding, "verdict" | "type">): Verdict {
+export function screenVerdict(f: Pick<Finding, "verdict" | "type" | "out_of_scope_reason">): Verdict {
   if (f.verdict === "불일치" && f.type === "구버전") return "outdated";
+  // 범위 외의 해당 없음은 해당 없음 건수에, 대조만·구버전 제외·해외 규제는 비교 제외 건수에 센다 (화면 2.3 범위 외 · 비교 제외 7건 (해당 없음 5 · 대조 2))
+  if (f.verdict === "범위 외" && f.out_of_scope_reason === "해당 없음") return "not_applicable";
   return VERDICT[f.verdict];
 }
 
@@ -31,17 +34,24 @@ export const screenSeverity = (s: Finding["severity"]): Severity => (s ? SEVERIT
  * 검토 상태. 계약의 status 에는 의견이 없다: 미검토이면서 의견(comment)만 있으면 opinion(의견만 남김)으로 본다.
  * 불일치 확정·확인은 확정(confirmed), 예외 승인은 exception_approved.
  */
-export function screenReview(r: ContractReviewState | undefined): { state: ReviewState; opinion: string; stale: boolean; historyCount: number } {
-  if (!r) return { state: "unreviewed", opinion: "", stale: false, historyCount: 0 };
+export function screenReview(r: ContractReviewState | undefined): {
+  state: ReviewState;
+  opinion: string;
+  stale: boolean;
+  historyCount: number;
+  lastEventId: number | null;
+} {
+  if (!r) return { state: "unreviewed", opinion: "", stale: false, historyCount: 0, lastEventId: null };
   const state: ReviewState =
     r.status === "예외 승인" ? "exception_approved" : r.status === "미검토" ? (r.comment ? "opinion" : "unreviewed") : "confirmed";
-  return { state, opinion: r.comment ?? "", stale: r.stale, historyCount: r.history_count };
+  return { state, opinion: r.comment ?? "", stale: r.stale, historyCount: r.history_count, lastEventId: r.last_event_id };
 }
 
 /**
- * 화면의 "확정" 버튼이 보내는 검토 동작. 일치 판정은 "확인", 그 밖(불일치·경계·근거부족 등)은 "불일치 확정".
- * 계약에 경계·근거부족 전용 확정 동작이 없어 불일치 확정으로 보낸다.
+ * 화면의 확정 버튼이 보내는 검토 동작 (계약 review_event_request).
+ * 확인은 일치·참고·범위 외에만, 불일치 확정은 불일치·경계·근거부족·경고에만 된다 (그 밖은 서버가 422).
  */
-export const confirmAction = (verdict: Finding["verdict"]) => (verdict === "일치" ? ("확인" as const) : ("불일치 확정" as const));
+export const confirmAction = (verdict: Finding["verdict"]) =>
+  verdict === "일치" || verdict === "참고" || verdict === "범위 외" ? ("확인" as const) : ("불일치 확정" as const);
 
 export const PRODUCT_TYPE = { 단일물질: "single", 혼합물: "mixture", 불명확: "unknown" } as const;

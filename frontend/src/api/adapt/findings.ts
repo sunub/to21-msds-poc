@@ -1,20 +1,14 @@
 /*
  * 판정 변환 계층: 계약의 judgment_view → 판정 화면이 쓰는 모델(FindingsResponse, FindingDetail).
+ * 항목 이름(label)·법령(law_label)·판정 방법(method)·표시 문장(display.msds·expected·basis_lines·calc_lines·source_pages)은
+ * 서버가 준 값을 그대로 쓴다. 여기서는 모양만 옮긴다.
  * 한 PDF에 MSDS 가 여러 건이면 첫 건(results[0])만 보여 준다.
  */
-import { formatQ, formatSide } from "@/lib/format-judgment";
 import { ApiRequestError } from "../client";
 import type { JudgmentView } from "../contract/api";
-import type { Finding, MsdsResult, Trace } from "../contract/consistency";
-import type {
-  FindingDetail,
-  FindingsResponse,
-  FindingSummary,
-  SourceRef,
-  Verdict,
-} from "../findings-schemas";
+import type { Finding, MsdsResult } from "../contract/consistency";
+import type { FindingDetail, FindingsResponse, FindingSummary, SourceRef, Verdict } from "../findings-schemas";
 import { PRODUCT_GROUP_ID } from "../findings-schemas";
-import { itemName, lawName } from "./labels";
 import { screenReview, screenSeverity, screenVerdict } from "./maps";
 
 export type FindingsParams = { verdict?: Verdict; section?: 2 | 15 };
@@ -24,52 +18,41 @@ const shown = (f: Finding) => f.kind !== "product_type";
 
 export const resultOf = (view: JudgmentView): MsdsResult => view.consistency.results[0];
 
-const traceOf = (r: MsdsResult, f: Finding): Trace | undefined => (f.trace_id ? r.traces[f.trace_id] : undefined);
-
-/** 판정 방법: 적용한 근거 이름(trace.rule.basis). trace 가 없으면 규칙 ID */
-const methodOf = (r: MsdsResult, f: Finding) => traceOf(r, f)?.rule.basis ?? f.rule ?? "—";
-
-function sourceRefs(f: Finding): SourceRef[] {
-  const seen = new Set<string>();
-  const refs: SourceRef[] = [];
-  for (const e of [...(f.msds.evidence ?? []), ...(f.expected.evidence ?? [])]) {
-    // 성분표(components) 쪽은 성분별 요약 탭의 근거라 2항·15항 판정의 원문 근거에는 넣지 않는다
-    if (e.page === null || e.field.startsWith("components") || seen.has(`${e.page}`)) continue;
-    seen.add(`${e.page}`);
-    refs.push({ page_no: e.page, bbox: null, input_path: e.field });
-  }
-  return refs;
+/** 원문 근거: 서버가 정한 쪽 목록 (첫 번째가 기본으로 열린다). 이름은 "2항"처럼 항 번호 */
+function sourceRefs(view: JudgmentView, f: Finding): SourceRef[] {
+  return (view.display[f.id]?.source_pages ?? []).map((p) => ({ page_no: p.page, bbox: null, input_path: `${p.section}항` }));
 }
 
 function toSummary(view: JudgmentView, r: MsdsResult, f: Finding): FindingSummary {
   const review = screenReview(view.reviews[f.id]);
+  const d = view.display[f.id];
   return {
     finding_id: f.id,
     validation_id: String(view.version),
     msds_id: `m${r.msds_index}`,
     section: f.section === "2" ? 2 : 15,
-    item: itemName(f),
-    law: lawName(f),
+    item: f.label,
+    law: f.law_label,
     component_id: f.comp?.comp_ref ?? null,
-    msds_value: { text: formatSide(f, "msds") },
-    expected_value: { text: formatSide(f, "expected") },
-    method: methodOf(r, f),
+    msds_value: { text: d?.msds ?? "-" },
+    expected_value: { text: d?.expected ?? "-" },
+    method: f.method,
     verdict: screenVerdict(f),
     severity: screenSeverity(f.severity),
     review_state: review.state,
     opinion_count: review.historyCount,
     review_stale: review.stale,
+    review_event_id: review.lastEventId,
     trace_id: f.trace_id ?? "",
-    source_refs: sourceRefs(f),
+    source_refs: sourceRefs(view, f),
   };
 }
 
-/** 성분 묶음 머리줄 이름: "황산 (93~98%)" */
-function groupTitle(r: MsdsResult, compRef: string) {
-  const f = r.findings.find((x) => x.comp?.comp_ref === compRef && (x.msds.content ?? x.expected.content));
-  const name = r.findings.find((x) => x.comp?.comp_ref === compRef)?.comp?.name ?? compRef;
-  const content = formatQ(f?.msds.content ?? f?.expected.content);
-  return content ? `${name} (${content})` : name;
+/** 성분 묶음 머리줄 이름: 서버가 준 "황산 (93~98)" */
+function groupTitle(view: JudgmentView, r: MsdsResult, compRef: string) {
+  const mine = r.findings.filter((x) => x.comp?.comp_ref === compRef);
+  const withComponent = mine.map((x) => view.display[x.id]?.component).find((t) => t && t !== "제품");
+  return withComponent ?? mine[0]?.comp?.name ?? compRef;
 }
 
 /** 판정 목록. section 을 정하면 그 항만, verdict 를 정하면 그 판정만 (counts·groups 는 거르기 전 항 기준) */
@@ -89,7 +72,7 @@ export function adaptFindings(view: JudgmentView, params: FindingsParams = {}): 
       const inGroup = bySection.filter((f) => (f.component_id ?? PRODUCT_GROUP_ID) === id);
       return {
         component_id: id,
-        title: id === PRODUCT_GROUP_ID ? "제품" : groupTitle(r, id),
+        title: id === PRODUCT_GROUP_ID ? "제품" : groupTitle(view, r, id),
         total: inGroup.length,
         matching_count: inGroup.filter((f) => f.verdict === "match").length,
       };
@@ -140,25 +123,26 @@ export function adaptDetail(view: JudgmentView, findingId: string): FindingDetai
   const f = r.findings.find((x) => x.id === findingId);
   if (!f) throw new ApiRequestError(404, "http_404", "판정을 찾을 수 없습니다.");
   const summary = toSummary(view, r, f);
-  const t = traceOf(r, f);
+  const d = view.display[f.id];
+  const t = f.trace_id ? r.traces[f.trace_id] : undefined;
+  const calcLines = d?.calc_lines ?? [];
+  const thresholds = (t?.thresholds ?? []).map((x) => `${String(x.category ?? "")}: ${String(x.range ?? "")}`);
+  const assumptions = (t?.assumptions ?? []).map((x) => `${x.id} ${x.text}`);
   const review = screenReview(view.reviews[f.id]);
   return {
     finding: summary,
     explanation: explanationOf(view, f),
-    trace: t
-      ? {
-          trace_id: f.trace_id ?? "",
-          rule: { id: t.rule.id, version: t.knowledge_version },
-          inputs: t.steps.map((s) => s.step),
-          thresholds: t.thresholds.map((x) => `${x.category}: ${x.range}`),
-          assumptions: t.assumptions.map((x) => `${x.id} ${x.text}`),
-        }
-      : null,
+    // 판단 근거(basis_lines)와 계산 과정(calc_lines)은 서버가 준 줄 그대로
+    basis_lines: d?.basis_lines ?? [],
+    trace:
+      t && (calcLines.length > 0 || thresholds.length > 0 || assumptions.length > 0)
+        ? { trace_id: f.trace_id ?? "", rule: { id: t.rule.id, version: t.knowledge_version }, inputs: calcLines, thresholds, assumptions }
+        : null,
     evidence: summary.source_refs,
     review: { state: review.state, opinions: review.opinion ? [review.opinion] : [] },
     evidence_status: evidenceStatus(view, r, f),
-    // 계약에 법령 시행일이 없다: 구버전 판정의 시행일은 비어 있다
-    law_effective_date: null,
+    // 규제 시행일(구버전 판정에 보인다). PoC 에서는 비어 있을 수 있다
+    law_effective_date: f.expected.effective_from ?? null,
     msds_revision_date: r.msds_revision_date,
     reference_date: view.consistency.as_of,
   };

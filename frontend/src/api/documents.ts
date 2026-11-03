@@ -4,7 +4,9 @@
  * 캐시 키는 documentKeys 한 곳에서 만든다 (무효화할 때 같은 키를 쓰도록).
  */
 import { queryOptions } from "@tanstack/react-query";
-import { apiUrl, isPermanentError, requestJson } from "./client";
+import { z } from "zod";
+import { ApiRequestError, apiUrl, isPermanentError, requestJson } from "./client";
+import { historyEntry, type HistoryEntry } from "./contract/api";
 import { DEMO_ENABLED, isDemoDoc, loadDemo } from "@/lib/demo";
 import {
   FINAL_STATUSES,
@@ -69,6 +71,10 @@ export const documentListQuery = (status: DocumentFilter = "all") =>
       if (!DEMO_ENABLED) return real!;
       const demo = (await loadDemo.detail()).demoList(status);
       if (!real) return demo;
+      // 서버가 같은 번호를 주면(개발용 임시 서버) 서버 것만 남긴다
+      const have = new Set(real.items.map((d) => d.id));
+      demo.items = demo.items.filter((d) => !have.has(d.id));
+      if (demo.items.length === 0) return real;
       const sum = (k: keyof typeof demo.counts) => demo.counts[k] + real.counts[k];
       return { items: [...demo.items, ...real.items], counts: { all: sum("all"), active: sum("active"), done: sum("done"), failed: sum("failed") } };
     },
@@ -139,6 +145,25 @@ export const reviewQuery = (id: string) =>
   queryOptions({
     queryKey: documentKeys.review(id),
     queryFn: ({ signal }) => requestJson(reviewResponseSchema, `${doc(id)}/review`, { signal }),
+  });
+
+/**
+ * 추출값 검수 기록 (A2 신규: GET /api/documents/{id}/review/log, 계약 history_entry[]). 검토 이력 탭이 판정 쪽 이력과 at 으로 합친다.
+ * 서버가 아직 이 경로를 만들지 않았으면 빈 목록으로 본다 (이력 탭은 판정 쪽 이력만 보인다).
+ */
+export const reviewLogQuery = (id: string) =>
+  queryOptions({
+    queryKey: [...documentKeys.review(id), "log"] as const,
+    queryFn: async ({ signal }): Promise<HistoryEntry[]> => {
+      if (isDemoDoc(id)) return (await loadDemo.judgment()).demoReviewLog();
+      try {
+        return await requestJson(z.array(historyEntry), `${doc(id)}/review/log`, { signal });
+      } catch (e) {
+        if (e instanceof ApiRequestError && (e.status === 404 || e.status === 405)) return [];
+        throw e;
+      }
+    },
+    retry: false,
   });
 
 /* ── 쓰기 ───────────────────────────────────────────────── */

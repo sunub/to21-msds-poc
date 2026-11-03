@@ -66,19 +66,27 @@ export const applicable = z.enum(["해당", "비해당", "자료없음", "미기
 /** 판정 항목 ID. 판정 버전이 바뀌어도 같은 항목이면 같다. 판정 검토 이력을 잇는 키. 규칙은 contracts/README.md 3절 */
 export const findingId = z.string().regex(/^m\d+\/(F2|F2L|F15|F15DG|FPT):[^\s]+$/);
 
-/** 판정. 앞의 4가지가 설계서 v0.4 판정 체계. 참고(D-18 구분5 등)와 범위 외(검증 범위 밖 항목)는 화면 표시용 */
-export const verdict = z.enum(["일치", "불일치", "경계", "근거부족", "참고", "범위 외"]);
+/**
+ * 판정. 앞의 4가지가 설계서 v0.4 판정 체계. 경고 = 설계서 v0.4 결과 구조 summary 의 '경고'(표시 요소 중복 등, 화면 2.3 목업 '경고 · 낮음').
+ * 참고 = D-18 구분5 등. 범위 외 = 검증 범위 밖(화면 2.3 '범위 외 · 비교 제외')
+ */
+export const verdict = z.enum(["일치", "불일치", "경계", "근거부족", "경고", "참고", "범위 외"]);
 
 /** 불일치 유형 (설계서 v0.4 판정 체계와 심각도) */
 export const mismatchType = z
-  .enum(["과소분류", "규제 누락", "형태·세부 표기", "기준 불일치", "구버전", "표시 요소 불일치", "과대분류", "과기재"])
+  .enum([
+    "과소분류", "규제 누락", "형태·세부 표기", "기준 불일치", "구버전", "표시 요소 불일치", "과대분류", "과기재", "내부 불일치",
+    "화평법 항목 누락",
+  ])
   .nullable();
 
 export const severity = z.enum(["높음", "중간", "낮음"]).nullable();
 
-/** 차이 원인 코드 (설계서 v0.4 trace 반환 규격, 엔진이 붙임) */
+/** 차이 원인 코드. 앞 8개는 설계서 v0.4 trace 반환 규격, 나머지는 판정 엔진이 필요해 더한 것 (compliance/trace.py CAUSE_TEXT) */
 export const causeCode = z.enum([
   "CAT_LOWER", "CAT_HIGHER", "MAIN_COMPONENT", "FORM_DIFF", "RANGE_EDGE", "ATE_VALUE_DIFF", "SOURCE_DIFF", "ASSUMED",
+  "DETAIL_DIFF", "PROP_EDGE", "MULTI_CATEGORY", "NO_BASIS", "LABEL_MISSING", "LABEL_EXTRA", "LABEL_DIFF", "REG_MISSING",
+  "THRESHOLD_DIFF", "OVER_STATED", "CONDITION_CHECK",
 ]);
 
 /** 어떤 지식·규칙으로 판정했나 (설계서 v0.4 지식 교체와 버전 관리 기록 필드) */
@@ -99,3 +107,9 @@ export const evidenceRef = z.strictObject({
   page: z.int().min(1).nullable(),
   source_text: z.string().nullable().optional(),
 });
+
+/** 범위 외 판정의 이유 (화면 2.3 '해당 없음 5 · 대조 2'). 구버전 제외 = D-09로 PoC 제외, 해외 규제 = 검증 범위 밖 */
+export const outOfScopeReason = z.enum(["해당 없음", "대조만", "구버전 제외", "해외 규제"]).nullable();
+
+/** 화면 표시용 법령 이름 (화면 2.4 법령 거르기) */
+export const lawLabel = z.enum(["산안법", "화관법", "화평법", "위험물법", "폐기물법", "POPs법", "기타 국내", "해외"]);

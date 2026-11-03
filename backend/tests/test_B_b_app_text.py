@@ -1,6 +1,7 @@
 """표시 이름 규칙 시험. 실제 실행의 이름만 쓰며 문서 내용이나 서버는 읽지 않는다."""
 import copy
 import importlib
+import re
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
@@ -635,17 +636,17 @@ def test_model_labels(text, tag, expected):
 
 @pytest.mark.parametrize("name, title", [
     ("20261030_sections_qwen36_35b_runpod_s7_v9_cls_dev10_r2",
-     "10/30 Qwen3.6 35B · 빌린 서버 · AI에게 시킨 일 s7 · 원문 자료 version9 · 분류 검사 · 개발 10건 · 2회차"),
+     "10/30 Qwen3.6 35B · 빌린 서버 · AI에게 시킨 일 7번째 판 · 원문 자료 9판 · 분류 검사 · 개발 10건 · 2회차"),
     ("20261027_silver_claude_p3_dev",
      "10/27 Claude · AI 정답 초안 · AI에게 시킬 일 p3 · 개발 10건"),
     ("20261029_sections_qwen3_30b_a3b_rngd_s4_cw_optonly_probe",
-     "10/29 Qwen3 30B · 회사 서버 · AI에게 시킨 일 s4 · 원문 자료 chars_wrap · 선택 항목만 · 일부 시험"),
+     "10/29 Qwen3 30B · 회사 서버 · AI에게 시킨 일 4번째 판 · 원문 자료 임시판 · 선택 항목만 · 일부 시험"),
     ("20261028_sections_qwen3_30b_a3b_rngd_s2_cw_s003_w1_r2",
-     "10/28 Qwen3 30B · 회사 서버 · AI에게 시킨 일 s2 · 원문 자료 chars_wrap · 문서 T21-S003 한 건 · 동시 1개 · 2회차"),
+     "10/28 Qwen3 30B · 회사 서버 · AI에게 시킨 일 2번째 판 · 원문 자료 임시판 · 문서 T21-S003 한 건 · 동시 1개 · 2회차"),
     ("20261028_sections_gpt_oss_20b_rngd_s2_cw_s003_w1_r2",
-     "10/28 gpt-oss 20B · 회사 서버 · AI에게 시킨 일 s2 · 원문 자료 chars_wrap · 문서 T21-S003 한 건 · 동시 1개 · 2회차"),
+     "10/28 gpt-oss 20B · 회사 서버 · AI에게 시킨 일 2번째 판 · 원문 자료 임시판 · 문서 T21-S003 한 건 · 동시 1개 · 2회차"),
     ("20261028_sections_nuextract2_8b_runpod_cw_s016_ex",
-     "10/28 NuExtract 2.0 8B · 빌린 서버 · 원문 자료 chars_wrap · 문서 T21-S016 한 건 · 예시 포함"),
+     "10/28 NuExtract 2.0 8B · 빌린 서버 · 원문 자료 임시판 · 문서 T21-S016 한 건 · 예시 포함"),
     ("20261027_silver_claude_p3_eval039",
      "10/27 Claude · AI 정답 초안 · AI에게 시킬 일 p3 · 평가용 문서 한 건 · 열람 제한"),
 ])
@@ -662,7 +663,7 @@ def test_metadata_wins_without_repeating_name_tokens(text):
             "docs": ["T21-X01"]}
     before = copy.deepcopy(info)
     result = text.run_label(info)
-    assert result["title"] == "10/30 Qwen3.6 35B · 빌린 서버 · AI에게 시킨 일 s7 · 원문 자료 version9 · 일부 시험"
+    assert result["title"] == "10/30 Qwen3.6 35B · 빌린 서버 · AI에게 시킨 일 7번째 판 · 원문 자료 9판 · 일부 시험"
     assert info == before
     assert text.run_label(info) == result
 
@@ -673,15 +674,15 @@ def test_metadata_wins_without_repeating_name_tokens(text):
     ({"name": "custom", "started_at": "invalid"}, "custom"),
     ({"name": "20260230_sections_gpt_probe", "started_at": "2026-03-01"}, "3/1 GPT · AI 정답 초안 · 일부 시험"),
     ({"name": "20261030_sections_future_model_s8_v13_new", "model_tag": "future_model"},
-     "10/30 future_model · AI에게 시킨 일 s8 · 원문 자료 version13 · new"),
+     "10/30 future_model · AI에게 시킨 일 8번째 판 · 원문 자료 13판 · new"),
     ({"name": "20261030_sections_claude_p3_dev", "prompt_version": "p3"},
      "10/30 Claude · AI 정답 초안 · AI에게 시킨 일 p3 · 개발 10건"),
     ({"name": "manual/20261030_qwen38_s7_v9_probe", "kind": "manual"},
-     "앱에서 시작 · 10/30 Qwen3.8 27B (vLLM) · AI에게 시킨 일 s7 · 원문 자료 version9 · 일부 시험"),
+     "앱에서 시작 · 10/30 Qwen3.8 27B (vLLM) · AI에게 시킨 일 7번째 판 · 원문 자료 9판 · 일부 시험"),
     ({"name": "20260102_sections_gpt_s7_chars_wrap_dev10"},
-     "1/2 GPT · AI 정답 초안 · AI에게 시킨 일 s7 · 원문 자료 chars_wrap · 개발 10건"),
+     "1/2 GPT · AI 정답 초안 · AI에게 시킨 일 7번째 판 · 원문 자료 임시판 · 개발 10건"),
     ({"name": "20261028_sections_qwen3_30b_a3b_rngd_s2_version2_diag2"},
-     "10/28 Qwen3 30B · 회사 서버 · AI에게 시킨 일 s2 · 원문 자료 version2 · 문제 확인 2"),
+     "10/28 Qwen3 30B · 회사 서버 · AI에게 시킨 일 2번째 판 · 원문 자료 2판 · 문제 확인 2"),
 ])
 def test_partial_metadata_and_unknown_tokens(text, info, title):
     result = text.run_label(info)
@@ -694,7 +695,7 @@ def test_partial_metadata_and_unknown_tokens(text, info, title):
     ("eval", "평가 10건"), ("probe3", "일부 문서 시험 3회"), ("diag", "문제 확인"),
     ("none", "AI에게 시킬 일 없음"), ("wsonly", "빈칸 줄이기만"),
     ("m013", "문서 T21-M013 한 건"), ("S003", "문서 T21-S003 한 건"),
-    ("s12", "AI에게 시킨 일 s12"), ("v2", "원문 자료 version2"), ("unknown", "unknown"),
+    ("s12", "AI에게 시킨 일 12번째 판"), ("v2", "원문 자료 2판"), ("unknown", "unknown"),
 ])
 def test_condition_tokens(text, token, expected):
     assert text.run_label({"name": f"20261030_sections_gpt_{token}"})["title"] == f"10/30 GPT · AI 정답 초안 · {expected}"
@@ -1106,8 +1107,8 @@ def test_copy_exceptions_do_not_keep_already_approved_text(text):
 def test_run_label_human_words_follow_approved_copy(text):
     info = {"name": "manual/20261031_sections_fake_s8_v9_probe2_r2", "kind": "manual", "model_tag": "fake"}
     label = text.run_label(info)
-    assert approved_copy("common.run.prompt").format(version="s8") in label["title"]
-    assert approved_copy("common.run.input").format(version="version9") in label["title"]
+    assert approved_copy("common.run.prompt").format(version=approved_copy("common.run.prompt_round").format(round="8")) in label["title"]
+    assert approved_copy("common.run.input").format(version=approved_copy("common.run.input_round").format(round="9")) in label["title"]
     assert approved_copy("common.run.probe").format(round="2") in label["title"]
     assert label["title"].startswith(approved_copy("common.run.manual").split("{title}")[0])
     assert label["subtitle"] == info["name"]
@@ -1158,3 +1159,217 @@ def test_job_error_messages_share_screen_copy(text):
         for field in ("message", "fix"):
             key = "other" if kind == "no_line" and field == "message" else kind
             assert entry[field] == approved_copy(f"errors.job.{key}.{field}")
+
+
+def test_problem_rows_count_per_item_and_doc_without_touching_the_status(text):
+    """문제 행 수는 항목 이름과 항으로 거른다. 손실 순서와 status_text는 그대로이고 문서별 값에 행 수만 더한다."""
+    from collections import Counter
+    info = loss_info(('8항 노출기준', '필수', .6, .95), ('가짜 일반', '일반', .9, .8))
+    per_doc = {'T21-X01': {'items': {'8항 노출기준': .5, '가짜 일반': .9}},
+               'T21-X02': {'items': {'8항 노출기준': .7, '가짜 일반': .9}},
+               'T21-X03': {'items': {'8항 노출기준': .6, '가짜 일반': .9}}}
+    field = {'T21-X01': Counter({('8항 노출기준', 8, 'wrong'): 5}), 'T21-X02': Counter({('8항 노출기준', 8, 'missing'): 1})}
+    rows = {'T21-X01': Counter({('8항 노출기준', 8): 3, ('8항 노출기준', 3): 7, ('가짜 일반', None): 2, ('가짜 일반', 5): 1}),
+            'T21-X02': Counter({('8항 노출기준', 8): 1})}                       # T21-X03은 셀 수 없었다(정답 없음)
+    status = text.score_status(info, LOSS_CRITERIA, per_doc=per_doc, field_counts=field)
+    before = copy.deepcopy(status)
+    got = text.problem_rows(status, per_doc, field, rows)
+    assert status == before
+    assert list(got) == [row['name'] for row in status['losses']]               # 손실 순서 그대로
+    assert got['8항 노출기준']['row_count'] == 4 and got['가짜 일반']['row_count'] == 3   # 항을 모르면 모든 항을 센다
+    docs = got['8항 노출기준']['docs']
+    assert {d['doc_id']: d['row_count'] for d in docs} == {'T21-X01': 3, 'T21-X02': 1, 'T21-X03': None}
+    assert [{k: v for k, v in d.items() if k != 'row_count'} for d in docs] == status['top_problem']['docs']
+
+
+def test_problem_rows_are_empty_when_nothing_could_be_counted(text):
+    from collections import Counter
+    status = text.score_status(loss_info(('8항 노출기준', '필수', .6, .95)), LOSS_CRITERIA)
+    assert text.problem_rows(status, {}, {}, {}) == {}
+    assert text.problem_rows({'losses': [], 'loss_basis': None}, {}, {}, {'T21-X01': Counter()}) == {}
+
+
+def test_row_title_uses_labels_and_keeps_unknown_codes_as_written(text):
+    title = text.row_title
+    assert title('exposure_limits', {'standard': '국내', 'limit_type': 'TWA'}, {}, '가짜성분A', 0) == '가짜성분A / 국내기준 / TWA'
+    assert title('exposure_limits', {'standard': 'ACGIH', 'limit_type': 'STEL'}, {}, None, 2) == '3행 / ACGIH / STEL'
+    assert title('physchem', {'prop_code': 'FLASH_POINT'}, {}, '제품 전체', 0) == '제품 전체 / 인화점'
+    assert title('physchem', {'prop_code': 'NEW_CODE'}, {}, '제품 전체', 0) == '제품 전체 / NEW_CODE'
+    assert title('toxicity', {'endpoint': 'TX_ORAL'}, {'descriptor': 'LD50'}, '가짜성분B', 0) == '가짜성분B / 급성 독성(경구) / LD50'
+    assert title('toxicity', {}, {'endpoint': 'TX_ORAL'}, None, 4, gold_only=True) == '정답 5행 / 급성 독성(경구)'
+    assert title('regulations', {'law': 'OSH', 'item_raw': '가짜 대상', 'item_code': 'OSH_MEASURE'}, {}, '제품 전체', 0) \
+        == '제품 전체 / 산업안전보건법 / 가짜 대상'
+    assert title('regulations', {'law': 'OSH', 'item_code': 'OSH_MEASURE'}, {}, '제품 전체', 0) \
+        == '제품 전체 / 산업안전보건법 / OSH_MEASURE'
+    assert title('hazard.classes', {'raw': '가짜 분류 : 구분 2', 'class_code': 'HH_X'}, {}, None, 0) == '가짜 분류 : 구분 2'
+    assert title('transport', {'mode': '해상'}, {}, None, 0) == '해상'
+    assert title('hazard.h_statements', {}, {}, None, 1) == '2행'                # 구분 값이 없으면 행 번호
+    assert title('없는표', {'x': 1}, {}, None, 0) == '1행'
+
+
+def test_value_title_names_the_field_or_falls_back_to_the_table(text):
+    assert text.value_title('hazard', 'signal_word') == '신호어'
+    assert text.value_title('meta', 'msds_no') == '제출번호'
+    assert text.value_title('hazard', 'nfpa.fire') == 'NFPA 화재 위험'
+    assert text.value_title('product', 'name') == '제품명'
+    assert text.value_title('meta', '새칸') == '관리정보'
+    assert text.value_title('없는표', '새칸') == '없는표'
+
+
+def test_row_labels_cover_the_schema_codes(text):
+    from msds.common.schema import msds_item_schema
+    from msds.extract.expand import _resolve
+    props = msds_item_schema()['properties']
+    def codes(table, column):
+        node = _resolve(props[table]['items'])['properties'][column]
+        return set(next(b for b in node['anyOf'] if b.get('type') == 'string')['enum'])
+    labels = text.UI_TEXT['source']['row_parts']
+    assert codes('physchem', 'prop_code') == set(labels['prop_code'])
+    assert codes('toxicity', 'endpoint') == codes('ecotox', 'endpoint') == set(labels['endpoint'])
+    assert codes('regulations', 'law') == set(labels['law'])
+    assert set(labels['agency']) <= codes('cmr', 'agency')
+    assert set(labels['standard']) <= codes('exposure_limits', 'standard')
+    assert set(labels['system']) <= codes('intl_class', 'system')
+
+
+def test_every_row_field_of_the_schema_has_a_plain_name(text):
+    # 값 칸의 이름이 표 이름으로 대체되면 같은 이름이 여러 칸에 겹친다. 예: 12번 부분의 세 칸이 모두 '환경에 미치는 영향'.
+    from msds.common.schema import msds_item_schema
+    schema = msds_item_schema()
+    defs = schema.get("$defs", {})
+
+    def resolve(node):
+        while True:
+            if "$ref" in node:
+                node = defs.get(node["$ref"].split("/")[-1], {})
+            elif "anyOf" in node:
+                rest = [x for x in node["anyOf"] if x.get("type") != "null"]
+                if len(rest) != 1:
+                    return node
+                node = rest[0]
+            else:
+                return node
+
+    source = text.UI_TEXT["source"]
+    missing = []
+    for table in ("exposure_limits", "physchem", "toxicity", "cmr", "ecotox", "regulations", "components", "companies",
+                  "transport", "dangerous_goods", "waste", "intl_class", "extras", "narratives"):
+        node = resolve(schema["properties"][table])
+        node = resolve(node["items"]) if node.get("type") == "array" else node
+        for field in node["properties"]:
+            if not any(field in names for names in (text.VALUE_FIELD_LABELS, source["field_names"], source["fields"])):
+                missing.append((table, field))
+    assert missing == []
+
+
+def _copy_rows_any_key(text):
+    """COPY.md의 `키|글|쓰는 곳` 행. 키에 한글·대문자가 들어가는 행(코드 이름표)도 읽는다."""
+    import html
+    leaves = dict(_ui_leaves(text.UI_TEXT))
+    rows = {}
+    for row in (Path(__file__).parents[1] / 'scripts/b_app_static/design/COPY.md').read_text().splitlines():
+        if '|' in row and row.split('|')[0] in leaves:
+            rows[row.split('|')[0]] = html.unescape(row.split('|')[1]).replace('<br>', '\n')
+    return leaves, rows
+
+
+def test_every_ui_text_key_has_its_own_copy_row_with_the_same_text(text):
+    leaves, rows = _copy_rows_any_key(text)
+    missing = [key for key in leaves if key not in rows and key not in text.COPY_EXCEPTIONS]
+    assert not missing, (len(missing), missing[:20])
+    different = [key for key in leaves if key in rows and key not in text.COPY_EXCEPTIONS and rows[key] != leaves[key]]
+    assert not different, different[:20]
+
+
+# 옛 관문에서 이유와 함께 승인한 예외의 수. 이번 phase는 예외를 늘리지 않는다.
+OLD_COPY_EXCEPTIONS = 729
+
+
+def test_this_phase_left_no_copy_exception(text):
+    new_groups = ('steps.', 'source.rows.', 'source.row_parts.', 'source.value_titles.', 'nav.group_',
+                  'swap.context.', 'guide.ai.steps', 'guide.ai.return_order', 'guide.trial.steps_note', 'guide.source.image_note',
+                  'help.source.step_', 'help.servers.step_', 'help.servers.order', 'common.run.prompt_round', 'common.run.input_', 'common.run.dev_docs')
+    assert not [key for key in text.COPY_EXCEPTIONS if key.startswith(new_groups)]
+    assert len(text.COPY_EXCEPTIONS) <= OLD_COPY_EXCEPTIONS
+
+
+def _approval_rows():
+    source = (Path(__file__).parents[1] / 'scripts/b_app_static/design/STEPS.md').read_text()
+    section = source.split('## 12. 문구 승인표', 1)[1].split('\n## ', 1)[0]
+    import html
+    rows = {}
+    for line in section.splitlines():
+        match = re.match(r'^\| `([^`]+)` \| (.*?) \| (.*?) \| (.*?) \|$', line)
+        if match:
+            rows[match[1]] = {'before': match[2], 'after': html.unescape(match[3]).replace('<br>', '\n').replace('\\|', '|'), 'where': match[4]}
+    return rows
+
+
+def test_approval_table_shows_the_current_text_for_every_key_of_this_phase(text):
+    rows = _approval_rows()
+    leaves = dict(_ui_leaves(text.UI_TEXT))
+    assert rows
+    for key in leaves:
+        if key.startswith(('steps.', 'source.row_parts.', 'source.value_titles.')):
+            assert key in rows, key
+    for key, row in rows.items():
+        if row['after'] == '(지움)':
+            assert key not in leaves, key
+        else:
+            assert leaves[key] == row['after'], key
+        assert row['where'].strip(), key
+    for key in ('guide.source.image_note', 'guide.ai.steps', 'help.source.kinds', 'help.servers.order', 'glossary.twa.term',
+                'context.model.wrong_reply', 'compare.values.expand', 'jobs.form.focus_line', 'journey.trial.parse_todo'):
+        assert key in rows, key
+
+
+@pytest.mark.parametrize('name,gone', [
+    ('20261101_sections_qwen36_35b_runpod_s9_v17_dev3_r1', ('s9', 'v17', 'version17', 'dev3')),
+    ('20261102_sections_qwen36_35b_runpod_s10h_v17_dev10_r2', ('s10h', 'v17', 'dev10')),
+])
+def test_run_title_has_plain_names_and_keeps_the_folder_name_as_subtitle(text, name, gone):
+    label = text.run_label({'name': name, 'model_tag': 'qwen36_35b_runpod'})
+    assert label['subtitle'] == name
+    words = re.split(r'[\s·]+', label['title'])
+    for word in gone:
+        assert word not in words, (word, label['title'])
+    assert '번째 판' in label['title']
+    assert '판' in label['title'].split('원문 자료')[1]
+    assert '개발 ' in label['title']
+
+
+def test_run_title_keeps_a_token_it_does_not_know_and_does_not_guess(text):
+    label = text.run_label({'name': '20261101_sections_mystery7', 'model_tag': ''})
+    assert 'mystery7' in label['title']
+    assert text.UI_TEXT['common']['run']['input'].format(version=text.UI_TEXT['common']['run']['input_temp']) in text.run_label({'name': '20261101_sections_x_chars_wrap'})['title']
+    assert text.UI_TEXT['common']['run']['input_new'] in text.run_label({'name': '20261101_sections_x', 'pages_dir': 'data/pages'})['title']
+
+
+def test_ui_text_has_no_internal_set_names_or_model_reply_jargon(text):
+    for key, value in _ui_leaves(text.UI_TEXT):
+        assert 'prev/version' not in value, key
+        assert '다른 모델 응답' not in value, key
+
+
+def test_no_text_repeats_an_action_word(text):
+    action = r'(펼치기|접기|보기|닫기|열기|고르기|바꾸기)'
+    for key, value in _ui_leaves(text.UI_TEXT):
+        assert not re.search(action + r'\s+\1', value), (key, value)
+
+
+def test_run_title_does_not_repeat_the_short_model_name_of_the_folder(text):
+    # 폴더 이름의 qwen36은 이미 앞에 쓴 모델 이름이다. 뜻을 모르는 조각은 그대로 둔다.
+    info = {"name": "20261101_sections_qwen36_s9_v17_dev10_r1", "model_tag": "qwen36_35b_runpod",
+            "prompt_version": "s9", "pages_dir": "data/pages/version17"}
+    assert "qwen36" not in text.run_label(info)["parts"]
+    assert text.run_label(info)["title"].startswith("11/1 Qwen3.6 35B")
+    assert "qwen" in text.run_label({**info, "model_tag": "other_tag"})["title"]
+
+
+def test_whole_document_text_counts_the_parts_the_ai_extracts(text):
+    from msds.extract.inputs import EXTRACT_SECTIONS
+    jobs = text.UI_TEXT["jobs"]
+    for line in (jobs["fields"]["scope"], jobs["scope"]["whole"], jobs["whole"]["prompts"], jobs["whole_running"]["title"],
+                 jobs["whole_done"]["title"], jobs["form"]["all"], text.UI_TEXT["help"]["cli"]["all_meaning"]):
+        assert f"{len(EXTRACT_SECTIONS)}개 부분" in line, line
+        assert "16개" not in line

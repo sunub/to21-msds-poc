@@ -69,16 +69,16 @@ export function FindingDetailView({
 function ReviewActions({ finding }: { finding: FindingSummary }) {
   const { getState, confirm, approveException, undo } = useReviewState();
   const { state, opinion, stale } = getState(finding.finding_id);
+  // 처리한 뒤 판정이 바뀌었으면(stale) 다시 처리해야 한다: 처리 버튼을 다시 보인다
   const [draft, setDraft] = useState("");
   const inputId = `opinion-${finding.finding_id}`;
   const needOpinion = draft.trim() === "";
 
-  if (isProcessed(state)) {
+  if (isProcessed(state) && !stale) {
     return (
       <div className="flex flex-col gap-2 border-t border-line2 pt-3">
         <div className="flex flex-wrap items-center gap-2">
           <StatusLabel tone="success">{REVIEW_STATE_LABEL[state]}</StatusLabel>
-          {stale && <StatusLabel tone="warning">판정이 바뀌어 다시 확인 필요</StatusLabel>}
           <Button
             variant="link"
             onClick={() => {
@@ -101,7 +101,13 @@ function ReviewActions({ finding }: { finding: FindingSummary }) {
 
   return (
     <div className="flex flex-col gap-2 border-t border-line2 pt-3">
-      {state === "opinion" && (
+      {stale && (
+        <p className="text-sm">
+          <StatusLabel tone="warning">판정이 바뀌어 다시 확인 필요</StatusLabel>
+          <span className="text-mut"> 이전 처리: {REVIEW_STATE_LABEL[state]}{opinion && ` · ${opinion}`}</span>
+        </p>
+      )}
+      {!stale && state === "opinion" && (
         <p className="text-sm break-words">
           <b className="text-amb-text">{REVIEW_STATE_LABEL.opinion}</b>
           {opinion && <span className="text-mut"> · {opinion}</span>}
@@ -185,10 +191,20 @@ function DetailBody({ detail }: { detail: FindingDetail }) {
         </div>
       )}
 
-      <p className="text-sm">
-        <span className="text-mut">판단 근거 </span>
-        {finding.method}
-      </p>
+      <div className="text-sm">
+        <span className="text-mut">판단 근거</span>
+        {detail.basis_lines.length > 0 ? (
+          <ul className="m-0 mt-0.5 list-disc pl-4.5">
+            {detail.basis_lines.map((line, i) => (
+              <li key={i}>
+                <NoBreakDates text={line} />
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <span> {finding.method}</span>
+        )}
+      </div>
 
       {trace && (
         <div>

@@ -1,4 +1,4 @@
-import type { AteStep, Classification, Concentration, Confidence } from "@/api/components-schemas";
+import type { Classification, Concentration, Confidence } from "@/api/components-schemas";
 import type { Tone } from "@/components/ui";
 
 /** 함량 표시. 표는 "93 ~ 98", 머리줄은 "93~98%"처럼 줄여 쓴다. 모르는 부등호면 원문 그대로 */
@@ -38,12 +38,3 @@ export const CONFIDENCE: Record<NonNullable<Confidence["level"]>, { label: strin
 };
 
 export const confidenceView = (c: Confidence) => (c.level ? CONFIDENCE[c.level] : { label: "미확인", tone: "neutral" as Tone });
-
-/** ATE 단계 한 줄의 오른쪽 글: 채택했으면 "사용함 · 0.375 mg/L (미스트, 4hr)", 아니면 채택하지 않은 이유 */
-export function stepStatus(s: AteStep): string {
-  if (!s.adopted) return s.excluded_reason ?? "해당 없음";
-  const value = s.value !== null ? `${s.value}${s.unit ? ` ${s.unit}` : ""}` : "";
-  const input = s.input ? (value ? ` (${s.input})` : s.input) : "";
-  const body = `${value}${input}`.trim();
-  return body ? `사용함 · ${body}` : "사용함";
-}

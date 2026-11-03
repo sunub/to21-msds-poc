@@ -1,28 +1,26 @@
 "use client";
 
 /*
- * 검수 화면의 판정 처리 상태 (확정·예외 승인·의견)와 이력. 문서(job)마다 따로 둔다.
+ * 검수 화면의 판정 처리 상태 (확정·예외 승인·의견). 문서(job)마다 따로 둔다.
  * 2항·15항·성분별 요약·검토 이력 탭과 저장 화면이 같은 값을 읽는다.
  *
  * 처리 상태는 서버가 가진다: 판정 한 벌(judgment_view)의 reviews 에서 읽고, 확정·예외·되돌리기는
- * POST /api/judgments/{job_id}/reviews 로 보낸다 (seen_version 포함). 더 새 판정 버전이 있으면 409 라서
- * conflict 가 켜지고 화면이 "새로고침해 주세요"를 띄운다.
- * 이력 목록은 계약에 목록 API 가 없어 이 브라우저 탭에 쌓는다 (lib/review-history.ts).
+ * POST /api/judgments/{job_id}/reviews 로 보낸다. 요청에는 화면이 보던 판정 버전(seen_version)과
+ * 그 항목의 마지막 이벤트 번호(seen_event_id)를 싣는다. 더 새 판정이 있거나 다른 검토자가 먼저 처리했으면 409 라서
+ * conflict 가 켜지고, 화면은 판정 상태를 다시 읽은 뒤 "새로고침해 주세요"를 띄운다.
+ * 검토 이력 목록은 서버(GET /history)에서 받는다 (이 파일은 이력을 들고 있지 않는다).
  */
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
+import { createContext, useCallback, useContext, useMemo, useState, type ReactNode } from "react";
 import { screenReview } from "@/api/adapt/maps";
 import { findingsQuery } from "@/api/findings";
 import type { ReviewState, Verdict } from "@/api/findings-schemas";
 import { isConflict, judgmentKeys, judgmentViewQuery, postReview } from "@/api/judgments";
-import { appendHistory, kstNow, loadHistory, newHistoryId, type HistoryEntry, type HistoryKind } from "@/lib/review-history";
 import { useReviewer } from "@/lib/reviewer";
 import { isActionable } from "./hazard/verdict";
 import { useValidationId } from "./shared/use-validation-id";
 
-export type { HistoryEntry, HistoryKind };
-
-type FindingReview = { state: ReviewState; opinion: string; /** 마지막 검토 뒤에 판정이 바뀜 */ stale: boolean };
+type FindingReview = { state: ReviewState; opinion: string; /** 마지막 처리 뒤에 판정이 바뀜 */ stale: boolean };
 
 export const OPINION_MAX = 500;
 
@@ -36,27 +34,31 @@ export const REVIEW_STATE_LABEL: Record<ReviewState, string> = {
 /** 처리를 마친 상태인가. 의견만 남긴 판정은 처리한 것으로 보지 않는다 (미처리에 포함) */
 export const isProcessed = (state: ReviewState) => state === "confirmed" || state === "exception_approved";
 
+/** 지금 판정에 대해 처리가 끝난 항목인가: 처리했고 그 뒤 판정이 바뀌지 않았다 (바뀌었으면 다시 미검토 수에 들어간다) */
+export const isResolved = (r: FindingReview) => isProcessed(r.state) && !r.stale;
+
 type ReviewStateValue = {
-  /** 판정과 이력을 읽어 오기 전에는 false (그동안은 처리 전 상태로 보인다) */
+  /** 판정을 읽어 오기 전에는 false (그동안은 처리 전 상태로 보인다) */
   ready: boolean;
   getState: (findingId: string) => FindingReview;
   confirm: (findingId: string, opinion?: string) => void;
   /** 의견이 비어 있으면 처리하지 않는다 */
   approveException: (findingId: string, opinion: string) => void;
   undo: (findingId: string) => void;
-  /** 처리하지 않은 불일치·경계·근거부족·경고·구버전 건수 (의견만 남긴 판정 포함, 일치·해당 없음·비교 제외 제외) */
+  /** 처리하지 않은 불일치·경계·근거부족·경고·구버전 건수 (의견만 남긴 판정과 판정이 바뀐 처리 포함, 일치·해당 없음·비교 제외 제외) */
   unresolvedCount: (section: 2 | 15) => number;
   unresolvedByVerdict: (section: 2 | 15) => Partial<Record<Verdict, number>>;
-  history: HistoryEntry[];
   /** 화면이 읽고 있는 판정 버전. 검토·저장 요청에 seen_version 으로 실린다 */
   version: number | null;
-  /** 검토 요청이 409 로 막혔다: 더 새로운 판정 버전이 있다 */
+  /** 검토 요청이 409 로 막혔다: 더 새로운 판정 버전이 있거나 다른 검토자가 먼저 처리했다 */
   conflict: boolean;
   /** 판정을 다시 읽는다 (409 안내의 새로고침) */
   refresh: () => void;
 };
 
 const Ctx = createContext<ReviewStateValue | null>(null);
+
+type WriteArgs = { findingId: string; action: "불일치 확정" | "확인" | "예외 승인" | "되돌리기"; comment: string | null };
 
 /** enabled 가 false 면 판정을 새로 부르지 않는다 (판정이 필요 없는 추출값 탭). 이미 받아 둔 값은 그대로 쓴다 */
 export function ReviewStateProvider({ docId, enabled = true, children }: { docId: string; enabled?: boolean; children: ReactNode }) {
@@ -70,16 +72,7 @@ export function ReviewStateProvider({ docId, enabled = true, children }: { docId
   const findings = useMemo(() => [...(hazard?.items ?? []), ...(regulation?.items ?? [])], [hazard, regulation]);
   const byId = useMemo(() => new Map(findings.map((f) => [f.finding_id, f])), [findings]);
 
-  const [history, setHistory] = useState<HistoryEntry[]>([]);
-  const [historyReady, setHistoryReady] = useState(false);
   const [conflict, setConflict] = useState(false);
-
-  // 서버 렌더·첫 그림과 같게 비워 두었다가, 마운트한 뒤에 저장소의 이력을 읽는다
-  useEffect(() => {
-    setHistory(loadHistory(docId));
-    setHistoryReady(true);
-  }, [docId]);
-
   const version = view.data?.version ?? null;
 
   const getState = useCallback(
@@ -90,63 +83,62 @@ export function ReviewStateProvider({ docId, enabled = true, children }: { docId
     [view.data],
   );
 
+  const viewKey = judgmentKeys.view(docId, validation);
   const write = useMutation({
+    // 같은 문서의 쓰기는 차례로 보낸다: 앞 요청이 끝나고 판정을 다시 읽은 뒤에 다음 요청의 seen_event_id 를 정한다
     scope: { id: `review-${docId}` },
-    mutationFn: (args: { findingId: string; kind: HistoryKind; action: "불일치 확정" | "확인" | "예외 승인" | "되돌리기"; comment: string | null }) => {
-      if (version === null) throw new Error("판정을 아직 읽지 못했습니다.");
+    mutationFn: (args: WriteArgs) => {
+      // 실행하는 시점의 판정에서 읽는다 (앞 요청이 방금 끝났어도 최신 번호를 쓴다)
+      const current = queryClient.getQueryData<NonNullable<typeof view.data>>(viewKey);
+      if (!current) throw new Error("판정을 아직 읽지 못했습니다.");
       return postReview(docId, {
         finding_id: args.findingId,
         action: args.action,
         comment: args.comment,
         reviewer: reviewerName,
-        seen_version: version,
+        seen_version: current.version,
+        // 보고 있던 항목의 마지막 이벤트 번호. 기록이 없는 항목은 null (기록이 없는 것을 봤다는 뜻)
+        seen_event_id: current.reviews[args.findingId]?.last_event_id ?? null,
       });
     },
-    onSuccess: (_event, args) => {
+    // 판정과 상태·이력·저장 요약을 다시 읽는다. 읽기가 끝날 때까지 기다려 다음 쓰기가 최신 값을 보게 한다
+    onSuccess: async () => {
       setConflict(false);
-      void queryClient.invalidateQueries({ queryKey: [...judgmentKeys.all, docId] });
-      const f = byId.get(args.findingId);
-      if (!f) return;
-      const entry: HistoryEntry = {
-        id: newHistoryId(),
-        at: kstNow(),
-        reviewer: reviewerName,
-        kind: args.kind,
-        findingId: args.findingId,
-        section: f.section,
-        target: f.item,
-        opinion: args.comment ?? "",
-      };
-      setHistory((h) => appendHistory(docId, entry, h));
+      await queryClient.invalidateQueries({ queryKey: [...judgmentKeys.all, docId] });
     },
-    onError: (error) => {
-      if (isConflict(error)) setConflict(true);
+    onError: async (error) => {
+      if (!isConflict(error)) return;
+      // 409 본문(conflict_response)이 말하는 대로 판정 상태를 다시 읽는다
+      setConflict(true);
+      await queryClient.invalidateQueries({ queryKey: judgmentKeys.status(docId) });
     },
   });
 
   const confirm = useCallback(
-    (findingId: string, opinion = "") =>
+    (findingId: string, opinion = "") => {
+      const verdict = view.data?.consistency.results[0].findings.find((f) => f.id === findingId)?.verdict;
+      if (!verdict) return;
       write.mutate({
         findingId,
-        kind: "confirm",
-        // 일치 판정은 확인, 그 밖의 판정은 불일치 확정으로 보낸다 (계약에 경계·근거부족 전용 확정 동작이 없다)
-        action: byId.get(findingId)?.verdict === "match" ? "확인" : "불일치 확정",
+        // 일치·참고·범위 외는 확인, 불일치·경계·근거부족·경고는 불일치 확정 (그 밖은 서버가 422)
+        action: verdict === "일치" || verdict === "참고" || verdict === "범위 외" ? "확인" : "불일치 확정",
         comment: opinion.trim().slice(0, OPINION_MAX) || null,
-      }),
-    [write, byId],
+      });
+    },
+    [write, view.data],
   );
 
   const approveException = useCallback(
     (findingId: string, opinion: string) => {
       const text = opinion.trim().slice(0, OPINION_MAX);
-      if (text) write.mutate({ findingId, kind: "exception", action: "예외 승인", comment: text });
+      if (text) write.mutate({ findingId, action: "예외 승인", comment: text });
     },
     [write],
   );
 
   const undo = useCallback(
     (findingId: string) => {
-      if (getState(findingId).state !== "unreviewed") write.mutate({ findingId, kind: "undo", action: "되돌리기", comment: null });
+      if (getState(findingId).state !== "unreviewed") write.mutate({ findingId, action: "되돌리기", comment: null });
     },
     [getState, write],
   );
@@ -155,7 +147,7 @@ export function ReviewStateProvider({ docId, enabled = true, children }: { docId
     (section: 2 | 15) => {
       const counts: Partial<Record<Verdict, number>> = {};
       for (const f of findings) {
-        if (f.section === section && isActionable(f.verdict) && !isProcessed(getState(f.finding_id).state)) {
+        if (f.section === section && isActionable(f.verdict) && !isResolved(getState(f.finding_id))) {
           counts[f.verdict] = (counts[f.verdict] ?? 0) + 1;
         }
       }
@@ -174,10 +166,10 @@ export function ReviewStateProvider({ docId, enabled = true, children }: { docId
     void queryClient.invalidateQueries({ queryKey: [...judgmentKeys.all, docId] });
   }, [queryClient, docId]);
 
-  const ready = historyReady && view.isSuccess;
+  const ready = view.isSuccess;
   const value = useMemo<ReviewStateValue>(
-    () => ({ ready, getState, confirm, approveException, undo, unresolvedCount, unresolvedByVerdict, history, version, conflict, refresh }),
-    [ready, getState, confirm, approveException, undo, unresolvedCount, unresolvedByVerdict, history, version, conflict, refresh],
+    () => ({ ready, getState, confirm, approveException, undo, unresolvedCount, unresolvedByVerdict, version, conflict, refresh }),
+    [ready, getState, confirm, approveException, undo, unresolvedCount, unresolvedByVerdict, version, conflict, refresh],
   );
 
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;

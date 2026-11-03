@@ -4,10 +4,9 @@ import Link from "next/link";
 import type { ComponentSummary, ProductType } from "@/api/components-schemas";
 import type { FindingSummary } from "@/api/findings-schemas";
 import { StatusLabel, buttonStyles } from "@/components/ui";
-import { cn } from "@/lib/cn";
 import { routes } from "@/lib/routes";
 import { findingHref } from "../unresolved-list";
-import { confidenceView, formatConcentration, groupBySource, sourcesAgree, stepStatus } from "./format";
+import { confidenceView, formatConcentration, groupBySource, sourcesAgree } from "./format";
 
 const chip = "rounded-xs bg-blue-soft px-1.5 py-px text-xs font-medium text-blue2";
 
@@ -52,7 +51,7 @@ export function ComponentDetail({
         </StatusLabel>
       </div>
 
-      {c.ate_steps.length === 0 && (
+      {c.notes.length === 0 && (
         <div className="rounded-sm bg-tint px-3.5 py-2.5 text-sm leading-relaxed">
           {product === "single"
             ? "단일물질은 혼합물 계산을 하지 않고 기준 분류와 직접 비교합니다. 그래서 ATE 수집 순서는 보여 주지 않습니다."
@@ -87,31 +86,17 @@ export function ComponentDetail({
         )}
       </div>
 
-      {c.ate_steps.length > 0 && (
+      {c.notes.length > 0 && (
         <div>
           <h4 className="mb-1.5 text-sm font-bold text-mut">급성 독성(흡입) ATE를 가져온 순서</h4>
           <ol aria-label="ATE를 가져온 순서" className="m-0 flex list-none flex-col gap-1 p-0">
-            {c.ate_steps.map((s) => (
-              <li
-                key={s.step}
-                aria-current={s.adopted || undefined}
-                className={cn(
-                  "flex items-center gap-2.5 rounded-sm border px-2.5 py-1.5",
-                  s.adopted ? "border-blue-line bg-blue-soft" : "border-transparent",
-                )}
-              >
-                <b className="w-4.5 flex-none">{s.step}</b>
-                <span className={cn("min-w-0 flex-1 break-keep", s.adopted ? "font-bold" : "font-normal")}>{s.label}</span>
-                <span className={cn("text-sm", s.adopted ? "font-bold text-blue2" : "text-mut")}>
-                  {s.adopted && <span aria-hidden="true">● </span>}
-                  {stepStatus(s)}
-                </span>
+            {c.notes.map((line, i) => (
+              <li key={i} className="flex items-start gap-2.5 rounded-sm border border-transparent px-2.5 py-1.5">
+                <b className="w-4.5 flex-none text-mut">{i + 1}</b>
+                <span className="min-w-0 flex-1 [word-break:keep-all] break-words">{line}</span>
               </li>
             ))}
           </ol>
-          <p className="mt-1.5 text-sm text-mut">
-            1~2단계는 신뢰도 높음, 3~4단계는 보통, 미상이 있으면 낮음입니다.
-          </p>
         </div>
       )}
 
