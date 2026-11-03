@@ -46,7 +46,8 @@ export function apiUrl(path: string, query?: Record<string, string>) {
 
 /**
  * FastAPI 오류 본문 { detail } 을 ApiRequestError 로 바꾼다.
- * detail 이 문장이면 그대로, 422 의 항목 목록이면 "어디: 무엇" 을 이어 붙인다. code 는 http_<상태> 또는 validation.
+ * detail 이 문장이면 그대로, 판정 API 의 객체면 그 message, 422 의 항목 목록이면 "어디: 무엇" 을 이어 붙인다.
+ * code 는 http_<상태> 또는 validation.
  */
 export async function toRequestError(res: Response): Promise<ApiRequestError> {
   const body: unknown = await res.json().catch(() => null);
@@ -54,6 +55,7 @@ export async function toRequestError(res: Response): Promise<ApiRequestError> {
   if (!parsed.success) return new ApiRequestError(res.status, "unknown", `서버가 ${res.status} 로 응답했습니다.`);
   const { detail } = parsed.data;
   if (typeof detail === "string") return new ApiRequestError(res.status, `http_${res.status}`, detail);
+  if (!Array.isArray(detail)) return new ApiRequestError(res.status, `http_${res.status}`, detail.message);
   const message = detail.map((d) => `${d.loc.join(".")}: ${d.msg}`).join("; ");
   return new ApiRequestError(res.status, "validation", message);
 }
