@@ -118,8 +118,8 @@ class JudgeService:
                 """INSERT INTO judge.handoff_state (job_id, handoff_seq, state, finished_at)
                    SELECT job_id, handoff_seq, '건너뜀', now() FROM extract.handoff
                    WHERE job_id = %s AND handoff_seq < %s ON CONFLICT DO NOTHING""", (row["job_id"], row["handoff_seq"]))
-            body = conn.execute("SELECT body FROM extract.handoff WHERE job_id = %s AND handoff_seq = %s",
-                                (row["job_id"], row["handoff_seq"])).fetchone()["body"]
+            body = conn.execute("SELECT payload_json FROM extract.handoff WHERE job_id = %s AND handoff_seq = %s",
+                                (row["job_id"], row["handoff_seq"])).fetchone()["payload_json"]
             if not isinstance(body, dict) or (body.get("job_id"), body.get("handoff_seq")) != (row["job_id"], row["handoff_seq"]):
                 # 본문 값대로 저장하면 다른 작업에 판정이 들어간다. 다시 해도 같으니 바로 멈춘다. 여기서 예외가 나면 줄이 뒤 작업을 모두 막는다
                 conn.execute("UPDATE judge.handoff_state SET state = '실패', attempts = %s, finished_at = now(), "
@@ -291,12 +291,12 @@ class JudgeService:
 
     @staticmethod
     def _handoff(conn, job_id: str, seq: int | None = None) -> dict:
-        sql = "SELECT body FROM extract.handoff WHERE job_id = %s "
+        sql = "SELECT payload_json FROM extract.handoff WHERE job_id = %s "
         row = (conn.execute(sql + "AND handoff_seq = %s", (job_id, seq)) if seq else
                conn.execute(sql + "ORDER BY handoff_seq DESC LIMIT 1", (job_id,))).fetchone()
         if not row:
             raise NotFound(f"넘김 기록이 없음: {job_id}")
-        return row["body"]
+        return row["payload_json"]
 
     @classmethod
     def _handoff_of_version(cls, conn, judgment: dict) -> dict:
@@ -536,8 +536,7 @@ class JudgeService:
     def put_test_handoff(self, body: dict) -> None:
         """시험용: A 없이 넘김 기록을 넣는다 (파트 B 설계 6절). B 계정은 이 표를 쓸 수 없어 관리자 계정을 쓴다. 운영에서는 API가 꺼져 있다."""
         with psycopg.connect(**{**pg_kwargs("admin"), "dbname": self.pool.kwargs["dbname"]}) as conn:
-            conn.execute("INSERT INTO extract.handoff (job_id, handoff_seq, body) VALUES (%s, %s, %s)",
-                         (body["job_id"], body["handoff_seq"], Jsonb(body)))
+            insert_handoff(conn, body)
 
     def close(self):
         if self._alive:
@@ -587,12 +586,20 @@ def _grade(snaps: list[dict], version: int, head_seq: int, events: list[dict], v
     return "골드" if current and last["counts"]["미검토"] == 0 and last["counts"]["미검수 칸"] == 0 else "실버"
 
 
+def insert_handoff(conn, body: dict) -> None:
+    """넘김 기록 한 건을 A2 표 모양으로 넣는다 (시험·개발용). 실제 표는 A2가 쓴다."""
+    conn.execute("""INSERT INTO extract.handoff (job_id, handoff_seq, reason, as_of, extraction_sha256, payload_json, created_at)
+                    VALUES (%s, %s, %s, %s, %s, %s, %s)""",
+                 (body["job_id"], body["handoff_seq"], body.get("reason") or "extraction_done", body.get("as_of") or "2026-11-03",
+                  body.get("extraction_sha256") or "0" * 64, Jsonb(body), body.get("created_at") or datetime.now(timezone.utc)))
+
+
 def value_counts(handoff: dict) -> dict:
     """칸 수는 A2가 넘김 기록의 fields_total 로 준다 (검수 보기와 같은 기준). 같은 칸은 마지막 표시만 센다."""
     marks = {(m["msds_index"], m["field"]): m["status"] for m in handoff.get("field_status") or []}
     status = list(marks.values())
     confirmed, edited = status.count("확인함"), status.count("수정됨")
-    total = handoff["fields_total"]
+    total = handoff.get("fields_total") or 0  # A2 사본 계약에서 빠진 적이 있다(2026-11-03). 없으면 골드가 될 수 없다
     as_is = max(total - len(marks), 0)
     state = "미검수" if not marks or total == 0 else "완료" if as_is == 0 else "일부"
     return {"state": state, "model_as_is": as_is, "confirmed": confirmed, "edited": edited, "fields_total": total}
