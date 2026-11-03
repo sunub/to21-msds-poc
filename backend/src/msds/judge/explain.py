@@ -64,6 +64,32 @@ _SAID_DB_APPLICABLE = re.compile(r"(?:규제\s*DB|지식\s*DB|DB|계산|검증)(
 _SAID_MSDS_APPLICABLE = re.compile(r"MSDS[^.,]{0,14}?" + _APPLICABLE)
 _SAID_NOT_REGULATED = re.compile(r"규제 대상이 아닙|규제되지 않|대상에서 제외|적용되지 않")
 _SAID_REGULATED = re.compile(r"규제 대상입니다|법 적용을 받")
+# 15항 경계는 함량에 따라 해당 여부가 갈린다는 뜻이라 방향이 없다. 실제 모델이 "MSDS가 더 강하게 적었다"고 과기재처럼 썼다 (2026-11-04 측정)
+# "더 높게 걸쳐", "과기재인지 확정할 수 없다", "과대분류 여부는", "더 강하게 적었는지", "기준이 더 엄격하게 정해져", "높게 기재되어"는
+# 경계를 바르게 설명한 말이라 걸지 않는다. 예외는 바로 뒤 몇 글자만 본다. 쉼표·다음 절까지 보면 "과기재했으며, 해당 여부는"을 놓친다
+# shortcut: 단정하는 흔한 모양만 본다. "강하게 적었"("더" 없음), "과다 기재", "더 엄격하게 적용했다"는 지나간다
+_UNDECIDED = r"(?![^.,]{0,5}?(?:인지|는지|여부|단정|수 없|어렵))"
+_SAID_DIRECTION = re.compile(r"(?:더 (?:강하게|약하게|엄격하게|느슨하게)(?! 정해| 적용)|(?:높게|낮게) (?:적었|적은|적어|기재(?!되))"
+                             r"|과기재|과소 ?기재|과대 ?분류|과소 ?분류)" + _UNDECIDED)
+
+
+def _split_names(text: str, req: dict) -> list[str]:
+    """쉼표가 든 성분 이름을 쉼표에서 나눠 '앞부분와 뒷부분'처럼 두 성분으로 쓴 이름들.
+
+    원인 글이 성분 이름을 ", "로 이어 붙여(이름 안에도 쉼표가 있다) 실제 모델이 '포름알데히드, polymers with …' 한 성분을
+    '포름알데히드와 polymers with …' 두 성분으로 썼다 (2026-11-04 측정). 앞부분 바로 뒤에 접속사와 뒷부분 첫 낱말이 이어질 때만 본다.
+    앞부분이 다른 이름의 일부('파라포름알데히드와')이거나 그 자체로 다른 성분 이름이면 보지 않는다.
+    shortcut: 요청의 성분 목록(compact trace, 최대 8개)만 본다. 잘린 성분은 검사하지 않는다.
+    """
+    names = {i["name"] for i in ((req.get("trace") or {}).get("inputs") or []) if isinstance(i, dict) and isinstance(i.get("name"), str)}
+    out = []
+    for n in names:
+        head, _, tail = n.partition(", ")
+        first = tail.split()[0] if tail.split() else ""
+        if first and head not in names and re.search(
+                r"(?<![\w-])" + re.escape(head) + r"\s*(?:와|과|및|이나|또는)\s+" + re.escape(first), text):
+            out.append(n)
+    return sorted(out)
 
 
 def _applicable_word(said: str) -> str:
@@ -74,14 +100,23 @@ def _categories(*values) -> set[str]:
     return {x.split(":")[0] for v in values if v for x in str(v).split("·")}
 
 
+def _fixed_summary(f: dict) -> bool:
+    """요약을 문장틀로 덮어쓰는 줄. 과소·과대(우진 측정 7차)와 15항 경계.
+
+    15항 경계는 실제 모델이 요약에서 "MSDS가 더 강하게 적었다"처럼 방향을 단정했다(2026-11-04 측정). 문장 검사로는 표현을 다 막지 못하므로
+    요약은 엔진 문장틀("…: 사람 확인이 필요합니다.")로 두고 모델은 이유만 쓴다. 화면은 요약 위에 MSDS·규제DB 값을 따로 보여 준다.
+    """
+    return f.get("type") in engine._DIRECTION_TYPES or (f.get("section") == "15" and f.get("verdict") == "경계")
+
+
 def claim_problems(resp: dict, req: dict) -> list[str]:
     """엔진과 다른 결론을 말하는 설명을 막는다 (개요 4절). 숫자 검사는 값이 요청 어딘가에 있으면 통과하므로 따로 본다.
 
     shortcut: 문장 모양을 본다. 잘못 걸러도 문장틀로 가서 안전하지만 다른 표현은 지나갈 수 있다. 실제 모델 응답을 모으면 패턴을 늘린다.
     """
     f = req["finding"]
-    # 과소·과대 줄의 요약은 문장틀로 덮어쓴다. 모델이 쓴 글이 아니고 화면에도 모델 글이 안 나가니 보지 않는다
-    summary = [] if f.get("type") in engine._DIRECTION_TYPES else [str(resp.get("summary") or "")]
+    # 문장틀로 덮어쓰는 요약(_fixed_summary)은 모델이 쓴 글이 아니고 화면에도 모델 글이 안 나가니 보지 않는다
+    summary = [] if _fixed_summary(f) else [str(resp.get("summary") or "")]
     text = " ".join(summary + [str(x) for x in (resp.get("reasons") or []) + (resp.get("basis") or [])])
     said = [next(filter(None, groups)) for groups in _SAID_VERDICT.findall(text)]
     if f["verdict"] != "일치" and _SAID_SAME.search(text):
@@ -89,6 +124,9 @@ def claim_problems(resp: dict, req: dict) -> list[str]:
     out = [f"판정을 '{w}'(으)로 말함. 엔진 판정은 '{f['verdict']}'" for w in said if w != f["verdict"]]
     if summary and not re.search(r"[가-힣A-Za-z]", summary[0]):  # 실제 모델이 요약을 ": "로 자주 보낸다 (2026-11-04 측정 46/73)
         out.append("요약에 글이 없음")
+    # 요약을 문장틀로 둔 줄은 이유가 모델 글의 전부다. 이유가 없거나 한글 없는 조각(":", "basis")이 하나라도 있으면 모델 설명으로 내지 않는다 (실제 M005 PRTR)
+    if not summary and not all(re.search(r"[가-힣]", str(x)) for x in resp.get("reasons") or [""]):
+        out.append("이유에 글이 없음")
     exp, msds = f.get("expected") or {}, f.get("msds") or {}
     if f.get("section") == "15":
         out += [f"규제DB 결과를 '{w}'(으)로 말함" for w in map(_applicable_word, _SAID_DB_APPLICABLE.findall(text)) if w != exp.get("applicable")]
@@ -97,6 +135,9 @@ def claim_problems(resp: dict, req: dict) -> list[str]:
             out.append("규제DB 결과를 '비해당'(으)로 말함")
         if exp.get("applicable") == "비해당" and _SAID_REGULATED.search(text):
             out.append("규제DB 결과를 '해당'(으)로 말함")
+        if f["verdict"] == "경계" and (m := _SAID_DIRECTION.search(text)):
+            out.append(f"경계 줄에 방향('{m[0]}')을 말함")
+    out += [f"성분 이름 '{n}'을 둘로 나눠 씀" for n in _split_names(text, req)]
     if f.get("kind") == "class":  # 값이 없는 칸은 요청에서 빠지므로 칸 유무로 판단하면 검사를 건너뛴다
         allowed = _categories(exp.get("low"), exp.get("high"))
         said = [next(filter(None, groups)) for groups in _SAID_EXPECTED.findall(text)]
@@ -113,7 +154,7 @@ def generate(req: dict, llm=None, retries: int = 1) -> dict:
     """
     failures: list[str] = []
     meta: dict = {}
-    fixed_summary = (req.get("finding") or {}).get("type") in engine._DIRECTION_TYPES
+    fixed_summary = _fixed_summary(req.get("finding") or {})
     if llm is not None:
         problems = None
         for _ in range(retries + 1):
@@ -124,7 +165,7 @@ def generate(req: dict, llm=None, retries: int = 1) -> dict:
                 resp, meta = None, {"errors": [type(e).__name__]}
             if isinstance(resp, dict):  # 근거는 엔진이 만든다. 모델은 없는 쪽·틀린 항 번호를 붙였다 (우진 결정 14)
                 resp = {**resp, "basis": engine.engine_basis(req)}
-            if fixed_summary and isinstance(resp, dict):  # 과소·과대의 한 줄 요약은 문장틀로 고정 (우진 측정 7차)
+            if fixed_summary and isinstance(resp, dict):  # 과소·과대·15항 경계의 한 줄 요약은 문장틀로 고정
                 resp = {**resp, "llm_summary": resp.get("summary"), "summary": engine._summary(req)}
             problems = engine.check(resp, req) + claim_problems(resp, req) if resp is not None else ["모델 응답 없음"]
             if not problems:
