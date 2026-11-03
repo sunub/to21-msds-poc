@@ -58,9 +58,10 @@ OVERSTRIKE_DX = 1.0        # 같은 글이 이 거리(pt) 안에서 다시 찍�
 OVERSTRIKE_DY = 0.5        # (45번: 굵은 글씨를 0.1pt씩 밀어 5번 찍는다)
 
 
-def page_match_txt(doc_id: str, page_no: int) -> Path:
+def page_match_txt(doc_id: str, page_no: int, *, pages_root: Path | None = None) -> Path:
     """원문 대조용 텍스트층. 쪽 번호는 1부터."""
-    return paths.page_dir(doc_id) / f"p{page_no:03d}.match.txt"
+    doc_dir = paths.page_dir(doc_id) if pages_root is None else Path(pages_root) / doc_id
+    return doc_dir / f"p{page_no:03d}.match.txt"
 
 
 def png_matches(png: Path, page, dpi: int) -> bool:
@@ -78,9 +79,10 @@ def png_matches(png: Path, page, dpi: int) -> bool:
     return int.from_bytes(head[16:20], "big") == want.width and int.from_bytes(head[20:24], "big") == want.height
 
 
-def tables_dir(doc_id: str) -> Path:
+def tables_dir(doc_id: str, *, pages_root: Path | None = None) -> Path:
     """데이터 표 Markdown을 두는 곳."""
-    return paths.page_dir(doc_id) / "tables"
+    doc_dir = paths.page_dir(doc_id) if pages_root is None else Path(pages_root) / doc_id
+    return doc_dir / "tables"
 
 
 def _counts(text: str) -> dict:
@@ -215,15 +217,16 @@ def judge_states(doc) -> tuple[list[str], str]:
 
 
 def preprocess(pdf_path: Path, doc_id: str, dpi: int = 150, force: bool = False,
-               on_page: Callable[[int, int], None] | None = None) -> dict:
+               on_page: Callable[[int, int], None] | None = None, *, pages_root: Path | None = None) -> dict:
     """on_page(쪽 번호, 전체 쪽수)는 쪽 이미지와 글을 쓴 뒤 쪽마다 한 번 부른다 (서비스 API의 진행 표시).
-    이미 만든 결과를 그대로 돌려줄 때(force 아님)는 부르지 않는다."""
-    out_dir = paths.page_dir(doc_id)
-    meta_path = paths.page_meta(doc_id)
+    이미 만든 결과를 그대로 돌려줄 때(force 아님)는 부르지 않는다.
+    pages_root를 지정하면 모든 출력과 기존 OCR 입력을 해당 루트의 문서 폴더에서만 읽고 쓴다."""
+    out_dir = paths.page_dir(doc_id) if pages_root is None else Path(pages_root) / doc_id
+    meta_path = out_dir / "meta.json"
     if meta_path.exists() and not force:
         return json.loads(meta_path.read_text(encoding="utf-8"))
     out_dir.mkdir(parents=True, exist_ok=True)
-    shutil.rmtree(tables_dir(doc_id), ignore_errors=True)   # 예전 실행의 표가 남지 않게
+    shutil.rmtree(tables_dir(doc_id, pages_root=pages_root), ignore_errors=True)   # 예전 실행의 표가 남지 않게
 
     doc = pymupdf.open(pdf_path)
     pages = []
@@ -236,15 +239,16 @@ def preprocess(pdf_path: Path, doc_id: str, dpi: int = 150, force: bool = False,
         tables = page_tables(page)
         items = char_items(page)
         text = reading_text(items, tables) + "\n"
-        paths.page_txt(doc_id, i).write_text(text, encoding="utf-8")
-        if not png_matches(paths.page_png(doc_id, i), page, dpi):
-            page.get_pixmap(dpi=dpi).save(paths.page_png(doc_id, i))
+        (out_dir / f"p{i:03d}.txt").write_text(text, encoding="utf-8")
+        png = out_dir / f"p{i:03d}.png"
+        if not png_matches(png, page, dpi):
+            page.get_pixmap(dpi=dpi).save(png)
         c = _counts(text)
         for k in totals:
             totals[k] += c[k]
         _, overstrike = drop_overstrike(lines)   # 사본 글자 수만 센다. char_items가 사본을 이미 지웠다
         layer_match[i], page_obj[i], layer_items[i] = text, page, items
-        page_match_txt(doc_id, i).write_text(layer_match[i], encoding="utf-8")
+        page_match_txt(doc_id, i, pages_root=pages_root).write_text(layer_match[i], encoding="utf-8")
         cover = _image_cover(page)
         state = judge_page(c, cover)
         pages.append({"page": i, "state": state, "image_cover": round(cover, 3), **c, "overstrike": overstrike})
@@ -253,11 +257,12 @@ def preprocess(pdf_path: Path, doc_id: str, dpi: int = 150, force: bool = False,
 
     text_layer = judge_doc([p["state"] for p in pages], totals)
     pages = follow_doc(pages, text_layer)
-    pages = [_pick_source(doc_id, p, layer_match[p["page"]], page_obj[p["page"]]) for p in pages]
+    pages = [_pick_source(doc_id, p, layer_match[p["page"]], page_obj[p["page"]], pages_root=pages_root) for p in pages]
     prev = None   # 앞 쪽 마지막 데이터 표 (열 자리, 머리글). 다음 쪽에서 이어지는 표를 나눌 때 쓴다
     section = None   # 앞 쪽까지 본 마지막 항 (번호, 제목). 쪽 맨 위의 표는 이 항에 속한다
     for k, p in enumerate(pages):
-        pages[k], prev, section = _write_tables(doc_id, p, layer_items[p["page"]], page_obj[p["page"]], prev, section)
+        pages[k], prev, section = _write_tables(doc_id, p, layer_items[p["page"]], page_obj[p["page"]], prev, section,
+                                               pages_root=pages_root)
     language = judge_language(totals)
     if text_layer in ("글꼴깨짐", "없음") and totals["hangul"] == 0:
         language = None   # 글자를 믿을 수 없어 언어를 판정하지 않는다. manifest에서 사람이 채운다
@@ -278,7 +283,7 @@ def preprocess(pdf_path: Path, doc_id: str, dpi: int = 150, force: bool = False,
     return meta
 
 
-def _pick_source(doc_id: str, p: dict, layer: str, page) -> dict:
+def _pick_source(doc_id: str, p: dict, layer: str, page, *, pages_root: Path | None = None) -> dict:
     """쪽의 최종 글(text_source, text_file)과, 정상 쪽이면 모델 입력 출처(input_source, source.choose)를 고른다.
 
     최종 글은 쪽마다 하나다. 원문 대조와 외부에서 쪽 글을 읽을 때는 text_file만 본다.
@@ -288,9 +293,9 @@ def _pick_source(doc_id: str, p: dict, layer: str, page) -> dict:
     OCR 결과가 없으면 텍스트층이다. OCR을 나중에 돌렸으면 전처리를 --force로 다시 돌려야 반영된다.
     """
     n = p["page"]
-    out_ocr = page_ocr_input(doc_id, n)
+    out_ocr = page_ocr_input(doc_id, n, pages_root=pages_root)
     out_ocr.unlink(missing_ok=True)
-    f = ocr_json_for(doc_id, n)
+    f = ocr_json_for(doc_id, n, pages_root=pages_root)
     ocr = None
     if f is not None:
         items, dpi = read_ocr_json(f)
@@ -302,12 +307,12 @@ def _pick_source(doc_id: str, p: dict, layer: str, page) -> dict:
         pick["text_source"] = pick["input_source"]
     if pick["text_source"] == "OCR":
         out_ocr.write_text(ocr, encoding="utf-8")
-    pick["text_file"] = {"OCR": out_ocr.name, "텍스트층": page_match_txt(doc_id, n).name}.get(pick["text_source"])
+    pick["text_file"] = {"OCR": out_ocr.name, "텍스트층": page_match_txt(doc_id, n, pages_root=pages_root).name}.get(pick["text_source"])
     return {**p, **pick}
 
 
 def _write_tables(doc_id: str, p: dict, items: list[dict], page, prev: dict | None,
-                  section: tuple[int, str] | None) -> tuple[dict, dict | None, tuple[int, str] | None]:
+                  section: tuple[int, str] | None, *, pages_root: Path | None = None) -> tuple[dict, dict | None, tuple[int, str] | None]:
     """선으로 그린 표 중 데이터 표만 tables/pXXX_tN.md로 쓴다. 칸 글은 그 쪽의 최종 글(text_source)과 같은 출처에서 읽는다.
 
     meta 쪽 항목에 tables와 frames(꺼내지 않은 항목|값 틀 수)를 남긴다. tables는 표마다
@@ -325,9 +330,9 @@ def _write_tables(doc_id: str, p: dict, items: list[dict], page, prev: dict | No
         return p, None, section
     scale = 1.0
     if p["text_source"] == "OCR":
-        items, dpi = read_ocr_json(ocr_json_for(doc_id, p["page"]))
+        items, dpi = read_ocr_json(ocr_json_for(doc_id, p["page"], pages_root=pages_root))
         scale = dpi / 72
-    return write_page_tables(tables_dir(doc_id), p, items, page, scale, prev, section)
+    return write_page_tables(tables_dir(doc_id, pages_root=pages_root), p, items, page, scale, prev, section)
 
 
 def write_page_tables(out_dir: Path, p: dict, items: list[dict], page, scale: float, prev: dict | None,
@@ -364,7 +369,7 @@ def write_page_tables(out_dir: Path, p: dict, items: list[dict], page, scale: fl
     return {**p, "tables": written, "frames": frames}, last, section
 
 
-def load_pages(doc_id: str) -> dict:
+def load_pages(doc_id: str, *, pages_root: Path | None = None) -> dict:
     """추출 단계에서 쓰는 쪽 입력. {'meta': ..., 'pages': [{page, image, text, match_text, state, source}]}
 
     source는 그 쪽의 최종 글 출처(meta의 text_source: 텍스트층 / OCR / 없음), match_text는 최종 글로
@@ -374,7 +379,8 @@ def load_pages(doc_id: str) -> dict:
     - 정상이 아닌 쪽: 모델은 이미지만 보므로 text는 "". 깨진 텍스트층은 내보내지 않는다
     text_source가 없는 meta(이 기능 전에 전처리한 결과)는 정상 쪽은 input_source, 아닌 쪽은 '없음'으로 본다.
     """
-    meta = json.loads(paths.page_meta(doc_id).read_text(encoding="utf-8"))
+    doc_dir = paths.page_dir(doc_id) if pages_root is None else Path(pages_root) / doc_id
+    meta = json.loads((doc_dir / "meta.json").read_text(encoding="utf-8"))
     out = []
     for p in meta["pages"]:
         n = p["page"]
@@ -382,15 +388,15 @@ def load_pages(doc_id: str) -> dict:
         source = p.get("text_source") or (p.get("input_source", "텍스트층") if normal else "없음")
         text = match_text = ""
         if source == "OCR":
-            match_text = page_ocr_input(doc_id, n).read_text(encoding="utf-8")
+            match_text = page_ocr_input(doc_id, n, pages_root=pages_root).read_text(encoding="utf-8")
             text = match_text if normal else ""
         elif source == "텍스트층":
-            text = paths.page_txt(doc_id, n).read_text(encoding="utf-8")
-            mt = page_match_txt(doc_id, n)
+            text = (doc_dir / f"p{n:03d}.txt").read_text(encoding="utf-8")
+            mt = page_match_txt(doc_id, n, pages_root=pages_root)
             match_text = mt.read_text(encoding="utf-8") if mt.exists() else text
         out.append({
             "page": n,
-            "image": paths.page_png(doc_id, n),
+            "image": doc_dir / f"p{n:03d}.png",
             "text": text,
             "match_text": match_text,
             "state": p["state"],
