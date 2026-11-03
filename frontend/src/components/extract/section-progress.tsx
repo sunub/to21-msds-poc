@@ -30,7 +30,7 @@ export function SectionProgressTable({
   }, [doc.sections]);
 
   return (
-    <Table className="max-h-130 overflow-y-auto rounded-sm">
+    <Table className="overflow-y-auto rounded-sm max-lg:max-h-130 lg:min-h-40 lg:flex-1">
       <TableHead className="sticky top-0 px-3.5 py-2">
         <span className="w-8">항</span>
         <span className="min-w-0 flex-1">제목</span>

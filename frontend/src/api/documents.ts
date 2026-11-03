@@ -80,8 +80,8 @@ export const documentDetailQuery = (id: string) =>
     },
   });
 
-/** 4. 쪽 이미지는 <img src> 로 바로 쓴다. 전처리 전이면 404 라 onError 로 자리 표시를 보여 준다. */
-export const pageImageUrl = (id: string, page: number) => apiUrl(`${doc(id)}/pages/${page}/image`);
+/** 올린 원본 PDF. 원문 칸이 직접 그린다 */
+export const pdfUrl = (id: string) => apiUrl(`${doc(id)}/pdf`);
 
 /** 5. 원문 칸 */
 export const pageLinesQuery = (id: string, page: number) =>

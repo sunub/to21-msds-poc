@@ -45,6 +45,7 @@ export function HazardDetail({
   return (
     <Pane
       title={finding.label}
+      fill
       className={cn(finding.verdict === "불일치" && "border-l-4 border-red")}
       aside={<StatusLabel tone={verdictTone(finding)}>{verdictText(finding)}</StatusLabel>}
     >
