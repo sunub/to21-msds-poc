@@ -73,6 +73,21 @@ export function sourceTabs(display: FindingDisplay | null | undefined) {
   });
 }
 
+/**
+ * 먼저 열 쪽. 판정한 항(2항·15항)의 근거 쪽이고, 없으면 그 항 첫 쪽이다.
+ * 다른 항 근거(3항 성분표, 11항 독성값)는 버튼으로 옮겨 간다. "…항 첫 쪽을 보여 줍니다" 안내와 맞춘다.
+ */
+export function ownSectionPage(display: FindingDisplay | null | undefined, section: number, firstPage: number) {
+  return display?.source_pages.find((source) => source.section === section)?.page ?? firstPage;
+}
+
+/** 원문 쪽 버튼. 판정한 항 근거가 없으면 그 항 첫 쪽 버튼을 앞에 둬 돌아올 수 있게 한다. 근거가 없으면 버튼도 없다 */
+export function sectionTabs(display: FindingDisplay | null | undefined, section: number, firstPage: number) {
+  const tabs = sourceTabs(display);
+  if (!tabs.length || tabs.some((tab) => tab.id.startsWith(`${section}:`))) return tabs;
+  return [{ id: `${section}:${firstPage}`, label: `${section}항 p.${firstPage}`, page: firstPage }, ...tabs];
+}
+
 /** 상세의 접힘 제목. 2항 밖 근거 쪽(11항 독성값 등)을 함께 적는다 */
 export function basisTitle(display: FindingDisplay) {
   const others = sourceTabs(display).filter((tab) => !tab.id.startsWith("2:"));
