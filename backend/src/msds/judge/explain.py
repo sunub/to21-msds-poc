@@ -100,14 +100,23 @@ def _categories(*values) -> set[str]:
     return {x.split(":")[0] for v in values if v for x in str(v).split("·")}
 
 
+def _fixed_summary(f: dict) -> bool:
+    """요약을 문장틀로 덮어쓰는 줄. 과소·과대(우진 측정 7차)와 15항 경계.
+
+    15항 경계는 실제 모델이 요약에서 "MSDS가 더 강하게 적었다"처럼 방향을 단정했다(2026-11-04 측정). 문장 검사로는 표현을 다 막지 못하므로
+    요약은 엔진 문장틀("…: 사람 확인이 필요합니다.")로 두고 모델은 이유만 쓴다. 화면은 요약 위에 MSDS·규제DB 값을 따로 보여 준다.
+    """
+    return f.get("type") in engine._DIRECTION_TYPES or (f.get("section") == "15" and f.get("verdict") == "경계")
+
+
 def claim_problems(resp: dict, req: dict) -> list[str]:
     """엔진과 다른 결론을 말하는 설명을 막는다 (개요 4절). 숫자 검사는 값이 요청 어딘가에 있으면 통과하므로 따로 본다.
 
     shortcut: 문장 모양을 본다. 잘못 걸러도 문장틀로 가서 안전하지만 다른 표현은 지나갈 수 있다. 실제 모델 응답을 모으면 패턴을 늘린다.
     """
     f = req["finding"]
-    # 과소·과대 줄의 요약은 문장틀로 덮어쓴다. 모델이 쓴 글이 아니고 화면에도 모델 글이 안 나가니 보지 않는다
-    summary = [] if f.get("type") in engine._DIRECTION_TYPES else [str(resp.get("summary") or "")]
+    # 문장틀로 덮어쓰는 요약(_fixed_summary)은 모델이 쓴 글이 아니고 화면에도 모델 글이 안 나가니 보지 않는다
+    summary = [] if _fixed_summary(f) else [str(resp.get("summary") or "")]
     text = " ".join(summary + [str(x) for x in (resp.get("reasons") or []) + (resp.get("basis") or [])])
     said = [next(filter(None, groups)) for groups in _SAID_VERDICT.findall(text)]
     if f["verdict"] != "일치" and _SAID_SAME.search(text):
@@ -115,6 +124,9 @@ def claim_problems(resp: dict, req: dict) -> list[str]:
     out = [f"판정을 '{w}'(으)로 말함. 엔진 판정은 '{f['verdict']}'" for w in said if w != f["verdict"]]
     if summary and not re.search(r"[가-힣A-Za-z]", summary[0]):  # 실제 모델이 요약을 ": "로 자주 보낸다 (2026-11-04 측정 46/73)
         out.append("요약에 글이 없음")
+    # 요약을 문장틀로 둔 줄은 이유가 모델 글의 전부다. 이유가 없거나 한글 없는 조각(":", "basis")이 하나라도 있으면 모델 설명으로 내지 않는다 (실제 M005 PRTR)
+    if not summary and not all(re.search(r"[가-힣]", str(x)) for x in resp.get("reasons") or [""]):
+        out.append("이유에 글이 없음")
     exp, msds = f.get("expected") or {}, f.get("msds") or {}
     if f.get("section") == "15":
         out += [f"규제DB 결과를 '{w}'(으)로 말함" for w in map(_applicable_word, _SAID_DB_APPLICABLE.findall(text)) if w != exp.get("applicable")]
@@ -142,7 +154,7 @@ def generate(req: dict, llm=None, retries: int = 1) -> dict:
     """
     failures: list[str] = []
     meta: dict = {}
-    fixed_summary = (req.get("finding") or {}).get("type") in engine._DIRECTION_TYPES
+    fixed_summary = _fixed_summary(req.get("finding") or {})
     if llm is not None:
         problems = None
         for _ in range(retries + 1):
@@ -153,7 +165,7 @@ def generate(req: dict, llm=None, retries: int = 1) -> dict:
                 resp, meta = None, {"errors": [type(e).__name__]}
             if isinstance(resp, dict):  # 근거는 엔진이 만든다. 모델은 없는 쪽·틀린 항 번호를 붙였다 (우진 결정 14)
                 resp = {**resp, "basis": engine.engine_basis(req)}
-            if fixed_summary and isinstance(resp, dict):  # 과소·과대의 한 줄 요약은 문장틀로 고정 (우진 측정 7차)
+            if fixed_summary and isinstance(resp, dict):  # 과소·과대·15항 경계의 한 줄 요약은 문장틀로 고정
                 resp = {**resp, "llm_summary": resp.get("summary"), "summary": engine._summary(req)}
             problems = engine.check(resp, req) + claim_problems(resp, req) if resp is not None else ["모델 응답 없음"]
             if not problems:
