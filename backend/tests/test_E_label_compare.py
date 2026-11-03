@@ -42,10 +42,10 @@ def test_h314가_있으면_h318_생략은_참고():
     assert [(x["verdict"], x["rule_id"], x["missing"]) for x in f] == [("참고", "HS-1", ["H318"])]
 
 
-def test_h318과_다른_코드가_함께_빠지면_불일치():
+def test_h318과_다른_코드가_함께_빠지면_다른_코드만_불일치():
     d = derive_label(SULFURIC)
     f = by_item(compare_label(d, msds_of(d, h_codes=[h for h in d["h_codes"] if h not in ("H318", "H350")])), "h_codes")
-    assert f[0]["verdict"] == "불일치" and f[0]["missing"] == ["H318", "H350"]
+    assert [(x["verdict"], x["missing"]) for x in f] == [("참고", ["H318"]), ("불일치", ["H350"])]
 
 
 def test_그림문자_5개_중_4개는_일치():
@@ -70,11 +70,11 @@ def test_신호어_불일치():
     assert (f["verdict"], f["severity"], f["rule_id"]) == ("불일치", "중간", "CMP-4")
 
 
-def test_msds_값이_없으면_근거부족():
+def test_msds_값이_없으면_불일치_중간():  # 설계서 7장 "빠지거나 다름 중간". 추출 실패 항은 judge()가 근거부족으로 바꾼다
     d = derive_label(SULFURIC)
     r = compare_label(d, {"pictograms": [], "signal_word": None, "h_codes": None})
-    assert {f["verdict"] for f in r} == {"근거부족"} and len(r) == 3
-    assert not any(f["verdict"] == "불일치" for f in r)
+    assert {(f["verdict"], f["severity"]) for f in r} == {("불일치", "중간")} and len(r) == 3
+    assert all(f["missing"] for f in r)
 
 
 def test_양쪽_다_비면_일치():
@@ -104,3 +104,17 @@ def test_규칙_파일_형식():
     other = [r["rule_id"] for n in ("hazard_label_map", "acute_tox_ate", "units", "units_time", "params")
              for r in read_rules(RULES_DIR / f"{n}.csv")]
     assert not set(ids) & set(other)
+
+
+def test_h314도_빠지면_h318은_참고가_아니라_불일치():
+    d = derive_label(SULFURIC)
+    f = by_item(compare_label(d, msds_of(d, h_codes=[h for h in d["h_codes"] if h not in ("H314", "H318")])), "h_codes")
+    assert [(x["verdict"], sorted(x["missing"])) for x in f] == [("불일치", ["H314", "H318"])]
+
+
+def test_도출은_h318이고_msds가_h314면_h318_누락은_참고다():
+    d = derive_label(SULFURIC)
+    d = {**d, "h_codes": [h for h in d["h_codes"] if h != "H314"]}
+    m = msds_of(d, h_codes=[h for h in d["h_codes"] if h != "H318"] + ["H314"])
+    f = by_item(compare_label(d, m), "h_codes")
+    assert ("참고", ["H318"]) in [(x["verdict"], x["missing"]) for x in f]
