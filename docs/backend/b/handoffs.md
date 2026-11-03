@@ -42,7 +42,7 @@ B1·B2 작업에서 나온, B가 직접 고치지 않는 일을 담당별로 모
 
 | 내용 | 왜 |
 |---|---|
-| **`extract.handoff` 표 맞추기** | 브랜치 `a2/one-pdf`(`a2_0003`, 2026-11-03)에 생겼다. main에는 아직 없다. 칸이 `body`가 아니라 `payload_json`이고, `docs/contracts`의 사본에서 팀 계약의 필수 칸 `fields_total`이 빠졌다. B는 골드 판정에 이 값을 읽는다 |
+| **`extract.handoff` 표 맞추기** | 브랜치 `a2/one-pdf`(`a2_0003`, 2026-11-03)에 생겼다. main에는 아직 없다. **B는 `payload_json`에 맞췄다** (2026-11-03). A2의 `a1_0001`·`a2_0003`으로 만든 DB에서 넘김 → 판정 → 설명까지 확인했다. 남은 것: `docs/contracts` 사본에서 빠진 필수 칸 `fields_total`. 없으면 B는 0으로 보고 골드를 주지 않는다 |
 | **판정 테이블 중복** | 같은 브랜치의 `b2_0004~0006`(`judge.runs`·`versions` 등 6개)과 `TEAM_SETUP.md`가 B의 `b2_001`(`judge.handoff_state`·`judgment` 등 5개)과 다른 구조를 설치한다. 서비스 코드는 B 쪽 표를 쓴다. 어느 쪽으로 할지 정해야 한다 |
 | **재생성 스크립트가 Python 3.11에서 안 읽힘** (`TO21_MSDS_DB적재_재생성_v0.6.py` 514행, f-string 안의 `\"`) | 시험 2건 실패에 그치지 않고 `/api/documents/{id}/regenerated`가 실패한다. `pyproject.toml`은 3.11을 허용한다. 사본 수정, 또는 3.12 이상으로 올리고 `requires-python` 변경 |
 | 빈 `title_raw`와 extras가 함께 있으면 재생성이 멈춤 (T21-010) | B 리포트는 `reports._without_empty_titles`로 우회했다 |
