@@ -225,6 +225,7 @@ class PostgresWorker:
         """Reuse only an identical, completed extraction; reviews stay job-local."""
         if not state.get('reuse_requested', True) or not state.get('duplicate_of'):
             return None
+        from msds.checks.final_validation import summarize_checks
         from msds.extract.section_runner import raw_path
         from msds.service.results import ResultConflict, ResultNotReady
 
@@ -253,6 +254,10 @@ class PostgresWorker:
                     continue
                 saved = self.result_store.get_active(previous_id)
                 extraction, checks = copy.deepcopy(saved['extraction']), copy.deepcopy(saved['checks'])
+                # `done` means the attempt ended, not that every section or
+                # validator succeeded. Never cache a failure or missing checks.
+                if summarize_checks(extraction, checks)['status'] == 'invalid':
+                    continue
                 plan = [{key: item[key] for key in ('msds_index', 'section', 'title', 'pages')}
                         for item in previous['sections']]
                 if len(plan) != len(checks['sections']):
