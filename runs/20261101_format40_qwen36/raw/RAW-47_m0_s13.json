@@ -1,0 +1,167 @@
+{
+ "doc_id": "RAW-47",
+ "msds_index": 0,
+ "section": 13,
+ "reextracted": true,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S13_METHOD",
+    "title_raw": "가. 폐기방법",
+    "start": "p7:L2",
+    "end": "p7:L2"
+   },
+   {
+    "item_code": "S13_CAUTION",
+    "title_raw": "나. 폐기시 주의사항",
+    "start": "p7:L3",
+    "end": "p7:L3"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S13_METHOD",
+    "title_raw": "가. 폐기방법",
+    "reason": "필드없음",
+    "statements": [
+     {
+      "value": "폐기물관리법에 명시된 경우 규정에 따라 내용물 및 용기를 폐기하시오.",
+      "line": "p7:L2"
+     }
+    ],
+    "line": "p7:L2"
+   },
+   {
+    "after_item": "S13_CAUTION",
+    "title_raw": "나. 폐기시 주의사항",
+    "reason": "필드없음",
+    "statements": [
+     {
+      "value": "폐기물관리법에 명시된 겨우 규정에 명시된 주의사항을 고려하시오",
+      "line": "p7:L3"
+     }
+    ],
+    "line": "p7:L3"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S13_METHOD\",\n      \"title_raw\": \"가. 폐기방법\",\n      \"start\": \"p7:L2\",\n      \"end\": \"p7:L2\"\n    },\n    {\n      \"item_code\": \"S13_CAUTION\",\n      \"title_raw\": \"나. 폐기시 주의사항\",\n      \"start\": \"p7:L3\",\n      \"end\": \"p7:L3\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S13_METHOD\",\n      \"title_raw\": \"가. 폐기방법\",\n      \"reason\": \"필드없음\",\n      \"statements\": [\n        {\n          \"value\": \"폐기물관리법에 명시된 경우 규정에 따라 내용물 및 용기를 폐기하시오.\",\n          \"line\": \"p7:L2\"\n        }\n      ],\n      \"line\": \"p7:L2\"\n    },\n    {\n      \"after_item\": \"S13_CAUTION\",\n      \"title_raw\": \"나. 폐기시 주의사항\",\n      \"reason\": \"필드없음\",\n      \"statements\": [\n        {\n          \"value\": \"폐기물관리법에 명시된 겨우 규정에 명시된 주의사항을 고려하시오\",\n          \"line\": \"p7:L3\"\n        }\n      ],\n      \"line\": \"p7:L3\"\n    }\n  ]\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 2145,
+  "completion_tokens": 347,
+  "total_tokens": 2492
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 2145,
+    "completion_tokens": 347,
+    "total_tokens": 2492
+   },
+   "seconds": 5.16,
+   "chars": 812,
+   "whitespace": 317,
+   "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S13_METHOD\",\n      \"title_raw\": \"가. 폐기방법\",\n      \"start\": \"p7:L2\",\n      \"end\": \"p7:L2\"\n    },\n    {\n      \"item_code\": \"S13_CAUTION\",\n      \"title_raw\": \"나. 폐기시 주의사항\",\n      \"start\": \"p7:L3\",\n      \"end\": \"p7:L3\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S13_METHOD\",\n      \"title_raw\": \"가. 폐기방법\",\n      \"reason\": \"필드없음\",\n      \"statements\": [\n        {\n          \"value\": \"폐기물관리법에 명시된 경우 규정에 따라 내용물 및 용기를 폐기하시오.\",\n          \"line\": \"p7:L2\"\n  ",
+   "tail": "      }\n      ],\n      \"line\": \"p7:L2\"\n    },\n    {\n      \"after_item\": \"S13_CAUTION\",\n      \"title_raw\": \"나. 폐기시 주의사항\",\n      \"reason\": \"필드없음\",\n      \"statements\": [\n        {\n          \"value\": \"폐기물관리법에 명시된 겨우 규정에 명시된 주의사항을 고려하시오\",\n          \"line\": \"p7:L3\"\n        }\n      ],\n      \"line\": \"p7:L3\"\n    }\n  ]\n}"
+  }
+ ],
+ "seconds": 5.161,
+ "check_problems": [],
+ "first_attempt": {
+  "ok": true,
+  "parsed": {
+   "narratives": [
+    {
+     "item_code": "S13_METHOD",
+     "title_raw": "가. 폐기방법",
+     "start": "L2",
+     "end": "L2"
+    },
+    {
+     "item_code": "S13_CAUTION",
+     "title_raw": "나. 폐기시 주의사항",
+     "start": "L3",
+     "end": "L3"
+    }
+   ],
+   "extras": [
+    {
+     "after_item": "S13_CAUTION",
+     "title_raw": "13. 폐기 시 주의사항",
+     "reason": "코드없음",
+     "statements": [
+      {
+       "value": "폐기물관리법에 명시된 경우 규정에 따라 내용물 및 용기를 폐기하시오.",
+       "refs": [
+        "1"
+       ],
+       "line": "L2"
+      }
+     ],
+     "suggested_code": "S13_METHOD",
+     "line": "L2"
+    },
+    {
+     "after_item": "S13_CAUTION",
+     "title_raw": "13. 폐기 시 주의사항",
+     "reason": "코드없음",
+     "statements": [
+      {
+       "value": "폐기물관리법에 명시된 겨우 규정에 명시된 주의사항을 고려하시오",
+       "refs": [
+        "1"
+       ],
+       "line": "L3"
+      }
+     ],
+     "suggested_code": "S13_CAUTION",
+     "line": "L3"
+    }
+   ]
+  },
+  "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S13_METHOD\",\n      \"title_raw\": \"가. 폐기방법\",\n      \"start\": \"L2\",\n      \"end\": \"L2\"\n    },\n    {\n      \"item_code\": \"S13_CAUTION\",\n      \"title_raw\": \"나. 폐기시 주의사항\",\n      \"start\": \"L3\",\n      \"end\": \"L3\"\n    }\n  ]\n  ,\n  \"extras\": [\n    {\n      \"after_item\": \"S13_CAUTION\",\n      \"title_raw\": \"13. 폐기 시 주의사항\",\n      \"reason\": \"코드없음\"\n    ,\n      \"statements\": [\n        {\n          \"value\": \"폐기물관리법에 명시된 경우 규정에 따라 내용물 및 용기를 폐기하시오.\"\n        ,\n          \"refs\": [\n            \"1\"\n          ]\n        ,\n          \"line\": \"L2\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S13_METHOD\"\n    ,\n      \"line\": \"L2\"\n    }\n  ,\n    {\n      \"after_item\": \"S13_CAUTION\",\n      \"title_raw\": \"13. 폐기 시 주의사항\",\n      \"reason\": \"코드없음\"\n    ,\n      \"statements\": [\n        {\n          \"value\": \"폐기물관리법에 명시된 겨우 규정에 명시된 주의사항을 고려하시오\"\n        ,\n          \"refs\": [\n            \"1\"\n          ]\n        ,\n          \"line\": \"L3\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S13_CAUTION\"\n    ,\n      \"line\": \"L3\"\n    }\n  ]\n}",
+  "mode": "json_schema",
+  "finish_reason": "stop",
+  "usage": {
+   "prompt_tokens": 2010,
+   "completion_tokens": 425,
+   "total_tokens": 2435
+  },
+  "attempts": 1,
+  "errors": [],
+  "requests": [
+   {
+    "mode": "json_schema",
+    "finish_reason": "stop",
+    "usage": {
+     "prompt_tokens": 2010,
+     "completion_tokens": 425,
+     "total_tokens": 2435
+    },
+    "seconds": 8.265,
+    "chars": 1044,
+    "whitespace": 480,
+    "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S13_METHOD\",\n      \"title_raw\": \"가. 폐기방법\",\n      \"start\": \"L2\",\n      \"end\": \"L2\"\n    },\n    {\n      \"item_code\": \"S13_CAUTION\",\n      \"title_raw\": \"나. 폐기시 주의사항\",\n      \"start\": \"L3\",\n      \"end\": \"L3\"\n    }\n  ]\n  ,\n  \"extras\": [\n    {\n      \"after_item\": \"S13_CAUTION\",\n      \"title_raw\": \"13. 폐기 시 주의사항\",\n      \"reason\": \"코드없음\"\n    ,\n      \"statements\": [\n        {\n          \"value\": \"폐기물관리법에 명시된 경우 규정에 따라 내용물 및 용기를 폐기하시오.\"\n        ,\n          \"refs\"",
+    "tail": "        \"line\": \"L2\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S13_METHOD\"\n    ,\n      \"line\": \"L2\"\n    }\n  ,\n    {\n      \"after_item\": \"S13_CAUTION\",\n      \"title_raw\": \"13. 폐기 시 주의사항\",\n      \"reason\": \"코드없음\"\n    ,\n      \"statements\": [\n        {\n          \"value\": \"폐기물관리법에 명시된 겨우 규정에 명시된 주의사항을 고려하시오\"\n        ,\n          \"refs\": [\n            \"1\"\n          ]\n        ,\n          \"line\": \"L3\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S13_CAUTION\"\n    ,\n      \"line\": \"L3\"\n    }\n  ]\n}"
+   }
+  ],
+  "seconds": 8.266,
+  "check_problems": [
+   "narratives[0].start: 원문에 없는 줄 번호 L2",
+   "narratives[0].end: 원문에 없는 줄 번호 L2",
+   "narratives[1].start: 원문에 없는 줄 번호 L3",
+   "narratives[1].end: 원문에 없는 줄 번호 L3",
+   "extras[0].statements[0].line: 원문에 없는 줄 번호 L2",
+   "extras[0].line: 원문에 없는 줄 번호 L2",
+   "extras[1].statements[0].line: 원문에 없는 줄 번호 L3",
+   "extras[1].line: 원문에 없는 줄 번호 L3"
+  ]
+ }
+}

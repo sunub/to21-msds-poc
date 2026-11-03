@@ -1,0 +1,183 @@
+{
+ "doc_id": "RAW-08",
+ "msds_index": 0,
+ "section": 12,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "ecotox": [
+   {
+    "comp_name": "망가니즈",
+    "comp_cas": "7439-96-5",
+    "endpoint": "ECO_FISH",
+    "descriptor": "LC50",
+    "q": {
+     "raw": "> 3.6 mg/L",
+     "lower_op": ">",
+     "lower": 3.6,
+     "unit": "mg/L"
+    },
+    "species": "Oncorhynchus mykiss",
+    "duration_value": 96,
+    "duration_unit": "hr",
+    "guideline": null,
+    "data_source": null,
+    "statements": [],
+    "status": "값있음",
+    "line": "p8:L25"
+   },
+   {
+    "comp_name": null,
+    "comp_cas": null,
+    "endpoint": "ECO_CRUST",
+    "descriptor": "기타",
+    "q": null,
+    "species": null,
+    "duration_value": null,
+    "duration_unit": null,
+    "guideline": null,
+    "data_source": null,
+    "statements": [],
+    "status": "값있음",
+    "line": "p8:L25"
+   },
+   {
+    "comp_name": null,
+    "comp_cas": null,
+    "endpoint": "ECO_ALGAE",
+    "descriptor": "기타",
+    "q": null,
+    "species": null,
+    "duration_value": null,
+    "duration_unit": null,
+    "guideline": null,
+    "data_source": null,
+    "statements": [],
+    "status": "값있음",
+    "line": "p8:L25"
+   },
+   {
+    "comp_name": null,
+    "comp_cas": null,
+    "endpoint": "ECO_OTHER",
+    "descriptor": "기타",
+    "q": null,
+    "species": null,
+    "duration_value": null,
+    "duration_unit": null,
+    "guideline": null,
+    "data_source": null,
+    "statements": [],
+    "status": "값있음",
+    "line": "p8:L25"
+   },
+   {
+    "comp_name": null,
+    "comp_cas": null,
+    "endpoint": "ECO_BIOACC",
+    "descriptor": "BCF",
+    "q": {
+     "raw": "-"
+    },
+    "species": null,
+    "duration_value": null,
+    "duration_unit": null,
+    "guideline": null,
+    "data_source": null,
+    "statements": [],
+    "status": "값있음",
+    "line": "p9:L7"
+   },
+   {
+    "comp_name": null,
+    "comp_cas": null,
+    "endpoint": "ECO_PERSIST",
+    "descriptor": "결과기술",
+    "q": {
+     "raw": "자료없음"
+    },
+    "species": null,
+    "duration_value": null,
+    "duration_unit": null,
+    "guideline": null,
+    "data_source": null,
+    "statements": [],
+    "status": "자료없음",
+    "line": "p9:L4"
+   }
+  ],
+  "narratives": [
+   {
+    "item_code": "S12_OTHER",
+    "title_raw": "가. 생태독성",
+    "start": "p8:L20",
+    "end": "p8:L25"
+   },
+   {
+    "item_code": "S12_OTHER",
+    "title_raw": "나. 잔류성 및 분해성",
+    "start": "p9:L3",
+    "end": "p9:L4"
+   },
+   {
+    "item_code": "S12_OTHER",
+    "title_raw": "다. 생물 농축성",
+    "start": "p9:L5",
+    "end": "p9:L7"
+   },
+   {
+    "item_code": "S12_OTHER",
+    "title_raw": "라. 토양 이동성",
+    "start": "p9:L8",
+    "end": "p9:L9"
+   },
+   {
+    "item_code": "S12_OTHER",
+    "title_raw": "마. 기타 유해 영향",
+    "start": "p9:L10",
+    "end": "p9:L11"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S12_OTHER",
+    "title_raw": "내분비 교란 특성",
+    "reason": "필드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [],
+    "suggested_code": "ECO_OTHER",
+    "line": "p9:L12"
+   }
+  ]
+ },
+ "raw_text": "### ecotox\ncomp_name | comp_cas | endpoint | descriptor | q | species | duration_value | duration_unit | guideline | data_source | statements | status | line\n망가니즈 | 7439-96-5 | ECO_FISH | LC50 | > 3.6 mg/L | Oncorhynchus mykiss | 96 | hr |  |  |  | 값있음 | p8:L25\n |  | ECO_CRUST | 기타 |  |  |  |  |  |  |  | 값있음 | p8:L25\n |  | ECO_ALGAE | 기타 |  |  |  |  |  |  |  |  | 값있음 | p8:L25\n |  | ECO_OTHER | 기타 |  |  |  |  |  |  |  |  | 값있음 | p8:L25\n |  | ECO_BIOACC | BCF | - |  |  |  |  |  |  |  | 값있음 | p9:L7\n |  | ECO_PERSIST | 결과기술 |  |  |  |  |  |  |  |  | 자료없음 | p9:L4\n\n### narratives\nitem_code | title_raw | start | end\nS12_OTHER | 가. 생태독성 | p8:L20 | p8:L25\nS12_OTHER | 나. 잔류성 및 분해성 | p9:L3 | p9:L4\nS12_OTHER | 다. 생물 농축성 | p9:L5 | p9:L7\nS12_OTHER | 라. 토양 이동성 | p9:L8 | p9:L9\nS12_OTHER | 마. 기타 유해 영향 | p9:L10 | p9:L11\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\nS12_OTHER | 내분비 교란 특성 | 필드없음 |  |  |  |  | ECO_OTHER | p9:L12",
+ "mode": "rows",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 3725,
+  "completion_tokens": 464,
+  "total_tokens": 4189
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "rows",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 3725,
+    "completion_tokens": 464,
+    "total_tokens": 4189
+   },
+   "seconds": 9.314,
+   "chars": 983,
+   "whitespace": 282,
+   "head": "### ecotox\ncomp_name | comp_cas | endpoint | descriptor | q | species | duration_value | duration_unit | guideline | data_source | statements | status | line\n망가니즈 | 7439-96-5 | ECO_FISH | LC50 | > 3.6 mg/L | Oncorhynchus mykiss | 96 | hr |  |  |  | 값있음 | p8:L25\n |  | ECO_CRUST | 기타 |  |  |  |  |  |  |  | 값있음 | p8:L25\n |  | ECO_ALGAE | 기타 |  |  |  |  |  |  |  |  | 값있음 | p8:L25\n |  | ECO_OTHER | 기타 |  |  |  |  |  |  |  |  | 값있음 | p8:L25\n |  | ECO_BIOACC | BCF | - |  |  |  |  |  |  |  | 값있음 | p9:L7",
+   "tail": "\n |  | ECO_PERSIST | 결과기술 |  |  |  |  |  |  |  |  | 자료없음 | p9:L4\n\n### narratives\nitem_code | title_raw | start | end\nS12_OTHER | 가. 생태독성 | p8:L20 | p8:L25\nS12_OTHER | 나. 잔류성 및 분해성 | p9:L3 | p9:L4\nS12_OTHER | 다. 생물 농축성 | p9:L5 | p9:L7\nS12_OTHER | 라. 토양 이동성 | p9:L8 | p9:L9\nS12_OTHER | 마. 기타 유해 영향 | p9:L10 | p9:L11\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\nS12_OTHER | 내분비 교란 특성 | 필드없음 |  |  |  |  | ECO_OTHER | p9:L12"
+  }
+ ],
+ "seconds": 9.331,
+ "check_problems": []
+}

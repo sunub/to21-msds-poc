@@ -1,0 +1,79 @@
+{
+ "doc_id": "RAW-12",
+ "msds_index": 0,
+ "section": 14,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "transport": [
+   {
+    "mode": "해상",
+    "basis_raw": "IMDG CODE/IATA DGR",
+    "regulated": true,
+    "un_no": "2586",
+    "shipping_name": "ALKYLSULPHONIC ACIDS, LIQUID or ARYLSULPHONICACIDS, LIQUID with not more than 5 % free sulphuric acid",
+    "hazard_class": "8",
+    "sub_risk": null,
+    "packing_group": "III",
+    "marine_pollutant": "비해당",
+    "ems_fire": "F-A",
+    "ems_spill": "S-B",
+    "line": "p10:L11"
+   }
+  ],
+  "narratives": [
+   {
+    "item_code": "S14_SPECIAL",
+    "title_raw": "바. 사용자가 운송 또는 운송 수단에 관련해 알 필요가 있거나 필요한 특별한 안전 대책",
+    "start": "p10:L21",
+    "end": "p10:L25"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": null,
+    "title_raw": "마. 해양오염물질",
+    "reason": "코드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [
+     {
+      "value": "해당없음",
+      "line": "p10:L19"
+     }
+    ],
+    "suggested_code": "MARINE_POLLUTANT",
+    "line": "p10:L19"
+   }
+  ]
+ },
+ "raw_text": "### transport\nmode | basis_raw | regulated | un_no | shipping_name | hazard_class | sub_risk | packing_group | marine_pollutant | ems_fire | ems_spill | line\n해상 | IMDG CODE/IATA DGR | true | 2586 | ALKYLSULPHONIC ACIDS, LIQUID or ARYLSULPHONICACIDS, LIQUID with not more than 5 % free sulphuric acid | 8 |  | III | 해당없음 | F-A | S-B | p10:L11\n\n### narratives\nitem_code | title_raw | start | end\nS14_SPECIAL | 바. 사용자가 운송 또는 운송 수단에 관련해 알 필요가 있거나 필요한 특별한 안전 대책 | p10:L21 | p10:L25\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\n | 마. 해양오염물질 | 코드없음 |  |  |  | 해당없음 | MARINE_POLLUTANT | p10:L19",
+ "mode": "rows",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 3183,
+  "completion_tokens": 238,
+  "total_tokens": 3421
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "rows",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 3183,
+    "completion_tokens": 238,
+    "total_tokens": 3421
+   },
+   "seconds": 6.066,
+   "chars": 649,
+   "whitespace": 131,
+   "head": "### transport\nmode | basis_raw | regulated | un_no | shipping_name | hazard_class | sub_risk | packing_group | marine_pollutant | ems_fire | ems_spill | line\n해상 | IMDG CODE/IATA DGR | true | 2586 | ALKYLSULPHONIC ACIDS, LIQUID or ARYLSULPHONICACIDS, LIQUID with not more than 5 % free sulphuric acid | 8 |  | III | 해당없음 | F-A | S-B | p10:L11\n\n### narratives\nitem_code | title_raw | start | end\nS14_SPECIAL | 바. 사용자가 운송 또는 운송 수단에 관련해 알 필요가 있거나 필요한 특별한 안전 대책 | p10:L21 | p10:L25\n\n### extras\nafter_item ",
+   "tail": "| title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\n | 마. 해양오염물질 | 코드없음 |  |  |  | 해당없음 | MARINE_POLLUTANT | p10:L19"
+  }
+ ],
+ "seconds": 6.068,
+ "check_problems": []
+}

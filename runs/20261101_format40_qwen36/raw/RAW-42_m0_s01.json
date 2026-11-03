@@ -1,0 +1,101 @@
+{
+ "doc_id": "RAW-42",
+ "msds_index": 0,
+ "section": 1,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "meta": {
+   "msds_no": "AA00930-0000000003",
+   "revision_label": "R0009",
+   "header_product_name": "요소",
+   "first_issue_date": "2013-05-18",
+   "last_revision_date": "2026-02-09",
+   "lines": {
+    "msds_no": "p1:L5",
+    "revision_label": "p1:L4",
+    "header_product_name": "p1:L3",
+    "first_issue_date": "p1:L4",
+    "last_revision_date": "p1:L4"
+   }
+  },
+  "product": {
+   "name": "요소",
+   "uses": [
+    "공업용",
+    "접착제",
+    "착색제",
+    "비료",
+    "계면활성제 등"
+   ],
+   "restrictions": [
+    "정해진 용도 이외에는 사용하지 말것."
+   ],
+   "lines": {
+    "name": "p1:L8",
+    "uses": "p1:L10",
+    "restrictions": "p1:L11"
+   }
+  },
+  "companies": [
+   {
+    "role": "제조자",
+    "name": "남해화학",
+    "address": "전남 여수시 여수산단로 1384번지",
+    "contacts": [
+     {
+      "type": "긴급",
+      "value": "061-688-5772~5",
+      "line": "p1:L15"
+     },
+     {
+      "line": "p1:L13"
+     },
+     {
+      "line": "p1:L14"
+     },
+     {
+      "line": "p1:L15"
+     }
+    ],
+    "line": "p1:L12"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S1_END",
+    "title_raw": "1. 화학제품과 회사에 관한 정보",
+    "reason": "코드없음",
+    "line": "p1:L6"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"meta\": {\n    \"msds_no\": \"AA00930-0000000003\",\n    \"revision_label\": \"R0009\",\n    \"header_product_name\": \"요소\",\n    \"first_issue_date\": \"2013-05-18\",\n    \"last_revision_date\": \"2026-02-09\"\n  ,\n    \"lines\": {\n      \"msds_no\": \"p1:L5\",\n      \"revision_label\": \"p1:L4\",\n      \"header_product_name\": \"p1:L3\",\n      \"first_issue_date\": \"p1:L4\",\n      \"last_revision_date\": \"p1:L4\"\n    }\n  },\n  \"product\": {\n    \"name\": \"요소\",\n    \"uses\": [\n      \"공업용\",\n      \"접착제\",\n      \"착색제\",\n      \"비료\",\n      \"계면활성제 등\"\n    ],\n    \"restrictions\": [\n      \"정해진 용도 이외에는 사용하지 말것.\"\n    ]\n  ,\n    \"lines\": {\n      \"name\": \"p1:L8\",\n      \"uses\": \"p1:L10\",\n      \"restrictions\": \"p1:L11\"\n    }\n  },\n  \"companies\": [\n    {\n      \"role\": \"제조자\",\n      \"name\": \"남해화학\",\n      \"address\": \"전남 여수시 여수산단로 1384번지\",\n      \"contacts\": [\n        {\n          \"type\": \"긴급\",\n          \"value\": \"061-688-5772~5\"\n        ,\n          \"line\": \"p1:L15\"\n        }\n      ,\n      {\n        \"line\": \"p1:L13\"\n      },\n      {\n        \"line\": \"p1:L14\"\n      },\n      {\n        \"line\": \"p1:L15\"\n      }\n    ]\n  ,\n    \"line\": \"p1:L12\"\n  }\n]\n,\n  \"extras\": [\n    {\n      \"after_item\": \"S1_END\",\n      \"title_raw\": \"1. 화학제품과 회사에 관한 정보\",\n      \"reason\": \"코드없음\"\n    ,\n      \"line\": \"p1:L6\"\n    }\n  ]\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 3383,
+  "completion_tokens": 567,
+  "total_tokens": 3950
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 3383,
+    "completion_tokens": 567,
+    "total_tokens": 3950
+   },
+   "seconds": 10.08,
+   "chars": 1244,
+   "whitespace": 475,
+   "head": "{\n  \"meta\": {\n    \"msds_no\": \"AA00930-0000000003\",\n    \"revision_label\": \"R0009\",\n    \"header_product_name\": \"요소\",\n    \"first_issue_date\": \"2013-05-18\",\n    \"last_revision_date\": \"2026-02-09\"\n  ,\n    \"lines\": {\n      \"msds_no\": \"p1:L5\",\n      \"revision_label\": \"p1:L4\",\n      \"header_product_name\": \"p1:L3\",\n      \"first_issue_date\": \"p1:L4\",\n      \"last_revision_date\": \"p1:L4\"\n    }\n  },\n  \"product\": {\n    \"name\": \"요소\",\n    \"uses\": [\n      \"공업용\",\n      \"접착제\",\n      \"착색제\",\n      \"비료\",\n      \"계면활성제",
+   "tail": "    \"address\": \"전남 여수시 여수산단로 1384번지\",\n      \"contacts\": [\n        {\n          \"type\": \"긴급\",\n          \"value\": \"061-688-5772~5\"\n        ,\n          \"line\": \"p1:L15\"\n        }\n      ,\n      {\n        \"line\": \"p1:L13\"\n      },\n      {\n        \"line\": \"p1:L14\"\n      },\n      {\n        \"line\": \"p1:L15\"\n      }\n    ]\n  ,\n    \"line\": \"p1:L12\"\n  }\n]\n,\n  \"extras\": [\n    {\n      \"after_item\": \"S1_END\",\n      \"title_raw\": \"1. 화학제품과 회사에 관한 정보\",\n      \"reason\": \"코드없음\"\n    ,\n      \"line\": \"p1:L6\"\n    }\n  ]\n}"
+  }
+ ],
+ "seconds": 10.081,
+ "check_problems": []
+}

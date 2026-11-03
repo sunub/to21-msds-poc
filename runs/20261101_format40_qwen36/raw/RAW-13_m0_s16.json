@@ -1,0 +1,177 @@
+{
+ "doc_id": "RAW-13",
+ "msds_index": 0,
+ "section": 16,
+ "reextracted": true,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S16_SOURCE",
+    "title_raw": "가. 자료의 출처",
+    "start": "p11:L38",
+    "end": "p11:L43"
+   },
+   {
+    "item_code": "S16_OTHER",
+    "title_raw": "다. 개정 횟수 및 최종 개정일자",
+    "start": "p11:L46",
+    "end": "p11:L47"
+   }
+  ],
+  "meta_revision": {
+   "revision_no": 14,
+   "revision_label": "14",
+   "lines": {
+    "first_issue_date": "p11:L44",
+    "last_revision_date": "p11:L47"
+   }
+  },
+  "extras": [
+   {
+    "title_raw": "나. 최초 작성일자",
+    "reason": "필드없음",
+    "statements": [
+     {
+      "key": "최초 작성일자",
+      "value": "1996-06-15",
+      "line": "p11:L44"
+     }
+    ],
+    "line": "p11:L44"
+   },
+   {
+    "title_raw": "○ 최종 개정이력",
+    "reason": "필드없음",
+    "statements": [
+     {
+      "value": "고객사 요청에 따른 검토, 경피독성치 단위 수정",
+      "line": "p12:L1"
+     }
+    ],
+    "line": "p12:L1"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S16_SOURCE\",\n      \"title_raw\": \"가. 자료의 출처\",\n      \"start\": \"p11:L38\",\n      \"end\": \"p11:L43\"\n    },\n    {\n      \"item_code\": \"S16_OTHER\",\n      \"title_raw\": \"다. 개정 횟수 및 최종 개정일자\",\n      \"start\": \"p11:L46\",\n      \"end\": \"p11:L47\"\n    }\n  ],\n  \"meta_revision\": {\n    \"revision_no\": 14,\n    \"revision_label\": \"14\",\n    \"lines\": {\n      \"first_issue_date\": \"p11:L44\",\n      \"last_revision_date\": \"p11:L47\"\n    }\n  },\n  \"extras\": [\n    {\n      \"title_raw\": \"나. 최초 작성일자\",\n      \"reason\": \"필드없음\",\n      \"statements\": [\n        {\n          \"key\": \"최초 작성일자\",\n          \"value\": \"1996-06-15\"\n        ,\n          \"line\": \"p11:L44\"\n        }\n      ],\n      \"line\": \"p11:L44\"\n    },\n    {\n      \"title_raw\": \"○ 최종 개정이력\",\n      \"reason\": \"필드없음\",\n      \"statements\": [\n        {\n          \"value\": \"고객사 요청에 따른 검토, 경피독성치 단위 수정\"\n        ,\n          \"line\": \"p12:L1\"\n        }\n      ],\n      \"line\": \"p12:L1\"\n    }\n  ]\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 2659,
+  "completion_tokens": 407,
+  "total_tokens": 3066
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 2659,
+    "completion_tokens": 407,
+    "total_tokens": 3066
+   },
+   "seconds": 6.251,
+   "chars": 948,
+   "whitespace": 375,
+   "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S16_SOURCE\",\n      \"title_raw\": \"가. 자료의 출처\",\n      \"start\": \"p11:L38\",\n      \"end\": \"p11:L43\"\n    },\n    {\n      \"item_code\": \"S16_OTHER\",\n      \"title_raw\": \"다. 개정 횟수 및 최종 개정일자\",\n      \"start\": \"p11:L46\",\n      \"end\": \"p11:L47\"\n    }\n  ],\n  \"meta_revision\": {\n    \"revision_no\": 14,\n    \"revision_label\": \"14\",\n    \"lines\": {\n      \"first_issue_date\": \"p11:L44\",\n      \"last_revision_date\": \"p11:L47\"\n    }\n  },\n  \"extras\": [\n    {\n      \"title_raw\": \"나",
+   "tail": ". 최초 작성일자\",\n      \"reason\": \"필드없음\",\n      \"statements\": [\n        {\n          \"key\": \"최초 작성일자\",\n          \"value\": \"1996-06-15\"\n        ,\n          \"line\": \"p11:L44\"\n        }\n      ],\n      \"line\": \"p11:L44\"\n    },\n    {\n      \"title_raw\": \"○ 최종 개정이력\",\n      \"reason\": \"필드없음\",\n      \"statements\": [\n        {\n          \"value\": \"고객사 요청에 따른 검토, 경피독성치 단위 수정\"\n        ,\n          \"line\": \"p12:L1\"\n        }\n      ],\n      \"line\": \"p12:L1\"\n    }\n  ]\n}"
+  }
+ ],
+ "seconds": 6.253,
+ "check_problems": [],
+ "first_attempt": {
+  "ok": true,
+  "parsed": {
+   "narratives": [
+    {
+     "item_code": "S16_SOURCE",
+     "title_raw": "가. 자료의 출처",
+     "start": "L38",
+     "end": "L43"
+    },
+    {
+     "item_code": "S16_OTHER",
+     "title_raw": "다. 개정 횟수 및 최종 개정일자",
+     "start": "L46",
+     "end": "L47"
+    }
+   ],
+   "meta_revision": {
+    "first_issue_date": "1996-06-15",
+    "last_revision_date": "2023-01-06",
+    "lines": {
+     "first_issue_date": "L44",
+     "last_revision_date": "L47"
+    }
+   },
+   "extras": [
+    {
+     "after_item": "S16_SOURCE",
+     "title_raw": "나. 최초 작성일자",
+     "reason": "코드없음",
+     "statements": [
+      {
+       "key": "최초 작성일자",
+       "value": "1996-06-15",
+       "line": "L44"
+      }
+     ],
+     "line": "L44"
+    },
+    {
+     "after_item": "S16_OTHER",
+     "title_raw": "○ 최종 개정이력",
+     "reason": "코드없음",
+     "statements": [
+      {
+       "value": "고객사 요청에 따른 검토, 경피독성치 단위 수정",
+       "line": "L1"
+      }
+     ],
+     "line": "L1"
+    }
+   ]
+  },
+  "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S16_SOURCE\",\n      \"title_raw\": \"가. 자료의 출처\",\n      \"start\":  \"L38\",\n      \"end\": \"L43\"\n    },\n    {\n      \"item_code\": \"S16_OTHER\",\n      \"title_raw\": \"다. 개정 횟수 및 최종 개정일자\",\n      \"start\": \"L46\",\n      \"end\": \"L47\"\n    }\n  ],\n  \"meta_revision\": {\n    \"first_issue_date\": \"1996-06-15\",\n    \"last_revision_date\": \"2023-01-06\",\n    \"lines\": {\n      \"first_issue_date\": \"L44\",\n      \"last_revision_date\": \"L47\"\n    }\n  },\n  \"extras\": [\n    {\n      \"after_item\": \"S16_SOURCE\",\n      \"title_raw\": \"나. 최초 작성일자\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"key\": \"최초 작성일자\",\n          \"value\": \"1996-06-15\"\n        ,\n          \"line\": \"L44\"\n        }\n      ]\n    ,\n      \"line\": \"L44\"\n    },\n    {\n      \"after_item\": \"S16_OTHER\",\n      \"title_raw\": \"○ 최종 개정이력\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"고객사 요청에 따른 검토, 경피독성치 단위 수정\"\n        ,\n          \"line\": \"L1\"\n        }\n      ]\n    ,\n      \"line\": \"L1\"\n    }\n  ]\n}",
+  "mode": "json_schema",
+  "finish_reason": "stop",
+  "usage": {
+   "prompt_tokens": 2484,
+   "completion_tokens": 425,
+   "total_tokens": 2909
+  },
+  "attempts": 1,
+  "errors": [],
+  "requests": [
+   {
+    "mode": "json_schema",
+    "finish_reason": "stop",
+    "usage": {
+     "prompt_tokens": 2484,
+     "completion_tokens": 425,
+     "total_tokens": 2909
+    },
+    "seconds": 8.985,
+    "chars": 1013,
+    "whitespace": 402,
+    "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S16_SOURCE\",\n      \"title_raw\": \"가. 자료의 출처\",\n      \"start\":  \"L38\",\n      \"end\": \"L43\"\n    },\n    {\n      \"item_code\": \"S16_OTHER\",\n      \"title_raw\": \"다. 개정 횟수 및 최종 개정일자\",\n      \"start\": \"L46\",\n      \"end\": \"L47\"\n    }\n  ],\n  \"meta_revision\": {\n    \"first_issue_date\": \"1996-06-15\",\n    \"last_revision_date\": \"2023-01-06\",\n    \"lines\": {\n      \"first_issue_date\": \"L44\",\n      \"last_revision_date\": \"L47\"\n    }\n  },\n  \"extras\": [\n    {\n      \"after_item",
+    "tail": "E\",\n      \"title_raw\": \"나. 최초 작성일자\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"key\": \"최초 작성일자\",\n          \"value\": \"1996-06-15\"\n        ,\n          \"line\": \"L44\"\n        }\n      ]\n    ,\n      \"line\": \"L44\"\n    },\n    {\n      \"after_item\": \"S16_OTHER\",\n      \"title_raw\": \"○ 최종 개정이력\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"고객사 요청에 따른 검토, 경피독성치 단위 수정\"\n        ,\n          \"line\": \"L1\"\n        }\n      ]\n    ,\n      \"line\": \"L1\"\n    }\n  ]\n}"
+   }
+  ],
+  "seconds": 8.986,
+  "check_problems": [
+   "narratives[0].start: 원문에 없는 줄 번호 L38",
+   "narratives[0].end: 원문에 없는 줄 번호 L43",
+   "narratives[1].start: 원문에 없는 줄 번호 L46",
+   "narratives[1].end: 원문에 없는 줄 번호 L47",
+   "meta_revision.lines.first_issue_date: 원문에 없는 줄 번호 L44",
+   "meta_revision.lines.last_revision_date: 원문에 없는 줄 번호 L47",
+   "extras[0].statements[0].line: 원문에 없는 줄 번호 L44",
+   "extras[0].line: 원문에 없는 줄 번호 L44",
+   "extras[1].statements[0].line: 원문에 없는 줄 번호 L1",
+   "extras[1].line: 원문에 없는 줄 번호 L1"
+  ]
+ }
+}

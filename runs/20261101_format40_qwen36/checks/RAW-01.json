@@ -1,0 +1,439 @@
+{
+ "sections": [
+  {
+   "msds_index": 0,
+   "section": 1,
+   "ok": true,
+   "mode": "json_schema",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 1,
+   "seconds": 21.009,
+   "usage": {
+    "prompt_tokens": 3425,
+    "completion_tokens": 1295,
+    "total_tokens": 4720
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 2,
+   "ok": true,
+   "mode": "json_object",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 2,
+   "seconds": 89.442,
+   "usage": {
+    "prompt_tokens": 10159,
+    "completion_tokens": 1933,
+    "total_tokens": 12092
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 3,
+   "ok": true,
+   "mode": "rows",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 1,
+   "seconds": 5.998,
+   "usage": {
+    "prompt_tokens": 3761,
+    "completion_tokens": 183,
+    "total_tokens": 3944
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 4,
+   "ok": true,
+   "mode": "json_schema",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 1,
+   "seconds": 9.031,
+   "usage": {
+    "prompt_tokens": 2323,
+    "completion_tokens": 381,
+    "total_tokens": 2704
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 5,
+   "ok": true,
+   "mode": "json_object",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 2,
+   "seconds": 80.031,
+   "usage": {
+    "prompt_tokens": 3786,
+    "completion_tokens": 204,
+    "total_tokens": 3990
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 6,
+   "ok": true,
+   "mode": "json_schema",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 1,
+   "seconds": 7.548,
+   "usage": {
+    "prompt_tokens": 2315,
+    "completion_tokens": 282,
+    "total_tokens": 2597
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 7,
+   "ok": true,
+   "mode": "json_schema",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 1,
+   "seconds": 16.114,
+   "usage": {
+    "prompt_tokens": 2095,
+    "completion_tokens": 881,
+    "total_tokens": 2976
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 8,
+   "ok": true,
+   "mode": "rows",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 1,
+   "seconds": 15.899,
+   "usage": {
+    "prompt_tokens": 3919,
+    "completion_tokens": 868,
+    "total_tokens": 4787
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 9,
+   "ok": true,
+   "mode": "rows",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": true,
+   "attempts": 2,
+   "seconds": 23.219,
+   "usage": {
+    "prompt_tokens": 8686,
+    "completion_tokens": 1427,
+    "total_tokens": 10113
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 10,
+   "ok": true,
+   "mode": "json_schema",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": true,
+   "attempts": 2,
+   "seconds": 24.421,
+   "usage": {
+    "prompt_tokens": 4387,
+    "completion_tokens": 1534,
+    "total_tokens": 5921
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 11,
+   "ok": true,
+   "mode": "rows",
+   "errors": [
+    "toxicity p6:L6 |  | TX_DERMAL | LD50 | {upper_op:'>',up…: 열 20개, 기대 19개",
+    "toxicity p6:L7 |  | TX_INHAL | LC50 | {upper_op:'>',upp…: 열 20개, 기대 19개",
+    "toxicity p6:L8 |  | TX_SKIN | 결과기술 |  | 토끼 |  |  |  |  …: 열 18개, 기대 19개",
+    "toxicity p6:L11 |  | TX_EYE | 결과기술 |  | 토끼 |  |  |  |  |…: 열 18개, 기대 19개",
+    "toxicity p6:L16 |  | TX_SKIN_SENS | 결과기술 |  | 기니피그 |  | …: 열 18개, 기대 19개",
+    "toxicity p6:L29 |  | TX_STOT_SE | 결과기술 |  | 사람 |  |  |  …: 열 18개, 기대 19개",
+    "toxicity p6:L37 |  | TX_STOT_RE | NOAEC | {value:500,uni…: .descriptor: 'NOAEC' is not valid under any of the given schemas",
+    "extras p6:L8 TX_SKIN | ○ | 피부 부식성 또는 자극성 | 코드없음 |  | …: .reason: '피부 부식성 또는 자극성' is not valid under any of the given schemas",
+    "extras p6:L11 TX_EYE | ○ | 심한 눈 손상 또는 자극성 | 코드없음 |  | …: .reason: '심한 눈 손상 또는 자극성' is not valid under any of the given schemas",
+    "extras p6:L15 TX_RESP_SENS | ○ | 호흡기 과민성 | 코드없음 |  |  …: .reason: '호흡기 과민성' is not valid under any of the given schemas",
+    "extras p6:L16 TX_SKIN_SENS | ○ | 피부 과민성 | 코드없음 |  |  |…: .reason: '피부 과민성' is not valid under any of the given schemas",
+    "extras p6:L17 TX_CARC | ○ | 발암성 | 코드없음 |  |  |  | 11항 …: .reason: '발암성' is not valid under any of the given schemas",
+    "extras p6:L18 TX_MUTA | ○ | 생식세포 변이원성 | 코드없음 |  |  | 시…: .reason: '생식세포 변이원성' is not valid under any of the given schemas",
+    "extras p6:L21 TX_REPRO | ○ | 생식독성 | 코드없음 |  |  | 랫드를 대…: .reason: '생식독성' is not valid under any of the given schemas",
+    "extras p6:L29 TX_STOT_SE | ○ | 특정 표적장기 독성(1회 노출) | 코드없…: .reason: '특정 표적장기 독성(1회 노출)' is not valid under any of the given schemas",
+    "extras p6:L31 TX_STOT_RE | ○ | 특정 표적장기 독성(반복 노출) | 코드없…: .reason: '특정 표적장기 독성(반복 노출)' is not valid under any of the given schemas",
+    "extras p6:L42 TX_ASP | ○ | 흡인유해성 | 코드없음 |  |  |  | 11항…: .reason: '흡인유해성' is not valid under any of the given schemas"
+   ],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 2,
+   "seconds": 47.403,
+   "usage": {
+    "prompt_tokens": 11780,
+    "completion_tokens": 4064,
+    "total_tokens": 15844
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 12,
+   "ok": true,
+   "mode": "rows",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 1,
+   "seconds": 13.387,
+   "usage": {
+    "prompt_tokens": 3756,
+    "completion_tokens": 689,
+    "total_tokens": 4445
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 13,
+   "ok": true,
+   "mode": "json_schema",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 1,
+   "seconds": 13.569,
+   "usage": {
+    "prompt_tokens": 2063,
+    "completion_tokens": 701,
+    "total_tokens": 2764
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 14,
+   "ok": true,
+   "mode": "rows",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 1,
+   "seconds": 7.804,
+   "usage": {
+    "prompt_tokens": 3047,
+    "completion_tokens": 334,
+    "total_tokens": 3381
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 15,
+   "ok": true,
+   "mode": "rows",
+   "errors": [
+    "intl_class p8:L20 |  | INTL_US | OSHA 규정 (29CFR1910.119) |…: .status: '비해당' is not valid under any of the given schemas; .system: 'INTL_US' is not valid under any of the given schemas",
+    "intl_class p8:L21 |  | INTL_US | CERCLA 103 규정 (40CFR302.4…: .system: 'INTL_US' is not valid under any of the given schemas",
+    "intl_class p8:L23 |  | INTL_US | EPCRA 302 규정 (40CFR355.30…: .status: '비해당' is not valid under any of the given schemas; .system: 'INTL_US' is not valid under any of the given schemas",
+    "intl_class p8:L24 |  | INTL_US | EPCRA 304 규정 (40CFR355.40…: .status: '비해당' is not valid under any of the given schemas; .system: 'INTL_US' is not valid under any of the given schemas",
+    "intl_class p8:L25 |  | INTL_US | EPCRA 313 규정 (40CFR372.65…: .status: '비해당' is not valid under any of the given schemas; .system: 'INTL_US' is not valid under any of the given schemas",
+    "intl_class p8:L26 |  | INTL_TREATY | 로테르담 협약 물질 |  | 비해당 |…: .status: '비해당' is not valid under any of the given schemas; .system: 'INTL_TREATY' is not valid under any of the given schemas",
+    "intl_class p8:L27 |  | INTL_TREATY | 스톡홀름 협약 물질 |  | 비해당 |…: .status: '비해당' is not valid under any of the given schemas; .system: 'INTL_TREATY' is not valid under any of the given schemas",
+    "intl_class p8:L28 |  | INTL_TREATY | 몬트리올 의정서 물질 |  | 비해당 …: .status: '비해당' is not valid under any of the given schemas; .system: 'INTL_TREATY' is not valid under any of the given schemas"
+   ],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 2,
+   "seconds": 46.221,
+   "usage": {
+    "prompt_tokens": 14331,
+    "completion_tokens": 3857,
+    "total_tokens": 18188
+   }
+  },
+  {
+   "msds_index": 0,
+   "section": 16,
+   "ok": true,
+   "mode": "json_schema",
+   "errors": [],
+   "check_problems": [],
+   "reextracted": false,
+   "attempts": 1,
+   "seconds": 15.736,
+   "usage": {
+    "prompt_tokens": 2883,
+    "completion_tokens": 863,
+    "total_tokens": 3746
+   }
+  }
+ ],
+ "schema_errors": [],
+ "to21_validator": [
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[10]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[14]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[17]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[20]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[21]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[22]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[23]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  },
+  {
+   "level": "오류",
+   "rule": "V22",
+   "field": "msds[0].extras[24]",
+   "message": "q 또는 statements 중 하나 이상 필요"
+  }
+ ],
+ "expand_problems": [
+  {
+   "msds_index": 0,
+   "section": 15,
+   "kind": "unlinked_component",
+   "detail": "regulations[0]: Buthyl Acetate / None"
+  },
+  {
+   "msds_index": 0,
+   "section": 15,
+   "kind": "unlinked_component",
+   "detail": "regulations[2]: Buthyl Acetate / None"
+  },
+  {
+   "msds_index": 0,
+   "section": 15,
+   "kind": "unlinked_component",
+   "detail": "regulations[13]: Butyl Acetate, Water / None"
+  },
+  {
+   "msds_index": 0,
+   "section": 7,
+   "kind": "extras_in_narrative",
+   "detail": "2행"
+  },
+  {
+   "msds_index": 0,
+   "section": 8,
+   "kind": "extras_in_narrative",
+   "detail": "7행"
+  },
+  {
+   "msds_index": 0,
+   "section": 10,
+   "kind": "extras_in_narrative",
+   "detail": "4행"
+  },
+  {
+   "msds_index": 0,
+   "section": 12,
+   "kind": "extras_in_narrative",
+   "detail": "5행"
+  },
+  {
+   "msds_index": 0,
+   "section": 15,
+   "kind": "extras_in_narrative",
+   "detail": "5행"
+  }
+ ],
+ "warnings": [
+  "manifest에 없는 문서: 쪽 글자 폴더의 meta.json을 씀",
+  "항목 분할 파일 없음: 임시 분할 (찾은 항 16/16, MSDS 1건)"
+ ],
+ "sections_method": "provisional",
+ "pictogram_check": [
+  {
+   "msds_index": 0,
+   "model": [
+    "GHS02",
+    "GHS07"
+   ],
+   "inferred": [
+    "GHS07"
+   ],
+   "missing": [],
+   "extra": [
+    "GHS02"
+   ],
+   "ok": true,
+   "unmapped_h": [
+    "H225"
+   ]
+  }
+ ],
+ "needs_review": [
+  {
+   "msds_index": 0,
+   "section": 7
+  },
+  {
+   "msds_index": 0,
+   "section": 8
+  },
+  {
+   "msds_index": 0,
+   "section": 10
+  },
+  {
+   "msds_index": 0,
+   "section": 11
+  },
+  {
+   "msds_index": 0,
+   "section": 12
+  },
+  {
+   "msds_index": 0,
+   "section": 15
+  }
+ ]
+}

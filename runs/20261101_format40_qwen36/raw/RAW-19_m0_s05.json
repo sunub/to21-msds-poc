@@ -1,0 +1,90 @@
+{
+ "doc_id": "RAW-19",
+ "msds_index": 0,
+ "section": 5,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S5_MEDIA",
+    "title_raw": "가. 적절한(및 부적절한) 소화제",
+    "start": "p2:L35",
+    "end": "p2:L37"
+   },
+   {
+    "item_code": "S5_SPECIFIC",
+    "title_raw": "나. 화학물질로부터 생기는 특정 유해성 (예, 연소 시 발생 유해물질)",
+    "start": "p3:L7",
+    "end": "p3:L8"
+   },
+   {
+    "item_code": "S5_FIREFIGHT",
+    "title_raw": "다. 화재 진압시 착용할 보호구 및 예방조치",
+    "start": "p3:L9",
+    "end": "p3:L15"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S5_MEDIA",
+    "title_raw": "소화방법 및 장비",
+    "reason": "필드없음",
+    "statements": [
+     {
+      "key": "소화방법 및 장비",
+      "value": "대형 화재 시 미세한 분무로 대량 살수하시오.",
+      "line": "p2:L37"
+     }
+    ],
+    "line": "p2:L37"
+   },
+   {
+    "after_item": "S5_FIREFIGHT",
+    "title_raw": "화재 및 폭발위험",
+    "reason": "필드없음",
+    "statements": [
+     {
+      "key": "화재 및 폭발위험",
+      "value": "심각한 화재 위험이 있음.",
+      "line": "p3:L5"
+     },
+     {
+      "key": "용기",
+      "value": "열에 노출되면 파열되거나 폭발할 수도 있음.",
+      "line": "p3:L6"
+     }
+    ],
+    "line": "p3:L5"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S5_MEDIA\",\n      \"title_raw\": \"가. 적절한(및 부적절한) 소화제\",\n      \"start\": \"p2:L35\",\n      \"end\": \"p2:L37\"\n    },\n    {\n      \"item_code\": \"S5_SPECIFIC\",\n      \"title_raw\": \"나. 화학물질로부터 생기는 특정 유해성 (예, 연소 시 발생 유해물질)\",\n      \"start\": \"p3:L7\",\n      \"end\": \"p3:L8\"\n    },\n    {\n      \"item_code\": \"S5_FIREFIGHT\",\n      \"title_raw\": \"다. 화재 진압시 착용할 보호구 및 예방조치\",\n      \"start\": \"p3:L9\",\n      \"end\": \"p3:L15\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S5_MEDIA\",\n      \"title_raw\": \"소화방법 및 장비\",\n      \"reason\": \"필드없음\",\n      \"statements\": [\n        {\n          \"key\": \"소화방법 및 장비\",\n          \"value\": \"대형 화재 시 미세한 분무로 대량 살수하시오.\"\n        ,\n          \"line\": \"p2:L37\"\n        }\n      ]\n    ,\n      \"line\": \"p2:L37\"\n    },\n    {\n      \"after_item\": \"S5_FIREFIGHT\",\n      \"title_raw\": \"화재 및 폭발위험\",\n      \"reason\": \"필드없음\",\n      \"statements\": [\n        {\n          \"key\": \"화재 및 폭발위험\",\n          \"value\": \"심각한 화재 위험이 있음.\"\n        ,\n          \"line\": \"p3:L5\"\n        },\n        {\n          \"key\": \"용기\",\n          \"value\": \"열에 노출되면 파열되거나 폭발할 수도 있음.\"\n        ,\n          \"line\": \"p3:L6\"\n        }\n      ]\n    ,\n      \"line\": \"p3:L5\"\n    }\n  ]\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 2267,
+  "completion_tokens": 499,
+  "total_tokens": 2766
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 2267,
+    "completion_tokens": 499,
+    "total_tokens": 2766
+   },
+   "seconds": 10.015,
+   "chars": 1174,
+   "whitespace": 494,
+   "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S5_MEDIA\",\n      \"title_raw\": \"가. 적절한(및 부적절한) 소화제\",\n      \"start\": \"p2:L35\",\n      \"end\": \"p2:L37\"\n    },\n    {\n      \"item_code\": \"S5_SPECIFIC\",\n      \"title_raw\": \"나. 화학물질로부터 생기는 특정 유해성 (예, 연소 시 발생 유해물질)\",\n      \"start\": \"p3:L7\",\n      \"end\": \"p3:L8\"\n    },\n    {\n      \"item_code\": \"S5_FIREFIGHT\",\n      \"title_raw\": \"다. 화재 진압시 착용할 보호구 및 예방조치\",\n      \"start\": \"p3:L9\",\n      \"end\": \"p3:L15\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S5_MEDIA",
+   "tail": "  ,\n          \"line\": \"p2:L37\"\n        }\n      ]\n    ,\n      \"line\": \"p2:L37\"\n    },\n    {\n      \"after_item\": \"S5_FIREFIGHT\",\n      \"title_raw\": \"화재 및 폭발위험\",\n      \"reason\": \"필드없음\",\n      \"statements\": [\n        {\n          \"key\": \"화재 및 폭발위험\",\n          \"value\": \"심각한 화재 위험이 있음.\"\n        ,\n          \"line\": \"p3:L5\"\n        },\n        {\n          \"key\": \"용기\",\n          \"value\": \"열에 노출되면 파열되거나 폭발할 수도 있음.\"\n        ,\n          \"line\": \"p3:L6\"\n        }\n      ]\n    ,\n      \"line\": \"p3:L5\"\n    }\n  ]\n}"
+  }
+ ],
+ "seconds": 10.015,
+ "check_problems": []
+}

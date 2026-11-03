@@ -1,0 +1,171 @@
+{
+ "doc_id": "RAW-30",
+ "msds_index": 0,
+ "section": 14,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "transport": [
+   {
+    "mode": "공통",
+    "basis_raw": null,
+    "regulated": false,
+    "un_no": null,
+    "shipping_name": null,
+    "hazard_class": null,
+    "sub_risk": null,
+    "packing_group": "해당없음",
+    "marine_pollutant": "비해당",
+    "ems_fire": null,
+    "ems_spill": null,
+    "line": "p5:L23"
+   }
+  ],
+  "narratives": [
+   {
+    "item_code": "S14_SPECIAL",
+    "title_raw": "바. 사용자가 운송 또는 운송 수단에 관련해 알 필요가 있거나 필요한 특별한 안전 대책",
+    "start": "p5:L34",
+    "end": "p5:L38"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S14_SPECIAL",
+    "title_raw": "가. 유엔번호",
+    "reason": "필드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [
+     {
+      "value": "해당없음",
+      "line": "p5:L24"
+     }
+    ],
+    "suggested_code": "transport.un_no",
+    "line": "p5:L24"
+   },
+   {
+    "after_item": "S14_SPECIAL",
+    "title_raw": "나. 유엔 적정 선적명",
+    "reason": "필드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [
+     {
+      "value": "해당없음",
+      "line": "p5:L26"
+     }
+    ],
+    "suggested_code": "transport.shipping_name",
+    "line": "p5:L26"
+   },
+   {
+    "after_item": "S14_SPECIAL",
+    "title_raw": "다. 운송에서의 위험성 등급",
+    "reason": "필드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [
+     {
+      "value": "해당없음",
+      "line": "p5:L28"
+     }
+    ],
+    "suggested_code": "transport.hazard_class",
+    "line": "p5:L28"
+   },
+   {
+    "after_item": "S14_SPECIAL",
+    "title_raw": "라. 용기등급 (해당하는 경우)",
+    "reason": "필드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [
+     {
+      "value": "해당없음",
+      "line": "p5:L30"
+     }
+    ],
+    "suggested_code": "transport.packing_group",
+    "line": "p5:L30"
+   },
+   {
+    "after_item": "S14_SPECIAL",
+    "title_raw": "마. 해양오염물질(해당 또는 비해당으로 표기)",
+    "reason": "필드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [
+     {
+      "value": "해당없음",
+      "line": "p5:L32"
+     }
+    ],
+    "suggested_code": "transport.marine_pollutant",
+    "line": "p5:L32"
+   },
+   {
+    "after_item": "S14_SPECIAL",
+    "title_raw": "바. 사용자가 운송 또는 운송 수단에 관련해 알 필요가 있거나 필요한 특별한 안전 대책",
+    "reason": "코드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [
+     {
+      "value": "지역 운송 시 위험물안전관리법에 따름.",
+      "line": "p5:L34"
+     },
+     {
+      "value": "DOT 및 기타 규정에 맞게 포장 및 운송.",
+      "line": "p5:L34"
+     },
+     {
+      "value": "화재 시 비상조치의 종류 :",
+      "line": "p5:L34"
+     },
+     {
+      "value": "유출 시 비상조치의 종류 :",
+      "line": "p5:L34"
+     }
+    ],
+    "suggested_code": "transport.ems_fire; transport.ems_spill",
+    "line": "p5:L34"
+   }
+  ]
+ },
+ "raw_text": "### transport\nmode | basis_raw | regulated | un_no | shipping_name | hazard_class | sub_risk | packing_group | marine_pollutant | ems_fire | ems_spill | line\n공통 |  | false |  |  |  |  | 해당없음 | 해당없음 |  |  | p5:L23\n\n### narratives\nitem_code | title_raw | start | end\nS14_SPECIAL | 바. 사용자가 운송 또는 운송 수단에 관련해 알 필요가 있거나 필요한 특별한 안전 대책 | p5:L34 | p5:L38\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\nS14_SPECIAL | 가. 유엔번호 | 필드없음 |  |  |  | 해당없음 | transport.un_no | p5:L24\nS14_SPECIAL | 나. 유엔 적정 선적명 | 필드없음 |  |  |  | 해당없음 | transport.shipping_name | p5:L26\nS14_SPECIAL | 다. 운송에서의 위험성 등급 | 필드없음 |  |  |  | 해당없음 | transport.hazard_class | p5:L28\nS14_SPECIAL | 라. 용기등급 (해당하는 경우) | 필드없음 |  |  |  | 해당없음 | transport.packing_group | p5:L30\nS14_SPECIAL | 마. 해양오염물질(해당 또는 비해당으로 표기) | 필드없음 |  |  |  | 해당없음 | transport.marine_pollutant | p5:L32\nS14_SPECIAL | 바. 사용자가 운송 또는 운송 수단에 관련해 알 필요가 있거나 필요한 특별한 안전 대책 | 코드없음 |  |  |  | 지역 운송 시 위험물안전관리법에 따름.; DOT 및 기타 규정에 맞게 포장 및 운송.; 화재 시 비상조치의 종류 :; 유출 시 비상조치의 종류 : | transport.ems_fire; transport.ems_spill | p5:L34",
+ "mode": "rows",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 3096,
+  "completion_tokens": 452,
+  "total_tokens": 3548
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "rows",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 3096,
+    "completion_tokens": 452,
+    "total_tokens": 3548
+   },
+   "seconds": 8.431,
+   "chars": 1102,
+   "whitespace": 249,
+   "head": "### transport\nmode | basis_raw | regulated | un_no | shipping_name | hazard_class | sub_risk | packing_group | marine_pollutant | ems_fire | ems_spill | line\n공통 |  | false |  |  |  |  | 해당없음 | 해당없음 |  |  | p5:L23\n\n### narratives\nitem_code | title_raw | start | end\nS14_SPECIAL | 바. 사용자가 운송 또는 운송 수단에 관련해 알 필요가 있거나 필요한 특별한 안전 대책 | p5:L34 | p5:L38\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\nS14_SPECIAL | 가. 유엔번호 | 필드없음 |  |  |  | 해당없음 |",
+   "tail": "| p5:L26\nS14_SPECIAL | 다. 운송에서의 위험성 등급 | 필드없음 |  |  |  | 해당없음 | transport.hazard_class | p5:L28\nS14_SPECIAL | 라. 용기등급 (해당하는 경우) | 필드없음 |  |  |  | 해당없음 | transport.packing_group | p5:L30\nS14_SPECIAL | 마. 해양오염물질(해당 또는 비해당으로 표기) | 필드없음 |  |  |  | 해당없음 | transport.marine_pollutant | p5:L32\nS14_SPECIAL | 바. 사용자가 운송 또는 운송 수단에 관련해 알 필요가 있거나 필요한 특별한 안전 대책 | 코드없음 |  |  |  | 지역 운송 시 위험물안전관리법에 따름.; DOT 및 기타 규정에 맞게 포장 및 운송.; 화재 시 비상조치의 종류 :; 유출 시 비상조치의 종류 : | transport.ems_fire; transport.ems_spill | p5:L34"
+  }
+ ],
+ "seconds": 8.436,
+ "check_problems": []
+}

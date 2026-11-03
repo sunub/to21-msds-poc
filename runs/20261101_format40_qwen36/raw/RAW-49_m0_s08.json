@@ -1,0 +1,224 @@
+{
+ "doc_id": "RAW-49",
+ "msds_index": 0,
+ "section": 8,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "exposure_limits": [],
+  "narratives": [
+   {
+    "item_code": "S8_ENG",
+    "title_raw": "나. 적절한 공학적 관리",
+    "start": "p3:L17",
+    "end": "p3:L17"
+   },
+   {
+    "item_code": "S8_RESP",
+    "title_raw": "호흡기 보호",
+    "start": "p3:L19",
+    "end": "p3:L21"
+   },
+   {
+    "item_code": "S8_EYE",
+    "title_raw": "눈보호",
+    "start": "p3:L22",
+    "end": "p3:L24"
+   },
+   {
+    "item_code": "S8_HAND",
+    "title_raw": "손보호",
+    "start": "p3:L25",
+    "end": "p3:L27"
+   },
+   {
+    "item_code": "S8_BODY",
+    "title_raw": "신체보호",
+    "start": "p3:L28",
+    "end": "p3:L31"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S8_BODY",
+    "title_raw": "위생 대책",
+    "reason": "필드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [
+     {
+      "value": "각 교대 작업 후와 식사, 흡연, 화장실 사용 전에 씻을 것. 피부가 젖거나 오염되면 즉시 씻을 것. 오염된 작업복은 즉시 벗을 것. 작업 중에는 음료 섭취나 흡연을 금지함.",
+      "line": "p3:L32"
+     }
+    ],
+    "suggested_code": "HYGIENE",
+    "line": "p3:L32"
+   }
+  ]
+ },
+ "raw_text": "### exposure_limits\ncomp_name | comp_cas | standard | limit_type | q | form | kr_basis | bio_medium | bio_timing | bio_determinant | notations | line\n |  | 국내 | 미규정 |  |  |  |  |  |  |  | p3:L14\n |  | ACGIH | 미규정 |  |  |  |  |  |  |  |  | p3:L15\n |  | 생물학적 | 미규정 |  |  |  |  |  |  |  |  | p3:L16\n\n### narratives\nitem_code | title_raw | start | end\nS8_ENG | 나. 적절한 공학적 관리 | p3:L17 | p3:L17\nS8_RESP | 호흡기 보호 | p3:L19 | p3:L21\nS8_EYE | 눈보호 | p3:L22 | p3:L24\nS8_HAND | 손보호 | p3:L25 | p3:L27\nS8_BODY | 신체보호 | p3:L28 | p3:L31\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\nS8_BODY | 위생 대책 | 필드없음 |  |  |  | 각 교대 작업 후와 식사, 흡연, 화장실 사용 전에 씻을 것. 피부가 젖거나 오염되면 즉시 씻을 것. 오염된 작업복은 즉시 벗을 것. 작업 중에는 음료 섭취나 흡연을 금지함. | HYGIENE | p3:L32",
+ "mode": "rows",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 3698,
+  "completion_tokens": 357,
+  "total_tokens": 4055
+ },
+ "attempts": 1,
+ "errors": [
+  "exposure_limits p3:L14 |  | 국내 | 미규정 |  |  |  |  |  |  |  | p3:…: .limit_type: '미규정' is not valid under any of the given schemas",
+  "exposure_limits p3:L15 |  | ACGIH | 미규정 |  |  |  |  |  |  |  | …: 열 13개, 기대 12개",
+  "exposure_limits p3:L16 |  | 생물학적 | 미규정 |  |  |  |  |  |  |  |  …: 열 13개, 기대 12개"
+ ],
+ "requests": [
+  {
+   "mode": "rows",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 3698,
+    "completion_tokens": 357,
+    "total_tokens": 4055
+   },
+   "seconds": 6.983,
+   "chars": 778,
+   "whitespace": 211,
+   "head": "### exposure_limits\ncomp_name | comp_cas | standard | limit_type | q | form | kr_basis | bio_medium | bio_timing | bio_determinant | notations | line\n |  | 국내 | 미규정 |  |  |  |  |  |  |  | p3:L14\n |  | ACGIH | 미규정 |  |  |  |  |  |  |  |  | p3:L15\n |  | 생물학적 | 미규정 |  |  |  |  |  |  |  |  | p3:L16\n\n### narratives\nitem_code | title_raw | start | end\nS8_ENG | 나. 적절한 공학적 관리 | p3:L17 | p3:L17\nS8_RESP | 호흡기 보호 | p3:L19 | p3:L21\nS8_EYE | 눈보호 | p3:L22 | p3:L24\nS8_HAND | 손보호 | p3:L25 | p3:L27\nS8_BODY | 신체보",
+   "tail": "호 | p3:L28 | p3:L31\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\nS8_BODY | 위생 대책 | 필드없음 |  |  |  | 각 교대 작업 후와 식사, 흡연, 화장실 사용 전에 씻을 것. 피부가 젖거나 오염되면 즉시 씻을 것. 오염된 작업복은 즉시 벗을 것. 작업 중에는 음료 섭취나 흡연을 금지함. | HYGIENE | p3:L32"
+  }
+ ],
+ "seconds": 6.987,
+ "check_problems": [],
+ "reextract_attempt": {
+  "ok": true,
+  "parsed": {
+   "exposure_limits": [],
+   "narratives": [
+    {
+     "item_code": "S8_ENG",
+     "title_raw": "나. 적절한 공학적 관리",
+     "start": "p3:L17",
+     "end": "p3:L17"
+    },
+    {
+     "item_code": "S8_RESP",
+     "title_raw": "호흡기 보호",
+     "start": "p3:L19",
+     "end": "p3:L21"
+    },
+    {
+     "item_code": "S8_EYE",
+     "title_raw": "눈보호",
+     "start": "p3:L22",
+     "end": "p3:L24"
+    },
+    {
+     "item_code": "S8_HAND",
+     "title_raw": "손보호",
+     "start": "p3:L25",
+     "end": "p3:L27"
+    },
+    {
+     "item_code": "S8_BODY",
+     "title_raw": "신체보호",
+     "start": "p3:L28",
+     "end": "p3:L31"
+    }
+   ],
+   "extras": [
+    {
+     "after_item": "S8_BODY",
+     "title_raw": "다. 개인 보호구",
+     "reason": "코드없음",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": null,
+     "statements": [
+      {
+       "value": "직접적인 접촉/노출 가능성이 있는 경우 한국산업안전보건공단에서 인증받은 호흡기를 착용",
+       "line": "p3:L18"
+      },
+      {
+       "value": "호흡기 보호 : 할 것.",
+       "line": "p3:L18"
+      },
+      {
+       "value": "직접적인 접촉/노출 가능성이 있는 경우 한국산업안전보건공단에서 인증받은 보안경을 착용",
+       "line": "p3:L18"
+      },
+      {
+       "value": "눈보호 : 할 것.",
+       "line": "p3:L18"
+      },
+      {
+       "value": "직접적인 접촉/노출 가능성이 있는 경우 한국산업안전보건공단에서 인증받은 내화학성 장갑",
+       "line": "p3:L18"
+      },
+      {
+       "value": "손보호 : 을 착용할 것.",
+       "line": "p3:L18"
+      },
+      {
+       "value": "직접적인 접촉/노출 가능성이 있는 경우 한국산업안전보건공단에서 인증받은 화학물질 보호",
+       "line": "p3:L18"
+      },
+      {
+       "value": "신체보호 :",
+       "line": "p3:L18"
+      }
+     ],
+     "suggested_code": "S8_RESP",
+     "line": "p3:L18"
+    },
+    {
+     "after_item": "S8_BODY",
+     "title_raw": "위생 대책",
+     "reason": "코드없음",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": null,
+     "statements": [
+      {
+       "value": "각 교대 작업 후와 식사, 흡연, 화장실 사용 전에 씻을 것. 피부가 젖거나 오염되면 즉시 씻을 것. 오염된 작업복은 즉시 벗을 것. 작업 중에는 음료 섭취나 흡연을 금지함.",
+       "line": "p3:L32"
+      }
+     ],
+     "suggested_code": "HYGIENE",
+     "line": "p3:L32"
+    }
+   ]
+  },
+  "raw_text": "### exposure_limits\ncomp_name | comp_cas | standard | limit_type | q | form | kr_basis | bio_medium | bio_timing | bio_determinant | notations | line\n |  | 국내 | 미규정 |  |  |  |  |  |  |  | p3:L14\n |  | ACGIH | 미규정 |  |  |  |  |  |  |  | p3:L15\n |  | 생물학적 | 미규정 |  |  |  |  |  |  |  | p3:L16\n\n### narratives\nitem_code | title_raw | start | end\nS8_ENG | 나. 적절한 공학적 관리 | p3:L17 | p3:L17\nS8_RESP | 호흡기 보호 | p3:L19 | p3:L21\nS8_EYE | 눈보호 | p3:L22 | p3:L24\nS8_HAND | 손보호 | p3:L25 | p3:L27\nS8_BODY | 신체보호 | p3:L28 | p3:L31\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\nS8_BODY | 다. 개인 보호구 | 코드없음 |  |  |  | 직접적인 접촉/노출 가능성이 있는 경우 한국산업안전보건공단에서 인증받은 호흡기를 착용; 호흡기 보호 : 할 것.; 직접적인 접촉/노출 가능성이 있는 경우 한국산업안전보건공단에서 인증받은 보안경을 착용; 눈보호 : 할 것.; 직접적인 접촉/노출 가능성이 있는 경우 한국산업안전보건공단에서 인증받은 내화학성 장갑; 손보호 : 을 착용할 것.; 직접적인 접촉/노출 가능성이 있는 경우 한국산업안전보건공단에서 인증받은 화학물질 보호; 신체보호 : | S8_RESP | p3:L18\nS8_BODY | 위생 대책 | 코드없음 |  |  |  | 각 교대 작업 후와 식사, 흡연, 화장실 사용 전에 씻을 것. 피부가 젖거나 오염되면 즉시 씻을 것. 오염된 작업복은 즉시 벗을 것. 작업 중에는 음료 섭취나 흡연을 금지함. | HYGIENE | p3:L32",
+  "mode": "rows",
+  "finish_reason": "stop",
+  "usage": {
+   "prompt_tokens": 3854,
+   "completion_tokens": 493,
+   "total_tokens": 4347
+  },
+  "attempts": 1,
+  "errors": [
+   "exposure_limits p3:L14 |  | 국내 | 미규정 |  |  |  |  |  |  |  | p3:…: .limit_type: '미규정' is not valid under any of the given schemas",
+   "exposure_limits p3:L15 |  | ACGIH | 미규정 |  |  |  |  |  |  |  | …: .limit_type: '미규정' is not valid under any of the given schemas",
+   "exposure_limits p3:L16 |  | 생물학적 | 미규정 |  |  |  |  |  |  |  | p…: .limit_type: '미규정' is not valid under any of the given schemas"
+  ],
+  "requests": [
+   {
+    "mode": "rows",
+    "finish_reason": "stop",
+    "usage": {
+     "prompt_tokens": 3854,
+     "completion_tokens": 493,
+     "total_tokens": 4347
+    },
+    "seconds": 7.673,
+    "chars": 1075,
+    "whitespace": 277,
+    "head": "### exposure_limits\ncomp_name | comp_cas | standard | limit_type | q | form | kr_basis | bio_medium | bio_timing | bio_determinant | notations | line\n |  | 국내 | 미규정 |  |  |  |  |  |  |  | p3:L14\n |  | ACGIH | 미규정 |  |  |  |  |  |  |  | p3:L15\n |  | 생물학적 | 미규정 |  |  |  |  |  |  |  | p3:L16\n\n### narratives\nitem_code | title_raw | start | end\nS8_ENG | 나. 적절한 공학적 관리 | p3:L17 | p3:L17\nS8_RESP | 호흡기 보호 | p3:L19 | p3:L21\nS8_EYE | 눈보호 | p3:L22 | p3:L24\nS8_HAND | 손보호 | p3:L25 | p3:L27\nS8_BODY | 신체보호 | p3",
+    "tail": "p_cas | q | statements | suggested_code | line\nS8_BODY | 다. 개인 보호구 | 코드없음 |  |  |  | 직접적인 접촉/노출 가능성이 있는 경우 한국산업안전보건공단에서 인증받은 호흡기를 착용; 호흡기 보호 : 할 것.; 직접적인 접촉/노출 가능성이 있는 경우 한국산업안전보건공단에서 인증받은 보안경을 착용; 눈보호 : 할 것.; 직접적인 접촉/노출 가능성이 있는 경우 한국산업안전보건공단에서 인증받은 내화학성 장갑; 손보호 : 을 착용할 것.; 직접적인 접촉/노출 가능성이 있는 경우 한국산업안전보건공단에서 인증받은 화학물질 보호; 신체보호 : | S8_RESP | p3:L18\nS8_BODY | 위생 대책 | 코드없음 |  |  |  | 각 교대 작업 후와 식사, 흡연, 화장실 사용 전에 씻을 것. 피부가 젖거나 오염되면 즉시 씻을 것. 오염된 작업복은 즉시 벗을 것. 작업 중에는 음료 섭취나 흡연을 금지함. | HYGIENE | p3:L32"
+   }
+  ],
+  "seconds": 7.677,
+  "check_problems": []
+ }
+}

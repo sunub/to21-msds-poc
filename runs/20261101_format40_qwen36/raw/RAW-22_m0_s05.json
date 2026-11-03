@@ -1,0 +1,116 @@
+{
+ "doc_id": "RAW-22",
+ "msds_index": 0,
+ "section": 5,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S5_MEDIA",
+    "title_raw": "2) 적절한 소화제",
+    "start": "p2:L24",
+    "end": "p2:L25"
+   },
+   {
+    "item_code": "S5_SPECIFIC",
+    "title_raw": "3) 화학물질로부터 생기는 특정 유해성",
+    "start": "p2:L26",
+    "end": "p2:L27"
+   },
+   {
+    "item_code": "S5_FIREFIGHT",
+    "title_raw": "4) 화재진압 시 착용할 보호구 예방조치",
+    "start": "p2:L28",
+    "end": "p2:L29"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S5_MEDIA",
+    "title_raw": "1) 연소특성",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "key": "인화점(Flash point)",
+      "value": "93℃ 이하에서 인화되지 않음(신속평형법)",
+      "refs": [
+       "p2:L21"
+      ],
+      "line": "p2:L21"
+     },
+     {
+      "key": "발화점(Autoignition temperature)",
+      "value": "200℃ 이하에서 자연 발화되지 않음",
+      "refs": [
+       "p2:L22"
+      ],
+      "line": "p2:L22"
+     },
+     {
+      "key": "연소속도(Burning rate)",
+      "value": "점화되지 않음(UN TDG test & criteria - Test N1)",
+      "refs": [
+       "p2:L23"
+      ],
+      "line": "p2:L23"
+     }
+    ],
+    "suggested_code": "S5_COMBUSTION",
+    "line": "p2:L20"
+   },
+   {
+    "after_item": "S5_SPECIFIC",
+    "title_raw": "3) 화학물질로부터 생기는 특정 유해성",
+    "reason": "필드없음",
+    "q": {
+     "raw": "자료 없음"
+    },
+    "line": "p2:L27"
+   },
+   {
+    "after_item": "S5_FIREFIGHT",
+    "title_raw": "4) 화재진압 시 착용할 보호구 예방조치",
+    "reason": "필드없음",
+    "statements": [
+     {
+      "value": "필요하면 공기호흡장치를 착용하시오.",
+      "refs": [
+       "p2:L29"
+      ],
+      "line": "p2:L29"
+     }
+    ],
+    "line": "p2:L28"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S5_MEDIA\",\n      \"title_raw\": \"2) 적절한 소화제\",\n      \"start\": \"p2:L24\",\n      \"end\": \"p2:L25\"\n    },\n    {\n      \"item_code\": \"S5_SPECIFIC\",\n      \"title_raw\": \"3) 화학물질로부터 생기는 특정 유해성\",\n      \"start\": \"p2:L26\",\n      \"end\": \"p2:L27\"\n    },\n    {\n      \"item_code\": \"S5_FIREFIGHT\",\n      \"title_raw\": \"4) 화재진압 시 착용할 보호구 예방조치\",\n      \"start\": \"p2:L28\",\n      \"end\": \"p2:L29\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S5_MEDIA\",\n      \"title_raw\": \"1) 연소특성\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"key\": \"인화점(Flash point)\",\n          \"value\": \"93℃ 이하에서 인화되지 않음(신속평형법)\"\n        ,\n        \"refs\": [\n          \"p2:L21\"\n        ]\n        ,\n        \"line\": \"p2:L21\"\n        },\n        {\n          \"key\": \"발화점(Autoignition temperature)\",\n          \"value\": \"200℃ 이하에서 자연 발화되지 않음\"\n        ,\n        \"refs\": [\n          \"p2:L22\"\n        ]\n        ,\n        \"line\": \"p2:L22\"\n        },\n        {\n          \"key\": \"연소속도(Burning rate)\",\n          \"value\": \"점화되지 않음(UN TDG test & criteria - Test N1)\"\n        ,\n        \"refs\": [\n          \"p2:L23\"\n        ]\n        ,\n        \"line\": \"p2:L23\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S5_COMBUSTION\"\n    ,\n      \"line\": \"p2:L20\"\n    },\n    {\n      \"after_item\": \"S5_SPECIFIC\",\n      \"title_raw\": \"3) 화학물질로부터 생기는 특정 유해성\",\n      \"reason\": \"필드없음\",\n      \"q\": {\n        \"raw\": \"자료 없음\"\n      }\n    ,\n      \"line\": \"p2:L27\"\n    },\n    {\n      \"after_item\": \"S5_FIREFIGHT\",\n      \"title_raw\": \"4) 화재진압 시 착용할 보호구 예방조치\",\n      \"reason\": \"필드없음\",\n      \"statements\": [\n        {\n          \"value\": \"필요하면 공기호흡장치를 착용하시오.\"\n        ,\n        \"refs\": [\n          \"p2:L29\"\n        ]\n        ,\n        \"line\": \"p2:L29\"\n        }\n      ]\n    ,\n      \"line\": \"p2:L28\"\n    }\n  ]\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 2057,
+  "completion_tokens": 737,
+  "total_tokens": 2794
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 2057,
+    "completion_tokens": 737,
+    "total_tokens": 2794
+   },
+   "seconds": 12.491,
+   "chars": 1781,
+   "whitespace": 780,
+   "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S5_MEDIA\",\n      \"title_raw\": \"2) 적절한 소화제\",\n      \"start\": \"p2:L24\",\n      \"end\": \"p2:L25\"\n    },\n    {\n      \"item_code\": \"S5_SPECIFIC\",\n      \"title_raw\": \"3) 화학물질로부터 생기는 특정 유해성\",\n      \"start\": \"p2:L26\",\n      \"end\": \"p2:L27\"\n    },\n    {\n      \"item_code\": \"S5_FIREFIGHT\",\n      \"title_raw\": \"4) 화재진압 시 착용할 보호구 예방조치\",\n      \"start\": \"p2:L28\",\n      \"end\": \"p2:L29\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S5_MEDIA\",\n      \"title_raw\": \"1)",
+   "tail": "\": \"S5_SPECIFIC\",\n      \"title_raw\": \"3) 화학물질로부터 생기는 특정 유해성\",\n      \"reason\": \"필드없음\",\n      \"q\": {\n        \"raw\": \"자료 없음\"\n      }\n    ,\n      \"line\": \"p2:L27\"\n    },\n    {\n      \"after_item\": \"S5_FIREFIGHT\",\n      \"title_raw\": \"4) 화재진압 시 착용할 보호구 예방조치\",\n      \"reason\": \"필드없음\",\n      \"statements\": [\n        {\n          \"value\": \"필요하면 공기호흡장치를 착용하시오.\"\n        ,\n        \"refs\": [\n          \"p2:L29\"\n        ]\n        ,\n        \"line\": \"p2:L29\"\n        }\n      ]\n    ,\n      \"line\": \"p2:L28\"\n    }\n  ]\n}"
+  }
+ ],
+ "seconds": 12.493,
+ "check_problems": []
+}

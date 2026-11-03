@@ -1,0 +1,77 @@
+{
+ "doc_id": "RAW-49",
+ "msds_index": 0,
+ "section": 7,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S7_HANDLING",
+    "title_raw": "가. 안전취급요령",
+    "start": "p3:L5",
+    "end": "p3:L7"
+   },
+   {
+    "item_code": "S7_STORAGE",
+    "title_raw": "나. 안전한 저장 방법(피해야 할 조건을 포함함)",
+    "start": "p3:L9",
+    "end": "p3:L11"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S7_HANDLING",
+    "title_raw": "나. 안전한 저장 방법(피해야 할 조건을 포함함)",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "value": "원래 용기에 담아서 밀폐한 후 건조하고, 서늘하며 환기가 잘되는 장소에 보관할 것. 직사광선을 포함하여 빛에 노출되는 것을 피할 것.",
+      "line": "p3:L9"
+     },
+     {
+      "key": "저장등급",
+      "value": "화학물질 보관",
+      "line": "p3:L11"
+     }
+    ],
+    "suggested_code": "S7_STORAGE",
+    "line": "p3:L8"
+   },
+   {
+    "after_item": "S7_STORAGE",
+    "title_raw": "7. 취급 및 저장방법",
+    "reason": "코드없음",
+    "line": "p2:L46"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S7_HANDLING\",\n      \"title_raw\": \"가. 안전취급요령\",\n      \"start\": \"p3:L5\",\n      \"end\": \"p3:L7\"\n    },\n    {\n      \"item_code\": \"S7_STORAGE\",\n      \"title_raw\": \"나. 안전한 저장 방법(피해야 할 조건을 포함함)\",\n      \"start\": \"p3:L9\",\n      \"end\": \"p3:L11\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S7_HANDLING\",\n      \"title_raw\": \"나. 안전한 저장 방법(피해야 할 조건을 포함함)\",\n      \"reason\": \"코드없음\"\n    ,\n      \"statements\": [\n        {\n          \"value\": \"원래 용기에 담아서 밀폐한 후 건조하고, 서늘하며 환기가 잘되는 장소에 보관할 것. 직사광선을 포함하여 빛에 노출되는 것을 피할 것.\"\n        ,\n          \"line\": \"p3:L9\"\n        },\n        {\n          \"key\": \"저장등급\",\n          \"value\": \"화학물질 보관\",\n          \"line\": \"p3:L11\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S7_STORAGE\"\n    ,\n      \"line\": \"p3:L8\"\n    },\n    {\n      \"after_item\": \"S7_STORAGE\",\n      \"title_raw\": \"7. 취급 및 저장방법\",\n      \"reason\": \"코드없음\"\n    ,\n      \"line\": \"p2:L46\"\n    }\n  ]\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 2105,
+  "completion_tokens": 391,
+  "total_tokens": 2496
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 2105,
+    "completion_tokens": 391,
+    "total_tokens": 2496
+   },
+   "seconds": 7.244,
+   "chars": 925,
+   "whitespace": 366,
+   "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S7_HANDLING\",\n      \"title_raw\": \"가. 안전취급요령\",\n      \"start\": \"p3:L5\",\n      \"end\": \"p3:L7\"\n    },\n    {\n      \"item_code\": \"S7_STORAGE\",\n      \"title_raw\": \"나. 안전한 저장 방법(피해야 할 조건을 포함함)\",\n      \"start\": \"p3:L9\",\n      \"end\": \"p3:L11\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S7_HANDLING\",\n      \"title_raw\": \"나. 안전한 저장 방법(피해야 할 조건을 포함함)\",\n      \"reason\": \"코드없음\"\n    ,\n      \"statements\": [\n        {\n          \"value\": \"원래 용기에 담아서 밀폐한 후 건조하고, 서",
+   "tail": "늘하며 환기가 잘되는 장소에 보관할 것. 직사광선을 포함하여 빛에 노출되는 것을 피할 것.\"\n        ,\n          \"line\": \"p3:L9\"\n        },\n        {\n          \"key\": \"저장등급\",\n          \"value\": \"화학물질 보관\",\n          \"line\": \"p3:L11\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S7_STORAGE\"\n    ,\n      \"line\": \"p3:L8\"\n    },\n    {\n      \"after_item\": \"S7_STORAGE\",\n      \"title_raw\": \"7. 취급 및 저장방법\",\n      \"reason\": \"코드없음\"\n    ,\n      \"line\": \"p2:L46\"\n    }\n  ]\n}"
+  }
+ ],
+ "seconds": 7.245,
+ "check_problems": []
+}

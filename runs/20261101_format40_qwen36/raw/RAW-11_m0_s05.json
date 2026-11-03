@@ -1,0 +1,85 @@
+{
+ "doc_id": "RAW-11",
+ "msds_index": 0,
+ "section": 5,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S5_MEDIA",
+    "title_raw": "적절한 (및 부적절한) 소화제",
+    "start": "p4:L11",
+    "end": "p4:L13"
+   },
+   {
+    "item_code": "S5_SPECIFIC",
+    "title_raw": "화학물질로부터 생기는 특정 유해성",
+    "start": "p4:L14",
+    "end": "p4:L15"
+   },
+   {
+    "item_code": "S5_FIREFIGHT",
+    "title_raw": "화재 진압 시 착용할 보호구 및 예방조치",
+    "start": "p4:L16",
+    "end": "p4:L17"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S5_FIREFIGHT",
+    "title_raw": "추가정보",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "value": "관련 규정에 따라 화재 잔여물 및 오염된 소방수를 처리하도록 할 것. 제품 자체는 비가연성임 ; 주변 지역의 화재진화 방법을 고려할 것.",
+      "line": "p4:L19"
+     }
+    ],
+    "line": "p4:L18"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S5_MEDIA\",\n      \"title_raw\": \"적절한 (및 부적절한) 소화제\",\n      \"start\": \"p4:L11\",\n      \"end\": \"p4:L13\"\n    },\n    {\n      \"item_code\": \"S5_SPECIFIC\",\n      \"title_raw\": \"화학물질로부터 생기는 특정 유해성\",\n      \"start\": \"p4:L14\",\n      \"end\": \"p4:L15\"\n    },\n    {\n      \"item_code\": \"S5_FIREFIGHT\",\n      \"title_raw\": \"화재 진압 시 착용할 보호구 및 예방조치\",\n      \"start\": \"p4:L16\",\n      \"end\": \"p4:L17\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S5_FIREFIGHT\",\n      \"title_raw\": \"추가정보\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"관련 규정에 따라 화재 잔여물 및 오염된 소방수를 처리하도록 할 것. 제품 자체는 비가연성임 ; 주변 지역의 화재진화 방법을 고려할 것.\",\n          \"line\": \"p4:L19\"\n        }\n      ],\n      \"line\": \"p4:L18\"\n    }\n  ]\n}",
+ "mode": "json_object",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 3509,
+  "completion_tokens": 328,
+  "total_tokens": 3837
+ },
+ "attempts": 2,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "length",
+   "usage": {
+    "prompt_tokens": 2128,
+    "completion_tokens": 8192,
+    "total_tokens": 10320
+   },
+   "seconds": 72.655,
+   "chars": 32277,
+   "whitespace": 31835,
+   "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S5_MEDIA\",\n      \"title_raw\": \"적절한 (및 부적절한) 소화제:\",\n      \"start\": \"p4:L11\",\n      \"end\": \"p4:L13\"\n    },\n    {\n      \"item_code\": \"S5_SPECIFIC\",\n      \"title_raw\": \"화학물질로부터 생기는 특정 유해성:\",\n      \"start\": \"p4:L14\",\n      \"end\": \"p4:L15\"\n    },\n    {\n      \"item_code\": \"S5_FIREFIGHT\",\n      \"title_raw\": \"화재 진압 시 착용할 보호구 및 예방조치:\",\n      \"start\": \"p4:L16\",\n      \"end\": \"p4:L17\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S5_FIREFIGHT\",\n      \"title",
+   "tail": "    \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       "
+  },
+  {
+   "mode": "json_object",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 3509,
+    "completion_tokens": 328,
+    "total_tokens": 3837
+   },
+   "seconds": 3.729,
+   "chars": 747,
+   "whitespace": 272,
+   "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S5_MEDIA\",\n      \"title_raw\": \"적절한 (및 부적절한) 소화제\",\n      \"start\": \"p4:L11\",\n      \"end\": \"p4:L13\"\n    },\n    {\n      \"item_code\": \"S5_SPECIFIC\",\n      \"title_raw\": \"화학물질로부터 생기는 특정 유해성\",\n      \"start\": \"p4:L14\",\n      \"end\": \"p4:L15\"\n    },\n    {\n      \"item_code\": \"S5_FIREFIGHT\",\n      \"title_raw\": \"화재 진압 시 착용할 보호구 및 예방조치\",\n      \"start\": \"p4:L16\",\n      \"end\": \"p4:L17\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S5_FIREFIGHT\",\n      \"title_ra",
+   "tail": "w\": \"추가정보\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"관련 규정에 따라 화재 잔여물 및 오염된 소방수를 처리하도록 할 것. 제품 자체는 비가연성임 ; 주변 지역의 화재진화 방법을 고려할 것.\",\n          \"line\": \"p4:L19\"\n        }\n      ],\n      \"line\": \"p4:L18\"\n    }\n  ]\n}"
+  }
+ ],
+ "seconds": 76.386,
+ "check_problems": []
+}

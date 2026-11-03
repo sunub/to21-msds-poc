@@ -1,0 +1,173 @@
+{
+ "doc_id": "RAW-44",
+ "msds_index": 0,
+ "section": 12,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "ecotox": [
+   {
+    "comp_name": "Sn",
+    "comp_cas": "7440-31-5",
+    "endpoint": "ECO_FISH",
+    "descriptor": "LC50",
+    "q": {
+     "raw": "0.0124 mg/L",
+     "value": 0.0124,
+     "unit": "mg/L"
+    },
+    "species": "어류",
+    "duration_value": 96,
+    "duration_unit": "hr",
+    "guideline": null,
+    "data_source": null,
+    "statements": [],
+    "status": "값있음",
+    "line": "p6:L32"
+   },
+   {
+    "comp_name": "Sn",
+    "comp_cas": "7440-31-5",
+    "endpoint": "ECO_ALGAE",
+    "descriptor": "EC50",
+    "q": {
+     "raw": "0.0192 mg/L",
+     "value": 0.0192,
+     "unit": "mg/L"
+    },
+    "species": "조류",
+    "duration_value": 72,
+    "duration_unit": "hr",
+    "guideline": null,
+    "data_source": null,
+    "statements": [],
+    "status": "값있음",
+    "line": "p6:L32"
+   },
+   {
+    "comp_name": "Pb",
+    "comp_cas": "7439-92-1",
+    "endpoint": "ECO_FISH",
+    "descriptor": "LC50",
+    "q": {
+     "raw": "자료없음"
+    },
+    "species": "어류",
+    "duration_value": 96,
+    "duration_unit": "hr",
+    "guideline": null,
+    "data_source": null,
+    "statements": [],
+    "status": "자료없음",
+    "line": "p6:L33"
+   },
+   {
+    "comp_name": "Pb",
+    "comp_cas": "7439-92-1",
+    "endpoint": "ECO_CRUST",
+    "descriptor": "LC50",
+    "q": {
+     "raw": "자료없음"
+    },
+    "species": "갑각류",
+    "duration_value": 48,
+    "duration_unit": "hr",
+    "guideline": null,
+    "data_source": null,
+    "statements": [],
+    "status": "자료없음",
+    "line": "p6:L33"
+   },
+   {
+    "comp_name": "Pb",
+    "comp_cas": "7439-92-1",
+    "endpoint": "ECO_ALGAE",
+    "descriptor": "EC50",
+    "q": {
+     "raw": "자료없음"
+    },
+    "species": "조류",
+    "duration_value": 72,
+    "duration_unit": "hr",
+    "guideline": null,
+    "data_source": null,
+    "statements": [],
+    "status": "자료없음",
+    "line": "p6:L33"
+   }
+  ],
+  "narratives": [
+   {
+    "item_code": "S12_OTHER",
+    "title_raw": "가. 수생 육생 생태독성",
+    "start": "p6:L30",
+    "end": "p6:L33"
+   },
+   {
+    "item_code": "S12_OTHER",
+    "title_raw": "나. 잔류성 및 분해성",
+    "start": "p6:L34",
+    "end": "p6:L34"
+   },
+   {
+    "item_code": "S12_OTHER",
+    "title_raw": "다. 생물농축성",
+    "start": "p6:L35",
+    "end": "p6:L35"
+   },
+   {
+    "item_code": "S12_OTHER",
+    "title_raw": "라. 토양이동성",
+    "start": "p6:L36",
+    "end": "p6:L36"
+   },
+   {
+    "item_code": "S12_OTHER",
+    "title_raw": "마. 기타 유해 영향",
+    "start": "p6:L37",
+    "end": "p6:L37"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S12_OTHER",
+    "title_raw": "12. 환경영향 정보",
+    "reason": "코드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [],
+    "suggested_code": "12",
+    "line": "p6:L29"
+   }
+  ]
+ },
+ "raw_text": "### ecotox\ncomp_name | comp_cas | endpoint | descriptor | q | species | duration_value | duration_unit | guideline | data_source | statements | status | line\nSn | 7440-31-5 | ECO_FISH | LC50 | 0.0124 mg/L | 어류 | 96 | hr |  |  |  | 값있음 | p6:L32\nSn | 7440-31-5 | ECO_ALGAE | EC50 | 0.0192 mg/L | 조류 | 72 | hr |  |  |  | 값있음 | p6:L32\nPb | 7439-92-1 | ECO_FISH | LC50 |  | 어류 | 96 | hr |  |  |  | 자료없음 | p6:L33\nPb | 7439-92-1 | ECO_CRUST | LC50 |  | 갑각류 | 48 | hr |  |  |  | 자료없음 | p6:L33\nPb | 7439-92-1 | ECO_ALGAE | EC50 |  | 조류 | 72 | hr |  |  |  | 자료없음 | p6:L33\n\n### narratives\nitem_code | title_raw | start | end\nS12_OTHER | 가. 수생 육생 생태독성 | p6:L30 | p6:L33\nS12_OTHER | 나. 잔류성 및 분해성 | p6:L34 | p6:L34\nS12_OTHER | 다. 생물농축성 | p6:L35 | p6:L35\nS12_OTHER | 라. 토양이동성 | p6:L36 | p6:L36\nS12_OTHER | 마. 기타 유해 영향 | p6:L37 | p6:L37\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\nS12_OTHER | 12. 환경영향 정보 | 코드없음 |  |  |  |  | 12 | p6:L29",
+ "mode": "rows",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 3602,
+  "completion_tokens": 502,
+  "total_tokens": 4104
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "rows",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 3602,
+    "completion_tokens": 502,
+    "total_tokens": 4104
+   },
+   "seconds": 9.375,
+   "chars": 985,
+   "whitespace": 248,
+   "head": "### ecotox\ncomp_name | comp_cas | endpoint | descriptor | q | species | duration_value | duration_unit | guideline | data_source | statements | status | line\nSn | 7440-31-5 | ECO_FISH | LC50 | 0.0124 mg/L | 어류 | 96 | hr |  |  |  | 값있음 | p6:L32\nSn | 7440-31-5 | ECO_ALGAE | EC50 | 0.0192 mg/L | 조류 | 72 | hr |  |  |  | 값있음 | p6:L32\nPb | 7439-92-1 | ECO_FISH | LC50 |  | 어류 | 96 | hr |  |  |  | 자료없음 | p6:L33\nPb | 7439-92-1 | ECO_CRUST | LC50 |  | 갑각류 | 48 | hr |  |  |  | 자료없음 | p6:L33\nPb | 7439-92-1 ",
+   "tail": "| ECO_ALGAE | EC50 |  | 조류 | 72 | hr |  |  |  | 자료없음 | p6:L33\n\n### narratives\nitem_code | title_raw | start | end\nS12_OTHER | 가. 수생 육생 생태독성 | p6:L30 | p6:L33\nS12_OTHER | 나. 잔류성 및 분해성 | p6:L34 | p6:L34\nS12_OTHER | 다. 생물농축성 | p6:L35 | p6:L35\nS12_OTHER | 라. 토양이동성 | p6:L36 | p6:L36\nS12_OTHER | 마. 기타 유해 영향 | p6:L37 | p6:L37\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\nS12_OTHER | 12. 환경영향 정보 | 코드없음 |  |  |  |  | 12 | p6:L29"
+  }
+ ],
+ "seconds": 9.378,
+ "check_problems": []
+}

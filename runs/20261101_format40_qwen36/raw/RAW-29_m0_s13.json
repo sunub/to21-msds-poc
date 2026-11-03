@@ -1,0 +1,66 @@
+{
+ "doc_id": "RAW-29",
+ "msds_index": 0,
+ "section": 13,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S13_METHOD",
+    "title_raw": "가. 폐기방법",
+    "start": "p11:L13",
+    "end": "p11:L14"
+   },
+   {
+    "item_code": "S13_CAUTION",
+    "title_raw": "나. 폐기시 주의사항",
+    "start": "p11:L15",
+    "end": "p11:L16"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S13_METHOD",
+    "title_raw": "나. 폐기시 주의사항",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "value": "자료없음",
+      "line": "p11:L16"
+     }
+    ],
+    "suggested_code": "S13_CAUTION",
+    "line": "p11:L15"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S13_METHOD\",\n      \"title_raw\": \"가. 폐기방법\",\n      \"start\": \"p11:L13\",\n      \"end\": \"p11:L14\"\n    },\n    {\n      \"item_code\": \"S13_CAUTION\",\n      \"title_raw\": \"나. 폐기시 주의사항\",\n      \"start\": \"p11:L15\",\n      \"end\": \"p11:L16\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S13_METHOD\",\n      \"title_raw\": \"나. 폐기시 주의사항\",\n      \"reason\": \"코드없음\"\n    ,\n      \"statements\": [\n        {\n          \"value\": \"자료없음\"\n        ,\n          \"line\": \"p11:L16\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S13_CAUTION\"\n    ,\n      \"line\": \"p11:L15\"\n    }\n  ]\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 1975,
+  "completion_tokens": 261,
+  "total_tokens": 2236
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 1975,
+    "completion_tokens": 261,
+    "total_tokens": 2236
+   },
+   "seconds": 6.097,
+   "chars": 595,
+   "whitespace": 235,
+   "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S13_METHOD\",\n      \"title_raw\": \"가. 폐기방법\",\n      \"start\": \"p11:L13\",\n      \"end\": \"p11:L14\"\n    },\n    {\n      \"item_code\": \"S13_CAUTION\",\n      \"title_raw\": \"나. 폐기시 주의사항\",\n      \"start\": \"p11:L15\",\n      \"end\": \"p11:L16\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S13_METHOD\",\n      \"title_raw\": \"나. 폐기시 주의사항\",\n      \"reason\": \"코드없음\"\n    ,\n      \"statements\": [\n        {\n          \"value\": \"자료없음\"\n        ,\n          \"line\": \"p11:L16\"\n        ",
+   "tail": "}\n      ]\n    ,\n      \"suggested_code\": \"S13_CAUTION\"\n    ,\n      \"line\": \"p11:L15\"\n    }\n  ]\n}"
+  }
+ ],
+ "seconds": 6.098,
+ "check_problems": []
+}

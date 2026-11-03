@@ -1,0 +1,104 @@
+{
+ "doc_id": "RAW-16",
+ "msds_index": 0,
+ "section": 4,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S4_INHAL",
+    "title_raw": "흡입했을 때:",
+    "start": "p2:L24",
+    "end": "p2:L25"
+   },
+   {
+    "item_code": "S4_SKIN",
+    "title_raw": "피부에 접촉했을 때:",
+    "start": "p2:L26",
+    "end": "p2:L26"
+   },
+   {
+    "item_code": "S4_EYE",
+    "title_raw": "눈에 들어갔을 때:",
+    "start": "p2:L27",
+    "end": "p2:L28"
+   },
+   {
+    "item_code": "S4_INGEST",
+    "title_raw": "먹었을 때:",
+    "start": "p3:L2",
+    "end": "p3:L2"
+   },
+   {
+    "item_code": "S4_SYMPTOM",
+    "title_raw": "급성 및 지연성의 가장 중요한 증상/영향:",
+    "start": "p3:L3",
+    "end": "p3:L5"
+   },
+   {
+    "item_code": "S4_DOCTOR",
+    "title_raw": "기타 의사의 주의사항:",
+    "start": "p3:L7",
+    "end": "p3:L10"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S4_END",
+    "title_raw": "필요한 응급조치 기술",
+    "reason": "필드없음",
+    "statements": [
+     {
+      "key": "일반적인 조치사항",
+      "value": "응급 응답자들은 자가 보호에 주의를 기울이고 추천 보호복 (화학물질 보호 장갑, 얼룩 보호 장비) 을 사용하십시오. 노출우려가 있다면 Section 8 의 개인 보호 장비를 참조하십시오.",
+      "line": "p2:L21"
+     }
+    ],
+    "suggested_code": "GENERAL_MEASURES",
+    "line": "p2:L21"
+   },
+   {
+    "after_item": "S4_END",
+    "title_raw": "즉각적인 의사 치료와 특별 처치를 수행할 것",
+    "reason": "필드없음",
+    "statements": [
+     {
+      "value": "즉각적인 의사 치료와 특별 처치를 수행할 것",
+      "line": "p3:L6"
+     }
+    ],
+    "suggested_code": "IMMEDIATE_MEDICAL_TREATMENT",
+    "line": "p3:L6"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S4_INHAL\",\n      \"title_raw\": \"흡입했을 때:\",\n      \"start\": \"p2:L24\",\n      \"end\": \"p2:L25\"\n    },\n    {\n      \"item_code\": \"S4_SKIN\",\n      \"title_raw\": \"피부에 접촉했을 때:\",\n      \"start\": \"p2:L26\",\n      \"end\": \"p2:L26\"\n    },\n    {\n      \"item_code\": \"S4_EYE\",\n      \"title_raw\": \"눈에 들어갔을 때:\",\n      \"start\": \"p2:L27\",\n      \"end\": \"p2:L28\"\n    },\n    {\n      \"item_code\": \"S4_INGEST\",\n      \"title_raw\": \"먹었을 때:\",\n      \"start\": \"p3:L2\",\n      \"end\": \"p3:L2\"\n    },\n    {\n      \"item_code\": \"S4_SYMPTOM\",\n      \"title_raw\": \"급성 및 지연성의 가장 중요한 증상/영향:\",\n      \"start\": \"p3:L3\",\n      \"end\": \"p3:L5\"\n    },\n    {\n      \"item_code\": \"S4_DOCTOR\",\n      \"title_raw\": \"기타 의사의 주의사항:\",\n      \"start\": \"p3:L7\",\n      \"end\": \"p3:L10\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S4_END\",\n      \"title_raw\": \"필요한 응급조치 기술\",\n      \"reason\": \"필드없음\",\n      \"statements\": [\n        {\n          \"key\": \"일반적인 조치사항\",\n          \"value\": \"응급 응답자들은 자가 보호에 주의를 기울이고 추천 보호복 (화학물질 보호 장갑, 얼룩 보호 장비) 을 사용하십시오. 노출우려가 있다면 Section 8 의 개인 보호 장비를 참조하십시오.\"\n        ,\n        \"line\": \"p2:L21\"\n      }\n    ],\n    \"suggested_code\": \"GENERAL_MEASURES\"\n  ,\n    \"line\": \"p2:L21\"\n  },\n  {\n    \"after_item\": \"S4_END\",\n    \"title_raw\": \"즉각적인 의사 치료와 특별 처치를 수행할 것\",\n    \"reason\": \"필드없음\",\n    \"statements\": [\n      {\n        \"value\": \"즉각적인 의사 치료와 특별 처치를 수행할 것\",\n        \"line\": \"p3:L6\"\n      }\n    ],\n    \"suggested_code\": \"IMMEDIATE_MEDICAL_TREATMENT\"\n  ,\n    \"line\": \"p3:L6\"\n  }\n]\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 2483,
+  "completion_tokens": 643,
+  "total_tokens": 3126
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 2483,
+    "completion_tokens": 643,
+    "total_tokens": 3126
+   },
+   "seconds": 12.304,
+   "chars": 1484,
+   "whitespace": 520,
+   "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S4_INHAL\",\n      \"title_raw\": \"흡입했을 때:\",\n      \"start\": \"p2:L24\",\n      \"end\": \"p2:L25\"\n    },\n    {\n      \"item_code\": \"S4_SKIN\",\n      \"title_raw\": \"피부에 접촉했을 때:\",\n      \"start\": \"p2:L26\",\n      \"end\": \"p2:L26\"\n    },\n    {\n      \"item_code\": \"S4_EYE\",\n      \"title_raw\": \"눈에 들어갔을 때:\",\n      \"start\": \"p2:L27\",\n      \"end\": \"p2:L28\"\n    },\n    {\n      \"item_code\": \"S4_INGEST\",\n      \"title_raw\": \"먹었을 때:\",\n      \"start\": \"p3:L2\",\n      \"end\": \"p3:L2\"\n ",
+   "tail": "울이고 추천 보호복 (화학물질 보호 장갑, 얼룩 보호 장비) 을 사용하십시오. 노출우려가 있다면 Section 8 의 개인 보호 장비를 참조하십시오.\"\n        ,\n        \"line\": \"p2:L21\"\n      }\n    ],\n    \"suggested_code\": \"GENERAL_MEASURES\"\n  ,\n    \"line\": \"p2:L21\"\n  },\n  {\n    \"after_item\": \"S4_END\",\n    \"title_raw\": \"즉각적인 의사 치료와 특별 처치를 수행할 것\",\n    \"reason\": \"필드없음\",\n    \"statements\": [\n      {\n        \"value\": \"즉각적인 의사 치료와 특별 처치를 수행할 것\",\n        \"line\": \"p3:L6\"\n      }\n    ],\n    \"suggested_code\": \"IMMEDIATE_MEDICAL_TREATMENT\"\n  ,\n    \"line\": \"p3:L6\"\n  }\n]\n}"
+  }
+ ],
+ "seconds": 12.305,
+ "check_problems": []
+}

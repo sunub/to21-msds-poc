@@ -1,0 +1,72 @@
+{
+ "doc_id": "RAW-46",
+ "msds_index": 0,
+ "section": 6,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S6_PERSONAL",
+    "title_raw": "가. 인체를 보호하기 위해 필요한 조치사항 및 보호구",
+    "start": "p5:L9",
+    "end": "p5:L20"
+   },
+   {
+    "item_code": "S6_ENV",
+    "title_raw": "나. 환경을 보호하기 위해 필요한 조치사항",
+    "start": "p5:L21",
+    "end": "p5:L26"
+   },
+   {
+    "item_code": "S6_CLEANUP",
+    "title_raw": "다. 정화 또는 제거 방법",
+    "start": "p5:L27",
+    "end": "p6:L3"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S6_CLEANUP",
+    "title_raw": "다. 정화 또는 제거 방법",
+    "reason": "필드없음",
+    "statements": [
+     {
+      "value": "- 불활성 물질(예를 들어 건조한 모래 또는 흙)로 엎지른 것을 흡수하고, 화학폐기물 용기에 넣으시오.",
+      "line": "p6:L2"
+     }
+    ],
+    "suggested_code": "S6_CLEANUP",
+    "line": "p6:L2"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S6_PERSONAL\",\n      \"title_raw\": \"가. 인체를 보호하기 위해 필요한 조치사항 및 보호구\",\n      \"start\": \"p5:L9\",\n      \"end\": \"p5:L20\"\n    },\n    {\n      \"item_code\": \"S6_ENV\",\n      \"title_raw\": \"나. 환경을 보호하기 위해 필요한 조치사항\",\n      \"start\": \"p5:L21\",\n      \"end\": \"p5:L26\"\n    },\n    {\n      \"item_code\": \"S6_CLEANUP\",\n      \"title_raw\": \"다. 정화 또는 제거 방법\",\n      \"start\": \"p5:L27\",\n      \"end\": \"p6:L3\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S6_CLEANUP\",\n      \"title_raw\": \"다. 정화 또는 제거 방법\",\n      \"reason\": \"필드없음\",\n      \"statements\": [\n        {\n          \"value\": \"- 불활성 물질(예를 들어 건조한 모래 또는 흙)로 엎지른 것을 흡수하고, 화학폐기물 용기에 넣으시오.\"\n        ,\n        \"line\": \"p6:L2\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S6_CLEANUP\"\n    ,\n      \"line\": \"p6:L2\"\n    }\n  ]\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 2414,
+  "completion_tokens": 345,
+  "total_tokens": 2759
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 2414,
+    "completion_tokens": 345,
+    "total_tokens": 2759
+   },
+   "seconds": 7.176,
+   "chars": 793,
+   "whitespace": 298,
+   "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S6_PERSONAL\",\n      \"title_raw\": \"가. 인체를 보호하기 위해 필요한 조치사항 및 보호구\",\n      \"start\": \"p5:L9\",\n      \"end\": \"p5:L20\"\n    },\n    {\n      \"item_code\": \"S6_ENV\",\n      \"title_raw\": \"나. 환경을 보호하기 위해 필요한 조치사항\",\n      \"start\": \"p5:L21\",\n      \"end\": \"p5:L26\"\n    },\n    {\n      \"item_code\": \"S6_CLEANUP\",\n      \"title_raw\": \"다. 정화 또는 제거 방법\",\n      \"start\": \"p5:L27\",\n      \"end\": \"p6:L3\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S6_CLEANUP\",\n      \"title_",
+   "tail": "raw\": \"다. 정화 또는 제거 방법\",\n      \"reason\": \"필드없음\",\n      \"statements\": [\n        {\n          \"value\": \"- 불활성 물질(예를 들어 건조한 모래 또는 흙)로 엎지른 것을 흡수하고, 화학폐기물 용기에 넣으시오.\"\n        ,\n        \"line\": \"p6:L2\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S6_CLEANUP\"\n    ,\n      \"line\": \"p6:L2\"\n    }\n  ]\n}"
+  }
+ ],
+ "seconds": 7.176,
+ "check_problems": []
+}

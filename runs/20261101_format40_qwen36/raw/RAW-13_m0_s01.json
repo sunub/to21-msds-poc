@@ -1,0 +1,102 @@
+{
+ "doc_id": "RAW-13",
+ "msds_index": 0,
+ "section": 1,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "meta": {
+   "msds_no": "AA00725-0000000002",
+   "doc_code": null,
+   "revision_no": null,
+   "revision_label": null,
+   "header_product_name": null,
+   "source_note": null,
+   "first_issue_date": null,
+   "last_revision_date": "2023-01-06",
+   "lines": {
+    "msds_no": "p1:L2",
+    "doc_code": null,
+    "revision_no": null,
+    "revision_label": null,
+    "header_product_name": null,
+    "source_note": null,
+    "first_issue_date": null,
+    "last_revision_date": "p1:L1"
+   }
+  },
+  "product": {
+   "name": "Benzene",
+   "code": null,
+   "synonyms": [],
+   "uses": [
+    "고분자",
+    "세제",
+    "농약",
+    "염료",
+    "플라시틱",
+    "수지 등 공업용 화학물질의 제조"
+   ],
+   "restrictions": [
+    "가솔린 첨가제"
+   ],
+   "use_category_code": null,
+   "lines": {
+    "name": "p1:L5",
+    "code": null,
+    "synonyms": null,
+    "uses": "p1:L8",
+    "restrictions": "p1:L10",
+    "use_category_code": null
+   }
+  },
+  "companies": [
+   {
+    "role": "제조자",
+    "name": "OCI 광양공장 BTX생산과",
+    "site": "광양공장",
+    "address": "전라남도 광양시 산업로 109 OCI 광양공장",
+    "postcode": null,
+    "department": "BTX생산과",
+    "contacts": [
+     {
+      "type": "긴급",
+      "value": "061-798-6140",
+      "hours": null,
+      "line": "p1:L15"
+     }
+    ],
+    "line": "p1:L13"
+   }
+  ],
+  "extras": []
+ },
+ "raw_text": "{\n  \"meta\": {\n    \"msds_no\": \"AA00725-0000000002\",\n    \"doc_code\": null,\n    \"revision_no\": null,\n    \"revision_label\": null,\n    \"header_product_name\": null,\n    \"source_note\": null,\n    \"first_issue_date\": null,\n    \"last_revision_date\": \"2023-01-06\"\n  ,\n  \"lines\": {\n    \"msds_no\": \"p1:L2\",\n    \"doc_code\": null,\n    \"revision_no\": null,\n    \"revision_label\": null,\n    \"header_product_name\": null,\n    \"source_note\": null,\n    \"first_issue_date\": null,\n    \"last_revision_date\": \"p1:L1\"\n  }\n  },\n  \"product\": {\n    \"name\": \"Benzene\",\n    \"code\": null,\n    \"synonyms\": [],\n    \"uses\": [\n      \"고분자\",\n      \"세제\",\n      \"농약\",\n      \"염료\",\n      \"플라시틱\",\n      \"수지 등 공업용 화학물질의 제조\"\n    ],\n    \"restrictions\": [\n      \"가솔린 첨가제\"\n    ],\n    \"use_category_code\": null\n  ,\n  \"lines\": {\n    \"name\": \"p1:L5\",\n    \"code\": null,\n    \"synonyms\": null,\n    \"uses\": \"p1:L8\",\n    \"restrictions\": \"p1:L10\",\n    \"use_category_code\": null\n  }\n  },\n  \"companies\": [\n    {\n      \"role\": \"제조자\",\n      \"name\": \"OCI 광양공장 BTX생산과\",\n      \"site\": \"광양공장\",\n      \"address\": \"전라남도 광양시 산업로 109 OCI 광양공장\",\n      \"postcode\": null,\n      \"department\": \"BTX생산과\",\n      \"contacts\": [\n        {\n          \"type\": \"긴급\",\n          \"value\": \"061-798-6140\",\n          \"hours\": null\n        ,\n        \"line\": \"p1:L15\"\n        }\n      ]\n    ,\n    \"line\": \"p1:L13\"\n    }\n  ]\n,\n  \"extras\": []\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 3354,
+  "completion_tokens": 560,
+  "total_tokens": 3914
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 3354,
+    "completion_tokens": 560,
+    "total_tokens": 3914
+   },
+   "seconds": 10.94,
+   "chars": 1349,
+   "whitespace": 443,
+   "head": "{\n  \"meta\": {\n    \"msds_no\": \"AA00725-0000000002\",\n    \"doc_code\": null,\n    \"revision_no\": null,\n    \"revision_label\": null,\n    \"header_product_name\": null,\n    \"source_note\": null,\n    \"first_issue_date\": null,\n    \"last_revision_date\": \"2023-01-06\"\n  ,\n  \"lines\": {\n    \"msds_no\": \"p1:L2\",\n    \"doc_code\": null,\n    \"revision_no\": null,\n    \"revision_label\": null,\n    \"header_product_name\": null,\n    \"source_note\": null,\n    \"first_issue_date\": null,\n    \"last_revision_date\": \"p1:L1\"\n  }\n  },\n",
+   "tail": ": \"p1:L8\",\n    \"restrictions\": \"p1:L10\",\n    \"use_category_code\": null\n  }\n  },\n  \"companies\": [\n    {\n      \"role\": \"제조자\",\n      \"name\": \"OCI 광양공장 BTX생산과\",\n      \"site\": \"광양공장\",\n      \"address\": \"전라남도 광양시 산업로 109 OCI 광양공장\",\n      \"postcode\": null,\n      \"department\": \"BTX생산과\",\n      \"contacts\": [\n        {\n          \"type\": \"긴급\",\n          \"value\": \"061-798-6140\",\n          \"hours\": null\n        ,\n        \"line\": \"p1:L15\"\n        }\n      ]\n    ,\n    \"line\": \"p1:L13\"\n    }\n  ]\n,\n  \"extras\": []\n}"
+  }
+ ],
+ "seconds": 10.941,
+ "check_problems": []
+}

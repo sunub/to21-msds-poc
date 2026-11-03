@@ -1,0 +1,104 @@
+{
+ "doc_id": "RAW-04",
+ "msds_index": 0,
+ "section": 3,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "composition": {
+   "type": "혼합물",
+   "no_hazardous_component": false,
+   "lines": {
+    "type": "p2:L25",
+    "no_hazardous_component": "p2:L25"
+   }
+  },
+  "components": [
+   {
+    "name": "1-도데칸싸이올",
+    "name_en": "도데킬 머캡탄",
+    "synonyms": [
+     "112-55-0"
+    ],
+    "cas_no": null,
+    "ke_no": null,
+    "ec_no": null,
+    "other_id": null,
+    "other_id_type": null,
+    "parent_seq": null,
+    "read_across_cas": null,
+    "content": {
+     "raw": "98.5~100 %",
+     "lower_op": ">=",
+     "lower": 98.5,
+     "upper_op": "<=",
+     "upper": 100,
+     "unit": "%"
+    },
+    "content_note": null,
+    "content_basis": "중량",
+    "trade_secret": null,
+    "approval_no": null,
+    "approval_expiry": null,
+    "line": "p2:L27"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "3",
+    "title_raw": "※ <1.5% by-product",
+    "reason": "필드없음",
+    "comp_name": "1-도데칸싸이올",
+    "comp_cas": "112-55-0",
+    "q": null,
+    "statements": [],
+    "suggested_code": null,
+    "line": "p2:L28"
+   },
+   {
+    "after_item": "3",
+    "title_raw": "공급자의 현재 지식범위 내에서, 또한 적용가능한 농도내에서 건강이나 환경에 대한 유해물질 분류되어 이 항에 보고되어야 하는 첨가물을 포함하고 있지 않습니다.",
+    "reason": "필드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [
+     {
+      "value": "공급자의 현재 지식범위 내에서, 또한 적용가능한 농도내에서 건강이나 환경에 대한 유해물질 분류되어 이 항에 보고되어야 하는 첨가물을 포함하고 있지 않습니다.",
+      "line": "p2:L29"
+     }
+    ],
+    "suggested_code": null,
+    "line": "p2:L29"
+   }
+  ]
+ },
+ "raw_text": "### composition\ntype | no_hazardous_component | line\n혼합물 | false | p2:L25\n\n### components\nname | name_en | synonyms | cas_no | ke_no | ec_no | other_id | other_id_type | parent_seq | read_across_cas | content | content_note | content_basis | trade_secret | approval_no | approval_expiry | line\n1-도데칸싸이올 | 도데킬 머캡탄 | 112-55-0 |  |  |  |  |  |  |  | 98.5~100 % |  | 중량 |  |  |  | p2:L27\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\n3 | ※ <1.5% by-product | 필드없음 | 1-도데칸싸이올 | 112-55-0 |  |  |  | p2:L28\n3 | 공급자의 현재 지식범위 내에서, 또한 적용가능한 농도내에서 건강이나 환경에 대한 유해물질 분류되어 이 항에 보고되어야 하는 첨가물을 포함하고 있지 않습니다. | 필드없음 |  |  |  | 공급자의 현재 지식범위 내에서, 또한 적용가능한 농도내에서 건강이나 환경에 대한 유해물질 분류되어 이 항에 보고되어야 하는 첨가물을 포함하고 있지 않습니다. |  | p2:L29",
+ "mode": "rows",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 3784,
+  "completion_tokens": 323,
+  "total_tokens": 4107
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "rows",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 3784,
+    "completion_tokens": 323,
+    "total_tokens": 4107
+   },
+   "seconds": 4.785,
+   "chars": 771,
+   "whitespace": 176,
+   "head": "### composition\ntype | no_hazardous_component | line\n혼합물 | false | p2:L25\n\n### components\nname | name_en | synonyms | cas_no | ke_no | ec_no | other_id | other_id_type | parent_seq | read_across_cas | content | content_note | content_basis | trade_secret | approval_no | approval_expiry | line\n1-도데칸싸이올 | 도데킬 머캡탄 | 112-55-0 |  |  |  |  |  |  |  | 98.5~100 % |  | 중량 |  |  |  | p2:L27\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\n3 | ※ <1",
+   "tail": ".5% by-product | 필드없음 | 1-도데칸싸이올 | 112-55-0 |  |  |  | p2:L28\n3 | 공급자의 현재 지식범위 내에서, 또한 적용가능한 농도내에서 건강이나 환경에 대한 유해물질 분류되어 이 항에 보고되어야 하는 첨가물을 포함하고 있지 않습니다. | 필드없음 |  |  |  | 공급자의 현재 지식범위 내에서, 또한 적용가능한 농도내에서 건강이나 환경에 대한 유해물질 분류되어 이 항에 보고되어야 하는 첨가물을 포함하고 있지 않습니다. |  | p2:L29"
+  }
+ ],
+ "seconds": 4.786,
+ "check_problems": []
+}

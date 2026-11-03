@@ -1,0 +1,91 @@
+{
+ "doc_id": "RAW-24",
+ "msds_index": 0,
+ "section": 13,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S13_METHOD",
+    "title_raw": "가. 폐기방법",
+    "start": "p6:L14",
+    "end": "p6:L17"
+   },
+   {
+    "item_code": "S13_CAUTION",
+    "title_raw": "나. 폐기시 주의사항",
+    "start": "p6:L18",
+    "end": "p6:L21"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S13_METHOD",
+    "title_raw": "가. 폐기방법",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "value": "소각 처리할 것.",
+      "line": "p6:L15"
+     },
+     {
+      "value": "유수분리가 가능한 것은 유수분리방법으로 사전 처리할 것.",
+      "line": "p6:L16"
+     },
+     {
+      "value": "폐기물의 발생을 최대한 억제하고, 발생한 폐기물을 스스로 재활용함으로써 폐기물의 배출을 최소화할 것.",
+      "line": "p6:L17"
+     }
+    ],
+    "suggested_code": "S13_METHOD_CONTENTS",
+    "line": "p6:L14"
+   },
+   {
+    "after_item": "S13_CAUTION",
+    "title_raw": "나. 폐기시 주의사항",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "value": "사업장폐기물을 배출하는 사업자(사업장폐기물배출자)는 사업장에서 발생하는 폐기물을 스스로 처리하거나, 폐기물처리업자, 다른 사람의 폐기물을 재생처리 하는 자, 폐기물 처리시설을 설치 운영하는 자에게 위임하여 처리하여야 함.",
+      "line": "p6:L19"
+     },
+     {
+      "value": "폐기물관리법상 규정을 준수할 것.",
+      "line": "p6:L21"
+     }
+    ],
+    "suggested_code": "S13_CAUTION_CONTENTS",
+    "line": "p6:L18"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S13_METHOD\",\n      \"title_raw\": \"가. 폐기방법\",\n      \"start\": \"p6:L14\",\n      \"end\": \"p6:L17\"\n    },\n    {\n      \"item_code\": \"S13_CAUTION\",\n      \"title_raw\": \"나. 폐기시 주의사항\",\n      \"start\": \"p6:L18\",\n      \"end\": \"p6:L21\"\n    }\n  ]\n  ,\n  \"extras\": [\n    {\n      \"after_item\": \"S13_METHOD\",\n      \"title_raw\": \"가. 폐기방법\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"소각 처리할 것.\"\n        ,\n          \"line\": \"p6:L15\"\n        },\n        {\n          \"value\": \"유수분리가 가능한 것은 유수분리방법으로 사전 처리할 것.\"\n        ,\n          \"line\": \"p6:L16\"\n        },\n        {\n          \"value\": \"폐기물의 발생을 최대한 억제하고, 발생한 폐기물을 스스로 재활용함으로써 폐기물의 배출을 최소화할 것.\"\n        ,\n          \"line\": \"p6:L17\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S13_METHOD_CONTENTS\"\n    ,\n      \"line\": \"p6:L14\"\n    },\n    {\n      \"after_item\": \"S13_CAUTION\",\n      \"title_raw\": \"나. 폐기시 주의사항\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"사업장폐기물을 배출하는 사업자(사업장폐기물배출자)는 사업장에서 발생하는 폐기물을 스스로 처리하거나, 폐기물처리업자, 다른 사람의 폐기물을 재생처리 하는 자, 폐기물 처리시설을 설치 운영하는 자에게 위임하여 처리하여야 함.\"\n        ,\n          \"line\": \"p6:L19\"\n        },\n        {\n          \"value\": \"폐기물관리법상 규정을 준수할 것.\"\n        ,\n          \"line\": \"p6:L21\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S13_CAUTION_CONTENTS\"\n    ,\n      \"line\": \"p6:L18\"\n    }\n  ]\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 2067,
+  "completion_tokens": 569,
+  "total_tokens": 2636
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 2067,
+    "completion_tokens": 569,
+    "total_tokens": 2636
+   },
+   "seconds": 10.349,
+   "chars": 1361,
+   "whitespace": 557,
+   "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S13_METHOD\",\n      \"title_raw\": \"가. 폐기방법\",\n      \"start\": \"p6:L14\",\n      \"end\": \"p6:L17\"\n    },\n    {\n      \"item_code\": \"S13_CAUTION\",\n      \"title_raw\": \"나. 폐기시 주의사항\",\n      \"start\": \"p6:L18\",\n      \"end\": \"p6:L21\"\n    }\n  ]\n  ,\n  \"extras\": [\n    {\n      \"after_item\": \"S13_METHOD\",\n      \"title_raw\": \"가. 폐기방법\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"소각 처리할 것.\"\n        ,\n          \"line\": \"p6:L15\"\n        },\n   ",
+   "tail": "m\": \"S13_CAUTION\",\n      \"title_raw\": \"나. 폐기시 주의사항\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"사업장폐기물을 배출하는 사업자(사업장폐기물배출자)는 사업장에서 발생하는 폐기물을 스스로 처리하거나, 폐기물처리업자, 다른 사람의 폐기물을 재생처리 하는 자, 폐기물 처리시설을 설치 운영하는 자에게 위임하여 처리하여야 함.\"\n        ,\n          \"line\": \"p6:L19\"\n        },\n        {\n          \"value\": \"폐기물관리법상 규정을 준수할 것.\"\n        ,\n          \"line\": \"p6:L21\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S13_CAUTION_CONTENTS\"\n    ,\n      \"line\": \"p6:L18\"\n    }\n  ]\n}"
+  }
+ ],
+ "seconds": 10.35,
+ "check_problems": []
+}

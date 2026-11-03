@@ -1,0 +1,79 @@
+{
+ "doc_id": "RAW-24",
+ "msds_index": 0,
+ "section": 14,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "transport": [
+   {
+    "mode": "해상",
+    "basis_raw": "IMDG CODE/IATA DGR",
+    "regulated": true,
+    "un_no": "2871",
+    "shipping_name": "ANTIMONY POWDER",
+    "hazard_class": "6.1",
+    "sub_risk": null,
+    "packing_group": "III",
+    "marine_pollutant": "비해당",
+    "ems_fire": "F-A",
+    "ems_spill": "S-A",
+    "line": "p6:L23"
+   }
+  ],
+  "narratives": [
+   {
+    "item_code": "S14_SPECIAL",
+    "title_raw": "바. 사용자가 운송 또는 운송 수단에 관련해 알 필요가 있거나 필요한 특별한 안전 대책",
+    "start": "p6:L33",
+    "end": "p6:L37"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S14_SPECIAL",
+    "title_raw": "마. 해양오염물질",
+    "reason": "코드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [
+     {
+      "value": "해당없음",
+      "line": "p6:L31"
+     }
+    ],
+    "suggested_code": "MARINE_POLLUTANT",
+    "line": "p6:L31"
+   }
+  ]
+ },
+ "raw_text": "### transport\nmode | basis_raw | regulated | un_no | shipping_name | hazard_class | sub_risk | packing_group | marine_pollutant | ems_fire | ems_spill | line\n해상 | IMDG CODE/IATA DGR | true | 2871 | ANTIMONY POWDER | 6.1 |  | III | 해당없음 | F-A | S-A | p6:L23\n\n### narratives\nitem_code | title_raw | start | end\nS14_SPECIAL | 바. 사용자가 운송 또는 운송 수단에 관련해 알 필요가 있거나 필요한 특별한 안전 대책 | p6:L33 | p6:L37\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\nS14_SPECIAL | 마. 해양오염물질 | 코드없음 |  |  |  | 해당없음 | MARINE_POLLUTANT | p6:L31",
+ "mode": "rows",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 3142,
+  "completion_tokens": 206,
+  "total_tokens": 3348
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "rows",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 3142,
+    "completion_tokens": 206,
+    "total_tokens": 3348
+   },
+   "seconds": 5.011,
+   "chars": 572,
+   "whitespace": 118,
+   "head": "### transport\nmode | basis_raw | regulated | un_no | shipping_name | hazard_class | sub_risk | packing_group | marine_pollutant | ems_fire | ems_spill | line\n해상 | IMDG CODE/IATA DGR | true | 2871 | ANTIMONY POWDER | 6.1 |  | III | 해당없음 | F-A | S-A | p6:L23\n\n### narratives\nitem_code | title_raw | start | end\nS14_SPECIAL | 바. 사용자가 운송 또는 운송 수단에 관련해 알 필요가 있거나 필요한 특별한 안전 대책 | p6:L33 | p6:L37\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\nS1",
+   "tail": "4_SPECIAL | 마. 해양오염물질 | 코드없음 |  |  |  | 해당없음 | MARINE_POLLUTANT | p6:L31"
+  }
+ ],
+ "seconds": 5.012,
+ "check_problems": []
+}

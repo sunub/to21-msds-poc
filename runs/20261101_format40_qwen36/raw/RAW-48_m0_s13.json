@@ -1,0 +1,67 @@
+{
+ "doc_id": "RAW-48",
+ "msds_index": 0,
+ "section": 13,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S13_METHOD",
+    "title_raw": "가. 폐기방법",
+    "start": "p3:L33",
+    "end": "p3:L33"
+   },
+   {
+    "item_code": "S13_CAUTION",
+    "title_raw": "나. 폐기시 주의사항",
+    "start": "p3:L34",
+    "end": "p3:L34"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S13_METHOD",
+    "title_raw": "나. 폐기시 주의사항",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "key": "폐기시 주의사항",
+      "value": "관련 법규에 명시된 내용에 따라 내용물 및 용기를 폐기하시오.",
+      "line": "p3:L34"
+     }
+    ],
+    "suggested_code": "S13_CAUTION",
+    "line": "p3:L34"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S13_METHOD\",\n      \"title_raw\": \"가. 폐기방법\",\n      \"start\": \"p3:L33\",\n      \"end\": \"p3:L33\"\n    },\n    {\n      \"item_code\": \"S13_CAUTION\",\n      \"title_raw\": \"나. 폐기시 주의사항\",\n      \"start\": \"p3:L34\",\n      \"end\": \"p3:L34\"\n    }\n  ]\n  ,\n  \"extras\": [\n    {\n      \"after_item\": \"S13_METHOD\",\n      \"title_raw\": \"나. 폐기시 주의사항\",\n      \"reason\": \"코드없음\"\n    ,\n      \"statements\": [\n        {\n          \"key\": \"폐기시 주의사항\",\n          \"value\": \"관련 법규에 명시된 내용에 따라 내용물 및 용기를 폐기하시오.\"\n        ,\n          \"line\": \"p3:L34\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S13_CAUTION\"\n    ,\n      \"line\": \"p3:L34\"\n    }\n  ]\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 2005,
+  "completion_tokens": 284,
+  "total_tokens": 2289
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 2005,
+    "completion_tokens": 284,
+    "total_tokens": 2289
+   },
+   "seconds": 6.279,
+   "chars": 651,
+   "whitespace": 259,
+   "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S13_METHOD\",\n      \"title_raw\": \"가. 폐기방법\",\n      \"start\": \"p3:L33\",\n      \"end\": \"p3:L33\"\n    },\n    {\n      \"item_code\": \"S13_CAUTION\",\n      \"title_raw\": \"나. 폐기시 주의사항\",\n      \"start\": \"p3:L34\",\n      \"end\": \"p3:L34\"\n    }\n  ]\n  ,\n  \"extras\": [\n    {\n      \"after_item\": \"S13_METHOD\",\n      \"title_raw\": \"나. 폐기시 주의사항\",\n      \"reason\": \"코드없음\"\n    ,\n      \"statements\": [\n        {\n          \"key\": \"폐기시 주의사항\",\n          \"value\": \"관련 법규에 명시된 내용에 따라 내용물 및 ",
+   "tail": "용기를 폐기하시오.\"\n        ,\n          \"line\": \"p3:L34\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S13_CAUTION\"\n    ,\n      \"line\": \"p3:L34\"\n    }\n  ]\n}"
+  }
+ ],
+ "seconds": 6.28,
+ "check_problems": []
+}

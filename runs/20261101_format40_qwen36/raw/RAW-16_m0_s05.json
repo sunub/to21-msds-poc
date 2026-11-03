@@ -1,0 +1,116 @@
+{
+ "doc_id": "RAW-16",
+ "msds_index": 0,
+ "section": 5,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S5_MEDIA",
+    "title_raw": "적절한 소화제",
+    "start": "p3:L12",
+    "end": "p3:L12"
+   },
+   {
+    "item_code": "S5_MEDIA",
+    "title_raw": "부적절한 소화제",
+    "start": "p3:L13",
+    "end": "p3:L13"
+   },
+   {
+    "item_code": "S5_SPECIFIC",
+    "title_raw": "유해한 연소 생성물",
+    "start": "p3:L15",
+    "end": "p3:L15"
+   },
+   {
+    "item_code": "S5_SPECIFIC",
+    "title_raw": "비정상적인 화재 및 폭발 위험성",
+    "start": "p3:L16",
+    "end": "p3:L16"
+   },
+   {
+    "item_code": "S5_FIREFIGHT",
+    "title_raw": "화재 진압 절차",
+    "start": "p3:L18",
+    "end": "p3:L24"
+   },
+   {
+    "item_code": "S5_FIREFIGHT",
+    "title_raw": "화재 진압 시 착용할 보호구 및 예방조치",
+    "start": "p3:L25",
+    "end": "p3:L26"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S5_MEDIA",
+    "title_raw": "부적절한 소화제",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "value": "알려지지 않음.",
+      "line": "p3:L13"
+     }
+    ],
+    "suggested_code": "S5_MEDIA",
+    "line": "p3:L13"
+   },
+   {
+    "after_item": "S5_SPECIFIC",
+    "title_raw": "물질 또는 혼합물로부터 발생하는 특정 유해성",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "value": "",
+      "line": "p3:L14"
+     }
+    ],
+    "suggested_code": "S5_SPECIFIC",
+    "line": "p3:L14"
+   },
+   {
+    "after_item": "S5_FIREFIGHT",
+    "title_raw": "소방관에 대한 지침",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "value": "",
+      "line": "p3:L17"
+     }
+    ],
+    "suggested_code": "S5_FIREFIGHT",
+    "line": "p3:L17"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S5_MEDIA\",\n      \"title_raw\": \"적절한 소화제\",\n      \"start\": \"p3:L12\",\n      \"end\": \"p3:L12\"\n    },\n    {\n      \"item_code\": \"S5_MEDIA\",\n      \"title_raw\": \"부적절한 소화제\",\n      \"start\": \"p3:L13\",\n      \"end\": \"p3:L13\"\n    },\n    {\n      \"item_code\": \"S5_SPECIFIC\",\n      \"title_raw\": \"유해한 연소 생성물\",\n      \"start\": \"p3:L15\",\n      \"end\": \"p3:L15\"\n    },\n    {\n      \"item_code\": \"S5_SPECIFIC\",\n      \"title_raw\": \"비정상적인 화재 및 폭발 위험성\",\n      \"start\": \"p3:L16\",\n      \"end\": \"p3:L16\"\n    },\n    {\n      \"item_code\": \"S5_FIREFIGHT\",\n      \"title_raw\": \"화재 진압 절차\",\n      \"start\": \"p3:L18\",\n      \"end\": \"p3:L24\"\n    },\n    {\n      \"item_code\": \"S5_FIREFIGHT\",\n      \"title_raw\": \"화재 진압 시 착용할 보호구 및 예방조치\",\n      \"start\": \"p3:L25\",\n      \"end\": \"p3:L26\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S5_MEDIA\",\n      \"title_raw\": \"부적절한 소화제\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"알려지지 않음.\"\n        ,\n          \"line\": \"p3:L13\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S5_MEDIA\"\n    ,\n      \"line\": \"p3:L13\"\n    },\n    {\n      \"after_item\": \"S5_SPECIFIC\",\n      \"title_raw\": \"물질 또는 혼합물로부터 발생하는 특정 유해성\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"\"\n        ,\n          \"line\": \"p3:L14\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S5_SPECIFIC\"\n    ,\n      \"line\": \"p3:L14\"\n    },\n    {\n      \"after_item\": \"S5_FIREFIGHT\",\n      \"title_raw\": \"소방관에 대한 지침\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"\"\n        ,\n          \"line\": \"p3:L17\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S5_FIREFIGHT\"\n    ,\n      \"line\": \"p3:L17\"\n    }\n  ]\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 2321,
+  "completion_tokens": 705,
+  "total_tokens": 3026
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 2321,
+    "completion_tokens": 705,
+    "total_tokens": 3026
+   },
+   "seconds": 13.184,
+   "chars": 1689,
+   "whitespace": 670,
+   "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S5_MEDIA\",\n      \"title_raw\": \"적절한 소화제\",\n      \"start\": \"p3:L12\",\n      \"end\": \"p3:L12\"\n    },\n    {\n      \"item_code\": \"S5_MEDIA\",\n      \"title_raw\": \"부적절한 소화제\",\n      \"start\": \"p3:L13\",\n      \"end\": \"p3:L13\"\n    },\n    {\n      \"item_code\": \"S5_SPECIFIC\",\n      \"title_raw\": \"유해한 연소 생성물\",\n      \"start\": \"p3:L15\",\n      \"end\": \"p3:L15\"\n    },\n    {\n      \"item_code\": \"S5_SPECIFIC\",\n      \"title_raw\": \"비정상적인 화재 및 폭발 위험성\",\n      \"start\": \"p3:L16\",\n     ",
+   "tail": "\"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"\"\n        ,\n          \"line\": \"p3:L14\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S5_SPECIFIC\"\n    ,\n      \"line\": \"p3:L14\"\n    },\n    {\n      \"after_item\": \"S5_FIREFIGHT\",\n      \"title_raw\": \"소방관에 대한 지침\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"\"\n        ,\n          \"line\": \"p3:L17\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S5_FIREFIGHT\"\n    ,\n      \"line\": \"p3:L17\"\n    }\n  ]\n}"
+  }
+ ],
+ "seconds": 13.185,
+ "check_problems": []
+}

@@ -1,0 +1,134 @@
+{
+ "doc_id": "RAW-04",
+ "msds_index": 0,
+ "section": 8,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "exposure_limits": [
+   {
+    "comp_name": "1-도데칸싸이올",
+    "comp_cas": null,
+    "standard": "국내",
+    "limit_type": null,
+    "q": {
+     "raw": "해당없음"
+    },
+    "form": null,
+    "kr_basis": null,
+    "bio_medium": null,
+    "bio_timing": null,
+    "bio_determinant": null,
+    "notations": [],
+    "line": "p4:L24"
+   },
+   {
+    "comp_name": "1-도데칸싸이올",
+    "comp_cas": null,
+    "standard": "ACGIH",
+    "limit_type": "TWA",
+    "q": {
+     "raw": "0.1 ppm",
+     "value": 0.1,
+     "unit": "ppm"
+    },
+    "form": null,
+    "kr_basis": null,
+    "bio_medium": null,
+    "bio_timing": null,
+    "bio_determinant": null,
+    "notations": [],
+    "line": "p4:L24"
+   },
+   {
+    "comp_name": "1-도데칸싸이올",
+    "comp_cas": null,
+    "standard": "생물학적",
+    "limit_type": null,
+    "q": {
+     "raw": "해당없음"
+    },
+    "form": null,
+    "kr_basis": null,
+    "bio_medium": null,
+    "bio_timing": null,
+    "bio_determinant": null,
+    "notations": [],
+    "line": "p4:L24"
+   }
+  ],
+  "narratives": [
+   {
+    "item_code": "S8_ENG",
+    "title_raw": "나.적절한 공학적 관리:",
+    "start": "p4:L25",
+    "end": "p4:L32"
+   },
+   {
+    "item_code": "S8_RESP",
+    "title_raw": "○ 호흡기 보호:",
+    "start": "p4:L34",
+    "end": "p5:L5"
+   },
+   {
+    "item_code": "S8_EYE",
+    "title_raw": "○ 눈 보호:",
+    "start": "p5:L6",
+    "end": "p5:L10"
+   },
+   {
+    "item_code": "S8_HAND",
+    "title_raw": "○ 손 보호:",
+    "start": "p5:L11",
+    "end": "p5:L15"
+   },
+   {
+    "item_code": "S8_BODY",
+    "title_raw": "○ 신체 보호:",
+    "start": "p5:L16",
+    "end": "p5:L18"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S8_END",
+    "title_raw": "가.화학물질의 노출기준, 생물학적 노출기준 등:",
+    "reason": "필드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [],
+    "suggested_code": null,
+    "line": "p4:L22"
+   }
+  ]
+ },
+ "raw_text": "### exposure_limits\ncomp_name | comp_cas | standard | limit_type | q | form | kr_basis | bio_medium | bio_timing | bio_determinant | notations | line\n1-도데칸싸이올 |  | 국내 |  | 해당없음 |  |  |  |  |  |  | p4:L24\n1-도데칸싸이올 |  | ACGIH | TWA | 0.1 ppm |  |  |  |  |  |  | p4:L24\n1-도데칸싸이올 |  | 생물학적 |  | 해당없음 |  |  |  |  |  |  | p4:L24\n\n### narratives\nitem_code | title_raw | start | end\nS8_ENG | 나.적절한 공학적 관리: | p4:L25 | p4:L32\nS8_RESP | ○ 호흡기 보호: | p4:L34 | p5:L5\nS8_EYE | ○ 눈 보호: | p5:L6 | p5:L10\nS8_HAND | ○ 손 보호: | p5:L11 | p5:L15\nS8_BODY | ○ 신체 보호: | p5:L16 | p5:L18\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\nS8_END | 가.화학물질의 노출기준, 생물학적 노출기준 등: | 필드없음 |  |  |  |  |  | p4:L22",
+ "mode": "rows",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 4128,
+  "completion_tokens": 346,
+  "total_tokens": 4474
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "rows",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 4128,
+    "completion_tokens": 346,
+    "total_tokens": 4474
+   },
+   "seconds": 7.364,
+   "chars": 734,
+   "whitespace": 190,
+   "head": "### exposure_limits\ncomp_name | comp_cas | standard | limit_type | q | form | kr_basis | bio_medium | bio_timing | bio_determinant | notations | line\n1-도데칸싸이올 |  | 국내 |  | 해당없음 |  |  |  |  |  |  | p4:L24\n1-도데칸싸이올 |  | ACGIH | TWA | 0.1 ppm |  |  |  |  |  |  | p4:L24\n1-도데칸싸이올 |  | 생물학적 |  | 해당없음 |  |  |  |  |  |  | p4:L24\n\n### narratives\nitem_code | title_raw | start | end\nS8_ENG | 나.적절한 공학적 관리: | p4:L25 | p4:L32\nS8_RESP | ○ 호흡기 보호: | p4:L34 | p5:L5\nS8_EYE | ○ 눈 보호: | p5:L6 | p5:L10\nS8_HAND | ○ 손",
+   "tail": " 보호: | p5:L11 | p5:L15\nS8_BODY | ○ 신체 보호: | p5:L16 | p5:L18\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\nS8_END | 가.화학물질의 노출기준, 생물학적 노출기준 등: | 필드없음 |  |  |  |  |  | p4:L22"
+  }
+ ],
+ "seconds": 7.369,
+ "check_problems": []
+}

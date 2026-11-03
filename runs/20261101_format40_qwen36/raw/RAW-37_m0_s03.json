@@ -1,0 +1,122 @@
+{
+ "doc_id": "RAW-37",
+ "msds_index": 0,
+ "section": 3,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "composition": {
+   "type": "혼합물",
+   "no_hazardous_component": false,
+   "lines": {
+    "type": "p2:L3",
+    "no_hazardous_component": "p2:L3"
+   }
+  },
+  "components": [
+   {
+    "name": "호모폴리프로필렌",
+    "name_en": null,
+    "synonyms": [
+     "1-프로펜",
+     "호모중합물"
+    ],
+    "cas_no": "9003-07-0",
+    "ke_no": "KE-29389",
+    "ec_no": null,
+    "other_id": null,
+    "other_id_type": null,
+    "parent_seq": null,
+    "read_across_cas": null,
+    "content": {
+     "raw": "≥ 99 %",
+     "lower_op": ">=",
+     "lower": 99,
+     "unit": "%"
+    },
+    "content_note": null,
+    "content_basis": null,
+    "trade_secret": null,
+    "approval_no": null,
+    "approval_expiry": null,
+    "line": "p2:L4"
+   },
+   {
+    "name": "첨가제2)",
+    "name_en": "Additive",
+    "synonyms": [],
+    "cas_no": null,
+    "ke_no": null,
+    "ec_no": null,
+    "other_id": null,
+    "other_id_type": null,
+    "parent_seq": null,
+    "read_across_cas": null,
+    "content": {
+     "raw": "< 1 %",
+     "upper_op": "<",
+     "upper": 1,
+     "unit": "%"
+    },
+    "content_note": null,
+    "content_basis": null,
+    "trade_secret": null,
+    "approval_no": null,
+    "approval_expiry": null,
+    "line": "p2:L5"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": null,
+    "title_raw": "※주1) 식별번호: KE(한국기존화학물질 등록 번호)",
+    "reason": "필드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [],
+    "suggested_code": null,
+    "line": "p2:L6"
+   },
+   {
+    "after_item": null,
+    "title_raw": "※주2) 첨가제 구성 성분 중 1% 이상의 관리대상유해물질은 없으며, 0.1% 이상의 발암성물질 및 생식세포 변이원성 물질, 0.2% 이상의 호흡기 과민성 물질(가스), 0.3% 이상의 생식독성 물질은 없음",
+    "reason": "필드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [],
+    "suggested_code": null,
+    "line": "p2:L7"
+   }
+  ]
+ },
+ "raw_text": "### composition\ntype | no_hazardous_component | line\n혼합물 | false | p2:L3\n\n### components\nname | name_en | synonyms | cas_no | ke_no | ec_no | other_id | other_id_type | parent_seq | read_across_cas | content | content_note | content_basis | trade_secret | approval_no | approval_expiry | line\n호모폴리프로필렌 |  | 1-프로펜; 호모중합물 | 9003-07-0 | KE-29389 |  |  |  |  |  | ≥ 99 % |  |  |  |  |  | p2:L4\n첨가제2) | Additive |  |  |  |  |  |  |  |  | < 1 % |  |  |  |  |  | p2:L5\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\n | ※주1) 식별번호: KE(한국기존화학물질 등록 번호) | 필드없음 |  |  |  |  |  | p2:L6\n | ※주2) 첨가제 구성 성분 중 1% 이상의 관리대상유해물질은 없으며, 0.1% 이상의 발암성물질 및 생식세포 변이원성 물질, 0.2% 이상의 호흡기 과민성 물질(가스), 0.3% 이상의 생식독성 물질은 없음 | 필드없음 |  |  |  |  |  | p2:L7",
+ "mode": "rows",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 3971,
+  "completion_tokens": 355,
+  "total_tokens": 4326
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "rows",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 3971,
+    "completion_tokens": 355,
+    "total_tokens": 4326
+   },
+   "seconds": 7.357,
+   "chars": 781,
+   "whitespace": 201,
+   "head": "### composition\ntype | no_hazardous_component | line\n혼합물 | false | p2:L3\n\n### components\nname | name_en | synonyms | cas_no | ke_no | ec_no | other_id | other_id_type | parent_seq | read_across_cas | content | content_note | content_basis | trade_secret | approval_no | approval_expiry | line\n호모폴리프로필렌 |  | 1-프로펜; 호모중합물 | 9003-07-0 | KE-29389 |  |  |  |  |  | ≥ 99 % |  |  |  |  |  | p2:L4\n첨가제2) | Additive |  |  |  |  |  |  |  |  | < 1 % |  |  |  |  |  | p2:L5\n\n### extras\nafter_item | title_raw | r",
+   "tail": "eason | comp_name | comp_cas | q | statements | suggested_code | line\n | ※주1) 식별번호: KE(한국기존화학물질 등록 번호) | 필드없음 |  |  |  |  |  | p2:L6\n | ※주2) 첨가제 구성 성분 중 1% 이상의 관리대상유해물질은 없으며, 0.1% 이상의 발암성물질 및 생식세포 변이원성 물질, 0.2% 이상의 호흡기 과민성 물질(가스), 0.3% 이상의 생식독성 물질은 없음 | 필드없음 |  |  |  |  |  | p2:L7"
+  }
+ ],
+ "seconds": 7.359,
+ "check_problems": []
+}

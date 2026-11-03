@@ -1,0 +1,78 @@
+{
+ "doc_id": "RAW-35",
+ "msds_index": 0,
+ "section": 10,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S10_STABILITY",
+    "title_raw": "가. 화학적 안정성 및 유해 반응의 가능성",
+    "start": "p6:L25",
+    "end": "p6:L28"
+   },
+   {
+    "item_code": "S10_CONDITIONS",
+    "title_raw": "나. 피해야 할 조건",
+    "start": "p6:L30",
+    "end": "p6:L30"
+   },
+   {
+    "item_code": "S10_INCOMPAT",
+    "title_raw": "다. 피해야 할 물질",
+    "start": "p6:L32",
+    "end": "p6:L32"
+   },
+   {
+    "item_code": "S10_DECOMP",
+    "title_raw": "라. 분해시 생성되는 유해물질",
+    "start": "p7:L2",
+    "end": "p7:L4"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S10_END",
+    "title_raw": "다. 피해야 할 물질",
+    "reason": "필드없음",
+    "statements": [
+     {
+      "value": "6",
+      "line": "p6:L33"
+     }
+    ],
+    "suggested_code": "S10_INCOMPAT",
+    "line": "p6:L33"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S10_STABILITY\",\n      \"title_raw\": \"가. 화학적 안정성 및 유해 반응의 가능성\",\n      \"start\": \"p6:L25\",\n      \"end\": \"p6:L28\"\n    },\n    {\n      \"item_code\": \"S10_CONDITIONS\",\n      \"title_raw\": \"나. 피해야 할 조건\",\n      \"start\": \"p6:L30\",\n      \"end\": \"p6:L30\"\n    },\n    {\n      \"item_code\": \"S10_INCOMPAT\",\n      \"title_raw\": \"다. 피해야 할 물질\",\n      \"start\": \"p6:L32\",\n      \"end\": \"p6:L32\"\n    },\n    {\n      \"item_code\": \"S10_DECOMP\",\n      \"title_raw\": \"라. 분해시 생성되는 유해물질\",\n      \"start\": \"p7:L2\",\n      \"end\": \"p7:L4\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S10_END\",\n      \"title_raw\": \"다. 피해야 할 물질\",\n      \"reason\": \"필드없음\",\n      \"statements\": [\n        {\n          \"value\": \"6\"\n        , \"line\": \"p6:L33\"\n        }\n      ]\n    , \"suggested_code\": \"S10_INCOMPAT\"\n    , \"line\": \"p6:L33\"\n    }\n  ]\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 2145,
+  "completion_tokens": 369,
+  "total_tokens": 2514
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 2145,
+    "completion_tokens": 369,
+    "total_tokens": 2514
+   },
+   "seconds": 7.925,
+   "chars": 838,
+   "whitespace": 305,
+   "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S10_STABILITY\",\n      \"title_raw\": \"가. 화학적 안정성 및 유해 반응의 가능성\",\n      \"start\": \"p6:L25\",\n      \"end\": \"p6:L28\"\n    },\n    {\n      \"item_code\": \"S10_CONDITIONS\",\n      \"title_raw\": \"나. 피해야 할 조건\",\n      \"start\": \"p6:L30\",\n      \"end\": \"p6:L30\"\n    },\n    {\n      \"item_code\": \"S10_INCOMPAT\",\n      \"title_raw\": \"다. 피해야 할 물질\",\n      \"start\": \"p6:L32\",\n      \"end\": \"p6:L32\"\n    },\n    {\n      \"item_code\": \"S10_DECOMP\",\n      \"title_raw\": \"라. 분해시 생성되는 유해물질\",\n",
+   "tail": "      \"start\": \"p7:L2\",\n      \"end\": \"p7:L4\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S10_END\",\n      \"title_raw\": \"다. 피해야 할 물질\",\n      \"reason\": \"필드없음\",\n      \"statements\": [\n        {\n          \"value\": \"6\"\n        , \"line\": \"p6:L33\"\n        }\n      ]\n    , \"suggested_code\": \"S10_INCOMPAT\"\n    , \"line\": \"p6:L33\"\n    }\n  ]\n}"
+  }
+ ],
+ "seconds": 7.927,
+ "check_problems": []
+}

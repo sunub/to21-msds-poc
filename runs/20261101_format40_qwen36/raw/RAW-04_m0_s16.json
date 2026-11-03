@@ -1,0 +1,177 @@
+{
+ "doc_id": "RAW-04",
+ "msds_index": 0,
+ "section": 16,
+ "reextracted": true,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S16_SOURCE",
+    "title_raw": "가.자료의 출처 :",
+    "start": "p9:L5",
+    "end": "p9:L8"
+   },
+   {
+    "item_code": "S16_OTHER",
+    "title_raw": "라.기타 :",
+    "start": "p9:L11",
+    "end": "p9:L11"
+   }
+  ],
+  "meta_revision": {
+   "first_issue_date": "2017-01-12",
+   "revision_no": 5,
+   "revision_label": "5회",
+   "last_revision_date": "2020-07-24",
+   "lines": {
+    "first_issue_date": "p9:L9",
+    "revision_no": "p9:L10",
+    "revision_label": "p9:L10",
+    "last_revision_date": "p9:L10"
+   }
+  },
+  "extras": [
+   {
+    "title_raw": "라.기타 :",
+    "reason": "필드없음",
+    "statements": [
+     {
+      "key": "기타",
+      "value": "자료없음",
+      "line": "p9:L11"
+     }
+    ],
+    "line": "p9:L11"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S16_SOURCE\",\n      \"title_raw\": \"가.자료의 출처 :\",\n      \"start\": \"p9:L5\",\n      \"end\": \"p9:L8\"\n    },\n    {\n      \"item_code\": \"S16_OTHER\",\n      \"title_raw\": \"라.기타 :\",\n      \"start\": \"p9:L11\",\n      \"end\": \"p9:L11\"\n    }\n  ],\n  \"meta_revision\": {\n    \"first_issue_date\": \"2017-01-12\",\n    \"revision_no\": 5,\n    \"revision_label\": \"5회\",\n    \"last_revision_date\": \"2020-07-24\"\n  ,\n  \"lines\": {\n    \"first_issue_date\": \"p9:L9\",\n    \"revision_no\": \"p9:L10\",\n    \"revision_label\": \"p9:L10\",\n    \"last_revision_date\": \"p9:L10\"\n  }\n  },\n  \"extras\": [\n    {\n      \"title_raw\": \"라.기타 :\",\n      \"reason\": \"필드없음\",\n      \"statements\": [\n        {\n          \"key\": \"기타\",\n          \"value\": \"자료없음\"\n        ,\n        \"line\": \"p9:L11\"\n        }\n      ],\n      \"line\": \"p9:L11\"\n    }\n  ]\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 2694,
+  "completion_tokens": 353,
+  "total_tokens": 3047
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 2694,
+    "completion_tokens": 353,
+    "total_tokens": 3047
+   },
+   "seconds": 5.075,
+   "chars": 814,
+   "whitespace": 278,
+   "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S16_SOURCE\",\n      \"title_raw\": \"가.자료의 출처 :\",\n      \"start\": \"p9:L5\",\n      \"end\": \"p9:L8\"\n    },\n    {\n      \"item_code\": \"S16_OTHER\",\n      \"title_raw\": \"라.기타 :\",\n      \"start\": \"p9:L11\",\n      \"end\": \"p9:L11\"\n    }\n  ],\n  \"meta_revision\": {\n    \"first_issue_date\": \"2017-01-12\",\n    \"revision_no\": 5,\n    \"revision_label\": \"5회\",\n    \"last_revision_date\": \"2020-07-24\"\n  ,\n  \"lines\": {\n    \"first_issue_date\": \"p9:L9\",\n    \"revision_no\": \"p9:L10\",\n    ",
+   "tail": "\"revision_label\": \"p9:L10\",\n    \"last_revision_date\": \"p9:L10\"\n  }\n  },\n  \"extras\": [\n    {\n      \"title_raw\": \"라.기타 :\",\n      \"reason\": \"필드없음\",\n      \"statements\": [\n        {\n          \"key\": \"기타\",\n          \"value\": \"자료없음\"\n        ,\n        \"line\": \"p9:L11\"\n        }\n      ],\n      \"line\": \"p9:L11\"\n    }\n  ]\n}"
+  }
+ ],
+ "seconds": 5.077,
+ "check_problems": [],
+ "first_attempt": {
+  "ok": true,
+  "parsed": {
+   "narratives": [
+    {
+     "item_code": "S16_SOURCE",
+     "title_raw": "가.자료의 출처 :",
+     "start": "L5",
+     "end": "L8"
+    },
+    {
+     "item_code": "S16_OTHER",
+     "title_raw": "라.기타 :",
+     "start": "L11",
+     "end": "L11"
+    }
+   ],
+   "meta_revision": {
+    "first_issue_date": "2017-01-12",
+    "revision_no": 5,
+    "revision_label": "5회",
+    "last_revision_date": "2020-07-24",
+    "lines": {
+     "first_issue_date": "L9",
+     "revision_no": "L10",
+     "revision_label": "L10",
+     "last_revision_date": "L10"
+    }
+   },
+   "extras": [
+    {
+     "after_item": "S16_SOURCE",
+     "title_raw": "나.최초 작성일자 :",
+     "reason": "필드없음",
+     "statements": [
+      {
+       "key": "최초 작성일자",
+       "value": "2017. 01. 12",
+       "line": "L9"
+      }
+     ],
+     "line": "L9"
+    },
+    {
+     "after_item": "S16_OTHER",
+     "title_raw": "라.기타 :",
+     "reason": "필드없음",
+     "statements": [
+      {
+       "key": "기타",
+       "value": "자료없음",
+       "line": "L11"
+      }
+     ],
+     "line": "L11"
+    }
+   ]
+  },
+  "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S16_SOURCE\",\n      \"title_raw\": \"가.자료의 출처 :\",\n      \"start\":  \"L5\",\n      \"end\": \"L8\"\n    },\n    {\n      \"item_code\": \"S16_OTHER\",\n      \"title_raw\": \"라.기타 :\",\n      \"start\": \"L11\",\n      \"end\": \"L11\"\n    }\n  ],\n  \"meta_revision\": {\n    \"first_issue_date\": \"2017-01-12\",\n    \"revision_no\": 5,\n    \"revision_label\": \"5회\",\n    \"last_revision_date\": \"2020-07-24\"\n  ,\n  \"lines\": {\n    \"first_issue_date\": \"L9\",\n    \"revision_no\": \"L10\",\n    \"revision_label\": \"L10\",\n    \"last_revision_date\": \"L10\"\n  }\n  },\n  \"extras\": [\n    {\n      \"after_item\": \"S16_SOURCE\",\n      \"title_raw\": \"나.최초 작성일자 :\",\n      \"reason\": \"필드없음\",\n      \"statements\": [\n        {\n          \"key\": \"최초 작성일자\",\n          \"value\": \"2017. 01. 12\"\n        ,\n        \"line\": \"L9\"\n        }\n      ]\n    ,\n    \"line\": \"L9\"\n    },\n    {\n      \"after_item\": \"S16_OTHER\",\n      \"title_raw\": \"라.기타 :\",\n      \"reason\": \"필드없음\",\n      \"statements\": [\n        {\n          \"key\": \"기타\",\n          \"value\": \"자료없음\"\n        ,\n        \"line\": \"L11\"\n        }\n      ]\n    ,\n    \"line\": \"L11\"\n    }\n  ]\n}",
+  "mode": "json_schema",
+  "finish_reason": "stop",
+  "usage": {
+   "prompt_tokens": 2488,
+   "completion_tokens": 462,
+   "total_tokens": 2950
+  },
+  "attempts": 1,
+  "errors": [],
+  "requests": [
+   {
+    "mode": "json_schema",
+    "finish_reason": "stop",
+    "usage": {
+     "prompt_tokens": 2488,
+     "completion_tokens": 462,
+     "total_tokens": 2950
+    },
+    "seconds": 8.973,
+    "chars": 1092,
+    "whitespace": 416,
+    "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S16_SOURCE\",\n      \"title_raw\": \"가.자료의 출처 :\",\n      \"start\":  \"L5\",\n      \"end\": \"L8\"\n    },\n    {\n      \"item_code\": \"S16_OTHER\",\n      \"title_raw\": \"라.기타 :\",\n      \"start\": \"L11\",\n      \"end\": \"L11\"\n    }\n  ],\n  \"meta_revision\": {\n    \"first_issue_date\": \"2017-01-12\",\n    \"revision_no\": 5,\n    \"revision_label\": \"5회\",\n    \"last_revision_date\": \"2020-07-24\"\n  ,\n  \"lines\": {\n    \"first_issue_date\": \"L9\",\n    \"revision_no\": \"L10\",\n    \"revision_label\":",
+    "tail": "6_SOURCE\",\n      \"title_raw\": \"나.최초 작성일자 :\",\n      \"reason\": \"필드없음\",\n      \"statements\": [\n        {\n          \"key\": \"최초 작성일자\",\n          \"value\": \"2017. 01. 12\"\n        ,\n        \"line\": \"L9\"\n        }\n      ]\n    ,\n    \"line\": \"L9\"\n    },\n    {\n      \"after_item\": \"S16_OTHER\",\n      \"title_raw\": \"라.기타 :\",\n      \"reason\": \"필드없음\",\n      \"statements\": [\n        {\n          \"key\": \"기타\",\n          \"value\": \"자료없음\"\n        ,\n        \"line\": \"L11\"\n        }\n      ]\n    ,\n    \"line\": \"L11\"\n    }\n  ]\n}"
+   }
+  ],
+  "seconds": 8.975,
+  "check_problems": [
+   "narratives[0].start: 원문에 없는 줄 번호 L5",
+   "narratives[0].end: 원문에 없는 줄 번호 L8",
+   "narratives[1].start: 원문에 없는 줄 번호 L11",
+   "narratives[1].end: 원문에 없는 줄 번호 L11",
+   "meta_revision.lines.first_issue_date: 원문에 없는 줄 번호 L9",
+   "meta_revision.lines.revision_no: 원문에 없는 줄 번호 L10",
+   "meta_revision.lines.revision_label: 원문에 없는 줄 번호 L10",
+   "meta_revision.lines.last_revision_date: 원문에 없는 줄 번호 L10",
+   "extras[0].statements[0].line: 원문에 없는 줄 번호 L9",
+   "extras[0].line: 원문에 없는 줄 번호 L9",
+   "extras[1].statements[0].line: 원문에 없는 줄 번호 L11",
+   "extras[1].line: 원문에 없는 줄 번호 L11"
+  ]
+ }
+}

@@ -1,0 +1,329 @@
+{
+ "doc_id": "RAW-38",
+ "msds_index": 0,
+ "section": 12,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "ecotox": [
+   {
+    "comp_name": null,
+    "comp_cas": null,
+    "endpoint": "ECO_FISH",
+    "descriptor": "LC50",
+    "q": {
+     "raw": "13 mg/L",
+     "value": 13,
+     "unit": "mg/L"
+    },
+    "species": "Danio rerio",
+    "duration_value": null,
+    "duration_unit": null,
+    "guideline": null,
+    "data_source": null,
+    "statements": [],
+    "status": "값있음",
+    "line": "p7:L9"
+   },
+   {
+    "comp_name": null,
+    "comp_cas": null,
+    "endpoint": "ECO_CRUST",
+    "descriptor": "EC50",
+    "q": {
+     "raw": "> 23.5 mg/L",
+     "lower_op": ">",
+     "lower": 23.5,
+     "unit": "mg/L"
+    },
+    "species": "Daphnia magna",
+    "duration_value": null,
+    "duration_unit": null,
+    "guideline": null,
+    "data_source": null,
+    "statements": [],
+    "status": "값있음",
+    "line": "p7:L11"
+   },
+   {
+    "comp_name": null,
+    "comp_cas": null,
+    "endpoint": "ECO_ALGAE",
+    "descriptor": "ErC50",
+    "q": {
+     "raw": "> 29 mg/L",
+     "lower_op": ">",
+     "lower": 29,
+     "unit": "mg/L"
+    },
+    "species": "Scenedesmus subspicatus",
+    "duration_value": null,
+    "duration_unit": null,
+    "guideline": null,
+    "data_source": null,
+    "statements": [],
+    "status": "값있음",
+    "line": "p7:L13"
+   },
+   {
+    "comp_name": null,
+    "comp_cas": null,
+    "endpoint": "ECO_PERSIST",
+    "descriptor": "logKow",
+    "q": {
+     "raw": "2.21",
+     "value": 2.21
+    },
+    "species": null,
+    "duration_value": null,
+    "duration_unit": null,
+    "guideline": null,
+    "data_source": null,
+    "statements": [],
+    "status": "값있음",
+    "line": "p7:L16"
+   },
+   {
+    "comp_name": null,
+    "comp_cas": null,
+    "endpoint": "ECO_PERSIST",
+    "descriptor": "분해율",
+    "q": {
+     "raw": "321",
+     "value": 321
+    },
+    "species": null,
+    "duration_value": null,
+    "duration_unit": null,
+    "guideline": null,
+    "data_source": null,
+    "statements": [],
+    "status": "값있음",
+    "line": "p7:L18"
+   },
+   {
+    "comp_name": null,
+    "comp_cas": null,
+    "endpoint": "ECO_PERSIST",
+    "descriptor": "분해율",
+    "q": {
+     "raw": "94 %",
+     "value": 94,
+     "unit": "%"
+    },
+    "species": null,
+    "duration_value": null,
+    "duration_unit": null,
+    "guideline": null,
+    "data_source": null,
+    "statements": [],
+    "status": "값있음",
+    "line": "p7:L20"
+   },
+   {
+    "comp_name": null,
+    "comp_cas": null,
+    "endpoint": "ECO_BIOACC",
+    "descriptor": "결과기술",
+    "q": {
+     "raw": "어류에서 생물농축하지 않음"
+    },
+    "species": null,
+    "duration_value": null,
+    "duration_unit": null,
+    "guideline": null,
+    "data_source": null,
+    "statements": [],
+    "status": "값있음",
+    "line": "p7:L22"
+   },
+   {
+    "comp_name": null,
+    "comp_cas": null,
+    "endpoint": "ECO_SOIL",
+    "descriptor": "Koc",
+    "q": {
+     "raw": "368700",
+     "value": 368700
+    },
+    "species": null,
+    "duration_value": null,
+    "duration_unit": null,
+    "guideline": null,
+    "data_source": null,
+    "statements": [],
+    "status": "값있음",
+    "line": "p7:L24"
+   }
+  ],
+  "narratives": [
+   {
+    "item_code": "S12_OTHER",
+    "title_raw": "가. 생태독성",
+    "start": "p7:L7",
+    "end": "p7:L13"
+   },
+   {
+    "item_code": "S12_OTHER",
+    "title_raw": "나. 잔류성 및 분해성",
+    "start": "p7:L14",
+    "end": "p7:L20"
+   },
+   {
+    "item_code": "S12_OTHER",
+    "title_raw": "다. 생물농축성",
+    "start": "p7:L21",
+    "end": "p7:L22"
+   },
+   {
+    "item_code": "S12_OTHER",
+    "title_raw": "라. 토양이동성",
+    "start": "p7:L23",
+    "end": "p7:L24"
+   },
+   {
+    "item_code": "S12_OTHER",
+    "title_raw": "마. 기타 유해 영향",
+    "start": "p7:L25",
+    "end": "p7:L26"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": null,
+    "title_raw": "● 어류",
+    "reason": "코드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [
+     {
+      "value": "LC50 13 mg/L Danio rerio",
+      "line": "p7:L8"
+     }
+    ],
+    "suggested_code": "ECO_FISH",
+    "line": "p7:L8"
+   },
+   {
+    "after_item": null,
+    "title_raw": "● 갑각류",
+    "reason": "코드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [
+     {
+      "value": "EC50 > 23.5 mg/L Daphnia magna",
+      "line": "p7:L10"
+     }
+    ],
+    "suggested_code": "ECO_CRUST",
+    "line": "p7:L10"
+   },
+   {
+    "after_item": null,
+    "title_raw": "● 조류",
+    "reason": "코드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [
+     {
+      "value": "ErC50 > 29 mg/L Scenedesmus subspicatus",
+      "line": "p7:L12"
+     }
+    ],
+    "suggested_code": "ECO_ALGAE",
+    "line": "p7:L12"
+   },
+   {
+    "after_item": null,
+    "title_raw": "● 잔류성",
+    "reason": "코드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [
+     {
+      "value": "log Pow 2.21",
+      "line": "p7:L15"
+     }
+    ],
+    "suggested_code": "ECO_PERSIST",
+    "line": "p7:L15"
+   },
+   {
+    "after_item": null,
+    "title_raw": "● 분해성",
+    "reason": "코드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [
+     {
+      "value": "Half life 321 느린 비생물적 가수분해",
+      "line": "p7:L17"
+     }
+    ],
+    "suggested_code": "ECO_PERSIST",
+    "line": "p7:L17"
+   },
+   {
+    "after_item": null,
+    "title_raw": "● 생분해성",
+    "reason": "코드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [
+     {
+      "value": "94 %",
+      "line": "p7:L19"
+     }
+    ],
+    "suggested_code": "ECO_PERSIST",
+    "line": "p7:L19"
+   },
+   {
+    "after_item": null,
+    "title_raw": "자료없음",
+    "reason": "코드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [],
+    "suggested_code": "S12_OTHER",
+    "line": "p7:L26"
+   }
+  ]
+ },
+ "raw_text": "### ecotox\ncomp_name | comp_cas | endpoint | descriptor | q | species | duration_value | duration_unit | guideline | data_source | statements | status | line\n |  | ECO_FISH | LC50 | 13 mg/L | Danio rerio |  |  |  |  |  | 값있음 | p7:L9\n |  | ECO_CRUST | EC50 | > 23.5 mg/L | Daphnia magna |  |  |  |  |  | 값있음 | p7:L11\n |  | ECO_ALGAE | ErC50 | > 29 mg/L | Scenedesmus subspicatus |  |  |  |  |  | 값있음 | p7:L13\n |  | ECO_PERSIST | logKow | 2.21 |  |  |  |  |  |  | 값있음 | p7:L16\n |  | ECO_PERSIST | 분해율 | 321 |  |  |  |  |  |  | 값있음 | p7:L18\n |  | ECO_PERSIST | 분해율 | 94 % |  |  |  |  |  |  | 값있음 | p7:L20\n |  | ECO_BIOACC | 결과기술 | 어류에서 생물농축하지 않음 |  |  |  |  |  |  | 값있음 | p7:L22\n |  | ECO_SOIL | Koc | 368700 |  |  |  |  |  |  | 값있음 | p7:L24\n\n### narratives\nitem_code | title_raw | start | end\nS12_OTHER | 가. 생태독성 | p7:L7 | p7:L13\nS12_OTHER | 나. 잔류성 및 분해성 | p7:L14 | p7:L20\nS12_OTHER | 다. 생물농축성 | p7:L21 | p7:L22\nS12_OTHER | 라. 토양이동성 | p7:L23 | p7:L24\nS12_OTHER | 마. 기타 유해 영향 | p7:L25 | p7:L26\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\n | ● 어류 | 코드없음 |  |  |  | LC50 13 mg/L Danio rerio | ECO_FISH | p7:L8\n | ● 갑각류 | 코드없음 |  |  |  |  | EC50 > 23.5 mg/L Daphnia magna | ECO_CRUST | p7:L10\n | ● 조류 | 코드없음 |  |  |  |  | ErC50 > 29 mg/L Scenedesmus subspicatus | ECO_ALGAE | p7:L12\n | ● 잔류성 | 코드없음 |  |  |  |  | log Pow 2.21 | ECO_PERSIST | p7:L15\n | ● 분해성 | 코드없음 |  |  |  |  | Half life 321 느린 비생물적 가수분해 | ECO_PERSIST | p7:L17\n | ● 생분해성 | 코드없음 |  |  |  |  | 94 % | ECO_PERSIST | p7:L19\n | 자료없음 | 코드없음 |  |  |  |  |  | S12_OTHER | p7:L26",
+ "mode": "rows",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 3604,
+  "completion_tokens": 804,
+  "total_tokens": 4408
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "rows",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 3604,
+    "completion_tokens": 804,
+    "total_tokens": 4408
+   },
+   "seconds": 14.045,
+   "chars": 1596,
+   "whitespace": 470,
+   "head": "### ecotox\ncomp_name | comp_cas | endpoint | descriptor | q | species | duration_value | duration_unit | guideline | data_source | statements | status | line\n |  | ECO_FISH | LC50 | 13 mg/L | Danio rerio |  |  |  |  |  | 값있음 | p7:L9\n |  | ECO_CRUST | EC50 | > 23.5 mg/L | Daphnia magna |  |  |  |  |  | 값있음 | p7:L11\n |  | ECO_ALGAE | ErC50 | > 29 mg/L | Scenedesmus subspicatus |  |  |  |  |  | 값있음 | p7:L13\n |  | ECO_PERSIST | logKow | 2.21 |  |  |  |  |  |  | 값있음 | p7:L16\n |  | ECO_PERSIST | 분해율 |",
+   "tail": "ne\n | ● 어류 | 코드없음 |  |  |  | LC50 13 mg/L Danio rerio | ECO_FISH | p7:L8\n | ● 갑각류 | 코드없음 |  |  |  |  | EC50 > 23.5 mg/L Daphnia magna | ECO_CRUST | p7:L10\n | ● 조류 | 코드없음 |  |  |  |  | ErC50 > 29 mg/L Scenedesmus subspicatus | ECO_ALGAE | p7:L12\n | ● 잔류성 | 코드없음 |  |  |  |  | log Pow 2.21 | ECO_PERSIST | p7:L15\n | ● 분해성 | 코드없음 |  |  |  |  | Half life 321 느린 비생물적 가수분해 | ECO_PERSIST | p7:L17\n | ● 생분해성 | 코드없음 |  |  |  |  | 94 % | ECO_PERSIST | p7:L19\n | 자료없음 | 코드없음 |  |  |  |  |  | S12_OTHER | p7:L26"
+  }
+ ],
+ "seconds": 14.06,
+ "check_problems": []
+}

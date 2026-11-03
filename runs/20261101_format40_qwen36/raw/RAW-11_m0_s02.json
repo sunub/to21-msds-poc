@@ -1,0 +1,84 @@
+{
+ "doc_id": "RAW-11",
+ "msds_index": 0,
+ "section": 2,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "hazard": {
+   "classified": false,
+   "signal_word": "없음",
+   "lines": {
+    "classified": "p2:L12",
+    "signal_word": "p2:L12"
+   }
+  },
+  "narratives": [],
+  "extras": [
+   {
+    "title_raw": "예방조치 문구를 포함한 경고 표지 항목",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "value": "산업안전보건법 제110조에 의거 경고표지 부착 대상 화학물질이 아님.",
+      "line": "p2:L14"
+     }
+    ],
+    "line": "p2:L13"
+   },
+   {
+    "title_raw": "유해성.위험성 분류기준에 포함되지 않는 기타 유해성.위험성",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "value": "본 항목에서 제공하는 정보는 분류가 되지는 않으나 물질이나 혼합물의 전체적인 유해성에 영향을 미칠 수 있는 기타 유해성에 대한 것임.",
+      "line": "p2:L16"
+     }
+    ],
+    "line": "p2:L15"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"hazard\": {\n    \"classified\": false,\n    \"signal_word\": \"없음\",\n    \"lines\": {\n      \"classified\": \"p2:L12\",\n      \"signal_word\": \"p2:L12\"\n    }\n  },\n  \"narratives\": [],\n  \"extras\": [\n    {\n      \"title_raw\": \"예방조치 문구를 포함한 경고 표지 항목\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"산업안전보건법 제110조에 의거 경고표지 부착 대상 화학물질이 아님.\",\n          \"line\": \"p2:L14\"\n        }\n      ],\n      \"line\": \"p2:L13\"\n    },\n    {\n      \"title_raw\": \"유해성.위험성 분류기준에 포함되지 않는 기타 유해성.위험성\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"본 항목에서 제공하는 정보는 분류가 되지는 않으나 물질이나 혼합물의 전체적인 유해성에 영향을 미칠 수 있는 기타 유해성에 대한 것임.\",\n          \"line\": \"p2:L16\"\n        }\n      ],\n      \"line\": \"p2:L15\"\n    }\n  ]\n}",
+ "mode": "json_object",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 8462,
+  "completion_tokens": 306,
+  "total_tokens": 8768
+ },
+ "attempts": 2,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "length",
+   "usage": {
+    "prompt_tokens": 5323,
+    "completion_tokens": 8192,
+    "total_tokens": 13515
+   },
+   "seconds": 72.401,
+   "chars": 8296,
+   "whitespace": 8179,
+   "head": "{\n  \"hazard\": {\n    \"classified\": false,\n    \"signal_word\": \"없음\",\n    \"h_statements\": [],\n    \"p_statements\": [],\n    \"nfpa\": {},\n    \"lines\": {\n      \"classified\":                                                                                                                                                                                                                                                                                                                                                ",
+   "tail": "                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    "
+  },
+  {
+   "mode": "json_object",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 8462,
+    "completion_tokens": 306,
+    "total_tokens": 8768
+   },
+   "seconds": 4.044,
+   "chars": 723,
+   "whitespace": 275,
+   "head": "{\n  \"hazard\": {\n    \"classified\": false,\n    \"signal_word\": \"없음\",\n    \"lines\": {\n      \"classified\": \"p2:L12\",\n      \"signal_word\": \"p2:L12\"\n    }\n  },\n  \"narratives\": [],\n  \"extras\": [\n    {\n      \"title_raw\": \"예방조치 문구를 포함한 경고 표지 항목\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"산업안전보건법 제110조에 의거 경고표지 부착 대상 화학물질이 아님.\",\n          \"line\": \"p2:L14\"\n        }\n      ],\n      \"line\": \"p2:L13\"\n    },\n    {\n      \"title_raw\": \"유해성.위험성 분류기준에 포함되지 않는 기타 유해성.위험성\",\n      \"rea",
+   "tail": "son\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"본 항목에서 제공하는 정보는 분류가 되지는 않으나 물질이나 혼합물의 전체적인 유해성에 영향을 미칠 수 있는 기타 유해성에 대한 것임.\",\n          \"line\": \"p2:L16\"\n        }\n      ],\n      \"line\": \"p2:L15\"\n    }\n  ]\n}"
+  }
+ ],
+ "seconds": 76.447,
+ "check_problems": []
+}

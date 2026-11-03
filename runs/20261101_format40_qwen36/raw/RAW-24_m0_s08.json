@@ -1,0 +1,161 @@
+{
+ "doc_id": "RAW-24",
+ "msds_index": 0,
+ "section": 8,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "exposure_limits": [
+   {
+    "comp_name": "안티모니",
+    "comp_cas": null,
+    "standard": "국내",
+    "limit_type": "TWA",
+    "q": {
+     "raw": "0.5 mg/㎥",
+     "value": 0.5,
+     "unit": "mg/m3"
+    },
+    "form": null,
+    "kr_basis": "노출기준",
+    "bio_medium": null,
+    "bio_timing": null,
+    "bio_determinant": null,
+    "notations": [],
+    "line": "p3:L26"
+   },
+   {
+    "comp_name": "안티모니",
+    "comp_cas": null,
+    "standard": "ACGIH",
+    "limit_type": "TWA",
+    "q": {
+     "raw": "0.5 mg/m3",
+     "value": 0.5,
+     "unit": "mg/m3"
+    },
+    "form": null,
+    "kr_basis": null,
+    "bio_medium": null,
+    "bio_timing": null,
+    "bio_determinant": null,
+    "notations": [],
+    "line": "p3:L28"
+   },
+   {
+    "comp_name": "안티모니",
+    "comp_cas": null,
+    "standard": "생물학적",
+    "limit_type": "기타",
+    "q": {
+     "raw": "해당없음"
+    },
+    "form": null,
+    "kr_basis": null,
+    "bio_medium": null,
+    "bio_timing": null,
+    "bio_determinant": null,
+    "notations": [],
+    "line": "p3:L30"
+   }
+  ],
+  "narratives": [
+   {
+    "item_code": "S8_ENG",
+    "title_raw": "나. 적절한 공학적 관리",
+    "start": "p3:L31",
+    "end": "p3:L33"
+   },
+   {
+    "item_code": "S8_RESP",
+    "title_raw": "○ 호흡기 보호",
+    "start": "p3:L35",
+    "end": "p3:L43"
+   },
+   {
+    "item_code": "S8_EYE",
+    "title_raw": "○ 눈 보호",
+    "start": "p3:L44",
+    "end": "p3:L46"
+   },
+   {
+    "item_code": "S8_HAND",
+    "title_raw": "○ 손 보호",
+    "start": "p3:L47",
+    "end": "p3:L49"
+   },
+   {
+    "item_code": "S8_BODY",
+    "title_raw": "○ 신체 보호",
+    "start": "p3:L50",
+    "end": "p4:L2"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S8_END",
+    "title_raw": "가. 화학물질의 노출기준, 생물학적 노출기준 등",
+    "reason": "코드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [
+     {
+      "value": "국내노출기준",
+      "line": "p3:L24"
+     },
+     {
+      "value": "- [안티모니] : TWA : 0.5 mg/㎥ (안티몬과 그 화합물)",
+      "line": "p3:L24"
+     },
+     {
+      "value": "ACGIH노출기준",
+      "line": "p3:L24"
+     },
+     {
+      "value": "- [안티모니] : TWA, 0.5 mg/m3, as Sb",
+      "line": "p3:L24"
+     },
+     {
+      "value": "생물학적 노출기준",
+      "line": "p3:L24"
+     },
+     {
+      "value": "- [안티모니] : 해당없음",
+      "line": "p3:L24"
+     }
+    ],
+    "suggested_code": null,
+    "line": "p3:L24"
+   }
+  ]
+ },
+ "raw_text": "### exposure_limits\ncomp_name | comp_cas | standard | limit_type | q | form | kr_basis | bio_medium | bio_timing | bio_determinant | notations | line\n안티모니 |  | 국내 | TWA | 0.5 mg/㎥ |  | 노출기준 |  |  |  |  | p3:L26\n안티모니 |  | ACGIH | TWA | 0.5 mg/m3 |  |  |  |  |  |  | p3:L28\n안티모니 |  | 생물학적 | 기타 | 해당없음 |  |  |  |  |  |  | p3:L30\n\n### narratives\nitem_code | title_raw | start | end\nS8_ENG | 나. 적절한 공학적 관리 | p3:L31 | p3:L33\nS8_RESP | ○ 호흡기 보호 | p3:L35 | p3:L43\nS8_EYE | ○ 눈 보호 | p3:L44 | p3:L46\nS8_HAND | ○ 손 보호 | p3:L47 | p3:L49\nS8_BODY | ○ 신체 보호 | p3:L50 | p4:L2\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\nS8_END | 가. 화학물질의 노출기준, 생물학적 노출기준 등 | 코드없음 |  |  |  | 국내노출기준; - [안티모니] : TWA : 0.5 mg/㎥ (안티몬과 그 화합물); ACGIH노출기준; - [안티모니] : TWA, 0.5 mg/m3, as Sb; 생물학적 노출기준; - [안티모니] : 해당없음 |  | p3:L24",
+ "mode": "rows",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 3890,
+  "completion_tokens": 414,
+  "total_tokens": 4304
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "rows",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 3890,
+    "completion_tokens": 414,
+    "total_tokens": 4304
+   },
+   "seconds": 8.147,
+   "chars": 853,
+   "whitespace": 218,
+   "head": "### exposure_limits\ncomp_name | comp_cas | standard | limit_type | q | form | kr_basis | bio_medium | bio_timing | bio_determinant | notations | line\n안티모니 |  | 국내 | TWA | 0.5 mg/㎥ |  | 노출기준 |  |  |  |  | p3:L26\n안티모니 |  | ACGIH | TWA | 0.5 mg/m3 |  |  |  |  |  |  | p3:L28\n안티모니 |  | 생물학적 | 기타 | 해당없음 |  |  |  |  |  |  | p3:L30\n\n### narratives\nitem_code | title_raw | start | end\nS8_ENG | 나. 적절한 공학적 관리 | p3:L31 | p3:L33\nS8_RESP | ○ 호흡기 보호 | p3:L35 | p3:L43\nS8_EYE | ○ 눈 보호 | p3:L44 | p3:L46\nS8_HAND | ",
+   "tail": "○ 손 보호 | p3:L47 | p3:L49\nS8_BODY | ○ 신체 보호 | p3:L50 | p4:L2\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\nS8_END | 가. 화학물질의 노출기준, 생물학적 노출기준 등 | 코드없음 |  |  |  | 국내노출기준; - [안티모니] : TWA : 0.5 mg/㎥ (안티몬과 그 화합물); ACGIH노출기준; - [안티모니] : TWA, 0.5 mg/m3, as Sb; 생물학적 노출기준; - [안티모니] : 해당없음 |  | p3:L24"
+  }
+ ],
+ "seconds": 8.151,
+ "check_problems": []
+}

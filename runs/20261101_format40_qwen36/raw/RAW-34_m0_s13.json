@@ -1,0 +1,143 @@
+{
+ "doc_id": "RAW-34",
+ "msds_index": 0,
+ "section": 13,
+ "reextracted": true,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S13_METHOD",
+    "title_raw": "가. 폐기방법",
+    "start": "p8:L22",
+    "end": "p8:L22"
+   },
+   {
+    "item_code": "S13_CAUTION",
+    "title_raw": "나. 폐기시 주의사항",
+    "start": "p8:L24",
+    "end": "p8:L25"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S13_METHOD",
+    "title_raw": "나. 폐기시 주의사항",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "value": "- 국가 규정에 따라 폐기하십시오.",
+      "line": "p8:L24"
+     },
+     {
+      "value": "- 인가받은 폐기물 관리업체에 보내십시오.",
+      "line": "p8:L25"
+     }
+    ],
+    "line": "p8:L23"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S13_METHOD\",\n      \"title_raw\": \"가. 폐기방법\",\n      \"start\": \"p8:L22\",\n      \"end\": \"p8:L22\"\n    },\n    {\n      \"item_code\": \"S13_CAUTION\",\n      \"title_raw\": \"나. 폐기시 주의사항\",\n      \"start\": \"p8:L24\",\n      \"end\": \"p8:L25\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S13_METHOD\",\n      \"title_raw\": \"나. 폐기시 주의사항\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"- 국가 규정에 따라 폐기하십시오.\",\n          \"line\": \"p8:L24\"\n        },\n        {\n          \"value\": \"- 인가받은 폐기물 관리업체에 보내십시오.\",\n          \"line\": \"p8:L25\"\n        }\n      ],\n      \"line\": \"p8:L23\"\n    }\n  ]\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 2050,
+  "completion_tokens": 269,
+  "total_tokens": 2319
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 2050,
+    "completion_tokens": 269,
+    "total_tokens": 2319
+   },
+   "seconds": 5.151,
+   "chars": 635,
+   "whitespace": 253,
+   "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S13_METHOD\",\n      \"title_raw\": \"가. 폐기방법\",\n      \"start\": \"p8:L22\",\n      \"end\": \"p8:L22\"\n    },\n    {\n      \"item_code\": \"S13_CAUTION\",\n      \"title_raw\": \"나. 폐기시 주의사항\",\n      \"start\": \"p8:L24\",\n      \"end\": \"p8:L25\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S13_METHOD\",\n      \"title_raw\": \"나. 폐기시 주의사항\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"- 국가 규정에 따라 폐기하십시오.\",\n          \"line\": \"p8:L24\"\n        },\n ",
+   "tail": "       {\n          \"value\": \"- 인가받은 폐기물 관리업체에 보내십시오.\",\n          \"line\": \"p8:L25\"\n        }\n      ],\n      \"line\": \"p8:L23\"\n    }\n  ]\n}"
+  }
+ ],
+ "seconds": 5.152,
+ "check_problems": [],
+ "first_attempt": {
+  "ok": true,
+  "parsed": {
+   "narratives": [
+    {
+     "item_code": "S13_METHOD",
+     "title_raw": "가. 폐기방법",
+     "start": "L22",
+     "end": "L22"
+    },
+    {
+     "item_code": "S13_CAUTION",
+     "title_raw": "나. 폐기시 주의사항",
+     "start": "L24",
+     "end": "L25"
+    }
+   ],
+   "extras": [
+    {
+     "after_item": "S13_METHOD",
+     "title_raw": "나. 폐기시 주의사항",
+     "reason": "코드없음",
+     "statements": [
+      {
+       "value": "국가 규정에 따라 폐기하십시오.",
+       "line": "L24"
+      },
+      {
+       "value": "인가받은 폐기물 관리업체에 보내십시오.",
+       "line": "L25"
+      }
+     ],
+     "suggested_code": "S13_CAUTION",
+     "line": "L23"
+    }
+   ]
+  },
+  "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S13_METHOD\",\n      \"title_raw\": \"가. 폐기방법\",\n      \"start\": \"L22\",\n      \"end\": \"L22\"\n    },\n    {\n      \"item_code\": \"S13_CAUTION\",\n      \"title_raw\": \"나. 폐기시 주의사항\",\n      \"start\": \"L24\",\n      \"end\": \"L25\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S13_METHOD\",\n      \"title_raw\": \"나. 폐기시 주의사항\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"국가 규정에 따라 폐기하십시오.\"\n        ,\n          \"line\": \"L24\"\n        },\n        {\n          \"value\": \"인가받은 폐기물 관리업체에 보내십시오.\"\n        ,\n          \"line\": \"L25\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S13_CAUTION\"\n    ,\n      \"line\": \"L23\"\n    }\n  ]\n}",
+  "mode": "json_schema",
+  "finish_reason": "stop",
+  "usage": {
+   "prompt_tokens": 1923,
+   "completion_tokens": 280,
+   "total_tokens": 2203
+  },
+  "attempts": 1,
+  "errors": [],
+  "requests": [
+   {
+    "mode": "json_schema",
+    "finish_reason": "stop",
+    "usage": {
+     "prompt_tokens": 1923,
+     "completion_tokens": 280,
+     "total_tokens": 2203
+    },
+    "seconds": 6.136,
+    "chars": 677,
+    "whitespace": 287,
+    "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S13_METHOD\",\n      \"title_raw\": \"가. 폐기방법\",\n      \"start\": \"L22\",\n      \"end\": \"L22\"\n    },\n    {\n      \"item_code\": \"S13_CAUTION\",\n      \"title_raw\": \"나. 폐기시 주의사항\",\n      \"start\": \"L24\",\n      \"end\": \"L25\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S13_METHOD\",\n      \"title_raw\": \"나. 폐기시 주의사항\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"국가 규정에 따라 폐기하십시오.\"\n        ,\n          \"line\": \"L24\"\n        },\n        {",
+    "tail": "\n          \"value\": \"인가받은 폐기물 관리업체에 보내십시오.\"\n        ,\n          \"line\": \"L25\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S13_CAUTION\"\n    ,\n      \"line\": \"L23\"\n    }\n  ]\n}"
+   }
+  ],
+  "seconds": 6.136,
+  "check_problems": [
+   "narratives[0].start: 원문에 없는 줄 번호 L22",
+   "narratives[0].end: 원문에 없는 줄 번호 L22",
+   "narratives[1].start: 원문에 없는 줄 번호 L24",
+   "narratives[1].end: 원문에 없는 줄 번호 L25",
+   "extras[0].statements[0].line: 원문에 없는 줄 번호 L24",
+   "extras[0].statements[1].line: 원문에 없는 줄 번호 L25",
+   "extras[0].line: 원문에 없는 줄 번호 L23"
+  ]
+ }
+}

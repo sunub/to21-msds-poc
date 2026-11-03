@@ -1,0 +1,140 @@
+{
+ "doc_id": "RAW-38",
+ "msds_index": 0,
+ "section": 7,
+ "reextracted": true,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S7_HANDLING",
+    "title_raw": "가. 안전취급요령",
+    "start": "p4:L11",
+    "end": "p4:L18"
+   },
+   {
+    "item_code": "S7_STORAGE",
+    "title_raw": "나. 안전한 저장방법",
+    "start": "p4:L20",
+    "end": "p4:L21"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S9_END",
+    "title_raw": "최종 개정일자",
+    "reason": "필드없음",
+    "q": {
+     "raw": "2018-05-11",
+     "value": 20180511,
+     "unit": "date"
+    },
+    "statements": [
+     {
+      "key": "최종 개정일자",
+      "value": "2018-05-11",
+      "line": "p1:L1"
+     }
+    ],
+    "line": "p1:L1"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S7_HANDLING\",\n      \"title_raw\": \"가. 안전취급요령\",\n      \"start\": \"p4:L11\",\n      \"end\": \"p4:L18\"\n    },\n    {\n      \"item_code\": \"S7_STORAGE\",\n      \"title_raw\": \"나. 안전한 저장방법\",\n      \"start\": \"p4:L20\",\n      \"end\": \"p4:L21\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S9_END\",\n      \"title_raw\": \"최종 개정일자\",\n      \"reason\": \"필드없음\",\n      \"q\": {\n        \"raw\": \"2018-05-11\",\n        \"value\": 20180511,\n        \"unit\": \"date\"\n      },\n      \"statements\": [\n        {\n          \"key\": \"최종 개정일자\",\n          \"value\": \"2018-05-11\",\n          \"line\": \"p1:L1\"\n        }\n      ],\n      \"line\": \"p1:L1\"\n    }\n  ]\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 2150,
+  "completion_tokens": 289,
+  "total_tokens": 2439
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 2150,
+    "completion_tokens": 289,
+    "total_tokens": 2439
+   },
+   "seconds": 4.983,
+   "chars": 653,
+   "whitespace": 260,
+   "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S7_HANDLING\",\n      \"title_raw\": \"가. 안전취급요령\",\n      \"start\": \"p4:L11\",\n      \"end\": \"p4:L18\"\n    },\n    {\n      \"item_code\": \"S7_STORAGE\",\n      \"title_raw\": \"나. 안전한 저장방법\",\n      \"start\": \"p4:L20\",\n      \"end\": \"p4:L21\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S9_END\",\n      \"title_raw\": \"최종 개정일자\",\n      \"reason\": \"필드없음\",\n      \"q\": {\n        \"raw\": \"2018-05-11\",\n        \"value\": 20180511,\n        \"unit\": \"date\"\n      },\n      \"statements\"",
+   "tail": ": [\n        {\n          \"key\": \"최종 개정일자\",\n          \"value\": \"2018-05-11\",\n          \"line\": \"p1:L1\"\n        }\n      ],\n      \"line\": \"p1:L1\"\n    }\n  ]\n}"
+  }
+ ],
+ "seconds": 4.984,
+ "check_problems": [],
+ "first_attempt": {
+  "ok": true,
+  "parsed": {
+   "narratives": [
+    {
+     "item_code": "S7_HANDLING",
+     "title_raw": "가. 안전취급요령",
+     "start": "L11",
+     "end": "L18"
+    },
+    {
+     "item_code": "S7_STORAGE",
+     "title_raw": "나. 안전한 저장방법",
+     "start": "L20",
+     "end": "L21"
+    }
+   ],
+   "extras": [
+    {
+     "after_item": "S9_END",
+     "title_raw": "7. 취급 및 저장방법",
+     "reason": "코드없음",
+     "statements": [
+      {
+       "key": "최종 개정일자",
+       "value": "2018-05-11",
+       "line": "L1"
+      }
+     ],
+     "line": "L1"
+    }
+   ]
+  },
+  "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S7_HANDLING\",\n      \"title_raw\": \"가. 안전취급요령\",\n      \"start\": \"L11\",\n      \"end\": \"L18\"\n    },\n    {\n      \"item_code\": \"S7_STORAGE\",\n      \"title_raw\": \"나. 안전한 저장방법\",\n      \"start\": \"L20\",\n      \"end\": \"L21\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S9_END\",\n      \"title_raw\": \"7. 취급 및 저장방법\",\n      \"reason\": \"코드없음\"\n    ,\n      \"statements\": [\n        {\n          \"key\": \"최종 개정일자\",\n          \"value\": \"2018-05-11\"\n        ,\n          \"line\": \"L1\"\n        }\n      ]\n    ,\n      \"line\": \"L1\"\n    }\n  ]\n}",
+  "mode": "json_schema",
+  "finish_reason": "stop",
+  "usage": {
+   "prompt_tokens": 2045,
+   "completion_tokens": 238,
+   "total_tokens": 2283
+  },
+  "attempts": 1,
+  "errors": [],
+  "requests": [
+   {
+    "mode": "json_schema",
+    "finish_reason": "stop",
+    "usage": {
+     "prompt_tokens": 2045,
+     "completion_tokens": 238,
+     "total_tokens": 2283
+    },
+    "seconds": 5.603,
+    "chars": 558,
+    "whitespace": 236,
+    "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S7_HANDLING\",\n      \"title_raw\": \"가. 안전취급요령\",\n      \"start\": \"L11\",\n      \"end\": \"L18\"\n    },\n    {\n      \"item_code\": \"S7_STORAGE\",\n      \"title_raw\": \"나. 안전한 저장방법\",\n      \"start\": \"L20\",\n      \"end\": \"L21\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S9_END\",\n      \"title_raw\": \"7. 취급 및 저장방법\",\n      \"reason\": \"코드없음\"\n    ,\n      \"statements\": [\n        {\n          \"key\": \"최종 개정일자\",\n          \"value\": \"2018-05-11\"\n        ,\n          \"line\": \"",
+    "tail": "L1\"\n        }\n      ]\n    ,\n      \"line\": \"L1\"\n    }\n  ]\n}"
+   }
+  ],
+  "seconds": 5.604,
+  "check_problems": [
+   "narratives[0].start: 원문에 없는 줄 번호 L11",
+   "narratives[0].end: 원문에 없는 줄 번호 L18",
+   "narratives[1].start: 원문에 없는 줄 번호 L20",
+   "narratives[1].end: 원문에 없는 줄 번호 L21",
+   "extras[0].statements[0].line: 원문에 없는 줄 번호 L1",
+   "extras[0].line: 원문에 없는 줄 번호 L1"
+  ]
+ }
+}

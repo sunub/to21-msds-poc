@@ -1,0 +1,65 @@
+{
+ "doc_id": "RAW-41",
+ "msds_index": 0,
+ "section": 7,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S7_HANDLING",
+    "title_raw": "가. 안전취급요령",
+    "start": "p2:L39",
+    "end": "p2:L41"
+   },
+   {
+    "item_code": "S7_STORAGE",
+    "title_raw": "나. 안전한 저장 방법",
+    "start": "p3:L2",
+    "end": "p3:L2"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S7_HANDLING",
+    "title_raw": "나. 안전한 저장 방법",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "value": "밀봉하여 통풍이 잘되는 곳에 상온(0-40℃)으로 저장한다.",
+      "line": "p3:L2"
+     }
+    ],
+    "line": "p2:L37"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S7_HANDLING\",\n      \"title_raw\": \"가. 안전취급요령\",\n      \"start\": \"p2:L39\",\n      \"end\": \"p2:L41\"\n    },\n    {\n      \"item_code\": \"S7_STORAGE\",\n      \"title_raw\": \"나. 안전한 저장 방법\",\n      \"start\": \"p3:L2\",\n      \"end\": \"p3:L2\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S7_HANDLING\",\n      \"title_raw\": \"나. 안전한 저장 방법\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"밀봉하여 통풍이 잘되는 곳에 상온(0-40℃)으로 저장한다.\"\n       \n      ,\n      \"line\": \"p3:L2\"\n    }\n  ]\n  ,\n  \"line\": \"p2:L37\"\n}\n  ]\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 1951,
+  "completion_tokens": 247,
+  "total_tokens": 2198
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 1951,
+    "completion_tokens": 247,
+    "total_tokens": 2198
+   },
+   "seconds": 5.147,
+   "chars": 555,
+   "whitespace": 208,
+   "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S7_HANDLING\",\n      \"title_raw\": \"가. 안전취급요령\",\n      \"start\": \"p2:L39\",\n      \"end\": \"p2:L41\"\n    },\n    {\n      \"item_code\": \"S7_STORAGE\",\n      \"title_raw\": \"나. 안전한 저장 방법\",\n      \"start\": \"p3:L2\",\n      \"end\": \"p3:L2\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S7_HANDLING\",\n      \"title_raw\": \"나. 안전한 저장 방법\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"밀봉하여 통풍이 잘되는 곳에 상온(0-40℃)으로 저장한다.\"\n       \n      ,\n      \"",
+   "tail": "line\": \"p3:L2\"\n    }\n  ]\n  ,\n  \"line\": \"p2:L37\"\n}\n  ]\n}"
+  }
+ ],
+ "seconds": 5.148,
+ "check_problems": []
+}

@@ -1,0 +1,122 @@
+{
+ "doc_id": "RAW-49",
+ "msds_index": 0,
+ "section": 12,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "ecotox": [
+   {
+    "comp_name": null,
+    "comp_cas": null,
+    "endpoint": "ECO_FISH",
+    "descriptor": "LC50",
+    "q": {
+     "raw": "7.58 mg/L",
+     "value": 7.58,
+     "unit": "mg/L"
+    },
+    "species": "잉어(Carp)",
+    "duration_value": 96,
+    "duration_unit": "hr",
+    "guideline": null,
+    "data_source": null,
+    "statements": [],
+    "status": "값있음",
+    "line": "p5:L5"
+   },
+   {
+    "comp_name": null,
+    "comp_cas": null,
+    "endpoint": "ECO_CRUST",
+    "descriptor": "EC50",
+    "q": {
+     "raw": "0.51 mg/L",
+     "value": 0.51,
+     "unit": "mg/L"
+    },
+    "species": "믈벼룩(Daphnia magna)",
+    "duration_value": 48,
+    "duration_unit": "hr",
+    "guideline": null,
+    "data_source": null,
+    "statements": [],
+    "status": "값있음",
+    "line": "p5:L6"
+   },
+   {
+    "comp_name": null,
+    "comp_cas": null,
+    "endpoint": "ECO_ALGAE",
+    "descriptor": "ErC50",
+    "q": {
+     "raw": "2.06 μg/L",
+     "value": 2.06,
+     "unit": "ug/L"
+    },
+    "species": "조류",
+    "duration_value": 72,
+    "duration_unit": "hr",
+    "guideline": null,
+    "data_source": null,
+    "statements": [],
+    "status": "값있음",
+    "line": "p5:L7"
+   }
+  ],
+  "narratives": [
+   {
+    "item_code": "S12_OTHER",
+    "title_raw": "가. 생태독성 수생환경 유해성(급성) : 구분 1",
+    "start": "p4:L50",
+    "end": "p4:L51"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S12_OTHER",
+    "title_raw": "수생환경 유해성(만성) : 구분 1",
+    "reason": "코드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [
+     {
+      "value": "구분 1",
+      "line": "p4:L51"
+     }
+    ],
+    "suggested_code": "ECO_PERSIST",
+    "line": "p4:L51"
+   }
+  ]
+ },
+ "raw_text": "### ecotox\ncomp_name | comp_cas | endpoint | descriptor | q | species | duration_value | duration_unit | guideline | data_source | statements | status | line\n |  | ECO_FISH | LC50 | 7.58 mg/L | 잉어(Carp) | 96 | hr |  |  |  | 값있음 | p5:L5\n |  | ECO_CRUST | EC50 | 0.51 mg/L | 믈벼룩(Daphnia magna) | 48 | hr |  |  |  | 값있음 | p5:L6\n |  | ECO_ALGAE | ErC50 | 2.06 μg/L | 조류 | 72 | hr |  |  |  | 값있음 | p5:L7\n\n### narratives\nitem_code | title_raw | start | end\nS12_OTHER | 가. 생태독성 수생환경 유해성(급성) : 구분 1 | p4:L50 | p4:L51\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\nS12_OTHER | 수생환경 유해성(만성) : 구분 1 | 코드없음 |  |  |  | 구분 1 | ECO_PERSIST | p4:L51",
+ "mode": "rows",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 3635,
+  "completion_tokens": 300,
+  "total_tokens": 3935
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "rows",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 3635,
+    "completion_tokens": 300,
+    "total_tokens": 3935
+   },
+   "seconds": 5.335,
+   "chars": 694,
+   "whitespace": 170,
+   "head": "### ecotox\ncomp_name | comp_cas | endpoint | descriptor | q | species | duration_value | duration_unit | guideline | data_source | statements | status | line\n |  | ECO_FISH | LC50 | 7.58 mg/L | 잉어(Carp) | 96 | hr |  |  |  | 값있음 | p5:L5\n |  | ECO_CRUST | EC50 | 0.51 mg/L | 믈벼룩(Daphnia magna) | 48 | hr |  |  |  | 값있음 | p5:L6\n |  | ECO_ALGAE | ErC50 | 2.06 μg/L | 조류 | 72 | hr |  |  |  | 값있음 | p5:L7\n\n### narratives\nitem_code | title_raw | start | end\nS12_OTHER | 가. 생태독성 수생환경 유해성(급성) : 구분 1 | p4:L50 ",
+   "tail": "| p4:L51\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\nS12_OTHER | 수생환경 유해성(만성) : 구분 1 | 코드없음 |  |  |  | 구분 1 | ECO_PERSIST | p4:L51"
+  }
+ ],
+ "seconds": 5.336,
+ "check_problems": []
+}
