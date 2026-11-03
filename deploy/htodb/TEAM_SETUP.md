@@ -189,7 +189,7 @@ docker compose --env-file deploy/htodb/.env -f deploy/htodb/compose.yaml exec -T
 
 `extract` 테이블 5개, `judge` 테이블 6개와 적용 이력 7건을 확인합니다. 추출·판정 테이블은 빈 구조입니다. 다른 팀원의 PDF와 추출 결과는 복사되지 않으며, `judge` 테이블이 있다고 판정 API가 완성된 것은 아닙니다.
 
-이 브랜치는 DB 구축 파일만 포함합니다. 추출 API 및 판정 기능은 별도 작업이며, 해당 코드가 머지된 후 팀의 실행 안내를 따릅니다.
+추출 API를 DB 대기열 모드로 실행하는 방법은 [A1 실행 안내](../../docs/A1_작업_흐름_실행.md), 추출 결과 저장과 전달은 [A2 연결 안내](../../docs/A2_단일_PDF_연결.md)를 확인합니다.
 
 ## 7. DBeaver에서 연결
 
