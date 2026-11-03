@@ -50,18 +50,77 @@ def _a_runner(db):
     return r.returncode, r.stdout + r.stderr
 
 
+def _privileges(db):
+    """judge_writer가 extract에서 가진 권한 전부 (표마다 SELECT·INSERT·UPDATE·DELETE, 스키마 CREATE)."""
+    with psycopg.connect(**{**pg_kwargs("admin"), "dbname": db}) as c:
+        tables = [r[0] for r in c.execute("SELECT tablename FROM pg_tables WHERE schemaname = 'extract' ORDER BY 1")]
+        got = {(t, p) for t in tables for p in ("SELECT", "INSERT", "UPDATE", "DELETE")
+               if c.execute("SELECT has_table_privilege('judge_writer', %s, %s)", (f"extract.{t}", p)).fetchone()[0]}
+        if c.execute("SELECT has_schema_privilege('judge_writer', 'extract', 'CREATE')").fetchone()[0]:
+            got.add(("extract", "CREATE"))
+        direct = c.execute("SELECT count(*) FROM pg_class c JOIN pg_namespace n ON n.oid = c.relnamespace, aclexplode(c.relacl) a "
+                           "WHERE n.nspname = 'extract' AND a.grantee = 'judge_writer'::regrole").fetchone()[0]
+    return got, direct
+
+
+def _old_b2_grants(db):
+    """예전 b2_002가 하던 직접 권한."""
+    with psycopg.connect(**{**pg_kwargs("admin"), "dbname": db}, autocommit=True) as c:
+        c.execute("GRANT USAGE ON SCHEMA extract TO judge_writer; GRANT SELECT ON extract.handoff TO judge_writer")
+
+
 def test_B를_깐_뒤에도_A_실행기를_다시_돌릴_수_있다(empty_db):
     b2 = _module("b2_migrate")
     assert _a_runner(empty_db)[0] == 0
     b2.migrate(empty_db)
+    b2.migrate(empty_db)  # 두 번 돌려도 된다
     code, out = _a_runner(empty_db)
     assert code == 0, out
-    with psycopg.connect(**{**pg_kwargs("admin"), "dbname": empty_db}) as c:
-        can = c.execute("SELECT has_table_privilege('judge_writer', 'extract.handoff', 'SELECT'),"
-                        " has_table_privilege('judge_writer', 'extract.handoff', 'UPDATE')").fetchone()
-    assert can == (True, False)
+    assert _privileges(empty_db) == ({("handoff", "SELECT")}, 0)  # 넘김 읽기만, 직접 권한 없이 그룹으로
+    from msds.judge.service import writer_kwargs
+    with psycopg.connect(**writer_kwargs(empty_db)) as c:
+        c.execute("SELECT count(*) FROM extract.handoff")
+        with pytest.raises(psycopg.errors.InsufficientPrivilege):
+            c.execute("SELECT count(*) FROM extract.jobs")
+
+
+def test_예전_직접_권한이_있는_DB는_B가_되돌려_A가_다시_돈다(empty_db):
+    b2 = _module("b2_migrate")
+    assert _a_runner(empty_db)[0] == 0
+    b2.migrate(empty_db)
+    _old_b2_grants(empty_db)
+    assert _a_runner(empty_db)[0] == 1  # 예전 방식이면 A가 멈춘다
+    b2.migrate(empty_db)
+    assert _privileges(empty_db) == ({("handoff", "SELECT")}, 0)
+    assert _a_runner(empty_db)[0] == 0
+
+
+def test_A_권한_단계가_안_끝났으면_B는_권한을_주지_않고_멈춘다(empty_db):
+    # A 실행기가 0007에서 멈춘 상태: 표는 있지만 to21_judge 권한이 없다
+    assert _a_runner(empty_db)[0] == 0
+    with psycopg.connect(**{**pg_kwargs("admin"), "dbname": empty_db}, autocommit=True) as c:
+        c.execute("REVOKE SELECT ON extract.handoff FROM to21_judge")
+    with pytest.raises(SystemExit, match="0007"):
+        _module("b2_migrate").migrate(empty_db)
+    assert _privileges(empty_db)[1] == 0
 
 
 def test_A_설치_전에_B를_돌리면_안내하고_멈춘다(empty_db):
     with pytest.raises(SystemExit, match="A 설치"):
         _module("b2_migrate").migrate(empty_db)
+
+
+def test_없는_DB는_개발용이_아니면_만들지_않는다():
+    name = f"b_install_none_{uuid.uuid4().hex[:6]}"
+    try:
+        with pytest.raises(SystemExit, match="없음"):
+            _module("b2_migrate").migrate(name)
+        with psycopg.connect(**pg_kwargs("admin")) as c:
+            assert not c.execute("SELECT 1 FROM pg_database WHERE datname = %s", (name,)).fetchone()
+    except psycopg.OperationalError as e:
+        pytest.skip(f"PostgreSQL 없음: {e}")
+
+
+def test_개발용은_A_없이_대역_표에_직접_권한을_준다(empty_db):
+    _module("b2_migrate").migrate(empty_db, dev=True)
+    assert _privileges(empty_db)[0] == {("handoff", "SELECT")}
