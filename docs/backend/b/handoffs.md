@@ -64,6 +64,19 @@ B1·B2 작업에서 나온, B가 직접 고치지 않는 일을 담당별로 모
 | 근거부족 줄이 늘어남 | 과대분류로 단정하던 줄이 근거부족이 됐다. 필터·요약 건수 확인 |
 | `judgment.ts` zod 옮기기, 견본 파싱 시험 | 6-screens 끝 절 |
 
+**판정 API를 먼저 붙여 보는 법** (A1 앱에 라우터가 붙기 전, 2026-11-03 확인):
+
+```bash
+# DB: 팀 PostgreSQL에 judge 스키마와 개발용 넘김 표
+cd backend && python scripts/b2_migrate.py --dev
+# 판정 서버 (CORS: localhost·127.0.0.1의 3000·3101 허용, 바꾸려면 MSDS_CORS_ORIGINS)
+MSDS_JUDGE_TEST_API=1 uvicorn --app-dir src msds.api.judge_app:app --port 8011
+```
+
+- 화면 `.env`: `NEXT_PUBLIC_JUDGMENT_API_BASE=http://localhost:8011`
+- 견본 넘김은 `POST /api/judgments/_test/handoffs`로 넣는다(`MSDS_JUDGE_TEST_API=1`일 때만). 25번이 약 3초 뒤 판정·설명까지 나온다.
+- 모델 주소가 없으면 설명은 문장틀로 나온다. 비용 없음.
+
 문의가 왔던 API-12·13의 답:
 
 > API-12·13은 판정 서비스(B2) 담당이고 제가 맡고 있습니다. 다만 그 이름의 경로는 따로 없고, 팀 계약의 `GET /api/judgments/{job_id}` 하나로 목록과 상세를 함께 내려줍니다. 코드는 `b1/judge-engine` 브랜치에 있는데 아직 main에 안 들어갔고 앱에도 안 붙어서, 연결되기 전까지는 계약 견본으로 작업해 주세요.
