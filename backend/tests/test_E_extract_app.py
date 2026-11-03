@@ -378,3 +378,41 @@ def test_real_worker_runs_pipeline_in_background(tmp_path):
         doc = upload(client).json()["id"]
         assert done.wait(5)
         assert client.get(f"/api/documents/{doc}").json()["status"] == "done"
+
+
+def test_to_judgment_needs_reviewer(ctx):
+    client, *_ = ctx
+    doc_id = upload(client).json()["id"]
+    assert client.post(f"/api/documents/{doc_id}/to-judgment", json={}).status_code == 422
+    assert client.post(f"/api/documents/{doc_id}/to-judgment", json={"reviewer": "  "}).status_code == 422
+
+
+def test_to_judgment_unknown_document(ctx):
+    client, *_ = ctx
+    assert client.post("/api/documents/nope/to-judgment", json={"reviewer": "홍길동"}).status_code == 404
+
+
+def test_to_judgment_requires_postgres_store(ctx):
+    client, *_ = ctx
+    doc_id = upload(client).json()["id"]
+    r = client.post(f"/api/documents/{doc_id}/to-judgment", json={"reviewer": "홍길동"})
+    assert r.status_code == 409
+
+
+def test_to_judgment_publishes_values_reviewed_handoff(ctx, monkeypatch):
+    client, store, *_ = ctx
+    doc_id = upload(client).json()["id"]
+    store.dsn, store.schema = "postgresql://unused", "extract"
+    saved = {"extraction": {"doc": {"extraction": {"extracted_at": "2026-11-03T09:00:00+09:00"}}}}
+    monkeypatch.setattr(extract_app.ResultStore, "__init__", lambda self, *a, **k: None)
+    monkeypatch.setattr(extract_app.ResultStore, "get_active", lambda self, job_id: saved)
+    calls = []
+
+    def publish(store_, job_id, **kwargs):
+        calls.append((job_id, kwargs["reason"]))
+        return {"handoff_seq": 2, "as_of": kwargs["as_of"]}
+
+    monkeypatch.setattr(extract_app, "publish_handoff", publish)
+    r = client.post(f"/api/documents/{doc_id}/to-judgment", json={"reviewer": "홍길동"})
+    assert r.status_code == 201 and r.json() == {"job_id": doc_id, "handoff_seq": 2}
+    assert calls == [(doc_id, "values_reviewed")]
