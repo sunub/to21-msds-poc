@@ -230,6 +230,10 @@ def test_completed_result_api_persists_existing_output_and_reports_errors(stores
         assert response.json()['validation']['validator_errors'] == 1
         assert client.post(f"/api/documents/{job['id']}/results/persist").status_code == 200
         assert client.get(f"/api/documents/{job['id']}/result").json()['validation']['status'] == 'invalid'
+        stored = client.get(f"/api/documents/{job['id']}/results/stored")
+        assert stored.status_code == 200
+        assert stored.json()['validation']['validator_errors'] == 1
+        assert stored.json()['to21'] == doc
     finally:
         client.close()
     assert results.get_active(job['id'])['checks'] == review_checks
