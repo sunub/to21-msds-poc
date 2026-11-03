@@ -1,0 +1,772 @@
+{
+  "doc_id": "T21-S005",
+  "bundle": "b5",
+  "model": "claude-opus-5-5",
+  "mode": "claude -p json-schema",
+  "finish_reason": "tool_use",
+  "usage": {
+    "prompt_tokens": 38333,
+    "completion_tokens": 10130,
+    "cached_tokens": 6722,
+    "reasoning_tokens": 1596,
+    "notional_cost_usd": 0.4568244
+  },
+  "seconds": 70.8,
+  "request_usage": [
+    {
+      "prompt_tokens": 38333,
+      "completion_tokens": 10130,
+      "cached_tokens": 6722,
+      "reasoning_tokens": 1596,
+      "notional_cost_usd": 0.4568244
+    }
+  ],
+  "attempts": 1,
+  "errors": [],
+  "parsed": {
+    "msds": [
+      {
+        "narratives": [
+          {
+            "item_code": "S4_EYE",
+            "title_raw": "가. 눈에 들어갔을 때",
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "item_code": "S4_SKIN",
+            "title_raw": "나. 피부에 접촉했을 때",
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "item_code": "S4_INHAL",
+            "title_raw": "다. 흡입했을 때",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "호흡이 힘들 경우 산소를 공급하시오",
+                "text": "호흡이 힘들 경우 산소를 공급하시오"
+              },
+              {
+                "seq": 2,
+                "key": null,
+                "value": "호흡하지 않는 경우 인공호흡을 실시하시오",
+                "text": "호흡하지 않는 경우 인공호흡을 실시하시오"
+              }
+            ]
+          },
+          {
+            "item_code": "S4_INGEST",
+            "title_raw": "라. 먹었을 때",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "의식이 없는 사람에게 입으로 아무것도 먹이지 마시오",
+                "text": "의식이 없는 사람에게 입으로 아무것도 먹이지 마시오"
+              }
+            ]
+          },
+          {
+            "item_code": "S4_DOCTOR",
+            "title_raw": "마. 기타 의사의 주의사항",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "의료인력이 해당물질에 대해 알고 보호조치를 취하도록 하시오",
+                "text": "의료인력이 해당물질에 대해 알고 보호조치를 취하도록 하시오"
+              }
+            ]
+          },
+          {
+            "item_code": "S5_MEDIA",
+            "title_raw": "가. 적절한(부적절한) 소화제",
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "item_code": "S5_SPECIFIC",
+            "title_raw": "나. 화학물질로부터 생기는 특정 유해성",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "가열시 용기가 폭발할 수 있음",
+                "text": "가열시 용기가 폭발할 수 있음"
+              }
+            ]
+          },
+          {
+            "item_code": "S5_FIREFIGHT",
+            "title_raw": "다. 화재진압시 착용할 보호구 및 예방조치",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "용기가 가열, 폭발하여 비산된 물은 피부와 눈에 화상을 입힐 수 있음",
+                "text": "용기가 가열, 폭발하여 비산된 물은 피부와 눈에 화상을 입힐 수 있음"
+              },
+              {
+                "seq": 2,
+                "key": null,
+                "value": "탱크 화재시 소화가 진화된 후에도 다량의 물로 용기를 식히시오",
+                "text": "탱크 화재시 소화가 진화된 후에도 다량의 물로 용기를 식히시오"
+              },
+              {
+                "seq": 3,
+                "key": null,
+                "value": "탱크 화재시 압력 방출장치에서 고음이 있거나 탱크가 변색할 경우 즉시 물러나시오",
+                "text": "탱크 화재시 압력 방출장치에서 고음이 있거나 탱크가 변색할 경우 즉시 물러나시오"
+              },
+              {
+                "seq": 4,
+                "key": null,
+                "value": "탱크 화재시 화염에 휩싸인 탱크에서 물러나시오",
+                "text": "탱크 화재시 화염에 휩싸인 탱크에서 물러나시오"
+              }
+            ]
+          },
+          {
+            "item_code": "S6_PERSONAL",
+            "title_raw": "가. 인체를 보호하기 위해 필요한 조치사항 및 보호구",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "위험하지 않다면 누출을 멈추시오",
+                "text": "위험하지 않다면 누출을 멈추시오"
+              },
+              {
+                "seq": 2,
+                "key": null,
+                "value": "피해야할 물질 및 조건에 유의하시오",
+                "text": "피해야할 물질 및 조건에 유의하시오"
+              }
+            ]
+          },
+          {
+            "item_code": "S6_ENV",
+            "title_raw": "나. 환경을 보호하기 위해 필요한 조치사항",
+            "status": "미기재",
+            "statements": []
+          },
+          {
+            "item_code": "S6_CLEANUP",
+            "title_raw": "다. 정화 또는 제거 방법",
+            "status": "미기재",
+            "statements": []
+          },
+          {
+            "item_code": "S7_HANDLING",
+            "title_raw": "가. 안전취급요령",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "고온에 주의하시오",
+                "text": "고온에 주의하시오"
+              },
+              {
+                "seq": 2,
+                "key": null,
+                "value": "공학적 관리 및 개인보호구를 참조하여 작업하시오",
+                "text": "공학적 관리 및 개인보호구를 참조하여 작업하시오"
+              },
+              {
+                "seq": 3,
+                "key": null,
+                "value": "피해야할 물질 및 조건에 유의하시오",
+                "text": "피해야할 물질 및 조건에 유의하시오"
+              }
+            ]
+          },
+          {
+            "item_code": "S7_STORAGE",
+            "title_raw": "나. 안전한 저장방법",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "피해야할 물질 및 조건에 유의하시오",
+                "text": "피해야할 물질 및 조건에 유의하시오"
+              }
+            ]
+          },
+          {
+            "item_code": "S8_ENG",
+            "title_raw": "나. 적절한 공학적 관리",
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "item_code": "S8_RESP",
+            "title_raw": "호흡기 보호",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "노출되는 기체/액체의 물리화학적 특성에 맞는 산업안전보건공단의 인증을 필한 호흡용 보호구를 착용하시오",
+                "text": "노출되는 기체/액체의 물리화학적 특성에 맞는 산업안전보건공단의 인증을 필한 호흡용 보호구를 착용하시오"
+              },
+              {
+                "seq": 2,
+                "key": null,
+                "value": "기체/액체 물질의 경우 다음과 같은 호흡기 보호구가 권고됨",
+                "text": "기체/액체 물질의 경우 다음과 같은 호흡기 보호구가 권고됨"
+              },
+              {
+                "seq": 3,
+                "key": null,
+                "value": "격리식 전면형 방독마스크(유기화합물용(산성가스인 경우 산성가스용)) 또는 격리식 반면형 방독마스크(유기화합물용(산성가스인 경우 산성가스용)) 또는 직결식 전면형 방독 마스크(유기화합물용(산성가스인 경우 산성가스용)) 또는 반면형 방독 마스크(유기화합물용(산성가스인 경우 산성가스용)) 또는 전동식 방독마스크",
+                "text": "-격리식 전면형 방독마스크(유기화합물용(산성가스인 경우 산성가스용)) 또는 격리식 반면형 방독마스크(유기화합물용(산성가스인 경우 산성가스용)) 또는 직결식 전면형 방독 마스크(유기화합물용(산성가스인 경우 산성가스용)) 또는 반면형 방독 마스크(유기화합물용(산성가스인 경우 산성가스용)) 또는 전동식 방독마스크"
+              },
+              {
+                "seq": 4,
+                "key": null,
+                "value": "산소가 부족한 경우(<19.5%), 송기마스크 혹은 자급식공기호흡기를 착용하시오",
+                "text": "산소가 부족한 경우(<19.5%), 송기마스크 혹은 자급식공기호흡기를 착용하시오",
+                "cond": {
+                  "raw": "<19.5%",
+                  "status": "값있음",
+                  "upper_op": "<",
+                  "upper": 19.5,
+                  "unit": "%",
+                  "dp": 1
+                }
+              }
+            ]
+          },
+          {
+            "item_code": "S8_EYE",
+            "title_raw": "눈 보호",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "눈의 자극을 일으키거나 기타 건강상의 장해를 일으키는 증기상태의 유기물질로부터 눈을 보호하기 위해서는 보안경 혹은 통기성 보안경을 착용하시오",
+                "text": "눈의 자극을 일으키거나 기타 건강상의 장해를 일으키는 증기상태의 유기물질로부터 눈을 보호하기 위해서는 보안경 혹은 통기성 보안경을 착용하시오"
+              },
+              {
+                "seq": 2,
+                "key": null,
+                "value": "근로자가 접근이 용이한 위치에 긴급세척시설(샤워식) 및 세안설비를 설치하시오",
+                "text": "근로자가 접근이 용이한 위치에 긴급세척시설(샤워식) 및 세안설비를 설치하시오"
+              }
+            ]
+          },
+          {
+            "item_code": "S8_HAND",
+            "title_raw": "손 보호",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "화학물질의 물리적 및 화학적 특성을 고려하여 적절한 재질의 보호장갑을 착용하시오",
+                "text": "화학물질의 물리적 및 화학적 특성을 고려하여 적절한 재질의 보호장갑을 착용하시오"
+              }
+            ]
+          },
+          {
+            "item_code": "S8_BODY",
+            "title_raw": "신체 보호",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "필요 시 고온 또는 고압 비산 방어용 보호의를 착용하시오",
+                "text": "필요 시 고온 또는 고압 비산 방어용 보호의를 착용하시오"
+              },
+              {
+                "seq": 2,
+                "key": null,
+                "value": "화학물질의 물리적 및 화학적 특성을 고려하여 적절한 재질의 보호의복을 착용하시오",
+                "text": "화학물질의 물리적 및 화학적 특성을 고려하여 적절한 재질의 보호의복을 착용하시오"
+              }
+            ]
+          },
+          {
+            "item_code": "S10_STABILITY",
+            "title_raw": "가. 화학적 안정성 및 유해 반응의 가능성",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "상온상압조건에서 안정함",
+                "text": "상온상압조건에서 안정함"
+              },
+              {
+                "seq": 2,
+                "key": null,
+                "value": "가열시 용기가 폭발할 수 있음",
+                "text": "가열시 용기가 폭발할 수 있음"
+              }
+            ]
+          },
+          {
+            "item_code": "S10_CONDITIONS",
+            "title_raw": "나. 피해야 할 조건",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "열, 오염",
+                "text": "열, 오염"
+              }
+            ]
+          },
+          {
+            "item_code": "S10_INCOMPAT",
+            "title_raw": "다. 피해야 할 물질",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "물반응성 물질",
+                "text": "물반응성 물질"
+              }
+            ]
+          },
+          {
+            "item_code": "S10_DECOMP",
+            "title_raw": "라. 분해시 생성되는 유해물질",
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "item_code": "S11_ROUTE",
+            "title_raw": "가. 가능성이 높은 노출 경로에 관한 정보",
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "item_code": "S13_METHOD",
+            "title_raw": "가. 폐기방법",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "폐기물관리법에 명시된 경우 규정에 따라 내용물 및 용기를 폐기하시오.",
+                "text": "폐기물관리법에 명시된 경우 규정에 따라 내용물 및 용기를 폐기하시오."
+              }
+            ]
+          },
+          {
+            "item_code": "S13_CAUTION",
+            "title_raw": "나. 폐기시 주의사항",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "폐기물관리법에 명시된 경우 규정에 명시된 주의사항을 고려하시오.",
+                "text": "폐기물관리법에 명시된 경우 규정에 명시된 주의사항을 고려하시오."
+              }
+            ]
+          },
+          {
+            "item_code": "S16_SOURCE",
+            "title_raw": "가.자료의 출처",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": null,
+                "value": "NLM",
+                "text": "NLM"
+              }
+            ]
+          },
+          {
+            "item_code": "S16_OTHER",
+            "title_raw": "라. 기타",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "라. 기타",
+                "value": "자료없음",
+                "text": "자료없음"
+              },
+              {
+                "seq": 2,
+                "key": null,
+                "value": "산업안전보건법 제41조에 의거 유통되는 화학물질 및 화학물질을 함유한 제제의 물질안전보건자료(MSDS)는 해당 물질을 양도하거나 제공(제조·수입·판매자(도·소매업자))하는 자로부터 제공 받으셔야 합니다.",
+                "text": "◎ 산업안전보건법 제41조에 의거 유통되는 화학물질 및 화학물질을 함유한 제제의 물질안전보건자료(MSDS)는 해당 물질을 양도하거나 제공(제조·수입·판매자(도·소매업자))하는 자로부터 제공 받으셔야 합니다."
+              },
+              {
+                "seq": 3,
+                "key": null,
+                "value": "안전보건공단에서 제공되는 MSDS는 MSDS 작성과 검토 시 참고용으로만 활용이 가능하며, 이로 인하여 발생되는 법적인 문제는 공단에 책임을 물을 수 없습니다.",
+                "text": "◎ 안전보건공단에서 제공되는 MSDS는 MSDS 작성과 검토 시 참고용으로만 활용이 가능하며, 이로 인하여 발생되는 법적인 문제는 공단에 책임을 물을 수 없습니다."
+              },
+              {
+                "seq": 4,
+                "key": null,
+                "value": "아울러, 공단의 MSDS는 상업적 용도 등의 외부적인 용도로 사용하는 경우 저작권법 등 관련법규에 위배될 수 있음을 알려드립니다.",
+                "text": "◎ 아울러, 공단의 MSDS는 상업적 용도 등의 외부적인 용도로 사용하는 경우 저작권법 등 관련법규에 위배될 수 있음을 알려드립니다."
+              },
+              {
+                "seq": 5,
+                "key": null,
+                "value": "이 자료를 수정하여 제공하는 권한은 안전보건공단에 있으며, 물질안전보건자료(MSDS)에 대한 문의 사항이 있으시면 아래로 연락주시기 바랍니다.",
+                "text": "◎ 이 자료를 수정하여 제공하는 권한은 안전보건공단에 있으며, 물질안전보건자료(MSDS)에 대한 문의 사항이 있으시면 아래로 연락주시기 바랍니다."
+              },
+              {
+                "seq": 6,
+                "key": "주소",
+                "value": "(305-380) 대전광역시 유성구 엑스포로 339번길 30, 산업안전보건연구원 화학물질센터",
+                "text": "- 주소 : (305-380) 대전광역시 유성구 엑스포로 339번길 30, 산업안전보건연구원 화학물질센터"
+              },
+              {
+                "seq": 7,
+                "key": "전화",
+                "value": "(042)869-0319(대표전화)",
+                "text": "- 전화 : (042)869-0319(대표전화)"
+              },
+              {
+                "seq": 8,
+                "key": null,
+                "value": "Copyright ⓒ by KOSHA. All rights Reserved.",
+                "text": "Copyright ⓒ by KOSHA. All rights Reserved."
+              }
+            ]
+          }
+        ],
+        "extras": [
+          {
+            "seq": 1,
+            "section_no": 0,
+            "after_item": null,
+            "title_raw": "EU NO.",
+            "reason": "필드없음",
+            "comp_ref": "1",
+            "page": 1,
+            "q": null,
+            "statements": [
+              {
+                "seq": 1,
+                "key": "EU NO.",
+                "value": "231-791-2",
+                "text": "물(WATER) | 7732-18-5 | KE-35400 |  | 231-791-2"
+              }
+            ],
+            "suggested_code": "components[].ec_no"
+          }
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "msds_index": 0,
+        "field": "narratives[S4_EYE]",
+        "page": 1,
+        "source_text": "가. 눈에 들어갔을 때  자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[S4_SKIN]",
+        "page": 1,
+        "source_text": "나. 피부에 접촉했을 때  자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[S4_INHAL]",
+        "page": 1,
+        "source_text": "다. 흡입했을 때  호흡이 힘들 경우 산소를 공급하시오\n호흡하지 않는 경우 인공호흡을 실시하시오",
+        "rules": [
+          "R14"
+        ],
+        "note": "줄 단위로 두 문장으로 나눔"
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[S4_INGEST]",
+        "page": 1,
+        "source_text": "라. 먹었을 때  의식이 없는 사람에게 입으로 아무것도 먹이지 마시오",
+        "rules": [
+          "R14"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[S4_DOCTOR]",
+        "page": 1,
+        "source_text": "마. 기타 의사의 주의사항  의료인력이 해당물질에 대해 알고 보호조치를 취하도록 하시오",
+        "rules": [
+          "R14"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[S5_MEDIA]",
+        "page": 1,
+        "source_text": "가. 적절한(부적절한) 소화제  자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[S5_SPECIFIC]",
+        "page": 1,
+        "source_text": "나. 화학물질로부터 생기는 특정 유해성  가열시 용기가 폭발할 수 있음",
+        "rules": [
+          "R14"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[S5_FIREFIGHT]",
+        "page": 1,
+        "source_text": "다. 화재진압시 착용할 보호구 및 예방조치  용기가 가열, 폭발하여 비산된 물은 피부와 눈에 화상을 입힐 수 있음 탱크 화재시 소화가 진화된 후에도 다량의 물로 용기를 식히시오",
+        "rules": [
+          "R14"
+        ],
+        "note": "1쪽 두 줄과 2쪽으로 이어진 두 줄을 합쳐 4문장으로 나눔(2쪽 줄바꿈 '물러나시 오'는 이어붙임)"
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[S6_PERSONAL]",
+        "page": 2,
+        "source_text": "가. 인체를 보호하기 위해 필요한 조치사항 및 보호구  위험하지 않다면 누출을 멈추시오",
+        "rules": [
+          "R14"
+        ],
+        "note": "이미지상 '피해야할 물질 및 조건에 유의하시오'가 가. 항목 아래 둘째 줄이어서 S6_PERSONAL에 넣음"
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[S6_ENV]",
+        "page": 2,
+        "source_text": "나. 환경을 보호하기 위해 필요한 조치사항",
+        "rules": [
+          "R15"
+        ],
+        "note": "항목 줄은 있으나 값이 빈칸이어서 미기재"
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[S6_CLEANUP]",
+        "page": 2,
+        "source_text": "다. 정화 또는 제거 방법",
+        "rules": [
+          "R15"
+        ],
+        "note": "항목 줄은 있으나 값이 빈칸이어서 미기재"
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[S7_HANDLING]",
+        "page": 2,
+        "source_text": "가. 안전취급요령  고온에 주의하시오\n공학적 관리 및 개인보호구를 참조하여 작업하시오\n피해야할 물질 및 조건에 유의하시오",
+        "rules": [
+          "R14"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[S7_STORAGE]",
+        "page": 2,
+        "source_text": "나. 안전한 저장방법  피해야할 물질 및 조건에 유의하시오",
+        "rules": [
+          "R14"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[S8_ENG]",
+        "page": 2,
+        "source_text": "나. 적절한 공학적 관리  자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[S8_RESP]",
+        "page": 2,
+        "source_text": "호흡기 보호  노출되는 기체/액체의 물리화학적 특성에 맞는 산업안전보건공단의 인증을 필한 호 흡용 보호구를 착용하시오",
+        "rules": [
+          "R14",
+          "R04"
+        ],
+        "note": "줄바꿈으로 끊긴 단어를 이어붙이고 4문장으로 나눔. '(<19.5%)'를 cond로 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[S8_EYE]",
+        "page": 2,
+        "source_text": "눈 보호  눈의 자극을 일으키거나 기타 건강상의 장해를 일으키는 증기상태의 유기물질로부 터 눈을 보호하기 위해서는 보안경 혹은 통기성 보안경을 착용하시오",
+        "rules": [
+          "R14"
+        ],
+        "note": "줄바꿈으로 끊긴 단어를 이어붙임"
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[S8_HAND]",
+        "page": 2,
+        "source_text": "손 보호  화학물질의 물리적 및 화학적 특성을 고려하여 적절한 재질의 보호장갑을 착용하시 오",
+        "rules": [
+          "R14"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[S8_BODY]",
+        "page": 2,
+        "source_text": "신체 보호  필요 시 고온 또는 고압 비산 방어용 보호의를 착용하시오",
+        "rules": [
+          "R14"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[S10_STABILITY]",
+        "page": 3,
+        "source_text": "가. 화학적 안정성 및 유해 반응의 가능성  상온상압조건에서 안정함\n가열시 용기가 폭발할 수 있음",
+        "rules": [
+          "R14"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[S10_CONDITIONS]",
+        "page": 3,
+        "source_text": "나. 피해야 할 조건  열, 오염",
+        "rules": [
+          "R14"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[S10_INCOMPAT]",
+        "page": 3,
+        "source_text": "다. 피해야 할 물질  물반응성 물질",
+        "rules": [
+          "R14"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[S10_DECOMP]",
+        "page": 3,
+        "source_text": "라. 분해시 생성되는 유해물질  자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[S11_ROUTE]",
+        "page": 3,
+        "source_text": "가. 가능성이 높은 노출 경로에 관한 정보  자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "이미지 기준 '자료없음'은 가. 항목의 값"
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[S13_METHOD]",
+        "page": 4,
+        "source_text": "가. 폐기방법  폐기물관리법에 명시된 경우 규정에 따라 내용물 및 용기를 폐기하시오.",
+        "rules": [
+          "R14"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[S13_CAUTION]",
+        "page": 4,
+        "source_text": "나. 폐기시 주의사항  폐기물관리법에 명시된 경우 규정에 명시된 주의사항을 고려하시오.",
+        "rules": [
+          "R14"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[S16_SOURCE]",
+        "page": 4,
+        "source_text": "가.자료의 출처\nNLM",
+        "rules": [
+          "R14"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[S16_OTHER]",
+        "page": 4,
+        "source_text": "라. 기타\n자료없음",
+        "rules": [
+          "R14"
+        ],
+        "note": "16항 '라. 기타'와 5쪽 안전보건공단 안내 각주를 S16_OTHER 한 묶음으로 합침; 원 소제목은 key로 남김"
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[S16_OTHER]",
+        "page": 5,
+        "source_text": "◎ 산업안전보건법 제41조에 의거 유통되는 화학물질 및 화학물질을 함유한 제제의 물질안전보건자료",
+        "rules": [
+          "R14"
+        ],
+        "note": "5쪽 끝 각주를 문장 단위로 나누고 주소·전화는 key/value로 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "extras[0]",
+        "page": 1,
+        "source_text": "물(WATER) | 7732-18-5 | KE-35400 |  | 231-791-2",
+        "rules": [
+          "R24"
+        ],
+        "note": "머리글 표의 EU NO.를 담을 칸이 없어 extras에 둠"
+      }
+    ]
+  },
+  "raw_text": "{\"msds\": [{\"narratives\": [{\"item_code\": \"S4_EYE\", \"title_raw\": \"가. 눈에 들어갔을 때\", \"status\": \"자료없음\", \"statements\": []}, {\"item_code\": \"S4_SKIN\", \"title_raw\": \"나. 피부에 접촉했을 때\", \"status\": \"자료없음\", \"statements\": []}, {\"item_code\": \"S4_INHAL\", \"title_raw\": \"다. 흡입했을 때\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"key\": null, \"value\": \"호흡이 힘들 경우 산소를 공급하시오\", \"text\": \"호흡이 힘들 경우 산소를 공급하시오\"}, {\"seq\": 2, \"key\": null, \"value\": \"호흡하지 않는 경우 인공호흡을 실시하시오\", \"text\": \"호흡하지 않는 경우 인공호흡을 실시하시오\"}]}, {\"item_code\": \"S4_INGEST\", \"title_raw\": \"라. 먹었을 때\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"key\": null, \"value\": \"의식이 없는 사람에게 입으로 아무것도 먹이지 마시오\", \"text\": \"의식이 없는 사람에게 입으로 아무것도 먹이지 마시오\"}]}, {\"item_code\": \"S4_DOCTOR\", \"title_raw\": \"마. 기타 의사의 주의사항\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"key\": null, \"value\": \"의료인력이 해당물질에 대해 알고 보호조치를 취하도록 하시오\", \"text\": \"의료인력이 해당물질에 대해 알고 보호조치를 취하도록 하시오\"}]}, {\"item_code\": \"S5_MEDIA\", \"title_raw\": \"가. 적절한(부적절한) 소화제\", \"status\": \"자료없음\", \"statements\": []}, {\"item_code\": \"S5_SPECIFIC\", \"title_raw\": \"나. 화학물질로부터 생기는 특정 유해성\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"key\": null, \"value\": \"가열시 용기가 폭발할 수 있음\", \"text\": \"가열시 용기가 폭발할 수 있음\"}]}, {\"item_code\": \"S5_FIREFIGHT\", \"title_raw\": \"다. 화재진압시 착용할 보호구 및 예방조치\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"key\": null, \"value\": \"용기가 가열, 폭발하여 비산된 물은 피부와 눈에 화상을 입힐 수 있음\", \"text\": \"용기가 가열, 폭발하여 비산된 물은 피부와 눈에 화상을 입힐 수 있음\"}, {\"seq\": 2, \"key\": null, \"value\": \"탱크 화재시 소화가 진화된 후에도 다량의 물로 용기를 식히시오\", \"text\": \"탱크 화재시 소화가 진화된 후에도 다량의 물로 용기를 식히시오\"}, {\"seq\": 3, \"key\": null, \"value\": \"탱크 화재시 압력 방출장치에서 고음이 있거나 탱크가 변색할 경우 즉시 물러나시오\", \"text\": \"탱크 화재시 압력 방출장치에서 고음이 있거나 탱크가 변색할 경우 즉시 물러나시오\"}, {\"seq\": 4, \"key\": null, \"value\": \"탱크 화재시 화염에 휩싸인 탱크에서 물러나시오\", \"text\": \"탱크 화재시 화염에 휩싸인 탱크에서 물러나시오\"}]}, {\"item_code\": \"S6_PERSONAL\", \"title_raw\": \"가. 인체를 보호하기 위해 필요한 조치사항 및 보호구\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"key\": null, \"value\": \"위험하지 않다면 누출을 멈추시오\", \"text\": \"위험하지 않다면 누출을 멈추시오\"}, {\"seq\": 2, \"key\": null, \"value\": \"피해야할 물질 및 조건에 유의하시오\", \"text\": \"피해야할 물질 및 조건에 유의하시오\"}]}, {\"item_code\": \"S6_ENV\", \"title_raw\": \"나. 환경을 보호하기 위해 필요한 조치사항\", \"status\": \"미기재\", \"statements\": []}, {\"item_code\": \"S6_CLEANUP\", \"title_raw\": \"다. 정화 또는 제거 방법\", \"status\": \"미기재\", \"statements\": []}, {\"item_code\": \"S7_HANDLING\", \"title_raw\": \"가. 안전취급요령\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"key\": null, \"value\": \"고온에 주의하시오\", \"text\": \"고온에 주의하시오\"}, {\"seq\": 2, \"key\": null, \"value\": \"공학적 관리 및 개인보호구를 참조하여 작업하시오\", \"text\": \"공학적 관리 및 개인보호구를 참조하여 작업하시오\"}, {\"seq\": 3, \"key\": null, \"value\": \"피해야할 물질 및 조건에 유의하시오\", \"text\": \"피해야할 물질 및 조건에 유의하시오\"}]}, {\"item_code\": \"S7_STORAGE\", \"title_raw\": \"나. 안전한 저장방법\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"key\": null, \"value\": \"피해야할 물질 및 조건에 유의하시오\", \"text\": \"피해야할 물질 및 조건에 유의하시오\"}]}, {\"item_code\": \"S8_ENG\", \"title_raw\": \"나. 적절한 공학적 관리\", \"status\": \"자료없음\", \"statements\": []}, {\"item_code\": \"S8_RESP\", \"title_raw\": \"호흡기 보호\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"key\": null, \"value\": \"노출되는 기체/액체의 물리화학적 특성에 맞는 산업안전보건공단의 인증을 필한 호흡용 보호구를 착용하시오\", \"text\": \"노출되는 기체/액체의 물리화학적 특성에 맞는 산업안전보건공단의 인증을 필한 호흡용 보호구를 착용하시오\"}, {\"seq\": 2, \"key\": null, \"value\": \"기체/액체 물질의 경우 다음과 같은 호흡기 보호구가 권고됨\", \"text\": \"기체/액체 물질의 경우 다음과 같은 호흡기 보호구가 권고됨\"}, {\"seq\": 3, \"key\": null, \"value\": \"격리식 전면형 방독마스크(유기화합물용(산성가스인 경우 산성가스용)) 또는 격리식 반면형 방독마스크(유기화합물용(산성가스인 경우 산성가스용)) 또는 직결식 전면형 방독 마스크(유기화합물용(산성가스인 경우 산성가스용)) 또는 반면형 방독 마스크(유기화합물용(산성가스인 경우 산성가스용)) 또는 전동식 방독마스크\", \"text\": \"-격리식 전면형 방독마스크(유기화합물용(산성가스인 경우 산성가스용)) 또는 격리식 반면형 방독마스크(유기화합물용(산성가스인 경우 산성가스용)) 또는 직결식 전면형 방독 마스크(유기화합물용(산성가스인 경우 산성가스용)) 또는 반면형 방독 마스크(유기화합물용(산성가스인 경우 산성가스용)) 또는 전동식 방독마스크\"}, {\"seq\": 4, \"key\": null, \"value\": \"산소가 부족한 경우(<19.5%), 송기마스크 혹은 자급식공기호흡기를 착용하시오\", \"text\": \"산소가 부족한 경우(<19.5%), 송기마스크 혹은 자급식공기호흡기를 착용하시오\", \"cond\": {\"raw\": \"<19.5%\", \"status\": \"값있음\", \"upper_op\": \"<\", \"upper\": 19.5, \"unit\": \"%\", \"dp\": 1}}]}, {\"item_code\": \"S8_EYE\", \"title_raw\": \"눈 보호\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"key\": null, \"value\": \"눈의 자극을 일으키거나 기타 건강상의 장해를 일으키는 증기상태의 유기물질로부터 눈을 보호하기 위해서는 보안경 혹은 통기성 보안경을 착용하시오\", \"text\": \"눈의 자극을 일으키거나 기타 건강상의 장해를 일으키는 증기상태의 유기물질로부터 눈을 보호하기 위해서는 보안경 혹은 통기성 보안경을 착용하시오\"}, {\"seq\": 2, \"key\": null, \"value\": \"근로자가 접근이 용이한 위치에 긴급세척시설(샤워식) 및 세안설비를 설치하시오\", \"text\": \"근로자가 접근이 용이한 위치에 긴급세척시설(샤워식) 및 세안설비를 설치하시오\"}]}, {\"item_code\": \"S8_HAND\", \"title_raw\": \"손 보호\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"key\": null, \"value\": \"화학물질의 물리적 및 화학적 특성을 고려하여 적절한 재질의 보호장갑을 착용하시오\", \"text\": \"화학물질의 물리적 및 화학적 특성을 고려하여 적절한 재질의 보호장갑을 착용하시오\"}]}, {\"item_code\": \"S8_BODY\", \"title_raw\": \"신체 보호\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"key\": null, \"value\": \"필요 시 고온 또는 고압 비산 방어용 보호의를 착용하시오\", \"text\": \"필요 시 고온 또는 고압 비산 방어용 보호의를 착용하시오\"}, {\"seq\": 2, \"key\": null, \"value\": \"화학물질의 물리적 및 화학적 특성을 고려하여 적절한 재질의 보호의복을 착용하시오\", \"text\": \"화학물질의 물리적 및 화학적 특성을 고려하여 적절한 재질의 보호의복을 착용하시오\"}]}, {\"item_code\": \"S10_STABILITY\", \"title_raw\": \"가. 화학적 안정성 및 유해 반응의 가능성\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"key\": null, \"value\": \"상온상압조건에서 안정함\", \"text\": \"상온상압조건에서 안정함\"}, {\"seq\": 2, \"key\": null, \"value\": \"가열시 용기가 폭발할 수 있음\", \"text\": \"가열시 용기가 폭발할 수 있음\"}]}, {\"item_code\": \"S10_CONDITIONS\", \"title_raw\": \"나. 피해야 할 조건\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"key\": null, \"value\": \"열, 오염\", \"text\": \"열, 오염\"}]}, {\"item_code\": \"S10_INCOMPAT\", \"title_raw\": \"다. 피해야 할 물질\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"key\": null, \"value\": \"물반응성 물질\", \"text\": \"물반응성 물질\"}]}, {\"item_code\": \"S10_DECOMP\", \"title_raw\": \"라. 분해시 생성되는 유해물질\", \"status\": \"자료없음\", \"statements\": []}, {\"item_code\": \"S11_ROUTE\", \"title_raw\": \"가. 가능성이 높은 노출 경로에 관한 정보\", \"status\": \"자료없음\", \"statements\": []}, {\"item_code\": \"S13_METHOD\", \"title_raw\": \"가. 폐기방법\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"key\": null, \"value\": \"폐기물관리법에 명시된 경우 규정에 따라 내용물 및 용기를 폐기하시오.\", \"text\": \"폐기물관리법에 명시된 경우 규정에 따라 내용물 및 용기를 폐기하시오.\"}]}, {\"item_code\": \"S13_CAUTION\", \"title_raw\": \"나. 폐기시 주의사항\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"key\": null, \"value\": \"폐기물관리법에 명시된 경우 규정에 명시된 주의사항을 고려하시오.\", \"text\": \"폐기물관리법에 명시된 경우 규정에 명시된 주의사항을 고려하시오.\"}]}, {\"item_code\": \"S16_SOURCE\", \"title_raw\": \"가.자료의 출처\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"key\": null, \"value\": \"NLM\", \"text\": \"NLM\"}]}, {\"item_code\": \"S16_OTHER\", \"title_raw\": \"라. 기타\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"key\": \"라. 기타\", \"value\": \"자료없음\", \"text\": \"자료없음\"}, {\"seq\": 2, \"key\": null, \"value\": \"산업안전보건법 제41조에 의거 유통되는 화학물질 및 화학물질을 함유한 제제의 물질안전보건자료(MSDS)는 해당 물질을 양도하거나 제공(제조·수입·판매자(도·소매업자))하는 자로부터 제공 받으셔야 합니다.\", \"text\": \"◎ 산업안전보건법 제41조에 의거 유통되는 화학물질 및 화학물질을 함유한 제제의 물질안전보건자료(MSDS)는 해당 물질을 양도하거나 제공(제조·수입·판매자(도·소매업자))하는 자로부터 제공 받으셔야 합니다.\"}, {\"seq\": 3, \"key\": null, \"value\": \"안전보건공단에서 제공되는 MSDS는 MSDS 작성과 검토 시 참고용으로만 활용이 가능하며, 이로 인하여 발생되는 법적인 문제는 공단에 책임을 물을 수 없습니다.\", \"text\": \"◎ 안전보건공단에서 제공되는 MSDS는 MSDS 작성과 검토 시 참고용으로만 활용이 가능하며, 이로 인하여 발생되는 법적인 문제는 공단에 책임을 물을 수 없습니다.\"}, {\"seq\": 4, \"key\": null, \"value\": \"아울러, 공단의 MSDS는 상업적 용도 등의 외부적인 용도로 사용하는 경우 저작권법 등 관련법규에 위배될 수 있음을 알려드립니다.\", \"text\": \"◎ 아울러, 공단의 MSDS는 상업적 용도 등의 외부적인 용도로 사용하는 경우 저작권법 등 관련법규에 위배될 수 있음을 알려드립니다.\"}, {\"seq\": 5, \"key\": null, \"value\": \"이 자료를 수정하여 제공하는 권한은 안전보건공단에 있으며, 물질안전보건자료(MSDS)에 대한 문의 사항이 있으시면 아래로 연락주시기 바랍니다.\", \"text\": \"◎ 이 자료를 수정하여 제공하는 권한은 안전보건공단에 있으며, 물질안전보건자료(MSDS)에 대한 문의 사항이 있으시면 아래로 연락주시기 바랍니다.\"}, {\"seq\": 6, \"key\": \"주소\", \"value\": \"(305-380) 대전광역시 유성구 엑스포로 339번길 30, 산업안전보건연구원 화학물질센터\", \"text\": \"- 주소 : (305-380) 대전광역시 유성구 엑스포로 339번길 30, 산업안전보건연구원 화학물질센터\"}, {\"seq\": 7, \"key\": \"전화\", \"value\": \"(042)869-0319(대표전화)\", \"text\": \"- 전화 : (042)869-0319(대표전화)\"}, {\"seq\": 8, \"key\": null, \"value\": \"Copyright ⓒ by KOSHA. All rights Reserved.\", \"text\": \"Copyright ⓒ by KOSHA. All rights Reserved.\"}]}], \"extras\": [{\"seq\": 1, \"section_no\": 0, \"after_item\": null, \"title_raw\": \"EU NO.\", \"reason\": \"필드없음\", \"comp_ref\": \"1\", \"page\": 1, \"q\": null, \"statements\": [{\"seq\": 1, \"key\": \"EU NO.\", \"value\": \"231-791-2\", \"text\": \"물(WATER) | 7732-18-5 | KE-35400 |  | 231-791-2\"}], \"suggested_code\": \"components[].ec_no\"}]}], \"evidence\": [{\"msds_index\": 0, \"field\": \"narratives[S4_EYE]\", \"page\": 1, \"source_text\": \"가. 눈에 들어갔을 때  자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"narratives[S4_SKIN]\", \"page\": 1, \"source_text\": \"나. 피부에 접촉했을 때  자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"narratives[S4_INHAL]\", \"page\": 1, \"source_text\": \"다. 흡입했을 때  호흡이 힘들 경우 산소를 공급하시오\\n호흡하지 않는 경우 인공호흡을 실시하시오\", \"rules\": [\"R14\"], \"note\": \"줄 단위로 두 문장으로 나눔\"}, {\"msds_index\": 0, \"field\": \"narratives[S4_INGEST]\", \"page\": 1, \"source_text\": \"라. 먹었을 때  의식이 없는 사람에게 입으로 아무것도 먹이지 마시오\", \"rules\": [\"R14\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"narratives[S4_DOCTOR]\", \"page\": 1, \"source_text\": \"마. 기타 의사의 주의사항  의료인력이 해당물질에 대해 알고 보호조치를 취하도록 하시오\", \"rules\": [\"R14\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"narratives[S5_MEDIA]\", \"page\": 1, \"source_text\": \"가. 적절한(부적절한) 소화제  자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"narratives[S5_SPECIFIC]\", \"page\": 1, \"source_text\": \"나. 화학물질로부터 생기는 특정 유해성  가열시 용기가 폭발할 수 있음\", \"rules\": [\"R14\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"narratives[S5_FIREFIGHT]\", \"page\": 1, \"source_text\": \"다. 화재진압시 착용할 보호구 및 예방조치  용기가 가열, 폭발하여 비산된 물은 피부와 눈에 화상을 입힐 수 있음 탱크 화재시 소화가 진화된 후에도 다량의 물로 용기를 식히시오\", \"rules\": [\"R14\"], \"note\": \"1쪽 두 줄과 2쪽으로 이어진 두 줄을 합쳐 4문장으로 나눔(2쪽 줄바꿈 '물러나시 오'는 이어붙임)\"}, {\"msds_index\": 0, \"field\": \"narratives[S6_PERSONAL]\", \"page\": 2, \"source_text\": \"가. 인체를 보호하기 위해 필요한 조치사항 및 보호구  위험하지 않다면 누출을 멈추시오\", \"rules\": [\"R14\"], \"note\": \"이미지상 '피해야할 물질 및 조건에 유의하시오'가 가. 항목 아래 둘째 줄이어서 S6_PERSONAL에 넣음\"}, {\"msds_index\": 0, \"field\": \"narratives[S6_ENV]\", \"page\": 2, \"source_text\": \"나. 환경을 보호하기 위해 필요한 조치사항\", \"rules\": [\"R15\"], \"note\": \"항목 줄은 있으나 값이 빈칸이어서 미기재\"}, {\"msds_index\": 0, \"field\": \"narratives[S6_CLEANUP]\", \"page\": 2, \"source_text\": \"다. 정화 또는 제거 방법\", \"rules\": [\"R15\"], \"note\": \"항목 줄은 있으나 값이 빈칸이어서 미기재\"}, {\"msds_index\": 0, \"field\": \"narratives[S7_HANDLING]\", \"page\": 2, \"source_text\": \"가. 안전취급요령  고온에 주의하시오\\n공학적 관리 및 개인보호구를 참조하여 작업하시오\\n피해야할 물질 및 조건에 유의하시오\", \"rules\": [\"R14\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"narratives[S7_STORAGE]\", \"page\": 2, \"source_text\": \"나. 안전한 저장방법  피해야할 물질 및 조건에 유의하시오\", \"rules\": [\"R14\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"narratives[S8_ENG]\", \"page\": 2, \"source_text\": \"나. 적절한 공학적 관리  자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"narratives[S8_RESP]\", \"page\": 2, \"source_text\": \"호흡기 보호  노출되는 기체/액체의 물리화학적 특성에 맞는 산업안전보건공단의 인증을 필한 호 흡용 보호구를 착용하시오\", \"rules\": [\"R14\", \"R04\"], \"note\": \"줄바꿈으로 끊긴 단어를 이어붙이고 4문장으로 나눔. '(<19.5%)'를 cond로 분리\"}, {\"msds_index\": 0, \"field\": \"narratives[S8_EYE]\", \"page\": 2, \"source_text\": \"눈 보호  눈의 자극을 일으키거나 기타 건강상의 장해를 일으키는 증기상태의 유기물질로부 터 눈을 보호하기 위해서는 보안경 혹은 통기성 보안경을 착용하시오\", \"rules\": [\"R14\"], \"note\": \"줄바꿈으로 끊긴 단어를 이어붙임\"}, {\"msds_index\": 0, \"field\": \"narratives[S8_HAND]\", \"page\": 2, \"source_text\": \"손 보호  화학물질의 물리적 및 화학적 특성을 고려하여 적절한 재질의 보호장갑을 착용하시 오\", \"rules\": [\"R14\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"narratives[S8_BODY]\", \"page\": 2, \"source_text\": \"신체 보호  필요 시 고온 또는 고압 비산 방어용 보호의를 착용하시오\", \"rules\": [\"R14\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"narratives[S10_STABILITY]\", \"page\": 3, \"source_text\": \"가. 화학적 안정성 및 유해 반응의 가능성  상온상압조건에서 안정함\\n가열시 용기가 폭발할 수 있음\", \"rules\": [\"R14\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"narratives[S10_CONDITIONS]\", \"page\": 3, \"source_text\": \"나. 피해야 할 조건  열, 오염\", \"rules\": [\"R14\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"narratives[S10_INCOMPAT]\", \"page\": 3, \"source_text\": \"다. 피해야 할 물질  물반응성 물질\", \"rules\": [\"R14\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"narratives[S10_DECOMP]\", \"page\": 3, \"source_text\": \"라. 분해시 생성되는 유해물질  자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"narratives[S11_ROUTE]\", \"page\": 3, \"source_text\": \"가. 가능성이 높은 노출 경로에 관한 정보  자료없음\", \"rules\": [\"R15\"], \"note\": \"이미지 기준 '자료없음'은 가. 항목의 값\"}, {\"msds_index\": 0, \"field\": \"narratives[S13_METHOD]\", \"page\": 4, \"source_text\": \"가. 폐기방법  폐기물관리법에 명시된 경우 규정에 따라 내용물 및 용기를 폐기하시오.\", \"rules\": [\"R14\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"narratives[S13_CAUTION]\", \"page\": 4, \"source_text\": \"나. 폐기시 주의사항  폐기물관리법에 명시된 경우 규정에 명시된 주의사항을 고려하시오.\", \"rules\": [\"R14\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"narratives[S16_SOURCE]\", \"page\": 4, \"source_text\": \"가.자료의 출처\\nNLM\", \"rules\": [\"R14\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"narratives[S16_OTHER]\", \"page\": 4, \"source_text\": \"라. 기타\\n자료없음\", \"rules\": [\"R14\"], \"note\": \"16항 '라. 기타'와 5쪽 안전보건공단 안내 각주를 S16_OTHER 한 묶음으로 합침; 원 소제목은 key로 남김\"}, {\"msds_index\": 0, \"field\": \"narratives[S16_OTHER]\", \"page\": 5, \"source_text\": \"◎ 산업안전보건법 제41조에 의거 유통되는 화학물질 및 화학물질을 함유한 제제의 물질안전보건자료\", \"rules\": [\"R14\"], \"note\": \"5쪽 끝 각주를 문장 단위로 나누고 주소·전화는 key/value로 분리\"}, {\"msds_index\": 0, \"field\": \"extras[0]\", \"page\": 1, \"source_text\": \"물(WATER) | 7732-18-5 | KE-35400 |  | 231-791-2\", \"rules\": [\"R24\"], \"note\": \"머리글 표의 EU NO.를 담을 칸이 없어 extras에 둠\"}]}"
+}

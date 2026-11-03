@@ -1,0 +1,268 @@
+{
+  "doc_id": "T21-S005",
+  "bundle": "b1",
+  "model": "claude-opus-5-5",
+  "mode": "claude -p json-schema",
+  "finish_reason": "tool_use",
+  "usage": {
+    "prompt_tokens": 42648,
+    "completion_tokens": 2683,
+    "cached_tokens": 11700,
+    "reasoning_tokens": 655,
+    "notional_cost_usd": 0.303576
+  },
+  "seconds": 21.7,
+  "request_usage": [
+    {
+      "prompt_tokens": 42648,
+      "completion_tokens": 2683,
+      "cached_tokens": 11700,
+      "reasoning_tokens": 655,
+      "notional_cost_usd": 0.303576
+    }
+  ],
+  "attempts": 1,
+  "errors": [],
+  "parsed": {
+    "doc": {
+      "language": "ko",
+      "msds_count": 1
+    },
+    "msds": [
+      {
+        "meta": {
+          "msds_no": null,
+          "doc_code": null,
+          "revision_no": null,
+          "revision_label": null,
+          "header_product_name": "물(WATER)",
+          "source_note": null,
+          "first_issue_date": "2012-11-29",
+          "last_revision_date": "2018-04-02",
+          "page_start": 1,
+          "page_end": 5
+        },
+        "product": {
+          "name": "물(WATER)",
+          "code": null,
+          "synonyms": [],
+          "uses": [],
+          "restrictions": [],
+          "use_category_code": null
+        },
+        "companies": [],
+        "hazard": {
+          "classified": null,
+          "classes": [],
+          "signal_word": null,
+          "pictograms": [],
+          "h_statements": [],
+          "p_statements": [],
+          "other_hazards": [],
+          "nfpa": {
+            "health": null,
+            "fire": null,
+            "reactivity": null,
+            "special": null
+          }
+        },
+        "composition": {
+          "type": "단일물질",
+          "no_hazardous_component": false
+        },
+        "components": [
+          {
+            "seq": 1,
+            "name": "물",
+            "name_en": "WATER",
+            "synonyms": [
+              "디수소 산화물(DIHYDROGEN OXIDE)"
+            ],
+            "cas_no": "7732-18-5",
+            "ke_no": "KE-35400",
+            "ec_no": "231-791-2",
+            "other_id": null,
+            "other_id_type": null,
+            "parent_seq": null,
+            "read_across_cas": null,
+            "content": {
+              "raw": "100%",
+              "status": "값있음",
+              "value": 100,
+              "unit": "%",
+              "dp": 0
+            },
+            "content_note": null,
+            "content_basis": "미표기",
+            "trade_secret": false,
+            "approval_no": null,
+            "approval_expiry": null
+          }
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "msds_index": 0,
+        "field": "meta.first_issue_date",
+        "page": 4,
+        "source_text": "나. 최초작성일 | 2012-11-29",
+        "rules": [
+          "R01"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.last_revision_date",
+        "page": 4,
+        "source_text": "최종 개정일자 | 2018-04-02",
+        "rules": [
+          "R01"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.revision_no",
+        "page": 4,
+        "source_text": "개정횟수 | 회",
+        "rules": [
+          "R17"
+        ],
+        "note": "개정횟수 숫자가 빈칸('회'만 기재)이라 null로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.msds_no",
+        "page": null,
+        "source_text": null,
+        "rules": [],
+        "note": "문서에 MSDS 제출번호 표기 없음"
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.header_product_name",
+        "page": 1,
+        "source_text": "물질명 | 물(WATER)",
+        "rules": [],
+        "note": "1쪽 머리 표의 물질명"
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.page_start",
+        "page": 1,
+        "source_text": "1. 화학제품과 회사에 관한 정보",
+        "rules": [
+          "R16"
+        ],
+        "note": "단일 MSDS, 1~5쪽(5쪽은 KOSHA 안내문)"
+      },
+      {
+        "msds_index": 0,
+        "field": "product.name",
+        "page": 1,
+        "source_text": "가. 제품명 | 물(WATER)",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "product.uses",
+        "page": 1,
+        "source_text": "제품의 권고 용도 | 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "자료없음이라 목록 비움"
+      },
+      {
+        "msds_index": 0,
+        "field": "product.restrictions",
+        "page": 1,
+        "source_text": "제품의 사용상의 제한 | 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "자료없음이라 목록 비움"
+      },
+      {
+        "msds_index": 0,
+        "field": "companies",
+        "page": 1,
+        "source_text": "회사명 | 자료없음 / 주소 | 자료없음 / 긴급전화번호 | 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "공급자 정보 모두 자료없음이라 회사 객체 생성 안 함"
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.classified",
+        "page": 1,
+        "source_text": "가. 유해 · 위험성 분류 | 자료없음",
+        "rules": [
+          "R15",
+          "R17"
+        ],
+        "note": "'분류되지 않음'이 아닌 '자료없음'이라 null로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.signal_word",
+        "page": 1,
+        "source_text": "신호어 | 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "맞는 값 없음: 신호어 자료없음이라 null"
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.pictograms",
+        "page": 1,
+        "source_text": "그림문자 | 자료없음",
+        "rules": [],
+        "note": "그림문자 이미지 없음"
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.h_statements",
+        "page": 1,
+        "source_text": "유해·위험문구 | 자료없음",
+        "rules": [],
+        "note": "H문구 없음"
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.p_statements",
+        "page": 1,
+        "source_text": "예방 | 자료없음 / 대응 | 자료없음 / 저장 | 자료없음 / 폐기 | 자료없음",
+        "rules": [],
+        "note": "P문구 없음"
+      },
+      {
+        "msds_index": 0,
+        "field": "composition.type",
+        "page": 1,
+        "source_text": "물질명 | 물(WATER) / 함유량 | 100%",
+        "rules": [],
+        "note": "단일 성분 100%로 단일물질"
+      },
+      {
+        "msds_index": 0,
+        "field": "components[0]",
+        "page": 1,
+        "source_text": "물질명 물(WATER) | 이명(관용명) 디수소 산화물(DIHYDROGEN OXIDE); | CAS번호 7732-18-5 | 함유량 100%",
+        "rules": [
+          "R02",
+          "R03",
+          "R04",
+          "R11"
+        ],
+        "note": "KE-35400, EC 231-791-2는 1쪽 머리 표(물(WATER) | 7732-18-5 | KE-35400 | 231-791-2)에서 가져옴; 함유량 100%를 value 100, unit %로 분해"
+      }
+    ]
+  },
+  "raw_text": "{\"doc\": {\"language\": \"ko\", \"msds_count\": 1}, \"msds\": [{\"meta\": {\"msds_no\": null, \"doc_code\": null, \"revision_no\": null, \"revision_label\": null, \"header_product_name\": \"물(WATER)\", \"source_note\": null, \"first_issue_date\": \"2012-11-29\", \"last_revision_date\": \"2018-04-02\", \"page_start\": 1, \"page_end\": 5}, \"product\": {\"name\": \"물(WATER)\", \"code\": null, \"synonyms\": [], \"uses\": [], \"restrictions\": [], \"use_category_code\": null}, \"companies\": [], \"hazard\": {\"classified\": null, \"classes\": [], \"signal_word\": null, \"pictograms\": [], \"h_statements\": [], \"p_statements\": [], \"other_hazards\": [], \"nfpa\": {\"health\": null, \"fire\": null, \"reactivity\": null, \"special\": null}}, \"composition\": {\"type\": \"단일물질\", \"no_hazardous_component\": false}, \"components\": [{\"seq\": 1, \"name\": \"물\", \"name_en\": \"WATER\", \"synonyms\": [\"디수소 산화물(DIHYDROGEN OXIDE)\"], \"cas_no\": \"7732-18-5\", \"ke_no\": \"KE-35400\", \"ec_no\": \"231-791-2\", \"other_id\": null, \"other_id_type\": null, \"parent_seq\": null, \"read_across_cas\": null, \"content\": {\"raw\": \"100%\", \"status\": \"값있음\", \"value\": 100, \"unit\": \"%\", \"dp\": 0}, \"content_note\": null, \"content_basis\": \"미표기\", \"trade_secret\": false, \"approval_no\": null, \"approval_expiry\": null}]}], \"evidence\": [{\"msds_index\": 0, \"field\": \"meta.first_issue_date\", \"page\": 4, \"source_text\": \"나. 최초작성일 | 2012-11-29\", \"rules\": [\"R01\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"meta.last_revision_date\", \"page\": 4, \"source_text\": \"최종 개정일자 | 2018-04-02\", \"rules\": [\"R01\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"meta.revision_no\", \"page\": 4, \"source_text\": \"개정횟수 | 회\", \"rules\": [\"R17\"], \"note\": \"개정횟수 숫자가 빈칸('회'만 기재)이라 null로 둠\"}, {\"msds_index\": 0, \"field\": \"meta.msds_no\", \"page\": null, \"source_text\": null, \"rules\": [], \"note\": \"문서에 MSDS 제출번호 표기 없음\"}, {\"msds_index\": 0, \"field\": \"meta.header_product_name\", \"page\": 1, \"source_text\": \"물질명 | 물(WATER)\", \"rules\": [], \"note\": \"1쪽 머리 표의 물질명\"}, {\"msds_index\": 0, \"field\": \"meta.page_start\", \"page\": 1, \"source_text\": \"1. 화학제품과 회사에 관한 정보\", \"rules\": [\"R16\"], \"note\": \"단일 MSDS, 1~5쪽(5쪽은 KOSHA 안내문)\"}, {\"msds_index\": 0, \"field\": \"product.name\", \"page\": 1, \"source_text\": \"가. 제품명 | 물(WATER)\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"product.uses\", \"page\": 1, \"source_text\": \"제품의 권고 용도 | 자료없음\", \"rules\": [\"R15\"], \"note\": \"자료없음이라 목록 비움\"}, {\"msds_index\": 0, \"field\": \"product.restrictions\", \"page\": 1, \"source_text\": \"제품의 사용상의 제한 | 자료없음\", \"rules\": [\"R15\"], \"note\": \"자료없음이라 목록 비움\"}, {\"msds_index\": 0, \"field\": \"companies\", \"page\": 1, \"source_text\": \"회사명 | 자료없음 / 주소 | 자료없음 / 긴급전화번호 | 자료없음\", \"rules\": [\"R15\"], \"note\": \"공급자 정보 모두 자료없음이라 회사 객체 생성 안 함\"}, {\"msds_index\": 0, \"field\": \"hazard.classified\", \"page\": 1, \"source_text\": \"가. 유해 · 위험성 분류 | 자료없음\", \"rules\": [\"R15\", \"R17\"], \"note\": \"'분류되지 않음'이 아닌 '자료없음'이라 null로 둠\"}, {\"msds_index\": 0, \"field\": \"hazard.signal_word\", \"page\": 1, \"source_text\": \"신호어 | 자료없음\", \"rules\": [\"R15\"], \"note\": \"맞는 값 없음: 신호어 자료없음이라 null\"}, {\"msds_index\": 0, \"field\": \"hazard.pictograms\", \"page\": 1, \"source_text\": \"그림문자 | 자료없음\", \"rules\": [], \"note\": \"그림문자 이미지 없음\"}, {\"msds_index\": 0, \"field\": \"hazard.h_statements\", \"page\": 1, \"source_text\": \"유해·위험문구 | 자료없음\", \"rules\": [], \"note\": \"H문구 없음\"}, {\"msds_index\": 0, \"field\": \"hazard.p_statements\", \"page\": 1, \"source_text\": \"예방 | 자료없음 / 대응 | 자료없음 / 저장 | 자료없음 / 폐기 | 자료없음\", \"rules\": [], \"note\": \"P문구 없음\"}, {\"msds_index\": 0, \"field\": \"composition.type\", \"page\": 1, \"source_text\": \"물질명 | 물(WATER) / 함유량 | 100%\", \"rules\": [], \"note\": \"단일 성분 100%로 단일물질\"}, {\"msds_index\": 0, \"field\": \"components[0]\", \"page\": 1, \"source_text\": \"물질명 물(WATER) | 이명(관용명) 디수소 산화물(DIHYDROGEN OXIDE); | CAS번호 7732-18-5 | 함유량 100%\", \"rules\": [\"R02\", \"R03\", \"R04\", \"R11\"], \"note\": \"KE-35400, EC 231-791-2는 1쪽 머리 표(물(WATER) | 7732-18-5 | KE-35400 | 231-791-2)에서 가져옴; 함유량 100%를 value 100, unit %로 분해\"}]}"
+}

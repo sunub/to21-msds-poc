@@ -1,0 +1,551 @@
+{
+  "doc_id": "T21-S011",
+  "bundle": "b3",
+  "model": "claude-opus-5-5",
+  "mode": "claude -p json-schema",
+  "finish_reason": "tool_use",
+  "usage": {
+    "prompt_tokens": 50191,
+    "completion_tokens": 5772,
+    "cached_tokens": 8451,
+    "reasoning_tokens": 1131,
+    "notional_cost_usd": 0.45104219999999995
+  },
+  "seconds": 44.4,
+  "request_usage": [
+    {
+      "prompt_tokens": 50191,
+      "completion_tokens": 5772,
+      "cached_tokens": 8451,
+      "reasoning_tokens": 1131,
+      "notional_cost_usd": 0.45104219999999995
+    }
+  ],
+  "attempts": 1,
+  "errors": [],
+  "parsed": {
+    "msds": [
+      {
+        "toxicity": [
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_ORAL",
+            "descriptor": null,
+            "q": {
+              "raw": "자료 없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_DERMAL",
+            "descriptor": null,
+            "q": {
+              "raw": "자료 없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_INHAL",
+            "descriptor": null,
+            "q": {
+              "raw": "자료 없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_SKIN",
+            "descriptor": "결과기술",
+            "classification": "현재 자료에 근거하여 분류 기준에 해당하지 않음",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "피부 부식성/자극성",
+                "value": "현재 자료에 근거하여 분류 기준에 해당하지 않음",
+                "text": "피부 부식성/자극성 | 현재 자료에 근거하여 분류 기준에 해당하지 않음",
+                "refs": [
+                  "1"
+                ]
+              }
+            ]
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_EYE",
+            "descriptor": "결과기술",
+            "classification": "현재 자료에 근거하여 분류 기준에 해당하지 않음",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "심한 눈 손상/자극성",
+                "value": "현재 자료에 근거하여 분류 기준에 해당하지 않음",
+                "text": "심한 눈 손상/자극성 | 현재 자료에 근거하여 분류 기준에 해당하지 않음",
+                "refs": [
+                  "1"
+                ]
+              }
+            ]
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_SKIN_SENS",
+            "descriptor": "결과기술",
+            "classification": "현재 자료에 근거하여 분류 기준에 해당하지 않음",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "피부 과민성",
+                "value": "현재 자료에 근거하여 분류 기준에 해당하지 않음",
+                "text": "피부 과민성 | 현재 자료에 근거하여 분류 기준에 해당하지 않음",
+                "refs": [
+                  "1"
+                ]
+              }
+            ]
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_RESP_SENS",
+            "descriptor": "결과기술",
+            "classification": "현재 자료에 근거하여 분류 기준에 해당하지 않음",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "호흡기 과민성",
+                "value": "현재 자료에 근거하여 분류 기준에 해당하지 않음",
+                "text": "호흡기 과민성 | 현재 자료에 근거하여 분류 기준에 해당하지 않음",
+                "refs": [
+                  "1"
+                ]
+              }
+            ]
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_REPRO",
+            "descriptor": "결과기술",
+            "classification": "현재 자료에 근거하여 분류 기준에 해당하지 않음",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "생식 독성",
+                "value": "현재 자료에 근거하여 분류 기준에 해당하지 않음",
+                "text": "생식 독성 | 현재 자료에 근거하여 분류 기준에 해당하지 않음",
+                "refs": [
+                  "1"
+                ]
+              }
+            ]
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_STOT_SE",
+            "descriptor": "결과기술",
+            "classification": "현재 자료에 근거하여 분류 기준에 해당하지 않음",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "특이적 표적장기 독성 – 1회 노출",
+                "value": "현재 자료에 근거하여 분류 기준에 해당하지 않음",
+                "text": "특이적 표적장기 독성 – 1회 노출 현재 자료에 근거하여 분류 기준에 해당하지 않음",
+                "refs": [
+                  "1"
+                ]
+              }
+            ]
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_STOT_RE",
+            "descriptor": "결과기술",
+            "classification": "현재 자료에 근거하여 분류 기준에 해당하지 않음",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "특이적 표적장기 독성 – 반복 노출",
+                "value": "현재 자료에 근거하여 분류 기준에 해당하지 않음",
+                "text": "특이적 표적장기 독성 – 반복 노출 | 현재 자료에 근거하여 분류 기준에 해당하지 않음",
+                "refs": [
+                  "1"
+                ]
+              }
+            ]
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_ASP",
+            "descriptor": "결과기술",
+            "classification": "현재 자료에 근거하여 분류 기준에 해당하지 않음",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "흡인 유해성",
+                "value": "현재 자료에 근거하여 분류 기준에 해당하지 않음",
+                "text": "흡인 유해성 | 현재 자료에 근거하여 분류 기준에 해당하지 않음",
+                "refs": [
+                  "1"
+                ]
+              }
+            ]
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_MUTA",
+            "descriptor": "결과기술",
+            "classification": "현재 자료에 근거하여 분류 기준에 해당하지 않음",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "생식세포 변이원성",
+                "value": "현재 자료에 근거하여 분류 기준에 해당하지 않음",
+                "text": "생식세포 변이원성 | 현재 자료에 근거하여 분류 기준에 해당하지 않음",
+                "refs": [
+                  "1"
+                ]
+              }
+            ]
+          }
+        ],
+        "cmr": [
+          {
+            "comp_ref": "1",
+            "hazard": "발암성",
+            "agency": "IARC",
+            "class": "3류",
+            "status": "값있음",
+            "note": "인체 발암성으로 분류 불가"
+          },
+          {
+            "comp_ref": "1",
+            "hazard": "발암성",
+            "agency": "NTP",
+            "class": null,
+            "status": null,
+            "note": "미등재"
+          }
+        ],
+        "ecotox": [
+          {
+            "comp_ref": "1",
+            "endpoint": null,
+            "descriptor": null,
+            "q": {
+              "raw": "자료 없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "급성 수생 독성",
+                "value": "자료 없음",
+                "text": "급성 수생 독성 | 자료 없음"
+              }
+            ]
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": null,
+            "descriptor": null,
+            "q": {
+              "raw": "자료 없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "만성 수생 독성",
+                "value": "자료 없음",
+                "text": "만성 수생 독성 | 자료 없음"
+              }
+            ]
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_PERSIST",
+            "descriptor": null,
+            "q": {
+              "raw": "자료 없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_BIOACC",
+            "descriptor": null,
+            "q": {
+              "raw": "자료 없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_SOIL",
+            "descriptor": "Koc",
+            "q": {
+              "raw": "1.54",
+              "value": 1.54,
+              "dp": 2,
+              "status": "값있음",
+              "note": "log Koc, 20°C"
+            },
+            "data_source": "ECHA",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_OTHER",
+            "descriptor": "결과기술",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "PBT/vPvB 평가 결과 [(EC) No 1907/2006 및 수정안 2020/878에 의거]",
+                "value": "PBT/vPvB에 해당하지 않음",
+                "text": "프로필렌 | PBT/vPvB에 해당하지 않음",
+                "refs": [
+                  "1"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "msds_index": 0,
+        "field": "toxicity[0]",
+        "page": 6,
+        "source_text": "급성 독성 | 자료 없음",
+        "rules": [
+          "R15",
+          "R10"
+        ],
+        "note": "'급성 독성 자료 없음'을 경구 행에 적용(경구·경피·흡입 공통 표기)"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[1]",
+        "page": 6,
+        "source_text": "급성 독성 | 자료 없음",
+        "rules": [
+          "R15",
+          "R10"
+        ],
+        "note": "'급성 독성 자료 없음'을 경피 행에 적용(경구·경피·흡입 공통 표기)"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[2]",
+        "page": 6,
+        "source_text": "급성 독성 | 자료 없음",
+        "rules": [
+          "R15",
+          "R10"
+        ],
+        "note": "'급성 독성 자료 없음'을 흡입 행에 적용(경구·경피·흡입 공통 표기)"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[3]",
+        "page": 6,
+        "source_text": "피부 부식성/자극성 | 현재 자료에 근거하여 분류 기준에 해당하지 않음",
+        "rules": [
+          "R10"
+        ],
+        "note": "'기타 정보 (프로필렌)' 표에서 성분 1로 지정"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[4]",
+        "page": 6,
+        "source_text": "심한 눈 손상/자극성 | 현재 자료에 근거하여 분류 기준에 해당하지 않음",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[5]",
+        "page": 6,
+        "source_text": "피부 과민성 | 현재 자료에 근거하여 분류 기준에 해당하지 않음",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[6]",
+        "page": 6,
+        "source_text": "호흡기 과민성 | 현재 자료에 근거하여 분류 기준에 해당하지 않음",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[7]",
+        "page": 6,
+        "source_text": "생식 독성 | 현재 자료에 근거하여 분류 기준에 해당하지 않음",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[8]",
+        "page": 6,
+        "source_text": "특이적 표적장기 독성 – 1회 노출 현재 자료에 근거하여 분류 기준에 해당하지 않음",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[9]",
+        "page": 6,
+        "source_text": "특이적 표적장기 독성 – 반복 노출 | 현재 자료에 근거하여 분류 기준에 해당하지 않음",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[10]",
+        "page": 6,
+        "source_text": "흡인 유해성 | 현재 자료에 근거하여 분류 기준에 해당하지 않음",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[11]",
+        "page": 6,
+        "source_text": "생식세포 변이원성 | 현재 자료에 근거하여 분류 기준에 해당하지 않음",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[0]",
+        "page": 6,
+        "source_text": "프로필렌 | 3류 (인체 발암성으로 분류 불가) | 미등재",
+        "rules": [
+          "R10"
+        ],
+        "note": "IARC 열 '3류'를 class로, 괄호 설명을 note로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[1]",
+        "page": 6,
+        "source_text": "프로필렌 | 3류 (인체 발암성으로 분류 불가) | 미등재",
+        "rules": [
+          "R10"
+        ],
+        "note": "맞는 값 없음: NTP '미등재'는 상태값에 없어 status·class를 null로 두고 note에 원문을 남김"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[0]",
+        "page": 6,
+        "source_text": "급성 수생 독성 | 자료 없음",
+        "rules": [
+          "R15",
+          "R10"
+        ],
+        "note": "맞는 값 없음: '급성 수생 독성'은 어류·갑각류·조류를 특정하지 않아 endpoint를 null로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[1]",
+        "page": 6,
+        "source_text": "만성 수생 독성 | 자료 없음",
+        "rules": [
+          "R15",
+          "R10"
+        ],
+        "note": "맞는 값 없음: '만성 수생 독성'은 생물군을 특정하지 않아 endpoint를 null로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[2]",
+        "page": 6,
+        "source_text": "잔류성 및 분해성 | 자료 없음",
+        "rules": [
+          "R15",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[3]",
+        "page": 6,
+        "source_text": "생물 농축 또는 생물 축적성 | 자료 없음",
+        "rules": [
+          "R15",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[4]",
+        "page": 6,
+        "source_text": "프로필렌 | 1.54 | 20°C | ECHA",
+        "rules": [
+          "R04",
+          "R06",
+          "R10"
+        ],
+        "note": "log Koc 값 1.54를 descriptor Koc로 두고 'log Koc, 20°C'를 q.note에 남김"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[5]",
+        "page": 6,
+        "source_text": "프로필렌 | PBT/vPvB에 해당하지 않음",
+        "rules": [
+          "R10"
+        ],
+        "note": "PBT/vPvB 평가 결과를 ECO_OTHER 결과기술로 둠"
+      }
+    ]
+  },
+  "raw_text": "{\"msds\": [{\"toxicity\": [{\"comp_ref\": \"1\", \"endpoint\": \"TX_ORAL\", \"descriptor\": null, \"q\": {\"raw\": \"자료 없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_DERMAL\", \"descriptor\": null, \"q\": {\"raw\": \"자료 없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_INHAL\", \"descriptor\": null, \"q\": {\"raw\": \"자료 없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_SKIN\", \"descriptor\": \"결과기술\", \"classification\": \"현재 자료에 근거하여 분류 기준에 해당하지 않음\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"key\": \"피부 부식성/자극성\", \"value\": \"현재 자료에 근거하여 분류 기준에 해당하지 않음\", \"text\": \"피부 부식성/자극성 | 현재 자료에 근거하여 분류 기준에 해당하지 않음\", \"refs\": [\"1\"]}]}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_EYE\", \"descriptor\": \"결과기술\", \"classification\": \"현재 자료에 근거하여 분류 기준에 해당하지 않음\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"key\": \"심한 눈 손상/자극성\", \"value\": \"현재 자료에 근거하여 분류 기준에 해당하지 않음\", \"text\": \"심한 눈 손상/자극성 | 현재 자료에 근거하여 분류 기준에 해당하지 않음\", \"refs\": [\"1\"]}]}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_SKIN_SENS\", \"descriptor\": \"결과기술\", \"classification\": \"현재 자료에 근거하여 분류 기준에 해당하지 않음\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"key\": \"피부 과민성\", \"value\": \"현재 자료에 근거하여 분류 기준에 해당하지 않음\", \"text\": \"피부 과민성 | 현재 자료에 근거하여 분류 기준에 해당하지 않음\", \"refs\": [\"1\"]}]}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_RESP_SENS\", \"descriptor\": \"결과기술\", \"classification\": \"현재 자료에 근거하여 분류 기준에 해당하지 않음\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"key\": \"호흡기 과민성\", \"value\": \"현재 자료에 근거하여 분류 기준에 해당하지 않음\", \"text\": \"호흡기 과민성 | 현재 자료에 근거하여 분류 기준에 해당하지 않음\", \"refs\": [\"1\"]}]}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_REPRO\", \"descriptor\": \"결과기술\", \"classification\": \"현재 자료에 근거하여 분류 기준에 해당하지 않음\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"key\": \"생식 독성\", \"value\": \"현재 자료에 근거하여 분류 기준에 해당하지 않음\", \"text\": \"생식 독성 | 현재 자료에 근거하여 분류 기준에 해당하지 않음\", \"refs\": [\"1\"]}]}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_STOT_SE\", \"descriptor\": \"결과기술\", \"classification\": \"현재 자료에 근거하여 분류 기준에 해당하지 않음\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"key\": \"특이적 표적장기 독성 – 1회 노출\", \"value\": \"현재 자료에 근거하여 분류 기준에 해당하지 않음\", \"text\": \"특이적 표적장기 독성 – 1회 노출 현재 자료에 근거하여 분류 기준에 해당하지 않음\", \"refs\": [\"1\"]}]}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_STOT_RE\", \"descriptor\": \"결과기술\", \"classification\": \"현재 자료에 근거하여 분류 기준에 해당하지 않음\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"key\": \"특이적 표적장기 독성 – 반복 노출\", \"value\": \"현재 자료에 근거하여 분류 기준에 해당하지 않음\", \"text\": \"특이적 표적장기 독성 – 반복 노출 | 현재 자료에 근거하여 분류 기준에 해당하지 않음\", \"refs\": [\"1\"]}]}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_ASP\", \"descriptor\": \"결과기술\", \"classification\": \"현재 자료에 근거하여 분류 기준에 해당하지 않음\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"key\": \"흡인 유해성\", \"value\": \"현재 자료에 근거하여 분류 기준에 해당하지 않음\", \"text\": \"흡인 유해성 | 현재 자료에 근거하여 분류 기준에 해당하지 않음\", \"refs\": [\"1\"]}]}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_MUTA\", \"descriptor\": \"결과기술\", \"classification\": \"현재 자료에 근거하여 분류 기준에 해당하지 않음\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"key\": \"생식세포 변이원성\", \"value\": \"현재 자료에 근거하여 분류 기준에 해당하지 않음\", \"text\": \"생식세포 변이원성 | 현재 자료에 근거하여 분류 기준에 해당하지 않음\", \"refs\": [\"1\"]}]}], \"cmr\": [{\"comp_ref\": \"1\", \"hazard\": \"발암성\", \"agency\": \"IARC\", \"class\": \"3류\", \"status\": \"값있음\", \"note\": \"인체 발암성으로 분류 불가\"}, {\"comp_ref\": \"1\", \"hazard\": \"발암성\", \"agency\": \"NTP\", \"class\": null, \"status\": null, \"note\": \"미등재\"}], \"ecotox\": [{\"comp_ref\": \"1\", \"endpoint\": null, \"descriptor\": null, \"q\": {\"raw\": \"자료 없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": [{\"seq\": 1, \"key\": \"급성 수생 독성\", \"value\": \"자료 없음\", \"text\": \"급성 수생 독성 | 자료 없음\"}]}, {\"comp_ref\": \"1\", \"endpoint\": null, \"descriptor\": null, \"q\": {\"raw\": \"자료 없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": [{\"seq\": 1, \"key\": \"만성 수생 독성\", \"value\": \"자료 없음\", \"text\": \"만성 수생 독성 | 자료 없음\"}]}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_PERSIST\", \"descriptor\": null, \"q\": {\"raw\": \"자료 없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_BIOACC\", \"descriptor\": null, \"q\": {\"raw\": \"자료 없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_SOIL\", \"descriptor\": \"Koc\", \"q\": {\"raw\": \"1.54\", \"value\": 1.54, \"dp\": 2, \"status\": \"값있음\", \"note\": \"log Koc, 20°C\"}, \"data_source\": \"ECHA\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_OTHER\", \"descriptor\": \"결과기술\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"key\": \"PBT/vPvB 평가 결과 [(EC) No 1907/2006 및 수정안 2020/878에 의거]\", \"value\": \"PBT/vPvB에 해당하지 않음\", \"text\": \"프로필렌 | PBT/vPvB에 해당하지 않음\", \"refs\": [\"1\"]}]}]}], \"evidence\": [{\"msds_index\": 0, \"field\": \"toxicity[0]\", \"page\": 6, \"source_text\": \"급성 독성 | 자료 없음\", \"rules\": [\"R15\", \"R10\"], \"note\": \"'급성 독성 자료 없음'을 경구 행에 적용(경구·경피·흡입 공통 표기)\"}, {\"msds_index\": 0, \"field\": \"toxicity[1]\", \"page\": 6, \"source_text\": \"급성 독성 | 자료 없음\", \"rules\": [\"R15\", \"R10\"], \"note\": \"'급성 독성 자료 없음'을 경피 행에 적용(경구·경피·흡입 공통 표기)\"}, {\"msds_index\": 0, \"field\": \"toxicity[2]\", \"page\": 6, \"source_text\": \"급성 독성 | 자료 없음\", \"rules\": [\"R15\", \"R10\"], \"note\": \"'급성 독성 자료 없음'을 흡입 행에 적용(경구·경피·흡입 공통 표기)\"}, {\"msds_index\": 0, \"field\": \"toxicity[3]\", \"page\": 6, \"source_text\": \"피부 부식성/자극성 | 현재 자료에 근거하여 분류 기준에 해당하지 않음\", \"rules\": [\"R10\"], \"note\": \"'기타 정보 (프로필렌)' 표에서 성분 1로 지정\"}, {\"msds_index\": 0, \"field\": \"toxicity[4]\", \"page\": 6, \"source_text\": \"심한 눈 손상/자극성 | 현재 자료에 근거하여 분류 기준에 해당하지 않음\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[5]\", \"page\": 6, \"source_text\": \"피부 과민성 | 현재 자료에 근거하여 분류 기준에 해당하지 않음\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[6]\", \"page\": 6, \"source_text\": \"호흡기 과민성 | 현재 자료에 근거하여 분류 기준에 해당하지 않음\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[7]\", \"page\": 6, \"source_text\": \"생식 독성 | 현재 자료에 근거하여 분류 기준에 해당하지 않음\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[8]\", \"page\": 6, \"source_text\": \"특이적 표적장기 독성 – 1회 노출 현재 자료에 근거하여 분류 기준에 해당하지 않음\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[9]\", \"page\": 6, \"source_text\": \"특이적 표적장기 독성 – 반복 노출 | 현재 자료에 근거하여 분류 기준에 해당하지 않음\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[10]\", \"page\": 6, \"source_text\": \"흡인 유해성 | 현재 자료에 근거하여 분류 기준에 해당하지 않음\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[11]\", \"page\": 6, \"source_text\": \"생식세포 변이원성 | 현재 자료에 근거하여 분류 기준에 해당하지 않음\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"cmr[0]\", \"page\": 6, \"source_text\": \"프로필렌 | 3류 (인체 발암성으로 분류 불가) | 미등재\", \"rules\": [\"R10\"], \"note\": \"IARC 열 '3류'를 class로, 괄호 설명을 note로 둠\"}, {\"msds_index\": 0, \"field\": \"cmr[1]\", \"page\": 6, \"source_text\": \"프로필렌 | 3류 (인체 발암성으로 분류 불가) | 미등재\", \"rules\": [\"R10\"], \"note\": \"맞는 값 없음: NTP '미등재'는 상태값에 없어 status·class를 null로 두고 note에 원문을 남김\"}, {\"msds_index\": 0, \"field\": \"ecotox[0]\", \"page\": 6, \"source_text\": \"급성 수생 독성 | 자료 없음\", \"rules\": [\"R15\", \"R10\"], \"note\": \"맞는 값 없음: '급성 수생 독성'은 어류·갑각류·조류를 특정하지 않아 endpoint를 null로 둠\"}, {\"msds_index\": 0, \"field\": \"ecotox[1]\", \"page\": 6, \"source_text\": \"만성 수생 독성 | 자료 없음\", \"rules\": [\"R15\", \"R10\"], \"note\": \"맞는 값 없음: '만성 수생 독성'은 생물군을 특정하지 않아 endpoint를 null로 둠\"}, {\"msds_index\": 0, \"field\": \"ecotox[2]\", \"page\": 6, \"source_text\": \"잔류성 및 분해성 | 자료 없음\", \"rules\": [\"R15\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[3]\", \"page\": 6, \"source_text\": \"생물 농축 또는 생물 축적성 | 자료 없음\", \"rules\": [\"R15\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[4]\", \"page\": 6, \"source_text\": \"프로필렌 | 1.54 | 20°C | ECHA\", \"rules\": [\"R04\", \"R06\", \"R10\"], \"note\": \"log Koc 값 1.54를 descriptor Koc로 두고 'log Koc, 20°C'를 q.note에 남김\"}, {\"msds_index\": 0, \"field\": \"ecotox[5]\", \"page\": 6, \"source_text\": \"프로필렌 | PBT/vPvB에 해당하지 않음\", \"rules\": [\"R10\"], \"note\": \"PBT/vPvB 평가 결과를 ECO_OTHER 결과기술로 둠\"}]}"
+}

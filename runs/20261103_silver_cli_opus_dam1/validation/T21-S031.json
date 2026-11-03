@@ -1,0 +1,36 @@
+{
+  "merge_warnings": [],
+  "input_sources": {
+    "1": "텍스트층",
+    "2": "텍스트층",
+    "3": "텍스트층",
+    "4": "텍스트층",
+    "5": "텍스트층",
+    "6": "텍스트층",
+    "7": "텍스트층"
+  },
+  "missing_bundles": [],
+  "schema_errors": [],
+  "to21_validator": [
+    {
+      "level": "경고",
+      "rule": "V21",
+      "field": "msds[0].meta.header_product_name",
+      "message": "머리글 '600011 : ARMOSLIP CP' ≠ 1항 'ARMOSLIP CP'"
+    },
+    {
+      "level": "경고",
+      "rule": "V13",
+      "field": "msds[0].physchem[18]",
+      "message": "RELATIVE_DENSITY 값 850 범위 밖"
+    },
+    {
+      "level": "경고",
+      "rule": "V15",
+      "field": "msds[0].physchem[6].q",
+      "message": "값 76가 원문 '72 -76 ° C / 162 - 169 ° F'에 없음"
+    }
+  ],
+  "reused_bundles": {},
+  "applicable_conflicts": []
+}

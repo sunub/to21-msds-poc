@@ -1,0 +1,2467 @@
+{
+  "doc_id": "T21-M009",
+  "bundle": "b4",
+  "model": "claude-opus-5-5",
+  "mode": "claude -p json-schema",
+  "finish_reason": "tool_use",
+  "usage": {
+    "prompt_tokens": 470505,
+    "completion_tokens": 26230,
+    "cached_tokens": 321885,
+    "reasoning_tokens": 4632,
+    "notional_cost_usd": 1.7779129999999999
+  },
+  "seconds": 679.7,
+  "request_usage": [
+    {
+      "prompt_tokens": 470505,
+      "completion_tokens": 26230,
+      "cached_tokens": 321885,
+      "reasoning_tokens": 4632,
+      "notional_cost_usd": 1.7779129999999999
+    }
+  ],
+  "attempts": 1,
+  "errors": [],
+  "parsed": {
+    "msds": [
+      {
+        "transport": [
+          {
+            "mode": "공통",
+            "regulated": true,
+            "un_no": "1954",
+            "shipping_name": "COMPRESSED GAS, FLAMMABLE, N.O.S.",
+            "hazard_class": "2.1",
+            "sub_risk": null,
+            "packing_group": "해당없음",
+            "marine_pollutant": "비해당",
+            "ems_fire": "F-D",
+            "ems_spill": "S-U"
+          }
+        ],
+        "regulations": [
+          {
+            "seq": 1,
+            "law": "OSH",
+            "item_code": "OSH_MEASURE",
+            "item_raw": "작업환경측정물질",
+            "comp_ref": "1",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 2,
+            "law": "OSH",
+            "item_code": "OSH_MEASURE",
+            "item_raw": "작업환경측정물질",
+            "comp_ref": "2",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 3,
+            "law": "OSH",
+            "item_code": "OSH_MEASURE",
+            "item_raw": "작업환경측정물질",
+            "comp_ref": "4",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 4,
+            "law": "OSH",
+            "item_code": "OSH_MEASURE",
+            "item_raw": "작업환경측정물질",
+            "comp_ref": "5",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 5,
+            "law": "OSH",
+            "item_code": "OSH_MEASURE",
+            "item_raw": "작업환경측정물질",
+            "comp_ref": "6",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 6,
+            "law": "OSH",
+            "item_code": "OSH_MEASURE",
+            "item_raw": "작업환경측정물질",
+            "comp_ref": "7",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 7,
+            "law": "OSH",
+            "item_code": "OSH_MEASURE",
+            "item_raw": "작업환경측정물질",
+            "comp_ref": "8",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 8,
+            "law": "OSH",
+            "item_code": "OSH_MEASURE",
+            "item_raw": "작업환경측정물질",
+            "comp_ref": "9",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 9,
+            "law": "OSH",
+            "item_code": "OSH_MEASURE",
+            "item_raw": "작업환경측정물질",
+            "comp_ref": "10",
+            "applicable": "비해당",
+            "threshold": {
+              "raw": "1% 이상 함유 시 해당",
+              "lower_op": ">=",
+              "lower": 1,
+              "unit": "%",
+              "status": "값있음"
+            },
+            "value_raw": "해당 없음. (1% 이상 함유 시 해당)"
+          },
+          {
+            "seq": 10,
+            "law": "OSH",
+            "item_code": "OSH_MEASURE",
+            "item_raw": "작업환경측정물질",
+            "comp_ref": "11",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 11,
+            "law": "OSH",
+            "item_code": "OSH_EXPOSURE_STD",
+            "item_raw": "노출기준설정물질",
+            "comp_ref": "1",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 12,
+            "law": "OSH",
+            "item_code": "OSH_EXPOSURE_STD",
+            "item_raw": "노출기준설정물질",
+            "comp_ref": "2",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 13,
+            "law": "OSH",
+            "item_code": "OSH_EXPOSURE_STD",
+            "item_raw": "노출기준설정물질",
+            "comp_ref": "4",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 14,
+            "law": "OSH",
+            "item_code": "OSH_EXPOSURE_STD",
+            "item_raw": "노출기준설정물질",
+            "comp_ref": "5",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 15,
+            "law": "OSH",
+            "item_code": "OSH_EXPOSURE_STD",
+            "item_raw": "노출기준설정물질",
+            "comp_ref": "6",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 16,
+            "law": "OSH",
+            "item_code": "OSH_EXPOSURE_STD",
+            "item_raw": "노출기준설정물질",
+            "comp_ref": "7",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 17,
+            "law": "OSH",
+            "item_code": "OSH_EXPOSURE_STD",
+            "item_raw": "노출기준설정물질",
+            "comp_ref": "8",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 18,
+            "law": "OSH",
+            "item_code": "OSH_EXPOSURE_STD",
+            "item_raw": "노출기준설정물질",
+            "comp_ref": "9",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 19,
+            "law": "OSH",
+            "item_code": "OSH_EXPOSURE_STD",
+            "item_raw": "노출기준설정물질",
+            "comp_ref": "10",
+            "applicable": "해당"
+          },
+          {
+            "seq": 20,
+            "law": "OSH",
+            "item_code": "OSH_EXPOSURE_STD",
+            "item_raw": "노출기준설정물질",
+            "comp_ref": "11",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 21,
+            "law": "OSH",
+            "item_code": "OSH_MANAGED",
+            "item_raw": "관리대상유해물질",
+            "comp_ref": "1",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 22,
+            "law": "OSH",
+            "item_code": "OSH_MANAGED",
+            "item_raw": "관리대상유해물질",
+            "comp_ref": "2",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 23,
+            "law": "OSH",
+            "item_code": "OSH_MANAGED",
+            "item_raw": "관리대상유해물질",
+            "comp_ref": "4",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 24,
+            "law": "OSH",
+            "item_code": "OSH_MANAGED",
+            "item_raw": "관리대상유해물질",
+            "comp_ref": "5",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 25,
+            "law": "OSH",
+            "item_code": "OSH_MANAGED",
+            "item_raw": "관리대상유해물질",
+            "comp_ref": "6",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 26,
+            "law": "OSH",
+            "item_code": "OSH_MANAGED",
+            "item_raw": "관리대상유해물질",
+            "comp_ref": "7",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 27,
+            "law": "OSH",
+            "item_code": "OSH_MANAGED",
+            "item_raw": "관리대상유해물질",
+            "comp_ref": "8",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 28,
+            "law": "OSH",
+            "item_code": "OSH_MANAGED",
+            "item_raw": "관리대상유해물질",
+            "comp_ref": "9",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 29,
+            "law": "OSH",
+            "item_code": "OSH_MANAGED",
+            "item_raw": "관리대상유해물질",
+            "comp_ref": "10",
+            "applicable": "비해당",
+            "threshold": {
+              "raw": "0.1% 이상 함유 시 해당",
+              "lower_op": ">=",
+              "lower": 0.1,
+              "unit": "%",
+              "dp": 1,
+              "status": "값있음"
+            },
+            "value_raw": "해당 없음. (0.1% 이상 함유 시 해당)"
+          },
+          {
+            "seq": 30,
+            "law": "OSH",
+            "item_code": "OSH_MANAGED",
+            "item_raw": "관리대상유해물질",
+            "comp_ref": "11",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 31,
+            "law": "OSH",
+            "item_code": "OSH_HEALTH_EXAM",
+            "item_raw": "특수건강검진대상",
+            "comp_ref": "1",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 32,
+            "law": "OSH",
+            "item_code": "OSH_HEALTH_EXAM",
+            "item_raw": "특수건강검진대상",
+            "comp_ref": "2",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 33,
+            "law": "OSH",
+            "item_code": "OSH_HEALTH_EXAM",
+            "item_raw": "특수건강검진대상",
+            "comp_ref": "4",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 34,
+            "law": "OSH",
+            "item_code": "OSH_HEALTH_EXAM",
+            "item_raw": "특수건강검진대상",
+            "comp_ref": "5",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 35,
+            "law": "OSH",
+            "item_code": "OSH_HEALTH_EXAM",
+            "item_raw": "특수건강검진대상",
+            "comp_ref": "6",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 36,
+            "law": "OSH",
+            "item_code": "OSH_HEALTH_EXAM",
+            "item_raw": "특수건강검진대상",
+            "comp_ref": "7",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 37,
+            "law": "OSH",
+            "item_code": "OSH_HEALTH_EXAM",
+            "item_raw": "특수건강검진대상",
+            "comp_ref": "8",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 38,
+            "law": "OSH",
+            "item_code": "OSH_HEALTH_EXAM",
+            "item_raw": "특수건강검진대상",
+            "comp_ref": "9",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 39,
+            "law": "OSH",
+            "item_code": "OSH_HEALTH_EXAM",
+            "item_raw": "특수건강검진대상",
+            "comp_ref": "10",
+            "applicable": "비해당",
+            "threshold": {
+              "raw": "1% 이상 함유 시 해당",
+              "lower_op": ">=",
+              "lower": 1,
+              "unit": "%",
+              "status": "값있음"
+            },
+            "value_raw": "해당 없음. (1% 이상 함유 시 해당)"
+          },
+          {
+            "seq": 40,
+            "law": "OSH",
+            "item_code": "OSH_HEALTH_EXAM",
+            "item_raw": "특수건강검진대상",
+            "comp_ref": "11",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 41,
+            "law": "OSH",
+            "item_code": "OSH_PROHIBIT",
+            "item_raw": "제조등금지물질",
+            "comp_ref": "1",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 42,
+            "law": "OSH",
+            "item_code": "OSH_PROHIBIT",
+            "item_raw": "제조등금지물질",
+            "comp_ref": "2",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 43,
+            "law": "OSH",
+            "item_code": "OSH_PROHIBIT",
+            "item_raw": "제조등금지물질",
+            "comp_ref": "4",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 44,
+            "law": "OSH",
+            "item_code": "OSH_PROHIBIT",
+            "item_raw": "제조등금지물질",
+            "comp_ref": "5",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 45,
+            "law": "OSH",
+            "item_code": "OSH_PROHIBIT",
+            "item_raw": "제조등금지물질",
+            "comp_ref": "6",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 46,
+            "law": "OSH",
+            "item_code": "OSH_PROHIBIT",
+            "item_raw": "제조등금지물질",
+            "comp_ref": "7",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 47,
+            "law": "OSH",
+            "item_code": "OSH_PROHIBIT",
+            "item_raw": "제조등금지물질",
+            "comp_ref": "8",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 48,
+            "law": "OSH",
+            "item_code": "OSH_PROHIBIT",
+            "item_raw": "제조등금지물질",
+            "comp_ref": "9",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 49,
+            "law": "OSH",
+            "item_code": "OSH_PROHIBIT",
+            "item_raw": "제조등금지물질",
+            "comp_ref": "10",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 50,
+            "law": "OSH",
+            "item_code": "OSH_PROHIBIT",
+            "item_raw": "제조등금지물질",
+            "comp_ref": "11",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 51,
+            "law": "OSH",
+            "item_code": "OSH_PERMIT",
+            "item_raw": "허가대상물질",
+            "comp_ref": "1",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 52,
+            "law": "OSH",
+            "item_code": "OSH_PERMIT",
+            "item_raw": "허가대상물질",
+            "comp_ref": "2",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 53,
+            "law": "OSH",
+            "item_code": "OSH_PERMIT",
+            "item_raw": "허가대상물질",
+            "comp_ref": "4",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 54,
+            "law": "OSH",
+            "item_code": "OSH_PERMIT",
+            "item_raw": "허가대상물질",
+            "comp_ref": "5",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 55,
+            "law": "OSH",
+            "item_code": "OSH_PERMIT",
+            "item_raw": "허가대상물질",
+            "comp_ref": "6",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 56,
+            "law": "OSH",
+            "item_code": "OSH_PERMIT",
+            "item_raw": "허가대상물질",
+            "comp_ref": "7",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 57,
+            "law": "OSH",
+            "item_code": "OSH_PERMIT",
+            "item_raw": "허가대상물질",
+            "comp_ref": "8",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 58,
+            "law": "OSH",
+            "item_code": "OSH_PERMIT",
+            "item_raw": "허가대상물질",
+            "comp_ref": "9",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 59,
+            "law": "OSH",
+            "item_code": "OSH_PERMIT",
+            "item_raw": "허가대상물질",
+            "comp_ref": "10",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 60,
+            "law": "OSH",
+            "item_code": "OSH_PERMIT",
+            "item_raw": "허가대상물질",
+            "comp_ref": "11",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 61,
+            "law": "OSH",
+            "item_code": "OSH_PSM",
+            "item_raw": "PSM 대상물질",
+            "comp_ref": "1",
+            "applicable": "해당"
+          },
+          {
+            "seq": 62,
+            "law": "OSH",
+            "item_code": "OSH_PSM",
+            "item_raw": "PSM 대상물질",
+            "comp_ref": "2",
+            "applicable": "해당"
+          },
+          {
+            "seq": 63,
+            "law": "OSH",
+            "item_code": "OSH_PSM",
+            "item_raw": "PSM 대상물질",
+            "comp_ref": "4",
+            "applicable": "해당"
+          },
+          {
+            "seq": 64,
+            "law": "OSH",
+            "item_code": "OSH_PSM",
+            "item_raw": "PSM 대상물질",
+            "comp_ref": "5",
+            "applicable": "해당"
+          },
+          {
+            "seq": 65,
+            "law": "OSH",
+            "item_code": "OSH_PSM",
+            "item_raw": "PSM 대상물질",
+            "comp_ref": "6",
+            "applicable": "해당"
+          },
+          {
+            "seq": 66,
+            "law": "OSH",
+            "item_code": "OSH_PSM",
+            "item_raw": "PSM 대상물질",
+            "comp_ref": "7",
+            "applicable": "해당"
+          },
+          {
+            "seq": 67,
+            "law": "OSH",
+            "item_code": "OSH_PSM",
+            "item_raw": "PSM 대상물질",
+            "comp_ref": "8",
+            "applicable": "해당"
+          },
+          {
+            "seq": 68,
+            "law": "OSH",
+            "item_code": "OSH_PSM",
+            "item_raw": "PSM 대상물질",
+            "comp_ref": "9",
+            "applicable": "해당"
+          },
+          {
+            "seq": 69,
+            "law": "OSH",
+            "item_code": "OSH_PSM",
+            "item_raw": "PSM 대상물질",
+            "comp_ref": "10",
+            "applicable": "해당"
+          },
+          {
+            "seq": 70,
+            "law": "OSH",
+            "item_code": "OSH_PSM",
+            "item_raw": "PSM 대상물질",
+            "comp_ref": "11",
+            "applicable": "해당"
+          },
+          {
+            "seq": 71,
+            "law": "OSH",
+            "item_code": "OSH_PSM",
+            "item_raw": "PSM 대상",
+            "comp_ref": "MIX",
+            "applicable": "해당",
+            "value_raw": "제품도 PSM 대상임 (인화성 가스)",
+            "remark": "인화성 가스"
+          },
+          {
+            "seq": 72,
+            "law": "OSH",
+            "item_code": "OSH_PERMISSIBLE",
+            "item_raw": "허용기준설정물질",
+            "comp_ref": "1",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 73,
+            "law": "OSH",
+            "item_code": "OSH_PERMISSIBLE",
+            "item_raw": "허용기준설정물질",
+            "comp_ref": "2",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 74,
+            "law": "OSH",
+            "item_code": "OSH_PERMISSIBLE",
+            "item_raw": "허용기준설정물질",
+            "comp_ref": "4",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 75,
+            "law": "OSH",
+            "item_code": "OSH_PERMISSIBLE",
+            "item_raw": "허용기준설정물질",
+            "comp_ref": "5",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 76,
+            "law": "OSH",
+            "item_code": "OSH_PERMISSIBLE",
+            "item_raw": "허용기준설정물질",
+            "comp_ref": "6",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 77,
+            "law": "OSH",
+            "item_code": "OSH_PERMISSIBLE",
+            "item_raw": "허용기준설정물질",
+            "comp_ref": "7",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 78,
+            "law": "OSH",
+            "item_code": "OSH_PERMISSIBLE",
+            "item_raw": "허용기준설정물질",
+            "comp_ref": "8",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 79,
+            "law": "OSH",
+            "item_code": "OSH_PERMISSIBLE",
+            "item_raw": "허용기준설정물질",
+            "comp_ref": "9",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 80,
+            "law": "OSH",
+            "item_code": "OSH_PERMISSIBLE",
+            "item_raw": "허용기준설정물질",
+            "comp_ref": "10",
+            "applicable": "해당"
+          },
+          {
+            "seq": 81,
+            "law": "OSH",
+            "item_code": "OSH_PERMISSIBLE",
+            "item_raw": "허용기준설정물질",
+            "comp_ref": "11",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 82,
+            "law": "CCA",
+            "item_code": "CCA_TOXIC",
+            "item_raw": "유독물질",
+            "comp_ref": "1",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 83,
+            "law": "CCA",
+            "item_code": "CCA_TOXIC",
+            "item_raw": "유독물질",
+            "comp_ref": "2",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 84,
+            "law": "CCA",
+            "item_code": "CCA_TOXIC",
+            "item_raw": "유독물질",
+            "comp_ref": "4",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 85,
+            "law": "CCA",
+            "item_code": "CCA_TOXIC",
+            "item_raw": "유독물질",
+            "comp_ref": "5",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 86,
+            "law": "CCA",
+            "item_code": "CCA_TOXIC",
+            "item_raw": "유독물질",
+            "comp_ref": "6",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 87,
+            "law": "CCA",
+            "item_code": "CCA_TOXIC",
+            "item_raw": "유독물질",
+            "comp_ref": "7",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 88,
+            "law": "CCA",
+            "item_code": "CCA_TOXIC",
+            "item_raw": "유독물질",
+            "comp_ref": "8",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 89,
+            "law": "CCA",
+            "item_code": "CCA_TOXIC",
+            "item_raw": "유독물질",
+            "comp_ref": "9",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 90,
+            "law": "CCA",
+            "item_code": "CCA_TOXIC",
+            "item_raw": "유독물질",
+            "comp_ref": "10",
+            "applicable": "비해당",
+            "threshold": {
+              "raw": "0.1% 이상 함유 시 해당",
+              "lower_op": ">=",
+              "lower": 0.1,
+              "unit": "%",
+              "dp": 1,
+              "status": "값있음"
+            },
+            "value_raw": "해당 없음. (0.1% 이상 함유 시 해당)"
+          },
+          {
+            "seq": 91,
+            "law": "CCA",
+            "item_code": "CCA_TOXIC",
+            "item_raw": "유독물질",
+            "comp_ref": "11",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 92,
+            "law": "CCA",
+            "item_code": "CCA_PRTR",
+            "item_raw": "배출량조사대상물질",
+            "comp_ref": "1",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 93,
+            "law": "CCA",
+            "item_code": "CCA_PRTR",
+            "item_raw": "배출량조사대상물질",
+            "comp_ref": "2",
+            "applicable": "비해당",
+            "threshold": {
+              "raw": "1% 이상 함유 시 해당",
+              "lower_op": ">=",
+              "lower": 1,
+              "unit": "%",
+              "status": "값있음"
+            },
+            "value_raw": "해당 없음. (1% 이상 함유 시 해당)"
+          },
+          {
+            "seq": 94,
+            "law": "CCA",
+            "item_code": "CCA_PRTR",
+            "item_raw": "배출량조사대상물질",
+            "comp_ref": "4",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 95,
+            "law": "CCA",
+            "item_code": "CCA_PRTR",
+            "item_raw": "배출량조사대상물질",
+            "comp_ref": "5",
+            "applicable": "해당"
+          },
+          {
+            "seq": 96,
+            "law": "CCA",
+            "item_code": "CCA_PRTR",
+            "item_raw": "배출량조사대상물질",
+            "comp_ref": "6",
+            "applicable": "해당"
+          },
+          {
+            "seq": 97,
+            "law": "CCA",
+            "item_code": "CCA_PRTR",
+            "item_raw": "배출량조사대상물질",
+            "comp_ref": "7",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 98,
+            "law": "CCA",
+            "item_code": "CCA_PRTR",
+            "item_raw": "배출량조사대상물질",
+            "comp_ref": "8",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 99,
+            "law": "CCA",
+            "item_code": "CCA_PRTR",
+            "item_raw": "배출량조사대상물질",
+            "comp_ref": "9",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 100,
+            "law": "CCA",
+            "item_code": "CCA_PRTR",
+            "item_raw": "배출량조사대상물질",
+            "comp_ref": "10",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 101,
+            "law": "CCA",
+            "item_code": "CCA_PRTR",
+            "item_raw": "배출량조사대상물질",
+            "comp_ref": "11",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 102,
+            "law": "CCA",
+            "item_code": "CCA_ACCIDENT",
+            "item_raw": "사고대비물질",
+            "comp_ref": "1",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 103,
+            "law": "CCA",
+            "item_code": "CCA_ACCIDENT",
+            "item_raw": "사고대비물질",
+            "comp_ref": "2",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 104,
+            "law": "CCA",
+            "item_code": "CCA_ACCIDENT",
+            "item_raw": "사고대비물질",
+            "comp_ref": "4",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 105,
+            "law": "CCA",
+            "item_code": "CCA_ACCIDENT",
+            "item_raw": "사고대비물질",
+            "comp_ref": "5",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 106,
+            "law": "CCA",
+            "item_code": "CCA_ACCIDENT",
+            "item_raw": "사고대비물질",
+            "comp_ref": "6",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 107,
+            "law": "CCA",
+            "item_code": "CCA_ACCIDENT",
+            "item_raw": "사고대비물질",
+            "comp_ref": "7",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 108,
+            "law": "CCA",
+            "item_code": "CCA_ACCIDENT",
+            "item_raw": "사고대비물질",
+            "comp_ref": "8",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 109,
+            "law": "CCA",
+            "item_code": "CCA_ACCIDENT",
+            "item_raw": "사고대비물질",
+            "comp_ref": "9",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 110,
+            "law": "CCA",
+            "item_code": "CCA_ACCIDENT",
+            "item_raw": "사고대비물질",
+            "comp_ref": "10",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 111,
+            "law": "CCA",
+            "item_code": "CCA_ACCIDENT",
+            "item_raw": "사고대비물질",
+            "comp_ref": "11",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 112,
+            "law": "CCA",
+            "item_code": "CCA_RESTRICT",
+            "item_raw": "제한물질",
+            "comp_ref": "1",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 113,
+            "law": "CCA",
+            "item_code": "CCA_RESTRICT",
+            "item_raw": "제한물질",
+            "comp_ref": "2",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 114,
+            "law": "CCA",
+            "item_code": "CCA_RESTRICT",
+            "item_raw": "제한물질",
+            "comp_ref": "4",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 115,
+            "law": "CCA",
+            "item_code": "CCA_RESTRICT",
+            "item_raw": "제한물질",
+            "comp_ref": "5",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 116,
+            "law": "CCA",
+            "item_code": "CCA_RESTRICT",
+            "item_raw": "제한물질",
+            "comp_ref": "6",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 117,
+            "law": "CCA",
+            "item_code": "CCA_RESTRICT",
+            "item_raw": "제한물질",
+            "comp_ref": "7",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 118,
+            "law": "CCA",
+            "item_code": "CCA_RESTRICT",
+            "item_raw": "제한물질",
+            "comp_ref": "8",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 119,
+            "law": "CCA",
+            "item_code": "CCA_RESTRICT",
+            "item_raw": "제한물질",
+            "comp_ref": "9",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 120,
+            "law": "CCA",
+            "item_code": "CCA_RESTRICT",
+            "item_raw": "제한물질",
+            "comp_ref": "10",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 121,
+            "law": "CCA",
+            "item_code": "CCA_RESTRICT",
+            "item_raw": "제한물질",
+            "comp_ref": "11",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 122,
+            "law": "CCA",
+            "item_code": "CCA_PERMIT",
+            "item_raw": "허가물질",
+            "comp_ref": "1",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 123,
+            "law": "CCA",
+            "item_code": "CCA_PERMIT",
+            "item_raw": "허가물질",
+            "comp_ref": "2",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 124,
+            "law": "CCA",
+            "item_code": "CCA_PERMIT",
+            "item_raw": "허가물질",
+            "comp_ref": "4",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 125,
+            "law": "CCA",
+            "item_code": "CCA_PERMIT",
+            "item_raw": "허가물질",
+            "comp_ref": "5",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 126,
+            "law": "CCA",
+            "item_code": "CCA_PERMIT",
+            "item_raw": "허가물질",
+            "comp_ref": "6",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 127,
+            "law": "CCA",
+            "item_code": "CCA_PERMIT",
+            "item_raw": "허가물질",
+            "comp_ref": "7",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 128,
+            "law": "CCA",
+            "item_code": "CCA_PERMIT",
+            "item_raw": "허가물질",
+            "comp_ref": "8",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 129,
+            "law": "CCA",
+            "item_code": "CCA_PERMIT",
+            "item_raw": "허가물질",
+            "comp_ref": "9",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 130,
+            "law": "CCA",
+            "item_code": "CCA_PERMIT",
+            "item_raw": "허가물질",
+            "comp_ref": "10",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 131,
+            "law": "CCA",
+            "item_code": "CCA_PERMIT",
+            "item_raw": "허가물질",
+            "comp_ref": "11",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 132,
+            "law": "CCA",
+            "item_code": "CCA_PROHIBIT",
+            "item_raw": "금지물질",
+            "comp_ref": "1",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 133,
+            "law": "CCA",
+            "item_code": "CCA_PROHIBIT",
+            "item_raw": "금지물질",
+            "comp_ref": "2",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 134,
+            "law": "CCA",
+            "item_code": "CCA_PROHIBIT",
+            "item_raw": "금지물질",
+            "comp_ref": "4",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 135,
+            "law": "CCA",
+            "item_code": "CCA_PROHIBIT",
+            "item_raw": "금지물질",
+            "comp_ref": "5",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 136,
+            "law": "CCA",
+            "item_code": "CCA_PROHIBIT",
+            "item_raw": "금지물질",
+            "comp_ref": "6",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 137,
+            "law": "CCA",
+            "item_code": "CCA_PROHIBIT",
+            "item_raw": "금지물질",
+            "comp_ref": "7",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 138,
+            "law": "CCA",
+            "item_code": "CCA_PROHIBIT",
+            "item_raw": "금지물질",
+            "comp_ref": "8",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 139,
+            "law": "CCA",
+            "item_code": "CCA_PROHIBIT",
+            "item_raw": "금지물질",
+            "comp_ref": "9",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 140,
+            "law": "CCA",
+            "item_code": "CCA_PROHIBIT",
+            "item_raw": "금지물질",
+            "comp_ref": "10",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 141,
+            "law": "CCA",
+            "item_code": "CCA_PROHIBIT",
+            "item_raw": "금지물질",
+            "comp_ref": "11",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 142,
+            "law": "KREACH",
+            "item_code": null,
+            "item_raw": null,
+            "comp_ref": "MIX",
+            "applicable": "미기재"
+          },
+          {
+            "seq": 143,
+            "law": "DG",
+            "item_code": "DG_HAZMAT",
+            "item_raw": "위험물안전관리법에 의한 규제",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "value_raw": "위험물에 해당되지 않음"
+          },
+          {
+            "seq": 144,
+            "law": "WASTE",
+            "item_code": "WASTE_DESIG",
+            "item_raw": "폐기물관리법에 의한 규제",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "value_raw": "지정폐기물 외 사업자폐기물에 해당됨"
+          },
+          {
+            "seq": 145,
+            "law": "POPS",
+            "item_code": "POPS",
+            "item_raw": "기타 국내 규제(잔류성 오염물질 관리법)",
+            "comp_ref": "1",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 146,
+            "law": "POPS",
+            "item_code": "POPS",
+            "item_raw": "기타 국내 규제(잔류성 오염물질 관리법)",
+            "comp_ref": "2",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 147,
+            "law": "POPS",
+            "item_code": "POPS",
+            "item_raw": "기타 국내 규제(잔류성 오염물질 관리법)",
+            "comp_ref": "4",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 148,
+            "law": "POPS",
+            "item_code": "POPS",
+            "item_raw": "기타 국내 규제(잔류성 오염물질 관리법)",
+            "comp_ref": "5",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 149,
+            "law": "POPS",
+            "item_code": "POPS",
+            "item_raw": "기타 국내 규제(잔류성 오염물질 관리법)",
+            "comp_ref": "6",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 150,
+            "law": "POPS",
+            "item_code": "POPS",
+            "item_raw": "기타 국내 규제(잔류성 오염물질 관리법)",
+            "comp_ref": "7",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 151,
+            "law": "POPS",
+            "item_code": "POPS",
+            "item_raw": "기타 국내 규제(잔류성 오염물질 관리법)",
+            "comp_ref": "8",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 152,
+            "law": "POPS",
+            "item_code": "POPS",
+            "item_raw": "기타 국내 규제(잔류성 오염물질 관리법)",
+            "comp_ref": "9",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 153,
+            "law": "POPS",
+            "item_code": "POPS",
+            "item_raw": "기타 국내 규제(잔류성 오염물질 관리법)",
+            "comp_ref": "10",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 154,
+            "law": "POPS",
+            "item_code": "POPS",
+            "item_raw": "기타 국내 규제(잔류성 오염물질 관리법)",
+            "comp_ref": "11",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 155,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보 (OSHA 규정)",
+            "comp_ref": "1",
+            "applicable": "비해당",
+            "country": "US"
+          },
+          {
+            "seq": 156,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보 (OSHA 규정)",
+            "comp_ref": "2",
+            "applicable": "비해당",
+            "country": "US"
+          },
+          {
+            "seq": 157,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보 (OSHA 규정)",
+            "comp_ref": "4",
+            "applicable": "비해당",
+            "country": "US"
+          },
+          {
+            "seq": 158,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보 (OSHA 규정)",
+            "comp_ref": "5",
+            "applicable": "비해당",
+            "country": "US"
+          },
+          {
+            "seq": 159,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보 (OSHA 규정)",
+            "comp_ref": "6",
+            "applicable": "비해당",
+            "country": "US"
+          },
+          {
+            "seq": 160,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보 (OSHA 규정)",
+            "comp_ref": "7",
+            "applicable": "비해당",
+            "country": "US"
+          },
+          {
+            "seq": 161,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보 (OSHA 규정)",
+            "comp_ref": "8",
+            "applicable": "비해당",
+            "country": "US"
+          },
+          {
+            "seq": 162,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보 (OSHA 규정)",
+            "comp_ref": "9",
+            "applicable": "비해당",
+            "country": "US"
+          },
+          {
+            "seq": 163,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보 (OSHA 규정)",
+            "comp_ref": "10",
+            "applicable": "비해당",
+            "country": "US"
+          },
+          {
+            "seq": 164,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보 (OSHA 규정)",
+            "comp_ref": "11",
+            "applicable": "비해당",
+            "country": "US"
+          },
+          {
+            "seq": 165,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보 (CERCLA 103 규정)",
+            "comp_ref": "1",
+            "applicable": "비해당",
+            "country": "US"
+          },
+          {
+            "seq": 166,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보 (CERCLA 103 규정)",
+            "comp_ref": "2",
+            "applicable": "비해당",
+            "country": "US"
+          },
+          {
+            "seq": 167,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보 (CERCLA 103 규정)",
+            "comp_ref": "4",
+            "applicable": "비해당",
+            "country": "US"
+          },
+          {
+            "seq": 168,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보 (CERCLA 103 규정)",
+            "comp_ref": "5",
+            "applicable": "비해당",
+            "country": "US"
+          },
+          {
+            "seq": 169,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보 (CERCLA 103 규정)",
+            "comp_ref": "6",
+            "applicable": "비해당",
+            "country": "US"
+          },
+          {
+            "seq": 170,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보 (CERCLA 103 규정)",
+            "comp_ref": "7",
+            "applicable": "비해당",
+            "country": "US"
+          },
+          {
+            "seq": 171,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보 (CERCLA 103 규정)",
+            "comp_ref": "8",
+            "applicable": "비해당",
+            "country": "US"
+          },
+          {
+            "seq": 172,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보 (CERCLA 103 규정)",
+            "comp_ref": "9",
+            "applicable": "비해당",
+            "country": "US"
+          },
+          {
+            "seq": 173,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보 (CERCLA 103 규정)",
+            "comp_ref": "10",
+            "applicable": "해당",
+            "country": "US",
+            "value_raw": "4.53599 kg 10 lb",
+            "qty": {
+              "raw": "4.53599 kg",
+              "value": 4.53599,
+              "unit": "kg",
+              "dp": 5,
+              "status": "값있음"
+            },
+            "qty_alt": {
+              "raw": "10 lb",
+              "value": 10,
+              "unit": "lb",
+              "status": "값있음"
+            }
+          },
+          {
+            "seq": 174,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보 (CERCLA 103 규정)",
+            "comp_ref": "11",
+            "applicable": "비해당",
+            "country": "US"
+          },
+          {
+            "seq": 175,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보 (EPCRA 302 규정)",
+            "comp_ref": "1",
+            "applicable": "비해당",
+            "country": "US"
+          },
+          {
+            "seq": 176,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보 (EPCRA 302 규정)",
+            "comp_ref": "2",
+            "applicable": "비해당",
+            "country": "US"
+          },
+          {
+            "seq": 177,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보 (EPCRA 302 규정)",
+            "comp_ref": "4",
+            "applicable": "비해당",
+            "country": "US"
+          },
+          {
+            "seq": 178,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보 (EPCRA 302 규정)",
+            "comp_ref": "5",
+            "applicable": "비해당",
+            "country": "US"
+          },
+          {
+            "seq": 179,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보 (EPCRA 302 규정)",
+            "comp_ref": "6",
+            "applicable": "비해당",
+            "country": "US"
+          },
+          {
+            "seq": 180,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보 (EPCRA 302 규정)",
+            "comp_ref": "7",
+            "applicable": "비해당",
+            "country": "US"
+          },
+          {
+            "seq": 181,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보 (EPCRA 302 규정)",
+            "comp_ref": "8",
+            "applicable": "비해당",
+            "country": "US"
+          },
+          {
+            "seq": 182,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보 (EPCRA 302 규정)",
+            "comp_ref": "9",
+            "applicable": "비해당",
+            "country": "US"
+          },
+          {
+            "seq": 183,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보 (EPCRA 302 규정)",
+            "comp_ref": "10",
+            "applicable": "비해당",
+            "country": "US"
+          },
+          {
+            "seq": 184,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보 (EPCRA 302 규정)",
+            "comp_ref": "11",
+            "applicable": "비해당",
+            "country": "US"
+          },
+          {
+            "seq": 185,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보 (EPCRA 304 규정)",
+            "comp_ref": "1",
+            "applicable": "비해당",
+            "country": "US"
+          },
+          {
+            "seq": 186,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보 (EPCRA 304 규정)",
+            "comp_ref": "2",
+            "applicable": "비해당",
+            "country": "US"
+          },
+          {
+            "seq": 187,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보 (EPCRA 304 규정)",
+            "comp_ref": "4",
+            "applicable": "비해당",
+            "country": "US"
+          },
+          {
+            "seq": 188,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보 (EPCRA 304 규정)",
+            "comp_ref": "5",
+            "applicable": "비해당",
+            "country": "US"
+          },
+          {
+            "seq": 189,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보 (EPCRA 304 규정)",
+            "comp_ref": "6",
+            "applicable": "비해당",
+            "country": "US"
+          },
+          {
+            "seq": 190,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보 (EPCRA 304 규정)",
+            "comp_ref": "7",
+            "applicable": "비해당",
+            "country": "US"
+          },
+          {
+            "seq": 191,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보 (EPCRA 304 규정)",
+            "comp_ref": "8",
+            "applicable": "비해당",
+            "country": "US"
+          },
+          {
+            "seq": 192,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보 (EPCRA 304 규정)",
+            "comp_ref": "9",
+            "applicable": "비해당",
+            "country": "US"
+          },
+          {
+            "seq": 193,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보 (EPCRA 304 규정)",
+            "comp_ref": "10",
+            "applicable": "비해당",
+            "country": "US"
+          },
+          {
+            "seq": 194,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보 (EPCRA 304 규정)",
+            "comp_ref": "11",
+            "applicable": "비해당",
+            "country": "US"
+          },
+          {
+            "seq": 195,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보 (EPCRA 313 규정)",
+            "comp_ref": "1",
+            "applicable": "비해당",
+            "country": "US"
+          },
+          {
+            "seq": 196,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보 (EPCRA 313 규정)",
+            "comp_ref": "2",
+            "applicable": "비해당",
+            "country": "US"
+          },
+          {
+            "seq": 197,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보 (EPCRA 313 규정)",
+            "comp_ref": "4",
+            "applicable": "비해당",
+            "country": "US"
+          },
+          {
+            "seq": 198,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보 (EPCRA 313 규정)",
+            "comp_ref": "5",
+            "applicable": "비해당",
+            "country": "US"
+          },
+          {
+            "seq": 199,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보 (EPCRA 313 규정)",
+            "comp_ref": "6",
+            "applicable": "비해당",
+            "country": "US"
+          },
+          {
+            "seq": 200,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보 (EPCRA 313 규정)",
+            "comp_ref": "7",
+            "applicable": "비해당",
+            "country": "US"
+          },
+          {
+            "seq": 201,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보 (EPCRA 313 규정)",
+            "comp_ref": "8",
+            "applicable": "비해당",
+            "country": "US"
+          },
+          {
+            "seq": 202,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보 (EPCRA 313 규정)",
+            "comp_ref": "9",
+            "applicable": "비해당",
+            "country": "US"
+          },
+          {
+            "seq": 203,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보 (EPCRA 313 규정)",
+            "comp_ref": "10",
+            "applicable": "비해당",
+            "country": "US"
+          },
+          {
+            "seq": 204,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보 (EPCRA 313 규정)",
+            "comp_ref": "11",
+            "applicable": "비해당",
+            "country": "US"
+          },
+          {
+            "seq": 205,
+            "law": "INTL",
+            "item_code": "INTL_TREATY",
+            "item_raw": "로테르담협약물질",
+            "comp_ref": "1",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 206,
+            "law": "INTL",
+            "item_code": "INTL_TREATY",
+            "item_raw": "로테르담협약물질",
+            "comp_ref": "2",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 207,
+            "law": "INTL",
+            "item_code": "INTL_TREATY",
+            "item_raw": "로테르담협약물질",
+            "comp_ref": "4",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 208,
+            "law": "INTL",
+            "item_code": "INTL_TREATY",
+            "item_raw": "로테르담협약물질",
+            "comp_ref": "5",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 209,
+            "law": "INTL",
+            "item_code": "INTL_TREATY",
+            "item_raw": "로테르담협약물질",
+            "comp_ref": "6",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 210,
+            "law": "INTL",
+            "item_code": "INTL_TREATY",
+            "item_raw": "로테르담협약물질",
+            "comp_ref": "7",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 211,
+            "law": "INTL",
+            "item_code": "INTL_TREATY",
+            "item_raw": "로테르담협약물질",
+            "comp_ref": "8",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 212,
+            "law": "INTL",
+            "item_code": "INTL_TREATY",
+            "item_raw": "로테르담협약물질",
+            "comp_ref": "9",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 213,
+            "law": "INTL",
+            "item_code": "INTL_TREATY",
+            "item_raw": "로테르담협약물질",
+            "comp_ref": "10",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 214,
+            "law": "INTL",
+            "item_code": "INTL_TREATY",
+            "item_raw": "로테르담협약물질",
+            "comp_ref": "11",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 215,
+            "law": "INTL",
+            "item_code": "INTL_TREATY",
+            "item_raw": "스톡홀름협약물질",
+            "comp_ref": "1",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 216,
+            "law": "INTL",
+            "item_code": "INTL_TREATY",
+            "item_raw": "스톡홀름협약물질",
+            "comp_ref": "2",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 217,
+            "law": "INTL",
+            "item_code": "INTL_TREATY",
+            "item_raw": "스톡홀름협약물질",
+            "comp_ref": "4",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 218,
+            "law": "INTL",
+            "item_code": "INTL_TREATY",
+            "item_raw": "스톡홀름협약물질",
+            "comp_ref": "5",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 219,
+            "law": "INTL",
+            "item_code": "INTL_TREATY",
+            "item_raw": "스톡홀름협약물질",
+            "comp_ref": "6",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 220,
+            "law": "INTL",
+            "item_code": "INTL_TREATY",
+            "item_raw": "스톡홀름협약물질",
+            "comp_ref": "7",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 221,
+            "law": "INTL",
+            "item_code": "INTL_TREATY",
+            "item_raw": "스톡홀름협약물질",
+            "comp_ref": "8",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 222,
+            "law": "INTL",
+            "item_code": "INTL_TREATY",
+            "item_raw": "스톡홀름협약물질",
+            "comp_ref": "9",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 223,
+            "law": "INTL",
+            "item_code": "INTL_TREATY",
+            "item_raw": "스톡홀름협약물질",
+            "comp_ref": "10",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 224,
+            "law": "INTL",
+            "item_code": "INTL_TREATY",
+            "item_raw": "스톡홀름협약물질",
+            "comp_ref": "11",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 225,
+            "law": "INTL",
+            "item_code": "INTL_TREATY",
+            "item_raw": "몬트리올의정서물질",
+            "comp_ref": "1",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 226,
+            "law": "INTL",
+            "item_code": "INTL_TREATY",
+            "item_raw": "몬트리올의정서물질",
+            "comp_ref": "2",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 227,
+            "law": "INTL",
+            "item_code": "INTL_TREATY",
+            "item_raw": "몬트리올의정서물질",
+            "comp_ref": "4",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 228,
+            "law": "INTL",
+            "item_code": "INTL_TREATY",
+            "item_raw": "몬트리올의정서물질",
+            "comp_ref": "5",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 229,
+            "law": "INTL",
+            "item_code": "INTL_TREATY",
+            "item_raw": "몬트리올의정서물질",
+            "comp_ref": "6",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 230,
+            "law": "INTL",
+            "item_code": "INTL_TREATY",
+            "item_raw": "몬트리올의정서물질",
+            "comp_ref": "7",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 231,
+            "law": "INTL",
+            "item_code": "INTL_TREATY",
+            "item_raw": "몬트리올의정서물질",
+            "comp_ref": "8",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 232,
+            "law": "INTL",
+            "item_code": "INTL_TREATY",
+            "item_raw": "몬트리올의정서물질",
+            "comp_ref": "9",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 233,
+            "law": "INTL",
+            "item_code": "INTL_TREATY",
+            "item_raw": "몬트리올의정서물질",
+            "comp_ref": "10",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 234,
+            "law": "INTL",
+            "item_code": "INTL_TREATY",
+            "item_raw": "몬트리올의정서물질",
+            "comp_ref": "11",
+            "applicable": "비해당"
+          }
+        ],
+        "dangerous_goods": [
+          {
+            "comp_ref": "MIX",
+            "class": "해당없음",
+            "item": null,
+            "water_soluble": null,
+            "grade": null,
+            "designated_qty": null
+          }
+        ],
+        "waste": [
+          {
+            "comp_ref": "MIX",
+            "designated": "비해당",
+            "waste_type": "지정폐기물 외 사업자폐기물"
+          }
+        ],
+        "intl_class": [
+          {
+            "comp_ref": "1",
+            "system": "EU_CLP",
+            "class_raw": null,
+            "h_code": "H220",
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "2",
+            "system": "EU_CLP",
+            "class_raw": null,
+            "h_code": "H220",
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "4",
+            "system": "EU_CLP",
+            "class_raw": null,
+            "h_code": "H220",
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "5",
+            "system": "EU_CLP",
+            "class_raw": null,
+            "h_code": "H220",
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "6",
+            "system": "EU_CLP",
+            "class_raw": null,
+            "h_code": "H220",
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "7",
+            "system": "EU_CLP",
+            "class_raw": null,
+            "h_code": "H220",
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "8",
+            "system": "EU_CLP",
+            "class_raw": null,
+            "h_code": "H220",
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "9",
+            "system": "EU_CLP",
+            "class_raw": null,
+            "h_code": "H220",
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "10",
+            "system": "EU_CLP",
+            "class_raw": null,
+            "h_code": "H220",
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "10",
+            "system": "EU_CLP",
+            "class_raw": null,
+            "h_code": "H350",
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "10",
+            "system": "EU_CLP",
+            "class_raw": null,
+            "h_code": "H340",
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "11",
+            "system": "EU_CLP",
+            "class_raw": null,
+            "h_code": null,
+            "status": "해당없음"
+          }
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "msds_index": 0,
+        "field": "transport[0]",
+        "page": 24,
+        "source_text": "가. 유엔번호(UN No.) : 1954 / 나. 유엔 적정 선적명 : COMPRESSED GAS, FLAMMABLE, N.O.S. / 다. 운송에서의 위험성 등급 : 2.1 / 라. 용기등급 : 해당 없음. / 마. 해양오염물질 : 해당 없음.",
+        "rules": [
+          "R09",
+          "R15"
+        ],
+        "note": "운송 방식 구분이 없어 mode=공통. 용기등급은 해당없음, 해양오염물질은 비해당으로 적음"
+      },
+      {
+        "msds_index": 0,
+        "field": "transport[0].ems_fire",
+        "page": 24,
+        "source_text": "- 화재 시 비상조치의 종류 : F-D (Flammable gases)",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "transport[0].ems_spill",
+        "page": 24,
+        "source_text": "- 유출 시 비상조치의 종류 : S-U (Gases(flammable, toxic or corrosive))",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[0-9]",
+        "page": 25,
+        "source_text": "구성 성분 | 작업환경측정물질 | 노출기준설정물질 | 관리대상유해물질 / 프로페인 | 해당 없음. | 해당 없음. | 해당 없음.",
+        "rules": [
+          "R25",
+          "R10"
+        ],
+        "note": "성분 10종 각각 작업환경측정물질 열의 '해당 없음.'을 비해당으로 적음"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[8]",
+        "page": 25,
+        "source_text": "1,3-부타디엔 | 해당 없음. (1% 이상 함유 시 해당) | 해당됨 | 해당 없음. (0.1% 이상 함유 시 해당)",
+        "rules": [
+          "R04",
+          "R25"
+        ],
+        "note": "'1% 이상 함유 시 해당'을 threshold >=1 %로 나눔"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[10-19]",
+        "page": 25,
+        "source_text": "1,3-부타디엔 | 해당 없음. (1% 이상 함유 시 해당) | 해당됨 | 해당 없음. (0.1% 이상 함유 시 해당)",
+        "rules": [
+          "R25"
+        ],
+        "note": "노출기준설정물질 열: 1,3-부타디엔만 해당됨, 나머지 성분은 해당 없음 → 비해당"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[20-29]",
+        "page": 25,
+        "source_text": "1,3-부타디엔 | 해당 없음. (1% 이상 함유 시 해당) | 해당됨 | 해당 없음. (0.1% 이상 함유 시 해당)",
+        "rules": [
+          "R04",
+          "R25"
+        ],
+        "note": "관리대상유해물질 열. 1,3-부타디엔의 '0.1% 이상'은 threshold >=0.1 %로 나눔"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[30-39]",
+        "page": 25,
+        "source_text": "1,3-부타디엔 | 해당 없음. (1% 이상 함유 시 해당) | 해당 없음. | 해당 없음.",
+        "rules": [
+          "R04",
+          "R25"
+        ],
+        "note": "특수건강검진대상 열. 1,3-부타디엔의 '1% 이상'은 threshold >=1 %로 나눔"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[40-49]",
+        "page": 25,
+        "source_text": "구성 성분 | 특수건강검진대상 | 제조등금지물질 | 허가대상물질 / 프로페인 | 해당 없음. | 해당 없음. | 해당 없음.",
+        "rules": [
+          "R25"
+        ],
+        "note": "제조등금지물질 열: 성분 10종 모두 비해당"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[50-59]",
+        "page": 25,
+        "source_text": "구성 성분 | 특수건강검진대상 | 제조등금지물질 | 허가대상물질 / 1,2-부타디엔 | 해당 없음. | 해당 없음. | 해당 없음.",
+        "rules": [
+          "R25"
+        ],
+        "note": "허가대상물질 열: 성분 10종 모두 비해당"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[60-66]",
+        "page": 25,
+        "source_text": "구성 성분 | PSM 대상물질 | 허용기준설정물질 / 프로페인 | 해당됨 | 해당 없음.",
+        "rules": [
+          "R25"
+        ],
+        "note": "PSM 대상물질 열: 25쪽에 나온 성분 모두 해당됨"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[67-69]",
+        "page": 26,
+        "source_text": "시스-2-부텐 | 해당됨 | 해당 없음. / 1,3-부타디엔 | 해당됨 | 해당됨 / 1,2-부타디엔 | 해당됨 | 해당 없음.",
+        "rules": [
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[70]",
+        "page": 26,
+        "source_text": "* 제품도 PSM 대상임 (인화성 가스)",
+        "rules": [
+          "R10"
+        ],
+        "note": "제품 전체 기준이라 comp_ref=MIX"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[71-80]",
+        "page": 26,
+        "source_text": "1,3-부타디엔 | 해당됨 | 해당됨",
+        "rules": [
+          "R25"
+        ],
+        "note": "허용기준설정물질 열: 1,3-부타디엔만 해당, 나머지 성분은 비해당(25~26쪽)"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[81-90]",
+        "page": 26,
+        "source_text": "1,3-부타디엔 | 해당 없음. (0.1% 이상 함유 시 해당) | 해당 없음. | 해당 없음.",
+        "rules": [
+          "R04",
+          "R25"
+        ],
+        "note": "유독물질 열. 1,3-부타디엔의 '0.1% 이상'은 threshold >=0.1 %로 나눔"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[92]",
+        "page": 26,
+        "source_text": "아세틸렌 | 해당 없음. | 해당 없음. (1% 이상 함유 시 해당) | 해당 없음.",
+        "rules": [
+          "R04",
+          "R25"
+        ],
+        "note": "배출량조사대상물질의 '1% 이상'은 threshold >=1 %로 나눔"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[91-100]",
+        "page": 26,
+        "source_text": "부탄 | 해당 없음. | 해당됨 | 해당 없음. / 1-부텐 | 해당 없음. | 해당됨 | 해당 없음.",
+        "rules": [
+          "R25"
+        ],
+        "note": "배출량조사대상물질: 부탄과 1-부텐은 해당, 나머지 성분은 비해당"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[101-110]",
+        "page": 26,
+        "source_text": "구성 성분 | 유독물질 | 배출량조사대상물질 | 사고대비물질 / 프로페인 | 해당 없음. | 해당 없음. | 해당 없음.",
+        "rules": [
+          "R25"
+        ],
+        "note": "사고대비물질 열: 성분 10종 모두 비해당"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[111-140]",
+        "page": 26,
+        "source_text": "구성 성분 | 제한물질 | 허가물질 | 금지물질 / 프로페인 | 해당 없음. | 해당 없음. | 해당 없음.",
+        "rules": [
+          "R25"
+        ],
+        "note": "제한·허가·금지물질 열: 성분 10종 모두 비해당"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[141]",
+        "page": 26,
+        "source_text": null,
+        "rules": [
+          "R18"
+        ],
+        "note": "구양식 문서라 화평법 항목이 없어 미기재로 둠. 맞는 값 없음: 항목 코드는 null"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[142]",
+        "page": 26,
+        "source_text": "다. 위험물안전관리법에 의한 규제 ○ 위험물에 해당되지 않음",
+        "rules": [
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "dangerous_goods[0]",
+        "page": 26,
+        "source_text": "○ 위험물에 해당되지 않음",
+        "rules": [
+          "R15"
+        ],
+        "note": "류별은 해당없음으로 적음. 품명과 지정수량은 원문에 없음"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[143]",
+        "page": 27,
+        "source_text": "○ 본 제품은 사업장에서 발생하는 폐기물 중 폐기물관리법시행령[별표 1]에 의해 지정폐기물 외 사업자폐기물에 해당됨",
+        "rules": [],
+        "note": "'지정폐기물 외'라고 적혀 있어 지정폐기물 비해당으로 적음"
+      },
+      {
+        "msds_index": 0,
+        "field": "waste[0]",
+        "page": 27,
+        "source_text": "○ 본 제품은 사업장에서 발생하는 폐기물 중 폐기물관리법시행령[별표 1]에 의해 지정폐기물 외 사업자폐기물에 해당됨",
+        "rules": [],
+        "note": "지정폐기물은 비해당. 폐기물 종류는 원문 표현 그대로 적음"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[144-153]",
+        "page": 27,
+        "source_text": "항 목 | 기타 국내 규제(잔류성 오염물질 관리법) / 프로페인 | 해당 없음.",
+        "rules": [
+          "R25"
+        ],
+        "note": "성분 10종 모두 비해당"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[154-183]",
+        "page": 27,
+        "source_text": "항 목 | 미국관리정보 (OSHA 규정) | 미국관리정보 (CERCLA 103 규정) | 미국관리정보 (EPCRA 302 규정) / 프로페인 | 해당 없음. | 해당 없음. | 해당 없음.",
+        "rules": [
+          "R25"
+        ],
+        "note": "미국 규정이라 country=US로 적음"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[172]",
+        "page": 27,
+        "source_text": "1,3-부타디엔 | 해당 없음. | 4.53599 kg 10 lb | 해당 없음.",
+        "rules": [
+          "R04",
+          "R06"
+        ],
+        "note": "규제 수량이 적혀 있어 해당으로 적음. kg 값은 qty, lb 값은 qty_alt에 넣음"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[184-203]",
+        "page": 28,
+        "source_text": "(EPCRA 304 규정) | (EPCRA 313 규정) / 프로페인 | 해당 없음. | 해당 없음. | 해당 없음.",
+        "rules": [
+          "R25"
+        ],
+        "note": "표 머리는 27쪽(미국관리정보)에 있음. 성분 10종 모두 비해당"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[204-213]",
+        "page": 28,
+        "source_text": "프로페인 | 해당 없음. | 해당 없음. | 해당 없음.",
+        "rules": [
+          "R25"
+        ],
+        "note": "로테르담협약물질 열(표 머리는 27쪽). 성분 10종 모두 비해당"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[214-233]",
+        "page": 28,
+        "source_text": "항 목 | 스톡홀름협약물질 | 몬트리올의정서물질 | EU 분류정보 (확정분류결과) / 프로페인 | 해당 없음. | 해당 없음. | H220",
+        "rules": [
+          "R25"
+        ],
+        "note": "성분 10종 모두 비해당"
+      },
+      {
+        "msds_index": 0,
+        "field": "intl_class[0-8]",
+        "page": 28,
+        "source_text": "프로페인 | 해당 없음. | 해당 없음. | H220",
+        "rules": [
+          "R05"
+        ],
+        "note": "EU 분류정보 열의 H220을 성분마다 h_code로 적음. 분류 표기는 원문에 없음"
+      },
+      {
+        "msds_index": 0,
+        "field": "intl_class[9-10]",
+        "page": 28,
+        "source_text": "1,3-부타디엔 | 해당 없음. | 해당 없음. | H220, H350, H340",
+        "rules": [
+          "R05",
+          "R11"
+        ],
+        "note": "H코드 3개를 한 행씩 나눠 적음"
+      },
+      {
+        "msds_index": 0,
+        "field": "intl_class[11]",
+        "page": 28,
+        "source_text": "1,2-부타디엔 | 해당 없음. | 해당 없음. | 해당 없음.",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      }
+    ]
+  },
+  "raw_text": "{\"msds\": [{\"transport\": [{\"mode\": \"공통\", \"regulated\": true, \"un_no\": \"1954\", \"shipping_name\": \"COMPRESSED GAS, FLAMMABLE, N.O.S.\", \"hazard_class\": \"2.1\", \"sub_risk\": null, \"packing_group\": \"해당없음\", \"marine_pollutant\": \"비해당\", \"ems_fire\": \"F-D\", \"ems_spill\": \"S-U\"}], \"regulations\": [{\"seq\": 1, \"law\": \"OSH\", \"item_code\": \"OSH_MEASURE\", \"item_raw\": \"작업환경측정물질\", \"comp_ref\": \"1\", \"applicable\": \"비해당\"}, {\"seq\": 2, \"law\": \"OSH\", \"item_code\": \"OSH_MEASURE\", \"item_raw\": \"작업환경측정물질\", \"comp_ref\": \"2\", \"applicable\": \"비해당\"}, {\"seq\": 3, \"law\": \"OSH\", \"item_code\": \"OSH_MEASURE\", \"item_raw\": \"작업환경측정물질\", \"comp_ref\": \"4\", \"applicable\": \"비해당\"}, {\"seq\": 4, \"law\": \"OSH\", \"item_code\": \"OSH_MEASURE\", \"item_raw\": \"작업환경측정물질\", \"comp_ref\": \"5\", \"applicable\": \"비해당\"}, {\"seq\": 5, \"law\": \"OSH\", \"item_code\": \"OSH_MEASURE\", \"item_raw\": \"작업환경측정물질\", \"comp_ref\": \"6\", \"applicable\": \"비해당\"}, {\"seq\": 6, \"law\": \"OSH\", \"item_code\": \"OSH_MEASURE\", \"item_raw\": \"작업환경측정물질\", \"comp_ref\": \"7\", \"applicable\": \"비해당\"}, {\"seq\": 7, \"law\": \"OSH\", \"item_code\": \"OSH_MEASURE\", \"item_raw\": \"작업환경측정물질\", \"comp_ref\": \"8\", \"applicable\": \"비해당\"}, {\"seq\": 8, \"law\": \"OSH\", \"item_code\": \"OSH_MEASURE\", \"item_raw\": \"작업환경측정물질\", \"comp_ref\": \"9\", \"applicable\": \"비해당\"}, {\"seq\": 9, \"law\": \"OSH\", \"item_code\": \"OSH_MEASURE\", \"item_raw\": \"작업환경측정물질\", \"comp_ref\": \"10\", \"applicable\": \"비해당\", \"threshold\": {\"raw\": \"1% 이상 함유 시 해당\", \"lower_op\": \">=\", \"lower\": 1, \"unit\": \"%\", \"status\": \"값있음\"}, \"value_raw\": \"해당 없음. (1% 이상 함유 시 해당)\"}, {\"seq\": 10, \"law\": \"OSH\", \"item_code\": \"OSH_MEASURE\", \"item_raw\": \"작업환경측정물질\", \"comp_ref\": \"11\", \"applicable\": \"비해당\"}, {\"seq\": 11, \"law\": \"OSH\", \"item_code\": \"OSH_EXPOSURE_STD\", \"item_raw\": \"노출기준설정물질\", \"comp_ref\": \"1\", \"applicable\": \"비해당\"}, {\"seq\": 12, \"law\": \"OSH\", \"item_code\": \"OSH_EXPOSURE_STD\", \"item_raw\": \"노출기준설정물질\", \"comp_ref\": \"2\", \"applicable\": \"비해당\"}, {\"seq\": 13, \"law\": \"OSH\", \"item_code\": \"OSH_EXPOSURE_STD\", \"item_raw\": \"노출기준설정물질\", \"comp_ref\": \"4\", \"applicable\": \"비해당\"}, {\"seq\": 14, \"law\": \"OSH\", \"item_code\": \"OSH_EXPOSURE_STD\", \"item_raw\": \"노출기준설정물질\", \"comp_ref\": \"5\", \"applicable\": \"비해당\"}, {\"seq\": 15, \"law\": \"OSH\", \"item_code\": \"OSH_EXPOSURE_STD\", \"item_raw\": \"노출기준설정물질\", \"comp_ref\": \"6\", \"applicable\": \"비해당\"}, {\"seq\": 16, \"law\": \"OSH\", \"item_code\": \"OSH_EXPOSURE_STD\", \"item_raw\": \"노출기준설정물질\", \"comp_ref\": \"7\", \"applicable\": \"비해당\"}, {\"seq\": 17, \"law\": \"OSH\", \"item_code\": \"OSH_EXPOSURE_STD\", \"item_raw\": \"노출기준설정물질\", \"comp_ref\": \"8\", \"applicable\": \"비해당\"}, {\"seq\": 18, \"law\": \"OSH\", \"item_code\": \"OSH_EXPOSURE_STD\", \"item_raw\": \"노출기준설정물질\", \"comp_ref\": \"9\", \"applicable\": \"비해당\"}, {\"seq\": 19, \"law\": \"OSH\", \"item_code\": \"OSH_EXPOSURE_STD\", \"item_raw\": \"노출기준설정물질\", \"comp_ref\": \"10\", \"applicable\": \"해당\"}, {\"seq\": 20, \"law\": \"OSH\", \"item_code\": \"OSH_EXPOSURE_STD\", \"item_raw\": \"노출기준설정물질\", \"comp_ref\": \"11\", \"applicable\": \"비해당\"}, {\"seq\": 21, \"law\": \"OSH\", \"item_code\": \"OSH_MANAGED\", \"item_raw\": \"관리대상유해물질\", \"comp_ref\": \"1\", \"applicable\": \"비해당\"}, {\"seq\": 22, \"law\": \"OSH\", \"item_code\": \"OSH_MANAGED\", \"item_raw\": \"관리대상유해물질\", \"comp_ref\": \"2\", \"applicable\": \"비해당\"}, {\"seq\": 23, \"law\": \"OSH\", \"item_code\": \"OSH_MANAGED\", \"item_raw\": \"관리대상유해물질\", \"comp_ref\": \"4\", \"applicable\": \"비해당\"}, {\"seq\": 24, \"law\": \"OSH\", \"item_code\": \"OSH_MANAGED\", \"item_raw\": \"관리대상유해물질\", \"comp_ref\": \"5\", \"applicable\": \"비해당\"}, {\"seq\": 25, \"law\": \"OSH\", \"item_code\": \"OSH_MANAGED\", \"item_raw\": \"관리대상유해물질\", \"comp_ref\": \"6\", \"applicable\": \"비해당\"}, {\"seq\": 26, \"law\": \"OSH\", \"item_code\": \"OSH_MANAGED\", \"item_raw\": \"관리대상유해물질\", \"comp_ref\": \"7\", \"applicable\": \"비해당\"}, {\"seq\": 27, \"law\": \"OSH\", \"item_code\": \"OSH_MANAGED\", \"item_raw\": \"관리대상유해물질\", \"comp_ref\": \"8\", \"applicable\": \"비해당\"}, {\"seq\": 28, \"law\": \"OSH\", \"item_code\": \"OSH_MANAGED\", \"item_raw\": \"관리대상유해물질\", \"comp_ref\": \"9\", \"applicable\": \"비해당\"}, {\"seq\": 29, \"law\": \"OSH\", \"item_code\": \"OSH_MANAGED\", \"item_raw\": \"관리대상유해물질\", \"comp_ref\": \"10\", \"applicable\": \"비해당\", \"threshold\": {\"raw\": \"0.1% 이상 함유 시 해당\", \"lower_op\": \">=\", \"lower\": 0.1, \"unit\": \"%\", \"dp\": 1, \"status\": \"값있음\"}, \"value_raw\": \"해당 없음. (0.1% 이상 함유 시 해당)\"}, {\"seq\": 30, \"law\": \"OSH\", \"item_code\": \"OSH_MANAGED\", \"item_raw\": \"관리대상유해물질\", \"comp_ref\": \"11\", \"applicable\": \"비해당\"}, {\"seq\": 31, \"law\": \"OSH\", \"item_code\": \"OSH_HEALTH_EXAM\", \"item_raw\": \"특수건강검진대상\", \"comp_ref\": \"1\", \"applicable\": \"비해당\"}, {\"seq\": 32, \"law\": \"OSH\", \"item_code\": \"OSH_HEALTH_EXAM\", \"item_raw\": \"특수건강검진대상\", \"comp_ref\": \"2\", \"applicable\": \"비해당\"}, {\"seq\": 33, \"law\": \"OSH\", \"item_code\": \"OSH_HEALTH_EXAM\", \"item_raw\": \"특수건강검진대상\", \"comp_ref\": \"4\", \"applicable\": \"비해당\"}, {\"seq\": 34, \"law\": \"OSH\", \"item_code\": \"OSH_HEALTH_EXAM\", \"item_raw\": \"특수건강검진대상\", \"comp_ref\": \"5\", \"applicable\": \"비해당\"}, {\"seq\": 35, \"law\": \"OSH\", \"item_code\": \"OSH_HEALTH_EXAM\", \"item_raw\": \"특수건강검진대상\", \"comp_ref\": \"6\", \"applicable\": \"비해당\"}, {\"seq\": 36, \"law\": \"OSH\", \"item_code\": \"OSH_HEALTH_EXAM\", \"item_raw\": \"특수건강검진대상\", \"comp_ref\": \"7\", \"applicable\": \"비해당\"}, {\"seq\": 37, \"law\": \"OSH\", \"item_code\": \"OSH_HEALTH_EXAM\", \"item_raw\": \"특수건강검진대상\", \"comp_ref\": \"8\", \"applicable\": \"비해당\"}, {\"seq\": 38, \"law\": \"OSH\", \"item_code\": \"OSH_HEALTH_EXAM\", \"item_raw\": \"특수건강검진대상\", \"comp_ref\": \"9\", \"applicable\": \"비해당\"}, {\"seq\": 39, \"law\": \"OSH\", \"item_code\": \"OSH_HEALTH_EXAM\", \"item_raw\": \"특수건강검진대상\", \"comp_ref\": \"10\", \"applicable\": \"비해당\", \"threshold\": {\"raw\": \"1% 이상 함유 시 해당\", \"lower_op\": \">=\", \"lower\": 1, \"unit\": \"%\", \"status\": \"값있음\"}, \"value_raw\": \"해당 없음. (1% 이상 함유 시 해당)\"}, {\"seq\": 40, \"law\": \"OSH\", \"item_code\": \"OSH_HEALTH_EXAM\", \"item_raw\": \"특수건강검진대상\", \"comp_ref\": \"11\", \"applicable\": \"비해당\"}, {\"seq\": 41, \"law\": \"OSH\", \"item_code\": \"OSH_PROHIBIT\", \"item_raw\": \"제조등금지물질\", \"comp_ref\": \"1\", \"applicable\": \"비해당\"}, {\"seq\": 42, \"law\": \"OSH\", \"item_code\": \"OSH_PROHIBIT\", \"item_raw\": \"제조등금지물질\", \"comp_ref\": \"2\", \"applicable\": \"비해당\"}, {\"seq\": 43, \"law\": \"OSH\", \"item_code\": \"OSH_PROHIBIT\", \"item_raw\": \"제조등금지물질\", \"comp_ref\": \"4\", \"applicable\": \"비해당\"}, {\"seq\": 44, \"law\": \"OSH\", \"item_code\": \"OSH_PROHIBIT\", \"item_raw\": \"제조등금지물질\", \"comp_ref\": \"5\", \"applicable\": \"비해당\"}, {\"seq\": 45, \"law\": \"OSH\", \"item_code\": \"OSH_PROHIBIT\", \"item_raw\": \"제조등금지물질\", \"comp_ref\": \"6\", \"applicable\": \"비해당\"}, {\"seq\": 46, \"law\": \"OSH\", \"item_code\": \"OSH_PROHIBIT\", \"item_raw\": \"제조등금지물질\", \"comp_ref\": \"7\", \"applicable\": \"비해당\"}, {\"seq\": 47, \"law\": \"OSH\", \"item_code\": \"OSH_PROHIBIT\", \"item_raw\": \"제조등금지물질\", \"comp_ref\": \"8\", \"applicable\": \"비해당\"}, {\"seq\": 48, \"law\": \"OSH\", \"item_code\": \"OSH_PROHIBIT\", \"item_raw\": \"제조등금지물질\", \"comp_ref\": \"9\", \"applicable\": \"비해당\"}, {\"seq\": 49, \"law\": \"OSH\", \"item_code\": \"OSH_PROHIBIT\", \"item_raw\": \"제조등금지물질\", \"comp_ref\": \"10\", \"applicable\": \"비해당\"}, {\"seq\": 50, \"law\": \"OSH\", \"item_code\": \"OSH_PROHIBIT\", \"item_raw\": \"제조등금지물질\", \"comp_ref\": \"11\", \"applicable\": \"비해당\"}, {\"seq\": 51, \"law\": \"OSH\", \"item_code\": \"OSH_PERMIT\", \"item_raw\": \"허가대상물질\", \"comp_ref\": \"1\", \"applicable\": \"비해당\"}, {\"seq\": 52, \"law\": \"OSH\", \"item_code\": \"OSH_PERMIT\", \"item_raw\": \"허가대상물질\", \"comp_ref\": \"2\", \"applicable\": \"비해당\"}, {\"seq\": 53, \"law\": \"OSH\", \"item_code\": \"OSH_PERMIT\", \"item_raw\": \"허가대상물질\", \"comp_ref\": \"4\", \"applicable\": \"비해당\"}, {\"seq\": 54, \"law\": \"OSH\", \"item_code\": \"OSH_PERMIT\", \"item_raw\": \"허가대상물질\", \"comp_ref\": \"5\", \"applicable\": \"비해당\"}, {\"seq\": 55, \"law\": \"OSH\", \"item_code\": \"OSH_PERMIT\", \"item_raw\": \"허가대상물질\", \"comp_ref\": \"6\", \"applicable\": \"비해당\"}, {\"seq\": 56, \"law\": \"OSH\", \"item_code\": \"OSH_PERMIT\", \"item_raw\": \"허가대상물질\", \"comp_ref\": \"7\", \"applicable\": \"비해당\"}, {\"seq\": 57, \"law\": \"OSH\", \"item_code\": \"OSH_PERMIT\", \"item_raw\": \"허가대상물질\", \"comp_ref\": \"8\", \"applicable\": \"비해당\"}, {\"seq\": 58, \"law\": \"OSH\", \"item_code\": \"OSH_PERMIT\", \"item_raw\": \"허가대상물질\", \"comp_ref\": \"9\", \"applicable\": \"비해당\"}, {\"seq\": 59, \"law\": \"OSH\", \"item_code\": \"OSH_PERMIT\", \"item_raw\": \"허가대상물질\", \"comp_ref\": \"10\", \"applicable\": \"비해당\"}, {\"seq\": 60, \"law\": \"OSH\", \"item_code\": \"OSH_PERMIT\", \"item_raw\": \"허가대상물질\", \"comp_ref\": \"11\", \"applicable\": \"비해당\"}, {\"seq\": 61, \"law\": \"OSH\", \"item_code\": \"OSH_PSM\", \"item_raw\": \"PSM 대상물질\", \"comp_ref\": \"1\", \"applicable\": \"해당\"}, {\"seq\": 62, \"law\": \"OSH\", \"item_code\": \"OSH_PSM\", \"item_raw\": \"PSM 대상물질\", \"comp_ref\": \"2\", \"applicable\": \"해당\"}, {\"seq\": 63, \"law\": \"OSH\", \"item_code\": \"OSH_PSM\", \"item_raw\": \"PSM 대상물질\", \"comp_ref\": \"4\", \"applicable\": \"해당\"}, {\"seq\": 64, \"law\": \"OSH\", \"item_code\": \"OSH_PSM\", \"item_raw\": \"PSM 대상물질\", \"comp_ref\": \"5\", \"applicable\": \"해당\"}, {\"seq\": 65, \"law\": \"OSH\", \"item_code\": \"OSH_PSM\", \"item_raw\": \"PSM 대상물질\", \"comp_ref\": \"6\", \"applicable\": \"해당\"}, {\"seq\": 66, \"law\": \"OSH\", \"item_code\": \"OSH_PSM\", \"item_raw\": \"PSM 대상물질\", \"comp_ref\": \"7\", \"applicable\": \"해당\"}, {\"seq\": 67, \"law\": \"OSH\", \"item_code\": \"OSH_PSM\", \"item_raw\": \"PSM 대상물질\", \"comp_ref\": \"8\", \"applicable\": \"해당\"}, {\"seq\": 68, \"law\": \"OSH\", \"item_code\": \"OSH_PSM\", \"item_raw\": \"PSM 대상물질\", \"comp_ref\": \"9\", \"applicable\": \"해당\"}, {\"seq\": 69, \"law\": \"OSH\", \"item_code\": \"OSH_PSM\", \"item_raw\": \"PSM 대상물질\", \"comp_ref\": \"10\", \"applicable\": \"해당\"}, {\"seq\": 70, \"law\": \"OSH\", \"item_code\": \"OSH_PSM\", \"item_raw\": \"PSM 대상물질\", \"comp_ref\": \"11\", \"applicable\": \"해당\"}, {\"seq\": 71, \"law\": \"OSH\", \"item_code\": \"OSH_PSM\", \"item_raw\": \"PSM 대상\", \"comp_ref\": \"MIX\", \"applicable\": \"해당\", \"value_raw\": \"제품도 PSM 대상임 (인화성 가스)\", \"remark\": \"인화성 가스\"}, {\"seq\": 72, \"law\": \"OSH\", \"item_code\": \"OSH_PERMISSIBLE\", \"item_raw\": \"허용기준설정물질\", \"comp_ref\": \"1\", \"applicable\": \"비해당\"}, {\"seq\": 73, \"law\": \"OSH\", \"item_code\": \"OSH_PERMISSIBLE\", \"item_raw\": \"허용기준설정물질\", \"comp_ref\": \"2\", \"applicable\": \"비해당\"}, {\"seq\": 74, \"law\": \"OSH\", \"item_code\": \"OSH_PERMISSIBLE\", \"item_raw\": \"허용기준설정물질\", \"comp_ref\": \"4\", \"applicable\": \"비해당\"}, {\"seq\": 75, \"law\": \"OSH\", \"item_code\": \"OSH_PERMISSIBLE\", \"item_raw\": \"허용기준설정물질\", \"comp_ref\": \"5\", \"applicable\": \"비해당\"}, {\"seq\": 76, \"law\": \"OSH\", \"item_code\": \"OSH_PERMISSIBLE\", \"item_raw\": \"허용기준설정물질\", \"comp_ref\": \"6\", \"applicable\": \"비해당\"}, {\"seq\": 77, \"law\": \"OSH\", \"item_code\": \"OSH_PERMISSIBLE\", \"item_raw\": \"허용기준설정물질\", \"comp_ref\": \"7\", \"applicable\": \"비해당\"}, {\"seq\": 78, \"law\": \"OSH\", \"item_code\": \"OSH_PERMISSIBLE\", \"item_raw\": \"허용기준설정물질\", \"comp_ref\": \"8\", \"applicable\": \"비해당\"}, {\"seq\": 79, \"law\": \"OSH\", \"item_code\": \"OSH_PERMISSIBLE\", \"item_raw\": \"허용기준설정물질\", \"comp_ref\": \"9\", \"applicable\": \"비해당\"}, {\"seq\": 80, \"law\": \"OSH\", \"item_code\": \"OSH_PERMISSIBLE\", \"item_raw\": \"허용기준설정물질\", \"comp_ref\": \"10\", \"applicable\": \"해당\"}, {\"seq\": 81, \"law\": \"OSH\", \"item_code\": \"OSH_PERMISSIBLE\", \"item_raw\": \"허용기준설정물질\", \"comp_ref\": \"11\", \"applicable\": \"비해당\"}, {\"seq\": 82, \"law\": \"CCA\", \"item_code\": \"CCA_TOXIC\", \"item_raw\": \"유독물질\", \"comp_ref\": \"1\", \"applicable\": \"비해당\"}, {\"seq\": 83, \"law\": \"CCA\", \"item_code\": \"CCA_TOXIC\", \"item_raw\": \"유독물질\", \"comp_ref\": \"2\", \"applicable\": \"비해당\"}, {\"seq\": 84, \"law\": \"CCA\", \"item_code\": \"CCA_TOXIC\", \"item_raw\": \"유독물질\", \"comp_ref\": \"4\", \"applicable\": \"비해당\"}, {\"seq\": 85, \"law\": \"CCA\", \"item_code\": \"CCA_TOXIC\", \"item_raw\": \"유독물질\", \"comp_ref\": \"5\", \"applicable\": \"비해당\"}, {\"seq\": 86, \"law\": \"CCA\", \"item_code\": \"CCA_TOXIC\", \"item_raw\": \"유독물질\", \"comp_ref\": \"6\", \"applicable\": \"비해당\"}, {\"seq\": 87, \"law\": \"CCA\", \"item_code\": \"CCA_TOXIC\", \"item_raw\": \"유독물질\", \"comp_ref\": \"7\", \"applicable\": \"비해당\"}, {\"seq\": 88, \"law\": \"CCA\", \"item_code\": \"CCA_TOXIC\", \"item_raw\": \"유독물질\", \"comp_ref\": \"8\", \"applicable\": \"비해당\"}, {\"seq\": 89, \"law\": \"CCA\", \"item_code\": \"CCA_TOXIC\", \"item_raw\": \"유독물질\", \"comp_ref\": \"9\", \"applicable\": \"비해당\"}, {\"seq\": 90, \"law\": \"CCA\", \"item_code\": \"CCA_TOXIC\", \"item_raw\": \"유독물질\", \"comp_ref\": \"10\", \"applicable\": \"비해당\", \"threshold\": {\"raw\": \"0.1% 이상 함유 시 해당\", \"lower_op\": \">=\", \"lower\": 0.1, \"unit\": \"%\", \"dp\": 1, \"status\": \"값있음\"}, \"value_raw\": \"해당 없음. (0.1% 이상 함유 시 해당)\"}, {\"seq\": 91, \"law\": \"CCA\", \"item_code\": \"CCA_TOXIC\", \"item_raw\": \"유독물질\", \"comp_ref\": \"11\", \"applicable\": \"비해당\"}, {\"seq\": 92, \"law\": \"CCA\", \"item_code\": \"CCA_PRTR\", \"item_raw\": \"배출량조사대상물질\", \"comp_ref\": \"1\", \"applicable\": \"비해당\"}, {\"seq\": 93, \"law\": \"CCA\", \"item_code\": \"CCA_PRTR\", \"item_raw\": \"배출량조사대상물질\", \"comp_ref\": \"2\", \"applicable\": \"비해당\", \"threshold\": {\"raw\": \"1% 이상 함유 시 해당\", \"lower_op\": \">=\", \"lower\": 1, \"unit\": \"%\", \"status\": \"값있음\"}, \"value_raw\": \"해당 없음. (1% 이상 함유 시 해당)\"}, {\"seq\": 94, \"law\": \"CCA\", \"item_code\": \"CCA_PRTR\", \"item_raw\": \"배출량조사대상물질\", \"comp_ref\": \"4\", \"applicable\": \"비해당\"}, {\"seq\": 95, \"law\": \"CCA\", \"item_code\": \"CCA_PRTR\", \"item_raw\": \"배출량조사대상물질\", \"comp_ref\": \"5\", \"applicable\": \"해당\"}, {\"seq\": 96, \"law\": \"CCA\", \"item_code\": \"CCA_PRTR\", \"item_raw\": \"배출량조사대상물질\", \"comp_ref\": \"6\", \"applicable\": \"해당\"}, {\"seq\": 97, \"law\": \"CCA\", \"item_code\": \"CCA_PRTR\", \"item_raw\": \"배출량조사대상물질\", \"comp_ref\": \"7\", \"applicable\": \"비해당\"}, {\"seq\": 98, \"law\": \"CCA\", \"item_code\": \"CCA_PRTR\", \"item_raw\": \"배출량조사대상물질\", \"comp_ref\": \"8\", \"applicable\": \"비해당\"}, {\"seq\": 99, \"law\": \"CCA\", \"item_code\": \"CCA_PRTR\", \"item_raw\": \"배출량조사대상물질\", \"comp_ref\": \"9\", \"applicable\": \"비해당\"}, {\"seq\": 100, \"law\": \"CCA\", \"item_code\": \"CCA_PRTR\", \"item_raw\": \"배출량조사대상물질\", \"comp_ref\": \"10\", \"applicable\": \"비해당\"}, {\"seq\": 101, \"law\": \"CCA\", \"item_code\": \"CCA_PRTR\", \"item_raw\": \"배출량조사대상물질\", \"comp_ref\": \"11\", \"applicable\": \"비해당\"}, {\"seq\": 102, \"law\": \"CCA\", \"item_code\": \"CCA_ACCIDENT\", \"item_raw\": \"사고대비물질\", \"comp_ref\": \"1\", \"applicable\": \"비해당\"}, {\"seq\": 103, \"law\": \"CCA\", \"item_code\": \"CCA_ACCIDENT\", \"item_raw\": \"사고대비물질\", \"comp_ref\": \"2\", \"applicable\": \"비해당\"}, {\"seq\": 104, \"law\": \"CCA\", \"item_code\": \"CCA_ACCIDENT\", \"item_raw\": \"사고대비물질\", \"comp_ref\": \"4\", \"applicable\": \"비해당\"}, {\"seq\": 105, \"law\": \"CCA\", \"item_code\": \"CCA_ACCIDENT\", \"item_raw\": \"사고대비물질\", \"comp_ref\": \"5\", \"applicable\": \"비해당\"}, {\"seq\": 106, \"law\": \"CCA\", \"item_code\": \"CCA_ACCIDENT\", \"item_raw\": \"사고대비물질\", \"comp_ref\": \"6\", \"applicable\": \"비해당\"}, {\"seq\": 107, \"law\": \"CCA\", \"item_code\": \"CCA_ACCIDENT\", \"item_raw\": \"사고대비물질\", \"comp_ref\": \"7\", \"applicable\": \"비해당\"}, {\"seq\": 108, \"law\": \"CCA\", \"item_code\": \"CCA_ACCIDENT\", \"item_raw\": \"사고대비물질\", \"comp_ref\": \"8\", \"applicable\": \"비해당\"}, {\"seq\": 109, \"law\": \"CCA\", \"item_code\": \"CCA_ACCIDENT\", \"item_raw\": \"사고대비물질\", \"comp_ref\": \"9\", \"applicable\": \"비해당\"}, {\"seq\": 110, \"law\": \"CCA\", \"item_code\": \"CCA_ACCIDENT\", \"item_raw\": \"사고대비물질\", \"comp_ref\": \"10\", \"applicable\": \"비해당\"}, {\"seq\": 111, \"law\": \"CCA\", \"item_code\": \"CCA_ACCIDENT\", \"item_raw\": \"사고대비물질\", \"comp_ref\": \"11\", \"applicable\": \"비해당\"}, {\"seq\": 112, \"law\": \"CCA\", \"item_code\": \"CCA_RESTRICT\", \"item_raw\": \"제한물질\", \"comp_ref\": \"1\", \"applicable\": \"비해당\"}, {\"seq\": 113, \"law\": \"CCA\", \"item_code\": \"CCA_RESTRICT\", \"item_raw\": \"제한물질\", \"comp_ref\": \"2\", \"applicable\": \"비해당\"}, {\"seq\": 114, \"law\": \"CCA\", \"item_code\": \"CCA_RESTRICT\", \"item_raw\": \"제한물질\", \"comp_ref\": \"4\", \"applicable\": \"비해당\"}, {\"seq\": 115, \"law\": \"CCA\", \"item_code\": \"CCA_RESTRICT\", \"item_raw\": \"제한물질\", \"comp_ref\": \"5\", \"applicable\": \"비해당\"}, {\"seq\": 116, \"law\": \"CCA\", \"item_code\": \"CCA_RESTRICT\", \"item_raw\": \"제한물질\", \"comp_ref\": \"6\", \"applicable\": \"비해당\"}, {\"seq\": 117, \"law\": \"CCA\", \"item_code\": \"CCA_RESTRICT\", \"item_raw\": \"제한물질\", \"comp_ref\": \"7\", \"applicable\": \"비해당\"}, {\"seq\": 118, \"law\": \"CCA\", \"item_code\": \"CCA_RESTRICT\", \"item_raw\": \"제한물질\", \"comp_ref\": \"8\", \"applicable\": \"비해당\"}, {\"seq\": 119, \"law\": \"CCA\", \"item_code\": \"CCA_RESTRICT\", \"item_raw\": \"제한물질\", \"comp_ref\": \"9\", \"applicable\": \"비해당\"}, {\"seq\": 120, \"law\": \"CCA\", \"item_code\": \"CCA_RESTRICT\", \"item_raw\": \"제한물질\", \"comp_ref\": \"10\", \"applicable\": \"비해당\"}, {\"seq\": 121, \"law\": \"CCA\", \"item_code\": \"CCA_RESTRICT\", \"item_raw\": \"제한물질\", \"comp_ref\": \"11\", \"applicable\": \"비해당\"}, {\"seq\": 122, \"law\": \"CCA\", \"item_code\": \"CCA_PERMIT\", \"item_raw\": \"허가물질\", \"comp_ref\": \"1\", \"applicable\": \"비해당\"}, {\"seq\": 123, \"law\": \"CCA\", \"item_code\": \"CCA_PERMIT\", \"item_raw\": \"허가물질\", \"comp_ref\": \"2\", \"applicable\": \"비해당\"}, {\"seq\": 124, \"law\": \"CCA\", \"item_code\": \"CCA_PERMIT\", \"item_raw\": \"허가물질\", \"comp_ref\": \"4\", \"applicable\": \"비해당\"}, {\"seq\": 125, \"law\": \"CCA\", \"item_code\": \"CCA_PERMIT\", \"item_raw\": \"허가물질\", \"comp_ref\": \"5\", \"applicable\": \"비해당\"}, {\"seq\": 126, \"law\": \"CCA\", \"item_code\": \"CCA_PERMIT\", \"item_raw\": \"허가물질\", \"comp_ref\": \"6\", \"applicable\": \"비해당\"}, {\"seq\": 127, \"law\": \"CCA\", \"item_code\": \"CCA_PERMIT\", \"item_raw\": \"허가물질\", \"comp_ref\": \"7\", \"applicable\": \"비해당\"}, {\"seq\": 128, \"law\": \"CCA\", \"item_code\": \"CCA_PERMIT\", \"item_raw\": \"허가물질\", \"comp_ref\": \"8\", \"applicable\": \"비해당\"}, {\"seq\": 129, \"law\": \"CCA\", \"item_code\": \"CCA_PERMIT\", \"item_raw\": \"허가물질\", \"comp_ref\": \"9\", \"applicable\": \"비해당\"}, {\"seq\": 130, \"law\": \"CCA\", \"item_code\": \"CCA_PERMIT\", \"item_raw\": \"허가물질\", \"comp_ref\": \"10\", \"applicable\": \"비해당\"}, {\"seq\": 131, \"law\": \"CCA\", \"item_code\": \"CCA_PERMIT\", \"item_raw\": \"허가물질\", \"comp_ref\": \"11\", \"applicable\": \"비해당\"}, {\"seq\": 132, \"law\": \"CCA\", \"item_code\": \"CCA_PROHIBIT\", \"item_raw\": \"금지물질\", \"comp_ref\": \"1\", \"applicable\": \"비해당\"}, {\"seq\": 133, \"law\": \"CCA\", \"item_code\": \"CCA_PROHIBIT\", \"item_raw\": \"금지물질\", \"comp_ref\": \"2\", \"applicable\": \"비해당\"}, {\"seq\": 134, \"law\": \"CCA\", \"item_code\": \"CCA_PROHIBIT\", \"item_raw\": \"금지물질\", \"comp_ref\": \"4\", \"applicable\": \"비해당\"}, {\"seq\": 135, \"law\": \"CCA\", \"item_code\": \"CCA_PROHIBIT\", \"item_raw\": \"금지물질\", \"comp_ref\": \"5\", \"applicable\": \"비해당\"}, {\"seq\": 136, \"law\": \"CCA\", \"item_code\": \"CCA_PROHIBIT\", \"item_raw\": \"금지물질\", \"comp_ref\": \"6\", \"applicable\": \"비해당\"}, {\"seq\": 137, \"law\": \"CCA\", \"item_code\": \"CCA_PROHIBIT\", \"item_raw\": \"금지물질\", \"comp_ref\": \"7\", \"applicable\": \"비해당\"}, {\"seq\": 138, \"law\": \"CCA\", \"item_code\": \"CCA_PROHIBIT\", \"item_raw\": \"금지물질\", \"comp_ref\": \"8\", \"applicable\": \"비해당\"}, {\"seq\": 139, \"law\": \"CCA\", \"item_code\": \"CCA_PROHIBIT\", \"item_raw\": \"금지물질\", \"comp_ref\": \"9\", \"applicable\": \"비해당\"}, {\"seq\": 140, \"law\": \"CCA\", \"item_code\": \"CCA_PROHIBIT\", \"item_raw\": \"금지물질\", \"comp_ref\": \"10\", \"applicable\": \"비해당\"}, {\"seq\": 141, \"law\": \"CCA\", \"item_code\": \"CCA_PROHIBIT\", \"item_raw\": \"금지물질\", \"comp_ref\": \"11\", \"applicable\": \"비해당\"}, {\"seq\": 142, \"law\": \"KREACH\", \"item_code\": null, \"item_raw\": null, \"comp_ref\": \"MIX\", \"applicable\": \"미기재\"}, {\"seq\": 143, \"law\": \"DG\", \"item_code\": \"DG_HAZMAT\", \"item_raw\": \"위험물안전관리법에 의한 규제\", \"comp_ref\": \"MIX\", \"applicable\": \"비해당\", \"value_raw\": \"위험물에 해당되지 않음\"}, {\"seq\": 144, \"law\": \"WASTE\", \"item_code\": \"WASTE_DESIG\", \"item_raw\": \"폐기물관리법에 의한 규제\", \"comp_ref\": \"MIX\", \"applicable\": \"비해당\", \"value_raw\": \"지정폐기물 외 사업자폐기물에 해당됨\"}, {\"seq\": 145, \"law\": \"POPS\", \"item_code\": \"POPS\", \"item_raw\": \"기타 국내 규제(잔류성 오염물질 관리법)\", \"comp_ref\": \"1\", \"applicable\": \"비해당\"}, {\"seq\": 146, \"law\": \"POPS\", \"item_code\": \"POPS\", \"item_raw\": \"기타 국내 규제(잔류성 오염물질 관리법)\", \"comp_ref\": \"2\", \"applicable\": \"비해당\"}, {\"seq\": 147, \"law\": \"POPS\", \"item_code\": \"POPS\", \"item_raw\": \"기타 국내 규제(잔류성 오염물질 관리법)\", \"comp_ref\": \"4\", \"applicable\": \"비해당\"}, {\"seq\": 148, \"law\": \"POPS\", \"item_code\": \"POPS\", \"item_raw\": \"기타 국내 규제(잔류성 오염물질 관리법)\", \"comp_ref\": \"5\", \"applicable\": \"비해당\"}, {\"seq\": 149, \"law\": \"POPS\", \"item_code\": \"POPS\", \"item_raw\": \"기타 국내 규제(잔류성 오염물질 관리법)\", \"comp_ref\": \"6\", \"applicable\": \"비해당\"}, {\"seq\": 150, \"law\": \"POPS\", \"item_code\": \"POPS\", \"item_raw\": \"기타 국내 규제(잔류성 오염물질 관리법)\", \"comp_ref\": \"7\", \"applicable\": \"비해당\"}, {\"seq\": 151, \"law\": \"POPS\", \"item_code\": \"POPS\", \"item_raw\": \"기타 국내 규제(잔류성 오염물질 관리법)\", \"comp_ref\": \"8\", \"applicable\": \"비해당\"}, {\"seq\": 152, \"law\": \"POPS\", \"item_code\": \"POPS\", \"item_raw\": \"기타 국내 규제(잔류성 오염물질 관리법)\", \"comp_ref\": \"9\", \"applicable\": \"비해당\"}, {\"seq\": 153, \"law\": \"POPS\", \"item_code\": \"POPS\", \"item_raw\": \"기타 국내 규제(잔류성 오염물질 관리법)\", \"comp_ref\": \"10\", \"applicable\": \"비해당\"}, {\"seq\": 154, \"law\": \"POPS\", \"item_code\": \"POPS\", \"item_raw\": \"기타 국내 규제(잔류성 오염물질 관리법)\", \"comp_ref\": \"11\", \"applicable\": \"비해당\"}, {\"seq\": 155, \"law\": \"INTL\", \"item_code\": \"INTL_US\", \"item_raw\": \"미국관리정보 (OSHA 규정)\", \"comp_ref\": \"1\", \"applicable\": \"비해당\", \"country\": \"US\"}, {\"seq\": 156, \"law\": \"INTL\", \"item_code\": \"INTL_US\", \"item_raw\": \"미국관리정보 (OSHA 규정)\", \"comp_ref\": \"2\", \"applicable\": \"비해당\", \"country\": \"US\"}, {\"seq\": 157, \"law\": \"INTL\", \"item_code\": \"INTL_US\", \"item_raw\": \"미국관리정보 (OSHA 규정)\", \"comp_ref\": \"4\", \"applicable\": \"비해당\", \"country\": \"US\"}, {\"seq\": 158, \"law\": \"INTL\", \"item_code\": \"INTL_US\", \"item_raw\": \"미국관리정보 (OSHA 규정)\", \"comp_ref\": \"5\", \"applicable\": \"비해당\", \"country\": \"US\"}, {\"seq\": 159, \"law\": \"INTL\", \"item_code\": \"INTL_US\", \"item_raw\": \"미국관리정보 (OSHA 규정)\", \"comp_ref\": \"6\", \"applicable\": \"비해당\", \"country\": \"US\"}, {\"seq\": 160, \"law\": \"INTL\", \"item_code\": \"INTL_US\", \"item_raw\": \"미국관리정보 (OSHA 규정)\", \"comp_ref\": \"7\", \"applicable\": \"비해당\", \"country\": \"US\"}, {\"seq\": 161, \"law\": \"INTL\", \"item_code\": \"INTL_US\", \"item_raw\": \"미국관리정보 (OSHA 규정)\", \"comp_ref\": \"8\", \"applicable\": \"비해당\", \"country\": \"US\"}, {\"seq\": 162, \"law\": \"INTL\", \"item_code\": \"INTL_US\", \"item_raw\": \"미국관리정보 (OSHA 규정)\", \"comp_ref\": \"9\", \"applicable\": \"비해당\", \"country\": \"US\"}, {\"seq\": 163, \"law\": \"INTL\", \"item_code\": \"INTL_US\", \"item_raw\": \"미국관리정보 (OSHA 규정)\", \"comp_ref\": \"10\", \"applicable\": \"비해당\", \"country\": \"US\"}, {\"seq\": 164, \"law\": \"INTL\", \"item_code\": \"INTL_US\", \"item_raw\": \"미국관리정보 (OSHA 규정)\", \"comp_ref\": \"11\", \"applicable\": \"비해당\", \"country\": \"US\"}, {\"seq\": 165, \"law\": \"INTL\", \"item_code\": \"INTL_US\", \"item_raw\": \"미국관리정보 (CERCLA 103 규정)\", \"comp_ref\": \"1\", \"applicable\": \"비해당\", \"country\": \"US\"}, {\"seq\": 166, \"law\": \"INTL\", \"item_code\": \"INTL_US\", \"item_raw\": \"미국관리정보 (CERCLA 103 규정)\", \"comp_ref\": \"2\", \"applicable\": \"비해당\", \"country\": \"US\"}, {\"seq\": 167, \"law\": \"INTL\", \"item_code\": \"INTL_US\", \"item_raw\": \"미국관리정보 (CERCLA 103 규정)\", \"comp_ref\": \"4\", \"applicable\": \"비해당\", \"country\": \"US\"}, {\"seq\": 168, \"law\": \"INTL\", \"item_code\": \"INTL_US\", \"item_raw\": \"미국관리정보 (CERCLA 103 규정)\", \"comp_ref\": \"5\", \"applicable\": \"비해당\", \"country\": \"US\"}, {\"seq\": 169, \"law\": \"INTL\", \"item_code\": \"INTL_US\", \"item_raw\": \"미국관리정보 (CERCLA 103 규정)\", \"comp_ref\": \"6\", \"applicable\": \"비해당\", \"country\": \"US\"}, {\"seq\": 170, \"law\": \"INTL\", \"item_code\": \"INTL_US\", \"item_raw\": \"미국관리정보 (CERCLA 103 규정)\", \"comp_ref\": \"7\", \"applicable\": \"비해당\", \"country\": \"US\"}, {\"seq\": 171, \"law\": \"INTL\", \"item_code\": \"INTL_US\", \"item_raw\": \"미국관리정보 (CERCLA 103 규정)\", \"comp_ref\": \"8\", \"applicable\": \"비해당\", \"country\": \"US\"}, {\"seq\": 172, \"law\": \"INTL\", \"item_code\": \"INTL_US\", \"item_raw\": \"미국관리정보 (CERCLA 103 규정)\", \"comp_ref\": \"9\", \"applicable\": \"비해당\", \"country\": \"US\"}, {\"seq\": 173, \"law\": \"INTL\", \"item_code\": \"INTL_US\", \"item_raw\": \"미국관리정보 (CERCLA 103 규정)\", \"comp_ref\": \"10\", \"applicable\": \"해당\", \"country\": \"US\", \"value_raw\": \"4.53599 kg 10 lb\", \"qty\": {\"raw\": \"4.53599 kg\", \"value\": 4.53599, \"unit\": \"kg\", \"dp\": 5, \"status\": \"값있음\"}, \"qty_alt\": {\"raw\": \"10 lb\", \"value\": 10, \"unit\": \"lb\", \"status\": \"값있음\"}}, {\"seq\": 174, \"law\": \"INTL\", \"item_code\": \"INTL_US\", \"item_raw\": \"미국관리정보 (CERCLA 103 규정)\", \"comp_ref\": \"11\", \"applicable\": \"비해당\", \"country\": \"US\"}, {\"seq\": 175, \"law\": \"INTL\", \"item_code\": \"INTL_US\", \"item_raw\": \"미국관리정보 (EPCRA 302 규정)\", \"comp_ref\": \"1\", \"applicable\": \"비해당\", \"country\": \"US\"}, {\"seq\": 176, \"law\": \"INTL\", \"item_code\": \"INTL_US\", \"item_raw\": \"미국관리정보 (EPCRA 302 규정)\", \"comp_ref\": \"2\", \"applicable\": \"비해당\", \"country\": \"US\"}, {\"seq\": 177, \"law\": \"INTL\", \"item_code\": \"INTL_US\", \"item_raw\": \"미국관리정보 (EPCRA 302 규정)\", \"comp_ref\": \"4\", \"applicable\": \"비해당\", \"country\": \"US\"}, {\"seq\": 178, \"law\": \"INTL\", \"item_code\": \"INTL_US\", \"item_raw\": \"미국관리정보 (EPCRA 302 규정)\", \"comp_ref\": \"5\", \"applicable\": \"비해당\", \"country\": \"US\"}, {\"seq\": 179, \"law\": \"INTL\", \"item_code\": \"INTL_US\", \"item_raw\": \"미국관리정보 (EPCRA 302 규정)\", \"comp_ref\": \"6\", \"applicable\": \"비해당\", \"country\": \"US\"}, {\"seq\": 180, \"law\": \"INTL\", \"item_code\": \"INTL_US\", \"item_raw\": \"미국관리정보 (EPCRA 302 규정)\", \"comp_ref\": \"7\", \"applicable\": \"비해당\", \"country\": \"US\"}, {\"seq\": 181, \"law\": \"INTL\", \"item_code\": \"INTL_US\", \"item_raw\": \"미국관리정보 (EPCRA 302 규정)\", \"comp_ref\": \"8\", \"applicable\": \"비해당\", \"country\": \"US\"}, {\"seq\": 182, \"law\": \"INTL\", \"item_code\": \"INTL_US\", \"item_raw\": \"미국관리정보 (EPCRA 302 규정)\", \"comp_ref\": \"9\", \"applicable\": \"비해당\", \"country\": \"US\"}, {\"seq\": 183, \"law\": \"INTL\", \"item_code\": \"INTL_US\", \"item_raw\": \"미국관리정보 (EPCRA 302 규정)\", \"comp_ref\": \"10\", \"applicable\": \"비해당\", \"country\": \"US\"}, {\"seq\": 184, \"law\": \"INTL\", \"item_code\": \"INTL_US\", \"item_raw\": \"미국관리정보 (EPCRA 302 규정)\", \"comp_ref\": \"11\", \"applicable\": \"비해당\", \"country\": \"US\"}, {\"seq\": 185, \"law\": \"INTL\", \"item_code\": \"INTL_US\", \"item_raw\": \"미국관리정보 (EPCRA 304 규정)\", \"comp_ref\": \"1\", \"applicable\": \"비해당\", \"country\": \"US\"}, {\"seq\": 186, \"law\": \"INTL\", \"item_code\": \"INTL_US\", \"item_raw\": \"미국관리정보 (EPCRA 304 규정)\", \"comp_ref\": \"2\", \"applicable\": \"비해당\", \"country\": \"US\"}, {\"seq\": 187, \"law\": \"INTL\", \"item_code\": \"INTL_US\", \"item_raw\": \"미국관리정보 (EPCRA 304 규정)\", \"comp_ref\": \"4\", \"applicable\": \"비해당\", \"country\": \"US\"}, {\"seq\": 188, \"law\": \"INTL\", \"item_code\": \"INTL_US\", \"item_raw\": \"미국관리정보 (EPCRA 304 규정)\", \"comp_ref\": \"5\", \"applicable\": \"비해당\", \"country\": \"US\"}, {\"seq\": 189, \"law\": \"INTL\", \"item_code\": \"INTL_US\", \"item_raw\": \"미국관리정보 (EPCRA 304 규정)\", \"comp_ref\": \"6\", \"applicable\": \"비해당\", \"country\": \"US\"}, {\"seq\": 190, \"law\": \"INTL\", \"item_code\": \"INTL_US\", \"item_raw\": \"미국관리정보 (EPCRA 304 규정)\", \"comp_ref\": \"7\", \"applicable\": \"비해당\", \"country\": \"US\"}, {\"seq\": 191, \"law\": \"INTL\", \"item_code\": \"INTL_US\", \"item_raw\": \"미국관리정보 (EPCRA 304 규정)\", \"comp_ref\": \"8\", \"applicable\": \"비해당\", \"country\": \"US\"}, {\"seq\": 192, \"law\": \"INTL\", \"item_code\": \"INTL_US\", \"item_raw\": \"미국관리정보 (EPCRA 304 규정)\", \"comp_ref\": \"9\", \"applicable\": \"비해당\", \"country\": \"US\"}, {\"seq\": 193, \"law\": \"INTL\", \"item_code\": \"INTL_US\", \"item_raw\": \"미국관리정보 (EPCRA 304 규정)\", \"comp_ref\": \"10\", \"applicable\": \"비해당\", \"country\": \"US\"}, {\"seq\": 194, \"law\": \"INTL\", \"item_code\": \"INTL_US\", \"item_raw\": \"미국관리정보 (EPCRA 304 규정)\", \"comp_ref\": \"11\", \"applicable\": \"비해당\", \"country\": \"US\"}, {\"seq\": 195, \"law\": \"INTL\", \"item_code\": \"INTL_US\", \"item_raw\": \"미국관리정보 (EPCRA 313 규정)\", \"comp_ref\": \"1\", \"applicable\": \"비해당\", \"country\": \"US\"}, {\"seq\": 196, \"law\": \"INTL\", \"item_code\": \"INTL_US\", \"item_raw\": \"미국관리정보 (EPCRA 313 규정)\", \"comp_ref\": \"2\", \"applicable\": \"비해당\", \"country\": \"US\"}, {\"seq\": 197, \"law\": \"INTL\", \"item_code\": \"INTL_US\", \"item_raw\": \"미국관리정보 (EPCRA 313 규정)\", \"comp_ref\": \"4\", \"applicable\": \"비해당\", \"country\": \"US\"}, {\"seq\": 198, \"law\": \"INTL\", \"item_code\": \"INTL_US\", \"item_raw\": \"미국관리정보 (EPCRA 313 규정)\", \"comp_ref\": \"5\", \"applicable\": \"비해당\", \"country\": \"US\"}, {\"seq\": 199, \"law\": \"INTL\", \"item_code\": \"INTL_US\", \"item_raw\": \"미국관리정보 (EPCRA 313 규정)\", \"comp_ref\": \"6\", \"applicable\": \"비해당\", \"country\": \"US\"}, {\"seq\": 200, \"law\": \"INTL\", \"item_code\": \"INTL_US\", \"item_raw\": \"미국관리정보 (EPCRA 313 규정)\", \"comp_ref\": \"7\", \"applicable\": \"비해당\", \"country\": \"US\"}, {\"seq\": 201, \"law\": \"INTL\", \"item_code\": \"INTL_US\", \"item_raw\": \"미국관리정보 (EPCRA 313 규정)\", \"comp_ref\": \"8\", \"applicable\": \"비해당\", \"country\": \"US\"}, {\"seq\": 202, \"law\": \"INTL\", \"item_code\": \"INTL_US\", \"item_raw\": \"미국관리정보 (EPCRA 313 규정)\", \"comp_ref\": \"9\", \"applicable\": \"비해당\", \"country\": \"US\"}, {\"seq\": 203, \"law\": \"INTL\", \"item_code\": \"INTL_US\", \"item_raw\": \"미국관리정보 (EPCRA 313 규정)\", \"comp_ref\": \"10\", \"applicable\": \"비해당\", \"country\": \"US\"}, {\"seq\": 204, \"law\": \"INTL\", \"item_code\": \"INTL_US\", \"item_raw\": \"미국관리정보 (EPCRA 313 규정)\", \"comp_ref\": \"11\", \"applicable\": \"비해당\", \"country\": \"US\"}, {\"seq\": 205, \"law\": \"INTL\", \"item_code\": \"INTL_TREATY\", \"item_raw\": \"로테르담협약물질\", \"comp_ref\": \"1\", \"applicable\": \"비해당\"}, {\"seq\": 206, \"law\": \"INTL\", \"item_code\": \"INTL_TREATY\", \"item_raw\": \"로테르담협약물질\", \"comp_ref\": \"2\", \"applicable\": \"비해당\"}, {\"seq\": 207, \"law\": \"INTL\", \"item_code\": \"INTL_TREATY\", \"item_raw\": \"로테르담협약물질\", \"comp_ref\": \"4\", \"applicable\": \"비해당\"}, {\"seq\": 208, \"law\": \"INTL\", \"item_code\": \"INTL_TREATY\", \"item_raw\": \"로테르담협약물질\", \"comp_ref\": \"5\", \"applicable\": \"비해당\"}, {\"seq\": 209, \"law\": \"INTL\", \"item_code\": \"INTL_TREATY\", \"item_raw\": \"로테르담협약물질\", \"comp_ref\": \"6\", \"applicable\": \"비해당\"}, {\"seq\": 210, \"law\": \"INTL\", \"item_code\": \"INTL_TREATY\", \"item_raw\": \"로테르담협약물질\", \"comp_ref\": \"7\", \"applicable\": \"비해당\"}, {\"seq\": 211, \"law\": \"INTL\", \"item_code\": \"INTL_TREATY\", \"item_raw\": \"로테르담협약물질\", \"comp_ref\": \"8\", \"applicable\": \"비해당\"}, {\"seq\": 212, \"law\": \"INTL\", \"item_code\": \"INTL_TREATY\", \"item_raw\": \"로테르담협약물질\", \"comp_ref\": \"9\", \"applicable\": \"비해당\"}, {\"seq\": 213, \"law\": \"INTL\", \"item_code\": \"INTL_TREATY\", \"item_raw\": \"로테르담협약물질\", \"comp_ref\": \"10\", \"applicable\": \"비해당\"}, {\"seq\": 214, \"law\": \"INTL\", \"item_code\": \"INTL_TREATY\", \"item_raw\": \"로테르담협약물질\", \"comp_ref\": \"11\", \"applicable\": \"비해당\"}, {\"seq\": 215, \"law\": \"INTL\", \"item_code\": \"INTL_TREATY\", \"item_raw\": \"스톡홀름협약물질\", \"comp_ref\": \"1\", \"applicable\": \"비해당\"}, {\"seq\": 216, \"law\": \"INTL\", \"item_code\": \"INTL_TREATY\", \"item_raw\": \"스톡홀름협약물질\", \"comp_ref\": \"2\", \"applicable\": \"비해당\"}, {\"seq\": 217, \"law\": \"INTL\", \"item_code\": \"INTL_TREATY\", \"item_raw\": \"스톡홀름협약물질\", \"comp_ref\": \"4\", \"applicable\": \"비해당\"}, {\"seq\": 218, \"law\": \"INTL\", \"item_code\": \"INTL_TREATY\", \"item_raw\": \"스톡홀름협약물질\", \"comp_ref\": \"5\", \"applicable\": \"비해당\"}, {\"seq\": 219, \"law\": \"INTL\", \"item_code\": \"INTL_TREATY\", \"item_raw\": \"스톡홀름협약물질\", \"comp_ref\": \"6\", \"applicable\": \"비해당\"}, {\"seq\": 220, \"law\": \"INTL\", \"item_code\": \"INTL_TREATY\", \"item_raw\": \"스톡홀름협약물질\", \"comp_ref\": \"7\", \"applicable\": \"비해당\"}, {\"seq\": 221, \"law\": \"INTL\", \"item_code\": \"INTL_TREATY\", \"item_raw\": \"스톡홀름협약물질\", \"comp_ref\": \"8\", \"applicable\": \"비해당\"}, {\"seq\": 222, \"law\": \"INTL\", \"item_code\": \"INTL_TREATY\", \"item_raw\": \"스톡홀름협약물질\", \"comp_ref\": \"9\", \"applicable\": \"비해당\"}, {\"seq\": 223, \"law\": \"INTL\", \"item_code\": \"INTL_TREATY\", \"item_raw\": \"스톡홀름협약물질\", \"comp_ref\": \"10\", \"applicable\": \"비해당\"}, {\"seq\": 224, \"law\": \"INTL\", \"item_code\": \"INTL_TREATY\", \"item_raw\": \"스톡홀름협약물질\", \"comp_ref\": \"11\", \"applicable\": \"비해당\"}, {\"seq\": 225, \"law\": \"INTL\", \"item_code\": \"INTL_TREATY\", \"item_raw\": \"몬트리올의정서물질\", \"comp_ref\": \"1\", \"applicable\": \"비해당\"}, {\"seq\": 226, \"law\": \"INTL\", \"item_code\": \"INTL_TREATY\", \"item_raw\": \"몬트리올의정서물질\", \"comp_ref\": \"2\", \"applicable\": \"비해당\"}, {\"seq\": 227, \"law\": \"INTL\", \"item_code\": \"INTL_TREATY\", \"item_raw\": \"몬트리올의정서물질\", \"comp_ref\": \"4\", \"applicable\": \"비해당\"}, {\"seq\": 228, \"law\": \"INTL\", \"item_code\": \"INTL_TREATY\", \"item_raw\": \"몬트리올의정서물질\", \"comp_ref\": \"5\", \"applicable\": \"비해당\"}, {\"seq\": 229, \"law\": \"INTL\", \"item_code\": \"INTL_TREATY\", \"item_raw\": \"몬트리올의정서물질\", \"comp_ref\": \"6\", \"applicable\": \"비해당\"}, {\"seq\": 230, \"law\": \"INTL\", \"item_code\": \"INTL_TREATY\", \"item_raw\": \"몬트리올의정서물질\", \"comp_ref\": \"7\", \"applicable\": \"비해당\"}, {\"seq\": 231, \"law\": \"INTL\", \"item_code\": \"INTL_TREATY\", \"item_raw\": \"몬트리올의정서물질\", \"comp_ref\": \"8\", \"applicable\": \"비해당\"}, {\"seq\": 232, \"law\": \"INTL\", \"item_code\": \"INTL_TREATY\", \"item_raw\": \"몬트리올의정서물질\", \"comp_ref\": \"9\", \"applicable\": \"비해당\"}, {\"seq\": 233, \"law\": \"INTL\", \"item_code\": \"INTL_TREATY\", \"item_raw\": \"몬트리올의정서물질\", \"comp_ref\": \"10\", \"applicable\": \"비해당\"}, {\"seq\": 234, \"law\": \"INTL\", \"item_code\": \"INTL_TREATY\", \"item_raw\": \"몬트리올의정서물질\", \"comp_ref\": \"11\", \"applicable\": \"비해당\"}], \"dangerous_goods\": [{\"comp_ref\": \"MIX\", \"class\": \"해당없음\", \"item\": null, \"water_soluble\": null, \"grade\": null, \"designated_qty\": null}], \"waste\": [{\"comp_ref\": \"MIX\", \"designated\": \"비해당\", \"waste_type\": \"지정폐기물 외 사업자폐기물\"}], \"intl_class\": [{\"comp_ref\": \"1\", \"system\": \"EU_CLP\", \"class_raw\": null, \"h_code\": \"H220\", \"status\": \"값있음\"}, {\"comp_ref\": \"2\", \"system\": \"EU_CLP\", \"class_raw\": null, \"h_code\": \"H220\", \"status\": \"값있음\"}, {\"comp_ref\": \"4\", \"system\": \"EU_CLP\", \"class_raw\": null, \"h_code\": \"H220\", \"status\": \"값있음\"}, {\"comp_ref\": \"5\", \"system\": \"EU_CLP\", \"class_raw\": null, \"h_code\": \"H220\", \"status\": \"값있음\"}, {\"comp_ref\": \"6\", \"system\": \"EU_CLP\", \"class_raw\": null, \"h_code\": \"H220\", \"status\": \"값있음\"}, {\"comp_ref\": \"7\", \"system\": \"EU_CLP\", \"class_raw\": null, \"h_code\": \"H220\", \"status\": \"값있음\"}, {\"comp_ref\": \"8\", \"system\": \"EU_CLP\", \"class_raw\": null, \"h_code\": \"H220\", \"status\": \"값있음\"}, {\"comp_ref\": \"9\", \"system\": \"EU_CLP\", \"class_raw\": null, \"h_code\": \"H220\", \"status\": \"값있음\"}, {\"comp_ref\": \"10\", \"system\": \"EU_CLP\", \"class_raw\": null, \"h_code\": \"H220\", \"status\": \"값있음\"}, {\"comp_ref\": \"10\", \"system\": \"EU_CLP\", \"class_raw\": null, \"h_code\": \"H350\", \"status\": \"값있음\"}, {\"comp_ref\": \"10\", \"system\": \"EU_CLP\", \"class_raw\": null, \"h_code\": \"H340\", \"status\": \"값있음\"}, {\"comp_ref\": \"11\", \"system\": \"EU_CLP\", \"class_raw\": null, \"h_code\": null, \"status\": \"해당없음\"}]}], \"evidence\": [{\"msds_index\": 0, \"field\": \"transport[0]\", \"page\": 24, \"source_text\": \"가. 유엔번호(UN No.) : 1954 / 나. 유엔 적정 선적명 : COMPRESSED GAS, FLAMMABLE, N.O.S. / 다. 운송에서의 위험성 등급 : 2.1 / 라. 용기등급 : 해당 없음. / 마. 해양오염물질 : 해당 없음.\", \"rules\": [\"R09\", \"R15\"], \"note\": \"운송 방식 구분이 없어 mode=공통. 용기등급은 해당없음, 해양오염물질은 비해당으로 적음\"}, {\"msds_index\": 0, \"field\": \"transport[0].ems_fire\", \"page\": 24, \"source_text\": \"- 화재 시 비상조치의 종류 : F-D (Flammable gases)\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"transport[0].ems_spill\", \"page\": 24, \"source_text\": \"- 유출 시 비상조치의 종류 : S-U (Gases(flammable, toxic or corrosive))\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"regulations[0-9]\", \"page\": 25, \"source_text\": \"구성 성분 | 작업환경측정물질 | 노출기준설정물질 | 관리대상유해물질 / 프로페인 | 해당 없음. | 해당 없음. | 해당 없음.\", \"rules\": [\"R25\", \"R10\"], \"note\": \"성분 10종 각각 작업환경측정물질 열의 '해당 없음.'을 비해당으로 적음\"}, {\"msds_index\": 0, \"field\": \"regulations[8]\", \"page\": 25, \"source_text\": \"1,3-부타디엔 | 해당 없음. (1% 이상 함유 시 해당) | 해당됨 | 해당 없음. (0.1% 이상 함유 시 해당)\", \"rules\": [\"R04\", \"R25\"], \"note\": \"'1% 이상 함유 시 해당'을 threshold >=1 %로 나눔\"}, {\"msds_index\": 0, \"field\": \"regulations[10-19]\", \"page\": 25, \"source_text\": \"1,3-부타디엔 | 해당 없음. (1% 이상 함유 시 해당) | 해당됨 | 해당 없음. (0.1% 이상 함유 시 해당)\", \"rules\": [\"R25\"], \"note\": \"노출기준설정물질 열: 1,3-부타디엔만 해당됨, 나머지 성분은 해당 없음 → 비해당\"}, {\"msds_index\": 0, \"field\": \"regulations[20-29]\", \"page\": 25, \"source_text\": \"1,3-부타디엔 | 해당 없음. (1% 이상 함유 시 해당) | 해당됨 | 해당 없음. (0.1% 이상 함유 시 해당)\", \"rules\": [\"R04\", \"R25\"], \"note\": \"관리대상유해물질 열. 1,3-부타디엔의 '0.1% 이상'은 threshold >=0.1 %로 나눔\"}, {\"msds_index\": 0, \"field\": \"regulations[30-39]\", \"page\": 25, \"source_text\": \"1,3-부타디엔 | 해당 없음. (1% 이상 함유 시 해당) | 해당 없음. | 해당 없음.\", \"rules\": [\"R04\", \"R25\"], \"note\": \"특수건강검진대상 열. 1,3-부타디엔의 '1% 이상'은 threshold >=1 %로 나눔\"}, {\"msds_index\": 0, \"field\": \"regulations[40-49]\", \"page\": 25, \"source_text\": \"구성 성분 | 특수건강검진대상 | 제조등금지물질 | 허가대상물질 / 프로페인 | 해당 없음. | 해당 없음. | 해당 없음.\", \"rules\": [\"R25\"], \"note\": \"제조등금지물질 열: 성분 10종 모두 비해당\"}, {\"msds_index\": 0, \"field\": \"regulations[50-59]\", \"page\": 25, \"source_text\": \"구성 성분 | 특수건강검진대상 | 제조등금지물질 | 허가대상물질 / 1,2-부타디엔 | 해당 없음. | 해당 없음. | 해당 없음.\", \"rules\": [\"R25\"], \"note\": \"허가대상물질 열: 성분 10종 모두 비해당\"}, {\"msds_index\": 0, \"field\": \"regulations[60-66]\", \"page\": 25, \"source_text\": \"구성 성분 | PSM 대상물질 | 허용기준설정물질 / 프로페인 | 해당됨 | 해당 없음.\", \"rules\": [\"R25\"], \"note\": \"PSM 대상물질 열: 25쪽에 나온 성분 모두 해당됨\"}, {\"msds_index\": 0, \"field\": \"regulations[67-69]\", \"page\": 26, \"source_text\": \"시스-2-부텐 | 해당됨 | 해당 없음. / 1,3-부타디엔 | 해당됨 | 해당됨 / 1,2-부타디엔 | 해당됨 | 해당 없음.\", \"rules\": [\"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"regulations[70]\", \"page\": 26, \"source_text\": \"* 제품도 PSM 대상임 (인화성 가스)\", \"rules\": [\"R10\"], \"note\": \"제품 전체 기준이라 comp_ref=MIX\"}, {\"msds_index\": 0, \"field\": \"regulations[71-80]\", \"page\": 26, \"source_text\": \"1,3-부타디엔 | 해당됨 | 해당됨\", \"rules\": [\"R25\"], \"note\": \"허용기준설정물질 열: 1,3-부타디엔만 해당, 나머지 성분은 비해당(25~26쪽)\"}, {\"msds_index\": 0, \"field\": \"regulations[81-90]\", \"page\": 26, \"source_text\": \"1,3-부타디엔 | 해당 없음. (0.1% 이상 함유 시 해당) | 해당 없음. | 해당 없음.\", \"rules\": [\"R04\", \"R25\"], \"note\": \"유독물질 열. 1,3-부타디엔의 '0.1% 이상'은 threshold >=0.1 %로 나눔\"}, {\"msds_index\": 0, \"field\": \"regulations[92]\", \"page\": 26, \"source_text\": \"아세틸렌 | 해당 없음. | 해당 없음. (1% 이상 함유 시 해당) | 해당 없음.\", \"rules\": [\"R04\", \"R25\"], \"note\": \"배출량조사대상물질의 '1% 이상'은 threshold >=1 %로 나눔\"}, {\"msds_index\": 0, \"field\": \"regulations[91-100]\", \"page\": 26, \"source_text\": \"부탄 | 해당 없음. | 해당됨 | 해당 없음. / 1-부텐 | 해당 없음. | 해당됨 | 해당 없음.\", \"rules\": [\"R25\"], \"note\": \"배출량조사대상물질: 부탄과 1-부텐은 해당, 나머지 성분은 비해당\"}, {\"msds_index\": 0, \"field\": \"regulations[101-110]\", \"page\": 26, \"source_text\": \"구성 성분 | 유독물질 | 배출량조사대상물질 | 사고대비물질 / 프로페인 | 해당 없음. | 해당 없음. | 해당 없음.\", \"rules\": [\"R25\"], \"note\": \"사고대비물질 열: 성분 10종 모두 비해당\"}, {\"msds_index\": 0, \"field\": \"regulations[111-140]\", \"page\": 26, \"source_text\": \"구성 성분 | 제한물질 | 허가물질 | 금지물질 / 프로페인 | 해당 없음. | 해당 없음. | 해당 없음.\", \"rules\": [\"R25\"], \"note\": \"제한·허가·금지물질 열: 성분 10종 모두 비해당\"}, {\"msds_index\": 0, \"field\": \"regulations[141]\", \"page\": 26, \"source_text\": null, \"rules\": [\"R18\"], \"note\": \"구양식 문서라 화평법 항목이 없어 미기재로 둠. 맞는 값 없음: 항목 코드는 null\"}, {\"msds_index\": 0, \"field\": \"regulations[142]\", \"page\": 26, \"source_text\": \"다. 위험물안전관리법에 의한 규제 ○ 위험물에 해당되지 않음\", \"rules\": [\"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"dangerous_goods[0]\", \"page\": 26, \"source_text\": \"○ 위험물에 해당되지 않음\", \"rules\": [\"R15\"], \"note\": \"류별은 해당없음으로 적음. 품명과 지정수량은 원문에 없음\"}, {\"msds_index\": 0, \"field\": \"regulations[143]\", \"page\": 27, \"source_text\": \"○ 본 제품은 사업장에서 발생하는 폐기물 중 폐기물관리법시행령[별표 1]에 의해 지정폐기물 외 사업자폐기물에 해당됨\", \"rules\": [], \"note\": \"'지정폐기물 외'라고 적혀 있어 지정폐기물 비해당으로 적음\"}, {\"msds_index\": 0, \"field\": \"waste[0]\", \"page\": 27, \"source_text\": \"○ 본 제품은 사업장에서 발생하는 폐기물 중 폐기물관리법시행령[별표 1]에 의해 지정폐기물 외 사업자폐기물에 해당됨\", \"rules\": [], \"note\": \"지정폐기물은 비해당. 폐기물 종류는 원문 표현 그대로 적음\"}, {\"msds_index\": 0, \"field\": \"regulations[144-153]\", \"page\": 27, \"source_text\": \"항 목 | 기타 국내 규제(잔류성 오염물질 관리법) / 프로페인 | 해당 없음.\", \"rules\": [\"R25\"], \"note\": \"성분 10종 모두 비해당\"}, {\"msds_index\": 0, \"field\": \"regulations[154-183]\", \"page\": 27, \"source_text\": \"항 목 | 미국관리정보 (OSHA 규정) | 미국관리정보 (CERCLA 103 규정) | 미국관리정보 (EPCRA 302 규정) / 프로페인 | 해당 없음. | 해당 없음. | 해당 없음.\", \"rules\": [\"R25\"], \"note\": \"미국 규정이라 country=US로 적음\"}, {\"msds_index\": 0, \"field\": \"regulations[172]\", \"page\": 27, \"source_text\": \"1,3-부타디엔 | 해당 없음. | 4.53599 kg 10 lb | 해당 없음.\", \"rules\": [\"R04\", \"R06\"], \"note\": \"규제 수량이 적혀 있어 해당으로 적음. kg 값은 qty, lb 값은 qty_alt에 넣음\"}, {\"msds_index\": 0, \"field\": \"regulations[184-203]\", \"page\": 28, \"source_text\": \"(EPCRA 304 규정) | (EPCRA 313 규정) / 프로페인 | 해당 없음. | 해당 없음. | 해당 없음.\", \"rules\": [\"R25\"], \"note\": \"표 머리는 27쪽(미국관리정보)에 있음. 성분 10종 모두 비해당\"}, {\"msds_index\": 0, \"field\": \"regulations[204-213]\", \"page\": 28, \"source_text\": \"프로페인 | 해당 없음. | 해당 없음. | 해당 없음.\", \"rules\": [\"R25\"], \"note\": \"로테르담협약물질 열(표 머리는 27쪽). 성분 10종 모두 비해당\"}, {\"msds_index\": 0, \"field\": \"regulations[214-233]\", \"page\": 28, \"source_text\": \"항 목 | 스톡홀름협약물질 | 몬트리올의정서물질 | EU 분류정보 (확정분류결과) / 프로페인 | 해당 없음. | 해당 없음. | H220\", \"rules\": [\"R25\"], \"note\": \"성분 10종 모두 비해당\"}, {\"msds_index\": 0, \"field\": \"intl_class[0-8]\", \"page\": 28, \"source_text\": \"프로페인 | 해당 없음. | 해당 없음. | H220\", \"rules\": [\"R05\"], \"note\": \"EU 분류정보 열의 H220을 성분마다 h_code로 적음. 분류 표기는 원문에 없음\"}, {\"msds_index\": 0, \"field\": \"intl_class[9-10]\", \"page\": 28, \"source_text\": \"1,3-부타디엔 | 해당 없음. | 해당 없음. | H220, H350, H340\", \"rules\": [\"R05\", \"R11\"], \"note\": \"H코드 3개를 한 행씩 나눠 적음\"}, {\"msds_index\": 0, \"field\": \"intl_class[11]\", \"page\": 28, \"source_text\": \"1,2-부타디엔 | 해당 없음. | 해당 없음. | 해당 없음.\", \"rules\": [\"R15\"], \"note\": null}]}"
+}

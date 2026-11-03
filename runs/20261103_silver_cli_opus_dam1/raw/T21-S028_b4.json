@@ -1,0 +1,695 @@
+{
+  "doc_id": "T21-S028",
+  "bundle": "b4",
+  "model": "claude-opus-5-5",
+  "mode": "claude -p json-schema",
+  "finish_reason": "tool_use",
+  "usage": {
+    "prompt_tokens": 60478,
+    "completion_tokens": 7599,
+    "cached_tokens": 8949,
+    "reasoning_tokens": 1708,
+    "notional_cost_usd": 0.5659938
+  },
+  "seconds": 59.5,
+  "request_usage": [
+    {
+      "prompt_tokens": 60478,
+      "completion_tokens": 7599,
+      "cached_tokens": 8949,
+      "reasoning_tokens": 1708,
+      "notional_cost_usd": 0.5659938
+    }
+  ],
+  "attempts": 1,
+  "errors": [],
+  "parsed": {
+    "msds": [
+      {
+        "transport": [
+          {
+            "mode": "공통",
+            "basis_raw": null,
+            "regulated": true,
+            "un_no": "2055",
+            "shipping_name": "Styrene monomer, stabilized",
+            "hazard_class": "3",
+            "sub_risk": null,
+            "packing_group": "III",
+            "marine_pollutant": null,
+            "ems_fire": "F-E",
+            "ems_spill": "S-D"
+          }
+        ],
+        "regulations": [
+          {
+            "seq": 1,
+            "law": "OSH",
+            "item_code": "OSH_MEASURE",
+            "item_raw": "작업환경측정물질",
+            "comp_ref": "1",
+            "applicable": "해당",
+            "threshold": {
+              "raw": "1% 이상",
+              "lower_op": ">=",
+              "lower": 1,
+              "unit": "%",
+              "status": "값있음"
+            },
+            "value_raw": "해당됨 (1% 이상 함유한 Vinylbenzene)"
+          },
+          {
+            "seq": 2,
+            "law": "OSH",
+            "item_code": "OSH_EXPOSURE_STD",
+            "item_raw": "노출기준설정물질",
+            "comp_ref": "1",
+            "applicable": "해당",
+            "value_raw": "해당됨 (Vinylbenzene)"
+          },
+          {
+            "seq": 3,
+            "law": "OSH",
+            "item_code": "OSH_MANAGED",
+            "item_raw": "관리대상유해물질",
+            "comp_ref": "1",
+            "applicable": "해당",
+            "threshold": {
+              "raw": "1% 이상",
+              "lower_op": ">=",
+              "lower": 1,
+              "unit": "%",
+              "status": "값있음"
+            },
+            "value_raw": "해당됨 (1% 이상 함유한 Vinylbenzene 스티렌)"
+          },
+          {
+            "seq": 4,
+            "law": "OSH",
+            "item_code": "OSH_HEALTH_EXAM",
+            "item_raw": "특수건강검진대상물질",
+            "comp_ref": "1",
+            "applicable": "해당",
+            "threshold": {
+              "raw": "1% 이상",
+              "lower_op": ">=",
+              "lower": 1,
+              "unit": "%",
+              "status": "값있음"
+            },
+            "value_raw": "해당됨 (1% 이상 함유한 Vinylbenzene)"
+          },
+          {
+            "seq": 5,
+            "law": "CCA",
+            "item_code": "CCA_TOXIC",
+            "item_raw": "유독물질",
+            "comp_ref": "1",
+            "applicable": "해당",
+            "threshold": {
+              "raw": "10% 이상",
+              "lower_op": ">=",
+              "lower": 10,
+              "unit": "%",
+              "status": "값있음"
+            },
+            "value_raw": "해당됨 (10% 이상 함유한 Vinylbenzene)"
+          },
+          {
+            "seq": 6,
+            "law": "CCA",
+            "item_code": "CCA_PRTR",
+            "item_raw": "배출량조사대상화학물질",
+            "comp_ref": "1",
+            "applicable": "해당",
+            "threshold": {
+              "raw": "0.1% 이상",
+              "lower_op": ">=",
+              "lower": 0.1,
+              "unit": "%",
+              "dp": 1,
+              "status": "값있음"
+            },
+            "value_raw": "해당됨 (0.1% 이상 함유한 Vinylbenzene)"
+          },
+          {
+            "seq": 7,
+            "law": "CCA",
+            "item_code": "CCA_ACCIDENT",
+            "item_raw": "사고대비물질",
+            "comp_ref": "MIX",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 8,
+            "law": "CCA",
+            "item_code": "CCA_RESTRICT",
+            "item_raw": "제한물질",
+            "comp_ref": "MIX",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 9,
+            "law": "KREACH",
+            "item_code": null,
+            "item_raw": null,
+            "comp_ref": "MIX",
+            "applicable": "미기재"
+          },
+          {
+            "seq": 10,
+            "law": "DG",
+            "item_code": "DG_HAZMAT",
+            "item_raw": "위험물안전관리법에 의한 규제",
+            "comp_ref": "MIX",
+            "applicable": "해당",
+            "value_raw": "위험물에 해당됨 : 제2석유류 (지정수량 : 1000리터(비수용성액체), 2000리터(수용성액체))"
+          },
+          {
+            "seq": 11,
+            "law": "DG",
+            "item_code": "DG_HAZMAT",
+            "item_raw": "위험물안전관리법에 의한 규제",
+            "comp_ref": "1",
+            "applicable": "해당",
+            "qty": {
+              "raw": "1000리터",
+              "value": 1000,
+              "unit": "L",
+              "status": "값있음"
+            },
+            "value_raw": "지정수량 : 1000리터(제4류 제2석유류(비수용성))"
+          },
+          {
+            "seq": 12,
+            "law": "WASTE",
+            "item_code": "WASTE_DESIG",
+            "item_raw": "폐기물관리법에 의한 규제",
+            "comp_ref": "MIX",
+            "applicable": "해당",
+            "sub_class": "할로겐족 외 폐유기용제로서 액체상태의 것"
+          },
+          {
+            "seq": 13,
+            "law": "POPS",
+            "item_code": "POPS",
+            "item_raw": "잔류성 유기오염물질 관리법",
+            "comp_ref": "MIX",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 14,
+            "law": "INTL",
+            "item_code": "INTL_EU",
+            "item_raw": "EU 분류 정보 - 확정분류 결과",
+            "comp_ref": "1",
+            "applicable": "해당",
+            "country": "EU",
+            "value_raw": "R10 Xn; R20 Xi; R36/38"
+          },
+          {
+            "seq": 15,
+            "law": "INTL",
+            "item_code": "INTL_EU",
+            "item_raw": "EU 분류 정보 - 위험 문구",
+            "comp_ref": "1",
+            "applicable": "해당",
+            "country": "EU",
+            "value_raw": "R10, R20, R36/38"
+          },
+          {
+            "seq": 16,
+            "law": "INTL",
+            "item_code": "INTL_EU",
+            "item_raw": "EU 분류 정보 - 예방조치 문구",
+            "comp_ref": "1",
+            "applicable": "해당",
+            "country": "EU",
+            "value_raw": "S2, S23"
+          },
+          {
+            "seq": 17,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "OSHA 규정 (29CFR1910.119)",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "country": "US"
+          },
+          {
+            "seq": 18,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "CERCLA 103 규정 (40CFR302.4)",
+            "comp_ref": "1",
+            "applicable": "해당",
+            "country": "US",
+            "qty": {
+              "raw": "453.599 kg",
+              "value": 453.599,
+              "unit": "kg",
+              "dp": 3,
+              "status": "값있음"
+            },
+            "qty_alt": {
+              "raw": "1000 lb",
+              "value": 1000,
+              "unit": "lb",
+              "status": "값있음"
+            },
+            "value_raw": "453.599 kg 1000 lb"
+          },
+          {
+            "seq": 19,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "EPCRA 302 규정 (40CFR355.30)",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "country": "US"
+          },
+          {
+            "seq": 20,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "EPCRA 304 규정 (40CFR355.40)",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "country": "US"
+          },
+          {
+            "seq": 21,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "EPCRA 313 규정 (40CFR372.65)",
+            "comp_ref": "1",
+            "applicable": "해당",
+            "country": "US"
+          },
+          {
+            "seq": 22,
+            "law": "INTL",
+            "item_code": "INTL_TREATY",
+            "item_raw": "로테르담 협약 물질",
+            "comp_ref": "MIX",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 23,
+            "law": "INTL",
+            "item_code": "INTL_TREATY",
+            "item_raw": "스톡홀름 협약 물질",
+            "comp_ref": "MIX",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 24,
+            "law": "INTL",
+            "item_code": "INTL_TREATY",
+            "item_raw": "몬트리올 의정서 물질",
+            "comp_ref": "MIX",
+            "applicable": "비해당"
+          }
+        ],
+        "dangerous_goods": [
+          {
+            "comp_ref": "MIX",
+            "class": null,
+            "item": "제2석유류",
+            "water_soluble": "미표기",
+            "grade": null,
+            "designated_qty": {
+              "raw": "1000리터(비수용성액체), 2000리터(수용성액체)",
+              "status": "값있음"
+            }
+          },
+          {
+            "comp_ref": "1",
+            "class": "제4류",
+            "item": "제2석유류",
+            "water_soluble": "비수용성",
+            "grade": null,
+            "designated_qty": {
+              "raw": "1000리터",
+              "value": 1000,
+              "unit": "L",
+              "status": "값있음"
+            }
+          }
+        ],
+        "waste": [
+          {
+            "comp_ref": "MIX",
+            "designated": "해당",
+            "waste_type": "할로겐족 외 폐유기용제로서 액체상태의 것"
+          }
+        ],
+        "intl_class": [
+          {
+            "comp_ref": "1",
+            "system": "기타",
+            "class_raw": "R10 Xn; R20 Xi; R36/38",
+            "h_code": null,
+            "status": "값있음"
+          }
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "msds_index": 0,
+        "field": "transport[0]",
+        "page": 8,
+        "source_text": "가. 유엔번호 (UN No.) - 2055 | 나. 유엔 적정 선적명 - Styrene monomer, stabilized | 다. 운송에서의 위험성 등급 - 3 | 라. 용기등급 - Ⅲ",
+        "rules": [
+          "R09"
+        ],
+        "note": "운송 방식 구분이 없어 mode=공통; 용기등급 Ⅲ을 III으로 표기"
+      },
+      {
+        "msds_index": 0,
+        "field": "transport[0].marine_pollutant",
+        "page": 8,
+        "source_text": "마. 해양오염물질 - 자료없음 - 해당없음",
+        "rules": [
+          "R17"
+        ],
+        "note": "맞는 값 없음: 자료없음과 해당없음이 함께 적혀 있어 null로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "transport[0].ems_fire",
+        "page": 8,
+        "source_text": "화재 시 비상조치의 종류 : F-E (Non-water-reactive flammable liquids)",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "transport[0].ems_spill",
+        "page": 8,
+        "source_text": "유출 시 비상조치의 종류 : S-D (Flammable liquids)",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[0]",
+        "page": 8,
+        "source_text": "○ 작업환경측정물질 - 해당됨 (1% 이상 함유한 Vinylbenzene)",
+        "rules": [
+          "R04",
+          "R10",
+          "R25"
+        ],
+        "note": "1% 이상을 threshold >=1%로 분해"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[1]",
+        "page": 8,
+        "source_text": "○ 노출기준설정물질 - 해당됨 (Vinylbenzene)",
+        "rules": [
+          "R10",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[2]",
+        "page": 8,
+        "source_text": "○ 관리대상유해물질 - 해당됨 (1% 이상 함유한 Vinylbenzene 스티렌)",
+        "rules": [
+          "R04",
+          "R10",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[3]",
+        "page": 8,
+        "source_text": "○ 특수건강검진대상물질 - 해당됨 (1% 이상 함유한 Vinylbenzene)",
+        "rules": [
+          "R04",
+          "R10",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[4]",
+        "page": 8,
+        "source_text": "○ 유독물질 - 해당됨 (10% 이상 함유한 Vinylbenzene)",
+        "rules": [
+          "R04",
+          "R10",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[5]",
+        "page": 8,
+        "source_text": "○ 배출량조사대상화학물질 - 해당됨 (0.1% 이상 함유한 Vinylbenzene)",
+        "rules": [
+          "R04",
+          "R10",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[6]",
+        "page": 9,
+        "source_text": "○ 사고대비물질 - 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "해당없음을 비해당으로, 성분 지정이 없어 MIX"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[7]",
+        "page": 9,
+        "source_text": "○ 제한물질 - 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "해당없음을 비해당으로"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[8]",
+        "page": 8,
+        "source_text": null,
+        "rules": [
+          "R18"
+        ],
+        "note": "구양식 문서로 화평법 항목이 없어 미기재; 맞는 값 없음: 항목 코드 특정 불가로 item_code null"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[9]",
+        "page": 9,
+        "source_text": "- 위험물에 해당됨 : 제2석유류 (지정수량 : 1000리터(비수용성액체), 2000리터(수용성액체))",
+        "rules": [
+          "R17"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[10]",
+        "page": 9,
+        "source_text": "- [Vinylbenzene] : 지정수량 : 1000리터(제4류 제2석유류(비수용성))",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "dangerous_goods[0]",
+        "page": 9,
+        "source_text": "- 위험물에 해당됨 : 제2석유류 (지정수량 : 1000리터(비수용성액체), 2000리터(수용성액체))",
+        "rules": [
+          "R17"
+        ],
+        "note": "류별이 이 줄에 적혀 있지 않아 class null, 지정수량은 두 값이라 raw만 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "dangerous_goods[1]",
+        "page": 9,
+        "source_text": "- [Vinylbenzene] : 지정수량 : 1000리터(제4류 제2석유류(비수용성))",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "1000리터를 value 1000, unit L로"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[11]",
+        "page": 9,
+        "source_text": "본 제품은 사업장에서 발생하는 폐기물 중 폐기물관리법시행령[별표1]에 의해 지정폐기물(할로겐족 외 폐유기용제로서 액체상태의 것)에 해당됨.",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "waste[0]",
+        "page": 9,
+        "source_text": "본 제품은 사업장에서 발생하는 폐기물 중 폐기물관리법시행령[별표1]에 의해 지정폐기물(할로겐족 외 폐유기용제로서 액체상태의 것)에 해당됨.",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[12]",
+        "page": 9,
+        "source_text": "○ 잔류성 유기오염물질 관리법 - 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[13]",
+        "page": 9,
+        "source_text": "* 확정분류 결과 - [Vinylbenzene] : R10 Xn; R20 Xi; R36/38",
+        "rules": [
+          "R10",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "intl_class[0]",
+        "page": 9,
+        "source_text": "- [Vinylbenzene] : R10 Xn; R20 Xi; R36/38",
+        "rules": [
+          "R17"
+        ],
+        "note": "CLP가 아닌 구 EU 분류(R문구)이므로 system 기타, 분리 시 의미가 바뀔 수 있어 원문 그대로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[14]",
+        "page": 9,
+        "source_text": "* 위험 문구 - [Vinylbenzene] : R10, R20, R36/38",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[15]",
+        "page": 9,
+        "source_text": "* 예방조치 문구 - [Vinylbenzene] : S2, S23",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[16]",
+        "page": 9,
+        "source_text": "* OSHA 규정 (29CFR1910.119) - 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[17]",
+        "page": 9,
+        "source_text": "* CERCLA 103 규정 (40CFR302.4) - [Vinylbenzene] : 453.599 kg 1000 lb",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "kg 값을 qty, lb 값을 qty_alt로"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[18]",
+        "page": 9,
+        "source_text": "* EPCRA 302 규정 (40CFR355.30) - 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[19]",
+        "page": 9,
+        "source_text": "* EPCRA 304 규정 (40CFR355.40) - 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[20]",
+        "page": 9,
+        "source_text": "* EPCRA 313 규정 (40CFR372.65) - [Vinylbenzene] : 해당됨",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[21]",
+        "page": 9,
+        "source_text": "○ 로테르담 협약 물질 - 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[22]",
+        "page": 9,
+        "source_text": "○ 스톡홀름 협약 물질 - 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[23]",
+        "page": 9,
+        "source_text": "○ 몬트리올 의정서 물질 - 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": null
+      }
+    ]
+  },
+  "raw_text": "{\"msds\": [{\"transport\": [{\"mode\": \"공통\", \"basis_raw\": null, \"regulated\": true, \"un_no\": \"2055\", \"shipping_name\": \"Styrene monomer, stabilized\", \"hazard_class\": \"3\", \"sub_risk\": null, \"packing_group\": \"III\", \"marine_pollutant\": null, \"ems_fire\": \"F-E\", \"ems_spill\": \"S-D\"}], \"regulations\": [{\"seq\": 1, \"law\": \"OSH\", \"item_code\": \"OSH_MEASURE\", \"item_raw\": \"작업환경측정물질\", \"comp_ref\": \"1\", \"applicable\": \"해당\", \"threshold\": {\"raw\": \"1% 이상\", \"lower_op\": \">=\", \"lower\": 1, \"unit\": \"%\", \"status\": \"값있음\"}, \"value_raw\": \"해당됨 (1% 이상 함유한 Vinylbenzene)\"}, {\"seq\": 2, \"law\": \"OSH\", \"item_code\": \"OSH_EXPOSURE_STD\", \"item_raw\": \"노출기준설정물질\", \"comp_ref\": \"1\", \"applicable\": \"해당\", \"value_raw\": \"해당됨 (Vinylbenzene)\"}, {\"seq\": 3, \"law\": \"OSH\", \"item_code\": \"OSH_MANAGED\", \"item_raw\": \"관리대상유해물질\", \"comp_ref\": \"1\", \"applicable\": \"해당\", \"threshold\": {\"raw\": \"1% 이상\", \"lower_op\": \">=\", \"lower\": 1, \"unit\": \"%\", \"status\": \"값있음\"}, \"value_raw\": \"해당됨 (1% 이상 함유한 Vinylbenzene 스티렌)\"}, {\"seq\": 4, \"law\": \"OSH\", \"item_code\": \"OSH_HEALTH_EXAM\", \"item_raw\": \"특수건강검진대상물질\", \"comp_ref\": \"1\", \"applicable\": \"해당\", \"threshold\": {\"raw\": \"1% 이상\", \"lower_op\": \">=\", \"lower\": 1, \"unit\": \"%\", \"status\": \"값있음\"}, \"value_raw\": \"해당됨 (1% 이상 함유한 Vinylbenzene)\"}, {\"seq\": 5, \"law\": \"CCA\", \"item_code\": \"CCA_TOXIC\", \"item_raw\": \"유독물질\", \"comp_ref\": \"1\", \"applicable\": \"해당\", \"threshold\": {\"raw\": \"10% 이상\", \"lower_op\": \">=\", \"lower\": 10, \"unit\": \"%\", \"status\": \"값있음\"}, \"value_raw\": \"해당됨 (10% 이상 함유한 Vinylbenzene)\"}, {\"seq\": 6, \"law\": \"CCA\", \"item_code\": \"CCA_PRTR\", \"item_raw\": \"배출량조사대상화학물질\", \"comp_ref\": \"1\", \"applicable\": \"해당\", \"threshold\": {\"raw\": \"0.1% 이상\", \"lower_op\": \">=\", \"lower\": 0.1, \"unit\": \"%\", \"dp\": 1, \"status\": \"값있음\"}, \"value_raw\": \"해당됨 (0.1% 이상 함유한 Vinylbenzene)\"}, {\"seq\": 7, \"law\": \"CCA\", \"item_code\": \"CCA_ACCIDENT\", \"item_raw\": \"사고대비물질\", \"comp_ref\": \"MIX\", \"applicable\": \"비해당\"}, {\"seq\": 8, \"law\": \"CCA\", \"item_code\": \"CCA_RESTRICT\", \"item_raw\": \"제한물질\", \"comp_ref\": \"MIX\", \"applicable\": \"비해당\"}, {\"seq\": 9, \"law\": \"KREACH\", \"item_code\": null, \"item_raw\": null, \"comp_ref\": \"MIX\", \"applicable\": \"미기재\"}, {\"seq\": 10, \"law\": \"DG\", \"item_code\": \"DG_HAZMAT\", \"item_raw\": \"위험물안전관리법에 의한 규제\", \"comp_ref\": \"MIX\", \"applicable\": \"해당\", \"value_raw\": \"위험물에 해당됨 : 제2석유류 (지정수량 : 1000리터(비수용성액체), 2000리터(수용성액체))\"}, {\"seq\": 11, \"law\": \"DG\", \"item_code\": \"DG_HAZMAT\", \"item_raw\": \"위험물안전관리법에 의한 규제\", \"comp_ref\": \"1\", \"applicable\": \"해당\", \"qty\": {\"raw\": \"1000리터\", \"value\": 1000, \"unit\": \"L\", \"status\": \"값있음\"}, \"value_raw\": \"지정수량 : 1000리터(제4류 제2석유류(비수용성))\"}, {\"seq\": 12, \"law\": \"WASTE\", \"item_code\": \"WASTE_DESIG\", \"item_raw\": \"폐기물관리법에 의한 규제\", \"comp_ref\": \"MIX\", \"applicable\": \"해당\", \"sub_class\": \"할로겐족 외 폐유기용제로서 액체상태의 것\"}, {\"seq\": 13, \"law\": \"POPS\", \"item_code\": \"POPS\", \"item_raw\": \"잔류성 유기오염물질 관리법\", \"comp_ref\": \"MIX\", \"applicable\": \"비해당\"}, {\"seq\": 14, \"law\": \"INTL\", \"item_code\": \"INTL_EU\", \"item_raw\": \"EU 분류 정보 - 확정분류 결과\", \"comp_ref\": \"1\", \"applicable\": \"해당\", \"country\": \"EU\", \"value_raw\": \"R10 Xn; R20 Xi; R36/38\"}, {\"seq\": 15, \"law\": \"INTL\", \"item_code\": \"INTL_EU\", \"item_raw\": \"EU 분류 정보 - 위험 문구\", \"comp_ref\": \"1\", \"applicable\": \"해당\", \"country\": \"EU\", \"value_raw\": \"R10, R20, R36/38\"}, {\"seq\": 16, \"law\": \"INTL\", \"item_code\": \"INTL_EU\", \"item_raw\": \"EU 분류 정보 - 예방조치 문구\", \"comp_ref\": \"1\", \"applicable\": \"해당\", \"country\": \"EU\", \"value_raw\": \"S2, S23\"}, {\"seq\": 17, \"law\": \"INTL\", \"item_code\": \"INTL_US\", \"item_raw\": \"OSHA 규정 (29CFR1910.119)\", \"comp_ref\": \"MIX\", \"applicable\": \"비해당\", \"country\": \"US\"}, {\"seq\": 18, \"law\": \"INTL\", \"item_code\": \"INTL_US\", \"item_raw\": \"CERCLA 103 규정 (40CFR302.4)\", \"comp_ref\": \"1\", \"applicable\": \"해당\", \"country\": \"US\", \"qty\": {\"raw\": \"453.599 kg\", \"value\": 453.599, \"unit\": \"kg\", \"dp\": 3, \"status\": \"값있음\"}, \"qty_alt\": {\"raw\": \"1000 lb\", \"value\": 1000, \"unit\": \"lb\", \"status\": \"값있음\"}, \"value_raw\": \"453.599 kg 1000 lb\"}, {\"seq\": 19, \"law\": \"INTL\", \"item_code\": \"INTL_US\", \"item_raw\": \"EPCRA 302 규정 (40CFR355.30)\", \"comp_ref\": \"MIX\", \"applicable\": \"비해당\", \"country\": \"US\"}, {\"seq\": 20, \"law\": \"INTL\", \"item_code\": \"INTL_US\", \"item_raw\": \"EPCRA 304 규정 (40CFR355.40)\", \"comp_ref\": \"MIX\", \"applicable\": \"비해당\", \"country\": \"US\"}, {\"seq\": 21, \"law\": \"INTL\", \"item_code\": \"INTL_US\", \"item_raw\": \"EPCRA 313 규정 (40CFR372.65)\", \"comp_ref\": \"1\", \"applicable\": \"해당\", \"country\": \"US\"}, {\"seq\": 22, \"law\": \"INTL\", \"item_code\": \"INTL_TREATY\", \"item_raw\": \"로테르담 협약 물질\", \"comp_ref\": \"MIX\", \"applicable\": \"비해당\"}, {\"seq\": 23, \"law\": \"INTL\", \"item_code\": \"INTL_TREATY\", \"item_raw\": \"스톡홀름 협약 물질\", \"comp_ref\": \"MIX\", \"applicable\": \"비해당\"}, {\"seq\": 24, \"law\": \"INTL\", \"item_code\": \"INTL_TREATY\", \"item_raw\": \"몬트리올 의정서 물질\", \"comp_ref\": \"MIX\", \"applicable\": \"비해당\"}], \"dangerous_goods\": [{\"comp_ref\": \"MIX\", \"class\": null, \"item\": \"제2석유류\", \"water_soluble\": \"미표기\", \"grade\": null, \"designated_qty\": {\"raw\": \"1000리터(비수용성액체), 2000리터(수용성액체)\", \"status\": \"값있음\"}}, {\"comp_ref\": \"1\", \"class\": \"제4류\", \"item\": \"제2석유류\", \"water_soluble\": \"비수용성\", \"grade\": null, \"designated_qty\": {\"raw\": \"1000리터\", \"value\": 1000, \"unit\": \"L\", \"status\": \"값있음\"}}], \"waste\": [{\"comp_ref\": \"MIX\", \"designated\": \"해당\", \"waste_type\": \"할로겐족 외 폐유기용제로서 액체상태의 것\"}], \"intl_class\": [{\"comp_ref\": \"1\", \"system\": \"기타\", \"class_raw\": \"R10 Xn; R20 Xi; R36/38\", \"h_code\": null, \"status\": \"값있음\"}]}], \"evidence\": [{\"msds_index\": 0, \"field\": \"transport[0]\", \"page\": 8, \"source_text\": \"가. 유엔번호 (UN No.) - 2055 | 나. 유엔 적정 선적명 - Styrene monomer, stabilized | 다. 운송에서의 위험성 등급 - 3 | 라. 용기등급 - Ⅲ\", \"rules\": [\"R09\"], \"note\": \"운송 방식 구분이 없어 mode=공통; 용기등급 Ⅲ을 III으로 표기\"}, {\"msds_index\": 0, \"field\": \"transport[0].marine_pollutant\", \"page\": 8, \"source_text\": \"마. 해양오염물질 - 자료없음 - 해당없음\", \"rules\": [\"R17\"], \"note\": \"맞는 값 없음: 자료없음과 해당없음이 함께 적혀 있어 null로 둠\"}, {\"msds_index\": 0, \"field\": \"transport[0].ems_fire\", \"page\": 8, \"source_text\": \"화재 시 비상조치의 종류 : F-E (Non-water-reactive flammable liquids)\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"transport[0].ems_spill\", \"page\": 8, \"source_text\": \"유출 시 비상조치의 종류 : S-D (Flammable liquids)\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"regulations[0]\", \"page\": 8, \"source_text\": \"○ 작업환경측정물질 - 해당됨 (1% 이상 함유한 Vinylbenzene)\", \"rules\": [\"R04\", \"R10\", \"R25\"], \"note\": \"1% 이상을 threshold >=1%로 분해\"}, {\"msds_index\": 0, \"field\": \"regulations[1]\", \"page\": 8, \"source_text\": \"○ 노출기준설정물질 - 해당됨 (Vinylbenzene)\", \"rules\": [\"R10\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"regulations[2]\", \"page\": 8, \"source_text\": \"○ 관리대상유해물질 - 해당됨 (1% 이상 함유한 Vinylbenzene 스티렌)\", \"rules\": [\"R04\", \"R10\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"regulations[3]\", \"page\": 8, \"source_text\": \"○ 특수건강검진대상물질 - 해당됨 (1% 이상 함유한 Vinylbenzene)\", \"rules\": [\"R04\", \"R10\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"regulations[4]\", \"page\": 8, \"source_text\": \"○ 유독물질 - 해당됨 (10% 이상 함유한 Vinylbenzene)\", \"rules\": [\"R04\", \"R10\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"regulations[5]\", \"page\": 8, \"source_text\": \"○ 배출량조사대상화학물질 - 해당됨 (0.1% 이상 함유한 Vinylbenzene)\", \"rules\": [\"R04\", \"R10\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"regulations[6]\", \"page\": 9, \"source_text\": \"○ 사고대비물질 - 해당없음\", \"rules\": [\"R15\", \"R25\"], \"note\": \"해당없음을 비해당으로, 성분 지정이 없어 MIX\"}, {\"msds_index\": 0, \"field\": \"regulations[7]\", \"page\": 9, \"source_text\": \"○ 제한물질 - 해당없음\", \"rules\": [\"R15\", \"R25\"], \"note\": \"해당없음을 비해당으로\"}, {\"msds_index\": 0, \"field\": \"regulations[8]\", \"page\": 8, \"source_text\": null, \"rules\": [\"R18\"], \"note\": \"구양식 문서로 화평법 항목이 없어 미기재; 맞는 값 없음: 항목 코드 특정 불가로 item_code null\"}, {\"msds_index\": 0, \"field\": \"regulations[9]\", \"page\": 9, \"source_text\": \"- 위험물에 해당됨 : 제2석유류 (지정수량 : 1000리터(비수용성액체), 2000리터(수용성액체))\", \"rules\": [\"R17\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"regulations[10]\", \"page\": 9, \"source_text\": \"- [Vinylbenzene] : 지정수량 : 1000리터(제4류 제2석유류(비수용성))\", \"rules\": [\"R04\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"dangerous_goods[0]\", \"page\": 9, \"source_text\": \"- 위험물에 해당됨 : 제2석유류 (지정수량 : 1000리터(비수용성액체), 2000리터(수용성액체))\", \"rules\": [\"R17\"], \"note\": \"류별이 이 줄에 적혀 있지 않아 class null, 지정수량은 두 값이라 raw만 둠\"}, {\"msds_index\": 0, \"field\": \"dangerous_goods[1]\", \"page\": 9, \"source_text\": \"- [Vinylbenzene] : 지정수량 : 1000리터(제4류 제2석유류(비수용성))\", \"rules\": [\"R04\", \"R10\"], \"note\": \"1000리터를 value 1000, unit L로\"}, {\"msds_index\": 0, \"field\": \"regulations[11]\", \"page\": 9, \"source_text\": \"본 제품은 사업장에서 발생하는 폐기물 중 폐기물관리법시행령[별표1]에 의해 지정폐기물(할로겐족 외 폐유기용제로서 액체상태의 것)에 해당됨.\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"waste[0]\", \"page\": 9, \"source_text\": \"본 제품은 사업장에서 발생하는 폐기물 중 폐기물관리법시행령[별표1]에 의해 지정폐기물(할로겐족 외 폐유기용제로서 액체상태의 것)에 해당됨.\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"regulations[12]\", \"page\": 9, \"source_text\": \"○ 잔류성 유기오염물질 관리법 - 해당없음\", \"rules\": [\"R15\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"regulations[13]\", \"page\": 9, \"source_text\": \"* 확정분류 결과 - [Vinylbenzene] : R10 Xn; R20 Xi; R36/38\", \"rules\": [\"R10\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"intl_class[0]\", \"page\": 9, \"source_text\": \"- [Vinylbenzene] : R10 Xn; R20 Xi; R36/38\", \"rules\": [\"R17\"], \"note\": \"CLP가 아닌 구 EU 분류(R문구)이므로 system 기타, 분리 시 의미가 바뀔 수 있어 원문 그대로 둠\"}, {\"msds_index\": 0, \"field\": \"regulations[14]\", \"page\": 9, \"source_text\": \"* 위험 문구 - [Vinylbenzene] : R10, R20, R36/38\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"regulations[15]\", \"page\": 9, \"source_text\": \"* 예방조치 문구 - [Vinylbenzene] : S2, S23\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"regulations[16]\", \"page\": 9, \"source_text\": \"* OSHA 규정 (29CFR1910.119) - 해당없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"regulations[17]\", \"page\": 9, \"source_text\": \"* CERCLA 103 규정 (40CFR302.4) - [Vinylbenzene] : 453.599 kg 1000 lb\", \"rules\": [\"R04\", \"R10\"], \"note\": \"kg 값을 qty, lb 값을 qty_alt로\"}, {\"msds_index\": 0, \"field\": \"regulations[18]\", \"page\": 9, \"source_text\": \"* EPCRA 302 규정 (40CFR355.30) - 해당없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"regulations[19]\", \"page\": 9, \"source_text\": \"* EPCRA 304 규정 (40CFR355.40) - 해당없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"regulations[20]\", \"page\": 9, \"source_text\": \"* EPCRA 313 규정 (40CFR372.65) - [Vinylbenzene] : 해당됨\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"regulations[21]\", \"page\": 9, \"source_text\": \"○ 로테르담 협약 물질 - 해당없음\", \"rules\": [\"R15\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"regulations[22]\", \"page\": 9, \"source_text\": \"○ 스톡홀름 협약 물질 - 해당없음\", \"rules\": [\"R15\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"regulations[23]\", \"page\": 9, \"source_text\": \"○ 몬트리올 의정서 물질 - 해당없음\", \"rules\": [\"R15\", \"R25\"], \"note\": null}]}"
+}

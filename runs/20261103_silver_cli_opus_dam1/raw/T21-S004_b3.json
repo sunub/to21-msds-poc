@@ -1,0 +1,698 @@
+{
+  "doc_id": "T21-S004",
+  "bundle": "b3",
+  "model": "claude-opus-5-5",
+  "mode": "claude -p json-schema",
+  "finish_reason": "tool_use",
+  "usage": {
+    "prompt_tokens": 52719,
+    "completion_tokens": 6214,
+    "cached_tokens": 8451,
+    "reasoning_tokens": 1222,
+    "notional_cost_usd": 0.4801062
+  },
+  "seconds": 46.5,
+  "request_usage": [
+    {
+      "prompt_tokens": 52719,
+      "completion_tokens": 6214,
+      "cached_tokens": 8451,
+      "reasoning_tokens": 1222,
+      "notional_cost_usd": 0.4801062
+    }
+  ],
+  "attempts": 1,
+  "errors": [],
+  "parsed": {
+    "msds": [
+      {
+        "toxicity": [
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_ORAL",
+            "descriptor": null,
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_DERMAL",
+            "descriptor": null,
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_INHAL",
+            "descriptor": "LC50",
+            "q": {
+              "raw": "500000 ppm",
+              "value": 500000,
+              "unit": "ppm",
+              "dp": 0,
+              "status": "값있음"
+            },
+            "species": "Mouse",
+            "sex": "미표기",
+            "duration_value": 2,
+            "duration_unit": "hr",
+            "physical_form": "가스",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_SKIN",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_EYE",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_RESP_SENS",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_SKIN_SENS",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_CARC",
+            "descriptor": "결과기술",
+            "classification": "분류되지 않음",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "고용노동부 고시 발암성(1A, 1B, 2)으로 분류되지 않음",
+                "text": "6) 발암성 : 고용노동부 고시 발암성(1A, 1B, 2)으로 분류되지 않음"
+              }
+            ]
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_MUTA",
+            "descriptor": "결과기술",
+            "classification": "분류되지 않음",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "고용노동부 고시 생식세포 변이원성(1A, 1B, 2)으로 분류되지 않음",
+                "text": "7) 생식세포 변이원성 : 고용노동부 고시 생식세포 변이원성(1A, 1B, 2)으로 분류되지 않음"
+              },
+              {
+                "seq": 2,
+                "key": "미생물복귀돌연변이시험",
+                "value": "-",
+                "text": "- 미생물복귀돌연변이시험 : -"
+              },
+              {
+                "seq": 3,
+                "key": "염색체 이상시험",
+                "value": "-",
+                "text": "- 염색체 이상시험 : -"
+              },
+              {
+                "seq": 4,
+                "key": "소핵시험",
+                "value": "-",
+                "text": "- 소핵시험 : -"
+              }
+            ]
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_REPRO",
+            "descriptor": "결과기술",
+            "classification": "분류되지 않음",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "고용노동부 고시 생식독성(1A, 1B, 2)으로 분류되지 않음",
+                "text": "8) 생식독성 : 고용노동부 고시 생식독성(1A, 1B, 2)으로 분류되지 않음"
+              }
+            ]
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_STOT_SE",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_STOT_RE",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_ASP",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": null,
+            "descriptor": "ATE",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          }
+        ],
+        "cmr": [
+          {
+            "comp_ref": "1",
+            "hazard": "발암성",
+            "agency": "KR_OSH",
+            "class": null,
+            "status": "미기재"
+          },
+          {
+            "comp_ref": "1",
+            "hazard": "발암성",
+            "agency": "OSHA",
+            "class": null,
+            "status": "미기재"
+          },
+          {
+            "comp_ref": "1",
+            "hazard": "발암성",
+            "agency": "NTP",
+            "class": null,
+            "status": "미기재"
+          },
+          {
+            "comp_ref": "1",
+            "hazard": "발암성",
+            "agency": "IARC",
+            "class": null,
+            "status": "미기재"
+          },
+          {
+            "comp_ref": "1",
+            "hazard": "발암성",
+            "agency": "ACGIH",
+            "class": null,
+            "status": "미기재"
+          },
+          {
+            "comp_ref": "1",
+            "hazard": "발암성",
+            "agency": "EU_CLP",
+            "class": null,
+            "status": "미기재",
+            "note": "EC"
+          },
+          {
+            "comp_ref": "1",
+            "hazard": "생식세포변이원성",
+            "agency": "KR_OSH",
+            "class": "분류되지 않음",
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "hazard": "생식독성",
+            "agency": "KR_OSH",
+            "class": "분류되지 않음",
+            "status": "값있음"
+          }
+        ],
+        "ecotox": [
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_FISH",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_CRUST",
+            "descriptor": "LC50",
+            "q": {
+              "raw": "164.244 ㎎/ℓ",
+              "value": 164.244,
+              "unit": "mg/L",
+              "dp": 3,
+              "status": "값있음"
+            },
+            "duration_value": 48,
+            "duration_unit": "hr",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_ALGAE",
+            "descriptor": "EC50",
+            "q": {
+              "raw": "95.717 ㎎/ℓ",
+              "value": 95.717,
+              "unit": "mg/L",
+              "dp": 3,
+              "status": "값있음"
+            },
+            "duration_value": 96,
+            "duration_unit": "hr",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_PERSIST",
+            "descriptor": "logKow",
+            "q": {
+              "raw": "log Kow 1.09",
+              "value": 1.09,
+              "dp": 2,
+              "status": "값있음"
+            },
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_PERSIST",
+            "descriptor": "분해율",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_BIOACC",
+            "descriptor": "분해율",
+            "q": {
+              "raw": "65.7%",
+              "value": 65.7,
+              "unit": "%",
+              "dp": 1,
+              "status": "값있음"
+            },
+            "duration_value": 35,
+            "duration_unit": "day",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_BIOACC",
+            "descriptor": "BCF",
+            "q": {
+              "raw": "BCF 1",
+              "value": 1,
+              "dp": 0,
+              "status": "값있음"
+            },
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_SOIL",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_OTHER",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          }
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "msds_index": 0,
+        "field": "toxicity[0]",
+        "page": 7,
+        "source_text": "- 경구 : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[1]",
+        "page": 7,
+        "source_text": "- 경피 : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[2]",
+        "page": 7,
+        "source_text": "- 흡입 : gas LC50 500000 ppm 2 hr Mouse",
+        "rules": [
+          "R04"
+        ],
+        "note": "gas→physical_form 가스, 2 hr→duration, Mouse→species로 나눔"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[3]",
+        "page": 7,
+        "source_text": "2) 피부 부식성 또는 자극성 : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[4]",
+        "page": 7,
+        "source_text": "3) 심한 눈 손상 또는 자극성 : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[5]",
+        "page": 7,
+        "source_text": "4) 호흡기 과민성 : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[6]",
+        "page": 7,
+        "source_text": "5) 피부 과민성 : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[7]",
+        "page": 7,
+        "source_text": "6) 발암성 : 고용노동부 고시 발암성(1A, 1B, 2)으로 분류되지 않음",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[8]",
+        "page": 7,
+        "source_text": "7) 생식세포 변이원성 : 고용노동부 고시 생식세포 변이원성(1A, 1B, 2)으로 분류되지 않음",
+        "rules": [],
+        "note": "하위 시험 줄('-')은 서술로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[9]",
+        "page": 7,
+        "source_text": "8) 생식독성 : 고용노동부 고시 생식독성(1A, 1B, 2)으로 분류되지 않음",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[10]",
+        "page": 7,
+        "source_text": "9) 특정 표적장기 독성 (1회노출) : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[11]",
+        "page": 7,
+        "source_text": "10) 특정 표적장기 독성 (반복노출) : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[12]",
+        "page": 7,
+        "source_text": "11) 흡인유해성 : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[13]",
+        "page": 7,
+        "source_text": "다. 독성의 수치적 정도(급성 독성 추정치 등) : 자료없음",
+        "rules": [
+          "R15",
+          "R10"
+        ],
+        "note": "급성독성 추정치 전체 항목으로 MIX, endpoint 미지정"
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[0]",
+        "page": 7,
+        "source_text": "- 고용노동부 고시 : -",
+        "rules": [
+          "R15"
+        ],
+        "note": "'-'를 미기재로 처리"
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[1]",
+        "page": 7,
+        "source_text": "- OSHA : -",
+        "rules": [
+          "R15"
+        ],
+        "note": "'-'를 미기재로 처리"
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[2]",
+        "page": 7,
+        "source_text": "- NTP : -",
+        "rules": [
+          "R15"
+        ],
+        "note": "'-'를 미기재로 처리"
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[3]",
+        "page": 7,
+        "source_text": "- IARC(GROUP) : -",
+        "rules": [
+          "R15"
+        ],
+        "note": "'-'를 미기재로 처리"
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[4]",
+        "page": 7,
+        "source_text": "- ACGIH : -",
+        "rules": [
+          "R15"
+        ],
+        "note": "'-'를 미기재로 처리"
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[5]",
+        "page": 7,
+        "source_text": "- EC : -",
+        "rules": [
+          "R15"
+        ],
+        "note": "EC 표기를 EU_CLP로 매핑, '-'를 미기재로 처리"
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[6]",
+        "page": 7,
+        "source_text": "7) 생식세포 변이원성 : 고용노동부 고시 생식세포 변이원성(1A, 1B, 2)으로 분류되지 않음",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[7]",
+        "page": 7,
+        "source_text": "8) 생식독성 : 고용노동부 고시 생식독성(1A, 1B, 2)으로 분류되지 않음",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[0]",
+        "page": 8,
+        "source_text": "1) 어류 : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[1]",
+        "page": 8,
+        "source_text": "2) 갑각류 : LC50 164.244 ㎎/ℓ 48 hr",
+        "rules": [
+          "R04",
+          "R08"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[2]",
+        "page": 8,
+        "source_text": "3) 조류 : EC50 95.717 ㎎/ℓ 96 hr",
+        "rules": [
+          "R04",
+          "R08"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[3]",
+        "page": 8,
+        "source_text": "1) 잔류성 : log Kow 1.09",
+        "rules": [
+          "R04"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[4]",
+        "page": 8,
+        "source_text": "2) 분해성 : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[5]",
+        "page": 8,
+        "source_text": "1) 생분해성 : 65.7% 35day",
+        "rules": [
+          "R04"
+        ],
+        "note": "원문 배치대로 생물 농축성 항목 아래에 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[6]",
+        "page": 8,
+        "source_text": "2) 농축성 : BCF 1",
+        "rules": [
+          "R04"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[7]",
+        "page": 8,
+        "source_text": "라. 토양 이동성 : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[8]",
+        "page": 8,
+        "source_text": "마. 기타 유해영향 : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      }
+    ]
+  },
+  "raw_text": "{\"msds\": [{\"toxicity\": [{\"comp_ref\": \"1\", \"endpoint\": \"TX_ORAL\", \"descriptor\": null, \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_DERMAL\", \"descriptor\": null, \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_INHAL\", \"descriptor\": \"LC50\", \"q\": {\"raw\": \"500000 ppm\", \"value\": 500000, \"unit\": \"ppm\", \"dp\": 0, \"status\": \"값있음\"}, \"species\": \"Mouse\", \"sex\": \"미표기\", \"duration_value\": 2, \"duration_unit\": \"hr\", \"physical_form\": \"가스\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_SKIN\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_EYE\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_RESP_SENS\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_SKIN_SENS\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_CARC\", \"descriptor\": \"결과기술\", \"classification\": \"분류되지 않음\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"고용노동부 고시 발암성(1A, 1B, 2)으로 분류되지 않음\", \"text\": \"6) 발암성 : 고용노동부 고시 발암성(1A, 1B, 2)으로 분류되지 않음\"}]}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_MUTA\", \"descriptor\": \"결과기술\", \"classification\": \"분류되지 않음\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"고용노동부 고시 생식세포 변이원성(1A, 1B, 2)으로 분류되지 않음\", \"text\": \"7) 생식세포 변이원성 : 고용노동부 고시 생식세포 변이원성(1A, 1B, 2)으로 분류되지 않음\"}, {\"seq\": 2, \"key\": \"미생물복귀돌연변이시험\", \"value\": \"-\", \"text\": \"- 미생물복귀돌연변이시험 : -\"}, {\"seq\": 3, \"key\": \"염색체 이상시험\", \"value\": \"-\", \"text\": \"- 염색체 이상시험 : -\"}, {\"seq\": 4, \"key\": \"소핵시험\", \"value\": \"-\", \"text\": \"- 소핵시험 : -\"}]}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_REPRO\", \"descriptor\": \"결과기술\", \"classification\": \"분류되지 않음\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"고용노동부 고시 생식독성(1A, 1B, 2)으로 분류되지 않음\", \"text\": \"8) 생식독성 : 고용노동부 고시 생식독성(1A, 1B, 2)으로 분류되지 않음\"}]}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_STOT_SE\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_STOT_RE\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_ASP\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": null, \"descriptor\": \"ATE\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}], \"cmr\": [{\"comp_ref\": \"1\", \"hazard\": \"발암성\", \"agency\": \"KR_OSH\", \"class\": null, \"status\": \"미기재\"}, {\"comp_ref\": \"1\", \"hazard\": \"발암성\", \"agency\": \"OSHA\", \"class\": null, \"status\": \"미기재\"}, {\"comp_ref\": \"1\", \"hazard\": \"발암성\", \"agency\": \"NTP\", \"class\": null, \"status\": \"미기재\"}, {\"comp_ref\": \"1\", \"hazard\": \"발암성\", \"agency\": \"IARC\", \"class\": null, \"status\": \"미기재\"}, {\"comp_ref\": \"1\", \"hazard\": \"발암성\", \"agency\": \"ACGIH\", \"class\": null, \"status\": \"미기재\"}, {\"comp_ref\": \"1\", \"hazard\": \"발암성\", \"agency\": \"EU_CLP\", \"class\": null, \"status\": \"미기재\", \"note\": \"EC\"}, {\"comp_ref\": \"1\", \"hazard\": \"생식세포변이원성\", \"agency\": \"KR_OSH\", \"class\": \"분류되지 않음\", \"status\": \"값있음\"}, {\"comp_ref\": \"1\", \"hazard\": \"생식독성\", \"agency\": \"KR_OSH\", \"class\": \"분류되지 않음\", \"status\": \"값있음\"}], \"ecotox\": [{\"comp_ref\": \"1\", \"endpoint\": \"ECO_FISH\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_CRUST\", \"descriptor\": \"LC50\", \"q\": {\"raw\": \"164.244 ㎎/ℓ\", \"value\": 164.244, \"unit\": \"mg/L\", \"dp\": 3, \"status\": \"값있음\"}, \"duration_value\": 48, \"duration_unit\": \"hr\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_ALGAE\", \"descriptor\": \"EC50\", \"q\": {\"raw\": \"95.717 ㎎/ℓ\", \"value\": 95.717, \"unit\": \"mg/L\", \"dp\": 3, \"status\": \"값있음\"}, \"duration_value\": 96, \"duration_unit\": \"hr\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_PERSIST\", \"descriptor\": \"logKow\", \"q\": {\"raw\": \"log Kow 1.09\", \"value\": 1.09, \"dp\": 2, \"status\": \"값있음\"}, \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_PERSIST\", \"descriptor\": \"분해율\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_BIOACC\", \"descriptor\": \"분해율\", \"q\": {\"raw\": \"65.7%\", \"value\": 65.7, \"unit\": \"%\", \"dp\": 1, \"status\": \"값있음\"}, \"duration_value\": 35, \"duration_unit\": \"day\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_BIOACC\", \"descriptor\": \"BCF\", \"q\": {\"raw\": \"BCF 1\", \"value\": 1, \"dp\": 0, \"status\": \"값있음\"}, \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_SOIL\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_OTHER\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}]}], \"evidence\": [{\"msds_index\": 0, \"field\": \"toxicity[0]\", \"page\": 7, \"source_text\": \"- 경구 : 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[1]\", \"page\": 7, \"source_text\": \"- 경피 : 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[2]\", \"page\": 7, \"source_text\": \"- 흡입 : gas LC50 500000 ppm 2 hr Mouse\", \"rules\": [\"R04\"], \"note\": \"gas→physical_form 가스, 2 hr→duration, Mouse→species로 나눔\"}, {\"msds_index\": 0, \"field\": \"toxicity[3]\", \"page\": 7, \"source_text\": \"2) 피부 부식성 또는 자극성 : 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[4]\", \"page\": 7, \"source_text\": \"3) 심한 눈 손상 또는 자극성 : 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[5]\", \"page\": 7, \"source_text\": \"4) 호흡기 과민성 : 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[6]\", \"page\": 7, \"source_text\": \"5) 피부 과민성 : 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[7]\", \"page\": 7, \"source_text\": \"6) 발암성 : 고용노동부 고시 발암성(1A, 1B, 2)으로 분류되지 않음\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[8]\", \"page\": 7, \"source_text\": \"7) 생식세포 변이원성 : 고용노동부 고시 생식세포 변이원성(1A, 1B, 2)으로 분류되지 않음\", \"rules\": [], \"note\": \"하위 시험 줄('-')은 서술로 둠\"}, {\"msds_index\": 0, \"field\": \"toxicity[9]\", \"page\": 7, \"source_text\": \"8) 생식독성 : 고용노동부 고시 생식독성(1A, 1B, 2)으로 분류되지 않음\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[10]\", \"page\": 7, \"source_text\": \"9) 특정 표적장기 독성 (1회노출) : 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[11]\", \"page\": 7, \"source_text\": \"10) 특정 표적장기 독성 (반복노출) : 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[12]\", \"page\": 7, \"source_text\": \"11) 흡인유해성 : 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[13]\", \"page\": 7, \"source_text\": \"다. 독성의 수치적 정도(급성 독성 추정치 등) : 자료없음\", \"rules\": [\"R15\", \"R10\"], \"note\": \"급성독성 추정치 전체 항목으로 MIX, endpoint 미지정\"}, {\"msds_index\": 0, \"field\": \"cmr[0]\", \"page\": 7, \"source_text\": \"- 고용노동부 고시 : -\", \"rules\": [\"R15\"], \"note\": \"'-'를 미기재로 처리\"}, {\"msds_index\": 0, \"field\": \"cmr[1]\", \"page\": 7, \"source_text\": \"- OSHA : -\", \"rules\": [\"R15\"], \"note\": \"'-'를 미기재로 처리\"}, {\"msds_index\": 0, \"field\": \"cmr[2]\", \"page\": 7, \"source_text\": \"- NTP : -\", \"rules\": [\"R15\"], \"note\": \"'-'를 미기재로 처리\"}, {\"msds_index\": 0, \"field\": \"cmr[3]\", \"page\": 7, \"source_text\": \"- IARC(GROUP) : -\", \"rules\": [\"R15\"], \"note\": \"'-'를 미기재로 처리\"}, {\"msds_index\": 0, \"field\": \"cmr[4]\", \"page\": 7, \"source_text\": \"- ACGIH : -\", \"rules\": [\"R15\"], \"note\": \"'-'를 미기재로 처리\"}, {\"msds_index\": 0, \"field\": \"cmr[5]\", \"page\": 7, \"source_text\": \"- EC : -\", \"rules\": [\"R15\"], \"note\": \"EC 표기를 EU_CLP로 매핑, '-'를 미기재로 처리\"}, {\"msds_index\": 0, \"field\": \"cmr[6]\", \"page\": 7, \"source_text\": \"7) 생식세포 변이원성 : 고용노동부 고시 생식세포 변이원성(1A, 1B, 2)으로 분류되지 않음\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"cmr[7]\", \"page\": 7, \"source_text\": \"8) 생식독성 : 고용노동부 고시 생식독성(1A, 1B, 2)으로 분류되지 않음\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[0]\", \"page\": 8, \"source_text\": \"1) 어류 : 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[1]\", \"page\": 8, \"source_text\": \"2) 갑각류 : LC50 164.244 ㎎/ℓ 48 hr\", \"rules\": [\"R04\", \"R08\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[2]\", \"page\": 8, \"source_text\": \"3) 조류 : EC50 95.717 ㎎/ℓ 96 hr\", \"rules\": [\"R04\", \"R08\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[3]\", \"page\": 8, \"source_text\": \"1) 잔류성 : log Kow 1.09\", \"rules\": [\"R04\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[4]\", \"page\": 8, \"source_text\": \"2) 분해성 : 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[5]\", \"page\": 8, \"source_text\": \"1) 생분해성 : 65.7% 35day\", \"rules\": [\"R04\"], \"note\": \"원문 배치대로 생물 농축성 항목 아래에 둠\"}, {\"msds_index\": 0, \"field\": \"ecotox[6]\", \"page\": 8, \"source_text\": \"2) 농축성 : BCF 1\", \"rules\": [\"R04\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[7]\", \"page\": 8, \"source_text\": \"라. 토양 이동성 : 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[8]\", \"page\": 8, \"source_text\": \"마. 기타 유해영향 : 자료없음\", \"rules\": [\"R15\"], \"note\": null}]}"
+}

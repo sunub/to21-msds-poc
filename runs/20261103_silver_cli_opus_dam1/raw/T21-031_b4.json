@@ -1,0 +1,489 @@
+{
+  "doc_id": "T21-031",
+  "bundle": "b4",
+  "model": "claude-opus-5-5",
+  "mode": "claude -p json-schema",
+  "finish_reason": "tool_use",
+  "usage": {
+    "prompt_tokens": 48790,
+    "completion_tokens": 5139,
+    "cached_tokens": 8949,
+    "reasoning_tokens": 998,
+    "notional_cost_usd": 0.4232898
+  },
+  "seconds": 37.8,
+  "request_usage": [
+    {
+      "prompt_tokens": 48790,
+      "completion_tokens": 5139,
+      "cached_tokens": 8949,
+      "reasoning_tokens": 998,
+      "notional_cost_usd": 0.4232898
+    }
+  ],
+  "attempts": 1,
+  "errors": [],
+  "parsed": {
+    "msds": [
+      {
+        "transport": [
+          {
+            "mode": "공통",
+            "basis_raw": null,
+            "regulated": false,
+            "un_no": null,
+            "shipping_name": null,
+            "hazard_class": null,
+            "sub_risk": null,
+            "packing_group": "해당없음",
+            "marine_pollutant": "비해당",
+            "ems_fire": null,
+            "ems_spill": null
+          }
+        ],
+        "regulations": [
+          {
+            "seq": 1,
+            "law": "OSH",
+            "item_code": "OSH_MANAGED",
+            "item_raw": "관리대상유해물질",
+            "comp_ref": "MIX",
+            "applicable": "해당",
+            "threshold": {
+              "raw": "관리대상유해물질을 1% 이상 함유한 혼합물",
+              "status": "값있음",
+              "lower_op": ">=",
+              "lower": 1,
+              "unit": "%"
+            },
+            "remark": "관리대상유해물질을 1% 이상 함유한 혼합물"
+          },
+          {
+            "seq": 2,
+            "law": "OSH",
+            "item_code": "OSH_MEASURE",
+            "item_raw": "작업환경측정대상물질",
+            "comp_ref": "MIX",
+            "applicable": "해당",
+            "threshold": {
+              "raw": "작업환경측정대상물질을 1% 이상 함유한 혼합물",
+              "status": "값있음",
+              "lower_op": ">=",
+              "lower": 1,
+              "unit": "%"
+            },
+            "remark": "작업환경측정대상물질을 1% 이상 함유한 혼합물"
+          },
+          {
+            "seq": 3,
+            "law": "OSH",
+            "item_code": "OSH_HEALTH_EXAM",
+            "item_raw": "특수건강진단대상유해인자",
+            "comp_ref": "MIX",
+            "applicable": "해당",
+            "threshold": {
+              "raw": "특수건강진단대상유해인자을 1% 이상 함유한 혼합물",
+              "status": "값있음",
+              "lower_op": ">=",
+              "lower": 1,
+              "unit": "%"
+            },
+            "remark": "특수건강진단대상유해인자을 1% 이상 함유한 혼합물"
+          },
+          {
+            "seq": 4,
+            "law": "OSH",
+            "item_code": "OSH_EXPOSURE_STD",
+            "item_raw": "노출기준설정물질",
+            "comp_ref": "1",
+            "applicable": "해당",
+            "value_raw": "Copper"
+          },
+          {
+            "seq": 5,
+            "law": "CCA",
+            "item_code": null,
+            "item_raw": "화학물질관리법에 의한 규제",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "value_raw": "해당없음"
+          },
+          {
+            "seq": 6,
+            "law": "KREACH",
+            "item_code": null,
+            "item_raw": null,
+            "comp_ref": "MIX",
+            "applicable": "미기재"
+          },
+          {
+            "seq": 7,
+            "law": "DG",
+            "item_code": "DG_HAZMAT",
+            "item_raw": "위험물안전관리법에 의한 규제",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "value_raw": "해당없음"
+          },
+          {
+            "seq": 8,
+            "law": "WASTE",
+            "item_code": null,
+            "item_raw": "폐기물관리법에 의한 규제",
+            "comp_ref": "MIX",
+            "applicable": "해당",
+            "value_raw": "사업장폐기물"
+          },
+          {
+            "seq": 9,
+            "law": "KR_ETC",
+            "item_code": "KR_ETC",
+            "item_raw": "기타 국내 규제",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "value_raw": "해당없음"
+          },
+          {
+            "seq": 10,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보(CERCLA 규정)",
+            "comp_ref": "1",
+            "applicable": "해당",
+            "country": "US",
+            "qty": {
+              "raw": "2270 kg",
+              "status": "값있음",
+              "value": 2270,
+              "unit": "kg"
+            },
+            "qty_alt": {
+              "raw": "5000 lb",
+              "status": "값있음",
+              "value": 5000,
+              "unit": "lb"
+            },
+            "value_raw": "Copper(2270 kg (5000 lb))"
+          },
+          {
+            "seq": 11,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보(EPCRA 302 규정)",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "country": "US",
+            "value_raw": "해당없음"
+          },
+          {
+            "seq": 12,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보(EPCRA 304 규정)",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "country": "US",
+            "value_raw": "해당없음"
+          },
+          {
+            "seq": 13,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보(EPCRA 313 규정)",
+            "comp_ref": "1",
+            "applicable": "해당",
+            "country": "US",
+            "value_raw": "Copper(해당됨)"
+          },
+          {
+            "seq": 14,
+            "law": "INTL",
+            "item_code": "INTL_TREATY",
+            "item_raw": "국제협약정보(로테르담협약물질)",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "value_raw": "해당없음"
+          },
+          {
+            "seq": 15,
+            "law": "INTL",
+            "item_code": "INTL_TREATY",
+            "item_raw": "국제협약정보(스톡홀름협약물질)",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "value_raw": "해당없음"
+          },
+          {
+            "seq": 16,
+            "law": "INTL",
+            "item_code": "INTL_TREATY",
+            "item_raw": "국제협약정보(몬트리올의정서물질)",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "value_raw": "해당없음"
+          },
+          {
+            "seq": 17,
+            "law": "INTL",
+            "item_code": "INTL_EU",
+            "item_raw": "EU 분류정보",
+            "comp_ref": "1",
+            "applicable": "해당",
+            "country": "EU",
+            "value_raw": "Copper(Aquatic Chronic 2(H411))"
+          }
+        ],
+        "dangerous_goods": [
+          {
+            "comp_ref": "MIX",
+            "class": "해당없음",
+            "item": null,
+            "water_soluble": null,
+            "grade": null,
+            "designated_qty": null
+          }
+        ],
+        "waste": [
+          {
+            "comp_ref": "MIX",
+            "designated": null,
+            "waste_type": "사업장폐기물"
+          }
+        ],
+        "intl_class": [
+          {
+            "comp_ref": "1",
+            "system": "EU_CLP",
+            "class_raw": "Aquatic Chronic 2",
+            "h_code": "H411",
+            "status": "값있음"
+          }
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "msds_index": 0,
+        "field": "transport[0]",
+        "page": 6,
+        "source_text": "가. 유엔번호(UN No.) 해당없음 | 나. 적정선적명 해당없음 | 다. 운송에서의 위험성 등급 해당없음 | 라. 용기등급 해당없음 | 마. 해양오염물질 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "모든 항목 해당없음이라 regulated=false, 용기등급 해당없음, 해양오염물질 비해당으로 둠; 운송 구분이 없어 mode=공통"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[0]",
+        "page": 6,
+        "source_text": "관리대상유해물질 (관리대상유해물질을 1% 이상 함유한 혼합물)",
+        "rules": [
+          "R04",
+          "R10",
+          "R25"
+        ],
+        "note": "혼합물 기준이므로 comp_ref=MIX, threshold >=1%"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[1]",
+        "page": 6,
+        "source_text": "작업환경측정대상물질 (작업환경측정대상물질을 1% 이상 함유한 혼합물)",
+        "rules": [
+          "R04",
+          "R10",
+          "R25"
+        ],
+        "note": "혼합물 기준이므로 comp_ref=MIX, threshold >=1%"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[2]",
+        "page": 6,
+        "source_text": "특수건강진단대상유해인자 (특수건강진단대상유해인자을 1% 이상 함유한 혼합물)",
+        "rules": [
+          "R04",
+          "R10",
+          "R25"
+        ],
+        "note": "동의어로 OSH_HEALTH_EXAM 매핑, threshold >=1%"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[3]",
+        "page": 6,
+        "source_text": "노출기준설정물질 (Copper)",
+        "rules": [
+          "R10",
+          "R25"
+        ],
+        "note": "Copper → comp_ref=1"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[4]",
+        "page": 6,
+        "source_text": "나. 화학물질관리법에 의한 규제 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "법 전체 해당없음으로 개별 항목이 없어 item_code null; 맞는 값 없음: 화관법 전체 표기"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[5]",
+        "page": 6,
+        "source_text": null,
+        "rules": [
+          "R18"
+        ],
+        "note": "구양식(고시 제2020-130호) 문서로 화평법 항목이 없어 미기재"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[6]",
+        "page": 6,
+        "source_text": "다. 위험물안전관리법에 의한 규제 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "해당없음 → 비해당"
+      },
+      {
+        "msds_index": 0,
+        "field": "dangerous_goods[0]",
+        "page": 6,
+        "source_text": "다. 위험물안전관리법에 의한 규제 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "class=해당없음"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[7]",
+        "page": 6,
+        "source_text": "라. 폐기물관리법에 의한 규제 사업장폐기물",
+        "rules": [],
+        "note": "맞는 값 없음: 사업장폐기물은 지정폐기물 항목과 다르므로 item_code null, value_raw에 원문 보존"
+      },
+      {
+        "msds_index": 0,
+        "field": "waste[0]",
+        "page": 6,
+        "source_text": "라. 폐기물관리법에 의한 규제 사업장폐기물",
+        "rules": [
+          "R17"
+        ],
+        "note": "지정폐기물 여부가 명시되지 않아 designated null, waste_type에 원문"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[8]",
+        "page": 6,
+        "source_text": "- 기타 국내 규제 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "해당없음 → 비해당"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[9]",
+        "page": 6,
+        "source_text": "- 미국관리정보(CERCLA 규정) Copper(2270 kg (5000 lb))",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "qty 2270 kg, qty_alt 5000 lb, comp_ref=1"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[10]",
+        "page": 6,
+        "source_text": "- 미국관리정보(EPCRA 302 규정) 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "해당없음 → 비해당"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[11]",
+        "page": 6,
+        "source_text": "- 미국관리정보(EPCRA 304 규정) 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "해당없음 → 비해당"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[12]",
+        "page": 6,
+        "source_text": "- 미국관리정보(EPCRA 313 규정) Copper(해당됨)",
+        "rules": [
+          "R10"
+        ],
+        "note": "Copper → comp_ref=1, 해당"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[13]",
+        "page": 6,
+        "source_text": "- 국제협약정보(로테르담협약물질) 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "해당없음 → 비해당"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[14]",
+        "page": 6,
+        "source_text": "- 국제협약정보(스톡홀름협약물질) 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "해당없음 → 비해당"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[15]",
+        "page": 6,
+        "source_text": "- 국제협약정보(몬트리올의정서물질) 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "해당없음 → 비해당"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[16]",
+        "page": 6,
+        "source_text": "- EU 분류정보 Copper(Aquatic Chronic 2(H411))",
+        "rules": [
+          "R10",
+          "R25"
+        ],
+        "note": "Copper → comp_ref=1, country EU"
+      },
+      {
+        "msds_index": 0,
+        "field": "intl_class[0]",
+        "page": 6,
+        "source_text": "- EU 분류정보 Copper(Aquatic Chronic 2(H411))",
+        "rules": [
+          "R05",
+          "R10"
+        ],
+        "note": "분류 Aquatic Chronic 2와 H411로 분리"
+      }
+    ]
+  },
+  "raw_text": "{\"msds\": [{\"transport\": [{\"mode\": \"공통\", \"basis_raw\": null, \"regulated\": false, \"un_no\": null, \"shipping_name\": null, \"hazard_class\": null, \"sub_risk\": null, \"packing_group\": \"해당없음\", \"marine_pollutant\": \"비해당\", \"ems_fire\": null, \"ems_spill\": null}], \"regulations\": [{\"seq\": 1, \"law\": \"OSH\", \"item_code\": \"OSH_MANAGED\", \"item_raw\": \"관리대상유해물질\", \"comp_ref\": \"MIX\", \"applicable\": \"해당\", \"threshold\": {\"raw\": \"관리대상유해물질을 1% 이상 함유한 혼합물\", \"status\": \"값있음\", \"lower_op\": \">=\", \"lower\": 1, \"unit\": \"%\"}, \"remark\": \"관리대상유해물질을 1% 이상 함유한 혼합물\"}, {\"seq\": 2, \"law\": \"OSH\", \"item_code\": \"OSH_MEASURE\", \"item_raw\": \"작업환경측정대상물질\", \"comp_ref\": \"MIX\", \"applicable\": \"해당\", \"threshold\": {\"raw\": \"작업환경측정대상물질을 1% 이상 함유한 혼합물\", \"status\": \"값있음\", \"lower_op\": \">=\", \"lower\": 1, \"unit\": \"%\"}, \"remark\": \"작업환경측정대상물질을 1% 이상 함유한 혼합물\"}, {\"seq\": 3, \"law\": \"OSH\", \"item_code\": \"OSH_HEALTH_EXAM\", \"item_raw\": \"특수건강진단대상유해인자\", \"comp_ref\": \"MIX\", \"applicable\": \"해당\", \"threshold\": {\"raw\": \"특수건강진단대상유해인자을 1% 이상 함유한 혼합물\", \"status\": \"값있음\", \"lower_op\": \">=\", \"lower\": 1, \"unit\": \"%\"}, \"remark\": \"특수건강진단대상유해인자을 1% 이상 함유한 혼합물\"}, {\"seq\": 4, \"law\": \"OSH\", \"item_code\": \"OSH_EXPOSURE_STD\", \"item_raw\": \"노출기준설정물질\", \"comp_ref\": \"1\", \"applicable\": \"해당\", \"value_raw\": \"Copper\"}, {\"seq\": 5, \"law\": \"CCA\", \"item_code\": null, \"item_raw\": \"화학물질관리법에 의한 규제\", \"comp_ref\": \"MIX\", \"applicable\": \"비해당\", \"value_raw\": \"해당없음\"}, {\"seq\": 6, \"law\": \"KREACH\", \"item_code\": null, \"item_raw\": null, \"comp_ref\": \"MIX\", \"applicable\": \"미기재\"}, {\"seq\": 7, \"law\": \"DG\", \"item_code\": \"DG_HAZMAT\", \"item_raw\": \"위험물안전관리법에 의한 규제\", \"comp_ref\": \"MIX\", \"applicable\": \"비해당\", \"value_raw\": \"해당없음\"}, {\"seq\": 8, \"law\": \"WASTE\", \"item_code\": null, \"item_raw\": \"폐기물관리법에 의한 규제\", \"comp_ref\": \"MIX\", \"applicable\": \"해당\", \"value_raw\": \"사업장폐기물\"}, {\"seq\": 9, \"law\": \"KR_ETC\", \"item_code\": \"KR_ETC\", \"item_raw\": \"기타 국내 규제\", \"comp_ref\": \"MIX\", \"applicable\": \"비해당\", \"value_raw\": \"해당없음\"}, {\"seq\": 10, \"law\": \"INTL\", \"item_code\": \"INTL_US\", \"item_raw\": \"미국관리정보(CERCLA 규정)\", \"comp_ref\": \"1\", \"applicable\": \"해당\", \"country\": \"US\", \"qty\": {\"raw\": \"2270 kg\", \"status\": \"값있음\", \"value\": 2270, \"unit\": \"kg\"}, \"qty_alt\": {\"raw\": \"5000 lb\", \"status\": \"값있음\", \"value\": 5000, \"unit\": \"lb\"}, \"value_raw\": \"Copper(2270 kg (5000 lb))\"}, {\"seq\": 11, \"law\": \"INTL\", \"item_code\": \"INTL_US\", \"item_raw\": \"미국관리정보(EPCRA 302 규정)\", \"comp_ref\": \"MIX\", \"applicable\": \"비해당\", \"country\": \"US\", \"value_raw\": \"해당없음\"}, {\"seq\": 12, \"law\": \"INTL\", \"item_code\": \"INTL_US\", \"item_raw\": \"미국관리정보(EPCRA 304 규정)\", \"comp_ref\": \"MIX\", \"applicable\": \"비해당\", \"country\": \"US\", \"value_raw\": \"해당없음\"}, {\"seq\": 13, \"law\": \"INTL\", \"item_code\": \"INTL_US\", \"item_raw\": \"미국관리정보(EPCRA 313 규정)\", \"comp_ref\": \"1\", \"applicable\": \"해당\", \"country\": \"US\", \"value_raw\": \"Copper(해당됨)\"}, {\"seq\": 14, \"law\": \"INTL\", \"item_code\": \"INTL_TREATY\", \"item_raw\": \"국제협약정보(로테르담협약물질)\", \"comp_ref\": \"MIX\", \"applicable\": \"비해당\", \"value_raw\": \"해당없음\"}, {\"seq\": 15, \"law\": \"INTL\", \"item_code\": \"INTL_TREATY\", \"item_raw\": \"국제협약정보(스톡홀름협약물질)\", \"comp_ref\": \"MIX\", \"applicable\": \"비해당\", \"value_raw\": \"해당없음\"}, {\"seq\": 16, \"law\": \"INTL\", \"item_code\": \"INTL_TREATY\", \"item_raw\": \"국제협약정보(몬트리올의정서물질)\", \"comp_ref\": \"MIX\", \"applicable\": \"비해당\", \"value_raw\": \"해당없음\"}, {\"seq\": 17, \"law\": \"INTL\", \"item_code\": \"INTL_EU\", \"item_raw\": \"EU 분류정보\", \"comp_ref\": \"1\", \"applicable\": \"해당\", \"country\": \"EU\", \"value_raw\": \"Copper(Aquatic Chronic 2(H411))\"}], \"dangerous_goods\": [{\"comp_ref\": \"MIX\", \"class\": \"해당없음\", \"item\": null, \"water_soluble\": null, \"grade\": null, \"designated_qty\": null}], \"waste\": [{\"comp_ref\": \"MIX\", \"designated\": null, \"waste_type\": \"사업장폐기물\"}], \"intl_class\": [{\"comp_ref\": \"1\", \"system\": \"EU_CLP\", \"class_raw\": \"Aquatic Chronic 2\", \"h_code\": \"H411\", \"status\": \"값있음\"}]}], \"evidence\": [{\"msds_index\": 0, \"field\": \"transport[0]\", \"page\": 6, \"source_text\": \"가. 유엔번호(UN No.) 해당없음 | 나. 적정선적명 해당없음 | 다. 운송에서의 위험성 등급 해당없음 | 라. 용기등급 해당없음 | 마. 해양오염물질 해당없음\", \"rules\": [\"R15\"], \"note\": \"모든 항목 해당없음이라 regulated=false, 용기등급 해당없음, 해양오염물질 비해당으로 둠; 운송 구분이 없어 mode=공통\"}, {\"msds_index\": 0, \"field\": \"regulations[0]\", \"page\": 6, \"source_text\": \"관리대상유해물질 (관리대상유해물질을 1% 이상 함유한 혼합물)\", \"rules\": [\"R04\", \"R10\", \"R25\"], \"note\": \"혼합물 기준이므로 comp_ref=MIX, threshold >=1%\"}, {\"msds_index\": 0, \"field\": \"regulations[1]\", \"page\": 6, \"source_text\": \"작업환경측정대상물질 (작업환경측정대상물질을 1% 이상 함유한 혼합물)\", \"rules\": [\"R04\", \"R10\", \"R25\"], \"note\": \"혼합물 기준이므로 comp_ref=MIX, threshold >=1%\"}, {\"msds_index\": 0, \"field\": \"regulations[2]\", \"page\": 6, \"source_text\": \"특수건강진단대상유해인자 (특수건강진단대상유해인자을 1% 이상 함유한 혼합물)\", \"rules\": [\"R04\", \"R10\", \"R25\"], \"note\": \"동의어로 OSH_HEALTH_EXAM 매핑, threshold >=1%\"}, {\"msds_index\": 0, \"field\": \"regulations[3]\", \"page\": 6, \"source_text\": \"노출기준설정물질 (Copper)\", \"rules\": [\"R10\", \"R25\"], \"note\": \"Copper → comp_ref=1\"}, {\"msds_index\": 0, \"field\": \"regulations[4]\", \"page\": 6, \"source_text\": \"나. 화학물질관리법에 의한 규제 해당없음\", \"rules\": [\"R15\"], \"note\": \"법 전체 해당없음으로 개별 항목이 없어 item_code null; 맞는 값 없음: 화관법 전체 표기\"}, {\"msds_index\": 0, \"field\": \"regulations[5]\", \"page\": 6, \"source_text\": null, \"rules\": [\"R18\"], \"note\": \"구양식(고시 제2020-130호) 문서로 화평법 항목이 없어 미기재\"}, {\"msds_index\": 0, \"field\": \"regulations[6]\", \"page\": 6, \"source_text\": \"다. 위험물안전관리법에 의한 규제 해당없음\", \"rules\": [\"R15\"], \"note\": \"해당없음 → 비해당\"}, {\"msds_index\": 0, \"field\": \"dangerous_goods[0]\", \"page\": 6, \"source_text\": \"다. 위험물안전관리법에 의한 규제 해당없음\", \"rules\": [\"R15\"], \"note\": \"class=해당없음\"}, {\"msds_index\": 0, \"field\": \"regulations[7]\", \"page\": 6, \"source_text\": \"라. 폐기물관리법에 의한 규제 사업장폐기물\", \"rules\": [], \"note\": \"맞는 값 없음: 사업장폐기물은 지정폐기물 항목과 다르므로 item_code null, value_raw에 원문 보존\"}, {\"msds_index\": 0, \"field\": \"waste[0]\", \"page\": 6, \"source_text\": \"라. 폐기물관리법에 의한 규제 사업장폐기물\", \"rules\": [\"R17\"], \"note\": \"지정폐기물 여부가 명시되지 않아 designated null, waste_type에 원문\"}, {\"msds_index\": 0, \"field\": \"regulations[8]\", \"page\": 6, \"source_text\": \"- 기타 국내 규제 해당없음\", \"rules\": [\"R15\"], \"note\": \"해당없음 → 비해당\"}, {\"msds_index\": 0, \"field\": \"regulations[9]\", \"page\": 6, \"source_text\": \"- 미국관리정보(CERCLA 규정) Copper(2270 kg (5000 lb))\", \"rules\": [\"R04\", \"R10\"], \"note\": \"qty 2270 kg, qty_alt 5000 lb, comp_ref=1\"}, {\"msds_index\": 0, \"field\": \"regulations[10]\", \"page\": 6, \"source_text\": \"- 미국관리정보(EPCRA 302 규정) 해당없음\", \"rules\": [\"R15\"], \"note\": \"해당없음 → 비해당\"}, {\"msds_index\": 0, \"field\": \"regulations[11]\", \"page\": 6, \"source_text\": \"- 미국관리정보(EPCRA 304 규정) 해당없음\", \"rules\": [\"R15\"], \"note\": \"해당없음 → 비해당\"}, {\"msds_index\": 0, \"field\": \"regulations[12]\", \"page\": 6, \"source_text\": \"- 미국관리정보(EPCRA 313 규정) Copper(해당됨)\", \"rules\": [\"R10\"], \"note\": \"Copper → comp_ref=1, 해당\"}, {\"msds_index\": 0, \"field\": \"regulations[13]\", \"page\": 6, \"source_text\": \"- 국제협약정보(로테르담협약물질) 해당없음\", \"rules\": [\"R15\", \"R25\"], \"note\": \"해당없음 → 비해당\"}, {\"msds_index\": 0, \"field\": \"regulations[14]\", \"page\": 6, \"source_text\": \"- 국제협약정보(스톡홀름협약물질) 해당없음\", \"rules\": [\"R15\", \"R25\"], \"note\": \"해당없음 → 비해당\"}, {\"msds_index\": 0, \"field\": \"regulations[15]\", \"page\": 6, \"source_text\": \"- 국제협약정보(몬트리올의정서물질) 해당없음\", \"rules\": [\"R15\", \"R25\"], \"note\": \"해당없음 → 비해당\"}, {\"msds_index\": 0, \"field\": \"regulations[16]\", \"page\": 6, \"source_text\": \"- EU 분류정보 Copper(Aquatic Chronic 2(H411))\", \"rules\": [\"R10\", \"R25\"], \"note\": \"Copper → comp_ref=1, country EU\"}, {\"msds_index\": 0, \"field\": \"intl_class[0]\", \"page\": 6, \"source_text\": \"- EU 분류정보 Copper(Aquatic Chronic 2(H411))\", \"rules\": [\"R05\", \"R10\"], \"note\": \"분류 Aquatic Chronic 2와 H411로 분리\"}]}"
+}

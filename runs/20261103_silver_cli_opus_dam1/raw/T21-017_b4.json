@@ -1,0 +1,428 @@
+{
+  "doc_id": "T21-017",
+  "bundle": "b4",
+  "model": "claude-opus-5-5",
+  "mode": "claude -p json-schema",
+  "finish_reason": "tool_use",
+  "usage": {
+    "prompt_tokens": 46255,
+    "completion_tokens": 4385,
+    "cached_tokens": 8949,
+    "reasoning_tokens": 991,
+    "notional_cost_usd": 0.3879298
+  },
+  "seconds": 34.4,
+  "request_usage": [
+    {
+      "prompt_tokens": 46255,
+      "completion_tokens": 4385,
+      "cached_tokens": 8949,
+      "reasoning_tokens": 991,
+      "notional_cost_usd": 0.3879298
+    }
+  ],
+  "attempts": 1,
+  "errors": [],
+  "parsed": {
+    "msds": [
+      {
+        "transport": [
+          {
+            "mode": "공통",
+            "basis_raw": null,
+            "regulated": false,
+            "un_no": null,
+            "shipping_name": null,
+            "hazard_class": null,
+            "sub_risk": null,
+            "packing_group": "해당없음",
+            "marine_pollutant": "비해당",
+            "ems_fire": null,
+            "ems_spill": null
+          }
+        ],
+        "regulations": [
+          {
+            "seq": 1,
+            "law": "OSH",
+            "item_code": "OSH_MANAGED",
+            "item_raw": "관리대상유해물질",
+            "comp_ref": "1",
+            "applicable": "해당",
+            "value_raw": "주석, 은"
+          },
+          {
+            "seq": 2,
+            "law": "OSH",
+            "item_code": "OSH_MANAGED",
+            "item_raw": "관리대상유해물질",
+            "comp_ref": "2",
+            "applicable": "해당",
+            "value_raw": "주석, 은"
+          },
+          {
+            "seq": 3,
+            "law": "OSH",
+            "item_code": "OSH_MEASURE",
+            "item_raw": "작업환경측정대상물질",
+            "comp_ref": "1",
+            "applicable": "해당",
+            "cycle": {
+              "raw": "측정주기: 6개월",
+              "value": 6,
+              "unit": "개월",
+              "status": "값있음"
+            },
+            "value_raw": "주석, 은"
+          },
+          {
+            "seq": 4,
+            "law": "OSH",
+            "item_code": "OSH_MEASURE",
+            "item_raw": "작업환경측정대상물질",
+            "comp_ref": "2",
+            "applicable": "해당",
+            "cycle": {
+              "raw": "측정주기: 6개월",
+              "value": 6,
+              "unit": "개월",
+              "status": "값있음"
+            },
+            "value_raw": "주석, 은"
+          },
+          {
+            "seq": 5,
+            "law": "OSH",
+            "item_code": "OSH_HEALTH_EXAM",
+            "item_raw": "특수건강진단대상물질",
+            "comp_ref": "1",
+            "applicable": "해당",
+            "cycle": {
+              "raw": "진단주기: 12개월",
+              "value": 12,
+              "unit": "개월",
+              "status": "값있음"
+            },
+            "value_raw": "주석"
+          },
+          {
+            "seq": 6,
+            "law": "OSH",
+            "item_code": "OSH_EXPOSURE_STD",
+            "item_raw": "노출기준설정물질",
+            "comp_ref": "1",
+            "applicable": "해당",
+            "value_raw": "주석, 은, 구리"
+          },
+          {
+            "seq": 7,
+            "law": "OSH",
+            "item_code": "OSH_EXPOSURE_STD",
+            "item_raw": "노출기준설정물질",
+            "comp_ref": "2",
+            "applicable": "해당",
+            "value_raw": "주석, 은, 구리"
+          },
+          {
+            "seq": 8,
+            "law": "OSH",
+            "item_code": "OSH_EXPOSURE_STD",
+            "item_raw": "노출기준설정물질",
+            "comp_ref": "3",
+            "applicable": "해당",
+            "value_raw": "주석, 은, 구리"
+          },
+          {
+            "seq": 9,
+            "law": "OSH",
+            "item_code": "OSH_PSM",
+            "item_raw": "PSM 대상물질",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "value_raw": "비해당"
+          },
+          {
+            "seq": 10,
+            "law": "CCA",
+            "item_code": null,
+            "item_raw": "화학물질관리법에 의한 규제",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "value_raw": "해당없음"
+          },
+          {
+            "seq": 11,
+            "law": "KREACH",
+            "item_code": null,
+            "item_raw": null,
+            "comp_ref": "MIX",
+            "applicable": "미기재"
+          },
+          {
+            "seq": 12,
+            "law": "DG",
+            "item_code": "DG_HAZMAT",
+            "item_raw": "위험물안전관리법에 의한 규제",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "value_raw": "해당없음"
+          },
+          {
+            "seq": 13,
+            "law": "WASTE",
+            "item_code": "WASTE_DESIG",
+            "item_raw": "폐기물관리법에 의한 규제",
+            "comp_ref": "MIX",
+            "applicable": "해당",
+            "value_raw": "지정폐기물"
+          },
+          {
+            "seq": 14,
+            "law": "INTL",
+            "item_code": "INTL_EU",
+            "item_raw": "EU RoHS 지령",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "country": "EU",
+            "value_raw": "규제대상물질의 사용이 없음"
+          },
+          {
+            "seq": 15,
+            "law": "INTL",
+            "item_code": "INTL_JP",
+            "item_raw": "외국위체령별표(17조의 2)",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "country": "JP",
+            "value_raw": "비해당"
+          },
+          {
+            "seq": 16,
+            "law": "INTL",
+            "item_code": null,
+            "item_raw": "HS Code",
+            "comp_ref": "MIX",
+            "applicable": null,
+            "value_raw": "3810. 10"
+          }
+        ],
+        "dangerous_goods": [
+          {
+            "comp_ref": "MIX",
+            "class": "해당없음",
+            "item": null,
+            "water_soluble": null,
+            "grade": null,
+            "designated_qty": null
+          }
+        ],
+        "waste": [
+          {
+            "comp_ref": "MIX",
+            "designated": "해당",
+            "waste_type": null
+          }
+        ],
+        "intl_class": []
+      }
+    ],
+    "evidence": [
+      {
+        "msds_index": 0,
+        "field": "transport[0]",
+        "page": 6,
+        "source_text": "가. 유엔번호(UN No.) 해당없음 나. 적정선적명 해당없음 다. 운송에서의 위험성 등급 해당없음 라. 용기등급 해당없음 마. 해양오염물질 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "모든 항목이 해당없음이므로 regulated=false, 용기등급 해당없음, 해양오염물질 비해당으로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[0]",
+        "page": 6,
+        "source_text": "관리대상유해물질 - 주석, 은",
+        "rules": [
+          "R10",
+          "R25"
+        ],
+        "note": "주석=Sn(1)"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[1]",
+        "page": 6,
+        "source_text": "관리대상유해물질 - 주석, 은",
+        "rules": [
+          "R10",
+          "R25"
+        ],
+        "note": "은=Ag(2)"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[2]",
+        "page": 6,
+        "source_text": "작업환경측정대상물질(측정주기: 6개월) - 주석, 은",
+        "rules": [
+          "R04",
+          "R10",
+          "R25"
+        ],
+        "note": "주석=Sn(1), 측정주기 6개월을 cycle로 분해"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[3]",
+        "page": 6,
+        "source_text": "작업환경측정대상물질(측정주기: 6개월) - 주석, 은",
+        "rules": [
+          "R04",
+          "R10",
+          "R25"
+        ],
+        "note": "은=Ag(2), 측정주기 6개월을 cycle로 분해"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[4]",
+        "page": 6,
+        "source_text": "특수건강진단대상물질(진단주기: 12개월) - 주석",
+        "rules": [
+          "R04",
+          "R10",
+          "R25"
+        ],
+        "note": "주석=Sn(1), 진단주기 12개월을 cycle로 분해"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[5]",
+        "page": 6,
+        "source_text": "노출기준설정물질 - 주석, 은, 구리",
+        "rules": [
+          "R10",
+          "R25"
+        ],
+        "note": "주석=Sn(1)"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[6]",
+        "page": 6,
+        "source_text": "노출기준설정물질 - 주석, 은, 구리",
+        "rules": [
+          "R10",
+          "R25"
+        ],
+        "note": "은=Ag(2)"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[7]",
+        "page": 6,
+        "source_text": "노출기준설정물질 - 주석, 은, 구리",
+        "rules": [
+          "R10",
+          "R25"
+        ],
+        "note": "구리=Cu(3)"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[8]",
+        "page": 6,
+        "source_text": "PSM 대상물질 : 비해당",
+        "rules": [
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[9]",
+        "page": 6,
+        "source_text": "나. 화학물질관리법에 의한 규제 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "맞는 값 없음: 화관법 전체에 대한 해당없음으로 개별 항목 코드가 없어 item_code null, 비해당으로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[10]",
+        "page": 6,
+        "source_text": null,
+        "rules": [
+          "R18"
+        ],
+        "note": "구양식 문서로 화평법 항목이 없어 미기재로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[11]",
+        "page": 6,
+        "source_text": "다. 위험물안전관리법에 의한 규제 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "해당없음을 비해당으로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[12]",
+        "page": 6,
+        "source_text": "라. 폐기물관리법에 의한 규제 : 지정폐기물",
+        "rules": [],
+        "note": "지정폐기물로 기재되어 해당으로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[13]",
+        "page": 6,
+        "source_text": "EU RoHS 지령 : 규제대상물질의 사용이 없음",
+        "rules": [
+          "R25"
+        ],
+        "note": "규제대상물질 사용이 없다는 기재를 비해당으로 두고 원문은 value_raw에 보존"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[14]",
+        "page": 6,
+        "source_text": "외국위체령별표(17조의 2) : 비해당",
+        "rules": [],
+        "note": "일본 외국위체령으로 보아 INTL_JP, country JP"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[15]",
+        "page": 6,
+        "source_text": "HS Code : 3810. 10",
+        "rules": [
+          "R17"
+        ],
+        "note": "맞는 값 없음: HS 코드는 규제 항목 코드가 없어 item_code·applicable null, 원문만 보존"
+      },
+      {
+        "msds_index": 0,
+        "field": "dangerous_goods[0]",
+        "page": 6,
+        "source_text": "다. 위험물안전관리법에 의한 규제 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "류별을 해당없음으로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "waste[0]",
+        "page": 6,
+        "source_text": "라. 폐기물관리법에 의한 규제 : 지정폐기물",
+        "rules": [],
+        "note": null
+      }
+    ]
+  },
+  "raw_text": "{\"msds\": [{\"transport\": [{\"mode\": \"공통\", \"basis_raw\": null, \"regulated\": false, \"un_no\": null, \"shipping_name\": null, \"hazard_class\": null, \"sub_risk\": null, \"packing_group\": \"해당없음\", \"marine_pollutant\": \"비해당\", \"ems_fire\": null, \"ems_spill\": null}], \"regulations\": [{\"seq\": 1, \"law\": \"OSH\", \"item_code\": \"OSH_MANAGED\", \"item_raw\": \"관리대상유해물질\", \"comp_ref\": \"1\", \"applicable\": \"해당\", \"value_raw\": \"주석, 은\"}, {\"seq\": 2, \"law\": \"OSH\", \"item_code\": \"OSH_MANAGED\", \"item_raw\": \"관리대상유해물질\", \"comp_ref\": \"2\", \"applicable\": \"해당\", \"value_raw\": \"주석, 은\"}, {\"seq\": 3, \"law\": \"OSH\", \"item_code\": \"OSH_MEASURE\", \"item_raw\": \"작업환경측정대상물질\", \"comp_ref\": \"1\", \"applicable\": \"해당\", \"cycle\": {\"raw\": \"측정주기: 6개월\", \"value\": 6, \"unit\": \"개월\", \"status\": \"값있음\"}, \"value_raw\": \"주석, 은\"}, {\"seq\": 4, \"law\": \"OSH\", \"item_code\": \"OSH_MEASURE\", \"item_raw\": \"작업환경측정대상물질\", \"comp_ref\": \"2\", \"applicable\": \"해당\", \"cycle\": {\"raw\": \"측정주기: 6개월\", \"value\": 6, \"unit\": \"개월\", \"status\": \"값있음\"}, \"value_raw\": \"주석, 은\"}, {\"seq\": 5, \"law\": \"OSH\", \"item_code\": \"OSH_HEALTH_EXAM\", \"item_raw\": \"특수건강진단대상물질\", \"comp_ref\": \"1\", \"applicable\": \"해당\", \"cycle\": {\"raw\": \"진단주기: 12개월\", \"value\": 12, \"unit\": \"개월\", \"status\": \"값있음\"}, \"value_raw\": \"주석\"}, {\"seq\": 6, \"law\": \"OSH\", \"item_code\": \"OSH_EXPOSURE_STD\", \"item_raw\": \"노출기준설정물질\", \"comp_ref\": \"1\", \"applicable\": \"해당\", \"value_raw\": \"주석, 은, 구리\"}, {\"seq\": 7, \"law\": \"OSH\", \"item_code\": \"OSH_EXPOSURE_STD\", \"item_raw\": \"노출기준설정물질\", \"comp_ref\": \"2\", \"applicable\": \"해당\", \"value_raw\": \"주석, 은, 구리\"}, {\"seq\": 8, \"law\": \"OSH\", \"item_code\": \"OSH_EXPOSURE_STD\", \"item_raw\": \"노출기준설정물질\", \"comp_ref\": \"3\", \"applicable\": \"해당\", \"value_raw\": \"주석, 은, 구리\"}, {\"seq\": 9, \"law\": \"OSH\", \"item_code\": \"OSH_PSM\", \"item_raw\": \"PSM 대상물질\", \"comp_ref\": \"MIX\", \"applicable\": \"비해당\", \"value_raw\": \"비해당\"}, {\"seq\": 10, \"law\": \"CCA\", \"item_code\": null, \"item_raw\": \"화학물질관리법에 의한 규제\", \"comp_ref\": \"MIX\", \"applicable\": \"비해당\", \"value_raw\": \"해당없음\"}, {\"seq\": 11, \"law\": \"KREACH\", \"item_code\": null, \"item_raw\": null, \"comp_ref\": \"MIX\", \"applicable\": \"미기재\"}, {\"seq\": 12, \"law\": \"DG\", \"item_code\": \"DG_HAZMAT\", \"item_raw\": \"위험물안전관리법에 의한 규제\", \"comp_ref\": \"MIX\", \"applicable\": \"비해당\", \"value_raw\": \"해당없음\"}, {\"seq\": 13, \"law\": \"WASTE\", \"item_code\": \"WASTE_DESIG\", \"item_raw\": \"폐기물관리법에 의한 규제\", \"comp_ref\": \"MIX\", \"applicable\": \"해당\", \"value_raw\": \"지정폐기물\"}, {\"seq\": 14, \"law\": \"INTL\", \"item_code\": \"INTL_EU\", \"item_raw\": \"EU RoHS 지령\", \"comp_ref\": \"MIX\", \"applicable\": \"비해당\", \"country\": \"EU\", \"value_raw\": \"규제대상물질의 사용이 없음\"}, {\"seq\": 15, \"law\": \"INTL\", \"item_code\": \"INTL_JP\", \"item_raw\": \"외국위체령별표(17조의 2)\", \"comp_ref\": \"MIX\", \"applicable\": \"비해당\", \"country\": \"JP\", \"value_raw\": \"비해당\"}, {\"seq\": 16, \"law\": \"INTL\", \"item_code\": null, \"item_raw\": \"HS Code\", \"comp_ref\": \"MIX\", \"applicable\": null, \"value_raw\": \"3810. 10\"}], \"dangerous_goods\": [{\"comp_ref\": \"MIX\", \"class\": \"해당없음\", \"item\": null, \"water_soluble\": null, \"grade\": null, \"designated_qty\": null}], \"waste\": [{\"comp_ref\": \"MIX\", \"designated\": \"해당\", \"waste_type\": null}], \"intl_class\": []}], \"evidence\": [{\"msds_index\": 0, \"field\": \"transport[0]\", \"page\": 6, \"source_text\": \"가. 유엔번호(UN No.) 해당없음 나. 적정선적명 해당없음 다. 운송에서의 위험성 등급 해당없음 라. 용기등급 해당없음 마. 해양오염물질 해당없음\", \"rules\": [\"R15\"], \"note\": \"모든 항목이 해당없음이므로 regulated=false, 용기등급 해당없음, 해양오염물질 비해당으로 둠\"}, {\"msds_index\": 0, \"field\": \"regulations[0]\", \"page\": 6, \"source_text\": \"관리대상유해물질 - 주석, 은\", \"rules\": [\"R10\", \"R25\"], \"note\": \"주석=Sn(1)\"}, {\"msds_index\": 0, \"field\": \"regulations[1]\", \"page\": 6, \"source_text\": \"관리대상유해물질 - 주석, 은\", \"rules\": [\"R10\", \"R25\"], \"note\": \"은=Ag(2)\"}, {\"msds_index\": 0, \"field\": \"regulations[2]\", \"page\": 6, \"source_text\": \"작업환경측정대상물질(측정주기: 6개월) - 주석, 은\", \"rules\": [\"R04\", \"R10\", \"R25\"], \"note\": \"주석=Sn(1), 측정주기 6개월을 cycle로 분해\"}, {\"msds_index\": 0, \"field\": \"regulations[3]\", \"page\": 6, \"source_text\": \"작업환경측정대상물질(측정주기: 6개월) - 주석, 은\", \"rules\": [\"R04\", \"R10\", \"R25\"], \"note\": \"은=Ag(2), 측정주기 6개월을 cycle로 분해\"}, {\"msds_index\": 0, \"field\": \"regulations[4]\", \"page\": 6, \"source_text\": \"특수건강진단대상물질(진단주기: 12개월) - 주석\", \"rules\": [\"R04\", \"R10\", \"R25\"], \"note\": \"주석=Sn(1), 진단주기 12개월을 cycle로 분해\"}, {\"msds_index\": 0, \"field\": \"regulations[5]\", \"page\": 6, \"source_text\": \"노출기준설정물질 - 주석, 은, 구리\", \"rules\": [\"R10\", \"R25\"], \"note\": \"주석=Sn(1)\"}, {\"msds_index\": 0, \"field\": \"regulations[6]\", \"page\": 6, \"source_text\": \"노출기준설정물질 - 주석, 은, 구리\", \"rules\": [\"R10\", \"R25\"], \"note\": \"은=Ag(2)\"}, {\"msds_index\": 0, \"field\": \"regulations[7]\", \"page\": 6, \"source_text\": \"노출기준설정물질 - 주석, 은, 구리\", \"rules\": [\"R10\", \"R25\"], \"note\": \"구리=Cu(3)\"}, {\"msds_index\": 0, \"field\": \"regulations[8]\", \"page\": 6, \"source_text\": \"PSM 대상물질 : 비해당\", \"rules\": [\"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"regulations[9]\", \"page\": 6, \"source_text\": \"나. 화학물질관리법에 의한 규제 해당없음\", \"rules\": [\"R15\"], \"note\": \"맞는 값 없음: 화관법 전체에 대한 해당없음으로 개별 항목 코드가 없어 item_code null, 비해당으로 둠\"}, {\"msds_index\": 0, \"field\": \"regulations[10]\", \"page\": 6, \"source_text\": null, \"rules\": [\"R18\"], \"note\": \"구양식 문서로 화평법 항목이 없어 미기재로 둠\"}, {\"msds_index\": 0, \"field\": \"regulations[11]\", \"page\": 6, \"source_text\": \"다. 위험물안전관리법에 의한 규제 해당없음\", \"rules\": [\"R15\"], \"note\": \"해당없음을 비해당으로 둠\"}, {\"msds_index\": 0, \"field\": \"regulations[12]\", \"page\": 6, \"source_text\": \"라. 폐기물관리법에 의한 규제 : 지정폐기물\", \"rules\": [], \"note\": \"지정폐기물로 기재되어 해당으로 둠\"}, {\"msds_index\": 0, \"field\": \"regulations[13]\", \"page\": 6, \"source_text\": \"EU RoHS 지령 : 규제대상물질의 사용이 없음\", \"rules\": [\"R25\"], \"note\": \"규제대상물질 사용이 없다는 기재를 비해당으로 두고 원문은 value_raw에 보존\"}, {\"msds_index\": 0, \"field\": \"regulations[14]\", \"page\": 6, \"source_text\": \"외국위체령별표(17조의 2) : 비해당\", \"rules\": [], \"note\": \"일본 외국위체령으로 보아 INTL_JP, country JP\"}, {\"msds_index\": 0, \"field\": \"regulations[15]\", \"page\": 6, \"source_text\": \"HS Code : 3810. 10\", \"rules\": [\"R17\"], \"note\": \"맞는 값 없음: HS 코드는 규제 항목 코드가 없어 item_code·applicable null, 원문만 보존\"}, {\"msds_index\": 0, \"field\": \"dangerous_goods[0]\", \"page\": 6, \"source_text\": \"다. 위험물안전관리법에 의한 규제 해당없음\", \"rules\": [\"R15\"], \"note\": \"류별을 해당없음으로 둠\"}, {\"msds_index\": 0, \"field\": \"waste[0]\", \"page\": 6, \"source_text\": \"라. 폐기물관리법에 의한 규제 : 지정폐기물\", \"rules\": [], \"note\": null}]}"
+}
