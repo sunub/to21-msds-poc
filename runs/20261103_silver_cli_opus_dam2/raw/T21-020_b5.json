@@ -1,0 +1,1166 @@
+{
+  "doc_id": "T21-020",
+  "bundle": "b5",
+  "model": "claude-opus-5-5",
+  "mode": "claude -p json-schema",
+  "finish_reason": "tool_use",
+  "usage": {
+    "prompt_tokens": 59991,
+    "completion_tokens": 16146,
+    "cached_tokens": 6722,
+    "reasoning_tokens": 910,
+    "notional_cost_usd": 0.7504084
+  },
+  "seconds": 109.9,
+  "request_usage": [
+    {
+      "prompt_tokens": 59991,
+      "completion_tokens": 16146,
+      "cached_tokens": 6722,
+      "reasoning_tokens": 910,
+      "notional_cost_usd": 0.7504084
+    }
+  ],
+  "attempts": 1,
+  "errors": [],
+  "parsed": {
+    "msds": [
+      {
+        "narratives": [
+          {
+            "item_code": "S4_EYE",
+            "title_raw": "가. 눈에 들어갔을 때",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "즉시 의료조치를 취하시오.",
+                "text": "- 즉시 의료조치를 취하시오."
+              },
+              {
+                "seq": 2,
+                "value": "물질과 접촉 시 즉시 20분 이상 흐르는 물에 눈을 씻어내시오.",
+                "text": "- 물질과 접촉 시 즉시 20분 이상 흐르는 물에 눈을 씻어내시오."
+              }
+            ]
+          },
+          {
+            "item_code": "S4_SKIN",
+            "title_raw": "나. 피부에 접촉했을 때",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "가스나 증기화된 액체가 빠르게 팽창되어 생긴 동상인 경우 즉시 의료 조치를 취하시오.",
+                "text": "- 가스나 증기화된 액체가 빠르게 팽창되어 생긴 동상인 경우 즉시 의료 조치를 취하시오."
+              },
+              {
+                "seq": 2,
+                "value": "오염된 옷과 신발을 제거하고 오염지역에 출입을 제한하시오.",
+                "text": "- 오염된 옷과 신발을 제거하고 오염지역에 출입을 제한하시오."
+              },
+              {
+                "seq": 3,
+                "value": "피부에 얼어붙은 옷은 제거전 해동하시오.",
+                "text": "- 피부에 얼어붙은 옷은 제거전 해동하시오."
+              },
+              {
+                "seq": 4,
+                "value": "액화가스에 접촉한 경우 미지근한 물로 해당 부위를 녹이시오.",
+                "text": "- 액화가스에 접촉한 경우 미지근한 물로 해당 부위를 녹이시오."
+              },
+              {
+                "seq": 5,
+                "value": "오염된 옷과 신발을 제거하고 격리하시오.",
+                "text": "- 오염된 옷과 신발을 제거하고 격리하시오."
+              },
+              {
+                "seq": 6,
+                "value": "재사용 전에는 옷과 신발을 완전히 씻어내시오.",
+                "text": "- 재사용 전에는 옷과 신발을 완전히 씻어내시오."
+              },
+              {
+                "seq": 7,
+                "value": "즉시 의료조치를 취하시오.",
+                "text": "- 즉시 의료조치를 취하시오."
+              },
+              {
+                "seq": 8,
+                "value": "물질과 접촉 시 즉시 20분 이상 흐르는 물에 피부를 씻어내시오.",
+                "text": "- 물질과 접촉 시 즉시 20분 이상 흐르는 물에 피부를 씻어내시오."
+              },
+              {
+                "seq": 9,
+                "value": "가스 또는 액화 가스와 접촉 시 화상, 심각한 상해, 동상을 유발할 수 있음",
+                "text": "- 가스 또는 액화 가스와 접촉 시 화상, 심각한 상해, 동상을 유발할 수 있음"
+              }
+            ]
+          },
+          {
+            "item_code": "S4_INHAL",
+            "title_raw": "다. 흡입했을 때",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "호흡이 힘들 경우 산소를 공급하시오.",
+                "text": "- 호흡이 힘들 경우 산소를 공급하시오."
+              },
+              {
+                "seq": 2,
+                "value": "따뜻하게 하고 안정되게 해주시오.",
+                "text": "- 따뜻하게 하고 안정되게 해주시오."
+              },
+              {
+                "seq": 3,
+                "value": "불편함을 느끼면 의료기관/의사 등의 진찰을 받으시오.",
+                "text": "- 불편함을 느끼면 의료기관/의사 등의 진찰을 받으시오."
+              },
+              {
+                "seq": 4,
+                "value": "흡입하면: 신선한 공기가 있는 곳으로 옮기고 호흡하기 쉬운 자세로 안정을 취하시오.",
+                "text": "- 흡입하면: 신선한 공기가 있는 곳으로 옮기고 호흡하기 쉬운 자세로 안정을 취하시오."
+              },
+              {
+                "seq": 5,
+                "value": "긴급 의료조치를 받으시오.",
+                "text": "- 긴급 의료조치를 받으시오."
+              }
+            ]
+          },
+          {
+            "item_code": "S4_INGEST",
+            "title_raw": "라. 먹었을 때",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "불편함을 느끼면 의료기관/의사 등의 진찰을 받으시오.",
+                "text": "- 불편함을 느끼면 의료기관/의사 등의 진찰을 받으시오."
+              },
+              {
+                "seq": 2,
+                "value": "의식이 없는 사람에게 입으로 아무것도 먹이지 마시오.",
+                "text": "- 의식이 없는 사람에게 입으로 아무것도 먹이지 마시오."
+              },
+              {
+                "seq": 3,
+                "value": "즉시 의료조치를 취하시오.",
+                "text": "- 즉시 의료조치를 취하시오."
+              }
+            ]
+          },
+          {
+            "item_code": "S4_DOCTOR",
+            "title_raw": "마. 기타 의사의 주의사항",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "의료진에게 사고물질의 특성을 알려, 적절한 보호조치를 취하도록 하시오.",
+                "text": "- 의료진에게 사고물질의 특성을 알려, 적절한 보호조치를 취하도록 하시오."
+              }
+            ]
+          },
+          {
+            "item_code": "S5_MEDIA",
+            "title_raw": "가. 적절한 (및 부적절한) 소화제",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "적절한 소화제",
+                "value": "건조모래, 건조화학제, 내알콜포말, 일반포말, CO2",
+                "text": "- 적절한 소화제 : 건조모래, 건조화학제, 내알콜포말, 일반포말, CO2"
+              },
+              {
+                "seq": 2,
+                "key": "부적절한 소화제",
+                "value": "고압주수",
+                "text": "- 부적절한 소화제 : 고압주수"
+              }
+            ]
+          },
+          {
+            "item_code": "S5_SPECIFIC",
+            "title_raw": "나. 화학물질로부터 생기는 특정 유해성(예, 연소 시 발생 유해물질)",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "고압가스: 가열하면 폭발할 수 있음",
+                "text": "- 고압가스: 가열하면 폭발할 수 있음"
+              },
+              {
+                "seq": 2,
+                "value": "가열 시 용기가 폭발할 수 있음",
+                "text": "- 가열 시 용기가 폭발할 수 있음"
+              },
+              {
+                "seq": 3,
+                "value": "열, 스파크, 화염에 의해 점화할 수 있음",
+                "text": "- 열, 스파크, 화염에 의해 점화할 수 있음"
+              },
+              {
+                "seq": 4,
+                "value": "물질의 흡입은 유해할 수 있음",
+                "text": "- 물질의 흡입은 유해할 수 있음"
+              },
+              {
+                "seq": 5,
+                "value": "불화수소가 생성됨",
+                "text": "- 불화수소가 생성됨"
+              }
+            ]
+          },
+          {
+            "item_code": "S5_FIREFIGHT",
+            "title_raw": "다. 화재 진압 시 착용할 보호구 및 예방조치",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "지역을 벗어나 안전거리를 유지하여 소화하시오.",
+                "text": "- 지역을 벗어나 안전거리를 유지하여 소화하시오."
+              },
+              {
+                "seq": 2,
+                "value": "액화가스 증기는 공기보다 무겁기 때문에 지면을 따라 확산함",
+                "text": "- 액화가스 증기는 공기보다 무겁기 때문에 지면을 따라 확산함"
+              },
+              {
+                "seq": 3,
+                "value": "파손된 실린더는 날아오를 수 있음",
+                "text": "- 파손된 실린더는 날아오를 수 있음"
+              },
+              {
+                "seq": 4,
+                "value": "파손된 실린더는 전문가에 의해서만 취급하게 하시오.",
+                "text": "- 파손된 실린더는 전문가에 의해서만 취급하게 하시오."
+              },
+              {
+                "seq": 5,
+                "value": "위험하지 않다면 화재지역에서 용기를 옮기시오.",
+                "text": "- 위험하지 않다면 화재지역에서 용기를 옮기시오."
+              },
+              {
+                "seq": 6,
+                "value": "접촉 시 피부와 눈에 화상을 입힐 수 있음",
+                "text": "- 접촉 시 피부와 눈에 화상을 입힐 수 있음"
+              },
+              {
+                "seq": 7,
+                "value": "소화수의 처분을 위해 도랑을 파서 가두고 물질이 흩어지지 않게 하시오.",
+                "text": "- 소화수의 처분을 위해 도랑을 파서 가두고 물질이 흩어지지 않게 하시오."
+              },
+              {
+                "seq": 8,
+                "value": "탱크 화재 시 소화가 진화된 후에도 다량의 물로 용기를 식히시오.",
+                "text": "- 탱크 화재 시 소화가 진화된 후에도 다량의 물로 용기를 식히시오."
+              },
+              {
+                "seq": 9,
+                "value": "탱크 화재 시 압력 방출장치에서 고음이 있거나 탱크가 변색할 경우 즉시 물러나시오.",
+                "text": "- 탱크 화재 시 압력 방출장치에서 고음이 있거나 탱크가 변색할 경우 즉시 물러나시오."
+              },
+              {
+                "seq": 10,
+                "value": "탱크 화재 시 화염에 휩싸인 탱크에서 물러나시오.",
+                "text": "- 탱크 화재 시 화염에 휩싸인 탱크에서 물러나시오."
+              },
+              {
+                "seq": 11,
+                "value": "화재 시 적절한 개인보호구를 착용하시오.",
+                "text": "- 화재 시 적절한 개인보호구를 착용하시오."
+              },
+              {
+                "seq": 12,
+                "value": "일부는 고온으로 운송될 수 있음",
+                "text": "- 일부는 고온으로 운송될 수 있음"
+              },
+              {
+                "seq": 13,
+                "value": "대형화재인 경우 무인호스고정기 혹은 자동 회전 방사 노즐을 이용하여 소방 활동을 할 것; 이들 사용이 불가능 하다면 화재지역에서 철수하여 불을 그냥 타도록 내버려 두시오.",
+                "text": "- 대형화재인 경우 무인호스고정기 혹은 자동 회전 방사 노즐을 이용하여 소방 활동을 할 것; 이들 사용이 불가능 하다면 화재지역에서 철수하여 불을 그냥 타도록 내버려 두시오."
+              }
+            ]
+          },
+          {
+            "item_code": "S6_PERSONAL",
+            "title_raw": "가. 인체를 보호하기 위해 필요한 조치 사항 및 보호구",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "냉동/극저온 액체와 접촉 시 많은 물질들이 부서지거나 갑자기 깨질 수 있으니 주의하시오.",
+                "text": "- 냉동/극저온 액체와 접촉 시 많은 물질들이 부서지거나 갑자기 깨질 수 있으니 주의하시오."
+              },
+              {
+                "seq": 2,
+                "value": "누출원에 직접주수하지 마시오.",
+                "text": "- 누출원에 직접주수하지 마시오."
+              },
+              {
+                "seq": 3,
+                "value": "물분무를 이용하여 증기를 줄이거나 증기구름을 흩어트리고 물이 누출물과 접촉되지 않도록 하시오.",
+                "text": "- 물분무를 이용하여 증기를 줄이거나 증기구름을 흩어트리고 물이 누출물과 접촉되지 않도록 하시오."
+              },
+              {
+                "seq": 4,
+                "value": "물질이 흩어지도록 두시오.",
+                "text": "- 물질이 흩어지도록 두시오."
+              },
+              {
+                "seq": 5,
+                "value": "저지대, 닫힌 공간 및 밀폐공간 작업 시 산소결핍의 우려가 있으므로 작업 전 공기농도 측정 및 환기가 필요함",
+                "text": "- 저지대, 닫힌 공간 및 밀폐공간 작업 시 산소결핍의 우려가 있으므로 작업 전 공기농도 측정 및 환기가 필요함"
+              },
+              {
+                "seq": 6,
+                "value": "가스를 흡입을 피하시오.",
+                "text": "- 가스를 흡입을 피하시오."
+              },
+              {
+                "seq": 7,
+                "value": "모든 점화원을 제거하시오.",
+                "text": "- 모든 점화원을 제거하시오."
+              },
+              {
+                "seq": 8,
+                "value": "위험하지 않다면 누출을 멈추시오.",
+                "text": "- 위험하지 않다면 누출을 멈추시오."
+              },
+              {
+                "seq": 9,
+                "value": "피해야 할 물질 및 조건에 유의하시오.",
+                "text": "- 피해야 할 물질 및 조건에 유의하시오."
+              },
+              {
+                "seq": 10,
+                "value": "오염지역을 환기하시오.",
+                "text": "- 오염지역을 환기하시오."
+              }
+            ]
+          },
+          {
+            "item_code": "S6_ENV",
+            "title_raw": "나. 환경을 보호하기 위해 필요한 조치사항",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "수로, 하수구, 지하실, 밀폐공간으로의 유입을 방지하시오.",
+                "text": "- 수로, 하수구, 지하실, 밀폐공간으로의 유입을 방지하시오."
+              }
+            ]
+          },
+          {
+            "item_code": "S6_CLEANUP",
+            "title_raw": "다. 정화 또는 제거 방법",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "소량 누출 시 다량의 물로 오염지역을 씻어내시오.",
+                "text": "- 소량 누출 시 다량의 물로 오염지역을 씻어내시오."
+              }
+            ]
+          },
+          {
+            "item_code": "S7_HANDLING",
+            "title_raw": "가. 안전취급요령",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "압력을 가하거나, 자르거나, 용접, 납땜, 접합, 뚫기, 연마 또는 열에 폭로, 화염, 불꽃, 정전기 또는 다른 점화원에 폭로하지 마시오.",
+                "text": "- 압력을 가하거나, 자르거나, 용접, 납땜, 접합, 뚫기, 연마 또는 열에 폭로, 화염, 불꽃, 정전기 또는 다른 점화원에 폭로하지 마시오."
+              },
+              {
+                "seq": 2,
+                "value": "용기가 비워진 후에도 제품 찌꺼기가 남아 있을 수 있으므로 모든 MSDS/라벨 예방조치를 따르시오.",
+                "text": "- 용기가 비워진 후에도 제품 찌꺼기가 남아 있을 수 있으므로 모든 MSDS/라벨 예방조치를 따르시오."
+              },
+              {
+                "seq": 3,
+                "value": "취급/저장에 주의하여 사용하시오.",
+                "text": "- 취급/저장에 주의하여 사용하시오."
+              },
+              {
+                "seq": 4,
+                "value": "저지대, 닫힌 공간 및 밀폐공간 작업시 산소결핍의 우려가 있으므로 작업전 공기농도 측정 및 환기를 하시오.",
+                "text": "- 저지대, 닫힌 공간 및 밀폐공간 작업시 산소결핍의 우려가 있으므로 작업전 공기농도 측정 및 환기를 하시오."
+              },
+              {
+                "seq": 5,
+                "value": "피해야 할 물질 및 조건에 유의하시오.",
+                "text": "- 피해야 할 물질 및 조건에 유의하시오."
+              },
+              {
+                "seq": 6,
+                "value": "공학적 관리 및 개인보호구를 참조하여 작업하시오.",
+                "text": "- 공학적 관리 및 개인보호구를 참조하여 작업하시오."
+              },
+              {
+                "seq": 7,
+                "value": "고온에 주의하시오.",
+                "text": "- 고온에 주의하시오."
+              },
+              {
+                "seq": 8,
+                "value": "취급 후에는 취급 부위를 철저히 씻으시오.",
+                "text": "- 취급 후에는 취급 부위를 철저히 씻으시오."
+              }
+            ]
+          },
+          {
+            "item_code": "S7_STORAGE",
+            "title_raw": "나. 안전한 저장 방법(피해야 할 조건을 포함함)",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "직사광선을 피하시오. 환기가 잘 되는 곳에 보관하시오.",
+                "text": "- 직사광선을 피하시오. 환기가 잘 되는 곳에 보관하시오."
+              },
+              {
+                "seq": 2,
+                "value": "용기는 열에 폭로되었을 경우 압력이 발생될 수 있음",
+                "text": "- 용기는 열에 폭로되었을 경우 압력이 발생될 수 있음"
+              },
+              {
+                "seq": 3,
+                "value": "밀폐하여 보관하시오.",
+                "text": "- 밀폐하여 보관하시오."
+              },
+              {
+                "seq": 4,
+                "value": "서늘하고 건조한 장소에 저장하시오.",
+                "text": "- 서늘하고 건조한 장소에 저장하시오."
+              },
+              {
+                "seq": 5,
+                "value": "잠금장치가 있는 저장장소에 저장하시오.",
+                "text": "- 잠금장치가 있는 저장장소에 저장하시오."
+              },
+              {
+                "seq": 6,
+                "value": "음식과 음료수로부터 멀리하시오.",
+                "text": "- 음식과 음료수로부터 멀리하시오."
+              }
+            ]
+          },
+          {
+            "item_code": "S8_ENG",
+            "title_raw": "나. 적절한 공학적 관리",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "공정격리, 국소배기를 사용하거나 적절한 환기를 실시하시오.",
+                "text": "나. 적절한 공학적 관리 : 공정격리, 국소배기를 사용하거나 적절한 환기를 실시하시오."
+              }
+            ]
+          },
+          {
+            "item_code": "S8_RESP",
+            "title_raw": "○ 호흡기 보호",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "노출되는 기체의 물리화학적 특성에 맞는 한국산업안전보건공단의 인증을 필한 호흡용 보호구를 착용하시오.",
+                "text": "○ 호흡기 보호 : 노출되는 기체의 물리화학적 특성에 맞는 한국산업안전보건공단의 인증을 필한 호흡용 보호구를 착용하시오."
+              },
+              {
+                "seq": 2,
+                "value": "적절한 필터 또는 정화통을 장착한 전면형 또는 반면형 방독마스크를 착용하시오.",
+                "text": ": 적절한 필터 또는 정화통을 장착한 전면형 또는 반면형 방독마스크를 착용하시오."
+              },
+              {
+                "seq": 3,
+                "value": "산소가 부족한 경우(<19.6%) 송기마스크 또는 전동식 호흡보호구를 착용하시오.",
+                "text": ": 산소가 부족한 경우(<19.6%) 송기마스크 또는 전동식 호흡보호구를 착용하시오.",
+                "cond": {
+                  "raw": "<19.6%",
+                  "status": "값있음",
+                  "upper_op": "<",
+                  "upper": 19.6,
+                  "unit": "%",
+                  "dp": 1
+                }
+              }
+            ]
+          },
+          {
+            "item_code": "S8_EYE",
+            "title_raw": "○ 눈 보호",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "눈에 자극을 일으키거나 기타 건강상의 장해를 일으키는 가스상태의 물질로부터 눈을 보호하기 위해 한국산업안전보건공단의 인증을 필한 보안경을 착용하시오.",
+                "text": "○ 눈 보호 : 눈에 자극을 일으키거나 기타 건강상의 장해를 일으키는 가스상태의 물질로부터 눈을 보호하기 위해 한국산업안전보건공단의 인증을 필한 보안경을 착용하시오."
+              },
+              {
+                "seq": 2,
+                "value": "근로자의 접근이 용이한 위치에 긴급세척시설(샤워식) 및 세안설비를 설치하시오.",
+                "text": ": 근로자의 접근이 용이한 위치에 긴급세척시설(샤워식) 및 세안설비를 설치하시오."
+              }
+            ]
+          },
+          {
+            "item_code": "S8_HAND",
+            "title_raw": "○ 손 보호",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "화학물질의 물리적 및 화학적 특성을 고려하여 산업안전보건공단의 인증을 필한 화학물질용 안전장갑을 착용하시오.",
+                "text": "○ 손 보호 : 화학물질의 물리적 및 화학적 특성을 고려하여 산업안전보건공단의 인증을 필한 화학물질용 안전장갑을 착용하시오."
+              }
+            ]
+          },
+          {
+            "item_code": "S8_BODY",
+            "title_raw": "○ 신체 보호",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "화학물질의 물리적 및 화학적 특성을 고려하여 산업안전보건공단의 인증을 필한 화학물질용 보호복을 착용하시오.",
+                "text": "○ 신체 보호 : 화학물질의 물리적 및 화학적 특성을 고려하여 산업안전보건공단의 인증을 필한 화학물질용 보호복을 착용하시오."
+              }
+            ]
+          },
+          {
+            "item_code": "S10_STABILITY",
+            "title_raw": "가. 화학적 안정성 및 유해 반응의 가능성",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "가열 시 용기가 폭발할 수 있음",
+                "text": "- 가열 시 용기가 폭발할 수 있음"
+              },
+              {
+                "seq": 2,
+                "value": "일부는 탈 수 있으나 쉽게 점화 하지 않음",
+                "text": "- 일부는 탈 수 있으나 쉽게 점화 하지 않음"
+              },
+              {
+                "seq": 3,
+                "value": "증기는 자각 없이 현기증 또는 질식을 유발할 수 있음",
+                "text": "- 증기는 자각 없이 현기증 또는 질식을 유발할 수 있음"
+              },
+              {
+                "seq": 4,
+                "value": "몇몇 금속과 반응하여 위험성을 지닌 물질을 생성할 수 있음",
+                "text": "- 몇몇 금속과 반응하여 위험성을 지닌 물질을 생성할 수 있음"
+              },
+              {
+                "seq": 5,
+                "value": "알루미늄과 격렬하게 반응함",
+                "text": "- 알루미늄과 격렬하게 반응함"
+              }
+            ]
+          },
+          {
+            "item_code": "S10_CONDITIONS",
+            "title_raw": "나. 피해야 할 조건(정전기 방전, 충격, 진동 등)",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "열, 스파크, 화염 등 점화원",
+                "text": "- 열, 스파크, 화염 등 점화원"
+              },
+              {
+                "seq": 2,
+                "value": "점화의 위험이 있으므로 산화제에 의한 오염을 피하시오.",
+                "text": "- 점화의 위험이 있으므로 산화제에 의한 오염을 피하시오."
+              },
+              {
+                "seq": 3,
+                "value": "질산염, 산화성 산, 염소 표백제, 염소계 살균제 등 몇몇 금속과 반응하여 위험성을 지닌 물질을 생성할 수 있음",
+                "text": "- 질산염, 산화성 산, 염소 표백제, 염소계 살균제 등 몇몇 금속과 반응하여 위험성을 지닌 물질을 생성할 수 있음"
+              }
+            ]
+          },
+          {
+            "item_code": "S10_INCOMPAT",
+            "title_raw": "다. 피해야 할 물질",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "가연성 물질",
+                "text": "- 가연성 물질"
+              },
+              {
+                "seq": 2,
+                "value": "강산화제, 환원제",
+                "text": "- 강산화제, 환원제"
+              },
+              {
+                "seq": 3,
+                "value": "아민류, 질화물, 아조/다이아조화합물, 알칼리금속, 에폭사이드",
+                "text": "- 아민류, 질화물, 아조/다이아조화합물, 알칼리금속, 에폭사이드"
+              }
+            ]
+          },
+          {
+            "item_code": "S10_DECOMP",
+            "title_raw": "라. 분해시 생성되는 유해물질",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "불화수소",
+                "text": "- 불화수소"
+              },
+              {
+                "seq": 2,
+                "value": "플루오르화물",
+                "text": "- 플루오르화물"
+              }
+            ]
+          },
+          {
+            "item_code": "S11_ROUTE",
+            "title_raw": "가. 가능성이 높은 노출 경로에 관한 정보",
+            "status": "자료없음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "자료 없음",
+                "text": ": 자료 없음"
+              }
+            ]
+          },
+          {
+            "item_code": "S13_METHOD",
+            "title_raw": "가. 폐기방법",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "폐기물관리법에 명시된 경우 규정에 따라 내용물 및 용기를 폐기하시오.",
+                "text": "가. 폐기방법 : 폐기물관리법에 명시된 경우 규정에 따라 내용물 및 용기를 폐기하시오."
+              }
+            ]
+          },
+          {
+            "item_code": "S13_CAUTION",
+            "title_raw": "나. 폐기시 주의사항(오염된 용기 및 포장의 폐기 방법을 포함함)",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "폐기물관리법에 명시된 내용에 따라 내용물 및 용기를 폐기하시오.",
+                "text": ": 폐기물관리법에 명시된 내용에 따라 내용물 및 용기를 폐기하시오."
+              }
+            ]
+          },
+          {
+            "item_code": "S15_WASTE",
+            "title_raw": "마. 폐기물관리법에 의한 규제",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "일반폐기물(폐냉매 : 51-37)",
+                "text": "마. 폐기물관리법에 의한 규제 : 일반폐기물(폐냉매 : 51-37)"
+              }
+            ]
+          },
+          {
+            "item_code": "S16_SOURCE",
+            "title_raw": "가. 자료의 출처",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "화학물질종합정보시스템; https://icis.me.go.kr/pageLink.do",
+                "text": "- 화학물질종합정보시스템; https://icis.me.go.kr/pageLink.do"
+              },
+              {
+                "seq": 2,
+                "value": "ECHA; https://echa.europa.eu/",
+                "text": "- ECHA; https://echa.europa.eu/"
+              },
+              {
+                "seq": 3,
+                "value": "UN Recommendations on the transport of dangerous goods 17th; https://www.unece.org/trans/danger/publi/unrec/rev20/20files_e.html",
+                "text": "- UN Recommendations on the transport of dangerous goods 17th; https://www.unece.org/trans/danger/publi/unrec/rev20/20files_e.html"
+              },
+              {
+                "seq": 4,
+                "value": "IARC Monographs on the Evaluation of Carcinogenic Risks to Humans; http://monographs.iarc.fr",
+                "text": "- IARC Monographs on the Evaluation of Carcinogenic Risks to Humans; http://monographs.iarc.fr"
+              },
+              {
+                "seq": 5,
+                "value": "National Toxicology Program;",
+                "text": "- National Toxicology Program;"
+              },
+              {
+                "seq": 6,
+                "value": "https://ntp.niehs.nih.gov/whatwestudy/assessments/cancer/roc/index.html",
+                "text": "- https://ntp.niehs.nih.gov/whatwestudy/assessments/ cancer/roc/index.html"
+              },
+              {
+                "seq": 7,
+                "value": "Korea Occupational Health & Safety Agency; http://www.kosha.or.kr",
+                "text": "- Korea Occupational Health & Safety Agency; http://www.kosha.or.kr"
+              },
+              {
+                "seq": 8,
+                "value": "National Chemicals Information System; http://ncis.nier.go.kr/main.do",
+                "text": "- National Chemicals Information System; http://ncis.nier.go.kr/main.do"
+              },
+              {
+                "seq": 9,
+                "value": "Ministry of Public Safety and Security-Korea dangerous material inventory management 'system; http://hazmat.mpss.kfi.or.kr/index.do",
+                "text": "- Ministry of Public Safety and Security-Korea dangerous material inventory management 'system; http://hazmat.mpss.kfi.or.kr/index.do"
+              },
+              {
+                "seq": 10,
+                "value": "Waste Control Act enforcement regulation attached [1]",
+                "text": "- Waste Control Act enforcement regulation attached [1]"
+              }
+            ]
+          },
+          {
+            "item_code": "S16_OTHER",
+            "title_raw": "라. 기타",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "본 물질안전보건자료(MSDS)는 산업안전보건법 제110조 및 고용노동부 고시(제2025-50호)를 바탕으로 작성하였습니다.",
+                "text": "- 본 물질안전보건자료(MSDS)는 산업안전보건법 제110조 및 고용노동부 고시(제2025-50호)를 바탕으로 작성하였습니다."
+              },
+              {
+                "seq": 2,
+                "value": "본 물질안전보건자료(MSDS)는 해당 물질의 일반적인 정보로서 비록 동일한 물질이라 하더라도 다른 물질과 혼합되거나 다른 공정에서 사용되는 경우 정보가 유용하지 않을 수 있습니다.",
+                "text": "- 본 물질안전보건자료(MSDS)는 해당 물질의 일반적인 정보로서 비록 동일한 물질이라 하더라도 다른 물질과 혼합되거나 다른 공정에서 사용되는 경우 정보가 유용하지 않을 수 있습니다."
+              },
+              {
+                "seq": 3,
+                "value": "당사는 해당 내용이 정확하고 신뢰성 있도록 최상의 노력을 기울였습니다만 내용의 확실성 또는 완전성에 대하여 어떠한 보증이나 대응의 책임을 지지 아니합니다.",
+                "text": "- 당사는 해당 내용이 정확하고 신뢰성 있도록 최상의 노력을 기울였습니다만 내용의 확실성 또는 완전성에 대하여 어떠한 보증이나 대응의 책임을 지지 아니합니다."
+              }
+            ]
+          }
+        ],
+        "extras": [
+          {
+            "seq": 1,
+            "section_no": 16,
+            "after_item": "meta.revision_no",
+            "title_raw": "다. 개정 횟수 및 최종 개정일자 (개정이력표)",
+            "reason": "필드없음",
+            "comp_ref": "MIX",
+            "page": 9,
+            "suggested_code": "REVISION_HISTORY",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "개정일자",
+                "value": "rev.10 / 2022. 01. 13",
+                "text": "rev.10 / 2022. 01. 13 | 산업안전보건법에 따른 개정 | 산안법 제110조"
+              },
+              {
+                "seq": 2,
+                "key": "내용",
+                "value": "산업안전보건법에 따른 개정",
+                "text": "rev.10 / 2022. 01. 13 | 산업안전보건법에 따른 개정 | 산안법 제110조"
+              },
+              {
+                "seq": 3,
+                "key": "비고",
+                "value": "산안법 제110조",
+                "text": "rev.10 / 2022. 01. 13 | 산업안전보건법에 따른 개정 | 산안법 제110조"
+              }
+            ]
+          },
+          {
+            "seq": 2,
+            "section_no": 16,
+            "after_item": "meta.revision_no",
+            "title_raw": "다. 개정 횟수 및 최종 개정일자 (개정이력표)",
+            "reason": "필드없음",
+            "comp_ref": "MIX",
+            "page": 10,
+            "suggested_code": "REVISION_HISTORY",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "개정일자",
+                "value": "rev.11 / 2024. 01. 13",
+                "text": "rev.11 / 2024. 01. 13 | 법적 규제현황 개정 및 GWP 추가 | 정기 업데이트"
+              },
+              {
+                "seq": 2,
+                "key": "내용",
+                "value": "법적 규제현황 개정 및 GWP 추가",
+                "text": "rev.11 / 2024. 01. 13 | 법적 규제현황 개정 및 GWP 추가 | 정기 업데이트"
+              },
+              {
+                "seq": 3,
+                "key": "비고",
+                "value": "정기 업데이트",
+                "text": "rev.11 / 2024. 01. 13 | 법적 규제현황 개정 및 GWP 추가 | 정기 업데이트"
+              }
+            ]
+          },
+          {
+            "seq": 3,
+            "section_no": 16,
+            "after_item": "meta.revision_no",
+            "title_raw": "다. 개정 횟수 및 최종 개정일자 (개정이력표)",
+            "reason": "필드없음",
+            "comp_ref": "MIX",
+            "page": 10,
+            "suggested_code": "REVISION_HISTORY",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "개정일자",
+                "value": "rev.12 / 2025. 12. 24",
+                "text": "rev.12 / 2025. 12. 24 | 화평법 및 고용노동부 고시에 따른 개정 | 제2025-50호"
+              },
+              {
+                "seq": 2,
+                "key": "내용",
+                "value": "화평법 및 고용노동부 고시에 따른 개정",
+                "text": "rev.12 / 2025. 12. 24 | 화평법 및 고용노동부 고시에 따른 개정 | 제2025-50호"
+              },
+              {
+                "seq": 3,
+                "key": "비고",
+                "value": "제2025-50호",
+                "text": "rev.12 / 2025. 12. 24 | 화평법 및 고용노동부 고시에 따른 개정 | 제2025-50호"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "msds_index": 0,
+        "field": "narratives[S4_EYE]",
+        "page": 2,
+        "source_text": "가. 눈에 들어갔을 때 : - 즉시 의료조치를 취하시오.",
+        "rules": [
+          "R14"
+        ],
+        "note": "불릿 단위로 2문장 분해"
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[S4_SKIN]",
+        "page": 2,
+        "source_text": "나. 피부에 접촉했을 때 : - 가스나 증기화된 액체가 빠르게 팽창되어 생긴 동상인 경우 즉시 의료 조치를",
+        "rules": [
+          "R14"
+        ],
+        "note": "불릿 9개로 분해, 줄바꿈 문장 이어붙임"
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[S4_INHAL]",
+        "page": 2,
+        "source_text": "다. 흡입했을 때 : - 호흡이 힘들 경우 산소를 공급하시오.",
+        "rules": [
+          "R14"
+        ],
+        "note": "불릿 5개로 분해"
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[S4_INGEST]",
+        "page": 2,
+        "source_text": "라. 먹었을 때 : - 불편함을 느끼면 의료기관/의사 등의 진찰을 받으시오.",
+        "rules": [
+          "R14"
+        ],
+        "note": "불릿 3개로 분해"
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[S4_DOCTOR]",
+        "page": 2,
+        "source_text": "마. 기타 의사의 주의사항 : - 의료진에게 사고물질의 특성을 알려, 적절한 보호조치를 취하도록 하시오.",
+        "rules": [
+          "R14"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[S5_MEDIA]",
+        "page": 2,
+        "source_text": "- 적절한 소화제 : 건조모래, 건조화학제, 내알콜포말, 일반포말, CO2 - 부적절한 소화제 : 고압주수",
+        "rules": [
+          "R14"
+        ],
+        "note": "키:값으로 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[S5_SPECIFIC]",
+        "page": 3,
+        "source_text": "나. 화학물질로부터 생기는 특정 유해성(예, 연소 시 발생 유해물질) : - 고압가스: 가열하면 폭발할 수 있음",
+        "rules": [
+          "R14"
+        ],
+        "note": "불릿 5개로 분해"
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[S5_FIREFIGHT]",
+        "page": 3,
+        "source_text": "다. 화재 진압 시 착용할 보호구 및 예방조치 : - 지역을 벗어나 안전거리를 유지하여 소화하시오.",
+        "rules": [
+          "R14"
+        ],
+        "note": "불릿 13개로 분해"
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[S6_PERSONAL]",
+        "page": 3,
+        "source_text": "가. 인체를 보호하기 위해 필요한 조치 사항 및 보호구 : - 냉동/극저온 액체와 접촉 시 많은 물질들이 부서지거나 갑자기 깨질 수 있으니",
+        "rules": [
+          "R14"
+        ],
+        "note": "3쪽~4쪽 이어지는 불릿 10개로 분해(마지막 '오염지역을 환기하시오.'는 4쪽)"
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[S6_ENV]",
+        "page": 4,
+        "source_text": "- 수로, 하수구, 지하실, 밀폐공간으로의 유입을 방지하시오.",
+        "rules": [
+          "R14"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[S6_CLEANUP]",
+        "page": 4,
+        "source_text": "다. 정화 또는 제거 방법 : - 소량 누출 시 다량의 물로 오염지역을 씻어내시오.",
+        "rules": [
+          "R14"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[S7_HANDLING]",
+        "page": 4,
+        "source_text": "가. 안전취급요령 : - 압력을 가하거나, 자르거나, 용접, 납땜, 접합, 뚫기, 연마 또는 열에 폭로, 화염,",
+        "rules": [
+          "R14"
+        ],
+        "note": "불릿 8개로 분해"
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[S7_STORAGE]",
+        "page": 4,
+        "source_text": "나. 안전한 저장 방법(피해야 할 조건을 포함함) : - 직사광선을 피하시오. 환기가 잘 되는 곳에 보관하시오.",
+        "rules": [
+          "R14"
+        ],
+        "note": "불릿 6개로 분해"
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[S8_ENG]",
+        "page": 4,
+        "source_text": "나. 적절한 공학적 관리 : 공정격리, 국소배기를 사용하거나 적절한 환기를 실시하시오.",
+        "rules": [
+          "R14"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[S8_RESP]",
+        "page": 4,
+        "source_text": "산소가 부족한 경우(<19.6%) 송기마스크 또는 전동식 호흡보호구를 착용하시오.",
+        "rules": [
+          "R14",
+          "R04"
+        ],
+        "note": "3줄로 분해, '<19.6%'를 cond Q로 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[S8_EYE]",
+        "page": 4,
+        "source_text": "○ 눈 보호 : 눈에 자극을 일으키거나 기타 건강상의 장해를 일으키는 가스상태의 물질로부터",
+        "rules": [
+          "R14"
+        ],
+        "note": "5쪽 첫 줄 '근로자의 접근이 용이한 위치에 긴급세척시설(샤워식)…'을 이어지는 문장으로 붙임"
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[S8_HAND]",
+        "page": 5,
+        "source_text": "○ 손 보호 : 화학물질의 물리적 및 화학적 특성을 고려하여 산업안전보건공단의 인증을 필한 화학물질용 안전장갑을 착용하시오.",
+        "rules": [
+          "R14"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[S8_BODY]",
+        "page": 5,
+        "source_text": "○ 신체 보호 : 화학물질의 물리적 및 화학적 특성을 고려하여 산업안전보건공단의 인증을 필한 화학물질용 보호복을 착용하시오.",
+        "rules": [
+          "R14"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[S10_STABILITY]",
+        "page": 5,
+        "source_text": "가. 화학적 안정성 및 유해 반응의 가능성 : - 가열 시 용기가 폭발할 수 있음",
+        "rules": [
+          "R14"
+        ],
+        "note": "불릿 5개로 분해"
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[S10_CONDITIONS]",
+        "page": 5,
+        "source_text": "나. 피해야 할 조건(정전기 방전, 충격, 진동 등) : - 열, 스파크, 화염 등 점화원",
+        "rules": [
+          "R14"
+        ],
+        "note": "6쪽 첫 불릿 '질산염, 산화성 산…'까지 이어 3문장"
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[S10_INCOMPAT]",
+        "page": 6,
+        "source_text": "다. 피해야 할 물질 : - 가연성 물질 - 강산화제, 환원제 - 아민류, 질화물, 아조/다이아조화합물, 알칼리금속, 에폭사이드",
+        "rules": [
+          "R14"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[S10_DECOMP]",
+        "page": 6,
+        "source_text": "라. 분해시 생성되는 유해물질 : - 불화수소 - 플루오르화물",
+        "rules": [
+          "R14"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[S11_ROUTE]",
+        "page": 6,
+        "source_text": "가. 가능성이 높은 노출 경로에 관한 정보 : 자료 없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "'자료 없음'을 status 자료없음으로"
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[S13_METHOD]",
+        "page": 8,
+        "source_text": "가. 폐기방법 : 폐기물관리법에 명시된 경우 규정에 따라 내용물 및 용기를 폐기하시오.",
+        "rules": [
+          "R14"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[S13_CAUTION]",
+        "page": 8,
+        "source_text": "나. 폐기시 주의사항(오염된 용기 및 포장의 폐기 방법을 포함함) : 폐기물관리법에 명시된 내용에 따라 내용물 및 용기를 폐기하시오.",
+        "rules": [
+          "R14"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[S15_WASTE]",
+        "page": 9,
+        "source_text": "마. 폐기물관리법에 의한 규제 : 일반폐기물(폐냉매 : 51-37)",
+        "rules": [
+          "R14"
+        ],
+        "note": "폐기물 처리 문장을 규제 행과 함께 S15_WASTE로도 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[S16_SOURCE]",
+        "page": 9,
+        "source_text": "가. 자료의 출처 : - 화학물질종합정보시스템; https://icis.me.go.kr/pageLink.do",
+        "rules": [
+          "R14"
+        ],
+        "note": "불릿 10개로 분해, 줄바꿈 URL 이어붙임"
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[S16_OTHER]",
+        "page": 10,
+        "source_text": "라. 기타 - 본 물질안전보건자료(MSDS)는 산업안전보건법 제110조 및 고용노동부 고시(제2025-50호)를 바탕으로",
+        "rules": [
+          "R14"
+        ],
+        "note": "불릿 3개로 분해"
+      },
+      {
+        "msds_index": 0,
+        "field": "extras[0]",
+        "page": 9,
+        "source_text": "rev.10 / 2022. 01. 13 | 산업안전보건법에 따른 개정 | 산안법 제110조",
+        "rules": [
+          "R24"
+        ],
+        "note": "개정이력표 행을 담을 칸이 없어 extras로"
+      },
+      {
+        "msds_index": 0,
+        "field": "extras[1]",
+        "page": 10,
+        "source_text": "rev.11 / 2024. 01. 13 | 법적 규제현황 개정 및 GWP 추가 | 정기 업데이트",
+        "rules": [
+          "R24"
+        ],
+        "note": "개정이력표 행을 담을 칸이 없어 extras로"
+      },
+      {
+        "msds_index": 0,
+        "field": "extras[2]",
+        "page": 10,
+        "source_text": "rev.12 / 2025. 12. 24 | 화평법 및 고용노동부 고시에 따른 개정 | 제2025-50호",
+        "rules": [
+          "R24"
+        ],
+        "note": "개정이력표 행을 담을 칸이 없어 extras로"
+      }
+    ]
+  },
+  "raw_text": "{\"msds\": [{\"narratives\": [{\"item_code\": \"S4_EYE\", \"title_raw\": \"가. 눈에 들어갔을 때\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"즉시 의료조치를 취하시오.\", \"text\": \"- 즉시 의료조치를 취하시오.\"}, {\"seq\": 2, \"value\": \"물질과 접촉 시 즉시 20분 이상 흐르는 물에 눈을 씻어내시오.\", \"text\": \"- 물질과 접촉 시 즉시 20분 이상 흐르는 물에 눈을 씻어내시오.\"}]}, {\"item_code\": \"S4_SKIN\", \"title_raw\": \"나. 피부에 접촉했을 때\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"가스나 증기화된 액체가 빠르게 팽창되어 생긴 동상인 경우 즉시 의료 조치를 취하시오.\", \"text\": \"- 가스나 증기화된 액체가 빠르게 팽창되어 생긴 동상인 경우 즉시 의료 조치를 취하시오.\"}, {\"seq\": 2, \"value\": \"오염된 옷과 신발을 제거하고 오염지역에 출입을 제한하시오.\", \"text\": \"- 오염된 옷과 신발을 제거하고 오염지역에 출입을 제한하시오.\"}, {\"seq\": 3, \"value\": \"피부에 얼어붙은 옷은 제거전 해동하시오.\", \"text\": \"- 피부에 얼어붙은 옷은 제거전 해동하시오.\"}, {\"seq\": 4, \"value\": \"액화가스에 접촉한 경우 미지근한 물로 해당 부위를 녹이시오.\", \"text\": \"- 액화가스에 접촉한 경우 미지근한 물로 해당 부위를 녹이시오.\"}, {\"seq\": 5, \"value\": \"오염된 옷과 신발을 제거하고 격리하시오.\", \"text\": \"- 오염된 옷과 신발을 제거하고 격리하시오.\"}, {\"seq\": 6, \"value\": \"재사용 전에는 옷과 신발을 완전히 씻어내시오.\", \"text\": \"- 재사용 전에는 옷과 신발을 완전히 씻어내시오.\"}, {\"seq\": 7, \"value\": \"즉시 의료조치를 취하시오.\", \"text\": \"- 즉시 의료조치를 취하시오.\"}, {\"seq\": 8, \"value\": \"물질과 접촉 시 즉시 20분 이상 흐르는 물에 피부를 씻어내시오.\", \"text\": \"- 물질과 접촉 시 즉시 20분 이상 흐르는 물에 피부를 씻어내시오.\"}, {\"seq\": 9, \"value\": \"가스 또는 액화 가스와 접촉 시 화상, 심각한 상해, 동상을 유발할 수 있음\", \"text\": \"- 가스 또는 액화 가스와 접촉 시 화상, 심각한 상해, 동상을 유발할 수 있음\"}]}, {\"item_code\": \"S4_INHAL\", \"title_raw\": \"다. 흡입했을 때\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"호흡이 힘들 경우 산소를 공급하시오.\", \"text\": \"- 호흡이 힘들 경우 산소를 공급하시오.\"}, {\"seq\": 2, \"value\": \"따뜻하게 하고 안정되게 해주시오.\", \"text\": \"- 따뜻하게 하고 안정되게 해주시오.\"}, {\"seq\": 3, \"value\": \"불편함을 느끼면 의료기관/의사 등의 진찰을 받으시오.\", \"text\": \"- 불편함을 느끼면 의료기관/의사 등의 진찰을 받으시오.\"}, {\"seq\": 4, \"value\": \"흡입하면: 신선한 공기가 있는 곳으로 옮기고 호흡하기 쉬운 자세로 안정을 취하시오.\", \"text\": \"- 흡입하면: 신선한 공기가 있는 곳으로 옮기고 호흡하기 쉬운 자세로 안정을 취하시오.\"}, {\"seq\": 5, \"value\": \"긴급 의료조치를 받으시오.\", \"text\": \"- 긴급 의료조치를 받으시오.\"}]}, {\"item_code\": \"S4_INGEST\", \"title_raw\": \"라. 먹었을 때\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"불편함을 느끼면 의료기관/의사 등의 진찰을 받으시오.\", \"text\": \"- 불편함을 느끼면 의료기관/의사 등의 진찰을 받으시오.\"}, {\"seq\": 2, \"value\": \"의식이 없는 사람에게 입으로 아무것도 먹이지 마시오.\", \"text\": \"- 의식이 없는 사람에게 입으로 아무것도 먹이지 마시오.\"}, {\"seq\": 3, \"value\": \"즉시 의료조치를 취하시오.\", \"text\": \"- 즉시 의료조치를 취하시오.\"}]}, {\"item_code\": \"S4_DOCTOR\", \"title_raw\": \"마. 기타 의사의 주의사항\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"의료진에게 사고물질의 특성을 알려, 적절한 보호조치를 취하도록 하시오.\", \"text\": \"- 의료진에게 사고물질의 특성을 알려, 적절한 보호조치를 취하도록 하시오.\"}]}, {\"item_code\": \"S5_MEDIA\", \"title_raw\": \"가. 적절한 (및 부적절한) 소화제\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"key\": \"적절한 소화제\", \"value\": \"건조모래, 건조화학제, 내알콜포말, 일반포말, CO2\", \"text\": \"- 적절한 소화제 : 건조모래, 건조화학제, 내알콜포말, 일반포말, CO2\"}, {\"seq\": 2, \"key\": \"부적절한 소화제\", \"value\": \"고압주수\", \"text\": \"- 부적절한 소화제 : 고압주수\"}]}, {\"item_code\": \"S5_SPECIFIC\", \"title_raw\": \"나. 화학물질로부터 생기는 특정 유해성(예, 연소 시 발생 유해물질)\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"고압가스: 가열하면 폭발할 수 있음\", \"text\": \"- 고압가스: 가열하면 폭발할 수 있음\"}, {\"seq\": 2, \"value\": \"가열 시 용기가 폭발할 수 있음\", \"text\": \"- 가열 시 용기가 폭발할 수 있음\"}, {\"seq\": 3, \"value\": \"열, 스파크, 화염에 의해 점화할 수 있음\", \"text\": \"- 열, 스파크, 화염에 의해 점화할 수 있음\"}, {\"seq\": 4, \"value\": \"물질의 흡입은 유해할 수 있음\", \"text\": \"- 물질의 흡입은 유해할 수 있음\"}, {\"seq\": 5, \"value\": \"불화수소가 생성됨\", \"text\": \"- 불화수소가 생성됨\"}]}, {\"item_code\": \"S5_FIREFIGHT\", \"title_raw\": \"다. 화재 진압 시 착용할 보호구 및 예방조치\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"지역을 벗어나 안전거리를 유지하여 소화하시오.\", \"text\": \"- 지역을 벗어나 안전거리를 유지하여 소화하시오.\"}, {\"seq\": 2, \"value\": \"액화가스 증기는 공기보다 무겁기 때문에 지면을 따라 확산함\", \"text\": \"- 액화가스 증기는 공기보다 무겁기 때문에 지면을 따라 확산함\"}, {\"seq\": 3, \"value\": \"파손된 실린더는 날아오를 수 있음\", \"text\": \"- 파손된 실린더는 날아오를 수 있음\"}, {\"seq\": 4, \"value\": \"파손된 실린더는 전문가에 의해서만 취급하게 하시오.\", \"text\": \"- 파손된 실린더는 전문가에 의해서만 취급하게 하시오.\"}, {\"seq\": 5, \"value\": \"위험하지 않다면 화재지역에서 용기를 옮기시오.\", \"text\": \"- 위험하지 않다면 화재지역에서 용기를 옮기시오.\"}, {\"seq\": 6, \"value\": \"접촉 시 피부와 눈에 화상을 입힐 수 있음\", \"text\": \"- 접촉 시 피부와 눈에 화상을 입힐 수 있음\"}, {\"seq\": 7, \"value\": \"소화수의 처분을 위해 도랑을 파서 가두고 물질이 흩어지지 않게 하시오.\", \"text\": \"- 소화수의 처분을 위해 도랑을 파서 가두고 물질이 흩어지지 않게 하시오.\"}, {\"seq\": 8, \"value\": \"탱크 화재 시 소화가 진화된 후에도 다량의 물로 용기를 식히시오.\", \"text\": \"- 탱크 화재 시 소화가 진화된 후에도 다량의 물로 용기를 식히시오.\"}, {\"seq\": 9, \"value\": \"탱크 화재 시 압력 방출장치에서 고음이 있거나 탱크가 변색할 경우 즉시 물러나시오.\", \"text\": \"- 탱크 화재 시 압력 방출장치에서 고음이 있거나 탱크가 변색할 경우 즉시 물러나시오.\"}, {\"seq\": 10, \"value\": \"탱크 화재 시 화염에 휩싸인 탱크에서 물러나시오.\", \"text\": \"- 탱크 화재 시 화염에 휩싸인 탱크에서 물러나시오.\"}, {\"seq\": 11, \"value\": \"화재 시 적절한 개인보호구를 착용하시오.\", \"text\": \"- 화재 시 적절한 개인보호구를 착용하시오.\"}, {\"seq\": 12, \"value\": \"일부는 고온으로 운송될 수 있음\", \"text\": \"- 일부는 고온으로 운송될 수 있음\"}, {\"seq\": 13, \"value\": \"대형화재인 경우 무인호스고정기 혹은 자동 회전 방사 노즐을 이용하여 소방 활동을 할 것; 이들 사용이 불가능 하다면 화재지역에서 철수하여 불을 그냥 타도록 내버려 두시오.\", \"text\": \"- 대형화재인 경우 무인호스고정기 혹은 자동 회전 방사 노즐을 이용하여 소방 활동을 할 것; 이들 사용이 불가능 하다면 화재지역에서 철수하여 불을 그냥 타도록 내버려 두시오.\"}]}, {\"item_code\": \"S6_PERSONAL\", \"title_raw\": \"가. 인체를 보호하기 위해 필요한 조치 사항 및 보호구\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"냉동/극저온 액체와 접촉 시 많은 물질들이 부서지거나 갑자기 깨질 수 있으니 주의하시오.\", \"text\": \"- 냉동/극저온 액체와 접촉 시 많은 물질들이 부서지거나 갑자기 깨질 수 있으니 주의하시오.\"}, {\"seq\": 2, \"value\": \"누출원에 직접주수하지 마시오.\", \"text\": \"- 누출원에 직접주수하지 마시오.\"}, {\"seq\": 3, \"value\": \"물분무를 이용하여 증기를 줄이거나 증기구름을 흩어트리고 물이 누출물과 접촉되지 않도록 하시오.\", \"text\": \"- 물분무를 이용하여 증기를 줄이거나 증기구름을 흩어트리고 물이 누출물과 접촉되지 않도록 하시오.\"}, {\"seq\": 4, \"value\": \"물질이 흩어지도록 두시오.\", \"text\": \"- 물질이 흩어지도록 두시오.\"}, {\"seq\": 5, \"value\": \"저지대, 닫힌 공간 및 밀폐공간 작업 시 산소결핍의 우려가 있으므로 작업 전 공기농도 측정 및 환기가 필요함\", \"text\": \"- 저지대, 닫힌 공간 및 밀폐공간 작업 시 산소결핍의 우려가 있으므로 작업 전 공기농도 측정 및 환기가 필요함\"}, {\"seq\": 6, \"value\": \"가스를 흡입을 피하시오.\", \"text\": \"- 가스를 흡입을 피하시오.\"}, {\"seq\": 7, \"value\": \"모든 점화원을 제거하시오.\", \"text\": \"- 모든 점화원을 제거하시오.\"}, {\"seq\": 8, \"value\": \"위험하지 않다면 누출을 멈추시오.\", \"text\": \"- 위험하지 않다면 누출을 멈추시오.\"}, {\"seq\": 9, \"value\": \"피해야 할 물질 및 조건에 유의하시오.\", \"text\": \"- 피해야 할 물질 및 조건에 유의하시오.\"}, {\"seq\": 10, \"value\": \"오염지역을 환기하시오.\", \"text\": \"- 오염지역을 환기하시오.\"}]}, {\"item_code\": \"S6_ENV\", \"title_raw\": \"나. 환경을 보호하기 위해 필요한 조치사항\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"수로, 하수구, 지하실, 밀폐공간으로의 유입을 방지하시오.\", \"text\": \"- 수로, 하수구, 지하실, 밀폐공간으로의 유입을 방지하시오.\"}]}, {\"item_code\": \"S6_CLEANUP\", \"title_raw\": \"다. 정화 또는 제거 방법\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"소량 누출 시 다량의 물로 오염지역을 씻어내시오.\", \"text\": \"- 소량 누출 시 다량의 물로 오염지역을 씻어내시오.\"}]}, {\"item_code\": \"S7_HANDLING\", \"title_raw\": \"가. 안전취급요령\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"압력을 가하거나, 자르거나, 용접, 납땜, 접합, 뚫기, 연마 또는 열에 폭로, 화염, 불꽃, 정전기 또는 다른 점화원에 폭로하지 마시오.\", \"text\": \"- 압력을 가하거나, 자르거나, 용접, 납땜, 접합, 뚫기, 연마 또는 열에 폭로, 화염, 불꽃, 정전기 또는 다른 점화원에 폭로하지 마시오.\"}, {\"seq\": 2, \"value\": \"용기가 비워진 후에도 제품 찌꺼기가 남아 있을 수 있으므로 모든 MSDS/라벨 예방조치를 따르시오.\", \"text\": \"- 용기가 비워진 후에도 제품 찌꺼기가 남아 있을 수 있으므로 모든 MSDS/라벨 예방조치를 따르시오.\"}, {\"seq\": 3, \"value\": \"취급/저장에 주의하여 사용하시오.\", \"text\": \"- 취급/저장에 주의하여 사용하시오.\"}, {\"seq\": 4, \"value\": \"저지대, 닫힌 공간 및 밀폐공간 작업시 산소결핍의 우려가 있으므로 작업전 공기농도 측정 및 환기를 하시오.\", \"text\": \"- 저지대, 닫힌 공간 및 밀폐공간 작업시 산소결핍의 우려가 있으므로 작업전 공기농도 측정 및 환기를 하시오.\"}, {\"seq\": 5, \"value\": \"피해야 할 물질 및 조건에 유의하시오.\", \"text\": \"- 피해야 할 물질 및 조건에 유의하시오.\"}, {\"seq\": 6, \"value\": \"공학적 관리 및 개인보호구를 참조하여 작업하시오.\", \"text\": \"- 공학적 관리 및 개인보호구를 참조하여 작업하시오.\"}, {\"seq\": 7, \"value\": \"고온에 주의하시오.\", \"text\": \"- 고온에 주의하시오.\"}, {\"seq\": 8, \"value\": \"취급 후에는 취급 부위를 철저히 씻으시오.\", \"text\": \"- 취급 후에는 취급 부위를 철저히 씻으시오.\"}]}, {\"item_code\": \"S7_STORAGE\", \"title_raw\": \"나. 안전한 저장 방법(피해야 할 조건을 포함함)\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"직사광선을 피하시오. 환기가 잘 되는 곳에 보관하시오.\", \"text\": \"- 직사광선을 피하시오. 환기가 잘 되는 곳에 보관하시오.\"}, {\"seq\": 2, \"value\": \"용기는 열에 폭로되었을 경우 압력이 발생될 수 있음\", \"text\": \"- 용기는 열에 폭로되었을 경우 압력이 발생될 수 있음\"}, {\"seq\": 3, \"value\": \"밀폐하여 보관하시오.\", \"text\": \"- 밀폐하여 보관하시오.\"}, {\"seq\": 4, \"value\": \"서늘하고 건조한 장소에 저장하시오.\", \"text\": \"- 서늘하고 건조한 장소에 저장하시오.\"}, {\"seq\": 5, \"value\": \"잠금장치가 있는 저장장소에 저장하시오.\", \"text\": \"- 잠금장치가 있는 저장장소에 저장하시오.\"}, {\"seq\": 6, \"value\": \"음식과 음료수로부터 멀리하시오.\", \"text\": \"- 음식과 음료수로부터 멀리하시오.\"}]}, {\"item_code\": \"S8_ENG\", \"title_raw\": \"나. 적절한 공학적 관리\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"공정격리, 국소배기를 사용하거나 적절한 환기를 실시하시오.\", \"text\": \"나. 적절한 공학적 관리 : 공정격리, 국소배기를 사용하거나 적절한 환기를 실시하시오.\"}]}, {\"item_code\": \"S8_RESP\", \"title_raw\": \"○ 호흡기 보호\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"노출되는 기체의 물리화학적 특성에 맞는 한국산업안전보건공단의 인증을 필한 호흡용 보호구를 착용하시오.\", \"text\": \"○ 호흡기 보호 : 노출되는 기체의 물리화학적 특성에 맞는 한국산업안전보건공단의 인증을 필한 호흡용 보호구를 착용하시오.\"}, {\"seq\": 2, \"value\": \"적절한 필터 또는 정화통을 장착한 전면형 또는 반면형 방독마스크를 착용하시오.\", \"text\": \": 적절한 필터 또는 정화통을 장착한 전면형 또는 반면형 방독마스크를 착용하시오.\"}, {\"seq\": 3, \"value\": \"산소가 부족한 경우(<19.6%) 송기마스크 또는 전동식 호흡보호구를 착용하시오.\", \"text\": \": 산소가 부족한 경우(<19.6%) 송기마스크 또는 전동식 호흡보호구를 착용하시오.\", \"cond\": {\"raw\": \"<19.6%\", \"status\": \"값있음\", \"upper_op\": \"<\", \"upper\": 19.6, \"unit\": \"%\", \"dp\": 1}}]}, {\"item_code\": \"S8_EYE\", \"title_raw\": \"○ 눈 보호\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"눈에 자극을 일으키거나 기타 건강상의 장해를 일으키는 가스상태의 물질로부터 눈을 보호하기 위해 한국산업안전보건공단의 인증을 필한 보안경을 착용하시오.\", \"text\": \"○ 눈 보호 : 눈에 자극을 일으키거나 기타 건강상의 장해를 일으키는 가스상태의 물질로부터 눈을 보호하기 위해 한국산업안전보건공단의 인증을 필한 보안경을 착용하시오.\"}, {\"seq\": 2, \"value\": \"근로자의 접근이 용이한 위치에 긴급세척시설(샤워식) 및 세안설비를 설치하시오.\", \"text\": \": 근로자의 접근이 용이한 위치에 긴급세척시설(샤워식) 및 세안설비를 설치하시오.\"}]}, {\"item_code\": \"S8_HAND\", \"title_raw\": \"○ 손 보호\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"화학물질의 물리적 및 화학적 특성을 고려하여 산업안전보건공단의 인증을 필한 화학물질용 안전장갑을 착용하시오.\", \"text\": \"○ 손 보호 : 화학물질의 물리적 및 화학적 특성을 고려하여 산업안전보건공단의 인증을 필한 화학물질용 안전장갑을 착용하시오.\"}]}, {\"item_code\": \"S8_BODY\", \"title_raw\": \"○ 신체 보호\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"화학물질의 물리적 및 화학적 특성을 고려하여 산업안전보건공단의 인증을 필한 화학물질용 보호복을 착용하시오.\", \"text\": \"○ 신체 보호 : 화학물질의 물리적 및 화학적 특성을 고려하여 산업안전보건공단의 인증을 필한 화학물질용 보호복을 착용하시오.\"}]}, {\"item_code\": \"S10_STABILITY\", \"title_raw\": \"가. 화학적 안정성 및 유해 반응의 가능성\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"가열 시 용기가 폭발할 수 있음\", \"text\": \"- 가열 시 용기가 폭발할 수 있음\"}, {\"seq\": 2, \"value\": \"일부는 탈 수 있으나 쉽게 점화 하지 않음\", \"text\": \"- 일부는 탈 수 있으나 쉽게 점화 하지 않음\"}, {\"seq\": 3, \"value\": \"증기는 자각 없이 현기증 또는 질식을 유발할 수 있음\", \"text\": \"- 증기는 자각 없이 현기증 또는 질식을 유발할 수 있음\"}, {\"seq\": 4, \"value\": \"몇몇 금속과 반응하여 위험성을 지닌 물질을 생성할 수 있음\", \"text\": \"- 몇몇 금속과 반응하여 위험성을 지닌 물질을 생성할 수 있음\"}, {\"seq\": 5, \"value\": \"알루미늄과 격렬하게 반응함\", \"text\": \"- 알루미늄과 격렬하게 반응함\"}]}, {\"item_code\": \"S10_CONDITIONS\", \"title_raw\": \"나. 피해야 할 조건(정전기 방전, 충격, 진동 등)\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"열, 스파크, 화염 등 점화원\", \"text\": \"- 열, 스파크, 화염 등 점화원\"}, {\"seq\": 2, \"value\": \"점화의 위험이 있으므로 산화제에 의한 오염을 피하시오.\", \"text\": \"- 점화의 위험이 있으므로 산화제에 의한 오염을 피하시오.\"}, {\"seq\": 3, \"value\": \"질산염, 산화성 산, 염소 표백제, 염소계 살균제 등 몇몇 금속과 반응하여 위험성을 지닌 물질을 생성할 수 있음\", \"text\": \"- 질산염, 산화성 산, 염소 표백제, 염소계 살균제 등 몇몇 금속과 반응하여 위험성을 지닌 물질을 생성할 수 있음\"}]}, {\"item_code\": \"S10_INCOMPAT\", \"title_raw\": \"다. 피해야 할 물질\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"가연성 물질\", \"text\": \"- 가연성 물질\"}, {\"seq\": 2, \"value\": \"강산화제, 환원제\", \"text\": \"- 강산화제, 환원제\"}, {\"seq\": 3, \"value\": \"아민류, 질화물, 아조/다이아조화합물, 알칼리금속, 에폭사이드\", \"text\": \"- 아민류, 질화물, 아조/다이아조화합물, 알칼리금속, 에폭사이드\"}]}, {\"item_code\": \"S10_DECOMP\", \"title_raw\": \"라. 분해시 생성되는 유해물질\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"불화수소\", \"text\": \"- 불화수소\"}, {\"seq\": 2, \"value\": \"플루오르화물\", \"text\": \"- 플루오르화물\"}]}, {\"item_code\": \"S11_ROUTE\", \"title_raw\": \"가. 가능성이 높은 노출 경로에 관한 정보\", \"status\": \"자료없음\", \"statements\": [{\"seq\": 1, \"value\": \"자료 없음\", \"text\": \": 자료 없음\"}]}, {\"item_code\": \"S13_METHOD\", \"title_raw\": \"가. 폐기방법\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"폐기물관리법에 명시된 경우 규정에 따라 내용물 및 용기를 폐기하시오.\", \"text\": \"가. 폐기방법 : 폐기물관리법에 명시된 경우 규정에 따라 내용물 및 용기를 폐기하시오.\"}]}, {\"item_code\": \"S13_CAUTION\", \"title_raw\": \"나. 폐기시 주의사항(오염된 용기 및 포장의 폐기 방법을 포함함)\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"폐기물관리법에 명시된 내용에 따라 내용물 및 용기를 폐기하시오.\", \"text\": \": 폐기물관리법에 명시된 내용에 따라 내용물 및 용기를 폐기하시오.\"}]}, {\"item_code\": \"S15_WASTE\", \"title_raw\": \"마. 폐기물관리법에 의한 규제\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"일반폐기물(폐냉매 : 51-37)\", \"text\": \"마. 폐기물관리법에 의한 규제 : 일반폐기물(폐냉매 : 51-37)\"}]}, {\"item_code\": \"S16_SOURCE\", \"title_raw\": \"가. 자료의 출처\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"화학물질종합정보시스템; https://icis.me.go.kr/pageLink.do\", \"text\": \"- 화학물질종합정보시스템; https://icis.me.go.kr/pageLink.do\"}, {\"seq\": 2, \"value\": \"ECHA; https://echa.europa.eu/\", \"text\": \"- ECHA; https://echa.europa.eu/\"}, {\"seq\": 3, \"value\": \"UN Recommendations on the transport of dangerous goods 17th; https://www.unece.org/trans/danger/publi/unrec/rev20/20files_e.html\", \"text\": \"- UN Recommendations on the transport of dangerous goods 17th; https://www.unece.org/trans/danger/publi/unrec/rev20/20files_e.html\"}, {\"seq\": 4, \"value\": \"IARC Monographs on the Evaluation of Carcinogenic Risks to Humans; http://monographs.iarc.fr\", \"text\": \"- IARC Monographs on the Evaluation of Carcinogenic Risks to Humans; http://monographs.iarc.fr\"}, {\"seq\": 5, \"value\": \"National Toxicology Program;\", \"text\": \"- National Toxicology Program;\"}, {\"seq\": 6, \"value\": \"https://ntp.niehs.nih.gov/whatwestudy/assessments/cancer/roc/index.html\", \"text\": \"- https://ntp.niehs.nih.gov/whatwestudy/assessments/ cancer/roc/index.html\"}, {\"seq\": 7, \"value\": \"Korea Occupational Health & Safety Agency; http://www.kosha.or.kr\", \"text\": \"- Korea Occupational Health & Safety Agency; http://www.kosha.or.kr\"}, {\"seq\": 8, \"value\": \"National Chemicals Information System; http://ncis.nier.go.kr/main.do\", \"text\": \"- National Chemicals Information System; http://ncis.nier.go.kr/main.do\"}, {\"seq\": 9, \"value\": \"Ministry of Public Safety and Security-Korea dangerous material inventory management 'system; http://hazmat.mpss.kfi.or.kr/index.do\", \"text\": \"- Ministry of Public Safety and Security-Korea dangerous material inventory management 'system; http://hazmat.mpss.kfi.or.kr/index.do\"}, {\"seq\": 10, \"value\": \"Waste Control Act enforcement regulation attached [1]\", \"text\": \"- Waste Control Act enforcement regulation attached [1]\"}]}, {\"item_code\": \"S16_OTHER\", \"title_raw\": \"라. 기타\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"본 물질안전보건자료(MSDS)는 산업안전보건법 제110조 및 고용노동부 고시(제2025-50호)를 바탕으로 작성하였습니다.\", \"text\": \"- 본 물질안전보건자료(MSDS)는 산업안전보건법 제110조 및 고용노동부 고시(제2025-50호)를 바탕으로 작성하였습니다.\"}, {\"seq\": 2, \"value\": \"본 물질안전보건자료(MSDS)는 해당 물질의 일반적인 정보로서 비록 동일한 물질이라 하더라도 다른 물질과 혼합되거나 다른 공정에서 사용되는 경우 정보가 유용하지 않을 수 있습니다.\", \"text\": \"- 본 물질안전보건자료(MSDS)는 해당 물질의 일반적인 정보로서 비록 동일한 물질이라 하더라도 다른 물질과 혼합되거나 다른 공정에서 사용되는 경우 정보가 유용하지 않을 수 있습니다.\"}, {\"seq\": 3, \"value\": \"당사는 해당 내용이 정확하고 신뢰성 있도록 최상의 노력을 기울였습니다만 내용의 확실성 또는 완전성에 대하여 어떠한 보증이나 대응의 책임을 지지 아니합니다.\", \"text\": \"- 당사는 해당 내용이 정확하고 신뢰성 있도록 최상의 노력을 기울였습니다만 내용의 확실성 또는 완전성에 대하여 어떠한 보증이나 대응의 책임을 지지 아니합니다.\"}]}], \"extras\": [{\"seq\": 1, \"section_no\": 16, \"after_item\": \"meta.revision_no\", \"title_raw\": \"다. 개정 횟수 및 최종 개정일자 (개정이력표)\", \"reason\": \"필드없음\", \"comp_ref\": \"MIX\", \"page\": 9, \"suggested_code\": \"REVISION_HISTORY\", \"statements\": [{\"seq\": 1, \"key\": \"개정일자\", \"value\": \"rev.10 / 2022. 01. 13\", \"text\": \"rev.10 / 2022. 01. 13 | 산업안전보건법에 따른 개정 | 산안법 제110조\"}, {\"seq\": 2, \"key\": \"내용\", \"value\": \"산업안전보건법에 따른 개정\", \"text\": \"rev.10 / 2022. 01. 13 | 산업안전보건법에 따른 개정 | 산안법 제110조\"}, {\"seq\": 3, \"key\": \"비고\", \"value\": \"산안법 제110조\", \"text\": \"rev.10 / 2022. 01. 13 | 산업안전보건법에 따른 개정 | 산안법 제110조\"}]}, {\"seq\": 2, \"section_no\": 16, \"after_item\": \"meta.revision_no\", \"title_raw\": \"다. 개정 횟수 및 최종 개정일자 (개정이력표)\", \"reason\": \"필드없음\", \"comp_ref\": \"MIX\", \"page\": 10, \"suggested_code\": \"REVISION_HISTORY\", \"statements\": [{\"seq\": 1, \"key\": \"개정일자\", \"value\": \"rev.11 / 2024. 01. 13\", \"text\": \"rev.11 / 2024. 01. 13 | 법적 규제현황 개정 및 GWP 추가 | 정기 업데이트\"}, {\"seq\": 2, \"key\": \"내용\", \"value\": \"법적 규제현황 개정 및 GWP 추가\", \"text\": \"rev.11 / 2024. 01. 13 | 법적 규제현황 개정 및 GWP 추가 | 정기 업데이트\"}, {\"seq\": 3, \"key\": \"비고\", \"value\": \"정기 업데이트\", \"text\": \"rev.11 / 2024. 01. 13 | 법적 규제현황 개정 및 GWP 추가 | 정기 업데이트\"}]}, {\"seq\": 3, \"section_no\": 16, \"after_item\": \"meta.revision_no\", \"title_raw\": \"다. 개정 횟수 및 최종 개정일자 (개정이력표)\", \"reason\": \"필드없음\", \"comp_ref\": \"MIX\", \"page\": 10, \"suggested_code\": \"REVISION_HISTORY\", \"statements\": [{\"seq\": 1, \"key\": \"개정일자\", \"value\": \"rev.12 / 2025. 12. 24\", \"text\": \"rev.12 / 2025. 12. 24 | 화평법 및 고용노동부 고시에 따른 개정 | 제2025-50호\"}, {\"seq\": 2, \"key\": \"내용\", \"value\": \"화평법 및 고용노동부 고시에 따른 개정\", \"text\": \"rev.12 / 2025. 12. 24 | 화평법 및 고용노동부 고시에 따른 개정 | 제2025-50호\"}, {\"seq\": 3, \"key\": \"비고\", \"value\": \"제2025-50호\", \"text\": \"rev.12 / 2025. 12. 24 | 화평법 및 고용노동부 고시에 따른 개정 | 제2025-50호\"}]}]}], \"evidence\": [{\"msds_index\": 0, \"field\": \"narratives[S4_EYE]\", \"page\": 2, \"source_text\": \"가. 눈에 들어갔을 때 : - 즉시 의료조치를 취하시오.\", \"rules\": [\"R14\"], \"note\": \"불릿 단위로 2문장 분해\"}, {\"msds_index\": 0, \"field\": \"narratives[S4_SKIN]\", \"page\": 2, \"source_text\": \"나. 피부에 접촉했을 때 : - 가스나 증기화된 액체가 빠르게 팽창되어 생긴 동상인 경우 즉시 의료 조치를\", \"rules\": [\"R14\"], \"note\": \"불릿 9개로 분해, 줄바꿈 문장 이어붙임\"}, {\"msds_index\": 0, \"field\": \"narratives[S4_INHAL]\", \"page\": 2, \"source_text\": \"다. 흡입했을 때 : - 호흡이 힘들 경우 산소를 공급하시오.\", \"rules\": [\"R14\"], \"note\": \"불릿 5개로 분해\"}, {\"msds_index\": 0, \"field\": \"narratives[S4_INGEST]\", \"page\": 2, \"source_text\": \"라. 먹었을 때 : - 불편함을 느끼면 의료기관/의사 등의 진찰을 받으시오.\", \"rules\": [\"R14\"], \"note\": \"불릿 3개로 분해\"}, {\"msds_index\": 0, \"field\": \"narratives[S4_DOCTOR]\", \"page\": 2, \"source_text\": \"마. 기타 의사의 주의사항 : - 의료진에게 사고물질의 특성을 알려, 적절한 보호조치를 취하도록 하시오.\", \"rules\": [\"R14\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"narratives[S5_MEDIA]\", \"page\": 2, \"source_text\": \"- 적절한 소화제 : 건조모래, 건조화학제, 내알콜포말, 일반포말, CO2 - 부적절한 소화제 : 고압주수\", \"rules\": [\"R14\"], \"note\": \"키:값으로 분리\"}, {\"msds_index\": 0, \"field\": \"narratives[S5_SPECIFIC]\", \"page\": 3, \"source_text\": \"나. 화학물질로부터 생기는 특정 유해성(예, 연소 시 발생 유해물질) : - 고압가스: 가열하면 폭발할 수 있음\", \"rules\": [\"R14\"], \"note\": \"불릿 5개로 분해\"}, {\"msds_index\": 0, \"field\": \"narratives[S5_FIREFIGHT]\", \"page\": 3, \"source_text\": \"다. 화재 진압 시 착용할 보호구 및 예방조치 : - 지역을 벗어나 안전거리를 유지하여 소화하시오.\", \"rules\": [\"R14\"], \"note\": \"불릿 13개로 분해\"}, {\"msds_index\": 0, \"field\": \"narratives[S6_PERSONAL]\", \"page\": 3, \"source_text\": \"가. 인체를 보호하기 위해 필요한 조치 사항 및 보호구 : - 냉동/극저온 액체와 접촉 시 많은 물질들이 부서지거나 갑자기 깨질 수 있으니\", \"rules\": [\"R14\"], \"note\": \"3쪽~4쪽 이어지는 불릿 10개로 분해(마지막 '오염지역을 환기하시오.'는 4쪽)\"}, {\"msds_index\": 0, \"field\": \"narratives[S6_ENV]\", \"page\": 4, \"source_text\": \"- 수로, 하수구, 지하실, 밀폐공간으로의 유입을 방지하시오.\", \"rules\": [\"R14\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"narratives[S6_CLEANUP]\", \"page\": 4, \"source_text\": \"다. 정화 또는 제거 방법 : - 소량 누출 시 다량의 물로 오염지역을 씻어내시오.\", \"rules\": [\"R14\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"narratives[S7_HANDLING]\", \"page\": 4, \"source_text\": \"가. 안전취급요령 : - 압력을 가하거나, 자르거나, 용접, 납땜, 접합, 뚫기, 연마 또는 열에 폭로, 화염,\", \"rules\": [\"R14\"], \"note\": \"불릿 8개로 분해\"}, {\"msds_index\": 0, \"field\": \"narratives[S7_STORAGE]\", \"page\": 4, \"source_text\": \"나. 안전한 저장 방법(피해야 할 조건을 포함함) : - 직사광선을 피하시오. 환기가 잘 되는 곳에 보관하시오.\", \"rules\": [\"R14\"], \"note\": \"불릿 6개로 분해\"}, {\"msds_index\": 0, \"field\": \"narratives[S8_ENG]\", \"page\": 4, \"source_text\": \"나. 적절한 공학적 관리 : 공정격리, 국소배기를 사용하거나 적절한 환기를 실시하시오.\", \"rules\": [\"R14\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"narratives[S8_RESP]\", \"page\": 4, \"source_text\": \"산소가 부족한 경우(<19.6%) 송기마스크 또는 전동식 호흡보호구를 착용하시오.\", \"rules\": [\"R14\", \"R04\"], \"note\": \"3줄로 분해, '<19.6%'를 cond Q로 분리\"}, {\"msds_index\": 0, \"field\": \"narratives[S8_EYE]\", \"page\": 4, \"source_text\": \"○ 눈 보호 : 눈에 자극을 일으키거나 기타 건강상의 장해를 일으키는 가스상태의 물질로부터\", \"rules\": [\"R14\"], \"note\": \"5쪽 첫 줄 '근로자의 접근이 용이한 위치에 긴급세척시설(샤워식)…'을 이어지는 문장으로 붙임\"}, {\"msds_index\": 0, \"field\": \"narratives[S8_HAND]\", \"page\": 5, \"source_text\": \"○ 손 보호 : 화학물질의 물리적 및 화학적 특성을 고려하여 산업안전보건공단의 인증을 필한 화학물질용 안전장갑을 착용하시오.\", \"rules\": [\"R14\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"narratives[S8_BODY]\", \"page\": 5, \"source_text\": \"○ 신체 보호 : 화학물질의 물리적 및 화학적 특성을 고려하여 산업안전보건공단의 인증을 필한 화학물질용 보호복을 착용하시오.\", \"rules\": [\"R14\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"narratives[S10_STABILITY]\", \"page\": 5, \"source_text\": \"가. 화학적 안정성 및 유해 반응의 가능성 : - 가열 시 용기가 폭발할 수 있음\", \"rules\": [\"R14\"], \"note\": \"불릿 5개로 분해\"}, {\"msds_index\": 0, \"field\": \"narratives[S10_CONDITIONS]\", \"page\": 5, \"source_text\": \"나. 피해야 할 조건(정전기 방전, 충격, 진동 등) : - 열, 스파크, 화염 등 점화원\", \"rules\": [\"R14\"], \"note\": \"6쪽 첫 불릿 '질산염, 산화성 산…'까지 이어 3문장\"}, {\"msds_index\": 0, \"field\": \"narratives[S10_INCOMPAT]\", \"page\": 6, \"source_text\": \"다. 피해야 할 물질 : - 가연성 물질 - 강산화제, 환원제 - 아민류, 질화물, 아조/다이아조화합물, 알칼리금속, 에폭사이드\", \"rules\": [\"R14\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"narratives[S10_DECOMP]\", \"page\": 6, \"source_text\": \"라. 분해시 생성되는 유해물질 : - 불화수소 - 플루오르화물\", \"rules\": [\"R14\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"narratives[S11_ROUTE]\", \"page\": 6, \"source_text\": \"가. 가능성이 높은 노출 경로에 관한 정보 : 자료 없음\", \"rules\": [\"R15\"], \"note\": \"'자료 없음'을 status 자료없음으로\"}, {\"msds_index\": 0, \"field\": \"narratives[S13_METHOD]\", \"page\": 8, \"source_text\": \"가. 폐기방법 : 폐기물관리법에 명시된 경우 규정에 따라 내용물 및 용기를 폐기하시오.\", \"rules\": [\"R14\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"narratives[S13_CAUTION]\", \"page\": 8, \"source_text\": \"나. 폐기시 주의사항(오염된 용기 및 포장의 폐기 방법을 포함함) : 폐기물관리법에 명시된 내용에 따라 내용물 및 용기를 폐기하시오.\", \"rules\": [\"R14\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"narratives[S15_WASTE]\", \"page\": 9, \"source_text\": \"마. 폐기물관리법에 의한 규제 : 일반폐기물(폐냉매 : 51-37)\", \"rules\": [\"R14\"], \"note\": \"폐기물 처리 문장을 규제 행과 함께 S15_WASTE로도 둠\"}, {\"msds_index\": 0, \"field\": \"narratives[S16_SOURCE]\", \"page\": 9, \"source_text\": \"가. 자료의 출처 : - 화학물질종합정보시스템; https://icis.me.go.kr/pageLink.do\", \"rules\": [\"R14\"], \"note\": \"불릿 10개로 분해, 줄바꿈 URL 이어붙임\"}, {\"msds_index\": 0, \"field\": \"narratives[S16_OTHER]\", \"page\": 10, \"source_text\": \"라. 기타 - 본 물질안전보건자료(MSDS)는 산업안전보건법 제110조 및 고용노동부 고시(제2025-50호)를 바탕으로\", \"rules\": [\"R14\"], \"note\": \"불릿 3개로 분해\"}, {\"msds_index\": 0, \"field\": \"extras[0]\", \"page\": 9, \"source_text\": \"rev.10 / 2022. 01. 13 | 산업안전보건법에 따른 개정 | 산안법 제110조\", \"rules\": [\"R24\"], \"note\": \"개정이력표 행을 담을 칸이 없어 extras로\"}, {\"msds_index\": 0, \"field\": \"extras[1]\", \"page\": 10, \"source_text\": \"rev.11 / 2024. 01. 13 | 법적 규제현황 개정 및 GWP 추가 | 정기 업데이트\", \"rules\": [\"R24\"], \"note\": \"개정이력표 행을 담을 칸이 없어 extras로\"}, {\"msds_index\": 0, \"field\": \"extras[2]\", \"page\": 10, \"source_text\": \"rev.12 / 2025. 12. 24 | 화평법 및 고용노동부 고시에 따른 개정 | 제2025-50호\", \"rules\": [\"R24\"], \"note\": \"개정이력표 행을 담을 칸이 없어 extras로\"}]}"
+}

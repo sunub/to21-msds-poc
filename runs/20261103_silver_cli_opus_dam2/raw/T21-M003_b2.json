@@ -1,0 +1,1644 @@
+{
+  "doc_id": "T21-M003",
+  "bundle": "b2",
+  "model": "claude-opus-5-5",
+  "mode": "claude -p json-schema",
+  "finish_reason": "tool_use",
+  "usage": {
+    "prompt_tokens": 61147,
+    "completion_tokens": 12741,
+    "cached_tokens": 6909,
+    "reasoning_tokens": 1830,
+    "notional_cost_usd": 0.6900978
+  },
+  "seconds": 89.3,
+  "request_usage": [
+    {
+      "prompt_tokens": 61147,
+      "completion_tokens": 12741,
+      "cached_tokens": 6909,
+      "reasoning_tokens": 1830,
+      "notional_cost_usd": 0.6900978
+    }
+  ],
+  "attempts": 1,
+  "errors": [],
+  "parsed": {
+    "msds": [
+      {
+        "exposure_limits": [
+          {
+            "comp_ref": "1",
+            "standard": "국내",
+            "limit_type": null,
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "notations": []
+          },
+          {
+            "comp_ref": "2",
+            "standard": "국내",
+            "limit_type": "TWA",
+            "q": {
+              "raw": "TWA 800ppm",
+              "status": "값있음",
+              "value": 800,
+              "unit": "ppm"
+            },
+            "notations": []
+          },
+          {
+            "comp_ref": "2",
+            "standard": "국내",
+            "limit_type": "TWA",
+            "q": {
+              "raw": "1,900mg/m³",
+              "status": "값있음",
+              "value": 1900,
+              "unit": "mg/m3"
+            },
+            "notations": []
+          },
+          {
+            "comp_ref": "3",
+            "standard": "국내",
+            "limit_type": null,
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "notations": []
+          },
+          {
+            "comp_ref": "1",
+            "standard": "ACGIH",
+            "limit_type": "TWA",
+            "q": {
+              "raw": "TWA 1,000 ppm 8hours",
+              "status": "값있음",
+              "value": 1000,
+              "unit": "ppm"
+            },
+            "notations": []
+          },
+          {
+            "comp_ref": "2",
+            "standard": "ACGIH",
+            "limit_type": "TWA",
+            "q": {
+              "raw": "TWA 1,000 ppm 8hours",
+              "status": "값있음",
+              "value": 1000,
+              "unit": "ppm"
+            },
+            "notations": []
+          },
+          {
+            "comp_ref": "3",
+            "standard": "ACGIH",
+            "limit_type": "TWA",
+            "q": {
+              "raw": "TWA 600 ppm 8hours",
+              "status": "값있음",
+              "value": 600,
+              "unit": "ppm"
+            },
+            "notations": []
+          },
+          {
+            "comp_ref": "1",
+            "standard": "생물학적",
+            "limit_type": "BEI",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "notations": []
+          },
+          {
+            "comp_ref": "2",
+            "standard": "생물학적",
+            "limit_type": "BEI",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "notations": []
+          },
+          {
+            "comp_ref": "3",
+            "standard": "생물학적",
+            "limit_type": "BEI",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "notations": []
+          },
+          {
+            "comp_ref": "1",
+            "standard": "기타",
+            "limit_type": null,
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "notations": []
+          },
+          {
+            "comp_ref": "2",
+            "standard": "기타",
+            "limit_type": null,
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "notations": []
+          },
+          {
+            "comp_ref": "3",
+            "standard": "기타",
+            "limit_type": null,
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "notations": []
+          }
+        ],
+        "physchem": [
+          {
+            "prop_code": "APPEARANCE_STATE",
+            "comp_ref": "MIX",
+            "q": null,
+            "text_value": "가스, 액화가스"
+          },
+          {
+            "prop_code": "APPEARANCE_COLOR",
+            "comp_ref": "MIX",
+            "q": null,
+            "text_value": "무색"
+          },
+          {
+            "prop_code": "ODOR",
+            "comp_ref": "MIX",
+            "q": null,
+            "text_value": "무취(부취제 주입전) 또는 독특한 냄새(부취제 주입후)"
+          },
+          {
+            "prop_code": "ODOR_THRESHOLD",
+            "comp_ref": "MIX",
+            "q": null,
+            "text_value": "공기중의 혼합비율이 1,000분의 1인 상태에서 감지할 수 있도록 함(부취제 주입후)"
+          },
+          {
+            "prop_code": "PH",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "MELT_FREEZE",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "약 -159 ~ -138℃",
+              "status": "값있음",
+              "approx": true,
+              "lower_op": ">=",
+              "lower": -159,
+              "upper_op": "<=",
+              "upper": -138,
+              "unit": "C"
+            }
+          },
+          {
+            "prop_code": "MELT_FREEZE",
+            "comp_ref": "1",
+            "q": {
+              "raw": "-189.7℃",
+              "status": "값있음",
+              "value": -189.7,
+              "unit": "C",
+              "dp": 1
+            }
+          },
+          {
+            "prop_code": "MELT_FREEZE",
+            "comp_ref": "2",
+            "q": {
+              "raw": "약 -159 ~ -138℃",
+              "status": "값있음",
+              "approx": true,
+              "lower_op": ">=",
+              "lower": -159,
+              "upper_op": "<=",
+              "upper": -138,
+              "unit": "C"
+            }
+          },
+          {
+            "prop_code": "MELT_FREEZE",
+            "comp_ref": "3",
+            "q": {
+              "raw": "-159.9℃",
+              "status": "값있음",
+              "value": -159.9,
+              "unit": "C",
+              "dp": 1
+            }
+          },
+          {
+            "prop_code": "BOILING",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "약 -11.7 ~ -0.2℃",
+              "status": "값있음",
+              "approx": true,
+              "lower_op": ">=",
+              "lower": -11.7,
+              "upper_op": "<=",
+              "upper": -0.2,
+              "unit": "C",
+              "dp": 1
+            }
+          },
+          {
+            "prop_code": "BOILING",
+            "comp_ref": "1",
+            "q": {
+              "raw": "-42℃",
+              "status": "값있음",
+              "value": -42,
+              "unit": "C"
+            }
+          },
+          {
+            "prop_code": "BOILING",
+            "comp_ref": "2",
+            "q": {
+              "raw": "약 -11.7 ~ -0.2℃",
+              "status": "값있음",
+              "approx": true,
+              "lower_op": ">=",
+              "lower": -11.7,
+              "upper_op": "<=",
+              "upper": -0.2,
+              "unit": "C",
+              "dp": 1
+            }
+          },
+          {
+            "prop_code": "BOILING",
+            "comp_ref": "3",
+            "q": {
+              "raw": "27.8℃",
+              "status": "값있음",
+              "value": 27.8,
+              "unit": "C",
+              "dp": 1
+            }
+          },
+          {
+            "prop_code": "FLASH_POINT",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "약 -83 ~ -60℃",
+              "status": "값있음",
+              "approx": true,
+              "lower_op": ">=",
+              "lower": -83,
+              "upper_op": "<=",
+              "upper": -60,
+              "unit": "C"
+            }
+          },
+          {
+            "prop_code": "FLASH_POINT",
+            "comp_ref": "1",
+            "q": {
+              "raw": "-104℃",
+              "status": "값있음",
+              "value": -104,
+              "unit": "C"
+            }
+          },
+          {
+            "prop_code": "FLASH_POINT",
+            "comp_ref": "2",
+            "q": {
+              "raw": "약 -83 ~ -60℃",
+              "status": "값있음",
+              "approx": true,
+              "lower_op": ">=",
+              "lower": -83,
+              "upper_op": "<=",
+              "upper": -60,
+              "unit": "C"
+            }
+          },
+          {
+            "prop_code": "FLASH_POINT",
+            "comp_ref": "3",
+            "q": {
+              "raw": "-51 ℃",
+              "status": "값있음",
+              "value": -51,
+              "unit": "C"
+            }
+          },
+          {
+            "prop_code": "EVAP_RATE",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "FLAMMABILITY",
+            "comp_ref": "MIX",
+            "q": null,
+            "text_value": "인화성 가스"
+          },
+          {
+            "prop_code": "UEL",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "약 8.4vol.%",
+              "status": "값있음",
+              "approx": true,
+              "value": 8.4,
+              "unit": "vol.%",
+              "dp": 1
+            }
+          },
+          {
+            "prop_code": "LEL",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "1.8vol.%",
+              "status": "값있음",
+              "approx": true,
+              "value": 1.8,
+              "unit": "vol.%",
+              "dp": 1
+            }
+          },
+          {
+            "prop_code": "UEL",
+            "comp_ref": "1",
+            "q": {
+              "raw": "9.5vol.%",
+              "status": "값있음",
+              "value": 9.5,
+              "unit": "vol.%",
+              "dp": 1
+            }
+          },
+          {
+            "prop_code": "LEL",
+            "comp_ref": "1",
+            "q": {
+              "raw": "2.1vol.%",
+              "status": "값있음",
+              "value": 2.1,
+              "unit": "vol.%",
+              "dp": 1
+            }
+          },
+          {
+            "prop_code": "UEL",
+            "comp_ref": "2",
+            "q": {
+              "raw": "약 8.4vol.%",
+              "status": "값있음",
+              "approx": true,
+              "value": 8.4,
+              "unit": "vol.%",
+              "dp": 1
+            }
+          },
+          {
+            "prop_code": "LEL",
+            "comp_ref": "2",
+            "q": {
+              "raw": "1.8vol.%",
+              "status": "값있음",
+              "approx": true,
+              "value": 1.8,
+              "unit": "vol.%",
+              "dp": 1
+            }
+          },
+          {
+            "prop_code": "UEL",
+            "comp_ref": "3",
+            "q": {
+              "raw": "7.6 vol.%",
+              "status": "값있음",
+              "value": 7.6,
+              "unit": "vol.%",
+              "dp": 1
+            }
+          },
+          {
+            "prop_code": "LEL",
+            "comp_ref": "3",
+            "q": {
+              "raw": "1.4 vol.%",
+              "status": "값있음",
+              "value": 1.4,
+              "unit": "vol.%",
+              "dp": 1
+            }
+          },
+          {
+            "prop_code": "VAPOR_PRESSURE",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "약 213 ~ 310kPa (at 21.1℃)",
+              "status": "값있음",
+              "approx": true,
+              "lower_op": ">=",
+              "lower": 213,
+              "upper_op": "<=",
+              "upper": 310,
+              "unit": "kPa"
+            },
+            "cond": {
+              "temp": 21.1,
+              "temp_unit": "C"
+            }
+          },
+          {
+            "prop_code": "VAPOR_PRESSURE",
+            "comp_ref": "1",
+            "q": {
+              "raw": "853kPa (at 21.1℃)",
+              "status": "값있음",
+              "value": 853,
+              "unit": "kPa"
+            },
+            "cond": {
+              "temp": 21.1,
+              "temp_unit": "C"
+            }
+          },
+          {
+            "prop_code": "VAPOR_PRESSURE",
+            "comp_ref": "2",
+            "q": {
+              "raw": "약 213 ~ 310kPa (at 21.1℃)",
+              "status": "값있음",
+              "approx": true,
+              "lower_op": ">=",
+              "lower": 213,
+              "upper_op": "<=",
+              "upper": 310,
+              "unit": "kPa"
+            },
+            "cond": {
+              "temp": 21.1,
+              "temp_unit": "C"
+            }
+          },
+          {
+            "prop_code": "VAPOR_PRESSURE",
+            "comp_ref": "3",
+            "q": {
+              "raw": "79kPa (at 21.1℃)",
+              "status": "값있음",
+              "value": 79,
+              "unit": "kPa"
+            },
+            "cond": {
+              "temp": 21.1,
+              "temp_unit": "C"
+            }
+          },
+          {
+            "prop_code": "SOLUBILITY",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "약 0.0061g/100ml (at 20℃)",
+              "status": "값있음",
+              "approx": true,
+              "value": 0.0061,
+              "unit": "g/100ml",
+              "dp": 4
+            },
+            "cond": {
+              "temp": 20,
+              "temp_unit": "C"
+            }
+          },
+          {
+            "prop_code": "SOLUBILITY",
+            "comp_ref": "1",
+            "q": {
+              "raw": "0.0007g/100ml (at 20℃)",
+              "status": "값있음",
+              "value": 0.0007,
+              "unit": "g/100ml",
+              "dp": 4
+            },
+            "cond": {
+              "temp": 20,
+              "temp_unit": "C"
+            }
+          },
+          {
+            "prop_code": "SOLUBILITY",
+            "comp_ref": "2",
+            "q": {
+              "raw": "약 0.0061g/100ml (at 20℃)",
+              "status": "값있음",
+              "approx": true,
+              "value": 0.0061,
+              "unit": "g/100ml",
+              "dp": 4
+            },
+            "cond": {
+              "temp": 20,
+              "temp_unit": "C"
+            }
+          },
+          {
+            "prop_code": "SOLUBILITY",
+            "comp_ref": "3",
+            "q": null,
+            "text_value": "극소량",
+            "cond": {
+              "temp": 20,
+              "temp_unit": "C"
+            }
+          },
+          {
+            "prop_code": "VAPOR_DENSITY",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "약 2.01 ~ 2.17 (공기 = 1)",
+              "status": "값있음",
+              "approx": true,
+              "lower_op": ">=",
+              "lower": 2.01,
+              "upper_op": "<=",
+              "upper": 2.17,
+              "dp": 2
+            },
+            "cond": {
+              "reference": "공기 = 1"
+            }
+          },
+          {
+            "prop_code": "VAPOR_DENSITY",
+            "comp_ref": "1",
+            "q": {
+              "raw": "1.55 (공기 = 1)",
+              "status": "값있음",
+              "value": 1.55,
+              "dp": 2
+            },
+            "cond": {
+              "reference": "공기 = 1"
+            }
+          },
+          {
+            "prop_code": "VAPOR_DENSITY",
+            "comp_ref": "2",
+            "q": {
+              "raw": "약 2.01 ~ 2.17 (공기 = 1)",
+              "status": "값있음",
+              "approx": true,
+              "lower_op": ">=",
+              "lower": 2.01,
+              "upper_op": "<=",
+              "upper": 2.17,
+              "dp": 2
+            },
+            "cond": {
+              "reference": "공기 = 1"
+            }
+          },
+          {
+            "prop_code": "VAPOR_DENSITY",
+            "comp_ref": "3",
+            "q": {
+              "raw": "2.5 (공기 = 1)",
+              "status": "값있음",
+              "value": 2.5,
+              "dp": 1
+            },
+            "cond": {
+              "reference": "공기 = 1"
+            }
+          },
+          {
+            "prop_code": "RELATIVE_DENSITY",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "약 0.6 (물 = 1)",
+              "status": "값있음",
+              "approx": true,
+              "value": 0.6,
+              "dp": 1
+            },
+            "cond": {
+              "reference": "물 = 1"
+            }
+          },
+          {
+            "prop_code": "RELATIVE_DENSITY",
+            "comp_ref": "1",
+            "q": {
+              "raw": "0.5 (물 = 1)",
+              "status": "값있음",
+              "value": 0.5,
+              "dp": 1
+            },
+            "cond": {
+              "reference": "물 = 1"
+            }
+          },
+          {
+            "prop_code": "RELATIVE_DENSITY",
+            "comp_ref": "2",
+            "q": {
+              "raw": "약 0.6 (물 = 1)",
+              "status": "값있음",
+              "approx": true,
+              "value": 0.6,
+              "dp": 1
+            },
+            "cond": {
+              "reference": "물 = 1"
+            }
+          },
+          {
+            "prop_code": "RELATIVE_DENSITY",
+            "comp_ref": "3",
+            "q": {
+              "raw": "0.6 (물 = 1)",
+              "status": "값있음",
+              "value": 0.6,
+              "dp": 1
+            },
+            "cond": {
+              "reference": "물 = 1"
+            }
+          },
+          {
+            "prop_code": "LOG_KOW",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "약 2.76 ~ 2.89",
+              "status": "값있음",
+              "approx": true,
+              "lower_op": ">=",
+              "lower": 2.76,
+              "upper_op": "<=",
+              "upper": 2.89,
+              "dp": 2
+            }
+          },
+          {
+            "prop_code": "LOG_KOW",
+            "comp_ref": "1",
+            "q": {
+              "raw": "2.4",
+              "status": "값있음",
+              "value": 2.4,
+              "dp": 1
+            }
+          },
+          {
+            "prop_code": "LOG_KOW",
+            "comp_ref": "2",
+            "q": {
+              "raw": "약 2.76 ~ 2.89",
+              "status": "값있음",
+              "approx": true,
+              "lower_op": ">=",
+              "lower": 2.76,
+              "upper_op": "<=",
+              "upper": 2.89,
+              "dp": 2
+            }
+          },
+          {
+            "prop_code": "LOG_KOW",
+            "comp_ref": "3",
+            "q": {
+              "raw": "2.3",
+              "status": "값있음",
+              "value": 2.3,
+              "dp": 1
+            }
+          },
+          {
+            "prop_code": "AUTOIGNITION",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "약 365 ~ 460°C",
+              "status": "값있음",
+              "approx": true,
+              "lower_op": ">=",
+              "lower": 365,
+              "upper_op": "<=",
+              "upper": 460,
+              "unit": "C"
+            }
+          },
+          {
+            "prop_code": "AUTOIGNITION",
+            "comp_ref": "1",
+            "q": {
+              "raw": "450°C",
+              "status": "값있음",
+              "value": 450,
+              "unit": "C"
+            }
+          },
+          {
+            "prop_code": "AUTOIGNITION",
+            "comp_ref": "2",
+            "q": {
+              "raw": "약 365 ~ 460°C",
+              "status": "값있음",
+              "approx": true,
+              "lower_op": ">=",
+              "lower": 365,
+              "upper_op": "<=",
+              "upper": 460,
+              "unit": "C"
+            }
+          },
+          {
+            "prop_code": "AUTOIGNITION",
+            "comp_ref": "3",
+            "q": {
+              "raw": "420 ℃",
+              "status": "값있음",
+              "value": 420,
+              "unit": "C"
+            }
+          },
+          {
+            "prop_code": "DECOMPOSITION",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "VISCOSITY",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "MOL_WEIGHT",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "약 58.12",
+              "status": "값있음",
+              "approx": true,
+              "value": 58.12,
+              "dp": 2
+            }
+          },
+          {
+            "prop_code": "MOL_WEIGHT",
+            "comp_ref": "1",
+            "q": {
+              "raw": "44.11",
+              "status": "값있음",
+              "value": 44.11,
+              "dp": 2
+            }
+          },
+          {
+            "prop_code": "MOL_WEIGHT",
+            "comp_ref": "2",
+            "q": {
+              "raw": "58.12",
+              "status": "값있음",
+              "value": 58.12,
+              "dp": 2
+            }
+          },
+          {
+            "prop_code": "MOL_WEIGHT",
+            "comp_ref": "3",
+            "q": {
+              "raw": "72.15",
+              "status": "값있음",
+              "value": 72.15,
+              "dp": 2
+            }
+          }
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[0]",
+        "page": 4,
+        "source_text": "국내규정 | 프로판 | 자료없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": "기준 종류 표시가 없어 limit_type은 null로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[1]",
+        "page": 4,
+        "source_text": "부탄혼합물 | TWA 800ppm  1,900mg/m³",
+        "rules": [
+          "R04",
+          "R06",
+          "R10"
+        ],
+        "note": "ppm 값과 mg/m3 값을 두 행으로 나눔. 국내 기준 구분(노출기준/허용기준)이 적혀 있지 않아 kr_basis는 null로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[2]",
+        "page": 4,
+        "source_text": "부탄혼합물 | TWA 800ppm  1,900mg/m³",
+        "rules": [
+          "R04",
+          "R06",
+          "R08",
+          "R10"
+        ],
+        "note": "1,900mg/m³에서 콤마를 지우고 단위를 mg/m3로 적음"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[3]",
+        "page": 4,
+        "source_text": "국내규정 | 이소펜탄 | 자료없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[4]",
+        "page": 4,
+        "source_text": "ACGIH 규정 | 프로판 | TWA 1,000 ppm  8hours",
+        "rules": [
+          "R04",
+          "R06",
+          "R10"
+        ],
+        "note": "'8hours'는 raw에만 남김"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[5]",
+        "page": 4,
+        "source_text": "부탄혼합물 | TWA 1,000 ppm  8hours",
+        "rules": [
+          "R04",
+          "R06",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[6]",
+        "page": 4,
+        "source_text": "이소펜탄 | TWA 600 ppm  8hours",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[7]",
+        "page": 4,
+        "source_text": "생물학적 노출기준 | 프로판 | 자료없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[8]",
+        "page": 4,
+        "source_text": "생물학적 노출기준 | 부탄혼합물 | 자료없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[9]",
+        "page": 4,
+        "source_text": "생물학적 노출기준 | 이소펜탄 | 자료없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[10]",
+        "page": 4,
+        "source_text": "기타 노출기준 | 프로판 | 자료없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[11]",
+        "page": 4,
+        "source_text": "기타 노출기준 | 부탄혼합물 | 자료없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[12]",
+        "page": 4,
+        "source_text": "기타 노출기준 | 이소펜탄 | 자료없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[0]",
+        "page": 5,
+        "source_text": "성상 | 가스, 액화가스",
+        "rules": [
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[1]",
+        "page": 5,
+        "source_text": "색상 | 무색",
+        "rules": [
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[2]",
+        "page": 5,
+        "source_text": "나. 냄새 | 무취(부취제 주입전) 또는 독특한 냄새(부취제 주입후)",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[3]",
+        "page": 5,
+        "source_text": "다. 냄새역치 | 공기중의 혼합비율이 1,000분의 1인 상태에서 감지할 수 있도록 함(부취제 주입후)",
+        "rules": [
+          "R25"
+        ],
+        "note": "값이 서술형이라 text_value에만 적음"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[4]",
+        "page": 5,
+        "source_text": "라. pH | 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[5]",
+        "page": 5,
+        "source_text": "마. 녹는점/어는점 | 약 -159 ~ -138℃",
+        "rules": [
+          "R04",
+          "R06",
+          "R08"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[6]",
+        "page": 5,
+        "source_text": "프로판 | -189.7℃",
+        "rules": [
+          "R04",
+          "R08",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[7]",
+        "page": 5,
+        "source_text": "부탄 혼합물 | 약 -159 ~ -138℃",
+        "rules": [
+          "R04",
+          "R06",
+          "R08",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[8]",
+        "page": 5,
+        "source_text": "이소펜탄 | -159.9℃",
+        "rules": [
+          "R04",
+          "R08",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[9]",
+        "page": 5,
+        "source_text": "바. 초기 끓는점과 끓는점 범위 | 약 -11.7 ~ -0.2℃",
+        "rules": [
+          "R04",
+          "R06",
+          "R08"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[10]",
+        "page": 5,
+        "source_text": "프로판 | -42℃",
+        "rules": [
+          "R08",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[11]",
+        "page": 5,
+        "source_text": "부탄 혼합물 | 약 -11.7 ~ -0.2℃",
+        "rules": [
+          "R04",
+          "R06",
+          "R08",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[12]",
+        "page": 5,
+        "source_text": "이소펜탄 | 27.8℃",
+        "rules": [
+          "R08",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[13]",
+        "page": 5,
+        "source_text": "사. 인화점 | 약 -83 ~ -60℃",
+        "rules": [
+          "R04",
+          "R06",
+          "R08"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[14]",
+        "page": 5,
+        "source_text": "프로판 | -104℃",
+        "rules": [
+          "R08",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[15]",
+        "page": 5,
+        "source_text": "부탄 혼합물 | 약 -83 ~ -60℃",
+        "rules": [
+          "R04",
+          "R06",
+          "R08",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[16]",
+        "page": 5,
+        "source_text": "이소펜탄 | -51 ℃",
+        "rules": [
+          "R08",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[17]",
+        "page": 5,
+        "source_text": "아. 증발속도 | 자료없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[18]",
+        "page": 5,
+        "source_text": "자. 인화성(고체, 기체) | 인화성 가스",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[19]",
+        "page": 5,
+        "source_text": "차. 인화 또는 폭발 범위의 상한/하한 | 약 8.4vol.% / 1.8vol.%",
+        "rules": [
+          "R04",
+          "R06",
+          "R25"
+        ],
+        "note": "상한/하한을 UEL·LEL 두 행으로 나누고, 앞의 '약'을 두 값 모두에 approx로 붙임"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[20]",
+        "page": 5,
+        "source_text": "차. 인화 또는 폭발 범위의 상한/하한 | 약 8.4vol.% / 1.8vol.%",
+        "rules": [
+          "R04",
+          "R06",
+          "R25"
+        ],
+        "note": "하한 1.8을 LEL로 적음"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[21]",
+        "page": 5,
+        "source_text": "프로판 | 9.5vol.% / 2.1vol.%",
+        "rules": [
+          "R04",
+          "R10",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[22]",
+        "page": 5,
+        "source_text": "프로판 | 9.5vol.% / 2.1vol.%",
+        "rules": [
+          "R04",
+          "R10",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[23]",
+        "page": 5,
+        "source_text": "부탄 혼합물 | 약 8.4vol.% / 1.8vol.%",
+        "rules": [
+          "R04",
+          "R06",
+          "R10",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[24]",
+        "page": 5,
+        "source_text": "부탄 혼합물 | 약 8.4vol.% / 1.8vol.%",
+        "rules": [
+          "R04",
+          "R06",
+          "R10",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[25]",
+        "page": 5,
+        "source_text": "이소펜탄 | 7.6 vol.%/ 1.4 vol.%",
+        "rules": [
+          "R04",
+          "R10",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[26]",
+        "page": 5,
+        "source_text": "이소펜탄 | 7.6 vol.%/ 1.4 vol.%",
+        "rules": [
+          "R04",
+          "R10",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[27]",
+        "page": 5,
+        "source_text": "카. 증기압 | 약 213 ~ 310kPa (at 21.1℃)",
+        "rules": [
+          "R04",
+          "R06",
+          "R08"
+        ],
+        "note": "온도를 cond로 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[28]",
+        "page": 5,
+        "source_text": "프로판 | 853kPa (at 21.1℃)",
+        "rules": [
+          "R04",
+          "R08",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[29]",
+        "page": 5,
+        "source_text": "부탄 혼합물 | 약 213 ~ 310kPa (at 21.1℃)",
+        "rules": [
+          "R04",
+          "R06",
+          "R08",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[30]",
+        "page": 5,
+        "source_text": "이소펜탄 | 79kPa (at 21.1℃)",
+        "rules": [
+          "R04",
+          "R08",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[31]",
+        "page": 5,
+        "source_text": "타. 용해도 | 약 0.0061g/100ml (at 20℃)",
+        "rules": [
+          "R04",
+          "R06",
+          "R08"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[32]",
+        "page": 5,
+        "source_text": "프로판 | 0.0007g/100ml (at 20℃)",
+        "rules": [
+          "R04",
+          "R08",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[33]",
+        "page": 5,
+        "source_text": "부탄 혼합물 | 약 0.0061g/100ml (at 20℃)",
+        "rules": [
+          "R04",
+          "R06",
+          "R08",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[34]",
+        "page": 5,
+        "source_text": "이소펜탄 | 극소량 (at 20℃)",
+        "rules": [
+          "R10"
+        ],
+        "note": "값이 서술형이라 text_value에 적고 온도는 cond로 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[35]",
+        "page": 5,
+        "source_text": "파. 증기밀도 | 약 2.01 ~ 2.17 (공기 = 1)",
+        "rules": [
+          "R04",
+          "R06",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[36]",
+        "page": 5,
+        "source_text": "프로판 | 1.55 (공기 = 1)",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[37]",
+        "page": 5,
+        "source_text": "부탄 혼합물 | 약 2.01 ~ 2.17 (공기 = 1)",
+        "rules": [
+          "R04",
+          "R06",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[38]",
+        "page": 5,
+        "source_text": "이소펜탄 | 2.5 (공기 = 1)",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[39]",
+        "page": 5,
+        "source_text": "하. 비중 | 약 0.6 (물 = 1)",
+        "rules": [
+          "R06",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[40]",
+        "page": 5,
+        "source_text": "프로판 | 0.5 (물 = 1)",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[41]",
+        "page": 5,
+        "source_text": "부탄 혼합물 | 약 0.6 (물 = 1)",
+        "rules": [
+          "R06",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[42]",
+        "page": 5,
+        "source_text": "이소펜탄 | 0.6 (물 = 1)",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[43]",
+        "page": 6,
+        "source_text": "거. n-옥탄올/물분배계수 (Kow) | 약 2.76 ~ 2.89",
+        "rules": [
+          "R04",
+          "R06",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[44]",
+        "page": 6,
+        "source_text": "프로판 | 2.4",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[45]",
+        "page": 6,
+        "source_text": "부탄 혼합물 | 약 2.76 ~ 2.89",
+        "rules": [
+          "R04",
+          "R06",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[46]",
+        "page": 6,
+        "source_text": "이소펜탄 | 2.3",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[47]",
+        "page": 6,
+        "source_text": "너. 자연발화온도 | 약 365 ~ 460°C",
+        "rules": [
+          "R04",
+          "R06",
+          "R08"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[48]",
+        "page": 6,
+        "source_text": "프로판 | 450°C",
+        "rules": [
+          "R08",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[49]",
+        "page": 6,
+        "source_text": "부탄 혼합물 | 약 365 ~ 460°C",
+        "rules": [
+          "R04",
+          "R06",
+          "R08",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[50]",
+        "page": 6,
+        "source_text": "이소펜탄 | 420 ℃",
+        "rules": [
+          "R08",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[51]",
+        "page": 6,
+        "source_text": "더. 분해온도 | 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[52]",
+        "page": 6,
+        "source_text": "러. 점도 | 자료없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[53]",
+        "page": 6,
+        "source_text": "머. 분자량 | 약 58.12",
+        "rules": [
+          "R06"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[54]",
+        "page": 6,
+        "source_text": "프로판 | 44.11",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[55]",
+        "page": 6,
+        "source_text": "부탄 혼합물 | 58.12",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[56]",
+        "page": 6,
+        "source_text": "이소펜탄 | 72.15",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      }
+    ]
+  },
+  "raw_text": "{\"msds\": [{\"exposure_limits\": [{\"comp_ref\": \"1\", \"standard\": \"국내\", \"limit_type\": null, \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"notations\": []}, {\"comp_ref\": \"2\", \"standard\": \"국내\", \"limit_type\": \"TWA\", \"q\": {\"raw\": \"TWA 800ppm\", \"status\": \"값있음\", \"value\": 800, \"unit\": \"ppm\"}, \"notations\": []}, {\"comp_ref\": \"2\", \"standard\": \"국내\", \"limit_type\": \"TWA\", \"q\": {\"raw\": \"1,900mg/m³\", \"status\": \"값있음\", \"value\": 1900, \"unit\": \"mg/m3\"}, \"notations\": []}, {\"comp_ref\": \"3\", \"standard\": \"국내\", \"limit_type\": null, \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"notations\": []}, {\"comp_ref\": \"1\", \"standard\": \"ACGIH\", \"limit_type\": \"TWA\", \"q\": {\"raw\": \"TWA 1,000 ppm 8hours\", \"status\": \"값있음\", \"value\": 1000, \"unit\": \"ppm\"}, \"notations\": []}, {\"comp_ref\": \"2\", \"standard\": \"ACGIH\", \"limit_type\": \"TWA\", \"q\": {\"raw\": \"TWA 1,000 ppm 8hours\", \"status\": \"값있음\", \"value\": 1000, \"unit\": \"ppm\"}, \"notations\": []}, {\"comp_ref\": \"3\", \"standard\": \"ACGIH\", \"limit_type\": \"TWA\", \"q\": {\"raw\": \"TWA 600 ppm 8hours\", \"status\": \"값있음\", \"value\": 600, \"unit\": \"ppm\"}, \"notations\": []}, {\"comp_ref\": \"1\", \"standard\": \"생물학적\", \"limit_type\": \"BEI\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"notations\": []}, {\"comp_ref\": \"2\", \"standard\": \"생물학적\", \"limit_type\": \"BEI\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"notations\": []}, {\"comp_ref\": \"3\", \"standard\": \"생물학적\", \"limit_type\": \"BEI\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"notations\": []}, {\"comp_ref\": \"1\", \"standard\": \"기타\", \"limit_type\": null, \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"notations\": []}, {\"comp_ref\": \"2\", \"standard\": \"기타\", \"limit_type\": null, \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"notations\": []}, {\"comp_ref\": \"3\", \"standard\": \"기타\", \"limit_type\": null, \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"notations\": []}], \"physchem\": [{\"prop_code\": \"APPEARANCE_STATE\", \"comp_ref\": \"MIX\", \"q\": null, \"text_value\": \"가스, 액화가스\"}, {\"prop_code\": \"APPEARANCE_COLOR\", \"comp_ref\": \"MIX\", \"q\": null, \"text_value\": \"무색\"}, {\"prop_code\": \"ODOR\", \"comp_ref\": \"MIX\", \"q\": null, \"text_value\": \"무취(부취제 주입전) 또는 독특한 냄새(부취제 주입후)\"}, {\"prop_code\": \"ODOR_THRESHOLD\", \"comp_ref\": \"MIX\", \"q\": null, \"text_value\": \"공기중의 혼합비율이 1,000분의 1인 상태에서 감지할 수 있도록 함(부취제 주입후)\"}, {\"prop_code\": \"PH\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"MELT_FREEZE\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"약 -159 ~ -138℃\", \"status\": \"값있음\", \"approx\": true, \"lower_op\": \">=\", \"lower\": -159, \"upper_op\": \"<=\", \"upper\": -138, \"unit\": \"C\"}}, {\"prop_code\": \"MELT_FREEZE\", \"comp_ref\": \"1\", \"q\": {\"raw\": \"-189.7℃\", \"status\": \"값있음\", \"value\": -189.7, \"unit\": \"C\", \"dp\": 1}}, {\"prop_code\": \"MELT_FREEZE\", \"comp_ref\": \"2\", \"q\": {\"raw\": \"약 -159 ~ -138℃\", \"status\": \"값있음\", \"approx\": true, \"lower_op\": \">=\", \"lower\": -159, \"upper_op\": \"<=\", \"upper\": -138, \"unit\": \"C\"}}, {\"prop_code\": \"MELT_FREEZE\", \"comp_ref\": \"3\", \"q\": {\"raw\": \"-159.9℃\", \"status\": \"값있음\", \"value\": -159.9, \"unit\": \"C\", \"dp\": 1}}, {\"prop_code\": \"BOILING\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"약 -11.7 ~ -0.2℃\", \"status\": \"값있음\", \"approx\": true, \"lower_op\": \">=\", \"lower\": -11.7, \"upper_op\": \"<=\", \"upper\": -0.2, \"unit\": \"C\", \"dp\": 1}}, {\"prop_code\": \"BOILING\", \"comp_ref\": \"1\", \"q\": {\"raw\": \"-42℃\", \"status\": \"값있음\", \"value\": -42, \"unit\": \"C\"}}, {\"prop_code\": \"BOILING\", \"comp_ref\": \"2\", \"q\": {\"raw\": \"약 -11.7 ~ -0.2℃\", \"status\": \"값있음\", \"approx\": true, \"lower_op\": \">=\", \"lower\": -11.7, \"upper_op\": \"<=\", \"upper\": -0.2, \"unit\": \"C\", \"dp\": 1}}, {\"prop_code\": \"BOILING\", \"comp_ref\": \"3\", \"q\": {\"raw\": \"27.8℃\", \"status\": \"값있음\", \"value\": 27.8, \"unit\": \"C\", \"dp\": 1}}, {\"prop_code\": \"FLASH_POINT\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"약 -83 ~ -60℃\", \"status\": \"값있음\", \"approx\": true, \"lower_op\": \">=\", \"lower\": -83, \"upper_op\": \"<=\", \"upper\": -60, \"unit\": \"C\"}}, {\"prop_code\": \"FLASH_POINT\", \"comp_ref\": \"1\", \"q\": {\"raw\": \"-104℃\", \"status\": \"값있음\", \"value\": -104, \"unit\": \"C\"}}, {\"prop_code\": \"FLASH_POINT\", \"comp_ref\": \"2\", \"q\": {\"raw\": \"약 -83 ~ -60℃\", \"status\": \"값있음\", \"approx\": true, \"lower_op\": \">=\", \"lower\": -83, \"upper_op\": \"<=\", \"upper\": -60, \"unit\": \"C\"}}, {\"prop_code\": \"FLASH_POINT\", \"comp_ref\": \"3\", \"q\": {\"raw\": \"-51 ℃\", \"status\": \"값있음\", \"value\": -51, \"unit\": \"C\"}}, {\"prop_code\": \"EVAP_RATE\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"FLAMMABILITY\", \"comp_ref\": \"MIX\", \"q\": null, \"text_value\": \"인화성 가스\"}, {\"prop_code\": \"UEL\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"약 8.4vol.%\", \"status\": \"값있음\", \"approx\": true, \"value\": 8.4, \"unit\": \"vol.%\", \"dp\": 1}}, {\"prop_code\": \"LEL\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"1.8vol.%\", \"status\": \"값있음\", \"approx\": true, \"value\": 1.8, \"unit\": \"vol.%\", \"dp\": 1}}, {\"prop_code\": \"UEL\", \"comp_ref\": \"1\", \"q\": {\"raw\": \"9.5vol.%\", \"status\": \"값있음\", \"value\": 9.5, \"unit\": \"vol.%\", \"dp\": 1}}, {\"prop_code\": \"LEL\", \"comp_ref\": \"1\", \"q\": {\"raw\": \"2.1vol.%\", \"status\": \"값있음\", \"value\": 2.1, \"unit\": \"vol.%\", \"dp\": 1}}, {\"prop_code\": \"UEL\", \"comp_ref\": \"2\", \"q\": {\"raw\": \"약 8.4vol.%\", \"status\": \"값있음\", \"approx\": true, \"value\": 8.4, \"unit\": \"vol.%\", \"dp\": 1}}, {\"prop_code\": \"LEL\", \"comp_ref\": \"2\", \"q\": {\"raw\": \"1.8vol.%\", \"status\": \"값있음\", \"approx\": true, \"value\": 1.8, \"unit\": \"vol.%\", \"dp\": 1}}, {\"prop_code\": \"UEL\", \"comp_ref\": \"3\", \"q\": {\"raw\": \"7.6 vol.%\", \"status\": \"값있음\", \"value\": 7.6, \"unit\": \"vol.%\", \"dp\": 1}}, {\"prop_code\": \"LEL\", \"comp_ref\": \"3\", \"q\": {\"raw\": \"1.4 vol.%\", \"status\": \"값있음\", \"value\": 1.4, \"unit\": \"vol.%\", \"dp\": 1}}, {\"prop_code\": \"VAPOR_PRESSURE\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"약 213 ~ 310kPa (at 21.1℃)\", \"status\": \"값있음\", \"approx\": true, \"lower_op\": \">=\", \"lower\": 213, \"upper_op\": \"<=\", \"upper\": 310, \"unit\": \"kPa\"}, \"cond\": {\"temp\": 21.1, \"temp_unit\": \"C\"}}, {\"prop_code\": \"VAPOR_PRESSURE\", \"comp_ref\": \"1\", \"q\": {\"raw\": \"853kPa (at 21.1℃)\", \"status\": \"값있음\", \"value\": 853, \"unit\": \"kPa\"}, \"cond\": {\"temp\": 21.1, \"temp_unit\": \"C\"}}, {\"prop_code\": \"VAPOR_PRESSURE\", \"comp_ref\": \"2\", \"q\": {\"raw\": \"약 213 ~ 310kPa (at 21.1℃)\", \"status\": \"값있음\", \"approx\": true, \"lower_op\": \">=\", \"lower\": 213, \"upper_op\": \"<=\", \"upper\": 310, \"unit\": \"kPa\"}, \"cond\": {\"temp\": 21.1, \"temp_unit\": \"C\"}}, {\"prop_code\": \"VAPOR_PRESSURE\", \"comp_ref\": \"3\", \"q\": {\"raw\": \"79kPa (at 21.1℃)\", \"status\": \"값있음\", \"value\": 79, \"unit\": \"kPa\"}, \"cond\": {\"temp\": 21.1, \"temp_unit\": \"C\"}}, {\"prop_code\": \"SOLUBILITY\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"약 0.0061g/100ml (at 20℃)\", \"status\": \"값있음\", \"approx\": true, \"value\": 0.0061, \"unit\": \"g/100ml\", \"dp\": 4}, \"cond\": {\"temp\": 20, \"temp_unit\": \"C\"}}, {\"prop_code\": \"SOLUBILITY\", \"comp_ref\": \"1\", \"q\": {\"raw\": \"0.0007g/100ml (at 20℃)\", \"status\": \"값있음\", \"value\": 0.0007, \"unit\": \"g/100ml\", \"dp\": 4}, \"cond\": {\"temp\": 20, \"temp_unit\": \"C\"}}, {\"prop_code\": \"SOLUBILITY\", \"comp_ref\": \"2\", \"q\": {\"raw\": \"약 0.0061g/100ml (at 20℃)\", \"status\": \"값있음\", \"approx\": true, \"value\": 0.0061, \"unit\": \"g/100ml\", \"dp\": 4}, \"cond\": {\"temp\": 20, \"temp_unit\": \"C\"}}, {\"prop_code\": \"SOLUBILITY\", \"comp_ref\": \"3\", \"q\": null, \"text_value\": \"극소량\", \"cond\": {\"temp\": 20, \"temp_unit\": \"C\"}}, {\"prop_code\": \"VAPOR_DENSITY\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"약 2.01 ~ 2.17 (공기 = 1)\", \"status\": \"값있음\", \"approx\": true, \"lower_op\": \">=\", \"lower\": 2.01, \"upper_op\": \"<=\", \"upper\": 2.17, \"dp\": 2}, \"cond\": {\"reference\": \"공기 = 1\"}}, {\"prop_code\": \"VAPOR_DENSITY\", \"comp_ref\": \"1\", \"q\": {\"raw\": \"1.55 (공기 = 1)\", \"status\": \"값있음\", \"value\": 1.55, \"dp\": 2}, \"cond\": {\"reference\": \"공기 = 1\"}}, {\"prop_code\": \"VAPOR_DENSITY\", \"comp_ref\": \"2\", \"q\": {\"raw\": \"약 2.01 ~ 2.17 (공기 = 1)\", \"status\": \"값있음\", \"approx\": true, \"lower_op\": \">=\", \"lower\": 2.01, \"upper_op\": \"<=\", \"upper\": 2.17, \"dp\": 2}, \"cond\": {\"reference\": \"공기 = 1\"}}, {\"prop_code\": \"VAPOR_DENSITY\", \"comp_ref\": \"3\", \"q\": {\"raw\": \"2.5 (공기 = 1)\", \"status\": \"값있음\", \"value\": 2.5, \"dp\": 1}, \"cond\": {\"reference\": \"공기 = 1\"}}, {\"prop_code\": \"RELATIVE_DENSITY\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"약 0.6 (물 = 1)\", \"status\": \"값있음\", \"approx\": true, \"value\": 0.6, \"dp\": 1}, \"cond\": {\"reference\": \"물 = 1\"}}, {\"prop_code\": \"RELATIVE_DENSITY\", \"comp_ref\": \"1\", \"q\": {\"raw\": \"0.5 (물 = 1)\", \"status\": \"값있음\", \"value\": 0.5, \"dp\": 1}, \"cond\": {\"reference\": \"물 = 1\"}}, {\"prop_code\": \"RELATIVE_DENSITY\", \"comp_ref\": \"2\", \"q\": {\"raw\": \"약 0.6 (물 = 1)\", \"status\": \"값있음\", \"approx\": true, \"value\": 0.6, \"dp\": 1}, \"cond\": {\"reference\": \"물 = 1\"}}, {\"prop_code\": \"RELATIVE_DENSITY\", \"comp_ref\": \"3\", \"q\": {\"raw\": \"0.6 (물 = 1)\", \"status\": \"값있음\", \"value\": 0.6, \"dp\": 1}, \"cond\": {\"reference\": \"물 = 1\"}}, {\"prop_code\": \"LOG_KOW\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"약 2.76 ~ 2.89\", \"status\": \"값있음\", \"approx\": true, \"lower_op\": \">=\", \"lower\": 2.76, \"upper_op\": \"<=\", \"upper\": 2.89, \"dp\": 2}}, {\"prop_code\": \"LOG_KOW\", \"comp_ref\": \"1\", \"q\": {\"raw\": \"2.4\", \"status\": \"값있음\", \"value\": 2.4, \"dp\": 1}}, {\"prop_code\": \"LOG_KOW\", \"comp_ref\": \"2\", \"q\": {\"raw\": \"약 2.76 ~ 2.89\", \"status\": \"값있음\", \"approx\": true, \"lower_op\": \">=\", \"lower\": 2.76, \"upper_op\": \"<=\", \"upper\": 2.89, \"dp\": 2}}, {\"prop_code\": \"LOG_KOW\", \"comp_ref\": \"3\", \"q\": {\"raw\": \"2.3\", \"status\": \"값있음\", \"value\": 2.3, \"dp\": 1}}, {\"prop_code\": \"AUTOIGNITION\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"약 365 ~ 460°C\", \"status\": \"값있음\", \"approx\": true, \"lower_op\": \">=\", \"lower\": 365, \"upper_op\": \"<=\", \"upper\": 460, \"unit\": \"C\"}}, {\"prop_code\": \"AUTOIGNITION\", \"comp_ref\": \"1\", \"q\": {\"raw\": \"450°C\", \"status\": \"값있음\", \"value\": 450, \"unit\": \"C\"}}, {\"prop_code\": \"AUTOIGNITION\", \"comp_ref\": \"2\", \"q\": {\"raw\": \"약 365 ~ 460°C\", \"status\": \"값있음\", \"approx\": true, \"lower_op\": \">=\", \"lower\": 365, \"upper_op\": \"<=\", \"upper\": 460, \"unit\": \"C\"}}, {\"prop_code\": \"AUTOIGNITION\", \"comp_ref\": \"3\", \"q\": {\"raw\": \"420 ℃\", \"status\": \"값있음\", \"value\": 420, \"unit\": \"C\"}}, {\"prop_code\": \"DECOMPOSITION\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"VISCOSITY\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"MOL_WEIGHT\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"약 58.12\", \"status\": \"값있음\", \"approx\": true, \"value\": 58.12, \"dp\": 2}}, {\"prop_code\": \"MOL_WEIGHT\", \"comp_ref\": \"1\", \"q\": {\"raw\": \"44.11\", \"status\": \"값있음\", \"value\": 44.11, \"dp\": 2}}, {\"prop_code\": \"MOL_WEIGHT\", \"comp_ref\": \"2\", \"q\": {\"raw\": \"58.12\", \"status\": \"값있음\", \"value\": 58.12, \"dp\": 2}}, {\"prop_code\": \"MOL_WEIGHT\", \"comp_ref\": \"3\", \"q\": {\"raw\": \"72.15\", \"status\": \"값있음\", \"value\": 72.15, \"dp\": 2}}]}], \"evidence\": [{\"msds_index\": 0, \"field\": \"exposure_limits[0]\", \"page\": 4, \"source_text\": \"국내규정 | 프로판 | 자료없음\", \"rules\": [\"R10\", \"R15\"], \"note\": \"기준 종류 표시가 없어 limit_type은 null로 둠\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[1]\", \"page\": 4, \"source_text\": \"부탄혼합물 | TWA 800ppm  1,900mg/m³\", \"rules\": [\"R04\", \"R06\", \"R10\"], \"note\": \"ppm 값과 mg/m3 값을 두 행으로 나눔. 국내 기준 구분(노출기준/허용기준)이 적혀 있지 않아 kr_basis는 null로 둠\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[2]\", \"page\": 4, \"source_text\": \"부탄혼합물 | TWA 800ppm  1,900mg/m³\", \"rules\": [\"R04\", \"R06\", \"R08\", \"R10\"], \"note\": \"1,900mg/m³에서 콤마를 지우고 단위를 mg/m3로 적음\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[3]\", \"page\": 4, \"source_text\": \"국내규정 | 이소펜탄 | 자료없음\", \"rules\": [\"R10\", \"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"exposure_limits[4]\", \"page\": 4, \"source_text\": \"ACGIH 규정 | 프로판 | TWA 1,000 ppm  8hours\", \"rules\": [\"R04\", \"R06\", \"R10\"], \"note\": \"'8hours'는 raw에만 남김\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[5]\", \"page\": 4, \"source_text\": \"부탄혼합물 | TWA 1,000 ppm  8hours\", \"rules\": [\"R04\", \"R06\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"exposure_limits[6]\", \"page\": 4, \"source_text\": \"이소펜탄 | TWA 600 ppm  8hours\", \"rules\": [\"R04\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"exposure_limits[7]\", \"page\": 4, \"source_text\": \"생물학적 노출기준 | 프로판 | 자료없음\", \"rules\": [\"R10\", \"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"exposure_limits[8]\", \"page\": 4, \"source_text\": \"생물학적 노출기준 | 부탄혼합물 | 자료없음\", \"rules\": [\"R10\", \"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"exposure_limits[9]\", \"page\": 4, \"source_text\": \"생물학적 노출기준 | 이소펜탄 | 자료없음\", \"rules\": [\"R10\", \"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"exposure_limits[10]\", \"page\": 4, \"source_text\": \"기타 노출기준 | 프로판 | 자료없음\", \"rules\": [\"R10\", \"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"exposure_limits[11]\", \"page\": 4, \"source_text\": \"기타 노출기준 | 부탄혼합물 | 자료없음\", \"rules\": [\"R10\", \"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"exposure_limits[12]\", \"page\": 4, \"source_text\": \"기타 노출기준 | 이소펜탄 | 자료없음\", \"rules\": [\"R10\", \"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[0]\", \"page\": 5, \"source_text\": \"성상 | 가스, 액화가스\", \"rules\": [\"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[1]\", \"page\": 5, \"source_text\": \"색상 | 무색\", \"rules\": [\"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[2]\", \"page\": 5, \"source_text\": \"나. 냄새 | 무취(부취제 주입전) 또는 독특한 냄새(부취제 주입후)\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[3]\", \"page\": 5, \"source_text\": \"다. 냄새역치 | 공기중의 혼합비율이 1,000분의 1인 상태에서 감지할 수 있도록 함(부취제 주입후)\", \"rules\": [\"R25\"], \"note\": \"값이 서술형이라 text_value에만 적음\"}, {\"msds_index\": 0, \"field\": \"physchem[4]\", \"page\": 5, \"source_text\": \"라. pH | 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[5]\", \"page\": 5, \"source_text\": \"마. 녹는점/어는점 | 약 -159 ~ -138℃\", \"rules\": [\"R04\", \"R06\", \"R08\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[6]\", \"page\": 5, \"source_text\": \"프로판 | -189.7℃\", \"rules\": [\"R04\", \"R08\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[7]\", \"page\": 5, \"source_text\": \"부탄 혼합물 | 약 -159 ~ -138℃\", \"rules\": [\"R04\", \"R06\", \"R08\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[8]\", \"page\": 5, \"source_text\": \"이소펜탄 | -159.9℃\", \"rules\": [\"R04\", \"R08\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[9]\", \"page\": 5, \"source_text\": \"바. 초기 끓는점과 끓는점 범위 | 약 -11.7 ~ -0.2℃\", \"rules\": [\"R04\", \"R06\", \"R08\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[10]\", \"page\": 5, \"source_text\": \"프로판 | -42℃\", \"rules\": [\"R08\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[11]\", \"page\": 5, \"source_text\": \"부탄 혼합물 | 약 -11.7 ~ -0.2℃\", \"rules\": [\"R04\", \"R06\", \"R08\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[12]\", \"page\": 5, \"source_text\": \"이소펜탄 | 27.8℃\", \"rules\": [\"R08\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[13]\", \"page\": 5, \"source_text\": \"사. 인화점 | 약 -83 ~ -60℃\", \"rules\": [\"R04\", \"R06\", \"R08\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[14]\", \"page\": 5, \"source_text\": \"프로판 | -104℃\", \"rules\": [\"R08\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[15]\", \"page\": 5, \"source_text\": \"부탄 혼합물 | 약 -83 ~ -60℃\", \"rules\": [\"R04\", \"R06\", \"R08\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[16]\", \"page\": 5, \"source_text\": \"이소펜탄 | -51 ℃\", \"rules\": [\"R08\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[17]\", \"page\": 5, \"source_text\": \"아. 증발속도 | 자료없음\", \"rules\": [\"R15\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[18]\", \"page\": 5, \"source_text\": \"자. 인화성(고체, 기체) | 인화성 가스\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[19]\", \"page\": 5, \"source_text\": \"차. 인화 또는 폭발 범위의 상한/하한 | 약 8.4vol.% / 1.8vol.%\", \"rules\": [\"R04\", \"R06\", \"R25\"], \"note\": \"상한/하한을 UEL·LEL 두 행으로 나누고, 앞의 '약'을 두 값 모두에 approx로 붙임\"}, {\"msds_index\": 0, \"field\": \"physchem[20]\", \"page\": 5, \"source_text\": \"차. 인화 또는 폭발 범위의 상한/하한 | 약 8.4vol.% / 1.8vol.%\", \"rules\": [\"R04\", \"R06\", \"R25\"], \"note\": \"하한 1.8을 LEL로 적음\"}, {\"msds_index\": 0, \"field\": \"physchem[21]\", \"page\": 5, \"source_text\": \"프로판 | 9.5vol.% / 2.1vol.%\", \"rules\": [\"R04\", \"R10\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[22]\", \"page\": 5, \"source_text\": \"프로판 | 9.5vol.% / 2.1vol.%\", \"rules\": [\"R04\", \"R10\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[23]\", \"page\": 5, \"source_text\": \"부탄 혼합물 | 약 8.4vol.% / 1.8vol.%\", \"rules\": [\"R04\", \"R06\", \"R10\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[24]\", \"page\": 5, \"source_text\": \"부탄 혼합물 | 약 8.4vol.% / 1.8vol.%\", \"rules\": [\"R04\", \"R06\", \"R10\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[25]\", \"page\": 5, \"source_text\": \"이소펜탄 | 7.6 vol.%/ 1.4 vol.%\", \"rules\": [\"R04\", \"R10\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[26]\", \"page\": 5, \"source_text\": \"이소펜탄 | 7.6 vol.%/ 1.4 vol.%\", \"rules\": [\"R04\", \"R10\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[27]\", \"page\": 5, \"source_text\": \"카. 증기압 | 약 213 ~ 310kPa (at 21.1℃)\", \"rules\": [\"R04\", \"R06\", \"R08\"], \"note\": \"온도를 cond로 분리\"}, {\"msds_index\": 0, \"field\": \"physchem[28]\", \"page\": 5, \"source_text\": \"프로판 | 853kPa (at 21.1℃)\", \"rules\": [\"R04\", \"R08\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[29]\", \"page\": 5, \"source_text\": \"부탄 혼합물 | 약 213 ~ 310kPa (at 21.1℃)\", \"rules\": [\"R04\", \"R06\", \"R08\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[30]\", \"page\": 5, \"source_text\": \"이소펜탄 | 79kPa (at 21.1℃)\", \"rules\": [\"R04\", \"R08\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[31]\", \"page\": 5, \"source_text\": \"타. 용해도 | 약 0.0061g/100ml (at 20℃)\", \"rules\": [\"R04\", \"R06\", \"R08\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[32]\", \"page\": 5, \"source_text\": \"프로판 | 0.0007g/100ml (at 20℃)\", \"rules\": [\"R04\", \"R08\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[33]\", \"page\": 5, \"source_text\": \"부탄 혼합물 | 약 0.0061g/100ml (at 20℃)\", \"rules\": [\"R04\", \"R06\", \"R08\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[34]\", \"page\": 5, \"source_text\": \"이소펜탄 | 극소량 (at 20℃)\", \"rules\": [\"R10\"], \"note\": \"값이 서술형이라 text_value에 적고 온도는 cond로 분리\"}, {\"msds_index\": 0, \"field\": \"physchem[35]\", \"page\": 5, \"source_text\": \"파. 증기밀도 | 약 2.01 ~ 2.17 (공기 = 1)\", \"rules\": [\"R04\", \"R06\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[36]\", \"page\": 5, \"source_text\": \"프로판 | 1.55 (공기 = 1)\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[37]\", \"page\": 5, \"source_text\": \"부탄 혼합물 | 약 2.01 ~ 2.17 (공기 = 1)\", \"rules\": [\"R04\", \"R06\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[38]\", \"page\": 5, \"source_text\": \"이소펜탄 | 2.5 (공기 = 1)\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[39]\", \"page\": 5, \"source_text\": \"하. 비중 | 약 0.6 (물 = 1)\", \"rules\": [\"R06\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[40]\", \"page\": 5, \"source_text\": \"프로판 | 0.5 (물 = 1)\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[41]\", \"page\": 5, \"source_text\": \"부탄 혼합물 | 약 0.6 (물 = 1)\", \"rules\": [\"R06\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[42]\", \"page\": 5, \"source_text\": \"이소펜탄 | 0.6 (물 = 1)\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[43]\", \"page\": 6, \"source_text\": \"거. n-옥탄올/물분배계수 (Kow) | 약 2.76 ~ 2.89\", \"rules\": [\"R04\", \"R06\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[44]\", \"page\": 6, \"source_text\": \"프로판 | 2.4\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[45]\", \"page\": 6, \"source_text\": \"부탄 혼합물 | 약 2.76 ~ 2.89\", \"rules\": [\"R04\", \"R06\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[46]\", \"page\": 6, \"source_text\": \"이소펜탄 | 2.3\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[47]\", \"page\": 6, \"source_text\": \"너. 자연발화온도 | 약 365 ~ 460°C\", \"rules\": [\"R04\", \"R06\", \"R08\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[48]\", \"page\": 6, \"source_text\": \"프로판 | 450°C\", \"rules\": [\"R08\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[49]\", \"page\": 6, \"source_text\": \"부탄 혼합물 | 약 365 ~ 460°C\", \"rules\": [\"R04\", \"R06\", \"R08\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[50]\", \"page\": 6, \"source_text\": \"이소펜탄 | 420 ℃\", \"rules\": [\"R08\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[51]\", \"page\": 6, \"source_text\": \"더. 분해온도 | 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[52]\", \"page\": 6, \"source_text\": \"러. 점도 | 자료없음\", \"rules\": [\"R15\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[53]\", \"page\": 6, \"source_text\": \"머. 분자량 | 약 58.12\", \"rules\": [\"R06\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[54]\", \"page\": 6, \"source_text\": \"프로판 | 44.11\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[55]\", \"page\": 6, \"source_text\": \"부탄 혼합물 | 58.12\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[56]\", \"page\": 6, \"source_text\": \"이소펜탄 | 72.15\", \"rules\": [\"R10\"], \"note\": null}]}"
+}

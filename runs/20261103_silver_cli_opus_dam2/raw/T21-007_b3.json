@@ -1,0 +1,1154 @@
+{
+  "doc_id": "T21-007",
+  "bundle": "b3",
+  "model": "claude-opus-5-5",
+  "mode": "claude -p json-schema",
+  "finish_reason": "tool_use",
+  "usage": {
+    "prompt_tokens": 73400,
+    "completion_tokens": 10800,
+    "cached_tokens": 8451,
+    "reasoning_tokens": 1412,
+    "notional_cost_usd": 0.7372742000000001
+  },
+  "seconds": 78.3,
+  "request_usage": [
+    {
+      "prompt_tokens": 73400,
+      "completion_tokens": 10800,
+      "cached_tokens": 8451,
+      "reasoning_tokens": 1412,
+      "notional_cost_usd": 0.7372742000000001
+    }
+  ],
+  "attempts": 1,
+  "errors": [],
+  "parsed": {
+    "msds": [
+      {
+        "toxicity": [
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_INHAL",
+            "descriptor": "결과기술",
+            "status": "자료없음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "흡입",
+                "value": "물질 또는 혼합물에 대한 구체적인 자료가 이용가능하지 않음.",
+                "text": "흡입 물질 또는 혼합물에 대한 구체적인 자료가 이용가능하지 않음."
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_ORAL",
+            "descriptor": "결과기술",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "섭취",
+                "value": "물질 또는 혼합물에 대한 구체적인 자료가 이용가능하지 않음. 섭취는 위장 자극, 구역, 구토 및 설사를 유발할 수 있음.",
+                "text": "섭취 물질 또는 혼합물에 대한 구체적인 자료가 이용가능하지 않음. 섭취는 위장 자극, 구역, 구토 및 설사를 유발할 수 있음."
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_EYE",
+            "descriptor": "결과기술",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "눈 접촉",
+                "value": "물질 또는 혼합물에 대한 구체적인 자료가 이용가능하지 않음. 실명을 포함한 영구적 손상을 초래할 수 있음. 눈에 심한 손상을 일으킴.",
+                "text": "눈 접촉 물질 또는 혼합물에 대한 구체적인 자료가 이용가능하지 않음. 실명을 포함한 영구적 손상을 초래할 수 있음. 눈에 심한 손상을 일으킴."
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_SKIN",
+            "descriptor": "결과기술",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "피부 접촉",
+                "value": "물질 또는 혼합물에 대한 구체적인 자료가 이용가능하지 않음. 피부에 자극을 일으킴. (성분에 기초함).",
+                "text": "피부 접촉 물질 또는 혼합물에 대한 구체적인 자료가 이용가능하지 않음. 피부에 자극을 일으킴. (성분에 기초함)."
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": null,
+            "descriptor": "결과기술",
+            "status": "자료없음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "급성 독성",
+                "value": "자료 없음.",
+                "text": "급성 독성 자료 없음."
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_ORAL",
+            "descriptor": "ATE",
+            "status": "값있음",
+            "q": {
+              "raw": "99,999.00 mg/kg",
+              "value": 99999,
+              "dp": 2,
+              "unit": "mg/kg",
+              "status": "값있음"
+            }
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_DERMAL",
+            "descriptor": "ATE",
+            "status": "값있음",
+            "q": {
+              "raw": "99,999.00 mg/kg",
+              "value": 99999,
+              "dp": 2,
+              "unit": "mg/kg",
+              "status": "값있음"
+            }
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_INHAL",
+            "descriptor": "ATE",
+            "physical_form": "가스",
+            "duration_value": 4,
+            "duration_unit": "hr",
+            "status": "값있음",
+            "q": {
+              "raw": "99,999.00 ppm - 4시간",
+              "value": 99999,
+              "dp": 2,
+              "unit": "ppm",
+              "status": "값있음"
+            }
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_INHAL",
+            "descriptor": "ATE",
+            "physical_form": "증기",
+            "duration_value": 4,
+            "duration_unit": "hr",
+            "status": "값있음",
+            "q": {
+              "raw": "58.90 mg/L - 4시간",
+              "value": 58.9,
+              "dp": 2,
+              "unit": "mg/L",
+              "status": "값있음"
+            }
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_INHAL",
+            "descriptor": "ATE",
+            "physical_form": "분진·미스트",
+            "duration_value": 4,
+            "duration_unit": "hr",
+            "status": "값있음",
+            "q": {
+              "raw": "99,999.00 mg/L - 4시간",
+              "value": 99999,
+              "dp": 2,
+              "unit": "mg/L",
+              "status": "값있음"
+            }
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_ORAL",
+            "descriptor": "LD50",
+            "species": "Rat",
+            "status": "값있음",
+            "q": {
+              "raw": "> 90 mL/kg ( Rat )",
+              "lower_op": ">",
+              "lower": 90,
+              "unit": "mL/kg",
+              "status": "값있음"
+            }
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_DERMAL",
+            "descriptor": "LD50",
+            "status": "미기재",
+            "q": {
+              "raw": "-",
+              "status": "미기재"
+            }
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_INHAL",
+            "descriptor": "LC50",
+            "status": "미기재",
+            "q": {
+              "raw": "-",
+              "status": "미기재"
+            }
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "TX_ORAL",
+            "descriptor": "LD50",
+            "status": "미기재",
+            "q": {
+              "raw": "-",
+              "status": "미기재"
+            }
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "TX_DERMAL",
+            "descriptor": "LD50",
+            "status": "미기재",
+            "q": {
+              "raw": "-",
+              "status": "미기재"
+            }
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "TX_INHAL",
+            "descriptor": "LC50",
+            "species": "Rat",
+            "duration_value": 1,
+            "duration_unit": "hr",
+            "status": "값있음",
+            "q": {
+              "raw": "= 2500 ppm ( Rat ) 1 h",
+              "value": 2500,
+              "unit": "ppm",
+              "status": "값있음"
+            }
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "TX_INHAL",
+            "descriptor": "ATE",
+            "physical_form": "증기",
+            "status": "값있음",
+            "q": {
+              "raw": "ATE (vapours) = 2.65 mg/L",
+              "value": 2.65,
+              "dp": 2,
+              "unit": "mg/L",
+              "status": "값있음"
+            }
+          },
+          {
+            "comp_ref": "3",
+            "endpoint": "TX_ORAL",
+            "descriptor": "LD50",
+            "status": "미기재",
+            "q": {
+              "raw": "-",
+              "status": "미기재"
+            }
+          },
+          {
+            "comp_ref": "3",
+            "endpoint": "TX_DERMAL",
+            "descriptor": "LD50",
+            "status": "미기재",
+            "q": {
+              "raw": "-",
+              "status": "미기재"
+            }
+          },
+          {
+            "comp_ref": "3",
+            "endpoint": "TX_INHAL",
+            "descriptor": "LC50",
+            "species": "Rat",
+            "duration_value": 4,
+            "duration_unit": "hr",
+            "status": "값있음",
+            "q": {
+              "raw": "> 5.11 mg/L ( Rat ) 4 h",
+              "lower_op": ">",
+              "lower": 5.11,
+              "dp": 2,
+              "unit": "mg/L",
+              "status": "값있음"
+            }
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_SKIN",
+            "descriptor": "결과기술",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "성분에 대해 이용가능한 자료에 근거한 분류. 피부에 자극을 일으킴.",
+                "text": "피부 부식성 / 자극성 성분에 대해 이용가능한 자료에 근거한 분류. 피부에 자극을 일으킴."
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_EYE",
+            "descriptor": "결과기술",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "성분에 대해 이용가능한 자료에 근거한 분류. 화상을 일으킴. 눈에 심한 손상을 일으킴.",
+                "text": "심한 눈 손상성 / 자극성 성분에 대해 이용가능한 자료에 근거한 분류. 화상을 일으킴. 눈에 심한 손상을 일으킴."
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_RESP_SENS",
+            "descriptor": "결과기술",
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_SKIN_SENS",
+            "descriptor": "결과기술",
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_CARC",
+            "descriptor": "결과기술",
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_MUTA",
+            "descriptor": "결과기술",
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_REPRO",
+            "descriptor": "결과기술",
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_STOT_SE",
+            "descriptor": "결과기술",
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_STOT_RE",
+            "descriptor": "결과기술",
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": null,
+            "descriptor": "결과기술",
+            "status": "자료없음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "표적 장기 영향",
+                "value": "자료 없음.",
+                "text": "표적 장기 영향 자료 없음."
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_ASP",
+            "descriptor": "결과기술",
+            "status": "자료없음"
+          }
+        ],
+        "cmr": [
+          {
+            "comp_ref": "1",
+            "hazard": "발암성",
+            "agency": "IARC",
+            "class": null,
+            "status": "미기재"
+          },
+          {
+            "comp_ref": "2",
+            "hazard": "발암성",
+            "agency": "IARC",
+            "class": null,
+            "status": "미기재"
+          },
+          {
+            "comp_ref": "3",
+            "hazard": "발암성",
+            "agency": "IARC",
+            "class": null,
+            "status": "미기재"
+          }
+        ],
+        "ecotox": [
+          {
+            "comp_ref": "MIX",
+            "endpoint": null,
+            "descriptor": "결과기술",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "장기적인 영향에 의해 수생생물에게 유독함.",
+                "text": "장기적인 영향에 의해 수생생물에게 유독함."
+              }
+            ]
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_FISH",
+            "status": "미기재",
+            "q": {
+              "raw": "-",
+              "status": "미기재"
+            }
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_CRUST",
+            "status": "미기재",
+            "q": {
+              "raw": "-",
+              "status": "미기재"
+            }
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_ALGAE",
+            "status": "미기재",
+            "q": {
+              "raw": "-",
+              "status": "미기재"
+            }
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_OTHER",
+            "species": "미생물",
+            "status": "미기재",
+            "q": {
+              "raw": "-",
+              "status": "미기재"
+            }
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "ECO_FISH",
+            "status": "미기재",
+            "q": {
+              "raw": "-",
+              "status": "미기재"
+            }
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "ECO_CRUST",
+            "status": "미기재",
+            "q": {
+              "raw": "-",
+              "status": "미기재"
+            }
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "ECO_ALGAE",
+            "status": "미기재",
+            "q": {
+              "raw": "-",
+              "status": "미기재"
+            }
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "ECO_OTHER",
+            "species": "미생물",
+            "status": "미기재",
+            "q": {
+              "raw": "-",
+              "status": "미기재"
+            }
+          },
+          {
+            "comp_ref": "3",
+            "endpoint": "ECO_FISH",
+            "descriptor": "LC50",
+            "species": "Pimephales promelas",
+            "duration_value": 96,
+            "duration_unit": "hr",
+            "status": "값있음",
+            "q": {
+              "raw": "LC50: 0.0068 - 0.0156mg/L (96h, Pimephales promelas)",
+              "lower_op": ">=",
+              "lower": 0.0068,
+              "upper_op": "<=",
+              "upper": 0.0156,
+              "dp": 4,
+              "unit": "mg/L",
+              "status": "값있음"
+            }
+          },
+          {
+            "comp_ref": "3",
+            "endpoint": "ECO_FISH",
+            "descriptor": "LC50",
+            "species": "Pimephales promelas",
+            "duration_value": 96,
+            "duration_unit": "hr",
+            "status": "값있음",
+            "q": {
+              "raw": "LC50: <0.3mg/L (96h, Pimephales promelas)",
+              "upper_op": "<",
+              "upper": 0.3,
+              "dp": 1,
+              "unit": "mg/L",
+              "status": "값있음"
+            }
+          },
+          {
+            "comp_ref": "3",
+            "endpoint": "ECO_FISH",
+            "descriptor": "LC50",
+            "species": "Pimephales promelas",
+            "duration_value": 96,
+            "duration_unit": "hr",
+            "status": "값있음",
+            "q": {
+              "raw": "LC50: =0.2mg/L (96h, Pimephales promelas)",
+              "value": 0.2,
+              "dp": 1,
+              "unit": "mg/L",
+              "status": "값있음"
+            }
+          },
+          {
+            "comp_ref": "3",
+            "endpoint": "ECO_FISH",
+            "descriptor": "LC50",
+            "species": "Oncorhynchus mykiss",
+            "duration_value": 96,
+            "duration_unit": "hr",
+            "status": "값있음",
+            "q": {
+              "raw": "LC50: =0.052mg/L (96h, Oncorhynchus mykiss)",
+              "value": 0.052,
+              "dp": 3,
+              "unit": "mg/L",
+              "status": "값있음"
+            }
+          },
+          {
+            "comp_ref": "3",
+            "endpoint": "ECO_FISH",
+            "descriptor": "LC50",
+            "species": "Lepomis macrochirus",
+            "duration_value": 96,
+            "duration_unit": "hr",
+            "status": "값있음",
+            "q": {
+              "raw": "LC50: =1.25mg/L (96h, Lepomis macrochirus)",
+              "value": 1.25,
+              "dp": 2,
+              "unit": "mg/L",
+              "status": "값있음"
+            }
+          },
+          {
+            "comp_ref": "3",
+            "endpoint": "ECO_FISH",
+            "descriptor": "LC50",
+            "species": "Cyprinus carpio",
+            "duration_value": 96,
+            "duration_unit": "hr",
+            "status": "값있음",
+            "q": {
+              "raw": "LC50: =0.3mg/L (96h, Cyprinus carpio)",
+              "value": 0.3,
+              "dp": 1,
+              "unit": "mg/L",
+              "status": "값있음"
+            }
+          },
+          {
+            "comp_ref": "3",
+            "endpoint": "ECO_FISH",
+            "descriptor": "LC50",
+            "species": "Cyprinus carpio",
+            "duration_value": 96,
+            "duration_unit": "hr",
+            "status": "값있음",
+            "q": {
+              "raw": "LC50: =0.8mg/L (96h, Cyprinus carpio)",
+              "value": 0.8,
+              "dp": 1,
+              "unit": "mg/L",
+              "status": "값있음"
+            }
+          },
+          {
+            "comp_ref": "3",
+            "endpoint": "ECO_FISH",
+            "descriptor": "LC50",
+            "species": "Poecilia reticulata",
+            "duration_value": 96,
+            "duration_unit": "hr",
+            "status": "값있음",
+            "q": {
+              "raw": "LC50: =0.112mg/L (96h, Poecilia reticulata)",
+              "value": 0.112,
+              "dp": 3,
+              "unit": "mg/L",
+              "status": "값있음"
+            }
+          },
+          {
+            "comp_ref": "3",
+            "endpoint": "ECO_CRUST",
+            "descriptor": "EC50",
+            "species": "Daphnia magna",
+            "duration_value": 48,
+            "duration_unit": "hr",
+            "status": "값있음",
+            "q": {
+              "raw": "EC50: =0.03mg/L (48h, Daphnia magna)",
+              "value": 0.03,
+              "dp": 2,
+              "unit": "mg/L",
+              "status": "값있음"
+            }
+          },
+          {
+            "comp_ref": "3",
+            "endpoint": "ECO_ALGAE",
+            "descriptor": "EC50",
+            "species": "Pseudokirchneriella subcapitata",
+            "duration_value": 96,
+            "duration_unit": "hr",
+            "status": "값있음",
+            "q": {
+              "raw": "EC50: 0.031 - 0.054mg/L (96h, Pseudokirchneriella subcapitata)",
+              "lower_op": ">=",
+              "lower": 0.031,
+              "upper_op": "<=",
+              "upper": 0.054,
+              "dp": 3,
+              "unit": "mg/L",
+              "status": "값있음"
+            }
+          },
+          {
+            "comp_ref": "3",
+            "endpoint": "ECO_ALGAE",
+            "descriptor": "EC50",
+            "species": "Pseudokirchneriella subcapitata",
+            "duration_value": 72,
+            "duration_unit": "hr",
+            "status": "값있음",
+            "q": {
+              "raw": "EC50: 0.0426 - 0.0535mg/L (72h, Pseudokirchneriella subcapitata)",
+              "lower_op": ">=",
+              "lower": 0.0426,
+              "upper_op": "<=",
+              "upper": 0.0535,
+              "dp": 4,
+              "unit": "mg/L",
+              "status": "값있음"
+            }
+          },
+          {
+            "comp_ref": "3",
+            "endpoint": "ECO_OTHER",
+            "species": "미생물",
+            "status": "미기재",
+            "q": {
+              "raw": "-",
+              "status": "미기재"
+            }
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_OTHER",
+            "species": "지렁이",
+            "status": "미기재",
+            "q": {
+              "raw": "-",
+              "status": "미기재"
+            }
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_OTHER",
+            "species": "조류",
+            "status": "미기재",
+            "q": {
+              "raw": "-",
+              "status": "미기재"
+            }
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_OTHER",
+            "species": "꿀벌",
+            "status": "미기재",
+            "q": {
+              "raw": "-",
+              "status": "미기재"
+            }
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "ECO_OTHER",
+            "species": "지렁이",
+            "status": "미기재",
+            "q": {
+              "raw": "-",
+              "status": "미기재"
+            }
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "ECO_OTHER",
+            "species": "조류",
+            "status": "미기재",
+            "q": {
+              "raw": "-",
+              "status": "미기재"
+            }
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "ECO_OTHER",
+            "species": "꿀벌",
+            "status": "미기재",
+            "q": {
+              "raw": "-",
+              "status": "미기재"
+            }
+          },
+          {
+            "comp_ref": "3",
+            "endpoint": "ECO_OTHER",
+            "species": "지렁이",
+            "status": "미기재",
+            "q": {
+              "raw": "-",
+              "status": "미기재"
+            }
+          },
+          {
+            "comp_ref": "3",
+            "endpoint": "ECO_OTHER",
+            "species": "조류",
+            "status": "미기재",
+            "q": {
+              "raw": "-",
+              "status": "미기재"
+            }
+          },
+          {
+            "comp_ref": "3",
+            "endpoint": "ECO_OTHER",
+            "species": "꿀벌",
+            "status": "미기재",
+            "q": {
+              "raw": "-",
+              "status": "미기재"
+            }
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_PERSIST",
+            "descriptor": "결과기술",
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_BIOACC",
+            "descriptor": "logKow",
+            "status": "미기재",
+            "q": {
+              "raw": "-",
+              "status": "미기재"
+            }
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_BIOACC",
+            "descriptor": "BCF",
+            "status": "미기재",
+            "q": {
+              "raw": "-",
+              "status": "미기재"
+            }
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_BIOACC",
+            "descriptor": null,
+            "status": "미기재",
+            "q": {
+              "raw": "-",
+              "status": "미기재",
+              "note": "영양 확대 계수 (TMF)"
+            }
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "ECO_BIOACC",
+            "descriptor": "logKow",
+            "status": "값있음",
+            "q": {
+              "raw": "-2.3",
+              "value": -2.3,
+              "dp": 1,
+              "status": "값있음",
+              "note": "분배 계수"
+            }
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "ECO_BIOACC",
+            "descriptor": "BCF",
+            "status": "미기재",
+            "q": {
+              "raw": "-",
+              "status": "미기재"
+            }
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "ECO_BIOACC",
+            "descriptor": null,
+            "status": "미기재",
+            "q": {
+              "raw": "-",
+              "status": "미기재",
+              "note": "영양 확대 계수 (TMF)"
+            }
+          },
+          {
+            "comp_ref": "3",
+            "endpoint": "ECO_BIOACC",
+            "descriptor": "logKow",
+            "status": "미기재",
+            "q": {
+              "raw": "-",
+              "status": "미기재"
+            }
+          },
+          {
+            "comp_ref": "3",
+            "endpoint": "ECO_BIOACC",
+            "descriptor": "BCF",
+            "status": "미기재",
+            "q": {
+              "raw": "-",
+              "status": "미기재"
+            }
+          },
+          {
+            "comp_ref": "3",
+            "endpoint": "ECO_BIOACC",
+            "descriptor": null,
+            "status": "미기재",
+            "q": {
+              "raw": "-",
+              "status": "미기재",
+              "note": "영양 확대 계수 (TMF)"
+            }
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_SOIL",
+            "descriptor": "결과기술",
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_OTHER",
+            "descriptor": "결과기술",
+            "status": "자료없음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "기타 유해 영향",
+                "value": "자료 없음.",
+                "text": "마. 기타 유해 영향 자료 없음."
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "msds_index": 0,
+        "field": "toxicity[0..3]",
+        "page": 7,
+        "source_text": "흡입 물질 또는 혼합물에 대한 구체적인 자료가 이용가능하지 않음.",
+        "rules": [
+          "R10"
+        ],
+        "note": "11항 가. 노출 경로별 제품 정보를 결과기술 행으로 둠 (섭취→TX_ORAL, 눈 접촉→TX_EYE, 피부 접촉→TX_SKIN)"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[4]",
+        "page": 8,
+        "source_text": "급성 독성 자료 없음.",
+        "rules": [
+          "R15"
+        ],
+        "note": "맞는 값 없음: 급성 독성 경로가 특정되지 않아 endpoint null"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[5]",
+        "page": 8,
+        "source_text": "급성독성 추정값 (경구) 99,999.00 mg/kg",
+        "rules": [
+          "R04",
+          "R06",
+          "R10"
+        ],
+        "note": "천단위 콤마 제거, dp=2"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[6]",
+        "page": 8,
+        "source_text": "급성독성 추정값 (경피) 99,999.00 mg/kg",
+        "rules": [
+          "R04",
+          "R06",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[7]",
+        "page": 8,
+        "source_text": "급성독성 추정값 (흡입-가스) 99,999.00 ppm - 4시간",
+        "rules": [
+          "R04",
+          "R06",
+          "R10"
+        ],
+        "note": "physical_form 가스, 4 hr"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[8]",
+        "page": 8,
+        "source_text": "급성독성 추정값 (흡입-증기) 58.90 mg/L - 4시간",
+        "rules": [
+          "R04",
+          "R06",
+          "R10"
+        ],
+        "note": "physical_form 증기, 4 hr"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[9]",
+        "page": 8,
+        "source_text": "급성독성 추정값 99,999.00 mg/L - 4시간 (흡입-분진/미스트)",
+        "rules": [
+          "R04",
+          "R06",
+          "R10"
+        ],
+        "note": "physical_form 분진·미스트, 4 hr"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[10..12]",
+        "page": 8,
+        "source_text": "물 | > 90 mL/kg ( Rat ) | - | -",
+        "rules": [
+          "R04",
+          "R10",
+          "R15"
+        ],
+        "note": "'-'는 미기재"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[13..16]",
+        "page": 8,
+        "source_text": "질산 | - | - | = 2500 ppm ( Rat ) 1 h ATE (vapours) = 2.65 mg/L",
+        "rules": [
+          "R04",
+          "R10",
+          "R15"
+        ],
+        "note": "흡입 LC50과 ATE(증기)를 별도 행으로 나눔"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[17..19]",
+        "page": 8,
+        "source_text": "구리 | - | - | > 5.11 mg/L ( Rat ) 4 h",
+        "rules": [
+          "R04",
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[20..21]",
+        "page": 8,
+        "source_text": "피부 부식성 / 자극성 성분에 대해 이용가능한 자료에 근거한 분류. 피부에 자극을 일으킴.",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[22..23]",
+        "page": 8,
+        "source_text": "호흡기 또는 피부 과민성 자료 없음.",
+        "rules": [
+          "R15"
+        ],
+        "note": "한 줄을 호흡기·피부 과민성 두 행으로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[24..28]",
+        "page": 8,
+        "source_text": "발암성 자료 없음. 생식세포 변이원성 자료 없음. 생식독성 자료 없음. 특정표적장기독성 - 1회 노출 자료 없음. 특정표적장기독성 - 반복 노출 자료 없음.",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[29..30]",
+        "page": 9,
+        "source_text": "표적 장기 영향 자료 없음. 흡인 유해성 자료 없음.",
+        "rules": [
+          "R15"
+        ],
+        "note": "맞는 값 없음: '표적 장기 영향'은 endpoint null"
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[0..2]",
+        "page": 8,
+        "source_text": "물 | - ; 질산 | - ; 구리 | -",
+        "rules": [
+          "R15",
+          "R10"
+        ],
+        "note": "IARC 열의 '-'를 미기재로"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[0]",
+        "page": 9,
+        "source_text": "장기적인 영향에 의해 수생생물에게 유독함.",
+        "rules": [],
+        "note": "맞는 값 없음: 수생 독성 일반 서술로 endpoint null"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[1..8]",
+        "page": 9,
+        "source_text": "물 | - | - | - | - ; 질산 | - | - | - | -",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[9..20]",
+        "page": 9,
+        "source_text": "구리 | LC50: 0.0068 - 0.0156mg/L (96h, Pimephales promelas) ... | EC50: =0.03mg/L (48h, Daphnia magna) | EC50: 0.031 - 0.054mg/L (96h, ...) | -",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "값마다 한 행, 범위는 >=/<= 로 나눔"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[21..29]",
+        "page": 9,
+        "source_text": "화학물질명 | 지렁이 | 조류 | 꿀벌 ; 물 | - | - | - ; 질산 | - | - | - ; 구리 | - | - | -",
+        "rules": [
+          "R15"
+        ],
+        "note": "ECO_OTHER로 두고 species에 원문 열 제목"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[30]",
+        "page": 10,
+        "source_text": "자료 없음.",
+        "rules": [
+          "R15"
+        ],
+        "note": "나. 잔류성 및 분해성(9쪽 제목) 아래 10쪽 내용"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[31..39]",
+        "page": 10,
+        "source_text": "질산 | -2.3 | - | -",
+        "rules": [
+          "R04",
+          "R15"
+        ],
+        "note": "분배 계수를 logKow로 둠; 맞는 값 없음: TMF는 descriptor null"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[40]",
+        "page": 10,
+        "source_text": "라. 토양 이동성 자료 없음.",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[41]",
+        "page": 10,
+        "source_text": "마. 기타 유해 영향 자료 없음.",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      }
+    ]
+  },
+  "raw_text": "{\"msds\": [{\"toxicity\": [{\"comp_ref\": \"MIX\", \"endpoint\": \"TX_INHAL\", \"descriptor\": \"결과기술\", \"status\": \"자료없음\", \"statements\": [{\"seq\": 1, \"key\": \"흡입\", \"value\": \"물질 또는 혼합물에 대한 구체적인 자료가 이용가능하지 않음.\", \"text\": \"흡입 물질 또는 혼합물에 대한 구체적인 자료가 이용가능하지 않음.\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_ORAL\", \"descriptor\": \"결과기술\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"key\": \"섭취\", \"value\": \"물질 또는 혼합물에 대한 구체적인 자료가 이용가능하지 않음. 섭취는 위장 자극, 구역, 구토 및 설사를 유발할 수 있음.\", \"text\": \"섭취 물질 또는 혼합물에 대한 구체적인 자료가 이용가능하지 않음. 섭취는 위장 자극, 구역, 구토 및 설사를 유발할 수 있음.\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_EYE\", \"descriptor\": \"결과기술\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"key\": \"눈 접촉\", \"value\": \"물질 또는 혼합물에 대한 구체적인 자료가 이용가능하지 않음. 실명을 포함한 영구적 손상을 초래할 수 있음. 눈에 심한 손상을 일으킴.\", \"text\": \"눈 접촉 물질 또는 혼합물에 대한 구체적인 자료가 이용가능하지 않음. 실명을 포함한 영구적 손상을 초래할 수 있음. 눈에 심한 손상을 일으킴.\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_SKIN\", \"descriptor\": \"결과기술\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"key\": \"피부 접촉\", \"value\": \"물질 또는 혼합물에 대한 구체적인 자료가 이용가능하지 않음. 피부에 자극을 일으킴. (성분에 기초함).\", \"text\": \"피부 접촉 물질 또는 혼합물에 대한 구체적인 자료가 이용가능하지 않음. 피부에 자극을 일으킴. (성분에 기초함).\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": null, \"descriptor\": \"결과기술\", \"status\": \"자료없음\", \"statements\": [{\"seq\": 1, \"key\": \"급성 독성\", \"value\": \"자료 없음.\", \"text\": \"급성 독성 자료 없음.\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_ORAL\", \"descriptor\": \"ATE\", \"status\": \"값있음\", \"q\": {\"raw\": \"99,999.00 mg/kg\", \"value\": 99999, \"dp\": 2, \"unit\": \"mg/kg\", \"status\": \"값있음\"}}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_DERMAL\", \"descriptor\": \"ATE\", \"status\": \"값있음\", \"q\": {\"raw\": \"99,999.00 mg/kg\", \"value\": 99999, \"dp\": 2, \"unit\": \"mg/kg\", \"status\": \"값있음\"}}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_INHAL\", \"descriptor\": \"ATE\", \"physical_form\": \"가스\", \"duration_value\": 4, \"duration_unit\": \"hr\", \"status\": \"값있음\", \"q\": {\"raw\": \"99,999.00 ppm - 4시간\", \"value\": 99999, \"dp\": 2, \"unit\": \"ppm\", \"status\": \"값있음\"}}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_INHAL\", \"descriptor\": \"ATE\", \"physical_form\": \"증기\", \"duration_value\": 4, \"duration_unit\": \"hr\", \"status\": \"값있음\", \"q\": {\"raw\": \"58.90 mg/L - 4시간\", \"value\": 58.9, \"dp\": 2, \"unit\": \"mg/L\", \"status\": \"값있음\"}}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_INHAL\", \"descriptor\": \"ATE\", \"physical_form\": \"분진·미스트\", \"duration_value\": 4, \"duration_unit\": \"hr\", \"status\": \"값있음\", \"q\": {\"raw\": \"99,999.00 mg/L - 4시간\", \"value\": 99999, \"dp\": 2, \"unit\": \"mg/L\", \"status\": \"값있음\"}}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_ORAL\", \"descriptor\": \"LD50\", \"species\": \"Rat\", \"status\": \"값있음\", \"q\": {\"raw\": \"> 90 mL/kg ( Rat )\", \"lower_op\": \">\", \"lower\": 90, \"unit\": \"mL/kg\", \"status\": \"값있음\"}}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_DERMAL\", \"descriptor\": \"LD50\", \"status\": \"미기재\", \"q\": {\"raw\": \"-\", \"status\": \"미기재\"}}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_INHAL\", \"descriptor\": \"LC50\", \"status\": \"미기재\", \"q\": {\"raw\": \"-\", \"status\": \"미기재\"}}, {\"comp_ref\": \"2\", \"endpoint\": \"TX_ORAL\", \"descriptor\": \"LD50\", \"status\": \"미기재\", \"q\": {\"raw\": \"-\", \"status\": \"미기재\"}}, {\"comp_ref\": \"2\", \"endpoint\": \"TX_DERMAL\", \"descriptor\": \"LD50\", \"status\": \"미기재\", \"q\": {\"raw\": \"-\", \"status\": \"미기재\"}}, {\"comp_ref\": \"2\", \"endpoint\": \"TX_INHAL\", \"descriptor\": \"LC50\", \"species\": \"Rat\", \"duration_value\": 1, \"duration_unit\": \"hr\", \"status\": \"값있음\", \"q\": {\"raw\": \"= 2500 ppm ( Rat ) 1 h\", \"value\": 2500, \"unit\": \"ppm\", \"status\": \"값있음\"}}, {\"comp_ref\": \"2\", \"endpoint\": \"TX_INHAL\", \"descriptor\": \"ATE\", \"physical_form\": \"증기\", \"status\": \"값있음\", \"q\": {\"raw\": \"ATE (vapours) = 2.65 mg/L\", \"value\": 2.65, \"dp\": 2, \"unit\": \"mg/L\", \"status\": \"값있음\"}}, {\"comp_ref\": \"3\", \"endpoint\": \"TX_ORAL\", \"descriptor\": \"LD50\", \"status\": \"미기재\", \"q\": {\"raw\": \"-\", \"status\": \"미기재\"}}, {\"comp_ref\": \"3\", \"endpoint\": \"TX_DERMAL\", \"descriptor\": \"LD50\", \"status\": \"미기재\", \"q\": {\"raw\": \"-\", \"status\": \"미기재\"}}, {\"comp_ref\": \"3\", \"endpoint\": \"TX_INHAL\", \"descriptor\": \"LC50\", \"species\": \"Rat\", \"duration_value\": 4, \"duration_unit\": \"hr\", \"status\": \"값있음\", \"q\": {\"raw\": \"> 5.11 mg/L ( Rat ) 4 h\", \"lower_op\": \">\", \"lower\": 5.11, \"dp\": 2, \"unit\": \"mg/L\", \"status\": \"값있음\"}}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_SKIN\", \"descriptor\": \"결과기술\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"성분에 대해 이용가능한 자료에 근거한 분류. 피부에 자극을 일으킴.\", \"text\": \"피부 부식성 / 자극성 성분에 대해 이용가능한 자료에 근거한 분류. 피부에 자극을 일으킴.\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_EYE\", \"descriptor\": \"결과기술\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"성분에 대해 이용가능한 자료에 근거한 분류. 화상을 일으킴. 눈에 심한 손상을 일으킴.\", \"text\": \"심한 눈 손상성 / 자극성 성분에 대해 이용가능한 자료에 근거한 분류. 화상을 일으킴. 눈에 심한 손상을 일으킴.\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_RESP_SENS\", \"descriptor\": \"결과기술\", \"status\": \"자료없음\"}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_SKIN_SENS\", \"descriptor\": \"결과기술\", \"status\": \"자료없음\"}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_CARC\", \"descriptor\": \"결과기술\", \"status\": \"자료없음\"}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_MUTA\", \"descriptor\": \"결과기술\", \"status\": \"자료없음\"}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_REPRO\", \"descriptor\": \"결과기술\", \"status\": \"자료없음\"}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_STOT_SE\", \"descriptor\": \"결과기술\", \"status\": \"자료없음\"}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_STOT_RE\", \"descriptor\": \"결과기술\", \"status\": \"자료없음\"}, {\"comp_ref\": \"MIX\", \"endpoint\": null, \"descriptor\": \"결과기술\", \"status\": \"자료없음\", \"statements\": [{\"seq\": 1, \"key\": \"표적 장기 영향\", \"value\": \"자료 없음.\", \"text\": \"표적 장기 영향 자료 없음.\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_ASP\", \"descriptor\": \"결과기술\", \"status\": \"자료없음\"}], \"cmr\": [{\"comp_ref\": \"1\", \"hazard\": \"발암성\", \"agency\": \"IARC\", \"class\": null, \"status\": \"미기재\"}, {\"comp_ref\": \"2\", \"hazard\": \"발암성\", \"agency\": \"IARC\", \"class\": null, \"status\": \"미기재\"}, {\"comp_ref\": \"3\", \"hazard\": \"발암성\", \"agency\": \"IARC\", \"class\": null, \"status\": \"미기재\"}], \"ecotox\": [{\"comp_ref\": \"MIX\", \"endpoint\": null, \"descriptor\": \"결과기술\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"장기적인 영향에 의해 수생생물에게 유독함.\", \"text\": \"장기적인 영향에 의해 수생생물에게 유독함.\"}]}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_FISH\", \"status\": \"미기재\", \"q\": {\"raw\": \"-\", \"status\": \"미기재\"}}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_CRUST\", \"status\": \"미기재\", \"q\": {\"raw\": \"-\", \"status\": \"미기재\"}}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_ALGAE\", \"status\": \"미기재\", \"q\": {\"raw\": \"-\", \"status\": \"미기재\"}}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_OTHER\", \"species\": \"미생물\", \"status\": \"미기재\", \"q\": {\"raw\": \"-\", \"status\": \"미기재\"}}, {\"comp_ref\": \"2\", \"endpoint\": \"ECO_FISH\", \"status\": \"미기재\", \"q\": {\"raw\": \"-\", \"status\": \"미기재\"}}, {\"comp_ref\": \"2\", \"endpoint\": \"ECO_CRUST\", \"status\": \"미기재\", \"q\": {\"raw\": \"-\", \"status\": \"미기재\"}}, {\"comp_ref\": \"2\", \"endpoint\": \"ECO_ALGAE\", \"status\": \"미기재\", \"q\": {\"raw\": \"-\", \"status\": \"미기재\"}}, {\"comp_ref\": \"2\", \"endpoint\": \"ECO_OTHER\", \"species\": \"미생물\", \"status\": \"미기재\", \"q\": {\"raw\": \"-\", \"status\": \"미기재\"}}, {\"comp_ref\": \"3\", \"endpoint\": \"ECO_FISH\", \"descriptor\": \"LC50\", \"species\": \"Pimephales promelas\", \"duration_value\": 96, \"duration_unit\": \"hr\", \"status\": \"값있음\", \"q\": {\"raw\": \"LC50: 0.0068 - 0.0156mg/L (96h, Pimephales promelas)\", \"lower_op\": \">=\", \"lower\": 0.0068, \"upper_op\": \"<=\", \"upper\": 0.0156, \"dp\": 4, \"unit\": \"mg/L\", \"status\": \"값있음\"}}, {\"comp_ref\": \"3\", \"endpoint\": \"ECO_FISH\", \"descriptor\": \"LC50\", \"species\": \"Pimephales promelas\", \"duration_value\": 96, \"duration_unit\": \"hr\", \"status\": \"값있음\", \"q\": {\"raw\": \"LC50: <0.3mg/L (96h, Pimephales promelas)\", \"upper_op\": \"<\", \"upper\": 0.3, \"dp\": 1, \"unit\": \"mg/L\", \"status\": \"값있음\"}}, {\"comp_ref\": \"3\", \"endpoint\": \"ECO_FISH\", \"descriptor\": \"LC50\", \"species\": \"Pimephales promelas\", \"duration_value\": 96, \"duration_unit\": \"hr\", \"status\": \"값있음\", \"q\": {\"raw\": \"LC50: =0.2mg/L (96h, Pimephales promelas)\", \"value\": 0.2, \"dp\": 1, \"unit\": \"mg/L\", \"status\": \"값있음\"}}, {\"comp_ref\": \"3\", \"endpoint\": \"ECO_FISH\", \"descriptor\": \"LC50\", \"species\": \"Oncorhynchus mykiss\", \"duration_value\": 96, \"duration_unit\": \"hr\", \"status\": \"값있음\", \"q\": {\"raw\": \"LC50: =0.052mg/L (96h, Oncorhynchus mykiss)\", \"value\": 0.052, \"dp\": 3, \"unit\": \"mg/L\", \"status\": \"값있음\"}}, {\"comp_ref\": \"3\", \"endpoint\": \"ECO_FISH\", \"descriptor\": \"LC50\", \"species\": \"Lepomis macrochirus\", \"duration_value\": 96, \"duration_unit\": \"hr\", \"status\": \"값있음\", \"q\": {\"raw\": \"LC50: =1.25mg/L (96h, Lepomis macrochirus)\", \"value\": 1.25, \"dp\": 2, \"unit\": \"mg/L\", \"status\": \"값있음\"}}, {\"comp_ref\": \"3\", \"endpoint\": \"ECO_FISH\", \"descriptor\": \"LC50\", \"species\": \"Cyprinus carpio\", \"duration_value\": 96, \"duration_unit\": \"hr\", \"status\": \"값있음\", \"q\": {\"raw\": \"LC50: =0.3mg/L (96h, Cyprinus carpio)\", \"value\": 0.3, \"dp\": 1, \"unit\": \"mg/L\", \"status\": \"값있음\"}}, {\"comp_ref\": \"3\", \"endpoint\": \"ECO_FISH\", \"descriptor\": \"LC50\", \"species\": \"Cyprinus carpio\", \"duration_value\": 96, \"duration_unit\": \"hr\", \"status\": \"값있음\", \"q\": {\"raw\": \"LC50: =0.8mg/L (96h, Cyprinus carpio)\", \"value\": 0.8, \"dp\": 1, \"unit\": \"mg/L\", \"status\": \"값있음\"}}, {\"comp_ref\": \"3\", \"endpoint\": \"ECO_FISH\", \"descriptor\": \"LC50\", \"species\": \"Poecilia reticulata\", \"duration_value\": 96, \"duration_unit\": \"hr\", \"status\": \"값있음\", \"q\": {\"raw\": \"LC50: =0.112mg/L (96h, Poecilia reticulata)\", \"value\": 0.112, \"dp\": 3, \"unit\": \"mg/L\", \"status\": \"값있음\"}}, {\"comp_ref\": \"3\", \"endpoint\": \"ECO_CRUST\", \"descriptor\": \"EC50\", \"species\": \"Daphnia magna\", \"duration_value\": 48, \"duration_unit\": \"hr\", \"status\": \"값있음\", \"q\": {\"raw\": \"EC50: =0.03mg/L (48h, Daphnia magna)\", \"value\": 0.03, \"dp\": 2, \"unit\": \"mg/L\", \"status\": \"값있음\"}}, {\"comp_ref\": \"3\", \"endpoint\": \"ECO_ALGAE\", \"descriptor\": \"EC50\", \"species\": \"Pseudokirchneriella subcapitata\", \"duration_value\": 96, \"duration_unit\": \"hr\", \"status\": \"값있음\", \"q\": {\"raw\": \"EC50: 0.031 - 0.054mg/L (96h, Pseudokirchneriella subcapitata)\", \"lower_op\": \">=\", \"lower\": 0.031, \"upper_op\": \"<=\", \"upper\": 0.054, \"dp\": 3, \"unit\": \"mg/L\", \"status\": \"값있음\"}}, {\"comp_ref\": \"3\", \"endpoint\": \"ECO_ALGAE\", \"descriptor\": \"EC50\", \"species\": \"Pseudokirchneriella subcapitata\", \"duration_value\": 72, \"duration_unit\": \"hr\", \"status\": \"값있음\", \"q\": {\"raw\": \"EC50: 0.0426 - 0.0535mg/L (72h, Pseudokirchneriella subcapitata)\", \"lower_op\": \">=\", \"lower\": 0.0426, \"upper_op\": \"<=\", \"upper\": 0.0535, \"dp\": 4, \"unit\": \"mg/L\", \"status\": \"값있음\"}}, {\"comp_ref\": \"3\", \"endpoint\": \"ECO_OTHER\", \"species\": \"미생물\", \"status\": \"미기재\", \"q\": {\"raw\": \"-\", \"status\": \"미기재\"}}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_OTHER\", \"species\": \"지렁이\", \"status\": \"미기재\", \"q\": {\"raw\": \"-\", \"status\": \"미기재\"}}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_OTHER\", \"species\": \"조류\", \"status\": \"미기재\", \"q\": {\"raw\": \"-\", \"status\": \"미기재\"}}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_OTHER\", \"species\": \"꿀벌\", \"status\": \"미기재\", \"q\": {\"raw\": \"-\", \"status\": \"미기재\"}}, {\"comp_ref\": \"2\", \"endpoint\": \"ECO_OTHER\", \"species\": \"지렁이\", \"status\": \"미기재\", \"q\": {\"raw\": \"-\", \"status\": \"미기재\"}}, {\"comp_ref\": \"2\", \"endpoint\": \"ECO_OTHER\", \"species\": \"조류\", \"status\": \"미기재\", \"q\": {\"raw\": \"-\", \"status\": \"미기재\"}}, {\"comp_ref\": \"2\", \"endpoint\": \"ECO_OTHER\", \"species\": \"꿀벌\", \"status\": \"미기재\", \"q\": {\"raw\": \"-\", \"status\": \"미기재\"}}, {\"comp_ref\": \"3\", \"endpoint\": \"ECO_OTHER\", \"species\": \"지렁이\", \"status\": \"미기재\", \"q\": {\"raw\": \"-\", \"status\": \"미기재\"}}, {\"comp_ref\": \"3\", \"endpoint\": \"ECO_OTHER\", \"species\": \"조류\", \"status\": \"미기재\", \"q\": {\"raw\": \"-\", \"status\": \"미기재\"}}, {\"comp_ref\": \"3\", \"endpoint\": \"ECO_OTHER\", \"species\": \"꿀벌\", \"status\": \"미기재\", \"q\": {\"raw\": \"-\", \"status\": \"미기재\"}}, {\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_PERSIST\", \"descriptor\": \"결과기술\", \"status\": \"자료없음\"}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_BIOACC\", \"descriptor\": \"logKow\", \"status\": \"미기재\", \"q\": {\"raw\": \"-\", \"status\": \"미기재\"}}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_BIOACC\", \"descriptor\": \"BCF\", \"status\": \"미기재\", \"q\": {\"raw\": \"-\", \"status\": \"미기재\"}}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_BIOACC\", \"descriptor\": null, \"status\": \"미기재\", \"q\": {\"raw\": \"-\", \"status\": \"미기재\", \"note\": \"영양 확대 계수 (TMF)\"}}, {\"comp_ref\": \"2\", \"endpoint\": \"ECO_BIOACC\", \"descriptor\": \"logKow\", \"status\": \"값있음\", \"q\": {\"raw\": \"-2.3\", \"value\": -2.3, \"dp\": 1, \"status\": \"값있음\", \"note\": \"분배 계수\"}}, {\"comp_ref\": \"2\", \"endpoint\": \"ECO_BIOACC\", \"descriptor\": \"BCF\", \"status\": \"미기재\", \"q\": {\"raw\": \"-\", \"status\": \"미기재\"}}, {\"comp_ref\": \"2\", \"endpoint\": \"ECO_BIOACC\", \"descriptor\": null, \"status\": \"미기재\", \"q\": {\"raw\": \"-\", \"status\": \"미기재\", \"note\": \"영양 확대 계수 (TMF)\"}}, {\"comp_ref\": \"3\", \"endpoint\": \"ECO_BIOACC\", \"descriptor\": \"logKow\", \"status\": \"미기재\", \"q\": {\"raw\": \"-\", \"status\": \"미기재\"}}, {\"comp_ref\": \"3\", \"endpoint\": \"ECO_BIOACC\", \"descriptor\": \"BCF\", \"status\": \"미기재\", \"q\": {\"raw\": \"-\", \"status\": \"미기재\"}}, {\"comp_ref\": \"3\", \"endpoint\": \"ECO_BIOACC\", \"descriptor\": null, \"status\": \"미기재\", \"q\": {\"raw\": \"-\", \"status\": \"미기재\", \"note\": \"영양 확대 계수 (TMF)\"}}, {\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_SOIL\", \"descriptor\": \"결과기술\", \"status\": \"자료없음\"}, {\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_OTHER\", \"descriptor\": \"결과기술\", \"status\": \"자료없음\", \"statements\": [{\"seq\": 1, \"key\": \"기타 유해 영향\", \"value\": \"자료 없음.\", \"text\": \"마. 기타 유해 영향 자료 없음.\"}]}]}], \"evidence\": [{\"msds_index\": 0, \"field\": \"toxicity[0..3]\", \"page\": 7, \"source_text\": \"흡입 물질 또는 혼합물에 대한 구체적인 자료가 이용가능하지 않음.\", \"rules\": [\"R10\"], \"note\": \"11항 가. 노출 경로별 제품 정보를 결과기술 행으로 둠 (섭취→TX_ORAL, 눈 접촉→TX_EYE, 피부 접촉→TX_SKIN)\"}, {\"msds_index\": 0, \"field\": \"toxicity[4]\", \"page\": 8, \"source_text\": \"급성 독성 자료 없음.\", \"rules\": [\"R15\"], \"note\": \"맞는 값 없음: 급성 독성 경로가 특정되지 않아 endpoint null\"}, {\"msds_index\": 0, \"field\": \"toxicity[5]\", \"page\": 8, \"source_text\": \"급성독성 추정값 (경구) 99,999.00 mg/kg\", \"rules\": [\"R04\", \"R06\", \"R10\"], \"note\": \"천단위 콤마 제거, dp=2\"}, {\"msds_index\": 0, \"field\": \"toxicity[6]\", \"page\": 8, \"source_text\": \"급성독성 추정값 (경피) 99,999.00 mg/kg\", \"rules\": [\"R04\", \"R06\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[7]\", \"page\": 8, \"source_text\": \"급성독성 추정값 (흡입-가스) 99,999.00 ppm - 4시간\", \"rules\": [\"R04\", \"R06\", \"R10\"], \"note\": \"physical_form 가스, 4 hr\"}, {\"msds_index\": 0, \"field\": \"toxicity[8]\", \"page\": 8, \"source_text\": \"급성독성 추정값 (흡입-증기) 58.90 mg/L - 4시간\", \"rules\": [\"R04\", \"R06\", \"R10\"], \"note\": \"physical_form 증기, 4 hr\"}, {\"msds_index\": 0, \"field\": \"toxicity[9]\", \"page\": 8, \"source_text\": \"급성독성 추정값 99,999.00 mg/L - 4시간 (흡입-분진/미스트)\", \"rules\": [\"R04\", \"R06\", \"R10\"], \"note\": \"physical_form 분진·미스트, 4 hr\"}, {\"msds_index\": 0, \"field\": \"toxicity[10..12]\", \"page\": 8, \"source_text\": \"물 | > 90 mL/kg ( Rat ) | - | -\", \"rules\": [\"R04\", \"R10\", \"R15\"], \"note\": \"'-'는 미기재\"}, {\"msds_index\": 0, \"field\": \"toxicity[13..16]\", \"page\": 8, \"source_text\": \"질산 | - | - | = 2500 ppm ( Rat ) 1 h ATE (vapours) = 2.65 mg/L\", \"rules\": [\"R04\", \"R10\", \"R15\"], \"note\": \"흡입 LC50과 ATE(증기)를 별도 행으로 나눔\"}, {\"msds_index\": 0, \"field\": \"toxicity[17..19]\", \"page\": 8, \"source_text\": \"구리 | - | - | > 5.11 mg/L ( Rat ) 4 h\", \"rules\": [\"R04\", \"R10\", \"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[20..21]\", \"page\": 8, \"source_text\": \"피부 부식성 / 자극성 성분에 대해 이용가능한 자료에 근거한 분류. 피부에 자극을 일으킴.\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[22..23]\", \"page\": 8, \"source_text\": \"호흡기 또는 피부 과민성 자료 없음.\", \"rules\": [\"R15\"], \"note\": \"한 줄을 호흡기·피부 과민성 두 행으로 둠\"}, {\"msds_index\": 0, \"field\": \"toxicity[24..28]\", \"page\": 8, \"source_text\": \"발암성 자료 없음. 생식세포 변이원성 자료 없음. 생식독성 자료 없음. 특정표적장기독성 - 1회 노출 자료 없음. 특정표적장기독성 - 반복 노출 자료 없음.\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[29..30]\", \"page\": 9, \"source_text\": \"표적 장기 영향 자료 없음. 흡인 유해성 자료 없음.\", \"rules\": [\"R15\"], \"note\": \"맞는 값 없음: '표적 장기 영향'은 endpoint null\"}, {\"msds_index\": 0, \"field\": \"cmr[0..2]\", \"page\": 8, \"source_text\": \"물 | - ; 질산 | - ; 구리 | -\", \"rules\": [\"R15\", \"R10\"], \"note\": \"IARC 열의 '-'를 미기재로\"}, {\"msds_index\": 0, \"field\": \"ecotox[0]\", \"page\": 9, \"source_text\": \"장기적인 영향에 의해 수생생물에게 유독함.\", \"rules\": [], \"note\": \"맞는 값 없음: 수생 독성 일반 서술로 endpoint null\"}, {\"msds_index\": 0, \"field\": \"ecotox[1..8]\", \"page\": 9, \"source_text\": \"물 | - | - | - | - ; 질산 | - | - | - | -\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[9..20]\", \"page\": 9, \"source_text\": \"구리 | LC50: 0.0068 - 0.0156mg/L (96h, Pimephales promelas) ... | EC50: =0.03mg/L (48h, Daphnia magna) | EC50: 0.031 - 0.054mg/L (96h, ...) | -\", \"rules\": [\"R04\", \"R10\"], \"note\": \"값마다 한 행, 범위는 >=/<= 로 나눔\"}, {\"msds_index\": 0, \"field\": \"ecotox[21..29]\", \"page\": 9, \"source_text\": \"화학물질명 | 지렁이 | 조류 | 꿀벌 ; 물 | - | - | - ; 질산 | - | - | - ; 구리 | - | - | -\", \"rules\": [\"R15\"], \"note\": \"ECO_OTHER로 두고 species에 원문 열 제목\"}, {\"msds_index\": 0, \"field\": \"ecotox[30]\", \"page\": 10, \"source_text\": \"자료 없음.\", \"rules\": [\"R15\"], \"note\": \"나. 잔류성 및 분해성(9쪽 제목) 아래 10쪽 내용\"}, {\"msds_index\": 0, \"field\": \"ecotox[31..39]\", \"page\": 10, \"source_text\": \"질산 | -2.3 | - | -\", \"rules\": [\"R04\", \"R15\"], \"note\": \"분배 계수를 logKow로 둠; 맞는 값 없음: TMF는 descriptor null\"}, {\"msds_index\": 0, \"field\": \"ecotox[40]\", \"page\": 10, \"source_text\": \"라. 토양 이동성 자료 없음.\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[41]\", \"page\": 10, \"source_text\": \"마. 기타 유해 영향 자료 없음.\", \"rules\": [\"R15\"], \"note\": null}]}"
+}

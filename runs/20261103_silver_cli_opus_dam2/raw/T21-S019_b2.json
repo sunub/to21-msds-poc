@@ -1,0 +1,612 @@
+{
+  "doc_id": "T21-S019",
+  "bundle": "b2",
+  "model": "claude-opus-5-5",
+  "mode": "claude -p json-schema",
+  "finish_reason": "tool_use",
+  "usage": {
+    "prompt_tokens": 60665,
+    "completion_tokens": 5262,
+    "cached_tokens": 6909,
+    "reasoning_tokens": 963,
+    "notional_cost_usd": 0.5366618000000001
+  },
+  "seconds": 42.1,
+  "request_usage": [
+    {
+      "prompt_tokens": 60665,
+      "completion_tokens": 5262,
+      "cached_tokens": 6909,
+      "reasoning_tokens": 963,
+      "notional_cost_usd": 0.5366618000000001
+    }
+  ],
+  "attempts": 1,
+  "errors": [],
+  "parsed": {
+    "msds": [
+      {
+        "exposure_limits": [
+          {
+            "comp_ref": "1",
+            "standard": "국내",
+            "limit_type": "TWA",
+            "kr_basis": "노출기준",
+            "notations": [],
+            "q": {
+              "raw": "TWA : 50 ppm",
+              "status": "값있음",
+              "value": 50,
+              "unit": "ppm"
+            }
+          },
+          {
+            "comp_ref": "1",
+            "standard": "국내",
+            "limit_type": "STEL",
+            "kr_basis": "노출기준",
+            "notations": [],
+            "q": {
+              "raw": "STEL : 150 ppm",
+              "status": "값있음",
+              "value": 150,
+              "unit": "ppm"
+            }
+          },
+          {
+            "comp_ref": "1",
+            "standard": "ACGIH",
+            "limit_type": "TWA",
+            "notations": [],
+            "q": {
+              "raw": "TWA 20 ppm (75 mg/m3)",
+              "status": "값있음",
+              "value": 20,
+              "unit": "ppm",
+              "note": "75 mg/m3"
+            }
+          },
+          {
+            "comp_ref": "1",
+            "standard": "생물학적",
+            "limit_type": "BEI",
+            "bio_medium": "혈액",
+            "bio_determinant": "Toluene",
+            "bio_timing": "주중 최종작업 전",
+            "notations": [],
+            "q": {
+              "raw": "혈액 중 Toluene : 0.02 mg/L(주중 최종작업 전)",
+              "status": "값있음",
+              "value": 0.02,
+              "unit": "mg/L",
+              "dp": 2
+            }
+          },
+          {
+            "comp_ref": "1",
+            "standard": "생물학적",
+            "limit_type": "BEI",
+            "bio_medium": "소변",
+            "bio_determinant": "Toluene",
+            "bio_timing": "작업 후",
+            "notations": [],
+            "q": {
+              "raw": "소변 중 Toluene : 0.03 mg/L (작업 후)",
+              "status": "값있음",
+              "value": 0.03,
+              "unit": "mg/L",
+              "dp": 2
+            }
+          },
+          {
+            "comp_ref": "1",
+            "standard": "생물학적",
+            "limit_type": "BEI",
+            "bio_medium": "소변 중(with hydrolysis)",
+            "bio_determinant": "o-Cresol",
+            "bio_timing": "작업 후",
+            "notations": [],
+            "q": {
+              "raw": "소변 중(with hydrolysis) o-Cresol : 0.3 mg/g 크레아티닌(작업 후)",
+              "status": "값있음",
+              "value": 0.3,
+              "unit": "mg/g 크레아티닌",
+              "dp": 1
+            }
+          }
+        ],
+        "physchem": [
+          {
+            "prop_code": "APPEARANCE_STATE",
+            "comp_ref": "MIX",
+            "text_value": "무색 투명한 액체",
+            "q": null
+          },
+          {
+            "prop_code": "ODOR",
+            "comp_ref": "MIX",
+            "text_value": "벤젠냄새",
+            "q": null
+          },
+          {
+            "prop_code": "ODOR_THRESHOLD",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "PH",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "MELT_FREEZE",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "-94.9℃",
+              "status": "값있음",
+              "value": -94.9,
+              "unit": "C",
+              "dp": 1
+            }
+          },
+          {
+            "prop_code": "BOILING",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "110.6℃",
+              "status": "값있음",
+              "value": 110.6,
+              "unit": "C",
+              "dp": 1
+            }
+          },
+          {
+            "prop_code": "FLASH_POINT",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "4℃",
+              "status": "값있음",
+              "value": 4,
+              "unit": "C"
+            }
+          },
+          {
+            "prop_code": "EVAP_RATE",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "FLAMMABILITY",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "UEL",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "7.1 %",
+              "status": "값있음",
+              "value": 7.1,
+              "unit": "%",
+              "dp": 1
+            }
+          },
+          {
+            "prop_code": "LEL",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "1.1 %",
+              "status": "값있음",
+              "value": 1.1,
+              "unit": "%",
+              "dp": 1
+            }
+          },
+          {
+            "prop_code": "VAPOR_PRESSURE",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "28.4mmHg at 25℃",
+              "status": "값있음",
+              "value": 28.4,
+              "unit": "mmHg",
+              "dp": 1
+            },
+            "cond": {
+              "temp": 25,
+              "temp_unit": "C"
+            }
+          },
+          {
+            "prop_code": "SOLUBILITY",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "526mg/L at 25℃",
+              "status": "값있음",
+              "value": 526,
+              "unit": "mg/L"
+            },
+            "cond": {
+              "temp": 25,
+              "temp_unit": "C"
+            }
+          },
+          {
+            "prop_code": "VAPOR_DENSITY",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "3.1",
+              "status": "값있음",
+              "value": 3.1,
+              "dp": 1
+            }
+          },
+          {
+            "prop_code": "RELATIVE_DENSITY",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "0.8636",
+              "status": "값있음",
+              "value": 0.8636,
+              "dp": 4
+            }
+          },
+          {
+            "prop_code": "LOG_KOW",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "2.73",
+              "status": "값있음",
+              "value": 2.73,
+              "dp": 2
+            }
+          },
+          {
+            "prop_code": "AUTOIGNITION",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "480℃",
+              "status": "값있음",
+              "value": 480,
+              "unit": "C"
+            }
+          },
+          {
+            "prop_code": "DECOMPOSITION",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "VISCOSITY_KIN",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "0.57 cSt at 20℃",
+              "status": "값있음",
+              "value": 0.57,
+              "unit": "cSt",
+              "dp": 2
+            },
+            "cond": {
+              "temp": 20,
+              "temp_unit": "C"
+            }
+          },
+          {
+            "prop_code": "MOL_WEIGHT",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "92.14",
+              "status": "값있음",
+              "value": 92.14,
+              "dp": 2
+            }
+          }
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[0]",
+        "page": 5,
+        "source_text": "- [Toluene] : TWA : 50 ppm, STEL : 150 ppm - 톨루엔",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "국내노출기준 줄의 TWA 부분을 한 행으로 나눔, [Toluene]→comp_ref 1"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[1]",
+        "page": 5,
+        "source_text": "- [Toluene] : TWA : 50 ppm, STEL : 150 ppm - 톨루엔",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "같은 줄의 STEL 부분을 별도 행으로 나눔"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[2]",
+        "page": 5,
+        "source_text": "- [Toluene] : TWA 20 ppm (75 mg/m3)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "20 ppm을 값으로, 괄호 속 75 mg/m3 환산값은 note에 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[3]",
+        "page": 5,
+        "source_text": "-[Toluene] : 혈액 중 Toluene : 0.02 mg/L(주중 최종작업 전)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "생물학적 노출기준 첫 항목: 매체 혈액, 지표 Toluene, 시기 주중 최종작업 전"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[4]",
+        "page": 5,
+        "source_text": "소변 중 Toluene : 0.03 mg/L (작업 후)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "생물학적 노출기준 둘째 항목 (줄바꿈된 '(작업 후)' 포함)"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[5]",
+        "page": 5,
+        "source_text": "소변 중(with hydrolysis) o-Cresol : 0.3 mg/g 크레아티닌(작업 후)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "생물학적 노출기준 셋째 항목"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[0]",
+        "page": 6,
+        "source_text": "가. 외관(물리적 상태, 색등): 무색 투명한 액체",
+        "rules": [
+          "R25"
+        ],
+        "note": "외관을 APPEARANCE_STATE로, 원문 그대로 text_value에 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[1]",
+        "page": 6,
+        "source_text": "나. 냄새: 벤젠냄새",
+        "rules": [
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[2]",
+        "page": 6,
+        "source_text": "다. 냄새 역치: 자료없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[3]",
+        "page": 6,
+        "source_text": "라. PH: 자료없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[4]",
+        "page": 6,
+        "source_text": "마. 녹는점/어는점: -94.9℃",
+        "rules": [
+          "R04",
+          "R06",
+          "R08"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[5]",
+        "page": 6,
+        "source_text": "바. 초기 끓는점과 끓는 점 범위: 110.6℃",
+        "rules": [
+          "R04",
+          "R06",
+          "R08",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[6]",
+        "page": 6,
+        "source_text": "사. 인화점: 4℃",
+        "rules": [
+          "R04",
+          "R08"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[7]",
+        "page": 6,
+        "source_text": "아. 증발속도: 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[8]",
+        "page": 6,
+        "source_text": "자. 인화성(고체, 기체): 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[9]",
+        "page": 6,
+        "source_text": "차. 인화 또는 폭발 범위의 상한/하한: 7.1 / 1.1 %",
+        "rules": [
+          "R04",
+          "R25"
+        ],
+        "note": "상한/하한 순서에 따라 7.1을 UEL로"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[10]",
+        "page": 6,
+        "source_text": "차. 인화 또는 폭발 범위의 상한/하한: 7.1 / 1.1 %",
+        "rules": [
+          "R04",
+          "R25"
+        ],
+        "note": "상한/하한 순서에 따라 1.1을 LEL로"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[11]",
+        "page": 6,
+        "source_text": "카. 증기압: 28.4mmHg at 25℃",
+        "rules": [
+          "R04",
+          "R08"
+        ],
+        "note": "'at 25℃'를 cond 온도로 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[12]",
+        "page": 6,
+        "source_text": "타. 용해도: 526mg/L at 25℃",
+        "rules": [
+          "R04",
+          "R08"
+        ],
+        "note": "'at 25℃'를 cond 온도로 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[13]",
+        "page": 6,
+        "source_text": "파. 증기밀도: 3.1",
+        "rules": [
+          "R04",
+          "R06"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[14]",
+        "page": 6,
+        "source_text": "하. 비중: 0.8636",
+        "rules": [
+          "R04",
+          "R06",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[15]",
+        "page": 7,
+        "source_text": "거. n옥탄올/물 분배계수: 2.73",
+        "rules": [
+          "R04",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[16]",
+        "page": 7,
+        "source_text": "너. 자연발화 온도: 480℃",
+        "rules": [
+          "R04",
+          "R08",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[17]",
+        "page": 7,
+        "source_text": "더. 분해온도: 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[18]",
+        "page": 7,
+        "source_text": "러. 점도: 0.57 cSt at 20℃",
+        "rules": [
+          "R04",
+          "R08",
+          "R25"
+        ],
+        "note": "항목명은 '점도'이나 단위가 cSt(동점도)라 코드표 정의에 따라 VISCOSITY_KIN으로 둠, 20℃는 cond로 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[19]",
+        "page": 7,
+        "source_text": "머. 분자량: 92.14",
+        "rules": [
+          "R04"
+        ],
+        "note": null
+      }
+    ]
+  },
+  "raw_text": "{\"msds\": [{\"exposure_limits\": [{\"comp_ref\": \"1\", \"standard\": \"국내\", \"limit_type\": \"TWA\", \"kr_basis\": \"노출기준\", \"notations\": [], \"q\": {\"raw\": \"TWA : 50 ppm\", \"status\": \"값있음\", \"value\": 50, \"unit\": \"ppm\"}}, {\"comp_ref\": \"1\", \"standard\": \"국내\", \"limit_type\": \"STEL\", \"kr_basis\": \"노출기준\", \"notations\": [], \"q\": {\"raw\": \"STEL : 150 ppm\", \"status\": \"값있음\", \"value\": 150, \"unit\": \"ppm\"}}, {\"comp_ref\": \"1\", \"standard\": \"ACGIH\", \"limit_type\": \"TWA\", \"notations\": [], \"q\": {\"raw\": \"TWA 20 ppm (75 mg/m3)\", \"status\": \"값있음\", \"value\": 20, \"unit\": \"ppm\", \"note\": \"75 mg/m3\"}}, {\"comp_ref\": \"1\", \"standard\": \"생물학적\", \"limit_type\": \"BEI\", \"bio_medium\": \"혈액\", \"bio_determinant\": \"Toluene\", \"bio_timing\": \"주중 최종작업 전\", \"notations\": [], \"q\": {\"raw\": \"혈액 중 Toluene : 0.02 mg/L(주중 최종작업 전)\", \"status\": \"값있음\", \"value\": 0.02, \"unit\": \"mg/L\", \"dp\": 2}}, {\"comp_ref\": \"1\", \"standard\": \"생물학적\", \"limit_type\": \"BEI\", \"bio_medium\": \"소변\", \"bio_determinant\": \"Toluene\", \"bio_timing\": \"작업 후\", \"notations\": [], \"q\": {\"raw\": \"소변 중 Toluene : 0.03 mg/L (작업 후)\", \"status\": \"값있음\", \"value\": 0.03, \"unit\": \"mg/L\", \"dp\": 2}}, {\"comp_ref\": \"1\", \"standard\": \"생물학적\", \"limit_type\": \"BEI\", \"bio_medium\": \"소변 중(with hydrolysis)\", \"bio_determinant\": \"o-Cresol\", \"bio_timing\": \"작업 후\", \"notations\": [], \"q\": {\"raw\": \"소변 중(with hydrolysis) o-Cresol : 0.3 mg/g 크레아티닌(작업 후)\", \"status\": \"값있음\", \"value\": 0.3, \"unit\": \"mg/g 크레아티닌\", \"dp\": 1}}], \"physchem\": [{\"prop_code\": \"APPEARANCE_STATE\", \"comp_ref\": \"MIX\", \"text_value\": \"무색 투명한 액체\", \"q\": null}, {\"prop_code\": \"ODOR\", \"comp_ref\": \"MIX\", \"text_value\": \"벤젠냄새\", \"q\": null}, {\"prop_code\": \"ODOR_THRESHOLD\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"PH\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"MELT_FREEZE\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"-94.9℃\", \"status\": \"값있음\", \"value\": -94.9, \"unit\": \"C\", \"dp\": 1}}, {\"prop_code\": \"BOILING\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"110.6℃\", \"status\": \"값있음\", \"value\": 110.6, \"unit\": \"C\", \"dp\": 1}}, {\"prop_code\": \"FLASH_POINT\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"4℃\", \"status\": \"값있음\", \"value\": 4, \"unit\": \"C\"}}, {\"prop_code\": \"EVAP_RATE\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"FLAMMABILITY\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"UEL\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"7.1 %\", \"status\": \"값있음\", \"value\": 7.1, \"unit\": \"%\", \"dp\": 1}}, {\"prop_code\": \"LEL\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"1.1 %\", \"status\": \"값있음\", \"value\": 1.1, \"unit\": \"%\", \"dp\": 1}}, {\"prop_code\": \"VAPOR_PRESSURE\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"28.4mmHg at 25℃\", \"status\": \"값있음\", \"value\": 28.4, \"unit\": \"mmHg\", \"dp\": 1}, \"cond\": {\"temp\": 25, \"temp_unit\": \"C\"}}, {\"prop_code\": \"SOLUBILITY\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"526mg/L at 25℃\", \"status\": \"값있음\", \"value\": 526, \"unit\": \"mg/L\"}, \"cond\": {\"temp\": 25, \"temp_unit\": \"C\"}}, {\"prop_code\": \"VAPOR_DENSITY\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"3.1\", \"status\": \"값있음\", \"value\": 3.1, \"dp\": 1}}, {\"prop_code\": \"RELATIVE_DENSITY\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"0.8636\", \"status\": \"값있음\", \"value\": 0.8636, \"dp\": 4}}, {\"prop_code\": \"LOG_KOW\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"2.73\", \"status\": \"값있음\", \"value\": 2.73, \"dp\": 2}}, {\"prop_code\": \"AUTOIGNITION\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"480℃\", \"status\": \"값있음\", \"value\": 480, \"unit\": \"C\"}}, {\"prop_code\": \"DECOMPOSITION\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"VISCOSITY_KIN\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"0.57 cSt at 20℃\", \"status\": \"값있음\", \"value\": 0.57, \"unit\": \"cSt\", \"dp\": 2}, \"cond\": {\"temp\": 20, \"temp_unit\": \"C\"}}, {\"prop_code\": \"MOL_WEIGHT\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"92.14\", \"status\": \"값있음\", \"value\": 92.14, \"dp\": 2}}]}], \"evidence\": [{\"msds_index\": 0, \"field\": \"exposure_limits[0]\", \"page\": 5, \"source_text\": \"- [Toluene] : TWA : 50 ppm, STEL : 150 ppm - 톨루엔\", \"rules\": [\"R04\", \"R10\"], \"note\": \"국내노출기준 줄의 TWA 부분을 한 행으로 나눔, [Toluene]→comp_ref 1\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[1]\", \"page\": 5, \"source_text\": \"- [Toluene] : TWA : 50 ppm, STEL : 150 ppm - 톨루엔\", \"rules\": [\"R04\", \"R10\"], \"note\": \"같은 줄의 STEL 부분을 별도 행으로 나눔\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[2]\", \"page\": 5, \"source_text\": \"- [Toluene] : TWA 20 ppm (75 mg/m3)\", \"rules\": [\"R04\", \"R10\"], \"note\": \"20 ppm을 값으로, 괄호 속 75 mg/m3 환산값은 note에 둠\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[3]\", \"page\": 5, \"source_text\": \"-[Toluene] : 혈액 중 Toluene : 0.02 mg/L(주중 최종작업 전)\", \"rules\": [\"R04\", \"R10\"], \"note\": \"생물학적 노출기준 첫 항목: 매체 혈액, 지표 Toluene, 시기 주중 최종작업 전\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[4]\", \"page\": 5, \"source_text\": \"소변 중 Toluene : 0.03 mg/L (작업 후)\", \"rules\": [\"R04\", \"R10\"], \"note\": \"생물학적 노출기준 둘째 항목 (줄바꿈된 '(작업 후)' 포함)\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[5]\", \"page\": 5, \"source_text\": \"소변 중(with hydrolysis) o-Cresol : 0.3 mg/g 크레아티닌(작업 후)\", \"rules\": [\"R04\", \"R10\"], \"note\": \"생물학적 노출기준 셋째 항목\"}, {\"msds_index\": 0, \"field\": \"physchem[0]\", \"page\": 6, \"source_text\": \"가. 외관(물리적 상태, 색등): 무색 투명한 액체\", \"rules\": [\"R25\"], \"note\": \"외관을 APPEARANCE_STATE로, 원문 그대로 text_value에 둠\"}, {\"msds_index\": 0, \"field\": \"physchem[1]\", \"page\": 6, \"source_text\": \"나. 냄새: 벤젠냄새\", \"rules\": [\"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[2]\", \"page\": 6, \"source_text\": \"다. 냄새 역치: 자료없음\", \"rules\": [\"R15\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[3]\", \"page\": 6, \"source_text\": \"라. PH: 자료없음\", \"rules\": [\"R15\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[4]\", \"page\": 6, \"source_text\": \"마. 녹는점/어는점: -94.9℃\", \"rules\": [\"R04\", \"R06\", \"R08\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[5]\", \"page\": 6, \"source_text\": \"바. 초기 끓는점과 끓는 점 범위: 110.6℃\", \"rules\": [\"R04\", \"R06\", \"R08\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[6]\", \"page\": 6, \"source_text\": \"사. 인화점: 4℃\", \"rules\": [\"R04\", \"R08\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[7]\", \"page\": 6, \"source_text\": \"아. 증발속도: 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[8]\", \"page\": 6, \"source_text\": \"자. 인화성(고체, 기체): 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[9]\", \"page\": 6, \"source_text\": \"차. 인화 또는 폭발 범위의 상한/하한: 7.1 / 1.1 %\", \"rules\": [\"R04\", \"R25\"], \"note\": \"상한/하한 순서에 따라 7.1을 UEL로\"}, {\"msds_index\": 0, \"field\": \"physchem[10]\", \"page\": 6, \"source_text\": \"차. 인화 또는 폭발 범위의 상한/하한: 7.1 / 1.1 %\", \"rules\": [\"R04\", \"R25\"], \"note\": \"상한/하한 순서에 따라 1.1을 LEL로\"}, {\"msds_index\": 0, \"field\": \"physchem[11]\", \"page\": 6, \"source_text\": \"카. 증기압: 28.4mmHg at 25℃\", \"rules\": [\"R04\", \"R08\"], \"note\": \"'at 25℃'를 cond 온도로 분리\"}, {\"msds_index\": 0, \"field\": \"physchem[12]\", \"page\": 6, \"source_text\": \"타. 용해도: 526mg/L at 25℃\", \"rules\": [\"R04\", \"R08\"], \"note\": \"'at 25℃'를 cond 온도로 분리\"}, {\"msds_index\": 0, \"field\": \"physchem[13]\", \"page\": 6, \"source_text\": \"파. 증기밀도: 3.1\", \"rules\": [\"R04\", \"R06\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[14]\", \"page\": 6, \"source_text\": \"하. 비중: 0.8636\", \"rules\": [\"R04\", \"R06\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[15]\", \"page\": 7, \"source_text\": \"거. n옥탄올/물 분배계수: 2.73\", \"rules\": [\"R04\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[16]\", \"page\": 7, \"source_text\": \"너. 자연발화 온도: 480℃\", \"rules\": [\"R04\", \"R08\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[17]\", \"page\": 7, \"source_text\": \"더. 분해온도: 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[18]\", \"page\": 7, \"source_text\": \"러. 점도: 0.57 cSt at 20℃\", \"rules\": [\"R04\", \"R08\", \"R25\"], \"note\": \"항목명은 '점도'이나 단위가 cSt(동점도)라 코드표 정의에 따라 VISCOSITY_KIN으로 둠, 20℃는 cond로 분리\"}, {\"msds_index\": 0, \"field\": \"physchem[19]\", \"page\": 7, \"source_text\": \"머. 분자량: 92.14\", \"rules\": [\"R04\"], \"note\": null}]}"
+}

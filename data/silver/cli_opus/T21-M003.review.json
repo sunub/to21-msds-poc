@@ -1,0 +1,2673 @@
+[
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "meta.msds_no",
+    "page": 1,
+    "source_text": "MSDS번호 : AA00370-0000000002",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "meta.header_product_name",
+    "page": 1,
+    "source_text": "제품명 부탄(Butane)_석유화학 및 산업용",
+    "rules": [],
+    "note": "머리글 제품명 표에서 읽음"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "meta.first_issue_date",
+    "page": 11,
+    "source_text": "나. 최초작성일 2014-12-31",
+    "rules": [
+      "R01"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "meta.revision_no",
+    "page": 11,
+    "source_text": "개정횟수 4회",
+    "rules": [],
+    "note": "'4회'에서 4를 개정 횟수로 저장"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "meta.last_revision_date",
+    "page": 11,
+    "source_text": "최종개정일자 2021-04-16",
+    "rules": [
+      "R01"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "meta.page_start",
+    "page": 1,
+    "source_text": "1. 화학제품과 회사에 관한 정보",
+    "rules": [
+      "R16"
+    ],
+    "note": "1건 MSDS, 1~11쪽"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "product.name",
+    "page": 1,
+    "source_text": "가. 제품명 부탄(Butane)_석유화학 및 산업용",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "product.uses",
+    "page": 1,
+    "source_text": "제품의 권고 용도 산업용, 석유화학공업원료, 용제, 냉매 등",
+    "rules": [
+      "R11"
+    ],
+    "note": "쉼표 기준으로 4개 용도로 분리"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "product.restrictions",
+    "page": 1,
+    "source_text": "제품의 사용상의 제한 자료없음",
+    "rules": [
+      "R15"
+    ],
+    "note": "원문이 '자료없음'이라 제한 목록은 비워 둠"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "companies[0]",
+    "page": 1,
+    "source_text": "회사명 주식회사 E1 | 주소 서울특별시 용산구 한강대로 92 LS용산타워 20/21층 | 긴급전화번호 02-3441-4381",
+    "rules": [
+      "R12"
+    ],
+    "note": "'공급자 정보' 소제목에 따라 역할을 공급자로, 긴급전화번호는 contacts type=긴급으로 넣음"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.classified",
+    "page": 1,
+    "source_text": "인화성 가스 : 구분1",
+    "rules": [],
+    "note": "분류 항목이 있어 true"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.classes[0]",
+    "page": 1,
+    "source_text": "인화성 가스 : 구분1",
+    "rules": [
+      "R07"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.classes[1]",
+    "page": 1,
+    "source_text": "고압가스 : 액화가스",
+    "rules": [
+      "R07"
+    ],
+    "note": "구분 칸에 '액화가스'를 그대로 넣음"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.classes[2]",
+    "page": 1,
+    "source_text": "피부 부식성/피부 자극성 : 구분2(피부 자극성)",
+    "rules": [
+      "R07"
+    ],
+    "note": "괄호 안 '피부 자극성'은 effect로 둠"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.classes[3]",
+    "page": 1,
+    "source_text": "특정 표적장기 독성(1회 노출) : 구분3(마취영향)",
+    "rules": [
+      "R07"
+    ],
+    "note": "괄호 안 '마취영향'은 effect로 둠"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.signal_word",
+    "page": 1,
+    "source_text": "신호어 위험",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.pictograms",
+    "page": 1,
+    "source_text": "그림문자",
+    "rules": [],
+    "note": "이미지에서 불꽃(GHS02), 가스 실린더(GHS04), 감탄부호(GHS07) 그림을 확인함"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.h_statements[0]",
+    "page": 1,
+    "source_text": "H220 극인화성 가스",
+    "rules": [
+      "R05"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.h_statements[1]",
+    "page": 1,
+    "source_text": "H280 고압가스 포함 ; 가열하면 폭발할 수 있음",
+    "rules": [
+      "R05"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.h_statements[2]",
+    "page": 1,
+    "source_text": "H336 졸음 또는 현기증을 일으킬 수 있음",
+    "rules": [
+      "R05"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.p_statements[0]",
+    "page": 1,
+    "source_text": "P210 열·스파크·화염·고열로부터 멀리하시오 - 금연",
+    "rules": [
+      "R05"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.p_statements[1]",
+    "page": 1,
+    "source_text": "P261 (분진∙흄∙가스∙미스트∙증기∙스프레이)의 흡입을 피하시오.",
+    "rules": [
+      "R05"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.p_statements[2]",
+    "page": 1,
+    "source_text": "P271 옥외 또는 환기가 잘 되는 곳에서만 취급하시오",
+    "rules": [
+      "R05"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.p_statements[3]",
+    "page": 1,
+    "source_text": "P304+P340 흡입하면 신선한 공기가 있는 곳으로 옮기고 호흡하기 쉬운 자세로 안정을 취하시오",
+    "rules": [
+      "R05"
+    ],
+    "note": "이미지에서는 문구 끝이 잘려 텍스트층 문구를 씀"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.p_statements[4]",
+    "page": 1,
+    "source_text": "P312 불편함을 느끼면 의료기관(의사)의 진찰을 받으시오.",
+    "rules": [
+      "R05"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.p_statements[5]",
+    "page": 1,
+    "source_text": "P377 누출성 가스 화재 시 누출을 안전하게 막을 수 없다면 불을 끄려하지 마시오.",
+    "rules": [
+      "R05"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.p_statements[6]",
+    "page": 1,
+    "source_text": "P381 안전하게 처리하는 것이 가능하면 모든 점화원을 제거하시오.",
+    "rules": [
+      "R05"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.p_statements[7]",
+    "page": 1,
+    "source_text": "P403 환기가 잘 되는 곳에 보관하시오.",
+    "rules": [
+      "R05"
+    ],
+    "note": "원문에서는 대응 영역에 있지만, 유형은 코드 첫 자리에 따라 저장으로 정함"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.p_statements[8]",
+    "page": 1,
+    "source_text": "P403+P233 용기는 환기가 잘 되는 곳에 단단히 밀폐하여 저장하시오.",
+    "rules": [
+      "R05"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.p_statements[9]",
+    "page": 1,
+    "source_text": "P410+P403 직사광선을 피하고 환기가 잘 되는 곳에 보관하시오.",
+    "rules": [
+      "R05"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.p_statements[10]",
+    "page": 1,
+    "source_text": "P501 (관련 법규에 명시된 내용에 따라) 내용물 용기를 폐기하시오.",
+    "rules": [
+      "R05"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.nfpa",
+    "page": 1,
+    "source_text": "보건 1 | 화재 4 | 반응성 0",
+    "rules": [],
+    "note": "제품 전체 NFPA 값"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "composition.type",
+    "page": 2,
+    "source_text": "물질명 이명(관용명) CAS번호 함유량(mol%)",
+    "rules": [],
+    "note": "성분 3개가 있어 혼합물로 둠"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "components[0]",
+    "page": 2,
+    "source_text": "프로판(Propane) | 프로페인 | 74-98-6 | 0 ~ 4",
+    "rules": [
+      "R02",
+      "R04",
+      "R19"
+    ],
+    "note": "함유량 단위가 mol%라서 content_basis를 몰로 둠, 하한 0(>=)·상한 4(<=)"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "components[1]",
+    "page": 2,
+    "source_text": "부탄 혼합물(Butane, branched and linear)* | 뷰테인 혼합물(Butane mixture) | 68513-65-5 | 94 ~ 100",
+    "rules": [
+      "R02",
+      "R04"
+    ],
+    "note": "각주 기호 *는 이름에서 뺌. 각주의 이소부탄(75-28-5)·노말부탄(106-97-8)은 성분표 행이 아니어서 별도 성분으로 만들지 않음"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "components[2]",
+    "page": 2,
+    "source_text": "이소펜탄(Iso-Pentane) | 아이소펜테인, 2-메틸뷰테인(2-Methylbutane) | 78-78-4 | 0 ~ 2",
+    "rules": [
+      "R02",
+      "R04",
+      "R11",
+      "R19"
+    ],
+    "note": "이명은 쉼표 기준으로 분리"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[0]",
+    "page": 4,
+    "source_text": "국내규정 | 프로판 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "기준 종류 표시가 없어 limit_type은 null로 둠"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[1]",
+    "page": 4,
+    "source_text": "부탄혼합물 | TWA 800ppm  1,900mg/m³",
+    "rules": [
+      "R04",
+      "R06",
+      "R10"
+    ],
+    "note": "ppm 값과 mg/m3 값을 두 행으로 나눔. 국내 기준 구분(노출기준/허용기준)이 적혀 있지 않아 kr_basis는 null로 둠"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[2]",
+    "page": 4,
+    "source_text": "부탄혼합물 | TWA 800ppm  1,900mg/m³",
+    "rules": [
+      "R04",
+      "R06",
+      "R08",
+      "R10"
+    ],
+    "note": "1,900mg/m³에서 콤마를 지우고 단위를 mg/m3로 적음"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[3]",
+    "page": 4,
+    "source_text": "국내규정 | 이소펜탄 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[4]",
+    "page": 4,
+    "source_text": "ACGIH 규정 | 프로판 | TWA 1,000 ppm  8hours",
+    "rules": [
+      "R04",
+      "R06",
+      "R10"
+    ],
+    "note": "'8hours'는 raw에만 남김"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[5]",
+    "page": 4,
+    "source_text": "부탄혼합물 | TWA 1,000 ppm  8hours",
+    "rules": [
+      "R04",
+      "R06",
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[6]",
+    "page": 4,
+    "source_text": "이소펜탄 | TWA 600 ppm  8hours",
+    "rules": [
+      "R04",
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[7]",
+    "page": 4,
+    "source_text": "생물학적 노출기준 | 프로판 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[8]",
+    "page": 4,
+    "source_text": "생물학적 노출기준 | 부탄혼합물 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[9]",
+    "page": 4,
+    "source_text": "생물학적 노출기준 | 이소펜탄 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[10]",
+    "page": 4,
+    "source_text": "기타 노출기준 | 프로판 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[11]",
+    "page": 4,
+    "source_text": "기타 노출기준 | 부탄혼합물 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[12]",
+    "page": 4,
+    "source_text": "기타 노출기준 | 이소펜탄 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[0]",
+    "page": 5,
+    "source_text": "성상 | 가스, 액화가스",
+    "rules": [
+      "R25"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[1]",
+    "page": 5,
+    "source_text": "색상 | 무색",
+    "rules": [
+      "R25"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[2]",
+    "page": 5,
+    "source_text": "나. 냄새 | 무취(부취제 주입전) 또는 독특한 냄새(부취제 주입후)",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[3]",
+    "page": 5,
+    "source_text": "다. 냄새역치 | 공기중의 혼합비율이 1,000분의 1인 상태에서 감지할 수 있도록 함(부취제 주입후)",
+    "rules": [
+      "R25"
+    ],
+    "note": "값이 서술형이라 text_value에만 적음"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[4]",
+    "page": 5,
+    "source_text": "라. pH | 자료없음",
+    "rules": [
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[5]",
+    "page": 5,
+    "source_text": "마. 녹는점/어는점 | 약 -159 ~ -138℃",
+    "rules": [
+      "R04",
+      "R06",
+      "R08"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[6]",
+    "page": 5,
+    "source_text": "프로판 | -189.7℃",
+    "rules": [
+      "R04",
+      "R08",
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[7]",
+    "page": 5,
+    "source_text": "부탄 혼합물 | 약 -159 ~ -138℃",
+    "rules": [
+      "R04",
+      "R06",
+      "R08",
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[8]",
+    "page": 5,
+    "source_text": "이소펜탄 | -159.9℃",
+    "rules": [
+      "R04",
+      "R08",
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[9]",
+    "page": 5,
+    "source_text": "바. 초기 끓는점과 끓는점 범위 | 약 -11.7 ~ -0.2℃",
+    "rules": [
+      "R04",
+      "R06",
+      "R08"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[10]",
+    "page": 5,
+    "source_text": "프로판 | -42℃",
+    "rules": [
+      "R08",
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[11]",
+    "page": 5,
+    "source_text": "부탄 혼합물 | 약 -11.7 ~ -0.2℃",
+    "rules": [
+      "R04",
+      "R06",
+      "R08",
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[12]",
+    "page": 5,
+    "source_text": "이소펜탄 | 27.8℃",
+    "rules": [
+      "R08",
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[13]",
+    "page": 5,
+    "source_text": "사. 인화점 | 약 -83 ~ -60℃",
+    "rules": [
+      "R04",
+      "R06",
+      "R08"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[14]",
+    "page": 5,
+    "source_text": "프로판 | -104℃",
+    "rules": [
+      "R08",
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[15]",
+    "page": 5,
+    "source_text": "부탄 혼합물 | 약 -83 ~ -60℃",
+    "rules": [
+      "R04",
+      "R06",
+      "R08",
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[16]",
+    "page": 5,
+    "source_text": "이소펜탄 | -51 ℃",
+    "rules": [
+      "R08",
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[17]",
+    "page": 5,
+    "source_text": "아. 증발속도 | 자료없음",
+    "rules": [
+      "R15",
+      "R25"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[18]",
+    "page": 5,
+    "source_text": "자. 인화성(고체, 기체) | 인화성 가스",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[19]",
+    "page": 5,
+    "source_text": "차. 인화 또는 폭발 범위의 상한/하한 | 약 8.4vol.% / 1.8vol.%",
+    "rules": [
+      "R04",
+      "R06",
+      "R25"
+    ],
+    "note": "상한/하한을 UEL·LEL 두 행으로 나누고, 앞의 '약'을 두 값 모두에 approx로 붙임"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[20]",
+    "page": 5,
+    "source_text": "차. 인화 또는 폭발 범위의 상한/하한 | 약 8.4vol.% / 1.8vol.%",
+    "rules": [
+      "R04",
+      "R06",
+      "R25"
+    ],
+    "note": "하한 1.8을 LEL로 적음"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[21]",
+    "page": 5,
+    "source_text": "프로판 | 9.5vol.% / 2.1vol.%",
+    "rules": [
+      "R04",
+      "R10",
+      "R25"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[22]",
+    "page": 5,
+    "source_text": "프로판 | 9.5vol.% / 2.1vol.%",
+    "rules": [
+      "R04",
+      "R10",
+      "R25"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[23]",
+    "page": 5,
+    "source_text": "부탄 혼합물 | 약 8.4vol.% / 1.8vol.%",
+    "rules": [
+      "R04",
+      "R06",
+      "R10",
+      "R25"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[24]",
+    "page": 5,
+    "source_text": "부탄 혼합물 | 약 8.4vol.% / 1.8vol.%",
+    "rules": [
+      "R04",
+      "R06",
+      "R10",
+      "R25"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[25]",
+    "page": 5,
+    "source_text": "이소펜탄 | 7.6 vol.%/ 1.4 vol.%",
+    "rules": [
+      "R04",
+      "R10",
+      "R25"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[26]",
+    "page": 5,
+    "source_text": "이소펜탄 | 7.6 vol.%/ 1.4 vol.%",
+    "rules": [
+      "R04",
+      "R10",
+      "R25"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[27]",
+    "page": 5,
+    "source_text": "카. 증기압 | 약 213 ~ 310kPa (at 21.1℃)",
+    "rules": [
+      "R04",
+      "R06",
+      "R08"
+    ],
+    "note": "온도를 cond로 분리"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[28]",
+    "page": 5,
+    "source_text": "프로판 | 853kPa (at 21.1℃)",
+    "rules": [
+      "R04",
+      "R08",
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[29]",
+    "page": 5,
+    "source_text": "부탄 혼합물 | 약 213 ~ 310kPa (at 21.1℃)",
+    "rules": [
+      "R04",
+      "R06",
+      "R08",
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[30]",
+    "page": 5,
+    "source_text": "이소펜탄 | 79kPa (at 21.1℃)",
+    "rules": [
+      "R04",
+      "R08",
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[31]",
+    "page": 5,
+    "source_text": "타. 용해도 | 약 0.0061g/100ml (at 20℃)",
+    "rules": [
+      "R04",
+      "R06",
+      "R08"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[32]",
+    "page": 5,
+    "source_text": "프로판 | 0.0007g/100ml (at 20℃)",
+    "rules": [
+      "R04",
+      "R08",
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[33]",
+    "page": 5,
+    "source_text": "부탄 혼합물 | 약 0.0061g/100ml (at 20℃)",
+    "rules": [
+      "R04",
+      "R06",
+      "R08",
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[34]",
+    "page": 5,
+    "source_text": "이소펜탄 | 극소량 (at 20℃)",
+    "rules": [
+      "R10"
+    ],
+    "note": "값이 서술형이라 text_value에 적고 온도는 cond로 분리"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[35]",
+    "page": 5,
+    "source_text": "파. 증기밀도 | 약 2.01 ~ 2.17 (공기 = 1)",
+    "rules": [
+      "R04",
+      "R06",
+      "R25"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[36]",
+    "page": 5,
+    "source_text": "프로판 | 1.55 (공기 = 1)",
+    "rules": [
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[37]",
+    "page": 5,
+    "source_text": "부탄 혼합물 | 약 2.01 ~ 2.17 (공기 = 1)",
+    "rules": [
+      "R04",
+      "R06",
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[38]",
+    "page": 5,
+    "source_text": "이소펜탄 | 2.5 (공기 = 1)",
+    "rules": [
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[39]",
+    "page": 5,
+    "source_text": "하. 비중 | 약 0.6 (물 = 1)",
+    "rules": [
+      "R06",
+      "R25"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[40]",
+    "page": 5,
+    "source_text": "프로판 | 0.5 (물 = 1)",
+    "rules": [
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[41]",
+    "page": 5,
+    "source_text": "부탄 혼합물 | 약 0.6 (물 = 1)",
+    "rules": [
+      "R06",
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[42]",
+    "page": 5,
+    "source_text": "이소펜탄 | 0.6 (물 = 1)",
+    "rules": [
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[43]",
+    "page": 6,
+    "source_text": "거. n-옥탄올/물분배계수 (Kow) | 약 2.76 ~ 2.89",
+    "rules": [
+      "R04",
+      "R06",
+      "R25"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[44]",
+    "page": 6,
+    "source_text": "프로판 | 2.4",
+    "rules": [
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[45]",
+    "page": 6,
+    "source_text": "부탄 혼합물 | 약 2.76 ~ 2.89",
+    "rules": [
+      "R04",
+      "R06",
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[46]",
+    "page": 6,
+    "source_text": "이소펜탄 | 2.3",
+    "rules": [
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[47]",
+    "page": 6,
+    "source_text": "너. 자연발화온도 | 약 365 ~ 460°C",
+    "rules": [
+      "R04",
+      "R06",
+      "R08"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[48]",
+    "page": 6,
+    "source_text": "프로판 | 450°C",
+    "rules": [
+      "R08",
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[49]",
+    "page": 6,
+    "source_text": "부탄 혼합물 | 약 365 ~ 460°C",
+    "rules": [
+      "R04",
+      "R06",
+      "R08",
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[50]",
+    "page": 6,
+    "source_text": "이소펜탄 | 420 ℃",
+    "rules": [
+      "R08",
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[51]",
+    "page": 6,
+    "source_text": "더. 분해온도 | 자료없음",
+    "rules": [
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[52]",
+    "page": 6,
+    "source_text": "러. 점도 | 자료없음",
+    "rules": [
+      "R15",
+      "R25"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[53]",
+    "page": 6,
+    "source_text": "머. 분자량 | 약 58.12",
+    "rules": [
+      "R06"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[54]",
+    "page": 6,
+    "source_text": "프로판 | 44.11",
+    "rules": [
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[55]",
+    "page": 6,
+    "source_text": "부탄 혼합물 | 58.12",
+    "rules": [
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[56]",
+    "page": 6,
+    "source_text": "이소펜탄 | 72.15",
+    "rules": [
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[0]",
+    "page": 6,
+    "source_text": "경구 | 자료없음",
+    "rules": [
+      "R15"
+    ],
+    "note": "성분 구분 없이 기재되어 MIX로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[1]",
+    "page": 7,
+    "source_text": "경피 | 자료없음",
+    "rules": [
+      "R15"
+    ],
+    "note": "항목 머리 줄의 자료없음을 MIX 행으로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[2]",
+    "page": 7,
+    "source_text": "프로판 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[3]",
+    "page": 7,
+    "source_text": "부탄 혼합물 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[4]",
+    "page": 7,
+    "source_text": "이소펜탄 | LD50 > 2,000 ㎎/㎏ Rat",
+    "rules": [
+      "R04",
+      "R06",
+      "R08",
+      "R10"
+    ],
+    "note": "'> 2,000'을 하한 2000(>)으로, ㎎/㎏→mg/kg"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[5]",
+    "page": 7,
+    "source_text": "프로판 | 가스 LC50 800,000 ppm 15 min Rat",
+    "rules": [
+      "R04",
+      "R06",
+      "R10"
+    ],
+    "note": "'가스'를 physical_form, 15 min을 노출시간으로 분리"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[6]",
+    "page": 7,
+    "source_text": "부탄 혼합물 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[7]",
+    "page": 7,
+    "source_text": "이소펜탄 | LC50 280,000 mg/㎥ 4 hr Rat",
+    "rules": [
+      "R04",
+      "R06",
+      "R08",
+      "R10"
+    ],
+    "note": "흡입 형태 표기 없어 physical_form null"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[8]",
+    "page": 7,
+    "source_text": "프로판 | 자료없음 (EU Directive 67/548). rabbit /irritating 래빗/자극( IUCLID)",
+    "rules": [
+      "R10"
+    ],
+    "note": "시험 결과가 함께 적혀 결과기술로 원문 문장 보존"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[9]",
+    "page": 7,
+    "source_text": "부탄 혼합물 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[10]",
+    "page": 7,
+    "source_text": "이소펜탄 | 비자극성 (Rabbit)",
+    "rules": [
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[11]",
+    "page": 7,
+    "source_text": "프로판 | 자료없음(EU Directive 67/548/EEC). Rabbit/not irritating 래빗/무자극(IUCLID)",
+    "rules": [
+      "R10"
+    ],
+    "note": "결과기술로 원문 보존"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[12]",
+    "page": 7,
+    "source_text": "부탄 혼합물 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[13]",
+    "page": 7,
+    "source_text": "이소펜탄 | 고농도의 증기가 눈을 자극함.",
+    "rules": [
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[14]",
+    "page": 7,
+    "source_text": "호흡기과민성 | 자료없음",
+    "rules": [
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[15]",
+    "page": 7,
+    "source_text": "피부과민성 | 자료없음",
+    "rules": [
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[16]",
+    "page": 7,
+    "source_text": "프로판 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "생식세포변이원성"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[17]",
+    "page": 7,
+    "source_text": "부탄 혼합물 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "생식세포변이원성"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[18]",
+    "page": 7,
+    "source_text": "이소펜탄 | in vivo 포유류 골수 소핵시험 음성",
+    "rules": [
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[19]",
+    "page": 7,
+    "source_text": "생식독성 | 자료없음",
+    "rules": [
+      "R15"
+    ],
+    "note": "항목 머리 줄을 MIX 행으로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[20]",
+    "page": 7,
+    "source_text": "프로판 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "생식독성"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[21]",
+    "page": 7,
+    "source_text": "부탄 혼합물 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "생식독성"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[22]",
+    "page": 7,
+    "source_text": "이소펜탄 | 1세대 생식독성시험 결과 모친동물 및 차세대 동물에서 독성학적 영향은 관찰되지 않았으며(1,000 ㎎/㎏), 다만 부친동물에서 매우 경미한 영향",
+    "rules": [
+      "R10"
+    ],
+    "note": "지표 명시 없어 결과기술로 문장 보존"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[23]",
+    "page": 7,
+    "source_text": "프로판 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "특정 표적장기 독성(1회 노출)"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[24]",
+    "page": 7,
+    "source_text": "부탄 혼합물 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "특정 표적장기 독성(1회 노출)"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[25]",
+    "page": 7,
+    "source_text": "이소펜탄 | 흰쥐, 마우스 흡입 노출시 마취 작용이 보고됨.",
+    "rules": [
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[26]",
+    "page": 7,
+    "source_text": "프로판 | 자료없음(EU Directive 67/548/EEC). Central nervous system:신경계 영향(TOMES)",
+    "rules": [
+      "R10"
+    ],
+    "note": "결과기술로 원문 보존"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[27]",
+    "page": 7,
+    "source_text": "부탄 혼합물 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "특정 표적장기 독성(반복 노출)"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[28]",
+    "page": 7,
+    "source_text": "이소펜탄 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "특정 표적장기 독성(반복 노출)"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[29]",
+    "page": 7,
+    "source_text": "흡인유해성 | 자료없음",
+    "rules": [
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[30]",
+    "page": 7,
+    "source_text": "기타 유해성 영향 | 자료없음",
+    "rules": [
+      "R15"
+    ],
+    "note": "맞는 값 없음: C5에 11항 기타 유해성 영향 코드가 없어 endpoint null"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[0]",
+    "page": 7,
+    "source_text": "산업안전보건법 | 자료없음",
+    "rules": [
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[1]",
+    "page": 7,
+    "source_text": "고용노동부고시 | 자료없음",
+    "rules": [
+      "R15"
+    ],
+    "note": "고용노동부 고시를 KR_OSH로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[2]",
+    "page": 7,
+    "source_text": "IARC | 자료없음",
+    "rules": [
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[3]",
+    "page": 7,
+    "source_text": "OSHA | 자료없음",
+    "rules": [
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[4]",
+    "page": 7,
+    "source_text": "ACGIH | 자료없음",
+    "rules": [
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[5]",
+    "page": 7,
+    "source_text": "NTP | 자료없음",
+    "rules": [
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[6]",
+    "page": 7,
+    "source_text": "EU CLP | 자료없음",
+    "rules": [
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[0]",
+    "page": 8,
+    "source_text": "프로판 | LC50 > 100 ㎎/ℓ 96 hr 기타 ((시험종 : Fish TLm))",
+    "rules": [
+      "R04",
+      "R08",
+      "R10"
+    ],
+    "note": "시험종 'Fish TLm'을 species로"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[1]",
+    "page": 8,
+    "source_text": "부탄 혼합물 | LC50 29.535 ㎎/ℓ 96 hr 기타 (ECOSAR: Neutral Organics)",
+    "rules": [
+      "R04",
+      "R08",
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[2]",
+    "page": 8,
+    "source_text": "이소펜탄 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "어류"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[3]",
+    "page": 8,
+    "source_text": "프로판 | LC50 52.157 ㎎/ℓ 48 hr",
+    "rules": [
+      "R04",
+      "R08",
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[4]",
+    "page": 8,
+    "source_text": "부탄 혼합물 | LC50 17.133 ㎎/ℓ 48 hr Daphnia magna (ECOSAR: Neutral Organics)",
+    "rules": [
+      "R04",
+      "R08",
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[5]",
+    "page": 8,
+    "source_text": "이소펜탄 | EC50 2.3 ㎎/ℓ 48 hr",
+    "rules": [
+      "R04",
+      "R08",
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[6]",
+    "page": 8,
+    "source_text": "프로판 | LC50 32.252 ㎎/ℓ 96 hr",
+    "rules": [
+      "R04",
+      "R08",
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[7]",
+    "page": 8,
+    "source_text": "부탄 혼합물 | EC50 13.946 ㎎/ℓ 96 hr 기타 (ECOSAR: Neutral Organics)",
+    "rules": [
+      "R04",
+      "R08",
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[8]",
+    "page": 8,
+    "source_text": "이소펜탄 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "조류"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[9]",
+    "page": 8,
+    "source_text": "프로판 | log Kow 2.36",
+    "rules": [
+      "R04",
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[10]",
+    "page": 8,
+    "source_text": "부탄 혼합물 | log Kow 2.76",
+    "rules": [
+      "R04",
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[11]",
+    "page": 8,
+    "source_text": "이소펜탄 | log Kow 2.30",
+    "rules": [
+      "R04",
+      "R06",
+      "R10"
+    ],
+    "note": "'2.30'을 value 2.3, dp 2로"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[12]",
+    "page": 8,
+    "source_text": "분해성 | 자료없음",
+    "rules": [
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[13]",
+    "page": 8,
+    "source_text": "프로판 | BCF 13",
+    "rules": [
+      "R04",
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[14]",
+    "page": 8,
+    "source_text": "부탄 혼합물 | BCF 30.76",
+    "rules": [
+      "R04",
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[15]",
+    "page": 8,
+    "source_text": "이소펜탄 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "농축성"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[16]",
+    "page": 8,
+    "source_text": "프로판 | 65.7 (%) 35 day",
+    "rules": [
+      "R04",
+      "R10"
+    ],
+    "note": "생물농축성 아래 '생분해성' 소항목이나 분해율이므로 ECO_PERSIST로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[17]",
+    "page": 8,
+    "source_text": "부탄 혼합물 | (난분해성)",
+    "rules": [
+      "R10"
+    ],
+    "note": "생분해성 결과기술, ECO_PERSIST로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[18]",
+    "page": 8,
+    "source_text": "이소펜탄 | 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "생분해성"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[19]",
+    "page": 8,
+    "source_text": "라. 토양이동성 | 자료없음",
+    "rules": [
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[20]",
+    "page": 8,
+    "source_text": "마. 기타 유해 영향 | 자료없음",
+    "rules": [
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "transport[0]",
+    "page": 9,
+    "source_text": "프로판 | 1978 | 프로판(PROPANE) | 2.1 | 라. 용기등급 해당없음 | 마. 해양오염물질 자료없음 | F-D | S-U",
+    "rules": [
+      "R09"
+    ],
+    "note": "성분별 값을 프로판 행으로 묶음, 운송 규정 구분 없어 mode=공통"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "transport[1]",
+    "page": 9,
+    "source_text": "부탄 혼합물 | UN 운송위험물질 분류정보가 없음 | 해당없음 | 2.1 | F-D | S-U",
+    "rules": [
+      "R15"
+    ],
+    "note": "UN번호·선적명 없음으로 null, 위험성 등급 2.1이 있어 regulated는 판단하지 않고 null"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "transport[2]",
+    "page": 9,
+    "source_text": "이소펜탄 | 1265 | 펜탄(PENTANES, liquid) | 3 | F-E | S-D",
+    "rules": [
+      "R09"
+    ],
+    "note": "성분별 값을 이소펜탄 행으로 묶음"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[0]",
+    "page": 10,
+    "source_text": "가. 산업안전보건법에 의한 규제 | 프로판 | 해당없음",
+    "rules": [
+      "R15"
+    ],
+    "note": "맞는 값 없음: 특정 규제 항목 없이 해당없음이므로 item_code null, 비해당"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[1]",
+    "page": 10,
+    "source_text": "부탄 혼합물 | 노출기준설정물질",
+    "rules": [
+      "R25"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[2]",
+    "page": 10,
+    "source_text": "이소펜탄 | 해당없음",
+    "rules": [
+      "R15"
+    ],
+    "note": "맞는 값 없음: 특정 규제 항목 없어 item_code null, 비해당"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[3]",
+    "page": 10,
+    "source_text": "나. 화학물질관리법에 의한 규제 | 해당사항 없음",
+    "rules": [
+      "R15"
+    ],
+    "note": "맞는 값 없음: 특정 항목 없이 제품 전체 해당사항 없음, item_code null"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[4]",
+    "page": 10,
+    "source_text": null,
+    "rules": [
+      "R18"
+    ],
+    "note": "구양식 문서로 화평법 항목이 없어 미기재"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[5]",
+    "page": 10,
+    "source_text": "다. 위험물안전관리법에 의한 규제 | 프로판 | 해당없음",
+    "rules": [
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[6]",
+    "page": 10,
+    "source_text": "부탄 혼합물 | 해당없음",
+    "rules": [
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[7]",
+    "page": 10,
+    "source_text": "이소펜탄 | 4류 특수인화물 50ℓ",
+    "rules": [
+      "R04"
+    ],
+    "note": "지정수량 50ℓ를 value 50, unit L로 분해"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[8]",
+    "page": 10,
+    "source_text": "라. 폐기물관리법에 의한 규제 | 프로판 | 지정폐기물",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[9]",
+    "page": 10,
+    "source_text": "부탄 혼합물 | 지정폐기물",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[10]",
+    "page": 10,
+    "source_text": "이소펜탄 | 지정폐기물",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[11]",
+    "page": 10,
+    "source_text": "잔류성유기오염물질관리법 | 해당없음",
+    "rules": [
+      "R25",
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[12]",
+    "page": 10,
+    "source_text": "고압가스 안전관리법 | 가연성가스, 액화가스",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[13]",
+    "page": 10,
+    "source_text": "액화석유가스의 안전관리 및 사업법 | 액화석유가스",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[14]",
+    "page": 10,
+    "source_text": "미국관리정보(OSHA 규정) | 해당없음",
+    "rules": [
+      "R25",
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[15]",
+    "page": 10,
+    "source_text": "미국관리정보(CERCLA 규정) | 해당없음",
+    "rules": [
+      "R25",
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[16]",
+    "page": 10,
+    "source_text": "미국관리정보(EPCRA 302 규정) | 해당없음",
+    "rules": [
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[17]",
+    "page": 10,
+    "source_text": "미국관리정보(EPCRA 304 규정) | 해당없음",
+    "rules": [
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[18]",
+    "page": 10,
+    "source_text": "미국관리정보(EPCRA 313 규정) | 해당없음",
+    "rules": [
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[19]",
+    "page": 10,
+    "source_text": "미국관리정보(로테르담협약물질) | 해당없음",
+    "rules": [
+      "R25",
+      "R15"
+    ],
+    "note": "국제협약 물질로 INTL_TREATY"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[20]",
+    "page": 10,
+    "source_text": "미국관리정보(스톡홀름협약물질) | 해당없음",
+    "rules": [
+      "R25",
+      "R15"
+    ],
+    "note": "국제협약 물질로 INTL_TREATY"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[21]",
+    "page": 10,
+    "source_text": "미국관리정보(몬트리올의정서물질) | 해당없음",
+    "rules": [
+      "R25",
+      "R15"
+    ],
+    "note": "이미지 기준 몬트리올의정서물질 행의 값이 해당없음"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[22]",
+    "page": 10,
+    "source_text": "EU 분류정보(확정분류결과) | 프로판 | F+; R12",
+    "rules": [
+      "R25"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[23]",
+    "page": 10,
+    "source_text": "부탄 혼합물 | F+; R12",
+    "rules": [
+      "R25"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[24]",
+    "page": 10,
+    "source_text": "이소펜탄 | F+; R12 [N; R51/53 (만성수생환경 유해성 구분 2), Xn; R65 (흡인유해성 구분 1), R66 ..., R67 ...] * 이소펜탄의 함량이 2.5% 미만이어서 수생환경유해성 미적용",
+    "rules": [
+      "R25"
+    ],
+    "note": "별표 주석은 remark에 둠"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[25]",
+    "page": 10,
+    "source_text": "EU 분류정보(위험문구) | 프로판 | R12",
+    "rules": [
+      "R25"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[26]",
+    "page": 10,
+    "source_text": "부탄 혼합물 | R12",
+    "rules": [
+      "R25"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[27]",
+    "page": 10,
+    "source_text": "이소펜탄 | R12, R51/53, R65, R66, R67",
+    "rules": [
+      "R25"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[28]",
+    "page": 10,
+    "source_text": "EU 분류정보(안전문구) | 프로판 | S2, S9, S16",
+    "rules": [
+      "R25"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[29]",
+    "page": 10,
+    "source_text": "부탄 혼합물 | S2, S9, S16",
+    "rules": [
+      "R25"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[30]",
+    "page": 10,
+    "source_text": "이소펜탄 | S2, S9, S16, S29, S33, S61, S62",
+    "rules": [
+      "R25"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "dangerous_goods[0]",
+    "page": 10,
+    "source_text": "프로판 | 해당없음",
+    "rules": [
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "dangerous_goods[1]",
+    "page": 10,
+    "source_text": "부탄 혼합물 | 해당없음",
+    "rules": [
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "dangerous_goods[2]",
+    "page": 10,
+    "source_text": "이소펜탄 | 4류 특수인화물 50ℓ",
+    "rules": [
+      "R04"
+    ],
+    "note": "4류→제4류, 품명 특수인화물, 지정수량 50 L; 수용성·위험등급 표기 없음"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "waste[0]",
+    "page": 10,
+    "source_text": "프로판 | 지정폐기물",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "waste[1]",
+    "page": 10,
+    "source_text": "부탄 혼합물 | 지정폐기물",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "waste[2]",
+    "page": 10,
+    "source_text": "이소펜탄 | 지정폐기물",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S4_EYE]",
+    "page": 2,
+    "source_text": "가. 눈에 들어갔을 때 | 긴급 의료조치를 받으시오 | 물질과 접촉시 즉시 20분 이상 흐르는 물에 피부와 눈을 씻어내시오",
+    "rules": [
+      "R14"
+    ],
+    "note": "이미지의 행 위치로 항목별 문장 범위를 나눔"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S4_SKIN]",
+    "page": 2,
+    "source_text": "나. 피부에 접촉했을 때 | 피부(또는 머리카락)에 묻으면 오염된 모든 의복은 벗으시오.",
+    "rules": [
+      "R14"
+    ],
+    "note": "두 줄로 나뉜 화상 문장을 이어붙임"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S4_INHAL]",
+    "page": 2,
+    "source_text": "다. 흡입했을 때 | 과량의 먼지 또는 흄에 노출된 경우 깨끗한 공기로 제거하고",
+    "rules": [
+      "R14"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S4_INGEST]",
+    "page": 2,
+    "source_text": "라. 먹었을 때 | 물질을 먹거나 흡입하였을 경우 구강대구강법으로 인공호흡을 하지 말고 적절한",
+    "rules": [
+      "R14"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S4_DOCTOR]",
+    "page": 2,
+    "source_text": "마. 기타 의사의 주의사항 | 의료인력이 해당물질에 대해 인지하고 보호조치를 취하도록 하시오",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S5_MEDIA]",
+    "page": 2,
+    "source_text": "가. 적절한(부적절한) 소화제 | 이 물질과 관련된 소화시 알콜 포말, 이산화탄소 또는 물분무를 사용할 것",
+    "rules": [
+      "R14"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S5_SPECIFIC]",
+    "page": 2,
+    "source_text": "나. 화학물질로부터 생기는 특정 유해성 | 극인화성 가스",
+    "rules": [
+      "R14"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S5_FIREFIGHT]",
+    "page": 3,
+    "source_text": "다. 화재진압시 착용할 보호구 및 예방조치 | 누출성 가스 화재 시 누출을 안전하게 막을 수 없다면 불을 끄려하지 마시오.",
+    "rules": [
+      "R14"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S6_PERSONAL]",
+    "page": 3,
+    "source_text": "가. 인체를 보호하기 위해 필요한 조치사항 및 보호구 | (분진·흄·가스·미스트·증기·스프레이)의 흡입을 피하시오.",
+    "rules": [
+      "R14"
+    ],
+    "note": "이미지의 행 위치로 '피해야할 물질 및 조건에 유의하시오'까지 포함"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S6_ENV]",
+    "page": 3,
+    "source_text": "나. 환경을 보호하기 위해 필요한 조치사항 | 수로, 하수구, 지하실, 밀폐공간으로의 유입을 방지하시오",
+    "rules": [
+      "R14"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S6_CLEANUP]",
+    "page": 3,
+    "source_text": "다. 정화 또는 제거 방법 | 불활성 물질(예를 들어 건조한 모래 또는 흙)로 엎지른 것을 흡수하고, 화학폐기물 용기에",
+    "rules": [
+      "R14"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S7_HANDLING]",
+    "page": 4,
+    "source_text": "가. 안전취급요령 | 모든 안전 예방조치 문구를 읽고 이해하기 전에는 취급하지 마시오.",
+    "rules": [
+      "R14"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S7_STORAGE]",
+    "page": 4,
+    "source_text": "나. 안전한 저장방법 (피해야할 조건 포함) | 열·스파크·화염·고열로부터 멀리하시오 - 금연",
+    "rules": [
+      "R14"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S8_ENG]",
+    "page": 4,
+    "source_text": "나. 적절한 공학적 관리 | 공정격리, 국소배기를 사용하거나, 공기수준을 노출기준 이하로 조절하는 다른 공학적 관리를 하시오.",
+    "rules": [
+      "R14"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S8_RESP]",
+    "page": 5,
+    "source_text": "호흡기 보호 | 노출되는 물질의 물리화학적 특성에 맞는 산업안전보건공단의 인증을 필한 호흡용 보호구를 착용 하시오",
+    "rules": [
+      "R14"
+    ],
+    "note": "'근로자가 쉽게…' 줄은 텍스트층 순서에 따라 호흡기 보호에 둠"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S8_EYE]",
+    "page": 5,
+    "source_text": "눈 보호 콘택트렌즈를 착용시 위험할 수 있으니 착용하지 마시오.",
+    "rules": [
+      "R14"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S8_HAND]",
+    "page": 5,
+    "source_text": "손 보호 절연용 장갑을 착용하시오",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S8_BODY]",
+    "page": 5,
+    "source_text": "신체 보호 신체보호를 위해 적합한 개인 보호의, 방한복을 착용하시오",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S10_STABILITY]",
+    "page": 6,
+    "source_text": "가. 화학적 안정성 및 유해 반응의 가능성 | 극인화성 가스",
+    "rules": [
+      "R14"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S10_CONDITIONS]",
+    "page": 6,
+    "source_text": "나. 피해야 할 조건 | 열·스파크·화염·고열로부터 멀리하시오 - 금연",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S10_INCOMPAT]",
+    "page": 6,
+    "source_text": "다. 피해야 할 물질 | 자료없음",
+    "rules": [
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S10_DECOMP]",
+    "page": 6,
+    "source_text": "라. 분해시 생성되는 유해물질 | 타는 동안 열분해 또는 연소에 의해 자극적이고 매우 유독한 가스가 발생될 수 있음 | 자극성, 독성 가스",
+    "rules": [
+      "R14"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S11_ROUTE]",
+    "page": 6,
+    "source_text": "가. 가능성이 높은 노출 경로에 관한 정보 | 프로판 | 부탄 혼합물 | 이소펜탄",
+    "rules": [
+      "R14",
+      "R10"
+    ],
+    "note": "성분명 행별 문장을 refs로 성분에 연결"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S13_METHOD]",
+    "page": 9,
+    "source_text": "가. 폐기방법 | 가연성은 일반소각하시오..",
+    "rules": [
+      "R14"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S13_CAUTION]",
+    "page": 9,
+    "source_text": "나. 폐기시 주의사항(오염된 용기 및 포장의 폐기방법 포함) | 폐기물관리법에 명시된 경우 규정에 명시된 주의사항을 고려하시오.",
+    "rules": [
+      "R14"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S16_SOURCE]",
+    "page": 11,
+    "source_text": "가. 자료의 출처 | UN RTDG | CAMEO Chemicals | ECHA",
+    "rules": [
+      "R14"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S16_OTHER]",
+    "page": 11,
+    "source_text": "○ 상기 물질안전보건자료(MSDS)는 당사가 가지고 있는 지식에 근거하여 작성된 것으로",
+    "rules": [
+      "R14"
+    ],
+    "note": "두 줄을 이어붙이고 불릿 ○ 제거"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "extras[0]",
+    "page": 2,
+    "source_text": "* 부탄 혼합물은 이소부탄(Iso-Butane, CAS번호 : 75-28-5)과 노말부탄(N-Butane, CAS번호 : 106-97-8)으로 구성됨",
+    "rules": [
+      "R24",
+      "R10"
+    ],
+    "note": "하위 성분 구성 각주를 담을 칸이 없어 extras로 둠"
+  }
+]

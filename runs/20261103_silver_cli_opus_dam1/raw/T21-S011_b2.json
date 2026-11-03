@@ -1,0 +1,831 @@
+{
+  "doc_id": "T21-S011",
+  "bundle": "b2",
+  "model": "claude-opus-5-5",
+  "mode": "claude -p json-schema",
+  "finish_reason": "tool_use",
+  "usage": {
+    "prompt_tokens": 49758,
+    "completion_tokens": 7307,
+    "cached_tokens": 6909,
+    "reasoning_tokens": 1249,
+    "notional_cost_usd": 0.4903058
+  },
+  "seconds": 54.3,
+  "request_usage": [
+    {
+      "prompt_tokens": 49758,
+      "completion_tokens": 7307,
+      "cached_tokens": 6909,
+      "reasoning_tokens": 1249,
+      "notional_cost_usd": 0.4903058
+    }
+  ],
+  "attempts": 1,
+  "errors": [],
+  "parsed": {
+    "msds": [
+      {
+        "exposure_limits": [
+          {
+            "comp_ref": "1",
+            "standard": "기타",
+            "limit_type": "TWA",
+            "q": {
+              "raw": "500",
+              "value": 500,
+              "unit": "ppm",
+              "status": "값있음",
+              "note": "캐나다 온타리오"
+            },
+            "notations": []
+          },
+          {
+            "comp_ref": "1",
+            "standard": "기타",
+            "limit_type": "STEL",
+            "q": {
+              "raw": "-",
+              "status": "미기재",
+              "note": "캐나다 온타리오"
+            },
+            "notations": []
+          },
+          {
+            "comp_ref": "1",
+            "standard": "기타",
+            "limit_type": "TWA",
+            "q": {
+              "raw": "500",
+              "value": 500,
+              "unit": "ppm",
+              "status": "값있음",
+              "note": "캐나다 퀘벡"
+            },
+            "notations": []
+          },
+          {
+            "comp_ref": "1",
+            "standard": "기타",
+            "limit_type": "STEL",
+            "q": {
+              "raw": "-",
+              "status": "미기재",
+              "note": "캐나다 퀘벡"
+            },
+            "notations": []
+          },
+          {
+            "comp_ref": "1",
+            "standard": "기타",
+            "limit_type": "TWA",
+            "q": {
+              "raw": "500",
+              "value": 500,
+              "unit": "ppm",
+              "status": "값있음",
+              "note": "스페인"
+            },
+            "notations": []
+          },
+          {
+            "comp_ref": "1",
+            "standard": "기타",
+            "limit_type": "STEL",
+            "q": {
+              "raw": "-",
+              "status": "미기재",
+              "note": "스페인"
+            },
+            "notations": []
+          },
+          {
+            "comp_ref": "1",
+            "standard": "기타",
+            "limit_type": "TWA",
+            "q": {
+              "raw": "10,000",
+              "value": 10000,
+              "unit": "ppm",
+              "status": "값있음",
+              "note": "스위스"
+            },
+            "notations": []
+          },
+          {
+            "comp_ref": "1",
+            "standard": "기타",
+            "limit_type": "TWA",
+            "q": {
+              "raw": "17,500",
+              "value": 17500,
+              "unit": "mg/m3",
+              "status": "값있음",
+              "note": "스위스"
+            },
+            "notations": []
+          },
+          {
+            "comp_ref": "1",
+            "standard": "기타",
+            "limit_type": "STEL",
+            "q": {
+              "raw": "-",
+              "status": "미기재",
+              "note": "스위스"
+            },
+            "notations": []
+          },
+          {
+            "comp_ref": "1",
+            "standard": "기타",
+            "limit_type": "TWA",
+            "q": {
+              "raw": "500",
+              "value": 500,
+              "unit": "ppm",
+              "status": "값있음",
+              "note": "벨기에"
+            },
+            "notations": []
+          },
+          {
+            "comp_ref": "1",
+            "standard": "기타",
+            "limit_type": "TWA",
+            "q": {
+              "raw": "875",
+              "value": 875,
+              "unit": "mg/m3",
+              "status": "값있음",
+              "note": "벨기에"
+            },
+            "notations": []
+          },
+          {
+            "comp_ref": "1",
+            "standard": "기타",
+            "limit_type": "STEL",
+            "q": {
+              "raw": "-",
+              "status": "미기재",
+              "note": "벨기에"
+            },
+            "notations": []
+          },
+          {
+            "comp_ref": "1",
+            "standard": "기타",
+            "limit_type": "TWA",
+            "q": {
+              "raw": "100",
+              "value": 100,
+              "unit": "ppm",
+              "status": "값있음",
+              "note": "덴마크"
+            },
+            "notations": []
+          },
+          {
+            "comp_ref": "1",
+            "standard": "기타",
+            "limit_type": "TWA",
+            "q": {
+              "raw": "172",
+              "value": 172,
+              "unit": "mg/m3",
+              "status": "값있음",
+              "note": "덴마크"
+            },
+            "notations": []
+          },
+          {
+            "comp_ref": "1",
+            "standard": "기타",
+            "limit_type": "STEL",
+            "q": {
+              "raw": "200",
+              "value": 200,
+              "unit": "ppm",
+              "status": "값있음",
+              "note": "덴마크"
+            },
+            "notations": []
+          },
+          {
+            "comp_ref": "1",
+            "standard": "기타",
+            "limit_type": "STEL",
+            "q": {
+              "raw": "344",
+              "value": 344,
+              "unit": "mg/m3",
+              "status": "값있음",
+              "note": "덴마크"
+            },
+            "notations": []
+          },
+          {
+            "comp_ref": "MIX",
+            "standard": "생물학적",
+            "limit_type": "BEI",
+            "q": {
+              "raw": "관련 규정 없음",
+              "status": null
+            },
+            "notations": []
+          }
+        ],
+        "physchem": [
+          {
+            "prop_code": "APPEARANCE_STATE",
+            "comp_ref": "MIX",
+            "text_value": "투명한 액체 (액화 가스)",
+            "q": null
+          },
+          {
+            "prop_code": "APPEARANCE_COLOR",
+            "comp_ref": "MIX",
+            "text_value": "무색",
+            "q": null
+          },
+          {
+            "prop_code": "ODOR",
+            "comp_ref": "MIX",
+            "text_value": "탄화수소 냄새",
+            "q": null
+          },
+          {
+            "prop_code": "ODOR_THRESHOLD",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료 없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "PH",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "해당 없음",
+              "status": "해당없음"
+            }
+          },
+          {
+            "prop_code": "MELT_FREEZE",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "-185",
+              "value": -185,
+              "unit": "C",
+              "status": "값있음"
+            }
+          },
+          {
+            "prop_code": "BOILING",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "-47.7",
+              "value": -47.7,
+              "unit": "C",
+              "dp": 1,
+              "status": "값있음"
+            }
+          },
+          {
+            "prop_code": "FLASH_POINT",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "-108",
+              "value": -108,
+              "unit": "C",
+              "status": "값있음"
+            },
+            "cond": {
+              "method": "밀폐식"
+            }
+          },
+          {
+            "prop_code": "EVAP_RATE",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "해당 없음",
+              "status": "해당없음"
+            }
+          },
+          {
+            "prop_code": "FLAMMABILITY",
+            "comp_ref": "MIX",
+            "text_value": "극인화성",
+            "q": null
+          },
+          {
+            "prop_code": "UEL",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "상한: 10.3",
+              "value": 10.3,
+              "unit": "% (v/v)",
+              "dp": 1,
+              "status": "값있음"
+            }
+          },
+          {
+            "prop_code": "LEL",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "하한: 2.4",
+              "value": 2.4,
+              "unit": "% (v/v)",
+              "dp": 1,
+              "status": "값있음"
+            }
+          },
+          {
+            "prop_code": "VAPOR_PRESSURE",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "1,158 kPa (25°C)",
+              "value": 1158,
+              "unit": "kPa",
+              "status": "값있음"
+            },
+            "cond": {
+              "temp": 25,
+              "temp_unit": "C"
+            }
+          },
+          {
+            "prop_code": "VAPOR_DENSITY",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "1.48",
+              "value": 1.48,
+              "dp": 2,
+              "status": "값있음"
+            },
+            "cond": {
+              "reference": "공기=1"
+            }
+          },
+          {
+            "prop_code": "RELATIVE_DENSITY",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "0.5",
+              "value": 0.5,
+              "dp": 1,
+              "status": "값있음"
+            },
+            "cond": {
+              "reference": "물=1"
+            }
+          },
+          {
+            "prop_code": "SOLUBILITY",
+            "comp_ref": "MIX",
+            "text_value": "물에 약간 녹음; 에탄올, 에테르에 녹음",
+            "q": null
+          },
+          {
+            "prop_code": "LOG_KOW",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "1.77",
+              "value": 1.77,
+              "dp": 2,
+              "status": "값있음"
+            }
+          },
+          {
+            "prop_code": "AUTOIGNITION",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "460",
+              "value": 460,
+              "unit": "C",
+              "status": "값있음"
+            }
+          },
+          {
+            "prop_code": "DECOMPOSITION",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료 없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "VISCOSITY_KIN",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "해당 없음",
+              "status": "해당없음"
+            }
+          }
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[0]",
+        "page": 4,
+        "source_text": "프로필렌 | 캐나다 온타리오 | 500 | - | - | -",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "국가별 기준은 standard 목록에 없어 기타로 두고 국가명은 q.note에 적음. 열 제목 '직업노출기준(8h) ppm'에 따라 TWA, ppm으로 둠. mg/m³ 열의 '-'는 행으로 만들지 않음"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[1]",
+        "page": 4,
+        "source_text": "프로필렌 | 캐나다 온타리오 | 500 | - | - | -",
+        "rules": [
+          "R15"
+        ],
+        "note": "단시간노출 기준 열이 '-'이므로 STEL 행을 미기재로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[2]",
+        "page": 4,
+        "source_text": "프로필렌 | 캐나다 퀘벡 | 500 | - | - | -",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "standard=기타, 국가명은 q.note에 적음"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[3]",
+        "page": 4,
+        "source_text": "프로필렌 | 캐나다 퀘벡 | 500 | - | - | -",
+        "rules": [
+          "R15"
+        ],
+        "note": "STEL '-'를 미기재로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[4]",
+        "page": 4,
+        "source_text": "프로필렌 | 스페인 | 500 | - | - | -",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "standard=기타, 국가명은 q.note에 적음"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[5]",
+        "page": 4,
+        "source_text": "프로필렌 | 스페인 | 500 | - | - | -",
+        "rules": [
+          "R15"
+        ],
+        "note": "STEL '-'를 미기재로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[6]",
+        "page": 4,
+        "source_text": "프로필렌 | 스위스 | 10,000 | 17,500 | - | -",
+        "rules": [
+          "R04",
+          "R06",
+          "R10"
+        ],
+        "note": "천단위 콤마를 없애 10000 ppm으로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[7]",
+        "page": 4,
+        "source_text": "프로필렌 | 스위스 | 10,000 | 17,500 | - | -",
+        "rules": [
+          "R04",
+          "R06",
+          "R08"
+        ],
+        "note": "17500 mg/m3, TWA"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[8]",
+        "page": 4,
+        "source_text": "프로필렌 | 스위스 | 10,000 | 17,500 | - | -",
+        "rules": [
+          "R15"
+        ],
+        "note": "STEL '-'를 미기재로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[9]",
+        "page": 4,
+        "source_text": "프로필렌 | 벨기에 | 500 | 875 | - | -",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "TWA 500 ppm"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[10]",
+        "page": 4,
+        "source_text": "프로필렌 | 벨기에 | 500 | 875 | - | -",
+        "rules": [
+          "R04",
+          "R08"
+        ],
+        "note": "TWA 875 mg/m3"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[11]",
+        "page": 4,
+        "source_text": "프로필렌 | 벨기에 | 500 | 875 | - | -",
+        "rules": [
+          "R15"
+        ],
+        "note": "STEL '-'를 미기재로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[12]",
+        "page": 4,
+        "source_text": "프로필렌 | 덴마크 | 100 | 172 | 200 | 344",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "TWA 100 ppm"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[13]",
+        "page": 4,
+        "source_text": "프로필렌 | 덴마크 | 100 | 172 | 200 | 344",
+        "rules": [
+          "R04",
+          "R08"
+        ],
+        "note": "TWA 172 mg/m3"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[14]",
+        "page": 4,
+        "source_text": "프로필렌 | 덴마크 | 100 | 172 | 200 | 344",
+        "rules": [
+          "R04"
+        ],
+        "note": "단시간노출 기준 열을 STEL 200 ppm으로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[15]",
+        "page": 4,
+        "source_text": "프로필렌 | 덴마크 | 100 | 172 | 200 | 344",
+        "rules": [
+          "R04",
+          "R08"
+        ],
+        "note": "STEL 344 mg/m3"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[16]",
+        "page": 4,
+        "source_text": "생물학적 기준값 | 관련 규정 없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "맞는 값 없음: '관련 규정 없음'은 자료없음·해당없음 어느 쪽에도 딱 맞지 않아 status는 null로 두고 raw만 남김"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[0]",
+        "page": 5,
+        "source_text": "물리적 상태 | 투명한 액체 (액화 가스)",
+        "rules": [
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[1]",
+        "page": 5,
+        "source_text": "색상 | 무색",
+        "rules": [
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[2]",
+        "page": 5,
+        "source_text": "냄새 | 탄화수소 냄새",
+        "rules": [
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[3]",
+        "page": 5,
+        "source_text": "냄새 역치 | 자료 없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[4]",
+        "page": 5,
+        "source_text": "pH | 해당 없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[5]",
+        "page": 5,
+        "source_text": "융점/응고점 (°C) | -185",
+        "rules": [
+          "R04",
+          "R08",
+          "R25"
+        ],
+        "note": "'융점/응고점'은 사전에 없는 표기라 MELT_FREEZE로 매핑하고 사전 추가 요청. 단위 °C는 항목명에서 가져옴"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[6]",
+        "page": 5,
+        "source_text": "초기 비점 및 비점 범위 (°C) | -47.7",
+        "rules": [
+          "R04",
+          "R06",
+          "R08",
+          "R25"
+        ],
+        "note": "'초기 비점 및 비점 범위'는 사전에 없는 표기라 BOILING으로 매핑하고 사전 추가 요청"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[7]",
+        "page": 5,
+        "source_text": "인화점 (밀폐식, °C) | -108",
+        "rules": [
+          "R04",
+          "R08"
+        ],
+        "note": "'밀폐식'은 cond.method로 나눔"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[8]",
+        "page": 5,
+        "source_text": "증발 속도 | 해당 없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[9]",
+        "page": 5,
+        "source_text": "인화성 | 극인화성",
+        "rules": [
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[10]",
+        "page": 5,
+        "source_text": "폭발 한계 [% (v/v)] | 상한: 10.3 / 하한: 2.4",
+        "rules": [
+          "R04",
+          "R06",
+          "R25"
+        ],
+        "note": "'폭발 한계'는 사전에 없는 표기라 UEL/LEL로 나누어 매핑하고 사전 추가 요청. 상한을 UEL로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[11]",
+        "page": 5,
+        "source_text": "폭발 한계 [% (v/v)] | 상한: 10.3 / 하한: 2.4",
+        "rules": [
+          "R04",
+          "R06",
+          "R25"
+        ],
+        "note": "하한을 LEL로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[12]",
+        "page": 5,
+        "source_text": "증기압 | 1,158 kPa (25°C)",
+        "rules": [
+          "R04",
+          "R06"
+        ],
+        "note": "콤마를 없애 1158 kPa로 두고 25°C는 cond로 나눔"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[13]",
+        "page": 5,
+        "source_text": "(상대) 증기 밀도 (공기=1) | 1.48",
+        "rules": [
+          "R04",
+          "R25"
+        ],
+        "note": "공기=1은 cond.reference로 나눔"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[14]",
+        "page": 5,
+        "source_text": "상대 밀도 (물=1) | 0.5",
+        "rules": [
+          "R04",
+          "R25"
+        ],
+        "note": "물=1은 cond.reference로 나눔"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[15]",
+        "page": 5,
+        "source_text": "용해성 | 물에 약간 녹음; 에탄올, 에테르에 녹음",
+        "rules": [
+          "R25"
+        ],
+        "note": "'용해성'은 사전에 없는 표기라 SOLUBILITY로 매핑하고 사전 추가 요청. 서술 값이어서 text_value에 적음"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[16]",
+        "page": 5,
+        "source_text": "옥탄올/물 분배계수 | 1.77",
+        "rules": [
+          "R04",
+          "R25"
+        ],
+        "note": "'옥탄올/물 분배계수'는 사전에 없는 표기라 LOG_KOW로 매핑하고 사전 추가 요청"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[17]",
+        "page": 5,
+        "source_text": "자연발화온도 (°C) | 460",
+        "rules": [
+          "R04",
+          "R08"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[18]",
+        "page": 5,
+        "source_text": "분해 온도 (°C) | 자료 없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[19]",
+        "page": 5,
+        "source_text": "동점도 | 해당 없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "'입자 특성 | 해당 없음' 행은 C4에 맞는 코드가 없어 이번 묶음에서는 넣지 않음"
+      }
+    ]
+  },
+  "raw_text": "{\"msds\": [{\"exposure_limits\": [{\"comp_ref\": \"1\", \"standard\": \"기타\", \"limit_type\": \"TWA\", \"q\": {\"raw\": \"500\", \"value\": 500, \"unit\": \"ppm\", \"status\": \"값있음\", \"note\": \"캐나다 온타리오\"}, \"notations\": []}, {\"comp_ref\": \"1\", \"standard\": \"기타\", \"limit_type\": \"STEL\", \"q\": {\"raw\": \"-\", \"status\": \"미기재\", \"note\": \"캐나다 온타리오\"}, \"notations\": []}, {\"comp_ref\": \"1\", \"standard\": \"기타\", \"limit_type\": \"TWA\", \"q\": {\"raw\": \"500\", \"value\": 500, \"unit\": \"ppm\", \"status\": \"값있음\", \"note\": \"캐나다 퀘벡\"}, \"notations\": []}, {\"comp_ref\": \"1\", \"standard\": \"기타\", \"limit_type\": \"STEL\", \"q\": {\"raw\": \"-\", \"status\": \"미기재\", \"note\": \"캐나다 퀘벡\"}, \"notations\": []}, {\"comp_ref\": \"1\", \"standard\": \"기타\", \"limit_type\": \"TWA\", \"q\": {\"raw\": \"500\", \"value\": 500, \"unit\": \"ppm\", \"status\": \"값있음\", \"note\": \"스페인\"}, \"notations\": []}, {\"comp_ref\": \"1\", \"standard\": \"기타\", \"limit_type\": \"STEL\", \"q\": {\"raw\": \"-\", \"status\": \"미기재\", \"note\": \"스페인\"}, \"notations\": []}, {\"comp_ref\": \"1\", \"standard\": \"기타\", \"limit_type\": \"TWA\", \"q\": {\"raw\": \"10,000\", \"value\": 10000, \"unit\": \"ppm\", \"status\": \"값있음\", \"note\": \"스위스\"}, \"notations\": []}, {\"comp_ref\": \"1\", \"standard\": \"기타\", \"limit_type\": \"TWA\", \"q\": {\"raw\": \"17,500\", \"value\": 17500, \"unit\": \"mg/m3\", \"status\": \"값있음\", \"note\": \"스위스\"}, \"notations\": []}, {\"comp_ref\": \"1\", \"standard\": \"기타\", \"limit_type\": \"STEL\", \"q\": {\"raw\": \"-\", \"status\": \"미기재\", \"note\": \"스위스\"}, \"notations\": []}, {\"comp_ref\": \"1\", \"standard\": \"기타\", \"limit_type\": \"TWA\", \"q\": {\"raw\": \"500\", \"value\": 500, \"unit\": \"ppm\", \"status\": \"값있음\", \"note\": \"벨기에\"}, \"notations\": []}, {\"comp_ref\": \"1\", \"standard\": \"기타\", \"limit_type\": \"TWA\", \"q\": {\"raw\": \"875\", \"value\": 875, \"unit\": \"mg/m3\", \"status\": \"값있음\", \"note\": \"벨기에\"}, \"notations\": []}, {\"comp_ref\": \"1\", \"standard\": \"기타\", \"limit_type\": \"STEL\", \"q\": {\"raw\": \"-\", \"status\": \"미기재\", \"note\": \"벨기에\"}, \"notations\": []}, {\"comp_ref\": \"1\", \"standard\": \"기타\", \"limit_type\": \"TWA\", \"q\": {\"raw\": \"100\", \"value\": 100, \"unit\": \"ppm\", \"status\": \"값있음\", \"note\": \"덴마크\"}, \"notations\": []}, {\"comp_ref\": \"1\", \"standard\": \"기타\", \"limit_type\": \"TWA\", \"q\": {\"raw\": \"172\", \"value\": 172, \"unit\": \"mg/m3\", \"status\": \"값있음\", \"note\": \"덴마크\"}, \"notations\": []}, {\"comp_ref\": \"1\", \"standard\": \"기타\", \"limit_type\": \"STEL\", \"q\": {\"raw\": \"200\", \"value\": 200, \"unit\": \"ppm\", \"status\": \"값있음\", \"note\": \"덴마크\"}, \"notations\": []}, {\"comp_ref\": \"1\", \"standard\": \"기타\", \"limit_type\": \"STEL\", \"q\": {\"raw\": \"344\", \"value\": 344, \"unit\": \"mg/m3\", \"status\": \"값있음\", \"note\": \"덴마크\"}, \"notations\": []}, {\"comp_ref\": \"MIX\", \"standard\": \"생물학적\", \"limit_type\": \"BEI\", \"q\": {\"raw\": \"관련 규정 없음\", \"status\": null}, \"notations\": []}], \"physchem\": [{\"prop_code\": \"APPEARANCE_STATE\", \"comp_ref\": \"MIX\", \"text_value\": \"투명한 액체 (액화 가스)\", \"q\": null}, {\"prop_code\": \"APPEARANCE_COLOR\", \"comp_ref\": \"MIX\", \"text_value\": \"무색\", \"q\": null}, {\"prop_code\": \"ODOR\", \"comp_ref\": \"MIX\", \"text_value\": \"탄화수소 냄새\", \"q\": null}, {\"prop_code\": \"ODOR_THRESHOLD\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"자료 없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"PH\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"해당 없음\", \"status\": \"해당없음\"}}, {\"prop_code\": \"MELT_FREEZE\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"-185\", \"value\": -185, \"unit\": \"C\", \"status\": \"값있음\"}}, {\"prop_code\": \"BOILING\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"-47.7\", \"value\": -47.7, \"unit\": \"C\", \"dp\": 1, \"status\": \"값있음\"}}, {\"prop_code\": \"FLASH_POINT\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"-108\", \"value\": -108, \"unit\": \"C\", \"status\": \"값있음\"}, \"cond\": {\"method\": \"밀폐식\"}}, {\"prop_code\": \"EVAP_RATE\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"해당 없음\", \"status\": \"해당없음\"}}, {\"prop_code\": \"FLAMMABILITY\", \"comp_ref\": \"MIX\", \"text_value\": \"극인화성\", \"q\": null}, {\"prop_code\": \"UEL\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"상한: 10.3\", \"value\": 10.3, \"unit\": \"% (v/v)\", \"dp\": 1, \"status\": \"값있음\"}}, {\"prop_code\": \"LEL\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"하한: 2.4\", \"value\": 2.4, \"unit\": \"% (v/v)\", \"dp\": 1, \"status\": \"값있음\"}}, {\"prop_code\": \"VAPOR_PRESSURE\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"1,158 kPa (25°C)\", \"value\": 1158, \"unit\": \"kPa\", \"status\": \"값있음\"}, \"cond\": {\"temp\": 25, \"temp_unit\": \"C\"}}, {\"prop_code\": \"VAPOR_DENSITY\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"1.48\", \"value\": 1.48, \"dp\": 2, \"status\": \"값있음\"}, \"cond\": {\"reference\": \"공기=1\"}}, {\"prop_code\": \"RELATIVE_DENSITY\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"0.5\", \"value\": 0.5, \"dp\": 1, \"status\": \"값있음\"}, \"cond\": {\"reference\": \"물=1\"}}, {\"prop_code\": \"SOLUBILITY\", \"comp_ref\": \"MIX\", \"text_value\": \"물에 약간 녹음; 에탄올, 에테르에 녹음\", \"q\": null}, {\"prop_code\": \"LOG_KOW\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"1.77\", \"value\": 1.77, \"dp\": 2, \"status\": \"값있음\"}}, {\"prop_code\": \"AUTOIGNITION\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"460\", \"value\": 460, \"unit\": \"C\", \"status\": \"값있음\"}}, {\"prop_code\": \"DECOMPOSITION\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"자료 없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"VISCOSITY_KIN\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"해당 없음\", \"status\": \"해당없음\"}}]}], \"evidence\": [{\"msds_index\": 0, \"field\": \"exposure_limits[0]\", \"page\": 4, \"source_text\": \"프로필렌 | 캐나다 온타리오 | 500 | - | - | -\", \"rules\": [\"R04\", \"R10\"], \"note\": \"국가별 기준은 standard 목록에 없어 기타로 두고 국가명은 q.note에 적음. 열 제목 '직업노출기준(8h) ppm'에 따라 TWA, ppm으로 둠. mg/m³ 열의 '-'는 행으로 만들지 않음\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[1]\", \"page\": 4, \"source_text\": \"프로필렌 | 캐나다 온타리오 | 500 | - | - | -\", \"rules\": [\"R15\"], \"note\": \"단시간노출 기준 열이 '-'이므로 STEL 행을 미기재로 둠\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[2]\", \"page\": 4, \"source_text\": \"프로필렌 | 캐나다 퀘벡 | 500 | - | - | -\", \"rules\": [\"R04\", \"R10\"], \"note\": \"standard=기타, 국가명은 q.note에 적음\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[3]\", \"page\": 4, \"source_text\": \"프로필렌 | 캐나다 퀘벡 | 500 | - | - | -\", \"rules\": [\"R15\"], \"note\": \"STEL '-'를 미기재로 둠\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[4]\", \"page\": 4, \"source_text\": \"프로필렌 | 스페인 | 500 | - | - | -\", \"rules\": [\"R04\", \"R10\"], \"note\": \"standard=기타, 국가명은 q.note에 적음\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[5]\", \"page\": 4, \"source_text\": \"프로필렌 | 스페인 | 500 | - | - | -\", \"rules\": [\"R15\"], \"note\": \"STEL '-'를 미기재로 둠\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[6]\", \"page\": 4, \"source_text\": \"프로필렌 | 스위스 | 10,000 | 17,500 | - | -\", \"rules\": [\"R04\", \"R06\", \"R10\"], \"note\": \"천단위 콤마를 없애 10000 ppm으로 둠\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[7]\", \"page\": 4, \"source_text\": \"프로필렌 | 스위스 | 10,000 | 17,500 | - | -\", \"rules\": [\"R04\", \"R06\", \"R08\"], \"note\": \"17500 mg/m3, TWA\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[8]\", \"page\": 4, \"source_text\": \"프로필렌 | 스위스 | 10,000 | 17,500 | - | -\", \"rules\": [\"R15\"], \"note\": \"STEL '-'를 미기재로 둠\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[9]\", \"page\": 4, \"source_text\": \"프로필렌 | 벨기에 | 500 | 875 | - | -\", \"rules\": [\"R04\", \"R10\"], \"note\": \"TWA 500 ppm\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[10]\", \"page\": 4, \"source_text\": \"프로필렌 | 벨기에 | 500 | 875 | - | -\", \"rules\": [\"R04\", \"R08\"], \"note\": \"TWA 875 mg/m3\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[11]\", \"page\": 4, \"source_text\": \"프로필렌 | 벨기에 | 500 | 875 | - | -\", \"rules\": [\"R15\"], \"note\": \"STEL '-'를 미기재로 둠\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[12]\", \"page\": 4, \"source_text\": \"프로필렌 | 덴마크 | 100 | 172 | 200 | 344\", \"rules\": [\"R04\", \"R10\"], \"note\": \"TWA 100 ppm\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[13]\", \"page\": 4, \"source_text\": \"프로필렌 | 덴마크 | 100 | 172 | 200 | 344\", \"rules\": [\"R04\", \"R08\"], \"note\": \"TWA 172 mg/m3\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[14]\", \"page\": 4, \"source_text\": \"프로필렌 | 덴마크 | 100 | 172 | 200 | 344\", \"rules\": [\"R04\"], \"note\": \"단시간노출 기준 열을 STEL 200 ppm으로 둠\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[15]\", \"page\": 4, \"source_text\": \"프로필렌 | 덴마크 | 100 | 172 | 200 | 344\", \"rules\": [\"R04\", \"R08\"], \"note\": \"STEL 344 mg/m3\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[16]\", \"page\": 4, \"source_text\": \"생물학적 기준값 | 관련 규정 없음\", \"rules\": [\"R15\"], \"note\": \"맞는 값 없음: '관련 규정 없음'은 자료없음·해당없음 어느 쪽에도 딱 맞지 않아 status는 null로 두고 raw만 남김\"}, {\"msds_index\": 0, \"field\": \"physchem[0]\", \"page\": 5, \"source_text\": \"물리적 상태 | 투명한 액체 (액화 가스)\", \"rules\": [\"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[1]\", \"page\": 5, \"source_text\": \"색상 | 무색\", \"rules\": [\"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[2]\", \"page\": 5, \"source_text\": \"냄새 | 탄화수소 냄새\", \"rules\": [\"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[3]\", \"page\": 5, \"source_text\": \"냄새 역치 | 자료 없음\", \"rules\": [\"R15\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[4]\", \"page\": 5, \"source_text\": \"pH | 해당 없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[5]\", \"page\": 5, \"source_text\": \"융점/응고점 (°C) | -185\", \"rules\": [\"R04\", \"R08\", \"R25\"], \"note\": \"'융점/응고점'은 사전에 없는 표기라 MELT_FREEZE로 매핑하고 사전 추가 요청. 단위 °C는 항목명에서 가져옴\"}, {\"msds_index\": 0, \"field\": \"physchem[6]\", \"page\": 5, \"source_text\": \"초기 비점 및 비점 범위 (°C) | -47.7\", \"rules\": [\"R04\", \"R06\", \"R08\", \"R25\"], \"note\": \"'초기 비점 및 비점 범위'는 사전에 없는 표기라 BOILING으로 매핑하고 사전 추가 요청\"}, {\"msds_index\": 0, \"field\": \"physchem[7]\", \"page\": 5, \"source_text\": \"인화점 (밀폐식, °C) | -108\", \"rules\": [\"R04\", \"R08\"], \"note\": \"'밀폐식'은 cond.method로 나눔\"}, {\"msds_index\": 0, \"field\": \"physchem[8]\", \"page\": 5, \"source_text\": \"증발 속도 | 해당 없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[9]\", \"page\": 5, \"source_text\": \"인화성 | 극인화성\", \"rules\": [\"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[10]\", \"page\": 5, \"source_text\": \"폭발 한계 [% (v/v)] | 상한: 10.3 / 하한: 2.4\", \"rules\": [\"R04\", \"R06\", \"R25\"], \"note\": \"'폭발 한계'는 사전에 없는 표기라 UEL/LEL로 나누어 매핑하고 사전 추가 요청. 상한을 UEL로 둠\"}, {\"msds_index\": 0, \"field\": \"physchem[11]\", \"page\": 5, \"source_text\": \"폭발 한계 [% (v/v)] | 상한: 10.3 / 하한: 2.4\", \"rules\": [\"R04\", \"R06\", \"R25\"], \"note\": \"하한을 LEL로 둠\"}, {\"msds_index\": 0, \"field\": \"physchem[12]\", \"page\": 5, \"source_text\": \"증기압 | 1,158 kPa (25°C)\", \"rules\": [\"R04\", \"R06\"], \"note\": \"콤마를 없애 1158 kPa로 두고 25°C는 cond로 나눔\"}, {\"msds_index\": 0, \"field\": \"physchem[13]\", \"page\": 5, \"source_text\": \"(상대) 증기 밀도 (공기=1) | 1.48\", \"rules\": [\"R04\", \"R25\"], \"note\": \"공기=1은 cond.reference로 나눔\"}, {\"msds_index\": 0, \"field\": \"physchem[14]\", \"page\": 5, \"source_text\": \"상대 밀도 (물=1) | 0.5\", \"rules\": [\"R04\", \"R25\"], \"note\": \"물=1은 cond.reference로 나눔\"}, {\"msds_index\": 0, \"field\": \"physchem[15]\", \"page\": 5, \"source_text\": \"용해성 | 물에 약간 녹음; 에탄올, 에테르에 녹음\", \"rules\": [\"R25\"], \"note\": \"'용해성'은 사전에 없는 표기라 SOLUBILITY로 매핑하고 사전 추가 요청. 서술 값이어서 text_value에 적음\"}, {\"msds_index\": 0, \"field\": \"physchem[16]\", \"page\": 5, \"source_text\": \"옥탄올/물 분배계수 | 1.77\", \"rules\": [\"R04\", \"R25\"], \"note\": \"'옥탄올/물 분배계수'는 사전에 없는 표기라 LOG_KOW로 매핑하고 사전 추가 요청\"}, {\"msds_index\": 0, \"field\": \"physchem[17]\", \"page\": 5, \"source_text\": \"자연발화온도 (°C) | 460\", \"rules\": [\"R04\", \"R08\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[18]\", \"page\": 5, \"source_text\": \"분해 온도 (°C) | 자료 없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[19]\", \"page\": 5, \"source_text\": \"동점도 | 해당 없음\", \"rules\": [\"R15\"], \"note\": \"'입자 특성 | 해당 없음' 행은 C4에 맞는 코드가 없어 이번 묶음에서는 넣지 않음\"}]}"
+}

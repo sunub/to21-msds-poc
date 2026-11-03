@@ -1,0 +1,645 @@
+{
+  "doc_id": "T21-S019",
+  "bundle": "b1",
+  "model": "claude-opus-5-5",
+  "mode": "claude -p json-schema",
+  "finish_reason": "tool_use",
+  "usage": {
+    "prompt_tokens": 69285,
+    "completion_tokens": 5704,
+    "cached_tokens": 11700,
+    "reasoning_tokens": 728,
+    "notional_cost_usd": 0.577092
+  },
+  "seconds": 41.8,
+  "request_usage": [
+    {
+      "prompt_tokens": 69285,
+      "completion_tokens": 5704,
+      "cached_tokens": 11700,
+      "reasoning_tokens": 728,
+      "notional_cost_usd": 0.577092
+    }
+  ],
+  "attempts": 1,
+  "errors": [],
+  "parsed": {
+    "doc": {
+      "language": "ko",
+      "msds_count": 1
+    },
+    "msds": [
+      {
+        "meta": {
+          "msds_no": "AA05586-0000000011",
+          "doc_code": null,
+          "revision_no": 0,
+          "revision_label": "0",
+          "header_product_name": "톨루엔",
+          "source_note": null,
+          "first_issue_date": "2022-01-24",
+          "last_revision_date": "2022-01-24",
+          "page_start": 1,
+          "page_end": 12
+        },
+        "product": {
+          "name": "톨루엔(Toluene)",
+          "code": null,
+          "synonyms": [],
+          "uses": [
+            "산업용 용제"
+          ],
+          "restrictions": [],
+          "use_category_code": null
+        },
+        "companies": [
+          {
+            "seq": 1,
+            "role": "유통업자",
+            "name": "한국석유공업(주)",
+            "site": null,
+            "address": "울산광역시 남구 처용로 91(여천동)",
+            "postcode": null,
+            "department": "환경안전팀",
+            "contacts": [
+              {
+                "type": "대표",
+                "value": "(052)259-3700",
+                "hours": null
+              }
+            ]
+          }
+        ],
+        "hazard": {
+          "classified": true,
+          "classes": [
+            {
+              "seq": 1,
+              "group": "물리적",
+              "class_code": "PH_FLAM_LIQ",
+              "category": "2",
+              "route_form": null,
+              "effect": null,
+              "target_organs": [],
+              "raw": "인화성 액체 : 구분2"
+            },
+            {
+              "seq": 2,
+              "group": "건강",
+              "class_code": "HH_SKIN_CORR",
+              "category": "2",
+              "route_form": null,
+              "effect": null,
+              "target_organs": [],
+              "raw": "피부 부식성/피부 자극성 : 구분2"
+            },
+            {
+              "seq": 3,
+              "group": "건강",
+              "class_code": "HH_REPRO",
+              "category": "2",
+              "route_form": null,
+              "effect": null,
+              "target_organs": [],
+              "raw": "생식독성 : 구분2"
+            },
+            {
+              "seq": 4,
+              "group": "건강",
+              "class_code": "HH_STOT_SE",
+              "category": "3",
+              "route_form": null,
+              "effect": "마취작용",
+              "target_organs": [],
+              "raw": "특정표적장기 독성(1회 노출) : 구분3 (마취작용)"
+            },
+            {
+              "seq": 5,
+              "group": "건강",
+              "class_code": "HH_STOT_RE",
+              "category": "2",
+              "route_form": null,
+              "effect": null,
+              "target_organs": [],
+              "raw": "특정표적장기 독성(반복 노출) : 구분2"
+            },
+            {
+              "seq": 6,
+              "group": "건강",
+              "class_code": "HH_ASPIRATION",
+              "category": "1",
+              "route_form": null,
+              "effect": null,
+              "target_organs": [],
+              "raw": "흡인 유해성 : 구분1"
+            }
+          ],
+          "signal_word": "위험",
+          "pictograms": [
+            {
+              "code": "GHS02",
+              "detection": "이미지판독"
+            },
+            {
+              "code": "GHS08",
+              "detection": "이미지판독"
+            },
+            {
+              "code": "GHS07",
+              "detection": "이미지판독"
+            }
+          ],
+          "h_statements": [
+            {
+              "seq": 1,
+              "code": "H225",
+              "system": "GHS",
+              "mark": null,
+              "text": "고인화성 액체 및 증기"
+            },
+            {
+              "seq": 2,
+              "code": "H304",
+              "system": "GHS",
+              "mark": null,
+              "text": "삼켜서 기도로 유입되면 치명적일 수 있음"
+            },
+            {
+              "seq": 3,
+              "code": "H315",
+              "system": "GHS",
+              "mark": null,
+              "text": "피부에 자극을 일으킴"
+            },
+            {
+              "seq": 4,
+              "code": "H336",
+              "system": "GHS",
+              "mark": null,
+              "text": "졸음 또는 현기증을 일으킬 수 있음"
+            },
+            {
+              "seq": 5,
+              "code": "H361",
+              "system": "GHS",
+              "mark": null,
+              "text": "태아 또는 생식능력에 손상을 일으킬 것으로 의심됨"
+            },
+            {
+              "seq": 6,
+              "code": "H373",
+              "system": "GHS",
+              "mark": null,
+              "text": "장기간 또는 반복노출 되면 신체 중 (특정부위) 손상을 일으킬 수 있음"
+            }
+          ],
+          "p_statements": [
+            {
+              "seq": 1,
+              "code": "P201",
+              "type": "예방",
+              "text": "사용 전 취급 설명서를 확보하시오."
+            },
+            {
+              "seq": 2,
+              "code": "P202",
+              "type": "예방",
+              "text": "모든 안전 예방조치 문구를 읽고 이해하기 전에는 취급하지 마시오."
+            },
+            {
+              "seq": 3,
+              "code": "P210",
+              "type": "예방",
+              "text": "열·스파크·화염·고열로부터 멀리하시오 – 금연"
+            },
+            {
+              "seq": 4,
+              "code": "P233",
+              "type": "예방",
+              "text": "용기를 단단히 밀폐하시오."
+            },
+            {
+              "seq": 5,
+              "code": "P240",
+              "type": "예방",
+              "text": "용기와 수용설비를 접합시키거나 접지하시오"
+            },
+            {
+              "seq": 6,
+              "code": "P241",
+              "type": "예방",
+              "text": "폭발 방지용 전기∙환기∙조명 장비를 사용하시오"
+            },
+            {
+              "seq": 7,
+              "code": "P242",
+              "type": "예방",
+              "text": "스파크가 발생하지 않는 도구만을 사용하시오"
+            },
+            {
+              "seq": 8,
+              "code": "P243",
+              "type": "예방",
+              "text": "정전기 방지 조치를 취하시오."
+            },
+            {
+              "seq": 9,
+              "code": "P260",
+              "type": "예방",
+              "text": "증기를 흡입하지 마시오."
+            },
+            {
+              "seq": 10,
+              "code": "P261",
+              "type": "예방",
+              "text": "증기의 흡입을 피하시오."
+            },
+            {
+              "seq": 11,
+              "code": "P264",
+              "type": "예방",
+              "text": "취급 후에는 취급 부위를 철저히 씻으시오."
+            },
+            {
+              "seq": 12,
+              "code": "P271",
+              "type": "예방",
+              "text": "옥외 또는 환기가 잘 되는 곳에서만 취급하시오."
+            },
+            {
+              "seq": 13,
+              "code": "P280",
+              "type": "예방",
+              "text": "보호장갑·보호의·보안경·안면보호구를(을) 착용하시오."
+            },
+            {
+              "seq": 14,
+              "code": "P301+P310",
+              "type": "대응",
+              "text": "삼켰다면 즉시 의료기관(의사)의 진찰을 받으시오."
+            },
+            {
+              "seq": 15,
+              "code": "P302+P352",
+              "type": "대응",
+              "text": "피부에 묻으면 다량의 물로 씻으시오."
+            },
+            {
+              "seq": 16,
+              "code": "P303+P361+P353",
+              "type": "대응",
+              "text": "피부(또는 머리카락)에 묻으면 오염된 모든 의복은 벗으시오. 피부를 물로 씻으시오."
+            },
+            {
+              "seq": 17,
+              "code": "P304+P340",
+              "type": "대응",
+              "text": "흡입하면 신선한 공기가 있는 곳으로 옮기고 호흡하기 쉬운 자세로 안정을 취하시오."
+            },
+            {
+              "seq": 18,
+              "code": "P308+P313",
+              "type": "대응",
+              "text": "노출되거나 노출이 우려되면 조치·조언을 구하시오."
+            },
+            {
+              "seq": 19,
+              "code": "P312",
+              "type": "대응",
+              "text": "불편함을 느끼면 의료기관(의사)의 진찰을 받으시오."
+            },
+            {
+              "seq": 20,
+              "code": "P314",
+              "type": "대응",
+              "text": "불편함을 느끼면 의학적인 조치·조언을 구하시오."
+            },
+            {
+              "seq": 21,
+              "code": "P321",
+              "type": "대응",
+              "text": "상황에 맞는 필요한 조치를 하시오."
+            },
+            {
+              "seq": 22,
+              "code": "P331",
+              "type": "대응",
+              "text": "토하게 하지 마시오."
+            },
+            {
+              "seq": 23,
+              "code": "P332+P313",
+              "type": "대응",
+              "text": "피부 자극이 생기면 의학적인 조치·조언을 구하시오."
+            },
+            {
+              "seq": 24,
+              "code": "P362+P364",
+              "type": "대응",
+              "text": "오염된 의복은 벗고 다시 사용 전 세척하시오."
+            },
+            {
+              "seq": 25,
+              "code": "P370+P378",
+              "type": "대응",
+              "text": "화재 시 불을 끄기 위해 분말, 이산화탄소, 물뿌림 또는 정규 포말을 사용하시오."
+            },
+            {
+              "seq": 26,
+              "code": "P403+P233",
+              "type": "저장",
+              "text": "용기는 환기가 잘 되는 곳에 단단히 밀폐하여 저장하시오."
+            },
+            {
+              "seq": 27,
+              "code": "P403+P235",
+              "type": "저장",
+              "text": "환기가 잘 되는 곳에 보관하고 저온으로 유지하시오"
+            },
+            {
+              "seq": 28,
+              "code": "P405",
+              "type": "저장",
+              "text": "밀봉하여 저장하시오."
+            },
+            {
+              "seq": 29,
+              "code": "P501",
+              "type": "폐기",
+              "text": "폐기물 관련 법령에 따라 내용물/용기를 폐기하시오"
+            }
+          ],
+          "other_hazards": [],
+          "nfpa": {
+            "health": 2,
+            "fire": 3,
+            "reactivity": 0,
+            "special": null
+          }
+        },
+        "composition": {
+          "type": "단일물질",
+          "no_hazardous_component": false
+        },
+        "components": [
+          {
+            "seq": 1,
+            "name": "Toluene",
+            "name_en": "Toluene",
+            "synonyms": [
+              "Methylbenzene"
+            ],
+            "cas_no": "108-88-3",
+            "ke_no": "KE-33936",
+            "ec_no": null,
+            "other_id": null,
+            "other_id_type": null,
+            "parent_seq": null,
+            "read_across_cas": null,
+            "content": {
+              "raw": ">=99.5",
+              "status": "값있음",
+              "lower_op": ">=",
+              "lower": 99.5,
+              "unit": "%",
+              "dp": 1
+            },
+            "content_note": null,
+            "content_basis": "미표기",
+            "trade_secret": false,
+            "approval_no": null,
+            "approval_expiry": null
+          }
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "msds_index": 0,
+        "field": "meta.msds_no",
+        "page": 1,
+        "source_text": "MSDS No. AA05586-0000000011",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.first_issue_date",
+        "page": 1,
+        "source_text": "제정일자 22. 01. 24",
+        "rules": [
+          "R01"
+        ],
+        "note": "두 자리 연도를 2000년대로 해석"
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.last_revision_date",
+        "page": 11,
+        "source_text": "최종 개정일자: 2022년 01월 24일",
+        "rules": [
+          "R01"
+        ],
+        "note": "머리글 개정일자 칸이 비어 있어 16항 값을 사용"
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.revision_no",
+        "page": 1,
+        "source_text": "개정번호 0",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.header_product_name",
+        "page": 1,
+        "source_text": "톨루엔",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.page_start",
+        "page": 1,
+        "source_text": "페이지번호 1/11",
+        "rules": [
+          "R16"
+        ],
+        "note": "12쪽 개정이력서까지 포함"
+      },
+      {
+        "msds_index": 0,
+        "field": "product.name",
+        "page": 1,
+        "source_text": "가. 제품명 : 톨루엔(Toluene)",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "product.uses",
+        "page": 1,
+        "source_text": "나. 제품의 경고 용도와 사용상의 제한 : 산업용 용제",
+        "rules": [
+          "R11"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "companies[0]",
+        "page": 1,
+        "source_text": "다. 유통업자 정보 : 한국석유공업(주) 울산광역시 남구 처용로 91(여천동) TEL:(052)259-3700",
+        "rules": [
+          "R12"
+        ],
+        "note": "작성부서 환경안전팀을 department로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.classified",
+        "page": 1,
+        "source_text": "가. 유해 위험성 분류",
+        "rules": [],
+        "note": "분류 항목 6건 존재"
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.classes[0]",
+        "page": 1,
+        "source_text": "인화성 액체 : 구분2",
+        "rules": [
+          "R07"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.classes[1]",
+        "page": 1,
+        "source_text": "피부 부식성/피부 자극성 : 구분2",
+        "rules": [
+          "R07"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.classes[2]",
+        "page": 1,
+        "source_text": "생식독성 : 구분2",
+        "rules": [
+          "R07"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.classes[3]",
+        "page": 1,
+        "source_text": "특정표적장기 독성(1회 노출) : 구분3 (마취작용)",
+        "rules": [
+          "R07"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.classes[4]",
+        "page": 1,
+        "source_text": "특정표적장기 독성(반복 노출) : 구분2",
+        "rules": [
+          "R07"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.classes[5]",
+        "page": 1,
+        "source_text": "흡인 유해성 : 구분1",
+        "rules": [
+          "R07"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.signal_word",
+        "page": 1,
+        "source_text": "신호어 : 위험",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.pictograms",
+        "page": 1,
+        "source_text": "그림문자",
+        "rules": [],
+        "note": "이미지에서 불꽃, 건강유해성, 감탄부호 3개 판독"
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.h_statements",
+        "page": 1,
+        "source_text": "H225: 고인화성 액체 및 증기 ... H373: 장기간 또는 반복노출 되면 신체 중 (특정부위) 손상을 일으킬 수 있음",
+        "rules": [
+          "R05"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.p_statements",
+        "page": 1,
+        "source_text": "P201: 사용 전 취급 설명서를 확보하시오. ... P241: 폭발 방지용 전기∙환기∙조명 장비를 사용하시오",
+        "rules": [
+          "R05"
+        ],
+        "note": "P201~P241은 1쪽, P242~P501은 2쪽"
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.p_statements",
+        "page": 2,
+        "source_text": "P242: 스파크가 발생하지 않는 도구만을 사용하시오 ... P501: 폐기물 관련 법령에 따라 내용물/용기를 폐기하시오",
+        "rules": [
+          "R05"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.nfpa",
+        "page": 2,
+        "source_text": "* NFPE 등급(0~4단계) 보건:2 화재:3 반응성:0",
+        "rules": [],
+        "note": "'NFPE' 표기를 제품 NFPA 등급으로 봄"
+      },
+      {
+        "msds_index": 0,
+        "field": "composition.type",
+        "page": 2,
+        "source_text": "Toluene | Methylbenzene | 108-88-3/KE-33936 | >=99.5",
+        "rules": [],
+        "note": "성분 1행으로 단일물질"
+      },
+      {
+        "msds_index": 0,
+        "field": "components[0]",
+        "page": 2,
+        "source_text": "Toluene | Methylbenzene | 108-88-3/KE-33936 | >=99.5",
+        "rules": [
+          "R02",
+          "R03",
+          "R04",
+          "R06"
+        ],
+        "note": "CAS와 KE 분리, '>=99.5'를 하한 99.5(>=), 단위 %(열 제목)로 분해"
+      }
+    ]
+  },
+  "raw_text": "{\"doc\": {\"language\": \"ko\", \"msds_count\": 1}, \"msds\": [{\"meta\": {\"msds_no\": \"AA05586-0000000011\", \"doc_code\": null, \"revision_no\": 0, \"revision_label\": \"0\", \"header_product_name\": \"톨루엔\", \"source_note\": null, \"first_issue_date\": \"2022-01-24\", \"last_revision_date\": \"2022-01-24\", \"page_start\": 1, \"page_end\": 12}, \"product\": {\"name\": \"톨루엔(Toluene)\", \"code\": null, \"synonyms\": [], \"uses\": [\"산업용 용제\"], \"restrictions\": [], \"use_category_code\": null}, \"companies\": [{\"seq\": 1, \"role\": \"유통업자\", \"name\": \"한국석유공업(주)\", \"site\": null, \"address\": \"울산광역시 남구 처용로 91(여천동)\", \"postcode\": null, \"department\": \"환경안전팀\", \"contacts\": [{\"type\": \"대표\", \"value\": \"(052)259-3700\", \"hours\": null}]}], \"hazard\": {\"classified\": true, \"classes\": [{\"seq\": 1, \"group\": \"물리적\", \"class_code\": \"PH_FLAM_LIQ\", \"category\": \"2\", \"route_form\": null, \"effect\": null, \"target_organs\": [], \"raw\": \"인화성 액체 : 구분2\"}, {\"seq\": 2, \"group\": \"건강\", \"class_code\": \"HH_SKIN_CORR\", \"category\": \"2\", \"route_form\": null, \"effect\": null, \"target_organs\": [], \"raw\": \"피부 부식성/피부 자극성 : 구분2\"}, {\"seq\": 3, \"group\": \"건강\", \"class_code\": \"HH_REPRO\", \"category\": \"2\", \"route_form\": null, \"effect\": null, \"target_organs\": [], \"raw\": \"생식독성 : 구분2\"}, {\"seq\": 4, \"group\": \"건강\", \"class_code\": \"HH_STOT_SE\", \"category\": \"3\", \"route_form\": null, \"effect\": \"마취작용\", \"target_organs\": [], \"raw\": \"특정표적장기 독성(1회 노출) : 구분3 (마취작용)\"}, {\"seq\": 5, \"group\": \"건강\", \"class_code\": \"HH_STOT_RE\", \"category\": \"2\", \"route_form\": null, \"effect\": null, \"target_organs\": [], \"raw\": \"특정표적장기 독성(반복 노출) : 구분2\"}, {\"seq\": 6, \"group\": \"건강\", \"class_code\": \"HH_ASPIRATION\", \"category\": \"1\", \"route_form\": null, \"effect\": null, \"target_organs\": [], \"raw\": \"흡인 유해성 : 구분1\"}], \"signal_word\": \"위험\", \"pictograms\": [{\"code\": \"GHS02\", \"detection\": \"이미지판독\"}, {\"code\": \"GHS08\", \"detection\": \"이미지판독\"}, {\"code\": \"GHS07\", \"detection\": \"이미지판독\"}], \"h_statements\": [{\"seq\": 1, \"code\": \"H225\", \"system\": \"GHS\", \"mark\": null, \"text\": \"고인화성 액체 및 증기\"}, {\"seq\": 2, \"code\": \"H304\", \"system\": \"GHS\", \"mark\": null, \"text\": \"삼켜서 기도로 유입되면 치명적일 수 있음\"}, {\"seq\": 3, \"code\": \"H315\", \"system\": \"GHS\", \"mark\": null, \"text\": \"피부에 자극을 일으킴\"}, {\"seq\": 4, \"code\": \"H336\", \"system\": \"GHS\", \"mark\": null, \"text\": \"졸음 또는 현기증을 일으킬 수 있음\"}, {\"seq\": 5, \"code\": \"H361\", \"system\": \"GHS\", \"mark\": null, \"text\": \"태아 또는 생식능력에 손상을 일으킬 것으로 의심됨\"}, {\"seq\": 6, \"code\": \"H373\", \"system\": \"GHS\", \"mark\": null, \"text\": \"장기간 또는 반복노출 되면 신체 중 (특정부위) 손상을 일으킬 수 있음\"}], \"p_statements\": [{\"seq\": 1, \"code\": \"P201\", \"type\": \"예방\", \"text\": \"사용 전 취급 설명서를 확보하시오.\"}, {\"seq\": 2, \"code\": \"P202\", \"type\": \"예방\", \"text\": \"모든 안전 예방조치 문구를 읽고 이해하기 전에는 취급하지 마시오.\"}, {\"seq\": 3, \"code\": \"P210\", \"type\": \"예방\", \"text\": \"열·스파크·화염·고열로부터 멀리하시오 – 금연\"}, {\"seq\": 4, \"code\": \"P233\", \"type\": \"예방\", \"text\": \"용기를 단단히 밀폐하시오.\"}, {\"seq\": 5, \"code\": \"P240\", \"type\": \"예방\", \"text\": \"용기와 수용설비를 접합시키거나 접지하시오\"}, {\"seq\": 6, \"code\": \"P241\", \"type\": \"예방\", \"text\": \"폭발 방지용 전기∙환기∙조명 장비를 사용하시오\"}, {\"seq\": 7, \"code\": \"P242\", \"type\": \"예방\", \"text\": \"스파크가 발생하지 않는 도구만을 사용하시오\"}, {\"seq\": 8, \"code\": \"P243\", \"type\": \"예방\", \"text\": \"정전기 방지 조치를 취하시오.\"}, {\"seq\": 9, \"code\": \"P260\", \"type\": \"예방\", \"text\": \"증기를 흡입하지 마시오.\"}, {\"seq\": 10, \"code\": \"P261\", \"type\": \"예방\", \"text\": \"증기의 흡입을 피하시오.\"}, {\"seq\": 11, \"code\": \"P264\", \"type\": \"예방\", \"text\": \"취급 후에는 취급 부위를 철저히 씻으시오.\"}, {\"seq\": 12, \"code\": \"P271\", \"type\": \"예방\", \"text\": \"옥외 또는 환기가 잘 되는 곳에서만 취급하시오.\"}, {\"seq\": 13, \"code\": \"P280\", \"type\": \"예방\", \"text\": \"보호장갑·보호의·보안경·안면보호구를(을) 착용하시오.\"}, {\"seq\": 14, \"code\": \"P301+P310\", \"type\": \"대응\", \"text\": \"삼켰다면 즉시 의료기관(의사)의 진찰을 받으시오.\"}, {\"seq\": 15, \"code\": \"P302+P352\", \"type\": \"대응\", \"text\": \"피부에 묻으면 다량의 물로 씻으시오.\"}, {\"seq\": 16, \"code\": \"P303+P361+P353\", \"type\": \"대응\", \"text\": \"피부(또는 머리카락)에 묻으면 오염된 모든 의복은 벗으시오. 피부를 물로 씻으시오.\"}, {\"seq\": 17, \"code\": \"P304+P340\", \"type\": \"대응\", \"text\": \"흡입하면 신선한 공기가 있는 곳으로 옮기고 호흡하기 쉬운 자세로 안정을 취하시오.\"}, {\"seq\": 18, \"code\": \"P308+P313\", \"type\": \"대응\", \"text\": \"노출되거나 노출이 우려되면 조치·조언을 구하시오.\"}, {\"seq\": 19, \"code\": \"P312\", \"type\": \"대응\", \"text\": \"불편함을 느끼면 의료기관(의사)의 진찰을 받으시오.\"}, {\"seq\": 20, \"code\": \"P314\", \"type\": \"대응\", \"text\": \"불편함을 느끼면 의학적인 조치·조언을 구하시오.\"}, {\"seq\": 21, \"code\": \"P321\", \"type\": \"대응\", \"text\": \"상황에 맞는 필요한 조치를 하시오.\"}, {\"seq\": 22, \"code\": \"P331\", \"type\": \"대응\", \"text\": \"토하게 하지 마시오.\"}, {\"seq\": 23, \"code\": \"P332+P313\", \"type\": \"대응\", \"text\": \"피부 자극이 생기면 의학적인 조치·조언을 구하시오.\"}, {\"seq\": 24, \"code\": \"P362+P364\", \"type\": \"대응\", \"text\": \"오염된 의복은 벗고 다시 사용 전 세척하시오.\"}, {\"seq\": 25, \"code\": \"P370+P378\", \"type\": \"대응\", \"text\": \"화재 시 불을 끄기 위해 분말, 이산화탄소, 물뿌림 또는 정규 포말을 사용하시오.\"}, {\"seq\": 26, \"code\": \"P403+P233\", \"type\": \"저장\", \"text\": \"용기는 환기가 잘 되는 곳에 단단히 밀폐하여 저장하시오.\"}, {\"seq\": 27, \"code\": \"P403+P235\", \"type\": \"저장\", \"text\": \"환기가 잘 되는 곳에 보관하고 저온으로 유지하시오\"}, {\"seq\": 28, \"code\": \"P405\", \"type\": \"저장\", \"text\": \"밀봉하여 저장하시오.\"}, {\"seq\": 29, \"code\": \"P501\", \"type\": \"폐기\", \"text\": \"폐기물 관련 법령에 따라 내용물/용기를 폐기하시오\"}], \"other_hazards\": [], \"nfpa\": {\"health\": 2, \"fire\": 3, \"reactivity\": 0, \"special\": null}}, \"composition\": {\"type\": \"단일물질\", \"no_hazardous_component\": false}, \"components\": [{\"seq\": 1, \"name\": \"Toluene\", \"name_en\": \"Toluene\", \"synonyms\": [\"Methylbenzene\"], \"cas_no\": \"108-88-3\", \"ke_no\": \"KE-33936\", \"ec_no\": null, \"other_id\": null, \"other_id_type\": null, \"parent_seq\": null, \"read_across_cas\": null, \"content\": {\"raw\": \">=99.5\", \"status\": \"값있음\", \"lower_op\": \">=\", \"lower\": 99.5, \"unit\": \"%\", \"dp\": 1}, \"content_note\": null, \"content_basis\": \"미표기\", \"trade_secret\": false, \"approval_no\": null, \"approval_expiry\": null}]}], \"evidence\": [{\"msds_index\": 0, \"field\": \"meta.msds_no\", \"page\": 1, \"source_text\": \"MSDS No. AA05586-0000000011\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"meta.first_issue_date\", \"page\": 1, \"source_text\": \"제정일자 22. 01. 24\", \"rules\": [\"R01\"], \"note\": \"두 자리 연도를 2000년대로 해석\"}, {\"msds_index\": 0, \"field\": \"meta.last_revision_date\", \"page\": 11, \"source_text\": \"최종 개정일자: 2022년 01월 24일\", \"rules\": [\"R01\"], \"note\": \"머리글 개정일자 칸이 비어 있어 16항 값을 사용\"}, {\"msds_index\": 0, \"field\": \"meta.revision_no\", \"page\": 1, \"source_text\": \"개정번호 0\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"meta.header_product_name\", \"page\": 1, \"source_text\": \"톨루엔\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"meta.page_start\", \"page\": 1, \"source_text\": \"페이지번호 1/11\", \"rules\": [\"R16\"], \"note\": \"12쪽 개정이력서까지 포함\"}, {\"msds_index\": 0, \"field\": \"product.name\", \"page\": 1, \"source_text\": \"가. 제품명 : 톨루엔(Toluene)\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"product.uses\", \"page\": 1, \"source_text\": \"나. 제품의 경고 용도와 사용상의 제한 : 산업용 용제\", \"rules\": [\"R11\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"companies[0]\", \"page\": 1, \"source_text\": \"다. 유통업자 정보 : 한국석유공업(주) 울산광역시 남구 처용로 91(여천동) TEL:(052)259-3700\", \"rules\": [\"R12\"], \"note\": \"작성부서 환경안전팀을 department로 둠\"}, {\"msds_index\": 0, \"field\": \"hazard.classified\", \"page\": 1, \"source_text\": \"가. 유해 위험성 분류\", \"rules\": [], \"note\": \"분류 항목 6건 존재\"}, {\"msds_index\": 0, \"field\": \"hazard.classes[0]\", \"page\": 1, \"source_text\": \"인화성 액체 : 구분2\", \"rules\": [\"R07\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"hazard.classes[1]\", \"page\": 1, \"source_text\": \"피부 부식성/피부 자극성 : 구분2\", \"rules\": [\"R07\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"hazard.classes[2]\", \"page\": 1, \"source_text\": \"생식독성 : 구분2\", \"rules\": [\"R07\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"hazard.classes[3]\", \"page\": 1, \"source_text\": \"특정표적장기 독성(1회 노출) : 구분3 (마취작용)\", \"rules\": [\"R07\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"hazard.classes[4]\", \"page\": 1, \"source_text\": \"특정표적장기 독성(반복 노출) : 구분2\", \"rules\": [\"R07\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"hazard.classes[5]\", \"page\": 1, \"source_text\": \"흡인 유해성 : 구분1\", \"rules\": [\"R07\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"hazard.signal_word\", \"page\": 1, \"source_text\": \"신호어 : 위험\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"hazard.pictograms\", \"page\": 1, \"source_text\": \"그림문자\", \"rules\": [], \"note\": \"이미지에서 불꽃, 건강유해성, 감탄부호 3개 판독\"}, {\"msds_index\": 0, \"field\": \"hazard.h_statements\", \"page\": 1, \"source_text\": \"H225: 고인화성 액체 및 증기 ... H373: 장기간 또는 반복노출 되면 신체 중 (특정부위) 손상을 일으킬 수 있음\", \"rules\": [\"R05\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"hazard.p_statements\", \"page\": 1, \"source_text\": \"P201: 사용 전 취급 설명서를 확보하시오. ... P241: 폭발 방지용 전기∙환기∙조명 장비를 사용하시오\", \"rules\": [\"R05\"], \"note\": \"P201~P241은 1쪽, P242~P501은 2쪽\"}, {\"msds_index\": 0, \"field\": \"hazard.p_statements\", \"page\": 2, \"source_text\": \"P242: 스파크가 발생하지 않는 도구만을 사용하시오 ... P501: 폐기물 관련 법령에 따라 내용물/용기를 폐기하시오\", \"rules\": [\"R05\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"hazard.nfpa\", \"page\": 2, \"source_text\": \"* NFPE 등급(0~4단계) 보건:2 화재:3 반응성:0\", \"rules\": [], \"note\": \"'NFPE' 표기를 제품 NFPA 등급으로 봄\"}, {\"msds_index\": 0, \"field\": \"composition.type\", \"page\": 2, \"source_text\": \"Toluene | Methylbenzene | 108-88-3/KE-33936 | >=99.5\", \"rules\": [], \"note\": \"성분 1행으로 단일물질\"}, {\"msds_index\": 0, \"field\": \"components[0]\", \"page\": 2, \"source_text\": \"Toluene | Methylbenzene | 108-88-3/KE-33936 | >=99.5\", \"rules\": [\"R02\", \"R03\", \"R04\", \"R06\"], \"note\": \"CAS와 KE 분리, '>=99.5'를 하한 99.5(>=), 단위 %(열 제목)로 분해\"}]}"
+}

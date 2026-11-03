@@ -1,0 +1,1814 @@
+[
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "doc.language",
+    "page": 1,
+    "source_text": "물질안전보건자료 (MSDS)",
+    "rules": [],
+    "note": "본문이 한국어"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "doc.msds_count",
+    "page": 1,
+    "source_text": "물질안전보건자료 (MSDS) | Styrene Monomer",
+    "rules": [
+      "R16"
+    ],
+    "note": "단일 MSDS 1~10쪽"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "meta.msds_no",
+    "page": 1,
+    "source_text": "MSDS관리번호:AA00566-2100000409",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "meta.first_issue_date",
+    "page": 1,
+    "source_text": "Date of issue: 2016-01-19",
+    "rules": [
+      "R01"
+    ],
+    "note": "16항 최초 작성일자 2016-01-19와 일치"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "meta.last_revision_date",
+    "page": 1,
+    "source_text": "Revision date: 2022-08-12",
+    "rules": [
+      "R01"
+    ],
+    "note": "머리글 개정일 사용. 16항에는 '11 회, 2022-06-14'로 적혀 있어 서로 다름(17항 이력표 12차 2022.8.12와 머리글이 일치)"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "meta.revision_no",
+    "page": 1,
+    "source_text": "Change List::12차",
+    "rules": [],
+    "note": "'12차'를 12로 저장. 16항 '11 회'와 다름"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "meta.revision_label",
+    "page": 1,
+    "source_text": "Change List::12차",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "meta.header_product_name",
+    "page": 1,
+    "source_text": "Styrene Monomer",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "meta.page_start",
+    "page": 1,
+    "source_text": "1/10",
+    "rules": [
+      "R16"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "meta.page_end",
+    "page": 10,
+    "source_text": "10/10",
+    "rules": [
+      "R16"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "product.name",
+    "page": 1,
+    "source_text": "- Styrene Monomer [SM]",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "product.uses",
+    "page": 1,
+    "source_text": "- 용도 : ABS, EPS, SAN, PS 등의원재료",
+    "rules": [
+      "R11",
+      "R17"
+    ],
+    "note": "쉼표로 나누면 '등의원재료'가 PS에만 붙어 의미가 바뀌므로 하나로 둠"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "product.restrictions",
+    "page": 1,
+    "source_text": "- 사용상의 제한 : 자료없음",
+    "rules": [
+      "R15"
+    ],
+    "note": "'자료없음'이라 제한 목록은 비움"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "companies[0]",
+    "page": 1,
+    "source_text": "○ 제조자 정보 - 회사명 : ㈜LG화학 여수 SM공장 SM생산팀 - 주소 : 전남 여수시 여수산단로 951 - 담당부서 : SM생산팀 - 전화번호 : 061-680-6230~34,6240~6242 - 긴급 전화번호 : 061-680-6230~34 - FAX 번호 : 061-680-6204",
+    "rules": [
+      "R12"
+    ],
+    "note": "회사명에서 사업장 '여수 SM공장'과 부서 분리. 전화번호 범위는 R12에 따라 첫 번호만 저장(나머지 원문 '~34,6240~6242')"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "companies[1]",
+    "page": 1,
+    "source_text": "○ 공급자/유통업자 정보 - 회사명 : ㈜LG화학 여수 SM공장 SM생산팀 - 주소 : 전남 여수시 여수산단로 951 - 전화번호 : 061-680-6230~34,6240~6242 - 이메일 주소 : junwonchoi@lgchem.com",
+    "rules": [
+      "R12"
+    ],
+    "note": "공급자/유통업자 정보를 공급자로 저장. 전화번호는 첫 번호만"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.classified",
+    "page": 1,
+    "source_text": "가. 유해성·위험성 분류",
+    "rules": [],
+    "note": "분류 항목이 있어 true"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.classes[0]",
+    "page": 1,
+    "source_text": "- 인화성 액체 : 구분3",
+    "rules": [
+      "R07"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.classes[1]",
+    "page": 1,
+    "source_text": "- 급성 독성(흡입: 증기) : 구분4",
+    "rules": [
+      "R07"
+    ],
+    "note": "노출 형태 증기"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.classes[2]",
+    "page": 1,
+    "source_text": "- 피부 부식성/피부 자극성 : 구분2",
+    "rules": [
+      "R07"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.classes[3]",
+    "page": 1,
+    "source_text": "- 심한 눈 손상성/눈 자극성 : 구분2",
+    "rules": [
+      "R07"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.classes[4]",
+    "page": 1,
+    "source_text": "- 생식세포 변이원성 : 구분2",
+    "rules": [
+      "R07"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.classes[5]",
+    "page": 1,
+    "source_text": "- 발암성 : 구분2",
+    "rules": [
+      "R07"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.classes[6]",
+    "page": 1,
+    "source_text": "- 생식독성 : 구분2",
+    "rules": [
+      "R07"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.classes[7]",
+    "page": 1,
+    "source_text": "- 특정표적장기 독성(1회 노출) : 구분3(호흡기계 자극)",
+    "rules": [
+      "R07"
+    ],
+    "note": "괄호 '호흡기계 자극'을 영향으로, 호흡기계를 표적장기로 분리"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.classes[8]",
+    "page": 1,
+    "source_text": "- 특정표적장기 독성(반복 노출) : 구분1",
+    "rules": [
+      "R07"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.classes[9]",
+    "page": 1,
+    "source_text": "- 흡인 유해성 : 구분1",
+    "rules": [
+      "R07"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.signal_word",
+    "page": 1,
+    "source_text": "○ 신호어 - 위험",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.pictograms",
+    "page": 1,
+    "source_text": "○ 그림문자",
+    "rules": [],
+    "note": "이미지에서 불꽃(GHS02), 감탄부호(GHS07), 건강유해성(GHS08) 3개 확인"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.h_statements",
+    "page": 2,
+    "source_text": "- H226 인화성 액체 및 증기 … - H331 유전적인 결함을 일으킬 것으로 의심됨 … - H372 장기간 또는 반복노출 되면 신체 중 장기에 손상을 일으킴(11항참조)",
+    "rules": [
+      "R05"
+    ],
+    "note": "10개 원문대로. H331 코드와 문구(변이원성)가 맞지 않으나 원문 그대로 둠"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.p_statements",
+    "page": 2,
+    "source_text": "- P201 사용 전 취급 설명서를 확보하시오. … -P403+P233 용기는 환기가 잘 되는 곳에 단단히 밀폐하여 저장하시오. … - P501 폐기물관리법의 해당내용에 따라 내용물과 용기를 폐기하시오.",
+    "rules": [
+      "R05"
+    ],
+    "note": "30개, 유형은 코드 첫 자리로 정함"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.nfpa",
+    "page": 2,
+    "source_text": "- 보건 : 2 , 화재 : 3, 반응성 : 0",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "composition.type",
+    "page": 3,
+    "source_text": "Vinylbenzene | Styrene, Ethenylbenzene | 100-42-5 / KE-35342 | 99.9",
+    "rules": [],
+    "note": "성분 1개(99.9%)라 단일물질"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "components[0]",
+    "page": 3,
+    "source_text": "Vinylbenzene | Styrene, Ethenylbenzene | 100-42-5 / KE-35342 | 99.9 | C6H5C₂H₃",
+    "rules": [
+      "R02",
+      "R03",
+      "R04",
+      "R06",
+      "R11"
+    ],
+    "note": "CAS와 KE 분리, 이명 쉼표로 분리, 함유량 99.9 단일값(단위 표 머리 '함유량(%)')"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[0]",
+    "page": 5,
+    "source_text": "- [Vinylbenzene] : TWA : 20 ppm 85 mg/㎥ STEL : 40 ppm 170 mg/㎥ - 페닐 에틸렌",
+    "rules": [
+      "R04",
+      "R08",
+      "R10"
+    ],
+    "note": "국내 TWA ppm 값; 단위별로 행 분리. 끝의 '- 페닐 에틸렌'은 기준값이 아니라 넣지 않음"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[1]",
+    "page": 5,
+    "source_text": "- [Vinylbenzene] : TWA : 20 ppm 85 mg/㎥ STEL : 40 ppm 170 mg/㎥ - 페닐 에틸렌",
+    "rules": [
+      "R04",
+      "R08",
+      "R10"
+    ],
+    "note": "국내 TWA mg/㎥ 값을 mg/m3로 정규화"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[2]",
+    "page": 5,
+    "source_text": "- [Vinylbenzene] : TWA : 20 ppm 85 mg/㎥ STEL : 40 ppm 170 mg/㎥ - 페닐 에틸렌",
+    "rules": [
+      "R04",
+      "R08",
+      "R10"
+    ],
+    "note": "국내 STEL ppm 값"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[3]",
+    "page": 5,
+    "source_text": "- [Vinylbenzene] : TWA : 20 ppm 85 mg/㎥ STEL : 40 ppm 170 mg/㎥ - 페닐 에틸렌",
+    "rules": [
+      "R04",
+      "R08",
+      "R10"
+    ],
+    "note": "국내 STEL mg/㎥ 값"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[4]",
+    "page": 5,
+    "source_text": "- [Vinylbenzene] : TWA 20 ppm (85 mg/m3) STEL 40 ppm (170 mg/m3)",
+    "rules": [
+      "R04",
+      "R10"
+    ],
+    "note": "ACGIH TWA ppm 값"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[5]",
+    "page": 5,
+    "source_text": "- [Vinylbenzene] : TWA 20 ppm (85 mg/m3) STEL 40 ppm (170 mg/m3)",
+    "rules": [
+      "R04",
+      "R10"
+    ],
+    "note": "ACGIH TWA mg/m3 값"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[6]",
+    "page": 5,
+    "source_text": "- [Vinylbenzene] : TWA 20 ppm (85 mg/m3) STEL 40 ppm (170 mg/m3)",
+    "rules": [
+      "R04",
+      "R10"
+    ],
+    "note": "ACGIH STEL ppm 값"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[7]",
+    "page": 5,
+    "source_text": "- [Vinylbenzene] : TWA 20 ppm (85 mg/m3) STEL 40 ppm (170 mg/m3)",
+    "rules": [
+      "R04",
+      "R10"
+    ],
+    "note": "ACGIH STEL mg/m3 값"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[8]",
+    "page": 5,
+    "source_text": "- [Vinylbenzene] : 소변 중 Mandelic acid + phenylglyoxylic acid : 400 mg/g 크레아티닌(작업후)",
+    "rules": [
+      "R04",
+      "R10"
+    ],
+    "note": "생물학적 노출기준: 매체 소변, 지표물질, 채취시기 작업후로 나눔"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[9]",
+    "page": 5,
+    "source_text": "정맥혈 중 Styrene : 0.2 mg/L(작업후)",
+    "rules": [
+      "R04",
+      "R06",
+      "R10"
+    ],
+    "note": "생물학적 노출기준: 매체 정맥혈, 지표 Styrene, 작업후"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[0]",
+    "page": 5,
+    "source_text": "- 성상 | 액체",
+    "rules": [
+      "R25"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[1]",
+    "page": 5,
+    "source_text": "- 색 | 자료없음",
+    "rules": [
+      "R15",
+      "R25"
+    ],
+    "note": "자료없음을 status로"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[2]",
+    "page": 5,
+    "source_text": "나. 냄새 | 변화하는 냄새",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[3]",
+    "page": 5,
+    "source_text": "다. 냄새역치 | 자료없음",
+    "rules": [
+      "R15",
+      "R25"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[4]",
+    "page": 5,
+    "source_text": "라. pH | 자료없음",
+    "rules": [
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[5]",
+    "page": 5,
+    "source_text": "마. 녹는점/어는점 | -31 ℃",
+    "rules": [
+      "R04",
+      "R08"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[6]",
+    "page": 5,
+    "source_text": "바. 초기 끓는점과 끓는점 범위 | 146 ℃",
+    "rules": [
+      "R04",
+      "R08"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[7]",
+    "page": 5,
+    "source_text": "사. 인화점 | 31 ℃",
+    "rules": [
+      "R04",
+      "R08"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[8]",
+    "page": 5,
+    "source_text": "아. 증발 속도 | 자료없음",
+    "rules": [
+      "R15",
+      "R25"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[9]",
+    "page": 5,
+    "source_text": "자. 인화성 (고체, 기체) | 자료없음",
+    "rules": [
+      "R15",
+      "R25"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[10]",
+    "page": 5,
+    "source_text": "차. 인화 또는 폭발 범위의 상한/하한 | 6.8 / 0.9 %",
+    "rules": [
+      "R04",
+      "R06",
+      "R25"
+    ],
+    "note": "상한/하한 순서에 따라 앞 값 6.8을 UEL로"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[11]",
+    "page": 5,
+    "source_text": "차. 인화 또는 폭발 범위의 상한/하한 | 6.8 / 0.9 %",
+    "rules": [
+      "R04",
+      "R06",
+      "R25"
+    ],
+    "note": "뒤 값 0.9를 LEL로"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[12]",
+    "page": 5,
+    "source_text": "카. 증기압 | 6.4 ㎜Hg (25℃)",
+    "rules": [
+      "R04",
+      "R06",
+      "R08"
+    ],
+    "note": "(25℃)를 cond.temp로 분리"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[13]",
+    "page": 5,
+    "source_text": "타. 용해도 | 0.031 g/100㎖ (25℃)",
+    "rules": [
+      "R04",
+      "R06",
+      "R08"
+    ],
+    "note": "(25℃)를 cond.temp로 분리"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[14]",
+    "page": 5,
+    "source_text": "파. 증기밀도 | 3.6 (공기=1)",
+    "rules": [
+      "R04",
+      "R06",
+      "R25"
+    ],
+    "note": "(공기=1)을 cond.reference로"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[15]",
+    "page": 5,
+    "source_text": "하. 비중 | 0.906 (20℃)",
+    "rules": [
+      "R04",
+      "R06",
+      "R25"
+    ],
+    "note": "(20℃)를 cond.temp로"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[16]",
+    "page": 5,
+    "source_text": "거. N-옥탄올/물 분배계수 | 2.95",
+    "rules": [
+      "R06",
+      "R25"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[17]",
+    "page": 5,
+    "source_text": "너. 자연발화온도 | 490 ℃",
+    "rules": [
+      "R04",
+      "R08"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[18]",
+    "page": 5,
+    "source_text": "더. 분해온도 | 자료없음",
+    "rules": [
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[19]",
+    "page": 5,
+    "source_text": "러. 점도 | 0.696 cP (25℃)",
+    "rules": [
+      "R04",
+      "R06",
+      "R25"
+    ],
+    "note": "(25℃)를 cond.temp로"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[20]",
+    "page": 5,
+    "source_text": "머. 분자량 | 104.14",
+    "rules": [
+      "R06"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[0]",
+    "page": 6,
+    "source_text": "- [Vinylbenzene] : LD50 = 2650 ㎎/㎏ Rat (NLM: ChemIDplus)",
+    "rules": [
+      "R04",
+      "R08",
+      "R10"
+    ],
+    "note": "단일값 2650, 단위 ㎎/㎏→mg/kg"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[1]",
+    "page": 6,
+    "source_text": "- [Vinylbenzene] : LD50 > 2000 ㎎/㎏ Rat (ECHA)",
+    "rules": [
+      "R04",
+      "R08",
+      "R10"
+    ],
+    "note": "'> 2000'을 하한 >2000으로 분해"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[2]",
+    "page": 6,
+    "source_text": "* 흡입 독성(증기) - [Vinylbenzene] : LC50 = 11.7 ㎎/ℓ 4 hr Rat (NITE)",
+    "rules": [
+      "R04",
+      "R06",
+      "R08",
+      "R10"
+    ],
+    "note": "소제목 '흡입 독성(증기)'로 physical_form=증기, 4 hr를 노출시간으로 분리"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[3]",
+    "page": 6,
+    "source_text": "- [Vinylbenzene] : 토끼를 이용한 시험 결과 중정도의 자극성 (NITE)",
+    "rules": [
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[4]",
+    "page": 6,
+    "source_text": "- [Vinylbenzene] : 사람의 역학 사례 및 토끼를 이용한 안 자극성 시험 결과 중정도의 자극을 일으킴 (NITE)",
+    "rules": [
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[5]",
+    "page": 6,
+    "source_text": "○ 호흡기 과민성 - 자료없음",
+    "rules": [
+      "R15",
+      "R10"
+    ],
+    "note": "성분 지정 없어 MIX로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[6]",
+    "page": 6,
+    "source_text": "○ 피부 과민성 - 자료없음",
+    "rules": [
+      "R15",
+      "R10"
+    ],
+    "note": "성분 지정 없어 MIX로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[7]",
+    "page": 7,
+    "source_text": "- [Vinylbenzene] : 염색체이상시험 양성, 소핵시험 양성 (NITE)",
+    "rules": [
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[8]",
+    "page": 7,
+    "source_text": "- [Vinylbenzene] : 흰쥐에서 신생아 생존율 저하, 어미동물에 독성이 나타나지 않는 용량에서 태아 동물의 대뇌 세라토닌 감소, 회복",
+    "rules": [
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[9]",
+    "page": 7,
+    "source_text": "- [Vinylbenzene] : 사람에서 눈, 코에 대한 자극성, 중추 신경계에 대한 영향을 일으킴 (NITE)",
+    "rules": [
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[10]",
+    "page": 7,
+    "source_text": "- [Vinylbenzene] : 역학 조사 결과, 눈, 피부, 코, 인후에 자극을 일으킴. 호흡기 영향으로 폐색성 폐장해, 만성 기관지염 등을 일으킴.",
+    "rules": [
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[11]",
+    "page": 7,
+    "source_text": "- [Vinylbenzene] : 탄화수소, 동점성률 0.772 mm2/s (25 ℃) (계산치) (NITE)",
+    "rules": [
+      "R10"
+    ],
+    "note": "동점성률은 독성 지표가 아니므로 결과기술 문장으로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[0]",
+    "page": 6,
+    "source_text": "* 환경부 화학물질관리법 - 자료없음",
+    "rules": [
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[1]",
+    "page": 6,
+    "source_text": "* IARC - [Vinylbenzene] : Group 2A",
+    "rules": [
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[2]",
+    "page": 7,
+    "source_text": "- 자료없음",
+    "rules": [
+      "R15"
+    ],
+    "note": "쪽 6 끝 '* OSHA' 소제목 아래 쪽 7 첫 줄"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[3]",
+    "page": 7,
+    "source_text": "* ACGIH - [Vinylbenzene] : A4",
+    "rules": [
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[4]",
+    "page": 7,
+    "source_text": "* NTP - [Vinylbenzene] : R",
+    "rules": [
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[5]",
+    "page": 7,
+    "source_text": "* EU CLP - 자료없음",
+    "rules": [
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[6]",
+    "page": 7,
+    "source_text": "○ 고용노동부고시 * 발암성 - [Vinylbenzene] : 발암성 2",
+    "rules": [
+      "R10"
+    ],
+    "note": "기관 표기 그대로 '발암성 2'"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[7]",
+    "page": 7,
+    "source_text": "* 생식세포 변이원성 - 자료없음",
+    "rules": [
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[8]",
+    "page": 7,
+    "source_text": "* 생식독성 - 자료없음",
+    "rules": [
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[0]",
+    "page": 7,
+    "source_text": "- [Vinylbenzene] : LC50 = 4.02 ㎎/ℓ 96 hr (CERI·NITE)",
+    "rules": [
+      "R04",
+      "R08",
+      "R10"
+    ],
+    "note": "시험종 미기재로 species null"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[1]",
+    "page": 7,
+    "source_text": "- [Vinylbenzene] : LC50 = 12.1 ㎎/ℓ 96 hr",
+    "rules": [
+      "R04",
+      "R08",
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[2]",
+    "page": 7,
+    "source_text": "- [Vinylbenzene] : EC50 = 4.7 ㎎/ℓ 96 hr",
+    "rules": [
+      "R04",
+      "R08",
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[3]",
+    "page": 7,
+    "source_text": "○ 잔류성 - [Vinylbenzene] : log Kow 2.95 (NITE)",
+    "rules": [
+      "R04",
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[4]",
+    "page": 7,
+    "source_text": "○ 분해성 - 자료없음",
+    "rules": [
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[5]",
+    "page": 7,
+    "source_text": "○ 생물 농축성 - 자료없음",
+    "rules": [
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[6]",
+    "page": 7,
+    "source_text": "○ 생분해성 - [Vinylbenzene] : Biodegradability = 100 (%) (existing chemical safety inspections data)",
+    "rules": [
+      "R04",
+      "R10"
+    ],
+    "note": "원문 위치(다. 생물 농축성 아래)에 따라 ECO_BIOACC로 두고 지표는 분해율"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[7]",
+    "page": 7,
+    "source_text": "라. 토양 이동성 - 자료없음",
+    "rules": [
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[8]",
+    "page": 7,
+    "source_text": "마. 오존층 유해성 - 해당없음",
+    "rules": [
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[9]",
+    "page": 7,
+    "source_text": "바. 기타 유해 영향 - 자료없음",
+    "rules": [
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "transport[0]",
+    "page": 8,
+    "source_text": "가. 유엔번호 (UN No.) - 2055 | 나. 유엔 적정 선적명 - Styrene monomer, stabilized | 다. 운송에서의 위험성 등급 - 3 | 라. 용기등급 - Ⅲ",
+    "rules": [
+      "R09"
+    ],
+    "note": "운송 방식 구분이 없어 mode=공통; 용기등급 Ⅲ을 III으로 표기"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "transport[0].marine_pollutant",
+    "page": 8,
+    "source_text": "마. 해양오염물질 - 자료없음 - 해당없음",
+    "rules": [
+      "R17"
+    ],
+    "note": "맞는 값 없음: 자료없음과 해당없음이 함께 적혀 있어 null로 둠"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "transport[0].ems_fire",
+    "page": 8,
+    "source_text": "화재 시 비상조치의 종류 : F-E (Non-water-reactive flammable liquids)",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "transport[0].ems_spill",
+    "page": 8,
+    "source_text": "유출 시 비상조치의 종류 : S-D (Flammable liquids)",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[0]",
+    "page": 8,
+    "source_text": "○ 작업환경측정물질 - 해당됨 (1% 이상 함유한 Vinylbenzene)",
+    "rules": [
+      "R04",
+      "R10",
+      "R25"
+    ],
+    "note": "1% 이상을 threshold >=1%로 분해"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[1]",
+    "page": 8,
+    "source_text": "○ 노출기준설정물질 - 해당됨 (Vinylbenzene)",
+    "rules": [
+      "R10",
+      "R25"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[2]",
+    "page": 8,
+    "source_text": "○ 관리대상유해물질 - 해당됨 (1% 이상 함유한 Vinylbenzene 스티렌)",
+    "rules": [
+      "R04",
+      "R10",
+      "R25"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[3]",
+    "page": 8,
+    "source_text": "○ 특수건강검진대상물질 - 해당됨 (1% 이상 함유한 Vinylbenzene)",
+    "rules": [
+      "R04",
+      "R10",
+      "R25"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[4]",
+    "page": 8,
+    "source_text": "○ 유독물질 - 해당됨 (10% 이상 함유한 Vinylbenzene)",
+    "rules": [
+      "R04",
+      "R10",
+      "R25"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[5]",
+    "page": 8,
+    "source_text": "○ 배출량조사대상화학물질 - 해당됨 (0.1% 이상 함유한 Vinylbenzene)",
+    "rules": [
+      "R04",
+      "R10",
+      "R25"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[6]",
+    "page": 9,
+    "source_text": "○ 사고대비물질 - 해당없음",
+    "rules": [
+      "R15",
+      "R25"
+    ],
+    "note": "해당없음을 비해당으로, 성분 지정이 없어 MIX"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[7]",
+    "page": 9,
+    "source_text": "○ 제한물질 - 해당없음",
+    "rules": [
+      "R15",
+      "R25"
+    ],
+    "note": "해당없음을 비해당으로"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[8]",
+    "page": 8,
+    "source_text": null,
+    "rules": [
+      "R18"
+    ],
+    "note": "구양식 문서로 화평법 항목이 없어 미기재; 맞는 값 없음: 항목 코드 특정 불가로 item_code null"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[9]",
+    "page": 9,
+    "source_text": "- 위험물에 해당됨 : 제2석유류 (지정수량 : 1000리터(비수용성액체), 2000리터(수용성액체))",
+    "rules": [
+      "R17"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[10]",
+    "page": 9,
+    "source_text": "- [Vinylbenzene] : 지정수량 : 1000리터(제4류 제2석유류(비수용성))",
+    "rules": [
+      "R04",
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "dangerous_goods[0]",
+    "page": 9,
+    "source_text": "- 위험물에 해당됨 : 제2석유류 (지정수량 : 1000리터(비수용성액체), 2000리터(수용성액체))",
+    "rules": [
+      "R17"
+    ],
+    "note": "류별이 이 줄에 적혀 있지 않아 class null, 지정수량은 두 값이라 raw만 둠"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "dangerous_goods[1]",
+    "page": 9,
+    "source_text": "- [Vinylbenzene] : 지정수량 : 1000리터(제4류 제2석유류(비수용성))",
+    "rules": [
+      "R04",
+      "R10"
+    ],
+    "note": "1000리터를 value 1000, unit L로"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[11]",
+    "page": 9,
+    "source_text": "본 제품은 사업장에서 발생하는 폐기물 중 폐기물관리법시행령[별표1]에 의해 지정폐기물(할로겐족 외 폐유기용제로서 액체상태의 것)에 해당됨.",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "waste[0]",
+    "page": 9,
+    "source_text": "본 제품은 사업장에서 발생하는 폐기물 중 폐기물관리법시행령[별표1]에 의해 지정폐기물(할로겐족 외 폐유기용제로서 액체상태의 것)에 해당됨.",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[12]",
+    "page": 9,
+    "source_text": "○ 잔류성 유기오염물질 관리법 - 해당없음",
+    "rules": [
+      "R15",
+      "R25"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[13]",
+    "page": 9,
+    "source_text": "* 확정분류 결과 - [Vinylbenzene] : R10 Xn; R20 Xi; R36/38",
+    "rules": [
+      "R10",
+      "R25"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "intl_class[0]",
+    "page": 9,
+    "source_text": "- [Vinylbenzene] : R10 Xn; R20 Xi; R36/38",
+    "rules": [
+      "R17"
+    ],
+    "note": "CLP가 아닌 구 EU 분류(R문구)이므로 system 기타, 분리 시 의미가 바뀔 수 있어 원문 그대로 둠"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[14]",
+    "page": 9,
+    "source_text": "* 위험 문구 - [Vinylbenzene] : R10, R20, R36/38",
+    "rules": [
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[15]",
+    "page": 9,
+    "source_text": "* 예방조치 문구 - [Vinylbenzene] : S2, S23",
+    "rules": [
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[16]",
+    "page": 9,
+    "source_text": "* OSHA 규정 (29CFR1910.119) - 해당없음",
+    "rules": [
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[17]",
+    "page": 9,
+    "source_text": "* CERCLA 103 규정 (40CFR302.4) - [Vinylbenzene] : 453.599 kg 1000 lb",
+    "rules": [
+      "R04",
+      "R10"
+    ],
+    "note": "kg 값을 qty, lb 값을 qty_alt로"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[18]",
+    "page": 9,
+    "source_text": "* EPCRA 302 규정 (40CFR355.30) - 해당없음",
+    "rules": [
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[19]",
+    "page": 9,
+    "source_text": "* EPCRA 304 규정 (40CFR355.40) - 해당없음",
+    "rules": [
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[20]",
+    "page": 9,
+    "source_text": "* EPCRA 313 규정 (40CFR372.65) - [Vinylbenzene] : 해당됨",
+    "rules": [
+      "R10"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[21]",
+    "page": 9,
+    "source_text": "○ 로테르담 협약 물질 - 해당없음",
+    "rules": [
+      "R15",
+      "R25"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[22]",
+    "page": 9,
+    "source_text": "○ 스톡홀름 협약 물질 - 해당없음",
+    "rules": [
+      "R15",
+      "R25"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[23]",
+    "page": 9,
+    "source_text": "○ 몬트리올 의정서 물질 - 해당없음",
+    "rules": [
+      "R15",
+      "R25"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S4_EYE]",
+    "page": 3,
+    "source_text": "가. 눈에 들어갔을 때 - 눈을 문지르지 마시오.",
+    "rules": [
+      "R14"
+    ],
+    "note": "불릿 단위로 문장 분리, 15분은 cond로 분리"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S4_SKIN]",
+    "page": 3,
+    "source_text": "나. 피부에 접촉했을 때 - 오염된 의복 및 신발을 벗고 즉시 적어도 15분 동안 비누와 물로 씻어내시오.",
+    "rules": [
+      "R14"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S4_INHAL]",
+    "page": 3,
+    "source_text": "다. 흡입했을 때 - 다량의 증기나 미스트에 노출되었을 경우 맑은 공기가 있는 곳으로 이동하시오.",
+    "rules": [
+      "R14"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S4_INGEST]",
+    "page": 3,
+    "source_text": "라. 먹었을 때 - 구토를 유발해야 하는지에 대해서 의사의 조언을 받으시오.",
+    "rules": [
+      "R14"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S4_DOCTOR]",
+    "page": 3,
+    "source_text": "마. 기타 의사의 주의사항 - 오염상황을 의료관계자에게 알려 그들도 적절한 보호조치를 취하도록 하시오.",
+    "rules": [
+      "R14"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S5_MEDIA]",
+    "page": 3,
+    "source_text": "- 입자상 분말 소화약제, 이산화탄소, 물분무, 일반적인 포말",
+    "rules": [
+      "R14"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S5_SPECIFIC]",
+    "page": 3,
+    "source_text": "나. 화학물질로부터 생기는 특정 유해성 - 인화성 액체 및 증기",
+    "rules": [
+      "R14"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S5_FIREFIGHT]",
+    "page": 4,
+    "source_text": "- 관계인 외 접근을 막고 위험 지역의 출입을 금지하시오.",
+    "rules": [
+      "R14"
+    ],
+    "note": "제목은 3쪽, 본문은 4쪽"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S6_PERSONAL]",
+    "page": 4,
+    "source_text": "- 밀폐된 공간에 출입하기 전에 환기를 실시하시오.",
+    "rules": [
+      "R14"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S6_ENV]",
+    "page": 4,
+    "source_text": "- 누출물이 하수시설, 수계에 유입되지 않도록 차단시키시오.",
+    "rules": [
+      "R14"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S6_CLEANUP]",
+    "page": 4,
+    "source_text": "- 다량누출 : 저지대를 피하고 바람과 반대방향에 있도록 하시오.",
+    "rules": [
+      "R14"
+    ],
+    "note": "'다량누출','소량 누출'을 key로 분리"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S7_HANDLING]",
+    "page": 4,
+    "source_text": "- 취급 후 철저히 씻으시오.",
+    "rules": [
+      "R14"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S7_STORAGE]",
+    "page": 4,
+    "source_text": "- 스티렌의 중합 방지를 위하여 중합방지제(TBC) 농도를 주기적으로 분석하여 10 ppm 수준으로 유지하시오.",
+    "rules": [
+      "R14",
+      "R04"
+    ],
+    "note": "10 ppm, 약 65℃이상, 21℃ 이하를 cond로 분리"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S8_ENG]",
+    "page": 5,
+    "source_text": "- 사업주는 가스, 증기, 미스트, 흄 또는 분진이 발산되는 작업장에 대하여는",
+    "rules": [
+      "R14"
+    ],
+    "note": "줄바꿈된 문장을 이어붙임"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S8_RESP]",
+    "page": 5,
+    "source_text": "- 해당물질에 직접적인 노출 또는 노출 가능성이 있는 경우, 한국산업안전보건공단 인증을 받은 방독마스크를 착용할 것.",
+    "rules": [
+      "R14"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S8_EYE]",
+    "page": 5,
+    "source_text": "- 작업장 가까운 곳에 세안설비와 비상세척설비(샤워식)를 설치하시오.",
+    "rules": [
+      "R14"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S8_HAND]",
+    "page": 5,
+    "source_text": "- 해당물질에 직접적인 노출 또는 노출 가능성이 있는 경우, 한국산업안전보건공단 인증을 받은 화학물질용 안전 장갑을 착용할 것.",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S8_BODY]",
+    "page": 5,
+    "source_text": "- 해당물질에 직접적인 노출 또는 노출 가능성이 있는 경우, 한국산업안전보건공단 인증을 받은 화학물질용 보호복을 착용할 것.",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S10_STABILITY]",
+    "page": 6,
+    "source_text": "- 권장된 보관과 취급시 안정함.",
+    "rules": [
+      "R14"
+    ],
+    "note": "제목은 5쪽, 본문은 6쪽"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S10_CONDITIONS]",
+    "page": 6,
+    "source_text": "- 혼합금지 물질 및 조건을 피하시오.",
+    "rules": [
+      "R14"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S10_INCOMPAT]",
+    "page": 6,
+    "source_text": "다. 피해야 할 물질 - 자료없음",
+    "rules": [
+      "R15"
+    ],
+    "note": "'자료없음'을 status 자료없음으로"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S10_DECOMP]",
+    "page": 6,
+    "source_text": "- 타는 동안 열분해 또는 연소에 의해 자극적이고 매우 유독한 가스가 발생될 수 있음",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S11_ROUTE]",
+    "page": 6,
+    "source_text": "○ (호흡기) - 삼켜서 기도로 유입되면 치명적일 수 있음 ○ (경구) - 자료없음 ○ (눈·피부)",
+    "rules": [
+      "R14"
+    ],
+    "note": "소제목을 key로 둠"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S13_METHOD]",
+    "page": 8,
+    "source_text": "- 유수분리가 가능한 것은 유수분리방법으로 사전 처리할 것.",
+    "rules": [
+      "R14"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S13_CAUTION]",
+    "page": 8,
+    "source_text": "- 폐기물관리법상 규정을 준수할 것.",
+    "rules": [
+      "R14"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S14_SPECIAL]",
+    "page": 8,
+    "source_text": "- 지역 운송 시 위험물안전관리법에 따름.",
+    "rules": [
+      "R14"
+    ],
+    "note": "키:값 줄은 key/value 분리"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S15_DG]",
+    "page": 9,
+    "source_text": "(다만, 도료류 그 밖의 물품에 있어서 가연성 액체량이 40중량퍼센트 이하이면서 인화점이 섭씨 40도 이상인 동시에 연소점이 섭씨 60도 이상인 것은 제외한다.)",
+    "rules": [
+      "R14"
+    ],
+    "note": "규제 행에 담기지 않은 단서 문장만 넣음"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S15_WASTE]",
+    "page": 9,
+    "source_text": "- 본 제품은 사업장에서 발생하는 폐기물 중 폐기물관리법시행령[별표1]에 의해 지정폐기물(할로겐족 외 폐유기용제로서 액체상태의 것)에 해당됨.",
+    "rules": [],
+    "note": "waste 칸과 함께 S15_WASTE로도 둠"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S16_SOURCE]",
+    "page": 9,
+    "source_text": "- 본 MSDS는 KOSHA, NITE, ESIS, NLM, SIDS, IPCS, NCIS 등을 근거로 작성하였음.",
+    "rules": [
+      "R14"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[S16_OTHER]",
+    "page": 9,
+    "source_text": "- 이 정보는 근로자 건강, 환경, 안전을 보호하고자, 현재 가용할 수 있는 DB를 근거로 하여 작성하였음.",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "extras[0]",
+    "page": 1,
+    "source_text": "CAS No. : 100-42-5",
+    "rules": [
+      "R24"
+    ],
+    "note": "제품 단위 CAS 칸 없음"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "extras[1]",
+    "page": 9,
+    "source_text": "나. 최초 작성일자 - 2016-01-19",
+    "rules": [
+      "R24"
+    ],
+    "note": "meta.first_issue_date는 머리글 근거로 이미 채워져 16항 값은 extras로 보존"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "extras[2]",
+    "page": 9,
+    "source_text": "다. 개정횟수 및 최종 개정일자 - 11 회, 2022-06-14",
+    "rules": [
+      "R24",
+      "R04"
+    ],
+    "note": "머리글(12차, 2022-08-12)과 달라 판단불가로 extras에 보존"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "extras[3]",
+    "page": 10,
+    "source_text": "12차 | 취급 및 저장 방법 | 안전한 저장방법 개정 업데이트 | 2022.8.12 | 김선재",
+    "rules": [
+      "R24"
+    ],
+    "note": "17항 이력 관리 표는 담을 칸이 없어 extras로, 행마다 문장 하나"
+  }
+]

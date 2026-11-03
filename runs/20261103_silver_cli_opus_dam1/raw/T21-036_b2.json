@@ -1,0 +1,493 @@
+{
+  "doc_id": "T21-036",
+  "bundle": "b2",
+  "model": "claude-opus-5-5",
+  "mode": "claude -p json-schema",
+  "finish_reason": "tool_use",
+  "usage": {
+    "prompt_tokens": 44764,
+    "completion_tokens": 3898,
+    "cached_tokens": 6909,
+    "reasoning_tokens": 666,
+    "notional_cost_usd": 0.3821738
+  },
+  "seconds": 29.1,
+  "request_usage": [
+    {
+      "prompt_tokens": 44764,
+      "completion_tokens": 3898,
+      "cached_tokens": 6909,
+      "reasoning_tokens": 666,
+      "notional_cost_usd": 0.3821738
+    }
+  ],
+  "attempts": 1,
+  "errors": [],
+  "parsed": {
+    "msds": [
+      {
+        "exposure_limits": [
+          {
+            "comp_ref": "MIX",
+            "standard": null,
+            "limit_type": null,
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "notations": []
+          }
+        ],
+        "physchem": [
+          {
+            "prop_code": "APPEARANCE_STATE",
+            "comp_ref": "MIX",
+            "seq": 1,
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "text_value": null
+          },
+          {
+            "prop_code": "APPEARANCE_STATE",
+            "comp_ref": "MIX",
+            "seq": 2,
+            "q": null,
+            "text_value": "고체."
+          },
+          {
+            "prop_code": "APPEARANCE_COLOR",
+            "comp_ref": "MIX",
+            "q": null,
+            "text_value": "아이보리색."
+          },
+          {
+            "prop_code": "ODOR",
+            "comp_ref": "MIX",
+            "q": null,
+            "text_value": "약간."
+          },
+          {
+            "prop_code": "ODOR_THRESHOLD",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "PH",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "해당없음",
+              "status": "해당없음"
+            }
+          },
+          {
+            "prop_code": "MELT_FREEZE",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "BOILING",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "FLASH_POINT",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "349 °C",
+              "status": "값있음",
+              "value": 349,
+              "unit": "C",
+              "dp": 0
+            }
+          },
+          {
+            "prop_code": "EVAP_RATE",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "FLAMMABILITY",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "UEL",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "LEL",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "VAPOR_PRESSURE",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "SOLUBILITY",
+            "comp_ref": "MIX",
+            "q": null,
+            "text_value": "불용성."
+          },
+          {
+            "prop_code": "VAPOR_DENSITY",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "RELATIVE_DENSITY",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "1.02 – 1.17",
+              "status": "값있음",
+              "lower_op": ">=",
+              "lower": 1.02,
+              "upper_op": "<=",
+              "upper": 1.17,
+              "dp": 2
+            }
+          },
+          {
+            "prop_code": "LOG_KOW",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "AUTOIGNITION",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "455 °C",
+              "status": "값있음",
+              "value": 455,
+              "unit": "C",
+              "dp": 0
+            }
+          },
+          {
+            "prop_code": "DECOMPOSITION",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "VISCOSITY_KIN",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "VISCOSITY",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "MOL_WEIGHT",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "50000 – 200000 g/mol",
+              "status": "값있음",
+              "lower_op": ">=",
+              "lower": 50000,
+              "upper_op": "<=",
+              "upper": 200000,
+              "unit": "g/mol",
+              "dp": 0
+            }
+          }
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[0]",
+        "page": 3,
+        "source_text": "가. 화학물질의 노출기준, 생물학적 노출기준 등 자료없음",
+        "rules": [
+          "R15",
+          "R10"
+        ],
+        "note": "8항 노출기준 전체가 '자료없음'으로 적혀 있어 제품 전체(MIX) 1개 행에 status=자료없음으로 넣음. 기준 출처와 종류는 원문에 없어 null로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[0]",
+        "page": 4,
+        "source_text": "가. 외관 : 자료없음",
+        "rules": [
+          "R25",
+          "R15"
+        ],
+        "note": "외관→APPEARANCE_STATE, 자료없음"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[1]",
+        "page": 4,
+        "source_text": "물리적 상태 : 고체.",
+        "rules": [
+          "R25"
+        ],
+        "note": "물리적 상태→APPEARANCE_STATE seq 2"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[2]",
+        "page": 4,
+        "source_text": "색상 : 아이보리색.",
+        "rules": [
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[3]",
+        "page": 4,
+        "source_text": "나. 냄새 : 약간.",
+        "rules": [
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[4]",
+        "page": 4,
+        "source_text": "다. 냄새 역치 : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[5]",
+        "page": 4,
+        "source_text": "라. pH : 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[6]",
+        "page": 4,
+        "source_text": "마. 녹는점/어는점 : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[7]",
+        "page": 4,
+        "source_text": "바. 초기 끓는점과 끓는점 범위 : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[8]",
+        "page": 4,
+        "source_text": "사. 인화점 : 349 °C",
+        "rules": [
+          "R04",
+          "R08"
+        ],
+        "note": "°C→C"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[9]",
+        "page": 4,
+        "source_text": "아. 증발 속도 : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[10]",
+        "page": 4,
+        "source_text": "자. 인화성(고체, 기체) : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[11]",
+        "page": 4,
+        "source_text": "차. 인화 또는 폭발 범위의 상한/하한 : 자료없음",
+        "rules": [
+          "R25",
+          "R15"
+        ],
+        "note": "상한/하한 → UEL·LEL 두 행으로 나눔"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[12]",
+        "page": 4,
+        "source_text": "차. 인화 또는 폭발 범위의 상한/하한 : 자료없음",
+        "rules": [
+          "R25",
+          "R15"
+        ],
+        "note": "상한/하한 → UEL·LEL 두 행으로 나눔"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[13]",
+        "page": 4,
+        "source_text": "카. 증기압 : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[14]",
+        "page": 4,
+        "source_text": "타. 용해도 : 불용성.",
+        "rules": [],
+        "note": "글자 값이라 text_value에 넣음"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[15]",
+        "page": 4,
+        "source_text": "파. 증기밀도 : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[16]",
+        "page": 4,
+        "source_text": "하. 비중 : 1.02 – 1.17",
+        "rules": [
+          "R04",
+          "R06"
+        ],
+        "note": "범위를 하한 1.02(>=), 상한 1.17(<=)로 나눔"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[17]",
+        "page": 4,
+        "source_text": "거. n 옥탄올/물 분배계수 : 자료없음",
+        "rules": [
+          "R25",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[18]",
+        "page": 4,
+        "source_text": "너. 자연발화 온도 : 455 °C",
+        "rules": [
+          "R04",
+          "R08"
+        ],
+        "note": "°C→C"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[19]",
+        "page": 4,
+        "source_text": "더. 분해 온도 : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[20]",
+        "page": 4,
+        "source_text": "러. 점도(동점도) : 자료없음",
+        "rules": [
+          "R25",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[21]",
+        "page": 4,
+        "source_text": "점도(역학점도) : 자료없음",
+        "rules": [
+          "R25",
+          "R15"
+        ],
+        "note": "점도(역학점도)를 VISCOSITY로 매핑함"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[22]",
+        "page": 4,
+        "source_text": "머. 분자량 : 50000 – 200000 g/mol",
+        "rules": [
+          "R04"
+        ],
+        "note": "범위를 하한 50000(>=), 상한 200000(<=)으로 나눔"
+      }
+    ]
+  },
+  "raw_text": "{\"msds\": [{\"exposure_limits\": [{\"comp_ref\": \"MIX\", \"standard\": null, \"limit_type\": null, \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"notations\": []}], \"physchem\": [{\"prop_code\": \"APPEARANCE_STATE\", \"comp_ref\": \"MIX\", \"seq\": 1, \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"text_value\": null}, {\"prop_code\": \"APPEARANCE_STATE\", \"comp_ref\": \"MIX\", \"seq\": 2, \"q\": null, \"text_value\": \"고체.\"}, {\"prop_code\": \"APPEARANCE_COLOR\", \"comp_ref\": \"MIX\", \"q\": null, \"text_value\": \"아이보리색.\"}, {\"prop_code\": \"ODOR\", \"comp_ref\": \"MIX\", \"q\": null, \"text_value\": \"약간.\"}, {\"prop_code\": \"ODOR_THRESHOLD\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"PH\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"해당없음\", \"status\": \"해당없음\"}}, {\"prop_code\": \"MELT_FREEZE\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"BOILING\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"FLASH_POINT\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"349 °C\", \"status\": \"값있음\", \"value\": 349, \"unit\": \"C\", \"dp\": 0}}, {\"prop_code\": \"EVAP_RATE\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"FLAMMABILITY\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"UEL\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"LEL\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"VAPOR_PRESSURE\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"SOLUBILITY\", \"comp_ref\": \"MIX\", \"q\": null, \"text_value\": \"불용성.\"}, {\"prop_code\": \"VAPOR_DENSITY\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"RELATIVE_DENSITY\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"1.02 – 1.17\", \"status\": \"값있음\", \"lower_op\": \">=\", \"lower\": 1.02, \"upper_op\": \"<=\", \"upper\": 1.17, \"dp\": 2}}, {\"prop_code\": \"LOG_KOW\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"AUTOIGNITION\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"455 °C\", \"status\": \"값있음\", \"value\": 455, \"unit\": \"C\", \"dp\": 0}}, {\"prop_code\": \"DECOMPOSITION\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"VISCOSITY_KIN\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"VISCOSITY\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"MOL_WEIGHT\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"50000 – 200000 g/mol\", \"status\": \"값있음\", \"lower_op\": \">=\", \"lower\": 50000, \"upper_op\": \"<=\", \"upper\": 200000, \"unit\": \"g/mol\", \"dp\": 0}}]}], \"evidence\": [{\"msds_index\": 0, \"field\": \"exposure_limits[0]\", \"page\": 3, \"source_text\": \"가. 화학물질의 노출기준, 생물학적 노출기준 등 자료없음\", \"rules\": [\"R15\", \"R10\"], \"note\": \"8항 노출기준 전체가 '자료없음'으로 적혀 있어 제품 전체(MIX) 1개 행에 status=자료없음으로 넣음. 기준 출처와 종류는 원문에 없어 null로 둠\"}, {\"msds_index\": 0, \"field\": \"physchem[0]\", \"page\": 4, \"source_text\": \"가. 외관 : 자료없음\", \"rules\": [\"R25\", \"R15\"], \"note\": \"외관→APPEARANCE_STATE, 자료없음\"}, {\"msds_index\": 0, \"field\": \"physchem[1]\", \"page\": 4, \"source_text\": \"물리적 상태 : 고체.\", \"rules\": [\"R25\"], \"note\": \"물리적 상태→APPEARANCE_STATE seq 2\"}, {\"msds_index\": 0, \"field\": \"physchem[2]\", \"page\": 4, \"source_text\": \"색상 : 아이보리색.\", \"rules\": [\"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[3]\", \"page\": 4, \"source_text\": \"나. 냄새 : 약간.\", \"rules\": [\"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[4]\", \"page\": 4, \"source_text\": \"다. 냄새 역치 : 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[5]\", \"page\": 4, \"source_text\": \"라. pH : 해당없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[6]\", \"page\": 4, \"source_text\": \"마. 녹는점/어는점 : 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[7]\", \"page\": 4, \"source_text\": \"바. 초기 끓는점과 끓는점 범위 : 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[8]\", \"page\": 4, \"source_text\": \"사. 인화점 : 349 °C\", \"rules\": [\"R04\", \"R08\"], \"note\": \"°C→C\"}, {\"msds_index\": 0, \"field\": \"physchem[9]\", \"page\": 4, \"source_text\": \"아. 증발 속도 : 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[10]\", \"page\": 4, \"source_text\": \"자. 인화성(고체, 기체) : 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[11]\", \"page\": 4, \"source_text\": \"차. 인화 또는 폭발 범위의 상한/하한 : 자료없음\", \"rules\": [\"R25\", \"R15\"], \"note\": \"상한/하한 → UEL·LEL 두 행으로 나눔\"}, {\"msds_index\": 0, \"field\": \"physchem[12]\", \"page\": 4, \"source_text\": \"차. 인화 또는 폭발 범위의 상한/하한 : 자료없음\", \"rules\": [\"R25\", \"R15\"], \"note\": \"상한/하한 → UEL·LEL 두 행으로 나눔\"}, {\"msds_index\": 0, \"field\": \"physchem[13]\", \"page\": 4, \"source_text\": \"카. 증기압 : 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[14]\", \"page\": 4, \"source_text\": \"타. 용해도 : 불용성.\", \"rules\": [], \"note\": \"글자 값이라 text_value에 넣음\"}, {\"msds_index\": 0, \"field\": \"physchem[15]\", \"page\": 4, \"source_text\": \"파. 증기밀도 : 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[16]\", \"page\": 4, \"source_text\": \"하. 비중 : 1.02 – 1.17\", \"rules\": [\"R04\", \"R06\"], \"note\": \"범위를 하한 1.02(>=), 상한 1.17(<=)로 나눔\"}, {\"msds_index\": 0, \"field\": \"physchem[17]\", \"page\": 4, \"source_text\": \"거. n 옥탄올/물 분배계수 : 자료없음\", \"rules\": [\"R25\", \"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[18]\", \"page\": 4, \"source_text\": \"너. 자연발화 온도 : 455 °C\", \"rules\": [\"R04\", \"R08\"], \"note\": \"°C→C\"}, {\"msds_index\": 0, \"field\": \"physchem[19]\", \"page\": 4, \"source_text\": \"더. 분해 온도 : 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[20]\", \"page\": 4, \"source_text\": \"러. 점도(동점도) : 자료없음\", \"rules\": [\"R25\", \"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[21]\", \"page\": 4, \"source_text\": \"점도(역학점도) : 자료없음\", \"rules\": [\"R25\", \"R15\"], \"note\": \"점도(역학점도)를 VISCOSITY로 매핑함\"}, {\"msds_index\": 0, \"field\": \"physchem[22]\", \"page\": 4, \"source_text\": \"머. 분자량 : 50000 – 200000 g/mol\", \"rules\": [\"R04\"], \"note\": \"범위를 하한 50000(>=), 상한 200000(<=)으로 나눔\"}]}"
+}

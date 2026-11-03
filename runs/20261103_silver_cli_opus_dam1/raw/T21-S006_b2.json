@@ -1,0 +1,584 @@
+{
+  "doc_id": "T21-S006",
+  "bundle": "b2",
+  "model": "claude-opus-5-5",
+  "mode": "claude -p json-schema",
+  "finish_reason": "tool_use",
+  "usage": {
+    "prompt_tokens": 54809,
+    "completion_tokens": 5020,
+    "cached_tokens": 6909,
+    "reasoning_tokens": 1039,
+    "notional_cost_usd": 0.4849738
+  },
+  "seconds": 40.2,
+  "request_usage": [
+    {
+      "prompt_tokens": 54809,
+      "completion_tokens": 5020,
+      "cached_tokens": 6909,
+      "reasoning_tokens": 1039,
+      "notional_cost_usd": 0.4849738
+    }
+  ],
+  "attempts": 1,
+  "errors": [],
+  "parsed": {
+    "msds": [
+      {
+        "exposure_limits": [
+          {
+            "comp_ref": "1",
+            "standard": "ACGIH",
+            "limit_type": "TWA",
+            "q": {
+              "raw": "200 ppm",
+              "status": "값있음",
+              "value": 200,
+              "unit": "ppm",
+              "dp": 0
+            },
+            "form": null,
+            "kr_basis": null,
+            "notations": []
+          }
+        ],
+        "physchem": [
+          {
+            "prop_code": "APPEARANCE_STATE",
+            "comp_ref": "MIX",
+            "q": null,
+            "text_value": "압축액화가스, 가스성",
+            "seq": 1
+          },
+          {
+            "prop_code": "APPEARANCE_COLOR",
+            "comp_ref": "MIX",
+            "q": null,
+            "text_value": "무색",
+            "seq": 1,
+            "data_source": "ICSC"
+          },
+          {
+            "prop_code": "ODOR",
+            "comp_ref": "MIX",
+            "q": null,
+            "text_value": "단 냄새, 약간의 냄새",
+            "seq": 1,
+            "data_source": "KISChem"
+          },
+          {
+            "prop_code": "ODOR_THRESHOLD",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "260 ppm",
+              "status": "값있음",
+              "value": 260,
+              "unit": "ppm",
+              "dp": 0
+            },
+            "seq": 1,
+            "data_source": "KISChem"
+          },
+          {
+            "prop_code": "PH",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "해당없음",
+              "status": "해당없음"
+            },
+            "seq": 1,
+            "data_source": "KISChem"
+          },
+          {
+            "prop_code": "MELT_FREEZE",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "-169.2 °C",
+              "status": "값있음",
+              "value": -169.2,
+              "unit": "C",
+              "dp": 1
+            },
+            "seq": 1,
+            "data_source": "ECHA"
+          },
+          {
+            "prop_code": "BOILING",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "-104 °C",
+              "status": "값있음",
+              "value": -104,
+              "unit": "C",
+              "dp": 0
+            },
+            "seq": 1,
+            "data_source": "ECHA"
+          },
+          {
+            "prop_code": "FLASH_POINT",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "-136 °C",
+              "status": "값있음",
+              "value": -136,
+              "unit": "C",
+              "dp": 0
+            },
+            "seq": 1,
+            "data_source": "KISChem"
+          },
+          {
+            "prop_code": "EVAP_RATE",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "seq": 1
+          },
+          {
+            "prop_code": "FLAMMABILITY",
+            "comp_ref": "MIX",
+            "q": null,
+            "text_value": "인화성 가스",
+            "seq": 1,
+            "data_source": "ICSC"
+          },
+          {
+            "prop_code": "UEL",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "인화 상한값 36 %(V)",
+              "status": "값있음",
+              "value": 36,
+              "unit": "%(V)",
+              "dp": 0
+            },
+            "seq": 1,
+            "data_source": "ICSC"
+          },
+          {
+            "prop_code": "LEL",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "인화 하한값 2.7 %(V)",
+              "status": "값있음",
+              "value": 2.7,
+              "unit": "%(V)",
+              "dp": 1
+            },
+            "seq": 1,
+            "data_source": "ICSC"
+          },
+          {
+            "prop_code": "VAPOR_PRESSURE",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "6,946 kPa (25 °C)",
+              "status": "값있음",
+              "value": 6946,
+              "unit": "kPa",
+              "dp": 0
+            },
+            "cond": {
+              "temp": 25,
+              "temp_unit": "C"
+            },
+            "seq": 1,
+            "data_source": "KISChem"
+          },
+          {
+            "prop_code": "SOLUBILITY",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "0.131 g/l (25 °C)",
+              "status": "값있음",
+              "value": 0.131,
+              "unit": "g/l",
+              "dp": 3
+            },
+            "cond": {
+              "temp": 25,
+              "temp_unit": "C"
+            },
+            "seq": 1,
+            "data_source": "KISChem"
+          },
+          {
+            "prop_code": "SOLUBILITY",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음",
+              "note": "기타 용매에서의 용해도"
+            },
+            "seq": 2
+          },
+          {
+            "prop_code": "VAPOR_DENSITY",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "0.98",
+              "status": "값있음",
+              "value": 0.98,
+              "dp": 2
+            },
+            "seq": 1,
+            "data_source": "KISChem"
+          },
+          {
+            "prop_code": "RELATIVE_DENSITY",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "0.57",
+              "status": "값있음",
+              "value": 0.57,
+              "dp": 2
+            },
+            "seq": 1,
+            "data_source": "KISChem"
+          },
+          {
+            "prop_code": "RELATIVE_DENSITY",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "0.39 g/cm3' (20 °C)",
+              "status": "값있음",
+              "value": 0.39,
+              "unit": "g/cm3",
+              "dp": 2,
+              "note": "밀도"
+            },
+            "cond": {
+              "temp": 20,
+              "temp_unit": "C"
+            },
+            "seq": 2,
+            "data_source": "KISChem"
+          },
+          {
+            "prop_code": "LOG_KOW",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "log Pow: 1.13 (20 °C)",
+              "status": "값있음",
+              "value": 1.13,
+              "dp": 2
+            },
+            "cond": {
+              "temp": 20,
+              "temp_unit": "C"
+            },
+            "seq": 1,
+            "data_source": "ECHA"
+          },
+          {
+            "prop_code": "AUTOIGNITION",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "450 °C",
+              "status": "값있음",
+              "value": 450,
+              "unit": "C",
+              "dp": 0
+            },
+            "seq": 1,
+            "data_source": "ECHA"
+          },
+          {
+            "prop_code": "DECOMPOSITION",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "",
+              "status": "미기재"
+            },
+            "seq": 1
+          },
+          {
+            "prop_code": "VISCOSITY",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "0.01 mPa.s (20 °C)",
+              "status": "값있음",
+              "value": 0.01,
+              "unit": "mPa.s",
+              "dp": 2
+            },
+            "cond": {
+              "temp": 20,
+              "temp_unit": "C"
+            },
+            "seq": 1,
+            "data_source": "KISChem"
+          },
+          {
+            "prop_code": "MOL_WEIGHT",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "28.05 g/몰",
+              "status": "값있음",
+              "value": 28.05,
+              "unit": "g/몰",
+              "dp": 2
+            },
+            "seq": 1
+          }
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[0]",
+        "page": 4,
+        "source_text": "ethylene | 74-85-1 | TWA | 200 ppm | ACGIH",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "CAS 74-85-1로 성분 1에 매칭"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[0]",
+        "page": 5,
+        "source_text": "가. 외관 : 압축액화가스, 가스성",
+        "rules": [
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[1]",
+        "page": 5,
+        "source_text": "색 : 무색 (ICSC)",
+        "rules": [],
+        "note": "(ICSC)를 data_source로 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[2]",
+        "page": 5,
+        "source_text": "나. 냄새 : 단 냄새, 약간의 냄새 (KISChem)",
+        "rules": [],
+        "note": "(KISChem)를 data_source로 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[3]",
+        "page": 5,
+        "source_text": "다. 냄새 역치 : 260 ppm (KISChem)",
+        "rules": [
+          "R04"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[4]",
+        "page": 5,
+        "source_text": "라. pH : 해당없음 (KISChem)",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[5]",
+        "page": 5,
+        "source_text": "마. 녹는점/어는점 : -169.2 °C (ECHA)",
+        "rules": [
+          "R04",
+          "R06",
+          "R08"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[6]",
+        "page": 5,
+        "source_text": "바. 초기 끓는점과 끓는점 범위 : -104 °C (ECHA)",
+        "rules": [
+          "R04",
+          "R08"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[7]",
+        "page": 5,
+        "source_text": "사. 인화점 : -136 °C (KISChem)",
+        "rules": [
+          "R04",
+          "R08"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[8]",
+        "page": 5,
+        "source_text": "아. 증발 속도 : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[9]",
+        "page": 5,
+        "source_text": "자. 인화성(고체, 기체) : 인화성 가스 (ICSC)",
+        "rules": [
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[10]",
+        "page": 6,
+        "source_text": "인화 또는 폭발 범위의 상한 : 인화 상한값 36 %(V) (ICSC)",
+        "rules": [
+          "R04",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[11]",
+        "page": 6,
+        "source_text": "인화 또는 폭발 범위의 하한 : 인화 하한값 2.7 %(V) (ICSC)",
+        "rules": [
+          "R04",
+          "R06",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[12]",
+        "page": 6,
+        "source_text": "카. 증기압 : 6,946 kPa (25 °C) (KISChem)",
+        "rules": [
+          "R04",
+          "R06",
+          "R08"
+        ],
+        "note": "천단위 콤마 제거, 25 °C를 cond로 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[13]",
+        "page": 6,
+        "source_text": "수용해도 : 0.131 g/l (25 °C) (KISChem)",
+        "rules": [
+          "R04"
+        ],
+        "note": "25 °C를 cond로 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[14]",
+        "page": 6,
+        "source_text": "기타 용매에서의 용해도 : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[15]",
+        "page": 6,
+        "source_text": "파. 증기밀도 : 0.98(KISChem)",
+        "rules": [
+          "R04"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[16]",
+        "page": 6,
+        "source_text": "하. 비중 : 0.57(KISChem)",
+        "rules": [
+          "R04"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[17]",
+        "page": 6,
+        "source_text": "밀도 : 0.39 g/cm3' (20 °C) (KISChem)",
+        "rules": [
+          "R04",
+          "R25"
+        ],
+        "note": "단위 뒤 ' 기호는 raw에만 보존하고 unit은 g/cm3로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[18]",
+        "page": 6,
+        "source_text": "거. n-옥탄올/물 분배계수 : log Pow: 1.13 (20 °C) (ECHA)",
+        "rules": [
+          "R04"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[19]",
+        "page": 6,
+        "source_text": "너. 자연발화 온도 : 450 °C (ECHA)",
+        "rules": [
+          "R04",
+          "R08"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[20]",
+        "page": 6,
+        "source_text": "더. 열분해",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "항목 줄만 있고 값이 비어 미기재; '열분해'는 동의어 사전에 없어 분해온도로 간주"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[21]",
+        "page": 6,
+        "source_text": "동적점도 : 0.01 mPa.s (20 °C) (KISChem)",
+        "rules": [
+          "R04"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[22]",
+        "page": 6,
+        "source_text": "머. 분자량 : 28.05 g/몰",
+        "rules": [
+          "R04"
+        ],
+        "note": null
+      }
+    ]
+  },
+  "raw_text": "{\"msds\": [{\"exposure_limits\": [{\"comp_ref\": \"1\", \"standard\": \"ACGIH\", \"limit_type\": \"TWA\", \"q\": {\"raw\": \"200 ppm\", \"status\": \"값있음\", \"value\": 200, \"unit\": \"ppm\", \"dp\": 0}, \"form\": null, \"kr_basis\": null, \"notations\": []}], \"physchem\": [{\"prop_code\": \"APPEARANCE_STATE\", \"comp_ref\": \"MIX\", \"q\": null, \"text_value\": \"압축액화가스, 가스성\", \"seq\": 1}, {\"prop_code\": \"APPEARANCE_COLOR\", \"comp_ref\": \"MIX\", \"q\": null, \"text_value\": \"무색\", \"seq\": 1, \"data_source\": \"ICSC\"}, {\"prop_code\": \"ODOR\", \"comp_ref\": \"MIX\", \"q\": null, \"text_value\": \"단 냄새, 약간의 냄새\", \"seq\": 1, \"data_source\": \"KISChem\"}, {\"prop_code\": \"ODOR_THRESHOLD\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"260 ppm\", \"status\": \"값있음\", \"value\": 260, \"unit\": \"ppm\", \"dp\": 0}, \"seq\": 1, \"data_source\": \"KISChem\"}, {\"prop_code\": \"PH\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"해당없음\", \"status\": \"해당없음\"}, \"seq\": 1, \"data_source\": \"KISChem\"}, {\"prop_code\": \"MELT_FREEZE\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"-169.2 °C\", \"status\": \"값있음\", \"value\": -169.2, \"unit\": \"C\", \"dp\": 1}, \"seq\": 1, \"data_source\": \"ECHA\"}, {\"prop_code\": \"BOILING\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"-104 °C\", \"status\": \"값있음\", \"value\": -104, \"unit\": \"C\", \"dp\": 0}, \"seq\": 1, \"data_source\": \"ECHA\"}, {\"prop_code\": \"FLASH_POINT\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"-136 °C\", \"status\": \"값있음\", \"value\": -136, \"unit\": \"C\", \"dp\": 0}, \"seq\": 1, \"data_source\": \"KISChem\"}, {\"prop_code\": \"EVAP_RATE\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"seq\": 1}, {\"prop_code\": \"FLAMMABILITY\", \"comp_ref\": \"MIX\", \"q\": null, \"text_value\": \"인화성 가스\", \"seq\": 1, \"data_source\": \"ICSC\"}, {\"prop_code\": \"UEL\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"인화 상한값 36 %(V)\", \"status\": \"값있음\", \"value\": 36, \"unit\": \"%(V)\", \"dp\": 0}, \"seq\": 1, \"data_source\": \"ICSC\"}, {\"prop_code\": \"LEL\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"인화 하한값 2.7 %(V)\", \"status\": \"값있음\", \"value\": 2.7, \"unit\": \"%(V)\", \"dp\": 1}, \"seq\": 1, \"data_source\": \"ICSC\"}, {\"prop_code\": \"VAPOR_PRESSURE\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"6,946 kPa (25 °C)\", \"status\": \"값있음\", \"value\": 6946, \"unit\": \"kPa\", \"dp\": 0}, \"cond\": {\"temp\": 25, \"temp_unit\": \"C\"}, \"seq\": 1, \"data_source\": \"KISChem\"}, {\"prop_code\": \"SOLUBILITY\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"0.131 g/l (25 °C)\", \"status\": \"값있음\", \"value\": 0.131, \"unit\": \"g/l\", \"dp\": 3}, \"cond\": {\"temp\": 25, \"temp_unit\": \"C\"}, \"seq\": 1, \"data_source\": \"KISChem\"}, {\"prop_code\": \"SOLUBILITY\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\", \"note\": \"기타 용매에서의 용해도\"}, \"seq\": 2}, {\"prop_code\": \"VAPOR_DENSITY\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"0.98\", \"status\": \"값있음\", \"value\": 0.98, \"dp\": 2}, \"seq\": 1, \"data_source\": \"KISChem\"}, {\"prop_code\": \"RELATIVE_DENSITY\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"0.57\", \"status\": \"값있음\", \"value\": 0.57, \"dp\": 2}, \"seq\": 1, \"data_source\": \"KISChem\"}, {\"prop_code\": \"RELATIVE_DENSITY\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"0.39 g/cm3' (20 °C)\", \"status\": \"값있음\", \"value\": 0.39, \"unit\": \"g/cm3\", \"dp\": 2, \"note\": \"밀도\"}, \"cond\": {\"temp\": 20, \"temp_unit\": \"C\"}, \"seq\": 2, \"data_source\": \"KISChem\"}, {\"prop_code\": \"LOG_KOW\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"log Pow: 1.13 (20 °C)\", \"status\": \"값있음\", \"value\": 1.13, \"dp\": 2}, \"cond\": {\"temp\": 20, \"temp_unit\": \"C\"}, \"seq\": 1, \"data_source\": \"ECHA\"}, {\"prop_code\": \"AUTOIGNITION\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"450 °C\", \"status\": \"값있음\", \"value\": 450, \"unit\": \"C\", \"dp\": 0}, \"seq\": 1, \"data_source\": \"ECHA\"}, {\"prop_code\": \"DECOMPOSITION\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"\", \"status\": \"미기재\"}, \"seq\": 1}, {\"prop_code\": \"VISCOSITY\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"0.01 mPa.s (20 °C)\", \"status\": \"값있음\", \"value\": 0.01, \"unit\": \"mPa.s\", \"dp\": 2}, \"cond\": {\"temp\": 20, \"temp_unit\": \"C\"}, \"seq\": 1, \"data_source\": \"KISChem\"}, {\"prop_code\": \"MOL_WEIGHT\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"28.05 g/몰\", \"status\": \"값있음\", \"value\": 28.05, \"unit\": \"g/몰\", \"dp\": 2}, \"seq\": 1}]}], \"evidence\": [{\"msds_index\": 0, \"field\": \"exposure_limits[0]\", \"page\": 4, \"source_text\": \"ethylene | 74-85-1 | TWA | 200 ppm | ACGIH\", \"rules\": [\"R04\", \"R10\"], \"note\": \"CAS 74-85-1로 성분 1에 매칭\"}, {\"msds_index\": 0, \"field\": \"physchem[0]\", \"page\": 5, \"source_text\": \"가. 외관 : 압축액화가스, 가스성\", \"rules\": [\"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[1]\", \"page\": 5, \"source_text\": \"색 : 무색 (ICSC)\", \"rules\": [], \"note\": \"(ICSC)를 data_source로 분리\"}, {\"msds_index\": 0, \"field\": \"physchem[2]\", \"page\": 5, \"source_text\": \"나. 냄새 : 단 냄새, 약간의 냄새 (KISChem)\", \"rules\": [], \"note\": \"(KISChem)를 data_source로 분리\"}, {\"msds_index\": 0, \"field\": \"physchem[3]\", \"page\": 5, \"source_text\": \"다. 냄새 역치 : 260 ppm (KISChem)\", \"rules\": [\"R04\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[4]\", \"page\": 5, \"source_text\": \"라. pH : 해당없음 (KISChem)\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[5]\", \"page\": 5, \"source_text\": \"마. 녹는점/어는점 : -169.2 °C (ECHA)\", \"rules\": [\"R04\", \"R06\", \"R08\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[6]\", \"page\": 5, \"source_text\": \"바. 초기 끓는점과 끓는점 범위 : -104 °C (ECHA)\", \"rules\": [\"R04\", \"R08\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[7]\", \"page\": 5, \"source_text\": \"사. 인화점 : -136 °C (KISChem)\", \"rules\": [\"R04\", \"R08\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[8]\", \"page\": 5, \"source_text\": \"아. 증발 속도 : 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[9]\", \"page\": 5, \"source_text\": \"자. 인화성(고체, 기체) : 인화성 가스 (ICSC)\", \"rules\": [\"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[10]\", \"page\": 6, \"source_text\": \"인화 또는 폭발 범위의 상한 : 인화 상한값 36 %(V) (ICSC)\", \"rules\": [\"R04\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[11]\", \"page\": 6, \"source_text\": \"인화 또는 폭발 범위의 하한 : 인화 하한값 2.7 %(V) (ICSC)\", \"rules\": [\"R04\", \"R06\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[12]\", \"page\": 6, \"source_text\": \"카. 증기압 : 6,946 kPa (25 °C) (KISChem)\", \"rules\": [\"R04\", \"R06\", \"R08\"], \"note\": \"천단위 콤마 제거, 25 °C를 cond로 분리\"}, {\"msds_index\": 0, \"field\": \"physchem[13]\", \"page\": 6, \"source_text\": \"수용해도 : 0.131 g/l (25 °C) (KISChem)\", \"rules\": [\"R04\"], \"note\": \"25 °C를 cond로 분리\"}, {\"msds_index\": 0, \"field\": \"physchem[14]\", \"page\": 6, \"source_text\": \"기타 용매에서의 용해도 : 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[15]\", \"page\": 6, \"source_text\": \"파. 증기밀도 : 0.98(KISChem)\", \"rules\": [\"R04\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[16]\", \"page\": 6, \"source_text\": \"하. 비중 : 0.57(KISChem)\", \"rules\": [\"R04\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[17]\", \"page\": 6, \"source_text\": \"밀도 : 0.39 g/cm3' (20 °C) (KISChem)\", \"rules\": [\"R04\", \"R25\"], \"note\": \"단위 뒤 ' 기호는 raw에만 보존하고 unit은 g/cm3로 둠\"}, {\"msds_index\": 0, \"field\": \"physchem[18]\", \"page\": 6, \"source_text\": \"거. n-옥탄올/물 분배계수 : log Pow: 1.13 (20 °C) (ECHA)\", \"rules\": [\"R04\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[19]\", \"page\": 6, \"source_text\": \"너. 자연발화 온도 : 450 °C (ECHA)\", \"rules\": [\"R04\", \"R08\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[20]\", \"page\": 6, \"source_text\": \"더. 열분해\", \"rules\": [\"R15\", \"R25\"], \"note\": \"항목 줄만 있고 값이 비어 미기재; '열분해'는 동의어 사전에 없어 분해온도로 간주\"}, {\"msds_index\": 0, \"field\": \"physchem[21]\", \"page\": 6, \"source_text\": \"동적점도 : 0.01 mPa.s (20 °C) (KISChem)\", \"rules\": [\"R04\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[22]\", \"page\": 6, \"source_text\": \"머. 분자량 : 28.05 g/몰\", \"rules\": [\"R04\"], \"note\": null}]}"
+}

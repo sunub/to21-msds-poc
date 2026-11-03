@@ -1,0 +1,385 @@
+{
+  "doc_id": "T21-S031",
+  "bundle": "b1",
+  "model": "claude-opus-5-5",
+  "mode": "claude -p json-schema",
+  "finish_reason": "tool_use",
+  "usage": {
+    "prompt_tokens": 50378,
+    "completion_tokens": 3938,
+    "cached_tokens": 11700,
+    "reasoning_tokens": 818,
+    "notional_cost_usd": 0.390516
+  },
+  "seconds": 31.2,
+  "request_usage": [
+    {
+      "prompt_tokens": 50378,
+      "completion_tokens": 3938,
+      "cached_tokens": 11700,
+      "reasoning_tokens": 818,
+      "notional_cost_usd": 0.390516
+    }
+  ],
+  "attempts": 1,
+  "errors": [],
+  "parsed": {
+    "doc": {
+      "language": "ko",
+      "msds_count": 1
+    },
+    "msds": [
+      {
+        "meta": {
+          "msds_no": null,
+          "doc_code": null,
+          "revision_no": 5,
+          "revision_label": "판 5",
+          "header_product_name": "600011 : ARMOSLIP CP",
+          "source_note": null,
+          "first_issue_date": null,
+          "last_revision_date": null,
+          "page_start": 1,
+          "page_end": 7
+        },
+        "product": {
+          "name": "ARMOSLIP CP",
+          "code": "600011",
+          "synonyms": [
+            "ARMOSLIP CP BEADS (600011)",
+            "ARMOSLIP CP POWDER (600081)"
+          ],
+          "uses": [
+            "윤활제",
+            "Polyolefin 의 Slipping & Antiblocking agent"
+          ],
+          "restrictions": [],
+          "use_category_code": null
+        },
+        "companies": [
+          {
+            "seq": 1,
+            "role": "공급자",
+            "name": "피엠씨바이오제닉스코리아주식회사",
+            "site": "Seoul Sales Office",
+            "address": "서울시영등포구의사당대로 38, 더샾아일랜드파크 101-908, 대한민국",
+            "postcode": "07236",
+            "department": null,
+            "contacts": []
+          },
+          {
+            "seq": 2,
+            "role": "제조자",
+            "name": "피엠씨바이오제닉스코리아주식회사",
+            "site": null,
+            "address": "경북 경주시 유림로 13 번길 64 ,대한민국",
+            "postcode": "38071",
+            "department": null,
+            "contacts": [
+              {
+                "type": "대표",
+                "value": "+82-54-770-4500",
+                "hours": null
+              },
+              {
+                "type": "팩스",
+                "value": "+82-54-776-0623",
+                "hours": null
+              },
+              {
+                "type": "긴급",
+                "value": "+82-54-776-4500",
+                "hours": null
+              }
+            ]
+          },
+          {
+            "seq": 3,
+            "role": "기타",
+            "name": "Chemtrec",
+            "site": null,
+            "address": null,
+            "postcode": null,
+            "department": null,
+            "contacts": [
+              {
+                "type": "긴급",
+                "value": "00-308-13-2549",
+                "hours": null
+              },
+              {
+                "type": "긴급",
+                "value": "+1-703-527-3887",
+                "hours": null
+              }
+            ]
+          },
+          {
+            "seq": 4,
+            "role": "기타",
+            "name": "Biogenix",
+            "site": null,
+            "address": null,
+            "postcode": null,
+            "department": "Environmental Health and Safety Department",
+            "contacts": [
+              {
+                "type": "긴급",
+                "value": "+1-901-320-5820",
+                "hours": null
+              }
+            ]
+          }
+        ],
+        "hazard": {
+          "classified": false,
+          "classes": [],
+          "signal_word": "없음",
+          "pictograms": [],
+          "h_statements": [],
+          "p_statements": [],
+          "other_hazards": [
+            {
+              "seq": 1,
+              "key": "오존층 유해성",
+              "value": "자료없음",
+              "text": "오존층 유해성 자료없음"
+            },
+            {
+              "seq": 2,
+              "key": null,
+              "value": "분진은 공기와 함께 폭발성 있는 혼합물을 형성 할 수 있음",
+              "text": "분진은 공기와 함께 폭발성 있는 혼합물을 형성 할 수 있음"
+            }
+          ],
+          "nfpa": {
+            "health": 1,
+            "fire": 1,
+            "reactivity": 0,
+            "special": null
+          }
+        },
+        "composition": {
+          "type": "단일물질",
+          "no_hazardous_component": false
+        },
+        "components": [
+          {
+            "seq": 1,
+            "name": "9-Octadecenamide,(Z)-",
+            "name_en": "9-Octadecenamide,(Z)-",
+            "synonyms": [
+              "올레아마이드(Oleamide)"
+            ],
+            "cas_no": "301-02-0",
+            "ke_no": null,
+            "ec_no": null,
+            "content": {
+              "raw": "100",
+              "status": "값있음",
+              "value": 100,
+              "unit": "%"
+            },
+            "content_basis": "중량",
+            "content_note": null,
+            "trade_secret": false
+          }
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "msds_index": 0,
+        "field": "meta.revision_no",
+        "page": 1,
+        "source_text": "판 5",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.first_issue_date",
+        "page": 1,
+        "source_text": "발행일 11-3-2014",
+        "rules": [
+          "R01",
+          "R17"
+        ],
+        "note": "'11-3-2014'가 월-일인지 일-월인지 알 수 없어 R17에 따라 비워 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.last_revision_date",
+        "page": 1,
+        "source_text": "개정일 1-2-2019",
+        "rules": [
+          "R01",
+          "R17"
+        ],
+        "note": "'1-2-2019'가 월-일인지 일-월인지 알 수 없어 R17에 따라 비워 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.header_product_name",
+        "page": 2,
+        "source_text": "600011 : ARMOSLIP CP",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "product.name",
+        "page": 1,
+        "source_text": "제품명 ARMOSLIP CP",
+        "rules": [],
+        "note": "텍스트층은 'ARMOSLIPCP'이지만 이미지에는 띄어 쓴 'ARMOSLIP CP'로 보임"
+      },
+      {
+        "msds_index": 0,
+        "field": "product.code",
+        "page": 1,
+        "source_text": "제품 코드 600011",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "product.synonyms",
+        "page": 1,
+        "source_text": "동의어 ARMOSLIP CP BEADS (600011), ARMOSLIP CP POWDER (600081)",
+        "rules": [
+          "R11"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "product.uses",
+        "page": 1,
+        "source_text": "권장되는 용도 윤활제 / 다음에 대해 권고되는 사용법 Polyolefin 의 Slipping & Antiblocking agent",
+        "rules": [
+          "R11"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "companies[0]",
+        "page": 1,
+        "source_text": "회사명(Seoul Sales Office) 피엠씨바이오제닉스코리아주식회사 서울시영등포구의사당대로 38, 더샾아일랜드파크 101-908, 07236, 대한민국",
+        "rules": [],
+        "note": "'공급업체' 아래 회사여서 역할을 공급자로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "companies[1]",
+        "page": 1,
+        "source_text": "제조자 피엠씨바이오제닉스코리아주식회사 경북 경주시 유림로 13 번길 64 ,38071,대한민국 Tel : +82-54-770-4500 Fax : +82-54-776-0623 | 긴급전화번호 피엠씨바이오제닉스코리아주식회사 +82-54-776-4500",
+        "rules": [
+          "R12"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "companies[2]",
+        "page": 1,
+        "source_text": "긴급전화번호 Chemtrec [KR]: 00-308-13-2549; Chemtrec [INT]: +1-703-527-3887",
+        "rules": [
+          "R12"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "companies[3]",
+        "page": 1,
+        "source_text": "긴급전화번호 Biogenix Environmental Health and Safety Department +1-901-320-5820",
+        "rules": [
+          "R12"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.classified",
+        "page": 1,
+        "source_text": "유해/위험성 분류 세계 조화 시스템(GHS)에 따른 비위험 물질 또는 혼합물",
+        "rules": [],
+        "note": "비위험 물질이라고 적혀 있어 false로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.signal_word",
+        "page": 1,
+        "source_text": "신호어 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "'해당없음'을 '없음'으로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.pictograms",
+        "page": 1,
+        "source_text": "그림문자 해당없음",
+        "rules": [],
+        "note": "그림문자가 없음"
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.h_statements",
+        "page": 1,
+        "source_text": "유해/위험 문구 해당없음",
+        "rules": [],
+        "note": "H 문구가 없음"
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.p_statements",
+        "page": 1,
+        "source_text": "예방 자료없음 대응 자료없음 저장 자료없음 폐기 자료없음.",
+        "rules": [],
+        "note": "P 문구가 없음"
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.other_hazards",
+        "page": 2,
+        "source_text": "오존층 유해성 자료없음 기타 유해성 /위험성 분진은 공기와 함께 폭발성 있는 혼합물을 형성 할 수 있음",
+        "rules": [
+          "R14"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.nfpa",
+        "page": 2,
+        "source_text": "보건 1 화재 1 반응성 0",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "composition.type",
+        "page": 2,
+        "source_text": "9-Octadecenamide,(Z)- | 301-02-0 | 100",
+        "rules": [],
+        "note": "함유량 100%인 성분 하나뿐이어서 단일물질로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "components[0]",
+        "page": 2,
+        "source_text": "9-Octadecenamide,(Z)- | 301-02-0 | 100 / 이명(관용명) 올레아마이드(Oleamide)",
+        "rules": [
+          "R02",
+          "R04"
+        ],
+        "note": "열 머리글 '중량-%'에 따라 단위를 %, 기준을 중량으로 둠"
+      }
+    ]
+  },
+  "raw_text": "{\"doc\": {\"language\": \"ko\", \"msds_count\": 1}, \"msds\": [{\"meta\": {\"msds_no\": null, \"doc_code\": null, \"revision_no\": 5, \"revision_label\": \"판 5\", \"header_product_name\": \"600011 : ARMOSLIP CP\", \"source_note\": null, \"first_issue_date\": null, \"last_revision_date\": null, \"page_start\": 1, \"page_end\": 7}, \"product\": {\"name\": \"ARMOSLIP CP\", \"code\": \"600011\", \"synonyms\": [\"ARMOSLIP CP BEADS (600011)\", \"ARMOSLIP CP POWDER (600081)\"], \"uses\": [\"윤활제\", \"Polyolefin 의 Slipping & Antiblocking agent\"], \"restrictions\": [], \"use_category_code\": null}, \"companies\": [{\"seq\": 1, \"role\": \"공급자\", \"name\": \"피엠씨바이오제닉스코리아주식회사\", \"site\": \"Seoul Sales Office\", \"address\": \"서울시영등포구의사당대로 38, 더샾아일랜드파크 101-908, 대한민국\", \"postcode\": \"07236\", \"department\": null, \"contacts\": []}, {\"seq\": 2, \"role\": \"제조자\", \"name\": \"피엠씨바이오제닉스코리아주식회사\", \"site\": null, \"address\": \"경북 경주시 유림로 13 번길 64 ,대한민국\", \"postcode\": \"38071\", \"department\": null, \"contacts\": [{\"type\": \"대표\", \"value\": \"+82-54-770-4500\", \"hours\": null}, {\"type\": \"팩스\", \"value\": \"+82-54-776-0623\", \"hours\": null}, {\"type\": \"긴급\", \"value\": \"+82-54-776-4500\", \"hours\": null}]}, {\"seq\": 3, \"role\": \"기타\", \"name\": \"Chemtrec\", \"site\": null, \"address\": null, \"postcode\": null, \"department\": null, \"contacts\": [{\"type\": \"긴급\", \"value\": \"00-308-13-2549\", \"hours\": null}, {\"type\": \"긴급\", \"value\": \"+1-703-527-3887\", \"hours\": null}]}, {\"seq\": 4, \"role\": \"기타\", \"name\": \"Biogenix\", \"site\": null, \"address\": null, \"postcode\": null, \"department\": \"Environmental Health and Safety Department\", \"contacts\": [{\"type\": \"긴급\", \"value\": \"+1-901-320-5820\", \"hours\": null}]}], \"hazard\": {\"classified\": false, \"classes\": [], \"signal_word\": \"없음\", \"pictograms\": [], \"h_statements\": [], \"p_statements\": [], \"other_hazards\": [{\"seq\": 1, \"key\": \"오존층 유해성\", \"value\": \"자료없음\", \"text\": \"오존층 유해성 자료없음\"}, {\"seq\": 2, \"key\": null, \"value\": \"분진은 공기와 함께 폭발성 있는 혼합물을 형성 할 수 있음\", \"text\": \"분진은 공기와 함께 폭발성 있는 혼합물을 형성 할 수 있음\"}], \"nfpa\": {\"health\": 1, \"fire\": 1, \"reactivity\": 0, \"special\": null}}, \"composition\": {\"type\": \"단일물질\", \"no_hazardous_component\": false}, \"components\": [{\"seq\": 1, \"name\": \"9-Octadecenamide,(Z)-\", \"name_en\": \"9-Octadecenamide,(Z)-\", \"synonyms\": [\"올레아마이드(Oleamide)\"], \"cas_no\": \"301-02-0\", \"ke_no\": null, \"ec_no\": null, \"content\": {\"raw\": \"100\", \"status\": \"값있음\", \"value\": 100, \"unit\": \"%\"}, \"content_basis\": \"중량\", \"content_note\": null, \"trade_secret\": false}]}], \"evidence\": [{\"msds_index\": 0, \"field\": \"meta.revision_no\", \"page\": 1, \"source_text\": \"판 5\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"meta.first_issue_date\", \"page\": 1, \"source_text\": \"발행일 11-3-2014\", \"rules\": [\"R01\", \"R17\"], \"note\": \"'11-3-2014'가 월-일인지 일-월인지 알 수 없어 R17에 따라 비워 둠\"}, {\"msds_index\": 0, \"field\": \"meta.last_revision_date\", \"page\": 1, \"source_text\": \"개정일 1-2-2019\", \"rules\": [\"R01\", \"R17\"], \"note\": \"'1-2-2019'가 월-일인지 일-월인지 알 수 없어 R17에 따라 비워 둠\"}, {\"msds_index\": 0, \"field\": \"meta.header_product_name\", \"page\": 2, \"source_text\": \"600011 : ARMOSLIP CP\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"product.name\", \"page\": 1, \"source_text\": \"제품명 ARMOSLIP CP\", \"rules\": [], \"note\": \"텍스트층은 'ARMOSLIPCP'이지만 이미지에는 띄어 쓴 'ARMOSLIP CP'로 보임\"}, {\"msds_index\": 0, \"field\": \"product.code\", \"page\": 1, \"source_text\": \"제품 코드 600011\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"product.synonyms\", \"page\": 1, \"source_text\": \"동의어 ARMOSLIP CP BEADS (600011), ARMOSLIP CP POWDER (600081)\", \"rules\": [\"R11\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"product.uses\", \"page\": 1, \"source_text\": \"권장되는 용도 윤활제 / 다음에 대해 권고되는 사용법 Polyolefin 의 Slipping & Antiblocking agent\", \"rules\": [\"R11\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"companies[0]\", \"page\": 1, \"source_text\": \"회사명(Seoul Sales Office) 피엠씨바이오제닉스코리아주식회사 서울시영등포구의사당대로 38, 더샾아일랜드파크 101-908, 07236, 대한민국\", \"rules\": [], \"note\": \"'공급업체' 아래 회사여서 역할을 공급자로 둠\"}, {\"msds_index\": 0, \"field\": \"companies[1]\", \"page\": 1, \"source_text\": \"제조자 피엠씨바이오제닉스코리아주식회사 경북 경주시 유림로 13 번길 64 ,38071,대한민국 Tel : +82-54-770-4500 Fax : +82-54-776-0623 | 긴급전화번호 피엠씨바이오제닉스코리아주식회사 +82-54-776-4500\", \"rules\": [\"R12\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"companies[2]\", \"page\": 1, \"source_text\": \"긴급전화번호 Chemtrec [KR]: 00-308-13-2549; Chemtrec [INT]: +1-703-527-3887\", \"rules\": [\"R12\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"companies[3]\", \"page\": 1, \"source_text\": \"긴급전화번호 Biogenix Environmental Health and Safety Department +1-901-320-5820\", \"rules\": [\"R12\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"hazard.classified\", \"page\": 1, \"source_text\": \"유해/위험성 분류 세계 조화 시스템(GHS)에 따른 비위험 물질 또는 혼합물\", \"rules\": [], \"note\": \"비위험 물질이라고 적혀 있어 false로 둠\"}, {\"msds_index\": 0, \"field\": \"hazard.signal_word\", \"page\": 1, \"source_text\": \"신호어 해당없음\", \"rules\": [\"R15\"], \"note\": \"'해당없음'을 '없음'으로 둠\"}, {\"msds_index\": 0, \"field\": \"hazard.pictograms\", \"page\": 1, \"source_text\": \"그림문자 해당없음\", \"rules\": [], \"note\": \"그림문자가 없음\"}, {\"msds_index\": 0, \"field\": \"hazard.h_statements\", \"page\": 1, \"source_text\": \"유해/위험 문구 해당없음\", \"rules\": [], \"note\": \"H 문구가 없음\"}, {\"msds_index\": 0, \"field\": \"hazard.p_statements\", \"page\": 1, \"source_text\": \"예방 자료없음 대응 자료없음 저장 자료없음 폐기 자료없음.\", \"rules\": [], \"note\": \"P 문구가 없음\"}, {\"msds_index\": 0, \"field\": \"hazard.other_hazards\", \"page\": 2, \"source_text\": \"오존층 유해성 자료없음 기타 유해성 /위험성 분진은 공기와 함께 폭발성 있는 혼합물을 형성 할 수 있음\", \"rules\": [\"R14\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"hazard.nfpa\", \"page\": 2, \"source_text\": \"보건 1 화재 1 반응성 0\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"composition.type\", \"page\": 2, \"source_text\": \"9-Octadecenamide,(Z)- | 301-02-0 | 100\", \"rules\": [], \"note\": \"함유량 100%인 성분 하나뿐이어서 단일물질로 둠\"}, {\"msds_index\": 0, \"field\": \"components[0]\", \"page\": 2, \"source_text\": \"9-Octadecenamide,(Z)- | 301-02-0 | 100 / 이명(관용명) 올레아마이드(Oleamide)\", \"rules\": [\"R02\", \"R04\"], \"note\": \"열 머리글 '중량-%'에 따라 단위를 %, 기준을 중량으로 둠\"}]}"
+}

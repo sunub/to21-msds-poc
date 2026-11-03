@@ -1,0 +1,484 @@
+{
+  "doc_id": "T21-022",
+  "bundle": "b3",
+  "model": "claude-opus-5-5",
+  "mode": "claude -p json-schema",
+  "finish_reason": "tool_use",
+  "usage": {
+    "prompt_tokens": 34878,
+    "completion_tokens": 4289,
+    "cached_tokens": 8451,
+    "reasoning_tokens": 792,
+    "notional_cost_usd": 0.2988782
+  },
+  "seconds": 32.4,
+  "request_usage": [
+    {
+      "prompt_tokens": 34878,
+      "completion_tokens": 4289,
+      "cached_tokens": 8451,
+      "reasoning_tokens": 792,
+      "notional_cost_usd": 0.2988782
+    }
+  ],
+  "attempts": 1,
+  "errors": [],
+  "parsed": {
+    "msds": [
+      {
+        "toxicity": [
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_ORAL",
+            "descriptor": "LD50",
+            "species": "rat",
+            "q": {
+              "raw": "자료 없음",
+              "status": "자료없음"
+            },
+            "data_source": "US NLM/ECHA",
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_DERMAL",
+            "descriptor": "LD50",
+            "species": "rabbit",
+            "q": {
+              "raw": "자료 없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_INHAL",
+            "descriptor": "LC50",
+            "species": "rat",
+            "physical_form": "분진·미스트",
+            "duration_value": 4,
+            "duration_unit": "hr",
+            "q": {
+              "raw": "자료 없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_SKIN",
+            "q": {
+              "raw": "자료 없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_EYE",
+            "descriptor": "결과기술",
+            "data_source": "US NLM/ECHA",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "Irritating (Vinylbenzyltrimethylammonium hydroxide polymer with divinylbenzene)",
+                "text": "- Irritating (Vinylbenzyltrimethylammonium hydroxide polymer with divinylbenzene) ※ from US NLM/ECHA"
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_RESP_SENS",
+            "q": {
+              "raw": "자료 없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_SKIN_SENS",
+            "q": {
+              "raw": "자료 없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_MUTA",
+            "q": {
+              "raw": "자료 없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_CARC",
+            "descriptor": "결과기술",
+            "classification": "분류되지 않음",
+            "data_source": "CCRIS/IARC",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "분류되지 않음 ※ from CCRIS/IARC",
+                "text": "9) 발암성: 분류되지 않음 ※ from CCRIS/IARC"
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_REPRO",
+            "q": {
+              "raw": "자료 없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_STOT_SE",
+            "q": {
+              "raw": "자료 없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_STOT_RE",
+            "q": {
+              "raw": "자료 없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_ASP",
+            "q": {
+              "raw": "자료 없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          }
+        ],
+        "cmr": [
+          {
+            "comp_ref": "MIX",
+            "hazard": "발암성",
+            "agency": "IARC",
+            "class": null,
+            "status": null,
+            "note": "분류되지 않음 ※ from CCRIS/IARC"
+          }
+        ],
+        "ecotox": [
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_FISH",
+            "descriptor": "LC50",
+            "q": {
+              "raw": "자료 없음",
+              "status": "자료없음"
+            },
+            "data_source": "US NLM/ECHA",
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_CRUST",
+            "descriptor": "EC50",
+            "q": {
+              "raw": "자료 없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_ALGAE",
+            "descriptor": "EC50",
+            "q": {
+              "raw": "자료 없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_PERSIST",
+            "q": {
+              "raw": "자료 없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_BIOACC",
+            "q": {
+              "raw": "자료 없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_SOIL",
+            "q": {
+              "raw": "자료 없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_OTHER",
+            "q": {
+              "raw": "자료 없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          }
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "msds_index": 0,
+        "field": "toxicity[0]",
+        "page": 4,
+        "source_text": "- Oral rat LD50: 자료 없음 ※ from US NLM/ECHA",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": "성분 지정이 없어 MIX로 둠. '자료 없음'은 status 자료없음"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[1]",
+        "page": 4,
+        "source_text": "- Skin rabbit LD50: 자료 없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": "성분 지정이 없어 MIX로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[2]",
+        "page": 4,
+        "source_text": "- Inhalation rat LC50(dust, 4h): 자료 없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": "dust를 분진·미스트로, 4h를 4 hr로 적음"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[3]",
+        "page": 4,
+        "source_text": "4) 피부자극성: 자료 없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[4]",
+        "page": 4,
+        "source_text": "- Irritating (Vinylbenzyltrimethylammonium hydroxide polymer with divinylbenzene) ※ from US NLM/ECHA",
+        "rules": [
+          "R10"
+        ],
+        "note": "괄호 속 물질명이 성분 목록 이름과 그대로 맞지 않아 MIX로 두고 원문을 서술 문장으로 남김"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[5]",
+        "page": 4,
+        "source_text": "6) 호흡기 과민성: 자료 없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[6]",
+        "page": 4,
+        "source_text": "7) 피부과민성: 자료 없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[7]",
+        "page": 4,
+        "source_text": "8) 생식세포변이원성: 자료 없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[8]",
+        "page": 4,
+        "source_text": "9) 발암성: 분류되지 않음 ※ from CCRIS/IARC",
+        "rules": [],
+        "note": "'분류되지 않음'을 분류 결과(classification)에 적음"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[9]",
+        "page": 4,
+        "source_text": "10) 생식독성: 자료 없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[10]",
+        "page": 4,
+        "source_text": "11) 특정 표적장기 독성(1 회 노출): 자료 없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[11]",
+        "page": 4,
+        "source_text": "12) 특정 표적장기 독성(반복 노출): 자료 없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[12]",
+        "page": 4,
+        "source_text": "13) 흡인 유해성: 자료 없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[0]",
+        "page": 4,
+        "source_text": "9) 발암성: 분류되지 않음 ※ from CCRIS/IARC",
+        "rules": [
+          "R17"
+        ],
+        "note": "맞는 값 없음: '분류되지 않음'에 맞는 등급·상태값이 없어 class와 status는 null로 두고 원문을 note에 남김. 출처가 CCRIS/IARC로 함께 적혀 있음"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[0]",
+        "page": 4,
+        "source_text": "- Fish LC50: 자료 없음 ※ from US NLM/ECHA",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[1]",
+        "page": 4,
+        "source_text": "- Crustacean EC50: 자료 없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[2]",
+        "page": 4,
+        "source_text": "- Algae EC50: 자료 없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[3]",
+        "page": 4,
+        "source_text": "2) 잔류성 및 분해성: 자료 없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[4]",
+        "page": 4,
+        "source_text": "3) 생물 농축성: 자료 없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[5]",
+        "page": 4,
+        "source_text": "4) 토양 이동성: 자료 없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[6]",
+        "page": 4,
+        "source_text": "5) 기타 유해 영향: 자료 없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "기타 유해 영향은 ECO_OTHER 행으로 둠"
+      }
+    ]
+  },
+  "raw_text": "{\"msds\": [{\"toxicity\": [{\"comp_ref\": \"MIX\", \"endpoint\": \"TX_ORAL\", \"descriptor\": \"LD50\", \"species\": \"rat\", \"q\": {\"raw\": \"자료 없음\", \"status\": \"자료없음\"}, \"data_source\": \"US NLM/ECHA\", \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_DERMAL\", \"descriptor\": \"LD50\", \"species\": \"rabbit\", \"q\": {\"raw\": \"자료 없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_INHAL\", \"descriptor\": \"LC50\", \"species\": \"rat\", \"physical_form\": \"분진·미스트\", \"duration_value\": 4, \"duration_unit\": \"hr\", \"q\": {\"raw\": \"자료 없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_SKIN\", \"q\": {\"raw\": \"자료 없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_EYE\", \"descriptor\": \"결과기술\", \"data_source\": \"US NLM/ECHA\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"Irritating (Vinylbenzyltrimethylammonium hydroxide polymer with divinylbenzene)\", \"text\": \"- Irritating (Vinylbenzyltrimethylammonium hydroxide polymer with divinylbenzene) ※ from US NLM/ECHA\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_RESP_SENS\", \"q\": {\"raw\": \"자료 없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_SKIN_SENS\", \"q\": {\"raw\": \"자료 없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_MUTA\", \"q\": {\"raw\": \"자료 없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_CARC\", \"descriptor\": \"결과기술\", \"classification\": \"분류되지 않음\", \"data_source\": \"CCRIS/IARC\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"분류되지 않음 ※ from CCRIS/IARC\", \"text\": \"9) 발암성: 분류되지 않음 ※ from CCRIS/IARC\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_REPRO\", \"q\": {\"raw\": \"자료 없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_STOT_SE\", \"q\": {\"raw\": \"자료 없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_STOT_RE\", \"q\": {\"raw\": \"자료 없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_ASP\", \"q\": {\"raw\": \"자료 없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}], \"cmr\": [{\"comp_ref\": \"MIX\", \"hazard\": \"발암성\", \"agency\": \"IARC\", \"class\": null, \"status\": null, \"note\": \"분류되지 않음 ※ from CCRIS/IARC\"}], \"ecotox\": [{\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_FISH\", \"descriptor\": \"LC50\", \"q\": {\"raw\": \"자료 없음\", \"status\": \"자료없음\"}, \"data_source\": \"US NLM/ECHA\", \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_CRUST\", \"descriptor\": \"EC50\", \"q\": {\"raw\": \"자료 없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_ALGAE\", \"descriptor\": \"EC50\", \"q\": {\"raw\": \"자료 없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_PERSIST\", \"q\": {\"raw\": \"자료 없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_BIOACC\", \"q\": {\"raw\": \"자료 없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_SOIL\", \"q\": {\"raw\": \"자료 없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_OTHER\", \"q\": {\"raw\": \"자료 없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}]}], \"evidence\": [{\"msds_index\": 0, \"field\": \"toxicity[0]\", \"page\": 4, \"source_text\": \"- Oral rat LD50: 자료 없음 ※ from US NLM/ECHA\", \"rules\": [\"R10\", \"R15\"], \"note\": \"성분 지정이 없어 MIX로 둠. '자료 없음'은 status 자료없음\"}, {\"msds_index\": 0, \"field\": \"toxicity[1]\", \"page\": 4, \"source_text\": \"- Skin rabbit LD50: 자료 없음\", \"rules\": [\"R10\", \"R15\"], \"note\": \"성분 지정이 없어 MIX로 둠\"}, {\"msds_index\": 0, \"field\": \"toxicity[2]\", \"page\": 4, \"source_text\": \"- Inhalation rat LC50(dust, 4h): 자료 없음\", \"rules\": [\"R10\", \"R15\"], \"note\": \"dust를 분진·미스트로, 4h를 4 hr로 적음\"}, {\"msds_index\": 0, \"field\": \"toxicity[3]\", \"page\": 4, \"source_text\": \"4) 피부자극성: 자료 없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[4]\", \"page\": 4, \"source_text\": \"- Irritating (Vinylbenzyltrimethylammonium hydroxide polymer with divinylbenzene) ※ from US NLM/ECHA\", \"rules\": [\"R10\"], \"note\": \"괄호 속 물질명이 성분 목록 이름과 그대로 맞지 않아 MIX로 두고 원문을 서술 문장으로 남김\"}, {\"msds_index\": 0, \"field\": \"toxicity[5]\", \"page\": 4, \"source_text\": \"6) 호흡기 과민성: 자료 없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[6]\", \"page\": 4, \"source_text\": \"7) 피부과민성: 자료 없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[7]\", \"page\": 4, \"source_text\": \"8) 생식세포변이원성: 자료 없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[8]\", \"page\": 4, \"source_text\": \"9) 발암성: 분류되지 않음 ※ from CCRIS/IARC\", \"rules\": [], \"note\": \"'분류되지 않음'을 분류 결과(classification)에 적음\"}, {\"msds_index\": 0, \"field\": \"toxicity[9]\", \"page\": 4, \"source_text\": \"10) 생식독성: 자료 없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[10]\", \"page\": 4, \"source_text\": \"11) 특정 표적장기 독성(1 회 노출): 자료 없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[11]\", \"page\": 4, \"source_text\": \"12) 특정 표적장기 독성(반복 노출): 자료 없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[12]\", \"page\": 4, \"source_text\": \"13) 흡인 유해성: 자료 없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"cmr[0]\", \"page\": 4, \"source_text\": \"9) 발암성: 분류되지 않음 ※ from CCRIS/IARC\", \"rules\": [\"R17\"], \"note\": \"맞는 값 없음: '분류되지 않음'에 맞는 등급·상태값이 없어 class와 status는 null로 두고 원문을 note에 남김. 출처가 CCRIS/IARC로 함께 적혀 있음\"}, {\"msds_index\": 0, \"field\": \"ecotox[0]\", \"page\": 4, \"source_text\": \"- Fish LC50: 자료 없음 ※ from US NLM/ECHA\", \"rules\": [\"R10\", \"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[1]\", \"page\": 4, \"source_text\": \"- Crustacean EC50: 자료 없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[2]\", \"page\": 4, \"source_text\": \"- Algae EC50: 자료 없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[3]\", \"page\": 4, \"source_text\": \"2) 잔류성 및 분해성: 자료 없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[4]\", \"page\": 4, \"source_text\": \"3) 생물 농축성: 자료 없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[5]\", \"page\": 4, \"source_text\": \"4) 토양 이동성: 자료 없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[6]\", \"page\": 4, \"source_text\": \"5) 기타 유해 영향: 자료 없음\", \"rules\": [\"R15\"], \"note\": \"기타 유해 영향은 ECO_OTHER 행으로 둠\"}]}"
+}

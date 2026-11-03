@@ -1,0 +1,614 @@
+{
+  "doc_id": "T21-S006",
+  "bundle": "b4",
+  "model": "claude-opus-5-5",
+  "mode": "claude -p json-schema",
+  "finish_reason": "tool_use",
+  "usage": {
+    "prompt_tokens": 59259,
+    "completion_tokens": 6561,
+    "cached_tokens": 8949,
+    "reasoning_tokens": 1624,
+    "notional_cost_usd": 0.5354818
+  },
+  "seconds": 50.2,
+  "request_usage": [
+    {
+      "prompt_tokens": 59259,
+      "completion_tokens": 6561,
+      "cached_tokens": 8949,
+      "reasoning_tokens": 1624,
+      "notional_cost_usd": 0.5354818
+    }
+  ],
+  "attempts": 1,
+  "errors": [],
+  "parsed": {
+    "msds": [
+      {
+        "transport": [
+          {
+            "mode": "항공",
+            "basis_raw": "IATA-DGR",
+            "regulated": true,
+            "un_no": "1962",
+            "shipping_name": "Ethylene",
+            "hazard_class": "2.1",
+            "sub_risk": null,
+            "packing_group": "해당없음",
+            "marine_pollutant": null,
+            "ems_fire": null,
+            "ems_spill": null
+          },
+          {
+            "mode": "해상",
+            "basis_raw": "IMDG-코드",
+            "regulated": true,
+            "un_no": "1962",
+            "shipping_name": "ETHYLENE",
+            "hazard_class": "2.1",
+            "sub_risk": null,
+            "packing_group": "해당없음",
+            "marine_pollutant": "비해당",
+            "ems_fire": "F-D",
+            "ems_spill": "S-U"
+          }
+        ],
+        "regulations": [
+          {
+            "seq": 1,
+            "law": "OSH",
+            "item_code": "OSH_PROHIBIT",
+            "item_raw": "제조 등의 금지 유해물질",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "value_raw": "해당없음"
+          },
+          {
+            "seq": 2,
+            "law": "OSH",
+            "item_code": "OSH_PERMIT",
+            "item_raw": "허가대상 유해물질",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "value_raw": "해당없음"
+          },
+          {
+            "seq": 3,
+            "law": "OSH",
+            "item_code": "OSH_MANAGED",
+            "item_raw": "관리대상유해물질",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "value_raw": "해당없음"
+          },
+          {
+            "seq": 4,
+            "law": "OSH",
+            "item_code": "OSH_MEASURE",
+            "item_raw": "작업환경측정 대상 유해인자",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "value_raw": "해당없음"
+          },
+          {
+            "seq": 5,
+            "law": "OSH",
+            "item_code": "OSH_HEALTH_EXAM",
+            "item_raw": "특수건강진단 대상 유해인자",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "value_raw": "해당없음"
+          },
+          {
+            "seq": 6,
+            "law": "CCA",
+            "item_code": "CCA_TOXIC",
+            "item_raw": "유독물질",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "value_raw": "해당없음"
+          },
+          {
+            "seq": 7,
+            "law": "CCA",
+            "item_code": "CCA_RESTRICT",
+            "item_raw": "제한물질",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "value_raw": "해당없음"
+          },
+          {
+            "seq": 8,
+            "law": "CCA",
+            "item_code": "CCA_PROHIBIT",
+            "item_raw": "금지물질",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "value_raw": "해당없음"
+          },
+          {
+            "seq": 9,
+            "law": "CCA",
+            "item_code": "CCA_PRTR",
+            "item_raw": "배출량조사대상 화학물질",
+            "comp_ref": "1",
+            "applicable": "해당",
+            "sub_class": "Ⅱ그룹",
+            "threshold": {
+              "raw": ">= 1 %",
+              "status": "값있음",
+              "lower_op": ">=",
+              "lower": 1,
+              "unit": "%"
+            }
+          },
+          {
+            "seq": 10,
+            "law": "CCA",
+            "item_code": "CCA_ACCIDENT",
+            "item_raw": "사고대비물질",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "value_raw": "해당없음"
+          },
+          {
+            "seq": 11,
+            "law": "DG",
+            "item_code": "DG_HAZMAT",
+            "item_raw": "위험물안전관리법에 의한 규제",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "value_raw": "해당없음"
+          },
+          {
+            "seq": 12,
+            "law": "KR_ETC",
+            "item_code": "KR_ETC",
+            "item_raw": "대기환경보전법 HAPs 대상물질",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "value_raw": "해당없음"
+          },
+          {
+            "seq": 13,
+            "law": "WASTE",
+            "item_code": null,
+            "item_raw": "사업장폐기물",
+            "comp_ref": "MIX",
+            "applicable": null,
+            "value_raw": "폐기시 폐기물관리법 제 13 조 폐기물처리기준에 따라 처리하여야 함"
+          },
+          {
+            "seq": 14,
+            "law": "KR_ETC",
+            "item_code": "KR_ETC",
+            "item_raw": "HIGH-PRESSURE GAS SAFETY CONTROL ACT",
+            "comp_ref": "MIX",
+            "applicable": "해당",
+            "value_raw": "해당함"
+          },
+          {
+            "seq": 15,
+            "law": "INTL",
+            "item_code": "INTL_ETC",
+            "item_raw": "AICS (호주)",
+            "comp_ref": "MIX",
+            "applicable": "해당",
+            "country": "AU"
+          },
+          {
+            "seq": 16,
+            "law": "INTL",
+            "item_code": "INTL_ETC",
+            "item_raw": "DSL (캐나다)",
+            "comp_ref": "MIX",
+            "applicable": "해당",
+            "country": "CA"
+          },
+          {
+            "seq": 17,
+            "law": "INTL",
+            "item_code": "INTL_ETC",
+            "item_raw": "IECSC (중국)",
+            "comp_ref": "MIX",
+            "applicable": "해당",
+            "country": "CN"
+          },
+          {
+            "seq": 18,
+            "law": "INTL",
+            "item_code": "INTL_EU",
+            "item_raw": "REACH (유럽 연합)",
+            "comp_ref": "MIX",
+            "applicable": "해당",
+            "country": "EU"
+          },
+          {
+            "seq": 19,
+            "law": "INTL",
+            "item_code": "INTL_JP",
+            "item_raw": "ENCS (일본)",
+            "comp_ref": "MIX",
+            "applicable": "해당",
+            "country": "JP"
+          },
+          {
+            "seq": 20,
+            "law": "INTL",
+            "item_code": "INTL_JP",
+            "item_raw": "ISHL (일본)",
+            "comp_ref": "MIX",
+            "applicable": "해당",
+            "country": "JP"
+          },
+          {
+            "seq": 21,
+            "law": "KREACH",
+            "item_code": "KREACH_EXIST",
+            "item_raw": "KECI (한국)",
+            "comp_ref": "MIX",
+            "applicable": "해당",
+            "country": "KR"
+          },
+          {
+            "seq": 22,
+            "law": "INTL",
+            "item_code": "INTL_ETC",
+            "item_raw": "NZIoC (뉴질랜드)",
+            "comp_ref": "MIX",
+            "applicable": "해당",
+            "country": "NZ"
+          },
+          {
+            "seq": 23,
+            "law": "INTL",
+            "item_code": "INTL_ETC",
+            "item_raw": "PICCS (필리핀)",
+            "comp_ref": "MIX",
+            "applicable": "해당",
+            "country": "PH"
+          },
+          {
+            "seq": 24,
+            "law": "INTL",
+            "item_code": "INTL_ETC",
+            "item_raw": "TCSI (타이완)",
+            "comp_ref": "MIX",
+            "applicable": "해당",
+            "country": "TW"
+          },
+          {
+            "seq": 25,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "TSCA (미국)",
+            "comp_ref": "MIX",
+            "applicable": "해당",
+            "country": "US"
+          }
+        ],
+        "dangerous_goods": [
+          {
+            "comp_ref": "MIX",
+            "class": "해당없음",
+            "item": null,
+            "water_soluble": null,
+            "grade": null,
+            "designated_qty": null
+          }
+        ],
+        "waste": [
+          {
+            "comp_ref": "MIX",
+            "designated": null,
+            "waste_type": "사업장폐기물"
+          }
+        ],
+        "intl_class": []
+      }
+    ],
+    "evidence": [
+      {
+        "msds_index": 0,
+        "field": "transport[0]",
+        "page": 9,
+        "source_text": "IATA-DGR 가. 유엔/아이디 번호 : UN 1962 나. 유엔 적정 선적명 : Ethylene 다. 운송에서의 위험성 등급 : 2.1 라. 용기등급 : 규정에 따라 지정되지 않음",
+        "rules": [
+          "R09"
+        ],
+        "note": "'UN 1962'에서 UN 제거; 용기등급 '규정에 따라 지정되지 않음'을 해당없음으로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "transport[1]",
+        "page": 10,
+        "source_text": "가. 유엔 번호 : UN 1962 나. 유엔 적정 선적명 : ETHYLENE 다. 운송에서의 위험성 등급 : 2.1 라. 용기등급 : 규정에 따라 지정되지 않음 EmS 코드 : F-D, S-U 마. 해양오염물질 : 비해당",
+        "rules": [
+          "R09"
+        ],
+        "note": "IMDG-코드 제목은 9쪽 하단; 'F-D, S-U'를 화재/유출 EmS로 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[0]",
+        "page": 10,
+        "source_text": "제조 등의 금지 유해물질 해당없음",
+        "rules": [
+          "R25",
+          "R15"
+        ],
+        "note": "해당없음을 비해당으로 씀"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[1]",
+        "page": 10,
+        "source_text": "허가대상 유해물질 해당없음",
+        "rules": [
+          "R25",
+          "R15"
+        ],
+        "note": "해당없음을 비해당으로 씀"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[2]",
+        "page": 10,
+        "source_text": "관리대상유해물질 해당없음",
+        "rules": [
+          "R25",
+          "R15"
+        ],
+        "note": "해당없음을 비해당으로 씀"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[3]",
+        "page": 10,
+        "source_text": "작업환경측정 대상 유해인자 해당없음",
+        "rules": [
+          "R25",
+          "R15"
+        ],
+        "note": "해당없음을 비해당으로 씀"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[4]",
+        "page": 10,
+        "source_text": "특수건강진단 대상 유해인자 해당없음",
+        "rules": [
+          "R25",
+          "R15"
+        ],
+        "note": "해당없음을 비해당으로 씀"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[5]",
+        "page": 10,
+        "source_text": "유독물질 해당없음",
+        "rules": [
+          "R25",
+          "R15"
+        ],
+        "note": "해당없음을 비해당으로 씀"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[6]",
+        "page": 10,
+        "source_text": "제한물질 해당없음",
+        "rules": [
+          "R25",
+          "R15"
+        ],
+        "note": "해당없음을 비해당으로 씀"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[7]",
+        "page": 10,
+        "source_text": "금지물질 해당없음",
+        "rules": [
+          "R25",
+          "R15"
+        ],
+        "note": "해당없음을 비해당으로 씀"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[8]",
+        "page": 10,
+        "source_text": "에틸렌 | 74-85-1 | Ⅱ그룹 | >= 1 %",
+        "rules": [
+          "R04",
+          "R10",
+          "R25"
+        ],
+        "note": "CAS 74-85-1로 성분 1에 매칭, '>= 1 %'를 하한 1(>=)로 나눔"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[9]",
+        "page": 11,
+        "source_text": "해당없음",
+        "rules": [
+          "R25",
+          "R15"
+        ],
+        "note": "제목 '사고대비물질'은 10쪽 하단, 값 '해당없음'은 11쪽 상단; 비해당으로 씀"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[10]",
+        "page": 11,
+        "source_text": "다. 위험물안전관리법에 의한 규제 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "해당없음을 비해당으로 씀"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[11]",
+        "page": 11,
+        "source_text": "라. 대기환경보전법 HAPs 대상물질 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "기타 국내법으로 분류, 비해당"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[12]",
+        "page": 11,
+        "source_text": "마. 폐기물관리법에 의한 규제 사업장폐기물 폐기시 폐기물관리법 제 13 조 폐기물처리기준에 따라 처리하여야 함",
+        "rules": [
+          "R17"
+        ],
+        "note": "맞는 값 없음: 지정폐기물 여부가 적혀 있지 않아 item_code·applicable은 null"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[13]",
+        "page": 11,
+        "source_text": "HIGH-PRESSURE GAS SAFETY CONTROL ACT : 해당함",
+        "rules": [],
+        "note": "기타 국내법(고압가스 안전관리법)으로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[14]",
+        "page": 11,
+        "source_text": "AICS (호주), DSL (캐나다), IECSC (중국), REACH (유럽 연합), ENCS (일본), ISHL (일본),",
+        "rules": [
+          "R11"
+        ],
+        "note": "'이 제품의 성분은 다음 목록에 준수됨' 목록을 항목별로 나눔"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[15]",
+        "page": 11,
+        "source_text": "DSL (캐나다)",
+        "rules": [
+          "R11"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[16]",
+        "page": 11,
+        "source_text": "IECSC (중국)",
+        "rules": [
+          "R11"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[17]",
+        "page": 11,
+        "source_text": "REACH (유럽 연합)",
+        "rules": [
+          "R11"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[18]",
+        "page": 11,
+        "source_text": "ENCS (일본)",
+        "rules": [
+          "R11"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[19]",
+        "page": 11,
+        "source_text": "ISHL (일본)",
+        "rules": [
+          "R11"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[20]",
+        "page": 11,
+        "source_text": "KECI (한국)",
+        "rules": [
+          "R11"
+        ],
+        "note": "한국 기존화학물질 목록이므로 KREACH_EXIST로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[21]",
+        "page": 11,
+        "source_text": "NZIoC (뉴질랜드)",
+        "rules": [
+          "R11"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[22]",
+        "page": 11,
+        "source_text": "PICCS (필리핀)",
+        "rules": [
+          "R11"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[23]",
+        "page": 11,
+        "source_text": "TCSI (타이완)",
+        "rules": [
+          "R11"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[24]",
+        "page": 11,
+        "source_text": "TSCA (미국)",
+        "rules": [
+          "R11"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "dangerous_goods[0]",
+        "page": 11,
+        "source_text": "다. 위험물안전관리법에 의한 규제 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "류별 해당없음으로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "waste[0]",
+        "page": 11,
+        "source_text": "사업장폐기물 폐기시 폐기물관리법 제 13 조 폐기물처리기준에 따라 처리하여야 함",
+        "rules": [
+          "R17"
+        ],
+        "note": "지정폐기물 여부 기재 없어 designated는 null"
+      }
+    ]
+  },
+  "raw_text": "{\"msds\": [{\"transport\": [{\"mode\": \"항공\", \"basis_raw\": \"IATA-DGR\", \"regulated\": true, \"un_no\": \"1962\", \"shipping_name\": \"Ethylene\", \"hazard_class\": \"2.1\", \"sub_risk\": null, \"packing_group\": \"해당없음\", \"marine_pollutant\": null, \"ems_fire\": null, \"ems_spill\": null}, {\"mode\": \"해상\", \"basis_raw\": \"IMDG-코드\", \"regulated\": true, \"un_no\": \"1962\", \"shipping_name\": \"ETHYLENE\", \"hazard_class\": \"2.1\", \"sub_risk\": null, \"packing_group\": \"해당없음\", \"marine_pollutant\": \"비해당\", \"ems_fire\": \"F-D\", \"ems_spill\": \"S-U\"}], \"regulations\": [{\"seq\": 1, \"law\": \"OSH\", \"item_code\": \"OSH_PROHIBIT\", \"item_raw\": \"제조 등의 금지 유해물질\", \"comp_ref\": \"MIX\", \"applicable\": \"비해당\", \"value_raw\": \"해당없음\"}, {\"seq\": 2, \"law\": \"OSH\", \"item_code\": \"OSH_PERMIT\", \"item_raw\": \"허가대상 유해물질\", \"comp_ref\": \"MIX\", \"applicable\": \"비해당\", \"value_raw\": \"해당없음\"}, {\"seq\": 3, \"law\": \"OSH\", \"item_code\": \"OSH_MANAGED\", \"item_raw\": \"관리대상유해물질\", \"comp_ref\": \"MIX\", \"applicable\": \"비해당\", \"value_raw\": \"해당없음\"}, {\"seq\": 4, \"law\": \"OSH\", \"item_code\": \"OSH_MEASURE\", \"item_raw\": \"작업환경측정 대상 유해인자\", \"comp_ref\": \"MIX\", \"applicable\": \"비해당\", \"value_raw\": \"해당없음\"}, {\"seq\": 5, \"law\": \"OSH\", \"item_code\": \"OSH_HEALTH_EXAM\", \"item_raw\": \"특수건강진단 대상 유해인자\", \"comp_ref\": \"MIX\", \"applicable\": \"비해당\", \"value_raw\": \"해당없음\"}, {\"seq\": 6, \"law\": \"CCA\", \"item_code\": \"CCA_TOXIC\", \"item_raw\": \"유독물질\", \"comp_ref\": \"MIX\", \"applicable\": \"비해당\", \"value_raw\": \"해당없음\"}, {\"seq\": 7, \"law\": \"CCA\", \"item_code\": \"CCA_RESTRICT\", \"item_raw\": \"제한물질\", \"comp_ref\": \"MIX\", \"applicable\": \"비해당\", \"value_raw\": \"해당없음\"}, {\"seq\": 8, \"law\": \"CCA\", \"item_code\": \"CCA_PROHIBIT\", \"item_raw\": \"금지물질\", \"comp_ref\": \"MIX\", \"applicable\": \"비해당\", \"value_raw\": \"해당없음\"}, {\"seq\": 9, \"law\": \"CCA\", \"item_code\": \"CCA_PRTR\", \"item_raw\": \"배출량조사대상 화학물질\", \"comp_ref\": \"1\", \"applicable\": \"해당\", \"sub_class\": \"Ⅱ그룹\", \"threshold\": {\"raw\": \">= 1 %\", \"status\": \"값있음\", \"lower_op\": \">=\", \"lower\": 1, \"unit\": \"%\"}}, {\"seq\": 10, \"law\": \"CCA\", \"item_code\": \"CCA_ACCIDENT\", \"item_raw\": \"사고대비물질\", \"comp_ref\": \"MIX\", \"applicable\": \"비해당\", \"value_raw\": \"해당없음\"}, {\"seq\": 11, \"law\": \"DG\", \"item_code\": \"DG_HAZMAT\", \"item_raw\": \"위험물안전관리법에 의한 규제\", \"comp_ref\": \"MIX\", \"applicable\": \"비해당\", \"value_raw\": \"해당없음\"}, {\"seq\": 12, \"law\": \"KR_ETC\", \"item_code\": \"KR_ETC\", \"item_raw\": \"대기환경보전법 HAPs 대상물질\", \"comp_ref\": \"MIX\", \"applicable\": \"비해당\", \"value_raw\": \"해당없음\"}, {\"seq\": 13, \"law\": \"WASTE\", \"item_code\": null, \"item_raw\": \"사업장폐기물\", \"comp_ref\": \"MIX\", \"applicable\": null, \"value_raw\": \"폐기시 폐기물관리법 제 13 조 폐기물처리기준에 따라 처리하여야 함\"}, {\"seq\": 14, \"law\": \"KR_ETC\", \"item_code\": \"KR_ETC\", \"item_raw\": \"HIGH-PRESSURE GAS SAFETY CONTROL ACT\", \"comp_ref\": \"MIX\", \"applicable\": \"해당\", \"value_raw\": \"해당함\"}, {\"seq\": 15, \"law\": \"INTL\", \"item_code\": \"INTL_ETC\", \"item_raw\": \"AICS (호주)\", \"comp_ref\": \"MIX\", \"applicable\": \"해당\", \"country\": \"AU\"}, {\"seq\": 16, \"law\": \"INTL\", \"item_code\": \"INTL_ETC\", \"item_raw\": \"DSL (캐나다)\", \"comp_ref\": \"MIX\", \"applicable\": \"해당\", \"country\": \"CA\"}, {\"seq\": 17, \"law\": \"INTL\", \"item_code\": \"INTL_ETC\", \"item_raw\": \"IECSC (중국)\", \"comp_ref\": \"MIX\", \"applicable\": \"해당\", \"country\": \"CN\"}, {\"seq\": 18, \"law\": \"INTL\", \"item_code\": \"INTL_EU\", \"item_raw\": \"REACH (유럽 연합)\", \"comp_ref\": \"MIX\", \"applicable\": \"해당\", \"country\": \"EU\"}, {\"seq\": 19, \"law\": \"INTL\", \"item_code\": \"INTL_JP\", \"item_raw\": \"ENCS (일본)\", \"comp_ref\": \"MIX\", \"applicable\": \"해당\", \"country\": \"JP\"}, {\"seq\": 20, \"law\": \"INTL\", \"item_code\": \"INTL_JP\", \"item_raw\": \"ISHL (일본)\", \"comp_ref\": \"MIX\", \"applicable\": \"해당\", \"country\": \"JP\"}, {\"seq\": 21, \"law\": \"KREACH\", \"item_code\": \"KREACH_EXIST\", \"item_raw\": \"KECI (한국)\", \"comp_ref\": \"MIX\", \"applicable\": \"해당\", \"country\": \"KR\"}, {\"seq\": 22, \"law\": \"INTL\", \"item_code\": \"INTL_ETC\", \"item_raw\": \"NZIoC (뉴질랜드)\", \"comp_ref\": \"MIX\", \"applicable\": \"해당\", \"country\": \"NZ\"}, {\"seq\": 23, \"law\": \"INTL\", \"item_code\": \"INTL_ETC\", \"item_raw\": \"PICCS (필리핀)\", \"comp_ref\": \"MIX\", \"applicable\": \"해당\", \"country\": \"PH\"}, {\"seq\": 24, \"law\": \"INTL\", \"item_code\": \"INTL_ETC\", \"item_raw\": \"TCSI (타이완)\", \"comp_ref\": \"MIX\", \"applicable\": \"해당\", \"country\": \"TW\"}, {\"seq\": 25, \"law\": \"INTL\", \"item_code\": \"INTL_US\", \"item_raw\": \"TSCA (미국)\", \"comp_ref\": \"MIX\", \"applicable\": \"해당\", \"country\": \"US\"}], \"dangerous_goods\": [{\"comp_ref\": \"MIX\", \"class\": \"해당없음\", \"item\": null, \"water_soluble\": null, \"grade\": null, \"designated_qty\": null}], \"waste\": [{\"comp_ref\": \"MIX\", \"designated\": null, \"waste_type\": \"사업장폐기물\"}], \"intl_class\": []}], \"evidence\": [{\"msds_index\": 0, \"field\": \"transport[0]\", \"page\": 9, \"source_text\": \"IATA-DGR 가. 유엔/아이디 번호 : UN 1962 나. 유엔 적정 선적명 : Ethylene 다. 운송에서의 위험성 등급 : 2.1 라. 용기등급 : 규정에 따라 지정되지 않음\", \"rules\": [\"R09\"], \"note\": \"'UN 1962'에서 UN 제거; 용기등급 '규정에 따라 지정되지 않음'을 해당없음으로 둠\"}, {\"msds_index\": 0, \"field\": \"transport[1]\", \"page\": 10, \"source_text\": \"가. 유엔 번호 : UN 1962 나. 유엔 적정 선적명 : ETHYLENE 다. 운송에서의 위험성 등급 : 2.1 라. 용기등급 : 규정에 따라 지정되지 않음 EmS 코드 : F-D, S-U 마. 해양오염물질 : 비해당\", \"rules\": [\"R09\"], \"note\": \"IMDG-코드 제목은 9쪽 하단; 'F-D, S-U'를 화재/유출 EmS로 분리\"}, {\"msds_index\": 0, \"field\": \"regulations[0]\", \"page\": 10, \"source_text\": \"제조 등의 금지 유해물질 해당없음\", \"rules\": [\"R25\", \"R15\"], \"note\": \"해당없음을 비해당으로 씀\"}, {\"msds_index\": 0, \"field\": \"regulations[1]\", \"page\": 10, \"source_text\": \"허가대상 유해물질 해당없음\", \"rules\": [\"R25\", \"R15\"], \"note\": \"해당없음을 비해당으로 씀\"}, {\"msds_index\": 0, \"field\": \"regulations[2]\", \"page\": 10, \"source_text\": \"관리대상유해물질 해당없음\", \"rules\": [\"R25\", \"R15\"], \"note\": \"해당없음을 비해당으로 씀\"}, {\"msds_index\": 0, \"field\": \"regulations[3]\", \"page\": 10, \"source_text\": \"작업환경측정 대상 유해인자 해당없음\", \"rules\": [\"R25\", \"R15\"], \"note\": \"해당없음을 비해당으로 씀\"}, {\"msds_index\": 0, \"field\": \"regulations[4]\", \"page\": 10, \"source_text\": \"특수건강진단 대상 유해인자 해당없음\", \"rules\": [\"R25\", \"R15\"], \"note\": \"해당없음을 비해당으로 씀\"}, {\"msds_index\": 0, \"field\": \"regulations[5]\", \"page\": 10, \"source_text\": \"유독물질 해당없음\", \"rules\": [\"R25\", \"R15\"], \"note\": \"해당없음을 비해당으로 씀\"}, {\"msds_index\": 0, \"field\": \"regulations[6]\", \"page\": 10, \"source_text\": \"제한물질 해당없음\", \"rules\": [\"R25\", \"R15\"], \"note\": \"해당없음을 비해당으로 씀\"}, {\"msds_index\": 0, \"field\": \"regulations[7]\", \"page\": 10, \"source_text\": \"금지물질 해당없음\", \"rules\": [\"R25\", \"R15\"], \"note\": \"해당없음을 비해당으로 씀\"}, {\"msds_index\": 0, \"field\": \"regulations[8]\", \"page\": 10, \"source_text\": \"에틸렌 | 74-85-1 | Ⅱ그룹 | >= 1 %\", \"rules\": [\"R04\", \"R10\", \"R25\"], \"note\": \"CAS 74-85-1로 성분 1에 매칭, '>= 1 %'를 하한 1(>=)로 나눔\"}, {\"msds_index\": 0, \"field\": \"regulations[9]\", \"page\": 11, \"source_text\": \"해당없음\", \"rules\": [\"R25\", \"R15\"], \"note\": \"제목 '사고대비물질'은 10쪽 하단, 값 '해당없음'은 11쪽 상단; 비해당으로 씀\"}, {\"msds_index\": 0, \"field\": \"regulations[10]\", \"page\": 11, \"source_text\": \"다. 위험물안전관리법에 의한 규제 해당없음\", \"rules\": [\"R15\"], \"note\": \"해당없음을 비해당으로 씀\"}, {\"msds_index\": 0, \"field\": \"regulations[11]\", \"page\": 11, \"source_text\": \"라. 대기환경보전법 HAPs 대상물질 해당없음\", \"rules\": [\"R15\"], \"note\": \"기타 국내법으로 분류, 비해당\"}, {\"msds_index\": 0, \"field\": \"regulations[12]\", \"page\": 11, \"source_text\": \"마. 폐기물관리법에 의한 규제 사업장폐기물 폐기시 폐기물관리법 제 13 조 폐기물처리기준에 따라 처리하여야 함\", \"rules\": [\"R17\"], \"note\": \"맞는 값 없음: 지정폐기물 여부가 적혀 있지 않아 item_code·applicable은 null\"}, {\"msds_index\": 0, \"field\": \"regulations[13]\", \"page\": 11, \"source_text\": \"HIGH-PRESSURE GAS SAFETY CONTROL ACT : 해당함\", \"rules\": [], \"note\": \"기타 국내법(고압가스 안전관리법)으로 둠\"}, {\"msds_index\": 0, \"field\": \"regulations[14]\", \"page\": 11, \"source_text\": \"AICS (호주), DSL (캐나다), IECSC (중국), REACH (유럽 연합), ENCS (일본), ISHL (일본),\", \"rules\": [\"R11\"], \"note\": \"'이 제품의 성분은 다음 목록에 준수됨' 목록을 항목별로 나눔\"}, {\"msds_index\": 0, \"field\": \"regulations[15]\", \"page\": 11, \"source_text\": \"DSL (캐나다)\", \"rules\": [\"R11\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"regulations[16]\", \"page\": 11, \"source_text\": \"IECSC (중국)\", \"rules\": [\"R11\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"regulations[17]\", \"page\": 11, \"source_text\": \"REACH (유럽 연합)\", \"rules\": [\"R11\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"regulations[18]\", \"page\": 11, \"source_text\": \"ENCS (일본)\", \"rules\": [\"R11\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"regulations[19]\", \"page\": 11, \"source_text\": \"ISHL (일본)\", \"rules\": [\"R11\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"regulations[20]\", \"page\": 11, \"source_text\": \"KECI (한국)\", \"rules\": [\"R11\"], \"note\": \"한국 기존화학물질 목록이므로 KREACH_EXIST로 둠\"}, {\"msds_index\": 0, \"field\": \"regulations[21]\", \"page\": 11, \"source_text\": \"NZIoC (뉴질랜드)\", \"rules\": [\"R11\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"regulations[22]\", \"page\": 11, \"source_text\": \"PICCS (필리핀)\", \"rules\": [\"R11\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"regulations[23]\", \"page\": 11, \"source_text\": \"TCSI (타이완)\", \"rules\": [\"R11\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"regulations[24]\", \"page\": 11, \"source_text\": \"TSCA (미국)\", \"rules\": [\"R11\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"dangerous_goods[0]\", \"page\": 11, \"source_text\": \"다. 위험물안전관리법에 의한 규제 해당없음\", \"rules\": [\"R15\"], \"note\": \"류별 해당없음으로 둠\"}, {\"msds_index\": 0, \"field\": \"waste[0]\", \"page\": 11, \"source_text\": \"사업장폐기물 폐기시 폐기물관리법 제 13 조 폐기물처리기준에 따라 처리하여야 함\", \"rules\": [\"R17\"], \"note\": \"지정폐기물 여부 기재 없어 designated는 null\"}]}"
+}

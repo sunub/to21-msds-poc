@@ -1,0 +1,1557 @@
+{
+  "doc_id": "T21-009",
+  "bundle": "b5",
+  "model": "claude-opus-5-5",
+  "mode": "claude -p json-schema",
+  "finish_reason": "tool_use",
+  "usage": {
+    "prompt_tokens": 54736,
+    "completion_tokens": 20508,
+    "cached_tokens": 6722,
+    "reasoning_tokens": 1778,
+    "notional_cost_usd": 0.7956084
+  },
+  "seconds": 140.6,
+  "request_usage": [
+    {
+      "prompt_tokens": 54736,
+      "completion_tokens": 20508,
+      "cached_tokens": 6722,
+      "reasoning_tokens": 1778,
+      "notional_cost_usd": 0.7956084
+    }
+  ],
+  "attempts": 1,
+  "errors": [],
+  "parsed": {
+    "msds": [
+      {
+        "narratives": [
+          {
+            "item_code": "S4_EYE",
+            "title_raw": "가. 눈에 들어갔을 때",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "즉시 눈을 다량의 물로 15분 이상 씻으시오.",
+                "text": "즉시 눈을 다량의 물로 15분 이상 씻으시오.",
+                "cond": {
+                  "raw": "15분 이상",
+                  "status": "값있음",
+                  "lower_op": ">=",
+                  "lower": 15,
+                  "unit": "min"
+                }
+              },
+              {
+                "seq": 2,
+                "value": "가능하면 콘택트렌즈를 제거하시오.",
+                "text": "가능하면 콘택트렌즈를 제거하시오."
+              },
+              {
+                "seq": 3,
+                "value": "계속해서 씻어 낼 것.",
+                "text": "계속해서 씻어 낼 것."
+              },
+              {
+                "seq": 4,
+                "value": "즉시 의사 또는 의료기관의 진찰을 받으시오.",
+                "text": "즉시 의사 또는 의료기관의 진찰을 받으시오."
+              }
+            ]
+          },
+          {
+            "item_code": "S4_SKIN",
+            "title_raw": "나. 피부에 접촉했을 때",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "오염된 작업복을 즉시 벗고 비누와 물로 피부를 씻을 것.",
+                "text": "오염된 작업복을 즉시 벗고 비누와 물로 피부를 씻을 것."
+              },
+              {
+                "seq": 2,
+                "value": "즉시 의사 또는 의료기관의 진찰을 받으시오.",
+                "text": "즉시 의사 또는 의료기관의 진찰을 받으시오."
+              },
+              {
+                "seq": 3,
+                "value": "화학 물질로 인한 화상은 반드시 의사의 치료를 받아야 함.",
+                "text": "화학 물질로 인한 화상은 반드시 의사의 치료를 받아야 함."
+              },
+              {
+                "seq": 4,
+                "value": "다시 사용 전 오염된 의류를 세척하시오.",
+                "text": "다시 사용 전 오염된 의류를 세척하시오."
+              }
+            ]
+          },
+          {
+            "item_code": "S4_INHAL",
+            "title_raw": "다. 흡입했을 때",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "신선한 공기가 있는 곳으로 옮길 것.",
+                "text": "신선한 공기가 있는 곳으로 옮길 것."
+              },
+              {
+                "seq": 2,
+                "value": "증세가 나타나거나 지속되면 의사의 진찰을 받으시오.",
+                "text": "증세가 나타나거나 지속되면 의사의 진찰을 받으시오."
+              }
+            ]
+          },
+          {
+            "item_code": "S4_INGEST",
+            "title_raw": "라. 먹었을 때",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "즉시 의사 또는 의료기관의 진찰을 받으시오.",
+                "text": "즉시 의사 또는 의료기관의 진찰을 받으시오."
+              },
+              {
+                "seq": 2,
+                "value": "입을 씻어내시오.",
+                "text": "입을 씻어내시오."
+              },
+              {
+                "seq": 3,
+                "value": "토하게 하지 말 것.",
+                "text": "토하게 하지 말 것."
+              },
+              {
+                "seq": 4,
+                "value": "환자가 토하는 경우, 구토물이 폐로 들어가지 않도록 머리를 낮출 것.",
+                "text": "환자가 토하는 경우, 구토물이 폐로 들어가지 않도록 머리를 낮출 것."
+              }
+            ]
+          },
+          {
+            "item_code": "S4_DOCTOR",
+            "title_raw": "마. 기타 의사의 주의사항",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "일반 지원 조치를 제공하고 증상에 따라 처치할 것.",
+                "text": "일반 지원 조치를 제공하고 증상에 따라 처치할 것."
+              },
+              {
+                "seq": 2,
+                "key": "화학적 화상",
+                "value": "즉시 물로 씻을 것.",
+                "text": "화학적 화상: 즉시 물로 씻을 것."
+              },
+              {
+                "seq": 3,
+                "value": "씻으면서 손상된 부위에 부착되지 않은 의복을 제거할 것.",
+                "text": "씻으면서 손상된 부위에 부착되지 않은 의복을 제거할 것."
+              },
+              {
+                "seq": 4,
+                "value": "구급차를 부를 것.",
+                "text": "구급차를 부를 것."
+              },
+              {
+                "seq": 5,
+                "value": "병원으로 이송하는 도중 세척을 계속할 것.",
+                "text": "병원으로 이송하는 도중 세척을 계속할 것."
+              },
+              {
+                "seq": 6,
+                "value": "피해자를 따뜻하게 유지하시오.",
+                "text": "피해자를 따뜻하게 유지하시오."
+              },
+              {
+                "seq": 7,
+                "value": "부상자를 지속적으로 관찰하시오.",
+                "text": "부상자를 지속적으로 관찰하시오."
+              },
+              {
+                "seq": 8,
+                "value": "증상은 지연되어서 나타날 수 있음.",
+                "text": "증상은 지연되어서 나타날 수 있음."
+              }
+            ]
+          },
+          {
+            "item_code": "S4_SYMPTOM",
+            "title_raw": "가장 중요한 증상/영향, 급성 및 지연된",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "타는 듯한 통증 및 심한 부식성 피부 손상.",
+                "text": "타는 듯한 통증 및 심한 부식성 피부 손상."
+              },
+              {
+                "seq": 2,
+                "value": "눈에 심한 손상을 일으킴.",
+                "text": "눈에 심한 손상을 일으킴."
+              },
+              {
+                "seq": 3,
+                "value": "증상으로 통렬감, 눈물, 충혈, 팽윤 및 시야흐림이 나타날 수 있음.",
+                "text": "증상으로 통렬감, 눈물, 충혈, 팽윤 및 시야흐림이 나타날 수 있음."
+              },
+              {
+                "seq": 4,
+                "value": "실명을 포함한 영구적 눈 손상이 일어날 수 있음.",
+                "text": "실명을 포함한 영구적 눈 손상이 일어날 수 있음."
+              },
+              {
+                "seq": 5,
+                "value": "장기간 노출되면 만성 영향을 일으킬 수 있음.",
+                "text": "장기간 노출되면 만성 영향을 일으킬 수 있음."
+              }
+            ]
+          },
+          {
+            "item_code": "S5_MEDIA",
+            "title_raw": "가. 적절한 (및 부적절한) 소화제",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "적절한 소화제",
+                "value": "내알코올성 폼. 분말. 이산화탄소 (CO2).",
+                "text": "적절한 소화제 내알코올성 폼. 분말. 이산화탄소 (CO2)."
+              },
+              {
+                "seq": 2,
+                "key": "부적절한 소화제",
+                "value": "고압 살수 시 화재가 확산되므로 고압 살수 방법으로 화재를 진압하지 말 것.",
+                "text": "부적절한 소화제 고압 살수 시 화재가 확산되므로 고압 살수 방법으로 화재를 진압하지 말 것."
+              }
+            ]
+          },
+          {
+            "item_code": "S5_SPECIFIC",
+            "title_raw": "나. 화학물질로부터 생기는 특정 유해성 (예: 연소시 발생 유해물질)",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "화재 발생 시, 건강에 유해한 가스가 생성될 수 있음.",
+                "text": "화재 발생 시, 건강에 유해한 가스가 생성될 수 있음."
+              }
+            ]
+          },
+          {
+            "item_code": "S5_FIREFIGHT",
+            "title_raw": "다. 화재 진압 시 착용할 보호구 및 예방조치",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "착용할 보호구",
+                "value": "화재 발생 시 공기호흡기와 전신 보호복을 사용할 것.",
+                "text": "착용할 보호구 화재 발생 시 공기호흡기와 전신 보호복을 사용할 것."
+              },
+              {
+                "seq": 2,
+                "key": "예방조치",
+                "value": "위험없이 처리할 수 있으면 용기를 화재 지역으로부터 옮길 것.",
+                "text": "예방조치 위험없이 처리할 수 있으면 용기를 화재 지역으로부터 옮길 것."
+              }
+            ]
+          },
+          {
+            "item_code": "S6_PERSONAL",
+            "title_raw": "가. 인체를 보호하기 위해 필요한 조치 사항 및 보호구",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "필요없는 인원은 멀리 대피시키시오.",
+                "text": "필요없는 인원은 멀리 대피시키시오."
+              },
+              {
+                "seq": 2,
+                "value": "누출 지역으로부터 바람이 부는 반대 방향으로 사람들을 대피시키시오.",
+                "text": "누출 지역으로부터 바람이 부는 반대 방향으로 사람들을 대피시키시오."
+              },
+              {
+                "seq": 3,
+                "value": "정화 작업을 하는 동안 적절한 보호 장비와 보호의를 착용할 것.",
+                "text": "정화 작업을 하는 동안 적절한 보호 장비와 보호의를 착용할 것."
+              },
+              {
+                "seq": 4,
+                "value": "미스트/증기를 흡입하지 마시오.",
+                "text": "미스트/증기를 흡입하지 마시오."
+              },
+              {
+                "seq": 5,
+                "value": "적절한 보호의를 착용하지 않은 경우에는 파손된 용기나 누출물을 만지지 말 것.",
+                "text": "적절한 보호의를 착용하지 않은 경우에는 파손된 용기나 누출물을 만지지 말 것."
+              },
+              {
+                "seq": 6,
+                "value": "적절하게 환기가 되도록 할 것.",
+                "text": "적절하게 환기가 되도록 할 것."
+              },
+              {
+                "seq": 7,
+                "value": "누출정도가 심각해서 통제할 수 없다면, 관할기관에 보고해야 함.",
+                "text": "누출정도가 심각해서 통제할 수 없다면, 관할기관에 보고해야 함."
+              },
+              {
+                "seq": 8,
+                "value": "개인 보호구에 관한 사항은 MSDS 제8항을 참조할 것.",
+                "text": "개인 보호구에 관한 사항은 MSDS 제8항을 참조할 것."
+              }
+            ]
+          },
+          {
+            "item_code": "S6_ENV",
+            "title_raw": "나. 환경을 보호하기 위해 필요한 조치사항",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "환경으로 배출하지 마시오.",
+                "text": "환경으로 배출하지 마시오."
+              },
+              {
+                "seq": 2,
+                "value": "모든 환경적 누출에 대해 적절한 매니저급 또는 관리자급 인원에게 통보할 것.",
+                "text": "모든 환경적 누출에 대해 적절한 매니저급 또는 관리자급 인원에게 통보할 것."
+              },
+              {
+                "seq": 3,
+                "value": "안전하게 처리하는 것이 가능하면, 추가 누설 또는 누출을 방지할 것.",
+                "text": "안전하게 처리하는 것이 가능하면, 추가 누설 또는 누출을 방지할 것."
+              },
+              {
+                "seq": 4,
+                "value": "하수도, 수로 또는 지표로 배출하지 마시오.",
+                "text": "하수도, 수로 또는 지표로 배출하지 마시오."
+              }
+            ]
+          },
+          {
+            "item_code": "S6_CLEANUP",
+            "title_raw": "다. 정화 또는 제거 방법",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "제품이 배수로로 유입되지 않도록 할 것.",
+                "text": "제품이 배수로로 유입되지 않도록 할 것."
+              },
+              {
+                "seq": 2,
+                "key": "대량 누출",
+                "value": "안전하게 처리하는 것이 가능하면 물질의 흐름을 멈추시오. 가능한 경우 누출된 물질 주위로 도랑을 팔 것. 질석, 마른 모래나 흙에 흡수시켜서 용기에 담을 것. 제품을 수거 후 누출 지역을 물로 세척할 것.",
+                "text": "대량 누출: 안전하게 처리하는 것이 가능하면 물질의 흐름을 멈추시오. 가능한 경우 누출된 물질 주위로 도랑을 팔 것. 질석, 마른 모래나 흙에 흡수시켜서 용기에 담을 것. 제품을 수거 후 누출 지역을 물로 세척할 것."
+              },
+              {
+                "seq": 3,
+                "key": "소량 누출",
+                "value": "흡착성 물질(예. 천, 플리스)로 닦아낼 것. 잔여 오염을 제거하기 위해 표면을 철저히 세척할 것.",
+                "text": "소량 누출: 흡착성 물질(예. 천, 플리스)로 닦아낼 것. 잔여 오염을 제거하기 위해 표면을 철저히 세척할 것."
+              },
+              {
+                "seq": 4,
+                "value": "절대로 엎질러 진 것을 다시 사용하려고 본래 용기에 넣지 말 것.",
+                "text": "절대로 엎질러 진 것을 다시 사용하려고 본래 용기에 넣지 말 것."
+              },
+              {
+                "seq": 5,
+                "value": "폐기물 처리에 관한 사항은 MSDS 제13항을 참조할 것.",
+                "text": "폐기물 처리에 관한 사항은 MSDS 제13항을 참조할 것."
+              }
+            ]
+          },
+          {
+            "item_code": "S7_HANDLING",
+            "title_raw": "가. 안전취급요령",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "사용 전 취급 설명서를 확보하시오.",
+                "text": "사용 전 취급 설명서를 확보하시오."
+              },
+              {
+                "seq": 2,
+                "value": "모든 안전 예방조치 문구를 읽고 이해하기 전에는 취급하지 마시오.",
+                "text": "모든 안전 예방조치 문구를 읽고 이해하기 전에는 취급하지 마시오."
+              },
+              {
+                "seq": 3,
+                "value": "미스트/증기를 흡입하지 마시오.",
+                "text": "미스트/증기를 흡입하지 마시오."
+              },
+              {
+                "seq": 4,
+                "value": "눈, 피부, 의복에 묻지 않도록 하시오.",
+                "text": "눈, 피부, 의복에 묻지 않도록 하시오."
+              },
+              {
+                "seq": 5,
+                "value": "먹거나 삼키지 말아야 함.",
+                "text": "먹거나 삼키지 말아야 함."
+              },
+              {
+                "seq": 6,
+                "value": "사용할 때에는 먹거나 마시거나 흡연하지 말 것.",
+                "text": "사용할 때에는 먹거나 마시거나 흡연하지 말 것."
+              },
+              {
+                "seq": 7,
+                "value": "임산부 또는 모유수유 여성은 반드시 이 제품을 취급하지 말 것.",
+                "text": "임산부 또는 모유수유 여성은 반드시 이 제품을 취급하지 말 것."
+              },
+              {
+                "seq": 8,
+                "value": "가능할 경우 밀폐된 시스템에서 취급되어야 함.",
+                "text": "가능할 경우 밀폐된 시스템에서 취급되어야 함."
+              },
+              {
+                "seq": 9,
+                "value": "적절히 환기할 것.",
+                "text": "적절히 환기할 것."
+              },
+              {
+                "seq": 10,
+                "value": "적합한 개인 보호장비를 착용할 것.",
+                "text": "적합한 개인 보호장비를 착용할 것."
+              },
+              {
+                "seq": 11,
+                "value": "취급 후에는 손을 철저히 씻으시오.",
+                "text": "취급 후에는 손을 철저히 씻으시오."
+              },
+              {
+                "seq": 12,
+                "value": "환경으로 배출하지 마시오.",
+                "text": "환경으로 배출하지 마시오."
+              },
+              {
+                "seq": 13,
+                "value": "다시 사용 전 오염된 의류를 세척하시오.",
+                "text": "다시 사용 전 오염된 의류를 세척하시오."
+              },
+              {
+                "seq": 14,
+                "value": "올바른 산업 위생 절차를 준수할 것.",
+                "text": "올바른 산업 위생 절차를 준수할 것."
+              }
+            ]
+          },
+          {
+            "item_code": "S7_STORAGE",
+            "title_raw": "나. 안전한 저장 방법 (피해야 할 조건을 포함함)",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "잠금장치가 있는 저장장소에 저장하시오.",
+                "text": "잠금장치가 있는 저장장소에 저장하시오."
+              },
+              {
+                "seq": 2,
+                "value": "단단히 밀폐된 용기에 보관하시오.",
+                "text": "단단히 밀폐된 용기에 보관하시오."
+              },
+              {
+                "seq": 3,
+                "value": "피해야할 물질과 멀리하여 보관하시오 (MSDS의 10항을 참조할 것).",
+                "text": "피해야할 물질과 멀리하여 보관하시오 (MSDS의 10항을 참조할 것)."
+              }
+            ]
+          },
+          {
+            "item_code": "S8_ENG",
+            "title_raw": "나. 적절한 공학적 관리",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "양호한 전체환기를 실시할 것.",
+                "text": "양호한 전체환기를 실시할 것."
+              },
+              {
+                "seq": 2,
+                "value": "환기 속도는 작업장 여건에 맞아야 함.",
+                "text": "환기 속도는 작업장 여건에 맞아야 함."
+              },
+              {
+                "seq": 3,
+                "value": "적용이 가능하면 공정기밀 설비, 국소배기장치 또는 기타 공학적 관리를 사용하여 공기 중 수준이 권고 노출한계 이하가 되도록 유지시킬 것.",
+                "text": "적용이 가능하면 공정기밀 설비, 국소배기장치 또는 기타 공학적 관리를 사용하여 공기 중 수준이 권고 노출한계 이하가 되도록 유지시킬 것."
+              },
+              {
+                "seq": 4,
+                "value": "노출기준이 설정되지 않은 경우 공기 중 수준이 허용되는 수준이 되도록 유지시킬 것.",
+                "text": "노출기준이 설정되지 않은 경우 공기 중 수준이 허용되는 수준이 되도록 유지시킬 것."
+              },
+              {
+                "seq": 5,
+                "value": "이 제품의 취급 시 세안장치와 긴급샤워시설이 이용 가능하여야 함.",
+                "text": "이 제품의 취급 시 세안장치와 긴급샤워시설이 이용 가능하여야 함."
+              }
+            ]
+          },
+          {
+            "item_code": "S8_RESP",
+            "title_raw": "o 호흡기 보호",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "한국산업안전보건공단 인증을 받은 유기 증기 카트리지 및 전면 안면보호판이 장착된 화학물질용 호흡기 보호구.",
+                "text": "한국산업안전보건공단 인증을 받은 유기 증기 카트리지 및 전면 안면보호판이 장착된 화학물질용 호흡기 보호구."
+              }
+            ]
+          },
+          {
+            "item_code": "S8_EYE",
+            "title_raw": "o 눈 보호",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "측면 보호면을 갖춘 보안경 (또는 고글)과 안면보호구를 착용하시오.",
+                "text": "측면 보호면을 갖춘 보안경 (또는 고글)과 안면보호구를 착용하시오."
+              },
+              {
+                "seq": 2,
+                "value": "한국산업안전보건공단 인증을 받은 유기 증기 카트리지 및 전면 안면보호판이 장착된 화학물질용 호흡기 보호구.",
+                "text": "한국산업안전보건공단 인증을 받은 유기 증기 카트리지 및 전면 안면보호판이 장착된 화학물질용 호흡기 보호구."
+              }
+            ]
+          },
+          {
+            "item_code": "S8_HAND",
+            "title_raw": "o 손 보호",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "장기간 또는 반복적 피부 접촉 시 적절한 보호 장갑을 사용할 것.",
+                "text": "장기간 또는 반복적 피부 접촉 시 적절한 보호 장갑을 사용할 것."
+              },
+              {
+                "seq": 2,
+                "value": "한국산업안전보건공단 인증을 받은 적절한 내화학성 장갑을 착용할 것.",
+                "text": "한국산업안전보건공단 인증을 받은 적절한 내화학성 장갑을 착용할 것."
+              },
+              {
+                "seq": 3,
+                "value": "적합한 한국산업안전보건공단 인증을 받은 장갑이 장갑 공급자에 의해 추천될 수 있음.",
+                "text": "적합한 한국산업안전보건공단 인증을 받은 장갑이 장갑 공급자에 의해 추천될 수 있음."
+              }
+            ]
+          },
+          {
+            "item_code": "S8_BODY",
+            "title_raw": "o 신체 보호",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "적절한 내화학물질용 보호의를 착용할 것.",
+                "text": "적절한 내화학물질용 보호의를 착용할 것."
+              },
+              {
+                "seq": 2,
+                "value": "한국산업안전보건공단 인증을 받은 불침투성 앞치마 착용이 권장됨.",
+                "text": "한국산업안전보건공단 인증을 받은 불침투성 앞치마 착용이 권장됨."
+              }
+            ]
+          },
+          {
+            "item_code": "S10_STABILITY",
+            "title_raw": "가. 화학적 안정성 및 유해 반응의 가능성",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "반응성",
+                "value": "제품은 통상의 사용, 저장 및 운송조건에서는 안정하고 비반응성임.",
+                "text": "반응성 제품은 통상의 사용, 저장 및 운송조건에서는 안정하고 비반응성임."
+              },
+              {
+                "seq": 2,
+                "key": "화학적 안정성",
+                "value": "정상적인 조건 하에서 물질은 안정함.",
+                "text": "화학적 안정성 정상적인 조건 하에서 물질은 안정함."
+              },
+              {
+                "seq": 3,
+                "key": "유해 반응의 가능성",
+                "value": "정상적으로 사용할 경우 위험한 반응이 없는 것으로 알려짐.",
+                "text": "유해 반응의 가능성 정상적으로 사용할 경우 위험한 반응이 없는 것으로 알려짐."
+              }
+            ]
+          },
+          {
+            "item_code": "S10_CONDITIONS",
+            "title_raw": "나. 피해야 할 조건 (정전기 방전, 충격, 진동 등)",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "인화점을 초과하는 온도를 피하시오.",
+                "text": "인화점을 초과하는 온도를 피하시오."
+              },
+              {
+                "seq": 2,
+                "value": "피해야할 물질과의 접촉.",
+                "text": "피해야할 물질과의 접촉."
+              }
+            ]
+          },
+          {
+            "item_code": "S10_INCOMPAT",
+            "title_raw": "다. 피해야 할 물질",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "과산화물.",
+                "text": "과산화물."
+              },
+              {
+                "seq": 2,
+                "value": "페놀.",
+                "text": "페놀."
+              }
+            ]
+          },
+          {
+            "item_code": "S10_DECOMP",
+            "title_raw": "라. 분해시 생성되는 유해물질",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "알려진 유해성 분해 생성물이 없음.",
+                "text": "알려진 유해성 분해 생성물이 없음."
+              }
+            ]
+          },
+          {
+            "item_code": "S11_ROUTE",
+            "title_raw": "가. 가능성이 높은 노출 경로에 관한 정보",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "호흡기",
+                "value": "호흡기계 자극을 일으킬 수 있음.",
+                "text": "o 호흡기 호흡기계 자극을 일으킬 수 있음."
+              },
+              {
+                "seq": 2,
+                "key": "피부",
+                "value": "피부에 심한 화상을 일으킴. 피부와 접촉하면 유해함. 알레르기성 피부 반응을 일으킬 수 있음.",
+                "text": "o 피부 피부에 심한 화상을 일으킴. 피부와 접촉하면 유해함. 알레르기성 피부 반응을 일으킬 수 있음."
+              },
+              {
+                "seq": 3,
+                "key": "눈",
+                "value": "눈에 심한 손상을 일으킴.",
+                "text": "o 눈 눈에 심한 손상을 일으킴."
+              },
+              {
+                "seq": 4,
+                "key": "경구",
+                "value": "소화기관에 화상을 일으킴. 삼키면 유해함.",
+                "text": "o 경구 소화기관에 화상을 일으킴. 삼키면 유해함."
+              }
+            ]
+          },
+          {
+            "item_code": "S13_METHOD",
+            "title_raw": "가. 폐기방법",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "수거하여 재생하거나 밀봉 용기에 담아서 허가된 폐기물 처리장에서 폐기할 것.",
+                "text": "수거하여 재생하거나 밀봉 용기에 담아서 허가된 폐기물 처리장에서 폐기할 것."
+              },
+              {
+                "seq": 2,
+                "value": "이 물질이 하수구/수로로 유입되지 않게 할 것.",
+                "text": "이 물질이 하수구/수로로 유입되지 않게 할 것."
+              },
+              {
+                "seq": 3,
+                "value": "화학물질이나 사용한 용기로 연못, 수로 또는 도랑을 오염시키지 말 것.",
+                "text": "화학물질이나 사용한 용기로 연못, 수로 또는 도랑을 오염시키지 말 것."
+              },
+              {
+                "seq": 4,
+                "value": "폐기물 관련 법령에 따라 내용물/용기를 폐기하시오.",
+                "text": "폐기물 관련 법령에 따라 내용물/용기를 폐기하시오."
+              }
+            ]
+          },
+          {
+            "item_code": "S13_CAUTION",
+            "title_raw": "나. 폐기시 주의사항 (오염된 용기 및 포장의 폐기 방법을 포함함)",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "빈 용기에 제품잔여물이 있을 수 있으므로, 용기를 비운 후에도 제품표지의 경고사항을 따를 것.",
+                "text": "빈 용기에 제품잔여물이 있을 수 있으므로, 용기를 비운 후에도 제품표지의 경고사항을 따를 것."
+              },
+              {
+                "seq": 2,
+                "value": "빈용기는 재활용 또는 폐기를 위해 허가된 폐기물 처리장에 수집되어야 함.",
+                "text": "빈용기는 재활용 또는 폐기를 위해 허가된 폐기물 처리장에 수집되어야 함."
+              }
+            ]
+          },
+          {
+            "item_code": "S14_SPECIAL",
+            "title_raw": "바. 사용자에 대한 특별한 안전 대책",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "KSSTDG",
+                "value": "미지정.",
+                "text": "바. 사용자에 대한 특별한 안전 대책 미지정."
+              },
+              {
+                "seq": 2,
+                "key": "IATA",
+                "value": "Read safety instructions, MSDS and emergency procedures before handling.",
+                "text": "F. Special precautions for user Read safety instructions, MSDS and emergency procedures before handling."
+              },
+              {
+                "seq": 3,
+                "key": "IMDG",
+                "value": "Read safety instructions, MSDS and emergency procedures before handling.",
+                "text": "F. Special precautions for user Read safety instructions, MSDS and emergency procedures before handling."
+              }
+            ]
+          },
+          {
+            "item_code": "S15_OTHER",
+            "title_raw": "추가 정보",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "추가 정보",
+                "value": "본 물질안전보건자료는 고용노동부 고시 제2020-130호에 따라 작성되었음.",
+                "text": "추가 정보 본 물질안전보건자료는 고용노동부 고시 제2020-130호에 따라 작성되었음."
+              },
+              {
+                "seq": 2,
+                "key": "목록현황",
+                "value": "*“예”는 본 제품의 모든 성분들이 해당 국가(들) 의 목록에 관한 요구사항을 준수하고 있음을 나타냄",
+                "text": "*“예”는 본 제품의 모든 성분들이 해당 국가(들) 의 목록에 관한 요구사항을 준수하고 있음을 나타냄"
+              },
+              {
+                "seq": 3,
+                "key": "목록현황",
+                "value": "아니오는 본 제품의 하나 또는 그 이상의 성분이 해당 국가의 목록에 등재되지 않았거나 면제되지 않음을 나타냄.",
+                "text": "아니오는 본 제품의 하나 또는 그 이상의 성분이 해당 국가의 목록에 등재되지 않았거나 면제되지 않음을 나타냄."
+              }
+            ]
+          },
+          {
+            "item_code": "S16_SOURCE",
+            "title_raw": "가. 자료의 출처",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "ACGIH",
+                "text": "ACGIH"
+              },
+              {
+                "seq": 2,
+                "value": "EPA: 데이터베이스 확보",
+                "text": "EPA: 데이터베이스 확보"
+              },
+              {
+                "seq": 3,
+                "value": "IARC 단행본. 발암성에 관한 총평",
+                "text": "IARC 단행본. 발암성에 관한 총평"
+              },
+              {
+                "seq": 4,
+                "value": "한국. 위험물지정수량 (대통령령 제18406호 위험물안전관리법시행령 별표 1)",
+                "text": "한국. 위험물지정수량 (대통령령 제18406호 위험물안전관리법시행령 별표 1)"
+              },
+              {
+                "seq": 5,
+                "value": "한국. 휘발성유기화합물 (VOCs) (환경부고시 제2001-36, 2001년 3월8일 개정)",
+                "text": "한국. 휘발성유기화합물 (VOCs) (환경부고시 제2001-36, 2001년 3월8일 개정)"
+              },
+              {
+                "seq": 6,
+                "value": "NLM: 유해화학물질 데이타베이스",
+                "text": "NLM: 유해화학물질 데이타베이스"
+              },
+              {
+                "seq": 7,
+                "value": "한국. GHS 경고표지 요구사항. 화학물질의 분류, 표시 및 물질안전보건자료(MSDS)에 관한 기준, 및 그 개정본",
+                "text": "한국. GHS 경고표지 요구사항. 화학물질의 분류, 표시 및 물질안전보건자료(MSDS)에 관한 기준, 및 그 개정본"
+              },
+              {
+                "seq": 8,
+                "value": "한국. KOSHA GHS 분류 목록 (한국 산업 안전 보건 공단)",
+                "text": "한국. KOSHA GHS 분류 목록 (한국 산업 안전 보건 공단)"
+              },
+              {
+                "seq": 9,
+                "value": "한국. NEMA GHS 분류 목록 (위험물의 분류 및 표지에 관한 기준에 대한 소방방재청 GHS 지침)",
+                "text": "한국. NEMA GHS 분류 목록 (위험물의 분류 및 표지에 관한 기준에 대한 소방방재청 GHS 지침)"
+              },
+              {
+                "seq": 10,
+                "value": "배출량 조사 (TRI) 화학물질 (MOE 고시 제2002-166호, 2002년 11월 8일), 및 그 개정본",
+                "text": "배출량 조사 (TRI) 화학물질 (MOE 고시 제2002-166호, 2002년 11월 8일), 및 그 개정본"
+              }
+            ]
+          },
+          {
+            "item_code": "S16_OTHER",
+            "title_raw": "라. 기타",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "라. 기타",
+                "value": "자료없음.",
+                "text": "라. 기타 자료없음."
+              },
+              {
+                "seq": 2,
+                "key": "책임의 한계",
+                "value": "ITW Performance Polymers 는 본 정보 및 제품 또는 본 제품과 함께 사용될 수 있는 다른 제조업체의 제품에 대한 모든 조건을 고려하지 않습니다.",
+                "text": "ITW Performance Polymers 는 본 정보 및 제품 또는 본 제품과 함께 사용될 수 있는 다른 제조업체의 제품에 대한 모든 조건을 고려하지 않습니다."
+              },
+              {
+                "seq": 3,
+                "key": "책임의 한계",
+                "value": "제품의 취급, 보관 및 폐기를 위한 안전 조건을 비롯하여 부적절한 사용으로 인한 손실, 부상, 손해 또는 비용에 대해서는 전적으로 사용자가 책임을 집니다.",
+                "text": "제품의 취급, 보관 및 폐기를 위한 안전 조건을 비롯하여 부적절한 사용으로 인한 손실, 부상, 손해 또는 비용에 대해서는 전적으로 사용자가 책임을 집니다."
+              },
+              {
+                "seq": 4,
+                "key": "책임의 한계",
+                "value": "The information provided in this Safety Data Sheet is correct to the best of our knowledge, information and belief at the date of its publication.",
+                "text": "The information provided in this Safety Data Sheet is correct to the best of our knowledge, information and belief at the date of its publication."
+              },
+              {
+                "seq": 5,
+                "key": "책임의 한계",
+                "value": "The information relates only to the specific material designated and may not be valid for such material used in combination with any other materials or in any process, unless specified in the text.",
+                "text": "The information relates only to the specific material designated and may not be valid for such material used in combination with any other materials or in any process, unless specified in the text."
+              },
+              {
+                "seq": 6,
+                "key": "책임의 한계",
+                "value": "The information given is designed only as a guidance for safe handling, use, processing, storage, transportation, disposal and release.",
+                "text": "The information given is designed only as a guidance for safe handling, use, processing, storage, transportation, disposal and release."
+              },
+              {
+                "seq": 7,
+                "key": "개정 정보",
+                "value": "화학제품과 회사에 관한 정보: EU 독성 센터",
+                "text": "개정 정보 화학제품과 회사에 관한 정보: EU 독성 센터"
+              }
+            ]
+          }
+        ],
+        "extras": [
+          {
+            "seq": 1,
+            "section_no": 4,
+            "after_item": "S4_SYMPTOM",
+            "title_raw": "일반적인 조치사항",
+            "reason": "코드없음",
+            "comp_ref": "MIX",
+            "page": 3,
+            "suggested_code": "S4_DOCTOR",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "노출되거나 노출이 우려되면",
+                "value": "의학적인 조치/조언을 받으시오.",
+                "text": "노출되거나 노출이 우려되면: 의학적인 조치/조언을 받으시오."
+              },
+              {
+                "seq": 2,
+                "value": "불편함을 느끼면, 의사의 진찰을 받으시오 (가능하면 라벨의 표시사항을 보여주시오).",
+                "text": "불편함을 느끼면, 의사의 진찰을 받으시오 (가능하면 라벨의 표시사항을 보여주시오)."
+              },
+              {
+                "seq": 3,
+                "value": "의사에게 사용된 물질에 대해 알리고 예방 조치를 취할 수 있도록 할 것.",
+                "text": "의사에게 사용된 물질에 대해 알리고 예방 조치를 취할 수 있도록 할 것."
+              },
+              {
+                "seq": 4,
+                "value": "본 물질안전보건자료를 담당 의사에게 보일 것.",
+                "text": "본 물질안전보건자료를 담당 의사에게 보일 것."
+              },
+              {
+                "seq": 5,
+                "value": "다시 사용 전 오염된 의류를 세척하시오.",
+                "text": "다시 사용 전 오염된 의류를 세척하시오."
+              }
+            ]
+          },
+          {
+            "seq": 2,
+            "section_no": 5,
+            "after_item": "S5_FIREFIGHT",
+            "title_raw": "일반 화재 위험성",
+            "reason": "코드없음",
+            "comp_ref": "MIX",
+            "page": 3,
+            "suggested_code": "S5_SPECIFIC",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "특이한 화재 또는 폭발 위험이 명시되지 않음.",
+                "text": "일반 화재 위험성 특이한 화재 또는 폭발 위험이 명시되지 않음."
+              }
+            ]
+          },
+          {
+            "seq": 3,
+            "section_no": 5,
+            "after_item": "S5_FIREFIGHT",
+            "title_raw": "특정 방법",
+            "reason": "코드없음",
+            "comp_ref": "MIX",
+            "page": 3,
+            "suggested_code": "S5_FIREFIGHT",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "표준 소방 절차를 준수하고 기타 관여된 물질의 위험성을 고려할 것.",
+                "text": "특정 방법 표준 소방 절차를 준수하고 기타 관여된 물질의 위험성을 고려할 것."
+              }
+            ]
+          },
+          {
+            "seq": 4,
+            "section_no": 8,
+            "after_item": "S8_BODY",
+            "title_raw": "위생대책",
+            "reason": "코드없음",
+            "comp_ref": "MIX",
+            "page": 4,
+            "suggested_code": "S8_HYGIENE",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "모든 의학적 감시에 대한 요구사항을 준수할 것.",
+                "text": "모든 의학적 감시에 대한 요구사항을 준수할 것."
+              },
+              {
+                "seq": 2,
+                "value": "식품 및 음료로부터 멀리하시오.",
+                "text": "식품 및 음료로부터 멀리하시오."
+              },
+              {
+                "seq": 3,
+                "value": "물질 취급 후 먹거나, 마시거나 흡연하기 전에 씻는 등 항상 양호한 개인 위생 기준을 준수할 것.",
+                "text": "물질 취급 후 먹거나, 마시거나 흡연하기 전에 씻는 등 항상 양호한 개인 위생 기준을 준수할 것."
+              },
+              {
+                "seq": 4,
+                "value": "작업복과 보호용 장비를 정기적으로 세척하여 오염물질을 제거할 것.",
+                "text": "작업복과 보호용 장비를 정기적으로 세척하여 오염물질을 제거할 것."
+              },
+              {
+                "seq": 5,
+                "value": "작업장 밖으로 오염된 의복을 반출하지 마시오.",
+                "text": "작업장 밖으로 오염된 의복을 반출하지 마시오."
+              }
+            ]
+          },
+          {
+            "seq": 5,
+            "section_no": 9,
+            "after_item": "physchem[1]",
+            "title_raw": "형태",
+            "reason": "필드없음",
+            "comp_ref": "MIX",
+            "page": 4,
+            "suggested_code": "FORM",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "형태",
+                "value": "액체.",
+                "text": "형태 액체."
+              }
+            ]
+          },
+          {
+            "seq": 6,
+            "section_no": 9,
+            "after_item": "physchem[18]",
+            "title_raw": "폭발 특성",
+            "reason": "필드없음",
+            "comp_ref": "MIX",
+            "page": 4,
+            "suggested_code": "EXPLOSIVE_PROPERTIES",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "폭발 특성",
+                "value": "폭발성이 아님.",
+                "text": "폭발 특성 폭발성이 아님."
+              }
+            ]
+          },
+          {
+            "seq": 7,
+            "section_no": 9,
+            "after_item": "physchem[18]",
+            "title_raw": "산화성",
+            "reason": "필드없음",
+            "comp_ref": "MIX",
+            "page": 4,
+            "suggested_code": "OXIDIZING_PROPERTIES",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "산화성",
+                "value": "산화성이 아님.",
+                "text": "산화성 산화성이 아님."
+              }
+            ]
+          },
+          {
+            "seq": 8,
+            "section_no": 13,
+            "after_item": "S13_CAUTION",
+            "title_raw": "지정폐기물의 분류번호",
+            "reason": "필드없음",
+            "comp_ref": "MIX",
+            "page": 6,
+            "suggested_code": "WASTE_CODE",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "사용자, 생산자, 폐기물 처리업체가 협의하여 폐기물 코드를 부여해야 함.",
+                "text": "지정폐기물의 분류번호 사용자, 생산자, 폐기물 처리업체가 협의하여 폐기물 코드를 부여해야 함."
+              }
+            ]
+          },
+          {
+            "seq": 9,
+            "section_no": 14,
+            "after_item": "transport[1]",
+            "title_raw": "ERG Code",
+            "reason": "필드없음",
+            "comp_ref": "MIX",
+            "page": 6,
+            "suggested_code": "ERG_CODE",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "ERG Code",
+                "value": "8L",
+                "text": "ERG Code 8L"
+              }
+            ]
+          },
+          {
+            "seq": 10,
+            "section_no": 14,
+            "after_item": "transport[1]",
+            "title_raw": "Other information",
+            "reason": "필드없음",
+            "comp_ref": "MIX",
+            "page": 6,
+            "suggested_code": "IATA_AIRCRAFT",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "Passenger and cargo aircraft",
+                "value": "Allowed with restrictions.",
+                "text": "Passenger and cargo aircraft Allowed with restrictions."
+              },
+              {
+                "seq": 2,
+                "key": "Cargo aircraft only",
+                "value": "Allowed with restrictions.",
+                "text": "Cargo aircraft only Allowed with restrictions."
+              }
+            ]
+          },
+          {
+            "seq": 11,
+            "section_no": 14,
+            "after_item": "transport[2]",
+            "title_raw": "MARPOL 73/78 부록 II 및 IBC 코드에 따른 벌크 상태 운송",
+            "reason": "필드없음",
+            "comp_ref": "MIX",
+            "page": 6,
+            "suggested_code": "MARPOL_BULK",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "설정되지 않음.",
+                "text": "MARPOL 73/78 부록 II 및 IBC 코드에 따른 벌크 상태 운송 설정되지 않음."
+              }
+            ]
+          },
+          {
+            "seq": 12,
+            "section_no": 14,
+            "after_item": "transport[2]",
+            "title_raw": "IATA; IMDG; KRDG",
+            "reason": "필드없음",
+            "comp_ref": "MIX",
+            "page": 6,
+            "suggested_code": "TRANSPORT_LABEL",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "IATA; IMDG; KRDG",
+                "text": "IATA; IMDG; KRDG"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "msds_index": 0,
+        "field": "narratives[S4_EYE]",
+        "page": 2,
+        "source_text": "가. 눈에 들어갔을 때 즉시 눈을 다량의 물로 15분 이상 씻으시오.",
+        "rules": [
+          "R14",
+          "R04"
+        ],
+        "note": "문장 단위로 나누고 '15분 이상'을 cond로 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[S4_SKIN]",
+        "page": 2,
+        "source_text": "나. 피부에 접촉했을 때 오염된 작업복을 즉시 벗고 비누와 물로 피부를 씻을 것.",
+        "rules": [
+          "R14"
+        ],
+        "note": "문장 단위로 나눔"
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[S4_INHAL]",
+        "page": 2,
+        "source_text": "다. 흡입했을 때 신선한 공기가 있는 곳으로 옮길 것.",
+        "rules": [
+          "R14"
+        ],
+        "note": "문장 단위로 나눔"
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[S4_INGEST]",
+        "page": 2,
+        "source_text": "라. 먹었을 때 즉시 의사 또는 의료기관의 진찰을 받으시오.",
+        "rules": [
+          "R14"
+        ],
+        "note": "문장 단위로 나눔"
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[S4_DOCTOR]",
+        "page": 2,
+        "source_text": "마. 기타 의사의 주의사항 일반 지원 조치를 제공하고 증상에 따라 처치할 것.",
+        "rules": [
+          "R14"
+        ],
+        "note": "문장 단위로 나누고 '화학적 화상:'을 key로 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[S4_SYMPTOM]",
+        "page": 2,
+        "source_text": "가장 중요한 증상/영향, 급성 및 지연된 타는 듯한 통증 및 심한 부식성 피부 손상.",
+        "rules": [
+          "R14"
+        ],
+        "note": "문장 단위로 나눔"
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[S5_MEDIA]",
+        "page": 3,
+        "source_text": "적절한 소화제 내알코올성 폼. 분말. 이산화탄소 (CO2).",
+        "rules": [
+          "R14"
+        ],
+        "note": "적절한/부적절한 소화제를 key로 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[S5_SPECIFIC]",
+        "page": 3,
+        "source_text": "화재 발생 시, 건강에 유해한 가스가 생성될 수 있음.",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[S5_FIREFIGHT]",
+        "page": 3,
+        "source_text": "착용할 보호구 화재 발생 시 공기호흡기와 전신 보호복을 사용할 것.",
+        "rules": [
+          "R14"
+        ],
+        "note": "착용할 보호구/예방조치를 key로 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[S6_PERSONAL]",
+        "page": 3,
+        "source_text": "필요없는 인원은 멀리 대피시키시오.",
+        "rules": [
+          "R14"
+        ],
+        "note": "문장 단위로 나눔"
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[S6_ENV]",
+        "page": 3,
+        "source_text": "환경으로 배출하지 마시오.",
+        "rules": [
+          "R14"
+        ],
+        "note": "문장 단위로 나눔"
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[S6_CLEANUP]",
+        "page": 3,
+        "source_text": "제품이 배수로로 유입되지 않도록 할 것.",
+        "rules": [
+          "R14"
+        ],
+        "note": "단락 단위로 나누고 대량/소량 누출을 key로 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[S7_HANDLING]",
+        "page": 3,
+        "source_text": "가. 안전취급요령 사용 전 취급 설명서를 확보하시오.",
+        "rules": [
+          "R14"
+        ],
+        "note": "문장 단위로 나눔"
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[S7_STORAGE]",
+        "page": 3,
+        "source_text": "잠금장치가 있는 저장장소에 저장하시오. 단단히 밀폐된 용기에 보관하시오.",
+        "rules": [
+          "R14"
+        ],
+        "note": "문장 단위로 나눔"
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[S8_ENG]",
+        "page": 3,
+        "source_text": "나. 적절한 공학적 관리 양호한 전체환기를 실시할 것.",
+        "rules": [
+          "R14"
+        ],
+        "note": "문장 단위로 나눔"
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[S8_RESP]",
+        "page": 3,
+        "source_text": "o 호흡기 보호 한국산업안전보건공단 인증을 받은 유기 증기 카트리지 및 전면 안면보호판이 장착된 화학물질용 호흡기 보호구.",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[S8_EYE]",
+        "page": 4,
+        "source_text": "o 눈 보호 측면 보호면을 갖춘 보안경 (또는 고글)과 안면보호구를 착용하시오.",
+        "rules": [
+          "R14"
+        ],
+        "note": "문장 단위로 나눔"
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[S8_HAND]",
+        "page": 4,
+        "source_text": "o 손 보호 장기간 또는 반복적 피부 접촉 시 적절한 보호 장갑을 사용할 것.",
+        "rules": [
+          "R14"
+        ],
+        "note": "문장 단위로 나눔"
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[S8_BODY]",
+        "page": 4,
+        "source_text": "o 신체 보호 적절한 내화학물질용 보호의를 착용할 것.",
+        "rules": [
+          "R14"
+        ],
+        "note": "문장 단위로 나눔"
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[S10_STABILITY]",
+        "page": 4,
+        "source_text": "반응성 제품은 통상의 사용, 저장 및 운송조건에서는 안정하고 비반응성임.",
+        "rules": [
+          "R14"
+        ],
+        "note": "반응성·화학적 안정성·유해 반응의 가능성을 key로 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[S10_CONDITIONS]",
+        "page": 4,
+        "source_text": "인화점을 초과하는 온도를 피하시오. 피해야할 물질과의 접촉.",
+        "rules": [
+          "R14"
+        ],
+        "note": "문장 단위로 나눔"
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[S10_INCOMPAT]",
+        "page": 5,
+        "source_text": "다. 피해야 할 물질 과산화물. 페놀.",
+        "rules": [
+          "R14"
+        ],
+        "note": "물질별로 나눔"
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[S10_DECOMP]",
+        "page": 5,
+        "source_text": "라. 분해시 생성되는 유해물질 알려진 유해성 분해 생성물이 없음.",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[S11_ROUTE]",
+        "page": 5,
+        "source_text": "o 호흡기 호흡기계 자극을 일으킬 수 있음.",
+        "rules": [
+          "R14"
+        ],
+        "note": "경로별 소제목을 key로 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[S13_METHOD]",
+        "page": 5,
+        "source_text": "가. 폐기방법 수거하여 재생하거나 밀봉 용기에 담아서 허가된 폐기물 처리장에서 폐기할 것.",
+        "rules": [
+          "R14"
+        ],
+        "note": "문장 단위로 나눔"
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[S13_CAUTION]",
+        "page": 5,
+        "source_text": "빈 용기에 제품잔여물이 있을 수 있으므로, 용기를 비운 후에도 제품표지의 경고사항을 따를 것.",
+        "rules": [
+          "R14"
+        ],
+        "note": "문장 단위로 나눔"
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[S14_SPECIAL]",
+        "page": 6,
+        "source_text": "바. 사용자에 대한 특별한 미지정. | F. Special precautions Read safety instructions, MSDS and emergency procedures before handling.",
+        "rules": [
+          "R14"
+        ],
+        "note": "KSSTDG·IATA·IMDG 규정명을 key로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[S15_OTHER]",
+        "page": 7,
+        "source_text": "추가 정보 본 물질안전보건자료는 고용노동부 고시 제2020-130호에 따라 작성되었음.",
+        "rules": [
+          "R14"
+        ],
+        "note": "추가 정보와 목록현황 각주를 규제 행에 담기지 않는 서술로 넣음"
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[S16_SOURCE]",
+        "page": 8,
+        "source_text": "가. 자료의 출처 ACGIH EPA: 데이터베이스 확보 IARC 단행본. 발암성에 관한 총평",
+        "rules": [
+          "R14"
+        ],
+        "note": "줄 단위로 나눔"
+      },
+      {
+        "msds_index": 0,
+        "field": "narratives[S16_OTHER]",
+        "page": 8,
+        "source_text": "라. 기타 자료없음. | 책임의 한계 ITW Performance Polymers 는 본 정보 및 제품 ... | 개정 정보 화학제품과 회사에 관한 정보: EU 독성 센터",
+        "rules": [
+          "R14"
+        ],
+        "note": "기타·책임의 한계·개정 정보를 S16_OTHER 하나로 합치고 소제목을 key로 남김"
+      },
+      {
+        "msds_index": 0,
+        "field": "extras[0]",
+        "page": 3,
+        "source_text": "일반적인 조치사항 노출되거나 노출이 우려되면: 의학적인 조치/조언을 받으시오.",
+        "rules": [
+          "R24",
+          "R14"
+        ],
+        "note": "4항 '일반적인 조치사항'에 맞는 코드가 없어 extras로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "extras[1]",
+        "page": 3,
+        "source_text": "일반 화재 위험성 특이한 화재 또는 폭발 위험이 명시되지 않음.",
+        "rules": [
+          "R24"
+        ],
+        "note": "맞는 서술 코드가 없어 extras로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "extras[2]",
+        "page": 3,
+        "source_text": "특정 방법 표준 소방 절차를 준수하고 기타 관여된 물질의 위험성을 고려할 것.",
+        "rules": [
+          "R24"
+        ],
+        "note": "맞는 서술 코드가 없어 extras로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "extras[3]",
+        "page": 4,
+        "source_text": "위생대책 모든 의학적 감시에 대한 요구사항을 준수할 것.",
+        "rules": [
+          "R24",
+          "R14"
+        ],
+        "note": "8항 위생대책 코드가 없어 extras로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "extras[4]",
+        "page": 4,
+        "source_text": "형태 액체.",
+        "rules": [
+          "R24"
+        ],
+        "note": "정식 칸에 담기지 않은 9항 항목"
+      },
+      {
+        "msds_index": 0,
+        "field": "extras[5]",
+        "page": 4,
+        "source_text": "폭발 특성 폭발성이 아님.",
+        "rules": [
+          "R24"
+        ],
+        "note": "정식 칸에 담기지 않은 9항 기타 정보"
+      },
+      {
+        "msds_index": 0,
+        "field": "extras[6]",
+        "page": 4,
+        "source_text": "산화성 산화성이 아님.",
+        "rules": [
+          "R24"
+        ],
+        "note": "정식 칸에 담기지 않은 9항 기타 정보"
+      },
+      {
+        "msds_index": 0,
+        "field": "extras[7]",
+        "page": 6,
+        "source_text": "지정폐기물의 분류번호 사용자, 생산자, 폐기물 처리업체가 협의하여 폐기물 코드를 부여해야 함.",
+        "rules": [
+          "R24"
+        ],
+        "note": "13항 끝(6쪽 첫 줄) 항목, 담을 칸이 없어 extras로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "extras[8]",
+        "page": 6,
+        "source_text": "ERG Code 8L",
+        "rules": [
+          "R24"
+        ],
+        "note": "IATA ERG 코드 칸이 없어 extras로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "extras[9]",
+        "page": 6,
+        "source_text": "Passenger and cargo aircraft Allowed with restrictions. | Cargo aircraft only Allowed with restrictions.",
+        "rules": [
+          "R24",
+          "R14"
+        ],
+        "note": "IATA 기타 정보, 담을 칸이 없어 extras로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "extras[10]",
+        "page": 6,
+        "source_text": "MARPOL 73/78 부록 II 및 IBC 코드에 따른 벌크 상태 운송 설정되지 않음.",
+        "rules": [
+          "R24"
+        ],
+        "note": "정식 운송 행에 쓰이지 않아 extras로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "extras[11]",
+        "page": 6,
+        "source_text": "IATA; IMDG; KRDG",
+        "rules": [
+          "R24"
+        ],
+        "note": "운송 표지(등급 8 그림) 제목 줄, 담을 칸이 없어 extras로 둠"
+      }
+    ]
+  },
+  "raw_text": "{\"msds\": [{\"narratives\": [{\"item_code\": \"S4_EYE\", \"title_raw\": \"가. 눈에 들어갔을 때\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"즉시 눈을 다량의 물로 15분 이상 씻으시오.\", \"text\": \"즉시 눈을 다량의 물로 15분 이상 씻으시오.\", \"cond\": {\"raw\": \"15분 이상\", \"status\": \"값있음\", \"lower_op\": \">=\", \"lower\": 15, \"unit\": \"min\"}}, {\"seq\": 2, \"value\": \"가능하면 콘택트렌즈를 제거하시오.\", \"text\": \"가능하면 콘택트렌즈를 제거하시오.\"}, {\"seq\": 3, \"value\": \"계속해서 씻어 낼 것.\", \"text\": \"계속해서 씻어 낼 것.\"}, {\"seq\": 4, \"value\": \"즉시 의사 또는 의료기관의 진찰을 받으시오.\", \"text\": \"즉시 의사 또는 의료기관의 진찰을 받으시오.\"}]}, {\"item_code\": \"S4_SKIN\", \"title_raw\": \"나. 피부에 접촉했을 때\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"오염된 작업복을 즉시 벗고 비누와 물로 피부를 씻을 것.\", \"text\": \"오염된 작업복을 즉시 벗고 비누와 물로 피부를 씻을 것.\"}, {\"seq\": 2, \"value\": \"즉시 의사 또는 의료기관의 진찰을 받으시오.\", \"text\": \"즉시 의사 또는 의료기관의 진찰을 받으시오.\"}, {\"seq\": 3, \"value\": \"화학 물질로 인한 화상은 반드시 의사의 치료를 받아야 함.\", \"text\": \"화학 물질로 인한 화상은 반드시 의사의 치료를 받아야 함.\"}, {\"seq\": 4, \"value\": \"다시 사용 전 오염된 의류를 세척하시오.\", \"text\": \"다시 사용 전 오염된 의류를 세척하시오.\"}]}, {\"item_code\": \"S4_INHAL\", \"title_raw\": \"다. 흡입했을 때\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"신선한 공기가 있는 곳으로 옮길 것.\", \"text\": \"신선한 공기가 있는 곳으로 옮길 것.\"}, {\"seq\": 2, \"value\": \"증세가 나타나거나 지속되면 의사의 진찰을 받으시오.\", \"text\": \"증세가 나타나거나 지속되면 의사의 진찰을 받으시오.\"}]}, {\"item_code\": \"S4_INGEST\", \"title_raw\": \"라. 먹었을 때\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"즉시 의사 또는 의료기관의 진찰을 받으시오.\", \"text\": \"즉시 의사 또는 의료기관의 진찰을 받으시오.\"}, {\"seq\": 2, \"value\": \"입을 씻어내시오.\", \"text\": \"입을 씻어내시오.\"}, {\"seq\": 3, \"value\": \"토하게 하지 말 것.\", \"text\": \"토하게 하지 말 것.\"}, {\"seq\": 4, \"value\": \"환자가 토하는 경우, 구토물이 폐로 들어가지 않도록 머리를 낮출 것.\", \"text\": \"환자가 토하는 경우, 구토물이 폐로 들어가지 않도록 머리를 낮출 것.\"}]}, {\"item_code\": \"S4_DOCTOR\", \"title_raw\": \"마. 기타 의사의 주의사항\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"일반 지원 조치를 제공하고 증상에 따라 처치할 것.\", \"text\": \"일반 지원 조치를 제공하고 증상에 따라 처치할 것.\"}, {\"seq\": 2, \"key\": \"화학적 화상\", \"value\": \"즉시 물로 씻을 것.\", \"text\": \"화학적 화상: 즉시 물로 씻을 것.\"}, {\"seq\": 3, \"value\": \"씻으면서 손상된 부위에 부착되지 않은 의복을 제거할 것.\", \"text\": \"씻으면서 손상된 부위에 부착되지 않은 의복을 제거할 것.\"}, {\"seq\": 4, \"value\": \"구급차를 부를 것.\", \"text\": \"구급차를 부를 것.\"}, {\"seq\": 5, \"value\": \"병원으로 이송하는 도중 세척을 계속할 것.\", \"text\": \"병원으로 이송하는 도중 세척을 계속할 것.\"}, {\"seq\": 6, \"value\": \"피해자를 따뜻하게 유지하시오.\", \"text\": \"피해자를 따뜻하게 유지하시오.\"}, {\"seq\": 7, \"value\": \"부상자를 지속적으로 관찰하시오.\", \"text\": \"부상자를 지속적으로 관찰하시오.\"}, {\"seq\": 8, \"value\": \"증상은 지연되어서 나타날 수 있음.\", \"text\": \"증상은 지연되어서 나타날 수 있음.\"}]}, {\"item_code\": \"S4_SYMPTOM\", \"title_raw\": \"가장 중요한 증상/영향, 급성 및 지연된\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"타는 듯한 통증 및 심한 부식성 피부 손상.\", \"text\": \"타는 듯한 통증 및 심한 부식성 피부 손상.\"}, {\"seq\": 2, \"value\": \"눈에 심한 손상을 일으킴.\", \"text\": \"눈에 심한 손상을 일으킴.\"}, {\"seq\": 3, \"value\": \"증상으로 통렬감, 눈물, 충혈, 팽윤 및 시야흐림이 나타날 수 있음.\", \"text\": \"증상으로 통렬감, 눈물, 충혈, 팽윤 및 시야흐림이 나타날 수 있음.\"}, {\"seq\": 4, \"value\": \"실명을 포함한 영구적 눈 손상이 일어날 수 있음.\", \"text\": \"실명을 포함한 영구적 눈 손상이 일어날 수 있음.\"}, {\"seq\": 5, \"value\": \"장기간 노출되면 만성 영향을 일으킬 수 있음.\", \"text\": \"장기간 노출되면 만성 영향을 일으킬 수 있음.\"}]}, {\"item_code\": \"S5_MEDIA\", \"title_raw\": \"가. 적절한 (및 부적절한) 소화제\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"key\": \"적절한 소화제\", \"value\": \"내알코올성 폼. 분말. 이산화탄소 (CO2).\", \"text\": \"적절한 소화제 내알코올성 폼. 분말. 이산화탄소 (CO2).\"}, {\"seq\": 2, \"key\": \"부적절한 소화제\", \"value\": \"고압 살수 시 화재가 확산되므로 고압 살수 방법으로 화재를 진압하지 말 것.\", \"text\": \"부적절한 소화제 고압 살수 시 화재가 확산되므로 고압 살수 방법으로 화재를 진압하지 말 것.\"}]}, {\"item_code\": \"S5_SPECIFIC\", \"title_raw\": \"나. 화학물질로부터 생기는 특정 유해성 (예: 연소시 발생 유해물질)\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"화재 발생 시, 건강에 유해한 가스가 생성될 수 있음.\", \"text\": \"화재 발생 시, 건강에 유해한 가스가 생성될 수 있음.\"}]}, {\"item_code\": \"S5_FIREFIGHT\", \"title_raw\": \"다. 화재 진압 시 착용할 보호구 및 예방조치\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"key\": \"착용할 보호구\", \"value\": \"화재 발생 시 공기호흡기와 전신 보호복을 사용할 것.\", \"text\": \"착용할 보호구 화재 발생 시 공기호흡기와 전신 보호복을 사용할 것.\"}, {\"seq\": 2, \"key\": \"예방조치\", \"value\": \"위험없이 처리할 수 있으면 용기를 화재 지역으로부터 옮길 것.\", \"text\": \"예방조치 위험없이 처리할 수 있으면 용기를 화재 지역으로부터 옮길 것.\"}]}, {\"item_code\": \"S6_PERSONAL\", \"title_raw\": \"가. 인체를 보호하기 위해 필요한 조치 사항 및 보호구\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"필요없는 인원은 멀리 대피시키시오.\", \"text\": \"필요없는 인원은 멀리 대피시키시오.\"}, {\"seq\": 2, \"value\": \"누출 지역으로부터 바람이 부는 반대 방향으로 사람들을 대피시키시오.\", \"text\": \"누출 지역으로부터 바람이 부는 반대 방향으로 사람들을 대피시키시오.\"}, {\"seq\": 3, \"value\": \"정화 작업을 하는 동안 적절한 보호 장비와 보호의를 착용할 것.\", \"text\": \"정화 작업을 하는 동안 적절한 보호 장비와 보호의를 착용할 것.\"}, {\"seq\": 4, \"value\": \"미스트/증기를 흡입하지 마시오.\", \"text\": \"미스트/증기를 흡입하지 마시오.\"}, {\"seq\": 5, \"value\": \"적절한 보호의를 착용하지 않은 경우에는 파손된 용기나 누출물을 만지지 말 것.\", \"text\": \"적절한 보호의를 착용하지 않은 경우에는 파손된 용기나 누출물을 만지지 말 것.\"}, {\"seq\": 6, \"value\": \"적절하게 환기가 되도록 할 것.\", \"text\": \"적절하게 환기가 되도록 할 것.\"}, {\"seq\": 7, \"value\": \"누출정도가 심각해서 통제할 수 없다면, 관할기관에 보고해야 함.\", \"text\": \"누출정도가 심각해서 통제할 수 없다면, 관할기관에 보고해야 함.\"}, {\"seq\": 8, \"value\": \"개인 보호구에 관한 사항은 MSDS 제8항을 참조할 것.\", \"text\": \"개인 보호구에 관한 사항은 MSDS 제8항을 참조할 것.\"}]}, {\"item_code\": \"S6_ENV\", \"title_raw\": \"나. 환경을 보호하기 위해 필요한 조치사항\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"환경으로 배출하지 마시오.\", \"text\": \"환경으로 배출하지 마시오.\"}, {\"seq\": 2, \"value\": \"모든 환경적 누출에 대해 적절한 매니저급 또는 관리자급 인원에게 통보할 것.\", \"text\": \"모든 환경적 누출에 대해 적절한 매니저급 또는 관리자급 인원에게 통보할 것.\"}, {\"seq\": 3, \"value\": \"안전하게 처리하는 것이 가능하면, 추가 누설 또는 누출을 방지할 것.\", \"text\": \"안전하게 처리하는 것이 가능하면, 추가 누설 또는 누출을 방지할 것.\"}, {\"seq\": 4, \"value\": \"하수도, 수로 또는 지표로 배출하지 마시오.\", \"text\": \"하수도, 수로 또는 지표로 배출하지 마시오.\"}]}, {\"item_code\": \"S6_CLEANUP\", \"title_raw\": \"다. 정화 또는 제거 방법\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"제품이 배수로로 유입되지 않도록 할 것.\", \"text\": \"제품이 배수로로 유입되지 않도록 할 것.\"}, {\"seq\": 2, \"key\": \"대량 누출\", \"value\": \"안전하게 처리하는 것이 가능하면 물질의 흐름을 멈추시오. 가능한 경우 누출된 물질 주위로 도랑을 팔 것. 질석, 마른 모래나 흙에 흡수시켜서 용기에 담을 것. 제품을 수거 후 누출 지역을 물로 세척할 것.\", \"text\": \"대량 누출: 안전하게 처리하는 것이 가능하면 물질의 흐름을 멈추시오. 가능한 경우 누출된 물질 주위로 도랑을 팔 것. 질석, 마른 모래나 흙에 흡수시켜서 용기에 담을 것. 제품을 수거 후 누출 지역을 물로 세척할 것.\"}, {\"seq\": 3, \"key\": \"소량 누출\", \"value\": \"흡착성 물질(예. 천, 플리스)로 닦아낼 것. 잔여 오염을 제거하기 위해 표면을 철저히 세척할 것.\", \"text\": \"소량 누출: 흡착성 물질(예. 천, 플리스)로 닦아낼 것. 잔여 오염을 제거하기 위해 표면을 철저히 세척할 것.\"}, {\"seq\": 4, \"value\": \"절대로 엎질러 진 것을 다시 사용하려고 본래 용기에 넣지 말 것.\", \"text\": \"절대로 엎질러 진 것을 다시 사용하려고 본래 용기에 넣지 말 것.\"}, {\"seq\": 5, \"value\": \"폐기물 처리에 관한 사항은 MSDS 제13항을 참조할 것.\", \"text\": \"폐기물 처리에 관한 사항은 MSDS 제13항을 참조할 것.\"}]}, {\"item_code\": \"S7_HANDLING\", \"title_raw\": \"가. 안전취급요령\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"사용 전 취급 설명서를 확보하시오.\", \"text\": \"사용 전 취급 설명서를 확보하시오.\"}, {\"seq\": 2, \"value\": \"모든 안전 예방조치 문구를 읽고 이해하기 전에는 취급하지 마시오.\", \"text\": \"모든 안전 예방조치 문구를 읽고 이해하기 전에는 취급하지 마시오.\"}, {\"seq\": 3, \"value\": \"미스트/증기를 흡입하지 마시오.\", \"text\": \"미스트/증기를 흡입하지 마시오.\"}, {\"seq\": 4, \"value\": \"눈, 피부, 의복에 묻지 않도록 하시오.\", \"text\": \"눈, 피부, 의복에 묻지 않도록 하시오.\"}, {\"seq\": 5, \"value\": \"먹거나 삼키지 말아야 함.\", \"text\": \"먹거나 삼키지 말아야 함.\"}, {\"seq\": 6, \"value\": \"사용할 때에는 먹거나 마시거나 흡연하지 말 것.\", \"text\": \"사용할 때에는 먹거나 마시거나 흡연하지 말 것.\"}, {\"seq\": 7, \"value\": \"임산부 또는 모유수유 여성은 반드시 이 제품을 취급하지 말 것.\", \"text\": \"임산부 또는 모유수유 여성은 반드시 이 제품을 취급하지 말 것.\"}, {\"seq\": 8, \"value\": \"가능할 경우 밀폐된 시스템에서 취급되어야 함.\", \"text\": \"가능할 경우 밀폐된 시스템에서 취급되어야 함.\"}, {\"seq\": 9, \"value\": \"적절히 환기할 것.\", \"text\": \"적절히 환기할 것.\"}, {\"seq\": 10, \"value\": \"적합한 개인 보호장비를 착용할 것.\", \"text\": \"적합한 개인 보호장비를 착용할 것.\"}, {\"seq\": 11, \"value\": \"취급 후에는 손을 철저히 씻으시오.\", \"text\": \"취급 후에는 손을 철저히 씻으시오.\"}, {\"seq\": 12, \"value\": \"환경으로 배출하지 마시오.\", \"text\": \"환경으로 배출하지 마시오.\"}, {\"seq\": 13, \"value\": \"다시 사용 전 오염된 의류를 세척하시오.\", \"text\": \"다시 사용 전 오염된 의류를 세척하시오.\"}, {\"seq\": 14, \"value\": \"올바른 산업 위생 절차를 준수할 것.\", \"text\": \"올바른 산업 위생 절차를 준수할 것.\"}]}, {\"item_code\": \"S7_STORAGE\", \"title_raw\": \"나. 안전한 저장 방법 (피해야 할 조건을 포함함)\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"잠금장치가 있는 저장장소에 저장하시오.\", \"text\": \"잠금장치가 있는 저장장소에 저장하시오.\"}, {\"seq\": 2, \"value\": \"단단히 밀폐된 용기에 보관하시오.\", \"text\": \"단단히 밀폐된 용기에 보관하시오.\"}, {\"seq\": 3, \"value\": \"피해야할 물질과 멀리하여 보관하시오 (MSDS의 10항을 참조할 것).\", \"text\": \"피해야할 물질과 멀리하여 보관하시오 (MSDS의 10항을 참조할 것).\"}]}, {\"item_code\": \"S8_ENG\", \"title_raw\": \"나. 적절한 공학적 관리\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"양호한 전체환기를 실시할 것.\", \"text\": \"양호한 전체환기를 실시할 것.\"}, {\"seq\": 2, \"value\": \"환기 속도는 작업장 여건에 맞아야 함.\", \"text\": \"환기 속도는 작업장 여건에 맞아야 함.\"}, {\"seq\": 3, \"value\": \"적용이 가능하면 공정기밀 설비, 국소배기장치 또는 기타 공학적 관리를 사용하여 공기 중 수준이 권고 노출한계 이하가 되도록 유지시킬 것.\", \"text\": \"적용이 가능하면 공정기밀 설비, 국소배기장치 또는 기타 공학적 관리를 사용하여 공기 중 수준이 권고 노출한계 이하가 되도록 유지시킬 것.\"}, {\"seq\": 4, \"value\": \"노출기준이 설정되지 않은 경우 공기 중 수준이 허용되는 수준이 되도록 유지시킬 것.\", \"text\": \"노출기준이 설정되지 않은 경우 공기 중 수준이 허용되는 수준이 되도록 유지시킬 것.\"}, {\"seq\": 5, \"value\": \"이 제품의 취급 시 세안장치와 긴급샤워시설이 이용 가능하여야 함.\", \"text\": \"이 제품의 취급 시 세안장치와 긴급샤워시설이 이용 가능하여야 함.\"}]}, {\"item_code\": \"S8_RESP\", \"title_raw\": \"o 호흡기 보호\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"한국산업안전보건공단 인증을 받은 유기 증기 카트리지 및 전면 안면보호판이 장착된 화학물질용 호흡기 보호구.\", \"text\": \"한국산업안전보건공단 인증을 받은 유기 증기 카트리지 및 전면 안면보호판이 장착된 화학물질용 호흡기 보호구.\"}]}, {\"item_code\": \"S8_EYE\", \"title_raw\": \"o 눈 보호\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"측면 보호면을 갖춘 보안경 (또는 고글)과 안면보호구를 착용하시오.\", \"text\": \"측면 보호면을 갖춘 보안경 (또는 고글)과 안면보호구를 착용하시오.\"}, {\"seq\": 2, \"value\": \"한국산업안전보건공단 인증을 받은 유기 증기 카트리지 및 전면 안면보호판이 장착된 화학물질용 호흡기 보호구.\", \"text\": \"한국산업안전보건공단 인증을 받은 유기 증기 카트리지 및 전면 안면보호판이 장착된 화학물질용 호흡기 보호구.\"}]}, {\"item_code\": \"S8_HAND\", \"title_raw\": \"o 손 보호\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"장기간 또는 반복적 피부 접촉 시 적절한 보호 장갑을 사용할 것.\", \"text\": \"장기간 또는 반복적 피부 접촉 시 적절한 보호 장갑을 사용할 것.\"}, {\"seq\": 2, \"value\": \"한국산업안전보건공단 인증을 받은 적절한 내화학성 장갑을 착용할 것.\", \"text\": \"한국산업안전보건공단 인증을 받은 적절한 내화학성 장갑을 착용할 것.\"}, {\"seq\": 3, \"value\": \"적합한 한국산업안전보건공단 인증을 받은 장갑이 장갑 공급자에 의해 추천될 수 있음.\", \"text\": \"적합한 한국산업안전보건공단 인증을 받은 장갑이 장갑 공급자에 의해 추천될 수 있음.\"}]}, {\"item_code\": \"S8_BODY\", \"title_raw\": \"o 신체 보호\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"적절한 내화학물질용 보호의를 착용할 것.\", \"text\": \"적절한 내화학물질용 보호의를 착용할 것.\"}, {\"seq\": 2, \"value\": \"한국산업안전보건공단 인증을 받은 불침투성 앞치마 착용이 권장됨.\", \"text\": \"한국산업안전보건공단 인증을 받은 불침투성 앞치마 착용이 권장됨.\"}]}, {\"item_code\": \"S10_STABILITY\", \"title_raw\": \"가. 화학적 안정성 및 유해 반응의 가능성\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"key\": \"반응성\", \"value\": \"제품은 통상의 사용, 저장 및 운송조건에서는 안정하고 비반응성임.\", \"text\": \"반응성 제품은 통상의 사용, 저장 및 운송조건에서는 안정하고 비반응성임.\"}, {\"seq\": 2, \"key\": \"화학적 안정성\", \"value\": \"정상적인 조건 하에서 물질은 안정함.\", \"text\": \"화학적 안정성 정상적인 조건 하에서 물질은 안정함.\"}, {\"seq\": 3, \"key\": \"유해 반응의 가능성\", \"value\": \"정상적으로 사용할 경우 위험한 반응이 없는 것으로 알려짐.\", \"text\": \"유해 반응의 가능성 정상적으로 사용할 경우 위험한 반응이 없는 것으로 알려짐.\"}]}, {\"item_code\": \"S10_CONDITIONS\", \"title_raw\": \"나. 피해야 할 조건 (정전기 방전, 충격, 진동 등)\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"인화점을 초과하는 온도를 피하시오.\", \"text\": \"인화점을 초과하는 온도를 피하시오.\"}, {\"seq\": 2, \"value\": \"피해야할 물질과의 접촉.\", \"text\": \"피해야할 물질과의 접촉.\"}]}, {\"item_code\": \"S10_INCOMPAT\", \"title_raw\": \"다. 피해야 할 물질\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"과산화물.\", \"text\": \"과산화물.\"}, {\"seq\": 2, \"value\": \"페놀.\", \"text\": \"페놀.\"}]}, {\"item_code\": \"S10_DECOMP\", \"title_raw\": \"라. 분해시 생성되는 유해물질\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"알려진 유해성 분해 생성물이 없음.\", \"text\": \"알려진 유해성 분해 생성물이 없음.\"}]}, {\"item_code\": \"S11_ROUTE\", \"title_raw\": \"가. 가능성이 높은 노출 경로에 관한 정보\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"key\": \"호흡기\", \"value\": \"호흡기계 자극을 일으킬 수 있음.\", \"text\": \"o 호흡기 호흡기계 자극을 일으킬 수 있음.\"}, {\"seq\": 2, \"key\": \"피부\", \"value\": \"피부에 심한 화상을 일으킴. 피부와 접촉하면 유해함. 알레르기성 피부 반응을 일으킬 수 있음.\", \"text\": \"o 피부 피부에 심한 화상을 일으킴. 피부와 접촉하면 유해함. 알레르기성 피부 반응을 일으킬 수 있음.\"}, {\"seq\": 3, \"key\": \"눈\", \"value\": \"눈에 심한 손상을 일으킴.\", \"text\": \"o 눈 눈에 심한 손상을 일으킴.\"}, {\"seq\": 4, \"key\": \"경구\", \"value\": \"소화기관에 화상을 일으킴. 삼키면 유해함.\", \"text\": \"o 경구 소화기관에 화상을 일으킴. 삼키면 유해함.\"}]}, {\"item_code\": \"S13_METHOD\", \"title_raw\": \"가. 폐기방법\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"수거하여 재생하거나 밀봉 용기에 담아서 허가된 폐기물 처리장에서 폐기할 것.\", \"text\": \"수거하여 재생하거나 밀봉 용기에 담아서 허가된 폐기물 처리장에서 폐기할 것.\"}, {\"seq\": 2, \"value\": \"이 물질이 하수구/수로로 유입되지 않게 할 것.\", \"text\": \"이 물질이 하수구/수로로 유입되지 않게 할 것.\"}, {\"seq\": 3, \"value\": \"화학물질이나 사용한 용기로 연못, 수로 또는 도랑을 오염시키지 말 것.\", \"text\": \"화학물질이나 사용한 용기로 연못, 수로 또는 도랑을 오염시키지 말 것.\"}, {\"seq\": 4, \"value\": \"폐기물 관련 법령에 따라 내용물/용기를 폐기하시오.\", \"text\": \"폐기물 관련 법령에 따라 내용물/용기를 폐기하시오.\"}]}, {\"item_code\": \"S13_CAUTION\", \"title_raw\": \"나. 폐기시 주의사항 (오염된 용기 및 포장의 폐기 방법을 포함함)\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"빈 용기에 제품잔여물이 있을 수 있으므로, 용기를 비운 후에도 제품표지의 경고사항을 따를 것.\", \"text\": \"빈 용기에 제품잔여물이 있을 수 있으므로, 용기를 비운 후에도 제품표지의 경고사항을 따를 것.\"}, {\"seq\": 2, \"value\": \"빈용기는 재활용 또는 폐기를 위해 허가된 폐기물 처리장에 수집되어야 함.\", \"text\": \"빈용기는 재활용 또는 폐기를 위해 허가된 폐기물 처리장에 수집되어야 함.\"}]}, {\"item_code\": \"S14_SPECIAL\", \"title_raw\": \"바. 사용자에 대한 특별한 안전 대책\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"key\": \"KSSTDG\", \"value\": \"미지정.\", \"text\": \"바. 사용자에 대한 특별한 안전 대책 미지정.\"}, {\"seq\": 2, \"key\": \"IATA\", \"value\": \"Read safety instructions, MSDS and emergency procedures before handling.\", \"text\": \"F. Special precautions for user Read safety instructions, MSDS and emergency procedures before handling.\"}, {\"seq\": 3, \"key\": \"IMDG\", \"value\": \"Read safety instructions, MSDS and emergency procedures before handling.\", \"text\": \"F. Special precautions for user Read safety instructions, MSDS and emergency procedures before handling.\"}]}, {\"item_code\": \"S15_OTHER\", \"title_raw\": \"추가 정보\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"key\": \"추가 정보\", \"value\": \"본 물질안전보건자료는 고용노동부 고시 제2020-130호에 따라 작성되었음.\", \"text\": \"추가 정보 본 물질안전보건자료는 고용노동부 고시 제2020-130호에 따라 작성되었음.\"}, {\"seq\": 2, \"key\": \"목록현황\", \"value\": \"*“예”는 본 제품의 모든 성분들이 해당 국가(들) 의 목록에 관한 요구사항을 준수하고 있음을 나타냄\", \"text\": \"*“예”는 본 제품의 모든 성분들이 해당 국가(들) 의 목록에 관한 요구사항을 준수하고 있음을 나타냄\"}, {\"seq\": 3, \"key\": \"목록현황\", \"value\": \"아니오는 본 제품의 하나 또는 그 이상의 성분이 해당 국가의 목록에 등재되지 않았거나 면제되지 않음을 나타냄.\", \"text\": \"아니오는 본 제품의 하나 또는 그 이상의 성분이 해당 국가의 목록에 등재되지 않았거나 면제되지 않음을 나타냄.\"}]}, {\"item_code\": \"S16_SOURCE\", \"title_raw\": \"가. 자료의 출처\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"ACGIH\", \"text\": \"ACGIH\"}, {\"seq\": 2, \"value\": \"EPA: 데이터베이스 확보\", \"text\": \"EPA: 데이터베이스 확보\"}, {\"seq\": 3, \"value\": \"IARC 단행본. 발암성에 관한 총평\", \"text\": \"IARC 단행본. 발암성에 관한 총평\"}, {\"seq\": 4, \"value\": \"한국. 위험물지정수량 (대통령령 제18406호 위험물안전관리법시행령 별표 1)\", \"text\": \"한국. 위험물지정수량 (대통령령 제18406호 위험물안전관리법시행령 별표 1)\"}, {\"seq\": 5, \"value\": \"한국. 휘발성유기화합물 (VOCs) (환경부고시 제2001-36, 2001년 3월8일 개정)\", \"text\": \"한국. 휘발성유기화합물 (VOCs) (환경부고시 제2001-36, 2001년 3월8일 개정)\"}, {\"seq\": 6, \"value\": \"NLM: 유해화학물질 데이타베이스\", \"text\": \"NLM: 유해화학물질 데이타베이스\"}, {\"seq\": 7, \"value\": \"한국. GHS 경고표지 요구사항. 화학물질의 분류, 표시 및 물질안전보건자료(MSDS)에 관한 기준, 및 그 개정본\", \"text\": \"한국. GHS 경고표지 요구사항. 화학물질의 분류, 표시 및 물질안전보건자료(MSDS)에 관한 기준, 및 그 개정본\"}, {\"seq\": 8, \"value\": \"한국. KOSHA GHS 분류 목록 (한국 산업 안전 보건 공단)\", \"text\": \"한국. KOSHA GHS 분류 목록 (한국 산업 안전 보건 공단)\"}, {\"seq\": 9, \"value\": \"한국. NEMA GHS 분류 목록 (위험물의 분류 및 표지에 관한 기준에 대한 소방방재청 GHS 지침)\", \"text\": \"한국. NEMA GHS 분류 목록 (위험물의 분류 및 표지에 관한 기준에 대한 소방방재청 GHS 지침)\"}, {\"seq\": 10, \"value\": \"배출량 조사 (TRI) 화학물질 (MOE 고시 제2002-166호, 2002년 11월 8일), 및 그 개정본\", \"text\": \"배출량 조사 (TRI) 화학물질 (MOE 고시 제2002-166호, 2002년 11월 8일), 및 그 개정본\"}]}, {\"item_code\": \"S16_OTHER\", \"title_raw\": \"라. 기타\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"key\": \"라. 기타\", \"value\": \"자료없음.\", \"text\": \"라. 기타 자료없음.\"}, {\"seq\": 2, \"key\": \"책임의 한계\", \"value\": \"ITW Performance Polymers 는 본 정보 및 제품 또는 본 제품과 함께 사용될 수 있는 다른 제조업체의 제품에 대한 모든 조건을 고려하지 않습니다.\", \"text\": \"ITW Performance Polymers 는 본 정보 및 제품 또는 본 제품과 함께 사용될 수 있는 다른 제조업체의 제품에 대한 모든 조건을 고려하지 않습니다.\"}, {\"seq\": 3, \"key\": \"책임의 한계\", \"value\": \"제품의 취급, 보관 및 폐기를 위한 안전 조건을 비롯하여 부적절한 사용으로 인한 손실, 부상, 손해 또는 비용에 대해서는 전적으로 사용자가 책임을 집니다.\", \"text\": \"제품의 취급, 보관 및 폐기를 위한 안전 조건을 비롯하여 부적절한 사용으로 인한 손실, 부상, 손해 또는 비용에 대해서는 전적으로 사용자가 책임을 집니다.\"}, {\"seq\": 4, \"key\": \"책임의 한계\", \"value\": \"The information provided in this Safety Data Sheet is correct to the best of our knowledge, information and belief at the date of its publication.\", \"text\": \"The information provided in this Safety Data Sheet is correct to the best of our knowledge, information and belief at the date of its publication.\"}, {\"seq\": 5, \"key\": \"책임의 한계\", \"value\": \"The information relates only to the specific material designated and may not be valid for such material used in combination with any other materials or in any process, unless specified in the text.\", \"text\": \"The information relates only to the specific material designated and may not be valid for such material used in combination with any other materials or in any process, unless specified in the text.\"}, {\"seq\": 6, \"key\": \"책임의 한계\", \"value\": \"The information given is designed only as a guidance for safe handling, use, processing, storage, transportation, disposal and release.\", \"text\": \"The information given is designed only as a guidance for safe handling, use, processing, storage, transportation, disposal and release.\"}, {\"seq\": 7, \"key\": \"개정 정보\", \"value\": \"화학제품과 회사에 관한 정보: EU 독성 센터\", \"text\": \"개정 정보 화학제품과 회사에 관한 정보: EU 독성 센터\"}]}], \"extras\": [{\"seq\": 1, \"section_no\": 4, \"after_item\": \"S4_SYMPTOM\", \"title_raw\": \"일반적인 조치사항\", \"reason\": \"코드없음\", \"comp_ref\": \"MIX\", \"page\": 3, \"suggested_code\": \"S4_DOCTOR\", \"statements\": [{\"seq\": 1, \"key\": \"노출되거나 노출이 우려되면\", \"value\": \"의학적인 조치/조언을 받으시오.\", \"text\": \"노출되거나 노출이 우려되면: 의학적인 조치/조언을 받으시오.\"}, {\"seq\": 2, \"value\": \"불편함을 느끼면, 의사의 진찰을 받으시오 (가능하면 라벨의 표시사항을 보여주시오).\", \"text\": \"불편함을 느끼면, 의사의 진찰을 받으시오 (가능하면 라벨의 표시사항을 보여주시오).\"}, {\"seq\": 3, \"value\": \"의사에게 사용된 물질에 대해 알리고 예방 조치를 취할 수 있도록 할 것.\", \"text\": \"의사에게 사용된 물질에 대해 알리고 예방 조치를 취할 수 있도록 할 것.\"}, {\"seq\": 4, \"value\": \"본 물질안전보건자료를 담당 의사에게 보일 것.\", \"text\": \"본 물질안전보건자료를 담당 의사에게 보일 것.\"}, {\"seq\": 5, \"value\": \"다시 사용 전 오염된 의류를 세척하시오.\", \"text\": \"다시 사용 전 오염된 의류를 세척하시오.\"}]}, {\"seq\": 2, \"section_no\": 5, \"after_item\": \"S5_FIREFIGHT\", \"title_raw\": \"일반 화재 위험성\", \"reason\": \"코드없음\", \"comp_ref\": \"MIX\", \"page\": 3, \"suggested_code\": \"S5_SPECIFIC\", \"statements\": [{\"seq\": 1, \"value\": \"특이한 화재 또는 폭발 위험이 명시되지 않음.\", \"text\": \"일반 화재 위험성 특이한 화재 또는 폭발 위험이 명시되지 않음.\"}]}, {\"seq\": 3, \"section_no\": 5, \"after_item\": \"S5_FIREFIGHT\", \"title_raw\": \"특정 방법\", \"reason\": \"코드없음\", \"comp_ref\": \"MIX\", \"page\": 3, \"suggested_code\": \"S5_FIREFIGHT\", \"statements\": [{\"seq\": 1, \"value\": \"표준 소방 절차를 준수하고 기타 관여된 물질의 위험성을 고려할 것.\", \"text\": \"특정 방법 표준 소방 절차를 준수하고 기타 관여된 물질의 위험성을 고려할 것.\"}]}, {\"seq\": 4, \"section_no\": 8, \"after_item\": \"S8_BODY\", \"title_raw\": \"위생대책\", \"reason\": \"코드없음\", \"comp_ref\": \"MIX\", \"page\": 4, \"suggested_code\": \"S8_HYGIENE\", \"statements\": [{\"seq\": 1, \"value\": \"모든 의학적 감시에 대한 요구사항을 준수할 것.\", \"text\": \"모든 의학적 감시에 대한 요구사항을 준수할 것.\"}, {\"seq\": 2, \"value\": \"식품 및 음료로부터 멀리하시오.\", \"text\": \"식품 및 음료로부터 멀리하시오.\"}, {\"seq\": 3, \"value\": \"물질 취급 후 먹거나, 마시거나 흡연하기 전에 씻는 등 항상 양호한 개인 위생 기준을 준수할 것.\", \"text\": \"물질 취급 후 먹거나, 마시거나 흡연하기 전에 씻는 등 항상 양호한 개인 위생 기준을 준수할 것.\"}, {\"seq\": 4, \"value\": \"작업복과 보호용 장비를 정기적으로 세척하여 오염물질을 제거할 것.\", \"text\": \"작업복과 보호용 장비를 정기적으로 세척하여 오염물질을 제거할 것.\"}, {\"seq\": 5, \"value\": \"작업장 밖으로 오염된 의복을 반출하지 마시오.\", \"text\": \"작업장 밖으로 오염된 의복을 반출하지 마시오.\"}]}, {\"seq\": 5, \"section_no\": 9, \"after_item\": \"physchem[1]\", \"title_raw\": \"형태\", \"reason\": \"필드없음\", \"comp_ref\": \"MIX\", \"page\": 4, \"suggested_code\": \"FORM\", \"statements\": [{\"seq\": 1, \"key\": \"형태\", \"value\": \"액체.\", \"text\": \"형태 액체.\"}]}, {\"seq\": 6, \"section_no\": 9, \"after_item\": \"physchem[18]\", \"title_raw\": \"폭발 특성\", \"reason\": \"필드없음\", \"comp_ref\": \"MIX\", \"page\": 4, \"suggested_code\": \"EXPLOSIVE_PROPERTIES\", \"statements\": [{\"seq\": 1, \"key\": \"폭발 특성\", \"value\": \"폭발성이 아님.\", \"text\": \"폭발 특성 폭발성이 아님.\"}]}, {\"seq\": 7, \"section_no\": 9, \"after_item\": \"physchem[18]\", \"title_raw\": \"산화성\", \"reason\": \"필드없음\", \"comp_ref\": \"MIX\", \"page\": 4, \"suggested_code\": \"OXIDIZING_PROPERTIES\", \"statements\": [{\"seq\": 1, \"key\": \"산화성\", \"value\": \"산화성이 아님.\", \"text\": \"산화성 산화성이 아님.\"}]}, {\"seq\": 8, \"section_no\": 13, \"after_item\": \"S13_CAUTION\", \"title_raw\": \"지정폐기물의 분류번호\", \"reason\": \"필드없음\", \"comp_ref\": \"MIX\", \"page\": 6, \"suggested_code\": \"WASTE_CODE\", \"statements\": [{\"seq\": 1, \"value\": \"사용자, 생산자, 폐기물 처리업체가 협의하여 폐기물 코드를 부여해야 함.\", \"text\": \"지정폐기물의 분류번호 사용자, 생산자, 폐기물 처리업체가 협의하여 폐기물 코드를 부여해야 함.\"}]}, {\"seq\": 9, \"section_no\": 14, \"after_item\": \"transport[1]\", \"title_raw\": \"ERG Code\", \"reason\": \"필드없음\", \"comp_ref\": \"MIX\", \"page\": 6, \"suggested_code\": \"ERG_CODE\", \"statements\": [{\"seq\": 1, \"key\": \"ERG Code\", \"value\": \"8L\", \"text\": \"ERG Code 8L\"}]}, {\"seq\": 10, \"section_no\": 14, \"after_item\": \"transport[1]\", \"title_raw\": \"Other information\", \"reason\": \"필드없음\", \"comp_ref\": \"MIX\", \"page\": 6, \"suggested_code\": \"IATA_AIRCRAFT\", \"statements\": [{\"seq\": 1, \"key\": \"Passenger and cargo aircraft\", \"value\": \"Allowed with restrictions.\", \"text\": \"Passenger and cargo aircraft Allowed with restrictions.\"}, {\"seq\": 2, \"key\": \"Cargo aircraft only\", \"value\": \"Allowed with restrictions.\", \"text\": \"Cargo aircraft only Allowed with restrictions.\"}]}, {\"seq\": 11, \"section_no\": 14, \"after_item\": \"transport[2]\", \"title_raw\": \"MARPOL 73/78 부록 II 및 IBC 코드에 따른 벌크 상태 운송\", \"reason\": \"필드없음\", \"comp_ref\": \"MIX\", \"page\": 6, \"suggested_code\": \"MARPOL_BULK\", \"statements\": [{\"seq\": 1, \"value\": \"설정되지 않음.\", \"text\": \"MARPOL 73/78 부록 II 및 IBC 코드에 따른 벌크 상태 운송 설정되지 않음.\"}]}, {\"seq\": 12, \"section_no\": 14, \"after_item\": \"transport[2]\", \"title_raw\": \"IATA; IMDG; KRDG\", \"reason\": \"필드없음\", \"comp_ref\": \"MIX\", \"page\": 6, \"suggested_code\": \"TRANSPORT_LABEL\", \"statements\": [{\"seq\": 1, \"value\": \"IATA; IMDG; KRDG\", \"text\": \"IATA; IMDG; KRDG\"}]}]}], \"evidence\": [{\"msds_index\": 0, \"field\": \"narratives[S4_EYE]\", \"page\": 2, \"source_text\": \"가. 눈에 들어갔을 때 즉시 눈을 다량의 물로 15분 이상 씻으시오.\", \"rules\": [\"R14\", \"R04\"], \"note\": \"문장 단위로 나누고 '15분 이상'을 cond로 분리\"}, {\"msds_index\": 0, \"field\": \"narratives[S4_SKIN]\", \"page\": 2, \"source_text\": \"나. 피부에 접촉했을 때 오염된 작업복을 즉시 벗고 비누와 물로 피부를 씻을 것.\", \"rules\": [\"R14\"], \"note\": \"문장 단위로 나눔\"}, {\"msds_index\": 0, \"field\": \"narratives[S4_INHAL]\", \"page\": 2, \"source_text\": \"다. 흡입했을 때 신선한 공기가 있는 곳으로 옮길 것.\", \"rules\": [\"R14\"], \"note\": \"문장 단위로 나눔\"}, {\"msds_index\": 0, \"field\": \"narratives[S4_INGEST]\", \"page\": 2, \"source_text\": \"라. 먹었을 때 즉시 의사 또는 의료기관의 진찰을 받으시오.\", \"rules\": [\"R14\"], \"note\": \"문장 단위로 나눔\"}, {\"msds_index\": 0, \"field\": \"narratives[S4_DOCTOR]\", \"page\": 2, \"source_text\": \"마. 기타 의사의 주의사항 일반 지원 조치를 제공하고 증상에 따라 처치할 것.\", \"rules\": [\"R14\"], \"note\": \"문장 단위로 나누고 '화학적 화상:'을 key로 분리\"}, {\"msds_index\": 0, \"field\": \"narratives[S4_SYMPTOM]\", \"page\": 2, \"source_text\": \"가장 중요한 증상/영향, 급성 및 지연된 타는 듯한 통증 및 심한 부식성 피부 손상.\", \"rules\": [\"R14\"], \"note\": \"문장 단위로 나눔\"}, {\"msds_index\": 0, \"field\": \"narratives[S5_MEDIA]\", \"page\": 3, \"source_text\": \"적절한 소화제 내알코올성 폼. 분말. 이산화탄소 (CO2).\", \"rules\": [\"R14\"], \"note\": \"적절한/부적절한 소화제를 key로 분리\"}, {\"msds_index\": 0, \"field\": \"narratives[S5_SPECIFIC]\", \"page\": 3, \"source_text\": \"화재 발생 시, 건강에 유해한 가스가 생성될 수 있음.\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"narratives[S5_FIREFIGHT]\", \"page\": 3, \"source_text\": \"착용할 보호구 화재 발생 시 공기호흡기와 전신 보호복을 사용할 것.\", \"rules\": [\"R14\"], \"note\": \"착용할 보호구/예방조치를 key로 분리\"}, {\"msds_index\": 0, \"field\": \"narratives[S6_PERSONAL]\", \"page\": 3, \"source_text\": \"필요없는 인원은 멀리 대피시키시오.\", \"rules\": [\"R14\"], \"note\": \"문장 단위로 나눔\"}, {\"msds_index\": 0, \"field\": \"narratives[S6_ENV]\", \"page\": 3, \"source_text\": \"환경으로 배출하지 마시오.\", \"rules\": [\"R14\"], \"note\": \"문장 단위로 나눔\"}, {\"msds_index\": 0, \"field\": \"narratives[S6_CLEANUP]\", \"page\": 3, \"source_text\": \"제품이 배수로로 유입되지 않도록 할 것.\", \"rules\": [\"R14\"], \"note\": \"단락 단위로 나누고 대량/소량 누출을 key로 분리\"}, {\"msds_index\": 0, \"field\": \"narratives[S7_HANDLING]\", \"page\": 3, \"source_text\": \"가. 안전취급요령 사용 전 취급 설명서를 확보하시오.\", \"rules\": [\"R14\"], \"note\": \"문장 단위로 나눔\"}, {\"msds_index\": 0, \"field\": \"narratives[S7_STORAGE]\", \"page\": 3, \"source_text\": \"잠금장치가 있는 저장장소에 저장하시오. 단단히 밀폐된 용기에 보관하시오.\", \"rules\": [\"R14\"], \"note\": \"문장 단위로 나눔\"}, {\"msds_index\": 0, \"field\": \"narratives[S8_ENG]\", \"page\": 3, \"source_text\": \"나. 적절한 공학적 관리 양호한 전체환기를 실시할 것.\", \"rules\": [\"R14\"], \"note\": \"문장 단위로 나눔\"}, {\"msds_index\": 0, \"field\": \"narratives[S8_RESP]\", \"page\": 3, \"source_text\": \"o 호흡기 보호 한국산업안전보건공단 인증을 받은 유기 증기 카트리지 및 전면 안면보호판이 장착된 화학물질용 호흡기 보호구.\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"narratives[S8_EYE]\", \"page\": 4, \"source_text\": \"o 눈 보호 측면 보호면을 갖춘 보안경 (또는 고글)과 안면보호구를 착용하시오.\", \"rules\": [\"R14\"], \"note\": \"문장 단위로 나눔\"}, {\"msds_index\": 0, \"field\": \"narratives[S8_HAND]\", \"page\": 4, \"source_text\": \"o 손 보호 장기간 또는 반복적 피부 접촉 시 적절한 보호 장갑을 사용할 것.\", \"rules\": [\"R14\"], \"note\": \"문장 단위로 나눔\"}, {\"msds_index\": 0, \"field\": \"narratives[S8_BODY]\", \"page\": 4, \"source_text\": \"o 신체 보호 적절한 내화학물질용 보호의를 착용할 것.\", \"rules\": [\"R14\"], \"note\": \"문장 단위로 나눔\"}, {\"msds_index\": 0, \"field\": \"narratives[S10_STABILITY]\", \"page\": 4, \"source_text\": \"반응성 제품은 통상의 사용, 저장 및 운송조건에서는 안정하고 비반응성임.\", \"rules\": [\"R14\"], \"note\": \"반응성·화학적 안정성·유해 반응의 가능성을 key로 분리\"}, {\"msds_index\": 0, \"field\": \"narratives[S10_CONDITIONS]\", \"page\": 4, \"source_text\": \"인화점을 초과하는 온도를 피하시오. 피해야할 물질과의 접촉.\", \"rules\": [\"R14\"], \"note\": \"문장 단위로 나눔\"}, {\"msds_index\": 0, \"field\": \"narratives[S10_INCOMPAT]\", \"page\": 5, \"source_text\": \"다. 피해야 할 물질 과산화물. 페놀.\", \"rules\": [\"R14\"], \"note\": \"물질별로 나눔\"}, {\"msds_index\": 0, \"field\": \"narratives[S10_DECOMP]\", \"page\": 5, \"source_text\": \"라. 분해시 생성되는 유해물질 알려진 유해성 분해 생성물이 없음.\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"narratives[S11_ROUTE]\", \"page\": 5, \"source_text\": \"o 호흡기 호흡기계 자극을 일으킬 수 있음.\", \"rules\": [\"R14\"], \"note\": \"경로별 소제목을 key로 분리\"}, {\"msds_index\": 0, \"field\": \"narratives[S13_METHOD]\", \"page\": 5, \"source_text\": \"가. 폐기방법 수거하여 재생하거나 밀봉 용기에 담아서 허가된 폐기물 처리장에서 폐기할 것.\", \"rules\": [\"R14\"], \"note\": \"문장 단위로 나눔\"}, {\"msds_index\": 0, \"field\": \"narratives[S13_CAUTION]\", \"page\": 5, \"source_text\": \"빈 용기에 제품잔여물이 있을 수 있으므로, 용기를 비운 후에도 제품표지의 경고사항을 따를 것.\", \"rules\": [\"R14\"], \"note\": \"문장 단위로 나눔\"}, {\"msds_index\": 0, \"field\": \"narratives[S14_SPECIAL]\", \"page\": 6, \"source_text\": \"바. 사용자에 대한 특별한 미지정. | F. Special precautions Read safety instructions, MSDS and emergency procedures before handling.\", \"rules\": [\"R14\"], \"note\": \"KSSTDG·IATA·IMDG 규정명을 key로 둠\"}, {\"msds_index\": 0, \"field\": \"narratives[S15_OTHER]\", \"page\": 7, \"source_text\": \"추가 정보 본 물질안전보건자료는 고용노동부 고시 제2020-130호에 따라 작성되었음.\", \"rules\": [\"R14\"], \"note\": \"추가 정보와 목록현황 각주를 규제 행에 담기지 않는 서술로 넣음\"}, {\"msds_index\": 0, \"field\": \"narratives[S16_SOURCE]\", \"page\": 8, \"source_text\": \"가. 자료의 출처 ACGIH EPA: 데이터베이스 확보 IARC 단행본. 발암성에 관한 총평\", \"rules\": [\"R14\"], \"note\": \"줄 단위로 나눔\"}, {\"msds_index\": 0, \"field\": \"narratives[S16_OTHER]\", \"page\": 8, \"source_text\": \"라. 기타 자료없음. | 책임의 한계 ITW Performance Polymers 는 본 정보 및 제품 ... | 개정 정보 화학제품과 회사에 관한 정보: EU 독성 센터\", \"rules\": [\"R14\"], \"note\": \"기타·책임의 한계·개정 정보를 S16_OTHER 하나로 합치고 소제목을 key로 남김\"}, {\"msds_index\": 0, \"field\": \"extras[0]\", \"page\": 3, \"source_text\": \"일반적인 조치사항 노출되거나 노출이 우려되면: 의학적인 조치/조언을 받으시오.\", \"rules\": [\"R24\", \"R14\"], \"note\": \"4항 '일반적인 조치사항'에 맞는 코드가 없어 extras로 둠\"}, {\"msds_index\": 0, \"field\": \"extras[1]\", \"page\": 3, \"source_text\": \"일반 화재 위험성 특이한 화재 또는 폭발 위험이 명시되지 않음.\", \"rules\": [\"R24\"], \"note\": \"맞는 서술 코드가 없어 extras로 둠\"}, {\"msds_index\": 0, \"field\": \"extras[2]\", \"page\": 3, \"source_text\": \"특정 방법 표준 소방 절차를 준수하고 기타 관여된 물질의 위험성을 고려할 것.\", \"rules\": [\"R24\"], \"note\": \"맞는 서술 코드가 없어 extras로 둠\"}, {\"msds_index\": 0, \"field\": \"extras[3]\", \"page\": 4, \"source_text\": \"위생대책 모든 의학적 감시에 대한 요구사항을 준수할 것.\", \"rules\": [\"R24\", \"R14\"], \"note\": \"8항 위생대책 코드가 없어 extras로 둠\"}, {\"msds_index\": 0, \"field\": \"extras[4]\", \"page\": 4, \"source_text\": \"형태 액체.\", \"rules\": [\"R24\"], \"note\": \"정식 칸에 담기지 않은 9항 항목\"}, {\"msds_index\": 0, \"field\": \"extras[5]\", \"page\": 4, \"source_text\": \"폭발 특성 폭발성이 아님.\", \"rules\": [\"R24\"], \"note\": \"정식 칸에 담기지 않은 9항 기타 정보\"}, {\"msds_index\": 0, \"field\": \"extras[6]\", \"page\": 4, \"source_text\": \"산화성 산화성이 아님.\", \"rules\": [\"R24\"], \"note\": \"정식 칸에 담기지 않은 9항 기타 정보\"}, {\"msds_index\": 0, \"field\": \"extras[7]\", \"page\": 6, \"source_text\": \"지정폐기물의 분류번호 사용자, 생산자, 폐기물 처리업체가 협의하여 폐기물 코드를 부여해야 함.\", \"rules\": [\"R24\"], \"note\": \"13항 끝(6쪽 첫 줄) 항목, 담을 칸이 없어 extras로 둠\"}, {\"msds_index\": 0, \"field\": \"extras[8]\", \"page\": 6, \"source_text\": \"ERG Code 8L\", \"rules\": [\"R24\"], \"note\": \"IATA ERG 코드 칸이 없어 extras로 둠\"}, {\"msds_index\": 0, \"field\": \"extras[9]\", \"page\": 6, \"source_text\": \"Passenger and cargo aircraft Allowed with restrictions. | Cargo aircraft only Allowed with restrictions.\", \"rules\": [\"R24\", \"R14\"], \"note\": \"IATA 기타 정보, 담을 칸이 없어 extras로 둠\"}, {\"msds_index\": 0, \"field\": \"extras[10]\", \"page\": 6, \"source_text\": \"MARPOL 73/78 부록 II 및 IBC 코드에 따른 벌크 상태 운송 설정되지 않음.\", \"rules\": [\"R24\"], \"note\": \"정식 운송 행에 쓰이지 않아 extras로 둠\"}, {\"msds_index\": 0, \"field\": \"extras[11]\", \"page\": 6, \"source_text\": \"IATA; IMDG; KRDG\", \"rules\": [\"R24\"], \"note\": \"운송 표지(등급 8 그림) 제목 줄, 담을 칸이 없어 extras로 둠\"}]}"
+}

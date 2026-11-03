@@ -1,0 +1,389 @@
+{
+  "doc_id": "T21-044",
+  "bundle": "b4",
+  "model": "claude-opus-5-5",
+  "mode": "claude -p json-schema",
+  "finish_reason": "tool_use",
+  "usage": {
+    "prompt_tokens": 49761,
+    "completion_tokens": 4453,
+    "cached_tokens": 8949,
+    "reasoning_tokens": 983,
+    "notional_cost_usd": 0.4173378
+  },
+  "seconds": 38.1,
+  "request_usage": [
+    {
+      "prompt_tokens": 49761,
+      "completion_tokens": 4453,
+      "cached_tokens": 8949,
+      "reasoning_tokens": 983,
+      "notional_cost_usd": 0.4173378
+    }
+  ],
+  "attempts": 1,
+  "errors": [],
+  "parsed": {
+    "msds": [
+      {
+        "transport": [
+          {
+            "mode": "공통",
+            "basis_raw": null,
+            "regulated": true,
+            "un_no": "3077",
+            "shipping_name": "환경유해성물질, 고체, 달리 특정된 품명이 없는 것",
+            "hazard_class": "9",
+            "sub_risk": null,
+            "packing_group": "III",
+            "marine_pollutant": "해당",
+            "ems_fire": "F-A",
+            "ems_spill": "S-F"
+          }
+        ],
+        "regulations": [
+          {
+            "seq": 1,
+            "law": "OSH",
+            "item_code": null,
+            "item_raw": "산업안전 보건법에 의한 규제",
+            "comp_ref": "1",
+            "applicable": "해당",
+            "value_raw": "주석, 납"
+          },
+          {
+            "seq": 2,
+            "law": "OSH",
+            "item_code": null,
+            "item_raw": "산업안전 보건법에 의한 규제",
+            "comp_ref": "2",
+            "applicable": "해당",
+            "value_raw": "주석, 납"
+          },
+          {
+            "seq": 3,
+            "law": "CCA",
+            "item_code": null,
+            "item_raw": "화학물질관리법에 의한 규제",
+            "comp_ref": "2",
+            "applicable": "해당",
+            "value_raw": "납"
+          },
+          {
+            "seq": 4,
+            "law": "KREACH",
+            "item_code": "KREACH_EXIST",
+            "item_raw": "기존화학물질",
+            "comp_ref": "1",
+            "applicable": "해당",
+            "value_raw": "주석 : 기존화학물질"
+          },
+          {
+            "seq": 5,
+            "law": "KREACH",
+            "item_code": "KREACH_EXIST",
+            "item_raw": "기존화학물질",
+            "comp_ref": "2",
+            "applicable": "해당",
+            "value_raw": "납 : 기존화학물질"
+          },
+          {
+            "seq": 6,
+            "law": "CCA",
+            "item_code": "CCA_CHRONIC",
+            "item_raw": "인체만성유해성물질",
+            "comp_ref": "2",
+            "applicable": "해당",
+            "value_raw": "납 : 인체만성유해성물질"
+          },
+          {
+            "seq": 7,
+            "law": "CCA",
+            "item_code": "CCA_ECO",
+            "item_raw": "생태유해성물질",
+            "comp_ref": "2",
+            "applicable": "해당",
+            "value_raw": "납 : 생태유해성물질"
+          },
+          {
+            "seq": 8,
+            "law": "CCA",
+            "item_code": "CCA_RESTRICT",
+            "item_raw": "제한물질",
+            "comp_ref": "2",
+            "applicable": "해당",
+            "value_raw": "납 : 제한물질"
+          },
+          {
+            "seq": 9,
+            "law": "KREACH",
+            "item_code": "KREACH_PRIORITY",
+            "item_raw": "중점관리물질",
+            "comp_ref": "2",
+            "applicable": "해당",
+            "value_raw": "납 : 중점관리물질"
+          },
+          {
+            "seq": 10,
+            "law": "DG",
+            "item_code": "DG_HAZMAT",
+            "item_raw": "위험물안전관리법에 의한 규제",
+            "comp_ref": "1",
+            "applicable": "해당",
+            "value_raw": "주석, 납"
+          },
+          {
+            "seq": 11,
+            "law": "DG",
+            "item_code": "DG_HAZMAT",
+            "item_raw": "위험물안전관리법에 의한 규제",
+            "comp_ref": "2",
+            "applicable": "해당",
+            "value_raw": "주석, 납"
+          },
+          {
+            "seq": 12,
+            "law": "WASTE",
+            "item_code": "WASTE_DESIG",
+            "item_raw": "폐기물관리법에 의한 규제",
+            "comp_ref": "1",
+            "applicable": "해당",
+            "value_raw": "주석, 납"
+          },
+          {
+            "seq": 13,
+            "law": "WASTE",
+            "item_code": "WASTE_DESIG",
+            "item_raw": "폐기물관리법에 의한 규제",
+            "comp_ref": "2",
+            "applicable": "해당",
+            "value_raw": "주석, 납"
+          },
+          {
+            "seq": 14,
+            "law": null,
+            "item_code": null,
+            "item_raw": "기타 국내 및 외국법에 의한 규제",
+            "comp_ref": "2",
+            "applicable": "해당",
+            "value_raw": "규제대상물질인 납(Pb)을 함유하고 있음"
+          },
+          {
+            "seq": 15,
+            "law": null,
+            "item_code": null,
+            "item_raw": "기타 국내 및 외국법에 의한 규제",
+            "comp_ref": "MIX",
+            "applicable": null,
+            "value_raw": "HS Code : 3810. 10"
+          }
+        ],
+        "dangerous_goods": [],
+        "waste": [
+          {
+            "comp_ref": "1",
+            "designated": null,
+            "waste_type": null
+          },
+          {
+            "comp_ref": "2",
+            "designated": null,
+            "waste_type": null
+          }
+        ],
+        "intl_class": []
+      }
+    ],
+    "evidence": [
+      {
+        "msds_index": 0,
+        "field": "transport[0]",
+        "page": 7,
+        "source_text": "가. 유엔번호(UN No.) 3077 | 나. 적정선적명 환경유해성물질, 고체, 달리 특정된 품명이 없는 것 | 다. 운송에서의 위험성 등급 9(M7) | 라. 용기등급 Ⅲ | 마. 해양오염물질 해당 | 화재시 비상조치 : F-A | 유출시 비상조치 : S-F",
+        "rules": [
+          "R09",
+          "R17"
+        ],
+        "note": "운송 규정 구분이 없어 mode=공통. 텍스트층 '3077)'은 이미지 기준 3077. 위험성 등급 '9(M7)'에서 분류코드 M7은 제외하고 9로 기재. 용기등급 Ⅲ → III"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[0]",
+        "page": 7,
+        "source_text": "가. 산업안전 보건법에 의한 규제 | 주석, 납",
+        "rules": [
+          "R10"
+        ],
+        "note": "규제 항목명이 없어 item_code null. 맞는 값 없음: 산안법 세부 항목 미표기, 성분명이 나열되어 해당으로 기재"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[1]",
+        "page": 7,
+        "source_text": "가. 산업안전 보건법에 의한 규제 | 주석, 납",
+        "rules": [
+          "R10"
+        ],
+        "note": "맞는 값 없음: 산안법 세부 항목 미표기, 납(comp 2) 행"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[2]",
+        "page": 7,
+        "source_text": "나. 화학물질관리법에 의한 규제 | 납",
+        "rules": [
+          "R10"
+        ],
+        "note": "맞는 값 없음: 화관법 세부 항목 미표기"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[3]",
+        "page": 7,
+        "source_text": "주석 : 기존화학물질",
+        "rules": [
+          "R10",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[4]",
+        "page": 7,
+        "source_text": "납 : 기존화학물질, 인체만성유해성물질, 생태유해성물질, 제한물질, 중점관리물질",
+        "rules": [
+          "R10",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[5]",
+        "page": 7,
+        "source_text": "납 : 기존화학물질, 인체만성유해성물질, 생태유해성물질, 제한물질, 중점관리물질",
+        "rules": [
+          "R10",
+          "R25"
+        ],
+        "note": "화평법 항목 아래 적혀 있으나 인체만성유해성물질은 C6 코드상 CCA 항목"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[6]",
+        "page": 7,
+        "source_text": "납 : 기존화학물질, 인체만성유해성물질, 생태유해성물질, 제한물질, 중점관리물질",
+        "rules": [
+          "R10",
+          "R25"
+        ],
+        "note": "생태유해성물질은 C6 코드상 CCA 항목"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[7]",
+        "page": 7,
+        "source_text": "납 : 기존화학물질, 인체만성유해성물질, 생태유해성물질, 제한물질, 중점관리물질",
+        "rules": [
+          "R10",
+          "R25"
+        ],
+        "note": "제한물질은 C6 코드상 CCA 항목"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[8]",
+        "page": 7,
+        "source_text": "납 : 기존화학물질, 인체만성유해성물질, 생태유해성물질, 제한물질, 중점관리물질",
+        "rules": [
+          "R10",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[9]",
+        "page": 7,
+        "source_text": "라. 위험물안전관리법에 의한 규제 | 주석, 납",
+        "rules": [
+          "R10"
+        ],
+        "note": "류별·품명·지정수량 미표기로 dangerous_goods는 작성하지 않음"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[10]",
+        "page": 7,
+        "source_text": "라. 위험물안전관리법에 의한 규제 | 주석, 납",
+        "rules": [
+          "R10"
+        ],
+        "note": "류별·품명·지정수량 미표기"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[11]",
+        "page": 7,
+        "source_text": "라. 폐기물관리법에 의한 규제 | 주석, 납",
+        "rules": [
+          "R10"
+        ],
+        "note": "지정폐기물 여부가 명시되지 않음"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[12]",
+        "page": 7,
+        "source_text": "라. 폐기물관리법에 의한 규제 | 주석, 납",
+        "rules": [
+          "R10"
+        ],
+        "note": "지정폐기물 여부가 명시되지 않음"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[13]",
+        "page": 7,
+        "source_text": "바. 기타 국내 및 외국법에 의한 규제 | 규제대상물질인 납(Pb)을 함유하고 있음",
+        "rules": [
+          "R10",
+          "R17"
+        ],
+        "note": "맞는 값 없음: 국내/외국 법령이 특정되지 않아 law·item_code null"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[14]",
+        "page": 7,
+        "source_text": "HS Code : 3810. 10",
+        "rules": [
+          "R17"
+        ],
+        "note": "맞는 값 없음: HS Code는 규제 항목 코드가 없어 원문만 보존"
+      },
+      {
+        "msds_index": 0,
+        "field": "waste[0]",
+        "page": 7,
+        "source_text": "라. 폐기물관리법에 의한 규제 | 주석, 납",
+        "rules": [
+          "R10"
+        ],
+        "note": "지정폐기물 해당 여부가 명시되지 않아 designated null"
+      },
+      {
+        "msds_index": 0,
+        "field": "waste[1]",
+        "page": 7,
+        "source_text": "라. 폐기물관리법에 의한 규제 | 주석, 납",
+        "rules": [
+          "R10"
+        ],
+        "note": "지정폐기물 해당 여부가 명시되지 않아 designated null"
+      }
+    ]
+  },
+  "raw_text": "{\"msds\": [{\"transport\": [{\"mode\": \"공통\", \"basis_raw\": null, \"regulated\": true, \"un_no\": \"3077\", \"shipping_name\": \"환경유해성물질, 고체, 달리 특정된 품명이 없는 것\", \"hazard_class\": \"9\", \"sub_risk\": null, \"packing_group\": \"III\", \"marine_pollutant\": \"해당\", \"ems_fire\": \"F-A\", \"ems_spill\": \"S-F\"}], \"regulations\": [{\"seq\": 1, \"law\": \"OSH\", \"item_code\": null, \"item_raw\": \"산업안전 보건법에 의한 규제\", \"comp_ref\": \"1\", \"applicable\": \"해당\", \"value_raw\": \"주석, 납\"}, {\"seq\": 2, \"law\": \"OSH\", \"item_code\": null, \"item_raw\": \"산업안전 보건법에 의한 규제\", \"comp_ref\": \"2\", \"applicable\": \"해당\", \"value_raw\": \"주석, 납\"}, {\"seq\": 3, \"law\": \"CCA\", \"item_code\": null, \"item_raw\": \"화학물질관리법에 의한 규제\", \"comp_ref\": \"2\", \"applicable\": \"해당\", \"value_raw\": \"납\"}, {\"seq\": 4, \"law\": \"KREACH\", \"item_code\": \"KREACH_EXIST\", \"item_raw\": \"기존화학물질\", \"comp_ref\": \"1\", \"applicable\": \"해당\", \"value_raw\": \"주석 : 기존화학물질\"}, {\"seq\": 5, \"law\": \"KREACH\", \"item_code\": \"KREACH_EXIST\", \"item_raw\": \"기존화학물질\", \"comp_ref\": \"2\", \"applicable\": \"해당\", \"value_raw\": \"납 : 기존화학물질\"}, {\"seq\": 6, \"law\": \"CCA\", \"item_code\": \"CCA_CHRONIC\", \"item_raw\": \"인체만성유해성물질\", \"comp_ref\": \"2\", \"applicable\": \"해당\", \"value_raw\": \"납 : 인체만성유해성물질\"}, {\"seq\": 7, \"law\": \"CCA\", \"item_code\": \"CCA_ECO\", \"item_raw\": \"생태유해성물질\", \"comp_ref\": \"2\", \"applicable\": \"해당\", \"value_raw\": \"납 : 생태유해성물질\"}, {\"seq\": 8, \"law\": \"CCA\", \"item_code\": \"CCA_RESTRICT\", \"item_raw\": \"제한물질\", \"comp_ref\": \"2\", \"applicable\": \"해당\", \"value_raw\": \"납 : 제한물질\"}, {\"seq\": 9, \"law\": \"KREACH\", \"item_code\": \"KREACH_PRIORITY\", \"item_raw\": \"중점관리물질\", \"comp_ref\": \"2\", \"applicable\": \"해당\", \"value_raw\": \"납 : 중점관리물질\"}, {\"seq\": 10, \"law\": \"DG\", \"item_code\": \"DG_HAZMAT\", \"item_raw\": \"위험물안전관리법에 의한 규제\", \"comp_ref\": \"1\", \"applicable\": \"해당\", \"value_raw\": \"주석, 납\"}, {\"seq\": 11, \"law\": \"DG\", \"item_code\": \"DG_HAZMAT\", \"item_raw\": \"위험물안전관리법에 의한 규제\", \"comp_ref\": \"2\", \"applicable\": \"해당\", \"value_raw\": \"주석, 납\"}, {\"seq\": 12, \"law\": \"WASTE\", \"item_code\": \"WASTE_DESIG\", \"item_raw\": \"폐기물관리법에 의한 규제\", \"comp_ref\": \"1\", \"applicable\": \"해당\", \"value_raw\": \"주석, 납\"}, {\"seq\": 13, \"law\": \"WASTE\", \"item_code\": \"WASTE_DESIG\", \"item_raw\": \"폐기물관리법에 의한 규제\", \"comp_ref\": \"2\", \"applicable\": \"해당\", \"value_raw\": \"주석, 납\"}, {\"seq\": 14, \"law\": null, \"item_code\": null, \"item_raw\": \"기타 국내 및 외국법에 의한 규제\", \"comp_ref\": \"2\", \"applicable\": \"해당\", \"value_raw\": \"규제대상물질인 납(Pb)을 함유하고 있음\"}, {\"seq\": 15, \"law\": null, \"item_code\": null, \"item_raw\": \"기타 국내 및 외국법에 의한 규제\", \"comp_ref\": \"MIX\", \"applicable\": null, \"value_raw\": \"HS Code : 3810. 10\"}], \"dangerous_goods\": [], \"waste\": [{\"comp_ref\": \"1\", \"designated\": null, \"waste_type\": null}, {\"comp_ref\": \"2\", \"designated\": null, \"waste_type\": null}], \"intl_class\": []}], \"evidence\": [{\"msds_index\": 0, \"field\": \"transport[0]\", \"page\": 7, \"source_text\": \"가. 유엔번호(UN No.) 3077 | 나. 적정선적명 환경유해성물질, 고체, 달리 특정된 품명이 없는 것 | 다. 운송에서의 위험성 등급 9(M7) | 라. 용기등급 Ⅲ | 마. 해양오염물질 해당 | 화재시 비상조치 : F-A | 유출시 비상조치 : S-F\", \"rules\": [\"R09\", \"R17\"], \"note\": \"운송 규정 구분이 없어 mode=공통. 텍스트층 '3077)'은 이미지 기준 3077. 위험성 등급 '9(M7)'에서 분류코드 M7은 제외하고 9로 기재. 용기등급 Ⅲ → III\"}, {\"msds_index\": 0, \"field\": \"regulations[0]\", \"page\": 7, \"source_text\": \"가. 산업안전 보건법에 의한 규제 | 주석, 납\", \"rules\": [\"R10\"], \"note\": \"규제 항목명이 없어 item_code null. 맞는 값 없음: 산안법 세부 항목 미표기, 성분명이 나열되어 해당으로 기재\"}, {\"msds_index\": 0, \"field\": \"regulations[1]\", \"page\": 7, \"source_text\": \"가. 산업안전 보건법에 의한 규제 | 주석, 납\", \"rules\": [\"R10\"], \"note\": \"맞는 값 없음: 산안법 세부 항목 미표기, 납(comp 2) 행\"}, {\"msds_index\": 0, \"field\": \"regulations[2]\", \"page\": 7, \"source_text\": \"나. 화학물질관리법에 의한 규제 | 납\", \"rules\": [\"R10\"], \"note\": \"맞는 값 없음: 화관법 세부 항목 미표기\"}, {\"msds_index\": 0, \"field\": \"regulations[3]\", \"page\": 7, \"source_text\": \"주석 : 기존화학물질\", \"rules\": [\"R10\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"regulations[4]\", \"page\": 7, \"source_text\": \"납 : 기존화학물질, 인체만성유해성물질, 생태유해성물질, 제한물질, 중점관리물질\", \"rules\": [\"R10\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"regulations[5]\", \"page\": 7, \"source_text\": \"납 : 기존화학물질, 인체만성유해성물질, 생태유해성물질, 제한물질, 중점관리물질\", \"rules\": [\"R10\", \"R25\"], \"note\": \"화평법 항목 아래 적혀 있으나 인체만성유해성물질은 C6 코드상 CCA 항목\"}, {\"msds_index\": 0, \"field\": \"regulations[6]\", \"page\": 7, \"source_text\": \"납 : 기존화학물질, 인체만성유해성물질, 생태유해성물질, 제한물질, 중점관리물질\", \"rules\": [\"R10\", \"R25\"], \"note\": \"생태유해성물질은 C6 코드상 CCA 항목\"}, {\"msds_index\": 0, \"field\": \"regulations[7]\", \"page\": 7, \"source_text\": \"납 : 기존화학물질, 인체만성유해성물질, 생태유해성물질, 제한물질, 중점관리물질\", \"rules\": [\"R10\", \"R25\"], \"note\": \"제한물질은 C6 코드상 CCA 항목\"}, {\"msds_index\": 0, \"field\": \"regulations[8]\", \"page\": 7, \"source_text\": \"납 : 기존화학물질, 인체만성유해성물질, 생태유해성물질, 제한물질, 중점관리물질\", \"rules\": [\"R10\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"regulations[9]\", \"page\": 7, \"source_text\": \"라. 위험물안전관리법에 의한 규제 | 주석, 납\", \"rules\": [\"R10\"], \"note\": \"류별·품명·지정수량 미표기로 dangerous_goods는 작성하지 않음\"}, {\"msds_index\": 0, \"field\": \"regulations[10]\", \"page\": 7, \"source_text\": \"라. 위험물안전관리법에 의한 규제 | 주석, 납\", \"rules\": [\"R10\"], \"note\": \"류별·품명·지정수량 미표기\"}, {\"msds_index\": 0, \"field\": \"regulations[11]\", \"page\": 7, \"source_text\": \"라. 폐기물관리법에 의한 규제 | 주석, 납\", \"rules\": [\"R10\"], \"note\": \"지정폐기물 여부가 명시되지 않음\"}, {\"msds_index\": 0, \"field\": \"regulations[12]\", \"page\": 7, \"source_text\": \"라. 폐기물관리법에 의한 규제 | 주석, 납\", \"rules\": [\"R10\"], \"note\": \"지정폐기물 여부가 명시되지 않음\"}, {\"msds_index\": 0, \"field\": \"regulations[13]\", \"page\": 7, \"source_text\": \"바. 기타 국내 및 외국법에 의한 규제 | 규제대상물질인 납(Pb)을 함유하고 있음\", \"rules\": [\"R10\", \"R17\"], \"note\": \"맞는 값 없음: 국내/외국 법령이 특정되지 않아 law·item_code null\"}, {\"msds_index\": 0, \"field\": \"regulations[14]\", \"page\": 7, \"source_text\": \"HS Code : 3810. 10\", \"rules\": [\"R17\"], \"note\": \"맞는 값 없음: HS Code는 규제 항목 코드가 없어 원문만 보존\"}, {\"msds_index\": 0, \"field\": \"waste[0]\", \"page\": 7, \"source_text\": \"라. 폐기물관리법에 의한 규제 | 주석, 납\", \"rules\": [\"R10\"], \"note\": \"지정폐기물 해당 여부가 명시되지 않아 designated null\"}, {\"msds_index\": 0, \"field\": \"waste[1]\", \"page\": 7, \"source_text\": \"라. 폐기물관리법에 의한 규제 | 주석, 납\", \"rules\": [\"R10\"], \"note\": \"지정폐기물 해당 여부가 명시되지 않아 designated null\"}]}"
+}

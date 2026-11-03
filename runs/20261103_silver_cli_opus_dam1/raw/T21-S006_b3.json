@@ -1,0 +1,565 @@
+{
+  "doc_id": "T21-S006",
+  "bundle": "b3",
+  "model": "claude-opus-5-5",
+  "mode": "claude -p json-schema",
+  "finish_reason": "tool_use",
+  "usage": {
+    "prompt_tokens": 55245,
+    "completion_tokens": 5719,
+    "cached_tokens": 8451,
+    "reasoning_tokens": 787,
+    "notional_cost_usd": 0.4904142
+  },
+  "seconds": 41.6,
+  "request_usage": [
+    {
+      "prompt_tokens": 55245,
+      "completion_tokens": 5719,
+      "cached_tokens": 8451,
+      "reasoning_tokens": 787,
+      "notional_cost_usd": 0.4904142
+    }
+  ],
+  "attempts": 1,
+  "errors": [],
+  "parsed": {
+    "msds": [
+      {
+        "toxicity": [
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_INHAL",
+            "descriptor": "LC50",
+            "q": {
+              "raw": "> 57000 ppm",
+              "status": "값있음",
+              "lower_op": ">",
+              "lower": 57000,
+              "unit": "ppm"
+            },
+            "species": "쥐",
+            "sex": null,
+            "duration_value": 4,
+            "duration_unit": "hr",
+            "physical_form": "가스",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_SKIN",
+            "descriptor": "결과기술",
+            "q": null,
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "비고",
+                "value": "예민한 사람의 경우 피부 자극을 일으킬 수 있음.",
+                "text": "비고: 예민한 사람의 경우 피부 자극을 일으킬 수 있음."
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_EYE",
+            "descriptor": "결과기술",
+            "q": null,
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "결과",
+                "value": "눈 자극 없음",
+                "text": "결과: 눈 자극 없음"
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_RESP_SENS",
+            "descriptor": null,
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_SKIN_SENS",
+            "descriptor": null,
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_CARC",
+            "descriptor": "결과기술",
+            "q": null,
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "발암성 - 평가",
+                "value": "현재 자료로는 발암성 분류가 가능하지 않음.",
+                "text": "발암성 - 평가 : 현재 자료로는 발암성 분류가 가능하지 않음."
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_MUTA",
+            "descriptor": "결과기술",
+            "q": null,
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "생식세포 변이원성- 평가",
+                "value": "동물 실험에서 돌연변이 유발 영향이 나타나지 않았습니다.",
+                "text": "생식세포 변이원성- 평가 : 동물 실험에서 돌연변이 유발 영향이 나타나지 않았습니다."
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_REPRO",
+            "descriptor": "결과기술",
+            "q": null,
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "생식독성 - 평가",
+                "value": "동물 시험에 근거, 성기능, 생식능 또는 발달에 대한 어떠한 악영향의 증거를 보이지 않음.",
+                "text": "생식독성 - 평가 : 동물 시험에 근거, 성기능, 생식능 또는 발달에 대한 어떠한 악영향의 증거를 보이지 않음."
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_STOT_SE",
+            "descriptor": "결과기술",
+            "q": null,
+            "classification": "분류되지 않음",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "비고",
+                "value": "충분하지 않은 분류기준으로 나온 결과로 인해 분류되지 않음.",
+                "text": "비고: 충분하지 않은 분류기준으로 나온 결과로 인해 분류되지 않음."
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_STOT_RE",
+            "descriptor": "결과기술",
+            "q": null,
+            "classification": "분류되지 않음",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "평가",
+                "value": "당해 물질 또는 혼합물은 특정 표적기관 독성물질(반복노출) 물질로 분류되지 않음.",
+                "text": "평가: 당해 물질 또는 혼합물은 특정 표적기관 독성물질(반복노출) 물질로 분류되지 않음."
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_ASP",
+            "descriptor": null,
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": null,
+            "descriptor": "결과기술",
+            "q": null,
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "비고",
+                "value": "과다노출 증상에는 두통, 현기증, 피로감, 메스꺼움 및 구토가 포함됩니다., TLV 보다 상당히 높은 농도에서는 마취 효과를 초래할 수 있습니다., 용매는 피부 탈지를 가져올 수도 있습니다.",
+                "text": "비고: 과다노출 증상에는 두통, 현기증, 피로감, 메스꺼움 및 구토가 포함됩니다., TLV 보다 상당히 높은 농도에서는 마취 효과를 초래할 수 있습니다., 용매는 피부 탈지를 가져올 수도 있습니다.",
+                "refs": [
+                  "1"
+                ]
+              }
+            ]
+          }
+        ],
+        "cmr": [],
+        "ecotox": [
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_FISH",
+            "descriptor": "LC50",
+            "q": {
+              "raw": "126.012 mg/l",
+              "status": "값있음",
+              "value": 126.012,
+              "unit": "mg/L",
+              "dp": 3
+            },
+            "species": "어류",
+            "duration_value": 96,
+            "duration_unit": "hr",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_CRUST",
+            "descriptor": "EC50",
+            "q": {
+              "raw": "53 mg/l",
+              "status": "값있음",
+              "value": 53,
+              "unit": "mg/L"
+            },
+            "species": "갑각류",
+            "duration_value": 48,
+            "duration_unit": "hr",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_ALGAE",
+            "descriptor": "EC50",
+            "q": {
+              "raw": "40.5 mg/l",
+              "status": "값있음",
+              "value": 40.5,
+              "unit": "mg/L",
+              "dp": 1
+            },
+            "species": "조류",
+            "duration_value": 72,
+            "duration_unit": "hr",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_PERSIST",
+            "descriptor": null,
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_BIOACC",
+            "descriptor": "BCF",
+            "q": {
+              "raw": "4",
+              "status": "값있음",
+              "value": 4
+            },
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_SOIL",
+            "descriptor": null,
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_OTHER",
+            "descriptor": "결과기술",
+            "q": null,
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "추가 생태학적 정보",
+                "value": "비전문가가 취급하거나 처리하는 경우 환경적 위험성을 배제할 수 없습니다.",
+                "text": "추가 생태학적 정보 : 비전문가가 취급하거나 처리하는 경우 환경적 위험성을 배제할 수 없습니다."
+              }
+            ]
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_OTHER",
+            "descriptor": "결과기술",
+            "q": null,
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "추가 생태학적 정보",
+                "value": "비전문가가 취급하거나 처리하는 경우 환경적 위험성을 배제할 수 없습니다.",
+                "text": "ethylene: 추가 생태학적 정보 : 비전문가가 취급하거나 처리하는 경우 환경적 위험성을 배제할 수 없습니다.",
+                "refs": [
+                  "1"
+                ]
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_OZONE",
+            "descriptor": null,
+            "q": {
+              "raw": "해당없음",
+              "status": "해당없음"
+            },
+            "status": "해당없음",
+            "statements": []
+          }
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "msds_index": 0,
+        "field": "toxicity[0]",
+        "page": 7,
+        "source_text": "급성흡입독성 : LC50 (쥐): > 57000 ppm 노출시간: 4 h 시험환경: 가스",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "'> 57000 ppm'을 하한 >57000 ppm으로, 노출시간 4 h, 시험환경 가스로 분해. '제품:' 아래 값이라 MIX"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[1]",
+        "page": 7,
+        "source_text": "비고: 예민한 사람의 경우 피부 자극을 일으킬 수 있음.",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[2]",
+        "page": 7,
+        "source_text": "결과: 눈 자극 없음",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[3]",
+        "page": 7,
+        "source_text": "호흡기 과민성/피부 과민성 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "한 줄의 '자료없음'을 호흡기·피부 과민성 두 행에 나눠 적용"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[4]",
+        "page": 7,
+        "source_text": "호흡기 과민성/피부 과민성 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "한 줄의 '자료없음'을 호흡기·피부 과민성 두 행에 나눠 적용"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[5]",
+        "page": 7,
+        "source_text": "발암성 - 평가 : 현재 자료로는 발암성 분류가 가능하지 않음.",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[6]",
+        "page": 7,
+        "source_text": "생식세포 변이원성- 평가 : 동물 실험에서 돌연변이 유발 영향이 나타나지 않았습니다.",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[7]",
+        "page": 8,
+        "source_text": "생식독성 - 평가 : 동물 시험에 근거, 성기능, 생식능 또는 발달에 대한 어떠한 악영향의 증거를 보이지 않음.",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[8]",
+        "page": 8,
+        "source_text": "비고: 충분하지 않은 분류기준으로 나온 결과로 인해 분류되지 않음.",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[9]",
+        "page": 8,
+        "source_text": "평가: 당해 물질 또는 혼합물은 특정 표적기관 독성물질(반복노출) 물질로 분류되지 않음.",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[10]",
+        "page": 8,
+        "source_text": "흡인 유해성 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[11]",
+        "page": 8,
+        "source_text": "ethylene: 비고: 과다노출 증상에는 두통, 현기증, 피로감, 메스꺼움 및 구토가 포함됩니다., TLV 보다 상당히 높은 농도에서는 마취 효과를 초래할 수 있습니다.",
+        "rules": [
+          "R10"
+        ],
+        "note": "맞는 값 없음: '그 밖의 참고사항'에 해당하는 endpoint 코드가 없어 endpoint를 null로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[0]",
+        "page": 8,
+        "source_text": "어독성 : LC50 (어류): 126.012 mg/l 노출시간: 96 h",
+        "rules": [
+          "R04",
+          "R06",
+          "R08",
+          "R10"
+        ],
+        "note": "mg/l을 mg/L로 표기 통일, 소수 3자리 dp=3"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[1]",
+        "page": 8,
+        "source_text": "EC50 (갑각류): 53 mg/l 노출시간: 48 h",
+        "rules": [
+          "R04",
+          "R08",
+          "R10"
+        ],
+        "note": "mg/l을 mg/L로 표기 통일"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[2]",
+        "page": 8,
+        "source_text": "조류독성 : EC50 (조류): 40.5 mg/l 노출시간: 72 h",
+        "rules": [
+          "R04",
+          "R06",
+          "R08",
+          "R10"
+        ],
+        "note": "mg/l을 mg/L로 표기 통일"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[3]",
+        "page": 8,
+        "source_text": "나. 잔류성 및 분해성 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[4]",
+        "page": 9,
+        "source_text": "동생물의 생체내 축적 가능성 : 생물농축계수 (BCF): 4",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "8쪽 '구성성분: ethylene:' 아래 값이라 comp_ref=1"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[5]",
+        "page": 9,
+        "source_text": "라. 토양 이동성 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[6]",
+        "page": 9,
+        "source_text": "추가 생태학적 정보 : 비전문가가 취급하거나 처리하는 경우 환경적 위험성을 배제할 수 없습니다.",
+        "rules": [
+          "R10"
+        ],
+        "note": "'제품:' 아래 값이라 MIX"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[7]",
+        "page": 9,
+        "source_text": "ethylene: 추가 생태학적 정보 : 비전문가가 취급하거나 처리하는 경우 환경적 위험성을 배제할 수 없습니다.",
+        "rules": [
+          "R10"
+        ],
+        "note": "구성성분 ethylene 값이라 comp_ref=1"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[8]",
+        "page": 9,
+        "source_text": "바. 오존층 유해성 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      }
+    ]
+  },
+  "raw_text": "{\"msds\": [{\"toxicity\": [{\"comp_ref\": \"MIX\", \"endpoint\": \"TX_INHAL\", \"descriptor\": \"LC50\", \"q\": {\"raw\": \"> 57000 ppm\", \"status\": \"값있음\", \"lower_op\": \">\", \"lower\": 57000, \"unit\": \"ppm\"}, \"species\": \"쥐\", \"sex\": null, \"duration_value\": 4, \"duration_unit\": \"hr\", \"physical_form\": \"가스\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_SKIN\", \"descriptor\": \"결과기술\", \"q\": null, \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"key\": \"비고\", \"value\": \"예민한 사람의 경우 피부 자극을 일으킬 수 있음.\", \"text\": \"비고: 예민한 사람의 경우 피부 자극을 일으킬 수 있음.\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_EYE\", \"descriptor\": \"결과기술\", \"q\": null, \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"key\": \"결과\", \"value\": \"눈 자극 없음\", \"text\": \"결과: 눈 자극 없음\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_RESP_SENS\", \"descriptor\": null, \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_SKIN_SENS\", \"descriptor\": null, \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_CARC\", \"descriptor\": \"결과기술\", \"q\": null, \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"key\": \"발암성 - 평가\", \"value\": \"현재 자료로는 발암성 분류가 가능하지 않음.\", \"text\": \"발암성 - 평가 : 현재 자료로는 발암성 분류가 가능하지 않음.\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_MUTA\", \"descriptor\": \"결과기술\", \"q\": null, \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"key\": \"생식세포 변이원성- 평가\", \"value\": \"동물 실험에서 돌연변이 유발 영향이 나타나지 않았습니다.\", \"text\": \"생식세포 변이원성- 평가 : 동물 실험에서 돌연변이 유발 영향이 나타나지 않았습니다.\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_REPRO\", \"descriptor\": \"결과기술\", \"q\": null, \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"key\": \"생식독성 - 평가\", \"value\": \"동물 시험에 근거, 성기능, 생식능 또는 발달에 대한 어떠한 악영향의 증거를 보이지 않음.\", \"text\": \"생식독성 - 평가 : 동물 시험에 근거, 성기능, 생식능 또는 발달에 대한 어떠한 악영향의 증거를 보이지 않음.\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_STOT_SE\", \"descriptor\": \"결과기술\", \"q\": null, \"classification\": \"분류되지 않음\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"key\": \"비고\", \"value\": \"충분하지 않은 분류기준으로 나온 결과로 인해 분류되지 않음.\", \"text\": \"비고: 충분하지 않은 분류기준으로 나온 결과로 인해 분류되지 않음.\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_STOT_RE\", \"descriptor\": \"결과기술\", \"q\": null, \"classification\": \"분류되지 않음\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"key\": \"평가\", \"value\": \"당해 물질 또는 혼합물은 특정 표적기관 독성물질(반복노출) 물질로 분류되지 않음.\", \"text\": \"평가: 당해 물질 또는 혼합물은 특정 표적기관 독성물질(반복노출) 물질로 분류되지 않음.\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_ASP\", \"descriptor\": null, \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": null, \"descriptor\": \"결과기술\", \"q\": null, \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"key\": \"비고\", \"value\": \"과다노출 증상에는 두통, 현기증, 피로감, 메스꺼움 및 구토가 포함됩니다., TLV 보다 상당히 높은 농도에서는 마취 효과를 초래할 수 있습니다., 용매는 피부 탈지를 가져올 수도 있습니다.\", \"text\": \"비고: 과다노출 증상에는 두통, 현기증, 피로감, 메스꺼움 및 구토가 포함됩니다., TLV 보다 상당히 높은 농도에서는 마취 효과를 초래할 수 있습니다., 용매는 피부 탈지를 가져올 수도 있습니다.\", \"refs\": [\"1\"]}]}], \"cmr\": [], \"ecotox\": [{\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_FISH\", \"descriptor\": \"LC50\", \"q\": {\"raw\": \"126.012 mg/l\", \"status\": \"값있음\", \"value\": 126.012, \"unit\": \"mg/L\", \"dp\": 3}, \"species\": \"어류\", \"duration_value\": 96, \"duration_unit\": \"hr\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_CRUST\", \"descriptor\": \"EC50\", \"q\": {\"raw\": \"53 mg/l\", \"status\": \"값있음\", \"value\": 53, \"unit\": \"mg/L\"}, \"species\": \"갑각류\", \"duration_value\": 48, \"duration_unit\": \"hr\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_ALGAE\", \"descriptor\": \"EC50\", \"q\": {\"raw\": \"40.5 mg/l\", \"status\": \"값있음\", \"value\": 40.5, \"unit\": \"mg/L\", \"dp\": 1}, \"species\": \"조류\", \"duration_value\": 72, \"duration_unit\": \"hr\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_PERSIST\", \"descriptor\": null, \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_BIOACC\", \"descriptor\": \"BCF\", \"q\": {\"raw\": \"4\", \"status\": \"값있음\", \"value\": 4}, \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_SOIL\", \"descriptor\": null, \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_OTHER\", \"descriptor\": \"결과기술\", \"q\": null, \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"key\": \"추가 생태학적 정보\", \"value\": \"비전문가가 취급하거나 처리하는 경우 환경적 위험성을 배제할 수 없습니다.\", \"text\": \"추가 생태학적 정보 : 비전문가가 취급하거나 처리하는 경우 환경적 위험성을 배제할 수 없습니다.\"}]}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_OTHER\", \"descriptor\": \"결과기술\", \"q\": null, \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"key\": \"추가 생태학적 정보\", \"value\": \"비전문가가 취급하거나 처리하는 경우 환경적 위험성을 배제할 수 없습니다.\", \"text\": \"ethylene: 추가 생태학적 정보 : 비전문가가 취급하거나 처리하는 경우 환경적 위험성을 배제할 수 없습니다.\", \"refs\": [\"1\"]}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_OZONE\", \"descriptor\": null, \"q\": {\"raw\": \"해당없음\", \"status\": \"해당없음\"}, \"status\": \"해당없음\", \"statements\": []}]}], \"evidence\": [{\"msds_index\": 0, \"field\": \"toxicity[0]\", \"page\": 7, \"source_text\": \"급성흡입독성 : LC50 (쥐): > 57000 ppm 노출시간: 4 h 시험환경: 가스\", \"rules\": [\"R04\", \"R10\"], \"note\": \"'> 57000 ppm'을 하한 >57000 ppm으로, 노출시간 4 h, 시험환경 가스로 분해. '제품:' 아래 값이라 MIX\"}, {\"msds_index\": 0, \"field\": \"toxicity[1]\", \"page\": 7, \"source_text\": \"비고: 예민한 사람의 경우 피부 자극을 일으킬 수 있음.\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[2]\", \"page\": 7, \"source_text\": \"결과: 눈 자극 없음\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[3]\", \"page\": 7, \"source_text\": \"호흡기 과민성/피부 과민성 자료없음\", \"rules\": [\"R15\"], \"note\": \"한 줄의 '자료없음'을 호흡기·피부 과민성 두 행에 나눠 적용\"}, {\"msds_index\": 0, \"field\": \"toxicity[4]\", \"page\": 7, \"source_text\": \"호흡기 과민성/피부 과민성 자료없음\", \"rules\": [\"R15\"], \"note\": \"한 줄의 '자료없음'을 호흡기·피부 과민성 두 행에 나눠 적용\"}, {\"msds_index\": 0, \"field\": \"toxicity[5]\", \"page\": 7, \"source_text\": \"발암성 - 평가 : 현재 자료로는 발암성 분류가 가능하지 않음.\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[6]\", \"page\": 7, \"source_text\": \"생식세포 변이원성- 평가 : 동물 실험에서 돌연변이 유발 영향이 나타나지 않았습니다.\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[7]\", \"page\": 8, \"source_text\": \"생식독성 - 평가 : 동물 시험에 근거, 성기능, 생식능 또는 발달에 대한 어떠한 악영향의 증거를 보이지 않음.\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[8]\", \"page\": 8, \"source_text\": \"비고: 충분하지 않은 분류기준으로 나온 결과로 인해 분류되지 않음.\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[9]\", \"page\": 8, \"source_text\": \"평가: 당해 물질 또는 혼합물은 특정 표적기관 독성물질(반복노출) 물질로 분류되지 않음.\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[10]\", \"page\": 8, \"source_text\": \"흡인 유해성 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[11]\", \"page\": 8, \"source_text\": \"ethylene: 비고: 과다노출 증상에는 두통, 현기증, 피로감, 메스꺼움 및 구토가 포함됩니다., TLV 보다 상당히 높은 농도에서는 마취 효과를 초래할 수 있습니다.\", \"rules\": [\"R10\"], \"note\": \"맞는 값 없음: '그 밖의 참고사항'에 해당하는 endpoint 코드가 없어 endpoint를 null로 둠\"}, {\"msds_index\": 0, \"field\": \"ecotox[0]\", \"page\": 8, \"source_text\": \"어독성 : LC50 (어류): 126.012 mg/l 노출시간: 96 h\", \"rules\": [\"R04\", \"R06\", \"R08\", \"R10\"], \"note\": \"mg/l을 mg/L로 표기 통일, 소수 3자리 dp=3\"}, {\"msds_index\": 0, \"field\": \"ecotox[1]\", \"page\": 8, \"source_text\": \"EC50 (갑각류): 53 mg/l 노출시간: 48 h\", \"rules\": [\"R04\", \"R08\", \"R10\"], \"note\": \"mg/l을 mg/L로 표기 통일\"}, {\"msds_index\": 0, \"field\": \"ecotox[2]\", \"page\": 8, \"source_text\": \"조류독성 : EC50 (조류): 40.5 mg/l 노출시간: 72 h\", \"rules\": [\"R04\", \"R06\", \"R08\", \"R10\"], \"note\": \"mg/l을 mg/L로 표기 통일\"}, {\"msds_index\": 0, \"field\": \"ecotox[3]\", \"page\": 8, \"source_text\": \"나. 잔류성 및 분해성 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[4]\", \"page\": 9, \"source_text\": \"동생물의 생체내 축적 가능성 : 생물농축계수 (BCF): 4\", \"rules\": [\"R04\", \"R10\"], \"note\": \"8쪽 '구성성분: ethylene:' 아래 값이라 comp_ref=1\"}, {\"msds_index\": 0, \"field\": \"ecotox[5]\", \"page\": 9, \"source_text\": \"라. 토양 이동성 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[6]\", \"page\": 9, \"source_text\": \"추가 생태학적 정보 : 비전문가가 취급하거나 처리하는 경우 환경적 위험성을 배제할 수 없습니다.\", \"rules\": [\"R10\"], \"note\": \"'제품:' 아래 값이라 MIX\"}, {\"msds_index\": 0, \"field\": \"ecotox[7]\", \"page\": 9, \"source_text\": \"ethylene: 추가 생태학적 정보 : 비전문가가 취급하거나 처리하는 경우 환경적 위험성을 배제할 수 없습니다.\", \"rules\": [\"R10\"], \"note\": \"구성성분 ethylene 값이라 comp_ref=1\"}, {\"msds_index\": 0, \"field\": \"ecotox[8]\", \"page\": 9, \"source_text\": \"바. 오존층 유해성 해당없음\", \"rules\": [\"R15\"], \"note\": null}]}"
+}
