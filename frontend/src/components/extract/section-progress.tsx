@@ -83,7 +83,7 @@ const SectionRow = memo(function SectionRow({
 export function SectionValues({ docId, section }: { docId: string; section: SectionProgress }) {
   const finished = section.status === "done" || section.status === "failed";
   const { data, isPending, isError } = useQuery({
-    ...sectionResultQuery(docId, section.msds_index, section.section),
+    ...sectionResultQuery(docId, section.msds_index, section.section, section.reextracted),
     enabled: finished,
   });
 
