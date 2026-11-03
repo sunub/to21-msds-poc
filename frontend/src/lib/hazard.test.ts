@@ -2,7 +2,7 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 import type { Finding, FindingDisplay, JudgmentView } from "@/api/judgment";
-import { basisTitle, buildHazardTable, hazardFilterItems, hazardFindings, hiddenByFilter, isHazardFilter, sourceTabs, valueEmphasis } from "./hazard.ts";
+import { basisTitle, buildHazardTable, hazardFilterItems, hazardFindings, hiddenByFilter, isHazardFilter, ownSectionPage, sectionTabs, sourceTabs, valueEmphasis } from "./hazard.ts";
 
 function f(id: string, patch: Partial<Finding> = {}): Finding {
   return {
@@ -91,6 +91,25 @@ test("원문 쪽 버튼은 겹치지 않고, 2항 밖 쪽만 제목에 적는다
   assert.deepEqual(sourceTabs(d).map((t) => t.label), ["2항 p.1", "11항 p.3"]);
   assert.equal(basisTitle(d), "판단 근거와 계산 과정 · 11항 p.3");
   assert.equal(basisTitle(display({ source_pages: [{ section: 2, page: 1 }] })), "판단 근거");
+});
+
+test("판정한 항의 근거 쪽을 먼저 열고, 없으면 그 항 첫 쪽을 연다", () => {
+  // 15항에 없는 규제: 근거는 3항 성분표뿐이다. 안내대로 15항 첫 쪽(11)을 연다
+  const absent = display({ source_pages: [{ section: 3, page: 3 }] });
+  assert.equal(ownSectionPage(absent, 15, 11), 11);
+  // 판정한 항 근거가 뒤에 있어도 그 쪽을 연다
+  const both = display({ source_pages: [{ section: 3, page: 3 }, { section: 15, page: 12 }] });
+  assert.equal(ownSectionPage(both, 15, 11), 12);
+  assert.equal(ownSectionPage(null, 2, 1), 1);
+});
+
+test("판정한 항 근거가 없으면 그 항 첫 쪽 버튼을 앞에 둔다", () => {
+  const absent = display({ source_pages: [{ section: 3, page: 3 }] });
+  assert.deepEqual(sectionTabs(absent, 15, 11).map((t) => t.label), ["15항 p.11", "3항 p.3"]);
+  const own = display({ source_pages: [{ section: 15, page: 12 }, { section: 3, page: 3 }] });
+  assert.deepEqual(sectionTabs(own, 15, 11).map((t) => t.label), ["15항 p.12", "3항 p.3"]);
+  // 근거가 아예 없으면 버튼을 두지 않는다 (첫 쪽 하나뿐이라 옮겨 갈 곳이 없다)
+  assert.deepEqual(sectionTabs(display({ source_pages: [] }), 15, 11), []);
 });
 
 test("주소의 거르기 값을 확인한다", () => {
