@@ -26,6 +26,6 @@ export const routes = {
   home: () => "/",
   extract: (doc: string, page?: number) => withDoc("/extract/", doc, page ? { page: String(page) } : undefined),
   reviewMode: (doc: string) => withDoc("/review/mode/", doc),
-  review: (doc: string, tab: ReviewTab = "hazard") => withDoc("/review/", doc, { tab }),
+  review: (doc: string, tab: ReviewTab = "hazard", extra?: Record<string, string>) => withDoc("/review/", doc, { tab, ...extra }),
   save: (doc: string) => withDoc("/save/", doc),
 };
