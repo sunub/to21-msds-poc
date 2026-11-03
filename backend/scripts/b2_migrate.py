@@ -43,6 +43,10 @@ def migrate(database: str = "kdb", dev: bool = False) -> None:
     with psycopg.connect(**{**admin, "dbname": database}) as conn:
         old_stub = conn.execute("""SELECT 1 FROM information_schema.columns WHERE table_schema = 'extract'
                                    AND table_name = 'handoff' AND column_name = 'body'""").fetchone()
+        has_handoff = conn.execute("SELECT to_regclass('extract.handoff') IS NOT NULL").fetchone()[0]
+        if not dev and not has_handoff:
+            raise SystemExit("extract.handoff 가 없습니다. 팀 DB는 A 설치(deploy/htodb/TEAM_SETUP.md 6절)를 먼저 하고, "
+                             "개발용이면 --dev 를 붙이세요")
         if dev and old_stub:  # 예전 개발용 대역(body 칸)은 A2 표 모양으로 다시 만든다. 개발 DB에서만
             conn.execute("DROP TABLE extract.handoff")
             print("예전 개발용 extract.handoff(body 칸)를 지우고 다시 만듦")
