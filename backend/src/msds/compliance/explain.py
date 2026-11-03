@@ -8,6 +8,7 @@ MSDS 원문 조각(evidence) — 을 설계서 13장 요청 모양으로 만들�
     → 실패하면 문제를 알려 한 번 다시 요청 → 그래도 실패하거나 LLM이 없으면 원인 코드 문장틀(template)로 대체하고 표시
 
 판정·유형·심각도·구분은 LLM이 바꿀 수 없다. 응답에서 설명 글만 받고 판정은 엔진 값을 그대로 둔다.
+설명 근거(basis)는 LLM 줄도 엔진이 만든다(적용 규칙·지식 버전·MSDS 원문 쪽, 11/03 F 결정 14). LLM이 쓴 근거는 llm_basis 로만 남긴다.
 설명은 일치가 아닌 줄(불일치·경계·근거부족)에만 붙인다.
 """
 import csv
@@ -29,6 +30,9 @@ from .trace import cat_text
 #      원인 문장(빠진 성분·방향·표시 요소 출처)을 고치고, 방향·맞춤법('갈림니다') 검사를 더했다.
 # 4차: 표본 20줄 중 6줄의 뜻 오류(경계 이유를 지어냄, 근거부족을 '구분 1'로 씀, '행 없음'을 '성분 기재 없음'으로 읽음)를 보고
 #      규칙 7·8과 원인 문장 다듬기(trace.readable_reason, sec15 cause_text), 조문 조건 줄의 조문 원문 빼기를 더했다.
+# 11/03 별도 AI 검토: 7차 표본 30줄 중 19줄의 basis가 근거에 없는 쪽('MSDS 2쪽', 원문 없는 줄)이나 틀린 항 번호를 붙였다
+#      (아래 예시 'MSDS 1쪽 2항 기재'를 따라 씀. 원문 조각에는 항 번호가 없다). 쪽·항 번호는 작은 숫자라 숫자 검사도 통과했다.
+#      그래서 basis는 엔진이 만든다(explain_finding). 프롬프트의 basis 칸은 7차와 같은 글을 받으려고 다음 RNGD 측정 때까지 둔다.
 # 예시는 가상 제품이다(평가 문서 내용을 프롬프트에 넣지 않음, D-43과 같은 원칙).
 SYSTEM = """너는 MSDS(물질안전보건자료) 정합성 검증 결과를 검토자에게 설명하는 도우미다. 요청 JSON 하나를 읽고 설명 JSON 하나를 낸다.
 
@@ -403,14 +407,21 @@ def _summary(req) -> str:
     return f"{name}: 기준정보나 입력값이 없어 판정하지 못했습니다."
 
 
-def template(req) -> dict:
-    f, t = req["finding"], req.get("trace") or {}
-    reasons = [c["text"] for c in req.get("causes") or []] or [f.get("reason") or ""]
+def engine_basis(req) -> list[str]:
+    """설명 근거: 적용 규칙(출처) → MSDS 원문 쪽(원문 조각이 있는 것만, 최대 2개) → 지식 버전, 최대 3개.
+    요청에 있는 값만 옮기므로 없는 쪽·항 번호가 생길 수 없다. MSDS 원문 조각에는 항 번호가 없어 항은 쓰지 않는다(11/03 F 결정 14)."""
+    t = req.get("trace") or {}
     rule = t.get("rule") or {}
-    basis = [x for x in (f"적용 규칙 {rule['id']}" + (f" ({rule['basis']})" if rule.get("basis") else "") if rule.get("id") else None,
-                         f"지식 버전 {t['knowledge_version']}" if t.get("knowledge_version") else None) if x]
+    basis = [f"적용 규칙 {rule['id']}" + (f" ({rule['basis']})" if rule.get("basis") else "")] if rule.get("id") else []
     basis += [f"MSDS {e['page']}쪽: {e['text']}" for e in (req.get("evidence") or [])[:2] if e.get("page")]
-    return {"summary": _summary(req), "reasons": reasons[:_MAX_REASONS], "basis": basis[:_MAX_BASIS]}
+    basis += [f"지식 버전 {t['knowledge_version']}"] if t.get("knowledge_version") else []
+    return basis[:_MAX_BASIS]
+
+
+def template(req) -> dict:
+    f = req["finding"]
+    reasons = [c["text"] for c in req.get("causes") or []] or [f.get("reason") or ""]
+    return {"summary": _summary(req), "reasons": reasons[:_MAX_REASONS], "basis": engine_basis(req)}
 
 
 # ── 실행 ──────────────────────────────────────────────────────────────
@@ -484,6 +495,8 @@ def explain_finding(f, trace, item=None, llm=None, retries: int = 1) -> dict:
         fixed = (req.get("finding") or {}).get("type") in _DIRECTION_TYPES
         for _ in range(retries + 1):
             resp, meta = llm(SYSTEM, _user(req, problems))
+            if isinstance(resp, dict):  # 근거는 엔진이 만든다(11/03 결정 14: LLM이 없는 쪽·틀린 항 번호를 붙임). LLM 근거는 확인용
+                resp = {**resp, "llm_basis": resp.get("basis"), "basis": engine_basis(req)}
             if fixed and isinstance(resp, dict):  # 과소·과대 줄의 한 줄 요약은 문장틀로 고정(7차: 6차에서 숫자 구분끼리의
                 resp = {**resp, "llm_summary": resp.get("summary"), "summary": _summary(req)}  # 방향을 3줄 거꾸로 씀)
             problems = check(resp, req) if resp is not None else ["LLM 응답 없음: " + "; ".join(meta.get("errors") or [])]
@@ -506,6 +519,7 @@ def _out(by, resp, req, meta, problems, drafts=()):
     basis = [_clean(x) for x in resp.get("basis") or [] if _clean(x)][:_MAX_BASIS]
     summary_by = "template" if by == "template" or "llm_summary" in resp else "llm"
     llm_summary = resp.get("llm_summary")  # 요약을 문장틀로 고정한 줄의 LLM 원래 요약(사람 확인용)
+    llm_basis = [str(x) for x in resp.get("llm_basis") or []]  # LLM이 쓴 근거(사람 확인용, 화면·검사에는 안 씀)
     resp = {"summary": summary, "reasons": reasons, "basis": basis}
     text = " ".join([summary] + reasons)
     numbers = [float(n.replace(",", "")) for n in text_numbers(" ".join([text] + basis))]
@@ -514,7 +528,8 @@ def _out(by, resp, req, meta, problems, drafts=()):
             "model": meta.get("model") if by == "llm" else None,
             "seconds": meta.get("seconds") if by == "llm" else None,
             "llm_problems": list(dict.fromkeys(problems)), "llm_drafts": list(drafts),
-            **({"llm_summary": llm_summary} if llm_summary else {}), "evidence": req["evidence"]}
+            **({"llm_summary": llm_summary} if llm_summary else {}), **({"llm_basis": llm_basis} if llm_basis else {}),
+            "evidence": req["evidence"]}
 
 
 def explain_consistency(result: dict, item: dict | None = None, llm=None, *, ids=None) -> dict:
