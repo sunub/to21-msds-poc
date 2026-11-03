@@ -10,7 +10,8 @@
     "dev": "node scripts/copy-pdfjs.mjs && next dev",
     "build": "node scripts/copy-pdfjs.mjs && next build",
     "typecheck": "tsc --noEmit",
-    "test": "node --test src/lib/*.test.ts"
+    "test": "node --test src/lib/*.test.ts",
+    "labels:catalog": "node scripts/build-label-catalog.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "5.9.2",
