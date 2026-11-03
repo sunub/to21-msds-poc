@@ -26,7 +26,7 @@ def make_router(get_state: Callable, max_pdf_bytes: Callable[[], int]) -> APIRou
 
     @router.post("/api/documents", status_code=202)
     async def upload(request: Request, filename: str = Query(min_length=1, max_length=255),
-                     as_of: str | None = Query(None, pattern=_DATE)):
+                     as_of: str | None = Query(None, pattern=_DATE), reuse: bool = True):
         name = Path(filename.replace("\\", "/")).name
         if not name.lower().endswith(".pdf"):
             raise HTTPException(400, "PDF 파일만 올릴 수 있습니다")
@@ -38,7 +38,11 @@ def make_router(get_state: Callable, max_pdf_bytes: Callable[[], int]) -> APIRou
             raise HTTPException(413, f"파일이 너무 큽니다 (최대 {limit // 1024 // 1024}MB)")
         if not body.startswith(b"%PDF-"):
             raise HTTPException(400, "PDF 파일이 아닙니다")
-        state = request.app.state.store.create(body, name, as_of, pipeline.model_tag())
+        store = request.app.state.store
+        if hasattr(store, 'dsn'):
+            state = store.create(body, name, as_of, pipeline.model_tag(), reuse=reuse)
+        else:
+            state = store.create(body, name, as_of, pipeline.model_tag())
         request.app.state.worker.submit(state["id"])
         return {**progress.view(state), **queue_fields(request, state)}
 
