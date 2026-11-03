@@ -14,6 +14,7 @@ import { DocFrame } from "@/components/shell/doc-frame";
 import { Foot, Pane, Row } from "@/components/shell/layout";
 import { Progress, Skeleton, StatusLabel, Table, TableHead, buttonStyles } from "@/components/ui";
 import { useDocumentTransitions } from "@/hooks/use-document-transitions";
+import { useObservedHeight } from "@/hooks/use-observed-height";
 import { usePageParam } from "@/hooks/use-page-param";
 import { routes } from "@/lib/routes";
 import { allSectionsFailed, stageMessage } from "@/lib/status";
@@ -46,6 +47,7 @@ function ExtractBody({ docId }: { docId: string }) {
 function LoadedBody({ doc }: { doc: DocumentDetail }) {
   const [page, setPage] = usePageParam();
   const [selected, setSelected] = useState<SectionKey | null>(null);
+  const preview = useObservedHeight<HTMLDivElement>();
 
   const openSection = useCallback(
     (section: Pick<SectionProgress, "msds_index" | "section" | "pages">) => {
@@ -69,12 +71,14 @@ function LoadedBody({ doc }: { doc: DocumentDetail }) {
       <ValidationNotice status={doc.status} counts={doc.counts} validation={doc.validation} />
       <DocumentNotices doc={doc} />
       <Row>
-        <SourceViewer doc={doc} page={page} onPage={setPage} />
-        {showPreview ? (
-          <RegeneratedPreview doc={doc} onSection={openBySection} />
-        ) : (
-          <ProgressPane doc={doc} selected={selected} selectedSection={selectedSection} onSelect={openSection} />
-        )}
+        <SourceViewer doc={doc} page={page} onPage={setPage} panelHeight={preview.height} />
+        <div ref={preview.ref} className="min-w-0 grow basis-105">
+          {showPreview ? (
+            <RegeneratedPreview doc={doc} onSection={openBySection} />
+          ) : (
+            <ProgressPane doc={doc} selected={selected} selectedSection={selectedSection} onSelect={openSection} />
+          )}
+        </div>
       </Row>
       <ExtractFoot doc={doc} />
     </>

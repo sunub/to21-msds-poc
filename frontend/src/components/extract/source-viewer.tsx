@@ -17,6 +17,7 @@ export function SourceViewer({
   page,
   onPage,
   highlight,
+  panelHeight,
   className,
 }: {
   doc: DocumentDetail;
@@ -24,6 +25,8 @@ export function SourceViewer({
   onPage: (page: number) => void;
   /** 근거 글. 이 글에 들어 있는 줄을 강조한다 (근거에 줄 번호가 없어 글로 찾으므로 같은 글이 여러 줄이면 모두 강조된다) */
   highlight?: string | null;
+  /** 옆 작업 카드의 높이. 원문은 이 영역 안에서 스크롤한다. */
+  panelHeight?: number;
   className?: string;
 }) {
   const total = doc.page_count ?? doc.preprocess.total ?? 0;
@@ -32,7 +35,8 @@ export function SourceViewer({
   return (
     <Pane
       title="원문"
-      className={cn("basis-115 print:hidden", className)}
+      className={cn("basis-115 print:hidden", panelHeight !== undefined && "min-h-0", className)}
+      style={panelHeight === undefined ? undefined : { height: panelHeight }}
       aside={
         total > 0 && (
           <div className="flex items-center gap-2">
@@ -49,30 +53,32 @@ export function SourceViewer({
         )
       }
     >
-      {ready ? (
-        doc.text_layer === "정상" ? (
-          <Paper>
-            <PageLines id={doc.id} page={page} highlight={highlight} />
-          </Paper>
+      <div className={panelHeight === undefined ? undefined : "min-h-0 flex-1 overflow-y-auto"}>
+        {ready ? (
+          doc.text_layer === "정상" ? (
+            <Paper>
+              <PageLines id={doc.id} page={page} highlight={highlight} />
+            </Paper>
+          ) : (
+            <PageImage key={`${doc.id}-${page}`} id={doc.id} page={page} />
+          )
         ) : (
-          <PageImage key={`${doc.id}-${page}`} id={doc.id} page={page} />
-        )
-      ) : (
-        <Paper className="items-center justify-center gap-4">
-          <Spinner label="쪽 이미지를 만드는 중" />
-          <span className="text-base">
-            {doc.status === "queued" ? "차례를 기다리고 있습니다" : "쪽 이미지를 만드는 중입니다"}
-          </span>
-          {total > 0 && (
-            <div className="w-full">
-              <Progress value={(doc.preprocess.done / total) * 100} label="쪽 이미지 진행" />
-              <p className="mt-2 text-center text-mut tabular-nums">
-                {doc.preprocess.done} / {total}쪽
-              </p>
-            </div>
-          )}
-        </Paper>
-      )}
+          <Paper className="items-center justify-center gap-4">
+            <Spinner label="쪽 이미지를 만드는 중" />
+            <span className="text-base">
+              {doc.status === "queued" ? "차례를 기다리고 있습니다" : "쪽 이미지를 만드는 중입니다"}
+            </span>
+            {total > 0 && (
+              <div className="w-full">
+                <Progress value={(doc.preprocess.done / total) * 100} label="쪽 이미지 진행" />
+                <p className="mt-2 text-center text-mut tabular-nums">
+                  {doc.preprocess.done} / {total}쪽
+                </p>
+              </div>
+            )}
+          </Paper>
+        )}
+      </div>
     </Pane>
   );
 }
