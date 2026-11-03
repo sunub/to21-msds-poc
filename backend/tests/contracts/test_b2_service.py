@@ -712,6 +712,35 @@ def test_서비스는_관리자_비밀번호_없이_시작한다(monkeypatch):
     assert writer_kwargs("x")["user"] == "judge_writer"
 
 
+@pytest.mark.parametrize("summary, bad", [(": ", True), (":", True), ("- 1.", True), ("", True),
+                                          ("흡인유해성은 동점도 값이 없어 판정하지 못했습니다.", False)])
+def test_글이_없는_요약은_검사에_걸린다(summary, bad):
+    # 실제 모델(Qwen3.6 35B)이 근거부족·경계 줄에서 요약을 ": "로 자주 보냈다. 공백만 막던 검사를 통과해 화면에 ':'만 나갔다
+    req = {"finding": {"section": "2", "kind": "class", "verdict": "근거부족", "msds": {"category": "1"}, "expected": {}}}
+    assert ("요약에 글이 없음" in ex.claim_problems({"summary": summary}, req)) is bad
+    fixed = {"finding": {**req["finding"], "type": next(iter(ex.engine._DIRECTION_TYPES))}}
+    assert "요약에 글이 없음" not in ex.claim_problems({"summary": ": "}, fixed)  # 과소·과대 요약은 문장틀로 덮어쓴다
+
+
+def test_설명_모델은_문법_강제_없이_받는다(monkeypatch):
+    # json_schema 강제로 받으면 실제 모델이 요약을 ": "로 자주 채웠다 (T-26). 설명만 바꾸고 같은 모델을 쓰는 추출에는 번지지 않아야 한다
+    from msds.extract.client import ChatClient, load_model_config
+    tag = ex.EXPLAIN_MODEL_DEFAULT
+    cfg = load_model_config(tag)
+    monkeypatch.setenv(cfg["base_url_env"], "http://127.0.0.1:9/v1")
+    if cfg.get("api_key_env"):
+        monkeypatch.setenv(cfg["api_key_env"], "test")
+    monkeypatch.setenv("MSDS_EXPLAIN_MODEL", tag)
+    llm = ex.make_llm()
+    assert llm is not None and llm.client.cfg["structured"] == ["none"]
+    assert load_model_config(tag)["structured"][0] == "json_schema"
+    # 설명 호출이 성공해 방식을 기억해도(client.py의 기록과 같은 동작) 추출 클라이언트가 쓰는 공용 기억은 그대로다
+    monkeypatch.setattr(ChatClient, "_working_mode", {})
+    llm.client._working_mode[llm.client.model] = "none"
+    assert ChatClient._working_mode == {}
+    assert ChatClient(cfg)._working_mode.get(llm.client.model) is None
+
+
 @pytest.mark.parametrize("text", [
     "MSDS 기재와 계산 결과가 일치합니다.", "두 값이 동일합니다.", "불일치입니다.", "차이가 없습니다.", "산출한 분류는 구분 3입니다."])
 def test_판정과_반대되는_설명은_검사에_걸린다(text):
