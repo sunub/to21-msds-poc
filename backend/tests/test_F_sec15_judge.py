@@ -161,6 +161,26 @@ def test_결정5_폐기물은_참고_위험물은_9항_인화점으로():
     assert one(judge_sec15(inputs(regs, physchem=unflam), Fake({A: []})), "DG_HAZMAT", "MIX")["verdict"] == "일치"
 
 
+def test_위험물_이유_글은_최종_판정과_다른_결론을_적지_않는다():
+    """문제 32: 경계 조건이 있어도 MSDS가 해당으로 적으면 해당이다. 이유 글에 '→ 경계'가 남으면 판정과 어긋난다."""
+    liquid = {"APPEARANCE_STATE": [{"comp_ref": "MIX", "text_value": "액체"}],
+              "FLASH_POINT": [{"comp_ref": "MIX", "q": {"value": 50, "status": "값있음"}}]}
+    said = lambda s: [sup("DG_HAZMAT", "DG", s, ref="MIX")]
+    hit = one(judge_sec15(inputs(said("해당"), physchem=liquid), Fake({A: []})), "DG_HAZMAT", "MIX")
+    assert hit["verdict"] == "일치" and "→ 경계" not in hit["reason"], hit["reason"]
+    border = one(judge_sec15(inputs(said("비해당"), physchem=liquid), Fake({A: []})), "DG_HAZMAT", "MIX")
+    assert border["verdict"] == "경계" and "40" in border["reason"], border["reason"]  # 경계 이유(가연성 액체량 40%)는 남는다
+
+
+@pytest.mark.parametrize("state", ["입자가 없는 투명 액체", "투명한 액체 (이물질·입자 없음)", "결정이 없는 무색 액체", "고체가 아님, 투명 액체", "고체가 아니고 액체임"])
+def test_입자가_없다는_액체는_고체로_보지_않는다(state):
+    """문제 32: '입자가 없는'의 '입자'를 고체 단서로 읽어 액체인지 불확실(경계)로 두던 것."""
+    phys = {"APPEARANCE_STATE": [{"comp_ref": "MIX", "text_value": state}],
+            "FLASH_POINT": [{"comp_ref": "MIX", "q": {"value": 12, "status": "값있음"}}]}
+    dg = one(judge_sec15(inputs([sup("DG_HAZMAT", "DG", "비해당", ref="MIX")], physchem=phys), Fake({A: []})), "DG_HAZMAT", "MIX")
+    assert (dg["verdict"], dg["type"], dg["db_threshold"]) == ("불일치", "규제 누락", "제1석유류"), dg["reason"]
+
+
 def test_같은_입력이면_같은_결과():
     args = (inputs([sup("OSH_MEASURE", "OSH", "비해당")]), Fake({A: [db("OSH_MEASURE", "OSH", 1)]}))
     assert judge_sec15(*args) == judge_sec15(*args)
@@ -512,3 +532,22 @@ def test_일월_순서를_모르는_날짜는_읽지_않는다(raw):
 
     assert _ymd(raw) is None
     assert _ymd("99-12-31") == "1999-12-31"
+
+
+@pytest.mark.parametrize("state", ["백색 분말, 이물질 없음", "흰색 결정, 이물질이 없음", "백색 결정·이물질 없음", "분말, 입자 없음",
+                                   "입자 없는 분말", "흰색 결정, 냄새 없음", "결정성 분말", "고체, 녹는점 없음"])
+def test_고체_뒤에_다른_것이_없다고_써도_고체다(state):
+    """'이물질 없음'의 부정이 앞의 고체 단어까지 지우면 고체가 제4류 품명을 받는다(검증 D1)."""
+    from msds.compliance.sec15_judge import _class4
+    phys = {"APPEARANCE_STATE": [{"comp_ref": "MIX", "text_value": state}],
+            "FLASH_POINT": [{"comp_ref": "MIX", "q": {"value": 50, "status": "값있음"}}]}
+    assert _class4(phys)[0] is None
+
+
+def test_순물질에는_혼합물_예외를_경계_조건으로_붙이지_않는다():
+    """가연성 액체량 40% 이하·도료류 예외는 혼합물 규정이다(시행령 별표 1 비고)."""
+    from msds.compliance.sec15_judge import _class4
+    phys = {"APPEARANCE_STATE": [{"comp_ref": "MIX", "text_value": "액체"}],
+            "FLASH_POINT": [{"comp_ref": "MIX", "q": {"value": 50, "status": "값있음"}}]}
+    assert _class4(phys)[:2] == ("제2석유류", True) and _class4(phys, mixture=False)[:2] == ("제2석유류", False)
+    assert "40%" not in _class4(phys, mixture=False)[2]
