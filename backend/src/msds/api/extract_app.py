@@ -29,12 +29,15 @@ from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field, field_validator, model_validator
 
 from msds.checks.validator import load_to21_module
+from msds.checks.final_validation import summarize_checks
 from msds.api.jobs_routes import make_router
 from msds.common import paths
 from msds.extract.inputs import read_page_lines
 from msds.extract.section_runner import raw_path
 from msds.service import pipeline, regenerated, review
 from msds.service.jobs import ReviewNotReady
+from msds.service.results import ResultConflict, ResultNotReady, ResultStore
+from msds.service.handoff import HandoffNotReady, extraction_date, publish_handoff
 from msds.service.store import DocumentStore, now_kst
 from msds.service.worker import Worker
 
@@ -97,6 +100,7 @@ def create_app(store: DocumentStore | None = None, worker=None, pages_dir: Path 
         elif db_url and store is None:
             from msds.service.worker import PostgresWorker
             wk = PostgresWorker(st,
+                result_store=ResultStore(st.dsn, schema=st.schema),
                 preprocess_workers=int(os.environ.get("MSDS_PREPROCESS_WORKERS", "1")),
                 extract_workers=int(os.environ.get("MSDS_EXTRACT_WORKERS", "1")))
         else:
@@ -116,6 +120,12 @@ def create_app(store: DocumentStore | None = None, worker=None, pages_dir: Path 
     @app.exception_handler(ReviewNotReady)
     async def review_not_ready(request: Request, exc: ReviewNotReady):
         return JSONResponse(status_code=409, content={"detail": "작업이 다시 실행되어 이전 결과를 검수할 수 없습니다"})
+
+    @app.exception_handler(ResultNotReady)
+    @app.exception_handler(ResultConflict)
+    @app.exception_handler(HandoffNotReady)
+    async def result_conflict(request: Request, exc: Exception):
+        return JSONResponse(status_code=409, content={"detail": str(exc)})
 
     pages_root = Path(pages_dir) if pages_dir else None
     app.add_middleware(CORSMiddleware, allow_methods=["*"], allow_headers=["*"],
@@ -184,9 +194,50 @@ def create_app(store: DocumentStore | None = None, worker=None, pages_dir: Path 
         if not out.is_file():
             raise HTTPException(404, "결과 파일이 없습니다")
         chk = json.loads(checks.read_text(encoding="utf-8")) if checks.is_file() else {}
-        return {"to21": json.loads(out.read_text(encoding="utf-8")),
-                "needs_review": chk.get("needs_review", []), "warnings": chk.get("warnings", []),
+        doc = json.loads(out.read_text(encoding="utf-8"))
+        try:
+            validation = summarize_checks(doc, chk)
+        except ValueError:
+            validation = {"status": "unavailable"}
+        return {"to21": doc,
+                "needs_review": validation.get("needs_review", chk.get("needs_review", [])),
+                "warnings": chk.get("warnings", []), "validation": validation,
                 "schema_errors": chk.get("schema_errors", []), "to21_validator": chk.get("to21_validator", [])}
+
+    @app.post("/api/documents/{doc_id}/results/persist")
+    def persist_completed_result(request: Request, doc_id: str):
+        """Persist a previously completed, currently published PostgreSQL attempt."""
+        state = get_state(request, doc_id)
+        store = request.app.state.store
+        if not hasattr(store, "dsn") or not hasattr(store, "schema"):
+            raise HTTPException(409, "PostgreSQL 작업에서만 결과를 저장할 수 있습니다")
+        token = state.get("_active_token")
+        if state["status"] != "done" or not token:
+            raise HTTPException(409, "완료된 현재 추출 결과가 없습니다")
+        out, checks = result_paths(request, doc_id)
+        if not out.is_file() or not checks.is_file():
+            raise HTTPException(409, "추출 결과 또는 검사 기록이 없습니다")
+        doc = json.loads(out.read_text(encoding="utf-8"))
+        chk = json.loads(checks.read_text(encoding="utf-8"))
+        try:
+            validation = summarize_checks(doc, chk)
+        except ValueError as exc:
+            raise HTTPException(409, f"검사 기록을 확인할 수 없습니다: {exc}") from exc
+        saved = ResultStore(store.dsn, schema=store.schema).save_completed(doc_id, token, doc, chk)
+        return {"job_id": doc_id, "validation": validation, **saved}
+
+    @app.post("/api/documents/{doc_id}/handoffs", status_code=201)
+    def create_handoff(request: Request, doc_id: str):
+        """Publish the extraction snapshot using its actual extraction date."""
+        get_state(request, doc_id)
+        store = request.app.state.store
+        if not hasattr(store, "dsn") or not hasattr(store, "schema"):
+            raise HTTPException(409, "PostgreSQL 작업에서만 판정용 전달을 만들 수 있습니다")
+        saved = ResultStore(store.dsn, schema=store.schema).get_active(doc_id)
+        as_of = extraction_date(saved.get("extracted_at"))
+        payload = publish_handoff(store, doc_id, as_of=as_of, schema=store.schema)
+        return {"job_id": doc_id, "handoff_seq": payload["handoff_seq"], "as_of": payload["as_of"],
+                "extraction_sha256": payload["extraction_sha256"], "validator": payload["checks"]["validator"]}
 
     @app.get("/api/documents/{doc_id}/sections/{msds_index}/{section}")
     def section_result(request: Request, doc_id: str, msds_index: int = PathParam(ge=0),
