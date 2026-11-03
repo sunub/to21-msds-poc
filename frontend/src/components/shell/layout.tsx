@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
 import { Card, Paper, Skeleton } from "@/components/ui";
 import { cn } from "@/lib/cn";
 
@@ -15,15 +15,17 @@ export function Pane({
   title,
   aside,
   className,
+  style,
   children,
 }: {
   title: string;
   aside?: ReactNode;
   className?: string;
+  style?: CSSProperties;
   children: ReactNode;
 }) {
   return (
-    <Card className={cn("flex min-w-0 grow flex-col gap-3.5", className)}>
+    <Card className={cn("flex min-w-0 grow flex-col gap-3.5", className)} style={style}>
       <div className="flex flex-wrap items-baseline justify-between gap-3">
         <h2 className="text-lg font-bold">{title}</h2>
         {aside}
