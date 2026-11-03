@@ -32,6 +32,7 @@ dev = [
   "httpx==0.28.1",           # API 시험 (fastapi TestClient)
   "requests==2.34.2",        # scripts/check_router.py 크레딧 조회
   "pymssql==2.4.6",          # scripts/load_htodb.py: TO21 HTODB(SQL Server mdf) 읽기, 적재 때만
+  "pillow==13.0.0",                 # tests/test_unit_fidelity.py 가 가짜 쪽 이미지를 만든다 (본 코드 preprocess/unit_fidelity 도 사용)
 ]
 # OCR 실험 (역할 C, ocr_batch_version*.py). GPU 휠은 Linux 에만 있다. 폐쇄망 반입 여부는 미정
 ocr = [
