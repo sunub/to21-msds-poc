@@ -14,8 +14,9 @@ from psycopg import sql
 import pytest
 from fastapi.testclient import TestClient
 
-from msds.service.jobs import LeaseLost, PostgresJobStore
+from msds.service.jobs import LeaseLost, PostgresJobStore, ReviewNotReady
 from msds.service.results import ResultConflict, ResultNotReady, ResultStore, canonical_sha256
+from msds.service import review
 
 
 def test_json_hash_is_canonical_and_rejects_nonfinite_values():
@@ -65,6 +66,39 @@ def test_validate_schema_checks_required_result_table(stores):
 def finish(store, job, claimed):
     store.bind(job['id'], claimed['lease_token']).apply(job['id'], {'type': 'done', 'summary': {}})
     return store.complete(job['id'], claimed['lease_token'])
+
+
+def test_review_events_survive_restart_and_retry_without_changing_extraction(stores):
+    jobs, results, schema = stores
+    job, claim = start_extraction(jobs)
+    doc = {'msds': [{'product': {'name': '원본'}}]}
+    jobs.bind(job['id'], claim['lease_token']).apply(job['id'], {
+        'type': 'plan', 'msds_count': 1,
+        'sections': [{'msds_index': 0, 'section': 1, 'pages': [1]}],
+    })
+    jobs.bind(job['id'], claim['lease_token']).apply(job['id'], {
+        'type': 'section_done', 'msds_index': 0, 'section': 1, 'ok': False,
+        'needs_review': True, 'reextracted': True, 'errors': ['확인 필요'],
+    })
+    results.save_for_lease(job['id'], claim['lease_token'], doc, {})
+    finish(jobs, job, claim)
+    jobs.update_review(job['id'], lambda record: review.set_field(
+        record, doc, 0, 'product.name', 'edit', '수정', '검토자', '2026-11-03T12:00:00+09:00'))
+    restarted = PostgresJobStore(jobs.dsn, jobs.root, schema=schema)
+    current = restarted.load_review(job['id'])
+    assert review.apply_edits(doc, current)['msds'][0]['product']['name'] == '수정'
+    assert results.get_active(job['id'])['extraction'] == doc
+    with psycopg.connect(jobs.dsn) as db:
+        rows = db.execute(sql.SQL('SELECT result_id, action, field_path, reviewer FROM {} WHERE job_id=%s')
+                          .format(sql.Identifier(schema, 'reviews')), (job['id'],)).fetchall()
+    assert rows == [(f"a2-{job['id']}-{claim['lease_token']}-extraction", 'edit', 'product.name', '검토자')]
+    restarted.requeue(job['id'])
+    with pytest.raises(ReviewNotReady):
+        restarted.load_review(job['id'])
+    with psycopg.connect(jobs.dsn) as db:
+        count = db.execute(sql.SQL('SELECT count(*) FROM {} WHERE job_id=%s')
+                           .format(sql.Identifier(schema, 'reviews')), (job['id'],)).fetchone()[0]
+    assert count == 1
 
 
 def test_atomic_pair_is_idempotent_and_visible_only_after_completion(stores):
