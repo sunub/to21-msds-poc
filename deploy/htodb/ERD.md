@@ -7,15 +7,15 @@
 
 조회 API가 이 테이블을 어떻게 읽는지는 [API.md](API.md)에 있습니다.
 
-> 행 수와 코드 종류는 2026-11-01 로컬 적재본 기준이고, 다시 적재하면 바뀔 수 있습니다. 데이터 값은 적지 않습니다(D-47).
+> 행 수와 코드 종류는 2026-11-01에 센 로컬 적재본(`htodb-94f8b6ff7f24`, 원본 `HTODB.zip` 해시) 기준이고, 다시 적재하면 바뀔 수 있습니다. 데이터 값은 적지 않습니다(D-47).
 
 ## 읽는 법
 
-- **FK 제약이 없습니다.** 관계선과 `FK` 표시는 조회 코드(`repo.py`)가 쓰는 조인을 적은 논리 관계입니다.
+- **FK 제약이 없습니다.** 관계선과 `FK` 표시는 컬럼 짝을 적은 논리 관계입니다. 조회 코드(`repo.py`)는 SQL `JOIN`을 쓰지 않고 테이블마다 따로 읽습니다. 그래서 선과 다르게 읽는 곳이 있습니다: 분류 문구(`classifications`의 `codes`)는 `class_result_code`로만 가져오고 `hcode_seq`를 보지 않아, 일부 물질은 자기 분류 행에 없는 문구까지 받습니다.
   - 실선: 짝이 모두 맞는 관계입니다.
   - 점선: 짝 없는 행이 조금 있는 관계입니다. 건수는 맨 아래 관계 목록에 있습니다.
 - **`_lang`·`_master` 기준정보 테이블:** PK에 `lang_code` 등이 들어 있지만 지금은 값이 하나뿐입니다(`ko`). 조인은 코드 컬럼만으로 합니다.
-- **생략한 컬럼:** 모든 테이블에 반복되는 감사 컬럼(`is_del`/`del_yn`, `init_*`, `update_*`, `tran_src`)은 그림에서 뺐습니다.
+- **생략한 컬럼:** 모든 테이블에 반복되는 감사 컬럼(`is_del`/`del_yn`, `init_*`, `update_*`, `tran_src`)은 그림에서 뺐습니다. 다만 `del_yn`은 실제 삭제 표시입니다. `tb_ghs_hcode_phrase`·`tb_ghs_hcode_phrase_lang`에 `del_yn='Y'` 행이 2건씩(H229) 있고, 조회 API는 이 행을 거르지 않습니다.
 - **타입:** 날짜와 숫자도 대부분 글자(`varchar`)입니다. NOT NULL은 PK 컬럼에만 있습니다.
 - **도구:** Mermaid로 그렸습니다. GitHub와 PR에서 바로 그림으로 보이고, 외부 서비스에 구조를 올리지 않아도 됩니다. 복합 키는 선 이름에 `+`로 적었습니다.
 
@@ -184,7 +184,7 @@ erDiagram
         varchar(20) lang_code PK
         varchar(20) db_source_code PK "KR03 고용노동부"
         varchar(4000) primary_value_text "원문 문장"
-        varchar(1000) primary_value "= 값일 때만 숫자(글자)"
+        varchar(1000) primary_value "문장에서 뽑은 숫자(글자). 부등호 문장에도 채워짐"
         varchar(2000) source
     }
     tb_ghs_div_master {
@@ -201,7 +201,7 @@ erDiagram
         varchar(20) lang_code PK
         varchar(20) db_source_code PK "KR03 고용노동부"
         varchar(4000) primary_value_text "원문 문장"
-        varchar(200) primary_value "= 값일 때만 숫자(글자)"
+        varchar(200) primary_value "문장에서 뽑은 숫자(글자). 부등호 문장에도 채워짐"
         varchar(4000) source_desc
     }
     tb_eng_physical_property_lang {
@@ -213,7 +213,7 @@ erDiagram
     }
 ```
 
-- 값은 대부분 `primary_value_text`(원문 문장)에 있습니다. `primary_value`는 '=' 값일 때만 채워져 있고, 그것도 글자입니다. API의 `parsed=true`가 문장에서 숫자를 뽑아 따로 붙입니다(API.md 참고).
+- 값은 대부분 `primary_value_text`(원문 문장)에 있습니다. `primary_value`는 글자이고, '=' 값만 채워진 것이 아닙니다. 부등호 문장(`>`, `<` 등)인데 숫자가 채워진 행(독성 수십 행, 물성 몇 행), 천 단위 쉼표가 든 값(독성 87행, 물성 22행)도 있습니다. 부등호 문장에서는 부등호가 빠진 채 숫자만 남거나, 문장 안 다른 숫자가 들어간 경우도 있으니 `primary_value`만 보고 판단하지 마세요. API의 `parsed=true`가 문장에서 숫자를 뽑아 따로 붙입니다(API.md 참고).
 - `experiment_div`는 대부분 `div_code`의 앞 다섯 글자와 같지만 다른 행도 있습니다(27행). 같다고 가정하고 조인하지 마세요.
 
 ### ③ 규제 · 노출기준
