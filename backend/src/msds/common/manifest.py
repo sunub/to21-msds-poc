@@ -70,9 +70,10 @@ def _nfc(s: str) -> str:
 
 
 def raw_pdf(row: dict) -> Path:
-    """manifest 행의 원본 PDF 경로를 data/raw/ 에서 찾는다(한글 정규화 차이 무시)."""
+    """manifest 행의 원본 PDF 경로를 data/raw/ 와 그 하위 폴더에서 찾는다(한글 정규화 차이 무시).
+    같은 이름이 여러 곳에 있으면 얕은 경로를 먼저 쓴다."""
     target = _nfc(row["source_file"])
-    for p in RAW.iterdir():
-        if _nfc(p.name) == target:
-            return p
+    found = [p for p in RAW.rglob("*") if p.is_file() and _nfc(p.name) == target]
+    if found:
+        return min(found, key=lambda p: (len(p.parts), str(p)))
     raise FileNotFoundError(f"data/raw/ 에 원본이 없습니다: {row['source_file']} ({row['doc_id']})")

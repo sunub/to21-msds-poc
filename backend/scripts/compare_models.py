@@ -71,7 +71,8 @@ def select_docs(runs: list[dict], gold_dir: Path, docs: list[str] | None = None)
         excluded.append({"doc_id": d, "reason": f"결과 없음: {', '.join(lacking)}"})
     check = sorted(candidates | set(docs or []))
     if check:
-        evals = [r["doc_id"] for r in manifest.select(None, check) if r["purpose"] == "평가"]
+        # manifest 밖 문서는 평가용이 아니다(run_sections와 같은 기준). 정답이 없으면 아래에서 "정답 없음"으로 빠진다.
+        evals = [r["doc_id"] for r in manifest.load() if r["doc_id"] in check and r["purpose"] == "평가"]
         if evals:
             raise ValueError(f"평가용 문서는 비교에 쓸 수 없습니다({', '.join(evals)}). 평가용 채점은 F의 score.py로 합니다 (D-43)")
     scored = []
