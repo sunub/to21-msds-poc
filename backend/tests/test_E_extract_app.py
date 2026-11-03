@@ -275,7 +275,9 @@ def test_regenerated_reports_failure_of_provided_script(ctx, monkeypatch):
 
     monkeypatch.setattr(extract_app, "load_regen", boom)
     r = client.get(f"/api/documents/{doc}/regenerated")
-    assert r.status_code == 500 and "재생성하지 못했습니다" in r.json()["detail"] and "KeyError" in r.json()["detail"]
+    detail = r.json()["detail"]
+    assert r.status_code == 500 and "재생성하지 못했습니다" in detail and "KeyError" in detail
+    assert doc in detail and "개발 담당" in detail                       # 무슨 일인지와 누구에게 무엇을 알릴지
 
 
 def test_retry_only_failed_or_interrupted(ctx):
