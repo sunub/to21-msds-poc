@@ -1,0 +1,23 @@
+:root {
+  /* 파랑 계열 기본 팔레트 (msds_review_prototype 기준) */
+  --ink: #0B1F33; --mut: #5A6B7D; --line: #DDE6F0; --line2: #EAF0F7;
+  --bg: #F5F9FD; --tint: #F0F6FD; --sel: #EAF3FF;
+  --blue: #2563EB; --blue2: #1D4ED8; --blue-soft: #E3EFFC; --blue-line: #9DBFF0;
+  --red: #B42318; --amb: #D97706; --grn: #15803D; --gry: #64748B;
+  --amb-text: #92400E; --warn: #B45309; --stale: #6D5BD0;
+  --field-line: #C7D6E6; --sub: #334155;
+
+  /* 이전 이름과 호환되는 별칭 */
+  --surface: #ffffff; --surface-container-low: var(--tint); --surface-container: var(--bg);
+  --surface-container-high: var(--line2); --surface-container-highest: var(--line);
+  --on-surface: var(--ink); --on-surface-variant: var(--mut);
+  --outline: #9FB0C3; --outline-variant: var(--line);
+  --primary: var(--blue); --on-primary: #ffffff;
+  --primary-container: var(--blue-soft); --on-primary-container: var(--blue2);
+  --error: var(--red); --focus-ring: var(--blue);
+
+  --font-sans: "Noto Sans KR", "Pretendard", "Malgun Gothic", system-ui, sans-serif;
+  --font-mono: "Noto Sans Mono", "D2Coding", ui-monospace, monospace;
+  --radius-xs: 4px; --radius-sm: 6px; --radius-md: 8px; --radius-lg: 8px; --radius-full: 999px;
+  --target-min: 36px;
+}
