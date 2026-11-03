@@ -13,6 +13,7 @@ GET  /api/documents/{id}/pages/{n}/image   쪽 이미지 (전처리 뒤)
 GET  /api/documents/{id}/pages/{n}/lines   줄 번호 붙은 쪽 글 (근거 줄 p2:L23과 같은 번호)
 GET  /api/documents/{id}/result            끝난 뒤 TO21 JSON과 사람이 볼 항. 끝나기 전에는 409
 POST /api/documents/{id}/retry             실패·멈춘 문서를 처음부터 다시
+POST /api/documents/{id}/to-judgment       추출값 확인을 마치고 판정으로 넘김 (본문 {reviewer}, 응답 {job_id, handoff_seq})
 """
 from __future__ import annotations
 
@@ -62,6 +63,10 @@ class FieldReview(BaseModel):
         if self.action == "edit" and self.value is None:
             raise ValueError("수정에는 value가 필요합니다")
         return self
+
+
+class ToJudgment(BaseModel):
+    reviewer: str = Field(min_length=1, max_length=40, pattern=r"\S")
 
 
 class SectionReview(BaseModel):
@@ -267,9 +272,7 @@ def create_app(store: DocumentStore | None = None, worker=None, pages_dir: Path 
                 "validation": summarize_checks(saved["extraction"], saved["checks"]),
                 "extraction_sha256": saved["extraction_sha256"], "checks_sha256": saved["checks_sha256"]}
 
-    @app.post("/api/documents/{doc_id}/handoffs", status_code=201)
-    def create_handoff(request: Request, doc_id: str):
-        """Publish the extraction snapshot using its actual extraction date."""
+    def publish_for(request: Request, doc_id: str, reason: str) -> dict:
         get_state(request, doc_id)
         store = request.app.state.store
         if not hasattr(store, "dsn") or not hasattr(store, "schema"):
@@ -278,9 +281,20 @@ def create_app(store: DocumentStore | None = None, worker=None, pages_dir: Path 
         doc = saved.get("extraction") or {}
         actual = (doc.get("doc", {}).get("extraction") or {}).get("extracted_at")
         as_of = extraction_date(actual)
-        payload = publish_handoff(store, doc_id, as_of=as_of, schema=store.schema)
+        return publish_handoff(store, doc_id, as_of=as_of, reason=reason, schema=store.schema)
+
+    @app.post("/api/documents/{doc_id}/handoffs", status_code=201)
+    def create_handoff(request: Request, doc_id: str):
+        """Publish the extraction snapshot using its actual extraction date."""
+        payload = publish_for(request, doc_id, "extraction_done")
         return {"job_id": doc_id, "handoff_seq": payload["handoff_seq"], "as_of": payload["as_of"],
                 "extraction_sha256": payload["extraction_sha256"], "validator": payload["checks"]["validator"]}
+
+    @app.post("/api/documents/{doc_id}/to-judgment", status_code=201)
+    def to_judgment(request: Request, doc_id: str, body: ToJudgment):
+        """추출값 확인을 마치고 판정으로 넘긴다 (넘김②, reason=values_reviewed)."""
+        payload = publish_for(request, doc_id, "values_reviewed")
+        return {"job_id": doc_id, "handoff_seq": payload["handoff_seq"]}
 
     @app.get("/api/documents/{doc_id}/sections/{msds_index}/{section}")
     def section_result(request: Request, doc_id: str, msds_index: int = PathParam(ge=0),
