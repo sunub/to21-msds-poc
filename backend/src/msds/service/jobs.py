@@ -254,6 +254,9 @@ class PostgresJobStore:
             state.pop('_working_token', None)
             state.pop('_pending_terminal', None)
             state.pop('reused_from', None)
+            # A manual retry requests a new extraction, including when an older
+            # duplicate has since become eligible for reuse.
+            state['reuse_requested'] = False
             state['updated_at'] = now_kst()
             db.execute(sql.SQL("""UPDATE {} SET status='queued', stage=NULL, progress_json=%s,
                 attempt_no=0, lease_token=NULL, lease_expires_at=NULL, updated_at=now() WHERE job_id=%s""")
