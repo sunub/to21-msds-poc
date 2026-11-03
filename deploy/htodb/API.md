@@ -41,7 +41,7 @@ cd backend && .venv/bin/uvicorn --app-dir src msds.api.htodb_app:app --port 8010
 "data": {"total": 1, "rows": [{"chem_id": "C0000001", "cas_no": "0000-00-0", "chem_name_ko": "예시물질", "...": "..."}]}
 ```
 
-`total`이 2 이상이면 CAS 하나에 물질이 여러 개 걸린 것입니다. 어느 물질인지는 호출하는 쪽에서 골라야 합니다.
+CAS는 물질마다 하나라서 `cas` 조회는 0건 아니면 1건입니다. `total`이 2 이상인 경우는 `ke`·`un` 조회에서 나옵니다(같은 KE 번호가 여러 물질에 걸린 값 584개, UN 번호 289개). 어느 물질인지는 호출하는 쪽에서 골라야 합니다.
 
 오류: 키를 0개나 2개 이상 주면 422.
 
@@ -117,7 +117,7 @@ cd backend && .venv/bin/uvicorn --app-dir src msds.api.htodb_app:app --port 8010
 
 | 찾는 위치 (`msds[i]` 안) | `kind` | 붙는 결과 |
 |---|---|---|
-| `components[].cas_no`, `.ke_no`, `transport[].un_no` | `cas`, `ke`, `un` | `lookup_key`, `chemicals`. CAS로 물질이 **딱 하나** 찾아지면 `details`(그 물질의 분류·독성·물성·규제·노출기준 전부) |
+| `components[].cas_no`, `.ke_no`, `transport[].un_no` | `cas`, `ke`, `un` | `lookup_key`, `chemicals`(`rows`는 앞 50행만 담고 따로 알리지 않습니다. 전체 수는 `total`로 보세요. UN 번호 하나에 2,135개 물질이 걸린 경우도 있습니다). CAS로 물질이 **딱 하나** 찾아지면 `details`(그 물질의 분류·독성·물성·규제·노출기준 전부) |
 | `hazard.classes[]`, `hazard.classified=false` | `hazard_class` | `mapping`, `reference`(분류 코드 이름) |
 | `hazard.pictograms[].code`, `hazard.signal_word` | `pictogram`, `signal_word` | `mapping` |
 | `hazard.h_statements[].code` | `h_code` | `reference` |
