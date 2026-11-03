@@ -114,6 +114,9 @@ def put_test_handoff(request: Request, body: dict):
         _svc(request).put_test_handoff(body)
     except psycopg.errors.UniqueViolation as e:
         raise HTTPException(409, "이미 있는 넘김 번호") from e
+    except (psycopg.errors.ForeignKeyViolation, psycopg.errors.CheckViolation) as e:
+        # A2 표에서는 작업(extract.jobs)이 있어야 하고 본문 형식 검사를 통과해야 한다
+        raise HTTPException(422, f"넘김 표 조건을 만족하지 않음: {e.diag.constraint_name or type(e).__name__}") from e
     return {"job_id": body["job_id"], "handoff_seq": seq}
 
 

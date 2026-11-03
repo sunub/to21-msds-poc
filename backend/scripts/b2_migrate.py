@@ -41,6 +41,11 @@ def migrate(database: str = "kdb", dev: bool = False) -> None:
     files = ([MIGRATIONS / "dev" / "a2_stub_extract_handoff.sql"] if dev else []) + sorted(MIGRATIONS.glob("b2_*.sql"))
     password = writer_password()
     with psycopg.connect(**{**admin, "dbname": database}) as conn:
+        old_stub = conn.execute("""SELECT 1 FROM information_schema.columns WHERE table_schema = 'extract'
+                                   AND table_name = 'handoff' AND column_name = 'body'""").fetchone()
+        if dev and old_stub:  # 예전 개발용 대역(body 칸)은 A2 표 모양으로 다시 만든다. 개발 DB에서만
+            conn.execute("DROP TABLE extract.handoff")
+            print("예전 개발용 extract.handoff(body 칸)를 지우고 다시 만듦")
         for path in files:
             conn.execute(path.read_text(encoding="utf-8"))
         conn.execute(psycopg.sql.SQL("ALTER ROLE judge_writer PASSWORD {}").format(psycopg.sql.Literal(password)))
