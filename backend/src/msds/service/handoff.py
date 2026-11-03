@@ -231,6 +231,10 @@ def build_handoff(*, job_id: str, handoff_seq: int, reason: str, created_at: str
             raise HandoffNotReady('수정한 추출값을 다시 검증할 수 없습니다') from exc
     errors, warnings = _record_validation(edited, checks_for_handoff)
     failed, retried = _section_checks(checks, run_dir, job_id, len(edited['msds']))
+    # The review view selects fields from the original, then overlays edits.
+    # A field cleared by review must still count toward the reviewable total.
+    fields_total = review.build_view(extraction, checks, state.get('sections', []),
+                                    review_record)['summary']['fields_total']
     payload = {
         'contract': 'handoff/1', 'job_id': job_id, 'handoff_seq': handoff_seq,
         'reason': reason, 'created_at': created_at, 'as_of': as_of,
@@ -244,6 +248,7 @@ def build_handoff(*, job_id: str, handoff_seq: int, reason: str, created_at: str
                    'failed_sections': failed, 'reextracted_sections': retried,
                    'source_mismatch': _source_mismatch(edited, job_id=job_id, pages_dir=pages_dir)},
         'field_status': _field_status(review_record),
+        'fields_total': fields_total,
     }
     validate_contract(payload)
     return payload
