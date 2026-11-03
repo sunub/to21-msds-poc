@@ -10,6 +10,7 @@ knowledge.py 의 약속 모양(RegulationKnowledge)으로 돌려준다:
 - 규제 번호 → 항목 코드 번역은 rules/reg_map.csv. kind=reference(15항 기재 대상 아님)는 돌려주지 않는다.
 - 지식DB에 없는 CAS, 접속 실패는 knowledge_version=None 과 reason 으로 돌려준다(설계서 27장: 자료 없음 → 근거부족).
 - DB 값은 바꾸지 않고 해석만 한다: 부호 ≥→>=, ＞→>, 단위 wt%·vol%→% (vol%는 중량%로 비교, 설계서 미결 7).
+  법령 원문과 다른 행만 rules/htodb_fixes.csv 로 읽을 때 고치고, note·source 에 원래 값과 근거를 남긴다.
 """
 import os
 import re
@@ -19,6 +20,7 @@ from pathlib import Path
 from ..mixture.params import read_rules
 
 REG_MAP = Path(__file__).resolve().parents[1] / "rules" / "reg_map.csv"
+FIXES = REG_MAP.with_name("htodb_fixes.csv")
 _SIGN = {"≥": ">=", "≧": ">=", ">=": ">=", "이상": ">=", "＞": ">", ">": ">", "초과": ">", "": ">=", "=": ">="}
 _PCT = {"%": "%", "wt%": "%", "w/w%": "%", "vol%": "%", "v/v%": "%"}
 _GROUP_PCT = re.compile(r"(\d+(?:\.\d+)?)\s*%\s*(이상|초과)")
@@ -32,6 +34,27 @@ PSM_CATEGORY = {"인화성 액체", "인화성 가스"}
 def reg_map() -> dict[str, dict]:
     """REGULATE_ITEM_ID → reg_map.csv 행."""
     return {r["regulate_item_id"]: r for r in read_rules(REG_MAP)}
+
+
+@lru_cache
+def fixes() -> dict[tuple[str, str], dict]:
+    """(CAS, REGULATE_ITEM_ID) → rules/htodb_fixes.csv 행. 법령 원문과 다른 지식DB 행을 읽을 때만 고친다(결정 B-43)."""
+    return {(r["cas_no"], r["regulate_item_id"]): r for r in read_rules(FIXES)}
+
+
+def _fixed(cas_no: str, row: dict) -> dict:
+    f = fixes().get((cas_no, row["regulate_item_id"]))
+    if f is None:
+        return row
+    if f["threshold_op"]:
+        row["threshold_op"] = f["threshold_op"]
+    if f["threshold_value"]:
+        row["threshold_value"], row["threshold_unit"] = float(f["threshold_value"]), "%"
+    if f["state"]:
+        row["condition"] = {**row["condition"], "state": f["state"]}
+    row["note"] += f" · 지식DB 보정 {f['fix_id']}(원래 {f['db_value']}): {f['note']} ({f['basis']})"
+    row["source"] += f" · 보정 {f['fix_id']}"
+    return row
 
 
 def covered_items() -> set[str]:
@@ -170,7 +193,7 @@ class RegulationProvider:
                 return {**base, "reason": "지식DB에 등록되지 않은 CAS"}
             rows = []
             for c in chems:
-                rows += regulation_rows(repo.regulations(c["chem_id"]))
+                rows += [_fixed(cas_no, r) for r in regulation_rows(repo.regulations(c["chem_id"]))]
             version = self.version or (repo.version() if hasattr(repo, "version") else None) or "htodb"
         except Exception as e:  # 접속 불가·권한·쿼리 오류는 멈추지 않고 이유로 남긴다
             return {**base, "reason": f"지식DB 접속·조회 실패({type(e).__name__}: {e})"}
