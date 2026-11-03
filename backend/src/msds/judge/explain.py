@@ -87,6 +87,8 @@ def claim_problems(resp: dict, req: dict) -> list[str]:
     if f["verdict"] != "일치" and _SAID_SAME.search(text):
         said.append("일치")
     out = [f"판정을 '{w}'(으)로 말함. 엔진 판정은 '{f['verdict']}'" for w in said if w != f["verdict"]]
+    if summary and not re.search(r"[가-힣A-Za-z]", summary[0]):  # 실제 모델이 요약을 ": "로 자주 보낸다 (2026-11-04 측정 46/73)
+        out.append("요약에 글이 없음")
     exp, msds = f.get("expected") or {}, f.get("msds") or {}
     if f.get("section") == "15":
         out += [f"규제DB 결과를 '{w}'(으)로 말함" for w in map(_applicable_word, _SAID_DB_APPLICABLE.findall(text)) if w != exp.get("applicable")]
@@ -147,8 +149,13 @@ def make_llm():
         cfg = load_model_config(tag)
         if not os.environ.get(cfg.get("base_url_env") or ""):
             return None
+        # 문법 강제(json_schema)로 받으면 Qwen3.6이 요약을 ": "로 자주 채웠다(73건 중 46건, 2026-11-04 T-26).
+        # 응답은 받은 뒤 스키마와 check·claim_problems로 다시 보므로 설명만 강제 없이 받는다
+        cfg = {**cfg, "structured": ["none"]}
         llm = engine.ChatExplainer(tag, cfg=cfg)
         llm.client.gate_kind = "explain"
+        # ChatClient는 성공한 방식을 모델 이름별로 클래스 전체에 기억한다. 같은 모델을 쓰는 추출(내장 모드)이 "none"을 물려받지 않게 따로 둔다
+        llm.client._working_mode = {}
         return llm
     except Exception as e:  # 설정 오류로 저장 흐름을 막지 않는다. 문장틀로 가고 시작 기록에 남긴다
         print(f"설명 모델을 쓰지 않음: {e}")
