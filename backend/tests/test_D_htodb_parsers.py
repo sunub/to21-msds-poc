@@ -79,3 +79,62 @@ def test_row_dispatch():
     assert p.parse_property_row({"property_id": "G0000000000", "primary_value_text": "5"}) is None
     assert p.parse_property_row({"property_id": "G0904000000", "primary_value_text": "pH 6.5"}) == \
         {"rule": "PH", "result": {"value": 6.5}}
+
+
+def test_문장_첫머리가_부등호면_숫자_칸이_있어도_부등호로_읽는다():
+    # 지식DB에 LD50 <200 인데 primary_value 200 인 행이 있다. = 로 읽으면 부등호를 계산에 넣게 된다 (D-12)
+    r = p.parse_acute("LD50 <200 ㎎/㎏   실험종 : Rabbit (LD100 : 200mg/kg)", "200", "GHS0202")
+    assert (r["sign"], r["value"], r["basis"]) == ("<=", 200.0, "PRIMARY_VALUE")  # 맹독 성분이 계산에서 빠지지 않게 상한으로 계산
+    assert p.parse_acute("LD50 ≤15000 ㎎/㎏   실험종 : Guinea pig", "15000", "GHS0202")["sign"] == "<="
+    assert p.parse_acute("LC50 >3.24 ㎎/ℓ  4 hr 실험종 : Rat", "495", "GHS0204")["sign"] == ">"
+
+
+def test_괄호_속_다른_시험의_부등호는_대표값을_바꾸지_않는다():
+    r = p.parse_acute("LD50 700 ㎎/㎏ 실험종 : Rat (계산값, 랫드 approx. LD50 > 6400 mg/kg bw)", "700", "GHS0201")
+    assert (r["sign"], r["value"]) == ("=", 700.0)
+    assert p.parse_acute("구분4", "500", "GHS0201")["sign"] == "="
+
+
+def test_천_단위_쉼표_값은_문장에서_같은_값을_읽는다():
+    r = p.parse_acute("LD50 1,720 ㎎/㎏ 실험종 : Rabbit", "1,720", "GHS0202")
+    assert (r["sign"], r["value"]) == ("=", 1720.0)
+
+
+def test_문장이_범위면_숫자_칸이_상한이어도_최솟값을_쓴다():
+    r = p.parse_acute("LD50 50 ~ 300 ㎎/㎏  실험종 : Rat", "300", "GHS0201")  # 범위 771행 중 735행이 상한값 (D-12)
+    assert (r["value"], r["value_max"]) == (50.0, 300.0)
+
+
+def test_숫자_칸이_문장_값_그대로고_단위가_다르면_환산한다():
+    r = p.parse_acute("LC50 454 ~ 507 ㎎/㎥ 실험종 : Rat", "507", "GHS0205")
+    assert (r["sign"], r["value"], r["unit"]) == ("=", 0.454, "mg/L")
+    assert p.parse_acute("LC50 463 ppm 실험종 : Rat", "463", "GHS0204", mw=100.0)["value"] == pytest.approx(463 * 100 / 24450)
+    assert p.parse_acute("LC50 463 ppm 실험종 : Rat", "463", "GHS0204")["sign"] == "?"  # 분자량이 없으면 계산에서 뺀다
+
+
+def test_DB가_환산한_숫자_칸은_그대로_쓴다():
+    assert p.parse_acute("LC50 5.319 ㎎/ℓ 4 hr 실험종 : Rat", "1364.56", "GHS0203")["value"] == 1364.56
+
+
+# ── 재검증(전 행 대조)에서 나온 입력 ──────────────────────────────
+@pytest.mark.parametrize("text,pv,div,want", [
+    ("LD50 7.34 ~ 7.46 ㎖/㎏ 실험종 : Rat (분류되지 않음)", "7400", "GHS0201", 7400.0),   # 모르는 단위: 숫자 칸 유지
+    ("LC50 0.65 ~ 0.78 ㎎/ℓ 1 hr 실험종 : Rat", "0.39", "GHS0204", 0.325),               # 칸이 상한의 시간 환산: 하한에도
+    ("LD50 0.7 ~ 0.30 ㎎/ℓ 실험종 : Rat", "0.30", "GHS0205", 0.30),                      # 역순 범위: 최솟값이 칸 값
+    ("LC50 2165 ~ 3617 ppm 1 hr 실험종 : Rat", "6.829", "GHS0204", 6.829),                # 분자량 없이 환산된 칸: 유지
+    ("LD50 1201 ~ 1842", "1521.5", "GHS0201", 1521.5),                                     # 알 수 없는 배율: 유지
+])
+def test_범위_문장의_숫자_칸(text, pv, div, want):
+    r = p.parse_acute(text, pv, div)
+    assert r["sign"] == "=" and r["value"] == pytest.approx(want)
+
+
+def test_흡입_칸의_LC50_mg_kg은_단위_오타로_보고_LD50은_뺀다():
+    assert (p.parse_acute("LC50 6.5 ㎎/㎏ 4 hr (노동부 구분 3)", "6.5", "GHS0205")["sign"]) == "="
+    assert p.parse_acute("LD50 101 ㎎/㎏ 실험종 : Rabbit", "101", "GHS0205")["sign"] == "?"
+
+
+def test_단위가_다른_범위는_숫자_칸의_시간_환산과_단위를_함께_맞춘다():
+    # 말로노니트릴: 'LD50 200 ~ 300 ㎎/㎥ 2 hr', 숫자 칸 212.13 = 300/√2 (시간만 환산, 단위는 그대로)
+    r = p.parse_acute("LD50 200 ~ 300 ㎎/㎥ 2 hr 실험종 : Rat", "212.13", "GHS0204")
+    assert r["value"] == pytest.approx(200 / 2 ** 0.5 / 1000, rel=1e-3)

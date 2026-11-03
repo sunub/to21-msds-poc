@@ -138,7 +138,7 @@ def test_25번_흡입은_형태_차이와_주원인_ATEmix_차이_출처_차이(
 def test_25번_15항_원인_코드(c25):
     by = {f["item_code"]: f for f in c25["findings"] if f["section"] == "15" and f["comp_ref"] == "1"}  # 1 = 황산
     assert codes(by["OSH_MANAGED"]["causes"]) == ["THRESHOLD_DIFF"]
-    assert codes(by["OSH_SPECIAL"]["causes"]) == ["REG_MISSING"]
+    assert by["OSH_SPECIAL"]["verdict"] == "일치"  # 관리대상 행 비고에 특별관리물질이 적혀 있다
     tr = c25["traces"][by["OSH_SPECIAL"]["trace_id"]]
     assert tr["kind"] == "regulation" and tr["inputs"][0]["content"] == {"raw": "93 ~ 98", "low": 93, "high": 98}
 
