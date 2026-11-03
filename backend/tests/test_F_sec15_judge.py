@@ -48,6 +48,10 @@ def inputs(regs, comps=None, physchem=None):
             "dangerous_goods": []}
 
 
+# 15항을 읽었다는 표시. 법마다 본다: 그 법의 행이 하나도 없으면 누락 대신 근거부족이다
+READ = [sup("OSH_PROHIBIT", "OSH", "비해당"), sup("CCA_PROHIBIT", "CCA", "비해당")]
+
+
 def one(out, item, ref="1"):
     return next(v for v in out["verdicts"] if v["item_code"] == item and v["comp_ref"] == ref)
 
@@ -63,7 +67,7 @@ def test_함량상_해당인데_MSDS_비해당이면_규제누락_높음():
 
 
 def test_MSDS가_행을_빠뜨려도_규제누락():
-    v = one(judge_sec15(inputs([]), Fake({A: [db("CCA_ACCIDENT", "CCA", 10)]})), "CCA_ACCIDENT")
+    v = one(judge_sec15(inputs(READ), Fake({A: [db("CCA_ACCIDENT", "CCA", 10)]})), "CCA_ACCIDENT")
     assert (v["type"], v["msds_value"]) == ("규제 누락", None)
 
 
@@ -104,7 +108,7 @@ def test_함량범위가_기준에_걸치면_경계():
 
 def test_규제누락_원인_문장은_MSDS에_행이_없는지_비해당인지_구분한다():
     p = Fake({A: [db("OSH_MEASURE", "OSH", 1)]})
-    no_row = one(judge_sec15(inputs([]), p), "OSH_MEASURE")["causes"][0]["text"]
+    no_row = one(judge_sec15(inputs(READ), p), "OSH_MEASURE")["causes"][0]["text"]
     said = one(judge_sec15(inputs([sup("OSH_MEASURE", "OSH", "비해당")]), p), "OSH_MEASURE")["causes"][0]["text"]
     assert no_row.startswith("함량상 해당인데 MSDS 15항에 이 규제 항목이 없음(성분은 3항에 있음)")
     assert said.startswith("함량상 해당인데 MSDS 기재는 비해당")
@@ -185,7 +189,7 @@ def test_DB_부호·단위·PSM_물질군_기준을_읽는다():
 def test_25번_황산_15항():
     out = judge_sec15(load_inputs(json.loads(SILVER.read_text(encoding="utf-8"))), RegulationProvider(CsvRepo()))
     mism = {(v["comp_ref"], v["item_code"]): v["type"] for v in out["verdicts"] if v["verdict"] == "불일치"}
-    assert mism == {("1", "OSH_MANAGED"): "기준 불일치", ("1", "OSH_SPECIAL"): "규제 누락"}
+    assert mism == {("1", "OSH_MANAGED"): "기준 불일치"}  # 특별관리물질은 관리대상 행 비고에 적혀 있다
     for item in ("OSH_MEASURE", "OSH_HEALTH_EXAM", "OSH_PSM", "OSH_PERMISSIBLE", "CCA_TOXIC", "CCA_ACCIDENT", "CCA_PRTR"):
         assert one(out, item)["verdict"] == "일치", item  # 설계서 39장의 일치 줄
     assert one(out, "DG_HAZMAT", "MIX")["verdict"] == "일치"  # 인화점 해당없음 → 위험물 비해당
@@ -330,11 +334,11 @@ def _cond(item, value, **c):
 def test_결정11_pH_조건은_9항_pH로_확인한다():
     p = Fake({A: [_cond("OSH_SPECIAL", 0.1, ph_max=2.0)]})
     ph = lambda v: {"PH": [{"comp_ref": "MIX", "q": {"value": v}}]}
-    met = one(judge_sec15(inputs([], physchem=ph(0.3)), p), "OSH_SPECIAL")
+    met = one(judge_sec15(inputs(READ, physchem=ph(0.3)), p), "OSH_SPECIAL")
     assert met["type"] == "규제 누락" and any("pH 0.3" in a for a in met["assumptions"])
-    over = one(judge_sec15(inputs([], physchem=ph(5.0)), p), "OSH_SPECIAL")
+    over = one(judge_sec15(inputs(READ, physchem=ph(5.0)), p), "OSH_SPECIAL")
     assert (over["verdict"], over["expected"]) == ("일치", "비해당")
-    none = one(judge_sec15(inputs([]), p), "OSH_SPECIAL")
+    none = one(judge_sec15(inputs(READ), p), "OSH_SPECIAL")
     assert none["verdict"] == "경계" and "pH" in none["reason"]
 
 
@@ -342,3 +346,166 @@ def test_결정11_성상_조건이_있으면_경계():
     p = Fake({A: [_cond("OSH_MEASURE", 0.0, state="분진인 경우에 한함")]})
     v = one(judge_sec15(inputs([sup("OSH_MEASURE", "OSH", "비해당")]), p), "OSH_MEASURE")
     assert v["verdict"] == "경계" and "분진" in v["reason"]
+
+
+# ── 2026-11-03 실버 대조에서 나온 거짓 규제 누락 ──────────────────────
+def test_지위_정보는_MSDS가_비해당이라_적어도_규제_누락이_아니다():
+    # T21-050: 물의 '면제' 지위와 MSDS의 '신규물질: 해당 없음'이 같은 칸에 묶여 높음으로 나왔다
+    table = {A: [db("KREACH_ETC", "KREACH", kind="status_only")]}
+    out = judge_sec15(inputs([sup("KREACH_ETC", "KREACH", "비해당"), sup("OSH_MANAGED", "OSH", "비해당")]), Fake(table))
+    assert not [v for v in out["verdicts"] if v["item_code"] == "KREACH_ETC"]
+    assert ex(out, "KREACH_ETC")["status"] == "참고"
+
+
+def test_15항을_한_행도_못_읽으면_누락이_아니라_근거부족이다():
+    # T21-S013: 15항 표가 그림이라 추출에 행이 없다. 누락인지 추출 실패인지 가릴 수 없다
+    table = {A: [db("OSH_MANAGED", "OSH", 1.0), db("위험물", "DG", kind="dg", rid="KR004001")]}
+    out = judge_sec15(inputs([]), Fake(table))
+    assert (one(out, "OSH_MANAGED")["verdict"], one(out, "OSH_MANAGED")["type"]) == ("근거부족", None)
+    assert one(out, "DG_HAZMAT", "MIX")["verdict"] == "근거부족"
+
+
+def test_관리대상_행의_비고에_특별관리물질이_있으면_해당으로_본다():
+    # T21-025: '해당됨 (1% 이상 함유한 황산(특별관리물질))'
+    table = {A: [db("OSH_SPECIAL", "OSH", 0.1)]}
+    row = {**sup("OSH_MANAGED", "OSH", "해당"), "remark": "특별관리물질"}
+    assert one(judge_sec15(inputs([row]), Fake(table)), "OSH_SPECIAL")["verdict"] == "일치"
+    plain = sup("OSH_MANAGED", "OSH", "해당")
+    assert one(judge_sec15(inputs([plain]), Fake(table)), "OSH_SPECIAL")["type"] == "규제 누락"
+
+
+# ── 화평법 항목 누락 (설계서 30장, 고시 별표 4 제15호 다목·부칙 제2조·제3조) ─────────────
+def _dated(regs, date):
+    return {**inputs(regs), "revision_date": date}
+
+
+def test_시행일_이후_작성분에_화평법_행이_없으면_항목_누락_중간():
+    out = judge_sec15(_dated(READ, "2025-08-07"), Fake({A: []}))
+    v = one(out, "KREACH_SECTION", "MIX")
+    assert (v["verdict"], v["type"], v["severity"]) == ("불일치", "화평법 항목 누락", "중간")
+
+
+@pytest.mark.parametrize("regs,date", [(READ, "2025-08-06"), (READ, None), ([], "2026-01-01"),
+                                        (READ + [sup("KREACH_REG", "KREACH", "비해당")], "2026-01-01"),
+                                        (READ + [{"comp_ref": "MIX", "law": "KREACH", "item_code": None, "applicable": "비해당"}], "2026-01-01")])
+def test_화평법_항목_누락을_내지_않는_경우(regs, date):
+    out = judge_sec15(_dated(regs, date), Fake({A: []}))
+    assert not [v for v in out["verdicts"] if v["item_code"] == "KREACH_SECTION"]
+
+
+def test_불순물_ppm_함량도_15항_기준과_비교한다():
+    table = {A: [db("OSH_MANAGED", "OSH", 0.1)]}
+    comp = lambda v: [{"seq": 1, "cas_no": A, "content": {"value": v, "unit": "ppm"}, "content_note": "불순물"}]
+    assert one(judge_sec15(inputs([sup("OSH_MANAGED", "OSH", "비해당")], comps=comp(500)), Fake(table)), "OSH_MANAGED")["verdict"] == "일치"
+    assert one(judge_sec15(inputs([sup("OSH_MANAGED", "OSH", "비해당")], comps=comp(2000)), Fake(table)), "OSH_MANAGED")["type"] == "규제 누락"
+
+
+# ── 2026-11-03 재현 기반 검토에서 나온 입력 ──────────────────────────
+NOT_STATED = {"comp_ref": "MIX", "law": "KREACH", "item_code": None, "applicable": "미기재"}
+
+
+def test_추출기가_넣은_미기재_행은_화평법_기재로_보지_않는다():
+    v = one(judge_sec15(_dated(READ + [NOT_STATED], "2026-01-01"), Fake({A: []})), "KREACH_SECTION", "MIX")
+    assert v["type"] == "화평법 항목 누락"
+
+
+def test_미기재_행만_있으면_15항을_읽지_못한_것이다():
+    table = {A: [db("OSH_MANAGED", "OSH", 1.0)]}
+    out = judge_sec15(_dated([NOT_STATED], "2026-01-01"), Fake(table))
+    assert one(out, "OSH_MANAGED")["verdict"] == "근거부족"
+    assert not [v for v in out["verdicts"] if v["item_code"] == "KREACH_SECTION"]
+
+
+def test_기타_법규_칸에_적은_화평법도_기재로_본다():
+    row = {"comp_ref": "MIX", "law": "KR_ETC", "item_code": None, "applicable": "해당", "item_raw": "화학물질의 등록 및 평가 등에 관한 법률"}
+    out = judge_sec15(_dated(READ + [row], "2026-01-01"), Fake({A: []}))
+    assert not [v for v in out["verdicts"] if v["item_code"] == "KREACH_SECTION"]
+
+
+def test_시행일_전_문서의_화평법_행_없음은_규제_누락이_아니라_구버전이다():
+    table = {A: [db("KREACH_CMR", "KREACH")]}
+    out = judge_sec15(_dated(READ, "2025-05-08"), Fake(table))
+    assert not [v for v in out["verdicts"] if v["item_code"] == "KREACH_CMR"]
+    assert ex(out, "KREACH_CMR")["status"] == "구버전"
+    after = judge_sec15(_dated(READ, "2026-01-01"), Fake(table))  # 화평법을 통째로 안 적음: 항목 누락 한 줄, 성분 줄은 판단 못 함
+    assert one(after, "KREACH_CMR")["verdict"] == "근거부족" and one(after, "KREACH_SECTION", "MIX")["type"] == "화평법 항목 누락"
+    stated = judge_sec15(_dated(READ + [sup("KREACH_REG", "KREACH", "비해당")], "2025-05-08"), Fake(table))
+    assert one(stated, "KREACH_CMR")["type"] == "규제 누락"
+
+
+@pytest.mark.parametrize("raw,want", [("2025.08.07", "2025-08-07"), ("2025-8-7", "2025-08-07"), ("2025년 8월 7일", "2025-08-07"),
+                                      ("2025. 8. 7.", "2025-08-07"), ("20250101", "2025-01-01"), ("24.01.01", "2024-01-01"),
+                                      ("2025-08", "2025-08-01"), ("자료없음", None), ("", None), (None, None), ("2025-13-01", None)])
+def test_날짜_표기를_맞춘다(raw, want):
+    from msds.compliance.loader import _ymd
+
+    assert _ymd(raw) == want
+
+
+def test_개정일이_자료없음이면_최초_작성일로_본다():
+    doc = {"msds": [{"meta": {"last_revision_date": "자료없음", "first_issue_date": "2010-06-21"}}]}
+    assert load_inputs(doc, 0)["revision_date"] == "2010-06-21"
+
+
+def test_특별관리물질_아님_비고는_해당이_아니다():
+    table = {A: [db("OSH_SPECIAL", "OSH", 0.1)]}
+    row = {**sup("OSH_MANAGED", "OSH", "해당"), "remark": "특별관리물질 아님"}
+    assert one(judge_sec15(inputs([row]), Fake(table)), "OSH_SPECIAL")["type"] == "규제 누락"
+
+
+def test_ppm_경계_문장은_퍼센트로_적는다():
+    table = {A: [db("OSH_MANAGED", "OSH", 0.1)]}
+    comp = [{"seq": 1, "cas_no": A, "content": {"lower": 500, "upper": 2000, "unit": "ppm"}}]
+    v = one(judge_sec15(inputs([sup("OSH_MANAGED", "OSH", "비해당")], comps=comp), Fake(table)), "OSH_MANAGED")
+    assert v["verdict"] == "경계" and "0.05~0.2%" in v["causes"][0]["text"]
+
+
+def test_해외_행만_있으면_국내_법은_읽지_못한_것이다():
+    table = {A: [db("OSH_MANAGED", "OSH", 1.0)]}
+    intl = {"comp_ref": "MIX", "law": "INTL", "item_code": None, "applicable": "해당"}
+    assert one(judge_sec15(inputs([intl]), Fake(table)), "OSH_MANAGED")["verdict"] == "근거부족"
+
+
+def test_못_읽은_15항은_금지물질도_읽지_못했다고_적는다():
+    table = {A: [db("OSH_PROHIBIT", "OSH", 1.0, kind="compare_human")]}
+    v = one(judge_sec15(inputs([]), Fake(table)), "OSH_PROHIBIT")
+    assert v["verdict"] == "근거부족" and "읽은 규제 행이 없어" in v["reason"]
+
+
+def test_기타_칸에_화평법을_적었으면_성분별_규제_누락이_아니다():
+    table = {A: [db("KREACH_REG", "KREACH")]}
+    row = {"comp_ref": "MIX", "law": "KR_ETC", "item_code": None, "applicable": "해당",
+           "value_raw": "화학물질의 등록 및 평가 등에 관한 법률: 등록대상기존화학물질"}
+    new = judge_sec15(_dated(READ + [row], "2026-01-10"), Fake(table))
+    assert not [v for v in new["verdicts"] if v["item_code"] == "KREACH_REG"] and ex(new, "KREACH_REG")["status"] == "참고"
+    old = judge_sec15(_dated(READ + [row], "2024-01-01"), Fake(table))
+    assert ex(old, "KREACH_REG")["status"] == "구버전"
+
+
+def test_법마다_읽었는지_본다():
+    # T21-M001 런: 화관법 행 하나만 읽힌 추출본에서 산안법 항목이 규제 누락으로 나왔다
+    table = {A: [db("OSH_MANAGED", "OSH", 1.0), db("CCA_ACCIDENT", "CCA", 10)]}
+    out = judge_sec15(inputs([sup("CCA_PRTR", "CCA", "비해당")]), Fake(table))
+    assert one(out, "OSH_MANAGED")["verdict"] == "근거부족"
+    assert one(out, "CCA_ACCIDENT")["type"] == "규제 누락"
+
+
+@pytest.mark.parametrize("note", ["특별관리물질 미해당", "특별관리물질 없음", "특별관리물질 비대상", "특별관리물질: X"])
+def test_특별관리물질_부정_표기(note):
+    table = {A: [db("OSH_SPECIAL", "OSH", 0.1)]}
+    row = {**sup("OSH_MANAGED", "OSH", "해당"), "remark": note}
+    assert one(judge_sec15(inputs([row]), Fake(table)), "OSH_SPECIAL")["type"] == "규제 누락"
+
+
+def test_가운뎃점_화평법_이름도_찾는다():
+    row = {"comp_ref": "MIX", "law": "KR_ETC", "item_code": None, "applicable": "해당", "item_raw": "화학물질의 등록·평가 등에 관한 법률"}
+    out = judge_sec15(_dated(READ + [row], "2026-01-01"), Fake({A: []}))
+    assert not [v for v in out["verdicts"] if v["item_code"] == "KREACH_SECTION"]
+
+
+@pytest.mark.parametrize("raw", ["08/07/2025", "07-08-2025"])
+def test_일월_순서를_모르는_날짜는_읽지_않는다(raw):
+    from msds.compliance.loader import _ymd
+
+    assert _ymd(raw) is None
+    assert _ymd("99-12-31") == "1999-12-31"

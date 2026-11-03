@@ -6,7 +6,7 @@
     "input_sha256": "98d8d6796542433b2a39a13355dac340d8d7e67d4862d01acaa8deed698c6cc5",
     "rules": "rules/reg_map.csv (f0.1), 11/01 F 결정 1~5, 11/02 결정 6~8",
     "knowledge": "to21_sample CSV (= htodb-94f8b6ff7f24, 대조 시험으로 확인)",
-    "fixed_on": "2026-11-02",
+    "fixed_on": "2026-11-03",
     "basis": "10/30 결정 B2·D4: 설계서 39장 기대 결과 기준. 설계서와 다르거나 39장에 없는 불일치 줄은 diff_reason 에 이유",
     "compared_fields": [
       "msds_value",
@@ -20,8 +20,8 @@
     ]
   },
   "summary": {
-    "불일치": 2,
-    "일치": 36
+    "불일치": 1,
+    "일치": 37
   },
   "verdicts": [
     {
@@ -290,16 +290,15 @@
     {
       "comp_ref": "1",
       "item_code": "OSH_SPECIAL",
-      "msds_value": null,
+      "msds_value": "해당",
       "msds_threshold": null,
       "expected": "해당",
       "db_threshold": ">= 0.1%",
-      "verdict": "불일치",
-      "type": "규제 누락",
-      "severity": "높음",
-      "rule_id": "S15-2",
-      "design_39": null,
-      "diff_reason": "39장에 없는 줄. 지식DB에 황산이 특별관리물질(0.1 wt% 이상)로 있는데 MSDS에 행이 없어 규제 누락(높음). 지정 시점에 따라 구버전일 수도 있어 확인 필요."
+      "verdict": "일치",
+      "type": null,
+      "severity": null,
+      "rule_id": "S15-1",
+      "design_39": null
     },
     {
       "comp_ref": "1",

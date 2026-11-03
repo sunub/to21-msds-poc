@@ -6,7 +6,7 @@
     "input_sha256": "98d8d6796542433b2a39a13355dac340d8d7e67d4862d01acaa8deed698c6cc5",
     "rules_version": "r2026.10c",
     "knowledge": "to21_sample CSV (= htodb-94f8b6ff7f24, 대조 시험으로 확인)",
-    "fixed_on": "2026-11-01",
+    "fixed_on": "2026-11-03",
     "basis": "10/30 결정 B2: 설계서 38~42장 기대 결과 기준. 설계서와 다른 줄은 diff_reason 에 이유",
     "compared_fields": [
       "msds_form",
@@ -19,8 +19,8 @@
     ]
   },
   "summary": {
-    "근거부족": 1,
-    "불일치": 3,
+    "근거부족": 3,
+    "불일치": 1,
     "일치": 21
   },
   "verdicts": [
@@ -50,18 +50,17 @@
         "low": "분류안됨",
         "high": "분류안됨"
       },
-      "verdict": "불일치",
-      "type": "과대분류",
-      "severity": "낮음",
-      "rule_id": "VRD-5",
+      "verdict": "근거부족",
+      "type": null,
+      "severity": null,
+      "rule_id": "VRD-7",
       "design_38": {
         "msds": "구분3",
         "expected": "— (기준정보 없음)",
         "verdict": "근거부족",
         "severity": null,
-        "same": false
-      },
-      "diff_reason": "지식DB에 황산·물의 수생 분류 행이 없다(실제 HTODB로도 확인). 빈칸을 '분류안됨'으로 보는 현재 가정 때문에 MSDS 구분3이 과대분류(낮음)로 나온다. 빈칸을 '미검토'로 보면 38장처럼 근거부족이 된다. TO21 확인 요청: 빈칸의 뜻."
+        "same": true
+      }
     },
     {
       "class_code": "ENV_OZONE",
@@ -307,10 +306,10 @@
         "low": "분류안됨",
         "high": "분류안됨"
       },
-      "verdict": "불일치",
-      "type": "과대분류",
-      "severity": "낮음",
-      "rule_id": "VRD-5",
+      "verdict": "근거부족",
+      "type": null,
+      "severity": null,
+      "rule_id": "VRD-7",
       "design_38": {
         "msds": "구분1",
         "expected": "구분1",

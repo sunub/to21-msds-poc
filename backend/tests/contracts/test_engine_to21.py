@@ -2,6 +2,9 @@
 
 입력값은 그 패키지의 products.csv·product_components.csv 다. 패키지와 다른 결과와 이유는 docs/backend/b/decisions.md 에 있다.
 """
+import json
+from pathlib import Path
+
 import pytest
 
 from msds.compliance.consistency import run_consistency
@@ -9,7 +12,7 @@ from msds.compliance.htodb.csv_repo import CsvRepo
 from msds.compliance.judge import judge
 from msds.compliance.mixture.build_components import build_components
 from msds.compliance.mixture.class_lookup_db import make_db_class_lookup, make_db_info_lookup, make_db_tox_lookup
-from msds.compliance.mixture.classify_mixture import classify_mixture_all
+from msds.compliance.mixture.classify_mixture import classify_item, classify_mixture_all
 from msds.compliance.mixture.physical import physical_inputs
 from msds.compliance.sec15_judge import _dg
 
@@ -438,3 +441,295 @@ def test_표적장기_구분2_누락_문구가_사실과_맞다():
 def test_12항_만성_시험값은_급성_교차_확인에_쓰지_않는다(repo, contract_errors):
     fish = _tox("ECO_FISH", 0.5, "mg/L", descriptor="LC50", duration_value=28, duration_unit="day")
     assert _cross(repo, _single([{"class_code": "ENV_AQ_ACUTE", "category": "3"}], ecotox=[fish]), contract_errors) == {}
+
+
+def _q3_result(excluded, *, low="분류안됨", high=None, name="황산", content=95.0, non_toxic_also=True):
+    inputs = [{"cas": "7664-93-9", "name": name, "content": {"low": content, "high": content}, "used_as": [], "flags": [], "excluded": excluded}]
+    if non_toxic_also:
+        inputs.append({"cas": "7732-18-5", "name": "물", "content": {"low": 5.0, "high": 5.0}, "used_as": [], "flags": [], "excluded": "무독성"})
+    return {"class_code": "ENV_AQ_CHRONIC", "form": None, "result": {"low": low, "high": high or low, "status": "확정"}, "inputs": inputs, "calc": {"include_min": 1.0}}
+
+
+@pytest.mark.parametrize("excluded", ["해당 분류 없음", "분류 정보 없음"])
+def test_기준_분류가_없는_성분이_있으면_MSDS를_과대분류라_하지_않는다(excluded):
+    # 지식DB에는 "분류 안 됨" 행이 없다. 빈칸은 자료 없음이라 MSDS가 틀렸다는 증거가 못 된다 (멘토링 3번, 설계서 38장)
+    from msds.compliance.mixture.verdict import aggregate_verdicts
+
+    msds = [{"class_code": "ENV_AQ_CHRONIC", "category": "3"}]
+    row = aggregate_verdicts([_q3_result(excluded)], msds)["verdicts"][0]
+    assert (row["verdict"], row["type"]) == ("근거부족", None)
+    assert "황산" in row["reason"]
+
+
+def test_기준_분류가_없는_성분이_있어도_양쪽_다_분류없음이면_일치다():
+    from msds.compliance.mixture.verdict import aggregate_verdicts
+
+    assert aggregate_verdicts([_q3_result("해당 분류 없음")], [])["verdicts"][0]["verdict"] == "일치"
+
+
+def test_물과_한계농도_미만_성분만_빈칸이면_과대분류를_유지한다():
+    from msds.compliance.mixture.verdict import aggregate_verdicts
+
+    msds = [{"class_code": "ENV_AQ_CHRONIC", "category": "3"}]
+    row = aggregate_verdicts([_q3_result("무독성")], msds)["verdicts"][0]
+    assert row["type"] == "과대분류"
+    row = aggregate_verdicts([_q3_result("해당 분류 없음", content=0.5)], msds)["verdicts"][0]
+    assert row["type"] == "과대분류"
+
+
+
+
+def test_합산_때문에_분류되면_TO21_기준으로_표시한다():
+    # 고시는 성분 하나, TO21은 같은 구분 합산이다 (D-16, 설계서 35장). 합산으로만 분류되면 그 사실을 알린다
+    from msds.compliance.mixture.classify_mixture import classify_item
+    from msds.compliance.mixture.verdict import aggregate_verdicts
+    from msds.compliance.mixture.rules_loader import load_mixture_rules
+
+    code = next(k for k, v in load_mixture_rules()["classes"].items() if v.get("aggregate") == "sum" and k == "HH_CARCINOGEN")
+    comps = lambda a, b: [{"cas": n, "name": n, "low": p, "high": p, "flags": [], "m": None,
+                           "class_rows": [{"result_code": "GHS021003", "source": "KR03"}]} for n, p in (("가", a), ("나", b))]
+    both = classify_item(code, comps(0.6, 0.6), {})
+    assert both["result"]["low"] == "2" and both["result"]["to21_sum"] is True
+    row = aggregate_verdicts([both], [{"class_code": code, "category": "2"}])["verdicts"][0]
+    assert row["verdict"] == "일치" and "TO21 기준" in row["reason"]
+    alone = classify_item(code, comps(1.5, 0.6), {})
+    assert not alone["result"].get("to21_sum")
+
+
+# ── 혼합물 위험물은 제품 기준 (고시 제11조⑪ "혼합물 전체로서", 멘토링 10-1) ──────────
+def test_혼합물은_성분_지정만으로_위험물_해당을_확정하지_않는다():
+    # 톨루엔 소량 + 물처럼 제품 인화점이 없는데 성분만 지정된 경우. T21-050은 MSDS '비위험물'을 규제 누락으로 냈다
+    row = {"item": None, "class": "해당없음"}
+    v = _dg(_dg_inputs(row, flash=None), {}, _dg_know("제1석유류 비수용성액체"))
+    assert (v["verdict"], v["type"]) == ("경계", None)
+    assert "성분" in v["reason"]
+
+
+def test_혼합물이_해당으로_적었고_성분이_지정이면_일치다():
+    v = _dg(_dg_inputs({"item": "제1석유류"}, flash=None), {}, _dg_know("제1석유류 비수용성액체"))
+    assert v["verdict"] == "일치"
+
+
+def test_혼합물의_제품_인화점으로_품명이_정해지면_해당이다():
+    v = _dg(_dg_inputs({"item": None, "class": "해당없음"}, flash=10), {}, _dg_know("제1석유류 비수용성액체"))
+    assert v["type"] == "규제 누락"
+
+
+def test_함량_제외_규정이_있는_품명은_DB_행이_있어도_혼합물은_경계다():
+    # 시행령 별표 1 비고: 제3·4석유류 가연성 액체량 40중량% 이하 제외 등 (문제 목록 25번)
+    v = _dg(_dg_inputs({"item": None, "class": "해당없음"}, flash=220), {}, _dg_know("제4석유류 비수용성액체"))
+    assert v["verdict"] == "경계"
+    assert _dg(_dg_inputs({"item": "제4석유류"}, flash=220), {}, _dg_know("제4석유류 비수용성액체"))["verdict"] == "일치"
+    single = _dg(_dg_inputs({"item": "제4석유류"}, flash=220, kind="단일물질"), {}, _dg_know("제4석유류 비수용성액체"))
+    assert single["verdict"] == "일치"
+
+
+def test_액상도_제4류_액체로_본다():
+    from msds.compliance.sec15_judge import _class4
+
+    phys = {"APPEARANCE_STATE": [{"text_value": "액상도료"}], "FLASH_POINT": [{"comp_ref": "MIX", "q": {"value": 30}}]}
+    assert _class4(phys)[0] == "제2석유류"
+
+
+def test_제2석유류_제외_규정은_인화점_40도_이상일_때만_적용한다():
+    none = {"item": None, "class": "해당없음"}
+    assert _dg(_dg_inputs(none, flash=30), {}, [])["type"] == "규제 누락"
+    assert _dg(_dg_inputs(none, flash=40), {}, [])["verdict"] == "경계"
+
+
+def test_화평법_항목_누락이_계약을_지킨다(contract_errors):
+    from msds.judge.display import finding_display
+
+    path = Path(__file__).resolve().parents[3] / "data" / "silver" / "claude" / "T21-025.json"
+    if not path.exists():
+        pytest.skip("실버 없음")
+    doc = json.loads(path.read_text(encoding="utf-8"))
+    m = doc["msds"][0]
+    m["meta"]["last_revision_date"] = "2026-01-01"
+    m["regulations"] = [r for r in m["regulations"] if r.get("law") != "KREACH"]
+    out = judge(doc, "2026-11-03", CsvRepo())
+    assert contract_errors("3-consistency.schema.json", out) == []
+    f = next(x for r in out["results"] for x in r["findings"] if "KREACH_SECTION" in x["id"])
+    assert (f["verdict"], f["type"], f["severity"]) == ("불일치", "화평법 항목 누락", "중간")
+    d = finding_display(f, None)
+    assert d["expected"] and d["component"] == "제품"
+
+
+def _alcohol(pct, water=True, row=None, flash=25):
+    comps = [{"seq": 1, "cas_no": "64-17-5", "content": {"lower": pct - 1, "upper": pct, "unit": "%"}}]
+    if water:
+        comps.append({"seq": 2, "cas_no": "7732-18-5", "content": {"lower": 100 - pct, "upper": 101 - pct, "unit": "%"}})
+    return {**_dg_inputs(row or {"item": None, "class": "해당없음"}, flash=flash), "components": comps}
+
+
+def test_알코올_60중량퍼센트_미만_수용액은_규제_누락이_아니라_경계다():
+    # 시행령 별표 1 비고 14호 가목. 하이콜 59 같은 소독제가 인화점만으로 위험물 누락이 되면 안 된다
+    know = _dg_know("알코올류 수용성액체")
+    assert _dg(_alcohol(59), {}, know)["verdict"] == "경계"
+    assert _dg(_alcohol(59), {}, [])["verdict"] == "경계"
+
+
+@pytest.mark.parametrize("pct,water", [(70, True), (59, False)])
+def test_알코올_제외_조건을_벗어나면_인화점대로_해당이다(pct, water):
+    assert _dg(_alcohol(pct, water), {}, [])["type"] == "규제 누락"
+
+
+# ── 알코올 수용액·인화점 표기 (재현 기반 검토) ──────────────────────
+def _mix(comps, row=None, flash=25):
+    return {**_dg_inputs(row or {"item": None, "class": "해당없음"}, flash=flash), "components": comps}
+
+
+def _c(cas, lower=None, upper=None, value=None, name=None):
+    return {"cas_no": cas, "name": name, "content": {"lower": lower, "upper": upper, "value": value, "unit": "%"}}
+
+
+@pytest.mark.parametrize("comps", [
+    [_c("64-17-5", value=59), _c("7732-18-5", value=41)],
+    [_c("64-17-5", 50, 70), _c("7732-18-5", 30, 50)],
+    [_c("64-17-5", 58, 59), _c(None, 41, 42, name="정제수")],
+])
+def test_알코올_수용액_표기가_달라도_같게_경계다(comps):
+    assert _dg(_mix(comps), {}, [])["verdict"] == "경계"
+
+
+def test_물이_조금_든_용제는_알코올_수용액이_아니다():
+    comps = [_c("108-88-3", 90, 94), _c("67-56-1", 1, 5), _c("7732-18-5", 0, 1)]
+    assert _dg(_mix(comps, flash=5), {}, [])["type"] == "규제 누락"
+
+
+def _phys(state="액체", **q):
+    return {"APPEARANCE_STATE": [{"comp_ref": "MIX", "text_value": state}], "FLASH_POINT": [{"comp_ref": "MIX", "q": q}]}
+
+
+def test_화씨_인화점을_섭씨로_바꾼다():
+    from msds.compliance.sec15_judge import _class4
+
+    assert _class4(_phys(value=100, unit="°F"))[0] == "제2석유류"
+    assert _class4(_phys(value=100, unit="℃"))[0] == "제3석유류"
+
+
+@pytest.mark.parametrize("q,edge", [({"upper": 23, "upper_op": "<", "raw": "<23℃"}, True), ({"lower": 93, "lower_op": ">", "raw": ">93℃"}, True),
+                                    ({"lower": 250, "lower_op": ">", "raw": ">250℃"}, False)])
+def test_인화점_범위_표기는_품명을_정하지_않고_경계다(q, edge):
+    from msds.compliance.sec15_judge import _class4
+
+    item, got = _class4(_phys(**q))[:2]
+    assert (item, got) == (None, edge)
+    v = _dg({**_dg_inputs({"item": None, "class": "해당없음"}), "physchem": _phys(**q)}, {}, [])
+    assert v["verdict"] == ("경계" if edge else "일치")
+
+
+@pytest.mark.parametrize("state", ["Liquid", "용액", "수용액", "오일"])
+def test_액체를_뜻하는_성상을_알아본다(state):
+    from msds.compliance.sec15_judge import _class4
+
+    assert _class4(_phys(state, value=10))[:2] == ("제1석유류", False)
+
+
+@pytest.mark.parametrize("state", ["", "페이스트", "겔상"])
+def test_액체인지_모르는_성상에_인화점이_있으면_경계다(state):
+    from msds.compliance.sec15_judge import _class4
+
+    assert _class4(_phys(state, value=10))[:2] == ("제1석유류", True)
+
+
+def test_고체는_인화점이_있어도_제4류가_아니다():
+    from msds.compliance.sec15_judge import _class4
+
+    assert _class4(_phys("백색 분말", value=10))[0] is None
+
+
+def test_인화점이_없는데_MSDS만_위험물이면_과기재가_아니라_근거부족이다():
+    v = _dg(_dg_inputs({"item": "제1석유류"}, flash=None), {}, [])
+    assert (v["verdict"], v["type"]) == ("근거부족", None)
+
+
+def test_물은_함량이_없어도_빈칸_성분으로_세지_않는다():
+    item = classify_item("HH_CARCINOGEN", [{"cas": "7732-18-5", "name": "물", "low": None, "high": None, "flags": [], "m": None, "class_rows": [], "non_toxic": True}], {})
+    assert item["inputs"][0]["excluded"] == "무독성"
+
+
+def test_화평법_줄은_사람이_읽는_이름과_문장을_쓴다():
+    from msds.compliance.explain import _summary, item_names
+
+    assert item_names()["KREACH_SECTION"] == "화평법 규제현황 기재"
+    text = _summary({"finding": {"section": "15", "item_name": "규제현황 기재", "type": "화평법 항목 누락", "verdict": "불일치", "component": "MIX"}})
+    assert "화평법" in text and "판정하지 못했" not in text
+
+
+# ── 재검증 2차 (위험물) ───────────────────────────────────────
+@pytest.mark.parametrize("states", [["입자가 없는 투명 액체"], ["액체(저온에서 결정 석출)"], ["고체", "액체"]])
+def test_고체_낱말이_함께_있어도_액체를_놓치지_않는다(states):
+    from msds.compliance.sec15_judge import _class4
+
+    phys = {"APPEARANCE_STATE": [{"comp_ref": "MIX", "text_value": t} for t in states], "FLASH_POINT": [{"comp_ref": "MIX", "q": {"value": 15}}]}
+    assert _class4(phys)[0] == "제1석유류"
+
+
+def test_성분_1개_문서의_인화점_행을_쓴다():
+    inp = _dg_inputs({"item": None, "class": "해당없음"}, flash=None)
+    inp["physchem"]["FLASH_POINT"] = [{"comp_ref": "1", "q": _q(15, "℃")}]
+    assert _dg(inp, {}, [])["type"] == "규제 누락"
+
+
+def test_자료_없는_성분이_있으면_급성독성도_과대분류라_하지_않는다():
+    from msds.compliance.mixture.verdict import aggregate_verdicts
+
+    r = {"class_code": "HH_ACUTE_ORAL", "form": None, "result": {"low": "4", "high": "4", "status": "확정"},
+         "inputs": [{"name": "A", "content": {"low": 50, "high": 50}, "excluded": None},
+                    {"name": "B", "content": {"low": 50, "high": 50}, "excluded": "자료 없음"}], "calc": {}}
+    row = aggregate_verdicts([r], [{"class_code": "HH_ACUTE_ORAL", "category": "3"}])["verdicts"][0]
+    assert row["verdict"] == "근거부족"
+
+
+def test_품명이_아닌_글은_품명으로_비교하지_않는다():
+    assert _dg(_dg_inputs({"item": "인화성액체"}, flash=10), {}, [])["verdict"] == "일치"
+
+
+def test_단일물질의_성분_위험물_행도_품명을_비교한다():
+    inp = _dg_inputs({"item": "제2석유류"}, flash=10, kind="단일물질")
+    inp["dangerous_goods"][0]["comp_ref"] = "1"
+    assert _dg(inp, {}, [])["type"] == "기준 불일치"
+
+
+def test_알코올_상한만_적혀도_수용액으로_본다():
+    assert _dg(_mix([_c("64-17-5", upper=59), _c(None, 41, 45, name="탈이온수")]), {}, [])["verdict"] == "경계"
+
+
+def test_알코올_60_이상_수용액은_알코올류다():
+    v = _dg(_mix([_c("64-17-5", 70, 75), _c("7732-18-5", 25, 30)], row={"item": "제1석유류"}, flash=13), {}, [])
+    assert v["type"] == "기준 불일치" and "알코올류" in v["reason"]
+
+
+def test_화씨_범위_인화점():
+    v = _dg({**_dg_inputs({"item": None, "class": "해당없음"}), "physchem": _phys(lower=400, lower_op=">", unit="°F", raw=">400°F")}, {}, [])
+    assert v["verdict"] == "경계"
+    from msds.compliance.sec15_judge import _class4
+
+    assert _class4(_phys(value=50, unit="℉"))[0] == "제1석유류"
+
+
+@pytest.mark.parametrize("state", ["Gas", "Liquefied gas", "Compressed gas"])
+def test_영문_가스_성상(state):
+    from msds.compliance.sec15_judge import _class4
+
+    assert _class4(_phys(state, value=-60))[:2] == (None, False)
+
+
+def test_제4류_밖_위험물_표기는_근거부족이다():
+    v = _dg(_dg_inputs({"item": None, "class": "제6류"}, flash=None), {}, [])
+    assert v["verdict"] == "근거부족"
+
+
+def test_인화점_40도_미만_고체는_인화성고체일_수_있어_경계다():
+    v = _dg({**_dg_inputs({"item": None, "class": "해당없음"}), "physchem": _phys("고체", value=30)}, {}, [])
+    assert v["verdict"] == "경계"
+
+
+def test_순물질_인화점_50도는_함량_제외_규정이_없어_해당이다():
+    assert _dg(_dg_inputs({"item": None, "class": "해당없음"}, flash=50, kind="단일물질"), {}, [])["type"] == "규제 누락"
+
+
+def test_자료없음_위험물_행과_인화점_자료없음은_근거부족이다():
+    inp = _dg_inputs({"item": None, "class": "자료없음"}, flash=None)
+    assert _dg(inp, {}, [])["verdict"] == "근거부족"
