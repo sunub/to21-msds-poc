@@ -722,6 +722,72 @@ def test_글이_없는_요약은_검사에_걸린다(summary, bad):
     assert "요약에 글이 없음" not in ex.claim_problems({"summary": ": "}, fixed)  # 과소·과대 요약은 문장틀로 덮어쓴다
 
 
+_M013 = "포름알데히드, polymers with branched 4-nonylphenol and ethylenediamine"
+
+
+@pytest.mark.parametrize("text, bad", [
+    # 실제 모델 응답(T21-M013, 2026-11-04): 한 성분을 둘로 나눔
+    (f"포름알데히드와 polymers with branched 4-nonylphenol and ethylenediamine는 지식DB에 분류 정보가 없습니다.", True),
+    ("자료가 없는 성분은 나프탈렌, 포름알데히드 및 polymers with branched 4-nonylphenol입니다.", True),
+    ("포름알데히드과 polymers는 자료가 없습니다.", True),
+    ("포름알데히드이나 polymers 중 하나는 자료가 없습니다.", True),
+    ("포름알데히드 또는 polymers 자료가 없습니다.", True),
+    (f"계산에서 빠진 성분은 나프탈렌, {_M013}입니다.", False),   # 이름을 그대로 쓰면 통과
+    ("나프탈렌과 포름알데히드 성분은 분류가 없습니다.", False),   # 줄여 쓴 것은 나눈 것이 아니다
+    ("파라포름알데히드와 polymers 자료는 없습니다.", False),       # 다른 이름 안에 든 글자
+    ("MSDS는 구분 1과 2를 함께 적었습니다.", False),               # '1, 2,4-트리메틸벤젠'의 앞부분 '1'은 보지 않는다
+    ("나프탈렌은 해당 분류가 없습니다.", False),
+])
+def test_쉼표가_든_성분_이름을_나누면_검사에_걸린다(text, bad):
+    req = {"finding": {"section": "2", "kind": "class", "verdict": "근거부족", "msds": {"category": "1C"}, "expected": {}},
+           "trace": {"inputs": [{"name": "나프탈렌"}, {"name": _M013}, {"name": "1, 2,4-트리메틸벤젠"}, {"name": 5}, {"name": ["a, b"]}, None, "x"]}}
+    assert any(p.startswith("성분 이름") for p in ex.claim_problems({"summary": "피부 부식성은 판정하지 못했습니다.", "reasons": [text]}, req)) is bad
+
+
+def test_앞부분이_따로_있는_성분이면_나눠_써도_통과한다():
+    req = {"finding": {"section": "2", "kind": "class", "verdict": "근거부족", "msds": {}, "expected": {}},
+           "trace": {"inputs": [{"name": "포름알데히드"}, {"name": _M013}]}}
+    assert not ex.claim_problems({"summary": "판정하지 못했습니다.", "reasons": ["포름알데히드와 polymers 자료는 없습니다."]}, req)
+
+
+@pytest.mark.parametrize("section, verdict, text, bad", [
+    ("15", "경계", "유독물질은 MSDS가 해당으로 더 강하게 적었습니다.", True),   # 실제 모델 응답(T21-M005 유독물질, 2026-11-04)
+    ("15", "경계", "MSDS는 기준보다 더 높게 적었습니다.", True),
+    ("15", "경계", "MSDS가 과기재했습니다.", True),
+    ("15", "불일치", "유독물질은 MSDS가 해당으로 더 강하게 적었습니다.", False),
+    ("2", "경계", "유독물질은 MSDS가 해당으로 더 강하게 적었습니다.", False),
+    # 경계를 바르게 설명한 말은 걸지 않는다 (검증자가 찾은 오탐)
+    ("15", "경계", "함량 상한 43.9%가 기준 25%보다 더 높게 걸쳐 있어 사람 확인이 필요합니다.", False),
+    ("15", "경계", "과기재인지 규제 누락인지 확정할 수 없습니다.", False),
+    ("15", "경계", "과기재로 단정할 수 없어 사람 확인이 필요합니다.", False),
+    ("15", "경계", "하한 0%는 기준보다 더 낮게 걸쳐 있습니다.", False),
+    ("15", "경계", "MSDS가 과소기재했습니다.", True),
+    ("15", "경계", "MSDS는 과대분류했습니다.", True),
+    ("15", "경계", "MSDS가 과소 분류로 적었습니다.", True),
+    ("15", "경계", "MSDS가 더 약하게 적었습니다.", True),
+    ("15", "경계", "MSDS가 기준을 낮게 기재했습니다.", True),
+    ("15", "경계", "기준을 높게 적용하면 해당일 수 있습니다.", False),
+    ("15", "경계", "과대분류인지는 함량에 따라 갈립니다.", False),
+    ("15", "경계", "과기재로 볼 수 없습니다.", False),
+    ("15", "경계", "과기재 여부는 실제 함량을 봐야 합니다.", False),
+    ("15", "경계", "과기재라고 단정할 수 없습니다.", False),
+    ("15", "경계", "과소 기재 여부를 정하기 어렵습니다.", False),
+    ("15", "경계", "지식DB 기준이 더 엄격하게 정해져 있어 함량에 따라 갈립니다.", False),
+    # 예외가 쉼표·다음 절까지 보면 놓치던 단정 (최종 검증자가 찾음)
+    ("15", "경계", "MSDS가 과기재했으며, 해당 여부는 함량에 따라 갈립니다.", True),
+    ("15", "경계", "MSDS가 과기재했으며 이 때문에 판단이 어렵습니다.", True),
+    ("15", "경계", "MSDS가 과대분류했고 규제 여부와 무관합니다.", True),
+    ("15", "경계", "함량 상한이 기준보다 높게 기재되어 있어 해당일 수 있습니다.", False),
+    ("15", "경계", "MSDS가 더 강하게 적었는지 단정할 수 없습니다.", False),
+])
+def test_15항_경계_줄에_방향을_말하면_검사에_걸린다(section, verdict, text, bad):
+    # 15항 경계는 함량에 따라 갈린다는 뜻이라 과기재·과소 방향이 없다
+    exp = {"applicable": "경계"} if section == "15" else {}
+    req = {"finding": {"section": section, "kind": "regulation" if section == "15" else "class", "verdict": verdict,
+                       "msds": {"applicable": "해당"} if section == "15" else {}, "expected": exp}}
+    assert any(p.startswith("경계 줄에 방향") for p in ex.claim_problems({"summary": text}, req)) is bad
+
+
 def test_설명_모델은_문법_강제_없이_받는다(monkeypatch):
     # json_schema 강제로 받으면 실제 모델이 요약을 ": "로 자주 채웠다 (T-26). 설명만 바꾸고 같은 모델을 쓰는 추출에는 번지지 않아야 한다
     from msds.extract.client import ChatClient, load_model_config
