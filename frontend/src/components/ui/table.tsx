@@ -6,11 +6,14 @@ export function Table({ className, ...props }: ComponentProps<"div">) {
   return <div className={cn("overflow-x-auto rounded-md border border-line bg-white", className)} {...props} />;
 }
 
-export function TableHead({ className, ...props }: ComponentProps<"div">) {
+/** sticky: 스크롤하는 표(ScrollTable) 안에서 머리줄을 위에 붙여 둔다 */
+export function TableHead({ sticky, className, ...props }: ComponentProps<"div"> & { sticky?: boolean }) {
   return (
     <div
+      data-sticky-head={sticky || undefined}
       className={cn(
         "flex items-center gap-3 border-b border-line bg-tint px-4 py-[9px] text-sm font-medium text-mut",
+        sticky && "sticky top-0 z-10",
         className,
       )}
       {...props}
