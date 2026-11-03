@@ -257,7 +257,7 @@ class ChatClient:
             if examples:
                 ctk["examples"] = examples     # 줄 번호 쓰는 법을 보이는 예시 (ADR-011)
             kw["extra_body"] = {**eb, "chat_template_kwargs": ctk}
-        with get_model_gate().slot_sync("extract"):
+        with get_model_gate().slot_sync(getattr(self, "gate_kind", "extract")):
             return self.client.chat.completions.create(**kw)
 
     def call(self, system: str, user_parts: list[dict], schema: dict, schema_name: str,
