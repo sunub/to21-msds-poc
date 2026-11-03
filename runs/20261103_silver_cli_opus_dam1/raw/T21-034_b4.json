@@ -1,0 +1,714 @@
+{
+  "doc_id": "T21-034",
+  "bundle": "b4",
+  "model": "claude-opus-5-5",
+  "mode": "claude -p json-schema",
+  "finish_reason": "tool_use",
+  "usage": {
+    "prompt_tokens": 59307,
+    "completion_tokens": 7756,
+    "cached_tokens": 8949,
+    "reasoning_tokens": 1342,
+    "notional_cost_usd": 0.5597658
+  },
+  "seconds": 57.2,
+  "request_usage": [
+    {
+      "prompt_tokens": 59307,
+      "completion_tokens": 7756,
+      "cached_tokens": 8949,
+      "reasoning_tokens": 1342,
+      "notional_cost_usd": 0.5597658
+    }
+  ],
+  "attempts": 1,
+  "errors": [],
+  "parsed": {
+    "msds": [
+      {
+        "transport": [
+          {
+            "mode": "공통",
+            "basis_raw": null,
+            "regulated": false,
+            "un_no": null,
+            "shipping_name": null,
+            "hazard_class": null,
+            "sub_risk": null,
+            "packing_group": "해당없음",
+            "marine_pollutant": "비해당",
+            "ems_fire": null,
+            "ems_spill": null
+          },
+          {
+            "mode": "육상",
+            "basis_raw": "ADR",
+            "regulated": false,
+            "un_no": null,
+            "shipping_name": null,
+            "hazard_class": null,
+            "sub_risk": null,
+            "packing_group": null,
+            "marine_pollutant": null,
+            "ems_fire": null,
+            "ems_spill": null
+          },
+          {
+            "mode": "해상",
+            "basis_raw": "IMDG",
+            "regulated": false,
+            "un_no": null,
+            "shipping_name": null,
+            "hazard_class": null,
+            "sub_risk": null,
+            "packing_group": null,
+            "marine_pollutant": "비해당",
+            "ems_fire": null,
+            "ems_spill": null
+          },
+          {
+            "mode": "항공",
+            "basis_raw": "IATA",
+            "regulated": false,
+            "un_no": null,
+            "shipping_name": null,
+            "hazard_class": null,
+            "sub_risk": null,
+            "packing_group": "해당없음",
+            "marine_pollutant": null,
+            "ems_fire": null,
+            "ems_spill": null
+          }
+        ],
+        "regulations": [
+          {
+            "seq": 1,
+            "law": "OSH",
+            "item_code": "OSH_PROHIBIT",
+            "item_raw": "금지대상 유해물질",
+            "comp_ref": "MIX",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 2,
+            "law": "OSH",
+            "item_code": "OSH_PERMIT",
+            "item_raw": "허가대상 유해물질",
+            "comp_ref": "MIX",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 3,
+            "law": "OSH",
+            "item_code": "OSH_EXPOSURE_STD",
+            "item_raw": "노출기준 설정물질",
+            "comp_ref": "MIX",
+            "applicable": "해당",
+            "remark": "PRODUCT"
+          },
+          {
+            "seq": 4,
+            "law": "OSH",
+            "item_code": "OSH_EXPOSURE_STD",
+            "item_raw": "노출기준 설정물질",
+            "comp_ref": "2",
+            "applicable": "해당",
+            "value_raw": "TWA:  5.0㎎/㎥ ,  2.0㎎/㎥ STEL: 10.0㎎/㎥"
+          },
+          {
+            "seq": 5,
+            "law": "OSH",
+            "item_code": "OSH_MANAGED",
+            "item_raw": "관리대상 유해물질",
+            "comp_ref": "MIX",
+            "applicable": "해당",
+            "remark": "PRODUCT"
+          },
+          {
+            "seq": 6,
+            "law": "OSH",
+            "item_code": "OSH_MANAGED",
+            "item_raw": "관리대상 유해물질",
+            "comp_ref": "2",
+            "applicable": "해당",
+            "value_raw": "및 이를 1 wt% 이상 함유한 제제",
+            "threshold": {
+              "raw": "1 wt% 이상",
+              "status": "값있음",
+              "lower_op": ">=",
+              "lower": 1,
+              "unit": "wt%"
+            }
+          },
+          {
+            "seq": 7,
+            "law": "OSH",
+            "item_code": "OSH_MEASURE",
+            "item_raw": "작업환경 측정물질",
+            "comp_ref": "MIX",
+            "applicable": "해당",
+            "remark": "PRODUCT"
+          },
+          {
+            "seq": 8,
+            "law": "OSH",
+            "item_code": "OSH_MEASURE",
+            "item_raw": "작업환경 측정물질",
+            "comp_ref": "2",
+            "applicable": "해당",
+            "value_raw": "및 이를 1 wt% 이상 함유한 제제",
+            "threshold": {
+              "raw": "1 wt% 이상",
+              "status": "값있음",
+              "lower_op": ">=",
+              "lower": 1,
+              "unit": "wt%"
+            }
+          },
+          {
+            "seq": 9,
+            "law": "OSH",
+            "item_code": "OSH_HEALTH_EXAM",
+            "item_raw": "특수건강 진단대상 유해인자",
+            "comp_ref": "MIX",
+            "applicable": "해당",
+            "remark": "PRODUCT"
+          },
+          {
+            "seq": 10,
+            "law": "OSH",
+            "item_code": "OSH_HEALTH_EXAM",
+            "item_raw": "특수건강 진단대상 유해인자",
+            "comp_ref": "2",
+            "applicable": "해당",
+            "value_raw": "및 이를 1 wt% 이상 함유한 제제",
+            "threshold": {
+              "raw": "1 wt% 이상",
+              "status": "값있음",
+              "lower_op": ">=",
+              "lower": 1,
+              "unit": "wt%"
+            }
+          },
+          {
+            "seq": 11,
+            "law": "OSH",
+            "item_code": "OSH_SPECIAL",
+            "item_raw": "특별관리물질",
+            "comp_ref": "MIX",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 12,
+            "law": "OSH",
+            "item_code": "OSH_PERMISSIBLE",
+            "item_raw": "허용기준 준수물질",
+            "comp_ref": "MIX",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 13,
+            "law": "OSH",
+            "item_code": "OSH_PSM",
+            "item_raw": "공정안전관리(PSM) 대상물질",
+            "comp_ref": "MIX",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 14,
+            "law": "CCA",
+            "item_code": "CCA_TOXIC",
+            "item_raw": "유독물질",
+            "comp_ref": "MIX",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 15,
+            "law": "CCA",
+            "item_code": "CCA_RESTRICT",
+            "item_raw": "제한물질",
+            "comp_ref": "MIX",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 16,
+            "law": "CCA",
+            "item_code": "CCA_PROHIBIT",
+            "item_raw": "금지물질",
+            "comp_ref": "MIX",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 17,
+            "law": "CCA",
+            "item_code": "CCA_ACCIDENT",
+            "item_raw": "사고대비물질",
+            "comp_ref": "MIX",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 18,
+            "law": "CCA",
+            "item_code": "CCA_PRTR",
+            "item_raw": "화학물질 배출량조사 대상물질",
+            "comp_ref": "MIX",
+            "applicable": "해당",
+            "remark": "PRODUCT"
+          },
+          {
+            "seq": 19,
+            "law": "CCA",
+            "item_code": "CCA_PRTR",
+            "item_raw": "화학물질 배출량조사 대상물질",
+            "comp_ref": "2",
+            "applicable": "해당",
+            "sub_class": "아연 및 그 화합물(Ⅱ-391)",
+            "value_raw": "아연 및 그 화합물(Ⅱ-391) : 함유율(1.0 wt% 이상), 취급량(10 ton/yr)",
+            "threshold": {
+              "raw": "1.0 wt% 이상",
+              "status": "값있음",
+              "lower_op": ">=",
+              "lower": 1,
+              "unit": "wt%",
+              "dp": 1
+            },
+            "qty": {
+              "raw": "10 ton/yr",
+              "status": "값있음",
+              "value": 10,
+              "unit": "ton/yr"
+            }
+          },
+          {
+            "seq": 20,
+            "law": "CCA",
+            "item_code": null,
+            "item_raw": "배출저감계획서 제출 대상 물질",
+            "comp_ref": "MIX",
+            "applicable": "해당",
+            "remark": "PRODUCT"
+          },
+          {
+            "seq": 21,
+            "law": "CCA",
+            "item_code": null,
+            "item_raw": "배출저감계획서 제출 대상 물질",
+            "comp_ref": "2",
+            "applicable": "해당",
+            "value_raw": "아연 및 그 화합물"
+          },
+          {
+            "seq": 22,
+            "law": "KREACH",
+            "item_code": null,
+            "item_raw": null,
+            "comp_ref": "MIX",
+            "applicable": "미기재"
+          },
+          {
+            "seq": 23,
+            "law": "DG",
+            "item_code": "DG_HAZMAT",
+            "item_raw": "위험물안전관리법에 의한 규제",
+            "comp_ref": "MIX",
+            "applicable": "비해당"
+          },
+          {
+            "seq": 24,
+            "law": "WASTE",
+            "item_code": "WASTE_DESIG",
+            "item_raw": "폐기물관리법에 의한 규제",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "remark": "폐기시 폐기물관리법 제13조 폐기물처리기준에 따라 처리하여야 함"
+          },
+          {
+            "seq": 25,
+            "law": "INTL",
+            "item_code": "INTL_EU",
+            "item_raw": "EU - REACH (1907/2006) - Article 59(1) - Candidate List of Substances of Very High Concern (SVHC) for Authorisation",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "country": "EU",
+            "value_raw": "Compliant"
+          },
+          {
+            "seq": 26,
+            "law": "INTL",
+            "item_code": "INTL_EU",
+            "item_raw": "Regulation (EU) 2019/1021 POPs (Persistent Organic Pollutants)",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "country": "EU",
+            "value_raw": "unlisted"
+          }
+        ],
+        "dangerous_goods": [
+          {
+            "comp_ref": "MIX",
+            "class": "해당없음",
+            "item": null,
+            "water_soluble": null,
+            "grade": null,
+            "designated_qty": null
+          }
+        ],
+        "waste": [
+          {
+            "comp_ref": "MIX",
+            "designated": "비해당",
+            "waste_type": null
+          }
+        ],
+        "intl_class": []
+      }
+    ],
+    "evidence": [
+      {
+        "msds_index": 0,
+        "field": "transport[0]",
+        "page": 8,
+        "source_text": "가. 유엔번호(UN No.) : 해당없음 | 나. 유엔 적정 선적명 : 해당없음 | 다. 운송에서의 위험성 등급 : 해당없음 | 라. 용기등급 : 해당없음 | 마. 해양오염물질 : 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "모두 해당없음이므로 regulated=false, 용기등급 해당없음, 해양오염물질 비해당으로 둠. EmS(쪽 9 '화재시/유출시 비상조치의 종류 : 해당없음')는 null"
+      },
+      {
+        "msds_index": 0,
+        "field": "transport[1]",
+        "page": 9,
+        "source_text": "- 육상운송(ADR) · Tunnel restriction code : 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "ADR 행, regulated=false"
+      },
+      {
+        "msds_index": 0,
+        "field": "transport[2]",
+        "page": 9,
+        "source_text": "- 해상운송(IMDG) · 해양오염물질 : 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "IMDG 행, 해양오염물질 비해당"
+      },
+      {
+        "msds_index": 0,
+        "field": "transport[3]",
+        "page": 9,
+        "source_text": "- Air transport(IATA) · 유엔번호 : 해당없음 · 유엔 적정 선적명 : 해당없음 · 운송에서의 위험성 등급 : 해당없음 · 용기등급 : 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "IATA 행, regulated=false"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[0]",
+        "page": 9,
+        "source_text": "● 금지대상 유해물질 - 해당없음",
+        "rules": [
+          "R25",
+          "R15"
+        ],
+        "note": "해당없음 → 비해당"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[1]",
+        "page": 9,
+        "source_text": "● 허가대상 유해물질 - 해당없음",
+        "rules": [
+          "R25",
+          "R15"
+        ],
+        "note": "해당없음 → 비해당"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[2]",
+        "page": 9,
+        "source_text": "(PRODUCT : 노출기준 설정물질, 관리대상 유해물질, 작업환경 측정물질, 특수건강 진단대상 유해인자)",
+        "rules": [
+          "R10",
+          "R25"
+        ],
+        "note": "제품 전체 해당 표기를 MIX 행으로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[3]",
+        "page": 9,
+        "source_text": "- Zinc oxide : TWA:  5.0㎎/㎥ ,  2.0㎎/㎥ STEL: 10.0㎎/㎥",
+        "rules": [
+          "R10",
+          "R25"
+        ],
+        "note": "Zinc oxide → comp_ref 2, 값을 value_raw에"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[4]",
+        "page": 9,
+        "source_text": "(PRODUCT : 노출기준 설정물질, 관리대상 유해물질, 작업환경 측정물질, 특수건강 진단대상 유해인자)",
+        "rules": [
+          "R10",
+          "R25"
+        ],
+        "note": "제품 전체 관리대상 유해물질 해당"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[5]",
+        "page": 9,
+        "source_text": "● 관리대상 유해물질 - Zinc oxide : 및 이를 1 wt% 이상 함유한 제제",
+        "rules": [
+          "R04",
+          "R10",
+          "R25"
+        ],
+        "note": "'1 wt% 이상' → lower_op >=, lower 1, unit wt%"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[6]",
+        "page": 9,
+        "source_text": "(PRODUCT : 노출기준 설정물질, 관리대상 유해물질, 작업환경 측정물질, 특수건강 진단대상 유해인자)",
+        "rules": [
+          "R10",
+          "R25"
+        ],
+        "note": "제품 전체 작업환경 측정물질 해당"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[7]",
+        "page": 9,
+        "source_text": "● 작업환경 측정물질 - Zinc oxide : 및 이를 1 wt% 이상 함유한 제제",
+        "rules": [
+          "R04",
+          "R10",
+          "R25"
+        ],
+        "note": "'1 wt% 이상' → lower_op >=, lower 1"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[8]",
+        "page": 9,
+        "source_text": "(PRODUCT : 노출기준 설정물질, 관리대상 유해물질, 작업환경 측정물질, 특수건강 진단대상 유해인자)",
+        "rules": [
+          "R10",
+          "R25"
+        ],
+        "note": "제품 전체 특수건강 진단대상 해당"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[9]",
+        "page": 9,
+        "source_text": "● 특수건강 진단대상 유해인자 - Zinc oxide : 및 이를 1 wt% 이상 함유한 제제",
+        "rules": [
+          "R04",
+          "R10",
+          "R25"
+        ],
+        "note": "'1 wt% 이상' → lower_op >=, lower 1"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[10]",
+        "page": 10,
+        "source_text": "● 특별관리물질 - 해당없음",
+        "rules": [
+          "R25",
+          "R15"
+        ],
+        "note": "해당없음 → 비해당"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[11]",
+        "page": 10,
+        "source_text": "● 허용기준 준수물질 - 해당없음",
+        "rules": [
+          "R25",
+          "R15"
+        ],
+        "note": "허용기준 준수물질을 OSH_PERMISSIBLE로 매핑, 해당없음 → 비해당"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[12]",
+        "page": 10,
+        "source_text": "● 공정안전관리(PSM) 대상물질 - 해당없음",
+        "rules": [
+          "R25",
+          "R15"
+        ],
+        "note": "해당없음 → 비해당"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[13]",
+        "page": 10,
+        "source_text": "● 유독물질 - 해당없음",
+        "rules": [
+          "R25",
+          "R15"
+        ],
+        "note": "해당없음 → 비해당"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[14]",
+        "page": 10,
+        "source_text": "● 제한물질 - 해당없음",
+        "rules": [
+          "R25",
+          "R15"
+        ],
+        "note": "해당없음 → 비해당"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[15]",
+        "page": 10,
+        "source_text": "● 금지물질 - 해당없음",
+        "rules": [
+          "R25",
+          "R15"
+        ],
+        "note": "해당없음 → 비해당"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[16]",
+        "page": 10,
+        "source_text": "● 사고대비물질 - 해당없음",
+        "rules": [
+          "R25",
+          "R15"
+        ],
+        "note": "해당없음 → 비해당"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[17]",
+        "page": 10,
+        "source_text": "(PRODUCT : 화학물질 배출량조사 대상물질, 배출저감계획서 제출 대상 물질)",
+        "rules": [
+          "R10",
+          "R25"
+        ],
+        "note": "제품 전체 배출량조사 대상 해당"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[18]",
+        "page": 10,
+        "source_text": "- Zinc oxide : 아연 및 그 화합물(Ⅱ-391) : 함유율(1.0 wt% 이상), 취급량(10 ton/yr)",
+        "rules": [
+          "R04",
+          "R06",
+          "R10",
+          "R25"
+        ],
+        "note": "함유율 1.0 wt% 이상 → threshold(>=1, dp 1), 취급량 10 ton/yr → qty"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[19]",
+        "page": 10,
+        "source_text": "(PRODUCT : 화학물질 배출량조사 대상물질, 배출저감계획서 제출 대상 물질)",
+        "rules": [
+          "R10"
+        ],
+        "note": "맞는 값 없음: 배출저감계획서 제출 대상 물질은 C6 항목 코드가 없어 item_code null"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[20]",
+        "page": 10,
+        "source_text": "● 배출저감계획서 제출 대상 물질 - Zinc oxide : 아연 및 그 화합물",
+        "rules": [
+          "R10"
+        ],
+        "note": "맞는 값 없음: 배출저감계획서 제출 대상 물질 코드 없음, item_code null"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[21]",
+        "page": 10,
+        "source_text": null,
+        "rules": [
+          "R18"
+        ],
+        "note": "15항에 화평법 항목이 없어 구양식 문서로 보고 미기재"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[22]",
+        "page": 10,
+        "source_text": "다. 위험물안전관리법에 의한 규제 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "해당없음 → 비해당"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[23]",
+        "page": 10,
+        "source_text": "라. 폐기물관리법에 의한 규제 해당없음 - 폐기시 폐기물관리법 제13조 폐기물처리기준에 따라 처리하여야 함",
+        "rules": [
+          "R15"
+        ],
+        "note": "해당없음 → 비해당, 부가 문장을 remark에"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[24]",
+        "page": 10,
+        "source_text": "● EU - REACH (1907/2006) - Article 59(1) - Candidate List of Substances of Very High Concern (SVHC) for Authorisation - Compliant",
+        "rules": [
+          "R25"
+        ],
+        "note": "Compliant(SVHC 미포함)를 비해당으로, country EU"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[25]",
+        "page": 10,
+        "source_text": "● Regulation (EU) 2019/1021 POPs (Persistent Organic Pollutants) - unlisted",
+        "rules": [
+          "R25"
+        ],
+        "note": "unlisted → 비해당, country EU"
+      },
+      {
+        "msds_index": 0,
+        "field": "dangerous_goods[0]",
+        "page": 10,
+        "source_text": "다. 위험물안전관리법에 의한 규제 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "류별 해당없음"
+      },
+      {
+        "msds_index": 0,
+        "field": "waste[0]",
+        "page": 10,
+        "source_text": "라. 폐기물관리법에 의한 규제 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "지정폐기물 비해당"
+      }
+    ]
+  },
+  "raw_text": "{\"msds\": [{\"transport\": [{\"mode\": \"공통\", \"basis_raw\": null, \"regulated\": false, \"un_no\": null, \"shipping_name\": null, \"hazard_class\": null, \"sub_risk\": null, \"packing_group\": \"해당없음\", \"marine_pollutant\": \"비해당\", \"ems_fire\": null, \"ems_spill\": null}, {\"mode\": \"육상\", \"basis_raw\": \"ADR\", \"regulated\": false, \"un_no\": null, \"shipping_name\": null, \"hazard_class\": null, \"sub_risk\": null, \"packing_group\": null, \"marine_pollutant\": null, \"ems_fire\": null, \"ems_spill\": null}, {\"mode\": \"해상\", \"basis_raw\": \"IMDG\", \"regulated\": false, \"un_no\": null, \"shipping_name\": null, \"hazard_class\": null, \"sub_risk\": null, \"packing_group\": null, \"marine_pollutant\": \"비해당\", \"ems_fire\": null, \"ems_spill\": null}, {\"mode\": \"항공\", \"basis_raw\": \"IATA\", \"regulated\": false, \"un_no\": null, \"shipping_name\": null, \"hazard_class\": null, \"sub_risk\": null, \"packing_group\": \"해당없음\", \"marine_pollutant\": null, \"ems_fire\": null, \"ems_spill\": null}], \"regulations\": [{\"seq\": 1, \"law\": \"OSH\", \"item_code\": \"OSH_PROHIBIT\", \"item_raw\": \"금지대상 유해물질\", \"comp_ref\": \"MIX\", \"applicable\": \"비해당\"}, {\"seq\": 2, \"law\": \"OSH\", \"item_code\": \"OSH_PERMIT\", \"item_raw\": \"허가대상 유해물질\", \"comp_ref\": \"MIX\", \"applicable\": \"비해당\"}, {\"seq\": 3, \"law\": \"OSH\", \"item_code\": \"OSH_EXPOSURE_STD\", \"item_raw\": \"노출기준 설정물질\", \"comp_ref\": \"MIX\", \"applicable\": \"해당\", \"remark\": \"PRODUCT\"}, {\"seq\": 4, \"law\": \"OSH\", \"item_code\": \"OSH_EXPOSURE_STD\", \"item_raw\": \"노출기준 설정물질\", \"comp_ref\": \"2\", \"applicable\": \"해당\", \"value_raw\": \"TWA:  5.0㎎/㎥ ,  2.0㎎/㎥ STEL: 10.0㎎/㎥\"}, {\"seq\": 5, \"law\": \"OSH\", \"item_code\": \"OSH_MANAGED\", \"item_raw\": \"관리대상 유해물질\", \"comp_ref\": \"MIX\", \"applicable\": \"해당\", \"remark\": \"PRODUCT\"}, {\"seq\": 6, \"law\": \"OSH\", \"item_code\": \"OSH_MANAGED\", \"item_raw\": \"관리대상 유해물질\", \"comp_ref\": \"2\", \"applicable\": \"해당\", \"value_raw\": \"및 이를 1 wt% 이상 함유한 제제\", \"threshold\": {\"raw\": \"1 wt% 이상\", \"status\": \"값있음\", \"lower_op\": \">=\", \"lower\": 1, \"unit\": \"wt%\"}}, {\"seq\": 7, \"law\": \"OSH\", \"item_code\": \"OSH_MEASURE\", \"item_raw\": \"작업환경 측정물질\", \"comp_ref\": \"MIX\", \"applicable\": \"해당\", \"remark\": \"PRODUCT\"}, {\"seq\": 8, \"law\": \"OSH\", \"item_code\": \"OSH_MEASURE\", \"item_raw\": \"작업환경 측정물질\", \"comp_ref\": \"2\", \"applicable\": \"해당\", \"value_raw\": \"및 이를 1 wt% 이상 함유한 제제\", \"threshold\": {\"raw\": \"1 wt% 이상\", \"status\": \"값있음\", \"lower_op\": \">=\", \"lower\": 1, \"unit\": \"wt%\"}}, {\"seq\": 9, \"law\": \"OSH\", \"item_code\": \"OSH_HEALTH_EXAM\", \"item_raw\": \"특수건강 진단대상 유해인자\", \"comp_ref\": \"MIX\", \"applicable\": \"해당\", \"remark\": \"PRODUCT\"}, {\"seq\": 10, \"law\": \"OSH\", \"item_code\": \"OSH_HEALTH_EXAM\", \"item_raw\": \"특수건강 진단대상 유해인자\", \"comp_ref\": \"2\", \"applicable\": \"해당\", \"value_raw\": \"및 이를 1 wt% 이상 함유한 제제\", \"threshold\": {\"raw\": \"1 wt% 이상\", \"status\": \"값있음\", \"lower_op\": \">=\", \"lower\": 1, \"unit\": \"wt%\"}}, {\"seq\": 11, \"law\": \"OSH\", \"item_code\": \"OSH_SPECIAL\", \"item_raw\": \"특별관리물질\", \"comp_ref\": \"MIX\", \"applicable\": \"비해당\"}, {\"seq\": 12, \"law\": \"OSH\", \"item_code\": \"OSH_PERMISSIBLE\", \"item_raw\": \"허용기준 준수물질\", \"comp_ref\": \"MIX\", \"applicable\": \"비해당\"}, {\"seq\": 13, \"law\": \"OSH\", \"item_code\": \"OSH_PSM\", \"item_raw\": \"공정안전관리(PSM) 대상물질\", \"comp_ref\": \"MIX\", \"applicable\": \"비해당\"}, {\"seq\": 14, \"law\": \"CCA\", \"item_code\": \"CCA_TOXIC\", \"item_raw\": \"유독물질\", \"comp_ref\": \"MIX\", \"applicable\": \"비해당\"}, {\"seq\": 15, \"law\": \"CCA\", \"item_code\": \"CCA_RESTRICT\", \"item_raw\": \"제한물질\", \"comp_ref\": \"MIX\", \"applicable\": \"비해당\"}, {\"seq\": 16, \"law\": \"CCA\", \"item_code\": \"CCA_PROHIBIT\", \"item_raw\": \"금지물질\", \"comp_ref\": \"MIX\", \"applicable\": \"비해당\"}, {\"seq\": 17, \"law\": \"CCA\", \"item_code\": \"CCA_ACCIDENT\", \"item_raw\": \"사고대비물질\", \"comp_ref\": \"MIX\", \"applicable\": \"비해당\"}, {\"seq\": 18, \"law\": \"CCA\", \"item_code\": \"CCA_PRTR\", \"item_raw\": \"화학물질 배출량조사 대상물질\", \"comp_ref\": \"MIX\", \"applicable\": \"해당\", \"remark\": \"PRODUCT\"}, {\"seq\": 19, \"law\": \"CCA\", \"item_code\": \"CCA_PRTR\", \"item_raw\": \"화학물질 배출량조사 대상물질\", \"comp_ref\": \"2\", \"applicable\": \"해당\", \"sub_class\": \"아연 및 그 화합물(Ⅱ-391)\", \"value_raw\": \"아연 및 그 화합물(Ⅱ-391) : 함유율(1.0 wt% 이상), 취급량(10 ton/yr)\", \"threshold\": {\"raw\": \"1.0 wt% 이상\", \"status\": \"값있음\", \"lower_op\": \">=\", \"lower\": 1, \"unit\": \"wt%\", \"dp\": 1}, \"qty\": {\"raw\": \"10 ton/yr\", \"status\": \"값있음\", \"value\": 10, \"unit\": \"ton/yr\"}}, {\"seq\": 20, \"law\": \"CCA\", \"item_code\": null, \"item_raw\": \"배출저감계획서 제출 대상 물질\", \"comp_ref\": \"MIX\", \"applicable\": \"해당\", \"remark\": \"PRODUCT\"}, {\"seq\": 21, \"law\": \"CCA\", \"item_code\": null, \"item_raw\": \"배출저감계획서 제출 대상 물질\", \"comp_ref\": \"2\", \"applicable\": \"해당\", \"value_raw\": \"아연 및 그 화합물\"}, {\"seq\": 22, \"law\": \"KREACH\", \"item_code\": null, \"item_raw\": null, \"comp_ref\": \"MIX\", \"applicable\": \"미기재\"}, {\"seq\": 23, \"law\": \"DG\", \"item_code\": \"DG_HAZMAT\", \"item_raw\": \"위험물안전관리법에 의한 규제\", \"comp_ref\": \"MIX\", \"applicable\": \"비해당\"}, {\"seq\": 24, \"law\": \"WASTE\", \"item_code\": \"WASTE_DESIG\", \"item_raw\": \"폐기물관리법에 의한 규제\", \"comp_ref\": \"MIX\", \"applicable\": \"비해당\", \"remark\": \"폐기시 폐기물관리법 제13조 폐기물처리기준에 따라 처리하여야 함\"}, {\"seq\": 25, \"law\": \"INTL\", \"item_code\": \"INTL_EU\", \"item_raw\": \"EU - REACH (1907/2006) - Article 59(1) - Candidate List of Substances of Very High Concern (SVHC) for Authorisation\", \"comp_ref\": \"MIX\", \"applicable\": \"비해당\", \"country\": \"EU\", \"value_raw\": \"Compliant\"}, {\"seq\": 26, \"law\": \"INTL\", \"item_code\": \"INTL_EU\", \"item_raw\": \"Regulation (EU) 2019/1021 POPs (Persistent Organic Pollutants)\", \"comp_ref\": \"MIX\", \"applicable\": \"비해당\", \"country\": \"EU\", \"value_raw\": \"unlisted\"}], \"dangerous_goods\": [{\"comp_ref\": \"MIX\", \"class\": \"해당없음\", \"item\": null, \"water_soluble\": null, \"grade\": null, \"designated_qty\": null}], \"waste\": [{\"comp_ref\": \"MIX\", \"designated\": \"비해당\", \"waste_type\": null}], \"intl_class\": []}], \"evidence\": [{\"msds_index\": 0, \"field\": \"transport[0]\", \"page\": 8, \"source_text\": \"가. 유엔번호(UN No.) : 해당없음 | 나. 유엔 적정 선적명 : 해당없음 | 다. 운송에서의 위험성 등급 : 해당없음 | 라. 용기등급 : 해당없음 | 마. 해양오염물질 : 해당없음\", \"rules\": [\"R15\"], \"note\": \"모두 해당없음이므로 regulated=false, 용기등급 해당없음, 해양오염물질 비해당으로 둠. EmS(쪽 9 '화재시/유출시 비상조치의 종류 : 해당없음')는 null\"}, {\"msds_index\": 0, \"field\": \"transport[1]\", \"page\": 9, \"source_text\": \"- 육상운송(ADR) · Tunnel restriction code : 해당없음\", \"rules\": [\"R15\"], \"note\": \"ADR 행, regulated=false\"}, {\"msds_index\": 0, \"field\": \"transport[2]\", \"page\": 9, \"source_text\": \"- 해상운송(IMDG) · 해양오염물질 : 해당없음\", \"rules\": [\"R15\"], \"note\": \"IMDG 행, 해양오염물질 비해당\"}, {\"msds_index\": 0, \"field\": \"transport[3]\", \"page\": 9, \"source_text\": \"- Air transport(IATA) · 유엔번호 : 해당없음 · 유엔 적정 선적명 : 해당없음 · 운송에서의 위험성 등급 : 해당없음 · 용기등급 : 해당없음\", \"rules\": [\"R15\"], \"note\": \"IATA 행, regulated=false\"}, {\"msds_index\": 0, \"field\": \"regulations[0]\", \"page\": 9, \"source_text\": \"● 금지대상 유해물질 - 해당없음\", \"rules\": [\"R25\", \"R15\"], \"note\": \"해당없음 → 비해당\"}, {\"msds_index\": 0, \"field\": \"regulations[1]\", \"page\": 9, \"source_text\": \"● 허가대상 유해물질 - 해당없음\", \"rules\": [\"R25\", \"R15\"], \"note\": \"해당없음 → 비해당\"}, {\"msds_index\": 0, \"field\": \"regulations[2]\", \"page\": 9, \"source_text\": \"(PRODUCT : 노출기준 설정물질, 관리대상 유해물질, 작업환경 측정물질, 특수건강 진단대상 유해인자)\", \"rules\": [\"R10\", \"R25\"], \"note\": \"제품 전체 해당 표기를 MIX 행으로 둠\"}, {\"msds_index\": 0, \"field\": \"regulations[3]\", \"page\": 9, \"source_text\": \"- Zinc oxide : TWA:  5.0㎎/㎥ ,  2.0㎎/㎥ STEL: 10.0㎎/㎥\", \"rules\": [\"R10\", \"R25\"], \"note\": \"Zinc oxide → comp_ref 2, 값을 value_raw에\"}, {\"msds_index\": 0, \"field\": \"regulations[4]\", \"page\": 9, \"source_text\": \"(PRODUCT : 노출기준 설정물질, 관리대상 유해물질, 작업환경 측정물질, 특수건강 진단대상 유해인자)\", \"rules\": [\"R10\", \"R25\"], \"note\": \"제품 전체 관리대상 유해물질 해당\"}, {\"msds_index\": 0, \"field\": \"regulations[5]\", \"page\": 9, \"source_text\": \"● 관리대상 유해물질 - Zinc oxide : 및 이를 1 wt% 이상 함유한 제제\", \"rules\": [\"R04\", \"R10\", \"R25\"], \"note\": \"'1 wt% 이상' → lower_op >=, lower 1, unit wt%\"}, {\"msds_index\": 0, \"field\": \"regulations[6]\", \"page\": 9, \"source_text\": \"(PRODUCT : 노출기준 설정물질, 관리대상 유해물질, 작업환경 측정물질, 특수건강 진단대상 유해인자)\", \"rules\": [\"R10\", \"R25\"], \"note\": \"제품 전체 작업환경 측정물질 해당\"}, {\"msds_index\": 0, \"field\": \"regulations[7]\", \"page\": 9, \"source_text\": \"● 작업환경 측정물질 - Zinc oxide : 및 이를 1 wt% 이상 함유한 제제\", \"rules\": [\"R04\", \"R10\", \"R25\"], \"note\": \"'1 wt% 이상' → lower_op >=, lower 1\"}, {\"msds_index\": 0, \"field\": \"regulations[8]\", \"page\": 9, \"source_text\": \"(PRODUCT : 노출기준 설정물질, 관리대상 유해물질, 작업환경 측정물질, 특수건강 진단대상 유해인자)\", \"rules\": [\"R10\", \"R25\"], \"note\": \"제품 전체 특수건강 진단대상 해당\"}, {\"msds_index\": 0, \"field\": \"regulations[9]\", \"page\": 9, \"source_text\": \"● 특수건강 진단대상 유해인자 - Zinc oxide : 및 이를 1 wt% 이상 함유한 제제\", \"rules\": [\"R04\", \"R10\", \"R25\"], \"note\": \"'1 wt% 이상' → lower_op >=, lower 1\"}, {\"msds_index\": 0, \"field\": \"regulations[10]\", \"page\": 10, \"source_text\": \"● 특별관리물질 - 해당없음\", \"rules\": [\"R25\", \"R15\"], \"note\": \"해당없음 → 비해당\"}, {\"msds_index\": 0, \"field\": \"regulations[11]\", \"page\": 10, \"source_text\": \"● 허용기준 준수물질 - 해당없음\", \"rules\": [\"R25\", \"R15\"], \"note\": \"허용기준 준수물질을 OSH_PERMISSIBLE로 매핑, 해당없음 → 비해당\"}, {\"msds_index\": 0, \"field\": \"regulations[12]\", \"page\": 10, \"source_text\": \"● 공정안전관리(PSM) 대상물질 - 해당없음\", \"rules\": [\"R25\", \"R15\"], \"note\": \"해당없음 → 비해당\"}, {\"msds_index\": 0, \"field\": \"regulations[13]\", \"page\": 10, \"source_text\": \"● 유독물질 - 해당없음\", \"rules\": [\"R25\", \"R15\"], \"note\": \"해당없음 → 비해당\"}, {\"msds_index\": 0, \"field\": \"regulations[14]\", \"page\": 10, \"source_text\": \"● 제한물질 - 해당없음\", \"rules\": [\"R25\", \"R15\"], \"note\": \"해당없음 → 비해당\"}, {\"msds_index\": 0, \"field\": \"regulations[15]\", \"page\": 10, \"source_text\": \"● 금지물질 - 해당없음\", \"rules\": [\"R25\", \"R15\"], \"note\": \"해당없음 → 비해당\"}, {\"msds_index\": 0, \"field\": \"regulations[16]\", \"page\": 10, \"source_text\": \"● 사고대비물질 - 해당없음\", \"rules\": [\"R25\", \"R15\"], \"note\": \"해당없음 → 비해당\"}, {\"msds_index\": 0, \"field\": \"regulations[17]\", \"page\": 10, \"source_text\": \"(PRODUCT : 화학물질 배출량조사 대상물질, 배출저감계획서 제출 대상 물질)\", \"rules\": [\"R10\", \"R25\"], \"note\": \"제품 전체 배출량조사 대상 해당\"}, {\"msds_index\": 0, \"field\": \"regulations[18]\", \"page\": 10, \"source_text\": \"- Zinc oxide : 아연 및 그 화합물(Ⅱ-391) : 함유율(1.0 wt% 이상), 취급량(10 ton/yr)\", \"rules\": [\"R04\", \"R06\", \"R10\", \"R25\"], \"note\": \"함유율 1.0 wt% 이상 → threshold(>=1, dp 1), 취급량 10 ton/yr → qty\"}, {\"msds_index\": 0, \"field\": \"regulations[19]\", \"page\": 10, \"source_text\": \"(PRODUCT : 화학물질 배출량조사 대상물질, 배출저감계획서 제출 대상 물질)\", \"rules\": [\"R10\"], \"note\": \"맞는 값 없음: 배출저감계획서 제출 대상 물질은 C6 항목 코드가 없어 item_code null\"}, {\"msds_index\": 0, \"field\": \"regulations[20]\", \"page\": 10, \"source_text\": \"● 배출저감계획서 제출 대상 물질 - Zinc oxide : 아연 및 그 화합물\", \"rules\": [\"R10\"], \"note\": \"맞는 값 없음: 배출저감계획서 제출 대상 물질 코드 없음, item_code null\"}, {\"msds_index\": 0, \"field\": \"regulations[21]\", \"page\": 10, \"source_text\": null, \"rules\": [\"R18\"], \"note\": \"15항에 화평법 항목이 없어 구양식 문서로 보고 미기재\"}, {\"msds_index\": 0, \"field\": \"regulations[22]\", \"page\": 10, \"source_text\": \"다. 위험물안전관리법에 의한 규제 해당없음\", \"rules\": [\"R15\"], \"note\": \"해당없음 → 비해당\"}, {\"msds_index\": 0, \"field\": \"regulations[23]\", \"page\": 10, \"source_text\": \"라. 폐기물관리법에 의한 규제 해당없음 - 폐기시 폐기물관리법 제13조 폐기물처리기준에 따라 처리하여야 함\", \"rules\": [\"R15\"], \"note\": \"해당없음 → 비해당, 부가 문장을 remark에\"}, {\"msds_index\": 0, \"field\": \"regulations[24]\", \"page\": 10, \"source_text\": \"● EU - REACH (1907/2006) - Article 59(1) - Candidate List of Substances of Very High Concern (SVHC) for Authorisation - Compliant\", \"rules\": [\"R25\"], \"note\": \"Compliant(SVHC 미포함)를 비해당으로, country EU\"}, {\"msds_index\": 0, \"field\": \"regulations[25]\", \"page\": 10, \"source_text\": \"● Regulation (EU) 2019/1021 POPs (Persistent Organic Pollutants) - unlisted\", \"rules\": [\"R25\"], \"note\": \"unlisted → 비해당, country EU\"}, {\"msds_index\": 0, \"field\": \"dangerous_goods[0]\", \"page\": 10, \"source_text\": \"다. 위험물안전관리법에 의한 규제 해당없음\", \"rules\": [\"R15\"], \"note\": \"류별 해당없음\"}, {\"msds_index\": 0, \"field\": \"waste[0]\", \"page\": 10, \"source_text\": \"라. 폐기물관리법에 의한 규제 해당없음\", \"rules\": [\"R15\"], \"note\": \"지정폐기물 비해당\"}]}"
+}

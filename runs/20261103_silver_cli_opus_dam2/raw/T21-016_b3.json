@@ -1,0 +1,1156 @@
+{
+  "doc_id": "T21-016",
+  "bundle": "b3",
+  "model": "claude-opus-5-5",
+  "mode": "claude -p json-schema",
+  "finish_reason": "tool_use",
+  "usage": {
+    "prompt_tokens": 66435,
+    "completion_tokens": 12971,
+    "cached_tokens": 0,
+    "reasoning_tokens": 2107,
+    "notional_cost_usd": 0.790892
+  },
+  "seconds": 90.4,
+  "request_usage": [
+    {
+      "prompt_tokens": 66435,
+      "completion_tokens": 12971,
+      "cached_tokens": 0,
+      "reasoning_tokens": 2107,
+      "notional_cost_usd": 0.790892
+    }
+  ],
+  "attempts": 1,
+  "errors": [],
+  "parsed": {
+    "msds": [
+      {
+        "toxicity": [
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_ORAL",
+            "descriptor": "LD50",
+            "species": "쥐",
+            "sex": null,
+            "q": {
+              "raw": "> 5,000 mg/kg 추정치",
+              "lower_op": ">",
+              "lower": 5000,
+              "unit": "mg/kg",
+              "note": "추정치",
+              "status": "값있음"
+            },
+            "statements": [
+              {
+                "seq": 1,
+                "value": "마실 경우 독성은 매우 낮음 소량을 마신 경우 유해한 결과를 초래하지 않습니다.",
+                "text": "마실 경우 독성은 매우 낮음 소량을 마신 경우 유해한 결과를 초래하지 않습니다."
+              },
+              {
+                "seq": 2,
+                "value": "본제품 1 회 경구투여 LD50 은 결정되지 않았습니다.",
+                "text": "본제품 1 회 경구투여 LD50 은 결정되지 않았습니다."
+              },
+              {
+                "seq": 3,
+                "value": "성분 정보를 기초로 하여:",
+                "text": "성분 정보를 기초로 하여:"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_DERMAL",
+            "descriptor": "LD50",
+            "species": "토끼",
+            "q": {
+              "raw": "> 5,000 mg/kg 추정치",
+              "lower_op": ">",
+              "lower": 5000,
+              "unit": "mg/kg",
+              "note": "추정치",
+              "status": "값있음"
+            },
+            "statements": [
+              {
+                "seq": 1,
+                "value": "오랫동안 피부에 닿아도 해로운 양만큼의 흡수로 이어지지는 않습니다.",
+                "text": "오랫동안 피부에 닿아도 해로운 양만큼의 흡수로 이어지지는 않습니다."
+              },
+              {
+                "seq": 2,
+                "value": "본제품 경피 LD50 은 결정되지 않았습니다.",
+                "text": "본제품 경피 LD50 은 결정되지 않았습니다."
+              },
+              {
+                "seq": 3,
+                "value": "성분 정보를 기초로 하여:",
+                "text": "성분 정보를 기초로 하여:"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_INHAL",
+            "descriptor": "결과기술",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "오랫동안 노출되어도 부작용을 일으키지 않을 것입니다.",
+                "text": "오랫동안 노출되어도 부작용을 일으키지 않을 것입니다."
+              },
+              {
+                "seq": 2,
+                "value": "지나친 노출은 상부 호흡계 (코와 목)에 통증을 유발할 수 있습니다.",
+                "text": "지나친 노출은 상부 호흡계 (코와 목)에 통증을 유발할 수 있습니다."
+              },
+              {
+                "seq": 3,
+                "value": "산화금속에의 노출은 독감증세와 비슷한 특징을 가진 금속증기열을 유발할 수 있음",
+                "text": "산화금속에의 노출은 독감증세와 비슷한 특징을 가진 금속증기열을 유발할 수 있음"
+              },
+              {
+                "seq": 4,
+                "value": "본제품 LC50 은 결정되지 않았습니다.",
+                "text": "본제품 LC50 은 결정되지 않았습니다."
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_SKIN",
+            "descriptor": "결과기술",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "단시간의 접촉은 피부를 자극하지 않습니다.",
+                "text": "단시간의 접촉은 피부를 자극하지 않습니다."
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_EYE",
+            "descriptor": "결과기술",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "눈에 임시로 약간의 자극이 올 수 있습니다.",
+                "text": "눈에 임시로 약간의 자극이 올 수 있습니다."
+              },
+              {
+                "seq": 2,
+                "value": "각막 손상의 가능성은 거의 없습니다.",
+                "text": "각막 손상의 가능성은 거의 없습니다."
+              },
+              {
+                "seq": 3,
+                "value": "분진은 눈을 자극할 수 있음.",
+                "text": "분진은 눈을 자극할 수 있음."
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_SKIN_SENS",
+            "descriptor": "결과기술",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "성분을 테스트한 결과",
+                "text": "성분을 테스트한 결과"
+              },
+              {
+                "seq": 2,
+                "value": "돼지 쥐 실험 대상에서는 알레르기성 피부 반응을 일으키지 않았음.",
+                "text": "돼지 쥐 실험 대상에서는 알레르기성 피부 반응을 일으키지 않았음."
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_RESP_SENS",
+            "q": {
+              "raw": "해당 자료없음.",
+              "status": "자료없음"
+            },
+            "statements": [],
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_STOT_SE",
+            "descriptor": "결과기술",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "특정표적장기독성(1 회노출) 로 분류되기에 해당자료가 불충분함.",
+                "text": "특정표적장기독성(1 회노출) 로 분류되기에 해당자료가 불충분함."
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_STOT_RE",
+            "descriptor": "결과기술",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "사람의 다음 기관에 영향 미치는 인자로 보고된 물질을 포함하고 있음",
+                "value": "폐",
+                "text": "사람의 다음 기관에 영향 미치는 인자로 보고된 물질을 포함하고 있음: 폐"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_CARC",
+            "descriptor": "결과기술",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "성분 정보를 기초로 하여",
+                "value": "발암 효과를 평가하기에는 현재 이용 가능한 데이터가 부족함.",
+                "text": "성분 정보를 기초로 하여: 발암 효과를 평가하기에는 현재 이용 가능한 데이터가 부족함."
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_REPRO",
+            "q": {
+              "raw": "해당 자료없음.",
+              "status": "자료없음",
+              "note": "최기형성"
+            },
+            "statements": [
+              {
+                "seq": 1,
+                "key": "최기형성",
+                "value": "해당 자료없음.",
+                "text": "최기형성 해당 자료없음."
+              }
+            ],
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_REPRO",
+            "descriptor": "결과기술",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "동물 연구에서 구성 성분들은 생식활동에 관여하지 않음.",
+                "text": "동물 연구에서 구성 성분들은 생식활동에 관여하지 않음."
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_MUTA",
+            "descriptor": "결과기술",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "시험관 독성 실험에서 음성반응을 나타내는 물질 동물실험에서 유전 독성 연구 결과가 음성으로 나타난 구성 성분을 포함하고 있음.",
+                "text": "시험관 독성 실험에서 음성반응을 나타내는 물질 동물실험에서 유전 독성 연구 결과가 음성으로 나타난 구성 성분을 포함하고 있음."
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_ASP",
+            "descriptor": "결과기술",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "물리적 특성에 근거, 흡입 유해성이 있을 가능성이 없습니다.",
+                "text": "물리적 특성에 근거, 흡입 유해성이 있을 가능성이 없습니다."
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_INHAL",
+            "descriptor": "LC50",
+            "species": "쥐",
+            "duration_value": 4,
+            "duration_unit": "hr",
+            "physical_form": "분진·미스트",
+            "q": {
+              "raw": "> 5 mg/l",
+              "lower_op": ">",
+              "lower": 5,
+              "unit": "mg/L",
+              "status": "값있음"
+            },
+            "statements": [
+              {
+                "seq": 1,
+                "value": "이 농도에서 사망에 이르지는 않았습니다.",
+                "text": "이 농도에서 사망에 이르지는 않았습니다."
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "TX_INHAL",
+            "descriptor": "결과기술",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "LC50 은 결정되지 않았습니다.",
+                "text": "LC50 은 결정되지 않았습니다."
+              }
+            ],
+            "status": "값있음"
+          }
+        ],
+        "cmr": [],
+        "ecotox": [
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_FISH",
+            "descriptor": "결과기술",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "급성 기준으로 이 물질은 수생 생물에서 고 독성 임.(대부분의 민감한 종에서 LC50/EC50/EL50/LL50<0.1 mg/L)",
+                "text": "급성 기준으로 이 물질은 수생 생물에서 고 독성 임.(대부분의 민감한 종에서 LC50/EC50/EL50/LL50<0.1 mg/L)"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_FISH",
+            "descriptor": "LC50",
+            "species": "Oncorhynchus mykiss (무지개송어)",
+            "duration_value": 96,
+            "duration_unit": "hr",
+            "q": {
+              "raw": "0.14 - 1.1 mg/l",
+              "lower_op": ">=",
+              "lower": 0.14,
+              "upper_op": "<=",
+              "upper": 1.1,
+              "unit": "mg/L",
+              "dp": 2,
+              "status": "값있음"
+            },
+            "statements": [
+              {
+                "seq": 1,
+                "value": "지수식 시험",
+                "text": "지수식 시험"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_FISH",
+            "descriptor": "LC50",
+            "species": "Danio rerio (제브라피쉬)",
+            "duration_value": 96,
+            "duration_unit": "hr",
+            "q": {
+              "raw": "1 - 10 mg/l",
+              "lower_op": ">=",
+              "lower": 1,
+              "upper_op": "<=",
+              "upper": 10,
+              "unit": "mg/L",
+              "status": "값있음"
+            },
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_CRUST",
+            "descriptor": "EC50",
+            "species": "Daphnia magna (물벼룩)",
+            "duration_value": 48,
+            "duration_unit": "hr",
+            "q": {
+              "raw": "1 - 10 mg/l",
+              "lower_op": ">=",
+              "lower": 1,
+              "upper_op": "<=",
+              "upper": 10,
+              "unit": "mg/L",
+              "status": "값있음"
+            },
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_ALGAE",
+            "descriptor": null,
+            "species": "Selenastrum capricornutum (녹조류)",
+            "duration_value": 72,
+            "duration_unit": "hr",
+            "q": {
+              "raw": "IC50, 0.136 mg/l",
+              "value": 0.136,
+              "unit": "mg/L",
+              "dp": 3,
+              "status": "값있음"
+            },
+            "statements": [
+              {
+                "seq": 1,
+                "value": "성장률",
+                "text": "성장률"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_OTHER",
+            "descriptor": "EC50",
+            "duration_value": 3,
+            "duration_unit": "hr",
+            "guideline": "OECD 시험 가이드라인 209",
+            "q": {
+              "raw": "5.2 mg/l",
+              "value": 5.2,
+              "unit": "mg/L",
+              "dp": 1,
+              "status": "값있음"
+            },
+            "statements": [
+              {
+                "seq": 1,
+                "key": "박테리아독성",
+                "value": "유사한 물질에 대한 시험 자료에 근거함",
+                "text": "유사한 물질에 대한 시험 자료에 근거함"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_FISH",
+            "descriptor": "NOEC",
+            "species": "Danio rerio (제브라피쉬)",
+            "duration_value": 32,
+            "duration_unit": "day",
+            "q": {
+              "raw": ">= 0.540 mg/l",
+              "lower_op": ">=",
+              "lower": 0.54,
+              "unit": "mg/L",
+              "dp": 3,
+              "status": "값있음"
+            },
+            "statements": [
+              {
+                "seq": 1,
+                "value": "치사율",
+                "text": "치사율"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_CRUST",
+            "descriptor": "NOEC",
+            "species": "Daphnia magna (물벼룩)",
+            "duration_value": 21,
+            "duration_unit": "day",
+            "q": {
+              "raw": "0.04 mg/l",
+              "value": 0.04,
+              "unit": "mg/L",
+              "dp": 2,
+              "status": "값있음"
+            },
+            "statements": [
+              {
+                "seq": 1,
+                "value": "출생 숫자",
+                "text": "출생 숫자"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_PERSIST",
+            "descriptor": "결과기술",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "생분해성",
+                "value": "생분해가 해당되지 않음",
+                "text": "생분해성: 생분해가 해당되지 않음"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_BIOACC",
+            "descriptor": "결과기술",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "동생물의 생체내 축적 가능성",
+                "value": "물에서 n-옥탄올로 분리시키는 것이 적용되지 않음",
+                "text": "동생물의 생체내 축적 가능성: 물에서 n-옥탄올로 분리시키는 것이 적용되지 않음"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_BIOACC",
+            "descriptor": "BCF",
+            "species": "어류",
+            "q": {
+              "raw": "177",
+              "value": 177,
+              "status": "값있음"
+            },
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_SOIL",
+            "q": {
+              "raw": "자료 없음.",
+              "status": "자료없음"
+            },
+            "statements": [],
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_OTHER",
+            "descriptor": "결과기술",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "PBT 및 vPvB 평가결과",
+                "value": "본 물질은 PBT 에 대한 평가가 이루어지지 않았습니다.",
+                "text": "본 물질은 PBT 에 대한 평가가 이루어지지 않았습니다."
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_OTHER",
+            "descriptor": "결과기술",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "기타 유해 영향",
+                "value": "이 물질은 몬트리올 의정서 리스트에 등재되어 있지 않으며 오존층 파괴 물질이 아닙니다.",
+                "text": "이 물질은 몬트리올 의정서 리스트에 등재되어 있지 않으며 오존층 파괴 물질이 아닙니다."
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "ECO_FISH",
+            "descriptor": "결과기술",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "본질적으로 수생 생물에 비독성입니다(급성 basis).(LC50/EC50/EL50/LL50>100mg/L, 가장 민감한 종).",
+                "text": "본질적으로 수생 생물에 비독성입니다(급성 basis).(LC50/EC50/EL50/LL50>100mg/L, 가장 민감한 종)."
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "ECO_FISH",
+            "descriptor": "LC50",
+            "species": "어류",
+            "duration_value": 96,
+            "duration_unit": "hr",
+            "q": {
+              "raw": "> 100 mg/l",
+              "lower_op": ">",
+              "lower": 100,
+              "unit": "mg/L",
+              "status": "값있음"
+            },
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "ECO_CRUST",
+            "descriptor": "EC50",
+            "species": "Daphnia magna (물벼룩)",
+            "duration_value": 48,
+            "duration_unit": "hr",
+            "q": {
+              "raw": "> 100 mg/l",
+              "lower_op": ">",
+              "lower": 100,
+              "unit": "mg/L",
+              "status": "값있음"
+            },
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "ECO_ALGAE",
+            "descriptor": "EC50",
+            "species": "조류",
+            "duration_value": 14,
+            "duration_unit": "day",
+            "q": {
+              "raw": "> 2,000 mg/l",
+              "lower_op": ">",
+              "lower": 2000,
+              "unit": "mg/L",
+              "status": "값있음"
+            },
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "ECO_FISH",
+            "descriptor": "NOEC",
+            "species": "Cyprinodon variegatus (쉽헤드 미노우)",
+            "duration_value": 33,
+            "duration_unit": "day",
+            "q": {
+              "raw": "91 mg/l",
+              "value": 91,
+              "unit": "mg/L",
+              "status": "값있음"
+            },
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "ECO_OTHER",
+            "descriptor": null,
+            "species": "Colinus virginianus (메추라기)",
+            "q": {
+              "raw": "경구 LD50, > 5,000 mg/kg",
+              "lower_op": ">",
+              "lower": 5000,
+              "unit": "mg/kg",
+              "status": "값있음"
+            },
+            "statements": [
+              {
+                "seq": 1,
+                "key": "지상 생물에 독성",
+                "value": "급성인 상태로 조류에 있어서 사실상 독성이 없음 (LD50 > 2000 mg/kg).",
+                "text": "급성인 상태로 조류에 있어서 사실상 독성이 없음 (LD50 > 2000 mg/kg)."
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "ECO_PERSIST",
+            "descriptor": "결과기술",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "생분해성",
+                "value": "이 제품은 생분해되지 않음．",
+                "text": "생분해성: 이 제품은 생분해되지 않음．"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "ECO_BIOACC",
+            "descriptor": "결과기술",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "동생물의 생체내 축적 가능성",
+                "value": "비교적 분자 중량이 커서 (분자 중량이 1000 보다 무거움) 생물학적 축적은 일어나지 않을 것입니다.",
+                "text": "동생물의 생체내 축적 가능성: 비교적 분자 중량이 커서 (분자 중량이 1000 보다 무거움) 생물학적 축적은 일어나지 않을 것입니다."
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "ECO_SOIL",
+            "descriptor": "Koc",
+            "q": {
+              "raw": "Koc > 5000",
+              "lower_op": ">",
+              "lower": 5000,
+              "status": "값있음"
+            },
+            "statements": [
+              {
+                "seq": 1,
+                "value": "땅속에서는 비교적 정지되어 있을 것으로 예상됨 (Koc > 5000).",
+                "text": "땅속에서는 비교적 정지되어 있을 것으로 예상됨 (Koc > 5000)."
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "ECO_OTHER",
+            "descriptor": "결과기술",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "PBT 및 vPvB 평가결과",
+                "value": "본 물질은 PBT 에 대한 평가가 이루어지지 않았습니다.",
+                "text": "본 물질은 PBT 에 대한 평가가 이루어지지 않았습니다."
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "ECO_OTHER",
+            "descriptor": "결과기술",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "기타 유해 영향",
+                "value": "이 물질은 몬트리올 의정서 리스트에 등재되어 있지 않으며 오존층 파괴 물질이 아닙니다.",
+                "text": "이 물질은 몬트리올 의정서 리스트에 등재되어 있지 않으며 오존층 파괴 물질이 아닙니다."
+              }
+            ],
+            "status": "값있음"
+          }
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "msds_index": 0,
+        "field": "toxicity[0]",
+        "page": 6,
+        "source_text": "LD50, 쥐, > 5,000 mg/kg 추정치",
+        "rules": [
+          "R04",
+          "R06",
+          "R10"
+        ],
+        "note": "성분 정보 기반 제품 추정치로 MIX, '>'로 하한 5000, '추정치'는 note"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[1]",
+        "page": 7,
+        "source_text": "LD50, 토끼, > 5,000 mg/kg 추정치",
+        "rules": [
+          "R04",
+          "R06",
+          "R10"
+        ],
+        "note": "성분 정보 기반 제품 추정치로 MIX"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[2]",
+        "page": 7,
+        "source_text": "본제품 LC50 은 결정되지 않았습니다.",
+        "rules": [
+          "R10"
+        ],
+        "note": "제품 흡입독성 서술을 결과기술로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[3]",
+        "page": 7,
+        "source_text": "단시간의 접촉은 피부를 자극하지 않습니다.",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[4]",
+        "page": 7,
+        "source_text": "눈에 임시로 약간의 자극이 올 수 있습니다.",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[5]",
+        "page": 7,
+        "source_text": "돼지 쥐 실험 대상에서는 알레르기성 피부 반응을 일으키지 않았음.",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[6]",
+        "page": 7,
+        "source_text": "호흡기 과민성: 해당 자료없음.",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[7]",
+        "page": 7,
+        "source_text": "특정표적장기독성(1 회노출) 로 분류되기에 해당자료가 불충분함.",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[8]",
+        "page": 7,
+        "source_text": "사람의 다음 기관에 영향 미치는 인자로 보고된 물질을 포함하고 있음: 폐",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[9]",
+        "page": 7,
+        "source_text": "성분 정보를 기초로 하여: 발암 효과를 평가하기에는 현재 이용 가능한 데이터가 부족함.",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[10]",
+        "page": 7,
+        "source_text": "최기형성 해당 자료없음.",
+        "rules": [
+          "R15"
+        ],
+        "note": "최기형성을 생식독성 항목(TX_REPRO)의 별도 행으로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[11]",
+        "page": 7,
+        "source_text": "동물 연구에서 구성 성분들은 생식활동에 관여하지 않음.",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[12]",
+        "page": 8,
+        "source_text": "시험관 독성 실험에서 음성반응을 나타내는 물질 동물실험에서 유전 독성 연구 결과가 음성으로 나타난 구성 성분을 포함하고 있음.",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[13]",
+        "page": 8,
+        "source_text": "물리적 특성에 근거, 흡입 유해성이 있을 가능성이 없습니다.",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[14]",
+        "page": 8,
+        "source_text": "LC50, 쥐, 4 h, 분진/미스트, > 5 mg/l 이 농도에서 사망에 이르지는 않았습니다.",
+        "rules": [
+          "R04",
+          "R08",
+          "R10"
+        ],
+        "note": "Zinc oxide 성분 행, 4 h → 4 hr"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[15]",
+        "page": 8,
+        "source_text": "Siloxanes and silicones, dimethyl 급성흡입독성 LC50 은 결정되지 않았습니다.",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[0]",
+        "page": 8,
+        "source_text": "급성 기준으로 이 물질은 수생 생물에서 고 독성 임.(대부분의 민감한 종에서 LC50/EC50/EL50/LL50<0.1 mg/L)",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[1]",
+        "page": 8,
+        "source_text": "LC50, Oncorhynchus mykiss (무지개송어), 지수식 시험, 96 h, 0.14 - 1.1 mg/l",
+        "rules": [
+          "R04",
+          "R08",
+          "R10"
+        ],
+        "note": "범위를 하한 0.14(>=), 상한 1.1(<=)로 나눔"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[2]",
+        "page": 8,
+        "source_text": "LC50, Danio rerio (제브라피쉬), 96 h, 1 - 10 mg/l",
+        "rules": [
+          "R04",
+          "R08"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[3]",
+        "page": 8,
+        "source_text": "EC50, Daphnia magna (물벼룩), 48 h, 1 - 10 mg/l",
+        "rules": [
+          "R04",
+          "R08"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[4]",
+        "page": 8,
+        "source_text": "IC50, Selenastrum capricornutum (녹조류), 72 h, 성장률, 0.136 mg/l",
+        "rules": [
+          "R04",
+          "R08"
+        ],
+        "note": "맞는 값 없음: 지표 IC50은 목록에 없어 descriptor null, raw에 남김"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[5]",
+        "page": 8,
+        "source_text": "유사한 물질에 대한 시험 자료에 근거함 EC50, 3 h, 5.2 mg/l, OECD 시험 가이드라인 209",
+        "rules": [
+          "R04",
+          "R08"
+        ],
+        "note": "박테리아독성을 ECO_OTHER로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[6]",
+        "page": 8,
+        "source_text": "NOEC, Danio rerio (제브라피쉬), 32 d, 치사율, >= 0.540 mg/l",
+        "rules": [
+          "R04",
+          "R06",
+          "R08"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[7]",
+        "page": 8,
+        "source_text": "NOEC, Daphnia magna (물벼룩), 21 d, 출생 숫자, 0.04 mg/l",
+        "rules": [
+          "R04",
+          "R08"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[8]",
+        "page": 9,
+        "source_text": "생분해성: 생분해가 해당되지 않음",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[9]",
+        "page": 9,
+        "source_text": "동생물의 생체내 축적 가능성: 물에서 n-옥탄올로 분리시키는 것이 적용되지 않음",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[10]",
+        "page": 9,
+        "source_text": "생물농축계수 (BCF): 177 어류",
+        "rules": [
+          "R04"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[11]",
+        "page": 9,
+        "source_text": "Zinc oxide 자료 없음.",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[12]",
+        "page": 10,
+        "source_text": "본 물질은 PBT 에 대한 평가가 이루어지지 않았습니다.",
+        "rules": [],
+        "note": "PBT 평가결과를 ECO_OTHER 결과기술로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[13]",
+        "page": 10,
+        "source_text": "이 물질은 몬트리올 의정서 리스트에 등재되어 있지 않으며 오존층 파괴 물질이 아닙니다.",
+        "rules": [],
+        "note": "기타 유해 영향을 ECO_OTHER로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[14]",
+        "page": 9,
+        "source_text": "본질적으로 수생 생물에 비독성입니다(급성 basis).(LC50/EC50/EL50/LL50>100mg/L, 가장 민감한 종).",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[15]",
+        "page": 9,
+        "source_text": "LC50, 어류, 96 h, > 100 mg/l",
+        "rules": [
+          "R04",
+          "R08"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[16]",
+        "page": 9,
+        "source_text": "EC50, Daphnia magna (물벼룩), 48 h, > 100 mg/l",
+        "rules": [
+          "R04",
+          "R08"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[17]",
+        "page": 9,
+        "source_text": "EC50, 조류, 14 d, > 2,000 mg/l",
+        "rules": [
+          "R04",
+          "R06",
+          "R08"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[18]",
+        "page": 9,
+        "source_text": "NOEC, Cyprinodon variegatus (쉽헤드 미노우), 33 d, 91 mg/l",
+        "rules": [
+          "R04",
+          "R08"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[19]",
+        "page": 9,
+        "source_text": "경구 LD50, Colinus virginianus (메추라기), > 5,000 mg/kg",
+        "rules": [
+          "R04",
+          "R06"
+        ],
+        "note": "맞는 값 없음: 지표 LD50은 생태 지표 목록에 없어 descriptor null"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[20]",
+        "page": 9,
+        "source_text": "생분해성: 이 제품은 생분해되지 않음．",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[21]",
+        "page": 9,
+        "source_text": "동생물의 생체내 축적 가능성: 비교적 분자 중량이 커서 (분자 중량이 1000 보다 무거움) 생물학적 축적은 일어나지 않을 것입니다.",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[22]",
+        "page": 9,
+        "source_text": "땅속에서는 비교적 정지되어 있을 것으로 예상됨 (Koc > 5000).",
+        "rules": [
+          "R04"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[23]",
+        "page": 10,
+        "source_text": "본 물질은 PBT 에 대한 평가가 이루어지지 않았습니다.",
+        "rules": [],
+        "note": "PBT 평가결과를 ECO_OTHER 결과기술로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[24]",
+        "page": 10,
+        "source_text": "이 물질은 몬트리올 의정서 리스트에 등재되어 있지 않으며 오존층 파괴 물질이 아닙니다.",
+        "rules": [],
+        "note": "기타 유해 영향을 ECO_OTHER로 둠"
+      }
+    ]
+  },
+  "raw_text": "{\"msds\": [{\"toxicity\": [{\"comp_ref\": \"MIX\", \"endpoint\": \"TX_ORAL\", \"descriptor\": \"LD50\", \"species\": \"쥐\", \"sex\": null, \"q\": {\"raw\": \"> 5,000 mg/kg 추정치\", \"lower_op\": \">\", \"lower\": 5000, \"unit\": \"mg/kg\", \"note\": \"추정치\", \"status\": \"값있음\"}, \"statements\": [{\"seq\": 1, \"value\": \"마실 경우 독성은 매우 낮음 소량을 마신 경우 유해한 결과를 초래하지 않습니다.\", \"text\": \"마실 경우 독성은 매우 낮음 소량을 마신 경우 유해한 결과를 초래하지 않습니다.\"}, {\"seq\": 2, \"value\": \"본제품 1 회 경구투여 LD50 은 결정되지 않았습니다.\", \"text\": \"본제품 1 회 경구투여 LD50 은 결정되지 않았습니다.\"}, {\"seq\": 3, \"value\": \"성분 정보를 기초로 하여:\", \"text\": \"성분 정보를 기초로 하여:\"}], \"status\": \"값있음\"}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_DERMAL\", \"descriptor\": \"LD50\", \"species\": \"토끼\", \"q\": {\"raw\": \"> 5,000 mg/kg 추정치\", \"lower_op\": \">\", \"lower\": 5000, \"unit\": \"mg/kg\", \"note\": \"추정치\", \"status\": \"값있음\"}, \"statements\": [{\"seq\": 1, \"value\": \"오랫동안 피부에 닿아도 해로운 양만큼의 흡수로 이어지지는 않습니다.\", \"text\": \"오랫동안 피부에 닿아도 해로운 양만큼의 흡수로 이어지지는 않습니다.\"}, {\"seq\": 2, \"value\": \"본제품 경피 LD50 은 결정되지 않았습니다.\", \"text\": \"본제품 경피 LD50 은 결정되지 않았습니다.\"}, {\"seq\": 3, \"value\": \"성분 정보를 기초로 하여:\", \"text\": \"성분 정보를 기초로 하여:\"}], \"status\": \"값있음\"}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_INHAL\", \"descriptor\": \"결과기술\", \"statements\": [{\"seq\": 1, \"value\": \"오랫동안 노출되어도 부작용을 일으키지 않을 것입니다.\", \"text\": \"오랫동안 노출되어도 부작용을 일으키지 않을 것입니다.\"}, {\"seq\": 2, \"value\": \"지나친 노출은 상부 호흡계 (코와 목)에 통증을 유발할 수 있습니다.\", \"text\": \"지나친 노출은 상부 호흡계 (코와 목)에 통증을 유발할 수 있습니다.\"}, {\"seq\": 3, \"value\": \"산화금속에의 노출은 독감증세와 비슷한 특징을 가진 금속증기열을 유발할 수 있음\", \"text\": \"산화금속에의 노출은 독감증세와 비슷한 특징을 가진 금속증기열을 유발할 수 있음\"}, {\"seq\": 4, \"value\": \"본제품 LC50 은 결정되지 않았습니다.\", \"text\": \"본제품 LC50 은 결정되지 않았습니다.\"}], \"status\": \"값있음\"}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_SKIN\", \"descriptor\": \"결과기술\", \"statements\": [{\"seq\": 1, \"value\": \"단시간의 접촉은 피부를 자극하지 않습니다.\", \"text\": \"단시간의 접촉은 피부를 자극하지 않습니다.\"}], \"status\": \"값있음\"}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_EYE\", \"descriptor\": \"결과기술\", \"statements\": [{\"seq\": 1, \"value\": \"눈에 임시로 약간의 자극이 올 수 있습니다.\", \"text\": \"눈에 임시로 약간의 자극이 올 수 있습니다.\"}, {\"seq\": 2, \"value\": \"각막 손상의 가능성은 거의 없습니다.\", \"text\": \"각막 손상의 가능성은 거의 없습니다.\"}, {\"seq\": 3, \"value\": \"분진은 눈을 자극할 수 있음.\", \"text\": \"분진은 눈을 자극할 수 있음.\"}], \"status\": \"값있음\"}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_SKIN_SENS\", \"descriptor\": \"결과기술\", \"statements\": [{\"seq\": 1, \"value\": \"성분을 테스트한 결과\", \"text\": \"성분을 테스트한 결과\"}, {\"seq\": 2, \"value\": \"돼지 쥐 실험 대상에서는 알레르기성 피부 반응을 일으키지 않았음.\", \"text\": \"돼지 쥐 실험 대상에서는 알레르기성 피부 반응을 일으키지 않았음.\"}], \"status\": \"값있음\"}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_RESP_SENS\", \"q\": {\"raw\": \"해당 자료없음.\", \"status\": \"자료없음\"}, \"statements\": [], \"status\": \"자료없음\"}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_STOT_SE\", \"descriptor\": \"결과기술\", \"statements\": [{\"seq\": 1, \"value\": \"특정표적장기독성(1 회노출) 로 분류되기에 해당자료가 불충분함.\", \"text\": \"특정표적장기독성(1 회노출) 로 분류되기에 해당자료가 불충분함.\"}], \"status\": \"값있음\"}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_STOT_RE\", \"descriptor\": \"결과기술\", \"statements\": [{\"seq\": 1, \"key\": \"사람의 다음 기관에 영향 미치는 인자로 보고된 물질을 포함하고 있음\", \"value\": \"폐\", \"text\": \"사람의 다음 기관에 영향 미치는 인자로 보고된 물질을 포함하고 있음: 폐\"}], \"status\": \"값있음\"}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_CARC\", \"descriptor\": \"결과기술\", \"statements\": [{\"seq\": 1, \"key\": \"성분 정보를 기초로 하여\", \"value\": \"발암 효과를 평가하기에는 현재 이용 가능한 데이터가 부족함.\", \"text\": \"성분 정보를 기초로 하여: 발암 효과를 평가하기에는 현재 이용 가능한 데이터가 부족함.\"}], \"status\": \"값있음\"}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_REPRO\", \"q\": {\"raw\": \"해당 자료없음.\", \"status\": \"자료없음\", \"note\": \"최기형성\"}, \"statements\": [{\"seq\": 1, \"key\": \"최기형성\", \"value\": \"해당 자료없음.\", \"text\": \"최기형성 해당 자료없음.\"}], \"status\": \"자료없음\"}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_REPRO\", \"descriptor\": \"결과기술\", \"statements\": [{\"seq\": 1, \"value\": \"동물 연구에서 구성 성분들은 생식활동에 관여하지 않음.\", \"text\": \"동물 연구에서 구성 성분들은 생식활동에 관여하지 않음.\"}], \"status\": \"값있음\"}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_MUTA\", \"descriptor\": \"결과기술\", \"statements\": [{\"seq\": 1, \"value\": \"시험관 독성 실험에서 음성반응을 나타내는 물질 동물실험에서 유전 독성 연구 결과가 음성으로 나타난 구성 성분을 포함하고 있음.\", \"text\": \"시험관 독성 실험에서 음성반응을 나타내는 물질 동물실험에서 유전 독성 연구 결과가 음성으로 나타난 구성 성분을 포함하고 있음.\"}], \"status\": \"값있음\"}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_ASP\", \"descriptor\": \"결과기술\", \"statements\": [{\"seq\": 1, \"value\": \"물리적 특성에 근거, 흡입 유해성이 있을 가능성이 없습니다.\", \"text\": \"물리적 특성에 근거, 흡입 유해성이 있을 가능성이 없습니다.\"}], \"status\": \"값있음\"}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_INHAL\", \"descriptor\": \"LC50\", \"species\": \"쥐\", \"duration_value\": 4, \"duration_unit\": \"hr\", \"physical_form\": \"분진·미스트\", \"q\": {\"raw\": \"> 5 mg/l\", \"lower_op\": \">\", \"lower\": 5, \"unit\": \"mg/L\", \"status\": \"값있음\"}, \"statements\": [{\"seq\": 1, \"value\": \"이 농도에서 사망에 이르지는 않았습니다.\", \"text\": \"이 농도에서 사망에 이르지는 않았습니다.\"}], \"status\": \"값있음\"}, {\"comp_ref\": \"2\", \"endpoint\": \"TX_INHAL\", \"descriptor\": \"결과기술\", \"statements\": [{\"seq\": 1, \"value\": \"LC50 은 결정되지 않았습니다.\", \"text\": \"LC50 은 결정되지 않았습니다.\"}], \"status\": \"값있음\"}], \"cmr\": [], \"ecotox\": [{\"comp_ref\": \"1\", \"endpoint\": \"ECO_FISH\", \"descriptor\": \"결과기술\", \"statements\": [{\"seq\": 1, \"value\": \"급성 기준으로 이 물질은 수생 생물에서 고 독성 임.(대부분의 민감한 종에서 LC50/EC50/EL50/LL50<0.1 mg/L)\", \"text\": \"급성 기준으로 이 물질은 수생 생물에서 고 독성 임.(대부분의 민감한 종에서 LC50/EC50/EL50/LL50<0.1 mg/L)\"}], \"status\": \"값있음\"}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_FISH\", \"descriptor\": \"LC50\", \"species\": \"Oncorhynchus mykiss (무지개송어)\", \"duration_value\": 96, \"duration_unit\": \"hr\", \"q\": {\"raw\": \"0.14 - 1.1 mg/l\", \"lower_op\": \">=\", \"lower\": 0.14, \"upper_op\": \"<=\", \"upper\": 1.1, \"unit\": \"mg/L\", \"dp\": 2, \"status\": \"값있음\"}, \"statements\": [{\"seq\": 1, \"value\": \"지수식 시험\", \"text\": \"지수식 시험\"}], \"status\": \"값있음\"}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_FISH\", \"descriptor\": \"LC50\", \"species\": \"Danio rerio (제브라피쉬)\", \"duration_value\": 96, \"duration_unit\": \"hr\", \"q\": {\"raw\": \"1 - 10 mg/l\", \"lower_op\": \">=\", \"lower\": 1, \"upper_op\": \"<=\", \"upper\": 10, \"unit\": \"mg/L\", \"status\": \"값있음\"}, \"statements\": [], \"status\": \"값있음\"}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_CRUST\", \"descriptor\": \"EC50\", \"species\": \"Daphnia magna (물벼룩)\", \"duration_value\": 48, \"duration_unit\": \"hr\", \"q\": {\"raw\": \"1 - 10 mg/l\", \"lower_op\": \">=\", \"lower\": 1, \"upper_op\": \"<=\", \"upper\": 10, \"unit\": \"mg/L\", \"status\": \"값있음\"}, \"statements\": [], \"status\": \"값있음\"}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_ALGAE\", \"descriptor\": null, \"species\": \"Selenastrum capricornutum (녹조류)\", \"duration_value\": 72, \"duration_unit\": \"hr\", \"q\": {\"raw\": \"IC50, 0.136 mg/l\", \"value\": 0.136, \"unit\": \"mg/L\", \"dp\": 3, \"status\": \"값있음\"}, \"statements\": [{\"seq\": 1, \"value\": \"성장률\", \"text\": \"성장률\"}], \"status\": \"값있음\"}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_OTHER\", \"descriptor\": \"EC50\", \"duration_value\": 3, \"duration_unit\": \"hr\", \"guideline\": \"OECD 시험 가이드라인 209\", \"q\": {\"raw\": \"5.2 mg/l\", \"value\": 5.2, \"unit\": \"mg/L\", \"dp\": 1, \"status\": \"값있음\"}, \"statements\": [{\"seq\": 1, \"key\": \"박테리아독성\", \"value\": \"유사한 물질에 대한 시험 자료에 근거함\", \"text\": \"유사한 물질에 대한 시험 자료에 근거함\"}], \"status\": \"값있음\"}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_FISH\", \"descriptor\": \"NOEC\", \"species\": \"Danio rerio (제브라피쉬)\", \"duration_value\": 32, \"duration_unit\": \"day\", \"q\": {\"raw\": \">= 0.540 mg/l\", \"lower_op\": \">=\", \"lower\": 0.54, \"unit\": \"mg/L\", \"dp\": 3, \"status\": \"값있음\"}, \"statements\": [{\"seq\": 1, \"value\": \"치사율\", \"text\": \"치사율\"}], \"status\": \"값있음\"}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_CRUST\", \"descriptor\": \"NOEC\", \"species\": \"Daphnia magna (물벼룩)\", \"duration_value\": 21, \"duration_unit\": \"day\", \"q\": {\"raw\": \"0.04 mg/l\", \"value\": 0.04, \"unit\": \"mg/L\", \"dp\": 2, \"status\": \"값있음\"}, \"statements\": [{\"seq\": 1, \"value\": \"출생 숫자\", \"text\": \"출생 숫자\"}], \"status\": \"값있음\"}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_PERSIST\", \"descriptor\": \"결과기술\", \"statements\": [{\"seq\": 1, \"key\": \"생분해성\", \"value\": \"생분해가 해당되지 않음\", \"text\": \"생분해성: 생분해가 해당되지 않음\"}], \"status\": \"값있음\"}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_BIOACC\", \"descriptor\": \"결과기술\", \"statements\": [{\"seq\": 1, \"key\": \"동생물의 생체내 축적 가능성\", \"value\": \"물에서 n-옥탄올로 분리시키는 것이 적용되지 않음\", \"text\": \"동생물의 생체내 축적 가능성: 물에서 n-옥탄올로 분리시키는 것이 적용되지 않음\"}], \"status\": \"값있음\"}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_BIOACC\", \"descriptor\": \"BCF\", \"species\": \"어류\", \"q\": {\"raw\": \"177\", \"value\": 177, \"status\": \"값있음\"}, \"statements\": [], \"status\": \"값있음\"}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_SOIL\", \"q\": {\"raw\": \"자료 없음.\", \"status\": \"자료없음\"}, \"statements\": [], \"status\": \"자료없음\"}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_OTHER\", \"descriptor\": \"결과기술\", \"statements\": [{\"seq\": 1, \"key\": \"PBT 및 vPvB 평가결과\", \"value\": \"본 물질은 PBT 에 대한 평가가 이루어지지 않았습니다.\", \"text\": \"본 물질은 PBT 에 대한 평가가 이루어지지 않았습니다.\"}], \"status\": \"값있음\"}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_OTHER\", \"descriptor\": \"결과기술\", \"statements\": [{\"seq\": 1, \"key\": \"기타 유해 영향\", \"value\": \"이 물질은 몬트리올 의정서 리스트에 등재되어 있지 않으며 오존층 파괴 물질이 아닙니다.\", \"text\": \"이 물질은 몬트리올 의정서 리스트에 등재되어 있지 않으며 오존층 파괴 물질이 아닙니다.\"}], \"status\": \"값있음\"}, {\"comp_ref\": \"2\", \"endpoint\": \"ECO_FISH\", \"descriptor\": \"결과기술\", \"statements\": [{\"seq\": 1, \"value\": \"본질적으로 수생 생물에 비독성입니다(급성 basis).(LC50/EC50/EL50/LL50>100mg/L, 가장 민감한 종).\", \"text\": \"본질적으로 수생 생물에 비독성입니다(급성 basis).(LC50/EC50/EL50/LL50>100mg/L, 가장 민감한 종).\"}], \"status\": \"값있음\"}, {\"comp_ref\": \"2\", \"endpoint\": \"ECO_FISH\", \"descriptor\": \"LC50\", \"species\": \"어류\", \"duration_value\": 96, \"duration_unit\": \"hr\", \"q\": {\"raw\": \"> 100 mg/l\", \"lower_op\": \">\", \"lower\": 100, \"unit\": \"mg/L\", \"status\": \"값있음\"}, \"statements\": [], \"status\": \"값있음\"}, {\"comp_ref\": \"2\", \"endpoint\": \"ECO_CRUST\", \"descriptor\": \"EC50\", \"species\": \"Daphnia magna (물벼룩)\", \"duration_value\": 48, \"duration_unit\": \"hr\", \"q\": {\"raw\": \"> 100 mg/l\", \"lower_op\": \">\", \"lower\": 100, \"unit\": \"mg/L\", \"status\": \"값있음\"}, \"statements\": [], \"status\": \"값있음\"}, {\"comp_ref\": \"2\", \"endpoint\": \"ECO_ALGAE\", \"descriptor\": \"EC50\", \"species\": \"조류\", \"duration_value\": 14, \"duration_unit\": \"day\", \"q\": {\"raw\": \"> 2,000 mg/l\", \"lower_op\": \">\", \"lower\": 2000, \"unit\": \"mg/L\", \"status\": \"값있음\"}, \"statements\": [], \"status\": \"값있음\"}, {\"comp_ref\": \"2\", \"endpoint\": \"ECO_FISH\", \"descriptor\": \"NOEC\", \"species\": \"Cyprinodon variegatus (쉽헤드 미노우)\", \"duration_value\": 33, \"duration_unit\": \"day\", \"q\": {\"raw\": \"91 mg/l\", \"value\": 91, \"unit\": \"mg/L\", \"status\": \"값있음\"}, \"statements\": [], \"status\": \"값있음\"}, {\"comp_ref\": \"2\", \"endpoint\": \"ECO_OTHER\", \"descriptor\": null, \"species\": \"Colinus virginianus (메추라기)\", \"q\": {\"raw\": \"경구 LD50, > 5,000 mg/kg\", \"lower_op\": \">\", \"lower\": 5000, \"unit\": \"mg/kg\", \"status\": \"값있음\"}, \"statements\": [{\"seq\": 1, \"key\": \"지상 생물에 독성\", \"value\": \"급성인 상태로 조류에 있어서 사실상 독성이 없음 (LD50 > 2000 mg/kg).\", \"text\": \"급성인 상태로 조류에 있어서 사실상 독성이 없음 (LD50 > 2000 mg/kg).\"}], \"status\": \"값있음\"}, {\"comp_ref\": \"2\", \"endpoint\": \"ECO_PERSIST\", \"descriptor\": \"결과기술\", \"statements\": [{\"seq\": 1, \"key\": \"생분해성\", \"value\": \"이 제품은 생분해되지 않음．\", \"text\": \"생분해성: 이 제품은 생분해되지 않음．\"}], \"status\": \"값있음\"}, {\"comp_ref\": \"2\", \"endpoint\": \"ECO_BIOACC\", \"descriptor\": \"결과기술\", \"statements\": [{\"seq\": 1, \"key\": \"동생물의 생체내 축적 가능성\", \"value\": \"비교적 분자 중량이 커서 (분자 중량이 1000 보다 무거움) 생물학적 축적은 일어나지 않을 것입니다.\", \"text\": \"동생물의 생체내 축적 가능성: 비교적 분자 중량이 커서 (분자 중량이 1000 보다 무거움) 생물학적 축적은 일어나지 않을 것입니다.\"}], \"status\": \"값있음\"}, {\"comp_ref\": \"2\", \"endpoint\": \"ECO_SOIL\", \"descriptor\": \"Koc\", \"q\": {\"raw\": \"Koc > 5000\", \"lower_op\": \">\", \"lower\": 5000, \"status\": \"값있음\"}, \"statements\": [{\"seq\": 1, \"value\": \"땅속에서는 비교적 정지되어 있을 것으로 예상됨 (Koc > 5000).\", \"text\": \"땅속에서는 비교적 정지되어 있을 것으로 예상됨 (Koc > 5000).\"}], \"status\": \"값있음\"}, {\"comp_ref\": \"2\", \"endpoint\": \"ECO_OTHER\", \"descriptor\": \"결과기술\", \"statements\": [{\"seq\": 1, \"key\": \"PBT 및 vPvB 평가결과\", \"value\": \"본 물질은 PBT 에 대한 평가가 이루어지지 않았습니다.\", \"text\": \"본 물질은 PBT 에 대한 평가가 이루어지지 않았습니다.\"}], \"status\": \"값있음\"}, {\"comp_ref\": \"2\", \"endpoint\": \"ECO_OTHER\", \"descriptor\": \"결과기술\", \"statements\": [{\"seq\": 1, \"key\": \"기타 유해 영향\", \"value\": \"이 물질은 몬트리올 의정서 리스트에 등재되어 있지 않으며 오존층 파괴 물질이 아닙니다.\", \"text\": \"이 물질은 몬트리올 의정서 리스트에 등재되어 있지 않으며 오존층 파괴 물질이 아닙니다.\"}], \"status\": \"값있음\"}]}], \"evidence\": [{\"msds_index\": 0, \"field\": \"toxicity[0]\", \"page\": 6, \"source_text\": \"LD50, 쥐, > 5,000 mg/kg 추정치\", \"rules\": [\"R04\", \"R06\", \"R10\"], \"note\": \"성분 정보 기반 제품 추정치로 MIX, '>'로 하한 5000, '추정치'는 note\"}, {\"msds_index\": 0, \"field\": \"toxicity[1]\", \"page\": 7, \"source_text\": \"LD50, 토끼, > 5,000 mg/kg 추정치\", \"rules\": [\"R04\", \"R06\", \"R10\"], \"note\": \"성분 정보 기반 제품 추정치로 MIX\"}, {\"msds_index\": 0, \"field\": \"toxicity[2]\", \"page\": 7, \"source_text\": \"본제품 LC50 은 결정되지 않았습니다.\", \"rules\": [\"R10\"], \"note\": \"제품 흡입독성 서술을 결과기술로 둠\"}, {\"msds_index\": 0, \"field\": \"toxicity[3]\", \"page\": 7, \"source_text\": \"단시간의 접촉은 피부를 자극하지 않습니다.\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[4]\", \"page\": 7, \"source_text\": \"눈에 임시로 약간의 자극이 올 수 있습니다.\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[5]\", \"page\": 7, \"source_text\": \"돼지 쥐 실험 대상에서는 알레르기성 피부 반응을 일으키지 않았음.\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[6]\", \"page\": 7, \"source_text\": \"호흡기 과민성: 해당 자료없음.\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[7]\", \"page\": 7, \"source_text\": \"특정표적장기독성(1 회노출) 로 분류되기에 해당자료가 불충분함.\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[8]\", \"page\": 7, \"source_text\": \"사람의 다음 기관에 영향 미치는 인자로 보고된 물질을 포함하고 있음: 폐\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[9]\", \"page\": 7, \"source_text\": \"성분 정보를 기초로 하여: 발암 효과를 평가하기에는 현재 이용 가능한 데이터가 부족함.\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[10]\", \"page\": 7, \"source_text\": \"최기형성 해당 자료없음.\", \"rules\": [\"R15\"], \"note\": \"최기형성을 생식독성 항목(TX_REPRO)의 별도 행으로 둠\"}, {\"msds_index\": 0, \"field\": \"toxicity[11]\", \"page\": 7, \"source_text\": \"동물 연구에서 구성 성분들은 생식활동에 관여하지 않음.\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[12]\", \"page\": 8, \"source_text\": \"시험관 독성 실험에서 음성반응을 나타내는 물질 동물실험에서 유전 독성 연구 결과가 음성으로 나타난 구성 성분을 포함하고 있음.\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[13]\", \"page\": 8, \"source_text\": \"물리적 특성에 근거, 흡입 유해성이 있을 가능성이 없습니다.\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[14]\", \"page\": 8, \"source_text\": \"LC50, 쥐, 4 h, 분진/미스트, > 5 mg/l 이 농도에서 사망에 이르지는 않았습니다.\", \"rules\": [\"R04\", \"R08\", \"R10\"], \"note\": \"Zinc oxide 성분 행, 4 h → 4 hr\"}, {\"msds_index\": 0, \"field\": \"toxicity[15]\", \"page\": 8, \"source_text\": \"Siloxanes and silicones, dimethyl 급성흡입독성 LC50 은 결정되지 않았습니다.\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[0]\", \"page\": 8, \"source_text\": \"급성 기준으로 이 물질은 수생 생물에서 고 독성 임.(대부분의 민감한 종에서 LC50/EC50/EL50/LL50<0.1 mg/L)\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[1]\", \"page\": 8, \"source_text\": \"LC50, Oncorhynchus mykiss (무지개송어), 지수식 시험, 96 h, 0.14 - 1.1 mg/l\", \"rules\": [\"R04\", \"R08\", \"R10\"], \"note\": \"범위를 하한 0.14(>=), 상한 1.1(<=)로 나눔\"}, {\"msds_index\": 0, \"field\": \"ecotox[2]\", \"page\": 8, \"source_text\": \"LC50, Danio rerio (제브라피쉬), 96 h, 1 - 10 mg/l\", \"rules\": [\"R04\", \"R08\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[3]\", \"page\": 8, \"source_text\": \"EC50, Daphnia magna (물벼룩), 48 h, 1 - 10 mg/l\", \"rules\": [\"R04\", \"R08\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[4]\", \"page\": 8, \"source_text\": \"IC50, Selenastrum capricornutum (녹조류), 72 h, 성장률, 0.136 mg/l\", \"rules\": [\"R04\", \"R08\"], \"note\": \"맞는 값 없음: 지표 IC50은 목록에 없어 descriptor null, raw에 남김\"}, {\"msds_index\": 0, \"field\": \"ecotox[5]\", \"page\": 8, \"source_text\": \"유사한 물질에 대한 시험 자료에 근거함 EC50, 3 h, 5.2 mg/l, OECD 시험 가이드라인 209\", \"rules\": [\"R04\", \"R08\"], \"note\": \"박테리아독성을 ECO_OTHER로 둠\"}, {\"msds_index\": 0, \"field\": \"ecotox[6]\", \"page\": 8, \"source_text\": \"NOEC, Danio rerio (제브라피쉬), 32 d, 치사율, >= 0.540 mg/l\", \"rules\": [\"R04\", \"R06\", \"R08\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[7]\", \"page\": 8, \"source_text\": \"NOEC, Daphnia magna (물벼룩), 21 d, 출생 숫자, 0.04 mg/l\", \"rules\": [\"R04\", \"R08\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[8]\", \"page\": 9, \"source_text\": \"생분해성: 생분해가 해당되지 않음\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[9]\", \"page\": 9, \"source_text\": \"동생물의 생체내 축적 가능성: 물에서 n-옥탄올로 분리시키는 것이 적용되지 않음\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[10]\", \"page\": 9, \"source_text\": \"생물농축계수 (BCF): 177 어류\", \"rules\": [\"R04\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[11]\", \"page\": 9, \"source_text\": \"Zinc oxide 자료 없음.\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[12]\", \"page\": 10, \"source_text\": \"본 물질은 PBT 에 대한 평가가 이루어지지 않았습니다.\", \"rules\": [], \"note\": \"PBT 평가결과를 ECO_OTHER 결과기술로 둠\"}, {\"msds_index\": 0, \"field\": \"ecotox[13]\", \"page\": 10, \"source_text\": \"이 물질은 몬트리올 의정서 리스트에 등재되어 있지 않으며 오존층 파괴 물질이 아닙니다.\", \"rules\": [], \"note\": \"기타 유해 영향을 ECO_OTHER로 둠\"}, {\"msds_index\": 0, \"field\": \"ecotox[14]\", \"page\": 9, \"source_text\": \"본질적으로 수생 생물에 비독성입니다(급성 basis).(LC50/EC50/EL50/LL50>100mg/L, 가장 민감한 종).\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[15]\", \"page\": 9, \"source_text\": \"LC50, 어류, 96 h, > 100 mg/l\", \"rules\": [\"R04\", \"R08\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[16]\", \"page\": 9, \"source_text\": \"EC50, Daphnia magna (물벼룩), 48 h, > 100 mg/l\", \"rules\": [\"R04\", \"R08\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[17]\", \"page\": 9, \"source_text\": \"EC50, 조류, 14 d, > 2,000 mg/l\", \"rules\": [\"R04\", \"R06\", \"R08\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[18]\", \"page\": 9, \"source_text\": \"NOEC, Cyprinodon variegatus (쉽헤드 미노우), 33 d, 91 mg/l\", \"rules\": [\"R04\", \"R08\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[19]\", \"page\": 9, \"source_text\": \"경구 LD50, Colinus virginianus (메추라기), > 5,000 mg/kg\", \"rules\": [\"R04\", \"R06\"], \"note\": \"맞는 값 없음: 지표 LD50은 생태 지표 목록에 없어 descriptor null\"}, {\"msds_index\": 0, \"field\": \"ecotox[20]\", \"page\": 9, \"source_text\": \"생분해성: 이 제품은 생분해되지 않음．\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[21]\", \"page\": 9, \"source_text\": \"동생물의 생체내 축적 가능성: 비교적 분자 중량이 커서 (분자 중량이 1000 보다 무거움) 생물학적 축적은 일어나지 않을 것입니다.\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[22]\", \"page\": 9, \"source_text\": \"땅속에서는 비교적 정지되어 있을 것으로 예상됨 (Koc > 5000).\", \"rules\": [\"R04\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[23]\", \"page\": 10, \"source_text\": \"본 물질은 PBT 에 대한 평가가 이루어지지 않았습니다.\", \"rules\": [], \"note\": \"PBT 평가결과를 ECO_OTHER 결과기술로 둠\"}, {\"msds_index\": 0, \"field\": \"ecotox[24]\", \"page\": 10, \"source_text\": \"이 물질은 몬트리올 의정서 리스트에 등재되어 있지 않으며 오존층 파괴 물질이 아닙니다.\", \"rules\": [], \"note\": \"기타 유해 영향을 ECO_OTHER로 둠\"}]}"
+}

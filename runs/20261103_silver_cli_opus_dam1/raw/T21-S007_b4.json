@@ -1,0 +1,461 @@
+{
+  "doc_id": "T21-S007",
+  "bundle": "b4",
+  "model": "claude-opus-5-5",
+  "mode": "claude -p json-schema",
+  "finish_reason": "tool_use",
+  "usage": {
+    "prompt_tokens": 61245,
+    "completion_tokens": 4855,
+    "cached_tokens": 8949,
+    "reasoning_tokens": 1095,
+    "notional_cost_usd": 0.5172498
+  },
+  "seconds": 39.0,
+  "request_usage": [
+    {
+      "prompt_tokens": 61245,
+      "completion_tokens": 4855,
+      "cached_tokens": 8949,
+      "reasoning_tokens": 1095,
+      "notional_cost_usd": 0.5172498
+    }
+  ],
+  "attempts": 1,
+  "errors": [],
+  "parsed": {
+    "msds": [
+      {
+        "transport": [
+          {
+            "mode": "공통",
+            "basis_raw": null,
+            "regulated": true,
+            "un_no": "1962",
+            "shipping_name": "ETHYLENE",
+            "hazard_class": "2.1",
+            "sub_risk": null,
+            "packing_group": "해당없음",
+            "marine_pollutant": "비해당",
+            "ems_fire": "F-D",
+            "ems_spill": "S-U"
+          }
+        ],
+        "regulations": [
+          {
+            "seq": 1,
+            "law": "OSH",
+            "item_code": "OSH_PSM",
+            "item_raw": "공정안전보고서(PSM) 제출 대상물질",
+            "comp_ref": "1",
+            "applicable": "해당"
+          },
+          {
+            "seq": 2,
+            "law": "CCA",
+            "item_code": null,
+            "item_raw": "화학물질관리법에 의한 규제",
+            "comp_ref": "1",
+            "applicable": "비해당",
+            "value_raw": "해당없음"
+          },
+          {
+            "seq": 3,
+            "law": "KREACH",
+            "item_code": null,
+            "item_raw": null,
+            "comp_ref": "MIX",
+            "applicable": "미기재"
+          },
+          {
+            "seq": 4,
+            "law": "DG",
+            "item_code": "DG_HAZMAT",
+            "item_raw": "위험물안전관리법에 의한 규제",
+            "comp_ref": "1",
+            "applicable": "비해당",
+            "value_raw": "해당없음"
+          },
+          {
+            "seq": 5,
+            "law": "WASTE",
+            "item_code": "WASTE_DESIG",
+            "item_raw": "폐기물관리법",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "value_raw": "해당없음"
+          },
+          {
+            "seq": 6,
+            "law": "KR_ETC",
+            "item_code": "KR_ETC",
+            "item_raw": "대기환경보전법에 의한 규제",
+            "comp_ref": "1",
+            "applicable": "해당",
+            "value_raw": "대기오염물질, 휘발성유기화합물"
+          },
+          {
+            "seq": 7,
+            "law": "POPS",
+            "item_code": "POPS",
+            "item_raw": "잔류성유기오염물질관리법에 의한 규제",
+            "comp_ref": "1",
+            "applicable": "비해당",
+            "value_raw": "해당없음"
+          },
+          {
+            "seq": 8,
+            "law": "KR_ETC",
+            "item_code": "KR_ETC",
+            "item_raw": "수질 및 수생태계보전법에 의한 규제",
+            "comp_ref": "1",
+            "applicable": "비해당",
+            "value_raw": "해당없음"
+          },
+          {
+            "seq": 9,
+            "law": "KR_ETC",
+            "item_code": "KR_ETC",
+            "item_raw": "고압가스안전관리법에 의한 규제",
+            "comp_ref": "1",
+            "applicable": "해당",
+            "value_raw": "가연성가스, 액화가스"
+          },
+          {
+            "seq": 10,
+            "law": "INTL",
+            "item_code": "INTL_EU",
+            "item_raw": "EU 분류정보(확정분류결과)",
+            "comp_ref": "1",
+            "applicable": "해당",
+            "country": "EU",
+            "value_raw": "F+; R12  R67"
+          },
+          {
+            "seq": 11,
+            "law": "INTL",
+            "item_code": "INTL_EU",
+            "item_raw": "EU 분류정보(위험문구)",
+            "comp_ref": "1",
+            "applicable": "해당",
+            "country": "EU",
+            "value_raw": "R12, R67"
+          },
+          {
+            "seq": 12,
+            "law": "INTL",
+            "item_code": "INTL_EU",
+            "item_raw": "EU 분류정보(안전문구)",
+            "comp_ref": "1",
+            "applicable": "해당",
+            "country": "EU",
+            "value_raw": "S:(2)-9-16-33-45"
+          },
+          {
+            "seq": 13,
+            "law": "INTL",
+            "item_code": "INTL_EU",
+            "item_raw": "2006/507/EC",
+            "comp_ref": "1",
+            "applicable": "비해당",
+            "country": "EU",
+            "value_raw": "해당없음"
+          },
+          {
+            "seq": 14,
+            "law": "INTL",
+            "item_code": "INTL_EU",
+            "item_raw": "689/2008/EC",
+            "comp_ref": "1",
+            "applicable": "비해당",
+            "country": "EU",
+            "value_raw": "해당없음"
+          },
+          {
+            "seq": 15,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "Designation, Reportable Quantities, and Notification",
+            "comp_ref": "1",
+            "applicable": "비해당",
+            "country": "US",
+            "value_raw": "해당없음"
+          },
+          {
+            "seq": 16,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "Emergency Planning and Notification",
+            "comp_ref": "1",
+            "applicable": "비해당",
+            "country": "US",
+            "value_raw": "해당없음"
+          },
+          {
+            "seq": 17,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "Toxic Chemical Release Reporting - Community Right-to-Know",
+            "comp_ref": "1",
+            "applicable": "해당",
+            "country": "US",
+            "value_raw": "1.0 % de minimis concentration",
+            "threshold": {
+              "raw": "1.0 % de minimis concentration",
+              "status": "값있음",
+              "value": 1,
+              "dp": 1,
+              "unit": "%",
+              "note": "de minimis concentration"
+            }
+          },
+          {
+            "seq": 18,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "Process Safety Management of Highly Hazardous Chemicals",
+            "comp_ref": "1",
+            "applicable": "비해당",
+            "country": "US",
+            "value_raw": "해당없음"
+          }
+        ],
+        "dangerous_goods": [
+          {
+            "comp_ref": "1",
+            "class": "해당없음",
+            "item": null,
+            "water_soluble": null,
+            "grade": null,
+            "designated_qty": null
+          }
+        ],
+        "waste": [
+          {
+            "comp_ref": "MIX",
+            "designated": "비해당",
+            "waste_type": null
+          }
+        ],
+        "intl_class": []
+      }
+    ],
+    "evidence": [
+      {
+        "msds_index": 0,
+        "field": "transport[0]",
+        "page": 8,
+        "source_text": "가. 유엔 번호 : 1962 | 나. 유엔 적정 선적명 : ETHYLENE | 다. 운송에서의 위험성 등급 : 2.1 | 라. 용기등급 : 해당없음 | 마. 해양오염물질 : 해당없음 | 화재시 비상조치의 종류 : F-D | 유출시 비상조치의 종류 : S-U",
+        "rules": [
+          "R09",
+          "R15"
+        ],
+        "note": "운송 방식 구분이 없어 mode=공통, 해양오염물질 '해당없음'을 비해당으로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[0]",
+        "page": 9,
+        "source_text": "- 에틸렌 : 공정안전보고서(PSM) 제출 대상물질",
+        "rules": [
+          "R10",
+          "R25"
+        ],
+        "note": "동의어로 OSH_PSM 매핑"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[1]",
+        "page": 9,
+        "source_text": "나. 화학물질관리법에 의한 규제 - 에틸렌 : 해당없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": "맞는 값 없음: 화관법 전체 해당없음으로 특정 항목이 없어 item_code null"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[2]",
+        "page": 9,
+        "source_text": null,
+        "rules": [
+          "R18"
+        ],
+        "note": "구양식 문서로 15항에 화평법 항목이 없어 미기재"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[3]",
+        "page": 9,
+        "source_text": "다. 위험물안전관리법에 의한 규제 - 에틸렌 : 해당없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": "해당없음을 비해당으로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[4]",
+        "page": 9,
+        "source_text": "라. 폐기물관리법 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "성분 지정 없어 MIX"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[5]",
+        "page": 9,
+        "source_text": "대기환경보전법에 의한 규제 - 에틸렌 : 대기오염물질, 휘발성유기화합물",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[6]",
+        "page": 9,
+        "source_text": "잔류성유기오염물질관리법에 의한 규제 - 에틸렌 : 해당없음",
+        "rules": [
+          "R25",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[7]",
+        "page": 9,
+        "source_text": "수질 및 수생태계보전법에 의한 규제 - 에틸렌 : 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[8]",
+        "page": 9,
+        "source_text": "고압가스안전관리법에 의한 규제 - 에틸렌 : 가연성가스, 액화가스",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[9]",
+        "page": 9,
+        "source_text": "EU 분류정보(확정분류결과) - 에틸렌 : F+; R12  R67",
+        "rules": [
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[10]",
+        "page": 9,
+        "source_text": "EU 분류정보(위험문구) - 에틸렌 : R12, R67",
+        "rules": [
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[11]",
+        "page": 9,
+        "source_text": "EU 분류정보(안전문구) - 에틸렌 : S:(2)-9-16-33-45",
+        "rules": [
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[12]",
+        "page": 9,
+        "source_text": "2006/507/EC - 에틸렌 : 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "EC 규정이므로 country=EU"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[13]",
+        "page": 9,
+        "source_text": "689/2008/EC - 에틸렌 : 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "EC 규정이므로 country=EU"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[14]",
+        "page": 9,
+        "source_text": "Designation, Reportable Quantities, and Notification - 에틸렌 : 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "미국 규정으로 country=US"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[15]",
+        "page": 9,
+        "source_text": "Emergency Planning and Notification - 에틸렌 : 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "미국 규정으로 country=US"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[16]",
+        "page": 9,
+        "source_text": "Toxic Chemical Release Reporting - Community Right-to-Know - 에틸렌 : 1.0 % de minimis concentration",
+        "rules": [
+          "R04",
+          "R06"
+        ],
+        "note": "1.0 %를 value 1, dp 1, unit %로 분해"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[17]",
+        "page": 9,
+        "source_text": "Process Safety Management of Highly Hazardous Chemicals - 에틸렌 : 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "미국 규정으로 country=US"
+      },
+      {
+        "msds_index": 0,
+        "field": "dangerous_goods[0]",
+        "page": 9,
+        "source_text": "다. 위험물안전관리법에 의한 규제 - 에틸렌 : 해당없음",
+        "rules": [
+          "R10"
+        ],
+        "note": "class=해당없음"
+      },
+      {
+        "msds_index": 0,
+        "field": "waste[0]",
+        "page": 9,
+        "source_text": "라. 폐기물관리법 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "지정폐기물 비해당"
+      }
+    ]
+  },
+  "raw_text": "{\"msds\": [{\"transport\": [{\"mode\": \"공통\", \"basis_raw\": null, \"regulated\": true, \"un_no\": \"1962\", \"shipping_name\": \"ETHYLENE\", \"hazard_class\": \"2.1\", \"sub_risk\": null, \"packing_group\": \"해당없음\", \"marine_pollutant\": \"비해당\", \"ems_fire\": \"F-D\", \"ems_spill\": \"S-U\"}], \"regulations\": [{\"seq\": 1, \"law\": \"OSH\", \"item_code\": \"OSH_PSM\", \"item_raw\": \"공정안전보고서(PSM) 제출 대상물질\", \"comp_ref\": \"1\", \"applicable\": \"해당\"}, {\"seq\": 2, \"law\": \"CCA\", \"item_code\": null, \"item_raw\": \"화학물질관리법에 의한 규제\", \"comp_ref\": \"1\", \"applicable\": \"비해당\", \"value_raw\": \"해당없음\"}, {\"seq\": 3, \"law\": \"KREACH\", \"item_code\": null, \"item_raw\": null, \"comp_ref\": \"MIX\", \"applicable\": \"미기재\"}, {\"seq\": 4, \"law\": \"DG\", \"item_code\": \"DG_HAZMAT\", \"item_raw\": \"위험물안전관리법에 의한 규제\", \"comp_ref\": \"1\", \"applicable\": \"비해당\", \"value_raw\": \"해당없음\"}, {\"seq\": 5, \"law\": \"WASTE\", \"item_code\": \"WASTE_DESIG\", \"item_raw\": \"폐기물관리법\", \"comp_ref\": \"MIX\", \"applicable\": \"비해당\", \"value_raw\": \"해당없음\"}, {\"seq\": 6, \"law\": \"KR_ETC\", \"item_code\": \"KR_ETC\", \"item_raw\": \"대기환경보전법에 의한 규제\", \"comp_ref\": \"1\", \"applicable\": \"해당\", \"value_raw\": \"대기오염물질, 휘발성유기화합물\"}, {\"seq\": 7, \"law\": \"POPS\", \"item_code\": \"POPS\", \"item_raw\": \"잔류성유기오염물질관리법에 의한 규제\", \"comp_ref\": \"1\", \"applicable\": \"비해당\", \"value_raw\": \"해당없음\"}, {\"seq\": 8, \"law\": \"KR_ETC\", \"item_code\": \"KR_ETC\", \"item_raw\": \"수질 및 수생태계보전법에 의한 규제\", \"comp_ref\": \"1\", \"applicable\": \"비해당\", \"value_raw\": \"해당없음\"}, {\"seq\": 9, \"law\": \"KR_ETC\", \"item_code\": \"KR_ETC\", \"item_raw\": \"고압가스안전관리법에 의한 규제\", \"comp_ref\": \"1\", \"applicable\": \"해당\", \"value_raw\": \"가연성가스, 액화가스\"}, {\"seq\": 10, \"law\": \"INTL\", \"item_code\": \"INTL_EU\", \"item_raw\": \"EU 분류정보(확정분류결과)\", \"comp_ref\": \"1\", \"applicable\": \"해당\", \"country\": \"EU\", \"value_raw\": \"F+; R12  R67\"}, {\"seq\": 11, \"law\": \"INTL\", \"item_code\": \"INTL_EU\", \"item_raw\": \"EU 분류정보(위험문구)\", \"comp_ref\": \"1\", \"applicable\": \"해당\", \"country\": \"EU\", \"value_raw\": \"R12, R67\"}, {\"seq\": 12, \"law\": \"INTL\", \"item_code\": \"INTL_EU\", \"item_raw\": \"EU 분류정보(안전문구)\", \"comp_ref\": \"1\", \"applicable\": \"해당\", \"country\": \"EU\", \"value_raw\": \"S:(2)-9-16-33-45\"}, {\"seq\": 13, \"law\": \"INTL\", \"item_code\": \"INTL_EU\", \"item_raw\": \"2006/507/EC\", \"comp_ref\": \"1\", \"applicable\": \"비해당\", \"country\": \"EU\", \"value_raw\": \"해당없음\"}, {\"seq\": 14, \"law\": \"INTL\", \"item_code\": \"INTL_EU\", \"item_raw\": \"689/2008/EC\", \"comp_ref\": \"1\", \"applicable\": \"비해당\", \"country\": \"EU\", \"value_raw\": \"해당없음\"}, {\"seq\": 15, \"law\": \"INTL\", \"item_code\": \"INTL_US\", \"item_raw\": \"Designation, Reportable Quantities, and Notification\", \"comp_ref\": \"1\", \"applicable\": \"비해당\", \"country\": \"US\", \"value_raw\": \"해당없음\"}, {\"seq\": 16, \"law\": \"INTL\", \"item_code\": \"INTL_US\", \"item_raw\": \"Emergency Planning and Notification\", \"comp_ref\": \"1\", \"applicable\": \"비해당\", \"country\": \"US\", \"value_raw\": \"해당없음\"}, {\"seq\": 17, \"law\": \"INTL\", \"item_code\": \"INTL_US\", \"item_raw\": \"Toxic Chemical Release Reporting - Community Right-to-Know\", \"comp_ref\": \"1\", \"applicable\": \"해당\", \"country\": \"US\", \"value_raw\": \"1.0 % de minimis concentration\", \"threshold\": {\"raw\": \"1.0 % de minimis concentration\", \"status\": \"값있음\", \"value\": 1, \"dp\": 1, \"unit\": \"%\", \"note\": \"de minimis concentration\"}}, {\"seq\": 18, \"law\": \"INTL\", \"item_code\": \"INTL_US\", \"item_raw\": \"Process Safety Management of Highly Hazardous Chemicals\", \"comp_ref\": \"1\", \"applicable\": \"비해당\", \"country\": \"US\", \"value_raw\": \"해당없음\"}], \"dangerous_goods\": [{\"comp_ref\": \"1\", \"class\": \"해당없음\", \"item\": null, \"water_soluble\": null, \"grade\": null, \"designated_qty\": null}], \"waste\": [{\"comp_ref\": \"MIX\", \"designated\": \"비해당\", \"waste_type\": null}], \"intl_class\": []}], \"evidence\": [{\"msds_index\": 0, \"field\": \"transport[0]\", \"page\": 8, \"source_text\": \"가. 유엔 번호 : 1962 | 나. 유엔 적정 선적명 : ETHYLENE | 다. 운송에서의 위험성 등급 : 2.1 | 라. 용기등급 : 해당없음 | 마. 해양오염물질 : 해당없음 | 화재시 비상조치의 종류 : F-D | 유출시 비상조치의 종류 : S-U\", \"rules\": [\"R09\", \"R15\"], \"note\": \"운송 방식 구분이 없어 mode=공통, 해양오염물질 '해당없음'을 비해당으로 둠\"}, {\"msds_index\": 0, \"field\": \"regulations[0]\", \"page\": 9, \"source_text\": \"- 에틸렌 : 공정안전보고서(PSM) 제출 대상물질\", \"rules\": [\"R10\", \"R25\"], \"note\": \"동의어로 OSH_PSM 매핑\"}, {\"msds_index\": 0, \"field\": \"regulations[1]\", \"page\": 9, \"source_text\": \"나. 화학물질관리법에 의한 규제 - 에틸렌 : 해당없음\", \"rules\": [\"R10\", \"R15\"], \"note\": \"맞는 값 없음: 화관법 전체 해당없음으로 특정 항목이 없어 item_code null\"}, {\"msds_index\": 0, \"field\": \"regulations[2]\", \"page\": 9, \"source_text\": null, \"rules\": [\"R18\"], \"note\": \"구양식 문서로 15항에 화평법 항목이 없어 미기재\"}, {\"msds_index\": 0, \"field\": \"regulations[3]\", \"page\": 9, \"source_text\": \"다. 위험물안전관리법에 의한 규제 - 에틸렌 : 해당없음\", \"rules\": [\"R10\", \"R15\"], \"note\": \"해당없음을 비해당으로 둠\"}, {\"msds_index\": 0, \"field\": \"regulations[4]\", \"page\": 9, \"source_text\": \"라. 폐기물관리법 해당없음\", \"rules\": [\"R15\"], \"note\": \"성분 지정 없어 MIX\"}, {\"msds_index\": 0, \"field\": \"regulations[5]\", \"page\": 9, \"source_text\": \"대기환경보전법에 의한 규제 - 에틸렌 : 대기오염물질, 휘발성유기화합물\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"regulations[6]\", \"page\": 9, \"source_text\": \"잔류성유기오염물질관리법에 의한 규제 - 에틸렌 : 해당없음\", \"rules\": [\"R25\", \"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"regulations[7]\", \"page\": 9, \"source_text\": \"수질 및 수생태계보전법에 의한 규제 - 에틸렌 : 해당없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"regulations[8]\", \"page\": 9, \"source_text\": \"고압가스안전관리법에 의한 규제 - 에틸렌 : 가연성가스, 액화가스\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"regulations[9]\", \"page\": 9, \"source_text\": \"EU 분류정보(확정분류결과) - 에틸렌 : F+; R12  R67\", \"rules\": [\"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"regulations[10]\", \"page\": 9, \"source_text\": \"EU 분류정보(위험문구) - 에틸렌 : R12, R67\", \"rules\": [\"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"regulations[11]\", \"page\": 9, \"source_text\": \"EU 분류정보(안전문구) - 에틸렌 : S:(2)-9-16-33-45\", \"rules\": [\"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"regulations[12]\", \"page\": 9, \"source_text\": \"2006/507/EC - 에틸렌 : 해당없음\", \"rules\": [\"R15\"], \"note\": \"EC 규정이므로 country=EU\"}, {\"msds_index\": 0, \"field\": \"regulations[13]\", \"page\": 9, \"source_text\": \"689/2008/EC - 에틸렌 : 해당없음\", \"rules\": [\"R15\"], \"note\": \"EC 규정이므로 country=EU\"}, {\"msds_index\": 0, \"field\": \"regulations[14]\", \"page\": 9, \"source_text\": \"Designation, Reportable Quantities, and Notification - 에틸렌 : 해당없음\", \"rules\": [\"R15\"], \"note\": \"미국 규정으로 country=US\"}, {\"msds_index\": 0, \"field\": \"regulations[15]\", \"page\": 9, \"source_text\": \"Emergency Planning and Notification - 에틸렌 : 해당없음\", \"rules\": [\"R15\"], \"note\": \"미국 규정으로 country=US\"}, {\"msds_index\": 0, \"field\": \"regulations[16]\", \"page\": 9, \"source_text\": \"Toxic Chemical Release Reporting - Community Right-to-Know - 에틸렌 : 1.0 % de minimis concentration\", \"rules\": [\"R04\", \"R06\"], \"note\": \"1.0 %를 value 1, dp 1, unit %로 분해\"}, {\"msds_index\": 0, \"field\": \"regulations[17]\", \"page\": 9, \"source_text\": \"Process Safety Management of Highly Hazardous Chemicals - 에틸렌 : 해당없음\", \"rules\": [\"R15\"], \"note\": \"미국 규정으로 country=US\"}, {\"msds_index\": 0, \"field\": \"dangerous_goods[0]\", \"page\": 9, \"source_text\": \"다. 위험물안전관리법에 의한 규제 - 에틸렌 : 해당없음\", \"rules\": [\"R10\"], \"note\": \"class=해당없음\"}, {\"msds_index\": 0, \"field\": \"waste[0]\", \"page\": 9, \"source_text\": \"라. 폐기물관리법 해당없음\", \"rules\": [\"R15\"], \"note\": \"지정폐기물 비해당\"}]}"
+}

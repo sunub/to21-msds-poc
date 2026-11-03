@@ -1,0 +1,1329 @@
+{
+  "doc_id": "T21-031",
+  "bundle": "b3",
+  "model": "claude-opus-5-5",
+  "mode": "claude -p json-schema",
+  "finish_reason": "tool_use",
+  "usage": {
+    "prompt_tokens": 44776,
+    "completion_tokens": 15281,
+    "cached_tokens": 8451,
+    "reasoning_tokens": 2406,
+    "notional_cost_usd": 0.5979022
+  },
+  "seconds": 103.7,
+  "request_usage": [
+    {
+      "prompt_tokens": 44776,
+      "completion_tokens": 15281,
+      "cached_tokens": 8451,
+      "reasoning_tokens": 2406,
+      "notional_cost_usd": 0.5979022
+    }
+  ],
+  "attempts": 1,
+  "errors": [],
+  "parsed": {
+    "msds": [
+      {
+        "toxicity": [
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_ORAL",
+            "descriptor": "ATE",
+            "q": {
+              "raw": "ATEmix >2000 (mg/kg)",
+              "lower_op": ">",
+              "lower": 2000,
+              "unit": "mg/kg",
+              "status": "값있음"
+            },
+            "classification": "분류되지 않음",
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_ORAL",
+            "descriptor": "LD50",
+            "q": {
+              "raw": ">2500mg/kg",
+              "lower_op": ">",
+              "lower": 2500,
+              "unit": "mg/kg",
+              "status": "값있음"
+            },
+            "species": "rat",
+            "sex": "수컷",
+            "guideline": "OECD Guideline 423",
+            "data_source": "ECHA",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "유사물질",
+                "value": "Copper oxide",
+                "text": "(유사물질: Copper oxide)"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "TX_ORAL",
+            "descriptor": "LD50",
+            "q": {
+              "raw": "98600 mg/kg bw",
+              "value": 98600,
+              "unit": "mg/kg bw",
+              "status": "값있음"
+            },
+            "species": "rat",
+            "guideline": "OECD Guideline 401",
+            "data_source": "ECHA",
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_DERMAL",
+            "descriptor": "ATE",
+            "q": {
+              "raw": "ATEmix >2000 (mg/kg)",
+              "lower_op": ">",
+              "lower": 2000,
+              "unit": "mg/kg",
+              "status": "값있음"
+            },
+            "classification": "분류되지 않음",
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_DERMAL",
+            "descriptor": "LD50",
+            "q": {
+              "raw": ">2000mg/kg",
+              "lower_op": ">",
+              "lower": 2000,
+              "unit": "mg/kg",
+              "status": "값있음"
+            },
+            "species": "rat",
+            "guideline": "OECD Guideline 402",
+            "data_source": "ECHA",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "유사물질",
+                "value": "Copper oxide",
+                "text": "(유사물질: Copper oxide)"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "TX_DERMAL",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "statements": [],
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_INHAL",
+            "descriptor": "ATE",
+            "physical_form": "분진·미스트",
+            "q": {
+              "raw": "분진/미스트 ATEmix >5 (mg/L)",
+              "lower_op": ">",
+              "lower": 5,
+              "unit": "mg/L",
+              "status": "값있음"
+            },
+            "classification": "분류되지 않음",
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_INHAL",
+            "descriptor": "LC50",
+            "physical_form": "분진·미스트",
+            "q": {
+              "raw": ">5.11mg/L",
+              "lower_op": ">",
+              "lower": 5.11,
+              "unit": "mg/L",
+              "dp": 2,
+              "status": "값있음"
+            },
+            "species": "rat",
+            "duration_value": 4,
+            "duration_unit": "hr",
+            "guideline": "OECD Guideline 436",
+            "data_source": "ECHA",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "Coated copper flakes",
+                "text": "(Coated copper flakes)"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "TX_INHAL",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "statements": [],
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_SKIN",
+            "descriptor": "결과기술",
+            "classification": "분류되지 않음",
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_SKIN",
+            "descriptor": "결과기술",
+            "species": "rabbit",
+            "guideline": "OECD Guideline 404",
+            "data_source": "ECHA",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "자극성 관찰되지 않음 (시험종: rabbit)(OECD Guideline 404)(유사물질: Copper oxide)(ECHA)",
+                "text": "자극성 관찰되지 않음 (시험종: rabbit)(OECD Guideline 404)(유사물질: Copper oxide)(ECHA)"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "TX_SKIN",
+            "descriptor": "결과기술",
+            "species": "rabbit",
+            "guideline": "OECD Guideline 404",
+            "data_source": "ECHA",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "자극성으로 분류되지 않음 (시험종: rabbit)(read-across: Bayferrox VP AC 5122 M)(OECD Guideline 404)(ECHA)",
+                "text": "자극성으로 분류되지 않음 (시험종: rabbit)(read-across: Bayferrox VP AC 5122 M) (OECD Guideline 404)(ECHA)"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_EYE",
+            "descriptor": "결과기술",
+            "classification": "분류되지 않음",
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_EYE",
+            "descriptor": "결과기술",
+            "species": "rabbit",
+            "guideline": "OECD Guideline 405",
+            "data_source": "ECHA",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "자극성 관찰되지 않음 (시험종: rabbit)(OECD Guideline 405)(유사물질: Copper oxide)(ECHA)",
+                "text": "자극성 관찰되지 않음 (시험종: rabbit)(OECD Guideline 405)(유사물질: Copper oxide)(ECHA)"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "TX_EYE",
+            "descriptor": "결과기술",
+            "species": "rabbit",
+            "guideline": "OECD Guideline 405",
+            "data_source": "ECHA",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "자극성으로 분류되지 않음 (시험종: rabbit)(read-across: Bayferrox VP AC 5122 M)(OECD Guideline 405)(ECHA)",
+                "text": "자극성으로 분류되지 않음 (시험종: rabbit)(read-across: Bayferrox VP AC 5122 M) (OECD Guideline 405)(ECHA)"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_RESP_SENS",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "statements": [],
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_SKIN_SENS",
+            "descriptor": "결과기술",
+            "classification": "분류되지 않음",
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_SKIN_SENS",
+            "descriptor": "결과기술",
+            "species": "guinea pig",
+            "guideline": "OECD Guideline 406",
+            "data_source": "ECHA",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "과민성을 나타내지 않음 (시험종: guinea pig)(OECD Guideline 406)(유사물질: Copper oxide) (ECHA)",
+                "text": "과민성을 나타내지 않음 (시험종: guinea pig)(OECD Guideline 406)(유사물질: Copper oxide) (ECHA)"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "TX_SKIN_SENS",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "statements": [],
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_CARC",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "statements": [],
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_MUTA",
+            "descriptor": "결과기술",
+            "classification": "분류되지 않음",
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_MUTA",
+            "descriptor": "결과기술",
+            "read_across_cas": "7758-99-8",
+            "data_source": "ECHA",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "in vitro",
+                "value": "박테리아 시험관 내 유전자 돌연변이 연구결과 음성(시험종: Salmonella typhimurium Strains TA98, TA100, TA1535, TA1537, TA102)(OECD Guideline 471)(유사물질: Copper sulphate pentahydrate CAS No. 7758-99-8)(ECHA)",
+                "text": "in vitro- 박테리아 시험관 내 유전자 돌연변이 연구결과 음성(시험종: Salmonella typhimurium Strains TA98, TA100, TA1535, TA1537, TA102)(OECD Guideline 471)(유사물질: Copper sulphate pentahydrate CAS No. 7758-99-8)(ECHA)"
+              },
+              {
+                "seq": 2,
+                "key": "in vivo",
+                "value": "생체 내 포유류 체세포 연구(세포원성/적혈구 소핵)결과 음성(시험종: mouse)(EU Method B.12)(유사물질: Copper sulphate pentahydrate CAS No. 7758-99-8)(ECHA)",
+                "text": "in vivo- 생체 내 포유류 체세포 연구(세포원성/적혈구 소핵)결과 음성(시험종: mouse)(EU Method B.12)(유사물질: Copper sulphate pentahydrate CAS No. 7758-99-8)(ECHA)"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "TX_MUTA",
+            "descriptor": "결과기술",
+            "data_source": "ECHA",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "in vitro",
+                "value": "박테리아 시험관 내 유전자 돌연변이 연구결과 음성(시험종: Salmonella typhimurium TA97a, TA98, TA 100, TA102, TA1535, TA1537 & TA1538)(read-across:carbonyl iron)(ECHA)",
+                "text": "in vitro- 박테리아 시험관 내 유전자 돌연변이 연구결과 음성(시험종: Salmonella typhimurium TA97a, TA98, TA 100, TA102, TA1535, TA1537 & TA1538)(read-across:carbonyl iron)(ECHA)"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_REPRO",
+            "descriptor": "결과기술",
+            "classification": "분류되지 않음",
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_REPRO",
+            "descriptor": "결과기술",
+            "data_source": "ECHA",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "2세대 생식독성 시험결과 어떤농도에서도 생식독성이 나타나지 않음 (시험종: rat)(OECD Guideline 416)(유사물질: Copper sulphate pentahydrate CAS No. 7758-99-8)(ECHA)",
+                "text": "2세대 생식독성 시험결과 어떤농도에서도 생식독성이 나타나지 않음 (시험종: rat)(OECD Guideline 416)(유사물질: Copper sulphate pentahydrate CAS No. 7758-99-8)(ECHA)"
+              },
+              {
+                "seq": 2,
+                "value": "발달 독성 시험결과 평균 태아 체중이 약간 낮았으며 골격변이의 발생률이 약간 증가하였으나 최기형성, 착상 전 손실, 태자 사망과 관련없음 6mg/kg (시험종: rabbit)(OECD Guideline 414)(유사물질: copper(1+) hydroxide CAS No. 1344-69-0)(ECHA)",
+                "cond": {
+                  "raw": "6mg/kg",
+                  "value": 6,
+                  "unit": "mg/kg",
+                  "status": "값있음"
+                },
+                "text": "발달 독성 시험결과 평균 태아 체중이 약간 낮았으며 골격변이의 발생률이 약간 증가하였으나 최기형성, 착상 전 손실, 태자 사망과 관련없음 6mg/kg (시험종: rabbit)(OECD Guideline 414)(유사물질: copper(1+) hydroxide CAS No. 1344-69-0)(ECHA)"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "TX_REPRO",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "statements": [],
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_STOT_SE",
+            "descriptor": "결과기술",
+            "classification": "분류되지 않음",
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_STOT_SE",
+            "descriptor": "결과기술",
+            "data_source": "ECHA",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "경피 급성독성 시험결과 유해하거나 중대한 독성을 의미하는 임상 징후 관찰되지 않음, 사망발견되지 않음 (유사물질: Copper sulphate pentahydrate)(ECHA)",
+                "text": "경피 급성독성 시험결과 유해하거나 중대한 독성을 의미하는 임상 징후 관찰되지 않음, 사망발견되지 않음 (유사물질: Copper sulphate pentahydrate)(ECHA)"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "TX_STOT_SE",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "statements": [],
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_STOT_RE",
+            "descriptor": "결과기술",
+            "classification": "분류되지 않음",
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_STOT_RE",
+            "descriptor": "LOAEL",
+            "q": {
+              "raw": "1000ppm(암)",
+              "value": 1000,
+              "unit": "ppm",
+              "status": "값있음"
+            },
+            "species": "rat",
+            "sex": "암컷",
+            "exposure_type": "경구(아만성)",
+            "guideline": "EU Method B.26",
+            "read_across_cas": "7758-99-8",
+            "data_source": "ECHA",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "경구(아만성)- 간 손상에 대한 LOAEL은 1000ppm(암), 2000ppm(수)이었으며, 신장 손상에 대한 결과는 종특이적 성향으로 인해 독성학적으로 중요하지 않은 것으로 간주됨 (시험종: rat)(EU Method B.26)(유사물질: Copper sulphate pentahydrate CAS No. 7758-99-8)(ECHA)",
+                "text": "경구(아만성)- 간 손상에 대한 LOAEL은 1000ppm(암), 2000ppm(수)이었으며, 신장 손상에 대한 결과는 종특이적 성향으로 인해 독성학적으로 중요하지 않은 것으로 간주됨 (시험종: rat)(EU Method B.26)(유사물질: Copper sulphate pentahydrate CAS No. 7758-99-8)(ECHA)"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_STOT_RE",
+            "descriptor": "LOAEL",
+            "q": {
+              "raw": "2000ppm(수)",
+              "value": 2000,
+              "unit": "ppm",
+              "status": "값있음"
+            },
+            "species": "rat",
+            "sex": "수컷",
+            "exposure_type": "경구(아만성)",
+            "guideline": "EU Method B.26",
+            "read_across_cas": "7758-99-8",
+            "data_source": "ECHA",
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_STOT_RE",
+            "descriptor": "결과기술",
+            "species": "rat",
+            "exposure_type": "흡입(아급성)",
+            "guideline": "OECD Guideline 412",
+            "data_source": "ECHA",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "흡입(아급성)- 시험결과 심각한 영향등이 관찰되지 않아 분류되지 않음 (시험종: rat)(OECD Guideline 412)(유사물질: Copper oxide)(ECHA)",
+                "text": "흡입(아급성)- 시험결과 심각한 영향등이 관찰되지 않아 분류되지 않음 (시험종: rat)(OECD Guideline 412)(유사물질: Copper oxide)(ECHA)"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "TX_STOT_RE",
+            "descriptor": "결과기술",
+            "species": "rat",
+            "exposure_type": "흡입",
+            "data_source": "ECHA",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "흡입- 시험결과 심각한 영향등이 관찰되지 않아 분류되지 않음 (시험종: rat)(ECHA)",
+                "text": "흡입- 시험결과 심각한 영향등이 관찰되지 않아 분류되지 않음 (시험종: rat)(ECHA)"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_ASP",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "statements": [],
+            "status": "자료없음"
+          }
+        ],
+        "cmr": [],
+        "ecotox": [
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_FISH",
+            "descriptor": "LC50",
+            "q": {
+              "raw": "38.4~256.2µg/L",
+              "lower_op": ">=",
+              "lower": 38.4,
+              "upper_op": "<=",
+              "upper": 256.2,
+              "unit": "µg/L",
+              "dp": 1,
+              "status": "값있음"
+            },
+            "species": "Pimephales promelas",
+            "duration_value": 96,
+            "duration_unit": "hr",
+            "data_source": "ECHA",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "유사물질",
+                "value": "copper sulfate CAS No. 7758-98-7",
+                "text": "(유사물질: copper sulfate CAS No. 7758-98-7)"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "ECO_FISH",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "statements": [],
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_CRUST",
+            "descriptor": "EC50",
+            "q": {
+              "raw": "31.8μg/L",
+              "value": 31.8,
+              "unit": "µg/L",
+              "dp": 1,
+              "status": "값있음"
+            },
+            "species": "Ceriodaphnia dubia",
+            "duration_value": 48,
+            "duration_unit": "hr",
+            "data_source": "ECHA",
+            "statements": [],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "ECO_CRUST",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "statements": [],
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_ALGAE",
+            "descriptor": "EC50",
+            "q": {
+              "raw": "32~245μg/L",
+              "lower_op": ">=",
+              "lower": 32,
+              "upper_op": "<=",
+              "upper": 245,
+              "unit": "µg/L",
+              "status": "값있음"
+            },
+            "species": "Pseudokirchneriella subcapitata",
+            "duration_value": 72,
+            "duration_unit": "hr",
+            "data_source": "ECHA",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "유사물질",
+                "value": "Copper sulphate pentahydrate CAS No. 7758-99-8",
+                "text": "(유사물질: Copper sulphate pentahydrate CAS No. 7758-99-8)"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "ECO_ALGAE",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "statements": [],
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_PERSIST",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "statements": [
+              {
+                "seq": 1,
+                "key": "잔류성",
+                "value": "자료없음",
+                "text": "* 잔류성 자료없음"
+              }
+            ],
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_PERSIST",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "statements": [
+              {
+                "seq": 1,
+                "key": "분해성",
+                "value": "자료없음",
+                "text": "* 분해성 자료없음"
+              }
+            ],
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_BIOACC",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "statements": [
+              {
+                "seq": 1,
+                "key": "농축성",
+                "value": "자료없음",
+                "text": "* 농축성 자료없음"
+              }
+            ],
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_BIOACC",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "statements": [
+              {
+                "seq": 1,
+                "key": "생분해성",
+                "value": "자료없음",
+                "text": "* 생분해성 자료없음"
+              }
+            ],
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_SOIL",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "statements": [],
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_OTHER",
+            "descriptor": "NOEC",
+            "q": {
+              "raw": "57.8, 109µg/L",
+              "unit": "µg/L",
+              "status": "값있음"
+            },
+            "species": "Cyprinodon variegatus",
+            "guideline": "OECD Guideline 210",
+            "data_source": "ECHA",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "어류",
+                "value": "NOEC 57.8, 109µg/L 96hr 32day Cyprinodon variegatus (OECD Guideline 210)(유사물질: Copper (II) chloride dihydrate CAS No. 10125-13-0)(ECHA)",
+                "text": "어류: NOEC 57.8, 109µg/L 96hr 32day Cyprinodon variegatus (OECD Guideline 210) (유사물질: Copper (II) chloride dihydrate CAS No. 10125-13-0)(ECHA)"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_OTHER",
+            "descriptor": "NOEC",
+            "q": {
+              "raw": "21.5~181μg/L",
+              "lower_op": ">=",
+              "lower": 21.5,
+              "upper_op": "<=",
+              "upper": 181,
+              "unit": "µg/L",
+              "dp": 1,
+              "status": "값있음"
+            },
+            "species": "Daphnia magna",
+            "duration_value": 21,
+            "duration_unit": "day",
+            "guideline": "OECD Guideline 211",
+            "data_source": "ECHA",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "갑각류",
+                "value": "유사물질: Copper sulphate CAS No. 7758-98-7",
+                "text": "갑각류: NOEC 21.5~181μg/L 21day Daphnia magna (OECD Guideline 211)(유사물질: Copper sulphate CAS No. 7758-98-7)(ECHA)"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_OTHER",
+            "descriptor": "NOEC",
+            "q": {
+              "raw": "37.6~170.8μg/L",
+              "lower_op": ">=",
+              "lower": 37.6,
+              "upper_op": "<=",
+              "upper": 170.8,
+              "unit": "µg/L",
+              "dp": 1,
+              "status": "값있음"
+            },
+            "species": "Pseudokirchneriella subcapitata",
+            "duration_value": 72,
+            "duration_unit": "hr",
+            "guideline": "OECD Guideline 201",
+            "data_source": "ECHA",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "조류",
+                "value": "유사물질: copper chloride",
+                "text": "조류: NOEC 37.6~170.8μg/L 72hr Pseudokirchneriella subcapitata (유사물질: copper chloride) (OECD Guideline 201)(ECHA)"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "ECO_OTHER",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "statements": [],
+            "status": "자료없음"
+          }
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "msds_index": 0,
+        "field": "toxicity[0]",
+        "page": 4,
+        "source_text": "- 경구 | ATEmix >2000 (mg/kg) → 분류되지 않음",
+        "rules": [
+          "R04"
+        ],
+        "note": "'>2000'을 하한 2000(>)로 분해"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[1]",
+        "page": 4,
+        "source_text": "Copper | LD50 >2500mg/kg rat(male)(OECD Guideline 423)(유사물질: Copper oxide)(ECHA)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "유사물질 CAS 미기재로 read_across_cas는 null"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[2]",
+        "page": 4,
+        "source_text": "Iron | LD50 98600 mg/kg bw rat(OECD Guideline 401)(ECHA)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[3]",
+        "page": 4,
+        "source_text": "- 경피 | ATEmix >2000 (mg/kg) → 분류되지 않음",
+        "rules": [
+          "R04"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[4]",
+        "page": 4,
+        "source_text": "Copper | LD50 >2000mg/kg rat(OECD Guideline 402)(유사물질: Copper oxide)(ECHA)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[5]",
+        "page": 4,
+        "source_text": "Iron | 자료없음",
+        "rules": [
+          "R15",
+          "R10"
+        ],
+        "note": "경피"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[6]",
+        "page": 4,
+        "source_text": "- 흡입 | 분진/미스트 ATEmix >5 (mg/L) → 분류되지 않음",
+        "rules": [
+          "R04"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[7]",
+        "page": 4,
+        "source_text": "Copper | 분진/미스트 LC50 >5.11mg/L 4hr rat (OECD Guideline 436)(Coated copper flakes)(ECHA)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[8]",
+        "page": 4,
+        "source_text": "Iron | 자료없음",
+        "rules": [
+          "R15",
+          "R10"
+        ],
+        "note": "흡입"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[9]",
+        "page": 4,
+        "source_text": "* 피부부식성 또는 자극성 | 분류되지 않음",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[10]",
+        "page": 4,
+        "source_text": "Copper | 자극성 관찰되지 않음 (시험종: rabbit)(OECD Guideline 404)(유사물질: Copper oxide)(ECHA)",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[11]",
+        "page": 4,
+        "source_text": "Iron | 자극성으로 분류되지 않음 (시험종: rabbit)(read-across: Bayferrox VP AC 5122 M) (OECD Guideline 404)(ECHA)",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[12]",
+        "page": 4,
+        "source_text": "* 심한 눈손상 또는 자극성 | 분류되지 않음",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[13]",
+        "page": 4,
+        "source_text": "Copper | 자극성 관찰되지 않음 (시험종: rabbit)(OECD Guideline 405)(유사물질: Copper oxide)(ECHA)",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[14]",
+        "page": 4,
+        "source_text": "Iron | 자극성으로 분류되지 않음 (시험종: rabbit)(read-across: Bayferrox VP AC 5122 M) (OECD Guideline 405)(ECHA)",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[15]",
+        "page": 4,
+        "source_text": "* 호흡기과민성 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[16]",
+        "page": 4,
+        "source_text": "* 피부과민성 | 분류되지 않음",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[17]",
+        "page": 4,
+        "source_text": "Copper | 과민성을 나타내지 않음 (시험종: guinea pig)(OECD Guideline 406)(유사물질: Copper oxide) (ECHA)",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[18]",
+        "page": 4,
+        "source_text": "Iron | 자료없음",
+        "rules": [
+          "R15",
+          "R10"
+        ],
+        "note": "피부과민성"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[19]",
+        "page": 4,
+        "source_text": "* 발암성 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "기관 표기가 없어 cmr 행은 만들지 않음"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[20]",
+        "page": 4,
+        "source_text": "* 생식세포변이원성 | 분류되지 않음",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[21]",
+        "page": 4,
+        "source_text": "Copper | in vitro- 박테리아 시험관 내 유전자 돌연변이 연구결과 음성(시험종: Salmonella typhimurium Strains TA98, TA100, TA1535, TA1537, TA102)(OECD Guideline 471)",
+        "rules": [
+          "R10",
+          "R02"
+        ],
+        "note": "in vivo 문장은 5쪽까지 이어짐"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[22]",
+        "page": 5,
+        "source_text": "Iron | in vitro- 박테리아 시험관 내 유전자 돌연변이 연구결과 음성(시험종: Salmonella typhimurium TA97a, TA98, TA 100, TA102, TA1535, TA1537 & TA1538)(read-across:carbonyl iron)(ECHA)",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[23]",
+        "page": 5,
+        "source_text": "* 생식독성 | 분류되지 않음",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[24]",
+        "page": 5,
+        "source_text": "Copper | 2세대 생식독성 시험결과 어떤농도에서도 생식독성이 나타나지 않음 (시험종: rat)(OECD Guideline 416)",
+        "rules": [
+          "R10",
+          "R04"
+        ],
+        "note": "두 시험의 유사물질 CAS가 달라 read_across_cas는 null"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[25]",
+        "page": 5,
+        "source_text": "Iron | 자료없음",
+        "rules": [
+          "R15",
+          "R10"
+        ],
+        "note": "생식독성"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[26]",
+        "page": 5,
+        "source_text": "* 특정 표적장기 독성 (1회 노출) | 분류되지 않음",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[27]",
+        "page": 5,
+        "source_text": "Copper | 경피 급성독성 시험결과 유해하거나 중대한 독성을 의미하는 임상 징후 관찰되지 않음, 사망발견되지 않음 (유사물질: Copper sulphate pentahydrate)(ECHA)",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[28]",
+        "page": 5,
+        "source_text": "Iron | 자료없음",
+        "rules": [
+          "R15",
+          "R10"
+        ],
+        "note": "1회 노출"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[29]",
+        "page": 5,
+        "source_text": "* 특정 표적장기 독성 (반복 노출) | 분류되지 않음",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[30]",
+        "page": 5,
+        "source_text": "Copper | 경구(아만성)- 간 손상에 대한 LOAEL은 1000ppm(암), 2000ppm(수)이었으며",
+        "rules": [
+          "R04",
+          "R10",
+          "R02"
+        ],
+        "note": "암컷 1000 ppm 값을 행으로 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[31]",
+        "page": 5,
+        "source_text": "Copper | 경구(아만성)- 간 손상에 대한 LOAEL은 1000ppm(암), 2000ppm(수)이었으며",
+        "rules": [
+          "R04",
+          "R10",
+          "R02"
+        ],
+        "note": "수컷 2000 ppm 값을 행으로 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[32]",
+        "page": 5,
+        "source_text": "흡입(아급성)- 시험결과 심각한 영향등이 관찰되지 않아 분류되지 않음 (시험종: rat)(OECD Guideline 412)(유사물질: Copper oxide)(ECHA)",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[33]",
+        "page": 5,
+        "source_text": "Iron | 흡입- 시험결과 심각한 영향등이 관찰되지 않아 분류되지 않음 (시험종: rat)(ECHA)",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[34]",
+        "page": 5,
+        "source_text": "* 흡인유해성 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[0]",
+        "page": 5,
+        "source_text": "Copper | LC50 38.4~256.2µg/L 96hr Pimephales promelas (유사물질: copper sulfate CAS No. 7758-98-7)(ECHA)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "범위를 하한 38.4(>=), 상한 256.2(<=)로 나눔"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[1]",
+        "page": 5,
+        "source_text": "Iron | 자료없음",
+        "rules": [
+          "R15",
+          "R10"
+        ],
+        "note": "어류"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[2]",
+        "page": 5,
+        "source_text": "Copper | EC50 31.8μg/L 48hr Ceriodaphnia dubia(ECHA)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[3]",
+        "page": 5,
+        "source_text": "Iron | 자료없음",
+        "rules": [
+          "R15",
+          "R10"
+        ],
+        "note": "갑각류"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[4]",
+        "page": 5,
+        "source_text": "Copper | EC50 32~245μg/L 72hr Pseudokirchneriella subcapitata (유사물질: Copper sulphate pentahydrate CAS No. 7758-99-8)(ECHA)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[5]",
+        "page": 5,
+        "source_text": "Iron | 자료없음",
+        "rules": [
+          "R15",
+          "R10"
+        ],
+        "note": "조류"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[6]",
+        "page": 5,
+        "source_text": "* 잔류성 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[7]",
+        "page": 5,
+        "source_text": "* 분해성 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[8]",
+        "page": 5,
+        "source_text": "* 농축성 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[9]",
+        "page": 5,
+        "source_text": "* 생분해성 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "생물농축성 항목 아래 기재되어 ECO_BIOACC로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[10]",
+        "page": 5,
+        "source_text": "라. 토양이동성 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[11]",
+        "page": 5,
+        "source_text": "Copper | 어류: NOEC 57.8, 109µg/L 96hr 32day Cyprinodon variegatus (OECD Guideline 210)",
+        "rules": [
+          "R17",
+          "R10"
+        ],
+        "note": "두 값·두 기간의 대응이 불분명하여 raw만 남기고 노출 시간은 비움"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[12]",
+        "page": 5,
+        "source_text": "갑각류: NOEC 21.5~181μg/L 21day Daphnia magna (OECD Guideline 211)(유사물질: Copper sulphate CAS No. 7758-98-7)(ECHA)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[13]",
+        "page": 5,
+        "source_text": "조류: NOEC 37.6~170.8μg/L 72hr Pseudokirchneriella subcapitata (유사물질: copper chloride) (OECD Guideline 201)(ECHA)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[14]",
+        "page": 5,
+        "source_text": "Iron | 자료없음",
+        "rules": [
+          "R15",
+          "R10"
+        ],
+        "note": "기타 유해 영향"
+      }
+    ]
+  },
+  "raw_text": "{\"msds\": [{\"toxicity\": [{\"comp_ref\": \"MIX\", \"endpoint\": \"TX_ORAL\", \"descriptor\": \"ATE\", \"q\": {\"raw\": \"ATEmix >2000 (mg/kg)\", \"lower_op\": \">\", \"lower\": 2000, \"unit\": \"mg/kg\", \"status\": \"값있음\"}, \"classification\": \"분류되지 않음\", \"statements\": [], \"status\": \"값있음\"}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_ORAL\", \"descriptor\": \"LD50\", \"q\": {\"raw\": \">2500mg/kg\", \"lower_op\": \">\", \"lower\": 2500, \"unit\": \"mg/kg\", \"status\": \"값있음\"}, \"species\": \"rat\", \"sex\": \"수컷\", \"guideline\": \"OECD Guideline 423\", \"data_source\": \"ECHA\", \"statements\": [{\"seq\": 1, \"key\": \"유사물질\", \"value\": \"Copper oxide\", \"text\": \"(유사물질: Copper oxide)\"}], \"status\": \"값있음\"}, {\"comp_ref\": \"2\", \"endpoint\": \"TX_ORAL\", \"descriptor\": \"LD50\", \"q\": {\"raw\": \"98600 mg/kg bw\", \"value\": 98600, \"unit\": \"mg/kg bw\", \"status\": \"값있음\"}, \"species\": \"rat\", \"guideline\": \"OECD Guideline 401\", \"data_source\": \"ECHA\", \"statements\": [], \"status\": \"값있음\"}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_DERMAL\", \"descriptor\": \"ATE\", \"q\": {\"raw\": \"ATEmix >2000 (mg/kg)\", \"lower_op\": \">\", \"lower\": 2000, \"unit\": \"mg/kg\", \"status\": \"값있음\"}, \"classification\": \"분류되지 않음\", \"statements\": [], \"status\": \"값있음\"}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_DERMAL\", \"descriptor\": \"LD50\", \"q\": {\"raw\": \">2000mg/kg\", \"lower_op\": \">\", \"lower\": 2000, \"unit\": \"mg/kg\", \"status\": \"값있음\"}, \"species\": \"rat\", \"guideline\": \"OECD Guideline 402\", \"data_source\": \"ECHA\", \"statements\": [{\"seq\": 1, \"key\": \"유사물질\", \"value\": \"Copper oxide\", \"text\": \"(유사물질: Copper oxide)\"}], \"status\": \"값있음\"}, {\"comp_ref\": \"2\", \"endpoint\": \"TX_DERMAL\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"statements\": [], \"status\": \"자료없음\"}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_INHAL\", \"descriptor\": \"ATE\", \"physical_form\": \"분진·미스트\", \"q\": {\"raw\": \"분진/미스트 ATEmix >5 (mg/L)\", \"lower_op\": \">\", \"lower\": 5, \"unit\": \"mg/L\", \"status\": \"값있음\"}, \"classification\": \"분류되지 않음\", \"statements\": [], \"status\": \"값있음\"}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_INHAL\", \"descriptor\": \"LC50\", \"physical_form\": \"분진·미스트\", \"q\": {\"raw\": \">5.11mg/L\", \"lower_op\": \">\", \"lower\": 5.11, \"unit\": \"mg/L\", \"dp\": 2, \"status\": \"값있음\"}, \"species\": \"rat\", \"duration_value\": 4, \"duration_unit\": \"hr\", \"guideline\": \"OECD Guideline 436\", \"data_source\": \"ECHA\", \"statements\": [{\"seq\": 1, \"value\": \"Coated copper flakes\", \"text\": \"(Coated copper flakes)\"}], \"status\": \"값있음\"}, {\"comp_ref\": \"2\", \"endpoint\": \"TX_INHAL\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"statements\": [], \"status\": \"자료없음\"}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_SKIN\", \"descriptor\": \"결과기술\", \"classification\": \"분류되지 않음\", \"statements\": [], \"status\": \"값있음\"}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_SKIN\", \"descriptor\": \"결과기술\", \"species\": \"rabbit\", \"guideline\": \"OECD Guideline 404\", \"data_source\": \"ECHA\", \"statements\": [{\"seq\": 1, \"value\": \"자극성 관찰되지 않음 (시험종: rabbit)(OECD Guideline 404)(유사물질: Copper oxide)(ECHA)\", \"text\": \"자극성 관찰되지 않음 (시험종: rabbit)(OECD Guideline 404)(유사물질: Copper oxide)(ECHA)\"}], \"status\": \"값있음\"}, {\"comp_ref\": \"2\", \"endpoint\": \"TX_SKIN\", \"descriptor\": \"결과기술\", \"species\": \"rabbit\", \"guideline\": \"OECD Guideline 404\", \"data_source\": \"ECHA\", \"statements\": [{\"seq\": 1, \"value\": \"자극성으로 분류되지 않음 (시험종: rabbit)(read-across: Bayferrox VP AC 5122 M)(OECD Guideline 404)(ECHA)\", \"text\": \"자극성으로 분류되지 않음 (시험종: rabbit)(read-across: Bayferrox VP AC 5122 M) (OECD Guideline 404)(ECHA)\"}], \"status\": \"값있음\"}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_EYE\", \"descriptor\": \"결과기술\", \"classification\": \"분류되지 않음\", \"statements\": [], \"status\": \"값있음\"}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_EYE\", \"descriptor\": \"결과기술\", \"species\": \"rabbit\", \"guideline\": \"OECD Guideline 405\", \"data_source\": \"ECHA\", \"statements\": [{\"seq\": 1, \"value\": \"자극성 관찰되지 않음 (시험종: rabbit)(OECD Guideline 405)(유사물질: Copper oxide)(ECHA)\", \"text\": \"자극성 관찰되지 않음 (시험종: rabbit)(OECD Guideline 405)(유사물질: Copper oxide)(ECHA)\"}], \"status\": \"값있음\"}, {\"comp_ref\": \"2\", \"endpoint\": \"TX_EYE\", \"descriptor\": \"결과기술\", \"species\": \"rabbit\", \"guideline\": \"OECD Guideline 405\", \"data_source\": \"ECHA\", \"statements\": [{\"seq\": 1, \"value\": \"자극성으로 분류되지 않음 (시험종: rabbit)(read-across: Bayferrox VP AC 5122 M)(OECD Guideline 405)(ECHA)\", \"text\": \"자극성으로 분류되지 않음 (시험종: rabbit)(read-across: Bayferrox VP AC 5122 M) (OECD Guideline 405)(ECHA)\"}], \"status\": \"값있음\"}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_RESP_SENS\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"statements\": [], \"status\": \"자료없음\"}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_SKIN_SENS\", \"descriptor\": \"결과기술\", \"classification\": \"분류되지 않음\", \"statements\": [], \"status\": \"값있음\"}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_SKIN_SENS\", \"descriptor\": \"결과기술\", \"species\": \"guinea pig\", \"guideline\": \"OECD Guideline 406\", \"data_source\": \"ECHA\", \"statements\": [{\"seq\": 1, \"value\": \"과민성을 나타내지 않음 (시험종: guinea pig)(OECD Guideline 406)(유사물질: Copper oxide) (ECHA)\", \"text\": \"과민성을 나타내지 않음 (시험종: guinea pig)(OECD Guideline 406)(유사물질: Copper oxide) (ECHA)\"}], \"status\": \"값있음\"}, {\"comp_ref\": \"2\", \"endpoint\": \"TX_SKIN_SENS\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"statements\": [], \"status\": \"자료없음\"}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_CARC\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"statements\": [], \"status\": \"자료없음\"}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_MUTA\", \"descriptor\": \"결과기술\", \"classification\": \"분류되지 않음\", \"statements\": [], \"status\": \"값있음\"}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_MUTA\", \"descriptor\": \"결과기술\", \"read_across_cas\": \"7758-99-8\", \"data_source\": \"ECHA\", \"statements\": [{\"seq\": 1, \"key\": \"in vitro\", \"value\": \"박테리아 시험관 내 유전자 돌연변이 연구결과 음성(시험종: Salmonella typhimurium Strains TA98, TA100, TA1535, TA1537, TA102)(OECD Guideline 471)(유사물질: Copper sulphate pentahydrate CAS No. 7758-99-8)(ECHA)\", \"text\": \"in vitro- 박테리아 시험관 내 유전자 돌연변이 연구결과 음성(시험종: Salmonella typhimurium Strains TA98, TA100, TA1535, TA1537, TA102)(OECD Guideline 471)(유사물질: Copper sulphate pentahydrate CAS No. 7758-99-8)(ECHA)\"}, {\"seq\": 2, \"key\": \"in vivo\", \"value\": \"생체 내 포유류 체세포 연구(세포원성/적혈구 소핵)결과 음성(시험종: mouse)(EU Method B.12)(유사물질: Copper sulphate pentahydrate CAS No. 7758-99-8)(ECHA)\", \"text\": \"in vivo- 생체 내 포유류 체세포 연구(세포원성/적혈구 소핵)결과 음성(시험종: mouse)(EU Method B.12)(유사물질: Copper sulphate pentahydrate CAS No. 7758-99-8)(ECHA)\"}], \"status\": \"값있음\"}, {\"comp_ref\": \"2\", \"endpoint\": \"TX_MUTA\", \"descriptor\": \"결과기술\", \"data_source\": \"ECHA\", \"statements\": [{\"seq\": 1, \"key\": \"in vitro\", \"value\": \"박테리아 시험관 내 유전자 돌연변이 연구결과 음성(시험종: Salmonella typhimurium TA97a, TA98, TA 100, TA102, TA1535, TA1537 & TA1538)(read-across:carbonyl iron)(ECHA)\", \"text\": \"in vitro- 박테리아 시험관 내 유전자 돌연변이 연구결과 음성(시험종: Salmonella typhimurium TA97a, TA98, TA 100, TA102, TA1535, TA1537 & TA1538)(read-across:carbonyl iron)(ECHA)\"}], \"status\": \"값있음\"}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_REPRO\", \"descriptor\": \"결과기술\", \"classification\": \"분류되지 않음\", \"statements\": [], \"status\": \"값있음\"}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_REPRO\", \"descriptor\": \"결과기술\", \"data_source\": \"ECHA\", \"statements\": [{\"seq\": 1, \"value\": \"2세대 생식독성 시험결과 어떤농도에서도 생식독성이 나타나지 않음 (시험종: rat)(OECD Guideline 416)(유사물질: Copper sulphate pentahydrate CAS No. 7758-99-8)(ECHA)\", \"text\": \"2세대 생식독성 시험결과 어떤농도에서도 생식독성이 나타나지 않음 (시험종: rat)(OECD Guideline 416)(유사물질: Copper sulphate pentahydrate CAS No. 7758-99-8)(ECHA)\"}, {\"seq\": 2, \"value\": \"발달 독성 시험결과 평균 태아 체중이 약간 낮았으며 골격변이의 발생률이 약간 증가하였으나 최기형성, 착상 전 손실, 태자 사망과 관련없음 6mg/kg (시험종: rabbit)(OECD Guideline 414)(유사물질: copper(1+) hydroxide CAS No. 1344-69-0)(ECHA)\", \"cond\": {\"raw\": \"6mg/kg\", \"value\": 6, \"unit\": \"mg/kg\", \"status\": \"값있음\"}, \"text\": \"발달 독성 시험결과 평균 태아 체중이 약간 낮았으며 골격변이의 발생률이 약간 증가하였으나 최기형성, 착상 전 손실, 태자 사망과 관련없음 6mg/kg (시험종: rabbit)(OECD Guideline 414)(유사물질: copper(1+) hydroxide CAS No. 1344-69-0)(ECHA)\"}], \"status\": \"값있음\"}, {\"comp_ref\": \"2\", \"endpoint\": \"TX_REPRO\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"statements\": [], \"status\": \"자료없음\"}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_STOT_SE\", \"descriptor\": \"결과기술\", \"classification\": \"분류되지 않음\", \"statements\": [], \"status\": \"값있음\"}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_STOT_SE\", \"descriptor\": \"결과기술\", \"data_source\": \"ECHA\", \"statements\": [{\"seq\": 1, \"value\": \"경피 급성독성 시험결과 유해하거나 중대한 독성을 의미하는 임상 징후 관찰되지 않음, 사망발견되지 않음 (유사물질: Copper sulphate pentahydrate)(ECHA)\", \"text\": \"경피 급성독성 시험결과 유해하거나 중대한 독성을 의미하는 임상 징후 관찰되지 않음, 사망발견되지 않음 (유사물질: Copper sulphate pentahydrate)(ECHA)\"}], \"status\": \"값있음\"}, {\"comp_ref\": \"2\", \"endpoint\": \"TX_STOT_SE\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"statements\": [], \"status\": \"자료없음\"}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_STOT_RE\", \"descriptor\": \"결과기술\", \"classification\": \"분류되지 않음\", \"statements\": [], \"status\": \"값있음\"}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_STOT_RE\", \"descriptor\": \"LOAEL\", \"q\": {\"raw\": \"1000ppm(암)\", \"value\": 1000, \"unit\": \"ppm\", \"status\": \"값있음\"}, \"species\": \"rat\", \"sex\": \"암컷\", \"exposure_type\": \"경구(아만성)\", \"guideline\": \"EU Method B.26\", \"read_across_cas\": \"7758-99-8\", \"data_source\": \"ECHA\", \"statements\": [{\"seq\": 1, \"value\": \"경구(아만성)- 간 손상에 대한 LOAEL은 1000ppm(암), 2000ppm(수)이었으며, 신장 손상에 대한 결과는 종특이적 성향으로 인해 독성학적으로 중요하지 않은 것으로 간주됨 (시험종: rat)(EU Method B.26)(유사물질: Copper sulphate pentahydrate CAS No. 7758-99-8)(ECHA)\", \"text\": \"경구(아만성)- 간 손상에 대한 LOAEL은 1000ppm(암), 2000ppm(수)이었으며, 신장 손상에 대한 결과는 종특이적 성향으로 인해 독성학적으로 중요하지 않은 것으로 간주됨 (시험종: rat)(EU Method B.26)(유사물질: Copper sulphate pentahydrate CAS No. 7758-99-8)(ECHA)\"}], \"status\": \"값있음\"}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_STOT_RE\", \"descriptor\": \"LOAEL\", \"q\": {\"raw\": \"2000ppm(수)\", \"value\": 2000, \"unit\": \"ppm\", \"status\": \"값있음\"}, \"species\": \"rat\", \"sex\": \"수컷\", \"exposure_type\": \"경구(아만성)\", \"guideline\": \"EU Method B.26\", \"read_across_cas\": \"7758-99-8\", \"data_source\": \"ECHA\", \"statements\": [], \"status\": \"값있음\"}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_STOT_RE\", \"descriptor\": \"결과기술\", \"species\": \"rat\", \"exposure_type\": \"흡입(아급성)\", \"guideline\": \"OECD Guideline 412\", \"data_source\": \"ECHA\", \"statements\": [{\"seq\": 1, \"value\": \"흡입(아급성)- 시험결과 심각한 영향등이 관찰되지 않아 분류되지 않음 (시험종: rat)(OECD Guideline 412)(유사물질: Copper oxide)(ECHA)\", \"text\": \"흡입(아급성)- 시험결과 심각한 영향등이 관찰되지 않아 분류되지 않음 (시험종: rat)(OECD Guideline 412)(유사물질: Copper oxide)(ECHA)\"}], \"status\": \"값있음\"}, {\"comp_ref\": \"2\", \"endpoint\": \"TX_STOT_RE\", \"descriptor\": \"결과기술\", \"species\": \"rat\", \"exposure_type\": \"흡입\", \"data_source\": \"ECHA\", \"statements\": [{\"seq\": 1, \"value\": \"흡입- 시험결과 심각한 영향등이 관찰되지 않아 분류되지 않음 (시험종: rat)(ECHA)\", \"text\": \"흡입- 시험결과 심각한 영향등이 관찰되지 않아 분류되지 않음 (시험종: rat)(ECHA)\"}], \"status\": \"값있음\"}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_ASP\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"statements\": [], \"status\": \"자료없음\"}], \"cmr\": [], \"ecotox\": [{\"comp_ref\": \"1\", \"endpoint\": \"ECO_FISH\", \"descriptor\": \"LC50\", \"q\": {\"raw\": \"38.4~256.2µg/L\", \"lower_op\": \">=\", \"lower\": 38.4, \"upper_op\": \"<=\", \"upper\": 256.2, \"unit\": \"µg/L\", \"dp\": 1, \"status\": \"값있음\"}, \"species\": \"Pimephales promelas\", \"duration_value\": 96, \"duration_unit\": \"hr\", \"data_source\": \"ECHA\", \"statements\": [{\"seq\": 1, \"key\": \"유사물질\", \"value\": \"copper sulfate CAS No. 7758-98-7\", \"text\": \"(유사물질: copper sulfate CAS No. 7758-98-7)\"}], \"status\": \"값있음\"}, {\"comp_ref\": \"2\", \"endpoint\": \"ECO_FISH\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"statements\": [], \"status\": \"자료없음\"}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_CRUST\", \"descriptor\": \"EC50\", \"q\": {\"raw\": \"31.8μg/L\", \"value\": 31.8, \"unit\": \"µg/L\", \"dp\": 1, \"status\": \"값있음\"}, \"species\": \"Ceriodaphnia dubia\", \"duration_value\": 48, \"duration_unit\": \"hr\", \"data_source\": \"ECHA\", \"statements\": [], \"status\": \"값있음\"}, {\"comp_ref\": \"2\", \"endpoint\": \"ECO_CRUST\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"statements\": [], \"status\": \"자료없음\"}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_ALGAE\", \"descriptor\": \"EC50\", \"q\": {\"raw\": \"32~245μg/L\", \"lower_op\": \">=\", \"lower\": 32, \"upper_op\": \"<=\", \"upper\": 245, \"unit\": \"µg/L\", \"status\": \"값있음\"}, \"species\": \"Pseudokirchneriella subcapitata\", \"duration_value\": 72, \"duration_unit\": \"hr\", \"data_source\": \"ECHA\", \"statements\": [{\"seq\": 1, \"key\": \"유사물질\", \"value\": \"Copper sulphate pentahydrate CAS No. 7758-99-8\", \"text\": \"(유사물질: Copper sulphate pentahydrate CAS No. 7758-99-8)\"}], \"status\": \"값있음\"}, {\"comp_ref\": \"2\", \"endpoint\": \"ECO_ALGAE\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"statements\": [], \"status\": \"자료없음\"}, {\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_PERSIST\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"statements\": [{\"seq\": 1, \"key\": \"잔류성\", \"value\": \"자료없음\", \"text\": \"* 잔류성 자료없음\"}], \"status\": \"자료없음\"}, {\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_PERSIST\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"statements\": [{\"seq\": 1, \"key\": \"분해성\", \"value\": \"자료없음\", \"text\": \"* 분해성 자료없음\"}], \"status\": \"자료없음\"}, {\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_BIOACC\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"statements\": [{\"seq\": 1, \"key\": \"농축성\", \"value\": \"자료없음\", \"text\": \"* 농축성 자료없음\"}], \"status\": \"자료없음\"}, {\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_BIOACC\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"statements\": [{\"seq\": 1, \"key\": \"생분해성\", \"value\": \"자료없음\", \"text\": \"* 생분해성 자료없음\"}], \"status\": \"자료없음\"}, {\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_SOIL\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"statements\": [], \"status\": \"자료없음\"}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_OTHER\", \"descriptor\": \"NOEC\", \"q\": {\"raw\": \"57.8, 109µg/L\", \"unit\": \"µg/L\", \"status\": \"값있음\"}, \"species\": \"Cyprinodon variegatus\", \"guideline\": \"OECD Guideline 210\", \"data_source\": \"ECHA\", \"statements\": [{\"seq\": 1, \"key\": \"어류\", \"value\": \"NOEC 57.8, 109µg/L 96hr 32day Cyprinodon variegatus (OECD Guideline 210)(유사물질: Copper (II) chloride dihydrate CAS No. 10125-13-0)(ECHA)\", \"text\": \"어류: NOEC 57.8, 109µg/L 96hr 32day Cyprinodon variegatus (OECD Guideline 210) (유사물질: Copper (II) chloride dihydrate CAS No. 10125-13-0)(ECHA)\"}], \"status\": \"값있음\"}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_OTHER\", \"descriptor\": \"NOEC\", \"q\": {\"raw\": \"21.5~181μg/L\", \"lower_op\": \">=\", \"lower\": 21.5, \"upper_op\": \"<=\", \"upper\": 181, \"unit\": \"µg/L\", \"dp\": 1, \"status\": \"값있음\"}, \"species\": \"Daphnia magna\", \"duration_value\": 21, \"duration_unit\": \"day\", \"guideline\": \"OECD Guideline 211\", \"data_source\": \"ECHA\", \"statements\": [{\"seq\": 1, \"key\": \"갑각류\", \"value\": \"유사물질: Copper sulphate CAS No. 7758-98-7\", \"text\": \"갑각류: NOEC 21.5~181μg/L 21day Daphnia magna (OECD Guideline 211)(유사물질: Copper sulphate CAS No. 7758-98-7)(ECHA)\"}], \"status\": \"값있음\"}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_OTHER\", \"descriptor\": \"NOEC\", \"q\": {\"raw\": \"37.6~170.8μg/L\", \"lower_op\": \">=\", \"lower\": 37.6, \"upper_op\": \"<=\", \"upper\": 170.8, \"unit\": \"µg/L\", \"dp\": 1, \"status\": \"값있음\"}, \"species\": \"Pseudokirchneriella subcapitata\", \"duration_value\": 72, \"duration_unit\": \"hr\", \"guideline\": \"OECD Guideline 201\", \"data_source\": \"ECHA\", \"statements\": [{\"seq\": 1, \"key\": \"조류\", \"value\": \"유사물질: copper chloride\", \"text\": \"조류: NOEC 37.6~170.8μg/L 72hr Pseudokirchneriella subcapitata (유사물질: copper chloride) (OECD Guideline 201)(ECHA)\"}], \"status\": \"값있음\"}, {\"comp_ref\": \"2\", \"endpoint\": \"ECO_OTHER\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"statements\": [], \"status\": \"자료없음\"}]}], \"evidence\": [{\"msds_index\": 0, \"field\": \"toxicity[0]\", \"page\": 4, \"source_text\": \"- 경구 | ATEmix >2000 (mg/kg) → 분류되지 않음\", \"rules\": [\"R04\"], \"note\": \"'>2000'을 하한 2000(>)로 분해\"}, {\"msds_index\": 0, \"field\": \"toxicity[1]\", \"page\": 4, \"source_text\": \"Copper | LD50 >2500mg/kg rat(male)(OECD Guideline 423)(유사물질: Copper oxide)(ECHA)\", \"rules\": [\"R04\", \"R10\"], \"note\": \"유사물질 CAS 미기재로 read_across_cas는 null\"}, {\"msds_index\": 0, \"field\": \"toxicity[2]\", \"page\": 4, \"source_text\": \"Iron | LD50 98600 mg/kg bw rat(OECD Guideline 401)(ECHA)\", \"rules\": [\"R04\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[3]\", \"page\": 4, \"source_text\": \"- 경피 | ATEmix >2000 (mg/kg) → 분류되지 않음\", \"rules\": [\"R04\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[4]\", \"page\": 4, \"source_text\": \"Copper | LD50 >2000mg/kg rat(OECD Guideline 402)(유사물질: Copper oxide)(ECHA)\", \"rules\": [\"R04\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[5]\", \"page\": 4, \"source_text\": \"Iron | 자료없음\", \"rules\": [\"R15\", \"R10\"], \"note\": \"경피\"}, {\"msds_index\": 0, \"field\": \"toxicity[6]\", \"page\": 4, \"source_text\": \"- 흡입 | 분진/미스트 ATEmix >5 (mg/L) → 분류되지 않음\", \"rules\": [\"R04\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[7]\", \"page\": 4, \"source_text\": \"Copper | 분진/미스트 LC50 >5.11mg/L 4hr rat (OECD Guideline 436)(Coated copper flakes)(ECHA)\", \"rules\": [\"R04\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[8]\", \"page\": 4, \"source_text\": \"Iron | 자료없음\", \"rules\": [\"R15\", \"R10\"], \"note\": \"흡입\"}, {\"msds_index\": 0, \"field\": \"toxicity[9]\", \"page\": 4, \"source_text\": \"* 피부부식성 또는 자극성 | 분류되지 않음\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[10]\", \"page\": 4, \"source_text\": \"Copper | 자극성 관찰되지 않음 (시험종: rabbit)(OECD Guideline 404)(유사물질: Copper oxide)(ECHA)\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[11]\", \"page\": 4, \"source_text\": \"Iron | 자극성으로 분류되지 않음 (시험종: rabbit)(read-across: Bayferrox VP AC 5122 M) (OECD Guideline 404)(ECHA)\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[12]\", \"page\": 4, \"source_text\": \"* 심한 눈손상 또는 자극성 | 분류되지 않음\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[13]\", \"page\": 4, \"source_text\": \"Copper | 자극성 관찰되지 않음 (시험종: rabbit)(OECD Guideline 405)(유사물질: Copper oxide)(ECHA)\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[14]\", \"page\": 4, \"source_text\": \"Iron | 자극성으로 분류되지 않음 (시험종: rabbit)(read-across: Bayferrox VP AC 5122 M) (OECD Guideline 405)(ECHA)\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[15]\", \"page\": 4, \"source_text\": \"* 호흡기과민성 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[16]\", \"page\": 4, \"source_text\": \"* 피부과민성 | 분류되지 않음\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[17]\", \"page\": 4, \"source_text\": \"Copper | 과민성을 나타내지 않음 (시험종: guinea pig)(OECD Guideline 406)(유사물질: Copper oxide) (ECHA)\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[18]\", \"page\": 4, \"source_text\": \"Iron | 자료없음\", \"rules\": [\"R15\", \"R10\"], \"note\": \"피부과민성\"}, {\"msds_index\": 0, \"field\": \"toxicity[19]\", \"page\": 4, \"source_text\": \"* 발암성 자료없음\", \"rules\": [\"R15\"], \"note\": \"기관 표기가 없어 cmr 행은 만들지 않음\"}, {\"msds_index\": 0, \"field\": \"toxicity[20]\", \"page\": 4, \"source_text\": \"* 생식세포변이원성 | 분류되지 않음\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[21]\", \"page\": 4, \"source_text\": \"Copper | in vitro- 박테리아 시험관 내 유전자 돌연변이 연구결과 음성(시험종: Salmonella typhimurium Strains TA98, TA100, TA1535, TA1537, TA102)(OECD Guideline 471)\", \"rules\": [\"R10\", \"R02\"], \"note\": \"in vivo 문장은 5쪽까지 이어짐\"}, {\"msds_index\": 0, \"field\": \"toxicity[22]\", \"page\": 5, \"source_text\": \"Iron | in vitro- 박테리아 시험관 내 유전자 돌연변이 연구결과 음성(시험종: Salmonella typhimurium TA97a, TA98, TA 100, TA102, TA1535, TA1537 & TA1538)(read-across:carbonyl iron)(ECHA)\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[23]\", \"page\": 5, \"source_text\": \"* 생식독성 | 분류되지 않음\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[24]\", \"page\": 5, \"source_text\": \"Copper | 2세대 생식독성 시험결과 어떤농도에서도 생식독성이 나타나지 않음 (시험종: rat)(OECD Guideline 416)\", \"rules\": [\"R10\", \"R04\"], \"note\": \"두 시험의 유사물질 CAS가 달라 read_across_cas는 null\"}, {\"msds_index\": 0, \"field\": \"toxicity[25]\", \"page\": 5, \"source_text\": \"Iron | 자료없음\", \"rules\": [\"R15\", \"R10\"], \"note\": \"생식독성\"}, {\"msds_index\": 0, \"field\": \"toxicity[26]\", \"page\": 5, \"source_text\": \"* 특정 표적장기 독성 (1회 노출) | 분류되지 않음\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[27]\", \"page\": 5, \"source_text\": \"Copper | 경피 급성독성 시험결과 유해하거나 중대한 독성을 의미하는 임상 징후 관찰되지 않음, 사망발견되지 않음 (유사물질: Copper sulphate pentahydrate)(ECHA)\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[28]\", \"page\": 5, \"source_text\": \"Iron | 자료없음\", \"rules\": [\"R15\", \"R10\"], \"note\": \"1회 노출\"}, {\"msds_index\": 0, \"field\": \"toxicity[29]\", \"page\": 5, \"source_text\": \"* 특정 표적장기 독성 (반복 노출) | 분류되지 않음\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[30]\", \"page\": 5, \"source_text\": \"Copper | 경구(아만성)- 간 손상에 대한 LOAEL은 1000ppm(암), 2000ppm(수)이었으며\", \"rules\": [\"R04\", \"R10\", \"R02\"], \"note\": \"암컷 1000 ppm 값을 행으로 분리\"}, {\"msds_index\": 0, \"field\": \"toxicity[31]\", \"page\": 5, \"source_text\": \"Copper | 경구(아만성)- 간 손상에 대한 LOAEL은 1000ppm(암), 2000ppm(수)이었으며\", \"rules\": [\"R04\", \"R10\", \"R02\"], \"note\": \"수컷 2000 ppm 값을 행으로 분리\"}, {\"msds_index\": 0, \"field\": \"toxicity[32]\", \"page\": 5, \"source_text\": \"흡입(아급성)- 시험결과 심각한 영향등이 관찰되지 않아 분류되지 않음 (시험종: rat)(OECD Guideline 412)(유사물질: Copper oxide)(ECHA)\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[33]\", \"page\": 5, \"source_text\": \"Iron | 흡입- 시험결과 심각한 영향등이 관찰되지 않아 분류되지 않음 (시험종: rat)(ECHA)\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[34]\", \"page\": 5, \"source_text\": \"* 흡인유해성 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[0]\", \"page\": 5, \"source_text\": \"Copper | LC50 38.4~256.2µg/L 96hr Pimephales promelas (유사물질: copper sulfate CAS No. 7758-98-7)(ECHA)\", \"rules\": [\"R04\", \"R10\"], \"note\": \"범위를 하한 38.4(>=), 상한 256.2(<=)로 나눔\"}, {\"msds_index\": 0, \"field\": \"ecotox[1]\", \"page\": 5, \"source_text\": \"Iron | 자료없음\", \"rules\": [\"R15\", \"R10\"], \"note\": \"어류\"}, {\"msds_index\": 0, \"field\": \"ecotox[2]\", \"page\": 5, \"source_text\": \"Copper | EC50 31.8μg/L 48hr Ceriodaphnia dubia(ECHA)\", \"rules\": [\"R04\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[3]\", \"page\": 5, \"source_text\": \"Iron | 자료없음\", \"rules\": [\"R15\", \"R10\"], \"note\": \"갑각류\"}, {\"msds_index\": 0, \"field\": \"ecotox[4]\", \"page\": 5, \"source_text\": \"Copper | EC50 32~245μg/L 72hr Pseudokirchneriella subcapitata (유사물질: Copper sulphate pentahydrate CAS No. 7758-99-8)(ECHA)\", \"rules\": [\"R04\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[5]\", \"page\": 5, \"source_text\": \"Iron | 자료없음\", \"rules\": [\"R15\", \"R10\"], \"note\": \"조류\"}, {\"msds_index\": 0, \"field\": \"ecotox[6]\", \"page\": 5, \"source_text\": \"* 잔류성 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[7]\", \"page\": 5, \"source_text\": \"* 분해성 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[8]\", \"page\": 5, \"source_text\": \"* 농축성 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[9]\", \"page\": 5, \"source_text\": \"* 생분해성 자료없음\", \"rules\": [\"R15\"], \"note\": \"생물농축성 항목 아래 기재되어 ECO_BIOACC로 둠\"}, {\"msds_index\": 0, \"field\": \"ecotox[10]\", \"page\": 5, \"source_text\": \"라. 토양이동성 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[11]\", \"page\": 5, \"source_text\": \"Copper | 어류: NOEC 57.8, 109µg/L 96hr 32day Cyprinodon variegatus (OECD Guideline 210)\", \"rules\": [\"R17\", \"R10\"], \"note\": \"두 값·두 기간의 대응이 불분명하여 raw만 남기고 노출 시간은 비움\"}, {\"msds_index\": 0, \"field\": \"ecotox[12]\", \"page\": 5, \"source_text\": \"갑각류: NOEC 21.5~181μg/L 21day Daphnia magna (OECD Guideline 211)(유사물질: Copper sulphate CAS No. 7758-98-7)(ECHA)\", \"rules\": [\"R04\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[13]\", \"page\": 5, \"source_text\": \"조류: NOEC 37.6~170.8μg/L 72hr Pseudokirchneriella subcapitata (유사물질: copper chloride) (OECD Guideline 201)(ECHA)\", \"rules\": [\"R04\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[14]\", \"page\": 5, \"source_text\": \"Iron | 자료없음\", \"rules\": [\"R15\", \"R10\"], \"note\": \"기타 유해 영향\"}]}"
+}

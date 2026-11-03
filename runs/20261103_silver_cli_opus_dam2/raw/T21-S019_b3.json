@@ -1,0 +1,855 @@
+{
+  "doc_id": "T21-S019",
+  "bundle": "b3",
+  "model": "claude-opus-5-5",
+  "mode": "claude -p json-schema",
+  "finish_reason": "tool_use",
+  "usage": {
+    "prompt_tokens": 61101,
+    "completion_tokens": 9754,
+    "cached_tokens": 8451,
+    "reasoning_tokens": 1588,
+    "notional_cost_usd": 0.6179622
+  },
+  "seconds": 72.7,
+  "request_usage": [
+    {
+      "prompt_tokens": 61101,
+      "completion_tokens": 9754,
+      "cached_tokens": 8451,
+      "reasoning_tokens": 1588,
+      "notional_cost_usd": 0.6179622
+    }
+  ],
+  "attempts": 1,
+  "errors": [],
+  "parsed": {
+    "msds": [
+      {
+        "toxicity": [
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_ORAL",
+            "descriptor": "LD50",
+            "q": {
+              "raw": "5580 ㎎/㎏",
+              "value": 5580,
+              "unit": "mg/kg",
+              "status": "값있음"
+            },
+            "species": "Rat",
+            "guideline": "EU Method B.1",
+            "data_source": "ECHA",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_DERMAL",
+            "descriptor": "LD50",
+            "q": {
+              "raw": ">5000 ㎎/㎏",
+              "lower_op": ">",
+              "lower": 5000,
+              "unit": "mg/kg",
+              "status": "값있음"
+            },
+            "species": "Rabbit",
+            "data_source": "ECHA",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_INHAL",
+            "descriptor": "LC50",
+            "q": {
+              "raw": ">20 ㎎/ℓ",
+              "lower_op": ">",
+              "lower": 20,
+              "unit": "mg/L",
+              "status": "값있음"
+            },
+            "species": "Rat",
+            "guideline": "OECD TG 403",
+            "data_source": "ECHA",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_SKIN",
+            "descriptor": "결과기술",
+            "species": "토끼",
+            "guideline": "EU Method B4.",
+            "data_source": "ECHA",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "refs": [
+                  "1"
+                ],
+                "value": "토끼를 이용한 피부자극성시험결과, 홍반, 부종 자극이 7마리 모두에서 관찰되었으며, 중등정도의 자극성이 나타남 EU Method B4. (ECHA)",
+                "text": "[Toluene] : 토끼를 이용한 피부자극성시험결과, 홍반, 부종 자극이 7마리 모두에서 관찰되었으며, 중등정도의 자극성이 나타남 EU Method B4. (ECHA)"
+              }
+            ]
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_EYE",
+            "descriptor": "결과기술",
+            "species": "토끼",
+            "data_source": "ECHA",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "refs": [
+                  "1"
+                ],
+                "value": "토끼를 이용한 눈 자극성시험결과 약한 자극이 관찰되고 그 외 영향은 관찰되지 않음 (ECHA)",
+                "text": "[Toluene] : 토끼를 이용한 눈 자극성시험결과 약한 자극이 관찰되고 그 외 영향은 관찰되지 않음 (ECHA)"
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_RESP_SENS",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_SKIN_SENS",
+            "descriptor": "결과기술",
+            "species": "기니피그",
+            "guideline": "EU Method B.6, GLP",
+            "data_source": "ECHA",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "기니피그를 이용한 maximization test 시험결과, 피부과민반응을 나타나지않음 EU Method B.6, GLP (ECHA)",
+                "text": "○ 피부 과민성 : 기니피그를 이용한 maximization test 시험결과, 피부과민반응을 나타나지않음 EU Method B.6, GLP (ECHA)"
+              }
+            ]
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_MUTA",
+            "descriptor": "결과기술",
+            "data_source": "ECHA",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "refs": [
+                  "1"
+                ],
+                "value": "시험관 내 포유류 배양세포를 이용한 유전자돌연변이시험결과OECD TG 476, 미생물을 이용한 복귀돌연변이 시험결과EU Method B.13/14, 대사활성계 유무에 상관없이 음성, 생체 내 염색체이상시험결과 음성 (ECHA)",
+                "text": "- [Toluene] : 시험관 내 포유류 배양세포를 이용한 유전자돌연변이시험결과OECD TG 476, 미생물을 이용한 복귀돌연변이 시험결과EU Method B.13/14, 대사활성계 유무에 상관없이 음성, 생체 내 염색체이상시험결과 음성 (ECHA)"
+              }
+            ]
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_REPRO",
+            "descriptor": "결과기술",
+            "species": "랫드",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "refs": [
+                  "1"
+                ],
+                "value": "랫드를 이용한 생식독성시험 결과 2000ppm7537 mg/m3에서 정자수 및 부고환 감소로 NOAECP 600ppm2261mg/m3 (ECHA), 고용노동부 생식독성 구분 2, 태아 발달독성 및 최기형성이 나타남 (유독물질 정보요약서)",
+                "text": "- [Toluene] : 랫드를 이용한 생식독성시험 결과 2000ppm7537 mg/m3에서 정자수 및 부고환 감소로 NOAECP 600ppm2261mg/m3 (ECHA), 고용노동부 생식독성 구분 2, 태아 발달독성 및 최기형성이 나타남 (유독물질 정보요약서)"
+              }
+            ]
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_STOT_SE",
+            "descriptor": "결과기술",
+            "species": "사람",
+            "data_source": "HSDB",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "refs": [
+                  "1"
+                ],
+                "value": "사람에서 중추신경계에 작용, 피로감, 졸음, 현기증, 호흡기계에 자극, 흥분, 구토, 중추신경계 억제, 정신착란, 보행 이상 등을 일으킴. 눈, 코, 목에 자극을 일으킴. 실험동물에서 마취작용을 일으킴. 표적장기: 중추신경계 (HSDB)",
+                "text": "- [Toluene] : 사람에서 중추신경계에 작용, 피로감, 졸음, 현기증, 호흡기계에 자극, 흥분, 구토, 중추신경계 억제, 정신착란, 보행 이상 등을 일으킴. 눈, 코, 목에 자극을 일으킴. 실험동물에서 마취작용을 일으킴. 표적장기: 중추신경계 (HSDB)"
+              }
+            ]
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_STOT_RE",
+            "descriptor": "NOAEL",
+            "q": {
+              "raw": "625 mg/kg bw/day",
+              "value": 625,
+              "unit": "mg/kg bw/day",
+              "status": "값있음"
+            },
+            "species": "랫드",
+            "duration_value": 90,
+            "duration_unit": "day",
+            "exposure_type": "90일 반복경구독성시험",
+            "guideline": "EU method B.26",
+            "data_source": "ECHA",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "refs": [
+                  "1"
+                ],
+                "value": "랫드를 이용한 90일 반복경구독성시험 EU method B.26결과 절대 또는 상대 간무게 증가로 NOAEL 625 mg/kg bw/day",
+                "text": "- [Toluene] : 랫드를 이용한 90일 반복경구독성시험 EU method B.26결과 절대 또는 상대 간무게 증가로 NOAEL 625 mg/kg bw/day"
+              }
+            ]
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_STOT_RE",
+            "descriptor": null,
+            "q": {
+              "raw": "NOAEC 600 ppm",
+              "value": 600,
+              "unit": "ppm",
+              "status": "값있음"
+            },
+            "converted": {
+              "raw": "2250mg/m3",
+              "value": 2250,
+              "unit": "mg/m3",
+              "status": "값있음"
+            },
+            "species": "랫드",
+            "duration_value": 103,
+            "duration_unit": "week",
+            "exposure_type": "103주 흡입발암성시험",
+            "guideline": "OECD TG453, GLP",
+            "data_source": "ECHA",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "refs": [
+                  "1"
+                ],
+                "value": "랫드 이용한 103주 흡입발암성시험 OECD TG453, GLP 결과 비강 상피의 국소독성으로 NOAEC 600 ppm2250mg/m3",
+                "text": "랫드 이용한 103주 흡입발암성시험 OECD TG453, GLP 결과 비강 상피의 국소독성으로 NOAEC 600 ppm2250mg/m3"
+              }
+            ]
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_STOT_RE",
+            "descriptor": null,
+            "q": {
+              "raw": "NOAEC 625 ppm",
+              "value": 625,
+              "unit": "ppm",
+              "status": "값있음"
+            },
+            "converted": {
+              "raw": "2355 mg/m3",
+              "value": 2355,
+              "unit": "mg/m3",
+              "status": "값있음"
+            },
+            "species": "랫드",
+            "duration_value": 90,
+            "duration_unit": "day",
+            "exposure_type": "90일 흡입반복독성시험",
+            "guideline": "EU method B.29, GLP",
+            "data_source": "ECHA",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "refs": [
+                  "1"
+                ],
+                "value": "랫드 이용한 90일 흡입반복독성시험 EU method B.29, GLP 결과 임상증상, 체중변화, 장기무게뇌, 심장, 폐, 수컷의 상대 정소무게 및 혈액학적 변화백혈구 감소, Plasma chollinesterase acitivity 감소로 NOAEC 625 ppm2355 mg/m3 (ECHA)",
+                "text": "랫드 이용한 90일 흡입반복독성시험 EU method B.29, GLP 결과 임상증상, 체중변화, 장기무게뇌, 심장, 폐, 수컷의 상대 정소무게 및 혈액학적 변화백혈구 감소, Plasma chollinesterase acitivity 감소로 NOAEC 625 ppm2355 mg/m3 (ECHA)"
+              }
+            ]
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_STOT_RE",
+            "descriptor": "결과기술",
+            "data_source": "유독물질 정보약서",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "refs": [
+                  "1"
+                ],
+                "value": "중추신경계, 간, 청각, 신장 및 폐 등에 영향을 줌 (유독물질 정보약서)",
+                "text": "중추신경계, 간, 청각, 신장 및 폐 등에 영향을 줌 (유독물질 정보약서)"
+              }
+            ]
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_ASP",
+            "descriptor": "결과기술",
+            "data_source": "유독물질 정보요약서",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "refs": [
+                  "1"
+                ],
+                "value": "탄화수소이며, 40 ℃에서 동점도 20.5 mm2 / s 이하 (유독물질 정보요약서)",
+                "text": "- [Toluene] : 탄화수소이며, 40 ℃에서 동점도 20.5 mm2 / s 이하 (유독물질 정보요약서)",
+                "cond": {
+                  "raw": "20.5 mm2 / s 이하",
+                  "upper_op": "<=",
+                  "upper": 20.5,
+                  "unit": "mm2/s",
+                  "dp": 1,
+                  "status": "값있음"
+                }
+              }
+            ]
+          }
+        ],
+        "cmr": [
+          {
+            "comp_ref": "MIX",
+            "hazard": "발암성",
+            "agency": "KR_CCA",
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "1",
+            "hazard": "발암성",
+            "agency": "IARC",
+            "class": "Group 3",
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "hazard": "발암성",
+            "agency": "OSHA",
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "1",
+            "hazard": "발암성",
+            "agency": "ACGIH",
+            "class": "A4",
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "hazard": "발암성",
+            "agency": "NTP",
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "MIX",
+            "hazard": "발암성",
+            "agency": "EU_CLP",
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "1",
+            "hazard": "생식독성",
+            "agency": "KR_OSH",
+            "class": "구분 2",
+            "status": "값있음"
+          }
+        ],
+        "ecotox": [
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_FISH",
+            "descriptor": "LC50",
+            "q": {
+              "raw": "5.5 ㎎/ℓ",
+              "value": 5.5,
+              "unit": "mg/L",
+              "dp": 1,
+              "status": "값있음"
+            },
+            "species": "Oncorhynchus kistutch",
+            "duration_value": 96,
+            "duration_unit": "hr",
+            "data_source": "ECHA",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_CRUST",
+            "descriptor": "EC50",
+            "q": {
+              "raw": "3.78mg/L",
+              "value": 3.78,
+              "unit": "mg/L",
+              "dp": 2,
+              "status": "값있음"
+            },
+            "duration_value": 48,
+            "duration_unit": "hr",
+            "data_source": "ECHA",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_ALGAE",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_PERSIST",
+            "descriptor": "logKow",
+            "q": {
+              "raw": "2.73 log Kow (20 °C)",
+              "value": 2.73,
+              "dp": 2,
+              "status": "값있음"
+            },
+            "data_source": "ECHA",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_PERSIST",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "분해성",
+                "value": "자료없음",
+                "text": "- 분해성: 자료없음"
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_BIOACC",
+            "descriptor": "BCF",
+            "q": {
+              "raw": "BCF 90",
+              "value": 90,
+              "status": "값있음"
+            },
+            "data_source": "ECHA",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_PERSIST",
+            "descriptor": "분해율",
+            "q": {
+              "raw": "80 %",
+              "value": 80,
+              "unit": "%",
+              "status": "값있음",
+              "note": "Readily biodegradable"
+            },
+            "duration_value": 20,
+            "duration_unit": "day",
+            "data_source": "ECHA",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_SOIL",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_OZONE",
+            "q": {
+              "raw": "",
+              "status": "미기재"
+            },
+            "status": "미기재",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_OTHER",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          }
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "msds_index": 0,
+        "field": "toxicity[0]",
+        "page": 7,
+        "source_text": "[Toluene] : LD50 5580 ㎎/㎏ Rat (EU Method B.1) (ECHA)",
+        "rules": [
+          "R04",
+          "R08",
+          "R10"
+        ],
+        "note": "단위 ㎎/㎏→mg/kg, 시험지침·출처 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[1]",
+        "page": 7,
+        "source_text": "[Toluene] : LD50 >5000 ㎎/㎏ Rabbit (ECHA)",
+        "rules": [
+          "R04",
+          "R08",
+          "R10"
+        ],
+        "note": "'>5000'을 하한 5000(>)으로 분해"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[2]",
+        "page": 7,
+        "source_text": "[Toluene] : LC50 >20 ㎎/ℓ Rat (OECD TG 403) (ECHA)",
+        "rules": [
+          "R04",
+          "R08",
+          "R10"
+        ],
+        "note": "'>20'을 하한 20(>)으로 분해. 흡입 형태·노출시간은 원문에 없어 null"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[3]",
+        "page": 7,
+        "source_text": "[Toluene] : 토끼를 이용한 피부자극성시험결과, 홍반, 부종 자극이 7마리 모두에서 관찰되었으며, 중등정도의 자극성이 나타남 EU Method B4. (ECHA)",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[4]",
+        "page": 7,
+        "source_text": "[Toluene] : 토끼를 이용한 눈 자극성시험결과 약한 자극이 관찰되고 그 외 영향은 관찰되지 않음 (ECHA)",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[5]",
+        "page": 7,
+        "source_text": "○ 호흡기 과민성 : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "성분 지정 없어 MIX"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[6]",
+        "page": 8,
+        "source_text": "○ 피부 과민성 : 기니피그를 이용한 maximization test 시험결과, 피부과민반응을 나타나지않음 EU Method B.6, GLP (ECHA)",
+        "rules": [
+          "R10"
+        ],
+        "note": "성분 지정 없어 MIX"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[7]",
+        "page": 8,
+        "source_text": "[Toluene] : 시험관 내 포유류 배양세포를 이용한 유전자돌연변이시험결과OECD TG 476,",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[8]",
+        "page": 8,
+        "source_text": "[Toluene] : 랫드를 이용한 생식독성시험 결과 2000ppm7537 mg/m3에서 정자수 및 부고환 감소로 NOAECP 600ppm2261mg/m3 (ECHA)",
+        "rules": [
+          "R10"
+        ],
+        "note": "맞는 값 없음: NOAECP는 지표 목록에 없어 서술로 남김"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[9]",
+        "page": 8,
+        "source_text": "[Toluene] : 사람에서 중추신경계에 작용, 피로감, 졸음, 현기증, 호흡기계에 자극, 흥분, 구토,",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[10]",
+        "page": 8,
+        "source_text": "랫드를 이용한 90일 반복경구독성시험 EU method B.26결과 절대 또는 상대 간무게 증가로 NOAEL 625 mg/kg bw/day",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[11]",
+        "page": 8,
+        "source_text": "랫드 이용한 103주 흡입발암성시험 OECD TG453, GLP 결과 비강 상피의 국소독성으로 NOAEC 600 ppm2250mg/m3",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "맞는 값 없음: NOAEC는 지표 목록에 없어 descriptor null, 2250mg/m3는 환산값으로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[12]",
+        "page": 8,
+        "source_text": "Plasma chollinesterase acitivity 감소로 NOAEC 625 ppm2355 mg/m3 (ECHA)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "맞는 값 없음: NOAEC는 지표 목록에 없어 descriptor null, 2355 mg/m3는 환산값으로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[13]",
+        "page": 8,
+        "source_text": "중추신경계, 간, 청각, 신장 및 폐 등에 영향을 줌 (유독물질 정보약서)",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[14]",
+        "page": 8,
+        "source_text": "[Toluene] : 탄화수소이며, 40 ℃에서 동점도 20.5 mm2 / s 이하 (유독물질 정보요약서)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "'이하'를 상한(<=)으로 cond에 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[0]",
+        "page": 8,
+        "source_text": "* 환경부 화학물질관리법 - 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[1]",
+        "page": 8,
+        "source_text": "* IARC - [Toluene] : Group 3",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[2]",
+        "page": 8,
+        "source_text": "* OSHA - 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[3]",
+        "page": 8,
+        "source_text": "* ACGIH - [Toluene] : A4",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[4]",
+        "page": 8,
+        "source_text": "* NTP - 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[5]",
+        "page": 8,
+        "source_text": "* EU CLP - 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[6]",
+        "page": 8,
+        "source_text": "고용노동부 생식독성 구분 2",
+        "rules": [
+          "R10"
+        ],
+        "note": "생식독성 서술 속 고용노동부 분류를 KR_OSH 행으로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[0]",
+        "page": 8,
+        "source_text": "- 어류: LC50 5.5 ㎎/ℓ 96 hr Oncorhynchus kistutch (ECHA)",
+        "rules": [
+          "R04",
+          "R08"
+        ],
+        "note": "성분 지정 없어 MIX"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[1]",
+        "page": 8,
+        "source_text": "- 갑각류: EC50 3.78mg/L 48hr (ECHA)",
+        "rules": [
+          "R04"
+        ],
+        "note": "시험종 원문에 없음"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[2]",
+        "page": 9,
+        "source_text": "- 조류: 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[3]",
+        "page": 9,
+        "source_text": "- 잔류성: 2.73 log Kow (20 °C) (ECHA)",
+        "rules": [
+          "R04"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[4]",
+        "page": 9,
+        "source_text": "- 분해성: 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[5]",
+        "page": 9,
+        "source_text": "- 생물농축성 : BCF 90(ECHA)",
+        "rules": [
+          "R04"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[6]",
+        "page": 9,
+        "source_text": "- 생분해성 : 80 % 20 day (Readily biodegradable) (ECHA)",
+        "rules": [
+          "R04"
+        ],
+        "note": "생물농축성 아래 적혀 있으나 내용이 생분해성이라 ECO_PERSIST 분해율로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[7]",
+        "page": 9,
+        "source_text": "라. 토양 이동성 : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[8]",
+        "page": 9,
+        "source_text": "마. 오존층 유해성",
+        "rules": [
+          "R15"
+        ],
+        "note": "항목 줄은 있으나 값이 빈칸이라 미기재"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[9]",
+        "page": 9,
+        "source_text": "바. 기타 유해 영향 : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      }
+    ]
+  },
+  "raw_text": "{\"msds\": [{\"toxicity\": [{\"comp_ref\": \"1\", \"endpoint\": \"TX_ORAL\", \"descriptor\": \"LD50\", \"q\": {\"raw\": \"5580 ㎎/㎏\", \"value\": 5580, \"unit\": \"mg/kg\", \"status\": \"값있음\"}, \"species\": \"Rat\", \"guideline\": \"EU Method B.1\", \"data_source\": \"ECHA\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_DERMAL\", \"descriptor\": \"LD50\", \"q\": {\"raw\": \">5000 ㎎/㎏\", \"lower_op\": \">\", \"lower\": 5000, \"unit\": \"mg/kg\", \"status\": \"값있음\"}, \"species\": \"Rabbit\", \"data_source\": \"ECHA\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_INHAL\", \"descriptor\": \"LC50\", \"q\": {\"raw\": \">20 ㎎/ℓ\", \"lower_op\": \">\", \"lower\": 20, \"unit\": \"mg/L\", \"status\": \"값있음\"}, \"species\": \"Rat\", \"guideline\": \"OECD TG 403\", \"data_source\": \"ECHA\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_SKIN\", \"descriptor\": \"결과기술\", \"species\": \"토끼\", \"guideline\": \"EU Method B4.\", \"data_source\": \"ECHA\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"refs\": [\"1\"], \"value\": \"토끼를 이용한 피부자극성시험결과, 홍반, 부종 자극이 7마리 모두에서 관찰되었으며, 중등정도의 자극성이 나타남 EU Method B4. (ECHA)\", \"text\": \"[Toluene] : 토끼를 이용한 피부자극성시험결과, 홍반, 부종 자극이 7마리 모두에서 관찰되었으며, 중등정도의 자극성이 나타남 EU Method B4. (ECHA)\"}]}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_EYE\", \"descriptor\": \"결과기술\", \"species\": \"토끼\", \"data_source\": \"ECHA\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"refs\": [\"1\"], \"value\": \"토끼를 이용한 눈 자극성시험결과 약한 자극이 관찰되고 그 외 영향은 관찰되지 않음 (ECHA)\", \"text\": \"[Toluene] : 토끼를 이용한 눈 자극성시험결과 약한 자극이 관찰되고 그 외 영향은 관찰되지 않음 (ECHA)\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_RESP_SENS\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_SKIN_SENS\", \"descriptor\": \"결과기술\", \"species\": \"기니피그\", \"guideline\": \"EU Method B.6, GLP\", \"data_source\": \"ECHA\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"기니피그를 이용한 maximization test 시험결과, 피부과민반응을 나타나지않음 EU Method B.6, GLP (ECHA)\", \"text\": \"○ 피부 과민성 : 기니피그를 이용한 maximization test 시험결과, 피부과민반응을 나타나지않음 EU Method B.6, GLP (ECHA)\"}]}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_MUTA\", \"descriptor\": \"결과기술\", \"data_source\": \"ECHA\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"refs\": [\"1\"], \"value\": \"시험관 내 포유류 배양세포를 이용한 유전자돌연변이시험결과OECD TG 476, 미생물을 이용한 복귀돌연변이 시험결과EU Method B.13/14, 대사활성계 유무에 상관없이 음성, 생체 내 염색체이상시험결과 음성 (ECHA)\", \"text\": \"- [Toluene] : 시험관 내 포유류 배양세포를 이용한 유전자돌연변이시험결과OECD TG 476, 미생물을 이용한 복귀돌연변이 시험결과EU Method B.13/14, 대사활성계 유무에 상관없이 음성, 생체 내 염색체이상시험결과 음성 (ECHA)\"}]}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_REPRO\", \"descriptor\": \"결과기술\", \"species\": \"랫드\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"refs\": [\"1\"], \"value\": \"랫드를 이용한 생식독성시험 결과 2000ppm7537 mg/m3에서 정자수 및 부고환 감소로 NOAECP 600ppm2261mg/m3 (ECHA), 고용노동부 생식독성 구분 2, 태아 발달독성 및 최기형성이 나타남 (유독물질 정보요약서)\", \"text\": \"- [Toluene] : 랫드를 이용한 생식독성시험 결과 2000ppm7537 mg/m3에서 정자수 및 부고환 감소로 NOAECP 600ppm2261mg/m3 (ECHA), 고용노동부 생식독성 구분 2, 태아 발달독성 및 최기형성이 나타남 (유독물질 정보요약서)\"}]}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_STOT_SE\", \"descriptor\": \"결과기술\", \"species\": \"사람\", \"data_source\": \"HSDB\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"refs\": [\"1\"], \"value\": \"사람에서 중추신경계에 작용, 피로감, 졸음, 현기증, 호흡기계에 자극, 흥분, 구토, 중추신경계 억제, 정신착란, 보행 이상 등을 일으킴. 눈, 코, 목에 자극을 일으킴. 실험동물에서 마취작용을 일으킴. 표적장기: 중추신경계 (HSDB)\", \"text\": \"- [Toluene] : 사람에서 중추신경계에 작용, 피로감, 졸음, 현기증, 호흡기계에 자극, 흥분, 구토, 중추신경계 억제, 정신착란, 보행 이상 등을 일으킴. 눈, 코, 목에 자극을 일으킴. 실험동물에서 마취작용을 일으킴. 표적장기: 중추신경계 (HSDB)\"}]}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_STOT_RE\", \"descriptor\": \"NOAEL\", \"q\": {\"raw\": \"625 mg/kg bw/day\", \"value\": 625, \"unit\": \"mg/kg bw/day\", \"status\": \"값있음\"}, \"species\": \"랫드\", \"duration_value\": 90, \"duration_unit\": \"day\", \"exposure_type\": \"90일 반복경구독성시험\", \"guideline\": \"EU method B.26\", \"data_source\": \"ECHA\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"refs\": [\"1\"], \"value\": \"랫드를 이용한 90일 반복경구독성시험 EU method B.26결과 절대 또는 상대 간무게 증가로 NOAEL 625 mg/kg bw/day\", \"text\": \"- [Toluene] : 랫드를 이용한 90일 반복경구독성시험 EU method B.26결과 절대 또는 상대 간무게 증가로 NOAEL 625 mg/kg bw/day\"}]}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_STOT_RE\", \"descriptor\": null, \"q\": {\"raw\": \"NOAEC 600 ppm\", \"value\": 600, \"unit\": \"ppm\", \"status\": \"값있음\"}, \"converted\": {\"raw\": \"2250mg/m3\", \"value\": 2250, \"unit\": \"mg/m3\", \"status\": \"값있음\"}, \"species\": \"랫드\", \"duration_value\": 103, \"duration_unit\": \"week\", \"exposure_type\": \"103주 흡입발암성시험\", \"guideline\": \"OECD TG453, GLP\", \"data_source\": \"ECHA\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"refs\": [\"1\"], \"value\": \"랫드 이용한 103주 흡입발암성시험 OECD TG453, GLP 결과 비강 상피의 국소독성으로 NOAEC 600 ppm2250mg/m3\", \"text\": \"랫드 이용한 103주 흡입발암성시험 OECD TG453, GLP 결과 비강 상피의 국소독성으로 NOAEC 600 ppm2250mg/m3\"}]}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_STOT_RE\", \"descriptor\": null, \"q\": {\"raw\": \"NOAEC 625 ppm\", \"value\": 625, \"unit\": \"ppm\", \"status\": \"값있음\"}, \"converted\": {\"raw\": \"2355 mg/m3\", \"value\": 2355, \"unit\": \"mg/m3\", \"status\": \"값있음\"}, \"species\": \"랫드\", \"duration_value\": 90, \"duration_unit\": \"day\", \"exposure_type\": \"90일 흡입반복독성시험\", \"guideline\": \"EU method B.29, GLP\", \"data_source\": \"ECHA\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"refs\": [\"1\"], \"value\": \"랫드 이용한 90일 흡입반복독성시험 EU method B.29, GLP 결과 임상증상, 체중변화, 장기무게뇌, 심장, 폐, 수컷의 상대 정소무게 및 혈액학적 변화백혈구 감소, Plasma chollinesterase acitivity 감소로 NOAEC 625 ppm2355 mg/m3 (ECHA)\", \"text\": \"랫드 이용한 90일 흡입반복독성시험 EU method B.29, GLP 결과 임상증상, 체중변화, 장기무게뇌, 심장, 폐, 수컷의 상대 정소무게 및 혈액학적 변화백혈구 감소, Plasma chollinesterase acitivity 감소로 NOAEC 625 ppm2355 mg/m3 (ECHA)\"}]}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_STOT_RE\", \"descriptor\": \"결과기술\", \"data_source\": \"유독물질 정보약서\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"refs\": [\"1\"], \"value\": \"중추신경계, 간, 청각, 신장 및 폐 등에 영향을 줌 (유독물질 정보약서)\", \"text\": \"중추신경계, 간, 청각, 신장 및 폐 등에 영향을 줌 (유독물질 정보약서)\"}]}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_ASP\", \"descriptor\": \"결과기술\", \"data_source\": \"유독물질 정보요약서\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"refs\": [\"1\"], \"value\": \"탄화수소이며, 40 ℃에서 동점도 20.5 mm2 / s 이하 (유독물질 정보요약서)\", \"text\": \"- [Toluene] : 탄화수소이며, 40 ℃에서 동점도 20.5 mm2 / s 이하 (유독물질 정보요약서)\", \"cond\": {\"raw\": \"20.5 mm2 / s 이하\", \"upper_op\": \"<=\", \"upper\": 20.5, \"unit\": \"mm2/s\", \"dp\": 1, \"status\": \"값있음\"}}]}], \"cmr\": [{\"comp_ref\": \"MIX\", \"hazard\": \"발암성\", \"agency\": \"KR_CCA\", \"status\": \"자료없음\"}, {\"comp_ref\": \"1\", \"hazard\": \"발암성\", \"agency\": \"IARC\", \"class\": \"Group 3\", \"status\": \"값있음\"}, {\"comp_ref\": \"MIX\", \"hazard\": \"발암성\", \"agency\": \"OSHA\", \"status\": \"자료없음\"}, {\"comp_ref\": \"1\", \"hazard\": \"발암성\", \"agency\": \"ACGIH\", \"class\": \"A4\", \"status\": \"값있음\"}, {\"comp_ref\": \"MIX\", \"hazard\": \"발암성\", \"agency\": \"NTP\", \"status\": \"자료없음\"}, {\"comp_ref\": \"MIX\", \"hazard\": \"발암성\", \"agency\": \"EU_CLP\", \"status\": \"자료없음\"}, {\"comp_ref\": \"1\", \"hazard\": \"생식독성\", \"agency\": \"KR_OSH\", \"class\": \"구분 2\", \"status\": \"값있음\"}], \"ecotox\": [{\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_FISH\", \"descriptor\": \"LC50\", \"q\": {\"raw\": \"5.5 ㎎/ℓ\", \"value\": 5.5, \"unit\": \"mg/L\", \"dp\": 1, \"status\": \"값있음\"}, \"species\": \"Oncorhynchus kistutch\", \"duration_value\": 96, \"duration_unit\": \"hr\", \"data_source\": \"ECHA\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_CRUST\", \"descriptor\": \"EC50\", \"q\": {\"raw\": \"3.78mg/L\", \"value\": 3.78, \"unit\": \"mg/L\", \"dp\": 2, \"status\": \"값있음\"}, \"duration_value\": 48, \"duration_unit\": \"hr\", \"data_source\": \"ECHA\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_ALGAE\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_PERSIST\", \"descriptor\": \"logKow\", \"q\": {\"raw\": \"2.73 log Kow (20 °C)\", \"value\": 2.73, \"dp\": 2, \"status\": \"값있음\"}, \"data_source\": \"ECHA\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_PERSIST\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": [{\"seq\": 1, \"key\": \"분해성\", \"value\": \"자료없음\", \"text\": \"- 분해성: 자료없음\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_BIOACC\", \"descriptor\": \"BCF\", \"q\": {\"raw\": \"BCF 90\", \"value\": 90, \"status\": \"값있음\"}, \"data_source\": \"ECHA\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_PERSIST\", \"descriptor\": \"분해율\", \"q\": {\"raw\": \"80 %\", \"value\": 80, \"unit\": \"%\", \"status\": \"값있음\", \"note\": \"Readily biodegradable\"}, \"duration_value\": 20, \"duration_unit\": \"day\", \"data_source\": \"ECHA\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_SOIL\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_OZONE\", \"q\": {\"raw\": \"\", \"status\": \"미기재\"}, \"status\": \"미기재\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_OTHER\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}]}], \"evidence\": [{\"msds_index\": 0, \"field\": \"toxicity[0]\", \"page\": 7, \"source_text\": \"[Toluene] : LD50 5580 ㎎/㎏ Rat (EU Method B.1) (ECHA)\", \"rules\": [\"R04\", \"R08\", \"R10\"], \"note\": \"단위 ㎎/㎏→mg/kg, 시험지침·출처 분리\"}, {\"msds_index\": 0, \"field\": \"toxicity[1]\", \"page\": 7, \"source_text\": \"[Toluene] : LD50 >5000 ㎎/㎏ Rabbit (ECHA)\", \"rules\": [\"R04\", \"R08\", \"R10\"], \"note\": \"'>5000'을 하한 5000(>)으로 분해\"}, {\"msds_index\": 0, \"field\": \"toxicity[2]\", \"page\": 7, \"source_text\": \"[Toluene] : LC50 >20 ㎎/ℓ Rat (OECD TG 403) (ECHA)\", \"rules\": [\"R04\", \"R08\", \"R10\"], \"note\": \"'>20'을 하한 20(>)으로 분해. 흡입 형태·노출시간은 원문에 없어 null\"}, {\"msds_index\": 0, \"field\": \"toxicity[3]\", \"page\": 7, \"source_text\": \"[Toluene] : 토끼를 이용한 피부자극성시험결과, 홍반, 부종 자극이 7마리 모두에서 관찰되었으며, 중등정도의 자극성이 나타남 EU Method B4. (ECHA)\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[4]\", \"page\": 7, \"source_text\": \"[Toluene] : 토끼를 이용한 눈 자극성시험결과 약한 자극이 관찰되고 그 외 영향은 관찰되지 않음 (ECHA)\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[5]\", \"page\": 7, \"source_text\": \"○ 호흡기 과민성 : 자료없음\", \"rules\": [\"R15\"], \"note\": \"성분 지정 없어 MIX\"}, {\"msds_index\": 0, \"field\": \"toxicity[6]\", \"page\": 8, \"source_text\": \"○ 피부 과민성 : 기니피그를 이용한 maximization test 시험결과, 피부과민반응을 나타나지않음 EU Method B.6, GLP (ECHA)\", \"rules\": [\"R10\"], \"note\": \"성분 지정 없어 MIX\"}, {\"msds_index\": 0, \"field\": \"toxicity[7]\", \"page\": 8, \"source_text\": \"[Toluene] : 시험관 내 포유류 배양세포를 이용한 유전자돌연변이시험결과OECD TG 476,\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[8]\", \"page\": 8, \"source_text\": \"[Toluene] : 랫드를 이용한 생식독성시험 결과 2000ppm7537 mg/m3에서 정자수 및 부고환 감소로 NOAECP 600ppm2261mg/m3 (ECHA)\", \"rules\": [\"R10\"], \"note\": \"맞는 값 없음: NOAECP는 지표 목록에 없어 서술로 남김\"}, {\"msds_index\": 0, \"field\": \"toxicity[9]\", \"page\": 8, \"source_text\": \"[Toluene] : 사람에서 중추신경계에 작용, 피로감, 졸음, 현기증, 호흡기계에 자극, 흥분, 구토,\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[10]\", \"page\": 8, \"source_text\": \"랫드를 이용한 90일 반복경구독성시험 EU method B.26결과 절대 또는 상대 간무게 증가로 NOAEL 625 mg/kg bw/day\", \"rules\": [\"R04\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[11]\", \"page\": 8, \"source_text\": \"랫드 이용한 103주 흡입발암성시험 OECD TG453, GLP 결과 비강 상피의 국소독성으로 NOAEC 600 ppm2250mg/m3\", \"rules\": [\"R04\", \"R10\"], \"note\": \"맞는 값 없음: NOAEC는 지표 목록에 없어 descriptor null, 2250mg/m3는 환산값으로 둠\"}, {\"msds_index\": 0, \"field\": \"toxicity[12]\", \"page\": 8, \"source_text\": \"Plasma chollinesterase acitivity 감소로 NOAEC 625 ppm2355 mg/m3 (ECHA)\", \"rules\": [\"R04\", \"R10\"], \"note\": \"맞는 값 없음: NOAEC는 지표 목록에 없어 descriptor null, 2355 mg/m3는 환산값으로 둠\"}, {\"msds_index\": 0, \"field\": \"toxicity[13]\", \"page\": 8, \"source_text\": \"중추신경계, 간, 청각, 신장 및 폐 등에 영향을 줌 (유독물질 정보약서)\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[14]\", \"page\": 8, \"source_text\": \"[Toluene] : 탄화수소이며, 40 ℃에서 동점도 20.5 mm2 / s 이하 (유독물질 정보요약서)\", \"rules\": [\"R04\", \"R10\"], \"note\": \"'이하'를 상한(<=)으로 cond에 분리\"}, {\"msds_index\": 0, \"field\": \"cmr[0]\", \"page\": 8, \"source_text\": \"* 환경부 화학물질관리법 - 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"cmr[1]\", \"page\": 8, \"source_text\": \"* IARC - [Toluene] : Group 3\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"cmr[2]\", \"page\": 8, \"source_text\": \"* OSHA - 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"cmr[3]\", \"page\": 8, \"source_text\": \"* ACGIH - [Toluene] : A4\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"cmr[4]\", \"page\": 8, \"source_text\": \"* NTP - 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"cmr[5]\", \"page\": 8, \"source_text\": \"* EU CLP - 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"cmr[6]\", \"page\": 8, \"source_text\": \"고용노동부 생식독성 구분 2\", \"rules\": [\"R10\"], \"note\": \"생식독성 서술 속 고용노동부 분류를 KR_OSH 행으로 둠\"}, {\"msds_index\": 0, \"field\": \"ecotox[0]\", \"page\": 8, \"source_text\": \"- 어류: LC50 5.5 ㎎/ℓ 96 hr Oncorhynchus kistutch (ECHA)\", \"rules\": [\"R04\", \"R08\"], \"note\": \"성분 지정 없어 MIX\"}, {\"msds_index\": 0, \"field\": \"ecotox[1]\", \"page\": 8, \"source_text\": \"- 갑각류: EC50 3.78mg/L 48hr (ECHA)\", \"rules\": [\"R04\"], \"note\": \"시험종 원문에 없음\"}, {\"msds_index\": 0, \"field\": \"ecotox[2]\", \"page\": 9, \"source_text\": \"- 조류: 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[3]\", \"page\": 9, \"source_text\": \"- 잔류성: 2.73 log Kow (20 °C) (ECHA)\", \"rules\": [\"R04\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[4]\", \"page\": 9, \"source_text\": \"- 분해성: 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[5]\", \"page\": 9, \"source_text\": \"- 생물농축성 : BCF 90(ECHA)\", \"rules\": [\"R04\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[6]\", \"page\": 9, \"source_text\": \"- 생분해성 : 80 % 20 day (Readily biodegradable) (ECHA)\", \"rules\": [\"R04\"], \"note\": \"생물농축성 아래 적혀 있으나 내용이 생분해성이라 ECO_PERSIST 분해율로 둠\"}, {\"msds_index\": 0, \"field\": \"ecotox[7]\", \"page\": 9, \"source_text\": \"라. 토양 이동성 : 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[8]\", \"page\": 9, \"source_text\": \"마. 오존층 유해성\", \"rules\": [\"R15\"], \"note\": \"항목 줄은 있으나 값이 빈칸이라 미기재\"}, {\"msds_index\": 0, \"field\": \"ecotox[9]\", \"page\": 9, \"source_text\": \"바. 기타 유해 영향 : 자료없음\", \"rules\": [\"R15\"], \"note\": null}]}"
+}

@@ -1,0 +1,971 @@
+{
+  "doc_id": "T21-026",
+  "bundle": "b3",
+  "model": "claude-opus-5-5",
+  "mode": "claude -p json-schema",
+  "finish_reason": "tool_use",
+  "usage": {
+    "prompt_tokens": 61952,
+    "completion_tokens": 10424,
+    "cached_tokens": 8451,
+    "reasoning_tokens": 1229,
+    "notional_cost_usd": 0.6381702
+  },
+  "seconds": 72.3,
+  "request_usage": [
+    {
+      "prompt_tokens": 61952,
+      "completion_tokens": 10424,
+      "cached_tokens": 8451,
+      "reasoning_tokens": 1229,
+      "notional_cost_usd": 0.6381702
+    }
+  ],
+  "attempts": 1,
+  "errors": [],
+  "parsed": {
+    "msds": [
+      {
+        "toxicity": [
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_ORAL",
+            "descriptor": "LD50",
+            "species": "쥐",
+            "sex": "미표기",
+            "status": "값있음",
+            "q": {
+              "raw": "> 20,000 mg/kg",
+              "lower_op": ">",
+              "lower": 20000,
+              "unit": "mg/kg",
+              "dp": 0,
+              "status": "값있음"
+            },
+            "statements": [
+              {
+                "seq": 1,
+                "value": "마실 경우 독성은 매우 낮음 소량을 마신 경우 유해한 결과를 초래하지 않습니다.",
+                "text": "마실 경우 독성은 매우 낮음 소량을 마신 경우 유해한 결과를 초래하지 않습니다."
+              }
+            ]
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_DERMAL",
+            "descriptor": "LD50",
+            "species": "토끼",
+            "sex": "미표기",
+            "status": "값있음",
+            "q": {
+              "raw": "> 2,000 mg/kg",
+              "lower_op": ">",
+              "lower": 2000,
+              "unit": "mg/kg",
+              "dp": 0,
+              "status": "값있음",
+              "note": "이 농도에서 사망에 이르지는 않았습니다."
+            },
+            "statements": [
+              {
+                "seq": 1,
+                "value": "오랫동안 피부에 닿아도 해로운 양만큼의 흡수로 이어지지는 않습니다.",
+                "text": "오랫동안 피부에 닿아도 해로운 양만큼의 흡수로 이어지지는 않습니다."
+              }
+            ]
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_INHAL",
+            "descriptor": "LC50",
+            "species": "토끼",
+            "sex": "미표기",
+            "duration_value": 2,
+            "duration_unit": "hr",
+            "physical_form": "분진·미스트",
+            "status": "값있음",
+            "q": {
+              "raw": "317.042 mg/l",
+              "value": 317.042,
+              "unit": "mg/L",
+              "dp": 3,
+              "status": "값있음",
+              "note": "이 농도에서 사망에 이르지는 않았습니다."
+            },
+            "statements": [
+              {
+                "seq": 1,
+                "value": "실온에서는, 휘발성이 낮으므로 증기 노출은 극히 적습니다. 안개가 상부 기도(코 및 목)에 자극을 일으킬 수 있습니다.",
+                "text": "실온에서는, 휘발성이 낮으므로 증기 노출은 극히 적습니다. 안개가 상부 기도(코 및 목)에 자극을 일으킬 수 있습니다."
+              }
+            ]
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_SKIN",
+            "descriptor": "결과기술",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "오랫동안 접촉하더라도 본질적으로 피부에 통증을 가져오지 않습니다.",
+                "text": "오랫동안 접촉하더라도 본질적으로 피부에 통증을 가져오지 않습니다."
+              },
+              {
+                "seq": 2,
+                "value": "반복하여 접촉하면 피부가 벗겨지거나 약해질 수 있습니다.",
+                "text": "반복하여 접촉하면 피부가 벗겨지거나 약해질 수 있습니다."
+              }
+            ]
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_EYE",
+            "descriptor": "결과기술",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "눈에 임시로 약간의 자극이 올 수 있습니다.",
+                "text": "눈에 임시로 약간의 자극이 올 수 있습니다."
+              },
+              {
+                "seq": 2,
+                "value": "각막 손상의 가능성은 거의 없습니다.",
+                "text": "각막 손상의 가능성은 거의 없습니다."
+              },
+              {
+                "seq": 3,
+                "value": "안개가 눈을 자극 할 수 있습니다.",
+                "text": "안개가 눈을 자극 할 수 있습니다."
+              }
+            ]
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_SKIN_SENS",
+            "descriptor": "결과기술",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "사람에게 테스트한 경우 피부에 알레르기 반응이 일어나지 않음.",
+                "text": "사람에게 테스트한 경우 피부에 알레르기 반응이 일어나지 않음."
+              }
+            ]
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_RESP_SENS",
+            "status": "자료없음",
+            "q": {
+              "raw": "해당 자료없음.",
+              "status": "자료없음"
+            },
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_STOT_SE",
+            "descriptor": "결과기술",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "사용 가능한 데이타에 의하면 본 제품은 특정표적장기 독성 1회노출 물질이 아닙니다.",
+                "text": "사용 가능한 데이타에 의하면 본 제품은 특정표적장기 독성 1 회노출 물질이 아닙니다."
+              }
+            ]
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_STOT_RE",
+            "descriptor": "결과기술",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "빈도수가 낮지만 프로필렌 글리콜에 과도하게 반복적으로 노출되는 경우에는 중추 신경계에 영향을 미칠수 있다.",
+                "text": "빈도수가 낮지만 프로필렌 글리콜에 과도하게 반복적으로 노출되는 경우에는 중추 신경계에 영향을 미칠수 있다."
+              }
+            ]
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_CARC",
+            "descriptor": "결과기술",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "동물 대상 실험에서는 암을 유발하지 않았음.",
+                "text": "동물 대상 실험에서는 암을 유발하지 않았음."
+              }
+            ]
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_REPRO",
+            "descriptor": "결과기술",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "최기형성",
+                "value": "실험용 동물에서 어떤 다른 태아의 영향이나 출생에 대한 결함의 원인이 발생하지 않았습니다.",
+                "text": "실험용 동물에서 어떤 다른 태아의 영향이나 출생에 대한 결함의 원인이 발생하지 않았습니다."
+              },
+              {
+                "seq": 2,
+                "key": "생식독성",
+                "value": "동물 실험 결과, 생식능력을 저해하지 않음. 동물 실험 결과, 수태 능력을 저해하지 않음.",
+                "text": "동물 실험 결과, 생식능력을 저해하지 않음. 동물 실험 결과, 수태 능력을 저해하지 않음."
+              }
+            ]
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_MUTA",
+            "descriptor": "결과기술",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "시험관 내 유전적 독성 연구 결과는 음성이었습니다. 동물 유전학적 독성 연구 결과가 음성입니다.",
+                "text": "시험관 내 유전적 독성 연구 결과는 음성이었습니다. 동물 유전학적 독성 연구 결과가 음성입니다."
+              }
+            ]
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_ASP",
+            "descriptor": "결과기술",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "물리적 특성에 근거, 흡입 유해성이 있을 가능성이 없습니다.",
+                "text": "물리적 특성에 근거, 흡입 유해성이 있을 가능성이 없습니다."
+              }
+            ]
+          }
+        ],
+        "cmr": [],
+        "ecotox": [
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_FISH",
+            "descriptor": "LC50",
+            "species": "Oncorhynchus mykiss (무지개송어)",
+            "duration_value": 96,
+            "duration_unit": "hr",
+            "guideline": "OECD 시험 가이드라인 203",
+            "status": "값있음",
+            "q": {
+              "raw": "40,613 mg/l",
+              "value": 40613,
+              "unit": "mg/L",
+              "dp": 0,
+              "status": "값있음"
+            },
+            "statements": [
+              {
+                "seq": 1,
+                "value": "본질적으로 수생 생물에 비독성입니다(급성 basis).(LC50/EC50/EL50/LL50>100mg/L, 가장 민감한 종).",
+                "text": "본질적으로 수생 생물에 비독성입니다(급성 basis).(LC50/EC50/EL50/LL50>100mg/L, 가장 민감한 종)."
+              },
+              {
+                "seq": 2,
+                "value": "지수식 시험",
+                "text": "지수식 시험"
+              }
+            ]
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_CRUST",
+            "descriptor": "LC50",
+            "species": "Ceriodaphnia dubia (물벼룩)",
+            "duration_value": 48,
+            "duration_unit": "hr",
+            "guideline": "OECD 시험 가이드라인 202",
+            "status": "값있음",
+            "q": {
+              "raw": "18,340 mg/l",
+              "value": 18340,
+              "unit": "mg/L",
+              "dp": 0,
+              "status": "값있음"
+            },
+            "statements": [
+              {
+                "seq": 1,
+                "value": "지수식 시험",
+                "text": "지수식 시험"
+              }
+            ]
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_ALGAE",
+            "descriptor": "ErC50",
+            "species": "Pseudokirchneriella subcapitata (녹조류)",
+            "duration_value": 96,
+            "duration_unit": "hr",
+            "guideline": "OECD 시험 가이드라인 201",
+            "status": "값있음",
+            "q": {
+              "raw": "19,000 mg/l",
+              "value": 19000,
+              "unit": "mg/L",
+              "dp": 0,
+              "status": "값있음"
+            },
+            "statements": [
+              {
+                "seq": 1,
+                "value": "성장 속도 억제",
+                "text": "성장 속도 억제"
+              }
+            ]
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_OTHER",
+            "descriptor": "NOEC",
+            "species": "Pseudomonas putida (슈도모나스 푸티다)",
+            "duration_value": 18,
+            "duration_unit": "hr",
+            "status": "값있음",
+            "q": {
+              "raw": "> 20,000 mg/l",
+              "lower_op": ">",
+              "lower": 20000,
+              "unit": "mg/L",
+              "dp": 0,
+              "status": "값있음"
+            },
+            "statements": [
+              {
+                "seq": 1,
+                "value": "실험 기준이 명시되지 않음",
+                "text": "실험 기준이 명시되지 않음"
+              }
+            ]
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_CRUST",
+            "descriptor": "NOEC",
+            "species": "Ceriodaphnia dubia (물벼룩)",
+            "duration_value": 7,
+            "duration_unit": "day",
+            "status": "값있음",
+            "q": {
+              "raw": "13,020 mg/l",
+              "value": 13020,
+              "unit": "mg/L",
+              "dp": 0,
+              "status": "값있음"
+            },
+            "statements": [
+              {
+                "seq": 1,
+                "value": "반지수식 시험",
+                "text": "반지수식 시험"
+              },
+              {
+                "seq": 2,
+                "value": "출생 숫자",
+                "text": "출생 숫자"
+              }
+            ]
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_PERSIST",
+            "descriptor": "결과기술",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "생분해성",
+                "value": "물질은 쉽게 생분해됨. OECD 생분해성 TEST 를 통과하였음. 혐기성 조건하에서 생분해가 일어남 (산소가 없는 상태에서).",
+                "text": "생분해성: 물질은 쉽게 생분해됨. OECD 생분해성 TEST 를 통과하였음. 혐기성 조건하에서 생분해가 일어남 (산소가 없는 상태에서)."
+              }
+            ]
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_PERSIST",
+            "descriptor": "분해율",
+            "duration_value": 28,
+            "duration_unit": "day",
+            "guideline": "OECD Test Guideline 301F 또는 그에 상응하는 것",
+            "status": "값있음",
+            "q": {
+              "raw": "81 %",
+              "value": 81,
+              "unit": "%",
+              "dp": 0,
+              "status": "값있음"
+            },
+            "statements": [
+              {
+                "seq": 1,
+                "key": "10-day Window",
+                "value": "통과",
+                "text": "10-day Window:통과"
+              }
+            ]
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_PERSIST",
+            "descriptor": "분해율",
+            "duration_value": 64,
+            "duration_unit": "day",
+            "guideline": "OECD Test Guideline 306 또는 그에 상응하는 것",
+            "status": "값있음",
+            "q": {
+              "raw": "96 %",
+              "value": 96,
+              "unit": "%",
+              "dp": 0,
+              "status": "값있음"
+            },
+            "statements": [
+              {
+                "seq": 1,
+                "key": "10-day Window",
+                "value": "해당되지 않음",
+                "text": "10-day Window:해당되지 않음"
+              }
+            ]
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_PERSIST",
+            "descriptor": "기타",
+            "status": "값있음",
+            "q": {
+              "raw": "1.68 mg/mg",
+              "value": 1.68,
+              "unit": "mg/mg",
+              "dp": 2,
+              "status": "값있음",
+              "note": "이론적 산소 요구량"
+            },
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_PERSIST",
+            "descriptor": "COD",
+            "status": "값있음",
+            "q": {
+              "raw": "1.53 mg/mg",
+              "value": 1.53,
+              "unit": "mg/mg",
+              "dp": 2,
+              "status": "값있음"
+            },
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_PERSIST",
+            "descriptor": "BOD",
+            "duration_value": 5,
+            "duration_unit": "day",
+            "status": "값있음",
+            "q": {
+              "raw": "69.000 %",
+              "value": 69,
+              "unit": "%",
+              "dp": 3,
+              "status": "값있음"
+            },
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_PERSIST",
+            "descriptor": "BOD",
+            "duration_value": 10,
+            "duration_unit": "day",
+            "status": "값있음",
+            "q": {
+              "raw": "70.000 %",
+              "value": 70,
+              "unit": "%",
+              "dp": 3,
+              "status": "값있음"
+            },
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_PERSIST",
+            "descriptor": "BOD",
+            "duration_value": 20,
+            "duration_unit": "day",
+            "status": "값있음",
+            "q": {
+              "raw": "86.000 %",
+              "value": 86,
+              "unit": "%",
+              "dp": 3,
+              "status": "값있음"
+            },
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_PERSIST",
+            "descriptor": "기타",
+            "status": "값있음",
+            "q": {
+              "raw": "10 h",
+              "value": 10,
+              "unit": "h",
+              "dp": 0,
+              "status": "값있음",
+              "note": "광분해 대기 중 반감기"
+            },
+            "statements": [
+              {
+                "seq": 1,
+                "key": "방법",
+                "value": "추정치",
+                "text": "방법: 추정치"
+              }
+            ]
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_BIOACC",
+            "descriptor": "결과기술",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "동생물의 생체내 축적 가능성",
+                "value": "생물 농축 가능성이 낮음 (BCF<100 or Log Pow <3).",
+                "text": "동생물의 생체내 축적 가능성: 생물 농축 가능성이 낮음 (BCF<100 or Log Pow <3)."
+              }
+            ]
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_BIOACC",
+            "descriptor": "logKow",
+            "status": "값있음",
+            "q": {
+              "raw": "-1.07",
+              "value": -1.07,
+              "dp": 2,
+              "status": "값있음",
+              "note": "추정치"
+            },
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_BIOACC",
+            "descriptor": "BCF",
+            "status": "값있음",
+            "q": {
+              "raw": "0.09",
+              "value": 0.09,
+              "dp": 2,
+              "status": "값있음",
+              "note": "추정치"
+            },
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_SOIL",
+            "descriptor": "Koc",
+            "status": "값있음",
+            "q": {
+              "raw": "< 1",
+              "upper_op": "<",
+              "upper": 1,
+              "dp": 0,
+              "status": "값있음",
+              "note": "추정치"
+            },
+            "statements": [
+              {
+                "seq": 1,
+                "value": "매우 낮은 Henry 상수로 인하여 토양의 물 혹은 습기의 자연적 상태로 부터의 증발은 중대한 파괴 공정으로의 전환이 기대되지 않음.",
+                "text": "매우 낮은 Henry 상수로 인하여 토양의 물 혹은 습기의 자연적 상태로 부터의 증발은 중대한 파괴 공정으로의 전환이 기대되지 않음."
+              },
+              {
+                "seq": 2,
+                "value": "토양에서 이동 가능성이 매우 높음 (0<Koc <50)",
+                "text": "토양에서 이동 가능성이 매우 높음 (0<Koc <50)"
+              }
+            ]
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": null,
+            "descriptor": "결과기술",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "PBT 및 vPvB 평가결과",
+                "value": "본 물질은 PBT 에 해당하지 않습니다. 본 물질은 vPvB (very persistent and very bioaccumulating)에 해당하지 않습니다.",
+                "text": "본 물질은 PBT 에 해당하지 않습니다. 본 물질은 vPvB (very persistent and very bioaccumulating)에 해당하지 않습니다."
+              }
+            ]
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_OTHER",
+            "descriptor": "결과기술",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "기타 유해 영향",
+                "value": "이 물질은 몬트리올 의정서 리스트에 등재되어 있지 않으며 오존층 파괴 물질이 아닙니다.",
+                "text": "이 물질은 몬트리올 의정서 리스트에 등재되어 있지 않으며 오존층 파괴 물질이 아닙니다."
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "msds_index": 0,
+        "field": "toxicity[0]",
+        "page": 6,
+        "source_text": "LD50, 쥐, > 20,000 mg/kg",
+        "rules": [
+          "R04",
+          "R06",
+          "R10"
+        ],
+        "note": "'>'를 lower_op로, 천단위 콤마 제거"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[1]",
+        "page": 6,
+        "source_text": "LD50, 토끼, > 2,000 mg/kg 이 농도에서 사망에 이르지는 않았습니다.",
+        "rules": [
+          "R04",
+          "R06",
+          "R10"
+        ],
+        "note": "뒤 문장은 q.note로"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[2]",
+        "page": 6,
+        "source_text": "LC50, 토끼, 2 h, 분진/미스트, 317.042 mg/l 이 농도에서 사망에 이르지는 않았습니다.",
+        "rules": [
+          "R04",
+          "R08",
+          "R10"
+        ],
+        "note": "2 h → 2 hr, 분진/미스트 → 분진·미스트, mg/l → mg/L"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[3]",
+        "page": 6,
+        "source_text": "오랫동안 접촉하더라도 본질적으로 피부에 통증을 가져오지 않습니다.",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[4]",
+        "page": 6,
+        "source_text": "눈에 임시로 약간의 자극이 올 수 있습니다.",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[5]",
+        "page": 7,
+        "source_text": "사람에게 테스트한 경우 피부에 알레르기 반응이 일어나지 않음.",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[6]",
+        "page": 7,
+        "source_text": "호흡기 과민성: 해당 자료없음.",
+        "rules": [
+          "R15"
+        ],
+        "note": "'자료없음'으로 status 지정"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[7]",
+        "page": 7,
+        "source_text": "사용 가능한 데이타에 의하면 본 제품은 특정표적장기 독성 1 회노출 물질이 아닙니다.",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[8]",
+        "page": 7,
+        "source_text": "빈도수가 낮지만 프로필렌 글리콜에 과도하게 반복적으로 노출되는 경우에는 중추 신경계에 영향을 미칠수 있다.",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[9]",
+        "page": 7,
+        "source_text": "동물 대상 실험에서는 암을 유발하지 않았음.",
+        "rules": [],
+        "note": "기관별 분류가 없어 cmr 행은 만들지 않음"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[10]",
+        "page": 7,
+        "source_text": "동물 실험 결과, 생식능력을 저해하지 않음. 동물 실험 결과, 수태 능력을 저해하지 않음.",
+        "rules": [],
+        "note": "최기형성 문장과 생식독성 문장을 TX_REPRO 한 행에 묶음"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[11]",
+        "page": 7,
+        "source_text": "시험관 내 유전적 독성 연구 결과는 음성이었습니다. 동물 유전학적 독성 연구 결과가 음성입니다.",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[12]",
+        "page": 7,
+        "source_text": "물리적 특성에 근거, 흡입 유해성이 있을 가능성이 없습니다.",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[0]",
+        "page": 7,
+        "source_text": "LC50, Oncorhynchus mykiss (무지개송어), 지수식 시험, 96 h, 40,613 mg/l, OECD 시험 가이드라인 203",
+        "rules": [
+          "R04",
+          "R06",
+          "R08"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[1]",
+        "page": 7,
+        "source_text": "LC50, Ceriodaphnia dubia (물벼룩), 지수식 시험, 48 h, 18,340 mg/l, OECD 시험 가이드라인 202",
+        "rules": [
+          "R04",
+          "R06",
+          "R08"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[2]",
+        "page": 8,
+        "source_text": "ErC50, Pseudokirchneriella subcapitata (녹조류), 96 h, 성장 속도 억제, 19,000 mg/l, OECD 시험 가이드라인 201",
+        "rules": [
+          "R04",
+          "R06",
+          "R08"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[3]",
+        "page": 8,
+        "source_text": "NOEC, Pseudomonas putida (슈도모나스 푸티다), 18 h, > 20,000 mg/l, 실험 기준이 명시되지 않음",
+        "rules": [
+          "R04",
+          "R06",
+          "R08"
+        ],
+        "note": "박테리아독성을 ECO_OTHER로"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[4]",
+        "page": 8,
+        "source_text": "NOEC, Ceriodaphnia dubia (물벼룩), 반지수식 시험, 7 d, 출생 숫자, 13,020 mg/l",
+        "rules": [
+          "R04",
+          "R06",
+          "R08"
+        ],
+        "note": "만성 무척추동물 독성"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[5]",
+        "page": 8,
+        "source_text": "생분해성: 물질은 쉽게 생분해됨. OECD 생분해성 TEST 를 통과하였음.",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[6]",
+        "page": 8,
+        "source_text": "10-day Window:통과 생분해: 81 % 노출시간: 28 d 방법: OECD Test Guideline 301F 또는 그에 상응하는 것",
+        "rules": [
+          "R04"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[7]",
+        "page": 8,
+        "source_text": "10-day Window:해당되지 않음 생분해: 96 % 노출시간: 64 d 방법: OECD Test Guideline 306 또는 그에 상응하는 것",
+        "rules": [
+          "R04"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[8]",
+        "page": 8,
+        "source_text": "이론적 산소 요구량: 1.68 mg/mg",
+        "rules": [
+          "R04"
+        ],
+        "note": "맞는 값 없음: ThOD 지표가 없어 descriptor '기타'"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[9]",
+        "page": 8,
+        "source_text": "화학적 산소 요구량: 1.53 mg/mg",
+        "rules": [
+          "R04"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[10]",
+        "page": 8,
+        "source_text": "5 d | 69.000 %",
+        "rules": [
+          "R04",
+          "R06"
+        ],
+        "note": "dp=3 보존"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[11]",
+        "page": 8,
+        "source_text": "10 d | 70.000 %",
+        "rules": [
+          "R04",
+          "R06"
+        ],
+        "note": "dp=3 보존"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[12]",
+        "page": 8,
+        "source_text": "20 d | 86.000 %",
+        "rules": [
+          "R04",
+          "R06"
+        ],
+        "note": "dp=3 보존"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[13]",
+        "page": 8,
+        "source_text": "대기 중 반감기: 10 h 방법: 추정치",
+        "rules": [
+          "R04"
+        ],
+        "note": "맞는 값 없음: 광분해 반감기 지표가 없어 descriptor '기타'"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[14]",
+        "page": 8,
+        "source_text": "동생물의 생체내 축적 가능성: 생물 농축 가능성이 낮음 (BCF<100 or Log Pow <3).",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[15]",
+        "page": 8,
+        "source_text": "n-옥탄올/물 분배계수(log Pow): -1.07 추정치",
+        "rules": [
+          "R04"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[16]",
+        "page": 8,
+        "source_text": "생물농축계수 (BCF): 0.09 추정치",
+        "rules": [
+          "R04"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[17]",
+        "page": 9,
+        "source_text": "물 분배계수 (Koc): < 1 추정치",
+        "rules": [
+          "R04"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[18]",
+        "page": 9,
+        "source_text": "본 물질은 PBT 에 해당하지 않습니다. 본 물질은 vPvB (very persistent and very bioaccumulating)에 해당하지 않습니다.",
+        "rules": [],
+        "note": "맞는 값 없음: PBT 평가 항목 코드가 없어 endpoint null"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[19]",
+        "page": 9,
+        "source_text": "이 물질은 몬트리올 의정서 리스트에 등재되어 있지 않으며 오존층 파괴 물질이 아닙니다.",
+        "rules": [],
+        "note": "기타 유해 영향 → ECO_OTHER"
+      }
+    ]
+  },
+  "raw_text": "{\"msds\": [{\"toxicity\": [{\"comp_ref\": \"1\", \"endpoint\": \"TX_ORAL\", \"descriptor\": \"LD50\", \"species\": \"쥐\", \"sex\": \"미표기\", \"status\": \"값있음\", \"q\": {\"raw\": \"> 20,000 mg/kg\", \"lower_op\": \">\", \"lower\": 20000, \"unit\": \"mg/kg\", \"dp\": 0, \"status\": \"값있음\"}, \"statements\": [{\"seq\": 1, \"value\": \"마실 경우 독성은 매우 낮음 소량을 마신 경우 유해한 결과를 초래하지 않습니다.\", \"text\": \"마실 경우 독성은 매우 낮음 소량을 마신 경우 유해한 결과를 초래하지 않습니다.\"}]}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_DERMAL\", \"descriptor\": \"LD50\", \"species\": \"토끼\", \"sex\": \"미표기\", \"status\": \"값있음\", \"q\": {\"raw\": \"> 2,000 mg/kg\", \"lower_op\": \">\", \"lower\": 2000, \"unit\": \"mg/kg\", \"dp\": 0, \"status\": \"값있음\", \"note\": \"이 농도에서 사망에 이르지는 않았습니다.\"}, \"statements\": [{\"seq\": 1, \"value\": \"오랫동안 피부에 닿아도 해로운 양만큼의 흡수로 이어지지는 않습니다.\", \"text\": \"오랫동안 피부에 닿아도 해로운 양만큼의 흡수로 이어지지는 않습니다.\"}]}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_INHAL\", \"descriptor\": \"LC50\", \"species\": \"토끼\", \"sex\": \"미표기\", \"duration_value\": 2, \"duration_unit\": \"hr\", \"physical_form\": \"분진·미스트\", \"status\": \"값있음\", \"q\": {\"raw\": \"317.042 mg/l\", \"value\": 317.042, \"unit\": \"mg/L\", \"dp\": 3, \"status\": \"값있음\", \"note\": \"이 농도에서 사망에 이르지는 않았습니다.\"}, \"statements\": [{\"seq\": 1, \"value\": \"실온에서는, 휘발성이 낮으므로 증기 노출은 극히 적습니다. 안개가 상부 기도(코 및 목)에 자극을 일으킬 수 있습니다.\", \"text\": \"실온에서는, 휘발성이 낮으므로 증기 노출은 극히 적습니다. 안개가 상부 기도(코 및 목)에 자극을 일으킬 수 있습니다.\"}]}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_SKIN\", \"descriptor\": \"결과기술\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"오랫동안 접촉하더라도 본질적으로 피부에 통증을 가져오지 않습니다.\", \"text\": \"오랫동안 접촉하더라도 본질적으로 피부에 통증을 가져오지 않습니다.\"}, {\"seq\": 2, \"value\": \"반복하여 접촉하면 피부가 벗겨지거나 약해질 수 있습니다.\", \"text\": \"반복하여 접촉하면 피부가 벗겨지거나 약해질 수 있습니다.\"}]}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_EYE\", \"descriptor\": \"결과기술\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"눈에 임시로 약간의 자극이 올 수 있습니다.\", \"text\": \"눈에 임시로 약간의 자극이 올 수 있습니다.\"}, {\"seq\": 2, \"value\": \"각막 손상의 가능성은 거의 없습니다.\", \"text\": \"각막 손상의 가능성은 거의 없습니다.\"}, {\"seq\": 3, \"value\": \"안개가 눈을 자극 할 수 있습니다.\", \"text\": \"안개가 눈을 자극 할 수 있습니다.\"}]}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_SKIN_SENS\", \"descriptor\": \"결과기술\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"사람에게 테스트한 경우 피부에 알레르기 반응이 일어나지 않음.\", \"text\": \"사람에게 테스트한 경우 피부에 알레르기 반응이 일어나지 않음.\"}]}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_RESP_SENS\", \"status\": \"자료없음\", \"q\": {\"raw\": \"해당 자료없음.\", \"status\": \"자료없음\"}, \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_STOT_SE\", \"descriptor\": \"결과기술\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"사용 가능한 데이타에 의하면 본 제품은 특정표적장기 독성 1회노출 물질이 아닙니다.\", \"text\": \"사용 가능한 데이타에 의하면 본 제품은 특정표적장기 독성 1 회노출 물질이 아닙니다.\"}]}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_STOT_RE\", \"descriptor\": \"결과기술\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"빈도수가 낮지만 프로필렌 글리콜에 과도하게 반복적으로 노출되는 경우에는 중추 신경계에 영향을 미칠수 있다.\", \"text\": \"빈도수가 낮지만 프로필렌 글리콜에 과도하게 반복적으로 노출되는 경우에는 중추 신경계에 영향을 미칠수 있다.\"}]}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_CARC\", \"descriptor\": \"결과기술\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"동물 대상 실험에서는 암을 유발하지 않았음.\", \"text\": \"동물 대상 실험에서는 암을 유발하지 않았음.\"}]}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_REPRO\", \"descriptor\": \"결과기술\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"key\": \"최기형성\", \"value\": \"실험용 동물에서 어떤 다른 태아의 영향이나 출생에 대한 결함의 원인이 발생하지 않았습니다.\", \"text\": \"실험용 동물에서 어떤 다른 태아의 영향이나 출생에 대한 결함의 원인이 발생하지 않았습니다.\"}, {\"seq\": 2, \"key\": \"생식독성\", \"value\": \"동물 실험 결과, 생식능력을 저해하지 않음. 동물 실험 결과, 수태 능력을 저해하지 않음.\", \"text\": \"동물 실험 결과, 생식능력을 저해하지 않음. 동물 실험 결과, 수태 능력을 저해하지 않음.\"}]}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_MUTA\", \"descriptor\": \"결과기술\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"시험관 내 유전적 독성 연구 결과는 음성이었습니다. 동물 유전학적 독성 연구 결과가 음성입니다.\", \"text\": \"시험관 내 유전적 독성 연구 결과는 음성이었습니다. 동물 유전학적 독성 연구 결과가 음성입니다.\"}]}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_ASP\", \"descriptor\": \"결과기술\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"물리적 특성에 근거, 흡입 유해성이 있을 가능성이 없습니다.\", \"text\": \"물리적 특성에 근거, 흡입 유해성이 있을 가능성이 없습니다.\"}]}], \"cmr\": [], \"ecotox\": [{\"comp_ref\": \"1\", \"endpoint\": \"ECO_FISH\", \"descriptor\": \"LC50\", \"species\": \"Oncorhynchus mykiss (무지개송어)\", \"duration_value\": 96, \"duration_unit\": \"hr\", \"guideline\": \"OECD 시험 가이드라인 203\", \"status\": \"값있음\", \"q\": {\"raw\": \"40,613 mg/l\", \"value\": 40613, \"unit\": \"mg/L\", \"dp\": 0, \"status\": \"값있음\"}, \"statements\": [{\"seq\": 1, \"value\": \"본질적으로 수생 생물에 비독성입니다(급성 basis).(LC50/EC50/EL50/LL50>100mg/L, 가장 민감한 종).\", \"text\": \"본질적으로 수생 생물에 비독성입니다(급성 basis).(LC50/EC50/EL50/LL50>100mg/L, 가장 민감한 종).\"}, {\"seq\": 2, \"value\": \"지수식 시험\", \"text\": \"지수식 시험\"}]}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_CRUST\", \"descriptor\": \"LC50\", \"species\": \"Ceriodaphnia dubia (물벼룩)\", \"duration_value\": 48, \"duration_unit\": \"hr\", \"guideline\": \"OECD 시험 가이드라인 202\", \"status\": \"값있음\", \"q\": {\"raw\": \"18,340 mg/l\", \"value\": 18340, \"unit\": \"mg/L\", \"dp\": 0, \"status\": \"값있음\"}, \"statements\": [{\"seq\": 1, \"value\": \"지수식 시험\", \"text\": \"지수식 시험\"}]}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_ALGAE\", \"descriptor\": \"ErC50\", \"species\": \"Pseudokirchneriella subcapitata (녹조류)\", \"duration_value\": 96, \"duration_unit\": \"hr\", \"guideline\": \"OECD 시험 가이드라인 201\", \"status\": \"값있음\", \"q\": {\"raw\": \"19,000 mg/l\", \"value\": 19000, \"unit\": \"mg/L\", \"dp\": 0, \"status\": \"값있음\"}, \"statements\": [{\"seq\": 1, \"value\": \"성장 속도 억제\", \"text\": \"성장 속도 억제\"}]}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_OTHER\", \"descriptor\": \"NOEC\", \"species\": \"Pseudomonas putida (슈도모나스 푸티다)\", \"duration_value\": 18, \"duration_unit\": \"hr\", \"status\": \"값있음\", \"q\": {\"raw\": \"> 20,000 mg/l\", \"lower_op\": \">\", \"lower\": 20000, \"unit\": \"mg/L\", \"dp\": 0, \"status\": \"값있음\"}, \"statements\": [{\"seq\": 1, \"value\": \"실험 기준이 명시되지 않음\", \"text\": \"실험 기준이 명시되지 않음\"}]}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_CRUST\", \"descriptor\": \"NOEC\", \"species\": \"Ceriodaphnia dubia (물벼룩)\", \"duration_value\": 7, \"duration_unit\": \"day\", \"status\": \"값있음\", \"q\": {\"raw\": \"13,020 mg/l\", \"value\": 13020, \"unit\": \"mg/L\", \"dp\": 0, \"status\": \"값있음\"}, \"statements\": [{\"seq\": 1, \"value\": \"반지수식 시험\", \"text\": \"반지수식 시험\"}, {\"seq\": 2, \"value\": \"출생 숫자\", \"text\": \"출생 숫자\"}]}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_PERSIST\", \"descriptor\": \"결과기술\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"key\": \"생분해성\", \"value\": \"물질은 쉽게 생분해됨. OECD 생분해성 TEST 를 통과하였음. 혐기성 조건하에서 생분해가 일어남 (산소가 없는 상태에서).\", \"text\": \"생분해성: 물질은 쉽게 생분해됨. OECD 생분해성 TEST 를 통과하였음. 혐기성 조건하에서 생분해가 일어남 (산소가 없는 상태에서).\"}]}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_PERSIST\", \"descriptor\": \"분해율\", \"duration_value\": 28, \"duration_unit\": \"day\", \"guideline\": \"OECD Test Guideline 301F 또는 그에 상응하는 것\", \"status\": \"값있음\", \"q\": {\"raw\": \"81 %\", \"value\": 81, \"unit\": \"%\", \"dp\": 0, \"status\": \"값있음\"}, \"statements\": [{\"seq\": 1, \"key\": \"10-day Window\", \"value\": \"통과\", \"text\": \"10-day Window:통과\"}]}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_PERSIST\", \"descriptor\": \"분해율\", \"duration_value\": 64, \"duration_unit\": \"day\", \"guideline\": \"OECD Test Guideline 306 또는 그에 상응하는 것\", \"status\": \"값있음\", \"q\": {\"raw\": \"96 %\", \"value\": 96, \"unit\": \"%\", \"dp\": 0, \"status\": \"값있음\"}, \"statements\": [{\"seq\": 1, \"key\": \"10-day Window\", \"value\": \"해당되지 않음\", \"text\": \"10-day Window:해당되지 않음\"}]}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_PERSIST\", \"descriptor\": \"기타\", \"status\": \"값있음\", \"q\": {\"raw\": \"1.68 mg/mg\", \"value\": 1.68, \"unit\": \"mg/mg\", \"dp\": 2, \"status\": \"값있음\", \"note\": \"이론적 산소 요구량\"}, \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_PERSIST\", \"descriptor\": \"COD\", \"status\": \"값있음\", \"q\": {\"raw\": \"1.53 mg/mg\", \"value\": 1.53, \"unit\": \"mg/mg\", \"dp\": 2, \"status\": \"값있음\"}, \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_PERSIST\", \"descriptor\": \"BOD\", \"duration_value\": 5, \"duration_unit\": \"day\", \"status\": \"값있음\", \"q\": {\"raw\": \"69.000 %\", \"value\": 69, \"unit\": \"%\", \"dp\": 3, \"status\": \"값있음\"}, \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_PERSIST\", \"descriptor\": \"BOD\", \"duration_value\": 10, \"duration_unit\": \"day\", \"status\": \"값있음\", \"q\": {\"raw\": \"70.000 %\", \"value\": 70, \"unit\": \"%\", \"dp\": 3, \"status\": \"값있음\"}, \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_PERSIST\", \"descriptor\": \"BOD\", \"duration_value\": 20, \"duration_unit\": \"day\", \"status\": \"값있음\", \"q\": {\"raw\": \"86.000 %\", \"value\": 86, \"unit\": \"%\", \"dp\": 3, \"status\": \"값있음\"}, \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_PERSIST\", \"descriptor\": \"기타\", \"status\": \"값있음\", \"q\": {\"raw\": \"10 h\", \"value\": 10, \"unit\": \"h\", \"dp\": 0, \"status\": \"값있음\", \"note\": \"광분해 대기 중 반감기\"}, \"statements\": [{\"seq\": 1, \"key\": \"방법\", \"value\": \"추정치\", \"text\": \"방법: 추정치\"}]}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_BIOACC\", \"descriptor\": \"결과기술\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"key\": \"동생물의 생체내 축적 가능성\", \"value\": \"생물 농축 가능성이 낮음 (BCF<100 or Log Pow <3).\", \"text\": \"동생물의 생체내 축적 가능성: 생물 농축 가능성이 낮음 (BCF<100 or Log Pow <3).\"}]}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_BIOACC\", \"descriptor\": \"logKow\", \"status\": \"값있음\", \"q\": {\"raw\": \"-1.07\", \"value\": -1.07, \"dp\": 2, \"status\": \"값있음\", \"note\": \"추정치\"}, \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_BIOACC\", \"descriptor\": \"BCF\", \"status\": \"값있음\", \"q\": {\"raw\": \"0.09\", \"value\": 0.09, \"dp\": 2, \"status\": \"값있음\", \"note\": \"추정치\"}, \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_SOIL\", \"descriptor\": \"Koc\", \"status\": \"값있음\", \"q\": {\"raw\": \"< 1\", \"upper_op\": \"<\", \"upper\": 1, \"dp\": 0, \"status\": \"값있음\", \"note\": \"추정치\"}, \"statements\": [{\"seq\": 1, \"value\": \"매우 낮은 Henry 상수로 인하여 토양의 물 혹은 습기의 자연적 상태로 부터의 증발은 중대한 파괴 공정으로의 전환이 기대되지 않음.\", \"text\": \"매우 낮은 Henry 상수로 인하여 토양의 물 혹은 습기의 자연적 상태로 부터의 증발은 중대한 파괴 공정으로의 전환이 기대되지 않음.\"}, {\"seq\": 2, \"value\": \"토양에서 이동 가능성이 매우 높음 (0<Koc <50)\", \"text\": \"토양에서 이동 가능성이 매우 높음 (0<Koc <50)\"}]}, {\"comp_ref\": \"1\", \"endpoint\": null, \"descriptor\": \"결과기술\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"key\": \"PBT 및 vPvB 평가결과\", \"value\": \"본 물질은 PBT 에 해당하지 않습니다. 본 물질은 vPvB (very persistent and very bioaccumulating)에 해당하지 않습니다.\", \"text\": \"본 물질은 PBT 에 해당하지 않습니다. 본 물질은 vPvB (very persistent and very bioaccumulating)에 해당하지 않습니다.\"}]}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_OTHER\", \"descriptor\": \"결과기술\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"key\": \"기타 유해 영향\", \"value\": \"이 물질은 몬트리올 의정서 리스트에 등재되어 있지 않으며 오존층 파괴 물질이 아닙니다.\", \"text\": \"이 물질은 몬트리올 의정서 리스트에 등재되어 있지 않으며 오존층 파괴 물질이 아닙니다.\"}]}]}], \"evidence\": [{\"msds_index\": 0, \"field\": \"toxicity[0]\", \"page\": 6, \"source_text\": \"LD50, 쥐, > 20,000 mg/kg\", \"rules\": [\"R04\", \"R06\", \"R10\"], \"note\": \"'>'를 lower_op로, 천단위 콤마 제거\"}, {\"msds_index\": 0, \"field\": \"toxicity[1]\", \"page\": 6, \"source_text\": \"LD50, 토끼, > 2,000 mg/kg 이 농도에서 사망에 이르지는 않았습니다.\", \"rules\": [\"R04\", \"R06\", \"R10\"], \"note\": \"뒤 문장은 q.note로\"}, {\"msds_index\": 0, \"field\": \"toxicity[2]\", \"page\": 6, \"source_text\": \"LC50, 토끼, 2 h, 분진/미스트, 317.042 mg/l 이 농도에서 사망에 이르지는 않았습니다.\", \"rules\": [\"R04\", \"R08\", \"R10\"], \"note\": \"2 h → 2 hr, 분진/미스트 → 분진·미스트, mg/l → mg/L\"}, {\"msds_index\": 0, \"field\": \"toxicity[3]\", \"page\": 6, \"source_text\": \"오랫동안 접촉하더라도 본질적으로 피부에 통증을 가져오지 않습니다.\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[4]\", \"page\": 6, \"source_text\": \"눈에 임시로 약간의 자극이 올 수 있습니다.\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[5]\", \"page\": 7, \"source_text\": \"사람에게 테스트한 경우 피부에 알레르기 반응이 일어나지 않음.\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[6]\", \"page\": 7, \"source_text\": \"호흡기 과민성: 해당 자료없음.\", \"rules\": [\"R15\"], \"note\": \"'자료없음'으로 status 지정\"}, {\"msds_index\": 0, \"field\": \"toxicity[7]\", \"page\": 7, \"source_text\": \"사용 가능한 데이타에 의하면 본 제품은 특정표적장기 독성 1 회노출 물질이 아닙니다.\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[8]\", \"page\": 7, \"source_text\": \"빈도수가 낮지만 프로필렌 글리콜에 과도하게 반복적으로 노출되는 경우에는 중추 신경계에 영향을 미칠수 있다.\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[9]\", \"page\": 7, \"source_text\": \"동물 대상 실험에서는 암을 유발하지 않았음.\", \"rules\": [], \"note\": \"기관별 분류가 없어 cmr 행은 만들지 않음\"}, {\"msds_index\": 0, \"field\": \"toxicity[10]\", \"page\": 7, \"source_text\": \"동물 실험 결과, 생식능력을 저해하지 않음. 동물 실험 결과, 수태 능력을 저해하지 않음.\", \"rules\": [], \"note\": \"최기형성 문장과 생식독성 문장을 TX_REPRO 한 행에 묶음\"}, {\"msds_index\": 0, \"field\": \"toxicity[11]\", \"page\": 7, \"source_text\": \"시험관 내 유전적 독성 연구 결과는 음성이었습니다. 동물 유전학적 독성 연구 결과가 음성입니다.\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[12]\", \"page\": 7, \"source_text\": \"물리적 특성에 근거, 흡입 유해성이 있을 가능성이 없습니다.\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[0]\", \"page\": 7, \"source_text\": \"LC50, Oncorhynchus mykiss (무지개송어), 지수식 시험, 96 h, 40,613 mg/l, OECD 시험 가이드라인 203\", \"rules\": [\"R04\", \"R06\", \"R08\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[1]\", \"page\": 7, \"source_text\": \"LC50, Ceriodaphnia dubia (물벼룩), 지수식 시험, 48 h, 18,340 mg/l, OECD 시험 가이드라인 202\", \"rules\": [\"R04\", \"R06\", \"R08\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[2]\", \"page\": 8, \"source_text\": \"ErC50, Pseudokirchneriella subcapitata (녹조류), 96 h, 성장 속도 억제, 19,000 mg/l, OECD 시험 가이드라인 201\", \"rules\": [\"R04\", \"R06\", \"R08\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[3]\", \"page\": 8, \"source_text\": \"NOEC, Pseudomonas putida (슈도모나스 푸티다), 18 h, > 20,000 mg/l, 실험 기준이 명시되지 않음\", \"rules\": [\"R04\", \"R06\", \"R08\"], \"note\": \"박테리아독성을 ECO_OTHER로\"}, {\"msds_index\": 0, \"field\": \"ecotox[4]\", \"page\": 8, \"source_text\": \"NOEC, Ceriodaphnia dubia (물벼룩), 반지수식 시험, 7 d, 출생 숫자, 13,020 mg/l\", \"rules\": [\"R04\", \"R06\", \"R08\"], \"note\": \"만성 무척추동물 독성\"}, {\"msds_index\": 0, \"field\": \"ecotox[5]\", \"page\": 8, \"source_text\": \"생분해성: 물질은 쉽게 생분해됨. OECD 생분해성 TEST 를 통과하였음.\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[6]\", \"page\": 8, \"source_text\": \"10-day Window:통과 생분해: 81 % 노출시간: 28 d 방법: OECD Test Guideline 301F 또는 그에 상응하는 것\", \"rules\": [\"R04\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[7]\", \"page\": 8, \"source_text\": \"10-day Window:해당되지 않음 생분해: 96 % 노출시간: 64 d 방법: OECD Test Guideline 306 또는 그에 상응하는 것\", \"rules\": [\"R04\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[8]\", \"page\": 8, \"source_text\": \"이론적 산소 요구량: 1.68 mg/mg\", \"rules\": [\"R04\"], \"note\": \"맞는 값 없음: ThOD 지표가 없어 descriptor '기타'\"}, {\"msds_index\": 0, \"field\": \"ecotox[9]\", \"page\": 8, \"source_text\": \"화학적 산소 요구량: 1.53 mg/mg\", \"rules\": [\"R04\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[10]\", \"page\": 8, \"source_text\": \"5 d | 69.000 %\", \"rules\": [\"R04\", \"R06\"], \"note\": \"dp=3 보존\"}, {\"msds_index\": 0, \"field\": \"ecotox[11]\", \"page\": 8, \"source_text\": \"10 d | 70.000 %\", \"rules\": [\"R04\", \"R06\"], \"note\": \"dp=3 보존\"}, {\"msds_index\": 0, \"field\": \"ecotox[12]\", \"page\": 8, \"source_text\": \"20 d | 86.000 %\", \"rules\": [\"R04\", \"R06\"], \"note\": \"dp=3 보존\"}, {\"msds_index\": 0, \"field\": \"ecotox[13]\", \"page\": 8, \"source_text\": \"대기 중 반감기: 10 h 방법: 추정치\", \"rules\": [\"R04\"], \"note\": \"맞는 값 없음: 광분해 반감기 지표가 없어 descriptor '기타'\"}, {\"msds_index\": 0, \"field\": \"ecotox[14]\", \"page\": 8, \"source_text\": \"동생물의 생체내 축적 가능성: 생물 농축 가능성이 낮음 (BCF<100 or Log Pow <3).\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[15]\", \"page\": 8, \"source_text\": \"n-옥탄올/물 분배계수(log Pow): -1.07 추정치\", \"rules\": [\"R04\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[16]\", \"page\": 8, \"source_text\": \"생물농축계수 (BCF): 0.09 추정치\", \"rules\": [\"R04\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[17]\", \"page\": 9, \"source_text\": \"물 분배계수 (Koc): < 1 추정치\", \"rules\": [\"R04\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[18]\", \"page\": 9, \"source_text\": \"본 물질은 PBT 에 해당하지 않습니다. 본 물질은 vPvB (very persistent and very bioaccumulating)에 해당하지 않습니다.\", \"rules\": [], \"note\": \"맞는 값 없음: PBT 평가 항목 코드가 없어 endpoint null\"}, {\"msds_index\": 0, \"field\": \"ecotox[19]\", \"page\": 9, \"source_text\": \"이 물질은 몬트리올 의정서 리스트에 등재되어 있지 않으며 오존층 파괴 물질이 아닙니다.\", \"rules\": [], \"note\": \"기타 유해 영향 → ECO_OTHER\"}]}"
+}

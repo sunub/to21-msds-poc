@@ -1,0 +1,1021 @@
+{
+  "doc_id": "T21-M009",
+  "bundle": "b1",
+  "model": "claude-opus-5-5",
+  "mode": "claude -p json-schema",
+  "finish_reason": "tool_use",
+  "usage": {
+    "prompt_tokens": 160586,
+    "completion_tokens": 9931,
+    "cached_tokens": 11700,
+    "reasoning_tokens": 1541,
+    "notional_cost_usd": 1.39204
+  },
+  "seconds": 72.6,
+  "request_usage": [
+    {
+      "prompt_tokens": 160586,
+      "completion_tokens": 9931,
+      "cached_tokens": 11700,
+      "reasoning_tokens": 1541,
+      "notional_cost_usd": 1.39204
+    }
+  ],
+  "attempts": 1,
+  "errors": [],
+  "parsed": {
+    "doc": {
+      "language": "ko",
+      "msds_count": 1
+    },
+    "msds": [
+      {
+        "meta": {
+          "msds_no": "AA03629-0000000003",
+          "doc_code": "MSDS LMCC-004",
+          "revision_no": 8,
+          "revision_label": "8 회",
+          "header_product_name": null,
+          "source_note": "본 MSDS(물질안전보건자료)는 한국산업안전보건공단에서 제공한 MSDS(KOSHA), NITE, ECHA, SIDS, IPCS, NCIS 등을 근거로 작성한 자료입니다.",
+          "first_issue_date": "2008-03-31",
+          "last_revision_date": "2021-10-29",
+          "page_start": 1,
+          "page_end": 37
+        },
+        "product": {
+          "name": "Mixed C4(C4R2)",
+          "code": null,
+          "synonyms": [],
+          "uses": [
+            "원료 및 중간체"
+          ],
+          "restrictions": [
+            "살생물제 용도로 사용할 수 없음"
+          ],
+          "use_category_code": null
+        },
+        "companies": [
+          {
+            "seq": 1,
+            "role": "제조자",
+            "name": "롯데엠시시",
+            "site": "롯데엠시시 MMA 2공장",
+            "address": "전라남도 여수시 여수산단 4로 129 롯데케미칼 여수 3공장 롯데엠시시 MMA 2공장",
+            "postcode": null,
+            "department": "품질관리 담당",
+            "contacts": [
+              {
+                "type": "대표",
+                "value": "+82-61-680-8444",
+                "hours": null
+              },
+              {
+                "type": "팩스",
+                "value": "+82-61-680-8480",
+                "hours": null
+              },
+              {
+                "type": "긴급",
+                "value": "+82-61-680-8457",
+                "hours": null
+              }
+            ]
+          },
+          {
+            "seq": 2,
+            "role": "공급자",
+            "name": "롯데 엠시시",
+            "site": null,
+            "address": "서울특별시 송파구 올림픽로 300 롯데월드타워 14F",
+            "postcode": null,
+            "department": "영업팀",
+            "contacts": [
+              {
+                "type": "대표",
+                "value": "+82-2-840-0916",
+                "hours": null
+              },
+              {
+                "type": "팩스",
+                "value": "+82-2-840-0919",
+                "hours": null
+              },
+              {
+                "type": "긴급",
+                "value": "+82-2-840-0962",
+                "hours": null
+              }
+            ]
+          }
+        ],
+        "hazard": {
+          "classified": true,
+          "classes": [
+            {
+              "seq": 1,
+              "group": "물리적",
+              "class_code": "PH_FLAM_GAS",
+              "category": "1",
+              "route_form": null,
+              "effect": null,
+              "target_organs": [],
+              "raw": "인화성 가스 : 구분 1"
+            },
+            {
+              "seq": 2,
+              "group": "물리적",
+              "class_code": "PH_PRESS_GAS",
+              "category": "압축가스",
+              "route_form": null,
+              "effect": null,
+              "target_organs": [],
+              "raw": "고압가스 : 압축가스"
+            },
+            {
+              "seq": 3,
+              "group": "건강",
+              "class_code": "HH_SKIN_CORR",
+              "category": "2",
+              "route_form": null,
+              "effect": null,
+              "target_organs": [],
+              "raw": "피부 부식성 / 피부 자극성 : 구분 2"
+            },
+            {
+              "seq": 4,
+              "group": "건강",
+              "class_code": "HH_EYE_DMG",
+              "category": "2",
+              "route_form": null,
+              "effect": null,
+              "target_organs": [],
+              "raw": "심한 눈 손상성 / 눈 자극성 : 구분 2"
+            },
+            {
+              "seq": 5,
+              "group": "건강",
+              "class_code": "HH_CARCINOGEN",
+              "category": "1A",
+              "route_form": null,
+              "effect": null,
+              "target_organs": [],
+              "raw": "발암성 : 구분 1A"
+            },
+            {
+              "seq": 6,
+              "group": "건강",
+              "class_code": "HH_MUTAGEN",
+              "category": "1B",
+              "route_form": null,
+              "effect": null,
+              "target_organs": [],
+              "raw": "생식세포 변이원성 : 구분 1B"
+            },
+            {
+              "seq": 7,
+              "group": "건강",
+              "class_code": "HH_STOT_SE",
+              "category": "3",
+              "route_form": null,
+              "effect": "마취작용",
+              "target_organs": [],
+              "raw": "특정표적장기 독성 물질(1회 노출) : 구분 3(마취작용)"
+            }
+          ],
+          "signal_word": "위험",
+          "pictograms": [
+            {
+              "code": "GHS02",
+              "detection": "이미지판독"
+            },
+            {
+              "code": "GHS08",
+              "detection": "이미지판독"
+            },
+            {
+              "code": "GHS07",
+              "detection": "이미지판독"
+            },
+            {
+              "code": "GHS04",
+              "detection": "이미지판독"
+            }
+          ],
+          "h_statements": [
+            {
+              "seq": 1,
+              "code": "H220",
+              "system": "GHS",
+              "mark": null,
+              "text": "극인화성 가스"
+            },
+            {
+              "seq": 2,
+              "code": "H280",
+              "system": "GHS",
+              "mark": null,
+              "text": "고압가스 : 가열하면 폭발할 수 있음."
+            },
+            {
+              "seq": 3,
+              "code": "H315",
+              "system": "GHS",
+              "mark": null,
+              "text": "피부에 자극을 일으킴."
+            },
+            {
+              "seq": 4,
+              "code": "H319",
+              "system": "GHS",
+              "mark": null,
+              "text": "눈에 심한 자극을 일으킴."
+            },
+            {
+              "seq": 5,
+              "code": "H336",
+              "system": "GHS",
+              "mark": null,
+              "text": "졸음 또는 현기증을 일으킬 수 있음."
+            },
+            {
+              "seq": 6,
+              "code": "H340",
+              "system": "GHS",
+              "mark": null,
+              "text": "유전적인 결함을 일으킬 수 있음."
+            },
+            {
+              "seq": 7,
+              "code": "H350",
+              "system": "GHS",
+              "mark": null,
+              "text": "암을 일으킬 수 있음."
+            }
+          ],
+          "p_statements": [
+            {
+              "seq": 1,
+              "code": "P201",
+              "type": "예방",
+              "text": "사용 전 취급 설명서를 확보하시오."
+            },
+            {
+              "seq": 2,
+              "code": "P202",
+              "type": "예방",
+              "text": "모든 안전 예방조치 문구를 읽고 이해하기 전에는 취급하지 마시오."
+            },
+            {
+              "seq": 3,
+              "code": "P210",
+              "type": "예방",
+              "text": "열, 고온의 표면, 스파크, 화염 및 그 밖의 점화원으로부터 멀리하시오. 금연"
+            },
+            {
+              "seq": 4,
+              "code": "P261",
+              "type": "예방",
+              "text": "가스·미스트·증기·스프레이의 흡입을 피하시오."
+            },
+            {
+              "seq": 5,
+              "code": "P264",
+              "type": "예방",
+              "text": "취급 후에는 취급 부위를 철저히 씻으시오."
+            },
+            {
+              "seq": 6,
+              "code": "P271",
+              "type": "예방",
+              "text": "옥외 또는 환기가 잘 되는 곳에서만 취급하시오."
+            },
+            {
+              "seq": 7,
+              "code": "P280",
+              "type": "예방",
+              "text": "(보호장갑·보호의·보안경·안면보호구)를(을) 착용하시오."
+            },
+            {
+              "seq": 8,
+              "code": "P302+P352",
+              "type": "대응",
+              "text": "피부에 묻으면 다량의 물/(비누)로 씻으시오."
+            },
+            {
+              "seq": 9,
+              "code": "P304+P340",
+              "type": "대응",
+              "text": "흡입하면 신선한 공기가 있는 곳으로 옮기고 호흡하기 쉬운 자세로 안정을 취하시오."
+            },
+            {
+              "seq": 10,
+              "code": "P305+P351+P338",
+              "type": "대응",
+              "text": "눈에 묻으면 몇 분간 물로 조심해서 씻으시오. 가능하면 콘택트렌즈를 제거하시오. 계속 씻으시오."
+            },
+            {
+              "seq": 11,
+              "code": "P308+P313",
+              "type": "대응",
+              "text": "노출되거나 노출이 우려되면, 의학적인 조치/조언을 받으시오."
+            },
+            {
+              "seq": 12,
+              "code": "P312",
+              "type": "대응",
+              "text": "불편함을 느끼면 의료기관(의사)의 진찰을 받으시오."
+            },
+            {
+              "seq": 13,
+              "code": "P321",
+              "type": "대응",
+              "text": "응급처치(눈에 들어갔을 때는 다량의 흐르는 물로 세척, 피부에 접촉했을 때는 다량의 흐르는 물로 세척, 흡입했을 때 신선한 공기로 이동, 먹었을 때 구토를 유발할지에 대하여 의료진의 조언을 구함)를 하시오."
+            },
+            {
+              "seq": 14,
+              "code": "P332+P313",
+              "type": "대응",
+              "text": "피부 자극이 나타나면 의학적인 조치/조언을 받으시오."
+            },
+            {
+              "seq": 15,
+              "code": "P337+P313",
+              "type": "대응",
+              "text": "눈에 자극이 지속되면 의학적인 조치/조언을 받으시오."
+            },
+            {
+              "seq": 16,
+              "code": "P362+P364",
+              "type": "대응",
+              "text": "오염된 의류를 벗고 다시 사용 전 세척하시오."
+            },
+            {
+              "seq": 17,
+              "code": "P377",
+              "type": "대응",
+              "text": "누출성 가스 화재; 누출을 안전하게 막을 수 없다면 불을 끄려하지 마시오."
+            },
+            {
+              "seq": 18,
+              "code": "P381",
+              "type": "대응",
+              "text": "누출 시 모든 점화원을 제거하시오."
+            },
+            {
+              "seq": 19,
+              "code": "P403",
+              "type": "저장",
+              "text": "환기가 잘 되는 곳에 보관하시오."
+            },
+            {
+              "seq": 20,
+              "code": "P403+P233",
+              "type": "저장",
+              "text": "용기는 환기가 잘 되는 곳에 보관하시오. 용기를 단단히 밀폐하시오."
+            },
+            {
+              "seq": 21,
+              "code": "P405",
+              "type": "저장",
+              "text": "잠금장치를 하여 저장하시오."
+            },
+            {
+              "seq": 22,
+              "code": "P410+P403",
+              "type": "저장",
+              "text": "직사광선을 피하시오. 환기가 잘 되는 곳에 보관하시오."
+            },
+            {
+              "seq": 23,
+              "code": "P501",
+              "type": "폐기",
+              "text": "폐기물 관련 법령에 따라 내용물/용기를 폐기하시오."
+            }
+          ],
+          "other_hazards": [
+            {
+              "seq": 1,
+              "key": "유해·위험성 분류기준에 포함되지 않는 기타 유해·위험성",
+              "value": "자료 없음.",
+              "text": "다. 유해·위험성 분류기준에 포함되지 않는 기타 유해·위험성: 자료 없음."
+            }
+          ],
+          "nfpa": {
+            "health": null,
+            "fire": null,
+            "reactivity": null,
+            "special": null
+          }
+        },
+        "composition": {
+          "type": "혼합물",
+          "no_hazardous_component": false
+        },
+        "components": [
+          {
+            "seq": 1,
+            "name": "프로페인(냉각 액체)",
+            "name_en": null,
+            "synonyms": [
+              "다이메틸메테인 (DIMETHYLMETHANE)"
+            ],
+            "cas_no": "74-98-6",
+            "ke_no": "KE-29258",
+            "content": {
+              "raw": "0.1-0.5",
+              "lower_op": ">=",
+              "lower": 0.1,
+              "upper_op": "<=",
+              "upper": 0.5,
+              "unit": "%",
+              "dp": 1,
+              "status": "값있음"
+            },
+            "content_basis": "미표기",
+            "trade_secret": false
+          },
+          {
+            "seq": 2,
+            "name": "아세틸렌",
+            "name_en": null,
+            "synonyms": [
+              "ETHYNE"
+            ],
+            "cas_no": "74-86-2",
+            "ke_no": "KE-14085",
+            "content": {
+              "raw": "0.1이하",
+              "upper_op": "<=",
+              "upper": 0.1,
+              "unit": "%",
+              "dp": 1,
+              "status": "값있음"
+            },
+            "content_basis": "미표기",
+            "trade_secret": false
+          },
+          {
+            "seq": 3,
+            "name": "C5+HEAVIERS",
+            "name_en": null,
+            "synonyms": [],
+            "cas_no": null,
+            "ke_no": null,
+            "content": {
+              "raw": "0.2이하",
+              "upper_op": "<=",
+              "upper": 0.2,
+              "unit": "%",
+              "dp": 1,
+              "status": "값있음"
+            },
+            "content_basis": "미표기",
+            "trade_secret": false
+          },
+          {
+            "seq": 4,
+            "name": "아이소뷰테인",
+            "name_en": null,
+            "synonyms": [
+              "2-메틸 프로페인 (2-METHYL PROPANE)"
+            ],
+            "cas_no": "75-28-5",
+            "ke_no": "KE-24865",
+            "content": {
+              "raw": "2.0~6.0",
+              "lower_op": ">=",
+              "lower": 2,
+              "upper_op": "<=",
+              "upper": 6,
+              "unit": "%",
+              "dp": 1,
+              "status": "값있음"
+            },
+            "content_basis": "미표기",
+            "trade_secret": false
+          },
+          {
+            "seq": 5,
+            "name": "부탄",
+            "name_en": null,
+            "synonyms": [],
+            "cas_no": "106-97-8",
+            "ke_no": "KE-03751",
+            "content": {
+              "raw": "10.0~15.0",
+              "lower_op": ">=",
+              "lower": 10,
+              "upper_op": "<=",
+              "upper": 15,
+              "unit": "%",
+              "dp": 1,
+              "status": "값있음"
+            },
+            "content_basis": "미표기",
+            "trade_secret": false
+          },
+          {
+            "seq": 6,
+            "name": "1-부텐",
+            "name_en": null,
+            "synonyms": [
+              "ALPHA-BUTYLENE"
+            ],
+            "cas_no": "106-98-9",
+            "ke_no": "KE-03887",
+            "content": {
+              "raw": "45.0~50.0",
+              "lower_op": ">=",
+              "lower": 45,
+              "upper_op": "<=",
+              "upper": 50,
+              "unit": "%",
+              "dp": 1,
+              "status": "값있음"
+            },
+            "content_basis": "미표기",
+            "trade_secret": false
+          },
+          {
+            "seq": 7,
+            "name": "아이소부텐",
+            "name_en": null,
+            "synonyms": [
+              "2-메틸프로펜(2-METHYLPROPENE)",
+              "아이소뷰틸렌(ISOBUTYLENE)"
+            ],
+            "cas_no": "115-11-7",
+            "ke_no": "KE-24902",
+            "content": {
+              "raw": "5.0~7.0",
+              "lower_op": ">=",
+              "lower": 5,
+              "upper_op": "<=",
+              "upper": 7,
+              "unit": "%",
+              "dp": 1,
+              "status": "값있음"
+            },
+            "content_basis": "미표기",
+            "trade_secret": false
+          },
+          {
+            "seq": 8,
+            "name": "트랜스-2-부텐",
+            "name_en": null,
+            "synonyms": [
+              "베타-뷰틸렌 (BETA-BUTYLENE)"
+            ],
+            "cas_no": "624-64-6",
+            "ke_no": "KE-03889",
+            "content": {
+              "raw": "15.0~17.0",
+              "lower_op": ">=",
+              "lower": 15,
+              "upper_op": "<=",
+              "upper": 17,
+              "unit": "%",
+              "dp": 1,
+              "status": "값있음"
+            },
+            "content_basis": "미표기",
+            "trade_secret": false
+          },
+          {
+            "seq": 9,
+            "name": "시스-2-부텐",
+            "name_en": null,
+            "synonyms": [
+              "2-부텐-시스(2-BUTENE-CIS)",
+              "(Z)-2-BUTENE"
+            ],
+            "cas_no": "590-18-1",
+            "ke_no": "KE-03890",
+            "content": {
+              "raw": "8.0~10.0",
+              "lower_op": ">=",
+              "lower": 8,
+              "upper_op": "<=",
+              "upper": 10,
+              "unit": "%",
+              "dp": 1,
+              "status": "값있음"
+            },
+            "content_basis": "미표기",
+            "trade_secret": false
+          },
+          {
+            "seq": 10,
+            "name": "1,3-부타디엔",
+            "name_en": null,
+            "synonyms": [],
+            "cas_no": "106-99-0",
+            "ke_no": "KE-03719",
+            "content": {
+              "raw": "1.0이하",
+              "upper_op": "<=",
+              "upper": 1,
+              "unit": "%",
+              "dp": 1,
+              "status": "값있음"
+            },
+            "content_basis": "미표기",
+            "trade_secret": false
+          },
+          {
+            "seq": 11,
+            "name": "1,2-부타디엔",
+            "name_en": null,
+            "synonyms": [
+              "메틸알렌(METHYLALLEN)"
+            ],
+            "cas_no": "590-19-2",
+            "ke_no": "KE-03718",
+            "content": {
+              "raw": "1.0이하",
+              "upper_op": "<=",
+              "upper": 1,
+              "unit": "%",
+              "dp": 1,
+              "status": "값있음"
+            },
+            "content_basis": "미표기",
+            "trade_secret": false
+          }
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "msds_index": 0,
+        "field": "meta.msds_no",
+        "page": 1,
+        "source_text": "MSDS 번호: AA03629-0000000003",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.doc_code",
+        "page": 1,
+        "source_text": "○ 정리번호 : MSDS LMCC-004",
+        "rules": [],
+        "note": "정리번호를 회사 자체 문서번호로 봄"
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.first_issue_date",
+        "page": 37,
+        "source_text": "나. 최초 작성일자 : 2008 년 3 월 31 일",
+        "rules": [
+          "R01"
+        ],
+        "note": "머리글의 '작성일 2015 년 01 월 01 일'과 다르나 16항 최초 작성일자를 적용"
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.last_revision_date",
+        "page": 37,
+        "source_text": "다. 개정 횟수 및 최종 개정일자 : 8 회, 2021 년 10 월 29 일",
+        "rules": [
+          "R01"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.revision_no",
+        "page": 37,
+        "source_text": "다. 개정 횟수 및 최종 개정일자 : 8 회, 2021 년 10 월 29 일",
+        "rules": [],
+        "note": "'8 회' → 8"
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.source_note",
+        "page": 37,
+        "source_text": "본 MSDS(물질안전보건자료)는 한국산업안전보건공단에서 제공한 MSDS(KOSHA), NITE, ECHA, SIDS, IPCS, NCIS 등을 근거로 작성한 자료입니다.",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.page_end",
+        "page": 37,
+        "source_text": "37/37 Page",
+        "rules": [
+          "R16"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "product.name",
+        "page": 1,
+        "source_text": "○ 제 품 명 : Mixed C4(C4R2)",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "product.uses",
+        "page": 1,
+        "source_text": "○ 용도 : 원료 및 중간체",
+        "rules": [
+          "R11"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "product.restrictions",
+        "page": 1,
+        "source_text": "○ 사용상의 제한 : 살생물제 용도로 사용할 수 없음",
+        "rules": [
+          "R11"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "companies[0]",
+        "page": 1,
+        "source_text": "회 사 명 : 롯데엠시시 | 주 소 : 전라남도 여수시 여수산단 4로 129 롯데케미칼 여수 3공장 롯데엠시시 MMA 2공장 | 전화번호 : +82-61-680-8444 | 팩스번호 : +82-61-680-8480 | 긴급연락번호 : +82-61-680-8457",
+        "rules": [
+          "R12"
+        ],
+        "note": "제조자 정보"
+      },
+      {
+        "msds_index": 0,
+        "field": "companies[1]",
+        "page": 1,
+        "source_text": "회 사 명 : 롯데 엠시시 | 주 소 : 서울특별시 송파구 올림픽로 300 롯데월드타워 14F | 전화번호 : +82-2-840-0916 | 팩스번호 : +82-2-840-0919 | 긴급연락번호 : +82-2-840-0962",
+        "rules": [
+          "R12"
+        ],
+        "note": "공급자/유통업자 정보를 공급자로 기록"
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.classes[0]",
+        "page": 1,
+        "source_text": "- 인화성 가스 : 구분 1",
+        "rules": [
+          "R07"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.classes[1]",
+        "page": 1,
+        "source_text": "- 고압가스 : 압축가스",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.classes[2]",
+        "page": 2,
+        "source_text": "- 피부 부식성 / 피부 자극성 : 구분 2",
+        "rules": [
+          "R07"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.classes[3]",
+        "page": 2,
+        "source_text": "- 심한 눈 손상성 / 눈 자극성 : 구분 2",
+        "rules": [
+          "R07"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.classes[4]",
+        "page": 2,
+        "source_text": "- 발암성 : 구분 1A",
+        "rules": [
+          "R07"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.classes[5]",
+        "page": 2,
+        "source_text": "- 생식세포 변이원성 : 구분 1B",
+        "rules": [
+          "R07"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.classes[6]",
+        "page": 2,
+        "source_text": "- 특정표적장기 독성 물질(1회 노출) : 구분 3(마취작용)",
+        "rules": [
+          "R07"
+        ],
+        "note": "괄호 '마취작용'을 effect로 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.signal_word",
+        "page": 2,
+        "source_text": "○ 신호어 : 위험",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.pictograms",
+        "page": 2,
+        "source_text": "○ 그림 문자",
+        "rules": [],
+        "note": "이미지에서 불꽃, 건강유해성, 감탄부호, 가스실린더 4개 확인"
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.h_statements",
+        "page": 2,
+        "source_text": "- H220 : 극인화성 가스 ... - H350 : 암을 일으킬 수 있음.",
+        "rules": [
+          "R05"
+        ],
+        "note": "7개 H코드"
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.p_statements",
+        "page": 2,
+        "source_text": "- P201 : 사용 전 취급 설명서를 확보하시오. ... - P280",
+        "rules": [
+          "R05"
+        ],
+        "note": "예방 P201~P280은 2쪽, 대응·저장·폐기는 3쪽"
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.p_statements",
+        "page": 3,
+        "source_text": "- P302+P352 ... - P501 : 폐기물 관련 법령에 따라 내용물/용기를 폐기하시오.",
+        "rules": [
+          "R05"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.other_hazards",
+        "page": 3,
+        "source_text": "다. 유해·위험성 분류기준에 포함되지 않는 기타 유해·위험성: 자료 없음.",
+        "rules": [
+          "R14"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "components[0]",
+        "page": 3,
+        "source_text": "프로페인(냉각 액체) | 다이메틸메테인 (DIMETHYLMETHANE) | 74-98-6 /KE-29258 | 0.1-0.5",
+        "rules": [
+          "R02",
+          "R03",
+          "R04"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "components[1]",
+        "page": 3,
+        "source_text": "아세틸렌 | ETHYNE | 74-86-2 | 0.1이하",
+        "rules": [
+          "R02",
+          "R03",
+          "R04"
+        ],
+        "note": "KE-14085는 4쪽 첫 행에 이어짐"
+      },
+      {
+        "msds_index": 0,
+        "field": "components[2]",
+        "page": 4,
+        "source_text": "C5+HEAVIERS | 자료 없음 | 자료 없음 | 0.2이하",
+        "rules": [
+          "R04"
+        ],
+        "note": "CAS '자료 없음'으로 null"
+      },
+      {
+        "msds_index": 0,
+        "field": "components[3]",
+        "page": 4,
+        "source_text": "아이소뷰테인 | 2-메틸 프로페인 (2-METHYL PROPANE) | 75-28-5 /KE-24865 | 2.0~6.0",
+        "rules": [
+          "R02",
+          "R03",
+          "R04",
+          "R06"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "components[4]",
+        "page": 4,
+        "source_text": "부탄 | 자료 없음 | 106-97-8 /KE-03751 | 10.0~15.0",
+        "rules": [
+          "R02",
+          "R03",
+          "R04",
+          "R06"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "components[5]",
+        "page": 4,
+        "source_text": "1-부텐 | ALPHA-BUTYLENE | 106-98-9 /KE-03887 | 45.0~50.0",
+        "rules": [
+          "R02",
+          "R03",
+          "R04",
+          "R06"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "components[6]",
+        "page": 4,
+        "source_text": "아이소부텐 | 2-메틸프로펜(2-METHYLPROPENE); 아이소뷰틸렌(ISOBUTYLENE) | 115-11-7 /KE-24902 | 5.0~7.0",
+        "rules": [
+          "R02",
+          "R03",
+          "R04",
+          "R11"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "components[7]",
+        "page": 4,
+        "source_text": "트랜스-2-부텐 | 베타-뷰틸렌 (BETA-BUTYLENE) | 624-64-6 /KE-03889 | 15.0~17.0",
+        "rules": [
+          "R02",
+          "R03",
+          "R04"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "components[8]",
+        "page": 4,
+        "source_text": "시스-2-부텐 | 2-부텐-시스(2-BUTENE-CIS); (Z)-2-BUTENE | 590-18-1 /KE-03890 | 8.0~10.0",
+        "rules": [
+          "R02",
+          "R03",
+          "R04",
+          "R11"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "components[9]",
+        "page": 4,
+        "source_text": "1,3-부타디엔 | 자료 없음 | 106-99-0 /KE-03719 | 1.0이하",
+        "rules": [
+          "R02",
+          "R03",
+          "R04"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "components[10]",
+        "page": 4,
+        "source_text": "1,2-부타디엔 | 메틸알렌(METHYLALLEN) | 590-19-2 /KE-03718 | 1.0이하",
+        "rules": [
+          "R02",
+          "R03",
+          "R04"
+        ],
+        "note": null
+      }
+    ]
+  },
+  "raw_text": "{\"doc\": {\"language\": \"ko\", \"msds_count\": 1}, \"msds\": [{\"meta\": {\"msds_no\": \"AA03629-0000000003\", \"doc_code\": \"MSDS LMCC-004\", \"revision_no\": 8, \"revision_label\": \"8 회\", \"header_product_name\": null, \"source_note\": \"본 MSDS(물질안전보건자료)는 한국산업안전보건공단에서 제공한 MSDS(KOSHA), NITE, ECHA, SIDS, IPCS, NCIS 등을 근거로 작성한 자료입니다.\", \"first_issue_date\": \"2008-03-31\", \"last_revision_date\": \"2021-10-29\", \"page_start\": 1, \"page_end\": 37}, \"product\": {\"name\": \"Mixed C4(C4R2)\", \"code\": null, \"synonyms\": [], \"uses\": [\"원료 및 중간체\"], \"restrictions\": [\"살생물제 용도로 사용할 수 없음\"], \"use_category_code\": null}, \"companies\": [{\"seq\": 1, \"role\": \"제조자\", \"name\": \"롯데엠시시\", \"site\": \"롯데엠시시 MMA 2공장\", \"address\": \"전라남도 여수시 여수산단 4로 129 롯데케미칼 여수 3공장 롯데엠시시 MMA 2공장\", \"postcode\": null, \"department\": \"품질관리 담당\", \"contacts\": [{\"type\": \"대표\", \"value\": \"+82-61-680-8444\", \"hours\": null}, {\"type\": \"팩스\", \"value\": \"+82-61-680-8480\", \"hours\": null}, {\"type\": \"긴급\", \"value\": \"+82-61-680-8457\", \"hours\": null}]}, {\"seq\": 2, \"role\": \"공급자\", \"name\": \"롯데 엠시시\", \"site\": null, \"address\": \"서울특별시 송파구 올림픽로 300 롯데월드타워 14F\", \"postcode\": null, \"department\": \"영업팀\", \"contacts\": [{\"type\": \"대표\", \"value\": \"+82-2-840-0916\", \"hours\": null}, {\"type\": \"팩스\", \"value\": \"+82-2-840-0919\", \"hours\": null}, {\"type\": \"긴급\", \"value\": \"+82-2-840-0962\", \"hours\": null}]}], \"hazard\": {\"classified\": true, \"classes\": [{\"seq\": 1, \"group\": \"물리적\", \"class_code\": \"PH_FLAM_GAS\", \"category\": \"1\", \"route_form\": null, \"effect\": null, \"target_organs\": [], \"raw\": \"인화성 가스 : 구분 1\"}, {\"seq\": 2, \"group\": \"물리적\", \"class_code\": \"PH_PRESS_GAS\", \"category\": \"압축가스\", \"route_form\": null, \"effect\": null, \"target_organs\": [], \"raw\": \"고압가스 : 압축가스\"}, {\"seq\": 3, \"group\": \"건강\", \"class_code\": \"HH_SKIN_CORR\", \"category\": \"2\", \"route_form\": null, \"effect\": null, \"target_organs\": [], \"raw\": \"피부 부식성 / 피부 자극성 : 구분 2\"}, {\"seq\": 4, \"group\": \"건강\", \"class_code\": \"HH_EYE_DMG\", \"category\": \"2\", \"route_form\": null, \"effect\": null, \"target_organs\": [], \"raw\": \"심한 눈 손상성 / 눈 자극성 : 구분 2\"}, {\"seq\": 5, \"group\": \"건강\", \"class_code\": \"HH_CARCINOGEN\", \"category\": \"1A\", \"route_form\": null, \"effect\": null, \"target_organs\": [], \"raw\": \"발암성 : 구분 1A\"}, {\"seq\": 6, \"group\": \"건강\", \"class_code\": \"HH_MUTAGEN\", \"category\": \"1B\", \"route_form\": null, \"effect\": null, \"target_organs\": [], \"raw\": \"생식세포 변이원성 : 구분 1B\"}, {\"seq\": 7, \"group\": \"건강\", \"class_code\": \"HH_STOT_SE\", \"category\": \"3\", \"route_form\": null, \"effect\": \"마취작용\", \"target_organs\": [], \"raw\": \"특정표적장기 독성 물질(1회 노출) : 구분 3(마취작용)\"}], \"signal_word\": \"위험\", \"pictograms\": [{\"code\": \"GHS02\", \"detection\": \"이미지판독\"}, {\"code\": \"GHS08\", \"detection\": \"이미지판독\"}, {\"code\": \"GHS07\", \"detection\": \"이미지판독\"}, {\"code\": \"GHS04\", \"detection\": \"이미지판독\"}], \"h_statements\": [{\"seq\": 1, \"code\": \"H220\", \"system\": \"GHS\", \"mark\": null, \"text\": \"극인화성 가스\"}, {\"seq\": 2, \"code\": \"H280\", \"system\": \"GHS\", \"mark\": null, \"text\": \"고압가스 : 가열하면 폭발할 수 있음.\"}, {\"seq\": 3, \"code\": \"H315\", \"system\": \"GHS\", \"mark\": null, \"text\": \"피부에 자극을 일으킴.\"}, {\"seq\": 4, \"code\": \"H319\", \"system\": \"GHS\", \"mark\": null, \"text\": \"눈에 심한 자극을 일으킴.\"}, {\"seq\": 5, \"code\": \"H336\", \"system\": \"GHS\", \"mark\": null, \"text\": \"졸음 또는 현기증을 일으킬 수 있음.\"}, {\"seq\": 6, \"code\": \"H340\", \"system\": \"GHS\", \"mark\": null, \"text\": \"유전적인 결함을 일으킬 수 있음.\"}, {\"seq\": 7, \"code\": \"H350\", \"system\": \"GHS\", \"mark\": null, \"text\": \"암을 일으킬 수 있음.\"}], \"p_statements\": [{\"seq\": 1, \"code\": \"P201\", \"type\": \"예방\", \"text\": \"사용 전 취급 설명서를 확보하시오.\"}, {\"seq\": 2, \"code\": \"P202\", \"type\": \"예방\", \"text\": \"모든 안전 예방조치 문구를 읽고 이해하기 전에는 취급하지 마시오.\"}, {\"seq\": 3, \"code\": \"P210\", \"type\": \"예방\", \"text\": \"열, 고온의 표면, 스파크, 화염 및 그 밖의 점화원으로부터 멀리하시오. 금연\"}, {\"seq\": 4, \"code\": \"P261\", \"type\": \"예방\", \"text\": \"가스·미스트·증기·스프레이의 흡입을 피하시오.\"}, {\"seq\": 5, \"code\": \"P264\", \"type\": \"예방\", \"text\": \"취급 후에는 취급 부위를 철저히 씻으시오.\"}, {\"seq\": 6, \"code\": \"P271\", \"type\": \"예방\", \"text\": \"옥외 또는 환기가 잘 되는 곳에서만 취급하시오.\"}, {\"seq\": 7, \"code\": \"P280\", \"type\": \"예방\", \"text\": \"(보호장갑·보호의·보안경·안면보호구)를(을) 착용하시오.\"}, {\"seq\": 8, \"code\": \"P302+P352\", \"type\": \"대응\", \"text\": \"피부에 묻으면 다량의 물/(비누)로 씻으시오.\"}, {\"seq\": 9, \"code\": \"P304+P340\", \"type\": \"대응\", \"text\": \"흡입하면 신선한 공기가 있는 곳으로 옮기고 호흡하기 쉬운 자세로 안정을 취하시오.\"}, {\"seq\": 10, \"code\": \"P305+P351+P338\", \"type\": \"대응\", \"text\": \"눈에 묻으면 몇 분간 물로 조심해서 씻으시오. 가능하면 콘택트렌즈를 제거하시오. 계속 씻으시오.\"}, {\"seq\": 11, \"code\": \"P308+P313\", \"type\": \"대응\", \"text\": \"노출되거나 노출이 우려되면, 의학적인 조치/조언을 받으시오.\"}, {\"seq\": 12, \"code\": \"P312\", \"type\": \"대응\", \"text\": \"불편함을 느끼면 의료기관(의사)의 진찰을 받으시오.\"}, {\"seq\": 13, \"code\": \"P321\", \"type\": \"대응\", \"text\": \"응급처치(눈에 들어갔을 때는 다량의 흐르는 물로 세척, 피부에 접촉했을 때는 다량의 흐르는 물로 세척, 흡입했을 때 신선한 공기로 이동, 먹었을 때 구토를 유발할지에 대하여 의료진의 조언을 구함)를 하시오.\"}, {\"seq\": 14, \"code\": \"P332+P313\", \"type\": \"대응\", \"text\": \"피부 자극이 나타나면 의학적인 조치/조언을 받으시오.\"}, {\"seq\": 15, \"code\": \"P337+P313\", \"type\": \"대응\", \"text\": \"눈에 자극이 지속되면 의학적인 조치/조언을 받으시오.\"}, {\"seq\": 16, \"code\": \"P362+P364\", \"type\": \"대응\", \"text\": \"오염된 의류를 벗고 다시 사용 전 세척하시오.\"}, {\"seq\": 17, \"code\": \"P377\", \"type\": \"대응\", \"text\": \"누출성 가스 화재; 누출을 안전하게 막을 수 없다면 불을 끄려하지 마시오.\"}, {\"seq\": 18, \"code\": \"P381\", \"type\": \"대응\", \"text\": \"누출 시 모든 점화원을 제거하시오.\"}, {\"seq\": 19, \"code\": \"P403\", \"type\": \"저장\", \"text\": \"환기가 잘 되는 곳에 보관하시오.\"}, {\"seq\": 20, \"code\": \"P403+P233\", \"type\": \"저장\", \"text\": \"용기는 환기가 잘 되는 곳에 보관하시오. 용기를 단단히 밀폐하시오.\"}, {\"seq\": 21, \"code\": \"P405\", \"type\": \"저장\", \"text\": \"잠금장치를 하여 저장하시오.\"}, {\"seq\": 22, \"code\": \"P410+P403\", \"type\": \"저장\", \"text\": \"직사광선을 피하시오. 환기가 잘 되는 곳에 보관하시오.\"}, {\"seq\": 23, \"code\": \"P501\", \"type\": \"폐기\", \"text\": \"폐기물 관련 법령에 따라 내용물/용기를 폐기하시오.\"}], \"other_hazards\": [{\"seq\": 1, \"key\": \"유해·위험성 분류기준에 포함되지 않는 기타 유해·위험성\", \"value\": \"자료 없음.\", \"text\": \"다. 유해·위험성 분류기준에 포함되지 않는 기타 유해·위험성: 자료 없음.\"}], \"nfpa\": {\"health\": null, \"fire\": null, \"reactivity\": null, \"special\": null}}, \"composition\": {\"type\": \"혼합물\", \"no_hazardous_component\": false}, \"components\": [{\"seq\": 1, \"name\": \"프로페인(냉각 액체)\", \"name_en\": null, \"synonyms\": [\"다이메틸메테인 (DIMETHYLMETHANE)\"], \"cas_no\": \"74-98-6\", \"ke_no\": \"KE-29258\", \"content\": {\"raw\": \"0.1-0.5\", \"lower_op\": \">=\", \"lower\": 0.1, \"upper_op\": \"<=\", \"upper\": 0.5, \"unit\": \"%\", \"dp\": 1, \"status\": \"값있음\"}, \"content_basis\": \"미표기\", \"trade_secret\": false}, {\"seq\": 2, \"name\": \"아세틸렌\", \"name_en\": null, \"synonyms\": [\"ETHYNE\"], \"cas_no\": \"74-86-2\", \"ke_no\": \"KE-14085\", \"content\": {\"raw\": \"0.1이하\", \"upper_op\": \"<=\", \"upper\": 0.1, \"unit\": \"%\", \"dp\": 1, \"status\": \"값있음\"}, \"content_basis\": \"미표기\", \"trade_secret\": false}, {\"seq\": 3, \"name\": \"C5+HEAVIERS\", \"name_en\": null, \"synonyms\": [], \"cas_no\": null, \"ke_no\": null, \"content\": {\"raw\": \"0.2이하\", \"upper_op\": \"<=\", \"upper\": 0.2, \"unit\": \"%\", \"dp\": 1, \"status\": \"값있음\"}, \"content_basis\": \"미표기\", \"trade_secret\": false}, {\"seq\": 4, \"name\": \"아이소뷰테인\", \"name_en\": null, \"synonyms\": [\"2-메틸 프로페인 (2-METHYL PROPANE)\"], \"cas_no\": \"75-28-5\", \"ke_no\": \"KE-24865\", \"content\": {\"raw\": \"2.0~6.0\", \"lower_op\": \">=\", \"lower\": 2, \"upper_op\": \"<=\", \"upper\": 6, \"unit\": \"%\", \"dp\": 1, \"status\": \"값있음\"}, \"content_basis\": \"미표기\", \"trade_secret\": false}, {\"seq\": 5, \"name\": \"부탄\", \"name_en\": null, \"synonyms\": [], \"cas_no\": \"106-97-8\", \"ke_no\": \"KE-03751\", \"content\": {\"raw\": \"10.0~15.0\", \"lower_op\": \">=\", \"lower\": 10, \"upper_op\": \"<=\", \"upper\": 15, \"unit\": \"%\", \"dp\": 1, \"status\": \"값있음\"}, \"content_basis\": \"미표기\", \"trade_secret\": false}, {\"seq\": 6, \"name\": \"1-부텐\", \"name_en\": null, \"synonyms\": [\"ALPHA-BUTYLENE\"], \"cas_no\": \"106-98-9\", \"ke_no\": \"KE-03887\", \"content\": {\"raw\": \"45.0~50.0\", \"lower_op\": \">=\", \"lower\": 45, \"upper_op\": \"<=\", \"upper\": 50, \"unit\": \"%\", \"dp\": 1, \"status\": \"값있음\"}, \"content_basis\": \"미표기\", \"trade_secret\": false}, {\"seq\": 7, \"name\": \"아이소부텐\", \"name_en\": null, \"synonyms\": [\"2-메틸프로펜(2-METHYLPROPENE)\", \"아이소뷰틸렌(ISOBUTYLENE)\"], \"cas_no\": \"115-11-7\", \"ke_no\": \"KE-24902\", \"content\": {\"raw\": \"5.0~7.0\", \"lower_op\": \">=\", \"lower\": 5, \"upper_op\": \"<=\", \"upper\": 7, \"unit\": \"%\", \"dp\": 1, \"status\": \"값있음\"}, \"content_basis\": \"미표기\", \"trade_secret\": false}, {\"seq\": 8, \"name\": \"트랜스-2-부텐\", \"name_en\": null, \"synonyms\": [\"베타-뷰틸렌 (BETA-BUTYLENE)\"], \"cas_no\": \"624-64-6\", \"ke_no\": \"KE-03889\", \"content\": {\"raw\": \"15.0~17.0\", \"lower_op\": \">=\", \"lower\": 15, \"upper_op\": \"<=\", \"upper\": 17, \"unit\": \"%\", \"dp\": 1, \"status\": \"값있음\"}, \"content_basis\": \"미표기\", \"trade_secret\": false}, {\"seq\": 9, \"name\": \"시스-2-부텐\", \"name_en\": null, \"synonyms\": [\"2-부텐-시스(2-BUTENE-CIS)\", \"(Z)-2-BUTENE\"], \"cas_no\": \"590-18-1\", \"ke_no\": \"KE-03890\", \"content\": {\"raw\": \"8.0~10.0\", \"lower_op\": \">=\", \"lower\": 8, \"upper_op\": \"<=\", \"upper\": 10, \"unit\": \"%\", \"dp\": 1, \"status\": \"값있음\"}, \"content_basis\": \"미표기\", \"trade_secret\": false}, {\"seq\": 10, \"name\": \"1,3-부타디엔\", \"name_en\": null, \"synonyms\": [], \"cas_no\": \"106-99-0\", \"ke_no\": \"KE-03719\", \"content\": {\"raw\": \"1.0이하\", \"upper_op\": \"<=\", \"upper\": 1, \"unit\": \"%\", \"dp\": 1, \"status\": \"값있음\"}, \"content_basis\": \"미표기\", \"trade_secret\": false}, {\"seq\": 11, \"name\": \"1,2-부타디엔\", \"name_en\": null, \"synonyms\": [\"메틸알렌(METHYLALLEN)\"], \"cas_no\": \"590-19-2\", \"ke_no\": \"KE-03718\", \"content\": {\"raw\": \"1.0이하\", \"upper_op\": \"<=\", \"upper\": 1, \"unit\": \"%\", \"dp\": 1, \"status\": \"값있음\"}, \"content_basis\": \"미표기\", \"trade_secret\": false}]}], \"evidence\": [{\"msds_index\": 0, \"field\": \"meta.msds_no\", \"page\": 1, \"source_text\": \"MSDS 번호: AA03629-0000000003\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"meta.doc_code\", \"page\": 1, \"source_text\": \"○ 정리번호 : MSDS LMCC-004\", \"rules\": [], \"note\": \"정리번호를 회사 자체 문서번호로 봄\"}, {\"msds_index\": 0, \"field\": \"meta.first_issue_date\", \"page\": 37, \"source_text\": \"나. 최초 작성일자 : 2008 년 3 월 31 일\", \"rules\": [\"R01\"], \"note\": \"머리글의 '작성일 2015 년 01 월 01 일'과 다르나 16항 최초 작성일자를 적용\"}, {\"msds_index\": 0, \"field\": \"meta.last_revision_date\", \"page\": 37, \"source_text\": \"다. 개정 횟수 및 최종 개정일자 : 8 회, 2021 년 10 월 29 일\", \"rules\": [\"R01\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"meta.revision_no\", \"page\": 37, \"source_text\": \"다. 개정 횟수 및 최종 개정일자 : 8 회, 2021 년 10 월 29 일\", \"rules\": [], \"note\": \"'8 회' → 8\"}, {\"msds_index\": 0, \"field\": \"meta.source_note\", \"page\": 37, \"source_text\": \"본 MSDS(물질안전보건자료)는 한국산업안전보건공단에서 제공한 MSDS(KOSHA), NITE, ECHA, SIDS, IPCS, NCIS 등을 근거로 작성한 자료입니다.\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"meta.page_end\", \"page\": 37, \"source_text\": \"37/37 Page\", \"rules\": [\"R16\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"product.name\", \"page\": 1, \"source_text\": \"○ 제 품 명 : Mixed C4(C4R2)\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"product.uses\", \"page\": 1, \"source_text\": \"○ 용도 : 원료 및 중간체\", \"rules\": [\"R11\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"product.restrictions\", \"page\": 1, \"source_text\": \"○ 사용상의 제한 : 살생물제 용도로 사용할 수 없음\", \"rules\": [\"R11\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"companies[0]\", \"page\": 1, \"source_text\": \"회 사 명 : 롯데엠시시 | 주 소 : 전라남도 여수시 여수산단 4로 129 롯데케미칼 여수 3공장 롯데엠시시 MMA 2공장 | 전화번호 : +82-61-680-8444 | 팩스번호 : +82-61-680-8480 | 긴급연락번호 : +82-61-680-8457\", \"rules\": [\"R12\"], \"note\": \"제조자 정보\"}, {\"msds_index\": 0, \"field\": \"companies[1]\", \"page\": 1, \"source_text\": \"회 사 명 : 롯데 엠시시 | 주 소 : 서울특별시 송파구 올림픽로 300 롯데월드타워 14F | 전화번호 : +82-2-840-0916 | 팩스번호 : +82-2-840-0919 | 긴급연락번호 : +82-2-840-0962\", \"rules\": [\"R12\"], \"note\": \"공급자/유통업자 정보를 공급자로 기록\"}, {\"msds_index\": 0, \"field\": \"hazard.classes[0]\", \"page\": 1, \"source_text\": \"- 인화성 가스 : 구분 1\", \"rules\": [\"R07\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"hazard.classes[1]\", \"page\": 1, \"source_text\": \"- 고압가스 : 압축가스\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"hazard.classes[2]\", \"page\": 2, \"source_text\": \"- 피부 부식성 / 피부 자극성 : 구분 2\", \"rules\": [\"R07\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"hazard.classes[3]\", \"page\": 2, \"source_text\": \"- 심한 눈 손상성 / 눈 자극성 : 구분 2\", \"rules\": [\"R07\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"hazard.classes[4]\", \"page\": 2, \"source_text\": \"- 발암성 : 구분 1A\", \"rules\": [\"R07\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"hazard.classes[5]\", \"page\": 2, \"source_text\": \"- 생식세포 변이원성 : 구분 1B\", \"rules\": [\"R07\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"hazard.classes[6]\", \"page\": 2, \"source_text\": \"- 특정표적장기 독성 물질(1회 노출) : 구분 3(마취작용)\", \"rules\": [\"R07\"], \"note\": \"괄호 '마취작용'을 effect로 분리\"}, {\"msds_index\": 0, \"field\": \"hazard.signal_word\", \"page\": 2, \"source_text\": \"○ 신호어 : 위험\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"hazard.pictograms\", \"page\": 2, \"source_text\": \"○ 그림 문자\", \"rules\": [], \"note\": \"이미지에서 불꽃, 건강유해성, 감탄부호, 가스실린더 4개 확인\"}, {\"msds_index\": 0, \"field\": \"hazard.h_statements\", \"page\": 2, \"source_text\": \"- H220 : 극인화성 가스 ... - H350 : 암을 일으킬 수 있음.\", \"rules\": [\"R05\"], \"note\": \"7개 H코드\"}, {\"msds_index\": 0, \"field\": \"hazard.p_statements\", \"page\": 2, \"source_text\": \"- P201 : 사용 전 취급 설명서를 확보하시오. ... - P280\", \"rules\": [\"R05\"], \"note\": \"예방 P201~P280은 2쪽, 대응·저장·폐기는 3쪽\"}, {\"msds_index\": 0, \"field\": \"hazard.p_statements\", \"page\": 3, \"source_text\": \"- P302+P352 ... - P501 : 폐기물 관련 법령에 따라 내용물/용기를 폐기하시오.\", \"rules\": [\"R05\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"hazard.other_hazards\", \"page\": 3, \"source_text\": \"다. 유해·위험성 분류기준에 포함되지 않는 기타 유해·위험성: 자료 없음.\", \"rules\": [\"R14\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"components[0]\", \"page\": 3, \"source_text\": \"프로페인(냉각 액체) | 다이메틸메테인 (DIMETHYLMETHANE) | 74-98-6 /KE-29258 | 0.1-0.5\", \"rules\": [\"R02\", \"R03\", \"R04\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"components[1]\", \"page\": 3, \"source_text\": \"아세틸렌 | ETHYNE | 74-86-2 | 0.1이하\", \"rules\": [\"R02\", \"R03\", \"R04\"], \"note\": \"KE-14085는 4쪽 첫 행에 이어짐\"}, {\"msds_index\": 0, \"field\": \"components[2]\", \"page\": 4, \"source_text\": \"C5+HEAVIERS | 자료 없음 | 자료 없음 | 0.2이하\", \"rules\": [\"R04\"], \"note\": \"CAS '자료 없음'으로 null\"}, {\"msds_index\": 0, \"field\": \"components[3]\", \"page\": 4, \"source_text\": \"아이소뷰테인 | 2-메틸 프로페인 (2-METHYL PROPANE) | 75-28-5 /KE-24865 | 2.0~6.0\", \"rules\": [\"R02\", \"R03\", \"R04\", \"R06\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"components[4]\", \"page\": 4, \"source_text\": \"부탄 | 자료 없음 | 106-97-8 /KE-03751 | 10.0~15.0\", \"rules\": [\"R02\", \"R03\", \"R04\", \"R06\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"components[5]\", \"page\": 4, \"source_text\": \"1-부텐 | ALPHA-BUTYLENE | 106-98-9 /KE-03887 | 45.0~50.0\", \"rules\": [\"R02\", \"R03\", \"R04\", \"R06\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"components[6]\", \"page\": 4, \"source_text\": \"아이소부텐 | 2-메틸프로펜(2-METHYLPROPENE); 아이소뷰틸렌(ISOBUTYLENE) | 115-11-7 /KE-24902 | 5.0~7.0\", \"rules\": [\"R02\", \"R03\", \"R04\", \"R11\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"components[7]\", \"page\": 4, \"source_text\": \"트랜스-2-부텐 | 베타-뷰틸렌 (BETA-BUTYLENE) | 624-64-6 /KE-03889 | 15.0~17.0\", \"rules\": [\"R02\", \"R03\", \"R04\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"components[8]\", \"page\": 4, \"source_text\": \"시스-2-부텐 | 2-부텐-시스(2-BUTENE-CIS); (Z)-2-BUTENE | 590-18-1 /KE-03890 | 8.0~10.0\", \"rules\": [\"R02\", \"R03\", \"R04\", \"R11\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"components[9]\", \"page\": 4, \"source_text\": \"1,3-부타디엔 | 자료 없음 | 106-99-0 /KE-03719 | 1.0이하\", \"rules\": [\"R02\", \"R03\", \"R04\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"components[10]\", \"page\": 4, \"source_text\": \"1,2-부타디엔 | 메틸알렌(METHYLALLEN) | 590-19-2 /KE-03718 | 1.0이하\", \"rules\": [\"R02\", \"R03\", \"R04\"], \"note\": null}]}"
+}

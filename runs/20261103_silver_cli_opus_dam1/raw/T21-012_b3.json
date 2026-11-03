@@ -1,0 +1,3034 @@
+{
+  "doc_id": "T21-012",
+  "bundle": "b3",
+  "model": "claude-opus-5-5",
+  "mode": "claude -p json-schema",
+  "finish_reason": "tool_use",
+  "usage": {
+    "prompt_tokens": 67706,
+    "completion_tokens": 28282,
+    "cached_tokens": 8451,
+    "reasoning_tokens": 3879,
+    "notional_cost_usd": 1.0413622
+  },
+  "seconds": 191.3,
+  "request_usage": [
+    {
+      "prompt_tokens": 67706,
+      "completion_tokens": 28282,
+      "cached_tokens": 8451,
+      "reasoning_tokens": 3879,
+      "notional_cost_usd": 1.0413622
+    }
+  ],
+  "attempts": 1,
+  "errors": [],
+  "parsed": {
+    "msds": [
+      {
+        "toxicity": [
+          {
+            "comp_ref": "MIX",
+            "endpoint": null,
+            "descriptor": "결과기술",
+            "exposure_type": "호흡기",
+            "status": "자료없음",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": null,
+            "descriptor": "결과기술",
+            "exposure_type": "경구",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "삼키면 유해함",
+                "text": "- 삼키면 유해함"
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": null,
+            "descriptor": "결과기술",
+            "exposure_type": "눈·피부",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "눈에 심한 손상을 일으킴",
+                "text": "- 눈에 심한 손상을 일으킴"
+              },
+              {
+                "seq": 2,
+                "value": "알레르기성 피부 반응을 일으킬 수 있음",
+                "text": "- 알레르기성 피부 반응을 일으킬 수 있음"
+              },
+              {
+                "seq": 3,
+                "value": "피부에 심한 화상과 눈에 손상을 일으킴",
+                "text": "- 피부에 심한 화상과 눈에 손상을 일으킴"
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_ORAL",
+            "descriptor": "ATE",
+            "q": {
+              "raw": "300mg/kg < ATEmix <= 2000mg/kg",
+              "lower_op": ">",
+              "lower": 300,
+              "upper_op": "<=",
+              "upper": 2000,
+              "unit": "mg/kg",
+              "status": "값있음"
+            },
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_ORAL",
+            "descriptor": "LD50",
+            "q": {
+              "raw": "LD50 1219 ㎎/㎏ Rat",
+              "value": 1219,
+              "unit": "mg/kg",
+              "status": "값있음"
+            },
+            "species": "Rat",
+            "sex": "미표기",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "4",
+            "endpoint": "TX_ORAL",
+            "descriptor": "LD50",
+            "q": {
+              "raw": "LD50 > 90000 ㎎/㎏",
+              "lower_op": ">",
+              "lower": 90000,
+              "unit": "mg/kg",
+              "status": "값있음"
+            },
+            "converted": {
+              "raw": "LD50 > 90 ml/kg",
+              "lower_op": ">",
+              "lower": 90,
+              "unit": "ml/kg",
+              "status": "값있음"
+            },
+            "species": "Rat",
+            "sex": "미표기",
+            "data_source": "HSDB",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "TX_ORAL",
+            "descriptor": "LD50",
+            "q": {
+              "raw": "LD50 > 5000 ㎎/㎏",
+              "lower_op": ">",
+              "lower": 5000,
+              "unit": "mg/kg",
+              "status": "값있음"
+            },
+            "species": "Rat",
+            "sex": "미표기",
+            "read_across_cas": "68442-69-3",
+            "guideline": "OECD TG 401, GLP",
+            "data_source": "ECHA",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "3",
+            "endpoint": "TX_ORAL",
+            "descriptor": "LD50",
+            "q": {
+              "raw": "LD50 2140 mg/kg",
+              "value": 2140,
+              "unit": "mg/kg",
+              "status": "값있음"
+            },
+            "species": "Rat",
+            "sex": "미표기",
+            "data_source": "ECHA",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_DERMAL",
+            "descriptor": "ATE",
+            "q": {
+              "raw": ">5000mg/kg",
+              "lower_op": ">",
+              "lower": 5000,
+              "unit": "mg/kg",
+              "status": "값있음"
+            },
+            "classification": "분류되지 않음 (구분 외)",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_DERMAL",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "4",
+            "endpoint": "TX_DERMAL",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "TX_DERMAL",
+            "descriptor": "LD50",
+            "q": {
+              "raw": "LD50 > 2000 ㎎/㎏",
+              "lower_op": ">",
+              "lower": 2000,
+              "unit": "mg/kg",
+              "status": "값있음"
+            },
+            "species": "Rat",
+            "sex": "미표기",
+            "classification": "Not classified",
+            "guideline": "OECD TG 402, GLP",
+            "data_source": "ECHA",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "No death",
+                "text": "No death"
+              }
+            ]
+          },
+          {
+            "comp_ref": "3",
+            "endpoint": "TX_DERMAL",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_INHAL",
+            "descriptor": "ATE",
+            "physical_form": "증기",
+            "duration_value": 4,
+            "duration_unit": "hr",
+            "q": {
+              "raw": "Vapor 2.0mg/L 4hr < ATEmix <=  10.0mg/L 4hr",
+              "lower_op": ">",
+              "lower": 2,
+              "upper_op": "<=",
+              "upper": 10,
+              "unit": "mg/L",
+              "dp": 1,
+              "status": "값있음"
+            },
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_INHAL",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "4",
+            "endpoint": "TX_INHAL",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "TX_INHAL",
+            "descriptor": "LC50",
+            "physical_form": "분진·미스트",
+            "duration_value": 4,
+            "duration_unit": "hr",
+            "q": {
+              "raw": "Aerosol LC50 71 mg/L 4hr",
+              "value": 71,
+              "unit": "mg/L",
+              "status": "값있음"
+            },
+            "species": "Rat",
+            "sex": "미표기",
+            "data_source": "NCIS",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "3",
+            "endpoint": "TX_INHAL",
+            "descriptor": "LC50",
+            "physical_form": "분진·미스트",
+            "duration_value": 4,
+            "duration_unit": "hr",
+            "q": {
+              "raw": "Aerosol LC50 0.375 mg/L 4 hr",
+              "value": 0.375,
+              "unit": "mg/L",
+              "dp": 3,
+              "status": "값있음"
+            },
+            "species": "Rat",
+            "sex": "미표기",
+            "data_source": "NCIS",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_SKIN",
+            "descriptor": "결과기술",
+            "data_source": "NICS",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "피부 부식성 물질임",
+                "refs": [
+                  "1"
+                ],
+                "text": "- [도데실벤젠 설포닉애씨드] : 피부 부식성 물질임 (NICS)"
+              }
+            ]
+          },
+          {
+            "comp_ref": "4",
+            "endpoint": "TX_SKIN",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "TX_SKIN",
+            "descriptor": "결과기술",
+            "species": "토끼",
+            "data_source": "NCIS",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "토끼를 이용한 시험 결과 피부 자극성 물질임",
+                "refs": [
+                  "2"
+                ],
+                "text": "- [리니어 알킬 벤젠] : 토끼를 이용한 시험 결과 피부 자극성 물질임 (NCIS)"
+              }
+            ]
+          },
+          {
+            "comp_ref": "3",
+            "endpoint": "TX_SKIN",
+            "descriptor": "결과기술",
+            "classification": "EU Harmonized Cat. 1A",
+            "data_source": "ECHA",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "피부에 심한 화상과 눈에 손상을 일으킴",
+                "refs": [
+                  "3"
+                ],
+                "text": "- [황산] : 피부에 심한 화상과 눈에 손상을 일으킴 (EU Harmonized Cat. 1A) (ECHA)"
+              }
+            ]
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_EYE",
+            "descriptor": "결과기술",
+            "classification": "구분 1",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "고시에 의거하여 피부 부식성으로 분류됨에 따라 구분 1로 분류됨",
+                "refs": [
+                  "1"
+                ],
+                "text": "- [도데실벤젠 설포닉애씨드] : 고시에 의거하여 피부 부식성으로 분류됨에 따라 구분 1로 분류됨"
+              }
+            ]
+          },
+          {
+            "comp_ref": "4",
+            "endpoint": "TX_EYE",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "TX_EYE",
+            "descriptor": "결과기술",
+            "species": "토끼",
+            "classification": "분류되지 않음",
+            "data_source": "NCIS",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "토끼를 이용한 시험결과 약하게 눈 자극성을 나타내지만, 분류되지 않음",
+                "refs": [
+                  "2"
+                ],
+                "text": "- [리니어 알킬 벤젠] : 토끼를 이용한 시험결과 약하게 눈 자극성을 나타내지만, 분류되지 않음 (NCIS)"
+              }
+            ]
+          },
+          {
+            "comp_ref": "3",
+            "endpoint": "TX_EYE",
+            "descriptor": "결과기술",
+            "species": "토끼",
+            "data_source": "NCIS",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "토끼를 이용한 눈 자극성 시험결과, 심한 눈 손상 물질임",
+                "refs": [
+                  "3"
+                ],
+                "text": "- [황산] : 토끼를 이용한 눈 자극성 시험결과, 심한 눈 손상 물질임 (NCIS)"
+              }
+            ]
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_RESP_SENS",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "4",
+            "endpoint": "TX_RESP_SENS",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "TX_RESP_SENS",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "3",
+            "endpoint": "TX_RESP_SENS",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_SKIN_SENS",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "4",
+            "endpoint": "TX_SKIN_SENS",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "TX_SKIN_SENS",
+            "descriptor": "결과기술",
+            "species": "기니피그",
+            "guideline": "OECD TG 406",
+            "data_source": "ECHA",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "기니피그를 이용한 Maximisation 시험 결과 피부 과민성을 띄지 않음",
+                "refs": [
+                  "2"
+                ],
+                "text": "- [리니어 알킬 벤젠] : 기니피그를 이용한 Maximisation 시험 결과 피부 과민성을 띄지 않음 (OECD TG 406) (ECHA)"
+              }
+            ]
+          },
+          {
+            "comp_ref": "3",
+            "endpoint": "TX_SKIN_SENS",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_MUTA",
+            "descriptor": "결과기술",
+            "data_source": "NICS",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "[in vitro] 음성(복귀돌연변이시험) 음성(염색체이상시험, Chinese hamster lung cells) [in vivo] 음성(소핵시험, mouse)",
+                "refs": [
+                  "1"
+                ],
+                "text": "- [도데실벤젠 설포닉애씨드] : [in vitro] 음성(복귀돌연변이시험) 음성(염색체이상시험, Chinese hamster lung cells) [in vivo] 음성(소핵시험, mouse) (NICS)"
+              }
+            ]
+          },
+          {
+            "comp_ref": "4",
+            "endpoint": "TX_MUTA",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "TX_MUTA",
+            "descriptor": "결과기술",
+            "guideline": "OECD TG 474, GLP; OECD TG 475, GLP; EPA OPPTS 870.5265, GLP",
+            "data_source": "ECHA",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "In vivo 마우스를 이용한 소핵 시험 결과 음성 (OECD TG 474, GLP), 랫드를 이용한 염색체 이상 시험 결과 음성 (OECD TG 475, GLP)/ In vitro 박테리아를 이용한 돌연변이 시험 결과 대사활성화 유무와 관계없이 음성 (EPA OPPTS 870.5265, GLP)",
+                "refs": [
+                  "2"
+                ],
+                "text": "- [리니어 알킬 벤젠] : In vivo 마우스를 이용한 소핵 시험 결과 음성 (OECD TG 474, GLP), 랫드를 이용한 염색체 이상 시험 결과 음성 (OECD TG 475, GLP)/ In vitro 박테리아를 이용한 돌연변이 시험 결과 대사활성화 유무와 관계없이 음성 (EPA OPPTS 870.5265, GLP) (ECHA)"
+              }
+            ]
+          },
+          {
+            "comp_ref": "3",
+            "endpoint": "TX_MUTA",
+            "descriptor": "결과기술",
+            "read_across_cas": "7757-82-6",
+            "guideline": "OECD TG 473, GLP; OECD TG 476, GLP",
+            "data_source": "ECHA",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "In vitro 차이니즈 햄스터의 폐 섬유아세포(V79)를 이용한 염색체 이상 시험 결과 대사활성계 유무에 관계없이 음성 (Read-across 7757-82-6) (OECD TG 473, GLP), in vitro 마우스 림프종 L5178Y 세포를 이용한 유전자 돌연변이 시험 결과 대사활성계 유무와 관계없이 음성 (Read-across 7757-82-6) (OECD TG 476, GLP)",
+                "refs": [
+                  "3"
+                ],
+                "text": "- [황산] : In vitro 차이니즈 햄스터의 폐 섬유아세포(V79)를 이용한 염색체 이상 시험 결과 대사활성계 유무에 관계없이 음성 (Read-across 7757-82-6) (OECD TG 473, GLP), in vitro 마우스 림프종 L5178Y 세포를 이용한 유전자 돌연변이 시험 결과 대사활성계 유무와 관계없이 음성 (Read-across 7757-82-6) (OECD TG 476, GLP) (ECHA)"
+              }
+            ]
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_REPRO",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "4",
+            "endpoint": "TX_REPRO",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "TX_REPRO",
+            "descriptor": "NOAEL",
+            "q": {
+              "raw": "NOAEL 50 mg/kg bw/day",
+              "value": 50,
+              "unit": "mg/kg bw/day",
+              "status": "값있음"
+            },
+            "species": "랫드",
+            "guideline": "OECD TG 416, GLP",
+            "data_source": "ECHA",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "랫드를 이용한 시험 결과 유의한 독성 영향 관찰되지 않음",
+                "refs": [
+                  "2"
+                ],
+                "text": "랫드를 이용한 시험 결과 유의한 독성 영향 관찰되지 않음 NOAEL 50 mg/kg bw/day (OECD TG 416, GLP) (ECHA)"
+              }
+            ]
+          },
+          {
+            "comp_ref": "3",
+            "endpoint": "TX_REPRO",
+            "descriptor": null,
+            "q": {
+              "raw": "NOEL 1000 mg/kg/day",
+              "value": 1000,
+              "unit": "mg/kg/day",
+              "status": "값있음"
+            },
+            "species": "랫드",
+            "read_across_cas": "7757-82-6",
+            "guideline": "OECD TG 421, GLP",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "랫드를 이용한 생식/발달 독성 시험 결과 전반적인 생식독성은 관찰되지 않음",
+                "refs": [
+                  "3"
+                ],
+                "text": "랫드를 이용한 생식/발달 독성 시험 결과 전반적인 생식독성은 관찰되지 않음 NOEL 1000 mg/kg/day (Read-across 7757-82-6) (OECD TG 421, GLP)"
+              }
+            ]
+          },
+          {
+            "comp_ref": "3",
+            "endpoint": "TX_REPRO",
+            "descriptor": null,
+            "q": {
+              "raw": "NOAEC 19.3 mg/m³",
+              "value": 19.3,
+              "unit": "mg/m3",
+              "dp": 1,
+              "status": "값있음"
+            },
+            "species": "토끼",
+            "exposure_type": "흡입",
+            "guideline": "OECD TG 414",
+            "data_source": "ECHA",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "토끼를 대상으로 흡입 노출을 통한 태아 발달 독성 시험 결과 국소 호흡기계 자극과 체중 감소 이외에 유해한 영향이 관찰되지 않음",
+                "refs": [
+                  "3"
+                ],
+                "text": "토끼를 대상으로 흡입 노출을 통한 태아 발달 독성 시험 결과 국소 호흡기계 자극과 체중 감소 이외에 유해한 영향이 관찰되지 않음 NOAEC 19.3 mg/m³ (OECD TG 414) (ECHA)"
+              }
+            ]
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_STOT_SE",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "4",
+            "endpoint": "TX_STOT_SE",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "TX_STOT_SE",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "3",
+            "endpoint": "TX_STOT_SE",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_STOT_RE",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "4",
+            "endpoint": "TX_STOT_RE",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "TX_STOT_RE",
+            "descriptor": "LOAEL",
+            "q": {
+              "raw": "LOAEL 2500 ppm",
+              "value": 2500,
+              "unit": "ppm",
+              "status": "값있음"
+            },
+            "species": "랫드",
+            "exposure_type": "반복 경구 28일",
+            "duration_value": 28,
+            "duration_unit": "day",
+            "guideline": "OECD TG 407, GLP",
+            "data_source": "ECHA",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "랫드를 이용한 반복 경구 투여 시험 결과(28일) 유의한 독성 영향 관찰되지 않음",
+                "refs": [
+                  "2"
+                ],
+                "text": "랫드를 이용한 반복 경구 투여 시험 결과(28일) 유의한 독성 영향 관찰되지 않음 LOAEL 2500 ppm (OECD TG 407, GLP) (ECHA)"
+              }
+            ]
+          },
+          {
+            "comp_ref": "3",
+            "endpoint": "TX_STOT_RE",
+            "descriptor": "결과기술",
+            "species": "랫드",
+            "exposure_type": "반복 흡입(에어로졸)",
+            "physical_form": "분진·미스트",
+            "guideline": "OECD TG 412, GLP",
+            "data_source": "ECHA",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "랫드를 이용한 반복 흡입(에어로졸) 시험 결과 심각한 독성 영향은 관찰되지 않음",
+                "refs": [
+                  "3"
+                ],
+                "text": "- [황산] : 랫드를 이용한 반복 흡입(에어로졸) 시험 결과 심각한 독성 영향은 관찰되지 않음 (OECD TG 412, GLP) (ECHA)"
+              }
+            ]
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_ASP",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "4",
+            "endpoint": "TX_ASP",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "TX_ASP",
+            "descriptor": "결과기술",
+            "guideline": "ASTM D446, GLP",
+            "data_source": "ECHA; NCIS",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "동점도 4.23 mm²/s 40 °C (ASTM D446, GLP) (ECHA)",
+                "refs": [
+                  "2"
+                ],
+                "cond": {
+                  "raw": "4.23 mm²/s",
+                  "value": 4.23,
+                  "unit": "mm2/s",
+                  "dp": 2,
+                  "status": "값있음"
+                },
+                "text": "동점도 4.23 mm²/s 40 °C (ASTM D446, GLP) (ECHA)"
+              },
+              {
+                "seq": 2,
+                "value": "삼켜서 기도로 유입되면 치명적일 수 있음 (NCIS)",
+                "refs": [
+                  "2"
+                ],
+                "text": "삼켜서 기도로 유입되면 치명적일 수 있음 (NCIS)"
+              }
+            ]
+          },
+          {
+            "comp_ref": "3",
+            "endpoint": "TX_ASP",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          }
+        ],
+        "cmr": [
+          {
+            "comp_ref": "1",
+            "hazard": "발암성",
+            "agency": "KR_CCA",
+            "status": "해당없음"
+          },
+          {
+            "comp_ref": "4",
+            "hazard": "발암성",
+            "agency": "KR_CCA",
+            "status": "해당없음"
+          },
+          {
+            "comp_ref": "2",
+            "hazard": "발암성",
+            "agency": "KR_CCA",
+            "status": "해당없음"
+          },
+          {
+            "comp_ref": "3",
+            "hazard": "발암성",
+            "agency": "KR_CCA",
+            "class": "발암성 없음",
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "hazard": "발암성",
+            "agency": "IARC",
+            "status": "해당없음"
+          },
+          {
+            "comp_ref": "4",
+            "hazard": "발암성",
+            "agency": "IARC",
+            "status": "해당없음"
+          },
+          {
+            "comp_ref": "2",
+            "hazard": "발암성",
+            "agency": "IARC",
+            "status": "해당없음"
+          },
+          {
+            "comp_ref": "3",
+            "hazard": "발암성",
+            "agency": "IARC",
+            "class": "Group 1",
+            "note": "in case of strong inorganic Acid mists",
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "hazard": "발암성",
+            "agency": "OSHA",
+            "status": "해당없음"
+          },
+          {
+            "comp_ref": "4",
+            "hazard": "발암성",
+            "agency": "OSHA",
+            "status": "해당없음"
+          },
+          {
+            "comp_ref": "2",
+            "hazard": "발암성",
+            "agency": "OSHA",
+            "status": "해당없음"
+          },
+          {
+            "comp_ref": "3",
+            "hazard": "발암성",
+            "agency": "OSHA",
+            "status": "해당없음"
+          },
+          {
+            "comp_ref": "1",
+            "hazard": "발암성",
+            "agency": "ACGIH",
+            "status": "해당없음"
+          },
+          {
+            "comp_ref": "4",
+            "hazard": "발암성",
+            "agency": "ACGIH",
+            "status": "해당없음"
+          },
+          {
+            "comp_ref": "2",
+            "hazard": "발암성",
+            "agency": "ACGIH",
+            "status": "해당없음"
+          },
+          {
+            "comp_ref": "3",
+            "hazard": "발암성",
+            "agency": "ACGIH",
+            "class": "A2",
+            "note": "When contained in strong inorganic acid mists",
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "hazard": "발암성",
+            "agency": "NTP",
+            "status": "해당없음"
+          },
+          {
+            "comp_ref": "4",
+            "hazard": "발암성",
+            "agency": "NTP",
+            "status": "해당없음"
+          },
+          {
+            "comp_ref": "2",
+            "hazard": "발암성",
+            "agency": "NTP",
+            "status": "해당없음"
+          },
+          {
+            "comp_ref": "3",
+            "hazard": "발암성",
+            "agency": "NTP",
+            "class": "K",
+            "note": "Strong inorganic acid mist",
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "hazard": "발암성",
+            "agency": "EU_CLP",
+            "status": "해당없음"
+          },
+          {
+            "comp_ref": "4",
+            "hazard": "발암성",
+            "agency": "EU_CLP",
+            "status": "해당없음"
+          },
+          {
+            "comp_ref": "2",
+            "hazard": "발암성",
+            "agency": "EU_CLP",
+            "status": "해당없음"
+          },
+          {
+            "comp_ref": "3",
+            "hazard": "발암성",
+            "agency": "EU_CLP",
+            "status": "해당없음"
+          },
+          {
+            "comp_ref": "1",
+            "hazard": "발암성",
+            "agency": "KR_OSH",
+            "status": "해당없음"
+          },
+          {
+            "comp_ref": "4",
+            "hazard": "발암성",
+            "agency": "KR_OSH",
+            "status": "해당없음"
+          },
+          {
+            "comp_ref": "2",
+            "hazard": "발암성",
+            "agency": "KR_OSH",
+            "status": "해당없음"
+          },
+          {
+            "comp_ref": "3",
+            "hazard": "발암성",
+            "agency": "KR_OSH",
+            "class": "1A",
+            "note": "강산 Mist에 한정함",
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "hazard": "생식세포변이원성",
+            "agency": "KR_OSH",
+            "status": "해당없음"
+          },
+          {
+            "comp_ref": "4",
+            "hazard": "생식세포변이원성",
+            "agency": "KR_OSH",
+            "status": "해당없음"
+          },
+          {
+            "comp_ref": "2",
+            "hazard": "생식세포변이원성",
+            "agency": "KR_OSH",
+            "status": "해당없음"
+          },
+          {
+            "comp_ref": "3",
+            "hazard": "생식세포변이원성",
+            "agency": "KR_OSH",
+            "status": "해당없음"
+          },
+          {
+            "comp_ref": "1",
+            "hazard": "생식독성",
+            "agency": "KR_OSH",
+            "status": "해당없음"
+          },
+          {
+            "comp_ref": "4",
+            "hazard": "생식독성",
+            "agency": "KR_OSH",
+            "status": "해당없음"
+          },
+          {
+            "comp_ref": "2",
+            "hazard": "생식독성",
+            "agency": "KR_OSH",
+            "status": "해당없음"
+          },
+          {
+            "comp_ref": "3",
+            "hazard": "생식독성",
+            "agency": "KR_OSH",
+            "status": "해당없음"
+          }
+        ],
+        "ecotox": [
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_FISH",
+            "descriptor": "LC50",
+            "q": {
+              "raw": "LC50 5.6 mg/L 96 hr",
+              "value": 5.6,
+              "unit": "mg/L",
+              "dp": 1,
+              "status": "값있음"
+            },
+            "species": "Cyprinus carpio",
+            "duration_value": 96,
+            "duration_unit": "hr",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "4",
+            "endpoint": "ECO_FISH",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "ECO_FISH",
+            "descriptor": "LC50",
+            "q": {
+              "raw": "LC50 > 0.041 mg/L 96hr",
+              "lower_op": ">",
+              "lower": 0.041,
+              "unit": "mg/L",
+              "dp": 3,
+              "status": "값있음"
+            },
+            "species": "Oncorhynchus mykiss",
+            "duration_value": 96,
+            "duration_unit": "hr",
+            "data_source": "NCIS",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "3",
+            "endpoint": "ECO_FISH",
+            "descriptor": "LC50",
+            "q": {
+              "raw": "LC50 > 16 ~ < 28 mg/L 96 hr",
+              "lower_op": ">",
+              "lower": 16,
+              "upper_op": "<",
+              "upper": 28,
+              "unit": "mg/L",
+              "status": "값있음"
+            },
+            "species": "Lepomis macrochirus",
+            "duration_value": 96,
+            "duration_unit": "hr",
+            "data_source": "ECHA",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_CRUST",
+            "descriptor": "EC50",
+            "q": {
+              "raw": "EC50 2.9mg/L 48hr",
+              "value": 2.9,
+              "unit": "mg/L",
+              "dp": 1,
+              "status": "값있음"
+            },
+            "species": "Daphnia magna",
+            "duration_value": 48,
+            "duration_unit": "hr",
+            "data_source": "ECHA",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "4",
+            "endpoint": "ECO_CRUST",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "ECO_CRUST",
+            "descriptor": "EC50",
+            "q": {
+              "raw": "EC50 > 0.041 mg/L 48 h",
+              "lower_op": ">",
+              "lower": 0.041,
+              "unit": "mg/L",
+              "dp": 3,
+              "status": "값있음"
+            },
+            "species": "Daphnia magna",
+            "duration_value": 48,
+            "duration_unit": "hr",
+            "guideline": "EU Method C.2, GLP",
+            "data_source": "ECHA",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "3",
+            "endpoint": "ECO_CRUST",
+            "descriptor": "EC50",
+            "q": {
+              "raw": "EC50 > 100 mg/L 48 hr",
+              "lower_op": ">",
+              "lower": 100,
+              "unit": "mg/L",
+              "status": "값있음"
+            },
+            "species": "Daphnia magna",
+            "duration_value": 48,
+            "duration_unit": "hr",
+            "guideline": "OECD TG 202, GLP",
+            "data_source": "ECHA",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_ALGAE",
+            "descriptor": "EC50",
+            "q": {
+              "raw": "EC50 111 ㎎/ℓ 72 hr",
+              "value": 111,
+              "unit": "mg/L",
+              "status": "값있음"
+            },
+            "species": "Scenedesmus subspicatus",
+            "duration_value": 72,
+            "duration_unit": "hr",
+            "data_source": "ECHA",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_ALGAE",
+            "descriptor": "NOEC",
+            "q": {
+              "raw": "NOEC 40mg/L",
+              "value": 40,
+              "unit": "mg/L",
+              "status": "값있음"
+            },
+            "species": "Scenedesmus subspicatus",
+            "data_source": "ECHA",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "4",
+            "endpoint": "ECO_ALGAE",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "ECO_ALGAE",
+            "descriptor": "EC50",
+            "q": {
+              "raw": "EC50 > 100 g/L 72 h",
+              "lower_op": ">",
+              "lower": 100,
+              "unit": "g/L",
+              "status": "값있음"
+            },
+            "species": "Desmodesmus subspicatus",
+            "duration_value": 72,
+            "duration_unit": "hr",
+            "guideline": "OECD TG 201, GLP",
+            "data_source": "ECHA",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "3",
+            "endpoint": "ECO_ALGAE",
+            "descriptor": "EC50",
+            "q": {
+              "raw": "EC50 > 100 mg/L 72 hr",
+              "lower_op": ">",
+              "lower": 100,
+              "unit": "mg/L",
+              "status": "값있음"
+            },
+            "species": "Desmodesmus subspicatus",
+            "duration_value": 72,
+            "duration_unit": "hr",
+            "guideline": "OECD TG 201, GLP",
+            "data_source": "ECHA",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_PERSIST",
+            "descriptor": "logKow",
+            "q": {
+              "raw": "log Pow 2.2 (23 ℃, pH 3.7)",
+              "value": 2.2,
+              "dp": 1,
+              "note": "23 ℃, pH 3.7",
+              "status": "값있음"
+            },
+            "data_source": "NICS",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "4",
+            "endpoint": "ECO_PERSIST",
+            "descriptor": "logKow",
+            "q": {
+              "raw": "log Kow = -1.38",
+              "value": -1.38,
+              "dp": 2,
+              "status": "값있음"
+            },
+            "data_source": "HSDB",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "ECO_PERSIST",
+            "descriptor": "logKow",
+            "q": {
+              "raw": "log Kow 7.5 ~ 9.12",
+              "lower_op": ">=",
+              "lower": 7.5,
+              "upper_op": "<=",
+              "upper": 9.12,
+              "dp": 2,
+              "status": "값있음"
+            },
+            "data_source": "IUCLID",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "3",
+            "endpoint": "ECO_PERSIST",
+            "descriptor": "logKow",
+            "q": {
+              "raw": "log Pow -1 (25℃)",
+              "value": -1,
+              "note": "25℃",
+              "status": "값있음"
+            },
+            "data_source": "ECHA",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_PERSIST",
+            "descriptor": "분해율",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "4",
+            "endpoint": "ECO_PERSIST",
+            "descriptor": "분해율",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "ECO_PERSIST",
+            "descriptor": "분해율",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "3",
+            "endpoint": "ECO_PERSIST",
+            "descriptor": "분해율",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_BIOACC",
+            "descriptor": "BCF",
+            "q": {
+              "raw": "BCF 3.162 (Estimate)",
+              "value": 3.162,
+              "dp": 3,
+              "note": "Estimate",
+              "status": "값있음"
+            },
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "4",
+            "endpoint": "ECO_BIOACC",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "ECO_BIOACC",
+            "descriptor": "BCF",
+            "q": {
+              "raw": "BCF 35 L/kg",
+              "value": 35,
+              "unit": "L/kg",
+              "status": "값있음"
+            },
+            "species": "Lepomis macrochirus",
+            "data_source": "ECHA",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "3",
+            "endpoint": "ECO_BIOACC",
+            "descriptor": "BCF",
+            "q": {
+              "raw": "BCF 3.162",
+              "value": 3.162,
+              "dp": 3,
+              "status": "값있음"
+            },
+            "data_source": "NCIS",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_PERSIST",
+            "descriptor": "분해율",
+            "q": {
+              "raw": "94 (%) 28 day",
+              "value": 94,
+              "unit": "%",
+              "status": "값있음"
+            },
+            "duration_value": 28,
+            "duration_unit": "day",
+            "data_source": "ECHA",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "readily biodegradable",
+                "text": "94 (%) 28 day readily biodegradable (ECHA)"
+              }
+            ]
+          },
+          {
+            "comp_ref": "4",
+            "endpoint": "ECO_PERSIST",
+            "descriptor": "분해율",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "ECO_PERSIST",
+            "descriptor": "분해율",
+            "q": {
+              "raw": "64 % 28 d",
+              "value": 64,
+              "unit": "%",
+              "note": "O2 consumption",
+              "status": "값있음"
+            },
+            "duration_value": 28,
+            "duration_unit": "day",
+            "guideline": "OECD TG 301 F, GLP",
+            "data_source": "ECHA",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "Readily biodegradable",
+                "text": "64 % 28 d (O2 consumption) Readily biodegradable (OECD TG 301 F, GLP) (ECHA)"
+              }
+            ]
+          },
+          {
+            "comp_ref": "3",
+            "endpoint": "ECO_PERSIST",
+            "descriptor": "분해율",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_SOIL",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "4",
+            "endpoint": "ECO_SOIL",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "ECO_SOIL",
+            "descriptor": "Koc",
+            "q": {
+              "raw": "log Koc 4.34 dimensionless",
+              "value": 4.34,
+              "dp": 2,
+              "note": "log Koc, dimensionless",
+              "status": "값있음"
+            },
+            "data_source": "ECHA",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "3",
+            "endpoint": "ECO_SOIL",
+            "descriptor": "Koc",
+            "q": {
+              "raw": "Koc 1 (20℃)",
+              "value": 1,
+              "note": "20℃",
+              "status": "값있음"
+            },
+            "data_source": "ECHA",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_OZONE",
+            "q": {
+              "raw": "해당없음",
+              "status": "해당없음"
+            },
+            "status": "해당없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "4",
+            "endpoint": "ECO_OZONE",
+            "q": {
+              "raw": "해당없음",
+              "status": "해당없음"
+            },
+            "status": "해당없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "ECO_OZONE",
+            "q": {
+              "raw": "해당없음",
+              "status": "해당없음"
+            },
+            "status": "해당없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "3",
+            "endpoint": "ECO_OZONE",
+            "q": {
+              "raw": "해당없음",
+              "status": "해당없음"
+            },
+            "status": "해당없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_OTHER",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "4",
+            "endpoint": "ECO_OTHER",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "ECO_OTHER",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "3",
+            "endpoint": "ECO_OTHER",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          }
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "msds_index": 0,
+        "field": "toxicity[0]",
+        "page": 6,
+        "source_text": "○ (호흡기) - 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "노출 경로 정보로 맞는 endpoint가 없어 null로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[1]",
+        "page": 6,
+        "source_text": "○ (경구) - 삼키면 유해함",
+        "rules": [],
+        "note": "노출 경로 정보로 맞는 endpoint가 없어 null로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[2]",
+        "page": 6,
+        "source_text": "○ (눈·피부) - 눈에 심한 손상을 일으킴",
+        "rules": [],
+        "note": "노출 경로 정보로 맞는 endpoint가 없어 null로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[3]",
+        "page": 6,
+        "source_text": "- 제품 (ATEmix) : 300mg/kg < ATEmix <= 2000mg/kg",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "하한 >300, 상한 <=2000 mg/kg로 나눔"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[4]",
+        "page": 6,
+        "source_text": "- [도데실벤젠 설포닉애씨드] : LD50 1219 ㎎/㎏ Rat",
+        "rules": [
+          "R04",
+          "R08",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[5]",
+        "page": 6,
+        "source_text": "- [물] : LD50 > 90000 ㎎/㎏ Rat (LD50 > 90 ml/kg) (HSDB)",
+        "rules": [
+          "R04",
+          "R08",
+          "R10"
+        ],
+        "note": "괄호 속 ml/kg 값을 converted로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[6]",
+        "page": 6,
+        "source_text": "- [리니어 알킬 벤젠] : LD50 > 5000 ㎎/㎏ Rat (Read across Cas No. 68442-69-3) (OECD TG 401, GLP) (ECHA)",
+        "rules": [
+          "R04",
+          "R08",
+          "R02",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[7]",
+        "page": 6,
+        "source_text": "- [황산] : LD50 2140 mg/kg Rat (ECHA)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[8]",
+        "page": 6,
+        "source_text": "- 제품 (ATEmix) : >5000mg/kg 분류되지 않음 (구분 외)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[9]",
+        "page": 6,
+        "source_text": "- [도데실벤젠 설포닉애씨드] : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[10]",
+        "page": 6,
+        "source_text": "- [물] : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[11]",
+        "page": 6,
+        "source_text": "- [리니어 알킬 벤젠] : LD50 > 2000 ㎎/㎏ Rat No death Not classified (OECD TG 402, GLP) (ECHA)",
+        "rules": [
+          "R04",
+          "R08",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[12]",
+        "page": 6,
+        "source_text": "- [황산] : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[13]",
+        "page": 6,
+        "source_text": "- 제품 (ATEmix) : Vapor 2.0mg/L 4hr < ATEmix <=  10.0mg/L 4hr",
+        "rules": [
+          "R04",
+          "R06",
+          "R10"
+        ],
+        "note": "Vapor→증기, 하한 >2.0, 상한 <=10.0 mg/L, dp 1"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[14]",
+        "page": 6,
+        "source_text": "- [도데실벤젠 설포닉애씨드] : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[15]",
+        "page": 6,
+        "source_text": "- [물] : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[16]",
+        "page": 6,
+        "source_text": "- [리니어 알킬 벤젠] : Aerosol LC50 71 mg/L 4hr Rat (NCIS)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "Aerosol을 분진·미스트로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[17]",
+        "page": 6,
+        "source_text": "- [황산] : Aerosol LC50 0.375 mg/L 4 hr Rat (NCIS)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "Aerosol을 분진·미스트로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[18]",
+        "page": 6,
+        "source_text": "- [도데실벤젠 설포닉애씨드] : 피부 부식성 물질임 (NICS)",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[19]",
+        "page": 6,
+        "source_text": "- [물] : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[20]",
+        "page": 6,
+        "source_text": "- [리니어 알킬 벤젠] : 토끼를 이용한 시험 결과 피부 자극성 물질임 (NCIS)",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[21]",
+        "page": 6,
+        "source_text": "- [황산] : 피부에 심한 화상과 눈에 손상을 일으킴 (EU Harmonized Cat. 1A) (ECHA)",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[22]",
+        "page": 6,
+        "source_text": "- [도데실벤젠 설포닉애씨드] : 고시에 의거하여 피부 부식성으로 분류됨에 따라 구분 1로 분류됨",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[23]",
+        "page": 6,
+        "source_text": "- [물] : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[24]",
+        "page": 6,
+        "source_text": "- [리니어 알킬 벤젠] : 토끼를 이용한 시험결과 약하게 눈 자극성을 나타내지만, 분류되지 않음 (NCIS)",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[25]",
+        "page": 6,
+        "source_text": "- [황산] : 토끼를 이용한 눈 자극성 시험결과, 심한 눈 손상 물질임 (NCIS)",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[26]",
+        "page": 6,
+        "source_text": "- [도데실벤젠 설포닉애씨드] : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[27]",
+        "page": 6,
+        "source_text": "- [물] : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[28]",
+        "page": 6,
+        "source_text": "- [리니어 알킬 벤젠] : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[29]",
+        "page": 7,
+        "source_text": "- [황산] : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[30]",
+        "page": 7,
+        "source_text": "- [도데실벤젠 설포닉애씨드] : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[31]",
+        "page": 7,
+        "source_text": "- [물] : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[32]",
+        "page": 7,
+        "source_text": "- [리니어 알킬 벤젠] : 기니피그를 이용한 Maximisation 시험 결과 피부 과민성을 띄지 않음 (OECD TG 406) (ECHA)",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[33]",
+        "page": 7,
+        "source_text": "- [황산] : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[34]",
+        "page": 7,
+        "source_text": "- [도데실벤젠 설포닉애씨드] : [in vitro] 음성(복귀돌연변이시험) 음성(염색체이상시험, Chinese hamster lung cells)",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[35]",
+        "page": 7,
+        "source_text": "- [물] : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[36]",
+        "page": 7,
+        "source_text": "- [리니어 알킬 벤젠] : In vivo 마우스를 이용한 소핵 시험 결과 음성 (OECD TG 474, GLP)",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[37]",
+        "page": 7,
+        "source_text": "- [황산] : In vitro 차이니즈 햄스터의 폐 섬유아세포(V79)를 이용한 염색체 이상 시험 결과 대사활성계 유무에 관계없이 음성 (Read-across 7757-82-6)",
+        "rules": [
+          "R02",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[38]",
+        "page": 7,
+        "source_text": "- [도데실벤젠 설포닉애씨드] : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[39]",
+        "page": 8,
+        "source_text": "- [물] : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[40]",
+        "page": 8,
+        "source_text": "- [리니어 알킬 벤젠] : 랫드를 이용한 시험 결과 유의한 독성 영향 관찰되지 않음 NOAEL 50 mg/kg bw/day (OECD TG 416, GLP) (ECHA)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[41]",
+        "page": 8,
+        "source_text": "랫드를 이용한 생식/발달 독성 시험 결과 전반적인 생식독성은 관찰되지 않음 NOEL 1000 mg/kg/day (Read-across 7757-82-6) (OECD TG 421, GLP)",
+        "rules": [
+          "R04",
+          "R02",
+          "R10"
+        ],
+        "note": "맞는 값 없음: 지표 NOEL은 descriptor 목록에 없어 null로 두고 raw에 남김"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[42]",
+        "page": 8,
+        "source_text": "NOAEC 19.3 mg/m³ (OECD TG 414) (ECHA)",
+        "rules": [
+          "R04",
+          "R08",
+          "R10"
+        ],
+        "note": "맞는 값 없음: 지표 NOAEC는 descriptor 목록에 없어 null로 두고 raw에 남김"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[43]",
+        "page": 8,
+        "source_text": "- [도데실벤젠 설포닉애씨드] : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[44]",
+        "page": 8,
+        "source_text": "- [물] : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[45]",
+        "page": 8,
+        "source_text": "- [리니어 알킬 벤젠] : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[46]",
+        "page": 8,
+        "source_text": "- [황산] : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[47]",
+        "page": 8,
+        "source_text": "- [도데실벤젠 설포닉애씨드] : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[48]",
+        "page": 8,
+        "source_text": "- [물] : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[49]",
+        "page": 8,
+        "source_text": "- [리니어 알킬 벤젠] : 랫드를 이용한 반복 경구 투여 시험 결과(28일) 유의한 독성 영향 관찰되지 않음 LOAEL 2500 ppm (OECD TG 407, GLP) (ECHA)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[50]",
+        "page": 8,
+        "source_text": "- [황산] : 랫드를 이용한 반복 흡입(에어로졸) 시험 결과 심각한 독성 영향은 관찰되지 않음 (OECD TG 412, GLP) (ECHA)",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[51]",
+        "page": 8,
+        "source_text": "- [도데실벤젠 설포닉애씨드] : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[52]",
+        "page": 8,
+        "source_text": "- [물] : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[53]",
+        "page": 8,
+        "source_text": "- [리니어 알킬 벤젠] : 동점도 4.23 mm²/s 40 °C (ASTM D446, GLP) (ECHA) 삼켜서 기도로 유입되면 치명적일 수 있음 (NCIS)",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[54]",
+        "page": 8,
+        "source_text": "- [황산] : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[0]",
+        "page": 7,
+        "source_text": "* 환경부 화학물질관리법 - [도데실벤젠 설포닉애씨드] : 해당없음",
+        "rules": [
+          "R15",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[1]",
+        "page": 7,
+        "source_text": "- [물] : 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[2]",
+        "page": 7,
+        "source_text": "- [리니어 알킬 벤젠] : 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[3]",
+        "page": 7,
+        "source_text": "- [황산] : 발암성 없음",
+        "rules": [
+          "R10"
+        ],
+        "note": "맞는 값 없음: '발암성 없음'은 맞는 상태값이 없어 class에 원문을 남김"
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[4]",
+        "page": 7,
+        "source_text": "* IARC - [도데실벤젠 설포닉애씨드] : 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[5]",
+        "page": 7,
+        "source_text": "- [물] : 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[6]",
+        "page": 7,
+        "source_text": "- [리니어 알킬 벤젠] : 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[7]",
+        "page": 7,
+        "source_text": "- [황산] : Group 1 (in case of strong inorganic Acid mists)",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[8]",
+        "page": 7,
+        "source_text": "* OSHA - [도데실벤젠 설포닉애씨드] : 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[9]",
+        "page": 7,
+        "source_text": "- [물] : 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[10]",
+        "page": 7,
+        "source_text": "- [리니어 알킬 벤젠] : 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[11]",
+        "page": 7,
+        "source_text": "- [황산] : 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[12]",
+        "page": 7,
+        "source_text": "* ACGIH - [도데실벤젠 설포닉애씨드] : 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[13]",
+        "page": 7,
+        "source_text": "- [물] : 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[14]",
+        "page": 7,
+        "source_text": "- [리니어 알킬 벤젠] : 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[15]",
+        "page": 7,
+        "source_text": "- [황산] : A2 (When contained in strong inorganic acid mists)",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[16]",
+        "page": 7,
+        "source_text": "* NTP - [도데실벤젠 설포닉애씨드] : 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[17]",
+        "page": 7,
+        "source_text": "- [물] : 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[18]",
+        "page": 7,
+        "source_text": "- [리니어 알킬 벤젠] : 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[19]",
+        "page": 7,
+        "source_text": "- [황산] : K (Strong inorganic acid mist)",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[20]",
+        "page": 7,
+        "source_text": "* EU CLP - [도데실벤젠 설포닉애씨드] : 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[21]",
+        "page": 7,
+        "source_text": "- [물] : 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[22]",
+        "page": 7,
+        "source_text": "- [리니어 알킬 벤젠] : 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[23]",
+        "page": 7,
+        "source_text": "- [황산] : 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[24]",
+        "page": 8,
+        "source_text": "○ 고용노동부고시 * 발암성 - [도데실벤젠 설포닉애씨드] : 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[25]",
+        "page": 8,
+        "source_text": "- [물] : 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[26]",
+        "page": 8,
+        "source_text": "- [리니어 알킬 벤젠] : 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[27]",
+        "page": 8,
+        "source_text": "- [황산] : 발암성 1A (강산 Mist에 한정함)",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[28]",
+        "page": 8,
+        "source_text": "* 생식세포 변이원성 - [도데실벤젠 설포닉애씨드] : 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[29]",
+        "page": 8,
+        "source_text": "- [물] : 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[30]",
+        "page": 8,
+        "source_text": "- [리니어 알킬 벤젠] : 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[31]",
+        "page": 8,
+        "source_text": "- [황산] : 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[32]",
+        "page": 8,
+        "source_text": "* 생식독성 - [도데실벤젠 설포닉애씨드] : 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[33]",
+        "page": 8,
+        "source_text": "- [물] : 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[34]",
+        "page": 8,
+        "source_text": "- [리니어 알킬 벤젠] : 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[35]",
+        "page": 8,
+        "source_text": "- [황산] : 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[0]",
+        "page": 8,
+        "source_text": "- [도데실벤젠 설포닉애씨드] : LC50 5.6 mg/L 96 hr Cyprinus carpio",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[1]",
+        "page": 8,
+        "source_text": "- [물] : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[2]",
+        "page": 8,
+        "source_text": "- [리니어 알킬 벤젠] : LC50 > 0.041 mg/L 96hr Oncorhynchus mykiss (NCIS)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[3]",
+        "page": 8,
+        "source_text": "- [황산] : LC50 > 16 ~ < 28 mg/L 96 hr Lepomis macrochirus (ECHA)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "하한 >16, 상한 <28로 나눔"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[4]",
+        "page": 8,
+        "source_text": "- [도데실벤젠 설포닉애씨드] : EC50 2.9mg/L 48hr  Daphnia magna (ECHA)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[5]",
+        "page": 8,
+        "source_text": "- [물] : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[6]",
+        "page": 9,
+        "source_text": "- [리니어 알킬 벤젠] : EC50 > 0.041 mg/L 48 h Daphnia magna (EU Method C.2, GLP) (ECHA)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[7]",
+        "page": 9,
+        "source_text": "- [황산] : EC50 > 100 mg/L 48 hr Daphnia magna (OECD TG 202, GLP) (ECHA)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[8]",
+        "page": 9,
+        "source_text": "- [도데실벤젠 설포닉애씨드] : EC50 111 ㎎/ℓ 72 hr , NOEC 40mg/L Scenedesmus subspicatus (ECHA)",
+        "rules": [
+          "R04",
+          "R08",
+          "R10"
+        ],
+        "note": "㎎/ℓ를 mg/L로 정규화"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[9]",
+        "page": 9,
+        "source_text": "- [도데실벤젠 설포닉애씨드] : EC50 111 ㎎/ℓ 72 hr , NOEC 40mg/L Scenedesmus subspicatus (ECHA)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "같은 줄의 NOEC를 별도 행으로 나눔"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[10]",
+        "page": 9,
+        "source_text": "- [물] : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[11]",
+        "page": 9,
+        "source_text": "- [리니어 알킬 벤젠] : EC50 > 100 g/L 72 h Desmodesmus subspicatus (OECD TG 201, GLP) (ECHA)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[12]",
+        "page": 9,
+        "source_text": "- [황산] : EC50 > 100 mg/L 72 hr Desmodesmus subspicatus (OECD TG 201, GLP) (ECHA)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[13]",
+        "page": 9,
+        "source_text": "- [도데실벤젠 설포닉애씨드] : log Pow 2.2 (23 ℃, pH 3.7) (NICS)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "잔류성 항목 아래 기재되어 ECO_PERSIST로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[14]",
+        "page": 9,
+        "source_text": "- [물] : log Kow = -1.38 (HSDB)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[15]",
+        "page": 9,
+        "source_text": "- [리니어 알킬 벤젠] : log Kow 7.5 ~ 9.12 (IUCLID)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[16]",
+        "page": 9,
+        "source_text": "- [황산] : log Pow -1 (25℃)(ECHA)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[17]",
+        "page": 9,
+        "source_text": "○ 분해성 - [도데실벤젠 설포닉애씨드] : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[18]",
+        "page": 9,
+        "source_text": "- [물] : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[19]",
+        "page": 9,
+        "source_text": "- [리니어 알킬 벤젠] : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[20]",
+        "page": 9,
+        "source_text": "- [황산] : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[21]",
+        "page": 9,
+        "source_text": "- [도데실벤젠 설포닉애씨드] : BCF 3.162 (Estimate)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[22]",
+        "page": 9,
+        "source_text": "- [물] : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[23]",
+        "page": 9,
+        "source_text": "- [리니어 알킬 벤젠] : BCF 35 L/kg Lepomis macrochirus (ECHA)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[24]",
+        "page": 9,
+        "source_text": "- [황산] : BCF 3.162 (NCIS)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[25]",
+        "page": 9,
+        "source_text": "- [도데실벤젠 설포닉애씨드] : 94 (%) 28 day readily biodegradable (ECHA)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "생분해성 값을 ECO_PERSIST 분해율로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[26]",
+        "page": 9,
+        "source_text": "- [물] : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[27]",
+        "page": 9,
+        "source_text": "- [리니어 알킬 벤젠] : 64 % 28 d (O2 consumption) Readily biodegradable (OECD TG 301 F, GLP) (ECHA)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[28]",
+        "page": 9,
+        "source_text": "- [황산] : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[29]",
+        "page": 9,
+        "source_text": "라. 토양 이동성 - [도데실벤젠 설포닉애씨드] : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[30]",
+        "page": 9,
+        "source_text": "- [물] : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[31]",
+        "page": 9,
+        "source_text": "- [리니어 알킬 벤젠] : log Koc 4.34 dimensionless (ECHA)",
+        "rules": [
+          "R04",
+          "R10",
+          "R17"
+        ],
+        "note": "log Koc 값으로 note에 표시"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[32]",
+        "page": 9,
+        "source_text": "- [황산] : Koc 1 (20℃) (ECHA)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[33]",
+        "page": 9,
+        "source_text": "마. 오존층 유해성 - [도데실벤젠 설포닉애씨드] : 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[34]",
+        "page": 9,
+        "source_text": "- [물] : 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[35]",
+        "page": 9,
+        "source_text": "- [리니어 알킬 벤젠] : 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[36]",
+        "page": 9,
+        "source_text": "- [황산] : 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[37]",
+        "page": 9,
+        "source_text": "바. 기타 유해 영향 - [도데실벤젠 설포닉애씨드] : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[38]",
+        "page": 9,
+        "source_text": "- [물] : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[39]",
+        "page": 9,
+        "source_text": "- [리니어 알킬 벤젠] : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[40]",
+        "page": 9,
+        "source_text": "- [황산] : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      }
+    ]
+  },
+  "raw_text": "{\"msds\": [{\"toxicity\": [{\"comp_ref\": \"MIX\", \"endpoint\": null, \"descriptor\": \"결과기술\", \"exposure_type\": \"호흡기\", \"status\": \"자료없음\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": null, \"descriptor\": \"결과기술\", \"exposure_type\": \"경구\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"삼키면 유해함\", \"text\": \"- 삼키면 유해함\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": null, \"descriptor\": \"결과기술\", \"exposure_type\": \"눈·피부\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"눈에 심한 손상을 일으킴\", \"text\": \"- 눈에 심한 손상을 일으킴\"}, {\"seq\": 2, \"value\": \"알레르기성 피부 반응을 일으킬 수 있음\", \"text\": \"- 알레르기성 피부 반응을 일으킬 수 있음\"}, {\"seq\": 3, \"value\": \"피부에 심한 화상과 눈에 손상을 일으킴\", \"text\": \"- 피부에 심한 화상과 눈에 손상을 일으킴\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_ORAL\", \"descriptor\": \"ATE\", \"q\": {\"raw\": \"300mg/kg < ATEmix <= 2000mg/kg\", \"lower_op\": \">\", \"lower\": 300, \"upper_op\": \"<=\", \"upper\": 2000, \"unit\": \"mg/kg\", \"status\": \"값있음\"}, \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_ORAL\", \"descriptor\": \"LD50\", \"q\": {\"raw\": \"LD50 1219 ㎎/㎏ Rat\", \"value\": 1219, \"unit\": \"mg/kg\", \"status\": \"값있음\"}, \"species\": \"Rat\", \"sex\": \"미표기\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"4\", \"endpoint\": \"TX_ORAL\", \"descriptor\": \"LD50\", \"q\": {\"raw\": \"LD50 > 90000 ㎎/㎏\", \"lower_op\": \">\", \"lower\": 90000, \"unit\": \"mg/kg\", \"status\": \"값있음\"}, \"converted\": {\"raw\": \"LD50 > 90 ml/kg\", \"lower_op\": \">\", \"lower\": 90, \"unit\": \"ml/kg\", \"status\": \"값있음\"}, \"species\": \"Rat\", \"sex\": \"미표기\", \"data_source\": \"HSDB\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"2\", \"endpoint\": \"TX_ORAL\", \"descriptor\": \"LD50\", \"q\": {\"raw\": \"LD50 > 5000 ㎎/㎏\", \"lower_op\": \">\", \"lower\": 5000, \"unit\": \"mg/kg\", \"status\": \"값있음\"}, \"species\": \"Rat\", \"sex\": \"미표기\", \"read_across_cas\": \"68442-69-3\", \"guideline\": \"OECD TG 401, GLP\", \"data_source\": \"ECHA\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"3\", \"endpoint\": \"TX_ORAL\", \"descriptor\": \"LD50\", \"q\": {\"raw\": \"LD50 2140 mg/kg\", \"value\": 2140, \"unit\": \"mg/kg\", \"status\": \"값있음\"}, \"species\": \"Rat\", \"sex\": \"미표기\", \"data_source\": \"ECHA\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_DERMAL\", \"descriptor\": \"ATE\", \"q\": {\"raw\": \">5000mg/kg\", \"lower_op\": \">\", \"lower\": 5000, \"unit\": \"mg/kg\", \"status\": \"값있음\"}, \"classification\": \"분류되지 않음 (구분 외)\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_DERMAL\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"4\", \"endpoint\": \"TX_DERMAL\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"2\", \"endpoint\": \"TX_DERMAL\", \"descriptor\": \"LD50\", \"q\": {\"raw\": \"LD50 > 2000 ㎎/㎏\", \"lower_op\": \">\", \"lower\": 2000, \"unit\": \"mg/kg\", \"status\": \"값있음\"}, \"species\": \"Rat\", \"sex\": \"미표기\", \"classification\": \"Not classified\", \"guideline\": \"OECD TG 402, GLP\", \"data_source\": \"ECHA\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"No death\", \"text\": \"No death\"}]}, {\"comp_ref\": \"3\", \"endpoint\": \"TX_DERMAL\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_INHAL\", \"descriptor\": \"ATE\", \"physical_form\": \"증기\", \"duration_value\": 4, \"duration_unit\": \"hr\", \"q\": {\"raw\": \"Vapor 2.0mg/L 4hr < ATEmix <=  10.0mg/L 4hr\", \"lower_op\": \">\", \"lower\": 2, \"upper_op\": \"<=\", \"upper\": 10, \"unit\": \"mg/L\", \"dp\": 1, \"status\": \"값있음\"}, \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_INHAL\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"4\", \"endpoint\": \"TX_INHAL\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"2\", \"endpoint\": \"TX_INHAL\", \"descriptor\": \"LC50\", \"physical_form\": \"분진·미스트\", \"duration_value\": 4, \"duration_unit\": \"hr\", \"q\": {\"raw\": \"Aerosol LC50 71 mg/L 4hr\", \"value\": 71, \"unit\": \"mg/L\", \"status\": \"값있음\"}, \"species\": \"Rat\", \"sex\": \"미표기\", \"data_source\": \"NCIS\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"3\", \"endpoint\": \"TX_INHAL\", \"descriptor\": \"LC50\", \"physical_form\": \"분진·미스트\", \"duration_value\": 4, \"duration_unit\": \"hr\", \"q\": {\"raw\": \"Aerosol LC50 0.375 mg/L 4 hr\", \"value\": 0.375, \"unit\": \"mg/L\", \"dp\": 3, \"status\": \"값있음\"}, \"species\": \"Rat\", \"sex\": \"미표기\", \"data_source\": \"NCIS\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_SKIN\", \"descriptor\": \"결과기술\", \"data_source\": \"NICS\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"피부 부식성 물질임\", \"refs\": [\"1\"], \"text\": \"- [도데실벤젠 설포닉애씨드] : 피부 부식성 물질임 (NICS)\"}]}, {\"comp_ref\": \"4\", \"endpoint\": \"TX_SKIN\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"2\", \"endpoint\": \"TX_SKIN\", \"descriptor\": \"결과기술\", \"species\": \"토끼\", \"data_source\": \"NCIS\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"토끼를 이용한 시험 결과 피부 자극성 물질임\", \"refs\": [\"2\"], \"text\": \"- [리니어 알킬 벤젠] : 토끼를 이용한 시험 결과 피부 자극성 물질임 (NCIS)\"}]}, {\"comp_ref\": \"3\", \"endpoint\": \"TX_SKIN\", \"descriptor\": \"결과기술\", \"classification\": \"EU Harmonized Cat. 1A\", \"data_source\": \"ECHA\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"피부에 심한 화상과 눈에 손상을 일으킴\", \"refs\": [\"3\"], \"text\": \"- [황산] : 피부에 심한 화상과 눈에 손상을 일으킴 (EU Harmonized Cat. 1A) (ECHA)\"}]}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_EYE\", \"descriptor\": \"결과기술\", \"classification\": \"구분 1\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"고시에 의거하여 피부 부식성으로 분류됨에 따라 구분 1로 분류됨\", \"refs\": [\"1\"], \"text\": \"- [도데실벤젠 설포닉애씨드] : 고시에 의거하여 피부 부식성으로 분류됨에 따라 구분 1로 분류됨\"}]}, {\"comp_ref\": \"4\", \"endpoint\": \"TX_EYE\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"2\", \"endpoint\": \"TX_EYE\", \"descriptor\": \"결과기술\", \"species\": \"토끼\", \"classification\": \"분류되지 않음\", \"data_source\": \"NCIS\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"토끼를 이용한 시험결과 약하게 눈 자극성을 나타내지만, 분류되지 않음\", \"refs\": [\"2\"], \"text\": \"- [리니어 알킬 벤젠] : 토끼를 이용한 시험결과 약하게 눈 자극성을 나타내지만, 분류되지 않음 (NCIS)\"}]}, {\"comp_ref\": \"3\", \"endpoint\": \"TX_EYE\", \"descriptor\": \"결과기술\", \"species\": \"토끼\", \"data_source\": \"NCIS\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"토끼를 이용한 눈 자극성 시험결과, 심한 눈 손상 물질임\", \"refs\": [\"3\"], \"text\": \"- [황산] : 토끼를 이용한 눈 자극성 시험결과, 심한 눈 손상 물질임 (NCIS)\"}]}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_RESP_SENS\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"4\", \"endpoint\": \"TX_RESP_SENS\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"2\", \"endpoint\": \"TX_RESP_SENS\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"3\", \"endpoint\": \"TX_RESP_SENS\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_SKIN_SENS\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"4\", \"endpoint\": \"TX_SKIN_SENS\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"2\", \"endpoint\": \"TX_SKIN_SENS\", \"descriptor\": \"결과기술\", \"species\": \"기니피그\", \"guideline\": \"OECD TG 406\", \"data_source\": \"ECHA\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"기니피그를 이용한 Maximisation 시험 결과 피부 과민성을 띄지 않음\", \"refs\": [\"2\"], \"text\": \"- [리니어 알킬 벤젠] : 기니피그를 이용한 Maximisation 시험 결과 피부 과민성을 띄지 않음 (OECD TG 406) (ECHA)\"}]}, {\"comp_ref\": \"3\", \"endpoint\": \"TX_SKIN_SENS\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_MUTA\", \"descriptor\": \"결과기술\", \"data_source\": \"NICS\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"[in vitro] 음성(복귀돌연변이시험) 음성(염색체이상시험, Chinese hamster lung cells) [in vivo] 음성(소핵시험, mouse)\", \"refs\": [\"1\"], \"text\": \"- [도데실벤젠 설포닉애씨드] : [in vitro] 음성(복귀돌연변이시험) 음성(염색체이상시험, Chinese hamster lung cells) [in vivo] 음성(소핵시험, mouse) (NICS)\"}]}, {\"comp_ref\": \"4\", \"endpoint\": \"TX_MUTA\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"2\", \"endpoint\": \"TX_MUTA\", \"descriptor\": \"결과기술\", \"guideline\": \"OECD TG 474, GLP; OECD TG 475, GLP; EPA OPPTS 870.5265, GLP\", \"data_source\": \"ECHA\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"In vivo 마우스를 이용한 소핵 시험 결과 음성 (OECD TG 474, GLP), 랫드를 이용한 염색체 이상 시험 결과 음성 (OECD TG 475, GLP)/ In vitro 박테리아를 이용한 돌연변이 시험 결과 대사활성화 유무와 관계없이 음성 (EPA OPPTS 870.5265, GLP)\", \"refs\": [\"2\"], \"text\": \"- [리니어 알킬 벤젠] : In vivo 마우스를 이용한 소핵 시험 결과 음성 (OECD TG 474, GLP), 랫드를 이용한 염색체 이상 시험 결과 음성 (OECD TG 475, GLP)/ In vitro 박테리아를 이용한 돌연변이 시험 결과 대사활성화 유무와 관계없이 음성 (EPA OPPTS 870.5265, GLP) (ECHA)\"}]}, {\"comp_ref\": \"3\", \"endpoint\": \"TX_MUTA\", \"descriptor\": \"결과기술\", \"read_across_cas\": \"7757-82-6\", \"guideline\": \"OECD TG 473, GLP; OECD TG 476, GLP\", \"data_source\": \"ECHA\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"In vitro 차이니즈 햄스터의 폐 섬유아세포(V79)를 이용한 염색체 이상 시험 결과 대사활성계 유무에 관계없이 음성 (Read-across 7757-82-6) (OECD TG 473, GLP), in vitro 마우스 림프종 L5178Y 세포를 이용한 유전자 돌연변이 시험 결과 대사활성계 유무와 관계없이 음성 (Read-across 7757-82-6) (OECD TG 476, GLP)\", \"refs\": [\"3\"], \"text\": \"- [황산] : In vitro 차이니즈 햄스터의 폐 섬유아세포(V79)를 이용한 염색체 이상 시험 결과 대사활성계 유무에 관계없이 음성 (Read-across 7757-82-6) (OECD TG 473, GLP), in vitro 마우스 림프종 L5178Y 세포를 이용한 유전자 돌연변이 시험 결과 대사활성계 유무와 관계없이 음성 (Read-across 7757-82-6) (OECD TG 476, GLP) (ECHA)\"}]}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_REPRO\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"4\", \"endpoint\": \"TX_REPRO\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"2\", \"endpoint\": \"TX_REPRO\", \"descriptor\": \"NOAEL\", \"q\": {\"raw\": \"NOAEL 50 mg/kg bw/day\", \"value\": 50, \"unit\": \"mg/kg bw/day\", \"status\": \"값있음\"}, \"species\": \"랫드\", \"guideline\": \"OECD TG 416, GLP\", \"data_source\": \"ECHA\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"랫드를 이용한 시험 결과 유의한 독성 영향 관찰되지 않음\", \"refs\": [\"2\"], \"text\": \"랫드를 이용한 시험 결과 유의한 독성 영향 관찰되지 않음 NOAEL 50 mg/kg bw/day (OECD TG 416, GLP) (ECHA)\"}]}, {\"comp_ref\": \"3\", \"endpoint\": \"TX_REPRO\", \"descriptor\": null, \"q\": {\"raw\": \"NOEL 1000 mg/kg/day\", \"value\": 1000, \"unit\": \"mg/kg/day\", \"status\": \"값있음\"}, \"species\": \"랫드\", \"read_across_cas\": \"7757-82-6\", \"guideline\": \"OECD TG 421, GLP\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"랫드를 이용한 생식/발달 독성 시험 결과 전반적인 생식독성은 관찰되지 않음\", \"refs\": [\"3\"], \"text\": \"랫드를 이용한 생식/발달 독성 시험 결과 전반적인 생식독성은 관찰되지 않음 NOEL 1000 mg/kg/day (Read-across 7757-82-6) (OECD TG 421, GLP)\"}]}, {\"comp_ref\": \"3\", \"endpoint\": \"TX_REPRO\", \"descriptor\": null, \"q\": {\"raw\": \"NOAEC 19.3 mg/m³\", \"value\": 19.3, \"unit\": \"mg/m3\", \"dp\": 1, \"status\": \"값있음\"}, \"species\": \"토끼\", \"exposure_type\": \"흡입\", \"guideline\": \"OECD TG 414\", \"data_source\": \"ECHA\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"토끼를 대상으로 흡입 노출을 통한 태아 발달 독성 시험 결과 국소 호흡기계 자극과 체중 감소 이외에 유해한 영향이 관찰되지 않음\", \"refs\": [\"3\"], \"text\": \"토끼를 대상으로 흡입 노출을 통한 태아 발달 독성 시험 결과 국소 호흡기계 자극과 체중 감소 이외에 유해한 영향이 관찰되지 않음 NOAEC 19.3 mg/m³ (OECD TG 414) (ECHA)\"}]}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_STOT_SE\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"4\", \"endpoint\": \"TX_STOT_SE\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"2\", \"endpoint\": \"TX_STOT_SE\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"3\", \"endpoint\": \"TX_STOT_SE\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_STOT_RE\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"4\", \"endpoint\": \"TX_STOT_RE\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"2\", \"endpoint\": \"TX_STOT_RE\", \"descriptor\": \"LOAEL\", \"q\": {\"raw\": \"LOAEL 2500 ppm\", \"value\": 2500, \"unit\": \"ppm\", \"status\": \"값있음\"}, \"species\": \"랫드\", \"exposure_type\": \"반복 경구 28일\", \"duration_value\": 28, \"duration_unit\": \"day\", \"guideline\": \"OECD TG 407, GLP\", \"data_source\": \"ECHA\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"랫드를 이용한 반복 경구 투여 시험 결과(28일) 유의한 독성 영향 관찰되지 않음\", \"refs\": [\"2\"], \"text\": \"랫드를 이용한 반복 경구 투여 시험 결과(28일) 유의한 독성 영향 관찰되지 않음 LOAEL 2500 ppm (OECD TG 407, GLP) (ECHA)\"}]}, {\"comp_ref\": \"3\", \"endpoint\": \"TX_STOT_RE\", \"descriptor\": \"결과기술\", \"species\": \"랫드\", \"exposure_type\": \"반복 흡입(에어로졸)\", \"physical_form\": \"분진·미스트\", \"guideline\": \"OECD TG 412, GLP\", \"data_source\": \"ECHA\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"랫드를 이용한 반복 흡입(에어로졸) 시험 결과 심각한 독성 영향은 관찰되지 않음\", \"refs\": [\"3\"], \"text\": \"- [황산] : 랫드를 이용한 반복 흡입(에어로졸) 시험 결과 심각한 독성 영향은 관찰되지 않음 (OECD TG 412, GLP) (ECHA)\"}]}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_ASP\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"4\", \"endpoint\": \"TX_ASP\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"2\", \"endpoint\": \"TX_ASP\", \"descriptor\": \"결과기술\", \"guideline\": \"ASTM D446, GLP\", \"data_source\": \"ECHA; NCIS\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"동점도 4.23 mm²/s 40 °C (ASTM D446, GLP) (ECHA)\", \"refs\": [\"2\"], \"cond\": {\"raw\": \"4.23 mm²/s\", \"value\": 4.23, \"unit\": \"mm2/s\", \"dp\": 2, \"status\": \"값있음\"}, \"text\": \"동점도 4.23 mm²/s 40 °C (ASTM D446, GLP) (ECHA)\"}, {\"seq\": 2, \"value\": \"삼켜서 기도로 유입되면 치명적일 수 있음 (NCIS)\", \"refs\": [\"2\"], \"text\": \"삼켜서 기도로 유입되면 치명적일 수 있음 (NCIS)\"}]}, {\"comp_ref\": \"3\", \"endpoint\": \"TX_ASP\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}], \"cmr\": [{\"comp_ref\": \"1\", \"hazard\": \"발암성\", \"agency\": \"KR_CCA\", \"status\": \"해당없음\"}, {\"comp_ref\": \"4\", \"hazard\": \"발암성\", \"agency\": \"KR_CCA\", \"status\": \"해당없음\"}, {\"comp_ref\": \"2\", \"hazard\": \"발암성\", \"agency\": \"KR_CCA\", \"status\": \"해당없음\"}, {\"comp_ref\": \"3\", \"hazard\": \"발암성\", \"agency\": \"KR_CCA\", \"class\": \"발암성 없음\", \"status\": \"값있음\"}, {\"comp_ref\": \"1\", \"hazard\": \"발암성\", \"agency\": \"IARC\", \"status\": \"해당없음\"}, {\"comp_ref\": \"4\", \"hazard\": \"발암성\", \"agency\": \"IARC\", \"status\": \"해당없음\"}, {\"comp_ref\": \"2\", \"hazard\": \"발암성\", \"agency\": \"IARC\", \"status\": \"해당없음\"}, {\"comp_ref\": \"3\", \"hazard\": \"발암성\", \"agency\": \"IARC\", \"class\": \"Group 1\", \"note\": \"in case of strong inorganic Acid mists\", \"status\": \"값있음\"}, {\"comp_ref\": \"1\", \"hazard\": \"발암성\", \"agency\": \"OSHA\", \"status\": \"해당없음\"}, {\"comp_ref\": \"4\", \"hazard\": \"발암성\", \"agency\": \"OSHA\", \"status\": \"해당없음\"}, {\"comp_ref\": \"2\", \"hazard\": \"발암성\", \"agency\": \"OSHA\", \"status\": \"해당없음\"}, {\"comp_ref\": \"3\", \"hazard\": \"발암성\", \"agency\": \"OSHA\", \"status\": \"해당없음\"}, {\"comp_ref\": \"1\", \"hazard\": \"발암성\", \"agency\": \"ACGIH\", \"status\": \"해당없음\"}, {\"comp_ref\": \"4\", \"hazard\": \"발암성\", \"agency\": \"ACGIH\", \"status\": \"해당없음\"}, {\"comp_ref\": \"2\", \"hazard\": \"발암성\", \"agency\": \"ACGIH\", \"status\": \"해당없음\"}, {\"comp_ref\": \"3\", \"hazard\": \"발암성\", \"agency\": \"ACGIH\", \"class\": \"A2\", \"note\": \"When contained in strong inorganic acid mists\", \"status\": \"값있음\"}, {\"comp_ref\": \"1\", \"hazard\": \"발암성\", \"agency\": \"NTP\", \"status\": \"해당없음\"}, {\"comp_ref\": \"4\", \"hazard\": \"발암성\", \"agency\": \"NTP\", \"status\": \"해당없음\"}, {\"comp_ref\": \"2\", \"hazard\": \"발암성\", \"agency\": \"NTP\", \"status\": \"해당없음\"}, {\"comp_ref\": \"3\", \"hazard\": \"발암성\", \"agency\": \"NTP\", \"class\": \"K\", \"note\": \"Strong inorganic acid mist\", \"status\": \"값있음\"}, {\"comp_ref\": \"1\", \"hazard\": \"발암성\", \"agency\": \"EU_CLP\", \"status\": \"해당없음\"}, {\"comp_ref\": \"4\", \"hazard\": \"발암성\", \"agency\": \"EU_CLP\", \"status\": \"해당없음\"}, {\"comp_ref\": \"2\", \"hazard\": \"발암성\", \"agency\": \"EU_CLP\", \"status\": \"해당없음\"}, {\"comp_ref\": \"3\", \"hazard\": \"발암성\", \"agency\": \"EU_CLP\", \"status\": \"해당없음\"}, {\"comp_ref\": \"1\", \"hazard\": \"발암성\", \"agency\": \"KR_OSH\", \"status\": \"해당없음\"}, {\"comp_ref\": \"4\", \"hazard\": \"발암성\", \"agency\": \"KR_OSH\", \"status\": \"해당없음\"}, {\"comp_ref\": \"2\", \"hazard\": \"발암성\", \"agency\": \"KR_OSH\", \"status\": \"해당없음\"}, {\"comp_ref\": \"3\", \"hazard\": \"발암성\", \"agency\": \"KR_OSH\", \"class\": \"1A\", \"note\": \"강산 Mist에 한정함\", \"status\": \"값있음\"}, {\"comp_ref\": \"1\", \"hazard\": \"생식세포변이원성\", \"agency\": \"KR_OSH\", \"status\": \"해당없음\"}, {\"comp_ref\": \"4\", \"hazard\": \"생식세포변이원성\", \"agency\": \"KR_OSH\", \"status\": \"해당없음\"}, {\"comp_ref\": \"2\", \"hazard\": \"생식세포변이원성\", \"agency\": \"KR_OSH\", \"status\": \"해당없음\"}, {\"comp_ref\": \"3\", \"hazard\": \"생식세포변이원성\", \"agency\": \"KR_OSH\", \"status\": \"해당없음\"}, {\"comp_ref\": \"1\", \"hazard\": \"생식독성\", \"agency\": \"KR_OSH\", \"status\": \"해당없음\"}, {\"comp_ref\": \"4\", \"hazard\": \"생식독성\", \"agency\": \"KR_OSH\", \"status\": \"해당없음\"}, {\"comp_ref\": \"2\", \"hazard\": \"생식독성\", \"agency\": \"KR_OSH\", \"status\": \"해당없음\"}, {\"comp_ref\": \"3\", \"hazard\": \"생식독성\", \"agency\": \"KR_OSH\", \"status\": \"해당없음\"}], \"ecotox\": [{\"comp_ref\": \"1\", \"endpoint\": \"ECO_FISH\", \"descriptor\": \"LC50\", \"q\": {\"raw\": \"LC50 5.6 mg/L 96 hr\", \"value\": 5.6, \"unit\": \"mg/L\", \"dp\": 1, \"status\": \"값있음\"}, \"species\": \"Cyprinus carpio\", \"duration_value\": 96, \"duration_unit\": \"hr\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"4\", \"endpoint\": \"ECO_FISH\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"2\", \"endpoint\": \"ECO_FISH\", \"descriptor\": \"LC50\", \"q\": {\"raw\": \"LC50 > 0.041 mg/L 96hr\", \"lower_op\": \">\", \"lower\": 0.041, \"unit\": \"mg/L\", \"dp\": 3, \"status\": \"값있음\"}, \"species\": \"Oncorhynchus mykiss\", \"duration_value\": 96, \"duration_unit\": \"hr\", \"data_source\": \"NCIS\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"3\", \"endpoint\": \"ECO_FISH\", \"descriptor\": \"LC50\", \"q\": {\"raw\": \"LC50 > 16 ~ < 28 mg/L 96 hr\", \"lower_op\": \">\", \"lower\": 16, \"upper_op\": \"<\", \"upper\": 28, \"unit\": \"mg/L\", \"status\": \"값있음\"}, \"species\": \"Lepomis macrochirus\", \"duration_value\": 96, \"duration_unit\": \"hr\", \"data_source\": \"ECHA\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_CRUST\", \"descriptor\": \"EC50\", \"q\": {\"raw\": \"EC50 2.9mg/L 48hr\", \"value\": 2.9, \"unit\": \"mg/L\", \"dp\": 1, \"status\": \"값있음\"}, \"species\": \"Daphnia magna\", \"duration_value\": 48, \"duration_unit\": \"hr\", \"data_source\": \"ECHA\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"4\", \"endpoint\": \"ECO_CRUST\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"2\", \"endpoint\": \"ECO_CRUST\", \"descriptor\": \"EC50\", \"q\": {\"raw\": \"EC50 > 0.041 mg/L 48 h\", \"lower_op\": \">\", \"lower\": 0.041, \"unit\": \"mg/L\", \"dp\": 3, \"status\": \"값있음\"}, \"species\": \"Daphnia magna\", \"duration_value\": 48, \"duration_unit\": \"hr\", \"guideline\": \"EU Method C.2, GLP\", \"data_source\": \"ECHA\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"3\", \"endpoint\": \"ECO_CRUST\", \"descriptor\": \"EC50\", \"q\": {\"raw\": \"EC50 > 100 mg/L 48 hr\", \"lower_op\": \">\", \"lower\": 100, \"unit\": \"mg/L\", \"status\": \"값있음\"}, \"species\": \"Daphnia magna\", \"duration_value\": 48, \"duration_unit\": \"hr\", \"guideline\": \"OECD TG 202, GLP\", \"data_source\": \"ECHA\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_ALGAE\", \"descriptor\": \"EC50\", \"q\": {\"raw\": \"EC50 111 ㎎/ℓ 72 hr\", \"value\": 111, \"unit\": \"mg/L\", \"status\": \"값있음\"}, \"species\": \"Scenedesmus subspicatus\", \"duration_value\": 72, \"duration_unit\": \"hr\", \"data_source\": \"ECHA\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_ALGAE\", \"descriptor\": \"NOEC\", \"q\": {\"raw\": \"NOEC 40mg/L\", \"value\": 40, \"unit\": \"mg/L\", \"status\": \"값있음\"}, \"species\": \"Scenedesmus subspicatus\", \"data_source\": \"ECHA\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"4\", \"endpoint\": \"ECO_ALGAE\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"2\", \"endpoint\": \"ECO_ALGAE\", \"descriptor\": \"EC50\", \"q\": {\"raw\": \"EC50 > 100 g/L 72 h\", \"lower_op\": \">\", \"lower\": 100, \"unit\": \"g/L\", \"status\": \"값있음\"}, \"species\": \"Desmodesmus subspicatus\", \"duration_value\": 72, \"duration_unit\": \"hr\", \"guideline\": \"OECD TG 201, GLP\", \"data_source\": \"ECHA\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"3\", \"endpoint\": \"ECO_ALGAE\", \"descriptor\": \"EC50\", \"q\": {\"raw\": \"EC50 > 100 mg/L 72 hr\", \"lower_op\": \">\", \"lower\": 100, \"unit\": \"mg/L\", \"status\": \"값있음\"}, \"species\": \"Desmodesmus subspicatus\", \"duration_value\": 72, \"duration_unit\": \"hr\", \"guideline\": \"OECD TG 201, GLP\", \"data_source\": \"ECHA\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_PERSIST\", \"descriptor\": \"logKow\", \"q\": {\"raw\": \"log Pow 2.2 (23 ℃, pH 3.7)\", \"value\": 2.2, \"dp\": 1, \"note\": \"23 ℃, pH 3.7\", \"status\": \"값있음\"}, \"data_source\": \"NICS\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"4\", \"endpoint\": \"ECO_PERSIST\", \"descriptor\": \"logKow\", \"q\": {\"raw\": \"log Kow = -1.38\", \"value\": -1.38, \"dp\": 2, \"status\": \"값있음\"}, \"data_source\": \"HSDB\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"2\", \"endpoint\": \"ECO_PERSIST\", \"descriptor\": \"logKow\", \"q\": {\"raw\": \"log Kow 7.5 ~ 9.12\", \"lower_op\": \">=\", \"lower\": 7.5, \"upper_op\": \"<=\", \"upper\": 9.12, \"dp\": 2, \"status\": \"값있음\"}, \"data_source\": \"IUCLID\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"3\", \"endpoint\": \"ECO_PERSIST\", \"descriptor\": \"logKow\", \"q\": {\"raw\": \"log Pow -1 (25℃)\", \"value\": -1, \"note\": \"25℃\", \"status\": \"값있음\"}, \"data_source\": \"ECHA\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_PERSIST\", \"descriptor\": \"분해율\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"4\", \"endpoint\": \"ECO_PERSIST\", \"descriptor\": \"분해율\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"2\", \"endpoint\": \"ECO_PERSIST\", \"descriptor\": \"분해율\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"3\", \"endpoint\": \"ECO_PERSIST\", \"descriptor\": \"분해율\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_BIOACC\", \"descriptor\": \"BCF\", \"q\": {\"raw\": \"BCF 3.162 (Estimate)\", \"value\": 3.162, \"dp\": 3, \"note\": \"Estimate\", \"status\": \"값있음\"}, \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"4\", \"endpoint\": \"ECO_BIOACC\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"2\", \"endpoint\": \"ECO_BIOACC\", \"descriptor\": \"BCF\", \"q\": {\"raw\": \"BCF 35 L/kg\", \"value\": 35, \"unit\": \"L/kg\", \"status\": \"값있음\"}, \"species\": \"Lepomis macrochirus\", \"data_source\": \"ECHA\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"3\", \"endpoint\": \"ECO_BIOACC\", \"descriptor\": \"BCF\", \"q\": {\"raw\": \"BCF 3.162\", \"value\": 3.162, \"dp\": 3, \"status\": \"값있음\"}, \"data_source\": \"NCIS\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_PERSIST\", \"descriptor\": \"분해율\", \"q\": {\"raw\": \"94 (%) 28 day\", \"value\": 94, \"unit\": \"%\", \"status\": \"값있음\"}, \"duration_value\": 28, \"duration_unit\": \"day\", \"data_source\": \"ECHA\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"readily biodegradable\", \"text\": \"94 (%) 28 day readily biodegradable (ECHA)\"}]}, {\"comp_ref\": \"4\", \"endpoint\": \"ECO_PERSIST\", \"descriptor\": \"분해율\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"2\", \"endpoint\": \"ECO_PERSIST\", \"descriptor\": \"분해율\", \"q\": {\"raw\": \"64 % 28 d\", \"value\": 64, \"unit\": \"%\", \"note\": \"O2 consumption\", \"status\": \"값있음\"}, \"duration_value\": 28, \"duration_unit\": \"day\", \"guideline\": \"OECD TG 301 F, GLP\", \"data_source\": \"ECHA\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"Readily biodegradable\", \"text\": \"64 % 28 d (O2 consumption) Readily biodegradable (OECD TG 301 F, GLP) (ECHA)\"}]}, {\"comp_ref\": \"3\", \"endpoint\": \"ECO_PERSIST\", \"descriptor\": \"분해율\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_SOIL\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"4\", \"endpoint\": \"ECO_SOIL\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"2\", \"endpoint\": \"ECO_SOIL\", \"descriptor\": \"Koc\", \"q\": {\"raw\": \"log Koc 4.34 dimensionless\", \"value\": 4.34, \"dp\": 2, \"note\": \"log Koc, dimensionless\", \"status\": \"값있음\"}, \"data_source\": \"ECHA\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"3\", \"endpoint\": \"ECO_SOIL\", \"descriptor\": \"Koc\", \"q\": {\"raw\": \"Koc 1 (20℃)\", \"value\": 1, \"note\": \"20℃\", \"status\": \"값있음\"}, \"data_source\": \"ECHA\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_OZONE\", \"q\": {\"raw\": \"해당없음\", \"status\": \"해당없음\"}, \"status\": \"해당없음\", \"statements\": []}, {\"comp_ref\": \"4\", \"endpoint\": \"ECO_OZONE\", \"q\": {\"raw\": \"해당없음\", \"status\": \"해당없음\"}, \"status\": \"해당없음\", \"statements\": []}, {\"comp_ref\": \"2\", \"endpoint\": \"ECO_OZONE\", \"q\": {\"raw\": \"해당없음\", \"status\": \"해당없음\"}, \"status\": \"해당없음\", \"statements\": []}, {\"comp_ref\": \"3\", \"endpoint\": \"ECO_OZONE\", \"q\": {\"raw\": \"해당없음\", \"status\": \"해당없음\"}, \"status\": \"해당없음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_OTHER\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"4\", \"endpoint\": \"ECO_OTHER\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"2\", \"endpoint\": \"ECO_OTHER\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"3\", \"endpoint\": \"ECO_OTHER\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}]}], \"evidence\": [{\"msds_index\": 0, \"field\": \"toxicity[0]\", \"page\": 6, \"source_text\": \"○ (호흡기) - 자료없음\", \"rules\": [\"R15\"], \"note\": \"노출 경로 정보로 맞는 endpoint가 없어 null로 둠\"}, {\"msds_index\": 0, \"field\": \"toxicity[1]\", \"page\": 6, \"source_text\": \"○ (경구) - 삼키면 유해함\", \"rules\": [], \"note\": \"노출 경로 정보로 맞는 endpoint가 없어 null로 둠\"}, {\"msds_index\": 0, \"field\": \"toxicity[2]\", \"page\": 6, \"source_text\": \"○ (눈·피부) - 눈에 심한 손상을 일으킴\", \"rules\": [], \"note\": \"노출 경로 정보로 맞는 endpoint가 없어 null로 둠\"}, {\"msds_index\": 0, \"field\": \"toxicity[3]\", \"page\": 6, \"source_text\": \"- 제품 (ATEmix) : 300mg/kg < ATEmix <= 2000mg/kg\", \"rules\": [\"R04\", \"R10\"], \"note\": \"하한 >300, 상한 <=2000 mg/kg로 나눔\"}, {\"msds_index\": 0, \"field\": \"toxicity[4]\", \"page\": 6, \"source_text\": \"- [도데실벤젠 설포닉애씨드] : LD50 1219 ㎎/㎏ Rat\", \"rules\": [\"R04\", \"R08\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[5]\", \"page\": 6, \"source_text\": \"- [물] : LD50 > 90000 ㎎/㎏ Rat (LD50 > 90 ml/kg) (HSDB)\", \"rules\": [\"R04\", \"R08\", \"R10\"], \"note\": \"괄호 속 ml/kg 값을 converted로 둠\"}, {\"msds_index\": 0, \"field\": \"toxicity[6]\", \"page\": 6, \"source_text\": \"- [리니어 알킬 벤젠] : LD50 > 5000 ㎎/㎏ Rat (Read across Cas No. 68442-69-3) (OECD TG 401, GLP) (ECHA)\", \"rules\": [\"R04\", \"R08\", \"R02\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[7]\", \"page\": 6, \"source_text\": \"- [황산] : LD50 2140 mg/kg Rat (ECHA)\", \"rules\": [\"R04\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[8]\", \"page\": 6, \"source_text\": \"- 제품 (ATEmix) : >5000mg/kg 분류되지 않음 (구분 외)\", \"rules\": [\"R04\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[9]\", \"page\": 6, \"source_text\": \"- [도데실벤젠 설포닉애씨드] : 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[10]\", \"page\": 6, \"source_text\": \"- [물] : 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[11]\", \"page\": 6, \"source_text\": \"- [리니어 알킬 벤젠] : LD50 > 2000 ㎎/㎏ Rat No death Not classified (OECD TG 402, GLP) (ECHA)\", \"rules\": [\"R04\", \"R08\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[12]\", \"page\": 6, \"source_text\": \"- [황산] : 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[13]\", \"page\": 6, \"source_text\": \"- 제품 (ATEmix) : Vapor 2.0mg/L 4hr < ATEmix <=  10.0mg/L 4hr\", \"rules\": [\"R04\", \"R06\", \"R10\"], \"note\": \"Vapor→증기, 하한 >2.0, 상한 <=10.0 mg/L, dp 1\"}, {\"msds_index\": 0, \"field\": \"toxicity[14]\", \"page\": 6, \"source_text\": \"- [도데실벤젠 설포닉애씨드] : 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[15]\", \"page\": 6, \"source_text\": \"- [물] : 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[16]\", \"page\": 6, \"source_text\": \"- [리니어 알킬 벤젠] : Aerosol LC50 71 mg/L 4hr Rat (NCIS)\", \"rules\": [\"R04\", \"R10\"], \"note\": \"Aerosol을 분진·미스트로 둠\"}, {\"msds_index\": 0, \"field\": \"toxicity[17]\", \"page\": 6, \"source_text\": \"- [황산] : Aerosol LC50 0.375 mg/L 4 hr Rat (NCIS)\", \"rules\": [\"R04\", \"R10\"], \"note\": \"Aerosol을 분진·미스트로 둠\"}, {\"msds_index\": 0, \"field\": \"toxicity[18]\", \"page\": 6, \"source_text\": \"- [도데실벤젠 설포닉애씨드] : 피부 부식성 물질임 (NICS)\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[19]\", \"page\": 6, \"source_text\": \"- [물] : 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[20]\", \"page\": 6, \"source_text\": \"- [리니어 알킬 벤젠] : 토끼를 이용한 시험 결과 피부 자극성 물질임 (NCIS)\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[21]\", \"page\": 6, \"source_text\": \"- [황산] : 피부에 심한 화상과 눈에 손상을 일으킴 (EU Harmonized Cat. 1A) (ECHA)\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[22]\", \"page\": 6, \"source_text\": \"- [도데실벤젠 설포닉애씨드] : 고시에 의거하여 피부 부식성으로 분류됨에 따라 구분 1로 분류됨\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[23]\", \"page\": 6, \"source_text\": \"- [물] : 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[24]\", \"page\": 6, \"source_text\": \"- [리니어 알킬 벤젠] : 토끼를 이용한 시험결과 약하게 눈 자극성을 나타내지만, 분류되지 않음 (NCIS)\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[25]\", \"page\": 6, \"source_text\": \"- [황산] : 토끼를 이용한 눈 자극성 시험결과, 심한 눈 손상 물질임 (NCIS)\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[26]\", \"page\": 6, \"source_text\": \"- [도데실벤젠 설포닉애씨드] : 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[27]\", \"page\": 6, \"source_text\": \"- [물] : 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[28]\", \"page\": 6, \"source_text\": \"- [리니어 알킬 벤젠] : 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[29]\", \"page\": 7, \"source_text\": \"- [황산] : 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[30]\", \"page\": 7, \"source_text\": \"- [도데실벤젠 설포닉애씨드] : 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[31]\", \"page\": 7, \"source_text\": \"- [물] : 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[32]\", \"page\": 7, \"source_text\": \"- [리니어 알킬 벤젠] : 기니피그를 이용한 Maximisation 시험 결과 피부 과민성을 띄지 않음 (OECD TG 406) (ECHA)\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[33]\", \"page\": 7, \"source_text\": \"- [황산] : 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[34]\", \"page\": 7, \"source_text\": \"- [도데실벤젠 설포닉애씨드] : [in vitro] 음성(복귀돌연변이시험) 음성(염색체이상시험, Chinese hamster lung cells)\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[35]\", \"page\": 7, \"source_text\": \"- [물] : 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[36]\", \"page\": 7, \"source_text\": \"- [리니어 알킬 벤젠] : In vivo 마우스를 이용한 소핵 시험 결과 음성 (OECD TG 474, GLP)\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[37]\", \"page\": 7, \"source_text\": \"- [황산] : In vitro 차이니즈 햄스터의 폐 섬유아세포(V79)를 이용한 염색체 이상 시험 결과 대사활성계 유무에 관계없이 음성 (Read-across 7757-82-6)\", \"rules\": [\"R02\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[38]\", \"page\": 7, \"source_text\": \"- [도데실벤젠 설포닉애씨드] : 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[39]\", \"page\": 8, \"source_text\": \"- [물] : 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[40]\", \"page\": 8, \"source_text\": \"- [리니어 알킬 벤젠] : 랫드를 이용한 시험 결과 유의한 독성 영향 관찰되지 않음 NOAEL 50 mg/kg bw/day (OECD TG 416, GLP) (ECHA)\", \"rules\": [\"R04\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[41]\", \"page\": 8, \"source_text\": \"랫드를 이용한 생식/발달 독성 시험 결과 전반적인 생식독성은 관찰되지 않음 NOEL 1000 mg/kg/day (Read-across 7757-82-6) (OECD TG 421, GLP)\", \"rules\": [\"R04\", \"R02\", \"R10\"], \"note\": \"맞는 값 없음: 지표 NOEL은 descriptor 목록에 없어 null로 두고 raw에 남김\"}, {\"msds_index\": 0, \"field\": \"toxicity[42]\", \"page\": 8, \"source_text\": \"NOAEC 19.3 mg/m³ (OECD TG 414) (ECHA)\", \"rules\": [\"R04\", \"R08\", \"R10\"], \"note\": \"맞는 값 없음: 지표 NOAEC는 descriptor 목록에 없어 null로 두고 raw에 남김\"}, {\"msds_index\": 0, \"field\": \"toxicity[43]\", \"page\": 8, \"source_text\": \"- [도데실벤젠 설포닉애씨드] : 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[44]\", \"page\": 8, \"source_text\": \"- [물] : 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[45]\", \"page\": 8, \"source_text\": \"- [리니어 알킬 벤젠] : 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[46]\", \"page\": 8, \"source_text\": \"- [황산] : 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[47]\", \"page\": 8, \"source_text\": \"- [도데실벤젠 설포닉애씨드] : 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[48]\", \"page\": 8, \"source_text\": \"- [물] : 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[49]\", \"page\": 8, \"source_text\": \"- [리니어 알킬 벤젠] : 랫드를 이용한 반복 경구 투여 시험 결과(28일) 유의한 독성 영향 관찰되지 않음 LOAEL 2500 ppm (OECD TG 407, GLP) (ECHA)\", \"rules\": [\"R04\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[50]\", \"page\": 8, \"source_text\": \"- [황산] : 랫드를 이용한 반복 흡입(에어로졸) 시험 결과 심각한 독성 영향은 관찰되지 않음 (OECD TG 412, GLP) (ECHA)\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[51]\", \"page\": 8, \"source_text\": \"- [도데실벤젠 설포닉애씨드] : 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[52]\", \"page\": 8, \"source_text\": \"- [물] : 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[53]\", \"page\": 8, \"source_text\": \"- [리니어 알킬 벤젠] : 동점도 4.23 mm²/s 40 °C (ASTM D446, GLP) (ECHA) 삼켜서 기도로 유입되면 치명적일 수 있음 (NCIS)\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[54]\", \"page\": 8, \"source_text\": \"- [황산] : 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"cmr[0]\", \"page\": 7, \"source_text\": \"* 환경부 화학물질관리법 - [도데실벤젠 설포닉애씨드] : 해당없음\", \"rules\": [\"R15\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"cmr[1]\", \"page\": 7, \"source_text\": \"- [물] : 해당없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"cmr[2]\", \"page\": 7, \"source_text\": \"- [리니어 알킬 벤젠] : 해당없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"cmr[3]\", \"page\": 7, \"source_text\": \"- [황산] : 발암성 없음\", \"rules\": [\"R10\"], \"note\": \"맞는 값 없음: '발암성 없음'은 맞는 상태값이 없어 class에 원문을 남김\"}, {\"msds_index\": 0, \"field\": \"cmr[4]\", \"page\": 7, \"source_text\": \"* IARC - [도데실벤젠 설포닉애씨드] : 해당없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"cmr[5]\", \"page\": 7, \"source_text\": \"- [물] : 해당없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"cmr[6]\", \"page\": 7, \"source_text\": \"- [리니어 알킬 벤젠] : 해당없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"cmr[7]\", \"page\": 7, \"source_text\": \"- [황산] : Group 1 (in case of strong inorganic Acid mists)\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"cmr[8]\", \"page\": 7, \"source_text\": \"* OSHA - [도데실벤젠 설포닉애씨드] : 해당없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"cmr[9]\", \"page\": 7, \"source_text\": \"- [물] : 해당없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"cmr[10]\", \"page\": 7, \"source_text\": \"- [리니어 알킬 벤젠] : 해당없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"cmr[11]\", \"page\": 7, \"source_text\": \"- [황산] : 해당없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"cmr[12]\", \"page\": 7, \"source_text\": \"* ACGIH - [도데실벤젠 설포닉애씨드] : 해당없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"cmr[13]\", \"page\": 7, \"source_text\": \"- [물] : 해당없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"cmr[14]\", \"page\": 7, \"source_text\": \"- [리니어 알킬 벤젠] : 해당없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"cmr[15]\", \"page\": 7, \"source_text\": \"- [황산] : A2 (When contained in strong inorganic acid mists)\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"cmr[16]\", \"page\": 7, \"source_text\": \"* NTP - [도데실벤젠 설포닉애씨드] : 해당없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"cmr[17]\", \"page\": 7, \"source_text\": \"- [물] : 해당없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"cmr[18]\", \"page\": 7, \"source_text\": \"- [리니어 알킬 벤젠] : 해당없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"cmr[19]\", \"page\": 7, \"source_text\": \"- [황산] : K (Strong inorganic acid mist)\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"cmr[20]\", \"page\": 7, \"source_text\": \"* EU CLP - [도데실벤젠 설포닉애씨드] : 해당없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"cmr[21]\", \"page\": 7, \"source_text\": \"- [물] : 해당없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"cmr[22]\", \"page\": 7, \"source_text\": \"- [리니어 알킬 벤젠] : 해당없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"cmr[23]\", \"page\": 7, \"source_text\": \"- [황산] : 해당없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"cmr[24]\", \"page\": 8, \"source_text\": \"○ 고용노동부고시 * 발암성 - [도데실벤젠 설포닉애씨드] : 해당없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"cmr[25]\", \"page\": 8, \"source_text\": \"- [물] : 해당없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"cmr[26]\", \"page\": 8, \"source_text\": \"- [리니어 알킬 벤젠] : 해당없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"cmr[27]\", \"page\": 8, \"source_text\": \"- [황산] : 발암성 1A (강산 Mist에 한정함)\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"cmr[28]\", \"page\": 8, \"source_text\": \"* 생식세포 변이원성 - [도데실벤젠 설포닉애씨드] : 해당없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"cmr[29]\", \"page\": 8, \"source_text\": \"- [물] : 해당없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"cmr[30]\", \"page\": 8, \"source_text\": \"- [리니어 알킬 벤젠] : 해당없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"cmr[31]\", \"page\": 8, \"source_text\": \"- [황산] : 해당없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"cmr[32]\", \"page\": 8, \"source_text\": \"* 생식독성 - [도데실벤젠 설포닉애씨드] : 해당없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"cmr[33]\", \"page\": 8, \"source_text\": \"- [물] : 해당없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"cmr[34]\", \"page\": 8, \"source_text\": \"- [리니어 알킬 벤젠] : 해당없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"cmr[35]\", \"page\": 8, \"source_text\": \"- [황산] : 해당없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[0]\", \"page\": 8, \"source_text\": \"- [도데실벤젠 설포닉애씨드] : LC50 5.6 mg/L 96 hr Cyprinus carpio\", \"rules\": [\"R04\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[1]\", \"page\": 8, \"source_text\": \"- [물] : 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[2]\", \"page\": 8, \"source_text\": \"- [리니어 알킬 벤젠] : LC50 > 0.041 mg/L 96hr Oncorhynchus mykiss (NCIS)\", \"rules\": [\"R04\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[3]\", \"page\": 8, \"source_text\": \"- [황산] : LC50 > 16 ~ < 28 mg/L 96 hr Lepomis macrochirus (ECHA)\", \"rules\": [\"R04\", \"R10\"], \"note\": \"하한 >16, 상한 <28로 나눔\"}, {\"msds_index\": 0, \"field\": \"ecotox[4]\", \"page\": 8, \"source_text\": \"- [도데실벤젠 설포닉애씨드] : EC50 2.9mg/L 48hr  Daphnia magna (ECHA)\", \"rules\": [\"R04\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[5]\", \"page\": 8, \"source_text\": \"- [물] : 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[6]\", \"page\": 9, \"source_text\": \"- [리니어 알킬 벤젠] : EC50 > 0.041 mg/L 48 h Daphnia magna (EU Method C.2, GLP) (ECHA)\", \"rules\": [\"R04\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[7]\", \"page\": 9, \"source_text\": \"- [황산] : EC50 > 100 mg/L 48 hr Daphnia magna (OECD TG 202, GLP) (ECHA)\", \"rules\": [\"R04\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[8]\", \"page\": 9, \"source_text\": \"- [도데실벤젠 설포닉애씨드] : EC50 111 ㎎/ℓ 72 hr , NOEC 40mg/L Scenedesmus subspicatus (ECHA)\", \"rules\": [\"R04\", \"R08\", \"R10\"], \"note\": \"㎎/ℓ를 mg/L로 정규화\"}, {\"msds_index\": 0, \"field\": \"ecotox[9]\", \"page\": 9, \"source_text\": \"- [도데실벤젠 설포닉애씨드] : EC50 111 ㎎/ℓ 72 hr , NOEC 40mg/L Scenedesmus subspicatus (ECHA)\", \"rules\": [\"R04\", \"R10\"], \"note\": \"같은 줄의 NOEC를 별도 행으로 나눔\"}, {\"msds_index\": 0, \"field\": \"ecotox[10]\", \"page\": 9, \"source_text\": \"- [물] : 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[11]\", \"page\": 9, \"source_text\": \"- [리니어 알킬 벤젠] : EC50 > 100 g/L 72 h Desmodesmus subspicatus (OECD TG 201, GLP) (ECHA)\", \"rules\": [\"R04\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[12]\", \"page\": 9, \"source_text\": \"- [황산] : EC50 > 100 mg/L 72 hr Desmodesmus subspicatus (OECD TG 201, GLP) (ECHA)\", \"rules\": [\"R04\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[13]\", \"page\": 9, \"source_text\": \"- [도데실벤젠 설포닉애씨드] : log Pow 2.2 (23 ℃, pH 3.7) (NICS)\", \"rules\": [\"R04\", \"R10\"], \"note\": \"잔류성 항목 아래 기재되어 ECO_PERSIST로 둠\"}, {\"msds_index\": 0, \"field\": \"ecotox[14]\", \"page\": 9, \"source_text\": \"- [물] : log Kow = -1.38 (HSDB)\", \"rules\": [\"R04\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[15]\", \"page\": 9, \"source_text\": \"- [리니어 알킬 벤젠] : log Kow 7.5 ~ 9.12 (IUCLID)\", \"rules\": [\"R04\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[16]\", \"page\": 9, \"source_text\": \"- [황산] : log Pow -1 (25℃)(ECHA)\", \"rules\": [\"R04\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[17]\", \"page\": 9, \"source_text\": \"○ 분해성 - [도데실벤젠 설포닉애씨드] : 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[18]\", \"page\": 9, \"source_text\": \"- [물] : 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[19]\", \"page\": 9, \"source_text\": \"- [리니어 알킬 벤젠] : 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[20]\", \"page\": 9, \"source_text\": \"- [황산] : 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[21]\", \"page\": 9, \"source_text\": \"- [도데실벤젠 설포닉애씨드] : BCF 3.162 (Estimate)\", \"rules\": [\"R04\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[22]\", \"page\": 9, \"source_text\": \"- [물] : 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[23]\", \"page\": 9, \"source_text\": \"- [리니어 알킬 벤젠] : BCF 35 L/kg Lepomis macrochirus (ECHA)\", \"rules\": [\"R04\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[24]\", \"page\": 9, \"source_text\": \"- [황산] : BCF 3.162 (NCIS)\", \"rules\": [\"R04\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[25]\", \"page\": 9, \"source_text\": \"- [도데실벤젠 설포닉애씨드] : 94 (%) 28 day readily biodegradable (ECHA)\", \"rules\": [\"R04\", \"R10\"], \"note\": \"생분해성 값을 ECO_PERSIST 분해율로 둠\"}, {\"msds_index\": 0, \"field\": \"ecotox[26]\", \"page\": 9, \"source_text\": \"- [물] : 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[27]\", \"page\": 9, \"source_text\": \"- [리니어 알킬 벤젠] : 64 % 28 d (O2 consumption) Readily biodegradable (OECD TG 301 F, GLP) (ECHA)\", \"rules\": [\"R04\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[28]\", \"page\": 9, \"source_text\": \"- [황산] : 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[29]\", \"page\": 9, \"source_text\": \"라. 토양 이동성 - [도데실벤젠 설포닉애씨드] : 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[30]\", \"page\": 9, \"source_text\": \"- [물] : 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[31]\", \"page\": 9, \"source_text\": \"- [리니어 알킬 벤젠] : log Koc 4.34 dimensionless (ECHA)\", \"rules\": [\"R04\", \"R10\", \"R17\"], \"note\": \"log Koc 값으로 note에 표시\"}, {\"msds_index\": 0, \"field\": \"ecotox[32]\", \"page\": 9, \"source_text\": \"- [황산] : Koc 1 (20℃) (ECHA)\", \"rules\": [\"R04\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[33]\", \"page\": 9, \"source_text\": \"마. 오존층 유해성 - [도데실벤젠 설포닉애씨드] : 해당없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[34]\", \"page\": 9, \"source_text\": \"- [물] : 해당없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[35]\", \"page\": 9, \"source_text\": \"- [리니어 알킬 벤젠] : 해당없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[36]\", \"page\": 9, \"source_text\": \"- [황산] : 해당없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[37]\", \"page\": 9, \"source_text\": \"바. 기타 유해 영향 - [도데실벤젠 설포닉애씨드] : 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[38]\", \"page\": 9, \"source_text\": \"- [물] : 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[39]\", \"page\": 9, \"source_text\": \"- [리니어 알킬 벤젠] : 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[40]\", \"page\": 9, \"source_text\": \"- [황산] : 자료없음\", \"rules\": [\"R15\"], \"note\": null}]}"
+}

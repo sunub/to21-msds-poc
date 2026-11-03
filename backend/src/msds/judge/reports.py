@@ -6,7 +6,6 @@ import json
 import re
 import tempfile
 import threading
-import types
 import unicodedata
 from dataclasses import dataclass
 from functools import lru_cache
@@ -17,7 +16,7 @@ import pymupdf
 from openpyxl import Workbook
 from openpyxl.cell import Cell
 
-from msds.common.paths import to21_file
+from msds.checks.validator import load_to21_module
 
 from .display import finding_display
 
@@ -90,11 +89,7 @@ def _review_line(data: dict) -> str:
 
 
 def _load_regen():
-    # shortcut: TO21 스크립트의 main()이 Python 3.12 문법이라 3.11에서 파일째 못 읽는다. 쓰는 함수는 main 앞에 있어 그 앞만 읽는다. TO21이 고치면 importlib 로 바꾼다
-    source = to21_file("regen").read_text(encoding="utf-8").split("\ndef main():")[0]
-    mod = types.ModuleType("to21_regen")
-    exec(compile(source, str(to21_file("regen")), "exec"), mod.__dict__)
-    return mod
+    return load_to21_module("regen")  # 3.11에서 main() 앞만 읽는 처리는 공용 창구에 있다(B-15)
 
 
 def _without_empty_titles(value):

@@ -1,0 +1,545 @@
+{
+  "doc_id": "T21-009",
+  "bundle": "b3",
+  "model": "claude-opus-5-5",
+  "mode": "claude -p json-schema",
+  "finish_reason": "tool_use",
+  "usage": {
+    "prompt_tokens": 49181,
+    "completion_tokens": 5866,
+    "cached_tokens": 8451,
+    "reasoning_tokens": 905,
+    "notional_cost_usd": 0.44484219999999997
+  },
+  "seconds": 44.4,
+  "request_usage": [
+    {
+      "prompt_tokens": 49181,
+      "completion_tokens": 5866,
+      "cached_tokens": 8451,
+      "reasoning_tokens": 905,
+      "notional_cost_usd": 0.44484219999999997
+    }
+  ],
+  "attempts": 1,
+  "errors": [],
+  "parsed": {
+    "msds": [
+      {
+        "toxicity": [
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_ORAL",
+            "descriptor": "결과기술",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "삼키면 유해함.",
+                "text": "피부와 접촉하면 유해함. 삼키면 유해함."
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_DERMAL",
+            "descriptor": "결과기술",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "피부와 접촉하면 유해함.",
+                "text": "피부와 접촉하면 유해함. 삼키면 유해함."
+              }
+            ]
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "TX_ORAL",
+            "descriptor": "LD50",
+            "species": "쥐",
+            "sex": "미표기",
+            "status": "값있음",
+            "q": {
+              "raw": "1716 mg/kg",
+              "value": 1716,
+              "unit": "mg/kg",
+              "status": "값있음",
+              "note": "액체"
+            },
+            "statements": []
+          },
+          {
+            "comp_ref": "2",
+            "endpoint": "TX_DERMAL",
+            "descriptor": "LD50",
+            "species": "쥐",
+            "sex": "미표기",
+            "status": "값있음",
+            "q": {
+              "raw": "1465 mg/kg",
+              "value": 1465,
+              "unit": "mg/kg",
+              "status": "값있음",
+              "note": "액체"
+            },
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_SKIN",
+            "descriptor": "결과기술",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "피부에 심한 화상과 눈에 손상을 일으킴.",
+                "text": "피부에 심한 화상과 눈에 손상을 일으킴."
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_EYE",
+            "descriptor": "결과기술",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "눈에 심한 손상을 일으킴.",
+                "text": "눈에 심한 손상을 일으킴."
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_RESP_SENS",
+            "descriptor": "결과기술",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "호흡기 과민성이 아님.",
+                "text": "호흡기 과민성이 아님."
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_SKIN_SENS",
+            "descriptor": "결과기술",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "알레르기성 피부 반응을 일으킬 수 있음.",
+                "text": "알레르기성 피부 반응을 일으킬 수 있음."
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_CARC",
+            "descriptor": "결과기술",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "인체 발암성으로 분류되지 않음.",
+                "text": "인체 발암성으로 분류되지 않음."
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_MUTA",
+            "descriptor": "결과기술",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "제품이나 0.1%이상 함유된 성분이 변이원성 또는 유전독성을 나타냄을 의미하는 자료가 없음.",
+                "text": "제품이나 0.1%이상 함유된 성분이 변이원성 또는 유전독성을 나타냄을 의미하는 자료가 없음.",
+                "cond": {
+                  "raw": "0.1%이상",
+                  "lower_op": ">=",
+                  "lower": 0.1,
+                  "unit": "%",
+                  "dp": 1,
+                  "status": "값있음"
+                }
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_REPRO",
+            "descriptor": "결과기술",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "태아 또는 생식능력에 손상을 일으킬 것으로 의심됨.",
+                "text": "태아 또는 생식능력에 손상을 일으킬 것으로 의심됨."
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_STOT_SE",
+            "descriptor": "결과기술",
+            "status": "값있음",
+            "classification": "분류되지 않음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "분류되지 않음.",
+                "text": "분류되지 않음."
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_STOT_RE",
+            "descriptor": "결과기술",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "장기간 또는 반복노출 되면 장기에 손상을 일으킬 수 있음.",
+                "text": "장기간 또는 반복노출 되면 장기에 손상을 일으킬 수 있음."
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_ASP",
+            "descriptor": "결과기술",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "흡인 유해성이 아님.",
+                "text": "흡인 유해성이 아님."
+              }
+            ]
+          }
+        ],
+        "cmr": [],
+        "ecotox": [
+          {
+            "comp_ref": "MIX",
+            "endpoint": null,
+            "descriptor": "결과기술",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "생태독성",
+                "value": "장기적인 영향에 의해 수생생물에게 유독함.",
+                "text": "가. 생태독성 장기적인 영향에 의해 수생생물에게 유독함."
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": null,
+            "descriptor": "결과기술",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "수생환경 유해성, 급성",
+                "value": "비전문가가 취급하거나 폐기하는 경우 환경적 유해성을 배제할 수 없음.",
+                "text": "수생환경 유해성, 급성 비전문가가 취급하거나 폐기하는 경우 환경적 유해성을 배제할 수 없음."
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": null,
+            "descriptor": "결과기술",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "수생환경 유해성, 만성",
+                "value": "장기적인 영향에 의해 수생생물에게 유독함.",
+                "text": "수생환경 유해성, 만성 장기적인 영향에 의해 수생생물에게 유독함."
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_PERSIST",
+            "descriptor": "결과기술",
+            "status": "자료없음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "본 혼합물 내 성분의 분해성에 대한 이용 가능한 자료가 없음.",
+                "text": "나. 잔류성 및 분해성 본 혼합물 내 성분의 분해성에 대한 이용 가능한 자료가 없음."
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_BIOACC",
+            "descriptor": null,
+            "status": "자료없음",
+            "q": {
+              "raw": "자료없음.",
+              "status": "자료없음"
+            },
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_SOIL",
+            "descriptor": "결과기술",
+            "status": "자료없음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "본 제품에 관한 이용가능한 자료가 없음.",
+                "text": "라. 토양 이동성 본 제품에 관한 이용가능한 자료가 없음."
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_OTHER",
+            "descriptor": "결과기술",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "본 성분으로부터 부정적인 환경 영향 (예: 오존층 감소, 광화학적 오존 발생 가능성, 호르몬 붕괴, 지구 온난화 가능성) 은 없을 것으로 보입니다.",
+                "text": "마. 기타 유해 영향 본 성분으로부터 부정적인 환경 영향 (예: 오존층 감소, 광화학적 오존 발생 가능성, 호르몬 붕괴, 지구 온난화 가능성) 은 없을 것으로 보입니다."
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "msds_index": 0,
+        "field": "toxicity[0]",
+        "page": 5,
+        "source_text": "o 급성 독성 (노출가능한 모든 경로에 대해 기재) 피부와 접촉하면 유해함. 삼키면 유해함.",
+        "rules": [
+          "R10"
+        ],
+        "note": "제품 전체 급성독성 서술 중 경구 부분을 MIX 결과기술로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[1]",
+        "page": 5,
+        "source_text": "o 급성 독성 (노출가능한 모든 경로에 대해 기재) 피부와 접촉하면 유해함. 삼키면 유해함.",
+        "rules": [
+          "R10"
+        ],
+        "note": "제품 전체 급성독성 서술 중 경피 부분을 MIX 결과기술로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[2]",
+        "page": 5,
+        "source_text": "트리에틸렌테트라아민 (CAS 112-24-3) | 급성 | 경구 | 액체 | LD50 | 쥐 | 1716 mg/kg",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "CAS 112-24-3으로 comp_ref=2 매칭, '액체'는 q.note에 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[3]",
+        "page": 5,
+        "source_text": "경피 | 액체 | LD50 | 쥐 | 1465 mg/kg",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "CAS 112-24-3으로 comp_ref=2 매칭, '액체'는 q.note에 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[4]",
+        "page": 5,
+        "source_text": "o 피부 부식성 또는 자극성 피부에 심한 화상과 눈에 손상을 일으킴.",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[5]",
+        "page": 5,
+        "source_text": "o 심한 눈 손상 또는 자극성 눈에 심한 손상을 일으킴.",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[6]",
+        "page": 5,
+        "source_text": "o 호흡기 과민성 호흡기 과민성이 아님.",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[7]",
+        "page": 5,
+        "source_text": "o 피부 과민성 알레르기성 피부 반응을 일으킬 수 있음.",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[8]",
+        "page": 5,
+        "source_text": "o 발암성 인체 발암성으로 분류되지 않음.",
+        "rules": [
+          "R10"
+        ],
+        "note": "기관별 분류가 없어 cmr 행은 만들지 않음"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[9]",
+        "page": 5,
+        "source_text": "o 생식세포 변이원성 제품이나 0.1%이상 함유된 성분이 변이원성 또는 유전독성을 나타냄을 의미하는 자료가 없음.",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "'0.1%이상'을 cond(>=0.1 %)로 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[10]",
+        "page": 5,
+        "source_text": "o 생식 독성 태아 또는 생식능력에 손상을 일으킬 것으로 의심됨.",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[11]",
+        "page": 5,
+        "source_text": "o 특정 표적장기 독성 (1회 노출) 분류되지 않음.",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[12]",
+        "page": 5,
+        "source_text": "o 특정 표적장기 독성 (반복 노출) 장기간 또는 반복노출 되면 장기에 손상을 일으킬 수 있음.",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[13]",
+        "page": 5,
+        "source_text": "o 흡인 유해성 흡인 유해성이 아님.",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[0]",
+        "page": 5,
+        "source_text": "가. 생태독성 장기적인 영향에 의해 수생생물에게 유독함.",
+        "rules": [
+          "R10"
+        ],
+        "note": "맞는 값 없음: 생물종 미지정 수생 생태독성 서술이라 endpoint null"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[1]",
+        "page": 5,
+        "source_text": "수생환경 유해성, 급성 비전문가가 취급하거나 폐기하는 경우 환경적 유해성을 배제할 수 없음.",
+        "rules": [
+          "R10"
+        ],
+        "note": "맞는 값 없음: 수생환경 급성 유해성 코드가 없어 endpoint null"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[2]",
+        "page": 5,
+        "source_text": "수생환경 유해성, 만성 장기적인 영향에 의해 수생생물에게 유독함.",
+        "rules": [
+          "R10"
+        ],
+        "note": "맞는 값 없음: 수생환경 만성 유해성 코드가 없어 endpoint null"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[3]",
+        "page": 5,
+        "source_text": "나. 잔류성 및 분해성 본 혼합물 내 성분의 분해성에 대한 이용 가능한 자료가 없음.",
+        "rules": [
+          "R15",
+          "R10"
+        ],
+        "note": "'이용 가능한 자료가 없음'을 자료없음으로 보고 서술 보존"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[4]",
+        "page": 5,
+        "source_text": "다. 생물 농축성 자료없음.",
+        "rules": [
+          "R15",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[5]",
+        "page": 5,
+        "source_text": "라. 토양 이동성 본 제품에 관한 이용가능한 자료가 없음.",
+        "rules": [
+          "R15",
+          "R10"
+        ],
+        "note": "'이용가능한 자료가 없음'을 자료없음으로 보고 서술 보존"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[6]",
+        "page": 5,
+        "source_text": "마. 기타 유해 영향 본 성분으로부터 부정적인 환경 영향 (예: 오존층 감소, 광화학적 오존 발생 가능성, 호르몬 붕괴, 지구 온난화 가능성) 은 없을 것으로 보입니다.",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      }
+    ]
+  },
+  "raw_text": "{\"msds\": [{\"toxicity\": [{\"comp_ref\": \"MIX\", \"endpoint\": \"TX_ORAL\", \"descriptor\": \"결과기술\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"삼키면 유해함.\", \"text\": \"피부와 접촉하면 유해함. 삼키면 유해함.\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_DERMAL\", \"descriptor\": \"결과기술\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"피부와 접촉하면 유해함.\", \"text\": \"피부와 접촉하면 유해함. 삼키면 유해함.\"}]}, {\"comp_ref\": \"2\", \"endpoint\": \"TX_ORAL\", \"descriptor\": \"LD50\", \"species\": \"쥐\", \"sex\": \"미표기\", \"status\": \"값있음\", \"q\": {\"raw\": \"1716 mg/kg\", \"value\": 1716, \"unit\": \"mg/kg\", \"status\": \"값있음\", \"note\": \"액체\"}, \"statements\": []}, {\"comp_ref\": \"2\", \"endpoint\": \"TX_DERMAL\", \"descriptor\": \"LD50\", \"species\": \"쥐\", \"sex\": \"미표기\", \"status\": \"값있음\", \"q\": {\"raw\": \"1465 mg/kg\", \"value\": 1465, \"unit\": \"mg/kg\", \"status\": \"값있음\", \"note\": \"액체\"}, \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_SKIN\", \"descriptor\": \"결과기술\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"피부에 심한 화상과 눈에 손상을 일으킴.\", \"text\": \"피부에 심한 화상과 눈에 손상을 일으킴.\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_EYE\", \"descriptor\": \"결과기술\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"눈에 심한 손상을 일으킴.\", \"text\": \"눈에 심한 손상을 일으킴.\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_RESP_SENS\", \"descriptor\": \"결과기술\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"호흡기 과민성이 아님.\", \"text\": \"호흡기 과민성이 아님.\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_SKIN_SENS\", \"descriptor\": \"결과기술\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"알레르기성 피부 반응을 일으킬 수 있음.\", \"text\": \"알레르기성 피부 반응을 일으킬 수 있음.\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_CARC\", \"descriptor\": \"결과기술\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"인체 발암성으로 분류되지 않음.\", \"text\": \"인체 발암성으로 분류되지 않음.\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_MUTA\", \"descriptor\": \"결과기술\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"제품이나 0.1%이상 함유된 성분이 변이원성 또는 유전독성을 나타냄을 의미하는 자료가 없음.\", \"text\": \"제품이나 0.1%이상 함유된 성분이 변이원성 또는 유전독성을 나타냄을 의미하는 자료가 없음.\", \"cond\": {\"raw\": \"0.1%이상\", \"lower_op\": \">=\", \"lower\": 0.1, \"unit\": \"%\", \"dp\": 1, \"status\": \"값있음\"}}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_REPRO\", \"descriptor\": \"결과기술\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"태아 또는 생식능력에 손상을 일으킬 것으로 의심됨.\", \"text\": \"태아 또는 생식능력에 손상을 일으킬 것으로 의심됨.\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_STOT_SE\", \"descriptor\": \"결과기술\", \"status\": \"값있음\", \"classification\": \"분류되지 않음\", \"statements\": [{\"seq\": 1, \"value\": \"분류되지 않음.\", \"text\": \"분류되지 않음.\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_STOT_RE\", \"descriptor\": \"결과기술\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"장기간 또는 반복노출 되면 장기에 손상을 일으킬 수 있음.\", \"text\": \"장기간 또는 반복노출 되면 장기에 손상을 일으킬 수 있음.\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_ASP\", \"descriptor\": \"결과기술\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"흡인 유해성이 아님.\", \"text\": \"흡인 유해성이 아님.\"}]}], \"cmr\": [], \"ecotox\": [{\"comp_ref\": \"MIX\", \"endpoint\": null, \"descriptor\": \"결과기술\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"key\": \"생태독성\", \"value\": \"장기적인 영향에 의해 수생생물에게 유독함.\", \"text\": \"가. 생태독성 장기적인 영향에 의해 수생생물에게 유독함.\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": null, \"descriptor\": \"결과기술\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"key\": \"수생환경 유해성, 급성\", \"value\": \"비전문가가 취급하거나 폐기하는 경우 환경적 유해성을 배제할 수 없음.\", \"text\": \"수생환경 유해성, 급성 비전문가가 취급하거나 폐기하는 경우 환경적 유해성을 배제할 수 없음.\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": null, \"descriptor\": \"결과기술\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"key\": \"수생환경 유해성, 만성\", \"value\": \"장기적인 영향에 의해 수생생물에게 유독함.\", \"text\": \"수생환경 유해성, 만성 장기적인 영향에 의해 수생생물에게 유독함.\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_PERSIST\", \"descriptor\": \"결과기술\", \"status\": \"자료없음\", \"statements\": [{\"seq\": 1, \"value\": \"본 혼합물 내 성분의 분해성에 대한 이용 가능한 자료가 없음.\", \"text\": \"나. 잔류성 및 분해성 본 혼합물 내 성분의 분해성에 대한 이용 가능한 자료가 없음.\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_BIOACC\", \"descriptor\": null, \"status\": \"자료없음\", \"q\": {\"raw\": \"자료없음.\", \"status\": \"자료없음\"}, \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_SOIL\", \"descriptor\": \"결과기술\", \"status\": \"자료없음\", \"statements\": [{\"seq\": 1, \"value\": \"본 제품에 관한 이용가능한 자료가 없음.\", \"text\": \"라. 토양 이동성 본 제품에 관한 이용가능한 자료가 없음.\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_OTHER\", \"descriptor\": \"결과기술\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"본 성분으로부터 부정적인 환경 영향 (예: 오존층 감소, 광화학적 오존 발생 가능성, 호르몬 붕괴, 지구 온난화 가능성) 은 없을 것으로 보입니다.\", \"text\": \"마. 기타 유해 영향 본 성분으로부터 부정적인 환경 영향 (예: 오존층 감소, 광화학적 오존 발생 가능성, 호르몬 붕괴, 지구 온난화 가능성) 은 없을 것으로 보입니다.\"}]}]}], \"evidence\": [{\"msds_index\": 0, \"field\": \"toxicity[0]\", \"page\": 5, \"source_text\": \"o 급성 독성 (노출가능한 모든 경로에 대해 기재) 피부와 접촉하면 유해함. 삼키면 유해함.\", \"rules\": [\"R10\"], \"note\": \"제품 전체 급성독성 서술 중 경구 부분을 MIX 결과기술로 둠\"}, {\"msds_index\": 0, \"field\": \"toxicity[1]\", \"page\": 5, \"source_text\": \"o 급성 독성 (노출가능한 모든 경로에 대해 기재) 피부와 접촉하면 유해함. 삼키면 유해함.\", \"rules\": [\"R10\"], \"note\": \"제품 전체 급성독성 서술 중 경피 부분을 MIX 결과기술로 둠\"}, {\"msds_index\": 0, \"field\": \"toxicity[2]\", \"page\": 5, \"source_text\": \"트리에틸렌테트라아민 (CAS 112-24-3) | 급성 | 경구 | 액체 | LD50 | 쥐 | 1716 mg/kg\", \"rules\": [\"R04\", \"R10\"], \"note\": \"CAS 112-24-3으로 comp_ref=2 매칭, '액체'는 q.note에 둠\"}, {\"msds_index\": 0, \"field\": \"toxicity[3]\", \"page\": 5, \"source_text\": \"경피 | 액체 | LD50 | 쥐 | 1465 mg/kg\", \"rules\": [\"R04\", \"R10\"], \"note\": \"CAS 112-24-3으로 comp_ref=2 매칭, '액체'는 q.note에 둠\"}, {\"msds_index\": 0, \"field\": \"toxicity[4]\", \"page\": 5, \"source_text\": \"o 피부 부식성 또는 자극성 피부에 심한 화상과 눈에 손상을 일으킴.\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[5]\", \"page\": 5, \"source_text\": \"o 심한 눈 손상 또는 자극성 눈에 심한 손상을 일으킴.\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[6]\", \"page\": 5, \"source_text\": \"o 호흡기 과민성 호흡기 과민성이 아님.\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[7]\", \"page\": 5, \"source_text\": \"o 피부 과민성 알레르기성 피부 반응을 일으킬 수 있음.\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[8]\", \"page\": 5, \"source_text\": \"o 발암성 인체 발암성으로 분류되지 않음.\", \"rules\": [\"R10\"], \"note\": \"기관별 분류가 없어 cmr 행은 만들지 않음\"}, {\"msds_index\": 0, \"field\": \"toxicity[9]\", \"page\": 5, \"source_text\": \"o 생식세포 변이원성 제품이나 0.1%이상 함유된 성분이 변이원성 또는 유전독성을 나타냄을 의미하는 자료가 없음.\", \"rules\": [\"R04\", \"R10\"], \"note\": \"'0.1%이상'을 cond(>=0.1 %)로 분리\"}, {\"msds_index\": 0, \"field\": \"toxicity[10]\", \"page\": 5, \"source_text\": \"o 생식 독성 태아 또는 생식능력에 손상을 일으킬 것으로 의심됨.\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[11]\", \"page\": 5, \"source_text\": \"o 특정 표적장기 독성 (1회 노출) 분류되지 않음.\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[12]\", \"page\": 5, \"source_text\": \"o 특정 표적장기 독성 (반복 노출) 장기간 또는 반복노출 되면 장기에 손상을 일으킬 수 있음.\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[13]\", \"page\": 5, \"source_text\": \"o 흡인 유해성 흡인 유해성이 아님.\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[0]\", \"page\": 5, \"source_text\": \"가. 생태독성 장기적인 영향에 의해 수생생물에게 유독함.\", \"rules\": [\"R10\"], \"note\": \"맞는 값 없음: 생물종 미지정 수생 생태독성 서술이라 endpoint null\"}, {\"msds_index\": 0, \"field\": \"ecotox[1]\", \"page\": 5, \"source_text\": \"수생환경 유해성, 급성 비전문가가 취급하거나 폐기하는 경우 환경적 유해성을 배제할 수 없음.\", \"rules\": [\"R10\"], \"note\": \"맞는 값 없음: 수생환경 급성 유해성 코드가 없어 endpoint null\"}, {\"msds_index\": 0, \"field\": \"ecotox[2]\", \"page\": 5, \"source_text\": \"수생환경 유해성, 만성 장기적인 영향에 의해 수생생물에게 유독함.\", \"rules\": [\"R10\"], \"note\": \"맞는 값 없음: 수생환경 만성 유해성 코드가 없어 endpoint null\"}, {\"msds_index\": 0, \"field\": \"ecotox[3]\", \"page\": 5, \"source_text\": \"나. 잔류성 및 분해성 본 혼합물 내 성분의 분해성에 대한 이용 가능한 자료가 없음.\", \"rules\": [\"R15\", \"R10\"], \"note\": \"'이용 가능한 자료가 없음'을 자료없음으로 보고 서술 보존\"}, {\"msds_index\": 0, \"field\": \"ecotox[4]\", \"page\": 5, \"source_text\": \"다. 생물 농축성 자료없음.\", \"rules\": [\"R15\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[5]\", \"page\": 5, \"source_text\": \"라. 토양 이동성 본 제품에 관한 이용가능한 자료가 없음.\", \"rules\": [\"R15\", \"R10\"], \"note\": \"'이용가능한 자료가 없음'을 자료없음으로 보고 서술 보존\"}, {\"msds_index\": 0, \"field\": \"ecotox[6]\", \"page\": 5, \"source_text\": \"마. 기타 유해 영향 본 성분으로부터 부정적인 환경 영향 (예: 오존층 감소, 광화학적 오존 발생 가능성, 호르몬 붕괴, 지구 온난화 가능성) 은 없을 것으로 보입니다.\", \"rules\": [\"R10\"], \"note\": null}]}"
+}

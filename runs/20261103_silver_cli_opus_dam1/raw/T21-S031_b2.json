@@ -1,0 +1,630 @@
+{
+  "doc_id": "T21-S031",
+  "bundle": "b2",
+  "model": "claude-opus-5-5",
+  "mode": "claude -p json-schema",
+  "finish_reason": "tool_use",
+  "usage": {
+    "prompt_tokens": 41760,
+    "completion_tokens": 5440,
+    "cached_tokens": 6909,
+    "reasoning_tokens": 1114,
+    "notional_cost_usd": 0.3889818
+  },
+  "seconds": 40.8,
+  "request_usage": [
+    {
+      "prompt_tokens": 41760,
+      "completion_tokens": 5440,
+      "cached_tokens": 6909,
+      "reasoning_tokens": 1114,
+      "notional_cost_usd": 0.3889818
+    }
+  ],
+  "attempts": 1,
+  "errors": [],
+  "parsed": {
+    "msds": [
+      {
+        "exposure_limits": [
+          {
+            "comp_ref": "MIX",
+            "standard": "국내",
+            "limit_type": null,
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "form": null,
+            "kr_basis": null,
+            "notations": []
+          },
+          {
+            "comp_ref": "MIX",
+            "standard": "ACGIH",
+            "limit_type": "TWA",
+            "q": {
+              "raw": "TWA: 10mg/㎥ Inhl",
+              "value": 10,
+              "unit": "mg/m3",
+              "status": "값있음",
+              "note": "Dust"
+            },
+            "form": "Inhl",
+            "notations": []
+          },
+          {
+            "comp_ref": "MIX",
+            "standard": "ACGIH",
+            "limit_type": "TWA",
+            "q": {
+              "raw": "TWA: 3mg/㎥ Resp",
+              "value": 3,
+              "unit": "mg/m3",
+              "status": "값있음",
+              "note": "Dust"
+            },
+            "form": "Resp",
+            "notations": []
+          },
+          {
+            "comp_ref": "MIX",
+            "standard": "생물학적",
+            "limit_type": null,
+            "q": {
+              "raw": "해당없음",
+              "status": "해당없음"
+            },
+            "notations": []
+          }
+        ],
+        "physchem": [
+          {
+            "prop_code": "APPEARANCE_STATE",
+            "comp_ref": "MIX",
+            "seq": 1,
+            "text_value": "고형",
+            "q": null
+          },
+          {
+            "prop_code": "APPEARANCE_STATE",
+            "comp_ref": "MIX",
+            "seq": 2,
+            "text_value": "Beads 또는 Powder",
+            "q": null
+          },
+          {
+            "prop_code": "APPEARANCE_COLOR",
+            "comp_ref": "MIX",
+            "seq": 1,
+            "text_value": "베이지",
+            "q": null
+          },
+          {
+            "prop_code": "ODOR",
+            "comp_ref": "MIX",
+            "seq": 1,
+            "text_value": "약지방성",
+            "q": null
+          },
+          {
+            "prop_code": "ODOR_THRESHOLD",
+            "comp_ref": "MIX",
+            "seq": 1,
+            "q": {
+              "raw": "이용 가능한 정보가 없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "PH",
+            "comp_ref": "MIX",
+            "seq": 1,
+            "q": {
+              "raw": "이용 가능한 정보가 없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "MELT_FREEZE",
+            "comp_ref": "MIX",
+            "seq": 1,
+            "q": {
+              "raw": "72 -76 ° C / 162 - 169 ° F",
+              "lower_op": ">=",
+              "lower": 72,
+              "upper_op": "<=",
+              "upper": 76,
+              "unit": "C",
+              "status": "값있음"
+            }
+          },
+          {
+            "prop_code": "BOILING",
+            "comp_ref": "MIX",
+            "seq": 1,
+            "q": {
+              "raw": ">300℃ / 572 ℉",
+              "lower_op": ">",
+              "lower": 300,
+              "unit": "C",
+              "status": "값있음"
+            }
+          },
+          {
+            "prop_code": "FLASH_POINT",
+            "comp_ref": "MIX",
+            "seq": 1,
+            "q": {
+              "raw": "210℃ / 410 ℉",
+              "value": 210,
+              "unit": "C",
+              "status": "값있음"
+            }
+          },
+          {
+            "prop_code": "EVAP_RATE",
+            "comp_ref": "MIX",
+            "seq": 1,
+            "q": {
+              "raw": "이용 가능한 정보가 없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "FLAMMABILITY",
+            "comp_ref": "MIX",
+            "seq": 1,
+            "q": {
+              "raw": "이용 가능한 정보가 없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "UEL",
+            "comp_ref": "MIX",
+            "seq": 1,
+            "q": {
+              "raw": "이용 가능한 정보가 없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "LEL",
+            "comp_ref": "MIX",
+            "seq": 1,
+            "q": {
+              "raw": "이용 가능한 정보가 없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "VAPOR_PRESSURE",
+            "comp_ref": "MIX",
+            "seq": 1,
+            "q": {
+              "raw": "<1 kPa (20°C / 68°F)",
+              "upper_op": "<",
+              "upper": 1,
+              "unit": "kPa",
+              "status": "값있음"
+            },
+            "cond": {
+              "temp": 20,
+              "temp_unit": "C"
+            }
+          },
+          {
+            "prop_code": "SOLUBILITY",
+            "comp_ref": "MIX",
+            "seq": 1,
+            "text_value": "물에서 용해되지 않음",
+            "q": null
+          },
+          {
+            "prop_code": "SOLUBILITY",
+            "comp_ref": "MIX",
+            "seq": 2,
+            "text_value": "부분적으로 용해",
+            "q": null
+          },
+          {
+            "prop_code": "VAPOR_DENSITY",
+            "comp_ref": "MIX",
+            "seq": 1,
+            "q": {
+              "raw": "이용 가능한 정보가 없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "RELATIVE_DENSITY",
+            "comp_ref": "MIX",
+            "seq": 1,
+            "q": {
+              "raw": "0.85 (80°C / 176°F)",
+              "value": 0.85,
+              "dp": 2,
+              "status": "값있음"
+            },
+            "cond": {
+              "temp": 80,
+              "temp_unit": "C"
+            }
+          },
+          {
+            "prop_code": "RELATIVE_DENSITY",
+            "comp_ref": "MIX",
+            "seq": 2,
+            "q": {
+              "raw": "850 kg/m3 (80°C / 176°F)",
+              "value": 850,
+              "unit": "kg/m3",
+              "status": "값있음"
+            },
+            "cond": {
+              "temp": 80,
+              "temp_unit": "C"
+            }
+          },
+          {
+            "prop_code": "LOG_KOW",
+            "comp_ref": "MIX",
+            "seq": 1,
+            "q": {
+              "raw": "이용 가능한 정보가 없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "AUTOIGNITION",
+            "comp_ref": "MIX",
+            "seq": 1,
+            "q": {
+              "raw": "이용 가능한 정보가 없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "DECOMPOSITION",
+            "comp_ref": "MIX",
+            "seq": 1,
+            "q": {
+              "raw": "이용 가능한 정보가 없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "VISCOSITY",
+            "comp_ref": "MIX",
+            "seq": 1,
+            "q": {
+              "raw": "이용 가능한 정보가 없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "VISCOSITY_KIN",
+            "comp_ref": "MIX",
+            "seq": 1,
+            "q": {
+              "raw": "이용 가능한 정보가 없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "MOL_WEIGHT",
+            "comp_ref": "MIX",
+            "seq": 1,
+            "q": {
+              "raw": "281.48",
+              "value": 281.48,
+              "dp": 2,
+              "status": "값있음"
+            }
+          }
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[0]",
+        "page": 3,
+        "source_text": "국내규정 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "기준 종류 표시가 없어 limit_type은 null로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[1]",
+        "page": 3,
+        "source_text": "ACGIH 규정 Dust ; TWA: 10mg/㎥ Inhl, TWA: 3mg/㎥ Resp",
+        "rules": [
+          "R04",
+          "R08"
+        ],
+        "note": "첫 TWA 값을 분리. 'Inhl'은 form에, 'Dust'는 note에 넣음. 성분 지정이 없어 MIX로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[2]",
+        "page": 3,
+        "source_text": "ACGIH 규정 Dust ; TWA: 10mg/㎥ Inhl, TWA: 3mg/㎥ Resp",
+        "rules": [
+          "R04",
+          "R08"
+        ],
+        "note": "두 번째 TWA 값을 분리. 'Resp'는 form에 넣음"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[3]",
+        "page": 3,
+        "source_text": "생물학절 노출기준 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[0]",
+        "page": 3,
+        "source_text": "a 물리적 상태 고형",
+        "rules": [
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[1]",
+        "page": 3,
+        "source_text": "외관 Beads 또는 Powder",
+        "rules": [
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[2]",
+        "page": 3,
+        "source_text": "색 베이지",
+        "rules": [
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[3]",
+        "page": 3,
+        "source_text": "b 냄새 약지방성",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[4]",
+        "page": 3,
+        "source_text": "c 냄새 역치 이용 가능한 정보가 없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "'이용 가능한 정보가 없음'을 자료없음으로 처리"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[5]",
+        "page": 3,
+        "source_text": "d pH 이용 가능한 정보가 없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[6]",
+        "page": 3,
+        "source_text": "E 녹는점/어는점 72 -76 ° C / 162 - 169 ° F",
+        "rules": [
+          "R04",
+          "R08"
+        ],
+        "note": "섭씨 범위 72~76을 하한·상한으로 나눔"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[7]",
+        "page": 3,
+        "source_text": "F 끓는 점 / 끓는 범위 >300℃ / 572 ℉",
+        "rules": [
+          "R04",
+          "R08",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[8]",
+        "page": 3,
+        "source_text": "g 인화점 210℃ / 410 ℉",
+        "rules": [
+          "R04",
+          "R08"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[9]",
+        "page": 3,
+        "source_text": "H 증발 속도 이용 가능한 정보가 없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[10]",
+        "page": 3,
+        "source_text": "I 인화성 (고체, 기체) 이용 가능한 정보가 없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[11]",
+        "page": 3,
+        "source_text": "인화 범위 상한: 이용 가능한 정보가 없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[12]",
+        "page": 3,
+        "source_text": "인화성 한계 하한: 이용 가능한 정보가 없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[13]",
+        "page": 3,
+        "source_text": "K 증기압 <1 kPa (20°C / 68°F)",
+        "rules": [
+          "R04"
+        ],
+        "note": "온도 조건 20°C를 cond로 나눔"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[14]",
+        "page": 4,
+        "source_text": "수용해도 물에서 용해되지 않음",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[15]",
+        "page": 4,
+        "source_text": "다른 용제에서의 용해도 부분적으로 용해",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[16]",
+        "page": 4,
+        "source_text": "m 증기 밀도 이용 가능한 정보가 없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[17]",
+        "page": 4,
+        "source_text": "N 비중 0.85 (80°C / 176°F)",
+        "rules": [
+          "R04",
+          "R06"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[18]",
+        "page": 4,
+        "source_text": "밀도 850 kg/m3 (80°C / 176°F)",
+        "rules": [
+          "R04",
+          "R25"
+        ],
+        "note": "동의어 '밀도'에 따라 RELATIVE_DENSITY로 넣음"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[19]",
+        "page": 4,
+        "source_text": "O 분배 계수 이용 가능한 정보가 없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[20]",
+        "page": 4,
+        "source_text": "P 자연발화점 이용 가능한 정보가 없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[21]",
+        "page": 4,
+        "source_text": "Q 분해 온도 이용 가능한 정보가 없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[22]",
+        "page": 4,
+        "source_text": "R 동적 점도 이용 가능한 정보가 없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[23]",
+        "page": 4,
+        "source_text": "동점성 이용 가능한 정보가 없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[24]",
+        "page": 4,
+        "source_text": "s 분자량 281.48",
+        "rules": [
+          "R06"
+        ],
+        "note": null
+      }
+    ]
+  },
+  "raw_text": "{\"msds\": [{\"exposure_limits\": [{\"comp_ref\": \"MIX\", \"standard\": \"국내\", \"limit_type\": null, \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"form\": null, \"kr_basis\": null, \"notations\": []}, {\"comp_ref\": \"MIX\", \"standard\": \"ACGIH\", \"limit_type\": \"TWA\", \"q\": {\"raw\": \"TWA: 10mg/㎥ Inhl\", \"value\": 10, \"unit\": \"mg/m3\", \"status\": \"값있음\", \"note\": \"Dust\"}, \"form\": \"Inhl\", \"notations\": []}, {\"comp_ref\": \"MIX\", \"standard\": \"ACGIH\", \"limit_type\": \"TWA\", \"q\": {\"raw\": \"TWA: 3mg/㎥ Resp\", \"value\": 3, \"unit\": \"mg/m3\", \"status\": \"값있음\", \"note\": \"Dust\"}, \"form\": \"Resp\", \"notations\": []}, {\"comp_ref\": \"MIX\", \"standard\": \"생물학적\", \"limit_type\": null, \"q\": {\"raw\": \"해당없음\", \"status\": \"해당없음\"}, \"notations\": []}], \"physchem\": [{\"prop_code\": \"APPEARANCE_STATE\", \"comp_ref\": \"MIX\", \"seq\": 1, \"text_value\": \"고형\", \"q\": null}, {\"prop_code\": \"APPEARANCE_STATE\", \"comp_ref\": \"MIX\", \"seq\": 2, \"text_value\": \"Beads 또는 Powder\", \"q\": null}, {\"prop_code\": \"APPEARANCE_COLOR\", \"comp_ref\": \"MIX\", \"seq\": 1, \"text_value\": \"베이지\", \"q\": null}, {\"prop_code\": \"ODOR\", \"comp_ref\": \"MIX\", \"seq\": 1, \"text_value\": \"약지방성\", \"q\": null}, {\"prop_code\": \"ODOR_THRESHOLD\", \"comp_ref\": \"MIX\", \"seq\": 1, \"q\": {\"raw\": \"이용 가능한 정보가 없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"PH\", \"comp_ref\": \"MIX\", \"seq\": 1, \"q\": {\"raw\": \"이용 가능한 정보가 없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"MELT_FREEZE\", \"comp_ref\": \"MIX\", \"seq\": 1, \"q\": {\"raw\": \"72 -76 ° C / 162 - 169 ° F\", \"lower_op\": \">=\", \"lower\": 72, \"upper_op\": \"<=\", \"upper\": 76, \"unit\": \"C\", \"status\": \"값있음\"}}, {\"prop_code\": \"BOILING\", \"comp_ref\": \"MIX\", \"seq\": 1, \"q\": {\"raw\": \">300℃ / 572 ℉\", \"lower_op\": \">\", \"lower\": 300, \"unit\": \"C\", \"status\": \"값있음\"}}, {\"prop_code\": \"FLASH_POINT\", \"comp_ref\": \"MIX\", \"seq\": 1, \"q\": {\"raw\": \"210℃ / 410 ℉\", \"value\": 210, \"unit\": \"C\", \"status\": \"값있음\"}}, {\"prop_code\": \"EVAP_RATE\", \"comp_ref\": \"MIX\", \"seq\": 1, \"q\": {\"raw\": \"이용 가능한 정보가 없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"FLAMMABILITY\", \"comp_ref\": \"MIX\", \"seq\": 1, \"q\": {\"raw\": \"이용 가능한 정보가 없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"UEL\", \"comp_ref\": \"MIX\", \"seq\": 1, \"q\": {\"raw\": \"이용 가능한 정보가 없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"LEL\", \"comp_ref\": \"MIX\", \"seq\": 1, \"q\": {\"raw\": \"이용 가능한 정보가 없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"VAPOR_PRESSURE\", \"comp_ref\": \"MIX\", \"seq\": 1, \"q\": {\"raw\": \"<1 kPa (20°C / 68°F)\", \"upper_op\": \"<\", \"upper\": 1, \"unit\": \"kPa\", \"status\": \"값있음\"}, \"cond\": {\"temp\": 20, \"temp_unit\": \"C\"}}, {\"prop_code\": \"SOLUBILITY\", \"comp_ref\": \"MIX\", \"seq\": 1, \"text_value\": \"물에서 용해되지 않음\", \"q\": null}, {\"prop_code\": \"SOLUBILITY\", \"comp_ref\": \"MIX\", \"seq\": 2, \"text_value\": \"부분적으로 용해\", \"q\": null}, {\"prop_code\": \"VAPOR_DENSITY\", \"comp_ref\": \"MIX\", \"seq\": 1, \"q\": {\"raw\": \"이용 가능한 정보가 없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"RELATIVE_DENSITY\", \"comp_ref\": \"MIX\", \"seq\": 1, \"q\": {\"raw\": \"0.85 (80°C / 176°F)\", \"value\": 0.85, \"dp\": 2, \"status\": \"값있음\"}, \"cond\": {\"temp\": 80, \"temp_unit\": \"C\"}}, {\"prop_code\": \"RELATIVE_DENSITY\", \"comp_ref\": \"MIX\", \"seq\": 2, \"q\": {\"raw\": \"850 kg/m3 (80°C / 176°F)\", \"value\": 850, \"unit\": \"kg/m3\", \"status\": \"값있음\"}, \"cond\": {\"temp\": 80, \"temp_unit\": \"C\"}}, {\"prop_code\": \"LOG_KOW\", \"comp_ref\": \"MIX\", \"seq\": 1, \"q\": {\"raw\": \"이용 가능한 정보가 없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"AUTOIGNITION\", \"comp_ref\": \"MIX\", \"seq\": 1, \"q\": {\"raw\": \"이용 가능한 정보가 없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"DECOMPOSITION\", \"comp_ref\": \"MIX\", \"seq\": 1, \"q\": {\"raw\": \"이용 가능한 정보가 없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"VISCOSITY\", \"comp_ref\": \"MIX\", \"seq\": 1, \"q\": {\"raw\": \"이용 가능한 정보가 없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"VISCOSITY_KIN\", \"comp_ref\": \"MIX\", \"seq\": 1, \"q\": {\"raw\": \"이용 가능한 정보가 없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"MOL_WEIGHT\", \"comp_ref\": \"MIX\", \"seq\": 1, \"q\": {\"raw\": \"281.48\", \"value\": 281.48, \"dp\": 2, \"status\": \"값있음\"}}]}], \"evidence\": [{\"msds_index\": 0, \"field\": \"exposure_limits[0]\", \"page\": 3, \"source_text\": \"국내규정 자료없음\", \"rules\": [\"R15\"], \"note\": \"기준 종류 표시가 없어 limit_type은 null로 둠\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[1]\", \"page\": 3, \"source_text\": \"ACGIH 규정 Dust ; TWA: 10mg/㎥ Inhl, TWA: 3mg/㎥ Resp\", \"rules\": [\"R04\", \"R08\"], \"note\": \"첫 TWA 값을 분리. 'Inhl'은 form에, 'Dust'는 note에 넣음. 성분 지정이 없어 MIX로 둠\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[2]\", \"page\": 3, \"source_text\": \"ACGIH 규정 Dust ; TWA: 10mg/㎥ Inhl, TWA: 3mg/㎥ Resp\", \"rules\": [\"R04\", \"R08\"], \"note\": \"두 번째 TWA 값을 분리. 'Resp'는 form에 넣음\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[3]\", \"page\": 3, \"source_text\": \"생물학절 노출기준 해당없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[0]\", \"page\": 3, \"source_text\": \"a 물리적 상태 고형\", \"rules\": [\"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[1]\", \"page\": 3, \"source_text\": \"외관 Beads 또는 Powder\", \"rules\": [\"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[2]\", \"page\": 3, \"source_text\": \"색 베이지\", \"rules\": [\"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[3]\", \"page\": 3, \"source_text\": \"b 냄새 약지방성\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[4]\", \"page\": 3, \"source_text\": \"c 냄새 역치 이용 가능한 정보가 없음\", \"rules\": [\"R15\"], \"note\": \"'이용 가능한 정보가 없음'을 자료없음으로 처리\"}, {\"msds_index\": 0, \"field\": \"physchem[5]\", \"page\": 3, \"source_text\": \"d pH 이용 가능한 정보가 없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[6]\", \"page\": 3, \"source_text\": \"E 녹는점/어는점 72 -76 ° C / 162 - 169 ° F\", \"rules\": [\"R04\", \"R08\"], \"note\": \"섭씨 범위 72~76을 하한·상한으로 나눔\"}, {\"msds_index\": 0, \"field\": \"physchem[7]\", \"page\": 3, \"source_text\": \"F 끓는 점 / 끓는 범위 >300℃ / 572 ℉\", \"rules\": [\"R04\", \"R08\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[8]\", \"page\": 3, \"source_text\": \"g 인화점 210℃ / 410 ℉\", \"rules\": [\"R04\", \"R08\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[9]\", \"page\": 3, \"source_text\": \"H 증발 속도 이용 가능한 정보가 없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[10]\", \"page\": 3, \"source_text\": \"I 인화성 (고체, 기체) 이용 가능한 정보가 없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[11]\", \"page\": 3, \"source_text\": \"인화 범위 상한: 이용 가능한 정보가 없음\", \"rules\": [\"R15\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[12]\", \"page\": 3, \"source_text\": \"인화성 한계 하한: 이용 가능한 정보가 없음\", \"rules\": [\"R15\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[13]\", \"page\": 3, \"source_text\": \"K 증기압 <1 kPa (20°C / 68°F)\", \"rules\": [\"R04\"], \"note\": \"온도 조건 20°C를 cond로 나눔\"}, {\"msds_index\": 0, \"field\": \"physchem[14]\", \"page\": 4, \"source_text\": \"수용해도 물에서 용해되지 않음\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[15]\", \"page\": 4, \"source_text\": \"다른 용제에서의 용해도 부분적으로 용해\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[16]\", \"page\": 4, \"source_text\": \"m 증기 밀도 이용 가능한 정보가 없음\", \"rules\": [\"R15\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[17]\", \"page\": 4, \"source_text\": \"N 비중 0.85 (80°C / 176°F)\", \"rules\": [\"R04\", \"R06\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[18]\", \"page\": 4, \"source_text\": \"밀도 850 kg/m3 (80°C / 176°F)\", \"rules\": [\"R04\", \"R25\"], \"note\": \"동의어 '밀도'에 따라 RELATIVE_DENSITY로 넣음\"}, {\"msds_index\": 0, \"field\": \"physchem[19]\", \"page\": 4, \"source_text\": \"O 분배 계수 이용 가능한 정보가 없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[20]\", \"page\": 4, \"source_text\": \"P 자연발화점 이용 가능한 정보가 없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[21]\", \"page\": 4, \"source_text\": \"Q 분해 온도 이용 가능한 정보가 없음\", \"rules\": [\"R15\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[22]\", \"page\": 4, \"source_text\": \"R 동적 점도 이용 가능한 정보가 없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[23]\", \"page\": 4, \"source_text\": \"동점성 이용 가능한 정보가 없음\", \"rules\": [\"R15\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[24]\", \"page\": 4, \"source_text\": \"s 분자량 281.48\", \"rules\": [\"R06\"], \"note\": null}]}"
+}

@@ -1,0 +1,467 @@
+{
+  "doc_id": "T21-011",
+  "bundle": "b1",
+  "model": "claude-opus-5-5",
+  "mode": "claude -p json-schema",
+  "finish_reason": "tool_use",
+  "usage": {
+    "prompt_tokens": 74760,
+    "completion_tokens": 6534,
+    "cached_tokens": 74440,
+    "reasoning_tokens": 1828,
+    "notional_cost_usd": 0.14812
+  },
+  "seconds": 50.7,
+  "request_usage": [
+    {
+      "prompt_tokens": 74760,
+      "completion_tokens": 6534,
+      "cached_tokens": 74440,
+      "reasoning_tokens": 1828,
+      "notional_cost_usd": 0.14812
+    }
+  ],
+  "attempts": 1,
+  "errors": [],
+  "parsed": {
+    "doc": {
+      "language": "ko",
+      "msds_count": 1
+    },
+    "msds": [
+      {
+        "meta": {
+          "msds_no": null,
+          "doc_code": "30737664/SDS_GEN_KR/KO",
+          "revision_no": 3,
+          "revision_label": "3.1",
+          "header_product_name": "Acronal® ECO 7652",
+          "source_note": null,
+          "first_issue_date": "2018-12-11",
+          "last_revision_date": "2024-10-02",
+          "page_start": 1,
+          "page_end": 14
+        },
+        "product": {
+          "name": "Acronal® ECO 7652",
+          "code": null,
+          "synonyms": [],
+          "uses": [
+            "원료",
+            "공업용으로 사용할 수 있음"
+          ],
+          "restrictions": [],
+          "use_category_code": null
+        },
+        "companies": [
+          {
+            "seq": 1,
+            "role": "공급자",
+            "name": "한국바스프주식회사",
+            "site": null,
+            "address": "서울 중구 세종대로 39 대한상공회의소 빌딩 14-16층",
+            "postcode": "04513",
+            "department": null,
+            "contacts": [
+              {
+                "type": "대표",
+                "value": "+82-2-3707-3100",
+                "hours": null
+              },
+              {
+                "type": "대표",
+                "value": "+82-2-3707-7500",
+                "hours": null
+              },
+              {
+                "type": "팩스",
+                "value": "+82-2-3707-3122",
+                "hours": null
+              },
+              {
+                "type": "이메일",
+                "value": "Chemregulation-KR@basf.com",
+                "hours": null
+              },
+              {
+                "type": "긴급",
+                "value": "080-770-3100",
+                "hours": null
+              },
+              {
+                "type": "긴급",
+                "value": "+49-180-2273-112",
+                "hours": null
+              }
+            ]
+          }
+        ],
+        "hazard": {
+          "classified": false,
+          "classes": [],
+          "signal_word": null,
+          "pictograms": [],
+          "h_statements": [],
+          "p_statements": [],
+          "other_hazards": [
+            {
+              "seq": 1,
+              "key": null,
+              "value": "본 항목에서 제공하는 정보는 분류가 되지는 않으나 물질이나 혼합물의 전체적인 유해성에 영향을 미칠 수 있는 기타 유해성에 대한 것임.",
+              "text": "본 항목에서 제공하는 정보는 분류가 되지는 않으나 물질이나 혼합물의 전체적인 유해성에 영향을 미칠 수 있는 기타 유해성에 대한 것임."
+            }
+          ],
+          "nfpa": {
+            "health": null,
+            "fire": null,
+            "reactivity": null,
+            "special": null
+          }
+        },
+        "composition": {
+          "type": "혼합물",
+          "no_hazardous_component": false
+        },
+        "components": [
+          {
+            "seq": 1,
+            "name": "mixture of: 5-chloro-2-methyl-2H-isothiazol-3-one and 2-methyl-2H-isothiazol-3-one (3:1)",
+            "name_en": "mixture of: 5-chloro-2-methyl-2H-isothiazol-3-one and 2-methyl-2H-isothiazol-3-one (3:1)",
+            "synonyms": [
+              "5-Chloro-2-methyl-3(2H)-isothiazolone mixt. with 2-methyl-3(2H)-isothiazolone"
+            ],
+            "cas_no": "55965-84-9",
+            "ke_no": null,
+            "ec_no": null,
+            "other_id": "2012-1-644",
+            "other_id_type": "기존화학물질번호",
+            "parent_seq": null,
+            "read_across_cas": null,
+            "content": {
+              "raw": "< 15 PPM",
+              "status": "값있음",
+              "upper_op": "<",
+              "upper": 15,
+              "unit": "ppm"
+            },
+            "content_note": null,
+            "content_basis": "중량",
+            "trade_secret": false,
+            "approval_no": null,
+            "approval_expiry": null
+          },
+          {
+            "seq": 2,
+            "name": "2-methyl-2H-isothiazol-3-one",
+            "name_en": "2-methyl-2H-isothiazol-3-one",
+            "synonyms": [
+              "2-Methyl-4-isothiazolin-3-one",
+              "2-Methyl-2H-isothiazol-3-one",
+              "Kathon CG 243"
+            ],
+            "cas_no": "2682-20-4",
+            "ke_no": "KE-24316",
+            "ec_no": null,
+            "other_id": "2012-1-645",
+            "other_id_type": "추가목록번호",
+            "parent_seq": null,
+            "read_across_cas": null,
+            "content": {
+              "raw": "<= 145 PPM",
+              "status": "값있음",
+              "upper_op": "<=",
+              "upper": 145,
+              "unit": "ppm"
+            },
+            "content_note": null,
+            "content_basis": "중량",
+            "trade_secret": false,
+            "approval_no": null,
+            "approval_expiry": null
+          },
+          {
+            "seq": 3,
+            "name": "1,2-벤지소티아졸-3(2H)-론",
+            "name_en": null,
+            "synonyms": [],
+            "cas_no": "2634-33-5",
+            "ke_no": "KE-02680",
+            "ec_no": null,
+            "other_id": null,
+            "other_id_type": null,
+            "parent_seq": null,
+            "read_across_cas": null,
+            "content": {
+              "raw": "<= 210 PPM",
+              "status": "값있음",
+              "upper_op": "<=",
+              "upper": 210,
+              "unit": "ppm"
+            },
+            "content_note": null,
+            "content_basis": "중량",
+            "trade_secret": false,
+            "approval_no": null,
+            "approval_expiry": null
+          },
+          {
+            "seq": 4,
+            "name": "1,2-벤지소티아졸-3(2H)-론",
+            "name_en": null,
+            "synonyms": [],
+            "cas_no": "2634-33-5",
+            "ke_no": "KE-02680",
+            "ec_no": null,
+            "other_id": null,
+            "other_id_type": null,
+            "parent_seq": null,
+            "read_across_cas": null,
+            "content": {
+              "raw": "> 0 % - < 0.1 %",
+              "status": "값있음",
+              "lower_op": ">",
+              "lower": 0,
+              "upper_op": "<",
+              "upper": 0.1,
+              "unit": "%",
+              "dp": 1
+            },
+            "content_note": null,
+            "content_basis": "중량",
+            "trade_secret": false,
+            "approval_no": null,
+            "approval_expiry": null
+          },
+          {
+            "seq": 5,
+            "name": "mixture of: 5-chloro-2-methyl-2H-isothiazol-3-one and 2-methyl-2H-isothiazol-3-one (3:1)",
+            "name_en": "mixture of: 5-chloro-2-methyl-2H-isothiazol-3-one and 2-methyl-2H-isothiazol-3-one (3:1)",
+            "synonyms": [
+              "5-Chloro-2-methyl-3(2H)-isothiazolone mixt. with 2-methyl-3(2H)-isothiazolone"
+            ],
+            "cas_no": "55965-84-9",
+            "ke_no": null,
+            "ec_no": null,
+            "other_id": "2012-1-644",
+            "other_id_type": "기존화학물질번호",
+            "parent_seq": null,
+            "read_across_cas": null,
+            "content": {
+              "raw": "> 0 % - < 0.1 %",
+              "status": "값있음",
+              "lower_op": ">",
+              "lower": 0,
+              "upper_op": "<",
+              "upper": 0.1,
+              "unit": "%",
+              "dp": 1
+            },
+            "content_note": null,
+            "content_basis": "중량",
+            "trade_secret": false,
+            "approval_no": null,
+            "approval_expiry": null
+          }
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "msds_index": 0,
+        "field": "meta.doc_code",
+        "page": 1,
+        "source_text": "(30737664/SDS_GEN_KR/KO)",
+        "rules": [],
+        "note": "머리글의 회사 내부 문서번호. MSDS 제출번호(AA…)는 문서에 없어 msds_no=null"
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.revision_label",
+        "page": 1,
+        "source_text": "버전: 3.1",
+        "rules": [],
+        "note": "revision_no는 소수 버전 3.1의 정수부 3"
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.header_product_name",
+        "page": 1,
+        "source_text": "제품: Acronal® ECO 7652",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.first_issue_date",
+        "page": 13,
+        "source_text": "최초 작성일자: 11.12.2018",
+        "rules": [
+          "R01"
+        ],
+        "note": "DD.MM.YYYY 형식(인쇄일 26.07.2026 기준)으로 보고 2018-12-11로 변환"
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.last_revision_date",
+        "page": 13,
+        "source_text": "최종 개정일자: 02.10.2024",
+        "rules": [
+          "R01"
+        ],
+        "note": "16항 '최종 개정일자'를 DD.MM.YYYY로 보고 2024-10-02로 변환. 머리글에는 '일자 / 개정: 09.07.2026'으로 다르게 적혀 있음"
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.page_start",
+        "page": 1,
+        "source_text": "페이지: 1/14",
+        "rules": [
+          "R16"
+        ],
+        "note": "단일 MSDS, 1~14쪽"
+      },
+      {
+        "msds_index": 0,
+        "field": "product.name",
+        "page": 1,
+        "source_text": "Acronal® ECO 7652",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "product.uses",
+        "page": 1,
+        "source_text": "제품의 권고 용도와 사용상의 제한: 원료, 공업용으로 사용할 수 있음",
+        "rules": [
+          "R11"
+        ],
+        "note": "쉼표 기준으로 나눔"
+      },
+      {
+        "msds_index": 0,
+        "field": "companies[0]",
+        "page": 1,
+        "source_text": "공급자/유통업자 정보: 한국바스프주식회사 서울 중구 세종대로 39 대한상공회의소 빌딩 14-16층 04513",
+        "rules": [],
+        "note": "'공급자/유통업자 정보' 제목에 따라 role=공급자"
+      },
+      {
+        "msds_index": 0,
+        "field": "companies[0].contacts",
+        "page": 1,
+        "source_text": "전화번호: +82 2 3707-3100 / -7500 (제품 문의) 팩스번호: +82 2 3707-3122 이메일 주소: Chemregulation-KR@basf.com",
+        "rules": [
+          "R12"
+        ],
+        "note": "공백을 하이픈으로 바꾸고, '-7500'은 별도 번호 +82-2-3707-7500으로 나눔"
+      },
+      {
+        "msds_index": 0,
+        "field": "companies[0].contacts(긴급)",
+        "page": 1,
+        "source_text": "전화번호: 080 770 3100 (사고접수) International emergency number: 전화번호: +49 180 2273-112",
+        "rules": [
+          "R12"
+        ],
+        "note": "비상시 연락처 두 개를 type=긴급으로 넣음"
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.classified",
+        "page": 2,
+        "source_text": "유해·위험성 분류: 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "'해당없음'이므로 false. 신호어·그림문자·H/P문구는 적혀 있지 않음(경고표지 부착 대상 아님)"
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.signal_word",
+        "page": 2,
+        "source_text": "산업안전보건법 제110조에 의거 경고표지 부착 대상 화학물질이 아님.",
+        "rules": [],
+        "note": "신호어가 적혀 있지 않아 null로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.other_hazards[0]",
+        "page": 2,
+        "source_text": "본 항목에서 제공하는 정보는 분류가 되지는 않으나 물질이나 혼합물의 전체적인 유해성에 영향을 미칠 수 있는 기타 유해성에 대한 것임.",
+        "rules": [
+          "R14"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "composition.type",
+        "page": 2,
+        "source_text": "수성 분산 고분자물질 : 아크릴 에스테르, styrene",
+        "rules": [],
+        "note": "여러 위험 성분이 있는 분산물이므로 혼합물"
+      },
+      {
+        "msds_index": 0,
+        "field": "components[0]",
+        "page": 2,
+        "source_text": "mixture of: 5-chloro-2-methyl-2H-isothiazol-3-one and 2-methyl-2H-isothiazol-3-one (3:1) | 함량 (W/W): < 15 PPM | CAS번호: 55965-84-9 | 기존화학물질번호: 2012-1-644",
+        "rules": [
+          "R02",
+          "R04"
+        ],
+        "note": "'< 15 PPM'을 상한 15(<), 단위 ppm으로 나눔. 기존화학물질번호가 KE 형식이 아니어서 other_id에 넣음"
+      },
+      {
+        "msds_index": 0,
+        "field": "components[1]",
+        "page": 2,
+        "source_text": "2-methyl-2H-isothiazol-3-one | 함량 (W/W): <= 145 PPM | CAS번호: 2682-20-4 | 기존화학물질번호: KE-24316 | 추가목록번호: 2012-1-645",
+        "rules": [
+          "R02",
+          "R03",
+          "R04",
+          "R11"
+        ],
+        "note": "상한 145(<=) ppm. 이명은 ';' 기준으로 나눔"
+      },
+      {
+        "msds_index": 0,
+        "field": "components[2]",
+        "page": 2,
+        "source_text": "1,2-벤지소티아졸-3(2H)-론 | (이명: 자료없음) | 함량 (W/W): <= 210 PPM | CAS번호: 2634-33-5 | 기존화학물질번호: KE-02680",
+        "rules": [
+          "R02",
+          "R03",
+          "R04"
+        ],
+        "note": "상한 210(<=) ppm"
+      },
+      {
+        "msds_index": 0,
+        "field": "components[3]",
+        "page": 3,
+        "source_text": "1,2-벤지소티아졸-3(2H)-론 | 함량 (W/W): > 0 % - < 0.1 % | CAS번호: 2634-33-5 | 기존화학물질번호: KE-02680",
+        "rules": [
+          "R02",
+          "R03",
+          "R04"
+        ],
+        "note": "산업안전보건법 제104조 구성성분 목록의 행. 하한 0(>), 상한 0.1(<) %"
+      },
+      {
+        "msds_index": 0,
+        "field": "components[4]",
+        "page": 3,
+        "source_text": "mixture of: 5-chloro-2-methyl-2H-isothiazol-3-one and 2-methyl-2H-isothiazol-3-one (3:1) | 함량 (W/W): > 0 % - < 0.1 % | CAS번호: 55965-84-9 | 기존화학물질번호: 2012-1-644",
+        "rules": [
+          "R02",
+          "R04"
+        ],
+        "note": "제104조 구성성분 목록의 행. 하한 0(>), 상한 0.1(<) %"
+      }
+    ]
+  },
+  "raw_text": "{\"doc\": {\"language\": \"ko\", \"msds_count\": 1}, \"msds\": [{\"meta\": {\"msds_no\": null, \"doc_code\": \"30737664/SDS_GEN_KR/KO\", \"revision_no\": 3, \"revision_label\": \"3.1\", \"header_product_name\": \"Acronal® ECO 7652\", \"source_note\": null, \"first_issue_date\": \"2018-12-11\", \"last_revision_date\": \"2024-10-02\", \"page_start\": 1, \"page_end\": 14}, \"product\": {\"name\": \"Acronal® ECO 7652\", \"code\": null, \"synonyms\": [], \"uses\": [\"원료\", \"공업용으로 사용할 수 있음\"], \"restrictions\": [], \"use_category_code\": null}, \"companies\": [{\"seq\": 1, \"role\": \"공급자\", \"name\": \"한국바스프주식회사\", \"site\": null, \"address\": \"서울 중구 세종대로 39 대한상공회의소 빌딩 14-16층\", \"postcode\": \"04513\", \"department\": null, \"contacts\": [{\"type\": \"대표\", \"value\": \"+82-2-3707-3100\", \"hours\": null}, {\"type\": \"대표\", \"value\": \"+82-2-3707-7500\", \"hours\": null}, {\"type\": \"팩스\", \"value\": \"+82-2-3707-3122\", \"hours\": null}, {\"type\": \"이메일\", \"value\": \"Chemregulation-KR@basf.com\", \"hours\": null}, {\"type\": \"긴급\", \"value\": \"080-770-3100\", \"hours\": null}, {\"type\": \"긴급\", \"value\": \"+49-180-2273-112\", \"hours\": null}]}], \"hazard\": {\"classified\": false, \"classes\": [], \"signal_word\": null, \"pictograms\": [], \"h_statements\": [], \"p_statements\": [], \"other_hazards\": [{\"seq\": 1, \"key\": null, \"value\": \"본 항목에서 제공하는 정보는 분류가 되지는 않으나 물질이나 혼합물의 전체적인 유해성에 영향을 미칠 수 있는 기타 유해성에 대한 것임.\", \"text\": \"본 항목에서 제공하는 정보는 분류가 되지는 않으나 물질이나 혼합물의 전체적인 유해성에 영향을 미칠 수 있는 기타 유해성에 대한 것임.\"}], \"nfpa\": {\"health\": null, \"fire\": null, \"reactivity\": null, \"special\": null}}, \"composition\": {\"type\": \"혼합물\", \"no_hazardous_component\": false}, \"components\": [{\"seq\": 1, \"name\": \"mixture of: 5-chloro-2-methyl-2H-isothiazol-3-one and 2-methyl-2H-isothiazol-3-one (3:1)\", \"name_en\": \"mixture of: 5-chloro-2-methyl-2H-isothiazol-3-one and 2-methyl-2H-isothiazol-3-one (3:1)\", \"synonyms\": [\"5-Chloro-2-methyl-3(2H)-isothiazolone mixt. with 2-methyl-3(2H)-isothiazolone\"], \"cas_no\": \"55965-84-9\", \"ke_no\": null, \"ec_no\": null, \"other_id\": \"2012-1-644\", \"other_id_type\": \"기존화학물질번호\", \"parent_seq\": null, \"read_across_cas\": null, \"content\": {\"raw\": \"< 15 PPM\", \"status\": \"값있음\", \"upper_op\": \"<\", \"upper\": 15, \"unit\": \"ppm\"}, \"content_note\": null, \"content_basis\": \"중량\", \"trade_secret\": false, \"approval_no\": null, \"approval_expiry\": null}, {\"seq\": 2, \"name\": \"2-methyl-2H-isothiazol-3-one\", \"name_en\": \"2-methyl-2H-isothiazol-3-one\", \"synonyms\": [\"2-Methyl-4-isothiazolin-3-one\", \"2-Methyl-2H-isothiazol-3-one\", \"Kathon CG 243\"], \"cas_no\": \"2682-20-4\", \"ke_no\": \"KE-24316\", \"ec_no\": null, \"other_id\": \"2012-1-645\", \"other_id_type\": \"추가목록번호\", \"parent_seq\": null, \"read_across_cas\": null, \"content\": {\"raw\": \"<= 145 PPM\", \"status\": \"값있음\", \"upper_op\": \"<=\", \"upper\": 145, \"unit\": \"ppm\"}, \"content_note\": null, \"content_basis\": \"중량\", \"trade_secret\": false, \"approval_no\": null, \"approval_expiry\": null}, {\"seq\": 3, \"name\": \"1,2-벤지소티아졸-3(2H)-론\", \"name_en\": null, \"synonyms\": [], \"cas_no\": \"2634-33-5\", \"ke_no\": \"KE-02680\", \"ec_no\": null, \"other_id\": null, \"other_id_type\": null, \"parent_seq\": null, \"read_across_cas\": null, \"content\": {\"raw\": \"<= 210 PPM\", \"status\": \"값있음\", \"upper_op\": \"<=\", \"upper\": 210, \"unit\": \"ppm\"}, \"content_note\": null, \"content_basis\": \"중량\", \"trade_secret\": false, \"approval_no\": null, \"approval_expiry\": null}, {\"seq\": 4, \"name\": \"1,2-벤지소티아졸-3(2H)-론\", \"name_en\": null, \"synonyms\": [], \"cas_no\": \"2634-33-5\", \"ke_no\": \"KE-02680\", \"ec_no\": null, \"other_id\": null, \"other_id_type\": null, \"parent_seq\": null, \"read_across_cas\": null, \"content\": {\"raw\": \"> 0 % - < 0.1 %\", \"status\": \"값있음\", \"lower_op\": \">\", \"lower\": 0, \"upper_op\": \"<\", \"upper\": 0.1, \"unit\": \"%\", \"dp\": 1}, \"content_note\": null, \"content_basis\": \"중량\", \"trade_secret\": false, \"approval_no\": null, \"approval_expiry\": null}, {\"seq\": 5, \"name\": \"mixture of: 5-chloro-2-methyl-2H-isothiazol-3-one and 2-methyl-2H-isothiazol-3-one (3:1)\", \"name_en\": \"mixture of: 5-chloro-2-methyl-2H-isothiazol-3-one and 2-methyl-2H-isothiazol-3-one (3:1)\", \"synonyms\": [\"5-Chloro-2-methyl-3(2H)-isothiazolone mixt. with 2-methyl-3(2H)-isothiazolone\"], \"cas_no\": \"55965-84-9\", \"ke_no\": null, \"ec_no\": null, \"other_id\": \"2012-1-644\", \"other_id_type\": \"기존화학물질번호\", \"parent_seq\": null, \"read_across_cas\": null, \"content\": {\"raw\": \"> 0 % - < 0.1 %\", \"status\": \"값있음\", \"lower_op\": \">\", \"lower\": 0, \"upper_op\": \"<\", \"upper\": 0.1, \"unit\": \"%\", \"dp\": 1}, \"content_note\": null, \"content_basis\": \"중량\", \"trade_secret\": false, \"approval_no\": null, \"approval_expiry\": null}]}], \"evidence\": [{\"msds_index\": 0, \"field\": \"meta.doc_code\", \"page\": 1, \"source_text\": \"(30737664/SDS_GEN_KR/KO)\", \"rules\": [], \"note\": \"머리글의 회사 내부 문서번호. MSDS 제출번호(AA…)는 문서에 없어 msds_no=null\"}, {\"msds_index\": 0, \"field\": \"meta.revision_label\", \"page\": 1, \"source_text\": \"버전: 3.1\", \"rules\": [], \"note\": \"revision_no는 소수 버전 3.1의 정수부 3\"}, {\"msds_index\": 0, \"field\": \"meta.header_product_name\", \"page\": 1, \"source_text\": \"제품: Acronal® ECO 7652\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"meta.first_issue_date\", \"page\": 13, \"source_text\": \"최초 작성일자: 11.12.2018\", \"rules\": [\"R01\"], \"note\": \"DD.MM.YYYY 형식(인쇄일 26.07.2026 기준)으로 보고 2018-12-11로 변환\"}, {\"msds_index\": 0, \"field\": \"meta.last_revision_date\", \"page\": 13, \"source_text\": \"최종 개정일자: 02.10.2024\", \"rules\": [\"R01\"], \"note\": \"16항 '최종 개정일자'를 DD.MM.YYYY로 보고 2024-10-02로 변환. 머리글에는 '일자 / 개정: 09.07.2026'으로 다르게 적혀 있음\"}, {\"msds_index\": 0, \"field\": \"meta.page_start\", \"page\": 1, \"source_text\": \"페이지: 1/14\", \"rules\": [\"R16\"], \"note\": \"단일 MSDS, 1~14쪽\"}, {\"msds_index\": 0, \"field\": \"product.name\", \"page\": 1, \"source_text\": \"Acronal® ECO 7652\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"product.uses\", \"page\": 1, \"source_text\": \"제품의 권고 용도와 사용상의 제한: 원료, 공업용으로 사용할 수 있음\", \"rules\": [\"R11\"], \"note\": \"쉼표 기준으로 나눔\"}, {\"msds_index\": 0, \"field\": \"companies[0]\", \"page\": 1, \"source_text\": \"공급자/유통업자 정보: 한국바스프주식회사 서울 중구 세종대로 39 대한상공회의소 빌딩 14-16층 04513\", \"rules\": [], \"note\": \"'공급자/유통업자 정보' 제목에 따라 role=공급자\"}, {\"msds_index\": 0, \"field\": \"companies[0].contacts\", \"page\": 1, \"source_text\": \"전화번호: +82 2 3707-3100 / -7500 (제품 문의) 팩스번호: +82 2 3707-3122 이메일 주소: Chemregulation-KR@basf.com\", \"rules\": [\"R12\"], \"note\": \"공백을 하이픈으로 바꾸고, '-7500'은 별도 번호 +82-2-3707-7500으로 나눔\"}, {\"msds_index\": 0, \"field\": \"companies[0].contacts(긴급)\", \"page\": 1, \"source_text\": \"전화번호: 080 770 3100 (사고접수) International emergency number: 전화번호: +49 180 2273-112\", \"rules\": [\"R12\"], \"note\": \"비상시 연락처 두 개를 type=긴급으로 넣음\"}, {\"msds_index\": 0, \"field\": \"hazard.classified\", \"page\": 2, \"source_text\": \"유해·위험성 분류: 해당없음\", \"rules\": [\"R15\"], \"note\": \"'해당없음'이므로 false. 신호어·그림문자·H/P문구는 적혀 있지 않음(경고표지 부착 대상 아님)\"}, {\"msds_index\": 0, \"field\": \"hazard.signal_word\", \"page\": 2, \"source_text\": \"산업안전보건법 제110조에 의거 경고표지 부착 대상 화학물질이 아님.\", \"rules\": [], \"note\": \"신호어가 적혀 있지 않아 null로 둠\"}, {\"msds_index\": 0, \"field\": \"hazard.other_hazards[0]\", \"page\": 2, \"source_text\": \"본 항목에서 제공하는 정보는 분류가 되지는 않으나 물질이나 혼합물의 전체적인 유해성에 영향을 미칠 수 있는 기타 유해성에 대한 것임.\", \"rules\": [\"R14\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"composition.type\", \"page\": 2, \"source_text\": \"수성 분산 고분자물질 : 아크릴 에스테르, styrene\", \"rules\": [], \"note\": \"여러 위험 성분이 있는 분산물이므로 혼합물\"}, {\"msds_index\": 0, \"field\": \"components[0]\", \"page\": 2, \"source_text\": \"mixture of: 5-chloro-2-methyl-2H-isothiazol-3-one and 2-methyl-2H-isothiazol-3-one (3:1) | 함량 (W/W): < 15 PPM | CAS번호: 55965-84-9 | 기존화학물질번호: 2012-1-644\", \"rules\": [\"R02\", \"R04\"], \"note\": \"'< 15 PPM'을 상한 15(<), 단위 ppm으로 나눔. 기존화학물질번호가 KE 형식이 아니어서 other_id에 넣음\"}, {\"msds_index\": 0, \"field\": \"components[1]\", \"page\": 2, \"source_text\": \"2-methyl-2H-isothiazol-3-one | 함량 (W/W): <= 145 PPM | CAS번호: 2682-20-4 | 기존화학물질번호: KE-24316 | 추가목록번호: 2012-1-645\", \"rules\": [\"R02\", \"R03\", \"R04\", \"R11\"], \"note\": \"상한 145(<=) ppm. 이명은 ';' 기준으로 나눔\"}, {\"msds_index\": 0, \"field\": \"components[2]\", \"page\": 2, \"source_text\": \"1,2-벤지소티아졸-3(2H)-론 | (이명: 자료없음) | 함량 (W/W): <= 210 PPM | CAS번호: 2634-33-5 | 기존화학물질번호: KE-02680\", \"rules\": [\"R02\", \"R03\", \"R04\"], \"note\": \"상한 210(<=) ppm\"}, {\"msds_index\": 0, \"field\": \"components[3]\", \"page\": 3, \"source_text\": \"1,2-벤지소티아졸-3(2H)-론 | 함량 (W/W): > 0 % - < 0.1 % | CAS번호: 2634-33-5 | 기존화학물질번호: KE-02680\", \"rules\": [\"R02\", \"R03\", \"R04\"], \"note\": \"산업안전보건법 제104조 구성성분 목록의 행. 하한 0(>), 상한 0.1(<) %\"}, {\"msds_index\": 0, \"field\": \"components[4]\", \"page\": 3, \"source_text\": \"mixture of: 5-chloro-2-methyl-2H-isothiazol-3-one and 2-methyl-2H-isothiazol-3-one (3:1) | 함량 (W/W): > 0 % - < 0.1 % | CAS번호: 55965-84-9 | 기존화학물질번호: 2012-1-644\", \"rules\": [\"R02\", \"R04\"], \"note\": \"제104조 구성성분 목록의 행. 하한 0(>), 상한 0.1(<) %\"}]}"
+}

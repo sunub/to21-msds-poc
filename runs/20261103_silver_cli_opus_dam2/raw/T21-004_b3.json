@@ -1,0 +1,613 @@
+{
+  "doc_id": "T21-004",
+  "bundle": "b3",
+  "model": "claude-opus-5-5",
+  "mode": "claude -p json-schema",
+  "finish_reason": "tool_use",
+  "usage": {
+    "prompt_tokens": 50177,
+    "completion_tokens": 6848,
+    "cached_tokens": 8451,
+    "reasoning_tokens": 1210,
+    "notional_cost_usd": 0.4724502
+  },
+  "seconds": 52.4,
+  "request_usage": [
+    {
+      "prompt_tokens": 50177,
+      "completion_tokens": 6848,
+      "cached_tokens": 8451,
+      "reasoning_tokens": 1210,
+      "notional_cost_usd": 0.4724502
+    }
+  ],
+  "attempts": 1,
+  "errors": [],
+  "parsed": {
+    "msds": [
+      {
+        "toxicity": [
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_ORAL",
+            "descriptor": "LD50",
+            "q": {
+              "raw": "LD50 > 5,000 ㎎/㎏",
+              "lower_op": ">",
+              "lower": 5000,
+              "unit": "mg/kg",
+              "status": "값있음"
+            },
+            "species": "Rat(쥐)",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_DERMAL",
+            "descriptor": "LD50",
+            "q": {
+              "raw": "LD50 = 5600 ㎎/㎏",
+              "value": 5600,
+              "unit": "mg/kg",
+              "status": "값있음"
+            },
+            "species": "Rabbit(토끼)",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_INHAL",
+            "descriptor": "LC50",
+            "q": {
+              "raw": "LC50 > 3.1 mg/L air(증기)",
+              "lower_op": ">",
+              "lower": 3.1,
+              "unit": "mg/L air",
+              "dp": 1,
+              "status": "값있음"
+            },
+            "species": "Rat(쥐)",
+            "physical_form": "증기",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_SKIN",
+            "descriptor": "결과기술",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "토끼를 이용한 피부 자극성 시험결과 심한 피부 부식성 물질로 확인됨.",
+                "text": "- 토끼를 이용한 피부 자극성 시험결과 심한 피부 부식성 물질로 확인됨."
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_EYE",
+            "descriptor": "결과기술",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "피부 부식성 물질로 눈에 비가역적 손상을 일으킬 수 있음.",
+                "text": "- 피부 부식성 물질로 눈에 비가역적 손상을 일으킬 수 있음."
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_RESP_SENS",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_SKIN_SENS",
+            "descriptor": "결과기술",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "마우스를 이용한 피부 과민성 시험결과 과민 반응을 유발하는 것으로 확인됨.",
+                "text": "- 마우스를 이용한 피부 과민성 시험결과 과민 반응을 유발하는 것으로 확인됨."
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_CARC",
+            "descriptor": "결과기술",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "산업안전보건법, 고용노동부고시, IARC, OSHA, ACGIH, NTP 에 의해 발암성 물질로 분류되지 않음.",
+                "text": "- 산업안전보건법, 고용노동부고시, IARC, OSHA, ACGIH, NTP 에 의해 발암성 물질로 분류되지 않음."
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_MUTA",
+            "descriptor": "결과기술",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "박테리아를 이용한 복귀돌연변이시험",
+                "value": "음성",
+                "text": "- 박테리아를 이용한 복귀돌연변이시험 : 음성"
+              },
+              {
+                "seq": 2,
+                "key": "포유류 배양세포를 이용한 염색체이상시험",
+                "value": "음성",
+                "text": "- 포유류 배양세포를 이용한 염색체이상시험 : 음성"
+              },
+              {
+                "seq": 3,
+                "key": "마우스 골수세포를 이용한 소핵시험",
+                "value": "음성",
+                "text": "- 마우스 골수세포를 이용한 소핵시험 : 음성"
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_REPRO",
+            "descriptor": "결과기술",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "쥐를 이용한 발달독성/최기형성 시험결과 생식독성물질이 아닌 것으로 확인됨.",
+                "text": "- 쥐를 이용한 발달독성/최기형성 시험결과 생식독성물질이 아닌 것으로 확인됨."
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_STOT_SE",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_STOT_RE",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_ASP",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          }
+        ],
+        "cmr": [
+          {
+            "comp_ref": "MIX",
+            "hazard": "발암성",
+            "agency": "KR_OSH",
+            "class": "분류되지 않음",
+            "status": "값있음",
+            "note": "산업안전보건법, 고용노동부고시"
+          },
+          {
+            "comp_ref": "MIX",
+            "hazard": "발암성",
+            "agency": "IARC",
+            "class": "분류되지 않음",
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "hazard": "발암성",
+            "agency": "OSHA",
+            "class": "분류되지 않음",
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "hazard": "발암성",
+            "agency": "ACGIH",
+            "class": "분류되지 않음",
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "MIX",
+            "hazard": "발암성",
+            "agency": "NTP",
+            "class": "분류되지 않음",
+            "status": "값있음"
+          }
+        ],
+        "ecotox": [
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_FISH",
+            "descriptor": "LC50",
+            "q": {
+              "raw": "LC50(96hr) > 100mg/L",
+              "lower_op": ">",
+              "lower": 100,
+              "unit": "mg/L",
+              "status": "값있음"
+            },
+            "species": "Oncorhynchus mykiss (무지개송어)",
+            "duration_value": 96,
+            "duration_unit": "hr",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_CRUST",
+            "descriptor": "NOEC",
+            "q": {
+              "raw": "NOEC(48hr) 0.14mg/L",
+              "value": 0.14,
+              "unit": "mg/L",
+              "dp": 2,
+              "status": "값있음"
+            },
+            "species": "Daphnia magna (물벼룩)",
+            "duration_value": 48,
+            "duration_unit": "hr",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_ALGAE",
+            "descriptor": "EC50",
+            "q": {
+              "raw": "EC50(72hr) < 14,5µg/L",
+              "status": "값있음",
+              "note": "'14,5'의 쉼표가 소수점인지 천단위인지 불명확하여 raw만 보존"
+            },
+            "species": "Pseudokirchneriella subcapitata (녹조류)",
+            "duration_value": 72,
+            "duration_unit": "hr",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_ALGAE",
+            "descriptor": "NOEC",
+            "q": {
+              "raw": "NOEC < 14.5µg/L",
+              "upper_op": "<",
+              "upper": 14.5,
+              "unit": "µg/L",
+              "dp": 1,
+              "status": "값있음"
+            },
+            "species": "Pseudokirchneriella subcapitata (녹조류)",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_PERSIST",
+            "descriptor": "logKow",
+            "q": {
+              "raw": "low Kow > 6.5",
+              "lower_op": ">",
+              "lower": 6.5,
+              "dp": 1,
+              "status": "값있음"
+            },
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_BIOACC",
+            "descriptor": "BCF",
+            "q": {
+              "raw": "234 (QSAR 추정값)",
+              "value": 234,
+              "status": "값있음",
+              "note": "QSAR 추정값"
+            },
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_SOIL",
+            "q": {
+              "raw": "해당없음",
+              "status": "해당없음"
+            },
+            "status": "해당없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_OTHER",
+            "descriptor": "결과기술",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "비전문가가 취급하거나 처리하는 경우 환경적 위험성을 배제할 수 없으며, 장기적인 영향에 의해 수생생물에게 매우 유독함.",
+                "text": "- 비전문가가 취급하거나 처리하는 경우 환경적 위험성을 배제할 수 없으며, 장기적인 영향에 의해 수생생물에게 매우 유독함."
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "msds_index": 0,
+        "field": "toxicity[0]",
+        "page": 6,
+        "source_text": "- 경구: LD50 > 5,000 ㎎/㎏, Rat(쥐)",
+        "rules": [
+          "R04",
+          "R06",
+          "R08",
+          "R10"
+        ],
+        "note": "성분 지정이 없어 MIX로 둠. 천단위 콤마 제거, 하한 5000(>)"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[1]",
+        "page": 6,
+        "source_text": "- 경피: LD50 = 5600 ㎎/㎏, Rabbit(토끼)",
+        "rules": [
+          "R04",
+          "R08",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[2]",
+        "page": 6,
+        "source_text": "- 흡입: LC50 > 3.1 mg/L air(증기), Rat(쥐)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "노출 시간은 적혀 있지 않아 null로 둠, 형태는 증기"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[3]",
+        "page": 6,
+        "source_text": "- 토끼를 이용한 피부 자극성 시험결과 심한 피부 부식성 물질로 확인됨.",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[4]",
+        "page": 6,
+        "source_text": "- 피부 부식성 물질로 눈에 비가역적 손상을 일으킬 수 있음.",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[5]",
+        "page": 6,
+        "source_text": "○ 호흡기 과민성: 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[6]",
+        "page": 6,
+        "source_text": "- 마우스를 이용한 피부 과민성 시험결과 과민 반응을 유발하는 것으로 확인됨.",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[7]",
+        "page": 6,
+        "source_text": "- 산업안전보건법, 고용노동부고시, IARC, OSHA, ACGIH, NTP 에 의해 발암성 물질로 분류되지 않음.",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[8]",
+        "page": 6,
+        "source_text": "- 박테리아를 이용한 복귀돌연변이시험 : 음성 / - 포유류 배양세포를 이용한 염색체이상시험 : 음성 / - 마우스 골수세포를 이용한 소핵시험 : 음성",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[9]",
+        "page": 7,
+        "source_text": "- 쥐를 이용한 발달독성/최기형성 시험결과 생식독성물질이 아닌 것으로 확인됨.",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[10]",
+        "page": 7,
+        "source_text": "○ 특정 표적장기 독성물질 (1 회 노출): 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[11]",
+        "page": 7,
+        "source_text": "○ 특정 표적장기 독성물질(반복 노출): 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[12]",
+        "page": 7,
+        "source_text": "○ 흡인 유해성: 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[0]",
+        "page": 6,
+        "source_text": "- 산업안전보건법, 고용노동부고시, IARC, OSHA, ACGIH, NTP 에 의해 발암성 물질로 분류되지 않음.",
+        "rules": [],
+        "note": "산업안전보건법·고용노동부고시를 KR_OSH 한 행으로 묶음"
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[1]",
+        "page": 6,
+        "source_text": "- 산업안전보건법, 고용노동부고시, IARC, OSHA, ACGIH, NTP 에 의해 발암성 물질로 분류되지 않음.",
+        "rules": [],
+        "note": "IARC 분류되지 않음"
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[2]",
+        "page": 6,
+        "source_text": "- 산업안전보건법, 고용노동부고시, IARC, OSHA, ACGIH, NTP 에 의해 발암성 물질로 분류되지 않음.",
+        "rules": [],
+        "note": "OSHA 분류되지 않음"
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[3]",
+        "page": 6,
+        "source_text": "- 산업안전보건법, 고용노동부고시, IARC, OSHA, ACGIH, NTP 에 의해 발암성 물질로 분류되지 않음.",
+        "rules": [],
+        "note": "ACGIH 분류되지 않음"
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[4]",
+        "page": 6,
+        "source_text": "- 산업안전보건법, 고용노동부고시, IARC, OSHA, ACGIH, NTP 에 의해 발암성 물질로 분류되지 않음.",
+        "rules": [],
+        "note": "NTP 분류되지 않음"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[0]",
+        "page": 7,
+        "source_text": "- 어류 : LC50(96hr) > 100mg/L, Oncorhynchus mykiss (무지개송어)",
+        "rules": [
+          "R04"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[1]",
+        "page": 7,
+        "source_text": "- 물벼룩 : NOEC(48hr) 0.14mg/L, Daphnia magna (물벼룩)",
+        "rules": [
+          "R04",
+          "R06"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[2]",
+        "page": 7,
+        "source_text": "- 조류 : EC50(72hr) < 14,5µg/L, NOEC < 14.5µg/L, Pseudokirchneriella subcapitata",
+        "rules": [
+          "R17"
+        ],
+        "note": "'14,5' 쉼표 의미가 불명확해 수치 분해 없이 raw만 남김"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[3]",
+        "page": 7,
+        "source_text": "- 조류 : EC50(72hr) < 14,5µg/L, NOEC < 14.5µg/L, Pseudokirchneriella subcapitata",
+        "rules": [
+          "R04",
+          "R06"
+        ],
+        "note": "NOEC 노출 시간은 적혀 있지 않아 null"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[4]",
+        "page": 7,
+        "source_text": "나.잔류성 및 분해성 : low Kow > 6.5",
+        "rules": [
+          "R04"
+        ],
+        "note": "'low Kow'를 log Kow로 보고 logKow 지표로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[5]",
+        "page": 7,
+        "source_text": "- 생물농축계수(BCF) : 234 (QSAR 추정값)",
+        "rules": [
+          "R04"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[6]",
+        "page": 7,
+        "source_text": "라.토양 이동성 : 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[7]",
+        "page": 7,
+        "source_text": "- 비전문가가 취급하거나 처리하는 경우 환경적 위험성을 배제할 수 없으며, 장기적인 영향에 의해 수생생물에게 매우 유독함.",
+        "rules": [],
+        "note": null
+      }
+    ]
+  },
+  "raw_text": "{\"msds\": [{\"toxicity\": [{\"comp_ref\": \"MIX\", \"endpoint\": \"TX_ORAL\", \"descriptor\": \"LD50\", \"q\": {\"raw\": \"LD50 > 5,000 ㎎/㎏\", \"lower_op\": \">\", \"lower\": 5000, \"unit\": \"mg/kg\", \"status\": \"값있음\"}, \"species\": \"Rat(쥐)\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_DERMAL\", \"descriptor\": \"LD50\", \"q\": {\"raw\": \"LD50 = 5600 ㎎/㎏\", \"value\": 5600, \"unit\": \"mg/kg\", \"status\": \"값있음\"}, \"species\": \"Rabbit(토끼)\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_INHAL\", \"descriptor\": \"LC50\", \"q\": {\"raw\": \"LC50 > 3.1 mg/L air(증기)\", \"lower_op\": \">\", \"lower\": 3.1, \"unit\": \"mg/L air\", \"dp\": 1, \"status\": \"값있음\"}, \"species\": \"Rat(쥐)\", \"physical_form\": \"증기\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_SKIN\", \"descriptor\": \"결과기술\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"토끼를 이용한 피부 자극성 시험결과 심한 피부 부식성 물질로 확인됨.\", \"text\": \"- 토끼를 이용한 피부 자극성 시험결과 심한 피부 부식성 물질로 확인됨.\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_EYE\", \"descriptor\": \"결과기술\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"피부 부식성 물질로 눈에 비가역적 손상을 일으킬 수 있음.\", \"text\": \"- 피부 부식성 물질로 눈에 비가역적 손상을 일으킬 수 있음.\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_RESP_SENS\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_SKIN_SENS\", \"descriptor\": \"결과기술\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"마우스를 이용한 피부 과민성 시험결과 과민 반응을 유발하는 것으로 확인됨.\", \"text\": \"- 마우스를 이용한 피부 과민성 시험결과 과민 반응을 유발하는 것으로 확인됨.\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_CARC\", \"descriptor\": \"결과기술\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"산업안전보건법, 고용노동부고시, IARC, OSHA, ACGIH, NTP 에 의해 발암성 물질로 분류되지 않음.\", \"text\": \"- 산업안전보건법, 고용노동부고시, IARC, OSHA, ACGIH, NTP 에 의해 발암성 물질로 분류되지 않음.\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_MUTA\", \"descriptor\": \"결과기술\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"key\": \"박테리아를 이용한 복귀돌연변이시험\", \"value\": \"음성\", \"text\": \"- 박테리아를 이용한 복귀돌연변이시험 : 음성\"}, {\"seq\": 2, \"key\": \"포유류 배양세포를 이용한 염색체이상시험\", \"value\": \"음성\", \"text\": \"- 포유류 배양세포를 이용한 염색체이상시험 : 음성\"}, {\"seq\": 3, \"key\": \"마우스 골수세포를 이용한 소핵시험\", \"value\": \"음성\", \"text\": \"- 마우스 골수세포를 이용한 소핵시험 : 음성\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_REPRO\", \"descriptor\": \"결과기술\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"쥐를 이용한 발달독성/최기형성 시험결과 생식독성물질이 아닌 것으로 확인됨.\", \"text\": \"- 쥐를 이용한 발달독성/최기형성 시험결과 생식독성물질이 아닌 것으로 확인됨.\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_STOT_SE\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_STOT_RE\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_ASP\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}], \"cmr\": [{\"comp_ref\": \"MIX\", \"hazard\": \"발암성\", \"agency\": \"KR_OSH\", \"class\": \"분류되지 않음\", \"status\": \"값있음\", \"note\": \"산업안전보건법, 고용노동부고시\"}, {\"comp_ref\": \"MIX\", \"hazard\": \"발암성\", \"agency\": \"IARC\", \"class\": \"분류되지 않음\", \"status\": \"값있음\"}, {\"comp_ref\": \"MIX\", \"hazard\": \"발암성\", \"agency\": \"OSHA\", \"class\": \"분류되지 않음\", \"status\": \"값있음\"}, {\"comp_ref\": \"MIX\", \"hazard\": \"발암성\", \"agency\": \"ACGIH\", \"class\": \"분류되지 않음\", \"status\": \"값있음\"}, {\"comp_ref\": \"MIX\", \"hazard\": \"발암성\", \"agency\": \"NTP\", \"class\": \"분류되지 않음\", \"status\": \"값있음\"}], \"ecotox\": [{\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_FISH\", \"descriptor\": \"LC50\", \"q\": {\"raw\": \"LC50(96hr) > 100mg/L\", \"lower_op\": \">\", \"lower\": 100, \"unit\": \"mg/L\", \"status\": \"값있음\"}, \"species\": \"Oncorhynchus mykiss (무지개송어)\", \"duration_value\": 96, \"duration_unit\": \"hr\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_CRUST\", \"descriptor\": \"NOEC\", \"q\": {\"raw\": \"NOEC(48hr) 0.14mg/L\", \"value\": 0.14, \"unit\": \"mg/L\", \"dp\": 2, \"status\": \"값있음\"}, \"species\": \"Daphnia magna (물벼룩)\", \"duration_value\": 48, \"duration_unit\": \"hr\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_ALGAE\", \"descriptor\": \"EC50\", \"q\": {\"raw\": \"EC50(72hr) < 14,5µg/L\", \"status\": \"값있음\", \"note\": \"'14,5'의 쉼표가 소수점인지 천단위인지 불명확하여 raw만 보존\"}, \"species\": \"Pseudokirchneriella subcapitata (녹조류)\", \"duration_value\": 72, \"duration_unit\": \"hr\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_ALGAE\", \"descriptor\": \"NOEC\", \"q\": {\"raw\": \"NOEC < 14.5µg/L\", \"upper_op\": \"<\", \"upper\": 14.5, \"unit\": \"µg/L\", \"dp\": 1, \"status\": \"값있음\"}, \"species\": \"Pseudokirchneriella subcapitata (녹조류)\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_PERSIST\", \"descriptor\": \"logKow\", \"q\": {\"raw\": \"low Kow > 6.5\", \"lower_op\": \">\", \"lower\": 6.5, \"dp\": 1, \"status\": \"값있음\"}, \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_BIOACC\", \"descriptor\": \"BCF\", \"q\": {\"raw\": \"234 (QSAR 추정값)\", \"value\": 234, \"status\": \"값있음\", \"note\": \"QSAR 추정값\"}, \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_SOIL\", \"q\": {\"raw\": \"해당없음\", \"status\": \"해당없음\"}, \"status\": \"해당없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_OTHER\", \"descriptor\": \"결과기술\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"비전문가가 취급하거나 처리하는 경우 환경적 위험성을 배제할 수 없으며, 장기적인 영향에 의해 수생생물에게 매우 유독함.\", \"text\": \"- 비전문가가 취급하거나 처리하는 경우 환경적 위험성을 배제할 수 없으며, 장기적인 영향에 의해 수생생물에게 매우 유독함.\"}]}]}], \"evidence\": [{\"msds_index\": 0, \"field\": \"toxicity[0]\", \"page\": 6, \"source_text\": \"- 경구: LD50 > 5,000 ㎎/㎏, Rat(쥐)\", \"rules\": [\"R04\", \"R06\", \"R08\", \"R10\"], \"note\": \"성분 지정이 없어 MIX로 둠. 천단위 콤마 제거, 하한 5000(>)\"}, {\"msds_index\": 0, \"field\": \"toxicity[1]\", \"page\": 6, \"source_text\": \"- 경피: LD50 = 5600 ㎎/㎏, Rabbit(토끼)\", \"rules\": [\"R04\", \"R08\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[2]\", \"page\": 6, \"source_text\": \"- 흡입: LC50 > 3.1 mg/L air(증기), Rat(쥐)\", \"rules\": [\"R04\", \"R10\"], \"note\": \"노출 시간은 적혀 있지 않아 null로 둠, 형태는 증기\"}, {\"msds_index\": 0, \"field\": \"toxicity[3]\", \"page\": 6, \"source_text\": \"- 토끼를 이용한 피부 자극성 시험결과 심한 피부 부식성 물질로 확인됨.\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[4]\", \"page\": 6, \"source_text\": \"- 피부 부식성 물질로 눈에 비가역적 손상을 일으킬 수 있음.\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[5]\", \"page\": 6, \"source_text\": \"○ 호흡기 과민성: 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[6]\", \"page\": 6, \"source_text\": \"- 마우스를 이용한 피부 과민성 시험결과 과민 반응을 유발하는 것으로 확인됨.\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[7]\", \"page\": 6, \"source_text\": \"- 산업안전보건법, 고용노동부고시, IARC, OSHA, ACGIH, NTP 에 의해 발암성 물질로 분류되지 않음.\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[8]\", \"page\": 6, \"source_text\": \"- 박테리아를 이용한 복귀돌연변이시험 : 음성 / - 포유류 배양세포를 이용한 염색체이상시험 : 음성 / - 마우스 골수세포를 이용한 소핵시험 : 음성\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[9]\", \"page\": 7, \"source_text\": \"- 쥐를 이용한 발달독성/최기형성 시험결과 생식독성물질이 아닌 것으로 확인됨.\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[10]\", \"page\": 7, \"source_text\": \"○ 특정 표적장기 독성물질 (1 회 노출): 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[11]\", \"page\": 7, \"source_text\": \"○ 특정 표적장기 독성물질(반복 노출): 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[12]\", \"page\": 7, \"source_text\": \"○ 흡인 유해성: 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"cmr[0]\", \"page\": 6, \"source_text\": \"- 산업안전보건법, 고용노동부고시, IARC, OSHA, ACGIH, NTP 에 의해 발암성 물질로 분류되지 않음.\", \"rules\": [], \"note\": \"산업안전보건법·고용노동부고시를 KR_OSH 한 행으로 묶음\"}, {\"msds_index\": 0, \"field\": \"cmr[1]\", \"page\": 6, \"source_text\": \"- 산업안전보건법, 고용노동부고시, IARC, OSHA, ACGIH, NTP 에 의해 발암성 물질로 분류되지 않음.\", \"rules\": [], \"note\": \"IARC 분류되지 않음\"}, {\"msds_index\": 0, \"field\": \"cmr[2]\", \"page\": 6, \"source_text\": \"- 산업안전보건법, 고용노동부고시, IARC, OSHA, ACGIH, NTP 에 의해 발암성 물질로 분류되지 않음.\", \"rules\": [], \"note\": \"OSHA 분류되지 않음\"}, {\"msds_index\": 0, \"field\": \"cmr[3]\", \"page\": 6, \"source_text\": \"- 산업안전보건법, 고용노동부고시, IARC, OSHA, ACGIH, NTP 에 의해 발암성 물질로 분류되지 않음.\", \"rules\": [], \"note\": \"ACGIH 분류되지 않음\"}, {\"msds_index\": 0, \"field\": \"cmr[4]\", \"page\": 6, \"source_text\": \"- 산업안전보건법, 고용노동부고시, IARC, OSHA, ACGIH, NTP 에 의해 발암성 물질로 분류되지 않음.\", \"rules\": [], \"note\": \"NTP 분류되지 않음\"}, {\"msds_index\": 0, \"field\": \"ecotox[0]\", \"page\": 7, \"source_text\": \"- 어류 : LC50(96hr) > 100mg/L, Oncorhynchus mykiss (무지개송어)\", \"rules\": [\"R04\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[1]\", \"page\": 7, \"source_text\": \"- 물벼룩 : NOEC(48hr) 0.14mg/L, Daphnia magna (물벼룩)\", \"rules\": [\"R04\", \"R06\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[2]\", \"page\": 7, \"source_text\": \"- 조류 : EC50(72hr) < 14,5µg/L, NOEC < 14.5µg/L, Pseudokirchneriella subcapitata\", \"rules\": [\"R17\"], \"note\": \"'14,5' 쉼표 의미가 불명확해 수치 분해 없이 raw만 남김\"}, {\"msds_index\": 0, \"field\": \"ecotox[3]\", \"page\": 7, \"source_text\": \"- 조류 : EC50(72hr) < 14,5µg/L, NOEC < 14.5µg/L, Pseudokirchneriella subcapitata\", \"rules\": [\"R04\", \"R06\"], \"note\": \"NOEC 노출 시간은 적혀 있지 않아 null\"}, {\"msds_index\": 0, \"field\": \"ecotox[4]\", \"page\": 7, \"source_text\": \"나.잔류성 및 분해성 : low Kow > 6.5\", \"rules\": [\"R04\"], \"note\": \"'low Kow'를 log Kow로 보고 logKow 지표로 둠\"}, {\"msds_index\": 0, \"field\": \"ecotox[5]\", \"page\": 7, \"source_text\": \"- 생물농축계수(BCF) : 234 (QSAR 추정값)\", \"rules\": [\"R04\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[6]\", \"page\": 7, \"source_text\": \"라.토양 이동성 : 해당없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[7]\", \"page\": 7, \"source_text\": \"- 비전문가가 취급하거나 처리하는 경우 환경적 위험성을 배제할 수 없으며, 장기적인 영향에 의해 수생생물에게 매우 유독함.\", \"rules\": [], \"note\": null}]}"
+}

@@ -1,0 +1,977 @@
+{
+  "doc_id": "T21-S007",
+  "bundle": "b3",
+  "model": "claude-opus-5-5",
+  "mode": "claude -p json-schema",
+  "finish_reason": "tool_use",
+  "usage": {
+    "prompt_tokens": 57229,
+    "completion_tokens": 7519,
+    "cached_tokens": 8451,
+    "reasoning_tokens": 929,
+    "notional_cost_usd": 0.5422861999999999
+  },
+  "seconds": 53.0,
+  "request_usage": [
+    {
+      "prompt_tokens": 57229,
+      "completion_tokens": 7519,
+      "cached_tokens": 8451,
+      "reasoning_tokens": 929,
+      "notional_cost_usd": 0.5422861999999999
+    }
+  ],
+  "attempts": 1,
+  "errors": [],
+  "parsed": {
+    "msds": [
+      {
+        "toxicity": [
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_ORAL",
+            "status": "자료없음",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_ORAL",
+            "status": "자료없음",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_DERMAL",
+            "status": "자료없음",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_DERMAL",
+            "status": "자료없음",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_INHAL",
+            "physical_form": "가스",
+            "status": "해당없음",
+            "q": {
+              "raw": "해당없음",
+              "status": "해당없음"
+            },
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_INHAL",
+            "physical_form": "가스",
+            "status": "해당없음",
+            "q": {
+              "raw": "해당없음",
+              "status": "해당없음"
+            },
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_INHAL",
+            "physical_form": "가스",
+            "descriptor": "LC50",
+            "species": "Rat",
+            "data_source": "ECHA",
+            "status": "값있음",
+            "q": {
+              "raw": "57000  ppm",
+              "value": 57000,
+              "unit": "ppm",
+              "status": "값있음"
+            },
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_INHAL",
+            "physical_form": "증기",
+            "status": "해당없음",
+            "q": {
+              "raw": "해당없음",
+              "status": "해당없음"
+            },
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_INHAL",
+            "physical_form": "증기",
+            "status": "해당없음",
+            "q": {
+              "raw": "해당없음",
+              "status": "해당없음"
+            },
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_INHAL",
+            "physical_form": "분진·미스트",
+            "status": "해당없음",
+            "q": {
+              "raw": "해당없음",
+              "status": "해당없음"
+            },
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_INHAL",
+            "physical_form": "분진·미스트",
+            "status": "해당없음",
+            "q": {
+              "raw": "해당없음",
+              "status": "해당없음"
+            },
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_SKIN",
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_SKIN",
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_EYE",
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_EYE",
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_RESP_SENS",
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_RESP_SENS",
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_SKIN_SENS",
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_SKIN_SENS",
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_CARC",
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_CARC",
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_MUTA",
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_MUTA",
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_REPRO",
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_REPRO",
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_STOT_SE",
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_STOT_SE",
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_STOT_RE",
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_STOT_RE",
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_ASP",
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_ASP",
+            "status": "자료없음",
+            "statements": []
+          }
+        ],
+        "cmr": [
+          {
+            "comp_ref": "1",
+            "hazard": "발암성",
+            "agency": "KR_OSH",
+            "class": null,
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "1",
+            "hazard": "발암성",
+            "agency": "OSHA",
+            "class": null,
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "1",
+            "hazard": "발암성",
+            "agency": "NTP",
+            "class": null,
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "1",
+            "hazard": "발암성",
+            "agency": "IARC",
+            "class": "3",
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "hazard": "발암성",
+            "agency": "EU_CLP",
+            "class": null,
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "1",
+            "hazard": "발암성",
+            "agency": "ACGIH",
+            "class": "A4",
+            "status": "값있음"
+          }
+        ],
+        "ecotox": [
+          {
+            "comp_ref": "MIX",
+            "endpoint": null,
+            "descriptor": "결과기술",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "급성 수생 환경유해성",
+                "value": "구분외",
+                "text": "PRODUCT - 급성 수생 환경유해성 : 구분외, 만성 수생 환경유해성 : 구분외"
+              },
+              {
+                "seq": 2,
+                "key": "만성 수생 환경유해성",
+                "value": "구분외",
+                "text": "PRODUCT - 급성 수생 환경유해성 : 구분외, 만성 수생 환경유해성 : 구분외"
+              }
+            ]
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_FISH",
+            "status": "자료없음",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_CRUST",
+            "status": "자료없음",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_ALGAE",
+            "status": "자료없음",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_PERSIST",
+            "descriptor": "분해율",
+            "status": "자료없음",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_PERSIST",
+            "descriptor": "logKow",
+            "status": "값있음",
+            "q": {
+              "raw": "1.13 log Kow",
+              "value": 1.13,
+              "dp": 2,
+              "status": "값있음"
+            },
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_BIOACC",
+            "descriptor": "BCF",
+            "species": "Pimephales promelas(Fish, fresh water)",
+            "status": "값있음",
+            "q": {
+              "raw": "4 (Pimephales promelas(Fish, fresh water))",
+              "value": 4,
+              "status": "값있음"
+            },
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_BIOACC",
+            "descriptor": null,
+            "status": "자료없음",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "statements": [
+              {
+                "seq": 1,
+                "key": "생분해성",
+                "value": "자료없음",
+                "text": "● 생분해성 - 에틸렌 : 자료없음"
+              }
+            ]
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_SOIL",
+            "descriptor": "Koc",
+            "status": "자료없음",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_OTHER",
+            "status": "자료없음",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_OZONE",
+            "status": "해당없음",
+            "q": {
+              "raw": "해당없음",
+              "status": "해당없음"
+            },
+            "statements": []
+          }
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "msds_index": 0,
+        "field": "toxicity[0]",
+        "page": 6,
+        "source_text": "● 경구 PRODUCT : 자료없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[1]",
+        "page": 6,
+        "source_text": "- 에틸렌 : 자료없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": "경구 아래 에틸렌 행"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[2]",
+        "page": 6,
+        "source_text": "● 경피 PRODUCT : 자료없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[3]",
+        "page": 6,
+        "source_text": "- 에틸렌 : 자료없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": "경피 아래 에틸렌 행"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[4]",
+        "page": 6,
+        "source_text": "● 흡입(가스) PRODUCT : 해당없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[5]",
+        "page": 6,
+        "source_text": "- 에틸렌 : 해당없음 / LC50  57000  ppm Rat ※출처 : ECHA",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": "'해당없음' 부분을 상태 행으로 남김"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[6]",
+        "page": 6,
+        "source_text": "- 에틸렌 : 해당없음 / LC50  57000  ppm Rat ※출처 : ECHA",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "LC50 57000 ppm, Rat, 출처 ECHA로 분해. 노출시간은 원문에 없어 null"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[7]",
+        "page": 6,
+        "source_text": "● 흡입(증기) PRODUCT : 해당없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[8]",
+        "page": 6,
+        "source_text": "- 에틸렌 : 해당없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": "흡입(증기) 아래 에틸렌 행"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[9]",
+        "page": 6,
+        "source_text": "● 흡입(분진/미스트) PRODUCT : 해당없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[10]",
+        "page": 7,
+        "source_text": "- 에틸렌 : 해당없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": "흡입(분진/미스트) 아래 에틸렌 행"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[11]",
+        "page": 7,
+        "source_text": "○ 피부 부식성 또는 자극성 PRODUCT : 자료없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[12]",
+        "page": 7,
+        "source_text": "- 에틸렌 : 자료없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[13]",
+        "page": 7,
+        "source_text": "○ 심한 눈 손상 또는 자극성 PRODUCT : 자료없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[14]",
+        "page": 7,
+        "source_text": "- 에틸렌 : 자료없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[15]",
+        "page": 7,
+        "source_text": "○ 호흡기 과민성 PRODUCT : 자료없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[16]",
+        "page": 7,
+        "source_text": "- 에틸렌 : 자료없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[17]",
+        "page": 7,
+        "source_text": "○ 피부 과민성 PRODUCT : 자료없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[18]",
+        "page": 7,
+        "source_text": "- 에틸렌 : 자료없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[19]",
+        "page": 7,
+        "source_text": "○ 발암성 PRODUCT : 자료없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[20]",
+        "page": 7,
+        "source_text": "- 에틸렌 : 자료없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[21]",
+        "page": 7,
+        "source_text": "○ 생식세포 변이원성 PRODUCT : 자료없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[22]",
+        "page": 7,
+        "source_text": "- 에틸렌 : 자료없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[23]",
+        "page": 7,
+        "source_text": "○ 생식독성 물질 PRODUCT : 자료없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[24]",
+        "page": 7,
+        "source_text": "- 에틸렌 : 자료없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[25]",
+        "page": 7,
+        "source_text": "○ 특정표적장기 독성(1회) PRODUCT : 자료없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[26]",
+        "page": 7,
+        "source_text": "- 에틸렌 : 자료없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[27]",
+        "page": 7,
+        "source_text": "○ 특정표적장기 독성(반복) PRODUCT : 자료없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[28]",
+        "page": 7,
+        "source_text": "- 에틸렌 : 자료없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[29]",
+        "page": 7,
+        "source_text": "○ 흡인유해성 물질 PRODUCT : 자료없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[30]",
+        "page": 7,
+        "source_text": "- 에틸렌 : 자료없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[0]",
+        "page": 7,
+        "source_text": "· 고용노동부고시 : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[1]",
+        "page": 7,
+        "source_text": "· OSHA : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[2]",
+        "page": 7,
+        "source_text": "· NTP : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[3]",
+        "page": 7,
+        "source_text": "· IARC : 3",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[4]",
+        "page": 7,
+        "source_text": "· EU CLP : 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[5]",
+        "page": 7,
+        "source_text": "· ACGIH : A4",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[0]",
+        "page": 7,
+        "source_text": "가. 생태독성 PRODUCT - 급성 수생 환경유해성 : 구분외, 만성 수생 환경유해성 : 구분외",
+        "rules": [
+          "R10"
+        ],
+        "note": "맞는 값 없음: 수생 환경유해성 분류 결과에 맞는 endpoint 코드가 없어 null, 서술로 남김"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[1]",
+        "page": 7,
+        "source_text": "● 어류 - 에틸렌 : 자료없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[2]",
+        "page": 7,
+        "source_text": "● 갑각류 - 에틸렌 : 자료없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[3]",
+        "page": 7,
+        "source_text": "● 조류 - 에틸렌 : 자료없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[4]",
+        "page": 7,
+        "source_text": "● 분해성 - 에틸렌 : 자료없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[5]",
+        "page": 8,
+        "source_text": "- 에틸렌 : 1.13 log Kow",
+        "rules": [
+          "R04",
+          "R06"
+        ],
+        "note": "잔류성 항목의 1.13 log Kow를 logKow 1.13으로 저장"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[6]",
+        "page": 8,
+        "source_text": "- 에틸렌 : 4 (Pimephales promelas(Fish, fresh water))",
+        "rules": [
+          "R04"
+        ],
+        "note": "생물농축성 값 4를 BCF로, 괄호 속을 시험종으로 저장"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[7]",
+        "page": 8,
+        "source_text": "● 생분해성 - 에틸렌 : 자료없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": "생물농축성 소항목 아래 생분해성 행"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[8]",
+        "page": 8,
+        "source_text": "● 옥탄올탄소분배계수(Koc) - 에틸렌 : 자료없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[9]",
+        "page": 8,
+        "source_text": "● 기타 - 에틸렌 : 자료없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[10]",
+        "page": 8,
+        "source_text": "● 오존층 유해성 - 에틸렌 : 해당없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      }
+    ]
+  },
+  "raw_text": "{\"msds\": [{\"toxicity\": [{\"comp_ref\": \"MIX\", \"endpoint\": \"TX_ORAL\", \"status\": \"자료없음\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_ORAL\", \"status\": \"자료없음\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_DERMAL\", \"status\": \"자료없음\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_DERMAL\", \"status\": \"자료없음\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_INHAL\", \"physical_form\": \"가스\", \"status\": \"해당없음\", \"q\": {\"raw\": \"해당없음\", \"status\": \"해당없음\"}, \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_INHAL\", \"physical_form\": \"가스\", \"status\": \"해당없음\", \"q\": {\"raw\": \"해당없음\", \"status\": \"해당없음\"}, \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_INHAL\", \"physical_form\": \"가스\", \"descriptor\": \"LC50\", \"species\": \"Rat\", \"data_source\": \"ECHA\", \"status\": \"값있음\", \"q\": {\"raw\": \"57000  ppm\", \"value\": 57000, \"unit\": \"ppm\", \"status\": \"값있음\"}, \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_INHAL\", \"physical_form\": \"증기\", \"status\": \"해당없음\", \"q\": {\"raw\": \"해당없음\", \"status\": \"해당없음\"}, \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_INHAL\", \"physical_form\": \"증기\", \"status\": \"해당없음\", \"q\": {\"raw\": \"해당없음\", \"status\": \"해당없음\"}, \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_INHAL\", \"physical_form\": \"분진·미스트\", \"status\": \"해당없음\", \"q\": {\"raw\": \"해당없음\", \"status\": \"해당없음\"}, \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_INHAL\", \"physical_form\": \"분진·미스트\", \"status\": \"해당없음\", \"q\": {\"raw\": \"해당없음\", \"status\": \"해당없음\"}, \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_SKIN\", \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_SKIN\", \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_EYE\", \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_EYE\", \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_RESP_SENS\", \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_RESP_SENS\", \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_SKIN_SENS\", \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_SKIN_SENS\", \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_CARC\", \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_CARC\", \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_MUTA\", \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_MUTA\", \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_REPRO\", \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_REPRO\", \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_STOT_SE\", \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_STOT_SE\", \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_STOT_RE\", \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_STOT_RE\", \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_ASP\", \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_ASP\", \"status\": \"자료없음\", \"statements\": []}], \"cmr\": [{\"comp_ref\": \"1\", \"hazard\": \"발암성\", \"agency\": \"KR_OSH\", \"class\": null, \"status\": \"자료없음\"}, {\"comp_ref\": \"1\", \"hazard\": \"발암성\", \"agency\": \"OSHA\", \"class\": null, \"status\": \"자료없음\"}, {\"comp_ref\": \"1\", \"hazard\": \"발암성\", \"agency\": \"NTP\", \"class\": null, \"status\": \"자료없음\"}, {\"comp_ref\": \"1\", \"hazard\": \"발암성\", \"agency\": \"IARC\", \"class\": \"3\", \"status\": \"값있음\"}, {\"comp_ref\": \"1\", \"hazard\": \"발암성\", \"agency\": \"EU_CLP\", \"class\": null, \"status\": \"자료없음\"}, {\"comp_ref\": \"1\", \"hazard\": \"발암성\", \"agency\": \"ACGIH\", \"class\": \"A4\", \"status\": \"값있음\"}], \"ecotox\": [{\"comp_ref\": \"MIX\", \"endpoint\": null, \"descriptor\": \"결과기술\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"key\": \"급성 수생 환경유해성\", \"value\": \"구분외\", \"text\": \"PRODUCT - 급성 수생 환경유해성 : 구분외, 만성 수생 환경유해성 : 구분외\"}, {\"seq\": 2, \"key\": \"만성 수생 환경유해성\", \"value\": \"구분외\", \"text\": \"PRODUCT - 급성 수생 환경유해성 : 구분외, 만성 수생 환경유해성 : 구분외\"}]}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_FISH\", \"status\": \"자료없음\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_CRUST\", \"status\": \"자료없음\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_ALGAE\", \"status\": \"자료없음\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_PERSIST\", \"descriptor\": \"분해율\", \"status\": \"자료없음\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_PERSIST\", \"descriptor\": \"logKow\", \"status\": \"값있음\", \"q\": {\"raw\": \"1.13 log Kow\", \"value\": 1.13, \"dp\": 2, \"status\": \"값있음\"}, \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_BIOACC\", \"descriptor\": \"BCF\", \"species\": \"Pimephales promelas(Fish, fresh water)\", \"status\": \"값있음\", \"q\": {\"raw\": \"4 (Pimephales promelas(Fish, fresh water))\", \"value\": 4, \"status\": \"값있음\"}, \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_BIOACC\", \"descriptor\": null, \"status\": \"자료없음\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"statements\": [{\"seq\": 1, \"key\": \"생분해성\", \"value\": \"자료없음\", \"text\": \"● 생분해성 - 에틸렌 : 자료없음\"}]}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_SOIL\", \"descriptor\": \"Koc\", \"status\": \"자료없음\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_OTHER\", \"status\": \"자료없음\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_OZONE\", \"status\": \"해당없음\", \"q\": {\"raw\": \"해당없음\", \"status\": \"해당없음\"}, \"statements\": []}]}], \"evidence\": [{\"msds_index\": 0, \"field\": \"toxicity[0]\", \"page\": 6, \"source_text\": \"● 경구 PRODUCT : 자료없음\", \"rules\": [\"R10\", \"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[1]\", \"page\": 6, \"source_text\": \"- 에틸렌 : 자료없음\", \"rules\": [\"R10\", \"R15\"], \"note\": \"경구 아래 에틸렌 행\"}, {\"msds_index\": 0, \"field\": \"toxicity[2]\", \"page\": 6, \"source_text\": \"● 경피 PRODUCT : 자료없음\", \"rules\": [\"R10\", \"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[3]\", \"page\": 6, \"source_text\": \"- 에틸렌 : 자료없음\", \"rules\": [\"R10\", \"R15\"], \"note\": \"경피 아래 에틸렌 행\"}, {\"msds_index\": 0, \"field\": \"toxicity[4]\", \"page\": 6, \"source_text\": \"● 흡입(가스) PRODUCT : 해당없음\", \"rules\": [\"R10\", \"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[5]\", \"page\": 6, \"source_text\": \"- 에틸렌 : 해당없음 / LC50  57000  ppm Rat ※출처 : ECHA\", \"rules\": [\"R10\", \"R15\"], \"note\": \"'해당없음' 부분을 상태 행으로 남김\"}, {\"msds_index\": 0, \"field\": \"toxicity[6]\", \"page\": 6, \"source_text\": \"- 에틸렌 : 해당없음 / LC50  57000  ppm Rat ※출처 : ECHA\", \"rules\": [\"R04\", \"R10\"], \"note\": \"LC50 57000 ppm, Rat, 출처 ECHA로 분해. 노출시간은 원문에 없어 null\"}, {\"msds_index\": 0, \"field\": \"toxicity[7]\", \"page\": 6, \"source_text\": \"● 흡입(증기) PRODUCT : 해당없음\", \"rules\": [\"R10\", \"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[8]\", \"page\": 6, \"source_text\": \"- 에틸렌 : 해당없음\", \"rules\": [\"R10\", \"R15\"], \"note\": \"흡입(증기) 아래 에틸렌 행\"}, {\"msds_index\": 0, \"field\": \"toxicity[9]\", \"page\": 6, \"source_text\": \"● 흡입(분진/미스트) PRODUCT : 해당없음\", \"rules\": [\"R10\", \"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[10]\", \"page\": 7, \"source_text\": \"- 에틸렌 : 해당없음\", \"rules\": [\"R10\", \"R15\"], \"note\": \"흡입(분진/미스트) 아래 에틸렌 행\"}, {\"msds_index\": 0, \"field\": \"toxicity[11]\", \"page\": 7, \"source_text\": \"○ 피부 부식성 또는 자극성 PRODUCT : 자료없음\", \"rules\": [\"R10\", \"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[12]\", \"page\": 7, \"source_text\": \"- 에틸렌 : 자료없음\", \"rules\": [\"R10\", \"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[13]\", \"page\": 7, \"source_text\": \"○ 심한 눈 손상 또는 자극성 PRODUCT : 자료없음\", \"rules\": [\"R10\", \"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[14]\", \"page\": 7, \"source_text\": \"- 에틸렌 : 자료없음\", \"rules\": [\"R10\", \"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[15]\", \"page\": 7, \"source_text\": \"○ 호흡기 과민성 PRODUCT : 자료없음\", \"rules\": [\"R10\", \"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[16]\", \"page\": 7, \"source_text\": \"- 에틸렌 : 자료없음\", \"rules\": [\"R10\", \"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[17]\", \"page\": 7, \"source_text\": \"○ 피부 과민성 PRODUCT : 자료없음\", \"rules\": [\"R10\", \"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[18]\", \"page\": 7, \"source_text\": \"- 에틸렌 : 자료없음\", \"rules\": [\"R10\", \"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[19]\", \"page\": 7, \"source_text\": \"○ 발암성 PRODUCT : 자료없음\", \"rules\": [\"R10\", \"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[20]\", \"page\": 7, \"source_text\": \"- 에틸렌 : 자료없음\", \"rules\": [\"R10\", \"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[21]\", \"page\": 7, \"source_text\": \"○ 생식세포 변이원성 PRODUCT : 자료없음\", \"rules\": [\"R10\", \"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[22]\", \"page\": 7, \"source_text\": \"- 에틸렌 : 자료없음\", \"rules\": [\"R10\", \"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[23]\", \"page\": 7, \"source_text\": \"○ 생식독성 물질 PRODUCT : 자료없음\", \"rules\": [\"R10\", \"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[24]\", \"page\": 7, \"source_text\": \"- 에틸렌 : 자료없음\", \"rules\": [\"R10\", \"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[25]\", \"page\": 7, \"source_text\": \"○ 특정표적장기 독성(1회) PRODUCT : 자료없음\", \"rules\": [\"R10\", \"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[26]\", \"page\": 7, \"source_text\": \"- 에틸렌 : 자료없음\", \"rules\": [\"R10\", \"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[27]\", \"page\": 7, \"source_text\": \"○ 특정표적장기 독성(반복) PRODUCT : 자료없음\", \"rules\": [\"R10\", \"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[28]\", \"page\": 7, \"source_text\": \"- 에틸렌 : 자료없음\", \"rules\": [\"R10\", \"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[29]\", \"page\": 7, \"source_text\": \"○ 흡인유해성 물질 PRODUCT : 자료없음\", \"rules\": [\"R10\", \"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[30]\", \"page\": 7, \"source_text\": \"- 에틸렌 : 자료없음\", \"rules\": [\"R10\", \"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"cmr[0]\", \"page\": 7, \"source_text\": \"· 고용노동부고시 : 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"cmr[1]\", \"page\": 7, \"source_text\": \"· OSHA : 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"cmr[2]\", \"page\": 7, \"source_text\": \"· NTP : 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"cmr[3]\", \"page\": 7, \"source_text\": \"· IARC : 3\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"cmr[4]\", \"page\": 7, \"source_text\": \"· EU CLP : 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"cmr[5]\", \"page\": 7, \"source_text\": \"· ACGIH : A4\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[0]\", \"page\": 7, \"source_text\": \"가. 생태독성 PRODUCT - 급성 수생 환경유해성 : 구분외, 만성 수생 환경유해성 : 구분외\", \"rules\": [\"R10\"], \"note\": \"맞는 값 없음: 수생 환경유해성 분류 결과에 맞는 endpoint 코드가 없어 null, 서술로 남김\"}, {\"msds_index\": 0, \"field\": \"ecotox[1]\", \"page\": 7, \"source_text\": \"● 어류 - 에틸렌 : 자료없음\", \"rules\": [\"R10\", \"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[2]\", \"page\": 7, \"source_text\": \"● 갑각류 - 에틸렌 : 자료없음\", \"rules\": [\"R10\", \"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[3]\", \"page\": 7, \"source_text\": \"● 조류 - 에틸렌 : 자료없음\", \"rules\": [\"R10\", \"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[4]\", \"page\": 7, \"source_text\": \"● 분해성 - 에틸렌 : 자료없음\", \"rules\": [\"R10\", \"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[5]\", \"page\": 8, \"source_text\": \"- 에틸렌 : 1.13 log Kow\", \"rules\": [\"R04\", \"R06\"], \"note\": \"잔류성 항목의 1.13 log Kow를 logKow 1.13으로 저장\"}, {\"msds_index\": 0, \"field\": \"ecotox[6]\", \"page\": 8, \"source_text\": \"- 에틸렌 : 4 (Pimephales promelas(Fish, fresh water))\", \"rules\": [\"R04\"], \"note\": \"생물농축성 값 4를 BCF로, 괄호 속을 시험종으로 저장\"}, {\"msds_index\": 0, \"field\": \"ecotox[7]\", \"page\": 8, \"source_text\": \"● 생분해성 - 에틸렌 : 자료없음\", \"rules\": [\"R10\", \"R15\"], \"note\": \"생물농축성 소항목 아래 생분해성 행\"}, {\"msds_index\": 0, \"field\": \"ecotox[8]\", \"page\": 8, \"source_text\": \"● 옥탄올탄소분배계수(Koc) - 에틸렌 : 자료없음\", \"rules\": [\"R10\", \"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[9]\", \"page\": 8, \"source_text\": \"● 기타 - 에틸렌 : 자료없음\", \"rules\": [\"R10\", \"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[10]\", \"page\": 8, \"source_text\": \"● 오존층 유해성 - 에틸렌 : 해당없음\", \"rules\": [\"R10\", \"R15\"], \"note\": null}]}"
+}

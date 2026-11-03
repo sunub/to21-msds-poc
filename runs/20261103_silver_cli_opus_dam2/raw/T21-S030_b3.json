@@ -1,0 +1,837 @@
+{
+  "doc_id": "T21-S030",
+  "bundle": "b3",
+  "model": "claude-opus-5-5",
+  "mode": "claude -p json-schema",
+  "finish_reason": "tool_use",
+  "usage": {
+    "prompt_tokens": 47293,
+    "completion_tokens": 8884,
+    "cached_tokens": 8451,
+    "reasoning_tokens": 1338,
+    "notional_cost_usd": 0.49009820000000004
+  },
+  "seconds": 61.9,
+  "request_usage": [
+    {
+      "prompt_tokens": 47293,
+      "completion_tokens": 8884,
+      "cached_tokens": 8451,
+      "reasoning_tokens": 1338,
+      "notional_cost_usd": 0.49009820000000004
+    }
+  ],
+  "attempts": 1,
+  "errors": [],
+  "parsed": {
+    "msds": [
+      {
+        "toxicity": [
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_ORAL",
+            "descriptor": "LD50",
+            "q": {
+              "raw": "10400 mg/kg",
+              "value": 10400,
+              "unit": "mg/kg",
+              "status": "값있음"
+            },
+            "species": "Rat",
+            "guideline": "OECD TG 401",
+            "data_source": "ECHA",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_DERMAL",
+            "descriptor": "LD50",
+            "q": {
+              "raw": "> 2500 mg/kg",
+              "lower_op": ">",
+              "lower": 2500,
+              "unit": "mg/kg",
+              "status": "값있음"
+            },
+            "species": "Rat",
+            "guideline": "OECD TG 402, GLP",
+            "data_source": "ECHA",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_INHAL",
+            "descriptor": null,
+            "q": {
+              "raw": "LC0 0.73 mg/L",
+              "value": 0.73,
+              "unit": "mg/L",
+              "dp": 2,
+              "status": "값있음",
+              "note": "No death"
+            },
+            "species": "Rat",
+            "physical_form": "증기",
+            "duration_value": 8,
+            "duration_unit": "hr",
+            "guideline": "OECD TG 403",
+            "data_source": "ECHA",
+            "classification": "Not classified",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_SKIN",
+            "descriptor": "결과기술",
+            "species": "토끼",
+            "guideline": "OECD TG 404, GLP",
+            "data_source": "ECHA",
+            "classification": "분류되지 않음",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "토끼를 대상으로 피부 부식성/자극성 시험 결과 분류되지 않음 (OECD TG 404, GLP) (ECHA)",
+                "text": "- [1,3-다이옥솔란-2-온] : 토끼를 대상으로 피부 부식성/자극성 시험 결과 분류되지 않음 (OECD TG 404, GLP) (ECHA)",
+                "refs": [
+                  "1"
+                ]
+              }
+            ]
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_EYE",
+            "descriptor": "결과기술",
+            "species": "토끼",
+            "guideline": "OECD TG 405, GLP",
+            "data_source": "ECHA",
+            "classification": "구분2",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "토끼를 대상으로 눈 손상/자극성 시험 결과 구분2에 해당함 (OECD TG 405, GLP) (ECHA)",
+                "text": "- [1,3-다이옥솔란-2-온] : 토끼를 대상으로 눈 손상/자극성 시험 결과 구분2에 해당함 (OECD TG 405, GLP) (ECHA)",
+                "refs": [
+                  "1"
+                ]
+              }
+            ]
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_RESP_SENS",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_SKIN_SENS",
+            "descriptor": "결과기술",
+            "species": "기니피그",
+            "guideline": "OECD TG 406, GLP",
+            "data_source": "ECHA",
+            "classification": "분류되지 않음",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "기니피그를 대상으로 피부 과민성 시험 결과 분류되지 않음 (OECD TG 406, GLP) (ECHA)",
+                "text": "- [1,3-다이옥솔란-2-온] : 기니피그를 대상으로 피부 과민성 시험 결과 분류되지 않음 (OECD TG 406, GLP) (ECHA)",
+                "refs": [
+                  "1"
+                ]
+              }
+            ]
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_MUTA",
+            "descriptor": "결과기술",
+            "guideline": "OECD TG 471, GLP; OECD TG 473, GLP; OECD TG 476, GLP",
+            "data_source": "ECHA",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "In vitro 미생물을 이용한 복귀돌연변이시험(OECD TG 471, GLP), 포유류 배양세포를 이용한 염색체이상시험(OECD TG 473, GLP), 포유류 배양세포를 이용한 유전자돌연변이시험(OECD TG 476, GLP) 결과 모두 대사활성계 유무와 관계없이 음성 (ECHA)",
+                "text": "- [1,3-다이옥솔란-2-온] : In vitro 미생물을 이용한 복귀돌연변이시험(OECD TG 471, GLP), 포유류 배양세포를 이용한 염색체이상시험(OECD TG 473, GLP), 포유류 배양세포를 이용한 유전자돌연변이시험(OECD TG 476, GLP) 결과 모두 대사활성계 유무와 관계없이 음성 (ECHA)",
+                "refs": [
+                  "1"
+                ]
+              }
+            ]
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_REPRO",
+            "descriptor": null,
+            "q": {
+              "raw": "NOEL 1000 mg/kg bw/day",
+              "value": 1000,
+              "unit": "mg/kg bw/day",
+              "status": "값있음"
+            },
+            "species": "랫드",
+            "guideline": "GLP",
+            "data_source": "ECHA",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "랫드를 대상으로 연속 육종에 의한 번식력 평가 결과 전반적인 생식 독성이 관찰되지 않음.",
+                "text": "- [1,3-다이옥솔란-2-온] : 랫드를 대상으로 연속 육종에 의한 번식력 평가 결과 전반적인 생식 독성이 관찰되지 않음. NOEL 1000 mg/kg bw/day (GLP) (ECHA)",
+                "refs": [
+                  "1"
+                ]
+              }
+            ]
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_STOT_SE",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_STOT_RE",
+            "descriptor": "결과기술",
+            "data_source": "ECHA",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "장기간 또는 반복노출 되면 장기(경구: 신장)에 손상을 일으킬 수 있음 (ECHA)",
+                "text": "- [1,3-다이옥솔란-2-온] : 장기간 또는 반복노출 되면 장기(경구: 신장)에 손상을 일으킬 수 있음 (ECHA)",
+                "refs": [
+                  "1"
+                ]
+              }
+            ]
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_ASP",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          }
+        ],
+        "cmr": [
+          {
+            "comp_ref": "1",
+            "hazard": "발암성",
+            "agency": "KR_CCA",
+            "class": null,
+            "status": "해당없음"
+          },
+          {
+            "comp_ref": "MIX",
+            "hazard": "발암성",
+            "agency": "KR_CCA",
+            "class": null,
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "1",
+            "hazard": "발암성",
+            "agency": "IARC",
+            "class": null,
+            "status": "해당없음"
+          },
+          {
+            "comp_ref": "1",
+            "hazard": "발암성",
+            "agency": "OSHA",
+            "class": null,
+            "status": "해당없음"
+          },
+          {
+            "comp_ref": "1",
+            "hazard": "발암성",
+            "agency": "ACGIH",
+            "class": null,
+            "status": "해당없음"
+          },
+          {
+            "comp_ref": "1",
+            "hazard": "발암성",
+            "agency": "NTP",
+            "class": null,
+            "status": "해당없음"
+          },
+          {
+            "comp_ref": "1",
+            "hazard": "발암성",
+            "agency": "EU_CLP",
+            "class": null,
+            "status": "해당없음"
+          },
+          {
+            "comp_ref": "1",
+            "hazard": "발암성",
+            "agency": "KR_OSH",
+            "class": null,
+            "status": "해당없음"
+          },
+          {
+            "comp_ref": "1",
+            "hazard": "생식세포변이원성",
+            "agency": "KR_OSH",
+            "class": null,
+            "status": "해당없음"
+          },
+          {
+            "comp_ref": "1",
+            "hazard": "생식독성",
+            "agency": "KR_OSH",
+            "class": null,
+            "status": "해당없음"
+          }
+        ],
+        "ecotox": [
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_FISH",
+            "descriptor": "LC50",
+            "q": {
+              "raw": "> 100 mg/L",
+              "lower_op": ">",
+              "lower": 100,
+              "unit": "mg/L",
+              "status": "값있음"
+            },
+            "species": "Oncorhynchus mykiss",
+            "duration_value": 96,
+            "duration_unit": "hr",
+            "guideline": "OECD TG 203, GLP",
+            "data_source": "ECHA",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_CRUST",
+            "descriptor": "LC50",
+            "q": {
+              "raw": "5900 mg/L",
+              "value": 5900,
+              "unit": "mg/L",
+              "status": "값있음"
+            },
+            "species": "Ceriodaphnia dubia",
+            "duration_value": 48,
+            "duration_unit": "hr",
+            "data_source": "ECHA",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_ALGAE",
+            "descriptor": "EC50",
+            "q": {
+              "raw": "> 100 mg/L",
+              "lower_op": ">",
+              "lower": 100,
+              "unit": "mg/L",
+              "status": "값있음"
+            },
+            "species": "Raphidocelis subcapitata",
+            "duration_value": 72,
+            "duration_unit": "hr",
+            "guideline": "OECD TG 201, GLP",
+            "data_source": "ECHA",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_ALGAE",
+            "descriptor": "NOEC",
+            "q": {
+              "raw": "100 mg/L",
+              "value": 100,
+              "unit": "mg/L",
+              "status": "값있음"
+            },
+            "species": "Raphidocelis subcapitata",
+            "duration_value": 72,
+            "duration_unit": "hr",
+            "guideline": "OECD TG 201, GLP",
+            "data_source": "ECHA",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_PERSIST",
+            "descriptor": "logKow",
+            "q": {
+              "raw": "log Pow ca. 0.11 (20 °C)",
+              "value": 0.11,
+              "approx": true,
+              "dp": 2,
+              "status": "값있음"
+            },
+            "guideline": "EU Method A.8, GLP",
+            "data_source": "ECHA",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_PERSIST",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_BIOACC",
+            "descriptor": "BCF",
+            "q": {
+              "raw": "BCF 3.2",
+              "value": 3.2,
+              "dp": 1,
+              "status": "값있음"
+            },
+            "data_source": "NLM/HSDB",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_PERSIST",
+            "descriptor": "분해율",
+            "q": {
+              "raw": "86.9 %",
+              "value": 86.9,
+              "unit": "%",
+              "dp": 1,
+              "status": "값있음",
+              "note": "Readily biodegradable"
+            },
+            "duration_value": 29,
+            "duration_unit": "day",
+            "guideline": "OECD TG 301 B, GLP",
+            "data_source": "ECHA",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_SOIL",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_OZONE",
+            "q": {
+              "raw": "해당없음",
+              "status": "해당없음"
+            },
+            "status": "해당없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_OTHER",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          }
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "msds_index": 0,
+        "field": "toxicity[0]",
+        "page": 5,
+        "source_text": "- [1,3-다이옥솔란-2-온] : LD50 10400 mg/kg Rat (OECD TG 401) (ECHA)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "단일값 10400 mg/kg로 분해"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[1]",
+        "page": 5,
+        "source_text": "- [1,3-다이옥솔란-2-온] : LD50 > 2500 mg/kg Rat (OECD TG 402, GLP) (ECHA)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "'> 2500'을 하한 >2500으로 분해"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[2]",
+        "page": 5,
+        "source_text": "- [1,3-다이옥솔란-2-온] : Vapor LC0 0.73 mg/L 8 hr Rat No death Not classified (OECD TG 403) (ECHA)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "맞는 값 없음: 지표 LC0은 descriptor 목록에 없어 null로 두고 raw에 보존. Vapor→증기, 8 hr"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[3]",
+        "page": 5,
+        "source_text": "- [1,3-다이옥솔란-2-온] : 토끼를 대상으로 피부 부식성/자극성 시험 결과 분류되지 않음 (OECD TG 404, GLP) (ECHA)",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[4]",
+        "page": 5,
+        "source_text": "- [1,3-다이옥솔란-2-온] : 토끼를 대상으로 눈 손상/자극성 시험 결과 구분2에 해당함 (OECD TG 405, GLP) (ECHA)",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[5]",
+        "page": 5,
+        "source_text": "○ 호흡기 과민성 - [1,3-다이옥솔란-2-온] : 자료없음",
+        "rules": [
+          "R15",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[6]",
+        "page": 5,
+        "source_text": "- [1,3-다이옥솔란-2-온] : 기니피그를 대상으로 피부 과민성 시험 결과 분류되지 않음 (OECD TG 406, GLP) (ECHA)",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[7]",
+        "page": 5,
+        "source_text": "- [1,3-다이옥솔란-2-온] : In vitro 미생물을 이용한 복귀돌연변이시험(OECD TG 471, GLP), 포유류 배양세포를 이용한 염색체이상시험(OECD TG 473, GLP)",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[8]",
+        "page": 5,
+        "source_text": "- [1,3-다이옥솔란-2-온] : 랫드를 대상으로 연속 육종에 의한 번식력 평가 결과 전반적인 생식 독성이 관찰되지 않음. NOEL 1000 mg/kg bw/day (GLP) (ECHA)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "맞는 값 없음: 지표 NOEL은 descriptor 목록에 없어 null로 두고 raw에 보존"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[9]",
+        "page": 5,
+        "source_text": "○ 특정 표적장기 독성 (1회 노출) - [1,3-다이옥솔란-2-온] : 자료없음",
+        "rules": [
+          "R15",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[10]",
+        "page": 6,
+        "source_text": "- [1,3-다이옥솔란-2-온] : 장기간 또는 반복노출 되면 장기(경구: 신장)에 손상을 일으킬 수 있음 (ECHA)",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[11]",
+        "page": 6,
+        "source_text": "○ 흡인 유해성 - [1,3-다이옥솔란-2-온] : 자료없음",
+        "rules": [
+          "R15",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[0]",
+        "page": 5,
+        "source_text": "* 환경부 화학물질관리법 - [1,3-다이옥솔란-2-온] : 해당없음",
+        "rules": [
+          "R15",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[1]",
+        "page": 5,
+        "source_text": "- 자료없음",
+        "rules": [
+          "R15",
+          "R10"
+        ],
+        "note": "환경부 화학물질관리법 항목 아래 성분 지정 없는 '자료없음' 줄을 MIX 행으로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[2]",
+        "page": 5,
+        "source_text": "* IARC - [1,3-다이옥솔란-2-온] : 해당없음",
+        "rules": [
+          "R15",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[3]",
+        "page": 5,
+        "source_text": "* OSHA - [1,3-다이옥솔란-2-온] : 해당없음",
+        "rules": [
+          "R15",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[4]",
+        "page": 5,
+        "source_text": "* ACGIH - [1,3-다이옥솔란-2-온] : 해당없음",
+        "rules": [
+          "R15",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[5]",
+        "page": 5,
+        "source_text": "* NTP - [1,3-다이옥솔란-2-온] : 해당없음",
+        "rules": [
+          "R15",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[6]",
+        "page": 5,
+        "source_text": "* EU CLP - [1,3-다이옥솔란-2-온] : 해당없음",
+        "rules": [
+          "R15",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[7]",
+        "page": 6,
+        "source_text": "○ 고용노동부고시 * 발암성 - [1,3-다이옥솔란-2-온] : 해당없음",
+        "rules": [
+          "R15",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[8]",
+        "page": 6,
+        "source_text": "* 생식세포 변이원성 - [1,3-다이옥솔란-2-온] : 해당없음",
+        "rules": [
+          "R15",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[9]",
+        "page": 6,
+        "source_text": "* 생식독성 - [1,3-다이옥솔란-2-온] : 해당없음",
+        "rules": [
+          "R15",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[0]",
+        "page": 6,
+        "source_text": "- [1,3-다이옥솔란-2-온] : LC50 > 100 mg/L 96 hr Oncorhynchus mykiss (OECD TG 203, GLP) (ECHA)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[1]",
+        "page": 6,
+        "source_text": "- [1,3-다이옥솔란-2-온] : LC50 5900 mg/L 48 hr Ceriodaphnia dubia (ECHA)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[2]",
+        "page": 6,
+        "source_text": "- [1,3-다이옥솔란-2-온] : EC50 > 100 mg/L 72 hr, NOEC 100 mg/L 72 hr Raphidocelis subcapitata (OECD TG 201, GLP) (ECHA)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "EC50 행"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[3]",
+        "page": 6,
+        "source_text": "- [1,3-다이옥솔란-2-온] : EC50 > 100 mg/L 72 hr, NOEC 100 mg/L 72 hr Raphidocelis subcapitata (OECD TG 201, GLP) (ECHA)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "NOEC 행"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[4]",
+        "page": 6,
+        "source_text": "- [1,3-다이옥솔란-2-온] : log Pow ca. 0.11 (20 °C) (EU Method A.8, GLP) (ECHA)",
+        "rules": [
+          "R04",
+          "R06",
+          "R10"
+        ],
+        "note": "잔류성 항목의 log Pow를 logKow로, ca.는 approx=true"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[5]",
+        "page": 6,
+        "source_text": "○ 분해성 - [1,3-다이옥솔란-2-온] : 자료없음",
+        "rules": [
+          "R15",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[6]",
+        "page": 6,
+        "source_text": "- [1,3-다이옥솔란-2-온] : BCF 3.2 (NLM/HSDB)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[7]",
+        "page": 6,
+        "source_text": "- [1,3-다이옥솔란-2-온] : 86.9 % 29 d, Readily biodegradable (OECD TG 301 B, GLP) (ECHA)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "'다. 생물 농축성' 아래 '생분해성' 줄이나 분해율이므로 ECO_PERSIST로 둠; 29 d → 29 day"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[8]",
+        "page": 6,
+        "source_text": "라. 토양 이동성 - [1,3-다이옥솔란-2-온] : 자료없음",
+        "rules": [
+          "R15",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[9]",
+        "page": 6,
+        "source_text": "마. 오존층 유해성 - [1,3-다이옥솔란-2-온] : 해당없음",
+        "rules": [
+          "R15",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[10]",
+        "page": 6,
+        "source_text": "바. 기타 유해 영향 - [1,3-다이옥솔란-2-온] : 자료없음",
+        "rules": [
+          "R15",
+          "R10"
+        ],
+        "note": null
+      }
+    ]
+  },
+  "raw_text": "{\"msds\": [{\"toxicity\": [{\"comp_ref\": \"1\", \"endpoint\": \"TX_ORAL\", \"descriptor\": \"LD50\", \"q\": {\"raw\": \"10400 mg/kg\", \"value\": 10400, \"unit\": \"mg/kg\", \"status\": \"값있음\"}, \"species\": \"Rat\", \"guideline\": \"OECD TG 401\", \"data_source\": \"ECHA\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_DERMAL\", \"descriptor\": \"LD50\", \"q\": {\"raw\": \"> 2500 mg/kg\", \"lower_op\": \">\", \"lower\": 2500, \"unit\": \"mg/kg\", \"status\": \"값있음\"}, \"species\": \"Rat\", \"guideline\": \"OECD TG 402, GLP\", \"data_source\": \"ECHA\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_INHAL\", \"descriptor\": null, \"q\": {\"raw\": \"LC0 0.73 mg/L\", \"value\": 0.73, \"unit\": \"mg/L\", \"dp\": 2, \"status\": \"값있음\", \"note\": \"No death\"}, \"species\": \"Rat\", \"physical_form\": \"증기\", \"duration_value\": 8, \"duration_unit\": \"hr\", \"guideline\": \"OECD TG 403\", \"data_source\": \"ECHA\", \"classification\": \"Not classified\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_SKIN\", \"descriptor\": \"결과기술\", \"species\": \"토끼\", \"guideline\": \"OECD TG 404, GLP\", \"data_source\": \"ECHA\", \"classification\": \"분류되지 않음\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"토끼를 대상으로 피부 부식성/자극성 시험 결과 분류되지 않음 (OECD TG 404, GLP) (ECHA)\", \"text\": \"- [1,3-다이옥솔란-2-온] : 토끼를 대상으로 피부 부식성/자극성 시험 결과 분류되지 않음 (OECD TG 404, GLP) (ECHA)\", \"refs\": [\"1\"]}]}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_EYE\", \"descriptor\": \"결과기술\", \"species\": \"토끼\", \"guideline\": \"OECD TG 405, GLP\", \"data_source\": \"ECHA\", \"classification\": \"구분2\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"토끼를 대상으로 눈 손상/자극성 시험 결과 구분2에 해당함 (OECD TG 405, GLP) (ECHA)\", \"text\": \"- [1,3-다이옥솔란-2-온] : 토끼를 대상으로 눈 손상/자극성 시험 결과 구분2에 해당함 (OECD TG 405, GLP) (ECHA)\", \"refs\": [\"1\"]}]}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_RESP_SENS\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_SKIN_SENS\", \"descriptor\": \"결과기술\", \"species\": \"기니피그\", \"guideline\": \"OECD TG 406, GLP\", \"data_source\": \"ECHA\", \"classification\": \"분류되지 않음\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"기니피그를 대상으로 피부 과민성 시험 결과 분류되지 않음 (OECD TG 406, GLP) (ECHA)\", \"text\": \"- [1,3-다이옥솔란-2-온] : 기니피그를 대상으로 피부 과민성 시험 결과 분류되지 않음 (OECD TG 406, GLP) (ECHA)\", \"refs\": [\"1\"]}]}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_MUTA\", \"descriptor\": \"결과기술\", \"guideline\": \"OECD TG 471, GLP; OECD TG 473, GLP; OECD TG 476, GLP\", \"data_source\": \"ECHA\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"In vitro 미생물을 이용한 복귀돌연변이시험(OECD TG 471, GLP), 포유류 배양세포를 이용한 염색체이상시험(OECD TG 473, GLP), 포유류 배양세포를 이용한 유전자돌연변이시험(OECD TG 476, GLP) 결과 모두 대사활성계 유무와 관계없이 음성 (ECHA)\", \"text\": \"- [1,3-다이옥솔란-2-온] : In vitro 미생물을 이용한 복귀돌연변이시험(OECD TG 471, GLP), 포유류 배양세포를 이용한 염색체이상시험(OECD TG 473, GLP), 포유류 배양세포를 이용한 유전자돌연변이시험(OECD TG 476, GLP) 결과 모두 대사활성계 유무와 관계없이 음성 (ECHA)\", \"refs\": [\"1\"]}]}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_REPRO\", \"descriptor\": null, \"q\": {\"raw\": \"NOEL 1000 mg/kg bw/day\", \"value\": 1000, \"unit\": \"mg/kg bw/day\", \"status\": \"값있음\"}, \"species\": \"랫드\", \"guideline\": \"GLP\", \"data_source\": \"ECHA\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"랫드를 대상으로 연속 육종에 의한 번식력 평가 결과 전반적인 생식 독성이 관찰되지 않음.\", \"text\": \"- [1,3-다이옥솔란-2-온] : 랫드를 대상으로 연속 육종에 의한 번식력 평가 결과 전반적인 생식 독성이 관찰되지 않음. NOEL 1000 mg/kg bw/day (GLP) (ECHA)\", \"refs\": [\"1\"]}]}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_STOT_SE\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_STOT_RE\", \"descriptor\": \"결과기술\", \"data_source\": \"ECHA\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"장기간 또는 반복노출 되면 장기(경구: 신장)에 손상을 일으킬 수 있음 (ECHA)\", \"text\": \"- [1,3-다이옥솔란-2-온] : 장기간 또는 반복노출 되면 장기(경구: 신장)에 손상을 일으킬 수 있음 (ECHA)\", \"refs\": [\"1\"]}]}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_ASP\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}], \"cmr\": [{\"comp_ref\": \"1\", \"hazard\": \"발암성\", \"agency\": \"KR_CCA\", \"class\": null, \"status\": \"해당없음\"}, {\"comp_ref\": \"MIX\", \"hazard\": \"발암성\", \"agency\": \"KR_CCA\", \"class\": null, \"status\": \"자료없음\"}, {\"comp_ref\": \"1\", \"hazard\": \"발암성\", \"agency\": \"IARC\", \"class\": null, \"status\": \"해당없음\"}, {\"comp_ref\": \"1\", \"hazard\": \"발암성\", \"agency\": \"OSHA\", \"class\": null, \"status\": \"해당없음\"}, {\"comp_ref\": \"1\", \"hazard\": \"발암성\", \"agency\": \"ACGIH\", \"class\": null, \"status\": \"해당없음\"}, {\"comp_ref\": \"1\", \"hazard\": \"발암성\", \"agency\": \"NTP\", \"class\": null, \"status\": \"해당없음\"}, {\"comp_ref\": \"1\", \"hazard\": \"발암성\", \"agency\": \"EU_CLP\", \"class\": null, \"status\": \"해당없음\"}, {\"comp_ref\": \"1\", \"hazard\": \"발암성\", \"agency\": \"KR_OSH\", \"class\": null, \"status\": \"해당없음\"}, {\"comp_ref\": \"1\", \"hazard\": \"생식세포변이원성\", \"agency\": \"KR_OSH\", \"class\": null, \"status\": \"해당없음\"}, {\"comp_ref\": \"1\", \"hazard\": \"생식독성\", \"agency\": \"KR_OSH\", \"class\": null, \"status\": \"해당없음\"}], \"ecotox\": [{\"comp_ref\": \"1\", \"endpoint\": \"ECO_FISH\", \"descriptor\": \"LC50\", \"q\": {\"raw\": \"> 100 mg/L\", \"lower_op\": \">\", \"lower\": 100, \"unit\": \"mg/L\", \"status\": \"값있음\"}, \"species\": \"Oncorhynchus mykiss\", \"duration_value\": 96, \"duration_unit\": \"hr\", \"guideline\": \"OECD TG 203, GLP\", \"data_source\": \"ECHA\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_CRUST\", \"descriptor\": \"LC50\", \"q\": {\"raw\": \"5900 mg/L\", \"value\": 5900, \"unit\": \"mg/L\", \"status\": \"값있음\"}, \"species\": \"Ceriodaphnia dubia\", \"duration_value\": 48, \"duration_unit\": \"hr\", \"data_source\": \"ECHA\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_ALGAE\", \"descriptor\": \"EC50\", \"q\": {\"raw\": \"> 100 mg/L\", \"lower_op\": \">\", \"lower\": 100, \"unit\": \"mg/L\", \"status\": \"값있음\"}, \"species\": \"Raphidocelis subcapitata\", \"duration_value\": 72, \"duration_unit\": \"hr\", \"guideline\": \"OECD TG 201, GLP\", \"data_source\": \"ECHA\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_ALGAE\", \"descriptor\": \"NOEC\", \"q\": {\"raw\": \"100 mg/L\", \"value\": 100, \"unit\": \"mg/L\", \"status\": \"값있음\"}, \"species\": \"Raphidocelis subcapitata\", \"duration_value\": 72, \"duration_unit\": \"hr\", \"guideline\": \"OECD TG 201, GLP\", \"data_source\": \"ECHA\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_PERSIST\", \"descriptor\": \"logKow\", \"q\": {\"raw\": \"log Pow ca. 0.11 (20 °C)\", \"value\": 0.11, \"approx\": true, \"dp\": 2, \"status\": \"값있음\"}, \"guideline\": \"EU Method A.8, GLP\", \"data_source\": \"ECHA\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_PERSIST\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_BIOACC\", \"descriptor\": \"BCF\", \"q\": {\"raw\": \"BCF 3.2\", \"value\": 3.2, \"dp\": 1, \"status\": \"값있음\"}, \"data_source\": \"NLM/HSDB\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_PERSIST\", \"descriptor\": \"분해율\", \"q\": {\"raw\": \"86.9 %\", \"value\": 86.9, \"unit\": \"%\", \"dp\": 1, \"status\": \"값있음\", \"note\": \"Readily biodegradable\"}, \"duration_value\": 29, \"duration_unit\": \"day\", \"guideline\": \"OECD TG 301 B, GLP\", \"data_source\": \"ECHA\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_SOIL\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_OZONE\", \"q\": {\"raw\": \"해당없음\", \"status\": \"해당없음\"}, \"status\": \"해당없음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_OTHER\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}]}], \"evidence\": [{\"msds_index\": 0, \"field\": \"toxicity[0]\", \"page\": 5, \"source_text\": \"- [1,3-다이옥솔란-2-온] : LD50 10400 mg/kg Rat (OECD TG 401) (ECHA)\", \"rules\": [\"R04\", \"R10\"], \"note\": \"단일값 10400 mg/kg로 분해\"}, {\"msds_index\": 0, \"field\": \"toxicity[1]\", \"page\": 5, \"source_text\": \"- [1,3-다이옥솔란-2-온] : LD50 > 2500 mg/kg Rat (OECD TG 402, GLP) (ECHA)\", \"rules\": [\"R04\", \"R10\"], \"note\": \"'> 2500'을 하한 >2500으로 분해\"}, {\"msds_index\": 0, \"field\": \"toxicity[2]\", \"page\": 5, \"source_text\": \"- [1,3-다이옥솔란-2-온] : Vapor LC0 0.73 mg/L 8 hr Rat No death Not classified (OECD TG 403) (ECHA)\", \"rules\": [\"R04\", \"R10\"], \"note\": \"맞는 값 없음: 지표 LC0은 descriptor 목록에 없어 null로 두고 raw에 보존. Vapor→증기, 8 hr\"}, {\"msds_index\": 0, \"field\": \"toxicity[3]\", \"page\": 5, \"source_text\": \"- [1,3-다이옥솔란-2-온] : 토끼를 대상으로 피부 부식성/자극성 시험 결과 분류되지 않음 (OECD TG 404, GLP) (ECHA)\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[4]\", \"page\": 5, \"source_text\": \"- [1,3-다이옥솔란-2-온] : 토끼를 대상으로 눈 손상/자극성 시험 결과 구분2에 해당함 (OECD TG 405, GLP) (ECHA)\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[5]\", \"page\": 5, \"source_text\": \"○ 호흡기 과민성 - [1,3-다이옥솔란-2-온] : 자료없음\", \"rules\": [\"R15\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[6]\", \"page\": 5, \"source_text\": \"- [1,3-다이옥솔란-2-온] : 기니피그를 대상으로 피부 과민성 시험 결과 분류되지 않음 (OECD TG 406, GLP) (ECHA)\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[7]\", \"page\": 5, \"source_text\": \"- [1,3-다이옥솔란-2-온] : In vitro 미생물을 이용한 복귀돌연변이시험(OECD TG 471, GLP), 포유류 배양세포를 이용한 염색체이상시험(OECD TG 473, GLP)\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[8]\", \"page\": 5, \"source_text\": \"- [1,3-다이옥솔란-2-온] : 랫드를 대상으로 연속 육종에 의한 번식력 평가 결과 전반적인 생식 독성이 관찰되지 않음. NOEL 1000 mg/kg bw/day (GLP) (ECHA)\", \"rules\": [\"R04\", \"R10\"], \"note\": \"맞는 값 없음: 지표 NOEL은 descriptor 목록에 없어 null로 두고 raw에 보존\"}, {\"msds_index\": 0, \"field\": \"toxicity[9]\", \"page\": 5, \"source_text\": \"○ 특정 표적장기 독성 (1회 노출) - [1,3-다이옥솔란-2-온] : 자료없음\", \"rules\": [\"R15\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[10]\", \"page\": 6, \"source_text\": \"- [1,3-다이옥솔란-2-온] : 장기간 또는 반복노출 되면 장기(경구: 신장)에 손상을 일으킬 수 있음 (ECHA)\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[11]\", \"page\": 6, \"source_text\": \"○ 흡인 유해성 - [1,3-다이옥솔란-2-온] : 자료없음\", \"rules\": [\"R15\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"cmr[0]\", \"page\": 5, \"source_text\": \"* 환경부 화학물질관리법 - [1,3-다이옥솔란-2-온] : 해당없음\", \"rules\": [\"R15\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"cmr[1]\", \"page\": 5, \"source_text\": \"- 자료없음\", \"rules\": [\"R15\", \"R10\"], \"note\": \"환경부 화학물질관리법 항목 아래 성분 지정 없는 '자료없음' 줄을 MIX 행으로 둠\"}, {\"msds_index\": 0, \"field\": \"cmr[2]\", \"page\": 5, \"source_text\": \"* IARC - [1,3-다이옥솔란-2-온] : 해당없음\", \"rules\": [\"R15\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"cmr[3]\", \"page\": 5, \"source_text\": \"* OSHA - [1,3-다이옥솔란-2-온] : 해당없음\", \"rules\": [\"R15\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"cmr[4]\", \"page\": 5, \"source_text\": \"* ACGIH - [1,3-다이옥솔란-2-온] : 해당없음\", \"rules\": [\"R15\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"cmr[5]\", \"page\": 5, \"source_text\": \"* NTP - [1,3-다이옥솔란-2-온] : 해당없음\", \"rules\": [\"R15\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"cmr[6]\", \"page\": 5, \"source_text\": \"* EU CLP - [1,3-다이옥솔란-2-온] : 해당없음\", \"rules\": [\"R15\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"cmr[7]\", \"page\": 6, \"source_text\": \"○ 고용노동부고시 * 발암성 - [1,3-다이옥솔란-2-온] : 해당없음\", \"rules\": [\"R15\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"cmr[8]\", \"page\": 6, \"source_text\": \"* 생식세포 변이원성 - [1,3-다이옥솔란-2-온] : 해당없음\", \"rules\": [\"R15\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"cmr[9]\", \"page\": 6, \"source_text\": \"* 생식독성 - [1,3-다이옥솔란-2-온] : 해당없음\", \"rules\": [\"R15\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[0]\", \"page\": 6, \"source_text\": \"- [1,3-다이옥솔란-2-온] : LC50 > 100 mg/L 96 hr Oncorhynchus mykiss (OECD TG 203, GLP) (ECHA)\", \"rules\": [\"R04\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[1]\", \"page\": 6, \"source_text\": \"- [1,3-다이옥솔란-2-온] : LC50 5900 mg/L 48 hr Ceriodaphnia dubia (ECHA)\", \"rules\": [\"R04\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[2]\", \"page\": 6, \"source_text\": \"- [1,3-다이옥솔란-2-온] : EC50 > 100 mg/L 72 hr, NOEC 100 mg/L 72 hr Raphidocelis subcapitata (OECD TG 201, GLP) (ECHA)\", \"rules\": [\"R04\", \"R10\"], \"note\": \"EC50 행\"}, {\"msds_index\": 0, \"field\": \"ecotox[3]\", \"page\": 6, \"source_text\": \"- [1,3-다이옥솔란-2-온] : EC50 > 100 mg/L 72 hr, NOEC 100 mg/L 72 hr Raphidocelis subcapitata (OECD TG 201, GLP) (ECHA)\", \"rules\": [\"R04\", \"R10\"], \"note\": \"NOEC 행\"}, {\"msds_index\": 0, \"field\": \"ecotox[4]\", \"page\": 6, \"source_text\": \"- [1,3-다이옥솔란-2-온] : log Pow ca. 0.11 (20 °C) (EU Method A.8, GLP) (ECHA)\", \"rules\": [\"R04\", \"R06\", \"R10\"], \"note\": \"잔류성 항목의 log Pow를 logKow로, ca.는 approx=true\"}, {\"msds_index\": 0, \"field\": \"ecotox[5]\", \"page\": 6, \"source_text\": \"○ 분해성 - [1,3-다이옥솔란-2-온] : 자료없음\", \"rules\": [\"R15\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[6]\", \"page\": 6, \"source_text\": \"- [1,3-다이옥솔란-2-온] : BCF 3.2 (NLM/HSDB)\", \"rules\": [\"R04\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[7]\", \"page\": 6, \"source_text\": \"- [1,3-다이옥솔란-2-온] : 86.9 % 29 d, Readily biodegradable (OECD TG 301 B, GLP) (ECHA)\", \"rules\": [\"R04\", \"R10\"], \"note\": \"'다. 생물 농축성' 아래 '생분해성' 줄이나 분해율이므로 ECO_PERSIST로 둠; 29 d → 29 day\"}, {\"msds_index\": 0, \"field\": \"ecotox[8]\", \"page\": 6, \"source_text\": \"라. 토양 이동성 - [1,3-다이옥솔란-2-온] : 자료없음\", \"rules\": [\"R15\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[9]\", \"page\": 6, \"source_text\": \"마. 오존층 유해성 - [1,3-다이옥솔란-2-온] : 해당없음\", \"rules\": [\"R15\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[10]\", \"page\": 6, \"source_text\": \"바. 기타 유해 영향 - [1,3-다이옥솔란-2-온] : 자료없음\", \"rules\": [\"R15\", \"R10\"], \"note\": null}]}"
+}

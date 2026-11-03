@@ -1,0 +1,513 @@
+{
+  "doc_id": "T21-036",
+  "bundle": "b3",
+  "model": "claude-opus-5-5",
+  "mode": "claude -p json-schema",
+  "finish_reason": "tool_use",
+  "usage": {
+    "prompt_tokens": 45200,
+    "completion_tokens": 4530,
+    "cached_tokens": 8451,
+    "reasoning_tokens": 805,
+    "notional_cost_usd": 0.3862742
+  },
+  "seconds": 35.9,
+  "request_usage": [
+    {
+      "prompt_tokens": 45200,
+      "completion_tokens": 4530,
+      "cached_tokens": 8451,
+      "reasoning_tokens": 805,
+      "notional_cost_usd": 0.3862742
+    }
+  ],
+  "attempts": 1,
+  "errors": [],
+  "parsed": {
+    "msds": [
+      {
+        "toxicity": [
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_ORAL",
+            "descriptor": null,
+            "status": "해당없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_DERMAL",
+            "descriptor": null,
+            "status": "해당없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_INHAL",
+            "descriptor": null,
+            "status": "해당없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_ORAL",
+            "descriptor": "LD50",
+            "species": "랫드",
+            "q": {
+              "raw": "> 5000 mg/kg",
+              "lower_op": ">",
+              "lower": 5000,
+              "unit": "mg/kg",
+              "status": "값있음"
+            },
+            "data_source": "KOSHA",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_DERMAL",
+            "descriptor": "LD50",
+            "species": "토끼",
+            "q": {
+              "raw": "> 2000 mg/kg",
+              "lower_op": ">",
+              "lower": 2000,
+              "unit": "mg/kg",
+              "status": "값있음"
+            },
+            "data_source": "KOSHA",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_ORAL",
+            "descriptor": "결과기술",
+            "classification": "분류되지 않음",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_DERMAL",
+            "descriptor": "결과기술",
+            "classification": "분류되지 않음",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_INHAL",
+            "descriptor": "결과기술",
+            "classification": "분류되지 않음",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_SKIN",
+            "status": "해당없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_EYE",
+            "status": "해당없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_RESP_SENS",
+            "status": "해당없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_SKIN_SENS",
+            "status": "해당없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_CARC",
+            "status": "해당없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_MUTA",
+            "status": "해당없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_REPRO",
+            "status": "해당없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_STOT_SE",
+            "status": "해당없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_STOT_RE",
+            "status": "해당없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_ASP",
+            "status": "해당없음",
+            "statements": []
+          }
+        ],
+        "cmr": [],
+        "ecotox": [
+          {
+            "comp_ref": "MIX",
+            "endpoint": null,
+            "descriptor": "결과기술",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "생태학 - 일반",
+                "value": "이 제품은 수생 생물에 위험한 것으로 간주되지 않으며 환경에 장기적 악영향을 유발하는 것로 간주되지도 않음.",
+                "text": "생태학 - 일반 : 이 제품은 수생 생물에 위험한 것으로 간주되지 않으며 환경에 장기적 악영향을 유발하는 것로 간주되지도 않음."
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": null,
+            "status": "해당없음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "수중 환경에 유해, 단기 (급성)",
+                "value": "해당없음",
+                "text": "수중 환경에 유해, 단기 (급성) : 해당없음"
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": null,
+            "status": "해당없음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "수중 환경에 유해, 장기 (만성)",
+                "value": "해당없음",
+                "text": "수중 환경에 유해, 장기 (만성) : 해당없음"
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_PERSIST",
+            "status": "해당없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_BIOACC",
+            "status": "해당없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_SOIL",
+            "status": "해당없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_OZONE",
+            "status": "해당없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_OTHER",
+            "status": "자료없음",
+            "statements": []
+          }
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "msds_index": 0,
+        "field": "toxicity[0]",
+        "page": 5,
+        "source_text": "급성 독성 (경구): 해당없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[1]",
+        "page": 5,
+        "source_text": "급성 독성 (경피): 해당없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[2]",
+        "page": 5,
+        "source_text": "급성 독성 (흡입): 해당없음",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[3]",
+        "page": 5,
+        "source_text": "LD50 경구 랫드 | > 5000 mg/kg (KOSHA)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "성분 표(26299-47-8)의 값으로 comp_ref=1, '>'를 하한 부등호로 분리, 괄호 KOSHA는 출처"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[4]",
+        "page": 5,
+        "source_text": "LD50 경피 토끼 | > 2000 mg/kg (KOSHA)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "성분 표(26299-47-8)의 값으로 comp_ref=1"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[5]",
+        "page": 5,
+        "source_text": "급성 독성 (경구) | 분류되지 않음",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[6]",
+        "page": 5,
+        "source_text": "급성 독성 (경피) | 분류되지 않음",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[7]",
+        "page": 5,
+        "source_text": "급성 독성 (흡입) | 분류되지 않음",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[8]",
+        "page": 5,
+        "source_text": "피부 부식성 또는 자극성: 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[9]",
+        "page": 5,
+        "source_text": "심한 눈 손상 또는 자극성: 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[10]",
+        "page": 5,
+        "source_text": "호흡기 과민성: 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[11]",
+        "page": 5,
+        "source_text": "피부 과민성: 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[12]",
+        "page": 5,
+        "source_text": "발암성: 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "기관별 분류가 없어 cmr 행은 만들지 않음"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[13]",
+        "page": 5,
+        "source_text": "생식세포 변이원성: 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[14]",
+        "page": 5,
+        "source_text": "생식독성: 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[15]",
+        "page": 5,
+        "source_text": "특정 표적장기 독성 (1회 노출): 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[16]",
+        "page": 5,
+        "source_text": "특정 표적장기 독성 (반복 노출): 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[17]",
+        "page": 5,
+        "source_text": "흡인 유해성: 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[0]",
+        "page": 6,
+        "source_text": "생태학 - 일반 : 이 제품은 수생 생물에 위험한 것으로 간주되지 않으며 환경에 장기적 악영향을 유발하는 것로 간주되지도 않음.",
+        "rules": [],
+        "note": "맞는 값 없음: 특정 생물종이 아닌 일반 서술이라 endpoint null"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[1]",
+        "page": 6,
+        "source_text": "수중 환경에 유해, 단기 (급성) : 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "맞는 값 없음: 수생환경 급성 항목에 맞는 C5 코드가 없어 endpoint null"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[2]",
+        "page": 6,
+        "source_text": "수중 환경에 유해, 장기 (만성) : 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "맞는 값 없음: 수생환경 만성 항목에 맞는 C5 코드가 없어 endpoint null"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[3]",
+        "page": 6,
+        "source_text": "XC 263 | 잔류성 및 분해성 | 해당없음.",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[4]",
+        "page": 6,
+        "source_text": "XC 263 | 생물 농축성 | 해당없음.",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[5]",
+        "page": 6,
+        "source_text": "XC 263 | 생태학 - 토양 | 해당없음.",
+        "rules": [
+          "R10",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[6]",
+        "page": 6,
+        "source_text": "오존층 파괴물질 : 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[7]",
+        "page": 6,
+        "source_text": "기타 유해 영향 : 자료 없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      }
+    ]
+  },
+  "raw_text": "{\"msds\": [{\"toxicity\": [{\"comp_ref\": \"MIX\", \"endpoint\": \"TX_ORAL\", \"descriptor\": null, \"status\": \"해당없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_DERMAL\", \"descriptor\": null, \"status\": \"해당없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_INHAL\", \"descriptor\": null, \"status\": \"해당없음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_ORAL\", \"descriptor\": \"LD50\", \"species\": \"랫드\", \"q\": {\"raw\": \"> 5000 mg/kg\", \"lower_op\": \">\", \"lower\": 5000, \"unit\": \"mg/kg\", \"status\": \"값있음\"}, \"data_source\": \"KOSHA\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_DERMAL\", \"descriptor\": \"LD50\", \"species\": \"토끼\", \"q\": {\"raw\": \"> 2000 mg/kg\", \"lower_op\": \">\", \"lower\": 2000, \"unit\": \"mg/kg\", \"status\": \"값있음\"}, \"data_source\": \"KOSHA\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_ORAL\", \"descriptor\": \"결과기술\", \"classification\": \"분류되지 않음\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_DERMAL\", \"descriptor\": \"결과기술\", \"classification\": \"분류되지 않음\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_INHAL\", \"descriptor\": \"결과기술\", \"classification\": \"분류되지 않음\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_SKIN\", \"status\": \"해당없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_EYE\", \"status\": \"해당없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_RESP_SENS\", \"status\": \"해당없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_SKIN_SENS\", \"status\": \"해당없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_CARC\", \"status\": \"해당없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_MUTA\", \"status\": \"해당없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_REPRO\", \"status\": \"해당없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_STOT_SE\", \"status\": \"해당없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_STOT_RE\", \"status\": \"해당없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_ASP\", \"status\": \"해당없음\", \"statements\": []}], \"cmr\": [], \"ecotox\": [{\"comp_ref\": \"MIX\", \"endpoint\": null, \"descriptor\": \"결과기술\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"key\": \"생태학 - 일반\", \"value\": \"이 제품은 수생 생물에 위험한 것으로 간주되지 않으며 환경에 장기적 악영향을 유발하는 것로 간주되지도 않음.\", \"text\": \"생태학 - 일반 : 이 제품은 수생 생물에 위험한 것으로 간주되지 않으며 환경에 장기적 악영향을 유발하는 것로 간주되지도 않음.\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": null, \"status\": \"해당없음\", \"statements\": [{\"seq\": 1, \"key\": \"수중 환경에 유해, 단기 (급성)\", \"value\": \"해당없음\", \"text\": \"수중 환경에 유해, 단기 (급성) : 해당없음\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": null, \"status\": \"해당없음\", \"statements\": [{\"seq\": 1, \"key\": \"수중 환경에 유해, 장기 (만성)\", \"value\": \"해당없음\", \"text\": \"수중 환경에 유해, 장기 (만성) : 해당없음\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_PERSIST\", \"status\": \"해당없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_BIOACC\", \"status\": \"해당없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_SOIL\", \"status\": \"해당없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_OZONE\", \"status\": \"해당없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_OTHER\", \"status\": \"자료없음\", \"statements\": []}]}], \"evidence\": [{\"msds_index\": 0, \"field\": \"toxicity[0]\", \"page\": 5, \"source_text\": \"급성 독성 (경구): 해당없음\", \"rules\": [\"R10\", \"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[1]\", \"page\": 5, \"source_text\": \"급성 독성 (경피): 해당없음\", \"rules\": [\"R10\", \"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[2]\", \"page\": 5, \"source_text\": \"급성 독성 (흡입): 해당없음\", \"rules\": [\"R10\", \"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[3]\", \"page\": 5, \"source_text\": \"LD50 경구 랫드 | > 5000 mg/kg (KOSHA)\", \"rules\": [\"R04\", \"R10\"], \"note\": \"성분 표(26299-47-8)의 값으로 comp_ref=1, '>'를 하한 부등호로 분리, 괄호 KOSHA는 출처\"}, {\"msds_index\": 0, \"field\": \"toxicity[4]\", \"page\": 5, \"source_text\": \"LD50 경피 토끼 | > 2000 mg/kg (KOSHA)\", \"rules\": [\"R04\", \"R10\"], \"note\": \"성분 표(26299-47-8)의 값으로 comp_ref=1\"}, {\"msds_index\": 0, \"field\": \"toxicity[5]\", \"page\": 5, \"source_text\": \"급성 독성 (경구) | 분류되지 않음\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[6]\", \"page\": 5, \"source_text\": \"급성 독성 (경피) | 분류되지 않음\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[7]\", \"page\": 5, \"source_text\": \"급성 독성 (흡입) | 분류되지 않음\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[8]\", \"page\": 5, \"source_text\": \"피부 부식성 또는 자극성: 해당없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[9]\", \"page\": 5, \"source_text\": \"심한 눈 손상 또는 자극성: 해당없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[10]\", \"page\": 5, \"source_text\": \"호흡기 과민성: 해당없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[11]\", \"page\": 5, \"source_text\": \"피부 과민성: 해당없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[12]\", \"page\": 5, \"source_text\": \"발암성: 해당없음\", \"rules\": [\"R15\"], \"note\": \"기관별 분류가 없어 cmr 행은 만들지 않음\"}, {\"msds_index\": 0, \"field\": \"toxicity[13]\", \"page\": 5, \"source_text\": \"생식세포 변이원성: 해당없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[14]\", \"page\": 5, \"source_text\": \"생식독성: 해당없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[15]\", \"page\": 5, \"source_text\": \"특정 표적장기 독성 (1회 노출): 해당없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[16]\", \"page\": 5, \"source_text\": \"특정 표적장기 독성 (반복 노출): 해당없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[17]\", \"page\": 5, \"source_text\": \"흡인 유해성: 해당없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[0]\", \"page\": 6, \"source_text\": \"생태학 - 일반 : 이 제품은 수생 생물에 위험한 것으로 간주되지 않으며 환경에 장기적 악영향을 유발하는 것로 간주되지도 않음.\", \"rules\": [], \"note\": \"맞는 값 없음: 특정 생물종이 아닌 일반 서술이라 endpoint null\"}, {\"msds_index\": 0, \"field\": \"ecotox[1]\", \"page\": 6, \"source_text\": \"수중 환경에 유해, 단기 (급성) : 해당없음\", \"rules\": [\"R15\"], \"note\": \"맞는 값 없음: 수생환경 급성 항목에 맞는 C5 코드가 없어 endpoint null\"}, {\"msds_index\": 0, \"field\": \"ecotox[2]\", \"page\": 6, \"source_text\": \"수중 환경에 유해, 장기 (만성) : 해당없음\", \"rules\": [\"R15\"], \"note\": \"맞는 값 없음: 수생환경 만성 항목에 맞는 C5 코드가 없어 endpoint null\"}, {\"msds_index\": 0, \"field\": \"ecotox[3]\", \"page\": 6, \"source_text\": \"XC 263 | 잔류성 및 분해성 | 해당없음.\", \"rules\": [\"R10\", \"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[4]\", \"page\": 6, \"source_text\": \"XC 263 | 생물 농축성 | 해당없음.\", \"rules\": [\"R10\", \"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[5]\", \"page\": 6, \"source_text\": \"XC 263 | 생태학 - 토양 | 해당없음.\", \"rules\": [\"R10\", \"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[6]\", \"page\": 6, \"source_text\": \"오존층 파괴물질 : 해당없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[7]\", \"page\": 6, \"source_text\": \"기타 유해 영향 : 자료 없음\", \"rules\": [\"R15\"], \"note\": null}]}"
+}

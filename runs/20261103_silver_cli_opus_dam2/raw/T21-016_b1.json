@@ -1,0 +1,496 @@
+{
+  "doc_id": "T21-016",
+  "bundle": "b1",
+  "model": "claude-opus-5-5",
+  "mode": "claude -p json-schema",
+  "finish_reason": "tool_use",
+  "usage": {
+    "prompt_tokens": 74563,
+    "completion_tokens": 4648,
+    "cached_tokens": 0,
+    "reasoning_tokens": 696,
+    "notional_cost_usd": 0.6894560000000001
+  },
+  "seconds": 36.4,
+  "request_usage": [
+    {
+      "prompt_tokens": 74563,
+      "completion_tokens": 4648,
+      "cached_tokens": 0,
+      "reasoning_tokens": 696,
+      "notional_cost_usd": 0.6894560000000001
+    }
+  ],
+  "attempts": 1,
+  "errors": [],
+  "parsed": {
+    "doc": {
+      "language": "ko",
+      "msds_count": 1
+    },
+    "msds": [
+      {
+        "meta": {
+          "msds_no": null,
+          "doc_code": "6017682 / A153",
+          "revision_no": 6,
+          "revision_label": "6.0",
+          "header_product_name": "DOWSIL™ 340 Heat Sink Compound",
+          "source_note": "본 물질안전보건자료(MSDS)는 본사 내부 자료에 근거하여 작성한 영문 MSDS 를 산업안전보건법 제 41 조 규정에 맞추어 환경안전보건팀에서 번역,편집한 것임.",
+          "first_issue_date": "2015-07-01",
+          "last_revision_date": "2018-03-22",
+          "page_start": 1,
+          "page_end": 14
+        },
+        "product": {
+          "name": "DOWSIL™ 340 Heat Sink Compound",
+          "code": null,
+          "synonyms": [],
+          "uses": [
+            "열전달제"
+          ],
+          "restrictions": [
+            "이 제품은 명시된 용도로만 사용하시길 권장 합니다. 만약 이 제품을 다른 용도로 사용하고자 한다면 영업부서나 기술지원팀으로 연락 하십시오."
+          ],
+          "use_category_code": null
+        },
+        "companies": [
+          {
+            "seq": 1,
+            "role": "공급자",
+            "name": "한국다우케미칼(주)",
+            "site": null,
+            "address": "서울 특별시 강남구 영동대로 520 아이파크타워 5 층",
+            "postcode": "06170",
+            "department": null,
+            "contacts": [
+              {
+                "type": "대표",
+                "value": "82-(0)2-3490-0700",
+                "hours": null
+              },
+              {
+                "type": "이메일",
+                "value": "SDSQuestion@dow.com",
+                "hours": null
+              },
+              {
+                "type": "긴급",
+                "value": "080-369-2436",
+                "hours": "24시간"
+              },
+              {
+                "type": "긴급",
+                "value": "080-369-2436",
+                "hours": null
+              }
+            ]
+          }
+        ],
+        "hazard": {
+          "classified": true,
+          "classes": [
+            {
+              "seq": 1,
+              "group": "환경",
+              "class_code": "ENV_AQ_ACUTE",
+              "category": "1",
+              "route_form": null,
+              "effect": null,
+              "target_organs": [],
+              "raw": "급성 수생환경 유해성 : 구분 1"
+            },
+            {
+              "seq": 2,
+              "group": "환경",
+              "class_code": "ENV_AQ_CHRONIC",
+              "category": "1",
+              "route_form": null,
+              "effect": null,
+              "target_organs": [],
+              "raw": "만성 수생환경 유해성 : 구분 1"
+            }
+          ],
+          "signal_word": "경고",
+          "pictograms": [
+            {
+              "code": "GHS09",
+              "detection": "이미지판독"
+            }
+          ],
+          "h_statements": [
+            {
+              "seq": 1,
+              "code": "H400",
+              "system": "GHS",
+              "mark": null,
+              "text": "수생생물에 매우 유독함."
+            },
+            {
+              "seq": 2,
+              "code": "H410",
+              "system": "GHS",
+              "mark": null,
+              "text": "장기적인 영향에 의해 수생생물에게 매우 유독함."
+            }
+          ],
+          "p_statements": [
+            {
+              "seq": 1,
+              "code": "P273",
+              "type": "예방",
+              "text": "환경으로 배출하지 마시오."
+            },
+            {
+              "seq": 2,
+              "code": "P391",
+              "type": "대응",
+              "text": "누출물을 모으시오."
+            },
+            {
+              "seq": 3,
+              "code": "P501",
+              "type": "폐기",
+              "text": "폐기물관리법에 명시된 내용에 따라 내용물과 용기를 폐기하시오."
+            }
+          ],
+          "other_hazards": [
+            {
+              "seq": 1,
+              "key": null,
+              "value": "자료없음",
+              "text": "자료없음"
+            }
+          ],
+          "nfpa": {
+            "health": 0,
+            "fire": 1,
+            "reactivity": 0,
+            "special": null
+          }
+        },
+        "composition": {
+          "type": "혼합물",
+          "no_hazardous_component": false
+        },
+        "components": [
+          {
+            "seq": 1,
+            "name": "Zinc oxide",
+            "name_en": "Zinc oxide",
+            "synonyms": [],
+            "cas_no": "1314-13-2",
+            "ke_no": "KE-35565",
+            "ec_no": null,
+            "content": {
+              "raw": ">= 70.0 - < 80.0 %",
+              "status": "값있음",
+              "lower_op": ">=",
+              "lower": 70,
+              "upper_op": "<",
+              "upper": 80,
+              "unit": "%",
+              "dp": 1
+            },
+            "content_basis": "미표기",
+            "trade_secret": false
+          },
+          {
+            "seq": 2,
+            "name": "Siloxanes and silicones, dimethyl",
+            "name_en": "Siloxanes and silicones, dimethyl",
+            "synonyms": [],
+            "cas_no": "63148-62-9",
+            "ke_no": "KE-31068",
+            "ec_no": null,
+            "content": {
+              "raw": ">= 30.0 - < 40.0 %",
+              "status": "값있음",
+              "lower_op": ">=",
+              "lower": 30,
+              "upper_op": "<",
+              "upper": 40,
+              "unit": "%",
+              "dp": 1
+            },
+            "content_basis": "미표기",
+            "trade_secret": false
+          }
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "msds_index": 0,
+        "field": "meta.doc_code",
+        "page": 13,
+        "source_text": "확인번호 6017682 / A153 / 최종 개정일자: 2018.03.22 / 버전: 6.0",
+        "rules": [],
+        "note": "확인번호를 회사 내부 문서번호로 기록"
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.revision_no",
+        "page": 13,
+        "source_text": "버전: 6.0",
+        "rules": [],
+        "note": "'버전: 6.0'에서 개정 횟수 6, 원문 6.0은 revision_label"
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.revision_label",
+        "page": 13,
+        "source_text": "버전: 6.0",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.first_issue_date",
+        "page": 13,
+        "source_text": "최초 작성일자: 2015.07.01",
+        "rules": [
+          "R01"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.last_revision_date",
+        "page": 1,
+        "source_text": "최종 개정일자: 2018.03.22",
+        "rules": [
+          "R01"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.header_product_name",
+        "page": 1,
+        "source_text": "제품명: DOWSIL™ 340 Heat Sink Compound",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.source_note",
+        "page": 14,
+        "source_text": "본 물질안전보건자료(MSDS)는 본사 내부 자료에 근거하여 작성한 영문 MSDS 를 산업안전보건법 제 41 조 규정에 맞추어 환경안전보건팀에서 번역,편집한 것임.",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.msds_no",
+        "page": null,
+        "source_text": null,
+        "rules": [],
+        "note": "MSDS 제출번호(AA...) 표기 없음"
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.page_start",
+        "page": 1,
+        "source_text": "페이지 1 / 14",
+        "rules": [
+          "R16"
+        ],
+        "note": "단일 MSDS 1~14쪽"
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.page_end",
+        "page": 14,
+        "source_text": "페이지 14 / 14",
+        "rules": [
+          "R16"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "product.name",
+        "page": 1,
+        "source_text": "제품명: DOWSIL™ 340 Heat Sink Compound",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "product.uses",
+        "page": 1,
+        "source_text": "확인된 용도: 열전달제",
+        "rules": [
+          "R11"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "product.restrictions",
+        "page": 1,
+        "source_text": "사용상의 제한: 이 제품은 명시된 용도로만 사용하시길 권장 합니다. 만약 이 제품을 다른 용도로 사용하고자 한다면 영업부서나 기술지원팀으로 연락 하십시오.",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "companies[0]",
+        "page": 1,
+        "source_text": "회사 정보 한국다우케미칼(주) 서울 특별시 강남구 영동대로 520 아이파크타워 5 층 06170 한국 고객안내번호: 82-(0)2-3490-0700 SDSQuestion@dow.com 24 시간 긴급연락처: 080-369-2436 긴급 연락처: 080-369-2436",
+        "rules": [
+          "R12"
+        ],
+        "note": "원문에 역할 표기가 없어 '회사 정보'의 회사를 공급자로 둠; 주소·우편번호·연락처 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.classified",
+        "page": 1,
+        "source_text": "급성 수생환경 유해성 : 구분 1",
+        "rules": [],
+        "note": "분류 항목이 있어 true"
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.classes[0]",
+        "page": 1,
+        "source_text": "급성 수생환경 유해성 : 구분 1",
+        "rules": [
+          "R07"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.classes[1]",
+        "page": 1,
+        "source_text": "만성 수생환경 유해성 : 구분 1",
+        "rules": [
+          "R07"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.signal_word",
+        "page": 1,
+        "source_text": "신호어 : 경고",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.pictograms[0]",
+        "page": 1,
+        "source_text": "그림문자 :",
+        "rules": [],
+        "note": "이미지에서 환경(죽은 나무와 물고기) 그림문자 확인 → GHS09"
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.h_statements[0]",
+        "page": 2,
+        "source_text": "H400 수생생물에 매우 유독함.",
+        "rules": [
+          "R05"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.h_statements[1]",
+        "page": 2,
+        "source_text": "H410 장기적인 영향에 의해 수생생물에게 매우 유독함.",
+        "rules": [
+          "R05"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.p_statements[0]",
+        "page": 2,
+        "source_text": "P273 환경으로 배출하지 마시오.",
+        "rules": [
+          "R05"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.p_statements[1]",
+        "page": 2,
+        "source_text": "P391 누출물을 모으시오.",
+        "rules": [
+          "R05"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.p_statements[2]",
+        "page": 2,
+        "source_text": "P501 폐기물관리법에 명시된 내용에 따라 내용물과 용기를 폐기하시오.",
+        "rules": [
+          "R05"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.other_hazards",
+        "page": 2,
+        "source_text": "기타 유해성 자료없음",
+        "rules": [
+          "R14"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.nfpa",
+        "page": 13,
+        "source_text": "NFPA | 건강 인화성 불안정 | 0 1 0",
+        "rules": [],
+        "note": "제품 단위 NFPA 표"
+      },
+      {
+        "msds_index": 0,
+        "field": "composition.type",
+        "page": 2,
+        "source_text": "본 제품은 혼합물입니다.",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "components[0]",
+        "page": 2,
+        "source_text": "Zinc oxide | 자료없음 | 1314-13-2 | >= 70.0 - < 80.0 % | KE-35565",
+        "rules": [
+          "R02",
+          "R03",
+          "R04",
+          "R06"
+        ],
+        "note": "하한 70(>=), 상한 80(<), dp 1; 관용명 '자료없음'은 이명 미기재"
+      },
+      {
+        "msds_index": 0,
+        "field": "components[1]",
+        "page": 2,
+        "source_text": "Siloxanes and silicones, dimethyl | 자료없음 | 63148-62-9 | >= 30.0 - < 40.0 % | KE-31068",
+        "rules": [
+          "R02",
+          "R03",
+          "R04",
+          "R06"
+        ],
+        "note": "하한 30(>=), 상한 40(<), dp 1"
+      }
+    ]
+  },
+  "raw_text": "{\"doc\": {\"language\": \"ko\", \"msds_count\": 1}, \"msds\": [{\"meta\": {\"msds_no\": null, \"doc_code\": \"6017682 / A153\", \"revision_no\": 6, \"revision_label\": \"6.0\", \"header_product_name\": \"DOWSIL™ 340 Heat Sink Compound\", \"source_note\": \"본 물질안전보건자료(MSDS)는 본사 내부 자료에 근거하여 작성한 영문 MSDS 를 산업안전보건법 제 41 조 규정에 맞추어 환경안전보건팀에서 번역,편집한 것임.\", \"first_issue_date\": \"2015-07-01\", \"last_revision_date\": \"2018-03-22\", \"page_start\": 1, \"page_end\": 14}, \"product\": {\"name\": \"DOWSIL™ 340 Heat Sink Compound\", \"code\": null, \"synonyms\": [], \"uses\": [\"열전달제\"], \"restrictions\": [\"이 제품은 명시된 용도로만 사용하시길 권장 합니다. 만약 이 제품을 다른 용도로 사용하고자 한다면 영업부서나 기술지원팀으로 연락 하십시오.\"], \"use_category_code\": null}, \"companies\": [{\"seq\": 1, \"role\": \"공급자\", \"name\": \"한국다우케미칼(주)\", \"site\": null, \"address\": \"서울 특별시 강남구 영동대로 520 아이파크타워 5 층\", \"postcode\": \"06170\", \"department\": null, \"contacts\": [{\"type\": \"대표\", \"value\": \"82-(0)2-3490-0700\", \"hours\": null}, {\"type\": \"이메일\", \"value\": \"SDSQuestion@dow.com\", \"hours\": null}, {\"type\": \"긴급\", \"value\": \"080-369-2436\", \"hours\": \"24시간\"}, {\"type\": \"긴급\", \"value\": \"080-369-2436\", \"hours\": null}]}], \"hazard\": {\"classified\": true, \"classes\": [{\"seq\": 1, \"group\": \"환경\", \"class_code\": \"ENV_AQ_ACUTE\", \"category\": \"1\", \"route_form\": null, \"effect\": null, \"target_organs\": [], \"raw\": \"급성 수생환경 유해성 : 구분 1\"}, {\"seq\": 2, \"group\": \"환경\", \"class_code\": \"ENV_AQ_CHRONIC\", \"category\": \"1\", \"route_form\": null, \"effect\": null, \"target_organs\": [], \"raw\": \"만성 수생환경 유해성 : 구분 1\"}], \"signal_word\": \"경고\", \"pictograms\": [{\"code\": \"GHS09\", \"detection\": \"이미지판독\"}], \"h_statements\": [{\"seq\": 1, \"code\": \"H400\", \"system\": \"GHS\", \"mark\": null, \"text\": \"수생생물에 매우 유독함.\"}, {\"seq\": 2, \"code\": \"H410\", \"system\": \"GHS\", \"mark\": null, \"text\": \"장기적인 영향에 의해 수생생물에게 매우 유독함.\"}], \"p_statements\": [{\"seq\": 1, \"code\": \"P273\", \"type\": \"예방\", \"text\": \"환경으로 배출하지 마시오.\"}, {\"seq\": 2, \"code\": \"P391\", \"type\": \"대응\", \"text\": \"누출물을 모으시오.\"}, {\"seq\": 3, \"code\": \"P501\", \"type\": \"폐기\", \"text\": \"폐기물관리법에 명시된 내용에 따라 내용물과 용기를 폐기하시오.\"}], \"other_hazards\": [{\"seq\": 1, \"key\": null, \"value\": \"자료없음\", \"text\": \"자료없음\"}], \"nfpa\": {\"health\": 0, \"fire\": 1, \"reactivity\": 0, \"special\": null}}, \"composition\": {\"type\": \"혼합물\", \"no_hazardous_component\": false}, \"components\": [{\"seq\": 1, \"name\": \"Zinc oxide\", \"name_en\": \"Zinc oxide\", \"synonyms\": [], \"cas_no\": \"1314-13-2\", \"ke_no\": \"KE-35565\", \"ec_no\": null, \"content\": {\"raw\": \">= 70.0 - < 80.0 %\", \"status\": \"값있음\", \"lower_op\": \">=\", \"lower\": 70, \"upper_op\": \"<\", \"upper\": 80, \"unit\": \"%\", \"dp\": 1}, \"content_basis\": \"미표기\", \"trade_secret\": false}, {\"seq\": 2, \"name\": \"Siloxanes and silicones, dimethyl\", \"name_en\": \"Siloxanes and silicones, dimethyl\", \"synonyms\": [], \"cas_no\": \"63148-62-9\", \"ke_no\": \"KE-31068\", \"ec_no\": null, \"content\": {\"raw\": \">= 30.0 - < 40.0 %\", \"status\": \"값있음\", \"lower_op\": \">=\", \"lower\": 30, \"upper_op\": \"<\", \"upper\": 40, \"unit\": \"%\", \"dp\": 1}, \"content_basis\": \"미표기\", \"trade_secret\": false}]}], \"evidence\": [{\"msds_index\": 0, \"field\": \"meta.doc_code\", \"page\": 13, \"source_text\": \"확인번호 6017682 / A153 / 최종 개정일자: 2018.03.22 / 버전: 6.0\", \"rules\": [], \"note\": \"확인번호를 회사 내부 문서번호로 기록\"}, {\"msds_index\": 0, \"field\": \"meta.revision_no\", \"page\": 13, \"source_text\": \"버전: 6.0\", \"rules\": [], \"note\": \"'버전: 6.0'에서 개정 횟수 6, 원문 6.0은 revision_label\"}, {\"msds_index\": 0, \"field\": \"meta.revision_label\", \"page\": 13, \"source_text\": \"버전: 6.0\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"meta.first_issue_date\", \"page\": 13, \"source_text\": \"최초 작성일자: 2015.07.01\", \"rules\": [\"R01\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"meta.last_revision_date\", \"page\": 1, \"source_text\": \"최종 개정일자: 2018.03.22\", \"rules\": [\"R01\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"meta.header_product_name\", \"page\": 1, \"source_text\": \"제품명: DOWSIL™ 340 Heat Sink Compound\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"meta.source_note\", \"page\": 14, \"source_text\": \"본 물질안전보건자료(MSDS)는 본사 내부 자료에 근거하여 작성한 영문 MSDS 를 산업안전보건법 제 41 조 규정에 맞추어 환경안전보건팀에서 번역,편집한 것임.\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"meta.msds_no\", \"page\": null, \"source_text\": null, \"rules\": [], \"note\": \"MSDS 제출번호(AA...) 표기 없음\"}, {\"msds_index\": 0, \"field\": \"meta.page_start\", \"page\": 1, \"source_text\": \"페이지 1 / 14\", \"rules\": [\"R16\"], \"note\": \"단일 MSDS 1~14쪽\"}, {\"msds_index\": 0, \"field\": \"meta.page_end\", \"page\": 14, \"source_text\": \"페이지 14 / 14\", \"rules\": [\"R16\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"product.name\", \"page\": 1, \"source_text\": \"제품명: DOWSIL™ 340 Heat Sink Compound\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"product.uses\", \"page\": 1, \"source_text\": \"확인된 용도: 열전달제\", \"rules\": [\"R11\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"product.restrictions\", \"page\": 1, \"source_text\": \"사용상의 제한: 이 제품은 명시된 용도로만 사용하시길 권장 합니다. 만약 이 제품을 다른 용도로 사용하고자 한다면 영업부서나 기술지원팀으로 연락 하십시오.\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"companies[0]\", \"page\": 1, \"source_text\": \"회사 정보 한국다우케미칼(주) 서울 특별시 강남구 영동대로 520 아이파크타워 5 층 06170 한국 고객안내번호: 82-(0)2-3490-0700 SDSQuestion@dow.com 24 시간 긴급연락처: 080-369-2436 긴급 연락처: 080-369-2436\", \"rules\": [\"R12\"], \"note\": \"원문에 역할 표기가 없어 '회사 정보'의 회사를 공급자로 둠; 주소·우편번호·연락처 분리\"}, {\"msds_index\": 0, \"field\": \"hazard.classified\", \"page\": 1, \"source_text\": \"급성 수생환경 유해성 : 구분 1\", \"rules\": [], \"note\": \"분류 항목이 있어 true\"}, {\"msds_index\": 0, \"field\": \"hazard.classes[0]\", \"page\": 1, \"source_text\": \"급성 수생환경 유해성 : 구분 1\", \"rules\": [\"R07\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"hazard.classes[1]\", \"page\": 1, \"source_text\": \"만성 수생환경 유해성 : 구분 1\", \"rules\": [\"R07\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"hazard.signal_word\", \"page\": 1, \"source_text\": \"신호어 : 경고\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"hazard.pictograms[0]\", \"page\": 1, \"source_text\": \"그림문자 :\", \"rules\": [], \"note\": \"이미지에서 환경(죽은 나무와 물고기) 그림문자 확인 → GHS09\"}, {\"msds_index\": 0, \"field\": \"hazard.h_statements[0]\", \"page\": 2, \"source_text\": \"H400 수생생물에 매우 유독함.\", \"rules\": [\"R05\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"hazard.h_statements[1]\", \"page\": 2, \"source_text\": \"H410 장기적인 영향에 의해 수생생물에게 매우 유독함.\", \"rules\": [\"R05\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"hazard.p_statements[0]\", \"page\": 2, \"source_text\": \"P273 환경으로 배출하지 마시오.\", \"rules\": [\"R05\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"hazard.p_statements[1]\", \"page\": 2, \"source_text\": \"P391 누출물을 모으시오.\", \"rules\": [\"R05\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"hazard.p_statements[2]\", \"page\": 2, \"source_text\": \"P501 폐기물관리법에 명시된 내용에 따라 내용물과 용기를 폐기하시오.\", \"rules\": [\"R05\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"hazard.other_hazards\", \"page\": 2, \"source_text\": \"기타 유해성 자료없음\", \"rules\": [\"R14\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"hazard.nfpa\", \"page\": 13, \"source_text\": \"NFPA | 건강 인화성 불안정 | 0 1 0\", \"rules\": [], \"note\": \"제품 단위 NFPA 표\"}, {\"msds_index\": 0, \"field\": \"composition.type\", \"page\": 2, \"source_text\": \"본 제품은 혼합물입니다.\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"components[0]\", \"page\": 2, \"source_text\": \"Zinc oxide | 자료없음 | 1314-13-2 | >= 70.0 - < 80.0 % | KE-35565\", \"rules\": [\"R02\", \"R03\", \"R04\", \"R06\"], \"note\": \"하한 70(>=), 상한 80(<), dp 1; 관용명 '자료없음'은 이명 미기재\"}, {\"msds_index\": 0, \"field\": \"components[1]\", \"page\": 2, \"source_text\": \"Siloxanes and silicones, dimethyl | 자료없음 | 63148-62-9 | >= 30.0 - < 40.0 % | KE-31068\", \"rules\": [\"R02\", \"R03\", \"R04\", \"R06\"], \"note\": \"하한 30(>=), 상한 40(<), dp 1\"}]}"
+}

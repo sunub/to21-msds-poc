@@ -1,0 +1,1251 @@
+{
+  "doc_id": "T21-S010",
+  "bundle": "b3",
+  "model": "claude-opus-5-5",
+  "mode": "claude -p json-schema",
+  "finish_reason": "tool_use",
+  "usage": {
+    "prompt_tokens": 53607,
+    "completion_tokens": 13245,
+    "cached_tokens": 8451,
+    "reasoning_tokens": 2386,
+    "notional_cost_usd": 0.6278302
+  },
+  "seconds": 95.2,
+  "request_usage": [
+    {
+      "prompt_tokens": 53607,
+      "completion_tokens": 13245,
+      "cached_tokens": 8451,
+      "reasoning_tokens": 2386,
+      "notional_cost_usd": 0.6278302
+    }
+  ],
+  "attempts": 1,
+  "errors": [],
+  "parsed": {
+    "msds": [
+      {
+        "toxicity": [
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_ORAL",
+            "descriptor": "ATE",
+            "q": {
+              "raw": "ATEmix > 2000 mg/kg",
+              "lower_op": ">",
+              "lower": 2000,
+              "unit": "mg/kg",
+              "status": "값있음"
+            },
+            "classification": "분류되지 않음",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_ORAL",
+            "descriptor": "결과기술",
+            "data_source": "ECHA",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "시험은 기술적으로 불가능함 (ECHA)",
+                "text": "- 1-Propene : 시험은 기술적으로 불가능함 (ECHA)",
+                "refs": [
+                  "1"
+                ]
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_DERMAL",
+            "descriptor": "ATE",
+            "q": {
+              "raw": "ATEmix > 2000 mg/kg",
+              "lower_op": ">",
+              "lower": 2000,
+              "unit": "mg/kg",
+              "status": "값있음"
+            },
+            "classification": "분류되지 않음",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_DERMAL",
+            "descriptor": "결과기술",
+            "data_source": "ECHA",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "시험은 기술적으로 불가능함 (ECHA)",
+                "text": "- 1-Propene : 시험은 기술적으로 불가능함 (ECHA)",
+                "refs": [
+                  "1"
+                ]
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_INHAL",
+            "descriptor": "ATE",
+            "physical_form": "가스",
+            "q": {
+              "raw": "ATEmix > 20000 ppm",
+              "lower_op": ">",
+              "lower": 20000,
+              "unit": "ppm",
+              "status": "값있음"
+            },
+            "classification": "분류되지 않음",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_INHAL",
+            "descriptor": "LC50",
+            "physical_form": "가스",
+            "species": "랫드",
+            "sex": "수컷",
+            "duration_value": 4,
+            "duration_unit": "hr",
+            "q": {
+              "raw": "4h-LC50 = 50000 ppm",
+              "value": 50000,
+              "unit": "ppm",
+              "status": "값있음"
+            },
+            "data_source": "ECHA",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_INHAL",
+            "physical_form": "증기",
+            "q": {
+              "raw": "해당없음",
+              "status": "해당없음"
+            },
+            "status": "해당없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_INHAL",
+            "physical_form": "증기",
+            "q": {
+              "raw": "해당없음",
+              "status": "해당없음"
+            },
+            "status": "해당없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_INHAL",
+            "physical_form": "분진·미스트",
+            "q": {
+              "raw": "해당없음",
+              "status": "해당없음"
+            },
+            "status": "해당없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_INHAL",
+            "physical_form": "분진·미스트",
+            "q": {
+              "raw": "해당없음",
+              "status": "해당없음"
+            },
+            "status": "해당없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_SKIN",
+            "descriptor": "결과기술",
+            "classification": "분류되지 않음",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_SKIN",
+            "descriptor": "결과기술",
+            "data_source": "SIDS",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "가스상의 프로필렌은 제한된 인체 연구에 근거하여 피부에 자극을 유발하지 않음 (SIDS)",
+                "text": "- 1-Propene : 가스상의 프로필렌은 제한된 인체 연구에 근거하여 피부에 자극을 유발하지 않음 (SIDS)",
+                "refs": [
+                  "1"
+                ]
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_EYE",
+            "descriptor": "결과기술",
+            "classification": "분류되지 않음",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_EYE",
+            "descriptor": "결과기술",
+            "data_source": "SIDS",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "가스상의 프로필렌은 제한된 인체 연구에 근거하여 눈에 자극을 유발하지 않음 (SIDS)",
+                "text": "- 1-Propene : 가스상의 프로필렌은 제한된 인체 연구에 근거하여 눈에 자극을 유발하지 않음 (SIDS)",
+                "refs": [
+                  "1"
+                ]
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_RESP_SENS",
+            "descriptor": "결과기술",
+            "classification": "분류되지 않음",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_RESP_SENS",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_SKIN_SENS",
+            "descriptor": "결과기술",
+            "classification": "분류되지 않음",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_SKIN_SENS",
+            "descriptor": "결과기술",
+            "data_source": "ECHA",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "시험은 기술적으로 불가능함 (ECHA)",
+                "text": "- 1-Propene : 시험은 기술적으로 불가능함 (ECHA)",
+                "refs": [
+                  "1"
+                ]
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_CARC",
+            "descriptor": "결과기술",
+            "classification": "분류되지 않음",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_CARC",
+            "descriptor": "결과기술",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "IARC",
+                "value": "Group 3 (분류되지 않음)",
+                "text": "IARC : Group 3 (분류되지 않음)",
+                "refs": [
+                  "1"
+                ]
+              },
+              {
+                "seq": 2,
+                "key": "ACGIH",
+                "value": "A4 (인체 발암물질로 분류되지 않음)",
+                "text": "ACGIH : A4 (인체 발암물질로 분류되지 않음)",
+                "refs": [
+                  "1"
+                ]
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_MUTA",
+            "descriptor": "결과기술",
+            "classification": "분류되지 않음",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_MUTA",
+            "descriptor": "결과기술",
+            "data_source": "ECHA",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "시험관 내 박테리아 복귀돌연변이시험결과, 음성 (OECD TG 471과 유사, GLP) (ECHA)",
+                "text": "시험관 내 박테리아 복귀돌연변이시험결과, 음성 (OECD TG 471과 유사, GLP) (ECHA)",
+                "refs": [
+                  "1"
+                ]
+              },
+              {
+                "seq": 2,
+                "value": "시험관 내 포유류 세포를 이용한 유전자돌연변이시험결과, 모호한 결과 (OECD TG 476) (ECHA)",
+                "text": "시험관 내 포유류 세포를 이용한 유전자돌연변이시험결과, 모호한 결과 (OECD TG 476) (ECHA)",
+                "refs": [
+                  "1"
+                ]
+              },
+              {
+                "seq": 3,
+                "value": "생체 내 포유류 적혈구를 이용한 소핵시험결과, 음성 (OECD TG 474, GLP) (ECHA)",
+                "text": "생체 내 포유류 적혈구를 이용한 소핵시험결과, 음성 (OECD TG 474, GLP) (ECHA)",
+                "refs": [
+                  "1"
+                ]
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_REPRO",
+            "descriptor": "결과기술",
+            "classification": "분류되지 않음",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_REPRO",
+            "descriptor": "결과기술",
+            "species": "랫드",
+            "sex": "혼합",
+            "data_source": "ECHA",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "랫드(암/수)를 대상으로 0, 5000, 10000 ppm의 농도로 2년간 생식독성시험결과, 투여 관련된 변이 관찰되지 않음 (ECHA)",
+                "text": "랫드(암/수)를 대상으로 0, 5000, 10000 ppm의 농도로 2년간 생식독성시험결과, 투 여 관련된 변이 관찰되지 않음 (ECHA)",
+                "refs": [
+                  "1"
+                ]
+              }
+            ]
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_REPRO",
+            "descriptor": null,
+            "species": "랫드",
+            "q": {
+              "raw": "NOAEC(모체독성 및 발달독성)=10,000 ppm",
+              "value": 10000,
+              "unit": "ppm",
+              "status": "값있음"
+            },
+            "guideline": "OECD TG 414",
+            "data_source": "ECHA",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "랫드를 대상으로 0, 200, 1000, 10,000 ppm의 농도로 태아발달독성시험결과, NOAEC(모체독성 및 발달독성)=10,000 ppm (OECD TG 414, GLP) (ECHA)",
+                "text": "랫드를 대상으로 0, 200, 1000, 10,000 ppm의 농도로 태아발달독성시험결과, NOAEC(모체독성 및 발달독성)=10,000 ppm (OECD TG 414, GLP) (ECHA)",
+                "refs": [
+                  "1"
+                ]
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_STOT_SE",
+            "descriptor": "결과기술",
+            "classification": "분류되지 않음",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_STOT_SE",
+            "descriptor": "LC50",
+            "species": "랫드",
+            "sex": "수컷",
+            "duration_value": 4,
+            "duration_unit": "hr",
+            "q": {
+              "raw": "4h-LC50 = 50000 ppm",
+              "value": 50000,
+              "unit": "ppm",
+              "status": "값있음"
+            },
+            "data_source": "ECHA",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "랫드(수)를 대상으로 급성흡입독성시험결과, 악영향 관찰되지 않음.",
+                "text": "랫드(수)를 대상으로 급성흡입독성시험결과, 악영향 관찰되지 않음. 4h-LC50 = 50000 ppm (ECHA)",
+                "refs": [
+                  "1"
+                ]
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_STOT_RE",
+            "descriptor": "결과기술",
+            "classification": "분류되지 않음",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_STOT_RE",
+            "descriptor": null,
+            "species": "랫드",
+            "sex": "혼합",
+            "duration_value": 14,
+            "duration_unit": "week",
+            "exposure_type": "반복 흡입 14주",
+            "q": {
+              "raw": "NOAEC=10000 ppm",
+              "value": 10000,
+              "unit": "ppm",
+              "status": "값있음"
+            },
+            "guideline": "OECD TG 413",
+            "data_source": "ECHA",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "랫드(암/수)를 대상으로 0, 625, 1250, 2500, 5000, 10,000 ppm의 농도로 14주간 반복흡입독성시험결과, 시험된 최고농도에서 독성이 관찰되지 않았으므로 NOAEC=10000 ppm로 설정됨 (OECD TG 413) (ECHA)",
+                "text": "랫드(암/수)를 대상으로 0, 625, 1250, 2500, 5000, 10,000 ppm의 농도로 14주간 반 복흡입독성시험결과, 시험된 최고농도에서 독성이 관찰되지 않았으므로 NOAEC=10000 ppm로 설정됨 (OECD TG 413) (ECHA)",
+                "refs": [
+                  "1"
+                ]
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_ASP",
+            "descriptor": "결과기술",
+            "classification": "분류되지 않음",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_ASP",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          }
+        ],
+        "cmr": [
+          {
+            "comp_ref": "1",
+            "hazard": "발암성",
+            "agency": "IARC",
+            "class": "Group 3",
+            "status": "값있음",
+            "note": "분류되지 않음"
+          },
+          {
+            "comp_ref": "1",
+            "hazard": "발암성",
+            "agency": "ACGIH",
+            "class": "A4",
+            "status": "값있음",
+            "note": "인체 발암물질로 분류되지 않음"
+          }
+        ],
+        "ecotox": [
+          {
+            "comp_ref": "MIX",
+            "endpoint": null,
+            "descriptor": "기타",
+            "q": {
+              "raw": "ATEmix>1mg/L",
+              "lower_op": ">",
+              "lower": 1,
+              "unit": "mg/L",
+              "status": "값있음"
+            },
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "급성 수생 환경유해성",
+                "value": "분류되지 않음 (ATEmix>1mg/L)",
+                "text": "- 급성 수생 환경유해성 : 분류되지 않음 (ATEmix>1mg/L)"
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": null,
+            "descriptor": "결과기술",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "만성 수생 환경유해성",
+                "value": "구분 3",
+                "text": "- 만성 수생 환경유해성 : 구분 3"
+              }
+            ]
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_FISH",
+            "descriptor": "LC50",
+            "duration_value": 96,
+            "duration_unit": "hr",
+            "q": {
+              "raw": "96h-LC50 = 67.237 mg/L",
+              "value": 67.237,
+              "unit": "mg/L",
+              "dp": 3,
+              "status": "값있음",
+              "note": "예측치"
+            },
+            "data_source": "ECOSAR",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "ECOSAR Class: Neutral Organics",
+                "text": "(ECOSAR Class: Neutral Organics)"
+              }
+            ]
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_CRUST",
+            "descriptor": "LC50",
+            "species": "Daphnid",
+            "duration_value": 48,
+            "duration_unit": "hr",
+            "q": {
+              "raw": "48h-LC50(Daphnid) = 37.060 mg/L",
+              "value": 37.06,
+              "unit": "mg/L",
+              "dp": 3,
+              "status": "값있음",
+              "note": "예측치"
+            },
+            "data_source": "ECOSAR",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "ECOSAR Class: Neutral Organics",
+                "text": "(ECOSAR Class: Neutral Organics)"
+              }
+            ]
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_ALGAE",
+            "descriptor": "EC50",
+            "species": "Green Algae",
+            "duration_value": 96,
+            "duration_unit": "hr",
+            "q": {
+              "raw": "96h-EC50(Green Algae) = 24.416 mg/L",
+              "value": 24.416,
+              "unit": "mg/L",
+              "dp": 3,
+              "status": "값있음",
+              "note": "예측치"
+            },
+            "data_source": "ECOSAR",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "ECOSAR Class: Neutral Organics",
+                "text": "(ECOSAR Class: Neutral Organics)"
+              }
+            ]
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_FISH",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음",
+              "note": "만성"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_CRUST",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음",
+              "note": "만성"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_ALGAE",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음",
+              "note": "만성"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_PERSIST",
+            "descriptor": "logKow",
+            "q": {
+              "raw": "log Kow = 1.77 (20 ℃)",
+              "value": 1.77,
+              "dp": 2,
+              "status": "값있음",
+              "note": "20 C"
+            },
+            "data_source": "ECHA",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_PERSIST",
+            "descriptor": "결과기술",
+            "data_source": "ECHA",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "광산화 반감기",
+                "value": "14.6시간 (OH 라디칼) 및 23.7시간 (오존) (ECHA)",
+                "text": "- 1-Propene : 광산화 반감기 : 14.6시간 (OH 라디칼) 및 23.7시간 (오존) (ECHA)",
+                "refs": [
+                  "1"
+                ]
+              }
+            ]
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_BIOACC",
+            "descriptor": "BCF",
+            "q": {
+              "raw": "BCF = 13.18 (계산치)",
+              "value": 13.18,
+              "dp": 2,
+              "status": "값있음",
+              "note": "계산치"
+            },
+            "data_source": "SIDS",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_BIOACC",
+            "descriptor": "분해율",
+            "duration_value": 28,
+            "duration_unit": "day",
+            "q": {
+              "raw": "28일후 1% 생분해됨",
+              "value": 1,
+              "unit": "%",
+              "status": "값있음"
+            },
+            "guideline": "OECD TG 301D",
+            "data_source": "ECHA",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "난분해성",
+                "text": "- 1-Propene : 28일후 1% 생분해됨; 난분해성 (OECD TG 301D) (ECHA)",
+                "refs": [
+                  "1"
+                ]
+              }
+            ]
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_SOIL",
+            "descriptor": "Koc",
+            "q": {
+              "raw": "Koc = 1.38",
+              "value": 1.38,
+              "dp": 2,
+              "status": "값있음"
+            },
+            "data_source": "SIDS",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_OZONE",
+            "q": {
+              "raw": "해당없음",
+              "status": "해당없음"
+            },
+            "status": "해당없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_OTHER",
+            "descriptor": "결과기술",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "분류되지 않음",
+                "text": "- 1-Propene : 분류되지 않음",
+                "refs": [
+                  "1"
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "msds_index": 0,
+        "field": "toxicity[0]",
+        "page": 6,
+        "source_text": "* 경구 - 분류되지 않음 (ATEmix > 2000 mg/kg)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "'> 2000'을 lower_op '>' lower 2000으로 분해"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[1]",
+        "page": 6,
+        "source_text": "- 1-Propene : 시험은 기술적으로 불가능함 (ECHA)",
+        "rules": [
+          "R10"
+        ],
+        "note": "경구 항목 아래 서술을 결과기술로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[2]",
+        "page": 6,
+        "source_text": "* 경피 - 분류되지 않음 (ATEmix > 2000 mg/kg)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[3]",
+        "page": 6,
+        "source_text": "- 1-Propene : 시험은 기술적으로 불가능함 (ECHA)",
+        "rules": [
+          "R10"
+        ],
+        "note": "경피 항목 아래 서술"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[4]",
+        "page": 6,
+        "source_text": "* 흡입(가스) - 분류되지 않음 (ATEmix > 20000 ppm)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[5]",
+        "page": 6,
+        "source_text": "- 1-Propene : 랫드(수); 가스 흡입; 4h-LC50 = 50000 ppm (ECHA)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "4h → duration 4 hr, 랫드(수) → 수컷"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[6]",
+        "page": 6,
+        "source_text": "* 흡입(증기) - 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[7]",
+        "page": 6,
+        "source_text": "- 1-Propene : 해당없음",
+        "rules": [
+          "R15",
+          "R10"
+        ],
+        "note": "흡입(증기) 항목 아래"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[8]",
+        "page": 6,
+        "source_text": "* 흡입(분진, 미스트) - 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[9]",
+        "page": 6,
+        "source_text": "- 1-Propene : 해당없음",
+        "rules": [
+          "R15",
+          "R10"
+        ],
+        "note": "흡입(분진, 미스트) 항목 아래"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[10]",
+        "page": 6,
+        "source_text": "○ 피부부식성 또는 자극성 : 분류되지 않음",
+        "rules": [],
+        "note": "제품 분류 결과를 MIX 행으로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[11]",
+        "page": 6,
+        "source_text": "- 1-Propene : 가스상의 프로필렌은 제한된 인체 연구에 근거하여 피부에 자극을 유발하지 않음 (SIDS)",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[12]",
+        "page": 6,
+        "source_text": "○ 심한 눈손상 또는 자극성 : 분류되지 않음",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[13]",
+        "page": 6,
+        "source_text": "- 1-Propene : 가스상의 프로필렌은 제한된 인체 연구에 근거하여 눈에 자극을 유발하지 않음 (SIDS)",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[14]",
+        "page": 6,
+        "source_text": "○ 호흡기과민성 : 분류되지 않음",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[15]",
+        "page": 6,
+        "source_text": "- 1-Propene : 자료없음",
+        "rules": [
+          "R15",
+          "R10"
+        ],
+        "note": "호흡기과민성 항목 아래"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[16]",
+        "page": 6,
+        "source_text": "○ 피부과민성 : 분류되지 않음",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[17]",
+        "page": 6,
+        "source_text": "- 1-Propene : 시험은 기술적으로 불가능함 (ECHA)",
+        "rules": [
+          "R10"
+        ],
+        "note": "피부과민성 항목 아래"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[18]",
+        "page": 6,
+        "source_text": "○ 발암성 : 분류되지 않음",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[19]",
+        "page": 6,
+        "source_text": "- 1-Propene : IARC : Group 3 (분류되지 않음) ACGIH : A4 (인체 발암물질로 분류되지 않음)",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[20]",
+        "page": 6,
+        "source_text": "○ 생식세포변이원성 : 분류되지 않음",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[21]",
+        "page": 6,
+        "source_text": "- 1-Propene : 시험관 내 박테리아 복귀돌연변이시험결과, 음성 (OECD TG 471과 유사, GLP) (ECHA)",
+        "rules": [
+          "R10"
+        ],
+        "note": "세 시험 서술을 statements 3개로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[22]",
+        "page": 6,
+        "source_text": "○ 생식독성 : 분류되지 않음",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[23]",
+        "page": 6,
+        "source_text": "- 1-Propene : 랫드(암/수)를 대상으로 0, 5000, 10000 ppm의 농도로 2년간 생식독성시험결과, 투 여 관련된 변이 관찰되지 않음 (ECHA)",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[24]",
+        "page": 6,
+        "source_text": "NOAEC(모체독성 및 발달독성)=10,000 ppm (OECD TG 414, GLP) (ECHA)",
+        "rules": [
+          "R04",
+          "R06",
+          "R10"
+        ],
+        "note": "맞는 값 없음: 지표 NOAEC는 descriptor 목록에 없어 null로 두고 raw에 원문 보존"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[25]",
+        "page": 7,
+        "source_text": "○ 표적장기·전신독성물질(1회노출) : 분류되지 않음",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[26]",
+        "page": 7,
+        "source_text": "- 1-Propene : 랫드(수)를 대상으로 급성흡입독성시험결과, 악영향 관찰되지 않음. 4h-LC50 = 50000 ppm (ECHA)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[27]",
+        "page": 7,
+        "source_text": "○ 표적장기·전신독성물질(반복노출) : 분류되지 않음",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[28]",
+        "page": 7,
+        "source_text": "NOAEC=10000 ppm로 설정됨 (OECD TG 413) (ECHA)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "맞는 값 없음: 지표 NOAEC는 descriptor 목록에 없어 null; 14주간 → 14 week, 암/수 → 혼합"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[29]",
+        "page": 7,
+        "source_text": "○ 흡인유해성 : 분류되지 않음",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[30]",
+        "page": 7,
+        "source_text": "- 1-Propene : 자료없음",
+        "rules": [
+          "R15",
+          "R10"
+        ],
+        "note": "흡인유해성 항목 아래"
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[0]",
+        "page": 6,
+        "source_text": "IARC : Group 3 (분류되지 않음)",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[1]",
+        "page": 6,
+        "source_text": "ACGIH : A4 (인체 발암물질로 분류되지 않음)",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[0]",
+        "page": 7,
+        "source_text": "- 급성 수생 환경유해성 : 분류되지 않음 (ATEmix>1mg/L)",
+        "rules": [
+          "R04"
+        ],
+        "note": "맞는 값 없음: 제품 급성 수생 분류에 맞는 endpoint 코드가 없어 null"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[1]",
+        "page": 7,
+        "source_text": "- 만성 수생 환경유해성 : 구분 3",
+        "rules": [],
+        "note": "맞는 값 없음: 제품 만성 수생 분류에 맞는 endpoint 코드가 없어 null"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[2]",
+        "page": 7,
+        "source_text": "- 1-Propene : 96h-LC50 = 67.237 mg/L (예측치) (ECOSAR Class: Neutral Organics) (ECOSAR)",
+        "rules": [
+          "R04",
+          "R06",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[3]",
+        "page": 7,
+        "source_text": "- 1-Propene : 48h-LC50(Daphnid) = 37.060 mg/L (예측치) (ECOSAR Class: Neutral Organics) (ECOSAR)",
+        "rules": [
+          "R04",
+          "R06",
+          "R10"
+        ],
+        "note": "37.060 → value 37.06, dp 3"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[4]",
+        "page": 7,
+        "source_text": "- 1-Propene : 96h-EC50(Green Algae) = 24.416 mg/L (예측치) (ECOSAR Class: Neutral Organics) (ECOSAR)",
+        "rules": [
+          "R04",
+          "R06",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[5]",
+        "page": 7,
+        "source_text": "만성 수생 환경유해성 어류 - 1-Propene : 자료없음",
+        "rules": [
+          "R15",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[6]",
+        "page": 7,
+        "source_text": "갑각류 - 1-Propene : 자료없음",
+        "rules": [
+          "R15",
+          "R10"
+        ],
+        "note": "만성 항목"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[7]",
+        "page": 7,
+        "source_text": "조류 - 1-Propene : 자료없음",
+        "rules": [
+          "R15",
+          "R10"
+        ],
+        "note": "만성 항목"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[8]",
+        "page": 7,
+        "source_text": "- 1-Propene : log Kow = 1.77 (20 ℃) (ECHA)",
+        "rules": [
+          "R04",
+          "R08",
+          "R10"
+        ],
+        "note": "측정온도 20 ℃는 note로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[9]",
+        "page": 7,
+        "source_text": "- 1-Propene : 광산화 반감기 : 14.6시간 (OH 라디칼) 및 23.7시간 (오존) (ECHA)",
+        "rules": [
+          "R10"
+        ],
+        "note": "두 반감기 값이 있어 서술로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[10]",
+        "page": 7,
+        "source_text": "- 1-Propene : BCF = 13.18 (계산치) (SIDS)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[11]",
+        "page": 7,
+        "source_text": "- 1-Propene : 28일후 1% 생분해됨; 난분해성 (OECD TG 301D) (ECHA)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "원문의 '다. 생물농축성' 아래 '생분해성' 위치에 따라 ECO_BIOACC로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[12]",
+        "page": 7,
+        "source_text": "- 1-Propene : Koc = 1.38 (SIDS)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[13]",
+        "page": 8,
+        "source_text": "- 1-Propene : 해당없음",
+        "rules": [
+          "R15",
+          "R10"
+        ],
+        "note": "오존층 유해성 항목 아래"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[14]",
+        "page": 8,
+        "source_text": "바. 기타 유해 영향 - 1-Propene : 분류되지 않음",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      }
+    ]
+  },
+  "raw_text": "{\"msds\": [{\"toxicity\": [{\"comp_ref\": \"MIX\", \"endpoint\": \"TX_ORAL\", \"descriptor\": \"ATE\", \"q\": {\"raw\": \"ATEmix > 2000 mg/kg\", \"lower_op\": \">\", \"lower\": 2000, \"unit\": \"mg/kg\", \"status\": \"값있음\"}, \"classification\": \"분류되지 않음\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_ORAL\", \"descriptor\": \"결과기술\", \"data_source\": \"ECHA\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"시험은 기술적으로 불가능함 (ECHA)\", \"text\": \"- 1-Propene : 시험은 기술적으로 불가능함 (ECHA)\", \"refs\": [\"1\"]}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_DERMAL\", \"descriptor\": \"ATE\", \"q\": {\"raw\": \"ATEmix > 2000 mg/kg\", \"lower_op\": \">\", \"lower\": 2000, \"unit\": \"mg/kg\", \"status\": \"값있음\"}, \"classification\": \"분류되지 않음\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_DERMAL\", \"descriptor\": \"결과기술\", \"data_source\": \"ECHA\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"시험은 기술적으로 불가능함 (ECHA)\", \"text\": \"- 1-Propene : 시험은 기술적으로 불가능함 (ECHA)\", \"refs\": [\"1\"]}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_INHAL\", \"descriptor\": \"ATE\", \"physical_form\": \"가스\", \"q\": {\"raw\": \"ATEmix > 20000 ppm\", \"lower_op\": \">\", \"lower\": 20000, \"unit\": \"ppm\", \"status\": \"값있음\"}, \"classification\": \"분류되지 않음\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_INHAL\", \"descriptor\": \"LC50\", \"physical_form\": \"가스\", \"species\": \"랫드\", \"sex\": \"수컷\", \"duration_value\": 4, \"duration_unit\": \"hr\", \"q\": {\"raw\": \"4h-LC50 = 50000 ppm\", \"value\": 50000, \"unit\": \"ppm\", \"status\": \"값있음\"}, \"data_source\": \"ECHA\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_INHAL\", \"physical_form\": \"증기\", \"q\": {\"raw\": \"해당없음\", \"status\": \"해당없음\"}, \"status\": \"해당없음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_INHAL\", \"physical_form\": \"증기\", \"q\": {\"raw\": \"해당없음\", \"status\": \"해당없음\"}, \"status\": \"해당없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_INHAL\", \"physical_form\": \"분진·미스트\", \"q\": {\"raw\": \"해당없음\", \"status\": \"해당없음\"}, \"status\": \"해당없음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_INHAL\", \"physical_form\": \"분진·미스트\", \"q\": {\"raw\": \"해당없음\", \"status\": \"해당없음\"}, \"status\": \"해당없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_SKIN\", \"descriptor\": \"결과기술\", \"classification\": \"분류되지 않음\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_SKIN\", \"descriptor\": \"결과기술\", \"data_source\": \"SIDS\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"가스상의 프로필렌은 제한된 인체 연구에 근거하여 피부에 자극을 유발하지 않음 (SIDS)\", \"text\": \"- 1-Propene : 가스상의 프로필렌은 제한된 인체 연구에 근거하여 피부에 자극을 유발하지 않음 (SIDS)\", \"refs\": [\"1\"]}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_EYE\", \"descriptor\": \"결과기술\", \"classification\": \"분류되지 않음\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_EYE\", \"descriptor\": \"결과기술\", \"data_source\": \"SIDS\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"가스상의 프로필렌은 제한된 인체 연구에 근거하여 눈에 자극을 유발하지 않음 (SIDS)\", \"text\": \"- 1-Propene : 가스상의 프로필렌은 제한된 인체 연구에 근거하여 눈에 자극을 유발하지 않음 (SIDS)\", \"refs\": [\"1\"]}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_RESP_SENS\", \"descriptor\": \"결과기술\", \"classification\": \"분류되지 않음\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_RESP_SENS\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_SKIN_SENS\", \"descriptor\": \"결과기술\", \"classification\": \"분류되지 않음\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_SKIN_SENS\", \"descriptor\": \"결과기술\", \"data_source\": \"ECHA\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"시험은 기술적으로 불가능함 (ECHA)\", \"text\": \"- 1-Propene : 시험은 기술적으로 불가능함 (ECHA)\", \"refs\": [\"1\"]}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_CARC\", \"descriptor\": \"결과기술\", \"classification\": \"분류되지 않음\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_CARC\", \"descriptor\": \"결과기술\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"key\": \"IARC\", \"value\": \"Group 3 (분류되지 않음)\", \"text\": \"IARC : Group 3 (분류되지 않음)\", \"refs\": [\"1\"]}, {\"seq\": 2, \"key\": \"ACGIH\", \"value\": \"A4 (인체 발암물질로 분류되지 않음)\", \"text\": \"ACGIH : A4 (인체 발암물질로 분류되지 않음)\", \"refs\": [\"1\"]}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_MUTA\", \"descriptor\": \"결과기술\", \"classification\": \"분류되지 않음\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_MUTA\", \"descriptor\": \"결과기술\", \"data_source\": \"ECHA\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"시험관 내 박테리아 복귀돌연변이시험결과, 음성 (OECD TG 471과 유사, GLP) (ECHA)\", \"text\": \"시험관 내 박테리아 복귀돌연변이시험결과, 음성 (OECD TG 471과 유사, GLP) (ECHA)\", \"refs\": [\"1\"]}, {\"seq\": 2, \"value\": \"시험관 내 포유류 세포를 이용한 유전자돌연변이시험결과, 모호한 결과 (OECD TG 476) (ECHA)\", \"text\": \"시험관 내 포유류 세포를 이용한 유전자돌연변이시험결과, 모호한 결과 (OECD TG 476) (ECHA)\", \"refs\": [\"1\"]}, {\"seq\": 3, \"value\": \"생체 내 포유류 적혈구를 이용한 소핵시험결과, 음성 (OECD TG 474, GLP) (ECHA)\", \"text\": \"생체 내 포유류 적혈구를 이용한 소핵시험결과, 음성 (OECD TG 474, GLP) (ECHA)\", \"refs\": [\"1\"]}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_REPRO\", \"descriptor\": \"결과기술\", \"classification\": \"분류되지 않음\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_REPRO\", \"descriptor\": \"결과기술\", \"species\": \"랫드\", \"sex\": \"혼합\", \"data_source\": \"ECHA\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"랫드(암/수)를 대상으로 0, 5000, 10000 ppm의 농도로 2년간 생식독성시험결과, 투여 관련된 변이 관찰되지 않음 (ECHA)\", \"text\": \"랫드(암/수)를 대상으로 0, 5000, 10000 ppm의 농도로 2년간 생식독성시험결과, 투 여 관련된 변이 관찰되지 않음 (ECHA)\", \"refs\": [\"1\"]}]}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_REPRO\", \"descriptor\": null, \"species\": \"랫드\", \"q\": {\"raw\": \"NOAEC(모체독성 및 발달독성)=10,000 ppm\", \"value\": 10000, \"unit\": \"ppm\", \"status\": \"값있음\"}, \"guideline\": \"OECD TG 414\", \"data_source\": \"ECHA\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"랫드를 대상으로 0, 200, 1000, 10,000 ppm의 농도로 태아발달독성시험결과, NOAEC(모체독성 및 발달독성)=10,000 ppm (OECD TG 414, GLP) (ECHA)\", \"text\": \"랫드를 대상으로 0, 200, 1000, 10,000 ppm의 농도로 태아발달독성시험결과, NOAEC(모체독성 및 발달독성)=10,000 ppm (OECD TG 414, GLP) (ECHA)\", \"refs\": [\"1\"]}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_STOT_SE\", \"descriptor\": \"결과기술\", \"classification\": \"분류되지 않음\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_STOT_SE\", \"descriptor\": \"LC50\", \"species\": \"랫드\", \"sex\": \"수컷\", \"duration_value\": 4, \"duration_unit\": \"hr\", \"q\": {\"raw\": \"4h-LC50 = 50000 ppm\", \"value\": 50000, \"unit\": \"ppm\", \"status\": \"값있음\"}, \"data_source\": \"ECHA\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"랫드(수)를 대상으로 급성흡입독성시험결과, 악영향 관찰되지 않음.\", \"text\": \"랫드(수)를 대상으로 급성흡입독성시험결과, 악영향 관찰되지 않음. 4h-LC50 = 50000 ppm (ECHA)\", \"refs\": [\"1\"]}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_STOT_RE\", \"descriptor\": \"결과기술\", \"classification\": \"분류되지 않음\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_STOT_RE\", \"descriptor\": null, \"species\": \"랫드\", \"sex\": \"혼합\", \"duration_value\": 14, \"duration_unit\": \"week\", \"exposure_type\": \"반복 흡입 14주\", \"q\": {\"raw\": \"NOAEC=10000 ppm\", \"value\": 10000, \"unit\": \"ppm\", \"status\": \"값있음\"}, \"guideline\": \"OECD TG 413\", \"data_source\": \"ECHA\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"랫드(암/수)를 대상으로 0, 625, 1250, 2500, 5000, 10,000 ppm의 농도로 14주간 반복흡입독성시험결과, 시험된 최고농도에서 독성이 관찰되지 않았으므로 NOAEC=10000 ppm로 설정됨 (OECD TG 413) (ECHA)\", \"text\": \"랫드(암/수)를 대상으로 0, 625, 1250, 2500, 5000, 10,000 ppm의 농도로 14주간 반 복흡입독성시험결과, 시험된 최고농도에서 독성이 관찰되지 않았으므로 NOAEC=10000 ppm로 설정됨 (OECD TG 413) (ECHA)\", \"refs\": [\"1\"]}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_ASP\", \"descriptor\": \"결과기술\", \"classification\": \"분류되지 않음\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_ASP\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}], \"cmr\": [{\"comp_ref\": \"1\", \"hazard\": \"발암성\", \"agency\": \"IARC\", \"class\": \"Group 3\", \"status\": \"값있음\", \"note\": \"분류되지 않음\"}, {\"comp_ref\": \"1\", \"hazard\": \"발암성\", \"agency\": \"ACGIH\", \"class\": \"A4\", \"status\": \"값있음\", \"note\": \"인체 발암물질로 분류되지 않음\"}], \"ecotox\": [{\"comp_ref\": \"MIX\", \"endpoint\": null, \"descriptor\": \"기타\", \"q\": {\"raw\": \"ATEmix>1mg/L\", \"lower_op\": \">\", \"lower\": 1, \"unit\": \"mg/L\", \"status\": \"값있음\"}, \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"key\": \"급성 수생 환경유해성\", \"value\": \"분류되지 않음 (ATEmix>1mg/L)\", \"text\": \"- 급성 수생 환경유해성 : 분류되지 않음 (ATEmix>1mg/L)\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": null, \"descriptor\": \"결과기술\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"key\": \"만성 수생 환경유해성\", \"value\": \"구분 3\", \"text\": \"- 만성 수생 환경유해성 : 구분 3\"}]}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_FISH\", \"descriptor\": \"LC50\", \"duration_value\": 96, \"duration_unit\": \"hr\", \"q\": {\"raw\": \"96h-LC50 = 67.237 mg/L\", \"value\": 67.237, \"unit\": \"mg/L\", \"dp\": 3, \"status\": \"값있음\", \"note\": \"예측치\"}, \"data_source\": \"ECOSAR\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"ECOSAR Class: Neutral Organics\", \"text\": \"(ECOSAR Class: Neutral Organics)\"}]}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_CRUST\", \"descriptor\": \"LC50\", \"species\": \"Daphnid\", \"duration_value\": 48, \"duration_unit\": \"hr\", \"q\": {\"raw\": \"48h-LC50(Daphnid) = 37.060 mg/L\", \"value\": 37.06, \"unit\": \"mg/L\", \"dp\": 3, \"status\": \"값있음\", \"note\": \"예측치\"}, \"data_source\": \"ECOSAR\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"ECOSAR Class: Neutral Organics\", \"text\": \"(ECOSAR Class: Neutral Organics)\"}]}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_ALGAE\", \"descriptor\": \"EC50\", \"species\": \"Green Algae\", \"duration_value\": 96, \"duration_unit\": \"hr\", \"q\": {\"raw\": \"96h-EC50(Green Algae) = 24.416 mg/L\", \"value\": 24.416, \"unit\": \"mg/L\", \"dp\": 3, \"status\": \"값있음\", \"note\": \"예측치\"}, \"data_source\": \"ECOSAR\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"ECOSAR Class: Neutral Organics\", \"text\": \"(ECOSAR Class: Neutral Organics)\"}]}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_FISH\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\", \"note\": \"만성\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_CRUST\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\", \"note\": \"만성\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_ALGAE\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\", \"note\": \"만성\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_PERSIST\", \"descriptor\": \"logKow\", \"q\": {\"raw\": \"log Kow = 1.77 (20 ℃)\", \"value\": 1.77, \"dp\": 2, \"status\": \"값있음\", \"note\": \"20 C\"}, \"data_source\": \"ECHA\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_PERSIST\", \"descriptor\": \"결과기술\", \"data_source\": \"ECHA\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"key\": \"광산화 반감기\", \"value\": \"14.6시간 (OH 라디칼) 및 23.7시간 (오존) (ECHA)\", \"text\": \"- 1-Propene : 광산화 반감기 : 14.6시간 (OH 라디칼) 및 23.7시간 (오존) (ECHA)\", \"refs\": [\"1\"]}]}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_BIOACC\", \"descriptor\": \"BCF\", \"q\": {\"raw\": \"BCF = 13.18 (계산치)\", \"value\": 13.18, \"dp\": 2, \"status\": \"값있음\", \"note\": \"계산치\"}, \"data_source\": \"SIDS\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_BIOACC\", \"descriptor\": \"분해율\", \"duration_value\": 28, \"duration_unit\": \"day\", \"q\": {\"raw\": \"28일후 1% 생분해됨\", \"value\": 1, \"unit\": \"%\", \"status\": \"값있음\"}, \"guideline\": \"OECD TG 301D\", \"data_source\": \"ECHA\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"난분해성\", \"text\": \"- 1-Propene : 28일후 1% 생분해됨; 난분해성 (OECD TG 301D) (ECHA)\", \"refs\": [\"1\"]}]}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_SOIL\", \"descriptor\": \"Koc\", \"q\": {\"raw\": \"Koc = 1.38\", \"value\": 1.38, \"dp\": 2, \"status\": \"값있음\"}, \"data_source\": \"SIDS\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_OZONE\", \"q\": {\"raw\": \"해당없음\", \"status\": \"해당없음\"}, \"status\": \"해당없음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_OTHER\", \"descriptor\": \"결과기술\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"분류되지 않음\", \"text\": \"- 1-Propene : 분류되지 않음\", \"refs\": [\"1\"]}]}]}], \"evidence\": [{\"msds_index\": 0, \"field\": \"toxicity[0]\", \"page\": 6, \"source_text\": \"* 경구 - 분류되지 않음 (ATEmix > 2000 mg/kg)\", \"rules\": [\"R04\", \"R10\"], \"note\": \"'> 2000'을 lower_op '>' lower 2000으로 분해\"}, {\"msds_index\": 0, \"field\": \"toxicity[1]\", \"page\": 6, \"source_text\": \"- 1-Propene : 시험은 기술적으로 불가능함 (ECHA)\", \"rules\": [\"R10\"], \"note\": \"경구 항목 아래 서술을 결과기술로 둠\"}, {\"msds_index\": 0, \"field\": \"toxicity[2]\", \"page\": 6, \"source_text\": \"* 경피 - 분류되지 않음 (ATEmix > 2000 mg/kg)\", \"rules\": [\"R04\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[3]\", \"page\": 6, \"source_text\": \"- 1-Propene : 시험은 기술적으로 불가능함 (ECHA)\", \"rules\": [\"R10\"], \"note\": \"경피 항목 아래 서술\"}, {\"msds_index\": 0, \"field\": \"toxicity[4]\", \"page\": 6, \"source_text\": \"* 흡입(가스) - 분류되지 않음 (ATEmix > 20000 ppm)\", \"rules\": [\"R04\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[5]\", \"page\": 6, \"source_text\": \"- 1-Propene : 랫드(수); 가스 흡입; 4h-LC50 = 50000 ppm (ECHA)\", \"rules\": [\"R04\", \"R10\"], \"note\": \"4h → duration 4 hr, 랫드(수) → 수컷\"}, {\"msds_index\": 0, \"field\": \"toxicity[6]\", \"page\": 6, \"source_text\": \"* 흡입(증기) - 해당없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[7]\", \"page\": 6, \"source_text\": \"- 1-Propene : 해당없음\", \"rules\": [\"R15\", \"R10\"], \"note\": \"흡입(증기) 항목 아래\"}, {\"msds_index\": 0, \"field\": \"toxicity[8]\", \"page\": 6, \"source_text\": \"* 흡입(분진, 미스트) - 해당없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[9]\", \"page\": 6, \"source_text\": \"- 1-Propene : 해당없음\", \"rules\": [\"R15\", \"R10\"], \"note\": \"흡입(분진, 미스트) 항목 아래\"}, {\"msds_index\": 0, \"field\": \"toxicity[10]\", \"page\": 6, \"source_text\": \"○ 피부부식성 또는 자극성 : 분류되지 않음\", \"rules\": [], \"note\": \"제품 분류 결과를 MIX 행으로 둠\"}, {\"msds_index\": 0, \"field\": \"toxicity[11]\", \"page\": 6, \"source_text\": \"- 1-Propene : 가스상의 프로필렌은 제한된 인체 연구에 근거하여 피부에 자극을 유발하지 않음 (SIDS)\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[12]\", \"page\": 6, \"source_text\": \"○ 심한 눈손상 또는 자극성 : 분류되지 않음\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[13]\", \"page\": 6, \"source_text\": \"- 1-Propene : 가스상의 프로필렌은 제한된 인체 연구에 근거하여 눈에 자극을 유발하지 않음 (SIDS)\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[14]\", \"page\": 6, \"source_text\": \"○ 호흡기과민성 : 분류되지 않음\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[15]\", \"page\": 6, \"source_text\": \"- 1-Propene : 자료없음\", \"rules\": [\"R15\", \"R10\"], \"note\": \"호흡기과민성 항목 아래\"}, {\"msds_index\": 0, \"field\": \"toxicity[16]\", \"page\": 6, \"source_text\": \"○ 피부과민성 : 분류되지 않음\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[17]\", \"page\": 6, \"source_text\": \"- 1-Propene : 시험은 기술적으로 불가능함 (ECHA)\", \"rules\": [\"R10\"], \"note\": \"피부과민성 항목 아래\"}, {\"msds_index\": 0, \"field\": \"toxicity[18]\", \"page\": 6, \"source_text\": \"○ 발암성 : 분류되지 않음\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[19]\", \"page\": 6, \"source_text\": \"- 1-Propene : IARC : Group 3 (분류되지 않음) ACGIH : A4 (인체 발암물질로 분류되지 않음)\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[20]\", \"page\": 6, \"source_text\": \"○ 생식세포변이원성 : 분류되지 않음\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[21]\", \"page\": 6, \"source_text\": \"- 1-Propene : 시험관 내 박테리아 복귀돌연변이시험결과, 음성 (OECD TG 471과 유사, GLP) (ECHA)\", \"rules\": [\"R10\"], \"note\": \"세 시험 서술을 statements 3개로 둠\"}, {\"msds_index\": 0, \"field\": \"toxicity[22]\", \"page\": 6, \"source_text\": \"○ 생식독성 : 분류되지 않음\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[23]\", \"page\": 6, \"source_text\": \"- 1-Propene : 랫드(암/수)를 대상으로 0, 5000, 10000 ppm의 농도로 2년간 생식독성시험결과, 투 여 관련된 변이 관찰되지 않음 (ECHA)\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[24]\", \"page\": 6, \"source_text\": \"NOAEC(모체독성 및 발달독성)=10,000 ppm (OECD TG 414, GLP) (ECHA)\", \"rules\": [\"R04\", \"R06\", \"R10\"], \"note\": \"맞는 값 없음: 지표 NOAEC는 descriptor 목록에 없어 null로 두고 raw에 원문 보존\"}, {\"msds_index\": 0, \"field\": \"toxicity[25]\", \"page\": 7, \"source_text\": \"○ 표적장기·전신독성물질(1회노출) : 분류되지 않음\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[26]\", \"page\": 7, \"source_text\": \"- 1-Propene : 랫드(수)를 대상으로 급성흡입독성시험결과, 악영향 관찰되지 않음. 4h-LC50 = 50000 ppm (ECHA)\", \"rules\": [\"R04\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[27]\", \"page\": 7, \"source_text\": \"○ 표적장기·전신독성물질(반복노출) : 분류되지 않음\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[28]\", \"page\": 7, \"source_text\": \"NOAEC=10000 ppm로 설정됨 (OECD TG 413) (ECHA)\", \"rules\": [\"R04\", \"R10\"], \"note\": \"맞는 값 없음: 지표 NOAEC는 descriptor 목록에 없어 null; 14주간 → 14 week, 암/수 → 혼합\"}, {\"msds_index\": 0, \"field\": \"toxicity[29]\", \"page\": 7, \"source_text\": \"○ 흡인유해성 : 분류되지 않음\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[30]\", \"page\": 7, \"source_text\": \"- 1-Propene : 자료없음\", \"rules\": [\"R15\", \"R10\"], \"note\": \"흡인유해성 항목 아래\"}, {\"msds_index\": 0, \"field\": \"cmr[0]\", \"page\": 6, \"source_text\": \"IARC : Group 3 (분류되지 않음)\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"cmr[1]\", \"page\": 6, \"source_text\": \"ACGIH : A4 (인체 발암물질로 분류되지 않음)\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[0]\", \"page\": 7, \"source_text\": \"- 급성 수생 환경유해성 : 분류되지 않음 (ATEmix>1mg/L)\", \"rules\": [\"R04\"], \"note\": \"맞는 값 없음: 제품 급성 수생 분류에 맞는 endpoint 코드가 없어 null\"}, {\"msds_index\": 0, \"field\": \"ecotox[1]\", \"page\": 7, \"source_text\": \"- 만성 수생 환경유해성 : 구분 3\", \"rules\": [], \"note\": \"맞는 값 없음: 제품 만성 수생 분류에 맞는 endpoint 코드가 없어 null\"}, {\"msds_index\": 0, \"field\": \"ecotox[2]\", \"page\": 7, \"source_text\": \"- 1-Propene : 96h-LC50 = 67.237 mg/L (예측치) (ECOSAR Class: Neutral Organics) (ECOSAR)\", \"rules\": [\"R04\", \"R06\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[3]\", \"page\": 7, \"source_text\": \"- 1-Propene : 48h-LC50(Daphnid) = 37.060 mg/L (예측치) (ECOSAR Class: Neutral Organics) (ECOSAR)\", \"rules\": [\"R04\", \"R06\", \"R10\"], \"note\": \"37.060 → value 37.06, dp 3\"}, {\"msds_index\": 0, \"field\": \"ecotox[4]\", \"page\": 7, \"source_text\": \"- 1-Propene : 96h-EC50(Green Algae) = 24.416 mg/L (예측치) (ECOSAR Class: Neutral Organics) (ECOSAR)\", \"rules\": [\"R04\", \"R06\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[5]\", \"page\": 7, \"source_text\": \"만성 수생 환경유해성 어류 - 1-Propene : 자료없음\", \"rules\": [\"R15\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[6]\", \"page\": 7, \"source_text\": \"갑각류 - 1-Propene : 자료없음\", \"rules\": [\"R15\", \"R10\"], \"note\": \"만성 항목\"}, {\"msds_index\": 0, \"field\": \"ecotox[7]\", \"page\": 7, \"source_text\": \"조류 - 1-Propene : 자료없음\", \"rules\": [\"R15\", \"R10\"], \"note\": \"만성 항목\"}, {\"msds_index\": 0, \"field\": \"ecotox[8]\", \"page\": 7, \"source_text\": \"- 1-Propene : log Kow = 1.77 (20 ℃) (ECHA)\", \"rules\": [\"R04\", \"R08\", \"R10\"], \"note\": \"측정온도 20 ℃는 note로 둠\"}, {\"msds_index\": 0, \"field\": \"ecotox[9]\", \"page\": 7, \"source_text\": \"- 1-Propene : 광산화 반감기 : 14.6시간 (OH 라디칼) 및 23.7시간 (오존) (ECHA)\", \"rules\": [\"R10\"], \"note\": \"두 반감기 값이 있어 서술로 둠\"}, {\"msds_index\": 0, \"field\": \"ecotox[10]\", \"page\": 7, \"source_text\": \"- 1-Propene : BCF = 13.18 (계산치) (SIDS)\", \"rules\": [\"R04\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[11]\", \"page\": 7, \"source_text\": \"- 1-Propene : 28일후 1% 생분해됨; 난분해성 (OECD TG 301D) (ECHA)\", \"rules\": [\"R04\", \"R10\"], \"note\": \"원문의 '다. 생물농축성' 아래 '생분해성' 위치에 따라 ECO_BIOACC로 둠\"}, {\"msds_index\": 0, \"field\": \"ecotox[12]\", \"page\": 7, \"source_text\": \"- 1-Propene : Koc = 1.38 (SIDS)\", \"rules\": [\"R04\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[13]\", \"page\": 8, \"source_text\": \"- 1-Propene : 해당없음\", \"rules\": [\"R15\", \"R10\"], \"note\": \"오존층 유해성 항목 아래\"}, {\"msds_index\": 0, \"field\": \"ecotox[14]\", \"page\": 8, \"source_text\": \"바. 기타 유해 영향 - 1-Propene : 분류되지 않음\", \"rules\": [\"R10\"], \"note\": null}]}"
+}

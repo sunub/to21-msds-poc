@@ -1,0 +1,781 @@
+{
+  "doc_id": "T21-S032",
+  "bundle": "b3",
+  "model": "claude-opus-5-5",
+  "mode": "claude -p json-schema",
+  "finish_reason": "tool_use",
+  "usage": {
+    "prompt_tokens": 56901,
+    "completion_tokens": 9665,
+    "cached_tokens": 8451,
+    "reasoning_tokens": 2107,
+    "notional_cost_usd": 0.5825822
+  },
+  "seconds": 72.0,
+  "request_usage": [
+    {
+      "prompt_tokens": 56901,
+      "completion_tokens": 9665,
+      "cached_tokens": 8451,
+      "reasoning_tokens": 2107,
+      "notional_cost_usd": 0.5825822
+    }
+  ],
+  "attempts": 1,
+  "errors": [],
+  "parsed": {
+    "msds": [
+      {
+        "toxicity": [
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_ORAL",
+            "descriptor": "LD50",
+            "q": {
+              "raw": ">5000 mg/kg",
+              "status": "값있음",
+              "lower_op": ">",
+              "lower": 5000,
+              "unit": "mg/kg"
+            },
+            "species": "쥐",
+            "sex": "미표기",
+            "read_across_cas": "124-26-5",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_ORAL",
+            "descriptor": "LD50",
+            "q": {
+              "raw": ">2000 mg/kg",
+              "status": "값있음",
+              "lower_op": ">",
+              "lower": 2000,
+              "unit": "mg/kg"
+            },
+            "species": "쥐",
+            "sex": "미표기",
+            "read_across_cas": "112-84-5",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_ORAL",
+            "descriptor": "결과기술",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "먹었을 때",
+                "value": "심각한 영향이나 위험은 알려진 바 없음.",
+                "text": "먹었을 때 : 심각한 영향이나 위험은 알려진 바 없음."
+              },
+              {
+                "seq": 2,
+                "key": "먹었을 때",
+                "value": "명확한 데이터는 없음.",
+                "text": "먹었을 때 : 명확한 데이터는 없음."
+              },
+              {
+                "seq": 3,
+                "key": "결론/요약",
+                "value": "이용가능한 자료에 의거 유해성 분류기준에 해당되지 않음.",
+                "text": "결론/요약 : 이용가능한 자료에 의거 유해성 분류기준에 해당되지 않음."
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_INHAL",
+            "descriptor": "결과기술",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "흡입",
+                "value": "법정 또는 권장 노출 한계 이상의 공기 중 농도에 노출되면 코, 목 및 폐에 자극을 유발할 수 있음. 증기는 눈과 호흡기에 자극을 줄 수 있음.",
+                "text": "흡입 : 법정 또는 권장 노출 한계 이상의 공기 중 농도에 노출되면 코, 목 및 폐에 자극을 유발할 수 있음. 증기는 눈과 호흡기에 자극을 줄 수 있음."
+              },
+              {
+                "seq": 2,
+                "key": "흡입",
+                "value": "이상 증상은 다음과 같은 것을 포함할 수도 있음: 호흡기 자극 기침",
+                "text": "흡입 : 이상 증상은 다음과 같은 것을 포함할 수도 있음: 호흡기 자극 기침"
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_SKIN",
+            "descriptor": "결과기술",
+            "status": "자료없음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "피부에 접촉했을 때",
+                "value": "고온 물질을 접촉하면 화상을 일으킴.",
+                "text": "피부에 접촉했을 때 : 고온 물질을 접촉하면 화상을 일으킴."
+              },
+              {
+                "seq": 2,
+                "key": "피부에 접촉했을 때",
+                "value": "명확한 데이터는 없음.",
+                "text": "피부에 접촉했을 때 : 명확한 데이터는 없음."
+              },
+              {
+                "seq": 3,
+                "key": "피부",
+                "value": "피부에 자극이 없음.",
+                "text": "피부 : 피부에 자극이 없음."
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_EYE",
+            "descriptor": "결과기술",
+            "status": "자료없음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "눈에 들어갔을 때",
+                "value": "법정 또는 권장 노출 한계 이상의 공기 중 농도에 노출되면 눈에 자극을 유발할 수 있음.",
+                "text": "눈에 들어갔을 때 : 법정 또는 권장 노출 한계 이상의 공기 중 농도에 노출되면 눈에 자극을 유발할 수 있음."
+              },
+              {
+                "seq": 2,
+                "key": "눈에 들어갔을 때",
+                "value": "이상 증상은 다음과 같은 것을 포함할 수도 있음: 자극 홍조",
+                "text": "눈에 들어갔을 때 : 이상 증상은 다음과 같은 것을 포함할 수도 있음: 자극 홍조"
+              },
+              {
+                "seq": 3,
+                "key": "눈",
+                "value": "기계적인 자극 이외에 큰 자극은 예상되지 않습니다.",
+                "text": "눈 : 기계적인 자극 이외에 큰 자극은 예상되지 않습니다."
+              }
+            ]
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_SKIN_SENS",
+            "descriptor": "결과기술",
+            "species": "마우스",
+            "exposure_type": "피부",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "비 과민성",
+                "text": "시스-9-옥타데센오아마이드 | 피부 | 마우스 | 비 과민성"
+              },
+              {
+                "seq": 2,
+                "key": "피부",
+                "value": "이용가능한 자료에 의거 유해성 분류기준에 해당되지 않음.",
+                "text": "피부 : 이용가능한 자료에 의거 유해성 분류기준에 해당되지 않음."
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_MUTA",
+            "descriptor": "결과기술",
+            "status": "자료없음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "결론/요약",
+                "value": "이용가능한 자료에 의거 유해성 분류기준에 해당되지 않음.",
+                "text": "결론/요약 : 이용가능한 자료에 의거 유해성 분류기준에 해당되지 않음."
+              },
+              {
+                "seq": 2,
+                "key": "변이원성",
+                "value": "심각한 영향이나 위험은 알려진 바 없음.",
+                "text": "변이원성 : 심각한 영향이나 위험은 알려진 바 없음."
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_CARC",
+            "descriptor": "결과기술",
+            "status": "자료없음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "결론/요약",
+                "value": "이용가능한 자료에 의거 유해성 분류기준에 해당되지 않음.",
+                "text": "결론/요약 : 이용가능한 자료에 의거 유해성 분류기준에 해당되지 않음."
+              },
+              {
+                "seq": 2,
+                "key": "발암성",
+                "value": "심각한 영향이나 위험은 알려진 바 없음.",
+                "text": "발암성 : 심각한 영향이나 위험은 알려진 바 없음."
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_REPRO",
+            "descriptor": "결과기술",
+            "exposure_type": "생식독성",
+            "status": "자료없음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "결론/요약",
+                "value": "이용가능한 자료에 의거 유해성 분류기준에 해당되지 않음.",
+                "text": "결론/요약 : 이용가능한 자료에 의거 유해성 분류기준에 해당되지 않음."
+              },
+              {
+                "seq": 2,
+                "key": "발생독성",
+                "value": "심각한 영향이나 위험은 알려진 바 없음.",
+                "text": "발생독성 : 심각한 영향이나 위험은 알려진 바 없음."
+              },
+              {
+                "seq": 3,
+                "key": "수정능력 영향",
+                "value": "심각한 영향이나 위험은 알려진 바 없음.",
+                "text": "수정능력 영향 : 심각한 영향이나 위험은 알려진 바 없음."
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_REPRO",
+            "descriptor": "결과기술",
+            "exposure_type": "최기형성",
+            "status": "자료없음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "결론/요약",
+                "value": "이용가능한 자료에 의거 유해성 분류기준에 해당되지 않음.",
+                "text": "결론/요약 : 이용가능한 자료에 의거 유해성 분류기준에 해당되지 않음."
+              },
+              {
+                "seq": 2,
+                "key": "최기형성",
+                "value": "심각한 영향이나 위험은 알려진 바 없음.",
+                "text": "최기형성 : 심각한 영향이나 위험은 알려진 바 없음."
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_STOT_SE",
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_STOT_RE",
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_ASP",
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": null,
+            "descriptor": "결과기술",
+            "exposure_type": "만성 독성",
+            "status": "자료없음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "결론/요약",
+                "value": "이용가능한 자료에 의거 유해성 분류기준에 해당되지 않음.",
+                "text": "결론/요약 : 이용가능한 자료에 의거 유해성 분류기준에 해당되지 않음."
+              },
+              {
+                "seq": 2,
+                "key": "일반",
+                "value": "분진을 반복 또는 장기간 흡입하면 만성 호흡기 자극을 일으킬 수 있음.",
+                "text": "일반 : 분진을 반복 또는 장기간 흡입하면 만성 호흡기 자극을 일으킬 수 있음."
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": null,
+            "descriptor": "ATE",
+            "q": {
+              "raw": "N/A",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          }
+        ],
+        "cmr": [
+          {
+            "comp_ref": "MIX",
+            "hazard": "발암성",
+            "agency": "KR_OSH",
+            "class": null,
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "MIX",
+            "hazard": "생식세포변이원성",
+            "agency": "KR_OSH",
+            "class": null,
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "MIX",
+            "hazard": "생식독성",
+            "agency": "KR_OSH",
+            "class": null,
+            "status": "자료없음"
+          }
+        ],
+        "ecotox": [
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_FISH",
+            "descriptor": "LC50",
+            "q": {
+              "raw": "1000 mg/l",
+              "status": "값있음",
+              "value": 1000,
+              "unit": "mg/L"
+            },
+            "species": "물고기 - Cyprinodon variegatus",
+            "duration_value": 96,
+            "duration_unit": "hr",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "결론/요약",
+                "value": "심각한 영향이나 위험은 알려진 바 없음.",
+                "text": "결론/요약 : 심각한 영향이나 위험은 알려진 바 없음."
+              },
+              {
+                "seq": 2,
+                "key": "결론/요약",
+                "value": "오존 파괴 물질 - 해당 없음.",
+                "text": "오존 파괴 물질 - 해당 없음."
+              }
+            ]
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_PERSIST",
+            "descriptor": "결과기술",
+            "q": {
+              "raw": "쉬움",
+              "status": "값있음"
+            },
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "결론/요약",
+                "value": "쉽게 생물 분해됨",
+                "text": "결론/요약 : 쉽게 생물 분해됨"
+              },
+              {
+                "seq": 2,
+                "key": "생물 분해성",
+                "value": "쉬움",
+                "text": "시스-9-옥타데센오아마이드 | - | - | 쉬움"
+              }
+            ]
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_PERSIST",
+            "descriptor": "기타",
+            "q": {
+              "raw": "-",
+              "status": "미기재",
+              "note": "수중 반감기"
+            },
+            "status": "미기재",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_PERSIST",
+            "descriptor": "기타",
+            "q": {
+              "raw": "-",
+              "status": "미기재",
+              "note": "광분해"
+            },
+            "status": "미기재",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_BIOACC",
+            "descriptor": "logKow",
+            "q": {
+              "raw": "5.8",
+              "status": "값있음",
+              "value": 5.8,
+              "dp": 1
+            },
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_BIOACC",
+            "descriptor": "BCF",
+            "q": {
+              "raw": "-",
+              "status": "미기재"
+            },
+            "status": "미기재",
+            "statements": []
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_BIOACC",
+            "descriptor": "결과기술",
+            "q": {
+              "raw": "높음",
+              "status": "값있음"
+            },
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "잠재적 생물 농축성",
+                "value": "높음",
+                "text": "시스-9-옥타데센오아마이드 | 5.8 | - | 높음"
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_SOIL",
+            "descriptor": "Koc",
+            "q": {
+              "raw": "자료 없음.",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_OTHER",
+            "descriptor": "결과기술",
+            "q": {
+              "raw": "오존 파괴 물질 - 해당 없음.",
+              "status": "해당없음",
+              "note": "오존 파괴 물질"
+            },
+            "status": "해당없음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "기타 유해 영향",
+                "value": "오존 파괴 물질 - 해당 없음.",
+                "text": "마. 기타 유해 영향 : 오존 파괴 물질 - 해당 없음."
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "msds_index": 0,
+        "field": "toxicity[0]",
+        "page": 6,
+        "source_text": "시스-9-옥타데센오아마이드 | LD50 경구 | 쥐 | >5000 mg/kg RA-S CAS 124-26-5 | -",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "'>5000'을 하한 5000(>)로 분해, 'RA-S CAS 124-26-5'를 유사물질 참조 CAS로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[1]",
+        "page": 6,
+        "source_text": "LD50 경구 | 쥐 | >2000 mg/kg RA-S CAS 112-84-5 | -",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "'>2000'을 하한 2000(>)로 분해, 유사물질 CAS 112-84-5"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[2]",
+        "page": 5,
+        "source_text": "먹었을 때 : 심각한 영향이나 위험은 알려진 바 없음.",
+        "rules": [],
+        "note": "먹었을 때 서술과 급성 독성 결론/요약(6쪽)을 경구 결과기술 행 문장으로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[3]",
+        "page": 5,
+        "source_text": "흡입 : 법정 또는 권장 노출 한계 이상의 공기 중 농도에 노출되면 코, 목 및 폐에 자극을 유발할 수 있음.",
+        "rules": [],
+        "note": "흡입 수치 없음, 서술만 결과기술 행으로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[4]",
+        "page": 6,
+        "source_text": "자극성/부식성 자료 없음. 결론/요약 피부 : 피부에 자극이 없음.",
+        "rules": [
+          "R15"
+        ],
+        "note": "자료 없음 → 자료없음, 결론 및 5쪽 피부 접촉 서술을 문장으로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[5]",
+        "page": 6,
+        "source_text": "눈 : 기계적인 자극 이외에 큰 자극은 예상되지 않습니다.",
+        "rules": [
+          "R15"
+        ],
+        "note": "자극성/부식성 '자료 없음' → 자료없음, 눈 서술은 문장"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[6]",
+        "page": 6,
+        "source_text": "시스-9-옥타데센오아마이드 | 피부 | 마우스 | 비 과민성",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[7]",
+        "page": 6,
+        "source_text": "변이원성 자료 없음. 결론/요약 : 이용가능한 자료에 의거 유해성 분류기준에 해당되지 않음.",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[8]",
+        "page": 6,
+        "source_text": "발암성 자료 없음. 결론/요약 : 이용가능한 자료에 의거 유해성 분류기준에 해당되지 않음.",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[9]",
+        "page": 6,
+        "source_text": "생식독성 자료 없음. 결론/요약 : 이용가능한 자료에 의거 유해성 분류기준에 해당되지 않음.",
+        "rules": [
+          "R15"
+        ],
+        "note": "발생독성·수정능력 영향(7쪽) 서술 포함"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[10]",
+        "page": 6,
+        "source_text": "최기형성 자료 없음. 결론/요약 : 이용가능한 자료에 의거 유해성 분류기준에 해당되지 않음.",
+        "rules": [
+          "R15"
+        ],
+        "note": "최기형성을 생식독성 항목 별도 행으로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[11]",
+        "page": 6,
+        "source_text": "특정 표적장기 독성 (1회 노출) 자료 없음.",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[12]",
+        "page": 6,
+        "source_text": "특정 표적장기 독성 (반복 노출) 자료 없음.",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[13]",
+        "page": 6,
+        "source_text": "흡인 유해성 자료 없음.",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[14]",
+        "page": 7,
+        "source_text": "만성 독성 자료 없음. 결론/요약 : 이용가능한 자료에 의거 유해성 분류기준에 해당되지 않음. 일반 : 분진을 반복 또는 장기간 흡입하면 만성 호흡기 자극을 일으킬 수 있음.",
+        "rules": [
+          "R15"
+        ],
+        "note": "맞는 값 없음: 만성 독성에 맞는 endpoint 코드가 없어 null로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[15]",
+        "page": 7,
+        "source_text": "급성 독성 추정치 N/A",
+        "rules": [
+          "R15"
+        ],
+        "note": "문서 16항 약어 해설 'N/A = 자료 없음'에 따라 자료없음; 맞는 값 없음: ATE 대상 경로 미표기로 endpoint null"
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[0]",
+        "page": 6,
+        "source_text": "CMR(발암성, 변이원성, 생식독성) - 고용노동부 고시 화학물질 및 물리적 인자의 노출 기준 자료 없음.",
+        "rules": [
+          "R15"
+        ],
+        "note": "고용노동부 고시 CMR 자료 없음을 세 유해성 각각 KR_OSH 행으로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[1]",
+        "page": 6,
+        "source_text": "CMR(발암성, 변이원성, 생식독성) - 고용노동부 고시 화학물질 및 물리적 인자의 노출 기준 자료 없음.",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[2]",
+        "page": 6,
+        "source_text": "CMR(발암성, 변이원성, 생식독성) - 고용노동부 고시 화학물질 및 물리적 인자의 노출 기준 자료 없음.",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[0]",
+        "page": 7,
+        "source_text": "시스-9-옥타데센오아마이드 | LC50 1000 mg/l | 물고기 - Cyprinodon variegatus | 96 시간",
+        "rules": [
+          "R04",
+          "R08",
+          "R10"
+        ],
+        "note": "mg/l → mg/L, 96 시간 → 96 hr"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[1]",
+        "page": 7,
+        "source_text": "결론/요약 : 쉽게 생물 분해됨 | 시스-9-옥타데센오아마이드 | - | - | 쉬움",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[2]",
+        "page": 7,
+        "source_text": "수중 반감기 | -",
+        "rules": [
+          "R15"
+        ],
+        "note": "'-' → 미기재"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[3]",
+        "page": 7,
+        "source_text": "광분해 | -",
+        "rules": [
+          "R15"
+        ],
+        "note": "'-' → 미기재"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[4]",
+        "page": 7,
+        "source_text": "시스-9-옥타데센오아마이드 | 5.8 | - | 높음",
+        "rules": [
+          "R04",
+          "R06"
+        ],
+        "note": "LogPow 5.8을 logKow로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[5]",
+        "page": 7,
+        "source_text": "BCF | -",
+        "rules": [
+          "R15"
+        ],
+        "note": "'-' → 미기재"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[6]",
+        "page": 7,
+        "source_text": "잠재적 생물 농축성 | 높음",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[7]",
+        "page": 7,
+        "source_text": "토양/물 분배 계수(KOC) : 자료 없음.",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[8]",
+        "page": 7,
+        "source_text": "마. 기타 유해 영향 : 오존 파괴 물질 - 해당 없음.",
+        "rules": [
+          "R15"
+        ],
+        "note": "기타 유해 영향을 ECO_OTHER 행으로 둠"
+      }
+    ]
+  },
+  "raw_text": "{\"msds\": [{\"toxicity\": [{\"comp_ref\": \"1\", \"endpoint\": \"TX_ORAL\", \"descriptor\": \"LD50\", \"q\": {\"raw\": \">5000 mg/kg\", \"status\": \"값있음\", \"lower_op\": \">\", \"lower\": 5000, \"unit\": \"mg/kg\"}, \"species\": \"쥐\", \"sex\": \"미표기\", \"read_across_cas\": \"124-26-5\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_ORAL\", \"descriptor\": \"LD50\", \"q\": {\"raw\": \">2000 mg/kg\", \"status\": \"값있음\", \"lower_op\": \">\", \"lower\": 2000, \"unit\": \"mg/kg\"}, \"species\": \"쥐\", \"sex\": \"미표기\", \"read_across_cas\": \"112-84-5\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_ORAL\", \"descriptor\": \"결과기술\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"key\": \"먹었을 때\", \"value\": \"심각한 영향이나 위험은 알려진 바 없음.\", \"text\": \"먹었을 때 : 심각한 영향이나 위험은 알려진 바 없음.\"}, {\"seq\": 2, \"key\": \"먹었을 때\", \"value\": \"명확한 데이터는 없음.\", \"text\": \"먹었을 때 : 명확한 데이터는 없음.\"}, {\"seq\": 3, \"key\": \"결론/요약\", \"value\": \"이용가능한 자료에 의거 유해성 분류기준에 해당되지 않음.\", \"text\": \"결론/요약 : 이용가능한 자료에 의거 유해성 분류기준에 해당되지 않음.\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_INHAL\", \"descriptor\": \"결과기술\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"key\": \"흡입\", \"value\": \"법정 또는 권장 노출 한계 이상의 공기 중 농도에 노출되면 코, 목 및 폐에 자극을 유발할 수 있음. 증기는 눈과 호흡기에 자극을 줄 수 있음.\", \"text\": \"흡입 : 법정 또는 권장 노출 한계 이상의 공기 중 농도에 노출되면 코, 목 및 폐에 자극을 유발할 수 있음. 증기는 눈과 호흡기에 자극을 줄 수 있음.\"}, {\"seq\": 2, \"key\": \"흡입\", \"value\": \"이상 증상은 다음과 같은 것을 포함할 수도 있음: 호흡기 자극 기침\", \"text\": \"흡입 : 이상 증상은 다음과 같은 것을 포함할 수도 있음: 호흡기 자극 기침\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_SKIN\", \"descriptor\": \"결과기술\", \"status\": \"자료없음\", \"statements\": [{\"seq\": 1, \"key\": \"피부에 접촉했을 때\", \"value\": \"고온 물질을 접촉하면 화상을 일으킴.\", \"text\": \"피부에 접촉했을 때 : 고온 물질을 접촉하면 화상을 일으킴.\"}, {\"seq\": 2, \"key\": \"피부에 접촉했을 때\", \"value\": \"명확한 데이터는 없음.\", \"text\": \"피부에 접촉했을 때 : 명확한 데이터는 없음.\"}, {\"seq\": 3, \"key\": \"피부\", \"value\": \"피부에 자극이 없음.\", \"text\": \"피부 : 피부에 자극이 없음.\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_EYE\", \"descriptor\": \"결과기술\", \"status\": \"자료없음\", \"statements\": [{\"seq\": 1, \"key\": \"눈에 들어갔을 때\", \"value\": \"법정 또는 권장 노출 한계 이상의 공기 중 농도에 노출되면 눈에 자극을 유발할 수 있음.\", \"text\": \"눈에 들어갔을 때 : 법정 또는 권장 노출 한계 이상의 공기 중 농도에 노출되면 눈에 자극을 유발할 수 있음.\"}, {\"seq\": 2, \"key\": \"눈에 들어갔을 때\", \"value\": \"이상 증상은 다음과 같은 것을 포함할 수도 있음: 자극 홍조\", \"text\": \"눈에 들어갔을 때 : 이상 증상은 다음과 같은 것을 포함할 수도 있음: 자극 홍조\"}, {\"seq\": 3, \"key\": \"눈\", \"value\": \"기계적인 자극 이외에 큰 자극은 예상되지 않습니다.\", \"text\": \"눈 : 기계적인 자극 이외에 큰 자극은 예상되지 않습니다.\"}]}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_SKIN_SENS\", \"descriptor\": \"결과기술\", \"species\": \"마우스\", \"exposure_type\": \"피부\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"비 과민성\", \"text\": \"시스-9-옥타데센오아마이드 | 피부 | 마우스 | 비 과민성\"}, {\"seq\": 2, \"key\": \"피부\", \"value\": \"이용가능한 자료에 의거 유해성 분류기준에 해당되지 않음.\", \"text\": \"피부 : 이용가능한 자료에 의거 유해성 분류기준에 해당되지 않음.\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_MUTA\", \"descriptor\": \"결과기술\", \"status\": \"자료없음\", \"statements\": [{\"seq\": 1, \"key\": \"결론/요약\", \"value\": \"이용가능한 자료에 의거 유해성 분류기준에 해당되지 않음.\", \"text\": \"결론/요약 : 이용가능한 자료에 의거 유해성 분류기준에 해당되지 않음.\"}, {\"seq\": 2, \"key\": \"변이원성\", \"value\": \"심각한 영향이나 위험은 알려진 바 없음.\", \"text\": \"변이원성 : 심각한 영향이나 위험은 알려진 바 없음.\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_CARC\", \"descriptor\": \"결과기술\", \"status\": \"자료없음\", \"statements\": [{\"seq\": 1, \"key\": \"결론/요약\", \"value\": \"이용가능한 자료에 의거 유해성 분류기준에 해당되지 않음.\", \"text\": \"결론/요약 : 이용가능한 자료에 의거 유해성 분류기준에 해당되지 않음.\"}, {\"seq\": 2, \"key\": \"발암성\", \"value\": \"심각한 영향이나 위험은 알려진 바 없음.\", \"text\": \"발암성 : 심각한 영향이나 위험은 알려진 바 없음.\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_REPRO\", \"descriptor\": \"결과기술\", \"exposure_type\": \"생식독성\", \"status\": \"자료없음\", \"statements\": [{\"seq\": 1, \"key\": \"결론/요약\", \"value\": \"이용가능한 자료에 의거 유해성 분류기준에 해당되지 않음.\", \"text\": \"결론/요약 : 이용가능한 자료에 의거 유해성 분류기준에 해당되지 않음.\"}, {\"seq\": 2, \"key\": \"발생독성\", \"value\": \"심각한 영향이나 위험은 알려진 바 없음.\", \"text\": \"발생독성 : 심각한 영향이나 위험은 알려진 바 없음.\"}, {\"seq\": 3, \"key\": \"수정능력 영향\", \"value\": \"심각한 영향이나 위험은 알려진 바 없음.\", \"text\": \"수정능력 영향 : 심각한 영향이나 위험은 알려진 바 없음.\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_REPRO\", \"descriptor\": \"결과기술\", \"exposure_type\": \"최기형성\", \"status\": \"자료없음\", \"statements\": [{\"seq\": 1, \"key\": \"결론/요약\", \"value\": \"이용가능한 자료에 의거 유해성 분류기준에 해당되지 않음.\", \"text\": \"결론/요약 : 이용가능한 자료에 의거 유해성 분류기준에 해당되지 않음.\"}, {\"seq\": 2, \"key\": \"최기형성\", \"value\": \"심각한 영향이나 위험은 알려진 바 없음.\", \"text\": \"최기형성 : 심각한 영향이나 위험은 알려진 바 없음.\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_STOT_SE\", \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_STOT_RE\", \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_ASP\", \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": null, \"descriptor\": \"결과기술\", \"exposure_type\": \"만성 독성\", \"status\": \"자료없음\", \"statements\": [{\"seq\": 1, \"key\": \"결론/요약\", \"value\": \"이용가능한 자료에 의거 유해성 분류기준에 해당되지 않음.\", \"text\": \"결론/요약 : 이용가능한 자료에 의거 유해성 분류기준에 해당되지 않음.\"}, {\"seq\": 2, \"key\": \"일반\", \"value\": \"분진을 반복 또는 장기간 흡입하면 만성 호흡기 자극을 일으킬 수 있음.\", \"text\": \"일반 : 분진을 반복 또는 장기간 흡입하면 만성 호흡기 자극을 일으킬 수 있음.\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": null, \"descriptor\": \"ATE\", \"q\": {\"raw\": \"N/A\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}], \"cmr\": [{\"comp_ref\": \"MIX\", \"hazard\": \"발암성\", \"agency\": \"KR_OSH\", \"class\": null, \"status\": \"자료없음\"}, {\"comp_ref\": \"MIX\", \"hazard\": \"생식세포변이원성\", \"agency\": \"KR_OSH\", \"class\": null, \"status\": \"자료없음\"}, {\"comp_ref\": \"MIX\", \"hazard\": \"생식독성\", \"agency\": \"KR_OSH\", \"class\": null, \"status\": \"자료없음\"}], \"ecotox\": [{\"comp_ref\": \"1\", \"endpoint\": \"ECO_FISH\", \"descriptor\": \"LC50\", \"q\": {\"raw\": \"1000 mg/l\", \"status\": \"값있음\", \"value\": 1000, \"unit\": \"mg/L\"}, \"species\": \"물고기 - Cyprinodon variegatus\", \"duration_value\": 96, \"duration_unit\": \"hr\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"key\": \"결론/요약\", \"value\": \"심각한 영향이나 위험은 알려진 바 없음.\", \"text\": \"결론/요약 : 심각한 영향이나 위험은 알려진 바 없음.\"}, {\"seq\": 2, \"key\": \"결론/요약\", \"value\": \"오존 파괴 물질 - 해당 없음.\", \"text\": \"오존 파괴 물질 - 해당 없음.\"}]}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_PERSIST\", \"descriptor\": \"결과기술\", \"q\": {\"raw\": \"쉬움\", \"status\": \"값있음\"}, \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"key\": \"결론/요약\", \"value\": \"쉽게 생물 분해됨\", \"text\": \"결론/요약 : 쉽게 생물 분해됨\"}, {\"seq\": 2, \"key\": \"생물 분해성\", \"value\": \"쉬움\", \"text\": \"시스-9-옥타데센오아마이드 | - | - | 쉬움\"}]}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_PERSIST\", \"descriptor\": \"기타\", \"q\": {\"raw\": \"-\", \"status\": \"미기재\", \"note\": \"수중 반감기\"}, \"status\": \"미기재\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_PERSIST\", \"descriptor\": \"기타\", \"q\": {\"raw\": \"-\", \"status\": \"미기재\", \"note\": \"광분해\"}, \"status\": \"미기재\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_BIOACC\", \"descriptor\": \"logKow\", \"q\": {\"raw\": \"5.8\", \"status\": \"값있음\", \"value\": 5.8, \"dp\": 1}, \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_BIOACC\", \"descriptor\": \"BCF\", \"q\": {\"raw\": \"-\", \"status\": \"미기재\"}, \"status\": \"미기재\", \"statements\": []}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_BIOACC\", \"descriptor\": \"결과기술\", \"q\": {\"raw\": \"높음\", \"status\": \"값있음\"}, \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"key\": \"잠재적 생물 농축성\", \"value\": \"높음\", \"text\": \"시스-9-옥타데센오아마이드 | 5.8 | - | 높음\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_SOIL\", \"descriptor\": \"Koc\", \"q\": {\"raw\": \"자료 없음.\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_OTHER\", \"descriptor\": \"결과기술\", \"q\": {\"raw\": \"오존 파괴 물질 - 해당 없음.\", \"status\": \"해당없음\", \"note\": \"오존 파괴 물질\"}, \"status\": \"해당없음\", \"statements\": [{\"seq\": 1, \"key\": \"기타 유해 영향\", \"value\": \"오존 파괴 물질 - 해당 없음.\", \"text\": \"마. 기타 유해 영향 : 오존 파괴 물질 - 해당 없음.\"}]}]}], \"evidence\": [{\"msds_index\": 0, \"field\": \"toxicity[0]\", \"page\": 6, \"source_text\": \"시스-9-옥타데센오아마이드 | LD50 경구 | 쥐 | >5000 mg/kg RA-S CAS 124-26-5 | -\", \"rules\": [\"R04\", \"R10\"], \"note\": \"'>5000'을 하한 5000(>)로 분해, 'RA-S CAS 124-26-5'를 유사물질 참조 CAS로 둠\"}, {\"msds_index\": 0, \"field\": \"toxicity[1]\", \"page\": 6, \"source_text\": \"LD50 경구 | 쥐 | >2000 mg/kg RA-S CAS 112-84-5 | -\", \"rules\": [\"R04\", \"R10\"], \"note\": \"'>2000'을 하한 2000(>)로 분해, 유사물질 CAS 112-84-5\"}, {\"msds_index\": 0, \"field\": \"toxicity[2]\", \"page\": 5, \"source_text\": \"먹었을 때 : 심각한 영향이나 위험은 알려진 바 없음.\", \"rules\": [], \"note\": \"먹었을 때 서술과 급성 독성 결론/요약(6쪽)을 경구 결과기술 행 문장으로 둠\"}, {\"msds_index\": 0, \"field\": \"toxicity[3]\", \"page\": 5, \"source_text\": \"흡입 : 법정 또는 권장 노출 한계 이상의 공기 중 농도에 노출되면 코, 목 및 폐에 자극을 유발할 수 있음.\", \"rules\": [], \"note\": \"흡입 수치 없음, 서술만 결과기술 행으로 둠\"}, {\"msds_index\": 0, \"field\": \"toxicity[4]\", \"page\": 6, \"source_text\": \"자극성/부식성 자료 없음. 결론/요약 피부 : 피부에 자극이 없음.\", \"rules\": [\"R15\"], \"note\": \"자료 없음 → 자료없음, 결론 및 5쪽 피부 접촉 서술을 문장으로 둠\"}, {\"msds_index\": 0, \"field\": \"toxicity[5]\", \"page\": 6, \"source_text\": \"눈 : 기계적인 자극 이외에 큰 자극은 예상되지 않습니다.\", \"rules\": [\"R15\"], \"note\": \"자극성/부식성 '자료 없음' → 자료없음, 눈 서술은 문장\"}, {\"msds_index\": 0, \"field\": \"toxicity[6]\", \"page\": 6, \"source_text\": \"시스-9-옥타데센오아마이드 | 피부 | 마우스 | 비 과민성\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[7]\", \"page\": 6, \"source_text\": \"변이원성 자료 없음. 결론/요약 : 이용가능한 자료에 의거 유해성 분류기준에 해당되지 않음.\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[8]\", \"page\": 6, \"source_text\": \"발암성 자료 없음. 결론/요약 : 이용가능한 자료에 의거 유해성 분류기준에 해당되지 않음.\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[9]\", \"page\": 6, \"source_text\": \"생식독성 자료 없음. 결론/요약 : 이용가능한 자료에 의거 유해성 분류기준에 해당되지 않음.\", \"rules\": [\"R15\"], \"note\": \"발생독성·수정능력 영향(7쪽) 서술 포함\"}, {\"msds_index\": 0, \"field\": \"toxicity[10]\", \"page\": 6, \"source_text\": \"최기형성 자료 없음. 결론/요약 : 이용가능한 자료에 의거 유해성 분류기준에 해당되지 않음.\", \"rules\": [\"R15\"], \"note\": \"최기형성을 생식독성 항목 별도 행으로 둠\"}, {\"msds_index\": 0, \"field\": \"toxicity[11]\", \"page\": 6, \"source_text\": \"특정 표적장기 독성 (1회 노출) 자료 없음.\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[12]\", \"page\": 6, \"source_text\": \"특정 표적장기 독성 (반복 노출) 자료 없음.\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[13]\", \"page\": 6, \"source_text\": \"흡인 유해성 자료 없음.\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[14]\", \"page\": 7, \"source_text\": \"만성 독성 자료 없음. 결론/요약 : 이용가능한 자료에 의거 유해성 분류기준에 해당되지 않음. 일반 : 분진을 반복 또는 장기간 흡입하면 만성 호흡기 자극을 일으킬 수 있음.\", \"rules\": [\"R15\"], \"note\": \"맞는 값 없음: 만성 독성에 맞는 endpoint 코드가 없어 null로 둠\"}, {\"msds_index\": 0, \"field\": \"toxicity[15]\", \"page\": 7, \"source_text\": \"급성 독성 추정치 N/A\", \"rules\": [\"R15\"], \"note\": \"문서 16항 약어 해설 'N/A = 자료 없음'에 따라 자료없음; 맞는 값 없음: ATE 대상 경로 미표기로 endpoint null\"}, {\"msds_index\": 0, \"field\": \"cmr[0]\", \"page\": 6, \"source_text\": \"CMR(발암성, 변이원성, 생식독성) - 고용노동부 고시 화학물질 및 물리적 인자의 노출 기준 자료 없음.\", \"rules\": [\"R15\"], \"note\": \"고용노동부 고시 CMR 자료 없음을 세 유해성 각각 KR_OSH 행으로 둠\"}, {\"msds_index\": 0, \"field\": \"cmr[1]\", \"page\": 6, \"source_text\": \"CMR(발암성, 변이원성, 생식독성) - 고용노동부 고시 화학물질 및 물리적 인자의 노출 기준 자료 없음.\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"cmr[2]\", \"page\": 6, \"source_text\": \"CMR(발암성, 변이원성, 생식독성) - 고용노동부 고시 화학물질 및 물리적 인자의 노출 기준 자료 없음.\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[0]\", \"page\": 7, \"source_text\": \"시스-9-옥타데센오아마이드 | LC50 1000 mg/l | 물고기 - Cyprinodon variegatus | 96 시간\", \"rules\": [\"R04\", \"R08\", \"R10\"], \"note\": \"mg/l → mg/L, 96 시간 → 96 hr\"}, {\"msds_index\": 0, \"field\": \"ecotox[1]\", \"page\": 7, \"source_text\": \"결론/요약 : 쉽게 생물 분해됨 | 시스-9-옥타데센오아마이드 | - | - | 쉬움\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[2]\", \"page\": 7, \"source_text\": \"수중 반감기 | -\", \"rules\": [\"R15\"], \"note\": \"'-' → 미기재\"}, {\"msds_index\": 0, \"field\": \"ecotox[3]\", \"page\": 7, \"source_text\": \"광분해 | -\", \"rules\": [\"R15\"], \"note\": \"'-' → 미기재\"}, {\"msds_index\": 0, \"field\": \"ecotox[4]\", \"page\": 7, \"source_text\": \"시스-9-옥타데센오아마이드 | 5.8 | - | 높음\", \"rules\": [\"R04\", \"R06\"], \"note\": \"LogPow 5.8을 logKow로 둠\"}, {\"msds_index\": 0, \"field\": \"ecotox[5]\", \"page\": 7, \"source_text\": \"BCF | -\", \"rules\": [\"R15\"], \"note\": \"'-' → 미기재\"}, {\"msds_index\": 0, \"field\": \"ecotox[6]\", \"page\": 7, \"source_text\": \"잠재적 생물 농축성 | 높음\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[7]\", \"page\": 7, \"source_text\": \"토양/물 분배 계수(KOC) : 자료 없음.\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[8]\", \"page\": 7, \"source_text\": \"마. 기타 유해 영향 : 오존 파괴 물질 - 해당 없음.\", \"rules\": [\"R15\"], \"note\": \"기타 유해 영향을 ECO_OTHER 행으로 둠\"}]}"
+}
