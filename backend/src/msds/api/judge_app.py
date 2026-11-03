@@ -12,6 +12,7 @@ from typing import Annotated, Literal
 
 import psycopg
 from fastapi import APIRouter, FastAPI, HTTPException, Path, Query, Request, Response
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import AfterValidator, BaseModel, ConfigDict, Field, model_validator
 
 from msds.judge import explain as ex
@@ -186,4 +187,8 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(title="MSDS 판정·저장 API", lifespan=lifespan)
+# 단독으로 띄울 때 화면 개발 서버(next dev)가 다른 포트에서 부른다. 값은 extract_app과 같다
+app.add_middleware(CORSMiddleware, allow_methods=["*"], allow_headers=["*"],
+                   allow_origins=[o.strip() for o in os.environ.get("MSDS_CORS_ORIGINS", "http://localhost:3000,http://127.0.0.1:3000,"
+                                                                     "http://localhost:3101,http://127.0.0.1:3101").split(",") if o.strip()])
 app.include_router(router)
