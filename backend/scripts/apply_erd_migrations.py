@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
-"""Apply the extract/judge ERD migrations to one explicitly selected database.
+"""Apply the extract ERD migrations to one explicitly selected database.
 
 Set TO21_ERD_DATABASE_URL and provide --extract-role and --judge-role (or
 TO21_ERD_EXTRACT_ROLE and TO21_ERD_JUDGE_ROLE). Roles must already exist.
-Only schemas owned by this migration set are managed; knowledge DB is untouched.
+The judge role receives read access to extract.handoff. B owns its judge schema
+and migrations independently; neither judge nor the knowledge DB is managed here.
 """
 from __future__ import annotations
 
@@ -24,9 +25,6 @@ MIGRATION_FILES = (
     "a1_0001_extract_jobs.sql",
     "a2_0002_extract_results_reviews_artifacts.sql",
     "a2_0003_extract_handoff.sql",
-    "b2_0004_judge_runs_versions.sql",
-    "b2_0005_judge_explanations_reviews.sql",
-    "b2_0006_judge_snapshots_artifacts.sql",
     "0007_service_grants.sql",
 )
 GRANTS_FILE = MIGRATION_FILES[-1]
@@ -131,7 +129,11 @@ def _require_roles(conn: psycopg.Connection, extract_role: str, judge_role: str)
 def _verify_service_permissions(conn: psycopg.Connection, extract_role: str, judge_role: str) -> None:
     """Fail atomically if inherited or PUBLIC grants break the A/B boundary."""
     a_judge, b_extract_create, b_handoff_read, b_handoff_insert, b_handoff_update, b_handoff_delete = conn.execute("""
-        SELECT pg_catalog.has_schema_privilege(%s, 'judge', 'USAGE'),
+        SELECT EXISTS (
+                   SELECT 1 FROM pg_catalog.pg_namespace n
+                   WHERE n.nspname = 'judge'
+                     AND pg_catalog.has_schema_privilege(%s, n.oid, 'USAGE')
+               ),
                pg_catalog.has_schema_privilege(%s, 'extract', 'CREATE'),
                pg_catalog.has_table_privilege(%s, 'extract.handoff', 'SELECT'),
                pg_catalog.has_table_privilege(%s, 'extract.handoff', 'INSERT'),
@@ -159,26 +161,26 @@ def _has_service_objects(conn: psycopg.Connection) -> bool:
         SELECT EXISTS (
             SELECT 1 FROM pg_catalog.pg_class c
             JOIN pg_catalog.pg_namespace n ON n.oid = c.relnamespace
-            WHERE n.nspname IN ('extract', 'judge')
+            WHERE n.nspname = 'extract'
               AND c.relkind IN ('r','p','v','m','f','S')
         ) OR EXISTS (
             SELECT 1 FROM pg_catalog.pg_proc p
             JOIN pg_catalog.pg_namespace n ON n.oid = p.pronamespace
-            WHERE n.nspname IN ('extract', 'judge')
+            WHERE n.nspname = 'extract'
         )
     """).fetchone()
     return bool(row[0])
 
 
 def schema_fingerprint(conn: psycopg.Connection) -> str:
-    """Fingerprint definitions and ACLs, not rows or sequence counter values."""
+    """Fingerprint A's definitions and ACLs, excluding independently managed B."""
     queries = (
         """SELECT n.nspname, n.nspowner::text, n.nspacl::text
-           FROM pg_catalog.pg_namespace n WHERE n.nspname IN ('extract','judge')
+           FROM pg_catalog.pg_namespace n WHERE n.nspname = 'extract'
            ORDER BY n.nspname""",
         """SELECT n.nspname, c.relname, c.relkind::text, c.relowner::text, c.relacl::text
            FROM pg_catalog.pg_class c JOIN pg_catalog.pg_namespace n ON n.oid=c.relnamespace
-           WHERE n.nspname IN ('extract','judge') AND c.relkind IN ('r','p','v','m','f','S')
+           WHERE n.nspname = 'extract' AND c.relkind IN ('r','p','v','m','f','S')
            ORDER BY n.nspname, c.relname""",
         """SELECT n.nspname, c.relname, a.attnum, a.attname,
                   pg_catalog.format_type(a.atttypid,a.atttypmod), a.attnotnull,
@@ -187,27 +189,27 @@ def schema_fingerprint(conn: psycopg.Connection) -> str:
            JOIN pg_catalog.pg_class c ON c.oid=a.attrelid
            JOIN pg_catalog.pg_namespace n ON n.oid=c.relnamespace
            LEFT JOIN pg_catalog.pg_attrdef d ON d.adrelid=a.attrelid AND d.adnum=a.attnum
-           WHERE n.nspname IN ('extract','judge') AND c.relkind IN ('r','p','v','m','f')
+           WHERE n.nspname = 'extract' AND c.relkind IN ('r','p','v','m','f')
              AND a.attnum>0 AND NOT a.attisdropped
            ORDER BY n.nspname,c.relname,a.attnum""",
         """SELECT n.nspname,c.relname,k.conname,pg_catalog.pg_get_constraintdef(k.oid,true)
            FROM pg_catalog.pg_constraint k JOIN pg_catalog.pg_class c ON c.oid=k.conrelid
            JOIN pg_catalog.pg_namespace n ON n.oid=c.relnamespace
-           WHERE n.nspname IN ('extract','judge') ORDER BY n.nspname,c.relname,k.conname""",
+           WHERE n.nspname = 'extract' ORDER BY n.nspname,c.relname,k.conname""",
         """SELECT n.nspname,t.relname,i.relname,pg_catalog.pg_get_indexdef(i.oid)
            FROM pg_catalog.pg_index x JOIN pg_catalog.pg_class i ON i.oid=x.indexrelid
            JOIN pg_catalog.pg_class t ON t.oid=x.indrelid
            JOIN pg_catalog.pg_namespace n ON n.oid=t.relnamespace
-           WHERE n.nspname IN ('extract','judge') ORDER BY n.nspname,t.relname,i.relname""",
+           WHERE n.nspname = 'extract' ORDER BY n.nspname,t.relname,i.relname""",
         """SELECT n.nspname,c.relname,t.tgname,pg_catalog.pg_get_triggerdef(t.oid,true),t.tgenabled::text
            FROM pg_catalog.pg_trigger t JOIN pg_catalog.pg_class c ON c.oid=t.tgrelid
            JOIN pg_catalog.pg_namespace n ON n.oid=c.relnamespace
-           WHERE n.nspname IN ('extract','judge') AND NOT t.tgisinternal
+           WHERE n.nspname = 'extract' AND NOT t.tgisinternal
            ORDER BY n.nspname,c.relname,t.tgname""",
         """SELECT n.nspname,p.proname,pg_catalog.pg_get_function_identity_arguments(p.oid),
                   pg_catalog.pg_get_functiondef(p.oid),p.proowner::text,p.proacl::text
            FROM pg_catalog.pg_proc p JOIN pg_catalog.pg_namespace n ON n.oid=p.pronamespace
-           WHERE n.nspname IN ('extract','judge') AND p.prokind='f'
+           WHERE n.nspname = 'extract' AND p.prokind='f'
            ORDER BY n.nspname,p.proname,pg_catalog.pg_get_function_identity_arguments(p.oid)""",
     )
     snapshot = [conn.execute(query).fetchall() for query in queries]
@@ -242,9 +244,8 @@ def _bootstrap(conn: psycopg.Connection) -> None:
     with conn.transaction():
         existing = conn.execute("SELECT pg_catalog.to_regclass('to21_erd_control.migration_history')").fetchone()[0]
         if existing is None and _has_service_objects(conn):
-            raise MigrationError("기존 extract/judge 객체에 관리 이력이 없습니다. 기존 DB 정의를 먼저 확인하세요")
+            raise MigrationError("기존 extract 객체에 관리 이력이 없습니다. 기존 DB 정의를 먼저 확인하세요")
         conn.execute("CREATE SCHEMA IF NOT EXISTS extract")
-        conn.execute("CREATE SCHEMA IF NOT EXISTS judge")
         conn.execute("CREATE SCHEMA IF NOT EXISTS to21_erd_control")
         if existing is None:
             conn.execute("""
@@ -260,7 +261,7 @@ def _bootstrap(conn: psycopg.Connection) -> None:
         _verify_control_table(conn)
         count = conn.execute("SELECT count(*) FROM to21_erd_control.migration_history").fetchone()[0]
         if count == 0 and _has_service_objects(conn):
-            raise MigrationError("적용 이력은 비어 있지만 기존 extract/judge 객체가 있습니다")
+            raise MigrationError("적용 이력은 비어 있지만 기존 extract 객체가 있습니다")
 
 
 def _verify_history(conn: psycopg.Connection, migrations: list[Migration], extract_role: str, judge_role: str) -> int:
@@ -284,7 +285,7 @@ def _verify_history(conn: psycopg.Connection, migrations: list[Migration], extra
     if history:
         last = history[names[len(history) - 1]]
         if last[2] != schema_fingerprint(conn):
-            raise MigrationError("현재 extract/judge 스키마가 마지막 적용 이력과 다릅니다")
+            raise MigrationError("현재 extract 스키마가 마지막 적용 이력과 다릅니다")
         if GRANTS_FILE in history:
             _verify_service_permissions(conn, extract_role, judge_role)
     return len(history)
