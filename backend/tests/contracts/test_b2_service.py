@@ -24,7 +24,7 @@ from msds.compliance.htodb.csv_repo import CsvRepo
 from msds.judge import explain as ex
 from msds.judge import reports
 from msds.judge import service as svc_mod
-from msds.judge.service import Conflict, InvalidAction, JudgeService, NotFound, writer_kwargs
+from msds.judge.service import Conflict, InvalidAction, JudgeService, NotFound, insert_handoff, writer_kwargs
 
 from .fakes import make_handoff as handoff
 
@@ -61,8 +61,7 @@ def svc(pool, admin):
 @pytest.fixture
 def put(admin):
     def _put(body):
-        admin.execute("INSERT INTO extract.handoff (job_id, handoff_seq, body) VALUES (%s, %s, %s)",
-                      (body["job_id"], body["handoff_seq"], Jsonb(body)))
+        insert_handoff(admin, body)
     return _put
 
 
@@ -374,8 +373,9 @@ def test_계정_권한이_약속을_지킨다(svc, put, gold25, pool):
     svc.add_review(JOB, FID, "불일치 확정", None, "김검수", 1)
     for sql in ("UPDATE judge.review_event SET reviewer = 'x'", "DELETE FROM judge.review_event",
                 "UPDATE judge.judgment SET judge_key = 'x'", "DELETE FROM judge.snapshot",
-                "INSERT INTO extract.handoff (job_id, handoff_seq, body) VALUES ('x', 1, '{}')",
-                "UPDATE extract.handoff SET body = '{}'"):
+                "INSERT INTO extract.handoff (job_id, handoff_seq, reason, as_of, extraction_sha256, payload_json, created_at)"
+                " VALUES ('x', 1, 'rerun', '2026-11-03', 'x', '{}', now())",
+                "UPDATE extract.handoff SET payload_json = '{}'"):
         with pytest.raises(psycopg.errors.InsufficientPrivilege), pool.connection() as conn:
             conn.execute(sql)
 
@@ -660,7 +660,7 @@ def test_접속_정보는_상태_API로_나가지_않는다(svc, put, gold25, mo
 def test_본문의_작업_번호가_표와_다르면_다른_작업에_저장하지_않는다(svc, put, gold25, admin):
     body = handoff(gold25)
     put(body)
-    admin.execute("UPDATE extract.handoff SET body = jsonb_set(body, '{job_id}', '\"U-다른작업\"') WHERE job_id = %s", (JOB,))
+    admin.execute("UPDATE extract.handoff SET payload_json = jsonb_set(payload_json, '{job_id}', '\"U-다른작업\"') WHERE job_id = %s", (JOB,))
     svc.drain()
     assert svc.status(JOB)["state"] == "판정 실패"
     assert admin.execute("SELECT count(*) FROM judge.judgment").fetchone()[0] == 0
@@ -668,7 +668,8 @@ def test_본문의_작업_번호가_표와_다르면_다른_작업에_저장하�
 
 @pytest.mark.parametrize("bad", [[], "x", [1]])
 def test_본문이_객체가_아닌_넘김도_뒤_작업을_막지_않는다(svc, put, gold25, admin, bad):
-    admin.execute("INSERT INTO extract.handoff (job_id, handoff_seq, body) VALUES ('U-망가짐', 1, %s)", (Jsonb(bad),))
+    admin.execute("INSERT INTO extract.handoff (job_id, handoff_seq, reason, as_of, extraction_sha256, payload_json, created_at)"
+                  " VALUES ('U-망가짐', 1, 'rerun', '2026-11-03', 'x', %s, now())", (Jsonb(bad),))
     put(handoff(gold25))
     svc.drain()  # 망가진 줄을 멈추면 그 차례는 빈손으로 끝난다. 작업자는 다음 차례에 뒤 작업을 잡는다
     svc.drain()
