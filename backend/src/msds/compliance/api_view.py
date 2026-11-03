@@ -90,6 +90,9 @@ def _values_2(f) -> tuple[str, str]:
     if f.get("msds_form"):
         msds += f" ({f['msds_form']})"
     ov = f.get("our_value") or {}
+    if isinstance(ov, list):  # 판정하지 않는 '대조' 항목은 성분별 분류 목록을 담는다(11/03: 실제 HTODB T21-023 고압가스)
+        names = [f"{x.get('name') or x.get('cas')} {cat_text(x.get('category'))}" for x in ov if isinstance(x, dict)]
+        return msds, "성분 분류: " + ", ".join(names) if names else "—"
     lo, hi = ov.get("low"), ov.get("high")
     if f.get("verdict") == "근거부족":
         head = next((c["text"].split(" — ")[0] for c in f.get("causes") or [] if c["code"] == "NO_BASIS"), None)
