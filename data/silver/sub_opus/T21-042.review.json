@@ -1,0 +1,4371 @@
+[
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "meta.msds_no",
+    "page": 1,
+    "source_text": "MSDS번호 : AA00930-0000000003",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "meta.revision_no",
+    "page": 1,
+    "source_text": "Version: R0009",
+    "rules": [],
+    "note": "'R0009'를 개정 횟수 9로 읽음(16항 '9회'와 일치)"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "meta.revision_label",
+    "page": 1,
+    "source_text": "Version: R0009",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "meta.header_product_name",
+    "page": 1,
+    "source_text": "요소",
+    "rules": [],
+    "note": "표지 제목 아래 제품명"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "meta.first_issue_date",
+    "page": 1,
+    "source_text": "Date of issue: 2013-05-18",
+    "rules": [
+      "R01"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "meta.last_revision_date",
+    "page": 1,
+    "source_text": "Revision date: 2026-02-09",
+    "rules": [
+      "R01"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "meta.page_start",
+    "page": 1,
+    "source_text": "1/12",
+    "rules": [
+      "R16"
+    ],
+    "note": "문서 전체 1~12쪽이 MSDS 1건"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "meta.page_end",
+    "page": 12,
+    "source_text": "12/12",
+    "rules": [
+      "R16"
+    ],
+    "note": "문서 전체 1~12쪽이 MSDS 1건"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "product.name",
+    "page": 1,
+    "source_text": "- 요소",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "product.uses",
+    "page": 1,
+    "source_text": "- 용도 : 공업용,접착제, 착색제, 비료, 계면활성제 등",
+    "rules": [
+      "R11"
+    ],
+    "note": "쉼표 기준으로 5개로 나눔"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "product.restrictions",
+    "page": 1,
+    "source_text": "- 사용상의 제한 : 정해진 용도 이외에는 사용하지 말것.",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "companies[0]",
+    "page": 1,
+    "source_text": "- 회사명 : 남해화학",
+    "rules": [],
+    "note": "소제목 '제조자/공급자/유통업자 정보'의 단일 회사를 제조자로 둠"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "companies[0].address",
+    "page": 1,
+    "source_text": "- 주소 : 전남 여수시 여수산단로 1384번지",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "companies[0].contacts",
+    "page": 1,
+    "source_text": "- 긴급 전화번호 : 061)688-5772~5",
+    "rules": [
+      "R12"
+    ],
+    "note": "번호 범위 5772~5를 5772·5773·5774·5775 네 번호로 나누고 '061)'을 '061-'로 정규화"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.classified",
+    "page": 1,
+    "source_text": "가. 유해성·위험성 분류",
+    "rules": [],
+    "note": "분류 3건이 기재되어 true"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.classes[0]",
+    "page": 1,
+    "source_text": "- 피부 부식성/피부 자극성 : 구분2",
+    "rules": [
+      "R07"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.classes[1]",
+    "page": 1,
+    "source_text": "- 심한 눈 손상성/눈 자극성 : 구분2",
+    "rules": [
+      "R07"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.classes[2]",
+    "page": 1,
+    "source_text": "- 특정표적장기 독성(1회 노출) : 구분3(호흡기 자극)",
+    "rules": [
+      "R07"
+    ],
+    "note": "괄호 속 '호흡기 자극'을 effect로 분리"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.signal_word",
+    "page": 1,
+    "source_text": "- 경고",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.pictograms[0]",
+    "page": 1,
+    "source_text": "○ 그림문자",
+    "rules": [],
+    "note": "쪽 이미지에 감탄부호 그림(GHS07) 1개가 보임"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.h_statements[0]",
+    "page": 1,
+    "source_text": "- H315 피부에 자극을 일으킴",
+    "rules": [
+      "R05"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.h_statements[1]",
+    "page": 1,
+    "source_text": "- H319 눈에 심한 자극을 일으킴",
+    "rules": [
+      "R05"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.h_statements[2]",
+    "page": 1,
+    "source_text": "- H335 호흡기 자극을 일으킬 수 있음",
+    "rules": [
+      "R05"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.p_statements[0]",
+    "page": 1,
+    "source_text": "- P261 분진/흄의 흡입을 피하시오.",
+    "rules": [
+      "R05"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.p_statements[1]",
+    "page": 1,
+    "source_text": "- P264 취급 후에는 취급 부위를 철저히 씻으시오.",
+    "rules": [
+      "R05"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.p_statements[2]",
+    "page": 1,
+    "source_text": "- P271 옥외 또는 환기가 잘 되는 곳에서만 취급하시오.",
+    "rules": [
+      "R05"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.p_statements[3]",
+    "page": 1,
+    "source_text": "- P280 보호장갑·보호의·보안경·안면보호구를(을) 착용하시오.",
+    "rules": [
+      "R05"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.p_statements[4]",
+    "page": 1,
+    "source_text": "- P302+P352 피부에 묻으면 다량의 물로 씻으시오.",
+    "rules": [
+      "R05"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.p_statements[5]",
+    "page": 1,
+    "source_text": "- P304+P340 흡입하면 신선한 공기가 있는 곳으로 옮기고 호흡하기 쉬운 자세로 안정을 취하시오.",
+    "rules": [
+      "R05"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.p_statements[6]",
+    "page": 1,
+    "source_text": "- P305+P351+P338 눈에 묻으면 몇 분간 물로 조심해서 씻으시오. 가능하면 콘택트렌즈를 제거하시오. 계속 씻으시오.",
+    "rules": [
+      "R05"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.p_statements[7]",
+    "page": 1,
+    "source_text": "- P312 불편함을 느끼면 의료기관(의사)의 진찰을 받으시오.",
+    "rules": [
+      "R05"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.p_statements[8]",
+    "page": 1,
+    "source_text": "- P321 응급처치(눈에 들어갔을 때는 다량의 흐르는 물로 세척, 피부에 접촉했을 때는 다량의 흐르는 물로 세척, 흡입했을 때 신선",
+    "rules": [
+      "R05"
+    ],
+    "note": "두 줄에 걸친 문구를 이어 붙임"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.p_statements[9]",
+    "page": 1,
+    "source_text": "- P332+P313 피부 자극이 나타나면 의학적인 조치·조언을 받으시오.",
+    "rules": [
+      "R05"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.p_statements[10]",
+    "page": 1,
+    "source_text": "- P337+P313 눈에 자극이 지속되면 의학적인 조치·조언을 받으시오.",
+    "rules": [
+      "R05"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.p_statements[11]",
+    "page": 1,
+    "source_text": "- P362+P364 오염된 의류를 벗고 다시 사용 전 세척하시오.",
+    "rules": [
+      "R05"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.p_statements[12]",
+    "page": 2,
+    "source_text": "- P403+P233 환기가 잘 되는 곳에 보관하시오. 용기를 단단히 밀폐하시오.",
+    "rules": [
+      "R05"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.p_statements[13]",
+    "page": 2,
+    "source_text": "- P405 잠금장치를 하여 저장하시오.",
+    "rules": [
+      "R05"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.p_statements[14]",
+    "page": 2,
+    "source_text": "- P501 폐기물 관련 법령에 따라 내용물/용기를 폐기하시오.",
+    "rules": [
+      "R05"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "hazard.other_hazards[0]",
+    "page": 2,
+    "source_text": "- 자료없음",
+    "rules": [
+      "R14",
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "composition.type",
+    "page": 2,
+    "source_text": "3. 구성성분의 명칭 및 함유량",
+    "rules": [],
+    "note": "성분표에 성분 4종이 있어 혼합물"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "composition.no_hazardous_component",
+    "page": 2,
+    "source_text": "화학물질명  관용명 및 이명(異名)  CAS 번호 또는 식별번호  함유량(%)",
+    "rules": [],
+    "note": "성분표가 있어 false"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "components[0]",
+    "page": 2,
+    "source_text": "요소 | 카바마이드 | 57-13-6 / KE-35144 | 96.6-97.6",
+    "rules": [
+      "R02",
+      "R03",
+      "R04",
+      "R06"
+    ],
+    "note": "CAS와 KE 번호를 나누고 '96.6-97.6'을 하한 96.6(>=), 상한 97.6(<=)로 나눔"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "components[1]",
+    "page": 2,
+    "source_text": "요소 수지 가공품 | 자료없음 | 68611-64-3 / KE-35223 | 1.3-1.5",
+    "rules": [
+      "R02",
+      "R03",
+      "R04",
+      "R06"
+    ],
+    "note": "CAS와 KE 번호를 나누고 '1.3-1.5'를 하한 1.3(>=), 상한 1.5(<=)로 나눔. 이명 '자료없음'은 넣지 않음"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "components[2]",
+    "page": 2,
+    "source_text": "뷰렛 | 자료없음 | 108-19-0 / KE-20952 | 0.1-1.0",
+    "rules": [
+      "R02",
+      "R03",
+      "R04",
+      "R06"
+    ],
+    "note": "CAS와 KE 번호를 나누고 '0.1-1.0'을 하한 0.1(>=), 상한 1.0(<=, dp 1)으로 나눔. 이명 '자료없음'은 넣지 않음"
+  },
+  {
+    "bundle": "b1",
+    "msds_index": 0,
+    "field": "components[3]",
+    "page": 2,
+    "source_text": "물 | 다이하이드로젠 옥사이드 | 7732-18-5 / KE-35400 | 0.1-0.5",
+    "rules": [
+      "R02",
+      "R03",
+      "R04",
+      "R06"
+    ],
+    "note": "CAS와 KE 번호를 나누고 '0.1-0.5'를 하한 0.1(>=), 상한 0.5(<=)로 나눔"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[0]",
+    "page": 3,
+    "source_text": "- [요소] : 해당없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "'해당없음'을 R15에 따라 status 해당없음으로 둠. 기준 종류 표기가 없어 limit_type은 null, 국내노출기준 소제목에 따라 kr_basis 노출기준"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[1]",
+    "page": 3,
+    "source_text": "- [뷰렛] : 해당없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "'해당없음'을 R15에 따라 status 해당없음으로 둠. 기준 종류 표기가 없어 limit_type은 null, 국내노출기준 소제목에 따라 kr_basis 노출기준"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[2]",
+    "page": 3,
+    "source_text": "- [요소 수지 가공품] : 해당없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "'해당없음'을 R15에 따라 status 해당없음으로 둠. 기준 종류 표기가 없어 limit_type은 null, 국내노출기준 소제목에 따라 kr_basis 노출기준"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[3]",
+    "page": 3,
+    "source_text": "- [물] : 해당없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "'해당없음'을 R15에 따라 status 해당없음으로 둠. 기준 종류 표기가 없어 limit_type은 null, 국내노출기준 소제목에 따라 kr_basis 노출기준"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[4]",
+    "page": 4,
+    "source_text": "- [요소] : 해당없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "'해당없음'을 R15에 따라 status 해당없음으로 둠. 기준 종류 표기가 없어 limit_type은 null"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[5]",
+    "page": 4,
+    "source_text": "- [요소 수지 가공품] : 해당없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "'해당없음'을 R15에 따라 status 해당없음으로 둠. 기준 종류 표기가 없어 limit_type은 null"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[6]",
+    "page": 4,
+    "source_text": "- [뷰렛] : 해당없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "'해당없음'을 R15에 따라 status 해당없음으로 둠. 기준 종류 표기가 없어 limit_type은 null"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[7]",
+    "page": 4,
+    "source_text": "- [물] : 해당없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "'해당없음'을 R15에 따라 status 해당없음으로 둠. 기준 종류 표기가 없어 limit_type은 null"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[8]",
+    "page": 4,
+    "source_text": "- [요소] : 해당없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "'해당없음'을 R15에 따라 status 해당없음으로 둠. 기준 종류 표기가 없어 limit_type은 null"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[9]",
+    "page": 4,
+    "source_text": "- [요소 수지 가공품] : 해당없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "'해당없음'을 R15에 따라 status 해당없음으로 둠. 기준 종류 표기가 없어 limit_type은 null"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[10]",
+    "page": 4,
+    "source_text": "- [뷰렛] : 해당없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "'해당없음'을 R15에 따라 status 해당없음으로 둠. 기준 종류 표기가 없어 limit_type은 null"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "exposure_limits[11]",
+    "page": 4,
+    "source_text": "- [물] : 해당없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "'해당없음'을 R15에 따라 status 해당없음으로 둠. 기준 종류 표기가 없어 limit_type은 null"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[0]",
+    "page": 4,
+    "source_text": "- 성상  고체(과립형)",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[1]",
+    "page": 4,
+    "source_text": "- 색  흰색",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[2]",
+    "page": 4,
+    "source_text": "나. 냄새  약한 암모니아 냄새",
+    "rules": [],
+    "note": null
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[3]",
+    "page": 4,
+    "source_text": "다. 냄새역치  자료없음",
+    "rules": [
+      "R15",
+      "R25"
+    ],
+    "note": "'자료없음'을 R15에 따라 status 자료없음으로 둠"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[4]",
+    "page": 4,
+    "source_text": "라. pH  7.2 (10% 수용액)",
+    "rules": [
+      "R04",
+      "R06"
+    ],
+    "note": "값 7.2(dp 1), 괄호 속 '10% 수용액'을 측정 조건 농도 10 %로 나눔"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[5]",
+    "page": 4,
+    "source_text": "마. 녹는점/어는점  132.7 ℃",
+    "rules": [
+      "R04",
+      "R06",
+      "R08"
+    ],
+    "note": "값 132.7(dp 1), 단위 ℃를 C로 통일"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[6]",
+    "page": 4,
+    "source_text": "바. 초기 끓는점과 끓는점 범위  자료없음",
+    "rules": [
+      "R15"
+    ],
+    "note": "'자료없음'을 R15에 따라 status 자료없음으로 둠"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[7]",
+    "page": 4,
+    "source_text": "사. 인화점  자료없음",
+    "rules": [
+      "R15"
+    ],
+    "note": "'자료없음'을 R15에 따라 status 자료없음으로 둠"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[8]",
+    "page": 4,
+    "source_text": "아. 증발 속도  자료없음",
+    "rules": [
+      "R15",
+      "R25"
+    ],
+    "note": "'자료없음'을 R15에 따라 status 자료없음으로 둠"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[9]",
+    "page": 4,
+    "source_text": "자. 인화성 (고체, 기체)  비인화성",
+    "rules": [
+      "R25"
+    ],
+    "note": "'인화성 (고체, 기체)'를 동의어로 FLAMMABILITY에 매핑"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[10]",
+    "page": 4,
+    "source_text": "차. 인화 또는 폭발 범위의 상한/하한  자료없음",
+    "rules": [
+      "R15",
+      "R25"
+    ],
+    "note": "상한/하한 한 줄을 UEL·LEL 두 행으로 나누고 '자료없음'을 status 자료없음으로 둠"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[11]",
+    "page": 4,
+    "source_text": "차. 인화 또는 폭발 범위의 상한/하한  자료없음",
+    "rules": [
+      "R15",
+      "R25"
+    ],
+    "note": "상한/하한 한 줄을 UEL·LEL 두 행으로 나누고 '자료없음'을 status 자료없음으로 둠"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[12]",
+    "page": 4,
+    "source_text": "카. 증기압  0.000012 ㎜Hg (25℃)",
+    "rules": [
+      "R04",
+      "R06",
+      "R08"
+    ],
+    "note": "값 0.000012(dp 6), 단위 ㎜Hg를 mmHg로, 괄호 속 25℃를 측정 온도로 나눔"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[13]",
+    "page": 4,
+    "source_text": "타. 용해도  물 : 119g/100g (25℃)",
+    "rules": [
+      "R04",
+      "R08"
+    ],
+    "note": "값 119, 단위 g/100g, 용매 '물'은 q.note에, 괄호 속 25℃를 측정 온도로 나눔"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[14]",
+    "page": 4,
+    "source_text": "파. 증기밀도  2.07",
+    "rules": [
+      "R06"
+    ],
+    "note": "값 2.07(dp 2), 무단위"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[15]",
+    "page": 4,
+    "source_text": "하. 비중  1.34 (20℃)",
+    "rules": [
+      "R04",
+      "R06",
+      "R25"
+    ],
+    "note": "값 1.34(dp 2), 괄호 속 20℃를 측정 온도로 나눔"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[16]",
+    "page": 4,
+    "source_text": "거. N-옥탄올/물 분배계수  log Kow -2.11",
+    "rules": [
+      "R04",
+      "R06",
+      "R25"
+    ],
+    "note": "'log Kow -2.11'에서 값 -2.11(dp 2)을 꺼냄"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[17]",
+    "page": 4,
+    "source_text": "너. 자연발화온도  자료없음",
+    "rules": [
+      "R15"
+    ],
+    "note": "'자료없음'을 R15에 따라 status 자료없음으로 둠"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[18]",
+    "page": 4,
+    "source_text": "더. 분해온도  자료없음",
+    "rules": [
+      "R15"
+    ],
+    "note": "'자료없음'을 R15에 따라 status 자료없음으로 둠"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[19]",
+    "page": 4,
+    "source_text": "러. 점도  1.78 mPas (46% , 20°C), 1.81 mPas (46%, 137°C), 1.90 mPas (포화, 20°C)",
+    "rules": [
+      "R04",
+      "R06",
+      "R08"
+    ],
+    "note": "세 값 중 첫째(seq 1): 값 1.78, 괄호 속 46%를 농도, 20°C를 온도로 나눔"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[20]",
+    "page": 4,
+    "source_text": "러. 점도  1.78 mPas (46% , 20°C), 1.81 mPas (46%, 137°C), 1.90 mPas (포화, 20°C)",
+    "rules": [
+      "R04",
+      "R06",
+      "R08"
+    ],
+    "note": "세 값 중 둘째(seq 2): 값 1.81, 괄호 속 46%를 농도, 137°C를 온도로 나눔"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[21]",
+    "page": 4,
+    "source_text": "러. 점도  1.78 mPas (46% , 20°C), 1.81 mPas (46%, 137°C), 1.90 mPas (포화, 20°C)",
+    "rules": [
+      "R04",
+      "R06",
+      "R08"
+    ],
+    "note": "세 값 중 셋째(seq 3): 값 1.90(dp 2), 20°C를 온도로, '포화'는 q.note에 둠"
+  },
+  {
+    "bundle": "b2",
+    "msds_index": 0,
+    "field": "physchem[22]",
+    "page": 4,
+    "source_text": "머. 분자량  해당없음",
+    "rules": [
+      "R15"
+    ],
+    "note": "'해당없음'을 R15에 따라 status 해당없음으로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[0]",
+    "page": 5,
+    "source_text": "- 제품 (ATEmix) : >5000mg/kg",
+    "rules": [
+      "R04",
+      "R10"
+    ],
+    "note": "제품 ATEmix 값을 MIX로, '>5000'을 하한 >5000으로 분해"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[1]",
+    "page": 5,
+    "source_text": "- [요소] : LD50 = 14300 ㎎/㎏ Rat (male)(SIDS)",
+    "rules": [
+      "R04",
+      "R08",
+      "R10"
+    ],
+    "note": "'㎎/㎏'를 mg/kg로, (male)을 수컷으로, (SIDS)를 출처로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[2]",
+    "page": 5,
+    "source_text": "- [물] : LD50 > 90000 ㎎/㎏ Rat (KOSHA)",
+    "rules": [
+      "R04",
+      "R08",
+      "R10"
+    ],
+    "note": "'> 90000'을 하한 >90000으로, 단위 mg/kg로 정규화"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[3]",
+    "page": 5,
+    "source_text": "- [요소 수지 가공품] : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "'자료없음'를 R15에 따라 status=자료없음로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[4]",
+    "page": 5,
+    "source_text": "- [뷰렛] : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "'자료없음'를 R15에 따라 status=자료없음로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[5]",
+    "page": 5,
+    "source_text": "- 제품 (ATEmix) : >5000mg/kg",
+    "rules": [
+      "R04",
+      "R10"
+    ],
+    "note": "제품 ATEmix 값을 MIX로, '>5000'을 하한 >5000으로 분해"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[6]",
+    "page": 5,
+    "source_text": "- [요소] : LD50 = 8200 ㎎/㎏ Rat (IUCLID)",
+    "rules": [
+      "R04",
+      "R08",
+      "R10"
+    ],
+    "note": "단위 '㎎/㎏'를 mg/kg로 정규화, (IUCLID)를 출처로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[7]",
+    "page": 5,
+    "source_text": "- [요소 수지 가공품] : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "'자료없음'를 R15에 따라 status=자료없음로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[8]",
+    "page": 5,
+    "source_text": "- [뷰렛] : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "'자료없음'를 R15에 따라 status=자료없음로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[9]",
+    "page": 5,
+    "source_text": "- [물] : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "'자료없음'를 R15에 따라 status=자료없음로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[10]",
+    "page": 5,
+    "source_text": "- [요소] : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "'자료없음'를 R15에 따라 status=자료없음로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[11]",
+    "page": 5,
+    "source_text": "- [요소 수지 가공품] : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "'자료없음'를 R15에 따라 status=자료없음로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[12]",
+    "page": 5,
+    "source_text": "- [뷰렛] : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "'자료없음'를 R15에 따라 status=자료없음로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[13]",
+    "page": 5,
+    "source_text": "- [물] : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "'자료없음'를 R15에 따라 status=자료없음로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[14]",
+    "page": 5,
+    "source_text": "- [요소] : 사람 : STANDARD DRAIZE TEST 결과 중정도 자극 (RTECS)",
+    "rules": [
+      "R10"
+    ],
+    "note": "수치가 없어 결과기술 문장으로, '사람'을 시험종, (RTECS)를 출처로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[15]",
+    "page": 5,
+    "source_text": "- [뷰렛] : 경 피부 자극",
+    "rules": [
+      "R10"
+    ],
+    "note": "수치가 없어 결과기술 문장으로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[16]",
+    "page": 5,
+    "source_text": "- [요소 수지 가공품] : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "'자료없음'를 R15에 따라 status=자료없음로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[17]",
+    "page": 5,
+    "source_text": "- [물] : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "'자료없음'를 R15에 따라 status=자료없음로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[18]",
+    "page": 5,
+    "source_text": "- [요소] : 눈자극 (ICSC)",
+    "rules": [
+      "R10"
+    ],
+    "note": "수치가 없어 결과기술 문장으로, (ICSC)를 출처로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[19]",
+    "page": 5,
+    "source_text": "- [뷰렛] : 경 눈 자극",
+    "rules": [
+      "R10"
+    ],
+    "note": "수치가 없어 결과기술 문장으로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[20]",
+    "page": 5,
+    "source_text": "- [요소 수지 가공품] : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "'자료없음'를 R15에 따라 status=자료없음로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[21]",
+    "page": 5,
+    "source_text": "- [물] : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "'자료없음'를 R15에 따라 status=자료없음로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[22]",
+    "page": 6,
+    "source_text": "- [요소] : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "'자료없음'를 R15에 따라 status=자료없음로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[23]",
+    "page": 6,
+    "source_text": "- [요소 수지 가공품] : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "'자료없음'를 R15에 따라 status=자료없음로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[24]",
+    "page": 6,
+    "source_text": "- [뷰렛] : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "'자료없음'를 R15에 따라 status=자료없음로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[25]",
+    "page": 6,
+    "source_text": "- [물] : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "'자료없음'를 R15에 따라 status=자료없음로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[26]",
+    "page": 6,
+    "source_text": "- [요소] : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "'자료없음'를 R15에 따라 status=자료없음로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[27]",
+    "page": 6,
+    "source_text": "- [요소 수지 가공품] : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "'자료없음'를 R15에 따라 status=자료없음로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[28]",
+    "page": 6,
+    "source_text": "- [뷰렛] : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "'자료없음'를 R15에 따라 status=자료없음로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[29]",
+    "page": 6,
+    "source_text": "- [물] : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "'자료없음'를 R15에 따라 status=자료없음로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[30]",
+    "page": 6,
+    "source_text": "- [요소] : 미생물 복귀돌연변이시험 음성, 세포유전독성시험결과 양성 (Tomson, IUCLID)",
+    "rules": [
+      "R10"
+    ],
+    "note": "수치가 없어 결과기술 문장으로, 괄호 속 (Tomson, IUCLID)를 출처로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[31]",
+    "page": 6,
+    "source_text": "- [요소 수지 가공품] : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "'자료없음'를 R15에 따라 status=자료없음로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[32]",
+    "page": 6,
+    "source_text": "- [뷰렛] : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "'자료없음'를 R15에 따라 status=자료없음로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[33]",
+    "page": 6,
+    "source_text": "- [물] : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "'자료없음'를 R15에 따라 status=자료없음로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[34]",
+    "page": 6,
+    "source_text": "- [요소] : 생식독성 없음 (SIDS)",
+    "rules": [
+      "R10"
+    ],
+    "note": "수치가 없어 결과기술 문장으로, (SIDS)를 출처로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[35]",
+    "page": 6,
+    "source_text": "- [요소 수지 가공품] : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "'자료없음'를 R15에 따라 status=자료없음로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[36]",
+    "page": 6,
+    "source_text": "- [뷰렛] : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "'자료없음'를 R15에 따라 status=자료없음로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[37]",
+    "page": 6,
+    "source_text": "- [물] : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "'자료없음'를 R15에 따라 status=자료없음로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[38]",
+    "page": 6,
+    "source_text": "- [요소] : 흡입시 기도를 자극함 (ICSC)",
+    "rules": [
+      "R10"
+    ],
+    "note": "수치가 없어 결과기술 문장으로, (ICSC)를 출처로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[39]",
+    "page": 6,
+    "source_text": "- [요소 수지 가공품] : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "'자료없음'를 R15에 따라 status=자료없음로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[40]",
+    "page": 6,
+    "source_text": "- [뷰렛] : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "'자료없음'를 R15에 따라 status=자료없음로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[41]",
+    "page": 6,
+    "source_text": "- [물] : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "'자료없음'를 R15에 따라 status=자료없음로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[42]",
+    "page": 7,
+    "source_text": "- [요소] : NOAELs 6750 mg/kg mice 2250 mg/kg (SIDS)",
+    "rules": [
+      "R10",
+      "R17"
+    ],
+    "note": "값 두 개와 시험종의 대응이 불분명해 R17에 따라 분해하지 않고 raw만 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[43]",
+    "page": 7,
+    "source_text": "- [요소 수지 가공품] : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "'자료없음'를 R15에 따라 status=자료없음로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[44]",
+    "page": 7,
+    "source_text": "- [뷰렛] : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "'자료없음'를 R15에 따라 status=자료없음로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[45]",
+    "page": 7,
+    "source_text": "- [물] : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "'자료없음'를 R15에 따라 status=자료없음로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[46]",
+    "page": 7,
+    "source_text": "- [요소] : 기침. 흡입시 목의 통증이 있음 (ICSC)",
+    "rules": [
+      "R10"
+    ],
+    "note": "수치가 없어 결과기술 문장으로, (ICSC)를 출처로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[47]",
+    "page": 7,
+    "source_text": "- [요소 수지 가공품] : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "'자료없음'를 R15에 따라 status=자료없음로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[48]",
+    "page": 7,
+    "source_text": "- [뷰렛] : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "'자료없음'를 R15에 따라 status=자료없음로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "toxicity[49]",
+    "page": 7,
+    "source_text": "- [물] : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "'자료없음'를 R15에 따라 status=자료없음로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[0]",
+    "page": 6,
+    "source_text": "- [요소] : 해당없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "11항 발암성 '환경부 화학물질관리법' 아래 행을 기관 KR_CCA, status=해당없음으로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[1]",
+    "page": 6,
+    "source_text": "- [요소 수지 가공품] : 해당없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "11항 발암성 '환경부 화학물질관리법' 아래 행을 기관 KR_CCA, status=해당없음으로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[2]",
+    "page": 6,
+    "source_text": "- [뷰렛] : 해당없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "11항 발암성 '환경부 화학물질관리법' 아래 행을 기관 KR_CCA, status=해당없음으로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[3]",
+    "page": 6,
+    "source_text": "- [물] : 해당없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "11항 발암성 '환경부 화학물질관리법' 아래 행을 기관 KR_CCA, status=해당없음으로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[4]",
+    "page": 6,
+    "source_text": "- [요소] : 해당없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "11항 발암성 'IARC' 아래 행을 기관 IARC, status=해당없음으로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[5]",
+    "page": 6,
+    "source_text": "- [요소 수지 가공품] : 해당없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "11항 발암성 'IARC' 아래 행을 기관 IARC, status=해당없음으로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[6]",
+    "page": 6,
+    "source_text": "- [뷰렛] : 해당없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "11항 발암성 'IARC' 아래 행을 기관 IARC, status=해당없음으로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[7]",
+    "page": 6,
+    "source_text": "- [물] : 해당없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "11항 발암성 'IARC' 아래 행을 기관 IARC, status=해당없음으로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[8]",
+    "page": 6,
+    "source_text": "- [요소] : 해당없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "11항 발암성 'OSHA' 아래 행을 기관 OSHA, status=해당없음으로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[9]",
+    "page": 6,
+    "source_text": "- [요소 수지 가공품] : 해당없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "11항 발암성 'OSHA' 아래 행을 기관 OSHA, status=해당없음으로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[10]",
+    "page": 6,
+    "source_text": "- [뷰렛] : 해당없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "11항 발암성 'OSHA' 아래 행을 기관 OSHA, status=해당없음으로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[11]",
+    "page": 6,
+    "source_text": "- [물] : 해당없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "11항 발암성 'OSHA' 아래 행을 기관 OSHA, status=해당없음으로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[12]",
+    "page": 6,
+    "source_text": "- [요소] : 해당없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "11항 발암성 'ACGIH' 아래 행을 기관 ACGIH, status=해당없음으로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[13]",
+    "page": 6,
+    "source_text": "- [요소 수지 가공품] : 해당없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "11항 발암성 'ACGIH' 아래 행을 기관 ACGIH, status=해당없음으로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[14]",
+    "page": 6,
+    "source_text": "- [뷰렛] : 해당없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "11항 발암성 'ACGIH' 아래 행을 기관 ACGIH, status=해당없음으로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[15]",
+    "page": 6,
+    "source_text": "- [물] : 해당없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "11항 발암성 'ACGIH' 아래 행을 기관 ACGIH, status=해당없음으로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[16]",
+    "page": 6,
+    "source_text": "- [요소] : 해당없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "11항 발암성 'NTP' 아래 행을 기관 NTP, status=해당없음으로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[17]",
+    "page": 6,
+    "source_text": "- [요소 수지 가공품] : 해당없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "11항 발암성 'NTP' 아래 행을 기관 NTP, status=해당없음으로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[18]",
+    "page": 6,
+    "source_text": "- [뷰렛] : 해당없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "11항 발암성 'NTP' 아래 행을 기관 NTP, status=해당없음으로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[19]",
+    "page": 6,
+    "source_text": "- [물] : 해당없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "11항 발암성 'NTP' 아래 행을 기관 NTP, status=해당없음으로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[20]",
+    "page": 6,
+    "source_text": "- [요소] : 해당없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "11항 발암성 'EU CLP' 아래 행을 기관 EU_CLP, status=해당없음으로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[21]",
+    "page": 6,
+    "source_text": "- [요소 수지 가공품] : 해당없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "11항 발암성 'EU CLP' 아래 행을 기관 EU_CLP, status=해당없음으로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[22]",
+    "page": 6,
+    "source_text": "- [뷰렛] : 해당없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "11항 발암성 'EU CLP' 아래 행을 기관 EU_CLP, status=해당없음으로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[23]",
+    "page": 6,
+    "source_text": "- [물] : 해당없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "11항 발암성 'EU CLP' 아래 행을 기관 EU_CLP, status=해당없음으로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[24]",
+    "page": 7,
+    "source_text": "- [요소] : 해당없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "'고용노동부고시 * 발암성' 아래 행을 기관 KR_OSH, status=해당없음으로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[25]",
+    "page": 7,
+    "source_text": "- [요소 수지 가공품] : 해당없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "'고용노동부고시 * 발암성' 아래 행을 기관 KR_OSH, status=해당없음으로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[26]",
+    "page": 7,
+    "source_text": "- [뷰렛] : 해당없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "'고용노동부고시 * 발암성' 아래 행을 기관 KR_OSH, status=해당없음으로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[27]",
+    "page": 7,
+    "source_text": "- [물] : 해당없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "'고용노동부고시 * 발암성' 아래 행을 기관 KR_OSH, status=해당없음으로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[28]",
+    "page": 7,
+    "source_text": "- [요소] : 해당없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "'고용노동부고시 * 생식세포 변이원성' 아래 행을 기관 KR_OSH, status=해당없음으로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[29]",
+    "page": 7,
+    "source_text": "- [요소 수지 가공품] : 해당없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "'고용노동부고시 * 생식세포 변이원성' 아래 행을 기관 KR_OSH, status=해당없음으로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[30]",
+    "page": 7,
+    "source_text": "- [뷰렛] : 해당없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "'고용노동부고시 * 생식세포 변이원성' 아래 행을 기관 KR_OSH, status=해당없음으로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[31]",
+    "page": 7,
+    "source_text": "- [물] : 해당없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "'고용노동부고시 * 생식세포 변이원성' 아래 행을 기관 KR_OSH, status=해당없음으로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[32]",
+    "page": 7,
+    "source_text": "- [요소] : 해당없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "'고용노동부고시 * 생식독성' 아래 행을 기관 KR_OSH, status=해당없음으로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[33]",
+    "page": 7,
+    "source_text": "- [요소 수지 가공품] : 해당없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "'고용노동부고시 * 생식독성' 아래 행을 기관 KR_OSH, status=해당없음으로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[34]",
+    "page": 7,
+    "source_text": "- [뷰렛] : 해당없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "'고용노동부고시 * 생식독성' 아래 행을 기관 KR_OSH, status=해당없음으로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "cmr[35]",
+    "page": 7,
+    "source_text": "- [물] : 해당없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "'고용노동부고시 * 생식독성' 아래 행을 기관 KR_OSH, status=해당없음으로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[0]",
+    "page": 7,
+    "source_text": "- [요소] : LC50 = 22500 ㎎/ℓ 96 hr (OECD Screening Information Data Set)",
+    "rules": [
+      "R04",
+      "R08",
+      "R10"
+    ],
+    "note": "단위 '㎎/ℓ'를 mg/L로, 96 hr를 노출 시간으로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[1]",
+    "page": 7,
+    "source_text": "- [뷰렛] : LC50 21536.695 ㎎/ℓ 96 hr (Estimate)",
+    "rules": [
+      "R04",
+      "R06",
+      "R08",
+      "R10"
+    ],
+    "note": "단위 '㎎/ℓ'를 mg/L로, 소수 3자리 dp=3, (Estimate)를 출처 칸에 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[2]",
+    "page": 7,
+    "source_text": "- [요소 수지 가공품] : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "'자료없음'를 R15에 따라 status=자료없음로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[3]",
+    "page": 7,
+    "source_text": "- [물] : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "'자료없음'를 R15에 따라 status=자료없음로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[4]",
+    "page": 7,
+    "source_text": "- [요소] : EC50 = 10000 ㎎/ℓ 24 hr Daphnia magna (SIDS)",
+    "rules": [
+      "R04",
+      "R08",
+      "R10"
+    ],
+    "note": "단위 '㎎/ℓ'를 mg/L로, 24 hr를 노출 시간으로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[5]",
+    "page": 7,
+    "source_text": "- [요소 수지 가공품] : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "'자료없음'를 R15에 따라 status=자료없음로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[6]",
+    "page": 7,
+    "source_text": "- [뷰렛] : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "'자료없음'를 R15에 따라 status=자료없음로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[7]",
+    "page": 7,
+    "source_text": "- [물] : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "'자료없음'를 R15에 따라 status=자료없음로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[8]",
+    "page": 7,
+    "source_text": "- [요소] : EC50 = 42184 ㎎/ℓ 96 hr (Estimate)",
+    "rules": [
+      "R04",
+      "R08",
+      "R10"
+    ],
+    "note": "단위 '㎎/ℓ'를 mg/L로, (Estimate)를 출처 칸에 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[9]",
+    "page": 7,
+    "source_text": "- [요소 수지 가공품] : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "'자료없음'를 R15에 따라 status=자료없음로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[10]",
+    "page": 7,
+    "source_text": "- [뷰렛] : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "'자료없음'를 R15에 따라 status=자료없음로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[11]",
+    "page": 7,
+    "source_text": "- [물] : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "'자료없음'를 R15에 따라 status=자료없음로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[12]",
+    "page": 7,
+    "source_text": "- [요소] : log Kow = -2.11 (HSDB)",
+    "rules": [
+      "R04",
+      "R06",
+      "R10"
+    ],
+    "note": "'잔류성' 아래 log Kow 값을 logKow로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[13]",
+    "page": 7,
+    "source_text": "- [뷰렛] : log Kow -1.40 (Estimate) (ChemIDplus)",
+    "rules": [
+      "R04",
+      "R06",
+      "R10"
+    ],
+    "note": "'-1.40'을 값 -1.4, dp=2로, (Estimate)는 q.note, (ChemIDplus)는 출처로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[14]",
+    "page": 7,
+    "source_text": "- [물] : log Kow -1.38",
+    "rules": [
+      "R04",
+      "R06",
+      "R10"
+    ],
+    "note": "'잔류성' 아래 log Kow 값을 logKow로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[15]",
+    "page": 7,
+    "source_text": "- [요소 수지 가공품] : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "'자료없음'를 R15에 따라 status=자료없음로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[16]",
+    "page": 7,
+    "source_text": "- [요소] : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "'자료없음'를 R15에 따라 status=자료없음로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[17]",
+    "page": 7,
+    "source_text": "- [요소 수지 가공품] : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "'자료없음'를 R15에 따라 status=자료없음로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[18]",
+    "page": 7,
+    "source_text": "- [뷰렛] : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "'자료없음'를 R15에 따라 status=자료없음로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[19]",
+    "page": 7,
+    "source_text": "- [물] : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "'자료없음'를 R15에 따라 status=자료없음로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[20]",
+    "page": 8,
+    "source_text": "- [요소] : BCF = 1 (IUCLID)",
+    "rules": [
+      "R04",
+      "R10"
+    ],
+    "note": "BCF 값 1, (IUCLID)를 출처로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[21]",
+    "page": 8,
+    "source_text": "- [요소 수지 가공품] : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "'자료없음'를 R15에 따라 status=자료없음로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[22]",
+    "page": 8,
+    "source_text": "- [뷰렛] : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "'자료없음'를 R15에 따라 status=자료없음로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[23]",
+    "page": 8,
+    "source_text": "- [물] : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "'자료없음'를 R15에 따라 status=자료없음로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[24]",
+    "page": 8,
+    "source_text": "- [요소] : Biodegradability = 96 (%) 16 day (IUCLID)",
+    "rules": [
+      "R04",
+      "R10"
+    ],
+    "note": "생분해성 96 %를 분해율로, 16 day를 노출 시간으로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[25]",
+    "page": 8,
+    "source_text": "- [요소 수지 가공품] : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "'자료없음'를 R15에 따라 status=자료없음로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[26]",
+    "page": 8,
+    "source_text": "- [뷰렛] : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "'자료없음'를 R15에 따라 status=자료없음로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[27]",
+    "page": 8,
+    "source_text": "- [물] : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "'자료없음'를 R15에 따라 status=자료없음로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[28]",
+    "page": 8,
+    "source_text": "- [요소] : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "'자료없음'를 R15에 따라 status=자료없음로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[29]",
+    "page": 8,
+    "source_text": "- [요소 수지 가공품] : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "'자료없음'를 R15에 따라 status=자료없음로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[30]",
+    "page": 8,
+    "source_text": "- [뷰렛] : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "'자료없음'를 R15에 따라 status=자료없음로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[31]",
+    "page": 8,
+    "source_text": "- [물] : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "'자료없음'를 R15에 따라 status=자료없음로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[32]",
+    "page": 8,
+    "source_text": "- [요소] : 해당없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "'해당없음'를 R15에 따라 status=해당없음로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[33]",
+    "page": 8,
+    "source_text": "- [뷰렛] : 해당없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "'해당없음'를 R15에 따라 status=해당없음로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[34]",
+    "page": 8,
+    "source_text": "- [물] : 해당없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "'해당없음'를 R15에 따라 status=해당없음로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[35]",
+    "page": 8,
+    "source_text": "- [요소 수지 가공품] : 해당없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "'해당없음'를 R15에 따라 status=해당없음로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[36]",
+    "page": 8,
+    "source_text": "- [요소] : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "'자료없음'를 R15에 따라 status=자료없음로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[37]",
+    "page": 8,
+    "source_text": "- [요소 수지 가공품] : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "'자료없음'를 R15에 따라 status=자료없음로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[38]",
+    "page": 8,
+    "source_text": "- [뷰렛] : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "'자료없음'를 R15에 따라 status=자료없음로 둠"
+  },
+  {
+    "bundle": "b3",
+    "msds_index": 0,
+    "field": "ecotox[39]",
+    "page": 8,
+    "source_text": "- [물] : 자료없음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "'자료없음'를 R15에 따라 status=자료없음로 둠"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[0]",
+    "page": 9,
+    "source_text": "- [요소] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[1]",
+    "page": 9,
+    "source_text": "- [요소 수지 가공품] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[2]",
+    "page": 9,
+    "source_text": "- [뷰렛] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[3]",
+    "page": 9,
+    "source_text": "- [물] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[4]",
+    "page": 9,
+    "source_text": "- [요소] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[5]",
+    "page": 9,
+    "source_text": "- [요소 수지 가공품] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[6]",
+    "page": 9,
+    "source_text": "- [뷰렛] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[7]",
+    "page": 9,
+    "source_text": "- [물] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[8]",
+    "page": 9,
+    "source_text": "- [요소] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[9]",
+    "page": 9,
+    "source_text": "- [요소 수지 가공품] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[10]",
+    "page": 9,
+    "source_text": "- [뷰렛] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[11]",
+    "page": 9,
+    "source_text": "- [물] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[12]",
+    "page": 9,
+    "source_text": "- [요소] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[13]",
+    "page": 9,
+    "source_text": "- [요소 수지 가공품] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[14]",
+    "page": 9,
+    "source_text": "- [뷰렛] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[15]",
+    "page": 9,
+    "source_text": "- [물] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[16]",
+    "page": 9,
+    "source_text": "- [요소] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[17]",
+    "page": 9,
+    "source_text": "- [요소 수지 가공품] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[18]",
+    "page": 9,
+    "source_text": "- [뷰렛] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[19]",
+    "page": 9,
+    "source_text": "- [물] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[20]",
+    "page": 9,
+    "source_text": "- [요소] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[21]",
+    "page": 9,
+    "source_text": "- [요소 수지 가공품] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[22]",
+    "page": 9,
+    "source_text": "- [뷰렛] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[23]",
+    "page": 9,
+    "source_text": "- [물] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[24]",
+    "page": 9,
+    "source_text": "- [요소] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[25]",
+    "page": 9,
+    "source_text": "- [요소 수지 가공품] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[26]",
+    "page": 9,
+    "source_text": "- [뷰렛] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[27]",
+    "page": 9,
+    "source_text": "- [물] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[28]",
+    "page": 9,
+    "source_text": "- [요소] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[29]",
+    "page": 9,
+    "source_text": "- [뷰렛] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[30]",
+    "page": 9,
+    "source_text": "- [물] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[31]",
+    "page": 9,
+    "source_text": "- [요소 수지 가공품] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[32]",
+    "page": 9,
+    "source_text": "- [요소] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[33]",
+    "page": 9,
+    "source_text": "- [뷰렛] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[34]",
+    "page": 10,
+    "source_text": "- [물] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[35]",
+    "page": 10,
+    "source_text": "- [요소 수지 가공품] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[36]",
+    "page": 10,
+    "source_text": "- [요소] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[37]",
+    "page": 10,
+    "source_text": "- [뷰렛] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[38]",
+    "page": 10,
+    "source_text": "- [물] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[39]",
+    "page": 10,
+    "source_text": "- [요소 수지 가공품] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[40]",
+    "page": 10,
+    "source_text": "- [요소] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[41]",
+    "page": 10,
+    "source_text": "- [뷰렛] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[42]",
+    "page": 10,
+    "source_text": "- [물] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[43]",
+    "page": 10,
+    "source_text": "- [요소 수지 가공품] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[44]",
+    "page": 10,
+    "source_text": "- [요소] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[45]",
+    "page": 10,
+    "source_text": "- [뷰렛] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[46]",
+    "page": 10,
+    "source_text": "- [물] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[47]",
+    "page": 10,
+    "source_text": "- [요소 수지 가공품] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[48]",
+    "page": 10,
+    "source_text": "- [요소] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[49]",
+    "page": 10,
+    "source_text": "- [요소 수지 가공품] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[50]",
+    "page": 10,
+    "source_text": "- [뷰렛] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[51]",
+    "page": 10,
+    "source_text": "- [물] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[52]",
+    "page": 10,
+    "source_text": "- [요소] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[53]",
+    "page": 10,
+    "source_text": "- [요소 수지 가공품] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[54]",
+    "page": 10,
+    "source_text": "- [뷰렛] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[55]",
+    "page": 10,
+    "source_text": "- [물] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[56]",
+    "page": 10,
+    "source_text": "- [요소] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[57]",
+    "page": 10,
+    "source_text": "- [요소 수지 가공품] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[58]",
+    "page": 10,
+    "source_text": "- [뷰렛] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[59]",
+    "page": 10,
+    "source_text": "- [물] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[60]",
+    "page": 10,
+    "source_text": "- [요소] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[61]",
+    "page": 10,
+    "source_text": "- [요소 수지 가공품] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[62]",
+    "page": 10,
+    "source_text": "- [뷰렛] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[63]",
+    "page": 10,
+    "source_text": "- [물] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[64]",
+    "page": 10,
+    "source_text": "- [요소] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[65]",
+    "page": 10,
+    "source_text": "- [요소 수지 가공품] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[66]",
+    "page": 10,
+    "source_text": "- [뷰렛] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[67]",
+    "page": 10,
+    "source_text": "- [물] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[68]",
+    "page": 10,
+    "source_text": "- [요소] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[69]",
+    "page": 10,
+    "source_text": "- [요소 수지 가공품] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[70]",
+    "page": 10,
+    "source_text": "- [뷰렛] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[71]",
+    "page": 10,
+    "source_text": "- [물] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[72]",
+    "page": 10,
+    "source_text": "- 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[73]",
+    "page": 10,
+    "source_text": "- [요소] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[74]",
+    "page": 10,
+    "source_text": "- [요소 수지 가공품] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[75]",
+    "page": 11,
+    "source_text": "- [뷰렛] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[76]",
+    "page": 11,
+    "source_text": "- [물] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[77]",
+    "page": 11,
+    "source_text": "- 위험물에 해당되지 않음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '위험물에 해당되지 않음'을 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[78]",
+    "page": 11,
+    "source_text": "- 본 제품은 사업장에서 발생하는 폐기물 중 폐기물관리법시행령[별표1]에 의해 지정폐기물 외 사업장폐기물에 해당됨.",
+    "rules": [
+      "R10"
+    ],
+    "note": "'지정폐기물 외 사업장폐기물'이므로 지정폐기물은 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[79]",
+    "page": 11,
+    "source_text": "- [요소] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[80]",
+    "page": 11,
+    "source_text": "- [뷰렛] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[81]",
+    "page": 11,
+    "source_text": "- [물] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[82]",
+    "page": 11,
+    "source_text": "- [요소 수지 가공품] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[83]",
+    "page": 11,
+    "source_text": "- [요소] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[84]",
+    "page": 11,
+    "source_text": "- [요소 수지 가공품] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[85]",
+    "page": 11,
+    "source_text": "- [뷰렛] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[86]",
+    "page": 11,
+    "source_text": "- [물] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[87]",
+    "page": 11,
+    "source_text": "- [요소] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[88]",
+    "page": 11,
+    "source_text": "- [요소 수지 가공품] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[89]",
+    "page": 11,
+    "source_text": "- [뷰렛] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[90]",
+    "page": 11,
+    "source_text": "- [물] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[91]",
+    "page": 11,
+    "source_text": "- [요소] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[92]",
+    "page": 11,
+    "source_text": "- [요소 수지 가공품] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[93]",
+    "page": 11,
+    "source_text": "- [뷰렛] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[94]",
+    "page": 11,
+    "source_text": "- [물] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[95]",
+    "page": 11,
+    "source_text": "- [요소] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[96]",
+    "page": 11,
+    "source_text": "- [요소 수지 가공품] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[97]",
+    "page": 11,
+    "source_text": "- [뷰렛] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[98]",
+    "page": 11,
+    "source_text": "- [물] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[99]",
+    "page": 11,
+    "source_text": "- [요소] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[100]",
+    "page": 11,
+    "source_text": "- [요소 수지 가공품] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[101]",
+    "page": 11,
+    "source_text": "- [뷰렛] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[102]",
+    "page": 11,
+    "source_text": "- [물] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[103]",
+    "page": 11,
+    "source_text": "- [요소] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[104]",
+    "page": 11,
+    "source_text": "- [요소 수지 가공품] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[105]",
+    "page": 11,
+    "source_text": "- [뷰렛] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[106]",
+    "page": 11,
+    "source_text": "- [물] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[107]",
+    "page": 11,
+    "source_text": "- [요소] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[108]",
+    "page": 11,
+    "source_text": "- [요소 수지 가공품] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[109]",
+    "page": 11,
+    "source_text": "- [뷰렛] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[110]",
+    "page": 11,
+    "source_text": "- [물] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[111]",
+    "page": 11,
+    "source_text": "- [요소] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[112]",
+    "page": 11,
+    "source_text": "- [요소 수지 가공품] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[113]",
+    "page": 11,
+    "source_text": "- [뷰렛] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[114]",
+    "page": 12,
+    "source_text": "- [물] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[115]",
+    "page": 12,
+    "source_text": "- [요소] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[116]",
+    "page": 12,
+    "source_text": "- [요소 수지 가공품] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[117]",
+    "page": 12,
+    "source_text": "- [뷰렛] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "regulations[118]",
+    "page": 12,
+    "source_text": "- [물] : 해당없음",
+    "rules": [
+      "R10",
+      "R15",
+      "R25"
+    ],
+    "note": "원문 '해당없음'을 해당 여부 칸 규칙에 따라 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "transport[0].mode",
+    "page": 8,
+    "source_text": "가. 유엔번호(IMDG CODE/IATA DGR)",
+    "rules": [],
+    "note": "운송 방식 구분이 없어 '공통'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "transport[0].basis_raw",
+    "page": 8,
+    "source_text": "가. 유엔번호(IMDG CODE/IATA DGR)",
+    "rules": [],
+    "note": "항목 제목 괄호 속 규정명을 옮김"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "transport[0].regulated",
+    "page": 8,
+    "source_text": "가. 유엔번호(IMDG CODE/IATA DGR)\n- 해당없음",
+    "rules": [
+      "R15"
+    ],
+    "note": "유엔번호·선적명·위험성 등급이 모두 '해당없음'이므로 regulated=false"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "transport[0].packing_group",
+    "page": 8,
+    "source_text": "라. 용기등급(IMDG CODE/IATA DGR)\n- 해당없음",
+    "rules": [
+      "R15"
+    ],
+    "note": null
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "transport[0].marine_pollutant",
+    "page": 9,
+    "source_text": "- 해당없음",
+    "rules": [
+      "R15"
+    ],
+    "note": "8쪽 '마. 해양오염물질'의 값이 9쪽에 '해당없음'으로 적혀 '비해당'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "dangerous_goods[0]",
+    "page": 11,
+    "source_text": "- 위험물에 해당되지 않음",
+    "rules": [
+      "R10",
+      "R15"
+    ],
+    "note": "원문 '위험물에 해당되지 않음'을 류별 '해당없음'으로 씀"
+  },
+  {
+    "bundle": "b4",
+    "msds_index": 0,
+    "field": "waste[0]",
+    "page": 11,
+    "source_text": "- 본 제품은 사업장에서 발생하는 폐기물 중 폐기물관리법시행령[별표1]에 의해 지정폐기물 외 사업장폐기물에 해당됨.",
+    "rules": [
+      "R10"
+    ],
+    "note": "'지정폐기물 외 사업장폐기물에 해당됨'을 지정폐기물 비해당, 종류 사업장폐기물로 씀"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[0]",
+    "page": 2,
+    "source_text": "- 눈을 문지르지 마시오.",
+    "rules": [
+      "R14"
+    ],
+    "note": "불릿 단위로 5개 문장으로 나눔"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[1]",
+    "page": 2,
+    "source_text": "- 오염된 의복 및 신발을 벗고 즉시 적어도 15분 동안 비누와 물로 씻어내시오.",
+    "rules": [
+      "R14"
+    ],
+    "note": "불릿 단위로 5개 문장으로 나눔"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[2]",
+    "page": 2,
+    "source_text": "- 다량의 증기나 미스트에 노출되었을 경우 맑은 공기가 있는 곳으로 이동하시오.",
+    "rules": [
+      "R14"
+    ],
+    "note": "불릿 단위로 3개 문장으로 나눔"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[3]",
+    "page": 2,
+    "source_text": "- 구토를 유발해야 하는지에 대해서 의사의 조언을 받으시오.",
+    "rules": [
+      "R14"
+    ],
+    "note": "불릿 단위로 3개 문장으로 나눔"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[4]",
+    "page": 2,
+    "source_text": "- 오염상황을 의료관계자에게 알려 그들도 적절한 보호조치를 취하도록 하시오.",
+    "rules": [
+      "R14"
+    ],
+    "note": "불릿 단위로 1개 문장으로 나눔"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[5]",
+    "page": 2,
+    "source_text": "- 분말소화제, 이산화탄소, 일반 포말소화제, 물분무",
+    "rules": [
+      "R14"
+    ],
+    "note": "불릿 단위로 3개 문장으로 나눔"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[6]",
+    "page": 2,
+    "source_text": "- 가열시 용기가 폭발할 수 있음",
+    "rules": [
+      "R14"
+    ],
+    "note": "불릿 단위로 3개 문장으로 나눔"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[7]",
+    "page": 3,
+    "source_text": "- 위험 없이 할 수 있다면 용기를 화재지역으로부터 이동시키시오.",
+    "rules": [
+      "R14"
+    ],
+    "note": "불릿 단위로 4개 문장으로 나눔"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[8]",
+    "page": 3,
+    "source_text": "- 작업자는 적절한 보호구(『８. 노출방지 및 개인보호구』항 참조)를 착용하여, 눈 피부에의 접촉과 흡입을 피할 것.",
+    "rules": [
+      "R14"
+    ],
+    "note": "불릿 단위로 5개 문장으로 나눔"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[9]",
+    "page": 3,
+    "source_text": "- 누출물이 하수시설, 수계에 유입되지 않도록 차단시키시오.",
+    "rules": [
+      "R14"
+    ],
+    "note": "불릿 단위로 2개 문장으로 나눔"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[10]",
+    "page": 3,
+    "source_text": "- 다량누출 : 저지대를 피하고 바람과 반대방향에 있도록 하시오. 누출물질의 처리를 위해 제방을 축조하여 관리하시오.",
+    "rules": [
+      "R14"
+    ],
+    "note": "불릿 단위로 6개 문장으로 나눔; '키 : 값' 줄은 key/value로 분리"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[11]",
+    "page": 3,
+    "source_text": "- 혼합금지물질과 접촉을 피하시오.",
+    "rules": [
+      "R14"
+    ],
+    "note": "불릿 단위로 5개 문장으로 나눔"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[12]",
+    "page": 3,
+    "source_text": "- 손상된 용기는 사용하지 마시오.",
+    "rules": [
+      "R14"
+    ],
+    "note": "불릿 단위로 9개 문장으로 나눔"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[13]",
+    "page": 4,
+    "source_text": "- 가스, 증기, 미스트, 흄 또는 분진이 발산되는 작업장에 대하여는 공기 중에 이들 함유농도가 보건상 유해한 정도를 초과하지 않기를 권",
+    "rules": [
+      "R14"
+    ],
+    "note": "불릿 단위로 1개 문장으로 나눔; 줄바꿈된 문장은 이어 붙임"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[14]",
+    "page": 4,
+    "source_text": "- 호흡보호는 최소농도부터 최대농도까지 분류됨.",
+    "rules": [
+      "R14"
+    ],
+    "note": "불릿 단위로 8개 문장으로 나눔; '키 : 값' 줄은 key/value로 분리"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[15]",
+    "page": 4,
+    "source_text": "- 해당물질에 직접적인 노출 또는 노출 가능성이 있는 경우, 한국산업안전보건공단 인증을 받은 화학물질용 보안경을 착용할 것.",
+    "rules": [
+      "R14"
+    ],
+    "note": "불릿 단위로 2개 문장으로 나눔"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[16]",
+    "page": 4,
+    "source_text": "- 해당물질에 직접적인 노출 또는 노출 가능성이 있는 경우, 한국산업안전보건공단 인증을 받은 화학물질용 안전 장갑을 착용할 것.",
+    "rules": [
+      "R14"
+    ],
+    "note": "불릿 단위로 1개 문장으로 나눔"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[17]",
+    "page": 4,
+    "source_text": "- 해당물질에 직접적인 노출 또는 노출 가능성이 있는 경우, 한국산업안전보건공단 인증을 받은 화학물질용 보호복을 착용할 것.",
+    "rules": [
+      "R14"
+    ],
+    "note": "불릿 단위로 1개 문장으로 나눔"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[18]",
+    "page": 5,
+    "source_text": "- 권장된 보관과 취급시 안정함.",
+    "rules": [
+      "R14"
+    ],
+    "note": "불릿 단위로 2개 문장으로 나눔"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[19]",
+    "page": 5,
+    "source_text": "- 혼합금지 물질 및 조건을 피하시오.",
+    "rules": [
+      "R14"
+    ],
+    "note": "불릿 단위로 2개 문장으로 나눔"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[20]",
+    "page": 5,
+    "source_text": "- 질산, 아질산 나트륨, 과염소산 니트로실, 과염소산 갈륨, 차아염소산염, 오염화 인",
+    "rules": [
+      "R14"
+    ],
+    "note": "불릿 단위로 1개 문장으로 나눔"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[21]",
+    "page": 5,
+    "source_text": "- 녹는점 이상으로 가열시 암모니아와 이산화탄소로 분해됨.",
+    "rules": [
+      "R14"
+    ],
+    "note": "불릿 단위로 2개 문장으로 나눔"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[22]",
+    "page": 5,
+    "source_text": "- 호흡기 자극을 일으킬 수 있음",
+    "rules": [
+      "R14"
+    ],
+    "note": "불릿 단위로 4개 문장으로 나누고 ○ 소제목((호흡기)·(경구)·(눈·피부))을 key로 둠"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[23]",
+    "page": 8,
+    "source_text": "- 폐기물의 발생을 최대한 억제하고, 발생한 폐기물을 스스로 재활용함으로써 폐기물의 배출을 최소화할 것.",
+    "rules": [
+      "R14"
+    ],
+    "note": "불릿 단위로 3개 문장으로 나눔"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[24]",
+    "page": 8,
+    "source_text": "- 폐기물관리법상 규정을 준수할 것.",
+    "rules": [
+      "R14"
+    ],
+    "note": "불릿 단위로 2개 문장으로 나눔; 줄바꿈된 문장은 이어 붙임"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[25]",
+    "page": 9,
+    "source_text": "- 지역 운송 시 위험물안전관리법에 따름.",
+    "rules": [
+      "R14"
+    ],
+    "note": "불릿 단위로 4개 문장으로 나눔; '키 : 값' 줄은 key/value로 분리"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[26]",
+    "page": 10,
+    "source_text": "- 본 자료의 4,5,6,7,8,10,13번항 참조",
+    "rules": [
+      "R14"
+    ],
+    "note": "불릿 단위로 1개 문장으로 나눔"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[27]",
+    "page": 11,
+    "source_text": "- 본 제품은 사업장에서 발생하는 폐기물 중 폐기물관리법시행령[별표1]에 의해 지정폐기물 외 사업장폐기물에 해당됨.",
+    "rules": [
+      "R14"
+    ],
+    "note": "15항 폐기물 처리 문장을 S15_WASTE로도 둠"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[28]",
+    "page": 12,
+    "source_text": "- 본 MSDS는 KOSHA, NITE, ECHA, NLM, SIDS, IPCS, NCIS 등을 근거로 작성하였음.",
+    "rules": [
+      "R14"
+    ],
+    "note": "불릿 단위로 2개 문장으로 나눔; 줄바꿈된 문장은 이어 붙임"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "narratives[29]",
+    "page": 12,
+    "source_text": "- 이 정보는 근로자 건강, 환경, 안전을 보호하고자, 현재 가용할 수 있는 DB를 근거로 하여 작성하였음.",
+    "rules": [
+      "R14"
+    ],
+    "note": "불릿 단위로 1개 문장으로 나눔"
+  },
+  {
+    "bundle": "b5",
+    "msds_index": 0,
+    "field": "extras[0]",
+    "page": 12,
+    "source_text": "- 9회, 2026-02-09",
+    "rules": [
+      "R24",
+      "R04"
+    ],
+    "note": "개정횟수를 담을 칸이 없어 extras에 두고 9회를 Q로 분해함(최종 개정일자는 meta.last_revision_date에 이미 있음)"
+  }
+]
