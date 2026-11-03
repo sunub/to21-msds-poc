@@ -124,6 +124,19 @@ def test_과소·과대_줄의_요약은_문장틀로_고정하고_LLM_요약은
     assert explain_finding(finding(), TRACE, ITEM, fake(GOOD))["summary_by"] == "llm"   # 다른 유형은 LLM 요약 그대로
 
 
+def test_설명_근거는_LLM이_써도_엔진이_만들고_LLM_근거는_따로_남긴다():
+    llm = fake({**GOOD, "basis": ["MSDS 9쪽 4항 기재"]})  # 요청에 없는 쪽·항(11/03 별도 AI 검토: 7차 표본 19/30줄)
+    e = explain_finding(finding(), TRACE, ITEM, llm)
+    assert (e["by"], e["checked"], len(llm.calls)) == ("llm", True, 1)       # LLM 근거 때문에 다시 요청하지 않는다
+    assert e["basis"] == ["적용 규칙 ATE-MIX-01 (고시 별표1)", "MSDS 1쪽: - 급성 독성(흡입: 증기) :  구분2", "지식 버전 r2026.10c"]
+    assert e["llm_basis"] == ["MSDS 9쪽 4항 기재"] and "9쪽" not in e["text"]
+    assert explain_finding(finding(), TRACE, ITEM)["basis"] == e["basis"]     # 문장틀 줄과 같은 근거
+    no_page = explain_finding({**finding(), "type": "과소분류"}, None, None,
+                              fake({"summary": "계산 결과와 다릅니다.", "reasons": ["계산 결과와 다릅니다."], "basis": ["MSDS 2쪽 2항 기재"]}))
+    assert no_page["by"] == "llm" and no_page["basis"] == []                  # 원문 조각·trace가 없으면 근거 칸은 비운다
+    assert no_page["llm_basis"] == ["MSDS 2쪽 2항 기재"]
+
+
 def test_MSDS에_항목이_없는데_구분으로_적었다고_쓰면_걸린다():
     f = {**finding(), "type": "과소분류", "msds_value": None, "msds_form": None, "form": None,
          "our_value": {"low": "2", "high": "2"}, "causes": [{"code": "CAT_LOWER", "text": "MSDS 기재 없음, 계산 결과 구분 2"}]}
