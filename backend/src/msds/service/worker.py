@@ -6,6 +6,7 @@ from __future__ import annotations
 
 import queue
 import logging
+import json
 import shutil
 import threading
 import time
@@ -54,7 +55,7 @@ class PostgresWorker:
     def __init__(self, store, *, steps=None, pages_dir: Path | None = None,
                  work_dir: Path | None = None, preprocess_workers: int = 1,
                  extract_workers: int = 1, poll_seconds: float = 1.0,
-                 lease_seconds: float = 120.0):
+                 lease_seconds: float = 120.0, result_store=None):
         if preprocess_workers < 1 or extract_workers < 1:
             raise ValueError('Both worker counts must be positive')
         if poll_seconds <= 0 or lease_seconds <= 0:
@@ -63,6 +64,7 @@ class PostgresWorker:
         from msds.service import pipeline
 
         self.store = store
+        self.result_store = result_store
         self.steps = steps or pipeline.Steps()
         self.pages_dir = Path(pages_dir or paths.PAGES)
         self.work_dir = Path(work_dir or store.root)
@@ -81,6 +83,8 @@ class PostgresWorker:
                 return
             if hasattr(self.store, "validate_schema"):
                 self.store.validate_schema()
+            if self.result_store is not None:
+                self.result_store.validate_schema()
             self._stop.clear()
             for stage, count in (('preprocess', self.preprocess_workers), ('extract', self.extract_workers)):
                 for index in range(count):
@@ -141,7 +145,7 @@ class PostgresWorker:
                 prepared = self.store.attempt_paths(doc_id, job['_prepared_token'])
                 for key in ('pages_dir', 'sections_dir'):
                     shutil.copytree(prepared[key], attempt[key], dirs_exist_ok=False)
-                self._extract(bound, doc_id, attempt)
+                self._extract(bound, doc_id, attempt, token)
                 self.store.complete(doc_id, token)
         except LeaseLost:
             LOG.warning('Job lease lost for %s; discarding this worker result', doc_id)
@@ -172,7 +176,7 @@ class PostgresWorker:
         emit({'type': 'stage', 'stage': 'sections'})
         self.steps.sections(doc_id, attempt['pages_dir'], attempt['sections_dir'])
 
-    def _extract(self, store, doc_id: str, attempt: dict[str, Path]) -> None:
+    def _extract(self, store, doc_id: str, attempt: dict[str, Path], token: str) -> None:
         def emit(event):
             store.apply(doc_id, event)
 
@@ -185,4 +189,15 @@ class PostgresWorker:
         self.steps.save_run_info(runs_dir / doc_id, tag, attempt['pages_dir'])
         summary = self.steps.extract(doc_id, tag, doc_id, pages_dir=attempt['pages_dir'],
                                      sections_dir=attempt['sections_dir'], runs_dir=runs_dir, on_event=emit)
+        if self.result_store is not None:
+            from msds.checks.final_validation import summarize_checks
+            from msds.common.merge import now_kst
+
+            run = runs_dir / doc_id
+            extraction = json.loads((run / 'outputs' / f'{doc_id}.json').read_text(encoding='utf-8'))
+            checks = json.loads((run / 'checks' / f'{doc_id}.json').read_text(encoding='utf-8'))
+            validation = summarize_checks(extraction, checks)
+            extracted_at = (extraction.get('doc', {}).get('extraction') or {}).get('extracted_at') or now_kst()
+            self.result_store.save_for_lease(doc_id, token, extraction, checks, extracted_at=extracted_at)
+            summary = {**summary, 'validation': validation, 'results_persisted': True}
         emit({'type': 'done', 'summary': summary})

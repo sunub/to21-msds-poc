@@ -79,6 +79,7 @@ class PostgresJobStore:
         if not schema or '\x00' in schema or len(schema.encode('utf-8')) > 63:
             raise ValueError("Invalid PostgreSQL schema name")
         self.dsn = dsn
+        self.schema = schema
         self.root = Path(root)
         self.taken_dirs = tuple(Path(p) for p in taken_dirs)
         self.table = sql.Identifier(schema, "jobs")
