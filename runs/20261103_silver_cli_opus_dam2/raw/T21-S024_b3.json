@@ -1,0 +1,723 @@
+{
+  "doc_id": "T21-S024",
+  "bundle": "b3",
+  "model": "claude-opus-5-5",
+  "mode": "claude -p json-schema",
+  "finish_reason": "tool_use",
+  "usage": {
+    "prompt_tokens": 40540,
+    "completion_tokens": 7868,
+    "cached_tokens": 8451,
+    "reasoning_tokens": 961,
+    "notional_cost_usd": 0.41575419999999996
+  },
+  "seconds": 55.2,
+  "request_usage": [
+    {
+      "prompt_tokens": 40540,
+      "completion_tokens": 7868,
+      "cached_tokens": 8451,
+      "reasoning_tokens": 961,
+      "notional_cost_usd": 0.41575419999999996
+    }
+  ],
+  "attempts": 1,
+  "errors": [],
+  "parsed": {
+    "msds": [
+      {
+        "toxicity": [
+          {
+            "comp_ref": "1",
+            "endpoint": null,
+            "descriptor": null,
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "statements": [
+              {
+                "seq": 1,
+                "key": "가능성이 높은 노출 경로에 관한 정보",
+                "value": "자료없음",
+                "text": "가. 가능성이 높은 노출 경로에 관한 정보 자료없음"
+              }
+            ],
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_ORAL",
+            "descriptor": null,
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_DERMAL",
+            "descriptor": null,
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_INHAL",
+            "descriptor": null,
+            "q": {
+              "raw": "LCLo 90000 ppm",
+              "value": 90000,
+              "unit": "ppm",
+              "status": "값있음",
+              "note": "LCLo"
+            },
+            "species": "사람",
+            "sex": "미표기",
+            "duration_value": 5,
+            "duration_unit": "min",
+            "physical_form": "가스",
+            "data_source": "ChemIDplus",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "기타 (포유류 사람, LCLo, 90000ppm/5M, ChemIDplus)",
+                "text": "가스 LCLo 90000 ppm 5 min 기타 (포유류 사람, LCLo, 90000ppm/5M, ChemIDplus)"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_SKIN",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_EYE",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_RESP_SENS",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_SKIN_SENS",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_MUTA",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_REPRO",
+            "descriptor": "결과기술",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "랫드를 대상으로 한 생식독성 실험시 매우 높은 농도에서 제한적으로 쥐에게 1 일 노출에 의해 주로 교대과 심실 유출로 협착의 심장 기형이 23 % (대조군 6.8 %) 발생, 토끼 임신 7 ~ 12 일의 노출에 의해 척추 결손이 16/67 례 (대조군 1/30 명)에 발생되었다고 보고됨.",
+                "text": "랫드를 대상으로 한 생식독성 실험시 매우 높은 농도에서 제한적으로 쥐에게 1 일 노출에 의해 주로 교대과 심실 유출로 협착의 심장 기형이 23 % (대조군 6.8 %) 발 생, 토끼 임신 7 ~ 12 일의 노출에 의해 척추 결손이 16/67 례 (대조군 1/30 명)에 발생되었다고 보고됨."
+              },
+              {
+                "seq": 2,
+                "value": "위의 결과는 고농도 노출 조건 및 생식능 관련 부영향이 관찰 되지 않기에 분류에 적용하기는 부적절함.",
+                "text": "위의 결과는 고농도 노출 조건 및 생식능 관련 부영향이 관찰 되지 않기에 분류에 적용하기는 부적절함."
+              },
+              {
+                "seq": 3,
+                "value": "또한, 남성 생식력에 대한 가역적 영향과 기형 유발 영향의 증가는 대조군과 비교하여 비현실적으로 높은 농도에서만 발견되었다고 보고되고 있기에 분류에 적용하기에 부적절함",
+                "text": "또한, 남성 생식력에 대한 가역적 영향과 기형 유발 영향의 증가는 대조군과 비교하여 비 현실적으로 높은 농도에서만 발견되었다고 보고되고 있기에 분류에 적용하기에 부 적절함"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_STOT_SE",
+            "descriptor": "결과기술",
+            "classification": "구분 3(마취작용)",
+            "data_source": "ACGIH, 2001",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "이산화탄소를 높은 농도로 흡입하면 농도와 노출 기간에 따라 가벼운 마취 효과, 호흡 중추 자극 및 질식을 유발할 수 있음. [구분 3(마취작용)](ACGIH, 2001)",
+                "text": "이산화탄소를 높은 농도로 흡입하면 농도와 노출 기간에 따라 가벼운 마취 효과, 호 흡 중추 자극 및 질식을 유발할 수 있음. [구분 3(마취작용)](ACGIH, 2001)"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_STOT_RE",
+            "descriptor": "결과기술",
+            "data_source": "NITE",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "운동 중 1.5 % 이산화탄소에 42 일간 노출하고 가벼운 스트레스 반응이 나타났지만, 기초 생리 기능과 정신 운동 기능에 뚜렷한 저하는 아님(ACGIH (2001)).",
+                "text": "운동 중 1.5 % 이산화탄소에 42 일간 노출하고 가벼운 스트레스 반응이 나타났지 만, 기초 생리 기능과 정신 운동 기능에 뚜렷한 저하는 아님(ACGIH (2001))."
+              },
+              {
+                "seq": 2,
+                "value": "잠수자에게 1 % 이산화탄소를 22 일간 노출 시 대사성 스트레스를 인정(ACGIH (2001)).",
+                "text": "잠수자 에게 1 % 이산화탄소를 22 일간 노출 시 대사성 스트레스를 인정(ACGIH (2001))."
+              },
+              {
+                "seq": 3,
+                "value": "또한 2 % 이산화탄소의 노출은 농도의 상승에 따라 호흡 저항이 증가하여 3 % 이상에서 유해 영향 있을 것으로 판단 (ACGIH (2001)).",
+                "text": "또한 2 % 이산화탄소의 노출은 농도의 상승에 따라 호흡 저항이 증가하여 3 % 이 상에서 유해 영향 있을 것으로 판단 (ACGIH (2001))."
+              },
+              {
+                "seq": 4,
+                "value": "제 2 차 세계 대전중인 잠수함에서 3 %의 노출은 증상이 흥분에서 점차 억제로 옮겨 피하 혈류 증가, 체온 저하, 혈압 저하, 호흡 량 증가, 정신 기능 장애 등의 증상 보고(PATTY (5th, 2001)).",
+                "text": "제 2 차 세계 대전중인 잠수함 에서 3 %의 노출은 증상이 흥분에서 점차 억제로 옮겨 피하 혈류 증가, 체온 저하, 혈압 저하, 호흡 량 증가, 정신 기능 장애 등의 증상 보고(PATTY (5th, 2001))."
+              },
+              {
+                "seq": 5,
+                "value": "1 ~ 2 % 이산화탄소를 포함한 대기에 장기 계속 노출의 결과로 산증과 부신피질의 피폐 보고(ACGIH (2001)).",
+                "text": "1 ~ 2 % 이산화탄소를 포함한 대기에 장기 계속 노출의 결과로 산증과 부신피질의 피폐 보고(ACGIH (2001))."
+              },
+              {
+                "seq": 6,
+                "value": "그러나 이상과 같이 반복 노출에 관해서는 정보가 제한되고, 오랫동안 얻어진 많은 데이터들도 경미한 영향을 제외하고 일관성이 없기 때문에 데이터가 불충분하므로 분류에 적용하기에 부적절함(NITE).",
+                "text": "그러나 이상과 같이 반복 노출에 관해서는 정보가 제한되고, 오랫동안 얻어진 많은 데이터들도 경미한 영향을 제외하고 일관성이 없기 때문에 데이터가 불충분하므로 분류에 적용하기에 부적절함(NITE)."
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_ASP",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": null,
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "statements": [
+              {
+                "seq": 1,
+                "key": "기타 유해성 영향",
+                "value": "자료없음",
+                "text": "기타 유해성 영향 자료없음"
+              }
+            ],
+            "status": "자료없음"
+          }
+        ],
+        "cmr": [
+          {
+            "comp_ref": "1",
+            "hazard": "발암성",
+            "agency": "KR_OSH",
+            "class": null,
+            "status": "자료없음",
+            "note": "산업안전보건법"
+          },
+          {
+            "comp_ref": "1",
+            "hazard": "발암성",
+            "agency": "KR_OSH",
+            "class": null,
+            "status": "자료없음",
+            "note": "고용노동부고시"
+          },
+          {
+            "comp_ref": "1",
+            "hazard": "발암성",
+            "agency": "IARC",
+            "class": null,
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "1",
+            "hazard": "발암성",
+            "agency": "OSHA",
+            "class": null,
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "1",
+            "hazard": "발암성",
+            "agency": "ACGIH",
+            "class": null,
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "1",
+            "hazard": "발암성",
+            "agency": "NTP",
+            "class": null,
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "1",
+            "hazard": "발암성",
+            "agency": "EU_CLP",
+            "class": null,
+            "status": "자료없음"
+          }
+        ],
+        "ecotox": [
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_FISH",
+            "descriptor": "LC50",
+            "q": {
+              "raw": "35 ㎎/ℓ",
+              "value": 35,
+              "unit": "mg/L",
+              "status": "값있음"
+            },
+            "species": "Rainbow trout",
+            "duration_value": 96,
+            "duration_unit": "hr",
+            "data_source": "HSDB",
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_CRUST",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_ALGAE",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_PERSIST",
+            "descriptor": "logKow",
+            "q": {
+              "raw": "0.83 log Kow ()",
+              "value": 0.83,
+              "dp": 2,
+              "status": "값있음"
+            },
+            "data_source": "IUCLID",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "잔류성",
+                "value": "0.83 log Kow ()|※출처 : IUCLID",
+                "text": "잔류성 0.83 log Kow ()|※출처 : IUCLID"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_PERSIST",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "statements": [
+              {
+                "seq": 1,
+                "key": "분해성",
+                "value": "자료없음",
+                "text": "분해성 자료없음"
+              }
+            ],
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_BIOACC",
+            "descriptor": "결과기술",
+            "data_source": "IUCLID",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "농축성",
+                "value": "(생물 축적성이 있는 물질이 아님)",
+                "text": "농축성 (생물 축적성이 있는 물질이 아님)|※출처 : IUCLID"
+              }
+            ],
+            "status": "값있음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_BIOACC",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "statements": [
+              {
+                "seq": 1,
+                "key": "생분해성",
+                "value": "자료없음",
+                "text": "생분해성 자료없음"
+              }
+            ],
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_SOIL",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음"
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "ECO_OTHER",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음"
+          }
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "msds_index": 0,
+        "field": "toxicity[0]",
+        "page": 4,
+        "source_text": "가. 가능성이 높은 노출 경로에 관한 정보 | 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "맞는 값 없음: 노출 경로 항목에 해당하는 endpoint 코드가 없어 null, 원문은 statements에 남김"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[1]",
+        "page": 4,
+        "source_text": "경구 | 자료없음",
+        "rules": [
+          "R15",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[2]",
+        "page": 4,
+        "source_text": "경피 | 자료없음",
+        "rules": [
+          "R15",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[3]",
+        "page": 4,
+        "source_text": "흡입 | 가스 LCLo 90000 ppm 5 min 기타 (포유류 사람, LCLo, 90000ppm/5M, ChemIDplus)",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "맞는 값 없음: 지표 LCLo가 descriptor 목록에 없어 null로 두고 q.note에 LCLo 기록; 가스·5 min·사람·ChemIDplus 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[4]",
+        "page": 4,
+        "source_text": "피부부식성 또는 자극성 | 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[5]",
+        "page": 4,
+        "source_text": "심한 눈손상 또는 자극성 | 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[6]",
+        "page": 4,
+        "source_text": "호흡기과민성 | 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[7]",
+        "page": 4,
+        "source_text": "피부과민성 | 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[8]",
+        "page": 4,
+        "source_text": "생식세포변이원성 | 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[9]",
+        "page": 4,
+        "source_text": "생식독성 | 랫드를 대상으로 한 생식독성 실험시 매우 높은 농도에서 제한적으로 쥐에게 1 일 노출에 의해 주로 교대과 심실 유출로 협착의 심장 기형이 23 % (대조군 6.8 %)",
+        "rules": [],
+        "note": "서술을 문장 단위로 statements에 나눔"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[10]",
+        "page": 4,
+        "source_text": "특정 표적장기 독성 (1회 노출) | 이산화탄소를 높은 농도로 흡입하면 농도와 노출 기간에 따라 가벼운 마취 효과, 호 흡 중추 자극 및 질식을 유발할 수 있음. [구분 3(마취작용)](ACGIH, 2001)",
+        "rules": [],
+        "note": "분류 '구분 3(마취작용)'과 출처 ACGIH, 2001 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[11]",
+        "page": 4,
+        "source_text": "특정 표적장기 독성 (반복 노출) | 운동 중 1.5 % 이산화탄소에 42 일간 노출하고 가벼운 스트레스 반응이 나타났지 만,",
+        "rules": [],
+        "note": "서술을 문장 단위로 statements에 나눔, 결론 출처 NITE"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[12]",
+        "page": 4,
+        "source_text": "흡인유해성 | 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[13]",
+        "page": 4,
+        "source_text": "기타 유해성 영향 | 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "맞는 값 없음: 11항 기타 유해성 영향에 맞는 endpoint 코드가 없어 null"
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[0]",
+        "page": 4,
+        "source_text": "산업안전보건법 | 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[1]",
+        "page": 4,
+        "source_text": "고용노동부고시 | 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[2]",
+        "page": 4,
+        "source_text": "IARC | 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[3]",
+        "page": 4,
+        "source_text": "OSHA | 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[4]",
+        "page": 4,
+        "source_text": "ACGIH | 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[5]",
+        "page": 4,
+        "source_text": "NTP | 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "cmr[6]",
+        "page": 4,
+        "source_text": "EU CLP | 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[0]",
+        "page": 4,
+        "source_text": "어류 | LC50 35 ㎎/ℓ 96 hr 기타(Rainbow trout)|※출처 : HSDB",
+        "rules": [
+          "R04",
+          "R08"
+        ],
+        "note": "㎎/ℓ을 mg/L로 정규화"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[1]",
+        "page": 4,
+        "source_text": "갑각류 | 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[2]",
+        "page": 4,
+        "source_text": "조류 | 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[3]",
+        "page": 4,
+        "source_text": "잔류성 | 0.83 log Kow ()|※출처 : IUCLID",
+        "rules": [
+          "R04",
+          "R06"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[4]",
+        "page": 4,
+        "source_text": "분해성 | 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[5]",
+        "page": 4,
+        "source_text": "농축성 | (생물 축적성이 있는 물질이 아님)|※출처 : IUCLID",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[6]",
+        "page": 4,
+        "source_text": "생분해성 | 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "생물농축성 소제목 아래 있어 ECO_BIOACC로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[7]",
+        "page": 5,
+        "source_text": "라. 토양이동성 | 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[8]",
+        "page": 5,
+        "source_text": "마. 기타 유해 영향 | 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      }
+    ]
+  },
+  "raw_text": "{\"msds\": [{\"toxicity\": [{\"comp_ref\": \"1\", \"endpoint\": null, \"descriptor\": null, \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"statements\": [{\"seq\": 1, \"key\": \"가능성이 높은 노출 경로에 관한 정보\", \"value\": \"자료없음\", \"text\": \"가. 가능성이 높은 노출 경로에 관한 정보 자료없음\"}], \"status\": \"자료없음\"}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_ORAL\", \"descriptor\": null, \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\"}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_DERMAL\", \"descriptor\": null, \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\"}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_INHAL\", \"descriptor\": null, \"q\": {\"raw\": \"LCLo 90000 ppm\", \"value\": 90000, \"unit\": \"ppm\", \"status\": \"값있음\", \"note\": \"LCLo\"}, \"species\": \"사람\", \"sex\": \"미표기\", \"duration_value\": 5, \"duration_unit\": \"min\", \"physical_form\": \"가스\", \"data_source\": \"ChemIDplus\", \"statements\": [{\"seq\": 1, \"value\": \"기타 (포유류 사람, LCLo, 90000ppm/5M, ChemIDplus)\", \"text\": \"가스 LCLo 90000 ppm 5 min 기타 (포유류 사람, LCLo, 90000ppm/5M, ChemIDplus)\"}], \"status\": \"값있음\"}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_SKIN\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\"}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_EYE\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\"}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_RESP_SENS\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\"}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_SKIN_SENS\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\"}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_MUTA\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\"}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_REPRO\", \"descriptor\": \"결과기술\", \"statements\": [{\"seq\": 1, \"value\": \"랫드를 대상으로 한 생식독성 실험시 매우 높은 농도에서 제한적으로 쥐에게 1 일 노출에 의해 주로 교대과 심실 유출로 협착의 심장 기형이 23 % (대조군 6.8 %) 발생, 토끼 임신 7 ~ 12 일의 노출에 의해 척추 결손이 16/67 례 (대조군 1/30 명)에 발생되었다고 보고됨.\", \"text\": \"랫드를 대상으로 한 생식독성 실험시 매우 높은 농도에서 제한적으로 쥐에게 1 일 노출에 의해 주로 교대과 심실 유출로 협착의 심장 기형이 23 % (대조군 6.8 %) 발 생, 토끼 임신 7 ~ 12 일의 노출에 의해 척추 결손이 16/67 례 (대조군 1/30 명)에 발생되었다고 보고됨.\"}, {\"seq\": 2, \"value\": \"위의 결과는 고농도 노출 조건 및 생식능 관련 부영향이 관찰 되지 않기에 분류에 적용하기는 부적절함.\", \"text\": \"위의 결과는 고농도 노출 조건 및 생식능 관련 부영향이 관찰 되지 않기에 분류에 적용하기는 부적절함.\"}, {\"seq\": 3, \"value\": \"또한, 남성 생식력에 대한 가역적 영향과 기형 유발 영향의 증가는 대조군과 비교하여 비현실적으로 높은 농도에서만 발견되었다고 보고되고 있기에 분류에 적용하기에 부적절함\", \"text\": \"또한, 남성 생식력에 대한 가역적 영향과 기형 유발 영향의 증가는 대조군과 비교하여 비 현실적으로 높은 농도에서만 발견되었다고 보고되고 있기에 분류에 적용하기에 부 적절함\"}], \"status\": \"값있음\"}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_STOT_SE\", \"descriptor\": \"결과기술\", \"classification\": \"구분 3(마취작용)\", \"data_source\": \"ACGIH, 2001\", \"statements\": [{\"seq\": 1, \"value\": \"이산화탄소를 높은 농도로 흡입하면 농도와 노출 기간에 따라 가벼운 마취 효과, 호흡 중추 자극 및 질식을 유발할 수 있음. [구분 3(마취작용)](ACGIH, 2001)\", \"text\": \"이산화탄소를 높은 농도로 흡입하면 농도와 노출 기간에 따라 가벼운 마취 효과, 호 흡 중추 자극 및 질식을 유발할 수 있음. [구분 3(마취작용)](ACGIH, 2001)\"}], \"status\": \"값있음\"}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_STOT_RE\", \"descriptor\": \"결과기술\", \"data_source\": \"NITE\", \"statements\": [{\"seq\": 1, \"value\": \"운동 중 1.5 % 이산화탄소에 42 일간 노출하고 가벼운 스트레스 반응이 나타났지만, 기초 생리 기능과 정신 운동 기능에 뚜렷한 저하는 아님(ACGIH (2001)).\", \"text\": \"운동 중 1.5 % 이산화탄소에 42 일간 노출하고 가벼운 스트레스 반응이 나타났지 만, 기초 생리 기능과 정신 운동 기능에 뚜렷한 저하는 아님(ACGIH (2001)).\"}, {\"seq\": 2, \"value\": \"잠수자에게 1 % 이산화탄소를 22 일간 노출 시 대사성 스트레스를 인정(ACGIH (2001)).\", \"text\": \"잠수자 에게 1 % 이산화탄소를 22 일간 노출 시 대사성 스트레스를 인정(ACGIH (2001)).\"}, {\"seq\": 3, \"value\": \"또한 2 % 이산화탄소의 노출은 농도의 상승에 따라 호흡 저항이 증가하여 3 % 이상에서 유해 영향 있을 것으로 판단 (ACGIH (2001)).\", \"text\": \"또한 2 % 이산화탄소의 노출은 농도의 상승에 따라 호흡 저항이 증가하여 3 % 이 상에서 유해 영향 있을 것으로 판단 (ACGIH (2001)).\"}, {\"seq\": 4, \"value\": \"제 2 차 세계 대전중인 잠수함에서 3 %의 노출은 증상이 흥분에서 점차 억제로 옮겨 피하 혈류 증가, 체온 저하, 혈압 저하, 호흡 량 증가, 정신 기능 장애 등의 증상 보고(PATTY (5th, 2001)).\", \"text\": \"제 2 차 세계 대전중인 잠수함 에서 3 %의 노출은 증상이 흥분에서 점차 억제로 옮겨 피하 혈류 증가, 체온 저하, 혈압 저하, 호흡 량 증가, 정신 기능 장애 등의 증상 보고(PATTY (5th, 2001)).\"}, {\"seq\": 5, \"value\": \"1 ~ 2 % 이산화탄소를 포함한 대기에 장기 계속 노출의 결과로 산증과 부신피질의 피폐 보고(ACGIH (2001)).\", \"text\": \"1 ~ 2 % 이산화탄소를 포함한 대기에 장기 계속 노출의 결과로 산증과 부신피질의 피폐 보고(ACGIH (2001)).\"}, {\"seq\": 6, \"value\": \"그러나 이상과 같이 반복 노출에 관해서는 정보가 제한되고, 오랫동안 얻어진 많은 데이터들도 경미한 영향을 제외하고 일관성이 없기 때문에 데이터가 불충분하므로 분류에 적용하기에 부적절함(NITE).\", \"text\": \"그러나 이상과 같이 반복 노출에 관해서는 정보가 제한되고, 오랫동안 얻어진 많은 데이터들도 경미한 영향을 제외하고 일관성이 없기 때문에 데이터가 불충분하므로 분류에 적용하기에 부적절함(NITE).\"}], \"status\": \"값있음\"}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_ASP\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\"}, {\"comp_ref\": \"1\", \"endpoint\": null, \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"statements\": [{\"seq\": 1, \"key\": \"기타 유해성 영향\", \"value\": \"자료없음\", \"text\": \"기타 유해성 영향 자료없음\"}], \"status\": \"자료없음\"}], \"cmr\": [{\"comp_ref\": \"1\", \"hazard\": \"발암성\", \"agency\": \"KR_OSH\", \"class\": null, \"status\": \"자료없음\", \"note\": \"산업안전보건법\"}, {\"comp_ref\": \"1\", \"hazard\": \"발암성\", \"agency\": \"KR_OSH\", \"class\": null, \"status\": \"자료없음\", \"note\": \"고용노동부고시\"}, {\"comp_ref\": \"1\", \"hazard\": \"발암성\", \"agency\": \"IARC\", \"class\": null, \"status\": \"자료없음\"}, {\"comp_ref\": \"1\", \"hazard\": \"발암성\", \"agency\": \"OSHA\", \"class\": null, \"status\": \"자료없음\"}, {\"comp_ref\": \"1\", \"hazard\": \"발암성\", \"agency\": \"ACGIH\", \"class\": null, \"status\": \"자료없음\"}, {\"comp_ref\": \"1\", \"hazard\": \"발암성\", \"agency\": \"NTP\", \"class\": null, \"status\": \"자료없음\"}, {\"comp_ref\": \"1\", \"hazard\": \"발암성\", \"agency\": \"EU_CLP\", \"class\": null, \"status\": \"자료없음\"}], \"ecotox\": [{\"comp_ref\": \"1\", \"endpoint\": \"ECO_FISH\", \"descriptor\": \"LC50\", \"q\": {\"raw\": \"35 ㎎/ℓ\", \"value\": 35, \"unit\": \"mg/L\", \"status\": \"값있음\"}, \"species\": \"Rainbow trout\", \"duration_value\": 96, \"duration_unit\": \"hr\", \"data_source\": \"HSDB\", \"status\": \"값있음\"}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_CRUST\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\"}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_ALGAE\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\"}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_PERSIST\", \"descriptor\": \"logKow\", \"q\": {\"raw\": \"0.83 log Kow ()\", \"value\": 0.83, \"dp\": 2, \"status\": \"값있음\"}, \"data_source\": \"IUCLID\", \"statements\": [{\"seq\": 1, \"key\": \"잔류성\", \"value\": \"0.83 log Kow ()|※출처 : IUCLID\", \"text\": \"잔류성 0.83 log Kow ()|※출처 : IUCLID\"}], \"status\": \"값있음\"}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_PERSIST\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"statements\": [{\"seq\": 1, \"key\": \"분해성\", \"value\": \"자료없음\", \"text\": \"분해성 자료없음\"}], \"status\": \"자료없음\"}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_BIOACC\", \"descriptor\": \"결과기술\", \"data_source\": \"IUCLID\", \"statements\": [{\"seq\": 1, \"key\": \"농축성\", \"value\": \"(생물 축적성이 있는 물질이 아님)\", \"text\": \"농축성 (생물 축적성이 있는 물질이 아님)|※출처 : IUCLID\"}], \"status\": \"값있음\"}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_BIOACC\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"statements\": [{\"seq\": 1, \"key\": \"생분해성\", \"value\": \"자료없음\", \"text\": \"생분해성 자료없음\"}], \"status\": \"자료없음\"}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_SOIL\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\"}, {\"comp_ref\": \"1\", \"endpoint\": \"ECO_OTHER\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\"}]}], \"evidence\": [{\"msds_index\": 0, \"field\": \"toxicity[0]\", \"page\": 4, \"source_text\": \"가. 가능성이 높은 노출 경로에 관한 정보 | 자료없음\", \"rules\": [\"R15\"], \"note\": \"맞는 값 없음: 노출 경로 항목에 해당하는 endpoint 코드가 없어 null, 원문은 statements에 남김\"}, {\"msds_index\": 0, \"field\": \"toxicity[1]\", \"page\": 4, \"source_text\": \"경구 | 자료없음\", \"rules\": [\"R15\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[2]\", \"page\": 4, \"source_text\": \"경피 | 자료없음\", \"rules\": [\"R15\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[3]\", \"page\": 4, \"source_text\": \"흡입 | 가스 LCLo 90000 ppm 5 min 기타 (포유류 사람, LCLo, 90000ppm/5M, ChemIDplus)\", \"rules\": [\"R04\", \"R10\"], \"note\": \"맞는 값 없음: 지표 LCLo가 descriptor 목록에 없어 null로 두고 q.note에 LCLo 기록; 가스·5 min·사람·ChemIDplus 분리\"}, {\"msds_index\": 0, \"field\": \"toxicity[4]\", \"page\": 4, \"source_text\": \"피부부식성 또는 자극성 | 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[5]\", \"page\": 4, \"source_text\": \"심한 눈손상 또는 자극성 | 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[6]\", \"page\": 4, \"source_text\": \"호흡기과민성 | 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[7]\", \"page\": 4, \"source_text\": \"피부과민성 | 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[8]\", \"page\": 4, \"source_text\": \"생식세포변이원성 | 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[9]\", \"page\": 4, \"source_text\": \"생식독성 | 랫드를 대상으로 한 생식독성 실험시 매우 높은 농도에서 제한적으로 쥐에게 1 일 노출에 의해 주로 교대과 심실 유출로 협착의 심장 기형이 23 % (대조군 6.8 %)\", \"rules\": [], \"note\": \"서술을 문장 단위로 statements에 나눔\"}, {\"msds_index\": 0, \"field\": \"toxicity[10]\", \"page\": 4, \"source_text\": \"특정 표적장기 독성 (1회 노출) | 이산화탄소를 높은 농도로 흡입하면 농도와 노출 기간에 따라 가벼운 마취 효과, 호 흡 중추 자극 및 질식을 유발할 수 있음. [구분 3(마취작용)](ACGIH, 2001)\", \"rules\": [], \"note\": \"분류 '구분 3(마취작용)'과 출처 ACGIH, 2001 분리\"}, {\"msds_index\": 0, \"field\": \"toxicity[11]\", \"page\": 4, \"source_text\": \"특정 표적장기 독성 (반복 노출) | 운동 중 1.5 % 이산화탄소에 42 일간 노출하고 가벼운 스트레스 반응이 나타났지 만,\", \"rules\": [], \"note\": \"서술을 문장 단위로 statements에 나눔, 결론 출처 NITE\"}, {\"msds_index\": 0, \"field\": \"toxicity[12]\", \"page\": 4, \"source_text\": \"흡인유해성 | 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[13]\", \"page\": 4, \"source_text\": \"기타 유해성 영향 | 자료없음\", \"rules\": [\"R15\"], \"note\": \"맞는 값 없음: 11항 기타 유해성 영향에 맞는 endpoint 코드가 없어 null\"}, {\"msds_index\": 0, \"field\": \"cmr[0]\", \"page\": 4, \"source_text\": \"산업안전보건법 | 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"cmr[1]\", \"page\": 4, \"source_text\": \"고용노동부고시 | 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"cmr[2]\", \"page\": 4, \"source_text\": \"IARC | 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"cmr[3]\", \"page\": 4, \"source_text\": \"OSHA | 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"cmr[4]\", \"page\": 4, \"source_text\": \"ACGIH | 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"cmr[5]\", \"page\": 4, \"source_text\": \"NTP | 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"cmr[6]\", \"page\": 4, \"source_text\": \"EU CLP | 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[0]\", \"page\": 4, \"source_text\": \"어류 | LC50 35 ㎎/ℓ 96 hr 기타(Rainbow trout)|※출처 : HSDB\", \"rules\": [\"R04\", \"R08\"], \"note\": \"㎎/ℓ을 mg/L로 정규화\"}, {\"msds_index\": 0, \"field\": \"ecotox[1]\", \"page\": 4, \"source_text\": \"갑각류 | 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[2]\", \"page\": 4, \"source_text\": \"조류 | 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[3]\", \"page\": 4, \"source_text\": \"잔류성 | 0.83 log Kow ()|※출처 : IUCLID\", \"rules\": [\"R04\", \"R06\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[4]\", \"page\": 4, \"source_text\": \"분해성 | 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[5]\", \"page\": 4, \"source_text\": \"농축성 | (생물 축적성이 있는 물질이 아님)|※출처 : IUCLID\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[6]\", \"page\": 4, \"source_text\": \"생분해성 | 자료없음\", \"rules\": [\"R15\"], \"note\": \"생물농축성 소제목 아래 있어 ECO_BIOACC로 둠\"}, {\"msds_index\": 0, \"field\": \"ecotox[7]\", \"page\": 5, \"source_text\": \"라. 토양이동성 | 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[8]\", \"page\": 5, \"source_text\": \"마. 기타 유해 영향 | 자료없음\", \"rules\": [\"R15\"], \"note\": null}]}"
+}

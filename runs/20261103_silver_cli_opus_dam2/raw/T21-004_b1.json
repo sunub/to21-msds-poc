@@ -1,0 +1,613 @@
+{
+  "doc_id": "T21-004",
+  "bundle": "b1",
+  "model": "claude-opus-5-5",
+  "mode": "claude -p json-schema",
+  "finish_reason": "tool_use",
+  "usage": {
+    "prompt_tokens": 58374,
+    "completion_tokens": 5809,
+    "cached_tokens": 11700,
+    "reasoning_tokens": 897,
+    "notional_cost_usd": 0.491904
+  },
+  "seconds": 45.0,
+  "request_usage": [
+    {
+      "prompt_tokens": 58374,
+      "completion_tokens": 5809,
+      "cached_tokens": 11700,
+      "reasoning_tokens": 897,
+      "notional_cost_usd": 0.491904
+    }
+  ],
+  "attempts": 1,
+  "errors": [],
+  "parsed": {
+    "doc": {
+      "language": "ko",
+      "msds_count": 1
+    },
+    "msds": [
+      {
+        "meta": {
+          "msds_no": "AA01312-0000000037",
+          "doc_code": "온산-제품- 44",
+          "revision_no": 5,
+          "revision_label": "Rev.No 5",
+          "header_product_name": "NDM",
+          "source_note": null,
+          "first_issue_date": "2017-01-12",
+          "last_revision_date": "2020-07-24",
+          "page_start": 1,
+          "page_end": 9
+        },
+        "product": {
+          "name": "NDM",
+          "code": null,
+          "synonyms": [],
+          "uses": [
+            "스티렌-부타디엔 고무용 중합 조절제",
+            "폐기물로부터 금속 제거용과 같은 착물화제",
+            "합성 고무, 플라스틱, 살균제의 제조",
+            "비이온성 세제"
+          ],
+          "restrictions": [
+            "자료 없음"
+          ],
+          "use_category_code": null
+        },
+        "companies": [
+          {
+            "seq": 1,
+            "role": "제조자",
+            "name": "㈜이수화학",
+            "site": null,
+            "address": "울산광역시 울주군 온산읍 석당길 8",
+            "postcode": null,
+            "department": null,
+            "contacts": [
+              {
+                "type": "긴급",
+                "value": "052-231-5581",
+                "hours": null
+              },
+              {
+                "type": "팩스",
+                "value": "052-231-5699",
+                "hours": null
+              }
+            ]
+          }
+        ],
+        "hazard": {
+          "classified": true,
+          "classes": [
+            {
+              "seq": 1,
+              "group": "건강",
+              "class_code": "HH_SKIN_CORR",
+              "category": "1",
+              "route_form": null,
+              "effect": null,
+              "target_organs": [],
+              "raw": "피부 부식성/피부 자극성, 구분 1"
+            },
+            {
+              "seq": 2,
+              "group": "건강",
+              "class_code": "HH_EYE_DMG",
+              "category": "1",
+              "route_form": null,
+              "effect": null,
+              "target_organs": [],
+              "raw": "심한 눈 손상성, 구분 1"
+            },
+            {
+              "seq": 3,
+              "group": "건강",
+              "class_code": "HH_SKIN_SENS",
+              "category": "1",
+              "route_form": null,
+              "effect": null,
+              "target_organs": [],
+              "raw": "피부 과민성, 구분 1"
+            },
+            {
+              "seq": 4,
+              "group": "환경",
+              "class_code": "ENV_AQ_ACUTE",
+              "category": "1",
+              "route_form": null,
+              "effect": null,
+              "target_organs": [],
+              "raw": "급성 수생환경 유해성, 구분 1"
+            },
+            {
+              "seq": 5,
+              "group": "환경",
+              "class_code": "ENV_AQ_CHRONIC",
+              "category": "1",
+              "route_form": null,
+              "effect": null,
+              "target_organs": [],
+              "raw": "만성 수생환경 유해성, 구분 1"
+            }
+          ],
+          "signal_word": "위험",
+          "pictograms": [
+            {
+              "code": "GHS05",
+              "detection": "이미지판독"
+            },
+            {
+              "code": "GHS07",
+              "detection": "이미지판독"
+            },
+            {
+              "code": "GHS09",
+              "detection": "이미지판독"
+            }
+          ],
+          "h_statements": [
+            {
+              "seq": 1,
+              "code": "H314",
+              "system": "GHS",
+              "mark": null,
+              "text": "피부에 심한 화상과 눈에 손상을 일으킴."
+            },
+            {
+              "seq": 2,
+              "code": "H318",
+              "system": "GHS",
+              "mark": null,
+              "text": "눈에 심한 손상을 일으킴."
+            },
+            {
+              "seq": 3,
+              "code": "H317",
+              "system": "GHS",
+              "mark": null,
+              "text": "알레르기성 피부 반응을 일으킬 수 있음."
+            },
+            {
+              "seq": 4,
+              "code": "H400",
+              "system": "GHS",
+              "mark": null,
+              "text": "수생생물에 매우 유독함"
+            },
+            {
+              "seq": 5,
+              "code": "H410",
+              "system": "GHS",
+              "mark": null,
+              "text": "장기적인 영향에 의해 수생생물에게 매우 유독함."
+            }
+          ],
+          "p_statements": [
+            {
+              "seq": 1,
+              "code": "P260",
+              "type": "예방",
+              "text": "미스트·증기·스프레이를 흡입하지 마시오."
+            },
+            {
+              "seq": 2,
+              "code": "P264",
+              "type": "예방",
+              "text": "취급 후에는 취급 부위를 철저히 씻으시오."
+            },
+            {
+              "seq": 3,
+              "code": "P280",
+              "type": "예방",
+              "text": "보호장갑·보호의·보안경·안면보호구를 착용하시오."
+            },
+            {
+              "seq": 4,
+              "code": "P261",
+              "type": "예방",
+              "text": "미스트·증기·스프레이의 흡입을 피하시오."
+            },
+            {
+              "seq": 5,
+              "code": "P272",
+              "type": "예방",
+              "text": "작업장 밖으로 오염된 의복을 반출하지 마시오."
+            },
+            {
+              "seq": 6,
+              "code": "P273",
+              "type": "예방",
+              "text": "환경으로 배출하지 마시오."
+            },
+            {
+              "seq": 7,
+              "code": "P302+P352",
+              "type": "대응",
+              "text": "피부에 묻으면 다량의 물로 씻으시오."
+            },
+            {
+              "seq": 8,
+              "code": "P333+P313",
+              "type": "대응",
+              "text": "피부자극성 또는 홍반이 나타나면: 의학적인 조치∙조언을 구하시오."
+            },
+            {
+              "seq": 9,
+              "code": "P362+P364",
+              "type": "대응",
+              "text": "오염된 의복은 벗고 다시 사용 전 세척하시오."
+            },
+            {
+              "seq": 10,
+              "code": "P301+P330+P331",
+              "type": "대응",
+              "text": "삼켰다면 입을 씻어내시오. 토하게 하려 하지 마시오."
+            },
+            {
+              "seq": 11,
+              "code": "P303+P361+P353",
+              "type": "대응",
+              "text": "피부(또는 머리카락)에 묻으면: 오염된 모든 의복은 벗거나 제거하시오. 피부를 물로 씻으시오/샤워하시오."
+            },
+            {
+              "seq": 12,
+              "code": "P363",
+              "type": "대응",
+              "text": "재사용 전 의복을 세척하시오."
+            },
+            {
+              "seq": 13,
+              "code": "P304+P340",
+              "type": "대응",
+              "text": "흡입하면: 신선한 공기가 있는 곳으로 옮기고 호흡하기 쉬운 자세로 안정을 취하시오."
+            },
+            {
+              "seq": 14,
+              "code": "P310",
+              "type": "대응",
+              "text": "즉시 의료기관/의사의 진찰을 받으시오."
+            },
+            {
+              "seq": 15,
+              "code": "P321",
+              "type": "대응",
+              "text": "라벨의 추가 응급 치료 지시를 참고하여 적절한 처치를 하시오."
+            },
+            {
+              "seq": 16,
+              "code": "P305+P351+P338",
+              "type": "대응",
+              "text": "눈에 묻으면: 몇 분간 물로 조심해서 씻으시오. 가능하면 콘택트렌즈를 제거하시오. 계속 씻으시오."
+            },
+            {
+              "seq": 17,
+              "code": "P391",
+              "type": "대응",
+              "text": "누출물을 모으시오."
+            },
+            {
+              "seq": 18,
+              "code": "P405",
+              "type": "저장",
+              "text": "잠금장치가 있는 저장장소에 저장하시오."
+            },
+            {
+              "seq": 19,
+              "code": "P501",
+              "type": "폐기",
+              "text": "폐기물관리법에 따라 내용물과 용기를 폐기하시오."
+            }
+          ],
+          "other_hazards": [
+            {
+              "seq": 1,
+              "key": "유해․위험성 분류기준에 포함되지 않는 기타 유해․위험성",
+              "value": "해당없음",
+              "text": "다. 유해․위험성 분류기준에 포함되지 않는 기타 유해․위험성: 해당없음"
+            }
+          ],
+          "nfpa": {
+            "health": null,
+            "fire": null,
+            "reactivity": null,
+            "special": null
+          }
+        },
+        "composition": {
+          "type": "단일물질",
+          "no_hazardous_component": false
+        },
+        "components": [
+          {
+            "seq": 1,
+            "name": "1-도데칸싸이올",
+            "name_en": null,
+            "synonyms": [
+              "도데킬 머캡탄"
+            ],
+            "cas_no": "112-55-0",
+            "ke_no": null,
+            "ec_no": null,
+            "other_id": null,
+            "other_id_type": null,
+            "parent_seq": null,
+            "read_across_cas": null,
+            "content": {
+              "raw": "98.5~100",
+              "status": "값있음",
+              "lower_op": ">=",
+              "lower": 98.5,
+              "upper_op": "<=",
+              "upper": 100,
+              "unit": "%",
+              "dp": 1
+            },
+            "content_note": null,
+            "content_basis": "중량",
+            "trade_secret": false,
+            "approval_no": null,
+            "approval_expiry": null
+          }
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "msds_index": 0,
+        "field": "meta.msds_no",
+        "page": 1,
+        "source_text": "* MSDS 등록번호 : AA01312-0000000037",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.doc_code",
+        "page": 1,
+        "source_text": "관리번호 (온산-제품- 44)",
+        "rules": [],
+        "note": "괄호를 빼고 관리번호를 옮김"
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.revision_no",
+        "page": 9,
+        "source_text": "다.개정 횟수 및 최종 개정일자 : 5회 / 2020.07.24",
+        "rules": [],
+        "note": "머리글 Rev.No 5와 같음"
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.revision_label",
+        "page": 1,
+        "source_text": "Rev.No 5",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.header_product_name",
+        "page": 1,
+        "source_text": "NDM",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.first_issue_date",
+        "page": 9,
+        "source_text": "나.최초 작성일자 : 2017. 01. 12",
+        "rules": [
+          "R01"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.last_revision_date",
+        "page": 9,
+        "source_text": "다.개정 횟수 및 최종 개정일자 : 5회 / 2020.07.24",
+        "rules": [
+          "R01"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.page_start",
+        "page": 1,
+        "source_text": "PAGE 1/9",
+        "rules": [
+          "R16"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "meta.page_end",
+        "page": 9,
+        "source_text": "PAGE 9/9",
+        "rules": [
+          "R16"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "product.name",
+        "page": 1,
+        "source_text": "가. 제품명: NDM",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "product.uses",
+        "page": 1,
+        "source_text": "○ 권고용도: 스티렌-부타디엔 고무용 중합 조절제; 폐기물로부터 금속 제거용과 같은 착물화제; 합성 고무, 플라스틱, 살균제의 제조; 비이온성 세제",
+        "rules": [
+          "R11",
+          "R17"
+        ],
+        "note": "';' 기준으로 나누고, '합성 고무, 플라스틱, 살균제의 제조'는 의미 보존을 위해 쉼표로 나누지 않음"
+      },
+      {
+        "msds_index": 0,
+        "field": "product.restrictions",
+        "page": 1,
+        "source_text": "○ 사용상의 제한: 자료 없음",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "companies[0]",
+        "page": 1,
+        "source_text": "회사명 : ㈜이수화학 주 소 : 울산광역시 울주군 온산읍 석당길 8 긴급전화번호 : Tel. 052-231-5581 Fax. 052-231-5699",
+        "rules": [
+          "R12"
+        ],
+        "note": "긴급전화와 팩스를 contacts로 나눔"
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.classified",
+        "page": 1,
+        "source_text": "가. 유해․위험성 분류:",
+        "rules": [],
+        "note": "분류 항목이 있어 true"
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.classes[0]",
+        "page": 1,
+        "source_text": "○ 피부 부식성/피부 자극성, 구분 1",
+        "rules": [
+          "R07"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.classes[1]",
+        "page": 1,
+        "source_text": "○ 심한 눈 손상성, 구분 1",
+        "rules": [
+          "R07"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.classes[2]",
+        "page": 1,
+        "source_text": "○ 피부 과민성, 구분 1",
+        "rules": [
+          "R07"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.classes[3]",
+        "page": 1,
+        "source_text": "○ 급성 수생환경 유해성, 구분 1",
+        "rules": [
+          "R07"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.classes[4]",
+        "page": 1,
+        "source_text": "○ 만성 수생환경 유해성, 구분 1",
+        "rules": [
+          "R07"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.signal_word",
+        "page": 1,
+        "source_text": "○ 신호어 : 위험",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.pictograms",
+        "page": 1,
+        "source_text": "○ 그림문자 :",
+        "rules": [],
+        "note": "이미지에서 부식성·감탄부호·환경 그림 3개 판독"
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.h_statements",
+        "page": 1,
+        "source_text": "- H314 : 피부에 심한 화상과 눈에 손상을 일으킴. - H318 ... - H317 ... - H400 ... - H410 ...",
+        "rules": [
+          "R05"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.p_statements",
+        "page": 1,
+        "source_text": "∙ P260 : 미스트·증기·스프레이를 흡입하지 마시오. ... ∙ P272 : 작업장 밖으로 오염된 의복을 반출하지 마시오.",
+        "rules": [
+          "R05"
+        ],
+        "note": "1~5번 P코드"
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.p_statements",
+        "page": 2,
+        "source_text": "∙ P273 : 환경으로 배출하지 마시오. ... ∙ P501 : 폐기물관리법에 따라 내용물과 용기를 폐기하시오.",
+        "rules": [
+          "R05"
+        ],
+        "note": "6~19번 P코드, 'P301 + P330 + P331' 등 공백 제거"
+      },
+      {
+        "msds_index": 0,
+        "field": "hazard.other_hazards[0]",
+        "page": 2,
+        "source_text": "다. 유해․위험성 분류기준에 포함되지 않는 기타 유해․위험성: 해당없음",
+        "rules": [
+          "R14"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "composition.type",
+        "page": 2,
+        "source_text": "1-도데칸싸이올 | 도데킬 머캡탄 | 112-55-0 | 98.5~100",
+        "rules": [],
+        "note": "성분 1개로 단일물질"
+      },
+      {
+        "msds_index": 0,
+        "field": "components[0]",
+        "page": 2,
+        "source_text": "1-도데칸싸이올 | 도데킬 머캡탄 | 112-55-0 | 98.5~100",
+        "rules": [
+          "R02",
+          "R04",
+          "R06"
+        ],
+        "note": "'98.5~100'을 하한 98.5(>=), 상한 100(<=)로 나눔, 단위 wt%로 중량 기준"
+      }
+    ]
+  },
+  "raw_text": "{\"doc\": {\"language\": \"ko\", \"msds_count\": 1}, \"msds\": [{\"meta\": {\"msds_no\": \"AA01312-0000000037\", \"doc_code\": \"온산-제품- 44\", \"revision_no\": 5, \"revision_label\": \"Rev.No 5\", \"header_product_name\": \"NDM\", \"source_note\": null, \"first_issue_date\": \"2017-01-12\", \"last_revision_date\": \"2020-07-24\", \"page_start\": 1, \"page_end\": 9}, \"product\": {\"name\": \"NDM\", \"code\": null, \"synonyms\": [], \"uses\": [\"스티렌-부타디엔 고무용 중합 조절제\", \"폐기물로부터 금속 제거용과 같은 착물화제\", \"합성 고무, 플라스틱, 살균제의 제조\", \"비이온성 세제\"], \"restrictions\": [\"자료 없음\"], \"use_category_code\": null}, \"companies\": [{\"seq\": 1, \"role\": \"제조자\", \"name\": \"㈜이수화학\", \"site\": null, \"address\": \"울산광역시 울주군 온산읍 석당길 8\", \"postcode\": null, \"department\": null, \"contacts\": [{\"type\": \"긴급\", \"value\": \"052-231-5581\", \"hours\": null}, {\"type\": \"팩스\", \"value\": \"052-231-5699\", \"hours\": null}]}], \"hazard\": {\"classified\": true, \"classes\": [{\"seq\": 1, \"group\": \"건강\", \"class_code\": \"HH_SKIN_CORR\", \"category\": \"1\", \"route_form\": null, \"effect\": null, \"target_organs\": [], \"raw\": \"피부 부식성/피부 자극성, 구분 1\"}, {\"seq\": 2, \"group\": \"건강\", \"class_code\": \"HH_EYE_DMG\", \"category\": \"1\", \"route_form\": null, \"effect\": null, \"target_organs\": [], \"raw\": \"심한 눈 손상성, 구분 1\"}, {\"seq\": 3, \"group\": \"건강\", \"class_code\": \"HH_SKIN_SENS\", \"category\": \"1\", \"route_form\": null, \"effect\": null, \"target_organs\": [], \"raw\": \"피부 과민성, 구분 1\"}, {\"seq\": 4, \"group\": \"환경\", \"class_code\": \"ENV_AQ_ACUTE\", \"category\": \"1\", \"route_form\": null, \"effect\": null, \"target_organs\": [], \"raw\": \"급성 수생환경 유해성, 구분 1\"}, {\"seq\": 5, \"group\": \"환경\", \"class_code\": \"ENV_AQ_CHRONIC\", \"category\": \"1\", \"route_form\": null, \"effect\": null, \"target_organs\": [], \"raw\": \"만성 수생환경 유해성, 구분 1\"}], \"signal_word\": \"위험\", \"pictograms\": [{\"code\": \"GHS05\", \"detection\": \"이미지판독\"}, {\"code\": \"GHS07\", \"detection\": \"이미지판독\"}, {\"code\": \"GHS09\", \"detection\": \"이미지판독\"}], \"h_statements\": [{\"seq\": 1, \"code\": \"H314\", \"system\": \"GHS\", \"mark\": null, \"text\": \"피부에 심한 화상과 눈에 손상을 일으킴.\"}, {\"seq\": 2, \"code\": \"H318\", \"system\": \"GHS\", \"mark\": null, \"text\": \"눈에 심한 손상을 일으킴.\"}, {\"seq\": 3, \"code\": \"H317\", \"system\": \"GHS\", \"mark\": null, \"text\": \"알레르기성 피부 반응을 일으킬 수 있음.\"}, {\"seq\": 4, \"code\": \"H400\", \"system\": \"GHS\", \"mark\": null, \"text\": \"수생생물에 매우 유독함\"}, {\"seq\": 5, \"code\": \"H410\", \"system\": \"GHS\", \"mark\": null, \"text\": \"장기적인 영향에 의해 수생생물에게 매우 유독함.\"}], \"p_statements\": [{\"seq\": 1, \"code\": \"P260\", \"type\": \"예방\", \"text\": \"미스트·증기·스프레이를 흡입하지 마시오.\"}, {\"seq\": 2, \"code\": \"P264\", \"type\": \"예방\", \"text\": \"취급 후에는 취급 부위를 철저히 씻으시오.\"}, {\"seq\": 3, \"code\": \"P280\", \"type\": \"예방\", \"text\": \"보호장갑·보호의·보안경·안면보호구를 착용하시오.\"}, {\"seq\": 4, \"code\": \"P261\", \"type\": \"예방\", \"text\": \"미스트·증기·스프레이의 흡입을 피하시오.\"}, {\"seq\": 5, \"code\": \"P272\", \"type\": \"예방\", \"text\": \"작업장 밖으로 오염된 의복을 반출하지 마시오.\"}, {\"seq\": 6, \"code\": \"P273\", \"type\": \"예방\", \"text\": \"환경으로 배출하지 마시오.\"}, {\"seq\": 7, \"code\": \"P302+P352\", \"type\": \"대응\", \"text\": \"피부에 묻으면 다량의 물로 씻으시오.\"}, {\"seq\": 8, \"code\": \"P333+P313\", \"type\": \"대응\", \"text\": \"피부자극성 또는 홍반이 나타나면: 의학적인 조치∙조언을 구하시오.\"}, {\"seq\": 9, \"code\": \"P362+P364\", \"type\": \"대응\", \"text\": \"오염된 의복은 벗고 다시 사용 전 세척하시오.\"}, {\"seq\": 10, \"code\": \"P301+P330+P331\", \"type\": \"대응\", \"text\": \"삼켰다면 입을 씻어내시오. 토하게 하려 하지 마시오.\"}, {\"seq\": 11, \"code\": \"P303+P361+P353\", \"type\": \"대응\", \"text\": \"피부(또는 머리카락)에 묻으면: 오염된 모든 의복은 벗거나 제거하시오. 피부를 물로 씻으시오/샤워하시오.\"}, {\"seq\": 12, \"code\": \"P363\", \"type\": \"대응\", \"text\": \"재사용 전 의복을 세척하시오.\"}, {\"seq\": 13, \"code\": \"P304+P340\", \"type\": \"대응\", \"text\": \"흡입하면: 신선한 공기가 있는 곳으로 옮기고 호흡하기 쉬운 자세로 안정을 취하시오.\"}, {\"seq\": 14, \"code\": \"P310\", \"type\": \"대응\", \"text\": \"즉시 의료기관/의사의 진찰을 받으시오.\"}, {\"seq\": 15, \"code\": \"P321\", \"type\": \"대응\", \"text\": \"라벨의 추가 응급 치료 지시를 참고하여 적절한 처치를 하시오.\"}, {\"seq\": 16, \"code\": \"P305+P351+P338\", \"type\": \"대응\", \"text\": \"눈에 묻으면: 몇 분간 물로 조심해서 씻으시오. 가능하면 콘택트렌즈를 제거하시오. 계속 씻으시오.\"}, {\"seq\": 17, \"code\": \"P391\", \"type\": \"대응\", \"text\": \"누출물을 모으시오.\"}, {\"seq\": 18, \"code\": \"P405\", \"type\": \"저장\", \"text\": \"잠금장치가 있는 저장장소에 저장하시오.\"}, {\"seq\": 19, \"code\": \"P501\", \"type\": \"폐기\", \"text\": \"폐기물관리법에 따라 내용물과 용기를 폐기하시오.\"}], \"other_hazards\": [{\"seq\": 1, \"key\": \"유해․위험성 분류기준에 포함되지 않는 기타 유해․위험성\", \"value\": \"해당없음\", \"text\": \"다. 유해․위험성 분류기준에 포함되지 않는 기타 유해․위험성: 해당없음\"}], \"nfpa\": {\"health\": null, \"fire\": null, \"reactivity\": null, \"special\": null}}, \"composition\": {\"type\": \"단일물질\", \"no_hazardous_component\": false}, \"components\": [{\"seq\": 1, \"name\": \"1-도데칸싸이올\", \"name_en\": null, \"synonyms\": [\"도데킬 머캡탄\"], \"cas_no\": \"112-55-0\", \"ke_no\": null, \"ec_no\": null, \"other_id\": null, \"other_id_type\": null, \"parent_seq\": null, \"read_across_cas\": null, \"content\": {\"raw\": \"98.5~100\", \"status\": \"값있음\", \"lower_op\": \">=\", \"lower\": 98.5, \"upper_op\": \"<=\", \"upper\": 100, \"unit\": \"%\", \"dp\": 1}, \"content_note\": null, \"content_basis\": \"중량\", \"trade_secret\": false, \"approval_no\": null, \"approval_expiry\": null}]}], \"evidence\": [{\"msds_index\": 0, \"field\": \"meta.msds_no\", \"page\": 1, \"source_text\": \"* MSDS 등록번호 : AA01312-0000000037\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"meta.doc_code\", \"page\": 1, \"source_text\": \"관리번호 (온산-제품- 44)\", \"rules\": [], \"note\": \"괄호를 빼고 관리번호를 옮김\"}, {\"msds_index\": 0, \"field\": \"meta.revision_no\", \"page\": 9, \"source_text\": \"다.개정 횟수 및 최종 개정일자 : 5회 / 2020.07.24\", \"rules\": [], \"note\": \"머리글 Rev.No 5와 같음\"}, {\"msds_index\": 0, \"field\": \"meta.revision_label\", \"page\": 1, \"source_text\": \"Rev.No 5\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"meta.header_product_name\", \"page\": 1, \"source_text\": \"NDM\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"meta.first_issue_date\", \"page\": 9, \"source_text\": \"나.최초 작성일자 : 2017. 01. 12\", \"rules\": [\"R01\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"meta.last_revision_date\", \"page\": 9, \"source_text\": \"다.개정 횟수 및 최종 개정일자 : 5회 / 2020.07.24\", \"rules\": [\"R01\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"meta.page_start\", \"page\": 1, \"source_text\": \"PAGE 1/9\", \"rules\": [\"R16\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"meta.page_end\", \"page\": 9, \"source_text\": \"PAGE 9/9\", \"rules\": [\"R16\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"product.name\", \"page\": 1, \"source_text\": \"가. 제품명: NDM\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"product.uses\", \"page\": 1, \"source_text\": \"○ 권고용도: 스티렌-부타디엔 고무용 중합 조절제; 폐기물로부터 금속 제거용과 같은 착물화제; 합성 고무, 플라스틱, 살균제의 제조; 비이온성 세제\", \"rules\": [\"R11\", \"R17\"], \"note\": \"';' 기준으로 나누고, '합성 고무, 플라스틱, 살균제의 제조'는 의미 보존을 위해 쉼표로 나누지 않음\"}, {\"msds_index\": 0, \"field\": \"product.restrictions\", \"page\": 1, \"source_text\": \"○ 사용상의 제한: 자료 없음\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"companies[0]\", \"page\": 1, \"source_text\": \"회사명 : ㈜이수화학 주 소 : 울산광역시 울주군 온산읍 석당길 8 긴급전화번호 : Tel. 052-231-5581 Fax. 052-231-5699\", \"rules\": [\"R12\"], \"note\": \"긴급전화와 팩스를 contacts로 나눔\"}, {\"msds_index\": 0, \"field\": \"hazard.classified\", \"page\": 1, \"source_text\": \"가. 유해․위험성 분류:\", \"rules\": [], \"note\": \"분류 항목이 있어 true\"}, {\"msds_index\": 0, \"field\": \"hazard.classes[0]\", \"page\": 1, \"source_text\": \"○ 피부 부식성/피부 자극성, 구분 1\", \"rules\": [\"R07\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"hazard.classes[1]\", \"page\": 1, \"source_text\": \"○ 심한 눈 손상성, 구분 1\", \"rules\": [\"R07\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"hazard.classes[2]\", \"page\": 1, \"source_text\": \"○ 피부 과민성, 구분 1\", \"rules\": [\"R07\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"hazard.classes[3]\", \"page\": 1, \"source_text\": \"○ 급성 수생환경 유해성, 구분 1\", \"rules\": [\"R07\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"hazard.classes[4]\", \"page\": 1, \"source_text\": \"○ 만성 수생환경 유해성, 구분 1\", \"rules\": [\"R07\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"hazard.signal_word\", \"page\": 1, \"source_text\": \"○ 신호어 : 위험\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"hazard.pictograms\", \"page\": 1, \"source_text\": \"○ 그림문자 :\", \"rules\": [], \"note\": \"이미지에서 부식성·감탄부호·환경 그림 3개 판독\"}, {\"msds_index\": 0, \"field\": \"hazard.h_statements\", \"page\": 1, \"source_text\": \"- H314 : 피부에 심한 화상과 눈에 손상을 일으킴. - H318 ... - H317 ... - H400 ... - H410 ...\", \"rules\": [\"R05\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"hazard.p_statements\", \"page\": 1, \"source_text\": \"∙ P260 : 미스트·증기·스프레이를 흡입하지 마시오. ... ∙ P272 : 작업장 밖으로 오염된 의복을 반출하지 마시오.\", \"rules\": [\"R05\"], \"note\": \"1~5번 P코드\"}, {\"msds_index\": 0, \"field\": \"hazard.p_statements\", \"page\": 2, \"source_text\": \"∙ P273 : 환경으로 배출하지 마시오. ... ∙ P501 : 폐기물관리법에 따라 내용물과 용기를 폐기하시오.\", \"rules\": [\"R05\"], \"note\": \"6~19번 P코드, 'P301 + P330 + P331' 등 공백 제거\"}, {\"msds_index\": 0, \"field\": \"hazard.other_hazards[0]\", \"page\": 2, \"source_text\": \"다. 유해․위험성 분류기준에 포함되지 않는 기타 유해․위험성: 해당없음\", \"rules\": [\"R14\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"composition.type\", \"page\": 2, \"source_text\": \"1-도데칸싸이올 | 도데킬 머캡탄 | 112-55-0 | 98.5~100\", \"rules\": [], \"note\": \"성분 1개로 단일물질\"}, {\"msds_index\": 0, \"field\": \"components[0]\", \"page\": 2, \"source_text\": \"1-도데칸싸이올 | 도데킬 머캡탄 | 112-55-0 | 98.5~100\", \"rules\": [\"R02\", \"R04\", \"R06\"], \"note\": \"'98.5~100'을 하한 98.5(>=), 상한 100(<=)로 나눔, 단위 wt%로 중량 기준\"}]}"
+}

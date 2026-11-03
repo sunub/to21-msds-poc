@@ -1,0 +1,3318 @@
+{
+  "doc": {
+    "doc_id": "T21-S012",
+    "source_file": "S012_용산화학_Butane.pdf",
+    "page_count": 11,
+    "text_layer": "정상",
+    "language": "ko",
+    "msds_count": 1,
+    "schema_version": "TO21-MSDS-EXT v0.6",
+    "dictionary_version": "v0.6",
+    "extraction": {
+      "engine": "claude-opus-5-5 (silver, prompt p6)",
+      "extracted_at": "2026-11-03T22:49:38+09:00"
+    }
+  },
+  "msds": [
+    {
+      "meta": {
+        "msds_no": "AA02531-0000000008",
+        "doc_code": null,
+        "revision_no": 0,
+        "revision_label": "0 회",
+        "header_product_name": null,
+        "source_note": null,
+        "first_issue_date": "2022-01-14",
+        "last_revision_date": "2022-01-14",
+        "page_start": 1,
+        "page_end": 11
+      },
+      "product": {
+        "name": "Butane",
+        "code": null,
+        "synonyms": [],
+        "uses": [
+          "1. 원료 및 중간체 Feed materials (중간체)",
+          "18.11 점도 조정제 Viscosity adjusters"
+        ],
+        "restrictions": [
+          "권고 용도 외 사용하지 마시오."
+        ],
+        "use_category_code": null
+      },
+      "companies": [
+        {
+          "seq": 1,
+          "role": "공급자",
+          "name": "용산화학(주)",
+          "site": "울산공장",
+          "address": "울산 남구 사평로 32 (부곡동, 용산화학(주))",
+          "postcode": "44785",
+          "department": null,
+          "contacts": [
+            {
+              "type": "긴급",
+              "value": "052-226-8800",
+              "hours": null
+            }
+          ]
+        }
+      ],
+      "hazard": {
+        "classified": true,
+        "classes": [
+          {
+            "seq": 1,
+            "group": "물리적",
+            "class_code": "PH_FLAM_GAS",
+            "category": "1",
+            "route_form": null,
+            "effect": null,
+            "target_organs": [],
+            "raw": "인화성 가스 : 구분 1"
+          },
+          {
+            "seq": 2,
+            "group": "물리적",
+            "class_code": "PH_PRESS_GAS",
+            "category": "액화가스",
+            "route_form": null,
+            "effect": null,
+            "target_organs": [],
+            "raw": "고압가스 : 액화가스"
+          }
+        ],
+        "signal_word": "위험",
+        "pictograms": [
+          {
+            "code": "GHS02",
+            "detection": "이미지판독"
+          },
+          {
+            "code": "GHS04",
+            "detection": "이미지판독"
+          }
+        ],
+        "h_statements": [
+          {
+            "seq": 1,
+            "code": "H220",
+            "system": "GHS",
+            "mark": null,
+            "text": "극인화성 가스"
+          },
+          {
+            "seq": 2,
+            "code": "H280",
+            "system": "GHS",
+            "mark": null,
+            "text": "고압가스: 가열하면 폭발할 수 있음"
+          }
+        ],
+        "p_statements": [
+          {
+            "seq": 1,
+            "code": "P210",
+            "type": "예방",
+            "text": "열, 고온의 표면, 스파크, 화염 및 그 밖의 점화원으로부터 멀리하시오. 금연"
+          },
+          {
+            "seq": 2,
+            "code": "P377",
+            "type": "대응",
+            "text": "가스 누출 화재; 누출을 안전하게 막을 수 없다면, 불을 끄려하지 마시오."
+          },
+          {
+            "seq": 3,
+            "code": "P381",
+            "type": "대응",
+            "text": "누출 시 모든 점화원을 제거하시오."
+          },
+          {
+            "seq": 4,
+            "code": "P403",
+            "type": "저장",
+            "text": "환기가 잘 되는 곳에 보관하시오."
+          },
+          {
+            "seq": 5,
+            "code": "P410+P403",
+            "type": "저장",
+            "text": "직사광선을 피하시오. 환기가 잘 되는 곳에 보관하시오."
+          }
+        ],
+        "other_hazards": [
+          {
+            "seq": 1,
+            "key": null,
+            "value": "자료없음",
+            "text": "자료없음"
+          }
+        ],
+        "nfpa": {
+          "health": null,
+          "fire": null,
+          "reactivity": null,
+          "special": null
+        }
+      },
+      "composition": {
+        "type": "단일물질",
+        "no_hazardous_component": false
+      },
+      "components": [
+        {
+          "seq": 1,
+          "name": "Butane",
+          "name_en": null,
+          "synonyms": [],
+          "cas_no": "106-97-8",
+          "ke_no": "KE-03751",
+          "ec_no": null,
+          "other_id": null,
+          "other_id_type": null,
+          "parent_seq": null,
+          "read_across_cas": null,
+          "content": {
+            "raw": "100",
+            "status": "값있음",
+            "value": 100,
+            "unit": "%"
+          },
+          "content_note": null,
+          "content_basis": "미표기",
+          "trade_secret": false,
+          "approval_no": null,
+          "approval_expiry": null
+        }
+      ],
+      "exposure_limits": [
+        {
+          "comp_ref": "1",
+          "standard": "국내",
+          "limit_type": "TWA",
+          "kr_basis": "노출기준",
+          "notations": [],
+          "q": {
+            "raw": "TWA : 800ppm",
+            "value": 800,
+            "unit": "ppm",
+            "dp": 0,
+            "status": "값있음"
+          }
+        },
+        {
+          "comp_ref": "1",
+          "standard": "ACGIH",
+          "limit_type": "TWA",
+          "notations": [],
+          "q": {
+            "raw": "TWA 1000 ppm",
+            "value": 1000,
+            "unit": "ppm",
+            "dp": 0,
+            "status": "값있음"
+          }
+        },
+        {
+          "comp_ref": "1",
+          "standard": "OSHA",
+          "limit_type": "기타",
+          "notations": [],
+          "q": {
+            "raw": "해당없음",
+            "status": "해당없음"
+          }
+        },
+        {
+          "comp_ref": "1",
+          "standard": "NIOSH",
+          "limit_type": "기타",
+          "notations": [],
+          "q": {
+            "raw": "해당없음",
+            "status": "해당없음"
+          }
+        },
+        {
+          "comp_ref": "1",
+          "standard": "EU",
+          "limit_type": "기타",
+          "notations": [],
+          "q": {
+            "raw": "해당없음",
+            "status": "해당없음"
+          }
+        }
+      ],
+      "physchem": [
+        {
+          "prop_code": "APPEARANCE_STATE",
+          "comp_ref": "MIX",
+          "seq": 1,
+          "text_value": "기체",
+          "data_source": "CRC Handbook",
+          "q": null
+        },
+        {
+          "prop_code": "APPEARANCE_COLOR",
+          "comp_ref": "MIX",
+          "seq": 1,
+          "text_value": "무색",
+          "data_source": "CRC Handbook",
+          "q": null
+        },
+        {
+          "prop_code": "ODOR",
+          "comp_ref": "MIX",
+          "seq": 1,
+          "text_value": null,
+          "q": {
+            "raw": "자료없음",
+            "status": "자료없음"
+          }
+        },
+        {
+          "prop_code": "ODOR_THRESHOLD",
+          "comp_ref": "MIX",
+          "seq": 1,
+          "text_value": null,
+          "q": {
+            "raw": "자료없음",
+            "status": "자료없음"
+          }
+        },
+        {
+          "prop_code": "PH",
+          "comp_ref": "MIX",
+          "seq": 1,
+          "text_value": null,
+          "q": {
+            "raw": "자료없음",
+            "status": "자료없음"
+          }
+        },
+        {
+          "prop_code": "MELT_FREEZE",
+          "comp_ref": "MIX",
+          "seq": 1,
+          "text_value": null,
+          "data_source": "용산화학 제공 자료",
+          "cond": {
+            "pressure": 101.3,
+            "pressure_unit": "kPa"
+          },
+          "q": {
+            "raw": "-138.3 °C (101.3 kPa)",
+            "value": -138.3,
+            "unit": "C",
+            "dp": 1,
+            "status": "값있음"
+          }
+        },
+        {
+          "prop_code": "BOILING",
+          "comp_ref": "MIX",
+          "seq": 1,
+          "text_value": null,
+          "data_source": "용산화학 제공 자료",
+          "cond": {
+            "pressure": 1013,
+            "pressure_unit": "hPa"
+          },
+          "q": {
+            "raw": "-0.5°C (1013 hPa)",
+            "value": -0.5,
+            "unit": "C",
+            "dp": 1,
+            "status": "값있음"
+          }
+        },
+        {
+          "prop_code": "FLASH_POINT",
+          "comp_ref": "MIX",
+          "seq": 1,
+          "text_value": null,
+          "data_source": "CRC Handbook",
+          "q": {
+            "raw": "-60°C",
+            "value": -60,
+            "unit": "C",
+            "dp": 0,
+            "status": "값있음"
+          }
+        },
+        {
+          "prop_code": "EVAP_RATE",
+          "comp_ref": "MIX",
+          "seq": 1,
+          "text_value": null,
+          "q": {
+            "raw": "자료없음",
+            "status": "자료없음"
+          }
+        },
+        {
+          "prop_code": "FLAMMABILITY",
+          "comp_ref": "MIX",
+          "seq": 1,
+          "text_value": "인화성",
+          "q": null
+        },
+        {
+          "prop_code": "UEL",
+          "comp_ref": "MIX",
+          "seq": 1,
+          "text_value": null,
+          "data_source": "CRC Handbook",
+          "q": {
+            "raw": "1.9/8.5%",
+            "status": "값있음",
+            "note": "표제 순서(상한/하한)와 값 크기가 맞지 않아 분해하지 않음"
+          }
+        },
+        {
+          "prop_code": "LEL",
+          "comp_ref": "MIX",
+          "seq": 1,
+          "text_value": null,
+          "data_source": "CRC Handbook",
+          "q": {
+            "raw": "1.9/8.5%",
+            "status": "값있음",
+            "note": "표제 순서(상한/하한)와 값 크기가 맞지 않아 분해하지 않음"
+          }
+        },
+        {
+          "prop_code": "VAPOR_PRESSURE",
+          "comp_ref": "MIX",
+          "seq": 1,
+          "text_value": null,
+          "data_source": "용산화학 제공 자료",
+          "cond": {
+            "temp": 21.85,
+            "temp_unit": "C"
+          },
+          "q": {
+            "raw": "221 kPa (21.85 ℃)",
+            "value": 221,
+            "unit": "kPa",
+            "dp": 0,
+            "status": "값있음"
+          }
+        },
+        {
+          "prop_code": "SOLUBILITY",
+          "comp_ref": "MIX",
+          "seq": 1,
+          "text_value": null,
+          "data_source": "용산화학 제공 자료",
+          "cond": {
+            "temp": 25,
+            "temp_unit": "C"
+          },
+          "q": {
+            "raw": "61.4 ppm (25 ℃, pH 7)",
+            "value": 61.4,
+            "unit": "ppm",
+            "dp": 1,
+            "status": "값있음",
+            "note": "pH 7"
+          }
+        },
+        {
+          "prop_code": "VAPOR_DENSITY",
+          "comp_ref": "MIX",
+          "seq": 1,
+          "text_value": null,
+          "q": {
+            "raw": "자료없음",
+            "status": "자료없음"
+          }
+        },
+        {
+          "prop_code": "RELATIVE_DENSITY",
+          "comp_ref": "MIX",
+          "seq": 1,
+          "text_value": null,
+          "q": {
+            "raw": "자료없음",
+            "status": "자료없음"
+          }
+        },
+        {
+          "prop_code": "LOG_KOW",
+          "comp_ref": "MIX",
+          "seq": 1,
+          "text_value": null,
+          "data_source": "Exploring QSAR",
+          "cond": {
+            "temp": 20,
+            "temp_unit": "C"
+          },
+          "q": {
+            "raw": "Log Kow = 2.89 (20 ℃, pH 7)",
+            "value": 2.89,
+            "dp": 2,
+            "status": "값있음",
+            "note": "pH 7"
+          }
+        },
+        {
+          "prop_code": "AUTOIGNITION",
+          "comp_ref": "MIX",
+          "seq": 1,
+          "text_value": null,
+          "q": {
+            "raw": "자료없음",
+            "status": "자료없음"
+          }
+        },
+        {
+          "prop_code": "DECOMPOSITION",
+          "comp_ref": "MIX",
+          "seq": 1,
+          "text_value": null,
+          "q": {
+            "raw": "자료없음",
+            "status": "자료없음"
+          }
+        },
+        {
+          "prop_code": "VISCOSITY",
+          "comp_ref": "MIX",
+          "seq": 1,
+          "text_value": null,
+          "data_source": "CRC Handbook",
+          "cond": {
+            "temp": 300,
+            "temp_unit": "K"
+          },
+          "q": {
+            "raw": "7.5μPa s (CRC Handbook), (300K, 26.85℃)",
+            "value": 7.5,
+            "unit": "μPa s",
+            "dp": 1,
+            "status": "값있음",
+            "note": "26.85℃"
+          }
+        },
+        {
+          "prop_code": "MOL_WEIGHT",
+          "comp_ref": "MIX",
+          "seq": 1,
+          "text_value": null,
+          "q": {
+            "raw": "58.12",
+            "value": 58.12,
+            "dp": 2,
+            "status": "값있음"
+          }
+        }
+      ],
+      "toxicity": [
+        {
+          "comp_ref": "1",
+          "endpoint": "TX_ORAL",
+          "descriptor": null,
+          "q": {
+            "raw": "자료없음",
+            "status": "자료없음"
+          },
+          "statements": [],
+          "status": "자료없음"
+        },
+        {
+          "comp_ref": "1",
+          "endpoint": "TX_DERMAL",
+          "descriptor": null,
+          "q": {
+            "raw": "자료없음 (기술적으로 시험이 불가능한 물질에 해당)",
+            "status": "자료없음",
+            "note": "기술적으로 시험이 불가능한 물질에 해당"
+          },
+          "statements": [],
+          "status": "자료없음"
+        },
+        {
+          "comp_ref": "1",
+          "endpoint": "TX_INHAL",
+          "descriptor": "LC50",
+          "q": {
+            "raw": "658/ mg/L",
+            "value": 658,
+            "unit": "mg/L",
+            "status": "값있음"
+          },
+          "converted": {
+            "raw": "658,000 mg/m3",
+            "value": 658000,
+            "unit": "mg/m3",
+            "status": "값있음"
+          },
+          "species": "Rat",
+          "duration_value": 4,
+          "duration_unit": "hr",
+          "statements": [],
+          "status": "값있음"
+        },
+        {
+          "comp_ref": "1",
+          "endpoint": "TX_INHAL",
+          "descriptor": "LC50",
+          "q": {
+            "raw": "680mg/L",
+            "value": 680,
+            "unit": "mg/L",
+            "status": "값있음"
+          },
+          "species": "Mouse",
+          "duration_value": 2,
+          "duration_unit": "hr",
+          "statements": [],
+          "status": "값있음"
+        },
+        {
+          "comp_ref": "1",
+          "endpoint": "TX_SKIN",
+          "descriptor": null,
+          "q": {
+            "raw": "자료없음 (기술적으로 시험이 불가능한 물질에 해당)",
+            "status": "자료없음",
+            "note": "기술적으로 시험이 불가능한 물질에 해당"
+          },
+          "statements": [],
+          "status": "자료없음"
+        },
+        {
+          "comp_ref": "1",
+          "endpoint": "TX_EYE",
+          "descriptor": null,
+          "q": {
+            "raw": "자료없음 (기술적으로 시험이 불가능한 물질에 해당)",
+            "status": "자료없음",
+            "note": "기술적으로 시험이 불가능한 물질에 해당"
+          },
+          "statements": [],
+          "status": "자료없음"
+        },
+        {
+          "comp_ref": "1",
+          "endpoint": "TX_RESP_SENS",
+          "descriptor": null,
+          "q": {
+            "raw": "자료없음",
+            "status": "자료없음"
+          },
+          "statements": [],
+          "status": "자료없음"
+        },
+        {
+          "comp_ref": "1",
+          "endpoint": "TX_SKIN_SENS",
+          "descriptor": null,
+          "q": {
+            "raw": "자료없음 (기술적으로 시험이 불가능한 물질에 해당)",
+            "status": "자료없음",
+            "note": "기술적으로 시험이 불가능한 물질에 해당"
+          },
+          "statements": [],
+          "status": "자료없음"
+        },
+        {
+          "comp_ref": "1",
+          "endpoint": "TX_CARC",
+          "descriptor": "결과기술",
+          "statements": [
+            {
+              "seq": 1,
+              "key": "※ 본 제품",
+              "value": "부타디엔 0.1%미만에 해당함",
+              "text": "※ 본 제품 : 부타디엔 0.1%미만에 해당함"
+            }
+          ],
+          "status": "값있음"
+        },
+        {
+          "comp_ref": "1",
+          "endpoint": "TX_MUTA",
+          "descriptor": "결과기술",
+          "statements": [
+            {
+              "seq": 1,
+              "key": "in vivo",
+              "value": "랫드(Sprague-Dawley)를 대상으로 13 주 반복투여에 따른 유전 독성에 대해 평가한 결과 최대 10,000 ppm 의 농도에서 LPG 의 노출과 관련한 소핵 발생률에 대한 차이는 발견되지 않음. 음성 (NOAEC 10000 ppm) (OECD TG 474 Mammalian Erythrocyte Micronucleus Test)",
+              "text": "in vivo : 랫드(Sprague-Dawley)를 대상으로 13 주 반복투여에 따른 유전 독성에 대해 평가한 결과 최대 10,000 ppm 의 농도에서 LPG 의 노출과 관련한 소핵 발생률에 대한 차이는 발견되지 않음. 음성 (NOAEC 10000 ppm) (OECD TG 474 Mammalian Erythrocyte Micronucleus Test)"
+            },
+            {
+              "seq": 2,
+              "key": "in vitro",
+              "value": "S. typhimuriu TA 1535, TA 1537, TA 1538, TA 98 and TA 100 를 이용한 복귀 돌연변이 시험 결과 음성 (OECD TG 471 Bacterial Reverse Mutation Assay) (인간 림프구를 대상으로 등록 물질인 Butane 을 최대 폭발 한계 상한값으로 처리하여 관찰한 결과 세포독성 및 염색체 이상에 영향을 미치지 않는 것으로 나타남 (OECD TG 473 In vitro Mammalian Chromosome Aberration test))",
+              "text": "in vitro : S. typhimuriu TA 1535, TA 1537, TA 1538, TA 98 and TA 100 를 이용한 복귀 돌연변이 시험 결과 음성 (OECD TG 471 Bacterial Reverse Mutation Assay) (인간 림프구를 대상으로 등록 물질인 Butane 을 최대 폭발 한계 상한값으로 처리하여 관찰한 결과 세포독성 및 염색체 이상에 영향을 미치지 않는 것으로 나타남 (OECD TG 473 In vitro Mammalian Chromosome Aberration test))"
+            }
+          ],
+          "status": "값있음"
+        },
+        {
+          "comp_ref": "1",
+          "endpoint": "TX_REPRO",
+          "descriptor": "결과기술",
+          "guideline": "OECD TG 422",
+          "species": "랫드(Sprague-Dawley)",
+          "statements": [
+            {
+              "seq": 1,
+              "key": "일반독성",
+              "value": "랫드(Sprague-Dawley)를 대상으로 6 주 동안 0, 90, 3000 및 9000 ppm 농도로 노출시켜 확인한 결과, 최고 농도까지 노출과 관련한 차이가 발견되지 않았다. 따라서 P0 의 NOAEC 은 9000 ppm 으로 결론지었다. P0 Male, Female NOAEC: 9,000 ppm (21,394 mg/m3), F1 Male, Female NOAEC: 9,000 ppm (21,394 mg/m3)(OECD TG 422)",
+              "text": "일반독성 : 랫드(Sprague-Dawley)를 대상으로 6 주 동안 0, 90, 3000 및 9000 ppm 농도로 노출시켜 확인한 결과, 최고 농도까지 노출과 관련한 차이가 발견되지 않았다. 따라서 P0 의 NOAEC 은 9000 ppm 으로 결론지었다. P0 Male, Female NOAEC: 9,000 ppm (21,394 mg/m3), F1 Male, Female NOAEC: 9,000 ppm (21,394 mg/m3)(OECD TG 422)"
+            },
+            {
+              "seq": 2,
+              "key": "수유독성",
+              "value": "자료없음",
+              "text": "수유독성 : 자료없음"
+            }
+          ],
+          "status": "값있음"
+        },
+        {
+          "comp_ref": "1",
+          "endpoint": "TX_STOT_SE",
+          "descriptor": null,
+          "q": {
+            "raw": "자료없음",
+            "status": "자료없음"
+          },
+          "statements": [],
+          "status": "자료없음"
+        },
+        {
+          "comp_ref": "1",
+          "endpoint": "TX_STOT_RE",
+          "descriptor": "결과기술",
+          "statements": [
+            {
+              "seq": 1,
+              "value": "상기 각 결과에 따르면 랫드(Sprague-Dawley)를 대상으로 6 주(42 일) 동안 0, 90, 3000 및 9000 ppm 농도로 노출시켜 확인한 결과, 시험 최고 농도인 9000 ppm 에서도 유의미한 변화가 관찰되지 않았다 따라서 반복투여독성의 NOAEC을 9000 ppm (21,394mg/m3)으로 간주할 수 있으나 90일에 대한 시험자료 확보를 위하여 등록물질인 butane 과 pentane 의 50:50 중량 % 혼합물 시험자료를 증거 가중을 위해 도입하였다.",
+              "text": "상기 각 결과에 따르면 랫드(Sprague-Dawley)를 대상으로 6 주(42 일) 동안 0, 90, 3000 및 9000 ppm 농도로 노출시켜 확인한 결과, 시험 최고 농도인 9000 ppm 에서도 유의미한 변화가 관찰되지 않았다 따라서 반복투여독성의 NOAEC을 9000 ppm (21,394mg/m3)으로 간주할 수 있으나 90일에 대한 시험자료 확보를 위하여 등록물질인 butane 과 pentane 의 50:50 중량 % 혼합물 시험자료를 증거 가중을 위해 도입하였다."
+            },
+            {
+              "seq": 2,
+              "value": "랫드(Fischer344)를 대상으로 butane:isopentane 50:50 (wt %) 혼합물을 13 주(90 일) 동안 0, 1000, 4500 ppm 농도로 노출시켜 확인한 결과 혼합물의 노출과 관련한 독성효과는 발견되지 않았다.",
+              "text": "랫드(Fischer344)를 대상으로 butane:isopentane 50:50 (wt %) 혼합물을 13 주(90 일) 동안 0, 1000, 4500 ppm 농도로 노출시켜 확인한 결과 혼합물의 노출과 관련한 독성효과는 발견되지 않았다."
+            },
+            {
+              "seq": 3,
+              "value": "두 연구 중 자료2 는 혼합물로 시험을 수행한 자료이지만 n-butane(C4)와 n-pentane(C5)은 alkane 물질로 그 구조 및 성질이 매우 유사하며 자료 1 과 2 의 연구 결과 모두 물질 노출에 따른 독성이 나타나지 않는 것으로 확인되었다.",
+              "text": "두 연구 중 자료2 는 혼합물로 시험을 수행한 자료이지만 n-butane(C4)와 n-pentane(C5)은 alkane 물질로 그 구조 및 성질이 매우 유사하며 자료 1 과 2 의 연구 결과 모두 물질 노출에 따른 독성이 나타나지 않는 것으로 확인되었다."
+            },
+            {
+              "seq": 4,
+              "value": "따라서 해당 결과를 바탕으로 자료 2 의 결과가 보다 보수적인 값을 나타내며 시험기간이 긴 점을 반영하여 NOAEC 을 4,489 ppm 으로 판단하였다.",
+              "text": "따라서 해당 결과를 바탕으로 자료 2 의 결과가 보다 보수적인 값을 나타내며 시험기간이 긴 점을 반영하여 NOAEC 을 4,489 ppm 으로 판단하였다."
+            }
+          ],
+          "status": "값있음"
+        },
+        {
+          "comp_ref": "1",
+          "endpoint": "TX_ASP",
+          "descriptor": null,
+          "q": {
+            "raw": "자료없음",
+            "status": "자료없음"
+          },
+          "statements": [],
+          "status": "자료없음"
+        }
+      ],
+      "cmr": [
+        {
+          "comp_ref": "1",
+          "hazard": "발암성",
+          "agency": "KR_OSH",
+          "class": "1A",
+          "status": "값있음",
+          "note": "부타디엔 0.1%이상 함유한 경우에 한정함"
+        },
+        {
+          "comp_ref": "1",
+          "hazard": "발암성",
+          "agency": "IARC",
+          "class": null,
+          "status": "해당없음"
+        },
+        {
+          "comp_ref": "1",
+          "hazard": "발암성",
+          "agency": "ACGIH",
+          "class": null,
+          "status": "해당없음"
+        },
+        {
+          "comp_ref": "1",
+          "hazard": "발암성",
+          "agency": "NTP",
+          "class": null,
+          "status": "해당없음"
+        },
+        {
+          "comp_ref": "1",
+          "hazard": "발암성",
+          "agency": "OSHA",
+          "class": null,
+          "status": "해당없음"
+        },
+        {
+          "comp_ref": "1",
+          "hazard": "발암성",
+          "agency": "EU_CLP",
+          "class": "1A",
+          "status": "값있음",
+          "note": "부타디엔 0.1%이상 함유한 경우에 한함"
+        }
+      ],
+      "ecotox": [
+        {
+          "comp_ref": "1",
+          "endpoint": "ECO_FISH",
+          "descriptor": "LC50",
+          "q": {
+            "raw": "24.11mg/L (c.a.)",
+            "value": 24.11,
+            "unit": "mg/L",
+            "dp": 2,
+            "status": "값있음",
+            "note": "c.a."
+          },
+          "duration_value": 96,
+          "duration_unit": "hr",
+          "data_source": "QSAR",
+          "statements": [],
+          "status": "값있음"
+        },
+        {
+          "comp_ref": "1",
+          "endpoint": "ECO_FISH",
+          "descriptor": null,
+          "q": {
+            "raw": "만성 : 자료없음",
+            "status": "자료없음"
+          },
+          "statements": [],
+          "status": "자료없음"
+        },
+        {
+          "comp_ref": "1",
+          "endpoint": "ECO_CRUST",
+          "descriptor": "EC50",
+          "q": {
+            "raw": "14.22mg/L (c.a.)",
+            "value": 14.22,
+            "unit": "mg/L",
+            "dp": 2,
+            "status": "값있음",
+            "note": "c.a."
+          },
+          "duration_value": 48,
+          "duration_unit": "hr",
+          "data_source": "QSAR",
+          "statements": [],
+          "status": "값있음"
+        },
+        {
+          "comp_ref": "1",
+          "endpoint": "ECO_CRUST",
+          "descriptor": null,
+          "q": {
+            "raw": "만성 : 자료없음",
+            "status": "자료없음"
+          },
+          "statements": [],
+          "status": "자료없음"
+        },
+        {
+          "comp_ref": "1",
+          "endpoint": "ECO_ALGAE",
+          "descriptor": "EC50",
+          "q": {
+            "raw": "7.71mg/L (c.a.)",
+            "value": 7.71,
+            "unit": "mg/L",
+            "dp": 2,
+            "status": "값있음",
+            "note": "c.a."
+          },
+          "duration_value": 96,
+          "duration_unit": "hr",
+          "data_source": "QSAR",
+          "statements": [],
+          "status": "값있음"
+        },
+        {
+          "comp_ref": "1",
+          "endpoint": "ECO_ALGAE",
+          "descriptor": null,
+          "q": {
+            "raw": "만성 : 자료없음",
+            "status": "자료없음"
+          },
+          "statements": [],
+          "status": "자료없음"
+        },
+        {
+          "comp_ref": "1",
+          "endpoint": "ECO_PERSIST",
+          "descriptor": "logKow",
+          "q": {
+            "raw": "Log Kow = 2.89",
+            "value": 2.89,
+            "dp": 2,
+            "status": "값있음"
+          },
+          "statements": [],
+          "status": "값있음"
+        },
+        {
+          "comp_ref": "1",
+          "endpoint": "ECO_PERSIST",
+          "descriptor": "결과기술",
+          "statements": [
+            {
+              "seq": 1,
+              "key": "분해성",
+              "value": "시험이 불가능한 물질에 해당. 보충 자료에 따르면 본 물질은 QSAR 계산을 통해 이분해성으로 밝혀진 물질임.",
+              "text": "분해성 : 시험이 불가능한 물질에 해당. 보충 자료에 따르면 본 물질은 QSAR 계산을 통해 이분해성으로 밝혀진 물질임."
+            },
+            {
+              "seq": 2,
+              "key": "본질적 분해성",
+              "value": "본 물질은 기술적으로 시험이 불가능하나 다수의 연구결과에 따라 이분해성 물질에 해당하는 것으로 사료됨.",
+              "text": "(본질적 분해성 : 본 물질은 기술적으로 시험이 불가능하나 다수의 연구결과에 따라 이분해성 물질에 해당하는 것으로 사료됨.)"
+            }
+          ],
+          "status": "값있음"
+        },
+        {
+          "comp_ref": "1",
+          "endpoint": "ECO_BIOACC",
+          "descriptor": "결과기술",
+          "statements": [
+            {
+              "seq": 1,
+              "value": "log Pow(Kow) 값이 3 미만으로 생물농축 가능성이 낮은 물질에 해당함.",
+              "text": "log Pow(Kow) 값이 3 미만으로 생물농축 가능성이 낮은 물질에 해당함.",
+              "cond": {
+                "raw": "3 미만",
+                "upper_op": "<",
+                "upper": 3,
+                "status": "값있음"
+              }
+            }
+          ],
+          "status": "값있음"
+        },
+        {
+          "comp_ref": "1",
+          "endpoint": "ECO_SOIL",
+          "descriptor": "결과기술",
+          "statements": [
+            {
+              "seq": 1,
+              "value": "비이온성 물질로 log Kow <3 이므로 물리화학적 성질에 근거하여, 흡착성 가능성이 낮은 물질에 해당하는 것으로 사료됨",
+              "text": "비이온성 물질로 log Kow <3 이므로 물리화학적 성질에 근거하여, 흡착성 가능성이 낮은 물질에 해당하는 것으로 사료됨",
+              "cond": {
+                "raw": "<3",
+                "upper_op": "<",
+                "upper": 3,
+                "status": "값있음"
+              }
+            }
+          ],
+          "status": "값있음"
+        },
+        {
+          "comp_ref": "1",
+          "endpoint": "ECO_OTHER",
+          "descriptor": null,
+          "q": {
+            "raw": "자료없음",
+            "status": "자료없음"
+          },
+          "statements": [],
+          "status": "자료없음"
+        }
+      ],
+      "transport": [
+        {
+          "mode": "공통",
+          "basis_raw": null,
+          "regulated": true,
+          "un_no": "1011",
+          "shipping_name": "BUTANE",
+          "hazard_class": "2.1",
+          "sub_risk": null,
+          "packing_group": null,
+          "marine_pollutant": "비해당",
+          "ems_fire": "F-D",
+          "ems_spill": "S-U"
+        }
+      ],
+      "regulations": [
+        {
+          "seq": 1,
+          "law": "OSH",
+          "item_code": "OSH_EXPOSURE_STD",
+          "item_raw": "노출기준설정물질",
+          "comp_ref": "MIX",
+          "applicable": "해당"
+        },
+        {
+          "seq": 2,
+          "law": "OSH",
+          "item_code": "OSH_MEASURE",
+          "item_raw": "작업환경측정대상물질",
+          "comp_ref": "MIX",
+          "applicable": "비해당"
+        },
+        {
+          "seq": 3,
+          "law": "OSH",
+          "item_code": "OSH_HEALTH_EXAM",
+          "item_raw": "특수건강진단대상물질",
+          "comp_ref": "MIX",
+          "applicable": "비해당"
+        },
+        {
+          "seq": 4,
+          "law": "OSH",
+          "item_code": "OSH_MANAGED",
+          "item_raw": "관리대상유해물질",
+          "comp_ref": "MIX",
+          "applicable": "비해당"
+        },
+        {
+          "seq": 5,
+          "law": "OSH",
+          "item_code": "OSH_SPECIAL",
+          "item_raw": "특별관리물질",
+          "comp_ref": "MIX",
+          "applicable": "비해당"
+        },
+        {
+          "seq": 6,
+          "law": "OSH",
+          "item_code": "OSH_PERMISSIBLE",
+          "item_raw": "허용기준 이하 유지 대상 유해인자",
+          "comp_ref": "MIX",
+          "applicable": "비해당"
+        },
+        {
+          "seq": 7,
+          "law": "OSH",
+          "item_code": "OSH_PSM",
+          "item_raw": "공정안전보고서(PSM)",
+          "comp_ref": "MIX",
+          "applicable": "해당"
+        },
+        {
+          "seq": 8,
+          "law": "OSH",
+          "item_code": "OSH_PROHIBIT",
+          "item_raw": "법 제 117 조에 따른 제조등금지물질",
+          "comp_ref": "MIX",
+          "applicable": "비해당"
+        },
+        {
+          "seq": 9,
+          "law": "OSH",
+          "item_code": "OSH_PERMIT",
+          "item_raw": "법 제 118 조에 따른 허가대상물질",
+          "comp_ref": "MIX",
+          "applicable": "비해당"
+        },
+        {
+          "seq": 10,
+          "law": "CCA",
+          "item_code": "CCA_TOXIC",
+          "item_raw": "유독물질",
+          "comp_ref": "MIX",
+          "applicable": "비해당"
+        },
+        {
+          "seq": 11,
+          "law": "CCA",
+          "item_code": "CCA_PERMIT",
+          "item_raw": "허가물질",
+          "comp_ref": "MIX",
+          "applicable": "비해당"
+        },
+        {
+          "seq": 12,
+          "law": "CCA",
+          "item_code": "CCA_RESTRICT",
+          "item_raw": "제한물질",
+          "comp_ref": "MIX",
+          "applicable": "비해당"
+        },
+        {
+          "seq": 13,
+          "law": "CCA",
+          "item_code": "CCA_PROHIBIT",
+          "item_raw": "금지물질",
+          "comp_ref": "MIX",
+          "applicable": "비해당"
+        },
+        {
+          "seq": 14,
+          "law": "CCA",
+          "item_code": "CCA_ACCIDENT",
+          "item_raw": "사고대비물질",
+          "comp_ref": "MIX",
+          "applicable": "비해당"
+        },
+        {
+          "seq": 15,
+          "law": "DG",
+          "item_code": "DG_HAZMAT",
+          "item_raw": "위험물안전관리법에 의한 규제",
+          "comp_ref": "MIX",
+          "applicable": "비해당",
+          "remark": "비위험물"
+        },
+        {
+          "seq": 16,
+          "law": "WASTE",
+          "item_code": "WASTE_DESIG",
+          "item_raw": "폐기물관리법에 의한 규제",
+          "comp_ref": "MIX",
+          "applicable": null,
+          "value_raw": "사업장폐기물 해당 시 폐기물관리법에 따라 폐기하시오."
+        },
+        {
+          "seq": 17,
+          "law": "POPS",
+          "item_code": "POPS",
+          "item_raw": "잔류성유기오염물질관리법",
+          "comp_ref": "MIX",
+          "applicable": "비해당"
+        },
+        {
+          "seq": 18,
+          "law": "KREACH",
+          "item_code": "KREACH_ETC",
+          "item_raw": "화평법 분류정보(분류 및 표시사항)",
+          "comp_ref": "MIX",
+          "applicable": "비해당"
+        },
+        {
+          "seq": 19,
+          "law": "INTL",
+          "item_code": "INTL_EU",
+          "item_raw": "EU 분류정보(확정분류결과)",
+          "comp_ref": "MIX",
+          "applicable": "해당",
+          "country": "EU",
+          "value_raw": "Flam. Gas 1, Press. Gas (if butane containing ≥ 0,1 % butadiene (203-450-8), +Carc. 1A Muta. 1B)"
+        },
+        {
+          "seq": 20,
+          "law": "INTL",
+          "item_code": "INTL_TREATY",
+          "item_raw": "로테르담협약물질",
+          "comp_ref": "MIX",
+          "applicable": "비해당"
+        },
+        {
+          "seq": 21,
+          "law": "INTL",
+          "item_code": "INTL_TREATY",
+          "item_raw": "스톡홀름협약물질",
+          "comp_ref": "MIX",
+          "applicable": "비해당"
+        },
+        {
+          "seq": 22,
+          "law": "INTL",
+          "item_code": "INTL_TREATY",
+          "item_raw": "몬트리올의정서물질",
+          "comp_ref": "MIX",
+          "applicable": "비해당"
+        }
+      ],
+      "dangerous_goods": [
+        {
+          "comp_ref": "MIX",
+          "class": "해당없음",
+          "item": null,
+          "water_soluble": null,
+          "grade": null,
+          "designated_qty": null
+        }
+      ],
+      "waste": [
+        {
+          "comp_ref": "MIX",
+          "designated": null,
+          "waste_type": null
+        }
+      ],
+      "intl_class": [
+        {
+          "comp_ref": "MIX",
+          "system": "EU_CLP",
+          "class_raw": "Flam. Gas 1",
+          "h_code": null,
+          "status": "값있음"
+        },
+        {
+          "comp_ref": "MIX",
+          "system": "EU_CLP",
+          "class_raw": "Press. Gas",
+          "h_code": null,
+          "status": "값있음"
+        },
+        {
+          "comp_ref": "MIX",
+          "system": "EU_CLP",
+          "class_raw": "Carc. 1A",
+          "h_code": null,
+          "status": "값있음"
+        },
+        {
+          "comp_ref": "MIX",
+          "system": "EU_CLP",
+          "class_raw": "Muta. 1B",
+          "h_code": null,
+          "status": "값있음"
+        }
+      ],
+      "narratives": [
+        {
+          "item_code": "S4_EYE",
+          "title_raw": "가. 눈에 들어갔을 때",
+          "status": "값있음",
+          "statements": [
+            {
+              "seq": 1,
+              "value": "물질과 접촉시 즉시 20 분 이상 흐르는 물에 눈을 씻어내시오.",
+              "text": "물질과 접촉시 즉시 20 분 이상 흐르는 물에 눈을 씻어내시오.",
+              "cond": {
+                "raw": "20 분 이상",
+                "lower_op": ">=",
+                "lower": 20,
+                "unit": "min",
+                "status": "값있음"
+              }
+            },
+            {
+              "seq": 2,
+              "value": "즉시 의료조치를 취하시오.",
+              "text": "즉시 의료조치를 취하시오."
+            }
+          ]
+        },
+        {
+          "item_code": "S4_SKIN",
+          "title_raw": "나. 피부에 접촉했을 때",
+          "status": "값있음",
+          "statements": [
+            {
+              "seq": 1,
+              "value": "뜨거운 물질인 경우, 열을 없애기 위해 영향을 받은 부위를 다량의 차가운 물에 담그거나 씻어내시오.",
+              "text": "뜨거운 물질인 경우, 열을 없애기 위해 영향을 받은 부위를 다량의 차가운 물에 담그거나 씻어내시오."
+            },
+            {
+              "seq": 2,
+              "value": "물질과 접촉시 즉시 20 분 이상 흐르는 물에 피부를 씻어내시오.",
+              "text": "물질과 접촉시 즉시 20 분 이상 흐르는 물에 피부를 씻어내시오.",
+              "cond": {
+                "raw": "20 분 이상",
+                "lower_op": ">=",
+                "lower": 20,
+                "unit": "min",
+                "status": "값있음"
+              }
+            },
+            {
+              "seq": 3,
+              "value": "오염된 옷과 신발을 제거하고 격리하시오.",
+              "text": "오염된 옷과 신발을 제거하고 격리하시오."
+            },
+            {
+              "seq": 4,
+              "value": "재사용 전에는 옷과 신발을 완전히 씻어내시오.",
+              "text": "재사용 전에는 옷과 신발을 완전히 씻어내시오."
+            },
+            {
+              "seq": 5,
+              "value": "즉시 의료조치를 취하시오.",
+              "text": "즉시 의료조치를 취하시오."
+            }
+          ]
+        },
+        {
+          "item_code": "S4_INHAL",
+          "title_raw": "다. 흡입했을 때",
+          "status": "값있음",
+          "statements": [
+            {
+              "seq": 1,
+              "value": "긴급히 의료조치를 받으시오.",
+              "text": "긴급히 의료조치를 받으시오."
+            },
+            {
+              "seq": 2,
+              "value": "신선한 공기가 있는 곳으로 옮기시오.",
+              "text": "신선한 공기가 있는 곳으로 옮기시오."
+            },
+            {
+              "seq": 3,
+              "value": "호흡하지 않는 경우 인공호흡을 실시하시오.",
+              "text": "호흡하지 않는 경우 인공호흡을 실시하시오."
+            },
+            {
+              "seq": 4,
+              "value": "호흡이 힘들 경우 산소를 공급하시오.",
+              "text": "호흡이 힘들 경우 산소를 공급하시오."
+            }
+          ]
+        },
+        {
+          "item_code": "S4_INGEST",
+          "title_raw": "라. 먹었을 때",
+          "status": "값있음",
+          "statements": [
+            {
+              "seq": 1,
+              "value": "의식이 없는 사람에게 입으로 아무것도 먹이지 마시오.",
+              "text": "의식이 없는 사람에게 입으로 아무것도 먹이지 마시오."
+            },
+            {
+              "seq": 2,
+              "value": "즉시 의료조치를 취하시오.",
+              "text": "즉시 의료조치를 취하시오."
+            }
+          ]
+        },
+        {
+          "item_code": "S4_DOCTOR",
+          "title_raw": "마. 기타 의사의 주의사항",
+          "status": "값있음",
+          "statements": [
+            {
+              "seq": 1,
+              "value": "의료인력이 해당물질에 대해 알고 보호조치를 취하도록 하시오.",
+              "text": "의료인력이 해당물질에 대해 알고 보호조치를 취하도록 하시오."
+            }
+          ]
+        },
+        {
+          "item_code": "S5_MEDIA",
+          "title_raw": "가. 적절한 (및 부적절한) 소화제",
+          "status": "값있음",
+          "statements": [
+            {
+              "seq": 1,
+              "value": "이 물질과 관련된 소화 시 알코올 포말, 이산화탄소 또는 물분무를 사용할 것",
+              "text": "이 물질과 관련된 소화 시 알코올 포말, 이산화탄소 또는 물분무를 사용할 것"
+            },
+            {
+              "seq": 2,
+              "value": "질식소화 시 건조한 모래 또는 흙을 사용할 것",
+              "text": "질식소화 시 건조한 모래 또는 흙을 사용할 것"
+            },
+            {
+              "seq": 3,
+              "key": "적절한 소화제",
+              "value": "건조모래, 건조화학제, 내알콜포말, 물분무, 일반포말, CO₂ (소형 화재)",
+              "text": "적절한 소화제: 건조모래, 건조화학제, 내알콜포말, 물분무, 일반포말, CO₂ (소형 화재)"
+            },
+            {
+              "seq": 4,
+              "key": "적절한 소화제",
+              "value": "대형 화재: 물분무/안개, 일반포말",
+              "text": "적절한 소화제: 대형 화재: 물분무/안개, 일반포말"
+            },
+            {
+              "seq": 5,
+              "key": "부적절한 소화제",
+              "value": "고압주수",
+              "text": "부적절한 소화제: 고압주수"
+            }
+          ]
+        },
+        {
+          "item_code": "S5_SPECIFIC",
+          "title_raw": "나. 화학물질로부터 생기는 특정 유해성",
+          "status": "값있음",
+          "statements": [
+            {
+              "seq": 1,
+              "value": "격렬하게 중합반응하여 화재와 폭발을 일으킬 수 있음",
+              "text": "격렬하게 중합반응하여 화재와 폭발을 일으킬 수 있음"
+            },
+            {
+              "seq": 2,
+              "value": "열, 스파크, 화염에 의해 점화할 수 있음",
+              "text": "열, 스파크, 화염에 의해 점화할 수 있음"
+            },
+            {
+              "seq": 3,
+              "value": "가열시 용기가 폭발할 수 있음",
+              "text": "가열시 용기가 폭발할 수 있음"
+            },
+            {
+              "seq": 4,
+              "value": "일부는 탈 수 있으나 쉽게 점화하지 않음",
+              "text": "일부는 탈 수 있으나 쉽게 점화하지 않음"
+            },
+            {
+              "seq": 5,
+              "value": "화재시 자극성, 독성 가스를 발생할 수 있음",
+              "text": "화재시 자극성, 독성 가스를 발생할 수 있음"
+            },
+            {
+              "seq": 6,
+              "value": "물질의 흡입은 유해할 수 있음",
+              "text": "물질의 흡입은 유해할 수 있음"
+            },
+            {
+              "seq": 7,
+              "value": "(액체의 경우) 일부 액체는 현기증, 질식을 유발하는 증기는 발생할 수 있음",
+              "text": "(액체의 경우) 일부 액체는 현기증, 질식을 유발하는 증기는 발생할 수 있음"
+            }
+          ]
+        },
+        {
+          "item_code": "S5_FIREFIGHT",
+          "title_raw": "다. 화재 진압 시 착용할 보호구 및 예방조치",
+          "status": "값있음",
+          "statements": [
+            {
+              "seq": 1,
+              "value": "지역을 벗어나 안전거리를 유지하여 소화하시오.",
+              "text": "지역을 벗어나 안전거리를 유지하여 소화하시오."
+            },
+            {
+              "seq": 2,
+              "value": "위험하지 않다면 화재지역에서 용기를 옮기시오.",
+              "text": "위험하지 않다면 화재지역에서 용기를 옮기시오."
+            },
+            {
+              "seq": 3,
+              "value": "일부는 고온으로 운송될 수 있음",
+              "text": "일부는 고온으로 운송될 수 있음"
+            },
+            {
+              "seq": 4,
+              "value": "누출물은 오염을 유발할 수 있음",
+              "text": "누출물은 오염을 유발할 수 있음"
+            },
+            {
+              "seq": 5,
+              "value": "접촉 시 피부와 눈에 화상을 입힐 수 있음",
+              "text": "접촉 시 피부와 눈에 화상을 입힐 수 있음"
+            },
+            {
+              "seq": 6,
+              "value": "소화수의 처분을 위해 도랑을 파서 가두고 물질이 흩어지지 않게 하시오.",
+              "text": "소화수의 처분을 위해 도랑을 파서 가두고 물질이 흩어지지 않게 하시오."
+            },
+            {
+              "seq": 7,
+              "value": "탱크 화재시 소화가 진화된 후에도 다량의 물로 용기를 식히시오.",
+              "text": "탱크 화재시 소화가 진화된 후에도 다량의 물로 용기를 식히시오."
+            },
+            {
+              "seq": 8,
+              "value": "탱크 화재시 압력 방출장치에서 고음이 있거나 탱크가 변색할 경우 즉시 물러나시오.",
+              "text": "탱크 화재시 압력 방출장치에서 고음이 있거나 탱크가 변색할 경우 즉시 물러나시오."
+            },
+            {
+              "seq": 9,
+              "value": "탱크 화재시 화염에 휩싸인 탱크에서 물러나시오.",
+              "text": "탱크 화재시 화염에 휩싸인 탱크에서 물러나시오."
+            }
+          ]
+        },
+        {
+          "item_code": "S6_PERSONAL",
+          "title_raw": "가. 인체를 보호하기 위해 필요한 조치사항 및 보호구",
+          "status": "값있음",
+          "statements": [
+            {
+              "seq": 1,
+              "value": "매우 미세한 입자는 화재나 폭발을 일으킬 수 있으므로 모든 점화원을 제거하시오.",
+              "text": "매우 미세한 입자는 화재나 폭발을 일으킬 수 있으므로 모든 점화원을 제거하시오."
+            },
+            {
+              "seq": 2,
+              "value": "모든 점화원을 제거하시오.",
+              "text": "모든 점화원을 제거하시오."
+            },
+            {
+              "seq": 3,
+              "value": "위험하지 않다면 누출을 멈추시오.",
+              "text": "위험하지 않다면 누출을 멈추시오."
+            },
+            {
+              "seq": 4,
+              "value": "피해야 할 물질 및 조건에 유의하시오.",
+              "text": "피해야 할 물질 및 조건에 유의하시오."
+            },
+            {
+              "seq": 5,
+              "value": "오염지역을 환기하시오.",
+              "text": "오염지역을 환기하시오."
+            },
+            {
+              "seq": 6,
+              "value": "노출물을 만지거나 걸어다니지 마시오.",
+              "text": "노출물을 만지거나 걸어다니지 마시오."
+            }
+          ]
+        },
+        {
+          "item_code": "S6_ENV",
+          "title_raw": "나. 환경을 보호하기 위해 필요한 조치사항",
+          "status": "값있음",
+          "statements": [
+            {
+              "seq": 1,
+              "value": "수로, 하수구, 지하실, 밀폐공간으로의 유입을 방지하시오.",
+              "text": "수로, 하수구, 지하실, 밀폐공간으로의 유입을 방지하시오."
+            }
+          ]
+        },
+        {
+          "item_code": "S6_CLEANUP",
+          "title_raw": "다. 정화 또는 제거 방법",
+          "status": "값있음",
+          "statements": [
+            {
+              "seq": 1,
+              "value": "소화를 위해 제방을 쌓고 물을 수거하시오.",
+              "text": "소화를 위해 제방을 쌓고 물을 수거하시오."
+            },
+            {
+              "seq": 2,
+              "value": "소량 누출시 다량의 물로 오염지역을 씻어내시오.",
+              "text": "소량 누출시 다량의 물로 오염지역을 씻어내시오."
+            },
+            {
+              "seq": 3,
+              "value": "소량 누출시 모래, 비가연성 물질로 흡수하고 용기에 담으시오.",
+              "text": "소량 누출시 모래, 비가연성 물질로 흡수하고 용기에 담으시오."
+            },
+            {
+              "seq": 4,
+              "value": "다량 누출시 액체 누출물 멀리 도랑을 만드시오.",
+              "text": "다량 누출시 액체 누출물 멀리 도랑을 만드시오."
+            },
+            {
+              "seq": 5,
+              "value": "청결한 삽으로 누출물을 깨끗하고 건조한 용기에 담고 느슨하게 닫은 뒤 용기를 누출지역으로부터 옮기시오.",
+              "text": "청결한 삽으로 누출물을 깨끗하고 건조한 용기에 담고 느슨하게 닫은 뒤 용기를 누출지역으로부터 옮기시오."
+            },
+            {
+              "seq": 6,
+              "value": "분말 누출시 플라스틱 시트로 덮어 확산을 막고 건조한 상태로 유지하시오.",
+              "text": "분말 누출시 플라스틱 시트로 덮어 확산을 막고 건조한 상태로 유지하시오."
+            }
+          ]
+        },
+        {
+          "item_code": "S7_HANDLING",
+          "title_raw": "가. 안전취급요령",
+          "status": "값있음",
+          "statements": [
+            {
+              "seq": 1,
+              "value": "압력을 가하거나, 자르거나, 용접, 납땜, 접합, 뚫기, 연마 또는 열에 폭로, 화염, 불꽃, 정전기 또는 다른 점화원에 폭로하지 마시오.",
+              "text": "압력을 가하거나, 자르거나, 용접, 납땜, 접합, 뚫기, 연마 또는 열에 폭로, 화염, 불꽃, 정전기 또는 다른 점화원에 폭로하지 마시오."
+            },
+            {
+              "seq": 2,
+              "value": "용기가 비워진 후에도 제품 찌꺼기가 남아 있을 수 있으므로 모든 MSDS/경고표시 예방조치를 따르시오.",
+              "text": "용기가 비워진 후에도 제품 찌꺼기가 남아 있을 수 있으므로 모든 MSDS/경고표시 예방조치를 따르시오."
+            },
+            {
+              "seq": 3,
+              "value": "피해야 할 물질 및 조건에 유의하시오.",
+              "text": "피해야 할 물질 및 조건에 유의하시오."
+            },
+            {
+              "seq": 4,
+              "value": "취급 후 철저히 씻으시오.",
+              "text": "취급 후 철저히 씻으시오."
+            },
+            {
+              "seq": 5,
+              "value": "공학적 관리 및 개인보호구를 참조하여 작업하시오.",
+              "text": "공학적 관리 및 개인보호구를 참조하여 작업하시오."
+            },
+            {
+              "seq": 6,
+              "value": "고온에 주의하시오.",
+              "text": "고온에 주의하시오."
+            }
+          ]
+        },
+        {
+          "item_code": "S7_STORAGE",
+          "title_raw": "나. 안전한 저장 방법",
+          "status": "값있음",
+          "statements": [
+            {
+              "seq": 1,
+              "value": "열원(熱源)을 피하여 적재할 것.",
+              "text": "열원(熱源)을 피하여 적재할 것."
+            },
+            {
+              "seq": 2,
+              "value": "용기는 열에 폭로되었을 경우 압력이 발생될 수 있음",
+              "text": "용기는 열에 폭로되었을 경우 압력이 발생될 수 있음"
+            },
+            {
+              "seq": 3,
+              "value": "밀폐하여 보관하시오.",
+              "text": "밀폐하여 보관하시오."
+            },
+            {
+              "seq": 4,
+              "value": "서늘하고 건조한 장소에 저장하시오.",
+              "text": "서늘하고 건조한 장소에 저장하시오."
+            },
+            {
+              "seq": 5,
+              "value": "피해야 할 물질 및 조건에 유의하시오.",
+              "text": "피해야 할 물질 및 조건에 유의하시오."
+            }
+          ]
+        },
+        {
+          "item_code": "S8_ENG",
+          "title_raw": "나. 적절한 공학적 관리",
+          "status": "값있음",
+          "statements": [
+            {
+              "seq": 1,
+              "value": "국소배기장치 등을 설치하고 적합한 제어 풍속이 유지되도록 관리하시오.",
+              "text": "국소배기장치 등을 설치하고 적합한 제어 풍속이 유지되도록 관리하시오."
+            },
+            {
+              "seq": 2,
+              "value": "(노출기준이 존재하는 물질의 경우) 국소배기 장치를 설치하시오.",
+              "text": "(노출기준이 존재하는 물질의 경우) 국소배기 장치를 설치하시오."
+            },
+            {
+              "seq": 3,
+              "value": "(노출기준이 존재하는 물질의 경우) 해당 노출기준에 적합한지 확인하시오.",
+              "text": "(노출기준이 존재하는 물질의 경우) 해당 노출기준에 적합한지 확인하시오."
+            },
+            {
+              "seq": 4,
+              "value": "공정격리, 국소배기를 사용하거나 공기수준을 노출기준 이하로 유지하시오.",
+              "text": "공정격리, 국소배기를 사용하거나 공기수준을 노출기준 이하로 유지하시오."
+            }
+          ]
+        },
+        {
+          "item_code": "S8_RESP",
+          "title_raw": "호흡기 보호",
+          "status": "값있음",
+          "statements": [
+            {
+              "seq": 1,
+              "value": "해당물질의 노출농도가 노출허용 기준을 초과할 경우, 노출되는 물질의 물리화학적 특성에 맞는 한국산업안전보건공단의 인증을 필한 호흡용 보호구를 착용하시오.",
+              "text": "해당물질의 노출농도가 노출허용 기준을 초과할 경우, 노출되는 물질의 물리화학적 특성에 맞는 한국산업안전보건공단의 인증을 필한 호흡용 보호구를 착용하시오."
+            },
+            {
+              "seq": 2,
+              "value": "노출되는 물질의 물리화학적 특성에 맞는 한국산업안전보건공단의 인증을 필한 호흡용 보호구를 착용하시오.",
+              "text": "노출되는 물질의 물리화학적 특성에 맞는 한국산업안전보건공단의 인증을 필한 호흡용 보호구를 착용하시오."
+            },
+            {
+              "seq": 3,
+              "value": "산소가 부족한 경우(<19.6%), 송기마스크, 혹은 자급식 호흡보호구를 착용하시오.",
+              "text": "산소가 부족한 경우(<19.6%), 송기마스크, 혹은 자급식 호흡보호구를 착용하시오.",
+              "cond": {
+                "raw": "<19.6%",
+                "upper_op": "<",
+                "upper": 19.6,
+                "unit": "%",
+                "dp": 1,
+                "status": "값있음"
+              }
+            },
+            {
+              "seq": 4,
+              "value": "입자상 물질의 경우 다음과 같은 호흡기 보호구가 권고됨 -안면부 여과식 방진마스크 또는 공기 여과식 방진마스크(고효율 미립자 여과재) 또는 전동팬 부착방진 마스크(분진, 미스트, 흄용 여과재)",
+              "text": "입자상 물질의 경우 다음과 같은 호흡기 보호구가 권고됨 -안면부 여과식 방진마스크 또는 공기 여과식 방진마스크(고효율 미립자 여과재) 또는 전동팬 부착방진 마스크(분진, 미스트, 흄용 여과재)"
+            },
+            {
+              "seq": 5,
+              "value": "기체/액체 물질의 경우 다음과 같은 호흡기 보호구가 권고됨 -격리식 전면형 방독마스크(유기화합물용(산성가스인 경우 산성가스용)) 또는 격리식 반면형 방독마스크(유기화합물용(산성가스인 경우 산성가스용)) 또는 직결식 전면형 방독 마스크(유기화합물용(산성가스인 경우 산성가스용)) 또는 반면형 방독 마스크(유기화합물용(산성가스인 경우 산성가스용)) 또는 전동식 방독마스크",
+              "text": "기체/액체 물질의 경우 다음과 같은 호흡기 보호구가 권고됨 -격리식 전면형 방독마스크(유기화합물용(산성가스인 경우 산성가스용)) 또는 격리식 반면형 방독마스크(유기화합물용(산성가스인 경우 산성가스용)) 또는 직결식 전면형 방독 마스크(유기화합물용(산성가스인 경우 산성가스용)) 또는 반면형 방독 마스크(유기화합물용(산성가스인 경우 산성가스용)) 또는 전동식 방독마스크"
+            }
+          ]
+        },
+        {
+          "item_code": "S8_EYE",
+          "title_raw": "눈 보호",
+          "status": "값있음",
+          "statements": [
+            {
+              "seq": 1,
+              "value": "작업장 가까운 곳에 세안설비와 비상샤워시설을 설치하시오.",
+              "text": "작업장 가까운 곳에 세안설비와 비상샤워시설을 설치하시오."
+            },
+            {
+              "seq": 2,
+              "value": "화학물질 방어용 안경과 보안면을 사용하시오.",
+              "text": "화학물질 방어용 안경과 보안면을 사용하시오."
+            },
+            {
+              "seq": 3,
+              "value": "눈에 자극을 일으키거나 기타 건강상의 장해를 일으킬 수 있는 경우 눈을 보호하기 위해서 다음과 같은 보안경을 착용하시오 - 입자상 물질의 경우 통기성 보안경, 또는 가스상태의 유기물질의 경우 밀폐형 고글 또는 증기상태의 유기물질의 경우 보안경 혹은 통기성 고글",
+              "text": "눈에 자극을 일으키거나 기타 건강상의 장해를 일으킬 수 있는 경우 눈을 보호하기 위해서 다음과 같은 보안경을 착용하시오 - 입자상 물질의 경우 통기성 보안경, 또는 가스상태의 유기물질의 경우 밀폐형 고글 또는 증기상태의 유기물질의 경우 보안경 혹은 통기성 고글"
+            }
+          ]
+        },
+        {
+          "item_code": "S8_HAND",
+          "title_raw": "손 보호",
+          "status": "값있음",
+          "statements": [
+            {
+              "seq": 1,
+              "value": "화학물질의 물리적 및 화학적 특성을 고려하여 적절한 재질의 보호장갑을 착용하시오.",
+              "text": "화학물질의 물리적 및 화학적 특성을 고려하여 적절한 재질의 보호장갑을 착용하시오."
+            }
+          ]
+        },
+        {
+          "item_code": "S8_BODY",
+          "title_raw": "신체 보호",
+          "status": "값있음",
+          "statements": [
+            {
+              "seq": 1,
+              "value": "화학물질의 물리적 및 화학적 특성을 고려하여 적절한 재질의 보호의복을 착용하시오.",
+              "text": "화학물질의 물리적 및 화학적 특성을 고려하여 적절한 재질의 보호의복을 착용하시오."
+            }
+          ]
+        },
+        {
+          "item_code": "S10_STABILITY",
+          "title_raw": "가. 화학적 안정성 및 유해 반응의 가능성",
+          "status": "값있음",
+          "statements": [
+            {
+              "seq": 1,
+              "value": "격렬하게 중합반응하여 화재와 폭발을 일으킬 수 있음",
+              "text": "격렬하게 중합반응하여 화재와 폭발을 일으킬 수 있음"
+            },
+            {
+              "seq": 2,
+              "value": "상온상압조건에서 안정함",
+              "text": "상온상압조건에서 안정함"
+            },
+            {
+              "seq": 3,
+              "value": "가열시 용기가 폭발할 수 있음",
+              "text": "가열시 용기가 폭발할 수 있음"
+            },
+            {
+              "seq": 4,
+              "value": "화재시 자극성, 독성 가스를 발생할 수 있음",
+              "text": "화재시 자극성, 독성 가스를 발생할 수 있음"
+            },
+            {
+              "seq": 5,
+              "value": "일부는 탈 수 있으나 쉽게 점화하지 않음",
+              "text": "일부는 탈 수 있으나 쉽게 점화하지 않음"
+            },
+            {
+              "seq": 6,
+              "value": "물질의 흡입은 유해할 수 있음",
+              "text": "물질의 흡입은 유해할 수 있음"
+            },
+            {
+              "seq": 7,
+              "value": "(액체의 경우) 일부 액체는 현기증, 질식을 유발하는 증기는 발생할 수 있음",
+              "text": "(액체의 경우) 일부 액체는 현기증, 질식을 유발하는 증기는 발생할 수 있음"
+            }
+          ]
+        },
+        {
+          "item_code": "S10_CONDITIONS",
+          "title_raw": "나. 피해야 할 조건",
+          "status": "값있음",
+          "statements": [
+            {
+              "seq": 1,
+              "value": "(일반적으로) 열, 스파크, 화염 등 점화원",
+              "text": "(일반적으로) 열, 스파크, 화염 등 점화원"
+            }
+          ]
+        },
+        {
+          "item_code": "S10_INCOMPAT",
+          "title_raw": "다. 피해야 할 물질",
+          "status": "값있음",
+          "statements": [
+            {
+              "seq": 1,
+              "value": "(일반적으로) 가연성 물질",
+              "text": "(일반적으로) 가연성 물질"
+            }
+          ]
+        },
+        {
+          "item_code": "S10_DECOMP",
+          "title_raw": "라. 분해 시 생성되는 유해물질",
+          "status": "값있음",
+          "statements": [
+            {
+              "seq": 1,
+              "value": "(일반적으로) 자극성, 독성 가스",
+              "text": "(일반적으로) 자극성, 독성 가스"
+            }
+          ]
+        },
+        {
+          "item_code": "S11_ROUTE",
+          "title_raw": "가. 가능성이 높은 노출 경로에 관한 정보",
+          "status": "값있음",
+          "statements": [
+            {
+              "seq": 1,
+              "value": "하기 ‘나’항목에 함께 기재하였으니 아래 내용 참고.",
+              "text": "하기 ‘나’항목에 함께 기재하였으니 아래 내용 참고."
+            }
+          ]
+        },
+        {
+          "item_code": "S13_METHOD",
+          "title_raw": "가. 폐기방법",
+          "status": "값있음",
+          "statements": [
+            {
+              "seq": 1,
+              "value": "폐기물관리법에 명시된 경우 규정에 따라 내용물 및 용기를 폐기하시오.",
+              "text": "폐기물관리법에 명시된 경우 규정에 따라 내용물 및 용기를 폐기하시오."
+            }
+          ]
+        },
+        {
+          "item_code": "S13_CAUTION",
+          "title_raw": "나. 폐기 시 주의사항",
+          "status": "값있음",
+          "statements": [
+            {
+              "seq": 1,
+              "value": "폐기물관리법에 명시된 경우 규정에 명시된 주의사항을 고려하시오.",
+              "text": "폐기물관리법에 명시된 경우 규정에 명시된 주의사항을 고려하시오."
+            }
+          ]
+        },
+        {
+          "item_code": "S15_WASTE",
+          "title_raw": "라. 폐기물관리법에 의한 규제",
+          "status": "값있음",
+          "statements": [
+            {
+              "seq": 1,
+              "value": "사업장폐기물 해당 시 폐기물관리법에 따라 폐기하시오.",
+              "text": "사업장폐기물 해당 시 폐기물관리법에 따라 폐기하시오."
+            }
+          ]
+        },
+        {
+          "item_code": "S16_SOURCE",
+          "title_raw": "가. 자료의 출처",
+          "status": "값있음",
+          "statements": [
+            {
+              "seq": 1,
+              "value": "자사 보유 시험데이터",
+              "text": "- 자사 보유 시험데이터"
+            },
+            {
+              "seq": 2,
+              "value": "안전보건공단(KOSHA); http://msds.kosha.or.kr/kcic/msdssearchLaw.do",
+              "text": "- 안전보건공단(KOSHA); http://msds.kosha.or.kr/kcic/msdssearchLaw.do"
+            },
+            {
+              "seq": 3,
+              "value": "화학물질정보시스템(NCIS); http://ncis.nier.go.kr/",
+              "text": "- 화학물질정보시스템(NCIS); http://ncis.nier.go.kr/"
+            },
+            {
+              "seq": 4,
+              "value": "국가위험물정보시스템(KFI); http://hazmat.mpss.kfi.or.kr/material.do",
+              "text": "- 국가위험물정보시스템(KFI); http://hazmat.mpss.kfi.or.kr/material.do"
+            },
+            {
+              "seq": 5,
+              "value": "고용노동부고시 제 2020-130 호, 화학물질의 분류•표시 및 물질안전보건자료에 관한 기준",
+              "text": "- 고용노동부고시 제 2020-130 호, 화학물질의 분류•표시 및 물질안전보건자료에 관한 기준"
+            },
+            {
+              "seq": 6,
+              "value": "화학물질 및 물리적 인자의 노출기준",
+              "text": "- 화학물질 및 물리적 인자의 노출기준"
+            },
+            {
+              "seq": 7,
+              "value": "산업안전보건법 시행규칙 [별표 19]",
+              "text": "- 산업안전보건법 시행규칙 [별표 19]"
+            },
+            {
+              "seq": 8,
+              "value": "산업안전보건법 시행령 [별표 13]",
+              "text": "- 산업안전보건법 시행령 [별표 13]"
+            },
+            {
+              "seq": 9,
+              "value": "제한물질·금지물질의 지정 [별표 2]",
+              "text": "- 제한물질·금지물질의 지정 [별표 2]"
+            },
+            {
+              "seq": 10,
+              "value": "제한물질·금지물질의 지정 [별표 4]",
+              "text": "- 제한물질·금지물질의 지정 [별표 4]"
+            },
+            {
+              "seq": 11,
+              "value": "유독물질의 지정고시 [별표](화평법 시행령 제 3 조, 화관법 시행령 제 2 조의 지정기준에 해당하는 - 유독물질)",
+              "text": "- 유독물질의 지정고시 [별표](화평법 시행령 제 3 조, 화관법 시행령 제 2 조의 지정기준에 해당하는 - 유독물질)"
+            },
+            {
+              "seq": 12,
+              "value": "화학물질관리법 시행규칙 [별표 3 의 2]",
+              "text": "- 화학물질관리법 시행규칙 [별표 3 의 2]"
+            },
+            {
+              "seq": 13,
+              "value": "유럽화학물질청(ECHA); https://echa.europa.eu/information-on-chemicals/",
+              "text": "- 유럽화학물질청(ECHA); https://echa.europa.eu/information-on-chemicals/"
+            },
+            {
+              "seq": 14,
+              "value": "몬트리올의정서; https://www.epa.gov/ozone-layer-protection/ozone-depleting-substances",
+              "text": "- 몬트리올의정서; https://www.epa.gov/ozone-layer-protection/ozone-depleting-substances"
+            },
+            {
+              "seq": 15,
+              "value": "로테르담협약물질; http://www.pic.int/TheConvention/Chemicals/AnnexIIIChemicals/tabid/1132/language/en-US/Default.aspx",
+              "text": "- 로테르담협약물질; http://www.pic.int/TheConvention/Chemicals/AnnexIIIChemicals/tabid/1132/language/en-US/Default.aspx"
+            },
+            {
+              "seq": 16,
+              "value": "잔류성오염물질관리법; [별표 1] 잔류성오염물질(제 2 조관련)",
+              "text": "- 잔류성오염물질관리법; [별표 1] 잔류성오염물질(제 2 조관련)"
+            }
+          ]
+        },
+        {
+          "item_code": "S16_OTHER",
+          "title_raw": "라. 기타",
+          "status": "값있음",
+          "statements": [
+            {
+              "seq": 1,
+              "value": "본 MSDS 는 산업안전보건법 제 110 조에 의거하여 화학물질 분류표시 및 물질안전보건자료 작성 고시 제 2020-130 호를 바탕으로 작성한 것입니다.",
+              "text": "본 MSDS 는 산업안전보건법 제 110 조에 의거하여 화학물질 분류표시 및 물질안전보건자료 작성 고시 제 2020-130 호를 바탕으로 작성한 것입니다."
+            },
+            {
+              "seq": 2,
+              "value": "본 MSDS 는 구매자, 취급자 또는 제 3 자의 물질안전취급에 도움을 주고자 작성되었으므로 특수한 목적의 적합성이나 다른 물질과 병용하여 사용하는 상업적 적용이나 표현에 대해서는 어떠한 보증도 할 수 없고, 어떠한 기술적·법적 책임도 질 수 없음에 유의 바랍니다.",
+              "text": "본 MSDS 는 구매자, 취급자 또는 제 3 자의 물질안전취급에 도움을 주고자 작성되었으므로 특수한 목적의 적합성이나 다른 물질과 병용하여 사용하는 상업적 적용이나 표현에 대해서는 어떠한 보증도 할 수 없고, 어떠한 기술적·법적 책임도 질 수 없음에 유의 바랍니다."
+            },
+            {
+              "seq": 3,
+              "value": "본 MSDS 에 포함된 내용은 국가 및 지역에 따라 상이할 수 있으며, 실제 관련 규정의 내용과 일치하지 않을 수 있으므로, 구매자 및 취급자는 정부 및 해당 지역의 관련 규정을 확인하여 준수할 책임이 있습니다.",
+              "text": "본 MSDS 에 포함된 내용은 국가 및 지역에 따라 상이할 수 있으며, 실제 관련 규정의 내용과 일치하지 않을 수 있으므로, 구매자 및 취급자는 정부 및 해당 지역의 관련 규정을 확인하여 준수할 책임이 있습니다."
+            },
+            {
+              "seq": 4,
+              "value": "본 MSDS 는 특정 제품에만 관련된 내용이며, 별도로 명시되지 않은 다른 재료 및 다른 제조 공정에서 함께 사용하는 경우에는 적용되지 않을 수 있사오니 사용자가 직접 활동에 관련한 모든 규정을 준수하는지에 대한 보증을 하지 않습니다.",
+              "text": "본 MSDS 는 특정 제품에만 관련된 내용이며, 별도로 명시되지 않은 다른 재료 및 다른 제조 공정에서 함께 사용하는 경우에는 적용되지 않을 수 있사오니 사용자가 직접 활동에 관련한 모든 규정을 준수하는지에 대한 보증을 하지 않습니다."
+            }
+          ]
+        }
+      ],
+      "extras": [
+        {
+          "seq": 1,
+          "section_no": 0,
+          "after_item": "meta.msds_no",
+          "title_raw": "화평법 등록번호",
+          "reason": "필드없음",
+          "comp_ref": "MIX",
+          "q": null,
+          "statements": [
+            {
+              "seq": 1,
+              "key": "화평법 등록번호",
+              "value": "04-2112-01699",
+              "text": "화평법 등록번호: 04-2112-01699"
+            }
+          ],
+          "suggested_code": "meta.kreach_reg_no",
+          "page": 1
+        },
+        {
+          "seq": 2,
+          "section_no": 2,
+          "after_item": "hazard.p_statements",
+          "title_raw": "폐기",
+          "reason": "필드없음",
+          "comp_ref": "MIX",
+          "q": null,
+          "statements": [
+            {
+              "seq": 1,
+              "key": "폐기",
+              "value": "해당없음",
+              "text": "폐기 해당없음"
+            }
+          ],
+          "suggested_code": "hazard.p_statements(disposal)",
+          "page": 2
+        },
+        {
+          "seq": 3,
+          "section_no": 11,
+          "after_item": "toxicity[9]",
+          "title_raw": "생식세포 변이원성",
+          "reason": "필드없음",
+          "comp_ref": "1",
+          "q": null,
+          "statements": [
+            {
+              "seq": 1,
+              "key": "in vitro",
+              "value": "S. typhimuriu TA 1535, TA 1537, TA 1538, TA 98 and TA 100 를 이용한 복귀 돌연변이 시험 결과 음성 (OECD TG 471 Bacterial Reverse Mutation Assay) (인간 림프구를 대상으로 등록 물질인 Butane 을 최대 폭발 한계 상한값으로 처리하여 관찰한 결과 세포독성 및 염색체 이상에 영향을 미치지 않는 것으로 나타남 (OECD TG 473 In vitro Mammalian Chromosome Aberration test))",
+              "text": "in vitro : S. typhimuriu TA 1535, TA 1537, TA 1538, TA 98 and TA 100 를 이용한 복귀 돌연변이 시험 결과 음성 (OECD TG 471 Bacterial Reverse Mutation Assay) (인간 림프구를 대상으로 등록 물질인 Butane 을 최대 폭발 한계 상한값으로 처리하여 관찰한 결과 세포독성 및 염색체 이상에 영향을 미치지 않는 것으로 나타남 (OECD TG 473 In vitro Mammalian Chromosome Aberration test))"
+            }
+          ],
+          "suggested_code": "toxicity(GERM_CELL_MUTAGENICITY, in vitro)",
+          "page": 8
+        },
+        {
+          "seq": 4,
+          "section_no": 12,
+          "after_item": "ecotox[7]",
+          "title_raw": "나. 잔류성 및 분해성",
+          "reason": "필드없음",
+          "comp_ref": "1",
+          "q": null,
+          "statements": [
+            {
+              "seq": 1,
+              "key": "본질적 분해성",
+              "value": "본 물질은 기술적으로 시험이 불가능하나 다수의 연구결과에 따라 이분해성 물질에 해당하는 것으로 사료됨.",
+              "text": "(본질적 분해성 : 본 물질은 기술적으로 시험이 불가능하나 다수의 연구결과에 따라 이분해성 물질에 해당하는 것으로 사료됨.)"
+            }
+          ],
+          "suggested_code": "ecotox(DEGRADABILITY, inherent)",
+          "page": 9
+        }
+      ],
+      "evidence": [
+        {
+          "field": "meta.msds_no",
+          "page": 1,
+          "bbox": null,
+          "source_text": "MSDS 번호: AA02531-0000000008",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "meta.revision_no",
+          "page": 11,
+          "bbox": null,
+          "source_text": "개정횟수 : 0 회",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "meta.first_issue_date",
+          "page": 11,
+          "bbox": null,
+          "source_text": "나. 최초 작성일자 : 2022.01.14",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "meta.last_revision_date",
+          "page": 11,
+          "bbox": null,
+          "source_text": "최종 개정일자 : 2022.01.14",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "meta.page_start",
+          "page": 1,
+          "bbox": null,
+          "source_text": "페이지 1 / 11",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "product.name",
+          "page": 1,
+          "bbox": null,
+          "source_text": "가. 제품명 : Butane",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "product.uses",
+          "page": 1,
+          "bbox": null,
+          "source_text": "1. 원료 및 중간체 Feed materials (중간체) 18.11 점도 조정제 Viscosity adjusters",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "product.restrictions",
+          "page": 1,
+          "bbox": null,
+          "source_text": "권고 용도 외 사용하지 마시오.",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "companies[0]",
+          "page": 1,
+          "bbox": null,
+          "source_text": "회사명 : 용산화학(주) 울산공장 주소 : 울산 남구 사평로 32 (부곡동, 용산화학(주)) (44785) 긴급전화번호 : 052-226-8800",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "hazard.classified",
+          "page": 1,
+          "bbox": null,
+          "source_text": "인화성 가스 : 구분 1",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "hazard.classes[0]",
+          "page": 1,
+          "bbox": null,
+          "source_text": "인화성 가스 : 구분 1",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "hazard.classes[1]",
+          "page": 1,
+          "bbox": null,
+          "source_text": "고압가스 : 액화가스",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "hazard.signal_word",
+          "page": 1,
+          "bbox": null,
+          "source_text": "신호어 위험",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "hazard.pictograms",
+          "page": 1,
+          "bbox": null,
+          "source_text": "그림문자",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "hazard.h_statements[0]",
+          "page": 2,
+          "bbox": null,
+          "source_text": "H220 극인화성 가스",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "hazard.h_statements[1]",
+          "page": 2,
+          "bbox": null,
+          "source_text": "H280 고압가스: 가열하면 폭발할 수 있음",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "hazard.p_statements[0]",
+          "page": 2,
+          "bbox": null,
+          "source_text": "P210 열, 고온의 표면, 스파크, 화염 및 그 밖의 점화원으로부터 멀리하시오. 금연",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "hazard.p_statements[1]",
+          "page": 2,
+          "bbox": null,
+          "source_text": "P377 가스 누출 화재; 누출을 안전하게 막을 수 없다면, 불을 끄려하지 마시오.",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "hazard.p_statements[2]",
+          "page": 2,
+          "bbox": null,
+          "source_text": "P381 누출 시 모든 점화원을 제거하시오.",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "hazard.p_statements[3]",
+          "page": 2,
+          "bbox": null,
+          "source_text": "P403 환기가 잘 되는 곳에 보관하시오.",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "hazard.p_statements[4]",
+          "page": 2,
+          "bbox": null,
+          "source_text": "P410+P403 직사광선을 피하시오. 환기가 잘 되는 곳에 보관하시오.",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "hazard.other_hazards[0]",
+          "page": 2,
+          "bbox": null,
+          "source_text": "다. 유해성·위험성 분류기준에 포함되지 않는 기타 유해성·위험성 자료없음",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "composition.type",
+          "page": 2,
+          "bbox": null,
+          "source_text": "Butane | 자료없음 | 106-97-8 / KE-03751 | 100",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "components[0]",
+          "page": 2,
+          "bbox": null,
+          "source_text": "Butane | 자료없음 | 106-97-8 / KE-03751 | 100",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "exposure_limits[0]",
+          "page": 5,
+          "bbox": null,
+          "source_text": "국내규정 : TWA : 800ppm",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "exposure_limits[1]",
+          "page": 5,
+          "bbox": null,
+          "source_text": "ACGIH 규정 : TWA 1000 ppm",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "exposure_limits[2]",
+          "page": 5,
+          "bbox": null,
+          "source_text": "OSHA 규정 : 해당없음",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "exposure_limits[3]",
+          "page": 5,
+          "bbox": null,
+          "source_text": "NIOSH 규정 : 해당없음",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "exposure_limits[4]",
+          "page": 5,
+          "bbox": null,
+          "source_text": "EU 규정 : 해당없음",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "physchem[0]",
+          "page": 6,
+          "bbox": null,
+          "source_text": "가. 외관(물리적 상태, 색 등) : 성상 : 기체, 색상 : 무색 (CRC Handbook)",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "physchem[1]",
+          "page": 6,
+          "bbox": null,
+          "source_text": "가. 외관(물리적 상태, 색 등) : 성상 : 기체, 색상 : 무색 (CRC Handbook)",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "physchem[2]",
+          "page": 6,
+          "bbox": null,
+          "source_text": "나. 냄새 : 자료없음",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "physchem[3]",
+          "page": 6,
+          "bbox": null,
+          "source_text": "다. 냄새 역치 : 자료없음",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "physchem[4]",
+          "page": 6,
+          "bbox": null,
+          "source_text": "라. pH : 자료없음",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "physchem[5]",
+          "page": 6,
+          "bbox": null,
+          "source_text": "마. 녹는점/어는점 : -138.3 °C (101.3 kPa) (*출처: 용산화학 제공 자료)",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "physchem[6]",
+          "page": 6,
+          "bbox": null,
+          "source_text": "바. 초기 끓는점과 끓는점 범위 : -0.5°C (1013 hPa) (*출처: 용산화학 제공 자료)",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "physchem[7]",
+          "page": 6,
+          "bbox": null,
+          "source_text": "사. 인화점 : -60°C (CRC Handbook)",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "physchem[8]",
+          "page": 6,
+          "bbox": null,
+          "source_text": "아. 증발속도 : 자료없음",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "physchem[9]",
+          "page": 6,
+          "bbox": null,
+          "source_text": "자. 인화성(고체, 기체) : 인화성",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "physchem[10]",
+          "page": 6,
+          "bbox": null,
+          "source_text": "차. 인화 또는 폭발 범위의 상한/하한 : 1.9/8.5% (CRC Handbook)",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "physchem[11]",
+          "page": 6,
+          "bbox": null,
+          "source_text": "차. 인화 또는 폭발 범위의 상한/하한 : 1.9/8.5% (CRC Handbook)",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "physchem[12]",
+          "page": 6,
+          "bbox": null,
+          "source_text": "카. 증기압 : 221 kPa (21.85 ℃) (*출처: 용산화학 제공 자료)",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "physchem[13]",
+          "page": 6,
+          "bbox": null,
+          "source_text": "타. 용해도 : 61.4 ppm (25 ℃, pH 7) (*출처: 용산화학 제공 자료)",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "physchem[14]",
+          "page": 6,
+          "bbox": null,
+          "source_text": "파. 증기밀도 : 자료없음",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "physchem[15]",
+          "page": 6,
+          "bbox": null,
+          "source_text": "하. 비중 : 자료없음",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "physchem[16]",
+          "page": 6,
+          "bbox": null,
+          "source_text": "거. n 옥탄올/물 분배계수 : Log Kow = 2.89 (20 ℃, pH 7) (Exploring QSAR)",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "physchem[17]",
+          "page": 6,
+          "bbox": null,
+          "source_text": "너. 자연발화 온도 : 자료없음",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "physchem[18]",
+          "page": 6,
+          "bbox": null,
+          "source_text": "더. 분해 온도 : 자료없음",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "physchem[19]",
+          "page": 6,
+          "bbox": null,
+          "source_text": "러. 점도 : 7.5μPa s (CRC Handbook), (300K, 26.85℃)",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "physchem[20]",
+          "page": 6,
+          "bbox": null,
+          "source_text": "머. 분자량 : 58.12",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "toxicity[0]",
+          "page": 7,
+          "bbox": null,
+          "source_text": "급성독성 : 경구 자료없음",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "toxicity[1]",
+          "page": 7,
+          "bbox": null,
+          "source_text": "급성독성 : 경피 자료없음 (기술적으로 시험이 불가능한 물질에 해당)",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "toxicity[2]",
+          "page": 7,
+          "bbox": null,
+          "source_text": "Rat_LC50= 658/ mg/L/ 4hr (658,000 mg/m3)",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "toxicity[3]",
+          "page": 7,
+          "bbox": null,
+          "source_text": "Mouse_LC50=680mg/L/2hr",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "toxicity[4]",
+          "page": 7,
+          "bbox": null,
+          "source_text": "피부 부식성 또는 자극성 자료없음 (기술적으로 시험이 불가능한 물질에 해당)",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "toxicity[5]",
+          "page": 7,
+          "bbox": null,
+          "source_text": "심한 눈 손상 또는 자극성 자료없음 (기술적으로 시험이 불가능한 물질에 해당)",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "toxicity[6]",
+          "page": 7,
+          "bbox": null,
+          "source_text": "호흡기 과민성 자료없음",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "toxicity[7]",
+          "page": 7,
+          "bbox": null,
+          "source_text": "피부 과민성 자료없음 (기술적으로 시험이 불가능한 물질에 해당)",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "toxicity[8]",
+          "page": 7,
+          "bbox": null,
+          "source_text": "※ 본 제품 : 부타디엔 0.1%미만에 해당함",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "toxicity[9]",
+          "page": 8,
+          "bbox": null,
+          "source_text": "in vivo : 랫드(Sprague-Dawley)를 대상으로 13 주 반복투여에 따른 유전 독성에 대해 평가한 결과 ... 음성 (NOAEC 10000 ppm) (OECD TG 474 Mammalian Erythrocyte Micronucleus Test)",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "toxicity[10]",
+          "page": 8,
+          "bbox": null,
+          "source_text": "일반독성 : 랫드(Sprague-Dawley)를 대상으로 6 주 동안 0, 90, 3000 및 9000 ppm ... P0 Male, Female NOAEC: 9,000 ppm (21,394 mg/m3) ... (OECD TG 422) 수유독성 : 자료없음",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "toxicity[11]",
+          "page": 8,
+          "bbox": null,
+          "source_text": "특정 표적장기 독성(1 회 노출) 자료없음",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "toxicity[12]",
+          "page": 8,
+          "bbox": null,
+          "source_text": "특정 표적장기 독성(반복 노출) 상기 각 결과에 따르면 ... NOAEC 을 4,489 ppm 으로 판단하였다.",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "toxicity[13]",
+          "page": 8,
+          "bbox": null,
+          "source_text": "흡인 유해성 자료없음",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "cmr[0]",
+          "page": 7,
+          "bbox": null,
+          "source_text": "고용노동부 : 1A (부타디엔 0.1%이상 함유한 경우에 한정함)",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "cmr[1]",
+          "page": 7,
+          "bbox": null,
+          "source_text": "IARC : 해당없음",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "cmr[2]",
+          "page": 7,
+          "bbox": null,
+          "source_text": "ACGIH : 해당없음",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "cmr[3]",
+          "page": 7,
+          "bbox": null,
+          "source_text": "NTP : 해당없음",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "cmr[4]",
+          "page": 7,
+          "bbox": null,
+          "source_text": "OSHA : 해당없음",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "cmr[5]",
+          "page": 8,
+          "bbox": null,
+          "source_text": "EU CLP : 1A (부타디엔 0.1%이상 함유한 경우에 한함)",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "ecotox[0]",
+          "page": 8,
+          "bbox": null,
+          "source_text": "급성 : 96hr_(LC50)=24.11mg/L (c.a.) (QSAR)",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "ecotox[1]",
+          "page": 8,
+          "bbox": null,
+          "source_text": "만성 : 자료없음",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "ecotox[2]",
+          "page": 9,
+          "bbox": null,
+          "source_text": "급성 : 48hr_(EC50)=14.22mg/L (c.a.) (QSAR)",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "ecotox[3]",
+          "page": 9,
+          "bbox": null,
+          "source_text": "만성 : 자료없음",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "ecotox[4]",
+          "page": 9,
+          "bbox": null,
+          "source_text": "급성 : 96hr_(EC50)=7.71mg/L (c.a.) (QSAR)",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "ecotox[5]",
+          "page": 9,
+          "bbox": null,
+          "source_text": "만성 : 자료없음",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "ecotox[6]",
+          "page": 9,
+          "bbox": null,
+          "source_text": "잔류성 : Log Kow = 2.89",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "ecotox[7]",
+          "page": 9,
+          "bbox": null,
+          "source_text": "분해성 : 시험이 불가능한 물질에 해당. 보충 자료에 따르면 본 물질은 QSAR 계산을 통해 이분해성으로 밝혀진 물질임.",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "ecotox[8]",
+          "page": 9,
+          "bbox": null,
+          "source_text": "log Pow(Kow) 값이 3 미만으로 생물농축 가능성이 낮은 물질에 해당함.",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "ecotox[9]",
+          "page": 9,
+          "bbox": null,
+          "source_text": "비이온성 물질로 log Kow <3 이므로 물리화학적 성질에 근거하여, 흡착성 가능성이 낮은 물질에 해당하는 것으로 사료됨",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "ecotox[10]",
+          "page": 9,
+          "bbox": null,
+          "source_text": "마. 기타 유해 영향 자료없음",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "transport[0]",
+          "page": 9,
+          "bbox": null,
+          "source_text": "가. 유엔 번호(UN No.) : 1011 나. 유엔 적정 선적명 : BUTANE 다. 운송에서의 위험성 등급 : 2.1 라. 용기등급 : 정보없음 마. 해양오염물질 :비해당",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "transport[0].ems",
+          "page": 10,
+          "bbox": null,
+          "source_text": "화재 시 비상조치 : F-D | 유출 시 비상조치 : S-U",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "regulations[0]",
+          "page": 10,
+          "bbox": null,
+          "source_text": "노출기준설정물질 : 해당",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "regulations[1]",
+          "page": 10,
+          "bbox": null,
+          "source_text": "작업환경측정대상물질 : 해당없음",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "regulations[2]",
+          "page": 10,
+          "bbox": null,
+          "source_text": "특수건강진단대상물질 : 해당없음",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "regulations[3]",
+          "page": 10,
+          "bbox": null,
+          "source_text": "관리대상유해물질 : 해당없음",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "regulations[4]",
+          "page": 10,
+          "bbox": null,
+          "source_text": "특별관리물질 : 해당없음",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "regulations[5]",
+          "page": 10,
+          "bbox": null,
+          "source_text": "허용기준 이하 유지 대상 유해인자 : 해당없음",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "regulations[6]",
+          "page": 10,
+          "bbox": null,
+          "source_text": "공정안전보고서(PSM) : 해당",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "regulations[7]",
+          "page": 10,
+          "bbox": null,
+          "source_text": "법 제 117 조에 따른 제조등금지물질 : 해당없음",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "regulations[8]",
+          "page": 10,
+          "bbox": null,
+          "source_text": "법 제 118 조에 따른 허가대상물질 : 해당없음",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "regulations[9]",
+          "page": 10,
+          "bbox": null,
+          "source_text": "유독물질 : 해당없음",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "regulations[10]",
+          "page": 10,
+          "bbox": null,
+          "source_text": "허가물질 : 해당없음",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "regulations[11]",
+          "page": 10,
+          "bbox": null,
+          "source_text": "제한물질 : 해당없음",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "regulations[12]",
+          "page": 10,
+          "bbox": null,
+          "source_text": "금지물질 : 해당없음",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "regulations[13]",
+          "page": 10,
+          "bbox": null,
+          "source_text": "사고대비물질 : 해당없음",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "regulations[14]",
+          "page": 10,
+          "bbox": null,
+          "source_text": "다. 위험물안전관리법에 의한 규제 해당없음(비위험물)",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "dangerous_goods[0]",
+          "page": 10,
+          "bbox": null,
+          "source_text": "해당없음(비위험물)",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "regulations[15]",
+          "page": 10,
+          "bbox": null,
+          "source_text": "사업장폐기물 해당 시 폐기물관리법에 따라 폐기하시오.",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "waste[0]",
+          "page": 10,
+          "bbox": null,
+          "source_text": "사업장폐기물 해당 시 폐기물관리법에 따라 폐기하시오.",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "regulations[16]",
+          "page": 10,
+          "bbox": null,
+          "source_text": "잔류성유기오염물질관리법 : 해당없음",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "regulations[17]",
+          "page": 10,
+          "bbox": null,
+          "source_text": "화평법 분류정보(분류 및 표시사항) : 해당없음",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "regulations[18]",
+          "page": 10,
+          "bbox": null,
+          "source_text": "EU 분류정보(확정분류결과) : Flam. Gas 1, Press. Gas (if butane containing ≥ 0,1 % butadiene (203-450-8), +Carc. 1A Muta. 1B)",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "intl_class[0]",
+          "page": 10,
+          "bbox": null,
+          "source_text": "EU 분류정보(확정분류결과) : Flam. Gas 1, Press. Gas",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "intl_class[1]",
+          "page": 10,
+          "bbox": null,
+          "source_text": "EU 분류정보(확정분류결과) : Flam. Gas 1, Press. Gas",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "intl_class[2]",
+          "page": 10,
+          "bbox": null,
+          "source_text": "(if butane containing ≥ 0,1 % butadiene (203-450-8), +Carc. 1A Muta. 1B)",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "intl_class[3]",
+          "page": 10,
+          "bbox": null,
+          "source_text": "(if butane containing ≥ 0,1 % butadiene (203-450-8), +Carc. 1A Muta. 1B)",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "regulations[19]",
+          "page": 10,
+          "bbox": null,
+          "source_text": "로테르담협약물질 : 해당없음",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "regulations[20]",
+          "page": 10,
+          "bbox": null,
+          "source_text": "스톡홀름협약물질 : 해당없음",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "regulations[21]",
+          "page": 10,
+          "bbox": null,
+          "source_text": "몬트리올의정서물질 : 해당없음",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "narratives[S4_EYE]",
+          "page": 2,
+          "bbox": null,
+          "source_text": "가. 눈에 들어갔을 때 물질과 접촉시 즉시 20 분 이상 흐르는 물에 눈을 씻어내시오. 즉시 의료조치를 취하시오.",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "narratives[S4_SKIN]",
+          "page": 2,
+          "bbox": null,
+          "source_text": "나. 피부에 접촉했을 때 뜨거운 물질인 경우, 열을 없애기 위해 영향을 받은 부위를 다량의 차가운 물에 담그거나 씻어내시오.",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "narratives[S4_INHAL]",
+          "page": 3,
+          "bbox": null,
+          "source_text": "다. 흡입했을 때 긴급히 의료조치를 받으시오.",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "narratives[S4_INGEST]",
+          "page": 3,
+          "bbox": null,
+          "source_text": "라. 먹었을 때 의식이 없는 사람에게 입으로 아무것도 먹이지 마시오.",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "narratives[S4_DOCTOR]",
+          "page": 3,
+          "bbox": null,
+          "source_text": "마. 기타 의사의 주의사항 의료인력이 해당물질에 대해 알고 보호조치를 취하도록 하시오.",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "narratives[S5_MEDIA]",
+          "page": 3,
+          "bbox": null,
+          "source_text": "적절한 소화제: 건조모래, 건조화학제, 내알콜포말, 물분무, 일반포말, CO₂ (소형 화재)",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "narratives[S5_SPECIFIC]",
+          "page": 3,
+          "bbox": null,
+          "source_text": "나. 화학물질로부터 생기는 특정 유해성 격렬하게 중합반응하여 화재와 폭발을 일으킬 수 있음",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "narratives[S5_FIREFIGHT]",
+          "page": 3,
+          "bbox": null,
+          "source_text": "다. 화재 진압 시 착용할 보호구 및 예방조치 지역을 벗어나 안전거리를 유지하여 소화하시오.",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "narratives[S6_PERSONAL]",
+          "page": 4,
+          "bbox": null,
+          "source_text": "가. 인체를 보호하기 위해 필요한 조치사항 및 보호구 매우 미세한 입자는 화재나 폭발을 일으킬 수 있으므로 모든 점화원을 제거하시오.",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "narratives[S6_ENV]",
+          "page": 4,
+          "bbox": null,
+          "source_text": "수로, 하수구, 지하실, 밀폐공간으로의 유입을 방지하시오.",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "narratives[S6_CLEANUP]",
+          "page": 4,
+          "bbox": null,
+          "source_text": "다. 정화 또는 제거 방법 소화를 위해 제방을 쌓고 물을 수거하시오.",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "narratives[S7_HANDLING]",
+          "page": 4,
+          "bbox": null,
+          "source_text": "가. 안전취급요령 압력을 가하거나, 자르거나, 용접, 납땜, 접합, 뚫기, 연마 또는 열에 폭로, 화염, 불꽃, 정전기 또는 다른",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "narratives[S7_STORAGE]",
+          "page": 4,
+          "bbox": null,
+          "source_text": "나. 안전한 저장 방법 열원(熱源)을 피하여 적재할 것.",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "narratives[S8_ENG]",
+          "page": 5,
+          "bbox": null,
+          "source_text": "나. 적절한 공학적 관리 국소배기장치 등을 설치하고 적합한 제어 풍속이 유지되도록 관리하시오.",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "narratives[S8_RESP]",
+          "page": 5,
+          "bbox": null,
+          "source_text": "산소가 부족한 경우(<19.6%), 송기마스크, 혹은 자급식 호흡보호구를 착용하시오.",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "narratives[S8_EYE]",
+          "page": 5,
+          "bbox": null,
+          "source_text": "눈 보호 작업장 가까운 곳에 세안설비와 비상샤워시설을 설치하시오.",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "narratives[S8_HAND]",
+          "page": 5,
+          "bbox": null,
+          "source_text": "손 보호 화학물질의 물리적 및 화학적 특성을 고려하여 적절한 재질의 보호장갑을 착용하시오.",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "narratives[S8_BODY]",
+          "page": 5,
+          "bbox": null,
+          "source_text": "신체 보호 화학물질의 물리적 및 화학적 특성을 고려하여 적절한 재질의 보호의복을 착용하시오.",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "narratives[S10_STABILITY]",
+          "page": 6,
+          "bbox": null,
+          "source_text": "가. 화학적 안정성 및 유해 반응의 가능성 격렬하게 중합반응하여 화재와 폭발을 일으킬 수 있음",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "narratives[S10_CONDITIONS]",
+          "page": 7,
+          "bbox": null,
+          "source_text": "나. 피해야 할 조건 (일반적으로) 열, 스파크, 화염 등 점화원",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "narratives[S10_INCOMPAT]",
+          "page": 7,
+          "bbox": null,
+          "source_text": "다. 피해야 할 물질 (일반적으로) 가연성 물질",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "narratives[S10_DECOMP]",
+          "page": 7,
+          "bbox": null,
+          "source_text": "라. 분해 시 생성되는 유해물질 (일반적으로) 자극성, 독성 가스",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "narratives[S11_ROUTE]",
+          "page": 7,
+          "bbox": null,
+          "source_text": "하기 ‘나’항목에 함께 기재하였으니 아래 내용 참고.",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "narratives[S13_METHOD]",
+          "page": 9,
+          "bbox": null,
+          "source_text": "폐기물관리법에 명시된 경우 규정에 따라 내용물 및 용기를 폐기하시오.",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "narratives[S13_CAUTION]",
+          "page": 9,
+          "bbox": null,
+          "source_text": "폐기물관리법에 명시된 경우 규정에 명시된 주의사항을 고려하시오.",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "narratives[S15_WASTE]",
+          "page": 10,
+          "bbox": null,
+          "source_text": "사업장폐기물 해당 시 폐기물관리법에 따라 폐기하시오.",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "narratives[S16_SOURCE]",
+          "page": 11,
+          "bbox": null,
+          "source_text": "- 자사 보유 시험데이터",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "narratives[S16_OTHER]",
+          "page": 11,
+          "bbox": null,
+          "source_text": "본 MSDS 는 산업안전보건법 제 110 조에 의거하여 화학물질 분류표시 및 물질안전보건자료 작성 고시 제 2020-130 호를 바탕으로 작성한 것입니다.",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "extras[0]",
+          "page": 1,
+          "bbox": null,
+          "source_text": "화평법 등록번호: 04-2112-01699",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "extras[1]",
+          "page": 2,
+          "bbox": null,
+          "source_text": "폐기 해당없음",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "extras[2]",
+          "page": 8,
+          "bbox": null,
+          "source_text": "in vitro : S. typhimuriu TA 1535, TA 1537, TA 1538, TA 98 and TA 100 를 이용한 복귀 돌연변이 시험 결과 음성",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        },
+        {
+          "field": "extras[3]",
+          "page": 9,
+          "bbox": null,
+          "source_text": "(본질적 분해성 : 본 물질은 기술적으로 시험이 불가능하나 다수의 연구결과에 따라 이분해성 물질에 해당하는 것으로 사료됨.)",
+          "confidence": null,
+          "method": "vLM",
+          "needs_review": null
+        }
+      ],
+      "validation": []
+    }
+  ]
+}

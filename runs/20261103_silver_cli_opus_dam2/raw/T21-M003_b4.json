@@ -1,0 +1,816 @@
+{
+  "doc_id": "T21-M003",
+  "bundle": "b4",
+  "model": "claude-opus-5-5",
+  "mode": "claude -p json-schema",
+  "finish_reason": "tool_use",
+  "usage": {
+    "prompt_tokens": 65597,
+    "completion_tokens": 7854,
+    "cached_tokens": 8949,
+    "reasoning_tokens": 1167,
+    "notional_cost_usd": 0.6120458
+  },
+  "seconds": 58.3,
+  "request_usage": [
+    {
+      "prompt_tokens": 65597,
+      "completion_tokens": 7854,
+      "cached_tokens": 8949,
+      "reasoning_tokens": 1167,
+      "notional_cost_usd": 0.6120458
+    }
+  ],
+  "attempts": 1,
+  "errors": [],
+  "parsed": {
+    "msds": [
+      {
+        "transport": [
+          {
+            "mode": "공통",
+            "basis_raw": null,
+            "regulated": true,
+            "un_no": "1978",
+            "shipping_name": "프로판(PROPANE)",
+            "hazard_class": "2.1",
+            "sub_risk": null,
+            "packing_group": "해당없음",
+            "marine_pollutant": "자료없음",
+            "ems_fire": "F-D",
+            "ems_spill": "S-U"
+          },
+          {
+            "mode": "공통",
+            "basis_raw": null,
+            "regulated": null,
+            "un_no": null,
+            "shipping_name": null,
+            "hazard_class": "2.1",
+            "sub_risk": null,
+            "packing_group": "해당없음",
+            "marine_pollutant": "자료없음",
+            "ems_fire": "F-D",
+            "ems_spill": "S-U"
+          },
+          {
+            "mode": "공통",
+            "basis_raw": null,
+            "regulated": true,
+            "un_no": "1265",
+            "shipping_name": "펜탄(PENTANES, liquid)",
+            "hazard_class": "3",
+            "sub_risk": null,
+            "packing_group": "해당없음",
+            "marine_pollutant": "자료없음",
+            "ems_fire": "F-E",
+            "ems_spill": "S-D"
+          }
+        ],
+        "regulations": [
+          {
+            "seq": 1,
+            "law": "OSH",
+            "item_code": null,
+            "item_raw": "산업안전보건법에 의한 규제",
+            "comp_ref": "1",
+            "applicable": "비해당",
+            "value_raw": "해당없음"
+          },
+          {
+            "seq": 2,
+            "law": "OSH",
+            "item_code": "OSH_EXPOSURE_STD",
+            "item_raw": "노출기준설정물질",
+            "comp_ref": "2",
+            "applicable": "해당",
+            "value_raw": "노출기준설정물질"
+          },
+          {
+            "seq": 3,
+            "law": "OSH",
+            "item_code": null,
+            "item_raw": "산업안전보건법에 의한 규제",
+            "comp_ref": "3",
+            "applicable": "비해당",
+            "value_raw": "해당없음"
+          },
+          {
+            "seq": 4,
+            "law": "CCA",
+            "item_code": null,
+            "item_raw": "화학물질관리법에 의한 규제",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "value_raw": "해당사항 없음"
+          },
+          {
+            "seq": 5,
+            "law": "KREACH",
+            "item_code": null,
+            "item_raw": null,
+            "comp_ref": "MIX",
+            "applicable": "미기재"
+          },
+          {
+            "seq": 6,
+            "law": "DG",
+            "item_code": "DG_HAZMAT",
+            "item_raw": "위험물안전관리법에 의한 규제",
+            "comp_ref": "1",
+            "applicable": "비해당",
+            "value_raw": "해당없음"
+          },
+          {
+            "seq": 7,
+            "law": "DG",
+            "item_code": "DG_HAZMAT",
+            "item_raw": "위험물안전관리법에 의한 규제",
+            "comp_ref": "2",
+            "applicable": "비해당",
+            "value_raw": "해당없음"
+          },
+          {
+            "seq": 8,
+            "law": "DG",
+            "item_code": "DG_HAZMAT",
+            "item_raw": "위험물안전관리법에 의한 규제",
+            "comp_ref": "3",
+            "applicable": "해당",
+            "value_raw": "4류 특수인화물 50ℓ",
+            "qty": {
+              "raw": "50ℓ",
+              "status": "값있음",
+              "value": 50,
+              "unit": "L"
+            }
+          },
+          {
+            "seq": 9,
+            "law": "WASTE",
+            "item_code": "WASTE_DESIG",
+            "item_raw": "폐기물관리법에 의한 규제",
+            "comp_ref": "1",
+            "applicable": "해당",
+            "value_raw": "지정폐기물"
+          },
+          {
+            "seq": 10,
+            "law": "WASTE",
+            "item_code": "WASTE_DESIG",
+            "item_raw": "폐기물관리법에 의한 규제",
+            "comp_ref": "2",
+            "applicable": "해당",
+            "value_raw": "지정폐기물"
+          },
+          {
+            "seq": 11,
+            "law": "WASTE",
+            "item_code": "WASTE_DESIG",
+            "item_raw": "폐기물관리법에 의한 규제",
+            "comp_ref": "3",
+            "applicable": "해당",
+            "value_raw": "지정폐기물"
+          },
+          {
+            "seq": 12,
+            "law": "POPS",
+            "item_code": "POPS",
+            "item_raw": "잔류성유기오염물질관리법",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "value_raw": "해당없음"
+          },
+          {
+            "seq": 13,
+            "law": "KR_ETC",
+            "item_code": "KR_ETC",
+            "item_raw": "고압가스 안전관리법",
+            "comp_ref": "MIX",
+            "applicable": "해당",
+            "value_raw": "가연성가스, 액화가스"
+          },
+          {
+            "seq": 14,
+            "law": "KR_ETC",
+            "item_code": "KR_ETC",
+            "item_raw": "액화석유가스의 안전관리 및 사업법",
+            "comp_ref": "MIX",
+            "applicable": "해당",
+            "value_raw": "액화석유가스"
+          },
+          {
+            "seq": 15,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보(OSHA 규정)",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "country": "US",
+            "value_raw": "해당없음"
+          },
+          {
+            "seq": 16,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보(CERCLA 규정)",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "country": "US",
+            "value_raw": "해당없음"
+          },
+          {
+            "seq": 17,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보(EPCRA 302 규정)",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "country": "US",
+            "value_raw": "해당없음"
+          },
+          {
+            "seq": 18,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보(EPCRA 304 규정)",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "country": "US",
+            "value_raw": "해당없음"
+          },
+          {
+            "seq": 19,
+            "law": "INTL",
+            "item_code": "INTL_US",
+            "item_raw": "미국관리정보(EPCRA 313 규정)",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "country": "US",
+            "value_raw": "해당없음"
+          },
+          {
+            "seq": 20,
+            "law": "INTL",
+            "item_code": "INTL_TREATY",
+            "item_raw": "미국관리정보(로테르담협약물질)",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "value_raw": "해당없음"
+          },
+          {
+            "seq": 21,
+            "law": "INTL",
+            "item_code": "INTL_TREATY",
+            "item_raw": "미국관리정보(스톡홀름협약물질)",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "value_raw": "해당없음"
+          },
+          {
+            "seq": 22,
+            "law": "INTL",
+            "item_code": "INTL_TREATY",
+            "item_raw": "미국관리정보(몬트리올의정서물질)",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "value_raw": "해당없음"
+          },
+          {
+            "seq": 23,
+            "law": "INTL",
+            "item_code": "INTL_EU",
+            "item_raw": "EU 분류정보(확정분류결과)",
+            "comp_ref": "1",
+            "applicable": "해당",
+            "country": "EU",
+            "value_raw": "F+; R12"
+          },
+          {
+            "seq": 24,
+            "law": "INTL",
+            "item_code": "INTL_EU",
+            "item_raw": "EU 분류정보(확정분류결과)",
+            "comp_ref": "2",
+            "applicable": "해당",
+            "country": "EU",
+            "value_raw": "F+; R12"
+          },
+          {
+            "seq": 25,
+            "law": "INTL",
+            "item_code": "INTL_EU",
+            "item_raw": "EU 분류정보(확정분류결과)",
+            "comp_ref": "3",
+            "applicable": "해당",
+            "country": "EU",
+            "value_raw": "F+; R12 [N; R51/53 (만성수생환경 유해성 구분 2), Xn; R65 (흡인유해성 구분 1), R66 (심한 눈 손상성/눈 자극성 구분 2, 눈 자극성) , R67 (특정표적장기 독성 - 1회 노출 ; 구분 3, 마취)]",
+            "remark": "* 이소펜탄의 함량이 2.5% 미만이어서 수생환경유해성 미적용, 이소펜탄의 함량이 10% 미만이어서 흡인유해성 및 눈 자극성 미적용"
+          },
+          {
+            "seq": 26,
+            "law": "INTL",
+            "item_code": "INTL_EU",
+            "item_raw": "EU 분류정보(위험문구)",
+            "comp_ref": "1",
+            "applicable": "해당",
+            "country": "EU",
+            "value_raw": "R12"
+          },
+          {
+            "seq": 27,
+            "law": "INTL",
+            "item_code": "INTL_EU",
+            "item_raw": "EU 분류정보(위험문구)",
+            "comp_ref": "2",
+            "applicable": "해당",
+            "country": "EU",
+            "value_raw": "R12"
+          },
+          {
+            "seq": 28,
+            "law": "INTL",
+            "item_code": "INTL_EU",
+            "item_raw": "EU 분류정보(위험문구)",
+            "comp_ref": "3",
+            "applicable": "해당",
+            "country": "EU",
+            "value_raw": "R12, R51/53, R65, R66, R67"
+          },
+          {
+            "seq": 29,
+            "law": "INTL",
+            "item_code": "INTL_EU",
+            "item_raw": "EU 분류정보(안전문구)",
+            "comp_ref": "1",
+            "applicable": "해당",
+            "country": "EU",
+            "value_raw": "S2, S9, S16"
+          },
+          {
+            "seq": 30,
+            "law": "INTL",
+            "item_code": "INTL_EU",
+            "item_raw": "EU 분류정보(안전문구)",
+            "comp_ref": "2",
+            "applicable": "해당",
+            "country": "EU",
+            "value_raw": "S2, S9, S16"
+          },
+          {
+            "seq": 31,
+            "law": "INTL",
+            "item_code": "INTL_EU",
+            "item_raw": "EU 분류정보(안전문구)",
+            "comp_ref": "3",
+            "applicable": "해당",
+            "country": "EU",
+            "value_raw": "S2, S9, S16, S29, S33, S61, S62"
+          }
+        ],
+        "dangerous_goods": [
+          {
+            "comp_ref": "1",
+            "class": "해당없음",
+            "item": null,
+            "water_soluble": null,
+            "grade": null,
+            "designated_qty": null
+          },
+          {
+            "comp_ref": "2",
+            "class": "해당없음",
+            "item": null,
+            "water_soluble": null,
+            "grade": null,
+            "designated_qty": null
+          },
+          {
+            "comp_ref": "3",
+            "class": "제4류",
+            "item": "특수인화물",
+            "water_soluble": "미표기",
+            "grade": null,
+            "designated_qty": {
+              "raw": "50ℓ",
+              "status": "값있음",
+              "value": 50,
+              "unit": "L"
+            }
+          }
+        ],
+        "waste": [
+          {
+            "comp_ref": "1",
+            "designated": "해당",
+            "waste_type": null
+          },
+          {
+            "comp_ref": "2",
+            "designated": "해당",
+            "waste_type": null
+          },
+          {
+            "comp_ref": "3",
+            "designated": "해당",
+            "waste_type": null
+          }
+        ],
+        "intl_class": []
+      }
+    ],
+    "evidence": [
+      {
+        "msds_index": 0,
+        "field": "transport[0]",
+        "page": 9,
+        "source_text": "프로판 | 1978 | 프로판(PROPANE) | 2.1 | 라. 용기등급 해당없음 | 마. 해양오염물질 자료없음 | F-D | S-U",
+        "rules": [
+          "R09"
+        ],
+        "note": "성분별 값을 프로판 행으로 묶음, 운송 규정 구분 없어 mode=공통"
+      },
+      {
+        "msds_index": 0,
+        "field": "transport[1]",
+        "page": 9,
+        "source_text": "부탄 혼합물 | UN 운송위험물질 분류정보가 없음 | 해당없음 | 2.1 | F-D | S-U",
+        "rules": [
+          "R15"
+        ],
+        "note": "UN번호·선적명 없음으로 null, 위험성 등급 2.1이 있어 regulated는 판단하지 않고 null"
+      },
+      {
+        "msds_index": 0,
+        "field": "transport[2]",
+        "page": 9,
+        "source_text": "이소펜탄 | 1265 | 펜탄(PENTANES, liquid) | 3 | F-E | S-D",
+        "rules": [
+          "R09"
+        ],
+        "note": "성분별 값을 이소펜탄 행으로 묶음"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[0]",
+        "page": 10,
+        "source_text": "가. 산업안전보건법에 의한 규제 | 프로판 | 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "맞는 값 없음: 특정 규제 항목 없이 해당없음이므로 item_code null, 비해당"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[1]",
+        "page": 10,
+        "source_text": "부탄 혼합물 | 노출기준설정물질",
+        "rules": [
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[2]",
+        "page": 10,
+        "source_text": "이소펜탄 | 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "맞는 값 없음: 특정 규제 항목 없어 item_code null, 비해당"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[3]",
+        "page": 10,
+        "source_text": "나. 화학물질관리법에 의한 규제 | 해당사항 없음",
+        "rules": [
+          "R15"
+        ],
+        "note": "맞는 값 없음: 특정 항목 없이 제품 전체 해당사항 없음, item_code null"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[4]",
+        "page": 10,
+        "source_text": null,
+        "rules": [
+          "R18"
+        ],
+        "note": "구양식 문서로 화평법 항목이 없어 미기재"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[5]",
+        "page": 10,
+        "source_text": "다. 위험물안전관리법에 의한 규제 | 프로판 | 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[6]",
+        "page": 10,
+        "source_text": "부탄 혼합물 | 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[7]",
+        "page": 10,
+        "source_text": "이소펜탄 | 4류 특수인화물 50ℓ",
+        "rules": [
+          "R04"
+        ],
+        "note": "지정수량 50ℓ를 value 50, unit L로 분해"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[8]",
+        "page": 10,
+        "source_text": "라. 폐기물관리법에 의한 규제 | 프로판 | 지정폐기물",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[9]",
+        "page": 10,
+        "source_text": "부탄 혼합물 | 지정폐기물",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[10]",
+        "page": 10,
+        "source_text": "이소펜탄 | 지정폐기물",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[11]",
+        "page": 10,
+        "source_text": "잔류성유기오염물질관리법 | 해당없음",
+        "rules": [
+          "R25",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[12]",
+        "page": 10,
+        "source_text": "고압가스 안전관리법 | 가연성가스, 액화가스",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[13]",
+        "page": 10,
+        "source_text": "액화석유가스의 안전관리 및 사업법 | 액화석유가스",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[14]",
+        "page": 10,
+        "source_text": "미국관리정보(OSHA 규정) | 해당없음",
+        "rules": [
+          "R25",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[15]",
+        "page": 10,
+        "source_text": "미국관리정보(CERCLA 규정) | 해당없음",
+        "rules": [
+          "R25",
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[16]",
+        "page": 10,
+        "source_text": "미국관리정보(EPCRA 302 규정) | 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[17]",
+        "page": 10,
+        "source_text": "미국관리정보(EPCRA 304 규정) | 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[18]",
+        "page": 10,
+        "source_text": "미국관리정보(EPCRA 313 규정) | 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[19]",
+        "page": 10,
+        "source_text": "미국관리정보(로테르담협약물질) | 해당없음",
+        "rules": [
+          "R25",
+          "R15"
+        ],
+        "note": "국제협약 물질로 INTL_TREATY"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[20]",
+        "page": 10,
+        "source_text": "미국관리정보(스톡홀름협약물질) | 해당없음",
+        "rules": [
+          "R25",
+          "R15"
+        ],
+        "note": "국제협약 물질로 INTL_TREATY"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[21]",
+        "page": 10,
+        "source_text": "미국관리정보(몬트리올의정서물질) | 해당없음",
+        "rules": [
+          "R25",
+          "R15"
+        ],
+        "note": "이미지 기준 몬트리올의정서물질 행의 값이 해당없음"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[22]",
+        "page": 10,
+        "source_text": "EU 분류정보(확정분류결과) | 프로판 | F+; R12",
+        "rules": [
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[23]",
+        "page": 10,
+        "source_text": "부탄 혼합물 | F+; R12",
+        "rules": [
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[24]",
+        "page": 10,
+        "source_text": "이소펜탄 | F+; R12 [N; R51/53 (만성수생환경 유해성 구분 2), Xn; R65 (흡인유해성 구분 1), R66 ..., R67 ...] * 이소펜탄의 함량이 2.5% 미만이어서 수생환경유해성 미적용",
+        "rules": [
+          "R25"
+        ],
+        "note": "별표 주석은 remark에 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[25]",
+        "page": 10,
+        "source_text": "EU 분류정보(위험문구) | 프로판 | R12",
+        "rules": [
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[26]",
+        "page": 10,
+        "source_text": "부탄 혼합물 | R12",
+        "rules": [
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[27]",
+        "page": 10,
+        "source_text": "이소펜탄 | R12, R51/53, R65, R66, R67",
+        "rules": [
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[28]",
+        "page": 10,
+        "source_text": "EU 분류정보(안전문구) | 프로판 | S2, S9, S16",
+        "rules": [
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[29]",
+        "page": 10,
+        "source_text": "부탄 혼합물 | S2, S9, S16",
+        "rules": [
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[30]",
+        "page": 10,
+        "source_text": "이소펜탄 | S2, S9, S16, S29, S33, S61, S62",
+        "rules": [
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "dangerous_goods[0]",
+        "page": 10,
+        "source_text": "프로판 | 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "dangerous_goods[1]",
+        "page": 10,
+        "source_text": "부탄 혼합물 | 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "dangerous_goods[2]",
+        "page": 10,
+        "source_text": "이소펜탄 | 4류 특수인화물 50ℓ",
+        "rules": [
+          "R04"
+        ],
+        "note": "4류→제4류, 품명 특수인화물, 지정수량 50 L; 수용성·위험등급 표기 없음"
+      },
+      {
+        "msds_index": 0,
+        "field": "waste[0]",
+        "page": 10,
+        "source_text": "프로판 | 지정폐기물",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "waste[1]",
+        "page": 10,
+        "source_text": "부탄 혼합물 | 지정폐기물",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "waste[2]",
+        "page": 10,
+        "source_text": "이소펜탄 | 지정폐기물",
+        "rules": [],
+        "note": null
+      }
+    ]
+  },
+  "raw_text": "{\"msds\": [{\"transport\": [{\"mode\": \"공통\", \"basis_raw\": null, \"regulated\": true, \"un_no\": \"1978\", \"shipping_name\": \"프로판(PROPANE)\", \"hazard_class\": \"2.1\", \"sub_risk\": null, \"packing_group\": \"해당없음\", \"marine_pollutant\": \"자료없음\", \"ems_fire\": \"F-D\", \"ems_spill\": \"S-U\"}, {\"mode\": \"공통\", \"basis_raw\": null, \"regulated\": null, \"un_no\": null, \"shipping_name\": null, \"hazard_class\": \"2.1\", \"sub_risk\": null, \"packing_group\": \"해당없음\", \"marine_pollutant\": \"자료없음\", \"ems_fire\": \"F-D\", \"ems_spill\": \"S-U\"}, {\"mode\": \"공통\", \"basis_raw\": null, \"regulated\": true, \"un_no\": \"1265\", \"shipping_name\": \"펜탄(PENTANES, liquid)\", \"hazard_class\": \"3\", \"sub_risk\": null, \"packing_group\": \"해당없음\", \"marine_pollutant\": \"자료없음\", \"ems_fire\": \"F-E\", \"ems_spill\": \"S-D\"}], \"regulations\": [{\"seq\": 1, \"law\": \"OSH\", \"item_code\": null, \"item_raw\": \"산업안전보건법에 의한 규제\", \"comp_ref\": \"1\", \"applicable\": \"비해당\", \"value_raw\": \"해당없음\"}, {\"seq\": 2, \"law\": \"OSH\", \"item_code\": \"OSH_EXPOSURE_STD\", \"item_raw\": \"노출기준설정물질\", \"comp_ref\": \"2\", \"applicable\": \"해당\", \"value_raw\": \"노출기준설정물질\"}, {\"seq\": 3, \"law\": \"OSH\", \"item_code\": null, \"item_raw\": \"산업안전보건법에 의한 규제\", \"comp_ref\": \"3\", \"applicable\": \"비해당\", \"value_raw\": \"해당없음\"}, {\"seq\": 4, \"law\": \"CCA\", \"item_code\": null, \"item_raw\": \"화학물질관리법에 의한 규제\", \"comp_ref\": \"MIX\", \"applicable\": \"비해당\", \"value_raw\": \"해당사항 없음\"}, {\"seq\": 5, \"law\": \"KREACH\", \"item_code\": null, \"item_raw\": null, \"comp_ref\": \"MIX\", \"applicable\": \"미기재\"}, {\"seq\": 6, \"law\": \"DG\", \"item_code\": \"DG_HAZMAT\", \"item_raw\": \"위험물안전관리법에 의한 규제\", \"comp_ref\": \"1\", \"applicable\": \"비해당\", \"value_raw\": \"해당없음\"}, {\"seq\": 7, \"law\": \"DG\", \"item_code\": \"DG_HAZMAT\", \"item_raw\": \"위험물안전관리법에 의한 규제\", \"comp_ref\": \"2\", \"applicable\": \"비해당\", \"value_raw\": \"해당없음\"}, {\"seq\": 8, \"law\": \"DG\", \"item_code\": \"DG_HAZMAT\", \"item_raw\": \"위험물안전관리법에 의한 규제\", \"comp_ref\": \"3\", \"applicable\": \"해당\", \"value_raw\": \"4류 특수인화물 50ℓ\", \"qty\": {\"raw\": \"50ℓ\", \"status\": \"값있음\", \"value\": 50, \"unit\": \"L\"}}, {\"seq\": 9, \"law\": \"WASTE\", \"item_code\": \"WASTE_DESIG\", \"item_raw\": \"폐기물관리법에 의한 규제\", \"comp_ref\": \"1\", \"applicable\": \"해당\", \"value_raw\": \"지정폐기물\"}, {\"seq\": 10, \"law\": \"WASTE\", \"item_code\": \"WASTE_DESIG\", \"item_raw\": \"폐기물관리법에 의한 규제\", \"comp_ref\": \"2\", \"applicable\": \"해당\", \"value_raw\": \"지정폐기물\"}, {\"seq\": 11, \"law\": \"WASTE\", \"item_code\": \"WASTE_DESIG\", \"item_raw\": \"폐기물관리법에 의한 규제\", \"comp_ref\": \"3\", \"applicable\": \"해당\", \"value_raw\": \"지정폐기물\"}, {\"seq\": 12, \"law\": \"POPS\", \"item_code\": \"POPS\", \"item_raw\": \"잔류성유기오염물질관리법\", \"comp_ref\": \"MIX\", \"applicable\": \"비해당\", \"value_raw\": \"해당없음\"}, {\"seq\": 13, \"law\": \"KR_ETC\", \"item_code\": \"KR_ETC\", \"item_raw\": \"고압가스 안전관리법\", \"comp_ref\": \"MIX\", \"applicable\": \"해당\", \"value_raw\": \"가연성가스, 액화가스\"}, {\"seq\": 14, \"law\": \"KR_ETC\", \"item_code\": \"KR_ETC\", \"item_raw\": \"액화석유가스의 안전관리 및 사업법\", \"comp_ref\": \"MIX\", \"applicable\": \"해당\", \"value_raw\": \"액화석유가스\"}, {\"seq\": 15, \"law\": \"INTL\", \"item_code\": \"INTL_US\", \"item_raw\": \"미국관리정보(OSHA 규정)\", \"comp_ref\": \"MIX\", \"applicable\": \"비해당\", \"country\": \"US\", \"value_raw\": \"해당없음\"}, {\"seq\": 16, \"law\": \"INTL\", \"item_code\": \"INTL_US\", \"item_raw\": \"미국관리정보(CERCLA 규정)\", \"comp_ref\": \"MIX\", \"applicable\": \"비해당\", \"country\": \"US\", \"value_raw\": \"해당없음\"}, {\"seq\": 17, \"law\": \"INTL\", \"item_code\": \"INTL_US\", \"item_raw\": \"미국관리정보(EPCRA 302 규정)\", \"comp_ref\": \"MIX\", \"applicable\": \"비해당\", \"country\": \"US\", \"value_raw\": \"해당없음\"}, {\"seq\": 18, \"law\": \"INTL\", \"item_code\": \"INTL_US\", \"item_raw\": \"미국관리정보(EPCRA 304 규정)\", \"comp_ref\": \"MIX\", \"applicable\": \"비해당\", \"country\": \"US\", \"value_raw\": \"해당없음\"}, {\"seq\": 19, \"law\": \"INTL\", \"item_code\": \"INTL_US\", \"item_raw\": \"미국관리정보(EPCRA 313 규정)\", \"comp_ref\": \"MIX\", \"applicable\": \"비해당\", \"country\": \"US\", \"value_raw\": \"해당없음\"}, {\"seq\": 20, \"law\": \"INTL\", \"item_code\": \"INTL_TREATY\", \"item_raw\": \"미국관리정보(로테르담협약물질)\", \"comp_ref\": \"MIX\", \"applicable\": \"비해당\", \"value_raw\": \"해당없음\"}, {\"seq\": 21, \"law\": \"INTL\", \"item_code\": \"INTL_TREATY\", \"item_raw\": \"미국관리정보(스톡홀름협약물질)\", \"comp_ref\": \"MIX\", \"applicable\": \"비해당\", \"value_raw\": \"해당없음\"}, {\"seq\": 22, \"law\": \"INTL\", \"item_code\": \"INTL_TREATY\", \"item_raw\": \"미국관리정보(몬트리올의정서물질)\", \"comp_ref\": \"MIX\", \"applicable\": \"비해당\", \"value_raw\": \"해당없음\"}, {\"seq\": 23, \"law\": \"INTL\", \"item_code\": \"INTL_EU\", \"item_raw\": \"EU 분류정보(확정분류결과)\", \"comp_ref\": \"1\", \"applicable\": \"해당\", \"country\": \"EU\", \"value_raw\": \"F+; R12\"}, {\"seq\": 24, \"law\": \"INTL\", \"item_code\": \"INTL_EU\", \"item_raw\": \"EU 분류정보(확정분류결과)\", \"comp_ref\": \"2\", \"applicable\": \"해당\", \"country\": \"EU\", \"value_raw\": \"F+; R12\"}, {\"seq\": 25, \"law\": \"INTL\", \"item_code\": \"INTL_EU\", \"item_raw\": \"EU 분류정보(확정분류결과)\", \"comp_ref\": \"3\", \"applicable\": \"해당\", \"country\": \"EU\", \"value_raw\": \"F+; R12 [N; R51/53 (만성수생환경 유해성 구분 2), Xn; R65 (흡인유해성 구분 1), R66 (심한 눈 손상성/눈 자극성 구분 2, 눈 자극성) , R67 (특정표적장기 독성 - 1회 노출 ; 구분 3, 마취)]\", \"remark\": \"* 이소펜탄의 함량이 2.5% 미만이어서 수생환경유해성 미적용, 이소펜탄의 함량이 10% 미만이어서 흡인유해성 및 눈 자극성 미적용\"}, {\"seq\": 26, \"law\": \"INTL\", \"item_code\": \"INTL_EU\", \"item_raw\": \"EU 분류정보(위험문구)\", \"comp_ref\": \"1\", \"applicable\": \"해당\", \"country\": \"EU\", \"value_raw\": \"R12\"}, {\"seq\": 27, \"law\": \"INTL\", \"item_code\": \"INTL_EU\", \"item_raw\": \"EU 분류정보(위험문구)\", \"comp_ref\": \"2\", \"applicable\": \"해당\", \"country\": \"EU\", \"value_raw\": \"R12\"}, {\"seq\": 28, \"law\": \"INTL\", \"item_code\": \"INTL_EU\", \"item_raw\": \"EU 분류정보(위험문구)\", \"comp_ref\": \"3\", \"applicable\": \"해당\", \"country\": \"EU\", \"value_raw\": \"R12, R51/53, R65, R66, R67\"}, {\"seq\": 29, \"law\": \"INTL\", \"item_code\": \"INTL_EU\", \"item_raw\": \"EU 분류정보(안전문구)\", \"comp_ref\": \"1\", \"applicable\": \"해당\", \"country\": \"EU\", \"value_raw\": \"S2, S9, S16\"}, {\"seq\": 30, \"law\": \"INTL\", \"item_code\": \"INTL_EU\", \"item_raw\": \"EU 분류정보(안전문구)\", \"comp_ref\": \"2\", \"applicable\": \"해당\", \"country\": \"EU\", \"value_raw\": \"S2, S9, S16\"}, {\"seq\": 31, \"law\": \"INTL\", \"item_code\": \"INTL_EU\", \"item_raw\": \"EU 분류정보(안전문구)\", \"comp_ref\": \"3\", \"applicable\": \"해당\", \"country\": \"EU\", \"value_raw\": \"S2, S9, S16, S29, S33, S61, S62\"}], \"dangerous_goods\": [{\"comp_ref\": \"1\", \"class\": \"해당없음\", \"item\": null, \"water_soluble\": null, \"grade\": null, \"designated_qty\": null}, {\"comp_ref\": \"2\", \"class\": \"해당없음\", \"item\": null, \"water_soluble\": null, \"grade\": null, \"designated_qty\": null}, {\"comp_ref\": \"3\", \"class\": \"제4류\", \"item\": \"특수인화물\", \"water_soluble\": \"미표기\", \"grade\": null, \"designated_qty\": {\"raw\": \"50ℓ\", \"status\": \"값있음\", \"value\": 50, \"unit\": \"L\"}}], \"waste\": [{\"comp_ref\": \"1\", \"designated\": \"해당\", \"waste_type\": null}, {\"comp_ref\": \"2\", \"designated\": \"해당\", \"waste_type\": null}, {\"comp_ref\": \"3\", \"designated\": \"해당\", \"waste_type\": null}], \"intl_class\": []}], \"evidence\": [{\"msds_index\": 0, \"field\": \"transport[0]\", \"page\": 9, \"source_text\": \"프로판 | 1978 | 프로판(PROPANE) | 2.1 | 라. 용기등급 해당없음 | 마. 해양오염물질 자료없음 | F-D | S-U\", \"rules\": [\"R09\"], \"note\": \"성분별 값을 프로판 행으로 묶음, 운송 규정 구분 없어 mode=공통\"}, {\"msds_index\": 0, \"field\": \"transport[1]\", \"page\": 9, \"source_text\": \"부탄 혼합물 | UN 운송위험물질 분류정보가 없음 | 해당없음 | 2.1 | F-D | S-U\", \"rules\": [\"R15\"], \"note\": \"UN번호·선적명 없음으로 null, 위험성 등급 2.1이 있어 regulated는 판단하지 않고 null\"}, {\"msds_index\": 0, \"field\": \"transport[2]\", \"page\": 9, \"source_text\": \"이소펜탄 | 1265 | 펜탄(PENTANES, liquid) | 3 | F-E | S-D\", \"rules\": [\"R09\"], \"note\": \"성분별 값을 이소펜탄 행으로 묶음\"}, {\"msds_index\": 0, \"field\": \"regulations[0]\", \"page\": 10, \"source_text\": \"가. 산업안전보건법에 의한 규제 | 프로판 | 해당없음\", \"rules\": [\"R15\"], \"note\": \"맞는 값 없음: 특정 규제 항목 없이 해당없음이므로 item_code null, 비해당\"}, {\"msds_index\": 0, \"field\": \"regulations[1]\", \"page\": 10, \"source_text\": \"부탄 혼합물 | 노출기준설정물질\", \"rules\": [\"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"regulations[2]\", \"page\": 10, \"source_text\": \"이소펜탄 | 해당없음\", \"rules\": [\"R15\"], \"note\": \"맞는 값 없음: 특정 규제 항목 없어 item_code null, 비해당\"}, {\"msds_index\": 0, \"field\": \"regulations[3]\", \"page\": 10, \"source_text\": \"나. 화학물질관리법에 의한 규제 | 해당사항 없음\", \"rules\": [\"R15\"], \"note\": \"맞는 값 없음: 특정 항목 없이 제품 전체 해당사항 없음, item_code null\"}, {\"msds_index\": 0, \"field\": \"regulations[4]\", \"page\": 10, \"source_text\": null, \"rules\": [\"R18\"], \"note\": \"구양식 문서로 화평법 항목이 없어 미기재\"}, {\"msds_index\": 0, \"field\": \"regulations[5]\", \"page\": 10, \"source_text\": \"다. 위험물안전관리법에 의한 규제 | 프로판 | 해당없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"regulations[6]\", \"page\": 10, \"source_text\": \"부탄 혼합물 | 해당없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"regulations[7]\", \"page\": 10, \"source_text\": \"이소펜탄 | 4류 특수인화물 50ℓ\", \"rules\": [\"R04\"], \"note\": \"지정수량 50ℓ를 value 50, unit L로 분해\"}, {\"msds_index\": 0, \"field\": \"regulations[8]\", \"page\": 10, \"source_text\": \"라. 폐기물관리법에 의한 규제 | 프로판 | 지정폐기물\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"regulations[9]\", \"page\": 10, \"source_text\": \"부탄 혼합물 | 지정폐기물\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"regulations[10]\", \"page\": 10, \"source_text\": \"이소펜탄 | 지정폐기물\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"regulations[11]\", \"page\": 10, \"source_text\": \"잔류성유기오염물질관리법 | 해당없음\", \"rules\": [\"R25\", \"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"regulations[12]\", \"page\": 10, \"source_text\": \"고압가스 안전관리법 | 가연성가스, 액화가스\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"regulations[13]\", \"page\": 10, \"source_text\": \"액화석유가스의 안전관리 및 사업법 | 액화석유가스\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"regulations[14]\", \"page\": 10, \"source_text\": \"미국관리정보(OSHA 규정) | 해당없음\", \"rules\": [\"R25\", \"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"regulations[15]\", \"page\": 10, \"source_text\": \"미국관리정보(CERCLA 규정) | 해당없음\", \"rules\": [\"R25\", \"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"regulations[16]\", \"page\": 10, \"source_text\": \"미국관리정보(EPCRA 302 규정) | 해당없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"regulations[17]\", \"page\": 10, \"source_text\": \"미국관리정보(EPCRA 304 규정) | 해당없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"regulations[18]\", \"page\": 10, \"source_text\": \"미국관리정보(EPCRA 313 규정) | 해당없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"regulations[19]\", \"page\": 10, \"source_text\": \"미국관리정보(로테르담협약물질) | 해당없음\", \"rules\": [\"R25\", \"R15\"], \"note\": \"국제협약 물질로 INTL_TREATY\"}, {\"msds_index\": 0, \"field\": \"regulations[20]\", \"page\": 10, \"source_text\": \"미국관리정보(스톡홀름협약물질) | 해당없음\", \"rules\": [\"R25\", \"R15\"], \"note\": \"국제협약 물질로 INTL_TREATY\"}, {\"msds_index\": 0, \"field\": \"regulations[21]\", \"page\": 10, \"source_text\": \"미국관리정보(몬트리올의정서물질) | 해당없음\", \"rules\": [\"R25\", \"R15\"], \"note\": \"이미지 기준 몬트리올의정서물질 행의 값이 해당없음\"}, {\"msds_index\": 0, \"field\": \"regulations[22]\", \"page\": 10, \"source_text\": \"EU 분류정보(확정분류결과) | 프로판 | F+; R12\", \"rules\": [\"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"regulations[23]\", \"page\": 10, \"source_text\": \"부탄 혼합물 | F+; R12\", \"rules\": [\"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"regulations[24]\", \"page\": 10, \"source_text\": \"이소펜탄 | F+; R12 [N; R51/53 (만성수생환경 유해성 구분 2), Xn; R65 (흡인유해성 구분 1), R66 ..., R67 ...] * 이소펜탄의 함량이 2.5% 미만이어서 수생환경유해성 미적용\", \"rules\": [\"R25\"], \"note\": \"별표 주석은 remark에 둠\"}, {\"msds_index\": 0, \"field\": \"regulations[25]\", \"page\": 10, \"source_text\": \"EU 분류정보(위험문구) | 프로판 | R12\", \"rules\": [\"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"regulations[26]\", \"page\": 10, \"source_text\": \"부탄 혼합물 | R12\", \"rules\": [\"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"regulations[27]\", \"page\": 10, \"source_text\": \"이소펜탄 | R12, R51/53, R65, R66, R67\", \"rules\": [\"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"regulations[28]\", \"page\": 10, \"source_text\": \"EU 분류정보(안전문구) | 프로판 | S2, S9, S16\", \"rules\": [\"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"regulations[29]\", \"page\": 10, \"source_text\": \"부탄 혼합물 | S2, S9, S16\", \"rules\": [\"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"regulations[30]\", \"page\": 10, \"source_text\": \"이소펜탄 | S2, S9, S16, S29, S33, S61, S62\", \"rules\": [\"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"dangerous_goods[0]\", \"page\": 10, \"source_text\": \"프로판 | 해당없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"dangerous_goods[1]\", \"page\": 10, \"source_text\": \"부탄 혼합물 | 해당없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"dangerous_goods[2]\", \"page\": 10, \"source_text\": \"이소펜탄 | 4류 특수인화물 50ℓ\", \"rules\": [\"R04\"], \"note\": \"4류→제4류, 품명 특수인화물, 지정수량 50 L; 수용성·위험등급 표기 없음\"}, {\"msds_index\": 0, \"field\": \"waste[0]\", \"page\": 10, \"source_text\": \"프로판 | 지정폐기물\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"waste[1]\", \"page\": 10, \"source_text\": \"부탄 혼합물 | 지정폐기물\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"waste[2]\", \"page\": 10, \"source_text\": \"이소펜탄 | 지정폐기물\", \"rules\": [], \"note\": null}]}"
+}

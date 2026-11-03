@@ -1,0 +1,525 @@
+{
+  "doc_id": "T21-028",
+  "bundle": "b2",
+  "model": "claude-opus-5-5",
+  "mode": "claude -p json-schema",
+  "finish_reason": "tool_use",
+  "usage": {
+    "prompt_tokens": 62747,
+    "completion_tokens": 4385,
+    "cached_tokens": 6909,
+    "reasoning_tokens": 982,
+    "notional_cost_usd": 0.5357778
+  },
+  "seconds": 40.2,
+  "request_usage": [
+    {
+      "prompt_tokens": 62747,
+      "completion_tokens": 4385,
+      "cached_tokens": 6909,
+      "reasoning_tokens": 982,
+      "notional_cost_usd": 0.5357778
+    }
+  ],
+  "attempts": 1,
+  "errors": [],
+  "parsed": {
+    "msds": [
+      {
+        "exposure_limits": [
+          {
+            "comp_ref": "1",
+            "standard": "ACGIH",
+            "limit_type": "TWA",
+            "form": "흡입 가능한 부분",
+            "q": {
+              "raw": "10 mg/m3",
+              "status": "값있음",
+              "value": 10,
+              "unit": "mg/m3"
+            },
+            "notations": []
+          },
+          {
+            "comp_ref": "1",
+            "standard": "ACGIH",
+            "limit_type": "TWA",
+            "form": "호흡 가능한 부분",
+            "q": {
+              "raw": "3 mg/m3",
+              "status": "값있음",
+              "value": 3,
+              "unit": "mg/m3"
+            },
+            "notations": []
+          }
+        ],
+        "physchem": [
+          {
+            "prop_code": "APPEARANCE_STATE",
+            "comp_ref": "MIX",
+            "text_value": "그리스",
+            "q": null
+          },
+          {
+            "prop_code": "APPEARANCE_COLOR",
+            "comp_ref": "MIX",
+            "text_value": "베이지색",
+            "q": null
+          },
+          {
+            "prop_code": "ODOR",
+            "comp_ref": "MIX",
+            "text_value": "약간",
+            "q": null
+          },
+          {
+            "prop_code": "ODOR_THRESHOLD",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "PH",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "해당없음",
+              "status": "해당없음"
+            }
+          },
+          {
+            "prop_code": "MELT_FREEZE",
+            "comp_ref": "MIX",
+            "seq": 1,
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "MELT_FREEZE",
+            "comp_ref": "MIX",
+            "seq": 2,
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "BOILING",
+            "comp_ref": "MIX",
+            "cond": {
+              "pressure": 760,
+              "pressure_unit": "mmHg"
+            },
+            "q": {
+              "raw": "해당없음",
+              "status": "해당없음"
+            }
+          },
+          {
+            "prop_code": "FLASH_POINT",
+            "comp_ref": "MIX",
+            "cond": {
+              "method": "Seta closed cup"
+            },
+            "q": {
+              "raw": "Seta closed cup 240 °C",
+              "status": "값있음",
+              "value": 240,
+              "unit": "C"
+            }
+          },
+          {
+            "prop_code": "EVAP_RATE",
+            "comp_ref": "MIX",
+            "cond": {
+              "reference": "Butyl Acetate = 1"
+            },
+            "q": {
+              "raw": "해당없음",
+              "status": "해당없음"
+            }
+          },
+          {
+            "prop_code": "FLAMMABILITY",
+            "comp_ref": "MIX",
+            "text_value": "인화성 위험물질로 분류되지 않음",
+            "q": null
+          },
+          {
+            "prop_code": "LEL",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "UEL",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "VAPOR_PRESSURE",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "해당없음",
+              "status": "해당없음"
+            }
+          },
+          {
+            "prop_code": "VAPOR_DENSITY",
+            "comp_ref": "MIX",
+            "cond": {
+              "reference": "공기=1"
+            },
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "RELATIVE_DENSITY",
+            "comp_ref": "MIX",
+            "cond": {
+              "reference": "물=1"
+            },
+            "q": {
+              "raw": "0.96",
+              "status": "값있음",
+              "value": 0.96,
+              "dp": 2
+            }
+          },
+          {
+            "prop_code": "SOLUBILITY",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "LOG_KOW",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "AUTOIGNITION",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": "DECOMPOSITION",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            }
+          },
+          {
+            "prop_code": null,
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "해당없음",
+              "status": "해당없음",
+              "note": "점성계수"
+            }
+          },
+          {
+            "prop_code": "VISCOSITY",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "해당없음",
+              "status": "해당없음"
+            }
+          },
+          {
+            "prop_code": "MOL_WEIGHT",
+            "comp_ref": "MIX",
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            }
+          }
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[0]",
+        "page": 4,
+        "source_text": "Lithium 12-hydroxyoctadecanoate | ACGIH | TWA 흡입 가능한 부분 | 10 mg/m3",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "CAS 7620-77-1 성분(comp_ref 1), '흡입 가능한 부분'을 form으로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "exposure_limits[1]",
+        "page": 4,
+        "source_text": "ACGIH | TWA 호흡 가능한 부분 | 3 mg/m3",
+        "rules": [
+          "R04",
+          "R10"
+        ],
+        "note": "같은 성분 행의 두 번째 기준, '호흡 가능한 부분'을 form으로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[0]",
+        "page": 5,
+        "source_text": "물리적 상태 그리스",
+        "rules": [
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[1]",
+        "page": 5,
+        "source_text": "색상 베이지색",
+        "rules": [
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[2]",
+        "page": 5,
+        "source_text": "냄새 약간",
+        "rules": [],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[3]",
+        "page": 5,
+        "source_text": "냄새 역치 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[4]",
+        "page": 5,
+        "source_text": "pH 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[5]",
+        "page": 5,
+        "source_text": "녹는점/범위 자료없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[6]",
+        "page": 5,
+        "source_text": "어는 점 자료없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "어는점을 MELT_FREEZE 두 번째 행으로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[7]",
+        "page": 5,
+        "source_text": "끓는점 (760 mmHg) 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "760 mmHg를 cond 압력으로 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[8]",
+        "page": 5,
+        "source_text": "인화점 Seta closed cup 240 °C",
+        "rules": [
+          "R04",
+          "R08"
+        ],
+        "note": "Seta closed cup을 cond.method로, 240 C"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[9]",
+        "page": 5,
+        "source_text": "증발속도 (Butyl Acetate = 1) 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "기준물질을 cond.reference로 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[10]",
+        "page": 5,
+        "source_text": "인화성(고체, 기체) 인화성 위험물질로 분류되지 않음",
+        "rules": [
+          "R25"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[11]",
+        "page": 5,
+        "source_text": "인화 또는 폭발 범위의 하한 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[12]",
+        "page": 5,
+        "source_text": "인화 또는 폭발 범위의 상한 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[13]",
+        "page": 5,
+        "source_text": "증기압 해당없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[14]",
+        "page": 5,
+        "source_text": "상대증기밀도(공기=1) 자료없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "공기=1을 cond.reference로 분리"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[15]",
+        "page": 5,
+        "source_text": "비중 (물=1) 0.96",
+        "rules": [
+          "R06",
+          "R25"
+        ],
+        "note": "물=1을 cond.reference로, dp=2"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[16]",
+        "page": 5,
+        "source_text": "수용해도 자료없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "수용해도를 SOLUBILITY로 매핑"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[17]",
+        "page": 5,
+        "source_text": "n-옥탄올/물 분배계수 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[18]",
+        "page": 5,
+        "source_text": "자연발화 온도 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[19]",
+        "page": 5,
+        "source_text": "분해 온도 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[20]",
+        "page": 5,
+        "source_text": "점성계수 해당없음",
+        "rules": [
+          "R15",
+          "R25",
+          "R17"
+        ],
+        "note": "맞는 값 없음: '점성계수'가 동의어 사전에 없고 점도/동점도 구분이 불명확해 prop_code null"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[21]",
+        "page": 5,
+        "source_text": "동적 점성도 해당없음",
+        "rules": [
+          "R15",
+          "R25"
+        ],
+        "note": "동적 점성도(dynamic viscosity)를 VISCOSITY로 매핑(사전 추가 요청)"
+      },
+      {
+        "msds_index": 0,
+        "field": "physchem[22]",
+        "page": 5,
+        "source_text": "분자량 자료없음",
+        "rules": [
+          "R15"
+        ],
+        "note": null
+      }
+    ]
+  },
+  "raw_text": "{\"msds\": [{\"exposure_limits\": [{\"comp_ref\": \"1\", \"standard\": \"ACGIH\", \"limit_type\": \"TWA\", \"form\": \"흡입 가능한 부분\", \"q\": {\"raw\": \"10 mg/m3\", \"status\": \"값있음\", \"value\": 10, \"unit\": \"mg/m3\"}, \"notations\": []}, {\"comp_ref\": \"1\", \"standard\": \"ACGIH\", \"limit_type\": \"TWA\", \"form\": \"호흡 가능한 부분\", \"q\": {\"raw\": \"3 mg/m3\", \"status\": \"값있음\", \"value\": 3, \"unit\": \"mg/m3\"}, \"notations\": []}], \"physchem\": [{\"prop_code\": \"APPEARANCE_STATE\", \"comp_ref\": \"MIX\", \"text_value\": \"그리스\", \"q\": null}, {\"prop_code\": \"APPEARANCE_COLOR\", \"comp_ref\": \"MIX\", \"text_value\": \"베이지색\", \"q\": null}, {\"prop_code\": \"ODOR\", \"comp_ref\": \"MIX\", \"text_value\": \"약간\", \"q\": null}, {\"prop_code\": \"ODOR_THRESHOLD\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"PH\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"해당없음\", \"status\": \"해당없음\"}}, {\"prop_code\": \"MELT_FREEZE\", \"comp_ref\": \"MIX\", \"seq\": 1, \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"MELT_FREEZE\", \"comp_ref\": \"MIX\", \"seq\": 2, \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"BOILING\", \"comp_ref\": \"MIX\", \"cond\": {\"pressure\": 760, \"pressure_unit\": \"mmHg\"}, \"q\": {\"raw\": \"해당없음\", \"status\": \"해당없음\"}}, {\"prop_code\": \"FLASH_POINT\", \"comp_ref\": \"MIX\", \"cond\": {\"method\": \"Seta closed cup\"}, \"q\": {\"raw\": \"Seta closed cup 240 °C\", \"status\": \"값있음\", \"value\": 240, \"unit\": \"C\"}}, {\"prop_code\": \"EVAP_RATE\", \"comp_ref\": \"MIX\", \"cond\": {\"reference\": \"Butyl Acetate = 1\"}, \"q\": {\"raw\": \"해당없음\", \"status\": \"해당없음\"}}, {\"prop_code\": \"FLAMMABILITY\", \"comp_ref\": \"MIX\", \"text_value\": \"인화성 위험물질로 분류되지 않음\", \"q\": null}, {\"prop_code\": \"LEL\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"UEL\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"VAPOR_PRESSURE\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"해당없음\", \"status\": \"해당없음\"}}, {\"prop_code\": \"VAPOR_DENSITY\", \"comp_ref\": \"MIX\", \"cond\": {\"reference\": \"공기=1\"}, \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"RELATIVE_DENSITY\", \"comp_ref\": \"MIX\", \"cond\": {\"reference\": \"물=1\"}, \"q\": {\"raw\": \"0.96\", \"status\": \"값있음\", \"value\": 0.96, \"dp\": 2}}, {\"prop_code\": \"SOLUBILITY\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"LOG_KOW\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"AUTOIGNITION\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}}, {\"prop_code\": \"DECOMPOSITION\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}}, {\"prop_code\": null, \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"해당없음\", \"status\": \"해당없음\", \"note\": \"점성계수\"}}, {\"prop_code\": \"VISCOSITY\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"해당없음\", \"status\": \"해당없음\"}}, {\"prop_code\": \"MOL_WEIGHT\", \"comp_ref\": \"MIX\", \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}}]}], \"evidence\": [{\"msds_index\": 0, \"field\": \"exposure_limits[0]\", \"page\": 4, \"source_text\": \"Lithium 12-hydroxyoctadecanoate | ACGIH | TWA 흡입 가능한 부분 | 10 mg/m3\", \"rules\": [\"R04\", \"R10\"], \"note\": \"CAS 7620-77-1 성분(comp_ref 1), '흡입 가능한 부분'을 form으로 둠\"}, {\"msds_index\": 0, \"field\": \"exposure_limits[1]\", \"page\": 4, \"source_text\": \"ACGIH | TWA 호흡 가능한 부분 | 3 mg/m3\", \"rules\": [\"R04\", \"R10\"], \"note\": \"같은 성분 행의 두 번째 기준, '호흡 가능한 부분'을 form으로 둠\"}, {\"msds_index\": 0, \"field\": \"physchem[0]\", \"page\": 5, \"source_text\": \"물리적 상태 그리스\", \"rules\": [\"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[1]\", \"page\": 5, \"source_text\": \"색상 베이지색\", \"rules\": [\"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[2]\", \"page\": 5, \"source_text\": \"냄새 약간\", \"rules\": [], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[3]\", \"page\": 5, \"source_text\": \"냄새 역치 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[4]\", \"page\": 5, \"source_text\": \"pH 해당없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[5]\", \"page\": 5, \"source_text\": \"녹는점/범위 자료없음\", \"rules\": [\"R15\", \"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[6]\", \"page\": 5, \"source_text\": \"어는 점 자료없음\", \"rules\": [\"R15\", \"R25\"], \"note\": \"어는점을 MELT_FREEZE 두 번째 행으로 둠\"}, {\"msds_index\": 0, \"field\": \"physchem[7]\", \"page\": 5, \"source_text\": \"끓는점 (760 mmHg) 해당없음\", \"rules\": [\"R15\", \"R25\"], \"note\": \"760 mmHg를 cond 압력으로 분리\"}, {\"msds_index\": 0, \"field\": \"physchem[8]\", \"page\": 5, \"source_text\": \"인화점 Seta closed cup 240 °C\", \"rules\": [\"R04\", \"R08\"], \"note\": \"Seta closed cup을 cond.method로, 240 C\"}, {\"msds_index\": 0, \"field\": \"physchem[9]\", \"page\": 5, \"source_text\": \"증발속도 (Butyl Acetate = 1) 해당없음\", \"rules\": [\"R15\", \"R25\"], \"note\": \"기준물질을 cond.reference로 분리\"}, {\"msds_index\": 0, \"field\": \"physchem[10]\", \"page\": 5, \"source_text\": \"인화성(고체, 기체) 인화성 위험물질로 분류되지 않음\", \"rules\": [\"R25\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[11]\", \"page\": 5, \"source_text\": \"인화 또는 폭발 범위의 하한 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[12]\", \"page\": 5, \"source_text\": \"인화 또는 폭발 범위의 상한 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[13]\", \"page\": 5, \"source_text\": \"증기압 해당없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[14]\", \"page\": 5, \"source_text\": \"상대증기밀도(공기=1) 자료없음\", \"rules\": [\"R15\", \"R25\"], \"note\": \"공기=1을 cond.reference로 분리\"}, {\"msds_index\": 0, \"field\": \"physchem[15]\", \"page\": 5, \"source_text\": \"비중 (물=1) 0.96\", \"rules\": [\"R06\", \"R25\"], \"note\": \"물=1을 cond.reference로, dp=2\"}, {\"msds_index\": 0, \"field\": \"physchem[16]\", \"page\": 5, \"source_text\": \"수용해도 자료없음\", \"rules\": [\"R15\", \"R25\"], \"note\": \"수용해도를 SOLUBILITY로 매핑\"}, {\"msds_index\": 0, \"field\": \"physchem[17]\", \"page\": 5, \"source_text\": \"n-옥탄올/물 분배계수 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[18]\", \"page\": 5, \"source_text\": \"자연발화 온도 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[19]\", \"page\": 5, \"source_text\": \"분해 온도 자료없음\", \"rules\": [\"R15\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"physchem[20]\", \"page\": 5, \"source_text\": \"점성계수 해당없음\", \"rules\": [\"R15\", \"R25\", \"R17\"], \"note\": \"맞는 값 없음: '점성계수'가 동의어 사전에 없고 점도/동점도 구분이 불명확해 prop_code null\"}, {\"msds_index\": 0, \"field\": \"physchem[21]\", \"page\": 5, \"source_text\": \"동적 점성도 해당없음\", \"rules\": [\"R15\", \"R25\"], \"note\": \"동적 점성도(dynamic viscosity)를 VISCOSITY로 매핑(사전 추가 요청)\"}, {\"msds_index\": 0, \"field\": \"physchem[22]\", \"page\": 5, \"source_text\": \"분자량 자료없음\", \"rules\": [\"R15\"], \"note\": null}]}"
+}

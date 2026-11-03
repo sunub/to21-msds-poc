@@ -1,0 +1,205 @@
+{
+  "doc_id": "T21-M012",
+  "bundle": "b4",
+  "model": "claude-opus-5-5",
+  "mode": "claude -p json-schema",
+  "finish_reason": "tool_use",
+  "usage": {
+    "prompt_tokens": 41415,
+    "completion_tokens": 2999,
+    "cached_tokens": 8949,
+    "reasoning_tokens": 1040,
+    "notional_cost_usd": 0.3214898
+  },
+  "seconds": 26.2,
+  "request_usage": [
+    {
+      "prompt_tokens": 41415,
+      "completion_tokens": 2999,
+      "cached_tokens": 8949,
+      "reasoning_tokens": 1040,
+      "notional_cost_usd": 0.3214898
+    }
+  ],
+  "attempts": 1,
+  "errors": [],
+  "parsed": {
+    "msds": [
+      {
+        "transport": [
+          {
+            "mode": "공통",
+            "basis_raw": "ADR, RID, AND, IMDG, IATA",
+            "regulated": false,
+            "un_no": null,
+            "shipping_name": null,
+            "hazard_class": null,
+            "sub_risk": null,
+            "packing_group": "해당없음",
+            "marine_pollutant": "비해당",
+            "ems_fire": null,
+            "ems_spill": null
+          }
+        ],
+        "regulations": [
+          {
+            "seq": 1,
+            "law": "INTL",
+            "item_code": "INTL_ETC",
+            "item_raw": "MAK (German Maximum Workplace Concentration)",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "country": "DE",
+            "value_raw": "해당 물질이 없음."
+          },
+          {
+            "seq": 2,
+            "law": "INTL",
+            "item_code": "INTL_EU",
+            "item_raw": "유엔지령 2012/18 EU 부록1 위험물질",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "country": "EU",
+            "value_raw": "해당 물질이 없음."
+          },
+          {
+            "seq": 3,
+            "law": "INTL",
+            "item_code": "INTL_ETC",
+            "item_raw": "국가의 규정 물에 대한 위험등급",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "country": null,
+            "value_raw": "보통 물에 유해하지 않음."
+          },
+          {
+            "seq": 4,
+            "law": "INTL",
+            "item_code": "INTL_EU",
+            "item_raw": "REACH 규제 부록14 중 수권심사 SVHC 후보리스트 (12/1/2017)",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "country": "EU",
+            "value_raw": "해당 물질이 없음."
+          },
+          {
+            "seq": 5,
+            "law": "INTL",
+            "item_code": "INTL_EU",
+            "item_raw": "REACH 규제 부록17 제한물질 (3/2/2017)",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "country": "EU",
+            "value_raw": "해당 물질이 없음."
+          },
+          {
+            "seq": 6,
+            "law": "INTL",
+            "item_code": "INTL_EU",
+            "item_raw": "REACH 규제 부록14 수권물질 리스트(14/8/2017)",
+            "comp_ref": "MIX",
+            "applicable": "비해당",
+            "country": "EU",
+            "value_raw": "해당 물질이 없음."
+          },
+          {
+            "seq": 7,
+            "law": "KREACH",
+            "item_code": null,
+            "item_raw": null,
+            "comp_ref": "MIX",
+            "applicable": "미기재",
+            "country": null,
+            "value_raw": null
+          }
+        ],
+        "dangerous_goods": [],
+        "waste": [],
+        "intl_class": []
+      }
+    ],
+    "evidence": [
+      {
+        "msds_index": 0,
+        "field": "transport[0]",
+        "page": 4,
+        "source_text": "가 . 유엔번호 (UN No.) | ADR, RID, AND, IMDG, IATA | 적용되지 않음 | 라 . 용기등급 | ADR, RID, AND, IMDG, IATA | 적용되지 않음 | 마 . 환경손해 | 적용되지 않음",
+        "rules": [
+          "R15"
+        ],
+        "note": "모든 운송 규정에 '적용되지 않음'이라 regulated=false, 규정 구분 없이 한 행(공통)으로 두고, 용기등급은 해당없음, 환경손해 '적용되지 않음'은 해양오염물질 비해당으로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[0]",
+        "page": 4,
+        "source_text": "MAK (German Maximum Workplace Concentration) | 해당 물질이 없음.",
+        "rules": [
+          "R25"
+        ],
+        "note": "독일 규제라 INTL_ETC, country DE로 두고 '해당 물질이 없음'은 비해당으로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[1]",
+        "page": 4,
+        "source_text": "나 . 유엔지령 2012/18 EU | 부록1 위험물질 | 해당 물질이 없음.",
+        "rules": [
+          "R25"
+        ],
+        "note": "규정 번호 끝이 EU라 country EU, INTL_EU로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[2]",
+        "page": 4,
+        "source_text": "다 . 국가의 규정 | 물에 대한 위험등급 | 보통 물에 유해하지 않음.",
+        "rules": [
+          "R17"
+        ],
+        "note": "국가가 적혀 있지 않아 country는 null, 원문 값은 value_raw에 남김"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[3]",
+        "page": 4,
+        "source_text": "REACH 규제 부록14 중 수권심사 SVHC 후보리스트 (12/1/2017) | 해당 물질이 없음.",
+        "rules": [
+          "R25"
+        ],
+        "note": "EU SVHC 목록이라 INTL_EU, 비해당으로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[4]",
+        "page": 4,
+        "source_text": "REACH 규제 부록17 제한물질 (3/2/2017) | 해당 물질이 없음.",
+        "rules": [
+          "R25"
+        ],
+        "note": "EU Restriction 목록이라 INTL_EU, 비해당으로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[5]",
+        "page": 4,
+        "source_text": "REACH 규제 부록14 수권물질 리스트(14/8/2017) | 해당 물질이 없음.",
+        "rules": [
+          "R25"
+        ],
+        "note": "EU Authorization 목록이라 INTL_EU, 비해당으로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "regulations[6]",
+        "page": 4,
+        "source_text": null,
+        "rules": [
+          "R18"
+        ],
+        "note": "15항에 화평법 항목이 없어 R18에 따라 미기재로 둠. 맞는 값 없음: 특정 항목을 알 수 없어 item_code는 null로 둠"
+      }
+    ]
+  },
+  "raw_text": "{\"msds\": [{\"transport\": [{\"mode\": \"공통\", \"basis_raw\": \"ADR, RID, AND, IMDG, IATA\", \"regulated\": false, \"un_no\": null, \"shipping_name\": null, \"hazard_class\": null, \"sub_risk\": null, \"packing_group\": \"해당없음\", \"marine_pollutant\": \"비해당\", \"ems_fire\": null, \"ems_spill\": null}], \"regulations\": [{\"seq\": 1, \"law\": \"INTL\", \"item_code\": \"INTL_ETC\", \"item_raw\": \"MAK (German Maximum Workplace Concentration)\", \"comp_ref\": \"MIX\", \"applicable\": \"비해당\", \"country\": \"DE\", \"value_raw\": \"해당 물질이 없음.\"}, {\"seq\": 2, \"law\": \"INTL\", \"item_code\": \"INTL_EU\", \"item_raw\": \"유엔지령 2012/18 EU 부록1 위험물질\", \"comp_ref\": \"MIX\", \"applicable\": \"비해당\", \"country\": \"EU\", \"value_raw\": \"해당 물질이 없음.\"}, {\"seq\": 3, \"law\": \"INTL\", \"item_code\": \"INTL_ETC\", \"item_raw\": \"국가의 규정 물에 대한 위험등급\", \"comp_ref\": \"MIX\", \"applicable\": \"비해당\", \"country\": null, \"value_raw\": \"보통 물에 유해하지 않음.\"}, {\"seq\": 4, \"law\": \"INTL\", \"item_code\": \"INTL_EU\", \"item_raw\": \"REACH 규제 부록14 중 수권심사 SVHC 후보리스트 (12/1/2017)\", \"comp_ref\": \"MIX\", \"applicable\": \"비해당\", \"country\": \"EU\", \"value_raw\": \"해당 물질이 없음.\"}, {\"seq\": 5, \"law\": \"INTL\", \"item_code\": \"INTL_EU\", \"item_raw\": \"REACH 규제 부록17 제한물질 (3/2/2017)\", \"comp_ref\": \"MIX\", \"applicable\": \"비해당\", \"country\": \"EU\", \"value_raw\": \"해당 물질이 없음.\"}, {\"seq\": 6, \"law\": \"INTL\", \"item_code\": \"INTL_EU\", \"item_raw\": \"REACH 규제 부록14 수권물질 리스트(14/8/2017)\", \"comp_ref\": \"MIX\", \"applicable\": \"비해당\", \"country\": \"EU\", \"value_raw\": \"해당 물질이 없음.\"}, {\"seq\": 7, \"law\": \"KREACH\", \"item_code\": null, \"item_raw\": null, \"comp_ref\": \"MIX\", \"applicable\": \"미기재\", \"country\": null, \"value_raw\": null}], \"dangerous_goods\": [], \"waste\": [], \"intl_class\": []}], \"evidence\": [{\"msds_index\": 0, \"field\": \"transport[0]\", \"page\": 4, \"source_text\": \"가 . 유엔번호 (UN No.) | ADR, RID, AND, IMDG, IATA | 적용되지 않음 | 라 . 용기등급 | ADR, RID, AND, IMDG, IATA | 적용되지 않음 | 마 . 환경손해 | 적용되지 않음\", \"rules\": [\"R15\"], \"note\": \"모든 운송 규정에 '적용되지 않음'이라 regulated=false, 규정 구분 없이 한 행(공통)으로 두고, 용기등급은 해당없음, 환경손해 '적용되지 않음'은 해양오염물질 비해당으로 둠\"}, {\"msds_index\": 0, \"field\": \"regulations[0]\", \"page\": 4, \"source_text\": \"MAK (German Maximum Workplace Concentration) | 해당 물질이 없음.\", \"rules\": [\"R25\"], \"note\": \"독일 규제라 INTL_ETC, country DE로 두고 '해당 물질이 없음'은 비해당으로 둠\"}, {\"msds_index\": 0, \"field\": \"regulations[1]\", \"page\": 4, \"source_text\": \"나 . 유엔지령 2012/18 EU | 부록1 위험물질 | 해당 물질이 없음.\", \"rules\": [\"R25\"], \"note\": \"규정 번호 끝이 EU라 country EU, INTL_EU로 둠\"}, {\"msds_index\": 0, \"field\": \"regulations[2]\", \"page\": 4, \"source_text\": \"다 . 국가의 규정 | 물에 대한 위험등급 | 보통 물에 유해하지 않음.\", \"rules\": [\"R17\"], \"note\": \"국가가 적혀 있지 않아 country는 null, 원문 값은 value_raw에 남김\"}, {\"msds_index\": 0, \"field\": \"regulations[3]\", \"page\": 4, \"source_text\": \"REACH 규제 부록14 중 수권심사 SVHC 후보리스트 (12/1/2017) | 해당 물질이 없음.\", \"rules\": [\"R25\"], \"note\": \"EU SVHC 목록이라 INTL_EU, 비해당으로 둠\"}, {\"msds_index\": 0, \"field\": \"regulations[4]\", \"page\": 4, \"source_text\": \"REACH 규제 부록17 제한물질 (3/2/2017) | 해당 물질이 없음.\", \"rules\": [\"R25\"], \"note\": \"EU Restriction 목록이라 INTL_EU, 비해당으로 둠\"}, {\"msds_index\": 0, \"field\": \"regulations[5]\", \"page\": 4, \"source_text\": \"REACH 규제 부록14 수권물질 리스트(14/8/2017) | 해당 물질이 없음.\", \"rules\": [\"R25\"], \"note\": \"EU Authorization 목록이라 INTL_EU, 비해당으로 둠\"}, {\"msds_index\": 0, \"field\": \"regulations[6]\", \"page\": 4, \"source_text\": null, \"rules\": [\"R18\"], \"note\": \"15항에 화평법 항목이 없어 R18에 따라 미기재로 둠. 맞는 값 없음: 특정 항목을 알 수 없어 item_code는 null로 둠\"}]}"
+}

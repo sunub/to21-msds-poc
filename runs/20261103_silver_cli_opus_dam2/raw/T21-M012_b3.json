@@ -1,0 +1,465 @@
+{
+  "doc_id": "T21-M012",
+  "bundle": "b3",
+  "model": "claude-opus-5-5",
+  "mode": "claude -p json-schema",
+  "finish_reason": "tool_use",
+  "usage": {
+    "prompt_tokens": 37397,
+    "completion_tokens": 5045,
+    "cached_tokens": 8451,
+    "reasoning_tokens": 1028,
+    "notional_cost_usd": 0.3341502
+  },
+  "seconds": 37.0,
+  "request_usage": [
+    {
+      "prompt_tokens": 37397,
+      "completion_tokens": 5045,
+      "cached_tokens": 8451,
+      "reasoning_tokens": 1028,
+      "notional_cost_usd": 0.3341502
+    }
+  ],
+  "attempts": 1,
+  "errors": [],
+  "parsed": {
+    "msds": [
+      {
+        "toxicity": [
+          {
+            "comp_ref": "MIX",
+            "endpoint": null,
+            "descriptor": "결과기술",
+            "classification": "분류되지 않음",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "급성독성",
+                "value": "기존 DATA에 따라 해당 제품이 분류되지 않음.",
+                "text": "나 . 급성독성 기존 DATA에 따라 해당 제품이 분류되지 않음."
+              }
+            ]
+          },
+          {
+            "comp_ref": "1",
+            "endpoint": "TX_ORAL",
+            "descriptor": "LD50",
+            "q": {
+              "raw": "1,000mg/kg (rat)",
+              "value": 1000,
+              "unit": "mg/kg",
+              "status": "값있음"
+            },
+            "species": "rat",
+            "sex": "미표기",
+            "status": "값있음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_SKIN",
+            "descriptor": "결과기술",
+            "classification": "분류되지 않음",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "기존 DATA에 따라 해당 제품이 분류되지 않음.",
+                "text": "다 . 피부 부식성 또는 자극성 기존 DATA에 따라 해당 제품이 분류되지 않음."
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_EYE",
+            "descriptor": "결과기술",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "눈에 심한 자극이 일으킴.",
+                "text": "라 심한 눈 손해/자극 눈에 심한 자극이 일으킴."
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_RESP_SENS",
+            "descriptor": "결과기술",
+            "classification": "분류되지 않음",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "기존 DATA에 따라 해당 제품이 분류되지 않음.",
+                "text": "마 . 호흡 혹은 피부 알레르기 기존 DATA에 따라 해당 제품이 분류되지 않음."
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_SKIN_SENS",
+            "descriptor": "결과기술",
+            "classification": "분류되지 않음",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "기존 DATA에 따라 해당 제품이 분류되지 않음.",
+                "text": "마 . 호흡 혹은 피부 알레르기 기존 DATA에 따라 해당 제품이 분류되지 않음."
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_MUTA",
+            "descriptor": "결과기술",
+            "classification": "분류되지 않음",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "기존 DATA에 따라 해당 제품이 분류되지 않음.",
+                "text": "바 . 생식세포 변이원성 기존 DATA에 따라 해당 제품이 분류되지 않음."
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_CARC",
+            "descriptor": "결과기술",
+            "classification": "분류되지 않음",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "기존 DATA에 따라 해당 제품이 분류되지 않음.",
+                "text": "사 . 발암성 기존 DATA에 따라 해당 제품이 분류되지 않음."
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_REPRO",
+            "descriptor": "결과기술",
+            "classification": "분류되지 않음",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "기존 DATA에 따라 해당 제품이 분류되지 않음.",
+                "text": "아 . 생식독성 기존 DATA에 따라 해당 제품이 분류되지 않음."
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_STOT_SE",
+            "descriptor": "결과기술",
+            "classification": "분류되지 않음",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "기존 DATA에 따라 해당 제품이 분류되지 않음.",
+                "text": "자 . 특정표적장기 독성 - 1회 노출 기존 DATA에 따라 해당 제품이 분류되지 않음."
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_STOT_RE",
+            "descriptor": "결과기술",
+            "classification": "분류되지 않음",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "기존 DATA에 따라 해당 제품이 분류되지 않음.",
+                "text": "차 . 특정표적장기 독성 - 반복 노출 기존 DATA에 따라 해당 제품이 분류되지 않음."
+              }
+            ]
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "TX_ASP",
+            "descriptor": "결과기술",
+            "classification": "분류되지 않음",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "value": "기존 DATA에 따라 해당 제품이 분류되지 않음.",
+                "text": "카 . 흡인 유해성 기존 DATA에 따라 해당 제품이 분류되지 않음."
+              }
+            ]
+          }
+        ],
+        "cmr": [],
+        "ecotox": [
+          {
+            "comp_ref": "MIX",
+            "endpoint": null,
+            "descriptor": null,
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_PERSIST",
+            "descriptor": null,
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_BIOACC",
+            "descriptor": null,
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_SOIL",
+            "descriptor": null,
+            "q": {
+              "raw": "자료없음",
+              "status": "자료없음"
+            },
+            "status": "자료없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_OTHER",
+            "descriptor": "결과기술",
+            "q": {
+              "raw": "해당하지 않음",
+              "status": "해당없음"
+            },
+            "status": "해당없음",
+            "statements": []
+          },
+          {
+            "comp_ref": "MIX",
+            "endpoint": "ECO_OTHER",
+            "descriptor": "결과기술",
+            "status": "값있음",
+            "statements": [
+              {
+                "seq": 1,
+                "key": "기타 생태학 자료",
+                "value": "보통 물에 유해하지 않음.",
+                "text": "사 . 기타 생태학 자료 보통 물에 유해하지 않음."
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "evidence": [
+      {
+        "msds_index": 0,
+        "field": "toxicity[0]",
+        "page": 3,
+        "source_text": "나 . 급성독성 기존 DATA에 따라 해당 제품이 분류되지 않음.",
+        "rules": [
+          "R10"
+        ],
+        "note": "맞는 값 없음: 경로 구분 없는 급성독성 문장이라 endpoint는 null로 두고 결과기술로 남김"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[1]",
+        "page": 3,
+        "source_text": "96-49-1 (1,3-Dioxolan-2-one) | 구강 | LD 50 | 1,000mg/kg (rat)",
+        "rules": [
+          "R04",
+          "R06",
+          "R10"
+        ],
+        "note": "CAS 96-49-1로 comp_ref=1 매칭, 천단위 콤마 제거해 value 1000, unit mg/kg"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[2]",
+        "page": 4,
+        "source_text": "다 . 피부 부식성 또는 자극성 기존 DATA에 따라 해당 제품이 분류되지 않음.",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[3]",
+        "page": 4,
+        "source_text": "라 심한 눈 손해/자극 눈에 심한 자극이 일으킴.",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[4]",
+        "page": 4,
+        "source_text": "마 . 호흡 혹은 피부 알레르기 기존 DATA에 따라 해당 제품이 분류되지 않음.",
+        "rules": [
+          "R10"
+        ],
+        "note": "호흡·피부 과민성을 묶은 줄이라 TX_RESP_SENS와 TX_SKIN_SENS 두 행으로 나눔"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[5]",
+        "page": 4,
+        "source_text": "마 . 호흡 혹은 피부 알레르기 기존 DATA에 따라 해당 제품이 분류되지 않음.",
+        "rules": [
+          "R10"
+        ],
+        "note": "호흡·피부 과민성을 묶은 줄이라 TX_RESP_SENS와 TX_SKIN_SENS 두 행으로 나눔"
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[6]",
+        "page": 4,
+        "source_text": "바 . 생식세포 변이원성 기존 DATA에 따라 해당 제품이 분류되지 않음.",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[7]",
+        "page": 4,
+        "source_text": "사 . 발암성 기존 DATA에 따라 해당 제품이 분류되지 않음.",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[8]",
+        "page": 4,
+        "source_text": "아 . 생식독성 기존 DATA에 따라 해당 제품이 분류되지 않음.",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[9]",
+        "page": 4,
+        "source_text": "자 . 특정표적장기 독성 - 1회 노출 기존 DATA에 따라 해당 제품이 분류되지 않음.",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[10]",
+        "page": 4,
+        "source_text": "차 . 특정표적장기 독성 - 반복 노출 기존 DATA에 따라 해당 제품이 분류되지 않음.",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "toxicity[11]",
+        "page": 4,
+        "source_text": "카 . 흡인 유해성 기존 DATA에 따라 해당 제품이 분류되지 않음.",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[0]",
+        "page": 4,
+        "source_text": "가 . 수생 생태독성 자료없음",
+        "rules": [
+          "R15",
+          "R10"
+        ],
+        "note": "맞는 값 없음: '수생 생태독성'은 어류·갑각류·조류를 묶은 항목이라 endpoint는 null로 둠"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[1]",
+        "page": 4,
+        "source_text": "나 . 환경중 제거정보 (잔류 및 분해도) 자료없음",
+        "rules": [
+          "R15",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[2]",
+        "page": 4,
+        "source_text": "다 . 생물 농축성 자료없음",
+        "rules": [
+          "R15",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[3]",
+        "page": 4,
+        "source_text": "라 . 토양 이동성 자료없음",
+        "rules": [
+          "R15",
+          "R10"
+        ],
+        "note": null
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[4]",
+        "page": 4,
+        "source_text": "바 . 기타 유해 영향 해당하지 않음",
+        "rules": [
+          "R15",
+          "R10"
+        ],
+        "note": "'해당하지 않음'을 status 해당없음으로 봄"
+      },
+      {
+        "msds_index": 0,
+        "field": "ecotox[5]",
+        "page": 4,
+        "source_text": "사 . 기타 생태학 자료 보통 물에 유해하지 않음.",
+        "rules": [
+          "R10"
+        ],
+        "note": null
+      }
+    ]
+  },
+  "raw_text": "{\"msds\": [{\"toxicity\": [{\"comp_ref\": \"MIX\", \"endpoint\": null, \"descriptor\": \"결과기술\", \"classification\": \"분류되지 않음\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"key\": \"급성독성\", \"value\": \"기존 DATA에 따라 해당 제품이 분류되지 않음.\", \"text\": \"나 . 급성독성 기존 DATA에 따라 해당 제품이 분류되지 않음.\"}]}, {\"comp_ref\": \"1\", \"endpoint\": \"TX_ORAL\", \"descriptor\": \"LD50\", \"q\": {\"raw\": \"1,000mg/kg (rat)\", \"value\": 1000, \"unit\": \"mg/kg\", \"status\": \"값있음\"}, \"species\": \"rat\", \"sex\": \"미표기\", \"status\": \"값있음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_SKIN\", \"descriptor\": \"결과기술\", \"classification\": \"분류되지 않음\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"기존 DATA에 따라 해당 제품이 분류되지 않음.\", \"text\": \"다 . 피부 부식성 또는 자극성 기존 DATA에 따라 해당 제품이 분류되지 않음.\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_EYE\", \"descriptor\": \"결과기술\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"눈에 심한 자극이 일으킴.\", \"text\": \"라 심한 눈 손해/자극 눈에 심한 자극이 일으킴.\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_RESP_SENS\", \"descriptor\": \"결과기술\", \"classification\": \"분류되지 않음\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"기존 DATA에 따라 해당 제품이 분류되지 않음.\", \"text\": \"마 . 호흡 혹은 피부 알레르기 기존 DATA에 따라 해당 제품이 분류되지 않음.\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_SKIN_SENS\", \"descriptor\": \"결과기술\", \"classification\": \"분류되지 않음\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"기존 DATA에 따라 해당 제품이 분류되지 않음.\", \"text\": \"마 . 호흡 혹은 피부 알레르기 기존 DATA에 따라 해당 제품이 분류되지 않음.\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_MUTA\", \"descriptor\": \"결과기술\", \"classification\": \"분류되지 않음\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"기존 DATA에 따라 해당 제품이 분류되지 않음.\", \"text\": \"바 . 생식세포 변이원성 기존 DATA에 따라 해당 제품이 분류되지 않음.\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_CARC\", \"descriptor\": \"결과기술\", \"classification\": \"분류되지 않음\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"기존 DATA에 따라 해당 제품이 분류되지 않음.\", \"text\": \"사 . 발암성 기존 DATA에 따라 해당 제품이 분류되지 않음.\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_REPRO\", \"descriptor\": \"결과기술\", \"classification\": \"분류되지 않음\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"기존 DATA에 따라 해당 제품이 분류되지 않음.\", \"text\": \"아 . 생식독성 기존 DATA에 따라 해당 제품이 분류되지 않음.\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_STOT_SE\", \"descriptor\": \"결과기술\", \"classification\": \"분류되지 않음\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"기존 DATA에 따라 해당 제품이 분류되지 않음.\", \"text\": \"자 . 특정표적장기 독성 - 1회 노출 기존 DATA에 따라 해당 제품이 분류되지 않음.\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_STOT_RE\", \"descriptor\": \"결과기술\", \"classification\": \"분류되지 않음\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"기존 DATA에 따라 해당 제품이 분류되지 않음.\", \"text\": \"차 . 특정표적장기 독성 - 반복 노출 기존 DATA에 따라 해당 제품이 분류되지 않음.\"}]}, {\"comp_ref\": \"MIX\", \"endpoint\": \"TX_ASP\", \"descriptor\": \"결과기술\", \"classification\": \"분류되지 않음\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"value\": \"기존 DATA에 따라 해당 제품이 분류되지 않음.\", \"text\": \"카 . 흡인 유해성 기존 DATA에 따라 해당 제품이 분류되지 않음.\"}]}], \"cmr\": [], \"ecotox\": [{\"comp_ref\": \"MIX\", \"endpoint\": null, \"descriptor\": null, \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_PERSIST\", \"descriptor\": null, \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_BIOACC\", \"descriptor\": null, \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_SOIL\", \"descriptor\": null, \"q\": {\"raw\": \"자료없음\", \"status\": \"자료없음\"}, \"status\": \"자료없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_OTHER\", \"descriptor\": \"결과기술\", \"q\": {\"raw\": \"해당하지 않음\", \"status\": \"해당없음\"}, \"status\": \"해당없음\", \"statements\": []}, {\"comp_ref\": \"MIX\", \"endpoint\": \"ECO_OTHER\", \"descriptor\": \"결과기술\", \"status\": \"값있음\", \"statements\": [{\"seq\": 1, \"key\": \"기타 생태학 자료\", \"value\": \"보통 물에 유해하지 않음.\", \"text\": \"사 . 기타 생태학 자료 보통 물에 유해하지 않음.\"}]}]}], \"evidence\": [{\"msds_index\": 0, \"field\": \"toxicity[0]\", \"page\": 3, \"source_text\": \"나 . 급성독성 기존 DATA에 따라 해당 제품이 분류되지 않음.\", \"rules\": [\"R10\"], \"note\": \"맞는 값 없음: 경로 구분 없는 급성독성 문장이라 endpoint는 null로 두고 결과기술로 남김\"}, {\"msds_index\": 0, \"field\": \"toxicity[1]\", \"page\": 3, \"source_text\": \"96-49-1 (1,3-Dioxolan-2-one) | 구강 | LD 50 | 1,000mg/kg (rat)\", \"rules\": [\"R04\", \"R06\", \"R10\"], \"note\": \"CAS 96-49-1로 comp_ref=1 매칭, 천단위 콤마 제거해 value 1000, unit mg/kg\"}, {\"msds_index\": 0, \"field\": \"toxicity[2]\", \"page\": 4, \"source_text\": \"다 . 피부 부식성 또는 자극성 기존 DATA에 따라 해당 제품이 분류되지 않음.\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[3]\", \"page\": 4, \"source_text\": \"라 심한 눈 손해/자극 눈에 심한 자극이 일으킴.\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[4]\", \"page\": 4, \"source_text\": \"마 . 호흡 혹은 피부 알레르기 기존 DATA에 따라 해당 제품이 분류되지 않음.\", \"rules\": [\"R10\"], \"note\": \"호흡·피부 과민성을 묶은 줄이라 TX_RESP_SENS와 TX_SKIN_SENS 두 행으로 나눔\"}, {\"msds_index\": 0, \"field\": \"toxicity[5]\", \"page\": 4, \"source_text\": \"마 . 호흡 혹은 피부 알레르기 기존 DATA에 따라 해당 제품이 분류되지 않음.\", \"rules\": [\"R10\"], \"note\": \"호흡·피부 과민성을 묶은 줄이라 TX_RESP_SENS와 TX_SKIN_SENS 두 행으로 나눔\"}, {\"msds_index\": 0, \"field\": \"toxicity[6]\", \"page\": 4, \"source_text\": \"바 . 생식세포 변이원성 기존 DATA에 따라 해당 제품이 분류되지 않음.\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[7]\", \"page\": 4, \"source_text\": \"사 . 발암성 기존 DATA에 따라 해당 제품이 분류되지 않음.\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[8]\", \"page\": 4, \"source_text\": \"아 . 생식독성 기존 DATA에 따라 해당 제품이 분류되지 않음.\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[9]\", \"page\": 4, \"source_text\": \"자 . 특정표적장기 독성 - 1회 노출 기존 DATA에 따라 해당 제품이 분류되지 않음.\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[10]\", \"page\": 4, \"source_text\": \"차 . 특정표적장기 독성 - 반복 노출 기존 DATA에 따라 해당 제품이 분류되지 않음.\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"toxicity[11]\", \"page\": 4, \"source_text\": \"카 . 흡인 유해성 기존 DATA에 따라 해당 제품이 분류되지 않음.\", \"rules\": [\"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[0]\", \"page\": 4, \"source_text\": \"가 . 수생 생태독성 자료없음\", \"rules\": [\"R15\", \"R10\"], \"note\": \"맞는 값 없음: '수생 생태독성'은 어류·갑각류·조류를 묶은 항목이라 endpoint는 null로 둠\"}, {\"msds_index\": 0, \"field\": \"ecotox[1]\", \"page\": 4, \"source_text\": \"나 . 환경중 제거정보 (잔류 및 분해도) 자료없음\", \"rules\": [\"R15\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[2]\", \"page\": 4, \"source_text\": \"다 . 생물 농축성 자료없음\", \"rules\": [\"R15\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[3]\", \"page\": 4, \"source_text\": \"라 . 토양 이동성 자료없음\", \"rules\": [\"R15\", \"R10\"], \"note\": null}, {\"msds_index\": 0, \"field\": \"ecotox[4]\", \"page\": 4, \"source_text\": \"바 . 기타 유해 영향 해당하지 않음\", \"rules\": [\"R15\", \"R10\"], \"note\": \"'해당하지 않음'을 status 해당없음으로 봄\"}, {\"msds_index\": 0, \"field\": \"ecotox[5]\", \"page\": 4, \"source_text\": \"사 . 기타 생태학 자료 보통 물에 유해하지 않음.\", \"rules\": [\"R10\"], \"note\": null}]}"
+}
