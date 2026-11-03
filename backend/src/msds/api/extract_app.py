@@ -226,6 +226,18 @@ def create_app(store: DocumentStore | None = None, worker=None, pages_dir: Path 
         saved = ResultStore(store.dsn, schema=store.schema).save_completed(doc_id, token, doc, chk)
         return {"job_id": doc_id, "validation": validation, **saved}
 
+    @app.get("/api/documents/{doc_id}/results/stored")
+    def stored_result(request: Request, doc_id: str):
+        """Read the active extraction and verification snapshot from PostgreSQL."""
+        get_state(request, doc_id)
+        store = request.app.state.store
+        if not hasattr(store, "dsn") or not hasattr(store, "schema"):
+            raise HTTPException(409, "PostgreSQL 작업에서만 저장된 결과를 조회할 수 있습니다")
+        saved = ResultStore(store.dsn, schema=store.schema).get_active(doc_id)
+        return {"job_id": doc_id, "to21": saved["extraction"], "checks": saved["checks"],
+                "validation": summarize_checks(saved["extraction"], saved["checks"]),
+                "extraction_sha256": saved["extraction_sha256"], "checks_sha256": saved["checks_sha256"]}
+
     @app.post("/api/documents/{doc_id}/handoffs", status_code=201)
     def create_handoff(request: Request, doc_id: str):
         """Publish the extraction snapshot using its actual extraction date."""
