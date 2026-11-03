@@ -1,34 +1,27 @@
 "use client";
 
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useState } from "react";
-import { ApiContractError, ApiRequestError } from "@/api/client";
-import { documentDetailQuery } from "@/api/documents";
+import { judgmentViewQuery, type Finding, type JudgmentView } from "@/api/judgment";
 import type { DocumentDetail } from "@/api/schemas";
-import {
-  isJudgmentApiMissing,
-  judgmentKeys,
-  judgmentStatusQuery,
-  judgmentViewQuery,
-  postToJudgment,
-  type Finding,
-  type JudgmentStatus,
-  type JudgmentView,
-} from "@/api/judgment";
 import { SourceViewer } from "@/components/extract/source-viewer";
-import { Foot, Pane } from "@/components/shell/layout";
-import { Button, Skeleton, buttonStyles } from "@/components/ui";
-import { useObservedHeight } from "@/hooks/use-observed-height";
-import { defaultFindingId, nextUnreviewedId, regulationCounts, regulationFindings } from "@/lib/regulation";
-import { useReviewer } from "@/lib/reviewer";
+import { Foot, Pane, Workspace } from "@/components/shell/layout";
+import { Button, PillTabs, Skeleton, buttonStyles } from "@/components/ui";
+import { ownSectionPage, sectionTabs } from "@/lib/hazard";
+import { defaultFindingId, nextUnreviewedId, regulationCounts, regulationFindings, unreviewedFindings } from "@/lib/regulation";
 import { routes } from "@/lib/routes";
+import { JudgmentError, JudgmentGate, type JudgmentReady } from "../judgment-gate";
 import { RegulationDetail, type LockReason } from "./regulation-detail";
 import { RegulationTable } from "./regulation-table";
 
-/** 처음 켤 때만 쓰는 대역 안내 링크. 제품 빌드에서는 조건이 거짓이라 빠진다 */
-const DEV = process.env.NODE_ENV === "development";
+type DraftProps = {
+  drafts: Record<string, string>;
+  onDraft: (findingId: string, text: string) => void;
+};
+
+const PANE_TITLE = "15항 법적 규제";
 
 /** 고른 판정·법령 거르기·쪽은 주소에 둔다. 새로 고치거나 검토 이력에서 바로 와도 같은 화면이 나온다 */
 function useRegulationParams() {
@@ -57,6 +50,7 @@ function useRegulationParams() {
   };
 }
 
+/** 2.4 검수 · 15항 판정. 판정 상태에 따른 안내는 JudgmentGate 가 맡고, 판정이 있을 때만 시안 화면을 그린다 */
 export function RegulationTab({
   docId,
   drafts,
@@ -64,93 +58,49 @@ export function RegulationTab({
   onSave,
 }: {
   docId: string;
-  drafts: Record<string, string>;
-  onDraft: (findingId: string, text: string) => void;
   /** 저장으로 간다. 미처리 수를 넘겨 경고를 띄울지 화면이 정한다 */
   onSave: (unreviewed: number) => void;
-}) {
-  const { data: doc } = useQuery(documentDetailQuery(docId));
-  const status = useQuery({ ...judgmentStatusQuery(docId), enabled: doc?.status === "done" });
-
-  if (!doc || (doc.status === "done" && status.isPending)) return <LoadingBody />;
-  if (doc.status !== "done") {
-    return (
-      <Notice title="추출이 끝나야 판정할 수 있습니다">
-        <Link href={routes.extract(docId)} className={buttonStyles()}>
-          추출 진행 보기
-        </Link>
-      </Notice>
-    );
-  }
-  if (status.isError && !status.data) {
-    if (isJudgmentApiMissing(status.error)) return <NotConnected docId={docId} />;
-    return <ErrorBody error={status.error} onRetry={() => void status.refetch()} />;
-  }
-  const data = status.data as JudgmentStatus;
-
-  if (data.state === "판정 없음") return <StartJudgment docId={docId} />;
-  if (data.state === "판정 중") return <LoadingBody message="판정하는 중입니다. 끝나면 이 자리에 나타납니다." />;
-  if (data.state === "판정 실패" || data.latest_version === null) {
-    return (
-      <Notice title="판정하지 못했습니다" alert>
-        <p className="break-words text-mut">
-          문서 {docId}
-          {data.error && ` · ${data.error}`}
-        </p>
-        <p className="text-mut">다시 불러와도 같으면 개발 담당에게 위 내용을 알려 주세요.</p>
-        <Button onClick={() => void status.refetch()}>다시 불러오기</Button>
-      </Notice>
-    );
-  }
+} & DraftProps) {
   return (
-    <RegulationReady
+    <JudgmentGate
       docId={docId}
-      doc={doc}
-      latest={data.latest_version}
-      pending={data.pending_handoff !== null}
-      offline={status.isRefetchError}
-      drafts={drafts}
-      onDraft={onDraft}
-      onSave={onSave}
-    />
+      tab="regulation"
+      paneTitle={PANE_TITLE}
+      what="15항 판정"
+      loading={(message) => <LoadingBody message={message} />}
+    >
+      {(ready) => <RegulationReady docId={docId} ready={ready} drafts={drafts} onDraft={onDraft} onSave={onSave} />}
+    </JudgmentGate>
   );
 }
 
 function RegulationReady({
   docId,
-  doc,
-  latest,
-  pending,
-  offline,
+  ready,
   drafts,
   onDraft,
   onSave,
 }: {
   docId: string;
-  doc: DocumentDetail;
-  latest: number;
-  pending: boolean;
-  offline: boolean;
-  drafts: Record<string, string>;
-  onDraft: (findingId: string, text: string) => void;
+  ready: JudgmentReady;
   onSave: (unreviewed: number) => void;
-}) {
+} & DraftProps) {
   // 처음 본 버전에 고정한다. 새 버전이 생겨도 사용자가 고르기 전에는 읽던 표를 바꾸지 않는다
-  const [version, setVersion] = useState(latest);
+  const [version, setVersion] = useState(ready.latest);
   const view = useQuery(judgmentViewQuery(docId, version));
 
   if (view.isPending) return <LoadingBody />;
-  if (view.isError && !view.data) return <ErrorBody error={view.error} onRetry={() => void view.refetch()} />;
+  if (view.isError && !view.data) return <JudgmentError paneTitle={PANE_TITLE} error={view.error} onRetry={() => void view.refetch()} />;
   return (
     <RegulationLoaded
       docId={docId}
-      doc={doc}
+      doc={ready.doc}
       data={view.data!}
       version={version}
-      latest={latest}
-      pending={pending}
-      offline={offline || view.isRefetchError}
-      onNewest={() => setVersion(latest)}
+      latest={ready.latest}
+      pending={ready.pending}
+      offline={ready.offline || view.isRefetchError}
+      onNewest={() => setVersion(ready.latest)}
       drafts={drafts}
       onDraft={onDraft}
       onSave={onSave}
@@ -180,12 +130,9 @@ function RegulationLoaded({
   pending: boolean;
   offline: boolean;
   onNewest: () => void;
-  drafts: Record<string, string>;
-  onDraft: (findingId: string, text: string) => void;
   onSave: (unreviewed: number) => void;
-}) {
+} & DraftProps) {
   const params = useRegulationParams();
-  const details = useObservedHeight<HTMLDivElement>();
 
   const results = data.consistency.results;
   const msdsIndex = results.some((r) => r.msds_index === params.msds) ? params.msds : results[0].msds_index;
@@ -196,8 +143,8 @@ function RegulationLoaded({
     null;
   const display = selected ? data.display[selected.id] : null;
   const firstPage = doc.sections.find((s) => s.msds_index === msdsIndex && s.section === 15)?.pages[0] ?? 1;
-  const findingPage = display?.source_pages[0]?.page ?? firstPage;
-  const page = params.page ?? findingPage;
+  const page = params.page ?? ownSectionPage(display, 15, firstPage);
+  const tabs = sectionTabs(display, 15, firstPage);
   const highlight = selected?.msds.evidence?.[0]?.source_text ?? null;
   const absentInSource = !!selected && !selected.msds.present;
 
@@ -210,7 +157,7 @@ function RegulationLoaded({
   const select = (f: Finding | string) => {
     const target = typeof f === "string" ? findings.find((x) => x.id === f) : f;
     if (!target) return;
-    params.update({ finding: target.id, page: String(data.display[target.id]?.source_pages[0]?.page ?? firstPage) });
+    params.update({ finding: target.id, page: String(ownSectionPage(data.display[target.id], 15, firstPage)) });
   };
 
   return (
@@ -248,15 +195,39 @@ function RegulationLoaded({
         지식 {data.consistency.knowledge.provider} / {data.consistency.knowledge.version} · 판정 버전 {data.version}
         {newer && ` (최신 ${latest})`}
       </p>
+      <RegulationTable
+        view={data}
+        findings={findings}
+        law={params.law}
+        todoOnly={params.todoOnly}
+        selectedId={selected?.id ?? null}
+        onSelect={select}
+        onLaw={(law) => params.update({ law })}
+        onTodoOnly={(on) => params.update({ todo: on ? "1" : null })}
+      />
+      <p className="text-sm text-mut">구버전은 시행일 자료가 없어 PoC 판정에서 제외하고 참고로만 보여 줍니다.</p>
+      {/* 원문 칸 안에 두면 원문 카드만 내려가 옆 판정 카드와 위아래가 어긋난다 */}
+      {absentInSource && (
+        <p role="status" className="rounded-sm bg-tint px-3 py-2 text-sm text-amb-text">이 항목은 원문에 없습니다. 15항 첫 쪽을 보여 줍니다.</p>
+      )}
 
-      <div className="grid items-start gap-5 lg:grid-cols-[minmax(0,6fr)_minmax(0,5fr)]">
-        <div className="order-2 flex min-w-0 flex-col gap-2 lg:order-1">
-          {absentInSource && (
-            <p className="rounded-sm bg-tint px-3 py-2 text-sm text-amb-text">이 항목은 원문에 없습니다. 15항 첫 쪽을 보여 줍니다.</p>
-          )}
-          <SourceViewer doc={doc} page={page} onPage={(next) => params.update({ page: String(next) })} highlight={highlight} panelHeight={details.height} className="basis-auto" />
+      <Workspace viewport className="lg:grid-cols-[minmax(0,6fr)_minmax(0,5fr)]">
+        <div className="order-2 min-w-0 lg:order-1 lg:min-h-0">
+          <SourceViewer doc={doc} page={page} onPage={(next) => params.update({ page: String(next) })} highlight={highlight}>
+            {tabs.length > 0 && (
+              <PillTabs
+                label="근거 쪽으로 이동"
+                items={tabs.map((t) => ({ id: t.id, label: t.label }))}
+                value={tabs.find((t) => t.page === page)?.id ?? ""}
+                onChange={(id) => {
+                  const target = tabs.find((t) => t.id === id);
+                  if (target) params.update({ page: String(target.page) });
+                }}
+              />
+            )}
+          </SourceViewer>
         </div>
-        <div ref={details.ref} className="order-1 min-w-0 lg:order-2">
+        <div className="order-1 min-w-0 lg:order-2 lg:min-h-0">
           {selected ? (
             <RegulationDetail
               key={selected.id}
@@ -273,24 +244,12 @@ function RegulationLoaded({
               }}
             />
           ) : (
-            <Pane title="선택한 판정">
+            <Pane title="선택한 판정" fill>
               <p className="text-mut">{findings.length ? `처리할 판정이 없습니다. 일치 ${counts.match}건은 아래 표에서 펼쳐 볼 수 있습니다.` : "15항에서 판정할 항목이 없습니다."}</p>
             </Pane>
           )}
         </div>
-      </div>
-
-      <RegulationTable
-        view={data}
-        findings={findings}
-        law={params.law}
-        todoOnly={params.todoOnly}
-        selectedId={selected?.id ?? null}
-        onSelect={select}
-        onLaw={(law) => params.update({ law })}
-        onTodoOnly={(on) => params.update({ todo: on ? "1" : null })}
-      />
-      <p className="text-sm text-mut">구버전은 시행일 자료가 없어 PoC 판정에서 제외하고 참고로만 보여 줍니다.</p>
+      </Workspace>
 
       <Foot>
         <p className="text-mut">확인하지 않은 추출값은 저장 결과에 &quot;미검수&quot;로 남습니다.</p>
@@ -298,85 +257,12 @@ function RegulationLoaded({
           <Link href={routes.review(docId, "values")} className={buttonStyles({ size: "lg" })}>
             추출값 확인하러 가기
           </Link>
-          <Button variant="primary" size="lg" onClick={() => onSave(counts.unreviewed)}>
+          <Button variant="primary" size="lg" onClick={() => onSave(unreviewedFindings(data).length)}>
             저장하기
           </Button>
         </div>
       </Foot>
     </div>
-  );
-}
-
-function StartJudgment({ docId }: { docId: string }) {
-  const client = useQueryClient();
-  const reviewer = useReviewer();
-  const start = useMutation({
-    mutationFn: () => postToJudgment(docId, reviewer),
-    onSuccess: () => client.invalidateQueries({ queryKey: judgmentKeys.status(docId) }),
-  });
-  return (
-    <Notice title="아직 판정하지 않았습니다">
-      <p className="text-mut">추출값을 먼저 확인하거나, 지금 값으로 바로 판정할 수 있습니다.</p>
-      <div className="flex flex-wrap justify-center gap-2">
-        <Link href={routes.review(docId, "values")} className={buttonStyles()}>
-          추출값 확인
-        </Link>
-        <Button variant="primary" disabled={!reviewer || start.isPending} onClick={() => start.mutate()}>
-          {start.isPending ? "넘기는 중…" : "판정으로 넘기기"}
-        </Button>
-      </div>
-      {!reviewer && <p className="text-sm text-mut">판정으로 넘기려면 머리줄에서 검토자 이름을 정해 주세요.</p>}
-      {start.isError && (
-        <p role="alert" className="text-sm break-words text-red">
-          {isJudgmentApiMissing(start.error) ? "판정으로 넘기는 서버 기능이 아직 연결되지 않았습니다." : `넘기지 못했습니다: ${start.error.message}`}
-        </p>
-      )}
-    </Notice>
-  );
-}
-
-function NotConnected({ docId }: { docId: string }) {
-  return (
-    <Notice title="판정 서비스가 아직 연결되지 않았습니다">
-      <p className="text-mut">판정 API가 준비되면 이 화면에서 15항 판정을 바로 볼 수 있습니다. 그동안 추출값은 확인할 수 있습니다.</p>
-      <div className="flex flex-wrap justify-center gap-2">
-        <Link href={routes.review(docId, "values")} className={buttonStyles()}>
-          추출값 확인
-        </Link>
-        {DEV && (
-          <Link href={`${routes.review(docId, "regulation")}&judgmentMock=ready`} className={buttonStyles({ variant: "outline" })}>
-            개발용 가상 판정 보기
-          </Link>
-        )}
-      </div>
-    </Notice>
-  );
-}
-
-function ErrorBody({ error, onRetry }: { error: unknown; onRetry: () => void }) {
-  const message =
-    error instanceof ApiContractError
-      ? "판정 응답이 화면 약속과 달라 틀린 판정을 보여 주지 않으려고 표시하지 않았습니다."
-      : error instanceof ApiRequestError
-        ? error.message
-        : "서버에 연결하지 못했습니다.";
-  return (
-    <Notice title="판정 결과를 불러오지 못했습니다" alert>
-      <p className="break-words text-mut">{message}</p>
-      {error instanceof ApiContractError && <p className="text-sm break-words text-mut">{error.message}</p>}
-      <Button onClick={onRetry}>다시 불러오기</Button>
-    </Notice>
-  );
-}
-
-function Notice({ title, alert, children }: { title: string; alert?: boolean; children: React.ReactNode }) {
-  return (
-    <Pane title="15항 법적 규제">
-      <div role={alert ? "alert" : "status"} className="flex flex-col items-center gap-3 py-10 text-center">
-        <h3 className="text-lg font-bold">{title}</h3>
-        {children}
-      </div>
-    </Pane>
   );
 }
 

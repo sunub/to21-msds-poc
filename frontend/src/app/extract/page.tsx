@@ -11,10 +11,9 @@ import { ValidationNotice } from "@/components/extract/validation-notice";
 import { SectionProgressTable, SectionValues, type SectionKey } from "@/components/extract/section-progress";
 import { SourceViewer } from "@/components/extract/source-viewer";
 import { DocFrame } from "@/components/shell/doc-frame";
-import { Foot, Pane, Row } from "@/components/shell/layout";
+import { Foot, Pane, Workspace } from "@/components/shell/layout";
 import { Progress, Skeleton, StatusLabel, Table, TableHead, buttonStyles } from "@/components/ui";
 import { useDocumentTransitions } from "@/hooks/use-document-transitions";
-import { useObservedHeight } from "@/hooks/use-observed-height";
 import { usePageParam } from "@/hooks/use-page-param";
 import { routes } from "@/lib/routes";
 import { allSectionsFailed, stageMessage } from "@/lib/status";
@@ -47,7 +46,6 @@ function ExtractBody({ docId }: { docId: string }) {
 function LoadedBody({ doc }: { doc: DocumentDetail }) {
   const [page, setPage] = usePageParam();
   const [selected, setSelected] = useState<SectionKey | null>(null);
-  const preview = useObservedHeight<HTMLDivElement>();
 
   const openSection = useCallback(
     (section: Pick<SectionProgress, "msds_index" | "section" | "pages">) => {
@@ -70,16 +68,14 @@ function LoadedBody({ doc }: { doc: DocumentDetail }) {
     <>
       <ValidationNotice status={doc.status} counts={doc.counts} validation={doc.validation} />
       <DocumentNotices doc={doc} />
-      <Row>
-        <SourceViewer doc={doc} page={page} onPage={setPage} panelHeight={preview.height} />
-        <div ref={preview.ref} className="min-w-0 grow basis-105">
-          {showPreview ? (
-            <RegeneratedPreview doc={doc} onSection={openBySection} />
-          ) : (
-            <ProgressPane doc={doc} selected={selected} selectedSection={selectedSection} onSelect={openSection} />
-          )}
-        </div>
-      </Row>
+      <Workspace>
+        <SourceViewer doc={doc} page={page} onPage={setPage} />
+        {showPreview ? (
+          <RegeneratedPreview doc={doc} onSection={openBySection} />
+        ) : (
+          <ProgressPane doc={doc} selected={selected} selectedSection={selectedSection} onSelect={openSection} />
+        )}
+      </Workspace>
       <ExtractFoot doc={doc} />
     </>
   );
@@ -101,7 +97,7 @@ function ProgressPane({
   return (
     <Pane
       title="항목별 추출 상태"
-      className="basis-105"
+      fill
       aside={
         total > 0 ? (
           <span className="text-sm text-mut tabular-nums">
@@ -231,25 +227,25 @@ function ExtractFoot({ doc }: { doc: DocumentDetail }) {
 /** 첫 응답을 받기 전 (1.2 모양) */
 function LoadingBody() {
   return (
-    <Row>
-      <Pane title="원문" className="basis-115">
+    <Workspace>
+      <Pane title="원문" fill>
         <div aria-hidden="true" className="grid gap-2.5">
           <Skeleton className="w-full" />
           <Skeleton className="w-4/5" />
           <Skeleton className="w-2/3" />
         </div>
       </Pane>
-      <Pane title="항목별 추출 상태" className="basis-105">
+      <Pane title="항목별 추출 상태" fill>
         <SkeletonTable />
       </Pane>
-    </Row>
+    </Workspace>
   );
 }
 
 export default function ExtractPage() {
   return (
     <Suspense>
-      <DocFrame stage="extract" width="max-w-320">
+      <DocFrame stage="extract" width="max-w-320" fill>
         {(doc) => <ExtractBody key={doc} docId={doc} />}
       </DocFrame>
     </Suspense>
