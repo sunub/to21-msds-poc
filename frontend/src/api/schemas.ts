@@ -51,11 +51,13 @@ export const FINAL_STATUSES: readonly JobStatus[] = ["done", "failed", "interrup
 /**
  * 4xx·5xx 오류 응답 (FastAPI 기본 모양).
  * HTTPException 은 detail 이 문장 하나, 쿼리·경로 값이 틀린 422 는 detail 이 항목 목록이다.
+ * 판정 API 의 409 는 detail 이 객체다 (contracts/5-api conflict_response).
  */
 export const apiErrorSchema = z.object({
   detail: z.union([
     z.string(),
     z.array(z.looseObject({ loc: z.array(z.union([z.string(), z.number()])), msg: z.string() })),
+    z.looseObject({ message: z.string() }),
   ]),
 });
 export type ApiError = z.infer<typeof apiErrorSchema>;
@@ -182,7 +184,7 @@ export const createDocumentParamsSchema = z.object({
 });
 export type CreateDocumentParams = z.infer<typeof createDocumentParamsSchema>;
 
-/** 서버가 받는 PDF 최대 크기 (extract_app.MAX_PDF_BYTES 와 같다). 넘으면 413 */
+/** 서버가 받는 PDF 최대 크기 (backend api/routers/extract/jobs.py 의 MAX_PDF_BYTES 와 같다). 넘으면 413 */
 export const MAX_PDF_BYTES = 50 * 1024 * 1024;
 /** 서버는 본문이 이 글자로 시작하지 않으면 400 으로 거절한다 */
 export const PDF_MAGIC = "%PDF-";

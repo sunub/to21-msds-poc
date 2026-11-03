@@ -62,6 +62,8 @@ const reviewStateSchema = z.object({
   at: z.string().nullable(),
   history_count: z.number(),
   stale: z.boolean(),
+  /** 이 줄의 마지막 처리 번호. 처리할 때 그대로 돌려보내 다른 검토자의 처리를 모르고 덮지 않게 한다 */
+  last_event_id: z.number().nullable().optional(),
 });
 
 const displaySchema = z.object({
@@ -182,6 +184,8 @@ export type ReviewEventRequest = {
   comment: string | null;
   reviewer: string;
   seen_version: number;
+  /** 화면이 본 마지막 처리 번호. 기록이 없는 줄은 null */
+  seen_event_id: number | null;
 };
 
 /** 개발 서버에서 ?judgmentMock=<상황> 을 켜면 대역이 답한다. 제품 빌드에는 대역 코드가 들어가지 않는다 */
@@ -202,8 +206,9 @@ export function isJudgmentApiMissing(error: unknown) {
   return error instanceof ApiRequestError && error.status === 404 && (error.message === "Not Found" || error.code === "unknown");
 }
 
-/** 보던 버전보다 새 판정이 있어 서버가 처리를 거절함 */
-export const isVersionConflict = (error: unknown) => error instanceof ApiRequestError && error.status === 409;
+/** 그 사이 새 판정이 생겼거나 다른 검토자가 먼저 처리해 서버가 처리를 거절함. 까닭은 서버 문장에 있다 */
+export const isVersionConflict = (error: unknown): error is ApiRequestError =>
+  error instanceof ApiRequestError && error.status === 409;
 
 const job = (id: string) => `/api/judgments/${encodeURIComponent(id)}`;
 const send = (body: unknown): RequestInit => ({
