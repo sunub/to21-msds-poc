@@ -1,0 +1,98 @@
+{
+ "doc_id": "RAW-15",
+ "msds_index": 0,
+ "section": 1,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "meta": {
+   "doc_code": "GB-LM-1",
+   "first_issue_date": "2008-05-16",
+   "last_revision_date": "2020-10",
+   "lines": {
+    "doc_code": "p1:L1",
+    "first_issue_date": "p1:L2",
+    "last_revision_date": "p1:L3"
+   }
+  },
+  "product": {
+   "name": "LM Series 전지",
+   "uses": [
+    "축전지"
+   ],
+   "restrictions": [
+    "권장 용도 외의 사용을 금함."
+   ],
+   "lines": {
+    "name": "p1:L5",
+    "uses": "p1:L7",
+    "restrictions": "p1:L8"
+   }
+  },
+  "companies": [
+   {
+    "role": "공급자",
+    "name": "세방전지㈜",
+    "address": "경남 창원시 성산구 정동로 122",
+    "contacts": [
+     {
+      "type": "대표",
+      "value": "055-279-9734",
+      "line": "p1:L12"
+     },
+     {
+      "type": "팩스",
+      "value": "055-282-2658",
+      "line": "p1:L12"
+     }
+    ],
+    "line": "p1:L10"
+   }
+  ],
+  "extras": [
+   {
+    "title_raw": "1.화학제품과 회사에 관한 정보",
+    "reason": "코드없음",
+    "line": "p1:L4"
+   },
+   {
+    "title_raw": "나. 제품의 권고 용도와 사용상의 제한",
+    "reason": "코드없음",
+    "line": "p1:L6"
+   },
+   {
+    "title_raw": "다. 제조자/공급자/유통업자 정보",
+    "reason": "코드없음",
+    "line": "p1:L9"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"meta\": {\n    \"doc_code\": \"GB-LM-1\",\n    \"first_issue_date\": \"2008-05-16\",\n    \"last_revision_date\": \"2020-10\"\n  ,\n  \"lines\": {\n    \"doc_code\": \"p1:L1\",\n    \"first_issue_date\": \"p1:L2\",\n    \"last_revision_date\": \"p1:L3\"\n  }\n  },\n  \"product\": {\n    \"name\": \"LM Series 전지\",\n    \"uses\": [\n      \"축전지\"\n    ],\n    \"restrictions\": [\n      \"권장 용도 외의 사용을 금함.\"\n    ],\n    \"lines\": {\n      \"name\": \"p1:L5\",\n      \"uses\": \"p1:L7\",\n      \"restrictions\": \"p1:L8\"\n    }\n  },\n  \"companies\": [\n    {\n      \"role\": \"공급자\",\n      \"name\": \"세방전지㈜\",\n      \"address\": \"경남 창원시 성산구 정동로 122\",\n      \"contacts\": [\n        {\n          \"type\": \"대표\",\n          \"value\": \"055-279-9734\"\n        ,\n        \"line\": \"p1:L12\"\n        },\n        {\n          \"type\": \"팩스\",\n          \"value\": \"055-282-2658\"\n        ,\n        \"line\": \"p1:L12\"\n        }\n      ],\n      \"line\": \"p1:L10\"\n    }\n  ]\n  ,\n  \"extras\": [\n    {\n      \"title_raw\": \"1.화학제품과 회사에 관한 정보\",\n      \"reason\": \"코드없음\",\n      \"line\": \"p1:L4\"\n    },\n    {\n      \"title_raw\": \"나. 제품의 권고 용도와 사용상의 제한\",\n      \"reason\": \"코드없음\",\n      \"line\": \"p1:L6\"\n    },\n    {\n      \"title_raw\": \"다. 제조자/공급자/유통업자 정보\",\n      \"reason\": \"코드없음\",\n      \"line\": \"p1:L9\"\n    }\n  ]\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 3336,
+  "completion_tokens": 542,
+  "total_tokens": 3878
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 3336,
+    "completion_tokens": 542,
+    "total_tokens": 3878
+   },
+   "seconds": 10.088,
+   "chars": 1184,
+   "whitespace": 456,
+   "head": "{\n  \"meta\": {\n    \"doc_code\": \"GB-LM-1\",\n    \"first_issue_date\": \"2008-05-16\",\n    \"last_revision_date\": \"2020-10\"\n  ,\n  \"lines\": {\n    \"doc_code\": \"p1:L1\",\n    \"first_issue_date\": \"p1:L2\",\n    \"last_revision_date\": \"p1:L3\"\n  }\n  },\n  \"product\": {\n    \"name\": \"LM Series 전지\",\n    \"uses\": [\n      \"축전지\"\n    ],\n    \"restrictions\": [\n      \"권장 용도 외의 사용을 금함.\"\n    ],\n    \"lines\": {\n      \"name\": \"p1:L5\",\n      \"uses\": \"p1:L7\",\n      \"restrictions\": \"p1:L8\"\n    }\n  },\n  \"companies\": [\n    {\n      \"role\"",
+   "tail": " \"p1:L12\"\n        },\n        {\n          \"type\": \"팩스\",\n          \"value\": \"055-282-2658\"\n        ,\n        \"line\": \"p1:L12\"\n        }\n      ],\n      \"line\": \"p1:L10\"\n    }\n  ]\n  ,\n  \"extras\": [\n    {\n      \"title_raw\": \"1.화학제품과 회사에 관한 정보\",\n      \"reason\": \"코드없음\",\n      \"line\": \"p1:L4\"\n    },\n    {\n      \"title_raw\": \"나. 제품의 권고 용도와 사용상의 제한\",\n      \"reason\": \"코드없음\",\n      \"line\": \"p1:L6\"\n    },\n    {\n      \"title_raw\": \"다. 제조자/공급자/유통업자 정보\",\n      \"reason\": \"코드없음\",\n      \"line\": \"p1:L9\"\n    }\n  ]\n}"
+  }
+ ],
+ "seconds": 10.09,
+ "check_problems": []
+}

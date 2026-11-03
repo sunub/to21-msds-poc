@@ -1,0 +1,593 @@
+{
+ "doc_id": "RAW-04",
+ "msds_index": 0,
+ "section": 9,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "physchem": [
+   {
+    "prop_code": "APPEARANCE_STATE",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "text_value": "액체",
+    "cond": null,
+    "data_source": null,
+    "line": "p5:L20"
+   },
+   {
+    "prop_code": "APPEARANCE_COLOR",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "text_value": "무색",
+    "cond": null,
+    "data_source": null,
+    "line": "p5:L20"
+   },
+   {
+    "prop_code": "ODOR",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "text_value": "스컹크 냄새",
+    "cond": null,
+    "data_source": null,
+    "line": "p5:L21"
+   },
+   {
+    "prop_code": "ODOR_THRESHOLD",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": {
+     "raw": "0.48 ppm",
+     "value": 0.48,
+     "unit": "ppm"
+    },
+    "text_value": null,
+    "cond": null,
+    "data_source": null,
+    "line": "p5:L22"
+   },
+   {
+    "prop_code": "PH",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "text_value": null,
+    "cond": null,
+    "data_source": "자료없음",
+    "line": "p5:L23"
+   },
+   {
+    "prop_code": "MELT_FREEZE",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": {
+     "raw": "-8 ℃",
+     "value": -8,
+     "unit": "C"
+    },
+    "text_value": null,
+    "cond": null,
+    "data_source": null,
+    "line": "p5:L24"
+   },
+   {
+    "prop_code": "BOILING",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": {
+     "raw": "266 ~ 285 ℃",
+     "lower_op": ">=",
+     "lower": 266,
+     "upper_op": "<=",
+     "upper": 285,
+     "unit": "C"
+    },
+    "text_value": null,
+    "cond": {
+     "temp": 101.3,
+     "pressure_unit": "hPa"
+    },
+    "data_source": null,
+    "line": "p5:L25"
+   },
+   {
+    "prop_code": "FLASH_POINT",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": {
+     "raw": "126 ℃",
+     "value": 126,
+     "unit": "C"
+    },
+    "text_value": null,
+    "cond": null,
+    "data_source": null,
+    "line": "p5:L26"
+   },
+   {
+    "prop_code": "EVAP_RATE",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "text_value": null,
+    "cond": null,
+    "data_source": "자료없음",
+    "line": "p5:L27"
+   },
+   {
+    "prop_code": "FLAMMABILITY",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": {
+     "raw": "해당없음"
+    },
+    "text_value": null,
+    "cond": null,
+    "data_source": null,
+    "line": "p5:L28"
+   },
+   {
+    "prop_code": "VAPOR_PRESSURE",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": {
+     "raw": "0.00853 mmHg",
+     "value": 0.00853,
+     "unit": "mmHg"
+    },
+    "text_value": null,
+    "cond": {
+     "temp": 25,
+     "temp_unit": "C"
+    },
+    "data_source": null,
+    "line": "p5:L30"
+   },
+   {
+    "prop_code": "SOLUBILITY",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": {
+     "raw": "ca. 5.4µg/L",
+     "value": 5.4,
+     "approx": true,
+     "unit": "ug/L"
+    },
+    "text_value": null,
+    "cond": {
+     "temp": 20,
+     "temp_unit": "C"
+    },
+    "data_source": null,
+    "line": "p5:L31"
+   },
+   {
+    "prop_code": "VAPOR_DENSITY",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": {
+     "raw": "7.0",
+     "value": 7.0
+    },
+    "text_value": null,
+    "cond": null,
+    "data_source": null,
+    "line": "p5:L32"
+   },
+   {
+    "prop_code": "RELATIVE_DENSITY",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": {
+     "raw": "0.849",
+     "value": 0.849
+    },
+    "text_value": null,
+    "cond": {
+     "temp": 16,
+     "temp_unit": "C"
+    },
+    "data_source": null,
+    "line": "p5:L33"
+   },
+   {
+    "prop_code": "LOG_KOW",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": {
+     "raw": "> 6.5",
+     "lower_op": ">",
+     "lower": 6.5
+    },
+    "text_value": null,
+    "cond": null,
+    "data_source": null,
+    "line": "p5:L34"
+   },
+   {
+    "prop_code": "AUTOIGNITION",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": {
+     "raw": "230℃",
+     "value": 230,
+     "unit": "C"
+    },
+    "text_value": null,
+    "cond": null,
+    "data_source": null,
+    "line": "p5:L35"
+   },
+   {
+    "prop_code": "DECOMPOSITION",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "text_value": null,
+    "cond": null,
+    "data_source": "자료없음",
+    "line": "p5:L36"
+   },
+   {
+    "prop_code": "VISCOSITY",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "text_value": null,
+    "cond": null,
+    "data_source": "자료없음",
+    "line": "p5:L37"
+   },
+   {
+    "prop_code": "MOL_WEIGHT",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": {
+     "raw": "202.41",
+     "value": 202.41
+    },
+    "text_value": null,
+    "cond": null,
+    "data_source": null,
+    "line": "p6:L4"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": null,
+    "title_raw": "가.n 옥탄올/물 분배계수",
+    "reason": "코드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [
+     {
+      "value": "low Kow",
+      "line": "p5:L34"
+     }
+    ],
+    "suggested_code": "LOG_KOW",
+    "line": "p5:L34"
+   }
+  ]
+ },
+ "raw_text": "### physchem\nprop_code | comp_name | comp_cas | q | text_value | cond | data_source | line\nAPPEARANCE_STATE |  |  |  | 액체 |  |  | p5:L20\nAPPEARANCE_COLOR |  |  |  | 무색 |  |  | p5:L20\nODOR |  |  |  | 스컹크 냄새 |  |  | p5:L21\nODOR_THRESHOLD |  |  | 0.48 ppm |  |  |  | p5:L22\nPH |  |  |  |  |  | 자료없음 | p5:L23\nMELT_FREEZE |  |  | -8 ℃ |  |  |  | p5:L24\nBOILING |  |  | 266 ~ 285 ℃ |  | temp=101.3; pressure_unit=hPa |  | p5:L25\nFLASH_POINT |  |  | 126 ℃ |  |  |  | p5:L26\nEVAP_RATE |  |  |  |  |  | 자료없음 | p5:L27\nFLAMMABILITY |  |  |  | 해당없음 |  |  | p5:L28\nUEL+LEL |  |  |  |  |  | 자료없음 | p5:L29\nVAPOR_PRESSURE |  |  | 0.00853 mmHg |  | temp=25; temp_unit=C |  | p5:L30\nSOLUBILITY |  |  | ca. 5.4µg/L |  | temp=20; temp_unit=C |  | p5:L31\nVAPOR_DENSITY |  |  | 7.0 |  |  |  | p5:L32\nRELATIVE_DENSITY |  |  | 0.849 |  | temp=16; temp_unit=C |  | p5:L33\nLOG_KOW |  |  | > 6.5 |  |  |  | p5:L34\nAUTOIGNITION |  |  | 230℃ |  |  |  | p5:L35\nDECOMPOSITION |  |  |  |  |  | 자료없음 | p5:L36\nVISCOSITY |  |  |  |  |  | 자료없음 | p5:L37\nMOL_WEIGHT |  |  | 202.41 |  |  |  | p6:L4\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\n | 가.n 옥탄올/물 분배계수 | 코드없음 |  |  |  | low Kow | LOG_KOW | p5:L34",
+ "mode": "rows",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 4267,
+  "completion_tokens": 649,
+  "total_tokens": 4916
+ },
+ "attempts": 1,
+ "errors": [
+  "physchem p5:L29 UEL+LEL |  |  |  |  |  | 자료없음 | p5:L29: .prop_code: 'UEL+LEL' is not valid under any of the given schemas"
+ ],
+ "requests": [
+  {
+   "mode": "rows",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 4267,
+    "completion_tokens": 649,
+    "total_tokens": 4916
+   },
+   "seconds": 11.59,
+   "chars": 1230,
+   "whitespace": 370,
+   "head": "### physchem\nprop_code | comp_name | comp_cas | q | text_value | cond | data_source | line\nAPPEARANCE_STATE |  |  |  | 액체 |  |  | p5:L20\nAPPEARANCE_COLOR |  |  |  | 무색 |  |  | p5:L20\nODOR |  |  |  | 스컹크 냄새 |  |  | p5:L21\nODOR_THRESHOLD |  |  | 0.48 ppm |  |  |  | p5:L22\nPH |  |  |  |  |  | 자료없음 | p5:L23\nMELT_FREEZE |  |  | -8 ℃ |  |  |  | p5:L24\nBOILING |  |  | 266 ~ 285 ℃ |  | temp=101.3; pressure_unit=hPa |  | p5:L25\nFLASH_POINT |  |  | 126 ℃ |  |  |  | p5:L26\nEVAP_RATE |  |  |  |  |  | 자료없음 |",
+   "tail": "L31\nVAPOR_DENSITY |  |  | 7.0 |  |  |  | p5:L32\nRELATIVE_DENSITY |  |  | 0.849 |  | temp=16; temp_unit=C |  | p5:L33\nLOG_KOW |  |  | > 6.5 |  |  |  | p5:L34\nAUTOIGNITION |  |  | 230℃ |  |  |  | p5:L35\nDECOMPOSITION |  |  |  |  |  | 자료없음 | p5:L36\nVISCOSITY |  |  |  |  |  | 자료없음 | p5:L37\nMOL_WEIGHT |  |  | 202.41 |  |  |  | p6:L4\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\n | 가.n 옥탄올/물 분배계수 | 코드없음 |  |  |  | low Kow | LOG_KOW | p5:L34"
+  }
+ ],
+ "seconds": 11.601,
+ "check_problems": [],
+ "reextract_attempt": {
+  "ok": true,
+  "parsed": {
+   "physchem": [
+    {
+     "prop_code": "APPEARANCE_STATE",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": null,
+     "text_value": "액체",
+     "cond": null,
+     "data_source": null,
+     "line": "p5:L20"
+    },
+    {
+     "prop_code": "APPEARANCE_COLOR",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": null,
+     "text_value": "무색",
+     "cond": null,
+     "data_source": null,
+     "line": "p5:L20"
+    },
+    {
+     "prop_code": "ODOR",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": null,
+     "text_value": "스컹크 냄새",
+     "cond": null,
+     "data_source": null,
+     "line": "p5:L21"
+    },
+    {
+     "prop_code": "ODOR_THRESHOLD",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": {
+      "raw": "0.48 ppm",
+      "value": 0.48,
+      "unit": "ppm"
+     },
+     "text_value": null,
+     "cond": null,
+     "data_source": null,
+     "line": "p5:L22"
+    },
+    {
+     "prop_code": "PH",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": null,
+     "text_value": null,
+     "cond": null,
+     "data_source": "자료없음",
+     "line": "p5:L23"
+    },
+    {
+     "prop_code": "MELT_FREEZE",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": {
+      "raw": "-8 ℃",
+      "value": -8,
+      "unit": "C"
+     },
+     "text_value": null,
+     "cond": null,
+     "data_source": null,
+     "line": "p5:L24"
+    },
+    {
+     "prop_code": "BOILING",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": {
+      "raw": "266 ~ 285 ℃",
+      "lower_op": ">=",
+      "lower": 266,
+      "upper_op": "<=",
+      "upper": 285,
+      "unit": "C"
+     },
+     "text_value": null,
+     "cond": {
+      "temp": 101.3,
+      "pressure_unit": "hPa"
+     },
+     "data_source": null,
+     "line": "p5:L25"
+    },
+    {
+     "prop_code": "FLASH_POINT",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": {
+      "raw": "126 ℃",
+      "value": 126,
+      "unit": "C"
+     },
+     "text_value": null,
+     "cond": null,
+     "data_source": null,
+     "line": "p5:L26"
+    },
+    {
+     "prop_code": "EVAP_RATE",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": null,
+     "text_value": null,
+     "cond": null,
+     "data_source": "자료없음",
+     "line": "p5:L27"
+    },
+    {
+     "prop_code": "FLAMMABILITY",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": null,
+     "text_value": null,
+     "cond": null,
+     "data_source": "해당없음",
+     "line": "p5:L28"
+    },
+    {
+     "prop_code": "VAPOR_PRESSURE",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": {
+      "raw": "0.00853 mmHg",
+      "value": 0.00853,
+      "unit": "mmHg"
+     },
+     "text_value": null,
+     "cond": {
+      "temp": 25,
+      "temp_unit": "C"
+     },
+     "data_source": null,
+     "line": "p5:L30"
+    },
+    {
+     "prop_code": "SOLUBILITY",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": {
+      "raw": "ca. 5.4µg/L",
+      "value": 5.4,
+      "approx": true,
+      "unit": "ug/L"
+     },
+     "text_value": null,
+     "cond": {
+      "temp": 20,
+      "temp_unit": "C"
+     },
+     "data_source": null,
+     "line": "p5:L31"
+    },
+    {
+     "prop_code": "VAPOR_DENSITY",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": {
+      "raw": "7.0",
+      "value": 7.0
+     },
+     "text_value": null,
+     "cond": null,
+     "data_source": null,
+     "line": "p5:L32"
+    },
+    {
+     "prop_code": "RELATIVE_DENSITY",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": {
+      "raw": "0.849",
+      "value": 0.849
+     },
+     "text_value": null,
+     "cond": {
+      "temp": 16,
+      "temp_unit": "C"
+     },
+     "data_source": null,
+     "line": "p5:L33"
+    },
+    {
+     "prop_code": "LOG_KOW",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": {
+      "raw": "> 6.5",
+      "lower_op": ">",
+      "lower": 6.5
+     },
+     "text_value": null,
+     "cond": null,
+     "data_source": null,
+     "line": "p5:L34"
+    },
+    {
+     "prop_code": "AUTOIGNITION",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": {
+      "raw": "230℃",
+      "value": 230,
+      "unit": "C"
+     },
+     "text_value": null,
+     "cond": null,
+     "data_source": null,
+     "line": "p5:L35"
+    },
+    {
+     "prop_code": "DECOMPOSITION",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": null,
+     "text_value": null,
+     "cond": null,
+     "data_source": "자료없음",
+     "line": "p5:L36"
+    },
+    {
+     "prop_code": "VISCOSITY",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": null,
+     "text_value": null,
+     "cond": null,
+     "data_source": "자료없음",
+     "line": "p5:L37"
+    },
+    {
+     "prop_code": "MOL_WEIGHT",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": {
+      "raw": "202.41",
+      "value": 202.41
+     },
+     "text_value": null,
+     "cond": null,
+     "data_source": null,
+     "line": "p6:L4"
+    }
+   ],
+   "extras": []
+  },
+  "raw_text": "### physchem\nprop_code | comp_name | comp_cas | q | text_value | cond | data_source | line\nAPPEARANCE_STATE |  |  |  | 액체 |  |  | p5:L20\nAPPEARANCE_COLOR |  |  |  | 무색 |  |  | p5:L20\nODOR |  |  |  | 스컹크 냄새 |  |  | p5:L21\nODOR_THRESHOLD |  |  | 0.48 ppm |  |  |  | p5:L22\nPH |  |  |  |  |  | 자료없음 | p5:L23\nMELT_FREEZE |  |  | -8 ℃ |  |  |  | p5:L24\nBOILING |  |  | 266 ~ 285 ℃ |  | temp=101.3; pressure_unit=hPa |  | p5:L25\nFLASH_POINT |  |  | 126 ℃ |  |  |  | p5:L26\nEVAP_RATE |  |  |  |  |  | 자료없음 | p5:L27\nFLAMMABILITY |  |  |  |  |  | 해당없음 | p5:L28\nUEL+LEL |  |  |  |  |  | 자료없음 | p5:L29\nVAPOR_PRESSURE |  |  | 0.00853 mmHg |  | temp=25; temp_unit=C |  | p5:L30\nSOLUBILITY |  |  | ca. 5.4µg/L |  | temp=20; temp_unit=C |  | p5:L31\nVAPOR_DENSITY |  |  | 7.0 |  |  |  | p5:L32\nRELATIVE_DENSITY |  |  | 0.849 |  | temp=16; temp_unit=C |  | p5:L33\nLOG_KOW |  |  | > 6.5 |  |  |  | p5:L34\nAUTOIGNITION |  |  | 230℃ |  |  |  | p5:L35\nDECOMPOSITION |  |  |  |  |  | 자료없음 | p5:L36\nVISCOSITY |  |  |  |  |  | 자료없음 | p5:L37\nMOL_WEIGHT |  |  | 202.41 |  |  |  | p6:L4\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\n |  |  |  |  |  |  |  |",
+  "mode": "rows",
+  "finish_reason": "stop",
+  "usage": {
+   "prompt_tokens": 4328,
+   "completion_tokens": 628,
+   "total_tokens": 4956
+  },
+  "attempts": 1,
+  "errors": [
+   "physchem p5:L29 UEL+LEL |  |  |  |  |  | 자료없음 | p5:L29: .prop_code: 'UEL+LEL' is not valid under any of the given schemas"
+  ],
+  "requests": [
+   {
+    "mode": "rows",
+    "finish_reason": "stop",
+    "usage": {
+     "prompt_tokens": 4328,
+     "completion_tokens": 628,
+     "total_tokens": 4956
+    },
+    "seconds": 7.864,
+    "chars": 1191,
+    "whitespace": 366,
+    "head": "### physchem\nprop_code | comp_name | comp_cas | q | text_value | cond | data_source | line\nAPPEARANCE_STATE |  |  |  | 액체 |  |  | p5:L20\nAPPEARANCE_COLOR |  |  |  | 무색 |  |  | p5:L20\nODOR |  |  |  | 스컹크 냄새 |  |  | p5:L21\nODOR_THRESHOLD |  |  | 0.48 ppm |  |  |  | p5:L22\nPH |  |  |  |  |  | 자료없음 | p5:L23\nMELT_FREEZE |  |  | -8 ℃ |  |  |  | p5:L24\nBOILING |  |  | 266 ~ 285 ℃ |  | temp=101.3; pressure_unit=hPa |  | p5:L25\nFLASH_POINT |  |  | 126 ℃ |  |  |  | p5:L26\nEVAP_RATE |  |  |  |  |  | 자료없음 |",
+    "tail": "µg/L |  | temp=20; temp_unit=C |  | p5:L31\nVAPOR_DENSITY |  |  | 7.0 |  |  |  | p5:L32\nRELATIVE_DENSITY |  |  | 0.849 |  | temp=16; temp_unit=C |  | p5:L33\nLOG_KOW |  |  | > 6.5 |  |  |  | p5:L34\nAUTOIGNITION |  |  | 230℃ |  |  |  | p5:L35\nDECOMPOSITION |  |  |  |  |  | 자료없음 | p5:L36\nVISCOSITY |  |  |  |  |  | 자료없음 | p5:L37\nMOL_WEIGHT |  |  | 202.41 |  |  |  | p6:L4\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\n |  |  |  |  |  |  |  |"
+   }
+  ],
+  "seconds": 7.874,
+  "check_problems": []
+ }
+}

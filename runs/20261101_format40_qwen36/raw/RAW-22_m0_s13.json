@@ -1,0 +1,176 @@
+{
+ "doc_id": "RAW-22",
+ "msds_index": 0,
+ "section": 13,
+ "reextracted": true,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S13_METHOD",
+    "title_raw": "1) 폐기방법",
+    "start": "p4:L37",
+    "end": "p4:L38"
+   },
+   {
+    "item_code": "S13_CAUTION",
+    "title_raw": "2) 폐기 시 주의사항(오염된 용기 및 포장의 폐기 방법을 포함함)",
+    "start": "p4:L39",
+    "end": "p4:L41"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S13_METHOD",
+    "title_raw": "1) 폐기방법",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "value": "환경관련규정을 준수하시오.",
+      "line": "p4:L38"
+     }
+    ],
+    "line": "p4:L37"
+   },
+   {
+    "after_item": "S13_CAUTION",
+    "title_raw": "2) 폐기 시 주의사항(오염된 용기 및 포장의 폐기 방법을 포함함)",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "value": "폐기를 위해 적절한 용기에 저장하시오.",
+      "line": "p4:L40"
+     },
+     {
+      "value": "4 -",
+      "line": "p4:L41"
+     }
+    ],
+    "line": "p4:L39"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S13_METHOD\",\n      \"title_raw\": \"1) 폐기방법\",\n      \"start\": \"p4:L37\",\n      \"end\": \"p4:L38\"\n    },\n    {\n      \"item_code\": \"S13_CAUTION\",\n      \"title_raw\": \"2) 폐기 시 주의사항(오염된 용기 및 포장의 폐기 방법을 포함함)\",\n      \"start\": \"p4:L39\",\n      \"end\": \"p4:L41\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S13_METHOD\",\n      \"title_raw\": \"1) 폐기방법\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"환경관련규정을 준수하시오.\",\n          \"line\": \"p4:L38\"\n        }\n      ],\n      \"line\": \"p4:L37\"\n    },\n    {\n      \"after_item\": \"S13_CAUTION\",\n      \"title_raw\": \"2) 폐기 시 주의사항(오염된 용기 및 포장의 폐기 방법을 포함함)\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"폐기를 위해 적절한 용기에 저장하시오.\",\n          \"line\": \"p4:L40\"\n        },\n        {\n          \"value\": \"4 -\",\n          \"line\": \"p4:L41\"\n        }\n      ],\n      \"line\": \"p4:L39\"\n    }\n  ]\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 2084,
+  "completion_tokens": 385,
+  "total_tokens": 2469
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 2084,
+    "completion_tokens": 385,
+    "total_tokens": 2469
+   },
+   "seconds": 5.246,
+   "chars": 909,
+   "whitespace": 365,
+   "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S13_METHOD\",\n      \"title_raw\": \"1) 폐기방법\",\n      \"start\": \"p4:L37\",\n      \"end\": \"p4:L38\"\n    },\n    {\n      \"item_code\": \"S13_CAUTION\",\n      \"title_raw\": \"2) 폐기 시 주의사항(오염된 용기 및 포장의 폐기 방법을 포함함)\",\n      \"start\": \"p4:L39\",\n      \"end\": \"p4:L41\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S13_METHOD\",\n      \"title_raw\": \"1) 폐기방법\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"환경관련규정을 준수하시오.\",\n          \"line\": \"p4:",
+   "tail": "L38\"\n        }\n      ],\n      \"line\": \"p4:L37\"\n    },\n    {\n      \"after_item\": \"S13_CAUTION\",\n      \"title_raw\": \"2) 폐기 시 주의사항(오염된 용기 및 포장의 폐기 방법을 포함함)\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"폐기를 위해 적절한 용기에 저장하시오.\",\n          \"line\": \"p4:L40\"\n        },\n        {\n          \"value\": \"4 -\",\n          \"line\": \"p4:L41\"\n        }\n      ],\n      \"line\": \"p4:L39\"\n    }\n  ]\n}"
+  }
+ ],
+ "seconds": 5.248,
+ "check_problems": [],
+ "first_attempt": {
+  "ok": true,
+  "parsed": {
+   "narratives": [
+    {
+     "item_code": "S13_METHOD",
+     "title_raw": "1) 폐기방법",
+     "start": "L37",
+     "end": "L38"
+    },
+    {
+     "item_code": "S13_CAUTION",
+     "title_raw": "2) 폐기 시 주의사항(오염된 용기 및 포장의 폐기 방법을 포함함)",
+     "start": "L39",
+     "end": "L41"
+    }
+   ],
+   "extras": [
+    {
+     "after_item": "S13_METHOD",
+     "title_raw": "13. 폐기 시 주의사항",
+     "reason": "코드없음",
+     "statements": [
+      {
+       "value": "1) 폐기방법",
+       "line": "L37"
+      },
+      {
+       "key": "환경관련규정",
+       "value": "준수하시오",
+       "line": "L38"
+      }
+     ],
+     "suggested_code": "NARRATIVE_HEADER",
+     "line": "L36"
+    },
+    {
+     "after_item": "S13_CAUTION",
+     "title_raw": "폐기 시 주의사항",
+     "reason": "코드없음",
+     "statements": [
+      {
+       "value": "폐기를 위해 적절한 용기에 저장하시오",
+       "line": "L40"
+      },
+      {
+       "value": "4 -",
+       "line": "L41"
+      }
+     ],
+     "suggested_code": "NARRATIVE_HEADER",
+     "line": "L39"
+    }
+   ]
+  },
+  "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S13_METHOD\",\n      \"title_raw\": \"1) 폐기방법\",\n      \"start\": \"L37\",\n      \"end\": \"L38\"\n    },\n    {\n      \"item_code\": \"S13_CAUTION\",\n      \"title_raw\": \"2) 폐기 시 주의사항(오염된 용기 및 포장의 폐기 방법을 포함함)\",\n      \"start\": \"L39\",\n      \"end\": \"L41\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S13_METHOD\",\n      \"title_raw\": \"13. 폐기 시 주의사항\",\n      \"reason\": \"코드없음\"\n    ,\n      \"statements\": [\n        {\n          \"value\": \"1) 폐기방법\"\n        ,\n          \"line\": \"L37\"\n        },\n        {\n          \"key\": \"환경관련규정\",\n          \"value\": \"준수하시오\",\n          \"line\": \"L38\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"NARRATIVE_HEADER\"\n    ,\n      \"line\": \"L36\"\n    },\n    {\n      \"after_item\": \"S13_CAUTION\",\n      \"title_raw\": \"폐기 시 주의사항\",\n      \"reason\": \"코드없음\"\n    ,\n      \"statements\": [\n        {\n          \"value\": \"폐기를 위해 적절한 용기에 저장하시오\",\n          \"line\": \"L40\"\n        },\n        {\n          \"value\": \"4 -\",\n          \"line\": \"L41\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"NARRATIVE_HEADER\"\n    ,\n      \"line\": \"L39\"\n    }\n  ]\n}",
+  "mode": "json_schema",
+  "finish_reason": "stop",
+  "usage": {
+   "prompt_tokens": 1901,
+   "completion_tokens": 437,
+   "total_tokens": 2338
+  },
+  "attempts": 1,
+  "errors": [],
+  "requests": [
+   {
+    "mode": "json_schema",
+    "finish_reason": "stop",
+    "usage": {
+     "prompt_tokens": 1901,
+     "completion_tokens": 437,
+     "total_tokens": 2338
+    },
+    "seconds": 8.44,
+    "chars": 1079,
+    "whitespace": 469,
+    "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S13_METHOD\",\n      \"title_raw\": \"1) 폐기방법\",\n      \"start\": \"L37\",\n      \"end\": \"L38\"\n    },\n    {\n      \"item_code\": \"S13_CAUTION\",\n      \"title_raw\": \"2) 폐기 시 주의사항(오염된 용기 및 포장의 폐기 방법을 포함함)\",\n      \"start\": \"L39\",\n      \"end\": \"L41\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S13_METHOD\",\n      \"title_raw\": \"13. 폐기 시 주의사항\",\n      \"reason\": \"코드없음\"\n    ,\n      \"statements\": [\n        {\n          \"value\": \"1) 폐기방법\"\n        ,\n          \"line\": \"L3",
+    "tail": "          \"line\": \"L38\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"NARRATIVE_HEADER\"\n    ,\n      \"line\": \"L36\"\n    },\n    {\n      \"after_item\": \"S13_CAUTION\",\n      \"title_raw\": \"폐기 시 주의사항\",\n      \"reason\": \"코드없음\"\n    ,\n      \"statements\": [\n        {\n          \"value\": \"폐기를 위해 적절한 용기에 저장하시오\",\n          \"line\": \"L40\"\n        },\n        {\n          \"value\": \"4 -\",\n          \"line\": \"L41\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"NARRATIVE_HEADER\"\n    ,\n      \"line\": \"L39\"\n    }\n  ]\n}"
+   }
+  ],
+  "seconds": 8.442,
+  "check_problems": [
+   "narratives[0].start: 원문에 없는 줄 번호 L37",
+   "narratives[0].end: 원문에 없는 줄 번호 L38",
+   "narratives[1].start: 원문에 없는 줄 번호 L39",
+   "narratives[1].end: 원문에 없는 줄 번호 L41",
+   "extras[0].statements[0].line: 원문에 없는 줄 번호 L37",
+   "extras[0].statements[1].line: 원문에 없는 줄 번호 L38",
+   "extras[0].line: 원문에 없는 줄 번호 L36",
+   "extras[1].statements[0].line: 원문에 없는 줄 번호 L40",
+   "extras[1].statements[1].line: 원문에 없는 줄 번호 L41",
+   "extras[1].line: 원문에 없는 줄 번호 L39"
+  ]
+ }
+}

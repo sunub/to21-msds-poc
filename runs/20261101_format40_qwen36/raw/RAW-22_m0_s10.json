@@ -1,0 +1,104 @@
+{
+ "doc_id": "RAW-22",
+ "msds_index": 0,
+ "section": 10,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S10_STABILITY",
+    "title_raw": "1) 화학적 안정성 및 유해 반응의 가능성",
+    "start": "p4:L1",
+    "end": "p4:L1"
+   },
+   {
+    "item_code": "S10_CONDITIONS",
+    "title_raw": "2) 피해야 할 조건",
+    "start": "p4:L3",
+    "end": "p4:L3"
+   },
+   {
+    "item_code": "S10_INCOMPAT",
+    "title_raw": "3) 피해야 할 물질",
+    "start": "p4:L5",
+    "end": "p4:L5"
+   },
+   {
+    "item_code": "S10_DECOMP",
+    "title_raw": "4) 화재상태에서 생성되는 유해성물질",
+    "start": "p4:L7",
+    "end": "p4:L7"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S10_END",
+    "title_raw": "10. 안정성 및 반응성",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "value": "10. 안정성 및 반응성",
+      "line": "p3:L40"
+     }
+    ],
+    "suggested_code": "SECTION_TITLE",
+    "line": "p3:L40"
+   },
+   {
+    "after_item": "S10_STABILITY",
+    "title_raw": "- 3 -",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "value": "- 3 -",
+      "line": "p3:L42"
+     }
+    ],
+    "suggested_code": "PAGE_NUMBER",
+    "line": "p3:L42"
+   },
+   {
+    "after_item": "S10_CONDITIONS",
+    "title_raw": "- 분진의 흡입은 피하시오.",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "value": "- 분진의 흡입은 피하시오.",
+      "line": "p4:L3"
+     }
+    ],
+    "suggested_code": "S10_CONDITIONS_NARRATIVE",
+    "line": "p4:L3"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S10_STABILITY\",\n      \"title_raw\": \"1) 화학적 안정성 및 유해 반응의 가능성\",\n      \"start\": \"p4:L1\",\n      \"end\": \"p4:L1\"\n    },\n    {\n      \"item_code\": \"S10_CONDITIONS\",\n      \"title_raw\": \"2) 피해야 할 조건\",\n      \"start\": \"p4:L3\",\n      \"end\": \"p4:L3\"\n    },\n    {\n      \"item_code\": \"S10_INCOMPAT\",\n      \"title_raw\": \"3) 피해야 할 물질\",\n      \"start\": \"p4:L5\",\n      \"end\": \"p4:L5\"\n    },\n    {\n      \"item_code\": \"S10_DECOMP\",\n      \"title_raw\": \"4) 화재상태에서 생성되는 유해성물질\",\n      \"start\": \"p4:L7\",\n      \"end\": \"p4:L7\"\n    }\n  ]\n  ,\n  \"extras\": [\n    {\n      \"after_item\": \"S10_END\",\n      \"title_raw\": \"10. 안정성 및 반응성\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"10. 안정성 및 반응성\"\n        ,\n          \"line\": \"p3:L40\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"SECTION_TITLE\"\n    ,\n      \"line\": \"p3:L40\"\n    }\n  ,\n    {\n      \"after_item\": \"S10_STABILITY\",\n      \"title_raw\": \"- 3 -\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"- 3 -\"\n        ,\n          \"line\": \"p3:L42\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"PAGE_NUMBER\"\n    ,\n      \"line\": \"p3:L42\"\n    }\n  ,\n    {\n      \"after_item\": \"S10_CONDITIONS\",\n      \"title_raw\": \"- 분진의 흡입은 피하시오.\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"- 분진의 흡입은 피하시오.\"\n        ,\n          \"line\": \"p4:L3\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S10_CONDITIONS_NARRATIVE\"\n    ,\n      \"line\": \"p4:L3\"\n    }\n  ]\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 1983,
+  "completion_tokens": 615,
+  "total_tokens": 2598
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 1983,
+    "completion_tokens": 615,
+    "total_tokens": 2598
+   },
+   "seconds": 10.256,
+   "chars": 1492,
+   "whitespace": 601,
+   "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S10_STABILITY\",\n      \"title_raw\": \"1) 화학적 안정성 및 유해 반응의 가능성\",\n      \"start\": \"p4:L1\",\n      \"end\": \"p4:L1\"\n    },\n    {\n      \"item_code\": \"S10_CONDITIONS\",\n      \"title_raw\": \"2) 피해야 할 조건\",\n      \"start\": \"p4:L3\",\n      \"end\": \"p4:L3\"\n    },\n    {\n      \"item_code\": \"S10_INCOMPAT\",\n      \"title_raw\": \"3) 피해야 할 물질\",\n      \"start\": \"p4:L5\",\n      \"end\": \"p4:L5\"\n    },\n    {\n      \"item_code\": \"S10_DECOMP\",\n      \"title_raw\": \"4) 화재상태에서 생성되는 유해성물질\",\n  ",
+   "tail": "        {\n          \"value\": \"- 3 -\"\n        ,\n          \"line\": \"p3:L42\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"PAGE_NUMBER\"\n    ,\n      \"line\": \"p3:L42\"\n    }\n  ,\n    {\n      \"after_item\": \"S10_CONDITIONS\",\n      \"title_raw\": \"- 분진의 흡입은 피하시오.\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"- 분진의 흡입은 피하시오.\"\n        ,\n          \"line\": \"p4:L3\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S10_CONDITIONS_NARRATIVE\"\n    ,\n      \"line\": \"p4:L3\"\n    }\n  ]\n}"
+  }
+ ],
+ "seconds": 10.258,
+ "check_problems": []
+}

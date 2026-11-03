@@ -1,0 +1,143 @@
+{
+ "doc_id": "RAW-03",
+ "msds_index": 0,
+ "section": 14,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "transport": [
+   {
+    "mode": "공통",
+    "basis_raw": null,
+    "regulated": true,
+    "un_no": "1080",
+    "shipping_name": "SULPHUR HEXAFLUORIDE",
+    "hazard_class": "2.2",
+    "sub_risk": null,
+    "packing_group": "해당없음",
+    "marine_pollutant": "비해당",
+    "ems_fire": "F-C",
+    "ems_spill": "S-V",
+    "line": "p6:L30"
+   }
+  ],
+  "narratives": [
+   {
+    "item_code": "S14_SPECIAL",
+    "title_raw": "바. 사용자가 운송 또는 운송 수단에 관련해 알 필요가 있거나 필요한 특별한 안전 대책",
+    "start": "p6:L40",
+    "end": "p6:L44"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S14_SPECIAL",
+    "title_raw": "가. 유엔번호 (UN No.)",
+    "reason": "코드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [
+     {
+      "value": "1080",
+      "line": "p6:L30"
+     }
+    ],
+    "suggested_code": "UN_NO",
+    "line": "p6:L30"
+   },
+   {
+    "after_item": "S14_SPECIAL",
+    "title_raw": "나. 유엔 적정 선적명",
+    "reason": "코드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [
+     {
+      "value": "SULPHUR HEXAFLUORIDE",
+      "line": "p6:L32"
+     }
+    ],
+    "suggested_code": "SHIPPING_NAME",
+    "line": "p6:L32"
+   },
+   {
+    "after_item": "S14_SPECIAL",
+    "title_raw": "다. 운송에서의 위험성 등급",
+    "reason": "코드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [
+     {
+      "value": "2.2",
+      "line": "p6:L34"
+     }
+    ],
+    "suggested_code": "HAZARD_CLASS",
+    "line": "p6:L34"
+   },
+   {
+    "after_item": "S14_SPECIAL",
+    "title_raw": "라. 용기등급(IMDG CODE/IATA DGR)",
+    "reason": "코드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [
+     {
+      "value": "해당없음",
+      "line": "p6:L36"
+     }
+    ],
+    "suggested_code": "PACKING_GROUP",
+    "line": "p6:L36"
+   },
+   {
+    "after_item": "S14_SPECIAL",
+    "title_raw": "마. 해양오염물질",
+    "reason": "코드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [
+     {
+      "value": "해당없음",
+      "line": "p6:L38"
+     }
+    ],
+    "suggested_code": "MARINE_POLLUTANT",
+    "line": "p6:L38"
+   }
+  ]
+ },
+ "raw_text": "### transport\nmode | basis_raw | regulated | un_no | shipping_name | hazard_class | sub_risk | packing_group | marine_pollutant | ems_fire | ems_spill | line\n공통 |  | true | 1080 | SULPHUR HEXAFLUORIDE | 2.2 |  | 해당없음 | 해당없음 | F-C | S-V | p6:L30\n\n### narratives\nitem_code | title_raw | start | end\nS14_SPECIAL | 바. 사용자가 운송 또는 운송 수단에 관련해 알 필요가 있거나 필요한 특별한 안전 대책 | p6:L40 | p6:L44\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\nS14_SPECIAL | 가. 유엔번호 (UN No.) | 코드없음 |  |  |  | 1080 | UN_NO | p6:L30\nS14_SPECIAL | 나. 유엔 적정 선적명 | 코드없음 |  |  |  | SULPHUR HEXAFLUORIDE | SHIPPING_NAME | p6:L32\nS14_SPECIAL | 다. 운송에서의 위험성 등급 | 코드없음 |  |  |  | 2.2 | HAZARD_CLASS | p6:L34\nS14_SPECIAL | 라. 용기등급(IMDG CODE/IATA DGR) | 코드없음 |  |  |  | 해당없음 | PACKING_GROUP | p6:L36\nS14_SPECIAL | 마. 해양오염물질 | 코드없음 |  |  |  | 해당없음 | MARINE_POLLUTANT | p6:L38",
+ "mode": "rows",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 3210,
+  "completion_tokens": 373,
+  "total_tokens": 3583
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "rows",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 3210,
+    "completion_tokens": 373,
+    "total_tokens": 3583
+   },
+   "seconds": 8.033,
+   "chars": 888,
+   "whitespace": 197,
+   "head": "### transport\nmode | basis_raw | regulated | un_no | shipping_name | hazard_class | sub_risk | packing_group | marine_pollutant | ems_fire | ems_spill | line\n공통 |  | true | 1080 | SULPHUR HEXAFLUORIDE | 2.2 |  | 해당없음 | 해당없음 | F-C | S-V | p6:L30\n\n### narratives\nitem_code | title_raw | start | end\nS14_SPECIAL | 바. 사용자가 운송 또는 운송 수단에 관련해 알 필요가 있거나 필요한 특별한 안전 대책 | p6:L40 | p6:L44\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\nS14_SPECIAL | ",
+   "tail": "가. 유엔번호 (UN No.) | 코드없음 |  |  |  | 1080 | UN_NO | p6:L30\nS14_SPECIAL | 나. 유엔 적정 선적명 | 코드없음 |  |  |  | SULPHUR HEXAFLUORIDE | SHIPPING_NAME | p6:L32\nS14_SPECIAL | 다. 운송에서의 위험성 등급 | 코드없음 |  |  |  | 2.2 | HAZARD_CLASS | p6:L34\nS14_SPECIAL | 라. 용기등급(IMDG CODE/IATA DGR) | 코드없음 |  |  |  | 해당없음 | PACKING_GROUP | p6:L36\nS14_SPECIAL | 마. 해양오염물질 | 코드없음 |  |  |  | 해당없음 | MARINE_POLLUTANT | p6:L38"
+  }
+ ],
+ "seconds": 8.035,
+ "check_problems": []
+}

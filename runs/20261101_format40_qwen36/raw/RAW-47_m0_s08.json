@@ -1,0 +1,115 @@
+{
+ "doc_id": "RAW-47",
+ "msds_index": 0,
+ "section": 8,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "exposure_limits": [
+   {
+    "comp_name": "유리섬유 울(FIBERGLASS WOLL)",
+    "comp_cas": "65997-17-3",
+    "standard": "국내",
+    "limit_type": "TWA",
+    "q": {
+     "raw": "5 ㎎/m3",
+     "value": 5,
+     "unit": "mg/m3"
+    },
+    "form": null,
+    "kr_basis": "노출기준",
+    "bio_medium": null,
+    "bio_timing": null,
+    "bio_determinant": null,
+    "notations": [],
+    "line": "p4:L13"
+   }
+  ],
+  "narratives": [
+   {
+    "item_code": "S8_ENG",
+    "title_raw": "나. 적절한 공학적 관리",
+    "start": "p4:L16",
+    "end": "p4:L17"
+   },
+   {
+    "item_code": "S8_RESP",
+    "title_raw": "- 호흡기 보호",
+    "start": "p4:L19",
+    "end": "p4:L30"
+   },
+   {
+    "item_code": "S8_EYE",
+    "title_raw": "- 눈 보호",
+    "start": "p4:L31",
+    "end": "p4:L31"
+   },
+   {
+    "item_code": "S8_HAND",
+    "title_raw": "- 손 보호",
+    "start": "p4:L32",
+    "end": "p4:L32"
+   },
+   {
+    "item_code": "S8_BODY",
+    "title_raw": "- 신체 보호",
+    "start": "p4:L33",
+    "end": "p4:L33"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S8_END",
+    "title_raw": "가: 화학물질의 노출기준,생물학적 노출기준 등",
+    "reason": "코드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [
+     {
+      "value": "국내규정 : TWA - 5 ㎎/m3",
+      "line": "p4:L12"
+     },
+     {
+      "value": "ACGIH 규정 : 해당없음",
+      "line": "p4:L12"
+     },
+     {
+      "value": "생물학적 노출기준 : 해당없음",
+      "line": "p4:L12"
+     }
+    ],
+    "suggested_code": "EXPOSURE_LIMITS_HEADER",
+    "line": "p4:L12"
+   }
+  ]
+ },
+ "raw_text": "### exposure_limits\ncomp_name | comp_cas | standard | limit_type | q | form | kr_basis | bio_medium | bio_timing | bio_determinant | notations | line\n유리섬유 울(FIBERGLASS WOLL) | 65997-17-3 | 국내 | TWA | 5 ㎎/m3 |  | 노출기준 |  |  |  |  | p4:L13\n\n### narratives\nitem_code | title_raw | start | end\nS8_ENG | 나. 적절한 공학적 관리 | p4:L16 | p4:L17\nS8_RESP | - 호흡기 보호 | p4:L19 | p4:L30\nS8_EYE | - 눈 보호 | p4:L31 | p4:L31\nS8_HAND | - 손 보호 | p4:L32 | p4:L32\nS8_BODY | - 신체 보호 | p4:L33 | p4:L33\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\nS8_END | 가: 화학물질의 노출기준,생물학적 노출기준 등 | 코드없음 |  |  |  | 국내규정 : TWA - 5 ㎎/m3; ACGIH 규정 : 해당없음; 생물학적 노출기준 : 해당없음 | EXPOSURE_LIMITS_HEADER | p4:L12",
+ "mode": "rows",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 3897,
+  "completion_tokens": 320,
+  "total_tokens": 4217
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "rows",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 3897,
+    "completion_tokens": 320,
+    "total_tokens": 4217
+   },
+   "seconds": 6.852,
+   "chars": 722,
+   "whitespace": 160,
+   "head": "### exposure_limits\ncomp_name | comp_cas | standard | limit_type | q | form | kr_basis | bio_medium | bio_timing | bio_determinant | notations | line\n유리섬유 울(FIBERGLASS WOLL) | 65997-17-3 | 국내 | TWA | 5 ㎎/m3 |  | 노출기준 |  |  |  |  | p4:L13\n\n### narratives\nitem_code | title_raw | start | end\nS8_ENG | 나. 적절한 공학적 관리 | p4:L16 | p4:L17\nS8_RESP | - 호흡기 보호 | p4:L19 | p4:L30\nS8_EYE | - 눈 보호 | p4:L31 | p4:L31\nS8_HAND | - 손 보호 | p4:L32 | p4:L32\nS8_BODY | - 신체 보호 | p4:L33 | p4:L33\n\n### extras\nafter_item | ti",
+   "tail": "tle_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\nS8_END | 가: 화학물질의 노출기준,생물학적 노출기준 등 | 코드없음 |  |  |  | 국내규정 : TWA - 5 ㎎/m3; ACGIH 규정 : 해당없음; 생물학적 노출기준 : 해당없음 | EXPOSURE_LIMITS_HEADER | p4:L12"
+  }
+ ],
+ "seconds": 6.856,
+ "check_problems": []
+}

@@ -1,0 +1,582 @@
+{
+ "doc_id": "RAW-16",
+ "msds_index": 0,
+ "section": 14,
+ "reextracted": true,
+ "ok": true,
+ "parsed": {
+  "transport": [
+   {
+    "mode": "육상",
+    "basis_raw": null,
+    "regulated": true,
+    "un_no": "3077",
+    "shipping_name": "ENVIRONMENTALLY HAZARDOUS SUBSTANCE, SOLID, N.O.S.(Zinc oxide)",
+    "hazard_class": "9",
+    "sub_risk": null,
+    "packing_group": "III",
+    "marine_pollutant": null,
+    "ems_fire": null,
+    "ems_spill": null,
+    "line": "p10:L27"
+   },
+   {
+    "mode": "해상",
+    "basis_raw": "(IMO-IMDG)",
+    "regulated": true,
+    "un_no": "3077",
+    "shipping_name": "ENVIRONMENTALLY HAZARDOUS SUBSTANCE, SOLID, N.O.S.(Zinc oxide)",
+    "hazard_class": "9",
+    "sub_risk": null,
+    "packing_group": "III",
+    "marine_pollutant": "해당",
+    "ems_fire": "F-A",
+    "ems_spill": "S-F",
+    "line": "p11:L5"
+   },
+   {
+    "mode": "항공",
+    "basis_raw": "(IATA/ICAO)",
+    "regulated": true,
+    "un_no": "3077",
+    "shipping_name": "Environmentally hazardous substance, solid, n.o.s.(Zinc oxide)",
+    "hazard_class": "9",
+    "sub_risk": null,
+    "packing_group": "III",
+    "marine_pollutant": null,
+    "ems_fire": null,
+    "ems_spill": null,
+    "line": "p11:L14"
+   }
+  ],
+  "narratives": [
+   {
+    "item_code": "S14_SPECIAL",
+    "title_raw": "사용자가 운송 또는 운송",
+    "start": "p10:L32",
+    "end": "p10:L33"
+   },
+   {
+    "item_code": "S14_SPECIAL",
+    "title_raw": "사용자가 운송 또는 운송 수단에 관련해 알 필요가 있거나 필요한 특별한 안전 대책",
+    "start": "p11:L11",
+    "end": "p11:L11"
+   },
+   {
+    "item_code": "S14_SPECIAL",
+    "title_raw": "사용자가 운송 또는 운송 수단에 관련해 알 필요가 있거나 필요한 특별한 안전 대책",
+    "start": "p11:L19",
+    "end": "p11:L19"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S14_SPECIAL",
+    "title_raw": "환경 영향",
+    "reason": "필드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [
+     {
+      "value": "Zinc oxide",
+      "line": "p10:L32"
+     }
+    ],
+    "suggested_code": null,
+    "line": "p10:L32"
+   }
+  ]
+ },
+ "raw_text": "### transport\nmode | basis_raw | regulated | un_no | shipping_name | hazard_class | sub_risk | packing_group | marine_pollutant | ems_fire | ems_spill | line\n육상 |  | true | 3077 | ENVIRONMENTALLY HAZARDOUS SUBSTANCE, SOLID, N.O.S.(Zinc oxide) | 9 |  | III |  |  |  | p10:L27\n해상 | (IMO-IMDG) | true | 3077 | ENVIRONMENTALLY HAZARDOUS SUBSTANCE, SOLID, N.O.S.(Zinc oxide) | 9 |  | III | 해당 | F-A | S-F | p11:L5\n항공 | (IATA/ICAO) | true | 3077 | Environmentally hazardous substance, solid, n.o.s.(Zinc oxide) | 9 |  | III |  |  |  | p11:L14\n\n### narratives\nitem_code | title_raw | start | end\nS14_SPECIAL | 사용자가 운송 또는 운송 | p10:L32 | p10:L33\nS14_SPECIAL | 사용자가 운송 또는 운송 수단에 관련해 알 필요가 있거나 필요한 특별한 안전 대책 | p11:L11 | p11:L11\nS14_SPECIAL | 사용자가 운송 또는 운송 수단에 관련해 알 필요가 있거나 필요한 특별한 안전 대책 | p11:L19 | p11:L19\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\nS14_SPECIAL | 환경 영향 | 필드없음 |  |  |  | Zinc oxide |  | p10:L32",
+ "mode": "rows",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 3786,
+  "completion_tokens": 384,
+  "total_tokens": 4170
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "rows",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 3786,
+    "completion_tokens": 384,
+    "total_tokens": 4170
+   },
+   "seconds": 4.75,
+   "chars": 966,
+   "whitespace": 205,
+   "head": "### transport\nmode | basis_raw | regulated | un_no | shipping_name | hazard_class | sub_risk | packing_group | marine_pollutant | ems_fire | ems_spill | line\n육상 |  | true | 3077 | ENVIRONMENTALLY HAZARDOUS SUBSTANCE, SOLID, N.O.S.(Zinc oxide) | 9 |  | III |  |  |  | p10:L27\n해상 | (IMO-IMDG) | true | 3077 | ENVIRONMENTALLY HAZARDOUS SUBSTANCE, SOLID, N.O.S.(Zinc oxide) | 9 |  | III | 해당 | F-A | S-F | p11:L5\n항공 | (IATA/ICAO) | true | 3077 | Environmentally hazardous substance, solid, n.o.s.(Zinc ox",
+   "tail": "ide) | 9 |  | III |  |  |  | p11:L14\n\n### narratives\nitem_code | title_raw | start | end\nS14_SPECIAL | 사용자가 운송 또는 운송 | p10:L32 | p10:L33\nS14_SPECIAL | 사용자가 운송 또는 운송 수단에 관련해 알 필요가 있거나 필요한 특별한 안전 대책 | p11:L11 | p11:L11\nS14_SPECIAL | 사용자가 운송 또는 운송 수단에 관련해 알 필요가 있거나 필요한 특별한 안전 대책 | p11:L19 | p11:L19\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\nS14_SPECIAL | 환경 영향 | 필드없음 |  |  |  | Zinc oxide |  | p10:L32"
+  }
+ ],
+ "seconds": 4.754,
+ "check_problems": [],
+ "first_attempt": {
+  "ok": true,
+  "parsed": {
+   "transport": [
+    {
+     "mode": "육상",
+     "basis_raw": null,
+     "regulated": true,
+     "un_no": "3077",
+     "shipping_name": "ENVIRONMENTALLY HAZARDOUS SUBSTANCE, SOLID, N.O.S.(Zinc oxide)",
+     "hazard_class": "9",
+     "sub_risk": null,
+     "packing_group": "III",
+     "marine_pollutant": null,
+     "ems_fire": null,
+     "ems_spill": null,
+     "line": "p10:L27"
+    },
+    {
+     "mode": "해상",
+     "basis_raw": null,
+     "regulated": true,
+     "un_no": "3077",
+     "shipping_name": "ENVIRONMENTALLY HAZARDOUS SUBSTANCE, SOLID, N.O.S.(Zinc oxide)",
+     "hazard_class": "9",
+     "sub_risk": null,
+     "packing_group": "III",
+     "marine_pollutant": "해당",
+     "ems_fire": "F-A",
+     "ems_spill": "S-F",
+     "line": "p11:L5"
+    },
+    {
+     "mode": "항공",
+     "basis_raw": null,
+     "regulated": true,
+     "un_no": "3077",
+     "shipping_name": "Environmentally hazardous substance, solid, n.o.s.(Zinc oxide)",
+     "hazard_class": "9",
+     "sub_risk": null,
+     "packing_group": "III",
+     "marine_pollutant": null,
+     "ems_fire": null,
+     "ems_spill": null,
+     "line": "p11:L14"
+    }
+   ],
+   "narratives": [],
+   "extras": [
+    {
+     "after_item": "S14_SPECIAL",
+     "title_raw": "환경 영향",
+     "reason": "필드없음",
+     "comp_name": "Zinc oxide",
+     "comp_cas": null,
+     "q": null,
+     "statements": [],
+     "suggested_code": null,
+     "line": "p10:L32"
+    },
+    {
+     "after_item": "S14_SPECIAL",
+     "title_raw": "사용자가 운송 또는 운송",
+     "reason": "필드없음",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": null,
+     "statements": [
+      {
+       "value": "사용자가 운송 또는 운송",
+       "line": "p10:L33"
+      }
+     ],
+     "suggested_code": null,
+     "line": "p10:L33"
+    },
+    {
+     "after_item": "S14_SPECIAL",
+     "title_raw": "수단에 관련해 알 필요가",
+     "reason": "필드없음",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": null,
+     "statements": [
+      {
+       "value": "수단에 관련해 알 필요가",
+       "line": "p11:L2"
+      }
+     ],
+     "suggested_code": null,
+     "line": "p11:L2"
+    },
+    {
+     "after_item": "S14_SPECIAL",
+     "title_raw": "있거나 필요한 특별한 안전",
+     "reason": "필드없음",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": null,
+     "statements": [
+      {
+       "value": "있거나 필요한 특별한 안전",
+       "line": "p11:L3"
+      }
+     ],
+     "suggested_code": null,
+     "line": "p11:L3"
+    },
+    {
+     "after_item": "S14_SPECIAL",
+     "title_raw": "대책",
+     "reason": "필드없음",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": null,
+     "statements": [
+      {
+       "value": "대책",
+       "line": "p11:L4"
+      }
+     ],
+     "suggested_code": null,
+     "line": "p11:L4"
+    },
+    {
+     "after_item": "S14_SPECIAL",
+     "title_raw": "해상수송분류(IMO-IMDG):",
+     "reason": "필드없음",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": null,
+     "statements": [
+      {
+       "value": "해상수송분류(IMO-IMDG):",
+       "line": "p11:L5"
+      }
+     ],
+     "suggested_code": null,
+     "line": "p11:L5"
+    },
+    {
+     "after_item": "S14_SPECIAL",
+     "title_raw": "유엔 번호 UN 3077",
+     "reason": "필드없음",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": null,
+     "statements": [
+      {
+       "value": "유엔 번호 UN 3077",
+       "line": "p11:L6"
+      }
+     ],
+     "suggested_code": null,
+     "line": "p11:L6"
+    },
+    {
+     "after_item": "S14_SPECIAL",
+     "title_raw": "유엔 적정 선적명 ENVIRONMENTALLY HAZARDOUS SUBSTANCE, SOLID, N.O.S.(Zinc oxide)",
+     "reason": "필드없음",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": null,
+     "statements": [
+      {
+       "value": "유엔 적정 선적명 ENVIRONMENTALLY HAZARDOUS SUBSTANCE, SOLID, N.O.S.(Zinc oxide)",
+       "line": "p11:L7"
+      }
+     ],
+     "suggested_code": null,
+     "line": "p11:L7"
+    },
+    {
+     "after_item": "S14_SPECIAL",
+     "title_raw": "운송에서의 위험성 등급 9",
+     "reason": "필드없음",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": null,
+     "statements": [
+      {
+       "value": "운송에서의 위험성 등급 9",
+       "line": "p11:L8"
+      }
+     ],
+     "suggested_code": null,
+     "line": "p11:L8"
+    },
+    {
+     "after_item": "S14_SPECIAL",
+     "title_raw": "용기등급 III",
+     "reason": "필드없음",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": null,
+     "statements": [
+      {
+       "value": "용기등급 III",
+       "line": "p11:L9"
+      }
+     ],
+     "suggested_code": null,
+     "line": "p11:L9"
+    },
+    {
+     "after_item": "S14_SPECIAL",
+     "title_raw": "해양오염물질(해당 또는 비해당으로 표기) 해당",
+     "reason": "필드없음",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": null,
+     "statements": [
+      {
+       "value": "해양오염물질(해당 또는 비해당으로 표기) 해당",
+       "line": "p11:L10"
+      }
+     ],
+     "suggested_code": null,
+     "line": "p11:L10"
+    },
+    {
+     "after_item": "S14_SPECIAL",
+     "title_raw": "MARPOL 73 / 78 Annex I 또는 II 및 IBC 또는 IGC 코드에 따라화물을 Consult IMO regulations before transporting ocean bulk",
+     "reason": "필드없음",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": null,
+     "statements": [
+      {
+       "value": "MARPOL 73 / 78 Annex I 또는 II 및 IBC 또는 IGC 코드에 따라화물을 Consult IMO regulations before transporting ocean bulk",
+       "line": "p11:L12"
+      }
+     ],
+     "suggested_code": null,
+     "line": "p11:L12"
+    },
+    {
+     "after_item": "S14_SPECIAL",
+     "title_raw": "운반하시오.",
+     "reason": "필드없음",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": null,
+     "statements": [
+      {
+       "value": "운반하시오.",
+       "line": "p11:L13"
+      }
+     ],
+     "suggested_code": null,
+     "line": "p11:L13"
+    },
+    {
+     "after_item": "S14_SPECIAL",
+     "title_raw": "항공수송분류(IATA/ICAO):",
+     "reason": "필드없음",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": null,
+     "statements": [
+      {
+       "value": "항공수송분류(IATA/ICAO):",
+       "line": "p11:L14"
+      }
+     ],
+     "suggested_code": null,
+     "line": "p11:L14"
+    },
+    {
+     "after_item": "S14_SPECIAL",
+     "title_raw": "유엔 번호 UN 3077",
+     "reason": "필드없음",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": null,
+     "statements": [
+      {
+       "value": "유엔 번호 UN 3077",
+       "line": "p11:L15"
+      }
+     ],
+     "suggested_code": null,
+     "line": "p11:L15"
+    },
+    {
+     "after_item": "S14_SPECIAL",
+     "title_raw": "유엔 적정 선적명 Environmentally hazardous substance, solid, n.o.s.(Zinc oxide)",
+     "reason": "필드없음",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": null,
+     "statements": [
+      {
+       "value": "유엔 적정 선적명 Environmentally hazardous substance, solid, n.o.s.(Zinc oxide)",
+       "line": "p11:L16"
+      }
+     ],
+     "suggested_code": null,
+     "line": "p11:L16"
+    },
+    {
+     "after_item": "S14_SPECIAL",
+     "title_raw": "운송에서의 위험성 등급 9",
+     "reason": "필드없음",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": null,
+     "statements": [
+      {
+       "value": "운송에서의 위험성 등급 9",
+       "line": "p11:L17"
+      }
+     ],
+     "suggested_code": null,
+     "line": "p11:L17"
+    },
+    {
+     "after_item": "S14_SPECIAL",
+     "title_raw": "용기등급 III",
+     "reason": "필드없음",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": null,
+     "statements": [
+      {
+       "value": "용기등급 III",
+       "line": "p11:L18"
+      }
+     ],
+     "suggested_code": null,
+     "line": "p11:L18"
+    },
+    {
+     "after_item": "S14_SPECIAL",
+     "title_raw": "사용자가 운송 또는 운송 수단에 관련해 알 필요가 있거나 필요한 특별한 안전 대책 자료 없음.",
+     "reason": "필드없음",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": null,
+     "statements": [
+      {
+       "value": "사용자가 운송 또는 운송 수단에 관련해 알 필요가 있거나 필요한 특별한 안전 대책 자료 없음.",
+       "line": "p11:L19"
+      }
+     ],
+     "suggested_code": null,
+     "line": "p11:L19"
+    },
+    {
+     "after_item": "S14_SPECIAL",
+     "title_raw": "이 정보는 본 제품과 관련된 모든 특별한 법규나 취급 요구사항/정보를 전달 하려고 의도하지는",
+     "reason": "필드없음",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": null,
+     "statements": [
+      {
+       "value": "이 정보는 본 제품과 관련된 모든 특별한 법규나 취급 요구사항/정보를 전달 하려고 의도하지는",
+       "line": "p11:L20"
+      }
+     ],
+     "suggested_code": null,
+     "line": "p11:L20"
+    },
+    {
+     "after_item": "S14_SPECIAL",
+     "title_raw": "않습니다. 운송 분류는 컨테이너 부피에 따라서도 다양할 수 있으며, 해당 법규가 적용되는",
+     "reason": "필드없음",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": null,
+     "statements": [
+      {
+       "value": "않습니다. 운송 분류는 컨테이너 부피에 따라서도 다양할 수 있으며, 해당 법규가 적용되는",
+       "line": "p11:L21"
+      }
+     ],
+     "suggested_code": null,
+     "line": "p11:L21"
+    },
+    {
+     "after_item": "S14_SPECIAL",
+     "title_raw": "지역이나 나라에 따라 영향을 받을 수 있습니다. 추가적인 운송 시스템 정보는 권한을 받은 판매",
+     "reason": "필드없음",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": null,
+     "statements": [
+      {
+       "value": "지역이나 나라에 따라 영향을 받을 수 있습니다. 추가적인 운송 시스템 정보는 권한을 받은 판매",
+       "line": "p11:L22"
+      }
+     ],
+     "suggested_code": null,
+     "line": "p11:L22"
+    },
+    {
+     "after_item": "S14_SPECIAL",
+     "title_raw": "부서나 고객 서비스 담당 부서를 통하여 획득할 수 있습니다. 물질 운송 시스템에 관련한 모든",
+     "reason": "필드없음",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": null,
+     "statements": [
+      {
+       "value": "부서나 고객 서비스 담당 부서를 통하여 획득할 수 있습니다. 물질 운송 시스템에 관련한 모든",
+       "line": "p11:L23"
+      }
+     ],
+     "suggested_code": null,
+     "line": "p11:L23"
+    },
+    {
+     "after_item": "S14_SPECIAL",
+     "title_raw": "적용 가능 법, 규칙 및 규정을 따르는 것은 운송 부서의 책임입니다.",
+     "reason": "필드없음",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": null,
+     "statements": [
+      {
+       "value": "적용 가능 법, 규칙 및 규정을 따르는 것은 운송 부서의 책임입니다.",
+       "line": "p11:L24"
+      }
+     ],
+     "suggested_code": null,
+     "line": "p11:L24"
+    }
+   ]
+  },
+  "raw_text": "### transport\nmode | basis_raw | regulated | un_no | shipping_name | hazard_class | sub_risk | packing_group | marine_pollutant | ems_fire | ems_spill | line\n육상 |  | true | 3077 | ENVIRONMENTALLY HAZARDOUS SUBSTANCE, SOLID, N.O.S.(Zinc oxide) | 9 |  | III |  |  |  | p10:L27\n해상 |  | true | 3077 | ENVIRONMENTALLY HAZARDOUS SUBSTANCE, SOLID, N.O.S.(Zinc oxide) | 9 |  | III | 해당 | F-A | S-F | p11:L5\n항공 |  | true | 3077 | Environmentally hazardous substance, solid, n.o.s.(Zinc oxide) | 9 |  | III |  |  |  | p11:L14\n\n### narratives\nitem_code | title_raw | start | end\nS14_SPECIAL | 사용자가 운송 또는 운송 | p10:L32\nS14_SPECIAL | 사용자가 운송 또는 운송 수단에 관련해 알 필요가 있거나 필요한 특별한 안전 대책 | p11:L11\nS14_SPECIAL | 사용자가 운송 또는 운송 수단에 관련해 알 필요가 있거나 필요한 특별한 안전 대책 | p11:L19\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\nS14_SPECIAL | 환경 영향 | 필드없음 | Zinc oxide |  |  |  |  | p10:L32\nS14_SPECIAL | 사용자가 운송 또는 운송 | 필드없음 |  |  |  | 사용자가 운송 또는 운송 |  | p10:L33\nS14_SPECIAL | 수단에 관련해 알 필요가 | 필드없음 |  |  |  | 수단에 관련해 알 필요가 |  | p11:L2\nS14_SPECIAL | 있거나 필요한 특별한 안전 | 필드없음 |  |  |  | 있거나 필요한 특별한 안전 |  | p11:L3\nS14_SPECIAL | 대책 | 필드없음 |  |  |  | 대책 |  | p11:L4\nS14_SPECIAL | 해상수송분류(IMO-IMDG): | 필드없음 |  |  |  | 해상수송분류(IMO-IMDG): |  | p11:L5\nS14_SPECIAL | 유엔 번호 UN 3077 | 필드없음 |  |  |  | 유엔 번호 UN 3077 |  | p11:L6\nS14_SPECIAL | 유엔 적정 선적명 ENVIRONMENTALLY HAZARDOUS SUBSTANCE, SOLID, N.O.S.(Zinc oxide) | 필드없음 |  |  |  | 유엔 적정 선적명 ENVIRONMENTALLY HAZARDOUS SUBSTANCE, SOLID, N.O.S.(Zinc oxide) |  | p11:L7\nS14_SPECIAL | 운송에서의 위험성 등급 9 | 필드없음 |  |  |  | 운송에서의 위험성 등급 9 |  | p11:L8\nS14_SPECIAL | 용기등급 III | 필드없음 |  |  |  | 용기등급 III |  | p11:L9\nS14_SPECIAL | 해양오염물질(해당 또는 비해당으로 표기) 해당 | 필드없음 |  |  |  | 해양오염물질(해당 또는 비해당으로 표기) 해당 |  | p11:L10\nS14_SPECIAL | MARPOL 73 / 78 Annex I 또는 II 및 IBC 또는 IGC 코드에 따라화물을 Consult IMO regulations before transporting ocean bulk | 필드없음 |  |  |  | MARPOL 73 / 78 Annex I 또는 II 및 IBC 또는 IGC 코드에 따라화물을 Consult IMO regulations before transporting ocean bulk |  | p11:L12\nS14_SPECIAL | 운반하시오. | 필드없음 |  |  |  | 운반하시오. |  | p11:L13\nS14_SPECIAL | 항공수송분류(IATA/ICAO): | 필드없음 |  |  |  | 항공수송분류(IATA/ICAO): |  | p11:L14\nS14_SPECIAL | 유엔 번호 UN 3077 | 필드없음 |  |  |  | 유엔 번호 UN 3077 |  | p11:L15\nS14_SPECIAL | 유엔 적정 선적명 Environmentally hazardous substance, solid, n.o.s.(Zinc oxide) | 필드없음 |  |  |  | 유엔 적정 선적명 Environmentally hazardous substance, solid, n.o.s.(Zinc oxide) |  | p11:L16\nS14_SPECIAL | 운송에서의 위험성 등급 9 | 필드없음 |  |  |  | 운송에서의 위험성 등급 9 |  | p11:L17\nS14_SPECIAL | 용기등급 III | 필드없음 |  |  |  | 용기등급 III |  | p11:L18\nS14_SPECIAL | 사용자가 운송 또는 운송 수단에 관련해 알 필요가 있거나 필요한 특별한 안전 대책 자료 없음. | 필드없음 |  |  |  | 사용자가 운송 또는 운송 수단에 관련해 알 필요가 있거나 필요한 특별한 안전 대책 자료 없음. |  | p11:L19\nS14_SPECIAL | 이 정보는 본 제품과 관련된 모든 특별한 법규나 취급 요구사항/정보를 전달 하려고 의도하지는 | 필드없음 |  |  |  | 이 정보는 본 제품과 관련된 모든 특별한 법규나 취급 요구사항/정보를 전달 하려고 의도하지는 |  | p11:L20\nS14_SPECIAL | 않습니다. 운송 분류는 컨테이너 부피에 따라서도 다양할 수 있으며, 해당 법규가 적용되는 | 필드없음 |  |  |  | 않습니다. 운송 분류는 컨테이너 부피에 따라서도 다양할 수 있으며, 해당 법규가 적용되는 |  | p11:L21\nS14_SPECIAL | 지역이나 나라에 따라 영향을 받을 수 있습니다. 추가적인 운송 시스템 정보는 권한을 받은 판매 | 필드없음 |  |  |  | 지역이나 나라에 따라 영향을 받을 수 있습니다. 추가적인 운송 시스템 정보는 권한을 받은 판매 |  | p11:L22\nS14_SPECIAL | 부서나 고객 서비스 담당 부서를 통하여 획득할 수 있습니다. 물질 운송 시스템에 관련한 모든 | 필드없음 |  |  |  | 부서나 고객 서비스 담당 부서를 통하여 획득할 수 있습니다. 물질 운송 시스템에 관련한 모든 |  | p11:L23\nS14_SPECIAL | 적용 가능 법, 규칙 및 규정을 따르는 것은 운송 부서의 책임입니다. | 필드없음 |  |  |  | 적용 가능 법, 규칙 및 규정을 따르는 것은 운송 부서의 책임입니다. |  | p11:L24",
+  "mode": "rows",
+  "finish_reason": "stop",
+  "usage": {
+   "prompt_tokens": 3670,
+   "completion_tokens": 1585,
+   "total_tokens": 5255
+  },
+  "attempts": 1,
+  "errors": [
+   "narratives p10:L32 S14_SPECIAL | 사용자가 운송 또는 운송 | p10:L32: 열 3개, 기대 4개",
+   "narratives p11:L11 S14_SPECIAL | 사용자가 운송 또는 운송 수단에 관련해 알 필요…: 열 3개, 기대 4개",
+   "narratives p11:L19 S14_SPECIAL | 사용자가 운송 또는 운송 수단에 관련해 알 필요…: 열 3개, 기대 4개"
+  ],
+  "requests": [
+   {
+    "mode": "rows",
+    "finish_reason": "stop",
+    "usage": {
+     "prompt_tokens": 3670,
+     "completion_tokens": 1585,
+     "total_tokens": 5255
+    },
+    "seconds": 23.133,
+    "chars": 3430,
+    "whitespace": 862,
+    "head": "### transport\nmode | basis_raw | regulated | un_no | shipping_name | hazard_class | sub_risk | packing_group | marine_pollutant | ems_fire | ems_spill | line\n육상 |  | true | 3077 | ENVIRONMENTALLY HAZARDOUS SUBSTANCE, SOLID, N.O.S.(Zinc oxide) | 9 |  | III |  |  |  | p10:L27\n해상 |  | true | 3077 | ENVIRONMENTALLY HAZARDOUS SUBSTANCE, SOLID, N.O.S.(Zinc oxide) | 9 |  | III | 해당 | F-A | S-F | p11:L5\n항공 |  | true | 3077 | Environmentally hazardous substance, solid, n.o.s.(Zinc oxide) | 9 |  | III |  ",
+    "tail": "드없음 |  |  |  | 않습니다. 운송 분류는 컨테이너 부피에 따라서도 다양할 수 있으며, 해당 법규가 적용되는 |  | p11:L21\nS14_SPECIAL | 지역이나 나라에 따라 영향을 받을 수 있습니다. 추가적인 운송 시스템 정보는 권한을 받은 판매 | 필드없음 |  |  |  | 지역이나 나라에 따라 영향을 받을 수 있습니다. 추가적인 운송 시스템 정보는 권한을 받은 판매 |  | p11:L22\nS14_SPECIAL | 부서나 고객 서비스 담당 부서를 통하여 획득할 수 있습니다. 물질 운송 시스템에 관련한 모든 | 필드없음 |  |  |  | 부서나 고객 서비스 담당 부서를 통하여 획득할 수 있습니다. 물질 운송 시스템에 관련한 모든 |  | p11:L23\nS14_SPECIAL | 적용 가능 법, 규칙 및 규정을 따르는 것은 운송 부서의 책임입니다. | 필드없음 |  |  |  | 적용 가능 법, 규칙 및 규정을 따르는 것은 운송 부서의 책임입니다. |  | p11:L24"
+   }
+  ],
+  "seconds": 23.138,
+  "check_problems": []
+ }
+}

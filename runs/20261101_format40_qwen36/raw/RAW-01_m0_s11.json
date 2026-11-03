@@ -1,0 +1,460 @@
+{
+ "doc_id": "RAW-01",
+ "msds_index": 0,
+ "section": 11,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "toxicity": [
+   {
+    "comp_name": null,
+    "comp_cas": null,
+    "endpoint": "TX_ORAL",
+    "descriptor": "LD50",
+    "q": {
+     "raw": "{value:12.2,unit:'ml/kg'}"
+    },
+    "species": "Rat",
+    "sex": null,
+    "duration_value": null,
+    "duration_unit": null,
+    "physical_form": null,
+    "exposure_type": null,
+    "converted": null,
+    "read_across_cas": null,
+    "guideline": null,
+    "data_source": "ECHA",
+    "classification": null,
+    "statements": [],
+    "status": "값있음",
+    "line": "p6:L5"
+   },
+   {
+    "comp_name": null,
+    "comp_cas": null,
+    "endpoint": "TX_RESP_SENS",
+    "descriptor": "결과기술",
+    "q": {
+     "raw": "자료없음"
+    },
+    "species": null,
+    "sex": null,
+    "duration_value": null,
+    "duration_unit": null,
+    "physical_form": null,
+    "exposure_type": null,
+    "converted": null,
+    "read_across_cas": null,
+    "guideline": null,
+    "data_source": null,
+    "classification": null,
+    "statements": [],
+    "status": "자료없음",
+    "line": "p6:L15"
+   },
+   {
+    "comp_name": null,
+    "comp_cas": null,
+    "endpoint": "TX_REPRO",
+    "descriptor": "NOAEL",
+    "q": {
+     "raw": "{value:750,unit:'ppm'}"
+    },
+    "species": "랫드",
+    "sex": null,
+    "duration_value": null,
+    "duration_unit": null,
+    "physical_form": null,
+    "exposure_type": null,
+    "converted": {
+     "raw": "반복 경구 2세대 생식 독성"
+    },
+    "read_across_cas": null,
+    "guideline": null,
+    "data_source": "OECD TG 416",
+    "classification": null,
+    "statements": [
+     {
+      "value": "1500ppm ~2000ppm에서 체중, 체중증가량, 먹이섭취량 감소가 관찰됨",
+      "line": "p6:L21"
+     }
+    ],
+    "status": "값있음",
+    "line": "p6:L21"
+   },
+   {
+    "comp_name": null,
+    "comp_cas": null,
+    "endpoint": "TX_REPRO",
+    "descriptor": "NOAEL",
+    "q": {
+     "raw": "{value:2.5,unit:'mg/L air'}"
+    },
+    "species": "랫드",
+    "sex": null,
+    "duration_value": null,
+    "duration_unit": null,
+    "physical_form": null,
+    "exposure_type": null,
+    "converted": {
+     "raw": "반복 흡입 태아 발달 독성"
+    },
+    "read_across_cas": null,
+    "guideline": null,
+    "data_source": "OECD TG 414",
+    "classification": null,
+    "statements": [
+     {
+      "value": "체중 및 간 무게 감소, 새끼 크기 감소 및 늑골 기형이 관찰되었으나 발달 독성보다는 모체독성이 큰 것으로 판단됨",
+      "line": "p6:L24"
+     }
+    ],
+    "status": "값있음",
+    "line": "p6:L24"
+   },
+   {
+    "comp_name": null,
+    "comp_cas": null,
+    "endpoint": "TX_STOT_RE",
+    "descriptor": "NOAEL",
+    "q": {
+     "raw": "{value:125,unit:'mg/kg bw/day'}"
+    },
+    "species": "랫드",
+    "sex": null,
+    "duration_value": null,
+    "duration_unit": null,
+    "physical_form": null,
+    "exposure_type": "경구",
+    "converted": {
+     "raw": "반복 경구 90일"
+    },
+    "read_across_cas": null,
+    "guideline": "71-36-3",
+    "data_source": "EPA OTS 798.2650",
+    "classification": null,
+    "statements": [
+     {
+      "value": "600mg/kg 농도군에서 노출 2~3분 후에 운동실조, 활동 저하 등의 중추신경계 이상이 관찰되었음 1시간 이내로 회복됨. 알코올 영향으로 보임. 그 외 특별한 영향은 관찰되지 않음",
+      "line": "p6:L32"
+     }
+    ],
+    "status": "값있음",
+    "line": "p6:L32"
+   },
+   {
+    "comp_name": null,
+    "comp_cas": null,
+    "endpoint": "TX_ASP",
+    "descriptor": "결과기술",
+    "q": {
+     "raw": "자료없음"
+    },
+    "species": null,
+    "sex": null,
+    "duration_value": null,
+    "duration_unit": null,
+    "physical_form": null,
+    "exposure_type": null,
+    "converted": null,
+    "read_across_cas": null,
+    "guideline": null,
+    "data_source": null,
+    "classification": null,
+    "statements": [],
+    "status": "자료없음",
+    "line": "p6:L42"
+   }
+  ],
+  "cmr": [
+   {
+    "comp_name": null,
+    "comp_cas": null,
+    "hazard": "발암성",
+    "agency": null,
+    "class": null,
+    "status": "자료없음",
+    "note": null,
+    "line": "p6:L17"
+   },
+   {
+    "comp_name": null,
+    "comp_cas": null,
+    "hazard": "생식세포변이원성",
+    "agency": null,
+    "class": null,
+    "status": null,
+    "note": "시험관 내 미생물을 이용한 박테리아복귀돌연변이 시험 결과, 대사활성계 유무에 관계없이 음성; 생체 내 포유류 적혈구 미소핵 시험 결과, 음성",
+    "line": "p6:L18"
+   }
+  ],
+  "narratives": [
+   {
+    "item_code": "S11_ROUTE",
+    "title_raw": "가. 가능성이 높은 노출 경로에 관한 정보",
+    "start": "p5:L36",
+    "end": "p5:L40"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S11_ROUTE",
+    "title_raw": "나. 단기 및 장기 노출에 의한 지연, 급성 영향 및 만성 영향",
+    "reason": "코드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [],
+    "suggested_code": "11항 소제목",
+    "line": "p6:L3"
+   }
+  ]
+ },
+ "raw_text": "### toxicity\ncomp_name | comp_cas | endpoint | descriptor | q | species | sex | duration_value | duration_unit | physical_form | exposure_type | converted | read_across_cas | guideline | data_source | classification | statements | status | line\n |  | TX_ORAL | LD50 | {value:12.2,unit:'ml/kg'} | Rat |  |  |  |  |  |  |  |  | ECHA |  |  | 값있음 | p6:L5\n |  | TX_DERMAL | LD50 | {upper_op:'>',upper:16,unit:'mL/kg'} | Rabbit |  |  |  |  |  |  |  |  |  | ECHA |  |  | 값있음 | p6:L6\n |  | TX_INHAL | LC50 | {upper_op:'>',upper:4.9,unit:'mg/L'} | Rat |  | 4 | hr | 증기 |  |  |  |  |  | ECHA |  |  | 값있음 | p6:L7\n |  | TX_SKIN | 결과기술 |  | 토끼 |  |  |  |  |  |  |  | OECD TG 404 |  | 자극성을 나타내지 않음; 토끼 및 사람에서 자극 일으키지 않음 | 값있음 | p6:L8\n |  | TX_EYE | 결과기술 |  | 토끼 |  |  |  |  |  |  |  | OECD TG 405 |  | 눈에 자극을 일으키지 않음; 각막지수:0.33/4, 홍채지수:0.56/2, 결막지수1/3, 결막부종지수:0.33/4 | 값있음 | p6:L11\n |  | TX_RESP_SENS |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 자료없음 | p6:L15\n |  | TX_SKIN_SENS | 결과기술 |  | 기니피그 |  |  |  |  |  |  |  | OECD TG 406 |  | 비과민성 | 값있음 | p6:L16\n |  | TX_REPRO | NOAEL | {value:750,unit:'ppm'} | 랫드 |  |  |  |  |  | 반복 경구 2세대 생식 독성 |  |  | OECD TG 416 |  | 1500ppm ~2000ppm에서 체중, 체중증가량, 먹이섭취량 감소가 관찰됨 | 값있음 | p6:L21\n |  | TX_REPRO | NOAEL | {value:2.5,unit:'mg/L air'} | 랫드 |  |  |  |  |  | 반복 흡입 태아 발달 독성 |  |  | OECD TG 414 |  | 체중 및 간 무게 감소, 새끼 크기 감소 및 늑골 기형이 관찰되었으나 발달 독성보다는 모체독성이 큰 것으로 판단됨 | 값있음 | p6:L24\n |  | TX_STOT_SE | 결과기술 |  | 사람 |  |  |  |  |  | 1회 노출 |  |  |  | 중추신경 장애, 폐수종, 호흡기계 자극을 일으킴; 표적장기 : 중추신경, 호흡기계 | 값있음 | p6:L29\n |  | TX_STOT_RE | NOAEL | {value:125,unit:'mg/kg bw/day'} | 랫드 |  |  |  |  | 경구 | 반복 경구 90일 |  | 71-36-3 | EPA OTS 798.2650 |  | 600mg/kg 농도군에서 노출 2~3분 후에 운동실조, 활동 저하 등의 중추신경계 이상이 관찰되었음 1시간 이내로 회복됨. 알코올 영향으로 보임. 그 외 특별한 영향은 관찰되지 않음 | 값있음 | p6:L32\n |  | TX_STOT_RE | NOAEC | {value:500,unit:'ppm'} | 랫드 |  |  |  |  | 흡입 | 반복 흡입 90일 |  | 71-36-3 | EPA OTS 798.2450 |  | 중간 및 가장 높은 농도에서 활동 수준 저하의 급성, 단기 증상이 관찰됨, 체중 및 먹이섭취량 감소, 비강의 상부 호흡기 자극 증상이 관찰됨 | 값있음 | p6:L37\n |  | TX_ASP |  |  |  |  |  |  |  |  |  |  |  |  |  |  | 자료없음 | p6:L42\n\n### cmr\ncomp_name | comp_cas | hazard | agency | class | status | note | line\n |  | 발암성 |  |  | 자료없음 |  | p6:L17\n |  | 생식세포변이원성 |  |  |  | 시험관 내 미생물을 이용한 박테리아복귀돌연변이 시험 결과, 대사활성계 유무에 관계없이 음성; 생체 내 포유류 적혈구 미소핵 시험 결과, 음성 | p6:L18\n\n### narratives\nitem_code | title_raw | start | end\nS11_ROUTE | 가. 가능성이 높은 노출 경로에 관한 정보 | p5:L36 | p5:L40\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\nS11_ROUTE | 나. 단기 및 장기 노출에 의한 지연, 급성 영향 및 만성 영향 | 코드없음 |  |  |  |  | 11항 소제목 | p6:L3\nTX_SKIN | ○ | 피부 부식성 또는 자극성 | 코드없음 |  |  | 토끼를 대상으로 피부부식성/자극성 시험 결과, 자극성을 나타내지 않음 | 11항 소제목 | p6:L8\nTX_EYE | ○ | 심한 눈 손상 또는 자극성 | 코드없음 |  |  | 토끼를 대상으로 심한눈손상/자극성 시험 결과, 눈에 자극을 일으키지 않음 | 11항 소제목 | p6:L11\nTX_RESP_SENS | ○ | 호흡기 과민성 | 코드없음 |  |  |  | 11항 소제목 | p6:L15\nTX_SKIN_SENS | ○ | 피부 과민성 | 코드없음 |  |  | 기니피그를 이용한 Buehler 시험 결과 비과민성 | 11항 소제목 | p6:L16\nTX_CARC | ○ | 발암성 | 코드없음 |  |  |  | 11항 소제목 | p6:L17\nTX_MUTA | ○ | 생식세포 변이원성 | 코드없음 |  |  | 시험관 내 미생물을 이용한 박테리아복귀돌연변이 시험 결과, 대사활성계 유무에 관계없이 음성; 생체 내 포유류 적혈구 미소핵 시험 결과, 음성 | 11항 소제목 | p6:L18\nTX_REPRO | ○ | 생식독성 | 코드없음 |  |  | 랫드를 대상으로 2세대 생식 독성 시험 결과, 1500ppm ~2000ppm에서 체중, 체중증가량, 먹이섭취량 감소가 관찰됨; NOAELsystemic toxicity, adult rats=750 ppm nominal; 랫드를 대상으로 태아 발달 독성 시험결과, 체중 및 간 무게 감소, 새끼 크기 감소 및 늑골 기형이 관찰되었으나 발달 독성보다는 모체독성이 큰 것으로 판단됨; NOAELmaternal toxicity=2.5 mg/L air nominal, NOAEL teratogenicity=10 mg/L air nominal | 11항 소제목 | p6:L21\nTX_STOT_SE | ○ | 특정 표적장기 독성(1회 노출) | 코드없음 |  |  | 사람에서 중추신경 장애, 폐수종, 호흡기계 자극을 일으킴; 표적장기 : 중추신경, 호흡기계 | 11항 소제목 | p6:L29\nTX_STOT_RE | ○ | 특정 표적장기 독성(반복 노출) | 코드없음 |  |  | <유사물질 CAS No. 71-36-3> 랫드를 대상으로 설치류 90일 반복투여경구독성 시험 결과, 600mg/kg 농도군에서 노출 2~3분 후에 운동실조, 활동 저하 등의 중추신경계 이상이 관찰되었음 1시간 이내로 회복됨. 알코올 영향으로 보임. 그 외 특별한 영향은 관찰되지 않음; NOAEL=level:125 mg/kg bw/day nominal; 랫드를 대상으로 90일 흡입 독성 시험 결과, 중간 및 가장 높은 농도에서 활동 수준 저하의 급성, 단기 증상이 관찰됨, 체중 및 먹이섭취량 감소, 비강의 상부 호흡기 자극 증상이 관찰됨; NOAEC=500ppm | 11항 소제목 | p6:L31\nTX_ASP | ○ | 흡인유해성 | 코드없음 |  |  |  | 11항 소제목 | p6:L42",
+ "mode": "rows",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 5478,
+  "completion_tokens": 2165,
+  "total_tokens": 7643
+ },
+ "attempts": 1,
+ "errors": [
+  "toxicity p6:L6 |  | TX_DERMAL | LD50 | {upper_op:'>',up…: 열 20개, 기대 19개",
+  "toxicity p6:L7 |  | TX_INHAL | LC50 | {upper_op:'>',upp…: 열 20개, 기대 19개",
+  "toxicity p6:L8 |  | TX_SKIN | 결과기술 |  | 토끼 |  |  |  |  …: 열 18개, 기대 19개",
+  "toxicity p6:L11 |  | TX_EYE | 결과기술 |  | 토끼 |  |  |  |  |…: 열 18개, 기대 19개",
+  "toxicity p6:L16 |  | TX_SKIN_SENS | 결과기술 |  | 기니피그 |  | …: 열 18개, 기대 19개",
+  "toxicity p6:L29 |  | TX_STOT_SE | 결과기술 |  | 사람 |  |  |  …: 열 18개, 기대 19개",
+  "toxicity p6:L37 |  | TX_STOT_RE | NOAEC | {value:500,uni…: .descriptor: 'NOAEC' is not valid under any of the given schemas",
+  "extras p6:L8 TX_SKIN | ○ | 피부 부식성 또는 자극성 | 코드없음 |  | …: .reason: '피부 부식성 또는 자극성' is not valid under any of the given schemas",
+  "extras p6:L11 TX_EYE | ○ | 심한 눈 손상 또는 자극성 | 코드없음 |  | …: .reason: '심한 눈 손상 또는 자극성' is not valid under any of the given schemas",
+  "extras p6:L15 TX_RESP_SENS | ○ | 호흡기 과민성 | 코드없음 |  |  …: .reason: '호흡기 과민성' is not valid under any of the given schemas",
+  "extras p6:L16 TX_SKIN_SENS | ○ | 피부 과민성 | 코드없음 |  |  |…: .reason: '피부 과민성' is not valid under any of the given schemas",
+  "extras p6:L17 TX_CARC | ○ | 발암성 | 코드없음 |  |  |  | 11항 …: .reason: '발암성' is not valid under any of the given schemas",
+  "extras p6:L18 TX_MUTA | ○ | 생식세포 변이원성 | 코드없음 |  |  | 시…: .reason: '생식세포 변이원성' is not valid under any of the given schemas",
+  "extras p6:L21 TX_REPRO | ○ | 생식독성 | 코드없음 |  |  | 랫드를 대…: .reason: '생식독성' is not valid under any of the given schemas",
+  "extras p6:L29 TX_STOT_SE | ○ | 특정 표적장기 독성(1회 노출) | 코드없…: .reason: '특정 표적장기 독성(1회 노출)' is not valid under any of the given schemas",
+  "extras p6:L31 TX_STOT_RE | ○ | 특정 표적장기 독성(반복 노출) | 코드없…: .reason: '특정 표적장기 독성(반복 노출)' is not valid under any of the given schemas",
+  "extras p6:L42 TX_ASP | ○ | 흡인유해성 | 코드없음 |  |  |  | 11항…: .reason: '흡인유해성' is not valid under any of the given schemas"
+ ],
+ "requests": [
+  {
+   "mode": "rows",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 5478,
+    "completion_tokens": 2165,
+    "total_tokens": 7643
+   },
+   "seconds": 29.279,
+   "chars": 4048,
+   "whitespace": 1138,
+   "head": "### toxicity\ncomp_name | comp_cas | endpoint | descriptor | q | species | sex | duration_value | duration_unit | physical_form | exposure_type | converted | read_across_cas | guideline | data_source | classification | statements | status | line\n |  | TX_ORAL | LD50 | {value:12.2,unit:'ml/kg'} | Rat |  |  |  |  |  |  |  |  | ECHA |  |  | 값있음 | p6:L5\n |  | TX_DERMAL | LD50 | {upper_op:'>',upper:16,unit:'mL/kg'} | Rabbit |  |  |  |  |  |  |  |  |  | ECHA |  |  | 값있음 | p6:L6\n |  | TX_INHAL | LC50 | ",
+   "tail": " 장애, 폐수종, 호흡기계 자극을 일으킴; 표적장기 : 중추신경, 호흡기계 | 11항 소제목 | p6:L29\nTX_STOT_RE | ○ | 특정 표적장기 독성(반복 노출) | 코드없음 |  |  | <유사물질 CAS No. 71-36-3> 랫드를 대상으로 설치류 90일 반복투여경구독성 시험 결과, 600mg/kg 농도군에서 노출 2~3분 후에 운동실조, 활동 저하 등의 중추신경계 이상이 관찰되었음 1시간 이내로 회복됨. 알코올 영향으로 보임. 그 외 특별한 영향은 관찰되지 않음; NOAEL=level:125 mg/kg bw/day nominal; 랫드를 대상으로 90일 흡입 독성 시험 결과, 중간 및 가장 높은 농도에서 활동 수준 저하의 급성, 단기 증상이 관찰됨, 체중 및 먹이섭취량 감소, 비강의 상부 호흡기 자극 증상이 관찰됨; NOAEC=500ppm | 11항 소제목 | p6:L31\nTX_ASP | ○ | 흡인유해성 | 코드없음 |  |  |  | 11항 소제목 | p6:L42"
+  }
+ ],
+ "seconds": 29.32,
+ "check_problems": [],
+ "reextract_attempt": {
+  "ok": true,
+  "parsed": {
+   "toxicity": [
+    {
+     "comp_name": null,
+     "comp_cas": null,
+     "endpoint": "TX_ORAL",
+     "descriptor": "LD50",
+     "q": {
+      "raw": "{value:12.2,unit:'mL/kg'}"
+     },
+     "species": "Rat",
+     "sex": null,
+     "duration_value": null,
+     "duration_unit": null,
+     "physical_form": null,
+     "exposure_type": null,
+     "converted": null,
+     "read_across_cas": null,
+     "guideline": null,
+     "data_source": "ECHA",
+     "classification": null,
+     "statements": [],
+     "status": "값있음",
+     "line": "p6:L5"
+    },
+    {
+     "comp_name": null,
+     "comp_cas": null,
+     "endpoint": "TX_RESP_SENS",
+     "descriptor": "결과기술",
+     "q": {
+      "raw": "자료없음"
+     },
+     "species": null,
+     "sex": null,
+     "duration_value": null,
+     "duration_unit": null,
+     "physical_form": null,
+     "exposure_type": null,
+     "converted": null,
+     "read_across_cas": null,
+     "guideline": null,
+     "data_source": null,
+     "classification": null,
+     "statements": [],
+     "status": "자료없음",
+     "line": "p6:L15"
+    },
+    {
+     "comp_name": null,
+     "comp_cas": null,
+     "endpoint": "TX_CARC",
+     "descriptor": "결과기술",
+     "q": {
+      "raw": "자료없음"
+     },
+     "species": null,
+     "sex": null,
+     "duration_value": null,
+     "duration_unit": null,
+     "physical_form": null,
+     "exposure_type": null,
+     "converted": null,
+     "read_across_cas": null,
+     "guideline": null,
+     "data_source": null,
+     "classification": null,
+     "statements": [],
+     "status": "자료없음",
+     "line": "p6:L17"
+    },
+    {
+     "comp_name": null,
+     "comp_cas": null,
+     "endpoint": "TX_MUTA",
+     "descriptor": "결과기술",
+     "q": null,
+     "species": null,
+     "sex": null,
+     "duration_value": null,
+     "duration_unit": null,
+     "physical_form": null,
+     "exposure_type": null,
+     "converted": null,
+     "read_across_cas": null,
+     "guideline": null,
+     "data_source": null,
+     "classification": null,
+     "statements": [
+      {
+       "value": "시험관 내 미생물을 이용한 박테리아복귀돌연변이 시험 결과, 대사활성계 유무에 관계없이 음성 OECD Guideline 471",
+       "line": "p6:L18"
+      },
+      {
+       "value": "생체 내 포유류 적혈구 미소핵 시험 결과, 음성 OECD Guideline 474",
+       "line": "p6:L18"
+      }
+     ],
+     "status": "값있음",
+     "line": "p6:L18"
+    },
+    {
+     "comp_name": null,
+     "comp_cas": null,
+     "endpoint": "TX_ASP",
+     "descriptor": "결과기술",
+     "q": {
+      "raw": "자료없음"
+     },
+     "species": null,
+     "sex": null,
+     "duration_value": null,
+     "duration_unit": null,
+     "physical_form": null,
+     "exposure_type": null,
+     "converted": null,
+     "read_across_cas": null,
+     "guideline": null,
+     "data_source": null,
+     "classification": null,
+     "statements": [],
+     "status": "자료없음",
+     "line": "p6:L42"
+    }
+   ],
+   "cmr": [],
+   "narratives": [
+    {
+     "item_code": "S11_ROUTE",
+     "title_raw": "가. 가능성이 높은 노출 경로에 관한 정보",
+     "start": "p5:L36",
+     "end": "p5:L40"
+    }
+   ],
+   "extras": [
+    {
+     "after_item": "S11_ROUTE",
+     "title_raw": "나. 단기 및 장기 노출에 의한 지연, 급성 영향 및 만성 영향",
+     "reason": "코드없음",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": null,
+     "statements": [],
+     "suggested_code": "11항 독성 정보 섹션 시작",
+     "line": "p6:L3"
+    }
+   ]
+  },
+  "raw_text": "### toxicity\ncomp_name | comp_cas | endpoint | descriptor | q | species | sex | duration_value | duration_unit | physical_form | exposure_type | converted | read_across_cas | guideline | data_source | classification | statements | status | line\n |  | TX_ORAL | LD50 | {value:12.2,unit:'mL/kg'} | Rat |  |  |  |  |  |  |  |  | ECHA |  |  | 값있음 | p6:L5\n |  | TX_DERMAL | LD50 | {upper_op:'>',upper:16,unit:'mL/kg'} | Rabbit |  |  |  |  |  |  |  |  |  | ECHA |  |  | 값있음 | p6:L6\n |  | TX_INHAL | LC50 | {upper_op:'>',upper:4.9,unit:'mg/L'} | Rat |  | 4 | hr | 증기 |  |  |  |  |  | ECHA |  |  | 값있음 | p6:L7\n |  | TX_SKIN | 결과기술 |  | 토끼 |  |  |  |  |  |  |  |  | OECD TG 404 | NITE(2009) |  | 자극성을 나타내지 않음; 토끼 및 사람에서 자극 일으키지 않음. | 값있음 | p6:L8\n |  | TX_EYE | 결과기술 |  | 토끼 |  |  |  |  |  |  |  |  | OECD TG 405 |  |  | 눈에 자극을 일으키지 않음. 각막지수:0.33/4, 홍채지수:0.56/2, 결막지수1/3, 결막부종지수:0.33/4, GLP | 값있음 | p6:L11\n |  | TX_RESP_SENS | 결과기술 |  |  |  |  |  |  |  |  |  |  |  |  |  | 자료없음 | p6:L15\n |  | TX_SKIN_SENS | 결과기술 |  | 기니피그 |  |  |  |  |  |  |  |  | OECD TG 406 |  |  | 비과민성 | 값있음 | p6:L16\n |  | TX_CARC | 결과기술 |  |  |  |  |  |  |  |  |  |  |  |  |  | 자료없음 | p6:L17\n |  | TX_MUTA | 결과기술 |  |  |  |  |  |  |  |  |  |  |  |  |  | 시험관 내 미생물을 이용한 박테리아복귀돌연변이 시험 결과, 대사활성계 유무에 관계없이 음성 OECD Guideline 471; 생체 내 포유류 적혈구 미소핵 시험 결과, 음성 OECD Guideline 474 | 값있음 | p6:L18\n |  | TX_REPRO | NOAEL | {value:750,unit:'ppm'} | 랫드 |  |  |  |  |  | 2세대 생식 독성 |  |  | OECD TG 416 |  |  | 1500ppm ~2000ppm에서 체중, 체중증가량, 먹이섭취량 감소가 관찰됨; NOAELsystemic toxicity, adult rats=750 ppm nominal | 값있음 | p6:L21\n |  | TX_REPRO | NOAEL | {value:2.5,unit:'mg/L air'} | 랫드 |  |  |  |  |  | 태아 발달 독성 |  |  | OECD TG 414 |  |  | NOAELmaternal toxicity=2.5 mg/L air nominal, NOAEL teratogenicity=10 mg/L air nominal GLP; 체중 및 간 무게 감소, 새끼 크기 감소 및 늑골 기형이 관찰되었으나 발달 독성보다는 모체독성이 큰 것으로 판단됨 | 값있음 | p6:L24\n |  | TX_STOT_SE | 결과기술 |  | 사람 |  |  |  |  |  |  |  |  |  |  |  | 중추신경 장애, 폐수종, 호흡기계 자극을 일으킴; 표적장기 : 중추신경, 호흡기계 | 값있음 | p6:L29\n |  | TX_STOT_RE | NOAEL | {value:125,unit:'mg/kg bw/day'} | 랫드 |  |  | day | 경구 | 90일 반복투여경구독성 |  |  | EPA OTS 798.2650 |  |  | 600mg/kg 농도군에서 노출 2~3분 후에 운동실조, 활동 저하 등의 중추신경계 이상이 관찰되었음 1시간 이내로 회복됨. 알코올 영향으로 보임. 그 외 특별한 영향은 관찰되지 않음 | 값있음 | p6:L32\n |  | TX_STOT_RE | NOAEC | {value:500,unit:'ppm'} | 랫드 |  |  |  |  | 흡입 | 90일 흡입 독성 |  |  | EPA OTS 798.2450 |  |  | 중간 및 가장 높은 농도에서 활동 수준 저하의 급성, 단기 증상이 관찰됨, 체중 및 먹이섭취량 감소, 비강의 상부 호흡기 자극 증상이 관찰됨 | 값있음 | p6:L37\n |  | TX_ASP | 결과기술 |  |  |  |  |  |  |  |  |  |  |  |  |  | 자료없음 | p6:L42\n\n### cmr\ncomp_name | comp_cas | hazard | agency | class | status | note | line\n\n### narratives\nitem_code | title_raw | start | end\nS11_ROUTE | 가. 가능성이 높은 노출 경로에 관한 정보 | p5:L36 | p5:L40\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\nS11_ROUTE | 나. 단기 및 장기 노출에 의한 지연, 급성 영향 및 만성 영향 | 코드없음 |  |  |  |  | 11항 독성 정보 섹션 시작 | p6:L3\nS11_ROUTE | ○ | 급성 독성 | 코드없음 |  |  |  | 11항 하위 항목 | p6:L4\nS11_ROUTE | ○ | 피부 부식성 또는 자극성 | 코드없음 |  |  |  | 11항 하위 항목 | p6:L8\nS11_ROUTE | ○ | 심한 눈 손상 또는 자극성 | 코드없음 |  |  |  | 11항 하위 항목 | p6:L11\nS11_ROUTE | ○ | 호흡기 과민성 | 코드없음 |  |  |  | 11항 하위 항목 | p6:L15\nS11_ROUTE | ○ | 피부 과민성 | 코드없음 |  |  |  | 11항 하위 항목 | p6:L16\nS11_ROUTE | ○ | 발암성 | 코드없음 |  |  |  | 11항 하위 항목 | p6:L17\nS11_ROUTE | ○ | 생식세포 변이원성 | 코드없음 |  |  |  | 11항 하위 항목 | p6:L18\nS11_ROUTE | ○ | 생식독성 | 코드없음 |  |  |  | 11항 하위 항목 | p6:L21\nS11_ROUTE | ○ | 특정 표적장기 독성(1회 노출) | 코드없음 |  |  |  | 11항 하위 항목 | p6:L29\nS11_ROUTE | ○ | 특정 표적장기 독성(반복 노출) | 코드없음 |  |  |  | 11항 하위 항목 | p6:L31\nS11_ROUTE | ○ | 흡인유해성 | 코드없음 |  |  |  | 11항 하위 항목 | p6:L42",
+  "mode": "rows",
+  "finish_reason": "stop",
+  "usage": {
+   "prompt_tokens": 6302,
+   "completion_tokens": 1899,
+   "total_tokens": 8201
+  },
+  "attempts": 1,
+  "errors": [
+   "toxicity p6:L6 |  | TX_DERMAL | LD50 | {upper_op:'>',up…: 열 20개, 기대 19개",
+   "toxicity p6:L7 |  | TX_INHAL | LC50 | {upper_op:'>',upp…: 열 20개, 기대 19개",
+   "toxicity p6:L8 |  | TX_SKIN | 결과기술 |  | 토끼 |  |  |  |  …: 열 20개, 기대 19개",
+   "toxicity p6:L11 |  | TX_EYE | 결과기술 |  | 토끼 |  |  |  |  |…: 열 20개, 기대 19개",
+   "toxicity p6:L16 |  | TX_SKIN_SENS | 결과기술 |  | 기니피그 |  | …: 열 20개, 기대 19개",
+   "toxicity p6:L21 |  | TX_REPRO | NOAEL | {value:750,unit:…: 열 20개, 기대 19개",
+   "toxicity p6:L24 |  | TX_REPRO | NOAEL | {value:2.5,unit:…: 열 20개, 기대 19개",
+   "toxicity p6:L29 |  | TX_STOT_SE | 결과기술 |  | 사람 |  |  |  …: 열 20개, 기대 19개",
+   "toxicity p6:L32 |  | TX_STOT_RE | NOAEL | {value:125,uni…: .physical_form: '경구' is not valid under any of the given schemas",
+   "toxicity p6:L37 |  | TX_STOT_RE | NOAEC | {value:500,uni…: 열 20개, 기대 19개",
+   "extras p6:L4 S11_ROUTE | ○ | 급성 독성 | 코드없음 |  |  |  | …: .reason: '급성 독성' is not valid under any of the given schemas",
+   "extras p6:L8 S11_ROUTE | ○ | 피부 부식성 또는 자극성 | 코드없음 |  …: .reason: '피부 부식성 또는 자극성' is not valid under any of the given schemas",
+   "extras p6:L11 S11_ROUTE | ○ | 심한 눈 손상 또는 자극성 | 코드없음 | …: .reason: '심한 눈 손상 또는 자극성' is not valid under any of the given schemas",
+   "extras p6:L15 S11_ROUTE | ○ | 호흡기 과민성 | 코드없음 |  |  |  …: .reason: '호흡기 과민성' is not valid under any of the given schemas",
+   "extras p6:L16 S11_ROUTE | ○ | 피부 과민성 | 코드없음 |  |  |  |…: .reason: '피부 과민성' is not valid under any of the given schemas",
+   "extras p6:L17 S11_ROUTE | ○ | 발암성 | 코드없음 |  |  |  | 11…: .reason: '발암성' is not valid under any of the given schemas",
+   "extras p6:L18 S11_ROUTE | ○ | 생식세포 변이원성 | 코드없음 |  |  |…: .reason: '생식세포 변이원성' is not valid under any of the given schemas",
+   "extras p6:L21 S11_ROUTE | ○ | 생식독성 | 코드없음 |  |  |  | 1…: .reason: '생식독성' is not valid under any of the given schemas",
+   "extras p6:L29 S11_ROUTE | ○ | 특정 표적장기 독성(1회 노출) | 코드없음…: .reason: '특정 표적장기 독성(1회 노출)' is not valid under any of the given schemas",
+   "extras p6:L31 S11_ROUTE | ○ | 특정 표적장기 독성(반복 노출) | 코드없음…: .reason: '특정 표적장기 독성(반복 노출)' is not valid under any of the given schemas",
+   "extras p6:L42 S11_ROUTE | ○ | 흡인유해성 | 코드없음 |  |  |  | …: .reason: '흡인유해성' is not valid under any of the given schemas"
+  ],
+  "requests": [
+   {
+    "mode": "rows",
+    "finish_reason": "stop",
+    "usage": {
+     "prompt_tokens": 6302,
+     "completion_tokens": 1899,
+     "total_tokens": 8201
+    },
+    "seconds": 18.035,
+    "chars": 3588,
+    "whitespace": 1088,
+    "head": "### toxicity\ncomp_name | comp_cas | endpoint | descriptor | q | species | sex | duration_value | duration_unit | physical_form | exposure_type | converted | read_across_cas | guideline | data_source | classification | statements | status | line\n |  | TX_ORAL | LD50 | {value:12.2,unit:'mL/kg'} | Rat |  |  |  |  |  |  |  |  | ECHA |  |  | 값있음 | p6:L5\n |  | TX_DERMAL | LD50 | {upper_op:'>',upper:16,unit:'mL/kg'} | Rabbit |  |  |  |  |  |  |  |  |  | ECHA |  |  | 값있음 | p6:L6\n |  | TX_INHAL | LC50 | ",
+    "tail": "\nS11_ROUTE | ○ | 호흡기 과민성 | 코드없음 |  |  |  | 11항 하위 항목 | p6:L15\nS11_ROUTE | ○ | 피부 과민성 | 코드없음 |  |  |  | 11항 하위 항목 | p6:L16\nS11_ROUTE | ○ | 발암성 | 코드없음 |  |  |  | 11항 하위 항목 | p6:L17\nS11_ROUTE | ○ | 생식세포 변이원성 | 코드없음 |  |  |  | 11항 하위 항목 | p6:L18\nS11_ROUTE | ○ | 생식독성 | 코드없음 |  |  |  | 11항 하위 항목 | p6:L21\nS11_ROUTE | ○ | 특정 표적장기 독성(1회 노출) | 코드없음 |  |  |  | 11항 하위 항목 | p6:L29\nS11_ROUTE | ○ | 특정 표적장기 독성(반복 노출) | 코드없음 |  |  |  | 11항 하위 항목 | p6:L31\nS11_ROUTE | ○ | 흡인유해성 | 코드없음 |  |  |  | 11항 하위 항목 | p6:L42"
+   }
+  ],
+  "seconds": 18.083,
+  "check_problems": []
+ }
+}

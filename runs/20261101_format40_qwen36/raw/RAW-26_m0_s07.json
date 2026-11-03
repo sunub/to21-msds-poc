@@ -1,0 +1,66 @@
+{
+ "doc_id": "RAW-26",
+ "msds_index": 0,
+ "section": 7,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S7_HANDLING",
+    "title_raw": "안전취급요령",
+    "start": "p4:L5",
+    "end": "p4:L6"
+   },
+   {
+    "item_code": "S7_STORAGE",
+    "title_raw": "안전한 저장 방법",
+    "start": "p4:L7",
+    "end": "p4:L10"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S7_STORAGE",
+    "title_raw": "보관안정성",
+    "reason": "필드없음",
+    "statements": [
+     {
+      "key": "유효 기간",
+      "value": "(다음 기간 안에 사용) 12 개월",
+      "line": "p4:L13"
+     }
+    ],
+    "line": "p4:L12"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S7_HANDLING\",\n      \"title_raw\": \"안전취급요령\",\n      \"start\": \"p4:L5\",\n      \"end\": \"p4:L6\"\n    },\n    {\n      \"item_code\": \"S7_STORAGE\",\n      \"title_raw\": \"안전한 저장 방법\",\n      \"start\": \"p4:L7\",\n      \"end\": \"p4:L10\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S7_STORAGE\",\n      \"title_raw\": \"보관안정성\",\n      \"reason\": \"필드없음\",\n      \"statements\": [\n        {\n          \"key\": \"유효 기간\",\n          \"value\": \"(다음 기간 안에 사용) 12 개월\"\n        ,\n          \"line\": \"p4:L13\"\n        }\n      ],\n      \"line\": \"p4:L12\"\n    }\n  ]\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 2139,
+  "completion_tokens": 240,
+  "total_tokens": 2379
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 2139,
+    "completion_tokens": 240,
+    "total_tokens": 2379
+   },
+   "seconds": 5.148,
+   "chars": 564,
+   "whitespace": 227,
+   "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S7_HANDLING\",\n      \"title_raw\": \"안전취급요령\",\n      \"start\": \"p4:L5\",\n      \"end\": \"p4:L6\"\n    },\n    {\n      \"item_code\": \"S7_STORAGE\",\n      \"title_raw\": \"안전한 저장 방법\",\n      \"start\": \"p4:L7\",\n      \"end\": \"p4:L10\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S7_STORAGE\",\n      \"title_raw\": \"보관안정성\",\n      \"reason\": \"필드없음\",\n      \"statements\": [\n        {\n          \"key\": \"유효 기간\",\n          \"value\": \"(다음 기간 안에 사용) 12 개월\"\n        ,\n          \"line\"",
+   "tail": ": \"p4:L13\"\n        }\n      ],\n      \"line\": \"p4:L12\"\n    }\n  ]\n}"
+  }
+ ],
+ "seconds": 5.149,
+ "check_problems": []
+}

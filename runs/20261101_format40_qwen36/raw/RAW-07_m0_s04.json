@@ -1,0 +1,101 @@
+{
+ "doc_id": "RAW-07",
+ "msds_index": 0,
+ "section": 4,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S4_EYE",
+    "title_raw": "가. 눈에 들어갔을 때",
+    "start": "p3:L16",
+    "end": "p3:L18"
+   },
+   {
+    "item_code": "S4_SKIN",
+    "title_raw": "나. 피부에 접촉했을 때",
+    "start": "p3:L19",
+    "end": "p3:L20"
+   },
+   {
+    "item_code": "S4_INHAL",
+    "title_raw": "다. 흡입했을 때",
+    "start": "p3:L21",
+    "end": "p3:L22"
+   },
+   {
+    "item_code": "S4_INGEST",
+    "title_raw": "라. 먹었을 때",
+    "start": "p3:L23",
+    "end": "p3:L25"
+   },
+   {
+    "item_code": "S4_DOCTOR",
+    "title_raw": "마. 기타 의사의 주의사항",
+    "start": "p3:L26",
+    "end": "p3:L31"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S4_DOCTOR",
+    "title_raw": "증상",
+    "reason": "필드없음",
+    "statements": [
+     {
+      "value": "작열감. 실명을 초래할 수 있음. 발적과 눈물을 일으킬 수 있음. 홍진 (피부 발적).",
+      "line": "p3:L29"
+     }
+    ],
+    "suggested_code": "S4_SYMPTOM",
+    "line": "p3:L29"
+   },
+   {
+    "after_item": "S4_SYMPTOM",
+    "title_raw": "노출 영향",
+    "reason": "필드없음",
+    "q": {
+     "raw": "자료 없음",
+     "value": null,
+     "unit": null
+    },
+    "statements": [
+     {
+      "value": "자료 없음",
+      "line": "p3:L30"
+     }
+    ],
+    "line": "p3:L30"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S4_EYE\",\n      \"title_raw\": \"가. 눈에 들어갔을 때\",\n      \"start\": \"p3:L16\",\n      \"end\": \"p3:L18\"\n    },\n    {\n      \"item_code\": \"S4_SKIN\",\n      \"title_raw\": \"나. 피부에 접촉했을 때\",\n      \"start\": \"p3:L19\",\n      \"end\": \"p3:L20\"\n    },\n    {\n      \"item_code\": \"S4_INHAL\",\n      \"title_raw\": \"다. 흡입했을 때\",\n      \"start\": \"p3:L21\",\n      \"end\": \"p3:L22\"\n    },\n    {\n      \"item_code\": \"S4_INGEST\",\n      \"title_raw\": \"라. 먹었을 때\",\n      \"start\": \"p3:L23\",\n      \"end\": \"p3:L25\"\n    },\n    {\n      \"item_code\": \"S4_DOCTOR\",\n      \"title_raw\": \"마. 기타 의사의 주의사항\",\n      \"start\": \"p3:L26\",\n      \"end\": \"p3:L31\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S4_DOCTOR\",\n      \"title_raw\": \"증상\",\n      \"reason\": \"필드없음\",\n      \"statements\": [\n        {\n          \"value\": \"작열감. 실명을 초래할 수 있음. 발적과 눈물을 일으킬 수 있음. 홍진 (피부 발적).\"\n        ,\n          \"line\": \"p3:L29\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S4_SYMPTOM\"\n    ,\n      \"line\": \"p3:L29\"\n    },\n    {\n      \"after_item\": \"S4_SYMPTOM\",\n      \"title_raw\": \"노출 영향\",\n      \"reason\": \"필드없음\",\n      \"q\": {\n        \"raw\": \"자료 없음\",\n        \"value\": null,\n        \"unit\": null\n      },\n      \"statements\": [\n        {\n          \"value\": \"자료 없음\"\n        ,\n          \"line\": \"p3:L30\"\n        }\n      ]\n    ,\n      \"line\": \"p3:L30\"\n    }\n  ]\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 2414,
+  "completion_tokens": 569,
+  "total_tokens": 2983
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 2414,
+    "completion_tokens": 569,
+    "total_tokens": 2983
+   },
+   "seconds": 10.423,
+   "chars": 1323,
+   "whitespace": 537,
+   "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S4_EYE\",\n      \"title_raw\": \"가. 눈에 들어갔을 때\",\n      \"start\": \"p3:L16\",\n      \"end\": \"p3:L18\"\n    },\n    {\n      \"item_code\": \"S4_SKIN\",\n      \"title_raw\": \"나. 피부에 접촉했을 때\",\n      \"start\": \"p3:L19\",\n      \"end\": \"p3:L20\"\n    },\n    {\n      \"item_code\": \"S4_INHAL\",\n      \"title_raw\": \"다. 흡입했을 때\",\n      \"start\": \"p3:L21\",\n      \"end\": \"p3:L22\"\n    },\n    {\n      \"item_code\": \"S4_INGEST\",\n      \"title_raw\": \"라. 먹었을 때\",\n      \"start\": \"p3:L23\",\n      \"end\": ",
+   "tail": "적과 눈물을 일으킬 수 있음. 홍진 (피부 발적).\"\n        ,\n          \"line\": \"p3:L29\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S4_SYMPTOM\"\n    ,\n      \"line\": \"p3:L29\"\n    },\n    {\n      \"after_item\": \"S4_SYMPTOM\",\n      \"title_raw\": \"노출 영향\",\n      \"reason\": \"필드없음\",\n      \"q\": {\n        \"raw\": \"자료 없음\",\n        \"value\": null,\n        \"unit\": null\n      },\n      \"statements\": [\n        {\n          \"value\": \"자료 없음\"\n        ,\n          \"line\": \"p3:L30\"\n        }\n      ]\n    ,\n      \"line\": \"p3:L30\"\n    }\n  ]\n}"
+  }
+ ],
+ "seconds": 10.424,
+ "check_problems": []
+}

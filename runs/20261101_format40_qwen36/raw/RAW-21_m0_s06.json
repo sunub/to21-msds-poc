@@ -1,0 +1,72 @@
+{
+ "doc_id": "RAW-21",
+ "msds_index": 0,
+ "section": 6,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S6_PERSONAL",
+    "title_raw": "가. 인체를 보호하기 위해 필요한 조치사항 및 보호구",
+    "start": "p3:L15",
+    "end": "p3:L21"
+   },
+   {
+    "item_code": "S6_ENV",
+    "title_raw": "나. 환경을 보호하기 위해 필요한 조치사항",
+    "start": "p3:L22",
+    "end": "p3:L23"
+   },
+   {
+    "item_code": "S6_CLEANUP",
+    "title_raw": "다. 정화 또는 제거 방법",
+    "start": "p3:L24",
+    "end": "p3:L30"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S6_CLEANUP",
+    "title_raw": "폴리비닐 염화물 3 / 9",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "value": "폴리비닐 염화물 3 / 9",
+      "line": "p3:L31"
+     }
+    ],
+    "suggested_code": "PAGE_INFO",
+    "line": "p3:L31"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S6_PERSONAL\",\n      \"title_raw\": \"가. 인체를 보호하기 위해 필요한 조치사항 및 보호구\",\n      \"start\": \"p3:L15\",\n      \"end\": \"p3:L21\"\n    },\n    {\n      \"item_code\": \"S6_ENV\",\n      \"title_raw\": \"나. 환경을 보호하기 위해 필요한 조치사항\",\n      \"start\": \"p3:L22\",\n      \"end\": \"p3:L23\"\n    },\n    {\n      \"item_code\": \"S6_CLEANUP\",\n      \"title_raw\": \"다. 정화 또는 제거 방법\",\n      \"start\": \"p3:L24\",\n      \"end\": \"p3:L30\"\n    }\n  ]\n  ,\n  \"extras\": [\n    {\n      \"after_item\": \"S6_CLEANUP\",\n      \"title_raw\": \"폴리비닐 염화물 3 / 9\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"폴리비닐 염화물 3 / 9\"\n        ,\n          \"line\": \"p3:L31\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"PAGE_INFO\"\n    ,\n      \"line\": \"p3:L31\"\n    }\n  ]\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 2162,
+  "completion_tokens": 331,
+  "total_tokens": 2493
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 2162,
+    "completion_tokens": 331,
+    "total_tokens": 2493
+   },
+   "seconds": 6.916,
+   "chars": 758,
+   "whitespace": 294,
+   "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S6_PERSONAL\",\n      \"title_raw\": \"가. 인체를 보호하기 위해 필요한 조치사항 및 보호구\",\n      \"start\": \"p3:L15\",\n      \"end\": \"p3:L21\"\n    },\n    {\n      \"item_code\": \"S6_ENV\",\n      \"title_raw\": \"나. 환경을 보호하기 위해 필요한 조치사항\",\n      \"start\": \"p3:L22\",\n      \"end\": \"p3:L23\"\n    },\n    {\n      \"item_code\": \"S6_CLEANUP\",\n      \"title_raw\": \"다. 정화 또는 제거 방법\",\n      \"start\": \"p3:L24\",\n      \"end\": \"p3:L30\"\n    }\n  ]\n  ,\n  \"extras\": [\n    {\n      \"after_item\": \"S6_CLEANUP\",\n      \"t",
+   "tail": "itle_raw\": \"폴리비닐 염화물 3 / 9\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"폴리비닐 염화물 3 / 9\"\n        ,\n          \"line\": \"p3:L31\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"PAGE_INFO\"\n    ,\n      \"line\": \"p3:L31\"\n    }\n  ]\n}"
+  }
+ ],
+ "seconds": 6.917,
+ "check_problems": []
+}

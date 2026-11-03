@@ -1,0 +1,155 @@
+{
+ "doc_id": "RAW-40",
+ "msds_index": 0,
+ "section": 8,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "exposure_limits": [
+   {
+    "comp_name": null,
+    "comp_cas": null,
+    "standard": "국내",
+    "limit_type": null,
+    "q": null,
+    "form": null,
+    "kr_basis": null,
+    "bio_medium": null,
+    "bio_timing": null,
+    "bio_determinant": null,
+    "notations": [],
+    "line": "p3:L10"
+   },
+   {
+    "comp_name": null,
+    "comp_cas": null,
+    "standard": "ACGIH",
+    "limit_type": null,
+    "q": null,
+    "form": null,
+    "kr_basis": null,
+    "bio_medium": null,
+    "bio_timing": null,
+    "bio_determinant": null,
+    "notations": [],
+    "line": "p3:L12"
+   },
+   {
+    "comp_name": null,
+    "comp_cas": null,
+    "standard": "생물학적",
+    "limit_type": null,
+    "q": null,
+    "form": null,
+    "kr_basis": null,
+    "bio_medium": null,
+    "bio_timing": null,
+    "bio_determinant": null,
+    "notations": [],
+    "line": "p3:L14"
+   }
+  ],
+  "narratives": [
+   {
+    "item_code": "S8_ENG",
+    "title_raw": "나. 적절한 공학적 관리",
+    "start": "p3:L15",
+    "end": "p3:L16"
+   },
+   {
+    "item_code": "S8_RESP",
+    "title_raw": "○ 호흡기 보호",
+    "start": "p3:L18",
+    "end": "p3:L19"
+   },
+   {
+    "item_code": "S8_EYE",
+    "title_raw": "○ 눈 보호",
+    "start": "p3:L20",
+    "end": "p3:L22"
+   },
+   {
+    "item_code": "S8_HAND",
+    "title_raw": "○ 손 보호",
+    "start": "p3:L23",
+    "end": "p3:L24"
+   },
+   {
+    "item_code": "S8_BODY",
+    "title_raw": "○ 신체 보호",
+    "start": "p3:L25",
+    "end": "p3:L26"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": null,
+    "title_raw": "가. 화학물질의 노출기준, 생물학적 노출기준 등",
+    "reason": "코드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [
+     {
+      "value": "국내노출기준: 해당 없음",
+      "line": "p3:L8"
+     },
+     {
+      "value": "ACGIH노출기준: 해당 없음",
+      "line": "p3:L8"
+     },
+     {
+      "value": "생물학적 노출기준: 해당 없음",
+      "line": "p3:L8"
+     }
+    ],
+    "suggested_code": null,
+    "line": "p3:L8"
+   },
+   {
+    "after_item": "S8_BODY",
+    "title_raw": null,
+    "reason": "코드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [
+     {
+      "value": "작업장 가까운 곳에 세안설비와 비상세척설비(샤워식)를 설치하시오.",
+      "line": "p3:L22"
+     }
+    ],
+    "suggested_code": null,
+    "line": "p3:L22"
+   }
+  ]
+ },
+ "raw_text": "### exposure_limits\ncomp_name | comp_cas | standard | limit_type | q | form | kr_basis | bio_medium | bio_timing | bio_determinant | notations | line\n |  | 국내 |  |  |  |  |  |  |  |  | p3:L10\n |  | ACGIH |  |  |  |  |  |  |  |  | p3:L12\n |  | 생물학적 |  |  |  |  |  |  |  |  | p3:L14\n\n### narratives\nitem_code | title_raw | start | end\nS8_ENG | 나. 적절한 공학적 관리 | p3:L15 | p3:L16\nS8_RESP | ○ 호흡기 보호 | p3:L18 | p3:L19\nS8_EYE | ○ 눈 보호 | p3:L20 | p3:L22\nS8_HAND | ○ 손 보호 | p3:L23 | p3:L24\nS8_BODY | ○ 신체 보호 | p3:L25 | p3:L26\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\n | 가. 화학물질의 노출기준, 생물학적 노출기준 등 | 코드없음 |  |  |  | 국내노출기준: 해당 없음; ACGIH노출기준: 해당 없음; 생물학적 노출기준: 해당 없음 |  | p3:L8\nS8_BODY |  | 코드없음 |  |  |  | 작업장 가까운 곳에 세안설비와 비상세척설비(샤워식)를 설치하시오. |  | p3:L22",
+ "mode": "rows",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 3561,
+  "completion_tokens": 376,
+  "total_tokens": 3937
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "rows",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 3561,
+    "completion_tokens": 376,
+    "total_tokens": 3937
+   },
+   "seconds": 7.609,
+   "chars": 810,
+   "whitespace": 222,
+   "head": "### exposure_limits\ncomp_name | comp_cas | standard | limit_type | q | form | kr_basis | bio_medium | bio_timing | bio_determinant | notations | line\n |  | 국내 |  |  |  |  |  |  |  |  | p3:L10\n |  | ACGIH |  |  |  |  |  |  |  |  | p3:L12\n |  | 생물학적 |  |  |  |  |  |  |  |  | p3:L14\n\n### narratives\nitem_code | title_raw | start | end\nS8_ENG | 나. 적절한 공학적 관리 | p3:L15 | p3:L16\nS8_RESP | ○ 호흡기 보호 | p3:L18 | p3:L19\nS8_EYE | ○ 눈 보호 | p3:L20 | p3:L22\nS8_HAND | ○ 손 보호 | p3:L23 | p3:L24\nS8_BODY | ○ 신체 보호 | ",
+   "tail": "p3:L25 | p3:L26\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\n | 가. 화학물질의 노출기준, 생물학적 노출기준 등 | 코드없음 |  |  |  | 국내노출기준: 해당 없음; ACGIH노출기준: 해당 없음; 생물학적 노출기준: 해당 없음 |  | p3:L8\nS8_BODY |  | 코드없음 |  |  |  | 작업장 가까운 곳에 세안설비와 비상세척설비(샤워식)를 설치하시오. |  | p3:L22"
+  }
+ ],
+ "seconds": 7.613,
+ "check_problems": []
+}

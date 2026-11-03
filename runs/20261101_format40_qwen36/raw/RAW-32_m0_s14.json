@@ -1,0 +1,95 @@
+{
+ "doc_id": "RAW-32",
+ "msds_index": 0,
+ "section": 14,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "transport": [
+   {
+    "mode": "공통",
+    "basis_raw": null,
+    "regulated": true,
+    "un_no": "1993",
+    "shipping_name": "Flammable liquids, n.o.s. (톨루엔, 메틸트리메톡시실란)",
+    "hazard_class": "3",
+    "sub_risk": null,
+    "packing_group": "II",
+    "marine_pollutant": "자료없음",
+    "ems_fire": "F-E",
+    "ems_spill": "S-E",
+    "line": "p13:L20"
+   }
+  ],
+  "narratives": [
+   {
+    "item_code": "S14_SPECIAL",
+    "title_raw": "사용자가 운송 또는 운송수단에 관련해 알 필요가 있거나 필요한 특별한 안전대책",
+    "start": "p13:L26",
+    "end": "p13:L30"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S14_SPECIAL",
+    "title_raw": "지역 운송 시 위험물안전관리법에 따름.",
+    "reason": "코드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [
+     {
+      "value": "지역 운송 시 위험물안전관리법에 따름.",
+      "line": "p13:L27"
+     }
+    ],
+    "suggested_code": null,
+    "line": "p13:L27"
+   },
+   {
+    "after_item": "S14_SPECIAL",
+    "title_raw": "DOT 및 기타 규정에 맞게 포장 및 운송",
+    "reason": "코드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [
+     {
+      "value": "DOT 및 기타 규정에 맞게 포장 및 운송",
+      "line": "p13:L28"
+     }
+    ],
+    "suggested_code": null,
+    "line": "p13:L28"
+   }
+  ]
+ },
+ "raw_text": "### transport\nmode | basis_raw | regulated | un_no | shipping_name | hazard_class | sub_risk | packing_group | marine_pollutant | ems_fire | ems_spill | line\n공통 |  | true | 1993 | Flammable liquids, n.o.s. (톨루엔, 메틸트리메톡시실란) | 3 |  | II | 자료없음 | F-E | S-E | p13:L20\n\n### narratives\nitem_code | title_raw | start | end\nS14_SPECIAL | 사용자가 운송 또는 운송수단에 관련해 알 필요가 있거나 필요한 특별한 안전대책 | p13:L26 | p13:L30\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\nS14_SPECIAL | 지역 운송 시 위험물안전관리법에 따름. | 코드없음 |  |  |  | 지역 운송 시 위험물안전관리법에 따름. |  | p13:L27\nS14_SPECIAL | DOT 및 기타 규정에 맞게 포장 및 운송 | 코드없음 |  |  |  | DOT 및 기타 규정에 맞게 포장 및 운송 |  | p13:L28",
+ "mode": "rows",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 3143,
+  "completion_tokens": 274,
+  "total_tokens": 3417
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "rows",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 3143,
+    "completion_tokens": 274,
+    "total_tokens": 3417
+   },
+   "seconds": 6.487,
+   "chars": 683,
+   "whitespace": 154,
+   "head": "### transport\nmode | basis_raw | regulated | un_no | shipping_name | hazard_class | sub_risk | packing_group | marine_pollutant | ems_fire | ems_spill | line\n공통 |  | true | 1993 | Flammable liquids, n.o.s. (톨루엔, 메틸트리메톡시실란) | 3 |  | II | 자료없음 | F-E | S-E | p13:L20\n\n### narratives\nitem_code | title_raw | start | end\nS14_SPECIAL | 사용자가 운송 또는 운송수단에 관련해 알 필요가 있거나 필요한 특별한 안전대책 | p13:L26 | p13:L30\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | lin",
+   "tail": "e\nS14_SPECIAL | 지역 운송 시 위험물안전관리법에 따름. | 코드없음 |  |  |  | 지역 운송 시 위험물안전관리법에 따름. |  | p13:L27\nS14_SPECIAL | DOT 및 기타 규정에 맞게 포장 및 운송 | 코드없음 |  |  |  | DOT 및 기타 규정에 맞게 포장 및 운송 |  | p13:L28"
+  }
+ ],
+ "seconds": 6.489,
+ "check_problems": []
+}

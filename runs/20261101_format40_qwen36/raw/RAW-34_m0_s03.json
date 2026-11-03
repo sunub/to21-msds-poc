@@ -1,0 +1,100 @@
+{
+ "doc_id": "RAW-34",
+ "msds_index": 0,
+ "section": 3,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "composition": {
+   "type": "혼합물",
+   "no_hazardous_component": false,
+   "lines": {
+    "type": "p2:L14",
+    "no_hazardous_component": "p2:L14"
+   }
+  },
+  "components": [
+   {
+    "name": "Ethylene propylene copolymer",
+    "name_en": "1-Propene, polymer with ethene",
+    "synonyms": [],
+    "cas_no": "9010-79-1",
+    "ke_no": "KE-29433",
+    "ec_no": null,
+    "other_id": null,
+    "other_id_type": null,
+    "parent_seq": null,
+    "read_across_cas": null,
+    "content": {
+     "raw": ">=95 ~ <=99 %",
+     "lower_op": ">=",
+     "lower": 95,
+     "upper_op": "<=",
+     "upper": 99,
+     "unit": "%"
+    },
+    "content_note": null,
+    "content_basis": "중량",
+    "trade_secret": false,
+    "approval_no": null,
+    "approval_expiry": null,
+    "line": "p2:L16"
+   },
+   {
+    "name": "Zinc oxide",
+    "name_en": "zinc oxide",
+    "synonyms": [],
+    "cas_no": "1314-13-2",
+    "ke_no": "KE-35565",
+    "ec_no": null,
+    "other_id": null,
+    "other_id_type": null,
+    "parent_seq": null,
+    "read_across_cas": null,
+    "content": {
+     "raw": ">=2.5 ~ <=5 %",
+     "lower_op": ">=",
+     "lower": 2.5,
+     "upper_op": "<=",
+     "upper": 5,
+     "unit": "%"
+    },
+    "content_note": null,
+    "content_basis": "중량",
+    "trade_secret": false,
+    "approval_no": null,
+    "approval_expiry": null,
+    "line": "p2:L17"
+   }
+  ],
+  "extras": []
+ },
+ "raw_text": "### composition\ntype | no_hazardous_component | line\n혼합물 | false | p2:L14\n\n### components\nname | name_en | synonyms | cas_no | ke_no | ec_no | other_id | other_id_type | parent_seq | read_across_cas | content | content_note | content_basis | trade_secret | approval_no | approval_expiry | line\nEthylene propylene copolymer | 1-Propene, polymer with ethene |  | 9010-79-1 | KE-29433 |  |  |  |  |  | >=95 ~ <=99 % |  | 중량 | false |  |  | p2:L16\nZinc oxide | zinc oxide |  | 1314-13-2 | KE-35565 |  |  |  |  |  | >=2.5 ~ <=5 % |  | 중량 | false |  |  | p2:L17\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line",
+ "mode": "rows",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 3734,
+  "completion_tokens": 246,
+  "total_tokens": 3980
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "rows",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 3734,
+    "completion_tokens": 246,
+    "total_tokens": 3980
+   },
+   "seconds": 5.231,
+   "chars": 663,
+   "whitespace": 146,
+   "head": "### composition\ntype | no_hazardous_component | line\n혼합물 | false | p2:L14\n\n### components\nname | name_en | synonyms | cas_no | ke_no | ec_no | other_id | other_id_type | parent_seq | read_across_cas | content | content_note | content_basis | trade_secret | approval_no | approval_expiry | line\nEthylene propylene copolymer | 1-Propene, polymer with ethene |  | 9010-79-1 | KE-29433 |  |  |  |  |  | >=95 ~ <=99 % |  | 중량 | false |  |  | p2:L16\nZinc oxide | zinc oxide |  | 1314-13-2 | KE-35565 |  |  ",
+   "tail": "|  |  |  | >=2.5 ~ <=5 % |  | 중량 | false |  |  | p2:L17\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line"
+  }
+ ],
+ "seconds": 5.233,
+ "check_problems": []
+}

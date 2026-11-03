@@ -1,0 +1,149 @@
+{
+ "doc_id": "RAW-27",
+ "msds_index": 0,
+ "section": 8,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "exposure_limits": [
+   {
+    "comp_name": "과산화수소 32 wt%",
+    "comp_cas": "7722-84-1",
+    "standard": "국내",
+    "limit_type": "TWA",
+    "q": {
+     "raw": "1 ppm",
+     "value": 1,
+     "unit": "ppm"
+    },
+    "form": null,
+    "kr_basis": "노출기준",
+    "bio_medium": null,
+    "bio_timing": null,
+    "bio_determinant": null,
+    "notations": [],
+    "line": "p5:L3"
+   },
+   {
+    "comp_name": "과산화수소 32 wt%",
+    "comp_cas": "7722-84-1",
+    "standard": "ACGIH",
+    "limit_type": "TWA",
+    "q": {
+     "raw": "1 ppm",
+     "value": 1,
+     "unit": "ppm"
+    },
+    "form": null,
+    "kr_basis": null,
+    "bio_medium": null,
+    "bio_timing": null,
+    "bio_determinant": null,
+    "notations": [],
+    "line": "p5:L4"
+   },
+   {
+    "comp_name": null,
+    "comp_cas": null,
+    "standard": "생물학적",
+    "limit_type": "기타",
+    "q": {
+     "raw": "자료없음"
+    },
+    "form": null,
+    "kr_basis": null,
+    "bio_medium": null,
+    "bio_timing": null,
+    "bio_determinant": null,
+    "notations": [],
+    "line": "p5:L5"
+   }
+  ],
+  "narratives": [
+   {
+    "item_code": "S8_ENG",
+    "title_raw": "나. 적절한 공학적 관리",
+    "start": "p5:L6",
+    "end": "p5:L8"
+   },
+   {
+    "item_code": "S8_RESP",
+    "title_raw": "호흡기 보호",
+    "start": "p5:L10",
+    "end": "p5:L20"
+   },
+   {
+    "item_code": "S8_EYE",
+    "title_raw": "눈 보호",
+    "start": "p5:L21",
+    "end": "p5:L21"
+   },
+   {
+    "item_code": "S8_HAND",
+    "title_raw": "손 보호",
+    "start": "p5:L22",
+    "end": "p5:L22"
+   },
+   {
+    "item_code": "S8_BODY",
+    "title_raw": "신체 보호",
+    "start": "p5:L23",
+    "end": "p5:L23"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S8_END",
+    "title_raw": "가. 화학물질의 노출기준, 생물학적 노출기준 등",
+    "reason": "코드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [
+     {
+      "value": "국내규정 TWA – 1ppm (1.4mg/m3)",
+      "line": "p5:L2"
+     },
+     {
+      "value": "ACGIH 규정 TWA - 1ppm",
+      "line": "p5:L2"
+     },
+     {
+      "value": "생물학적 노출기준 자료 없음",
+      "line": "p5:L2"
+     }
+    ],
+    "suggested_code": null,
+    "line": "p5:L2"
+   }
+  ]
+ },
+ "raw_text": "### exposure_limits\ncomp_name | comp_cas | standard | limit_type | q | form | kr_basis | bio_medium | bio_timing | bio_determinant | notations | line\n과산화수소 32 wt% | 7722-84-1 | 국내 | TWA | 1 ppm |  | 노출기준 |  |  |  |  | p5:L3\n과산화수소 32 wt% | 7722-84-1 | ACGIH | TWA | 1 ppm |  |  |  |  |  |  | p5:L4\n |  | 생물학적 | 기타 | 자료없음 |  |  |  |  |  |  | p5:L5\n\n### narratives\nitem_code | title_raw | start | end\nS8_ENG | 나. 적절한 공학적 관리 | p5:L6 | p5:L8\nS8_RESP | 호흡기 보호 | p5:L10 | p5:L20\nS8_EYE | 눈 보호 | p5:L21 | p5:L21\nS8_HAND | 손 보호 | p5:L22 | p5:L22\nS8_BODY | 신체 보호 | p5:L23 | p5:L23\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\nS8_END | 가. 화학물질의 노출기준, 생물학적 노출기준 등 | 코드없음 |  |  |  | 국내규정 TWA – 1ppm (1.4mg/m3); ACGIH 규정 TWA - 1ppm; 생물학적 노출기준 자료 없음 |  | p5:L2",
+ "mode": "rows",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 3835,
+  "completion_tokens": 377,
+  "total_tokens": 4212
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "rows",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 3835,
+    "completion_tokens": 377,
+    "total_tokens": 4212
+   },
+   "seconds": 7.83,
+   "chars": 808,
+   "whitespace": 206,
+   "head": "### exposure_limits\ncomp_name | comp_cas | standard | limit_type | q | form | kr_basis | bio_medium | bio_timing | bio_determinant | notations | line\n과산화수소 32 wt% | 7722-84-1 | 국내 | TWA | 1 ppm |  | 노출기준 |  |  |  |  | p5:L3\n과산화수소 32 wt% | 7722-84-1 | ACGIH | TWA | 1 ppm |  |  |  |  |  |  | p5:L4\n |  | 생물학적 | 기타 | 자료없음 |  |  |  |  |  |  | p5:L5\n\n### narratives\nitem_code | title_raw | start | end\nS8_ENG | 나. 적절한 공학적 관리 | p5:L6 | p5:L8\nS8_RESP | 호흡기 보호 | p5:L10 | p5:L20\nS8_EYE | 눈 보호 | p5:L21 | p5:",
+   "tail": "L21\nS8_HAND | 손 보호 | p5:L22 | p5:L22\nS8_BODY | 신체 보호 | p5:L23 | p5:L23\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\nS8_END | 가. 화학물질의 노출기준, 생물학적 노출기준 등 | 코드없음 |  |  |  | 국내규정 TWA – 1ppm (1.4mg/m3); ACGIH 규정 TWA - 1ppm; 생물학적 노출기준 자료 없음 |  | p5:L2"
+  }
+ ],
+ "seconds": 7.835,
+ "check_problems": []
+}

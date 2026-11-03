@@ -1,0 +1,85 @@
+{
+ "doc_id": "RAW-48",
+ "msds_index": 0,
+ "section": 7,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S7_HANDLING",
+    "title_raw": "가. 안전취급요령",
+    "start": "p2:L6",
+    "end": "p2:L6"
+   },
+   {
+    "item_code": "S7_STORAGE",
+    "title_raw": "나. 안전한 저장방법",
+    "start": "p2:L7",
+    "end": "p2:L7"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S7_END",
+    "title_raw": "7. 취급 및 저장방법",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "value": "피해야 할 물질 및 조건에 유의하시오.",
+      "refs": [
+       "S7_HANDLING"
+      ],
+      "line": "p2:L6"
+     }
+    ],
+    "suggested_code": "S7_HANDLING_NOTE",
+    "line": "p2:L6"
+   },
+   {
+    "after_item": "S7_HANDLING",
+    "title_raw": "7. 취급 및 저장방법",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "value": "용기를 단단히 밀폐하시오. 직사광선을 피하고 환기가 잘 되는 곳에 보관하시오.",
+      "refs": [
+       "S7_STORAGE"
+      ],
+      "line": "p2:L7"
+     }
+    ],
+    "suggested_code": "S7_STORAGE_NOTE",
+    "line": "p2:L7"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S7_HANDLING\",\n      \"title_raw\": \"가. 안전취급요령\",\n      \"start\": \"p2:L6\",\n      \"end\": \"p2:L6\"\n    },\n    {\n      \"item_code\": \"S7_STORAGE\",\n      \"title_raw\": \"나. 안전한 저장방법\",\n      \"start\": \"p2:L7\",\n      \"end\": \"p2:L7\"\n    }\n  ]\n  ,\n  \"extras\": [\n    {\n      \"after_item\": \"S7_END\",\n      \"title_raw\": \"7. 취급 및 저장방법\",\n      \"reason\": \"코드없음\"\n    ,\n      \"statements\": [\n        {\n          \"value\": \"피해야 할 물질 및 조건에 유의하시오.\"\n        ,\n          \"refs\": [\n            \"S7_HANDLING\"\n          ]\n        ,\n          \"line\": \"p2:L6\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S7_HANDLING_NOTE\"\n    ,\n      \"line\": \"p2:L6\"\n    },\n    {\n      \"after_item\": \"S7_HANDLING\",\n      \"title_raw\": \"7. 취급 및 저장방법\",\n      \"reason\": \"코드없음\"\n    ,\n      \"statements\": [\n        {\n          \"value\": \"용기를 단단히 밀폐하시오. 직사광선을 피하고 환기가 잘 되는 곳에 보관하시오.\"\n        ,\n          \"refs\": [\n            \"S7_STORAGE\"\n          ]\n        ,\n          \"line\": \"p2:L7\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S7_STORAGE_NOTE\"\n    ,\n      \"line\": \"p2:L7\"\n    }\n  ]\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 1987,
+  "completion_tokens": 429,
+  "total_tokens": 2416
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 1987,
+    "completion_tokens": 429,
+    "total_tokens": 2416
+   },
+   "seconds": 7.884,
+   "chars": 1081,
+   "whitespace": 477,
+   "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S7_HANDLING\",\n      \"title_raw\": \"가. 안전취급요령\",\n      \"start\": \"p2:L6\",\n      \"end\": \"p2:L6\"\n    },\n    {\n      \"item_code\": \"S7_STORAGE\",\n      \"title_raw\": \"나. 안전한 저장방법\",\n      \"start\": \"p2:L7\",\n      \"end\": \"p2:L7\"\n    }\n  ]\n  ,\n  \"extras\": [\n    {\n      \"after_item\": \"S7_END\",\n      \"title_raw\": \"7. 취급 및 저장방법\",\n      \"reason\": \"코드없음\"\n    ,\n      \"statements\": [\n        {\n          \"value\": \"피해야 할 물질 및 조건에 유의하시오.\"\n        ,\n          \"refs\": [\n     ",
+   "tail": "    ]\n    ,\n      \"suggested_code\": \"S7_HANDLING_NOTE\"\n    ,\n      \"line\": \"p2:L6\"\n    },\n    {\n      \"after_item\": \"S7_HANDLING\",\n      \"title_raw\": \"7. 취급 및 저장방법\",\n      \"reason\": \"코드없음\"\n    ,\n      \"statements\": [\n        {\n          \"value\": \"용기를 단단히 밀폐하시오. 직사광선을 피하고 환기가 잘 되는 곳에 보관하시오.\"\n        ,\n          \"refs\": [\n            \"S7_STORAGE\"\n          ]\n        ,\n          \"line\": \"p2:L7\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S7_STORAGE_NOTE\"\n    ,\n      \"line\": \"p2:L7\"\n    }\n  ]\n}"
+  }
+ ],
+ "seconds": 7.885,
+ "check_problems": []
+}

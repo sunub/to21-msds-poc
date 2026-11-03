@@ -1,0 +1,133 @@
+{
+ "doc_id": "RAW-41",
+ "msds_index": 0,
+ "section": 3,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "composition": {
+   "type": "혼합물",
+   "no_hazardous_component": false,
+   "lines": {
+    "type": "p2:L3",
+    "no_hazardous_component": "p2:L3"
+   }
+  },
+  "components": [
+   {
+    "name": "폴리아민(QUATERNARY POLYAMINE)",
+    "name_en": "QUATERNARY POLYAMINE",
+    "synonyms": [
+     "1,2-Ethanediamine, polymer with(chloromethyl)oxirane and N-methylmethanamine"
+    ],
+    "cas_no": "42751-79-1",
+    "ke_no": null,
+    "ec_no": null,
+    "other_id": null,
+    "other_id_type": null,
+    "parent_seq": null,
+    "read_across_cas": null,
+    "content": {
+     "raw": "45-55",
+     "lower_op": ">=",
+     "lower": 45,
+     "upper_op": "<=",
+     "upper": 55,
+     "unit": "%"
+    },
+    "content_note": null,
+    "content_basis": null,
+    "trade_secret": null,
+    "approval_no": null,
+    "approval_expiry": null,
+    "line": "p2:L5"
+   },
+   {
+    "name": "물",
+    "name_en": "DIHYDROGEN OXIDE",
+    "synonyms": [],
+    "cas_no": "7732-18-5",
+    "ke_no": null,
+    "ec_no": null,
+    "other_id": null,
+    "other_id_type": null,
+    "parent_seq": null,
+    "read_across_cas": null,
+    "content": {
+     "raw": "45-55",
+     "lower_op": ">=",
+     "lower": 45,
+     "upper_op": "<=",
+     "upper": 55,
+     "unit": "%"
+    },
+    "content_note": null,
+    "content_basis": null,
+    "trade_secret": null,
+    "approval_no": null,
+    "approval_expiry": null,
+    "line": "p2:L6"
+   },
+   {
+    "name": "1,2-에탄디아민, 중합체 ,함유 (클로로메틸)옥시레인 AND N-메틸-",
+    "name_en": null,
+    "synonyms": [],
+    "cas_no": null,
+    "ke_no": null,
+    "ec_no": null,
+    "other_id": null,
+    "other_id_type": null,
+    "parent_seq": null,
+    "read_across_cas": null,
+    "content": null,
+    "content_note": null,
+    "content_basis": null,
+    "trade_secret": null,
+    "approval_no": null,
+    "approval_expiry": null,
+    "line": "p2:L7"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "COMP_END",
+    "title_raw": "1,2-에탄디아민, 중합체 ,함유 (클로로메틸)옥시레인 AND N-메틸-",
+    "reason": "필드없음",
+    "comp_name": "1,2-에탄디아민, 중합체 ,함유 (클로로메틸)옥시레인 AND N-메틸-",
+    "comp_cas": null,
+    "q": null,
+    "statements": [],
+    "suggested_code": null,
+    "line": "p2:L7"
+   }
+  ]
+ },
+ "raw_text": "### composition\ntype | no_hazardous_component | line\n혼합물 | false | p2:L3\n\n### components\nname | name_en | synonyms | cas_no | ke_no | ec_no | other_id | other_id_type | parent_seq | read_across_cas | content | content_note | content_basis | trade_secret | approval_no | approval_expiry | line\n폴리아민(QUATERNARY POLYAMINE) | QUATERNARY POLYAMINE | 1,2-Ethanediamine, polymer with(chloromethyl)oxirane and N-methylmethanamine | 42751-79-1 |  |  |  |  |  |  | 45-55 |  |  |  |  |  | p2:L5\n물 | DIHYDROGEN OXIDE |  | 7732-18-5 |  |  |  |  |  |  | 45-55 |  |  |  |  |  | p2:L6\n1,2-에탄디아민, 중합체 ,함유 (클로로메틸)옥시레인 AND N-메틸- |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | p2:L7\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\nCOMP_END | 1,2-에탄디아민, 중합체 ,함유 (클로로메틸)옥시레인 AND N-메틸- | 필드없음 | 1,2-에탄디아민, 중합체 ,함유 (클로로메틸)옥시레인 AND N-메틸- |  |  |  |  | p2:L7",
+ "mode": "rows",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 3786,
+  "completion_tokens": 414,
+  "total_tokens": 4200
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "rows",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 3786,
+    "completion_tokens": 414,
+    "total_tokens": 4200
+   },
+   "seconds": 7.625,
+   "chars": 892,
+   "whitespace": 205,
+   "head": "### composition\ntype | no_hazardous_component | line\n혼합물 | false | p2:L3\n\n### components\nname | name_en | synonyms | cas_no | ke_no | ec_no | other_id | other_id_type | parent_seq | read_across_cas | content | content_note | content_basis | trade_secret | approval_no | approval_expiry | line\n폴리아민(QUATERNARY POLYAMINE) | QUATERNARY POLYAMINE | 1,2-Ethanediamine, polymer with(chloromethyl)oxirane and N-methylmethanamine | 42751-79-1 |  |  |  |  |  |  | 45-55 |  |  |  |  |  | p2:L5\n물 | DIHYDROGEN O",
+   "tail": "XIDE |  | 7732-18-5 |  |  |  |  |  |  | 45-55 |  |  |  |  |  | p2:L6\n1,2-에탄디아민, 중합체 ,함유 (클로로메틸)옥시레인 AND N-메틸- |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | p2:L7\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\nCOMP_END | 1,2-에탄디아민, 중합체 ,함유 (클로로메틸)옥시레인 AND N-메틸- | 필드없음 | 1,2-에탄디아민, 중합체 ,함유 (클로로메틸)옥시레인 AND N-메틸- |  |  |  |  | p2:L7"
+  }
+ ],
+ "seconds": 7.63,
+ "check_problems": []
+}

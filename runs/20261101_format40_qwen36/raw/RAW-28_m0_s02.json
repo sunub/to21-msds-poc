@@ -1,0 +1,68 @@
+{
+ "doc_id": "RAW-28",
+ "msds_index": 0,
+ "section": 2,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "hazard": {
+   "classified": false,
+   "signal_word": "없음",
+   "p_statements": [
+    {
+     "code": "P370+P261",
+     "type": "대응",
+     "text": "화재 시: 흄의 흡입을 피하시오.",
+     "line": "p2:L2"
+    }
+   ],
+   "other_hazards": [
+    {
+     "key": "기타 유해성",
+     "value": "자료없음",
+     "line": "p2:L3"
+    }
+   ],
+   "nfpa": {
+    "health": 0,
+    "fire": 0,
+    "reactivity": 0,
+    "special": ""
+   },
+   "lines": {
+    "pictograms": "p1:L31",
+    "nfpa": "p1:L31"
+   }
+  },
+  "narratives": [],
+  "extras": []
+ },
+ "raw_text": "{\n  \"hazard\": {\n    \"classified\": false,\n    \"signal_word\": \"없음\",\n    \"p_statements\": [\n      {\n        \"code\": \"P370+P261\",\n        \"type\": \"대응\",\n        \"text\": \"화재 시: 흄의 흡입을 피하시오.\",\n        \"line\": \"p2:L2\"\n      }\n    ],\n    \"other_hazards\": [\n      {\n        \"key\": \"기타 유해성\",\n        \"value\": \"자료없음\",\n        \"line\": \"p2:L3\"\n      }\n    ]\n  ,\n    \"nfpa\": {\n      \"health\": 0,\n      \"fire\": 0,\n      \"reactivity\": 0,\n      \"special\": \"\"\n    }\n  ,\n    \"lines\": {\n      \"pictograms\": \"p1:L31\",\n      \"nfpa\": \"p1:L31\"\n    }\n  }\n,\n  \"narratives\": []\n,\n  \"extras\": []\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 6665,
+  "completion_tokens": 259,
+  "total_tokens": 6924
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 6665,
+    "completion_tokens": 259,
+    "total_tokens": 6924
+   },
+   "seconds": 6.794,
+   "chars": 567,
+   "whitespace": 231,
+   "head": "{\n  \"hazard\": {\n    \"classified\": false,\n    \"signal_word\": \"없음\",\n    \"p_statements\": [\n      {\n        \"code\": \"P370+P261\",\n        \"type\": \"대응\",\n        \"text\": \"화재 시: 흄의 흡입을 피하시오.\",\n        \"line\": \"p2:L2\"\n      }\n    ],\n    \"other_hazards\": [\n      {\n        \"key\": \"기타 유해성\",\n        \"value\": \"자료없음\",\n        \"line\": \"p2:L3\"\n      }\n    ]\n  ,\n    \"nfpa\": {\n      \"health\": 0,\n      \"fire\": 0,\n      \"reactivity\": 0,\n      \"special\": \"\"\n    }\n  ,\n    \"lines\": {\n      \"pictograms\": \"p1:L31\",\n     ",
+   "tail": " \"nfpa\": \"p1:L31\"\n    }\n  }\n,\n  \"narratives\": []\n,\n  \"extras\": []\n}"
+  }
+ ],
+ "seconds": 6.795,
+ "check_problems": []
+}

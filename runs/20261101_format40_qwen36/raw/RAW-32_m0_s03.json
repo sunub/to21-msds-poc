@@ -1,0 +1,145 @@
+{
+ "doc_id": "RAW-32",
+ "msds_index": 0,
+ "section": 3,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "composition": {
+   "type": "혼합물",
+   "no_hazardous_component": false,
+   "lines": {
+    "type": "p3:L15",
+    "no_hazardous_component": "p3:L15"
+   }
+  },
+  "components": [
+   {
+    "name": "톨루엔",
+    "name_en": null,
+    "synonyms": [
+     "메틸벤젠"
+    ],
+    "cas_no": "108-88-3",
+    "ke_no": null,
+    "ec_no": null,
+    "other_id": null,
+    "other_id_type": null,
+    "parent_seq": null,
+    "read_across_cas": null,
+    "content": {
+     "raw": "30 ~ 40 %",
+     "lower_op": ">=",
+     "lower": 30,
+     "upper_op": "<=",
+     "upper": 40,
+     "unit": "%"
+    },
+    "content_note": null,
+    "content_basis": "중량",
+    "trade_secret": false,
+    "approval_no": null,
+    "approval_expiry": null,
+    "line": "p3:L17"
+   },
+   {
+    "name": "메틸트리메톡시실란",
+    "name_en": "METHYLTRIMETHOXYSILANE",
+    "synonyms": [],
+    "cas_no": "1185-55-3",
+    "ke_no": null,
+    "ec_no": null,
+    "other_id": null,
+    "other_id_type": null,
+    "parent_seq": null,
+    "read_across_cas": null,
+    "content": {
+     "raw": "1 ~ 10 %",
+     "lower_op": ">=",
+     "lower": 1,
+     "upper_op": "<=",
+     "upper": 10,
+     "unit": "%"
+    },
+    "content_note": null,
+    "content_basis": "중량",
+    "trade_secret": false,
+    "approval_no": null,
+    "approval_expiry": null,
+    "line": "p3:L18"
+   },
+   {
+    "name": "Siloxanes and Silicones, di-Me, Me methoxy, methoxy Ph, polymers with Me Ph silsesquioxanes",
+    "name_en": null,
+    "synonyms": [],
+    "cas_no": "68952-93-2",
+    "ke_no": null,
+    "ec_no": null,
+    "other_id": null,
+    "other_id_type": null,
+    "parent_seq": null,
+    "read_across_cas": null,
+    "content": {
+     "raw": "55 ~ 65 %",
+     "lower_op": ">=",
+     "lower": 55,
+     "upper_op": "<=",
+     "upper": 65,
+     "unit": "%"
+    },
+    "content_note": null,
+    "content_basis": "중량",
+    "trade_secret": false,
+    "approval_no": null,
+    "approval_expiry": null,
+    "line": "p3:L19"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": null,
+    "title_raw": "비고",
+    "reason": "필드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [
+     {
+      "value": "Not hazardous",
+      "line": "p3:L19"
+     }
+    ],
+    "suggested_code": null,
+    "line": "p3:L19"
+   }
+  ]
+ },
+ "raw_text": "### composition\ntype | no_hazardous_component | line\n혼합물 | false | p3:L15\n\n### components\nname | name_en | synonyms | cas_no | ke_no | ec_no | other_id | other_id_type | parent_seq | read_across_cas | content | content_note | content_basis | trade_secret | approval_no | approval_expiry | line\n톨루엔 | | 메틸벤젠 | 108-88-3 |  |  |  |  |  |  | 30 ~ 40 % |  | 중량 | false |  |  | p3:L17\n메틸트리메톡시실란 | METHYLTRIMETHOXYSILANE |  | 1185-55-3 |  |  |  |  |  |  | 1 ~ 10 % |  | 중량 | false |  |  | p3:L18\nSiloxanes and Silicones, di-Me, Me methoxy, methoxy Ph, polymers with Me Ph silsesquioxanes |  |  | 68952-93-2 |  |  |  |  |  |  | 55 ~ 65 % |  | 중량 | false |  |  | p3:L19\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\n | 비고 | 필드없음 |  |  |  | Not hazardous |  | p3:L19",
+ "mode": "rows",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 3828,
+  "completion_tokens": 343,
+  "total_tokens": 4171
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "rows",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 3828,
+    "completion_tokens": 343,
+    "total_tokens": 4171
+   },
+   "seconds": 7.478,
+   "chars": 818,
+   "whitespace": 204,
+   "head": "### composition\ntype | no_hazardous_component | line\n혼합물 | false | p3:L15\n\n### components\nname | name_en | synonyms | cas_no | ke_no | ec_no | other_id | other_id_type | parent_seq | read_across_cas | content | content_note | content_basis | trade_secret | approval_no | approval_expiry | line\n톨루엔 | | 메틸벤젠 | 108-88-3 |  |  |  |  |  |  | 30 ~ 40 % |  | 중량 | false |  |  | p3:L17\n메틸트리메톡시실란 | METHYLTRIMETHOXYSILANE |  | 1185-55-3 |  |  |  |  |  |  | 1 ~ 10 % |  | 중량 | false |  |  | p3:L18\nSiloxanes a",
+   "tail": "nd Silicones, di-Me, Me methoxy, methoxy Ph, polymers with Me Ph silsesquioxanes |  |  | 68952-93-2 |  |  |  |  |  |  | 55 ~ 65 % |  | 중량 | false |  |  | p3:L19\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\n | 비고 | 필드없음 |  |  |  | Not hazardous |  | p3:L19"
+  }
+ ],
+ "seconds": 7.481,
+ "check_problems": []
+}

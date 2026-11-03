@@ -1,0 +1,95 @@
+{
+ "doc_id": "RAW-36",
+ "msds_index": 0,
+ "section": 6,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S6_PERSONAL",
+    "title_raw": "가. 인체를 보호하기 위해 필요한 조치사항 및 보호구",
+    "start": "p2:L39",
+    "end": "p2:L43"
+   },
+   {
+    "item_code": "S6_ENV",
+    "title_raw": "나. 환경을 보호하기 위해 필요한 조치사항",
+    "start": "p3:L5",
+    "end": "p3:L7"
+   },
+   {
+    "item_code": "S6_CLEANUP",
+    "title_raw": "다. 정화 또는 제거 방법",
+    "start": "p3:L8",
+    "end": "p3:L16"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S9_END",
+    "title_raw": "6. 누출 사고 시 대처방법",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "value": "p2:L38",
+      "line": "p2:L38"
+     }
+    ],
+    "line": "p2:L38"
+   },
+   {
+    "after_item": "S6_PERSONAL",
+    "title_raw": "KO (한국어) 2/8",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "value": "p2:L44",
+      "line": "p2:L44"
+     }
+    ],
+    "line": "p2:L44"
+   },
+   {
+    "after_item": "S6_CLEANUP",
+    "title_raw": "물질 또는 고체 잔류물은 공인된 시설에서 폐기하십시오.",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "value": "p3:L4",
+      "line": "p3:L4"
+     }
+    ],
+    "line": "p3:L4"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S6_PERSONAL\",\n      \"title_raw\": \"가. 인체를 보호하기 위해 필요한 조치사항 및 보호구\",\n      \"start\": \"p2:L39\",\n      \"end\": \"p2:L43\"\n    },\n    {\n      \"item_code\": \"S6_ENV\",\n      \"title_raw\": \"나. 환경을 보호하기 위해 필요한 조치사항\",\n      \"start\": \"p3:L5\",\n      \"end\": \"p3:L7\"\n    },\n    {\n      \"item_code\": \"S6_CLEANUP\",\n      \"title_raw\": \"다. 정화 또는 제거 방법\",\n      \"start\": \"p3:L8\",\n      \"end\": \"p3:L16\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S9_END\",\n      \"title_raw\": \"6. 누출 사고 시 대처방법\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"p2:L38\"\n        ,\n          \"line\": \"p2:L38\"\n        }\n      ]\n    ,\n      \"line\": \"p2:L38\"\n    },\n    {\n      \"after_item\": \"S6_PERSONAL\",\n      \"title_raw\": \"KO (한국어) 2/8\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"p2:L44\"\n        ,\n          \"line\": \"p2:L44\"\n        }\n      ]\n    ,\n      \"line\": \"p2:L44\"\n    },\n    {\n      \"after_item\": \"S6_CLEANUP\",\n      \"title_raw\": \"물질 또는 고체 잔류물은 공인된 시설에서 폐기하십시오.\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"p3:L4\"\n        ,\n          \"line\": \"p3:L4\"\n        }\n      ]\n    ,\n      \"line\": \"p3:L4\"\n    }\n  ]\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 2288,
+  "completion_tokens": 506,
+  "total_tokens": 2794
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 2288,
+    "completion_tokens": 506,
+    "total_tokens": 2794
+   },
+   "seconds": 9.04,
+   "chars": 1215,
+   "whitespace": 508,
+   "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S6_PERSONAL\",\n      \"title_raw\": \"가. 인체를 보호하기 위해 필요한 조치사항 및 보호구\",\n      \"start\": \"p2:L39\",\n      \"end\": \"p2:L43\"\n    },\n    {\n      \"item_code\": \"S6_ENV\",\n      \"title_raw\": \"나. 환경을 보호하기 위해 필요한 조치사항\",\n      \"start\": \"p3:L5\",\n      \"end\": \"p3:L7\"\n    },\n    {\n      \"item_code\": \"S6_CLEANUP\",\n      \"title_raw\": \"다. 정화 또는 제거 방법\",\n      \"start\": \"p3:L8\",\n      \"end\": \"p3:L16\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S9_END\",\n      \"title_raw\":",
+   "tail": "tem\": \"S6_PERSONAL\",\n      \"title_raw\": \"KO (한국어) 2/8\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"p2:L44\"\n        ,\n          \"line\": \"p2:L44\"\n        }\n      ]\n    ,\n      \"line\": \"p2:L44\"\n    },\n    {\n      \"after_item\": \"S6_CLEANUP\",\n      \"title_raw\": \"물질 또는 고체 잔류물은 공인된 시설에서 폐기하십시오.\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"p3:L4\"\n        ,\n          \"line\": \"p3:L4\"\n        }\n      ]\n    ,\n      \"line\": \"p3:L4\"\n    }\n  ]\n}"
+  }
+ ],
+ "seconds": 9.041,
+ "check_problems": []
+}

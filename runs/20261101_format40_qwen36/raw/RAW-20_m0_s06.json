@@ -1,0 +1,73 @@
+{
+ "doc_id": "RAW-20",
+ "msds_index": 0,
+ "section": 6,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S6_PERSONAL",
+    "title_raw": "가. 인체를 보호하기 위해 필요한 조치 사항 및 보호구",
+    "start": "p3:L30",
+    "end": "p4:L5"
+   },
+   {
+    "item_code": "S6_ENV",
+    "title_raw": "나. 환경을 보호하기 위해 필요한 조치사항",
+    "start": "p4:L7",
+    "end": "p4:L8"
+   },
+   {
+    "item_code": "S6_CLEANUP",
+    "title_raw": "다. 정화 또는 제거 방법",
+    "start": "p4:L9",
+    "end": "p4:L9"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S6_PERSONAL",
+    "title_raw": "10페이지 중 3페이지",
+    "reason": "필드없음",
+    "statements": [
+     {
+      "value": "10페이지 중 3페이지",
+      "refs": [],
+      "line": "p3:L43"
+     }
+    ],
+    "suggested_code": "PAGE_INFO",
+    "line": "p3:L43"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S6_PERSONAL\",\n      \"title_raw\": \"가. 인체를 보호하기 위해 필요한 조치 사항 및 보호구\",\n      \"start\": \"p3:L30\",\n      \"end\": \"p4:L5\"\n    },\n    {\n      \"item_code\": \"S6_ENV\",\n      \"title_raw\": \"나. 환경을 보호하기 위해 필요한 조치사항\",\n      \"start\": \"p4:L7\",\n      \"end\": \"p4:L8\"\n    },\n    {\n      \"item_code\": \"S6_CLEANUP\",\n      \"title_raw\": \"다. 정화 또는 제거 방법\",\n      \"start\": \"p4:L9\",\n      \"end\": \"p4:L9\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S6_PERSONAL\",\n      \"title_raw\": \"10페이지 중 3페이지\",\n      \"reason\": \"필드없음\",\n      \"statements\": [\n        {\n          \"value\": \"10페이지 중 3페이지\"\n       \n      ,\n      \"refs\": []\n    ,\n      \"line\": \"p3:L43\"\n    }\n  ]\n  ,\n  \"suggested_code\": \"PAGE_INFO\"\n    ,\n    \"line\": \"p3:L43\"\n  }\n  ]\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 2306,
+  "completion_tokens": 326,
+  "total_tokens": 2632
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 2306,
+    "completion_tokens": 326,
+    "total_tokens": 2632
+   },
+   "seconds": 6.243,
+   "chars": 755,
+   "whitespace": 285,
+   "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S6_PERSONAL\",\n      \"title_raw\": \"가. 인체를 보호하기 위해 필요한 조치 사항 및 보호구\",\n      \"start\": \"p3:L30\",\n      \"end\": \"p4:L5\"\n    },\n    {\n      \"item_code\": \"S6_ENV\",\n      \"title_raw\": \"나. 환경을 보호하기 위해 필요한 조치사항\",\n      \"start\": \"p4:L7\",\n      \"end\": \"p4:L8\"\n    },\n    {\n      \"item_code\": \"S6_CLEANUP\",\n      \"title_raw\": \"다. 정화 또는 제거 방법\",\n      \"start\": \"p4:L9\",\n      \"end\": \"p4:L9\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S6_PERSONAL\",\n      \"title_r",
+   "tail": "aw\": \"10페이지 중 3페이지\",\n      \"reason\": \"필드없음\",\n      \"statements\": [\n        {\n          \"value\": \"10페이지 중 3페이지\"\n       \n      ,\n      \"refs\": []\n    ,\n      \"line\": \"p3:L43\"\n    }\n  ]\n  ,\n  \"suggested_code\": \"PAGE_INFO\"\n    ,\n    \"line\": \"p3:L43\"\n  }\n  ]\n}"
+  }
+ ],
+ "seconds": 6.243,
+ "check_problems": []
+}

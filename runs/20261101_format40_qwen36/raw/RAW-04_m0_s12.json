@@ -1,0 +1,201 @@
+{
+ "doc_id": "RAW-04",
+ "msds_index": 0,
+ "section": 12,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "ecotox": [
+   {
+    "comp_name": null,
+    "comp_cas": null,
+    "endpoint": "ECO_FISH",
+    "descriptor": "LC50",
+    "q": {
+     "raw": "{upper_op:'>',upper:100,unit:'mg/L'}"
+    },
+    "species": "Oncorhynchus mykiss (무지개송어)",
+    "duration_value": 96,
+    "duration_unit": "hr",
+    "guideline": null,
+    "data_source": null,
+    "statements": [],
+    "status": "값있음",
+    "line": "p7:L11"
+   },
+   {
+    "comp_name": null,
+    "comp_cas": null,
+    "endpoint": "ECO_CRUST",
+    "descriptor": "NOEC",
+    "q": {
+     "raw": "{value:0.14,unit:'mg/L'}"
+    },
+    "species": "Daphnia magna (물벼룩)",
+    "duration_value": 48,
+    "duration_unit": "hr",
+    "guideline": null,
+    "data_source": null,
+    "statements": [],
+    "status": "값있음",
+    "line": "p7:L12"
+   },
+   {
+    "comp_name": null,
+    "comp_cas": null,
+    "endpoint": "ECO_ALGAE",
+    "descriptor": "EC50",
+    "q": {
+     "raw": "{upper_op:'<',upper:14.5,unit:'µg/L'}"
+    },
+    "species": "Pseudokirchneriella subcapitata (녹조류)",
+    "duration_value": 72,
+    "duration_unit": "hr",
+    "guideline": null,
+    "data_source": null,
+    "statements": [],
+    "status": "값있음",
+    "line": "p7:L13"
+   },
+   {
+    "comp_name": null,
+    "comp_cas": null,
+    "endpoint": "ECO_ALGAE",
+    "descriptor": "NOEC",
+    "q": {
+     "raw": "{upper_op:'<',upper:14.5,unit:'µg/L'}"
+    },
+    "species": "Pseudokirchneriella subcapitata (녹조류)",
+    "duration_value": null,
+    "duration_unit": null,
+    "guideline": null,
+    "data_source": null,
+    "statements": [],
+    "status": "값있음",
+    "line": "p7:L13"
+   },
+   {
+    "comp_name": null,
+    "comp_cas": null,
+    "endpoint": "ECO_PERSIST",
+    "descriptor": "결과기술",
+    "q": {
+     "raw": "{lower_op:'>',lower:6.5}"
+    },
+    "species": null,
+    "duration_value": null,
+    "duration_unit": null,
+    "guideline": null,
+    "data_source": null,
+    "statements": [
+     {
+      "value": "low Kow",
+      "line": "p7:L15"
+     }
+    ],
+    "status": "값있음",
+    "line": "p7:L15"
+   },
+   {
+    "comp_name": null,
+    "comp_cas": null,
+    "endpoint": "ECO_BIOACC",
+    "descriptor": "BCF",
+    "q": {
+     "raw": "{value:234}"
+    },
+    "species": null,
+    "duration_value": null,
+    "duration_unit": null,
+    "guideline": null,
+    "data_source": null,
+    "statements": [
+     {
+      "value": "QSAR 추정값",
+      "line": "p7:L17"
+     }
+    ],
+    "status": "값있음",
+    "line": "p7:L17"
+   }
+  ],
+  "narratives": [
+   {
+    "item_code": "S12_OTHER",
+    "title_raw": "가.생태독성 :",
+    "start": "p7:L10",
+    "end": "p7:L14"
+   },
+   {
+    "item_code": "S12_OTHER",
+    "title_raw": "나.잔류성 및 분해성 :",
+    "start": "p7:L15",
+    "end": "p7:L15"
+   },
+   {
+    "item_code": "S12_OTHER",
+    "title_raw": "다.생물 농축성 :",
+    "start": "p7:L16",
+    "end": "p7:L17"
+   },
+   {
+    "item_code": "S12_OTHER",
+    "title_raw": "라.토양 이동성 :",
+    "start": "p7:L18",
+    "end": "p7:L18"
+   },
+   {
+    "item_code": "S12_OTHER",
+    "title_raw": "마.기타 유해 영향 :",
+    "start": "p7:L19",
+    "end": "p7:L21"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": null,
+    "title_raw": "라.토양 이동성 :",
+    "reason": "코드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [
+     {
+      "value": "해당없음",
+      "line": "p7:L18"
+     }
+    ],
+    "suggested_code": "ECO_SOIL",
+    "line": "p7:L18"
+   }
+  ]
+ },
+ "raw_text": "### ecotox\ncomp_name | comp_cas | endpoint | descriptor | q | species | duration_value | duration_unit | guideline | data_source | statements | status | line\n |  | ECO_FISH | LC50 | {upper_op:'>',upper:100,unit:'mg/L'} | Oncorhynchus mykiss (무지개송어) | 96 | hr |  |  |  | 값있음 | p7:L11\n |  | ECO_CRUST | NOEC | {value:0.14,unit:'mg/L'} | Daphnia magna (물벼룩) | 48 | hr |  |  |  | 값있음 | p7:L12\n |  | ECO_ALGAE | EC50 | {upper_op:'<',upper:14.5,unit:'µg/L'} | Pseudokirchneriella subcapitata (녹조류) | 72 | hr |  |  |  | 값있음 | p7:L13\n |  | ECO_ALGAE | NOEC | {upper_op:'<',upper:14.5,unit:'µg/L'} | Pseudokirchneriella subcapitata (녹조류) |  |  |  |  |  | 값있음 | p7:L13\n |  | ECO_PERSIST | 결과기술 | {lower_op:'>',lower:6.5} |  |  |  |  |  | low Kow | 값있음 | p7:L15\n |  | ECO_BIOACC | BCF | {value:234} |  |  |  |  |  | QSAR 추정값 | 값있음 | p7:L17\n\n### narratives\nitem_code | title_raw | start | end\nS12_OTHER | 가.생태독성 : | p7:L10 | p7:L14\nS12_OTHER | 나.잔류성 및 분해성 : | p7:L15 | p7:L15\nS12_OTHER | 다.생물 농축성 : | p7:L16 | p7:L17\nS12_OTHER | 라.토양 이동성 : | p7:L18 | p7:L18\nS12_OTHER | 마.기타 유해 영향 : | p7:L19 | p7:L21\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\n | 라.토양 이동성 : | 코드없음 |  |  |  | 해당없음 | ECO_SOIL | p7:L18",
+ "mode": "rows",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 3687,
+  "completion_tokens": 589,
+  "total_tokens": 4276
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "rows",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 3687,
+    "completion_tokens": 589,
+    "total_tokens": 4276
+   },
+   "seconds": 10.86,
+   "chars": 1253,
+   "whitespace": 281,
+   "head": "### ecotox\ncomp_name | comp_cas | endpoint | descriptor | q | species | duration_value | duration_unit | guideline | data_source | statements | status | line\n |  | ECO_FISH | LC50 | {upper_op:'>',upper:100,unit:'mg/L'} | Oncorhynchus mykiss (무지개송어) | 96 | hr |  |  |  | 값있음 | p7:L11\n |  | ECO_CRUST | NOEC | {value:0.14,unit:'mg/L'} | Daphnia magna (물벼룩) | 48 | hr |  |  |  | 값있음 | p7:L12\n |  | ECO_ALGAE | EC50 | {upper_op:'<',upper:14.5,unit:'µg/L'} | Pseudokirchneriella subcapitata (녹조류) | 72 | h",
+   "tail": "  | ECO_BIOACC | BCF | {value:234} |  |  |  |  |  | QSAR 추정값 | 값있음 | p7:L17\n\n### narratives\nitem_code | title_raw | start | end\nS12_OTHER | 가.생태독성 : | p7:L10 | p7:L14\nS12_OTHER | 나.잔류성 및 분해성 : | p7:L15 | p7:L15\nS12_OTHER | 다.생물 농축성 : | p7:L16 | p7:L17\nS12_OTHER | 라.토양 이동성 : | p7:L18 | p7:L18\nS12_OTHER | 마.기타 유해 영향 : | p7:L19 | p7:L21\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\n | 라.토양 이동성 : | 코드없음 |  |  |  | 해당없음 | ECO_SOIL | p7:L18"
+  }
+ ],
+ "seconds": 10.863,
+ "check_problems": []
+}

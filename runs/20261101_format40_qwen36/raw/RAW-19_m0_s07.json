@@ -1,0 +1,105 @@
+{
+ "doc_id": "RAW-19",
+ "msds_index": 0,
+ "section": 7,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S7_HANDLING",
+    "title_raw": "가. 안전취급요령",
+    "start": "p3:L32",
+    "end": "p3:L33"
+   },
+   {
+    "item_code": "S7_STORAGE",
+    "title_raw": "나. 안전한 저장 방법 (피해야 할 조건 포함)",
+    "start": "p3:L34",
+    "end": "p3:L36"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S7_END",
+    "title_raw": "7. 취급 및 저장방법",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "value": "가. 안전취급요령 : 전체환기 또는 국소배기장치를 활용한 환기를 실시하시오.",
+      "line": "p3:L32"
+     }
+    ],
+    "suggested_code": "NARRATIVE_TITLE",
+    "line": "p3:L31"
+   },
+   {
+    "after_item": "S7_HANDLING",
+    "title_raw": "나. 안전한 저장 방법 (피해야 할 조건 포함)",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "value": "나. 안전한 저장 방법 (피해야 할 조건 포함)",
+      "line": "p3:L34"
+     }
+    ],
+    "suggested_code": "NARRATIVE_TITLE",
+    "line": "p3:L34"
+   },
+   {
+    "after_item": "S7_STORAGE",
+    "title_raw": ": 서늘하고 건조한 장소에 저장하시오.",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "value": ": 서늘하고 건조한 장소에 저장하시오.",
+      "line": "p3:L35"
+     }
+    ],
+    "suggested_code": "NARRATIVE_CONTENT",
+    "line": "p3:L35"
+   },
+   {
+    "after_item": "S7_STORAGE",
+    "title_raw": "환기가 잘되는 장소에 저장하시오.",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "value": "환기가 잘되는 장소에 저장하시오.",
+      "line": "p3:L36"
+     }
+    ],
+    "suggested_code": "NARRATIVE_CONTENT",
+    "line": "p3:L36"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S7_HANDLING\",\n      \"title_raw\": \"가. 안전취급요령\",\n      \"start\": \"p3:L32\",\n      \"end\": \"p3:L33\"\n    },\n    {\n      \"item_code\": \"S7_STORAGE\",\n      \"title_raw\": \"나. 안전한 저장 방법 (피해야 할 조건 포함)\",\n      \"start\": \"p3:L34\",\n      \"end\": \"p3:L36\"\n    }\n  ]\n  ,\n  \"extras\": [\n    {\n      \"after_item\": \"S7_END\",\n      \"title_raw\": \"7. 취급 및 저장방법\",\n      \"reason\": \"코드없음\"\n    ,\n      \"statements\": [\n        {\n          \"value\": \"가. 안전취급요령 : 전체환기 또는 국소배기장치를 활용한 환기를 실시하시오.\"\n        ,\n          \"line\": \"p3:L32\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"NARRATIVE_TITLE\"\n    ,\n      \"line\": \"p3:L31\"\n    }\n  ,\n    {\n      \"after_item\": \"S7_HANDLING\",\n      \"title_raw\": \"나. 안전한 저장 방법 (피해야 할 조건 포함)\",\n      \"reason\": \"코드없음\"\n    ,\n      \"statements\": [\n        {\n          \"value\": \"나. 안전한 저장 방법 (피해야 할 조건 포함)\"\n        ,\n          \"line\": \"p3:L34\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"NARRATIVE_TITLE\"\n    ,\n      \"line\": \"p3:L34\"\n    }\n  ,\n    {\n      \"after_item\": \"S7_STORAGE\",\n      \"title_raw\": \": 서늘하고 건조한 장소에 저장하시오.\",\n      \"reason\": \"코드없음\"\n    ,\n      \"statements\": [\n        {\n          \"value\": \": 서늘하고 건조한 장소에 저장하시오.\"\n        ,\n          \"line\": \"p3:L35\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"NARRATIVE_CONTENT\"\n    ,\n      \"line\": \"p3:L35\"\n    }\n  ,\n    {\n      \"after_item\": \"S7_STORAGE\",\n      \"title_raw\": \"환기가 잘되는 장소에 저장하시오.\",\n      \"reason\": \"코드없음\"\n    ,\n      \"statements\": [\n        {\n          \"value\": \"환기가 잘되는 장소에 저장하시오.\"\n        ,\n          \"line\": \"p3:L36\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"NARRATIVE_CONTENT\"\n    ,\n      \"line\": \"p3:L36\"\n    }\n  ]\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 1939,
+  "completion_tokens": 668,
+  "total_tokens": 2607
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 1939,
+    "completion_tokens": 668,
+    "total_tokens": 2607
+   },
+   "seconds": 11.456,
+   "chars": 1647,
+   "whitespace": 682,
+   "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S7_HANDLING\",\n      \"title_raw\": \"가. 안전취급요령\",\n      \"start\": \"p3:L32\",\n      \"end\": \"p3:L33\"\n    },\n    {\n      \"item_code\": \"S7_STORAGE\",\n      \"title_raw\": \"나. 안전한 저장 방법 (피해야 할 조건 포함)\",\n      \"start\": \"p3:L34\",\n      \"end\": \"p3:L36\"\n    }\n  ]\n  ,\n  \"extras\": [\n    {\n      \"after_item\": \"S7_END\",\n      \"title_raw\": \"7. 취급 및 저장방법\",\n      \"reason\": \"코드없음\"\n    ,\n      \"statements\": [\n        {\n          \"value\": \"가. 안전취급요령 : 전체환기 또는 국소배기장치를 활용한 환기를 실시하",
+   "tail": "ue\": \": 서늘하고 건조한 장소에 저장하시오.\"\n        ,\n          \"line\": \"p3:L35\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"NARRATIVE_CONTENT\"\n    ,\n      \"line\": \"p3:L35\"\n    }\n  ,\n    {\n      \"after_item\": \"S7_STORAGE\",\n      \"title_raw\": \"환기가 잘되는 장소에 저장하시오.\",\n      \"reason\": \"코드없음\"\n    ,\n      \"statements\": [\n        {\n          \"value\": \"환기가 잘되는 장소에 저장하시오.\"\n        ,\n          \"line\": \"p3:L36\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"NARRATIVE_CONTENT\"\n    ,\n      \"line\": \"p3:L36\"\n    }\n  ]\n}"
+  }
+ ],
+ "seconds": 11.457,
+ "check_problems": []
+}

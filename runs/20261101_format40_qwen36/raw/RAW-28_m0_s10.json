@@ -1,0 +1,90 @@
+{
+ "doc_id": "RAW-28",
+ "msds_index": 0,
+ "section": 10,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S10_STABILITY",
+    "title_raw": "반응성",
+    "start": "p5:L32",
+    "end": "p5:L32"
+   },
+   {
+    "item_code": "S10_STABILITY",
+    "title_raw": "화학적 안정성 및 유해 반응의 가능성",
+    "start": "p5:L33",
+    "end": "p5:L33"
+   },
+   {
+    "item_code": "S10_STABILITY",
+    "title_raw": "유해 반응의 가능성",
+    "start": "p6:L2",
+    "end": "p6:L4"
+   },
+   {
+    "item_code": "S10_CONDITIONS",
+    "title_raw": "피해야 할 조건",
+    "start": "p6:L5",
+    "end": "p6:L5"
+   },
+   {
+    "item_code": "S10_INCOMPAT",
+    "title_raw": "피해야 할 물질",
+    "start": "p6:L6",
+    "end": "p6:L6"
+   },
+   {
+    "item_code": "S10_DECOMP",
+    "title_raw": "분해시 생성되는 유해물질",
+    "start": "p6:L7",
+    "end": "p6:L8"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S9_END",
+    "title_raw": "10. 안정성 및 반응성",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "value": "반응성: 반응 위험성으로 분류되지 않음.",
+      "line": "p5:L32"
+     }
+    ],
+    "suggested_code": "S10_STABILITY",
+    "line": "p5:L31"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S10_STABILITY\",\n      \"title_raw\": \"반응성\",\n      \"start\": \"p5:L32\",\n      \"end\": \"p5:L32\"\n    },\n    {\n      \"item_code\": \"S10_STABILITY\",\n      \"title_raw\": \"화학적 안정성 및 유해 반응의 가능성\",\n      \"start\": \"p5:L33\",\n      \"end\": \"p5:L33\"\n    },\n    {\n      \"item_code\": \"S10_STABILITY\",\n      \"title_raw\": \"유해 반응의 가능성\",\n      \"start\": \"p6:L2\",\n      \"end\": \"p6:L4\"\n    },\n    {\n      \"item_code\": \"S10_CONDITIONS\",\n      \"title_raw\": \"피해야 할 조건\",\n      \"start\": \"p6:L5\",\n      \"end\": \"p6:L5\"\n    },\n    {\n      \"item_code\": \"S10_INCOMPAT\",\n      \"title_raw\": \"피해야 할 물질\",\n      \"start\": \"p6:L6\",\n      \"end\": \"p6:L6\"\n    },\n    {\n      \"item_code\": \"S10_DECOMP\",\n      \"title_raw\": \"분해시 생성되는 유해물질\",\n      \"start\": \"p6:L7\",\n      \"end\": \"p6:L8\"\n    }\n  ]\n,\n  \"extras\": [\n    {\n      \"after_item\": \"S9_END\",\n      \"title_raw\": \"10. 안정성 및 반응성\",\n      \"reason\": \"코드없음\"\n    ,\n      \"statements\": [\n        {\n          \"value\": \"반응성: 반응 위험성으로 분류되지 않음.\"\n        ,\n          \"line\": \"p5:L32\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S10_STABILITY\"\n    ,\n      \"line\": \"p5:L31\"\n    }\n  ]\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 2284,
+  "completion_tokens": 486,
+  "total_tokens": 2770
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 2284,
+    "completion_tokens": 486,
+    "total_tokens": 2770
+   },
+   "seconds": 9.033,
+   "chars": 1122,
+   "whitespace": 419,
+   "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S10_STABILITY\",\n      \"title_raw\": \"반응성\",\n      \"start\": \"p5:L32\",\n      \"end\": \"p5:L32\"\n    },\n    {\n      \"item_code\": \"S10_STABILITY\",\n      \"title_raw\": \"화학적 안정성 및 유해 반응의 가능성\",\n      \"start\": \"p5:L33\",\n      \"end\": \"p5:L33\"\n    },\n    {\n      \"item_code\": \"S10_STABILITY\",\n      \"title_raw\": \"유해 반응의 가능성\",\n      \"start\": \"p6:L2\",\n      \"end\": \"p6:L4\"\n    },\n    {\n      \"item_code\": \"S10_CONDITIONS\",\n      \"title_raw\": \"피해야 할 조건\",\n      \"start\": \"p6",
+   "tail": "p6:L6\",\n      \"end\": \"p6:L6\"\n    },\n    {\n      \"item_code\": \"S10_DECOMP\",\n      \"title_raw\": \"분해시 생성되는 유해물질\",\n      \"start\": \"p6:L7\",\n      \"end\": \"p6:L8\"\n    }\n  ]\n,\n  \"extras\": [\n    {\n      \"after_item\": \"S9_END\",\n      \"title_raw\": \"10. 안정성 및 반응성\",\n      \"reason\": \"코드없음\"\n    ,\n      \"statements\": [\n        {\n          \"value\": \"반응성: 반응 위험성으로 분류되지 않음.\"\n        ,\n          \"line\": \"p5:L32\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S10_STABILITY\"\n    ,\n      \"line\": \"p5:L31\"\n    }\n  ]\n}"
+  }
+ ],
+ "seconds": 9.034,
+ "check_problems": []
+}

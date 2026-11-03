@@ -1,0 +1,79 @@
+{
+ "doc_id": "RAW-11",
+ "msds_index": 0,
+ "section": 13,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S13_METHOD",
+    "title_raw": "폐기방법:",
+    "start": "p11:L17",
+    "end": "p11:L19"
+   },
+   {
+    "item_code": "S13_CAUTION",
+    "title_raw": "폐기시 주의사항 (오염된 용기 및 포장의 폐기 방법을 포함함):",
+    "start": "p11:L21",
+    "end": "p11:L24"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S13_METHOD",
+    "title_raw": "용도의 제한성으로 인해 유럽 폐기물 카탈로그(EWC)에 따른 폐기물 코드를 지정할 수 없음.",
+    "reason": "필드없음",
+    "statements": [
+     {
+      "value": "용도의 제한성으로 인해 유럽 폐기물 카탈로그(EWC)에 따른 폐기물 코드를 지정할 수 없음.",
+      "line": "p11:L18"
+     }
+    ],
+    "suggested_code": "EXTRA_NARRATIVE",
+    "line": "p11:L18"
+   },
+   {
+    "after_item": "S13_CAUTION",
+    "title_raw": "폐기물관리법상 규정을 준수할 것",
+    "reason": "필드없음",
+    "statements": [
+     {
+      "value": "폐기물관리법상 규정을 준수할 것",
+      "line": "p11:L24"
+     }
+    ],
+    "suggested_code": "EXTRA_NARRATIVE",
+    "line": "p11:L24"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S13_METHOD\",\n      \"title_raw\": \"폐기방법:\",\n      \"start\": \"p11:L17\",\n      \"end\": \"p11:L19\"\n    },\n    {\n      \"item_code\": \"S13_CAUTION\",\n      \"title_raw\": \"폐기시 주의사항 (오염된 용기 및 포장의 폐기 방법을 포함함):\",\n      \"start\": \"p11:L21\",\n      \"end\": \"p11:L24\"\n    }\n  ]\n  ,\n  \"extras\": [\n    {\n      \"after_item\": \"S13_METHOD\",\n      \"title_raw\": \"용도의 제한성으로 인해 유럽 폐기물 카탈로그(EWC)에 따른 폐기물 코드를 지정할 수 없음.\",\n      \"reason\": \"필드없음\",\n      \"statements\": [\n        {\n          \"value\": \"용도의 제한성으로 인해 유럽 폐기물 카탈로그(EWC)에 따른 폐기물 코드를 지정할 수 없음.\"\n        ,\n          \"line\": \"p11:L18\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"EXTRA_NARRATIVE\"\n    ,\n      \"line\": \"p11:L18\"\n    }\n  ,\n    {\n      \"after_item\": \"S13_CAUTION\",\n      \"title_raw\": \"폐기물관리법상 규정을 준수할 것\",\n      \"reason\": \"필드없음\",\n      \"statements\": [\n        {\n          \"value\": \"폐기물관리법상 규정을 준수할 것\"\n        ,\n          \"line\": \"p11:L24\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"EXTRA_NARRATIVE\"\n    ,\n      \"line\": \"p11:L24\"\n    }\n  ]\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 2144,
+  "completion_tokens": 451,
+  "total_tokens": 2595
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 2144,
+    "completion_tokens": 451,
+    "total_tokens": 2595
+   },
+   "seconds": 8.64,
+   "chars": 1026,
+   "whitespace": 393,
+   "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S13_METHOD\",\n      \"title_raw\": \"폐기방법:\",\n      \"start\": \"p11:L17\",\n      \"end\": \"p11:L19\"\n    },\n    {\n      \"item_code\": \"S13_CAUTION\",\n      \"title_raw\": \"폐기시 주의사항 (오염된 용기 및 포장의 폐기 방법을 포함함):\",\n      \"start\": \"p11:L21\",\n      \"end\": \"p11:L24\"\n    }\n  ]\n  ,\n  \"extras\": [\n    {\n      \"after_item\": \"S13_METHOD\",\n      \"title_raw\": \"용도의 제한성으로 인해 유럽 폐기물 카탈로그(EWC)에 따른 폐기물 코드를 지정할 수 없음.\",\n      \"reason\": \"필드없음\",\n      \"statements\": [\n        {\n          \"v",
+   "tail": "물 카탈로그(EWC)에 따른 폐기물 코드를 지정할 수 없음.\"\n        ,\n          \"line\": \"p11:L18\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"EXTRA_NARRATIVE\"\n    ,\n      \"line\": \"p11:L18\"\n    }\n  ,\n    {\n      \"after_item\": \"S13_CAUTION\",\n      \"title_raw\": \"폐기물관리법상 규정을 준수할 것\",\n      \"reason\": \"필드없음\",\n      \"statements\": [\n        {\n          \"value\": \"폐기물관리법상 규정을 준수할 것\"\n        ,\n          \"line\": \"p11:L24\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"EXTRA_NARRATIVE\"\n    ,\n      \"line\": \"p11:L24\"\n    }\n  ]\n}"
+  }
+ ],
+ "seconds": 8.642,
+ "check_problems": []
+}

@@ -1,0 +1,579 @@
+{
+ "doc_id": "RAW-34",
+ "msds_index": 0,
+ "section": 11,
+ "reextracted": true,
+ "ok": true,
+ "parsed": {
+  "toxicity": [
+   {
+    "comp_name": "Zinc oxide",
+    "comp_cas": "1314-13-2",
+    "endpoint": "TX_ORAL",
+    "descriptor": "LD50",
+    "q": {
+     "raw": "{upper_op:'>',upper:5000,unit:'mg/kg'}"
+    },
+    "species": "Rat",
+    "sex": "혼합",
+    "duration_value": null,
+    "duration_unit": null,
+    "physical_form": null,
+    "exposure_type": "경구",
+    "converted": null,
+    "read_across_cas": null,
+    "guideline": "OECD TG 401",
+    "data_source": null,
+    "classification": "분류되지않음",
+    "statements": [],
+    "status": "값있음",
+    "line": "p6:L19"
+   },
+   {
+    "comp_name": "Zinc oxide",
+    "comp_cas": "1314-13-2",
+    "endpoint": "TX_DERMAL",
+    "descriptor": "LD50",
+    "q": {
+     "raw": "{upper_op:'>',upper:2000,unit:'mg/kg'}"
+    },
+    "species": "Rat",
+    "sex": "혼합",
+    "duration_value": null,
+    "duration_unit": null,
+    "physical_form": null,
+    "exposure_type": "경피",
+    "converted": null,
+    "read_across_cas": null,
+    "guideline": "OECD TG 402",
+    "data_source": "GLP",
+    "classification": "분류되지않음",
+    "statements": [],
+    "status": "값있음",
+    "line": "p6:L22"
+   },
+   {
+    "comp_name": "Zinc oxide",
+    "comp_cas": "1314-13-2",
+    "endpoint": "TX_INHAL",
+    "descriptor": "LC50",
+    "q": {
+     "raw": "{upper_op:'>',upper:5700,unit:'mg/m3'}"
+    },
+    "species": "Rat",
+    "sex": "혼합",
+    "duration_value": 4,
+    "duration_unit": "hr",
+    "physical_form": "분진·미스트",
+    "exposure_type": "흡입",
+    "converted": null,
+    "read_across_cas": null,
+    "guideline": "OECD TG 403",
+    "data_source": null,
+    "classification": "분류되지않음",
+    "statements": [],
+    "status": "값있음",
+    "line": "p6:L25"
+   }
+  ],
+  "cmr": [],
+  "narratives": [
+   {
+    "item_code": "S11_ROUTE",
+    "title_raw": "가. 가능성이 높은 노출 경로에 관한 정보",
+    "start": "p6:L13",
+    "end": "p6:L14"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S11_ROUTE",
+    "title_raw": "나. 건강 유해성 정보",
+    "reason": "코드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [],
+    "suggested_code": "11항의 소제목",
+    "line": "p6:L15"
+   },
+   {
+    "after_item": "TX_ORAL",
+    "title_raw": "● 급성독성물질(경구)",
+    "reason": "코드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [],
+    "suggested_code": "11항의 소제목",
+    "line": "p6:L17"
+   },
+   {
+    "after_item": "TX_DERMAL",
+    "title_raw": "● 급성독성물질(경피)",
+    "reason": "코드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [],
+    "suggested_code": "11항의 소제목",
+    "line": "p6:L20"
+   },
+   {
+    "after_item": "TX_INHAL",
+    "title_raw": "● 급성독성물질(흡입:가스)",
+    "reason": "코드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [],
+    "suggested_code": "11항의 소제목",
+    "line": "p6:L23"
+   },
+   {
+    "after_item": "TX_INHAL",
+    "title_raw": "● 급성독성물질(흡입:증기)",
+    "reason": "코드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [],
+    "suggested_code": "11항의 소제목",
+    "line": "p6:L26"
+   },
+   {
+    "after_item": "TX_INHAL",
+    "title_raw": "● 급성독성물질(흡입:분진/미스트)",
+    "reason": "코드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [],
+    "suggested_code": "11항의 소제목",
+    "line": "p6:L28"
+   },
+   {
+    "after_item": "TX_SKIN",
+    "title_raw": "○ 피부 부식성 또는 자극성 물질",
+    "reason": "코드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [],
+    "suggested_code": "11항의 소제목",
+    "line": "p6:L30"
+   },
+   {
+    "after_item": "TX_EYE",
+    "title_raw": "○ 심한 눈 손상 또는 자극성 물질",
+    "reason": "코드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [],
+    "suggested_code": "11항의 소제목",
+    "line": "p6:L33"
+   },
+   {
+    "after_item": "TX_RESP_SENS",
+    "title_raw": "○ 호흡기 과민성 물질",
+    "reason": "코드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [],
+    "suggested_code": "11항의 소제목",
+    "line": "p7:L2"
+   },
+   {
+    "after_item": "TX_SKIN_SENS",
+    "title_raw": "○ 피부 과민성 물질",
+    "reason": "코드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [],
+    "suggested_code": "11항의 소제목",
+    "line": "p7:L4"
+   },
+   {
+    "after_item": "TX_CARC",
+    "title_raw": "○ 발암성물질",
+    "reason": "코드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [],
+    "suggested_code": "11항의 소제목",
+    "line": "p7:L8"
+   },
+   {
+    "after_item": "TX_MUTA",
+    "title_raw": "○ 생식세포 변이원성 물질",
+    "reason": "코드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [],
+    "suggested_code": "11항의 소제목",
+    "line": "p7:L10"
+   },
+   {
+    "after_item": "TX_REPRO",
+    "title_raw": "○ 생식독성 물질",
+    "reason": "코드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [],
+    "suggested_code": "11항의 소제목",
+    "line": "p7:L14"
+   },
+   {
+    "after_item": "TX_STOT_SE",
+    "title_raw": "○ 특정표적장기·전신 독성 물질(1회 노출)",
+    "reason": "코드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [],
+    "suggested_code": "11항의 소제목",
+    "line": "p7:L20"
+   },
+   {
+    "after_item": "TX_STOT_RE",
+    "title_raw": "○ 특정표적장기·전신 독성 물질(반복 노출)",
+    "reason": "코드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [],
+    "suggested_code": "11항의 소제목",
+    "line": "p7:L26"
+   },
+   {
+    "after_item": "TX_ASP",
+    "title_raw": "○ 흡인유해성 물질",
+    "reason": "코드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [],
+    "suggested_code": "11항의 소제목",
+    "line": "p7:L32"
+   }
+  ]
+ },
+ "raw_text": "### toxicity\ncomp_name | comp_cas | endpoint | descriptor | q | species | sex | duration_value | duration_unit | physical_form | exposure_type | converted | read_across_cas | guideline | data_source | classification | statements | status | line\nZinc oxide | 1314-13-2 | TX_ORAL | LD50 | {upper_op:'>',upper:5000,unit:'mg/kg'} | Rat | 혼합 |  |  |  | 경구 |  |  | OECD TG 401 |  | 분류되지않음 |  | 값있음 | p6:L19\nZinc oxide | 1314-13-2 | TX_DERMAL | LD50 | {upper_op:'>',upper:2000,unit:'mg/kg'} | Rat | 혼합 |  |  |  | 경피 |  |  | OECD TG 402 | GLP | 분류되지않음 |  | 값있음 | p6:L22\nZinc oxide | 1314-13-2 | TX_INHAL | LC50 | {upper_op:'>',upper:5700,unit:'mg/m3'} | Rat | 혼합 | 4 | hr | 분진·미스트 | 흡입 |  |  | OECD TG 403 |  | 분류되지않음 |  | 값있음 | p6:L25\nZinc oxide | 1314-13-2 | TX_INHAL |  | 자료없음 |  |  |  |  |  |  |  |  |  |  |  | 자료없음 | p6:L27\nZinc oxide | 1314-13-2 | TX_INHAL |  | 자료없음 |  |  |  |  |  |  |  |  |  |  |  | 자료없음 | p6:L29\nZinc oxide | 1314-13-2 | TX_SKIN | 결과기술 |  | Rabbit |  |  |  |  |  |  |  |  | 분류되지않음 | 자극성 없음 | 값있음 | p6:L32\nZinc oxide | 1314-13-2 | TX_EYE | 결과기술 |  | Rabbit |  | 72 | hr |  |  |  | EU Method B.5 |  | 분류되지않음 | 자극성 없음; 72시간 내 완전히 가역적 | 값있음 | p7:L1\nZinc oxide | 1314-13-2 | TX_RESP_SENS |  | 자료없음 |  |  |  |  |  |  |  |  |  | 분류되지않음 |  | 자료없음 | p7:L3\nZinc oxide | 1314-13-2 | TX_SKIN_SENS | 결과기술 |  | Guinea pig | 암컷 |  |  |  |  |  | OECD TG 406 | GLP | 분류되지않음 | 과민성 없음; 용량수준: 0.02; 반응: 0/10; 기니피그 극대화 시험(GMPT) | 값있음 | p7:L6\nZinc oxide | 1314-13-2 | TX_CARC |  | 자료없음 |  |  |  |  |  |  |  |  |  | 분류되지않음 |  | 자료없음 | p7:L9\nZinc oxide | 1314-13-2 | TX_MUTA | 결과기술 |  |  |  |  |  |  |  |  | OECD TG 471 |  | 분류되지않음 | in vitro - 박테리아를 이용한 복귀돌연변이 시험: 음성(S. typhimurium TA1535, TA1537, TA98, TA100, 대사 활성계 관계없이) | 값있음 | p7:L12\nZinc oxide | 1314-13-2 | TX_REPRO | NOAEL | {value:7.5,unit:'mg/kg/d'} | hamster |  |  |  |  |  |  | OECD TG 416 |  | 분류되지않음 | 시험 조건 하에서, 성숙, 교배, 임신 및 초기 수유는 성인 및 30, 15 mg/kg/d에서 나타났으며, 효과는 7.5 mg/kg/d에서 나타 났지만, 이는 실질적으로 중요하지 않은 것으로 간주됨; 최대 88 mg/kg의 황산 아연 (약 35.2 mg 또는 19.9 mg Zn2 + / kg bw, 무수물 및 수화물에 대해)을 투여시 성체 햄스터 및 태아에 부작용이 없었음. | 값있음 | p7:L16\nZinc oxide | 1314-13-2 | TX_STOT_SE | 결과기술 |  | Rat | 혼합 |  |  |  | 경구 |  | equivalent or similar to Guideline: OECD TG 401 |  | 분류되지않음 | 경구: 독성 부작용 징후 없음 | 값있음 | p7:L22\nZinc oxide | 1314-13-2 | TX_STOT_SE | 결과기술 |  | Rat | 혼합 |  |  |  | 경피 |  | OECD TG 402 | GLP | 분류되지않음 | 경피: 피부 독성 연구에서 흔히 볼 수있는 일반적인 불편함의 약간의 징후, 전반적인 건강 상태는 연구 전체에 걸쳐 양호 함 / 이상이 발견되지 않음 | 값있음 | p7:L23\nZinc oxide | 1314-13-2 | TX_STOT_SE | 결과기술 |  | Rat | 혼합 |  |  |  | 흡입 |  | equivalent or similar to Guideline: OECD TG 403 |  | 분류되지않음 | 흡입: 머리에 더러운 털이 나타났으나, 부작용은 관찰되지 않았습니다. | 값있음 | p7:L24\nZinc oxide | 1314-13-2 | TX_STOT_RE | NOAEL | {value:31.52,unit:'mg/kg-bw/day'} | Rat |  |  |  |  | 경구(아만성) |  | OECD TG 408 | GLP | 분류되지않음 | 경구(아만성): NOAEL=31.52 mg/kg-bw/day(approx. 13.26 mg Zn2+/kg-bw/day) | 값있음 | p7:L28\nZinc oxide | 1314-13-2 | TX_STOT_RE | LOAEL | {value:75,unit:'mg/kg bw/day'} | Rat |  |  |  |  | 경피(단기반복) |  | OECD TG 410 |  | 분류되지않음 | 경피(단기반복): 랫드를 통해 경피 노출한 결과, 콜라겐 함량의 감소를 근거로, 전신 독성에 대한 LOAEL은 75 mg/kg bw/day의 가장 낮은 시험 용량으로 나타났지만, 이러한 효과는 14일 동안 가역적이었음 | 값있음 | p7:L29\nZinc oxide | 1314-13-2 | TX_STOT_RE | NOAEL | {value:1.5,unit:'mg/m3'} | Rat |  |  |  |  | 흡입(아만성) |  | OECD TG 413 | GLP | 분류되지않음 | 흡입(아만성): 실험 조건하에서, NOAEL은 1.5 ㎎/㎥로 평가됨 | 값있음 | p7:L31\n |  | TX_ASP | 결과기술 |  |  |  |  |  |  |  |  |  |  | 분류되지않음 | 자료없음 | 자료없음 | p7:L33\n\n### cmr\ncomp_name | comp_cas | hazard | agency | class | status | note | line\n\n### narratives\nitem_code | title_raw | start | end\nS11_ROUTE | 가. 가능성이 높은 노출 경로에 관한 정보 | p6:L13 | p6:L14\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\nS11_ROUTE | 나. 건강 유해성 정보 | 코드없음 |  |  |  |  | 11항의 소제목 | p6:L15\nTX_ORAL | ● 급성독성물질(경구) | 코드없음 |  |  |  |  | 11항의 소제목 | p6:L17\nTX_DERMAL | ● 급성독성물질(경피) | 코드없음 |  |  |  |  | 11항의 소제목 | p6:L20\nTX_INHAL | ● 급성독성물질(흡입:가스) | 코드없음 |  |  |  |  | 11항의 소제목 | p6:L23\nTX_INHAL | ● 급성독성물질(흡입:증기) | 코드없음 |  |  |  |  | 11항의 소제목 | p6:L26\nTX_INHAL | ● 급성독성물질(흡입:분진/미스트) | 코드없음 |  |  |  |  | 11항의 소제목 | p6:L28\nTX_SKIN | ○ 피부 부식성 또는 자극성 물질 | 코드없음 |  |  |  |  | 11항의 소제목 | p6:L30\nTX_EYE | ○ 심한 눈 손상 또는 자극성 물질 | 코드없음 |  |  |  |  | 11항의 소제목 | p6:L33\nTX_RESP_SENS | ○ 호흡기 과민성 물질 | 코드없음 |  |  |  |  | 11항의 소제목 | p7:L2\nTX_SKIN_SENS | ○ 피부 과민성 물질 | 코드없음 |  |  |  |  | 11항의 소제목 | p7:L4\nTX_CARC | ○ 발암성물질 | 코드없음 |  |  |  |  | 11항의 소제목 | p7:L8\nTX_MUTA | ○ 생식세포 변이원성 물질 | 코드없음 |  |  |  |  | 11항의 소제목 | p7:L10\nTX_REPRO | ○ 생식독성 물질 | 코드없음 |  |  |  |  | 11항의 소제목 | p7:L14\nTX_STOT_SE | ○ 특정표적장기·전신 독성 물질(1회 노출) | 코드없음 |  |  |  |  | 11항의 소제목 | p7:L20\nTX_STOT_RE | ○ 특정표적장기·전신 독성 물질(반복 노출) | 코드없음 |  |  |  |  | 11항의 소제목 | p7:L26\nTX_ASP | ○ 흡인유해성 물질 | 코드없음 |  |  |  |  | 11항의 소제목 | p7:L32",
+ "mode": "rows",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 6383,
+  "completion_tokens": 2561,
+  "total_tokens": 8944
+ },
+ "attempts": 1,
+ "errors": [
+  "toxicity p6:L27 Zinc oxide | 1314-13-2 | TX_INHAL |  | 자…: 열 18개, 기대 19개",
+  "toxicity p6:L29 Zinc oxide | 1314-13-2 | TX_INHAL |  | 자…: 열 18개, 기대 19개",
+  "toxicity p6:L32 Zinc oxide | 1314-13-2 | TX_SKIN | 결과기술 …: 열 18개, 기대 19개",
+  "toxicity p7:L1 Zinc oxide | 1314-13-2 | TX_EYE | 결과기술 |…: 열 18개, 기대 19개",
+  "toxicity p7:L3 Zinc oxide | 1314-13-2 | TX_RESP_SENS | …: 열 18개, 기대 19개",
+  "toxicity p7:L6 Zinc oxide | 1314-13-2 | TX_SKIN_SENS | …: 열 18개, 기대 19개",
+  "toxicity p7:L9 Zinc oxide | 1314-13-2 | TX_CARC |  | 자료…: 열 18개, 기대 19개",
+  "toxicity p7:L12 Zinc oxide | 1314-13-2 | TX_MUTA | 결과기술 …: 열 18개, 기대 19개",
+  "toxicity p7:L16 Zinc oxide | 1314-13-2 | TX_REPRO | NOAE…: 열 18개, 기대 19개",
+  "toxicity p7:L22 Zinc oxide | 1314-13-2 | TX_STOT_SE | 결과…: 열 18개, 기대 19개",
+  "toxicity p7:L23 Zinc oxide | 1314-13-2 | TX_STOT_SE | 결과…: 열 18개, 기대 19개",
+  "toxicity p7:L24 Zinc oxide | 1314-13-2 | TX_STOT_SE | 결과…: 열 18개, 기대 19개",
+  "toxicity p7:L28 Zinc oxide | 1314-13-2 | TX_STOT_RE | NO…: 열 18개, 기대 19개",
+  "toxicity p7:L29 Zinc oxide | 1314-13-2 | TX_STOT_RE | LO…: 열 18개, 기대 19개",
+  "toxicity p7:L31 Zinc oxide | 1314-13-2 | TX_STOT_RE | NO…: 열 18개, 기대 19개",
+  "toxicity p7:L33 |  | TX_ASP | 결과기술 |  |  |  |  |  |  |  …: 열 18개, 기대 19개"
+ ],
+ "requests": [
+  {
+   "mode": "rows",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 6383,
+    "completion_tokens": 2561,
+    "total_tokens": 8944
+   },
+   "seconds": 14.002,
+   "chars": 4764,
+   "whitespace": 1306,
+   "head": "### toxicity\ncomp_name | comp_cas | endpoint | descriptor | q | species | sex | duration_value | duration_unit | physical_form | exposure_type | converted | read_across_cas | guideline | data_source | classification | statements | status | line\nZinc oxide | 1314-13-2 | TX_ORAL | LD50 | {upper_op:'>',upper:5000,unit:'mg/kg'} | Rat | 혼합 |  |  |  | 경구 |  |  | OECD TG 401 |  | 분류되지않음 |  | 값있음 | p6:L19\nZinc oxide | 1314-13-2 | TX_DERMAL | LD50 | {upper_op:'>',upper:2000,unit:'mg/kg'} | Rat | 혼합 |  | ",
+   "tail": "성 물질 | 코드없음 |  |  |  |  | 11항의 소제목 | p7:L2\nTX_SKIN_SENS | ○ 피부 과민성 물질 | 코드없음 |  |  |  |  | 11항의 소제목 | p7:L4\nTX_CARC | ○ 발암성물질 | 코드없음 |  |  |  |  | 11항의 소제목 | p7:L8\nTX_MUTA | ○ 생식세포 변이원성 물질 | 코드없음 |  |  |  |  | 11항의 소제목 | p7:L10\nTX_REPRO | ○ 생식독성 물질 | 코드없음 |  |  |  |  | 11항의 소제목 | p7:L14\nTX_STOT_SE | ○ 특정표적장기·전신 독성 물질(1회 노출) | 코드없음 |  |  |  |  | 11항의 소제목 | p7:L20\nTX_STOT_RE | ○ 특정표적장기·전신 독성 물질(반복 노출) | 코드없음 |  |  |  |  | 11항의 소제목 | p7:L26\nTX_ASP | ○ 흡인유해성 물질 | 코드없음 |  |  |  |  | 11항의 소제목 | p7:L32"
+  }
+ ],
+ "seconds": 14.088,
+ "check_problems": [],
+ "first_attempt": {
+  "ok": true,
+  "parsed": {
+   "toxicity": [
+    {
+     "comp_name": "Zinc oxide",
+     "comp_cas": "1314-13-2",
+     "endpoint": "TX_ORAL",
+     "descriptor": "LD50",
+     "q": {
+      "raw": "> 5000 mg/kg",
+      "lower_op": ">",
+      "lower": 5000,
+      "unit": "mg/kg"
+     },
+     "species": "Rat",
+     "sex": "혼합",
+     "duration_value": null,
+     "duration_unit": null,
+     "physical_form": null,
+     "exposure_type": "위관",
+     "converted": null,
+     "read_across_cas": null,
+     "guideline": "OECD TG 401",
+     "data_source": null,
+     "classification": "분류되지않음",
+     "statements": [],
+     "status": "값있음",
+     "line": "p6:L19"
+    }
+   ],
+   "cmr": [],
+   "narratives": [
+    {
+     "item_code": "S11_ROUTE",
+     "title_raw": "가. 가능성이 높은 노출 경로에 관한 정보",
+     "start": "p6:L13",
+     "end": "p6:L14"
+    }
+   ],
+   "extras": [
+    {
+     "after_item": "S11_ROUTE",
+     "title_raw": "나. 건강 유해성 정보",
+     "reason": "코드없음",
+     "comp_name": null,
+     "comp_cas": null,
+     "q": null,
+     "statements": [],
+     "suggested_code": "11항 소제목",
+     "line": "p6:L15"
+    },
+    {
+     "after_item": "TX_ORAL",
+     "title_raw": "● 급성독성물질(경구)",
+     "reason": "코드없음",
+     "comp_name": "PRODUCT",
+     "comp_cas": null,
+     "q": null,
+     "statements": [],
+     "suggested_code": "분류되지않음",
+     "line": "p6:L17"
+    },
+    {
+     "after_item": "TX_DERMAL",
+     "title_raw": "● 급성독성물질(경피)",
+     "reason": "코드없음",
+     "comp_name": "PRODUCT",
+     "comp_cas": null,
+     "q": null,
+     "statements": [],
+     "suggested_code": "분류되지않음",
+     "line": "p6:L20"
+    },
+    {
+     "after_item": "TX_INHAL",
+     "title_raw": "● 급성독성물질(흡입:가스)",
+     "reason": "코드없음",
+     "comp_name": "PRODUCT",
+     "comp_cas": null,
+     "q": null,
+     "statements": [],
+     "suggested_code": "분류되지않음",
+     "line": "p6:L23"
+    },
+    {
+     "after_item": "TX_INHAL",
+     "title_raw": "● 급성독성물질(흡입:증기)",
+     "reason": "코드없음",
+     "comp_name": "PRODUCT",
+     "comp_cas": null,
+     "q": null,
+     "statements": [],
+     "suggested_code": "분류되지않음",
+     "line": "p6:L26"
+    },
+    {
+     "after_item": "TX_INHAL",
+     "title_raw": "● 급성독성물질(흡입:분진/미스트)",
+     "reason": "코드없음",
+     "comp_name": "PRODUCT",
+     "comp_cas": null,
+     "q": null,
+     "statements": [],
+     "suggested_code": "분류되지않음",
+     "line": "p6:L28"
+    },
+    {
+     "after_item": "TX_SKIN",
+     "title_raw": "○ 피부 부식성 또는 자극성 물질",
+     "reason": "코드없음",
+     "comp_name": "PRODUCT",
+     "comp_cas": null,
+     "q": null,
+     "statements": [],
+     "suggested_code": "분류되지않음",
+     "line": "p6:L30"
+    },
+    {
+     "after_item": "TX_EYE",
+     "title_raw": "○ 심한 눈 손상 또는 자극성 물질",
+     "reason": "코드없음",
+     "comp_name": "PRODUCT",
+     "comp_cas": null,
+     "q": null,
+     "statements": [],
+     "suggested_code": "분류되지않음",
+     "line": "p6:L33"
+    },
+    {
+     "after_item": "TX_RESP_SENS",
+     "title_raw": "○ 호흡기 과민성 물질",
+     "reason": "코드없음",
+     "comp_name": "PRODUCT",
+     "comp_cas": null,
+     "q": null,
+     "statements": [],
+     "suggested_code": "분류되지않음",
+     "line": "p7:L2"
+    },
+    {
+     "after_item": "TX_SKIN_SENS",
+     "title_raw": "○ 피부 과민성 물질",
+     "reason": "코드없음",
+     "comp_name": "PRODUCT",
+     "comp_cas": null,
+     "q": null,
+     "statements": [],
+     "suggested_code": "분류되지않음",
+     "line": "p7:L4"
+    },
+    {
+     "after_item": "TX_CARC",
+     "title_raw": "○ 발암성물질",
+     "reason": "코드없음",
+     "comp_name": "PRODUCT",
+     "comp_cas": null,
+     "q": null,
+     "statements": [],
+     "suggested_code": "분류되지않음",
+     "line": "p7:L8"
+    },
+    {
+     "after_item": "TX_MUTA",
+     "title_raw": "○ 생식세포 변이원성 물질",
+     "reason": "코드없음",
+     "comp_name": "PRODUCT",
+     "comp_cas": null,
+     "q": null,
+     "statements": [],
+     "suggested_code": "분류되지않음",
+     "line": "p7:L10"
+    },
+    {
+     "after_item": "TX_REPRO",
+     "title_raw": "○ 생식독성 물질",
+     "reason": "코드없음",
+     "comp_name": "PRODUCT",
+     "comp_cas": null,
+     "q": null,
+     "statements": [],
+     "suggested_code": "분류되지않음",
+     "line": "p7:L14"
+    },
+    {
+     "after_item": "TX_STOT_SE",
+     "title_raw": "○ 특정표적장기·전신 독성 물질(1회 노출)",
+     "reason": "코드없음",
+     "comp_name": "PRODUCT",
+     "comp_cas": null,
+     "q": null,
+     "statements": [],
+     "suggested_code": "분류되지않음",
+     "line": "p7:L20"
+    },
+    {
+     "after_item": "TX_STOT_RE",
+     "title_raw": "○ 특정표적장기·전신 독성 물질(반복 노출)",
+     "reason": "코드없음",
+     "comp_name": "PRODUCT",
+     "comp_cas": null,
+     "q": null,
+     "statements": [],
+     "suggested_code": "분류되지않음",
+     "line": "p7:L26"
+    },
+    {
+     "after_item": "TX_ASP",
+     "title_raw": "○ 흡인유해성 물질",
+     "reason": "코드없음",
+     "comp_name": "PRODUCT",
+     "comp_cas": null,
+     "q": null,
+     "statements": [],
+     "suggested_code": "분류되지않음",
+     "line": "p7:L32"
+    }
+   ]
+  },
+  "raw_text": "### toxicity\ncomp_name | comp_cas | endpoint | descriptor | q | species | sex | duration_value | duration_unit | physical_form | exposure_type | converted | read_across_cas | guideline | data_source | classification | statements | status | line\nZinc oxide | 1314-13-2 | TX_ORAL | LD50 | > 5000 mg/kg | Rat | 혼합 |  |  |  | 위관 |  |  | OECD TG 401 |  | 분류되지않음 |  | 값있음 | p6:L19\nZinc oxide | 1314-13-2 | TX_DERMAL | LD50 | > 2000 mg/kg | Rat | 혼합 |  |  |  |  |  | OECD TG 402 | GLP | 분류되지않음 |  | 값있음 | p6:L22\nZinc oxide | 1314-13-2 | TX_INHAL | LC50 | > 5700 mg/m3 | Rat | 혼합 | 4 | hr | 분진·미스트 |  |  | OECD TG 403 |  | 분류되지않음 |  | 값있음 | p6:L25\nZinc oxide | 1314-13-2 | TX_INHAL | LC50 |  |  |  |  |  | 가스 |  |  |  |  | 분류되지않음 | 자료없음 | 자료없음 | p6:L27\nZinc oxide | 1314-13-2 | TX_INHAL | LC50 |  |  |  |  |  | 분진·미스트 |  |  |  |  | 분류되지않음 | 자료없음 | 자료없음 | p6:L29\nZinc oxide | 1314-13-2 | TX_SKIN | 결과기술 |  | Rabbit |  |  |  |  |  |  |  |  | 분류되지않음 | 자극성 없음 | 값있음 | p6:L32\nZinc oxide | 1314-13-2 | TX_EYE | 결과기술 |  | Rabbit |  |  |  |  |  |  | EU Method B.5 |  | 분류되지않음 | 자극성 없음, 72시간 내 완전히 가역적 | 값있음 | p7:L1\nZinc oxide | 1314-13-2 | TX_RESP_SENS | 결과기술 |  |  |  |  |  |  |  |  |  |  | 분류되지않음 | 자료없음 | 자료없음 | p7:L3\nZinc oxide | 1314-13-2 | TX_SKIN_SENS | 결과기술 |  | Guinea pig | 암컷 |  |  |  |  |  | OECD TG 406 | GLP | 분류되지않음 | 과민성 없음, 기니피그 극대화 시험(GMPT): 용량수준: 0.02, 반응: 0/10 | 값있음 | p7:L6\nZinc oxide | 1314-13-2 | TX_CARC | 결과기술 |  |  |  |  |  |  |  |  |  |  | 분류되지않음 | 자료없음 | 자료없음 | p7:L9\nZinc oxide | 1314-13-2 | TX_MUTA | 결과기술 |  |  |  |  |  |  |  |  | OECD TG 471 |  | 분류되지않음 | in vitro - 박테리아를 이용한 복귀돌연변이 시험: 음성(S. typhimurium TA1535, TA1537, TA98, TA100, 대사 활성계 관계없이) | 값있음 | p7:L12\nZinc oxide | 1314-13-2 | TX_REPRO | NOAEL | 7.5 mg/kg/d | hamster |  |  |  |  |  |  | OECD TG 416 |  | 분류되지않음 | 시험 조건 하에서, 성숙, 교배, 임신 및 초기 수유는 성인 및 30, 15 mg/kg/d에서 나타났으며, 효과는 7.5 mg/kg/d에서 나타 났지만, 이는 실질적으로 중요하지 않은 것으로 간주됨. equivalent or similar to Guideline: OECD TG 416 시험 조건 하에서, 최대 88 mg/kg의 황산 아연 (약 35.2 mg 또는 19.9 mg Zn2 + / kg bw, 무수물 및 수화물에 대해)을 투여시 성체 햄스터 및 태아에 부작용이 없었음. | 값있음 | p7:L16\nZinc oxide | 1314-13-2 | TX_STOT_SE | 결과기술 |  | Rat | 혼합 |  |  |  | 경구 |  | equivalent or similar to Guideline: OECD TG 401 |  | 분류되지않음 | 독성 부작용 징후 없음 | 값있음 | p7:L22\nZinc oxide | 1314-13-2 | TX_STOT_SE | 결과기술 |  | Rat | 혼합 |  |  |  | 경피 |  | OECD TG 402 | GLP | 분류되지않음 | 피부 독성 연구에서 흔히 볼 수있는 일반적인 불편함의 약간의 징후, 전반적인 건강 상태는 연구 전체에 걸쳐 양호 함 / 이상이 발견되지 않음 | 값있음 | p7:L23\nZinc oxide | 1314-13-2 | TX_STOT_SE | 결과기술 |  | Rat | 혼합 |  |  |  | 흡입 |  | equivalent or similar to Guideline: OECD TG 403 |  | 분류되지않음 | 머리에 더러운 털이 나타났으나, 부작용은 관찰되지 않았습니다. | 값있음 | p7:L24\nZinc oxide | 1314-13-2 | TX_STOT_RE | NOAEL | 31.52 mg/kg-bw/day | Rat |  |  |  |  | 경구(아만성) |  | OECD TG 408 | GLP | 분류되지않음 | (approx. 13.26 mg Zn2+/kg-bw/day) | 값있음 | p7:L28\nZinc oxide | 1314-13-2 | TX_STOT_RE | LOAEL | 75 mg/kg bw/day | Rat |  |  |  |  | 경피(단기반복) |  | OECD TG 410 |  | 분류되지않음 | 경피 노출한 결과, 콜라겐 함량의 감소를 근거로, 전신 독성에 대한 LOAEL은 75 mg/kg bw/day의 가장 낮은 시험 용량으로 나타났지만, 이러한 효과는 14일 동안 가역적이었음 | 값있음 | p7:L29\nZinc oxide | 1314-13-2 | TX_STOT_RE | NOAEL | 1.5 mg/m3 | Rat |  |  |  |  | 흡입(아만성) |  | OECD TG 413 | GLP | 분류되지않음 | 실험 조건하에서, NOAEL은 1.5 ㎎/㎥로 평가됨 | 값있음 | p7:L31\n |  | TX_ASP | 결과기술 |  |  |  |  |  |  |  |  |  |  | 분류되지않음 | 자료없음 | 자료없음 | p7:L33\n\n### cmr\ncomp_name | comp_cas | hazard | agency | class | status | note | line\n\n### narratives\nitem_code | title_raw | start | end\nS11_ROUTE | 가. 가능성이 높은 노출 경로에 관한 정보 | p6:L13 | p6:L14\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\nS11_ROUTE | 나. 건강 유해성 정보 | 코드없음 |  |  |  |  | 11항 소제목 | p6:L15\nTX_ORAL | ● 급성독성물질(경구) | 코드없음 | PRODUCT |  |  |  | 분류되지않음 | p6:L17\nTX_DERMAL | ● 급성독성물질(경피) | 코드없음 | PRODUCT |  |  |  | 분류되지않음 | p6:L20\nTX_INHAL | ● 급성독성물질(흡입:가스) | 코드없음 | PRODUCT |  |  |  | 분류되지않음 | p6:L23\nTX_INHAL | ● 급성독성물질(흡입:증기) | 코드없음 | PRODUCT |  |  |  | 분류되지않음 | p6:L26\nTX_INHAL | ● 급성독성물질(흡입:분진/미스트) | 코드없음 | PRODUCT |  |  |  | 분류되지않음 | p6:L28\nTX_SKIN | ○ 피부 부식성 또는 자극성 물질 | 코드없음 | PRODUCT |  |  |  | 분류되지않음 | p6:L30\nTX_EYE | ○ 심한 눈 손상 또는 자극성 물질 | 코드없음 | PRODUCT |  |  |  | 분류되지않음 | p6:L33\nTX_RESP_SENS | ○ 호흡기 과민성 물질 | 코드없음 | PRODUCT |  |  |  | 분류되지않음 | p7:L2\nTX_SKIN_SENS | ○ 피부 과민성 물질 | 코드없음 | PRODUCT |  |  |  | 분류되지않음 | p7:L4\nTX_CARC | ○ 발암성물질 | 코드없음 | PRODUCT |  |  |  | 분류되지않음 | p7:L8\nTX_MUTA | ○ 생식세포 변이원성 물질 | 코드없음 | PRODUCT |  |  |  | 분류되지않음 | p7:L10\nTX_REPRO | ○ 생식독성 물질 | 코드없음 | PRODUCT |  |  |  | 분류되지않음 | p7:L14\nTX_STOT_SE | ○ 특정표적장기·전신 독성 물질(1회 노출) | 코드없음 | PRODUCT |  |  |  | 분류되지않음 | p7:L20\nTX_STOT_RE | ○ 특정표적장기·전신 독성 물질(반복 노출) | 코드없음 | PRODUCT |  |  |  | 분류되지않음 | p7:L26\nTX_ASP | ○ 흡인유해성 물질 | 코드없음 | PRODUCT |  |  |  | 분류되지않음 | p7:L32",
+  "mode": "rows",
+  "finish_reason": "stop",
+  "usage": {
+   "prompt_tokens": 5637,
+   "completion_tokens": 2440,
+   "total_tokens": 8077
+  },
+  "attempts": 1,
+  "errors": [
+   "toxicity p6:L22 Zinc oxide | 1314-13-2 | TX_DERMAL | LD5…: 열 18개, 기대 19개",
+   "toxicity p6:L25 Zinc oxide | 1314-13-2 | TX_INHAL | LC50…: 열 18개, 기대 19개",
+   "toxicity p6:L27 Zinc oxide | 1314-13-2 | TX_INHAL | LC50…: 열 18개, 기대 19개",
+   "toxicity p6:L29 Zinc oxide | 1314-13-2 | TX_INHAL | LC50…: 열 18개, 기대 19개",
+   "toxicity p6:L32 Zinc oxide | 1314-13-2 | TX_SKIN | 결과기술 …: 열 18개, 기대 19개",
+   "toxicity p7:L1 Zinc oxide | 1314-13-2 | TX_EYE | 결과기술 |…: 열 18개, 기대 19개",
+   "toxicity p7:L3 Zinc oxide | 1314-13-2 | TX_RESP_SENS | …: 열 18개, 기대 19개",
+   "toxicity p7:L6 Zinc oxide | 1314-13-2 | TX_SKIN_SENS | …: 열 18개, 기대 19개",
+   "toxicity p7:L9 Zinc oxide | 1314-13-2 | TX_CARC | 결과기술 …: 열 18개, 기대 19개",
+   "toxicity p7:L12 Zinc oxide | 1314-13-2 | TX_MUTA | 결과기술 …: 열 18개, 기대 19개",
+   "toxicity p7:L16 Zinc oxide | 1314-13-2 | TX_REPRO | NOAE…: 열 18개, 기대 19개",
+   "toxicity p7:L22 Zinc oxide | 1314-13-2 | TX_STOT_SE | 결과…: 열 18개, 기대 19개",
+   "toxicity p7:L23 Zinc oxide | 1314-13-2 | TX_STOT_SE | 결과…: 열 18개, 기대 19개",
+   "toxicity p7:L24 Zinc oxide | 1314-13-2 | TX_STOT_SE | 결과…: 열 18개, 기대 19개",
+   "toxicity p7:L28 Zinc oxide | 1314-13-2 | TX_STOT_RE | NO…: 열 18개, 기대 19개",
+   "toxicity p7:L29 Zinc oxide | 1314-13-2 | TX_STOT_RE | LO…: 열 18개, 기대 19개",
+   "toxicity p7:L31 Zinc oxide | 1314-13-2 | TX_STOT_RE | NO…: 열 18개, 기대 19개",
+   "toxicity p7:L33 |  | TX_ASP | 결과기술 |  |  |  |  |  |  |  …: 열 18개, 기대 19개"
+  ],
+  "requests": [
+   {
+    "mode": "rows",
+    "finish_reason": "stop",
+    "usage": {
+     "prompt_tokens": 5637,
+     "completion_tokens": 2440,
+     "total_tokens": 8077
+    },
+    "seconds": 26.317,
+    "chars": 4710,
+    "whitespace": 1299,
+    "head": "### toxicity\ncomp_name | comp_cas | endpoint | descriptor | q | species | sex | duration_value | duration_unit | physical_form | exposure_type | converted | read_across_cas | guideline | data_source | classification | statements | status | line\nZinc oxide | 1314-13-2 | TX_ORAL | LD50 | > 5000 mg/kg | Rat | 혼합 |  |  |  | 위관 |  |  | OECD TG 401 |  | 분류되지않음 |  | 값있음 | p6:L19\nZinc oxide | 1314-13-2 | TX_DERMAL | LD50 | > 2000 mg/kg | Rat | 혼합 |  |  |  |  |  | OECD TG 402 | GLP | 분류되지않음 |  | 값있음 | p6",
+    "tail": "| p7:L2\nTX_SKIN_SENS | ○ 피부 과민성 물질 | 코드없음 | PRODUCT |  |  |  | 분류되지않음 | p7:L4\nTX_CARC | ○ 발암성물질 | 코드없음 | PRODUCT |  |  |  | 분류되지않음 | p7:L8\nTX_MUTA | ○ 생식세포 변이원성 물질 | 코드없음 | PRODUCT |  |  |  | 분류되지않음 | p7:L10\nTX_REPRO | ○ 생식독성 물질 | 코드없음 | PRODUCT |  |  |  | 분류되지않음 | p7:L14\nTX_STOT_SE | ○ 특정표적장기·전신 독성 물질(1회 노출) | 코드없음 | PRODUCT |  |  |  | 분류되지않음 | p7:L20\nTX_STOT_RE | ○ 특정표적장기·전신 독성 물질(반복 노출) | 코드없음 | PRODUCT |  |  |  | 분류되지않음 | p7:L26\nTX_ASP | ○ 흡인유해성 물질 | 코드없음 | PRODUCT |  |  |  | 분류되지않음 | p7:L32"
+   }
+  ],
+  "seconds": 26.388,
+  "check_problems": []
+ }
+}

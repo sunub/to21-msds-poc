@@ -1,0 +1,99 @@
+{
+ "doc_id": "RAW-49",
+ "msds_index": 0,
+ "section": 4,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S4_EYE",
+    "title_raw": "가. 눈에 들어갔을 때 :",
+    "start": "p2:L11",
+    "end": "p2:L13"
+   },
+   {
+    "item_code": "S4_SKIN",
+    "title_raw": "나. 피부에 접촉했을 때 :",
+    "start": "p2:L14",
+    "end": "p2:L16"
+   },
+   {
+    "item_code": "S4_INHAL",
+    "title_raw": "다. 흡입했을 때 :",
+    "start": "p2:L17",
+    "end": "p2:L19"
+   },
+   {
+    "item_code": "S4_INGEST",
+    "title_raw": "라. 먹었을 때 :",
+    "start": "p2:L20",
+    "end": "p2:L21"
+   },
+   {
+    "item_code": "S4_DOCTOR",
+    "title_raw": "마. 기타 의사의 주의사항 :",
+    "start": "p2:L22",
+    "end": "p2:L22"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S4_EYE",
+    "title_raw": "눈을 씻기 전에 콘택트렌즈를 제거할 것. 즉시 다량의 물로 눈꺼풀을 들어올린 채로 눈을 씻",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "value": "눈을 씻기 전에 콘택트렌즈를 제거할 것. 즉시 다량의 물로 눈꺼풀을 들어올린 채로 눈을 씻",
+      "line": "p2:L11"
+     }
+    ],
+    "suggested_code": "S4_EYE_PREP",
+    "line": "p2:L11"
+   },
+   {
+    "after_item": "S4_INGEST",
+    "title_raw": "(200-300 mL)",
+    "reason": "코드없음",
+    "q": {
+     "raw": "(200-300 mL)",
+     "lower_op": ">=",
+     "lower": 200,
+     "upper_op": "<=",
+     "upper": 300,
+     "unit": "mL"
+    },
+    "suggested_code": "S4_INGEST_VOLUME",
+    "line": "p2:L21"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S4_EYE\",\n      \"title_raw\": \"가. 눈에 들어갔을 때 :\",\n      \"start\": \"p2:L11\",\n      \"end\": \"p2:L13\"\n    },\n    {\n      \"item_code\": \"S4_SKIN\",\n      \"title_raw\": \"나. 피부에 접촉했을 때 :\",\n      \"start\": \"p2:L14\",\n      \"end\": \"p2:L16\"\n    },\n    {\n      \"item_code\": \"S4_INHAL\",\n      \"title_raw\": \"다. 흡입했을 때 :\",\n      \"start\": \"p2:L17\",\n      \"end\": \"p2:L19\"\n    },\n    {\n      \"item_code\": \"S4_INGEST\",\n      \"title_raw\": \"라. 먹었을 때 :\",\n      \"start\": \"p2:L20\",\n      \"end\": \"p2:L21\"\n    },\n    {\n      \"item_code\": \"S4_DOCTOR\",\n      \"title_raw\": \"마. 기타 의사의 주의사항 :\",\n      \"start\": \"p2:L22\",\n      \"end\": \"p2:L22\"\n    }\n  ]\n,\n  \"extras\": [\n    {\n      \"after_item\": \"S4_EYE\",\n      \"title_raw\": \"눈을 씻기 전에 콘택트렌즈를 제거할 것. 즉시 다량의 물로 눈꺼풀을 들어올린 채로 눈을 씻\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"눈을 씻기 전에 콘택트렌즈를 제거할 것. 즉시 다량의 물로 눈꺼풀을 들어올린 채로 눈을 씻\"\n        ,\n          \"line\": \"p2:L11\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S4_EYE_PREP\"\n    ,\n      \"line\": \"p2:L11\"\n    },\n    {\n      \"after_item\": \"S4_INGEST\",\n      \"title_raw\": \"(200-300 mL)\",\n      \"reason\": \"코드없음\",\n      \"q\": {\n        \"raw\": \"(200-300 mL)\",\n        \"lower_op\": \">=\",\n        \"lower\": 200,\n        \"upper_op\": \"<=\",\n        \"upper\": 300,\n        \"unit\": \"mL\"\n      }\n    ,\n      \"suggested_code\": \"S4_INGEST_VOLUME\"\n    ,\n      \"line\": \"p2:L21\"\n    }\n  ]\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 2292,
+  "completion_tokens": 621,
+  "total_tokens": 2913
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 2292,
+    "completion_tokens": 621,
+    "total_tokens": 2913
+   },
+   "seconds": 11.365,
+   "chars": 1402,
+   "whitespace": 533,
+   "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S4_EYE\",\n      \"title_raw\": \"가. 눈에 들어갔을 때 :\",\n      \"start\": \"p2:L11\",\n      \"end\": \"p2:L13\"\n    },\n    {\n      \"item_code\": \"S4_SKIN\",\n      \"title_raw\": \"나. 피부에 접촉했을 때 :\",\n      \"start\": \"p2:L14\",\n      \"end\": \"p2:L16\"\n    },\n    {\n      \"item_code\": \"S4_INHAL\",\n      \"title_raw\": \"다. 흡입했을 때 :\",\n      \"start\": \"p2:L17\",\n      \"end\": \"p2:L19\"\n    },\n    {\n      \"item_code\": \"S4_INGEST\",\n      \"title_raw\": \"라. 먹었을 때 :\",\n      \"start\": \"p2:L20\",\n     ",
+   "tail": "채로 눈을 씻\"\n        ,\n          \"line\": \"p2:L11\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S4_EYE_PREP\"\n    ,\n      \"line\": \"p2:L11\"\n    },\n    {\n      \"after_item\": \"S4_INGEST\",\n      \"title_raw\": \"(200-300 mL)\",\n      \"reason\": \"코드없음\",\n      \"q\": {\n        \"raw\": \"(200-300 mL)\",\n        \"lower_op\": \">=\",\n        \"lower\": 200,\n        \"upper_op\": \"<=\",\n        \"upper\": 300,\n        \"unit\": \"mL\"\n      }\n    ,\n      \"suggested_code\": \"S4_INGEST_VOLUME\"\n    ,\n      \"line\": \"p2:L21\"\n    }\n  ]\n}"
+  }
+ ],
+ "seconds": 11.366,
+ "check_problems": []
+}

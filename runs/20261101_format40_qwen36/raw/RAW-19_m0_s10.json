@@ -1,0 +1,78 @@
+{
+ "doc_id": "RAW-19",
+ "msds_index": 0,
+ "section": 10,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S10_STABILITY",
+    "title_raw": "가. 화학적 안정성",
+    "start": "p4:L32",
+    "end": "p4:L32"
+   },
+   {
+    "item_code": "S10_CONDITIONS",
+    "title_raw": "다. 피해야 할 조건 (정전기 방전, 충격, 진동 등)",
+    "start": "p5:L5",
+    "end": "p5:L8"
+   },
+   {
+    "item_code": "S10_INCOMPAT",
+    "title_raw": "라. 피해야 할 물질",
+    "start": "p5:L9",
+    "end": "p5:L9"
+   },
+   {
+    "item_code": "S10_DECOMP",
+    "title_raw": "마. 분해시 생성되는 유해물질",
+    "start": "p5:L10",
+    "end": "p5:L11"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S10_STABILITY",
+    "title_raw": "나. 유해 반응의 가능성",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "value": "중합하지 않음.",
+      "line": "p5:L4"
+     }
+    ],
+    "suggested_code": "S10_REACTIVITY",
+    "line": "p5:L4"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S10_STABILITY\",\n      \"title_raw\": \"가. 화학적 안정성\",\n      \"start\": \"p4:L32\",\n      \"end\": \"p4:L32\"\n    },\n    {\n      \"item_code\": \"S10_CONDITIONS\",\n      \"title_raw\": \"다. 피해야 할 조건 (정전기 방전, 충격, 진동 등)\",\n      \"start\": \"p5:L5\",\n      \"end\": \"p5:L8\"\n    },\n    {\n      \"item_code\": \"S10_INCOMPAT\",\n      \"title_raw\": \"라. 피해야 할 물질\",\n      \"start\": \"p5:L9\",\n      \"end\": \"p5:L9\"\n    },\n    {\n      \"item_code\": \"S10_DECOMP\",\n      \"title_raw\": \"마. 분해시 생성되는 유해물질\",\n      \"start\": \"p5:L10\",\n      \"end\": \"p5:L11\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S10_STABILITY\",\n      \"title_raw\": \"나. 유해 반응의 가능성\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"중합하지 않음.\"\n        ,\n          \"line\": \"p5:L4\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S10_REACTIVITY\"\n    ,\n      \"line\": \"p5:L4\"\n    }\n  ]\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 2170,
+  "completion_tokens": 381,
+  "total_tokens": 2551
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 2170,
+    "completion_tokens": 381,
+    "total_tokens": 2551
+   },
+   "seconds": 7.539,
+   "chars": 879,
+   "whitespace": 329,
+   "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S10_STABILITY\",\n      \"title_raw\": \"가. 화학적 안정성\",\n      \"start\": \"p4:L32\",\n      \"end\": \"p4:L32\"\n    },\n    {\n      \"item_code\": \"S10_CONDITIONS\",\n      \"title_raw\": \"다. 피해야 할 조건 (정전기 방전, 충격, 진동 등)\",\n      \"start\": \"p5:L5\",\n      \"end\": \"p5:L8\"\n    },\n    {\n      \"item_code\": \"S10_INCOMPAT\",\n      \"title_raw\": \"라. 피해야 할 물질\",\n      \"start\": \"p5:L9\",\n      \"end\": \"p5:L9\"\n    },\n    {\n      \"item_code\": \"S10_DECOMP\",\n      \"title_raw\": \"마. 분해시 생성되는 유해물질\"",
+   "tail": ",\n      \"start\": \"p5:L10\",\n      \"end\": \"p5:L11\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S10_STABILITY\",\n      \"title_raw\": \"나. 유해 반응의 가능성\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"중합하지 않음.\"\n        ,\n          \"line\": \"p5:L4\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S10_REACTIVITY\"\n    ,\n      \"line\": \"p5:L4\"\n    }\n  ]\n}"
+  }
+ ],
+ "seconds": 7.541,
+ "check_problems": []
+}

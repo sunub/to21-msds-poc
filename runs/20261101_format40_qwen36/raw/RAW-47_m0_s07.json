@@ -1,0 +1,67 @@
+{
+ "doc_id": "RAW-47",
+ "msds_index": 0,
+ "section": 7,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S7_HANDLING",
+    "title_raw": "가. 안전취급 요령",
+    "start": "p4:L5",
+    "end": "p4:L8"
+   },
+   {
+    "item_code": "S7_STORAGE",
+    "title_raw": "나. 안전한 저장방법",
+    "start": "p4:L10",
+    "end": "p4:L10"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S7_HANDLING",
+    "title_raw": "피해야할 물질 및 조건에 유의하시오",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "key": "content",
+      "value": "피해야할 물질 및 조건에 유의하시오",
+      "line": "p4:L9"
+     }
+    ],
+    "suggested_code": "S7_HANDLING",
+    "line": "p4:L9"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S7_HANDLING\",\n      \"title_raw\": \"가. 안전취급 요령\",\n      \"start\": \"p4:L5\",\n      \"end\": \"p4:L8\"\n    },\n    {\n      \"item_code\": \"S7_STORAGE\",\n      \"title_raw\": \"나. 안전한 저장방법\",\n      \"start\": \"p4:L10\",\n      \"end\": \"p4:L10\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S7_HANDLING\",\n      \"title_raw\": \"피해야할 물질 및 조건에 유의하시오\",\n      \"reason\": \"코드없음\"\n    ,\n      \"statements\": [\n        {\n          \"key\": \"content\",\n          \"value\": \"피해야할 물질 및 조건에 유의하시오\"\n        ,\n          \"line\": \"p4:L9\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S7_HANDLING\"\n    ,\n      \"line\": \"p4:L9\"\n    }\n  ]\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 2098,
+  "completion_tokens": 266,
+  "total_tokens": 2364
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 2098,
+    "completion_tokens": 266,
+    "total_tokens": 2364
+   },
+   "seconds": 5.134,
+   "chars": 640,
+   "whitespace": 254,
+   "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S7_HANDLING\",\n      \"title_raw\": \"가. 안전취급 요령\",\n      \"start\": \"p4:L5\",\n      \"end\": \"p4:L8\"\n    },\n    {\n      \"item_code\": \"S7_STORAGE\",\n      \"title_raw\": \"나. 안전한 저장방법\",\n      \"start\": \"p4:L10\",\n      \"end\": \"p4:L10\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S7_HANDLING\",\n      \"title_raw\": \"피해야할 물질 및 조건에 유의하시오\",\n      \"reason\": \"코드없음\"\n    ,\n      \"statements\": [\n        {\n          \"key\": \"content\",\n          \"value\": \"피해야할 물질 및 조건에 유의하시",
+   "tail": "오\"\n        ,\n          \"line\": \"p4:L9\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S7_HANDLING\"\n    ,\n      \"line\": \"p4:L9\"\n    }\n  ]\n}"
+  }
+ ],
+ "seconds": 5.135,
+ "check_problems": []
+}

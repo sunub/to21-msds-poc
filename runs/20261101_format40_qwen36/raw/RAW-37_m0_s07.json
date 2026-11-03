@@ -1,0 +1,95 @@
+{
+ "doc_id": "RAW-37",
+ "msds_index": 0,
+ "section": 7,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S7_HANDLING",
+    "title_raw": "가. 안전취급요령",
+    "start": "p4:L15",
+    "end": "p4:L18"
+   },
+   {
+    "item_code": "S7_STORAGE",
+    "title_raw": "나. 안전한 저장 방법",
+    "start": "p4:L19",
+    "end": "p4:L22"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S7_HANDLING",
+    "title_raw": "가. 안전취급요령",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "value": "취급 후 철저히 씻으시오",
+      "line": "p4:L16"
+     },
+     {
+      "value": "공학적 관리 및 개인보호구를 참조하여 작업하시오",
+      "line": "p4:L17"
+     },
+     {
+      "value": "고온에 주의하시오.",
+      "line": "p4:L18"
+     }
+    ],
+    "suggested_code": "S7_HANDLING",
+    "line": "p4:L15"
+   },
+   {
+    "after_item": "S7_STORAGE",
+    "title_raw": "나. 안전한 저장 방법",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "value": "밀폐하여 보관하시오",
+      "line": "p4:L20"
+     },
+     {
+      "value": "서늘하고 건조한 장소에 저장하시오",
+      "line": "p4:L21"
+     },
+     {
+      "value": "피해야할 물질 및 조건에 유의하시오",
+      "line": "p4:L22"
+     }
+    ],
+    "suggested_code": "S7_STORAGE",
+    "line": "p4:L19"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S7_HANDLING\",\n      \"title_raw\": \"가. 안전취급요령\",\n      \"start\": \"p4:L15\",\n      \"end\": \"p4:L18\"\n    },\n    {\n      \"item_code\": \"S7_STORAGE\",\n      \"title_raw\": \"나. 안전한 저장 방법\",\n      \"start\": \"p4:L19\",\n      \"end\": \"p4:L22\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S7_HANDLING\",\n      \"title_raw\": \"가. 안전취급요령\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"취급 후 철저히 씻으시오\"\n        ,\n        \"line\": \"p4:L16\"\n        },\n        {\n          \"value\": \"공학적 관리 및 개인보호구를 참조하여 작업하시오\"\n        ,\n        \"line\": \"p4:L17\"\n        },\n        {\n          \"value\": \"고온에 주의하시오.\"\n        ,\n        \"line\": \"p4:L18\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S7_HANDLING\"\n    ,\n      \"line\": \"p4:L15\"\n    },\n    {\n      \"after_item\": \"S7_STORAGE\",\n      \"title_raw\": \"나. 안전한 저장 방법\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"밀폐하여 보관하시오\"\n        ,\n        \"line\": \"p4:L20\"\n        },\n        {\n          \"value\": \"서늘하고 건조한 장소에 저장하시오\"\n        ,\n        \"line\": \"p4:L21\"\n        },\n        {\n          \"value\": \"피해야할 물질 및 조건에 유의하시오\"\n        ,\n        \"line\": \"p4:L22\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S7_STORAGE\"\n    ,\n      \"line\": \"p4:L19\"\n    }\n  ]\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 1989,
+  "completion_tokens": 517,
+  "total_tokens": 2506
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 1989,
+    "completion_tokens": 517,
+    "total_tokens": 2506
+   },
+   "seconds": 9.668,
+   "chars": 1273,
+   "whitespace": 568,
+   "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S7_HANDLING\",\n      \"title_raw\": \"가. 안전취급요령\",\n      \"start\": \"p4:L15\",\n      \"end\": \"p4:L18\"\n    },\n    {\n      \"item_code\": \"S7_STORAGE\",\n      \"title_raw\": \"나. 안전한 저장 방법\",\n      \"start\": \"p4:L19\",\n      \"end\": \"p4:L22\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S7_HANDLING\",\n      \"title_raw\": \"가. 안전취급요령\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"취급 후 철저히 씻으시오\"\n        ,\n        \"line\": \"p4:L16\"\n        }",
+   "tail": "\n    },\n    {\n      \"after_item\": \"S7_STORAGE\",\n      \"title_raw\": \"나. 안전한 저장 방법\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"밀폐하여 보관하시오\"\n        ,\n        \"line\": \"p4:L20\"\n        },\n        {\n          \"value\": \"서늘하고 건조한 장소에 저장하시오\"\n        ,\n        \"line\": \"p4:L21\"\n        },\n        {\n          \"value\": \"피해야할 물질 및 조건에 유의하시오\"\n        ,\n        \"line\": \"p4:L22\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S7_STORAGE\"\n    ,\n      \"line\": \"p4:L19\"\n    }\n  ]\n}"
+  }
+ ],
+ "seconds": 9.67,
+ "check_problems": []
+}

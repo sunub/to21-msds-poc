@@ -1,0 +1,144 @@
+{
+ "doc_id": "RAW-07",
+ "msds_index": 0,
+ "section": 3,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "composition": {
+   "type": "혼합물",
+   "no_hazardous_component": false,
+   "lines": {
+    "type": "p3:L4",
+    "no_hazardous_component": "p3:L4"
+   }
+  },
+  "components": [
+   {
+    "name": "물",
+    "name_en": null,
+    "synonyms": [],
+    "cas_no": "7732-18-5",
+    "ke_no": "KE-35400",
+    "ec_no": null,
+    "other_id": null,
+    "other_id_type": null,
+    "parent_seq": null,
+    "read_across_cas": null,
+    "content": {
+     "raw": "94.91 ~ 96.9 %",
+     "lower_op": ">=",
+     "lower": 94.91,
+     "upper_op": "<=",
+     "upper": 96.9,
+     "unit": "%"
+    },
+    "content_note": null,
+    "content_basis": "중량",
+    "trade_secret": false,
+    "approval_no": null,
+    "approval_expiry": null,
+    "line": "p3:L8"
+   },
+   {
+    "name": "질산",
+    "name_en": null,
+    "synonyms": [],
+    "cas_no": "7697-37-2",
+    "ke_no": "KE-25911",
+    "ec_no": null,
+    "other_id": null,
+    "other_id_type": null,
+    "parent_seq": null,
+    "read_across_cas": null,
+    "content": {
+     "raw": "3 ~ 4.99 %",
+     "lower_op": ">=",
+     "lower": 3,
+     "upper_op": "<=",
+     "upper": 4.99,
+     "unit": "%"
+    },
+    "content_note": null,
+    "content_basis": "중량",
+    "trade_secret": false,
+    "approval_no": null,
+    "approval_expiry": null,
+    "line": "p3:L9"
+   },
+   {
+    "name": "구리",
+    "name_en": null,
+    "synonyms": [],
+    "cas_no": "7440-50-8",
+    "ke_no": "KE-08896",
+    "ec_no": null,
+    "other_id": null,
+    "other_id_type": null,
+    "parent_seq": null,
+    "read_across_cas": null,
+    "content": {
+     "raw": "0.1 %",
+     "value": 0.1,
+     "unit": "%"
+    },
+    "content_note": null,
+    "content_basis": "중량",
+    "trade_secret": false,
+    "approval_no": null,
+    "approval_expiry": null,
+    "line": "p3:L10"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S7_END",
+    "title_raw": "추가 정보",
+    "reason": "필드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [
+     {
+      "value": "이 SDS에 명시된 산의 농도는 절대 질량 농도(%w/v)로 계산됩니다. 이 값은 제품 라벨과 COA에 명시된 산 농도보다 낮은 값으로, 상용화된 산의 농축 수성 형태의 % 값을 반영합니다.",
+      "line": "p3:L11"
+     },
+     {
+      "value": "함량 % =. 100.",
+      "line": "p3:L11"
+     }
+    ],
+    "suggested_code": null,
+    "line": "p3:L11"
+   }
+  ]
+ },
+ "raw_text": "### composition\ntype | no_hazardous_component | line\n혼합물 | false | p3:L4\n\n### components\nname | name_en | synonyms | cas_no | ke_no | ec_no | other_id | other_id_type | parent_seq | read_across_cas | content | content_note | content_basis | trade_secret | approval_no | approval_expiry | line\n물 |  |  | 7732-18-5 | KE-35400 |  |  |  |  |  | 94.91 ~ 96.9 % |  | 중량 | false |  |  | p3:L8\n질산 |  |  | 7697-37-2 | KE-25911 |  |  |  |  |  | 3 ~ 4.99 % |  | 중량 | false |  |  | p3:L9\n구리 |  |  | 7440-50-8 | KE-08896 |  |  |  |  |  | 0.1 % |  | 중량 | false |  |  | p3:L10\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\nS7_END | 추가 정보 | 필드없음 |  |  |  | 이 SDS에 명시된 산의 농도는 절대 질량 농도(%w/v)로 계산됩니다. 이 값은 제품 라벨과 COA에 명시된 산 농도보다 낮은 값으로, 상용화된 산의 농축 수성 형태의 % 값을 반영합니다.; 함량 % =. 100. |  | p3:L11",
+ "mode": "rows",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 4033,
+  "completion_tokens": 385,
+  "total_tokens": 4418
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "rows",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 4033,
+    "completion_tokens": 385,
+    "total_tokens": 4418
+   },
+   "seconds": 7.922,
+   "chars": 835,
+   "whitespace": 221,
+   "head": "### composition\ntype | no_hazardous_component | line\n혼합물 | false | p3:L4\n\n### components\nname | name_en | synonyms | cas_no | ke_no | ec_no | other_id | other_id_type | parent_seq | read_across_cas | content | content_note | content_basis | trade_secret | approval_no | approval_expiry | line\n물 |  |  | 7732-18-5 | KE-35400 |  |  |  |  |  | 94.91 ~ 96.9 % |  | 중량 | false |  |  | p3:L8\n질산 |  |  | 7697-37-2 | KE-25911 |  |  |  |  |  | 3 ~ 4.99 % |  | 중량 | false |  |  | p3:L9\n구리 |  |  | 7440-50-8 | K",
+   "tail": "E-08896 |  |  |  |  |  | 0.1 % |  | 중량 | false |  |  | p3:L10\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\nS7_END | 추가 정보 | 필드없음 |  |  |  | 이 SDS에 명시된 산의 농도는 절대 질량 농도(%w/v)로 계산됩니다. 이 값은 제품 라벨과 COA에 명시된 산 농도보다 낮은 값으로, 상용화된 산의 농축 수성 형태의 % 값을 반영합니다.; 함량 % =. 100. |  | p3:L11"
+  }
+ ],
+ "seconds": 7.928,
+ "check_problems": []
+}

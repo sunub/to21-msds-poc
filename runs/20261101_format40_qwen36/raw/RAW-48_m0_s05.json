@@ -1,0 +1,85 @@
+{
+ "doc_id": "RAW-48",
+ "msds_index": 0,
+ "section": 5,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S5_MEDIA",
+    "title_raw": "가. 적절한 소화제",
+    "start": "p1:L43",
+    "end": "p1:L43"
+   },
+   {
+    "item_code": "S5_SPECIFIC",
+    "title_raw": "나. 화학물질로부터 생기는 특정 유해성",
+    "start": "p1:L44",
+    "end": "p1:L44"
+   },
+   {
+    "item_code": "S5_FIREFIGHT",
+    "title_raw": "다. 화재진압 시 착용할 보호구 및 예방조치",
+    "start": "p1:L45",
+    "end": "p1:L45"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S5_FIREFIGHT",
+    "title_raw": "라. 추가 정보",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "value": "본 제품 자체로는 연소하지 않습니다.",
+      "line": "p1:L46"
+     }
+    ],
+    "line": "p1:L46"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S5_MEDIA\",\n      \"title_raw\": \"가. 적절한 소화제\",\n      \"start\": \"p1:L43\",\n      \"end\": \"p1:L43\"\n    },\n    {\n      \"item_code\": \"S5_SPECIFIC\",\n      \"title_raw\": \"나. 화학물질로부터 생기는 특정 유해성\",\n      \"start\": \"p1:L44\",\n      \"end\": \"p1:L44\"\n    },\n    {\n      \"item_code\": \"S5_FIREFIGHT\",\n      \"title_raw\": \"다. 화재진압 시 착용할 보호구 및 예방조치\",\n      \"start\": \"p1:L45\",\n      \"end\": \"p1:L45\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S5_FIREFIGHT\",\n      \"title_raw\": \"라. 추가 정보\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"본 제품 자체로는 연소하지 않습니다.\",\n          \"line\": \"p1:L46\"\n        }\n      ],\n      \"line\": \"p1:L46\"\n    }\n  ]\n}",
+ "mode": "json_object",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 3465,
+  "completion_tokens": 301,
+  "total_tokens": 3766
+ },
+ "attempts": 2,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "length",
+   "usage": {
+    "prompt_tokens": 2084,
+    "completion_tokens": 8192,
+    "total_tokens": 10276
+   },
+   "seconds": 55.09,
+   "chars": 32362,
+   "whitespace": 31981,
+   "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S5_MEDIA\",\n      \"title_raw\": \"가. 적절한 소화제\",\n      \"start\": \"L43\",\n      \"end\": \"L43\"\n    },\n    {\n      \"item_code\": \"S5_SPECIFIC\",\n      \"title_raw\": \"나. 화학물질로부터 생기는 특정 유해성\",\n      \"start\": \"L44\",\n      \"end\": \"L44\"\n    },\n    {\n      \"item_code\": \"S5_FIREFIGHT\",\n      \"title_raw\": \"다. 화재진압 시 착용할 보호구 및 예방조치\",\n      \"start\": \"L45\",\n      \"end\": \"L45\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S5_FIREFIGHT\",\n      \"title_raw\": \"라. 추가 정보\",\n   ",
+   "tail": "    \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       \n       "
+  },
+  {
+   "mode": "json_object",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 3465,
+    "completion_tokens": 301,
+    "total_tokens": 3766
+   },
+   "seconds": 2.331,
+   "chars": 694,
+   "whitespace": 258,
+   "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S5_MEDIA\",\n      \"title_raw\": \"가. 적절한 소화제\",\n      \"start\": \"p1:L43\",\n      \"end\": \"p1:L43\"\n    },\n    {\n      \"item_code\": \"S5_SPECIFIC\",\n      \"title_raw\": \"나. 화학물질로부터 생기는 특정 유해성\",\n      \"start\": \"p1:L44\",\n      \"end\": \"p1:L44\"\n    },\n    {\n      \"item_code\": \"S5_FIREFIGHT\",\n      \"title_raw\": \"다. 화재진압 시 착용할 보호구 및 예방조치\",\n      \"start\": \"p1:L45\",\n      \"end\": \"p1:L45\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S5_FIREFIGHT\",\n      \"title_raw",
+   "tail": "\": \"라. 추가 정보\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"본 제품 자체로는 연소하지 않습니다.\",\n          \"line\": \"p1:L46\"\n        }\n      ],\n      \"line\": \"p1:L46\"\n    }\n  ]\n}"
+  }
+ ],
+ "seconds": 57.425,
+ "check_problems": []
+}

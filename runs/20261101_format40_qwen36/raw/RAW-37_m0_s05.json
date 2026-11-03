@@ -1,0 +1,66 @@
+{
+ "doc_id": "RAW-37",
+ "msds_index": 0,
+ "section": 5,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S5_MEDIA",
+    "title_raw": "가. 적절한 (및 부적절한) 소화제",
+    "start": "p3:L4",
+    "end": "p3:L7"
+   },
+   {
+    "item_code": "S5_FIREFIGHT",
+    "title_raw": "다. 화재 진압 시 착용할 보호구 및 예방조치",
+    "start": "p3:L12",
+    "end": "p3:L19"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S5_MEDIA",
+    "title_raw": "나. 화학물질로부터 생기는 특정 유해성",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "value": "열분해 또는 연소에 의해 자극성 가스, 탄소 산화물을 발생함",
+      "line": "p3:L11"
+     }
+    ],
+    "suggested_code": "S5_SPECIFIC",
+    "line": "p3:L10"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S5_MEDIA\",\n      \"title_raw\": \"가. 적절한 (및 부적절한) 소화제\",\n      \"start\": \"p3:L4\",\n      \"end\": \"p3:L7\"\n    },\n    {\n      \"item_code\": \"S5_FIREFIGHT\",\n      \"title_raw\": \"다. 화재 진압 시 착용할 보호구 및 예방조치\",\n      \"start\": \"p3:L12\",\n      \"end\": \"p3:L19\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S5_MEDIA\",\n      \"title_raw\": \"나. 화학물질로부터 생기는 특정 유해성\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"열분해 또는 연소에 의해 자극성 가스, 탄소 산화물을 발생함\"\n        ,\n          \"line\": \"p3:L11\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S5_SPECIFIC\"\n    ,\n      \"line\": \"p3:L10\"\n    }\n  ]\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 2220,
+  "completion_tokens": 278,
+  "total_tokens": 2498
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 2220,
+    "completion_tokens": 278,
+    "total_tokens": 2498
+   },
+   "seconds": 6.111,
+   "chars": 644,
+   "whitespace": 248,
+   "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S5_MEDIA\",\n      \"title_raw\": \"가. 적절한 (및 부적절한) 소화제\",\n      \"start\": \"p3:L4\",\n      \"end\": \"p3:L7\"\n    },\n    {\n      \"item_code\": \"S5_FIREFIGHT\",\n      \"title_raw\": \"다. 화재 진압 시 착용할 보호구 및 예방조치\",\n      \"start\": \"p3:L12\",\n      \"end\": \"p3:L19\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S5_MEDIA\",\n      \"title_raw\": \"나. 화학물질로부터 생기는 특정 유해성\",\n      \"reason\": \"코드없음\",\n      \"statements\": [\n        {\n          \"value\": \"열분해 또는 연소에 의해 자극성 가스, 탄소 산화물을 ",
+   "tail": "발생함\"\n        ,\n          \"line\": \"p3:L11\"\n        }\n      ]\n    ,\n      \"suggested_code\": \"S5_SPECIFIC\"\n    ,\n      \"line\": \"p3:L10\"\n    }\n  ]\n}"
+  }
+ ],
+ "seconds": 6.112,
+ "check_problems": []
+}

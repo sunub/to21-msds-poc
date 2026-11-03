@@ -1,0 +1,449 @@
+{
+ "doc_id": "RAW-20",
+ "msds_index": 0,
+ "section": 12,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "ecotox": [
+   {
+    "comp_name": "R-125",
+    "comp_cas": null,
+    "endpoint": "ECO_FISH",
+    "descriptor": "LC50",
+    "q": {
+     "raw": "{upper_op:'>',upper:81.8,unit:'mg/L'}"
+    },
+    "species": "Oncorhynchus mykiss",
+    "duration_value": 96,
+    "duration_unit": "hr",
+    "guideline": "OECD Guideline 203",
+    "data_source": "ECHA",
+    "statements": [
+     {
+      "value": "Read-across",
+      "line": "p7:L27"
+     }
+    ],
+    "status": "값있음",
+    "line": "p7:L27"
+   },
+   {
+    "comp_name": "R-125",
+    "comp_cas": null,
+    "endpoint": "ECO_CRUST",
+    "descriptor": "EC50",
+    "q": {
+     "raw": "{upper_op:'>',upper:97.9,unit:'mg/L'}"
+    },
+    "species": "Daphnia magna",
+    "duration_value": 48,
+    "duration_unit": "hr",
+    "guideline": "OECD Guideline 202",
+    "data_source": "ECHA",
+    "statements": [
+     {
+      "value": "Read-across",
+      "line": "p7:L29"
+     }
+    ],
+    "status": "값있음",
+    "line": "p7:L29"
+   },
+   {
+    "comp_name": "R-125",
+    "comp_cas": null,
+    "endpoint": "ECO_ALGAE",
+    "descriptor": "EC50",
+    "q": {
+     "raw": "{upper_op:'>',upper:114,unit:'mg/L'}"
+    },
+    "species": "Pseudokirchneriella subcapitata",
+    "duration_value": 72,
+    "duration_unit": "hr",
+    "guideline": "OECD Guideline 201",
+    "data_source": "ECHA",
+    "statements": [
+     {
+      "value": "Read-across",
+      "line": "p7:L31"
+     }
+    ],
+    "status": "값있음",
+    "line": "p7:L31"
+   },
+   {
+    "comp_name": "R-125",
+    "comp_cas": null,
+    "endpoint": "ECO_ALGAE",
+    "descriptor": "NOEC",
+    "q": {
+     "raw": "{value:13.2,approx:true,unit:'mg/L'}"
+    },
+    "species": "Selenastrum capricornutum",
+    "duration_value": 72,
+    "duration_unit": "hr",
+    "guideline": "OECD Guideline 201",
+    "data_source": "ECHA",
+    "statements": [
+     {
+      "value": "Read-across",
+      "line": "p7:L32"
+     }
+    ],
+    "status": "값있음",
+    "line": "p7:L32"
+   },
+   {
+    "comp_name": "R-32",
+    "comp_cas": null,
+    "endpoint": "ECO_FISH",
+    "descriptor": "LC50",
+    "q": {
+     "raw": "{value:1731,unit:'mg/L'}"
+    },
+    "species": "freshwater fish",
+    "duration_value": 96,
+    "duration_unit": "hr",
+    "guideline": null,
+    "data_source": "ECHA",
+    "statements": [
+     {
+      "value": "QSAR",
+      "line": "p7:L35"
+     }
+    ],
+    "status": "값있음",
+    "line": "p7:L35"
+   },
+   {
+    "comp_name": "R-32",
+    "comp_cas": null,
+    "endpoint": "ECO_CRUST",
+    "descriptor": "EC50",
+    "q": {
+     "raw": "{value:652,unit:'mg/L'}"
+    },
+    "species": "daphnid",
+    "duration_value": 48,
+    "duration_unit": "hr",
+    "guideline": null,
+    "data_source": "ECHA",
+    "statements": [
+     {
+      "value": "QSAR",
+      "line": "p7:L36"
+     }
+    ],
+    "status": "값있음",
+    "line": "p7:L36"
+   },
+   {
+    "comp_name": "R-32",
+    "comp_cas": null,
+    "endpoint": "ECO_ALGAE",
+    "descriptor": "EC50",
+    "q": {
+     "raw": "{value:313,unit:'mg/L'}"
+    },
+    "species": "green algae",
+    "duration_value": 96,
+    "duration_unit": "hr",
+    "guideline": null,
+    "data_source": "ECHA",
+    "statements": [
+     {
+      "value": "QSAR",
+      "line": "p7:L37"
+     }
+    ],
+    "status": "값있음",
+    "line": "p7:L37"
+   }
+  ],
+  "narratives": [
+   {
+    "item_code": "S12_OTHER",
+    "title_raw": "가. 생태독성",
+    "start": "p7:L23",
+    "end": "p7:L37"
+   },
+   {
+    "item_code": "S12_OTHER",
+    "title_raw": "나. 잔류성 및 분해성",
+    "start": "p7:L38",
+    "end": "p8:L14"
+   },
+   {
+    "item_code": "S12_OTHER",
+    "title_raw": "다. 생물 농축성",
+    "start": "p8:L10",
+    "end": "p8:L11"
+   },
+   {
+    "item_code": "S12_OTHER",
+    "title_raw": "라. 토양 이동성",
+    "start": "p8:L15",
+    "end": "p8:L17"
+   },
+   {
+    "item_code": "S12_OTHER",
+    "title_raw": "마. 기타 유해 영향",
+    "start": "p8:L18",
+    "end": "p8:L22"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S12_OTHER",
+    "title_raw": "급성 수생 독성",
+    "reason": "필드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [
+     {
+      "value": "분류되지 않음",
+      "line": "p7:L24"
+     }
+    ],
+    "suggested_code": "ECO_FISH",
+    "line": "p7:L24"
+   },
+   {
+    "after_item": "S12_OTHER",
+    "title_raw": "만성 수생 독성",
+    "reason": "필드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [
+     {
+      "value": "분류되지 않음",
+      "line": "p7:L25"
+     }
+    ],
+    "suggested_code": "ECO_FISH",
+    "line": "p7:L25"
+   },
+   {
+    "after_item": "S12_OTHER",
+    "title_raw": "잔류성",
+    "reason": "필드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [],
+    "suggested_code": "ECO_PERSIST",
+    "line": "p8:L6"
+   },
+   {
+    "after_item": "S12_OTHER",
+    "title_raw": "log Pow",
+    "reason": "필드없음",
+    "comp_name": "R-125",
+    "comp_cas": null,
+    "q": {
+     "raw": "{value:1.48,unit:'(25 °C, pH = ca. 6.4)'}"
+    },
+    "statements": [],
+    "suggested_code": "ECO_PERSIST",
+    "line": "p8:L7"
+   },
+   {
+    "after_item": "S12_OTHER",
+    "title_raw": "log Pow",
+    "reason": "필드없음",
+    "comp_name": "R-32",
+    "comp_cas": null,
+    "q": {
+     "raw": "{value:0.21,unit:'(25 °C, pH = 6.1 ~ 6.4)'}"
+    },
+    "statements": [],
+    "suggested_code": "ECO_PERSIST",
+    "line": "p8:L8"
+   },
+   {
+    "after_item": "S12_OTHER",
+    "title_raw": "분해성",
+    "reason": "필드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [
+     {
+      "value": "자료 없음",
+      "line": "p8:L9"
+     }
+    ],
+    "suggested_code": "ECO_PERSIST",
+    "line": "p8:L9"
+   },
+   {
+    "after_item": "S12_OTHER",
+    "title_raw": "생분해성",
+    "reason": "필드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [],
+    "suggested_code": "ECO_PERSIST",
+    "line": "p8:L12"
+   },
+   {
+    "after_item": "S12_OTHER",
+    "title_raw": "쉽게 분해되지 않는 물질임",
+    "reason": "필드없음",
+    "comp_name": "R-125",
+    "comp_cas": null,
+    "q": null,
+    "statements": [
+     {
+      "value": "(28 day, ca. 5% degradation (O2 consumption))",
+      "line": "p8:L13"
+     }
+    ],
+    "suggested_code": "ECO_PERSIST",
+    "line": "p8:L13"
+   },
+   {
+    "after_item": "S12_OTHER",
+    "title_raw": "농축성",
+    "reason": "필드없음",
+    "comp_name": null,
+    "comp_cas": null,
+    "q": null,
+    "statements": [
+     {
+      "value": "자료 없음",
+      "line": "p8:L11"
+     }
+    ],
+    "suggested_code": "ECO_BIOACC",
+    "line": "p8:L11"
+   },
+   {
+    "after_item": "S12_OTHER",
+    "title_raw": "Koc",
+    "reason": "필드없음",
+    "comp_name": "R-125",
+    "comp_cas": null,
+    "q": {
+     "raw": "{value:20,unit:'L/kg calculation (if not (Q)SAR)'}"
+    },
+    "statements": [],
+    "suggested_code": "ECO_SOIL",
+    "line": "p8:L16"
+   },
+   {
+    "after_item": "S12_OTHER",
+    "title_raw": "log Koc",
+    "reason": "필드없음",
+    "comp_name": "R-32",
+    "comp_cas": null,
+    "q": {
+     "raw": "{lower_op:'>=',lower:0.17,upper_op:'<=',upper:1.34,unit:'(QSAR)'}"
+    },
+    "statements": [],
+    "suggested_code": "ECO_SOIL",
+    "line": "p8:L17"
+   },
+   {
+    "after_item": "S12_OTHER",
+    "title_raw": "오존층 유해성",
+    "reason": "필드없음",
+    "comp_name": "R-125",
+    "comp_cas": null,
+    "q": null,
+    "statements": [
+     {
+      "value": "('오존층 보호 등을 위한 특정물질의 관리에 관한 법률' 제2조 제1호에 따른 제2종 특정물질 Ⅹ군 109호)",
+      "line": "p8:L19"
+     }
+    ],
+    "suggested_code": "ECO_OZONE",
+    "line": "p8:L19"
+   },
+   {
+    "after_item": "S12_OTHER",
+    "title_raw": "지구온난화 지수(GWP)",
+    "reason": "필드없음",
+    "comp_name": "R-125",
+    "comp_cas": null,
+    "q": {
+     "raw": "{value:3500}"
+    },
+    "statements": [
+     {
+      "value": "펜타플루오로에탄(HFC-125)",
+      "line": "p8:L20"
+     }
+    ],
+    "suggested_code": "ECO_OZONE",
+    "line": "p8:L20"
+   },
+   {
+    "after_item": "S12_OTHER",
+    "title_raw": "오존층 유해성",
+    "reason": "필드없음",
+    "comp_name": "R-32",
+    "comp_cas": null,
+    "q": null,
+    "statements": [
+     {
+      "value": "('오존층 보호 등을 위한 특정물질의 관리에 관한 법률' 제2조 제1호에 따른 제2종 특정물질 Ⅹ군 108호)",
+      "line": "p8:L21"
+     }
+    ],
+    "suggested_code": "ECO_OZONE",
+    "line": "p8:L21"
+   },
+   {
+    "after_item": "S12_OTHER",
+    "title_raw": "지구온난화 지수(GWP)",
+    "reason": "필드없음",
+    "comp_name": "R-32",
+    "comp_cas": null,
+    "q": {
+     "raw": "{value:675}"
+    },
+    "statements": [
+     {
+      "value": "디플루오로메탄(HFC-32)",
+      "line": "p8:L22"
+     }
+    ],
+    "suggested_code": "ECO_OZONE",
+    "line": "p8:L22"
+   }
+  ]
+ },
+ "raw_text": "### ecotox\ncomp_name | comp_cas | endpoint | descriptor | q | species | duration_value | duration_unit | guideline | data_source | statements | status | line\nR-125 |  | ECO_FISH | LC50 | {upper_op:'>',upper:81.8,unit:'mg/L'} | Oncorhynchus mykiss | 96 | hr | OECD Guideline 203 | ECHA | Read-across | 값있음 | p7:L27\nR-125 |  | ECO_CRUST | EC50 | {upper_op:'>',upper:97.9,unit:'mg/L'} | Daphnia magna | 48 | hr | OECD Guideline 202 | ECHA | Read-across | 값있음 | p7:L29\nR-125 |  | ECO_ALGAE | EC50 | {upper_op:'>',upper:114,unit:'mg/L'} | Pseudokirchneriella subcapitata | 72 | hr | OECD Guideline 201 | ECHA | Read-across | 값있음 | p7:L31\nR-125 |  | ECO_ALGAE | NOEC | {value:13.2,approx:true,unit:'mg/L'} | Selenastrum capricornutum | 72 | hr | OECD Guideline 201 | ECHA | Read-across | 값있음 | p7:L32\nR-32 |  | ECO_FISH | LC50 | {value:1731,unit:'mg/L'} | freshwater fish | 96 | hr |  | ECHA | QSAR | 값있음 | p7:L35\nR-32 |  | ECO_CRUST | EC50 | {value:652,unit:'mg/L'} | daphnid | 48 | hr |  | ECHA | QSAR | 값있음 | p7:L36\nR-32 |  | ECO_ALGAE | EC50 | {value:313,unit:'mg/L'} | green algae | 96 | hr |  | ECHA | QSAR | 값있음 | p7:L37\n\n### narratives\nitem_code | title_raw | start | end\nS12_OTHER | 가. 생태독성 | p7:L23 | p7:L37\nS12_OTHER | 나. 잔류성 및 분해성 | p7:L38 | p8:L14\nS12_OTHER | 다. 생물 농축성 | p8:L10 | p8:L11\nS12_OTHER | 라. 토양 이동성 | p8:L15 | p8:L17\nS12_OTHER | 마. 기타 유해 영향 | p8:L18 | p8:L22\n\n### extras\nafter_item | title_raw | reason | comp_name | comp_cas | q | statements | suggested_code | line\nS12_OTHER | 급성 수생 독성 | 필드없음 |  |  |  | 분류되지 않음 | ECO_FISH | p7:L24\nS12_OTHER | 만성 수생 독성 | 필드없음 |  |  |  | 분류되지 않음 | ECO_FISH | p7:L25\nS12_OTHER | 잔류성 | 필드없음 |  |  |  |  | ECO_PERSIST | p8:L6\nS12_OTHER | log Pow | 필드없음 | R-125 |  | {value:1.48,unit:'(25 °C, pH = ca. 6.4)'} |  | ECO_PERSIST | p8:L7\nS12_OTHER | log Pow | 필드없음 | R-32 |  | {value:0.21,unit:'(25 °C, pH = 6.1 ~ 6.4)'} |  | ECO_PERSIST | p8:L8\nS12_OTHER | 분해성 | 필드없음 |  |  |  | 자료 없음 | ECO_PERSIST | p8:L9\nS12_OTHER | 생분해성 | 필드없음 |  |  |  |  | ECO_PERSIST | p8:L12\nS12_OTHER | 쉽게 분해되지 않는 물질임 | 필드없음 | R-125 |  |  | (28 day, ca. 5% degradation (O2 consumption)) | ECO_PERSIST | p8:L13\nS12_OTHER | 농축성 | 필드없음 |  |  |  | 자료 없음 | ECO_BIOACC | p8:L11\nS12_OTHER | Koc | 필드없음 | R-125 |  | {value:20,unit:'L/kg calculation (if not (Q)SAR)'} |  | ECO_SOIL | p8:L16\nS12_OTHER | log Koc | 필드없음 | R-32 |  | {lower_op:'>=',lower:0.17,upper_op:'<=',upper:1.34,unit:'(QSAR)'} |  | ECO_SOIL | p8:L17\nS12_OTHER | 오존층 유해성 | 필드없음 | R-125 |  |  | ('오존층 보호 등을 위한 특정물질의 관리에 관한 법률' 제2조 제1호에 따른 제2종 특정물질 Ⅹ군 109호) | ECO_OZONE | p8:L19\nS12_OTHER | 지구온난화 지수(GWP) | 필드없음 | R-125 |  | {value:3500} | 펜타플루오로에탄(HFC-125) | ECO_OZONE | p8:L20\nS12_OTHER | 오존층 유해성 | 필드없음 | R-32 |  |  | ('오존층 보호 등을 위한 특정물질의 관리에 관한 법률' 제2조 제1호에 따른 제2종 특정물질 Ⅹ군 108호) | ECO_OZONE | p8:L21\nS12_OTHER | 지구온난화 지수(GWP) | 필드없음 | R-32 |  | {value:675} | 디플루오로메탄(HFC-32) | ECO_OZONE | p8:L22",
+ "mode": "rows",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 4401,
+  "completion_tokens": 1434,
+  "total_tokens": 5835
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "rows",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 4401,
+    "completion_tokens": 1434,
+    "total_tokens": 5835
+   },
+   "seconds": 19.071,
+   "chars": 2877,
+   "whitespace": 613,
+   "head": "### ecotox\ncomp_name | comp_cas | endpoint | descriptor | q | species | duration_value | duration_unit | guideline | data_source | statements | status | line\nR-125 |  | ECO_FISH | LC50 | {upper_op:'>',upper:81.8,unit:'mg/L'} | Oncorhynchus mykiss | 96 | hr | OECD Guideline 203 | ECHA | Read-across | 값있음 | p7:L27\nR-125 |  | ECO_CRUST | EC50 | {upper_op:'>',upper:97.9,unit:'mg/L'} | Daphnia magna | 48 | hr | OECD Guideline 202 | ECHA | Read-across | 값있음 | p7:L29\nR-125 |  | ECO_ALGAE | EC50 | {uppe",
+   "tail": "'<=',upper:1.34,unit:'(QSAR)'} |  | ECO_SOIL | p8:L17\nS12_OTHER | 오존층 유해성 | 필드없음 | R-125 |  |  | ('오존층 보호 등을 위한 특정물질의 관리에 관한 법률' 제2조 제1호에 따른 제2종 특정물질 Ⅹ군 109호) | ECO_OZONE | p8:L19\nS12_OTHER | 지구온난화 지수(GWP) | 필드없음 | R-125 |  | {value:3500} | 펜타플루오로에탄(HFC-125) | ECO_OZONE | p8:L20\nS12_OTHER | 오존층 유해성 | 필드없음 | R-32 |  |  | ('오존층 보호 등을 위한 특정물질의 관리에 관한 법률' 제2조 제1호에 따른 제2종 특정물질 Ⅹ군 108호) | ECO_OZONE | p8:L21\nS12_OTHER | 지구온난화 지수(GWP) | 필드없음 | R-32 |  | {value:675} | 디플루오로메탄(HFC-32) | ECO_OZONE | p8:L22"
+  }
+ ],
+ "seconds": 19.078,
+ "check_problems": []
+}

@@ -1,0 +1,71 @@
+{
+ "doc_id": "RAW-03",
+ "msds_index": 0,
+ "section": 6,
+ "reextracted": false,
+ "ok": true,
+ "parsed": {
+  "narratives": [
+   {
+    "item_code": "S6_PERSONAL",
+    "title_raw": "가. 인체를 보호하기 위해 필요한 조치 사항 및 보호구",
+    "start": "p3:L2",
+    "end": "p3:L7"
+   },
+   {
+    "item_code": "S6_ENV",
+    "title_raw": "나. 환경을 보호하기 위해 필요한 조치사항",
+    "start": "p3:L8",
+    "end": "p3:L10"
+   },
+   {
+    "item_code": "S6_CLEANUP",
+    "title_raw": "다. 정화 또는 제거 방법",
+    "start": "p3:L11",
+    "end": "p3:L15"
+   }
+  ],
+  "extras": [
+   {
+    "after_item": "S6_END",
+    "title_raw": "6. 누출 사고 시 대처방법",
+    "reason": "코드없음",
+    "statements": [
+     {
+      "value": "양식번호 P0851-11B(00) : 180208 RIGAS Co., Ltd A4 (210 x 297 mm)",
+      "line": "p2:L48"
+     }
+    ],
+    "line": "p2:L47"
+   }
+  ]
+ },
+ "raw_text": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S6_PERSONAL\",\n      \"title_raw\": \"가. 인체를 보호하기 위해 필요한 조치 사항 및 보호구\",\n      \"start\": \"p3:L2\",\n      \"end\": \"p3:L7\"\n    },\n    {\n      \"item_code\": \"S6_ENV\",\n      \"title_raw\": \"나. 환경을 보호하기 위해 필요한 조치사항\",\n      \"start\": \"p3:L8\",\n      \"end\": \"p3:L10\"\n    },\n    {\n      \"item_code\": \"S6_CLEANUP\",\n      \"title_raw\": \"다. 정화 또는 제거 방법\",\n      \"start\": \"p3:L11\",\n      \"end\": \"p3:L15\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S6_END\",\n      \"title_raw\": \"6. 누출 사고 시 대처방법\",\n      \"reason\": \"코드없음\"\n    ,\n      \"statements\": [\n        {\n          \"value\": \"양식번호 P0851-11B(00) : 180208 RIGAS Co., Ltd A4 (210 x 297 mm)\"\n        ,\n          \"line\": \"p2:L48\"\n        }\n      ]\n    ,\n      \"line\": \"p2:L47\"\n    }\n  ]\n}",
+ "mode": "json_schema",
+ "finish_reason": "stop",
+ "usage": {
+  "prompt_tokens": 2275,
+  "completion_tokens": 339,
+  "total_tokens": 2614
+ },
+ "attempts": 1,
+ "errors": [],
+ "requests": [
+  {
+   "mode": "json_schema",
+   "finish_reason": "stop",
+   "usage": {
+    "prompt_tokens": 2275,
+    "completion_tokens": 339,
+    "total_tokens": 2614
+   },
+   "seconds": 7.623,
+   "chars": 759,
+   "whitespace": 291,
+   "head": "{\n  \"narratives\": [\n    {\n      \"item_code\": \"S6_PERSONAL\",\n      \"title_raw\": \"가. 인체를 보호하기 위해 필요한 조치 사항 및 보호구\",\n      \"start\": \"p3:L2\",\n      \"end\": \"p3:L7\"\n    },\n    {\n      \"item_code\": \"S6_ENV\",\n      \"title_raw\": \"나. 환경을 보호하기 위해 필요한 조치사항\",\n      \"start\": \"p3:L8\",\n      \"end\": \"p3:L10\"\n    },\n    {\n      \"item_code\": \"S6_CLEANUP\",\n      \"title_raw\": \"다. 정화 또는 제거 방법\",\n      \"start\": \"p3:L11\",\n      \"end\": \"p3:L15\"\n    }\n  ],\n  \"extras\": [\n    {\n      \"after_item\": \"S6_END\",\n      \"title_raw\"",
+   "tail": ": \"6. 누출 사고 시 대처방법\",\n      \"reason\": \"코드없음\"\n    ,\n      \"statements\": [\n        {\n          \"value\": \"양식번호 P0851-11B(00) : 180208 RIGAS Co., Ltd A4 (210 x 297 mm)\"\n        ,\n          \"line\": \"p2:L48\"\n        }\n      ]\n    ,\n      \"line\": \"p2:L47\"\n    }\n  ]\n}"
+  }
+ ],
+ "seconds": 7.624,
+ "check_problems": []
+}
