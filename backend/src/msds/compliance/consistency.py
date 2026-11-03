@@ -28,7 +28,7 @@ from .mixture.verdict import _order, _rank, aggregate_verdicts
 from .sec15_judge import judge_sec15
 from .trace import TRACE_ASSUMPTIONS, attach_mixture, attach_single, label_causes, label_sources, label_trace, sec15_trace
 
-ENGINE_VERSION = "0.4.0"
+ENGINE_VERSION = "0.4.1"
 SINGLE_ASSUMPTIONS = [
     "단일물질은 지식DB 기준 분류(D-05 항목 단위 환경부→고용노동부)를 그대로 '우리 결과'로 보고 MSDS 2항과 비교(설계서 18장)",
     "기준 분류에 없는 항목을 MSDS만 적었으면 근거부족(설계서 18장: 두 출처 모두 없음 → 근거부족)",
