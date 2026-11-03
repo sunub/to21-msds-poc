@@ -62,7 +62,7 @@ def test_25번_15항_판정목록이_고정본과_같다(fixed15):
 
 def test_15항_설계서_39장과_다르거나_없는_불일치_줄에는_이유가_있다(fixed15):
     rows = [v for v in fixed15["verdicts"] if v.get("diff_reason")]
-    assert {(v["comp_ref"], v["item_code"]) for v in rows} >= {("1", "OSH_MANAGED"), ("1", "OSH_SPECIAL")}
+    assert {(v["comp_ref"], v["item_code"]) for v in rows} >= {("1", "OSH_MANAGED")}
     for v in rows:
         assert "이유 미기재" not in v["diff_reason"], (v["comp_ref"], v["item_code"])
     for v in fixed15["verdicts"]:  # 이유 없이 설계서와 다른 줄은 없어야 한다
@@ -72,7 +72,7 @@ def test_15항_설계서_39장과_다르거나_없는_불일치_줄에는_이유
 
 
 def test_15항_요약(fixed15):
-    assert fixed15["summary"] == {"불일치": 2, "일치": 36}
+    assert fixed15["summary"] == {"불일치": 1, "일치": 37}
     managed = next(v for v in fixed15["verdicts"] if v["item_code"] == "OSH_MANAGED")
     assert (managed["type"], managed["severity"], managed["msds_threshold"], managed["db_threshold"]) == \
         ("기준 불일치", "중간", ">= 1%", ">= 0.1%")

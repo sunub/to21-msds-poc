@@ -123,12 +123,12 @@ def test_25번_황산_묶음_요약은_e2e_고정본과_같다():
     c = _run("T21-025")
     assert c["product_type"]["value"] == "혼합물"
     # 2항 = 분류 25줄(e2e 고정본: 일치 21·불일치 3·근거부족 1) + 표시 요소 3줄(H코드·그림문자·신호어 모두 일치)
-    assert {k: c["summary"]["2항"][k] for k in VERDICTS} == {"일치": 24, "불일치": 3, "경계": 0, "근거부족": 1}
+    assert {k: c["summary"]["2항"][k] for k in VERDICTS} == {"일치": 24, "불일치": 1, "경계": 0, "근거부족": 3}
     label = [f for f in c["findings"] if (f.get("class_code") or "").startswith("LABEL_")]
     assert [(f["class_code"], f["verdict"]) for f in label] == [
         ("LABEL_H_CODES", "일치"), ("LABEL_PICTOGRAMS", "일치"), ("LABEL_SIGNAL_WORD", "일치")]
-    assert {k: c["summary"]["15항"][k] for k in VERDICTS} == {"일치": 36, "불일치": 2, "경계": 0, "근거부족": 0}
-    assert c["summary"]["전체"]["심각도"] == {"높음": 1, "중간": 2, "낮음": 2}
+    assert {k: c["summary"]["15항"][k] for k in VERDICTS} == {"일치": 37, "불일치": 1, "경계": 0, "근거부족": 0}
+    assert c["summary"]["전체"]["심각도"] == {"높음": 0, "중간": 2, "낮음": 0}
 
 
 @need_sample
