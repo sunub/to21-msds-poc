@@ -3,10 +3,11 @@
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
 import { Suspense, useCallback, useState } from "react";
-import { documentDetailQuery } from "@/api/documents";
+import { documentDetailQuery, resultQuery } from "@/api/documents";
 import type { DocumentDetail, SectionProgress } from "@/api/schemas";
 import { RetryButton } from "@/components/documents/retry-button";
 import { RegeneratedPreview } from "@/components/extract/regenerated-preview";
+import { ValidationNotice } from "@/components/extract/validation-notice";
 import { SectionProgressTable, SectionValues, type SectionKey } from "@/components/extract/section-progress";
 import { SourceViewer } from "@/components/extract/source-viewer";
 import { DocFrame } from "@/components/shell/doc-frame";
@@ -23,6 +24,10 @@ import { allSectionsFailed, stageMessage } from "@/lib/status";
  */
 function ExtractBody({ docId }: { docId: string }) {
   const { data: doc, isRefetchError } = useQuery(documentDetailQuery(docId));
+  const result = useQuery({
+    ...resultQuery(docId),
+    enabled: doc?.status === "done" && !doc.validation && !doc.summary?.validation,
+  });
   useDocumentTransitions(docId, doc?.status);
 
   if (!doc) return <LoadingBody />;
@@ -33,7 +38,7 @@ function ExtractBody({ docId }: { docId: string }) {
           서버와 연결이 끊겼습니다. 아래는 마지막으로 받은 내용이고, 연결되면 이어서 보여 줍니다.
         </p>
       )}
-      <LoadedBody doc={doc} />
+      <LoadedBody doc={{ ...doc, validation: doc.validation ?? doc.summary?.validation ?? result.data?.validation ?? null }} />
     </>
   );
 }
@@ -61,6 +66,7 @@ function LoadedBody({ doc }: { doc: DocumentDetail }) {
 
   return (
     <>
+      <ValidationNotice status={doc.status} counts={doc.counts} validation={doc.validation} />
       <DocumentNotices doc={doc} />
       <Row>
         <SourceViewer doc={doc} page={page} onPage={setPage} />
