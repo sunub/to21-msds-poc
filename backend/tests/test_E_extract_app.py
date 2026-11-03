@@ -256,6 +256,26 @@ def test_regenerated_conflict_until_done_then_joins_status_and_final_review(ctx,
         {"section": 2, "title": "유해성", "status": "failed", "needs_review": True, "lines": []}]}]}
 
 
+def test_regenerated_can_use_original_or_reviewed_extraction(ctx, monkeypatch):
+    client, store, *_ = ctx
+    doc_id = upload(client).json()['id']
+    regen_ctx(store, doc_id)
+    out, _ = pipeline.result_paths(store, doc_id)
+    source = {'doc': {'doc_id': doc_id}, 'msds': [{'product': {'name': '원본'}}]}
+    out.write_text(json.dumps(source), encoding='utf-8')
+    store.apply(doc_id, {'type': 'done', 'summary': {}})
+    store.update_review(doc_id, lambda record: extract_app.review.set_field(
+        record, source, 0, 'product.name', 'edit', '수정', '검토자', '2026-11-03T12:00:00+09:00'))
+    monkeypatch.setattr(extract_app, 'load_regen', lambda: None)
+    monkeypatch.setattr(extract_app.regenerated, 'regenerate_sections', lambda doc, mod: [
+        {'msds_index': 0, 'header': [], 'sections': [{'section': 1, 'title': '제품',
+         'lines': [{'text': doc['msds'][0]['product']['name']}]}]},
+    ])
+    url = f'/api/documents/{doc_id}/regenerated'
+    assert client.get(url, params={'source': 'original'}).json()['msds'][0]['sections'][0]['lines'][0]['text'] == '원본'
+    assert client.get(url).json()['msds'][0]['sections'][0]['lines'][0]['text'] == '수정'
+
+
 def test_regenerated_404_without_result_file_or_document(ctx):
     client, store, *_ = ctx
     assert client.get("/api/documents/U-20990101-001/regenerated").status_code == 404
