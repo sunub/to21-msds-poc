@@ -10,7 +10,7 @@ import re
 from collections import Counter
 from typing import Any
 
-from msds.service.review import SECTION_OF_ROOT
+from msds.service.review import SECTION_OF_ROOT, SECTIONS
 from msds.checks.validator import run_to21_validator
 from msds.common.schema import validate_to21
 
@@ -61,6 +61,7 @@ def summarize_checks(doc: dict, checks: dict) -> dict:
 
     `status`는 `passed`, `needs_review`, `invalid` 중 하나다. 스키마 오류,
     TO21 오류·예외, 또는 실패 항목이 하나라도 있으면 `invalid`이다.
+    각 MSDS에서 9개 추출 항의 검사 기록이 완전하지 않으면 `invalid`다.
     공식 검증 결과나 스키마 검사 기록이 없으면 통과로 간주하지 않고 예외를 낸다.
     `unmapped_findings`는 항을 확정할 근거가 없는 공식 검증 결과다.
     """
@@ -83,15 +84,21 @@ def summarize_checks(doc: dict, checks: dict) -> dict:
         else:
             raise ValueError("검수 필요 항목의 문서 번호 또는 항 번호가 잘못됐습니다")
 
+    expected = {(index, section) for index in range(len(doc["msds"])) for section in SECTIONS}
+    seen: set[tuple[int, int]] = set()
+    invalid_section_records = 0
     failed_sections = []
     for row in sections:
         if not isinstance(row, dict) or not isinstance(row.get("ok"), bool):
             raise ValueError("항목별 검사에 유효한 성공 여부가 없습니다")
+        index, section = row.get("msds_index"), row.get("section")
+        if (isinstance(index, bool) or not isinstance(index, int) or index < 0
+                or isinstance(section, bool) or not isinstance(section, int)
+                or (index, section) not in expected or (index, section) in seen):
+            invalid_section_records += 1
+            continue
+        seen.add((index, section))
         if not row["ok"]:
-            index, section = row.get("msds_index"), row.get("section")
-            if (isinstance(index, bool) or not isinstance(index, int) or index < 0
-                    or isinstance(section, bool) or not isinstance(section, int) or not 1 <= section <= 16):
-                raise ValueError("실패 항목의 문서 번호 또는 항 번호가 잘못됐습니다")
             failed_sections.append({"msds_index": index, "section": section})
             review.add((index, section))
 
@@ -111,7 +118,9 @@ def summarize_checks(doc: dict, checks: dict) -> dict:
             review.add(location)
 
     errors = len(schema_errors) + levels["오류"] + levels["예외"] + len(failed_sections)
-    if errors:
+    missing_sections = expected - seen
+    invalid_msds = not doc["msds"] or any(not isinstance(item, dict) for item in doc["msds"])
+    if errors or invalid_msds or invalid_section_records or missing_sections:
         status = "invalid"
     elif levels["경고"] or review:
         status = "needs_review"
@@ -124,6 +133,9 @@ def summarize_checks(doc: dict, checks: dict) -> dict:
         "validator_warnings": levels["경고"],
         "validator_exceptions": levels["예외"],
         "failed_sections": failed_sections,
+        "missing_sections": [{"msds_index": i, "section": no} for i, no in sorted(missing_sections)],
+        "invalid_section_records": invalid_section_records,
+        "invalid_msds": invalid_msds,
         "needs_review": [{"msds_index": i, "section": no} for i, no in sorted(review)],
         "unmapped_findings": unmapped,
     }
