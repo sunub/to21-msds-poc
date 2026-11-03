@@ -7,6 +7,7 @@
 import { queryOptions } from "@tanstack/react-query";
 import { z } from "zod";
 import { ApiRequestError, apiUrl, toRequestError } from "./client";
+import { chunk, isJobId } from "@/lib/doc-stage";
 import { call, judgmentKeys } from "./judgment";
 
 const count = z.number().int().min(0);
@@ -101,15 +102,30 @@ export const saveOverviewQuery = (id: string) =>
     staleTime: 0,
   });
 
-/** 목록 화면용: 여러 작업의 판정 상태·등급을 한 번에. 서버는 작업 번호(U-날짜-순번) 200개까지만 받는다 */
-export const judgmentSummaryQuery = (ids: string[]) =>
-  queryOptions({
-    queryKey: ["judgments", "summary", ...ids] as const,
-    queryFn: ({ signal }) =>
-      call(z.array(judgmentSummaryItemSchema), `/api/judgments/summary?job_ids=${encodeURIComponent(ids.join(","))}`, { signal }),
-    enabled: ids.length > 0,
+/**
+ * 목록 화면용: 여러 작업의 판정 상태·등급. 서버는 작업 번호(U-날짜-순번) 200개까지만 받아 200개씩 나눠 부르고,
+ * 작업 번호가 아닌 것은 보내지 않는다(섞이면 한 번에 422). 일부만 실패하면 받은 것만 돌려주고, 전부 실패하면 오류다.
+ * 호출한 쪽은 오류일 때 판정 칸을 "-"로 두고 추출 정보만으로 그린다.
+ */
+export const judgmentSummaryQuery = (ids: string[]) => {
+  const valid = ids.filter(isJobId);
+  return queryOptions({
+    queryKey: ["judgments", "summary", ...valid] as const,
+    queryFn: async ({ signal }) => {
+      const results = await Promise.allSettled(
+        chunk(valid).map((part) =>
+          call(z.array(judgmentSummaryItemSchema), `/api/judgments/summary?job_ids=${encodeURIComponent(part.join(","))}`, { signal }),
+        ),
+      );
+      const ok = results.flatMap((r) => (r.status === "fulfilled" ? r.value : []));
+      const failed = results.find((r) => r.status === "rejected");
+      if (ok.length === 0 && failed) throw failed.reason;
+      return ok;
+    },
+    enabled: valid.length > 0,
     retry: false,
   });
+};
 
 export const versionsQuery = (id: string) =>
   queryOptions({

@@ -19,6 +19,8 @@
  *   POST /api/documents/{id}/to-judgment         200 {job_id, handoff_seq}. 계약의 이름 (실제 서버에는 없다)
  *   GET  /api/documents/{id}/review/log          추출값 검수 기록 (history_entry[]). 계약의 A2 경로 (실제 서버에는 아직 없다)
  *   MOCK_NO_A2=1 이면 위 두 계약 경로를 404 로 답한다
+ *   MOCK_NO_JUDGE=1 이면 /api/judgments/* 가 404 Not Found (판정 서비스 미연결), MOCK_SUMMARY_FAIL=1 이면 판정 요약만 500
+ * 목록 시험 문서 (docs.ts): U-20261103-006 판정 실패 · 005 추출 중 · 004 대기 · 003 실패 · 002 검수 중(판정 없음) · 001 완료(저장본, 골드)
  *   GET  /api/documents, GET /api/documents/{id} queue_fields·document_extras 가 붙은 문서 목록·상세
  *
  * 응답 데이터와 상태 규칙은 이 폴더의 core.ts(서버가 하는 일을 흉내 낸 핵심 함수), 문서는 docs.ts 에 있다.
@@ -46,6 +48,9 @@ const ROOT = path.resolve(HERE, "..");
 const PORT = Number(process.env.PORT ?? 8021);
 /** MOCK_NO_A2=1: 추출 서버에 아직 없는 계약 경로(review/log, to-judgment)를 404 로 답한다 */
 const NO_A2 = process.env.MOCK_NO_A2 === "1";
+/** MOCK_NO_JUDGE=1: 판정 서비스가 없는 서버(/api/judgments/* 가 404 Not Found). MOCK_SUMMARY_FAIL=1: 목록의 판정 요약만 500 */
+const NO_JUDGE = process.env.MOCK_NO_JUDGE === "1";
+const SUMMARY_FAIL = process.env.MOCK_SUMMARY_FAIL === "1";
 
 /* ── 프론트의 TypeScript 를 읽을 수 있게 옮긴다 ── */
 const ts = createRequire(path.join(ROOT, "package.json"))("typescript");
@@ -207,6 +212,10 @@ const server = http.createServer(async (req, res) => {
       status = 204;
     } else if (req.method === "GET" && p === "/api/health") {
       status = send(res, 200, { ok: true, mock: "judgment" });
+    } else if (NO_JUDGE && p.startsWith("/api/judgments")) {
+      status = fail(res, 404, "Not Found");
+    } else if (req.method === "GET" && p === "/api/judgments/summary" && SUMMARY_FAIL) {
+      status = fail(res, 500, "판정 요약을 만들지 못했습니다");
     } else if (req.method === "GET" && p === "/api/judgments/summary") {
       const ids = (url.searchParams.get("job_ids") ?? "").split(",").filter(Boolean);
       status = ids.some((id) => !/^U-\d{8}-\d{3,}$/.test(id))

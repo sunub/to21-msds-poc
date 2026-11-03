@@ -102,6 +102,8 @@ export function SaveView({ docId, ready }: { docId: string; ready: JudgmentReady
   const todo = unreviewedFindings(view.data);
   const { confirmed, exception, total } = processedCounts(overview.reviews);
   const incomplete = todo.length > 0;
+  // 서버는 구버전 불일치도 처리 대상으로 세고 화면(2항·15항 탭)은 참고로 본다: 서버 수가 더 크면 그 차이를 알린다
+  const serverOnly = Math.max(0, overview.reviews.미검토 - todo.length);
   const saving = save.isPending;
   const reporting = report.isPending;
   const values = overview.values;
@@ -155,6 +157,11 @@ export function SaveView({ docId, ready }: { docId: string; ready: JudgmentReady
             </Link>
           )}
           <span className="flex-1" />
+          {serverOnly > 0 && (
+            <span className="text-sm text-mut">
+              구버전 항목 {serverOnly}건은 처리 대상에서 제외됩니다 (서버 집계 미검토 {overview.reviews.미검토}건)
+            </span>
+          )}
           <span className={cn("rounded-sm px-3 py-1 font-bold", values.state === "완료" ? "bg-grn-soft text-grn" : "bg-tint text-amb-text")}>{valuesLabel(values.state)}</span>
         </div>
       </section>

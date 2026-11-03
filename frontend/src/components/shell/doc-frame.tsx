@@ -8,7 +8,8 @@ import { documentDetailQuery } from "@/api/documents";
 import type { DocumentDetail } from "@/api/schemas";
 import { Stepper } from "@/components/ui";
 import { cn } from "@/lib/cn";
-import { formatBytes } from "@/lib/format";
+import { useJudgmentGlance } from "@/hooks/use-judgment-glance";
+import { headerNote, judgmentLabel, reviewNote, saveNote } from "@/lib/doc-glance";
 import { stageNote } from "@/lib/status";
 import { AppHeader } from "./app-header";
 import { Slot } from "./slot";
@@ -44,10 +45,12 @@ export function DocFrame({
 }) {
   const doc = useDocId();
   const { data, error } = useQuery({ ...documentDetailQuery(doc ?? ""), enabled: !!doc });
-  const stageNotes = { ...(data ? defaultNotes(data) : {}), ...notes };
+  // 판정 쪽 값(등급·판정 상태·미검토 수·저장본)은 서버가 줄 때만 쓴다. 판정 서비스가 없으면 그 칸만 숨는다
+  const glance = useJudgmentGlance(doc, { extractionDone: data?.status === "done", withView: stage !== "extract" });
+  const stageNotes = { ...(data ? defaultNotes(data, glance) : {}), ...notes };
   return (
     <>
-      <AppHeader doc={data ? stem(data.filename) : (doc ?? undefined)} note={data && headerNote(data)} width={width} />
+      <AppHeader doc={data ? headerTitle(data) : (doc ?? undefined)} note={data && headerNoteOf(data, glance)} width={width} />
       <div className="border-b border-line bg-white print:hidden">
         <div className={cn("mx-auto px-8", width)}>
           <Stepper steps={STAGES.map((s) => ({ ...s, note: stageNotes[s.id] }))} current={stage} />
@@ -74,11 +77,20 @@ function stem(filename: string) {
   return filename.replace(/\.pdf$/i, "");
 }
 
-function headerNote(doc: DocumentDetail) {
-  const pages = doc.page_count ? `${doc.page_count}쪽` : "쪽 수 확인 중";
-  return `${doc.filename} · ${pages} · ${formatBytes(doc.size)}`;
+type Glance = ReturnType<typeof useJudgmentGlance>;
+
+/** 제목: 문서 번호와 제품명 (제품명을 서버가 아직 안 주면 파일 이름) */
+function headerTitle(doc: DocumentDetail) {
+  return doc.product_name ? `${doc.id} ${doc.product_name}` : stem(doc.filename);
 }
 
-function defaultNotes(doc: DocumentDetail): Partial<Record<Stage, string>> {
-  return { extract: stageNote(doc), review: doc.status === "done" ? undefined : "· 추출이 끝나면 열림" };
+/** 머리줄 옆 글: 파일 · 쪽 수 · 데이터 등급 · 추출값 검수 · 판정 상태. 값이 없는 칸은 숨긴다 (lib/doc-glance.ts) */
+function headerNoteOf(doc: DocumentDetail, glance: Glance) {
+  return headerNote(doc, glance.grade, judgmentLabel(glance.status, glance.unreviewed));
+}
+
+/** 단계 띠: 추출은 진행 상태(단계 수는 응답 값), 검수는 추출값 확인 여부와 판정 상태, 저장은 저장본 번호 */
+function defaultNotes(doc: DocumentDetail, glance: Glance): Partial<Record<Stage, string>> {
+  if (doc.status !== "done") return { extract: stageNote(doc), review: "· 추출이 끝나면 열림" };
+  return { extract: stageNote(doc), review: reviewNote(doc, glance.status, glance.unreviewed), save: saveNote(glance.status) };
 }

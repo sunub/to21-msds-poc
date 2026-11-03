@@ -433,9 +433,12 @@ function build(specs: Spec[], opts: { productType: "단일물질" | "혼합물" 
 
 const template = (text: string): ExplanationEntry => ({ status: "완료", by: "template", checked: true, summary: text, reasons: [], basis: [] });
 
-export type Scenario = "plain" | "states" | "conflict" | "savefail" | "pdffail" | "single" | "unknown" | "none";
+/** saved = 저장본이 있고 미검토·미검수 칸이 없어 등급이 골드, jfail = 판정이 실패함 (목록 시험용) */
+export type Scenario = "plain" | "states" | "conflict" | "savefail" | "pdffail" | "single" | "unknown" | "none" | "saved" | "jfail";
+/** 목록 시험용 고정 작업 번호 (docs.ts 의 목록과 짝) */
+const FIXED: Record<string, Scenario> = { "U-20261103-001": "saved", "U-20261103-002": "none", "U-20261103-006": "jfail" };
 export const scenarioOf = (job: string): Scenario =>
-  job.startsWith("demo-states") ? "states" : job.startsWith("demo-conflict") ? "conflict" : job.startsWith("demo-savefail") ? "savefail" : job.startsWith("demo-pdffail") ? "pdffail" : job.startsWith("demo-single") ? "single" : job.startsWith("demo-unknown") ? "unknown" : job.startsWith("demo-none") ? "none" : "plain";
+  FIXED[job] ? FIXED[job] : job.startsWith("demo-states") ? "states" : job.startsWith("demo-conflict") ? "conflict" : job.startsWith("demo-savefail") ? "savefail" : job.startsWith("demo-pdffail") ? "pdffail" : job.startsWith("demo-single") ? "single" : job.startsWith("demo-unknown") ? "unknown" : job.startsWith("demo-none") ? "none" : "plain";
 
 /** 상황별 기본 판정 한 벌 (검토·버전은 아직 없다) */
 function viewFor(scen: Scenario, variantArg: DemoVariant) {
@@ -494,6 +497,8 @@ export type Store = {
   armConflict: boolean;
   events: StoredEvent[];
   snapshots: Snapshot[];
+  /** 판정이 실패했다면 서버가 상태에 싣는 이유 (jfail) */
+  failed?: string;
 };
 
 const WRITING_MS = 8000;
@@ -511,11 +516,21 @@ const kst = (ms: number) => `${new Date(ms + 9 * 3600_000).toISOString().slice(0
 export function newStore(job: string, now = Date.now()): Store {
   const scen = scenarioOf(job);
   const states = scen === "states";
-  const none = scen === "none";
+  const jfail = scen === "jfail";
+  const none = scen === "none" || jfail;
   const st: Store = {
-    scen, latest: none ? 0 : 1, handoff: none ? 0 : states ? 2 : 1, pending: states ? 2 : null, judgeAt: null, startedAt: now, v2At: null, v2Handoff: 2,
+    scen, latest: none ? 0 : 1, handoff: jfail ? 1 : none ? 0 : states ? 2 : 1, pending: states ? 2 : jfail ? 1 : null, judgeAt: null, startedAt: now, v2At: null, v2Handoff: 2,
     armConflict: scen === "conflict", events: [], snapshots: [],
   };
+  if (jfail) st.failed = "판정 중 내부 오류 (KnowledgeUnavailable). 서버 기록을 확인하세요";
+  if (scen === "saved") {
+    // 이미 저장한 문서: 최신 저장본이 지금의 판정을 그대로 담고 미검토·미검수 칸이 없다 (등급 골드)
+    st.snapshots.push({
+      contract: "snapshot/1", job_id: job, snapshot_no: 2, handoff_seq: 1, version: 1, last_review_event_id: null,
+      counts: { findings: 19, 미검토: 0, "불일치 확정": 0, "예외 승인": 0, 확인: 0, "미검수 칸": 0 },
+      saved_by: "김검수", saved_at: "2026-11-03T09:10:00+09:00", note: null,
+    });
+  }
   if (states) {
     // 이미 확정했는데 그 뒤 판정 값이 바뀐 항목 (stale) 과 거기에 남긴 의견
     st.events.push(
@@ -622,7 +637,7 @@ export function statusOf(job: string, st: Store, now = Date.now()): JudgmentStat
   tick(st, now);
   if (st.latest === 0) {
     // 판정이 아직 없다: 넘김도 없으면 판정 없음, 넘겼으면 판정 중 (서버는 모르는 작업에도 404 가 아니라 판정 없음으로 답한다)
-    return { job_id: /^U-/.test(job) ? job : JOB, state: st.pending !== null ? "판정 중" : "판정 없음", latest_version: null, pending_handoff: st.pending, explanations: { done: 0, total: 0 }, saved_snapshot: null, error: null, unreviewed: 0 };
+    return { job_id: /^U-/.test(job) ? job : JOB, state: st.failed ? "판정 실패" : st.pending !== null ? "판정 중" : "판정 없음", latest_version: null, pending_handoff: st.pending, explanations: { done: 0, total: 0 }, saved_snapshot: null, error: st.failed ?? null, unreviewed: 0 };
   }
   const view = viewOf(job, st, undefined, undefined, now);
   const exps = Object.values(view.explanations);

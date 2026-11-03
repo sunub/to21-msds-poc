@@ -4,10 +4,12 @@ import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import Link from "next/link";
 import { useState } from "react";
 import { documentListQuery } from "@/api/documents";
+import { judgmentSummaryQuery, type JudgmentSummaryItem } from "@/api/judgment-extra";
 import type { DocumentFilter, DocumentSummary } from "@/api/schemas";
 import { RetryButton } from "@/components/documents/retry-button";
 import { Button, PillTabs, Progress, Skeleton, StatusLabel, Table, TableHead, buttonStyles } from "@/components/ui";
 import { cn } from "@/lib/cn";
+import { documentStage, gradeLabel, type DocStage } from "@/lib/doc-stage";
 import { formatDateTime } from "@/lib/format";
 import { routes } from "@/lib/routes";
 import { allSectionsFailed, progressLabel, statusLabel } from "@/lib/status";
@@ -32,6 +34,7 @@ const COL = {
   status: "w-22",
   progress: "min-w-0 flex-2",
   layer: "w-28",
+  grade: "w-16",
   updated: "w-35",
   action: "flex w-25 justify-end",
 };
@@ -44,6 +47,10 @@ export function DocumentList() {
   // 보기를 바꾸는 동안 이전 목록을 남겨 깜빡이지 않게 한다
   const list = useQuery({ ...documentListQuery(view), placeholderData: keepPreviousData });
   const counts = list.data?.counts;
+  // 추출이 끝난 문서만 판정 요약을 묻는다 (200개씩, 한 번에). 판정 서버가 없거나 실패하면 추출 정보만으로 그리고 판정 칸은 "-"다
+  const doneIds = (list.data?.items ?? []).filter((d) => d.status === "done").map((d) => d.id);
+  const summary = useQuery(judgmentSummaryQuery(doneIds)).data;
+  const judgmentOf = new Map((summary ?? []).map((s) => [s.job_id, s]));
 
   return (
     <section className="flex flex-col gap-3">
@@ -63,6 +70,7 @@ export function DocumentList() {
             <span className={COL.status}>단계</span>
             <span className={COL.progress}>진행</span>
             <span className={COL.layer}>텍스트층</span>
+            <span className={COL.grade}>등급</span>
             <span className={COL.updated}>마지막 작업</span>
             <span className={COL.action} />
           </TableHead>
@@ -73,6 +81,7 @@ export function DocumentList() {
                 <span className={COL.status}><Skeleton className="w-14" /></span>
                 <span className={COL.progress}><Skeleton className="w-24" /></span>
                 <span className={COL.layer}><Skeleton className="w-12" /></span>
+                <span className={COL.grade}><Skeleton className="w-8" /></span>
                 <span className={COL.updated}><Skeleton className="w-28" /></span>
                 <span className={COL.action} />
               </div>
@@ -85,7 +94,7 @@ export function DocumentList() {
           ) : list.data.items.length === 0 ? (
             <p className="px-5 py-8 text-center text-mut">{EMPTY[view]}</p>
           ) : (
-            list.data.items.map((doc) => <DocumentRow key={doc.id} doc={doc} />)
+            list.data.items.map((doc) => <DocumentRow key={doc.id} doc={doc} judgment={judgmentOf.get(doc.id)} />)
           )}
         </div>
       </Table>
@@ -93,8 +102,12 @@ export function DocumentList() {
   );
 }
 
-function DocumentRow({ doc }: { doc: DocumentSummary }) {
-  const status = statusLabel(doc);
+function DocumentRow({ doc, judgment }: { doc: DocumentSummary; judgment?: JudgmentSummaryItem }) {
+  const base = statusLabel(doc);
+  const stage = documentStage(doc, judgment, doc.status === "done" && allSectionsFailed(doc));
+  // 단계 칸: 합친 단계. 추출 쪽 이상 상태(모든 항 실패)는 기존 문구를 그대로 둔다. 완료 문서의 추출 검증 문구는 아래 줄에 남긴다
+  const status = stage.normal ? stage : { ...stage, label: base.label, tone: base.tone };
+  const extractionNote = doc.status === "done" && stage.normal && base.tone !== "success" ? base.label : null;
   const progress = progressLabel(doc);
 
   return (
@@ -102,7 +115,7 @@ function DocumentRow({ doc }: { doc: DocumentSummary }) {
       <div className={COL.doc}>
         <div className="truncate font-medium">{doc.filename}</div>
         <div className="truncate text-sm text-mut">
-          {doc.id}
+          {[doc.product_name, doc.doc_code, doc.id].filter(Boolean).join(" · ")}
           {doc.page_count != null && ` · ${doc.page_count}쪽`}
         </div>
         {doc.error && (doc.status === "failed" || doc.status === "interrupted") && (
@@ -115,6 +128,7 @@ function DocumentRow({ doc }: { doc: DocumentSummary }) {
         <StatusLabel tone={status.tone} className="text-base">
           {status.label}
         </StatusLabel>
+        {extractionNote && <div className="mt-1 text-sm text-mut">{extractionNote}</div>}
       </div>
       <div className={COL.progress}>
         <div className="mb-1 text-sm">
@@ -126,28 +140,29 @@ function DocumentRow({ doc }: { doc: DocumentSummary }) {
       <div className={cn(COL.layer, "text-sm", doc.text_layer && doc.text_layer !== "정상" ? "text-amb-text" : "text-sub")}>
         {doc.text_layer ?? <span className="text-mut">판정 전</span>}
       </div>
+      <div className={cn(COL.grade, "text-sm", judgment?.data_grade === "골드" ? "font-bold text-amb-text" : "text-sub")}>{gradeLabel(judgment)}</div>
       <div className={cn(COL.updated, "text-sm text-mut")}>{formatDateTime(doc.updated_at)}</div>
       <div className={COL.action}>
-        <RowAction doc={doc} />
+        <RowAction doc={doc} stage={stage} />
       </div>
     </div>
   );
 }
 
-/** 상태마다 다음 행동 하나: 진행 보기 · 검수하기 · 다시 시도 */
-function RowAction({ doc }: { doc: DocumentSummary }) {
-  // 모든 항이 실패한 문서는 검수할 값이 없다
-  if (doc.status === "done" && !allSectionsFailed(doc)) {
-    return (
-      <Link href={routes.reviewMode(doc.id)} className={buttonStyles({ variant: "primary" })}>
-        검수하기
-      </Link>
-    );
-  }
-  if (doc.can_retry) return <RetryButton docId={doc.id} filename={doc.filename} />;
+/** 목록의 이동 주소: 이어서 하기는 기존 검수 진입(방식 선택)이나 사람 구간이 멈춘 탭, 열기는 판정 탭 */
+const HREF: Record<DocStage["target"], (id: string) => string> = {
+  extract: (id) => routes.extract(id),
+  mode: (id) => routes.reviewMode(id),
+  values: (id) => routes.review(id, "values"),
+  hazard: (id) => routes.review(id, "hazard"),
+};
+
+/** 상태마다 다음 행동 하나: 진행 보기 · 이어서 하기 · 열기. 실패한 문서는 기존대로 다시 시도 */
+function RowAction({ doc, stage }: { doc: DocumentSummary; stage: DocStage }) {
+  if (stage.action === "진행 보기" && doc.can_retry) return <RetryButton docId={doc.id} filename={doc.filename} />;
   return (
-    <Link href={routes.extract(doc.id)} className={buttonStyles()}>
-      진행 보기
+    <Link href={HREF[stage.target](doc.id)} className={buttonStyles(stage.action === "진행 보기" ? undefined : { variant: "primary" })}>
+      {stage.action}
     </Link>
   );
 }

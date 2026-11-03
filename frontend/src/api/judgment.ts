@@ -124,6 +124,8 @@ export const judgmentStatusSchema = z.object({
   explanations: z.object({ done: z.number(), total: z.number() }),
   saved_snapshot: z.number().nullable(),
   error: z.string().nullable().optional(),
+  /** 최신 판정에서 처리할 항목 수 (서버 기준: 구버전 불일치도 센다). 머리줄이 판정 보기 없이 쓸 때만 본다 */
+  unreviewed: z.number().optional(),
 });
 
 export const judgmentViewSchema = z
