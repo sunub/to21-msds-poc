@@ -17,11 +17,11 @@
 
 ### 프로젝트 버전 준비
 
-이 문서와 A1·A2·B2 SQL이 모두 포함된 버전을 사용합니다. 아직 `main`에 반영되기 전이라면 팀에서 공유한 `db/htodb-setup` 브랜치를 받아 사용합니다. 새로 받는 예시입니다. 저장소 접근 권한이 필요합니다.
+이 문서와 A1·A2·B2 SQL이 모두 포함된 버전을 사용합니다. 아직 `main`에 반영되기 전이라면 팀에서 공유한 `db/htodb-only` 브랜치를 받아 사용합니다. 새로 받는 예시입니다. 저장소 접근 권한이 필요합니다.
 
 ```bash
 cd ~
-git clone --branch db/htodb-setup https://github.com/sunub/to21-msds-poc.git
+git clone --branch db/htodb-only https://github.com/sunub/to21-msds-poc.git
 cd to21-msds-poc
 ```
 
