@@ -54,6 +54,10 @@ B1·B2 작업에서 나온, B가 직접 고치지 않는 일을 담당별로 모
 
 > B 쪽은 `extract.handoff`를 대역으로 돌리고 있어요. 표가 들어오면 바로 전체 흐름을 시험할 수 있어서 이게 제일 급합니다. 모양은 `contracts/README.md` 7절이에요. 하나 더, 재생성 스크립트 514행이 Python 3.12 문법이라 3.11에서 파일을 못 읽습니다. `test_E_regenerated` 2건 실패뿐 아니라 `/regenerated` API도 이 환경에서 실패해요.
 
+**judge DB 설치 확인 요청에 대한 답 (2026-11-03):** 빈 DB에 TEAM_SETUP 6절 → B 마이그레이션을 재현해 넘김 → 판정 → 설명 → 검토 → 저장까지 확인했다. 그 과정에서 B 설치 뒤 A 실행기를 다시 돌리면 멈추는 문제를 찾아 B 쪽을 고쳤다.
+
+> judge DB 설치 확인했어요. 빈 DB에 TEAM_SETUP 6절(A 실행기) 다음 `cd backend && python scripts/b2_migrate.py`를 돌리면 judge 스키마와 `judge_writer`가 만들어지고, 넘김 → 판정 → 설명 → 검토 → 저장까지 됩니다. 그런데 B 마이그레이션이 `extract.handoff`에 직접 권한을 주는 바람에 그 뒤 A 실행기를 다시 돌리면 "스키마가 이력과 다르다"며 멈췄어요. B 쪽을 `judge_writer`를 `to21_judge` 그룹에 넣는 방식으로 바꿔서, 이제 A 실행기를 다시 돌려도 통과합니다(시험 `test_b2_install.py`). TEAM_SETUP 6절 끝에 "B judge 설치: `docs/backend/README.md` 팀 DB 절"을 한 줄 걸어 주실 수 있을까요?
+
 ## 화면
 
 | 내용 | 왜 |
