@@ -1,0 +1,515 @@
+{
+  "meta": {
+    "doc": "T21-025 황산 (혼합물: 황산 93~98%, 물 2~7%)",
+    "scope": "2항 유해성 분류 판정 목록. 표시 요소·15항은 별도",
+    "input": "data/silver/claude/T21-025.json",
+    "input_sha256": "98d8d6796542433b2a39a13355dac340d8d7e67d4862d01acaa8deed698c6cc5",
+    "rules_version": "r2026.10c",
+    "knowledge": "to21_sample CSV (= htodb-94f8b6ff7f24, 대조 시험으로 확인)",
+    "fixed_on": "2026-11-01",
+    "basis": "10/30 결정 B2: 설계서 38~42장 기대 결과 기준. 설계서와 다른 줄은 diff_reason 에 이유",
+    "compared_fields": [
+      "msds_form",
+      "msds_value",
+      "our_value",
+      "verdict",
+      "type",
+      "severity",
+      "rule_id"
+    ]
+  },
+  "summary": {
+    "근거부족": 1,
+    "불일치": 3,
+    "일치": 21
+  },
+  "verdicts": [
+    {
+      "class_code": "ENV_AQ_ACUTE",
+      "form": null,
+      "msds_form": null,
+      "msds_value": null,
+      "our_value": {
+        "low": "분류안됨",
+        "high": "분류안됨"
+      },
+      "verdict": "일치",
+      "type": null,
+      "severity": null,
+      "rule_id": "VRD-1",
+      "design_38": null
+    },
+    {
+      "class_code": "ENV_AQ_CHRONIC",
+      "form": null,
+      "msds_form": null,
+      "msds_value": [
+        "3"
+      ],
+      "our_value": {
+        "low": "분류안됨",
+        "high": "분류안됨"
+      },
+      "verdict": "불일치",
+      "type": "과대분류",
+      "severity": "낮음",
+      "rule_id": "VRD-5",
+      "design_38": {
+        "msds": "구분3",
+        "expected": "— (기준정보 없음)",
+        "verdict": "근거부족",
+        "severity": null,
+        "same": false
+      },
+      "diff_reason": "지식DB에 황산·물의 수생 분류 행이 없다(실제 HTODB로도 확인). 빈칸을 '분류안됨'으로 보는 현재 가정 때문에 MSDS 구분3이 과대분류(낮음)로 나온다. 빈칸을 '미검토'로 보면 38장처럼 근거부족이 된다. TO21 확인 요청: 빈칸의 뜻."
+    },
+    {
+      "class_code": "ENV_OZONE",
+      "form": null,
+      "msds_form": null,
+      "msds_value": null,
+      "our_value": {
+        "low": "분류안됨",
+        "high": "분류안됨"
+      },
+      "verdict": "일치",
+      "type": null,
+      "severity": null,
+      "rule_id": "VRD-1",
+      "design_38": null
+    },
+    {
+      "class_code": "HH_ACUTE_DERMAL",
+      "form": null,
+      "msds_form": null,
+      "msds_value": null,
+      "our_value": {
+        "low": "분류안됨",
+        "high": "분류안됨"
+      },
+      "verdict": "근거부족",
+      "type": null,
+      "severity": null,
+      "rule_id": "VRD-7",
+      "design_38": null
+    },
+    {
+      "class_code": "HH_ACUTE_INHAL",
+      "form": "분진·미스트",
+      "msds_form": "증기",
+      "msds_value": [
+        "2"
+      ],
+      "our_value": {
+        "low": "2",
+        "high": "2"
+      },
+      "verdict": "불일치",
+      "type": "형태·세부 표기",
+      "severity": "중간",
+      "rule_id": "VRD-8",
+      "design_38": {
+        "msds": "구분2 (증기)",
+        "expected": "구분2 (분진·미스트)",
+        "verdict": "불일치",
+        "severity": "중간",
+        "same": true
+      }
+    },
+    {
+      "class_code": "HH_ACUTE_ORAL",
+      "form": null,
+      "msds_form": null,
+      "msds_value": null,
+      "our_value": {
+        "low": "분류안됨",
+        "high": "분류안됨"
+      },
+      "verdict": "일치",
+      "type": null,
+      "severity": null,
+      "rule_id": "VRD-1",
+      "design_38": {
+        "msds": "미기재",
+        "expected": "분류안됨 (ATEmix > 2,000)",
+        "verdict": "일치",
+        "severity": null,
+        "same": true
+      }
+    },
+    {
+      "class_code": "HH_ASPIRATION",
+      "form": null,
+      "msds_form": null,
+      "msds_value": null,
+      "our_value": {
+        "low": "분류안됨",
+        "high": "분류안됨"
+      },
+      "verdict": "일치",
+      "type": null,
+      "severity": null,
+      "rule_id": "VRD-1",
+      "design_38": null
+    },
+    {
+      "class_code": "HH_CARCINOGEN",
+      "form": null,
+      "msds_form": null,
+      "msds_value": [
+        "1A"
+      ],
+      "our_value": {
+        "low": "1A",
+        "high": "1A"
+      },
+      "verdict": "일치",
+      "type": null,
+      "severity": null,
+      "rule_id": "VRD-1",
+      "design_38": {
+        "msds": "구분1A",
+        "expected": "구분1A",
+        "verdict": "일치",
+        "severity": null,
+        "same": true
+      }
+    },
+    {
+      "class_code": "HH_EYE_DMG",
+      "form": null,
+      "msds_form": null,
+      "msds_value": [
+        "1"
+      ],
+      "our_value": {
+        "low": "1",
+        "high": "1"
+      },
+      "verdict": "일치",
+      "type": null,
+      "severity": null,
+      "rule_id": "VRD-1",
+      "design_38": {
+        "msds": "구분1",
+        "expected": "구분1",
+        "verdict": "일치",
+        "severity": null,
+        "same": true
+      }
+    },
+    {
+      "class_code": "HH_MUTAGEN",
+      "form": null,
+      "msds_form": null,
+      "msds_value": null,
+      "our_value": {
+        "low": "분류안됨",
+        "high": "분류안됨"
+      },
+      "verdict": "일치",
+      "type": null,
+      "severity": null,
+      "rule_id": "VRD-1",
+      "design_38": null
+    },
+    {
+      "class_code": "HH_REPRO",
+      "form": null,
+      "msds_form": null,
+      "msds_value": null,
+      "our_value": {
+        "low": "분류안됨",
+        "high": "분류안됨"
+      },
+      "verdict": "일치",
+      "type": null,
+      "severity": null,
+      "rule_id": "VRD-1",
+      "design_38": null
+    },
+    {
+      "class_code": "HH_RESP_SENS",
+      "form": null,
+      "msds_form": null,
+      "msds_value": null,
+      "our_value": {
+        "low": "분류안됨",
+        "high": "분류안됨"
+      },
+      "verdict": "일치",
+      "type": null,
+      "severity": null,
+      "rule_id": "VRD-1",
+      "design_38": null
+    },
+    {
+      "class_code": "HH_SKIN_CORR",
+      "form": null,
+      "msds_form": null,
+      "msds_value": [
+        "1"
+      ],
+      "our_value": {
+        "low": "1",
+        "high": "1"
+      },
+      "verdict": "일치",
+      "type": null,
+      "severity": null,
+      "rule_id": "VRD-1",
+      "design_38": {
+        "msds": "구분1",
+        "expected": "구분1",
+        "verdict": "일치",
+        "severity": null,
+        "same": true
+      }
+    },
+    {
+      "class_code": "HH_SKIN_SENS",
+      "form": null,
+      "msds_form": null,
+      "msds_value": null,
+      "our_value": {
+        "low": "분류안됨",
+        "high": "분류안됨"
+      },
+      "verdict": "일치",
+      "type": null,
+      "severity": null,
+      "rule_id": "VRD-1",
+      "design_38": null
+    },
+    {
+      "class_code": "HH_STOT_RE",
+      "form": null,
+      "msds_form": null,
+      "msds_value": null,
+      "our_value": {
+        "low": "분류안됨",
+        "high": "분류안됨"
+      },
+      "verdict": "일치",
+      "type": null,
+      "severity": null,
+      "rule_id": "VRD-1",
+      "design_38": null
+    },
+    {
+      "class_code": "HH_STOT_SE",
+      "form": null,
+      "msds_form": null,
+      "msds_value": [
+        "1"
+      ],
+      "our_value": {
+        "low": "분류안됨",
+        "high": "분류안됨"
+      },
+      "verdict": "불일치",
+      "type": "과대분류",
+      "severity": "낮음",
+      "rule_id": "VRD-5",
+      "design_38": {
+        "msds": "구분1",
+        "expected": "구분1",
+        "verdict": "일치",
+        "severity": null,
+        "same": false
+      },
+      "diff_reason": "실제 HTODB(htodb-94f8b6ff7f24)에 황산의 특정표적장기(1회) 분류 행이 없다. 38장 화면은 가상 판정이다. 빈칸을 '분류안됨'으로 보는 현재 가정 때문에 과대분류(낮음). TO21 확인 요청: 빈칸의 뜻, 황산 표적장기 분류 출처."
+    },
+    {
+      "class_code": "PH_EXPLOSIVE",
+      "form": null,
+      "msds_form": null,
+      "msds_value": null,
+      "our_value": {
+        "low": "분류안됨",
+        "high": "분류안됨"
+      },
+      "verdict": "일치",
+      "type": null,
+      "severity": null,
+      "rule_id": "VRD-1",
+      "design_38": null
+    },
+    {
+      "class_code": "PH_FLAM_LIQ",
+      "form": null,
+      "msds_form": null,
+      "msds_value": null,
+      "our_value": {
+        "low": "분류안됨",
+        "high": "분류안됨"
+      },
+      "verdict": "일치",
+      "type": null,
+      "severity": null,
+      "rule_id": "VRD-1",
+      "design_38": null
+    },
+    {
+      "class_code": "PH_METAL_CORR",
+      "form": null,
+      "msds_form": null,
+      "msds_value": [
+        "1"
+      ],
+      "our_value": {
+        "low": "1",
+        "high": "1"
+      },
+      "verdict": "일치",
+      "type": null,
+      "severity": null,
+      "rule_id": "VRD-1",
+      "design_38": {
+        "msds": "구분1",
+        "expected": "— (제품 시험자료 없음)",
+        "verdict": "근거부족",
+        "severity": null,
+        "same": false
+      },
+      "diff_reason": "설계서 안에서 31장(다른 물리적 위험성은 시험자료가 없으면 근거부족)과 33장(D-17: UN 운송정보 → 대표성분 분류 → 9항)이 다르다. 33장(TO21 로직)을 따랐다. UN1830은 8급 용기등급 II라 운송 규칙(8급 III)에 걸리지 않고, 대표성분 황산의 지식DB 분류가 금속부식성 1이라 일치."
+    },
+    {
+      "class_code": "PH_ORG_PEROX",
+      "form": null,
+      "msds_form": null,
+      "msds_value": null,
+      "our_value": {
+        "low": "분류안됨",
+        "high": "분류안됨"
+      },
+      "verdict": "일치",
+      "type": null,
+      "severity": null,
+      "rule_id": "VRD-1",
+      "design_38": null
+    },
+    {
+      "class_code": "PH_OXID_LIQ",
+      "form": null,
+      "msds_form": null,
+      "msds_value": null,
+      "our_value": {
+        "low": "분류안됨",
+        "high": "분류안됨"
+      },
+      "verdict": "일치",
+      "type": null,
+      "severity": null,
+      "rule_id": "VRD-1",
+      "design_38": null
+    },
+    {
+      "class_code": "PH_PYRO_LIQ",
+      "form": null,
+      "msds_form": null,
+      "msds_value": null,
+      "our_value": {
+        "low": "분류안됨",
+        "high": "분류안됨"
+      },
+      "verdict": "일치",
+      "type": null,
+      "severity": null,
+      "rule_id": "VRD-1",
+      "design_38": null
+    },
+    {
+      "class_code": "PH_SELF_HEAT",
+      "form": null,
+      "msds_form": null,
+      "msds_value": null,
+      "our_value": {
+        "low": "분류안됨",
+        "high": "분류안됨"
+      },
+      "verdict": "일치",
+      "type": null,
+      "severity": null,
+      "rule_id": "VRD-1",
+      "design_38": null
+    },
+    {
+      "class_code": "PH_SELF_REACT",
+      "form": null,
+      "msds_form": null,
+      "msds_value": null,
+      "our_value": {
+        "low": "분류안됨",
+        "high": "분류안됨"
+      },
+      "verdict": "일치",
+      "type": null,
+      "severity": null,
+      "rule_id": "VRD-1",
+      "design_38": null
+    },
+    {
+      "class_code": "PH_WATER_REACT",
+      "form": null,
+      "msds_form": null,
+      "msds_value": null,
+      "our_value": {
+        "low": "분류안됨",
+        "high": "분류안됨"
+      },
+      "verdict": "일치",
+      "type": null,
+      "severity": null,
+      "rule_id": "VRD-1",
+      "design_38": null
+    }
+  ],
+  "excluded": [
+    {
+      "class_code": "PH_AEROSOL",
+      "form": null,
+      "status": "대조"
+    },
+    {
+      "class_code": "PH_FLAM_GAS",
+      "form": null,
+      "status": "해당 없음"
+    },
+    {
+      "class_code": "PH_FLAM_SOL",
+      "form": null,
+      "status": "해당 없음"
+    },
+    {
+      "class_code": "PH_OXID_GAS",
+      "form": null,
+      "status": "해당 없음"
+    },
+    {
+      "class_code": "PH_OXID_SOL",
+      "form": null,
+      "status": "해당 없음"
+    },
+    {
+      "class_code": "PH_PRESS_GAS",
+      "form": null,
+      "status": "대조"
+    },
+    {
+      "class_code": "PH_PYRO_SOL",
+      "form": null,
+      "status": "해당 없음"
+    }
+  ],
+  "ate_mix": {
+    "HH_ACUTE_ORAL|": {
+      "low": 2301.1,
+      "high": 2183.7
+    },
+    "HH_ACUTE_INHAL|분진·미스트": {
+      "low": 0.403,
+      "high": 0.383
+    }
+  }
+}

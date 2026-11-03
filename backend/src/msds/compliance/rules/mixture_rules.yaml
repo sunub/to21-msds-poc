@@ -1,0 +1,269 @@
+# mixture_rules.yaml — 혼합물 2항 판정 규칙 (설계서 21~25, 32~36장)
+# 근거: 고용노동부고시 제2026-26호 별표1(분류), 별표6(한계농도) + TO21 MSDS GHS 분류 로직(v6)
+# 엔진은 이 파일을 읽어서 판정만 하고, 숫자 기준을 코드에 쓰지 않는다.
+#
+# ── 조건식(when) 문법 ─────────────────────────────────────────────
+#   sum("1","1A")        이 항목에서 해당 구분 성분들의 함량(%) 합
+#   max("1A")            해당 구분 성분 중 가장 큰 함량(%) (aggregate: max 로 바꿀 때 사용)
+#   sumx("1")            Σ(함량 × M) — 수생 유해성
+#   other("HH_SKIN_CORR", "1")   다른 항목의 해당 구분 성분 함량 합
+#   flag("non_additive_1")       표시가 붙은 성분의 함량 합
+#   prop("VISCOSITY_40") 혼합물 물성 값(9항). 없으면 판정 불가(근거부족)
+#   has("PH")            해당 물성 값이 있는지 (prop 앞에 써서 값이 없을 때 건너뜀)
+#   연산: + - * ( )  비교: >= > <= < ==  논리: and or (왼쪽부터, 앞에서 결정되면 뒤는 보지 않음)
+#   구분 이름 뒤 ":효과"는 효과별 합산 (예: sum("3:호흡기자극"))
+# ── 판정 방법(method) ─────────────────────────────────────────────
+#   ate         ATEmix 계산 → ate_cutoff.csv로 구분 (rules 대신 params)
+#   additive    가산법 (피부·눈)        cutoff     한계농도 (과민·CMR·표적장기·오존)
+#   summation   M 계수 가산 (수생)      property   물성으로 판정
+#   transport   UN 운송정보 우선 (un_class_map.csv) → 대표성분 → 물성 (D-17)
+#   compare     계산 불가 → 기준·MSDS 대조만
+# ── 공통 약속 ─────────────────────────────────────────────────────
+#   rules는 위에서부터 검사하고 처음 참인 규칙의 category로 확정한다 (위험한 구분부터).
+#   어떤 규칙도 참이 아니면 '분류안됨'. extra_rules는 rules 결과와 함께 추가로 표시한다.
+#   include_min(별표6 한계농도) 미만 성분은 그 항목 계산에서 제외한다 (D-15).
+#   aggregate: sum = 같은 구분 성분 함량의 합 (TO21 로직, D-16) / max = 성분 하나 기준 (고시 문언)
+#   함량은 하한·상한으로 각각 계산하고, 결과가 다르면 '경계'.
+#   id는 판정 근거(trace)의 rule.id로 그대로 반환한다. examples는 rules_check.py가 실행한다.
+
+meta:
+  version: r2026.10c
+  source: "고용노동부고시 제2026-26호 별표1·별표6, TO21 MSDS GHS 분류 로직 v6"
+  checked_by: ""
+  checked_date: ""
+  effective_from: "2026-04-24"
+
+classes:
+
+  # ───────────────────────── 급성독성 (ATEmix, 별표1 3.1 다) ─────────────────────────
+  # 값 사용 규칙 (D-12, TO21 로직)
+  #   =, ≥, ≤ 수치 → Σ에 사용 (범위값은 최소값, 2,000 초과 수치도 사용)
+  #   >, < 값 · 무독성 성분(물 등) → Σ에 넣지 않지만 '이용 가능 성분'
+  #   자료 없음 → '이용 불가 성분'. 이용 불가 > 10% → 공식2 + '급성독성 미상 ○%' 표시
+  HH_ACUTE_ORAL:
+    method: ate
+    params: {route: oral, cutoff: ATE-ORAL, conversion: CONV-ORAL, include_min: 1.0, unknown_limit: 10}
+    rule_id: ATE-MIX-01
+    examples:
+      - name: "25번 황산 경구 상한 98% — LD50 2,140 사용 → 2,183.7"
+        in: {ate: [[98, 2140]], unknown: 0}
+        out: "분류안됨"
+      - name: "TO21 로직 예제 — A 352, B 구분3(100), C 3,000, D >2,000(제외), E 자료없음 20%, F 250"
+        in: {ate: [[10, 352], [5, 100], [50, 3000], [10, 250]], unknown: 20}
+        out: "4"
+      - name: "가상 혼합물 — A 300, B 구분3(100), 미상 15%"
+        in: {ate: [[20, 300], [5, 100]], unknown: 15}
+        out: "4"
+  HH_ACUTE_DERMAL:
+    method: ate
+    params: {route: dermal, cutoff: ATE-DERMAL, conversion: CONV-DERMAL, include_min: 1.0, unknown_limit: 10}
+    rule_id: ATE-MIX-01
+  HH_ACUTE_INHAL:
+    method: ate
+    params: {route: inhal, forms: {gas: ATE-INHAL-GAS, vapour: ATE-INHAL-VAPOUR, mist: ATE-INHAL-MIST},
+             conversion: {gas: CONV-INHAL-GAS, vapour: CONV-INHAL-VAPOUR, mist: CONV-INHAL-MIST},
+             include_min: 1.0, unknown_limit: 10}
+    rule_id: ATE-MIX-01
+    examples:
+      - {name: "25번 황산 흡입(미스트) 상한 98%", in: {form: mist, ate: [[98, 0.375]], unknown: 0}, out: "2"}
+      - {name: "25번 황산 흡입(미스트) 하한 93%", in: {form: mist, ate: [[93, 0.375]], unknown: 0}, out: "2"}
+
+  # ───────────────────────── 피부·눈 (별표1 3.2·3.3 라, 가산 방식) ─────────────────────────
+  HH_SKIN_CORR:
+    method: additive
+    include_min: 1.0                       # 별표6
+    rules:
+      - {id: SKIN-PH,  category: "1",  when: 'has("PH") and (prop("PH") <= 2 or prop("PH") >= 11.5)'}   # 제품 pH 우선 (D-19)
+      - {id: SKIN-1X,  category: "1",  when: 'flag("ph_extreme") >= 1 or flag("non_additive_1") >= 1'}
+      - {id: SKIN-1,   category: "1",  when: 'sum("1") > 0 and sum("1","1A","1B","1C") >= 5'}           # 소구분 없는 성분 포함
+      - {id: SKIN-1A,  category: "1A", when: 'sum("1A") >= 5'}
+      - {id: SKIN-1B,  category: "1B", when: 'sum("1A","1B") >= 5'}
+      - {id: SKIN-1C,  category: "1C", when: 'sum("1A","1B","1C") >= 5'}
+      - {id: SKIN-2X,  category: "2",  when: 'flag("non_additive_2") >= 3'}
+      - {id: SKIN-2,   category: "2",  when: 'sum("1","1A","1B","1C") >= 1 or sum("2") >= 10 or 10*sum("1","1A","1B","1C") + sum("2") >= 10'}
+    examples:
+      - {name: "구분1 성분 3%", in: {comps: {"1": [3]}}, out: "2"}
+      - {name: "구분1 성분 7%", in: {comps: {"1": [7]}}, out: "1"}
+      - {name: "1A 3% + 1B 3%", in: {comps: {"1A": [3], "1B": [3]}}, out: "1B"}
+      - {name: "1A 6%", in: {comps: {"1A": [6]}}, out: "1A"}
+      - {name: "구분2 성분 11%", in: {comps: {"2": [11]}}, out: "2"}
+      - {name: "구분1 0.5% (한계농도 1% 미만 → 제외)", in: {comps: {"1": [0.5]}}, out: "분류안됨"}
+      - {name: "pH 극단 성분 2%", in: {comps: {}, flags: {ph_extreme: 2}}, out: "1"}
+      - {name: "제품 pH 1.0", in: {comps: {}, props: {PH: 1.0}}, out: "1"}
+      - {name: "가산 불가 구분2 성분 4%", in: {comps: {}, flags: {non_additive_2: 4}}, out: "2"}
+  HH_EYE_DMG:
+    method: additive
+    include_min: 1.0
+    note: "피부1과 눈1에 모두 해당하는 성분은 한 번만 합산 (엔진이 other() 계산 시 중복 제거)"
+    rules:
+      - {id: EYE-PH,  category: "1",  when: 'has("PH") and (prop("PH") <= 2 or prop("PH") >= 11.5)'}
+      - {id: EYE-1X,  category: "1",  when: 'flag("ph_extreme") >= 1 or flag("non_additive_1") >= 1'}
+      - {id: EYE-1,   category: "1",  when: 'other("HH_SKIN_CORR","1","1A","1B","1C") + sum("1") >= 3'}
+      - {id: EYE-2X,  category: "2",  when: 'flag("non_additive_2") >= 3'}
+      - {id: EYE-2B,  category: "2B", when: 'sum("2B") >= 10 and sum("2","2A") == 0 and sum("1") == 0 and other("HH_SKIN_CORR","1","1A","1B","1C") == 0'}
+      - {id: EYE-2,   category: "2",  when: 'other("HH_SKIN_CORR","1","1A","1B","1C") + sum("1") >= 1 or sum("2","2A","2B") >= 10 or 10*(other("HH_SKIN_CORR","1","1A","1B","1C") + sum("1")) + sum("2","2A","2B") >= 10'}
+    examples:
+      - {name: "피부1 2% + 눈1 1.5%", in: {comps: {"1": [1.5]}, other: {HH_SKIN_CORR: {"1": [2]}}}, out: "1"}
+      - {name: "눈1 1%", in: {comps: {"1": [1]}}, out: "2"}
+      - {name: "눈2 12%", in: {comps: {"2": [12]}}, out: "2"}
+      - {name: "모든 성분 2B, 합 15%", in: {comps: {"2B": [15]}}, out: "2B"}
+
+  # ───────────────────────── 과민성 (별표1 3.4 다) ─────────────────────────
+  HH_RESP_SENS:
+    method: cutoff
+    aggregate: sum                        # D-16
+    include_min: 0.1
+    rules:
+      - {id: RSEN-1A, category: "1A", when: 'sum("1A") >= 0.1'}
+      - {id: RSEN-1G, category: "1",  when: 'has("STATE") and prop("STATE") == "가스" and sum("1","1B") >= 0.2'}
+      - {id: RSEN-1B, category: "1B", when: 'sum("1") == 0 and sum("1B") >= 1.0'}
+      - {id: RSEN-1,  category: "1",  when: 'sum("1","1B") >= 1.0'}
+    examples:
+      - {name: "1B 성분 0.5% (액체)", in: {comps: {"1B": [0.5]}, props: {STATE: "액체"}}, out: "분류안됨"}
+      - {name: "1B 성분 0.5% (가스)", in: {comps: {"1B": [0.5]}, props: {STATE: "가스"}}, out: "1"}
+  HH_SKIN_SENS:
+    method: cutoff
+    aggregate: sum
+    include_min: 0.1
+    rules:
+      - {id: SSEN-1A, category: "1A", when: 'sum("1A") >= 0.1'}
+      - {id: SSEN-1B, category: "1B", when: 'sum("1") == 0 and sum("1B") >= 1.0'}
+      - {id: SSEN-1,  category: "1",  when: 'sum("1","1B") >= 1.0'}
+    examples:
+      - {name: "1A 성분 0.2%", in: {comps: {"1A": [0.2]}}, out: "1A"}
+      - {name: "1B 성분 0.6% 두 개 (합 1.2%) — 합산 기준", in: {comps: {"1B": [0.6, 0.6]}}, out: "1B"}
+
+  # ───────────────────────── 변이원성·발암성·생식독성 (별표1 3.5~3.7 다) ─────────────────────────
+  HH_MUTAGEN:
+    method: cutoff
+    aggregate: sum
+    include_min: {"1A": 0.1, "1B": 0.1, "1": 0.1, "2": 1.0}
+    rules:
+      - {id: MUT-1A, category: "1A", when: 'sum("1A") >= 0.1'}
+      - {id: MUT-1B, category: "1B", when: 'sum("1B") >= 0.1'}
+      - {id: MUT-1,  category: "1",  when: 'sum("1") >= 0.1'}
+      - {id: MUT-2,  category: "2",  when: 'sum("2") >= 1.0'}
+  HH_CARCINOGEN:
+    method: cutoff
+    aggregate: sum
+    include_min: 0.1
+    rules:
+      - {id: CARC-1A, category: "1A", when: 'sum("1A") >= 0.1'}
+      - {id: CARC-1B, category: "1B", when: 'sum("1B") >= 0.1'}
+      - {id: CARC-1,  category: "1",  when: 'sum("1") >= 0.1'}
+      - {id: CARC-2,  category: "2",  when: 'sum("2") >= 1.0'}
+    examples:
+      - {name: "25번 황산 발암1A 성분 93%", in: {comps: {"1A": [93]}}, out: "1A"}
+      - {name: "구분2 성분 0.5%", in: {comps: {"2": [0.5]}}, out: "분류안됨"}
+  HH_REPRO:
+    method: cutoff
+    aggregate: sum
+    include_min: 0.1
+    rules:
+      - {id: REPR-1A,  category: "1A", when: 'sum("1A") >= 0.3'}
+      - {id: REPR-1B,  category: "1B", when: 'sum("1B") >= 0.3'}
+      - {id: REPR-1,   category: "1",  when: 'sum("1") > 0 and sum("1","1A","1B") >= 0.3'}   # 1+1A, 1+1B → 1
+      - {id: REPR-1AB, category: "1B", when: 'sum("1A","1B") >= 0.3'}                         # 1A+1B → 1B
+      - {id: REPR-2,   category: "2",  when: 'sum("2") >= 3.0'}
+    extra_rules:
+      - {id: REPR-LACT, category: "수유독성", when: 'sum("수유독성") >= 0.3'}
+    examples:
+      - {name: "1A 0.2% + 1B 0.2%", in: {comps: {"1A": [0.2], "1B": [0.2]}}, out: "1B"}
+      - {name: "구분2 성분 2%", in: {comps: {"2": [2]}}, out: "분류안됨"}
+
+  # ───────────────────────── 특정표적장기·흡인 (별표1 3.8~3.10 다) ─────────────────────────
+  HH_STOT_SE:
+    method: cutoff
+    aggregate: sum
+    include_min: 1.0
+    rules:
+      - {id: STSE-1,  category: "1", when: 'sum("1") >= 10'}
+      - {id: STSE-2A, category: "2", when: 'sum("1") >= 1'}
+      - {id: STSE-2B, category: "2", when: 'sum("2") >= 10'}
+    extra_rules:                          # 구분3은 효과별 합산, 1·2와 함께 표시 가능
+      - {id: STSE-3R, category: "3", effect: "호흡기자극", when: 'sum("3:호흡기자극") >= 20'}
+      - {id: STSE-3N, category: "3", effect: "마취",       when: 'sum("3:마취") >= 20'}
+    examples:
+      - {name: "구분1 성분 5%", in: {comps: {"1": [5]}}, out: "2"}
+  HH_STOT_RE:
+    method: cutoff
+    aggregate: sum
+    include_min: 1.0
+    rules:
+      - {id: STRE-1,  category: "1", when: 'sum("1") >= 10'}
+      - {id: STRE-2A, category: "2", when: 'sum("1") >= 1'}
+      - {id: STRE-2B, category: "2", when: 'sum("2") >= 10'}
+  HH_ASPIRATION:
+    method: property
+    include_min: 1.0
+    note: "혼합물이 두 층 이상으로 분리되면 층별로 판단 (9항 정보가 있을 때만)"
+    rules:
+      - {id: ASP-1, category: "1", when: 'sum("1") >= 10 and prop("VISCOSITY_40") <= 20.5'}
+      - {id: ASP-2, category: "2", when: 'sum("2") >= 10 and prop("VISCOSITY_40") <= 14'}
+    examples:
+      - {name: "구분1 40%, 동점도 5", in: {comps: {"1": [40]}, props: {VISCOSITY_40: 5}}, out: "1"}
+      - {name: "구분1 40%, 동점도 30", in: {comps: {"1": [40]}, props: {VISCOSITY_40: 30}}, out: "분류안됨"}
+      - {name: "구분2 20%, 동점도 10", in: {comps: {"2": [20]}, props: {VISCOSITY_40: 10}}, out: "2"}
+      - {name: "구분1 40%, 동점도 없음", in: {comps: {"1": [40]}}, out: "근거부족(prop VISCOSITY_40)"}
+
+  # ───────────────────────── 환경 (별표1 4.1·4.2 다) ─────────────────────────
+  ENV_AQ_ACUTE:
+    method: summation
+    include_min: 1.0
+    m_factor_default: 1                   # D-07
+    rules:
+      - {id: AQA-1, category: "1", when: 'sumx("1") >= 25'}
+  ENV_AQ_CHRONIC:
+    method: summation
+    include_min: 1.0
+    m_factor_default: 1
+    rules:
+      - {id: AQC-1, category: "1", when: 'sumx("1") >= 25'}
+      - {id: AQC-2, category: "2", when: '10*sumx("1") + sum("2") >= 25'}
+      - {id: AQC-3, category: "3", when: '100*sumx("1") + 10*sum("2") + sum("3") >= 25'}
+      - {id: AQC-4, category: "4", when: 'sum("1") + sum("2") + sum("3") + sum("4") >= 25'}
+    examples:
+      - {name: "만성1 3% (M=1)", in: {comps: {"1": [3]}}, out: "2"}
+      - {name: "만성1 1% + 만성3 6% (100×1+6=106 → 구분3)", in: {comps: {"1": [1], "3": [6]}}, out: "3"}
+      - {name: "만성1 2% + 만성2 6% (10×2+6=26 → 구분2)", in: {comps: {"1": [2], "2": [6]}}, out: "2"}
+      - {name: "만성1 3%, M=10 (30 → 구분1)", in: {comps: {"1": [3]}, M: 10}, out: "1"}
+      - {name: "만성4 30%", in: {comps: {"4": [30]}}, out: "4"}
+  ENV_OZONE:
+    method: cutoff
+    aggregate: sum
+    include_min: 0.1
+    rules:
+      - {id: OZ-1, category: "1", when: 'sum("1") >= 0.1'}
+
+  # ───────────────────────── 물리적 위험성 16종 (D-17) ─────────────────────────
+  PH_FLAM_LIQ:   {method: transport, then: [representative, flam_liquid.yaml]}
+  PH_FLAM_GAS:
+    method: transport
+    then: [representative, property]
+    rules:            # ③ 9항 폭발한계(%) — 가스일 때만
+      - {id: FGAS-1, category: "1", when: 'has("STATE") and prop("STATE") == "가스" and (prop("LEL") <= 13 or prop("UEL") - prop("LEL") >= 12)'}
+      - {id: FGAS-2, category: "2", when: 'has("STATE") and prop("STATE") == "가스" and prop("UEL") - prop("LEL") > 0'}
+  PH_EXPLOSIVE:   {method: transport, then: [representative]}
+  PH_OXID_GAS:    {method: transport, then: [representative]}
+  PH_FLAM_SOL:    {method: transport, then: [representative]}
+  PH_SELF_REACT:  {method: transport, then: [representative]}
+  PH_PYRO_LIQ:    {method: transport, then: [representative]}
+  PH_PYRO_SOL:    {method: transport, then: [representative]}
+  PH_SELF_HEAT:   {method: transport, then: [representative]}
+  PH_WATER_REACT: {method: transport, then: [representative]}
+  PH_OXID_LIQ:    {method: transport, then: [representative]}
+  PH_OXID_SOL:    {method: transport, then: [representative]}
+  PH_ORG_PEROX:   {method: transport, then: [representative]}
+  PH_METAL_CORR:  {method: transport, then: [representative], flag_if: 'has("PH") and (prop("PH") <= 2 or prop("PH") >= 11.5)'}
+  PH_AEROSOL:     {method: compare}
+  PH_PRESS_GAS:   {method: compare, note: "대표성분 분류·9항 상태로 가스 여부만 확인"}
+
+representative:      # 대표성분 (TO21 로직 '대표물질') — 정의 확인 필요(미결 4)
+  rule: "함량(상한)이 가장 큰 성분"
+  state_filter: true # 성상별 가능한 항목만 (기체: 인화성·산화성 가스, 고압가스 / 액체 / 고체)
+
+compare_rules:        # 결과가 없을 때 대조 판정 (설계서 33장)
+  - {id: CMP-1, when: "MSDS 기재 and 성분에 해당 분류 있음",   verdict: 일치, note: 참고}
+  - {id: CMP-2, when: "MSDS 기재 and 성분 근거 없음",          verdict: 근거부족, note: "시험자료 확인"}
+  - {id: CMP-3, when: "MSDS 미기재 and 성분에 해당 분류 있음", verdict: 근거부족, note: "확인 필요"}
+  - {id: CMP-4, when: "MSDS 미기재 and 성분 근거 없음",        verdict: 일치}

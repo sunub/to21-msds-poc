@@ -1,0 +1,16 @@
+# flam_liquid.yaml — 인화성 액체 구분 (9항 인화점·초기끓는점, 단일·혼합 공통) (설계서 31장)
+# version: r2026.10c | source: 고용노동부고시 제2026-26호 별표1 | checked_by: | checked_date:
+# 저장소 반입: 11/02 F — 규칙표 v0.3 그대로. mixture/physical.py 가 읽는다(전에는 같은 기준을 코드에 적어 두었음, 설계서 45장)
+meta: {version: r2026.10c}
+applies_if: 'prop("STATE") == "액체"'
+rules:      # 위에서부터 검사, 단위 ℃
+  - {id: FLQ-1, category: "1", when: 'prop("FLASH_POINT") < 23 and prop("BOILING") <= 35'}
+  - {id: FLQ-2, category: "2", when: 'prop("FLASH_POINT") < 23 and prop("BOILING") > 35'}
+  - {id: FLQ-3, category: "3", when: 'prop("FLASH_POINT") >= 23 and prop("FLASH_POINT") <= 60'}
+  - {id: FLQ-4, category: "4", when: 'prop("FLASH_POINT") > 60 and prop("FLASH_POINT") <= 93'}
+missing_prop: 근거부족          # 인화점 '자료없음'
+non_flammable: 분류안됨         # 인화점 '해당없음(불연성)'
+examples:
+  - {name: "인화점 22, 비점 30", in: {props: {STATE: 액체, FLASH_POINT: 22, BOILING: 30}}, out: "1"}
+  - {name: "인화점 61", in: {props: {STATE: 액체, FLASH_POINT: 61, BOILING: 150}}, out: "4"}
+  - {name: "인화점 100", in: {props: {STATE: 액체, FLASH_POINT: 100, BOILING: 200}}, out: "분류안됨"}
