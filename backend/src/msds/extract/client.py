@@ -102,6 +102,17 @@ def page_parts(pages: list[dict], input_mode: str, detail: str = "high") -> list
 _TEXT_EDGE = 500   # 요청 기록에 남기는 응답 앞·뒤 글자 수
 
 
+def _usage(u) -> dict:
+    """응답의 토큰 사용량. 서버가 알려 주면 캐시된 입력(cached_tokens)과 추론 토큰(reasoning_tokens)도 남긴다.
+    캐시 입력은 값이 다르고(OpenAI는 정가의 1/10) 추론 토큰은 출력 값으로 내므로 실제 비용을 재려면 필요하다."""
+    out = {k: getattr(u, k, None) for k in ("prompt_tokens", "completion_tokens", "total_tokens")}
+    for detail, key in (("prompt_tokens_details", "cached_tokens"), ("completion_tokens_details", "reasoning_tokens")):
+        v = getattr(getattr(u, detail, None), key, None)
+        if v is not None:
+            out[key] = v
+    return out
+
+
 def _request_record(mode: str, finish: str | None, usage: dict, seconds: float, text: str) -> dict:
     """요청 하나의 기록. 성공해도 앞선 요청이 출력 한도에 걸린 이유(공백 폭주, 진짜 긴 출력)를 볼 수 있게 남긴다."""
     return {"mode": mode, "finish_reason": finish, "usage": usage, "seconds": round(seconds, 3),
@@ -309,7 +320,7 @@ class ChatClient:
                 last_text = choice.message.content or ""
                 u = getattr(resp, "usage", None)
                 if u is not None:
-                    usage = {k: getattr(u, k, None) for k in ("prompt_tokens", "completion_tokens", "total_tokens")}
+                    usage = _usage(u)
                 requests.append(_request_record(mode, finish, usage if u is not None else {},
                                                 time.time() - t_req, last_text))
                 if finish == "length":
@@ -368,8 +379,7 @@ class ChatClient:
         finish = choice.finish_reason
         text = choice.message.content or ""
         u = getattr(resp, "usage", None)
-        usage = ({k: getattr(u, k, None) for k in ("prompt_tokens", "completion_tokens", "total_tokens")}
-                 if u is not None else {})
+        usage = _usage(u) if u is not None else {}
         requests = [_request_record(mode, finish, usage, time.time() - t0, text)]
         parsed, errors = None, []
         if finish == "length":
@@ -401,8 +411,7 @@ class ChatClient:
         finish = choice.finish_reason
         text = choice.message.content or ""
         u = getattr(resp, "usage", None)
-        usage = ({k: getattr(u, k, None) for k in ("prompt_tokens", "completion_tokens", "total_tokens")}
-                 if u is not None else {})
+        usage = _usage(u) if u is not None else {}
         requests = [_request_record(mode, finish, usage, time.time() - t0, text)]
         errors = [f"[{mode}] 출력 길이 한도에 걸려 잘림 (max_tokens={max_tokens})"] if finish == "length" else []
         return CallResult(None, text, mode, finish, usage, time.time() - t0, self.model, 1, errors, requests)
