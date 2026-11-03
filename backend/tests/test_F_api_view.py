@@ -104,7 +104,9 @@ def fake_result():
                             "findings": [f2, f15, ok], "traces": {"T-2-005": trace, "T-15-001": t15},
                             "excluded": [{"section": "15", "comp_ref": "1", "law": "CCA", "item_code": "CCA_ACUTE",
                                           "status": "구버전", "reason": "개정 전 체계", "source": []},
-                                         {"section": "2", "class_code": "PH_FLAM_GAS", "status": "해당 없음", "reason": "가스용"}]}}
+                                         {"section": "2", "class_code": "PH_FLAM_GAS", "status": "해당 없음", "reason": "가스용"},
+                                         {"section": "2", "class_code": "PH_PRESS_GAS", "status": "대조", "reason": "나란히 둠",
+                                          "our_value": [{"cas": "7647-01-0", "name": "염산", "category": "압축가스"}]}]}}
 
 
 ITEM = {"meta": {"last_revision_date": "2022-06-29"},
@@ -161,7 +163,9 @@ def test_계산_근거가_없는_줄도_trace_id는_있다(view):
 def test_판정에서_뺀_줄은_구버전은_목록에_해당_없음은_건수만(view):
     resp = findings_response([view], validation_id="v1", extraction_id="e1")
     assert [i["verdict"] for i in resp["items"]] == ["mismatch", "mismatch", "match", "outdated"]
-    assert resp["excluded_counts"] == {"not_applicable": 1, "excluded": 0}
+    assert resp["excluded_counts"] == {"not_applicable": 1, "excluded": 1}
+    compare = next(d for d in view["details"] if d["finding"]["finding_id"] == "m1-X-2-002")   # 대조 항목: 우리 값이 성분 목록
+    assert compare["finding"]["verdict"] == "excluded" and compare["finding"]["msds_value"]["text"] == "미기재"
     assert resp["counts"]["outdated"] == 1 and resp["counts"]["warning"] == 0
 
 
