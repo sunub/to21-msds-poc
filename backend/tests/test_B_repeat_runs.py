@@ -138,3 +138,53 @@ def test_report_lists_sections_and_settings(rr, tmp_path):
     assert "| 15 |" in text and "다름" in text
     result = json.loads((tmp_path / "report" / "repeat.json").read_text(encoding="utf-8"))
     assert result["docs"][DOC]["sections_same"] == 1
+
+
+# ── 평가용 문서 막기 (D-43) ──
+
+EVAL_ROWS = [{"doc_id": "T21-X09", "source_file": "가상 평가.pdf", "purpose": "평가"},
+             {"doc_id": "T21-X01", "source_file": "가상 개발.pdf", "purpose": "개발"}]
+
+
+def write_meta(pages: Path, doc: str, source: str):
+    (pages / doc).mkdir(parents=True)
+    (pages / doc / "meta.json").write_text(json.dumps({"doc_id": doc, "source_file": source}, ensure_ascii=False),
+                                           encoding="utf-8")
+
+
+@pytest.fixture
+def rows(rr, monkeypatch):
+    monkeypatch.setattr(rr.manifest, "load", lambda: EVAL_ROWS)
+
+
+def test_refused_docs_allows_dev_and_outside(rr, rows, tmp_path):
+    write_meta(tmp_path, "T21-X50", "가상 밖.pdf")
+    assert rr.refused_docs(["T21-X01", "T21-X50"], tmp_path) == []
+
+
+def test_refused_docs_rejects_eval_copy_and_unknown(rr, rows, tmp_path):
+    write_meta(tmp_path, "RAW-50", "가상 평가.pdf")                    # 번호만 다른 평가 문서
+    refused = rr.refused_docs(["T21-X09", "RAW-50", "T21-NONE", "T21-X01"], tmp_path)
+    assert [r.split(":")[0] for r in refused] == ["T21-X09", "RAW-50", "T21-NONE"]
+
+
+def test_main_stops_before_any_run_when_eval_doc_given(rr, rows, tmp_path, monkeypatch, capsys):
+    called = []
+    monkeypatch.setattr(rr, "run_all", lambda *a, **k: called.append(a))
+    with pytest.raises(SystemExit) as e:
+        rr.main(["--tag", "qwen36_35b_runpod_48g_det", "--docs", "T21-X01", "T21-X09", "--name", "n",
+                 "--pages-dir", str(tmp_path)])
+    assert e.value.code == 2 and not called
+    assert "T21-X09" in capsys.readouterr().err
+
+
+def test_main_stops_before_any_run_when_pages_have_no_line_numbers(rr, rows, tmp_path, monkeypatch, capsys):
+    write_meta(tmp_path, "T21-X50", "가상 밖.pdf")
+    (tmp_path / "T21-X50" / "p001.txt").write_text("번호 없는 글\n", encoding="utf-8")
+    called = []
+    monkeypatch.setattr(rr, "run_all", lambda *a, **k: called.append(a))
+    with pytest.raises(SystemExit) as e:
+        rr.main(["--tag", "qwen36_35b_runpod_48g_det", "--docs", "T21-X50", "--name", "n",
+                 "--pages-dir", str(tmp_path)])
+    assert e.value.code == 2 and not called
+    assert "줄번호" in capsys.readouterr().err
