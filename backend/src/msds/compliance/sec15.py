@@ -40,7 +40,8 @@ def _expected(q: dict | None, ref: dict) -> tuple[str | None, str]:
     if lo is None and hi is None:
         return None, "성분 함량이 없음"
     # 하한이 없으면 0, 상한이 없으면 100 까지 가능한 것으로 본다.
-    lo_ok = lo is not None and (lo >= t if q.get("lower_op") == ">" else (lo > t if op == ">" else lo >= t))
+    lo = 0.0 if lo is None else lo
+    lo_ok = (lo >= t if q.get("lower_op") == ">" else (lo > t if op == ">" else lo >= t))
     hi_ok = (hi > t if q.get("upper_op") == "<" else (hi > t if op == ">" else hi >= t)) if hi is not None else True
     if lo_ok and hi_ok:
         return "해당", f"함량 {lo}~{hi}% 가 기준 {op} {t}% 를 만족"
