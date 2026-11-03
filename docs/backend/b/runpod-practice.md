@@ -61,3 +61,13 @@ B2 설명은 `qwen36_35b_runpod` 태그를 쓴다. `.env`에 같은 `RUNPOD_VLLM
 - 확인: `pod.py list`가 이 환경에서 동작한다 (읽기 전용). `model_check.py --help` 실행.
 - 못 한 것: Pod 생성, `pod_up.py` 실행, 모델 호출. 비용이 들어 실행하지 않았다.
 - 못 한 것: 이 worktree에서 `test_B_pod_up.py` 등 시험. conftest가 저장소 밖 `to21/` 자료를 요구해 시작 전에 멈춘다.
+
+## 사용 기록
+
+| 날짜 | Pod | 시간·비용 | 보낸 것 (D-47) | 정리 |
+|---|---|---|---|---|
+| 2026-11-04 | `to21-b-e2e-qwen36`, L40S 48GB, 보안 클라우드, 이미지 `vllm/vllm-openai:v0.32.0` | 약 70분, 시간당 $1.09 (약 $1.3). RTX 6000 Ada는 자리가 없었다 | 개발용 T21-S016 PDF의 쪽 글자·쪽 이미지(추출 호출), TO21 25번 예제와 개발용 10건의 판정 설명 요청(판정 줄·원인·계산 과정, MSDS 원문 조각, 지식DB 조문 글). 평가용 10건은 보내지 않았다 | 작업 뒤 Pod 삭제(디스크 포함, 볼륨 없음). 2시간 뒤 스스로 지우는 타이머도 넣었다 |
+
+- 만들기는 `pod.create_pod`과 같은 본문에 GPU 후보 여러 개(`gpuTypeIds`, `gpuTypePriority: custom`)를 넣어 REST로 했다. 서버 설정은 `qwen36_35b_runpod_48g`의 `server` 값과 `serve_vllm.sh`의 문법 강제 설정을 그대로 썼다. 뜨기까지 3분 30초였다.
+- Pod는 HTTP 8000만 열고 프록시 주소(`https://<Pod>-8000.proxy.runpod.net/v1`)로 붙었다. SSH 키 등록이 필요 없다.
+
