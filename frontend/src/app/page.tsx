@@ -2,6 +2,7 @@ import Link from "next/link";
 import { DocumentList } from "@/components/home/document-list";
 import { UploadForm } from "@/components/home/upload-form";
 import { AppHeader } from "@/components/shell/app-header";
+import { PageMain } from "@/components/shell/layout";
 import { routes } from "@/lib/routes";
 
 // 뼈대 확인용: 검수·저장 화면은 아직 데이터가 붙지 않아 따로 오갈 길을 둔다.
@@ -15,7 +16,7 @@ export default function HomePage() {
   return (
     <>
       <AppHeader width={WIDTH} />
-      <main className={`mx-auto flex flex-col gap-10 px-8 pt-10 pb-14 ${WIDTH}`}>
+      <PageMain width={WIDTH} className="gap-10 pt-10">
         <section>
           <h1 className="text-2xl font-bold">새 문서 검수</h1>
           <p className="text-mut">PDF를 올리면 추출, 검수, 저장이 이어서 진행됩니다. 파일은 이 서버 밖으로 나가지 않습니다.</p>
@@ -33,7 +34,7 @@ export default function HomePage() {
           <Link href={routes.save(PREVIEW_DOC)}>3 저장</Link>
           <Link href="/design-system/">디자인 시스템</Link>
         </nav>
-      </main>
+      </PageMain>
     </>
   );
 }

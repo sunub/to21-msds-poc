@@ -1,5 +1,6 @@
 "use client";
 
+import { PageMain } from "@/components/shell/layout";
 import { useState, type ReactNode } from "react";
 import { useForm } from "react-hook-form";
 import {
@@ -141,7 +142,7 @@ export default function DesignSystemPage() {
         </div>
       </div>
 
-      <main className="mx-auto flex max-w-page flex-col gap-5 px-8 pt-7 pb-14">
+      <PageMain>
         <Section title="색" note="토큰은 src/styles/tokens.css 에서만 바꿉니다. 클래스 이름은 토큰 이름과 같습니다.">
           <div className="flex flex-col gap-3">
             {SWATCHES.map((g) => (
@@ -327,7 +328,7 @@ export default function DesignSystemPage() {
             </div>
           </div>
         </Section>
-      </main>
+      </PageMain>
     </>
   );
 }
