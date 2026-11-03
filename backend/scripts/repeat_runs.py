@@ -2,7 +2,7 @@
 
 사용법 (backend/에서. 모델 서버는 미리 띄운다: scripts/pod_up.py --tag <태그>)
   python scripts/repeat_runs.py --tag qwen36_35b_runpod_48g_det --docs T21-S003 T21-S016 \
-      --rounds 3 --concurrency 8 --name det_c8 --gpu "RTX 6000 Ada" --pages-dir ../../to21-msds-poc/data/pages
+      --rounds 3 --concurrency 8 --name det_c8 --gpu "RTX 6000 Ada" --pages-dir ../../to21-msds-poc/data/pages/version17
   --parallel-docs  문서들을 동시에 보낸다 (여러 사용자가 함께 쓰는 상황)
   --concurrency    문서 하나의 항목별 동시 호출 수. 없으면 태그의 concurrency
 
@@ -25,9 +25,11 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Callable
 
+import b_app_sets as bsets
 from _common import today
-from msds.common import paths
+from msds.common import manifest, paths
 from msds.extract.client import load_model_config
+from msds.extract.inputs import pages_problems
 
 IGNORED_FIELDS = ("doc.extraction.extracted_at",)   # 회차마다 다른 것이 당연한 칸
 SNIPPET = 40          # 첫 차이 앞뒤로 보여 줄 글자 수
@@ -49,6 +51,13 @@ class RunOutcome:
     run_dirs: list[Path]
     seconds: dict[str, list[float | None]]
     errors: dict[tuple[str, str], str] = field(default_factory=dict)
+
+
+def refused_docs(docs: list[str], pages_dir: Path) -> list[str]:
+    """돌릴 수 없는 문서와 이유. 평가용, 평가 문서와 원본이 같은 문서, 용도를 확인할 수 없는 문서를 뺀다 (D-43)."""
+    rows = manifest.load()
+    reasons = {d: bsets.doc_lock(d, Path(pages_dir) / d, rows) for d in docs}
+    return [f"{d}: {why}" for d, why in reasons.items() if why]
 
 
 # ── 비교 ──
@@ -225,6 +234,12 @@ def main(argv: list[str] | None = None) -> int:
     args = ap.parse_args(argv)
     if args.rounds < 1:
         ap.error("--rounds는 1 이상")
+    refused = refused_docs(args.docs, args.pages_dir.resolve())
+    if refused:
+        ap.error("돌릴 수 없는 문서가 있습니다. " + "; ".join(refused))
+    problems = pages_problems(args.docs, args.pages_dir.resolve())
+    if problems:
+        ap.error(f"쪽 글자 폴더를 확인하세요({args.pages_dir}). " + "; ".join(problems))
 
     cfg = load_model_config(args.tag)
     plan = Plan(tag=args.tag, docs=args.docs, rounds=args.rounds, concurrency=args.concurrency or cfg.get("concurrency") or 16,
