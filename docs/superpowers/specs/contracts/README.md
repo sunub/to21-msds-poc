@@ -103,6 +103,8 @@ async with gate.slot("explain"):
 
 `mismatch_type`에 `내부 불일치`를 더했다. 단일물질의 11·12항 수치와 2항 구분이 다를 때의 경고다 (설계서 19장). id는 `m0/F2:CROSS:<class_code>:<route_form 또는 ->`.
 
+`mismatch_type`에 `화평법 항목 누락`을 더했다. 15항 전체에 화평법 규제현황이 없을 때 제품 한 줄로 나온다 (설계서 30장). id는 `m0/F15:MIX:KREACH.KREACH_SECTION`, 심각도 중간. 트레이스의 `excluded`에 `무독성`이 새로 나올 수 있다.
+
 `judgment_status`의 `판정 실패`에 연결 장애도 포함된다. 이 경우 `error`가 자동 재시도를 알리고, 복구되면 새 넘김 없이 `판정 있음`이 된다.
 
 `4-explanation` 요청의 `finding.type`·`severity`는 값이 없으면 보내지 않으므로 필수에서 뺐다 (측정된 프롬프트 유지).
