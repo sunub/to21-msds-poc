@@ -384,6 +384,13 @@ def run_document(doc_id: str, model_tag: str, run_name: str, client=None, *,
                          build_user(no, lines, '\n'.join(f'- {message}' for message in messages[:_FEEDBACK_MAX]), images),
                          prompts[no][1], allowed, no in rows, cfg.get('rows_max_tokens'))
         stage('final_reextract', retry['seconds'], index, no, retry['usage'])
+        # Every call consumes time and tokens, even when its output is rejected.
+        res.seconds = round(res.seconds + retry['seconds'], 3)
+        res.usage = _sum_usage(res.usage, retry['usage'])
+        res.attempts += retry['attempts']
+        check = next(item for item in section_checks
+                     if (item['msds_index'], item['section']) == (index, no))
+        check.update(attempts=res.attempts, seconds=res.seconds, usage=res.usage)
         accepted = False
         if retry['ok'] and not _problems(retry):
             candidate_ok = False
@@ -405,14 +412,8 @@ def run_document(doc_id: str, model_tag: str, run_name: str, client=None, *,
                 pictogram_check = [{'msds_index': i, **check_msds(m, hazard_map)}
                                    for i, m in enumerate(out['msds'])]
                 res.parsed, res.ok, res.errors, res.reextracted = retry['parsed'], True, retry['errors'], True
-                res.seconds = round(res.seconds + retry['seconds'], 3)
-                res.usage = _sum_usage(res.usage, retry['usage'])
-                res.attempts += retry['attempts']
-                check = next(item for item in section_checks
-                             if (item['msds_index'], item['section']) == (index, no))
                 check.update(ok=True, mode=retry['mode'], errors=retry['errors'], check_problems=retry['check_problems'],
-                             reextracted=True, attempts=res.attempts, seconds=res.seconds, usage=res.usage)
-                emit(_section_done_event(res, first, retry))
+                             reextracted=True)
         raw_file = raw_path(run, doc_id, index, no)
         raw = json.loads(raw_file.read_text(encoding='utf-8'))
         raw['final_validation_attempt'] = retry
@@ -423,6 +424,7 @@ def run_document(doc_id: str, model_tag: str, run_name: str, client=None, *,
             raw['first_attempt'] = first
             raw['reextracted'] = True
         _write_json(raw_file, raw)
+        emit(_section_done_event(res, first, retry))
 
     total = time.perf_counter() - t_start
     warnings = meta_warnings + list(doc.warnings) + image_warnings
