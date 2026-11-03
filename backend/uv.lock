@@ -2597,6 +2597,7 @@ ocr = [
     { name = "onnxruntime-gpu", marker = "sys_platform == 'linux'" },
     { name = "paddleocr" },
     { name = "paddlepaddle-gpu", marker = "sys_platform == 'linux'" },
+    { name = "pillow" },
 ]
 
 [package.metadata]
@@ -2626,6 +2627,7 @@ ocr = [
     { name = "onnxruntime-gpu", marker = "sys_platform == 'linux'", specifier = ">=1.31.1" },
     { name = "paddleocr", specifier = "==3.2.0" },
     { name = "paddlepaddle-gpu", marker = "sys_platform == 'linux'", specifier = "==3.2.0", index = "https://www.paddlepaddle.org.cn/packages/stable/cu118/" },
+    { name = "pillow", specifier = "==13.0.0" },
 ]
 
 [[package]]
