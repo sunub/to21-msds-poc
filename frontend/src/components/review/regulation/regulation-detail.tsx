@@ -51,7 +51,7 @@ export function RegulationDetail({
   const reviewed = !!review && review.status !== "미검토";
 
   return (
-    <Pane title={`${finding.label}${finding.law_label ? ` (${finding.law_label})` : ""}`} aside={<StatusLabel tone={verdictTone(finding)}>{verdictText(finding)}</StatusLabel>}>
+    <Pane fill title={`${finding.label}${finding.law_label ? ` (${finding.law_label})` : ""}`} aside={<StatusLabel tone={verdictTone(finding)}>{verdictText(finding)}</StatusLabel>}>
       {hidden && <p className="rounded-sm bg-blue-soft px-3 py-2 text-sm text-blue2">거르기로 표에서 숨겨진 항목입니다.</p>}
       {review?.stale && (
         <p className="rounded-sm bg-tint px-3 py-2 text-sm text-stale">
