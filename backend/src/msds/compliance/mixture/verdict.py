@@ -62,7 +62,11 @@ def _map_cats(class_code) -> tuple:
     return tuple(dict.fromkeys(r["category"] for _, r in rows if r["class_code"] == class_code))
 
 
-_EFFECT_WORDS = ("마취", "호흡기")
+_EFFECT_WORDS = {"마취": "마취", "졸음": "마취", "현기증": "마취", "호흡기": "호흡기", "기도": "호흡기"}  # H336·H335 문구도 같은 효과다
+
+
+def _effects(text) -> set[str]:
+    return {v for k, v in _EFFECT_WORDS.items() if k in text}
 
 
 def _same_effect(msds_cat, ours):
@@ -70,8 +74,7 @@ def _same_effect(msds_cat, ours):
     if not (msds_cat and ours and ":" in msds_cat and ":" in ours):
         return False
     (mh, me), (oh, oe) = (s.split(":", 1) for s in (msds_cat, ours))
-    words = lambda s: {w for w in _EFFECT_WORDS if w in s}
-    return mh.strip() == oh.strip() and bool(words(oe)) and words(oe) <= words(me)
+    return mh.strip() == oh.strip() and bool(_effects(oe)) and _effects(oe) <= _effects(me)
 
 
 def _rank(cat, order):
@@ -141,6 +144,43 @@ def _compare_one(cc, form, r, msds, order):
     return _mismatch(cc, form, OVER, m, low, high, "MSDS가 우리 결과보다 강하게 기재")
 
 
+def _joined(main, effects):
+    return "·".join(([main] if main != NO_CLASS else []) + effects) or NO_CLASS
+
+
+def _compare_with_effects(cc, form, res, extra, msds, order):
+    """표적장기 1회: 구분 1·2와 함께 표시되는 구분3을 효과별로 비교한다 (설계서 25·36장, 규칙표 extra_rules)."""
+    effect_cats = lambda side: [f"{e['category']}:{e['effect']}" for e in extra.get(side) or []]
+    low, high = effect_cats("low"), effect_cats("high")
+    shown = {"low": _joined(res["low"], low), "high": _joined(res["high"], high)}
+    is_effect = lambda x: x.split(":", 1)[0].strip() == "3"
+    m = msds or []
+    stated, others = [x for x in m if is_effect(x)], [x for x in m if not is_effect(x)]
+    has = lambda ours: any(_same_effect(x, ours) or x.strip() == "3" for x in stated)
+    ours_effects = lambda ours: set().union(*(_effects(o) for o in ours)) if ours else set()
+    wrote = lambda x, ours: x.strip() == "3" or (bool(_effects(x)) and _effects(x) <= ours_effects(ours))  # 한 칸에 여러 효과를 적어도 각각 본다
+    main = _compare_one(cc, form, res, others, order)
+    missing = [o for o in low if not has(o)]
+    over = [x for x in stated if not wrote(x, high)]
+    if main["verdict"] == MISMATCH:  # 구분 1·2가 틀린 것이 더 무겁다. 구분3 표시 차이로 가리지 않는다
+        row = {**main, "msds_value": m or None}
+        if stated:
+            row["reason"] = f"{main['reason'].replace(', MSDS에 항목 없음', '')}, MSDS는 {', '.join(stated)}만 적음"
+    elif low != high and not over and not missing:
+        row = _row(cc, form, BORDER, RULE_IDS["border"], msds=m, reason="함량 범위에 따라 구분3 해당 여부가 갈림")
+    elif missing:
+        type_ = UNDER if m else MISSING
+        row = _mismatch(cc, form, type_, m or None, None, None, f"우리는 {', '.join(missing)}, MSDS에 없음")
+    elif over:
+        row = _mismatch(cc, form, OVER, m, None, None, f"우리 결과에 없는 구분3: {', '.join(over)}")
+    elif main["verdict"] != MATCH:
+        row = {**main, "msds_value": m or None}
+    else:
+        row = _row(cc, form, MATCH, RULE_IDS["match"], msds=m, reason="구분·효과 같음")
+    row["our_value"] = shown
+    return row
+
+
 def _merge_form_pairs(verdicts, rules, override):
     """같은 항목에서 흡입 형태만 다른 두 줄을 한 줄로 묶는다 (설계서 18·24장, severity.yaml SV-03).
 
@@ -178,6 +218,27 @@ def _merge_form_pairs(verdicts, rules, override):
     return out
 
 
+def _no_proof(row, r):
+    """지식DB에는 '분류 안 됨' 행이 없어 빈칸은 자료 없음이다. 빈칸 성분이 있으면 MSDS가 과하다고 말할 근거가 없다 (멘토링 3번)."""
+    if row["type"] != TYPE_NAME[OVER]:
+        return row
+    limits = (r.get("calc") or {}).get("include_min") or 0
+    limit = min((v for v in limits.values() if v is not None), default=0) if isinstance(limits, dict) else (limits or 0)
+    names = [i.get("name") or i.get("cas") or "이름 없는 성분" for i in r.get("inputs") or []
+             if i.get("excluded") in ("해당 분류 없음", "분류 정보 없음", "함량 없음", "자료 없음")
+             and ((i.get("content") or {}).get("high") is None or i["content"]["high"] >= limit)]
+    if not names:
+        return row
+    return _lack(row["class_code"], row["form"], row["msds_value"], row["our_value"]["low"], row["our_value"]["high"],
+                 f"MSDS가 더 강하게 적었으나 기준 분류나 함량을 알 수 없는 성분이 있어 과대 여부를 정할 수 없음: {', '.join(names)}")
+
+
+def _sum_note(row, res):
+    if res.get("to21_sum"):
+        row["reason"] += " (같은 구분 성분 합산으로 분류됨, TO21 기준)"
+    return row
+
+
 def aggregate_verdicts(results, msds_classes, *, rules=None, order=None) -> dict:
     """results: classify_mixture_all 결과, msds_classes: 추출 JSON hazard.classes[]. order: {class_code: [구분…위험한 순]} 덮어쓰기.
 
@@ -201,8 +262,10 @@ def aggregate_verdicts(results, msds_classes, *, rules=None, order=None) -> dict
                              "reason": (res or {}).get("reason") or r.get("skipped", "")})
         elif res["status"] == "근거부족":
             verdicts.append(_lack(cc, form, msds, res["low"], res["high"], res.get("reason") or "우리 결과가 근거부족"))
+        elif cc == "HH_STOT_SE" and ((r.get("extra") or {}).get("low") or (r.get("extra") or {}).get("high")):
+            verdicts.append(_sum_note(_no_proof(_compare_with_effects(cc, form, res, r["extra"], msds, _order(cc, form, rules, order)), r), res))
         else:
-            verdicts.append(_compare_one(cc, form, res, msds, _order(cc, form, rules, order)))
+            verdicts.append(_sum_note(_no_proof(_compare_one(cc, form, res, msds, _order(cc, form, rules, order)), r), res))
     for (cc, form), m in stated.items():  # MSDS에만 있는 항목: 비교할 우리 결과가 없다
         if (cc, form) not in seen:
             verdicts.append(_lack(cc, form, sorted(m), None, None, "우리 결과에 같은 항목이 없음"))

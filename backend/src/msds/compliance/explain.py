@@ -96,6 +96,7 @@ def item_names() -> dict:
     out = {}
     for r in _rows("class_map.csv"):
         out.setdefault(r["class_code"], re.sub(r"\(흡입:[^)]*\)", "(흡입)", r["db_div_name"]))
+    out["KREACH_SECTION"] = "화평법 규제현황 기재"  # 규제 행이 아니라 15항 다목 전체를 본다
     regs = {}
     for r in _rows("reg_map.csv"):
         if r["item_code"]:
@@ -377,6 +378,8 @@ def _summary(req) -> str:
             return f"{who}: 함량상 해당인데 MSDS는 {ro(m['applicable'])} 적었습니다."
         if t == "기준 불일치":
             return f"{who}: 둘 다 해당이지만 기준 농도 표기가 다릅니다(MSDS {m.get('threshold')}, 지식DB {e.get('threshold')})."
+        if t == "화평법 항목 누락":
+            return f"{who}: 기재 의무 시행일 이후 작성분인데 15항에 화평법 규제현황이 없습니다."
         if t == "과기재":
             return f"{who}: 함량상 비해당인데 MSDS는 해당으로 적었습니다."
         if verdict == "경계":

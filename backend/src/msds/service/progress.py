@@ -117,7 +117,8 @@ def summary_view(state: dict) -> dict:
     keep = ("id", "filename", "size", "as_of", "model_tag", "created_at", "updated_at", "status", "stage",
             "error", "page_count", "text_layer", "msds_count")
     return {**{k: state[k] for k in keep}, "stage_index": stage_index(state), "stage_total": len(STAGES),
-            "counts": counts(state), "can_retry": can_retry(state)}
+            "counts": counts(state), "can_retry": can_retry(state),
+            "validation": (state.get("summary") or {}).get("validation")}
 
 
 def view(state: dict) -> dict:

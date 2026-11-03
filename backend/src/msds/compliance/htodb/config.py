@@ -15,9 +15,13 @@ def setting(name: str, default: str | None = None) -> str:
     return value
 
 
+def pg_address() -> dict:
+    return {"host": setting("HTODB_PG_HOST", "127.0.0.1"), "port": int(setting("HTODB_PG_PORT", "5433"))}
+
+
 def pg_kwargs(user: str = "reader") -> dict:
     """reader = 쓰기 권한 없는 조회 계정(API·시험), admin = 적재 계정(적재 스크립트만)."""
-    kw = {"host": setting("HTODB_PG_HOST", "127.0.0.1"), "port": int(setting("HTODB_PG_PORT", "5433")), "dbname": "kdb"}
+    kw = {**pg_address(), "dbname": "kdb"}
     if user == "admin":
         return {**kw, "user": "kdb", "password": setting("HTODB_PG_PASSWORD")}
     return {**kw, "user": "kdb_reader", "password": setting("HTODB_READER_PASSWORD"),

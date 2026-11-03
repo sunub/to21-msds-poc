@@ -18,12 +18,20 @@ from typing import Literal
 Verdict = Literal["일치", "불일치", "경계", "근거부족"]
 
 
+def as_percent(q: dict | None) -> dict:
+    """ppm 함량을 %로 바꾼다. 불순물은 ppm으로 적는다."""
+    q = dict(q or {})
+    if str(q.get("unit") or "").strip().lower() == "ppm":
+        q.update({k: q[k] / 10000 for k in ("value", "lower", "upper") if q.get(k) is not None}, unit="%")
+    return q
+
+
 def _expected(q: dict | None, ref: dict) -> tuple[str | None, str]:
     """기준 행 하나에 대한 기대 해당 여부: 해당 / 비해당 / 경계, 알 수 없으면 None."""
     t = ref.get("threshold_value")
     if t is None:
         return "해당", "기준 농도 없음 (함유하면 해당)"
-    q = q or {}
+    q = as_percent(q)
     if q.get("unit") != "%" or ref.get("threshold_unit") != "%":
         return None, "함량 또는 기준 농도의 단위가 % 가 아님"
     op = ref.get("threshold_op") or ">="

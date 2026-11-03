@@ -323,7 +323,8 @@ def sec15_trace(v, comps_by_seq) -> dict:
                                "content": {"raw": q.get("raw"), "low": one if one is not None else q.get("lower"),
                                            "high": one if one is not None else q.get("upper")}}
     return {"kind": "regulation", "result": v.get("expected"),
-            "rule": {"id": v.get("rule_id"), "basis": "지식DB 규제 기준(rules/reg_map.csv, 설계서 27·28장)"},
+            "rule": {"id": v.get("rule_id"), "basis": "고시 별표 4 제15호 다목, 부칙 제2025-50호 제2·3조 (설계서 30장)"
+                     if v.get("item_code") == "KREACH_SECTION" else "지식DB 규제 기준(rules/reg_map.csv, 설계서 27·28장)"},
             "inputs": [comp] if comp else [], "law": v.get("law"), "item_code": v.get("item_code"),
             "expected": v.get("expected"), "db_threshold": v.get("db_threshold"), "msds_value": v.get("msds_value"),
             "msds_threshold": v.get("msds_threshold"), "source": v.get("source"), "db_text": v.get("db_text"),
