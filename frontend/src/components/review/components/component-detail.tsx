@@ -36,7 +36,7 @@ export function ComponentDetail({
 }) {
   const name = component.name ?? component.cas ?? `성분 ${component.comp_ref}`;
   return (
-    <Card className="flex min-w-0 flex-col gap-4">
+    <Card className="flex min-w-0 flex-col gap-4 lg:h-full lg:min-h-0 lg:overflow-y-auto">
       <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1">
         <h2 className="text-lg font-bold">{name}</h2>
         <span className="text-mut">{componentHeadline(component)}</span>
