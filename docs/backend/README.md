@@ -57,4 +57,16 @@ python scripts/b2_migrate.py --dev      # judge 스키마와 개발용 extract.h
 uvicorn --app-dir src msds.api.judge_app:app --port 8011
 ```
 
+**팀 DB에 judge 설치:** `deploy/htodb/TEAM_SETUP.md` 6절(A 실행기)을 마친 뒤 `backend/`에서 실행한다.
+
+```
+python scripts/b2_migrate.py            # judge 스키마, judge_writer 계정, 넘김 읽기 권한
+```
+
+- 순서가 중요하다. A 설치 전에 돌리면 "A 설치를 먼저 하라"는 안내와 함께 멈춘다.
+- 넘김 읽기 권한은 A가 만든 `to21_judge` 그룹에 `judge_writer`를 넣어 받는다. `extract`에 직접 권한을 주면 A 실행기가 "스키마가 이력과 다르다"며 멈추기 때문이다(2026-11-03).
+- 다시 돌려도 된다. A 실행기도 B 설치 뒤에 다시 돌릴 수 있다. 예전 방식으로 직접 권한이 들어간 DB는 이 명령이 되돌린다.
+- `JUDGE_PG_PASSWORD`가 `deploy/htodb/.env`에 없으면 만들어 적는다. 값은 출력하지 않는다.
+- 시험: `tests/contracts/test_b2_install.py`가 빈 DB에 이 순서를 그대로 돌린다.
+
 시험용 넘김 API는 `MSDS_JUDGE_TEST_API=1`일 때만 켜진다. 설명 모델은 `MSDS_EXPLAIN_MODEL`의 서버 주소 환경 변수가 있을 때만 호출한다. 없으면 문장틀을 쓴다. 호출 동시 수는 `MSDS_MODEL_MAX_INFLIGHT`.
