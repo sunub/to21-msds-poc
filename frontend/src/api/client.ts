@@ -18,6 +18,8 @@ export class ApiRequestError extends Error {
     readonly status: number,
     readonly code: string,
     message: string,
+    /** 응답 본문 그대로. 판정 서버의 409 는 {detail:{message, latest_version, pending_handoff}} 라 화면이 이유 칸을 읽는다 */
+    readonly data?: unknown,
   ) {
     super(message);
     this.name = "ApiRequestError";
@@ -51,7 +53,14 @@ export function apiUrl(path: string, query?: Record<string, string>) {
 export async function toRequestError(res: Response): Promise<ApiRequestError> {
   const body: unknown = await res.json().catch(() => null);
   const parsed = apiErrorSchema.safeParse(body);
-  if (!parsed.success) return new ApiRequestError(res.status, "unknown", `서버가 ${res.status} 로 응답했습니다.`);
+  if (!parsed.success) {
+    // 판정 서버의 409: detail 이 문장이 아니라 {message, latest_version, pending_handoff} 객체다
+    const detail = (body as { detail?: { message?: unknown } } | null)?.detail;
+    if (res.status === 409 && detail && typeof detail === "object" && typeof detail.message === "string") {
+      return new ApiRequestError(res.status, `http_${res.status}`, detail.message, body);
+    }
+    return new ApiRequestError(res.status, "unknown", `서버가 ${res.status} 로 응답했습니다.`);
+  }
   const { detail } = parsed.data;
   if (typeof detail === "string") return new ApiRequestError(res.status, `http_${res.status}`, detail);
   const message = detail.map((d) => `${d.loc.join(".")}: ${d.msg}`).join("; ");

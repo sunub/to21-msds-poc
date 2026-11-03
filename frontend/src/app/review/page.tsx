@@ -55,6 +55,7 @@ function ReviewBody({ doc }: { doc: string }) {
       )}
 
       <SaveGuardDialog
+        docId={doc}
         open={guardOpen}
         onClose={() => setGuardOpen(false)}
         onSave={() => router.push(routes.save(doc))}

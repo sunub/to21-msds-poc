@@ -11,6 +11,7 @@ import {
   type JudgmentView,
   type ReviewAction,
 } from "@/api/judgment";
+import { conflictText } from "@/api/judgment-extra";
 import { Pane } from "@/components/shell/layout";
 import { AiChip, Button, Skeleton, StatusLabel, Textarea } from "@/components/ui";
 import { actionsFor, commentRequired, isNote, verdictText, verdictTone } from "@/lib/regulation";
@@ -161,7 +162,15 @@ export function ReviewControls({
 
   const mutation = useMutation({
     mutationFn: ({ action, comment }: { action: ReviewAction; comment: string | null }) =>
-      postJudgmentReview(docId, { finding_id: finding.id, action, comment, reviewer, seen_version: view.version }),
+      postJudgmentReview(docId, {
+        finding_id: finding.id,
+        action,
+        comment,
+        reviewer,
+        seen_version: view.version,
+        // 보던 항목의 마지막 이벤트 번호. 기록이 없는 항목은 null (기록이 없는 것을 봤다는 뜻)이라, 그 사이 다른 검토자가 처리했으면 409
+        seen_event_id: review ? review.last_event_id : null,
+      }),
     onSuccess: () => {
       onDraft("");
       return client.invalidateQueries({ queryKey: judgmentKeys.all(docId) });
@@ -245,7 +254,7 @@ export function ReviewControls({
       {error && (
         <p role="alert" className="text-sm break-words text-red">
           {isVersionConflict(error)
-            ? "처리되지 않았습니다. 그 사이 새 판정이 만들어졌습니다. 쓰던 의견은 남겨 두었습니다."
+            ? `처리되지 않았습니다. ${conflictText(error)} 쓰던 의견은 남겨 두었습니다.`
             : `처리하지 못했습니다${error instanceof ApiRequestError ? `: ${error.message}` : ". 연결을 확인해 주세요"}. 쓰던 의견은 남겨 두었습니다.`}
         </p>
       )}

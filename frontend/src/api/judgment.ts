@@ -62,6 +62,8 @@ const reviewStateSchema = z.object({
   at: z.string().nullable(),
   history_count: z.number(),
   stale: z.boolean(),
+  /** 이 항목의 마지막 검토 이벤트 번호. 검토 요청에 seen_event_id 로 돌려보내 다른 검토자와의 충돌(409)을 알린다 */
+  last_event_id: z.number().optional(),
 });
 
 const displaySchema = z.object({
@@ -182,6 +184,8 @@ export type ReviewEventRequest = {
   comment: string | null;
   reviewer: string;
   seen_version: number;
+  /** 보던 항목의 마지막 검토 이벤트 번호(review_state.last_event_id). 기록이 없는 것을 봤으면 null. 칸을 보내지 않으면 서버가 충돌을 검사하지 않는다 */
+  seen_event_id?: number | null;
 };
 
 /** 개발 서버에서 ?judgmentMock=<상황> 을 켜면 대역이 답한다. 제품 빌드에는 대역 코드가 들어가지 않는다 */
@@ -248,6 +252,21 @@ export const judgmentViewQuery = (id: string, version: number) =>
 export const postJudgmentReview = (id: string, body: ReviewEventRequest) =>
   call(reviewEventSchema, `${job(id)}/reviews`, send(body));
 
-/** A2 경로. 추출값을 판정으로 넘겨 넘김 기록을 만든다 */
-export const postToJudgment = (id: string, reviewer: string) =>
-  call(toJudgmentResponseSchema, `/api/documents/${encodeURIComponent(id)}/to-judgment`, send({ reviewer }));
+/** 서버가 주는 넘김 응답: {job_id, handoff_seq, as_of, extraction_sha256, validator}. 화면은 앞의 둘만 쓴다 */
+const handoffResponseSchema = z.object({ job_id: z.string(), handoff_seq: z.number() });
+
+/**
+ * 추출값을 판정으로 넘겨 넘김 기록을 만든다. 서버 구현(extract_app.py)은 POST /api/documents/{id}/handoffs 다:
+ * 본문이 없고(검토자는 받지 않는다) 201 로 답하며, 판정 준비가 안 됐으면 409 에 이유 문장이 온다.
+ * 계약의 이름(to-judgment)만 있는 서버를 위해, 길이 없는 응답(404 Not Found·405)이면 그 이름으로 한 번 더 부른다.
+ */
+export async function postToJudgment(id: string, reviewer: string) {
+  const path = `/api/documents/${encodeURIComponent(id)}`;
+  try {
+    return await call(handoffResponseSchema, `${path}/handoffs`, { method: "POST" });
+  } catch (e) {
+    const noRoute = e instanceof ApiRequestError && (e.status === 405 || (e.status === 404 && e.message === "Not Found"));
+    if (!noRoute) throw e;
+    return call(toJudgmentResponseSchema, `${path}/to-judgment`, send({ reviewer }));
+  }
+}

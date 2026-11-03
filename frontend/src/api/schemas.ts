@@ -24,7 +24,8 @@ export type JobStatus = z.infer<typeof jobStatusSchema>;
  * 작업 단계: 1 전처리, 2 항목 나누기, 3 모델 추출, 4 정리·검증. 끝나면 done, 시작 전이면 null.
  * 화면의 추출·검수·저장 단계(components/shell 의 Stage)와 다른 것이라 이름을 달리한다.
  */
-export const jobStageSchema = z.enum(["preprocess", "sections", "extract", "finalize", "done"]);
+// 서버는 아직 4단계다. 계약(6-screens)은 검증(checks)을 더해 5단계라 둘 다 받는다
+export const jobStageSchema = z.enum(["preprocess", "sections", "extract", "checks", "finalize", "done"]);
 export type JobStage = z.infer<typeof jobStageSchema>;
 
 /** 항 상태. 사람이 볼 항인지는 needs_review 로 따로 온다 (성공했지만 검토가 필요한 항이 있다). */
@@ -116,14 +117,38 @@ export const documentSummarySchema = z.object({
   /** 문서 안 MSDS 건수. 항목을 나눈 뒤에 온다 */
   msds_count: count.nullable(),
   /** 1~4. 시작 전이면 0, 끝났으면 4 */
-  stage_index: z.int().min(0).max(4),
-  stage_total: z.literal(4),
+  stage_index: z.int().min(0).max(5),
+  stage_total: z.union([z.literal(4), z.literal(5)]),
   /** "9 / 9항" 은 counts.done / counts.total */
   counts: sectionCountsSchema,
   /** POST /retry 로 다시 돌릴 수 있는가: 실패·멈춘 문서, 또는 끝났지만 실패한 항이 있는 문서 */
   can_retry: z.boolean(),
   /** 최종 검사 요약. 없거나 null이면 검증 결과를 확인할 수 없다. */
   validation: validationSummarySchema.nullable().optional(),
+  /**
+   * 대기 순번·예상 시간·사람 구간 상태 (계약 queue_fields). 서버는 queue_position·eta_seconds 를 PostgreSQL 작업의 대기 중일 때만 채우고
+   * review_stage 는 아직 항상 null 이다. 서버가 안 보내도 깨지지 않게 선택으로 둔다.
+   */
+  queue_position: z.int().min(1).nullable().optional(),
+  eta_seconds: z.int().min(0).nullable().optional(),
+  review_stage: z.enum(["검수 대기", "추출값 확인 중", "판정으로 넘김"]).nullable().optional(),
+  /** 같은 PDF 결과를 다시 쓴 작업이면 원래 작업 번호 */
+  reused_from: z.string().nullable().optional(),
+  /** 문서 정보 (계약 document_extras). 서버가 아직 보내지 않는다: 없으면 화면은 파일 이름만 보인다 */
+  product_name: z.string().nullable().optional(),
+  doc_code: z.string().nullable().optional(),
+  msds_revision_date: z.string().nullable().optional(),
+  composition: z.object({ type: z.enum(["단일물질", "혼합물"]).nullable(), component_count: count }).nullable().optional(),
+  values_review: z
+    .object({
+      state: z.enum(["미검수", "일부", "완료"]),
+      sections_confirmed: count,
+      sections_total: count,
+      fields_checked: count,
+      fields_edited: count,
+      fields_total: count,
+    })
+    .optional(),
 });
 export type DocumentSummary = z.infer<typeof documentSummarySchema>;
 

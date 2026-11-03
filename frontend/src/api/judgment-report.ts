@@ -3,10 +3,15 @@
  * 서버 경로가 없으면 ApiRequestError(404) 가 그대로 올라가 isJudgmentApiMissing 으로 "연결 전"을 가려낸다.
  */
 import { ApiRequestError, apiUrl, toRequestError } from "./client";
+import { reportFileName, type ReportInclude } from "./judgment-extra";
 
-export type ReportFormat = "html" | "xlsx";
+export type ReportFormat = "html" | "xlsx" | "pdf" | "json";
 
-export async function downloadJudgmentReport(id: string, format: ReportFormat) {
+/**
+ * 저장하지 않은 최신 판정(snapshot_no null)으로 리포트를 만들어 내려받는다. 포함 항목은 선택(기본: 재생성 MSDS 만 뺀 나머지).
+ * 파일 이름은 서버 헤더가 우선이고, 못 읽으면 예전 이름(작업번호-판정리포트.확장자)이다.
+ */
+export async function downloadJudgmentReport(id: string, format: ReportFormat, include?: ReportInclude) {
   if (process.env.NODE_ENV === "development") {
     const mock = await import("./judgment-mock");
     if (mock.mockActive()) throw new ApiRequestError(404, "unknown", "Not Found");
@@ -17,7 +22,7 @@ export async function downloadJudgmentReport(id: string, format: ReportFormat) {
     body: JSON.stringify({
       format,
       snapshot_no: null,
-      include: { regenerated_msds: false, findings_2: true, findings_15: true, components: true, history: true },
+      include: include ?? { regenerated_msds: false, findings_2: true, findings_15: true, components: true, history: true },
     }),
   });
   if (!res.ok) throw await toRequestError(res);
@@ -25,7 +30,7 @@ export async function downloadJudgmentReport(id: string, format: ReportFormat) {
   const url = URL.createObjectURL(await res.blob());
   const link = document.createElement("a");
   link.href = url;
-  link.download = `${id}-판정리포트.${format}`;
+  link.download = reportFileName(res.headers, `${id}-판정리포트.${format}`);
   link.click();
   URL.revokeObjectURL(url);
 }

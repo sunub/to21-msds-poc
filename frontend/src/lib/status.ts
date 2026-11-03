@@ -9,6 +9,7 @@ const STAGE_LABEL: Record<JobStage, string> = {
   preprocess: "전처리",
   sections: "항목 나누기",
   extract: "추출 중",
+  checks: "검증 중",
   finalize: "정리 중",
   done: "완료",
 };
@@ -107,6 +108,8 @@ export function stageMessage(doc: Pick<DocumentSummary, "status" | "stage">) {
       return "항목을 나누는 중입니다";
     case "extract":
       return "항목별로 추출하는 중입니다";
+    case "checks":
+      return "추출값을 검증하는 중입니다";
     case "finalize":
       return "결과를 정리하고 검사하는 중입니다";
     default:

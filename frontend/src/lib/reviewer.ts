@@ -20,7 +20,9 @@ function read(): string {
   }
 }
 
-export function setReviewer(name: string) {
+export function setReviewer(rawName: string) {
+  // 추출 서버의 검수 요청(PUT /review/*)은 40자까지만 받는다 (판정 서버는 50자). 둘 다 받는 40자로 줄인다
+  const name = rawName.slice(0, 40);
   memory = name;
   try {
     window.localStorage.setItem(KEY, name);
