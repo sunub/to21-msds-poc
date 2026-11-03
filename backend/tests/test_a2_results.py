@@ -204,8 +204,8 @@ def test_lease_expiring_during_database_write_rolls_back_pair(stores):
         assert db.execute(sql.SQL('SELECT count(*) AS n FROM {}').format(results.results)).fetchone()['n'] == 0
 
 
-def test_completed_result_api_persists_existing_output_and_reports_errors(stores):
-    from msds.api.extract_app import create_app
+def test_completed_result_api_persists_existing_output_and_reports_errors(stores, monkeypatch):
+    from msds.api import extract_app
 
     jobs, results, _ = stores
     job, claim = start_extraction(jobs)
@@ -215,12 +215,14 @@ def test_completed_result_api_persists_existing_output_and_reports_errors(stores
     checks = run / 'checks' / f"{job['id']}.json"
     out.parent.mkdir(parents=True)
     checks.parent.mkdir(parents=True)
-    doc = {'doc': {'doc_id': job['id']}, 'msds': []}
+    doc = {'doc': {'doc_id': job['id'], 'extraction': {'extracted_at': '2026-11-03T09:30:00+09:00'}},
+           'msds': []}
     review_checks = {'schema_errors': [], 'to21_validator': [{'level': '오류', 'rule': 'V22', 'field': None}],
                      'sections': [], 'needs_review': []}
     out.write_text(json.dumps(doc), encoding='utf-8')
     checks.write_text(json.dumps(review_checks, ensure_ascii=False), encoding='utf-8')
-    app = create_app(store=jobs, static_dir=None)
+    monkeypatch.setattr(extract_app, 'validate_document', lambda doc, checks: (dict(checks), {}))
+    app = extract_app.create_app(store=jobs, static_dir=None)
     app.state.store = jobs
     client = TestClient(app)
     try:
@@ -234,9 +236,14 @@ def test_completed_result_api_persists_existing_output_and_reports_errors(stores
         assert stored.status_code == 200
         assert stored.json()['validation']['validator_errors'] == 1
         assert stored.json()['to21'] == doc
+        monkeypatch.setattr(extract_app, 'validate_document',
+                            lambda doc, checks: ({**checks, 'schema_errors': ['changed']}, {}))
+        assert client.post(f"/api/documents/{job['id']}/results/persist").status_code == 409
     finally:
         client.close()
-    assert results.get_active(job['id'])['checks'] == review_checks
+    saved = results.get_active(job['id'])
+    assert saved['checks'] == review_checks
+    assert saved['extracted_at'] == '2026-11-03T09:30:00+09:00'
 
 
 def test_worker_persists_results_and_exposes_invalid_verification(stores):

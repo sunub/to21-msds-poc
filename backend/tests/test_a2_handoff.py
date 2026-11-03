@@ -41,7 +41,8 @@ def sample(tmp_path, monkeypatch):
         if retry:
             record['reextract_attempt'] = {'ok': False}
         raw.write_text(json.dumps(record), encoding='utf-8')
-    doc = {'doc': {'doc_id': job_id, 'schema_version': 'TO21-MSDS-EXT v0.6', 'dictionary_version': 'v0.6'},
+    doc = {'doc': {'doc_id': job_id, 'schema_version': 'TO21-MSDS-EXT v0.6', 'dictionary_version': 'v0.6',
+                   'extraction': {'extracted_at': '2026-11-03T10:00:00+09:00'}},
            'msds': [{'product': {'name': '원본'}, 'validation': [], 'evidence': [
                {'field': 'product.name', 'page': 1, 'source_text': '확인된 근거'},
                {'field': 'hazard.signal_word', 'page': 1, 'source_text': '존재하지않는내용'},
@@ -80,6 +81,32 @@ def test_extraction_date_uses_recorded_timestamp_in_korean_time():
     assert handoff.extraction_date('2026-11-02T16:00:00+00:00') == '2026-11-03'
     with pytest.raises(handoff.HandoffNotReady):
         handoff.extraction_date('2026-11-03T00:00:00')
+
+
+def test_user_supplied_as_of_must_agree_with_actual_extraction_date(sample):
+    sample['state']['as_of'] = '2026-11-02'
+    with pytest.raises(handoff.HandoffNotReady, match='업로드 기준일'):
+        handoff.build_handoff(**sample)
+    sample['state']['as_of'] = '2026-11-03'
+    assert handoff.build_handoff(**sample)['as_of'] == '2026-11-03'
+
+
+def test_context_timestamp_cannot_contradict_document_extraction_date(sample):
+    sample['extracted_at'] = '2026-11-04T00:00:00+09:00'
+    with pytest.raises(handoff.HandoffNotReady, match='저장 기록'):
+        handoff.build_handoff(**sample)
+
+
+def test_document_extraction_timestamp_is_mandatory(sample):
+    del sample['extraction']['doc']['extraction']['extracted_at']
+    with pytest.raises(handoff.HandoffNotReady, match='시각'):
+        handoff.build_handoff(**sample)
+
+
+def test_timestamp_cross_check_uses_korean_date_not_utc_date(sample):
+    sample['extraction']['doc']['extraction']['extracted_at'] = '2026-11-02T16:00:00+00:00'
+    sample['extracted_at'] = '2026-11-03T01:05:00+09:00'
+    assert handoff.build_handoff(**sample)['as_of'] == '2026-11-03'
 
 
 @pytest.mark.parametrize('change', ['missing_hash', 'missing_commit', 'wrong_model', 'wrong_date',
