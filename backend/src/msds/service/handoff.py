@@ -189,10 +189,19 @@ def build_handoff(*, job_id: str, handoff_seq: int, reason: str, created_at: str
     """Build a handoff solely from saved evidence; leave all source objects unchanged."""
     if reason not in _REASONS:
         raise HandoffNotReady('허용되지 않은 전달 사유입니다')
-    if as_of != extraction_date(extracted_at):
-        raise HandoffNotReady('기준일은 기록된 실제 추출 완료 날짜여야 합니다')
     if not isinstance(extraction, dict) or not isinstance(checks, dict) or not isinstance(run_info, dict):
         raise HandoffNotReady('저장된 추출 자료가 올바르지 않습니다')
+    doc = extraction.get('doc')
+    extraction_metadata = doc.get('extraction') if isinstance(doc, dict) else None
+    doc_extracted_at = extraction_metadata.get('extracted_at') if isinstance(extraction_metadata, dict) else None
+    actual_date = extraction_date(doc_extracted_at)
+    if extraction_date(extracted_at) != actual_date:
+        raise HandoffNotReady('추출 결과와 저장 기록의 실제 추출 날짜가 다릅니다')
+    if as_of != actual_date:
+        raise HandoffNotReady('기준일은 결과에 기록된 실제 추출 날짜여야 합니다')
+    requested_date = state.get('as_of') if isinstance(state, dict) else None
+    if requested_date is not None and requested_date != actual_date:
+        raise HandoffNotReady('업로드 기준일과 실제 추출 날짜가 달라 전달할 수 없습니다')
     cfg_hash, commit = run_info.get('model_config_sha256'), run_info.get('git_commit')
     if not isinstance(cfg_hash, str) or not _SHA256.fullmatch(cfg_hash):
         raise HandoffNotReady('실제 실행의 모델 설정 해시가 없습니다')
@@ -200,7 +209,6 @@ def build_handoff(*, job_id: str, handoff_seq: int, reason: str, created_at: str
         raise HandoffNotReady('실제 실행의 코드 버전이 없습니다')
     if run_info.get('model_tag') != state.get('model_tag'):
         raise HandoffNotReady('실제 실행의 모델 설정이 작업 기록과 다릅니다')
-    doc = extraction.get('doc')
     if not isinstance(doc, dict) or run_info.get('schema_version') != doc.get('schema_version'):
         raise HandoffNotReady('실제 실행의 스키마 버전이 다르거나 없습니다')
     if doc.get('schema_version') != 'TO21-MSDS-EXT v0.6' or doc.get('dictionary_version') != 'v0.6':
