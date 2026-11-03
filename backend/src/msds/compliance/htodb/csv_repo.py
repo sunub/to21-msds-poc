@@ -17,6 +17,7 @@ DEFAULT_DIR = Path(__file__).resolve().parents[5] / "to21" / "v0.4" / "to21_samp
 _MASTER = "TB_ENG_CHEM_MASTER_INFO"
 _CLASS = "TB_GHS_CHEM_CLASS_MAP"
 _TOX = "TB_ENG_CHEM_TOXICITY_TEST_INFO"
+_PHY = "TB_ENG_CHEM_PHY_PROPERTY_MAP"
 _REG_MAP = "TB_ENG_REGULA_CHEM_MAP"
 _REG_STD = "TB_ENG_REG_NOTICE_STD"
 _REG_CONTENT = "TB_ENG_REG_NOTICE_CONTENT"
@@ -64,6 +65,9 @@ class CsvRepo:
         rows = sorted((r for r in self._rows(_TOX) if r.get("chem_id") == chem_id),
                       key=lambda r: (r.get("experiment_div", ""), r["div_code"], _int(r.get("toxic_seq"))))
         return {"rows": rows}
+
+    def physical_properties(self, chem_id: str) -> dict:
+        return {"rows": [r for r in self._rows(_PHY) if r.get("chem_id") == chem_id]}
 
     def regulations(self, chem_id: str) -> dict:
         """repo.regulations 와 같은 키 중 판정에 쓰는 셋: rows(물질↔세부규제), notice_std(함량 기준), notice_content(조문 문구)."""

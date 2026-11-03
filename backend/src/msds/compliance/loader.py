@@ -4,6 +4,7 @@
 확인하지 못했다 (docs/adr/0001). missing 에 넣는 칸은 최소 목록이며 설계서를 받으면 맞춘다.
 검증기(V01~V23)가 보는 형식 검사는 여기서 하지 않는다.
 """
+import re
 from typing import Any
 
 from ..common.align import comp_map
@@ -11,6 +12,19 @@ from .ghs.models import GhsInputs
 
 _COMPONENT_KEYS = ("seq", "name", "cas_no", "content", "content_note", "trade_secret")
 _CLASS_KEYS = ("class_code", "category", "route_form")
+
+
+def _ymd(text) -> str | None:
+    """적힌 날짜를 YYYY-MM-DD로 맞춘다. 날짜가 아니면(자료없음 등) None. 일이 없으면 그 달 1일로 본다."""
+    t = str(text or "").strip()
+    if re.match(r"\d{1,2}\s*[./-]\s*\d{1,2}\s*[./-]\s*\d{4}", t):  # 08/07/2025는 일·월 순서를 알 수 없다
+        return None
+    m = re.fullmatch(r"(\d{4})(\d{2})(\d{2})", t) or re.match(r"(\d{4}|\d{2})\s*[.\-/년]\s*(\d{1,2})(?:\s*[.\-/월]\s*(\d{1,2}))?", t)
+    if not m:
+        return None
+    year, month, day = int(m[1]), int(m[2]), int(m[3] or 1)
+    year = (year + 2000 if year < 70 else year + 1900) if year < 100 else year
+    return f"{year:04d}-{month:02d}-{day:02d}" if 1 <= month <= 12 and 1 <= day <= 31 else None
 
 
 def _empty(v: Any) -> bool:
@@ -42,6 +56,7 @@ def load_inputs(doc: dict, msds_index: int = 0) -> dict:
         "doc_id": (doc.get("doc") or {}).get("doc_id"),
         "msds_index": msds_index,
         "as_of_date": meta.get("last_revision_date") or meta.get("first_issue_date"),
+        "revision_date": _ymd(meta.get("last_revision_date")) or _ymd(meta.get("first_issue_date")),
         "composition": m.get("composition") or {},
         "components": comps,
         "hazard": {

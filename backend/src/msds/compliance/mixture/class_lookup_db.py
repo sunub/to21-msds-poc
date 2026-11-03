@@ -29,7 +29,9 @@ class _DbRepo:
 
         from ..htodb import repo
         from ..htodb.config import pg_kwargs
-        with psycopg.connect(**pg_kwargs("reader"), row_factory=dict_row, connect_timeout=2) as conn:
+        pg = pg_kwargs("reader")
+        pg["options"] += " -c statement_timeout=30000"  # 멈춘 쿼리 하나가 판정 스레드 전체를 세우지 않게 한다
+        with psycopg.connect(**pg, row_factory=dict_row, connect_timeout=2) as conn:
             return getattr(repo, fn)(conn, *args, **kw)
 
     def chemicals(self, **kw):
@@ -43,6 +45,9 @@ class _DbRepo:
 
     def regulations(self, chem_id):
         return self._run("regulations", chem_id)
+
+    def physical_properties(self, chem_id):
+        return self._run("physical_properties", chem_id)
 
     def version(self):
         return self._run("versions")["knowledge_version"]
@@ -149,6 +154,18 @@ def make_db_tox_lookup(repo=None):
 
 
 # ── 성분 정보: 분자량 · 수생 M 계수 (11/02 F, 설계서 36·56장 D-07) ─────────────────────
+_STATE_PROPERTY = "G0901000001"  # TB_ENG_PHYSICAL_PROPERTY 성상
+_STATE_WORDS = (("기체", "기체"), ("가스", "기체"), ("액체", "액체"), ("고체", "고체"))
+
+
+def _substance_state(rows) -> str | None:
+    """지식DB 물성 행 → 물질 성상. 없으면 None."""
+    for r in rows:
+        if r.get("property_id") == _STATE_PROPERTY:
+            return next((v for k, v in _STATE_WORDS if k in str(r.get("primary_value_text") or "")), None)
+    return None
+
+
 def make_db_info_lookup(repo=None):
     """info_lookup(cas) → {"mw", "m", "m_basis", "aquatic", "reason"}. 같은 CAS는 한 번만 조회한다.
 
@@ -165,7 +182,7 @@ def make_db_info_lookup(repo=None):
         return cache[cas]
 
     def _query(cas):
-        empty = {"mw": None, "m": {}, "m_basis": {}, "aquatic": None}
+        empty = {"mw": None, "m": {}, "m_basis": {}, "aquatic": None, "state": None}
         if repo is None and os.environ.get("HTODB_SKIP") == "1":
             return {**empty, "reason": "지식DB 조회 안 함(HTODB_SKIP=1)"}
         try:
@@ -175,11 +192,13 @@ def make_db_info_lookup(repo=None):
                 return {**empty, "reason": "지식DB에 등록되지 않은 CAS"}
             mws = [v for v in (to_float(c.get("molecular_weight")) for c in chems) if v]
             tox = [x for c in chems for x in r.toxicity(c["chem_id"])["rows"]]
+            read_props = getattr(r, "physical_properties", None)  # 제공자에 물성이 없어도 분자량·M 계수는 쓴다
+            state = _substance_state([x for c in chems for x in read_props(c["chem_id"])["rows"]]) if read_props else None
         except Exception as e:  # 접속 불가·권한·쿼리 오류 모두 중단하지 않고 사유로 남긴다
             return {**empty, "reason": f"지식DB 접속·조회 실패({type(e).__name__}: {e})"}
         vals = aquatic_values(tox)
         ms = m_factors(vals)
         return {"mw": mws[0] if mws else None, "m": {k: v["m"] for k, v in ms.items()},
-                "m_basis": {k: v["basis"] for k, v in ms.items()}, "aquatic": vals, "reason": None}
+                "m_basis": {k: v["basis"] for k, v in ms.items()}, "aquatic": vals, "state": state, "reason": None}
 
     return lookup

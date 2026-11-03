@@ -28,7 +28,7 @@ def test_dg_class4_예제(ex):
     p = ex["in"]["props"]
     phys = {"APPEARANCE_STATE": [{"text_value": p["STATE"]}],
             **{code: [{"comp_ref": "MIX", "q": {"value": p[code]}}] for code in ("FLASH_POINT", "BOILING", "AUTOIGNITION")}}
-    item, edge, _ = _class4(phys)
+    item, edge = _class4(phys)[:2]
     assert item == ex["out"] and edge is False
 
 
