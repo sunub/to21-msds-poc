@@ -23,7 +23,7 @@ from contextlib import asynccontextmanager
 from pathlib import Path
 from typing import Literal
 
-from fastapi import FastAPI, HTTPException, Path as PathParam, Request
+from fastapi import FastAPI, HTTPException, Path as PathParam, Request, Query
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
@@ -303,7 +303,8 @@ def create_app(store: DocumentStore | None = None, worker=None, pages_dir: Path 
                 "parsed": raw.get("parsed") if raw.get("ok") else None}
 
     @app.get("/api/documents/{doc_id}/regenerated")
-    def regenerated_msds(request: Request, doc_id: str):
+    def regenerated_msds(request: Request, doc_id: str,
+                         source: Literal['reviewed', 'original'] = Query('reviewed')):
         """끝난 문서의 재생성 MSDS. 모델을 부르지 않고 결과 파일로 그때그때 만든다."""
         state = get_state(request, doc_id)
         if state["status"] != "done":
@@ -311,7 +312,9 @@ def create_app(store: DocumentStore | None = None, worker=None, pages_dir: Path 
         out, checks = result_paths(request, doc_id)
         if not out.is_file():
             raise HTTPException(404, "결과 파일이 없습니다")
-        doc = review.apply_edits(json.loads(out.read_text(encoding="utf-8")), request.app.state.store.load_review(doc_id))
+        doc = json.loads(out.read_text(encoding="utf-8"))
+        if source == 'reviewed':
+            doc = review.apply_edits(doc, request.app.state.store.load_review(doc_id))
         try:
             parts = regenerated.regenerate_sections(doc, load_regen())
         except Exception as e:   # TO21 제공 스크립트가 어떤 입력에서 터질지 여기서 알 수 없다

@@ -7,11 +7,15 @@ from __future__ import annotations
 import queue
 import logging
 import json
+import copy
+import os
 import shutil
 import threading
 import time
 from pathlib import Path
 from typing import Callable
+
+import yaml
 
 from msds.service.store import DocumentStore
 
@@ -147,6 +151,16 @@ class PostgresWorker:
                     shutil.copytree(prepared[key], attempt[key], dirs_exist_ok=False)
                 self._extract(bound, doc_id, attempt, token)
                 self.store.complete(doc_id, token)
+                if self.result_store is not None and os.environ.get('MSDS_AUTO_HANDOFF') == '1':
+                    try:
+                        from msds.service.handoff import extraction_date, publish_handoff
+                        saved = self.result_store.get_active(doc_id)
+                        as_of = extraction_date(saved['extracted_at'])
+                        publish_handoff(self.store, doc_id, as_of=as_of, schema=self.store.schema)
+                    except Exception as exc:
+                        LOG.exception('Could not publish automatic handoff for %s', doc_id)
+                        self.store.fail_handoff(doc_id, token,
+                            f'자동 판정 전달 실패: {type(exc).__name__}: {str(exc)[:400]}')
         except LeaseLost:
             LOG.warning('Job lease lost for %s; discarding this worker result', doc_id)
         except Exception as exc:
@@ -187,8 +201,13 @@ class PostgresWorker:
         emit({'type': 'stage', 'stage': 'extract'})
         runs_dir = attempt['runs_dir']
         self.steps.save_run_info(runs_dir / doc_id, tag, attempt['pages_dir'])
-        summary = self.steps.extract(doc_id, tag, doc_id, pages_dir=attempt['pages_dir'],
-                                     sections_dir=attempt['sections_dir'], runs_dir=runs_dir, on_event=emit)
+        reused = self._reuse_completed(store, state, attempt, emit) if self.result_store is not None else None
+        if reused is not None:
+            summary, source_job = reused
+            emit({'type': 'reused', 'job_id': source_job})
+        else:
+            summary = self.steps.extract(doc_id, tag, doc_id, pages_dir=attempt['pages_dir'],
+                                         sections_dir=attempt['sections_dir'], runs_dir=runs_dir, on_event=emit)
         if self.result_store is not None:
             from msds.checks.final_validation import summarize_checks
             from msds.common.merge import now_kst
@@ -201,3 +220,81 @@ class PostgresWorker:
             self.result_store.save_for_lease(doc_id, token, extraction, checks, extracted_at=extracted_at)
             summary = {**summary, 'validation': validation, 'results_persisted': True}
         emit({'type': 'done', 'summary': summary})
+
+    def _reuse_completed(self, store, state: dict, attempt: dict[str, Path], emit) -> tuple[dict, str] | None:
+        """Reuse only an identical, completed extraction; reviews stay job-local."""
+        if not state.get('reuse_requested', True) or not state.get('duplicate_of'):
+            return None
+        from msds.checks.final_validation import summarize_checks
+        from msds.extract.section_runner import raw_path
+        from msds.service.results import ResultConflict, ResultNotReady
+
+        job_id = state['id']
+        run = attempt['runs_dir'] / job_id
+        try:
+            current_info = yaml.safe_load((run / 'run_info.yaml').read_text(encoding='utf-8')) or {}
+        except (OSError, yaml.YAMLError):
+            return None
+        keys = ('model_tag', 'model_config_sha256', 'prompt_hashes', 'schema_version',
+                'dictionary_version', 'git_commit', 'rows_sections', 'rows_max_tokens', 'image_input')
+        if not current_info.get('git_commit') or not current_info.get('dictionary_version'):
+            return None
+        for previous_id in reversed(state.get('duplicate_of') or []):
+            previous = store.get(previous_id)
+            if (not previous or previous['status'] != 'done' or previous['model_tag'] != state['model_tag']
+                    or previous.get('as_of') != state.get('as_of')):
+                continue
+            published = store.artifact_paths(previous_id)
+            if published is None:
+                continue
+            old_run = published['runs_dir'] / previous_id
+            try:
+                old_info = yaml.safe_load((old_run / 'run_info.yaml').read_text(encoding='utf-8')) or {}
+                if any(old_info.get(key) != current_info.get(key) for key in keys):
+                    continue
+                saved = self.result_store.get_active(previous_id)
+                extraction, checks = copy.deepcopy(saved['extraction']), copy.deepcopy(saved['checks'])
+                # `done` means the attempt ended, not that every section or
+                # validator succeeded. Never cache a failure or missing checks.
+                if summarize_checks(extraction, checks)['status'] == 'invalid':
+                    continue
+                plan = [{key: item[key] for key in ('msds_index', 'section', 'title', 'pages')}
+                        for item in previous['sections']]
+                if len(plan) != len(checks['sections']):
+                    continue
+                raw_rows = []
+                for section in checks['sections']:
+                    source_path = raw_path(old_run, previous_id, section['msds_index'], section['section'])
+                    raw_rows.append((section, json.loads(source_path.read_text(encoding='utf-8'))))
+                extraction['doc']['doc_id'] = job_id
+                extraction['doc']['source_file'] = state['filename']
+            except (KeyError, ValueError, OSError, TypeError, yaml.YAMLError,
+                    ResultConflict, ResultNotReady):
+                continue
+            for section, raw in raw_rows:
+                target = raw_path(run, job_id, section['msds_index'], section['section'])
+                target.parent.mkdir(parents=True, exist_ok=True)
+                raw['doc_id'] = job_id
+                target.write_text(json.dumps(raw, ensure_ascii=False, indent=1), encoding='utf-8')
+            for directory, payload in (('outputs', extraction), ('checks', checks)):
+                target = run / directory / f'{job_id}.json'
+                target.parent.mkdir(parents=True, exist_ok=True)
+                target.write_text(json.dumps(payload, ensure_ascii=False, indent=1), encoding='utf-8')
+            emit({'type': 'plan', 'msds_count': len(extraction['msds']),
+                  'page_count': previous.get('page_count'),
+                  'sections': plan})
+            review = {(item['msds_index'], item['section']) for item in checks.get('needs_review', [])}
+            for section in checks['sections']:
+                emit({'type': 'section_done', 'msds_index': section['msds_index'],
+                      'section': section['section'], 'ok': section['ok'],
+                      'reextracted': section.get('reextracted', False),
+                      'needs_review': (section['msds_index'], section['section']) in review,
+                      'seconds': 0, 'errors': section.get('errors', [])})
+            emit({'type': 'finalize'})
+            summary = {'doc_id': job_id, 'seconds': 0, 'sections_ok': sum(s['ok'] for s in checks['sections']),
+                       'sections_failed': sum(not s['ok'] for s in checks['sections']),
+                       'reextracted': sum(s.get('reextracted', False) for s in checks['sections']),
+                       'schema_errors': len(checks.get('schema_errors', [])),
+                       'warnings': list(checks.get('warnings', []))}
+            return summary, previous_id
+        return None

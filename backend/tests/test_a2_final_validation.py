@@ -3,7 +3,20 @@ import copy
 
 import pytest
 
-from msds.checks.final_validation import summarize_checks, validate_document
+from msds.checks.final_validation import retryable_findings, summarize_checks, validate_document
+
+
+def test_only_located_official_errors_trigger_final_section_retry():
+    doc = {'msds': [{'product': {'name': '원본'}, 'extras': [{'section_no': 15}]}]}
+    findings = [
+        {'level': '오류', 'field': 'msds[0].product.name', 'message': '제품명 확인'},
+        {'level': '오류', 'field': 'msds[0].extras[0].value', 'message': '규제 확인'},
+        {'level': '경고', 'field': 'msds[0].product.name', 'message': '경고'},
+        {'level': '오류', 'field': None, 'message': '위치 없음'},
+    ]
+    assert retryable_findings(doc, findings) == {
+        (0, 1): ['제품명 확인'], (0, 15): ['규제 확인'],
+    }
 
 
 def all_sections(index=0):

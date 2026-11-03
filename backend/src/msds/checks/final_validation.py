@@ -56,6 +56,18 @@ def _location(doc: dict, field: Any) -> tuple[int, int] | None:
     return msds_index, section
 
 
+def retryable_findings(doc: dict, findings: list[dict]) -> dict[tuple[int, int], list[str]]:
+    """Group official validation errors by an unambiguous extraction section."""
+    targets: dict[tuple[int, int], list[str]] = {}
+    for finding in findings:
+        if not isinstance(finding, dict) or finding.get('level') != '오류':
+            continue
+        location = _location(doc, finding.get('field'))
+        if location is not None and location[1] in SECTIONS:
+            targets.setdefault(location, []).append(str(finding.get('message') or finding.get('rule') or '검증 오류'))
+    return targets
+
+
 def summarize_checks(doc: dict, checks: dict) -> dict:
     """기존 추출 결과를 그대로 두고 최종 검증 요약을 계산한다.
 
