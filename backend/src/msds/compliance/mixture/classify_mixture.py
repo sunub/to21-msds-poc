@@ -8,7 +8,7 @@ from .acute_classify import classify_acute
 from .class_inputs import _SOURCE_NAME
 from .evaluate_item import evaluate_item, include_min_for
 from .physical import classify_physical
-from .rule_eval import evaluate_rules_trace
+from .rule_eval import evaluate_rules, evaluate_rules_trace
 from .rules_loader import load_mixture_rules, lookup_class
 
 _EVALUATED = {"additive", "cutoff", "summation", "property"}
@@ -48,6 +48,8 @@ def _inputs(item_id, components, evs, imin):
             excluded = "한계농도 미만"
         elif keys:
             excluded = None
+        elif c.get("non_toxic"):
+            excluded = "무독성"
         elif len(no_content) == 2:
             excluded = "함량 없음"
         else:
@@ -55,6 +57,18 @@ def _inputs(item_id, components, evs, imin):
         out.append({"cas": c.get("cas"), "name": c.get("name"), "content": {"low": c.get("low"), "high": c.get("high")},
                     "used_as": sorted(keys), "flags": flags, "excluded": excluded})
     return out
+
+
+def _only_by_sum(item, ev) -> bool:
+    """같은 구분 합산(D-16) 때문에 나온 구분인가. 고시 문언대로 성분 하나씩 보면 합산 결과만큼 위험하지 않은 경우다 (설계서 35장)."""
+    if item.get("aggregate") != "sum" or ev["category"].startswith("근거부족"):
+        return False
+    i = ev["inputs"]
+    one = lambda key, v: evaluate_rules(item["rules"], {key: [v]}, other=i["other"], flags=i["flags"], props=i["props"],
+                                        m=i["m"], include_min=i["include_min"])
+    order = [str(r["category"]) for r in item["rules"]] + ["분류안됨"]
+    alone = {one(k, v) for k, vals in i["comps"].items() for v in vals} or {"분류안됨"}
+    return min(order.index(c) for c in alone) > order.index(ev["category"])
 
 
 def classify_item(item_id, components, mixture_props, *, rules=None, source_order=None) -> dict:
@@ -86,6 +100,8 @@ def classify_item(item_id, components, mixture_props, *, rules=None, source_orde
         "assumptions": list(dict.fromkeys(a for m in evs for a in evs[m]["assumptions"])),
         "knowledge_version": rules["meta"]["version"],
     }
+    if any(_only_by_sum(item, evs[m]) for m in evs):
+        out["result"]["to21_sum"] = True
     if lack:
         out["result"]["reason"] = _pair(cats["low"], cats["high"]) if len(lack) == 2 else next(iter(lack.values()))
     if item.get("extra_rules"):
